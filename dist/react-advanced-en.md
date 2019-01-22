@@ -397,11 +397,42 @@ Adding icons for the resolutions `144x144px`, `192x192px` and `512x512px` (in ma
 
 https://developers.google.com/web/fundamentals/app-install-banners/
 
+## PWA: add to homescreen
+
+```js
+componentDidMount() {
+  window.addEventListener('beforeinstallprompt', e => {
+    e.preventDefault();
+    this.deferredPrompt = e;
+    this.setState({ showInstallBtn: true });
+  });
+}
+```
+
+---
+
+## PWA: add to homescreen
+
+```js
+handleInstallBtnClicked = () => {
+  deferredPrompt.prompt();
+  deferredPrompt.userChoice.then(choiceResult => {
+    if (choiceResult.outcome === 'accepted') {
+      console.log('user accepted');
+    } else {
+      console.log('user dismissed');
+    }
+    this.deferredPrompt = null;
+    this.setState({ showInstallBtn: false });
+  });
+};
+```
+
 ---
 
 ## PWA: Deployment on Bitballoon
 
 - `npm run build`
-- drag & drop the dist-Ornder to bitballoon.com
+- drag & drop the dist-Ornder to bitballoon.com (app.netlify.com/drop)
 - choose "edit name" and pick a shorter name
 - switch to https manually - try it out in Chrome on desktop and mobile

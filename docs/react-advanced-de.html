@@ -240,7 +240,24 @@ Ganze Anwendung wird mit einem < BrowserRouter > - Tag umschlossen</p><pre class
 <p>Via <code>public/manifest.json</code>:</p>
 <p>name, short_name</p></section><section class="slide" id="slide-3-5"><h2 id="pwas-logos-konfigurieren">PWAs: Logos konfigurieren</h2>
 <p>Hinzufügen von Logos in den Formaten <code>144x144px</code>, <code>192x192px</code> und <code>512x512px</code> (in manifest.json)</p></section><section class="slide" id="slide-3-6"><h2 id="pwa-add-to-homescreen">PWA: add to homescreen</h2>
-<p><a href="https://developers.google.com/web/fundamentals/app-install-banners/">https://developers.google.com/web/fundamentals/app-install-banners/</a></p></section><section class="slide" id="slide-3-7"><h2 id="pwa-deployment-auf-bitballoon">PWA: Deployment auf Bitballoon</h2>
+<p><a href="https://developers.google.com/web/fundamentals/app-install-banners/">https://developers.google.com/web/fundamentals/app-install-banners/</a></p></section><section class="slide" id="slide-3-7"><h2 id="pwa-add-to-homescreen">PWA: add to homescreen</h2><pre class="code">componentDidMount() {
+  <span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">'beforeinstallprompt'</span>, e =&gt; {
+    e.preventDefault();
+    <span class="hljs-keyword">this</span>.deferredPrompt = e;
+    <span class="hljs-keyword">this</span>.setState({ <span class="hljs-attr">showInstallBtn</span>: <span class="hljs-literal">true</span> });
+  });
+}</pre></section><section class="slide" id="slide-3-8"><h2 id="pwa-add-to-homescreen">PWA: add to homescreen</h2><pre class="code">handleInstallBtnClicked = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+  deferredPrompt.prompt();
+  deferredPrompt.userChoice.then(<span class="hljs-function"><span class="hljs-params">choiceResult</span> =&gt;</span> {
+    <span class="hljs-keyword">if</span> (choiceResult.outcome === <span class="hljs-string">'accepted'</span>) {
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'user accepted'</span>);
+    } <span class="hljs-keyword">else</span> {
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'user dismissed'</span>);
+    }
+    <span class="hljs-keyword">this</span>.deferredPrompt = <span class="hljs-literal">null</span>;
+    <span class="hljs-keyword">this</span>.setState({ <span class="hljs-attr">showInstallBtn</span>: <span class="hljs-literal">false</span> });
+  });
+};</pre></section><section class="slide" id="slide-3-9"><h2 id="pwa-deployment-auf-bitballoon">PWA: Deployment auf Bitballoon</h2>
 <ul>
 <li><code>npm run build</code></li>
 <li>dist-Ornder via drag&amp;drop auf bitballoon.com (app.netlify.com/drop)</li>
