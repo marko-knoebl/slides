@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Python Fortgeschritten</title>
+  <style>/*
+
+Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
+
+*/
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  background: #F0F0F0;
+}
+
+
+/* Base color: saturation 0; */
+
+.hljs,
+.hljs-subst {
+  color: #444;
+}
+
+.hljs-comment {
+  color: #888888;
+}
+
+.hljs-keyword,
+.hljs-attribute,
+.hljs-selector-tag,
+.hljs-meta-keyword,
+.hljs-doctag,
+.hljs-name {
+  font-weight: bold;
+}
+
+
+/* User color: hue: 0 */
+
+.hljs-type,
+.hljs-string,
+.hljs-number,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-quote,
+.hljs-template-tag,
+.hljs-deletion {
+  color: #880000;
+}
+
+.hljs-title,
+.hljs-section {
+  color: #880000;
+  font-weight: bold;
+}
+
+.hljs-regexp,
+.hljs-symbol,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-link,
+.hljs-selector-attr,
+.hljs-selector-pseudo {
+  color: #BC6060;
+}
+
+
+/* Language color: hue: 90; */
+
+.hljs-literal {
+  color: #78A960;
+}
+
+.hljs-built_in,
+.hljs-bullet,
+.hljs-code,
+.hljs-addition {
+  color: #397300;
+}
+
+
+/* Meta color: hue: 200 */
+
+.hljs-meta {
+  color: #1f7199;
+}
+
+.hljs-meta-string {
+  color: #4d99bf;
+}
+
+
+/* Misc effects */
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+  <div id="canvas">
+    <div id="canvas-content">
+
+      <section class="section" id="section-1"><section class="slide" id="slide-1-1"><h1 id="qa--testen">QA &amp; Testen</h1><div class="note"> 
+Kapitel 21, Kapitel 25
+
+4h?
+ </div></section><section class="slide" id="slide-1-2"><h2 id="logging">logging</h2></section><section class="slide" id="slide-1-3"><h2 id="logging">logging</h2><pre class="code"><span class="hljs-keyword">import</span> logging
+logging.basicConfig(
+    filename=<span class="hljs-string">"sort.log"</span>,
+    level=logging.DEBUG,
+    filemode=<span class="hljs-string">"w"</span>
+)
+
+logging.debug(<span class="hljs-string">"hello"</span>)</pre></section><section class="slide" id="slide-1-4"><h2 id="logging">logging</h2>
+<p>Beispiel: Sortieralgorithmus</p></section><section class="slide" id="slide-1-5"><h2 id="assert">assert</h2></section><section class="slide" id="slide-1-6"><h2 id="doctests">doctests</h2></section><section class="slide" id="slide-1-7"><h2 id="doctests">doctests</h2>
+<p>Codebeispiele und unittests in einem - innerhalb der docstrings</p></section><section class="slide" id="slide-1-8"><h2 id="doctests">doctests</h2><pre class="code"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">add</span><span class="hljs-params">(a, b)</span>:</span>
+    <span class="hljs-string">"""Add two numbers.
+
+    &gt;&gt;&gt; add(2, 3)
+    5
+    """</span></pre></section><section class="slide" id="slide-1-9"><h2 id="doctests-ausführen">doctests ausführen</h2><pre class="code"><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">"__main__"</span>:
+    <span class="hljs-keyword">import</span> doctest
+    doctest.testmod()</pre></section><section class="slide" id="slide-1-10"><h2 id="doctests-lange-ausgaben">doctests: lange Ausgaben</h2><pre class="code"><span class="hljs-string">"""
+<span class="hljs-meta">&gt;&gt;&gt; </span>bubblesort(list(range(10))) #doctest: +NORMALIZE_WHITESPACE
+[0, 1, 2, 3, 4, 5,
+6, 7, 8, 9]
+<span class="hljs-meta">&gt;&gt;&gt; </span>bubblesort(list(range(10))) #doctest: +ELLIPSIS
+[0, 1, 2, ..., 8, 9]
+"""</span></pre></section><section class="slide" id="slide-1-11"><h2 id="unittests">Unittests</h2>
+<p>Möglichkeiten</p>
+<ul>
+<li>unittest (Standardlibrary)</li>
+<li>pytest</li>
+<li>nose</li>
+</ul></section><section class="slide" id="slide-1-12"><h2 id="unittest">unittest</h2></section><section class="slide" id="slide-1-13"><h2 id="unittest">unittest</h2>
+<p>test_tictactoe.py</p><pre class="code"><span class="hljs-keyword">import</span> unittest
+<span class="hljs-keyword">from</span> tictactoe <span class="hljs-keyword">import</span> has_won
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HasWon</span><span class="hljs-params">(unittest.TestCase)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">test_has_won_first_row_x</span><span class="hljs-params">(self)</span>:</span>
+        board = [[<span class="hljs-string">"X"</span>, <span class="hljs-string">"X"</span>, <span class="hljs-string">"X"</span>],
+                 [<span class="hljs-keyword">None</span>, <span class="hljs-keyword">None</span>, <span class="hljs-keyword">None</span>],
+                 [<span class="hljs-keyword">None</span>, <span class="hljs-keyword">None</span>, <span class="hljs-keyword">None</span>]]
+        w = has_won(board, <span class="hljs-string">"X"</span>)
+        self.assertTrue(w)</pre></section><section class="slide" id="slide-1-14"><h2 id="unittest">unittest</h2>
+<p>Ausführen:</p><pre class="code">python -m unittest mymodule</pre><p>oder</p><pre class="code">python -m unittest</pre><p>(findet Tests im Ordner)</p></section><section class="slide" id="slide-1-15"><h2 id="debugger">debugger</h2></section></section><section class="section" id="section-2"><section class="slide" id="slide-2-1"><h1 id="exceptions-auslösen">Exceptions auslösen</h1>
+<h2 id="exceptions-auslösen-1">Exceptions auslösen</h2><pre class="code"><span class="hljs-keyword">raise</span> ValueError(<span class="hljs-string">'test'</span>)</pre></section><section class="slide" id="slide-2-2"><h2 id="eigene-exceptions">Eigene Exceptions</h2>
+<p>Eigene exceptions können wir als Unterklassen von <code>Exception</code> definieren</p><pre class="code"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MoneyParseException</span><span class="hljs-params">(Exception)</span>:</span>
+    <span class="hljs-keyword">pass</span>
+
+<span class="hljs-keyword">raise</span> MoneyParseException()</pre></section></section><section class="section" id="section-3"><section class="slide" id="slide-3-1"><h1 id="typendeklarationen">Typendeklarationen</h1></section><section class="slide" id="slide-3-2"><h2 id="typendeklarationen">Typendeklarationen</h2>
+<p>MyPy: Typechecker für Python, insbesondere sinnvoll für Python3</p>
+<p><a href="https://mypy-lang.org">https://mypy-lang.org</a></p></section><section class="slide" id="slide-3-3"><h2 id="typendeklarationen">Typendeklarationen</h2>
+<p>Variablen:</p><pre class="code">i: int = <span class="hljs-number">3</span></pre></section><section class="slide" id="slide-3-4"><h2 id="typendeklarationen">Typendeklarationen</h2>
+<p>Funktionen:</p><pre class="code"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">double</span><span class="hljs-params">(n: int)</span> -&gt; int:</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-number">2</span> * n</pre></section><section class="slide" id="slide-3-5"><h2 id="typendeklarationen-kollektionen">Typendeklarationen: Kollektionen</h2><pre class="code"><span class="hljs-keyword">from</span> typing <span class="hljs-keyword">import</span> Iterable
+
+names: Iterable[str] = ...</pre></section><section class="slide" id="slide-3-6"><h2 id="typendeklarationen-kollektionen">Typendeklarationen: Kollektionen</h2><pre class="code"><span class="hljs-keyword">from</span> typing <span class="hljs-keyword">import</span> List, Set, Dict, Tuple
+
+names: List[int] = [<span class="hljs-string">'Anna'</span>, <span class="hljs-string">'Bernd'</span>, <span class="hljs-string">'Caro'</span>]
+anna: Tuple[str, str, int] = (<span class="hljs-string">'Anna'</span>, <span class="hljs-string">'Berger'</span>, <span class="hljs-number">1990</span>)
+roman: Dict[int, str] = {<span class="hljs-number">1</span>: <span class="hljs-string">'I'</span>, <span class="hljs-number">2</span>: <span class="hljs-string">'II'</span>, <span class="hljs-number">3</span>: <span class="hljs-string">'III'</span>, <span class="hljs-number">4</span>: <span class="hljs-string">'IV'</span>}</pre></section><section class="slide" id="slide-3-7"><h2 id="mypy---dokumentation">Mypy - Dokumentation</h2>
+<p><a href="https://mypy.readthedocs.io">https://mypy.readthedocs.io</a></p>
+<p>(auch für Python 2)</p></section></section><section class="section" id="section-4"><section class="slide" id="slide-4-1"><h1 id="objektorientierung-fortgeschritten">Objektorientierung (Fortgeschritten)</h1></section><section class="slide" id="slide-4-2"><h2 id="private-attribute-und-methoden-und-python-philosophie">Private Attribute und Methoden und Python-Philosophie</h2>
+<p>Kennzeichnung von Attributen, die von außen nicht verwendet werden sollten mit <code>_</code></p>
+<p>We're all consenting adults here: <a href="https://mail.python.org/pipermail/tutor/2003-October/025932.html">https://mail.python.org/pipermail/tutor/2003-October/025932.html</a></p>
+<p>Achtung: oft Fehlinformation bezüglich <code>__</code>! In der Praxis sollten doppelte Unterstriche kaum verwendet werden.</p></section><section class="slide" id="slide-4-3"><h2 id="instanzattribute-und-slots">Instanzattribute und Slots</h2>
+<p>Generell können beliebige Attribute festgesetzt werden:</p><pre class="code">a.value = <span class="hljs-number">3</span></pre><p>Um den Speicherverbrauch zu verringern, können in einer Klasse sogenannte "slots" definiert werden:</p><pre class="code"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Money</span><span class="hljs-params">()</span>:</span>
+    __slots__ = [<span class="hljs-string">'currency'</span>, <span class="hljs-string">'amount'</span>]</pre></section><section class="slide" id="slide-4-4"><h2 id="klassenattribute">Klassenattribute</h2>
+<p>sind Attribute, die nur auf der Klasse (nicht auf jeder Instanz) definiert sind - alle Instanzen teilen sich die Attribute</p></section><section class="slide" id="slide-4-5"><h2 id="klassenattribute-beispiel">Klassenattribute: Beispiel</h2>
+<p><code>_exchange_rates = {'EUR': 1, 'USD': 0.85, 'GBP': 1.4}</code></p></section><section class="slide" id="slide-4-6"><h2 id="getters--setters">Getters &amp; Setters</h2>
+<p>Beispiel: <code>a.set_currency('EUR')</code></p></section><section class="slide" id="slide-4-7"><h2 id="properties">Properties</h2>
+<p>Alternative zu Getters &amp; Setters</p><pre class="code"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">_get_currency</span><span class="hljs-params">(self)</span>:</span>
+    <span class="hljs-keyword">return</span> self._currency
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">_set_currency</span><span class="hljs-params">(self, currency)</span>:</span>
+    rates = type(self)._exchange_rates
+    factor = rates[self._currency] / rates[currency]
+    self._currency = currency
+    self.amount *= factor
+
+currency = property(_get_currency, _set_currency)</pre></section><section class="slide" id="slide-4-8"><h2 id="magic-methods">Magic Methods</h2>
+<p>Besondere Methoden, die das Verhalten einer Klasse beeinflussen</p>
+<ul>
+<li><code>__str__</code></li>
+<li><code>__repr__</code></li>
+</ul></section><section class="slide" id="slide-4-9"><h2 id="magic-methods">Magic Methods</h2>
+<ul>
+<li><code>__add__</code></li>
+<li><code>__mul__</code></li>
+<li><code>__rmul__</code></li>
+<li>…</li>
+</ul></section><section class="slide" id="slide-4-10"><h2 id="statische-methoden-klassenmethoden-und-decorators">Statische Methoden, Klassenmethoden und Decorators</h2>
+<p><em>Klassenmethoden</em>: Methoden, die nicht auf eine bestimmte Instanz zugreifen müssen, sondern auf die Klasse</p>
+<p><em>Statische Methoden</em>: Methoden, die weder auf eine Instanz noch Klasse zugreifen müssen</p></section><section class="slide" id="slide-4-11"><h2 id="beispiel-klassenmethode">Beispiel Klassenmethode</h2><pre class="code">Money.from_string(<span class="hljs-string">'23.40 EUR'</span>)</pre></section><section class="slide" id="slide-4-12"><h2 id="definition-von-statischen-und-klassenmethoden">Definition von statischen und Klassenmethoden</h2><pre class="code"><span class="hljs-meta">@classmethod</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">from_string</span><span class="hljs-params">(cls, inputstring)</span>:</span>
+    ...</pre></section><section class="slide" id="slide-4-13"><h2 id="unterklassen-und-vererbungsreihenfolge">Unterklassen und Vererbungsreihenfolge</h2></section><section class="slide" id="slide-4-14"><h2 id="super">super()</h2>
+<p>Proxy zu den Elternklassen</p></section><section class="slide" id="slide-4-15"><h2 id="super">super()</h2>
+<p>ohne super:</p><pre class="code"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Child</span><span class="hljs-params">(A, B)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self)</span>:</span>
+        A.__init__(self)
+        B.__init__(self)</pre></section><section class="slide" id="slide-4-16"><h2 id="super">super()</h2>
+<p>Python 2:</p><pre class="code"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Child</span><span class="hljs-params">(A, B)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self)</span>:</span>
+        super(Child, self).__init__()</pre><p>Python 3:</p><pre class="code"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Child</span><span class="hljs-params">(A, B)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self)</span>:</span>
+        super().__init__()</pre></section><section class="slide" id="slide-4-17"><h2 id="klassendekoration">Klassendekoration</h2><pre class="code"><span class="hljs-meta">@logattraccess</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span><span class="hljs-params">()</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self)</span>:</span>
+        self.a = <span class="hljs-number">3</span>
+
+f = Foo()
+
+f.a <span class="hljs-comment"># prints: "get property 'a'"</span>
+f.b = <span class="hljs-number">3</span> <span class="hljs-comment"># prints: "set propery 'b'"</span></pre></section><section class="slide" id="slide-4-18"><h2 id="übungen">Übungen</h2>
+<ul>
+<li>Buch 10.11.4 (Laenge)</li>
+<li>Klasse "Vector"</li>
+<li>Klasse "BankAccount"</li>
+<li>Klasse "Dictionary" (Wörterbuch)</li>
+</ul></section></section><section class="section" id="section-5"><section class="slide" id="slide-5-1"><h1 id="funktionen---fortgeschritten">Funktionen - Fortgeschritten</h1></section><section class="slide" id="slide-5-2"><h2 id="lambdas">Lambdas</h2></section><section class="slide" id="slide-5-3"><h2 id="reine-funktionen">Reine Funktionen</h2></section><section class="slide" id="slide-5-4"><h2 id="memoisation">Memoisation</h2><div class="note"> 
+Beispiel: fib
+ </div></section><section class="slide" id="slide-5-5"><h2 id="decorators">Decorators</h2>
+<p>Decorator: Möglichkeit, eine Funktion nach deren Erstellung zu verändern</p>
+<p>Der Decorator ist eine Funktion, die eine Funktion als Parameter übernimmt und eine neue, veränderte Funktion zurückgibt</p></section><section class="slide" id="slide-5-6"><h2 id="decorators">Decorators</h2><pre class="code"><span class="hljs-meta">@cache</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">fib</span><span class="hljs-params">(n)</span>:</span>
+    ...</pre><p>äquivalent zu:</p><pre class="code"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">fib</span><span class="hljs-params">(n)</span>:</span>
+    ...
+
+fib = cache(fib)</pre></section><section class="slide" id="slide-5-7"><h2 id="functools">Functools</h2><div class="note"> 
+partial
+
+from functools import partial
+open_utf8 = partial(open, encoding='UTF-8')
+ </div></section></section><section class="section" id="section-6"><section class="slide" id="slide-6-1"><h1 id="iterators">Iterators</h1></section><section class="slide" id="slide-6-2"><h2 id="iterators">Iterators</h2>
+<p>Oberflächlich: Ein Iterator ist ein besonderes Objekt, über das wir mit <code>for o in my_iterator</code> iterieren können.</p>
+<p>Iterators können auf verschiedene Arten erzeugt werden.</p></section><section class="slide" id="slide-6-3"><h2 id="iterators">Iterators</h2>
+<p>Genauer Hintergrund: Ein Iterator ist ein besonderes Objekt, das eine <code>__next__</code>-Methode besitzt.</p></section><section class="slide" id="slide-6-4"><h2 id="iterators---beispiel-count">Iterators - Beispiel count</h2><pre class="code"><span class="hljs-keyword">from</span> itertools <span class="hljs-keyword">import</span> count
+
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> count():
+    print(i)</pre></section><section class="slide" id="slide-6-5"><h2 id="iterators---beispiel-count">Iterators - Beispiel count</h2><pre class="code"><span class="hljs-keyword">from</span> itertools <span class="hljs-keyword">import</span> count
+
+c = count()
+
+c.__next__()
+c.__next__()</pre></section><section class="slide" id="slide-6-6"><h2 id="iterators---beispiel-count">Iterators - Beispiel count</h2><pre class="code"><span class="hljs-keyword">from</span> itertools <span class="hljs-keyword">import</span> count
+
+c = count()
+
+next(c)
+next(c)</pre></section><section class="slide" id="slide-6-7"><h2 id="iterators---beispiel-repeat">Iterators - Beispiel repeat</h2><pre class="code"><span class="hljs-keyword">from</span> itertools <span class="hljs-keyword">import</span> repeat
+
+r = repeat(<span class="hljs-string">'a'</span>, <span class="hljs-number">5</span>)
+
+next(r)
+...</pre></section><section class="slide" id="slide-6-8"><h2 id="iterators---beispiel-repeat">Iterators - Beispiel repeat</h2>
+<p>Wenn ein Iterator "aufgebraucht" ist:</p>
+<p><code>StopIteration</code>-Exception</p></section><section class="slide" id="slide-6-9"><h2 id="iterators-erzeugen">Iterators erzeugen</h2>
+<p>Möglichkeiten:</p>
+<ul>
+<li>Funktionen aus <code>itertools</code></li>
+<li>Eigene Klasse mit <code>__next__</code> (und <code>__iter__</code>)</li>
+<li>Generator-Expression</li>
+<li>Funktion mit <code>yield</code></li>
+</ul></section><section class="slide" id="slide-6-10"><h2 id="itertools">itertools</h2>
+<p><a href="https://docs.python.org/3/library/itertools.html">https://docs.python.org/3/library/itertools.html</a></p></section><section class="slide" id="slide-6-11"><h2 id="eigene-klasse">Eigene Klasse</h2>
+<p>Übungen:</p><pre class="code"><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> random():
+    ...</pre><p>oder</p><pre class="code"><span class="hljs-keyword">for</span> number <span class="hljs-keyword">in</span> roulette():
+    print(number, end=<span class="hljs-string">" "</span>)
+
+<span class="hljs-number">4</span> <span class="hljs-number">0</span> <span class="hljs-number">29</span> <span class="hljs-number">7</span> <span class="hljs-number">13</span> <span class="hljs-number">19</span></pre></section><section class="slide" id="slide-6-12"><h2 id="generator-expression">Generator-Expression</h2>
+<p>Sehr ähnlich zur List-Comprehension</p><pre class="code"><span class="hljs-comment"># list-comprehension</span>
+mylist = [i*i <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">3</span>)]
+
+<span class="hljs-comment"># generator</span>
+mygenerator = (i*i <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">3</span>))</pre></section><section class="slide" id="slide-6-13"><h2 id="generator-expression">Generator-Expression</h2>
+<p>Unterschiede zur List-Comprehension</p>
+<ul>
+<li>weniger Resourcenverbrauch (Speicher, …)</li>
+<li>Durchlauf nur 1x und nach der Reihe</li>
+</ul></section><section class="slide" id="slide-6-14"><h2 id="yield">yield</h2>
+<p>Eine Funktion kann anstatt eines return-Statements ein yield-Statement enthalten und wird dann zum Generator</p><pre class="code"><span class="hljs-comment"># eigener count-generator</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">count</span><span class="hljs-params">()</span>:</span>
+    i = <span class="hljs-number">0</span>
+    <span class="hljs-keyword">while</span> <span class="hljs-keyword">True</span>:
+        <span class="hljs-keyword">yield</span> i
+        i += i</pre></section><section class="slide" id="slide-6-15"><h2 id="iterable-und-__iter__">Iterable und __iter__</h2>
+<p>Iterable = Objekt, über das iteriert werden kann - definiert eine <code>__iter__</code>-Methode</p>
+<p>Beispiele: Listen, Iterators</p></section></section><section class="section" id="section-7"><section class="slide" id="slide-7-1"><h1 id="prallelisierung-threads--multiprocessing">Prallelisierung: Threads &amp; Multiprocessing</h1></section><section class="slide" id="slide-7-2"><h2 id="threads--multiprocessing---wozu">Threads &amp; Multiprocessing - wozu?</h2>
+<p>Threads:</p>
+<ul>
+<li>Resourcen eines Prozessorkerns gerecht auf verschiedene Aufgaben aufteilen</li>
+<li>Warten auf I/O</li>
+</ul>
+<p>Multiprocessing:</p>
+<ul>
+<li>Mehrere Prozessorkerne nutzen</li>
+</ul>
+<p>Vorteil von Threading: einfacher, Variablen können direkt verändert werden</p></section><section class="slide" id="slide-7-3"><h2 id="threads">Threads</h2>
+<p>Python schaltet wiederholt zwischen parallel laufenden Threads um, sodass diese scheinbar parallel laufen.  <br />
+In Wahrheit ist aber zu jedem Zeitpunkt nur ein Thread aktiv (Global Interpreter Lock - GIL)</p>
+<p>Zwei Threads können auf die gleichen Daten zugreifen</p></section><section class="slide" id="slide-7-4"><h2 id="neuen-thread-starten">neuen Thread starten</h2><pre class="code"><span class="hljs-keyword">from</span> threading <span class="hljs-keyword">import</span> Thread
+
+my_thread = Thread(target=<span class="hljs-keyword">print</span>, args=(<span class="hljs-string">'hello'</span>, ), kwargs={end: <span class="hljs-string">""</span>})
+my_thread.start()</pre></section><section class="slide" id="slide-7-5"><h2 id="auf-beendigung-des-threads-warten">auf beendigung des Threads warten</h2><pre class="code">my_thread.join()</pre></section><section class="slide" id="slide-7-6"><h2 id="beispiel-wiederholtes-printen">Beispiel: wiederholtes printen</h2><pre class="code"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">print_multiple</span><span class="hljs-params">(text, n)</span>:</span>
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(n):
+        print(text, end=<span class="hljs-string">""</span>)
+
+thread_a = Thread(target=print_multiple, args=(<span class="hljs-string">"a"</span>, <span class="hljs-number">20</span>))
+thread_b = Thread(target=print_multiple, args=(<span class="hljs-string">"b"</span>, <span class="hljs-number">20</span>))
+thread_a.start()
+thread_b.start()
+thread_a.join()
+thread_b.join()</pre></section><section class="slide" id="slide-7-7"><h2 id="übung-iterationen-in-thread">Übung: Iterationen in Thread</h2>
+<p>Wir schreiben ein Programm, das zwei Threads (a und b) ausführt. Die zwei Threads enthalten Schleifen, welche mitzählen, wie oft sie aufgerufen wurden.</p>
+<p>Beispielausgabe:</p><pre class="code">797 iterations <span class="hljs-keyword">in</span> thread a
+799 iterations <span class="hljs-keyword">in</span> thread b
+1750 iterations <span class="hljs-keyword">in</span> thread a
+20254 iterations <span class="hljs-keyword">in</span> thread b
+829 iterations <span class="hljs-keyword">in</span> thread a</pre></section><section class="slide" id="slide-7-8"><h2 id="locks">Locks</h2>
+<p>für bestimmte Zeit auf einen Thread beschränken (zB um mehrere Dinge zu printen) - andere Threads sind währenddessen blockiert</p></section><section class="slide" id="slide-7-9"><h2 id="locks">Locks</h2>
+<p>Im ganzen Programm sollte es nur 1 Lock-Objekt geben</p><pre class="code"><span class="hljs-keyword">from</span> threading <span class="hljs-keyword">import</span> Lock
+
+l = Lock()</pre></section><section class="slide" id="slide-7-10"><h2 id="locks">Locks</h2><pre class="code"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">print_multiple_locked</span><span class="hljs-params">(text, n)</span>:</span>
+    <span class="hljs-keyword">with</span> l:
+        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(n):
+            print(text, end=<span class="hljs-string">""</span>)</pre></section><section class="slide" id="slide-7-11"><h2 id="threads---beispiel">Threads - Beispiel</h2><pre class="code">threads = []
+
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">1000000000000</span>, <span class="hljs-number">1000000000064</span>):
+    prime_thread = Thread(target=print_is_prime, args=(i,))
+    prime_thread.start()
+    threads.append(prime_thread)
+
+<span class="hljs-keyword">for</span> thread <span class="hljs-keyword">in</span> threads:
+    thread.join()
+print(<span class="hljs-string">'all threads finished'</span>)</pre></section><section class="slide" id="slide-7-12"><h2 id="threads-und-xkcd-download">Threads und xkcd-Download</h2>
+<p>Aufgabe: die xkcd-Comics 100-109 herunterladen - einmal sequenziell und einmal parallel</p></section><section class="slide" id="slide-7-13"><h2 id="multiprocessing">Multiprocessing</h2></section><section class="slide" id="slide-7-14"><h2 id="funktionen-in-eigenen-prozessen-starten">Funktionen in eigenen Prozessen starten</h2>
+<p>Python ermöglicht es, eine Funktion jeweils in einem eigenen Prozess laufen zu lassen.</p><pre class="code"><span class="hljs-keyword">from</span> multiprocessing <span class="hljs-keyword">import</span> Process
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">"__main__"</span>:
+    p = Process(target=hello)
+    p.start()</pre></section><section class="slide" id="slide-7-15"><h2 id="funktionen-in-eigenen-prozessen-starten">Funktionen in eigenen Prozessen starten</h2><pre class="code"><span class="hljs-keyword">from</span> multiprocessing <span class="hljs-keyword">import</span> Process
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">"__main__"</span>:
+    processes = []
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">30</span>, <span class="hljs-number">40</span>):
+        p = Process(target=print_fib, args=(i,))
+        processes.append(p)
+        p.start()
+    <span class="hljs-keyword">for</span> process <span class="hljs-keyword">in</span> processes:
+        process.join()</pre></section><section class="slide" id="slide-7-16"><h2 id="pools">Pools</h2>
+<p>Für gleichartige Verarbeitung mehrerer Daten, die gleichzeitig gestartet wird.</p>
+<p>Beispiel: Alle Bilder in einem Verzeichnis verarbeiten</p></section><section class="slide" id="slide-7-17"><h2 id="aufgabe-fibonaccizahlen-mit-map-1-prozess">Aufgabe: Fibonaccizahlen mit map() (1 Prozess)</h2>
+<p>Ausgangswert: <code>[0, 1, 2, 3, 4, 5, 6, ...]</code></p>
+<p>Rückgabewert: <code>[0, 1, 1, 2, 3, 5, 8, ...]</code></p></section><section class="slide" id="slide-7-18"><h2 id="pools">Pools</h2><pre class="code"><span class="hljs-keyword">with</span> Pool(processes=<span class="hljs-number">4</span>) <span class="hljs-keyword">as</span> pool:
+    print(pool.map(fib, range(<span class="hljs-number">1000</span>, <span class="hljs-number">1100</span>)))</pre></section><section class="slide" id="slide-7-19"><h2 id="datenaustausch-shared-memory">Datenaustausch: shared memory</h2>
+<p>integer und floats (und arrays davon) über mehrere Prozesse verteilen</p><pre class="code"><span class="hljs-keyword">from</span> multiprocessing <span class="hljs-keyword">import</span> Value, Array, Process
+
+a = Array(<span class="hljs-string">'i'</span>, [<span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">13</span>])
+p = Process(target=f, args=(a,))
+p.start()
+...</pre></section><section class="slide" id="slide-7-20"><h2 id="weitere-möglichkeiten-pipes--queues">Weitere Möglichkeiten: Pipes &amp; Queues</h2>
+<p>Pipe: Messaging zwischen Prozessen in zwei Richtungen - zB Hintergrundprozess, der immer wieder etwas zu tun bekommen und dazwischen im Ruhezustand ist</p>
+<p>Queue: Messaging in eine Richtung von verschiedenen Producern zu verschiedenen Consumern (langsamer als Pipes)</p></section></section>
+
+    </div>
+    <div id="navigation-arrows">
+      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="navigation-arrows-svg"
+        xml:space="preserve" width="100%" height="100%" viewBox="-110 -110 220 220">
+        <path class="arrow right" d="M70,-30L100,0L70,30" />
+        <path class="arrow down" d="M-30,70L0,100L30,70" />
+        <path class="arrow left" d="M-70,-30L-100,0L-70,30" />
+        <path class="arrow up" d="M-30,-70L0,-100L30,-70" />
+      </svg>
+    </div>
+  </div>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 100vw;
+      height: 100vh;
+      margin: 0px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: rgb(150, 150, 150);
+      font-family: sans-serif;
+    }
+
+    ul {
+      padding-left: 1.5rem;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2rem;
+    }
+
+    .slide.inactive {
+      display: none;
+    }
+
+    #canvas {
+      box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.3);
+      background-color: #f8f8f8;
+      position: relative;
+      display: flex;
+    }
+
+    #canvas-content {
+      width: 100%;
+      height: 100%;
+    }
+
+    #canvas-content .note {
+      display: none;
+    }
+
+    #canvas-content img {
+      margin: 0px auto;
+      display: block;
+    }
+
+    @media (min-aspect-ratio: 8/5) {
+
+      html {
+        font-size: 3.5vh;
+      }
+
+      /* wide screen */
+      #canvas {
+        width: calc(100vh / 5 * 8);
+        height: 100vh;
+        padding: 5vh;
+      }
+    }
+
+    @media (max-aspect-ratio: 8/5) {
+
+      html {
+        font-size: calc(3.5vw * 5 / 8);
+      }
+
+      /* narrow screen */
+      #canvas {
+        width: 100vw;
+        height: calc(100vw * 5 / 8);
+        padding: calc(5vh * 5 / 8);
+      }
+    }
+
+    pre.code {
+      background-color: rgb(224, 233, 240);
+      box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.3);
+      padding: 1em;
+    }
+
+    #navigation-arrows {
+      position: absolute;
+      right: 2rem;
+      bottom: 2rem;
+      height: 3rem;
+      width: 3rem;
+    }
+
+    .arrow {
+      stroke: lightblue;
+      /*stroke-width: 0.8em; Chrome behaves differently with ems here */
+      stroke-width: 16px;
+      stroke-linecap: round;
+      fill: none;
+      cursor: pointer;
+    }
+
+    td,
+    th {
+      padding: 0.2em 0.8em;
+    }
+
+    th {
+      text-align: start;
+    }
+  </style>
+  <script>
+    let presenterWindow;
+    let activeSlide;
+    let slideCount;
+
+    const arrowUp = document.querySelector('.arrow.up');
+    const arrowDown = document.querySelector('.arrow.down');
+    const arrowRight = document.querySelector('.arrow.right');
+    const arrowLeft = document.querySelector('.arrow.left');
+    arrowUp.addEventListener('click',
+      () => {activateSlideSafe(activeSlide[0], activeSlide[1] - 1);}
+    );
+    arrowDown.addEventListener('click',
+      () => {activateSlideSafe(activeSlide[0], activeSlide[1] + 1);}
+    );
+    arrowLeft.addEventListener('click',
+      () => {activateSlideSafe(activeSlide[0] - 1, 1);}
+    );
+    arrowRight.addEventListener('click',
+      () => {activateSlideSafe(activeSlide[0] + 1, 1);}
+    )
+    const init = () => {
+      slideCount = countSlides();
+      activateSlideSafe(1, 1);
+    }
+
+    // count slides
+    const countSlides = () => {
+      const counts = [];
+      return [...document.querySelectorAll('.section')].map(section => section.childNodes.length);
+    }
+
+    const updateVisible = () => {
+      for (let slide of document.querySelectorAll('.slide')) {
+        if (slide.id === `slide-${activeSlide[0]}-${activeSlide[1]}`) {
+          slide.className = 'slide active';
+        } else {
+          slide.className = 'slide inactive';
+        }
+      }
+    }
+
+    const updatePageArrows = () => {
+      if (slideCount.length === 1) {
+        arrowLeft.style.opacity = "0";
+        arrowRight.style.opacity = "0";
+      } else {
+        const progressSections = (activeSlide[0] - 1) / (slideCount.length - 1);
+        arrowLeft.style.opacity = progressSections.toString();
+        arrowRight.style.opacity = (1 - progressSections).toString();
+      }
+      const slidesInActiveSection = slideCount[activeSlide[0] - 1]
+      if (slidesInActiveSection === 1) {
+        arrowUp.style.opacity = "0";
+        arrowDown.style.opacity = "0";
+      } else {
+        const progressSlides = (activeSlide[1] - 1) / (slidesInActiveSection - 1);
+        arrowUp.style.opacity = progressSlides.toString();
+        arrowDown.style.opacity = (1 - progressSlides).toString();
+      }
+    }
+
+    /**
+     * Activate a slide if it exists, else do nothing
+    */
+    const activateSlideSafe = (sectionIndex, slideIndex) => {
+      if (1 <= sectionIndex && sectionIndex <= slideCount.length && 1 <= slideIndex && slideIndex <= slideCount[sectionIndex - 1]) {
+        activeSlide = [sectionIndex, slideIndex];
+        updateVisible();
+        updatePageArrows();
+        scrolltoActiveSlide();
+      }
+    }
+
+    const activateNextSlide = () => {
+      console.log(activeSlide);
+      console.log(slideCount)
+      if (activeSlide[1] === slideCount[activeSlide[0] - 1]) {
+        console.log('right')
+        activateSlideSafe(activeSlide[0] + 1, 1);
+      } else {
+        console.log('down')
+        activateSlideSafe(activeSlide[0], activeSlide[1] + 1);
+      }
+    }
+
+    const scrolltoActiveSlide = () => {
+      const slideId = `#slide-${activeSlide[0]}-${activeSlide[1]}`;
+      if (presenterWindow) {
+        const activeSlide = presenterWindow.document.querySelector(slideId);
+        if (activeSlide) {
+          activeSlide.scrollIntoView();
+        }
+      }
+    }
+
+    document.querySelector('body').addEventListener('keydown', event => {
+      if (event.key === 'p') {
+        const canvasContent = document.querySelector('#canvas-content').innerHTML;
+        presenterWindow = window.open(document.URL, '_blank');
+        presenterWindow.onload = () => {
+          presenterWindow.document.querySelector('body').innerHTML = canvasContent;
+        }
+      }
+      if (event.key === 'ArrowRight') {
+        activateSlideSafe(activeSlide[0] + 1, 1);
+      } else if (event.key === 'ArrowLeft') {
+        activateSlideSafe(activeSlide[0] - 1, 1);
+      } else if (event.key === 'ArrowDown') {
+        activateSlideSafe(activeSlide[0], activeSlide[1] + 1);
+      } else if (event.key === 'ArrowUp') {
+        activateSlideSafe(activeSlide[0], activeSlide[1] - 1);
+      } else if (event.key === 'Enter') {
+        activateNextSlide();
+      } else {
+        console.log(event.key)
+      }
+    });
+
+    init();
+
+  </script>
+</body>
+
+</html>

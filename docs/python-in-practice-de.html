@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Python in der Praxis</title>
+  <style>/*
+
+Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
+
+*/
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  background: #F0F0F0;
+}
+
+
+/* Base color: saturation 0; */
+
+.hljs,
+.hljs-subst {
+  color: #444;
+}
+
+.hljs-comment {
+  color: #888888;
+}
+
+.hljs-keyword,
+.hljs-attribute,
+.hljs-selector-tag,
+.hljs-meta-keyword,
+.hljs-doctag,
+.hljs-name {
+  font-weight: bold;
+}
+
+
+/* User color: hue: 0 */
+
+.hljs-type,
+.hljs-string,
+.hljs-number,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-quote,
+.hljs-template-tag,
+.hljs-deletion {
+  color: #880000;
+}
+
+.hljs-title,
+.hljs-section {
+  color: #880000;
+  font-weight: bold;
+}
+
+.hljs-regexp,
+.hljs-symbol,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-link,
+.hljs-selector-attr,
+.hljs-selector-pseudo {
+  color: #BC6060;
+}
+
+
+/* Language color: hue: 90; */
+
+.hljs-literal {
+  color: #78A960;
+}
+
+.hljs-built_in,
+.hljs-bullet,
+.hljs-code,
+.hljs-addition {
+  color: #397300;
+}
+
+
+/* Meta color: hue: 200 */
+
+.hljs-meta {
+  color: #1f7199;
+}
+
+.hljs-meta-string {
+  color: #4d99bf;
+}
+
+
+/* Misc effects */
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+  <div id="canvas">
+    <div id="canvas-content">
+
+      <section class="section" id="section-1"><section class="slide" id="slide-1-1"><h1 id="reguläre-ausdrücke">Reguläre Ausdrücke</h1></section><section class="slide" id="slide-1-2"><h2 id="reguläre-ausdrücke">Reguläre Ausdrücke</h2>
+<p>Beispiel:</p><pre class="code"><span class="hljs-keyword">import</span> re
+
+match = re.search(<span class="hljs-string">r"[a-z][A-Z]"</span>, <span class="hljs-string">"abCdE"</span>)
+
+<span class="hljs-keyword">if</span> match:
+    print(<span class="hljs-string">"match"</span>)
+    print(match[<span class="hljs-number">0</span>]) <span class="hljs-comment"># bC</span>
+<span class="hljs-keyword">else</span>:
+    print(<span class="hljs-string">"no match"</span>)</pre></section><section class="slide" id="slide-1-3"><h2 id="mehrfach-finden">Mehrfach finden</h2>
+<p>Beispiel:</p><pre class="code"><span class="hljs-keyword">import</span> re
+
+match_iter = re.finditer(<span class="hljs-string">r"https?://.+?\\.com"</span>, website_content)
+
+<span class="hljs-keyword">for</span> match <span class="hljs-keyword">in</span> match_iter:
+    print(match[<span class="hljs-number">0</span>])</pre></section><section class="slide" id="slide-1-4"><h2 id="mehrfach-finden">Mehrfach finden</h2>
+<p>Aufgabe: finde alle URLs in einem HTML-Dokument auf der Festplatte</p>
+<p>(Beispieldokument: zB Seite <a href="https://news.ycombinator.com">https://news.ycombinator.com</a> auf Festplatte speichern)</p></section><section class="slide" id="slide-1-5"><h2 id="einen-ausdruck-und-unterausdrücke-finden">Einen Ausdruck und Unterausdrücke finden</h2><pre class="code">re.search(
+    <span class="hljs-string">r'\d?\d\.\d?\d\.\d\d\d\d'</span>,
+    <span class="hljs-string">'Heute ist der 23.10.1970!'</span>
+)</pre></section><section class="slide" id="slide-1-6"><h2 id="einen-ausdruck-und-unterausdrücke-finden">Einen Ausdruck und Unterausdrücke finden</h2><pre class="code">m = re.search(
+    <span class="hljs-string">r'(\d?\d)\.(\d?\d)\.(\d\d\d\d)'</span>,
+    <span class="hljs-string">'Heute ist der 23.1.1970!'</span>
+)
+m[<span class="hljs-number">0</span>] <span class="hljs-comment"># 23.1.1970</span>
+m[<span class="hljs-number">1</span>] <span class="hljs-comment"># 23</span>
+m[<span class="hljs-number">2</span>] <span class="hljs-comment"># 1</span>
+m[<span class="hljs-number">3</span>] <span class="hljs-comment"># 1970</span></pre></section><section class="slide" id="slide-1-7"><h2 id="reguläre-ausdrücke">Reguläre Ausdrücke</h2>
+<ul>
+<li>Buch Aufgabe 4 (Lesbarkeitsanalyse)</li>
+<li>Beispiel: Gleichungen erkennen und auslesen</li>
+<li>Beispiel: Alle Funktionsdefinitionen in einer Python-Datei finden</li>
+</ul><div class="note"> 
+`\A-?\d+x[\+-]\d+y[\+-]\d+z=\d+\Z`
+ </div></section></section><section class="section" id="section-2"><section class="slide" id="slide-2-1"><h1 id="http-mit-python">HTTP mit Python</h1></section><section class="slide" id="slide-2-2"><h2 id="http">HTTP</h2>
+<ul>
+<li>http.client.HTTP(S)Connection</li>
+<li>urllib</li>
+<li>requests</li>
+</ul></section><section class="slide" id="slide-2-3"><h2 id="httpsconnection">HTTP(S)Connection</h2>
+<p>low-level interface</p><pre class="code"><span class="hljs-keyword">from</span> http.client <span class="hljs-keyword">import</span> HTTPSConnection
+
+connection = HTTPSConnection(<span class="hljs-string">"www.google.com"</span>)
+connection.request(<span class="hljs-string">"GET"</span>, <span class="hljs-string">"/"</span>)
+answer = connection.getresponse()
+content = answer.read()
+connection.close()
+print(content)</pre></section><section class="slide" id="slide-2-4"><h2 id="urllib">urllib</h2>
+<p>in Standardlibrary</p><pre class="code"><span class="hljs-keyword">import</span> urllib
+
+content: bytes = urllib.request.urlopen(
+                    <span class="hljs-string">"https://www.google.com"</span>).read()</pre></section><section class="slide" id="slide-2-5"><h2 id="requests">requests</h2>
+<p>Externes Paket, installierbar via <em>pip</em>:</p><pre class="code">pip install requests</pre><pre class="code"><span class="hljs-keyword">import</span> requests
+
+content: str = requests.get(<span class="hljs-string">"https://www.google.com"</span>).text</pre></section><section class="slide" id="slide-2-6"><h2 id="web-scraping-anzahl-der-google-suchergebnisse">Web Scraping: Anzahl der Google-Suchergebnisse</h2></section><section class="slide" id="slide-2-7"><h2 id="apis-wetterdaten">APIs: Wetterdaten</h2>
+<p><a href="https://automatetheboringstuff.com/chapter14/">https://automatetheboringstuff.com/chapter14/</a></p></section><section class="slide" id="slide-2-8"><h2 id="web-scraping-xkcd-downloader">Web Scraping: xkcd-Downloader</h2>
+<p><a href="https://automatetheboringstuff.com/chapter11/">https://automatetheboringstuff.com/chapter11/</a></p></section></section><section class="section" id="section-3"><section class="slide" id="slide-3-1"><h1 id="ftp">FTP</h1>
+<p>Modul ftplib</p><div class="note"> 
+Buch 23.2.2
+ </div></section></section><section class="section" id="section-4"><section class="slide" id="slide-4-1"><h1 id="smtp--imap">SMTP / IMAP</h1></section><section class="slide" id="slide-4-2"><h2 id="smtp--imap">SMTP / IMAP</h2>
+<p><a href="https://automatetheboringstuff.com/chapter16/">https://automatetheboringstuff.com/chapter16/</a></p>
+<p>zur verdeckten Passworteingabe: Modul "getpass"</p></section><section class="slide" id="slide-4-3"><h2 id="smtp--imap">SMTP / IMAP</h2>
+<p>Achtung Fehler:</p>
+<p>falsch:</p>
+<p><code>UIDs = imapObj.search(['SINCE 05-Jul-2014'])</code></p>
+<p>richtig:</p>
+<p><code>UIDs = imapObj.search(['SINCE', '05-Jul-2014'])</code></p>
+<p>Achtung veraltet: <code>pyzmail</code> -&gt; <code>pyzmail36</code></p>
+<p>Achtung: <code>'BODY[]'</code> -&gt; <code>b'BODY[]</code> (bytes statt string)</p></section></section><section class="section" id="section-5"><section class="slide" id="slide-5-1"><h1 id="serverseitiges-http">Serverseitiges HTTP</h1></section><section class="slide" id="slide-5-2"><h2 id="lokalen-dateiserver-mit-python-betreiben">lokalen Dateiserver mit Python betreiben</h2><pre class="code"><span class="hljs-comment"># py2</span>
+pyton -m SimpleHTTPServer</pre><pre class="code"><span class="hljs-comment"># py3</span>
+python -m http.server</pre></section><section class="slide" id="slide-5-3"><h2 id="python-am-server---überblick">Python am Server - Überblick</h2>
+<p><a href="https://docs.python.org/2/howto/webservers.html">https://docs.python.org/2/howto/webservers.html</a></p>
+<p>(etwas veraltet)</p></section><section class="slide" id="slide-5-4"><h2 id="cgi">CGI</h2>
+<p>CGI = <em>Common Gateway Interface</em></p>
+<p>Standard, um ein Programm am Server auf eine HTTP-Anfrage antworten zu lassen</p>
+<p>Interface zwischen Serversoftware (z.B. Apache) und Webanwendung (geschrieben in beliebiger Programmiersprache)</p>
+<p>Interface beruht auf <em>stdin</em>, <em>stdout</em> und Umgebungsvariablen</p>
+<p>Nachteil: für jede Anfrage muss ein neuer Prozess gestartet werden (langsam)</p></section><section class="slide" id="slide-5-5"><h2 id="wsgi">WSGI</h2>
+<p>WSGI = Web Server Gateway Interface</p>
+<p>Standard, um ein Python-Programm am Server auf HTTP-Anfragen antworten zu lassen</p>
+<p>Inspiriert von CGI; wichtiger Vorteil: <em>ein</em> laufender Prozess kann der Reihe nach mehrere Anfragen beantworten</p></section><section class="slide" id="slide-5-6"><h2 id="python-web-frameworks">Python Web-Frameworks</h2>
+<ul>
+<li>Werkzeug (Python WSGI Utility Library)</li>
+<li>Flask (vollwertiges, modulares Framework basierend auf Werkzeug)</li>
+<li>Django (vollwertiges Framework)</li>
+</ul></section><section class="slide" id="slide-5-7"><h2 id="wsgi-interface">WSGI-Interface</h2>
+<p>Einstiegspunkt ist eine Python-Funktion</p>
+<p>Die Funktion bekommt zwei Parameter übergeben: <code>environ</code> und <code>start_response</code></p>
+<p>Die Anfrageparameter sind über <code>environ</code> abzufragen (zB URL, HTTP header, Formulardaten, …)</p>
+<p>Der zweite Parameter ist eine Funktion, üblicherweise <code>start_response</code> genannt.</p></section><section class="slide" id="slide-5-8"><h2 id="wsgi">WSGI</h2>
+<p>Zum starten der Antwort rufen wir <code>start_response(status, response_headers)</code> auf, zB:</p><pre class="code">start_response(
+    <span class="hljs-string">"200 OK"</span>,
+    [(<span class="hljs-string">"Content-Type"</span>, <span class="hljs-string">"text/plain; charset=utf-8"</span>)]
+)</pre><p>Der Antwortkörper wird als ein Iterable von Bytestrings zurückgegeben, zB als Liste von Bytestrings.</p></section><section class="slide" id="slide-5-9"><h2 id="wsgi-server-software">WSGI-Server-Software</h2>
+<p>server-software:</p>
+<ul>
+<li>gunicorn</li>
+<li>uWSGI</li>
+<li>mod_wsgi</li>
+</ul></section><section class="slide" id="slide-5-10"><h2 id="eigener-wsgi-server-in-python">Eigener WSGI-Server in Python</h2><pre class="code"><span class="hljs-keyword">from</span> wsgiref.simple_server <span class="hljs-keyword">import</span> make_server
+
+<span class="hljs-keyword">from</span> app <span class="hljs-keyword">import</span> application
+
+server = make_server(<span class="hljs-string">"localhost"</span>, <span class="hljs-number">8000</span>, application)
+server.serve_forever()</pre><p>Dieser Teil wird üblicherweise von Libraries wie gunicorn übernommen</p></section><section class="slide" id="slide-5-11"><h2 id="eigene-wsgi-anwendung-in-python">Eigene WSGI-Anwendung in Python</h2><pre class="code"><span class="hljs-comment"># app.py</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">application</span><span class="hljs-params">(environ, start_response)</span>:</span>
+    response_status = <span class="hljs-string">"200 OK"</span>
+    response_body_text = <span class="hljs-string">"hello"</span>
+    response_body = response_body_text.encode(<span class="hljs-string">"utf-8"</span>)
+    response_headers = [
+        (<span class="hljs-string">"Content-Type"</span>, <span class="hljs-string">"text/plain; charset=utf-8"</span>),
+        (<span class="hljs-string">"Content-Length"</span>, str(len(response_body))),
+    ]
+    start_response(response_status, response_headers)
+    <span class="hljs-keyword">return</span> [response_body]</pre></section><section class="slide" id="slide-5-12"><h2 id="wichtige-http-statuscodes">wichtige HTTP-Statuscodes</h2>
+<ul>
+<li><code>200 OK</code></li>
+</ul>
+<!-- list separator -->
+<ul>
+<li><code>301 Moved Permanently</code></li>
+<li><code>307 Temporary Redirect</code> (Weiterleitung auf eine andere Adresse)</li>
+<li><code>303 See Other</code> (Weiterleitung auf eine andere Adresse, Methode ändert sich zu <code>GET</code>)</li>
+<li><code>308 Permanent Redirect</code></li>
+<li><code>304 Not Modified</code> (Resource hat sich seit letzter Anfrage nicht geändert)</li>
+</ul>
+<!-- list separator -->
+<ul>
+<li><code>400 Bad Request</code></li>
+<li><code>401 Unauthorized</code></li>
+<li><code>403 Forbidden</code></li>
+<li><code>404 Not Found</code></li>
+</ul>
+<!-- list separator -->
+<ul>
+<li><code>500 Internal Server Error</code></li>
+</ul>
+<p>siehe auch: <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">https://en.wikipedia.org/wiki/List_of_HTTP_status_codes</a></p></section><section class="slide" id="slide-5-13"><h2 id="wichtige-http-antwort-headerfelder">wichtige HTTP-Antwort-Headerfelder</h2>
+<ul>
+<li><code>Content-Length</code></li>
+<li><code>Content-Type</code></li>
+<li><code>Set-Cookie</code></li>
+<li><code>Location</code></li>
+<li><code>Cache-Control</code></li>
+</ul></section><section class="slide" id="slide-5-14"><h2 id="content-type-headerfeld">Content-Type-Headerfeld</h2>
+<p>Mögliche Werte:</p>
+<ul>
+<li><code>text/plain; charset=utf-8</code></li>
+<li><code>text/html; charset=utf-8</code></li>
+<li><code>application/json</code></li>
+<li><code>application/javascript</code></li>
+<li><code>application/ecmascript</code></li>
+<li><code>image/jpeg</code></li>
+<li><code>image/png</code></li>
+<li>…</li>
+</ul></section><section class="slide" id="slide-5-15"><h2 id="das-environ-dictionary">Das environ-dictionary</h2>
+<p>Wir können es im debugger begutachten, zB:</p><pre class="code">{
+    <span class="hljs-string">"CONTENT_LENGTH"</span>: <span class="hljs-string">"12"</span>
+    <span class="hljs-string">"HTTP_USER_AGENT"</span>: <span class="hljs-string">'Mozilla/5.0 (Win...'</span>,
+    <span class="hljs-string">"HTTP_COOKIE"</span>:
+    <span class="hljs-string">"PATH_INFO"</span>: <span class="hljs-string">"/todos/new"</span>,
+    <span class="hljs-string">"REQUEST_METHOD"</span>: <span class="hljs-string">"GET"</span>,
+    <span class="hljs-string">"wsgi.input"</span>: ...
+}</pre><p><a href="https://www.python.org/dev/peps/pep-0333/#environ-variables">https://www.python.org/dev/peps/pep-0333/#environ-variables</a></p></section><section class="slide" id="slide-5-16"><h2 id="path_info">PATH_INFO</h2>
+<p>PATH_INFO im environ-dictionary: angefragter Pfad am Server</p></section><section class="slide" id="slide-5-17"><h2 id="path_info">PATH_INFO</h2>
+<p>Aufgabe: Anzeige verschiedener Seiten unter verschiedenen Adressen</p></section><section class="slide" id="slide-5-18"><h2 id="redirects-mit-http">Redirects mit HTTP</h2><pre class="code">response_headers = [
+    (<span class="hljs-string">"Location"</span>, <span class="hljs-string">"/login"</span>),
+    (<span class="hljs-string">"Content-Length"</span>, <span class="hljs-string">"0"</span>)
+]
+start_response(<span class="hljs-string">"307 Temporary Redirect"</span>, response_headers)
+<span class="hljs-keyword">return</span> [<span class="hljs-string">b''</span>]</pre></section><section class="slide" id="slide-5-19"><h2 id="redirects-mit-http">Redirects mit HTTP</h2>
+<p>Aufgabe: Weiterleitung einiger Seiten, z.B. <code>/now</code> leitet weiter auf <code>/time</code></p></section><section class="slide" id="slide-5-20"><h2 id="cookies">Cookies</h2>
+<p>Cookies = kleine Datenmengen, die von einer Website im Browser abgelegt werden können</p>
+<p>Cookies dienen insbesondere dazu, einen früheren Besucher wiederzuerkennen, z.B. für:</p>
+<ul>
+<li>Eingeloggt bleiben auf Websites</li>
+<li>Personenbezogene Werbung</li>
+<li>Tracking der Useraktivitäten</li>
+</ul></section><section class="slide" id="slide-5-21"><h2 id="cookies-setzen">Cookies setzen</h2><pre class="code">response_headers.append((
+    <span class="hljs-string">"Set-Cookie"</span>, <span class="hljs-string">"mycookie123=abcd; Max-Age=30"</span>
+))</pre></section><section class="slide" id="slide-5-22"><h2 id="cookies-lesen">Cookies lesen</h2><pre class="code"><span class="hljs-keyword">try</span>:
+    current_cookies_str = environ[<span class="hljs-string">"HTTP_COOKIE"</span>]
+<span class="hljs-keyword">except</span> KeyError:
+    ...</pre><p>Resultat z.B.: <code>"cookie1=one; cookie2=two"</code></p></section><section class="slide" id="slide-5-23"><h2 id="cookies-parsen">Cookies parsen</h2><pre class="code"><span class="hljs-keyword">from</span> http <span class="hljs-keyword">import</span> cookies
+
+...
+
+mycookies = cookies.SimpleCookie()
+mycookies.load(current_cookies_str)
+mycookies[<span class="hljs-string">"cookie1"</span>].value</pre></section><section class="slide" id="slide-5-24"><h2 id="cookies-löschen">Cookies löschen</h2>
+<p>indem ein neues Cookie gesetzt wird, dessen "Ablaufsdatum" in der Vergangenheit liegt:</p><pre class="code">response_headers.append((
+    <span class="hljs-string">"Set-Cookie"</span>,
+    <span class="hljs-string">"mycookie123=; expires=Thu, 01 Jan 1970 00:00:00 GMT"</span>
+))</pre></section><section class="slide" id="slide-5-25"><h2 id="cookies">Cookies</h2>
+<p>Aufgabe: Website, die einen Benutzer nur 5x eine Seite aufrufen lässt und ihn dann auffordert, sich zu registrieren, um die Seite weiter zu verwenden</p></section><section class="slide" id="slide-5-26"><h2 id="formular-und-post-request">Formular und post-request</h2>
+<p>So lesen wir Parameter aus Formularen aus:</p><pre class="code"><span class="hljs-keyword">from</span> urllib.parse <span class="hljs-keyword">import</span> parse_qs
+
+request_body_size = int(environ.get(<span class="hljs-string">'CONTENT_LENGTH'</span>, <span class="hljs-string">'0'</span>))
+<span class="hljs-comment"># environ["wsgi.input"] is a file-like object</span>
+request_body = (environ[<span class="hljs-string">"wsgi.input"</span>]
+                .read(request_body_size)
+                .decode(<span class="hljs-string">"utf-8"</span>))
+
+parameters = parse_qs(request_body)
+first_name = parameters.get(<span class="hljs-string">"first-name"</span>)[<span class="hljs-number">0</span>]</pre></section><section class="slide" id="slide-5-27"><h2 id="wsgi-beispiele">wsgi-Beispiele</h2>
+<ul>
+<li>Online-Abstimmung</li>
+<li>Gästebuch</li>
+<li>Chat-System</li>
+<li>Todo-Anwendung</li>
+</ul></section><section class="slide" id="slide-5-28"><h2 id="achtung-javascript-injection">Achtung: JavaScript-Injection</h2></section><section class="slide" id="slide-5-29"><h2 id="deployment-auf-pythonanywherecom">Deployment auf pythonanywhere.com</h2>
+<ul>
+<li>neues Benutzerkonto auf <a href="https://pythonanywhere.com">https://pythonanywhere.com</a></li>
+<li>add new web app</li>
+<li>manual configuration</li>
+</ul></section><section class="slide" id="slide-5-30"><h2 id="deployment-auf-pythonanywherecom">Deployment auf pythonanywhere.com</h2>
+<p>WSGI Konfigurationsdatei</p><pre class="code"><span class="hljs-comment"># /var/www/username_pythonanywhere_com_wsgi.py</span>
+<span class="hljs-keyword">import</span> sys
+
+path = <span class="hljs-string">"/home/username/"</span>
+<span class="hljs-keyword">if</span> path <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> sys.path:
+    sys.path.append(path)
+
+<span class="hljs-keyword">from</span> app <span class="hljs-keyword">import</span> application</pre></section></section><section class="section" id="section-6"><section class="slide" id="slide-6-1"><h1 id="sys-os-shutil">sys, os, shutil</h1></section><section class="slide" id="slide-6-2"><h2 id="sys-os-shutil">sys, os, shutil</h2>
+<ul>
+<li>sys: Funktionen zur Python-Umgebung</li>
+<li>os: Funktionen zum Betriebssystem, Arbeiten mit Dateien</li>
+<li>shutil: Funktionen zum Arbeiten mit Dateien</li>
+</ul><div class="note"> 
+Buch Kapitel 14
+
+Beispiel: stdout.write, getrefcount, path, version, version_info
+
+stdout.write ÜBERSCHREIBEN
+ </div></section><section class="slide" id="slide-6-3"><h2 id="kommandozeilenparameter">Kommandozeilenparameter</h2>
+<p>Auslesbar über <code>sys.argv</code></p></section><section class="slide" id="slide-6-4"><h2 id="sys-stdoutwrite-überschreiben">sys: stdout.write überschreiben</h2><pre class="code"><span class="hljs-keyword">import</span> sys
+
+old_stdout = sys.stdout
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LoudStdout</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">write</span><span class="hljs-params">(self, text)</span>:</span>
+        old_stdout.write(text.upper())
+
+loudstdout = LoudStdout()
+
+sys.stdout = loudstdout</pre></section><section class="slide" id="slide-6-5"><h2 id="os">os</h2>
+<p>Funktionen zu Betriebssystem und Dateizugriff</p></section><section class="slide" id="slide-6-6"><h2 id="os---arbeiten-mit-dateien-und-ordnern">os - Arbeiten mit Dateien und Ordnern</h2>
+<ul>
+<li><code>os.getcwd()</code> (aktueller Pfad)</li>
+<li><code>os.chdir()</code></li>
+<li><code>os.chmod()</code></li>
+<li><code>os.listdir()</code></li>
+<li><code>os.mkdir('foo')</code></li>
+<li><code>os.rename('foo', 'bar')</code></li>
+<li><code>os.mkdir('foo/bar/baz')</code></li>
+<li><code>os.remove('foo/bar/baz/qux.txt')</code></li>
+<li><code>os.rmdir('foo/bar/baz')</code></li>
+<li><code>os.walk()</code></li>
+</ul></section><section class="slide" id="slide-6-7"><h2 id="shutil">shutil</h2>
+<ul>
+<li><code>shutil.copy('origin', 'destination')</code> (Datei kopieren)</li>
+<li><code>shutil.copytree()</code> (Ordner kopieren)</li>
+<li><code>shutil.rmtree()</code> (Ordner löschen)</li>
+<li><code>shutil.move()</code> (Datei oder Ordner verschieben)</li>
+</ul></section><section class="slide" id="slide-6-8"><h2 id="übungen">Übungen</h2>
+<p>Buch 14.4.2 (Suchbegriffanzahl in Dateien im Verzeichnis)</p></section></section><section class="section" id="section-7"><section class="slide" id="slide-7-1"><h1 id="datum-und-zeit">Datum und Zeit</h1></section><section class="slide" id="slide-7-2"><h2 id="datum-und-zeit">Datum und Zeit</h2>
+<p>Python-Pakete:</p>
+<h3 id="datetime">datetime</h3>
+<p>Arbeiten mit Zeiten und Datumsangaben</p>
+<h3 id="time">time</h3>
+<p>Arbeiten mit Unix-Timestamps, sleep</p></section><section class="slide" id="slide-7-3"><h2 id="datetime">datetime</h2>
+<ul>
+<li><code>datetime.date</code></li>
+<li><code>datetime.time</code></li>
+<li><code>datetime.datetime</code></li>
+</ul></section><section class="slide" id="slide-7-4"><h2 id="datetime">datetime</h2><pre class="code">a = datetime.time(hour, minute, second, microsecond)</pre><pre class="code">b = datetime.datetime(<span class="hljs-number">2018</span>, <span class="hljs-number">1</span>, <span class="hljs-number">13</span>)
+c = datetime.datetime(<span class="hljs-number">2018</span>, <span class="hljs-number">3</span>, <span class="hljs-number">26</span>, <span class="hljs-number">12</span>, <span class="hljs-number">30</span>)
+
+c - b</pre></section><section class="slide" id="slide-7-5"><h2 id="timesleep">time.sleep</h2><pre class="code"><span class="hljs-keyword">import</span> time
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">10</span>):
+    print(i)
+    time.sleep(<span class="hljs-number">1</span>)</pre></section><section class="slide" id="slide-7-6"><h2 id="timetime">time.time</h2>
+<p>aktuelle Unix-Zeit</p><pre class="code"><span class="hljs-keyword">import</span> time
+time.time()</pre></section></section><section class="section" id="section-8"><section class="slide" id="slide-8-1"><h1 id="gui">GUI</h1>
+<h2 id="graphical-user-interface">Graphical User Interface</h2></section><section class="slide" id="slide-8-2"><h2 id="gui-libraries-für-python">GUI-Libraries für Python</h2>
+<ul>
+<li>tk</li>
+<li>Qt</li>
+<li>Kivy</li>
+</ul></section><section class="slide" id="slide-8-3"><h2 id="tk">tk</h2>
+<ul>
+<li>Einfache UI-Library</li>
+<li>Anbindung an Python: tkinter</li>
+<li>in Python vorinstalliert</li>
+</ul></section><section class="slide" id="slide-8-4"><h2 id="qt">Qt</h2>
+<ul>
+<li>Weit verbreitete UI-Library</li>
+<li>Anbindungen an Python: PyQt oder PySide</li>
+</ul></section><section class="slide" id="slide-8-5"><h2 id="kivy">Kivy</h2>
+<ul>
+<li>speziell für Python entwickelt</li>
+</ul></section></section><section class="section" id="section-9"><section class="slide" id="slide-9-1"><h1 id="tkinter">Tkinter</h1></section><section class="slide" id="slide-9-2"><h2 id="tkinter---beispiel">Tkinter - Beispiel</h2><pre class="code"><span class="hljs-comment"># simple.pyw</span>
+<span class="hljs-keyword">import</span> tkinter
+
+<span class="hljs-comment"># ein Objekt vom Typ "Tk" erstellen</span>
+window = tkinter.Tk()
+<span class="hljs-comment"># Programm (event loop) starten</span>
+<span class="hljs-comment">#   (auf Benutzerinteraktion warten)</span>
+window.mainloop()</pre></section><section class="slide" id="slide-9-3"><h2 id="tkinter---text-anzeigen">Tkinter - Text anzeigen</h2><pre class="code"><span class="hljs-keyword">import</span> tkinter
+
+window = tkinter.Tk()
+
+hello_label = tkinter.Label(master=window, text=<span class="hljs-string">"Hello!"</span>)
+hello_label.pack()
+
+window.mainloop()</pre></section><section class="slide" id="slide-9-4"><h2 id="tkinter---elemente-nachträglich-ändern">Tkinter - Elemente nachträglich ändern</h2><pre class="code">time_label = tkinter.Label(master=window, text=<span class="hljs-string">""</span>)
+time_label.config(text=<span class="hljs-string">"Hello!"</span>)</pre></section><section class="slide" id="slide-9-5"><h2 id="tkinter---benutzerinteraktion">Tkinter - Benutzerinteraktion</h2><pre class="code">...
+
+message_label = tkinter.Label(master=window, text=<span class="hljs-string">""</span>)
+message_label.pack()
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">display_message</span><span class="hljs-params">()</span>:</span>
+    message_label.config(text=<span class="hljs-string">"Hello!"</span>)
+
+hello_button = tkinter.Button(master=window,
+                              text=<span class="hljs-string">"Say Hello!"</span>,
+                              command=display_message)
+hello_button.pack()
+
+...</pre></section><section class="slide" id="slide-9-6"><h2 id="beispiel-counter">Beispiel: Counter</h2>
+<p>Button, der bei 0 startet und die Klickanzahl mitzählt und anzeigt</p></section><section class="slide" id="slide-9-7"><h2 id="tkinter---widget-konfiguration">Tkinter - Widget-Konfiguration</h2>
+<p>Möglichkeiten:</p>
+<ul>
+<li><code>height</code></li>
+<li><code>width</code></li>
+<li><code>borderwidth</code></li>
+<li><code>background</code> (Hintergrundfarbe)</li>
+<li><code>foreground</code> (Textfarbe)</li>
+<li><code>justify</code> (Textausrichtung, Werte: <code>CENTER</code>, <code>LEFT</code>, <code>RIGHT</code>)</li>
+<li><code>padx</code>, <code>pady</code> (Abstand Rahmen zum Inhalt)</li>
+</ul></section><section class="slide" id="slide-9-8"><h2 id="tkinter---widgets">Tkinter - Widgets</h2>
+<ul>
+<li><code>Label</code></li>
+<li><code>Button</code></li>
+<li><code>Frame</code></li>
+</ul></section><section class="slide" id="slide-9-9"><h2 id="tkinter---beispiele">Tkinter - Beispiele</h2>
+<ul>
+<li>zufälliger Sehtest</li>
+</ul></section></section><section class="section" id="section-10"><section class="slide" id="slide-10-1"><h1 id="datenbanken">Datenbanken</h1><div class="note"> 
+Kapitel 24
+ </div></section><section class="slide" id="slide-10-2"><h2 id="datenbanken">Datenbanken</h2>
+<p>Verwendung: Verwaltung großer Datenmengen</p></section><section class="slide" id="slide-10-3"><h2 id="entity-relationship-diagramme">Entity-Relationship-Diagramme</h2>
+<p><a href="https://en.wikipedia.org/wiki/Entity%E2%80%93relationship_model">https://en.wikipedia.org/wiki/Entity%E2%80%93relationship_model</a></p>
+<p>Buch 24.2</p></section><section class="slide" id="slide-10-4"><h2 id="tabellen-und-datenschemata">Tabellen und Datenschemata</h2>
+<p>Die meisten Datenbanken verwalten ihre Daten in Tabellen</p></section><section class="slide" id="slide-10-5"><h2 id="modellierung-von-verwandtschaftsverhältnissen">Modellierung von Verwandtschaftsverhältnissen</h2><div class="note"> 
+Umsetzung in Python
+
+```py
+get_children()
+get_siblings()
+get_parents()
+```
+ </div></section><section class="slide" id="slide-10-6"><h2 id="modellierung-von-freundschaften">Modellierung von Freundschaften</h2><div class="note"> 
+friendship-Tabelle
+
+1, Tom, Marie
+2, Tom, Chris
+...
+ </div></section><section class="slide" id="slide-10-7"><h2 id="beispiel-online-redaktionssystem-mit-datenbankanbindung">Beispiel: Online-Redaktionssystem mit Datenbankanbindung</h2>
+<p>siehe Buch</p>
+<ul>
+<li>Authentifizierung (MD5)</li>
+<li>Admin-Skript</li>
+</ul></section><section class="slide" id="slide-10-8"><h2 id="beispiel-todo-anwendung">Beispiel: Todo-Anwendung</h2><div class="note"> 
+- run_server.py und (minimale) app.py
+- init_db.py
+- db_interface.get_all_todos
+
+siehe courses-tutorials/python-todolist-wsgi-sqlite
+ </div></section></section><section class="section" id="section-11"><section class="slide" id="slide-11-1"><h1 id="sql">SQL</h1></section><section class="slide" id="slide-11-2"><h2 id="die-abfragesprache-sql">Die Abfragesprache SQL</h2>
+<p>SQL = Structured Query Language</p>
+<p>Standardisierte Abfragesprache für tabellarische Datenbanken</p></section><section class="slide" id="slide-11-3"><h2 id="sql-varianten">SQL-Varianten</h2>
+<ul>
+<li>SQL Server</li>
+<li>Oracle</li>
+<li>MySQL</li>
+<li>MariaDB</li>
+<li>PostgreSQL</li>
+<li>SQLite</li>
+</ul></section><section class="slide" id="slide-11-4"><h2 id="online-tutorial">Online Tutorial</h2>
+<p><a href="https://www.w3schools.com/sql/default.asp">https://www.w3schools.com/sql/default.asp</a></p></section><section class="slide" id="slide-11-5"><h2 id="sql-ausprobieren">SQL ausprobieren</h2>
+<p><a href="https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all">https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all</a></p>
+<p>Desktop-Anwendung:</p>
+<p><a href="https://sqlitebrowser.org/">https://sqlitebrowser.org/</a></p></section><section class="slide" id="slide-11-6"><h2 id="tabellen-erstellen">Tabellen erstellen</h2>
+<p>Befehl: <code>CREATE TABLE</code></p><pre class="code"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> person(
+    <span class="hljs-keyword">name</span> <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">50</span>),
+    tel <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">20</span>));</pre></section><section class="slide" id="slide-11-7"><h2 id="tabellen-erstellen">Tabellen erstellen</h2><pre class="code"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> person(
+    <span class="hljs-keyword">id</span> <span class="hljs-built_in">INTEGER</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> AUTO_INCREMENT,
+    <span class="hljs-keyword">name</span> <span class="hljs-built_in">TEXT</span>,
+    tel <span class="hljs-built_in">TEXT</span>);</pre></section><section class="slide" id="slide-11-8"><h2 id="sql-datentypen">SQL-Datentypen</h2>
+<table>
+<thead>
+<tr>
+<th id="ansi_sql">ANSI SQL</th>
+<th id="sqlserver">SQLServer</th>
+<th id="oracle">Oracle</th>
+<th id="mysql">MySQL</th>
+<th id="postgres">Postgres</th>
+<th id="sqlite">SQLite</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>boolean</td>
+<td>bit</td>
+<td>byte</td>
+<td></td>
+<td>boolean</td>
+<td></td>
+</tr>
+<tr>
+<td>smallint</td>
+<td>smallint</td>
+<td>number</td>
+<td>smallint</td>
+<td>smallint</td>
+<td>integer</td>
+</tr>
+<tr>
+<td>int/integer</td>
+<td>int</td>
+<td>number</td>
+<td>int</td>
+<td>integer</td>
+<td>integer</td>
+</tr>
+<tr>
+<td>bigint</td>
+<td>bigint</td>
+<td>number</td>
+<td>bigint</td>
+<td>bigint</td>
+<td>integer</td>
+</tr>
+<tr>
+<td>float</td>
+<td>float</td>
+<td>float</td>
+<td>float</td>
+<td>real</td>
+<td>real</td>
+</tr>
+<tr>
+<td>double precision</td>
+<td>float</td>
+<td>float</td>
+<td>float</td>
+<td>double precision</td>
+<td>real</td>
+</tr>
+<tr>
+<td>varchar(20)</td>
+<td>varchar(20)</td>
+<td>varchar2(20)</td>
+<td>varchar(20)</td>
+<td>varchar</td>
+<td>text</td>
+</tr>
+<tr>
+<td>varbinary(20)</td>
+<td>varbinary(20)</td>
+<td>blob</td>
+<td>varbinary(20)</td>
+<td>bytea</td>
+<td>blob</td>
+</tr>
+</tbody>
+</table></section><section class="slide" id="slide-11-9"><h1 id="signed--unsigned">signed &amp; unsigned</h1>
+<p>MySQL unterscheidet zB zwischen:</p>
+<ul>
+<li><code>SMALLINT</code> (-32768 bis 32767)</li>
+<li><code>UNSIGNED SMALLINT</code> (0 bis 65535)</li>
+</ul></section><section class="slide" id="slide-11-10"><h2 id="not-null">not null</h2>
+<p>Eintrag darf nicht leer gelassen werden</p><pre class="code"><span class="hljs-comment">/* MySQL */</span>
+<span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> person(
+    <span class="hljs-keyword">id</span> <span class="hljs-built_in">INT</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+    <span class="hljs-keyword">name</span> <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">50</span>));</pre></section><section class="slide" id="slide-11-11"><h2 id="unique">unique</h2>
+<p>Jeder Eintrag muss einen einzigartigen Wert in der Tabelle haben</p><pre class="code"><span class="hljs-comment">/* alle außer MySQL */</span>
+<span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> person(
+    <span class="hljs-keyword">id</span> <span class="hljs-built_in">INTEGER</span> <span class="hljs-keyword">UNIQUE</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+    <span class="hljs-keyword">name</span> <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">50</span>)
+);</pre><pre class="code"><span class="hljs-comment">/* MySQL */</span>
+<span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> person(
+    <span class="hljs-keyword">id</span> <span class="hljs-built_in">INTEGER</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+    <span class="hljs-keyword">name</span> <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">50</span>),
+    <span class="hljs-keyword">UNIQUE</span>(<span class="hljs-keyword">id</span>)
+);</pre></section><section class="slide" id="slide-11-12"><h2 id="auto-increment">auto increment</h2>
+<p>Integer wird automatisch bei jedem neuen Element erhöht</p><pre class="code"><span class="hljs-comment">/* MySQL */</span>
+<span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> person(
+    <span class="hljs-keyword">id</span> <span class="hljs-built_in">INTEGER</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> AUTO_INCREMENT,
+    <span class="hljs-keyword">name</span> <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">50</span>));</pre><ul>
+<li>sqlite: <code>AUTOINCREMENT</code></li>
+<li>Postgres: <code>SERIAL</code></li>
+</ul></section><section class="slide" id="slide-11-13"><h2 id="primary-key">primary key</h2>
+<p>Eindeutige Identifizierung einer Zeile in einer Tabelle</p>
+<ul>
+<li>Sprechender Schlüssel: von Haus aus in den Daten enthalten</li>
+<li>Surrogatschlüssel: zusätzlich hinzugefügter Schlüssel (meist Integerwert)</li>
+</ul><pre class="code"><span class="hljs-comment">/* mysql */</span>
+<span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> person(
+    <span class="hljs-keyword">id</span> <span class="hljs-built_in">INT</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+    <span class="hljs-keyword">name</span> <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">50</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+    PRIMARY <span class="hljs-keyword">KEY</span> (<span class="hljs-keyword">id</span>)
+);</pre><p>In sqlite wird immer automatisch ein numerischer Primärschlüssel unter dem Namen <code>rowid</code> angelegt.</p></section><section class="slide" id="slide-11-14"><h2 id="foreign-key">foreign key</h2>
+<p>Referenz auf jeweils einen Eintrag einer anderen Tabelle</p>
+<p>z.B.: Jeder Eintrag in der Tabelle <em>person</em> kann über die Spalte <em>country_id</em> mit der Tabelle <em>country</em> verknüpft werden</p>
+<p>Der Zusatz <code>FOREIGN KEY ...</code> garantiert, dass ein entsprechender Eintrag in der anderen Tabelle existiert</p><pre class="code"><span class="hljs-comment">/* mysql, sqlite */</span>
+<span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> person(
+    country_id <span class="hljs-built_in">INT</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+    FOREIGN <span class="hljs-keyword">KEY</span> (country_id) <span class="hljs-keyword">REFERENCES</span> country(<span class="hljs-keyword">id</span>)
+);</pre></section><section class="slide" id="slide-11-15"><h2 id="daten-eintragen">Daten eintragen</h2><pre class="code"><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> person <span class="hljs-keyword">VALUES</span> (<span class="hljs-string">'Andreas Berger'</span>, <span class="hljs-string">'012345'</span>);</pre><pre class="code"><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> person (<span class="hljs-keyword">name</span>, tel) <span class="hljs-keyword">VALUES</span> (<span class="hljs-string">'Andreas Berger'</span>, <span class="hljs-string">'012345'</span>);</pre></section><section class="slide" id="slide-11-16"><h2 id="daten-auslesen">Daten auslesen</h2>
+<p>Daten aller Personen auslesen</p><pre class="code"><span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">name</span>, tel <span class="hljs-keyword">FROM</span> person
+<span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> person</pre></section><section class="slide" id="slide-11-17"><h2 id="bedingte-abfragen-where">Bedingte Abfragen (WHERE)</h2><pre class="code"><span class="hljs-keyword">SELECT</span> tel <span class="hljs-keyword">FROM</span> person <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">name</span> = <span class="hljs-string">'Andreas Berger'</span>;
+<span class="hljs-keyword">SELECT</span> tel <span class="hljs-keyword">FROM</span> person <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">name</span> <span class="hljs-keyword">LIKE</span> <span class="hljs-string">'Andreas%'</span> <span class="hljs-keyword">AND</span> tel <span class="hljs-keyword">LIKE</span> <span class="hljs-string">'+49%'</span>;</pre></section><section class="slide" id="slide-11-18"><h2 id="daten-eintragen-update">Daten eintragen (UPDATE)</h2><pre class="code"><span class="hljs-keyword">UPDATE</span> person
+<span class="hljs-keyword">SET</span> <span class="hljs-keyword">name</span> = <span class="hljs-string">'Andreas Müller'</span>
+<span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">name</span> = <span class="hljs-string">'Andreas Müller'</span>;</pre></section><section class="slide" id="slide-11-19"><h2 id="daten-löschen-delete">Daten löschen (DELETE)</h2><pre class="code"><span class="hljs-keyword">DELETE</span> <span class="hljs-keyword">FROM</span> person <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">name</span> = <span class="hljs-string">'Andreas Müller'</span>;</pre></section><section class="slide" id="slide-11-20"><h2 id="tabellen-verknüpfen-inner-join">Tabellen verknüpfen (INNER JOIN)</h2><pre class="code"><span class="hljs-keyword">SELECT</span> song.title, album.year
+<span class="hljs-keyword">FROM</span> song
+<span class="hljs-keyword">INNER</span> <span class="hljs-keyword">JOIN</span> album
+<span class="hljs-keyword">ON</span> song.albumid = album.id;</pre><p>Der obige Code listet alle Kombinationen auf, bei denen <code>song.albumid</code> und <code>album.id</code> übereinstimmen</p></section><section class="slide" id="slide-11-21"><h2 id="tabellen-verknüpfen-left-join">Tabellen verknüpfen (LEFT JOIN)</h2><pre class="code"><span class="hljs-keyword">SELECT</span> song.title, album.year
+<span class="hljs-keyword">FROM</span> song
+<span class="hljs-keyword">LEFT</span> <span class="hljs-keyword">JOIN</span> album
+<span class="hljs-keyword">ON</span> song.albumid = album.id;</pre><p>Der obige Code listet alle Kombinationen auf und beinhaltet auch Lieder, für die kein Album definiert ist</p></section><section class="slide" id="slide-11-22"><h2 id="indizes-in-datenbanken">Indizes in Datenbanken</h2>
+<p>Generell: geordnete Listen können viel schneller durchsucht werden als ungeordnete (binäre Suche)</p>
+<p>Beispiel: im Telefonbuch kann man schnell nach dem Nachnamen einer Person suchen, aber nicht nach dem Vornamen</p>
+<p>Auf eine oder mehrere Spalten kann ein Index angewendet werden: Zusätzliche Datenstruktur, die auf die Daten in bestimmter Ordnung verweist.</p></section><section class="slide" id="slide-11-23"><h2 id="indizes-erstellen">Indizes erstellen</h2><pre class="code"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">INDEX</span> person_name <span class="hljs-keyword">ON</span> person (<span class="hljs-keyword">name</span>)</pre></section><section class="slide" id="slide-11-24"><h2 id="sql-ausprobieren">SQL ausprobieren</h2>
+<p>Auf <a href="https://pythonanywhere.com">https://pythonanywhere.com</a> stehen <em>MySQL</em> und <em>PostgreSQL</em> kostenfrei zur Verfügung.</p></section></section><section class="section" id="section-12"><section class="slide" id="slide-12-1"><h1 id="sql-mit-python">SQL mit Python</h1></section><section class="slide" id="slide-12-2"><h2 id="python-anbindung-von-sql-datenbanken">Python-Anbindung von SQL-Datenbanken</h2>
+<p>Database API Specification: Standard, der von verschiedenen Python-Datenbankanbindungen umgesetzt wird; standardisiert in PEP 249</p>
+<p>Anbindungen für:</p>
+<ul>
+<li>sqlite (Python-Paket <em>sqlite3</em>)</li>
+<li>Postgresql (PIP-Paket <em>psycopg2</em>)</li>
+<li>MySQL / mariadb (PIP-Paket <em>PyMySQL</em></li>
+<li>Oracle (PIP-Paket <em>cx_oracle</em>)</li>
+</ul><div class="note"> 
+- Installation von _MySQL Community Server_ / _mariadb_
+  - (Port: 3306) (X Protocol Port: 33060)
+  - Passwort: password
+    Folgendes eventuell nicht notwendig (user 'root' existiert bereits)
+  - only user: admin / password
+- `pip install pymysql`
+ </div></section><section class="slide" id="slide-12-3"><h2 id="sqlite-und-python">SQLite und Python</h2>
+<p>SQLite: Datenbank, die nur eine einzelne Datenbankdatei verwendet</p>
+<p>Ist in Python integriert (Modul <code>sqlite3</code>)</p><pre class="code"><span class="hljs-keyword">import</span> sqlite3
+
+connection = sqlite3.connect(<span class="hljs-string">'contacts.db'</span>)</pre></section><section class="slide" id="slide-12-4"><h2 id="mysql-und-python">MySQL und Python</h2>
+<p>PIP-Paket <em>PyMySQL</em></p><pre class="code"><span class="hljs-keyword">import</span> pymysql.cursors
+
+connection = pymysql.connect(host=<span class="hljs-string">'localhost'</span>,
+                             user=<span class="hljs-string">'user'</span>,
+                             password=<span class="hljs-string">'passwd'</span>,
+                             db=<span class="hljs-string">'db'</span>,
+                             charset=<span class="hljs-string">'utf8mb4'</span>)</pre></section><section class="slide" id="slide-12-5"><h2 id="python-und-oracle-database">Python und Oracle Database</h2>
+<p>Python-Paket <em>cx_Oracle</em></p><pre class="code"><span class="hljs-keyword">import</span> cx_Oracle
+
+connection = cx_Oracle.connect(user=<span class="hljs-string">"user"</span>,
+                               password=<span class="hljs-string">"password"</span>,
+                               dsn=<span class="hljs-string">"localhost/oraclepdb"</span>)</pre></section><section class="slide" id="slide-12-6"><h2 id="pyodbc">pyodbc</h2>
+<p>ODBC = open database connectivity: Standard zur Anbindung an Datenbanken (unabhängig von Python)</p>
+<p>pyodbc = Implementierung für Python, damit können beliebige ODBC-Datenbanken angebunden werden</p><pre class="code"><span class="hljs-keyword">import</span> pyodbc
+
+connection = pyodbc.connect(
+  <span class="hljs-string">"Driver=SQLite3 ODBC Driver;Database=contacts.db"</span>)</pre></section><section class="slide" id="slide-12-7"><h2 id="gemeinsames-interface-pep-249">Gemeinsames Interface (PEP 249)</h2><pre class="code">connection = ...
+...
+cursor = connection.cursor()
+cursor.execute(...)
+print(cursor.fetchall())
+connection.commit()
+...
+cursor = connection.cursor()
+cursor.execute(...)
+print(cursor.fetchall())
+conection.commit()
+...
+connection.close()</pre></section><section class="slide" id="slide-12-8"><h2 id="pep-249">PEP 249</h2>
+<p><a href="https://www.python.org/dev/peps/pep-0249">https://www.python.org/dev/peps/pep-0249</a></p></section><section class="slide" id="slide-12-9"><h1 id="pep-249-typen">PEP 249: Typen</h1>
+<ul>
+<li><code>Date</code></li>
+<li><code>Time</code></li>
+<li><code>Timestamp</code></li>
+<li><code>Binary</code></li>
+<li><code>STRING</code></li>
+<li><code>NUMBER</code></li>
+</ul></section><section class="slide" id="slide-12-10"><h2 id="bedingte-abfragen-mit-parametern">Bedingte Abfragen mit Parametern</h2><pre class="code">search_name = input()
+command = <span class="hljs-string">f"""SELECT tel FROM person WHERE name = '<span class="hljs-subst">{search_name}</span>'"""</span>
+res = c.execute(command)</pre></section><section class="slide" id="slide-12-11"><h2 id="achtung-sql-injections">Achtung: SQL-Injections</h2></section><section class="slide" id="slide-12-12"><h2 id="achtung-sql-injections">Achtung: SQL-Injections</h2>
+<p>sichere Methode (mit SQL-Escaping):</p><pre class="code">search_name = input()
+res = c.execute(
+  <span class="hljs-string">"""SELECT tel FROM person WHERE name = ?;"""</span>,
+  (search_name, )
+)</pre></section><section class="slide" id="slide-12-13"><h2 id="abfrageparameter">Abfrageparameter</h2>
+<p><a href="https://www.python.org/dev/peps/pep-0249/#paramstyle">https://www.python.org/dev/peps/pep-0249/#paramstyle</a></p>
+<p>Die Attribute <code>sqlite3.paramstyle</code>, <code>pymysql.paramstyle</code> etc geben das Format für Abfragen mit Parametern an</p>
+<ul>
+<li>sqlite3: qmark</li>
+<li>pymysql: pyformat</li>
+<li>psycopg2: pyformat</li>
+<li>cx_Oracle: named</li>
+</ul></section><section class="slide" id="slide-12-14"><h2 id="pep-249-das-cursor-objekt">PEP 249: das cursor Objekt</h2>
+<p><code>cursor.rowcount</code>: Anzahl der letzten Ergebnisse</p>
+<p><code>cursor.fetchone()</code>: Eine Zeile des Resultats auslesen (üblicherweise als Tupel)</p>
+<p><code>cursor.fetchmany(10)</code></p>
+<p><code>cursor.fetchall()</code></p>
+<p><code>cursor.execute(command, parameters)</code></p></section></section><section class="section" id="section-13"><section class="slide" id="slide-13-1"><h1 id="sqlalchemy">SQLAlchemy</h1></section><section class="slide" id="slide-13-2"><h2 id="sqlalchemy">SQLAlchemy</h2>
+<p>SQLAlchemy = Object Relational Mapper</p>
+<p>Objektorientierter Zugriff auf beliebige SQL-Datenbanken</p>
+<p>Alternative: Django ORM</p></section><section class="slide" id="slide-13-3"><h2 id="sqlalchemy">SQLAlchemy</h2>
+<p>Pip-Paket <em>sqlalchemy</em></p></section><section class="slide" id="slide-13-4"><h2 id="verbinden-mit-sqlite-datenbank">verbinden mit SQLite-Datenbank</h2><pre class="code"><span class="hljs-comment"># db_interface.py</span>
+<span class="hljs-keyword">from</span> sqlalchemy <span class="hljs-keyword">import</span> create_engine
+
+engine = create_engine(<span class="hljs-string">"sqlite:///music.db"</span>, echo=<span class="hljs-keyword">True</span>)
+
+engine.connect()</pre></section><section class="slide" id="slide-13-5"><h2 id="tabellen-definieren">Tabellen definieren</h2><pre class="code"><span class="hljs-comment"># schema.py</span>
+<span class="hljs-keyword">from</span> sqlalchemy.ext.declarative <span class="hljs-keyword">import</span> declarative_base
+<span class="hljs-keyword">from</span> sqlalchemy <span class="hljs-keyword">import</span> Column, Integer, String
+
+Base = declarative_base()
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Artist</span><span class="hljs-params">(Base)</span>:</span>
+    __tablename__ = <span class="hljs-string">"artist"</span>
+    id = Column(Integer, primary_key=<span class="hljs-keyword">True</span>)
+    name = Column(String(<span class="hljs-number">30</span>))
+    country = Column(String(<span class="hljs-number">20</span>))</pre><pre class="code"><span class="hljs-comment"># db_interface.py</span>
+Base.metadata.create_all(engine)</pre></section><section class="slide" id="slide-13-6"><h2 id="mit-sessions-arbeiten">Mit Sessions arbeiten</h2><pre class="code"><span class="hljs-keyword">from</span> sqlalchemy.orm <span class="hljs-keyword">import</span> sessionmaker
+
+Session = sessionmaker(bind=engine)
+
+session = Session()
+
+...
+
+session.commit()</pre></section><section class="slide" id="slide-13-7"><h2 id="insert">insert</h2><pre class="code"><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> artist <span class="hljs-keyword">VALUES</span> (<span class="hljs-string">'The Beatles'</span>, <span class="hljs-string">'United Kingdom'</span>);</pre><p>wird zu:</p><pre class="code">beatles = Artist(name=<span class="hljs-string">"The Beatles"</span>, country=<span class="hljs-string">"United Kingdom"</span>)
+session.add(beatles)</pre></section><section class="slide" id="slide-13-8"><h2 id="select">select</h2><pre class="code"><span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">name</span>, country <span class="hljs-keyword">FROM</span> artist;</pre><p>wird zu:</p><pre class="code"><span class="hljs-keyword">for</span> artist <span class="hljs-keyword">in</span> session.query(Artist):
+    print(<span class="hljs-string">f"<span class="hljs-subst">{artist.name}</span> (<span class="hljs-subst">{artist.country}</span>)"</span>)</pre><p>oder</p><pre class="code"><span class="hljs-keyword">for</span> name, country <span class="hljs-keyword">in</span> session.query(Artist.name, Artist.country):
+    print(<span class="hljs-string">f"<span class="hljs-subst">{name}</span> (<span class="hljs-subst">{country}</span>)"</span>)</pre></section><section class="slide" id="slide-13-9"><h2 id="order-by">order by</h2><pre class="code"><span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">name</span>, country <span class="hljs-keyword">FROM</span> artist <span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> <span class="hljs-keyword">name</span>;</pre><p>wird zu:</p><pre class="code"><span class="hljs-keyword">for</span> name, country <span class="hljs-keyword">in</span> session.query(
+        Artist.name, Artist.country).order_by(Artist.name):
+    ...</pre></section><section class="slide" id="slide-13-10"><h2 id="where">where</h2><pre class="code"><span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">name</span>, country <span class="hljs-keyword">FROM</span> artist <span class="hljs-keyword">WHERE</span> artist.name=<span class="hljs-string">'The Beatles'</span></pre><p>wird zu:</p><pre class="code">session.query(Artist).filter_by(Artist.name==<span class="hljs-string">"The Beatles"</span>).one()</pre></section><section class="slide" id="slide-13-11"><h2 id="sprechende-ausgabe-von-einträgen">Sprechende Ausgabe von Einträgen</h2>
+<p>aktuell:</p><pre class="code">&ltdb_schema.Song object at 0x00000175902A5FD0></pre><p>besser:</p><pre class="code">Help! - The Beatles</pre><p>umsetzbar mittels <code>__repr__</code> / <code>__str__</code></p></section><section class="slide" id="slide-13-12"><h2 id="update">update</h2><pre class="code"><span class="hljs-keyword">UPDATE</span> song
+<span class="hljs-keyword">SET</span> title = <span class="hljs-string">'Help'</span>
+<span class="hljs-keyword">WHERE</span> title = <span class="hljs-string">'Help!'</span>;</pre><p>wird zu</p><pre class="code">entry = session.query(Song).filter_by(Song.title==<span class="hljs-string">"Help!"</span>).one()
+entry.title = <span class="hljs-string">"Help"</span></pre></section><section class="slide" id="slide-13-13"><h2 id="delete">delete</h2><pre class="code"><span class="hljs-keyword">DELETE</span>
+<span class="hljs-keyword">FROM</span> song
+<span class="hljs-keyword">WHERE</span> title = <span class="hljs-string">'Help!'</span>;</pre><p>wird zu</p><pre class="code">session.query(Song).filter_by(Song.title==<span class="hljs-string">"Help!"</span>).delete()</pre></section><section class="slide" id="slide-13-14"><h2 id="definition-eines-fremdschlüssels">Definition eines Fremdschlüssels</h2><pre class="code"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Song</span><span class="hljs-params">(Base)</span>:</span>
+    __tablename__ = <span class="hljs-string">"song"</span>
+    id = Column(Integer, primary_key=<span class="hljs-keyword">True</span>)
+    title = Column(String(<span class="hljs-number">30</span>))
+    artist_id = Column(Integer, ForeignKey(<span class="hljs-string">"artist.id"</span>))</pre></section><section class="slide" id="slide-13-15"><h2 id="einfaches-abfragen-einer-verknüpften-tabelle">Einfaches Abfragen einer verknüpften Tabelle</h2><pre class="code"><span class="hljs-keyword">from</span> sqlalchemy.orm <span class="hljs-keyword">import</span> relationship
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Artist</span><span class="hljs-params">(Base)</span>:</span>
+    ...
+    songs = relationship(<span class="hljs-string">"Song"</span>)
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Song</span><span class="hljs-params">(Base)</span>:</span>
+    ...
+    artist_id = Column(Integer, ForeignKey(<span class="hljs-string">"artist.id"</span>))
+
+    artist = relationship(<span class="hljs-string">"Artist"</span>)</pre></section><section class="slide" id="slide-13-16"><h2 id="einfaches-abfragen-einer-verknüpften-tabelle">Einfaches Abfragen einer verknüpften Tabelle</h2><pre class="code">yesterday = Song(title="Yesterday", artist=beatles)
+help = Song(title="Help!", artist_id=beatles.id)
+session.add(...)
+
+print(yesterday.artist)
+print(beatles.songs)</pre></section></section><section class="section" id="section-14"><section class="slide" id="slide-14-1"><h1 id="numpy">NumPy</h1></section><section class="slide" id="slide-14-2"><h2 id="numpy">NumPy</h2>
+<p>Library zur effizienten Datenverarbeitung</p>
+<p>Daten sind in mehrdimensionalen arrays gespeichert, die resourcenschonend umgesetzt sind</p><div class="note"> 
+Erklären: Unterschied: Liste vs Array - warum array weniger resourcen
+ </div></section><section class="slide" id="slide-14-3"><h2 id="numpy">NumPy</h2>
+<p>NumPy Arrays vs Python Listen:</p>
+<p>Arrays sind im Hintergrund in C implementiert, die numerischen Einträge (z.B. Integer) sind keine Python-Objekte und damit resourcenschonender.</p></section><section class="slide" id="slide-14-4"><h2 id="numpy">NumPy</h2>
+<p>NumPy Arrays vs Python Listen:</p><pre class="code">list_a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>] <span class="hljs-comment"># Python - Liste (mit Verweisen auf andere Integer)</span>
+list_b = [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>] <span class="hljs-comment"># Python - Liste</span>
+
+<span class="hljs-comment"># NumPy - Array - Daten sind hierin enthalten, ohne auf Python-Integer zu verweisen</span>
+array_a = numpy.array(list_a)
+array_b = numpy.array(list_b)
+
+array_a + array_b <span class="hljs-comment"># sehr schnell (da in C implementiert)</span></pre></section><section class="slide" id="slide-14-5"><h2 id="numpy">NumPy</h2>
+<p>Kapitel 30</p>
+<ul>
+<li>Rechnen mit Matrizen</li>
+<li>Darstellung von Daten (matplotlib): Graphen, Histogramme</li>
+</ul>
+<p>Übungen:</p>
+<ul>
+<li>10 mio mal Würfeln (mit 10 Würfeln)</li>
+<li>Gleichungslösung (Klassen, doctests, numpy)</li>
+<li>Lagerbestand von Produkten (2d-array) &amp; preisliste (1d-array); gesucht: warenwert pro lager</li>
+</ul></section></section>
+
+    </div>
+    <div id="navigation-arrows">
+      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="navigation-arrows-svg"
+        xml:space="preserve" width="100%" height="100%" viewBox="-110 -110 220 220">
+        <path class="arrow right" d="M70,-30L100,0L70,30" />
+        <path class="arrow down" d="M-30,70L0,100L30,70" />
+        <path class="arrow left" d="M-70,-30L-100,0L-70,30" />
+        <path class="arrow up" d="M-30,-70L0,-100L30,-70" />
+      </svg>
+    </div>
+  </div>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 100vw;
+      height: 100vh;
+      margin: 0px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: rgb(150, 150, 150);
+      font-family: sans-serif;
+    }
+
+    ul {
+      padding-left: 1.5rem;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2rem;
+    }
+
+    .slide.inactive {
+      display: none;
+    }
+
+    #canvas {
+      box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.3);
+      background-color: #f8f8f8;
+      position: relative;
+      display: flex;
+    }
+
+    #canvas-content {
+      width: 100%;
+      height: 100%;
+    }
+
+    #canvas-content .note {
+      display: none;
+    }
+
+    #canvas-content img {
+      margin: 0px auto;
+      display: block;
+    }
+
+    @media (min-aspect-ratio: 8/5) {
+
+      html {
+        font-size: 3.5vh;
+      }
+
+      /* wide screen */
+      #canvas {
+        width: calc(100vh / 5 * 8);
+        height: 100vh;
+        padding: 5vh;
+      }
+    }
+
+    @media (max-aspect-ratio: 8/5) {
+
+      html {
+        font-size: calc(3.5vw * 5 / 8);
+      }
+
+      /* narrow screen */
+      #canvas {
+        width: 100vw;
+        height: calc(100vw * 5 / 8);
+        padding: calc(5vh * 5 / 8);
+      }
+    }
+
+    pre.code {
+      background-color: rgb(224, 233, 240);
+      box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.3);
+      padding: 1em;
+    }
+
+    #navigation-arrows {
+      position: absolute;
+      right: 2rem;
+      bottom: 2rem;
+      height: 3rem;
+      width: 3rem;
+    }
+
+    .arrow {
+      stroke: lightblue;
+      /*stroke-width: 0.8em; Chrome behaves differently with ems here */
+      stroke-width: 16px;
+      stroke-linecap: round;
+      fill: none;
+      cursor: pointer;
+    }
+
+    td,
+    th {
+      padding: 0.2em 0.8em;
+    }
+
+    th {
+      text-align: start;
+    }
+  </style>
+  <script>
+    let presenterWindow;
+    let activeSlide;
+    let slideCount;
+
+    const arrowUp = document.querySelector('.arrow.up');
+    const arrowDown = document.querySelector('.arrow.down');
+    const arrowRight = document.querySelector('.arrow.right');
+    const arrowLeft = document.querySelector('.arrow.left');
+    arrowUp.addEventListener('click',
+      () => {activateSlideSafe(activeSlide[0], activeSlide[1] - 1);}
+    );
+    arrowDown.addEventListener('click',
+      () => {activateSlideSafe(activeSlide[0], activeSlide[1] + 1);}
+    );
+    arrowLeft.addEventListener('click',
+      () => {activateSlideSafe(activeSlide[0] - 1, 1);}
+    );
+    arrowRight.addEventListener('click',
+      () => {activateSlideSafe(activeSlide[0] + 1, 1);}
+    )
+    const init = () => {
+      slideCount = countSlides();
+      activateSlideSafe(1, 1);
+    }
+
+    // count slides
+    const countSlides = () => {
+      const counts = [];
+      return [...document.querySelectorAll('.section')].map(section => section.childNodes.length);
+    }
+
+    const updateVisible = () => {
+      for (let slide of document.querySelectorAll('.slide')) {
+        if (slide.id === `slide-${activeSlide[0]}-${activeSlide[1]}`) {
+          slide.className = 'slide active';
+        } else {
+          slide.className = 'slide inactive';
+        }
+      }
+    }
+
+    const updatePageArrows = () => {
+      if (slideCount.length === 1) {
+        arrowLeft.style.opacity = "0";
+        arrowRight.style.opacity = "0";
+      } else {
+        const progressSections = (activeSlide[0] - 1) / (slideCount.length - 1);
+        arrowLeft.style.opacity = progressSections.toString();
+        arrowRight.style.opacity = (1 - progressSections).toString();
+      }
+      const slidesInActiveSection = slideCount[activeSlide[0] - 1]
+      if (slidesInActiveSection === 1) {
+        arrowUp.style.opacity = "0";
+        arrowDown.style.opacity = "0";
+      } else {
+        const progressSlides = (activeSlide[1] - 1) / (slidesInActiveSection - 1);
+        arrowUp.style.opacity = progressSlides.toString();
+        arrowDown.style.opacity = (1 - progressSlides).toString();
+      }
+    }
+
+    /**
+     * Activate a slide if it exists, else do nothing
+    */
+    const activateSlideSafe = (sectionIndex, slideIndex) => {
+      if (1 <= sectionIndex && sectionIndex <= slideCount.length && 1 <= slideIndex && slideIndex <= slideCount[sectionIndex - 1]) {
+        activeSlide = [sectionIndex, slideIndex];
+        updateVisible();
+        updatePageArrows();
+        scrolltoActiveSlide();
+      }
+    }
+
+    const activateNextSlide = () => {
+      console.log(activeSlide);
+      console.log(slideCount)
+      if (activeSlide[1] === slideCount[activeSlide[0] - 1]) {
+        console.log('right')
+        activateSlideSafe(activeSlide[0] + 1, 1);
+      } else {
+        console.log('down')
+        activateSlideSafe(activeSlide[0], activeSlide[1] + 1);
+      }
+    }
+
+    const scrolltoActiveSlide = () => {
+      const slideId = `#slide-${activeSlide[0]}-${activeSlide[1]}`;
+      if (presenterWindow) {
+        const activeSlide = presenterWindow.document.querySelector(slideId);
+        if (activeSlide) {
+          activeSlide.scrollIntoView();
+        }
+      }
+    }
+
+    document.querySelector('body').addEventListener('keydown', event => {
+      if (event.key === 'p') {
+        const canvasContent = document.querySelector('#canvas-content').innerHTML;
+        presenterWindow = window.open(document.URL, '_blank');
+        presenterWindow.onload = () => {
+          presenterWindow.document.querySelector('body').innerHTML = canvasContent;
+        }
+      }
+      if (event.key === 'ArrowRight') {
+        activateSlideSafe(activeSlide[0] + 1, 1);
+      } else if (event.key === 'ArrowLeft') {
+        activateSlideSafe(activeSlide[0] - 1, 1);
+      } else if (event.key === 'ArrowDown') {
+        activateSlideSafe(activeSlide[0], activeSlide[1] + 1);
+      } else if (event.key === 'ArrowUp') {
+        activateSlideSafe(activeSlide[0], activeSlide[1] - 1);
+      } else if (event.key === 'Enter') {
+        activateNextSlide();
+      } else {
+        console.log(event.key)
+      }
+    });
+
+    init();
+
+  </script>
+</body>
+
+</html>
