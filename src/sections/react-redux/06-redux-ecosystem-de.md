@@ -28,7 +28,7 @@
 
 ---
 
-## Redux Middleware - Implementatierung
+## Redux Middleware - Implementierung
 
 ```js
 const myLogger = store => next => action => {

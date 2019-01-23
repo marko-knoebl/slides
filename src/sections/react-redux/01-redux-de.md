@@ -14,7 +14,6 @@ Oft wird der gesamte Anwendungszustand durch ein Datenmodell repräsentiert. Jed
 
 ## Grundprinzipien von state management libraries
 
-
 - Anwendungszustand (state) wird in globalem Objekt gespeichert
 - _Jede_ Zustandsänderung wird durch eine _Action_ ausgelöst, die die Zustandsänderung genau beschreibt
 
@@ -66,12 +65,12 @@ Zentrales Element ist die _Reducer_-Funktion:
 ```js
 const initialState = { count: 0 };
 
-const counter = (state = initialState, action) => {
+const counterReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'INCREMENT':
-      return { count: state.count + 1 };
+      return { ...state, count: state.count + 1 };
     case 'DECREMENT':
-      return { count: state.count - 1 };
+      return { ...state, count: state.count - 1 };
     default:
       return state;
   }
@@ -95,9 +94,10 @@ Store = Datenspeicher, der von einem Reducer verwaltet wird
 ```js
 // stores.js
 import { createStore } from 'redux';
+import counterReducer from 'counterReducer';
 
 // counter = reducer
-const counterStore = createStore(counter);
+const counterStore = createStore(counterReducer);
 ```
 
 ---

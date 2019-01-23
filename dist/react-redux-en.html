@@ -154,10 +154,10 @@ counterStore.getState(); <span class="hljs-comment">// {count: 1}</span></pre></
 <p>additinal tasks: reach the number 4 (or 10) by dispatching actions</p></section></section><section class="section" id="section-2"><section class="slide" id="slide-2-1"><h1 id="react-with-redux">React with Redux</h1></section><section class="slide" id="slide-2-2"><h2 id="react-with-redux">React with Redux</h2>
 <p><a href="https://redux.js.org/basics/usage-with-react">https://redux.js.org/basics/usage-with-react</a></p>
 <p>Setup: <code>npm install redux react-redux</code></p>
-<p>TypeScript: <code>npm install redux react-redux @types/react-redux</code></p></section><section class="slide" id="slide-2-3"><h2 id="presentational-and-container-components">Presentational and Container Components</h2>
+<p>TypeScript: <code>npm install @types/react-redux</code></p></section><section class="slide" id="slide-2-3"><h2 id="presentational-and-container-components">Presentational and Container Components</h2>
 <ul>
 <li>presentational components: "Ordinary" React components (reusable)</li>
-<li>container components: Have access to the redux store</li>
+<li>container components: Have access to the redux store / are connected with the Redux store</li>
 </ul></section><section class="slide" id="slide-2-4"><h2 id="react-redux--provider-">React-Redux: < Provider ></h2>
 <p>Provider: Helps in adding a redux store to a React App</p></section><section class="slide" id="slide-2-5"><h2 id="react-redux--provider-">React-Redux: < Provider ></h2><pre class="code"><span class="hljs-comment">// index.js</span>
 <span class="hljs-keyword">import</span> { Provider } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-redux'</span>;
@@ -171,12 +171,13 @@ ReactDOM.render(
 );</pre></section><section class="slide" id="slide-2-6"><h2 id="redux-devtools">Redux devtools</h2>
 <p>Browser-plugin:</p>
 <p><a href="https://github.com/zalmoxisus/redux-devtools-extension">https://github.com/zalmoxisus/redux-devtools-extension</a></p></section><section class="slide" id="slide-2-7"><h2 id="redux-devtools">Redux devtools</h2>
-<p>einbinden:</p><pre class="code"><span class="hljs-keyword">import</span> {
+<p>include via:</p><pre class="code"><span class="hljs-keyword">import</span> {
   createStore,
   applyMiddleware,
   compose,
 } <span class="hljs-keyword">from</span> <span class="hljs-string">'redux'</span>;
 
+<span class="hljs-comment">// typescript: (window as any)</span>
 <span class="hljs-keyword">const</span> composeEnhancers =
   <span class="hljs-built_in">window</span>.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -212,10 +213,19 @@ export default connect(mapStateToProps)(App);</pre></section><section class="sli
     <span class="hljs-attr">decrement</span>: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">'DECREMENT'</span> }),
   };
 };</pre><pre class="code"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{this.props.increment}</span>&gt;</span>+<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{this.props.decrement}</span>&gt;</span>-<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></pre></section><section class="slide" id="slide-2-11"><h2 id="counter-connect-actions">Counter: Connect (actions)</h2><pre class="code"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App);</pre></section></section><section class="section" id="section-3"><section class="slide" id="slide-3-1"><h1 id="immutability">Immutability</h1></section><section class="slide" id="slide-3-2"><h2 id="immutability">Immutability</h2>
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{this.props.decrement}</span>&gt;</span>-<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></pre></section><section class="slide" id="slide-2-11"><h2 id="counter-dispatch-with-typescript">Counter: Dispatch with TypeScript</h2><pre class="code"><span class="hljs-keyword">import</span> { Action, Dispatch } <span class="hljs-keyword">from</span> <span class="hljs-string">'redux'</span>;
+
+<span class="hljs-keyword">interface</span> MyAction <span class="hljs-keyword">extends</span> Action {
+  payload: <span class="hljs-built_in">any</span>;
+}
+
+<span class="hljs-keyword">const</span> mapDispatchToProps = (
+  dispatch: Dispatch&lt;MyAction&gt;
+) =&gt; ({
+  increment: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    dispatch({ <span class="hljs-keyword">type</span>: <span class="hljs-string">'INCREMENT'</span>, payload: <span class="hljs-number">1</span> });
+  },
+});</pre></section></section><section class="section" id="section-3"><section class="slide" id="slide-3-1"><h1 id="immutability">Immutability</h1></section><section class="slide" id="slide-3-2"><h2 id="immutability">Immutability</h2>
 <p>important concept in functional programing and with React / Redux</p></section><section class="slide" id="slide-3-3"><h2 id="immutability">Immutability</h2>
 <p>When using Redux or React's PureComponent:</p>
 <p>Objects that describe the application state must not be modified directly</p>
@@ -348,23 +358,23 @@ rootStore.dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-stri
     <span class="hljs-keyword">return</span> next(action);
   }
 };</pre></section></section><section class="section" id="section-6"><section class="slide" id="slide-6-1"><h1 id="redux-thunk">Redux Thunk</h1></section><section class="slide" id="slide-6-2"><h2 id="redux-thunk">Redux Thunk</h2>
-<p>Thunk is a middleware that enables asynchronous behaviour in Redux - by dispatching functions</p></section><section class="slide" id="slide-6-3"><h2 id="thunk-sourcecode">Thunk sourcecode</h2>
+<p>Thunk is a middleware that enables asynchronous behaviour in Redux - by dispatching functions</p>
+<p>With Thunk it's possible to dispatch so-called <em>asynchronous actions</em> which in turn can dispatch multiple synchronous actions after some time.</p></section><section class="slide" id="slide-6-3"><h2 id="thunk-sourcecode">Thunk sourcecode</h2>
 <p>complete sourcecode:</p>
 <p><a href="https://github.com/reduxjs/redux-thunk/blob/master/src/index.js">https://github.com/reduxjs/redux-thunk/blob/master/src/index.js</a></p></section><section class="slide" id="slide-6-4"><h2 id="redux-thunk">Redux Thunk</h2>
-<p>With Thunk it's possible to dispatch so-called <em>asynchronous actions</em> which in turn can dispatch multiple synchronous actions after some time.</p></section><section class="slide" id="slide-6-5"><h2 id="redux-thunk">Redux Thunk</h2>
-<p>For example, we could call:</p><pre class="code">dispatch(getTodosFunction);</pre></section><section class="slide" id="slide-6-6"><h2 id="redux-thunk">Redux Thunk</h2>
+<p>For example, we could call:</p><pre class="code">dispatch(getTodosFunction);</pre></section><section class="slide" id="slide-6-5"><h2 id="redux-thunk">Redux Thunk</h2>
 <p>As an asynchronous action, <code>getTodosFunction</code> would not directly affect the redux store.</p>
 <p>Instead, it would usually lead to two other actions reaching the redux store:</p>
 <ul>
 <li>the action <code>LOAD_TODOS_REQUEST</code> would be dispatched immediately</li>
 <li>the action <code>LOAD_TODOS_SUCCESS</code> would be dispatched once the network request is complete</li>
-</ul></section><section class="slide" id="slide-6-7"><h2 id="redux-thunk">Redux Thunk</h2>
-<p>In Thunk, the synchronous logic remains in the reducer while the asynchronous logic is included in the action creator.</p></section><section class="slide" id="slide-6-8"><h2 id="installation">Installation</h2><pre class="code">npm install redux-thunk</pre></section><section class="slide" id="slide-6-9"><h2 id="including-thunk">Including Thunk</h2><pre class="code"><span class="hljs-keyword">import</span> thunk <span class="hljs-keyword">from</span> <span class="hljs-string">'redux-thunk'</span>;
+</ul></section><section class="slide" id="slide-6-6"><h2 id="redux-thunk">Redux Thunk</h2>
+<p>In Thunk, the synchronous logic remains in the reducer while the asynchronous logic is included in the action creator.</p></section><section class="slide" id="slide-6-7"><h2 id="installation">Installation</h2><pre class="code">npm install redux-thunk</pre></section><section class="slide" id="slide-6-8"><h2 id="including-thunk">Including Thunk</h2><pre class="code"><span class="hljs-keyword">import</span> thunk <span class="hljs-keyword">from</span> <span class="hljs-string">'redux-thunk'</span>;
 
 <span class="hljs-keyword">const</span> store = createStore(
   rootReducer,
   applyMiddleware(thunk)
-);</pre></section><section class="slide" id="slide-6-10"><h2 id="example-timer">example: timer</h2><pre class="code"><span class="hljs-comment">// sync actions</span>
+);</pre></section><section class="slide" id="slide-6-9"><h2 id="example-timer">example: timer</h2><pre class="code"><span class="hljs-comment">// sync actions</span>
 <span class="hljs-keyword">const</span> started = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> ({ <span class="hljs-attr">type</span>: <span class="hljs-string">'START'</span> });
 <span class="hljs-keyword">const</span> increment = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> ({ <span class="hljs-attr">type</span>: <span class="hljs-string">'INCREMENT'</span> });
 <span class="hljs-comment">// async action</span>
@@ -373,20 +383,8 @@ rootStore.dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-stri
   setInterval(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
     dispatch(increment());
   }, <span class="hljs-number">1000</span>);
-};</pre></section><section class="slide" id="slide-6-11"><h2 id="example-timer-typescript">example: timer (TypeScript)</h2><pre class="code"><span class="hljs-keyword">const</span> start = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> (
-  dispatch: ThunkDispatch&lt;IState, <span class="hljs-built_in">void</span>, Action&gt;
-) =&gt; {
-  dispatch(started());
-  setInterval(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-    dispatch(increment());
-  }, <span class="hljs-number">1000</span>);
-};</pre></section><section class="slide" id="slide-6-12"><h2 id="example-timer-typescript">example: timer (TypeScript)</h2><pre class="code"><span class="hljs-keyword">const</span> mapDispatchToProps = (
-  dispatch: ThunkDispatch&lt;IState, <span class="hljs-built_in">void</span>, Action&gt;
-) =&gt; ({
-  onStart: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-    dispatch(started());
-  },
-});</pre></section><section class="slide" id="slide-6-13"><h2 id="example-timer">example: timer</h2>
+};</pre></section><section class="slide" id="slide-6-10"><h2 id="redux-thunk-with-typescript">Redux Thunk with TypeScript</h2>
+<p>We have to give the complete signature of <code>dispatch</code>:</p><pre class="code">dispatch: ThunkDispatch&lt;IState, <span class="hljs-built_in">void</span>, IAction&gt;</pre></section><section class="slide" id="slide-6-11"><h2 id="example-timer">example: timer</h2>
 <p>The reducer only receives synchronous actions</p><pre class="code"><span class="hljs-keyword">const</span> timeReducer = (
   state = { <span class="hljs-attr">started</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">time</span>: <span class="hljs-number">0</span> },
   action
@@ -399,7 +397,7 @@ rootStore.dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-stri
     <span class="hljs-keyword">default</span>:
       <span class="hljs-keyword">return</span> state;
   }
-};</pre></section><section class="slide" id="slide-6-14"><h2 id="thunk-accessing-the-redux-state">Thunk: accessing the Redux state</h2>
+};</pre></section><section class="slide" id="slide-6-12"><h2 id="thunk-accessing-the-redux-state">Thunk: accessing the Redux state</h2>
 <p>Supply a second argument - it will receive the <code>getState</code> function as its value</p><pre class="code"><span class="hljs-keyword">const</span> actionAsync = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> (
   dispatch: ThunkDispatch&lt;IState, <span class="hljs-built_in">void</span>, Action&gt;,
   getState: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> IState
@@ -407,11 +405,11 @@ rootStore.dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-stri
   dispatch(started());
   <span class="hljs-keyword">const</span> s = getState();
   ...
-};</pre></section><section class="slide" id="slide-6-15"><h2 id="task-loading-todos-from-a-rest-api">task: loading Todos from a REST API</h2>
-<p>create a thunk that will load example todos from <code>https://jsonplaceholder.typicode.com/todos</code></p></section><section class="slide" id="slide-6-16"><h2 id="task-loading-todos-from-a-graphql-api">task: loading Todos from a GraphQL API</h2>
+};</pre></section><section class="slide" id="slide-6-13"><h2 id="task-loading-todos-from-a-rest-api">task: loading Todos from a REST API</h2>
+<p>create a thunk that will load example todos from <code>https://jsonplaceholder.typicode.com/todos</code></p></section><section class="slide" id="slide-6-14"><h2 id="task-loading-todos-from-a-graphql-api">task: loading Todos from a GraphQL API</h2>
 <p>create a thunk that will load example todos from <code>https://5qn401kkl9.lp.gql.zone/graphql</code></p><div class="note"> 
 admin: https://launchpad.graphql.com/5qn401kkl9
- </div></section><section class="slide" id="slide-6-17"><h2 id="resource-taming-large-react-applications-w-redux">resource: Taming Large React Applications w/ Redux</h2>
+ </div></section><section class="slide" id="slide-6-15"><h2 id="resource-taming-large-react-applications-w-redux">resource: Taming Large React Applications w/ Redux</h2>
 <p><a href="https://slides.com/joelkanzelmeyer/taming-large-redux-apps">https://slides.com/joelkanzelmeyer/taming-large-redux-apps</a></p></section></section>
 
     </div>

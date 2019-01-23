@@ -6,6 +6,8 @@
 
 Thunk is a middleware that enables asynchronous behaviour in Redux - by dispatching functions
 
+With Thunk it's possible to dispatch so-called _asynchronous actions_ which in turn can dispatch multiple synchronous actions after some time.
+
 ---
 
 ## Thunk sourcecode
@@ -13,12 +15,6 @@ Thunk is a middleware that enables asynchronous behaviour in Redux - by dispatch
 complete sourcecode:
 
 https://github.com/reduxjs/redux-thunk/blob/master/src/index.js
-
----
-
-## Redux Thunk
-
-With Thunk it's possible to dispatch so-called _asynchronous actions_ which in turn can dispatch multiple synchronous actions after some time.
 
 ---
 
@@ -87,31 +83,12 @@ const start = () => dispatch => {
 
 ---
 
-## example: timer (TypeScript)
+## Redux Thunk with TypeScript
+
+We have to give the complete signature of `dispatch`:
 
 ```ts
-const start = () => (
-  dispatch: ThunkDispatch<IState, void, Action>
-) => {
-  dispatch(started());
-  setInterval(() => {
-    dispatch(increment());
-  }, 1000);
-};
-```
-
----
-
-## example: timer (TypeScript)
-
-```ts
-const mapDispatchToProps = (
-  dispatch: ThunkDispatch<IState, void, Action>
-) => ({
-  onStart: () => {
-    dispatch(started());
-  },
-});
+dispatch: ThunkDispatch<IState, void, IAction>
 ```
 
 ---

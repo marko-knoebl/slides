@@ -105,6 +105,24 @@ const timeReducer = (
 
 ---
 
+## Redux Thunk mit TypeScript
+
+Bei Thunk müssen wir immer die gesamte Signatur von dispatch angeben
+
+```ts
+const mapDispatchToProps = (
+  dispatch: ThunkDispatch<IState, void, IAction>
+) => {...};
+```
+
+```ts
+const myAction = () => (
+  dispatch: ThunkDispatch<IState, void, IAction>
+) => {...};
+```
+
+---
+
 ## Thunk: Zugriff auf den Redux store
 
 Ein zweites Argument kann optional übergeben werden: Es erhält die `getState`-Funktion als Wert.

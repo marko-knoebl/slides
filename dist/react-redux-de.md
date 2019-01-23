@@ -14,7 +14,6 @@ Oft wird der gesamte Anwendungszustand durch ein Datenmodell repräsentiert. Jed
 
 ## Grundprinzipien von state management libraries
 
-
 - Anwendungszustand (state) wird in globalem Objekt gespeichert
 - _Jede_ Zustandsänderung wird durch eine _Action_ ausgelöst, die die Zustandsänderung genau beschreibt
 
@@ -66,12 +65,12 @@ Zentrales Element ist die _Reducer_-Funktion:
 ```js
 const initialState = { count: 0 };
 
-const counter = (state = initialState, action) => {
+const counterReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'INCREMENT':
-      return { count: state.count + 1 };
+      return { ...state, count: state.count + 1 };
     case 'DECREMENT':
-      return { count: state.count - 1 };
+      return { ...state, count: state.count - 1 };
     default:
       return state;
   }
@@ -95,9 +94,10 @@ Store = Datenspeicher, der von einem Reducer verwaltet wird
 ```js
 // stores.js
 import { createStore } from 'redux';
+import counterReducer from 'counterReducer';
 
 // counter = reducer
-const counterStore = createStore(counter);
+const counterStore = createStore(counterReducer);
 ```
 
 ---
@@ -132,14 +132,14 @@ https://redux.js.org/basics/usage-with-react
 
 Setup: `npm install redux react-redux`
 
-Typescript: `npm install redux react-redux @types/react-redux`
+Typescript: `npm install @types/react-redux`
 
 ---
 
 ## Presentational und Container Components
 
 - presentational components: "Normale" React-Komponenten (wiederverwendbar)
-- container components: Zugriff auf Redux-Store
+- container components: Zugriff auf Redux-Store / Mit dem Redux-Store verbunden
 
 ---
 
@@ -166,7 +166,6 @@ ReactDOM.render(
 ```
 
 ---
----
 
 ## Redux devtools
 
@@ -187,6 +186,7 @@ import {
   compose,
 } from 'redux';
 
+// typescript: (window as any)
 const composeEnhancers =
   window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -254,13 +254,22 @@ const mapDispatchToProps = dispatch => ({
 
 ---
 
-## Counter: Connect (actions)
+## Counter: Dispatch mit TypeScript
 
-```jsx
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App);
+```ts
+import { Action, Dispatch } from 'redux';
+
+interface MyAction extends Action {
+  payload: any;
+}
+
+const mapDispatchToProps = (
+  dispatch: Dispatch<MyAction>
+) => ({
+  increment: () => {
+    dispatch({ type: 'INCREMENT', payload: 1 });
+  },
+});
 ```
 
 ----
@@ -342,7 +351,7 @@ let newUser = { ...user, email: 'johndoe@gmail.com' };
 
 ---
 
-## Grundelemente von Redux
+## Elemente von Redux
 
 - _state_: Anwendungszustand
 - _action_: Beschreibt eine Änderung am _state_
@@ -383,7 +392,9 @@ import { ADD_TODO } from './constants';
 
 let a = {
   type: ADD_TODO,
-  payload: 'Build my first redux app',
+  payload: {
+    title: 'Build my first redux app',
+  },
 };
 ```
 
@@ -394,7 +405,9 @@ let a = {
 ```js
 let a = {
   type: TOGGLE_TODO,
-  payload: 2,
+  payload: {
+    id: 2,
+  },
 };
 ```
 
@@ -408,8 +421,8 @@ Action creators sind meist sehr einfache Funktionen, die eine bestimmte Action e
 const addTodo = (title, completed = false) => ({
   type: ADD_TODO,
   payload: {
-    title,
-    completed,
+    title: title,
+    completed: completed,
   },
 });
 ```
@@ -431,9 +444,9 @@ Store = Datenspeicher, der von einem Reducer verwaltet wird
 
 ```js
 import { createStore } from 'redux';
+import counterReducer from './counterReducer';
 
-// counter = reducer
-const store = createStore(counter);
+const store = createStore(counterReducer);
 ```
 
 ---
@@ -442,17 +455,17 @@ const store = createStore(counter);
 
 ```js
 const rootReducer = combineReducers({
-  a: counter,
-  b: mathador,
+  counter: counterReducer,
+  mathador: mathadorReducer,
 });
 
 const rootStore = createStore(rootReducer);
 
 rootStore.getState();
-// {a: {count: 0}, b: {number: 1}}
+// {counter: {count: 0}, mathador: {number: 1}}
 
 rootStore.dispatch({ type: 'INCREMENT' });
-// {a: {count: 1}, b: {number: 1}}
+// {counter: {count: 1}, mathador: {number: 1}}
 ```
 
 ---
@@ -491,7 +504,7 @@ rootStore.dispatch({ type: 'INCREMENT' });
 
 ---
 
-## Redux Middleware - Implementatierung
+## Redux Middleware - Implementierung
 
 ```js
 const myLogger = store => next => action => {
@@ -686,6 +699,24 @@ const timeReducer = (
       return state;
   }
 };
+```
+
+---
+
+## Redux Thunk mit TypeScript
+
+Bei Thunk müssen wir immer die gesamte Signatur von dispatch angeben
+
+```ts
+const mapDispatchToProps = (
+  dispatch: ThunkDispatch<IState, void, IAction>
+) => {...};
+```
+
+```ts
+const myAction = () => (
+  dispatch: ThunkDispatch<IState, void, IAction>
+) => {...};
 ```
 
 ---

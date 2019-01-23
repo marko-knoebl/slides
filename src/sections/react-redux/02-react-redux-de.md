@@ -8,14 +8,14 @@ https://redux.js.org/basics/usage-with-react
 
 Setup: `npm install redux react-redux`
 
-Typescript: `npm install redux react-redux @types/react-redux`
+Typescript: `npm install @types/react-redux`
 
 ---
 
 ## Presentational und Container Components
 
 - presentational components: "Normale" React-Komponenten (wiederverwendbar)
-- container components: Zugriff auf Redux-Store
+- container components: Zugriff auf Redux-Store / Mit dem Redux-Store verbunden
 
 ---
 
@@ -42,7 +42,6 @@ ReactDOM.render(
 ```
 
 ---
----
 
 ## Redux devtools
 
@@ -63,6 +62,7 @@ import {
   compose,
 } from 'redux';
 
+// typescript: (window as any)
 const composeEnhancers =
   window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -130,11 +130,20 @@ const mapDispatchToProps = dispatch => ({
 
 ---
 
-## Counter: Connect (actions)
+## Counter: Dispatch mit TypeScript
 
-```jsx
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App);
+```ts
+import { Action, Dispatch } from 'redux';
+
+interface MyAction extends Action {
+  payload: any;
+}
+
+const mapDispatchToProps = (
+  dispatch: Dispatch<MyAction>
+) => ({
+  increment: () => {
+    dispatch({ type: 'INCREMENT', payload: 1 });
+  },
+});
 ```

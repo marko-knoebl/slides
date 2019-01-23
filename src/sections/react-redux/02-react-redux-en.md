@@ -8,14 +8,14 @@ https://redux.js.org/basics/usage-with-react
 
 Setup: `npm install redux react-redux`
 
-TypeScript: `npm install redux react-redux @types/react-redux`
+TypeScript: `npm install @types/react-redux`
 
 ---
 
 ## Presentational and Container Components
 
 - presentational components: "Ordinary" React components (reusable)
-- container components: Have access to the redux store
+- container components: Have access to the redux store / are connected with the Redux store
 
 ---
 
@@ -52,7 +52,7 @@ https://github.com/zalmoxisus/redux-devtools-extension
 
 ## Redux devtools
 
-einbinden:
+include via:
 
 ```js
 import {
@@ -61,6 +61,7 @@ import {
   compose,
 } from 'redux';
 
+// typescript: (window as any)
 const composeEnhancers =
   window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -130,11 +131,20 @@ const mapDispatchToProps = dispatch => {
 
 ---
 
-## Counter: Connect (actions)
+## Counter: Dispatch with TypeScript
 
-```jsx
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App);
+```ts
+import { Action, Dispatch } from 'redux';
+
+interface MyAction extends Action {
+  payload: any;
+}
+
+const mapDispatchToProps = (
+  dispatch: Dispatch<MyAction>
+) => ({
+  increment: () => {
+    dispatch({ type: 'INCREMENT', payload: 1 });
+  },
+});
 ```

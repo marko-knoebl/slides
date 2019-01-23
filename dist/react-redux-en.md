@@ -131,14 +131,14 @@ https://redux.js.org/basics/usage-with-react
 
 Setup: `npm install redux react-redux`
 
-TypeScript: `npm install redux react-redux @types/react-redux`
+TypeScript: `npm install @types/react-redux`
 
 ---
 
 ## Presentational and Container Components
 
 - presentational components: "Ordinary" React components (reusable)
-- container components: Have access to the redux store
+- container components: Have access to the redux store / are connected with the Redux store
 
 ---
 
@@ -175,7 +175,7 @@ https://github.com/zalmoxisus/redux-devtools-extension
 
 ## Redux devtools
 
-einbinden:
+include via:
 
 ```js
 import {
@@ -184,6 +184,7 @@ import {
   compose,
 } from 'redux';
 
+// typescript: (window as any)
 const composeEnhancers =
   window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -253,13 +254,22 @@ const mapDispatchToProps = dispatch => {
 
 ---
 
-## Counter: Connect (actions)
+## Counter: Dispatch with TypeScript
 
-```jsx
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App);
+```ts
+import { Action, Dispatch } from 'redux';
+
+interface MyAction extends Action {
+  payload: any;
+}
+
+const mapDispatchToProps = (
+  dispatch: Dispatch<MyAction>
+) => ({
+  increment: () => {
+    dispatch({ type: 'INCREMENT', payload: 1 });
+  },
+});
 ```
 
 ----
@@ -580,6 +590,8 @@ const functionMiddleware = store => next => action => {
 
 Thunk is a middleware that enables asynchronous behaviour in Redux - by dispatching functions
 
+With Thunk it's possible to dispatch so-called _asynchronous actions_ which in turn can dispatch multiple synchronous actions after some time.
+
 ---
 
 ## Thunk sourcecode
@@ -587,12 +599,6 @@ Thunk is a middleware that enables asynchronous behaviour in Redux - by dispatch
 complete sourcecode:
 
 https://github.com/reduxjs/redux-thunk/blob/master/src/index.js
-
----
-
-## Redux Thunk
-
-With Thunk it's possible to dispatch so-called _asynchronous actions_ which in turn can dispatch multiple synchronous actions after some time.
 
 ---
 
@@ -661,31 +667,12 @@ const start = () => dispatch => {
 
 ---
 
-## example: timer (TypeScript)
+## Redux Thunk with TypeScript
+
+We have to give the complete signature of `dispatch`:
 
 ```ts
-const start = () => (
-  dispatch: ThunkDispatch<IState, void, Action>
-) => {
-  dispatch(started());
-  setInterval(() => {
-    dispatch(increment());
-  }, 1000);
-};
-```
-
----
-
-## example: timer (TypeScript)
-
-```ts
-const mapDispatchToProps = (
-  dispatch: ThunkDispatch<IState, void, Action>
-) => ({
-  onStart: () => {
-    dispatch(started());
-  },
-});
+dispatch: ThunkDispatch<IState, void, IAction>
 ```
 
 ---

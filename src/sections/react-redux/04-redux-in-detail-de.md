@@ -2,7 +2,7 @@
 
 ---
 
-## Grundelemente von Redux
+## Elemente von Redux
 
 - _state_: Anwendungszustand
 - _action_: Beschreibt eine Änderung am _state_
@@ -43,7 +43,9 @@ import { ADD_TODO } from './constants';
 
 let a = {
   type: ADD_TODO,
-  payload: 'Build my first redux app',
+  payload: {
+    title: 'Build my first redux app',
+  },
 };
 ```
 
@@ -54,7 +56,9 @@ let a = {
 ```js
 let a = {
   type: TOGGLE_TODO,
-  payload: 2,
+  payload: {
+    id: 2,
+  },
 };
 ```
 
@@ -68,8 +72,8 @@ Action creators sind meist sehr einfache Funktionen, die eine bestimmte Action e
 const addTodo = (title, completed = false) => ({
   type: ADD_TODO,
   payload: {
-    title,
-    completed,
+    title: title,
+    completed: completed,
   },
 });
 ```
@@ -91,9 +95,9 @@ Store = Datenspeicher, der von einem Reducer verwaltet wird
 
 ```js
 import { createStore } from 'redux';
+import counterReducer from './counterReducer';
 
-// counter = reducer
-const store = createStore(counter);
+const store = createStore(counterReducer);
 ```
 
 ---
@@ -102,17 +106,17 @@ const store = createStore(counter);
 
 ```js
 const rootReducer = combineReducers({
-  a: counter,
-  b: mathador,
+  counter: counterReducer,
+  mathador: mathadorReducer,
 });
 
 const rootStore = createStore(rootReducer);
 
 rootStore.getState();
-// {a: {count: 0}, b: {number: 1}}
+// {counter: {count: 0}, mathador: {number: 1}}
 
 rootStore.dispatch({ type: 'INCREMENT' });
-// {a: {count: 1}, b: {number: 1}}
+// {counter: {count: 1}, mathador: {number: 1}}
 ```
 
 ---
