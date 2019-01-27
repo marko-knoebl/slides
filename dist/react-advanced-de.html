@@ -263,7 +263,52 @@ Ganze Anwendung wird mit einem < BrowserRouter > - Tag umschlossen</p><pre class
 <li>dist-Ornder via drag&amp;drop auf bitballoon.com (app.netlify.com/drop)</li>
 <li>edit name auswählen und kürzeren Namen wählen</li>
 <li>Manuell auf https wechseln - in Chrome am Desktop und Mobilgerät ausprobieren</li>
-</ul></section></section>
+</ul></section></section><section class="section" id="section-4"><section class="slide" id="slide-4-1"><h1 id="context">Context</h1></section><section class="slide" id="slide-4-2"><h2 id="context">Context</h2>
+<p>Möglichkeit, Werte aus einer Komponente direkt allen weiter unten im Dokumentenbaum liegenden Komponenten zur Verfügung zu stellen - ohne den state über jede Ebene übergeben zu müssen</p></section><section class="slide" id="slide-4-3"><h2 id="context">Context</h2>
+<p>zwei Elemente:</p>
+<ul>
+<li><code>Provider</code>: stellt Werte zur Verfügung</li>
+<li><code>Consumer</code>: verwendet diese Werte (kann weit unten in der Komponentenhierarchie liegen)</li>
+</ul></section><section class="slide" id="slide-4-4"><h2 id="context">Context</h2>
+<p>Das Interface von Context kann sowohl Daten (aus dem State) als auch Eventhandler übergeben.</p></section><section class="slide" id="slide-4-5"><h2 id="context---beispiel-provider">Context - Beispiel: Provider</h2><pre class="code"><span class="hljs-keyword">const</span> MyContext = React.createContext();
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">App</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
+  render() {
+    <span class="hljs-keyword">return</span> (
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">MyContext.Provider</span>
+        <span class="hljs-attr">value</span>=<span class="hljs-string">{{</span>
+          <span class="hljs-attr">todos:</span> <span class="hljs-attr">this.state.todos</span>,
+          <span class="hljs-attr">onToggle:</span> <span class="hljs-attr">this.handleToggle</span>,
+        }}&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">TodoList</span> /&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">MyContext.Provider</span>&gt;</span>
+    );
+  }
+}</span></pre></section><section class="slide" id="slide-4-6"><h2 id="context---beispiel-consumer">Context - Beispiel: Consumer</h2><pre class="code"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TodoList</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
+  render() {
+    <span class="hljs-keyword">return</span> (
+      &lt;MyContext.Consumer&gt;
+        {context =&gt; (
+          &lt;div&gt;
+            {JSON.stringify(context)}
+            &lt;button onClick={() =&gt; context.onToggle(2)} /&gt;
+          &lt;/div&gt;
+        )}
+      &lt;/MyContext.Consumer&gt;
+    );
+  }
+}</pre></section></section><section class="section" id="section-5"><section class="slide" id="slide-5-1"><h1 id="fragmente">Fragmente</h1></section><section class="slide" id="slide-5-2"><h2 id="fragmente">Fragmente</h2>
+<p>Erlauben es einer Komponente, mehrere Elemente zurückzugeben (anstatt eines einzenen Elements)</p></section><section class="slide" id="slide-5-3"><h2 id="fragmente---beispiel">Fragmente - Beispiel</h2><pre class="code">return (
+  &lt;&gt;
+    &lt;td&gt;Hello&lt;/td&gt;
+    &lt;td&gt;World&lt;/td&gt;
+  &lt;/&gt;
+);</pre><p>Langversion:</p><pre class="code">return (
+  &lt;React.Fragment&gt;
+    &lt;td&gt;Hello&lt;/td&gt;
+    &lt;td&gt;World&lt;/td&gt;
+  &lt;/React.Fragment&gt;
+);</pre></section></section>
 
     </div>
     <div id="navigation-arrows">
