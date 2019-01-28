@@ -1,0 +1,12 @@
+- "debugger" - statement
+- black boxing of files
+- breakpoints in the browser
+  - set breakpoints
+  - activate / deactivate breakpoints
+  - conditional breakpoints
+- step in code
+  - play / pause
+  - step over
+  - step in
+  - step out
+- watch variables

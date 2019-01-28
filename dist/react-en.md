@@ -232,7 +232,7 @@ JavaScript is standardised under the name _ECMAScript_ (ES)
 
 ## modules & imports
 
-- It's possible to import objects from other js-files - no more global Namespace
+- It's possible to import objects from other js-files - no more global namespace
 - Is handled by webpack in most cases
 
 ```js
@@ -261,7 +261,7 @@ export default class User {
 
 ```js
 // main.js
-import MyUser from 'user.js';
+import User from 'user.js';
 ```
 
 ---

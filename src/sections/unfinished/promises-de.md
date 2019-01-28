@@ -94,19 +94,16 @@ fetch('https://jsonplaceholder.typicode.com/todos')
 
 ```js
 fetch('https://jsonplaceholder.typicode.com/todos')
-  .then(
-    response => {
-      if (!response.ok) {
-        throw response.statusText;
-      }
-      return response.json();
-    },
-    error => {
-      console.log('unable to retrieve data');
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('network response not ok');
     }
-  )
-  .catch(error => console.log('unable to parse data'))
-  .then(updatePageWithNewTodos);
+    return response.json();
+  })
+  .then(data => {
+    console.log(data);
+  })
+  .catch(error => console.log(error.message));
 ```
 
 ---

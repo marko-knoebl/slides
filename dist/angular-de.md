@@ -305,7 +305,7 @@ import { User } from 'user.js';
 ## Module & Imports
 
 ```js
-// user.js
+// User.js
 // es kann 1 default export geben
 export default class User {
    ...
@@ -314,7 +314,7 @@ export default class User {
 
 ```js
 // main.js
-import MyUser from 'user.js';
+import User from 'User.js';
 ```
 
 ---

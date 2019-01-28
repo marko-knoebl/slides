@@ -26,6 +26,10 @@ fetch(url)
   });
 ```
 
+---
+
+## Nutzung mit Promises
+
 ```js
 const url = 'https://jsonplaceholder.typicode.com/todos';
 

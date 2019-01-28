@@ -21,6 +21,7 @@
 ## CSS-Beispiel
 
 ```css
+/* Kommentar */
 h1 {
   font-family: sans-serif;
   color: grey;
@@ -46,6 +47,15 @@ Universalselektor: `*`
 Tag-Selektor: `h1`
 Klassen-Selektor: `.important`
 ID-Selektor: `#home-button`
+
+---
+
+## CSS-Selektoren: Priorität
+
+Falls sich zwei CSS-Attribute widersprechen, "gewinnt":
+
+- das Attribut mit dem _spezifischeren_ Selektor
+- bzw. bei gleicher Spezifizität, das CSS-Statement, das im Code _später_ auftritt
 
 ---
 

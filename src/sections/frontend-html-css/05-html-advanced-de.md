@@ -17,7 +17,7 @@
 - table, tr
 - th, td
 - border-collapse
-- caption
+- caption-Tag
 - colspan
 
 ---
@@ -93,3 +93,31 @@ Das `autocomplete`-Attribut kann für die Autovervollständigung hilfreich sein,
 - `maxlength`
 
 CSS-Pseudoklassen: `:valid`, `:invalid`
+
+---
+
+## Validierung - Beispiel
+
+```html
+<input
+  type="number"
+  min="-5"
+  max="5"
+  step="0.1"
+  value="1"
+/>
+```
+
+---
+
+## Aktionen bei Formularen
+
+```html
+<form action="login.php" method="post">
+  <input name="username" /><br />
+  <input name="password" type="password" /><br />
+  <button>log in</button>
+</form>
+```
+
+Bei Betätigen des Buttons sendet das Formular einen post-Request an die Adresse _login.php_ und übermittelt die Daten _username_ und _password_

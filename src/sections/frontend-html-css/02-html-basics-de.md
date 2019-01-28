@@ -16,8 +16,8 @@ HTML besteht aus verschachtelten **Elementen**, die von **Tags** begrenzt werden
 
 Manche HTML-Elemente haben keinen Inhalt, zB der br-Tag, der einen Zeilenumbruch darstellt:
 
-```html
 <!-- prettier-ignore -->
+```html
 <br>
 ```
 
@@ -44,6 +44,7 @@ Beispiele:
 - br
 - ul & li
 - img
+- a
 
 ---
 
@@ -93,13 +94,28 @@ Um die folgenden Zeichen in einem HTML-Dokument darzustellen, sollten sie immer 
 - `>` wird zu `&gt;`
 - `&` wird zu `&amp;`
 
+Folgende Zeichen müssen in HTML-Attributen excaped werden:
+
+- `"` wird zu `&quot;`
+- (`'` wird zu `&apos;`, wenn das HTML-Attribut durch `'` begrenzt wird)
+
+---
+
+## Besondere Zeichen
+
+Es sollte heutzutage immer `<meta charset="UTF-8" />` angegeben sein, dann können generell beliebige Unicode-Zeichen verwendet werden.
+
+```html
+<button>😊</button>
+```
+
 ---
 
 ## Viewport
 
 ```html
 <meta
-  name="viewport"
+  name="view&quot;port"
   content="width=device-width, initial-scale=1"
 />
 ```

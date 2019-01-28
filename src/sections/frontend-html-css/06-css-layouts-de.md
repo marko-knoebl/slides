@@ -8,6 +8,15 @@
 
 ---
 
+## Positionierung
+
+- `position`: `absolute`
+- (`position`: `relative`)
+- (`position`: `fixed`)
+- (`position`: `static`: Standardwert)
+
+---
+
 ## Flexbox
 
 [css-tricks.com](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
