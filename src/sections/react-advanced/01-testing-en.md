@@ -91,6 +91,12 @@ Snapshot tests are a kind of regression tests
 npm install --save-dev react-test-renderer
 ```
 
+für TypeScript:
+
+```bash
+npm install --save-dev @types/react-test-renderer
+```
+
 ---
 
 ## Snapshot tests in React - creating tests
