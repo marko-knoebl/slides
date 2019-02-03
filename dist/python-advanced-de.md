@@ -137,8 +137,6 @@ python -m unittest
 
 ## debugger
 
-----
-
 # Exceptions auslösen
 
 ## Exceptions auslösen
@@ -159,8 +157,6 @@ class MoneyParseException(Exception):
 
 raise MoneyParseException()
 ```
-
-----
 
 # Typendeklarationen
 
@@ -222,8 +218,6 @@ roman: Dict[int, str] = {1: 'I', 2: 'II', 3: 'III', 4: 'IV'}
 https://mypy.readthedocs.io
 
 (auch für Python 2)
-
-----
 
 # Objektorientierung (Fortgeschritten)
 
@@ -403,8 +397,6 @@ f.b = 3 # prints: "set propery 'b'"
 - Klasse "BankAccount"
 - Klasse "Dictionary" (Wörterbuch)
 
-----
-
 # Funktionen - Fortgeschritten
 
 ---
@@ -460,8 +452,6 @@ partial
 
 from functools import partial
 open_utf8 = partial(open, encoding='UTF-8')
-
-----
 
 # Iterators
 
@@ -619,8 +609,6 @@ def count():
 Iterable = Objekt, über das iteriert werden kann - definiert eine `__iter__`-Methode
 
 Beispiele: Listen, Iterators
-
-----
 
 # Prallelisierung: Threads & Multiprocessing
 

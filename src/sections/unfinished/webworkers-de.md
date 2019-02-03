@@ -6,7 +6,7 @@ Können genutzt werden, um intensive Berechnungen durchzuführen - blockieren di
 
 ---
 
-# Worker erstellen
+## Worker erstellen
 
 ```js
 const worker = new Worker('worker.js');
@@ -14,7 +14,7 @@ const worker = new Worker('worker.js');
 
 ---
 
-# Auf Antwort des Workers lauschen
+## Auf Antwort des Workers lauschen
 
 ```js
 worker.onmessage = function(message) {
@@ -24,7 +24,7 @@ worker.onmessage = function(message) {
 
 ---
 
-# Dem Worker zu arbeiten geben
+## Dem Worker zu arbeiten geben
 
 ```js
 worker.postMessage(42);
@@ -32,7 +32,7 @@ worker.postMessage(42);
 
 ---
 
-# Im Worker selbst
+## Im Worker selbst
 
 ```js
 onmessage = function(message) {
@@ -43,13 +43,13 @@ onmessage = function(message) {
 
 ---
 
-# Daten übergeben
+## Daten übergeben
 
 Beim hin-und-her-Übergeben von Daten: Daten werden kopiert und als 'plain' JS-Objekte verwertet
 
 ---
 
-# Übung: Fibonacci
+## Übung: Fibonacci
 
 Im WebWorker laufen lassen:
 

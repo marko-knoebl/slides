@@ -2,7 +2,7 @@
 
 ---
 
-# GraphQL examples
+## GraphQL examples
 
 from https://github.com/APIs-guru/graphql-apis
 
@@ -14,7 +14,7 @@ from https://github.com/APIs-guru/graphql-apis
 
 ---
 
-# GraphiQL explorer
+## GraphiQL explorer
 
 Graph*i*QL: Browser-based explorer for GraphQL APIs
 
@@ -23,7 +23,7 @@ Graph*i*QL: Browser-based explorer for GraphQL APIs
 
 ---
 
-# simple GraphQL exercises
+## simple GraphQL exercises
 
 - Get a list of titles of all Star Wars films in the database
 - Get a list of planets and planet populations from Star Wars
@@ -31,7 +31,7 @@ Graph*i*QL: Browser-based explorer for GraphQL APIs
 
 ---
 
-# List of titles of Star Wars films
+## List of titles of Star Wars films
 
 ```graphql
 query getTitles {
@@ -45,7 +45,7 @@ query getTitles {
 
 ---
 
-# List of planets and planet populations
+## List of planets and planet populations
 
 ```graphql
 query getPlanetsWithPopulations {
@@ -60,7 +60,7 @@ query getPlanetsWithPopulations {
 
 ---
 
-# List of starships grouped by film
+## List of starships grouped by film
 
 ```graphql
 query getStarshipsByFilm {
@@ -79,7 +79,7 @@ query getStarshipsByFilm {
 
 ---
 
-# Query parameters
+## Query parameters
 
 so far we've seen how we can define the structure of our query
 
@@ -87,7 +87,7 @@ next we want to specify parameters within our queries
 
 ---
 
-# Query parameters
+## Query parameters
 
 Only query the pokémon with the specified name
 
@@ -105,7 +105,7 @@ query getCharmander {
 
 ---
 
-# Query parameters
+## Query parameters
 
 Query the first three pokémon in the database
 
@@ -121,26 +121,26 @@ Note: specifying a _first_ parameter is possible because it's implemented on the
 
 ---
 
-# Query parameters: exercises
+## Query parameters: exercises
 
 - get the name, weight and classification of Pikachu
 - get the name and weight of the first three pokémon
 
 ---
 
-# Required and optional parameters
+## Required and optional parameters
 
 Required parameters are marked with a `!`. These must always be included. Similarly, returned attributes that will always be present (like `id`) will be marked in the same way.
 
 ---
 
-# Aliases
+## Aliases
 
 Task: number of Pikachu and Raichu
 
 ---
 
-# Aliases
+## Aliases
 
 This cannot be done the way we know:
 
@@ -157,7 +157,7 @@ query getTwo {
 
 ---
 
-# Aliases
+## Aliases
 
 Why does this not work? The result would look like this:
 
@@ -178,7 +178,7 @@ Note the duplicate key: `pokemon`!
 
 ---
 
-# Aliases
+## Aliases
 
 In order to avoid this problem we use aliases:
 
@@ -195,13 +195,13 @@ query getTwo {
 
 ---
 
-# Fragments
+## Fragments
 
 Task: get the number, maxHP and image of Pikachu and Raichu
 
 ---
 
-# Fragments - why?
+## Fragments - why?
 
 ```graphql
 query getTwo {
@@ -220,11 +220,11 @@ query getTwo {
 
 ---
 
-# Fragments: don't repeat yourself!
+## Fragments: don't repeat yourself!
 
 ---
 
-# Fragments: don't repeat yourself!
+## Fragments: don't repeat yourself!
 
 ```graphql
 query getTwo {
@@ -246,7 +246,7 @@ fragment essentialData on Pokemon {
 
 ---
 
-# Variables
+## Variables
 
 query:
 
@@ -268,7 +268,7 @@ variables:
 
 ---
 
-# Default variable valuess
+## Default variable valuess
 
 query:
 
@@ -282,11 +282,11 @@ query getEssentialData($name: String = "Pikachu") {
 
 ???
 
-# Todo: Directives
+## Todo: Directives
 
 ---
 
-# Modifying data
+## Modifying data
 
 https://todo-mongo-graphql-server.herokuapp.com/
 
@@ -294,7 +294,7 @@ https://todo-mongo-graphql-server.herokuapp.com/
 
 ---
 
-# Modifying data
+## Modifying data
 
 Command that triggers the server's `add` action and returns the id of the new TODO
 
@@ -314,7 +314,7 @@ mutation addTodo($title: String!) {
 
 ---
 
-# Modifying data
+## Modifying data
 
 ```graphql
 mutation toggleTodo($id: String!) {
@@ -327,7 +327,7 @@ mutation toggleTodo($id: String!) {
 
 ---
 
-# Modifying data
+## Modifying data
 
 ```graphql
 mutation addOneAndClearCompleted($title: String!) {
@@ -342,13 +342,13 @@ mutation addOneAndClearCompleted($title: String!) {
 
 ---
 
-# Modifying data
+## Modifying data
 
 Task: write a query that will delete all previous entries and add two new ones
 
 ---
 
-# Modifying data
+## Modifying data
 
 ```graphql
 mutation reset {
@@ -369,7 +369,7 @@ mutation reset {
 
 ---
 
-# Sending queries to the server
+## Sending queries to the server
 
 Queries are sent to the server via HTTP POST requests
 
@@ -377,7 +377,7 @@ The payload is a JSON object which has a `query` string property (this is also t
 
 ---
 
-# Sending queries to the server
+## Sending queries to the server
 
 We can try this out from the browser console via fetch (we have to be on the same website):
 
@@ -399,7 +399,7 @@ fetch('https://todo-mongo-graphql-server.herokuapp.com', {
 
 ---
 
-# Sending queries to the server
+## Sending queries to the server
 
 Queries may optionally include variables in the `variables` property
 
@@ -412,7 +412,7 @@ Queries may optionally include variables in the `variables` property
 
 ---
 
-# More exercises - optional
+## More exercises - optional
 
 Get all "followers of followers" for a specific GitHub account
 
@@ -454,7 +454,7 @@ query {
 
 ---
 
-# task: loading Todos from a GraphQL API
+## task: loading Todos from a GraphQL API
 
 create a thunk that will load example todos from `https://5qn401kkl9.lp.gql.zone/graphql`
 

@@ -41,8 +41,6 @@ Marko Knöbl
 - Unterlagen
 - Fragen, Feedback? - Jederzeit erwünscht
 
-----
-
 # JavaScript
 
 ---
@@ -75,8 +73,6 @@ JavaScript wird unter dem Namen _ECMAScript_ (kurz ES) standardisiert
 
 - Übersicht: siehe http://kangax.github.io/compat-table/es6/
 - In der Praxis: Modernes JavaScript wird in ES5 transpiliert (mittels Babel, webpack)
-
-----
 
 # JavaScript Grundlagen
 
@@ -253,8 +249,6 @@ let greeting = `Hallo, ${name}!
                 Das ist ES2015!`;
 ```
 
-----
-
 # Funktionen
 
 ---
@@ -330,8 +324,6 @@ let join = (strings, separator='') => {
   ...
 }
 ```
-
-----
 
 # JavaScript im Browser
 
@@ -413,8 +405,6 @@ Math.random();
 
 Beispiel: Todo-Liste
 
-----
-
 - "debugger" - statement
 - black boxing of files
 - breakpoints in the browser
@@ -427,8 +417,6 @@ Beispiel: Todo-Liste
   - step in
   - step out
 - watch variables
-
-----
 
 # HTTP
 
@@ -488,8 +476,6 @@ ETag: "3f80f-1b6-3e1cb03b"
 </html>
 ```
 
-----
-
 # HTTP in JavaScript
 
 Möglichkeiten:
@@ -497,8 +483,6 @@ Möglichkeiten:
 - XMLHttpRequest
 - jQuery
 - fetch
-
-----
 
 ## Fetch
 
@@ -580,8 +564,6 @@ fetch(url, {
 - Todo-API (https://jsonplaceholder.typicode.com)
 - Wetter-API (https://openweathermap.org)
 
-----
-
 # JavaScript Fortgeschritten
 
 ---
@@ -651,8 +633,6 @@ let updatedPerson = {...person, email: 'j@d.com', age: 32};
 ```
 
 
-----
-
 # Objektorientierte Programmierung (alt)
 
 ---
@@ -706,8 +686,6 @@ console.log(myCar.getDescription());
 myCar.accelerate();
 ```
 
-----
-
 # Objektorientierte Programmierung (ab ES2015)
 
 ---
@@ -726,8 +704,6 @@ class Car {
   }
 }
 ```
-
-----
 
 # Funktionale Programmierung
 
@@ -767,8 +743,6 @@ initialBalance);
 console.log(currentBalance);
 ```
 
-----
-
 moment.js, underscore.js, immutable.js
 
 ---
@@ -787,8 +761,6 @@ moment.js, underscore.js, immutable.js
 
 - `$(element).on('click', ...)`
 - `$(element).click(...)`
-
-----
 
 - Lotto - Generator
 - uhr

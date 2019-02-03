@@ -1,10 +1,8 @@
-class: center, middle
-
 # GraphQL schema definition
 
 ---
 
-# GraphQL schema definition
+## GraphQL schema definition
 
 GraphQL _always_ requires us to explicitly declare the query schema for our API.
 
@@ -14,7 +12,7 @@ The language to express the schema definition is called the _GraphQL Schema Defi
 
 ---
 
-# GraphQL types
+## GraphQL types
 
 GraphQL responses are composed of the following types:
 
@@ -28,7 +26,7 @@ GraphQL responses are composed of the following types:
 
 ---
 
-# schema definition examples
+## schema definition examples
 
 An API that returns a string under the keyword `hello`:
 
@@ -41,7 +39,7 @@ type Query {
 
 ---
 
-# schema definition examples
+## schema definition examples
 
 An API that returns various object types - depending on the query:
 
@@ -56,7 +54,7 @@ type Query {
 
 ---
 
-# schema definition examples
+## schema definition examples
 
 An API that accepts parameters:
 
@@ -69,7 +67,7 @@ type Query {
 
 ---
 
-# schema definition examples
+## schema definition examples
 
 queries, mutations and subscriptions
 
@@ -90,7 +88,7 @@ type Subscription {
 
 ---
 
-# schema definition examples
+## schema definition examples
 
 queries, mutations and subscriptions
 
@@ -98,7 +96,7 @@ These three entries contain the endpoints that form the API
 
 ---
 
-# types
+## types
 
 example schema definition:
 
@@ -115,7 +113,7 @@ type query {
 
 ---
 
-# types
+## types
 
 schema that contains objects:
 

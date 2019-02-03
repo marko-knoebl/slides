@@ -150,8 +150,6 @@ Methods:
 - `.read(10)` (read the next 10 bytes)
 - `.readline()` (read the next line)
 
-----
-
 # Working with various file formats
 
 ---
@@ -307,8 +305,6 @@ field = [
 ]
 ```
 
-----
-
 # Modules and Packages
 
 ---
@@ -351,8 +347,6 @@ Compiled versions will be saved in the folder `__pycache__`
 ---
 
 ## be careful: avoid circular imports
-
-----
 
 # Object-oriented programming and classes
 

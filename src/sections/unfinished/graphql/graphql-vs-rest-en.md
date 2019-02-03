@@ -9,7 +9,7 @@ GraphQL: data is fetched within _one_ single HTTP request
 
 ---
 
-# Move more quickly with GraphQL
+## Move more quickly with GraphQL
 
 Scenario:
 
@@ -17,7 +17,7 @@ A social media app in which we can view a list of our friends. Clicking on a fri
 
 ---
 
-# API in REST:
+## API in REST:
 
 ```http
 GET /users/$myuserid/friends
@@ -29,7 +29,7 @@ GET /users/$otheruserid/posts
 
 ---
 
-# API in GraphQL
+## API in GraphQL
 
 ```graphql
 {
@@ -44,7 +44,7 @@ GET /users/$otheruserid/posts
 
 ---
 
-# API in GraphQL
+## API in GraphQL
 
 ```graphql
 {
@@ -60,13 +60,13 @@ GET /users/$otheruserid/posts
 
 ---
 
-# new functionality: new post feed
+## new functionality: new post feed
 
 display new posts of all friends in a feed
 
 ---
 
-# new functionality: new post feed
+## new functionality: new post feed
 
 In REST we would either have to send multiple requests to retrieve all posts of friends - or we would have to implement a new endpoint in the API:
 
@@ -76,7 +76,7 @@ GET /postsoffriends/$myuserid
 
 ---
 
-# new functionality: new post feed
+## new functionality: new post feed
 
 In GraphQL we can implement this with just one request and without creating new endpoints:
 

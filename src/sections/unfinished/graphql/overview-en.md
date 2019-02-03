@@ -1,22 +1,20 @@
-class: center, middle
-
 # GraphQL
 
 ---
 
-# GraphQL
+## GraphQL
 
 "A query language for your API"
 
 ---
 
-# GraphQL
+## GraphQL
 
 "SQL over HTTP"
 
 ---
 
-# GraphQL vs REST
+## GraphQL vs REST
 
 GraphQL: one endpoint that can be used for any query  
 REST: multiple endpoints that must be created for each type of query
@@ -27,7 +25,7 @@ GraphQL: data is fetched within _one_ single HTTP request
 
 ---
 
-# GraphQL vs SQL
+## GraphQL vs SQL
 
 SQL: relational database
 
@@ -37,14 +35,14 @@ OpenCRUD: GraphQL dialect that maps to standard SQL
 
 ---
 
-# Use cases
+## Use cases
 
 - API service: e.g. get a random number between 1 and 100
 - database query: e.g. get all login names of friends of a specific user
 
 ---
 
-# Example: random number service
+## Example: random number service
 
 query:
 
@@ -56,7 +54,7 @@ query {
 
 ---
 
-# Example: random number service
+## Example: random number service
 
 answer:
 
@@ -68,7 +66,7 @@ answer:
 
 ---
 
-# Example: get friends of a user
+## Example: get friends of a user
 
 ```graphql
 query {
@@ -93,14 +91,14 @@ query {
 
 ---
 
-# introductory videos
+## introductory videos
 
 https://www.howtographql.com/basics/0-introduction/  
 https://www.howtographql.com/basics/1-graphql-is-the-better-rest/
 
 ---
 
-# definining and consuming a GraphQL API
+## definining and consuming a GraphQL API
 
 consuming an API:
 
@@ -114,13 +112,13 @@ defining an API:
 
 ---
 
-# example: random numbers
+## example: random numbers
 
 This example shows the implementation and usage of a random number API which provides parameters to set the quantity and max value of the random numbers
 
 ---
 
-# example: random numbers
+## example: random numbers
 
 schema definition:
 
@@ -141,7 +139,7 @@ resolver function (this depends on the library):
 
 ---
 
-# example: random numbers: fixed query
+## example: random numbers: fixed query
 
 ```graphql
 query random {
@@ -151,7 +149,7 @@ query random {
 
 ---
 
-# example: random numbers: parametric query
+## example: random numbers: parametric query
 
 query:
 
@@ -172,7 +170,7 @@ query data:
 
 ---
 
-# Try it out
+## Try it out
 
 simple:
 

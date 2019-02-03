@@ -1,10 +1,8 @@
-class: center, middle
-
 # Promises & Fetch
 
 ---
 
-# Promises & Fetch
+## Promises & Fetch
 
 Promises: one possibility to run code asynchronously in JavaScript
 
@@ -12,7 +10,7 @@ Fetch: modern way to do network requests in JavaScript, based on promises
 
 ---
 
-# Promises - Basics
+## Promises - Basics
 
 Promises can be used to handle one-off events
 
@@ -22,7 +20,7 @@ Waiting for events via promises is non-blocking, so other code may be executed i
 
 ---
 
-# Promises vs callbacks
+## Promises vs callbacks
 
 Promises are an alternative for callbacks; they both solve the same problem with a slightly different approach.
 
@@ -40,7 +38,7 @@ getTodos().then(logTodos);
 
 ---
 
-# Promises vs callbacks
+## Promises vs callbacks
 
 One advantage of promises over callbacks is that promises can easily be chained:
 
@@ -53,7 +51,7 @@ getTodos()
 
 ---
 
-# Promise example: fetching a webpage
+## Promise example: fetching a webpage
 
 ```js
 // this code can be executed in the browser console
@@ -67,7 +65,7 @@ fetch(url)
 
 ---
 
-# Promise example: fetching a webpage
+## Promise example: fetching a webpage
 
 ```js
 // this code can be executed in the browser console
@@ -84,7 +82,7 @@ fetch(url)
 
 ---
 
-# Promise example: fetching a webpage
+## Promise example: fetching a webpage
 
 Fetching a URL and reading the response text may both take a little.
 
@@ -98,7 +96,7 @@ The second handler (`console.log`) will just log the results.
 
 ---
 
-# Exception handling in promises
+## Exception handling in promises
 
 Let's look at the previous code again:
 
@@ -115,7 +113,7 @@ We want to log two different errors:
 
 ---
 
-# Exception handling in promises
+## Exception handling in promises
 
 Our example:
 
@@ -127,7 +125,7 @@ fetch('/')
 
 ---
 
-# Exception handling in promises
+## Exception handling in promises
 
 ```js
 fetch('/')
@@ -137,7 +135,7 @@ fetch('/')
 
 ---
 
-# Exception handling in promises
+## Exception handling in promises
 
 ```js
 fetch('/')
@@ -148,7 +146,7 @@ fetch('/')
 
 ---
 
-# Exception handling in promises
+## Exception handling in promises
 
 ```js
 return getImageName(country)
@@ -161,7 +159,7 @@ return getImageName(country)
 
 ---
 
-# fetching todos - basic
+## fetching todos - basic
 
 ```js
 fetch('https://jsonplaceholder.typicode.com/todos')
@@ -174,7 +172,7 @@ fetch('https://jsonplaceholder.typicode.com/todos')
 
 ---
 
-# fetching todos - advanced
+## fetching todos - advanced
 
 ```js
 fetch('https://jsonplaceholder.typicode.com/todos')
@@ -195,13 +193,13 @@ fetch('https://jsonplaceholder.typicode.com/todos')
 
 ---
 
-# Exercise
+## Exercise
 
 Fetch all todos for a given user id
 
 ---
 
-# Configuring fetch requests
+## Configuring fetch requests
 
 ```js
 fetch(url, {
@@ -214,7 +212,7 @@ fetch(url, {
 
 ---
 
-# Creating custom promises
+## Creating custom promises
 
 A promise that, after 1 second, either results in the string `'hello'` or fails
 
@@ -232,7 +230,7 @@ const getReply = new Promise((resolve, reject) => {
 
 ---
 
-# Promise.all
+## Promise.all
 
 ```js
 const promise1 = fetch('/users.json');
@@ -248,7 +246,7 @@ Promise.all([promise1, promise2])
 
 ---
 
-# Exercises
+## Exercises
 
 - https://developers.google.com/web/ilt/pwa/lab-fetch-api
 

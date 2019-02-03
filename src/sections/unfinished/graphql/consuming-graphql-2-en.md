@@ -8,7 +8,7 @@ https://5qn401kkl9.lp.gql.zone/graphql
 
 ---
 
-# Exercise: adding a GraphQL API to our TODO app
+## Exercise: adding a GraphQL API to our TODO app
 
 - query todos from the API when the page loads
 - query again when the user clicks a refresh button
@@ -17,7 +17,7 @@ https://5qn401kkl9.lp.gql.zone/graphql
 
 ---
 
-# Exercise: adding a GraphQL API to our TODO app
+## Exercise: adding a GraphQL API to our TODO app
 
 ```js
 const graphqlQuery = `query getTodos { todos { id title completed } }`;

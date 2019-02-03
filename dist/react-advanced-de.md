@@ -199,8 +199,6 @@ können wir Snapshot-Tests entsprechend aktualisieren:
 Inspect your code changes or press `u` to update them.
 ```
 
-----
-
 # React Router
 
 ---
@@ -322,8 +320,6 @@ import { Switch } from 'react-router-dom';
 </Switch>;
 ```
 
-----
-
 # PWAs
 
 Progressive Web Apps mit React
@@ -411,8 +407,6 @@ handleInstallBtnClicked = () => {
 - edit name auswählen und kürzeren Namen wählen
 - Manuell auf https wechseln - in Chrome am Desktop und Mobilgerät ausprobieren
 
-----
-
 # Context
 
 ---
@@ -478,8 +472,6 @@ class TodoList extends React.Component {
   }
 }
 ```
-
-----
 
 # Fragmente
 

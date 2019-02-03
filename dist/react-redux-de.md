@@ -1,6 +1,6 @@
 # Redux
 
-## State management mit Redux
+### State management mit Redux
 
 ---
 
@@ -119,8 +119,6 @@ counterStore.getState(); // {count: 1}
 Erstelle einen neuen mathadorStore mit dem Ausgangszustand `{number: 1}` und Actions für "Mal 3" und "Minus 7"
 
 Zusatzaufgabe: Erreiche den Zustand 4 (oder 10) durch das dispatchen passender Actions
-
-----
 
 # React mit Redux
 
@@ -278,8 +276,6 @@ const mapDispatchToProps = (
 
 siehe https://github.com/piotrwitek/react-redux-typescript-guide
 
-----
-
 # Immutability
 
 ---
@@ -350,8 +346,6 @@ user.email = 'johndoe@gmail.com';
 // stattedessen: Erzeugen eines neuen Objekts:
 let newUser = { ...user, email: 'johndoe@gmail.com' };
 ```
-
-----
 
 # Redux im Detail
 
@@ -478,8 +472,6 @@ rootStore.dispatch({ type: 'INCREMENT' });
 
 ## Beispiel: Todo-Verwaltung mit Redux
 
-----
-
 # Redux Ecosystem
 
 ---
@@ -599,8 +591,6 @@ const functionMiddleware = store => next => action => {
   }
 };
 ```
-
-----
 
 # Redux Thunk
 

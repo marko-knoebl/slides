@@ -1,10 +1,8 @@
-class: center, middle
-
 # GraphQL on the server
 
 ---
 
-# GraphQL on the server: options
+## GraphQL on the server: options
 
 - **GraphQL.js** (reference implementation)
 - **express-graphql** (reference implementation for express)
@@ -14,14 +12,14 @@ class: center, middle
 
 ---
 
-# GraphQL on the server: parts
+## GraphQL on the server: parts
 
 - GraphQL schema
 - implementation (resolvers)
 
 ---
 
-# Example: schema
+## Example: schema
 
 ```graphql
 type Query {
@@ -39,7 +37,7 @@ type Subscription {
 
 ---
 
-# Example: implementation
+## Example: implementation
 
 (this depends on the library)
 
@@ -56,7 +54,7 @@ const typeDefs = `
 
 ---
 
-# Example: implementation
+## Example: implementation
 
 ```js
 let message = 'hello';

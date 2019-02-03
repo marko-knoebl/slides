@@ -1,7 +1,5 @@
 # Angular - Grundlagen
 
----
-
 ## Entwicklung mit node.js und npm
 
 - node.js: JS-Runtime

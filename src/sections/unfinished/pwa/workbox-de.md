@@ -6,7 +6,7 @@ https://developers.google.com/web/tools/workbox/
 
 ---
 
-# Einfaches Beispiel: Offline-Anwendung
+## Einfaches Beispiel: Offline-Anwendung
 
 zuvor:
 
@@ -24,7 +24,7 @@ self.addEventListener('install', event => {
 
 ---
 
-# Einfaches Beispiel: Offline-Anwendung
+## Einfaches Beispiel: Offline-Anwendung
 
 mit Workbox:
 
@@ -34,7 +34,7 @@ workbox.precaching.precache(urlsToCache);
 
 ---
 
-# Einfaches Beispiel: Offline-Anwendung
+## Einfaches Beispiel: Offline-Anwendung
 
 zuvor:
 
@@ -46,7 +46,7 @@ self.addEventListener('fetch', event => {
 
 ---
 
-# Einfaches Beispiel: Offline-Anwendung
+## Einfaches Beispiel: Offline-Anwendung
 
 mit Workbox:
 
@@ -59,7 +59,7 @@ workbox.routing.registerRoute(
 
 ---
 
-# Mögliche Strategien
+## Mögliche Strategien
 
 - networkOnly
 - cacheOnly
@@ -71,13 +71,13 @@ siehe auch: [offline Cookbook](https://developers.google.com/web/fundamentals/in
 
 ---
 
-# Strategie: networkOnly
+## Strategie: networkOnly
 
 Vom Browser bekannte Strategie
 
 ---
 
-# Strategie: cacheOnly
+## Strategie: cacheOnly
 
 Resource wird immer aus dem Cache geladen.
 
@@ -91,25 +91,25 @@ Antwort: in diesem Fall wird der Service-Worker nicht aktiviert. Um das sicherzu
 
 ---
 
-# Strategie: networkFirst
+## Strategie: networkFirst
 
 Ein Laden aus dem Netzwerk wird versucht; wenn das fehlschlägt, wird aus dem Cache geladen
 
 ---
 
-# Strategie: cacheFirst
+## Strategie: cacheFirst
 
 Falls es eine Resource im Cache gibt, wird diese direkt aus dem Cache geladen. Ansonsten wird aus dem Netzwerk geladen.
 
 ---
 
-# Strategie: staleWhileRevalidate
+## Strategie: staleWhileRevalidate
 
 Ähnlich wie cacheFirst - nur wird im Hintergrund der Cache aktualisiert, sodass beim nächsten Mal die aktuelle Resource zur Verfügung steht
 
 ---
 
-# Strategie: cache - then network
+## Strategie: cache - then network
 
 Ähnlich wie staleWhileRevalidate - nur wird die Seite sofort aktualisiert, wenn die neuere Resource zur Verfügung steht.
 
@@ -119,7 +119,7 @@ Siehe: [Offline Cookbook](https://jakearchibald.com/2014/offline-cookbook/#cache
 
 ---
 
-# Aufgaben
+## Aufgaben
 
 https://developers.google.com/web/tools/workbox/
 
@@ -133,7 +133,7 @@ https://developers.google.com/web/tools/workbox/
 
 ---
 
-# Zusatz (mit build-Prozess)
+## Zusatz (mit build-Prozess)
 
 https://developers.google.com/web/tools/workbox/guides/codelabs/npm-script
 

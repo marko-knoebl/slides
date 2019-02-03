@@ -1,6 +1,6 @@
 # Redux
 
-## State management with Redux
+### State management with Redux
 
 ---
 

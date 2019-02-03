@@ -1,10 +1,8 @@
-class: center, middle
-
 # GraphQL vs SQL
 
 ---
 
-# GraphQL vs SQL: examples
+## GraphQL vs SQL: examples
 
 ```graphql
 query {
@@ -23,7 +21,7 @@ SELECT login, name
 
 ---
 
-# GraphQL vs SQL
+## GraphQL vs SQL
 
 In GraphQL parameters don't have a predefined meaning.
 
@@ -33,7 +31,7 @@ In GraphQL the meaning of `login: "my-username"` is up to the implementation on 
 
 ---
 
-# GraphQL vs SQL
+## GraphQL vs SQL
 
 SQL: relationships between tables (joins) are defined in the query
 
@@ -43,7 +41,7 @@ GraphQL: already knows about relationships when the query is issued
 
 ---
 
-# GraphQL vs SQL
+## GraphQL vs SQL
 
 ```graphql
 query {
@@ -66,7 +64,7 @@ SELECT name
 
 ---
 
-# GraphQL vs SQL
+## GraphQL vs SQL
 
 **OpenCRUD** is a more specifc standard that is based on GraphQL. It maps directly to SQL and can be used in place of it.
 

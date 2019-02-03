@@ -41,8 +41,6 @@ Marko Knöbl
 - Unterlagen
 - Fragen, Feedback? - Jederzeit erwünscht
 
-----
-
 # HTML, CSS & JavaScript
 
 ---
@@ -54,8 +52,6 @@ Zentrale Technologien, die der Browser verwendet:
 - **HTML**: definiert Struktur und Inhalt einer Seite
 - **CSS**: definiert Stil (Aussehen) einer Seite
 - **JavaScript**: definiert Verhalten / Interaktion einer Seite
-
-----
 
 # HTML Grundlagen
 
@@ -189,8 +185,6 @@ https://viewportsizes.com/mine
 
 Bestehende Website in browser-tools begutachten
 
-----
-
 # VS Code
 
 ---
@@ -322,8 +316,6 @@ prettierrc.json:
 
 ---
 
-----
-
 # VS Code - Extensions
 
 In der Sidebar öffnen: fünftes Symbol auf der linken Seite
@@ -346,8 +338,6 @@ z.B. über _prettierrc.json_:
   "trailingComma": "all"
 }
 ```
-
-----
 
 # CSS
 
@@ -658,8 +648,6 @@ body {
 
 ## Übung: Google-Klon
 
-----
-
 # HTML Fortgreschritten
 
 ---
@@ -783,8 +771,6 @@ CSS-Pseudoklassen: `:valid`, `:invalid`
 ```
 
 Bei Betätigen des Buttons sendet das Formular einen post-Request an die Adresse _login.php_ und übermittelt die Daten _username_ und _password_
-
-----
 
 # CSS-Layouts
 

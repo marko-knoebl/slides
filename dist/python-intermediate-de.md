@@ -35,8 +35,6 @@
 - OrderedDict
 - NamedTuple
 
-----
-
 ## NoneType
 
 Der Ausdruck `None` steht in Python für "nichts" - analog zu `undefined` oder `null` in anderen Sprachen.
@@ -184,8 +182,6 @@ a = 2 + 3j
 
 Strings sind Zeichenfolgen, die jedes Unicodezeichen repräsentieren können
 
-----
-
 # Strings
 
 ---
@@ -254,8 +250,6 @@ Weitere Aufgaben:
 - Zeilennummern nur alle 5 Zeilen
 - Zeilennummern alle 5 Zeilen, wenn die Zeile Text enthält - ansonsten in der nächsten Zeile
 
-----
-
 ## String-Formatierung
 
 String-Formatierung = Einsetzen von Werten in Strings
@@ -301,8 +295,6 @@ t = 333.333
 ```
 
 https://mkaz.blog/code/python-string-format-cookbook/
-
-----
 
 # Sequenzen
 
@@ -555,8 +547,6 @@ Für Bytes über 128 können verschiedene Encodings verschiedene Repräsentation
 - ISBN
 - IBAN
 
-----
-
 # Dictionaries
 
 ---
@@ -646,8 +636,6 @@ dictionary
 
 Was kann als key verwendet werden?
 
-----
-
 # comprehensions
 
 ---
@@ -711,8 +699,6 @@ colors: {
 m_colors = { color: colors[color][1:] for color in colors}
 ```
 
-----
-
 # Set
 
 ---
@@ -752,8 +738,6 @@ x <= y
 
 - Raumplan (7.6.2)
 - Tanzpaare (7.7.5)
-
-----
 
 # Kontrollstrukturen
 
@@ -803,8 +787,6 @@ match = True if 0 in li else False
 ---
 
 ## try / except / else / finally
-
-----
 
 # Exceptions
 
@@ -882,8 +864,6 @@ except ClientError as e
 ???
 
 Beispiel: Parsen von Zahlen
-
-----
 
 # Funktionen
 
@@ -1007,8 +987,6 @@ fib(25)
 - 3 (Heron)
 - 4 (Hanoi)
 - 5 (Bäume)
-
-----
 
 # Arbeiten mit Dateien
 
@@ -1161,8 +1139,6 @@ Methoden:
 - `.read()` (lies die ganze Datei ein)
 - `.read(10)` (lies die nächsten 10 Bytes)
 - `.readline()` (lies die nächste Zeile)
-
-----
 
 # Speichern verschiedener Dateiformate
 
@@ -1319,8 +1295,6 @@ field = [
 ]
 ```
 
-----
-
 # Module und Pakete
 
 ---
@@ -1363,8 +1337,6 @@ Wir finden die kompilierten Versionen im Ordner `__pycache__`
 ---
 
 ## Achtung: circular imports vermeiden
-
-----
 
 # Objektorientierung und Klassen
 

@@ -39,8 +39,6 @@ Marko Knöbl
 - Materials
 - Questions, Feedback?
 
-----
-
 # Python: Overview
 
 ---
@@ -75,8 +73,6 @@ if a * b > 10:
     print('hello')
 ```
 
-----
-
 # Python Installation
 
 ---
@@ -98,8 +94,6 @@ installation includes:
 - IDLE: simple development environment
 - PIP: package manager for installing extensions
 - Python documentation
-
-----
 
 # The interactive Python shell
 
@@ -316,8 +310,6 @@ a = 3
 a = a + 1
 ```
 
-----
-
 # Python programs
 
 ---
@@ -352,8 +344,6 @@ https://code.visualstudio.com/
 ---
 
 ## VS Code: opening folders
-
-----
 
 # Our first Python program
 
@@ -446,8 +436,6 @@ A comment line starts with a `#`
 # determine the length of the name
 name_length = len(name)
 ```
-
-----
 
 # control structures
 
@@ -585,8 +573,6 @@ not 4 < c < 10
 c <= 4 or c >= 10
 ```
 
-----
-
 # control structures - examples
 
 ---
@@ -651,8 +637,6 @@ for i in range(10):
 print(b)
 ```
 
-----
-
 # constituent parts of programs
 
 ---
@@ -681,8 +665,6 @@ Alternative: _escaping_ newlines with `\`
 a = 2 + 3 + 4 + 5 + 6 + \
     7 + 8 + 9 + 10
 ```
-
-----
 
 # Lists
 
@@ -751,8 +733,6 @@ your shopping list is:
 ["milk", "bread", "apples"]
 ```
 
-----
-
 ## Mutating objects
 
 In Python lists can be changed - e.g. by appending a new entry
@@ -793,8 +773,6 @@ print(a)
 An assignment (`b = ...`) will attach a new (additional) name to an existing object.
 
 Behind the scenes there's still only one object
-
-----
 
 # For loops
 
@@ -877,8 +855,6 @@ exercise: creating a "multiplication table"
 4 x 7 = 28
 ...
 ```
-
-----
 
 # Builtins, Modules
 
@@ -980,8 +956,6 @@ pprint.pprint(['Mercuy', 'Venus', 'Earth', 'Mars', 'Jupiter',
  'Pluto']
 ```
 
-----
-
 # Exercises
 
 ---
@@ -1018,8 +992,6 @@ while proceed:
 for todo in todolist:
     print('-', todo)
 ```
-
-----
 
 # Functions
 
@@ -1065,8 +1037,6 @@ with keyword parameters:
 f = open("myfile.txt", encoding="utf-8", mode="w")
 ```
 
-----
-
 # Defining custom functions
 
 ---
@@ -1102,8 +1072,6 @@ Write a function named `isprime` which tests whether a number is prime
 ## Aufgabe: ask_yes_no()
 
 Write a function named `ask_yes_no`, which asks the user a yes/no question and returns either `True` or `False`
-
-----
 
 # Reading and writing text files
 
@@ -1150,8 +1118,6 @@ Recommendation: _always_ use utf-8 as the encoding for text files (best support 
 ## Exercise
 
 - program that gets a list of todos from a user and saves them to a file
-
-----
 
 # Exercises
 
@@ -1237,8 +1203,6 @@ print(check_isbn(isbn, expected))
 
 ## IBAN
 
-----
-
 # VS Code - Advanced
 
 ---
@@ -1262,8 +1226,6 @@ recommendations:
 - Multiple text cursors: `Alt` + click
 - Automatic formatting: `Alt` + `Shift` + `F`
 - (un)comment: `Ctrl` + `#`
-
-----
 
 # Code quality and linting
 
@@ -1408,8 +1370,6 @@ linter for validating docstrings
 
 ## one way to do it
 
-----
-
 # Python versions
 
 ---
@@ -1489,8 +1449,6 @@ from __future__ import division
 Compatibility layer between Python 2 and Python 3
 
 Enables supporting both Python 2 and Python 3 from the same codebase
-
-----
 
 # Cheatsheet
 

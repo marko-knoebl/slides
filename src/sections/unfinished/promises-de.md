@@ -1,13 +1,11 @@
-class: center, middle
+# Promises
 
 <!-- siehe auch: webdev/fetch -->
 <!-- https://developers.google.com/web/fundamentals/primers/promises -->
 
-# Promises
-
 ---
 
-# Promises - Grundlagen
+## Promises - Grundlagen
 
 Können verwendet werden, um einmalige Events zu behandeln
 
@@ -15,7 +13,7 @@ Erlauben dem Browser, auf ein Event zu _warten_ - zb auf eine Antwort aus dem Ne
 
 ---
 
-# Beispiel von vorhin: Fetch einer Website
+## Beispiel von vorhin: Fetch einer Website
 
 ```js
 // dieser Code kann zu jeder Website in der
@@ -29,7 +27,7 @@ fetch(url)
 
 ---
 
-# Fetch einer Website: Erklärung
+## Fetch einer Website: Erklärung
 
 Das Abfragen einer URL und das Auslesen des Antworttexts können länger dauern.
 
@@ -41,7 +39,7 @@ Das Resultat des ersten Handlers (`response => response.text()`) ist wiederum ei
 
 ---
 
-# Beispiel: Landesflagge
+## Beispiel: Landesflagge
 
 ```js
 // ohne Promises
@@ -62,7 +60,7 @@ getImageName(country)
 
 ---
 
-# Fehlerbehandlung
+## Fehlerbehandlung
 
 Fehler können mit `.catch()` behandelt werden
 
@@ -77,7 +75,7 @@ return getImageName(country)
 
 ---
 
-# Todo App: fetch - grundlegend
+## Todo App: fetch - grundlegend
 
 ```js
 fetch('https://jsonplaceholder.typicode.com/todos')
@@ -90,7 +88,7 @@ fetch('https://jsonplaceholder.typicode.com/todos')
 
 ---
 
-# Todo App: fetch - fortgeschritten
+## Todo App: fetch - fortgeschritten
 
 ```js
 fetch('https://jsonplaceholder.typicode.com/todos')
@@ -108,13 +106,13 @@ fetch('https://jsonplaceholder.typicode.com/todos')
 
 ---
 
-# Übung
+## Übung
 
 Benutzer gibt user-id an, entsprechende todos werden geladen
 
 ---
 
-# Andere http-Methoden
+## Andere http-Methoden
 
 ```js
 fetch(url, {
@@ -127,7 +125,7 @@ fetch(url, {
 
 ---
 
-# Eigene Promises
+## Eigene Promises
 
 Promise, die nach 1 Sekunde entweder mit hello antwortet oder nicht erfolgreich ist
 
@@ -145,7 +143,7 @@ const getReply = new Promise((resolve, reject) => {
 
 ---
 
-# Promise.all
+## Promise.all
 
 ```js
 const promise1 = fetch('/users.json');
@@ -167,7 +165,7 @@ TODO: google code lab - code-beispiele durchsehen
 
 ---
 
-# Übungen
+## Übungen
 
 - https://developers.google.com/web/ilt/pwa/lab-fetch-api
 

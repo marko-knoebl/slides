@@ -1,5 +1,3 @@
-class: center, middle
-
 # Notifications
 
 ---
@@ -8,13 +6,13 @@ siehe auch: https://developer.mozilla.org/en-US/docs/Web/API/Notifications_API/U
 
 ---
 
-# Notifications
+## Notifications
 
 Möglichkeit, für den Benutzer Benachrichtigungen außerhalb der Anwendung darzustellen (Betriebssystems-Benachrichtigungen)
 
 ---
 
-# Erlaubnis einholen
+## Erlaubnis einholen
 
 ```js
 // sw.js
@@ -25,7 +23,7 @@ Kann in Browser-Konsole ausprobiert werden (aber es muss eine Seite offen sein)
 
 ---
 
-# Überprüfen, ob Erlaubnis erteilt wurde und Nachricht darstellen
+## Überprüfen, ob Erlaubnis erteilt wurde und Nachricht darstellen
 
 ```js
 if (Notification.permission === 'granted') {
@@ -39,7 +37,7 @@ if (Notification.permission === 'granted') {
 
 ---
 
-# Nachricht-Optionen
+## Nachricht-Optionen
 
 ```js
 registration.showNotification(condition, {
@@ -55,7 +53,7 @@ registration.showNotification(condition, {
 
 ---
 
-# Nachrichten-Events
+## Nachrichten-Events
 
 Zwei Events im ServiceWorker:
 
@@ -75,7 +73,7 @@ eher komplex, da es verschiedene Fenster zu einem Service-Worker geben kann
 
 -->
 
-# Übungen (Labs)
+## Übungen (Labs)
 
 https://developers.google.com/web/ilt/pwa/lab-integrating-web-push
 

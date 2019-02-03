@@ -79,8 +79,6 @@ m[3] # 1970
 
 `\A-?\d+x[\+-]\d+y[\+-]\d+z=\d+\Z`
 
-----
-
 # HTTP mit Python
 
 ---
@@ -153,8 +151,6 @@ https://automatetheboringstuff.com/chapter14/
 
 https://automatetheboringstuff.com/chapter11/
 
-----
-
 # FTP
 
 Modul ftplib
@@ -162,8 +158,6 @@ Modul ftplib
 ???
 
 Buch 23.2.2
-
-----
 
 # SMTP / IMAP
 
@@ -192,8 +186,6 @@ richtig:
 Achtung veraltet: `pyzmail` -> `pyzmail36`
 
 Achtung: `'BODY[]'` -> `b'BODY[]` (bytes statt string)
-
-----
 
 # Serverseitiges HTTP
 
@@ -548,8 +540,6 @@ if path not in sys.path:
 from app import application
 ```
 
-----
-
 # sys, os, shutil
 
 ---
@@ -628,8 +618,6 @@ Funktionen zu Betriebssystem und Dateizugriff
 
 Buch 14.4.2 (Suchbegriffanzahl in Dateien im Verzeichnis)
 
-----
-
 # Datum und Zeit
 
 ---
@@ -691,8 +679,6 @@ import time
 time.time()
 ```
 
-----
-
 # GUI
 
 ## Graphical User Interface
@@ -725,8 +711,6 @@ time.time()
 ## Kivy
 
 - speziell für Python entwickelt
-
-----
 
 # Tkinter
 
@@ -824,8 +808,6 @@ Möglichkeiten:
 
 - zufälliger Sehtest
 
-----
-
 # Datenbanken
 
 ???
@@ -898,8 +880,6 @@ siehe Buch
 - db_interface.get_all_todos
 
 siehe courses-tutorials/python-todolist-wsgi-sqlite
-
-----
 
 # SQL
 
@@ -1175,8 +1155,6 @@ CREATE INDEX person_name ON person (name)
 
 Auf https://pythonanywhere.com stehen _MySQL_ und _PostgreSQL_ kostenfrei zur Verfügung.
 
-----
-
 # SQL mit Python
 
 ---
@@ -1351,8 +1329,6 @@ Die Attribute `sqlite3.paramstyle`, `pymysql.paramstyle` etc geben das Format f�
 `cursor.fetchall()`
 
 `cursor.execute(command, parameters)`
-
-----
 
 # SQLAlchemy
 
@@ -1584,8 +1560,6 @@ session.add(...)
 print(yesterday.artist)
 print(beatles.songs)
 ```
-
-----
 
 # NumPy
 

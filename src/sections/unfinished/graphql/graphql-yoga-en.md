@@ -1,22 +1,20 @@
-class: center, middle
-
 # graphql-yoga
 
 ---
 
-# graphql-yoga
+## graphql-yoga
 
 package that includes _GraphQL.js_ and _apollo-server_ to quickly and easily set up a GraphQL server
 
 ---
 
-# Tutorial
+## Tutorial
 
 https://www.howtographql.com/graphql-js/0-introduction/
 
 ---
 
-# setting up graphql-yoga
+## setting up graphql-yoga
 
 Essential parts:
 
@@ -25,7 +23,7 @@ Essential parts:
 
 ---
 
-# setting up graphql-yoga
+## setting up graphql-yoga
 
 create a new node project (inside an empty folder) and install graphql-yoga:
 
@@ -36,13 +34,13 @@ npm install graphql-yoga
 
 ---
 
-# setting up graphql-yoga
+## setting up graphql-yoga
 
 implementing a simple graphql-yoga server with a _schema_ and _resolvers_
 
 ---
 
-# setting up graphql-yoga
+## setting up graphql-yoga
 
 src/index.js
 
@@ -66,7 +64,7 @@ server.start();
 
 ---
 
-# running graphql-yoga
+## running graphql-yoga
 
 ```bash
 node src/index.js
@@ -76,7 +74,7 @@ open `http://localhost:4000` in the browser
 
 ---
 
-# Exercises: more resolvers
+## Exercises: more resolvers
 
 implement these resolvers on the server:
 
@@ -92,7 +90,7 @@ use these resolvers in a single query to get:
 
 ---
 
-# Exercise: more resolvers
+## Exercise: more resolvers
 
 ```js
 const typeDefs = `
@@ -116,7 +114,7 @@ const resolvers = {
 
 ---
 
-# Exercise: more resolvers
+## Exercise: more resolvers
 
 ```graphql
 {
@@ -131,13 +129,13 @@ const resolvers = {
 
 ---
 
-# Example: chatroom
+## Example: chatroom
 
 We want to create an API for a chatroom
 
 ---
 
-# Example: chatroom
+## Example: chatroom
 
 We'll create these interactions with the server:
 
@@ -146,7 +144,7 @@ We'll create these interactions with the server:
 
 ---
 
-# Example: reddit clone
+## Example: reddit clone
 
 ```graphql
 query {
@@ -180,13 +178,13 @@ mutation {
 
 ---
 
-# Example: message board
+## Example: message board
 
 see example tutorial code
 
 ---
 
-# Example: Todo list
+## Example: Todo list
 
 We want to create an API for a todo list
 
@@ -194,7 +192,7 @@ For now we will keep our data in memory on the server
 
 ---
 
-# Example: Todo list
+## Example: Todo list
 
 We'll create these query types:
 

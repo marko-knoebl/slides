@@ -41,8 +41,6 @@ Marko Knöbl
 - Unterlagen
 - Fragen, Feedback? - Jederzeit erwünscht
 
-----
-
 # Agenda
 
 - Einführung in Angular 7 und erste Komponenten
@@ -54,31 +52,21 @@ Marko Knöbl
 - Routing
 - Material Design - Komponenten
 
-----
-
 # Angular
-
----
 
 ## Was ist Angular?
 
 - Eine der 3 großen JavaScript-UI-Libraries (neben React.js, vue.js)
-
----
 
 ## Grundlagen moderner JavaScript-UI-Libraries
 
 - Deklarativ / datengetrieben
 - Komponenten-Struktur
 
----
-
 ## Deklarativ / datengetrieben
 
 - Im Hintergrund steht ein Datenmodell, das den gesamten Anwendungszustand abbildet
 - Man ändert das Modell, das View wird von alleine (möglichst effizient) aktualisiert
-
----
 
 ## Komponenten-Struktur
 
@@ -86,16 +74,12 @@ Marko Knöbl
 - Datenfluss via Properties und Events
 - Üblicherweise unidirektionaler Datenfluss (vom Eltern- zum Kindelement)
 
----
-
 ## Komponenten-Struktur: Tags und Properties
 
 ```xml
-<todo-item [title]=" 'groceries' " [done]="false">
+<todo-item [title]=" 'groceries' " [completed]="false">
 </todo-item>
 ```
-
----
 
 ## Was macht Angular besonders?
 
@@ -105,8 +89,6 @@ Marko Knöbl
   - Angular Router
   - HTTP-Kommunikation
 
----
-
 ## Geschichte von Angular
 
 - AngularJS: Entwicklungsbeginn 2009
@@ -114,15 +96,9 @@ Marko Knöbl
 - Seither neue Releases ca alle 6 Monate
 - Aktuell: Angular 7 (Oktober 2018)
 
----
-
 ## Beispiel: Datenmodell und -fluss in einer Todo-App
 
-----
-
 # Angular - Grundlagen
-
----
 
 ## Entwicklung mit node.js und npm
 
@@ -249,8 +225,6 @@ ng build --prod
 ```
 
 führen wir einen Production-Build aus
-
-----
 
 # ES2015+
 
@@ -449,8 +423,6 @@ let join = (strings, separator='') => {
 }
 ```
 
-----
-
 # TypeScript
 
 ---
@@ -637,8 +609,6 @@ class Clock {
 }
 ```
 
-----
-
 # TypeScript für Angular
 
 ---
@@ -695,8 +665,6 @@ export class AppComponent {
   name = 'Anton';
 }
 ```
-
-----
 
 # Angular - Grundlagen II
 
@@ -947,8 +915,6 @@ Mit der obigen Syntax können Events auf bestimmte Kategorien beschränkt werden
 - counter-Komponente
 - diashow-Komponente
 
-----
-
 # Eigene Komponenten: Properties & Events
 
 ---
@@ -1082,8 +1048,6 @@ Wir ändern die rating-Komponente, sodass durch einen Klick auf einen Stern ein 
 ---
 
 ## Beispiel: Todo-App
-
-----
 
 # Inputs & Forms
 
@@ -1243,8 +1207,6 @@ f.value beinhaltet ein Objekt der Form:
 
 - Formular mit Suchfunktion und two-way data binding
 
-----
-
 # Services
 
 ---
@@ -1312,8 +1274,6 @@ constructor(public todoService: TodoService) {
 Wir geben an, dass wir für unsere Komponente eine Instanz der Klasse _TodoService_ benötigen.
 
 Angular erstellt im Hintergrund eine Instanz davon und _injiziert_ diese in jede Komponente, die sie benötigt.
-
-----
 
 # HTTP
 
@@ -1388,8 +1348,6 @@ import { HttpClient } from '@angular/common/http';
 ## Beispiel: TODO-Daten vom Server
 
 Wir wollen Daten von https://jsonplaceholder.typicode.com/todos erhalten.
-
-----
 
 # Routing
 
@@ -1528,8 +1486,6 @@ export class TodoDetailsComponent {
 ## Routing - mehr zum Thema
 
 https://angular.io/guide/router
-
-----
 
 # Material Design - Komponenten
 

@@ -1,10 +1,8 @@
-class: center, middle
-
 # Apollo client
 
 ---
 
-# Apollo client
+## Apollo client
 
 advantages over "plain" frontent code:
 
@@ -13,25 +11,25 @@ advantages over "plain" frontent code:
 
 ---
 
-# Apollo link state
+## Apollo link state
 
 apollo library to manage local state (replacement for Redux ...)
 
 ---
 
-# Apollo client fundamentals
+## Apollo client fundamentals
 
 Apollo client adds additional data sources that represent remote data
 
 ---
 
-# The Query component
+## The Query component
 
 The `<Query>` component represents a GraphQL query that was sent to the server. The Query component can render different contents depending on whether it is still fetching results or not and on the result of the query. Conceptually a Query component is similar to what `connect()` does for Redux.
 
 ---
 
-# The Query component
+## The Query component
 
 <!-- prettier-ignore -->
 ```jsx
@@ -47,7 +45,7 @@ The `<Query>` component represents a GraphQL query that was sent to the server. 
 
 ---
 
-# Installation
+## Installation
 
 In an existing React project:
 
@@ -57,7 +55,7 @@ npm install apollo-boost react-apollo graphql
 
 ---
 
-# Connecting React to a GraphQL server
+## Connecting React to a GraphQL server
 
 ```js
 import { ApolloProvider } from 'react-apollo';
@@ -76,7 +74,7 @@ const client = new ApolloClient({
 
 ---
 
-# Connecting React to a GraphQL server
+## Connecting React to a GraphQL server
 
 ```jsx
 ReactDOM.render(
@@ -89,7 +87,7 @@ ReactDOM.render(
 
 ---
 
-# Writing GraphQL queries for Apollo
+## Writing GraphQL queries for Apollo
 
 Via tagged template strings:
 
@@ -111,7 +109,7 @@ const POSTS_QUERY = gql`
 
 ---
 
-# Using the Query component
+## Using the Query component
 
 start with:
 
@@ -123,13 +121,13 @@ import { Query } from 'react-apollo';
 
 ---
 
-# Writing the render function
+## Writing the render function
 
 The Query component's child element _is a function_. This function will receive the queried data and return a React component tree. In that way this function is similar to the _render_ method we're familiar with.
 
 ---
 
-# Writing the render function
+## Writing the render function
 
 The render function receives an object that can have a number of properties, including:
 
@@ -141,7 +139,7 @@ full API: https://www.apollographql.com/docs/react/essentials/queries.html#rende
 
 ---
 
-# Writing the render function
+## Writing the render function
 
 ```jsx
 ({ data, loading, error }) => {
@@ -160,7 +158,7 @@ full API: https://www.apollographql.com/docs/react/essentials/queries.html#rende
 
 ---
 
-# Mutations
+## Mutations
 
 Apollo Client also provides a `Mutation` component that works similar to the `Query` component.
 
@@ -175,7 +173,7 @@ Apollo Client also provides a `Mutation` component that works similar to the `Qu
 
 ---
 
-# Mutations
+## Mutations
 
 Inside a mutation the `customRenderFunction` will receive _two_ arguments:
 
@@ -186,7 +184,7 @@ So one important distinction between queries and mutations in Apollo client is: 
 
 ---
 
-# Subscriptions
+## Subscriptions
 
 Subscriptions can be handled via websockets
 
@@ -196,7 +194,7 @@ npm install apollo-link-ws subscriptions-transport-ws
 
 ---
 
-# Subscriptions
+## Subscriptions
 
 ```js
 // Create an http link:
@@ -216,7 +214,7 @@ const wsLink = new WebSocketLink({
 
 ---
 
-# Subscriptions
+## Subscriptions
 
 ```js
 // using the ability to split links, you can send data to each link
@@ -238,7 +236,7 @@ const link = split(
 
 ---
 
-# Subscriptions
+## Subscriptions
 
 ```jsx
 <Subscription subscription={SUBSCRIBE_POSTS_TEMPLATE}>
@@ -248,7 +246,7 @@ const link = split(
 
 ---
 
-# Subscriptions
+## Subscriptions
 
 ```js
 const SUBSCRIBE_POST_CHANGE_TEMPLATE = gql`
@@ -267,7 +265,7 @@ const SUBSCRIBE_POST_CHANGE_TEMPLATE = gql`
 
 ---
 
-# Subscriptions
+## Subscriptions
 
 ```js
 subscriptionRenderer = ({ data }) => {
@@ -279,13 +277,13 @@ subscriptionRenderer = ({ data }) => {
 
 ---
 
-# Exercise: Hackernews clone
+## Exercise: Hackernews clone
 
 Do the React-Apollo tutorial at https://howtographql.com
 
 ---
 
-# Authentication, setting headers
+## Authentication, setting headers
 
 Middleware allows us to modify requests before they are sent to the server, e.g. by adding authentication headers:
 

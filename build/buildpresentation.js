@@ -2,10 +2,6 @@ const fs = require('fs');
 
 const markdownToHtml = require('./markdowntohtml');
 
-// process.argv: path/to/node_binary, path/to/build.js, coursename, language
-const coursename = process.argv[2];
-const lang = process.argv[3];
-
 const sectionsBasePath = './src/sections';
 const templateFilename = './src/assets/template.html';
 const highlightjsCssFilename = './node_modules/highlightjs/styles/default.css';
@@ -14,7 +10,6 @@ const buildPresentation = (coursename, lang) => {
   // check if the configuration file exists; otherwise, exit the process
   if (!fs.existsSync(`./src/${coursename}-config.json`)) {
     console.log(`ERR: could not find course "${coursename}"`);
-    console.log('example usage: npm run build react de');
     return;
   }
 
@@ -27,7 +22,6 @@ const buildPresentation = (coursename, lang) => {
   const title = config[`title-${lang}`];
 
   // Expand sections where entire folders are listed
-  const sectionNames = [];
   const sectionPaths = [];
   for (let sectionPath of sections) {
     const potentialDirPath = `${sectionsBasePath}/${sectionPath}`;
@@ -53,7 +47,7 @@ const buildPresentation = (coursename, lang) => {
   // );
   // IO
   const sectionContents = getSectionContents(sectionPaths);
-  const sectionContentsString = sectionContents.join('\n----\n\n');
+  const sectionContentsString = sectionContents.join('\n');
 
   // images
   const images = {};

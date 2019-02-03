@@ -39,8 +39,6 @@ Marko Knöbl
 - Materials
 - Questions, Feedback?
 
-----
-
 # Agenda
 
 - Overview of React
@@ -52,8 +50,6 @@ Marko Knöbl
 - Routing
 - Testing Components
 - Progressive Web Apps
-
-----
 
 # React.js
 
@@ -105,8 +101,6 @@ Marko Knöbl
 ## Example: data model and data flow in a Todo app
 
 ![image: data model in a todo app](./images/todo-components-datamodel.svg)
-
-----
 
 # React.js - Basics
 
@@ -196,8 +190,6 @@ constructor () {
 ```jsx
 <div>{this.state.now.toLocaleTimeString()}</div>
 ```
-
-----
 
 # ES2015+
 
@@ -408,8 +400,6 @@ let join = (strings, separator='') => {
 }
 ```
 
-----
-
 ## ESLint
 
 JavaScript-Linter
@@ -435,8 +425,6 @@ npm packages:
 }
 ```
 
-----
-
 ## Prettier
 
 https://prettier.io/
@@ -460,8 +448,6 @@ or via `.prettierrc.json`:
   "jsxBracketSameLine": true
 }
 ```
-
-----
 
 # JavaScript basics for React
 
@@ -635,8 +621,6 @@ Methods are usually bound in the constructor:
     this.greet = this.greet.bind(this);
   }
 ```
-
-----
 
 # React.js - basics II
 
@@ -918,8 +902,6 @@ handleChange = event => {
 };
 ```
 
-----
-
 # Development tools for React
 
 ---
@@ -932,8 +914,6 @@ https://github.com/facebook/react-devtools
 - show state and props
 - highlight changes to state and props
 - highlight updates / rerenderings of components
-
-----
 
 # components
 
@@ -1045,11 +1025,7 @@ examples:
   - bonus: make the API compatible with that of ordinary input-Elements so input-Elements may be easily replaced by NumberInput-components
   - bonus: add a min / max property that can be specified
 
-----
-
 # Exercise: todo list
-
-----
 
 # TypeScript
 
@@ -1237,8 +1213,6 @@ class Clock {
 }
 ```
 
-----
-
 # React with TypeScript
 
 ---
@@ -1287,8 +1261,6 @@ types:
 - `React.FormEvent<HTMLFormElement>`
 - `React.ChangeEvent<HTMLInputElement>`
 - `React.MouseEvent<HTMLDivElement>`
-
-----
 
 # Material-UI
 

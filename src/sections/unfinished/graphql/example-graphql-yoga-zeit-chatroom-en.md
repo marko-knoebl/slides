@@ -1,10 +1,10 @@
 # Example: a chatroom API
 
-## build a chatroom API with GraphQL and yoga, hosted on zeit.co
+### build a chatroom API with GraphQL and yoga, hosted on zeit.co
 
 ---
 
-# start the project
+## start the project
 
 create a new folder for the project and initialize an npm project:
 
@@ -14,7 +14,7 @@ npm init
 
 ---
 
-# install & set up micro
+## install & set up micro
 
 ```bash
 npm install micro

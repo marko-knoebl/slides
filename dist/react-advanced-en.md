@@ -233,8 +233,6 @@ it('reacts to click events', () => {
 });
 ```
 
-----
-
 # React Router
 
 ---
@@ -356,8 +354,6 @@ import { Switch } from 'react-router-dom';
 </Switch>;
 ```
 
-----
-
 # PWAs
 
 Progressive Web Apps with React
@@ -443,8 +439,6 @@ handleInstallBtnClicked = () => {
 - choose "edit name" and pick a shorter name
 - switch to https manually - try it out in Chrome on desktop and mobile
 
-----
-
 # Context
 
 ---
@@ -512,8 +506,6 @@ class TodoList extends React.Component {
   }
 }
 ```
-
-----
 
 # Fragments
 

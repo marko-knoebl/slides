@@ -1,19 +1,17 @@
-class: center, middle
-
 # Datenspeicherung
 
-## localStorage und indexedDB
+### localStorage und indexedDB
 
 ---
 
-# Überblick
+## Überblick
 
 - localStorage: einfacher key-value-Store mit Textwerten)
 - indexedDB: "echte Datenbank"
 
 ---
 
-# localStorage
+## localStorage
 
 wichtige Methoden:
 
@@ -23,7 +21,7 @@ wichtige Methoden:
 
 ---
 
-# localStorage
+## localStorage
 
 Verwendung für Todos:
 
@@ -39,7 +37,7 @@ todos = JSON.parse(todoString);
 
 ---
 
-# indexedDB
+## indexedDB
 
 Echte Datenbank
 
@@ -52,7 +50,7 @@ Vorteile gegenüber localStorage:
 
 ---
 
-# indexedDB promised (idb)
+## indexedDB promised (idb)
 
 library, die es erlaubt, bei indexedDB mit Promises zu arbeiten
 
@@ -62,11 +60,11 @@ Einbinden über CDN: https://cdn.jsdelivr.net/npm/idb@2.1.2/lib/idb.min.js
 
 ---
 
-# idb Grundlagen
+## idb Grundlagen
 
 ---
 
-# idb Grundlagen: open & upgrade
+## idb Grundlagen: open & upgrade
 
 Erstellen / Öffnen einer DB; gibt ein Promise zurück
 
@@ -76,7 +74,7 @@ idb.open(name, version, upgradeCallback);
 
 ---
 
-# idb Grundlagen: open & upgrade
+## idb Grundlagen: open & upgrade
 
 Beispiel
 
@@ -95,7 +93,7 @@ const dbPromise = idb.open('todo-db', 1, upgradeCallback);
 
 ---
 
-# Upgrade
+## Upgrade
 
 upgrade = callback, das insbesondere genutzt werden kann, um auf ein neues Datenschema zu wechseln
 
@@ -105,7 +103,7 @@ Callbackfunktion wird immer aufgerufen, wenn sich die Versionsnummer der Datenba
 
 ---
 
-# Keys
+## Keys
 
 Jedes Element im object store hat einen einzigartigen key (~id);
 
@@ -113,7 +111,7 @@ Der key kann ein Eintrag im Objekt sein oder ein unabhängiger Wert
 
 ---
 
-# Keys: numerische id
+## Keys: numerische id
 
 ```js
 upgradeDb.createObjectStore('todos', {
@@ -123,7 +121,7 @@ upgradeDb.createObjectStore('todos', {
 
 ---
 
-# Keys: numerische id, die im Objekt abgespeichert wird
+## Keys: numerische id, die im Objekt abgespeichert wird
 
 ```js
 upgradeDb.createObjectStore('todos', {
@@ -134,7 +132,7 @@ upgradeDb.createObjectStore('todos', {
 
 ---
 
-# Keys: Eintrag im Objekt
+## Keys: Eintrag im Objekt
 
 ```js
 // email als id
@@ -143,13 +141,13 @@ upgradeDb.createObjectStore('users', { keyPath: 'email' });
 
 ---
 
-# Transaktionen
+## Transaktionen
 
 Transaktion = Gruppe von Operationen auf der Datenbank (auslesen / hinzufügen / überschreiben ...)
 
 ---
 
-# Transaktionen - Schritte
+## Transaktionen - Schritte
 
 1.  Datenbankobjekt holen (idb.open)
 2.  Eine Transaktion auf einem oder mehreren Stores beginnen (zwei Modi: 'readonly' (Standard) oder 'readwrite')
@@ -158,7 +156,7 @@ Transaktion = Gruppe von Operationen auf der Datenbank (auslesen / hinzufügen /
 
 ---
 
-# Datenbankobjekt holen
+## Datenbankobjekt holen
 
 ```js
 let db;
@@ -170,7 +168,7 @@ idb.open('todo-db', 1).then(openedDb => {
 
 ---
 
-# Daten hinzufügen (add)
+## Daten hinzufügen (add)
 
 ```js
 const transaction = db.transaction(['todos'], 'readwrite');
@@ -180,7 +178,7 @@ todoStore.add({ text: 'groceries', done: false });
 
 ---
 
-# Daten überschreiben (put)
+## Daten überschreiben (put)
 
 ```js
 const transaction = db.transaction(['todos'], 'readwrite');
@@ -191,7 +189,7 @@ todoStore.put({ text: 'groceris', done: true, key: 1 });
 
 ---
 
-# Daten löschen
+## Daten löschen
 
 ```js
 const transaction = db.transaction(['todos'], 'readwrite');
@@ -201,7 +199,7 @@ todoStore.delete(1);
 
 ---
 
-# Daten auslesen (getAll)
+## Daten auslesen (getAll)
 
 ```js
 const transaction = db.transaction(['artists'], 'readonly');
@@ -211,7 +209,7 @@ artistsStore.getAll().then(console.log);
 
 ---
 
-# Daten auslesen (get)
+## Daten auslesen (get)
 
 Auslesen anhand des keys:
 
@@ -223,7 +221,7 @@ artistsStore.get(1).then(console.log);
 
 ---
 
-# Daten auslesen - via indizes
+## Daten auslesen - via indizes
 
 Die Einträge werden in der Datenbank im wesentlichen nach dem key sortiert abgelegt.
 
@@ -241,7 +239,7 @@ Beispiele aus der echten Welt:
 
 ---
 
-# Indizes
+## Indizes
 
 Um schnell nach etwas anderem als dem primary key zu suchen: zusätzlicher Index (aber: größerer Datenverbrauch)
 
@@ -254,7 +252,7 @@ store.createIndex('name', ['lastName', 'firstName']);
 
 ---
 
-# Indizes
+## Indizes
 
 ```js
 const nameIndex = objectStore.index('name');
@@ -263,7 +261,7 @@ nameIndex.get(['Andy', 'Jones']).then(...)
 
 ---
 
-# Übungen
+## Übungen
 
 - Slides: https://developers.google.com/web/ilt/pwa/working-with-indexeddb-slides
 - Lab: https://developers.google.com/web/ilt/pwa/lab-indexeddb

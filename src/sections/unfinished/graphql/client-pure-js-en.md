@@ -1,10 +1,8 @@
-class: center, middle
-
 # GraphQL client in pure js
 
 ---
 
-# example: reddit API
+## example: reddit API
 
 ```js
 const queryTemplate = `
@@ -21,7 +19,7 @@ const queryTemplate = `
 
 ---
 
-# example: reddit API
+## example: reddit API
 
 ```js
 fetch('https://www.graphqlhub.com/graphql', {

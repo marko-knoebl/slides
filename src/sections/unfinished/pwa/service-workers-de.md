@@ -1,10 +1,8 @@
-class: center, middle
-
 # Service Worker und Workbox
 
 ---
 
-# Service Worker - Motivation
+## Service Worker - Motivation
 
 Service Worker = "Mittelmann" (Proxy) zwischen Webbrowser und Server (als Teil des Browsers)
 
@@ -12,19 +10,19 @@ Haupteinsatzgebiet: Offlinenutzung von Webseiten / Webanwendungen (Ersetzt die a
 
 ---
 
-# Service Worker
+## Service Worker
 
-## Traditionelle Web-App:
+### Traditionelle Web-App:
 
 Endgerät ⟺ Web Server
 
-## PWA:
+### PWA:
 
 Endgerät ⟺ Service Worker ⟺ Web Server
 
 ---
 
-# Grundlagen
+## Grundlagen
 
 service worker = Skript, das im Hintergrund läuft
 
@@ -38,7 +36,7 @@ Wichtige Funktionalität: Im Hintergrund Netzwerkanfragen abfangen und behandeln
 
 ---
 
-# Grundlagen
+## Grundlagen
 
 Service-Worker sind besondere Web-Worker, daher:
 
@@ -47,22 +45,22 @@ Service-Worker sind besondere Web-Worker, daher:
 
 ---
 
-# Browser-Unterstützung
+## Browser-Unterstützung
 
-[caniuse](https://caniuse.com/#feat=serviceworkers)
+[caniuse](https://caniuse.com/##feat=serviceworkers)
 
 Wenn ServiceWorker unterstützt werden => Unterstützung für ES2015
 
 ---
 
-# Wichtige verwandte Technologien
+## Wichtige verwandte Technologien
 
 - fetch (Senden von Netzwerkanfragen)
 - cache (Resultate von Netzwerkanfragen cachen)
 
 ---
 
-# Fetch - Kurzes Beispiel
+## Fetch - Kurzes Beispiel
 
 ```js
 // dieser Code kann zu jeder Website in der
@@ -76,7 +74,7 @@ fetch(url)
 
 ---
 
-# Cache - Kurzes Beispiel
+## Cache - Kurzes Beispiel
 
 ```js
 // alle Netzwerkanfragen werden gecacht
@@ -94,7 +92,7 @@ self.addEventListener('fetch', event => {
 
 ---
 
-# ServiceWorker registrieren
+## ServiceWorker registrieren
 
 ```js
 if (navigator.serviceWorker) {
@@ -115,7 +113,7 @@ Nur erklären, nicht selbst implementieren
 
 ---
 
-# ServiceWorker - Events
+## ServiceWorker - Events
 
 Folgende Events können im ServiceWorker behandelt werden:
 
@@ -128,7 +126,7 @@ Folgende Events können im ServiceWorker behandelt werden:
 
 ---
 
-# ServiceWorker - Events: Install
+## ServiceWorker - Events: Install
 
 Tritt auf, wenn es eine neue ServiceWorker-Datei gibt:
 
@@ -139,7 +137,7 @@ Guter Zeitpunkt, um Resourcen für die spätere Verwendung herunterzuladen und d
 
 ---
 
-# ServiceWorker - Events: Install
+## ServiceWorker - Events: Install
 
 ```js
 self.addEventListener('install', event => {
@@ -149,7 +147,7 @@ self.addEventListener('install', event => {
 
 ---
 
-# ServiceWorker - Events: Activate
+## ServiceWorker - Events: Activate
 
 Tritt auf, wenn ein neuer ServiceWorker aktiviert wird:
 
@@ -162,7 +160,7 @@ Activate: gute Gelegenheit, um alte Caches zu bereinigen
 
 ---
 
-# ServiceWorker - Events: Activate
+## ServiceWorker - Events: Activate
 
 ```js
 self.addEventListener('activate', event => {
@@ -172,7 +170,7 @@ self.addEventListener('activate', event => {
 
 ---
 
-# ServiceWorker - Events: Fetch
+## ServiceWorker - Events: Fetch
 
 Für jede Netzwerkkommunikation
 
@@ -182,13 +180,13 @@ Beispiel: Netzwerkanfragen loggen
 
 ---
 
-# ServiceWorker - Events: Message
+## ServiceWorker - Events: Message
 
 Kommunikation mit dem Haupt-Thread (wie bei WebWorkern)
 
 ---
 
-# ServiceWorker - Events: Sync
+## ServiceWorker - Events: Sync
 
 Warten auf Netzwerk-Konnektivität, um Daten zu senden
 
@@ -196,7 +194,7 @@ Wenn Netzwerk-Konnektivität besteht, aber der sync trotzdem fehlschlägt (das s
 
 ---
 
-# fetch und cache: Anwendungsbeispiele
+## fetch und cache: Anwendungsbeispiele
 
 - Beim ersten Aufruf eines Spiels werden alle benötigten Resourcen heruntergeladen und sind dann offline verfügbar
 - Bei einer Chat-Anwendung werden die Avatare aller Freunde im Cache abgelegt. Sie sollen einmal pro Tag aktualisiert werden.
@@ -205,13 +203,13 @@ Wenn Netzwerk-Konnektivität besteht, aber der sync trotzdem fehlschlägt (das s
 
 ---
 
-# Einfaches Beispiel: Offline-Anwendung
+## Einfaches Beispiel: Offline-Anwendung
 
 Anwendung, die alle benötigten Resourcen beim ersten Mal herunterlädt und dann so beibehält.
 
 ---
 
-# Einfaches Beispiel: Offline-Anwendung
+## Einfaches Beispiel: Offline-Anwendung
 
 ```js
 const cacheName = 'my-site-cache-v1';
@@ -225,7 +223,7 @@ const urlsToCache = [
 
 ---
 
-# Einfaches Beispiel: Offline-Anwendung
+## Einfaches Beispiel: Offline-Anwendung
 
 Install-Handler
 
@@ -243,7 +241,7 @@ self.addEventListener('install', event => {
 
 ---
 
-# Einfaches Beispiel: Offline-Anwendung
+## Einfaches Beispiel: Offline-Anwendung
 
 Install-Handler
 
@@ -257,7 +255,7 @@ event.waitUntil(
 
 ---
 
-# Einfaches Beispiel: Offline-Anwendung
+## Einfaches Beispiel: Offline-Anwendung
 
 Activate-Handler (alte Caches löschen)
 
@@ -285,7 +283,7 @@ im Code
 
 ---
 
-# Einfaches Beispiel: Offline-Anwendung
+## Einfaches Beispiel: Offline-Anwendung
 
 Fetch-Handler
 
@@ -297,7 +295,7 @@ self.addEventListener('fetch', event => {
 
 ---
 
-# Übung: "Scripting the Service Worker"
+## Übung: "Scripting the Service Worker"
 
 https://developers.google.com/web/ilt/pwa/lab-scripting-the-service-worker
 

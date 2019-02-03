@@ -1,14 +1,12 @@
-class: center, middle
-
 # node.js basics
 
 ---
 
-# running code
+## running code
 
 ---
 
-# running code on the command line
+## running code on the command line
 
 ```bash
 node hello.js
@@ -16,7 +14,7 @@ node hello.js
 
 ---
 
-# running code in VS Code
+## running code in VS Code
 
 debugging: `F5`
 
@@ -26,7 +24,7 @@ choose node as an environment in the debugger pane
 
 ---
 
-# configuration file (launch.json)
+## configuration file (launch.json)
 
 ```json
 {
@@ -39,7 +37,7 @@ choose node as an environment in the debugger pane
 
 ---
 
-# importing modules
+## importing modules
 
 modules can be imported via `require`:
 
@@ -53,13 +51,13 @@ console.log(folderContents);
 
 ---
 
-# running an HTTP server with node
+## running an HTTP server with node
 
 see https://nodejs.org/en/docs/guides/getting-started-guide/
 
 ---
 
-# running an HTTP server with node
+## running an HTTP server with node
 
 ```js
 const http = require('http');
@@ -80,7 +78,7 @@ server.listen(port, hostname);
 
 ---
 
-# creating a time server
+## creating a time server
 
 ```js
 const http = require('http');
@@ -101,7 +99,7 @@ server.listen(port, hostname);
 
 ---
 
-# request handler
+## request handler
 
 The request handler function receives two arguments which represent the request the server received and the response the server will send respectively.
 
@@ -109,13 +107,13 @@ They are instances of th classes `ServerResponse` and `IncomingMessage`.
 
 ---
 
-# ServerResponse
+## ServerResponse
 
 https://nodejs.org/api/http.html#http_class_http_serverresponse
 
 ---
 
-# ServerResponse: write, end
+## ServerResponse: write, end
 
 ```js
 res.write('dice:\n');
@@ -133,7 +131,7 @@ res.end(
 
 ---
 
-# ServerResponse: statusCode, statusMessage
+## ServerResponse: statusCode, statusMessage
 
 ```js
 res.statusCode = 404;
@@ -142,7 +140,7 @@ res.statusMessage = 'Not found';
 
 ---
 
-# ServerResponse: HTTP headers
+## ServerResponse: HTTP headers
 
 ```js
 res.setHeader('Content-Type', 'text/plain;charset=utf-8');
@@ -154,7 +152,7 @@ res.setHeader('Set-Cookie', 'UserID=JohnDoe; Max-Age=3600');
 
 ---
 
-# IncomingMessage
+## IncomingMessage
 
 ```js
 req.method === 'GET';
@@ -166,6 +164,6 @@ const ua = req.headers['user-agent'];
 
 ---
 
-# IncomingMessage: exercises
+## IncomingMessage: exercises
 
 create a website with multiple views

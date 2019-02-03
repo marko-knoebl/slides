@@ -1,7 +1,22 @@
+const fs = require('fs');
+
 const buildPresentation = require('./buildpresentation');
 
-// process.argv: path/to/node_binary, path/to/build.js, coursename, language
-const coursename = process.argv[2];
-const lang = process.argv[3];
+// get a list of all configs inside of src
+const courseNames = [];
 
-buildPresentation(coursename, lang);
+for (let potentialConfig of fs.readdirSync('./src')) {
+  const regExp = new RegExp(`(.*)-config\\.json`);
+  const matches = regExp.exec(potentialConfig);
+  if (matches !== null) {
+    courseNames.push(matches[1]);
+  }
+}
+
+for (let courseName of courseNames) {
+  const configContent = fs.readFileSync(`./src/${courseName}-config.json`);
+  const configData = JSON.parse(configContent);
+  for (let lang of configData.languages) {
+    buildPresentation(courseName, lang);
+  }
+}

@@ -41,8 +41,6 @@ Marko Knöbl
 - Unterlagen
 - Fragen, Feedback? - Jederzeit erwünscht
 
-----
-
 # Agenda
 
 - Kurzüberblick über React
@@ -54,8 +52,6 @@ Marko Knöbl
 - Routing
 - Testen von Komponenten
 - Progressive Web Apps
-
-----
 
 # React.js
 
@@ -107,8 +103,6 @@ Marko Knöbl
 ## Beispiel: Datenmodell und -fluss in einer Todo-App
 
 ![Bild: Datenmodell in einer Todo-App](./images/todo-components-datamodel.svg)
-
-----
 
 # React.js - Grundlagen
 
@@ -198,8 +192,6 @@ constructor () {
 ```jsx
 <div>{this.state.now.toLocaleTimeString()}</div>
 ```
-
-----
 
 # ES2015+
 
@@ -398,8 +390,6 @@ let join = (strings, separator='') => {
 }
 ```
 
-----
-
 ## ESLint
 
 JavaScript-Linter
@@ -424,8 +414,6 @@ npm packages:
   "extends": "react-app"
 }
 ```
-
-----
 
 ## Prettier
 
@@ -456,8 +444,6 @@ oder über `.prettierrc.json`:
   "jsxBracketSameLine": true
 }
 ```
-
-----
 
 # JavaScript-Grundlagen für React
 
@@ -623,8 +609,6 @@ fg(); // klappt jetzt auch
     this.greet = this.greet.bind(this);
   }
 ```
-
-----
 
 # React.js - Grundlagen II
 
@@ -898,8 +882,6 @@ handleChange = event => {
 };
 ```
 
-----
-
 # Entwicklerwerkzeuge für React
 
 ---
@@ -911,8 +893,6 @@ https://github.com/facebook/react-devtools
 - Anzeige der Komponententags im Inspektor
 - Anzeige von State und Props
 - Hervorhebung von Änderungen von State und Props
-
-----
 
 # Komponenten
 
@@ -1080,11 +1060,7 @@ Diese werden als Methoden der Klasse implementiert
 
 Clock-Komponente (mit `componentDidMount` und `componentWillUnmount`)
 
-----
-
 # Übung: todo list
-
-----
 
 # Material-UI
 

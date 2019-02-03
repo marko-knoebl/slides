@@ -41,8 +41,6 @@ Marko Knöbl
 - Unterlagen
 - Fragen, Feedback? - Jederzeit erwünscht
 
-----
-
 # Python: Überblick
 
 ---
@@ -77,8 +75,6 @@ if a * b > 10:
     print('hello')
 ```
 
-----
-
 # Python Installation
 
 ---
@@ -100,8 +96,6 @@ Python Installation beinhaltet:
 - interaktive Python-Konsole
 - PIP: Paketmanager zum Installieren von Erweiterungen
 - Python Dokumentation
-
-----
 
 # Die interaktive Python-Konsole
 
@@ -320,8 +314,6 @@ a = 3
 a = a + 1
 ```
 
-----
-
 # Python Programme
 
 ---
@@ -358,8 +350,6 @@ https://code.visualstudio.com/
 ---
 
 ## VS Code: Ordner öffnen
-
-----
 
 # Unser erstes Python-Programm
 
@@ -452,8 +442,6 @@ Eine Kommentarzeile beginnt mit einem `#`-Zeichen.
 # determine the length of the name
 name_length = len(name)
 ```
-
-----
 
 # Kontrollstrukturen
 
@@ -607,8 +595,6 @@ not 4 < c < 10
 c <= 4 or c >= 10
 ```
 
-----
-
 # Kontrollstrukturen - Beispiele
 
 ---
@@ -671,8 +657,6 @@ for i in range(10):
 print(b)
 ```
 
-----
-
 # Bestandteile von Programmen
 
 ---
@@ -701,8 +685,6 @@ Alternative: Escapen von Zeilenumbrüchen mit `\`
 a = 2 + 3 + 4 + 5 + 6 + \
     7 + 8 + 9 + 10
 ```
-
-----
 
 # Listen
 
@@ -770,8 +752,6 @@ your shopping list is:
 ["milk", "bread", "apples"]
 ```
 
-----
-
 ## Objekte abändern
 
 In Python können Listen verändert werden - z.B. durch das anhängen eines neuen Eintrags
@@ -812,8 +792,6 @@ print(a)
 Eine Zuweisung (`b = ...`) versieht ein existierendes Objekt mit einem neuen (zusätzlichen) Namen.
 
 Im Hintergrund steht nach wie vor nur ein einzelnes Objekt.
-
-----
 
 # For-Schleifen
 
@@ -896,8 +874,6 @@ for i in range(5):
 4 x 7 = 28
 ...
 ```
-
-----
 
 # Builtins, Module
 
@@ -992,8 +968,6 @@ pprint.pprint(['Mercuy', 'Venus', 'Earth', 'Mars', 'Jupiter',
  'Pluto']
 ```
 
-----
-
 # Übungsbeispiele
 
 ---
@@ -1030,8 +1004,6 @@ while proceed:
 for todo in todolist:
     print('-', todo)
 ```
-
-----
 
 # Funktionen
 
@@ -1077,8 +1049,6 @@ mit Schlüsselwortparametern:
 f = open("myfile.txt", encoding="utf-8", mode="w")
 ```
 
-----
-
 # Funktionen selbst definieren
 
 ---
@@ -1114,8 +1084,6 @@ Schreibe eine Funktion namens `isprime`, die überprüft, ob eine Zahl eine Prim
 ## Aufgabe: ask_yes_no()
 
 Schreibe eine Funktion namens `ask_yes_no`, die dem Benutzer eine Ja/Nein-Frage stellt und entweder `True` oder `False` zurückliefert
-
-----
 
 # Textdateien schreiben
 
@@ -1162,8 +1130,6 @@ Empfehlung: Textdateien _immer_ im utf-8 encoding lesen oder schreiben (beste Un
 ## Beispiel
 
 - Programm, das Todos vom Benutzer abfragt und in einer Datei abspeichert
-
-----
 
 # Übungsaufgaben
 
@@ -1253,8 +1219,6 @@ print(check_isbn(isbn, expected))
 
 ## IBAN
 
-----
-
 # VS Code - Fortgeschritten
 
 ---
@@ -1281,8 +1245,6 @@ Empfehlungen:
   - Mehrere Cursor: Alt + Klick
   - Automatische Formatierung: Alt + Shift + F
   - Ein- / Auskommentieren: Ctrl + #
-
-----
 
 # Codequalität und Linting
 
@@ -1429,8 +1391,6 @@ python -m pydoc isprime.isprime
 
 ## one way to do it
 
-----
-
 # Python Versionen
 
 ---
@@ -1511,8 +1471,6 @@ Kompatibilitätsschicht zwischen Python 2 und Python 3
 
 Unterstützung von Python 2 und Python 3 aus der gleichen Codebase
 
-----
-
 # Cheatsheet
 
 ehmatthes.github.io/pcc#cheatsheets
@@ -1520,8 +1478,6 @@ ehmatthes.github.io/pcc#cheatsheets
 ???
 
 fehlt: break, None, Kommentare
-
-----
 
 class: center, middle
 

@@ -1,6 +1,8 @@
+# PWA Grundlagen
+
 <!-- https://developers.google.com/web/ilt/pwa/ -->
 
-# Grundprinzipien PWA
+## Grundprinzipien PWA
 
 https://developers.google.com/web/ilt/pwa/why-build-pwa
 
@@ -18,7 +20,7 @@ google-präsentation bis S. 23
 
 ---
 
-# Browser-Unterstützung
+## Browser-Unterstützung
 
 Service Worker: ab Edge 17, ab iOS 11.3
 
@@ -26,7 +28,7 @@ manifest.json: ab Edge 17, ab iOS 11.3, kein Firefox
 
 ---
 
-# Beispiele
+## Beispiele
 
 - https://pwa.rocks
   - wiki offline
