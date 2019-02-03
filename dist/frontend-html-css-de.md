@@ -1,14 +1,10 @@
 # {{title}}
 
----
-
 ## Präsentation und Code
 
 Präsentationen verfügbar unter: https://karuga.eu/courses-presentations
 
 Code verfügbar unter: https://github.com/marko-knoebl/courses-code
-
----
 
 ## Ihr Trainer
 
@@ -20,8 +16,6 @@ Marko Knöbl
 - Programmierung
   - Python, JavaScript
 
----
-
 ## Vorstellung der Teilnehmer
 
 - Name
@@ -30,8 +24,6 @@ Marko Knöbl
 - Grund der Schulung
 - Vorkenntnisse
 - Erwartungen / Wünsche
-
----
 
 ## Organisatorisches
 
@@ -43,8 +35,6 @@ Marko Knöbl
 
 # HTML, CSS & JavaScript
 
----
-
 ## HTML, CSS & JavaScript
 
 Zentrale Technologien, die der Browser verwendet:
@@ -55,8 +45,6 @@ Zentrale Technologien, die der Browser verwendet:
 
 # HTML Grundlagen
 
----
-
 ## HTML-Syntax
 
 HTML besteht aus verschachtelten **Elementen**, die von **Tags** begrenzt werden.
@@ -64,8 +52,6 @@ HTML besteht aus verschachtelten **Elementen**, die von **Tags** begrenzt werden
 ```html
 <h1>Dies ist eine Überschrift</h1>
 ```
-
----
 
 ## HTML-Syntax
 
@@ -76,8 +62,6 @@ Manche HTML-Elemente haben keinen Inhalt, zB der br-Tag, der einen Zeilenumbruch
 <br>
 ```
 
----
-
 ## HTML-Syntax: Attribute
 
 HTML-Tags können Attribute der folgenden Form zugewiesen werden:
@@ -85,8 +69,6 @@ HTML-Tags können Attribute der folgenden Form zugewiesen werden:
 ```html
 <img src="portrait.png" alt="Portraitbild des Benutzers" />
 ```
-
----
 
 ## HTML-Tags
 
@@ -101,23 +83,17 @@ Beispiele:
 - img
 - a
 
----
-
 ## Ausprobieren
 
 https://codepen.io
 
 (Alternativen: https://jsfiddle.net, https://plnkr.co, https://codesandbox.io)
 
----
-
 ## Kommentare
 
 ```html
 <!-- dies ist ein Kommentar -->
 ```
-
----
 
 ## Grundlegende HTML-Struktur
 
@@ -139,8 +115,6 @@ https://codepen.io
 
 In VS Code: Codeschnipsel `html:5`
 
----
-
 ## Besondere Zeichen
 
 Um die folgenden Zeichen in einem HTML-Dokument darzustellen, sollten sie immer "escaped" werden:
@@ -154,8 +128,6 @@ Folgende Zeichen müssen in HTML-Attributen excaped werden:
 - `"` wird zu `&quot;`
 - (`'` wird zu `&apos;`, wenn das HTML-Attribut durch `'` begrenzt wird)
 
----
-
 ## Besondere Zeichen
 
 Es sollte heutzutage immer `<meta charset="UTF-8" />` angegeben sein, dann können generell beliebige Unicode-Zeichen verwendet werden.
@@ -163,8 +135,6 @@ Es sollte heutzutage immer `<meta charset="UTF-8" />` angegeben sein, dann könn
 ```html
 <button>😊</button>
 ```
-
----
 
 ## Viewport
 
@@ -177,17 +147,11 @@ Es sollte heutzutage immer `<meta charset="UTF-8" />` angegeben sein, dann könn
 
 https://viewportsizes.com/mine
 
----
-
 ## Browser tools (F12)
 
-???
-
-Bestehende Website in browser-tools begutachten
+Übung: Bestehende Website in Browser Tools begutachten
 
 # VS Code
-
----
 
 ## VS Code
 
@@ -196,13 +160,9 @@ https://code.visualstudio.com
 - Open-Source-Entwicklungsumgebung
 - Unabhängig vom eigentlichen Visual Studio
 
----
-
 ## VS Code: Ordner öffnen
 
 ganzen Ordner öffnen mit _File_ - _Open Folder_
-
----
 
 ## VS Code: speichern
 
@@ -212,11 +172,7 @@ Speichern mit _Strg_ + _S_
 
 oder: _File_ - _Auto Save_
 
----
-
 ## VS Code: Datei-Explorer, Split Editor
-
----
 
 ## VS Code: Terminal
 
@@ -226,15 +182,11 @@ zusätzliches Terminal via Symbol _+_
 
 übernimmt das aktuell geöffnete Verzeichnis
 
----
-
 ## VS Code - Konfiguration
 
 Via _File - Preferences - Settings_
 
 Eingeteilt in _User Settings_ und _Workspace Settings_
-
----
 
 ## VS Code - Konfigurationsmöglichkeiten
 
@@ -251,8 +203,6 @@ Weitere Möglichkeiten:
 - EOL
 - Workbench: Color Theme
 
----
-
 ## VS Code - Kurzbefehle
 
 - _Strg_ + _F_: Suchen in Datei
@@ -260,9 +210,7 @@ Weitere Möglichkeiten:
 - _F2_: Umbenennen von Variablen
 - _Alt_ + Mausklick: Mehrere Textcursor zum gleichzeitigen Schreiben setzen
 
----
-
-# VS Code - Plugins
+## VS Code - Plugins
 
 Empfohlene Plugins:
 
@@ -273,8 +221,7 @@ Empfohlene Plugins:
 
 (siehe auch _Show Popular Extensions_ in VS Code)
 
-???
-
+<!--
 http://www.snappyjs.com/2018/03/25/vscode-extensions-for-javascript-developers/
 ESLint
 JSRefactor
@@ -284,10 +231,9 @@ npm Intellisense
 guides
 rainbow brackets
 wakatime
+-->
 
----
-
-# VS Code - Plugins
+## VS Code - Plugins
 
 für React:
 
@@ -298,9 +244,7 @@ für Angular:
 - Angular v7 Snippets (by John Papa)
 - Angular Language Service
 
----
-
-# Prettier - Konfiguration
+## Prettier - Konfiguration
 
 prettierrc.json:
 
@@ -314,19 +258,13 @@ prettierrc.json:
 }
 ```
 
----
-
 # VS Code - Extensions
 
 In der Sidebar öffnen: fünftes Symbol auf der linken Seite
 
----
-
 ## VS Code - Extensions
 
 - Prettier - Automatische Code-Formatierung nach strikten Regeln - für HTML, JS, CSS
-
----
 
 ## Prettier - Konfiguration
 
@@ -341,23 +279,17 @@ z.B. über _prettierrc.json_:
 
 # CSS
 
----
-
 ## Stile auf HTML-Elemente anwenden
 
 ```html
 <h1 style="color: blue; font-size: 30px">Hello</h1>
 ```
 
----
-
 ## Stylesheets einbinden
 
 ```html
 <link rel="stylesheet" href="style.css" />
 ```
-
----
 
 ## CSS-Beispiel
 
@@ -373,14 +305,10 @@ h1 {
 }
 ```
 
----
-
 ## CSS-Syntax
 
 - Selektoren
 - Properties
-
----
 
 ## CSS-Selektoren
 
@@ -389,8 +317,6 @@ Tag-Selektor: `h1`
 Klassen-Selektor: `.important`
 ID-Selektor: `#home-button`
 
----
-
 ## CSS-Selektoren: Priorität
 
 Falls sich zwei CSS-Attribute widersprechen, "gewinnt":
@@ -398,14 +324,10 @@ Falls sich zwei CSS-Attribute widersprechen, "gewinnt":
 - das Attribut mit dem _spezifischeren_ Selektor
 - bzw. bei gleicher Spezifizität, das CSS-Statement, das im Code _später_ auftritt
 
----
-
 ## CSS-Properties
 
 - Farben
 - Schriftart
-
----
 
 ## Farben
 
@@ -416,8 +338,6 @@ h1 {
 }
 ```
 
----
-
 ## Farbangaben
 
 Standard-Farben: z.B. `grey`, `blue`, `lightblue`, ...
@@ -425,8 +345,6 @@ Standard-Farben: z.B. `grey`, `blue`, `lightblue`, ...
 RGB-Definition (rot-grün-blau): z.B. `rgb(255, 128, 128)`
 
 HEX-Definition: z.B. `#ff8080`
-
----
 
 ## Schrift
 
@@ -440,8 +358,6 @@ p {
   text-align: center;
 }
 ```
-
----
 
 ## font-family
 
@@ -457,8 +373,6 @@ p {
 
 `serif`, `sans-serif`, `monospace`
 
----
-
 ## font-size
 
 mögliche Einheiten:
@@ -467,8 +381,6 @@ mögliche Einheiten:
 - `%`: Prozent relativ zum umgebenden Text
 - `em`: Prozent relativ zum umgebenden Text
 - `rem`: Prozent relativ zur Schriftgröße vom `html`-Element
-
----
 
 ## font-style
 
@@ -480,13 +392,9 @@ h1 {
 }
 ```
 
----
-
 ## font-weight
 
 Um die Schriftstärke zu verändern, insbesondere: `font-weight: bold;`
-
----
 
 ## text-decoration
 
@@ -496,8 +404,6 @@ h1 {
 }
 ```
 
----
-
 ## text-align
 
 - `center`
@@ -506,8 +412,6 @@ h1 {
 - `right`
 - `start` (neu)
 - `end` (neu)
-
----
 
 ## Inline- und Block-Elemente
 
@@ -523,15 +427,11 @@ Block-Elemente:
 - so breit wie möglich
 - z.B. `h1`, `ul`, `li`, `p`
 
----
-
 ## span & div
 
 `span` = allgemeinstes inline-Element
 
 `div` = allgemeinstes block-Element
-
----
 
 ## Block- Elemente und das Box-Modell
 
@@ -542,8 +442,6 @@ Block-Elemente:
 - Rand (border)
 - Außenabstand (margin)
 
----
-
 ## Block- Elemente und das Box-Modell
 
 Größe des Inhalts:
@@ -553,8 +451,6 @@ Größe des Inhalts:
 - `max-height` / `max-width`
 
 Wenn z.B. bei height `50%` angegeben wird, bezieht sich das auf das Elternelement
-
----
 
 ## Block- Elemente und das Box-Modell
 
@@ -570,8 +466,6 @@ Heute setzt man oft:
 
 dann beziehen sie sich auf die Gesamtgröße (mit padding und border, aber ohne margin)
 
----
-
 ## Block-Elemente und das Box-Modell
 
 Padding (Innenabstand) und Margin (Außenabstand)
@@ -586,21 +480,15 @@ horizontalen Abstand gleich setzen (zum horizontalen Zentrieren): `margin: 10px 
 
 Abstände individuell setzen: `padding: 10px; padding-left: 20px;`
 
----
-
 ## Block-Elemente und das Box-Modell
 
 Border-Beispiel: `border: 10px solid blue`
 
 Abrundung-Beispiel: `border-radius: 5px`
 
----
-
 ## margin & padding bei Inline-Elementen
 
 Achtung: vertikales margin und padding wirken sich bei Inline-Elementen nicht auf die Positionierung aus und führen zu Überlappungen
-
----
 
 ## Layout-Beispiel: Horizontales Zentrieren
 
@@ -618,8 +506,6 @@ div {
 }
 ```
 
----
-
 ## overflow
 
 Um bei Bedarf scroll-Leisten anzuzeigen:
@@ -629,8 +515,6 @@ div {
   overflow: auto;
 }
 ```
-
----
 
 ## Body mit voller Höhe
 
@@ -644,13 +528,9 @@ body {
 }
 ```
 
----
-
 ## Übung: Google-Klon
 
 # HTML Fortgreschritten
-
----
 
 ## Semantisches HTML
 
@@ -660,8 +540,6 @@ body {
 - nav
 - aside
 
----
-
 ## Tabellen
 
 - table, tr
@@ -670,18 +548,12 @@ body {
 - caption-Tag
 - colspan
 
----
-
 ## Tabellen: Übung Öffnungszeiten
-
----
 
 ## Tabellen: verwenden von Pseudoklassen
 
 - `:hover`: Der Stil einer Tabellenzeile soll sich ändern, wenn wir die Maus darüber bewegen
 - `:nth-child`: Die Zeilen sollen gestreift dargestellt werden
-
----
 
 ## Formulare
 
@@ -696,16 +568,12 @@ Beispiel:
 </form>
 ```
 
----
-
 ## Input-Attribute
 
 - placeholder
 - autofocus
 - autocomplete
 - size
-
----
 
 ## Input-Typen
 
@@ -722,8 +590,6 @@ Weitere Möglichkeiten:
 - `number` (HTML 5)
 - `search` (HTML 5)
 
----
-
 ## autocomplete
 
 Das `autocomplete`-Attribut kann für die Autovervollständigung hilfreich sein, z.B.:
@@ -734,8 +600,6 @@ Das `autocomplete`-Attribut kann für die Autovervollständigung hilfreich sein,
 - `username`
 - ...
 
----
-
 ## Validierung
 
 - `required`
@@ -743,8 +607,6 @@ Das `autocomplete`-Attribut kann für die Autovervollständigung hilfreich sein,
 - `maxlength`
 
 CSS-Pseudoklassen: `:valid`, `:invalid`
-
----
 
 ## Validierung - Beispiel
 
@@ -757,8 +619,6 @@ CSS-Pseudoklassen: `:valid`, `:invalid`
   value="1"
 />
 ```
-
----
 
 ## Aktionen bei Formularen
 
@@ -774,13 +634,9 @@ Bei Betätigen des Buttons sendet das Formular einen post-Request an die Adresse
 
 # CSS-Layouts
 
----
-
 ## Layout-Grundlagen
 
 [learnlayout.com](https://learnlayout.com)
-
----
 
 ## Positionierung
 
@@ -789,20 +645,12 @@ Bei Betätigen des Buttons sendet das Formular einen post-Request an die Adresse
 - (`position`: `fixed`)
 - (`position`: `static`: Standardwert)
 
----
-
 ## Flexbox
 
 [css-tricks.com](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
 
----
-
 ## Beispiel: Facebook-Klon
 
----
-
 ## Media Queries
-
----
 
 ## CSS-Frameworks: Beispiel Bootstrap

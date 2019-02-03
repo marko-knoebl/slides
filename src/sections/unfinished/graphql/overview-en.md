@@ -1,18 +1,18 @@
 # GraphQL
 
----
+
 
 ## GraphQL
 
 "A query language for your API"
 
----
+
 
 ## GraphQL
 
 "SQL over HTTP"
 
----
+
 
 ## GraphQL vs REST
 
@@ -23,7 +23,7 @@ GraphQL: the client can request exactly the objects and fields it needs
 
 GraphQL: data is fetched within _one_ single HTTP request
 
----
+
 
 ## GraphQL vs SQL
 
@@ -33,14 +33,14 @@ GraphQL: graph database (makes "joins" easier)
 
 OpenCRUD: GraphQL dialect that maps to standard SQL
 
----
+
 
 ## Use cases
 
 - API service: e.g. get a random number between 1 and 100
 - database query: e.g. get all login names of friends of a specific user
 
----
+
 
 ## Example: random number service
 
@@ -52,7 +52,7 @@ query {
 }
 ```
 
----
+
 
 ## Example: random number service
 
@@ -64,7 +64,7 @@ answer:
 }
 ```
 
----
+
 
 ## Example: get friends of a user
 
@@ -89,14 +89,14 @@ query {
 }
 ```
 
----
+
 
 ## introductory videos
 
 https://www.howtographql.com/basics/0-introduction/  
 https://www.howtographql.com/basics/1-graphql-is-the-better-rest/
 
----
+
 
 ## definining and consuming a GraphQL API
 
@@ -110,13 +110,13 @@ defining an API:
 - schema
 - resolver functions
 
----
+
 
 ## example: random numbers
 
 This example shows the implementation and usage of a random number API which provides parameters to set the quantity and max value of the random numbers
 
----
+
 
 ## example: random numbers
 
@@ -137,7 +137,7 @@ resolver function (this depends on the library):
   );
 ```
 
----
+
 
 ## example: random numbers: fixed query
 
@@ -147,7 +147,7 @@ query random {
 }
 ```
 
----
+
 
 ## example: random numbers: parametric query
 
@@ -168,7 +168,7 @@ query data:
 }
 ```
 
----
+
 
 ## Try it out
 
@@ -180,7 +180,7 @@ predefined API with posts and users:
 
 https://api.graph.cool/simple/v1/cjmj9v4mk1zs00182rnrzdrai
 
-???
+---
 
 source of the predefined API:
 

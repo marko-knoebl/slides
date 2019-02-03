@@ -1,7 +1,5 @@
 # VS Code - Fortgeschritten
 
----
-
 ## VS Code - Setup für Python
 
 Datei - Einstellungen - Einstellungen
@@ -12,8 +10,6 @@ Empfehlungen:
 - `python.linting.pylintUseMinimalCheckers`: meist auf `true` - oder eigene Konfiguration
 - `python.linting.flake8Enabled`: für Formatierungsüberprüfung auf `true`
 - `python.formatting.provider`: `black`
-
----
 
 ## VS Code - Befehle und Einrichtung
 

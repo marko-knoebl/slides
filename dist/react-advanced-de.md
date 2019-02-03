@@ -1,12 +1,8 @@
 # Testen von React-Anwendungen
 
----
-
 ## Testen von React-Anwendungen
 
 Standard test-framework für React: [jest](https://facebook.github.io/jest/)
-
----
 
 ## Beispiel
 
@@ -22,8 +18,6 @@ const shorten = (s, maxlength) => {
 export { shorten };
 ```
 
----
-
 ## Beispiel
 
 ```js
@@ -37,8 +31,6 @@ it('shortens "loremipsum" to "lor..."', () => {
 });
 ```
 
----
-
 ## Tests ausführen
 
 ```bash
@@ -46,8 +38,6 @@ npm test
 ```
 
 Jest findet von alleine Dateien mit der Endung _.test.js_.
-
----
 
 ## Andere Matcher
 
@@ -58,8 +48,6 @@ Außer `.toEqual` gibt es noch:
 - `.toThrow()`
 - `.not.toEqual()`
 - ...
-
----
 
 ## Gruppieren von Tests
 
@@ -76,8 +64,6 @@ describe('strings that are short enough', () => {
 });
 ```
 
----
-
 ## Setup und teardown
 
 Für Code, der vor bzw nach jedem Test ausgeführt werden soll:
@@ -92,14 +78,10 @@ afterEach(() => {
 });
 ```
 
----
-
 ## Test Renderer für React
 
 - `react-test-renderer` (vom React-Team)
 - `Enzyme` (entwickelt von Airbnb)
-
----
 
 ## Enzyme - Setup
 
@@ -116,8 +98,6 @@ import Adapter from 'enzyme-adapter-react-16';
 configure({ adapter: new Adapter() });
 ```
 
----
-
 ## Enzyme - Beispiele
 
 ```jsx
@@ -132,8 +112,6 @@ it('renders an `.icon-star`', () => {
 });
 ```
 
----
-
 ## Enzyme - Beispiele
 
 ```jsx
@@ -147,15 +125,11 @@ it('reacts to click events', () => {
 });
 ```
 
----
-
 ## Snapshot Tests
 
 Komponenten werden gerendert und mit früheren Versionen (Snapshots) verglichen
 
 Snapshot Tests fallen unter Regressionstests.
-
----
 
 ## Snapshot Tests - setup
 
@@ -168,8 +142,6 @@ für TypeScript:
 ```bash
 npm install --save-dev @types/react-test-renderer
 ```
-
----
 
 ## Snapshot Tests in React - Tests erstellen
 
@@ -187,8 +159,6 @@ it('renders correctly', () => {
 });
 ```
 
----
-
 ## Snapshot Tests aktualisieren
 
 Haben wir das Verhalten einer Komponente geändert und danach ihr Verhalten überprüft,
@@ -201,13 +171,9 @@ Inspect your code changes or press `u` to update them.
 
 # React Router
 
----
-
 ## React Router
 
 https://reacttraining.com/react-router/
-
----
 
 ## React Router - Setup
 
@@ -219,8 +185,6 @@ npm install react-router-dom
 // TypeScript:
 npm install @types/react-router-dom
 ```
-
----
 
 ## React Router - BrowserRouter
 
@@ -236,8 +200,6 @@ import { BrowserRouter } from 'react-router-dom';
 </BrowserRouter>
 ```
 
----
-
 ## React Router - Routen definieren
 
 ```js
@@ -247,8 +209,6 @@ import { Route } from 'react-router-dom';
 <Route path="/" exact component={List} />
 <Route path="/add" component={AddTodo} />
 ```
-
----
 
 ## React Router - Routen definieren
 
@@ -266,8 +226,6 @@ import { Route } from 'react-router-dom';
 />;
 ```
 
----
-
 ## React Router - Router-Links
 
 ```jsx
@@ -276,8 +234,6 @@ import { Link } from 'react-router-dom';
 <Link to="/">Home</Link>
 <Link to="/add">Add</Link>
 ```
-
----
 
 ## React Router - Redirects
 
@@ -289,8 +245,6 @@ import { Redirect } from 'react-router';
   render={props => <Redirect to="/" />}
 />;
 ```
-
----
 
 ## React Router - Routenparameter
 
@@ -304,8 +258,6 @@ import { Redirect } from 'react-router';
 ```
 
 Routenparameter sind unter _props.match.params_ abzurufen
-
----
 
 ## React Router - Switch
 
@@ -324,8 +276,6 @@ import { Switch } from 'react-router-dom';
 
 Progressive Web Apps mit React
 
----
-
 ## PWAs
 
 Progressive Web Apps: Möglichkeit, Anwendungen für Mobilgeräte und PCs mit HTML, CSS und JavaScript zu schreiben
@@ -335,8 +285,6 @@ Mit `create-react-app` erstellte Anwendungen bieten dafür schon die Grundvoraus
 - Konfiguration in `public/manifest.json`
 - PWA-Boilerplate in `src/serviceWorker.js`
 
----
-
 ## PWAs: Aktivierung
 
 in `index.js` / `index.tsx`:
@@ -345,27 +293,19 @@ in `index.js` / `index.tsx`:
 serviceWorker.register();
 ```
 
----
-
 ## PWAs: Konfiguration
 
 Via `public/manifest.json`:
 
 name, short_name
 
----
-
 ## PWAs: Logos konfigurieren
 
 Hinzufügen von Logos in den Formaten `144x144px`, `192x192px` und `512x512px` (in manifest.json)
 
----
-
 ## PWA: add to homescreen
 
 https://developers.google.com/web/fundamentals/app-install-banners/
-
----
 
 ## PWA: add to homescreen
 
@@ -378,8 +318,6 @@ componentDidMount() {
   });
 }
 ```
-
----
 
 ## PWA: add to homescreen
 
@@ -398,8 +336,6 @@ handleInstallBtnClicked = () => {
 };
 ```
 
----
-
 ## PWA: Deployment auf Bitballoon
 
 - `npm run build`
@@ -409,13 +345,9 @@ handleInstallBtnClicked = () => {
 
 # Context
 
----
-
 ## Context
 
 Möglichkeit, Werte aus einer Komponente direkt allen weiter unten im Dokumentenbaum liegenden Komponenten zur Verfügung zu stellen - ohne den state über jede Ebene übergeben zu müssen
-
----
 
 ## Context
 
@@ -424,13 +356,9 @@ zwei Elemente:
 - `Provider`: stellt Werte zur Verfügung
 - `Consumer`: verwendet diese Werte (kann weit unten in der Komponentenhierarchie liegen)
 
----
-
 ## Context
 
 Das Interface von Context kann sowohl Daten (aus dem State) als auch Eventhandler übergeben.
-
----
 
 ## Context - Beispiel: Provider
 
@@ -451,8 +379,6 @@ class App extends React.Component {
   }
 }
 ```
-
----
 
 ## Context - Beispiel: Consumer
 
@@ -475,13 +401,9 @@ class TodoList extends React.Component {
 
 # Fragmente
 
----
-
 ## Fragmente
 
 Erlauben es einer Komponente, mehrere Elemente zurückzugeben (anstatt eines einzenen Elements)
-
----
 
 ## Fragmente - Beispiel
 

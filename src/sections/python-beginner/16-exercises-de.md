@@ -1,7 +1,5 @@
 # Übungsaufgaben
 
----
-
 ## Übungsaufgaben
 
 - Programm, das eine Kreditkartennummer / ISBN / IBAN validiert
@@ -9,11 +7,7 @@
 - Primzahlen in einem Intervall
 - Fibonacci-Zahlen
 
-???
-
-Anmerkung zu ISBN / Primzahlen: %-Operator kommt erst später
-
----
+Für ISBN / Primzahlen: %-Operator
 
 ## Luhn Algorithmus (Prüfziffer)
 
@@ -22,8 +16,6 @@ Der Luhn Algorithm wird verwendet, um Fehler in Identifikationsnummern, wie z.B.
 Die letzte Ziffer dieser Nummern ist eine Prüfziffer die sich aus den anderen Ziffern errechnet
 
 Beispiel: Die Nummer `7992739871` hat die Prüfziffer `3`, die vollständige Nummer wäre also `79927398713`
-
----
 
 ## Luhn Algorithmus (Prüfziffer)
 
@@ -44,8 +36,6 @@ Die Prüfziffer ist jene Ziffer, die auf die nächstgrößere Zehnerzahl fehlt
 
 (im Beispiel: 3)
 
----
-
 ## ISBN
 
 International Standard Book Number = 10-stellige Buchnummer mit Prüfziffer am Ende
@@ -59,8 +49,6 @@ Aufgabe:
 ```py
 check_isbn("3826604237") # True oder False
 ```
-
----
 
 ## ISBN
 
@@ -81,7 +69,5 @@ def isbn_checksum(isbn):
 
 print(check_isbn(isbn, expected))
 ```
-
----
 
 ## IBAN

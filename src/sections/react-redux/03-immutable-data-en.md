@@ -1,12 +1,8 @@
 # Immutability
 
----
-
 ## Immutability
 
 important concept in functional programing and with React / Redux
-
----
 
 ## Immutability
 
@@ -18,8 +14,6 @@ Instead, these Objects should be replaced by new, modified Objects
 
 Advantages: increased performance, more possibilities when it comes to debugging
 
----
-
 ## PureComponent
 
 Instead of `Component` we can inherit from `PureComponent`:
@@ -28,11 +22,7 @@ The component will onl be rerendered if either state or props have changed
 
 Entries in state or props are considered to have changed only if they refer to a different object than before
 
----
-
 ## Data managment without mutations
-
----
 
 ## Data managment without mutations: Arrays
 
@@ -50,8 +40,6 @@ names = newNames;
 // or:
 names = [...names, 'Dan'];
 ```
-
----
 
 ## Data managment without mutations: Objects
 

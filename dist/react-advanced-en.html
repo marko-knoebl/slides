@@ -113,12 +113,10 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 
       <section class="section" id="section-1"><section class="slide" id="slide-1-1">
         <h1 id="testing-react-applications">Testing React Applications</h1>
-<hr>
 
       </section><section class="slide" id="slide-1-2">
         <h2 id="testing-react-applications">Testing React Applications</h2>
 <p>standard test framework for React: <a href="https://facebook.github.io/jest/">jest</a></p>
-<hr>
 
       </section><section class="slide" id="slide-1-3">
         <h2 id="example">Example</h2>
@@ -131,7 +129,6 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 };
 
 <span class="hljs-keyword">export</span> { shorten };</code></pre>
-<hr>
 
       </section><section class="slide" id="slide-1-4">
         <h2 id="example">Example</h2>
@@ -143,13 +140,11 @@ it(<span class="hljs-string">'shortens "loremipsum" to "lor..."'</span>, () =&gt
   <span class="hljs-keyword">const</span> actual = shorten(<span class="hljs-string">'loremipsum'</span>, <span class="hljs-number">6</span>);
   expect(actual).toEqual(expected);
 });</code></pre>
-<hr>
 
       </section><section class="slide" id="slide-1-5">
         <h2 id="running-tests">Running tests</h2>
 <pre><code class="language-bash">npm <span class="hljs-built_in">test</span></code></pre>
 <p>Jest will find files ending in <code>.test.js</code>.</p>
-<hr>
 
       </section><section class="slide" id="slide-1-6">
         <h2 id="other-matchers">other matchers</h2>
@@ -161,7 +156,6 @@ it(<span class="hljs-string">'shortens "loremipsum" to "lor..."'</span>, () =&gt
 <li><code>.not.toEqual()</code></li>
 <li>...</li>
 </ul>
-<hr>
 
       </section><section class="slide" id="slide-1-7">
         <h2 id="setup-and-teardown">Setup and teardown</h2>
@@ -173,20 +167,17 @@ it(<span class="hljs-string">'shortens "loremipsum" to "lor..."'</span>, () =&gt
 afterEach(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
   clearTestDB();
 });</code></pre>
-<hr>
 
       </section><section class="slide" id="slide-1-8">
         <h2 id="snapshot-tests">Snapshot tests</h2>
 <p>Components are rendered and compared to earlier versions (snapshots)</p>
 <p>Snapshot tests are a kind of regression tests</p>
-<hr>
 
       </section><section class="slide" id="slide-1-9">
         <h2 id="snapshot-tests---setup">Snapshot tests - setup</h2>
 <pre><code class="language-bash">npm install --save-dev react-test-renderer</code></pre>
 <p>für TypeScript:</p>
 <pre><code class="language-bash">npm install --save-dev @types/react-test-renderer</code></pre>
-<hr>
 
       </section><section class="slide" id="slide-1-10">
         <h2 id="snapshot-tests-in-react---creating-tests">Snapshot tests in React - creating tests</h2>
@@ -201,19 +192,16 @@ test(<span class="hljs-string">'renders correctly'</span>, () =&gt; {
     .toJSON();
   expect(tree).toMatchSnapshot();
 });</span></code></pre>
-<hr>
 
       </section><section class="slide" id="slide-1-11">
         <h2 id="updating-snapshot-tests">updating snapshot tests</h2>
 <p>Once we have changed and and verified the behaviour of a component we can update the corresponding tests accordingly:</p>
 <pre><code class="language-txt">2 snapshot tests failed in 1 test suite.
 Inspect your code changes or press `u` to update them.</code></pre>
-<hr>
 
       </section><section class="slide" id="slide-1-12">
         <h2 id="mocking-network-fetch-requests">mocking network (fetch) requests</h2>
 <pre><code class="language-bash">npm install --save-dev jest-fetch-mock</code></pre>
-<hr>
 
       </section><section class="slide" id="slide-1-13">
         <h2 id="mocking-network-fetch-requests">mocking network (fetch) requests</h2>
@@ -224,14 +212,12 @@ global.fetch = fetch;
 fetch.mockResponse(
   <span class="hljs-string">`[{ "title": "abc", "completed": false, "id": 1 }]`</span>
 );</code></pre>
-<hr>
 
       </section><section class="slide" id="slide-1-14">
         <h2 id="testing-network-requests---thunk">testing network requests - thunk</h2>
 <pre><code class="language-js">store.dispatch(requestTodos()).then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
   expect(store.getActions()).toEqual(expectedActions);
 });</code></pre>
-<hr>
 
       </section><section class="slide" id="slide-1-15">
         <h2 id="testing-network-requests---thunk">testing network requests - thunk</h2>
@@ -243,7 +229,6 @@ fetch.mockResponse(
 global.fetch = fetch;
 
 <span class="hljs-keyword">const</span> mockStore = configureMockStore([thunk]);</code></pre>
-<hr>
 
       </section><section class="slide" id="slide-1-16">
         <h2 id="testing-network-requests---thunk">testing network requests - thunk</h2>
@@ -263,12 +248,10 @@ global.fetch = fetch;
     expect(store.getActions()).toEqual(expectedActions);
   });
 });</code></pre>
-<hr>
 
       </section><section class="slide" id="slide-1-17">
         <h2 id="enzyme">Enzyme</h2>
 <p>Enzyme is a set of testing utilities for React.</p>
-<hr>
 
       </section><section class="slide" id="slide-1-18">
         <h2 id="enzyme---examples">Enzyme - examples</h2>
@@ -281,7 +264,6 @@ it('renders an `.icon-star`', () =&gt; {
   const wrapper = shallow(<span class="hljs-tag">&lt;<span class="hljs-name">MyComponent</span> /&gt;</span>);
   expect(wrapper.find('.icon-star')).to.have.lengthOf(1);
 });</span></code></pre>
-<hr>
 
       </section><section class="slide" id="slide-1-19">
         <h2 id="enzyme---examples">Enzyme - examples</h2>
@@ -296,19 +278,16 @@ it('renders an `.icon-star`', () =&gt; {
 
       </section></section><section class="section" id="section-2"><section class="slide" id="slide-2-1">
         <h1 id="react-router">React Router</h1>
-<hr>
 
       </section><section class="slide" id="slide-2-2">
         <h2 id="react-router">React Router</h2>
 <p><a href="https://reacttraining.com/react-router/">https://reacttraining.com/react-router/</a></p>
-<hr>
 
       </section><section class="slide" id="slide-2-3">
         <h2 id="react-router---setup">React Router - Setup</h2>
 <pre><code class="language-bash">npm install react-router-dom</code></pre>
 <pre><code class="language-bash">// TypeScript:
 npm install @types/react-router-dom</code></pre>
-<hr>
 
       </section><section class="slide" id="slide-2-4">
         <h2 id="react-router---browserrouter">React Router - BrowserRouter</h2>
@@ -319,7 +298,6 @@ npm install @types/react-router-dom</code></pre>
 &lt;BrowserRouter&gt;
   <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">App</span>/&gt;</span></span>
 &lt;<span class="hljs-regexp">/BrowserRouter&gt;</span></code></pre>
-<hr>
 
       </section><section class="slide" id="slide-2-5">
         <h2 id="react-router---defining-routes">React Router - defining routes</h2>
@@ -328,7 +306,6 @@ npm install @types/react-router-dom</code></pre>
 &lt;Route path="/about" component={About} /&gt;
 &lt;Route path="/" exact component={List} /&gt;
 &lt;Route path="/add" component={AddTodo} /&gt;</code></pre>
-<hr>
 
       </section><section class="slide" id="slide-2-6">
         <h2 id="react-router---defining-routes">React Router - defining routes</h2>
@@ -342,7 +319,6 @@ npm install @types/react-router-dom</code></pre>
     &lt;AddTodo onSubmit={this.handleAddTodo} /&gt;
   )}
 /&gt;;</code></pre>
-<hr>
 
       </section><section class="slide" id="slide-2-7">
         <h2 id="react-router---router-links">React Router - Router links</h2>
@@ -350,7 +326,6 @@ npm install @types/react-router-dom</code></pre>
 
 <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Link</span> <span class="hljs-attr">to</span>=<span class="hljs-string">"/"</span>&gt;</span>Home<span class="hljs-tag">&lt;/<span class="hljs-name">Link</span>&gt;</span></span>
 &lt;Link to=<span class="hljs-string">"/add"</span>&gt;Add&lt;<span class="hljs-regexp">/Link&gt;</span></code></pre>
-<hr>
 
       </section><section class="slide" id="slide-2-8">
         <h2 id="react-router---redirects">React Router - Redirects</h2>
@@ -360,7 +335,6 @@ npm install @types/react-router-dom</code></pre>
   path="/home"
   render={props =&gt; &lt;Redirect to="/" /&gt;}
 /&gt;;</code></pre>
-<hr>
 
       </section><section class="slide" id="slide-2-9">
         <h2 id="react-router---route-parameters">React Router - route parameters</h2>
@@ -371,7 +345,6 @@ npm install @types/react-router-dom</code></pre>
   )}
 /&gt;</code></pre>
 <p>Route parameters may be accessed via <em>props.match.params</em></p>
-<hr>
 
       </section><section class="slide" id="slide-2-10">
         <h2 id="react-router---switch">React Router - Switch</h2>
@@ -386,7 +359,6 @@ npm install @types/react-router-dom</code></pre>
       </section></section><section class="section" id="section-3"><section class="slide" id="slide-3-1">
         <h1 id="pwas">PWAs</h1>
 <p>Progressive Web Apps with React</p>
-<hr>
 
       </section><section class="slide" id="slide-3-2">
         <h2 id="pwas">PWAs</h2>
@@ -396,24 +368,20 @@ npm install @types/react-router-dom</code></pre>
 <li>configuration in <code>public/manifest.json</code></li>
 <li>PWA-Boilerplate in <code>src/serviceWorker.js</code></li>
 </ul>
-<hr>
 
       </section><section class="slide" id="slide-3-3">
         <h2 id="pwas-activation">PWAs: activation</h2>
 <p>in <code>index.js</code> / <code>index.tsx</code>:</p>
 <pre><code class="language-js">serviceWorker.register();</code></pre>
-<hr>
 
       </section><section class="slide" id="slide-3-4">
         <h2 id="pwas-configuration">PWAs: configuration</h2>
 <p>Via <code>public/manifest.json</code>:</p>
 <p>name, short_name</p>
-<hr>
 
       </section><section class="slide" id="slide-3-5">
         <h2 id="pwas-configuring-icons">PWAs: configuring icons</h2>
 <p>Adding icons for the resolutions <code>144x144px</code>, <code>192x192px</code> and <code>512x512px</code> (in manifest.json)</p>
-<hr>
 
       </section><section class="slide" id="slide-3-6">
         <h2 id="pwa-add-to-homescreen">PWA: add to homescreen</h2>
@@ -428,7 +396,6 @@ npm install @types/react-router-dom</code></pre>
     <span class="hljs-keyword">this</span>.setState({ <span class="hljs-attr">showInstallBtn</span>: <span class="hljs-literal">true</span> });
   });
 }</code></pre>
-<hr>
 
       </section><section class="slide" id="slide-3-8">
         <h2 id="pwa-add-to-homescreen">PWA: add to homescreen</h2>
@@ -444,7 +411,6 @@ npm install @types/react-router-dom</code></pre>
     <span class="hljs-keyword">this</span>.setState({ <span class="hljs-attr">showInstallBtn</span>: <span class="hljs-literal">false</span> });
   });
 };</code></pre>
-<hr>
 
       </section><section class="slide" id="slide-3-9">
         <h2 id="pwa-deployment-on-bitballoon">PWA: Deployment on Bitballoon</h2>
@@ -457,12 +423,10 @@ npm install @types/react-router-dom</code></pre>
 
       </section></section><section class="section" id="section-4"><section class="slide" id="slide-4-1">
         <h1 id="context">Context</h1>
-<hr>
 
       </section><section class="slide" id="slide-4-2">
         <h2 id="context">Context</h2>
 <p>Context is a means to provide values from a components to all components that are contained within it - without explicitly passing it through all intermediate levels.</p>
-<hr>
 
       </section><section class="slide" id="slide-4-3">
         <h2 id="context">Context</h2>
@@ -471,12 +435,10 @@ npm install @types/react-router-dom</code></pre>
 <li><code>Provider</code>: provides values</li>
 <li><code>Consumer</code>: uses these values (the consumer may be deep down in the component hierarchy)</li>
 </ul>
-<hr>
 
       </section><section class="slide" id="slide-4-4">
         <h2 id="context">Context</h2>
 <p>The interface of context can pass both data and event handler</p>
-<hr>
 
       </section><section class="slide" id="slide-4-5">
         <h2 id="context---example-provider">Context - example: Provider</h2>
@@ -495,7 +457,6 @@ npm install @types/react-router-dom</code></pre>
     );
   }
 }</span></code></pre>
-<hr>
 
       </section><section class="slide" id="slide-4-6">
         <h2 id="context---example-consumer">Context - example: Consumer</h2>
@@ -518,12 +479,10 @@ npm install @types/react-router-dom</code></pre>
 
       </section></section><section class="section" id="section-5"><section class="slide" id="slide-5-1">
         <h1 id="fragments">Fragments</h1>
-<hr>
 
       </section><section class="slide" id="slide-5-2">
         <h2 id="fragments">Fragments</h2>
 <p>Fragments enable a component to return multiple elements (instead of a single element)</p>
-<hr>
 
       </section><section class="slide" id="slide-5-3">
         <h2 id="fragments---example">Fragments - example</h2>

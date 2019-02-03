@@ -1,14 +1,10 @@
 # SMTP / IMAP
 
----
-
 ## SMTP / IMAP
 
 https://automatetheboringstuff.com/chapter16/
 
 zur verdeckten Passworteingabe: Modul "getpass"
-
----
 
 ## SMTP / IMAP
 

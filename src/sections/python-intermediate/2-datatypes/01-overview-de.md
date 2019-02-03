@@ -1,7 +1,5 @@
 # Datentypen in Python
 
----
-
 ## Zahlen
 
 - bool
@@ -9,15 +7,11 @@
 - float
 - complex
 
----
-
 ## weitere grundlegende Typen
 
 - NoneType
 - string
 - bytes
-
----
 
 ## Kollektionen
 
@@ -25,8 +19,6 @@
 - tuple
 - dict
 - set
-
----
 
 ## weitere Kollektionen
 

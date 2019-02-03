@@ -1,12 +1,8 @@
 # Context
 
----
-
 ## Context
 
 Context is a means to provide values from a components to all components that are contained within it - without explicitly passing it through all intermediate levels.
-
----
 
 ## Context
 
@@ -15,13 +11,9 @@ two main elements:
 - `Provider`: provides values
 - `Consumer`: uses these values (the consumer may be deep down in the component hierarchy)
 
----
-
 ## Context
 
 The interface of context can pass both data and event handler
-
----
 
 ## Context - example: Provider
 
@@ -42,8 +34,6 @@ class App extends React.Component {
   }
 }
 ```
-
----
 
 ## Context - example: Consumer
 

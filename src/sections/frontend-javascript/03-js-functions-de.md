@@ -1,7 +1,5 @@
 # Funktionen
 
----
-
 ## Funktionsdefinition
 
 <!-- prettier-ignore -->
@@ -23,8 +21,6 @@ const double3 = (value) => {
 const double4 = (value) => 2 * value;
 ```
 
----
-
 ## Pfeilfunktionen
 
 Seit ES2015 Teil des Standards
@@ -40,8 +36,6 @@ const triple2 = value => value * 3;
 // Parameterklammern weggelassen werden:
 const triple3 = value => value * 3;
 ```
-
----
 
 ## Pfeilfunktionen
 
@@ -61,8 +55,6 @@ const getPerson1 = () => ({
   birthYear: 1847,
 });
 ```
-
----
 
 ## Standardparameter in Funktionen
 

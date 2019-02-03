@@ -1,22 +1,16 @@
 # CSS
 
----
-
 ## Stile auf HTML-Elemente anwenden
 
 ```html
 <h1 style="color: blue; font-size: 30px">Hello</h1>
 ```
 
----
-
 ## Stylesheets einbinden
 
 ```html
 <link rel="stylesheet" href="style.css" />
 ```
-
----
 
 ## CSS-Beispiel
 
@@ -32,14 +26,10 @@ h1 {
 }
 ```
 
----
-
 ## CSS-Syntax
 
 - Selektoren
 - Properties
-
----
 
 ## CSS-Selektoren
 
@@ -48,8 +38,6 @@ Tag-Selektor: `h1`
 Klassen-Selektor: `.important`
 ID-Selektor: `#home-button`
 
----
-
 ## CSS-Selektoren: Priorität
 
 Falls sich zwei CSS-Attribute widersprechen, "gewinnt":
@@ -57,14 +45,10 @@ Falls sich zwei CSS-Attribute widersprechen, "gewinnt":
 - das Attribut mit dem _spezifischeren_ Selektor
 - bzw. bei gleicher Spezifizität, das CSS-Statement, das im Code _später_ auftritt
 
----
-
 ## CSS-Properties
 
 - Farben
 - Schriftart
-
----
 
 ## Farben
 
@@ -75,8 +59,6 @@ h1 {
 }
 ```
 
----
-
 ## Farbangaben
 
 Standard-Farben: z.B. `grey`, `blue`, `lightblue`, ...
@@ -84,8 +66,6 @@ Standard-Farben: z.B. `grey`, `blue`, `lightblue`, ...
 RGB-Definition (rot-grün-blau): z.B. `rgb(255, 128, 128)`
 
 HEX-Definition: z.B. `#ff8080`
-
----
 
 ## Schrift
 
@@ -99,8 +79,6 @@ p {
   text-align: center;
 }
 ```
-
----
 
 ## font-family
 
@@ -116,8 +94,6 @@ p {
 
 `serif`, `sans-serif`, `monospace`
 
----
-
 ## font-size
 
 mögliche Einheiten:
@@ -126,8 +102,6 @@ mögliche Einheiten:
 - `%`: Prozent relativ zum umgebenden Text
 - `em`: Prozent relativ zum umgebenden Text
 - `rem`: Prozent relativ zur Schriftgröße vom `html`-Element
-
----
 
 ## font-style
 
@@ -139,13 +113,9 @@ h1 {
 }
 ```
 
----
-
 ## font-weight
 
 Um die Schriftstärke zu verändern, insbesondere: `font-weight: bold;`
-
----
 
 ## text-decoration
 
@@ -155,8 +125,6 @@ h1 {
 }
 ```
 
----
-
 ## text-align
 
 - `center`
@@ -165,8 +133,6 @@ h1 {
 - `right`
 - `start` (neu)
 - `end` (neu)
-
----
 
 ## Inline- und Block-Elemente
 
@@ -182,15 +148,11 @@ Block-Elemente:
 - so breit wie möglich
 - z.B. `h1`, `ul`, `li`, `p`
 
----
-
 ## span & div
 
 `span` = allgemeinstes inline-Element
 
 `div` = allgemeinstes block-Element
-
----
 
 ## Block- Elemente und das Box-Modell
 
@@ -201,8 +163,6 @@ Block-Elemente:
 - Rand (border)
 - Außenabstand (margin)
 
----
-
 ## Block- Elemente und das Box-Modell
 
 Größe des Inhalts:
@@ -212,8 +172,6 @@ Größe des Inhalts:
 - `max-height` / `max-width`
 
 Wenn z.B. bei height `50%` angegeben wird, bezieht sich das auf das Elternelement
-
----
 
 ## Block- Elemente und das Box-Modell
 
@@ -229,8 +187,6 @@ Heute setzt man oft:
 
 dann beziehen sie sich auf die Gesamtgröße (mit padding und border, aber ohne margin)
 
----
-
 ## Block-Elemente und das Box-Modell
 
 Padding (Innenabstand) und Margin (Außenabstand)
@@ -245,21 +201,15 @@ horizontalen Abstand gleich setzen (zum horizontalen Zentrieren): `margin: 10px 
 
 Abstände individuell setzen: `padding: 10px; padding-left: 20px;`
 
----
-
 ## Block-Elemente und das Box-Modell
 
 Border-Beispiel: `border: 10px solid blue`
 
 Abrundung-Beispiel: `border-radius: 5px`
 
----
-
 ## margin & padding bei Inline-Elementen
 
 Achtung: vertikales margin und padding wirken sich bei Inline-Elementen nicht auf die Positionierung aus und führen zu Überlappungen
-
----
 
 ## Layout-Beispiel: Horizontales Zentrieren
 
@@ -277,8 +227,6 @@ div {
 }
 ```
 
----
-
 ## overflow
 
 Um bei Bedarf scroll-Leisten anzuzeigen:
@@ -288,8 +236,6 @@ div {
   overflow: auto;
 }
 ```
-
----
 
 ## Body mit voller Höhe
 
@@ -302,7 +248,5 @@ body {
   height: 100vh;
 }
 ```
-
----
 
 ## Übung: Google-Klon

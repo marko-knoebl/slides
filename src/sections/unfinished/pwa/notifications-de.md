@@ -1,16 +1,10 @@
 # Notifications
 
----
-
 siehe auch: https://developer.mozilla.org/en-US/docs/Web/API/Notifications_API/Using_the_Notifications_API
-
----
 
 ## Notifications
 
 Möglichkeit, für den Benutzer Benachrichtigungen außerhalb der Anwendung darzustellen (Betriebssystems-Benachrichtigungen)
-
----
 
 ## Erlaubnis einholen
 
@@ -20,8 +14,6 @@ Notification.requestPermission(status => {});
 ```
 
 Kann in Browser-Konsole ausprobiert werden (aber es muss eine Seite offen sein)
-
----
 
 ## Überprüfen, ob Erlaubnis erteilt wurde und Nachricht darstellen
 
@@ -34,8 +26,6 @@ if (Notification.permission === 'granted') {
     });
 }
 ```
-
----
 
 ## Nachricht-Optionen
 
@@ -51,8 +41,6 @@ registration.showNotification(condition, {
 });
 ```
 
----
-
 ## Nachrichten-Events
 
 Zwei Events im ServiceWorker:
@@ -60,11 +48,9 @@ Zwei Events im ServiceWorker:
 - **notificationclick**
 - notificationclose
 
-???
+---
 
 evtl in Firefox testen, da Probleme mit Chrome
-
----
 
 <!--
 # Kommunikation zurück zum Browser-Fenster
@@ -81,8 +67,6 @@ https://developers.google.com/web/ilt/pwa/lab-integrating-web-push
 
 Entfernen der service-worker in FF: about:debugging -> worker
 
-???
+---
 
 Dauer: ca 50 min
-
----

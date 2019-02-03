@@ -2,7 +2,7 @@ const marked = require('marked');
 
 const validImageTypes = ['png'];
 const imgRegex = new RegExp(
-  '<img src="assets\\/(.*\\.(.*?))".*>',
+  '<img src="assets\\/(.*\\.(.*?))"',
   (flags = 'g')
 );
 

@@ -1,7 +1,5 @@
 # Reguläre Ausdrücke
 
----
-
 ## Reguläre Ausdrücke
 
 Beispiel:
@@ -18,8 +16,6 @@ else:
     print("no match")
 ```
 
----
-
 ## Mehrfach finden
 
 Beispiel:
@@ -33,15 +29,11 @@ for match in match_iter:
     print(match[0])
 ```
 
----
-
 ## Mehrfach finden
 
 Aufgabe: finde alle URLs in einem HTML-Dokument auf der Festplatte
 
 (Beispieldokument: zB Seite https://news.ycombinator.com auf Festplatte speichern)
-
----
 
 ## Einen Ausdruck und Unterausdrücke finden
 
@@ -51,8 +43,6 @@ re.search(
     'Heute ist der 23.10.1970!'
 )
 ```
-
----
 
 ## Einen Ausdruck und Unterausdrücke finden
 
@@ -67,29 +57,23 @@ m[2] # 1
 m[3] # 1970
 ```
 
----
-
 ## Reguläre Ausdrücke
 
 - Buch Aufgabe 4 (Lesbarkeitsanalyse)
 - Beispiel: Gleichungen erkennen und auslesen
 - Beispiel: Alle Funktionsdefinitionen in einer Python-Datei finden
 
-???
+## Lösung: Gleichung erkennen
 
 `\A-?\d+x[\+-]\d+y[\+-]\d+z=\d+\Z`
 
 # HTTP mit Python
-
----
 
 ## HTTP
 
 - http.client.HTTP(S)Connection
 - urllib
 - requests
-
----
 
 ## HTTP(S)Connection
 
@@ -106,8 +90,6 @@ connection.close()
 print(content)
 ```
 
----
-
 ## urllib
 
 in Standardlibrary
@@ -118,8 +100,6 @@ import urllib
 content: bytes = urllib.request.urlopen(
                     "https://www.google.com").read()
 ```
-
----
 
 ## requests
 
@@ -135,17 +115,11 @@ import requests
 content: str = requests.get("https://www.google.com").text
 ```
 
----
-
 ## Web Scraping: Anzahl der Google-Suchergebnisse
-
----
 
 ## APIs: Wetterdaten
 
 https://automatetheboringstuff.com/chapter14/
-
----
 
 ## Web Scraping: xkcd-Downloader
 
@@ -155,21 +129,15 @@ https://automatetheboringstuff.com/chapter11/
 
 Modul ftplib
 
-???
-
-Buch 23.2.2
+siehe Buch 23.2.2
 
 # SMTP / IMAP
-
----
 
 ## SMTP / IMAP
 
 https://automatetheboringstuff.com/chapter16/
 
 zur verdeckten Passworteingabe: Modul "getpass"
-
----
 
 ## SMTP / IMAP
 
@@ -189,8 +157,6 @@ Achtung: `'BODY[]'` -> `b'BODY[]` (bytes statt string)
 
 # Serverseitiges HTTP
 
----
-
 ## lokalen Dateiserver mit Python betreiben
 
 ```bash
@@ -203,15 +169,11 @@ pyton -m SimpleHTTPServer
 python -m http.server
 ```
 
----
-
 ## Python am Server - Überblick
 
 https://docs.python.org/2/howto/webservers.html
 
 (etwas veraltet)
-
----
 
 ## CGI
 
@@ -225,8 +187,6 @@ Interface beruht auf _stdin_, _stdout_ und Umgebungsvariablen
 
 Nachteil: für jede Anfrage muss ein neuer Prozess gestartet werden (langsam)
 
----
-
 ## WSGI
 
 WSGI = Web Server Gateway Interface
@@ -235,15 +195,11 @@ Standard, um ein Python-Programm am Server auf HTTP-Anfragen antworten zu lassen
 
 Inspiriert von CGI; wichtiger Vorteil: _ein_ laufender Prozess kann der Reihe nach mehrere Anfragen beantworten
 
----
-
 ## Python Web-Frameworks
 
 - Werkzeug (Python WSGI Utility Library)
 - Flask (vollwertiges, modulares Framework basierend auf Werkzeug)
 - Django (vollwertiges Framework)
-
----
 
 ## WSGI-Interface
 
@@ -254,8 +210,6 @@ Die Funktion bekommt zwei Parameter übergeben: `environ` und `start_response`
 Die Anfrageparameter sind über `environ` abzufragen (zB URL, HTTP header, Formulardaten, ...)
 
 Der zweite Parameter ist eine Funktion, üblicherweise `start_response` genannt.
-
----
 
 ## WSGI
 
@@ -270,8 +224,6 @@ start_response(
 
 Der Antwortkörper wird als ein Iterable von Bytestrings zurückgegeben, zB als Liste von Bytestrings.
 
----
-
 ## WSGI-Server-Software
 
 server-software:
@@ -279,8 +231,6 @@ server-software:
 - gunicorn
 - uWSGI
 - mod_wsgi
-
----
 
 ## Eigener WSGI-Server in Python
 
@@ -294,8 +244,6 @@ server.serve_forever()
 ```
 
 Dieser Teil wird üblicherweise von Libraries wie gunicorn übernommen
-
----
 
 ## Eigene WSGI-Anwendung in Python
 
@@ -312,8 +260,6 @@ def application(environ, start_response):
     start_response(response_status, response_headers)
     return [response_body]
 ```
-
----
 
 ## wichtige HTTP-Statuscodes
 
@@ -340,8 +286,6 @@ def application(environ, start_response):
 
 siehe auch: https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
 
----
-
 ## wichtige HTTP-Antwort-Headerfelder
 
 - `Content-Length`
@@ -349,8 +293,6 @@ siehe auch: https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
 - `Set-Cookie`
 - `Location`
 - `Cache-Control`
-
----
 
 ## Content-Type-Headerfeld
 
@@ -364,8 +306,6 @@ Mögliche Werte:
 - `image/jpeg`
 - `image/png`
 - ...
-
----
 
 ## Das environ-dictionary
 
@@ -384,19 +324,13 @@ Wir können es im debugger begutachten, zB:
 
 https://www.python.org/dev/peps/pep-0333/#environ-variables
 
----
-
 ## PATH_INFO
 
 PATH_INFO im environ-dictionary: angefragter Pfad am Server
 
----
-
 ## PATH_INFO
 
 Aufgabe: Anzeige verschiedener Seiten unter verschiedenen Adressen
-
----
 
 ## Redirects mit HTTP
 
@@ -409,13 +343,9 @@ start_response("307 Temporary Redirect", response_headers)
 return [b'']
 ```
 
----
-
 ## Redirects mit HTTP
 
 Aufgabe: Weiterleitung einiger Seiten, z.B. `/now` leitet weiter auf `/time`
-
----
 
 ## Cookies
 
@@ -427,8 +357,6 @@ Cookies dienen insbesondere dazu, einen früheren Besucher wiederzuerkennen, z.B
 - Personenbezogene Werbung
 - Tracking der Useraktivitäten
 
----
-
 ## Cookies setzen
 
 ```py
@@ -436,8 +364,6 @@ response_headers.append((
     "Set-Cookie", "mycookie123=abcd; Max-Age=30"
 ))
 ```
-
----
 
 ## Cookies lesen
 
@@ -449,8 +375,6 @@ except KeyError:
 ```
 
 Resultat z.B.: `"cookie1=one; cookie2=two"`
-
----
 
 ## Cookies parsen
 
@@ -464,8 +388,6 @@ mycookies.load(current_cookies_str)
 mycookies["cookie1"].value
 ```
 
----
-
 ## Cookies löschen
 
 indem ein neues Cookie gesetzt wird, dessen "Ablaufsdatum" in der Vergangenheit liegt:
@@ -477,13 +399,9 @@ response_headers.append((
 ))
 ```
 
----
-
 ## Cookies
 
 Aufgabe: Website, die einen Benutzer nur 5x eine Seite aufrufen lässt und ihn dann auffordert, sich zu registrieren, um die Seite weiter zu verwenden
-
----
 
 ## Formular und post-request
 
@@ -502,8 +420,6 @@ parameters = parse_qs(request_body)
 first_name = parameters.get("first-name")[0]
 ```
 
----
-
 ## wsgi-Beispiele
 
 - Online-Abstimmung
@@ -511,19 +427,13 @@ first_name = parameters.get("first-name")[0]
 - Chat-System
 - Todo-Anwendung
 
----
-
 ## Achtung: JavaScript-Injection
-
----
 
 ## Deployment auf pythonanywhere.com
 
 - neues Benutzerkonto auf https://pythonanywhere.com
 - add new web app
 - manual configuration
-
----
 
 ## Deployment auf pythonanywhere.com
 
@@ -542,29 +452,25 @@ from app import application
 
 # sys, os, shutil
 
----
-
 ## sys, os, shutil
 
 - sys: Funktionen zur Python-Umgebung
 - os: Funktionen zum Betriebssystem, Arbeiten mit Dateien
 - shutil: Funktionen zum Arbeiten mit Dateien
 
-???
+## sys
 
-Buch Kapitel 14
+Beispiele:
 
-Beispiel: stdout.write, getrefcount, path, version, version_info
-
-stdout.write ÜBERSCHREIBEN
-
----
+- `stdout.write`
+- `getrefcount`
+- `path`
+- `version`
+- `version_info`
 
 ## Kommandozeilenparameter
 
 Auslesbar über `sys.argv`
-
----
 
 ## sys: stdout.write überschreiben
 
@@ -582,13 +488,9 @@ loudstdout = LoudStdout()
 sys.stdout = loudstdout
 ```
 
----
-
 ## os
 
 Funktionen zu Betriebssystem und Dateizugriff
-
----
 
 ## os - Arbeiten mit Dateien und Ordnern
 
@@ -603,8 +505,6 @@ Funktionen zu Betriebssystem und Dateizugriff
 - `os.rmdir('foo/bar/baz')`
 - `os.walk()`
 
----
-
 ## shutil
 
 - `shutil.copy('origin', 'destination')` (Datei kopieren)
@@ -612,15 +512,11 @@ Funktionen zu Betriebssystem und Dateizugriff
 - `shutil.rmtree()` (Ordner löschen)
 - `shutil.move()` (Datei oder Ordner verschieben)
 
----
-
 ## Übungen
 
 Buch 14.4.2 (Suchbegriffanzahl in Dateien im Verzeichnis)
 
 # Datum und Zeit
-
----
 
 ## Datum und Zeit
 
@@ -634,15 +530,11 @@ Arbeiten mit Zeiten und Datumsangaben
 
 Arbeiten mit Unix-Timestamps, sleep
 
----
-
 ## datetime
 
 - `datetime.date`
 - `datetime.time`
 - `datetime.datetime`
-
----
 
 ## datetime
 
@@ -657,8 +549,6 @@ c = datetime.datetime(2018, 3, 26, 12, 30)
 c - b
 ```
 
----
-
 ## time.sleep
 
 ```py
@@ -667,8 +557,6 @@ for i in range(10):
     print(i)
     time.sleep(1)
 ```
-
----
 
 ## time.time
 
@@ -683,15 +571,11 @@ time.time()
 
 ## Graphical User Interface
 
----
-
 ## GUI-Libraries für Python
 
 - tk
 - Qt
 - Kivy
-
----
 
 ## tk
 
@@ -699,22 +583,16 @@ time.time()
 - Anbindung an Python: tkinter
 - in Python vorinstalliert
 
----
-
 ## Qt
 
 - Weit verbreitete UI-Library
 - Anbindungen an Python: PyQt oder PySide
-
----
 
 ## Kivy
 
 - speziell für Python entwickelt
 
 # Tkinter
-
----
 
 ## Tkinter - Beispiel
 
@@ -729,8 +607,6 @@ window = tkinter.Tk()
 window.mainloop()
 ```
 
----
-
 ## Tkinter - Text anzeigen
 
 ```py
@@ -744,16 +620,12 @@ hello_label.pack()
 window.mainloop()
 ```
 
----
-
 ## Tkinter - Elemente nachträglich ändern
 
 ```py
 time_label = tkinter.Label(master=window, text="")
 time_label.config(text="Hello!")
 ```
-
----
 
 ## Tkinter - Benutzerinteraktion
 
@@ -774,13 +646,9 @@ hello_button.pack()
 ...
 ```
 
----
-
 ## Beispiel: Counter
 
 Button, der bei 0 startet und die Klickanzahl mitzählt und anzeigt
-
----
 
 ## Tkinter - Widget-Konfiguration
 
@@ -794,15 +662,11 @@ Möglichkeiten:
 - `justify` (Textausrichtung, Werte: `CENTER`, `LEFT`, `RIGHT`)
 - `padx`, `pady` (Abstand Rahmen zum Inhalt)
 
----
-
 ## Tkinter - Widgets
 
 - `Label`
 - `Button`
 - `Frame`
-
----
 
 ## Tkinter - Beispiele
 
@@ -810,17 +674,11 @@ Möglichkeiten:
 
 # Datenbanken
 
-???
-
-Kapitel 24
-
----
+siehe auch Buch Kapitel 24
 
 ## Datenbanken
 
 Verwendung: Verwaltung großer Datenmengen
-
----
 
 ## Entity-Relationship-Diagramme
 
@@ -828,39 +686,16 @@ https://en.wikipedia.org/wiki/Entity%E2%80%93relationship_model
 
 Buch 24.2
 
----
-
 ## Tabellen und Datenschemata
 
 Die meisten Datenbanken verwalten ihre Daten in Tabellen
 
----
+## Erfassen von Daten in Tabellen
 
-## Modellierung von Verwandtschaftsverhältnissen
+Überlegungen:
 
-???
-
-Umsetzung in Python
-
-```py
-get_children()
-get_siblings()
-get_parents()
-```
-
----
-
-## Modellierung von Freundschaften
-
-???
-
-friendship-Tabelle
-
-1, Tom, Marie
-2, Tom, Chris
-...
-
----
+- Modellierung von Verwandtschaftsverhältnissen
+- Modellierung von Freundschaften
 
 ## Beispiel: Online-Redaktionssystem mit Datenbankanbindung
 
@@ -869,11 +704,9 @@ siehe Buch
 - Authentifizierung (MD5)
 - Admin-Skript
 
----
-
 ## Beispiel: Todo-Anwendung
 
-???
+## Beispiel: Todo-Anwendung
 
 - run_server.py und (minimale) app.py
 - init_db.py
@@ -883,15 +716,11 @@ siehe courses-tutorials/python-todolist-wsgi-sqlite
 
 # SQL
 
----
-
 ## Die Abfragesprache SQL
 
 SQL = Structured Query Language
 
 Standardisierte Abfragesprache für tabellarische Datenbanken
-
----
 
 ## SQL-Varianten
 
@@ -902,13 +731,9 @@ Standardisierte Abfragesprache für tabellarische Datenbanken
 - PostgreSQL
 - SQLite
 
----
-
 ## Online Tutorial
 
 https://www.w3schools.com/sql/default.asp
-
----
 
 ## SQL ausprobieren
 
@@ -917,8 +742,6 @@ https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all
 Desktop-Anwendung:
 
 https://sqlitebrowser.org/
-
----
 
 ## Tabellen erstellen
 
@@ -930,8 +753,6 @@ CREATE TABLE person(
     tel VARCHAR(20));
 ```
 
----
-
 ## Tabellen erstellen
 
 ```sql
@@ -940,8 +761,6 @@ CREATE TABLE person(
     name TEXT,
     tel TEXT);
 ```
-
----
 
 ## SQL-Datentypen
 
@@ -956,16 +775,12 @@ CREATE TABLE person(
 | varchar(20)      | varchar(20)   | varchar2(20) | varchar(20)   | varchar          | text    |
 | varbinary(20)    | varbinary(20) | blob         | varbinary(20) | bytea            | blob    |
 
----
-
 # signed & unsigned
 
 MySQL unterscheidet zB zwischen:
 
 - `SMALLINT` (-32768 bis 32767)
 - `UNSIGNED SMALLINT` (0 bis 65535)
-
----
 
 ## not null
 
@@ -977,8 +792,6 @@ CREATE TABLE person(
     id INT NOT NULL,
     name VARCHAR(50));
 ```
-
----
 
 ## unique
 
@@ -1001,8 +814,6 @@ CREATE TABLE person(
 );
 ```
 
----
-
 ## auto increment
 
 Integer wird automatisch bei jedem neuen Element erhöht
@@ -1016,8 +827,6 @@ CREATE TABLE person(
 
 - sqlite: `AUTOINCREMENT`
 - Postgres: `SERIAL`
-
----
 
 ## primary key
 
@@ -1037,8 +846,6 @@ CREATE TABLE person(
 
 In sqlite wird immer automatisch ein numerischer Primärschlüssel unter dem Namen `rowid` angelegt.
 
----
-
 ## foreign key
 
 Referenz auf jeweils einen Eintrag einer anderen Tabelle
@@ -1055,8 +862,6 @@ CREATE TABLE person(
 );
 ```
 
----
-
 ## Daten eintragen
 
 ```sql
@@ -1067,8 +872,6 @@ INSERT INTO person VALUES ('Andreas Berger', '012345');
 INSERT INTO person (name, tel) VALUES ('Andreas Berger', '012345');
 ```
 
----
-
 ## Daten auslesen
 
 Daten aller Personen auslesen
@@ -1078,16 +881,12 @@ SELECT name, tel FROM person
 SELECT * FROM person
 ```
 
----
-
 ## Bedingte Abfragen (WHERE)
 
 ```sql
 SELECT tel FROM person WHERE name = 'Andreas Berger';
 SELECT tel FROM person WHERE name LIKE 'Andreas%' AND tel LIKE '+49%';
 ```
-
----
 
 ## Daten eintragen (UPDATE)
 
@@ -1097,15 +896,11 @@ SET name = 'Andreas Müller'
 WHERE name = 'Andreas Müller';
 ```
 
----
-
 ## Daten löschen (DELETE)
 
 ```sql
 DELETE FROM person WHERE name = 'Andreas Müller';
 ```
-
----
 
 ## Tabellen verknüpfen (INNER JOIN)
 
@@ -1118,8 +913,6 @@ ON song.albumid = album.id;
 
 Der obige Code listet alle Kombinationen auf, bei denen `song.albumid` und `album.id` übereinstimmen
 
----
-
 ## Tabellen verknüpfen (LEFT JOIN)
 
 ```sql
@@ -1131,8 +924,6 @@ ON song.albumid = album.id;
 
 Der obige Code listet alle Kombinationen auf und beinhaltet auch Lieder, für die kein Album definiert ist
 
----
-
 ## Indizes in Datenbanken
 
 Generell: geordnete Listen können viel schneller durchsucht werden als ungeordnete (binäre Suche)
@@ -1141,23 +932,17 @@ Beispiel: im Telefonbuch kann man schnell nach dem Nachnamen einer Person suchen
 
 Auf eine oder mehrere Spalten kann ein Index angewendet werden: Zusätzliche Datenstruktur, die auf die Daten in bestimmter Ordnung verweist.
 
----
-
 ## Indizes erstellen
 
 ```sql
 CREATE INDEX person_name ON person (name)
 ```
 
----
-
 ## SQL ausprobieren
 
 Auf https://pythonanywhere.com stehen _MySQL_ und _PostgreSQL_ kostenfrei zur Verfügung.
 
 # SQL mit Python
-
----
 
 ## Python-Anbindung von SQL-Datenbanken
 
@@ -1170,17 +955,6 @@ Anbindungen für:
 - MySQL / mariadb (PIP-Paket _PyMySQL_
 - Oracle (PIP-Paket _cx_oracle_)
 
-???
-
-- Installation von _MySQL Community Server_ / _mariadb_
-  - (Port: 3306) (X Protocol Port: 33060)
-  - Passwort: password
-    Folgendes eventuell nicht notwendig (user 'root' existiert bereits)
-  - only user: admin / password
-- `pip install pymysql`
-
----
-
 ## SQLite und Python
 
 SQLite: Datenbank, die nur eine einzelne Datenbankdatei verwendet
@@ -1192,8 +966,6 @@ import sqlite3
 
 connection = sqlite3.connect('contacts.db')
 ```
-
----
 
 ## MySQL und Python
 
@@ -1209,8 +981,6 @@ connection = pymysql.connect(host='localhost',
                              charset='utf8mb4')
 ```
 
----
-
 ## Python und Oracle Database
 
 Python-Paket _cx_Oracle_
@@ -1222,8 +992,6 @@ connection = cx_Oracle.connect(user="user",
                                password="password",
                                dsn="localhost/oraclepdb")
 ```
-
----
 
 ## pyodbc
 
@@ -1237,8 +1005,6 @@ import pyodbc
 connection = pyodbc.connect(
   "Driver=SQLite3 ODBC Driver;Database=contacts.db")
 ```
-
----
 
 ## Gemeinsames Interface (PEP 249)
 
@@ -1258,13 +1024,9 @@ conection.commit()
 connection.close()
 ```
 
----
-
 ## PEP 249
 
 https://www.python.org/dev/peps/pep-0249
-
----
 
 # PEP 249: Typen
 
@@ -1275,8 +1037,6 @@ https://www.python.org/dev/peps/pep-0249
 - `STRING`
 - `NUMBER`
 
----
-
 ## Bedingte Abfragen mit Parametern
 
 ```py
@@ -1285,11 +1045,7 @@ command = f"""SELECT tel FROM person WHERE name = '{search_name}'"""
 res = c.execute(command)
 ```
 
----
-
 ## Achtung: SQL-Injections
-
----
 
 ## Achtung: SQL-Injections
 
@@ -1303,8 +1059,6 @@ res = c.execute(
 )
 ```
 
----
-
 ## Abfrageparameter
 
 https://www.python.org/dev/peps/pep-0249/#paramstyle
@@ -1315,8 +1069,6 @@ Die Attribute `sqlite3.paramstyle`, `pymysql.paramstyle` etc geben das Format f�
 - pymysql: pyformat
 - psycopg2: pyformat
 - cx_Oracle: named
-
----
 
 ## PEP 249: das cursor Objekt
 
@@ -1332,8 +1084,6 @@ Die Attribute `sqlite3.paramstyle`, `pymysql.paramstyle` etc geben das Format f�
 
 # SQLAlchemy
 
----
-
 ## SQLAlchemy
 
 SQLAlchemy = Object Relational Mapper
@@ -1342,13 +1092,9 @@ Objektorientierter Zugriff auf beliebige SQL-Datenbanken
 
 Alternative: Django ORM
 
----
-
 ## SQLAlchemy
 
 Pip-Paket _sqlalchemy_
-
----
 
 ## verbinden mit SQLite-Datenbank
 
@@ -1360,8 +1106,6 @@ engine = create_engine("sqlite:///music.db", echo=True)
 
 engine.connect()
 ```
-
----
 
 ## Tabellen definieren
 
@@ -1384,8 +1128,6 @@ class Artist(Base):
 Base.metadata.create_all(engine)
 ```
 
----
-
 ## Mit Sessions arbeiten
 
 ```py
@@ -1400,8 +1142,6 @@ session = Session()
 session.commit()
 ```
 
----
-
 ## insert
 
 ```sql
@@ -1414,8 +1154,6 @@ wird zu:
 beatles = Artist(name="The Beatles", country="United Kingdom")
 session.add(beatles)
 ```
-
----
 
 ## select
 
@@ -1437,8 +1175,6 @@ for name, country in session.query(Artist.name, Artist.country):
     print(f"{name} ({country})")
 ```
 
----
-
 ## order by
 
 ```sql
@@ -1453,8 +1189,6 @@ for name, country in session.query(
     ...
 ```
 
----
-
 ## where
 
 ```sql
@@ -1466,8 +1200,6 @@ wird zu:
 ```py
 session.query(Artist).filter_by(Artist.name=="The Beatles").one()
 ```
-
----
 
 ## Sprechende Ausgabe von Einträgen
 
@@ -1485,8 +1217,6 @@ Help! - The Beatles
 
 umsetzbar mittels `__repr__` / `__str__`
 
----
-
 ## update
 
 ```sql
@@ -1502,8 +1232,6 @@ entry = session.query(Song).filter_by(Song.title=="Help!").one()
 entry.title = "Help"
 ```
 
----
-
 ## delete
 
 ```sql
@@ -1518,8 +1246,6 @@ wird zu
 session.query(Song).filter_by(Song.title=="Help!").delete()
 ```
 
----
-
 ## Definition eines Fremdschlüssels
 
 ```py
@@ -1529,8 +1255,6 @@ class Song(Base):
     title = Column(String(30))
     artist_id = Column(Integer, ForeignKey("artist.id"))
 ```
-
----
 
 ## Einfaches Abfragen einer verknüpften Tabelle
 
@@ -1548,8 +1272,6 @@ class Song(Base):
     artist = relationship("Artist")
 ```
 
----
-
 ## Einfaches Abfragen einer verknüpften Tabelle
 
 ```
@@ -1563,27 +1285,17 @@ print(beatles.songs)
 
 # NumPy
 
----
-
 ## NumPy
 
 Library zur effizienten Datenverarbeitung
 
 Daten sind in mehrdimensionalen arrays gespeichert, die resourcenschonend umgesetzt sind
 
-???
-
-Erklären: Unterschied: Liste vs Array - warum array weniger resourcen
-
----
-
 ## NumPy
 
 NumPy Arrays vs Python Listen:
 
 Arrays sind im Hintergrund in C implementiert, die numerischen Einträge (z.B. Integer) sind keine Python-Objekte und damit resourcenschonender.
-
----
 
 ## NumPy
 
@@ -1599,8 +1311,6 @@ array_b = numpy.array(list_b)
 
 array_a + array_b # sehr schnell (da in C implementiert)
 ```
-
----
 
 ## NumPy
 

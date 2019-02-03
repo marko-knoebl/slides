@@ -1,28 +1,20 @@
 # Strings
 
----
-
 ## String-Methoden
 
 - `.lower()`
 - `.upper()`
-
----
 
 ## String-Methoden
 
 - `.startswith(...)`
 - `.endswith(".txt")`
 
----
-
 ## String-Methoden
 
 - `.center(10)`
 - `.ljust(10)`
 - `.rjust(10)`
-
----
 
 ## String-Methoden
 
@@ -31,15 +23,11 @@
 - `.splitlines()`
 - `.join()`
 
----
-
 ## Übung: Faust
 
 Formatierung von Goethes Faust
 
 https://www.gutenberg.org/ebooks/2229
-
----
 
 ## Übung: Faust
 
@@ -56,8 +44,6 @@ Ziel:
 Ihr naht euch wieder, schwankende Gestalten,               1
 Die früh sich einst dem trüben Blick gezeigt.              2
 ```
-
----
 
 ## Übung: Faust
 

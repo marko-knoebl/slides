@@ -1,7 +1,5 @@
 # control structures - examples
 
----
-
 ## control structures - examples
 
 - leap year
@@ -11,8 +9,6 @@
 - guess the number with random numbers
 - math trainer with random tasks
 - babylonian method (for finding the square root)
-
----
 
 ## leap year
 
@@ -24,13 +20,9 @@ example: leap year
 
 Hint: "x is divisible by y" in Python: `x % y == 0`
 
----
-
 ## example: babylonian method
 
 method for computing the square root of a number which was already in use 4000 years ago in mesopotamia
-
----
 
 ## example: babylonian method
 
@@ -47,8 +39,6 @@ new b = n / a
 
 => a and b will approach the square root
 ```
-
----
 
 ## babylonian method: solution
 

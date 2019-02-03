@@ -1,12 +1,8 @@
 # React Router
 
----
-
 ## React Router
 
 https://reacttraining.com/react-router/
-
----
 
 ## React Router - Setup
 
@@ -18,8 +14,6 @@ npm install react-router-dom
 // TypeScript:
 npm install @types/react-router-dom
 ```
-
----
 
 ## React Router - BrowserRouter
 
@@ -35,8 +29,6 @@ import { BrowserRouter } from 'react-router-dom';
 </BrowserRouter>
 ```
 
----
-
 ## React Router - Routen definieren
 
 ```js
@@ -46,8 +38,6 @@ import { Route } from 'react-router-dom';
 <Route path="/" exact component={List} />
 <Route path="/add" component={AddTodo} />
 ```
-
----
 
 ## React Router - Routen definieren
 
@@ -65,8 +55,6 @@ import { Route } from 'react-router-dom';
 />;
 ```
 
----
-
 ## React Router - Router-Links
 
 ```jsx
@@ -75,8 +63,6 @@ import { Link } from 'react-router-dom';
 <Link to="/">Home</Link>
 <Link to="/add">Add</Link>
 ```
-
----
 
 ## React Router - Redirects
 
@@ -88,8 +74,6 @@ import { Redirect } from 'react-router';
   render={props => <Redirect to="/" />}
 />;
 ```
-
----
 
 ## React Router - Routenparameter
 
@@ -103,8 +87,6 @@ import { Redirect } from 'react-router';
 ```
 
 Routenparameter sind unter _props.match.params_ abzurufen
-
----
 
 ## React Router - Switch
 

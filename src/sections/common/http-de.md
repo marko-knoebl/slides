@@ -1,14 +1,10 @@
 # HTTP
 
----
-
 ## HTTP
 
 Hypertext Transfer Protocol
 
 = Protokoll, auf dessen Basis Resourcen über das Netzwerk angefragt und übertragen werden können
-
----
 
 ## HTTP
 
@@ -19,8 +15,6 @@ Anfrage: meist aus dem Browser
 Antwort: kommt vom Server
 
 Beispiel: Siehe Browser-Tools unter "Netzwerkanalyse"
-
----
 
 ## HTTP-Anfrage: Beispiel
 
@@ -35,8 +29,6 @@ Content-Length: 23
   "action": "login"
 }
 ```
-
----
 
 ## HTTP-Antwort: Beispiel
 

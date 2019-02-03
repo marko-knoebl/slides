@@ -1,7 +1,5 @@
 # Kontrollstrukturen - Beispiele
 
----
-
 ## Kontrollstrukturen - Beispiele
 
 - Schaltjahr (if / elif / else)
@@ -12,8 +10,6 @@
 - Rechentrainer mit Zufallsaufgaben
 - Babylonisches Wurzelziehen
 
----
-
 ## Beispiel: Schaltjahr
 
 - Jahr ist Schaltjahr: wenn durch 4 teilbar
@@ -22,13 +18,9 @@
 
 Hinweis: "x ist teilbar durch y" in Python: `x % y == 0`
 
----
-
 ## Beispiel: Babylonisches Wurzelziehen
 
 Berechnungsverfahren für die Quadratwurzel, das schon vor fast 4000 Jahren in Mesopotamien verwendet wurde
-
----
 
 ## Beispiel: Babylonisches Wurzelziehen
 
@@ -45,8 +37,6 @@ neues b = n / a
 
 => a und b nähern sich (schnell) der Quadratwurzel an
 ```
-
----
 
 ## Babylonisches Wurzelziehen: Lösung
 

@@ -1,14 +1,10 @@
 # For-Schleifen
 
----
-
 ## For-Schleifen
 
 Mit for-Schleifen können wir die Inhalte einer Liste (oder ähnlicher Objekte) durchlaufen.
 
 Bezeichnung in anderen Programmiersprachen: _for-each_
-
----
 
 ## For-Schleifen
 
@@ -19,8 +15,6 @@ for name in names:
     print("Hello, " + name + "!")
 ```
 
----
-
 ## Beispiel: Login-System
 
 ```py
@@ -30,8 +24,6 @@ users = [
   ["Bob", "password"],
   ["Charlie", "paris41"]]
 ```
-
----
 
 ## Beispiel: Login-System
 
@@ -51,8 +43,6 @@ Enter your password:
 Logged in as Alice!
 ```
 
----
-
 ## Zählschleifen
 
 Um mit Python zu zählen, gibt es ein besondere Funktion, die `range` heißt.
@@ -65,8 +55,6 @@ Beispiel zur Verwendung:
 for i in range(5):
     print(i)
 ```
-
----
 
 ## Zählschleifen
 

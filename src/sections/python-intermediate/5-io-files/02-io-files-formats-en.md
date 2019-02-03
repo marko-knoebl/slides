@@ -1,7 +1,5 @@
 # Working with various file formats
 
----
-
 ## Working with file formats
 
 possibilities:
@@ -12,11 +10,7 @@ possibilities:
 - Python object files (via pickle and shelve)
 - binary files
 
----
-
 ## JSON
-
----
 
 ## saving JSON
 
@@ -30,8 +24,6 @@ with open("numbers.json", encoding="utf-8") as jsonfile:
     jsonfile.write(jsonstring)
 ```
 
----
-
 ## reading JSON
 
 ```py
@@ -41,8 +33,6 @@ with open("numbers.json", encoding="utf-8") as jsonfile:
     jsonstring = jsonfile.read()
 data = json.loads(jsonstring)
 ```
-
----
 
 ## XML
 
@@ -54,8 +44,6 @@ two packages in the standard library:
 external library (extension of ElementTree):
 
 - `lxml`
-
----
 
 ## XML with ElementTree: creating a document
 
@@ -69,8 +57,6 @@ age = et.SubElement(person, 'age')
 age.text = '40'
 age.set("unit", "years")
 ```
-
----
 
 ## XML with ElementTree: saving
 
@@ -89,8 +75,6 @@ tree = et.ElementTree(person)
 tree.write("myfile.xml", encoding="utf-8")
 ```
 
----
-
 ## XML mit ElementTree: reading
 
 ```py
@@ -103,13 +87,9 @@ for childnode in person:
     print(childnode.attrib)
 ```
 
----
-
 ## Pickle
 
 File format that can be used to save various types of Python objects
-
----
 
 ## Pickle
 
@@ -125,8 +105,6 @@ with open("datetime.pickle", mode="wb") as picklefile:
     picklefile.write(serialized)
 ```
 
----
-
 ## Pickle
 
 ```py
@@ -136,8 +114,6 @@ with open("datetime.pickle", mode="rb") as picklefile:
     serialized = picklefile.read()
 earlier = pickle.reads(serialized)
 ```
-
----
 
 ## exercise
 

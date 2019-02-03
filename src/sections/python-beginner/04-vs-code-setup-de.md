@@ -1,20 +1,14 @@
 # Python Programme
 
----
-
 ## Python Programme
 
 Den Code für ganze Programme schreiben wir in einzelne Dateien.
 
 Das tun wir mit einer sogenannten _Entwicklungsumgebung_
 
----
-
 ## Installation der Entwicklungsumgebung VS Code
 
 https://code.visualstudio.com/
-
----
 
 ## VS Code: Einrichtung für Python
 
@@ -27,10 +21,6 @@ https://code.visualstudio.com/
   - warten...
   - Python 3.7 auswählen
 
----
-
 ## VS Code: automatisches speichern
-
----
 
 ## VS Code: Ordner öffnen

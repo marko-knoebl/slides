@@ -1,7 +1,5 @@
 # The interactive Python shell
 
----
-
 ## The interactive Python shell
 
 launching the Python shell:
@@ -9,15 +7,11 @@ launching the Python shell:
 - command `python` in the command prompt
 - from the start menu (e.g. _Python 3.7 (64-bit)_)
 
----
-
 ## expressions and operators
 
 ```py
 2 + 2
 ```
-
----
 
 ## mathematical operators
 
@@ -25,13 +19,9 @@ launching the Python shell:
 2 * 2 + 3 / 2
 ```
 
----
-
 ## simple (primitive) data types
 
 Which kinds of data does a computer handle?
-
----
 
 ## simple (primitive) data types
 
@@ -40,19 +30,13 @@ Which kinds of data does a computer handle?
 - `str` (string): text
 - `bool` (boolean): yes / no
 
----
-
 ## int
 
 examples: `3`, `10`
 
----
-
 ## float
 
 examples: `3.3`, `3.0`
-
----
 
 ## float
 
@@ -62,11 +46,7 @@ e.g.: `1/3`
 
 A computer is also unable to represent numbers like `0.1` or `0.2` exactly
 
-???
-
-example: 0.3 - 0.2 - 0.1
-
----
+example: `0.3 - 0.2 - 0.1`
 
 ## str
 
@@ -78,8 +58,6 @@ A _string_ represents text
 "Hello" * 3
 ```
 
----
-
 ## str
 
 Strings can be enclosed in single or double quotes
@@ -88,8 +66,6 @@ Strings can be enclosed in single or double quotes
 "Hello"
 'Hello'
 ```
-
----
 
 ## str
 
@@ -101,8 +77,6 @@ my name is
 Andreas"""
 ```
 
----
-
 ## str
 
 invalid operations:
@@ -113,8 +87,6 @@ invalid operations:
 "Hello" * 3.0
 ```
 
----
-
 ## f-strings
 
 Including values in strings:
@@ -122,8 +94,6 @@ Including values in strings:
 ```py
 f"A year has {365 * 24} hours."
 ```
-
----
 
 ## Strings - escape sequences
 
@@ -134,8 +104,6 @@ this is invalid:
 ```py
 text = "He said: "hi!""
 ```
-
----
 
 ## Strings - escape sequences
 
@@ -151,8 +119,6 @@ Python treats the sequence `\"` like a single `"`
 print(len(text)) # 14
 ```
 
----
-
 ## Strings - escape sequences
 
 ```py
@@ -163,15 +129,11 @@ a = 'line 1\nline 2'
 b = 'C:\\docs'
 ```
 
----
-
 ## bool
 
 boolean value: yes/no
 
 In Python: `True` or `False`
-
----
 
 ## Variables
 
@@ -183,8 +145,6 @@ last_name = "Doe"
 birth_year = 1978
 ```
 
----
-
 ## Variables
 
 ```py
@@ -192,15 +152,11 @@ full_name = f"{first_name} {last_name}"
 age = 2018 - birth_year
 ```
 
----
-
 ## Variables
 
 Names of variables are usually written in lower case, separating words by underscores
 
 Variable names may only consist of letters, digits and underscores
-
----
 
 ## Variables
 

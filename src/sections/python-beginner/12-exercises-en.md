@@ -1,24 +1,16 @@
 # Exercises
 
----
-
 ## Exercises
 
 - todo list
 - lottery generator
 - hangman
 
----
-
 ## todo list
 
 Interactive interface that allows a user to create a list of todos which will be printed in the end
 
-???
-
-list, while, for, input
-
----
+Python topics: list, while, for, input
 
 ## todo list
 

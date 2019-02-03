@@ -1,7 +1,5 @@
 # HTML, CSS & JavaScript
 
----
-
 ## HTML, CSS & JavaScript
 
 Zentrale Technologien, die der Browser verwendet:

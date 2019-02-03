@@ -2,6 +2,4 @@
 
 ehmatthes.github.io/pcc#cheatsheets
 
-???
-
-fehlt: break, None, Kommentare
+(fehlende Inhalte: break, None, Kommentare)

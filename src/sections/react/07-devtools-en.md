@@ -1,7 +1,5 @@
 # Development tools for React
 
----
-
 ## React Developer Tools
 
 https://github.com/facebook/react-devtools

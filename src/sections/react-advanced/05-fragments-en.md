@@ -1,12 +1,8 @@
 # Fragments
 
----
-
 ## Fragments
 
 Fragments enable a component to return multiple elements (instead of a single element)
-
----
 
 ## Fragments - example
 

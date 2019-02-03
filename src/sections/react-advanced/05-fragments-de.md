@@ -1,12 +1,8 @@
 # Fragmente
 
----
-
 ## Fragmente
 
 Erlauben es einer Komponente, mehrere Elemente zurückzugeben (anstatt eines einzenen Elements)
-
----
 
 ## Fragmente - Beispiel
 

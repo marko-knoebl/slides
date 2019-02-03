@@ -1,22 +1,16 @@
 # React with TypeScript
 
----
-
 ## create-react-app with TypeScript
 
 ```bash
 npx create-react-app my-app --typescript
 ```
 
----
-
 ## installing requirements
 
 ```bash
 npm install redux react-redux @types/react-redux redux-thunk
 ```
-
----
 
 ## components
 
@@ -35,8 +29,6 @@ class TodoItem extends React.PureComponent<
   ITodoItemState
 > {}
 ```
-
----
 
 ## events
 

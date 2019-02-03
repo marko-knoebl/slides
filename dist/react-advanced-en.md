@@ -1,12 +1,8 @@
 # Testing React Applications
 
----
-
 ## Testing React Applications
 
 standard test framework for React: [jest](https://facebook.github.io/jest/)
-
----
 
 ## Example
 
@@ -22,8 +18,6 @@ const shorten = (s, maxlength) => {
 export { shorten };
 ```
 
----
-
 ## Example
 
 ```js
@@ -37,8 +31,6 @@ it('shortens "loremipsum" to "lor..."', () => {
 });
 ```
 
----
-
 ## Running tests
 
 ```bash
@@ -46,8 +38,6 @@ npm test
 ```
 
 Jest will find files ending in `.test.js`.
-
----
 
 ## other matchers
 
@@ -58,8 +48,6 @@ Besides `.toEqual` we can use:
 - `.toThrow()`
 - `.not.toEqual()`
 - ...
-
----
 
 ## Setup and teardown
 
@@ -75,15 +63,11 @@ afterEach(() => {
 });
 ```
 
----
-
 ## Snapshot tests
 
 Components are rendered and compared to earlier versions (snapshots)
 
 Snapshot tests are a kind of regression tests
-
----
 
 ## Snapshot tests - setup
 
@@ -96,8 +80,6 @@ für TypeScript:
 ```bash
 npm install --save-dev @types/react-test-renderer
 ```
-
----
 
 ## Snapshot tests in React - creating tests
 
@@ -115,8 +97,6 @@ test('renders correctly', () => {
 });
 ```
 
----
-
 ## updating snapshot tests
 
 Once we have changed and and verified the behaviour of a component we can update the corresponding tests accordingly:
@@ -126,15 +106,11 @@ Once we have changed and and verified the behaviour of a component we can update
 Inspect your code changes or press `u` to update them.
 ```
 
----
-
 ## mocking network (fetch) requests
 
 ```bash
 npm install --save-dev jest-fetch-mock
 ```
-
----
 
 ## mocking network (fetch) requests
 
@@ -148,8 +124,6 @@ fetch.mockResponse(
 );
 ```
 
----
-
 ## testing network requests - thunk
 
 ```js
@@ -157,8 +131,6 @@ store.dispatch(requestTodos()).then(() => {
   expect(store.getActions()).toEqual(expectedActions);
 });
 ```
-
----
 
 ## testing network requests - thunk
 
@@ -172,8 +144,6 @@ global.fetch = fetch;
 
 const mockStore = configureMockStore([thunk]);
 ```
-
----
 
 ## testing network requests - thunk
 
@@ -196,13 +166,9 @@ it('dispatches "TODO_REQUEST" and "TODO_RESPONSE"', () => {
 });
 ```
 
----
-
 ## Enzyme
 
 Enzyme is a set of testing utilities for React.
-
----
 
 ## Enzyme - examples
 
@@ -217,8 +183,6 @@ it('renders an `.icon-star`', () => {
   expect(wrapper.find('.icon-star')).to.have.lengthOf(1);
 });
 ```
-
----
 
 ## Enzyme - examples
 
@@ -235,13 +199,9 @@ it('reacts to click events', () => {
 
 # React Router
 
----
-
 ## React Router
 
 https://reacttraining.com/react-router/
-
----
 
 ## React Router - Setup
 
@@ -253,8 +213,6 @@ npm install react-router-dom
 // TypeScript:
 npm install @types/react-router-dom
 ```
-
----
 
 ## React Router - BrowserRouter
 
@@ -270,8 +228,6 @@ import { BrowserRouter } from 'react-router-dom';
 </BrowserRouter>
 ```
 
----
-
 ## React Router - defining routes
 
 ```js
@@ -281,8 +237,6 @@ import { Route } from 'react-router-dom';
 <Route path="/" exact component={List} />
 <Route path="/add" component={AddTodo} />
 ```
-
----
 
 ## React Router - defining routes
 
@@ -300,8 +254,6 @@ import { Route } from 'react-router-dom';
 />;
 ```
 
----
-
 ## React Router - Router links
 
 ```jsx
@@ -310,8 +262,6 @@ import { Link } from 'react-router-dom';
 <Link to="/">Home</Link>
 <Link to="/add">Add</Link>
 ```
-
----
 
 ## React Router - Redirects
 
@@ -323,8 +273,6 @@ import { Redirect } from 'react-router-dom';
   render={props => <Redirect to="/" />}
 />;
 ```
-
----
 
 ## React Router - route parameters
 
@@ -338,8 +286,6 @@ import { Redirect } from 'react-router-dom';
 ```
 
 Route parameters may be accessed via _props.match.params_
-
----
 
 ## React Router - Switch
 
@@ -358,8 +304,6 @@ import { Switch } from 'react-router-dom';
 
 Progressive Web Apps with React
 
----
-
 ## PWAs
 
 **Progressive Web Apps** enable us to write applications for PC and mobile using HTML, CSS and JavaScript
@@ -369,8 +313,6 @@ Applications created with `create-react-app` already have the basics configured:
 - configuration in `public/manifest.json`
 - PWA-Boilerplate in `src/serviceWorker.js`
 
----
-
 ## PWAs: activation
 
 in `index.js` / `index.tsx`:
@@ -379,21 +321,15 @@ in `index.js` / `index.tsx`:
 serviceWorker.register();
 ```
 
----
-
 ## PWAs: configuration
 
 Via `public/manifest.json`:
 
 name, short_name
 
----
-
 ## PWAs: configuring icons
 
 Adding icons for the resolutions `144x144px`, `192x192px` and `512x512px` (in manifest.json)
-
----
 
 ## PWA: add to homescreen
 
@@ -410,8 +346,6 @@ componentDidMount() {
   });
 }
 ```
-
----
 
 ## PWA: add to homescreen
 
@@ -430,8 +364,6 @@ handleInstallBtnClicked = () => {
 };
 ```
 
----
-
 ## PWA: Deployment on Bitballoon
 
 - `npm run build`
@@ -441,13 +373,9 @@ handleInstallBtnClicked = () => {
 
 # Context
 
----
-
 ## Context
 
 Context is a means to provide values from a components to all components that are contained within it - without explicitly passing it through all intermediate levels.
-
----
 
 ## Context
 
@@ -456,13 +384,9 @@ two main elements:
 - `Provider`: provides values
 - `Consumer`: uses these values (the consumer may be deep down in the component hierarchy)
 
----
-
 ## Context
 
 The interface of context can pass both data and event handler
-
----
 
 ## Context - example: Provider
 
@@ -483,8 +407,6 @@ class App extends React.Component {
   }
 }
 ```
-
----
 
 ## Context - example: Consumer
 
@@ -509,13 +431,9 @@ class TodoList extends React.Component {
 
 # Fragments
 
----
-
 ## Fragments
 
 Fragments enable a component to return multiple elements (instead of a single element)
-
----
 
 ## Fragments - example
 

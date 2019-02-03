@@ -1,7 +1,5 @@
 # Objektorientierte Programmierung (ab ES2015)
 
----
-
 ## OOP (neu)
 
 ```js

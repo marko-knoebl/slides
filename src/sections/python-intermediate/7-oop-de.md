@@ -1,7 +1,5 @@
 # Objektorientierung und Klassen
 
----
-
 ## Objektorientierung in Python: "Alles ist ein Objekt"
 
 ```py
@@ -12,8 +10,6 @@ a.to_bytes(1, "big")
 "hello".upper()
 ```
 
----
-
 ## Typen und Instanzen
 
 ```py
@@ -23,8 +19,6 @@ type(message)
 
 isinstance(message, str)
 ```
-
----
 
 ## Klassen
 
@@ -37,8 +31,6 @@ Klassen können _verschiedenste_ Dinge repräsentieren, zB:
 - ein Bankkonto
 - ...
 
----
-
 ## Klassen
 
 Definition einer Klasse umfasst üblicherweise:
@@ -46,16 +38,12 @@ Definition einer Klasse umfasst üblicherweise:
 - "Datenstruktur" (Attribute)
 - "Verhalten" (Methoden)
 
----
-
 ## Klassen
 
 Beispiel: Klasse `BankAccount`
 
 - "Datenstruktur" (Attribute)
 - "Verhalten" (Methoden)
-
----
 
 ## Definition von Klassen
 
@@ -72,8 +60,6 @@ instance = MyClass()
 instance.message # "hello"
 ```
 
----
-
 ## Vererbung
 
 ```py
@@ -83,8 +69,6 @@ class Person():
 class Admin(Person):
     ...
 ```
-
----
 
 ## Beispiel: Umsetzung einer Money-Klasse
 
@@ -96,8 +80,6 @@ a.currency
 
 a.amount
 ```
-
----
 
 ## Übung: TodoList- und Todo-Klassen
 

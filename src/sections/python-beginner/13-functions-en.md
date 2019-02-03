@@ -1,12 +1,8 @@
 # Functions
 
----
-
 ## Functions
 
 We already know some predefined functions, like `len()`, `range()` or `print()`
-
----
 
 ## Parameters and return values
 
@@ -18,13 +14,9 @@ parameter: `[1, 1, 1]`
 
 return value: `3`
 
----
-
 ## optional parameters
 
 Let's experiment: How does the function `range` behave if we pass it 1, 2 or 3 parameters?
-
----
 
 ## Positional parameters and keyword parameters
 

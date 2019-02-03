@@ -1,7 +1,5 @@
 # Eigene Komponenten: Properties & Events
 
----
-
 ## Eigene Properties & Events
 
 Properties und Events stellen die wichtigsten Mechanismen dar, mit denen Komponenten in SPAs miteinander interagieren.
@@ -10,8 +8,6 @@ In Angular verwendet man auch die Begriffe:
 
 - input = Property
 - output = Event
-
----
 
 ## Eigene Properties
 
@@ -23,8 +19,6 @@ Wir erstellen eine Komponente, die eine bestimmte Anzahl an Sternen anzeigt, wel
 <app-rating [stars]="4"></app-rating>
 ```
 
----
-
 ## Eigene Properties
 
 Wir verändern _rating.component.ts_ folgendermaßen:
@@ -35,8 +29,6 @@ zunächst importieren wir den Input-Decorator:
 import { Input } from '@angular/core';
 ```
 
----
-
 ## Eigene Properties
 
 weiters setzen wir in der Komponentenklasse Typinformationen fest:
@@ -44,8 +36,6 @@ weiters setzen wir in der Komponentenklasse Typinformationen fest:
 ```js
   @Input() stars: number;
 ```
-
----
 
 ## Eigene Properties
 
@@ -57,15 +47,11 @@ getStarString = () => {
 };
 ```
 
----
-
 ## Properties: weitere Beispiele
 
 - diashow - Komponente (mit Properties)
 - roman-number - Komponente
 - playing-card - Komponente
-
----
 
 ## Eigene Events
 
@@ -74,8 +60,6 @@ Definition eigener Events:
 - Eventname
 - evtl zugehöriger Parameter (zB Zahl, String, oder auch ein komplexeres Objekt) - dieser wird im _$event_-Parameter übergeben
 - für den zugehörigen Parameter muss ein Typ festgelegt werden (kann auch _void_ sein)
-
----
 
 ## Eigene Events - Definition
 
@@ -92,8 +76,6 @@ import { Output, EventEmitter} from '@angular/core';
   this.tick.emit(this.remainingTime);
 ```
 
----
-
 ## Eigene Events - Beispiel
 
 Timer mit Events: start, tick, end
@@ -103,8 +85,6 @@ Nutze diese Events für Beispielnachrichten:
 - "Der Timer ist gestartet"
 - "Nur noch 3 Sekunden"
 - "Zeit abgelaufen"
-
----
 
 ## Eigene Events - Beispiele
 
@@ -116,8 +96,6 @@ Nutze diese Events für Beispielnachrichten:
 </app-timer>
 ```
 
----
-
 ## Eigene Events - Beispiele
 
 Beispiel: rating
@@ -127,7 +105,5 @@ Wir ändern die rating-Komponente, sodass durch einen Klick auf einen Stern ein 
 ```html
 <app-rating (change)="onRatingChange($event)"></app-rating>
 ```
-
----
 
 ## Beispiel: Todo-App

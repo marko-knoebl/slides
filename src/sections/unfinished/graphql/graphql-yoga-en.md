@@ -1,18 +1,18 @@
 # graphql-yoga
 
----
+
 
 ## graphql-yoga
 
 package that includes _GraphQL.js_ and _apollo-server_ to quickly and easily set up a GraphQL server
 
----
+
 
 ## Tutorial
 
 https://www.howtographql.com/graphql-js/0-introduction/
 
----
+
 
 ## setting up graphql-yoga
 
@@ -21,7 +21,7 @@ Essential parts:
 - schema: describes which resources are available
 - resolvers: implementation which provides the resources
 
----
+
 
 ## setting up graphql-yoga
 
@@ -32,13 +32,13 @@ npm init -y
 npm install graphql-yoga
 ```
 
----
+
 
 ## setting up graphql-yoga
 
 implementing a simple graphql-yoga server with a _schema_ and _resolvers_
 
----
+
 
 ## setting up graphql-yoga
 
@@ -62,7 +62,7 @@ const server = new GraphQLServer({ typeDefs, resolvers });
 server.start();
 ```
 
----
+
 
 ## running graphql-yoga
 
@@ -72,7 +72,7 @@ node src/index.js
 
 open `http://localhost:4000` in the browser
 
----
+
 
 ## Exercises: more resolvers
 
@@ -88,7 +88,7 @@ use these resolvers in a single query to get:
 - 3 random numbers
 - coin toss
 
----
+
 
 ## Exercise: more resolvers
 
@@ -112,7 +112,7 @@ const resolvers = {
 };
 ```
 
----
+
 
 ## Exercise: more resolvers
 
@@ -127,13 +127,13 @@ const resolvers = {
 }
 ```
 
----
+
 
 ## Example: chatroom
 
 We want to create an API for a chatroom
 
----
+
 
 ## Example: chatroom
 
@@ -142,7 +142,7 @@ We'll create these interactions with the server:
 - getMessages
 - postMessage
 
----
+
 
 ## Example: reddit clone
 
@@ -176,13 +176,13 @@ mutation {
 }
 ```
 
----
+
 
 ## Example: message board
 
 see example tutorial code
 
----
+
 
 ## Example: Todo list
 
@@ -190,7 +190,7 @@ We want to create an API for a todo list
 
 For now we will keep our data in memory on the server
 
----
+
 
 ## Example: Todo list
 
@@ -202,7 +202,7 @@ We'll create these query types:
 - `modifyTodo(...)`
 - `deleteTodo(...)`
 
-???
+---
 
 see:
 courses-tutorials/graphql-server-todo

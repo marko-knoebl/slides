@@ -1,7 +1,5 @@
 # Speichern verschiedener Dateiformate
 
----
-
 ## Speichern verschiedener Dateiformate
 
 Möglichkeiten:
@@ -12,11 +10,7 @@ Möglichkeiten:
 - Speichern als XML
 - Speichern von Binärdaten in eigenem Format
 
----
-
 ## JSON
-
----
 
 ## JSON speichern
 
@@ -30,8 +24,6 @@ with open("numbers.json", encoding="utf-8") as jsonfile:
     jsonfile.write(jsonstring)
 ```
 
----
-
 ## JSON lesen
 
 ```py
@@ -41,8 +33,6 @@ with open("numbers.json", encoding="utf-8") as jsonfile:
     jsonstring = jsonfile.read()
 data = json.loads(jsonstring)
 ```
-
----
 
 ## XML
 
@@ -54,8 +44,6 @@ zwei Pakete in der Python-Standardlibrary:
 externe Library (Erweiterung von ElementTree):
 
 - `lxml`
-
----
 
 ## XML mit ElementTree: erstellen
 
@@ -69,8 +57,6 @@ age = et.SubElement(person, 'age')
 age.text = '40'
 age.set("unit", "years")
 ```
-
----
 
 ## XML mit ElementTree: speichern
 
@@ -89,8 +75,6 @@ tree = et.ElementTree(person)
 tree.write("myfile.xml", encoding="utf-8")
 ```
 
----
-
 ## XML mit ElementTree: lesen
 
 ```py
@@ -103,13 +87,9 @@ for childnode in person:
     print(childnode.attrib)
 ```
 
----
-
 ## Pickle
 
 Eigenes Dateiformat, in dem verschiedene Python-Dateitypen gespeichert werden können
-
----
 
 ## Pickle
 
@@ -125,8 +105,6 @@ with open("datetime.pickle", mode="wb") as picklefile:
     picklefile.write(serialized)
 ```
 
----
-
 ## Pickle
 
 ```py
@@ -136,8 +114,6 @@ with open("datetime.pickle", mode="rb") as picklefile:
     serialized = picklefile.read()
 earlier = pickle.reads(serialized)
 ```
-
----
 
 ## Übung
 

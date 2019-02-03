@@ -1,7 +1,5 @@
 # Tkinter
 
----
-
 ## Tkinter - Beispiel
 
 ```py
@@ -14,8 +12,6 @@ window = tkinter.Tk()
 #   (auf Benutzerinteraktion warten)
 window.mainloop()
 ```
-
----
 
 ## Tkinter - Text anzeigen
 
@@ -30,16 +26,12 @@ hello_label.pack()
 window.mainloop()
 ```
 
----
-
 ## Tkinter - Elemente nachträglich ändern
 
 ```py
 time_label = tkinter.Label(master=window, text="")
 time_label.config(text="Hello!")
 ```
-
----
 
 ## Tkinter - Benutzerinteraktion
 
@@ -60,13 +52,9 @@ hello_button.pack()
 ...
 ```
 
----
-
 ## Beispiel: Counter
 
 Button, der bei 0 startet und die Klickanzahl mitzählt und anzeigt
-
----
 
 ## Tkinter - Widget-Konfiguration
 
@@ -80,15 +68,11 @@ Möglichkeiten:
 - `justify` (Textausrichtung, Werte: `CENTER`, `LEFT`, `RIGHT`)
 - `padx`, `pady` (Abstand Rahmen zum Inhalt)
 
----
-
 ## Tkinter - Widgets
 
 - `Label`
 - `Button`
 - `Frame`
-
----
 
 ## Tkinter - Beispiele
 

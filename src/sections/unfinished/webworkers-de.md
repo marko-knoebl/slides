@@ -4,15 +4,11 @@ Möglichkeit, Scripts im Hintergrund (in einem eigenen Thread) laufen zu lassen
 
 Können genutzt werden, um intensive Berechnungen durchzuführen - blockieren die User-Interaktion mit der Website nicht.
 
----
-
 ## Worker erstellen
 
 ```js
 const worker = new Worker('worker.js');
 ```
-
----
 
 ## Auf Antwort des Workers lauschen
 
@@ -22,15 +18,11 @@ worker.onmessage = function(message) {
 };
 ```
 
----
-
 ## Dem Worker zu arbeiten geben
 
 ```js
 worker.postMessage(42);
 ```
-
----
 
 ## Im Worker selbst
 
@@ -41,13 +33,9 @@ onmessage = function(message) {
 };
 ```
 
----
-
 ## Daten übergeben
 
 Beim hin-und-her-Übergeben von Daten: Daten werden kopiert und als 'plain' JS-Objekte verwertet
-
----
 
 ## Übung: Fibonacci
 

@@ -14,8 +14,6 @@ Neueste Möglichkeit (f-strings):
 greeting = f"Hello, {name}!"
 ```
 
----
-
 ## String-Formatierung: Möglichkeiten
 
 ```py
@@ -31,8 +29,6 @@ temperature = 23.7
 
 f'weather in {city}: {temperature}°C'
 ```
-
----
 
 ## Formatangaben
 

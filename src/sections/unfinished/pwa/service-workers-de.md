@@ -1,14 +1,10 @@
 # Service Worker und Workbox
 
----
-
 ## Service Worker - Motivation
 
 Service Worker = "Mittelmann" (Proxy) zwischen Webbrowser und Server (als Teil des Browsers)
 
 Haupteinsatzgebiet: Offlinenutzung von Webseiten / Webanwendungen (Ersetzt die alte AppCache-Funktionalität)
-
----
 
 ## Service Worker
 
@@ -19,8 +15,6 @@ Endgerät ⟺ Web Server
 ### PWA:
 
 Endgerät ⟺ Service Worker ⟺ Web Server
-
----
 
 ## Grundlagen
 
@@ -34,8 +28,6 @@ Funktionen:
 
 Wichtige Funktionalität: Im Hintergrund Netzwerkanfragen abfangen und behandeln
 
----
-
 ## Grundlagen
 
 Service-Worker sind besondere Web-Worker, daher:
@@ -43,22 +35,16 @@ Service-Worker sind besondere Web-Worker, daher:
 - kein direkter Zugriff auf das DOM
 - Kommunikation mit Hauptthread mittels postMessage
 
----
-
 ## Browser-Unterstützung
 
 [caniuse](https://caniuse.com/##feat=serviceworkers)
 
 Wenn ServiceWorker unterstützt werden => Unterstützung für ES2015
 
----
-
 ## Wichtige verwandte Technologien
 
 - fetch (Senden von Netzwerkanfragen)
 - cache (Resultate von Netzwerkanfragen cachen)
-
----
 
 ## Fetch - Kurzes Beispiel
 
@@ -71,8 +57,6 @@ fetch(url)
   .then(response => response.text())
   .then(console.log);
 ```
-
----
 
 ## Cache - Kurzes Beispiel
 
@@ -90,8 +74,6 @@ self.addEventListener('fetch', event => {
 });
 ```
 
----
-
 ## ServiceWorker registrieren
 
 ```js
@@ -107,11 +89,9 @@ if (navigator.serviceWorker) {
 }
 ```
 
-???
+---
 
 Nur erklären, nicht selbst implementieren
-
----
 
 ## ServiceWorker - Events
 
@@ -124,8 +104,6 @@ Folgende Events können im ServiceWorker behandelt werden:
 - **message**: Kommunikation mit dem Hauptthread
 - **sync**: Anfrage an den Server, die wiederholt versucht wird (nur Chrome)
 
----
-
 ## ServiceWorker - Events: Install
 
 Tritt auf, wenn es eine neue ServiceWorker-Datei gibt:
@@ -135,8 +113,6 @@ Tritt auf, wenn es eine neue ServiceWorker-Datei gibt:
 
 Guter Zeitpunkt, um Resourcen für die spätere Verwendung herunterzuladen und dem Cache hinzuzufügen
 
----
-
 ## ServiceWorker - Events: Install
 
 ```js
@@ -144,8 +120,6 @@ self.addEventListener('install', event => {
   console.log(event);
 });
 ```
-
----
 
 ## ServiceWorker - Events: Activate
 
@@ -158,8 +132,6 @@ Ein geänderter ServiceWorker wird erst nach einem "Neustart" der PWA aktiv
 
 Activate: gute Gelegenheit, um alte Caches zu bereinigen
 
----
-
 ## ServiceWorker - Events: Activate
 
 ```js
@@ -168,31 +140,23 @@ self.addEventListener('activate', event => {
 });
 ```
 
----
-
 ## ServiceWorker - Events: Fetch
 
 Für jede Netzwerkkommunikation
 
-???
+---
 
 Beispiel: Netzwerkanfragen loggen
-
----
 
 ## ServiceWorker - Events: Message
 
 Kommunikation mit dem Haupt-Thread (wie bei WebWorkern)
-
----
 
 ## ServiceWorker - Events: Sync
 
 Warten auf Netzwerk-Konnektivität, um Daten zu senden
 
 Wenn Netzwerk-Konnektivität besteht, aber der sync trotzdem fehlschlägt (das selbstdefinierte Promise rejected wird), werden neue Versuche mit immer größeren Zeitabständen unternommen
-
----
 
 ## fetch und cache: Anwendungsbeispiele
 
@@ -201,13 +165,9 @@ Wenn Netzwerk-Konnektivität besteht, aber der sync trotzdem fehlschlägt (das s
 - Bei einer Wikipedia-Anwendung werden die letzten 30 besichtigten Artikel im Cache abgelegt.
 - Die Startseite eines Nachrichtenportal soll zwischengespeichert werden und beim öffnen der Seite sofort erscheinen. Danach soll sie allerdings wenn möglich sofort aktualisiert werden
 
----
-
 ## Einfaches Beispiel: Offline-Anwendung
 
 Anwendung, die alle benötigten Resourcen beim ersten Mal herunterlädt und dann so beibehält.
-
----
 
 ## Einfaches Beispiel: Offline-Anwendung
 
@@ -220,8 +180,6 @@ const urlsToCache = [
   '/main.js',
 ];
 ```
-
----
 
 ## Einfaches Beispiel: Offline-Anwendung
 
@@ -239,8 +197,6 @@ self.addEventListener('install', event => {
 });
 ```
 
----
-
 ## Einfaches Beispiel: Offline-Anwendung
 
 Install-Handler
@@ -252,8 +208,6 @@ event.waitUntil(
 ```
 
 `waitUntil`: wartet auf die Installation und zeigt an, ob diese erfolgreich war
-
----
 
 ## Einfaches Beispiel: Offline-Anwendung
 
@@ -275,13 +229,11 @@ self.addEventListener('activate', event => {
 });
 ```
 
-???
+---
 
 Ursprünglich war hier
 return self.clients.claim();
 im Code
-
----
 
 ## Einfaches Beispiel: Offline-Anwendung
 
@@ -292,8 +244,6 @@ self.addEventListener('fetch', event => {
   event.respondWith(caches.match(event.request));
 });
 ```
-
----
 
 ## Übung: "Scripting the Service Worker"
 

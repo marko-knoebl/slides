@@ -2,8 +2,6 @@
 
 ### build a chatroom API with GraphQL and yoga, hosted on zeit.co
 
----
-
 ## start the project
 
 create a new folder for the project and initialize an npm project:
@@ -11,8 +9,6 @@ create a new folder for the project and initialize an npm project:
 ```bash
 npm init
 ```
-
----
 
 ## install & set up micro
 

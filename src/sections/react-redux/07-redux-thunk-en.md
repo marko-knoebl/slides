@@ -1,22 +1,16 @@
 # Redux Thunk
 
----
-
 ## Redux Thunk
 
 Thunk is a middleware that enables asynchronous behaviour in Redux - by dispatching functions
 
 With Thunk it's possible to dispatch so-called _asynchronous actions_ which in turn can dispatch multiple synchronous actions after some time.
 
----
-
 ## Thunk sourcecode
 
 complete sourcecode:
 
 https://github.com/reduxjs/redux-thunk/blob/master/src/index.js
-
----
 
 ## Redux Thunk
 
@@ -25,8 +19,6 @@ For example, we could call:
 ```js
 dispatch(getTodosFunction);
 ```
-
----
 
 ## Redux Thunk
 
@@ -37,21 +29,15 @@ Instead, it would usually lead to two other actions reaching the redux store:
 - the action `LOAD_TODOS_REQUEST` would be dispatched immediately
 - the action `LOAD_TODOS_SUCCESS` would be dispatched once the network request is complete
 
----
-
 ## Redux Thunk
 
 In Thunk, the synchronous logic remains in the reducer while the asynchronous logic is included in the action creator.
-
----
 
 ## Installation
 
 ```bash
 npm install redux-thunk
 ```
-
----
 
 ## Including Thunk
 
@@ -63,8 +49,6 @@ const store = createStore(
   applyMiddleware(thunk)
 );
 ```
-
----
 
 ## example: timer
 
@@ -81,8 +65,6 @@ const start = () => dispatch => {
 };
 ```
 
----
-
 ## Redux Thunk with TypeScript
 
 We have to give the complete signature of `dispatch`:
@@ -90,8 +72,6 @@ We have to give the complete signature of `dispatch`:
 ```ts
 dispatch: ThunkDispatch<IState, void, IAction>
 ```
-
----
 
 ## example: timer
 
@@ -113,8 +93,6 @@ const timeReducer = (
 };
 ```
 
----
-
 ## Thunk: accessing the Redux state
 
 Supply a second argument - it will receive the `getState` function as its value
@@ -130,23 +108,15 @@ const actionAsync = () => (
 };
 ```
 
----
-
 ## task: loading Todos from a REST API
 
 create a thunk that will load example todos from `https://jsonplaceholder.typicode.com/todos`
-
----
 
 ## task: loading Todos from a GraphQL API
 
 create a thunk that will load example todos from `https://5qn401kkl9.lp.gql.zone/graphql`
 
-???
-
-admin: https://launchpad.graphql.com/5qn401kkl9
-
----
+(admin: https://launchpad.graphql.com/5qn401kkl9)
 
 ## resource: Taming Large React Applications w/ Redux
 

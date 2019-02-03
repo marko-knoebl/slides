@@ -1,7 +1,5 @@
 # GraphQL on the server
 
----
-
 ## GraphQL on the server: options
 
 - **GraphQL.js** (reference implementation)
@@ -10,14 +8,10 @@
 - **graphql-yoga**: based on _GraphQL.js_ and _apollo-server_
 - ... (see http://graphql.github.io/code/ for other options)
 
----
-
 ## GraphQL on the server: parts
 
 - GraphQL schema
 - implementation (resolvers)
-
----
 
 ## Example: schema
 
@@ -35,8 +29,6 @@ type Subscription {
 }
 ```
 
----
-
 ## Example: implementation
 
 (this depends on the library)
@@ -51,8 +43,6 @@ const typeDefs = `
   }
 `;
 ```
-
----
 
 ## Example: implementation
 

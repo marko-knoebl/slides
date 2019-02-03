@@ -1,7 +1,5 @@
 # Sequenzen
 
----
-
 ## Sequenzen
 
 Objekte, die aus einer Aufreihung anderer Objekte bestehen, zB:
@@ -10,8 +8,6 @@ Objekte, die aus einer Aufreihung anderer Objekte bestehen, zB:
 - Tupel
 - Strings
 - Bytes
-
----
 
 ## Operationen auf Sequenzen
 
@@ -23,8 +19,6 @@ Objekte, die aus einer Aufreihung anderer Objekte bestehen, zB:
 - for-Schleife: `for el in s:`
 - if-Abfrage: `if el in s:`
 
----
-
 ## Liste
 
 Eine Veränderliche Sequenz von Objekten - üblicherweise verwendet für homogene (gleichartige) Einträge
@@ -32,8 +26,6 @@ Eine Veränderliche Sequenz von Objekten - üblicherweise verwendet für homogen
 ```py
 users = ['mike', 'tim', 'theresa']
 ```
-
----
 
 ## Operationen auf Sequenzen
 
@@ -46,8 +38,6 @@ users[0] # 'mike'
 users[-1] # 'theresa'
 ```
 
----
-
 ## Operationen auf Sequenzen
 
 Änderung von Elementen (falls Sequenz veränderlich ist)
@@ -57,8 +47,6 @@ users = ['mike', 'tim', 'theresa']
 
 users[0] = 'molly'
 ```
-
----
 
 ## Operationen auf Sequenzen
 
@@ -70,8 +58,6 @@ users = ['mike', 'tim', 'theresa']
 users[0:2] # ['mike', 'tim']
 ```
 
----
-
 ## Operationen auf Sequenzen
 
 Konkatenation
@@ -81,8 +67,6 @@ users = ['mike', 'tim', 'theresa']
 
 new_users = users + ['tina', 'michelle']
 ```
-
----
 
 ## Operationen auf Sequenzen
 
@@ -94,8 +78,6 @@ users = ['mike', 'tim', 'theresa']
 new_users = users * 3
 ```
 
----
-
 ## Operationen auf Sequenzen
 
 Länge
@@ -105,8 +87,6 @@ users = ['mike', 'tim', 'theresa']
 
 print(len(users))
 ```
-
----
 
 ## Operationen auf Sequenzen
 
@@ -119,8 +99,6 @@ for user in users:
     print(user.upper())
 ```
 
----
-
 ## Sortieren von Listen
 
 ```py
@@ -131,14 +109,10 @@ l.sort()
 l.sort(key=...)
 ```
 
----
-
 ## Übungen
 
 - Aufgabe 7:3 (Mischen von Karten)
 - Aufgabe 7:4 (Liste von rechtwinkligen Dreiecken)
-
----
 
 ## Tupel
 
@@ -147,8 +121,6 @@ Repräsentieren üblicherweise inhomogene Daten vorgegebener Länge - jeder Eint
 Erstellung: Einträge werden mit Kommas getrennt, üblicherweise mit runden Klammern umschlossen
 
 Tupel sind nach der Erstellung unveränderlich
-
----
 
 ## Tupel
 
@@ -159,8 +131,6 @@ two_values = ('Thomas', 'Bauer')
 two_values = 'Thomas', 'Bauer'
 ```
 
----
-
 ## Unpacking (von Tupeln)
 
 ```py
@@ -168,8 +138,6 @@ two_values = 'Thomas', 'Bauer'
 
 a, b = b, a
 ```
-
----
 
 ## Unpacking (von Tupeln)
 
@@ -180,8 +148,6 @@ l = ['Alice', 'Bob', 'Charlie']
 for i, name in enumerate(l):
     print(f'{i}: {name}')
 ```
-
----
 
 ## Bytes
 
@@ -195,13 +161,9 @@ m = bytes([104, 101, 108, 108, 111])
 m = b"hello"
 ```
 
----
-
 ## Bytes
 
 Können zum Teil (bis 127) als ASCII-Text dargestellt werden
-
----
 
 ## Umwandlung zwischen Strings und Bytes
 
@@ -211,8 +173,6 @@ Bytes können einen encodierten String enthalten. Dabei gilt:
 
 Für die Bytes von 0-127 ist das Zeichen in jedem Encoding das gleiche.
 Für Bytes über 128 können verschiedene Encodings verschiedene Repräsentationen liefern.
-
----
 
 ## Encodings
 
@@ -227,8 +187,6 @@ Für Bytes über 128 können verschiedene Encodings verschiedene Repräsentation
 # b'a'
 ```
 
----
-
 ## Encodings
 
 ```py
@@ -241,8 +199,6 @@ Für Bytes über 128 können verschiedene Encodings verschiedene Repräsentation
 'ä'.encode('utf-8')
 # b'\xc3\xa4'
 ```
-
----
 
 ## Beispiele
 

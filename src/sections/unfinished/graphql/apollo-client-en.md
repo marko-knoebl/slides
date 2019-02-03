@@ -1,7 +1,5 @@
 # Apollo client
 
----
-
 ## Apollo client
 
 advantages over "plain" frontent code:
@@ -9,25 +7,17 @@ advantages over "plain" frontent code:
 - automatic networking
 - automatic caching
 
----
-
 ## Apollo link state
 
 apollo library to manage local state (replacement for Redux ...)
-
----
 
 ## Apollo client fundamentals
 
 Apollo client adds additional data sources that represent remote data
 
----
-
 ## The Query component
 
 The `<Query>` component represents a GraphQL query that was sent to the server. The Query component can render different contents depending on whether it is still fetching results or not and on the result of the query. Conceptually a Query component is similar to what `connect()` does for Redux.
-
----
 
 ## The Query component
 
@@ -43,8 +33,6 @@ The `<Query>` component represents a GraphQL query that was sent to the server. 
 </Query>
 ```
 
----
-
 ## Installation
 
 In an existing React project:
@@ -52,8 +40,6 @@ In an existing React project:
 ```bash
 npm install apollo-boost react-apollo graphql
 ```
-
----
 
 ## Connecting React to a GraphQL server
 
@@ -72,8 +58,6 @@ const client = new ApolloClient({
 });
 ```
 
----
-
 ## Connecting React to a GraphQL server
 
 ```jsx
@@ -84,8 +68,6 @@ ReactDOM.render(
   document.getElementById('root')
 );
 ```
-
----
 
 ## Writing GraphQL queries for Apollo
 
@@ -107,8 +89,6 @@ const POSTS_QUERY = gql`
 `;
 ```
 
----
-
 ## Using the Query component
 
 start with:
@@ -119,13 +99,9 @@ import { Query } from 'react-apollo';
 <Query query={POSTS_QUERY}>{customRenderFunction}</Query>;
 ```
 
----
-
 ## Writing the render function
 
 The Query component's child element _is a function_. This function will receive the queried data and return a React component tree. In that way this function is similar to the _render_ method we're familiar with.
-
----
 
 ## Writing the render function
 
@@ -136,8 +112,6 @@ The render function receives an object that can have a number of properties, inc
 - `error`: indicates network errors or GraphQL errors
 
 full API: https://www.apollographql.com/docs/react/essentials/queries.html#render-prop
-
----
 
 ## Writing the render function
 
@@ -156,8 +130,6 @@ full API: https://www.apollographql.com/docs/react/essentials/queries.html#rende
 };
 ```
 
----
-
 ## Mutations
 
 Apollo Client also provides a `Mutation` component that works similar to the `Query` component.
@@ -171,8 +143,6 @@ Apollo Client also provides a `Mutation` component that works similar to the `Qu
 </Mutation>
 ```
 
----
-
 ## Mutations
 
 Inside a mutation the `customRenderFunction` will receive _two_ arguments:
@@ -182,8 +152,6 @@ Inside a mutation the `customRenderFunction` will receive _two_ arguments:
 
 So one important distinction between queries and mutations in Apollo client is: Queries get sent to the server automatically when the component is mounted. Mutations must be sent manually (e.g. when the user clicks a button).
 
----
-
 ## Subscriptions
 
 Subscriptions can be handled via websockets
@@ -191,8 +159,6 @@ Subscriptions can be handled via websockets
 ```bash
 npm install apollo-link-ws subscriptions-transport-ws
 ```
-
----
 
 ## Subscriptions
 
@@ -211,8 +177,6 @@ const wsLink = new WebSocketLink({
   },
 });
 ```
-
----
 
 ## Subscriptions
 
@@ -234,8 +198,6 @@ const link = split(
 );
 ```
 
----
-
 ## Subscriptions
 
 ```jsx
@@ -243,8 +205,6 @@ const link = split(
   {this.subscriptionRenderer}
 </Subscription>
 ```
-
----
 
 ## Subscriptions
 
@@ -263,8 +223,6 @@ const SUBSCRIBE_POST_CHANGE_TEMPLATE = gql`
 `;
 ```
 
----
-
 ## Subscriptions
 
 ```js
@@ -275,13 +233,9 @@ subscriptionRenderer = ({ data }) => {
 };
 ```
 
----
-
 ## Exercise: Hackernews clone
 
 Do the React-Apollo tutorial at https://howtographql.com
-
----
 
 ## Authentication, setting headers
 
@@ -298,5 +252,3 @@ const authLink = setContext((_, { headers }) => {
   };
 });
 ```
-
----

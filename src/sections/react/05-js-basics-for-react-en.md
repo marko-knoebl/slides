@@ -1,12 +1,8 @@
 # JavaScript basics for React
 
----
-
 ## map, filter, reduce
 
 - Array methods for functional programming
-
----
 
 ## map
 
@@ -21,8 +17,6 @@ let triple = n => 3 * n;
 let newNumbers = myNumbers.map(triple);
 // [6, 30, 69]
 ```
-
----
 
 ## filter
 
@@ -39,8 +33,6 @@ let newNumbers = myNumbers.filter(isEven);
 // [2, 10]
 ```
 
----
-
 ## reduce
 
 - computes one value based on a start value and all entries in an array
@@ -53,8 +45,6 @@ let multiply = (a, b) => a * b;
 let result = myNumbers.reduce(multiply, 1);
 ```
 
----
-
 ## this
 
 in object methods, `this` usually refers to the current object
@@ -63,8 +53,6 @@ in object methods, `this` usually refers to the current object
 
 - each function call sets `this` (not just method calls)
 - `this` will only be set correctly if the method is called via the syntax `object.method()`
-
----
 
 ## problem: _this_ in anonymous functions
 
@@ -80,8 +68,6 @@ class myComponent {
   }
 }
 ```
-
----
 
 ## solution 1: _that_ / _self_
 
@@ -99,8 +85,6 @@ class myComponent {
 }
 ```
 
----
-
 ## solution 2: _arrow functions_
 
 ```js
@@ -115,8 +99,6 @@ class myComponent {
   }
 }
 ```
-
----
 
 ## problem: method calls without using method syntax
 
@@ -135,8 +117,6 @@ let fg = f.greet;
 fg(); // doesn't work (this is undefined)
 ```
 
----
-
 ## solution: arrow methods
 
 Available since ES2018:
@@ -151,8 +131,6 @@ class Foo {
   };
 }
 ```
-
----
 
 ## solution: binding the method
 

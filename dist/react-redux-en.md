@@ -2,22 +2,16 @@
 
 ### State management with Redux
 
----
-
 ## State management
 
 In more complex fontend-applications it makes sense to manage the state (model) separately from the view.
 
 Often the entire application state is represented by a data model and every change to the state will be done by triggering a change to the data model.
 
----
-
 ## Basic principles of state management libraries
 
 - application state is stored in a global object
 - _every_ state change is triggered by an _action_, which describes the change in detail
-
----
 
 ## State management libraries
 
@@ -26,21 +20,15 @@ Often the entire application state is represented by a data model and every chan
 - ngrx (commonly used with Angular)
 - vuex (used with vue)
 
----
-
 ## what makes Redux special
 
 In Redux a state change is applied via a _reducer_ function, wich transform the previous state into the new state
-
----
 
 ## Installation
 
 ```bash
 npm install redux
 ```
-
----
 
 ## Simple Redux example: counter
 
@@ -55,8 +43,6 @@ These will be represented by JavaScript objects:
 ```json
 { "type": "DECREMENT" }
 ```
-
----
 
 ## Simple Redux example: counter
 
@@ -77,15 +63,11 @@ const counter = (state = initialState, action) => {
 };
 ```
 
----
-
 ## Simple Redux example: counter
 
 The reducer function receives the old state and an action describing a state change
 
 The reducer function returns the new state
-
----
 
 ## Simple Redux example: counter
 
@@ -99,8 +81,6 @@ import { createStore } from 'redux';
 const counterStore = createStore(counter);
 ```
 
----
-
 ## Simple Redux example: counter
 
 Using the store
@@ -111,8 +91,6 @@ counterStore.dispatch({ type: 'INCREMENT' });
 counterStore.getState(); // {count: 1}
 ```
 
----
-
 ## Exercise
 
 Create a new `mathadorStore` with an initial state of `{number: 1}` and two actions corresponding to "\*3" and "-7"
@@ -120,8 +98,6 @@ Create a new `mathadorStore` with an initial state of `{number: 1}` and two acti
 additinal tasks: reach the number 4 (or 10) by dispatching actions
 
 # React with Redux
-
----
 
 ## React with Redux
 
@@ -131,20 +107,14 @@ Setup: `npm install redux react-redux`
 
 TypeScript: `npm install @types/react-redux`
 
----
-
 ## Presentational and Container Components
 
 - presentational components: "Ordinary" React components (reusable)
 - container components: Have access to the redux store / are connected with the Redux store
 
----
-
 ## React-Redux: < Provider >
 
 Provider: Helps in adding a redux store to a React App
-
----
 
 ## React-Redux: < Provider >
 
@@ -161,15 +131,11 @@ ReactDOM.render(
 );
 ```
 
----
-
 ## Redux devtools
 
 Browser-plugin:
 
 https://github.com/zalmoxisus/redux-devtools-extension
-
----
 
 ## Redux devtools
 
@@ -192,8 +158,6 @@ const store = createStore(
 );
 ```
 
----
-
 ## Counter: Connect
 
 connect: connects React components with the Redux store
@@ -209,8 +173,6 @@ component = connect(
   mapDispatchToProps
 )(component);
 ```
-
----
 
 ## Counter: Connect (state)
 
@@ -230,8 +192,6 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps)(App);
 ```
 
----
-
 ## Counter: Connect (actions)
 
 ```jsx
@@ -249,8 +209,6 @@ const mapDispatchToProps = dispatch => {
 <button onClick={this.props.increment}>+</button>
 <button onClick={this.props.decrement}>-</button>
 ```
-
----
 
 ## Counter: Dispatch with TypeScript
 
@@ -270,21 +228,15 @@ const mapDispatchToProps = (
 });
 ```
 
----
-
 ## Redux mit TypeScript
 
 siehe https://github.com/piotrwitek/react-redux-typescript-guide
 
 # Immutability
 
----
-
 ## Immutability
 
 important concept in functional programing and with React / Redux
-
----
 
 ## Immutability
 
@@ -296,8 +248,6 @@ Instead, these Objects should be replaced by new, modified Objects
 
 Advantages: increased performance, more possibilities when it comes to debugging
 
----
-
 ## PureComponent
 
 Instead of `Component` we can inherit from `PureComponent`:
@@ -306,11 +256,7 @@ The component will onl be rerendered if either state or props have changed
 
 Entries in state or props are considered to have changed only if they refer to a different object than before
 
----
-
 ## Data managment without mutations
-
----
 
 ## Data managment without mutations: Arrays
 
@@ -329,8 +275,6 @@ names = newNames;
 names = [...names, 'Dan'];
 ```
 
----
-
 ## Data managment without mutations: Objects
 
 ```js
@@ -347,8 +291,6 @@ let newUser = { ...user, email: 'johndoe@gmail.com' };
 
 # Redux in detail
 
----
-
 ## Basic elements of Redux
 
 - _state_
@@ -356,8 +298,6 @@ let newUser = { ...user, email: 'johndoe@gmail.com' };
 - _action creator_: simple function that creates an _action_
 - _reducer_: based on an action, transforms the old _state_ into a new _state_
 - _store_: where the _state_ is stored
-
----
 
 ## example: state
 
@@ -372,16 +312,12 @@ let newUser = { ...user, email: 'johndoe@gmail.com' };
 }
 ```
 
----
-
 ## actions
 
 - actions describe a change to the state
 - actions are objects with a _type_-property and optionally other properties
 - the _type_ property is usually a string, often defined as a constant in a separate module
 - actions often adhere to the _FSA_ standard, meaning they may have a _payload_, an _error_ and a _meta_ property
-
----
 
 ## Actions - examples
 
@@ -394,8 +330,6 @@ let a = {
 };
 ```
 
----
-
 ## Actions - examples
 
 ```js
@@ -404,8 +338,6 @@ let a = {
   payload: 2,
 };
 ```
-
----
 
 ## Action creators
 
@@ -421,16 +353,12 @@ const addTodo = (title, completed = false) => ({
 });
 ```
 
----
-
 ## Reducers
 
 - Actions are processed by reducer functions
 - reducers receive the old state and an action
 - reducers return the new state
 - note: reducers never modify the old state object, but they construct a new one based on it (reducers are pure functions)
-
----
 
 ## Stores
 
@@ -440,8 +368,6 @@ import { createStore } from 'redux';
 // counter = reducer
 const store = createStore(counter);
 ```
-
----
 
 ## combining reducers
 
@@ -460,13 +386,9 @@ rootStore.dispatch({ type: 'INCREMENT' });
 // {a: {count: 1}, b: {number: 1}}
 ```
 
----
-
 ## Exercise: state managment in the todo app
 
 # Redux Ecosystem
-
----
 
 ## Redux Ecosystem - examples
 
@@ -478,20 +400,14 @@ rootStore.dispatch({ type: 'INCREMENT' });
 - redux-actions: reduces boilerplate (createAction, createReducer)
 - immutable.js
 
----
-
 ## Redux Middleware
 
 Middleware can be added to a Redux store. It provides an extension and can interfere between dispatching an action and the moment it reaches the reducer.
-
----
 
 ## Redux Middleware - examples
 
 - middleware that logs the action (e.g. redux-logger)
 - middleware that receives a single action and dispatches multiple asynchronous actions based on it (e.g. redux-thunk)
-
----
 
 ## Redux Middleware - implementation
 
@@ -502,8 +418,6 @@ const myLogger = store => next => action => {
 };
 ```
 
----
-
 ## Redux Middleware - inclusion
 
 ```ts
@@ -512,8 +426,6 @@ const store = createStore(
   applyMiddleware(myLogger)
 );
 ```
-
----
 
 ## Custom Middleware - json fetcher
 
@@ -528,13 +440,9 @@ dispatch({
 });
 ```
 
----
-
 ## Custom Middleware - json fetcher
 
 In the background the action `FETCH_JSON` should dispatch two separate actions: `FETCH_JSON_START` and `FETCH_JSON_COMPLETE`. The action `FETCH_JSON_COMPLETE` should carry the json content as its payload.
-
----
 
 ## Custom Middleware - json fetcher
 
@@ -556,13 +464,9 @@ const fetcher = store => next => action => {
 };
 ```
 
----
-
 ## Custom Middleware - dispatching a function
 
 We want to be even more flexible and be able to dispatch a function. This function should then be able to do asynchronous requests and similar and dispatch more actions during that time.
-
----
 
 ## Custom Middleware - dispatching a function
 
@@ -580,23 +484,17 @@ const functionMiddleware = store => next => action => {
 
 # Redux Thunk
 
----
-
 ## Redux Thunk
 
 Thunk is a middleware that enables asynchronous behaviour in Redux - by dispatching functions
 
 With Thunk it's possible to dispatch so-called _asynchronous actions_ which in turn can dispatch multiple synchronous actions after some time.
 
----
-
 ## Thunk sourcecode
 
 complete sourcecode:
 
 https://github.com/reduxjs/redux-thunk/blob/master/src/index.js
-
----
 
 ## Redux Thunk
 
@@ -605,8 +503,6 @@ For example, we could call:
 ```js
 dispatch(getTodosFunction);
 ```
-
----
 
 ## Redux Thunk
 
@@ -617,21 +513,15 @@ Instead, it would usually lead to two other actions reaching the redux store:
 - the action `LOAD_TODOS_REQUEST` would be dispatched immediately
 - the action `LOAD_TODOS_SUCCESS` would be dispatched once the network request is complete
 
----
-
 ## Redux Thunk
 
 In Thunk, the synchronous logic remains in the reducer while the asynchronous logic is included in the action creator.
-
----
 
 ## Installation
 
 ```bash
 npm install redux-thunk
 ```
-
----
 
 ## Including Thunk
 
@@ -643,8 +533,6 @@ const store = createStore(
   applyMiddleware(thunk)
 );
 ```
-
----
 
 ## example: timer
 
@@ -661,8 +549,6 @@ const start = () => dispatch => {
 };
 ```
 
----
-
 ## Redux Thunk with TypeScript
 
 We have to give the complete signature of `dispatch`:
@@ -670,8 +556,6 @@ We have to give the complete signature of `dispatch`:
 ```ts
 dispatch: ThunkDispatch<IState, void, IAction>
 ```
-
----
 
 ## example: timer
 
@@ -693,8 +577,6 @@ const timeReducer = (
 };
 ```
 
----
-
 ## Thunk: accessing the Redux state
 
 Supply a second argument - it will receive the `getState` function as its value
@@ -710,23 +592,15 @@ const actionAsync = () => (
 };
 ```
 
----
-
 ## task: loading Todos from a REST API
 
 create a thunk that will load example todos from `https://jsonplaceholder.typicode.com/todos`
-
----
 
 ## task: loading Todos from a GraphQL API
 
 create a thunk that will load example todos from `https://5qn401kkl9.lp.gql.zone/graphql`
 
-???
-
-admin: https://launchpad.graphql.com/5qn401kkl9
-
----
+(admin: https://launchpad.graphql.com/5qn401kkl9)
 
 ## resource: Taming Large React Applications w/ Redux
 

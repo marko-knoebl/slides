@@ -6,15 +6,11 @@ Herunterladen und im Web Server for Chrome öffnen
 
 Dann in Lighthouse ansehen
 
----
-
 ## Webmanifest-Datei und unsere erste PWA
 
 Vorlage: Anwendung aus reinem HTML, CSS & JS
 
 In Chrome Devtools: Application: No manifest detected
-
----
 
 ## Webmanifest-Datei
 
@@ -23,8 +19,6 @@ Minimal notwendige Schritte, um eine _installierbare_ PWA daraus zu machen:
 ```html
 <link rel="manifest" href="manifest.webmanifest">
 ```
-
----
 
 ## Webmanifest-Datei
 
@@ -46,8 +40,6 @@ manifest.webmanifest als JSON-Datei
 }
 ```
 
----
-
 ## Service Worker einbinden
 
 Minimale Variante eines Service-Workers für Chrome:
@@ -56,8 +48,6 @@ Minimale Variante eines Service-Workers für Chrome:
 // main.js
 navigator.serviceWorker.register('./service-worker.js');
 ```
-
----
 
 ## Service Worker einbinden
 
@@ -73,23 +63,19 @@ workbox.routing.registerRoute(
 );
 ```
 
----
-
 ## Ausprobieren: Installation in Chrome
 
 mittels "add to homescreen"
 
-???
+---
 
 neuen Report generieren mittels Lighthouse (55%)
-
----
 
 ## manifest.webmanifest: detailierte Konfiguration
 
 https://developer.mozilla.org/en-US/docs/Web/Manifest
 
-???
+---
 
 von hier einbinden:
 https://developer.mozilla.org/en-US/docs/Web/Manifest
@@ -121,8 +107,6 @@ Lighthouse: 73%
 
 - Seite aufrufen und auf https wechseln]
 - lighthouse
-
----
 
 ## Deployment auf bitballoon
 

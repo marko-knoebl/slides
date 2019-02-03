@@ -1,7 +1,5 @@
 # Datentypen in Python
 
----
-
 ## Zahlen
 
 - bool
@@ -9,15 +7,11 @@
 - float
 - complex
 
----
-
 ## weitere grundlegende Typen
 
 - NoneType
 - string
 - bytes
-
----
 
 ## Kollektionen
 
@@ -25,8 +19,6 @@
 - tuple
 - dict
 - set
-
----
 
 ## weitere Kollektionen
 
@@ -49,8 +41,6 @@ users = [
 ]
 ```
 
----
-
 ## NoneType
 
 - Singleton
@@ -63,8 +53,6 @@ if a is None:
 ```
 
 `None` ist ein Singleton (es gibt nur ein einziges None-Objekt innerhalb eines laufenden Python-Programms, auf das aber viele Variablen verweisen können)
-
----
 
 ## Vergleich mit "is"
 
@@ -83,8 +71,6 @@ a == x # True
 a is x # False
 ```
 
----
-
 ## Vergleich mit "is"
 
 Nachdem `None` ein Singleton ist und daher immer auf die gleiche Instanz verweist, kann darauf mit `is None` getestet werden.
@@ -93,8 +79,6 @@ Nachdem `None` ein Singleton ist und daher immer auf die gleiche Instanz verweis
 if a is None:
     ...
 ```
-
----
 
 ## bool
 
@@ -106,23 +90,17 @@ if a:
     print('hello')
 ```
 
----
-
 ## bool
 
 Für welche Objekte liefert `bool(x)` False?
 
-???
+---
 
 Anekdote: Mitternacht (datetime.time(0, 0, 0) vor Python 3.5)
-
----
 
 ## int
 
 beliebig große Ganzzahlen
-
----
 
 ## int
 
@@ -138,13 +116,9 @@ c = 0x2a
 a = int('10010', 2)
 ```
 
----
-
 ## float
 
 64-bit Gleitkommazahlen
-
----
 
 ## float
 
@@ -156,11 +130,9 @@ d = float('nan')
 e = float('inf')
 ```
 
-???
+---
 
 Anekdote: `d != d`
-
----
 
 ## complex
 
@@ -168,15 +140,11 @@ Anekdote: `d != d`
 a = 2 + 3j
 ```
 
----
-
 ## weitere Operationen mit Zahlen
 
 - Division mit Rest: `10 // 3`
 - Divisionsrest / Modulo: `10 % 3`
 - Potenzieren: `2 ** 3`
-
----
 
 ## Strings
 
@@ -184,29 +152,21 @@ Strings sind Zeichenfolgen, die jedes Unicodezeichen repräsentieren können
 
 # Strings
 
----
-
 ## String-Methoden
 
 - `.lower()`
 - `.upper()`
-
----
 
 ## String-Methoden
 
 - `.startswith(...)`
 - `.endswith(".txt")`
 
----
-
 ## String-Methoden
 
 - `.center(10)`
 - `.ljust(10)`
 - `.rjust(10)`
-
----
 
 ## String-Methoden
 
@@ -215,15 +175,11 @@ Strings sind Zeichenfolgen, die jedes Unicodezeichen repräsentieren können
 - `.splitlines()`
 - `.join()`
 
----
-
 ## Übung: Faust
 
 Formatierung von Goethes Faust
 
 https://www.gutenberg.org/ebooks/2229
-
----
 
 ## Übung: Faust
 
@@ -240,8 +196,6 @@ Ziel:
 Ihr naht euch wieder, schwankende Gestalten,               1
 Die früh sich einst dem trüben Blick gezeigt.              2
 ```
-
----
 
 ## Übung: Faust
 
@@ -266,8 +220,6 @@ Neueste Möglichkeit (f-strings):
 greeting = f"Hello, {name}!"
 ```
 
----
-
 ## String-Formatierung: Möglichkeiten
 
 ```py
@@ -284,8 +236,6 @@ temperature = 23.7
 f'weather in {city}: {temperature}°C'
 ```
 
----
-
 ## Formatangaben
 
 ```py
@@ -298,8 +248,6 @@ https://mkaz.blog/code/python-string-format-cookbook/
 
 # Sequenzen
 
----
-
 ## Sequenzen
 
 Objekte, die aus einer Aufreihung anderer Objekte bestehen, zB:
@@ -308,8 +256,6 @@ Objekte, die aus einer Aufreihung anderer Objekte bestehen, zB:
 - Tupel
 - Strings
 - Bytes
-
----
 
 ## Operationen auf Sequenzen
 
@@ -321,8 +267,6 @@ Objekte, die aus einer Aufreihung anderer Objekte bestehen, zB:
 - for-Schleife: `for el in s:`
 - if-Abfrage: `if el in s:`
 
----
-
 ## Liste
 
 Eine Veränderliche Sequenz von Objekten - üblicherweise verwendet für homogene (gleichartige) Einträge
@@ -330,8 +274,6 @@ Eine Veränderliche Sequenz von Objekten - üblicherweise verwendet für homogen
 ```py
 users = ['mike', 'tim', 'theresa']
 ```
-
----
 
 ## Operationen auf Sequenzen
 
@@ -344,8 +286,6 @@ users[0] # 'mike'
 users[-1] # 'theresa'
 ```
 
----
-
 ## Operationen auf Sequenzen
 
 Änderung von Elementen (falls Sequenz veränderlich ist)
@@ -355,8 +295,6 @@ users = ['mike', 'tim', 'theresa']
 
 users[0] = 'molly'
 ```
-
----
 
 ## Operationen auf Sequenzen
 
@@ -368,8 +306,6 @@ users = ['mike', 'tim', 'theresa']
 users[0:2] # ['mike', 'tim']
 ```
 
----
-
 ## Operationen auf Sequenzen
 
 Konkatenation
@@ -379,8 +315,6 @@ users = ['mike', 'tim', 'theresa']
 
 new_users = users + ['tina', 'michelle']
 ```
-
----
 
 ## Operationen auf Sequenzen
 
@@ -392,8 +326,6 @@ users = ['mike', 'tim', 'theresa']
 new_users = users * 3
 ```
 
----
-
 ## Operationen auf Sequenzen
 
 Länge
@@ -403,8 +335,6 @@ users = ['mike', 'tim', 'theresa']
 
 print(len(users))
 ```
-
----
 
 ## Operationen auf Sequenzen
 
@@ -417,8 +347,6 @@ for user in users:
     print(user.upper())
 ```
 
----
-
 ## Sortieren von Listen
 
 ```py
@@ -429,14 +357,10 @@ l.sort()
 l.sort(key=...)
 ```
 
----
-
 ## Übungen
 
 - Aufgabe 7:3 (Mischen von Karten)
 - Aufgabe 7:4 (Liste von rechtwinkligen Dreiecken)
-
----
 
 ## Tupel
 
@@ -445,8 +369,6 @@ Repräsentieren üblicherweise inhomogene Daten vorgegebener Länge - jeder Eint
 Erstellung: Einträge werden mit Kommas getrennt, üblicherweise mit runden Klammern umschlossen
 
 Tupel sind nach der Erstellung unveränderlich
-
----
 
 ## Tupel
 
@@ -457,8 +379,6 @@ two_values = ('Thomas', 'Bauer')
 two_values = 'Thomas', 'Bauer'
 ```
 
----
-
 ## Unpacking (von Tupeln)
 
 ```py
@@ -466,8 +386,6 @@ two_values = 'Thomas', 'Bauer'
 
 a, b = b, a
 ```
-
----
 
 ## Unpacking (von Tupeln)
 
@@ -478,8 +396,6 @@ l = ['Alice', 'Bob', 'Charlie']
 for i, name in enumerate(l):
     print(f'{i}: {name}')
 ```
-
----
 
 ## Bytes
 
@@ -493,13 +409,9 @@ m = bytes([104, 101, 108, 108, 111])
 m = b"hello"
 ```
 
----
-
 ## Bytes
 
 Können zum Teil (bis 127) als ASCII-Text dargestellt werden
-
----
 
 ## Umwandlung zwischen Strings und Bytes
 
@@ -509,8 +421,6 @@ Bytes können einen encodierten String enthalten. Dabei gilt:
 
 Für die Bytes von 0-127 ist das Zeichen in jedem Encoding das gleiche.
 Für Bytes über 128 können verschiedene Encodings verschiedene Repräsentationen liefern.
-
----
 
 ## Encodings
 
@@ -525,8 +435,6 @@ Für Bytes über 128 können verschiedene Encodings verschiedene Repräsentation
 # b'a'
 ```
 
----
-
 ## Encodings
 
 ```py
@@ -540,16 +448,12 @@ Für Bytes über 128 können verschiedene Encodings verschiedene Repräsentation
 # b'\xc3\xa4'
 ```
 
----
-
 ## Beispiele
 
 - ISBN
 - IBAN
 
 # Dictionaries
-
----
 
 ## Dictionaries
 
@@ -564,8 +468,6 @@ person = {
 }
 ```
 
----
-
 ## Dictionaries
 
 Elementezugriff bei dictionaries
@@ -573,8 +475,6 @@ Elementezugriff bei dictionaries
 ```py
 person["first_name"] # "John"
 ```
-
----
 
 ## Dictionaries
 
@@ -587,8 +487,6 @@ for entry in person:
 # liefert: first_name, last_name, nationality, birth_year
 ```
 
----
-
 ## Dictionaries
 
 Iteration über Schlüssel/Werte - Paare:
@@ -597,8 +495,6 @@ Iteration über Schlüssel/Werte - Paare:
 for key, value in person.items():
     print(f'{key}, {value}')
 ```
-
----
 
 ## Operationen auf Dictionaries
 
@@ -616,21 +512,13 @@ d.items()
 d1.update(d2)
 ```
 
----
-
 ## Beispiel: Vokabelprogramm
 
-???
-
-(Einlesen von (JSON-)Datei)
-random.choice
-dictionary
-
----
+- Einlesen von (JSON-)Datei
+- Modellieren mit dictionaries
+- zufälliges Auswählen eines Eintrags
 
 ## Beispiel: Todo-Liste
-
----
 
 ## Dictionaries
 
@@ -638,15 +526,11 @@ Was kann als key verwendet werden?
 
 # comprehensions
 
----
-
 ## List comprehensions
 
 Wichtige Möglichkeit, um Listen basierend auf anderen Listen zu erstellen
 
 In anderen Programmiersprachen oft umgesetzt mittels `map` und `filter`/`grep`
-
----
 
 ## List comprehension
 
@@ -657,8 +541,6 @@ uppercase_names = [name.upper() for name in names]
 ["ALICE", "BOB", "CHARLIE"]
 ```
 
----
-
 ## List comprehension
 
 ```py
@@ -666,8 +548,6 @@ amounts = [10, -7, 8, 19, -2]
 
 negative_amounts = [amount for amount in amounts if amount < 0]
 ```
-
----
 
 ## List comprehension
 
@@ -679,13 +559,9 @@ new_list = [new_entry for entry in old_list]
 new_list = [new_entry for entry in old_list if condition]
 ```
 
----
-
 ## List comprehension
 
 Beispiel Todo-Liste: Entfernen erledigter Todos
-
----
 
 ## Dictionary comprehensions
 
@@ -701,8 +577,6 @@ m_colors = { color: colors[color][1:] for color in colors}
 
 # Set
 
----
-
 ## Set
 
 Ungeordnete Menge von Elementen (ohne Duplikate)
@@ -711,15 +585,11 @@ Ungeordnete Menge von Elementen (ohne Duplikate)
 primes = {2, 3, 5, 7, 11, 13, 17, 19}
 ```
 
----
-
 ## Set
 
 Achtung: Ein leeres set erstellen wir immer mittels `set()`.
 
 Warum ergibt der Ausdruck `{}` kein leeres set?
-
----
 
 ## Operationen auf Sets
 
@@ -732,20 +602,12 @@ x - y
 x <= y
 ```
 
----
-
 ## Übungen
 
 - Raumplan (7.6.2)
 - Tanzpaare (7.7.5)
 
 # Kontrollstrukturen
-
-???
-
-Kapitel 5
-
----
 
 ## Kontrollstrukturen
 
@@ -756,19 +618,9 @@ Kapitel 5
   - for ... in range(...)
 - try
 
-???
-
-siehe Buch
-
----
-
 ## Übung: 1x1-Liste
 
----
-
 ## break & continue
-
----
 
 ## if-Expression
 
@@ -776,21 +628,13 @@ siehe Buch
 match = True if 0 in li else False
 ```
 
----
-
 ## try ... except
 
----
-
 ## for ... else
-
----
 
 ## try / except / else / finally
 
 # Exceptions
-
----
 
 ## Arten von Exceptions (Auswahl)
 
@@ -802,8 +646,6 @@ match = True if 0 in li else False
 - IOError
 - ZeroDivisionError
 
----
-
 ## Exceptions abfangen
 
 ```py
@@ -813,8 +655,6 @@ try:
 except ValueError:
     print("Could not parse input as number")
 ```
-
----
 
 ## Exceptions abfangen
 
@@ -826,8 +666,6 @@ except ValueError as e:
     print("Could not parse input as number")
     print(e)
 ```
-
----
 
 ## finally und else bei exceptions
 
@@ -843,8 +681,6 @@ finally:
     file.close()
 ```
 
----
-
 ## Exceptions erneut raisen
 
 ```py
@@ -855,23 +691,13 @@ except ClientError as e
         raise
 ```
 
----
-
 ## Python-Philosophie: EAFP
 
-(vs LBYL)
+EAFP vs LBYL
 
-???
-
-Beispiel: Parsen von Zahlen
+(Beispiel: Parsen von Zahlen)
 
 # Funktionen
-
-???
-
-buch Kapitel 6
-
----
 
 ## Funktionen
 
@@ -884,11 +710,7 @@ def sum(a, b):
 sum(1, 2) # 3
 ```
 
----
-
 ## Call by sharing
-
----
 
 ## Call by sharing
 
@@ -897,8 +719,6 @@ Java / C:
 - call by reference
 
 - call by value
-
----
 
 ## Call by sharing
 
@@ -913,15 +733,11 @@ def modify2(mylist):
     return mylist + [1]
 ```
 
----
-
 ## Globaler und lokaler scope
 
 `global` / `nonlocal`
 
 Spielt beim _Zuweisen_ von Variablen eine Rolle
-
----
 
 ## Standard-Parameter
 
@@ -932,37 +748,17 @@ def sum(a=0, b=0):
 sum() # 0
 ```
 
-???
-
-(6.5)
-
-wertetabelle
-
----
-
 ## Schlüsselwort-Parameter
 
----
-
 ## beliebige Anzahl an Parametern (args / kwargs)
-
----
 
 ## Beispiel
 
 Aufgabe: "Nachbau" von `range()`
 
----
-
 ## Rekursive Funktionen
 
 Funktionen, die sich selbst aufrufen
-
-???
-
-Kapitel 6.8
-
----
 
 ## Rekursive Funktionen
 
@@ -976,11 +772,7 @@ fib(3)
 fib(25)
 ```
 
----
-
 ## Rekursion mit Turtle
-
----
 
 ## Aufgaben
 
@@ -990,13 +782,9 @@ fib(25)
 
 # Arbeiten mit Dateien
 
----
-
 ## Arbeiten mit Dateien
 
 Datei = Abfolge von Bytes auf einem Speichermedium
-
----
 
 ## Die Funktion "open"
 
@@ -1007,11 +795,7 @@ file_obj.close()
 print(content)
 ```
 
-???
-
-Erstellt eine Instanz einer Unterklasse von IOBase
-
----
+Open erstellt eine Instanz einer Unterklasse von IOBase
 
 ## Dateimodi
 
@@ -1019,8 +803,6 @@ Erstellt eine Instanz einer Unterklasse von IOBase
 # mode: text, append
 open("todos.txt", mode="ta")
 ```
-
----
 
 ## Dateimodi
 
@@ -1031,8 +813,6 @@ open("todos.txt", mode="ta")
 * `w`: (Über)schreiben
 * `a`: Anhängen
 
----
-
 ## Lesen und Schreiben
 
 ```py
@@ -1040,8 +820,6 @@ t = open("loremipsum.txt")
 print(t.read())
 t.close()
 ```
-
----
 
 ## Lesen und Schreiben
 
@@ -1057,8 +835,6 @@ coins.write(bytes([0b01001110, 0b11100100]))
 coins.close()
 ```
 
----
-
 ## open und das with-Statement
 
 ```py
@@ -1067,8 +843,6 @@ with open("todos.txt", encoding="utf-8") as file_obj:
 ```
 
 Kein explizites Schließen des Dateiobjekts mehr notwendig. Datei wird automatisch geschlossen, wenn der eingerückte Abschnitt verlassen wird.
-
----
 
 ## Zeichencodierung
 
@@ -1080,8 +854,6 @@ Textdateien können unterschiedlich codiert sein:
 
 Praxistipp: Immer UTF-8 verwenden
 
----
-
 ## Zeichencodierung
 
 Die Standard-Zeichencodierung für Textdateien hängt vom Betriebssystem ab:
@@ -1091,8 +863,6 @@ import locale
 locale.getpreferredencoding()
 ```
 
----
-
 ## Zeichencodierung
 
 Explizites angeben der Textcodierung:
@@ -1101,21 +871,14 @@ Explizites angeben der Textcodierung:
 open("file.txt", encoding="utf-8")
 ```
 
----
-
 ## File-like objects
 
 Objekte, die zB `.read()` oder `.write()` unterstützen:
 
 - Dateien (zB via `open()`)
 - `sys.stdout`, `sys.stdin`
+  - z.B. `sys.stdin.readline()`
 - Antworten aus dem Netzwerk, zB via `urllib.request.urlopen('https://google.com')`
-
-???
-
-Bespiel: sys.stdin.readline()
-
----
 
 ## File-like objects
 
@@ -1127,8 +890,6 @@ with file as open('myfile.txt', encoding="utf-8"):
     # read entire file
     print(file.read())
 ```
-
----
 
 ## File-like objects
 
@@ -1142,8 +903,6 @@ Methoden:
 
 # Speichern verschiedener Dateiformate
 
----
-
 ## Speichern verschiedener Dateiformate
 
 Möglichkeiten:
@@ -1154,11 +913,7 @@ Möglichkeiten:
 - Speichern als XML
 - Speichern von Binärdaten in eigenem Format
 
----
-
 ## JSON
-
----
 
 ## JSON speichern
 
@@ -1172,8 +927,6 @@ with open("numbers.json", encoding="utf-8") as jsonfile:
     jsonfile.write(jsonstring)
 ```
 
----
-
 ## JSON lesen
 
 ```py
@@ -1183,8 +936,6 @@ with open("numbers.json", encoding="utf-8") as jsonfile:
     jsonstring = jsonfile.read()
 data = json.loads(jsonstring)
 ```
-
----
 
 ## XML
 
@@ -1196,8 +947,6 @@ zwei Pakete in der Python-Standardlibrary:
 externe Library (Erweiterung von ElementTree):
 
 - `lxml`
-
----
 
 ## XML mit ElementTree: erstellen
 
@@ -1211,8 +960,6 @@ age = et.SubElement(person, 'age')
 age.text = '40'
 age.set("unit", "years")
 ```
-
----
 
 ## XML mit ElementTree: speichern
 
@@ -1231,8 +978,6 @@ tree = et.ElementTree(person)
 tree.write("myfile.xml", encoding="utf-8")
 ```
 
----
-
 ## XML mit ElementTree: lesen
 
 ```py
@@ -1245,13 +990,9 @@ for childnode in person:
     print(childnode.attrib)
 ```
 
----
-
 ## Pickle
 
 Eigenes Dateiformat, in dem verschiedene Python-Dateitypen gespeichert werden können
-
----
 
 ## Pickle
 
@@ -1267,8 +1008,6 @@ with open("datetime.pickle", mode="wb") as picklefile:
     picklefile.write(serialized)
 ```
 
----
-
 ## Pickle
 
 ```py
@@ -1278,8 +1017,6 @@ with open("datetime.pickle", mode="rb") as picklefile:
     serialized = picklefile.read()
 earlier = pickle.reads(serialized)
 ```
-
----
 
 ## Übung
 
@@ -1297,14 +1034,10 @@ field = [
 
 # Module und Pakete
 
----
-
 ## Module und Pakete
 
 - Modul = Python-Datei, aus der Objekte importiert werden können
 - Paket = Verzeichnis, in dem Python-Module abgelegt sind (Bis Python 3.3: benötigt `__init__.py` im Verzeichnis)
-
----
 
 ## Beispiele für imports
 
@@ -1318,15 +1051,11 @@ from package1.module2 import myobject
 from package1.module2 import *
 ```
 
----
-
 ## Beispiele für imports: urllib
 
 - `urllib` = Paket
 - `urllib.request` = Modul
 - `urllib.request.urlopen` = Funktion
-
----
 
 ## Kompilieren von Modulen
 
@@ -1334,13 +1063,9 @@ Importierte Module werden in kompilierter Form abgelegt, um später schneller ei
 
 Wir finden die kompilierten Versionen im Ordner `__pycache__`
 
----
-
 ## Achtung: circular imports vermeiden
 
 # Objektorientierung und Klassen
-
----
 
 ## Objektorientierung in Python: "Alles ist ein Objekt"
 
@@ -1352,8 +1077,6 @@ a.to_bytes(1, "big")
 "hello".upper()
 ```
 
----
-
 ## Typen und Instanzen
 
 ```py
@@ -1363,8 +1086,6 @@ type(message)
 
 isinstance(message, str)
 ```
-
----
 
 ## Klassen
 
@@ -1377,8 +1098,6 @@ Klassen können _verschiedenste_ Dinge repräsentieren, zB:
 - ein Bankkonto
 - ...
 
----
-
 ## Klassen
 
 Definition einer Klasse umfasst üblicherweise:
@@ -1386,16 +1105,12 @@ Definition einer Klasse umfasst üblicherweise:
 - "Datenstruktur" (Attribute)
 - "Verhalten" (Methoden)
 
----
-
 ## Klassen
 
 Beispiel: Klasse `BankAccount`
 
 - "Datenstruktur" (Attribute)
 - "Verhalten" (Methoden)
-
----
 
 ## Definition von Klassen
 
@@ -1412,8 +1127,6 @@ instance = MyClass()
 instance.message # "hello"
 ```
 
----
-
 ## Vererbung
 
 ```py
@@ -1423,8 +1136,6 @@ class Person():
 class Admin(Person):
     ...
 ```
-
----
 
 ## Beispiel: Umsetzung einer Money-Klasse
 
@@ -1436,8 +1147,6 @@ a.currency
 
 a.amount
 ```
-
----
 
 ## Übung: TodoList- und Todo-Klassen
 

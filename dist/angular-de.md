@@ -1,14 +1,10 @@
 # {{title}}
 
----
-
 ## Präsentation und Code
 
 Präsentationen verfügbar unter: https://karuga.eu/courses-presentations
 
 Code verfügbar unter: https://github.com/marko-knoebl/courses-code
-
----
 
 ## Ihr Trainer
 
@@ -20,8 +16,6 @@ Marko Knöbl
 - Programmierung
   - Python, JavaScript
 
----
-
 ## Vorstellung der Teilnehmer
 
 - Name
@@ -30,8 +24,6 @@ Marko Knöbl
 - Grund der Schulung
 - Vorkenntnisse
 - Erwartungen / Wünsche
-
----
 
 ## Organisatorisches
 
@@ -111,8 +103,6 @@ Marko Knöbl
   - Pakete im _node_modules_-Ordner
   - Konfiguration in _package.json_
 
----
-
 ## Angular CLI
 
 Meistgenutzte Methode zum Erstellen von Angular-Anwendungen: _Angular CLI (ng)_
@@ -125,8 +115,6 @@ npm install -g @angular/cli
 
 siehe auch: https://github.com/angular/angular-cli/wiki
 
----
-
 ## Angular CLI: neues Projekt
 
 ```bash
@@ -135,14 +123,10 @@ ng new playground
 
 Angular CLI installiert im Hintergrund einige Abhängigkeiten und legt diese im Ordner _node_modules_ ab.
 
----
-
 ## Angular CLI: Konfiguration
 
 - add Angular routing?
 - stylesheet format?
-
----
 
 ## Angular CLI: Testserver
 
@@ -152,8 +136,6 @@ Im Projektordner:
 ng serve --open
 ```
 
----
-
 ## Angular CLI: Befehle
 
 - `ng new $projectname`: Erstellt neues Angular-Projekt
@@ -162,15 +144,11 @@ ng serve --open
 - `ng generate service $name`: Erstellt ein neues Service
 - `ng build --prod`: Führt einen Production-Build aus (im dist-Ordner)
 
----
-
 ## Standard Projektstruktur
 
 Angular CLI erstellt umfangreiche Projektstruktur
 
 Uns interessiert hauptsächlich der Ordner _src/app_
-
----
 
 ## Standard Projektstruktur
 
@@ -181,15 +159,11 @@ Uns interessiert hauptsächlich der Ordner _src/app_
 - **src/polyfills.ts**: Polyfills für „ältere“ Browser
 - **src/app/**: eigentliche Angular-App
 
----
-
 ## src/polyfills.ts
 
 - Wird für Unterstützung älterer Browser benötigt (zB IE9-IE11)
 - Zum testen auf / deployen für ältere Browser: entsprechende Zeilen „einkommentieren“ und entsprechende Abhängigkeiten mittels npm installieren
 - Details: https://angular.io/guide/browser-support
-
----
 
 ## Komponentenstruktur
 
@@ -199,22 +173,16 @@ Mit angular-cli (ng) erstellte Komponenten gliedern sich in drei Dateien, zB:
 - app.component.css (auf Komponente beschränkter Stil)
 - app.component.ts (Programmcode)
 
----
-
 ## Beispiel: Änderungen an der Komponente
 
 Aufgaben
 
 - Die Komponente soll „Hallo, $name“ ausgeben, wobei der Name in der .ts-Datei definiert wird
 
----
-
 ## Weitere Beispiele
 
 - `<app-time>`-Komponente, die die aktuelle Uhrzeit anzeigt
 - `<app-roulette>`-Komponente, die eine Zufallszahl von 0-36 anzeigt
-
----
 
 ## ng build
 
@@ -230,13 +198,9 @@ führen wir einen Production-Build aus
 
 ## Modernes JavaScript
 
----
-
 ## JavaScript-Standardisierung
 
 JavaScript wird unter dem Namen _ECMAScript_ (kurz ES) standardisiert
-
----
 
 ## JavaScript: Versionen
 
@@ -244,18 +208,12 @@ JavaScript wird unter dem Namen _ECMAScript_ (kurz ES) standardisiert
 - Nächste große Version: _ES2015_ (oder ES6)
 - Seither: jährliche kleinere Änderungen (aktuell: ES2018)
 
----
-
 ## JavaScript: Versionsunterstützung
 
 - Übersicht: siehe http://kangax.github.io/compat-table/es6/
 - In der Praxis: Modernes JavaScript wird in ES5 transpiliert (mittels Babel, webpack)
 
----
-
 ## Wichtige Neuerungen in ES2015
-
----
 
 ## Module & Imports
 
@@ -274,8 +232,6 @@ export class User {
 import { User } from 'user.js';
 ```
 
----
-
 ## Module & Imports
 
 ```js
@@ -291,8 +247,6 @@ export default class User {
 import User from 'User.js';
 ```
 
----
-
 ## let
 
 - Neue Alternative zu var – mit leicht anderem Scoping
@@ -305,8 +259,6 @@ if (true) {
 console.log(a); // ReferenceError
 ```
 
----
-
 ## const
 
 Deklariert eine Variable, die nicht mehr neu zugewiesen werden kann.  
@@ -317,8 +269,6 @@ const names = ['Alice', 'Bob', 'Claire'];
 names = ['Andrew', 'Bob', 'Claire']; // ungültig!
 names[0] = 'Andrew'; // gültig
 ```
-
----
 
 ## Pfeilfunktionen / Lambda
 
@@ -332,13 +282,9 @@ let multiply = (a, b) => {
 let multiply = (a, b) => a * b;
 ```
 
----
-
 ## Klassen
 
 Ersetzen die alten Konstruktorfunktionen und Prototypen
-
----
 
 ## Klassen
 
@@ -354,8 +300,6 @@ class Person {
 }
 ```
 
----
-
 ## Klassen und Vererbung
 
 ```js
@@ -368,8 +312,6 @@ class User extends Person {
 }
 ```
 
----
-
 ## Array-Iteration (for ... of)
 
 Über die Einträge in einem Array iterieren:
@@ -380,8 +322,6 @@ for (let name of names) {
   console.log(name);
 }
 ```
-
----
 
 ## Spread Syntax (Arrays und Objekte)
 
@@ -397,8 +337,6 @@ let updatedPerson = {...person, email: 'j@d.com', age: 32};
 // {firstName: 'John', lastName: 'Doe', email: 'j@d.com', age: 32}
 ```
 
----
-
 ## Template-Strings
 
 - Neue Syntax zum _Erstellen_ von Strings
@@ -410,8 +348,6 @@ let name = 'Anton';
 let greeting = `Hallo, ${name}!
                 Das ist ES2015!`;
 ```
-
----
 
 ## Standardparameter in Funktionen
 
@@ -425,8 +361,6 @@ let join = (strings, separator='') => {
 
 # TypeScript
 
----
-
 ## TypeScript
 
 = Obermenge von JavaScript mit Erweiterungen:
@@ -435,8 +369,6 @@ let join = (strings, separator='') => {
 - Decorators
 - Public / Private Properties
 
----
-
 ## Static Typing
 
 Datentypen können angegeben werden und unterstützen insbesondere die Entwicklungsumgebung:
@@ -444,13 +376,9 @@ Datentypen können angegeben werden und unterstützen insbesondere die Entwicklu
 - Auto-Vervollständigung
 - Fehlermeldungen bei nicht passenden Datentypen
 
----
-
 ## Static Typing
 
 Beim build: TypeScript wird in JavaScript übersetzt, alle Typeninformationen gehen dabei verloren
-
----
 
 ## Typsystem: Variablen
 
@@ -458,8 +386,6 @@ Beim build: TypeScript wird in JavaScript übersetzt, alle Typeninformationen ge
 let age: number = 32;
 let name: string = 'Andreas';
 ```
-
----
 
 ## Typsystem: Funktionen
 
@@ -471,8 +397,6 @@ function repeatString(
 }
 ```
 
----
-
 ## Typsystem: Pfeilfunktionen
 
 ```ts
@@ -481,8 +405,6 @@ const repeatString: (
   times: number
 ) => string = (text, times) => (...);
 ```
-
----
 
 ## Typsystem: Arrays
 
@@ -494,8 +416,6 @@ let names: string[] = ['Anna', 'Bernhard', 'Caro'];
 let names: Array<string> = ['Anna', 'Bernhard'];
 ```
 
----
-
 ## Typsystem: Tupel
 
 Arrays mit vorgegebener Länge und Datentypen für jeden Eintrag
@@ -504,8 +424,6 @@ Arrays mit vorgegebener Länge und Datentypen für jeden Eintrag
 let todo: [string, boolean];
 ```
 
----
-
 ## Typsystem: Objekte & Properties
 
 Objekt mit bestimmten Properties:
@@ -513,8 +431,6 @@ Objekt mit bestimmten Properties:
 ```ts
 let p: { name: string; age: number } = getPerson();
 ```
-
----
 
 ## Typsystem: Objekte - Interfaces
 
@@ -531,8 +447,6 @@ interface IPerson {
 let p: IPerson = getPerson();
 ```
 
----
-
 ## Typsystem: Klassen & Interfaces
 
 ```ts
@@ -540,8 +454,6 @@ class User implements IPerson {
   ...
 }
 ```
-
----
 
 ## Typsystem: void
 
@@ -553,8 +465,6 @@ function warnUser(): void {
 }
 ```
 
----
-
 ## Typsystem: any
 
 Any: lässt alle Typen zu
@@ -564,8 +474,6 @@ let ib: any = document.getElementById('myinput');
 console.log(ib.value);
 ```
 
----
-
 ## Typsystem: Type assertions
 
 ```ts
@@ -573,8 +481,6 @@ let someValue: any = 'this is a string';
 
 let strLength: number = (someValue as string).length;
 ```
-
----
 
 ## Typsystem: Union Types
 
@@ -584,8 +490,6 @@ function foo(arg: string | number) {...}
 function foo(arg: string | undefined) {...}
 ```
 
----
-
 ## Typsystem: Generics
 
 ```ts
@@ -593,8 +497,6 @@ function thrice<T>(element: T): T[] {
   return [element, element, element];
 }
 ```
-
----
 
 ## Private & Public Properties
 
@@ -610,8 +512,6 @@ class Clock {
 ```
 
 # TypeScript für Angular
-
----
 
 ## Properties im Constructor
 
@@ -631,8 +531,6 @@ class Person {
 }
 ```
 
----
-
 ## Decorators
 
 Mit Decorators lassen sich Funktionen und Klassen nach ihrer Erstellung mittels einer Funktion – dem Decorator – verändern  
@@ -648,8 +546,6 @@ function getResults() {
   ...
 }
 ```
-
----
 
 ## Decorators in Angular
 
@@ -668,8 +564,6 @@ export class AppComponent {
 
 # Angular - Grundlagen II
 
----
-
 ## VS Code - Plugins
 
 Empfehlung
@@ -678,8 +572,6 @@ Empfehlung
 - Angular Language Service
 - TSLint
 
----
-
 ## Templatesprache: Properties
 
 Dynamisches Setzen von Properties:
@@ -687,8 +579,6 @@ Dynamisches Setzen von Properties:
 ```xml
 <input type="number" [value]="1/3">
 ```
-
----
 
 ## Properties: Aufgaben
 
@@ -699,8 +589,6 @@ const getImgUrl = () =>
   'https://picsum.photos/200/300?image=' +
   Math.floor(Math.random() * 100);
 ```
-
----
 
 ## Templatesprache: \*ngFor
 
@@ -714,8 +602,6 @@ Mit _\*ngFor_ können wir HTML-Elemente wiederholen:
 
 \*ngFor wiederholt das Element, auf das es angewendet wird (hier: das div-Element)
 
----
-
 ## Templatesprache: \*ngFor
 
 Optional können wir mit Hilfe der index-Variable mitzählen:
@@ -726,13 +612,9 @@ Optional können wir mit Hilfe der index-Variable mitzählen:
 </div>
 ```
 
----
-
 ## Templatesprache: \*ngFor
 
 Beispiel: Rating-Komponente, die Sterne anzeigt (mit zunächst unveränderlicher Anzahl)
-
----
 
 ## Templatesprache: \*ngIf
 
@@ -743,8 +625,6 @@ Beispiele:
 ```html
 <div *ngIf="item.importance >= 3">{{ item.text }}</div>
 ```
-
----
 
 ## Templatesprache: Klassen
 
@@ -758,8 +638,6 @@ Wir können CSS-Klassen dynamisch zuweisen:
 </span>
 ```
 
----
-
 ## Templatesprache: Klassen
 
 Weitere Möglichkeiten:
@@ -771,8 +649,6 @@ Weitere Möglichkeiten:
 </div>
 ```
 
----
-
 ## Templatesprache: Stile
 
 Für jede Komponente können wir CSS-Stile festlegen. Diese betreffen dann nur eine Komponente.
@@ -782,8 +658,6 @@ Dazu gibt es zwei Möglichkeiten in der Konfiguration:
 `styleUrls: ['./app.component.css']`  
 oder  
 `styles: ['h1 {..} …']`
-
----
 
 ## Templatesprache: Stile
 
@@ -795,8 +669,6 @@ In Komponentenstilen bezieht sich der besondere `:host`-Selektor auf das Kompone
 }
 ```
 
----
-
 ## Templatesprache: Stile
 
 Für einzelne HTML-Elemente können wir direkt mit einer Angular-eigenen Syntax Stile via Properties setzen:
@@ -807,19 +679,13 @@ Für einzelne HTML-Elemente können wir direkt mit einer Angular-eigenen Syntax 
 <div [style.width.%]="100 / n">…</div>
 ```
 
----
-
 ## Templatesprache: Stile
 
 Beispiel: Wir erstellen ein `<div>`-Element, dessen Schriftgröße zufällig festgesetzt wird
 
----
-
 ## Templatesprache: Pipes
 
 Pipe = im wesentlichen eine Funktion, die im Template zur string-Formatierung zur Verfügung steht
-
----
 
 ## Templatesprache: Pipes
 
@@ -830,8 +696,6 @@ Beispiele:
 - `The price is {{ price | number:'1.2-2'}}`
 - `Debugging information: {{ todo | json }}`
 - `Total amount: {{total | currency:'EUR':'symbol':'1.2-2'}}`
-
----
 
 ## Lokalisierung von Pipes
 
@@ -845,8 +709,6 @@ im Terminal:
 
 `ng serve --configuration=de`
 
----
-
 ## Templatesprache: Templatevariablen
 
 Mit Templatevariablen können wir direkt auf Elemente aus dem Template zugreifen. Dazu verwenden wir das #-Zeichen.
@@ -857,8 +719,6 @@ Todo: <input #newtodo>
   Add
 </button>
 ```
-
----
 
 ## Templatesprache: Events
 
@@ -871,8 +731,6 @@ Wir können alle Standard-DOM-Events über die folgende Syntax überwachen:
 Liste von Standard-DOM-Events:
 https://www.w3schools.com/jsref/dom_obj_event.asp
 
----
-
 ## Templatesprache: Events
 
 ```html
@@ -880,8 +738,6 @@ https://www.w3schools.com/jsref/dom_obj_event.asp
 
 <input (keydown)="onKeyDown()">
 ```
-
----
 
 ## Standard-Events: Event-Objekt
 
@@ -898,8 +754,6 @@ onKeyDown(event: KeyboardEvent) {
 }
 ```
 
----
-
 ## Standard-Events: Event-Filter
 
 ```html
@@ -908,16 +762,12 @@ onKeyDown(event: KeyboardEvent) {
 
 Mit der obigen Syntax können Events auf bestimmte Kategorien beschränkt werden
 
----
-
 ## Beispiele
 
 - counter-Komponente
 - diashow-Komponente
 
 # Eigene Komponenten: Properties & Events
-
----
 
 ## Eigene Properties & Events
 
@@ -927,8 +777,6 @@ In Angular verwendet man auch die Begriffe:
 
 - input = Property
 - output = Event
-
----
 
 ## Eigene Properties
 
@@ -940,8 +788,6 @@ Wir erstellen eine Komponente, die eine bestimmte Anzahl an Sternen anzeigt, wel
 <app-rating [stars]="4"></app-rating>
 ```
 
----
-
 ## Eigene Properties
 
 Wir verändern _rating.component.ts_ folgendermaßen:
@@ -952,8 +798,6 @@ zunächst importieren wir den Input-Decorator:
 import { Input } from '@angular/core';
 ```
 
----
-
 ## Eigene Properties
 
 weiters setzen wir in der Komponentenklasse Typinformationen fest:
@@ -961,8 +805,6 @@ weiters setzen wir in der Komponentenklasse Typinformationen fest:
 ```js
   @Input() stars: number;
 ```
-
----
 
 ## Eigene Properties
 
@@ -974,15 +816,11 @@ getStarString = () => {
 };
 ```
 
----
-
 ## Properties: weitere Beispiele
 
 - diashow - Komponente (mit Properties)
 - roman-number - Komponente
 - playing-card - Komponente
-
----
 
 ## Eigene Events
 
@@ -991,8 +829,6 @@ Definition eigener Events:
 - Eventname
 - evtl zugehöriger Parameter (zB Zahl, String, oder auch ein komplexeres Objekt) - dieser wird im _$event_-Parameter übergeben
 - für den zugehörigen Parameter muss ein Typ festgelegt werden (kann auch _void_ sein)
-
----
 
 ## Eigene Events - Definition
 
@@ -1009,8 +845,6 @@ import { Output, EventEmitter} from '@angular/core';
   this.tick.emit(this.remainingTime);
 ```
 
----
-
 ## Eigene Events - Beispiel
 
 Timer mit Events: start, tick, end
@@ -1020,8 +854,6 @@ Nutze diese Events für Beispielnachrichten:
 - "Der Timer ist gestartet"
 - "Nur noch 3 Sekunden"
 - "Zeit abgelaufen"
-
----
 
 ## Eigene Events - Beispiele
 
@@ -1033,8 +865,6 @@ Nutze diese Events für Beispielnachrichten:
 </app-timer>
 ```
 
----
-
 ## Eigene Events - Beispiele
 
 Beispiel: rating
@@ -1045,13 +875,9 @@ Wir ändern die rating-Komponente, sodass durch einen Klick auf einen Stern ein 
 <app-rating (change)="onRatingChange($event)"></app-rating>
 ```
 
----
-
 ## Beispiel: Todo-App
 
 # Inputs & Forms
-
----
 
 ## Inputs & Forms - Grundlagen
 
@@ -1066,13 +892,9 @@ import {FormsModule} from '@angular/forms';
   ],
 ```
 
----
-
 ## Inputs: ngModel
 
 Mit Hilfe von ngModel können wir Änderungen an einem Input überwachen lassen
-
----
 
 ## Inputs: ngModel
 
@@ -1083,8 +905,6 @@ Einfaches (theoretisches) Beispiel mit standard HTML-Attributen und Templatevari
 value: {{ myInput.value }} <br>
 valid: {{ myInput.validity.valid }}
 ```
-
----
 
 ## Inputs: ngModel
 
@@ -1098,8 +918,6 @@ touched: {{ myInput.touched }} <br>
 pristine: {{ myInput.pristine }}
 ```
 
----
-
 ## Inputs: ngModel
 
 ```html
@@ -1112,8 +930,6 @@ Was passiert hier?
 - Mit `#myInput="ngModel"` setzen wir dann eine Variable, die auf das entsprechende Datenmodell verweist.
 - Zu beachten: Der Wert rechts (`ngModel`) ist fest vorgegeben, den linken Namen (`myInput`) können wir selbst bestimmen.
 
----
-
 ## Inputs: ngModel
 
 Folgende Eigenschaften des ngModel-Controllers können wir überwachen:
@@ -1122,8 +938,6 @@ Folgende Eigenschaften des ngModel-Controllers können wir überwachen:
 - **valid**
 - **touched**: ändert sich auf true, wenn der Fokus in das Feld gesetzt wird und dann wieder auf etwas anderes
 - **pristine**: ändert sich auf false, sobald der Wert zum ersten Mal geändert wird.
-
----
 
 ## Übung zu ngModel: Passwort
 
@@ -1134,8 +948,6 @@ Wir setzen eine Passworteingabe um:
 - Solange die Eingabefelder unterschiedliche Werte haben, soll der zugehörige OK-Button auf disabled gesetzt sein
 
 - Solange die Eingabefelder unterschiedliche Werte haben und ins zweite Feld schon etwas eingegeben wurde, soll darunter (in einem extra `<div>`) eine Warnung angezeigt werden.
-
----
 
 ## ngModel und two-way data binding
 
@@ -1153,8 +965,6 @@ myVar = 'abc';
 myVar: <input [(ngModel)]="myVar">
 ```
 
----
-
 ## Forms in Angular
 
 Neues Event in Angular: ngSubmit
@@ -1166,8 +976,6 @@ Neues Event in Angular: ngSubmit
   <button>Submit</button>
 </form>
 ```
-
----
 
 ## Forms in Angular
 
@@ -1187,8 +995,6 @@ f.value beinhaltet ein Objekt der Form:
 { "firstName": "John", "lastName": "Smith" }
 ```
 
----
-
 ## Form-Attribute: Überblick
 
 `<form ngForm …>`: fügt Controller zu einem form hinzu (eigentlich automatisch, daher nicht wirklich notwendig)
@@ -1199,8 +1005,6 @@ f.value beinhaltet ein Objekt der Form:
 
 `<input ngModel #firstName="ngModel" …>`: "exportiert" den Input Controller als Templatevariable
 
----
-
 ## Forms: Beispiele
 
 - Formular zum Hinzufügen von Todos
@@ -1208,8 +1012,6 @@ f.value beinhaltet ein Objekt der Form:
 - Formular mit Suchfunktion und two-way data binding
 
 # Services
-
----
 
 ## Services allgemein
 
@@ -1224,13 +1026,9 @@ Beispiele:
 
 Services haben wenig Angular-spezifischen Code.
 
----
-
 ## Beispiel: Todo-Service
 
 Wir lassen unsere Todos im Hintergrund von einem Service verwalten (und später von einem Server abrufen)
-
----
 
 ## Beispiel: Todo-Service
 
@@ -1240,13 +1038,9 @@ ng generate service todo
 
 Dieser Befehl erstellt die Klasse `TodoService`.
 
----
-
 ## Services und Dependency Injection
 
 Services werden in Angular nicht direkt von einer Komponente verwendet, sondern ihr mittels Dependency Injection im Constructor zur Verfügung gestellt. Das erleichtert unter anderem das Schreiben von Tests.
-
----
 
 ## Services und Dependency Injection
 
@@ -1267,8 +1061,6 @@ constructor(public todoService: TodoService) {
 }
 ```
 
----
-
 ## Services und Dependency Injection
 
 Wir geben an, dass wir für unsere Komponente eine Instanz der Klasse _TodoService_ benötigen.
@@ -1276,8 +1068,6 @@ Wir geben an, dass wir für unsere Komponente eine Instanz der Klasse _TodoServi
 Angular erstellt im Hintergrund eine Instanz davon und _injiziert_ diese in jede Komponente, die sie benötigt.
 
 # HTTP
-
----
 
 ## HTTP
 
@@ -1289,13 +1079,9 @@ Verschiedene Möglichkeiten, um http im Browser nutzen zu können:
 
 Standard in Angular: httpClient – Modul mit "Observables"
 
----
-
 ## HTTP in Angular: Observables
 
 Observables in Angular: Möglichkeit, asynchron Daten abzufragen – Ähnlich zu _Promises_.
-
----
 
 ## HTTP in Angular: Observables
 
@@ -1310,8 +1096,6 @@ this.http
     this.todos = response;
   });
 ```
-
----
 
 ## HTTP in Angular: Fehlerbehandlung
 
@@ -1328,8 +1112,6 @@ this.http.get('...').subscribe(
 );
 ```
 
----
-
 ## HTTP in Angular: Einbindung
 
 ```ts
@@ -1343,15 +1125,11 @@ import { HttpClient } from '@angular/common/http';
 …
 ```
 
----
-
 ## Beispiel: TODO-Daten vom Server
 
 Wir wollen Daten von https://jsonplaceholder.typicode.com/todos erhalten.
 
 # Routing
-
----
 
 ## Routing
 
@@ -1363,16 +1141,12 @@ https://mywebsite.com/#/items/28
 
 Achtung: Server muss entsprechend konfiguriert sein und für /items/28 das gleiche zurückliefern wie für /
 
----
-
 ## Routing - Beispiel
 
 Wir teilen unsere Todo-App in zwei Views auf:
 
 - Liste aller Todos unter **/**
 - Formular zum hinzufügen von Todos unter **/add**
-
----
 
 ## Routing - Grundlagen
 
@@ -1392,15 +1166,11 @@ imports: [
 
 .forRoot() definiert Routen für die Root-Komponente – im Gegensatz zu .forChild()
 
----
-
 ## Routing - Grundlagen
 
 `<router-outlet>`:
 
 Die Anzeige der Inhalte erfolgt _unterhalb_ des `<router-outlet>`-Tags
-
----
 
 ## Routing - Redirects und Wildcards
 
@@ -1412,8 +1182,6 @@ Beispiel:
 
   { path: '**', redirectTo: '' },
 ```
-
----
 
 ## Routing - Links
 
@@ -1431,8 +1199,6 @@ Stattdessen verwenden wir:
 <a routerLink="/add">add Todo</a>
 ```
 
----
-
 ## Routing - Navigation aus TypeScript
 
 Auf den Angular-Router kann in TypeScript zugegriffen werden, um die aktuell aktive Route abzufragen / zu ändern:
@@ -1448,8 +1214,6 @@ import { Router } from '@angular/router';
   }
 ```
 
----
-
 ## Routen-Parameter
 
 Wir erstellen neue Routen der Form: `/todo/$todoId`.  
@@ -1460,8 +1224,6 @@ Dort soll jeweils ein einzelnes Todo-Item angezeigt werden
 […]
   { path: 'todo/:todoId', component: TodoDetailsComponent },
 ```
-
----
 
 ## Routen-Parameter
 
@@ -1481,8 +1243,6 @@ export class TodoDetailsComponent {
 }
 ```
 
----
-
 ## Routing - mehr zum Thema
 
 https://angular.io/guide/router
@@ -1491,8 +1251,6 @@ https://angular.io/guide/router
 
 Nutzung vorgefertigter Komponenten
 
----
-
 ## Material - Komponenten
 
 Von Google bereitgestellte Angular-Komponenten im Material design – Stil
@@ -1500,8 +1258,6 @@ Von Google bereitgestellte Angular-Komponenten im Material design – Stil
 Einstieg / Setup: https://material.angular.io – Schritte 1, 2, 4
 
 Einbinden konkreter Komponenten - Schritt 3
-
----
 
 ## Material - Übung
 

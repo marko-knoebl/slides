@@ -1,7 +1,5 @@
 # TypeScript
 
----
-
 ## TypeScript
 
 = superset of JavaScript with extensions:
@@ -10,8 +8,6 @@
 - public / private properties
 - decorators
 
----
-
 ## static typing
 
 data types may be specified in order to support the development environment:
@@ -19,13 +15,9 @@ data types may be specified in order to support the development environment:
 - auto completion
 - errors when types mismatch
 
----
-
 ## static typing
 
 when building: TypeScript is translated to JavaScript, all type information is discarded
-
----
 
 ## type system: variables
 
@@ -33,8 +25,6 @@ when building: TypeScript is translated to JavaScript, all type information is d
 let age: number = 32;
 let name: string = 'Andreas';
 ```
-
----
 
 ## type system: functions
 
@@ -46,8 +36,6 @@ function repeatString(
 }
 ```
 
----
-
 ## type system: arrow functions
 
 ```ts
@@ -56,8 +44,6 @@ const repeatString: (
   times: number
 ) => string = (text, times) => (...);
 ```
-
----
 
 ## type system: arrays
 
@@ -69,8 +55,6 @@ let names: string[] = ['Anna', 'Bernhard', 'Caro'];
 let names: Array<string> = ['Anna', 'Bernhard'];
 ```
 
----
-
 ## type system: tuples
 
 Arrays with a predefined length and a type for every entry
@@ -79,8 +63,6 @@ Arrays with a predefined length and a type for every entry
 let todo: [string, boolean];
 ```
 
----
-
 ## type system: objects and properties
 
 objects that have specific properties:
@@ -88,8 +70,6 @@ objects that have specific properties:
 ```ts
 let p: { name: string; age: number } = getPerson();
 ```
-
----
 
 ## type system: object interfaces
 
@@ -106,8 +86,6 @@ interface IPerson {
 let p: IPerson = getPerson();
 ```
 
----
-
 ## type system: classes and interfaces
 
 ```ts
@@ -115,8 +93,6 @@ class User implements IPerson {
   ...
 }
 ```
-
----
 
 ## type system: void
 
@@ -128,8 +104,6 @@ function warnUser(): void {
 }
 ```
 
----
-
 ## type system: any
 
 Any: variable can be of any type - disables the typechecker for this variable
@@ -139,8 +113,6 @@ let ib: any = document.getElementById('myinput');
 console.log(ib.value);
 ```
 
----
-
 ## type system: type assertions
 
 ```ts
@@ -148,8 +120,6 @@ let someValue: any = 'this is a string';
 
 let strLength: number = (someValue as string).length;
 ```
-
----
 
 ## type system: union types
 
@@ -159,8 +129,6 @@ function foo(arg: string | number) {...}
 function foo(arg: string | undefined) {...}
 ```
 
----
-
 ## type system: generics
 
 ```ts
@@ -168,8 +136,6 @@ function thrice<T>(element: T): T[] {
   return [element, element, element];
 }
 ```
-
----
 
 ## private & public properties
 

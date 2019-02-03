@@ -1,14 +1,10 @@
 # Our first Python program
 
----
-
 ## Our first Python program
 
 We'll create a file called `greeting.py`
 
 Our program will ask the user their name and greet them.
-
----
 
 ## Input and output of text
 
@@ -20,8 +16,6 @@ print("Hello. What is your name?")
 
 Print is a so-called _function_.
 
----
-
 ## Input and output of text
 
 Input: via `input()`:
@@ -29,8 +23,6 @@ Input: via `input()`:
 ```py
 name = input()
 ```
-
----
 
 ## Input and output of text
 
@@ -40,15 +32,11 @@ writing the greeting
 print("Nice to meet you," + name)
 ```
 
----
-
 ## Executing programs
 
 on the command line via `python greeting.py`
 
 In VS Code via _F5_
-
----
 
 ## Type conversion
 
@@ -63,21 +51,15 @@ birth_year_int = int(birth_year_string)
 
 This works similarly for other types: `str()`, `float()`, `bool()`
 
----
-
 ## Exercise: age from birth year
 
 Write a program called `age.py` which will ask the user for their birth year and will respond with the user's age in the year 2018.
-
----
 
 ## Exercise: length of the name
 
 Write a program which asks the user for their name. It should respond with the number of letters in the user's name.
 
 For this purpose use the function `len(...)` to determine the length of a string.
-
----
 
 ## Comments
 

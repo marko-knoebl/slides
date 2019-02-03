@@ -1,12 +1,8 @@
 # Working with files
 
----
-
 ## Working with files
 
 file = a sequence of bytes on a storage device
-
----
 
 ## the function "open()"
 
@@ -17,11 +13,7 @@ file_obj.close()
 print(content)
 ```
 
-???
-
-Erstellt eine Instanz einer Unterklasse von IOBase
-
----
+Open erstellt eine Instanz einer Unterklasse von IOBase
 
 ## file modes
 
@@ -29,8 +21,6 @@ Erstellt eine Instanz einer Unterklasse von IOBase
 # mode: text, append
 open("todos.txt", mode="ta")
 ```
-
----
 
 ## file modes
 
@@ -41,8 +31,6 @@ open("todos.txt", mode="ta")
 * `w`: (over)writing
 * `a`: appending
 
----
-
 ## reading and writing
 
 ```py
@@ -50,8 +38,6 @@ t = open("loremipsum.txt")
 print(t.read())
 t.close()
 ```
-
----
 
 ## reading and writing
 
@@ -67,8 +53,6 @@ coins.write(bytes([0b01001110, 0b11100100]))
 coins.close()
 ```
 
----
-
 ## open and the with statement
 
 ```py
@@ -77,8 +61,6 @@ with open("todos.txt", encoding="utf-8") as file_obj:
 ```
 
 In this example using the with statement relieves us from explicitly closing the file object. The file will be automatically closed when the program leaves the indented block.
-
----
 
 ## character encoding
 
@@ -90,8 +72,6 @@ Text files may be encoded in various ways:
 
 Recommendation: _always_ use utf-8 as the encoding for text files (best support for special characters)
 
----
-
 ## character encoding
 
 The default character encoding for text files depends on the operating system:
@@ -101,8 +81,6 @@ import locale
 locale.getpreferredencoding()
 ```
 
----
-
 ## character encoding
 
 Explicitly stating the character encoding:
@@ -111,21 +89,14 @@ Explicitly stating the character encoding:
 open("file.txt", encoding="utf-8")
 ```
 
----
-
 ## File-like objects
 
 Objects that support using `.read()` or `.write()` etc:
 
 - files (zB via `open()`)
 - `sys.stdout`, `sys.stdin`
+  - example: `sys.stdin.readline()`
 - Network replies, e.g. via `urllib.request.urlopen('https://google.com')`
-
-???
-
-example: sys.stdin.readline()
-
----
 
 ## File-like objects
 
@@ -137,8 +108,6 @@ with file as open('myfile.txt', encoding="utf-8"):
     # read entire file
     print(file.read())
 ```
-
----
 
 ## File-like objects
 
@@ -152,8 +121,6 @@ Methods:
 
 # Working with various file formats
 
----
-
 ## Working with file formats
 
 possibilities:
@@ -164,11 +131,7 @@ possibilities:
 - Python object files (via pickle and shelve)
 - binary files
 
----
-
 ## JSON
-
----
 
 ## saving JSON
 
@@ -182,8 +145,6 @@ with open("numbers.json", encoding="utf-8") as jsonfile:
     jsonfile.write(jsonstring)
 ```
 
----
-
 ## reading JSON
 
 ```py
@@ -193,8 +154,6 @@ with open("numbers.json", encoding="utf-8") as jsonfile:
     jsonstring = jsonfile.read()
 data = json.loads(jsonstring)
 ```
-
----
 
 ## XML
 
@@ -206,8 +165,6 @@ two packages in the standard library:
 external library (extension of ElementTree):
 
 - `lxml`
-
----
 
 ## XML with ElementTree: creating a document
 
@@ -221,8 +178,6 @@ age = et.SubElement(person, 'age')
 age.text = '40'
 age.set("unit", "years")
 ```
-
----
 
 ## XML with ElementTree: saving
 
@@ -241,8 +196,6 @@ tree = et.ElementTree(person)
 tree.write("myfile.xml", encoding="utf-8")
 ```
 
----
-
 ## XML mit ElementTree: reading
 
 ```py
@@ -255,13 +208,9 @@ for childnode in person:
     print(childnode.attrib)
 ```
 
----
-
 ## Pickle
 
 File format that can be used to save various types of Python objects
-
----
 
 ## Pickle
 
@@ -277,8 +226,6 @@ with open("datetime.pickle", mode="wb") as picklefile:
     picklefile.write(serialized)
 ```
 
----
-
 ## Pickle
 
 ```py
@@ -288,8 +235,6 @@ with open("datetime.pickle", mode="rb") as picklefile:
     serialized = picklefile.read()
 earlier = pickle.reads(serialized)
 ```
-
----
 
 ## exercise
 
@@ -307,14 +252,10 @@ field = [
 
 # Modules and Packages
 
----
-
 ## Modules and Packages
 
 - Module = Python file from which objects can be imported
 - Package = directory that includes Python modules
-
----
 
 ## example imports
 
@@ -328,15 +269,11 @@ from package1.module2 import myobject
 from package1.module2 import *
 ```
 
----
-
 ## example imports: urllib
 
 - `urllib` = package
 - `urllib.request` = modules
 - `urllib.request.urlopen` = function
-
----
 
 ## compilation of modules
 
@@ -344,13 +281,9 @@ Imported modules will be saved in a compiled form, making subsequent loading of 
 
 Compiled versions will be saved in the folder `__pycache__`
 
----
-
 ## be careful: avoid circular imports
 
 # Object-oriented programming and classes
-
----
 
 ## object orientation in Python "Everything is an object"
 
@@ -362,8 +295,6 @@ a.to_bytes(1, "big")
 "hello".upper()
 ```
 
----
-
 ## types and instances
 
 ```py
@@ -373,8 +304,6 @@ type(message)
 
 isinstance(message, str)
 ```
-
----
 
 ## classes
 
@@ -387,8 +316,6 @@ Classes may represent _various_ things, e.g.:
 - a bank account
 - ...
 
----
-
 ## classes
 
 The definition of a class usually encompasses:
@@ -396,16 +323,12 @@ The definition of a class usually encompasses:
 - a "data structure" (attributes)
 - a "behaviour" (methods)
 
----
-
 ## classes
 
 example: class `BankAccount`
 
 - "data structure" (attributes)
 - "behaviour" (methods)
-
----
 
 ## defining classes
 
@@ -422,8 +345,6 @@ instance = MyClass()
 instance.message # "hello"
 ```
 
----
-
 ## Inheritance
 
 ```py
@@ -433,8 +354,6 @@ class Person():
 class Admin(Person):
     ...
 ```
-
----
 
 ## Example: class "Money"
 
@@ -446,8 +365,6 @@ a.currency
 
 a.amount
 ```
-
----
 
 ## Exercise: classes "TodoList" and "Todo"
 

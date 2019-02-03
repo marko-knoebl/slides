@@ -1,7 +1,5 @@
 # JavaScript im Browser
 
----
-
 ## Beispiele in der Browser-Konsole
 
 ```js
@@ -11,13 +9,9 @@ prompt("What's your name?");
 Math.random();
 ```
 
----
-
 ## Document Object Model
 
 **DOM (Document Object Model)** = JavaScript-API für Interaktion mit dem HTML-Inhalt
-
----
 
 ## DOM Grundlagen
 
@@ -25,22 +19,16 @@ Math.random();
 - `document.querySelector()`
 - `element.innerHTML =`
 
----
-
 ## DOM Grundlagen - Beispiele
 
 - Zufallszahl
 - Aktuelles Datum
-
----
 
 ## DOM: Stile und Attribute (href, ...)
 
 - `element.style`
 - (`element.className`)
 - `element.classList` (`.add`, `.remove`, `.toggle`, `.contains`)
-
----
 
 ## DOM: createElement, appendChild
 
@@ -49,14 +37,10 @@ Math.random();
 - `element1.removeChild(element2)`
 - `element2.remove() // not IE`
 
----
-
 ## DOM: createElement, appendChild - Beispiele
 
 - Schachbrett
 - Todo-Liste
-
----
 
 ## Events
 
@@ -64,15 +48,11 @@ Math.random();
 - `setInterval()`
 - `element.addEventListener('click', ...)`
 
----
-
 ## Events - Beispiele
 
 - Uhr
 - Countdown
 - Spiel: click the box
-
----
 
 ## Formulare und Formular-Events
 

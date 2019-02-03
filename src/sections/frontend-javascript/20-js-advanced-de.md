@@ -1,7 +1,5 @@
 # JavaScript Fortgeschritten
 
----
-
 ## Module & Imports
 
 - Möglichkeit, Funktionalität aus anderen js-Dateien zu importieren – kein globaler Namespace mehr
@@ -19,8 +17,6 @@ export class User {
 import { User } from 'user.js';
 ```
 
----
-
 ## Module & Imports
 
 ```js
@@ -36,8 +32,6 @@ export default class User {
 import User from 'user.js';
 ```
 
----
-
 ## Klassen und Vererbung
 
 ```js
@@ -49,8 +43,6 @@ class User extends Person {
   }
 }
 ```
-
----
 
 ## Spread Syntax (Arrays und Objekte)
 

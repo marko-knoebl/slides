@@ -1,13 +1,9 @@
 # Builtins, Module
 
----
-
 ## Builtins, Module
 
 - Builtins: Funktionen und Objekte, die oft verwendet werden und immer verfügbar sind
 - Module: Sammlungen von zusätzlichen Objekten, die importiert werden können
-
----
 
 ## Builtins
 
@@ -25,8 +21,6 @@ unter anderem:
 - `sum()`
 - `type()`
 
----
-
 ## Module
 
 Module beinhalten zusätzliche Objekte, die importiert werden können
@@ -40,8 +34,6 @@ from math import floor
 print(floor(3.6))
 ```
 
----
-
 ## Module
 
 interessante Module:
@@ -51,8 +43,6 @@ interessante Module:
 - `datetime`
 - `os` (Betriebssystem, Dateisystem)
 - `pprint` (formatierte Ausgabe)
-
----
 
 ## print und pprint
 
@@ -67,8 +57,6 @@ print(1, 2, 3, sep=", ", end="\n\n")
 
 
 ```
-
----
 
 ## print und pprint
 

@@ -1,7 +1,5 @@
 # TypeScript für Angular
 
----
-
 ## Properties im Constructor
 
 ```ts
@@ -20,8 +18,6 @@ class Person {
 }
 ```
 
----
-
 ## Decorators
 
 Mit Decorators lassen sich Funktionen und Klassen nach ihrer Erstellung mittels einer Funktion – dem Decorator – verändern  
@@ -37,8 +33,6 @@ function getResults() {
   ...
 }
 ```
-
----
 
 ## Decorators in Angular
 

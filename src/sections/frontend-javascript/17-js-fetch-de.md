@@ -2,15 +2,11 @@
 
 <!-- siehe auch: pwa/promises -->
 
----
-
 ## Fetch
 
 moderne Möglichkeit, um asynchron Daten vom Server zu laden
 
 Alternative zu XMLHTTPRequest
-
----
 
 ## Nutzung mit Promises
 
@@ -26,8 +22,6 @@ fetch(url)
   });
 ```
 
----
-
 ## Nutzung mit Promises
 
 ```js
@@ -41,8 +35,6 @@ fetch(url)
     console.log(todos);
   });
 ```
-
----
 
 ## Nutzung mit async / await (moderne Browser)
 
@@ -58,8 +50,6 @@ const fetchAsync = async () => {
 fetchAsync();
 ```
 
----
-
 ## Andere http-Methoden
 
 ```js
@@ -70,8 +60,6 @@ fetch(url, {
   headers: { 'content-type': 'application/json' },
 });
 ```
-
----
 
 ## Beispiele
 

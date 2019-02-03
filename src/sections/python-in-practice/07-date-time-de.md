@@ -1,7 +1,5 @@
 # Datum und Zeit
 
----
-
 ## Datum und Zeit
 
 Python-Pakete:
@@ -14,15 +12,11 @@ Arbeiten mit Zeiten und Datumsangaben
 
 Arbeiten mit Unix-Timestamps, sleep
 
----
-
 ## datetime
 
 - `datetime.date`
 - `datetime.time`
 - `datetime.datetime`
-
----
 
 ## datetime
 
@@ -37,8 +31,6 @@ c = datetime.datetime(2018, 3, 26, 12, 30)
 c - b
 ```
 
----
-
 ## time.sleep
 
 ```py
@@ -47,8 +39,6 @@ for i in range(10):
     print(i)
     time.sleep(1)
 ```
-
----
 
 ## time.time
 

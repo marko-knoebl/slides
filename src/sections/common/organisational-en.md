@@ -1,14 +1,10 @@
 # {{title}}
 
----
-
 ## Presentation and code
 
 Presentations available at: https://karuga.eu/courses-presentations
 
 Code available at: https://github.com/marko-knoebl/courses-code
-
----
 
 ## Your Trainer
 
@@ -20,8 +16,6 @@ Marko Knöbl
 - Programming
   - Python, JavaScript
 
----
-
 ## Introduction of Participants
 
 - Name
@@ -29,8 +23,6 @@ Marko Knöbl
 - Current Projects
 - Prior Knowledge
 - Expectations
-
----
 
 ## Organizational
 

@@ -1,12 +1,8 @@
 # Lists
 
----
-
 ## Lists
 
 another important data type: `list`
-
----
 
 ## Creating lists
 
@@ -17,8 +13,6 @@ primes = [2, 3, 5, 7, 11]
 
 users = ["Alice", "Bob", "Charlie"]
 ```
-
----
 
 ## retrieving list elements
 
@@ -34,8 +28,6 @@ print(users[-1])
 print(len(users))
 ```
 
----
-
 ## operations on lists
 
 - overwriting an element: `users[0] = "Andrew"`
@@ -45,8 +37,6 @@ print(len(users))
 - length: `len(users)`
 - concatenating lists: `primes + users`
 - checking whether an element is included in a list: `if "Andrew" in users:`
-
----
 
 ## Exercise: shopping list
 

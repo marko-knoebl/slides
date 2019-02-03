@@ -1,11 +1,5 @@
 # Funktionen
 
-???
-
-buch Kapitel 6
-
----
-
 ## Funktionen
 
 Definition:
@@ -17,11 +11,7 @@ def sum(a, b):
 sum(1, 2) # 3
 ```
 
----
-
 ## Call by sharing
-
----
 
 ## Call by sharing
 
@@ -30,8 +20,6 @@ Java / C:
 - call by reference
 
 - call by value
-
----
 
 ## Call by sharing
 
@@ -46,15 +34,11 @@ def modify2(mylist):
     return mylist + [1]
 ```
 
----
-
 ## Globaler und lokaler scope
 
 `global` / `nonlocal`
 
 Spielt beim _Zuweisen_ von Variablen eine Rolle
-
----
 
 ## Standard-Parameter
 
@@ -65,37 +49,17 @@ def sum(a=0, b=0):
 sum() # 0
 ```
 
-???
-
-(6.5)
-
-wertetabelle
-
----
-
 ## Schlüsselwort-Parameter
 
----
-
 ## beliebige Anzahl an Parametern (args / kwargs)
-
----
 
 ## Beispiel
 
 Aufgabe: "Nachbau" von `range()`
 
----
-
 ## Rekursive Funktionen
 
 Funktionen, die sich selbst aufrufen
-
-???
-
-Kapitel 6.8
-
----
 
 ## Rekursive Funktionen
 
@@ -109,11 +73,7 @@ fib(3)
 fib(25)
 ```
 
----
-
 ## Rekursion mit Turtle
-
----
 
 ## Aufgaben
 

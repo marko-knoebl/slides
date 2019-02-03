@@ -1,12 +1,8 @@
 # JavaScript-Grundlagen für React
 
----
-
 ## map, filter, reduce
 
 - Array-Methoden für die funktionale Programmierung
-
----
 
 ## map
 
@@ -23,8 +19,6 @@ function triple(n) {
 let newNumbers = myNumbers.map(triple);
 // [6, 30, 69]
 ```
-
----
 
 ## filter
 
@@ -43,11 +37,7 @@ let newNumbers = myNumbers.filter(isEven);
 // [2, 10]
 ```
 
----
-
 ## reduce
-
----
 
 ## this
 
@@ -55,8 +45,6 @@ let newNumbers = myNumbers.filter(isEven);
 - **allerdings**:
   - jeder Funktionsaufruf setzt _this_ neu (nicht nur Methodenaufrufe)
   - _this_ wird nur richtig gesetzt, wenn die Methode mit der Syntax `object.method()` aufgerufen wird
-
----
 
 ## Problem: _this_ in anonymen Funktionen
 
@@ -72,8 +60,6 @@ class myComponent {
   }
 }
 ```
-
----
 
 ## Lösung: _that_ / _self_
 
@@ -91,8 +77,6 @@ class myComponent {
 }
 ```
 
----
-
 ## Lösung: _Pfeilfunktionen_
 
 ```js
@@ -107,8 +91,6 @@ class myComponent {
   }
 }
 ```
-
----
 
 ## Problem: Methodenaufrufe ohne Methodensyntax
 
@@ -127,8 +109,6 @@ let fg = f.greet;
 fg(); // klappt nicht (this ist undefined)
 ```
 
----
-
 ## Lösung: Pfeil-Methoden
 
 Seit ES2018 einsetzbar:
@@ -143,8 +123,6 @@ class Foo {
   };
 }
 ```
-
----
 
 ## Lösung: Binden von Methoden
 

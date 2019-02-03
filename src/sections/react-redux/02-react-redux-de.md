@@ -1,7 +1,5 @@
 # React mit Redux
 
----
-
 ## React mit Redux
 
 https://redux.js.org/basics/usage-with-react
@@ -10,20 +8,14 @@ Setup: `npm install redux react-redux`
 
 Typescript: `npm install @types/react-redux`
 
----
-
 ## Presentational und Container Components
 
 - presentational components: "Normale" React-Komponenten (wiederverwendbar)
 - container components: Zugriff auf Redux-Store / Mit dem Redux-Store verbunden
 
----
-
 ## React-Redux: < Provider >
 
 Provider: Hinzufügen von Redux-Store zu einer React-App
-
----
 
 ## React-Redux: < Provider >
 
@@ -41,15 +33,11 @@ ReactDOM.render(
 );
 ```
 
----
-
 ## Redux devtools
 
 Browser-plugin:
 
 https://github.com/zalmoxisus/redux-devtools-extension
-
----
 
 ## Redux devtools
 
@@ -72,8 +60,6 @@ const store = createStore(
 );
 ```
 
----
-
 ## Counter: Connect
 
 connect: verbindet React-Komponenten mit dem Redux store
@@ -89,8 +75,6 @@ const ConnectedComponent = connect(
   mapDispatchToProps
 )(Component);
 ```
-
----
 
 ## Counter: Connect (state)
 
@@ -109,8 +93,6 @@ const mapStateToProps = (state) => ({ count: state });
 export default connect(mapStateToProps)(App);
 ```
 
----
-
 ## Counter: Connect (actions)
 
 ```jsx
@@ -127,8 +109,6 @@ const mapDispatchToProps = dispatch => ({
 <button onClick={this.props.increment}>+</button>
 <button onClick={this.props.decrement}>-</button>
 ```
-
----
 
 ## Counter: Dispatch mit TypeScript
 
@@ -147,8 +127,6 @@ const mapDispatchToProps = (
   },
 });
 ```
-
----
 
 ## Redux mit TypeScript
 

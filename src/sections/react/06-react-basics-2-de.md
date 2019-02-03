@@ -1,7 +1,5 @@
 # React.js - Grundlagen II
 
----
-
 ## JSX Kompilierung
 
 <!-- prettier-ignore -->
@@ -23,8 +21,6 @@ const element = React.createElement(
 );
 ```
 
----
-
 ## JSX: Properties
 
 Der Wechsel von XML auf JS klappt auch bei Properties:
@@ -37,8 +33,6 @@ Der Wechsel von XML auf JS klappt auch bei Properties:
 
 Beachte die fehlenden Anführungszeichen bei href
 
----
-
 ## JSX Properties: Aufgaben
 
 - Zeige ein Bild basierend auf einer ID an. Verwende dazu:
@@ -47,8 +41,6 @@ Beachte die fehlenden Anführungszeichen bei href
 const getImgUrl = id =>
   `https://picsum.photos/200?image=${id}`;
 ```
-
----
 
 ## JSX: events
 
@@ -61,19 +53,13 @@ function hello() {...}
 Liste von Browser-Events:  
 https://www.w3schools.com/jsref/dom_obj_event.asp
 
----
-
 ## JSX: Methoden als Eventhandler
 
 Achtung: Werden Klassenmethoden als Eventhandler verwendet, sollten sie entweder als Pfeilfunktionen definiert sein oder mit _.bind()_ korrekt zugewiesen werden.
 
----
-
 ## Browser-Events: Beispiel
 
 - einfacher Button (Hello world)
-
----
 
 ## JSX: Elemente wiederholen
 
@@ -87,8 +73,6 @@ Grundsätzlich können wir über Arrays mehrere Elemente einbinden:
   ] }
 </ul>
 ```
-
----
 
 ## JSX: Elemente wiederholen
 
@@ -112,8 +96,6 @@ let todos = [
 
 <!-- prettier-ignore-end -->
 
----
-
 ## JSX: Elemente wiederholen
 
 Bei obigem Code: Warnung in der Browser-Konsole (Wegen Effizienz)  
@@ -127,15 +109,11 @@ Lösung: **key** (als string):
 </ul>
 ```
 
----
-
 ## JSX: if / else
 
 ```jsx
 <div>{Math.random() > 0.5 ? 'heads' : 'tails'}</div>
 ```
-
----
 
 ## JSX: if / else
 
@@ -150,15 +128,11 @@ function cointoss() {
 </div>
 ```
 
----
-
 ## JSX: CSS-Klassen
 
 ```jsx
 <div className={getClassName()}>[...]</div>
 ```
-
----
 
 ## JSX: Dynamische Stile
 
@@ -171,20 +145,14 @@ function cointoss() {
 />
 ```
 
----
-
 ## State
 
 - React-Komponenten können einen internen Zustand (_state_) haben
-
----
 
 ## State
 
 - In jeder Komponente hat _this.state_ eine besondere Bedeutung
 - Auf Daten in _this.state_ kann im Template verwiesen werden. Damit ändert sich die Anzeige automatisch, wenn die Daten neu gesetzt werden.
-
----
 
 ## Struktur von this.state
 
@@ -200,8 +168,6 @@ constructor() {
 }
 ```
 
----
-
 ## Änderung von this.state
 
 Nur via setState()
@@ -212,8 +178,6 @@ this.setState({ todos: ['learn react'] });
 ```
 
 setState überschreibt alle angegebenen Einträge im state-Objekt
-
----
 
 ## Änderung von this.state
 
@@ -230,11 +194,7 @@ this.setState(oldState => {
 
 Wir übergeben setState eine callback-Funktion, die den alten in den neuen Zustand überführt.
 
----
-
 ## Beispiel: Counter
-
----
 
 ## Weitere Beispiele
 
@@ -244,16 +204,12 @@ Ideen:
 - Countdown-Zähler
 - Diashow
 
----
-
 ## Inputs
 
 Besonderheit von input-Elementen:
 
 - Ihre Properties (insbesondere `.value`) können durch User-Interaktionen direkt geändert werden
 - Es gibt damit Aspekte des UI-Zustands, die nicht in _.state_ erfasst sind
-
----
 
 ## Inputs
 

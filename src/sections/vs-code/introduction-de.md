@@ -1,7 +1,5 @@
 # VS Code
 
----
-
 ## VS Code
 
 https://code.visualstudio.com
@@ -9,13 +7,9 @@ https://code.visualstudio.com
 - Open-Source-Entwicklungsumgebung
 - Unabhängig vom eigentlichen Visual Studio
 
----
-
 ## VS Code: Ordner öffnen
 
 ganzen Ordner öffnen mit _File_ - _Open Folder_
-
----
 
 ## VS Code: speichern
 
@@ -25,11 +19,7 @@ Speichern mit _Strg_ + _S_
 
 oder: _File_ - _Auto Save_
 
----
-
 ## VS Code: Datei-Explorer, Split Editor
-
----
 
 ## VS Code: Terminal
 
@@ -39,15 +29,11 @@ zusätzliches Terminal via Symbol _+_
 
 übernimmt das aktuell geöffnete Verzeichnis
 
----
-
 ## VS Code - Konfiguration
 
 Via _File - Preferences - Settings_
 
 Eingeteilt in _User Settings_ und _Workspace Settings_
-
----
 
 ## VS Code - Konfigurationsmöglichkeiten
 
@@ -64,8 +50,6 @@ Weitere Möglichkeiten:
 - EOL
 - Workbench: Color Theme
 
----
-
 ## VS Code - Kurzbefehle
 
 - _Strg_ + _F_: Suchen in Datei
@@ -73,9 +57,7 @@ Weitere Möglichkeiten:
 - _F2_: Umbenennen von Variablen
 - _Alt_ + Mausklick: Mehrere Textcursor zum gleichzeitigen Schreiben setzen
 
----
-
-# VS Code - Plugins
+## VS Code - Plugins
 
 Empfohlene Plugins:
 
@@ -86,8 +68,7 @@ Empfohlene Plugins:
 
 (siehe auch _Show Popular Extensions_ in VS Code)
 
-???
-
+<!--
 http://www.snappyjs.com/2018/03/25/vscode-extensions-for-javascript-developers/
 ESLint
 JSRefactor
@@ -97,10 +78,9 @@ npm Intellisense
 guides
 rainbow brackets
 wakatime
+-->
 
----
-
-# VS Code - Plugins
+## VS Code - Plugins
 
 für React:
 
@@ -111,9 +91,7 @@ für Angular:
 - Angular v7 Snippets (by John Papa)
 - Angular Language Service
 
----
-
-# Prettier - Konfiguration
+## Prettier - Konfiguration
 
 prettierrc.json:
 
@@ -126,5 +104,3 @@ prettierrc.json:
   "printWidth": 80
 }
 ```
-
----

@@ -4,8 +4,6 @@ In Python können Listen verändert werden - z.B. durch das anhängen eines neue
 
 Viele andere Objekte - z.B. str, int, float - können nicht abgeändert werden. Jedoch ist es möglich, neue, veränderte Objekte basierend auf bereits vorhandenen Objekten zu erstellen.
 
----
-
 ## Objekte abändern
 
 ```py
@@ -18,8 +16,6 @@ a = [1, 2, 3]
 a.append(4)
 ```
 
----
-
 ## Objekte abändern
 
 Was wird das folgende Programm ausgeben?
@@ -30,8 +26,6 @@ b = a
 b.append(4)
 print(a)
 ```
-
----
 
 ## Objekte abändern
 

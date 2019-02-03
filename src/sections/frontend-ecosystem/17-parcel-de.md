@@ -2,8 +2,6 @@
 
 https://parceljs.org
 
----
-
 ## Parcel
 
 Parcel: einfacher zu nutzender Bundler mit Unterstützung für:
@@ -17,8 +15,6 @@ Parcel: einfacher zu nutzender Bundler mit Unterstützung für:
 - WebAssembly
 - Rust
 
----
-
 ## Parcel - Setup
 
 Installation:
@@ -26,8 +22,6 @@ Installation:
 ```bash
 npm install -g parcel-bundler
 ```
-
----
 
 ## Parcel - neues Projekt
 
@@ -52,8 +46,6 @@ in `src/mymath.js`:
 ```js
 export const add = (a, b) => a + b;
 ```
-
----
 
 ## Parcel ausführen
 

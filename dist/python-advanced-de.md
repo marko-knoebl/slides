@@ -1,16 +1,6 @@
 # QA & Testen
 
-???
-
-Kapitel 21, Kapitel 25
-
-4h?
-
----
-
 ## logging
-
----
 
 ## logging
 
@@ -25,27 +15,17 @@ logging.basicConfig(
 logging.debug("hello")
 ```
 
----
-
 ## logging
 
 Beispiel: Sortieralgorithmus
 
----
-
 ## assert
 
----
-
 ## doctests
-
----
 
 ## doctests
 
 Codebeispiele und unittests in einem - innerhalb der docstrings
-
----
 
 ## doctests
 
@@ -58,8 +38,6 @@ def add(a, b):
     """
 ```
 
----
-
 ## doctests ausführen
 
 ```py
@@ -67,8 +45,6 @@ if __name__ == "__main__":
     import doctest
     doctest.testmod()
 ```
-
----
 
 ## doctests: lange Ausgaben
 
@@ -82,8 +58,6 @@ if __name__ == "__main__":
 """
 ```
 
----
-
 ## Unittests
 
 Möglichkeiten
@@ -92,11 +66,7 @@ Möglichkeiten
 - pytest
 - nose
 
----
-
 ## unittest
-
----
 
 ## unittest
 
@@ -115,8 +85,6 @@ class HasWon(unittest.TestCase):
         self.assertTrue(w)
 ```
 
----
-
 ## unittest
 
 Ausführen:
@@ -133,8 +101,6 @@ python -m unittest
 
 (findet Tests im Ordner)
 
----
-
 ## debugger
 
 # Exceptions auslösen
@@ -144,8 +110,6 @@ python -m unittest
 ```py
 raise ValueError('test')
 ```
-
----
 
 ## Eigene Exceptions
 
@@ -160,15 +124,11 @@ raise MoneyParseException()
 
 # Typendeklarationen
 
----
-
 ## Typendeklarationen
 
 MyPy: Typechecker für Python, insbesondere sinnvoll für Python3
 
 https://mypy-lang.org
-
----
 
 ## Typendeklarationen
 
@@ -177,8 +137,6 @@ Variablen:
 ```py
 i: int = 3
 ```
-
----
 
 ## Typendeklarationen
 
@@ -189,8 +147,6 @@ def double(n: int) -> int:
     return 2 * n
 ```
 
----
-
 ## Typendeklarationen: Kollektionen
 
 ```py
@@ -198,8 +154,6 @@ from typing import Iterable
 
 names: Iterable[str] = ...
 ```
-
----
 
 ## Typendeklarationen: Kollektionen
 
@@ -211,8 +165,6 @@ anna: Tuple[str, str, int] = ('Anna', 'Berger', 1990)
 roman: Dict[int, str] = {1: 'I', 2: 'II', 3: 'III', 4: 'IV'}
 ```
 
----
-
 ## Mypy - Dokumentation
 
 https://mypy.readthedocs.io
@@ -221,8 +173,6 @@ https://mypy.readthedocs.io
 
 # Objektorientierung (Fortgeschritten)
 
----
-
 ## Private Attribute und Methoden und Python-Philosophie
 
 Kennzeichnung von Attributen, die von außen nicht verwendet werden sollten mit `_`
@@ -230,8 +180,6 @@ Kennzeichnung von Attributen, die von außen nicht verwendet werden sollten mit 
 We're all consenting adults here: https://mail.python.org/pipermail/tutor/2003-October/025932.html
 
 Achtung: oft Fehlinformation bezüglich `__`! In der Praxis sollten doppelte Unterstriche kaum verwendet werden.
-
----
 
 ## Instanzattribute und Slots
 
@@ -248,25 +196,17 @@ class Money():
     __slots__ = ['currency', 'amount']
 ```
 
----
-
 ## Klassenattribute
 
 sind Attribute, die nur auf der Klasse (nicht auf jeder Instanz) definiert sind - alle Instanzen teilen sich die Attribute
-
----
 
 ## Klassenattribute: Beispiel
 
 `_exchange_rates = {'EUR': 1, 'USD': 0.85, 'GBP': 1.4}`
 
----
-
 ## Getters & Setters
 
 Beispiel: `a.set_currency('EUR')`
-
----
 
 ## Properties
 
@@ -285,16 +225,12 @@ def _set_currency(self, currency):
 currency = property(_get_currency, _set_currency)
 ```
 
----
-
 ## Magic Methods
 
 Besondere Methoden, die das Verhalten einer Klasse beeinflussen
 
 - `__str__`
 - `__repr__`
-
----
 
 ## Magic Methods
 
@@ -303,23 +239,17 @@ Besondere Methoden, die das Verhalten einer Klasse beeinflussen
 - `__rmul__`
 - ...
 
----
-
 ## Statische Methoden, Klassenmethoden und Decorators
 
 _Klassenmethoden_: Methoden, die nicht auf eine bestimmte Instanz zugreifen müssen, sondern auf die Klasse
 
 _Statische Methoden_: Methoden, die weder auf eine Instanz noch Klasse zugreifen müssen
 
----
-
 ## Beispiel Klassenmethode
 
 ```py
 Money.from_string('23.40 EUR')
 ```
-
----
 
 ## Definition von statischen und Klassenmethoden
 
@@ -329,17 +259,11 @@ def from_string(cls, inputstring):
     ...
 ```
 
----
-
 ## Unterklassen und Vererbungsreihenfolge
-
----
 
 ## super()
 
 Proxy zu den Elternklassen
-
----
 
 ## super()
 
@@ -351,8 +275,6 @@ class Child(A, B):
         A.__init__(self)
         B.__init__(self)
 ```
-
----
 
 ## super()
 
@@ -372,8 +294,6 @@ class Child(A, B):
         super().__init__()
 ```
 
----
-
 ## Klassendekoration
 
 ```py
@@ -388,8 +308,6 @@ f.a # prints: "get property 'a'"
 f.b = 3 # prints: "set propery 'b'"
 ```
 
----
-
 ## Übungen
 
 - Buch 10.11.4 (Laenge)
@@ -399,31 +317,19 @@ f.b = 3 # prints: "set propery 'b'"
 
 # Funktionen - Fortgeschritten
 
----
-
 ## Lambdas
-
----
 
 ## Reine Funktionen
 
----
-
 ## Memoisation
 
-???
-
-Beispiel: fib
-
----
+(Beispiel: Fibonacci)
 
 ## Decorators
 
 Decorator: Möglichkeit, eine Funktion nach deren Erstellung zu verändern
 
 Der Decorator ist eine Funktion, die eine Funktion als Parameter übernimmt und eine neue, veränderte Funktion zurückgibt
-
----
 
 ## Decorators
 
@@ -442,20 +348,16 @@ def fib(n):
 fib = cache(fib)
 ```
 
----
-
 ## Functools
 
-???
+## Functools - Beispiel
 
-partial
-
+```py
 from functools import partial
 open_utf8 = partial(open, encoding='UTF-8')
+```
 
 # Iterators
-
----
 
 ## Iterators
 
@@ -463,13 +365,9 @@ Oberflächlich: Ein Iterator ist ein besonderes Objekt, über das wir mit `for o
 
 Iterators können auf verschiedene Arten erzeugt werden.
 
----
-
 ## Iterators
 
 Genauer Hintergrund: Ein Iterator ist ein besonderes Objekt, das eine `__next__`-Methode besitzt.
-
----
 
 ## Iterators - Beispiel count
 
@@ -480,8 +378,6 @@ for i in count():
     print(i)
 ```
 
----
-
 ## Iterators - Beispiel count
 
 ```py
@@ -493,8 +389,6 @@ c.__next__()
 c.__next__()
 ```
 
----
-
 ## Iterators - Beispiel count
 
 ```py
@@ -505,8 +399,6 @@ c = count()
 next(c)
 next(c)
 ```
-
----
 
 ## Iterators - Beispiel repeat
 
@@ -519,15 +411,11 @@ next(r)
 ...
 ```
 
----
-
 ## Iterators - Beispiel repeat
 
 Wenn ein Iterator "aufgebraucht" ist:
 
 `StopIteration`-Exception
-
----
 
 ## Iterators erzeugen
 
@@ -538,13 +426,9 @@ Möglichkeiten:
 - Generator-Expression
 - Funktion mit `yield`
 
----
-
 ## itertools
 
 https://docs.python.org/3/library/itertools.html
-
----
 
 ## Eigene Klasse
 
@@ -564,8 +448,6 @@ for number in roulette():
 4 0 29 7 13 19
 ```
 
----
-
 ## Generator-Expression
 
 Sehr ähnlich zur List-Comprehension
@@ -578,16 +460,12 @@ mylist = [i*i for i in range(3)]
 mygenerator = (i*i for i in range(3))
 ```
 
----
-
 ## Generator-Expression
 
 Unterschiede zur List-Comprehension
 
 - weniger Resourcenverbrauch (Speicher, ...)
 - Durchlauf nur 1x und nach der Reihe
-
----
 
 ## yield
 
@@ -602,8 +480,6 @@ def count():
         i += i
 ```
 
----
-
 ## Iterable und \_\_iter\_\_
 
 Iterable = Objekt, über das iteriert werden kann - definiert eine `__iter__`-Methode
@@ -611,8 +487,6 @@ Iterable = Objekt, über das iteriert werden kann - definiert eine `__iter__`-Me
 Beispiele: Listen, Iterators
 
 # Prallelisierung: Threads & Multiprocessing
-
----
 
 ## Threads & Multiprocessing - wozu?
 
@@ -627,16 +501,12 @@ Multiprocessing:
 
 Vorteil von Threading: einfacher, Variablen können direkt verändert werden
 
----
-
 ## Threads
 
 Python schaltet wiederholt zwischen parallel laufenden Threads um, sodass diese scheinbar parallel laufen.  
 In Wahrheit ist aber zu jedem Zeitpunkt nur ein Thread aktiv (Global Interpreter Lock - GIL)
 
 Zwei Threads können auf die gleichen Daten zugreifen
-
----
 
 ## neuen Thread starten
 
@@ -647,15 +517,11 @@ my_thread = Thread(target=print, args=('hello', ), kwargs={end: ""})
 my_thread.start()
 ```
 
----
-
 ## auf beendigung des Threads warten
 
 ```py
 my_thread.join()
 ```
-
----
 
 ## Beispiel: wiederholtes printen
 
@@ -672,8 +538,6 @@ thread_a.join()
 thread_b.join()
 ```
 
----
-
 ## Übung: Iterationen in Thread
 
 Wir schreiben ein Programm, das zwei Threads (a und b) ausführt. Die zwei Threads enthalten Schleifen, welche mitzählen, wie oft sie aufgerufen wurden.
@@ -688,13 +552,9 @@ Beispielausgabe:
 829 iterations in thread a
 ```
 
----
-
 ## Locks
 
 für bestimmte Zeit auf einen Thread beschränken (zB um mehrere Dinge zu printen) - andere Threads sind währenddessen blockiert
-
----
 
 ## Locks
 
@@ -706,8 +566,6 @@ from threading import Lock
 l = Lock()
 ```
 
----
-
 ## Locks
 
 ```py
@@ -716,8 +574,6 @@ def print_multiple_locked(text, n):
         for i in range(n):
             print(text, end="")
 ```
-
----
 
 ## Threads - Beispiel
 
@@ -734,17 +590,11 @@ for thread in threads:
 print('all threads finished')
 ```
 
----
-
 ## Threads und xkcd-Download
 
 Aufgabe: die xkcd-Comics 100-109 herunterladen - einmal sequenziell und einmal parallel
 
----
-
 ## Multiprocessing
-
----
 
 ## Funktionen in eigenen Prozessen starten
 
@@ -757,8 +607,6 @@ if __name__ == "__main__":
     p = Process(target=hello)
     p.start()
 ```
-
----
 
 ## Funktionen in eigenen Prozessen starten
 
@@ -775,15 +623,11 @@ if __name__ == "__main__":
         process.join()
 ```
 
----
-
 ## Pools
 
 Für gleichartige Verarbeitung mehrerer Daten, die gleichzeitig gestartet wird.
 
 Beispiel: Alle Bilder in einem Verzeichnis verarbeiten
-
----
 
 ## Aufgabe: Fibonaccizahlen mit map() (1 Prozess)
 
@@ -791,16 +635,12 @@ Ausgangswert: `[0, 1, 2, 3, 4, 5, 6, ...]`
 
 Rückgabewert: `[0, 1, 1, 2, 3, 5, 8, ...]`
 
----
-
 ## Pools
 
 ```py
 with Pool(processes=4) as pool:
     print(pool.map(fib, range(1000, 1100)))
 ```
-
----
 
 ## Datenaustausch: shared memory
 
@@ -814,8 +654,6 @@ p = Process(target=f, args=(a,))
 p.start()
 ...
 ```
-
----
 
 ## Weitere Möglichkeiten: Pipes & Queues
 

@@ -1,14 +1,10 @@
 # SQL
 
----
-
 ## Die Abfragesprache SQL
 
 SQL = Structured Query Language
 
 Standardisierte Abfragesprache für tabellarische Datenbanken
-
----
 
 ## SQL-Varianten
 
@@ -19,13 +15,9 @@ Standardisierte Abfragesprache für tabellarische Datenbanken
 - PostgreSQL
 - SQLite
 
----
-
 ## Online Tutorial
 
 https://www.w3schools.com/sql/default.asp
-
----
 
 ## SQL ausprobieren
 
@@ -34,8 +26,6 @@ https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all
 Desktop-Anwendung:
 
 https://sqlitebrowser.org/
-
----
 
 ## Tabellen erstellen
 
@@ -47,8 +37,6 @@ CREATE TABLE person(
     tel VARCHAR(20));
 ```
 
----
-
 ## Tabellen erstellen
 
 ```sql
@@ -57,8 +45,6 @@ CREATE TABLE person(
     name TEXT,
     tel TEXT);
 ```
-
----
 
 ## SQL-Datentypen
 
@@ -73,16 +59,12 @@ CREATE TABLE person(
 | varchar(20)      | varchar(20)   | varchar2(20) | varchar(20)   | varchar          | text    |
 | varbinary(20)    | varbinary(20) | blob         | varbinary(20) | bytea            | blob    |
 
----
-
 # signed & unsigned
 
 MySQL unterscheidet zB zwischen:
 
 - `SMALLINT` (-32768 bis 32767)
 - `UNSIGNED SMALLINT` (0 bis 65535)
-
----
 
 ## not null
 
@@ -94,8 +76,6 @@ CREATE TABLE person(
     id INT NOT NULL,
     name VARCHAR(50));
 ```
-
----
 
 ## unique
 
@@ -118,8 +98,6 @@ CREATE TABLE person(
 );
 ```
 
----
-
 ## auto increment
 
 Integer wird automatisch bei jedem neuen Element erhöht
@@ -133,8 +111,6 @@ CREATE TABLE person(
 
 - sqlite: `AUTOINCREMENT`
 - Postgres: `SERIAL`
-
----
 
 ## primary key
 
@@ -154,8 +130,6 @@ CREATE TABLE person(
 
 In sqlite wird immer automatisch ein numerischer Primärschlüssel unter dem Namen `rowid` angelegt.
 
----
-
 ## foreign key
 
 Referenz auf jeweils einen Eintrag einer anderen Tabelle
@@ -172,8 +146,6 @@ CREATE TABLE person(
 );
 ```
 
----
-
 ## Daten eintragen
 
 ```sql
@@ -184,8 +156,6 @@ INSERT INTO person VALUES ('Andreas Berger', '012345');
 INSERT INTO person (name, tel) VALUES ('Andreas Berger', '012345');
 ```
 
----
-
 ## Daten auslesen
 
 Daten aller Personen auslesen
@@ -195,16 +165,12 @@ SELECT name, tel FROM person
 SELECT * FROM person
 ```
 
----
-
 ## Bedingte Abfragen (WHERE)
 
 ```sql
 SELECT tel FROM person WHERE name = 'Andreas Berger';
 SELECT tel FROM person WHERE name LIKE 'Andreas%' AND tel LIKE '+49%';
 ```
-
----
 
 ## Daten eintragen (UPDATE)
 
@@ -214,15 +180,11 @@ SET name = 'Andreas Müller'
 WHERE name = 'Andreas Müller';
 ```
 
----
-
 ## Daten löschen (DELETE)
 
 ```sql
 DELETE FROM person WHERE name = 'Andreas Müller';
 ```
-
----
 
 ## Tabellen verknüpfen (INNER JOIN)
 
@@ -235,8 +197,6 @@ ON song.albumid = album.id;
 
 Der obige Code listet alle Kombinationen auf, bei denen `song.albumid` und `album.id` übereinstimmen
 
----
-
 ## Tabellen verknüpfen (LEFT JOIN)
 
 ```sql
@@ -248,8 +208,6 @@ ON song.albumid = album.id;
 
 Der obige Code listet alle Kombinationen auf und beinhaltet auch Lieder, für die kein Album definiert ist
 
----
-
 ## Indizes in Datenbanken
 
 Generell: geordnete Listen können viel schneller durchsucht werden als ungeordnete (binäre Suche)
@@ -258,15 +216,11 @@ Beispiel: im Telefonbuch kann man schnell nach dem Nachnamen einer Person suchen
 
 Auf eine oder mehrere Spalten kann ein Index angewendet werden: Zusätzliche Datenstruktur, die auf die Daten in bestimmter Ordnung verweist.
 
----
-
 ## Indizes erstellen
 
 ```sql
 CREATE INDEX person_name ON person (name)
 ```
-
----
 
 ## SQL ausprobieren
 

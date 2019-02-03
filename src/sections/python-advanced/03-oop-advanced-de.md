@@ -1,7 +1,5 @@
 # Objektorientierung (Fortgeschritten)
 
----
-
 ## Private Attribute und Methoden und Python-Philosophie
 
 Kennzeichnung von Attributen, die von außen nicht verwendet werden sollten mit `_`
@@ -9,8 +7,6 @@ Kennzeichnung von Attributen, die von außen nicht verwendet werden sollten mit 
 We're all consenting adults here: https://mail.python.org/pipermail/tutor/2003-October/025932.html
 
 Achtung: oft Fehlinformation bezüglich `__`! In der Praxis sollten doppelte Unterstriche kaum verwendet werden.
-
----
 
 ## Instanzattribute und Slots
 
@@ -27,25 +23,17 @@ class Money():
     __slots__ = ['currency', 'amount']
 ```
 
----
-
 ## Klassenattribute
 
 sind Attribute, die nur auf der Klasse (nicht auf jeder Instanz) definiert sind - alle Instanzen teilen sich die Attribute
-
----
 
 ## Klassenattribute: Beispiel
 
 `_exchange_rates = {'EUR': 1, 'USD': 0.85, 'GBP': 1.4}`
 
----
-
 ## Getters & Setters
 
 Beispiel: `a.set_currency('EUR')`
-
----
 
 ## Properties
 
@@ -64,16 +52,12 @@ def _set_currency(self, currency):
 currency = property(_get_currency, _set_currency)
 ```
 
----
-
 ## Magic Methods
 
 Besondere Methoden, die das Verhalten einer Klasse beeinflussen
 
 - `__str__`
 - `__repr__`
-
----
 
 ## Magic Methods
 
@@ -82,23 +66,17 @@ Besondere Methoden, die das Verhalten einer Klasse beeinflussen
 - `__rmul__`
 - ...
 
----
-
 ## Statische Methoden, Klassenmethoden und Decorators
 
 _Klassenmethoden_: Methoden, die nicht auf eine bestimmte Instanz zugreifen müssen, sondern auf die Klasse
 
 _Statische Methoden_: Methoden, die weder auf eine Instanz noch Klasse zugreifen müssen
 
----
-
 ## Beispiel Klassenmethode
 
 ```py
 Money.from_string('23.40 EUR')
 ```
-
----
 
 ## Definition von statischen und Klassenmethoden
 
@@ -108,17 +86,11 @@ def from_string(cls, inputstring):
     ...
 ```
 
----
-
 ## Unterklassen und Vererbungsreihenfolge
-
----
 
 ## super()
 
 Proxy zu den Elternklassen
-
----
 
 ## super()
 
@@ -130,8 +102,6 @@ class Child(A, B):
         A.__init__(self)
         B.__init__(self)
 ```
-
----
 
 ## super()
 
@@ -151,8 +121,6 @@ class Child(A, B):
         super().__init__()
 ```
 
----
-
 ## Klassendekoration
 
 ```py
@@ -166,8 +134,6 @@ f = Foo()
 f.a # prints: "get property 'a'"
 f.b = 3 # prints: "set propery 'b'"
 ```
-
----
 
 ## Übungen
 

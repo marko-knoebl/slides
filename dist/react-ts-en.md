@@ -1,14 +1,10 @@
 # {{title}}
 
----
-
 ## Presentation and code
 
 Presentations available at: https://karuga.eu/courses-presentations
 
 Code available at: https://github.com/marko-knoebl/courses-code
-
----
 
 ## Your Trainer
 
@@ -20,8 +16,6 @@ Marko Knöbl
 - Programming
   - Python, JavaScript
 
----
-
 ## Introduction of Participants
 
 - Name
@@ -29,8 +23,6 @@ Marko Knöbl
 - Current Projects
 - Prior Knowledge
 - Expectations
-
----
 
 ## Organizational
 
@@ -53,27 +45,19 @@ Marko Knöbl
 
 # React.js
 
----
-
 ## What is React?
 
 - One of the 3 big JavaScript-UI-Libraries (besides Angular, vue.js)
-
----
 
 ## Basics of modern JavaScript-UI-Libraries
 
 - declarative
 - component-based
 
----
-
 ## declarative
 
 - In the Background there is a data model which describes the entire application state
 - The data model changes in response to user interactions, causing the view to update automatically (and efficiently)
-
----
 
 ## component-based
 
@@ -81,14 +65,10 @@ Marko Knöbl
 - data-flow via props and events
 - usually unidirectional dataflow (from parent to child)
 
----
-
 ## What makes React special?
 
 - JavaScript-based template-syntax
 - explicit Mutations of state via _setState()_
-
----
 
 ## History of React
 
@@ -96,15 +76,11 @@ Marko Knöbl
 - open source since 2013
 - current major version: React 16 (September 2017)
 
----
-
 ## Example: data model and data flow in a Todo app
 
 ![image: data model in a todo app](./images/todo-components-datamodel.svg)
 
 # React.js - Basics
-
----
 
 ## Developing with node.js and npm
 
@@ -115,8 +91,6 @@ Marko Knöbl
   - managing dependencies
   - packages are located in the _node_modules_ - Directory
   - configuration via _package.json_
-
----
 
 ## create-react-app
 
@@ -130,15 +104,11 @@ npx create-react-app playground
 
 see also: https://reactjs.org/docs/add-react-to-a-new-app.html
 
----
-
 ## default project structure
 
 - `public/index.html`, `src/index.js`: entry points
 - `App.js`, `App.css`: define the App component
 - `node_modules`: dependencies
-
----
 
 ## test server and build
 
@@ -147,8 +117,6 @@ inside the project directory:
 - `npm start`: starts the test server
 - `npm run build`: creates a build (for deployment)
 
----
-
 ## JSX: JS + XML
 
 JSX = Template language of React
@@ -156,22 +124,16 @@ JSX = Template language of React
 - **<** switches from JS to XML/HTML
 - **{** switches back to JS
 
----
-
 ## JSX: JS + XML
 
 ```jsx
 el = <div>Hello, I am {2018 - 1970} years old.</div>;
 ```
 
----
-
 ## JSX: Simple tasks
 
 - Show the current date
 - Show a random roulette number (0-36)
-
----
 
 ## component state
 
@@ -195,13 +157,9 @@ constructor () {
 
 ## Modern JavaScript
 
----
-
 ## JavaScript standardisation
 
 JavaScript is standardised under the name _ECMAScript_ (ES)
-
----
 
 ## JavaScript: versions
 
@@ -209,18 +167,12 @@ JavaScript is standardised under the name _ECMAScript_ (ES)
 - Next big version: _ES2015_ (or ES6)
 - Since then: yearly updates (ES2016, ES2017, ...)
 
----
-
 ## JavaScript: version support
 
 - Overview: see http://kangax.github.io/compat-table/es6/
 - In practice: Modern JavaScript is transpiled to ES5 (via Babel, webpack)
 
----
-
 ## Important changes in ES2015
-
----
 
 ## modules & imports
 
@@ -239,8 +191,6 @@ export class User {
 import { User } from 'user.js';
 ```
 
----
-
 ## modules & imports
 
 ```js
@@ -256,8 +206,6 @@ export default class User {
 import User from 'user.js';
 ```
 
----
-
 ## let
 
 - New alternative to `var` - with different scoping
@@ -270,8 +218,6 @@ if (true) {
 console.log(a); // ReferenceError
 ```
 
----
-
 ## const
 
 Declares a variable that cannot be reassigned.
@@ -282,8 +228,6 @@ const names = ['Alice', 'Bob', 'Claire'];
 names = ['Andrew', 'Bob', 'Claire']; // invalid!
 names[0] = 'Andrew'; // valid
 ```
-
----
 
 ## arrow functions / lambdas
 
@@ -297,13 +241,9 @@ let multiply = (a, b) => {
 let multiply = (a, b) => a * b;
 ```
 
----
-
 ## classes
 
 Class syntax replaces the old constructor functions and prototypes
-
----
 
 ## classes
 
@@ -319,8 +259,6 @@ class Person {
 }
 ```
 
----
-
 ## inheritance
 
 ```js
@@ -333,8 +271,6 @@ class User extends Person {
 }
 ```
 
----
-
 ## Array iteration (for ... of)
 
 Iterating over entries of an array:
@@ -346,8 +282,6 @@ for (let name of names) {
 }
 ```
 
----
-
 ## spread syntax (arrays)
 
 ```js
@@ -355,8 +289,6 @@ let squares = [1, 4, 9];
 let moreSquares = [...squares, 16, 25];
 // moreSquares: [1, 4, 9, 16, 25]
 ```
-
----
 
 ## spread syntax (arrays)
 
@@ -374,8 +306,6 @@ let updatedPerson = {
 // {firstName: 'John', lastName: 'Doe', email: 'j@d.com', age: 32}
 ```
 
----
-
 ## template strings
 
 - new syntax for _creating_ strings
@@ -387,8 +317,6 @@ let name = 'Anton';
 let greeting = `Hello, ${name}!
                 This is ES2015!`;
 ```
-
----
 
 ## default arguments
 
@@ -406,33 +334,12 @@ JavaScript-Linter
 
 - VS Code plugin
 
-???
-
-Bei Nutzung von create-react-app: vorkonfiguriert
-
-ansonsten:
-
-npm packages:
-
-- `eslint`
-- `eslint-plugin-react`
-
-.eslintrc:
-
-```json
-{
-  "extends": "react-app"
-}
-```
-
 ## Prettier
 
 https://prettier.io/
 
 - Code-Formatting according to strict rules
 - VS Code plugin (via Alt + Shift + F)
-
----
 
 ## Prettier configuration
 
@@ -451,13 +358,9 @@ or via `.prettierrc.json`:
 
 # JavaScript basics for React
 
----
-
 ## map, filter, reduce
 
 - Array methods for functional programming
-
----
 
 ## map
 
@@ -472,8 +375,6 @@ let triple = n => 3 * n;
 let newNumbers = myNumbers.map(triple);
 // [6, 30, 69]
 ```
-
----
 
 ## filter
 
@@ -490,8 +391,6 @@ let newNumbers = myNumbers.filter(isEven);
 // [2, 10]
 ```
 
----
-
 ## reduce
 
 - computes one value based on a start value and all entries in an array
@@ -504,8 +403,6 @@ let multiply = (a, b) => a * b;
 let result = myNumbers.reduce(multiply, 1);
 ```
 
----
-
 ## this
 
 in object methods, `this` usually refers to the current object
@@ -514,8 +411,6 @@ in object methods, `this` usually refers to the current object
 
 - each function call sets `this` (not just method calls)
 - `this` will only be set correctly if the method is called via the syntax `object.method()`
-
----
 
 ## problem: _this_ in anonymous functions
 
@@ -531,8 +426,6 @@ class myComponent {
   }
 }
 ```
-
----
 
 ## solution 1: _that_ / _self_
 
@@ -550,8 +443,6 @@ class myComponent {
 }
 ```
 
----
-
 ## solution 2: _arrow functions_
 
 ```js
@@ -566,8 +457,6 @@ class myComponent {
   }
 }
 ```
-
----
 
 ## problem: method calls without using method syntax
 
@@ -586,8 +475,6 @@ let fg = f.greet;
 fg(); // doesn't work (this is undefined)
 ```
 
----
-
 ## solution: arrow methods
 
 Available since ES2018:
@@ -602,8 +489,6 @@ class Foo {
   };
 }
 ```
-
----
 
 ## solution: binding the method
 
@@ -623,8 +508,6 @@ Methods are usually bound in the constructor:
 ```
 
 # React.js - basics II
-
----
 
 ## JSX compilation
 
@@ -647,8 +530,6 @@ const element = React.createElement(
 );
 ```
 
----
-
 ## JSX: Properties
 
 Changing from XML to JS also works in properties:
@@ -661,8 +542,6 @@ Changing from XML to JS also works in properties:
 
 note the missing quotation marks for the href property
 
----
-
 ## JSX Properties: Task
 
 - Show a random picture. Use this function:
@@ -672,8 +551,6 @@ const getImgUrl = () =>
   'https://picsum.photos/200?image=' +
   Math.floor(Math.random() * 100);
 ```
-
----
 
 ## JSX: events
 
@@ -686,19 +563,13 @@ function hello() {...}
 list of browser events:  
 https://www.w3schools.com/jsref/dom_obj_event.asp
 
----
-
 ## JSX: methods as event handlers
 
 Careful: If class methods are used as event handlers they should either be defined as arrow methods or be assigned to the instance via `.bind()`.
 
----
-
 ## browser events: example
 
 - simple button (Hello world)
-
----
 
 ## JSX: repeating elements
 
@@ -712,8 +583,6 @@ Multiple Elements may be added via arrays:
   ] }
 </ul>
 ```
-
----
 
 ## JSX: repeating elements
 
@@ -735,8 +604,6 @@ let list = (
 
 <!-- prettier-ignore-end -->
 
----
-
 ## JSX: repeating elements
 
 With the above code:  
@@ -755,21 +622,15 @@ let list = <ul>
 </ul>
 ```
 
----
-
 ## JSX: if / else
 
 ```jsx
 <div>{Math.random() > 0.5 ? 'heads' : 'tails'}</div>
 ```
 
----
-
 ## JSX: if / else
 
 Task:
-
----
 
 ## JSX: if / else
 
@@ -784,23 +645,17 @@ function cointoss() {
 </div>
 ```
 
----
-
 ## JSX: if
 
 ```jsx
 <div>{Math.random() > 0.5 && 'heads'}</div>
 ```
 
----
-
 ## JSX: CSS classes
 
 ```jsx
 <div className={getClassName()}>[...]</div>
 ```
-
----
 
 ## JSX: dynamic style
 
@@ -813,15 +668,11 @@ function cointoss() {
 />
 ```
 
----
-
 ## State
 
 React components may have an internal _state_
 
 In each component, `this.state` has a special meaning. Data in `this.state` may be referenced from the template. This way, the view will automatically update when the data changes.
-
----
 
 ## structure of this.state
 
@@ -837,8 +688,6 @@ constructor() {
 }
 ```
 
----
-
 ## modifying this.state
 
 only via `setState()`:
@@ -849,8 +698,6 @@ this.setState({ todos: ['learn react'] });
 ```
 
 `setState` will change all specified entries
-
----
 
 ## modifying this.state
 
@@ -867,8 +714,6 @@ this.setState(oldState => {
 
 We pass a callback function to `setState`. This callback function will transform the old state into the new state.
 
----
-
 ## Examples
 
 - Counter
@@ -876,16 +721,12 @@ We pass a callback function to `setState`. This callback function will transform
 - Countdown
 - Diashow
 
----
-
 ## Inputs
 
 In the context of React, input elements are special:
 
 Their properties (especially `.value`) can be directly modified by the user  
 Therefore there are aspects of the UI state which would not be captured in `this.state`.
-
----
 
 ## Inputs
 
@@ -904,8 +745,6 @@ handleChange = event => {
 
 # Development tools for React
 
----
-
 ## React Developer Tools
 
 https://github.com/facebook/react-devtools
@@ -917,8 +756,6 @@ https://github.com/facebook/react-devtools
 
 # components
 
----
-
 ## components
 
 Components = custom tags, e.g.
@@ -927,29 +764,21 @@ Components = custom tags, e.g.
 <Rating stars={4}/>
 ```
 
-![Image: Screenshot of a rating component with stars](../../images/rating.png)
-
----
+<img src="assets/rating.png" style="height: 4em">
 
 ## components
 
 In order to distinguish them from ordinary tags, components start with a capital letter
-
----
 
 ## components: state & props
 
 - state = internal to the component
 - props = parameters that are passed down from the parent
 
----
-
 ## component definition
 
 - class components
 - functional components
-
----
 
 ## class components
 
@@ -969,8 +798,6 @@ export class Rating extends Component {
 }
 ```
 
----
-
 ## functional components
 
 example:
@@ -983,20 +810,14 @@ function Rating(props) {
 }
 ```
 
----
-
 ## functional components
 
 functional components cannot have an internal _state_
-
----
 
 ## data/event flow
 
 - parent → child: props
 - child → parent: events
-
----
 
 ## Lifecycle-Hooks
 
@@ -1008,13 +829,9 @@ With class components it's possible to listen for events in their lifecycle:
 
 these can be implemented as methods of the component class
 
----
-
 ## Exercise
 
 Clock-component (with `componentDidMount` and `componentWillUnmount`)
-
----
 
 ## custom events
 
@@ -1029,8 +846,6 @@ examples:
 
 # TypeScript
 
----
-
 ## TypeScript
 
 = superset of JavaScript with extensions:
@@ -1039,8 +854,6 @@ examples:
 - public / private properties
 - decorators
 
----
-
 ## static typing
 
 data types may be specified in order to support the development environment:
@@ -1048,13 +861,9 @@ data types may be specified in order to support the development environment:
 - auto completion
 - errors when types mismatch
 
----
-
 ## static typing
 
 when building: TypeScript is translated to JavaScript, all type information is discarded
-
----
 
 ## type system: variables
 
@@ -1062,8 +871,6 @@ when building: TypeScript is translated to JavaScript, all type information is d
 let age: number = 32;
 let name: string = 'Andreas';
 ```
-
----
 
 ## type system: functions
 
@@ -1075,8 +882,6 @@ function repeatString(
 }
 ```
 
----
-
 ## type system: arrow functions
 
 ```ts
@@ -1085,8 +890,6 @@ const repeatString: (
   times: number
 ) => string = (text, times) => (...);
 ```
-
----
 
 ## type system: arrays
 
@@ -1098,8 +901,6 @@ let names: string[] = ['Anna', 'Bernhard', 'Caro'];
 let names: Array<string> = ['Anna', 'Bernhard'];
 ```
 
----
-
 ## type system: tuples
 
 Arrays with a predefined length and a type for every entry
@@ -1108,8 +909,6 @@ Arrays with a predefined length and a type for every entry
 let todo: [string, boolean];
 ```
 
----
-
 ## type system: objects and properties
 
 objects that have specific properties:
@@ -1117,8 +916,6 @@ objects that have specific properties:
 ```ts
 let p: { name: string; age: number } = getPerson();
 ```
-
----
 
 ## type system: object interfaces
 
@@ -1135,8 +932,6 @@ interface IPerson {
 let p: IPerson = getPerson();
 ```
 
----
-
 ## type system: classes and interfaces
 
 ```ts
@@ -1144,8 +939,6 @@ class User implements IPerson {
   ...
 }
 ```
-
----
 
 ## type system: void
 
@@ -1157,8 +950,6 @@ function warnUser(): void {
 }
 ```
 
----
-
 ## type system: any
 
 Any: variable can be of any type - disables the typechecker for this variable
@@ -1168,8 +959,6 @@ let ib: any = document.getElementById('myinput');
 console.log(ib.value);
 ```
 
----
-
 ## type system: type assertions
 
 ```ts
@@ -1177,8 +966,6 @@ let someValue: any = 'this is a string';
 
 let strLength: number = (someValue as string).length;
 ```
-
----
 
 ## type system: union types
 
@@ -1188,8 +975,6 @@ function foo(arg: string | number) {...}
 function foo(arg: string | undefined) {...}
 ```
 
----
-
 ## type system: generics
 
 ```ts
@@ -1197,8 +982,6 @@ function thrice<T>(element: T): T[] {
   return [element, element, element];
 }
 ```
-
----
 
 ## private & public properties
 
@@ -1215,23 +998,17 @@ class Clock {
 
 # React with TypeScript
 
----
-
 ## create-react-app with TypeScript
 
 ```bash
 npx create-react-app my-app --typescript
 ```
 
----
-
 ## installing requirements
 
 ```bash
 npm install redux react-redux @types/react-redux redux-thunk
 ```
-
----
 
 ## components
 
@@ -1251,8 +1028,6 @@ class TodoItem extends React.PureComponent<
 > {}
 ```
 
----
-
 ## events
 
 types:
@@ -1266,15 +1041,11 @@ types:
 
 Predefined React components conforming to material design style (style of Google/Android)
 
----
-
 ## Material-UI: Installation and Usage
 
 https://material-ui.com
 
 see info boxes on _Installation_ und _Usage_
-
----
 
 ## Exercises
 

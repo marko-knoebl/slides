@@ -4,8 +4,6 @@ Library, die das Verwenden von ServiceWorkern erleichtert
 
 https://developers.google.com/web/tools/workbox/
 
----
-
 ## Einfaches Beispiel: Offline-Anwendung
 
 zuvor:
@@ -22,8 +20,6 @@ self.addEventListener('install', event => {
 });
 ```
 
----
-
 ## Einfaches Beispiel: Offline-Anwendung
 
 mit Workbox:
@@ -31,8 +27,6 @@ mit Workbox:
 ```js
 workbox.precaching.precache(urlsToCache);
 ```
-
----
 
 ## Einfaches Beispiel: Offline-Anwendung
 
@@ -43,8 +37,6 @@ self.addEventListener('fetch', event => {
   event.respondWith(caches.match(event.request));
 });
 ```
-
----
 
 ## Einfaches Beispiel: Offline-Anwendung
 
@@ -57,8 +49,6 @@ workbox.routing.registerRoute(
 );
 ```
 
----
-
 ## Mögliche Strategien
 
 - networkOnly
@@ -69,13 +59,9 @@ workbox.routing.registerRoute(
 
 siehe auch: [offline Cookbook](https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/)
 
----
-
 ## Strategie: networkOnly
 
 Vom Browser bekannte Strategie
-
----
 
 ## Strategie: cacheOnly
 
@@ -85,29 +71,21 @@ Sie sollte beim install-Event dem Cache hinzugefügt werden.
 
 Frage: Was passiert, wenn beim install-Event der Cache nicht vollständig heruntergeladen werden konnte?
 
-???
+---
 
 Antwort: in diesem Fall wird der Service-Worker nicht aktiviert. Um das sicherzustellen dient das `.waitUntil()` im install-Event
-
----
 
 ## Strategie: networkFirst
 
 Ein Laden aus dem Netzwerk wird versucht; wenn das fehlschlägt, wird aus dem Cache geladen
 
----
-
 ## Strategie: cacheFirst
 
 Falls es eine Resource im Cache gibt, wird diese direkt aus dem Cache geladen. Ansonsten wird aus dem Netzwerk geladen.
 
----
-
 ## Strategie: staleWhileRevalidate
 
 Ähnlich wie cacheFirst - nur wird im Hintergrund der Cache aktualisiert, sodass beim nächsten Mal die aktuelle Resource zur Verfügung steht
-
----
 
 ## Strategie: cache - then network
 
@@ -116,8 +94,6 @@ Falls es eine Resource im Cache gibt, wird diese direkt aus dem Cache geladen. A
 Diese Strategie benötigt auch Code _außerhalb_ des ServiceWorkers.
 
 Siehe: [Offline Cookbook](https://jakearchibald.com/2014/offline-cookbook/#cache-then-network)
-
----
 
 ## Aufgaben
 
@@ -130,8 +106,6 @@ https://developers.google.com/web/tools/workbox/
 - https://github.com/marko-knoebl/simple-stock-app
 
 (Hosting via bitballoon)
-
----
 
 ## Zusatz (mit build-Prozess)
 

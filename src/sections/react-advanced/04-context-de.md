@@ -1,12 +1,8 @@
 # Context
 
----
-
 ## Context
 
 Möglichkeit, Werte aus einer Komponente direkt allen weiter unten im Dokumentenbaum liegenden Komponenten zur Verfügung zu stellen - ohne den state über jede Ebene übergeben zu müssen
-
----
 
 ## Context
 
@@ -15,13 +11,9 @@ zwei Elemente:
 - `Provider`: stellt Werte zur Verfügung
 - `Consumer`: verwendet diese Werte (kann weit unten in der Komponentenhierarchie liegen)
 
----
-
 ## Context
 
 Das Interface von Context kann sowohl Daten (aus dem State) als auch Eventhandler übergeben.
-
----
 
 ## Context - Beispiel: Provider
 
@@ -42,8 +34,6 @@ class App extends React.Component {
   }
 }
 ```
-
----
 
 ## Context - Beispiel: Consumer
 

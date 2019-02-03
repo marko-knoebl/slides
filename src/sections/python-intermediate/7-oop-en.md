@@ -1,7 +1,5 @@
 # Object-oriented programming and classes
 
----
-
 ## object orientation in Python "Everything is an object"
 
 ```py
@@ -12,8 +10,6 @@ a.to_bytes(1, "big")
 "hello".upper()
 ```
 
----
-
 ## types and instances
 
 ```py
@@ -23,8 +19,6 @@ type(message)
 
 isinstance(message, str)
 ```
-
----
 
 ## classes
 
@@ -37,8 +31,6 @@ Classes may represent _various_ things, e.g.:
 - a bank account
 - ...
 
----
-
 ## classes
 
 The definition of a class usually encompasses:
@@ -46,16 +38,12 @@ The definition of a class usually encompasses:
 - a "data structure" (attributes)
 - a "behaviour" (methods)
 
----
-
 ## classes
 
 example: class `BankAccount`
 
 - "data structure" (attributes)
 - "behaviour" (methods)
-
----
 
 ## defining classes
 
@@ -72,8 +60,6 @@ instance = MyClass()
 instance.message # "hello"
 ```
 
----
-
 ## Inheritance
 
 ```py
@@ -83,8 +69,6 @@ class Person():
 class Admin(Person):
     ...
 ```
-
----
 
 ## Example: class "Money"
 
@@ -96,8 +80,6 @@ a.currency
 
 a.amount
 ```
-
----
 
 ## Exercise: classes "TodoList" and "Todo"
 

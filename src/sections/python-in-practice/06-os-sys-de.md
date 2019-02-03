@@ -1,28 +1,24 @@
 # sys, os, shutil
 
----
-
 ## sys, os, shutil
 
 - sys: Funktionen zur Python-Umgebung
 - os: Funktionen zum Betriebssystem, Arbeiten mit Dateien
 - shutil: Funktionen zum Arbeiten mit Dateien
 
-???
+## sys
 
-Buch Kapitel 14
+Beispiele:
 
-Beispiel: stdout.write, getrefcount, path, version, version_info
-
-stdout.write ÜBERSCHREIBEN
-
----
+- `stdout.write`
+- `getrefcount`
+- `path`
+- `version`
+- `version_info`
 
 ## Kommandozeilenparameter
 
 Auslesbar über `sys.argv`
-
----
 
 ## sys: stdout.write überschreiben
 
@@ -40,13 +36,9 @@ loudstdout = LoudStdout()
 sys.stdout = loudstdout
 ```
 
----
-
 ## os
 
 Funktionen zu Betriebssystem und Dateizugriff
-
----
 
 ## os - Arbeiten mit Dateien und Ordnern
 
@@ -61,16 +53,12 @@ Funktionen zu Betriebssystem und Dateizugriff
 - `os.rmdir('foo/bar/baz')`
 - `os.walk()`
 
----
-
 ## shutil
 
 - `shutil.copy('origin', 'destination')` (Datei kopieren)
 - `shutil.copytree()` (Ordner kopieren)
 - `shutil.rmtree()` (Ordner löschen)
 - `shutil.move()` (Datei oder Ordner verschieben)
-
----
 
 ## Übungen
 

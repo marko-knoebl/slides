@@ -1,14 +1,10 @@
 # {{title}}
 
----
-
 ## Präsentation und Code
 
 Präsentationen verfügbar unter: https://karuga.eu/courses-presentations
 
 Code verfügbar unter: https://github.com/marko-knoebl/courses-code
-
----
 
 ## Ihr Trainer
 
@@ -20,8 +16,6 @@ Marko Knöbl
 - Programmierung
   - Python, JavaScript
 
----
-
 ## Vorstellung der Teilnehmer
 
 - Name
@@ -30,8 +24,6 @@ Marko Knöbl
 - Grund der Schulung
 - Vorkenntnisse
 - Erwartungen / Wünsche
-
----
 
 ## Organisatorisches
 
@@ -55,27 +47,19 @@ Marko Knöbl
 
 # React.js
 
----
-
 ## Was ist React?
 
 - Eine der 3 großen JavaScript-UI-Libraries (neben Angular, vue.js)
-
----
 
 ## Grundlagen moderner JavaScript-UI-Libraries
 
 - Deklarativ
 - Komponenten-Struktur
 
----
-
 ## Deklarativ
 
 - Im Hintergrund steht ein Datenmodell, das den gesamten Anwendungszustand abbildet
 - Man ändert das Modell, das View wird von alleine (möglichst effizient) aktualisiert
-
----
 
 ## Komponenten-Struktur
 
@@ -83,14 +67,10 @@ Marko Knöbl
 - Datenfluss via Properties und Events
 - Üblicherweise unidirektionaler Datenfluss (vom Eltern- zum Kindelement)
 
----
-
 ## Was macht React besonders?
 
 - JavaScript-basierte Template-Syntax
 - Explizite Änderung des Anwendungszustands via _setState()_
-
----
 
 ## Geschichte von React
 
@@ -98,15 +78,11 @@ Marko Knöbl
 - Open Source seit 2013
 - Aktuelle Version: React 16 (September 2017): Komplette interne Neuentwicklung mit gleichem API
 
----
-
 ## Beispiel: Datenmodell und -fluss in einer Todo-App
 
 ![Bild: Datenmodell in einer Todo-App](./images/todo-components-datamodel.svg)
 
 # React.js - Grundlagen
-
----
 
 ## Entwicklung mit node.js und npm
 
@@ -117,8 +93,6 @@ Marko Knöbl
   - zum Verwalten von Abhängigkeiten
   - Pakete im _node_modules_-Ordner
   - Konfiguration in _package.json_
-
----
 
 ## create-react-app
 
@@ -132,15 +106,11 @@ npx create-react-app playground
 
 siehe auch: https://reactjs.org/docs/add-react-to-a-new-app.html
 
----
-
 ## Standard Projektstruktur
 
 - `public/index.html`, `src/index.js`: Einstiegspunkte
 - `App.js`, `App.css`: Definieren App-Komponente
 - `node_modules`: Abhängigkeiten
-
----
 
 ## Testserver und Build
 
@@ -149,8 +119,6 @@ Im Projektordner:
 - `npm start`: Startet den Testserver
 - `npm run build`: Erstellt einen Build (zum Deployen auf einem Webserver)
 
----
-
 ## JSX: JS + XML
 
 JSX = Templatesprache von React
@@ -158,22 +126,16 @@ JSX = Templatesprache von React
 - **<** wechselt von JS zu XML/HTML
 - **{** wechselt zurück zu JS
 
----
-
 ## JSX: JS + XML
 
 ```jsx
 el = <div>Hallo, ich bin {2018 - 1970} Jahre alt</div>;
 ```
 
----
-
 ## JSX: Einfache Aufgaben
 
 - Zeige das aktuelle Datum an
 - Zeige eine zufällige Roulettezahl an (0-36)
-
----
 
 ## Komponentenzustand (State)
 
@@ -197,13 +159,9 @@ constructor () {
 
 ## Modernes JavaScript
 
----
-
 ## JavaScript-Standardisierung
 
 JavaScript wird unter dem Namen _ECMAScript_ (kurz ES) standardisiert
-
----
 
 ## JavaScript: Versionen
 
@@ -211,18 +169,12 @@ JavaScript wird unter dem Namen _ECMAScript_ (kurz ES) standardisiert
 - Nächste große Version: _ES2015_ (oder ES6)
 - Seither: jährliche kleinere Änderungen (aktuell: ES2018)
 
----
-
 ## JavaScript: Versionsunterstützung
 
 - Übersicht: siehe http://kangax.github.io/compat-table/es6/
 - In der Praxis: Modernes JavaScript wird in ES5 transpiliert (mittels Babel, webpack)
 
----
-
 ## Wichtige Neuerungen in ES2015
-
----
 
 ## Module & Imports
 
@@ -241,8 +193,6 @@ export class User {
 import { User } from 'user.js';
 ```
 
----
-
 ## Module & Imports
 
 ```js
@@ -258,8 +208,6 @@ export default class User {
 import User from 'User.js';
 ```
 
----
-
 ## let
 
 - Neue Alternative zu var – mit leicht anderem Scoping
@@ -272,8 +220,6 @@ if (true) {
 console.log(a); // ReferenceError
 ```
 
----
-
 ## const
 
 Deklariert eine Variable, die nicht mehr neu zugewiesen werden kann.  
@@ -284,8 +230,6 @@ const names = ['Alice', 'Bob', 'Claire'];
 names = ['Andrew', 'Bob', 'Claire']; // ungültig!
 names[0] = 'Andrew'; // gültig
 ```
-
----
 
 ## Pfeilfunktionen / Lambda
 
@@ -299,13 +243,9 @@ let multiply = (a, b) => {
 let multiply = (a, b) => a * b;
 ```
 
----
-
 ## Klassen
 
 Ersetzen die alten Konstruktorfunktionen und Prototypen
-
----
 
 ## Klassen
 
@@ -321,8 +261,6 @@ class Person {
 }
 ```
 
----
-
 ## Klassen und Vererbung
 
 ```js
@@ -335,8 +273,6 @@ class User extends Person {
 }
 ```
 
----
-
 ## Array-Iteration (for ... of)
 
 Über die Einträge in einem Array iterieren:
@@ -347,8 +283,6 @@ for (let name of names) {
   console.log(name);
 }
 ```
-
----
 
 ## Spread Syntax (Arrays und Objekte)
 
@@ -364,8 +298,6 @@ let updatedPerson = {...person, email: 'j@d.com', age: 32};
 // {firstName: 'John', lastName: 'Doe', email: 'j@d.com', age: 32}
 ```
 
----
-
 ## Template-Strings
 
 - Neue Syntax zum _Erstellen_ von Strings
@@ -377,8 +309,6 @@ let name = 'Anton';
 let greeting = `Hallo, ${name}!
                 Das ist ES2015!`;
 ```
-
----
 
 ## Standardparameter in Funktionen
 
@@ -396,25 +326,6 @@ JavaScript-Linter
 
 - VS Code plugin
 
-???
-
-Bei Nutzung von create-react-app: vorkonfiguriert
-
-ansonsten:
-
-npm packages:
-
-- `eslint`
-- `eslint-plugin-react`
-
-.eslintrc:
-
-```json
-{
-  "extends": "react-app"
-}
-```
-
 ## Prettier
 
 https://prettier.io/
@@ -422,13 +333,7 @@ https://prettier.io/
 - Code-Formatierung nach strikten Regeln
 - VS-Code-Plugin (via Alt + Shift + F)
 
----
-
 ## Prettier-Konfiguration in VS Code
-
-
-
----
 
 ## Prettier-Konfiguration
 
@@ -447,13 +352,9 @@ oder über `.prettierrc.json`:
 
 # JavaScript-Grundlagen für React
 
----
-
 ## map, filter, reduce
 
 - Array-Methoden für die funktionale Programmierung
-
----
 
 ## map
 
@@ -470,8 +371,6 @@ function triple(n) {
 let newNumbers = myNumbers.map(triple);
 // [6, 30, 69]
 ```
-
----
 
 ## filter
 
@@ -490,11 +389,7 @@ let newNumbers = myNumbers.filter(isEven);
 // [2, 10]
 ```
 
----
-
 ## reduce
-
----
 
 ## this
 
@@ -502,8 +397,6 @@ let newNumbers = myNumbers.filter(isEven);
 - **allerdings**:
   - jeder Funktionsaufruf setzt _this_ neu (nicht nur Methodenaufrufe)
   - _this_ wird nur richtig gesetzt, wenn die Methode mit der Syntax `object.method()` aufgerufen wird
-
----
 
 ## Problem: _this_ in anonymen Funktionen
 
@@ -519,8 +412,6 @@ class myComponent {
   }
 }
 ```
-
----
 
 ## Lösung: _that_ / _self_
 
@@ -538,8 +429,6 @@ class myComponent {
 }
 ```
 
----
-
 ## Lösung: _Pfeilfunktionen_
 
 ```js
@@ -554,8 +443,6 @@ class myComponent {
   }
 }
 ```
-
----
 
 ## Problem: Methodenaufrufe ohne Methodensyntax
 
@@ -574,8 +461,6 @@ let fg = f.greet;
 fg(); // klappt nicht (this ist undefined)
 ```
 
----
-
 ## Lösung: Pfeil-Methoden
 
 Seit ES2018 einsetzbar:
@@ -590,8 +475,6 @@ class Foo {
   };
 }
 ```
-
----
 
 ## Lösung: Binden von Methoden
 
@@ -611,8 +494,6 @@ fg(); // klappt jetzt auch
 ```
 
 # React.js - Grundlagen II
-
----
 
 ## JSX Kompilierung
 
@@ -635,8 +516,6 @@ const element = React.createElement(
 );
 ```
 
----
-
 ## JSX: Properties
 
 Der Wechsel von XML auf JS klappt auch bei Properties:
@@ -649,8 +528,6 @@ Der Wechsel von XML auf JS klappt auch bei Properties:
 
 Beachte die fehlenden Anführungszeichen bei href
 
----
-
 ## JSX Properties: Aufgaben
 
 - Zeige ein Bild basierend auf einer ID an. Verwende dazu:
@@ -659,8 +536,6 @@ Beachte die fehlenden Anführungszeichen bei href
 const getImgUrl = id =>
   `https://picsum.photos/200?image=${id}`;
 ```
-
----
 
 ## JSX: events
 
@@ -673,19 +548,13 @@ function hello() {...}
 Liste von Browser-Events:  
 https://www.w3schools.com/jsref/dom_obj_event.asp
 
----
-
 ## JSX: Methoden als Eventhandler
 
 Achtung: Werden Klassenmethoden als Eventhandler verwendet, sollten sie entweder als Pfeilfunktionen definiert sein oder mit _.bind()_ korrekt zugewiesen werden.
 
----
-
 ## Browser-Events: Beispiel
 
 - einfacher Button (Hello world)
-
----
 
 ## JSX: Elemente wiederholen
 
@@ -699,8 +568,6 @@ Grundsätzlich können wir über Arrays mehrere Elemente einbinden:
   ] }
 </ul>
 ```
-
----
 
 ## JSX: Elemente wiederholen
 
@@ -724,8 +591,6 @@ let todos = [
 
 <!-- prettier-ignore-end -->
 
----
-
 ## JSX: Elemente wiederholen
 
 Bei obigem Code: Warnung in der Browser-Konsole (Wegen Effizienz)  
@@ -739,15 +604,11 @@ Lösung: **key** (als string):
 </ul>
 ```
 
----
-
 ## JSX: if / else
 
 ```jsx
 <div>{Math.random() > 0.5 ? 'heads' : 'tails'}</div>
 ```
-
----
 
 ## JSX: if / else
 
@@ -762,15 +623,11 @@ function cointoss() {
 </div>
 ```
 
----
-
 ## JSX: CSS-Klassen
 
 ```jsx
 <div className={getClassName()}>[...]</div>
 ```
-
----
 
 ## JSX: Dynamische Stile
 
@@ -783,20 +640,14 @@ function cointoss() {
 />
 ```
 
----
-
 ## State
 
 - React-Komponenten können einen internen Zustand (_state_) haben
-
----
 
 ## State
 
 - In jeder Komponente hat _this.state_ eine besondere Bedeutung
 - Auf Daten in _this.state_ kann im Template verwiesen werden. Damit ändert sich die Anzeige automatisch, wenn die Daten neu gesetzt werden.
-
----
 
 ## Struktur von this.state
 
@@ -812,8 +663,6 @@ constructor() {
 }
 ```
 
----
-
 ## Änderung von this.state
 
 Nur via setState()
@@ -824,8 +673,6 @@ this.setState({ todos: ['learn react'] });
 ```
 
 setState überschreibt alle angegebenen Einträge im state-Objekt
-
----
 
 ## Änderung von this.state
 
@@ -842,11 +689,7 @@ this.setState(oldState => {
 
 Wir übergeben setState eine callback-Funktion, die den alten in den neuen Zustand überführt.
 
----
-
 ## Beispiel: Counter
-
----
 
 ## Weitere Beispiele
 
@@ -856,16 +699,12 @@ Ideen:
 - Countdown-Zähler
 - Diashow
 
----
-
 ## Inputs
 
 Besonderheit von input-Elementen:
 
 - Ihre Properties (insbesondere `.value`) können durch User-Interaktionen direkt geändert werden
 - Es gibt damit Aspekte des UI-Zustands, die nicht in _.state_ erfasst sind
-
----
 
 ## Inputs
 
@@ -884,8 +723,6 @@ handleChange = event => {
 
 # Entwicklerwerkzeuge für React
 
----
-
 ## React Developer Tools
 
 https://github.com/facebook/react-devtools
@@ -895,8 +732,6 @@ https://github.com/facebook/react-devtools
 - Hervorhebung von Änderungen von State und Props
 
 # Komponenten
-
----
 
 ## Komponenten
 
@@ -908,13 +743,9 @@ Möglichkeit, eigene Tags zu definieren, z.B.
 
 <img src="assets/rating.png" style="height: 4em">
 
----
-
 ## Komponenten
 
 Um sie von normalen Tags zu unterscheiden, beginnen Komponentennamen immer mit einem Großbuchstaben
-
----
 
 ## Komponenten: State & Props
 
@@ -923,8 +754,6 @@ Um sie von normalen Tags zu unterscheiden, beginnen Komponentennamen immer mit e
   - `this.setState`
 - Props = vom Elternelement übergebene Parameter
   - `this.props`
-
----
 
 ## Komponentendefinition
 
@@ -944,29 +773,21 @@ export class Rating extends Component {
 }
 ```
 
----
-
 ## Komponentendefinition: Beispiele
 
 - `PlayingCard` - Komponente
 - `RomanNumber` - Komponente
-
----
 
 ## Datenfluss
 
 - parent → child: props
 - child → parent: events
 
----
-
 ## Prop Types
 
 Typechecker für Props
 
 `npm install prop-types`
-
----
 
 ## Prop Types
 
@@ -982,13 +803,9 @@ MyComponent.propTypes = {
 };
 ```
 
----
-
 ## Eigene Events
 
 Eventhandler werden als Funktionen definiert und via props übergeben / erhalten.
-
----
 
 ## Eigene Events
 
@@ -1008,8 +825,6 @@ handleClick = () => {
   this.props.onToggle(!this.props.on);
 };
 ```
-
----
 
 ## Eigene Events
 
@@ -1031,8 +846,6 @@ handleToggle = (isToggled) => {
 }
 ```
 
----
-
 ## Eigene Events
 
 Beispiele:
@@ -1041,8 +854,6 @@ Beispiele:
 - NumberInput-Komponente zum Angeben einer Ganzzahl mit +/- buttons
   - Bonus: Umsetzung des APIs, sodass es kompatibel zu normalen input-Elementen ist und input-Elemente leicht durch NumberInput-Komponeneten ersetzt werden können
   - Bonus: zusätzliche min / max - Property bei der Komponente
-
----
 
 ## Lifecycle-Hooks
 
@@ -1054,8 +865,6 @@ Bei Klassenkomponenten ist es möglich, Events in ihrem Lebenszyklus abzufragen:
 
 Diese werden als Methoden der Klasse implementiert
 
----
-
 ## Übung
 
 Clock-Komponente (mit `componentDidMount` und `componentWillUnmount`)
@@ -1063,8 +872,6 @@ Clock-Komponente (mit `componentDidMount` und `componentWillUnmount`)
 # Übung: todo list
 
 # TypeScript
-
----
 
 ## TypeScript
 
@@ -1074,8 +881,6 @@ Clock-Komponente (mit `componentDidMount` und `componentWillUnmount`)
 - Decorators
 - Public / Private Properties
 
----
-
 ## Static Typing
 
 Datentypen können angegeben werden und unterstützen insbesondere die Entwicklungsumgebung:
@@ -1083,13 +888,9 @@ Datentypen können angegeben werden und unterstützen insbesondere die Entwicklu
 - Auto-Vervollständigung
 - Fehlermeldungen bei nicht passenden Datentypen
 
----
-
 ## Static Typing
 
 Beim build: TypeScript wird in JavaScript übersetzt, alle Typeninformationen gehen dabei verloren
-
----
 
 ## Typsystem: Variablen
 
@@ -1097,8 +898,6 @@ Beim build: TypeScript wird in JavaScript übersetzt, alle Typeninformationen ge
 let age: number = 32;
 let name: string = 'Andreas';
 ```
-
----
 
 ## Typsystem: Funktionen
 
@@ -1110,8 +909,6 @@ function repeatString(
 }
 ```
 
----
-
 ## Typsystem: Pfeilfunktionen
 
 ```ts
@@ -1120,8 +917,6 @@ const repeatString: (
   times: number
 ) => string = (text, times) => (...);
 ```
-
----
 
 ## Typsystem: Arrays
 
@@ -1133,8 +928,6 @@ let names: string[] = ['Anna', 'Bernhard', 'Caro'];
 let names: Array<string> = ['Anna', 'Bernhard'];
 ```
 
----
-
 ## Typsystem: Tupel
 
 Arrays mit vorgegebener Länge und Datentypen für jeden Eintrag
@@ -1143,8 +936,6 @@ Arrays mit vorgegebener Länge und Datentypen für jeden Eintrag
 let todo: [string, boolean];
 ```
 
----
-
 ## Typsystem: Objekte & Properties
 
 Objekt mit bestimmten Properties:
@@ -1152,8 +943,6 @@ Objekt mit bestimmten Properties:
 ```ts
 let p: { name: string; age: number } = getPerson();
 ```
-
----
 
 ## Typsystem: Objekte - Interfaces
 
@@ -1170,8 +959,6 @@ interface IPerson {
 let p: IPerson = getPerson();
 ```
 
----
-
 ## Typsystem: Klassen & Interfaces
 
 ```ts
@@ -1179,8 +966,6 @@ class User implements IPerson {
   ...
 }
 ```
-
----
 
 ## Typsystem: void
 
@@ -1192,8 +977,6 @@ function warnUser(): void {
 }
 ```
 
----
-
 ## Typsystem: any
 
 Any: lässt alle Typen zu
@@ -1203,8 +986,6 @@ let ib: any = document.getElementById('myinput');
 console.log(ib.value);
 ```
 
----
-
 ## Typsystem: Type assertions
 
 ```ts
@@ -1212,8 +993,6 @@ let someValue: any = 'this is a string';
 
 let strLength: number = (someValue as string).length;
 ```
-
----
 
 ## Typsystem: Union Types
 
@@ -1223,8 +1002,6 @@ function foo(arg: string | number) {...}
 function foo(arg: string | undefined) {...}
 ```
 
----
-
 ## Typsystem: Generics
 
 ```ts
@@ -1232,8 +1009,6 @@ function thrice<T>(element: T): T[] {
   return [element, element, element];
 }
 ```
-
----
 
 ## Private & Public Properties
 
@@ -1250,15 +1025,11 @@ class Clock {
 
 # React mit TypeScript
 
----
-
 ## Create-React-App
 
 ```bash
 npx create-react-app my-app --typescript
 ```
-
----
 
 ## Komponenten
 
@@ -1278,8 +1049,6 @@ class TodoItem extends React.PureComponent<
 > {}
 ```
 
----
-
 ## Events
 
 Typen:
@@ -1293,15 +1062,11 @@ Typen:
 
 Vorgefertigte React-Komponenten im Material-Design-Stil (Stil von Google/Android)
 
----
-
 ## Material-UI: Installation und Verwendung
 
 https://material-ui.com
 
 siehe Info-Boxen zu _Installation_ und _Usage_
-
----
 
 ## Übungen
 

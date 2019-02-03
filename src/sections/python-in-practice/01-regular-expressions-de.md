@@ -1,7 +1,5 @@
 # Reguläre Ausdrücke
 
----
-
 ## Reguläre Ausdrücke
 
 Beispiel:
@@ -18,8 +16,6 @@ else:
     print("no match")
 ```
 
----
-
 ## Mehrfach finden
 
 Beispiel:
@@ -33,15 +29,11 @@ for match in match_iter:
     print(match[0])
 ```
 
----
-
 ## Mehrfach finden
 
 Aufgabe: finde alle URLs in einem HTML-Dokument auf der Festplatte
 
 (Beispieldokument: zB Seite https://news.ycombinator.com auf Festplatte speichern)
-
----
 
 ## Einen Ausdruck und Unterausdrücke finden
 
@@ -51,8 +43,6 @@ re.search(
     'Heute ist der 23.10.1970!'
 )
 ```
-
----
 
 ## Einen Ausdruck und Unterausdrücke finden
 
@@ -67,14 +57,12 @@ m[2] # 1
 m[3] # 1970
 ```
 
----
-
 ## Reguläre Ausdrücke
 
 - Buch Aufgabe 4 (Lesbarkeitsanalyse)
 - Beispiel: Gleichungen erkennen und auslesen
 - Beispiel: Alle Funktionsdefinitionen in einer Python-Datei finden
 
-???
+## Lösung: Gleichung erkennen
 
 `\A-?\d+x[\+-]\d+y[\+-]\d+z=\d+\Z`

@@ -1,7 +1,5 @@
 # Angular - Grundlagen II
 
----
-
 ## VS Code - Plugins
 
 Empfehlung
@@ -10,8 +8,6 @@ Empfehlung
 - Angular Language Service
 - TSLint
 
----
-
 ## Templatesprache: Properties
 
 Dynamisches Setzen von Properties:
@@ -19,8 +15,6 @@ Dynamisches Setzen von Properties:
 ```xml
 <input type="number" [value]="1/3">
 ```
-
----
 
 ## Properties: Aufgaben
 
@@ -31,8 +25,6 @@ const getImgUrl = () =>
   'https://picsum.photos/200/300?image=' +
   Math.floor(Math.random() * 100);
 ```
-
----
 
 ## Templatesprache: \*ngFor
 
@@ -46,8 +38,6 @@ Mit _\*ngFor_ können wir HTML-Elemente wiederholen:
 
 \*ngFor wiederholt das Element, auf das es angewendet wird (hier: das div-Element)
 
----
-
 ## Templatesprache: \*ngFor
 
 Optional können wir mit Hilfe der index-Variable mitzählen:
@@ -58,13 +48,9 @@ Optional können wir mit Hilfe der index-Variable mitzählen:
 </div>
 ```
 
----
-
 ## Templatesprache: \*ngFor
 
 Beispiel: Rating-Komponente, die Sterne anzeigt (mit zunächst unveränderlicher Anzahl)
-
----
 
 ## Templatesprache: \*ngIf
 
@@ -75,8 +61,6 @@ Beispiele:
 ```html
 <div *ngIf="item.importance >= 3">{{ item.text }}</div>
 ```
-
----
 
 ## Templatesprache: Klassen
 
@@ -90,8 +74,6 @@ Wir können CSS-Klassen dynamisch zuweisen:
 </span>
 ```
 
----
-
 ## Templatesprache: Klassen
 
 Weitere Möglichkeiten:
@@ -103,8 +85,6 @@ Weitere Möglichkeiten:
 </div>
 ```
 
----
-
 ## Templatesprache: Stile
 
 Für jede Komponente können wir CSS-Stile festlegen. Diese betreffen dann nur eine Komponente.
@@ -114,8 +94,6 @@ Dazu gibt es zwei Möglichkeiten in der Konfiguration:
 `styleUrls: ['./app.component.css']`  
 oder  
 `styles: ['h1 {..} …']`
-
----
 
 ## Templatesprache: Stile
 
@@ -127,8 +105,6 @@ In Komponentenstilen bezieht sich der besondere `:host`-Selektor auf das Kompone
 }
 ```
 
----
-
 ## Templatesprache: Stile
 
 Für einzelne HTML-Elemente können wir direkt mit einer Angular-eigenen Syntax Stile via Properties setzen:
@@ -139,19 +115,13 @@ Für einzelne HTML-Elemente können wir direkt mit einer Angular-eigenen Syntax 
 <div [style.width.%]="100 / n">…</div>
 ```
 
----
-
 ## Templatesprache: Stile
 
 Beispiel: Wir erstellen ein `<div>`-Element, dessen Schriftgröße zufällig festgesetzt wird
 
----
-
 ## Templatesprache: Pipes
 
 Pipe = im wesentlichen eine Funktion, die im Template zur string-Formatierung zur Verfügung steht
-
----
 
 ## Templatesprache: Pipes
 
@@ -162,8 +132,6 @@ Beispiele:
 - `The price is {{ price | number:'1.2-2'}}`
 - `Debugging information: {{ todo | json }}`
 - `Total amount: {{total | currency:'EUR':'symbol':'1.2-2'}}`
-
----
 
 ## Lokalisierung von Pipes
 
@@ -177,8 +145,6 @@ im Terminal:
 
 `ng serve --configuration=de`
 
----
-
 ## Templatesprache: Templatevariablen
 
 Mit Templatevariablen können wir direkt auf Elemente aus dem Template zugreifen. Dazu verwenden wir das #-Zeichen.
@@ -189,8 +155,6 @@ Todo: <input #newtodo>
   Add
 </button>
 ```
-
----
 
 ## Templatesprache: Events
 
@@ -203,8 +167,6 @@ Wir können alle Standard-DOM-Events über die folgende Syntax überwachen:
 Liste von Standard-DOM-Events:
 https://www.w3schools.com/jsref/dom_obj_event.asp
 
----
-
 ## Templatesprache: Events
 
 ```html
@@ -212,8 +174,6 @@ https://www.w3schools.com/jsref/dom_obj_event.asp
 
 <input (keydown)="onKeyDown()">
 ```
-
----
 
 ## Standard-Events: Event-Objekt
 
@@ -230,8 +190,6 @@ onKeyDown(event: KeyboardEvent) {
 }
 ```
 
----
-
 ## Standard-Events: Event-Filter
 
 ```html
@@ -239,8 +197,6 @@ onKeyDown(event: KeyboardEvent) {
 ```
 
 Mit der obigen Syntax können Events auf bestimmte Kategorien beschränkt werden
-
----
 
 ## Beispiele
 

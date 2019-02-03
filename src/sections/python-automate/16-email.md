@@ -4,8 +4,6 @@ https://automatetheboringstuff.com/chapter16/
 
 zur verdeckten Passworteingabe: Modul "getpass"
 
----
-
 ## SMTP / IMAP
 
 Achtung Fehler:
@@ -21,5 +19,3 @@ richtig:
 Achtung veraltet: `pyzmail` -> `pyzmail36`
 
 Achtung: `'BODY[]'` -> `b'BODY[]` (bytes statt string)
-
----

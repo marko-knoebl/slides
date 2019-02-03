@@ -1,7 +1,5 @@
 # Serverseitiges HTTP
 
----
-
 ## lokalen Dateiserver mit Python betreiben
 
 ```bash
@@ -14,15 +12,11 @@ pyton -m SimpleHTTPServer
 python -m http.server
 ```
 
----
-
 ## Python am Server - Überblick
 
 https://docs.python.org/2/howto/webservers.html
 
 (etwas veraltet)
-
----
 
 ## CGI
 
@@ -36,8 +30,6 @@ Interface beruht auf _stdin_, _stdout_ und Umgebungsvariablen
 
 Nachteil: für jede Anfrage muss ein neuer Prozess gestartet werden (langsam)
 
----
-
 ## WSGI
 
 WSGI = Web Server Gateway Interface
@@ -46,15 +38,11 @@ Standard, um ein Python-Programm am Server auf HTTP-Anfragen antworten zu lassen
 
 Inspiriert von CGI; wichtiger Vorteil: _ein_ laufender Prozess kann der Reihe nach mehrere Anfragen beantworten
 
----
-
 ## Python Web-Frameworks
 
 - Werkzeug (Python WSGI Utility Library)
 - Flask (vollwertiges, modulares Framework basierend auf Werkzeug)
 - Django (vollwertiges Framework)
-
----
 
 ## WSGI-Interface
 
@@ -65,8 +53,6 @@ Die Funktion bekommt zwei Parameter übergeben: `environ` und `start_response`
 Die Anfrageparameter sind über `environ` abzufragen (zB URL, HTTP header, Formulardaten, ...)
 
 Der zweite Parameter ist eine Funktion, üblicherweise `start_response` genannt.
-
----
 
 ## WSGI
 
@@ -81,8 +67,6 @@ start_response(
 
 Der Antwortkörper wird als ein Iterable von Bytestrings zurückgegeben, zB als Liste von Bytestrings.
 
----
-
 ## WSGI-Server-Software
 
 server-software:
@@ -90,8 +74,6 @@ server-software:
 - gunicorn
 - uWSGI
 - mod_wsgi
-
----
 
 ## Eigener WSGI-Server in Python
 
@@ -105,8 +87,6 @@ server.serve_forever()
 ```
 
 Dieser Teil wird üblicherweise von Libraries wie gunicorn übernommen
-
----
 
 ## Eigene WSGI-Anwendung in Python
 
@@ -123,8 +103,6 @@ def application(environ, start_response):
     start_response(response_status, response_headers)
     return [response_body]
 ```
-
----
 
 ## wichtige HTTP-Statuscodes
 
@@ -151,8 +129,6 @@ def application(environ, start_response):
 
 siehe auch: https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
 
----
-
 ## wichtige HTTP-Antwort-Headerfelder
 
 - `Content-Length`
@@ -160,8 +136,6 @@ siehe auch: https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
 - `Set-Cookie`
 - `Location`
 - `Cache-Control`
-
----
 
 ## Content-Type-Headerfeld
 
@@ -175,8 +149,6 @@ Mögliche Werte:
 - `image/jpeg`
 - `image/png`
 - ...
-
----
 
 ## Das environ-dictionary
 
@@ -195,19 +167,13 @@ Wir können es im debugger begutachten, zB:
 
 https://www.python.org/dev/peps/pep-0333/#environ-variables
 
----
-
 ## PATH_INFO
 
 PATH_INFO im environ-dictionary: angefragter Pfad am Server
 
----
-
 ## PATH_INFO
 
 Aufgabe: Anzeige verschiedener Seiten unter verschiedenen Adressen
-
----
 
 ## Redirects mit HTTP
 
@@ -220,13 +186,9 @@ start_response("307 Temporary Redirect", response_headers)
 return [b'']
 ```
 
----
-
 ## Redirects mit HTTP
 
 Aufgabe: Weiterleitung einiger Seiten, z.B. `/now` leitet weiter auf `/time`
-
----
 
 ## Cookies
 
@@ -238,8 +200,6 @@ Cookies dienen insbesondere dazu, einen früheren Besucher wiederzuerkennen, z.B
 - Personenbezogene Werbung
 - Tracking der Useraktivitäten
 
----
-
 ## Cookies setzen
 
 ```py
@@ -247,8 +207,6 @@ response_headers.append((
     "Set-Cookie", "mycookie123=abcd; Max-Age=30"
 ))
 ```
-
----
 
 ## Cookies lesen
 
@@ -260,8 +218,6 @@ except KeyError:
 ```
 
 Resultat z.B.: `"cookie1=one; cookie2=two"`
-
----
 
 ## Cookies parsen
 
@@ -275,8 +231,6 @@ mycookies.load(current_cookies_str)
 mycookies["cookie1"].value
 ```
 
----
-
 ## Cookies löschen
 
 indem ein neues Cookie gesetzt wird, dessen "Ablaufsdatum" in der Vergangenheit liegt:
@@ -288,13 +242,9 @@ response_headers.append((
 ))
 ```
 
----
-
 ## Cookies
 
 Aufgabe: Website, die einen Benutzer nur 5x eine Seite aufrufen lässt und ihn dann auffordert, sich zu registrieren, um die Seite weiter zu verwenden
-
----
 
 ## Formular und post-request
 
@@ -313,8 +263,6 @@ parameters = parse_qs(request_body)
 first_name = parameters.get("first-name")[0]
 ```
 
----
-
 ## wsgi-Beispiele
 
 - Online-Abstimmung
@@ -322,19 +270,13 @@ first_name = parameters.get("first-name")[0]
 - Chat-System
 - Todo-Anwendung
 
----
-
 ## Achtung: JavaScript-Injection
-
----
 
 ## Deployment auf pythonanywhere.com
 
 - neues Benutzerkonto auf https://pythonanywhere.com
 - add new web app
 - manual configuration
-
----
 
 ## Deployment auf pythonanywhere.com
 

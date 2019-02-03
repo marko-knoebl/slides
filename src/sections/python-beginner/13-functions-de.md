@@ -1,12 +1,8 @@
 # Funktionen
 
----
-
 ## Funktionen
 
 Wir kennen schon einige vordefinierte Funktionen, zB `len()`, `range()` oder `print()`
-
----
 
 ## Parameter und Rückgabewerte
 
@@ -18,13 +14,9 @@ Parameter: `[1, 1, 1]`
 
 Rückgabewert: `3`
 
----
-
 ## Optionale Parameter
 
 Experiment: Wie verhält sich die Funktion `range`, wenn wir 1, 2 oder 3 Parameter übergeben?
-
----
 
 ## Positionelle Parameter und Schlüsselwortparameter
 

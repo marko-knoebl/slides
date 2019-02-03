@@ -6,8 +6,6 @@
 raise ValueError('test')
 ```
 
----
-
 ## Eigene Exceptions
 
 Eigene exceptions können wir als Unterklassen von `Exception` definieren

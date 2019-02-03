@@ -1,14 +1,10 @@
 # HTTP mit Python
 
----
-
 ## HTTP
 
 - http.client.HTTP(S)Connection
 - urllib
 - requests
-
----
 
 ## HTTP(S)Connection
 
@@ -25,8 +21,6 @@ connection.close()
 print(content)
 ```
 
----
-
 ## urllib
 
 in Standardlibrary
@@ -37,8 +31,6 @@ import urllib
 content: bytes = urllib.request.urlopen(
                     "https://www.google.com").read()
 ```
-
----
 
 ## requests
 
@@ -54,17 +46,11 @@ import requests
 content: str = requests.get("https://www.google.com").text
 ```
 
----
-
 ## Web Scraping: Anzahl der Google-Suchergebnisse
-
----
 
 ## APIs: Wetterdaten
 
 https://automatetheboringstuff.com/chapter14/
-
----
 
 ## Web Scraping: xkcd-Downloader
 

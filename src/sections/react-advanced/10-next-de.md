@@ -1,12 +1,8 @@
 # Serverseitiges Rendering mit next.js
 
----
-
 ## Serverseitiges Rendering mit next.js
 
 [github.com/zeit/next.js](https://github.com/zeit/next.js/)
-
----
 
 ## Serverseitiges rendering
 
@@ -16,8 +12,6 @@
   - Anwendung kann am Server vorgerendert werden
     - Schnelleres erstes Rendering
     - Einfacheres indexieren durch Suchmaschinen
-
----
 
 ## Setup
 
@@ -39,8 +33,6 @@ package.json:
 ```
 -->
 
----
-
 ## Build & Test
 
 Testserver starten:
@@ -55,15 +47,11 @@ Build:
 npm build
 ```
 
----
-
 ## Grundlagen
 
 - Seiten definiert unter _./pages_
 - Statische Assets unter _./static_
 - verwendete Komponenten unter _./components_
-
----
 
 ## Beispiel: Hello world
 
@@ -72,8 +60,6 @@ index.js:
 ```js
 export default () => <div>Welcome to next.js!</div>;
 ```
-
----
 
 ## Daten einbinden: getInitialProps()
 

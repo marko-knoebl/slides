@@ -1,24 +1,16 @@
 # Übungsbeispiele
 
----
-
 ## Übungsbeispiele
 
 - Todoliste
 - Lottozahlengenerator
 - Hangman
 
----
-
 ## Todoliste
 
 Interaktive Eingabe, die den Benutzer eine Liste von Todos erstellen lässt und diese am Ende ausgibt
 
-???
-
-liste, while, for, input
-
----
+Python Themen: list, while, for, input
 
 ## Todoliste
 

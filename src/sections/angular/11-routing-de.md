@@ -1,7 +1,5 @@
 # Routing
 
----
-
 ## Routing
 
 Nutzung von HTML5-Routen (client-seitig):
@@ -12,16 +10,12 @@ https://mywebsite.com/#/items/28
 
 Achtung: Server muss entsprechend konfiguriert sein und für /items/28 das gleiche zurückliefern wie für /
 
----
-
 ## Routing - Beispiel
 
 Wir teilen unsere Todo-App in zwei Views auf:
 
 - Liste aller Todos unter **/**
 - Formular zum hinzufügen von Todos unter **/add**
-
----
 
 ## Routing - Grundlagen
 
@@ -41,15 +35,11 @@ imports: [
 
 .forRoot() definiert Routen für die Root-Komponente – im Gegensatz zu .forChild()
 
----
-
 ## Routing - Grundlagen
 
 `<router-outlet>`:
 
 Die Anzeige der Inhalte erfolgt _unterhalb_ des `<router-outlet>`-Tags
-
----
 
 ## Routing - Redirects und Wildcards
 
@@ -61,8 +51,6 @@ Beispiel:
 
   { path: '**', redirectTo: '' },
 ```
-
----
 
 ## Routing - Links
 
@@ -80,8 +68,6 @@ Stattdessen verwenden wir:
 <a routerLink="/add">add Todo</a>
 ```
 
----
-
 ## Routing - Navigation aus TypeScript
 
 Auf den Angular-Router kann in TypeScript zugegriffen werden, um die aktuell aktive Route abzufragen / zu ändern:
@@ -97,8 +83,6 @@ import { Router } from '@angular/router';
   }
 ```
 
----
-
 ## Routen-Parameter
 
 Wir erstellen neue Routen der Form: `/todo/$todoId`.  
@@ -109,8 +93,6 @@ Dort soll jeweils ein einzelnes Todo-Item angezeigt werden
 […]
   { path: 'todo/:todoId', component: TodoDetailsComponent },
 ```
-
----
 
 ## Routen-Parameter
 
@@ -129,8 +111,6 @@ export class TodoDetailsComponent {
   }
 }
 ```
-
----
 
 ## Routing - mehr zum Thema
 

@@ -1,7 +1,5 @@
 # Dictionaries
 
----
-
 ## Dictionaries
 
 Dictionaries sind Zuordnungen, die bestimmten Einträgen zugehörige Werte zuweisen.
@@ -15,8 +13,6 @@ person = {
 }
 ```
 
----
-
 ## Dictionaries
 
 Elementezugriff bei dictionaries
@@ -24,8 +20,6 @@ Elementezugriff bei dictionaries
 ```py
 person["first_name"] # "John"
 ```
-
----
 
 ## Dictionaries
 
@@ -38,8 +32,6 @@ for entry in person:
 # liefert: first_name, last_name, nationality, birth_year
 ```
 
----
-
 ## Dictionaries
 
 Iteration über Schlüssel/Werte - Paare:
@@ -48,8 +40,6 @@ Iteration über Schlüssel/Werte - Paare:
 for key, value in person.items():
     print(f'{key}, {value}')
 ```
-
----
 
 ## Operationen auf Dictionaries
 
@@ -67,21 +57,13 @@ d.items()
 d1.update(d2)
 ```
 
----
-
 ## Beispiel: Vokabelprogramm
 
-???
-
-(Einlesen von (JSON-)Datei)
-random.choice
-dictionary
-
----
+- Einlesen von (JSON-)Datei
+- Modellieren mit dictionaries
+- zufälliges Auswählen eines Eintrags
 
 ## Beispiel: Todo-Liste
-
----
 
 ## Dictionaries
 

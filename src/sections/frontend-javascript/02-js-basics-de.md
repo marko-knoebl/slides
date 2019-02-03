@@ -1,7 +1,5 @@
 # JavaScript Grundlagen
 
----
-
 ## Ausgabe
 
 In Popup-Fenster:
@@ -15,8 +13,6 @@ In der Browser-Konsole:
 ```js
 console.log('Hello');
 ```
-
----
 
 ## Variablen
 
@@ -32,8 +28,6 @@ if (true) {
 }
 ```
 
----
-
 ## Konstanten
 
 Mit `const` werden Variablen deklariert, die nicht neu zugewiesen werden können.
@@ -44,13 +38,9 @@ const a = 3;
 a = 4;
 ```
 
----
-
 ## Das Semikolon in JavaScript
 
 In JavaScript sind Semikolons in den meisten Fällen optional; sie werden bei der Ausführung automatisch nach bestimmten Regeln eingesetzt.
-
----
 
 ## JavaScript - das Simikolon
 
@@ -74,8 +64,6 @@ function foo() {
 ```
 <!-- prettier-ignore-end -->
 
----
-
 ## Datentypen
 
 <!-- prettier-ignore -->
@@ -87,8 +75,6 @@ let name2 = "Bob"; // string
 
 let active = true; // boolean
 ```
-
----
 
 ## Datentypen: Arrays
 
@@ -103,8 +89,6 @@ people.push('Dan');
 people.splice(1, 1);
 ```
 
----
-
 ## Datentypen: Objekte
 
 ```js
@@ -116,8 +100,6 @@ let person = {
 
 console.log(person.lastName);
 ```
-
----
 
 ## JavaScript - strikte Vergleiche
 
@@ -132,8 +114,6 @@ Beispiele:
 [] == ''; // true
 ```
 
----
-
 ## if / else if / else
 
 ```js
@@ -146,8 +126,6 @@ if (input === 'yes' || input === 'y') {
 }
 ```
 
----
-
 ## Array-Iteration (for ... of)
 
 Über die Einträge in einem Array iterieren:
@@ -158,8 +136,6 @@ for (let name of names) {
   console.log(name);
 }
 ```
-
----
 
 ## Template-Strings
 

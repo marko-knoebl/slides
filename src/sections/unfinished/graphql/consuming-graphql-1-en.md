@@ -1,6 +1,6 @@
 # consuming GraphQL
 
----
+
 
 ## GraphQL examples
 
@@ -12,7 +12,7 @@ from https://github.com/APIs-guru/graphql-apis
 - GraphQL Pokémon (second entry!)
 - Star Wars
 
----
+
 
 ## GraphiQL explorer
 
@@ -21,7 +21,7 @@ Graph*i*QL: Browser-based explorer for GraphQL APIs
 - see query structure / data structure (click "Docs" in the top right)
 - send experimental queries
 
----
+
 
 ## simple GraphQL exercises
 
@@ -29,7 +29,7 @@ Graph*i*QL: Browser-based explorer for GraphQL APIs
 - Get a list of planets and planet populations from Star Wars
 - Get a list of starships grouped by films they appear in
 
----
+
 
 ## List of titles of Star Wars films
 
@@ -43,7 +43,7 @@ query getTitles {
 }
 ```
 
----
+
 
 ## List of planets and planet populations
 
@@ -58,7 +58,7 @@ query getPlanetsWithPopulations {
 }
 ```
 
----
+
 
 ## List of starships grouped by film
 
@@ -77,7 +77,7 @@ query getStarshipsByFilm {
 }
 ```
 
----
+
 
 ## Query parameters
 
@@ -85,7 +85,7 @@ so far we've seen how we can define the structure of our query
 
 next we want to specify parameters within our queries
 
----
+
 
 ## Query parameters
 
@@ -103,7 +103,7 @@ query getCharmander {
 }
 ```
 
----
+
 
 ## Query parameters
 
@@ -119,26 +119,26 @@ query getFirstThree {
 
 Note: specifying a _first_ parameter is possible because it's implemented on the server-side. It's not part of the GraphQL standard. GraphQL _may_ also implement other arbitrary parameters like _orderBy_ or _matchRegex_, but this is all up to the server.
 
----
+
 
 ## Query parameters: exercises
 
 - get the name, weight and classification of Pikachu
 - get the name and weight of the first three pokémon
 
----
+
 
 ## Required and optional parameters
 
 Required parameters are marked with a `!`. These must always be included. Similarly, returned attributes that will always be present (like `id`) will be marked in the same way.
 
----
+
 
 ## Aliases
 
 Task: number of Pikachu and Raichu
 
----
+
 
 ## Aliases
 
@@ -155,7 +155,7 @@ query getTwo {
 }
 ```
 
----
+
 
 ## Aliases
 
@@ -176,7 +176,7 @@ Why does this not work? The result would look like this:
 
 Note the duplicate key: `pokemon`!
 
----
+
 
 ## Aliases
 
@@ -193,13 +193,13 @@ query getTwo {
 }
 ```
 
----
+
 
 ## Fragments
 
 Task: get the number, maxHP and image of Pikachu and Raichu
 
----
+
 
 ## Fragments - why?
 
@@ -218,11 +218,11 @@ query getTwo {
 }
 ```
 
----
+
 
 ## Fragments: don't repeat yourself!
 
----
+
 
 ## Fragments: don't repeat yourself!
 
@@ -244,7 +244,7 @@ fragment essentialData on Pokemon {
 }
 ```
 
----
+
 
 ## Variables
 
@@ -266,7 +266,7 @@ variables:
 }
 ```
 
----
+
 
 ## Default variable valuess
 
@@ -280,11 +280,9 @@ query getEssentialData($name: String = "Pikachu") {
 }
 ```
 
-???
-
 ## Todo: Directives
 
----
+
 
 ## Modifying data
 
@@ -292,7 +290,7 @@ https://todo-mongo-graphql-server.herokuapp.com/
 
 (only one query at a time)
 
----
+
 
 ## Modifying data
 
@@ -312,7 +310,7 @@ mutation addTodo($title: String!) {
 }
 ```
 
----
+
 
 ## Modifying data
 
@@ -325,7 +323,7 @@ mutation toggleTodo($id: String!) {
 }
 ```
 
----
+
 
 ## Modifying data
 
@@ -340,13 +338,13 @@ mutation addOneAndClearCompleted($title: String!) {
 }
 ```
 
----
+
 
 ## Modifying data
 
 Task: write a query that will delete all previous entries and add two new ones
 
----
+
 
 ## Modifying data
 
@@ -367,7 +365,7 @@ mutation reset {
 }
 ```
 
----
+
 
 ## Sending queries to the server
 
@@ -375,7 +373,7 @@ Queries are sent to the server via HTTP POST requests
 
 The payload is a JSON object which has a `query` string property (this is also true when sending mutations)
 
----
+
 
 ## Sending queries to the server
 
@@ -397,7 +395,7 @@ fetch('https://todo-mongo-graphql-server.herokuapp.com', {
 }).then(console.log);
 ```
 
----
+
 
 ## Sending queries to the server
 
@@ -410,7 +408,7 @@ Queries may optionally include variables in the `variables` property
 }
 ```
 
----
+
 
 ## More exercises - optional
 
@@ -418,7 +416,7 @@ Get all "followers of followers" for a specific GitHub account
 
 Get the name of a project and number of stars for all GitHub projects of a specific user
 
-???
+## More exercises - solutions
 
 ```
 query {
@@ -435,7 +433,11 @@ query {
     }
   }
 }
+```
 
+## More exercises - solutions
+
+```
 query {
   user (login: "marko-knoebl") {
     id,
@@ -452,14 +454,8 @@ query {
 }
 ```
 
----
-
 ## task: loading Todos from a GraphQL API
 
 create a thunk that will load example todos from `https://5qn401kkl9.lp.gql.zone/graphql`
 
-???
-
-admin: https://launchpad.graphql.com/5qn401kkl9
-
----
+(admin: https://launchpad.graphql.com/5qn401kkl9)

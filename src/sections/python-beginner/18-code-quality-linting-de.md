@@ -1,7 +1,5 @@
 # Codequalität und Linting
 
----
-
 ## Codequalität und Linting
 
 Aspekte:
@@ -11,15 +9,11 @@ Aspekte:
 - Docstrings
 - Statische Typisierung (mypy)
 
----
-
 ## Allgemeines Linting: Pylint
 
 Finden allgemeiner Fehler
 
 Konfigurierbar mittels `python.linting.pylintEnabled` und `python.linting.pylintUseMinimalCheckers`
-
----
 
 ## PEP8
 
@@ -29,8 +23,6 @@ offizielles Dokument: https://www.python.org/dev/peps/pep-0008/
 
 cheatsheet: https://gist.github.com/RichardBronosky/454964087739a449da04
 
----
-
 ## PEP8 & Code-Formatierungs-Tools
 
 - autopep8
@@ -38,8 +30,6 @@ cheatsheet: https://gist.github.com/RichardBronosky/454964087739a449da04
 - _black_
 
 In VS Code-Config: `"python.formatting.provider": "black"`
-
----
 
 ## PEP8 und Code-Formatierungs-Tools
 
@@ -60,8 +50,6 @@ a = "hello"
 b = "bye"
 ```
 
----
-
 ## PEP8 und Code-Formatierungs-Tools
 
 ```py
@@ -79,13 +67,9 @@ a[0 + 3:1]
 a[0 + 3 : 1]
 ```
 
----
-
 ## Docstrings
 
 Beschreiben eine Funktion / Klasse / Modul genauer
-
----
 
 ## Docstrings
 
@@ -100,13 +84,9 @@ def fib(n):
     ...
 ```
 
----
-
 ## Docstring-Format
 
 PEP 257: https://www.python.org/dev/peps/pep-0257/
-
----
 
 ## Docstrig-Format
 
@@ -116,13 +96,9 @@ Docstring einer Klasse: Beschreibung, Liste der Methoden
 
 Docstring einer Funktion: Beschreibung, Liste der Parameter
 
----
-
 ## Pydocstyle
 
 Linter zum validieren von Docstrings
-
----
 
 ## Docstrings anzeigen
 
@@ -131,14 +107,8 @@ python -m pydoc isprime
 python -m pydoc isprime.isprime
 ```
 
----
-
 ## Python-Philosophie, PEP20
 
----
-
 ## import this
-
----
 
 ## one way to do it

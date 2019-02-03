@@ -1,7 +1,5 @@
 # HTML Fortgreschritten
 
----
-
 ## Semantisches HTML
 
 - section
@@ -9,8 +7,6 @@
 - footer
 - nav
 - aside
-
----
 
 ## Tabellen
 
@@ -20,18 +16,12 @@
 - caption-Tag
 - colspan
 
----
-
 ## Tabellen: Übung Öffnungszeiten
-
----
 
 ## Tabellen: verwenden von Pseudoklassen
 
 - `:hover`: Der Stil einer Tabellenzeile soll sich ändern, wenn wir die Maus darüber bewegen
 - `:nth-child`: Die Zeilen sollen gestreift dargestellt werden
-
----
 
 ## Formulare
 
@@ -46,16 +36,12 @@ Beispiel:
 </form>
 ```
 
----
-
 ## Input-Attribute
 
 - placeholder
 - autofocus
 - autocomplete
 - size
-
----
 
 ## Input-Typen
 
@@ -72,8 +58,6 @@ Weitere Möglichkeiten:
 - `number` (HTML 5)
 - `search` (HTML 5)
 
----
-
 ## autocomplete
 
 Das `autocomplete`-Attribut kann für die Autovervollständigung hilfreich sein, z.B.:
@@ -84,8 +68,6 @@ Das `autocomplete`-Attribut kann für die Autovervollständigung hilfreich sein,
 - `username`
 - ...
 
----
-
 ## Validierung
 
 - `required`
@@ -93,8 +75,6 @@ Das `autocomplete`-Attribut kann für die Autovervollständigung hilfreich sein,
 - `maxlength`
 
 CSS-Pseudoklassen: `:valid`, `:invalid`
-
----
 
 ## Validierung - Beispiel
 
@@ -107,8 +87,6 @@ CSS-Pseudoklassen: `:valid`, `:invalid`
   value="1"
 />
 ```
-
----
 
 ## Aktionen bei Formularen
 

@@ -1,7 +1,5 @@
 # React.js - basics II
 
----
-
 ## JSX compilation
 
 <!-- prettier-ignore -->
@@ -23,8 +21,6 @@ const element = React.createElement(
 );
 ```
 
----
-
 ## JSX: Properties
 
 Changing from XML to JS also works in properties:
@@ -37,8 +33,6 @@ Changing from XML to JS also works in properties:
 
 note the missing quotation marks for the href property
 
----
-
 ## JSX Properties: Task
 
 - Show a random picture. Use this function:
@@ -48,8 +42,6 @@ const getImgUrl = () =>
   'https://picsum.photos/200?image=' +
   Math.floor(Math.random() * 100);
 ```
-
----
 
 ## JSX: events
 
@@ -62,19 +54,13 @@ function hello() {...}
 list of browser events:  
 https://www.w3schools.com/jsref/dom_obj_event.asp
 
----
-
 ## JSX: methods as event handlers
 
 Careful: If class methods are used as event handlers they should either be defined as arrow methods or be assigned to the instance via `.bind()`.
 
----
-
 ## browser events: example
 
 - simple button (Hello world)
-
----
 
 ## JSX: repeating elements
 
@@ -88,8 +74,6 @@ Multiple Elements may be added via arrays:
   ] }
 </ul>
 ```
-
----
 
 ## JSX: repeating elements
 
@@ -111,8 +95,6 @@ let list = (
 
 <!-- prettier-ignore-end -->
 
----
-
 ## JSX: repeating elements
 
 With the above code:  
@@ -131,21 +113,15 @@ let list = <ul>
 </ul>
 ```
 
----
-
 ## JSX: if / else
 
 ```jsx
 <div>{Math.random() > 0.5 ? 'heads' : 'tails'}</div>
 ```
 
----
-
 ## JSX: if / else
 
 Task:
-
----
 
 ## JSX: if / else
 
@@ -160,23 +136,17 @@ function cointoss() {
 </div>
 ```
 
----
-
 ## JSX: if
 
 ```jsx
 <div>{Math.random() > 0.5 && 'heads'}</div>
 ```
 
----
-
 ## JSX: CSS classes
 
 ```jsx
 <div className={getClassName()}>[...]</div>
 ```
-
----
 
 ## JSX: dynamic style
 
@@ -189,15 +159,11 @@ function cointoss() {
 />
 ```
 
----
-
 ## State
 
 React components may have an internal _state_
 
 In each component, `this.state` has a special meaning. Data in `this.state` may be referenced from the template. This way, the view will automatically update when the data changes.
-
----
 
 ## structure of this.state
 
@@ -213,8 +179,6 @@ constructor() {
 }
 ```
 
----
-
 ## modifying this.state
 
 only via `setState()`:
@@ -225,8 +189,6 @@ this.setState({ todos: ['learn react'] });
 ```
 
 `setState` will change all specified entries
-
----
 
 ## modifying this.state
 
@@ -243,8 +205,6 @@ this.setState(oldState => {
 
 We pass a callback function to `setState`. This callback function will transform the old state into the new state.
 
----
-
 ## Examples
 
 - Counter
@@ -252,16 +212,12 @@ We pass a callback function to `setState`. This callback function will transform
 - Countdown
 - Diashow
 
----
-
 ## Inputs
 
 In the context of React, input elements are special:
 
 Their properties (especially `.value`) can be directly modified by the user  
 Therefore there are aspects of the UI state which would not be captured in `this.state`.
-
----
 
 ## Inputs
 

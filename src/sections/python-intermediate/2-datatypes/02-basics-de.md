@@ -12,8 +12,6 @@ users = [
 ]
 ```
 
----
-
 ## NoneType
 
 - Singleton
@@ -26,8 +24,6 @@ if a is None:
 ```
 
 `None` ist ein Singleton (es gibt nur ein einziges None-Objekt innerhalb eines laufenden Python-Programms, auf das aber viele Variablen verweisen können)
-
----
 
 ## Vergleich mit "is"
 
@@ -46,8 +42,6 @@ a == x # True
 a is x # False
 ```
 
----
-
 ## Vergleich mit "is"
 
 Nachdem `None` ein Singleton ist und daher immer auf die gleiche Instanz verweist, kann darauf mit `is None` getestet werden.
@@ -56,8 +50,6 @@ Nachdem `None` ein Singleton ist und daher immer auf die gleiche Instanz verweis
 if a is None:
     ...
 ```
-
----
 
 ## bool
 
@@ -69,23 +61,17 @@ if a:
     print('hello')
 ```
 
----
-
 ## bool
 
 Für welche Objekte liefert `bool(x)` False?
 
-???
+---
 
 Anekdote: Mitternacht (datetime.time(0, 0, 0) vor Python 3.5)
-
----
 
 ## int
 
 beliebig große Ganzzahlen
-
----
 
 ## int
 
@@ -101,13 +87,9 @@ c = 0x2a
 a = int('10010', 2)
 ```
 
----
-
 ## float
 
 64-bit Gleitkommazahlen
-
----
 
 ## float
 
@@ -119,11 +101,9 @@ d = float('nan')
 e = float('inf')
 ```
 
-???
+---
 
 Anekdote: `d != d`
-
----
 
 ## complex
 
@@ -131,15 +111,11 @@ Anekdote: `d != d`
 a = 2 + 3j
 ```
 
----
-
 ## weitere Operationen mit Zahlen
 
 - Division mit Rest: `10 // 3`
 - Divisionsrest / Modulo: `10 % 3`
 - Potenzieren: `2 ** 3`
-
----
 
 ## Strings
 

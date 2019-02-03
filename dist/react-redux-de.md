@@ -2,22 +2,16 @@
 
 ### State management mit Redux
 
----
-
 ## State management
 
 In komplexeren Anwendungen macht es Sinn, den Anwendungszustand (model) von der Ansicht (view) zu trennen.
 
 Oft wird der gesamte Anwendungszustand durch ein Datenmodell repräsentiert. Jede Änderung am Anwendungszustand läuft über das Datenmodell.
 
----
-
 ## Grundprinzipien von state management libraries
 
 - Anwendungszustand (state) wird in globalem Objekt gespeichert
 - _Jede_ Zustandsänderung wird durch eine _Action_ ausgelöst, die die Zustandsänderung genau beschreibt
-
----
 
 ## State management libraries
 
@@ -26,21 +20,15 @@ Oft wird der gesamte Anwendungszustand durch ein Datenmodell repräsentiert. Jed
 - ngrx (oft mit Angular verwendet)
 - vuex (mit Vue.js verwendet)
 
----
-
 ## Besonderheit von Redux
 
 In Redux geschieht jede Zustandsänderung mittels eines _Reducers_ - einer Funktion, die einen Zustand in den nächsten überführt
-
----
 
 ## Installation
 
 ```bash
 npm install redux
 ```
-
----
 
 ## Einfaches Redux-Beispiel: Counter
 
@@ -55,8 +43,6 @@ Diese werden durch JavaScript Objekte repräsentiert:
 ```json
 { "type": "DECREMENT" }
 ```
-
----
 
 ## Einfaches Redux-Beispiel: Counter
 
@@ -77,15 +63,11 @@ const counterReducer = (state = initialState, action) => {
 };
 ```
 
----
-
 ## Einfaches Redux-Beispiel: Counter
 
 Die Reducer-Funktion erhält als Funktionsparameter den alten Zustand (State) und eine Action, die eine Zustandsänderung beschreibt.
 
 Die Reducer-Funktion gibt den neuen Zustand zurück.
-
----
 
 ## Einfaches Redux-Beispiel: Counter
 
@@ -100,8 +82,6 @@ import counterReducer from 'counterReducer';
 const counterStore = createStore(counterReducer);
 ```
 
----
-
 ## Einfaches Redux-Beispiel: Counter
 
 Store verwenden
@@ -112,8 +92,6 @@ counterStore.dispatch({ type: 'INCREMENT' });
 counterStore.getState(); // {count: 1}
 ```
 
----
-
 ## Übung
 
 Erstelle einen neuen mathadorStore mit dem Ausgangszustand `{number: 1}` und Actions für "Mal 3" und "Minus 7"
@@ -121,8 +99,6 @@ Erstelle einen neuen mathadorStore mit dem Ausgangszustand `{number: 1}` und Act
 Zusatzaufgabe: Erreiche den Zustand 4 (oder 10) durch das dispatchen passender Actions
 
 # React mit Redux
-
----
 
 ## React mit Redux
 
@@ -132,20 +108,14 @@ Setup: `npm install redux react-redux`
 
 Typescript: `npm install @types/react-redux`
 
----
-
 ## Presentational und Container Components
 
 - presentational components: "Normale" React-Komponenten (wiederverwendbar)
 - container components: Zugriff auf Redux-Store / Mit dem Redux-Store verbunden
 
----
-
 ## React-Redux: < Provider >
 
 Provider: Hinzufügen von Redux-Store zu einer React-App
-
----
 
 ## React-Redux: < Provider >
 
@@ -163,15 +133,11 @@ ReactDOM.render(
 );
 ```
 
----
-
 ## Redux devtools
 
 Browser-plugin:
 
 https://github.com/zalmoxisus/redux-devtools-extension
-
----
 
 ## Redux devtools
 
@@ -194,8 +160,6 @@ const store = createStore(
 );
 ```
 
----
-
 ## Counter: Connect
 
 connect: verbindet React-Komponenten mit dem Redux store
@@ -211,8 +175,6 @@ const ConnectedComponent = connect(
   mapDispatchToProps
 )(Component);
 ```
-
----
 
 ## Counter: Connect (state)
 
@@ -231,8 +193,6 @@ const mapStateToProps = (state) => ({ count: state });
 export default connect(mapStateToProps)(App);
 ```
 
----
-
 ## Counter: Connect (actions)
 
 ```jsx
@@ -249,8 +209,6 @@ const mapDispatchToProps = dispatch => ({
 <button onClick={this.props.increment}>+</button>
 <button onClick={this.props.decrement}>-</button>
 ```
-
----
 
 ## Counter: Dispatch mit TypeScript
 
@@ -270,23 +228,17 @@ const mapDispatchToProps = (
 });
 ```
 
----
-
 ## Redux mit TypeScript
 
 siehe https://github.com/piotrwitek/react-redux-typescript-guide
 
 # Immutability
 
----
-
 ## Immutability
 
 (Unveränderlichkeit)
 
 Wichtiges Konzept in der funktionalen Programmierung und bei React / Redux
-
----
 
 ## Immutability
 
@@ -298,8 +250,6 @@ Stattdessen sollten sie durch neue Objekte ersetzt werden
 
 Vorteile: Bessere Performance, mehr Möglichkeiten beim debugging
 
----
-
 ## PureComponent
 
 Statt von `React.Component` ist es möglich, von `React.PureComponent` zu erben:
@@ -308,11 +258,7 @@ Die Entsprechende Komponente wird nur neu gerendert, wenn sich entweder state od
 
 In einer PureComponent gelten Einträge in state bzw props dann als geändert, wenn sie sich auf ein anderes Objekt als zuvor beziehen
 
----
-
 ## Verwaltung von Daten ohne Mutationen
-
----
 
 ## Datenverwaltung ohne Mutationen: Arrays
 
@@ -331,8 +277,6 @@ names = newNames;
 names = [...names, 'Dan'];
 ```
 
----
-
 ## Datenverwaltung ohne Mutationen: Objekt
 
 ```js
@@ -349,8 +293,6 @@ let newUser = { ...user, email: 'johndoe@gmail.com' };
 
 # Redux im Detail
 
----
-
 ## Elemente von Redux
 
 - _state_: Anwendungszustand
@@ -358,8 +300,6 @@ let newUser = { ...user, email: 'johndoe@gmail.com' };
 - _action creator_: Erzeugt eine _action_
 - _reducer_: Führt einen _state_ basierend auf einer _action_ in einen nächsten _state_ über
 - _store_: Ort der Speicherung für _state_
-
----
 
 ## Beispiel: state
 
@@ -374,16 +314,12 @@ let newUser = { ...user, email: 'johndoe@gmail.com' };
 }
 ```
 
----
-
 ## Actions
 
 - Beschreiben eine Zustandsänderung
 - Sind js-Objekte mit einer _type_-Property und _optional_ beliebigen anderen Properties
 - Die _type_-Property ist üblicherweise ein String, oft als Konstante in einem separaten Modul definiert
 - Actions werden oft nach dem _FSA_-Standard definiert, der eine `payload`-Property definiert, sowie `error` und `meta`
-
----
 
 ## Actions - Beispiele
 
@@ -398,8 +334,6 @@ let a = {
 };
 ```
 
----
-
 ## Actions - Beispiele
 
 ```js
@@ -410,8 +344,6 @@ let a = {
   },
 };
 ```
-
----
 
 ## Action Creators
 
@@ -427,16 +359,12 @@ const addTodo = (title, completed = false) => ({
 });
 ```
 
----
-
 ## Reducers
 
 - Actions werden von reducer-Funktionen verarbeitet
 - Reducer-Funktionen erhalten als Argumente den alten Zustand (State) und eine Action
 - Reducer-Funktionen geben den neuen Zustand zurück
 - wichtig: Reducer-Funktionen ändern das alte state-Objekt nicht ab, sondern erstellen ein neues (reine Funktionen)
-
----
 
 ## Stores
 
@@ -448,8 +376,6 @@ import counterReducer from './counterReducer';
 
 const store = createStore(counterReducer);
 ```
-
----
 
 ## Reducer kombinieren
 
@@ -468,13 +394,9 @@ rootStore.dispatch({ type: 'INCREMENT' });
 // {counter: {count: 1}, mathador: {number: 1}}
 ```
 
----
-
 ## Beispiel: Todo-Verwaltung mit Redux
 
 # Redux Ecosystem
-
----
 
 ## Redux Ecosystem - Beispiele
 
@@ -486,21 +408,15 @@ rootStore.dispatch({ type: 'INCREMENT' });
 - redux-actions: Boilerplate-Reduktion (createAction, createReducer)
 - immutable.js
 
----
-
 ## Redux Middleware
 
 - kann zu einem Redux Store hinzugefügt werden
 - Erweiterungspunkt / Eingriffspunkt zwischen dem Dispatchen einer Aktion und dem Zeitpunkt an dem sie beim Reducer eintrifft
 
----
-
 ## Redux Middleware - Beispiele
 
 - Middleware, die eine action loggt (zB redux-logger)
 - Middleware, die eine einzelne action erhält und basierend darauf verschiedene andere actions asynchron auslöst (zB redux-thunk)
-
----
 
 ## Redux Middleware - Implementierung
 
@@ -511,8 +427,6 @@ const myLogger = store => next => action => {
 };
 ```
 
----
-
 ## Redux Middleware - Einbindung
 
 ```ts
@@ -521,8 +435,6 @@ const store = createStore(
   applyMiddleware(myLogger)
 );
 ```
-
----
 
 ## Eigene Middleware - json fetcher
 
@@ -537,16 +449,12 @@ dispatch({
 });
 ```
 
----
-
 ## Eigene Middleware - json fetcher
 
 Die action `FETCH_JSON` sollte im Hintergrund zwei einzelne actions dispatchen:
 
 - `FETCH_JSON_START`
 - `FETCH_JSON_COMPLETE` (diese enthält auch JSON-daten als payload)
-
----
 
 ## Eigene Middleware - json fetcher
 
@@ -568,15 +476,11 @@ const fetcher = store => next => action => {
 };
 ```
 
----
-
 ## Eigene Middleware - eine Funktion dispatchen
 
 Wir wollen noch flexibler sein und eine Funktion dispatchen.
 
 Diese Funktion soll asynchrone Anfragen durchführen und weitere Actions dispatchen können.
-
----
 
 ## Eigene Middleware - eine Funktion dispatchen
 
@@ -594,21 +498,15 @@ const functionMiddleware = store => next => action => {
 
 # Redux Thunk
 
----
-
 ## Redux Thunk
 
 Thunk ist Middleware, die asynchrones Verhalten in Redux - durch das Dispatchen von Funktionen - ermöglicht
-
----
 
 ## Thunk sourcecode
 
 kompletter sourcecode:
 
 https://github.com/reduxjs/redux-thunk/blob/master/src/index.js
-
----
 
 ## Redux Thunk
 
@@ -617,8 +515,6 @@ Beispielhafter Aufruf:
 ```js
 dispatch(getTodosFunction);
 ```
-
----
 
 ## Redux Thunk
 
@@ -629,23 +525,17 @@ Stattdessen würde zwei andere Actions den store erreichen:
 - Die Action `LOAD_TODOS_REQUEST` würde sofort dispatched werden
 - Die Action `LOAD_TODOS_SUCCESS` würde dispatched werden, sobald die Netzwerkanfrage erfolgreich war
 
----
-
 ## Redux Thunk
 
 In Thunk verbleibt die synchrone Logik im Reducer.
 
 Die asynchrone Logik wird in den Action Creator aufgenommen.
 
----
-
 ## Installation
 
 ```bash
 npm install redux-thunk
 ```
-
----
 
 ## Thunk einbinden
 
@@ -657,8 +547,6 @@ const store = createStore(
   applyMiddleware(thunk)
 );
 ```
-
----
 
 ## Beispiel: timer
 
@@ -674,8 +562,6 @@ const start = () => dispatch => {
   }, 1000);
 };
 ```
-
----
 
 ## Beispiel: timer
 
@@ -697,8 +583,6 @@ const timeReducer = (
 };
 ```
 
----
-
 ## Redux Thunk mit TypeScript
 
 Bei Thunk müssen wir immer die gesamte Signatur von dispatch angeben
@@ -715,8 +599,6 @@ const myAction = () => (
 ) => {...};
 ```
 
----
-
 ## Thunk: Zugriff auf den Redux store
 
 Ein zweites Argument kann optional übergeben werden: Es erhält die `getState`-Funktion als Wert.
@@ -729,15 +611,11 @@ const actionAsync = () => (dispatch, getState) => {
 };
 ```
 
----
-
 ## Aufgabe: Todos von REST API laden
 
 Erstelle ein thunk, das Todos vom folgenden API lädt:
 
 `https://jsonplaceholder.typicode.com/todos`
-
----
 
 ## Präsentation: Taming Large React Applications w/ Redux
 

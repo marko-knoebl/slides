@@ -1,15 +1,11 @@
 # Exercises
 
----
-
 ## Exercises
 
 - program that verifies a credit card number / ISBN / IBAN
 - Tic-Tac-Toe with text-based graphic output
 - prime numbers within an interval
 - fibonacci numbers
-
----
 
 ## Luhn algorithm (checksum)
 
@@ -18,8 +14,6 @@ The Luhn algorithm is used to prevent errors in identification numers, such as c
 The last digit of these numbers is a check digit which is computed from the other digits
 
 Example: the sequence `7992739871` has a check digit of `3`, so the entire number would be `79927398713`
-
----
 
 ## Luhn algorithm
 
@@ -40,8 +34,6 @@ the check digit is the number that's missing from the next full 10
 
 (in this case, it's 3)
 
----
-
 ## ISBN
 
 International Standard Book Number = 10-digit book number with a check digit at its end
@@ -55,8 +47,6 @@ task:
 ```py
 check_isbn("3826604237") # True or False
 ```
-
----
 
 ## ISBN
 
@@ -77,7 +67,5 @@ def isbn_checksum(isbn):
 
 print(check_isbn(isbn, expected))
 ```
-
----
 
 ## IBAN

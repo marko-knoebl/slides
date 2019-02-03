@@ -1,11 +1,5 @@
 # Kontrollstrukturen
 
-???
-
-Kapitel 5
-
----
-
 ## Kontrollstrukturen
 
 - if / elif / else
@@ -15,19 +9,9 @@ Kapitel 5
   - for ... in range(...)
 - try
 
-???
-
-siehe Buch
-
----
-
 ## Übung: 1x1-Liste
 
----
-
 ## break & continue
-
----
 
 ## if-Expression
 
@@ -35,14 +19,8 @@ siehe Buch
 match = True if 0 in li else False
 ```
 
----
-
 ## try ... except
 
----
-
 ## for ... else
-
----
 
 ## try / except / else / finally

@@ -14,19 +14,15 @@ https://developers.google.com/web/ilt/pwa/why-build-pwa
   - Scheint wie andere Apps im Menü auf (web-manifest)
   - Benachrichtigungen am Gerät darstellen (service workers)
 
-???
+---
 
 google-präsentation bis S. 23
-
----
 
 ## Browser-Unterstützung
 
 Service Worker: ab Edge 17, ab iOS 11.3
 
 manifest.json: ab Edge 17, ab iOS 11.3, kein Firefox
-
----
 
 ## Beispiele
 

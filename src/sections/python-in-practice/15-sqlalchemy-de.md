@@ -1,7 +1,5 @@
 # SQLAlchemy
 
----
-
 ## SQLAlchemy
 
 SQLAlchemy = Object Relational Mapper
@@ -10,13 +8,9 @@ Objektorientierter Zugriff auf beliebige SQL-Datenbanken
 
 Alternative: Django ORM
 
----
-
 ## SQLAlchemy
 
 Pip-Paket _sqlalchemy_
-
----
 
 ## verbinden mit SQLite-Datenbank
 
@@ -28,8 +22,6 @@ engine = create_engine("sqlite:///music.db", echo=True)
 
 engine.connect()
 ```
-
----
 
 ## Tabellen definieren
 
@@ -52,8 +44,6 @@ class Artist(Base):
 Base.metadata.create_all(engine)
 ```
 
----
-
 ## Mit Sessions arbeiten
 
 ```py
@@ -68,8 +58,6 @@ session = Session()
 session.commit()
 ```
 
----
-
 ## insert
 
 ```sql
@@ -82,8 +70,6 @@ wird zu:
 beatles = Artist(name="The Beatles", country="United Kingdom")
 session.add(beatles)
 ```
-
----
 
 ## select
 
@@ -105,8 +91,6 @@ for name, country in session.query(Artist.name, Artist.country):
     print(f"{name} ({country})")
 ```
 
----
-
 ## order by
 
 ```sql
@@ -121,8 +105,6 @@ for name, country in session.query(
     ...
 ```
 
----
-
 ## where
 
 ```sql
@@ -134,8 +116,6 @@ wird zu:
 ```py
 session.query(Artist).filter_by(Artist.name=="The Beatles").one()
 ```
-
----
 
 ## Sprechende Ausgabe von Einträgen
 
@@ -153,8 +133,6 @@ Help! - The Beatles
 
 umsetzbar mittels `__repr__` / `__str__`
 
----
-
 ## update
 
 ```sql
@@ -170,8 +148,6 @@ entry = session.query(Song).filter_by(Song.title=="Help!").one()
 entry.title = "Help"
 ```
 
----
-
 ## delete
 
 ```sql
@@ -186,8 +162,6 @@ wird zu
 session.query(Song).filter_by(Song.title=="Help!").delete()
 ```
 
----
-
 ## Definition eines Fremdschlüssels
 
 ```py
@@ -197,8 +171,6 @@ class Song(Base):
     title = Column(String(30))
     artist_id = Column(Integer, ForeignKey("artist.id"))
 ```
-
----
 
 ## Einfaches Abfragen einer verknüpften Tabelle
 
@@ -215,8 +187,6 @@ class Song(Base):
 
     artist = relationship("Artist")
 ```
-
----
 
 ## Einfaches Abfragen einer verknüpften Tabelle
 

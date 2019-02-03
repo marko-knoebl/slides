@@ -1,7 +1,5 @@
 # Die interaktive Python-Konsole
 
----
-
 ## Die interaktive Python-Konsole
 
 Starten:
@@ -9,15 +7,11 @@ Starten:
 - Terminal-Befehl `python`
 - Desktop-Anwendung _IDLE_
 
----
-
 ## Ausdrücke und Operatoren
 
 ```py
 2 + 2
 ```
-
----
 
 ## Mathematische Operatoren
 
@@ -25,13 +19,9 @@ Starten:
 2 * 2 + 3 / 2
 ```
 
----
-
 ## Einfache (primitive) Datentypen
 
 Mit welchen Arten von Daten - außer Zahlen - arbeitet ein Computer noch?
-
----
 
 ## Einfache (primitive) Datentypen
 
@@ -40,19 +30,13 @@ Mit welchen Arten von Daten - außer Zahlen - arbeitet ein Computer noch?
 - `str` (string): Text
 - `bool` (boolean): Ja/Nein - Wert (Wahrheitswert)
 
----
-
 ## int
 
 Beispiele: `3`, `10`
 
----
-
 ## float
 
 Beispiele: `3.3`, `3.0`
-
----
 
 ## float
 
@@ -62,11 +46,7 @@ zB: `1/3`
 
 Der Computer kann auch Zahlen wie `0.1` oder `0.2` nicht genau repräsentieren
 
-???
-
-Beispiel: 0.3 - 0.2 - 0.1
-
----
+Beispiel: `0.3 - 0.2 - 0.1`
 
 ## str
 
@@ -78,8 +58,6 @@ Ein _String_ - auch _Zeichenkette_ genannt - repräsentiert Text
 "Hallo" * 3
 ```
 
----
-
 ## str
 
 Strings werden entweder mit einfachen oder doppelten Anführungszeichen begrenzt
@@ -88,8 +66,6 @@ Strings werden entweder mit einfachen oder doppelten Anführungszeichen begrenzt
 "Hallo"
 'Hallo'
 ```
-
----
 
 ## str
 
@@ -101,8 +77,6 @@ my name is
 Andreas"""
 ```
 
----
-
 ## str
 
 Ungültige Operationen:
@@ -113,8 +87,6 @@ Ungültige Operationen:
 "Hallo" * 3.0
 ```
 
----
-
 ## f-strings
 
 Werte in Strings einsetzen:
@@ -122,8 +94,6 @@ Werte in Strings einsetzen:
 ```py
 f"A year has {365 * 24} hours."
 ```
-
----
 
 ## Strings - Escape-Sequenzen
 
@@ -134,8 +104,6 @@ Ungültig:
 ```py
 text = "He said: "hi!""
 ```
-
----
 
 ## Strings - Escape-Sequenzen
 
@@ -151,8 +119,6 @@ Python interpretiert die Zeichenfolge `\"` wie ein einzelnes `"`
 print(len(text)) # 14
 ```
 
----
-
 ## Strings - Escape-Sequenzen
 
 ```py
@@ -163,8 +129,6 @@ a = 'line 1\nline 2'
 b = 'C:\\docs'
 ```
 
----
-
 ## bool
 
 Boolescher Wert: Ja/Nein - Wert
@@ -172,8 +136,6 @@ Boolescher Wert: Ja/Nein - Wert
 In Python: `True` oder `False`
 
 Achtung: Groß- und Kleinschreibung ist wichtig!
-
----
 
 ## Variablen
 
@@ -185,8 +147,6 @@ last_name = "Doe"
 age = 40
 ```
 
----
-
 ## Variablen
 
 ```py
@@ -194,15 +154,11 @@ full_name = f"{first_name} {last_name}"
 birth_year = 2018 - age
 ```
 
----
-
 ## Variablen
 
 Variablennamen werden üblicherweise klein geschrieben und durch Unterstriche getrennt
 
 Variablennamen dürfen nur aus Buchstaben, Ziffern und Unterstrichen bestehen
-
----
 
 ## Variablen
 

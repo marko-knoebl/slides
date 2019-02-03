@@ -1,12 +1,8 @@
 # Testing React Applications
 
----
-
 ## Testing React Applications
 
 standard test framework for React: [jest](https://facebook.github.io/jest/)
-
----
 
 ## Example
 
@@ -22,8 +18,6 @@ const shorten = (s, maxlength) => {
 export { shorten };
 ```
 
----
-
 ## Example
 
 ```js
@@ -37,8 +31,6 @@ it('shortens "loremipsum" to "lor..."', () => {
 });
 ```
 
----
-
 ## Running tests
 
 ```bash
@@ -46,8 +38,6 @@ npm test
 ```
 
 Jest will find files ending in `.test.js`.
-
----
 
 ## other matchers
 
@@ -58,8 +48,6 @@ Besides `.toEqual` we can use:
 - `.toThrow()`
 - `.not.toEqual()`
 - ...
-
----
 
 ## Setup and teardown
 
@@ -75,15 +63,11 @@ afterEach(() => {
 });
 ```
 
----
-
 ## Snapshot tests
 
 Components are rendered and compared to earlier versions (snapshots)
 
 Snapshot tests are a kind of regression tests
-
----
 
 ## Snapshot tests - setup
 
@@ -96,8 +80,6 @@ für TypeScript:
 ```bash
 npm install --save-dev @types/react-test-renderer
 ```
-
----
 
 ## Snapshot tests in React - creating tests
 
@@ -115,8 +97,6 @@ test('renders correctly', () => {
 });
 ```
 
----
-
 ## updating snapshot tests
 
 Once we have changed and and verified the behaviour of a component we can update the corresponding tests accordingly:
@@ -126,15 +106,11 @@ Once we have changed and and verified the behaviour of a component we can update
 Inspect your code changes or press `u` to update them.
 ```
 
----
-
 ## mocking network (fetch) requests
 
 ```bash
 npm install --save-dev jest-fetch-mock
 ```
-
----
 
 ## mocking network (fetch) requests
 
@@ -148,8 +124,6 @@ fetch.mockResponse(
 );
 ```
 
----
-
 ## testing network requests - thunk
 
 ```js
@@ -157,8 +131,6 @@ store.dispatch(requestTodos()).then(() => {
   expect(store.getActions()).toEqual(expectedActions);
 });
 ```
-
----
 
 ## testing network requests - thunk
 
@@ -172,8 +144,6 @@ global.fetch = fetch;
 
 const mockStore = configureMockStore([thunk]);
 ```
-
----
 
 ## testing network requests - thunk
 
@@ -196,13 +166,9 @@ it('dispatches "TODO_REQUEST" and "TODO_RESPONSE"', () => {
 });
 ```
 
----
-
 ## Enzyme
 
 Enzyme is a set of testing utilities for React.
-
----
 
 ## Enzyme - examples
 
@@ -217,8 +183,6 @@ it('renders an `.icon-star`', () => {
   expect(wrapper.find('.icon-star')).to.have.lengthOf(1);
 });
 ```
-
----
 
 ## Enzyme - examples
 

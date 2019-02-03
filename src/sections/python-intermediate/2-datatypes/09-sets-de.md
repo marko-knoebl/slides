@@ -1,7 +1,5 @@
 # Set
 
----
-
 ## Set
 
 Ungeordnete Menge von Elementen (ohne Duplikate)
@@ -10,15 +8,11 @@ Ungeordnete Menge von Elementen (ohne Duplikate)
 primes = {2, 3, 5, 7, 11, 13, 17, 19}
 ```
 
----
-
 ## Set
 
 Achtung: Ein leeres set erstellen wir immer mittels `set()`.
 
 Warum ergibt der Ausdruck `{}` kein leeres set?
-
----
 
 ## Operationen auf Sets
 
@@ -30,8 +24,6 @@ x & y
 x - y
 x <= y
 ```
-
----
 
 ## Übungen
 

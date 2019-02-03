@@ -1,7 +1,5 @@
 # SQL mit Python
 
----
-
 ## Python-Anbindung von SQL-Datenbanken
 
 Database API Specification: Standard, der von verschiedenen Python-Datenbankanbindungen umgesetzt wird; standardisiert in PEP 249
@@ -12,17 +10,6 @@ Anbindungen f√ºr:
 - Postgresql (PIP-Paket _psycopg2_)
 - MySQL / mariadb (PIP-Paket _PyMySQL_
 - Oracle (PIP-Paket _cx_oracle_)
-
-???
-
-- Installation von _MySQL Community Server_ / _mariadb_
-  - (Port: 3306) (X Protocol Port: 33060)
-  - Passwort: password
-    Folgendes eventuell nicht notwendig (user 'root' existiert bereits)
-  - only user: admin / password
-- `pip install pymysql`
-
----
 
 ## SQLite und Python
 
@@ -35,8 +22,6 @@ import sqlite3
 
 connection = sqlite3.connect('contacts.db')
 ```
-
----
 
 ## MySQL und Python
 
@@ -52,8 +37,6 @@ connection = pymysql.connect(host='localhost',
                              charset='utf8mb4')
 ```
 
----
-
 ## Python und Oracle Database
 
 Python-Paket _cx_Oracle_
@@ -65,8 +48,6 @@ connection = cx_Oracle.connect(user="user",
                                password="password",
                                dsn="localhost/oraclepdb")
 ```
-
----
 
 ## pyodbc
 
@@ -80,8 +61,6 @@ import pyodbc
 connection = pyodbc.connect(
   "Driver=SQLite3 ODBC Driver;Database=contacts.db")
 ```
-
----
 
 ## Gemeinsames Interface (PEP 249)
 
@@ -101,13 +80,9 @@ conection.commit()
 connection.close()
 ```
 
----
-
 ## PEP 249
 
 https://www.python.org/dev/peps/pep-0249
-
----
 
 # PEP 249: Typen
 
@@ -118,8 +93,6 @@ https://www.python.org/dev/peps/pep-0249
 - `STRING`
 - `NUMBER`
 
----
-
 ## Bedingte Abfragen mit Parametern
 
 ```py
@@ -128,11 +101,7 @@ command = f"""SELECT tel FROM person WHERE name = '{search_name}'"""
 res = c.execute(command)
 ```
 
----
-
 ## Achtung: SQL-Injections
-
----
 
 ## Achtung: SQL-Injections
 
@@ -146,8 +115,6 @@ res = c.execute(
 )
 ```
 
----
-
 ## Abfrageparameter
 
 https://www.python.org/dev/peps/pep-0249/#paramstyle
@@ -158,8 +125,6 @@ Die Attribute `sqlite3.paramstyle`, `pymysql.paramstyle` etc geben das Format f√
 - pymysql: pyformat
 - psycopg2: pyformat
 - cx_Oracle: named
-
----
 
 ## PEP 249: das cursor Objekt
 

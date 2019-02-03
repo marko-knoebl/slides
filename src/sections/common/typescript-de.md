@@ -1,7 +1,5 @@
 # TypeScript
 
----
-
 ## TypeScript
 
 = Obermenge von JavaScript mit Erweiterungen:
@@ -10,8 +8,6 @@
 - Decorators
 - Public / Private Properties
 
----
-
 ## Static Typing
 
 Datentypen können angegeben werden und unterstützen insbesondere die Entwicklungsumgebung:
@@ -19,13 +15,9 @@ Datentypen können angegeben werden und unterstützen insbesondere die Entwicklu
 - Auto-Vervollständigung
 - Fehlermeldungen bei nicht passenden Datentypen
 
----
-
 ## Static Typing
 
 Beim build: TypeScript wird in JavaScript übersetzt, alle Typeninformationen gehen dabei verloren
-
----
 
 ## Typsystem: Variablen
 
@@ -33,8 +25,6 @@ Beim build: TypeScript wird in JavaScript übersetzt, alle Typeninformationen ge
 let age: number = 32;
 let name: string = 'Andreas';
 ```
-
----
 
 ## Typsystem: Funktionen
 
@@ -46,8 +36,6 @@ function repeatString(
 }
 ```
 
----
-
 ## Typsystem: Pfeilfunktionen
 
 ```ts
@@ -56,8 +44,6 @@ const repeatString: (
   times: number
 ) => string = (text, times) => (...);
 ```
-
----
 
 ## Typsystem: Arrays
 
@@ -69,8 +55,6 @@ let names: string[] = ['Anna', 'Bernhard', 'Caro'];
 let names: Array<string> = ['Anna', 'Bernhard'];
 ```
 
----
-
 ## Typsystem: Tupel
 
 Arrays mit vorgegebener Länge und Datentypen für jeden Eintrag
@@ -79,8 +63,6 @@ Arrays mit vorgegebener Länge und Datentypen für jeden Eintrag
 let todo: [string, boolean];
 ```
 
----
-
 ## Typsystem: Objekte & Properties
 
 Objekt mit bestimmten Properties:
@@ -88,8 +70,6 @@ Objekt mit bestimmten Properties:
 ```ts
 let p: { name: string; age: number } = getPerson();
 ```
-
----
 
 ## Typsystem: Objekte - Interfaces
 
@@ -106,8 +86,6 @@ interface IPerson {
 let p: IPerson = getPerson();
 ```
 
----
-
 ## Typsystem: Klassen & Interfaces
 
 ```ts
@@ -115,8 +93,6 @@ class User implements IPerson {
   ...
 }
 ```
-
----
 
 ## Typsystem: void
 
@@ -128,8 +104,6 @@ function warnUser(): void {
 }
 ```
 
----
-
 ## Typsystem: any
 
 Any: lässt alle Typen zu
@@ -139,8 +113,6 @@ let ib: any = document.getElementById('myinput');
 console.log(ib.value);
 ```
 
----
-
 ## Typsystem: Type assertions
 
 ```ts
@@ -148,8 +120,6 @@ let someValue: any = 'this is a string';
 
 let strLength: number = (someValue as string).length;
 ```
-
----
 
 ## Typsystem: Union Types
 
@@ -159,8 +129,6 @@ function foo(arg: string | number) {...}
 function foo(arg: string | undefined) {...}
 ```
 
----
-
 ## Typsystem: Generics
 
 ```ts
@@ -168,8 +136,6 @@ function thrice<T>(element: T): T[] {
   return [element, element, element];
 }
 ```
-
----
 
 ## Private & Public Properties
 

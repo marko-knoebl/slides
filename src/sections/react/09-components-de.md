@@ -1,7 +1,5 @@
 # Komponenten
 
----
-
 ## Komponenten
 
 Möglichkeit, eigene Tags zu definieren, z.B.
@@ -12,13 +10,9 @@ Möglichkeit, eigene Tags zu definieren, z.B.
 
 <img src="assets/rating.png" style="height: 4em">
 
----
-
 ## Komponenten
 
 Um sie von normalen Tags zu unterscheiden, beginnen Komponentennamen immer mit einem Großbuchstaben
-
----
 
 ## Komponenten: State & Props
 
@@ -27,8 +21,6 @@ Um sie von normalen Tags zu unterscheiden, beginnen Komponentennamen immer mit e
   - `this.setState`
 - Props = vom Elternelement übergebene Parameter
   - `this.props`
-
----
 
 ## Komponentendefinition
 
@@ -48,29 +40,21 @@ export class Rating extends Component {
 }
 ```
 
----
-
 ## Komponentendefinition: Beispiele
 
 - `PlayingCard` - Komponente
 - `RomanNumber` - Komponente
-
----
 
 ## Datenfluss
 
 - parent → child: props
 - child → parent: events
 
----
-
 ## Prop Types
 
 Typechecker für Props
 
 `npm install prop-types`
-
----
 
 ## Prop Types
 
@@ -86,13 +70,9 @@ MyComponent.propTypes = {
 };
 ```
 
----
-
 ## Eigene Events
 
 Eventhandler werden als Funktionen definiert und via props übergeben / erhalten.
-
----
 
 ## Eigene Events
 
@@ -112,8 +92,6 @@ handleClick = () => {
   this.props.onToggle(!this.props.on);
 };
 ```
-
----
 
 ## Eigene Events
 
@@ -135,8 +113,6 @@ handleToggle = (isToggled) => {
 }
 ```
 
----
-
 ## Eigene Events
 
 Beispiele:
@@ -145,8 +121,6 @@ Beispiele:
 - NumberInput-Komponente zum Angeben einer Ganzzahl mit +/- buttons
   - Bonus: Umsetzung des APIs, sodass es kompatibel zu normalen input-Elementen ist und input-Elemente leicht durch NumberInput-Komponeneten ersetzt werden können
   - Bonus: zusätzliche min / max - Property bei der Komponente
-
----
 
 ## Lifecycle-Hooks
 
@@ -157,8 +131,6 @@ Bei Klassenkomponenten ist es möglich, Events in ihrem Lebenszyklus abzufragen:
 - `componentWillUnmount()`
 
 Diese werden als Methoden der Klasse implementiert
-
----
 
 ## Übung
 

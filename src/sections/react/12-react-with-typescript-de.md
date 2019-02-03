@@ -1,14 +1,10 @@
 # React mit TypeScript
 
----
-
 ## Create-React-App
 
 ```bash
 npx create-react-app my-app --typescript
 ```
-
----
 
 ## Komponenten
 
@@ -27,8 +23,6 @@ class TodoItem extends React.PureComponent<
   ITodoItemState
 > {}
 ```
-
----
 
 ## Events
 

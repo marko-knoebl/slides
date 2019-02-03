@@ -1,7 +1,5 @@
 # Python: Overview
 
----
-
 ## Python
 
 - dynamic programming language
@@ -9,15 +7,11 @@
 - useful in many areas (science, web development, GUI programming)
 - big standard library, many additional packages
 
----
-
 ## Python development and versions
 
 - Python 3.7 (current)
 - Python 3.2 (first useful version of Python 3): 2011
 - Python 2.7 (last version of Python 2): 2010, supported until 2020
-
----
 
 ## Code examples
 

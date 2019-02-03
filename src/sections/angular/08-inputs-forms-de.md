@@ -1,7 +1,5 @@
 # Inputs & Forms
 
----
-
 ## Inputs & Forms - Grundlagen
 
 Um Forms und Inputs mit Angular nutzen zu können, müssen wir zunächst in app.module.ts das FormsModule importieren:
@@ -15,13 +13,9 @@ import {FormsModule} from '@angular/forms';
   ],
 ```
 
----
-
 ## Inputs: ngModel
 
 Mit Hilfe von ngModel können wir Änderungen an einem Input überwachen lassen
-
----
 
 ## Inputs: ngModel
 
@@ -32,8 +26,6 @@ Einfaches (theoretisches) Beispiel mit standard HTML-Attributen und Templatevari
 value: {{ myInput.value }} <br>
 valid: {{ myInput.validity.valid }}
 ```
-
----
 
 ## Inputs: ngModel
 
@@ -47,8 +39,6 @@ touched: {{ myInput.touched }} <br>
 pristine: {{ myInput.pristine }}
 ```
 
----
-
 ## Inputs: ngModel
 
 ```html
@@ -61,8 +51,6 @@ Was passiert hier?
 - Mit `#myInput="ngModel"` setzen wir dann eine Variable, die auf das entsprechende Datenmodell verweist.
 - Zu beachten: Der Wert rechts (`ngModel`) ist fest vorgegeben, den linken Namen (`myInput`) können wir selbst bestimmen.
 
----
-
 ## Inputs: ngModel
 
 Folgende Eigenschaften des ngModel-Controllers können wir überwachen:
@@ -71,8 +59,6 @@ Folgende Eigenschaften des ngModel-Controllers können wir überwachen:
 - **valid**
 - **touched**: ändert sich auf true, wenn der Fokus in das Feld gesetzt wird und dann wieder auf etwas anderes
 - **pristine**: ändert sich auf false, sobald der Wert zum ersten Mal geändert wird.
-
----
 
 ## Übung zu ngModel: Passwort
 
@@ -83,8 +69,6 @@ Wir setzen eine Passworteingabe um:
 - Solange die Eingabefelder unterschiedliche Werte haben, soll der zugehörige OK-Button auf disabled gesetzt sein
 
 - Solange die Eingabefelder unterschiedliche Werte haben und ins zweite Feld schon etwas eingegeben wurde, soll darunter (in einem extra `<div>`) eine Warnung angezeigt werden.
-
----
 
 ## ngModel und two-way data binding
 
@@ -102,8 +86,6 @@ myVar = 'abc';
 myVar: <input [(ngModel)]="myVar">
 ```
 
----
-
 ## Forms in Angular
 
 Neues Event in Angular: ngSubmit
@@ -115,8 +97,6 @@ Neues Event in Angular: ngSubmit
   <button>Submit</button>
 </form>
 ```
-
----
 
 ## Forms in Angular
 
@@ -136,8 +116,6 @@ f.value beinhaltet ein Objekt der Form:
 { "firstName": "John", "lastName": "Smith" }
 ```
 
----
-
 ## Form-Attribute: Überblick
 
 `<form ngForm …>`: fügt Controller zu einem form hinzu (eigentlich automatisch, daher nicht wirklich notwendig)
@@ -147,8 +125,6 @@ f.value beinhaltet ein Objekt der Form:
 `<form ngForm #f="ngForm" …>`: "exportiert" den Form Controller als Templatevariable
 
 `<input ngModel #firstName="ngModel" …>`: "exportiert" den Input Controller als Templatevariable
-
----
 
 ## Forms: Beispiele
 

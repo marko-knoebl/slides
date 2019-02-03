@@ -3,8 +3,6 @@
 - direct connection, e.g. via postgraphlite
 - connection via an intermediate GraphQL layer, e.g. via prisma
 
----
-
 ## Prisma and OpenCRUD
 
 **OpenCRUD** is a more specific version of GraphQL which maps to SQL commands
@@ -27,16 +25,10 @@ query getTopRatedMovies {
 }
 ```
 
----
-
 ## Prisma and OpenCRUD
 
 Prisma will automatically create an _OpenCRUD_ API for a database (MySQL, Postgres or MongoDB)
 
----
-
 ## database connection with Prisma
 
 tutorial: https://www.howtographql.com/graphql-js/4-adding-a-database/
-
----

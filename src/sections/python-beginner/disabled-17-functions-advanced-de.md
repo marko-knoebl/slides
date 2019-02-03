@@ -14,10 +14,6 @@ shout("hallo") # HALLO!
 shout("hi", ".") # HI.
 ```
 
----
-
 # Schlüsselwortparameter
-
----
 
 # beliebige Anzahl von Parametern

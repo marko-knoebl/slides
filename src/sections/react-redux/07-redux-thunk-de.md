@@ -1,20 +1,14 @@
 # Redux Thunk
 
----
-
 ## Redux Thunk
 
 Thunk ist Middleware, die asynchrones Verhalten in Redux - durch das Dispatchen von Funktionen - ermöglicht
-
----
 
 ## Thunk sourcecode
 
 kompletter sourcecode:
 
 https://github.com/reduxjs/redux-thunk/blob/master/src/index.js
-
----
 
 ## Redux Thunk
 
@@ -23,8 +17,6 @@ Beispielhafter Aufruf:
 ```js
 dispatch(getTodosFunction);
 ```
-
----
 
 ## Redux Thunk
 
@@ -35,23 +27,17 @@ Stattdessen würde zwei andere Actions den store erreichen:
 - Die Action `LOAD_TODOS_REQUEST` würde sofort dispatched werden
 - Die Action `LOAD_TODOS_SUCCESS` würde dispatched werden, sobald die Netzwerkanfrage erfolgreich war
 
----
-
 ## Redux Thunk
 
 In Thunk verbleibt die synchrone Logik im Reducer.
 
 Die asynchrone Logik wird in den Action Creator aufgenommen.
 
----
-
 ## Installation
 
 ```bash
 npm install redux-thunk
 ```
-
----
 
 ## Thunk einbinden
 
@@ -63,8 +49,6 @@ const store = createStore(
   applyMiddleware(thunk)
 );
 ```
-
----
 
 ## Beispiel: timer
 
@@ -80,8 +64,6 @@ const start = () => dispatch => {
   }, 1000);
 };
 ```
-
----
 
 ## Beispiel: timer
 
@@ -103,8 +85,6 @@ const timeReducer = (
 };
 ```
 
----
-
 ## Redux Thunk mit TypeScript
 
 Bei Thunk müssen wir immer die gesamte Signatur von dispatch angeben
@@ -121,8 +101,6 @@ const myAction = () => (
 ) => {...};
 ```
 
----
-
 ## Thunk: Zugriff auf den Redux store
 
 Ein zweites Argument kann optional übergeben werden: Es erhält die `getState`-Funktion als Wert.
@@ -135,15 +113,11 @@ const actionAsync = () => (dispatch, getState) => {
 };
 ```
 
----
-
 ## Aufgabe: Todos von REST API laden
 
 Erstelle ein thunk, das Todos vom folgenden API lädt:
 
 `https://jsonplaceholder.typicode.com/todos`
-
----
 
 ## Präsentation: Taming Large React Applications w/ Redux
 

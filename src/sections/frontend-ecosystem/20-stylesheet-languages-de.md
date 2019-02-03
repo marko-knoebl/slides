@@ -1,14 +1,10 @@
 # Stylesheet-Sprachen
 
----
-
 ## Stylesheet-Sprachen
 
 - _CSS_
 - SASS / _SCSS_
 - LESS
-
----
 
 ## Variablen
 
@@ -23,8 +19,6 @@ body {
   color: var(--theme-color);
 }
 ```
-
----
 
 ## Variablen
 
@@ -48,8 +42,6 @@ body {
 }
 ```
 
----
-
 ## Vererbung
 
 in CSS4: apply
@@ -57,8 +49,6 @@ in CSS4: apply
 in SCSS: extend / inheritance
 
 in LESS: mixins
-
----
 
 ## Vererbung
 
@@ -77,8 +67,6 @@ body {
 }
 ```
 
----
-
 ## Vererbung
 
 SCSS:
@@ -94,8 +82,6 @@ body {
 }
 ```
 
----
-
 ## Vererbung
 
 LESS:
@@ -110,8 +96,6 @@ body {
   .theme-color-combination();
 }
 ```
-
----
 
 ## Nesting / Verschachtelung
 
@@ -137,8 +121,6 @@ nav {
 }
 ```
 
----
-
 ## Berechnungen
 
 CSS:
@@ -156,8 +138,6 @@ div {
   width: 50% - 80px;
 }
 ```
-
----
 
 ## Funktionen
 

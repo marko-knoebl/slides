@@ -1,7 +1,5 @@
 # GraphQL client in pure js
 
----
-
 ## example: reddit API
 
 ```js
@@ -17,8 +15,6 @@ const queryTemplate = `
 }`;
 ```
 
----
-
 ## example: reddit API
 
 ```js
@@ -33,5 +29,3 @@ fetch('https://www.graphqlhub.com/graphql', {
   .then(r => r.json())
   .then(data => console.log('data returned:', data));
 ```
-
----

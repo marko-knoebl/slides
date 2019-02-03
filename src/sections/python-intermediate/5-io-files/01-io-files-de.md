@@ -1,12 +1,8 @@
 # Arbeiten mit Dateien
 
----
-
 ## Arbeiten mit Dateien
 
 Datei = Abfolge von Bytes auf einem Speichermedium
-
----
 
 ## Die Funktion "open"
 
@@ -17,11 +13,7 @@ file_obj.close()
 print(content)
 ```
 
-???
-
-Erstellt eine Instanz einer Unterklasse von IOBase
-
----
+Open erstellt eine Instanz einer Unterklasse von IOBase
 
 ## Dateimodi
 
@@ -29,8 +21,6 @@ Erstellt eine Instanz einer Unterklasse von IOBase
 # mode: text, append
 open("todos.txt", mode="ta")
 ```
-
----
 
 ## Dateimodi
 
@@ -41,8 +31,6 @@ open("todos.txt", mode="ta")
 * `w`: (Über)schreiben
 * `a`: Anhängen
 
----
-
 ## Lesen und Schreiben
 
 ```py
@@ -50,8 +38,6 @@ t = open("loremipsum.txt")
 print(t.read())
 t.close()
 ```
-
----
 
 ## Lesen und Schreiben
 
@@ -67,8 +53,6 @@ coins.write(bytes([0b01001110, 0b11100100]))
 coins.close()
 ```
 
----
-
 ## open und das with-Statement
 
 ```py
@@ -77,8 +61,6 @@ with open("todos.txt", encoding="utf-8") as file_obj:
 ```
 
 Kein explizites Schließen des Dateiobjekts mehr notwendig. Datei wird automatisch geschlossen, wenn der eingerückte Abschnitt verlassen wird.
-
----
 
 ## Zeichencodierung
 
@@ -90,8 +72,6 @@ Textdateien können unterschiedlich codiert sein:
 
 Praxistipp: Immer UTF-8 verwenden
 
----
-
 ## Zeichencodierung
 
 Die Standard-Zeichencodierung für Textdateien hängt vom Betriebssystem ab:
@@ -101,8 +81,6 @@ import locale
 locale.getpreferredencoding()
 ```
 
----
-
 ## Zeichencodierung
 
 Explizites angeben der Textcodierung:
@@ -111,21 +89,14 @@ Explizites angeben der Textcodierung:
 open("file.txt", encoding="utf-8")
 ```
 
----
-
 ## File-like objects
 
 Objekte, die zB `.read()` oder `.write()` unterstützen:
 
 - Dateien (zB via `open()`)
 - `sys.stdout`, `sys.stdin`
+  - z.B. `sys.stdin.readline()`
 - Antworten aus dem Netzwerk, zB via `urllib.request.urlopen('https://google.com')`
-
-???
-
-Bespiel: sys.stdin.readline()
-
----
 
 ## File-like objects
 
@@ -137,8 +108,6 @@ with file as open('myfile.txt', encoding="utf-8"):
     # read entire file
     print(file.read())
 ```
-
----
 
 ## File-like objects
 

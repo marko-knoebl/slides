@@ -1,12 +1,8 @@
 # control structures
 
----
-
 ## control structures
 
 By using control structures we can let Python execute some code repeatedly or only under certain circumstances
-
----
 
 ## control structures
 
@@ -14,8 +10,6 @@ The two most essential control structures in every programming language are:
 
 - if/else
 - loops
-
----
 
 ## comparisons
 
@@ -33,11 +27,7 @@ print(a <= b) # a is smaller than or equal to b
 print(a >= b)
 ```
 
----
-
 ## if / else
-
----
 
 ## if / else
 
@@ -53,8 +43,6 @@ else:
     print("You are older than 1 billion seconds")
 ```
 
----
-
 ## if / elif / else
 
 ```py
@@ -66,21 +54,15 @@ else:
     print("You are older than 1 billion seconds")
 ```
 
----
-
 ## if / elif / else
 
 example: guess the number
-
----
 
 ## code blocks
 
 code block = a group of lines that belong together - for example the code that gets executed when an if condition is true
 
 In Python the line before the code block ends with a `:` and the code block is indented (usually by 4 spaces)
-
----
 
 ## while loops
 
@@ -98,8 +80,6 @@ while a < 2000:
     a = a * 2
 ```
 
----
-
 ## combining comparisons
 
 simple:
@@ -115,8 +95,6 @@ more complex:
 if a == 3 and 4 < b < 10:
     print("a is 3 and b is between 4 and 10")
 ```
-
----
 
 ## combining comparisons
 

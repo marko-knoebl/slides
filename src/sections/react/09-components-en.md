@@ -1,7 +1,5 @@
 # components
 
----
-
 ## components
 
 Components = custom tags, e.g.
@@ -10,29 +8,21 @@ Components = custom tags, e.g.
 <Rating stars={4}/>
 ```
 
-![Image: Screenshot of a rating component with stars](../../images/rating.png)
-
----
+<img src="assets/rating.png" style="height: 4em">
 
 ## components
 
 In order to distinguish them from ordinary tags, components start with a capital letter
-
----
 
 ## components: state & props
 
 - state = internal to the component
 - props = parameters that are passed down from the parent
 
----
-
 ## component definition
 
 - class components
 - functional components
-
----
 
 ## class components
 
@@ -52,8 +42,6 @@ export class Rating extends Component {
 }
 ```
 
----
-
 ## functional components
 
 example:
@@ -66,20 +54,14 @@ function Rating(props) {
 }
 ```
 
----
-
 ## functional components
 
 functional components cannot have an internal _state_
-
----
 
 ## data/event flow
 
 - parent → child: props
 - child → parent: events
-
----
 
 ## Lifecycle-Hooks
 
@@ -91,13 +73,9 @@ With class components it's possible to listen for events in their lifecycle:
 
 these can be implemented as methods of the component class
 
----
-
 ## Exercise
 
 Clock-component (with `componentDidMount` and `componentWillUnmount`)
-
----
 
 ## custom events
 

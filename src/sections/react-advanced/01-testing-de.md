@@ -1,12 +1,8 @@
 # Testen von React-Anwendungen
 
----
-
 ## Testen von React-Anwendungen
 
 Standard test-framework für React: [jest](https://facebook.github.io/jest/)
-
----
 
 ## Beispiel
 
@@ -22,8 +18,6 @@ const shorten = (s, maxlength) => {
 export { shorten };
 ```
 
----
-
 ## Beispiel
 
 ```js
@@ -37,8 +31,6 @@ it('shortens "loremipsum" to "lor..."', () => {
 });
 ```
 
----
-
 ## Tests ausführen
 
 ```bash
@@ -46,8 +38,6 @@ npm test
 ```
 
 Jest findet von alleine Dateien mit der Endung _.test.js_.
-
----
 
 ## Andere Matcher
 
@@ -58,8 +48,6 @@ Außer `.toEqual` gibt es noch:
 - `.toThrow()`
 - `.not.toEqual()`
 - ...
-
----
 
 ## Gruppieren von Tests
 
@@ -76,8 +64,6 @@ describe('strings that are short enough', () => {
 });
 ```
 
----
-
 ## Setup und teardown
 
 Für Code, der vor bzw nach jedem Test ausgeführt werden soll:
@@ -92,14 +78,10 @@ afterEach(() => {
 });
 ```
 
----
-
 ## Test Renderer für React
 
 - `react-test-renderer` (vom React-Team)
 - `Enzyme` (entwickelt von Airbnb)
-
----
 
 ## Enzyme - Setup
 
@@ -116,8 +98,6 @@ import Adapter from 'enzyme-adapter-react-16';
 configure({ adapter: new Adapter() });
 ```
 
----
-
 ## Enzyme - Beispiele
 
 ```jsx
@@ -132,8 +112,6 @@ it('renders an `.icon-star`', () => {
 });
 ```
 
----
-
 ## Enzyme - Beispiele
 
 ```jsx
@@ -147,15 +125,11 @@ it('reacts to click events', () => {
 });
 ```
 
----
-
 ## Snapshot Tests
 
 Komponenten werden gerendert und mit früheren Versionen (Snapshots) verglichen
 
 Snapshot Tests fallen unter Regressionstests.
-
----
 
 ## Snapshot Tests - setup
 
@@ -168,8 +142,6 @@ für TypeScript:
 ```bash
 npm install --save-dev @types/react-test-renderer
 ```
-
----
 
 ## Snapshot Tests in React - Tests erstellen
 
@@ -186,8 +158,6 @@ it('renders correctly', () => {
   expect(tree).toMatchSnapshot();
 });
 ```
-
----
 
 ## Snapshot Tests aktualisieren
 

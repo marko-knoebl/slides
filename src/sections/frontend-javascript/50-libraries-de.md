@@ -1,7 +1,5 @@
 moment.js, underscore.js, immutable.js
 
----
-
 ## jQuery
 
 - `$('#myelement')`

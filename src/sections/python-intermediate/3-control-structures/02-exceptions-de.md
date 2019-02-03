@@ -1,7 +1,5 @@
 # Exceptions
 
----
-
 ## Arten von Exceptions (Auswahl)
 
 - AssertionError
@@ -11,8 +9,6 @@
 - ValueError
 - IOError
 - ZeroDivisionError
-
----
 
 ## Exceptions abfangen
 
@@ -24,8 +20,6 @@ except ValueError:
     print("Could not parse input as number")
 ```
 
----
-
 ## Exceptions abfangen
 
 ```py
@@ -36,8 +30,6 @@ except ValueError as e:
     print("Could not parse input as number")
     print(e)
 ```
-
----
 
 ## finally und else bei exceptions
 
@@ -53,8 +45,6 @@ finally:
     file.close()
 ```
 
----
-
 ## Exceptions erneut raisen
 
 ```py
@@ -65,12 +55,8 @@ except ClientError as e
         raise
 ```
 
----
-
 ## Python-Philosophie: EAFP
 
-(vs LBYL)
+EAFP vs LBYL
 
-???
-
-Beispiel: Parsen von Zahlen
+(Beispiel: Parsen von Zahlen)

@@ -1,14 +1,10 @@
 # For loops
 
----
-
 ## For loops
 
 With for loops we can iterate over the contents of lists (and similar objects).
 
 In other programming languages this construct is called _for-each_
-
----
 
 ## For loops
 
@@ -19,8 +15,6 @@ for name in names:
     print("Hello, " + name + "!")
 ```
 
----
-
 ## Example: login system
 
 ```py
@@ -30,8 +24,6 @@ users = [
   ["Bob", "password"],
   ["Charlie", "paris41"]]
 ```
-
----
 
 ## Example: login system
 
@@ -51,8 +43,6 @@ Enter your password:
 Logged in as Alice!
 ```
 
----
-
 ## counting with for loops
 
 In order to count with Python there's a function named `range`.
@@ -65,8 +55,6 @@ Example use:
 for i in range(5):
     print(i)
 ```
-
----
 
 ## counting with for loops
 

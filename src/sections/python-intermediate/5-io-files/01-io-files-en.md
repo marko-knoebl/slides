@@ -1,12 +1,8 @@
 # Working with files
 
----
-
 ## Working with files
 
 file = a sequence of bytes on a storage device
-
----
 
 ## the function "open()"
 
@@ -17,11 +13,7 @@ file_obj.close()
 print(content)
 ```
 
-???
-
-Erstellt eine Instanz einer Unterklasse von IOBase
-
----
+Open erstellt eine Instanz einer Unterklasse von IOBase
 
 ## file modes
 
@@ -29,8 +21,6 @@ Erstellt eine Instanz einer Unterklasse von IOBase
 # mode: text, append
 open("todos.txt", mode="ta")
 ```
-
----
 
 ## file modes
 
@@ -41,8 +31,6 @@ open("todos.txt", mode="ta")
 * `w`: (over)writing
 * `a`: appending
 
----
-
 ## reading and writing
 
 ```py
@@ -50,8 +38,6 @@ t = open("loremipsum.txt")
 print(t.read())
 t.close()
 ```
-
----
 
 ## reading and writing
 
@@ -67,8 +53,6 @@ coins.write(bytes([0b01001110, 0b11100100]))
 coins.close()
 ```
 
----
-
 ## open and the with statement
 
 ```py
@@ -77,8 +61,6 @@ with open("todos.txt", encoding="utf-8") as file_obj:
 ```
 
 In this example using the with statement relieves us from explicitly closing the file object. The file will be automatically closed when the program leaves the indented block.
-
----
 
 ## character encoding
 
@@ -90,8 +72,6 @@ Text files may be encoded in various ways:
 
 Recommendation: _always_ use utf-8 as the encoding for text files (best support for special characters)
 
----
-
 ## character encoding
 
 The default character encoding for text files depends on the operating system:
@@ -101,8 +81,6 @@ import locale
 locale.getpreferredencoding()
 ```
 
----
-
 ## character encoding
 
 Explicitly stating the character encoding:
@@ -111,21 +89,14 @@ Explicitly stating the character encoding:
 open("file.txt", encoding="utf-8")
 ```
 
----
-
 ## File-like objects
 
 Objects that support using `.read()` or `.write()` etc:
 
 - files (zB via `open()`)
 - `sys.stdout`, `sys.stdin`
+  - example: `sys.stdin.readline()`
 - Network replies, e.g. via `urllib.request.urlopen('https://google.com')`
-
-???
-
-example: sys.stdin.readline()
-
----
 
 ## File-like objects
 
@@ -137,8 +108,6 @@ with file as open('myfile.txt', encoding="utf-8"):
     # read entire file
     print(file.read())
 ```
-
----
 
 ## File-like objects
 

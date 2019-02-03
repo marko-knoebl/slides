@@ -1,7 +1,5 @@
 # Redux Ecosystem
 
----
-
 ## Redux Ecosystem - Beispiele
 
 - redux-logger
@@ -12,21 +10,15 @@
 - redux-actions: Boilerplate-Reduktion (createAction, createReducer)
 - immutable.js
 
----
-
 ## Redux Middleware
 
 - kann zu einem Redux Store hinzugefügt werden
 - Erweiterungspunkt / Eingriffspunkt zwischen dem Dispatchen einer Aktion und dem Zeitpunkt an dem sie beim Reducer eintrifft
 
----
-
 ## Redux Middleware - Beispiele
 
 - Middleware, die eine action loggt (zB redux-logger)
 - Middleware, die eine einzelne action erhält und basierend darauf verschiedene andere actions asynchron auslöst (zB redux-thunk)
-
----
 
 ## Redux Middleware - Implementierung
 
@@ -37,8 +29,6 @@ const myLogger = store => next => action => {
 };
 ```
 
----
-
 ## Redux Middleware - Einbindung
 
 ```ts
@@ -47,8 +37,6 @@ const store = createStore(
   applyMiddleware(myLogger)
 );
 ```
-
----
 
 ## Eigene Middleware - json fetcher
 
@@ -63,16 +51,12 @@ dispatch({
 });
 ```
 
----
-
 ## Eigene Middleware - json fetcher
 
 Die action `FETCH_JSON` sollte im Hintergrund zwei einzelne actions dispatchen:
 
 - `FETCH_JSON_START`
 - `FETCH_JSON_COMPLETE` (diese enthält auch JSON-daten als payload)
-
----
 
 ## Eigene Middleware - json fetcher
 
@@ -94,15 +78,11 @@ const fetcher = store => next => action => {
 };
 ```
 
----
-
 ## Eigene Middleware - eine Funktion dispatchen
 
 Wir wollen noch flexibler sein und eine Funktion dispatchen.
 
 Diese Funktion soll asynchrone Anfragen durchführen und weitere Actions dispatchen können.
-
----
 
 ## Eigene Middleware - eine Funktion dispatchen
 

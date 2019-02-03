@@ -1,16 +1,6 @@
 # QA & Testen
 
-???
-
-Kapitel 21, Kapitel 25
-
-4h?
-
----
-
 ## logging
-
----
 
 ## logging
 
@@ -25,27 +15,17 @@ logging.basicConfig(
 logging.debug("hello")
 ```
 
----
-
 ## logging
 
 Beispiel: Sortieralgorithmus
 
----
-
 ## assert
 
----
-
 ## doctests
-
----
 
 ## doctests
 
 Codebeispiele und unittests in einem - innerhalb der docstrings
-
----
 
 ## doctests
 
@@ -58,8 +38,6 @@ def add(a, b):
     """
 ```
 
----
-
 ## doctests ausführen
 
 ```py
@@ -67,8 +45,6 @@ if __name__ == "__main__":
     import doctest
     doctest.testmod()
 ```
-
----
 
 ## doctests: lange Ausgaben
 
@@ -82,8 +58,6 @@ if __name__ == "__main__":
 """
 ```
 
----
-
 ## Unittests
 
 Möglichkeiten
@@ -92,11 +66,7 @@ Möglichkeiten
 - pytest
 - nose
 
----
-
 ## unittest
-
----
 
 ## unittest
 
@@ -115,8 +85,6 @@ class HasWon(unittest.TestCase):
         self.assertTrue(w)
 ```
 
----
-
 ## unittest
 
 Ausführen:
@@ -132,7 +100,5 @@ python -m unittest
 ```
 
 (findet Tests im Ordner)
-
----
 
 ## debugger

@@ -1,14 +1,10 @@
 # Python Installation
 
----
-
 ## Python Installation
 
 für Windows: Download von https://python.org (Windows x86-64 web-based installer)
 
 Häkchen bei "Add Python 3.7 to PATH" setzen
-
----
 
 ## Python Installation
 

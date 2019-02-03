@@ -10,8 +10,6 @@
   - Pfeilfunktionen
   - const & let
 
----
-
 ## Chrome Plugins
 
 - Web Server for Chrome:

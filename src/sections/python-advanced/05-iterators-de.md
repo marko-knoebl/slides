@@ -1,20 +1,14 @@
 # Iterators
 
----
-
 ## Iterators
 
 Oberflächlich: Ein Iterator ist ein besonderes Objekt, über das wir mit `for o in my_iterator` iterieren können.
 
 Iterators können auf verschiedene Arten erzeugt werden.
 
----
-
 ## Iterators
 
 Genauer Hintergrund: Ein Iterator ist ein besonderes Objekt, das eine `__next__`-Methode besitzt.
-
----
 
 ## Iterators - Beispiel count
 
@@ -25,8 +19,6 @@ for i in count():
     print(i)
 ```
 
----
-
 ## Iterators - Beispiel count
 
 ```py
@@ -38,8 +30,6 @@ c.__next__()
 c.__next__()
 ```
 
----
-
 ## Iterators - Beispiel count
 
 ```py
@@ -50,8 +40,6 @@ c = count()
 next(c)
 next(c)
 ```
-
----
 
 ## Iterators - Beispiel repeat
 
@@ -64,15 +52,11 @@ next(r)
 ...
 ```
 
----
-
 ## Iterators - Beispiel repeat
 
 Wenn ein Iterator "aufgebraucht" ist:
 
 `StopIteration`-Exception
-
----
 
 ## Iterators erzeugen
 
@@ -83,13 +67,9 @@ Möglichkeiten:
 - Generator-Expression
 - Funktion mit `yield`
 
----
-
 ## itertools
 
 https://docs.python.org/3/library/itertools.html
-
----
 
 ## Eigene Klasse
 
@@ -109,8 +89,6 @@ for number in roulette():
 4 0 29 7 13 19
 ```
 
----
-
 ## Generator-Expression
 
 Sehr ähnlich zur List-Comprehension
@@ -123,16 +101,12 @@ mylist = [i*i for i in range(3)]
 mygenerator = (i*i for i in range(3))
 ```
 
----
-
 ## Generator-Expression
 
 Unterschiede zur List-Comprehension
 
 - weniger Resourcenverbrauch (Speicher, ...)
 - Durchlauf nur 1x und nach der Reihe
-
----
 
 ## yield
 
@@ -146,8 +120,6 @@ def count():
         yield i
         i += i
 ```
-
----
 
 ## Iterable und \_\_iter\_\_
 

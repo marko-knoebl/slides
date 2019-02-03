@@ -6,16 +6,12 @@ https://5qn401kkl9.lp.gql.zone/graphql
 
 (it should return "GET query missing." in the browser)
 
----
-
 ## Exercise: adding a GraphQL API to our TODO app
 
 - query todos from the API when the page loads
 - query again when the user clicks a refresh button
 - send a mutation when the user adds a todo
 - send a mutation when the user toggles a todo
-
----
 
 ## Exercise: adding a GraphQL API to our TODO app
 
@@ -35,5 +31,3 @@ fetch('https://5qn401kkl9.lp.gql.zone/graphql', {
     dispatch(receiveTodos(responseData.data.todos));
   });
 ```
-
----

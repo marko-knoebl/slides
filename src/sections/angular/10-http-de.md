@@ -1,7 +1,5 @@
 # HTTP
 
----
-
 ## HTTP
 
 Verschiedene Möglichkeiten, um http im Browser nutzen zu können:
@@ -12,13 +10,9 @@ Verschiedene Möglichkeiten, um http im Browser nutzen zu können:
 
 Standard in Angular: httpClient – Modul mit "Observables"
 
----
-
 ## HTTP in Angular: Observables
 
 Observables in Angular: Möglichkeit, asynchron Daten abzufragen – Ähnlich zu _Promises_.
-
----
 
 ## HTTP in Angular: Observables
 
@@ -33,8 +27,6 @@ this.http
     this.todos = response;
   });
 ```
-
----
 
 ## HTTP in Angular: Fehlerbehandlung
 
@@ -51,8 +43,6 @@ this.http.get('...').subscribe(
 );
 ```
 
----
-
 ## HTTP in Angular: Einbindung
 
 ```ts
@@ -65,8 +55,6 @@ imports: […, HttpClientModule]
 import { HttpClient } from '@angular/common/http';
 …
 ```
-
----
 
 ## Beispiel: TODO-Daten vom Server
 

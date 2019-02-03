@@ -1,15 +1,11 @@
 # constituent parts of programs
 
----
-
 ## constituent parts of programs
 
 - programs
   - code blocks
     - statements
       - expressions
-
----
 
 ## statements across multiple lines
 

@@ -1,12 +1,8 @@
 # Kontrollstrukturen
 
----
-
 ## Kontrollstrukturen
 
 Mit Kontrollstrukturen können wir bestimmten Code zB wiederholt ausführen lassen, oder Code nur in bestimmten Situationen ausführen lassen
-
----
 
 ## Kontrollstrukturen
 
@@ -14,8 +10,6 @@ Die zwei essenziellen Kontrollstrukturen in jeder Programmiersprache:
 
 - if/else-Abfragen, um unter bestimmten Bedingungen die eine oder die andere Aktion zu setzen
 - Schleifen, um unter bestimmten Bedingungen eine Aktion zu wiederholen
-
----
 
 ## Vergleiche
 
@@ -33,13 +27,9 @@ print(a <= b) # a kleiner oder gleich b
 print(a >= b)
 ```
 
----
-
 ## if / else
 
 wenn, dann - sonst
-
----
 
 ## if / else
 
@@ -55,8 +45,6 @@ else:
     print("You are older than 1 billion seconds")
 ```
 
----
-
 ## if / elif / else
 
 ```py
@@ -70,21 +58,15 @@ else:
     print("You are older than 2 billion seconds")
 ```
 
----
-
 ## if / elif / else
 
 Beispiel: Zahlenraten
-
----
 
 ## Codeblöcke
 
 Codeblock = Zusammengehörige Codezeilen, die zB als Resultat einer if-Abfrage ausgeführt werden.
 
 In Python endet die Zeile vor einem Codeblock mit einem `:`, der Codeblock ist eingerückt (meist mit 4 Leerzeichen).
-
----
 
 ## while-Schleife
 
@@ -102,8 +84,6 @@ while a < 2000:
     a = a * 2
 ```
 
----
-
 ## while-Schleife
 
 Beispiele:
@@ -113,8 +93,6 @@ Beispiele:
 - Schleife, die die Zahlen der 7er-Reihe des Einmaleins ausgibt
 - Zahlenraten mit echten Zufallszahlen
 - Rechentrainer mit Zufallsaufgaben
-
----
 
 ## Verknüpfung von Vergleichen
 
@@ -131,8 +109,6 @@ komplexer:
 if a == 3 and 4 < b < 10:
     print("a is 3 and b is between 4 and 10")
 ```
-
----
 
 ## Verknüpfung von Vergleichen
 

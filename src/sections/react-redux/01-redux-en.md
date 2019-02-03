@@ -2,22 +2,16 @@
 
 ### State management with Redux
 
----
-
 ## State management
 
 In more complex fontend-applications it makes sense to manage the state (model) separately from the view.
 
 Often the entire application state is represented by a data model and every change to the state will be done by triggering a change to the data model.
 
----
-
 ## Basic principles of state management libraries
 
 - application state is stored in a global object
 - _every_ state change is triggered by an _action_, which describes the change in detail
-
----
 
 ## State management libraries
 
@@ -26,21 +20,15 @@ Often the entire application state is represented by a data model and every chan
 - ngrx (commonly used with Angular)
 - vuex (used with vue)
 
----
-
 ## what makes Redux special
 
 In Redux a state change is applied via a _reducer_ function, wich transform the previous state into the new state
-
----
 
 ## Installation
 
 ```bash
 npm install redux
 ```
-
----
 
 ## Simple Redux example: counter
 
@@ -55,8 +43,6 @@ These will be represented by JavaScript objects:
 ```json
 { "type": "DECREMENT" }
 ```
-
----
 
 ## Simple Redux example: counter
 
@@ -77,15 +63,11 @@ const counter = (state = initialState, action) => {
 };
 ```
 
----
-
 ## Simple Redux example: counter
 
 The reducer function receives the old state and an action describing a state change
 
 The reducer function returns the new state
-
----
 
 ## Simple Redux example: counter
 
@@ -99,8 +81,6 @@ import { createStore } from 'redux';
 const counterStore = createStore(counter);
 ```
 
----
-
 ## Simple Redux example: counter
 
 Using the store
@@ -110,8 +90,6 @@ counterStore.getState(); // {count: 0}
 counterStore.dispatch({ type: 'INCREMENT' });
 counterStore.getState(); // {count: 1}
 ```
-
----
 
 ## Exercise
 

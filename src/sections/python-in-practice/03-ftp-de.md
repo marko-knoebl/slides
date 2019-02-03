@@ -2,6 +2,4 @@
 
 Modul ftplib
 
-???
-
-Buch 23.2.2
+siehe Buch 23.2.2

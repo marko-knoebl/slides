@@ -1,14 +1,10 @@
 # {{title}}
 
----
-
 ## Präsentation und Code
 
 Präsentationen verfügbar unter: https://karuga.eu/courses-presentations
 
 Code verfügbar unter: https://github.com/marko-knoebl/courses-code
-
----
 
 ## Ihr Trainer
 
@@ -20,8 +16,6 @@ Marko Knöbl
 - Programmierung
   - Python, JavaScript
 
----
-
 ## Vorstellung der Teilnehmer
 
 - Name
@@ -30,8 +24,6 @@ Marko Knöbl
 - Grund der Schulung
 - Vorkenntnisse
 - Erwartungen / Wünsche
-
----
 
 ## Organisatorisches
 
@@ -43,8 +35,6 @@ Marko Knöbl
 
 # JavaScript
 
----
-
 ## JavaScript
 
 dynamische Programmiersprache für Webbrowser
@@ -53,13 +43,9 @@ standardisiert, etabliert als _die_ Sprache für Webbrowser
 
 Ermöglicht Interaktivität von Websites / Webanwendungen
 
----
-
 ## JavaScript-Standardisierung
 
 JavaScript wird unter dem Namen _ECMAScript_ (kurz ES) standardisiert
-
----
 
 ## JavaScript: Versionen
 
@@ -67,16 +53,12 @@ JavaScript wird unter dem Namen _ECMAScript_ (kurz ES) standardisiert
 - Nächste große Version: _ES2015_ (oder ES6)
 - Seither: jährliche kleinere Änderungen (aktuell: ES2018)
 
----
-
 ## JavaScript: Versionsunterstützung
 
 - Übersicht: siehe http://kangax.github.io/compat-table/es6/
 - In der Praxis: Modernes JavaScript wird in ES5 transpiliert (mittels Babel, webpack)
 
 # JavaScript Grundlagen
-
----
 
 ## Ausgabe
 
@@ -92,8 +74,6 @@ In der Browser-Konsole:
 console.log('Hello');
 ```
 
----
-
 ## Variablen
 
 Variablen werden mit `let` deklariert (altes Schlüsselwort: `var`)
@@ -108,8 +88,6 @@ if (true) {
 }
 ```
 
----
-
 ## Konstanten
 
 Mit `const` werden Variablen deklariert, die nicht neu zugewiesen werden können.
@@ -120,13 +98,9 @@ const a = 3;
 a = 4;
 ```
 
----
-
 ## Das Semikolon in JavaScript
 
 In JavaScript sind Semikolons in den meisten Fällen optional; sie werden bei der Ausführung automatisch nach bestimmten Regeln eingesetzt.
-
----
 
 ## JavaScript - das Simikolon
 
@@ -150,8 +124,6 @@ function foo() {
 ```
 <!-- prettier-ignore-end -->
 
----
-
 ## Datentypen
 
 <!-- prettier-ignore -->
@@ -163,8 +135,6 @@ let name2 = "Bob"; // string
 
 let active = true; // boolean
 ```
-
----
 
 ## Datentypen: Arrays
 
@@ -179,8 +149,6 @@ people.push('Dan');
 people.splice(1, 1);
 ```
 
----
-
 ## Datentypen: Objekte
 
 ```js
@@ -192,8 +160,6 @@ let person = {
 
 console.log(person.lastName);
 ```
-
----
 
 ## JavaScript - strikte Vergleiche
 
@@ -208,8 +174,6 @@ Beispiele:
 [] == ''; // true
 ```
 
----
-
 ## if / else if / else
 
 ```js
@@ -222,8 +186,6 @@ if (input === 'yes' || input === 'y') {
 }
 ```
 
----
-
 ## Array-Iteration (for ... of)
 
 Über die Einträge in einem Array iterieren:
@@ -234,8 +196,6 @@ for (let name of names) {
   console.log(name);
 }
 ```
-
----
 
 ## Template-Strings
 
@@ -250,8 +210,6 @@ let greeting = `Hallo, ${name}!
 ```
 
 # Funktionen
-
----
 
 ## Funktionsdefinition
 
@@ -274,8 +232,6 @@ const double3 = (value) => {
 const double4 = (value) => 2 * value;
 ```
 
----
-
 ## Pfeilfunktionen
 
 Seit ES2015 Teil des Standards
@@ -291,8 +247,6 @@ const triple2 = value => value * 3;
 // Parameterklammern weggelassen werden:
 const triple3 = value => value * 3;
 ```
-
----
 
 ## Pfeilfunktionen
 
@@ -313,8 +267,6 @@ const getPerson1 = () => ({
 });
 ```
 
----
-
 ## Standardparameter in Funktionen
 
 In Funktionen können Standardparameter definiert werden:
@@ -327,8 +279,6 @@ let join = (strings, separator='') => {
 
 # JavaScript im Browser
 
----
-
 ## Beispiele in der Browser-Konsole
 
 ```js
@@ -338,13 +288,9 @@ prompt("What's your name?");
 Math.random();
 ```
 
----
-
 ## Document Object Model
 
 **DOM (Document Object Model)** = JavaScript-API für Interaktion mit dem HTML-Inhalt
-
----
 
 ## DOM Grundlagen
 
@@ -352,22 +298,16 @@ Math.random();
 - `document.querySelector()`
 - `element.innerHTML =`
 
----
-
 ## DOM Grundlagen - Beispiele
 
 - Zufallszahl
 - Aktuelles Datum
-
----
 
 ## DOM: Stile und Attribute (href, ...)
 
 - `element.style`
 - (`element.className`)
 - `element.classList` (`.add`, `.remove`, `.toggle`, `.contains`)
-
----
 
 ## DOM: createElement, appendChild
 
@@ -376,14 +316,10 @@ Math.random();
 - `element1.removeChild(element2)`
 - `element2.remove() // not IE`
 
----
-
 ## DOM: createElement, appendChild - Beispiele
 
 - Schachbrett
 - Todo-Liste
-
----
 
 ## Events
 
@@ -391,15 +327,11 @@ Math.random();
 - `setInterval()`
 - `element.addEventListener('click', ...)`
 
----
-
 ## Events - Beispiele
 
 - Uhr
 - Countdown
 - Spiel: click the box
-
----
 
 ## Formulare und Formular-Events
 
@@ -420,15 +352,11 @@ Beispiel: Todo-Liste
 
 # HTTP
 
----
-
 ## HTTP
 
 Hypertext Transfer Protocol
 
 = Protokoll, auf dessen Basis Resourcen über das Netzwerk angefragt und übertragen werden können
-
----
 
 ## HTTP
 
@@ -439,8 +367,6 @@ Anfrage: meist aus dem Browser
 Antwort: kommt vom Server
 
 Beispiel: Siehe Browser-Tools unter "Netzwerkanalyse"
-
----
 
 ## HTTP-Anfrage: Beispiel
 
@@ -455,8 +381,6 @@ Content-Length: 23
   "action": "login"
 }
 ```
-
----
 
 ## HTTP-Antwort: Beispiel
 
@@ -488,15 +412,11 @@ Möglichkeiten:
 
 <!-- siehe auch: pwa/promises -->
 
----
-
 ## Fetch
 
 moderne Möglichkeit, um asynchron Daten vom Server zu laden
 
 Alternative zu XMLHTTPRequest
-
----
 
 ## Nutzung mit Promises
 
@@ -512,8 +432,6 @@ fetch(url)
   });
 ```
 
----
-
 ## Nutzung mit Promises
 
 ```js
@@ -527,8 +445,6 @@ fetch(url)
     console.log(todos);
   });
 ```
-
----
 
 ## Nutzung mit async / await (moderne Browser)
 
@@ -544,8 +460,6 @@ const fetchAsync = async () => {
 fetchAsync();
 ```
 
----
-
 ## Andere http-Methoden
 
 ```js
@@ -557,16 +471,12 @@ fetch(url, {
 });
 ```
 
----
-
 ## Beispiele
 
 - Todo-API (https://jsonplaceholder.typicode.com)
 - Wetter-API (https://openweathermap.org)
 
 # JavaScript Fortgeschritten
-
----
 
 ## Module & Imports
 
@@ -585,8 +495,6 @@ export class User {
 import { User } from 'user.js';
 ```
 
----
-
 ## Module & Imports
 
 ```js
@@ -602,8 +510,6 @@ export default class User {
 import User from 'user.js';
 ```
 
----
-
 ## Klassen und Vererbung
 
 ```js
@@ -615,8 +521,6 @@ class User extends Person {
   }
 }
 ```
-
----
 
 ## Spread Syntax (Arrays und Objekte)
 
@@ -635,8 +539,6 @@ let updatedPerson = {...person, email: 'j@d.com', age: 32};
 
 # Objektorientierte Programmierung (alt)
 
----
-
 ## Prototypen und Konstruktorfunktionen
 
 OOP in JavaScript basiert nicht auf Klassen, sondern auf sogenannten _Prototypen_
@@ -646,8 +548,6 @@ Vergleich aus dem echten Leben: Auto-Objekte
 Eine Auto-Klasse wäre ein Bauplan für ein Auto
 
 Ein Auto-Prototyp wäre ein bestehendes Auto auf dessen Vorlage weitere Autos gebaut werden können
-
----
 
 ## Prototypen und Konstruktorfunktionen
 
@@ -659,8 +559,6 @@ function Car(brand, model) {
   this.model = model;
 }
 ```
-
----
 
 ## Prototypen und Methodendefinition
 
@@ -674,8 +572,6 @@ Car.prototype.getDescription = function() {
 };
 ```
 
----
-
 ## Verwendung von Objekten
 
 ```
@@ -687,8 +583,6 @@ myCar.accelerate();
 ```
 
 # Objektorientierte Programmierung (ab ES2015)
-
----
 
 ## OOP (neu)
 
@@ -744,8 +638,6 @@ console.log(currentBalance);
 ```
 
 moment.js, underscore.js, immutable.js
-
----
 
 ## jQuery
 

@@ -1,7 +1,5 @@
 # Redux in detail
 
----
-
 ## Basic elements of Redux
 
 - _state_
@@ -9,8 +7,6 @@
 - _action creator_: simple function that creates an _action_
 - _reducer_: based on an action, transforms the old _state_ into a new _state_
 - _store_: where the _state_ is stored
-
----
 
 ## example: state
 
@@ -25,16 +21,12 @@
 }
 ```
 
----
-
 ## actions
 
 - actions describe a change to the state
 - actions are objects with a _type_-property and optionally other properties
 - the _type_ property is usually a string, often defined as a constant in a separate module
 - actions often adhere to the _FSA_ standard, meaning they may have a _payload_, an _error_ and a _meta_ property
-
----
 
 ## Actions - examples
 
@@ -47,8 +39,6 @@ let a = {
 };
 ```
 
----
-
 ## Actions - examples
 
 ```js
@@ -57,8 +47,6 @@ let a = {
   payload: 2,
 };
 ```
-
----
 
 ## Action creators
 
@@ -74,16 +62,12 @@ const addTodo = (title, completed = false) => ({
 });
 ```
 
----
-
 ## Reducers
 
 - Actions are processed by reducer functions
 - reducers receive the old state and an action
 - reducers return the new state
 - note: reducers never modify the old state object, but they construct a new one based on it (reducers are pure functions)
-
----
 
 ## Stores
 
@@ -93,8 +77,6 @@ import { createStore } from 'redux';
 // counter = reducer
 const store = createStore(counter);
 ```
-
----
 
 ## combining reducers
 
@@ -112,7 +94,5 @@ rootStore.getState();
 rootStore.dispatch({ type: 'INCREMENT' });
 // {a: {count: 1}, b: {number: 1}}
 ```
-
----
 
 ## Exercise: state managment in the todo app

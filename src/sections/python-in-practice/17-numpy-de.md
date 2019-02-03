@@ -1,26 +1,16 @@
 # NumPy
 
----
-
 ## NumPy
 
 Library zur effizienten Datenverarbeitung
 
 Daten sind in mehrdimensionalen arrays gespeichert, die resourcenschonend umgesetzt sind
 
-???
-
-Erklären: Unterschied: Liste vs Array - warum array weniger resourcen
-
----
-
 ## NumPy
 
 NumPy Arrays vs Python Listen:
 
 Arrays sind im Hintergrund in C implementiert, die numerischen Einträge (z.B. Integer) sind keine Python-Objekte und damit resourcenschonender.
-
----
 
 ## NumPy
 
@@ -36,8 +26,6 @@ array_b = numpy.array(list_b)
 
 array_a + array_b # sehr schnell (da in C implementiert)
 ```
-
----
 
 ## NumPy
 

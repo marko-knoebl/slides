@@ -2,22 +2,16 @@
 
 ### State management mit Redux
 
----
-
 ## State management
 
 In komplexeren Anwendungen macht es Sinn, den Anwendungszustand (model) von der Ansicht (view) zu trennen.
 
 Oft wird der gesamte Anwendungszustand durch ein Datenmodell repräsentiert. Jede Änderung am Anwendungszustand läuft über das Datenmodell.
 
----
-
 ## Grundprinzipien von state management libraries
 
 - Anwendungszustand (state) wird in globalem Objekt gespeichert
 - _Jede_ Zustandsänderung wird durch eine _Action_ ausgelöst, die die Zustandsänderung genau beschreibt
-
----
 
 ## State management libraries
 
@@ -26,21 +20,15 @@ Oft wird der gesamte Anwendungszustand durch ein Datenmodell repräsentiert. Jed
 - ngrx (oft mit Angular verwendet)
 - vuex (mit Vue.js verwendet)
 
----
-
 ## Besonderheit von Redux
 
 In Redux geschieht jede Zustandsänderung mittels eines _Reducers_ - einer Funktion, die einen Zustand in den nächsten überführt
-
----
 
 ## Installation
 
 ```bash
 npm install redux
 ```
-
----
 
 ## Einfaches Redux-Beispiel: Counter
 
@@ -55,8 +43,6 @@ Diese werden durch JavaScript Objekte repräsentiert:
 ```json
 { "type": "DECREMENT" }
 ```
-
----
 
 ## Einfaches Redux-Beispiel: Counter
 
@@ -77,15 +63,11 @@ const counterReducer = (state = initialState, action) => {
 };
 ```
 
----
-
 ## Einfaches Redux-Beispiel: Counter
 
 Die Reducer-Funktion erhält als Funktionsparameter den alten Zustand (State) und eine Action, die eine Zustandsänderung beschreibt.
 
 Die Reducer-Funktion gibt den neuen Zustand zurück.
-
----
 
 ## Einfaches Redux-Beispiel: Counter
 
@@ -100,8 +82,6 @@ import counterReducer from 'counterReducer';
 const counterStore = createStore(counterReducer);
 ```
 
----
-
 ## Einfaches Redux-Beispiel: Counter
 
 Store verwenden
@@ -111,8 +91,6 @@ counterStore.getState(); // {count: 0}
 counterStore.dispatch({ type: 'INCREMENT' });
 counterStore.getState(); // {count: 1}
 ```
-
----
 
 ## Übung
 
