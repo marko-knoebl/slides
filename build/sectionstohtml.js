@@ -1,8 +1,11 @@
 const highlightjs = require('highlightjs');
-const showdown = require('showdown');
+const marked = require('marked');
 
-const converter = new showdown.Converter();
-converter.setFlavor('github');
+marked.setOptions({
+  headerIds: false,
+  gfm: true,
+  xhtml: true
+});
 
 const validImageTypes = ['png'];
 
@@ -18,7 +21,7 @@ const sectionsToHtml = (sections, images) => {
       const page = section[pageIdx];
       for (let part of page) {
         if (typeof part === 'string') {
-          htmlCode += converter.makeHtml(part);
+          htmlCode += marked(part);
         } else if (part.type === 'code') {
           let newCode;
           try {

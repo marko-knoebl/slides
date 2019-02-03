@@ -111,51 +111,70 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   <div id="canvas">
     <div id="canvas-content">
 
-      <section class="section" id="section-1"><section class="slide" id="slide-1-1"><h1 id="working-with-files">Working with files</h1></section><section class="slide" id="slide-1-2"><h2 id="working-with-files">Working with files</h2>
-<p>file = a sequence of bytes on a storage device</p></section><section class="slide" id="slide-1-3"><h2 id="the-function-open">the function "open()"</h2><pre class="code">file_obj = open(<span class="hljs-string">"todos.txt"</span>)
+      <section class="section" id="section-1"><section class="slide" id="slide-1-1"><h1>Working with files</h1>
+</section><section class="slide" id="slide-1-2"><h2>Working with files</h2>
+<p>file = a sequence of bytes on a storage device</p>
+</section><section class="slide" id="slide-1-3"><h2>the function &quot;open()&quot;</h2>
+<pre class="code">file_obj = open(<span class="hljs-string">"todos.txt"</span>)
 content = file_obj.read()
 file_obj.close()
 print(content)</pre><div class="note"> 
 Erstellt eine Instanz einer Unterklasse von IOBase
- </div></section><section class="slide" id="slide-1-4"><h2 id="file-modes">file modes</h2><pre class="code"><span class="hljs-comment"># mode: text, append</span>
-open(<span class="hljs-string">"todos.txt"</span>, mode=<span class="hljs-string">"ta"</span>)</pre></section><section class="slide" id="slide-1-5"><h2 id="file-modes">file modes</h2>
+ </div></section><section class="slide" id="slide-1-4"><h2>file modes</h2>
+<pre class="code"><span class="hljs-comment"># mode: text, append</span>
+open(<span class="hljs-string">"todos.txt"</span>, mode=<span class="hljs-string">"ta"</span>)</pre></section><section class="slide" id="slide-1-5"><h2>file modes</h2>
 <ul>
-<li><p><code>t</code>: text mode (standard)</p></li>
-<li><p><code>b</code>: binary</p></li>
-<li><p><code>r</code>: reading (standard)</p></li>
-<li><p><code>w</code>: (over)writing</p></li>
-<li><p><code>a</code>: appending</p></li>
-</ul></section><section class="slide" id="slide-1-6"><h2 id="reading-and-writing">reading and writing</h2><pre class="code">t = open(<span class="hljs-string">"loremipsum.txt"</span>)
+<li><p><code>t</code>: text mode (standard)</p>
+</li>
+<li><p><code>b</code>: binary</p>
+</li>
+<li><p><code>r</code>: reading (standard)</p>
+</li>
+<li><p><code>w</code>: (over)writing</p>
+</li>
+<li><p><code>a</code>: appending</p>
+</li>
+</ul>
+</section><section class="slide" id="slide-1-6"><h2>reading and writing</h2>
+<pre class="code">t = open(<span class="hljs-string">"loremipsum.txt"</span>)
 print(t.read())
-t.close()</pre></section><section class="slide" id="slide-1-7"><h2 id="reading-and-writing">reading and writing</h2><pre class="code">t = open(<span class="hljs-string">"todos.txt"</span>, mode=<span class="hljs-string">"a"</span>, encoding=<span class="hljs-string">"utf-8"</span>)
+t.close()</pre></section><section class="slide" id="slide-1-7"><h2>reading and writing</h2>
+<pre class="code">t = open(<span class="hljs-string">"todos.txt"</span>, mode=<span class="hljs-string">"a"</span>, encoding=<span class="hljs-string">"utf-8"</span>)
 t.write(<span class="hljs-string">"Learn Python"</span>)
 t.close()</pre><pre class="code">coins = open(<span class="hljs-string">"coins.b"</span>, mode=<span class="hljs-string">"ba"</span>)
 coins.write(bytes([<span class="hljs-number">0b01001110</span>, <span class="hljs-number">0b11100100</span>]))
-coins.close()</pre></section><section class="slide" id="slide-1-8"><h2 id="open-and-the-with-statement">open and the with statement</h2><pre class="code"><span class="hljs-keyword">with</span> open(<span class="hljs-string">"todos.txt"</span>, encoding=<span class="hljs-string">"utf-8"</span>) <span class="hljs-keyword">as</span> file_obj:
-    content = file_obj.read()</pre><p>In this example using the with statement relieves us from explicitly closing the file object. The file will be automatically closed when the program leaves the indented block.</p></section><section class="slide" id="slide-1-9"><h2 id="character-encoding">character encoding</h2>
+coins.close()</pre></section><section class="slide" id="slide-1-8"><h2>open and the with statement</h2>
+<pre class="code"><span class="hljs-keyword">with</span> open(<span class="hljs-string">"todos.txt"</span>, encoding=<span class="hljs-string">"utf-8"</span>) <span class="hljs-keyword">as</span> file_obj:
+    content = file_obj.read()</pre><p>In this example using the with statement relieves us from explicitly closing the file object. The file will be automatically closed when the program leaves the indented block.</p>
+</section><section class="slide" id="slide-1-9"><h2>character encoding</h2>
 <p>Text files may be encoded in various ways:</p>
 <ul>
 <li>ASCII</li>
 <li>CP-1252 / western european / latin1</li>
 <li>UTF-8</li>
 </ul>
-<p>Recommendation: <em>always</em> use utf-8 as the encoding for text files (best support for special characters)</p></section><section class="slide" id="slide-1-10"><h2 id="character-encoding">character encoding</h2>
-<p>The default character encoding for text files depends on the operating system:</p><pre class="code"><span class="hljs-keyword">import</span> locale
-locale.getpreferredencoding()</pre></section><section class="slide" id="slide-1-11"><h2 id="character-encoding">character encoding</h2>
-<p>Explicitly stating the character encoding:</p><pre class="code">open(<span class="hljs-string">"file.txt"</span>, encoding=<span class="hljs-string">"utf-8"</span>)</pre></section><section class="slide" id="slide-1-12"><h2 id="file-like-objects">File-like objects</h2>
+<p>Recommendation: <em>always</em> use utf-8 as the encoding for text files (best support for special characters)</p>
+</section><section class="slide" id="slide-1-10"><h2>character encoding</h2>
+<p>The default character encoding for text files depends on the operating system:</p>
+<pre class="code"><span class="hljs-keyword">import</span> locale
+locale.getpreferredencoding()</pre></section><section class="slide" id="slide-1-11"><h2>character encoding</h2>
+<p>Explicitly stating the character encoding:</p>
+<pre class="code">open(<span class="hljs-string">"file.txt"</span>, encoding=<span class="hljs-string">"utf-8"</span>)</pre></section><section class="slide" id="slide-1-12"><h2>File-like objects</h2>
 <p>Objects that support using <code>.read()</code> or <code>.write()</code> etc:</p>
 <ul>
 <li>files (zB via <code>open()</code>)</li>
 <li><code>sys.stdout</code>, <code>sys.stdin</code></li>
-<li>Network replies, e.g. via <code>urllib.request.urlopen('https://google.com')</code></li>
-</ul><div class="note"> 
+<li>Network replies, e.g. via <code>urllib.request.urlopen(&#39;https://google.com&#39;)</code></li>
+</ul>
+<div class="note"> 
 example: sys.stdin.readline()
- </div></section><section class="slide" id="slide-1-13"><h2 id="file-like-objects">File-like objects</h2><pre class="code"><span class="hljs-keyword">with</span> file <span class="hljs-keyword">as</span> open(<span class="hljs-string">'myfile.txt'</span>, encoding=<span class="hljs-string">"utf-8"</span>):
+ </div></section><section class="slide" id="slide-1-13"><h2>File-like objects</h2>
+<pre class="code"><span class="hljs-keyword">with</span> file <span class="hljs-keyword">as</span> open(<span class="hljs-string">'myfile.txt'</span>, encoding=<span class="hljs-string">"utf-8"</span>):
     <span class="hljs-comment"># read individual lines</span>
     <span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> file:
         print(line)
     <span class="hljs-comment"># read entire file</span>
-    print(file.read())</pre></section><section class="slide" id="slide-1-14"><h2 id="file-like-objects">File-like objects</h2>
+    print(file.read())</pre></section><section class="slide" id="slide-1-14"><h2>File-like objects</h2>
 <p>Methods:</p>
 <ul>
 <li><code>.close()</code></li>
@@ -163,7 +182,9 @@ example: sys.stdin.readline()
 <li><code>.read()</code> (read the entire file)</li>
 <li><code>.read(10)</code> (read the next 10 bytes)</li>
 <li><code>.readline()</code> (read the next line)</li>
-</ul></section></section><section class="section" id="section-2"><section class="slide" id="slide-2-1"><h1 id="working-with-various-file-formats">Working with various file formats</h1></section><section class="slide" id="slide-2-2"><h2 id="working-with-file-formats">Working with file formats</h2>
+</ul>
+</section></section><section class="section" id="section-2"><section class="slide" id="slide-2-1"><h1>Working with various file formats</h1>
+</section><section class="slide" id="slide-2-2"><h2>Working with file formats</h2>
 <p>possibilities:</p>
 <ul>
 <li>text files</li>
@@ -171,17 +192,21 @@ example: sys.stdin.readline()
 <li>XML</li>
 <li>Python object files (via pickle and shelve)</li>
 <li>binary files</li>
-</ul></section><section class="slide" id="slide-2-3"><h2 id="json">JSON</h2></section><section class="slide" id="slide-2-4"><h2 id="saving-json">saving JSON</h2><pre class="code"><span class="hljs-keyword">import</span> json
+</ul>
+</section><section class="slide" id="slide-2-3"><h2>JSON</h2>
+</section><section class="slide" id="slide-2-4"><h2>saving JSON</h2>
+<pre class="code"><span class="hljs-keyword">import</span> json
 
 data = [<span class="hljs-string">"one"</span>, <span class="hljs-string">"two"</span>, <span class="hljs-string">"three"</span>]
 jsonstring = json.dumps(data)
 
 <span class="hljs-keyword">with</span> open(<span class="hljs-string">"numbers.json"</span>, encoding=<span class="hljs-string">"utf-8"</span>) <span class="hljs-keyword">as</span> jsonfile:
-    jsonfile.write(jsonstring)</pre></section><section class="slide" id="slide-2-5"><h2 id="reading-json">reading JSON</h2><pre class="code"><span class="hljs-keyword">import</span> json
+    jsonfile.write(jsonstring)</pre></section><section class="slide" id="slide-2-5"><h2>reading JSON</h2>
+<pre class="code"><span class="hljs-keyword">import</span> json
 
 <span class="hljs-keyword">with</span> open(<span class="hljs-string">"numbers.json"</span>, encoding=<span class="hljs-string">"utf-8"</span>) <span class="hljs-keyword">as</span> jsonfile:
     jsonstring = jsonfile.read()
-data = json.loads(jsonstring)</pre></section><section class="slide" id="slide-2-6"><h2 id="xml">XML</h2>
+data = json.loads(jsonstring)</pre></section><section class="slide" id="slide-2-6"><h2>XML</h2>
 <p>two packages in the standard library:</p>
 <ul>
 <li><code>xml.etree.ElementTree</code></li>
@@ -190,14 +215,17 @@ data = json.loads(jsonstring)</pre></section><section class="slide" id="slide-2-
 <p>external library (extension of ElementTree):</p>
 <ul>
 <li><code>lxml</code></li>
-</ul></section><section class="slide" id="slide-2-7"><h2 id="xml-with-elementtree-creating-a-document">XML with ElementTree: creating a document</h2><pre class="code"><span class="hljs-keyword">import</span> xml.etree.ElementTree <span class="hljs-keyword">as</span> et
+</ul>
+</section><section class="slide" id="slide-2-7"><h2>XML with ElementTree: creating a document</h2>
+<pre class="code"><span class="hljs-keyword">import</span> xml.etree.ElementTree <span class="hljs-keyword">as</span> et
 
 person = et.Element(<span class="hljs-string">'person'</span>)
 name = et.SubElement(person, <span class="hljs-string">'name'</span>)
 name.text = <span class="hljs-string">'Adam'</span>
 age = et.SubElement(person, <span class="hljs-string">'age'</span>)
 age.text = <span class="hljs-string">'40'</span>
-age.set(<span class="hljs-string">"unit"</span>, <span class="hljs-string">"years"</span>)</pre></section><section class="slide" id="slide-2-8"><h2 id="xml-with-elementtree-saving">XML with ElementTree: saving</h2><pre class="code">xmlbytestring: bytes = et.tostring(person, encoding=<span class="hljs-string">'utf-8'</span>)
+age.set(<span class="hljs-string">"unit"</span>, <span class="hljs-string">"years"</span>)</pre></section><section class="slide" id="slide-2-8"><h2>XML with ElementTree: saving</h2>
+<pre class="code">xmlbytestring: bytes = et.tostring(person, encoding=<span class="hljs-string">'utf-8'</span>)
 <span class="hljs-keyword">with</span> open(<span class="hljs-string">"myfile.xml"</span>, mode=<span class="hljs-string">"wb"</span>) <span class="hljs-keyword">as</span> file:
     file.write(xmlbytestring)
 
@@ -208,14 +236,17 @@ xmlstring: str = et.tostring(person, encoding=<span class="hljs-string">'unicode
 
 <span class="hljs-comment"># oder</span>
 tree = et.ElementTree(person)
-tree.write(<span class="hljs-string">"myfile.xml"</span>, encoding=<span class="hljs-string">"utf-8"</span>)</pre></section><section class="slide" id="slide-2-9"><h2 id="xml-mit-elementtree-reading">XML mit ElementTree: reading</h2><pre class="code"><span class="hljs-keyword">import</span> xml.etree.ElementTree <span class="hljs-keyword">as</span> et
+tree.write(<span class="hljs-string">"myfile.xml"</span>, encoding=<span class="hljs-string">"utf-8"</span>)</pre></section><section class="slide" id="slide-2-9"><h2>XML mit ElementTree: reading</h2>
+<pre class="code"><span class="hljs-keyword">import</span> xml.etree.ElementTree <span class="hljs-keyword">as</span> et
 
 person = et.fromstring(xmlstring)
 <span class="hljs-keyword">for</span> childnode <span class="hljs-keyword">in</span> person:
     print(childnode.tag)
     print(childnode.text)
-    print(childnode.attrib)</pre></section><section class="slide" id="slide-2-10"><h2 id="pickle">Pickle</h2>
-<p>File format that can be used to save various types of Python objects</p></section><section class="slide" id="slide-2-11"><h2 id="pickle">Pickle</h2><pre class="code"><span class="hljs-keyword">import</span> pickle
+    print(childnode.attrib)</pre></section><section class="slide" id="slide-2-10"><h2>Pickle</h2>
+<p>File format that can be used to save various types of Python objects</p>
+</section><section class="slide" id="slide-2-11"><h2>Pickle</h2>
+<pre class="code"><span class="hljs-keyword">import</span> pickle
 <span class="hljs-keyword">import</span> datetime
 
 now = datetime.datetime.now()
@@ -223,44 +254,55 @@ now = datetime.datetime.now()
 serialized = pickle.dumps()
 
 <span class="hljs-keyword">with</span> open(<span class="hljs-string">"datetime.pickle"</span>, mode=<span class="hljs-string">"wb"</span>) <span class="hljs-keyword">as</span> picklefile:
-    picklefile.write(serialized)</pre></section><section class="slide" id="slide-2-12"><h2 id="pickle">Pickle</h2><pre class="code"><span class="hljs-keyword">import</span> pickle
+    picklefile.write(serialized)</pre></section><section class="slide" id="slide-2-12"><h2>Pickle</h2>
+<pre class="code"><span class="hljs-keyword">import</span> pickle
 
 <span class="hljs-keyword">with</span> open(<span class="hljs-string">"datetime.pickle"</span>, mode=<span class="hljs-string">"rb"</span>) <span class="hljs-keyword">as</span> picklefile:
     serialized = picklefile.read()
-earlier = pickle.reads(serialized)</pre></section><section class="slide" id="slide-2-13"><h2 id="exercise">exercise</h2>
+earlier = pickle.reads(serialized)</pre></section><section class="slide" id="slide-2-13"><h2>exercise</h2>
 <ul>
 <li>saving / loading of a tic-tac-toe board in various formats</li>
 </ul>
-<p>Python data structure:</p><pre class="code">field = [
+<p>Python data structure:</p>
+<pre class="code">field = [
   [<span class="hljs-string">'X'</span>, <span class="hljs-string">'O'</span>, <span class="hljs-keyword">None</span>],
   [<span class="hljs-string">'X'</span>, <span class="hljs-string">'X'</span>, <span class="hljs-string">'O'</span>],
   [<span class="hljs-string">'O'</span>, <span class="hljs-string">'O'</span>, <span class="hljs-string">'X'</span>]
-]</pre></section></section><section class="section" id="section-3"><section class="slide" id="slide-3-1"><h1 id="modules-and-packages">Modules and Packages</h1></section><section class="slide" id="slide-3-2"><h2 id="modules-and-packages">Modules and Packages</h2>
+]</pre></section></section><section class="section" id="section-3"><section class="slide" id="slide-3-1"><h1>Modules and Packages</h1>
+</section><section class="slide" id="slide-3-2"><h2>Modules and Packages</h2>
 <ul>
 <li>Module = Python file from which objects can be imported</li>
 <li>Package = directory that includes Python modules</li>
-</ul></section><section class="slide" id="slide-3-3"><h2 id="example-imports">example imports</h2><pre class="code"><span class="hljs-keyword">import</span> module1
+</ul>
+</section><section class="slide" id="slide-3-3"><h2>example imports</h2>
+<pre class="code"><span class="hljs-keyword">import</span> module1
 <span class="hljs-keyword">import</span> package1.module2
 
 <span class="hljs-keyword">from</span> package1 <span class="hljs-keyword">import</span> module2
 <span class="hljs-keyword">from</span> package1.module2 <span class="hljs-keyword">import</span> myobject
 
-<span class="hljs-keyword">from</span> package1.module2 <span class="hljs-keyword">import</span> *</pre></section><section class="slide" id="slide-3-4"><h2 id="example-imports-urllib">example imports: urllib</h2>
+<span class="hljs-keyword">from</span> package1.module2 <span class="hljs-keyword">import</span> *</pre></section><section class="slide" id="slide-3-4"><h2>example imports: urllib</h2>
 <ul>
 <li><code>urllib</code> = package</li>
 <li><code>urllib.request</code> = modules</li>
 <li><code>urllib.request.urlopen</code> = function</li>
-</ul></section><section class="slide" id="slide-3-5"><h2 id="compilation-of-modules">compilation of modules</h2>
+</ul>
+</section><section class="slide" id="slide-3-5"><h2>compilation of modules</h2>
 <p>Imported modules will be saved in a compiled form, making subsequent loading of the modules faster.</p>
-<p>Compiled versions will be saved in the folder <code>__pycache__</code></p></section><section class="slide" id="slide-3-6"><h2 id="be-careful-avoid-circular-imports">be careful: avoid circular imports</h2></section></section><section class="section" id="section-4"><section class="slide" id="slide-4-1"><h1 id="object-oriented-programming-and-classes">Object-oriented programming and classes</h1></section><section class="slide" id="slide-4-2"><h2 id="object-orientation-in-python-everything-is-an-object">object orientation in Python "Everything is an object"</h2><pre class="code">a = <span class="hljs-number">20</span>
+<p>Compiled versions will be saved in the folder <code>__pycache__</code></p>
+</section><section class="slide" id="slide-3-6"><h2>be careful: avoid circular imports</h2>
+</section></section><section class="section" id="section-4"><section class="slide" id="slide-4-1"><h1>Object-oriented programming and classes</h1>
+</section><section class="slide" id="slide-4-2"><h2>object orientation in Python &quot;Everything is an object&quot;</h2>
+<pre class="code">a = <span class="hljs-number">20</span>
 
 a.to_bytes(<span class="hljs-number">1</span>, <span class="hljs-string">"big"</span>)
 
-<span class="hljs-string">"hello"</span>.upper()</pre></section><section class="slide" id="slide-4-3"><h2 id="types-and-instances">types and instances</h2><pre class="code">message = <span class="hljs-string">"hello"</span>
+<span class="hljs-string">"hello"</span>.upper()</pre></section><section class="slide" id="slide-4-3"><h2>types and instances</h2>
+<pre class="code">message = <span class="hljs-string">"hello"</span>
 
 type(message)
 
-isinstance(message, str)</pre></section><section class="slide" id="slide-4-4"><h2 id="classes">classes</h2>
+isinstance(message, str)</pre></section><section class="slide" id="slide-4-4"><h2>classes</h2>
 <p>Classes may represent <em>various</em> things, e.g.:</p>
 <ul>
 <li>a Message inside an e-mail program</li>
@@ -268,18 +310,22 @@ isinstance(message, str)</pre></section><section class="slide" id="slide-4-4"><h
 <li>a car in a racing game</li>
 <li>a shopping basket in an online shop</li>
 <li>a bank account</li>
-<li>…</li>
-</ul></section><section class="slide" id="slide-4-5"><h2 id="classes">classes</h2>
+<li>...</li>
+</ul>
+</section><section class="slide" id="slide-4-5"><h2>classes</h2>
 <p>The definition of a class usually encompasses:</p>
 <ul>
-<li>a "data structure" (attributes)</li>
-<li>a "behaviour" (methods)</li>
-</ul></section><section class="slide" id="slide-4-6"><h2 id="classes">classes</h2>
+<li>a &quot;data structure&quot; (attributes)</li>
+<li>a &quot;behaviour&quot; (methods)</li>
+</ul>
+</section><section class="slide" id="slide-4-6"><h2>classes</h2>
 <p>example: class <code>BankAccount</code></p>
 <ul>
-<li>"data structure" (attributes)</li>
-<li>"behaviour" (methods)</li>
-</ul></section><section class="slide" id="slide-4-7"><h2 id="defining-classes">defining classes</h2><pre class="code"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span><span class="hljs-params">()</span>:</span>
+<li>&quot;data structure&quot; (attributes)</li>
+<li>&quot;behaviour&quot; (methods)</li>
+</ul>
+</section><section class="slide" id="slide-4-7"><h2>defining classes</h2>
+<pre class="code"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span><span class="hljs-params">()</span>:</span>
 
     <span class="hljs-comment"># the method __init__ initializes the object</span>
     <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self)</span>:</span>
@@ -288,16 +334,19 @@ isinstance(message, str)</pre></section><section class="slide" id="slide-4-4"><h
         self.message = <span class="hljs-string">"hello"</span>
 
 instance = MyClass()
-instance.message <span class="hljs-comment"># "hello"</span></pre></section><section class="slide" id="slide-4-8"><h2 id="inheritance">Inheritance</h2><pre class="code"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span><span class="hljs-params">()</span>:</span>
+instance.message <span class="hljs-comment"># "hello"</span></pre></section><section class="slide" id="slide-4-8"><h2>Inheritance</h2>
+<pre class="code"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span><span class="hljs-params">()</span>:</span>
     ...
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Admin</span><span class="hljs-params">(Person)</span>:</span>
-    ...</pre></section><section class="slide" id="slide-4-9"><h2 id="example-class-money">Example: class "Money"</h2><pre class="code">a = Money(<span class="hljs-string">'EUR'</span>, <span class="hljs-number">10</span>)
+    ...</pre></section><section class="slide" id="slide-4-9"><h2>Example: class &quot;Money&quot;</h2>
+<pre class="code">a = Money(<span class="hljs-string">'EUR'</span>, <span class="hljs-number">10</span>)
 b = Money(<span class="hljs-string">'USD'</span>, <span class="hljs-number">10</span>)
 
 a.currency
 
-a.amount</pre></section><section class="slide" id="slide-4-10"><h2 id="exercise-classes-todolist-and-todo">Exercise: classes "TodoList" and "Todo"</h2><pre class="code">tdl = TodoList(<span class="hljs-string">"groceries"</span>)
+a.amount</pre></section><section class="slide" id="slide-4-10"><h2>Exercise: classes &quot;TodoList&quot; and &quot;Todo&quot;</h2>
+<pre class="code">tdl = TodoList(<span class="hljs-string">"groceries"</span>)
 
 tdl.add(<span class="hljs-string">"milk"</span>)
 tdl.add(<span class="hljs-string">"bread"</span>)

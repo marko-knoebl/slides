@@ -111,24 +111,32 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   <div id="canvas">
     <div id="canvas-content">
 
-      <section class="section" id="section-1"><section class="slide" id="slide-1-1"><h1 id="redux">Redux</h1>
-<h2 id="state-management-with-redux">State management with Redux</h2></section><section class="slide" id="slide-1-2"><h2 id="state-management">State management</h2>
+      <section class="section" id="section-1"><section class="slide" id="slide-1-1"><h1>Redux</h1>
+<h2>State management with Redux</h2>
+</section><section class="slide" id="slide-1-2"><h2>State management</h2>
 <p>In more complex fontend-applications it makes sense to manage the state (model) separately from the view.</p>
-<p>Often the entire application state is represented by a data model and every change to the state will be done by triggering a change to the data model.</p></section><section class="slide" id="slide-1-3"><h2 id="basic-principles-of-state-management-libraries">Basic principles of state management libraries</h2>
+<p>Often the entire application state is represented by a data model and every change to the state will be done by triggering a change to the data model.</p>
+</section><section class="slide" id="slide-1-3"><h2>Basic principles of state management libraries</h2>
 <ul>
 <li>application state is stored in a global object</li>
 <li><em>every</em> state change is triggered by an <em>action</em>, which describes the change in detail</li>
-</ul></section><section class="slide" id="slide-1-4"><h2 id="state-management-libraries">State management libraries</h2>
+</ul>
+</section><section class="slide" id="slide-1-4"><h2>State management libraries</h2>
 <ul>
 <li>Redux (commonly used with React)</li>
 <li>MobX (commonly used with React)</li>
 <li>ngrx (commonly used with Angular)</li>
 <li>vuex (used with vue)</li>
-</ul></section><section class="slide" id="slide-1-5"><h2 id="what-makes-redux-special">what makes Redux special</h2>
-<p>In Redux a state change is applied via a <em>reducer</em> function, wich transform the previous state into the new state</p></section><section class="slide" id="slide-1-6"><h2 id="installation">Installation</h2><pre class="code">npm install redux</pre></section><section class="slide" id="slide-1-7"><h2 id="simple-redux-example-counter">Simple Redux example: counter</h2>
+</ul>
+</section><section class="slide" id="slide-1-5"><h2>what makes Redux special</h2>
+<p>In Redux a state change is applied via a <em>reducer</em> function, wich transform the previous state into the new state</p>
+</section><section class="slide" id="slide-1-6"><h2>Installation</h2>
+<pre class="code">npm install redux</pre></section><section class="slide" id="slide-1-7"><h2>Simple Redux example: counter</h2>
 <p>We create a counter which has two actions, <em>increment</em> and <em>decrement</em>.</p>
-<p>These will be represented by JavaScript objects:</p><pre class="code">{ <span class="hljs-attr">"type"</span>: <span class="hljs-string">"INCREMENT"</span> }</pre><pre class="code">{ <span class="hljs-attr">"type"</span>: <span class="hljs-string">"DECREMENT"</span> }</pre></section><section class="slide" id="slide-1-8"><h2 id="simple-redux-example-counter">Simple Redux example: counter</h2>
-<p>The central element is the <em>reducer</em> function:</p><pre class="code"><span class="hljs-keyword">const</span> initialState = { <span class="hljs-attr">count</span>: <span class="hljs-number">0</span> };
+<p>These will be represented by JavaScript objects:</p>
+<pre class="code">{ <span class="hljs-attr">"type"</span>: <span class="hljs-string">"INCREMENT"</span> }</pre><pre class="code">{ <span class="hljs-attr">"type"</span>: <span class="hljs-string">"DECREMENT"</span> }</pre></section><section class="slide" id="slide-1-8"><h2>Simple Redux example: counter</h2>
+<p>The central element is the <em>reducer</em> function:</p>
+<pre class="code"><span class="hljs-keyword">const</span> initialState = { <span class="hljs-attr">count</span>: <span class="hljs-number">0</span> };
 
 <span class="hljs-keyword">const</span> counter = <span class="hljs-function">(<span class="hljs-params">state = initialState, action</span>) =&gt;</span> {
   <span class="hljs-keyword">switch</span> (action.type) {
@@ -139,27 +147,36 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
     <span class="hljs-keyword">default</span>:
       <span class="hljs-keyword">return</span> state;
   }
-};</pre></section><section class="slide" id="slide-1-9"><h2 id="simple-redux-example-counter">Simple Redux example: counter</h2>
+};</pre></section><section class="slide" id="slide-1-9"><h2>Simple Redux example: counter</h2>
 <p>The reducer function receives the old state and an action describing a state change</p>
-<p>The reducer function returns the new state</p></section><section class="slide" id="slide-1-10"><h2 id="simple-redux-example-counter">Simple Redux example: counter</h2>
-<p>Store = object that stores the redux state; a store is managed by a reducer</p><pre class="code"><span class="hljs-comment">// stores.js</span>
+<p>The reducer function returns the new state</p>
+</section><section class="slide" id="slide-1-10"><h2>Simple Redux example: counter</h2>
+<p>Store = object that stores the redux state; a store is managed by a reducer</p>
+<pre class="code"><span class="hljs-comment">// stores.js</span>
 <span class="hljs-keyword">import</span> { createStore } <span class="hljs-keyword">from</span> <span class="hljs-string">'redux'</span>;
 
 <span class="hljs-comment">// counter = reducer</span>
-<span class="hljs-keyword">const</span> counterStore = createStore(counter);</pre></section><section class="slide" id="slide-1-11"><h2 id="simple-redux-example-counter">Simple Redux example: counter</h2>
-<p>Using the store</p><pre class="code">counterStore.getState(); <span class="hljs-comment">// {count: 0}</span>
+<span class="hljs-keyword">const</span> counterStore = createStore(counter);</pre></section><section class="slide" id="slide-1-11"><h2>Simple Redux example: counter</h2>
+<p>Using the store</p>
+<pre class="code">counterStore.getState(); <span class="hljs-comment">// {count: 0}</span>
 counterStore.dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">'INCREMENT'</span> });
-counterStore.getState(); <span class="hljs-comment">// {count: 1}</span></pre></section><section class="slide" id="slide-1-12"><h2 id="exercise">Exercise</h2>
-<p>Create a new <code>mathadorStore</code> with an initial state of <code>{number: 1}</code> and two actions corresponding to "*3" and "-7"</p>
-<p>additinal tasks: reach the number 4 (or 10) by dispatching actions</p></section></section><section class="section" id="section-2"><section class="slide" id="slide-2-1"><h1 id="react-with-redux">React with Redux</h1></section><section class="slide" id="slide-2-2"><h2 id="react-with-redux">React with Redux</h2>
+counterStore.getState(); <span class="hljs-comment">// {count: 1}</span></pre></section><section class="slide" id="slide-1-12"><h2>Exercise</h2>
+<p>Create a new <code>mathadorStore</code> with an initial state of <code>{number: 1}</code> and two actions corresponding to &quot;*3&quot; and &quot;-7&quot;</p>
+<p>additinal tasks: reach the number 4 (or 10) by dispatching actions</p>
+</section></section><section class="section" id="section-2"><section class="slide" id="slide-2-1"><h1>React with Redux</h1>
+</section><section class="slide" id="slide-2-2"><h2>React with Redux</h2>
 <p><a href="https://redux.js.org/basics/usage-with-react">https://redux.js.org/basics/usage-with-react</a></p>
 <p>Setup: <code>npm install redux react-redux</code></p>
-<p>TypeScript: <code>npm install @types/react-redux</code></p></section><section class="slide" id="slide-2-3"><h2 id="presentational-and-container-components">Presentational and Container Components</h2>
+<p>TypeScript: <code>npm install @types/react-redux</code></p>
+</section><section class="slide" id="slide-2-3"><h2>Presentational and Container Components</h2>
 <ul>
-<li>presentational components: "Ordinary" React components (reusable)</li>
+<li>presentational components: &quot;Ordinary&quot; React components (reusable)</li>
 <li>container components: Have access to the redux store / are connected with the Redux store</li>
-</ul></section><section class="slide" id="slide-2-4"><h2 id="react-redux--provider-">React-Redux: < Provider ></h2>
-<p>Provider: Helps in adding a redux store to a React App</p></section><section class="slide" id="slide-2-5"><h2 id="react-redux--provider-">React-Redux: < Provider ></h2><pre class="code"><span class="hljs-comment">// index.js</span>
+</ul>
+</section><section class="slide" id="slide-2-4"><h2>React-Redux: &lt; Provider &gt;</h2>
+<p>Provider: Helps in adding a redux store to a React App</p>
+</section><section class="slide" id="slide-2-5"><h2>React-Redux: &lt; Provider &gt;</h2>
+<pre class="code"><span class="hljs-comment">// index.js</span>
 <span class="hljs-keyword">import</span> { Provider } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-redux'</span>;
 
 [...]
@@ -168,10 +185,12 @@ ReactDOM.render(
   <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Provider</span> <span class="hljs-attr">store</span>=<span class="hljs-string">{myStore}</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">App</span>/&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-name">Provider</span>&gt;</span></span>
-);</pre></section><section class="slide" id="slide-2-6"><h2 id="redux-devtools">Redux devtools</h2>
+);</pre></section><section class="slide" id="slide-2-6"><h2>Redux devtools</h2>
 <p>Browser-plugin:</p>
-<p><a href="https://github.com/zalmoxisus/redux-devtools-extension">https://github.com/zalmoxisus/redux-devtools-extension</a></p></section><section class="slide" id="slide-2-7"><h2 id="redux-devtools">Redux devtools</h2>
-<p>include via:</p><pre class="code"><span class="hljs-keyword">import</span> {
+<p><a href="https://github.com/zalmoxisus/redux-devtools-extension">https://github.com/zalmoxisus/redux-devtools-extension</a></p>
+</section><section class="slide" id="slide-2-7"><h2>Redux devtools</h2>
+<p>include via:</p>
+<pre class="code"><span class="hljs-keyword">import</span> {
   createStore,
   applyMiddleware,
   compose,
@@ -184,16 +203,18 @@ ReactDOM.render(
 <span class="hljs-keyword">const</span> store = createStore(
   reducer,
   composeEnhancers(applyMiddleware())
-);</pre></section><section class="slide" id="slide-2-8"><h2 id="counter-connect">Counter: Connect</h2>
+);</pre></section><section class="slide" id="slide-2-8"><h2>Counter: Connect</h2>
 <p>connect: connects React components with the Redux store</p>
 <ul>
 <li>mapStateToProps: connects React props to Redux state</li>
 <li>mapDispatchToProps: connects React props to Redux actions</li>
 </ul>
-<p>calling connect:</p><pre class="code">component = connect(
+<p>calling connect:</p>
+<pre class="code">component = connect(
   mapStateToProps,
   mapDispatchToProps
-)(component);</pre></section><section class="slide" id="slide-2-9"><h2 id="counter-connect-state">Counter: Connect (state)</h2><pre class="code">import { connect } from 'react-redux';
+)(component);</pre></section><section class="slide" id="slide-2-9"><h2>Counter: Connect (state)</h2>
+<pre class="code">import { connect } from 'react-redux';
 
 const mapStateToProps = (state) =&gt; {
   return { count: state };
@@ -205,7 +226,8 @@ const mapStateToProps = (state) =&gt; {
     &lt;/div&gt;
 [...]
 
-export default connect(mapStateToProps)(App);</pre></section><section class="slide" id="slide-2-10"><h2 id="counter-connect-actions">Counter: Connect (actions)</h2><pre class="code"><span class="hljs-keyword">const</span> mapDispatchToProps = <span class="hljs-function"><span class="hljs-params">dispatch</span> =&gt;</span> {
+export default connect(mapStateToProps)(App);</pre></section><section class="slide" id="slide-2-10"><h2>Counter: Connect (actions)</h2>
+<pre class="code"><span class="hljs-keyword">const</span> mapDispatchToProps = <span class="hljs-function"><span class="hljs-params">dispatch</span> =&gt;</span> {
   <span class="hljs-comment">// dispatch refers to the dispatch function of the store;</span>
   <span class="hljs-comment">// it is provided to us via dependency injection.</span>
   <span class="hljs-keyword">return</span> {
@@ -213,7 +235,8 @@ export default connect(mapStateToProps)(App);</pre></section><section class="sli
     <span class="hljs-attr">decrement</span>: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">'DECREMENT'</span> }),
   };
 };</pre><pre class="code"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{this.props.increment}</span>&gt;</span>+<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{this.props.decrement}</span>&gt;</span>-<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></pre></section><section class="slide" id="slide-2-11"><h2 id="counter-dispatch-with-typescript">Counter: Dispatch with TypeScript</h2><pre class="code"><span class="hljs-keyword">import</span> { Action, Dispatch } <span class="hljs-keyword">from</span> <span class="hljs-string">'redux'</span>;
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{this.props.decrement}</span>&gt;</span>-<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></pre></section><section class="slide" id="slide-2-11"><h2>Counter: Dispatch with TypeScript</h2>
+<pre class="code"><span class="hljs-keyword">import</span> { Action, Dispatch } <span class="hljs-keyword">from</span> <span class="hljs-string">'redux'</span>;
 
 <span class="hljs-keyword">interface</span> MyAction <span class="hljs-keyword">extends</span> Action {
   payload: <span class="hljs-built_in">any</span>;
@@ -225,16 +248,23 @@ export default connect(mapStateToProps)(App);</pre></section><section class="sli
   increment: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
     dispatch({ <span class="hljs-keyword">type</span>: <span class="hljs-string">'INCREMENT'</span>, payload: <span class="hljs-number">1</span> });
   },
-});</pre></section><section class="slide" id="slide-2-12"><h2 id="redux-mit-typescript">Redux mit TypeScript</h2>
-<p>siehe <a href="https://github.com/piotrwitek/react-redux-typescript-guide">https://github.com/piotrwitek/react-redux-typescript-guide</a></p></section></section><section class="section" id="section-3"><section class="slide" id="slide-3-1"><h1 id="immutability">Immutability</h1></section><section class="slide" id="slide-3-2"><h2 id="immutability">Immutability</h2>
-<p>important concept in functional programing and with React / Redux</p></section><section class="slide" id="slide-3-3"><h2 id="immutability">Immutability</h2>
-<p>When using Redux or React's PureComponent:</p>
+});</pre></section><section class="slide" id="slide-2-12"><h2>Redux mit TypeScript</h2>
+<p>siehe <a href="https://github.com/piotrwitek/react-redux-typescript-guide">https://github.com/piotrwitek/react-redux-typescript-guide</a></p>
+</section></section><section class="section" id="section-3"><section class="slide" id="slide-3-1"><h1>Immutability</h1>
+</section><section class="slide" id="slide-3-2"><h2>Immutability</h2>
+<p>important concept in functional programing and with React / Redux</p>
+</section><section class="slide" id="slide-3-3"><h2>Immutability</h2>
+<p>When using Redux or React&#39;s PureComponent:</p>
 <p>Objects that describe the application state must not be modified directly</p>
 <p>Instead, these Objects should be replaced by new, modified Objects</p>
-<p>Advantages: increased performance, more possibilities when it comes to debugging</p></section><section class="slide" id="slide-3-4"><h2 id="purecomponent">PureComponent</h2>
+<p>Advantages: increased performance, more possibilities when it comes to debugging</p>
+</section><section class="slide" id="slide-3-4"><h2>PureComponent</h2>
 <p>Instead of <code>Component</code> we can inherit from <code>PureComponent</code>:</p>
 <p>The component will onl be rerendered if either state or props have changed</p>
-<p>Entries in state or props are considered to have changed only if they refer to a different object than before</p></section><section class="slide" id="slide-3-5"><h2 id="data-managment-without-mutations">Data managment without mutations</h2></section><section class="slide" id="slide-3-6"><h2 id="data-managment-without-mutations-arrays">Data managment without mutations: Arrays</h2><pre class="code"><span class="hljs-keyword">let</span> names = [<span class="hljs-string">'Alice'</span>, <span class="hljs-string">'Bob'</span>, <span class="hljs-string">'Charlie'</span>];
+<p>Entries in state or props are considered to have changed only if they refer to a different object than before</p>
+</section><section class="slide" id="slide-3-5"><h2>Data managment without mutations</h2>
+</section><section class="slide" id="slide-3-6"><h2>Data managment without mutations: Arrays</h2>
+<pre class="code"><span class="hljs-keyword">let</span> names = [<span class="hljs-string">'Alice'</span>, <span class="hljs-string">'Bob'</span>, <span class="hljs-string">'Charlie'</span>];
 <span class="hljs-comment">// invalid: modifies the original array</span>
 names.push(<span class="hljs-string">'Dan'</span>);
 
@@ -245,7 +275,8 @@ newNames.push(<span class="hljs-string">'Dan'</span>);
 names = newNames;
 
 <span class="hljs-comment">// or:</span>
-names = [...names, <span class="hljs-string">'Dan'</span>];</pre></section><section class="slide" id="slide-3-7"><h2 id="data-managment-without-mutations-objects">Data managment without mutations: Objects</h2><pre class="code"><span class="hljs-keyword">let</span> user = {
+names = [...names, <span class="hljs-string">'Dan'</span>];</pre></section><section class="slide" id="slide-3-7"><h2>Data managment without mutations: Objects</h2>
+<pre class="code"><span class="hljs-keyword">let</span> user = {
   <span class="hljs-attr">name</span>: <span class="hljs-string">'john'</span>
   email: <span class="hljs-string">'john@doe.com'</span>
 }
@@ -253,51 +284,61 @@ names = [...names, <span class="hljs-string">'Dan'</span>];</pre></section><sect
 user.email = <span class="hljs-string">'johndoe@gmail.com'</span>;
 
 <span class="hljs-comment">// instead: create a new object</span>
-<span class="hljs-keyword">let</span> newUser = { ...user, <span class="hljs-attr">email</span>: <span class="hljs-string">'johndoe@gmail.com'</span> };</pre></section></section><section class="section" id="section-4"><section class="slide" id="slide-4-1"><h1 id="redux-in-detail">Redux in detail</h1></section><section class="slide" id="slide-4-2"><h2 id="basic-elements-of-redux">Basic elements of Redux</h2>
+<span class="hljs-keyword">let</span> newUser = { ...user, <span class="hljs-attr">email</span>: <span class="hljs-string">'johndoe@gmail.com'</span> };</pre></section></section><section class="section" id="section-4"><section class="slide" id="slide-4-1"><h1>Redux in detail</h1>
+</section><section class="slide" id="slide-4-2"><h2>Basic elements of Redux</h2>
 <ul>
 <li><em>state</em></li>
 <li><em>action</em>: object that describes a change to the <em>state</em></li>
 <li><em>action creator</em>: simple function that creates an <em>action</em></li>
 <li><em>reducer</em>: based on an action, transforms the old <em>state</em> into a new <em>state</em></li>
 <li><em>store</em>: where the <em>state</em> is stored</li>
-</ul></section><section class="slide" id="slide-4-3"><h2 id="example-state">example: state</h2><pre class="code">{
+</ul>
+</section><section class="slide" id="slide-4-3"><h2>example: state</h2>
+<pre class="code">{
   <span class="hljs-attr">todos</span>: [
     { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'laundry'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
     { <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'groceries'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">true</span> },
     { <span class="hljs-attr">id</span>: <span class="hljs-number">3</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'taxes'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
   ],
   <span class="hljs-attr">filterText</span>: <span class="hljs-string">''</span>,
-}</pre></section><section class="slide" id="slide-4-4"><h2 id="actions">actions</h2>
+}</pre></section><section class="slide" id="slide-4-4"><h2>actions</h2>
 <ul>
 <li>actions describe a change to the state</li>
 <li>actions are objects with a <em>type</em>-property and optionally other properties</li>
 <li>the <em>type</em> property is usually a string, often defined as a constant in a separate module</li>
 <li>actions often adhere to the <em>FSA</em> standard, meaning they may have a <em>payload</em>, an <em>error</em> and a <em>meta</em> property</li>
-</ul></section><section class="slide" id="slide-4-5"><h2 id="actions---examples">Actions - examples</h2><pre class="code"><span class="hljs-keyword">import</span> { ADD_TODO } <span class="hljs-keyword">from</span> <span class="hljs-string">'./constants'</span>;
+</ul>
+</section><section class="slide" id="slide-4-5"><h2>Actions - examples</h2>
+<pre class="code"><span class="hljs-keyword">import</span> { ADD_TODO } <span class="hljs-keyword">from</span> <span class="hljs-string">'./constants'</span>;
 
 <span class="hljs-keyword">let</span> a = {
   <span class="hljs-attr">type</span>: ADD_TODO,
   <span class="hljs-attr">payload</span>: <span class="hljs-string">'Build my first redux app'</span>,
-};</pre></section><section class="slide" id="slide-4-6"><h2 id="actions---examples">Actions - examples</h2><pre class="code"><span class="hljs-keyword">let</span> a = {
+};</pre></section><section class="slide" id="slide-4-6"><h2>Actions - examples</h2>
+<pre class="code"><span class="hljs-keyword">let</span> a = {
   <span class="hljs-attr">type</span>: TOGGLE_TODO,
   <span class="hljs-attr">payload</span>: <span class="hljs-number">2</span>,
-};</pre></section><section class="slide" id="slide-4-7"><h2 id="action-creators">Action creators</h2>
-<p>Action creators are usually very simple functions used to create a specific action</p><pre class="code"><span class="hljs-keyword">const</span> addTodo = <span class="hljs-function">(<span class="hljs-params">title, completed = <span class="hljs-literal">false</span></span>) =&gt;</span> ({
+};</pre></section><section class="slide" id="slide-4-7"><h2>Action creators</h2>
+<p>Action creators are usually very simple functions used to create a specific action</p>
+<pre class="code"><span class="hljs-keyword">const</span> addTodo = <span class="hljs-function">(<span class="hljs-params">title, completed = <span class="hljs-literal">false</span></span>) =&gt;</span> ({
   <span class="hljs-attr">type</span>: ADD_TODO,
   <span class="hljs-attr">payload</span>: {
     title,
     completed,
   },
-});</pre></section><section class="slide" id="slide-4-8"><h2 id="reducers">Reducers</h2>
+});</pre></section><section class="slide" id="slide-4-8"><h2>Reducers</h2>
 <ul>
 <li>Actions are processed by reducer functions</li>
 <li>reducers receive the old state and an action</li>
 <li>reducers return the new state</li>
 <li>note: reducers never modify the old state object, but they construct a new one based on it (reducers are pure functions)</li>
-</ul></section><section class="slide" id="slide-4-9"><h2 id="stores">Stores</h2><pre class="code"><span class="hljs-keyword">import</span> { createStore } <span class="hljs-keyword">from</span> <span class="hljs-string">'redux'</span>;
+</ul>
+</section><section class="slide" id="slide-4-9"><h2>Stores</h2>
+<pre class="code"><span class="hljs-keyword">import</span> { createStore } <span class="hljs-keyword">from</span> <span class="hljs-string">'redux'</span>;
 
 <span class="hljs-comment">// counter = reducer</span>
-<span class="hljs-keyword">const</span> store = createStore(counter);</pre></section><section class="slide" id="slide-4-10"><h2 id="combining-reducers">combining reducers</h2><pre class="code"><span class="hljs-keyword">const</span> rootReducer = combineReducers({
+<span class="hljs-keyword">const</span> store = createStore(counter);</pre></section><section class="slide" id="slide-4-10"><h2>combining reducers</h2>
+<pre class="code"><span class="hljs-keyword">const</span> rootReducer = combineReducers({
   <span class="hljs-attr">a</span>: counter,
   <span class="hljs-attr">b</span>: mathador,
 });
@@ -308,7 +349,9 @@ rootStore.getState();
 <span class="hljs-comment">// {a: {count: 0}, b: {number: 1}}</span>
 
 rootStore.dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">'INCREMENT'</span> });
-<span class="hljs-comment">// {a: {count: 1}, b: {number: 1}}</span></pre></section><section class="slide" id="slide-4-11"><h2 id="exercise-state-managment-in-the-todo-app">Exercise: state managment in the todo app</h2></section></section><section class="section" id="section-5"><section class="slide" id="slide-5-1"><h1 id="redux-ecosystem">Redux Ecosystem</h1></section><section class="slide" id="slide-5-2"><h2 id="redux-ecosystem---examples">Redux Ecosystem - examples</h2>
+<span class="hljs-comment">// {a: {count: 1}, b: {number: 1}}</span></pre></section><section class="slide" id="slide-4-11"><h2>Exercise: state managment in the todo app</h2>
+</section></section><section class="section" id="section-5"><section class="slide" id="slide-5-1"><h1>Redux Ecosystem</h1>
+</section><section class="slide" id="slide-5-2"><h2>Redux Ecosystem - examples</h2>
 <ul>
 <li>redux-logger</li>
 <li>redux-thunk: asynchronous actions</li>
@@ -317,25 +360,33 @@ rootStore.dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-stri
 <li>reselect: better performance via memoized derived data</li>
 <li>redux-actions: reduces boilerplate (createAction, createReducer)</li>
 <li>immutable.js</li>
-</ul></section><section class="slide" id="slide-5-3"><h2 id="redux-middleware">Redux Middleware</h2>
-<p>Middleware can be added to a Redux store. It provides an extension and can interfere between dispatching an action and the moment it reaches the reducer.</p></section><section class="slide" id="slide-5-4"><h2 id="redux-middleware---examples">Redux Middleware - examples</h2>
+</ul>
+</section><section class="slide" id="slide-5-3"><h2>Redux Middleware</h2>
+<p>Middleware can be added to a Redux store. It provides an extension and can interfere between dispatching an action and the moment it reaches the reducer.</p>
+</section><section class="slide" id="slide-5-4"><h2>Redux Middleware - examples</h2>
 <ul>
 <li>middleware that logs the action (e.g. redux-logger)</li>
 <li>middleware that receives a single action and dispatches multiple asynchronous actions based on it (e.g. redux-thunk)</li>
-</ul></section><section class="slide" id="slide-5-5"><h2 id="redux-middleware---implementation">Redux Middleware - implementation</h2><pre class="code"><span class="hljs-keyword">const</span> myLogger = <span class="hljs-function"><span class="hljs-params">store</span> =&gt;</span> next =&gt; <span class="hljs-function"><span class="hljs-params">action</span> =&gt;</span> {
+</ul>
+</section><section class="slide" id="slide-5-5"><h2>Redux Middleware - implementation</h2>
+<pre class="code"><span class="hljs-keyword">const</span> myLogger = <span class="hljs-function"><span class="hljs-params">store</span> =&gt;</span> next =&gt; <span class="hljs-function"><span class="hljs-params">action</span> =&gt;</span> {
   <span class="hljs-built_in">console</span>.log(action);
   next(action);
-};</pre></section><section class="slide" id="slide-5-6"><h2 id="redux-middleware---inclusion">Redux Middleware - inclusion</h2><pre class="code"><span class="hljs-keyword">const</span> store = createStore(
+};</pre></section><section class="slide" id="slide-5-6"><h2>Redux Middleware - inclusion</h2>
+<pre class="code"><span class="hljs-keyword">const</span> store = createStore(
   rootReducer,
   applyMiddleware(myLogger)
-);</pre></section><section class="slide" id="slide-5-7"><h2 id="custom-middleware---json-fetcher">Custom Middleware - json fetcher</h2>
-<p>example usage:</p><pre class="code">dispatch({
+);</pre></section><section class="slide" id="slide-5-7"><h2>Custom Middleware - json fetcher</h2>
+<p>example usage:</p>
+<pre class="code">dispatch({
   <span class="hljs-attr">type</span>: <span class="hljs-string">'FETCH_JSON'</span>,
   <span class="hljs-attr">payload</span>: {
     <span class="hljs-attr">url</span>: <span class="hljs-string">'https://jsonplaceholder.typicode.com/todos'</span>,
   },
-});</pre></section><section class="slide" id="slide-5-8"><h2 id="custom-middleware---json-fetcher">Custom Middleware - json fetcher</h2>
-<p>In the background the action <code>FETCH_JSON</code> should dispatch two separate actions: <code>FETCH_JSON_START</code> and <code>FETCH_JSON_COMPLETE</code>. The action <code>FETCH_JSON_COMPLETE</code> should carry the json content as its payload.</p></section><section class="slide" id="slide-5-9"><h2 id="custom-middleware---json-fetcher">Custom Middleware - json fetcher</h2><pre class="code"><span class="hljs-keyword">const</span> fetcher = <span class="hljs-function"><span class="hljs-params">store</span> =&gt;</span> next =&gt; <span class="hljs-function"><span class="hljs-params">action</span> =&gt;</span> {
+});</pre></section><section class="slide" id="slide-5-8"><h2>Custom Middleware - json fetcher</h2>
+<p>In the background the action <code>FETCH_JSON</code> should dispatch two separate actions: <code>FETCH_JSON_START</code> and <code>FETCH_JSON_COMPLETE</code>. The action <code>FETCH_JSON_COMPLETE</code> should carry the json content as its payload.</p>
+</section><section class="slide" id="slide-5-9"><h2>Custom Middleware - json fetcher</h2>
+<pre class="code"><span class="hljs-keyword">const</span> fetcher = <span class="hljs-function"><span class="hljs-params">store</span> =&gt;</span> next =&gt; <span class="hljs-function"><span class="hljs-params">action</span> =&gt;</span> {
   <span class="hljs-keyword">if</span> (action.type === <span class="hljs-string">'FETCH_JSON'</span>) {
     store.dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">'FETCH_JSON_START'</span> });
     fetch(action.payload.url)
@@ -349,8 +400,10 @@ rootStore.dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-stri
   } <span class="hljs-keyword">else</span> {
     next(action);
   }
-};</pre></section><section class="slide" id="slide-5-10"><h2 id="custom-middleware---dispatching-a-function">Custom Middleware - dispatching a function</h2>
-<p>We want to be even more flexible and be able to dispatch a function. This function should then be able to do asynchronous requests and similar and dispatch more actions during that time.</p></section><section class="slide" id="slide-5-11"><h2 id="custom-middleware---dispatching-a-function">Custom Middleware - dispatching a function</h2><pre class="code"><span class="hljs-keyword">const</span> functionMiddleware = <span class="hljs-function"><span class="hljs-params">store</span> =&gt;</span> next =&gt; <span class="hljs-function"><span class="hljs-params">action</span> =&gt;</span> {
+};</pre></section><section class="slide" id="slide-5-10"><h2>Custom Middleware - dispatching a function</h2>
+<p>We want to be even more flexible and be able to dispatch a function. This function should then be able to do asynchronous requests and similar and dispatch more actions during that time.</p>
+</section><section class="slide" id="slide-5-11"><h2>Custom Middleware - dispatching a function</h2>
+<pre class="code"><span class="hljs-keyword">const</span> functionMiddleware = <span class="hljs-function"><span class="hljs-params">store</span> =&gt;</span> next =&gt; <span class="hljs-function"><span class="hljs-params">action</span> =&gt;</span> {
   <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> action === <span class="hljs-string">'function'</span>) {
     <span class="hljs-comment">// we pass dispatch to the action function</span>
     <span class="hljs-comment">// so the action can call it</span>
@@ -358,24 +411,33 @@ rootStore.dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-stri
   } <span class="hljs-keyword">else</span> {
     <span class="hljs-keyword">return</span> next(action);
   }
-};</pre></section></section><section class="section" id="section-6"><section class="slide" id="slide-6-1"><h1 id="redux-thunk">Redux Thunk</h1></section><section class="slide" id="slide-6-2"><h2 id="redux-thunk">Redux Thunk</h2>
+};</pre></section></section><section class="section" id="section-6"><section class="slide" id="slide-6-1"><h1>Redux Thunk</h1>
+</section><section class="slide" id="slide-6-2"><h2>Redux Thunk</h2>
 <p>Thunk is a middleware that enables asynchronous behaviour in Redux - by dispatching functions</p>
-<p>With Thunk it's possible to dispatch so-called <em>asynchronous actions</em> which in turn can dispatch multiple synchronous actions after some time.</p></section><section class="slide" id="slide-6-3"><h2 id="thunk-sourcecode">Thunk sourcecode</h2>
+<p>With Thunk it&#39;s possible to dispatch so-called <em>asynchronous actions</em> which in turn can dispatch multiple synchronous actions after some time.</p>
+</section><section class="slide" id="slide-6-3"><h2>Thunk sourcecode</h2>
 <p>complete sourcecode:</p>
-<p><a href="https://github.com/reduxjs/redux-thunk/blob/master/src/index.js">https://github.com/reduxjs/redux-thunk/blob/master/src/index.js</a></p></section><section class="slide" id="slide-6-4"><h2 id="redux-thunk">Redux Thunk</h2>
-<p>For example, we could call:</p><pre class="code">dispatch(getTodosFunction);</pre></section><section class="slide" id="slide-6-5"><h2 id="redux-thunk">Redux Thunk</h2>
+<p><a href="https://github.com/reduxjs/redux-thunk/blob/master/src/index.js">https://github.com/reduxjs/redux-thunk/blob/master/src/index.js</a></p>
+</section><section class="slide" id="slide-6-4"><h2>Redux Thunk</h2>
+<p>For example, we could call:</p>
+<pre class="code">dispatch(getTodosFunction);</pre></section><section class="slide" id="slide-6-5"><h2>Redux Thunk</h2>
 <p>As an asynchronous action, <code>getTodosFunction</code> would not directly affect the redux store.</p>
 <p>Instead, it would usually lead to two other actions reaching the redux store:</p>
 <ul>
 <li>the action <code>LOAD_TODOS_REQUEST</code> would be dispatched immediately</li>
 <li>the action <code>LOAD_TODOS_SUCCESS</code> would be dispatched once the network request is complete</li>
-</ul></section><section class="slide" id="slide-6-6"><h2 id="redux-thunk">Redux Thunk</h2>
-<p>In Thunk, the synchronous logic remains in the reducer while the asynchronous logic is included in the action creator.</p></section><section class="slide" id="slide-6-7"><h2 id="installation">Installation</h2><pre class="code">npm install redux-thunk</pre></section><section class="slide" id="slide-6-8"><h2 id="including-thunk">Including Thunk</h2><pre class="code"><span class="hljs-keyword">import</span> thunk <span class="hljs-keyword">from</span> <span class="hljs-string">'redux-thunk'</span>;
+</ul>
+</section><section class="slide" id="slide-6-6"><h2>Redux Thunk</h2>
+<p>In Thunk, the synchronous logic remains in the reducer while the asynchronous logic is included in the action creator.</p>
+</section><section class="slide" id="slide-6-7"><h2>Installation</h2>
+<pre class="code">npm install redux-thunk</pre></section><section class="slide" id="slide-6-8"><h2>Including Thunk</h2>
+<pre class="code"><span class="hljs-keyword">import</span> thunk <span class="hljs-keyword">from</span> <span class="hljs-string">'redux-thunk'</span>;
 
 <span class="hljs-keyword">const</span> store = createStore(
   rootReducer,
   applyMiddleware(thunk)
-);</pre></section><section class="slide" id="slide-6-9"><h2 id="example-timer">example: timer</h2><pre class="code"><span class="hljs-comment">// sync actions</span>
+);</pre></section><section class="slide" id="slide-6-9"><h2>example: timer</h2>
+<pre class="code"><span class="hljs-comment">// sync actions</span>
 <span class="hljs-keyword">const</span> started = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> ({ <span class="hljs-attr">type</span>: <span class="hljs-string">'START'</span> });
 <span class="hljs-keyword">const</span> increment = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> ({ <span class="hljs-attr">type</span>: <span class="hljs-string">'INCREMENT'</span> });
 <span class="hljs-comment">// async action</span>
@@ -384,9 +446,11 @@ rootStore.dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-stri
   setInterval(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
     dispatch(increment());
   }, <span class="hljs-number">1000</span>);
-};</pre></section><section class="slide" id="slide-6-10"><h2 id="redux-thunk-with-typescript">Redux Thunk with TypeScript</h2>
-<p>We have to give the complete signature of <code>dispatch</code>:</p><pre class="code">dispatch: ThunkDispatch&lt;IState, <span class="hljs-built_in">void</span>, IAction&gt;</pre></section><section class="slide" id="slide-6-11"><h2 id="example-timer">example: timer</h2>
-<p>The reducer only receives synchronous actions</p><pre class="code"><span class="hljs-keyword">const</span> timeReducer = (
+};</pre></section><section class="slide" id="slide-6-10"><h2>Redux Thunk with TypeScript</h2>
+<p>We have to give the complete signature of <code>dispatch</code>:</p>
+<pre class="code">dispatch: ThunkDispatch&lt;IState, <span class="hljs-built_in">void</span>, IAction&gt;</pre></section><section class="slide" id="slide-6-11"><h2>example: timer</h2>
+<p>The reducer only receives synchronous actions</p>
+<pre class="code"><span class="hljs-keyword">const</span> timeReducer = (
   state = { <span class="hljs-attr">started</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">time</span>: <span class="hljs-number">0</span> },
   action
 ) =&gt; {
@@ -398,20 +462,24 @@ rootStore.dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-stri
     <span class="hljs-keyword">default</span>:
       <span class="hljs-keyword">return</span> state;
   }
-};</pre></section><section class="slide" id="slide-6-12"><h2 id="thunk-accessing-the-redux-state">Thunk: accessing the Redux state</h2>
-<p>Supply a second argument - it will receive the <code>getState</code> function as its value</p><pre class="code"><span class="hljs-keyword">const</span> actionAsync = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> (
+};</pre></section><section class="slide" id="slide-6-12"><h2>Thunk: accessing the Redux state</h2>
+<p>Supply a second argument - it will receive the <code>getState</code> function as its value</p>
+<pre class="code"><span class="hljs-keyword">const</span> actionAsync = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> (
   dispatch: ThunkDispatch&lt;IState, <span class="hljs-built_in">void</span>, Action&gt;,
   getState: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> IState
 ) =&gt; {
   dispatch(started());
   <span class="hljs-keyword">const</span> s = getState();
   ...
-};</pre></section><section class="slide" id="slide-6-13"><h2 id="task-loading-todos-from-a-rest-api">task: loading Todos from a REST API</h2>
-<p>create a thunk that will load example todos from <code>https://jsonplaceholder.typicode.com/todos</code></p></section><section class="slide" id="slide-6-14"><h2 id="task-loading-todos-from-a-graphql-api">task: loading Todos from a GraphQL API</h2>
-<p>create a thunk that will load example todos from <code>https://5qn401kkl9.lp.gql.zone/graphql</code></p><div class="note"> 
+};</pre></section><section class="slide" id="slide-6-13"><h2>task: loading Todos from a REST API</h2>
+<p>create a thunk that will load example todos from <code>https://jsonplaceholder.typicode.com/todos</code></p>
+</section><section class="slide" id="slide-6-14"><h2>task: loading Todos from a GraphQL API</h2>
+<p>create a thunk that will load example todos from <code>https://5qn401kkl9.lp.gql.zone/graphql</code></p>
+<div class="note"> 
 admin: https://launchpad.graphql.com/5qn401kkl9
- </div></section><section class="slide" id="slide-6-15"><h2 id="resource-taming-large-react-applications-w-redux">resource: Taming Large React Applications w/ Redux</h2>
-<p><a href="https://slides.com/joelkanzelmeyer/taming-large-redux-apps">https://slides.com/joelkanzelmeyer/taming-large-redux-apps</a></p></section></section>
+ </div></section><section class="slide" id="slide-6-15"><h2>resource: Taming Large React Applications w/ Redux</h2>
+<p><a href="https://slides.com/joelkanzelmeyer/taming-large-redux-apps">https://slides.com/joelkanzelmeyer/taming-large-redux-apps</a></p>
+</section></section>
 
     </div>
     <div id="navigation-arrows">
