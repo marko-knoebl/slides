@@ -1,3 +1,25 @@
+# Hooks
+
+## Hooks
+
+Hooks: Erweiterung von funktionalen Komponenten; erlauben die Verwendung von state und anderen Features ohne Klassen
+
+## Hooks
+
+> "In the longer term, we expect Hooks to be the primary way people write React components."
+
+## Hooks: derzeitiger Stand
+
+- Dokumentation für Einsteiger noch sehr Klassen-orientiert
+- Eingeschränkte Unterstützung der React developer tools (Browser Plugins)
+
+## wichtige Hooks
+
+- state Hook
+- effect Hook
+- context Hook
+- reducer Hook
+
 # Testen von React-Anwendungen
 
 ## Testen von React-Anwendungen
@@ -360,11 +382,33 @@ zwei Elemente:
 
 Das Interface von Context kann sowohl Daten (aus dem State) als auch Eventhandler übergeben.
 
+## Context - Beispiel
+
+```js
+// TodosContext.js
+
+const TodosContext = React.createContext();
+```
+
+## Context - Beispiel: TypeScript
+
+```ts
+// TodosContext.ts
+
+interface TodosContextInterface {
+  todos: Array<Todo>;
+  onToggle: (id: number) => void;
+  onClear: () => void;
+}
+
+const TodosContext = React.createContext<
+  Partial<TodosContextInterface>
+>({});
+```
+
 ## Context - Beispiel: Provider
 
 ```jsx
-const MyContext = React.createContext();
-
 class App extends React.Component {
   render() {
     return (
@@ -372,8 +416,9 @@ class App extends React.Component {
         value={{
           todos: this.state.todos,
           onToggle: this.handleToggle,
+          onClear: this.handleClear,
         }}>
-        <TodoList />
+        <TodoStats />
       </MyContext.Provider>
     );
   }
@@ -383,17 +428,25 @@ class App extends React.Component {
 ## Context - Beispiel: Consumer
 
 ```jsx
-class TodoList extends React.Component {
+const TodoStats = () => {
+  const context = useContext(TodosContext);
+  return <div>There are {context.todos.length} todos</div>;
+};
+```
+
+## Context - Beispiel: Consumer
+
+```jsx
+class TodoStats extends React.Component {
   render() {
     return (
-      <MyContext.Consumer>
+      <TodosContext.Consumer>
         {context => (
           <div>
-            {JSON.stringify(context)}
-            <button onClick={() => context.onToggle(2)} />
+            There are {context.todos.length} todos
           </div>
         )}
-      </MyContext.Consumer>
+      </Todos.Consumer>
     );
   }
 }
@@ -426,3 +479,17 @@ return (
   </React.Fragment>
 );
 ```
+
+# Dateistruktur
+
+https://reactjs.org/docs/faq-structure.html
+
+Verbreitete Zugänge:
+
+- Gruppieren nach Feature / Route
+- Gruppieren nach Typ (Komponente / Reducer / API interface)
+
+zu beachten:
+
+- Zu viel Verschachtelung vermeiden
+- Zu Beginn nicht zu viel Gedanken daran verschwenden

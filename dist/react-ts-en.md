@@ -754,6 +754,33 @@ https://github.com/facebook/react-devtools
 - highlight changes to state and props
 - highlight updates / rerenderings of components
 
+## Debugging in VS Code
+
+Extensions:
+
+- **Debugger for Chrome**
+- Debugger for Firefox
+
+## Debugging in VS Code: configuration
+
+creating config file: in the debugger sidebar, click on the gear symbol (_Configure or fix 'launch.json'_)
+
+in _launch.json_:
+
+```json
+{
+  "type": "chrome",
+  "request": "launch",
+  "name": "Launch Chrome",
+  "url": "http://localhost:3000",
+  "webRoot": "${workspaceFolder}"
+}
+```
+
+## Debugging in VS Code: starting
+
+Via _F5_
+
 # components
 
 ## components
@@ -885,10 +912,10 @@ function repeatString(
 ## type system: arrow functions
 
 ```ts
-const repeatString: (
+const repeatString = (
   text: string,
   times: number
-) => string = (text, times) => (...);
+): string => (...);
 ```
 
 ## type system: arrays
@@ -938,6 +965,13 @@ let p: IPerson = getPerson();
 class User implements IPerson {
   ...
 }
+```
+
+## type system: the type keyword
+
+```ts
+type PersonCollection = Array<IPerson>;
+type TodoAction = 'ADD_TODO' | 'DELETE_TODO';
 ```
 
 ## type system: void

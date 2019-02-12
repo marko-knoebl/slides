@@ -515,10 +515,10 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
 
       </section><section class="slide" id="slide-6-7">
         <h2 id="typsystem-pfeilfunktionen">Typsystem: Pfeilfunktionen</h2>
-<pre><code class="language-ts"><span class="hljs-keyword">const</span> repeatString: (
+<pre><code class="language-ts"><span class="hljs-keyword">const</span> repeatString = (
   text: <span class="hljs-built_in">string</span>,
   times: <span class="hljs-built_in">number</span>
-) =&gt; <span class="hljs-built_in">string</span> = <span class="hljs-function">(<span class="hljs-params">text, times</span>) =&gt;</span> (...);</code></pre>
+): <span class="hljs-function"><span class="hljs-params">string</span> =&gt;</span> (...);</code></pre>
 
       </section><section class="slide" id="slide-6-8">
         <h2 id="typsystem-arrays">Typsystem: Arrays</h2>
@@ -558,37 +558,42 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
 }</code></pre>
 
       </section><section class="slide" id="slide-6-13">
+        <h2 id="typsystem-das-schlüsselwort-type">Typsystem: das Schlüsselwort <em>type</em></h2>
+<pre><code class="language-ts"><span class="hljs-keyword">type</span> PersonCollection = <span class="hljs-built_in">Array</span>&lt;IPerson&gt;;
+<span class="hljs-keyword">type</span> TodoAction = <span class="hljs-string">'ADD_TODO'</span> | <span class="hljs-string">'DELETE_TODO'</span>;</code></pre>
+
+      </section><section class="slide" id="slide-6-14">
         <h2 id="typsystem-void">Typsystem: void</h2>
 <p>Void: umfasst <em>undefined</em> und <em>null</em></p>
 <pre><code class="language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">warnUser</span>(<span class="hljs-params"></span>): <span class="hljs-title">void</span> </span>{
   alert(<span class="hljs-string">'warning!'</span>);
 }</code></pre>
 
-      </section><section class="slide" id="slide-6-14">
+      </section><section class="slide" id="slide-6-15">
         <h2 id="typsystem-any">Typsystem: any</h2>
 <p>Any: lässt alle Typen zu</p>
 <pre><code class="language-ts"><span class="hljs-keyword">let</span> ib: <span class="hljs-built_in">any</span> = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'myinput'</span>);
 <span class="hljs-built_in">console</span>.log(ib.value);</code></pre>
 
-      </section><section class="slide" id="slide-6-15">
+      </section><section class="slide" id="slide-6-16">
         <h2 id="typsystem-type-assertions">Typsystem: Type assertions</h2>
 <pre><code class="language-ts"><span class="hljs-keyword">let</span> someValue: <span class="hljs-built_in">any</span> = <span class="hljs-string">'this is a string'</span>;
 
 <span class="hljs-keyword">let</span> strLength: <span class="hljs-built_in">number</span> = (someValue <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>).length;</code></pre>
 
-      </section><section class="slide" id="slide-6-16">
+      </section><section class="slide" id="slide-6-17">
         <h2 id="typsystem-union-types">Typsystem: Union Types</h2>
 <pre><code class="language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params">arg: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">number</span></span>) </span>{...}
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params">arg: <span class="hljs-built_in">string</span> | <span class="hljs-literal">undefined</span></span>) </span>{...}</code></pre>
 
-      </section><section class="slide" id="slide-6-17">
+      </section><section class="slide" id="slide-6-18">
         <h2 id="typsystem-generics">Typsystem: Generics</h2>
 <pre><code class="language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">thrice</span>&lt;<span class="hljs-title">T</span>&gt;(<span class="hljs-params">element: T</span>): <span class="hljs-title">T</span>[] </span>{
   <span class="hljs-keyword">return</span> [element, element, element];
 }</code></pre>
 
-      </section><section class="slide" id="slide-6-18">
+      </section><section class="slide" id="slide-6-19">
         <h2 id="private--public-properties">Private &amp; Public Properties</h2>
 <pre><code class="language-ts"><span class="hljs-keyword">class</span> Clock {
   <span class="hljs-keyword">private</span> formatTime(time) {

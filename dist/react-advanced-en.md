@@ -1,3 +1,25 @@
+# Hooks
+
+## Hooks
+
+Hooks = extension of function components; enable the use of state and other features without classes
+
+## Hooks
+
+> "In the longer term, we expect Hooks to be the primary way people write React components."
+
+## Hooks: current state
+
+- Documentation for beginners is still very focused on classes
+- Limited support from React developer tools (browser plugins)
+
+## important hooks
+
+- state hook
+- effect hook
+- context hook
+- reducer hook
+
 # Testing React Applications
 
 ## Testing React Applications
@@ -388,11 +410,33 @@ two main elements:
 
 The interface of context can pass both data and event handler
 
+## Context - example
+
+```js
+// TodosContext.js
+
+const TodosContext = React.createContext();
+```
+
+## Context - example: TypeScript
+
+```ts
+// TodosContext.ts
+
+interface TodosContextInterface {
+  todos: Array<Todo>;
+  onToggle: (id: number) => void;
+  onClear: () => void;
+}
+
+const TodosContext = React.createContext<
+  Partial<TodosContextInterface>
+>({});
+```
+
 ## Context - example: Provider
 
 ```jsx
-const MyContext = React.createContext();
-
 class App extends React.Component {
   render() {
     return (
@@ -400,12 +444,22 @@ class App extends React.Component {
         value={{
           todos: this.state.todos,
           onToggle: this.handleToggle,
+          onClear: this.handleClear,
         }}>
-        <TodoList />
+        <TodoStats />
       </MyContext.Provider>
     );
   }
 }
+```
+
+## Context - example: Consumer
+
+```jsx
+const TodoStats = () => {
+  const context = useContext(TodosContext);
+  return <div>There are {context.todos.length} todos</div>;
+};
 ```
 
 ## Context - example: Consumer
@@ -456,3 +510,17 @@ return (
   </React.Fragment>
 );
 ```
+
+# File Structure
+
+https://reactjs.org/docs/faq-structure.html
+
+common approaches:
+
+- grouping by features or routes
+- grouping by type (component / reducer / API interface)
+
+keep in mind:
+
+- Avoid too much nesting
+- Don't overthink it

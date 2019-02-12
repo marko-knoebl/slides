@@ -39,10 +39,10 @@ function repeatString(
 ## type system: arrow functions
 
 ```ts
-const repeatString: (
+const repeatString = (
   text: string,
   times: number
-) => string = (text, times) => (...);
+): string => (...);
 ```
 
 ## type system: arrays
@@ -92,6 +92,13 @@ let p: IPerson = getPerson();
 class User implements IPerson {
   ...
 }
+```
+
+## type system: the type keyword
+
+```ts
+type PersonCollection = Array<IPerson>;
+type TodoAction = 'ADD_TODO' | 'DELETE_TODO';
 ```
 
 ## type system: void

@@ -806,6 +806,30 @@ handleChange = <span class="hljs-function"><span class="hljs-params">event</span
 <li>highlight updates / rerenderings of components</li>
 </ul>
 
+      </section><section class="slide" id="slide-8-3">
+        <h2 id="debugging-in-vs-code">Debugging in VS Code</h2>
+<p>Extensions:</p>
+<ul>
+<li><strong>Debugger for Chrome</strong></li>
+<li>Debugger for Firefox</li>
+</ul>
+
+      </section><section class="slide" id="slide-8-4">
+        <h2 id="debugging-in-vs-code-configuration">Debugging in VS Code: configuration</h2>
+<p>creating config file: in the debugger sidebar, click on the gear symbol (<em>Configure or fix &#39;launch.json&#39;</em>)</p>
+<p>in <em>launch.json</em>:</p>
+<pre><code class="language-json">{
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"chrome"</span>,
+  <span class="hljs-attr">"request"</span>: <span class="hljs-string">"launch"</span>,
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Launch Chrome"</span>,
+  <span class="hljs-attr">"url"</span>: <span class="hljs-string">"http://localhost:3000"</span>,
+  <span class="hljs-attr">"webRoot"</span>: <span class="hljs-string">"${workspaceFolder}"</span>
+}</code></pre>
+
+      </section><section class="slide" id="slide-8-5">
+        <h2 id="debugging-in-vs-code-starting">Debugging in VS Code: starting</h2>
+<p>Via <em>F5</em></p>
+
       </section></section><section class="section" id="section-9"><section class="slide" id="slide-9-1">
         <h1 id="components">components</h1>
 
@@ -937,10 +961,10 @@ handleChange = <span class="hljs-function"><span class="hljs-params">event</span
 
       </section><section class="slide" id="slide-11-7">
         <h2 id="type-system-arrow-functions">type system: arrow functions</h2>
-<pre><code class="language-ts"><span class="hljs-keyword">const</span> repeatString: (
+<pre><code class="language-ts"><span class="hljs-keyword">const</span> repeatString = (
   text: <span class="hljs-built_in">string</span>,
   times: <span class="hljs-built_in">number</span>
-) =&gt; <span class="hljs-built_in">string</span> = <span class="hljs-function">(<span class="hljs-params">text, times</span>) =&gt;</span> (...);</code></pre>
+): <span class="hljs-function"><span class="hljs-params">string</span> =&gt;</span> (...);</code></pre>
 
       </section><section class="slide" id="slide-11-8">
         <h2 id="type-system-arrays">type system: arrays</h2>
@@ -980,37 +1004,42 @@ handleChange = <span class="hljs-function"><span class="hljs-params">event</span
 }</code></pre>
 
       </section><section class="slide" id="slide-11-13">
+        <h2 id="type-system-the-type-keyword">type system: the type keyword</h2>
+<pre><code class="language-ts"><span class="hljs-keyword">type</span> PersonCollection = <span class="hljs-built_in">Array</span>&lt;IPerson&gt;;
+<span class="hljs-keyword">type</span> TodoAction = <span class="hljs-string">'ADD_TODO'</span> | <span class="hljs-string">'DELETE_TODO'</span>;</code></pre>
+
+      </section><section class="slide" id="slide-11-14">
         <h2 id="type-system-void">type system: void</h2>
 <p>Void: can either be <em>undefined</em> or <em>null</em> - is often used with functions that don&#39;t return anything</p>
 <pre><code class="language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">warnUser</span>(<span class="hljs-params"></span>): <span class="hljs-title">void</span> </span>{
   alert(<span class="hljs-string">'warning!'</span>);
 }</code></pre>
 
-      </section><section class="slide" id="slide-11-14">
+      </section><section class="slide" id="slide-11-15">
         <h2 id="type-system-any">type system: any</h2>
 <p>Any: variable can be of any type - disables the typechecker for this variable</p>
 <pre><code class="language-ts"><span class="hljs-keyword">let</span> ib: <span class="hljs-built_in">any</span> = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'myinput'</span>);
 <span class="hljs-built_in">console</span>.log(ib.value);</code></pre>
 
-      </section><section class="slide" id="slide-11-15">
+      </section><section class="slide" id="slide-11-16">
         <h2 id="type-system-type-assertions">type system: type assertions</h2>
 <pre><code class="language-ts"><span class="hljs-keyword">let</span> someValue: <span class="hljs-built_in">any</span> = <span class="hljs-string">'this is a string'</span>;
 
 <span class="hljs-keyword">let</span> strLength: <span class="hljs-built_in">number</span> = (someValue <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>).length;</code></pre>
 
-      </section><section class="slide" id="slide-11-16">
+      </section><section class="slide" id="slide-11-17">
         <h2 id="type-system-union-types">type system: union types</h2>
 <pre><code class="language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params">arg: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">number</span></span>) </span>{...}
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params">arg: <span class="hljs-built_in">string</span> | <span class="hljs-literal">undefined</span></span>) </span>{...}</code></pre>
 
-      </section><section class="slide" id="slide-11-17">
+      </section><section class="slide" id="slide-11-18">
         <h2 id="type-system-generics">type system: generics</h2>
 <pre><code class="language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">thrice</span>&lt;<span class="hljs-title">T</span>&gt;(<span class="hljs-params">element: T</span>): <span class="hljs-title">T</span>[] </span>{
   <span class="hljs-keyword">return</span> [element, element, element];
 }</code></pre>
 
-      </section><section class="slide" id="slide-11-18">
+      </section><section class="slide" id="slide-11-19">
         <h2 id="private--public-properties">private &amp; public properties</h2>
 <pre><code class="language-ts"><span class="hljs-keyword">class</span> Clock {
   <span class="hljs-keyword">private</span> formatTime(time) {

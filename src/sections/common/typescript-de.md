@@ -39,10 +39,10 @@ function repeatString(
 ## Typsystem: Pfeilfunktionen
 
 ```ts
-const repeatString: (
+const repeatString = (
   text: string,
   times: number
-) => string = (text, times) => (...);
+): string => (...);
 ```
 
 ## Typsystem: Arrays
@@ -92,6 +92,13 @@ let p: IPerson = getPerson();
 class User implements IPerson {
   ...
 }
+```
+
+## Typsystem: das Schlüsselwort _type_
+
+```ts
+type PersonCollection = Array<IPerson>;
+type TodoAction = 'ADD_TODO' | 'DELETE_TODO';
 ```
 
 ## Typsystem: void

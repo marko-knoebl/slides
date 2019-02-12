@@ -1,0 +1,21 @@
+# Hooks
+
+## Hooks
+
+Hooks = extension of function components; enable the use of state and other features without classes
+
+## Hooks
+
+> "In the longer term, we expect Hooks to be the primary way people write React components."
+
+## Hooks: current state
+
+- Documentation for beginners is still very focused on classes
+- Limited support from React developer tools (browser plugins)
+
+## important hooks
+
+- state hook
+- effect hook
+- context hook
+- reducer hook
