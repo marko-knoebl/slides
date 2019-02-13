@@ -229,6 +229,16 @@ names = ['Andrew', 'Bob', 'Claire']; // invalid!
 names[0] = 'Andrew'; // valid
 ```
 
+## destructuring assignment
+
+```js
+let a = 1;
+let b = 2;
+[a, b] = [b, a];
+
+let [result, errors] = someComputation();
+```
+
 ## arrow functions / lambdas
 
 - short notation for anonymous functions

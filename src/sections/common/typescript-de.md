@@ -138,9 +138,43 @@ function foo(arg: string | undefined) {...}
 
 ## Typsystem: Generics
 
+Allgemeine Klassen- oder Funktionsdefinition, die während deren Aufruf genauere Typinformationen übergeben bekommen.
+
 ```ts
-function thrice<T>(element: T): T[] {
-  return [element, element, element];
+function reducer<MyState, MyAction>(
+  state: MyState,
+  action: MyAction
+): MyState {
+  ...
+}
+```
+
+Verwendung:
+
+```ts
+// newState hat automatisch den richtigen Typ
+const newState = reducer<TodoState, TodoAction>(
+  myTodoState,
+  myTodoAction
+);
+```
+
+## Typsystem: Generics
+
+```ts
+class Component<Props, State> {
+  props: Props;
+  state: State;
+
+  setState: (newState: Partial<State>) => void;
+}
+```
+
+Verwendung:
+
+```ts
+class MyComp extends Component<MyProps, MyState> {
+  ...
 }
 ```
 

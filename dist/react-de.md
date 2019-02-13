@@ -231,6 +231,16 @@ names = ['Andrew', 'Bob', 'Claire']; // ungültig!
 names[0] = 'Andrew'; // gültig
 ```
 
+## Destrukturierende Zuweisung
+
+```js
+let a = 1;
+let b = 2;
+[a, b] = [b, a];
+
+let [result, errors] = someComputation();
+```
+
 ## Pfeilfunktionen / Lambda
 
 - Kurzschreibweise für anonyme Funktionen
@@ -293,9 +303,9 @@ let moreSquares = [...squares, 16, 25];
 ```
 
 ```js
-let person = {firstName: 'John', lastName: 'Doe', age: 31};
-let updatedPerson = {...person, email: 'j@d.com', age: 32};
-// {firstName: 'John', lastName: 'Doe', email: 'j@d.com', age: 32}
+let person = { firstName: 'Joe', lastName: 'Doe', age: 31 };
+let newPerson = { ...person, email: 'j@d.com', age: 32 };
+// {firstName: 'Joe', lastName: 'Doe', email: 'j@d.com', age: 32}
 ```
 
 ## Template-Strings

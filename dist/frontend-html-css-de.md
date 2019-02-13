@@ -215,9 +215,9 @@ Weitere Möglichkeiten:
 Empfohlene Plugins:
 
 - Debugger for Chrome (Firefox / ...)
-- ESLint
-  npm install --save-dev eslint
-  ./node_modules/.bin/eslint --init
+- ESLint  
+  `npm install --save-dev eslint`  
+  `./node_modules/.bin/eslint --init`
 
 (siehe auch _Show Popular Extensions_ in VS Code)
 
@@ -232,31 +232,6 @@ guides
 rainbow brackets
 wakatime
 -->
-
-## VS Code - Plugins
-
-für React:
-
-- Prettier
-
-für Angular:
-
-- Angular v7 Snippets (by John Papa)
-- Angular Language Service
-
-## Prettier - Konfiguration
-
-prettierrc.json:
-
-```json
-{
-  "bracketSpacing": false,
-  "singleQuote": true,
-  "jsxBracketSameLine": true,
-  "trailingComma": "all",
-  "printWidth": 80
-}
-```
 
 # VS Code - Extensions
 

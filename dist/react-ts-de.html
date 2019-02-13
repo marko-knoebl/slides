@@ -362,6 +362,14 @@ names = [<span class="hljs-string">'Andrew'</span>, <span class="hljs-string">'B
 names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</span>; <span class="hljs-comment">// gültig</span></code></pre>
 
       </section><section class="slide" id="slide-5-11">
+        <h2 id="destrukturierende-zuweisung">Destrukturierende Zuweisung</h2>
+<pre><code class="language-js"><span class="hljs-keyword">let</span> a = <span class="hljs-number">1</span>;
+<span class="hljs-keyword">let</span> b = <span class="hljs-number">2</span>;
+[a, b] = [b, a];
+
+<span class="hljs-keyword">let</span> [result, errors] = someComputation();</code></pre>
+
+      </section><section class="slide" id="slide-5-12">
         <h2 id="pfeilfunktionen--lambda">Pfeilfunktionen / Lambda</h2>
 <ul>
 <li>Kurzschreibweise für anonyme Funktionen</li>
@@ -372,11 +380,11 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
 };
 <span class="hljs-keyword">let</span> multiply = <span class="hljs-function">(<span class="hljs-params">a, b</span>) =&gt;</span> a * b;</code></pre>
 
-      </section><section class="slide" id="slide-5-12">
+      </section><section class="slide" id="slide-5-13">
         <h2 id="klassen">Klassen</h2>
 <p>Ersetzen die alten Konstruktorfunktionen und Prototypen</p>
 
-      </section><section class="slide" id="slide-5-13">
+      </section><section class="slide" id="slide-5-14">
         <h2 id="klassen">Klassen</h2>
 <pre><code class="language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> </span>{
   <span class="hljs-keyword">constructor</span>(firstName, lastName) {
@@ -388,7 +396,7 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
   }
 }</code></pre>
 
-      </section><section class="slide" id="slide-5-14">
+      </section><section class="slide" id="slide-5-15">
         <h2 id="klassen-und-vererbung">Klassen und Vererbung</h2>
 <pre><code class="language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Person</span> </span>{
   <span class="hljs-keyword">constructor</span>(firstName, lastName, userName) {
@@ -398,7 +406,7 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
   }
 }</code></pre>
 
-      </section><section class="slide" id="slide-5-15">
+      </section><section class="slide" id="slide-5-16">
         <h2 id="array-iteration-for--of">Array-Iteration (for ... of)</h2>
 <p>Über die Einträge in einem Array iterieren:</p>
 <pre><code class="language-js"><span class="hljs-keyword">let</span> names = [<span class="hljs-string">'Anna'</span>, <span class="hljs-string">'Bernhard'</span>, <span class="hljs-string">'Caro'</span>];
@@ -406,16 +414,16 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
   <span class="hljs-built_in">console</span>.log(name);
 }</code></pre>
 
-      </section><section class="slide" id="slide-5-16">
+      </section><section class="slide" id="slide-5-17">
         <h2 id="spread-syntax-arrays-und-objekte">Spread Syntax (Arrays und Objekte)</h2>
 <pre><code class="language-js"><span class="hljs-keyword">let</span> squares = [<span class="hljs-number">1</span>, <span class="hljs-number">4</span>, <span class="hljs-number">9</span>];
 <span class="hljs-keyword">let</span> moreSquares = [...squares, <span class="hljs-number">16</span>, <span class="hljs-number">25</span>];
 <span class="hljs-comment">// moreSquares: [1, 4, 9, 16, 25]</span></code></pre>
-<pre><code class="language-js"><span class="hljs-keyword">let</span> person = {<span class="hljs-attr">firstName</span>: <span class="hljs-string">'John'</span>, <span class="hljs-attr">lastName</span>: <span class="hljs-string">'Doe'</span>, <span class="hljs-attr">age</span>: <span class="hljs-number">31</span>};
-<span class="hljs-keyword">let</span> updatedPerson = {...person, <span class="hljs-attr">email</span>: <span class="hljs-string">'j@d.com'</span>, <span class="hljs-attr">age</span>: <span class="hljs-number">32</span>};
-<span class="hljs-comment">// {firstName: 'John', lastName: 'Doe', email: 'j@d.com', age: 32}</span></code></pre>
+<pre><code class="language-js"><span class="hljs-keyword">let</span> person = { <span class="hljs-attr">firstName</span>: <span class="hljs-string">'Joe'</span>, <span class="hljs-attr">lastName</span>: <span class="hljs-string">'Doe'</span>, <span class="hljs-attr">age</span>: <span class="hljs-number">31</span> };
+<span class="hljs-keyword">let</span> newPerson = { ...person, <span class="hljs-attr">email</span>: <span class="hljs-string">'j@d.com'</span>, <span class="hljs-attr">age</span>: <span class="hljs-number">32</span> };
+<span class="hljs-comment">// {firstName: 'Joe', lastName: 'Doe', email: 'j@d.com', age: 32}</span></code></pre>
 
-      </section><section class="slide" id="slide-5-17">
+      </section><section class="slide" id="slide-5-18">
         <h2 id="template-strings">Template-Strings</h2>
 <ul>
 <li>Neue Syntax zum <em>Erstellen</em> von Strings</li>
@@ -426,21 +434,21 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
 <span class="hljs-keyword">let</span> greeting = <span class="hljs-string">`Hallo, <span class="hljs-subst">${name}</span>!
                 Das ist ES2015!`</span>;</code></pre>
 
-      </section><section class="slide" id="slide-5-18">
+      </section><section class="slide" id="slide-5-19">
         <h2 id="standardparameter-in-funktionen">Standardparameter in Funktionen</h2>
 <p>In Funktionen können nun Standardparameter definiert werden:</p>
 <pre><code class="language-js"><span class="hljs-keyword">let</span> join = <span class="hljs-function">(<span class="hljs-params">strings, separator=<span class="hljs-string">''</span></span>) =&gt;</span> {
   ...
 }</code></pre>
 
-      </section><section class="slide" id="slide-5-19">
+      </section><section class="slide" id="slide-5-20">
         <h2 id="eslint">ESLint</h2>
 <p>JavaScript-Linter</p>
 <ul>
 <li>VS Code plugin</li>
 </ul>
 
-      </section><section class="slide" id="slide-5-20">
+      </section><section class="slide" id="slide-5-21">
         <h2 id="prettier">Prettier</h2>
 <p><a href="https://prettier.io/">https://prettier.io/</a></p>
 <ul>
@@ -448,10 +456,10 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
 <li>VS-Code-Plugin (via Alt + Shift + F)</li>
 </ul>
 
-      </section><section class="slide" id="slide-5-21">
+      </section><section class="slide" id="slide-5-22">
         <h2 id="prettier-konfiguration-in-vs-code">Prettier-Konfiguration in VS Code</h2>
 
-      </section><section class="slide" id="slide-5-22">
+      </section><section class="slide" id="slide-5-23">
         <h2 id="prettier-konfiguration">Prettier-Konfiguration</h2>
 <p>in VS Code: über Datei - Einstellungen - Einstellungen</p>
 <p>oder über <code>.prettierrc.json</code>:</p>
@@ -1072,11 +1080,34 @@ handleToggle = <span class="hljs-function">(<span class="hljs-params">isToggled<
 
       </section><section class="slide" id="slide-11-18">
         <h2 id="typsystem-generics">Typsystem: Generics</h2>
-<pre><code class="language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">thrice</span>&lt;<span class="hljs-title">T</span>&gt;(<span class="hljs-params">element: T</span>): <span class="hljs-title">T</span>[] </span>{
-  <span class="hljs-keyword">return</span> [element, element, element];
+<p>Allgemeine Klassen- oder Funktionsdefinition, die während deren Aufruf genauere Typinformationen übergeben bekommen.</p>
+<pre><code class="language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">reducer</span>&lt;<span class="hljs-title">MyState</span>, <span class="hljs-title">MyAction</span>&gt;(<span class="hljs-params">
+  state: MyState,
+  action: MyAction
+</span>): <span class="hljs-title">MyState</span> </span>{
+  ...
 }</code></pre>
+<p>Verwendung:</p>
+<pre><code class="language-ts"><span class="hljs-comment">// newState hat automatisch den richtigen Typ</span>
+<span class="hljs-keyword">const</span> newState = reducer&lt;TodoState, TodoAction&gt;(
+  myTodoState,
+  myTodoAction
+);</code></pre>
 
       </section><section class="slide" id="slide-11-19">
+        <h2 id="typsystem-generics">Typsystem: Generics</h2>
+<pre><code class="language-ts"><span class="hljs-keyword">class</span> Component&lt;Props, State&gt; {
+  props: Props;
+  state: State;
+
+  setState: <span class="hljs-function">(<span class="hljs-params">newState: Partial&lt;State&gt;</span>) =&gt;</span> <span class="hljs-built_in">void</span>;
+}</code></pre>
+<p>Verwendung:</p>
+<pre><code class="language-ts"><span class="hljs-keyword">class</span> MyComp <span class="hljs-keyword">extends</span> Component&lt;MyProps, MyState&gt; {
+  ...
+}</code></pre>
+
+      </section><section class="slide" id="slide-11-20">
         <h2 id="private--public-properties">Private &amp; Public Properties</h2>
 <pre><code class="language-ts"><span class="hljs-keyword">class</span> Clock {
   <span class="hljs-keyword">private</span> formatTime(time) {

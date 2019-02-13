@@ -231,6 +231,16 @@ names = ['Andrew', 'Bob', 'Claire']; // ungültig!
 names[0] = 'Andrew'; // gültig
 ```
 
+## Destrukturierende Zuweisung
+
+```js
+let a = 1;
+let b = 2;
+[a, b] = [b, a];
+
+let [result, errors] = someComputation();
+```
+
 ## Pfeilfunktionen / Lambda
 
 - Kurzschreibweise für anonyme Funktionen
@@ -293,9 +303,9 @@ let moreSquares = [...squares, 16, 25];
 ```
 
 ```js
-let person = {firstName: 'John', lastName: 'Doe', age: 31};
-let updatedPerson = {...person, email: 'j@d.com', age: 32};
-// {firstName: 'John', lastName: 'Doe', email: 'j@d.com', age: 32}
+let person = { firstName: 'Joe', lastName: 'Doe', age: 31 };
+let newPerson = { ...person, email: 'j@d.com', age: 32 };
+// {firstName: 'Joe', lastName: 'Doe', email: 'j@d.com', age: 32}
 ```
 
 ## Template-Strings
@@ -1038,9 +1048,43 @@ function foo(arg: string | undefined) {...}
 
 ## Typsystem: Generics
 
+Allgemeine Klassen- oder Funktionsdefinition, die während deren Aufruf genauere Typinformationen übergeben bekommen.
+
 ```ts
-function thrice<T>(element: T): T[] {
-  return [element, element, element];
+function reducer<MyState, MyAction>(
+  state: MyState,
+  action: MyAction
+): MyState {
+  ...
+}
+```
+
+Verwendung:
+
+```ts
+// newState hat automatisch den richtigen Typ
+const newState = reducer<TodoState, TodoAction>(
+  myTodoState,
+  myTodoAction
+);
+```
+
+## Typsystem: Generics
+
+```ts
+class Component<Props, State> {
+  props: Props;
+  state: State;
+
+  setState: (newState: Partial<State>) => void;
+}
+```
+
+Verwendung:
+
+```ts
+class MyComp extends Component<MyProps, MyState> {
+  ...
 }
 ```
 

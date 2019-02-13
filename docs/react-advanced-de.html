@@ -140,6 +140,53 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li>reducer Hook</li>
 </ul>
 
+      </section><section class="slide" id="slide-1-6">
+        <h2 id="reducer-hook">reducer Hook</h2>
+
+      </section><section class="slide" id="slide-1-7">
+        <h2 id="reducer-hook">reducer Hook</h2>
+<p>In komplexeren Anwendungen macht es Sinn, den Anwendungszustand (model) von der Ansicht (view) zu trennen.</p>
+<p>Oft wird der gesamte Anwendungszustand durch ein Datenmodell repräsentiert. Jede Änderung am Anwendungszustand läuft über das Datenmodell.</p>
+
+      </section><section class="slide" id="slide-1-8">
+        <h2 id="reducer-hook">reducer Hook</h2>
+<p>Grundprinzipien von state management:</p>
+<ul>
+<li>Anwendungszustand (state) wird in globalem Objekt gespeichert</li>
+<li><em>Jede</em> Zustandsänderung wird durch eine <em>Action</em> ausgelöst, die die Zustandsänderung genau beschreibt</li>
+</ul>
+
+      </section><section class="slide" id="slide-1-9">
+        <h2 id="reducer-hook">reducer Hook</h2>
+<p>Actions werden durch JavaScript Objekte repräsentiert:</p>
+<pre><code class="language-json">{ <span class="hljs-attr">"type"</span>: <span class="hljs-string">"INCREMENT"</span> }</code></pre>
+<pre><code class="language-json">{ <span class="hljs-attr">"type"</span>: <span class="hljs-string">"DECREMENT"</span> }</code></pre>
+
+      </section><section class="slide" id="slide-1-10">
+        <h2 id="reducer-hook">reducer Hook</h2>
+<p>State management mit reducern:</p>
+<p>Beim <em>reducer Hook</em> bzw <em>Redux</em>:</p>
+<p>Der Übergang von einem State auf den nächsten geschieht mittels einer Reducer-Funktion:</p>
+<p>Die Reducer-Funktion erhält als Funktionsparameter den alten Zustand (State) und eine Action, die eine Zustandsänderung beschreibt.</p>
+<p>Die Reducer-Funktion gibt den neuen Zustand zurück.</p>
+
+      </section><section class="slide" id="slide-1-11">
+        <h2 id="reducer-hook">reducer Hook</h2>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> counterReducer = <span class="hljs-function">(<span class="hljs-params">count, action</span>) =&gt;</span> {
+  <span class="hljs-keyword">switch</span> (action.type) {
+    <span class="hljs-keyword">case</span> <span class="hljs-string">'INCREMENT'</span>:
+      <span class="hljs-keyword">return</span> count + <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">case</span> <span class="hljs-string">'DECREMENT'</span>:
+      <span class="hljs-keyword">return</span> count - <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">default</span>:
+      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'unknown action'</span>);
+  }
+};</code></pre>
+
+      </section><section class="slide" id="slide-1-12">
+        <h2 id="reducer-hook">reducer Hook</h2>
+<p>Auslösen von Actions: wir rufen die <code>dispatch</code>-Funktion des Reducers mit der gewünschten Action als Parameter auf</p>
+
       </section></section><section class="section" id="section-2"><section class="slide" id="slide-2-1">
         <h1 id="testen-von-react-anwendungen">Testen von React-Anwendungen</h1>
 
