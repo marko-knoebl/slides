@@ -550,27 +550,86 @@ npm install @types/react-router-dom</code></pre>
 }</span></code></pre>
 
       </section></section><section class="section" id="section-6"><section class="slide" id="slide-6-1">
-        <h1 id="fragmente">Fragmente</h1>
+        <h1 id="serverseitiges-rendering-mit-nextjs">Serverseitiges Rendering mit next.js</h1>
 
       </section><section class="slide" id="slide-6-2">
-        <h2 id="fragmente">Fragmente</h2>
-<p>Erlauben es einer Komponente, mehrere Elemente zurückzugeben (anstatt eines einzenen Elements)</p>
+        <h2 id="serverseitiges-rendering-mit-nextjs">Serverseitiges Rendering mit next.js</h2>
+<p><a href="https://github.com/zeit/next.js/">github.com/zeit/next.js</a></p>
 
       </section><section class="slide" id="slide-6-3">
-        <h2 id="fragmente---beispiel">Fragmente - Beispiel</h2>
-<pre><code class="language-ts">return (
-  &lt;&gt;
-    &lt;td&gt;Hello&lt;/td&gt;
-    &lt;td&gt;World&lt;/td&gt;
-  &lt;/&gt;
-);</code></pre>
-<p>Langversion:</p>
-<pre><code class="language-ts">return (
-  &lt;React.Fragment&gt;
-    &lt;td&gt;Hello&lt;/td&gt;
-    &lt;td&gt;World&lt;/td&gt;
-  &lt;/React.Fragment&gt;
-);</code></pre>
+        <h2 id="serverseitiges-rendering">Serverseitiges rendering</h2>
+<ul>
+<li>Ermöglicht Verwendung von JSX als Templatesprache am Server</li>
+<li>Anwendungsgebiete:<ul>
+<li>Erstellen von statischen Websites</li>
+<li>Anwendung kann am Server vorgerendert werden<ul>
+<li>Schnelleres erstes Rendering</li>
+<li>Einfacheres indexieren durch Suchmaschinen</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+      </section><section class="slide" id="slide-6-4">
+        <h2 id="setup">Setup</h2>
+<p>Siehe <a href="https://github.com/zeit/next.js/#setup">https://github.com/zeit/next.js/#setup</a></p>
+<!--
+```bash
+npm init
+npm install --save next react react-dom
+```
+package.json:
+```json
+  [...]
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  }
+```
+-->
+
+
+      </section><section class="slide" id="slide-6-5">
+        <h2 id="build--test">Build &amp; Test</h2>
+<p>Testserver starten:</p>
+<pre><code class="language-bash">npm run dev</code></pre>
+<p>Build:</p>
+<pre><code class="language-bash">npm build</code></pre>
+
+      </section><section class="slide" id="slide-6-6">
+        <h2 id="grundlagen">Grundlagen</h2>
+<ul>
+<li>Seiten definiert unter <em>./pages</em></li>
+<li>Statische Assets unter <em>./static</em></li>
+<li>verwendete Komponenten unter <em>./components</em></li>
+</ul>
+
+      </section><section class="slide" id="slide-6-7">
+        <h2 id="beispiel-hello-world">Beispiel: Hello world</h2>
+<p>index.js:</p>
+<pre><code class="language-js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> () =&gt; <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Welcome to next.js!<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>;</code></pre>
+
+      </section><section class="slide" id="slide-6-8">
+        <h2 id="daten-einbinden-getinitialprops">Daten einbinden: getInitialProps()</h2>
+<pre><code class="language-jsx"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+<span class="hljs-keyword">import</span> fetch <span class="hljs-keyword">from</span> <span class="hljs-string">'isomorphic-fetch'</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Page</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
+  <span class="hljs-comment">// am Server ausgeführt (node.js)</span>
+  <span class="hljs-keyword">static</span> <span class="hljs-keyword">async</span> getInitialProps() {
+    <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> fetch(
+      <span class="hljs-string">'https://api.github.com/repos/zeit/next.js'</span>
+    );
+    <span class="hljs-keyword">const</span> json = <span class="hljs-keyword">await</span> res.json();
+    <span class="hljs-keyword">return</span> { <span class="hljs-attr">stars</span>: json.stargazers_count };
+  }
+
+  render() {
+    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span> Next stars: {this.props.stars} <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>;
+  }
+}</code></pre>
 
       </section></section><section class="section" id="section-7"><section class="slide" id="slide-7-1">
         <h1 id="dateistruktur">Dateistruktur</h1>

@@ -289,7 +289,7 @@ https://www.w3schools.com/jsref/dom_obj_event.asp
 
 React Komponenten können einen internen Zustand (_state_) haben
 
-Auf den state kann im Template verwiesen werden. Damit ändert sich die Anzeige automatisch, wenn die Daten neu gesetzt werden.
+Auf den state kann im Template verwiesen werden. Damit ändert sich die Anzeige automatisch, wenn Teile des States neu gesetzt werden.
 
 ## State in funktionalen Komponenten
 
@@ -368,7 +368,7 @@ Grundsätzlich können wir über Arrays mehrere Elemente einbinden:
 
 Meist verwenden wir zum wiederholen die `.map()` - Methode
 
-<!-- prettier-ignore-start -->
+<!-- prettier-ignore -->
 ```jsx
 const todos = [
   { id: 1, title: 'groceries', completed: false },
@@ -382,17 +382,16 @@ const todos = [
   ))}
 </ul>
 ```
-<!-- prettier-ignore-end -->
 
 ## JSX: Elemente wiederholen
 
 Bei obigem Code: Warnung in der Browser-Konsole (Wegen Effizienz)  
-Lösung: **key** (als string):
+Lösung: **key**:
 
 ```jsx
 <ul>
   {todos.map(todo => (
-    <li key={todo.id.toString()}>{todo.title}</li>
+    <li key={todo.id}>{todo.title}</li>
   ))}
 </ul>
 ```
@@ -431,6 +430,19 @@ return <div>{face}</div>;
     fontSize: getFontSize(),
   }}
 />
+```
+
+## Fragmente
+
+Erlauben es einer Komponente, mehrere Elemente zurückzugeben (anstatt eines einzenen Elements)
+
+```ts
+return (
+  <>
+    <td>Hello</td>
+    <td>World</td>
+  </>
+);
 ```
 
 ## JSX Kompilierung
@@ -845,17 +857,16 @@ class Clock {
 
 # React mit TypeScript
 
-## Create-React-App
-
 ```bash
 npx create-react-app my-app --typescript
 ```
 
-## Events
+# Material-UI
 
-Typen:
+Vorgefertigte React-Komponenten im Material-Design-Stil (Stil von Google/Android)
 
-- `React.FormEvent`
-- `React.FormEvent<HTMLFormElement>`
-- `React.ChangeEvent<HTMLInputElement>`
-- `React.MouseEvent<HTMLDivElement>`
+## Material-UI: Installation und Verwendung
+
+https://material-ui.com
+
+siehe Info-Boxen zu _Installation_ und _Usage_

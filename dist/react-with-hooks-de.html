@@ -419,7 +419,7 @@ wakatime
       </section><section class="slide" id="slide-7-2">
         <h2 id="state">State</h2>
 <p>React Komponenten können einen internen Zustand (<em>state</em>) haben</p>
-<p>Auf den state kann im Template verwiesen werden. Damit ändert sich die Anzeige automatisch, wenn die Daten neu gesetzt werden.</p>
+<p>Auf den state kann im Template verwiesen werden. Damit ändert sich die Anzeige automatisch, wenn Teile des States neu gesetzt werden.</p>
 
       </section><section class="slide" id="slide-7-3">
         <h2 id="state-in-funktionalen-komponenten">State in funktionalen Komponenten</h2>
@@ -488,7 +488,7 @@ wakatime
       </section><section class="slide" id="slide-8-3">
         <h2 id="jsx-elemente-wiederholen">JSX: Elemente wiederholen</h2>
 <p>Meist verwenden wir zum wiederholen die <code>.map()</code> - Methode</p>
-<!-- prettier-ignore-start -->
+<!-- prettier-ignore -->
 <pre><code class="language-jsx"><span class="hljs-keyword">const</span> todos = [
   { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'groceries'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
   { <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'cooking'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">true</span> },
@@ -500,15 +500,13 @@ wakatime
     <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>{todo.title}<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
   ))}
 <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></span></code></pre>
-<!-- prettier-ignore-end -->
-
 
       </section><section class="slide" id="slide-8-4">
         <h2 id="jsx-elemente-wiederholen">JSX: Elemente wiederholen</h2>
-<p>Bei obigem Code: Warnung in der Browser-Konsole (Wegen Effizienz)<br>Lösung: <strong>key</strong> (als string):</p>
+<p>Bei obigem Code: Warnung in der Browser-Konsole (Wegen Effizienz)<br>Lösung: <strong>key</strong>:</p>
 <pre><code class="language-jsx">&lt;ul&gt;
   {todos.map(<span class="hljs-function"><span class="hljs-params">todo</span> =&gt;</span> (
-    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">key</span>=<span class="hljs-string">{todo.id.toString()}</span>&gt;</span>{todo.title}<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span></span>
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">key</span>=<span class="hljs-string">{todo.id}</span>&gt;</span>{todo.title}<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span></span>
   ))}
 &lt;<span class="hljs-regexp">/ul&gt;</span></code></pre>
 
@@ -541,6 +539,16 @@ wakatime
 /&gt;</code></pre>
 
       </section><section class="slide" id="slide-8-9">
+        <h2 id="fragmente">Fragmente</h2>
+<p>Erlauben es einer Komponente, mehrere Elemente zurückzugeben (anstatt eines einzenen Elements)</p>
+<pre><code class="language-ts">return (
+  &lt;&gt;
+    &lt;td&gt;Hello&lt;/td&gt;
+    &lt;td&gt;World&lt;/td&gt;
+  &lt;/&gt;
+);</code></pre>
+
+      </section><section class="slide" id="slide-8-10">
         <h2 id="jsx-kompilierung">JSX Kompilierung</h2>
 <!-- prettier-ignore -->
 <pre><code class="language-jsx"><span class="hljs-keyword">const</span> element = (
@@ -892,20 +900,16 @@ Event: <code>onToggle</code> - Funktion, die mit dem neuen Zustand aufgerufen wi
 
       </section></section><section class="section" id="section-14"><section class="slide" id="slide-14-1">
         <h1 id="react-mit-typescript">React mit TypeScript</h1>
-
-      </section><section class="slide" id="slide-14-2">
-        <h2 id="create-react-app">Create-React-App</h2>
 <pre><code class="language-bash">npx create-react-app my-app --typescript</code></pre>
 
-      </section><section class="slide" id="slide-14-3">
-        <h2 id="events">Events</h2>
-<p>Typen:</p>
-<ul>
-<li><code>React.FormEvent</code></li>
-<li><code>React.FormEvent&lt;HTMLFormElement&gt;</code></li>
-<li><code>React.ChangeEvent&lt;HTMLInputElement&gt;</code></li>
-<li><code>React.MouseEvent&lt;HTMLDivElement&gt;</code></li>
-</ul>
+      </section></section><section class="section" id="section-15"><section class="slide" id="slide-15-1">
+        <h1 id="material-ui">Material-UI</h1>
+<p>Vorgefertigte React-Komponenten im Material-Design-Stil (Stil von Google/Android)</p>
+
+      </section><section class="slide" id="slide-15-2">
+        <h2 id="material-ui-installation-und-verwendung">Material-UI: Installation und Verwendung</h2>
+<p><a href="https://material-ui.com">https://material-ui.com</a></p>
+<p>siehe Info-Boxen zu <em>Installation</em> und <em>Usage</em></p>
 
       </section></section>
 

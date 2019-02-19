@@ -4,7 +4,7 @@
 
 React Komponenten können einen internen Zustand (_state_) haben
 
-Auf den state kann im Template verwiesen werden. Damit ändert sich die Anzeige automatisch, wenn die Daten neu gesetzt werden.
+Auf den state kann im Template verwiesen werden. Damit ändert sich die Anzeige automatisch, wenn Teile des States neu gesetzt werden.
 
 ## State in funktionalen Komponenten
 

@@ -7,10 +7,3 @@ Vorgefertigte React-Komponenten im Material-Design-Stil (Stil von Google/Android
 https://material-ui.com
 
 siehe Info-Boxen zu _Installation_ und _Usage_
-
-## Übungen
-
-- Button
-- Texteingabe mit Validierung: Mindesteingabelänge 3 Zeichen
-- Texteingabe mit Validierung: 2 Passwörter müssen übereinstimmen
-- Todo-App im Material-Stil

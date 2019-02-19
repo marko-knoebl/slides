@@ -17,7 +17,7 @@ Grundsätzlich können wir über Arrays mehrere Elemente einbinden:
 
 Meist verwenden wir zum wiederholen die `.map()` - Methode
 
-<!-- prettier-ignore-start -->
+<!-- prettier-ignore -->
 ```jsx
 const todos = [
   { id: 1, title: 'groceries', completed: false },
@@ -31,17 +31,16 @@ const todos = [
   ))}
 </ul>
 ```
-<!-- prettier-ignore-end -->
 
 ## JSX: Elemente wiederholen
 
 Bei obigem Code: Warnung in der Browser-Konsole (Wegen Effizienz)  
-Lösung: **key** (als string):
+Lösung: **key**:
 
 ```jsx
 <ul>
   {todos.map(todo => (
-    <li key={todo.id.toString()}>{todo.title}</li>
+    <li key={todo.id}>{todo.title}</li>
   ))}
 </ul>
 ```
@@ -80,6 +79,19 @@ return <div>{face}</div>;
     fontSize: getFontSize(),
   }}
 />
+```
+
+## Fragmente
+
+Erlauben es einer Komponente, mehrere Elemente zurückzugeben (anstatt eines einzenen Elements)
+
+```ts
+return (
+  <>
+    <td>Hello</td>
+    <td>World</td>
+  </>
+);
 ```
 
 ## JSX Kompilierung
