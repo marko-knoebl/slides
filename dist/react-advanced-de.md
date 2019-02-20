@@ -20,7 +20,112 @@ Hooks: Erweiterung von funktionalen Komponenten; erlauben die Verwendung von sta
 - context Hook
 - reducer Hook
 
-## reducer Hook
+# state Hook
+
+## state Hook
+
+Die Funktion `useState` kann zu Beginn der Komponentenfunktion (wiederholt) aufgerufen werden. Sie hat die folgende Signatur:
+
+- sie nimmt einen Parameter entgegen - den initialen Zustand
+- sie gibt bei jedem Aufruf zwei Werte zurück: Den aktuellen Zustand sowie eine Funktion, mit der der Zustand neu gesetzt werden kann
+
+```js
+const App = () => {
+  const [count, setCount] = useState(0);
+
+  return ...
+};
+```
+
+# Effect Hook
+
+## Effect Hook
+
+Der effect Hook kann dienen, um zu bestimmten Zeitpunkten im Lebenszyklus einer Komponente Aktionen zu setzen - insbesondere, wenn sich deren _props_ oder _state_ geändert haben - oder, wenn sie neu eingebunden wurde
+
+Beispiele für Einsatzgebiete: Anfragen von APIs, manuelle Änderungen am DOM
+
+## useEffect
+
+`useEffect` bekommt zwei Parameter übergeben: Eine Funktion und ein Array von Werten.
+
+Die Funktion nach dem Rendering einer Komponente ausgeführt, wenn sich einer der Werte geändert hat.
+
+Die Funktion wird auch ausgeführt, wenn die Komponente neu eingebunden und zum ersten Mal gerendert wurde.
+
+## useEffect
+
+Wenn kein zweiter Parameter übergeben wird, wird die Funktion nach jedem Rendering ausgeführt.
+
+Wenn ein leeres Array als zweiter Parameter übergeben wird, wird die Funktion nur nach dem ersten Rendering ausgeführt.
+
+Es gibt auch die Möglichkeit, eine Funktion zu definieren, die vor dem _Entfernen_ einer Komponente aufgerufen wird (mehr dazu später).
+
+## useEffect: Beispiel: Weather
+
+```js
+const [weatherData, setWeatherData] = useState(null);
+const [stale, setStale] = useState(true);
+
+// fetch data whenever data is stale
+useEffect(
+  () => {
+    if (stale) {
+      refetch();
+    }
+  },
+  [stale]
+);
+```
+
+## useEffect: Beispiel: Weather
+
+```js
+const refetch = () => {
+  fetch(
+    'https://api.openweathermap.org/data/2.5/weather' +
+      `?q=${city}&appid=${API_KEY}`
+  )
+    .then(response => response.json())
+    .then(data => {
+      setWeatherData({ temperature: data.main.temp });
+      setStale(false);
+    });
+};
+```
+
+## Beispiel: Weather
+
+Zustand 1a (Ausgangszustand):
+
+keine Wetterdaten vorhanden (null)
+es wird gerade geladen (true)
+es gibt keine Fehlermeldung
+-> 2a, 2b
+
+Zustand 1b:
+
+es sind aktuelle Wetterdaten vorhanden ({...})
+es wird geladen (true)
+es gibt keine Fehlermeldung
+-> 2a, 2b
+
+## Beispiel: Weather
+
+Zustand 2a:
+
+es sind aktuelle Wetterdaten vorhanden ({...})
+es wird nicht geladen (false)
+-> 1b
+
+Zustand 2b:
+
+es sind keine aktuellen Wetterdaten vorhanden (null)
+es wird nicht geladen (false)
+es gibt eine Fehlermeldung (404 oder 400)
+-> 1a
+
+# reducer Hook
 
 ## reducer Hook
 
@@ -32,7 +137,7 @@ Oft wird der gesamte Anwendungszustand durch ein Datenmodell repräsentiert. Jed
 
 Grundprinzipien von state management:
 
-- Anwendungszustand (state) wird in globalem Objekt gespeichert
+- Anwendungszustand (state) wird in einem globalen Objekt gespeichert
 - _Jede_ Zustandsänderung wird durch eine _Action_ ausgelöst, die die Zustandsänderung genau beschreibt
 
 ## reducer Hook
@@ -61,8 +166,24 @@ Die Reducer-Funktion gibt den neuen Zustand zurück.
 
 ## reducer Hook
 
+Der reducer Hook wird ähnlich eingebunden wie der state hook:
+
+Allgemein:
+
 ```js
-const counterReducer = (count, action) => {
+const [state, dispatch] = useReducer(reducer, initialState);
+```
+
+Konkretes Beispiel count:
+
+```js
+const [count, countDispatch] = useReducer(countReducer, 0);
+```
+
+## reducer Hook
+
+```js
+const countReducer = (count, action) => {
   switch (action.type) {
     case 'INCREMENT':
       return count + 1;
@@ -510,6 +631,20 @@ class TodoStats extends React.Component {
 }
 ```
 
+# Dateistruktur
+
+https://reactjs.org/docs/faq-structure.html
+
+Verbreitete Zugänge:
+
+- Gruppieren nach Feature / Route
+- Gruppieren nach Typ (Komponente / Reducer / API interface)
+
+zu beachten:
+
+- Zu viel Verschachtelung vermeiden
+- Zu Beginn nicht zu viel Gedanken daran verschwenden
+
 # Serverseitiges Rendering mit next.js
 
 ## Serverseitiges Rendering mit next.js
@@ -594,17 +729,3 @@ export default class Page extends React.Component {
   }
 }
 ```
-
-# Dateistruktur
-
-https://reactjs.org/docs/faq-structure.html
-
-Verbreitete Zugänge:
-
-- Gruppieren nach Feature / Route
-- Gruppieren nach Typ (Komponente / Reducer / API interface)
-
-zu beachten:
-
-- Zu viel Verschachtelung vermeiden
-- Zu Beginn nicht zu viel Gedanken daran verschwenden

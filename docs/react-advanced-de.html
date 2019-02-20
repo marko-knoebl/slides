@@ -140,29 +140,119 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li>reducer Hook</li>
 </ul>
 
-      </section><section class="slide" id="slide-1-6">
-        <h2 id="reducer-hook">reducer Hook</h2>
+      </section></section><section class="section" id="section-2"><section class="slide" id="slide-2-1">
+        <h1 id="state-hook">state Hook</h1>
 
-      </section><section class="slide" id="slide-1-7">
+      </section><section class="slide" id="slide-2-2">
+        <h2 id="state-hook">state Hook</h2>
+<p>Die Funktion <code>useState</code> kann zu Beginn der Komponentenfunktion (wiederholt) aufgerufen werden. Sie hat die folgende Signatur:</p>
+<ul>
+<li>sie nimmt einen Parameter entgegen - den initialen Zustand</li>
+<li>sie gibt bei jedem Aufruf zwei Werte zurück: Den aktuellen Zustand sowie eine Funktion, mit der der Zustand neu gesetzt werden kann</li>
+</ul>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> App = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+  <span class="hljs-keyword">const</span> [count, setCount] = useState(<span class="hljs-number">0</span>);
+
+  <span class="hljs-keyword">return</span> ...
+};</code></pre>
+
+      </section></section><section class="section" id="section-3"><section class="slide" id="slide-3-1">
+        <h1 id="effect-hook">Effect Hook</h1>
+
+      </section><section class="slide" id="slide-3-2">
+        <h2 id="effect-hook">Effect Hook</h2>
+<p>Der effect Hook kann dienen, um zu bestimmten Zeitpunkten im Lebenszyklus einer Komponente Aktionen zu setzen - insbesondere, wenn sich deren <em>props</em> oder <em>state</em> geändert haben - oder, wenn sie neu eingebunden wurde</p>
+<p>Beispiele für Einsatzgebiete: Anfragen von APIs, manuelle Änderungen am DOM</p>
+
+      </section><section class="slide" id="slide-3-3">
+        <h2 id="useeffect">useEffect</h2>
+<p><code>useEffect</code> bekommt zwei Parameter übergeben: Eine Funktion und ein Array von Werten.</p>
+<p>Die Funktion nach dem Rendering einer Komponente ausgeführt, wenn sich einer der Werte geändert hat.</p>
+<p>Die Funktion wird auch ausgeführt, wenn die Komponente neu eingebunden und zum ersten Mal gerendert wurde.</p>
+
+      </section><section class="slide" id="slide-3-4">
+        <h2 id="useeffect">useEffect</h2>
+<p>Wenn kein zweiter Parameter übergeben wird, wird die Funktion nach jedem Rendering ausgeführt.</p>
+<p>Wenn ein leeres Array als zweiter Parameter übergeben wird, wird die Funktion nur nach dem ersten Rendering ausgeführt.</p>
+<p>Es gibt auch die Möglichkeit, eine Funktion zu definieren, die vor dem <em>Entfernen</em> einer Komponente aufgerufen wird (mehr dazu später).</p>
+
+      </section><section class="slide" id="slide-3-5">
+        <h2 id="useeffect-beispiel-weather">useEffect: Beispiel: Weather</h2>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> [weatherData, setWeatherData] = useState(<span class="hljs-literal">null</span>);
+<span class="hljs-keyword">const</span> [stale, setStale] = useState(<span class="hljs-literal">true</span>);
+
+<span class="hljs-comment">// fetch data whenever data is stale</span>
+useEffect(
+  <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    <span class="hljs-keyword">if</span> (stale) {
+      refetch();
+    }
+  },
+  [stale]
+);</code></pre>
+
+      </section><section class="slide" id="slide-3-6">
+        <h2 id="useeffect-beispiel-weather">useEffect: Beispiel: Weather</h2>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> refetch = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+  fetch(
+    <span class="hljs-string">'https://api.openweathermap.org/data/2.5/weather'</span> +
+      <span class="hljs-string">`?q=<span class="hljs-subst">${city}</span>&amp;appid=<span class="hljs-subst">${API_KEY}</span>`</span>
+  )
+    .then(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> response.json())
+    .then(<span class="hljs-function"><span class="hljs-params">data</span> =&gt;</span> {
+      setWeatherData({ <span class="hljs-attr">temperature</span>: data.main.temp });
+      setStale(<span class="hljs-literal">false</span>);
+    });
+};</code></pre>
+
+      </section><section class="slide" id="slide-3-7">
+        <h2 id="beispiel-weather">Beispiel: Weather</h2>
+<p>Zustand 1a (Ausgangszustand):</p>
+<p>keine Wetterdaten vorhanden (null)
+es wird gerade geladen (true)
+es gibt keine Fehlermeldung
+-&gt; 2a, 2b</p>
+<p>Zustand 1b:</p>
+<p>es sind aktuelle Wetterdaten vorhanden ({...})
+es wird geladen (true)
+es gibt keine Fehlermeldung
+-&gt; 2a, 2b</p>
+
+      </section><section class="slide" id="slide-3-8">
+        <h2 id="beispiel-weather">Beispiel: Weather</h2>
+<p>Zustand 2a:</p>
+<p>es sind aktuelle Wetterdaten vorhanden ({...})
+es wird nicht geladen (false)
+-&gt; 1b</p>
+<p>Zustand 2b:</p>
+<p>es sind keine aktuellen Wetterdaten vorhanden (null)
+es wird nicht geladen (false)
+es gibt eine Fehlermeldung (404 oder 400)
+-&gt; 1a</p>
+
+      </section></section><section class="section" id="section-4"><section class="slide" id="slide-4-1">
+        <h1 id="reducer-hook">reducer Hook</h1>
+
+      </section><section class="slide" id="slide-4-2">
         <h2 id="reducer-hook">reducer Hook</h2>
 <p>In komplexeren Anwendungen macht es Sinn, den Anwendungszustand (model) von der Ansicht (view) zu trennen.</p>
 <p>Oft wird der gesamte Anwendungszustand durch ein Datenmodell repräsentiert. Jede Änderung am Anwendungszustand läuft über das Datenmodell.</p>
 
-      </section><section class="slide" id="slide-1-8">
+      </section><section class="slide" id="slide-4-3">
         <h2 id="reducer-hook">reducer Hook</h2>
 <p>Grundprinzipien von state management:</p>
 <ul>
-<li>Anwendungszustand (state) wird in globalem Objekt gespeichert</li>
+<li>Anwendungszustand (state) wird in einem globalen Objekt gespeichert</li>
 <li><em>Jede</em> Zustandsänderung wird durch eine <em>Action</em> ausgelöst, die die Zustandsänderung genau beschreibt</li>
 </ul>
 
-      </section><section class="slide" id="slide-1-9">
+      </section><section class="slide" id="slide-4-4">
         <h2 id="reducer-hook">reducer Hook</h2>
 <p>Actions werden durch JavaScript Objekte repräsentiert:</p>
 <pre><code class="language-json">{ <span class="hljs-attr">"type"</span>: <span class="hljs-string">"INCREMENT"</span> }</code></pre>
 <pre><code class="language-json">{ <span class="hljs-attr">"type"</span>: <span class="hljs-string">"DECREMENT"</span> }</code></pre>
 
-      </section><section class="slide" id="slide-1-10">
+      </section><section class="slide" id="slide-4-5">
         <h2 id="reducer-hook">reducer Hook</h2>
 <p>State management mit reducern:</p>
 <p>Beim <em>reducer Hook</em> bzw <em>Redux</em>:</p>
@@ -170,9 +260,17 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <p>Die Reducer-Funktion erhält als Funktionsparameter den alten Zustand (State) und eine Action, die eine Zustandsänderung beschreibt.</p>
 <p>Die Reducer-Funktion gibt den neuen Zustand zurück.</p>
 
-      </section><section class="slide" id="slide-1-11">
+      </section><section class="slide" id="slide-4-6">
         <h2 id="reducer-hook">reducer Hook</h2>
-<pre><code class="language-js"><span class="hljs-keyword">const</span> counterReducer = <span class="hljs-function">(<span class="hljs-params">count, action</span>) =&gt;</span> {
+<p>Der reducer Hook wird ähnlich eingebunden wie der state hook:</p>
+<p>Allgemein:</p>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> [state, dispatch] = useReducer(reducer, initialState);</code></pre>
+<p>Konkretes Beispiel count:</p>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> [count, countDispatch] = useReducer(countReducer, <span class="hljs-number">0</span>);</code></pre>
+
+      </section><section class="slide" id="slide-4-7">
+        <h2 id="reducer-hook">reducer Hook</h2>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> countReducer = <span class="hljs-function">(<span class="hljs-params">count, action</span>) =&gt;</span> {
   <span class="hljs-keyword">switch</span> (action.type) {
     <span class="hljs-keyword">case</span> <span class="hljs-string">'INCREMENT'</span>:
       <span class="hljs-keyword">return</span> count + <span class="hljs-number">1</span>;
@@ -183,18 +281,18 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   }
 };</code></pre>
 
-      </section><section class="slide" id="slide-1-12">
+      </section><section class="slide" id="slide-4-8">
         <h2 id="reducer-hook">reducer Hook</h2>
 <p>Auslösen von Actions: wir rufen die <code>dispatch</code>-Funktion des Reducers mit der gewünschten Action als Parameter auf</p>
 
-      </section></section><section class="section" id="section-2"><section class="slide" id="slide-2-1">
+      </section></section><section class="section" id="section-5"><section class="slide" id="slide-5-1">
         <h1 id="testen-von-react-anwendungen">Testen von React-Anwendungen</h1>
 
-      </section><section class="slide" id="slide-2-2">
+      </section><section class="slide" id="slide-5-2">
         <h2 id="testen-von-react-anwendungen">Testen von React-Anwendungen</h2>
 <p>Standard test-framework für React: <a href="https://facebook.github.io/jest/">jest</a></p>
 
-      </section><section class="slide" id="slide-2-3">
+      </section><section class="slide" id="slide-5-3">
         <h2 id="beispiel">Beispiel</h2>
 <pre><code class="language-js"><span class="hljs-comment">// shorten.js</span>
 <span class="hljs-keyword">const</span> shorten = <span class="hljs-function">(<span class="hljs-params">s, maxlength</span>) =&gt;</span> {
@@ -206,7 +304,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 
 <span class="hljs-keyword">export</span> { shorten };</code></pre>
 
-      </section><section class="slide" id="slide-2-4">
+      </section><section class="slide" id="slide-5-4">
         <h2 id="beispiel">Beispiel</h2>
 <pre><code class="language-js"><span class="hljs-comment">// shorten.test.js</span>
 <span class="hljs-keyword">import</span> { shorten } <span class="hljs-keyword">from</span> <span class="hljs-string">'./shorten'</span>;
@@ -217,12 +315,12 @@ it(<span class="hljs-string">'shortens "loremipsum" to "lor..."'</span>, () =&gt
   expect(actual).toEqual(expected);
 });</code></pre>
 
-      </section><section class="slide" id="slide-2-5">
+      </section><section class="slide" id="slide-5-5">
         <h2 id="tests-ausführen">Tests ausführen</h2>
 <pre><code class="language-bash">npm <span class="hljs-built_in">test</span></code></pre>
 <p>Jest findet von alleine Dateien mit der Endung <em>.test.js</em>.</p>
 
-      </section><section class="slide" id="slide-2-6">
+      </section><section class="slide" id="slide-5-6">
         <h2 id="andere-matcher">Andere Matcher</h2>
 <p>Außer <code>.toEqual</code> gibt es noch:</p>
 <ul>
@@ -233,7 +331,7 @@ it(<span class="hljs-string">'shortens "loremipsum" to "lor..."'</span>, () =&gt
 <li>...</li>
 </ul>
 
-      </section><section class="slide" id="slide-2-7">
+      </section><section class="slide" id="slide-5-7">
         <h2 id="gruppieren-von-tests">Gruppieren von Tests</h2>
 <p>mit <code>describe()</code>:</p>
 <pre><code class="language-js">describe(<span class="hljs-string">'strings that are short enough'</span>, () =&gt; {
@@ -245,7 +343,7 @@ it(<span class="hljs-string">'shortens "loremipsum" to "lor..."'</span>, () =&gt
   });
 });</code></pre>
 
-      </section><section class="slide" id="slide-2-8">
+      </section><section class="slide" id="slide-5-8">
         <h2 id="setup-und-teardown">Setup und teardown</h2>
 <p>Für Code, der vor bzw nach jedem Test ausgeführt werden soll:</p>
 <pre><code class="language-js">beforeEach(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
@@ -256,21 +354,21 @@ afterEach(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;<
   clearTestDB();
 });</code></pre>
 
-      </section><section class="slide" id="slide-2-9">
+      </section><section class="slide" id="slide-5-9">
         <h2 id="test-renderer-für-react">Test Renderer für React</h2>
 <ul>
 <li><code>react-test-renderer</code> (vom React-Team)</li>
 <li><code>Enzyme</code> (entwickelt von Airbnb)</li>
 </ul>
 
-      </section><section class="slide" id="slide-2-10">
+      </section><section class="slide" id="slide-5-10">
         <h2 id="enzyme---setup">Enzyme - Setup</h2>
 <pre><code>npm install --save enzyme enzyme-adapter-react-16 react-test-renderer</code></pre><p>neue Datei <code>setupTests.js</code>:</p>
 <pre><code>import { configure } from &#39;enzyme&#39;;
 import Adapter from &#39;enzyme-adapter-react-16&#39;;
 
 configure({ adapter: new Adapter() });</code></pre>
-      </section><section class="slide" id="slide-2-11">
+      </section><section class="slide" id="slide-5-11">
         <h2 id="enzyme---beispiele">Enzyme - Beispiele</h2>
 <pre><code class="language-jsx">it(<span class="hljs-string">'renders three &lt;Foo /&gt; components'</span>, () =&gt; {
   <span class="hljs-keyword">const</span> wrapper = shallow(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">MyComponent</span> /&gt;</span>);
@@ -282,7 +380,7 @@ it('renders an `.icon-star`', () =&gt; {
   expect(wrapper.find('.icon-star')).to.have.lengthOf(1);
 });</span></code></pre>
 
-      </section><section class="slide" id="slide-2-12">
+      </section><section class="slide" id="slide-5-12">
         <h2 id="enzyme---beispiele">Enzyme - Beispiele</h2>
 <pre><code class="language-jsx">it(<span class="hljs-string">'reacts to click events'</span>, () =&gt; {
   <span class="hljs-keyword">const</span> onButtonClick = sinon.spy();
@@ -293,18 +391,18 @@ it('renders an `.icon-star`', () =&gt; {
   expect(onButtonClick).to.have.property('callCount', 1);
 });</span></code></pre>
 
-      </section><section class="slide" id="slide-2-13">
+      </section><section class="slide" id="slide-5-13">
         <h2 id="snapshot-tests">Snapshot Tests</h2>
 <p>Komponenten werden gerendert und mit früheren Versionen (Snapshots) verglichen</p>
 <p>Snapshot Tests fallen unter Regressionstests.</p>
 
-      </section><section class="slide" id="slide-2-14">
+      </section><section class="slide" id="slide-5-14">
         <h2 id="snapshot-tests---setup">Snapshot Tests - setup</h2>
 <pre><code class="language-bash">npm install --save-dev react-test-renderer</code></pre>
 <p>für TypeScript:</p>
 <pre><code class="language-bash">npm install --save-dev @types/react-test-renderer</code></pre>
 
-      </section><section class="slide" id="slide-2-15">
+      </section><section class="slide" id="slide-5-15">
         <h2 id="snapshot-tests-in-react---tests-erstellen">Snapshot Tests in React - Tests erstellen</h2>
 <pre><code class="language-jsx"><span class="hljs-comment">// Rating.test.js</span>
 <span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
@@ -318,27 +416,27 @@ it(<span class="hljs-string">'renders correctly'</span>, () =&gt; {
   expect(tree).toMatchSnapshot();
 });</span></code></pre>
 
-      </section><section class="slide" id="slide-2-16">
+      </section><section class="slide" id="slide-5-16">
         <h2 id="snapshot-tests-aktualisieren">Snapshot Tests aktualisieren</h2>
 <p>Haben wir das Verhalten einer Komponente geändert und danach ihr Verhalten überprüft,
 können wir Snapshot-Tests entsprechend aktualisieren:</p>
 <pre><code class="language-txt">2 snapshot tests failed in 1 test suite.
 Inspect your code changes or press `u` to update them.</code></pre>
 
-      </section></section><section class="section" id="section-3"><section class="slide" id="slide-3-1">
+      </section></section><section class="section" id="section-6"><section class="slide" id="slide-6-1">
         <h1 id="react-router">React Router</h1>
 
-      </section><section class="slide" id="slide-3-2">
+      </section><section class="slide" id="slide-6-2">
         <h2 id="react-router">React Router</h2>
 <p><a href="https://reacttraining.com/react-router/">https://reacttraining.com/react-router/</a></p>
 
-      </section><section class="slide" id="slide-3-3">
+      </section><section class="slide" id="slide-6-3">
         <h2 id="react-router---setup">React Router - Setup</h2>
 <pre><code class="language-bash">npm install react-router-dom</code></pre>
 <pre><code class="language-bash">// TypeScript:
 npm install @types/react-router-dom</code></pre>
 
-      </section><section class="slide" id="slide-3-4">
+      </section><section class="slide" id="slide-6-4">
         <h2 id="react-router---browserrouter">React Router - BrowserRouter</h2>
 <p>Um React Router verwenden zu können:<br>Ganze Anwendung wird mit einem &lt; BrowserRouter &gt; - Tag umschlossen</p>
 <pre><code class="language-js"><span class="hljs-keyword">import</span> { BrowserRouter } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router-dom'</span>;
@@ -348,7 +446,7 @@ npm install @types/react-router-dom</code></pre>
   <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">App</span>/&gt;</span></span>
 &lt;<span class="hljs-regexp">/BrowserRouter&gt;</span></code></pre>
 
-      </section><section class="slide" id="slide-3-5">
+      </section><section class="slide" id="slide-6-5">
         <h2 id="react-router---routen-definieren">React Router - Routen definieren</h2>
 <pre><code class="language-js"><span class="hljs-keyword">import</span> { Route } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router-dom'</span>;
 
@@ -356,7 +454,7 @@ npm install @types/react-router-dom</code></pre>
 &lt;Route path="/" exact component={List} /&gt;
 &lt;Route path="/add" component={AddTodo} /&gt;</code></pre>
 
-      </section><section class="slide" id="slide-3-6">
+      </section><section class="slide" id="slide-6-6">
         <h2 id="react-router---routen-definieren">React Router - Routen definieren</h2>
 <p>Wenn props übergeben werden müssen:</p>
 <pre><code class="language-jsx"><span class="hljs-keyword">import</span> { Route } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router-dom'</span>;
@@ -369,14 +467,14 @@ npm install @types/react-router-dom</code></pre>
   )}
 /&gt;;</code></pre>
 
-      </section><section class="slide" id="slide-3-7">
+      </section><section class="slide" id="slide-6-7">
         <h2 id="react-router---router-links">React Router - Router-Links</h2>
 <pre><code class="language-jsx"><span class="hljs-keyword">import</span> { Link } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router-dom'</span>;
 
 <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Link</span> <span class="hljs-attr">to</span>=<span class="hljs-string">"/"</span>&gt;</span>Home<span class="hljs-tag">&lt;/<span class="hljs-name">Link</span>&gt;</span></span>
 &lt;Link to=<span class="hljs-string">"/add"</span>&gt;Add&lt;<span class="hljs-regexp">/Link&gt;</span></code></pre>
 
-      </section><section class="slide" id="slide-3-8">
+      </section><section class="slide" id="slide-6-8">
         <h2 id="react-router---redirects">React Router - Redirects</h2>
 <pre><code class="language-jsx"><span class="hljs-keyword">import</span> { Redirect } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router'</span>;
 
@@ -385,7 +483,7 @@ npm install @types/react-router-dom</code></pre>
   render={props =&gt; &lt;Redirect to="/" /&gt;}
 /&gt;;</code></pre>
 
-      </section><section class="slide" id="slide-3-9">
+      </section><section class="slide" id="slide-6-9">
         <h2 id="react-router---routenparameter">React Router - Routenparameter</h2>
 <pre><code class="language-jsx">&lt;Route
   path=<span class="hljs-string">"/todos/:todoId"</span>
@@ -395,7 +493,7 @@ npm install @types/react-router-dom</code></pre>
 /&gt;</code></pre>
 <p>Routenparameter sind unter <em>props.match.params</em> abzurufen</p>
 
-      </section><section class="slide" id="slide-3-10">
+      </section><section class="slide" id="slide-6-10">
         <h2 id="react-router---switch">React Router - Switch</h2>
 <p>Nur die erste zutreffende Route wird angezeigt</p>
 <pre><code class="language-jsx"><span class="hljs-keyword">import</span> { Switch } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router-dom'</span>;
@@ -405,11 +503,11 @@ npm install @types/react-router-dom</code></pre>
   &lt;Route path="/" component={NotFound} /&gt;
 &lt;/Switch&gt;;</code></pre>
 
-      </section></section><section class="section" id="section-4"><section class="slide" id="slide-4-1">
+      </section></section><section class="section" id="section-7"><section class="slide" id="slide-7-1">
         <h1 id="pwas">PWAs</h1>
 <p>Progressive Web Apps mit React</p>
 
-      </section><section class="slide" id="slide-4-2">
+      </section><section class="slide" id="slide-7-2">
         <h2 id="pwas">PWAs</h2>
 <p>Progressive Web Apps: Möglichkeit, Anwendungen für Mobilgeräte und PCs mit HTML, CSS und JavaScript zu schreiben</p>
 <p>Mit <code>create-react-app</code> erstellte Anwendungen bieten dafür schon die Grundvoraussetzungen:</p>
@@ -418,25 +516,25 @@ npm install @types/react-router-dom</code></pre>
 <li>PWA-Boilerplate in <code>src/serviceWorker.js</code></li>
 </ul>
 
-      </section><section class="slide" id="slide-4-3">
+      </section><section class="slide" id="slide-7-3">
         <h2 id="pwas-aktivierung">PWAs: Aktivierung</h2>
 <p>in <code>index.js</code> / <code>index.tsx</code>:</p>
 <pre><code class="language-js">serviceWorker.register();</code></pre>
 
-      </section><section class="slide" id="slide-4-4">
+      </section><section class="slide" id="slide-7-4">
         <h2 id="pwas-konfiguration">PWAs: Konfiguration</h2>
 <p>Via <code>public/manifest.json</code>:</p>
 <p>name, short_name</p>
 
-      </section><section class="slide" id="slide-4-5">
+      </section><section class="slide" id="slide-7-5">
         <h2 id="pwas-logos-konfigurieren">PWAs: Logos konfigurieren</h2>
 <p>Hinzufügen von Logos in den Formaten <code>144x144px</code>, <code>192x192px</code> und <code>512x512px</code> (in manifest.json)</p>
 
-      </section><section class="slide" id="slide-4-6">
+      </section><section class="slide" id="slide-7-6">
         <h2 id="pwa-add-to-homescreen">PWA: add to homescreen</h2>
 <p><a href="https://developers.google.com/web/fundamentals/app-install-banners/">https://developers.google.com/web/fundamentals/app-install-banners/</a></p>
 
-      </section><section class="slide" id="slide-4-7">
+      </section><section class="slide" id="slide-7-7">
         <h2 id="pwa-add-to-homescreen">PWA: add to homescreen</h2>
 <pre><code class="language-js">componentDidMount() {
   <span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">'beforeinstallprompt'</span>, e =&gt; {
@@ -446,7 +544,7 @@ npm install @types/react-router-dom</code></pre>
   });
 }</code></pre>
 
-      </section><section class="slide" id="slide-4-8">
+      </section><section class="slide" id="slide-7-8">
         <h2 id="pwa-add-to-homescreen">PWA: add to homescreen</h2>
 <pre><code class="language-js">handleInstallBtnClicked = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
   deferredPrompt.prompt();
@@ -461,7 +559,7 @@ npm install @types/react-router-dom</code></pre>
   });
 };</code></pre>
 
-      </section><section class="slide" id="slide-4-9">
+      </section><section class="slide" id="slide-7-9">
         <h2 id="pwa-deployment-auf-bitballoon">PWA: Deployment auf Bitballoon</h2>
 <ul>
 <li><code>npm run build</code></li>
@@ -470,14 +568,14 @@ npm install @types/react-router-dom</code></pre>
 <li>Manuell auf https wechseln - in Chrome am Desktop und Mobilgerät ausprobieren</li>
 </ul>
 
-      </section></section><section class="section" id="section-5"><section class="slide" id="slide-5-1">
+      </section></section><section class="section" id="section-8"><section class="slide" id="slide-8-1">
         <h1 id="context">Context</h1>
 
-      </section><section class="slide" id="slide-5-2">
+      </section><section class="slide" id="slide-8-2">
         <h2 id="context">Context</h2>
 <p>Möglichkeit, Werte aus einer Komponente direkt allen weiter unten im Dokumentenbaum liegenden Komponenten zur Verfügung zu stellen - ohne den state über jede Ebene übergeben zu müssen</p>
 
-      </section><section class="slide" id="slide-5-3">
+      </section><section class="slide" id="slide-8-3">
         <h2 id="context">Context</h2>
 <p>zwei Elemente:</p>
 <ul>
@@ -485,17 +583,17 @@ npm install @types/react-router-dom</code></pre>
 <li><code>Consumer</code>: verwendet diese Werte (kann weit unten in der Komponentenhierarchie liegen)</li>
 </ul>
 
-      </section><section class="slide" id="slide-5-4">
+      </section><section class="slide" id="slide-8-4">
         <h2 id="context">Context</h2>
 <p>Das Interface von Context kann sowohl Daten (aus dem State) als auch Eventhandler übergeben.</p>
 
-      </section><section class="slide" id="slide-5-5">
+      </section><section class="slide" id="slide-8-5">
         <h2 id="context---beispiel">Context - Beispiel</h2>
 <pre><code class="language-js"><span class="hljs-comment">// TodosContext.js</span>
 
 <span class="hljs-keyword">const</span> TodosContext = React.createContext();</code></pre>
 
-      </section><section class="slide" id="slide-5-6">
+      </section><section class="slide" id="slide-8-6">
         <h2 id="context---beispiel-typescript">Context - Beispiel: TypeScript</h2>
 <pre><code class="language-ts"><span class="hljs-comment">// TodosContext.ts</span>
 
@@ -509,7 +607,7 @@ npm install @types/react-router-dom</code></pre>
   Partial&lt;TodosContextInterface&gt;
 &gt;({});</code></pre>
 
-      </section><section class="slide" id="slide-5-7">
+      </section><section class="slide" id="slide-8-7">
         <h2 id="context---beispiel-provider">Context - Beispiel: Provider</h2>
 <pre><code class="language-jsx"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">App</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
   render() {
@@ -526,14 +624,14 @@ npm install @types/react-router-dom</code></pre>
   }
 }</span></code></pre>
 
-      </section><section class="slide" id="slide-5-8">
+      </section><section class="slide" id="slide-8-8">
         <h2 id="context---beispiel-consumer">Context - Beispiel: Consumer</h2>
 <pre><code class="language-jsx"><span class="hljs-keyword">const</span> TodoStats = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
   <span class="hljs-keyword">const</span> context = useContext(TodosContext);
   <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>There are {context.todos.length} todos<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>;
 };</code></pre>
 
-      </section><section class="slide" id="slide-5-9">
+      </section><section class="slide" id="slide-8-9">
         <h2 id="context---beispiel-consumer">Context - Beispiel: Consumer</h2>
 <pre><code class="language-jsx"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TodoStats</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
   render() {
@@ -549,14 +647,28 @@ npm install @types/react-router-dom</code></pre>
   }
 }</span></code></pre>
 
-      </section></section><section class="section" id="section-6"><section class="slide" id="slide-6-1">
+      </section></section><section class="section" id="section-9"><section class="slide" id="slide-9-1">
+        <h1 id="dateistruktur">Dateistruktur</h1>
+<p><a href="https://reactjs.org/docs/faq-structure.html">https://reactjs.org/docs/faq-structure.html</a></p>
+<p>Verbreitete Zugänge:</p>
+<ul>
+<li>Gruppieren nach Feature / Route</li>
+<li>Gruppieren nach Typ (Komponente / Reducer / API interface)</li>
+</ul>
+<p>zu beachten:</p>
+<ul>
+<li>Zu viel Verschachtelung vermeiden</li>
+<li>Zu Beginn nicht zu viel Gedanken daran verschwenden</li>
+</ul>
+
+      </section></section><section class="section" id="section-10"><section class="slide" id="slide-10-1">
         <h1 id="serverseitiges-rendering-mit-nextjs">Serverseitiges Rendering mit next.js</h1>
 
-      </section><section class="slide" id="slide-6-2">
+      </section><section class="slide" id="slide-10-2">
         <h2 id="serverseitiges-rendering-mit-nextjs">Serverseitiges Rendering mit next.js</h2>
 <p><a href="https://github.com/zeit/next.js/">github.com/zeit/next.js</a></p>
 
-      </section><section class="slide" id="slide-6-3">
+      </section><section class="slide" id="slide-10-3">
         <h2 id="serverseitiges-rendering">Serverseitiges rendering</h2>
 <ul>
 <li>Ermöglicht Verwendung von JSX als Templatesprache am Server</li>
@@ -571,7 +683,7 @@ npm install @types/react-router-dom</code></pre>
 </li>
 </ul>
 
-      </section><section class="slide" id="slide-6-4">
+      </section><section class="slide" id="slide-10-4">
         <h2 id="setup">Setup</h2>
 <p>Siehe <a href="https://github.com/zeit/next.js/#setup">https://github.com/zeit/next.js/#setup</a></p>
 <!--
@@ -591,14 +703,14 @@ package.json:
 -->
 
 
-      </section><section class="slide" id="slide-6-5">
+      </section><section class="slide" id="slide-10-5">
         <h2 id="build--test">Build &amp; Test</h2>
 <p>Testserver starten:</p>
 <pre><code class="language-bash">npm run dev</code></pre>
 <p>Build:</p>
 <pre><code class="language-bash">npm build</code></pre>
 
-      </section><section class="slide" id="slide-6-6">
+      </section><section class="slide" id="slide-10-6">
         <h2 id="grundlagen">Grundlagen</h2>
 <ul>
 <li>Seiten definiert unter <em>./pages</em></li>
@@ -606,12 +718,12 @@ package.json:
 <li>verwendete Komponenten unter <em>./components</em></li>
 </ul>
 
-      </section><section class="slide" id="slide-6-7">
+      </section><section class="slide" id="slide-10-7">
         <h2 id="beispiel-hello-world">Beispiel: Hello world</h2>
 <p>index.js:</p>
 <pre><code class="language-js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> () =&gt; <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Welcome to next.js!<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>;</code></pre>
 
-      </section><section class="slide" id="slide-6-8">
+      </section><section class="slide" id="slide-10-8">
         <h2 id="daten-einbinden-getinitialprops">Daten einbinden: getInitialProps()</h2>
 <pre><code class="language-jsx"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
 <span class="hljs-keyword">import</span> fetch <span class="hljs-keyword">from</span> <span class="hljs-string">'isomorphic-fetch'</span>;
@@ -630,20 +742,6 @@ package.json:
     <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span> Next stars: {this.props.stars} <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>;
   }
 }</code></pre>
-
-      </section></section><section class="section" id="section-7"><section class="slide" id="slide-7-1">
-        <h1 id="dateistruktur">Dateistruktur</h1>
-<p><a href="https://reactjs.org/docs/faq-structure.html">https://reactjs.org/docs/faq-structure.html</a></p>
-<p>Verbreitete Zugänge:</p>
-<ul>
-<li>Gruppieren nach Feature / Route</li>
-<li>Gruppieren nach Typ (Komponente / Reducer / API interface)</li>
-</ul>
-<p>zu beachten:</p>
-<ul>
-<li>Zu viel Verschachtelung vermeiden</li>
-<li>Zu Beginn nicht zu viel Gedanken daran verschwenden</li>
-</ul>
 
       </section></section>
 
