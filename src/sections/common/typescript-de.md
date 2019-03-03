@@ -4,18 +4,18 @@
 
 = Obermenge von JavaScript mit Erweiterungen:
 
-- **Static Typing**
-- Decorators
+- **Statische Typisierung**
 - Public / Private Properties
+- Decorators
 
-## Static Typing
+## Statische Typisierung
 
 Datentypen können angegeben werden und unterstützen insbesondere die Entwicklungsumgebung:
 
-- Auto-Vervollständigung
+- Autovervollständigung
 - Fehlermeldungen bei nicht passenden Datentypen
 
-## Static Typing
+## Statische Typisierung
 
 Beim build: TypeScript wird in JavaScript übersetzt, alle Typeninformationen gehen dabei verloren
 
@@ -24,6 +24,24 @@ Beim build: TypeScript wird in JavaScript übersetzt, alle Typeninformationen ge
 ```ts
 let age: number = 32;
 let name: string = 'Andreas';
+```
+
+## Typsystem: Arrays
+
+```js
+let names: Array = ['Anna', 'Bernhard'];
+```
+
+genauer:
+
+```js
+let names: Array<string> = ['Anna', 'Bernhard'];
+```
+
+alternative Schreibweise:
+
+```ts
+let names: string[] = ['Anna', 'Bernhard'];
 ```
 
 ## Typsystem: Funktionen
@@ -36,69 +54,11 @@ function repeatString(
 }
 ```
 
-## Typsystem: Pfeilfunktionen
-
 ```ts
 const repeatString = (
   text: string,
   times: number
-): string => (...);
-```
-
-## Typsystem: Arrays
-
-```ts
-let names: string[] = ['Anna', 'Bernhard', 'Caro'];
-
-// Alternative Syntax
-
-let names: Array<string> = ['Anna', 'Bernhard'];
-```
-
-## Typsystem: Tupel
-
-Arrays mit vorgegebener Länge und Datentypen für jeden Eintrag
-
-```ts
-let todo: [string, boolean];
-```
-
-## Typsystem: Objekte & Properties
-
-Objekt mit bestimmten Properties:
-
-```ts
-let p: { name: string; age: number } = getPerson();
-```
-
-## Typsystem: Objekte - Interfaces
-
-```ts
-interface IPerson {
-  name: string;
-  nickname?: string; // optional
-  birthYear: number;
-  // Methode, die eine Zahl als Parameter übernimmt
-  // und eine Zahl zurückgibt
-  getAge: (currentYear: number) => number;
-}
-
-let p: IPerson = getPerson();
-```
-
-## Typsystem: Klassen & Interfaces
-
-```ts
-class User implements IPerson {
-  ...
-}
-```
-
-## Typsystem: das Schlüsselwort _type_
-
-```ts
-type PersonCollection = Array<IPerson>;
-type TodoAction = 'ADD_TODO' | 'DELETE_TODO';
+): string => {...};
 ```
 
 ## Typsystem: void
@@ -106,9 +66,9 @@ type TodoAction = 'ADD_TODO' | 'DELETE_TODO';
 Void: umfasst _undefined_ und _null_
 
 ```ts
-function warnUser(): void {
+const warnUser = (): void => {
   alert('warning!');
-}
+};
 ```
 
 ## Typsystem: any
@@ -116,29 +76,87 @@ function warnUser(): void {
 Any: lässt alle Typen zu
 
 ```ts
-let ib: any = document.getElementById('myinput');
-console.log(ib.value);
+let myInput: any = document.getElementById('myinput');
+console.log(myInput.value);
 ```
 
 ## Typsystem: Type assertions
 
-```ts
-let someValue: any = 'this is a string';
 
-let strLength: number = (someValue as string).length;
+## Typsystem: Types & Interfaces
+
+Interfaces: beschreiben die Struktur eines Objekts / einer Klasse genauer  
+z.B.: `TodoInterface`, `PersonInterface`
+
+Types: Ähnlich wie Interfaces, nur auch auf Strings, Arrays, ... anwendbar
+
+Types bieten im wesentlichen mehr Funktionalität als Interfaces
+
+https://stackoverflow.com/a/52682220/
+
+## Typsystem: Types
+
+```ts
+type TodoType = {
+  id: number;
+  title: string;
+  completed: boolean;
+};
+
+type TodoCollection = Array<TodoType>;
 ```
 
-## Typsystem: Union Types
+## Types bei Objekten
 
 ```ts
-function foo(arg: string | number) {...}
-
-function foo(arg: string | undefined) {...}
+type TodoType = {
+  id: number;
+  title: string;
+  completed: boolean;
+  // optional
+  description?: string;
+  // Methode
+  toggle: (id: number) => void;
+};
 ```
 
-## Typsystem: Generics
+## Types bei Objekten
 
-Allgemeine Klassen- oder Funktionsdefinition, die während deren Aufruf genauere Typinformationen übergeben bekommen.
+```ts
+class AdvancedTodo implements TodoType {
+  ...
+}
+```
+
+## Extends
+
+Mittels `&`:
+
+```ts
+type ActionType = {
+  type: string;
+  payload?: object;
+};
+
+type AddTodoActionType = ReduxActionType & {
+  type: 'ADD_TODO';
+  payload: {
+    title: string;
+  };
+};
+```
+
+## Union Types
+
+```ts
+type TodoActionType =
+  | AddTodoActionType
+  | ToggleTodoActionType;
+```
+
+## Generics
+
+Allgemeine Typendeklaration, bei der beim Aufruf nähere Informationen spezifiziert werden können
 
 ```ts
 function reducer<MyState, MyAction>(
@@ -159,7 +177,7 @@ const newState = reducer<TodoState, TodoAction>(
 );
 ```
 
-## Typsystem: Generics
+## Generics
 
 ```ts
 class Component<Props, State> {

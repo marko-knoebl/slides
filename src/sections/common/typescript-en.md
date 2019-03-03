@@ -26,6 +26,24 @@ let age: number = 32;
 let name: string = 'Andreas';
 ```
 
+## type system: arrays
+
+```js
+let names: Array = ['Anna', 'Bernhard'];
+```
+
+more detailed:
+
+```js
+let names: Array<string> = ['Anna', 'Bernhard'];
+```
+
+alternative Syntax:
+
+```ts
+let names: string[] = ['Anna', 'Bernhard'];
+```
+
 ## type system: functions
 
 ```ts
@@ -36,69 +54,11 @@ function repeatString(
 }
 ```
 
-## type system: arrow functions
-
 ```ts
 const repeatString = (
   text: string,
   times: number
-): string => (...);
-```
-
-## type system: arrays
-
-```ts
-let names: string[] = ['Anna', 'Bernhard', 'Caro'];
-
-// alternative syntax
-
-let names: Array<string> = ['Anna', 'Bernhard'];
-```
-
-## type system: tuples
-
-Arrays with a predefined length and a type for every entry
-
-```ts
-let todo: [string, boolean];
-```
-
-## type system: objects and properties
-
-objects that have specific properties:
-
-```ts
-let p: { name: string; age: number } = getPerson();
-```
-
-## type system: object interfaces
-
-```ts
-interface IPerson {
-  name: string;
-  nickname?: string; // optional
-  birthYear: number;
-  // Method which takes a number as a parameter
-  // and returns a number
-  getAge: (currentYear: number) => number;
-}
-
-let p: IPerson = getPerson();
-```
-
-## type system: classes and interfaces
-
-```ts
-class User implements IPerson {
-  ...
-}
-```
-
-## type system: the type keyword
-
-```ts
-type PersonCollection = Array<IPerson>;
-type TodoAction = 'ADD_TODO' | 'DELETE_TODO';
+): string => {...};
 ```
 
 ## type system: void
@@ -123,24 +83,121 @@ console.log(ib.value);
 ## type system: type assertions
 
 ```ts
-let someValue: any = 'this is a string';
+let someValue = jsonData.name;
 
-let strLength: number = (someValue as string).length;
+let strLength = (someValue as string).length;
 ```
 
-## type system: union types
+## type system: types & interfaces
+
+Interfaces describe the structure of an object / of a class in Detail  
+e.g.: `TodoInterface`, `PersonInterface`
+
+Types are similar to interface, but are also applicable to strings, arrays, ...
+
+Essentialy types offer more functionality than interfaces
+
+https://stackoverflow.com/a/52682220/
+
+## type system: types
 
 ```ts
-function foo(arg: string | number) {...}
+type TodoType = {
+  id: number;
+  title: string;
+  completed: boolean;
+};
 
-function foo(arg: string | undefined) {...}
+type TodoCollection = Array<TodoType>;
+```
+
+## Types and objects
+
+```ts
+type TodoType = {
+  id: number;
+  title: string;
+  completed: boolean;
+  // optional
+  description?: string;
+  // Methode
+  toggle: (id: number) => void;
+};
+```
+
+## Types and objects
+
+```ts
+class AdvancedTodo implements TodoType {
+  ...
+}
+```
+
+## Extends
+
+Via `&`:
+
+```ts
+type ActionType = {
+  type: string;
+  payload?: object;
+};
+
+type AddTodoActionType = ReduxActionType & {
+  type: 'ADD_TODO';
+  payload: {
+    title: string;
+  };
+};
+```
+
+## Union Types
+
+```ts
+type TodoActionType =
+  | AddTodoActionType
+  | ToggleTodoActionType;
 ```
 
 ## type system: generics
 
+Generic type declarations that can receive more specific type information when called
+
 ```ts
-function thrice<T>(element: T): T[] {
-  return [element, element, element];
+function reducer<MyState, MyAction>(
+  state: MyState,
+  action: MyAction
+): MyState {
+  ...
+}
+```
+
+usage:
+
+```ts
+// newState will automatically have the correct type
+const newState = reducer<TodoState, TodoAction>(
+  myTodoState,
+  myTodoAction
+);
+```
+
+## Generics
+
+```ts
+class Component<Props, State> {
+  props: Props;
+  state: State;
+
+  setState: (newState: Partial<State>) => void;
+}
+```
+
+usage:
+
+```ts
+class MyComp extends Component<MyProps, MyState> {
+  ...
 }
 ```
 
