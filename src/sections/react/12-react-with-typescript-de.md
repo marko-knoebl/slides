@@ -6,29 +6,36 @@
 npx create-react-app my-app --typescript
 ```
 
-## Komponenten
+## Komponenten (Funktionen)
+
+```ts
+type TodoListProps = {
+  todos: Array<TodoType>;
+  onToggle: (id: number) => void;
+  onDelete: (id: number) => void;
+};
+
+const TodoList = (props: TodoListProps) => {
+  const [filterText, setFilterText] = useState<string>('');
+
+  return <div>...</div>;
+};
+```
+
+## Komponenten (Klassen)
 
 ```tsx
 // TodoList.tsx
-interface ITodoItemProps {
-  todo: ITodo;
+type TodoItemProps = {
+  todo: TodoType;
   onToggle: (id: int) => void;
-}
-interface ITodoItemState {}
+};
+type TodoItemState = {};
 ```
 
 ```tsx
 class TodoItem extends React.PureComponent<
-  ITodoItemProps,
-  ITodoItemState
+  TodoItemProps,
+  TodoItemState
 > {}
 ```
-
-## Events
-
-Typen:
-
-- `React.FormEvent`
-- `React.FormEvent<HTMLFormElement>`
-- `React.ChangeEvent<HTMLInputElement>`
-- `React.MouseEvent<HTMLDivElement>`

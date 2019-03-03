@@ -6,35 +6,36 @@
 npx create-react-app my-app --typescript
 ```
 
-## installing requirements
+## components (functions)
 
-```bash
-npm install redux react-redux @types/react-redux redux-thunk
+```ts
+type TodoListProps = {
+  todos: Array<TodoType>;
+  onToggle: (id: number) => void;
+  onDelete: (id: number) => void;
+};
+
+const TodoList = (props: TodoListProps) => {
+  const [filterText, setFilterText] = useState<string>('');
+
+  return <div>...</div>;
+};
 ```
 
-## components
+## components (classes)
 
 ```tsx
 // TodoList.tsx
-interface ITodoItemProps {
-  todo: ITodo;
+type TodoItemProps {
+  todo: TodoType;
   onToggle: (id: int) => void;
 }
-interface ITodoItemState {}
+interface TodoItemState {}
 ```
 
 ```tsx
 class TodoItem extends React.PureComponent<
-  ITodoItemProps,
-  ITodoItemState
+  TodoItemProps,
+  TodoItemState
 > {}
 ```
-
-## events
-
-types:
-
-- `React.FormEvent`
-- `React.FormEvent<HTMLFormElement>`
-- `React.ChangeEvent<HTMLInputElement>`
-- `React.MouseEvent<HTMLDivElement>`
