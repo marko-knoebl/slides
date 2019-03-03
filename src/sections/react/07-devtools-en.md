@@ -26,12 +26,13 @@ in _launch.json_:
 {
   "type": "chrome",
   "request": "launch",
-  "name": "Launch Chrome",
-  "url": "http://localhost:3000",
-  "webRoot": "${workspaceFolder}"
+  "name": "Launch Chrome for React",
+  "url": "http://localhost:3000"
 }
 ```
 
 ## Debugging in VS Code: starting
 
-Via _F5_
+The development server has to be running in the background
+
+Start debugging in VS Code via _F5_

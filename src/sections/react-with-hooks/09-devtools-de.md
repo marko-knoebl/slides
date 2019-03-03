@@ -6,7 +6,8 @@ https://github.com/facebook/react-devtools
 
 - Anzeige der Komponententags im Inspektor
 - Anzeige von State und Props
-- Hervorhebung von Änderungen von State und Props
+- Hervorheben von Änderungen von State und Props
+- Hervorheben des Rerenderings von Komponenten
 
 ## Debugging in VS Code
 
@@ -25,12 +26,13 @@ in _launch.json_:
 {
   "type": "chrome",
   "request": "launch",
-  "name": "Launch Chrome",
-  "url": "http://localhost:3000",
-  "webRoot": "${workspaceFolder}"
+  "name": "Launch Chrome for React",
+  "url": "http://localhost:3000"
 }
 ```
 
 ## Debugging in VS Code: starten
 
-Mittels _F5_
+Testserver muss im Hintergrund schon laufen
+
+Debugging in VS Code starten: mittels _F5_
