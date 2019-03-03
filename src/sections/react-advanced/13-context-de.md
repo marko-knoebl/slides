@@ -28,37 +28,37 @@ const TodosContext = React.createContext();
 ```ts
 // TodosContext.ts
 
-interface TodosContextInterface {
+type TodosContext = {
   todos: Array<Todo>;
   onToggle: (id: number) => void;
   onClear: () => void;
-}
+};
 
-const TodosContext = React.createContext<
-  Partial<TodosContextInterface>
->({});
+const TodosContext = React.createContext(
+  {} as TodosContext
+);
 ```
 
 ## Context - Beispiel: Provider
 
 ```jsx
-class App extends React.Component {
-  render() {
-    return (
-      <MyContext.Provider
-        value={{
-          todos: this.state.todos,
-          onToggle: this.handleToggle,
-          onClear: this.handleClear,
-        }}>
-        <TodoStats />
-      </MyContext.Provider>
-    );
-  }
-}
+const App = () => {
+  return (
+    <MyContext.Provider
+      value={{
+        todos: this.state.todos,
+        onToggle: this.handleToggle,
+        onClear: this.handleClear,
+      }}>
+      <TodoStats />
+    </MyContext.Provider>
+  );
+};
 ```
 
 ## Context - Beispiel: Consumer
+
+funktionale Komponente:
 
 ```jsx
 const TodoStats = () => {
@@ -68,6 +68,8 @@ const TodoStats = () => {
 ```
 
 ## Context - Beispiel: Consumer
+
+Klassenkomponente
 
 ```jsx
 class TodoStats extends React.Component {

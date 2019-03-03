@@ -12,7 +12,7 @@ npm install react-router-dom
 
 ```bash
 // TypeScript:
-npm install @types/react-router-dom
+npm install react-router-dom @types/react-router-dom
 ```
 
 ## React Router - BrowserRouter

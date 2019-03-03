@@ -36,10 +36,12 @@ https://developers.google.com/web/fundamentals/app-install-banners/
 ## PWA: add to homescreen
 
 ```js
+let deferredPrompt;
+
 componentDidMount() {
   window.addEventListener('beforeinstallprompt', e => {
     e.preventDefault();
-    this.deferredPrompt = e;
+    deferredPrompt = e;
     this.setState({ showInstallBtn: true });
   });
 }
@@ -56,7 +58,7 @@ handleInstallBtnClicked = () => {
     } else {
       console.log('user dismissed');
     }
-    this.deferredPrompt = null;
+    deferredPrompt = null;
     this.setState({ showInstallBtn: false });
   });
 };

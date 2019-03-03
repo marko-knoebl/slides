@@ -85,3 +85,22 @@ es sind keine aktuellen Wetterdaten vorhanden (null)
 es wird nicht geladen (false)
 es gibt eine Fehlermeldung (404 oder 400)
 -> 1a
+
+## Entfernen einer Komponente
+
+```js
+const [time, setTime] = useState(0);
+
+// diese Funktion wird aufgerufen,
+// wenn die Komponente eingebunden wird
+useEffect(() => {
+  const intervalId = setInterval(() => {
+    setTime(time + 1);
+  });
+  // diese Funktion wird aufgerufen,
+  // wenn die Komponente entfernt wird
+  return () => {
+    clearInterval(intervalId);
+  };
+}, []);
+```
