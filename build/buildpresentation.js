@@ -1,4 +1,5 @@
 const fs = require('fs');
+const pathModule = require('path');
 
 const markdownToHtml = require('./markdowntohtml');
 
@@ -7,8 +8,10 @@ const templateFilename = './src/assets/template.html';
 const highlightjsCssFilename = './node_modules/highlightjs/styles/default.css';
 
 const buildPresentation = (coursename, lang) => {
+  const configPath = `./src/configs/${coursename}-${lang}.json`;
+
   // check if the configuration file exists; otherwise, exit the process
-  if (!fs.existsSync(`./src/${coursename}-config.json`)) {
+  if (!fs.existsSync(configPath)) {
     console.log(`ERR: could not find course "${coursename}"`);
     return;
   }
@@ -17,37 +20,15 @@ const buildPresentation = (coursename, lang) => {
 
   // Read configuration
   // IO
-  const config = readConfig(coursename);
+  const config = JSON.parse(readTextFile(configPath));
+
   const sections = config.sections;
-  const title = config[`title-${lang}`];
+  const title = config.title;
 
-  // Expand sections where entire folders are listed
-  const sectionPaths = [];
-  for (let sectionPath of sections) {
-    const potentialDirPath = `${sectionsBasePath}/${sectionPath}`;
-    if (
-      fs.existsSync(potentialDirPath) &&
-      fs.lstatSync(potentialDirPath).isDirectory()
-    ) {
-      for (let realSectionPath of fs.readdirSync(potentialDirPath)) {
-        if (new RegExp(`\\d+.*-${lang}.md`).test(realSectionPath)) {
-          sectionPaths.push(`${potentialDirPath}/${realSectionPath}`);
-        }
-      }
-    } else if (fs.existsSync(`${sectionsBasePath}/${sectionPath}-${lang}.md`)) {
-      sectionPaths.push(`${sectionsBasePath}/${sectionPath}-${lang}.md`);
-    } else {
-      throw new Error(`Could not find section: "${sectionPath}`);
-    }
-  }
-
-  // // Read section contents
-  // const sectionPaths = sectionNames.map(
-  //   sectionName => `${sectionsBasePath}/${sectionName}-${lang}.md`
-  // );
-  // IO
-  const sectionContents = getSectionContents(sectionPaths);
-  const sectionContentsString = sectionContents.join('\n');
+  const sectionsContents = sections.map(sectionName =>
+    getPathContents(`${sectionsBasePath}/${sectionName}`, lang)
+  );
+  const sectionContentsString = sectionsContents.join('\n');
 
   // images
   const images = {};
@@ -92,16 +73,49 @@ const buildPresentation = (coursename, lang) => {
   });
 };
 
-const readConfig = coursename => {
-  /**
-   * Read the config for a specific course from disk
-   */
-  const configPath = `src/${coursename}-config.json`;
-  const config = JSON.parse(readTextFile(configPath));
-  return config;
+/**
+ * get the text contents of a path:
+ *
+ * if the path leads to a folder,
+ *   concatenate the contents of the files/folders/links
+ * if the path leads to an .md file,
+ *   use its contents
+ * if the path leads to a .tlink file,
+ *   use the text content of the .tlink file
+ *   as the path to process
+ * else,
+ *   throw an error
+ *
+ * example call: getPathContents('src/sections/angular', 'de')
+ */
+const getPathContents = (path, lang) => {
+  if (new RegExp(`^.*-${lang}\\.md$`).test(path)) {
+    return readTextFile(path);
+  } else if (new RegExp(`^.*\\.md$`).test(path)) {
+    // md file with wrong language
+    return '';
+  } else if (new RegExp(`^.*-${lang}\\.tlink$`).test(path)) {
+    const linkDest = readTextFile(path);
+    const pathDir = pathModule.dirname(path);
+    return getPathContents(pathDir + '/' + linkDest, lang);
+  } else if (new RegExp(`^.*\\.tlink$`).test(path)) {
+    // link file with wrong language
+    return '';
+  } else if (fs.lstatSync(path).isDirectory()) {
+    return fs
+      .readdirSync(path)
+      .map(subPath => {
+        const pathContents = getPathContents(`${path}/${subPath}`, lang);
+        if (pathContents === '') {
+          return pathContents;
+        }
+        return pathContents + '\n';
+      })
+      .join('');
+  } else {
+    throw new Error(`could not get content of ${path} in ${lang}`);
+  }
 };
-
-const getSectionContents = sectionPaths => sectionPaths.map(readTextFile);
 
 const readTextFile = filename => {
   /**

@@ -5,18 +5,20 @@ const buildPresentation = require('./buildpresentation');
 // get a list of all configs inside of src
 const courseNames = [];
 
-for (let potentialConfig of fs.readdirSync('./src')) {
-  const regExp = new RegExp(`(.*)-config\\.json`);
+const courseData = [];
+
+for (let potentialConfig of fs.readdirSync('./src/configs')) {
+  const regExp = new RegExp(`(.*)-(.*)\\.json`);
   const matches = regExp.exec(potentialConfig);
   if (matches !== null) {
     courseNames.push(matches[1]);
+    courseData.push({
+      name: matches[1],
+      lang: matches[2]
+    });
   }
 }
 
-for (let courseName of courseNames) {
-  const configContent = fs.readFileSync(`./src/${courseName}-config.json`);
-  const configData = JSON.parse(configContent);
-  for (let lang of configData.languages) {
-    buildPresentation(courseName, lang);
-  }
+for (let course of courseData) {
+  buildPresentation(course.name, course.lang);
 }

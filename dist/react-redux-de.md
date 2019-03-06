@@ -624,3 +624,4 @@ Erstelle ein thunk, das Todos vom folgenden API lädt:
 ## Präsentation: Taming Large React Applications w/ Redux
 
 https://slides.com/joelkanzelmeyer/taming-large-redux-apps
+

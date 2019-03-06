@@ -238,10 +238,10 @@ let a = 1;
 let b = 2;
 [a, b] = [b, a];
 
-let [result, errors] = someComputation();
+const [result, errors] = someComputation();
 ```
 
-## Pfeilfunktionen / Lambda
+## Pfeilfunktionen
 
 - Kurzschreibweise für anonyme Funktionen
 - Lässt _this_ unverändert (überschreibt es nicht)
@@ -250,7 +250,25 @@ let [result, errors] = someComputation();
 let multiply = (a, b) => {
   return a * b;
 };
+
 let multiply = (a, b) => a * b;
+```
+
+## Pfeilfunktionen
+
+wenn es genau einen Parameter gibt: Parameterklammern optional
+
+```js
+const square = a => a * a;
+```
+
+wenn direkt ein Objekt zurückgegeben werden soll: mit runden Klammern umschießen
+
+```js
+const getState = () => ({
+  loggedIn: true,
+  userName: 'mike',
+});
 ```
 
 ## Klassen
@@ -330,11 +348,15 @@ let join = (strings, separator='') => {
 }
 ```
 
+# ESLint
+
 ## ESLint
 
 JavaScript-Linter
 
 - VS Code plugin
+
+# Prettier
 
 ## Prettier
 
@@ -739,7 +761,8 @@ https://github.com/facebook/react-devtools
 
 - Anzeige der Komponententags im Inspektor
 - Anzeige von State und Props
-- Hervorhebung von Änderungen von State und Props
+- Hervorheben von Änderungen von State und Props
+- Hervorheben des Rerenderings von Komponenten
 
 ## Debugging in VS Code
 
@@ -758,15 +781,16 @@ in _launch.json_:
 {
   "type": "chrome",
   "request": "launch",
-  "name": "Launch Chrome",
-  "url": "http://localhost:3000",
-  "webRoot": "${workspaceFolder}"
+  "name": "Launch Chrome for React",
+  "url": "http://localhost:3000"
 }
 ```
 
 ## Debugging in VS Code: starten
 
-Mittels _F5_
+Testserver muss im Hintergrund schon laufen
+
+Debugging in VS Code starten: mittels _F5_
 
 # Komponenten
 
@@ -908,6 +932,48 @@ Clock-Komponente (mit `componentDidMount` und `componentWillUnmount`)
 
 # Übung: todo list
 
+# React mit TypeScript
+
+## Create-React-App
+
+```bash
+npx create-react-app my-app --typescript
+```
+
+## Komponenten (Funktionen)
+
+```ts
+type TodoListProps = {
+  todos: Array<TodoType>;
+  onToggle: (id: number) => void;
+  onDelete: (id: number) => void;
+};
+
+const TodoList = (props: TodoListProps) => {
+  const [filterText, setFilterText] = useState<string>('');
+
+  return <div>...</div>;
+};
+```
+
+## Komponenten (Klassen)
+
+```tsx
+// TodoList.tsx
+type TodoItemProps = {
+  todo: TodoType;
+  onToggle: (id: int) => void;
+};
+type TodoItemState = {};
+```
+
+```tsx
+class TodoItem extends React.PureComponent<
+  TodoItemProps,
+  TodoItemState
+> {}
+```
+
 # Material-UI
 
 Vorgefertigte React-Komponenten im Material-Design-Stil (Stil von Google/Android)
@@ -924,3 +990,4 @@ siehe Info-Boxen zu _Installation_ und _Usage_
 - Texteingabe mit Validierung: Mindesteingabelänge 3 Zeichen
 - Texteingabe mit Validierung: 2 Passwörter müssen übereinstimmen
 - Todo-App im Material-Stil
+

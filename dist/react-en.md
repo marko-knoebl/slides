@@ -236,10 +236,10 @@ let a = 1;
 let b = 2;
 [a, b] = [b, a];
 
-let [result, errors] = someComputation();
+const [result, errors] = someComputation();
 ```
 
-## arrow functions / lambdas
+## arrow functions
 
 - short notation for anonymous functions
 - leaves _this_ unchanged (does not reassign)
@@ -249,6 +249,23 @@ let multiply = (a, b) => {
   return a * b;
 };
 let multiply = (a, b) => a * b;
+```
+
+## arrow functions
+
+if there's exactly one parameter: parentheses are optional
+
+```js
+const square = a => a * a;
+```
+
+if we want to return an object directly: wrap it in parentheses
+
+```js
+const getState = () => ({
+  loggedIn: true,
+  userName: 'mike',
+});
 ```
 
 ## classes
@@ -338,11 +355,15 @@ let join = (strings, separator='') => {
 }
 ```
 
+# ESLint
+
 ## ESLint
 
 JavaScript-Linter
 
 - VS Code plugin
+
+# Prettier
 
 ## Prettier
 
@@ -781,15 +802,16 @@ in _launch.json_:
 {
   "type": "chrome",
   "request": "launch",
-  "name": "Launch Chrome",
-  "url": "http://localhost:3000",
-  "webRoot": "${workspaceFolder}"
+  "name": "Launch Chrome for React",
+  "url": "http://localhost:3000"
 }
 ```
 
 ## Debugging in VS Code: starting
 
-Via _F5_
+The development server has to be running in the background
+
+Start debugging in VS Code via _F5_
 
 # components
 
@@ -881,6 +903,48 @@ examples:
 
 # Exercise: todo list
 
+# React with TypeScript
+
+## create-react-app with TypeScript
+
+```bash
+npx create-react-app my-app --typescript
+```
+
+## components (functions)
+
+```ts
+type TodoListProps = {
+  todos: Array<TodoType>;
+  onToggle: (id: number) => void;
+  onDelete: (id: number) => void;
+};
+
+const TodoList = (props: TodoListProps) => {
+  const [filterText, setFilterText] = useState<string>('');
+
+  return <div>...</div>;
+};
+```
+
+## components (classes)
+
+```tsx
+// TodoList.tsx
+type TodoItemProps {
+  todo: TodoType;
+  onToggle: (id: int) => void;
+}
+interface TodoItemState {}
+```
+
+```tsx
+class TodoItem extends React.PureComponent<
+  TodoItemProps,
+  TodoItemState
+> {}
+```
+
 # Material-UI
 
 Predefined React components conforming to material design style (style of Google/Android)
@@ -895,3 +959,4 @@ see info boxes on _Installation_ und _Usage_
 
 - Button
 - Todo-App in Material Style
+

@@ -140,7 +140,7 @@ Es sollte heutzutage immer `<meta charset="UTF-8" />` angegeben sein, dann könn
 
 ```html
 <meta
-  name="view&quot;port"
+  name="viewport"
   content="width=device-width, initial-scale=1"
 />
 ```
@@ -209,29 +209,6 @@ Weitere Möglichkeiten:
 - _Alt_ + _Shift_ + _F_: Formatieren der Datei
 - _F2_: Umbenennen von Variablen
 - _Alt_ + Mausklick: Mehrere Textcursor zum gleichzeitigen Schreiben setzen
-
-## VS Code - Plugins
-
-Empfohlene Plugins:
-
-- Debugger for Chrome (Firefox / ...)
-- ESLint  
-  `npm install --save-dev eslint`  
-  `./node_modules/.bin/eslint --init`
-
-(siehe auch _Show Popular Extensions_ in VS Code)
-
-<!--
-http://www.snappyjs.com/2018/03/25/vscode-extensions-for-javascript-developers/
-ESLint
-JSRefactor
-auto rename tag
-auto close tag (in html in mordernem VS Code nicht mehr notwendig)
-npm Intellisense
-guides
-rainbow brackets
-wakatime
--->
 
 # VS Code - Extensions
 
@@ -352,10 +329,10 @@ p {
 
 mögliche Einheiten:
 
-- `px`: Pixel
+- `px`: "Pixel"
 - `%`: Prozent relativ zum umgebenden Text
 - `em`: Prozent relativ zum umgebenden Text
-- `rem`: Prozent relativ zur Schriftgröße vom `html`-Element
+- `rem`: Prozent relativ zur Schriftgröße des `html`-Elements
 
 ## font-style
 
@@ -387,6 +364,26 @@ h1 {
 - `right`
 - `start` (neu)
 - `end` (neu)
+
+## Längeneinheiten
+
+px, em, rem, %, vh, vw
+
+## device pixel ratio
+
+früher:  
+1px = ein Pixel am Bildschirm
+
+heutzutage:  
+zB beim iPhone 4: 1px = zwei Pixel am Bildschirm (device pixel ratio = 2)
+
+Abfragbar über JS-Variable `devicePixelRatio`
+
+## rem
+
+rem = Schriftgröße des `html`-Elements
+
+Standard in Browsern: 1 rem = 16 px
 
 ## Inline- und Block-Elemente
 
@@ -629,3 +626,10 @@ Bei Betätigen des Buttons sendet das Formular einen post-Request an die Adresse
 ## Media Queries
 
 ## CSS-Frameworks: Beispiel Bootstrap
+
+# Online Resourcen
+
+- MDN: Mozilla Developer Network
+- W3Schools (kein Zusammenhang zu W3C)
+- caniuse.com: Unterstützung verschiedener Browser-Features
+

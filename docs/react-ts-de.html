@@ -367,10 +367,10 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
 <span class="hljs-keyword">let</span> b = <span class="hljs-number">2</span>;
 [a, b] = [b, a];
 
-<span class="hljs-keyword">let</span> [result, errors] = someComputation();</code></pre>
+<span class="hljs-keyword">const</span> [result, errors] = someComputation();</code></pre>
 
       </section><section class="slide" id="slide-5-12">
-        <h2 id="pfeilfunktionen--lambda">Pfeilfunktionen / Lambda</h2>
+        <h2 id="pfeilfunktionen">Pfeilfunktionen</h2>
 <ul>
 <li>Kurzschreibweise für anonyme Funktionen</li>
 <li>Lässt <em>this</em> unverändert (überschreibt es nicht)</li>
@@ -378,13 +378,24 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
 <pre><code class="language-js"><span class="hljs-keyword">let</span> multiply = <span class="hljs-function">(<span class="hljs-params">a, b</span>) =&gt;</span> {
   <span class="hljs-keyword">return</span> a * b;
 };
+
 <span class="hljs-keyword">let</span> multiply = <span class="hljs-function">(<span class="hljs-params">a, b</span>) =&gt;</span> a * b;</code></pre>
 
       </section><section class="slide" id="slide-5-13">
+        <h2 id="pfeilfunktionen">Pfeilfunktionen</h2>
+<p>wenn es genau einen Parameter gibt: Parameterklammern optional</p>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> square = <span class="hljs-function"><span class="hljs-params">a</span> =&gt;</span> a * a;</code></pre>
+<p>wenn direkt ein Objekt zurückgegeben werden soll: mit runden Klammern umschießen</p>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> getState = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> ({
+  <span class="hljs-attr">loggedIn</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">userName</span>: <span class="hljs-string">'mike'</span>,
+});</code></pre>
+
+      </section><section class="slide" id="slide-5-14">
         <h2 id="klassen">Klassen</h2>
 <p>Ersetzen die alten Konstruktorfunktionen und Prototypen</p>
 
-      </section><section class="slide" id="slide-5-14">
+      </section><section class="slide" id="slide-5-15">
         <h2 id="klassen">Klassen</h2>
 <pre><code class="language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> </span>{
   <span class="hljs-keyword">constructor</span>(firstName, lastName) {
@@ -396,7 +407,7 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
   }
 }</code></pre>
 
-      </section><section class="slide" id="slide-5-15">
+      </section><section class="slide" id="slide-5-16">
         <h2 id="klassen-und-vererbung">Klassen und Vererbung</h2>
 <pre><code class="language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Person</span> </span>{
   <span class="hljs-keyword">constructor</span>(firstName, lastName, userName) {
@@ -406,7 +417,7 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
   }
 }</code></pre>
 
-      </section><section class="slide" id="slide-5-16">
+      </section><section class="slide" id="slide-5-17">
         <h2 id="array-iteration-for--of">Array-Iteration (for ... of)</h2>
 <p>Über die Einträge in einem Array iterieren:</p>
 <pre><code class="language-js"><span class="hljs-keyword">let</span> names = [<span class="hljs-string">'Anna'</span>, <span class="hljs-string">'Bernhard'</span>, <span class="hljs-string">'Caro'</span>];
@@ -414,7 +425,7 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
   <span class="hljs-built_in">console</span>.log(name);
 }</code></pre>
 
-      </section><section class="slide" id="slide-5-17">
+      </section><section class="slide" id="slide-5-18">
         <h2 id="spread-syntax-arrays-und-objekte">Spread Syntax (Arrays und Objekte)</h2>
 <pre><code class="language-js"><span class="hljs-keyword">let</span> squares = [<span class="hljs-number">1</span>, <span class="hljs-number">4</span>, <span class="hljs-number">9</span>];
 <span class="hljs-keyword">let</span> moreSquares = [...squares, <span class="hljs-number">16</span>, <span class="hljs-number">25</span>];
@@ -423,7 +434,7 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
 <span class="hljs-keyword">let</span> newPerson = { ...person, <span class="hljs-attr">email</span>: <span class="hljs-string">'j@d.com'</span>, <span class="hljs-attr">age</span>: <span class="hljs-number">32</span> };
 <span class="hljs-comment">// {firstName: 'Joe', lastName: 'Doe', email: 'j@d.com', age: 32}</span></code></pre>
 
-      </section><section class="slide" id="slide-5-18">
+      </section><section class="slide" id="slide-5-19">
         <h2 id="template-strings">Template-Strings</h2>
 <ul>
 <li>Neue Syntax zum <em>Erstellen</em> von Strings</li>
@@ -434,21 +445,21 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
 <span class="hljs-keyword">let</span> greeting = <span class="hljs-string">`Hallo, <span class="hljs-subst">${name}</span>!
                 Das ist ES2015!`</span>;</code></pre>
 
-      </section><section class="slide" id="slide-5-19">
+      </section><section class="slide" id="slide-5-20">
         <h2 id="standardparameter-in-funktionen">Standardparameter in Funktionen</h2>
 <p>In Funktionen können nun Standardparameter definiert werden:</p>
 <pre><code class="language-js"><span class="hljs-keyword">let</span> join = <span class="hljs-function">(<span class="hljs-params">strings, separator=<span class="hljs-string">''</span></span>) =&gt;</span> {
   ...
 }</code></pre>
 
-      </section><section class="slide" id="slide-5-20">
+      </section><section class="slide" id="slide-5-21">
         <h2 id="eslint">ESLint</h2>
 <p>JavaScript-Linter</p>
 <ul>
 <li>VS Code plugin</li>
 </ul>
 
-      </section><section class="slide" id="slide-5-21">
+      </section><section class="slide" id="slide-5-22">
         <h2 id="prettier">Prettier</h2>
 <p><a href="https://prettier.io/">https://prettier.io/</a></p>
 <ul>
@@ -456,10 +467,10 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
 <li>VS-Code-Plugin (via Alt + Shift + F)</li>
 </ul>
 
-      </section><section class="slide" id="slide-5-22">
+      </section><section class="slide" id="slide-5-23">
         <h2 id="prettier-konfiguration-in-vs-code">Prettier-Konfiguration in VS Code</h2>
 
-      </section><section class="slide" id="slide-5-23">
+      </section><section class="slide" id="slide-5-24">
         <h2 id="prettier-konfiguration">Prettier-Konfiguration</h2>
 <p>in VS Code: über Datei - Einstellungen - Einstellungen</p>
 <p>oder über <code>.prettierrc.json</code>:</p>
@@ -804,7 +815,8 @@ handleChange = <span class="hljs-function"><span class="hljs-params">event</span
 <ul>
 <li>Anzeige der Komponententags im Inspektor</li>
 <li>Anzeige von State und Props</li>
-<li>Hervorhebung von Änderungen von State und Props</li>
+<li>Hervorheben von Änderungen von State und Props</li>
+<li>Hervorheben des Rerenderings von Komponenten</li>
 </ul>
 
       </section><section class="slide" id="slide-8-3">
@@ -822,14 +834,14 @@ handleChange = <span class="hljs-function"><span class="hljs-params">event</span
 <pre><code class="language-json">{
   <span class="hljs-attr">"type"</span>: <span class="hljs-string">"chrome"</span>,
   <span class="hljs-attr">"request"</span>: <span class="hljs-string">"launch"</span>,
-  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Launch Chrome"</span>,
-  <span class="hljs-attr">"url"</span>: <span class="hljs-string">"http://localhost:3000"</span>,
-  <span class="hljs-attr">"webRoot"</span>: <span class="hljs-string">"${workspaceFolder}"</span>
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Launch Chrome for React"</span>,
+  <span class="hljs-attr">"url"</span>: <span class="hljs-string">"http://localhost:3000"</span>
 }</code></pre>
 
       </section><section class="slide" id="slide-8-5">
         <h2 id="debugging-in-vs-code-starten">Debugging in VS Code: starten</h2>
-<p>Mittels <em>F5</em></p>
+<p>Testserver muss im Hintergrund schon laufen</p>
+<p>Debugging in VS Code starten: mittels <em>F5</em></p>
 
       </section></section><section class="section" id="section-9"><section class="slide" id="slide-9-1">
         <h1 id="komponenten">Komponenten</h1>
@@ -974,21 +986,21 @@ handleToggle = <span class="hljs-function">(<span class="hljs-params">isToggled<
         <h2 id="typescript">TypeScript</h2>
 <p>= Obermenge von JavaScript mit Erweiterungen:</p>
 <ul>
-<li><strong>Static Typing</strong></li>
-<li>Decorators</li>
+<li><strong>Statische Typisierung</strong></li>
 <li>Public / Private Properties</li>
+<li>Decorators</li>
 </ul>
 
       </section><section class="slide" id="slide-11-3">
-        <h2 id="static-typing">Static Typing</h2>
+        <h2 id="statische-typisierung">Statische Typisierung</h2>
 <p>Datentypen können angegeben werden und unterstützen insbesondere die Entwicklungsumgebung:</p>
 <ul>
-<li>Auto-Vervollständigung</li>
+<li>Autovervollständigung</li>
 <li>Fehlermeldungen bei nicht passenden Datentypen</li>
 </ul>
 
       </section><section class="slide" id="slide-11-4">
-        <h2 id="static-typing">Static Typing</h2>
+        <h2 id="statische-typisierung">Statische Typisierung</h2>
 <p>Beim build: TypeScript wird in JavaScript übersetzt, alle Typeninformationen gehen dabei verloren</p>
 
       </section><section class="slide" id="slide-11-5">
@@ -997,90 +1009,100 @@ handleToggle = <span class="hljs-function">(<span class="hljs-params">isToggled<
 <span class="hljs-keyword">let</span> name: <span class="hljs-built_in">string</span> = <span class="hljs-string">'Andreas'</span>;</code></pre>
 
       </section><section class="slide" id="slide-11-6">
+        <h2 id="typsystem-arrays">Typsystem: Arrays</h2>
+<pre><code class="language-js"><span class="hljs-keyword">let</span> names: <span class="hljs-built_in">Array</span> = [<span class="hljs-string">'Anna'</span>, <span class="hljs-string">'Bernhard'</span>];</code></pre>
+<p>genauer:</p>
+<pre><code class="language-js"><span class="hljs-keyword">let</span> names: <span class="hljs-built_in">Array</span>&lt;string&gt; = [<span class="hljs-string">'Anna'</span>, <span class="hljs-string">'Bernhard'</span>];</code></pre>
+<p>alternative Schreibweise:</p>
+<pre><code class="language-ts"><span class="hljs-keyword">let</span> names: <span class="hljs-built_in">string</span>[] = [<span class="hljs-string">'Anna'</span>, <span class="hljs-string">'Bernhard'</span>];</code></pre>
+
+      </section><section class="slide" id="slide-11-7">
         <h2 id="typsystem-funktionen">Typsystem: Funktionen</h2>
 <pre><code class="language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">repeatString</span>(<span class="hljs-params">
     text: <span class="hljs-built_in">string</span>,
     times: <span class="hljs-built_in">number</span></span>): <span class="hljs-title">string</span> </span>{
   <span class="hljs-keyword">return</span> ...;
 }</code></pre>
-
-      </section><section class="slide" id="slide-11-7">
-        <h2 id="typsystem-pfeilfunktionen">Typsystem: Pfeilfunktionen</h2>
 <pre><code class="language-ts"><span class="hljs-keyword">const</span> repeatString = (
   text: <span class="hljs-built_in">string</span>,
   times: <span class="hljs-built_in">number</span>
-): <span class="hljs-function"><span class="hljs-params">string</span> =&gt;</span> (...);</code></pre>
+): <span class="hljs-function"><span class="hljs-params">string</span> =&gt;</span> {...};</code></pre>
 
       </section><section class="slide" id="slide-11-8">
-        <h2 id="typsystem-arrays">Typsystem: Arrays</h2>
-<pre><code class="language-ts"><span class="hljs-keyword">let</span> names: <span class="hljs-built_in">string</span>[] = [<span class="hljs-string">'Anna'</span>, <span class="hljs-string">'Bernhard'</span>, <span class="hljs-string">'Caro'</span>];
-
-<span class="hljs-comment">// Alternative Syntax</span>
-
-<span class="hljs-keyword">let</span> names: <span class="hljs-built_in">Array</span>&lt;<span class="hljs-built_in">string</span>&gt; = [<span class="hljs-string">'Anna'</span>, <span class="hljs-string">'Bernhard'</span>];</code></pre>
+        <h2 id="typsystem-void">Typsystem: void</h2>
+<p>Void: umfasst <em>undefined</em> und <em>null</em></p>
+<pre><code class="language-ts"><span class="hljs-keyword">const</span> warnUser = (): <span class="hljs-function"><span class="hljs-params">void</span> =&gt;</span> {
+  alert(<span class="hljs-string">'warning!'</span>);
+};</code></pre>
 
       </section><section class="slide" id="slide-11-9">
-        <h2 id="typsystem-tupel">Typsystem: Tupel</h2>
-<p>Arrays mit vorgegebener Länge und Datentypen für jeden Eintrag</p>
-<pre><code class="language-ts"><span class="hljs-keyword">let</span> todo: [<span class="hljs-built_in">string</span>, <span class="hljs-built_in">boolean</span>];</code></pre>
+        <h2 id="typsystem-any">Typsystem: any</h2>
+<p>Any: lässt alle Typen zu</p>
+<pre><code class="language-ts"><span class="hljs-keyword">let</span> myInput: <span class="hljs-built_in">any</span> = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'myinput'</span>);
+<span class="hljs-built_in">console</span>.log(myInput.value);</code></pre>
 
       </section><section class="slide" id="slide-11-10">
-        <h2 id="typsystem-objekte--properties">Typsystem: Objekte &amp; Properties</h2>
-<p>Objekt mit bestimmten Properties:</p>
-<pre><code class="language-ts"><span class="hljs-keyword">let</span> p: { name: <span class="hljs-built_in">string</span>; age: <span class="hljs-built_in">number</span> } = getPerson();</code></pre>
+        <h2 id="typsystem-type-assertions">Typsystem: Type assertions</h2>
 
       </section><section class="slide" id="slide-11-11">
-        <h2 id="typsystem-objekte---interfaces">Typsystem: Objekte - Interfaces</h2>
-<pre><code class="language-ts"><span class="hljs-keyword">interface</span> IPerson {
-  name: <span class="hljs-built_in">string</span>;
-  nickname?: <span class="hljs-built_in">string</span>; <span class="hljs-comment">// optional</span>
-  birthYear: <span class="hljs-built_in">number</span>;
-  <span class="hljs-comment">// Methode, die eine Zahl als Parameter übernimmt</span>
-  <span class="hljs-comment">// und eine Zahl zurückgibt</span>
-  getAge: <span class="hljs-function">(<span class="hljs-params">currentYear: <span class="hljs-built_in">number</span></span>) =&gt;</span> <span class="hljs-built_in">number</span>;
-}
-
-<span class="hljs-keyword">let</span> p: IPerson = getPerson();</code></pre>
+        <h2 id="typsystem-types--interfaces">Typsystem: Types &amp; Interfaces</h2>
+<p>Interfaces: beschreiben die Struktur eines Objekts / einer Klasse genauer<br>z.B.: <code>TodoInterface</code>, <code>PersonInterface</code></p>
+<p>Types: Ähnlich wie Interfaces, nur auch auf Strings, Arrays, ... anwendbar</p>
+<p>Types bieten im wesentlichen mehr Funktionalität als Interfaces</p>
+<p><a href="https://stackoverflow.com/a/52682220/">https://stackoverflow.com/a/52682220/</a></p>
 
       </section><section class="slide" id="slide-11-12">
-        <h2 id="typsystem-klassen--interfaces">Typsystem: Klassen &amp; Interfaces</h2>
-<pre><code class="language-ts"><span class="hljs-keyword">class</span> User <span class="hljs-keyword">implements</span> IPerson {
+        <h2 id="typsystem-types">Typsystem: Types</h2>
+<pre><code class="language-ts"><span class="hljs-keyword">type</span> TodoType = {
+  id: <span class="hljs-built_in">number</span>;
+  title: <span class="hljs-built_in">string</span>;
+  completed: <span class="hljs-built_in">boolean</span>;
+};
+
+<span class="hljs-keyword">type</span> TodoCollection = <span class="hljs-built_in">Array</span>&lt;TodoType&gt;;</code></pre>
+
+      </section><section class="slide" id="slide-11-13">
+        <h2 id="types-bei-objekten">Types bei Objekten</h2>
+<pre><code class="language-ts"><span class="hljs-keyword">type</span> TodoType = {
+  id: <span class="hljs-built_in">number</span>;
+  title: <span class="hljs-built_in">string</span>;
+  completed: <span class="hljs-built_in">boolean</span>;
+  <span class="hljs-comment">// optional</span>
+  description?: <span class="hljs-built_in">string</span>;
+  <span class="hljs-comment">// Methode</span>
+  toggle: <span class="hljs-function">(<span class="hljs-params">id: <span class="hljs-built_in">number</span></span>) =&gt;</span> <span class="hljs-built_in">void</span>;
+};</code></pre>
+
+      </section><section class="slide" id="slide-11-14">
+        <h2 id="types-bei-objekten">Types bei Objekten</h2>
+<pre><code class="language-ts"><span class="hljs-keyword">class</span> AdvancedTodo <span class="hljs-keyword">implements</span> TodoType {
   ...
 }</code></pre>
 
-      </section><section class="slide" id="slide-11-13">
-        <h2 id="typsystem-das-schlüsselwort-type">Typsystem: das Schlüsselwort <em>type</em></h2>
-<pre><code class="language-ts"><span class="hljs-keyword">type</span> PersonCollection = <span class="hljs-built_in">Array</span>&lt;IPerson&gt;;
-<span class="hljs-keyword">type</span> TodoAction = <span class="hljs-string">'ADD_TODO'</span> | <span class="hljs-string">'DELETE_TODO'</span>;</code></pre>
-
-      </section><section class="slide" id="slide-11-14">
-        <h2 id="typsystem-void">Typsystem: void</h2>
-<p>Void: umfasst <em>undefined</em> und <em>null</em></p>
-<pre><code class="language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">warnUser</span>(<span class="hljs-params"></span>): <span class="hljs-title">void</span> </span>{
-  alert(<span class="hljs-string">'warning!'</span>);
-}</code></pre>
-
       </section><section class="slide" id="slide-11-15">
-        <h2 id="typsystem-any">Typsystem: any</h2>
-<p>Any: lässt alle Typen zu</p>
-<pre><code class="language-ts"><span class="hljs-keyword">let</span> ib: <span class="hljs-built_in">any</span> = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'myinput'</span>);
-<span class="hljs-built_in">console</span>.log(ib.value);</code></pre>
+        <h2 id="extends">Extends</h2>
+<p>Mittels <code>&amp;</code>:</p>
+<pre><code class="language-ts"><span class="hljs-keyword">type</span> ActionType = {
+  <span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span>;
+  payload?: object;
+};
+
+<span class="hljs-keyword">type</span> AddTodoActionType = ReduxActionType &amp; {
+  <span class="hljs-keyword">type</span>: <span class="hljs-string">'ADD_TODO'</span>;
+  payload: {
+    title: <span class="hljs-built_in">string</span>;
+  };
+};</code></pre>
 
       </section><section class="slide" id="slide-11-16">
-        <h2 id="typsystem-type-assertions">Typsystem: Type assertions</h2>
-<pre><code class="language-ts"><span class="hljs-keyword">let</span> someValue: <span class="hljs-built_in">any</span> = <span class="hljs-string">'this is a string'</span>;
-
-<span class="hljs-keyword">let</span> strLength: <span class="hljs-built_in">number</span> = (someValue <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>).length;</code></pre>
+        <h2 id="union-types">Union Types</h2>
+<pre><code class="language-ts"><span class="hljs-keyword">type</span> TodoActionType =
+  | AddTodoActionType
+  | ToggleTodoActionType;</code></pre>
 
       </section><section class="slide" id="slide-11-17">
-        <h2 id="typsystem-union-types">Typsystem: Union Types</h2>
-<pre><code class="language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params">arg: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">number</span></span>) </span>{...}
-
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params">arg: <span class="hljs-built_in">string</span> | <span class="hljs-literal">undefined</span></span>) </span>{...}</code></pre>
-
-      </section><section class="slide" id="slide-11-18">
-        <h2 id="typsystem-generics">Typsystem: Generics</h2>
-<p>Allgemeine Klassen- oder Funktionsdefinition, die während deren Aufruf genauere Typinformationen übergeben bekommen.</p>
+        <h2 id="generics">Generics</h2>
+<p>Allgemeine Typendeklaration, bei der beim Aufruf nähere Informationen spezifiziert werden können</p>
 <pre><code class="language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">reducer</span>&lt;<span class="hljs-title">MyState</span>, <span class="hljs-title">MyAction</span>&gt;(<span class="hljs-params">
   state: MyState,
   action: MyAction
@@ -1094,8 +1116,8 @@ handleToggle = <span class="hljs-function">(<span class="hljs-params">isToggled<
   myTodoAction
 );</code></pre>
 
-      </section><section class="slide" id="slide-11-19">
-        <h2 id="typsystem-generics">Typsystem: Generics</h2>
+      </section><section class="slide" id="slide-11-18">
+        <h2 id="generics">Generics</h2>
 <pre><code class="language-ts"><span class="hljs-keyword">class</span> Component&lt;Props, State&gt; {
   props: Props;
   state: State;
@@ -1107,7 +1129,7 @@ handleToggle = <span class="hljs-function">(<span class="hljs-params">isToggled<
   ...
 }</code></pre>
 
-      </section><section class="slide" id="slide-11-20">
+      </section><section class="slide" id="slide-11-19">
         <h2 id="private--public-properties">Private &amp; Public Properties</h2>
 <pre><code class="language-ts"><span class="hljs-keyword">class</span> Clock {
   <span class="hljs-keyword">private</span> formatTime(time) {
@@ -1126,27 +1148,31 @@ handleToggle = <span class="hljs-function">(<span class="hljs-params">isToggled<
 <pre><code class="language-bash">npx create-react-app my-app --typescript</code></pre>
 
       </section><section class="slide" id="slide-12-3">
-        <h2 id="komponenten">Komponenten</h2>
-<pre><code class="language-tsx"><span class="hljs-comment">// TodoList.tsx</span>
-<span class="hljs-keyword">interface</span> ITodoItemProps {
-  todo: ITodo;
-  onToggle: <span class="hljs-function">(<span class="hljs-params">id: int</span>) =&gt;</span> <span class="hljs-built_in">void</span>;
-}
-<span class="hljs-keyword">interface</span> ITodoItemState {}</code></pre>
-<pre><code class="language-tsx"><span class="hljs-keyword">class</span> TodoItem <span class="hljs-keyword">extends</span> React.PureComponent&lt;
-  ITodoItemProps,
-  ITodoItemState
-&gt; {}</code></pre>
+        <h2 id="komponenten-funktionen">Komponenten (Funktionen)</h2>
+<pre><code class="language-ts">type TodoListProps = {
+  todos: Array&lt;TodoType&gt;;
+  onToggle: (id: number) =&gt; void;
+  onDelete: (id: number) =&gt; void;
+};
+
+const TodoList = (props: TodoListProps) =&gt; {
+  const [filterText, setFilterText] = useState&lt;string&gt;('');
+
+  return &lt;div&gt;...&lt;/div&gt;;
+};</code></pre>
 
       </section><section class="slide" id="slide-12-4">
-        <h2 id="events">Events</h2>
-<p>Typen:</p>
-<ul>
-<li><code>React.FormEvent</code></li>
-<li><code>React.FormEvent&lt;HTMLFormElement&gt;</code></li>
-<li><code>React.ChangeEvent&lt;HTMLInputElement&gt;</code></li>
-<li><code>React.MouseEvent&lt;HTMLDivElement&gt;</code></li>
-</ul>
+        <h2 id="komponenten-klassen">Komponenten (Klassen)</h2>
+<pre><code class="language-tsx"><span class="hljs-comment">// TodoList.tsx</span>
+<span class="hljs-keyword">type</span> TodoItemProps = {
+  todo: TodoType;
+  onToggle: <span class="hljs-function">(<span class="hljs-params">id: int</span>) =&gt;</span> <span class="hljs-built_in">void</span>;
+};
+<span class="hljs-keyword">type</span> TodoItemState = {};</code></pre>
+<pre><code class="language-tsx"><span class="hljs-keyword">class</span> TodoItem <span class="hljs-keyword">extends</span> React.PureComponent&lt;
+  TodoItemProps,
+  TodoItemState
+&gt; {}</code></pre>
 
       </section></section><section class="section" id="section-13"><section class="slide" id="slide-13-1">
         <h1 id="material-ui">Material-UI</h1>

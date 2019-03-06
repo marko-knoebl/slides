@@ -607,6 +607,7 @@ x <= y
 - Raumplan (7.6.2)
 - Tanzpaare (7.7.5)
 
+
 # Kontrollstrukturen
 
 ## Kontrollstrukturen
@@ -697,6 +698,7 @@ EAFP vs LBYL
 
 (Beispiel: Parsen von Zahlen)
 
+
 # Funktionen
 
 ## Funktionen
@@ -779,6 +781,7 @@ fib(25)
 - 3 (Heron)
 - 4 (Hanoi)
 - 5 (Bäume)
+
 
 # Arbeiten mit Dateien
 
@@ -1032,6 +1035,7 @@ field = [
 ]
 ```
 
+
 # Module und Pakete
 
 ## Module und Pakete
@@ -1161,3 +1165,4 @@ tdl.todos[0].toggle()
 
 tdl.stats() # {open: 1, completed: 1}
 ```
+

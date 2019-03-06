@@ -366,10 +366,10 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
 <span class="hljs-keyword">let</span> b = <span class="hljs-number">2</span>;
 [a, b] = [b, a];
 
-<span class="hljs-keyword">let</span> [result, errors] = someComputation();</code></pre>
+<span class="hljs-keyword">const</span> [result, errors] = someComputation();</code></pre>
 
       </section><section class="slide" id="slide-5-12">
-        <h2 id="arrow-functions--lambdas">arrow functions / lambdas</h2>
+        <h2 id="arrow-functions">arrow functions</h2>
 <ul>
 <li>short notation for anonymous functions</li>
 <li>leaves <em>this</em> unchanged (does not reassign)</li>
@@ -380,10 +380,20 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
 <span class="hljs-keyword">let</span> multiply = <span class="hljs-function">(<span class="hljs-params">a, b</span>) =&gt;</span> a * b;</code></pre>
 
       </section><section class="slide" id="slide-5-13">
+        <h2 id="arrow-functions">arrow functions</h2>
+<p>if there&#39;s exactly one parameter: parentheses are optional</p>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> square = <span class="hljs-function"><span class="hljs-params">a</span> =&gt;</span> a * a;</code></pre>
+<p>if we want to return an object directly: wrap it in parentheses</p>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> getState = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> ({
+  <span class="hljs-attr">loggedIn</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">userName</span>: <span class="hljs-string">'mike'</span>,
+});</code></pre>
+
+      </section><section class="slide" id="slide-5-14">
         <h2 id="classes">classes</h2>
 <p>Class syntax replaces the old constructor functions and prototypes</p>
 
-      </section><section class="slide" id="slide-5-14">
+      </section><section class="slide" id="slide-5-15">
         <h2 id="classes">classes</h2>
 <pre><code class="language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> </span>{
   <span class="hljs-keyword">constructor</span>(firstName, lastName) {
@@ -395,7 +405,7 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
   }
 }</code></pre>
 
-      </section><section class="slide" id="slide-5-15">
+      </section><section class="slide" id="slide-5-16">
         <h2 id="inheritance">inheritance</h2>
 <pre><code class="language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Person</span> </span>{
   <span class="hljs-keyword">constructor</span>(firstName, lastName, userName) {
@@ -405,7 +415,7 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
   }
 }</code></pre>
 
-      </section><section class="slide" id="slide-5-16">
+      </section><section class="slide" id="slide-5-17">
         <h2 id="array-iteration-for--of">Array iteration (for ... of)</h2>
 <p>Iterating over entries of an array:</p>
 <pre><code class="language-js"><span class="hljs-keyword">let</span> names = [<span class="hljs-string">'Anna'</span>, <span class="hljs-string">'Bernhard'</span>, <span class="hljs-string">'Caro'</span>];
@@ -413,13 +423,13 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
   <span class="hljs-built_in">console</span>.log(name);
 }</code></pre>
 
-      </section><section class="slide" id="slide-5-17">
+      </section><section class="slide" id="slide-5-18">
         <h2 id="spread-syntax-arrays">spread syntax (arrays)</h2>
 <pre><code class="language-js"><span class="hljs-keyword">let</span> squares = [<span class="hljs-number">1</span>, <span class="hljs-number">4</span>, <span class="hljs-number">9</span>];
 <span class="hljs-keyword">let</span> moreSquares = [...squares, <span class="hljs-number">16</span>, <span class="hljs-number">25</span>];
 <span class="hljs-comment">// moreSquares: [1, 4, 9, 16, 25]</span></code></pre>
 
-      </section><section class="slide" id="slide-5-18">
+      </section><section class="slide" id="slide-5-19">
         <h2 id="spread-syntax-arrays">spread syntax (arrays)</h2>
 <pre><code class="language-js"><span class="hljs-keyword">let</span> person = {
   <span class="hljs-attr">firstName</span>: <span class="hljs-string">'John'</span>,
@@ -433,7 +443,7 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
 };
 <span class="hljs-comment">// {firstName: 'John', lastName: 'Doe', email: 'j@d.com', age: 32}</span></code></pre>
 
-      </section><section class="slide" id="slide-5-19">
+      </section><section class="slide" id="slide-5-20">
         <h2 id="template-strings">template strings</h2>
 <ul>
 <li>new syntax for <em>creating</em> strings</li>
@@ -444,21 +454,27 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
 <span class="hljs-keyword">let</span> greeting = <span class="hljs-string">`Hello, <span class="hljs-subst">${name}</span>!
                 This is ES2015!`</span>;</code></pre>
 
-      </section><section class="slide" id="slide-5-20">
+      </section><section class="slide" id="slide-5-21">
         <h2 id="default-arguments">default arguments</h2>
 <p>Functions may now have default arguments</p>
 <pre><code class="language-js"><span class="hljs-keyword">let</span> join = <span class="hljs-function">(<span class="hljs-params">strings, separator=<span class="hljs-string">''</span></span>) =&gt;</span> {
   ...
 }</code></pre>
 
-      </section><section class="slide" id="slide-5-21">
+      </section></section><section class="section" id="section-6"><section class="slide" id="slide-6-1">
+        <h1 id="eslint">ESLint</h1>
+
+      </section><section class="slide" id="slide-6-2">
         <h2 id="eslint">ESLint</h2>
 <p>JavaScript-Linter</p>
 <ul>
 <li>VS Code plugin</li>
 </ul>
 
-      </section><section class="slide" id="slide-5-22">
+      </section></section><section class="section" id="section-7"><section class="slide" id="slide-7-1">
+        <h1 id="prettier">Prettier</h1>
+
+      </section><section class="slide" id="slide-7-2">
         <h2 id="prettier">Prettier</h2>
 <p><a href="https://prettier.io/">https://prettier.io/</a></p>
 <ul>
@@ -466,7 +482,7 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
 <li>VS Code plugin (via Alt + Shift + F)</li>
 </ul>
 
-      </section><section class="slide" id="slide-5-23">
+      </section><section class="slide" id="slide-7-3">
         <h2 id="prettier-configuration">Prettier configuration</h2>
 <p>in VS Code: via File - Preferences - Settings</p>
 <p>or via <code>.prettierrc.json</code>:</p>
@@ -477,16 +493,16 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
   <span class="hljs-attr">"jsxBracketSameLine"</span>: <span class="hljs-literal">true</span>
 }</code></pre>
 
-      </section></section><section class="section" id="section-6"><section class="slide" id="slide-6-1">
+      </section></section><section class="section" id="section-8"><section class="slide" id="slide-8-1">
         <h1 id="javascript-basics-for-react">JavaScript basics for React</h1>
 
-      </section><section class="slide" id="slide-6-2">
+      </section><section class="slide" id="slide-8-2">
         <h2 id="map-filter-reduce">map, filter, reduce</h2>
 <ul>
 <li>Array methods for functional programming</li>
 </ul>
 
-      </section><section class="slide" id="slide-6-3">
+      </section><section class="slide" id="slide-8-3">
         <h2 id="map">map</h2>
 <ul>
 <li>modifies each entry in an array via a function</li>
@@ -499,7 +515,7 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
 <span class="hljs-keyword">let</span> newNumbers = myNumbers.map(triple);
 <span class="hljs-comment">// [6, 30, 69]</span></code></pre>
 
-      </section><section class="slide" id="slide-6-4">
+      </section><section class="slide" id="slide-8-4">
         <h2 id="filter">filter</h2>
 <ul>
 <li>only keeps specific entries in an array</li>
@@ -513,7 +529,7 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
 <span class="hljs-keyword">let</span> newNumbers = myNumbers.filter(isEven);
 <span class="hljs-comment">// [2, 10]</span></code></pre>
 
-      </section><section class="slide" id="slide-6-5">
+      </section><section class="slide" id="slide-8-5">
         <h2 id="reduce">reduce</h2>
 <ul>
 <li>computes one value based on a start value and all entries in an array</li>
@@ -524,7 +540,7 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
 
 <span class="hljs-keyword">let</span> result = myNumbers.reduce(multiply, <span class="hljs-number">1</span>);</code></pre>
 
-      </section><section class="slide" id="slide-6-6">
+      </section><section class="slide" id="slide-8-6">
         <h2 id="this">this</h2>
 <p>in object methods, <code>this</code> usually refers to the current object</p>
 <p><strong>however</strong>, keep in mind:</p>
@@ -533,7 +549,7 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
 <li><code>this</code> will only be set correctly if the method is called via the syntax <code>object.method()</code></li>
 </ul>
 
-      </section><section class="slide" id="slide-6-7">
+      </section><section class="slide" id="slide-8-7">
         <h2 id="problem-this-in-anonymous-functions">problem: <em>this</em> in anonymous functions</h2>
 <pre><code class="language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">myComponent</span> </span>{
   <span class="hljs-keyword">constructor</span>() {
@@ -546,7 +562,7 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
   }
 }</code></pre>
 
-      </section><section class="slide" id="slide-6-8">
+      </section><section class="slide" id="slide-8-8">
         <h2 id="solution-1-that--self">solution 1: <em>that</em> / <em>self</em></h2>
 <pre><code class="language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">myComponent</span> </span>{
   <span class="hljs-keyword">constructor</span>() {
@@ -560,7 +576,7 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
   }
 }</code></pre>
 
-      </section><section class="slide" id="slide-6-9">
+      </section><section class="slide" id="slide-8-9">
         <h2 id="solution-2-arrow-functions">solution 2: <em>arrow functions</em></h2>
 <pre><code class="language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">myComponent</span> </span>{
   <span class="hljs-keyword">constructor</span>() {
@@ -573,7 +589,7 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
   }
 }</code></pre>
 
-      </section><section class="slide" id="slide-6-10">
+      </section><section class="slide" id="slide-8-10">
         <h2 id="problem-method-calls-without-using-method-syntax">problem: method calls without using method syntax</h2>
 <pre><code class="language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span> </span>{
   <span class="hljs-keyword">constructor</span>() {
@@ -588,7 +604,7 @@ f.greet(); <span class="hljs-comment">// works</span>
 <span class="hljs-keyword">let</span> fg = f.greet;
 fg(); <span class="hljs-comment">// doesn't work (this is undefined)</span></code></pre>
 
-      </section><section class="slide" id="slide-6-11">
+      </section><section class="slide" id="slide-8-11">
         <h2 id="solution-arrow-methods">solution: arrow methods</h2>
 <p>Available since ES2018:</p>
 <pre><code class="language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span> </span>{
@@ -600,7 +616,7 @@ fg(); <span class="hljs-comment">// doesn't work (this is undefined)</span></cod
   };
 }</code></pre>
 
-      </section><section class="slide" id="slide-6-12">
+      </section><section class="slide" id="slide-8-12">
         <h2 id="solution-binding-the-method">solution: binding the method</h2>
 <pre><code class="language-js"><span class="hljs-keyword">let</span> f = <span class="hljs-keyword">new</span> Foo();
 f.greet(); <span class="hljs-comment">// works</span>
@@ -611,10 +627,10 @@ fg(); <span class="hljs-comment">// works as well now</span></code></pre>
     <span class="hljs-keyword">this</span>.greet = <span class="hljs-keyword">this</span>.greet.bind(<span class="hljs-keyword">this</span>);
   }</code></pre>
 
-      </section></section><section class="section" id="section-7"><section class="slide" id="slide-7-1">
+      </section></section><section class="section" id="section-9"><section class="slide" id="slide-9-1">
         <h1 id="reactjs---basics-ii">React.js - basics II</h1>
 
-      </section><section class="slide" id="slide-7-2">
+      </section><section class="slide" id="slide-9-2">
         <h2 id="jsx-compilation">JSX compilation</h2>
 <!-- prettier-ignore -->
 <pre><code class="language-jsx"><span class="hljs-keyword">const</span> element = (
@@ -629,7 +645,7 @@ fg(); <span class="hljs-comment">// works as well now</span></code></pre>
   <span class="hljs-string">'Hello, world!'</span>
 );</code></pre>
 
-      </section><section class="slide" id="slide-7-3">
+      </section><section class="slide" id="slide-9-3">
         <h2 id="jsx-properties">JSX: Properties</h2>
 <p>Changing from XML to JS also works in properties:</p>
 <pre><code class="language-jsx">&lt;a href={<span class="hljs-string">'https://en.wikipedia.org/wiki/'</span> + articleName}&gt;
@@ -637,7 +653,7 @@ fg(); <span class="hljs-comment">// works as well now</span></code></pre>
 &lt;<span class="hljs-regexp">/a&gt;</span></code></pre>
 <p>note the missing quotation marks for the href property</p>
 
-      </section><section class="slide" id="slide-7-4">
+      </section><section class="slide" id="slide-9-4">
         <h2 id="jsx-properties-task">JSX Properties: Task</h2>
 <ul>
 <li>Show a random picture. Use this function:</li>
@@ -646,24 +662,24 @@ fg(); <span class="hljs-comment">// works as well now</span></code></pre>
   <span class="hljs-string">'https://picsum.photos/200?image='</span> +
   <span class="hljs-built_in">Math</span>.floor(<span class="hljs-built_in">Math</span>.random() * <span class="hljs-number">100</span>);</code></pre>
 
-      </section><section class="slide" id="slide-7-5">
+      </section><section class="slide" id="slide-9-5">
         <h2 id="jsx-events">JSX: events</h2>
 <pre><code class="language-jsx"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">hello</span>(<span class="hljs-params"></span>) </span>{...}
 
 &lt;button onClick={hello}&gt;Say Hello&lt;<span class="hljs-regexp">/button&gt;</span></code></pre>
 <p>list of browser events:<br><a href="https://www.w3schools.com/jsref/dom_obj_event.asp">https://www.w3schools.com/jsref/dom_obj_event.asp</a></p>
 
-      </section><section class="slide" id="slide-7-6">
+      </section><section class="slide" id="slide-9-6">
         <h2 id="jsx-methods-as-event-handlers">JSX: methods as event handlers</h2>
 <p>Careful: If class methods are used as event handlers they should either be defined as arrow methods or be assigned to the instance via <code>.bind()</code>.</p>
 
-      </section><section class="slide" id="slide-7-7">
+      </section><section class="slide" id="slide-9-7">
         <h2 id="browser-events-example">browser events: example</h2>
 <ul>
 <li>simple button (Hello world)</li>
 </ul>
 
-      </section><section class="slide" id="slide-7-8">
+      </section><section class="slide" id="slide-9-8">
         <h2 id="jsx-repeating-elements">JSX: repeating elements</h2>
 <p>Multiple Elements may be added via arrays:</p>
 <pre><code class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
@@ -673,7 +689,7 @@ fg(); <span class="hljs-comment">// works as well now</span></code></pre>
   ] }
 <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></code></pre>
 
-      </section><section class="slide" id="slide-7-9">
+      </section><section class="slide" id="slide-9-9">
         <h2 id="jsx-repeating-elements">JSX: repeating elements</h2>
 <p>In practice this is mostly done via the <code>.map()</code> method</p>
 <!-- prettier-ignore-start -->
@@ -690,7 +706,7 @@ fg(); <span class="hljs-comment">// works as well now</span></code></pre>
 <!-- prettier-ignore-end -->
 
 
-      </section><section class="slide" id="slide-7-10">
+      </section><section class="slide" id="slide-9-10">
         <h2 id="jsx-repeating-elements">JSX: repeating elements</h2>
 <p>With the above code:<br>warning in the browser console (concerning efficiency)<br>solution: <strong>key</strong> (as a string):</p>
 <pre><code class="language-jsx"><span class="hljs-keyword">let</span> todos = [ { <span class="hljs-attr">title</span>: <span class="hljs-string">'groceries'</span>, <span class="hljs-attr">id</span>: <span class="hljs-number">0</span> }, ... ];
@@ -703,15 +719,15 @@ fg(); <span class="hljs-comment">// works as well now</span></code></pre>
   }
 <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></span></code></pre>
 
-      </section><section class="slide" id="slide-7-11">
+      </section><section class="slide" id="slide-9-11">
         <h2 id="jsx-if--else">JSX: if / else</h2>
 <pre><code class="language-jsx">&lt;div&gt;{<span class="hljs-built_in">Math</span>.random() &gt; <span class="hljs-number">0.5</span> ? <span class="hljs-string">'heads'</span> : <span class="hljs-string">'tails'</span>}&lt;<span class="hljs-regexp">/div&gt;</span></code></pre>
 
-      </section><section class="slide" id="slide-7-12">
+      </section><section class="slide" id="slide-9-12">
         <h2 id="jsx-if--else">JSX: if / else</h2>
 <p>Task:</p>
 
-      </section><section class="slide" id="slide-7-13">
+      </section><section class="slide" id="slide-9-13">
         <h2 id="jsx-if--else">JSX: if / else</h2>
 <pre><code class="language-jsx"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">cointoss</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Math</span>.random() &gt; <span class="hljs-number">0.5</span>) {<span class="hljs-keyword">return</span> <span class="hljs-string">'heads'</span>;}
@@ -722,15 +738,15 @@ fg(); <span class="hljs-comment">// works as well now</span></code></pre>
   {cointoss()}
 &lt;<span class="hljs-regexp">/div&gt;</span></code></pre>
 
-      </section><section class="slide" id="slide-7-14">
+      </section><section class="slide" id="slide-9-14">
         <h2 id="jsx-if">JSX: if</h2>
 <pre><code class="language-jsx">&lt;div&gt;{<span class="hljs-built_in">Math</span>.random() &gt; <span class="hljs-number">0.5</span> &amp;&amp; <span class="hljs-string">'heads'</span>}&lt;<span class="hljs-regexp">/div&gt;</span></code></pre>
 
-      </section><section class="slide" id="slide-7-15">
+      </section><section class="slide" id="slide-9-15">
         <h2 id="jsx-css-classes">JSX: CSS classes</h2>
 <pre><code class="language-jsx">&lt;div className={getClassName()}&gt;[...]&lt;<span class="hljs-regexp">/div&gt;</span></code></pre>
 
-      </section><section class="slide" id="slide-7-16">
+      </section><section class="slide" id="slide-9-16">
         <h2 id="jsx-dynamic-style">JSX: dynamic style</h2>
 <pre><code class="language-jsx">&lt;div
   style={{
@@ -739,12 +755,12 @@ fg(); <span class="hljs-comment">// works as well now</span></code></pre>
   }}
 /&gt;</code></pre>
 
-      </section><section class="slide" id="slide-7-17">
+      </section><section class="slide" id="slide-9-17">
         <h2 id="state">State</h2>
 <p>React components may have an internal <em>state</em></p>
 <p>In each component, <code>this.state</code> has a special meaning. Data in <code>this.state</code> may be referenced from the template. This way, the view will automatically update when the data changes.</p>
 
-      </section><section class="slide" id="slide-7-18">
+      </section><section class="slide" id="slide-9-18">
         <h2 id="structure-of-thisstate">structure of this.state</h2>
 <ul>
 <li><em>this.state</em> is always an object:</li>
@@ -757,14 +773,14 @@ fg(); <span class="hljs-comment">// works as well now</span></code></pre>
   }
 }</code></pre>
 
-      </section><section class="slide" id="slide-7-19">
+      </section><section class="slide" id="slide-9-19">
         <h2 id="modifying-thisstate">modifying this.state</h2>
 <p>only via <code>setState()</code>:</p>
 <pre><code class="language-js"><span class="hljs-keyword">this</span>.setState({ <span class="hljs-attr">loggedIn</span>: <span class="hljs-literal">false</span> });
 <span class="hljs-keyword">this</span>.setState({ <span class="hljs-attr">todos</span>: [<span class="hljs-string">'learn react'</span>] });</code></pre>
 <p><code>setState</code> will change all specified entries</p>
 
-      </section><section class="slide" id="slide-7-20">
+      </section><section class="slide" id="slide-9-20">
         <h2 id="modifying-thisstate">modifying this.state</h2>
 <p>if the new state depends on the old:</p>
 <pre><code class="language-js"><span class="hljs-comment">// removing a todo</span>
@@ -775,7 +791,7 @@ fg(); <span class="hljs-comment">// works as well now</span></code></pre>
 });</code></pre>
 <p>We pass a callback function to <code>setState</code>. This callback function will transform the old state into the new state.</p>
 
-      </section><section class="slide" id="slide-7-21">
+      </section><section class="slide" id="slide-9-21">
         <h2 id="examples">Examples</h2>
 <ul>
 <li>Counter</li>
@@ -784,12 +800,12 @@ fg(); <span class="hljs-comment">// works as well now</span></code></pre>
 <li>Diashow</li>
 </ul>
 
-      </section><section class="slide" id="slide-7-22">
+      </section><section class="slide" id="slide-9-22">
         <h2 id="inputs">Inputs</h2>
 <p>In the context of React, input elements are special:</p>
 <p>Their properties (especially <code>.value</code>) can be directly modified by the user<br>Therefore there are aspects of the UI state which would not be captured in <code>this.state</code>.</p>
 
-      </section><section class="slide" id="slide-7-23">
+      </section><section class="slide" id="slide-9-23">
         <h2 id="inputs">Inputs</h2>
 <p>This is how we can capture changes and track them in the state:</p>
 <pre><code class="language-jsx">&lt;input
@@ -801,10 +817,10 @@ handleChange = <span class="hljs-function"><span class="hljs-params">event</span
   <span class="hljs-keyword">this</span>.setState({ <span class="hljs-attr">inputText</span>: event.target.value });
 };</code></pre>
 
-      </section></section><section class="section" id="section-8"><section class="slide" id="slide-8-1">
+      </section></section><section class="section" id="section-10"><section class="slide" id="slide-10-1">
         <h1 id="development-tools-for-react">Development tools for React</h1>
 
-      </section><section class="slide" id="slide-8-2">
+      </section><section class="slide" id="slide-10-2">
         <h2 id="react-developer-tools">React Developer Tools</h2>
 <p><a href="https://github.com/facebook/react-devtools">https://github.com/facebook/react-devtools</a></p>
 <ul>
@@ -814,7 +830,7 @@ handleChange = <span class="hljs-function"><span class="hljs-params">event</span
 <li>highlight updates / rerenderings of components</li>
 </ul>
 
-      </section><section class="slide" id="slide-8-3">
+      </section><section class="slide" id="slide-10-3">
         <h2 id="debugging-in-vs-code">Debugging in VS Code</h2>
 <p>Extensions:</p>
 <ul>
@@ -822,51 +838,51 @@ handleChange = <span class="hljs-function"><span class="hljs-params">event</span
 <li>Debugger for Firefox</li>
 </ul>
 
-      </section><section class="slide" id="slide-8-4">
+      </section><section class="slide" id="slide-10-4">
         <h2 id="debugging-in-vs-code-configuration">Debugging in VS Code: configuration</h2>
 <p>creating config file: in the debugger sidebar, click on the gear symbol (<em>Configure or fix &#39;launch.json&#39;</em>)</p>
 <p>in <em>launch.json</em>:</p>
 <pre><code class="language-json">{
   <span class="hljs-attr">"type"</span>: <span class="hljs-string">"chrome"</span>,
   <span class="hljs-attr">"request"</span>: <span class="hljs-string">"launch"</span>,
-  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Launch Chrome"</span>,
-  <span class="hljs-attr">"url"</span>: <span class="hljs-string">"http://localhost:3000"</span>,
-  <span class="hljs-attr">"webRoot"</span>: <span class="hljs-string">"${workspaceFolder}"</span>
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Launch Chrome for React"</span>,
+  <span class="hljs-attr">"url"</span>: <span class="hljs-string">"http://localhost:3000"</span>
 }</code></pre>
 
-      </section><section class="slide" id="slide-8-5">
+      </section><section class="slide" id="slide-10-5">
         <h2 id="debugging-in-vs-code-starting">Debugging in VS Code: starting</h2>
-<p>Via <em>F5</em></p>
+<p>The development server has to be running in the background</p>
+<p>Start debugging in VS Code via <em>F5</em></p>
 
-      </section></section><section class="section" id="section-9"><section class="slide" id="slide-9-1">
+      </section></section><section class="section" id="section-11"><section class="slide" id="slide-11-1">
         <h1 id="components">components</h1>
 
-      </section><section class="slide" id="slide-9-2">
+      </section><section class="slide" id="slide-11-2">
         <h2 id="components">components</h2>
 <p>Components = custom tags, e.g.</p>
 <pre><code class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Rating</span> <span class="hljs-attr">stars</span>=<span class="hljs-string">{4}/</span>&gt;</span></code></pre>
 <img src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAYYAAACHCAMAAAFScj5QAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAHpUExURf/////86//kUv/cIv/gPP/ztP/hPf/XAP/40v/2xv/obP/xpP/jSv/tjf/fMf/tjP/eL//eLP/eKv/dJ//dJf/cI//cIP/cHv/bG//bGf/aFv/ti//aFP/tiv/siP/aEf/sh//tj//lV//shf/zsf///f/ZD//3yf/ulP/nZ//pdP/3zf/shP/iRv/YCP/lVv/++//rgv/ZDP/2yP/qeP/dKP/0uP/rgf/0vP/jTf/vm//++f/rf//ZCv/qdv/hQv/rfv/ukP/iQ//ukv/+9//qfP/YB//2xf/pdf/bF//qe//75f/gOv/99f/qef/YBf/2w//naf/tjv/98//XA//1wv/mYP/52P/rff/98f/pcv/0tv/kVP/hP//vmv/3zP/eK//aEP/hPv/64P/3zv/75P/3z//87P/40f/aE//gOf/pc//ZC//gN//vmP/oa//YA//wn//hRP/vnP/iRf/64v/51//YCf/zsv/ob//2xP/eLf/iR//gOP/86f/sg//yqf/99P/yrf/yrv/nZf/40//fMv/wof/63f/ZDf/vlv/wnf/vl//iSP/mYf/41f/cHf/1wf/hQP/1v//eLv/kUP/uj//75//lWv/gO//lW//+9v/dJv/1vv/pcf/uk//bGv/lXAAAAKbZgKwAAACjdFJOU////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////wACCrcBAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAFo0lEQVR4Xu3dPW7jPBAGYAMuWHxNTqDtgrgj4C1cb5UrBAi8ZaoPEHKCVIYvsXfdGXIoUxQpkbLkpZ33wcImqeHox5Esa2V68+218kyUPBOvOBAPS/ZQiv7Rgyk2au+Kpp2L5kmpvSkLL1ui6JWZ0l1DvKiV0lI0qOamUbGLo+dIseOliBfhuxv8zVjx/cxI9PCaexGJXcc02mZvP3O8ij8hXmSJXSe+cxlUcw1+Mb6fOYldBzsX1K/1dmpPorUkuNPfizuJ1pJg4o4W/Li9RKkv88gPe3XgJ5YKPppHfvCCfXxUYh9StxppPUldSGtesIenStGzUwf1LGVPUbA4qpfN5qzeperwoZGOj1JzioKdJ3uUDQPUq3k69FuLggEA4EEscIaRCHbibyAq3qko2El0SjTLc1/yrdRacw7x0x4bbh8nz5ESwQ6fpDTUiT7IeRdHuGI+/dmCw5Xs4IslTsKkVb1JfYCmSakn1VoQLJY4y4sHC/4AHFw+YtQUOZsrCnZMh8HkkdPI7GBhl2iwBLY53poZ7CxwnpoIDpmgAZ1olue+RDAAAAAAwApOEx++eyoJDqmJj/c9lQSHHmMdxj8s9VQSHLrTdZALIo2puM77H6bxh6l4KgmOcNd1+k79iz/OzYOTl5UiXqXT4BpVTCXBA1r6SnVcJcEB7vukeTOY/0keV0lwYEu9+CKR2QzSliTBfIEvO3iFzAHq8Wyvc+kdlXv31w3cLPhsGvPwIeHDdGW8DUZ2qEqCQ/rptetK9Mtz/PBn3DTYrwMAAAAAAAAAAAAAlGnb31LKUElw4Kttf0lx2rGO4FCj1FaK0yoJDmEdxtx0HXLuK7BKF2ulzKFj4Zzyg4syFwWHSrdWDcGhe12HT3X5pg117r5R9FNF/p/eD6aA/OCizJPBIYoh9v+y+S6JruDKPtv8acqZwUWZM4NDtNLW9k06v9t67OBwCXZzygouypwRPLTn+zyMZ3k27C1doUqCI869bmSsZyXBEWfpRswXN0dVEhxBxwYilSmVBAc+TN/M16+S4JDta787OUli/3VwwPTLvQWtkuAAH6C/zOgr8h42ppLgEHXa8s2AfBtddKQdXyXBAerC9zNuzBaYehkrCQ7w8cz0zeldSXDgQPGN7Utv+lSx38aO84N1SfCymUMULreVEs1nW64SUUlwgF+3rq+tpm+lvWlw/k26+oWPBR2tPxMDELCbBnvVQppIcVolwQAAAAAAAAAAAAAAAAAAAAAAAAAA8NDefm3//yPlZSFzvt8t20ltSchcoGlb1bYFYzpnQ+YCTatIztdlSyFzAWws3797GXi+66wSMudbe5Xmj5yRdo/LPAEby7feMk9Ye5WQua95b2I/XWNnHPvK7/64ex3/ORYxJ/PuDjPnbY1R/DVl67M/DkdsjJr9T/vDW2T6C/7JzDx8D5Ga5WWePjmfu8zrZS4f7iDwJomckxuOoz/jPQ9L4Jv+QDnIfJQfHetnPiyQOb7M62WesTUmnV+7YYI622Yjc9oc7IAvPae8AWzmZM77aa+6MudtjSz7JhzsKOp0HPltqLiHzlzyq4KZNP8tJGd/zWuOzHOc+4e+zN05BzIXOco82dVnAT3InE0H71LnxYYWQeZ8XzK/nRnuiPV+lfEKyJzPnZJ98Pg6p64iU6+BzNncS74zoxxp7f4Y5g2y6Aszu0+sy2e+h2Ue584KzjxbpvWTbdlKw1xBZlqvlTLfxTKPcgO92hff0vpFWq85VY5kptJKmatf5nFyGVHtLytEaNZyrjD/ZO0RM5/85gVJ+neak7SIy5/AYd6sU5mpvlLmmpd5nMz3K1whQrOWqbOurCNzPm12Qnrxpd4npx+zbtR5uMz0OvzHk58SM74G5WZSC8nUWfMd7ylTv01mAAAAAAAAAAAAAAAAAAAAAIDHtNn8BQ2Eqm8eOf+nAAAAAElFTkSuQmCC" style="height: 4em">
 
 
-      </section><section class="slide" id="slide-9-3">
+      </section><section class="slide" id="slide-11-3">
         <h2 id="components">components</h2>
 <p>In order to distinguish them from ordinary tags, components start with a capital letter</p>
 
-      </section><section class="slide" id="slide-9-4">
+      </section><section class="slide" id="slide-11-4">
         <h2 id="components-state--props">components: state &amp; props</h2>
 <ul>
 <li>state = internal to the component</li>
 <li>props = parameters that are passed down from the parent</li>
 </ul>
 
-      </section><section class="slide" id="slide-9-5">
+      </section><section class="slide" id="slide-11-5">
         <h2 id="component-definition">component definition</h2>
 <ul>
 <li>class components</li>
 <li>functional components</li>
 </ul>
 
-      </section><section class="slide" id="slide-9-6">
+      </section><section class="slide" id="slide-11-6">
         <h2 id="class-components">class components</h2>
 <p>example:</p>
 <pre><code class="language-jsx"><span class="hljs-keyword">import</span> React, { Component } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
@@ -881,7 +897,7 @@ handleChange = <span class="hljs-function"><span class="hljs-params">event</span
   }
 }</code></pre>
 
-      </section><section class="slide" id="slide-9-7">
+      </section><section class="slide" id="slide-11-7">
         <h2 id="functional-components">functional components</h2>
 <p>example:</p>
 <pre><code class="language-jsx"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Rating</span>(<span class="hljs-params">props</span>) </span>{
@@ -890,18 +906,18 @@ handleChange = <span class="hljs-function"><span class="hljs-params">event</span
   );
 }</code></pre>
 
-      </section><section class="slide" id="slide-9-8">
+      </section><section class="slide" id="slide-11-8">
         <h2 id="functional-components">functional components</h2>
 <p>functional components cannot have an internal <em>state</em></p>
 
-      </section><section class="slide" id="slide-9-9">
+      </section><section class="slide" id="slide-11-9">
         <h2 id="dataevent-flow">data/event flow</h2>
 <ul>
 <li>parent → child: props</li>
 <li>child → parent: events</li>
 </ul>
 
-      </section><section class="slide" id="slide-9-10">
+      </section><section class="slide" id="slide-11-10">
         <h2 id="lifecycle-hooks">Lifecycle-Hooks</h2>
 <p>With class components it&#39;s possible to listen for events in their lifecycle:</p>
 <ul>
@@ -911,11 +927,11 @@ handleChange = <span class="hljs-function"><span class="hljs-params">event</span
 </ul>
 <p>these can be implemented as methods of the component class</p>
 
-      </section><section class="slide" id="slide-9-11">
+      </section><section class="slide" id="slide-11-11">
         <h2 id="exercise">Exercise</h2>
 <p>Clock-component (with <code>componentDidMount</code> and <code>componentWillUnmount</code>)</p>
 
-      </section><section class="slide" id="slide-9-12">
+      </section><section class="slide" id="slide-11-12">
         <h2 id="custom-events">custom events</h2>
 <p>examples:</p>
 <ul>
@@ -927,19 +943,53 @@ handleChange = <span class="hljs-function"><span class="hljs-params">event</span
 </li>
 </ul>
 
-      </section></section><section class="section" id="section-10"><section class="slide" id="slide-10-1">
+      </section></section><section class="section" id="section-12"><section class="slide" id="slide-12-1">
         <h1 id="exercise-todo-list">Exercise: todo list</h1>
 
-      </section></section><section class="section" id="section-11"><section class="slide" id="slide-11-1">
+      </section></section><section class="section" id="section-13"><section class="slide" id="slide-13-1">
+        <h1 id="react-with-typescript">React with TypeScript</h1>
+
+      </section><section class="slide" id="slide-13-2">
+        <h2 id="create-react-app-with-typescript">create-react-app with TypeScript</h2>
+<pre><code class="language-bash">npx create-react-app my-app --typescript</code></pre>
+
+      </section><section class="slide" id="slide-13-3">
+        <h2 id="components-functions">components (functions)</h2>
+<pre><code class="language-ts">type TodoListProps = {
+  todos: Array&lt;TodoType&gt;;
+  onToggle: (id: number) =&gt; void;
+  onDelete: (id: number) =&gt; void;
+};
+
+const TodoList = (props: TodoListProps) =&gt; {
+  const [filterText, setFilterText] = useState&lt;string&gt;('');
+
+  return &lt;div&gt;...&lt;/div&gt;;
+};</code></pre>
+
+      </section><section class="slide" id="slide-13-4">
+        <h2 id="components-classes">components (classes)</h2>
+<pre><code class="language-tsx"><span class="hljs-comment">// TodoList.tsx</span>
+<span class="hljs-keyword">type</span> TodoItemProps {
+  todo: TodoType;
+  onToggle: <span class="hljs-function">(<span class="hljs-params">id: int</span>) =&gt;</span> <span class="hljs-built_in">void</span>;
+}
+<span class="hljs-keyword">interface</span> TodoItemState {}</code></pre>
+<pre><code class="language-tsx"><span class="hljs-keyword">class</span> TodoItem <span class="hljs-keyword">extends</span> React.PureComponent&lt;
+  TodoItemProps,
+  TodoItemState
+&gt; {}</code></pre>
+
+      </section></section><section class="section" id="section-14"><section class="slide" id="slide-14-1">
         <h1 id="material-ui">Material-UI</h1>
 <p>Predefined React components conforming to material design style (style of Google/Android)</p>
 
-      </section><section class="slide" id="slide-11-2">
+      </section><section class="slide" id="slide-14-2">
         <h2 id="material-ui-installation-and-usage">Material-UI: Installation and Usage</h2>
 <p><a href="https://material-ui.com">https://material-ui.com</a></p>
 <p>see info boxes on <em>Installation</em> und <em>Usage</em></p>
 
-      </section><section class="slide" id="slide-11-3">
+      </section><section class="slide" id="slide-14-3">
         <h2 id="exercises">Exercises</h2>
 <ul>
 <li>Button</li>

@@ -38,13 +38,75 @@ const App = () => {
 };
 ```
 
-# Testing React Applications
+# Automated testing
 
-## Testing React Applications
+## Automated testing
 
-standard test framework for React: [jest](https://facebook.github.io/jest/)
+Programs / functions / classes may be tested automatically to ensure they behave as expected
 
-## Example
+## Tools for testing JavaScript
+
+- _node_ is needed to provide a runtime
+- _assert_: basic assertion package, built into node
+- _Jest_: test runner & assertion library
+- _Jasmine_: test runner & assertion library
+- _Mocha_: test runner
+- _Chai_: assertion library
+- _Karma_: test runner
+- _Enzyme_: test utilities & assertions for React
+
+https://2018.stateofjs.com/testing/overview/
+
+## Example: shorten
+
+We are going to write and test a function that will shorten a string to a specified length
+
+```js
+shorten('loremipsum', 6);
+// should return 'lor...'
+```
+
+Possible approaches:
+
+- write implementation first
+- write tests first (test-driven development)
+
+## setting up the test runner
+
+in an existing npm project:
+
+```bash
+npm install --save-dev mocha
+```
+
+in _package.json_:
+
+```json
+"scripts": {
+  "test": "mocha"
+}
+```
+
+run tests:
+
+```bash
+npm test
+```
+
+## finding tests
+
+In general testing libraries look for files ending in `.test.js` or `.spec.js`
+
+mocha: by default, looks in the `test` directory
+jest: tests can be colocated with regular code
+
+We can run mocha like this to find tests in the src directory:
+
+```bash
+mocha src/*.{test,spec}.{js,jsx}
+```
+
+## Example: shorten
 
 ```js
 // shorten.js
@@ -55,51 +117,199 @@ const shorten = (s, maxlength) => {
   return s;
 };
 
-export { shorten };
+module.exports.shorten = shorten;
 ```
 
-## Example
+## Example: shorten
 
 ```js
 // shorten.test.js
-import { shorten } from './shorten';
+const shorten = require('./shorten.js').shorten;
+// use node's built-in assert module
+const assert = require('assert');
 
 it('shortens "loremipsum" to "lor..."', () => {
   const expected = 'lor...';
   const actual = shorten('loremipsum', 6);
-  expect(actual).toEqual(expected);
+  assert.equal(actual, expected);
 });
 ```
 
-## Running tests
+# Testing: assertions
 
-```bash
-npm test
+## Testing: assertions
+
+Assertions can be written in two main styles:
+
+assert:
+
+```js
+assert.equal(a, b);
 ```
 
-Jest will find files ending in `.test.js`.
+expect (behaviour-driven):
 
-## other matchers
+```js
+expect(a).toEqual(b);
+```
 
-Besides `.toEqual` we can use:
+## Testing: assertions
 
-- `.toBeGreaterThan()`
-- `.toMatch()`
-- `.toThrow()`
-- `.not.toEqual()`
-- ...
+assert:
+
+- built into node
+- chai
+
+expect (behaviour-driven)
+
+- jest
+- jasmine
+- chai
+- enzyme
+
+## Testing: assertions
+
+assert: examples
+
+node:
+
+```js
+assert.equal(a, b);
+assert.deepEqual(a, b);
+// ...
+```
+
+chai:
+
+```js
+assert.equal(a, b);
+assert.typeOf(foo, 'string');
+assert.lengthOf(foo, 3);
+assert.throws(() => {
+  1 / 0;
+});
+```
+
+## Testing: assertions
+
+expect: examples
+
+jest:
+
+```js
+expect(4).toBeGreaterThan(3);
+expect(() => {
+  1 / 0;
+}).toThrow();
+expect(3).not.toEqual(4);
+```
+
+chai:
+
+```js
+expect(foo).to.be.a('string');
+expect(() => {
+  1 / 0;
+}).to.throw();
+expect(foo).to.equal('bar');
+```
+
+# Structuring tests
+
+## Grouping tests
+
+with `describe()`:
+
+```js
+// jest
+describe('strings that are short enough', () => {
+  it('leaves "abc" unchanged with limit 5', () => {
+    expect(shorten('abc', 5)).toEqual('abc');
+  });
+  it('leaves "loremipsum" unchanged with limit 10', () => {
+    expect(shorten('loremipsum', 10)).toEqual('loremipsum');
+  });
+});
+```
 
 ## Setup and teardown
 
-For code that should be executed before and after each test:
+For code that should be executed before and after each test in a group:
 
 ```js
+// jest or mocha
 beforeEach(() => {
   createTestDB();
 });
 
 afterEach(() => {
   clearTestDB();
+});
+```
+
+# Testing React
+
+## Test renderers for React
+
+- `react-test-renderer` (developed by the React team)
+- `Enzyme` (developed by Airbnb)
+
+## Enzyme - Setup
+
+```
+npm install --save-dev enzyme enzyme-adapter-react-16
+```
+
+new file `src/setupTests.js`:
+
+```
+import { configure } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+
+configure({ adapter: new Adapter() });
+```
+
+## Enzyme - Examples
+
+Tests with Jest
+
+```jsx
+it('renders three <Foo /> components', () => {
+  // Alternative for shallow: mount()
+  const wrapper = shallow(<MyComponent />);
+  expect(wrapper.find(Foo)).toHaveLength(3);
+});
+
+it('renders an `.icon-star`', () => {
+  const wrapper = shallow(<MyComponent />);
+  expect(wrapper.find('.icon-star')).toHaveLength(1);
+});
+```
+
+## Enzyme - Examples
+
+```jsx
+it('reacts to click events', () => {
+  const onButtonClick = sinon.spy();
+  const wrapper = shallow(
+    <Foo onButtonClick={onButtonClick} />
+  );
+  wrapper.find('button').simulate('click');
+  expect(onButtonClick).to.have.property('callCount', 1);
+});
+```
+
+## Enzyme - Examples
+
+<!-- prettier-ignore -->
+```jsx
+it('reacts to click events', () => {
+  const mockFunction = jest.fn();
+
+  const wrapper = mount(<Rating stars={3} onStarsChange={mockFunction} />);
+  expect(wrapper.childAt(0).childAt(2).text()).toBe('*');
+  wrapper.childAt(0).childAt(1).simulate('click');
+  expect(mockFunction).toBeCalledWith(2);
 });
 ```
 
@@ -146,94 +356,83 @@ Once we have changed and and verified the behaviour of a component we can update
 Inspect your code changes or press `u` to update them.
 ```
 
-## mocking network (fetch) requests
+# Example: testing a rating component
 
-```bash
-npm install --save-dev jest-fetch-mock
+With Jest, Enzyme, Chai and Sinon
+
+## Example: testing a rating component
+
+```tsx
+import React from 'react';
+import { shallow, mount } from 'enzyme';
+import { expect } from 'chai';
+import sinon from 'sinon';
+import Rating from './Rating';
 ```
 
-## mocking network (fetch) requests
+## Example: testing a rating component
 
-```js
-import fetch from 'jest-fetch-mock';
+```tsx
+describe('rendering', () => {
+  it('renders 5 Star components', () => {
+    const wrapper = shallow(<Rating stars={5} />);
+    expect(wrapper.find('Star')).to.have.length(5);
+  });
 
-global.fetch = fetch;
-
-fetch.mockResponse(
-  `[{ "title": "abc", "completed": false, "id": 1 }]`
-);
-```
-
-## testing network requests - thunk
-
-```js
-store.dispatch(requestTodos()).then(() => {
-  expect(store.getActions()).toEqual(expectedActions);
-});
-```
-
-## testing network requests - thunk
-
-```js
-import configureMockStore from 'redux-mock-store';
-import fetch from 'jest-fetch-mock';
-import thunk from 'redux-thunk';
-import { requestTodos } from './actions';
-
-global.fetch = fetch;
-
-const mockStore = configureMockStore([thunk]);
-```
-
-## testing network requests - thunk
-
-```js
-it('dispatches "TODO_REQUEST" and "TODO_RESPONSE"', () => {
-  const todoData = [
-    { title: 'abc', completed: false, id: 1 },
-  ];
-  fetch.mockResponse(
-    `[{ "title": "abc", "completed": false, "id": 1 }]`
-  );
-  const store = mockStore();
-  const expectedActions = [
-    { type: 'TODO_REQUEST' },
-    { type: 'TODO_RESPONSE', payload: todoData },
-  ];
-  store.dispatch(requestTodos()).then(() => {
-    expect(store.getActions()).toEqual(expectedActions);
+  it('renders 5 active stars', () => {
+    const wrapper = mount(<Rating stars={5} />);
+    expect(wrapper.find('.star')).to.have.length(5);
   });
 });
 ```
 
-## Enzyme
+## Example: testing a rating component
 
-Enzyme is a set of testing utilities for React.
-
-## Enzyme - examples
-
-```jsx
-it('renders three <Foo /> components', () => {
-  const wrapper = shallow(<MyComponent />);
-  expect(wrapper.find(Foo)).to.have.lengthOf(3);
-});
-
-it('renders an `.icon-star`', () => {
-  const wrapper = shallow(<MyComponent />);
-  expect(wrapper.find('.icon-star')).to.have.lengthOf(1);
+```tsx
+describe('rendering', () => {
+  it('renders 3 active stars', () => {
+    const wrapper = mount(<Rating stars={3} />);
+    expect(wrapper.find('.star')).to.have.length(5);
+    expect(
+      wrapper.find('.star').get(2).props.className
+    ).to.equal('star active');
+    expect(
+      wrapper.find('.star').get(3).props.className
+    ).to.equal('star');
+  });
 });
 ```
 
-## Enzyme - examples
+## Example: testing a rating component
 
-```jsx
-it('reacts to click events', () => {
-  const onButtonClick = sinon.spy();
-  const wrapper = shallow(
-    <Foo onButtonClick={onButtonClick} />
-  );
-  wrapper.find('button').simulate('click');
-  expect(onButtonClick).to.have.property('callCount', 1);
+```tsx
+describe('events', () => {
+  it('reacts to click on first star', () => {
+    const spy = sinon.spy();
+    const wrapper = mount(
+      <Rating stars={3} onStarsChange={spy} />
+    );
+    wrapper
+      .find('span')
+      .at(0)
+      .simulate('click');
+    expect(spy.getCall(0).args[0]).to.equal(1);
+  });
+});
+```
+
+## Example: testing a rating component
+
+```tsx
+describe('errors', () => {
+  it('throws an error if the number of stars is 0', () => {
+    const testFn = () => {
+      const wrapper = shallow(<Rating stars={0} />);
+    };
+    expect(testFn).to.throw(
+      'number of stars must be positive'
+    );
+  });
 });
 ```
 
@@ -251,7 +450,7 @@ npm install react-router-dom
 
 ```bash
 // TypeScript:
-npm install @types/react-router-dom
+npm install react-router-dom @types/react-router-dom
 ```
 
 ## React Router - BrowserRouter
@@ -378,10 +577,12 @@ https://developers.google.com/web/fundamentals/app-install-banners/
 ## PWA: add to homescreen
 
 ```js
+let deferredPrompt;
+
 componentDidMount() {
   window.addEventListener('beforeinstallprompt', e => {
     e.preventDefault();
-    this.deferredPrompt = e;
+    deferredPrompt = e;
     this.setState({ showInstallBtn: true });
   });
 }
@@ -398,7 +599,7 @@ handleInstallBtnClicked = () => {
     } else {
       console.log('user dismissed');
     }
-    this.deferredPrompt = null;
+    deferredPrompt = null;
     this.setState({ showInstallBtn: false });
   });
 };
@@ -441,37 +642,37 @@ const TodosContext = React.createContext();
 ```ts
 // TodosContext.ts
 
-interface TodosContextInterface {
+type TodosContext = {
   todos: Array<Todo>;
   onToggle: (id: number) => void;
   onClear: () => void;
-}
+};
 
-const TodosContext = React.createContext<
-  Partial<TodosContextInterface>
->({});
+const TodosContext = React.createContext(
+  {} as TodosContext
+);
 ```
 
 ## Context - example: Provider
 
 ```jsx
-class App extends React.Component {
-  render() {
-    return (
-      <MyContext.Provider
-        value={{
-          todos: this.state.todos,
-          onToggle: this.handleToggle,
-          onClear: this.handleClear,
-        }}>
-        <TodoStats />
-      </MyContext.Provider>
-    );
-  }
-}
+const App = () => {
+  return (
+    <MyContext.Provider
+      value={{
+        todos: this.state.todos,
+        onToggle: this.handleToggle,
+        onClear: this.handleClear,
+      }}>
+      <TodoStats />
+    </MyContext.Provider>
+  );
+};
 ```
 
 ## Context - example: Consumer
+
+function component:
 
 ```jsx
 const TodoStats = () => {
@@ -482,21 +683,20 @@ const TodoStats = () => {
 
 ## Context - example: Consumer
 
+class component
+
 ```jsx
-class TodoList extends React.Component {
+class TodoStats extends React.Component {
   render() {
-    <MyContext.Consumer>
-      {context => (
-        <div>
-          {JSON.stringify(context)}
-          <button
-            onClick={() => {
-              context.onToggle(2);
-            }}
-          />
-        </div>
-      )}
-    </MyContext.Consumer>;
+    return (
+      <TodosContext.Consumer>
+        {context => (
+          <div>
+            There are {context.todos.length} todos
+          </div>
+        )}
+      </Todos.Consumer>
+    );
   }
 }
 ```
@@ -514,3 +714,66 @@ keep in mind:
 
 - Avoid too much nesting
 - Don't overthink it
+
+
+
+## mocking network (fetch) requests
+
+```bash
+npm install --save-dev jest-fetch-mock
+```
+
+## mocking network (fetch) requests
+
+```js
+import fetch from 'jest-fetch-mock';
+
+global.fetch = fetch;
+
+fetch.mockResponse(
+  `[{ "title": "abc", "completed": false, "id": 1 }]`
+);
+```
+
+## testing network requests - thunk
+
+```js
+store.dispatch(requestTodos()).then(() => {
+  expect(store.getActions()).toEqual(expectedActions);
+});
+```
+
+## testing network requests - thunk
+
+```js
+import configureMockStore from 'redux-mock-store';
+import fetch from 'jest-fetch-mock';
+import thunk from 'redux-thunk';
+import { requestTodos } from './actions';
+
+global.fetch = fetch;
+
+const mockStore = configureMockStore([thunk]);
+```
+
+## testing network requests - thunk
+
+```js
+it('dispatches "TODO_REQUEST" and "TODO_RESPONSE"', () => {
+  const todoData = [
+    { title: 'abc', completed: false, id: 1 },
+  ];
+  fetch.mockResponse(
+    `[{ "title": "abc", "completed": false, "id": 1 }]`
+  );
+  const store = mockStore();
+  const expectedActions = [
+    { type: 'TODO_REQUEST' },
+    { type: 'TODO_RESPONSE', payload: todoData },
+  ];
+  store.dispatch(requestTodos()).then(() => {
+    expect(store.getActions()).toEqual(expectedActions);
+  });
+});
+```
+

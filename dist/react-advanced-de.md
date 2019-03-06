@@ -125,6 +125,25 @@ es wird nicht geladen (false)
 es gibt eine Fehlermeldung (404 oder 400)
 -> 1a
 
+## Entfernen einer Komponente
+
+```js
+const [time, setTime] = useState(0);
+
+// diese Funktion wird aufgerufen,
+// wenn die Komponente eingebunden wird
+useEffect(() => {
+  const intervalId = setInterval(() => {
+    setTime(time + 1);
+  });
+  // diese Funktion wird aufgerufen,
+  // wenn die Komponente entfernt wird
+  return () => {
+    clearInterval(intervalId);
+  };
+}, []);
+```
+
 # reducer Hook
 
 ## reducer Hook
@@ -199,13 +218,66 @@ const countReducer = (count, action) => {
 
 Auslösen von Actions: wir rufen die `dispatch`-Funktion des Reducers mit der gewünschten Action als Parameter auf
 
-# Testen von React-Anwendungen
+# Automatisiertes Testen
 
-## Testen von React-Anwendungen
+## Automatisiertes Testen
 
-Standard test-framework für React: [jest](https://facebook.github.io/jest/)
+Programme / Funktionen / Klassen können automatisiert getestet werden um sicherzustellen, dass sie wie erwartet funktionieren.
 
-## Beispiel
+## Tools für das Testen
+
+- _node_ wird als Runtime benötigt
+- _assert_: einfache assertions, in node beinhaltet
+- _Jest_: test runner & assertion library
+- _Jasmine_: test runner & assertion library
+- _Mocha_: test runner
+- _Chai_: assertion library
+- _Karma_: test runner
+- _Enzyme_: test utilities & assertions für React
+
+https://2018.stateofjs.com/testing/overview/
+
+## Beispiel: shorten
+
+Wir werden eine Funktion schreiben und testen, die einen String auf eine vorgegebene Länge verkürzt
+
+```js
+shorten('loremipsum', 6);
+// should return 'lor...'
+```
+
+Mögliche Zugänge
+
+- mit Implementierung beginnen
+- mit Tests beginnen (test-driven development)
+
+## Einrichten des Test Runners
+
+in einem vorhandenen npm Projekt:
+
+```bash
+npm install --save-dev mocha
+```
+
+in _package.json_:
+
+```json
+"scripts": {
+  "test": "mocha"
+}
+```
+
+Tests ausführen:
+
+```bash
+npm test
+```
+
+## Finden von Tests
+
+Im allgemeinen suchen Test Libraries nach Dateien mit der Endung `.test.js` oder `.spec.js`
+
+## Beispiel: shorten
 
 ```js
 // shorten.js
@@ -216,45 +288,111 @@ const shorten = (s, maxlength) => {
   return s;
 };
 
-export { shorten };
+module.exports.shorten = shorten;
 ```
 
-## Beispiel
+## Beispiel: shorten
 
 ```js
 // shorten.test.js
-import { shorten } from './shorten';
+const shorten = require('./shorten.js').shorten;
+// use node's built-in assert module
+const assert = require('assert');
 
 it('shortens "loremipsum" to "lor..."', () => {
   const expected = 'lor...';
   const actual = shorten('loremipsum', 6);
-  expect(actual).toEqual(expected);
+  assert.equal(actual, expected);
 });
 ```
 
-## Tests ausführen
+# Testen: assertions
 
-```bash
-npm test
+## Testen: assertions
+
+Assertions können auf zwei Arten geschrieben werden:
+
+assert:
+
+```js
+assert.equal(a, b);
 ```
 
-Jest findet von alleine Dateien mit der Endung _.test.js_.
+expect (behaviour-driven):
 
-## Andere Matcher
+```js
+expect(a).toEqual(b);
+```
 
-Außer `.toEqual` gibt es noch:
+## Testen: assertions
 
-- `.toBeGreaterThan()`
-- `.toMatch()`
-- `.toThrow()`
-- `.not.toEqual()`
-- ...
+assert:
 
-## Gruppieren von Tests
+- assert-modul in node
+- chai
+
+expect (behaviour-driven)
+
+- jest
+- jasmine
+- chai
+- enzyme
+
+## Testen: assertions
+
+assert: Beispiele
+
+node:
+
+```js
+assert.equal(a, b);
+assert.deepEqual(a, b);
+// ...
+```
+
+chai:
+
+```js
+assert.equal(a, b);
+assert.typeOf(foo, 'string');
+assert.lengthOf(foo, 3);
+assert.throws(() => {
+  1 / 0;
+});
+```
+
+## Testen: assertions
+
+expect: Beispiele
+
+jest:
+
+```js
+expect(4).toBeGreaterThan(3);
+expect(() => {
+  1 / 0;
+}).toThrow();
+expect(3).not.toEqual(4);
+```
+
+chai:
+
+```js
+expect(foo).to.be.a('string');
+expect(() => {
+  1 / 0;
+}).to.throw();
+expect(foo).to.equal('bar');
+```
+
+# Strukturierung von Tests
+
+## Gruppieren
 
 mit `describe()`:
 
 ```js
+// jest
 describe('strings that are short enough', () => {
   it('leaves "abc" unchanged with limit 5', () => {
     expect(shorten('abc', 5)).toEqual('abc');
@@ -267,9 +405,10 @@ describe('strings that are short enough', () => {
 
 ## Setup und teardown
 
-Für Code, der vor bzw nach jedem Test ausgeführt werden soll:
+Für Code, der vor und jedem Test in einer Gruppe ausgeführt werden soll:
 
 ```js
+// jest or mocha
 beforeEach(() => {
   createTestDB();
 });
@@ -279,18 +418,20 @@ afterEach(() => {
 });
 ```
 
+# Testen von React-Anwendungen
+
 ## Test Renderer für React
 
-- `react-test-renderer` (vom React-Team)
-- `Enzyme` (entwickelt von Airbnb)
+- `react-test-renderer` (vom React Team entwickelt)
+- `Enzyme` (von Airbnb entwickelt)
 
-## Enzyme - Setup
+## Enzyme - Einrichtung
 
 ```
-npm install --save enzyme enzyme-adapter-react-16 react-test-renderer
+npm install --save-dev enzyme enzyme-adapter-react-16
 ```
 
-neue Datei `setupTests.js`:
+neue Datei `src/setupTests.js`:
 
 ```
 import { configure } from 'enzyme';
@@ -301,15 +442,18 @@ configure({ adapter: new Adapter() });
 
 ## Enzyme - Beispiele
 
+Tests mit Jest
+
 ```jsx
 it('renders three <Foo /> components', () => {
+  // Alternative zu shallow: mount()
   const wrapper = shallow(<MyComponent />);
-  expect(wrapper.find(Foo)).to.have.lengthOf(3);
+  expect(wrapper.find(Foo)).toHaveLength(3);
 });
 
 it('renders an `.icon-star`', () => {
   const wrapper = shallow(<MyComponent />);
-  expect(wrapper.find('.icon-star')).to.have.lengthOf(1);
+  expect(wrapper.find('.icon-star')).toHaveLength(1);
 });
 ```
 
@@ -323,6 +467,20 @@ it('reacts to click events', () => {
   );
   wrapper.find('button').simulate('click');
   expect(onButtonClick).to.have.property('callCount', 1);
+});
+```
+
+## Enzyme - Beispiele
+
+<!-- prettier-ignore -->
+```jsx
+it('reacts to click events', () => {
+  const mockFunction = jest.fn();
+
+  const wrapper = mount(<Rating stars={3} onStarsChange={mockFunction} />);
+  expect(wrapper.childAt(0).childAt(2).text()).toBe('*');
+  wrapper.childAt(0).childAt(1).simulate('click');
+  expect(mockFunction).toBeCalledWith(2);
 });
 ```
 
@@ -370,6 +528,86 @@ können wir Snapshot-Tests entsprechend aktualisieren:
 Inspect your code changes or press `u` to update them.
 ```
 
+# Beispiel: Testen einer Rating-Komponente
+
+Mit Jest, Enzyme, Chai und Sinon
+
+## Beispiel: Testen einer Rating-Komponente
+
+```tsx
+import React from 'react';
+import { shallow, mount } from 'enzyme';
+import { expect } from 'chai';
+import sinon from 'sinon';
+import Rating from './Rating';
+```
+
+## Beispiel: Testen einer Rating-Komponente
+
+```tsx
+describe('rendering', () => {
+  it('renders 5 Star components', () => {
+    const wrapper = shallow(<Rating stars={5} />);
+    expect(wrapper.find('Star')).to.have.length(5);
+  });
+
+  it('renders 5 active stars', () => {
+    const wrapper = mount(<Rating stars={5} />);
+    expect(wrapper.find('.star')).to.have.length(5);
+  });
+});
+```
+
+## Beispiel: Testen einer Rating-Komponente
+
+```tsx
+describe('rendering', () => {
+  it('renders 3 active stars', () => {
+    const wrapper = mount(<Rating stars={3} />);
+    expect(wrapper.find('.star')).to.have.length(5);
+    expect(
+      wrapper.find('.star').get(2).props.className
+    ).to.equal('star active');
+    expect(
+      wrapper.find('.star').get(3).props.className
+    ).to.equal('star');
+  });
+});
+```
+
+## Beispiel: Testen einer Rating-Komponente
+
+```tsx
+describe('events', () => {
+  it('reacts to click on first star', () => {
+    const spy = sinon.spy();
+    const wrapper = mount(
+      <Rating stars={3} onStarsChange={spy} />
+    );
+    wrapper
+      .find('span')
+      .at(0)
+      .simulate('click');
+    expect(spy.getCall(0).args[0]).to.equal(1);
+  });
+});
+```
+
+## Beispiel: Testen einer Rating-Komponente
+
+```tsx
+describe('errors', () => {
+  it('throws an error if the number of stars is 0', () => {
+    const testFn = () => {
+      const wrapper = shallow(<Rating stars={0} />);
+    };
+    expect(testFn).to.throw(
+      'number of stars must be positive'
+    );
+  });
+});
+```
+
 # React Router
 
 ## React Router
@@ -384,7 +622,7 @@ npm install react-router-dom
 
 ```bash
 // TypeScript:
-npm install @types/react-router-dom
+npm install react-router-dom @types/react-router-dom
 ```
 
 ## React Router - BrowserRouter
@@ -511,10 +749,12 @@ https://developers.google.com/web/fundamentals/app-install-banners/
 ## PWA: add to homescreen
 
 ```js
+let deferredPrompt;
+
 componentDidMount() {
   window.addEventListener('beforeinstallprompt', e => {
     e.preventDefault();
-    this.deferredPrompt = e;
+    deferredPrompt = e;
     this.setState({ showInstallBtn: true });
   });
 }
@@ -531,7 +771,7 @@ handleInstallBtnClicked = () => {
     } else {
       console.log('user dismissed');
     }
-    this.deferredPrompt = null;
+    deferredPrompt = null;
     this.setState({ showInstallBtn: false });
   });
 };
@@ -574,37 +814,37 @@ const TodosContext = React.createContext();
 ```ts
 // TodosContext.ts
 
-interface TodosContextInterface {
+type TodosContext = {
   todos: Array<Todo>;
   onToggle: (id: number) => void;
   onClear: () => void;
-}
+};
 
-const TodosContext = React.createContext<
-  Partial<TodosContextInterface>
->({});
+const TodosContext = React.createContext(
+  {} as TodosContext
+);
 ```
 
 ## Context - Beispiel: Provider
 
 ```jsx
-class App extends React.Component {
-  render() {
-    return (
-      <MyContext.Provider
-        value={{
-          todos: this.state.todos,
-          onToggle: this.handleToggle,
-          onClear: this.handleClear,
-        }}>
-        <TodoStats />
-      </MyContext.Provider>
-    );
-  }
-}
+const App = () => {
+  return (
+    <MyContext.Provider
+      value={{
+        todos: this.state.todos,
+        onToggle: this.handleToggle,
+        onClear: this.handleClear,
+      }}>
+      <TodoStats />
+    </MyContext.Provider>
+  );
+};
 ```
 
 ## Context - Beispiel: Consumer
+
+funktionale Komponente:
 
 ```jsx
 const TodoStats = () => {
@@ -614,6 +854,8 @@ const TodoStats = () => {
 ```
 
 ## Context - Beispiel: Consumer
+
+Klassenkomponente
 
 ```jsx
 class TodoStats extends React.Component {
@@ -729,3 +971,4 @@ export default class Page extends React.Component {
   }
 }
 ```
+

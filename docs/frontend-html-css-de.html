@@ -248,7 +248,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
       </section><section class="slide" id="slide-3-11">
         <h2 id="viewport">Viewport</h2>
 <pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">meta</span>
-  <span class="hljs-attr">name</span>=<span class="hljs-string">"view&amp;quot;port"</span>
+  <span class="hljs-attr">name</span>=<span class="hljs-string">"viewport"</span>
   <span class="hljs-attr">content</span>=<span class="hljs-string">"width=device-width, initial-scale=1"</span>
 /&gt;</span></code></pre>
 <p><a href="https://viewportsizes.com/mine">https://viewportsizes.com/mine</a></p>
@@ -316,27 +316,6 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li><em>F2</em>: Umbenennen von Variablen</li>
 <li><em>Alt</em> + Mausklick: Mehrere Textcursor zum gleichzeitigen Schreiben setzen</li>
 </ul>
-
-      </section><section class="slide" id="slide-4-10">
-        <h2 id="vs-code---plugins">VS Code - Plugins</h2>
-<p>Empfohlene Plugins:</p>
-<ul>
-<li>Debugger for Chrome (Firefox / ...)</li>
-<li>ESLint<br><code>npm install --save-dev eslint</code><br><code>./node_modules/.bin/eslint --init</code></li>
-</ul>
-<p>(siehe auch <em>Show Popular Extensions</em> in VS Code)</p>
-<!--
-http://www.snappyjs.com/2018/03/25/vscode-extensions-for-javascript-developers/
-ESLint
-JSRefactor
-auto rename tag
-auto close tag (in html in mordernem VS Code nicht mehr notwendig)
-npm Intellisense
-guides
-rainbow brackets
-wakatime
--->
-
 
       </section></section><section class="section" id="section-5"><section class="slide" id="slide-5-1">
         <h1 id="vs-code---extensions">VS Code - Extensions</h1>
@@ -445,10 +424,10 @@ ID-Selektor: <code>#home-button</code></p>
         <h2 id="font-size">font-size</h2>
 <p>mögliche Einheiten:</p>
 <ul>
-<li><code>px</code>: Pixel</li>
+<li><code>px</code>: &quot;Pixel&quot;</li>
 <li><code>%</code>: Prozent relativ zum umgebenden Text</li>
 <li><code>em</code>: Prozent relativ zum umgebenden Text</li>
-<li><code>rem</code>: Prozent relativ zur Schriftgröße vom <code>html</code>-Element</li>
+<li><code>rem</code>: Prozent relativ zur Schriftgröße des <code>html</code>-Elements</li>
 </ul>
 
       </section><section class="slide" id="slide-6-14">
@@ -480,6 +459,21 @@ ID-Selektor: <code>#home-button</code></p>
 </ul>
 
       </section><section class="slide" id="slide-6-18">
+        <h2 id="längeneinheiten">Längeneinheiten</h2>
+<p>px, em, rem, %, vh, vw</p>
+
+      </section><section class="slide" id="slide-6-19">
+        <h2 id="device-pixel-ratio">device pixel ratio</h2>
+<p>früher:<br>1px = ein Pixel am Bildschirm</p>
+<p>heutzutage:<br>zB beim iPhone 4: 1px = zwei Pixel am Bildschirm (device pixel ratio = 2)</p>
+<p>Abfragbar über JS-Variable <code>devicePixelRatio</code></p>
+
+      </section><section class="slide" id="slide-6-20">
+        <h2 id="rem">rem</h2>
+<p>rem = Schriftgröße des <code>html</code>-Elements</p>
+<p>Standard in Browsern: 1 rem = 16 px</p>
+
+      </section><section class="slide" id="slide-6-21">
         <h2 id="inline--und-block-elemente">Inline- und Block-Elemente</h2>
 <p>Inline-Elemente:</p>
 <ul>
@@ -494,12 +488,12 @@ ID-Selektor: <code>#home-button</code></p>
 <li>z.B. <code>h1</code>, <code>ul</code>, <code>li</code>, <code>p</code></li>
 </ul>
 
-      </section><section class="slide" id="slide-6-19">
+      </section><section class="slide" id="slide-6-22">
         <h2 id="span--div">span &amp; div</h2>
 <p><code>span</code> = allgemeinstes inline-Element</p>
 <p><code>div</code> = allgemeinstes block-Element</p>
 
-      </section><section class="slide" id="slide-6-20">
+      </section><section class="slide" id="slide-6-23">
         <h2 id="block--elemente-und-das-box-modell">Block- Elemente und das Box-Modell</h2>
 <p>&quot;Schichten&quot; von innen nach außen:</p>
 <ul>
@@ -509,7 +503,7 @@ ID-Selektor: <code>#home-button</code></p>
 <li>Außenabstand (margin)</li>
 </ul>
 
-      </section><section class="slide" id="slide-6-21">
+      </section><section class="slide" id="slide-6-24">
         <h2 id="block--elemente-und-das-box-modell">Block- Elemente und das Box-Modell</h2>
 <p>Größe des Inhalts:</p>
 <ul>
@@ -519,7 +513,7 @@ ID-Selektor: <code>#home-button</code></p>
 </ul>
 <p>Wenn z.B. bei height <code>50%</code> angegeben wird, bezieht sich das auf das Elternelement</p>
 
-      </section><section class="slide" id="slide-6-22">
+      </section><section class="slide" id="slide-6-25">
         <h2 id="block--elemente-und-das-box-modell">Block- Elemente und das Box-Modell</h2>
 <p>Die Attribute <code>height</code>, <code>width</code> u.s.w. beziehen sich standardmäßig auf den Inhalt (ohne padding und border)</p>
 <p>Heute setzt man oft:</p>
@@ -528,7 +522,7 @@ ID-Selektor: <code>#home-button</code></p>
 }</code></pre>
 <p>dann beziehen sie sich auf die Gesamtgröße (mit padding und border, aber ohne margin)</p>
 
-      </section><section class="slide" id="slide-6-23">
+      </section><section class="slide" id="slide-6-26">
         <h2 id="block-elemente-und-das-box-modell">Block-Elemente und das Box-Modell</h2>
 <p>Padding (Innenabstand) und Margin (Außenabstand)</p>
 <p>alle 4 Abstände gleich setzen: <code>padding: 10px;</code></p>
@@ -537,16 +531,16 @@ ID-Selektor: <code>#home-button</code></p>
 <p>horizontalen Abstand gleich setzen (zum horizontalen Zentrieren): <code>margin: 10px auto;</code></p>
 <p>Abstände individuell setzen: <code>padding: 10px; padding-left: 20px;</code></p>
 
-      </section><section class="slide" id="slide-6-24">
+      </section><section class="slide" id="slide-6-27">
         <h2 id="block-elemente-und-das-box-modell">Block-Elemente und das Box-Modell</h2>
 <p>Border-Beispiel: <code>border: 10px solid blue</code></p>
 <p>Abrundung-Beispiel: <code>border-radius: 5px</code></p>
 
-      </section><section class="slide" id="slide-6-25">
+      </section><section class="slide" id="slide-6-28">
         <h2 id="margin--padding-bei-inline-elementen">margin &amp; padding bei Inline-Elementen</h2>
 <p>Achtung: vertikales margin und padding wirken sich bei Inline-Elementen nicht auf die Positionierung aus und führen zu Überlappungen</p>
 
-      </section><section class="slide" id="slide-6-26">
+      </section><section class="slide" id="slide-6-29">
         <h2 id="layout-beispiel-horizontales-zentrieren">Layout-Beispiel: Horizontales Zentrieren</h2>
 <pre><code class="language-css"><span class="hljs-selector-tag">div</span> {
   <span class="hljs-attribute">width</span>: <span class="hljs-number">800px</span>;
@@ -557,14 +551,14 @@ ID-Selektor: <code>#home-button</code></p>
   <span class="hljs-attribute">margin</span>: auto;
 }</code></pre>
 
-      </section><section class="slide" id="slide-6-27">
+      </section><section class="slide" id="slide-6-30">
         <h2 id="overflow">overflow</h2>
 <p>Um bei Bedarf scroll-Leisten anzuzeigen:</p>
 <pre><code class="language-css"><span class="hljs-selector-tag">div</span> {
   <span class="hljs-attribute">overflow</span>: auto;
 }</code></pre>
 
-      </section><section class="slide" id="slide-6-28">
+      </section><section class="slide" id="slide-6-31">
         <h2 id="body-mit-voller-höhe">Body mit voller Höhe</h2>
 <p>Standardmäßig: Body ist nur so groß wie dessen Inhalt</p>
 <p>Um Body immer die volle Seitenhöhe einnehmen zu lassen:</p>
@@ -572,7 +566,7 @@ ID-Selektor: <code>#home-button</code></p>
   <span class="hljs-attribute">height</span>: <span class="hljs-number">100vh</span>;
 }</code></pre>
 
-      </section><section class="slide" id="slide-6-29">
+      </section><section class="slide" id="slide-6-32">
         <h2 id="übung-google-klon">Übung: Google-Klon</h2>
 
       </section></section><section class="section" id="section-7"><section class="slide" id="slide-7-1">
@@ -709,6 +703,14 @@ ID-Selektor: <code>#home-button</code></p>
 
       </section><section class="slide" id="slide-8-7">
         <h2 id="css-frameworks-beispiel-bootstrap">CSS-Frameworks: Beispiel Bootstrap</h2>
+
+      </section></section><section class="section" id="section-9"><section class="slide" id="slide-9-1">
+        <h1 id="online-resourcen">Online Resourcen</h1>
+<ul>
+<li>MDN: Mozilla Developer Network</li>
+<li>W3Schools (kein Zusammenhang zu W3C)</li>
+<li>caniuse.com: Unterstützung verschiedener Browser-Features</li>
+</ul>
 
       </section></section>
 

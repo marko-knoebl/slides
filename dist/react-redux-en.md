@@ -605,3 +605,4 @@ create a thunk that will load example todos from `https://5qn401kkl9.lp.gql.zone
 ## resource: Taming Large React Applications w/ Redux
 
 https://slides.com/joelkanzelmeyer/taming-large-redux-apps
+
