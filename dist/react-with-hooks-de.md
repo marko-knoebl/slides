@@ -35,6 +35,8 @@ Marko Knöbl
 
 # Agenda
 
+## Agenda
+
 ### Einstieg
 
 - Kurzüberblick über React
@@ -42,6 +44,8 @@ Marko Knöbl
 - Deklaratives Rendering / Arbeiten mit application-state
 - Komponenten
 - Einbinden vordefinierter Komponenten
+
+## Agenda
 
 ### Vertiefung
 
@@ -851,6 +855,8 @@ type TodoActionType =
 
 Allgemeine Typendeklaration, bei der beim Aufruf nähere Informationen spezifiziert werden können
 
+## Generics
+
 ```ts
 function reducer<MyState, MyAction>(
   state: MyState,
@@ -858,11 +864,9 @@ function reducer<MyState, MyAction>(
 ): MyState {
   ...
 }
-```
 
-Verwendung:
+// Verwendung
 
-```ts
 // newState hat automatisch den richtigen Typ
 const newState = reducer<TodoState, TodoAction>(
   myTodoState,

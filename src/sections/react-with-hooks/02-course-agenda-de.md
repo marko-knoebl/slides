@@ -1,5 +1,7 @@
 # Agenda
 
+## Agenda
+
 ### Einstieg
 
 - Kurzüberblick über React
@@ -7,6 +9,8 @@
 - Deklaratives Rendering / Arbeiten mit application-state
 - Komponenten
 - Einbinden vordefinierter Komponenten
+
+## Agenda
 
 ### Vertiefung
 
