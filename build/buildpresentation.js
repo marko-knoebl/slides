@@ -35,7 +35,11 @@ const buildPresentation = (coursename, lang) => {
   if (config.images) {
     for (let imgName of config.images) {
       const fullImgPath = `src/assets/${imgName}`;
-      images[imgName] = fs.readFileSync(fullImgPath, 'base64');
+      if (new RegExp('\\.png$').test(fullImgPath)) {
+        images[imgName] = fs.readFileSync(fullImgPath, 'base64');
+      } else if (new RegExp('\\.svg$').test(fullImgPath)) {
+        images[imgName] = fs.readFileSync(fullImgPath, 'utf-8');
+      }
     }
   }
 
