@@ -70,6 +70,41 @@ return <div>{face}</div>;
 <div className={getClassName()}>[...]</div>
 ```
 
+## CSS-Module
+
+Bei create-react-app sind CSS-Module vorkonfiguriert. Diese erlauben das Anwenden von CSS auf nur eine Komponente.
+
+```js
+import styles from './TodoItem.module.css';
+
+<div className={styles.todoItem}>...</div>;
+
+<div className={`${styles.todoItem} ${styles.completed}`}>
+  ...
+</div>;
+```
+
+## SCSS einbinden
+
+```bash
+npm install node-sass
+```
+
+```js
+import styles from './TodoItem.module.scss';
+```
+
+```scss
+/* colors.scss */
+$primary: lightblue;
+```
+
+```scss
+/* TodoItem.module.scss */
+@import '../colors';
+...
+```
+
 ## JSX: Dynamische Stile
 
 ```jsx
