@@ -33,4 +33,4 @@
 
 ## Beispiel: Datenmodell und -fluss in einer Todo-App
 
-![Bild: Datenmodell in einer Todo-App](./images/todo-components-datamodel.svg)
+<img src="assets/todo-components-datamodel.svg" type="text/svg" style="width: 300px">

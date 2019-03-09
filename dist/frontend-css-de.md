@@ -33,202 +33,6 @@ Marko Knöbl
 - Unterlagen
 - Fragen, Feedback? - Jederzeit erwünscht
 
-# HTML, CSS & JavaScript
-
-## HTML, CSS & JavaScript
-
-Zentrale Technologien, die der Browser verwendet:
-
-- **HTML**: definiert Struktur und Inhalt einer Seite
-- **CSS**: definiert Stil (Aussehen) einer Seite
-- **JavaScript**: definiert Verhalten / Interaktion einer Seite
-
-# HTML Grundlagen
-
-## HTML-Syntax
-
-HTML besteht aus verschachtelten **Elementen**, die von **Tags** begrenzt werden.
-
-```html
-<h1>Dies ist eine Überschrift</h1>
-```
-
-## HTML-Syntax
-
-Manche HTML-Elemente haben keinen Inhalt, zB der br-Tag, der einen Zeilenumbruch darstellt:
-
-<!-- prettier-ignore -->
-```html
-<br>
-```
-
-## HTML-Syntax: Attribute
-
-HTML-Tags können Attribute der folgenden Form zugewiesen werden:
-
-```html
-<img src="portrait.png" alt="Portraitbild des Benutzers" />
-```
-
-## HTML-Tags
-
-Beispiele:
-
-- h1-h6
-- p
-- em
-- strong
-- br
-- ul & li
-- img
-- a
-
-## Ausprobieren
-
-https://codepen.io
-
-(Alternativen: https://jsfiddle.net, https://plnkr.co, https://codesandbox.io)
-
-## Kommentare
-
-```html
-<!-- dies ist ein Kommentar -->
-```
-
-## Grundlegende HTML-Struktur
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0"
-    />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
-  </head>
-  <body></body>
-</html>
-```
-
-In VS Code: Codeschnipsel `html:5`
-
-## Besondere Zeichen
-
-Um die folgenden Zeichen in einem HTML-Dokument darzustellen, sollten sie immer "escaped" werden:
-
-- `<` wird zu `&lt;`
-- `>` wird zu `&gt;`
-- `&` wird zu `&amp;`
-
-Folgende Zeichen müssen in HTML-Attributen excaped werden:
-
-- `"` wird zu `&quot;`
-- (`'` wird zu `&apos;`, wenn das HTML-Attribut durch `'` begrenzt wird)
-
-## Besondere Zeichen
-
-Es sollte heutzutage immer `<meta charset="UTF-8" />` angegeben sein, dann können generell beliebige Unicode-Zeichen verwendet werden.
-
-```html
-<button>😊</button>
-```
-
-## Viewport
-
-```html
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1"
-/>
-```
-
-https://viewportsizes.com/mine
-
-## Browser tools (F12)
-
-Übung: Bestehende Website in Browser Tools begutachten
-
-# VS Code
-
-## VS Code
-
-https://code.visualstudio.com
-
-- Open-Source-Entwicklungsumgebung
-- Unabhängig vom eigentlichen Visual Studio
-
-## VS Code: Ordner öffnen
-
-ganzen Ordner öffnen mit _File_ - _Open Folder_
-
-## VS Code: speichern
-
-Nicht gespeicherte Dateien sind durch einen Kreis statt des "X" im Tab erkennbar
-
-Speichern mit _Strg_ + _S_
-
-oder: _File_ - _Auto Save_
-
-## VS Code: Datei-Explorer, Split Editor
-
-## VS Code: Terminal
-
-Öffnen und Schließen der Ansicht via _Strg_ + _Ö_
-
-zusätzliches Terminal via Symbol _+_
-
-übernimmt das aktuell geöffnete Verzeichnis
-
-## VS Code - Konfiguration
-
-Via _File - Preferences - Settings_
-
-Eingeteilt in _User Settings_ und _Workspace Settings_
-
-## VS Code - Konfigurationsmöglichkeiten
-
-Empfehlungen:
-
-- Auto Save: _aktivieren_
-- Accept Suggestion on Commit Character (Autovervollständigung ohne _Enter_): _deaktivieren_
-- Tab Size: _2_
-
-Weitere Möglichkeiten:
-
-- Format on Save
-- Format on Paste
-- EOL
-- Workbench: Color Theme
-
-## VS Code - Kurzbefehle
-
-- _Strg_ + _F_: Suchen in Datei
-- _Alt_ + _Shift_ + _F_: Formatieren der Datei
-- _F2_: Umbenennen von Variablen
-- _Alt_ + Mausklick: Mehrere Textcursor zum gleichzeitigen Schreiben setzen
-
-# VS Code - Extensions
-
-In der Sidebar öffnen: fünftes Symbol auf der linken Seite
-
-## VS Code - Extensions
-
-- Prettier - Automatische Code-Formatierung nach strikten Regeln - für HTML, JS, CSS
-
-## Prettier - Konfiguration
-
-z.B. über _prettierrc.json_:
-
-```json
-{
-  "singleQuote": true,
-  "trailingComma": "all"
-}
-```
-
 # CSS
 
 ## Stile auf HTML-Elemente anwenden
@@ -500,109 +304,30 @@ body {
 }
 ```
 
-## Übung: Google-Klon
-
-# HTML Fortgreschritten
-
-## Semantisches HTML
-
-- section
-- article
-- footer
-- nav
-- aside
-
 ## Tabellen
-
-- table, tr
-- th, td
-- border-collapse
-- caption-Tag
-- colspan
-
-## Tabellen: Übung Öffnungszeiten
 
 ## Tabellen: verwenden von Pseudoklassen
 
 - `:hover`: Der Stil einer Tabellenzeile soll sich ändern, wenn wir die Maus darüber bewegen
 - `:nth-child`: Die Zeilen sollen gestreift dargestellt werden
 
-## Formulare
+### Tabellen: Stil
 
-Beispiel:
-
-```html
-<form>
-  <label for="firstname">First Name:</label>
-  <input id="firstname" />
-  <label for="lastname">Last Name:</label>
-  <input id="lastname" />
-</form>
+```css
+table {
+  border-collapse: collapse;
+}
+tr:hover:nth-child(n) {
+  background-color: lightgrey;
+}
+tr:nth-child(2n) {
+  background-color: skyblue;
+}
 ```
 
-## Input-Attribute
+## Übung: Öffnungszeiten
 
-- placeholder
-- autofocus
-- autocomplete
-- size
-
-## Input-Typen
-
-Standardwert: `text`
-
-Weitere Möglichkeiten:
-
-- `checkbox`
-- `radio`
-- `file`
-- `password`
-- `date` (HTML 5)
-- `email`(HTML 5)
-- `number` (HTML 5)
-- `search` (HTML 5)
-
-## autocomplete
-
-Das `autocomplete`-Attribut kann für die Autovervollständigung hilfreich sein, z.B.:
-
-- `name`
-- `given-name`
-- `email`
-- `username`
-- ...
-
-## Validierung
-
-- `required`
-- `minlength`
-- `maxlength`
-
-CSS-Pseudoklassen: `:valid`, `:invalid`
-
-## Validierung - Beispiel
-
-```html
-<input
-  type="number"
-  min="-5"
-  max="5"
-  step="0.1"
-  value="1"
-/>
-```
-
-## Aktionen bei Formularen
-
-```html
-<form action="login.php" method="post">
-  <input name="username" /><br />
-  <input name="password" type="password" /><br />
-  <button>log in</button>
-</form>
-```
-
-Bei Betätigen des Buttons sendet das Formular einen post-Request an die Adresse _login.php_ und übermittelt die Daten _username_ und _password_
+## Übung: Google-Klon
 
 # CSS-Layouts
 
@@ -626,10 +351,4 @@ Bei Betätigen des Buttons sendet das Formular einen post-Request an die Adresse
 ## Media Queries
 
 ## CSS-Frameworks: Beispiel Bootstrap
-
-# Online Resourcen
-
-- MDN: Mozilla Developer Network
-- W3Schools (kein Zusammenhang zu W3C)
-- caniuse.com: Unterstützung verschiedener Browser-Features
 

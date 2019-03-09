@@ -8,7 +8,7 @@ Möglichkeit, eigene Tags zu definieren, z.B.
 <Rating stars={4} />
 ```
 
-<img src="assets/rating.png" style="height: 4em">
+<img src="assets/rating.png" type="image/png" style="height: 4em">
 
 ## Komponenten
 

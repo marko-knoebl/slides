@@ -1,0 +1,58 @@
+# lodash
+
+## lodash
+
+JavaScript utility library
+
+```js
+_.defaults({ a: 1 }, { a: 3, b: 2 });
+// → { a: 1, b: 2 }
+_.partition([1, 2, 3, 4], n => n % 2);
+// → [[1, 3], [2, 4]]
+```
+
+## lodash
+
+collection of utility functions for working with arrays, objects, functions, strings, ...
+
+## lodash
+
+```js
+import { chunk } from 'lodash';
+
+chunk([1, 2, 3, 4, 5, 6, 7], 3);
+// -> [[1, 2, 3], [4, 5, 6], [7]]
+```
+
+## functions for arrays
+
+- `chunk`
+- `difference`
+- `drop`
+- `flatten`, `flattenDeep`
+- `intersection`, `union`, `difference`, `without`
+- `last`
+- `uniq`
+- `zip`
+
+## functions for arrays and objects
+
+- `groupBy`
+- `keyBy`
+- `partition`
+- `shuffle`
+- `sortBy` (creates new array)
+
+* `cloneDeep`
+* `isEqual`
+
+## functions for functions
+
+- `curry`
+- `memoize`
+- `partial`
+
+## utilities
+
+- `bindAll`
+- `range`
