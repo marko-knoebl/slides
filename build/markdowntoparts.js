@@ -2,11 +2,13 @@ const marked = require('marked');
 
 const validImageTypes = ['png', 'svg'];
 const imgRegex = new RegExp(
-  '<img src="assets\\/(.*\\.(.*?))" type="image/png".*>',
+  '<img src="assets\\/(.*\\.(.*?))" type="image/png"(.*)>',
   (flags = 'g')
 );
 
-const svgRegex = new RegExp('<img src="assets\\/(.*\\.(.*?))" type="text/svg".*>');
+const svgRegex = new RegExp(
+  '<img src="assets\\/(.*\\.(.*?))" type="text/svg".*>'
+);
 
 /**
  * Turns markdown into parts describing a slide in a presentation
@@ -33,8 +35,8 @@ const markdownToParts = (source, images) => {
         if (token.type === 'html') {
           // comments and images are processed here
           token.text = token.text
-            .replace(imgRegex, (match, imgPath, fileExt) =>
-              imageFileToHtmlString(images, imgPath, fileExt)
+            .replace(imgRegex, (match, imgPath, fileExt, rest) =>
+              imageFileToHtmlString(images, imgPath, fileExt, rest)
             )
             .replace(svgRegex, (match, imgPath, fileExt) =>
               imageFileToHtmlString(images, imgPath, fileExt)
@@ -57,7 +59,7 @@ const imageFileToSrcString = (images, imgPath, fileExt) => {
   }
 };
 
-const imageFileToHtmlString = (images, imgPath, fileExt) => {
+const imageFileToHtmlString = (images, imgPath, fileExt, rest) => {
   if (fileExt === 'svg') {
     const imageSrc = images[imgPath];
     return `${imageSrc}`;
@@ -68,7 +70,7 @@ const imageFileToHtmlString = (images, imgPath, fileExt) => {
         `Cannot include image from ${imgPath}. It is not listed as an asset`
       );
     }
-    return `<img src="data:image/${fileExt};base64, ${imageBase64}">`;
+    return `<img src="data:image/${fileExt};base64, ${imageBase64}"${rest}>`;
   } else {
     throw new Error(`Cannot include images of type ${fileExt}`);
   }
