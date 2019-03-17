@@ -76,7 +76,6 @@ export default class Page extends React.Component {
     const json = await res.json();
     return { stars: json.stargazers_count };
   }
-
   render() {
     return <div> Next stars: {this.props.stars} </div>;
   }

@@ -62,37 +62,4 @@ const addTodo = (title, completed = false) => ({
 });
 ```
 
-## Reducers
-
-- Actions are processed by reducer functions
-- reducers receive the old state and an action
-- reducers return the new state
-- note: reducers never modify the old state object, but they construct a new one based on it (reducers are pure functions)
-
-## Stores
-
-```js
-import { createStore } from 'redux';
-
-// counter = reducer
-const store = createStore(counter);
-```
-
-## combining reducers
-
-```js
-const rootReducer = combineReducers({
-  a: counter,
-  b: mathador,
-});
-
-const rootStore = createStore(rootReducer);
-
-rootStore.getState();
-// {a: {count: 0}, b: {number: 1}}
-
-rootStore.dispatch({ type: 'INCREMENT' });
-// {a: {count: 1}, b: {number: 1}}
-```
-
 ## Exercise: state managment in the todo app

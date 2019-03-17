@@ -66,39 +66,4 @@ const addTodo = (title, completed = false) => ({
 });
 ```
 
-## Reducers
-
-- Actions werden von reducer-Funktionen verarbeitet
-- Reducer-Funktionen erhalten als Argumente den alten Zustand (State) und eine Action
-- Reducer-Funktionen geben den neuen Zustand zurück
-- wichtig: Reducer-Funktionen ändern das alte state-Objekt nicht ab, sondern erstellen ein neues (reine Funktionen)
-
-## Stores
-
-Store = Datenspeicher, der von einem Reducer verwaltet wird
-
-```js
-import { createStore } from 'redux';
-import counterReducer from './counterReducer';
-
-const store = createStore(counterReducer);
-```
-
-## Reducer kombinieren
-
-```js
-const rootReducer = combineReducers({
-  counter: counterReducer,
-  mathador: mathadorReducer,
-});
-
-const rootStore = createStore(rootReducer);
-
-rootStore.getState();
-// {counter: {count: 0}, mathador: {number: 1}}
-
-rootStore.dispatch({ type: 'INCREMENT' });
-// {counter: {count: 1}, mathador: {number: 1}}
-```
-
 ## Beispiel: Todo-Verwaltung mit Redux

@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>JavaScript Grundlagen</title>
+  <style>/*
+
+Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
+
+*/
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  background: #F0F0F0;
+}
+
+
+/* Base color: saturation 0; */
+
+.hljs,
+.hljs-subst {
+  color: #444;
+}
+
+.hljs-comment {
+  color: #888888;
+}
+
+.hljs-keyword,
+.hljs-attribute,
+.hljs-selector-tag,
+.hljs-meta-keyword,
+.hljs-doctag,
+.hljs-name {
+  font-weight: bold;
+}
+
+
+/* User color: hue: 0 */
+
+.hljs-type,
+.hljs-string,
+.hljs-number,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-quote,
+.hljs-template-tag,
+.hljs-deletion {
+  color: #880000;
+}
+
+.hljs-title,
+.hljs-section {
+  color: #880000;
+  font-weight: bold;
+}
+
+.hljs-regexp,
+.hljs-symbol,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-link,
+.hljs-selector-attr,
+.hljs-selector-pseudo {
+  color: #BC6060;
+}
+
+
+/* Language color: hue: 90; */
+
+.hljs-literal {
+  color: #78A960;
+}
+
+.hljs-built_in,
+.hljs-bullet,
+.hljs-code,
+.hljs-addition {
+  color: #397300;
+}
+
+
+/* Meta color: hue: 200 */
+
+.hljs-meta {
+  color: #1f7199;
+}
+
+.hljs-meta-string {
+  color: #4d99bf;
+}
+
+
+/* Misc effects */
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+  <div id="canvas">
+    <div id="canvas-content">
+
+      <section class="section" id="section-1"><section class="slide" id="slide-1-1">
+        <h1 id="javascript">JavaScript</h1>
+
+      </section><section class="slide" id="slide-1-2">
+        <h2 id="javascript">JavaScript</h2>
+<p>dynamische Programmiersprache</p>
+<p>Einsatzbereiche:</p>
+<ul>
+<li>im Webbrowser: Interaktivität von Webseiten / -anwendungen</li>
+<li>am Webserver: Mittels <em>node.js</em></li>
+<li>lokal am Rechner: für Skripte</li>
+</ul>
+
+      </section><section class="slide" id="slide-1-3">
+        <h2 id="javascript-standardisierung">JavaScript-Standardisierung</h2>
+<p>JavaScript wird unter dem Namen <em>ECMAScript</em> (kurz ES) standardisiert</p>
+
+      </section><section class="slide" id="slide-1-4">
+        <h2 id="javascript-versionen">JavaScript: Versionen</h2>
+<ul>
+<li>Überall unterstützt: ES5 (2009 veröffentlicht)</li>
+<li>Nächste große Version: <em>ES2015</em> (auch <em>ES6</em>)</li>
+<li>Seither: jährliche kleine Änderungen (aktuell: ES2018)</li>
+</ul>
+
+      </section><section class="slide" id="slide-1-5">
+        <h2 id="javascript-versionsunterstützung">JavaScript: Versionsunterstützung</h2>
+<p>im Browser:</p>
+<ul>
+<li>Übersicht: siehe <a href="http://kangax.github.io/compat-table/es6/">http://kangax.github.io/compat-table/es6/</a></li>
+<li>In der Praxis: Modernes JavaScript wird in ES5 transpiliert (mittels Babel, webpack)</li>
+</ul>
+<p>in node.js:</p>
+<p>Großteil der modernen Funktionalität wird unterstützt; wichtige Ausnahme: ES2015-Module</p>
+
+      </section><section class="slide" id="slide-1-6">
+        <h2 id="codebeispiel">Codebeispiel</h2>
+<pre><code class="language-js"><span class="hljs-comment">// this is a comment</span>
+
+<span class="hljs-keyword">let</span> a = <span class="hljs-number">3</span>;
+<span class="hljs-keyword">let</span> b = <span class="hljs-number">4</span>;
+<span class="hljs-built_in">console</span>.log(a * b);
+
+<span class="hljs-keyword">if</span> (a * b &gt; <span class="hljs-number">10</span>) {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'greater'</span>);
+}</code></pre>
+
+      </section></section><section class="section" id="section-2"><section class="slide" id="slide-2-1">
+        <h1 id="die-interaktive-javascript-konsole">Die interaktive JavaScript-Konsole</h1>
+
+      </section><section class="slide" id="slide-2-2">
+        <h2 id="die-interaktive-javascript-konsole">Die interaktive JavaScript-Konsole</h2>
+<p>Zugriff auf eine JavaScript-Konsole:</p>
+<ul>
+<li>im <em>Webbrowser</em>: Developer Tools (F12) - Konsole</li>
+<li><em>online</em>: repl.it</li>
+<li>in node.js (falls installiert): Terminal-Befehl <code>node</code></li>
+</ul>
+
+      </section><section class="slide" id="slide-2-3">
+        <h2 id="mathematische-operatoren">Mathematische Operatoren</h2>
+<pre><code class="language-js"><span class="hljs-number">2</span> * <span class="hljs-number">2</span> + <span class="hljs-number">3</span> / <span class="hljs-number">2</span>;</code></pre>
+
+      </section><section class="slide" id="slide-2-4">
+        <h2 id="statements">Statements</h2>
+<p>Eine einzelne Anweisung in JavaScript nennt sich Statement. Üblicherweise werden Statements mit Semikolons beendet - wobei in JavaScript die Semikolons meist auch weggelassen werden können.</p>
+
+      </section><section class="slide" id="slide-2-5">
+        <h2 id="variablen">Variablen</h2>
+<p>Daten können in Programmiersprachen mit einem Namen versehen werden - man spricht von Variablen.</p>
+<p>Variablen werden in JavaScript üblicherweise mit <code>let</code> deklariert</p>
+<pre><code class="language-js"><span class="hljs-keyword">let</span> firstName = <span class="hljs-string">'John'</span>;
+<span class="hljs-keyword">let</span> lastName = <span class="hljs-string">'Doe'</span>;
+<span class="hljs-keyword">let</span> birthYear = <span class="hljs-number">1962</span>;</code></pre>
+
+      </section><section class="slide" id="slide-2-6">
+        <h2 id="variablen">Variablen</h2>
+<pre><code class="language-js"><span class="hljs-keyword">let</span> age = <span class="hljs-number">2019</span> - birthYear;</code></pre>
+
+      </section><section class="slide" id="slide-2-7">
+        <h2 id="variablen">Variablen</h2>
+<p>Variablennamen werden üblicherweise zusammen geschrieben, wobei neue Wortanfänge groß geschrieben werden</p>
+<p>Variablennamen dürfen nur aus Buchstaben, Ziffern und Unterstrichen bestehen</p>
+
+      </section><section class="slide" id="slide-2-8">
+        <h2 id="variablen">Variablen</h2>
+<p>Überschreiben (neu setzen von Variablen):</p>
+<pre><code class="language-js"><span class="hljs-keyword">let</span> birthYear = <span class="hljs-number">1962</span>;
+birthYear = <span class="hljs-number">1970</span>;
+birthYear = birthYear + <span class="hljs-number">1</span>;</code></pre>
+
+      </section><section class="slide" id="slide-2-9">
+        <h2 id="einfache-primitive-datentypen">Einfache (primitive) Datentypen</h2>
+<p>Mit welchen Arten von Daten - außer Zahlen - arbeitet ein Computer noch?</p>
+
+      </section><section class="slide" id="slide-2-10">
+        <h2 id="einfache-primitive-datentypen">Einfache (primitive) Datentypen</h2>
+<ul>
+<li><code>Number</code>: Zahl &quot;mit 64 bit Genauigkeit&quot;</li>
+<li><code>String</code>: Text</li>
+<li><code>Boolean</code>: Ja/Nein - Wert (Wahrheitswert)</li>
+</ul>
+
+      </section><section class="slide" id="slide-2-11">
+        <h2 id="number">Number</h2>
+<p>Achtung Rundungsfehler: Einige Zahlen können nicht genau als Kommazahlen repräseniert werden, sie werden immer gerundet</p>
+<p>zB: <code>1/3</code></p>
+<p>Der Computer kann auch Zahlen wie <code>0.1</code> oder <code>0.2</code> nicht genau repräsentieren</p>
+<p>Beispiel: <code>0.3 - 0.2 - 0.1</code></p>
+
+      </section><section class="slide" id="slide-2-12">
+        <h2 id="string">String</h2>
+<p>Ein <em>String</em> - auch <em>Zeichenkette</em> genannt - repräsentiert Text</p>
+<pre><code class="language-js"><span class="hljs-string">'Hallo'</span>;
+<span class="hljs-string">'Hallo'</span> + <span class="hljs-string">'Andreas'</span>;</code></pre>
+
+      </section><section class="slide" id="slide-2-13">
+        <h2 id="string">String</h2>
+<p>Strings werden entweder mit einfachen oder doppelten Anführungszeichen begrenzt</p>
+<!-- prettier-ignore -->
+<pre><code class="language-js"><span class="hljs-string">'Hallo'</span>;
+<span class="hljs-string">"Hallo"</span>;</code></pre>
+
+      </section><section class="slide" id="slide-2-14">
+        <h2 id="template-strings">Template-Strings</h2>
+<ul>
+<li>Syntax zum <em>Erstellen</em> von Strings</li>
+<li>Werden mit Backticks begrenzt</li>
+<li>Erlauben mehrzeilige Strings und Interpolation:</li>
+</ul>
+<pre><code class="language-js"><span class="hljs-keyword">let</span> name = <span class="hljs-string">'Anton'</span>;
+<span class="hljs-keyword">let</span> greeting = <span class="hljs-string">`Hallo, <span class="hljs-subst">${name}</span>!
+                Das ist ES2015!`</span>;</code></pre>
+
+      </section><section class="slide" id="slide-2-15">
+        <h2 id="template-strings">Template-Strings</h2>
+<p>Wie schreiben wir dieses Zeichen: ` ?</p>
+<p><code>Shift</code> + Taste neben der Löschtaste, dann Leertaste</p>
+<p>oder:</p>
+<p>2x <code>Shift</code> + Taste neben der Löschtaste</p>
+
+      </section><section class="slide" id="slide-2-16">
+        <h2 id="strings---escape-sequenzen">Strings - Escape-Sequenzen</h2>
+<p>Problem: Wie setzen wir Zeichen wie zB <code>&#39;</code> innerhalb eines gewöhnlichen Strings?</p>
+<p>Ungültig:</p>
+<!-- prettier-ignore -->
+<pre><code class="language-js"><span class="hljs-keyword">let</span> text = <span class="hljs-string">'I'</span>m ready.<span class="hljs-string">'</span></code></pre>
+
+      </section><section class="slide" id="slide-2-17">
+        <h2 id="strings---escape-sequenzen">Strings - Escape-Sequenzen</h2>
+<p>Lösung:</p>
+<!-- prettier-ignore -->
+<pre><code class="language-js"><span class="hljs-keyword">let</span> text = <span class="hljs-string">'I\'m ready'</span>;</code></pre>
+<p>JavaScript interpretiert die Zeichenfolge <code>\&#39;</code> wie ein einzelnes <code>&#39;</code></p>
+<pre><code class="language-js"><span class="hljs-string">`text.length`</span>; <span class="hljs-comment">// 14</span></code></pre>
+
+      </section><section class="slide" id="slide-2-18">
+        <h2 id="strings---weitere-escape-sequenzen">Strings - Weitere Escape-Sequenzen</h2>
+<p>Zeilenumbruch in 1 Zeile: <code>\n</code></p>
+<pre><code class="language-js"><span class="hljs-keyword">let</span> a = <span class="hljs-string">'line 1\nline 2'</span>;</code></pre>
+<p>Einzelner Backslash:</p>
+<pre><code class="language-js"><span class="hljs-keyword">let</span> b = <span class="hljs-string">'C:\\docs'</span>;</code></pre>
+
+      </section><section class="slide" id="slide-2-19">
+        <h2 id="boolean">Boolean</h2>
+<p>Boolescher Wert: Ja/Nein - Wert</p>
+<p>In JavaScript: <code>true</code> oder <code>false</code></p>
+
+      </section></section><section class="section" id="section-3"><section class="slide" id="slide-3-1">
+        <h1 id="datentypen-und-json">Datentypen und JSON</h1>
+
+      </section><section class="slide" id="slide-3-2">
+        <h2 id="datentypen-und-json">Datentypen und JSON</h2>
+<p>Übersicht über die wichtigsten Datentypen, die in JavaScript (und in JSON) definiert sind</p>
+<p>JSON = <em>JavaScript Object Notation</em>: Datenformat, das insbesondere in der Webentwicklung wichtig ist.</p>
+
+      </section><section class="slide" id="slide-3-3">
+        <h2 id="datentypen">Datentypen</h2>
+<ul>
+<li>Number</li>
+<li>String</li>
+<li>Boolean</li>
+<li>Null</li>
+<li>Array</li>
+<li>Object</li>
+</ul>
+
+      </section><section class="slide" id="slide-3-4">
+        <h2 id="datentypen-null">Datentypen: Null</h2>
+<p>symbolisiert das &quot;fehlen&quot; eines Wertes</p>
+
+      </section><section class="slide" id="slide-3-5">
+        <h2 id="datentypen-array">Datentypen: Array</h2>
+<p>Ein <em>Array</em> beinhaltet eine Abfolge von anderen Objekten</p>
+<pre><code class="language-js"><span class="hljs-keyword">let</span> names = [<span class="hljs-string">'Anne'</span>, <span class="hljs-string">'Bob'</span>, <span class="hljs-string">'Chris'</span>];
+<span class="hljs-keyword">let</span> primes = [<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">7</span>, <span class="hljs-number">11</span>];</code></pre>
+
+      </section><section class="slide" id="slide-3-6">
+        <h2 id="datentypen-objekt">Datentypen: Objekt</h2>
+<p>Ein <em>Objekt</em> beinhaltet benannte Einträge</p>
+<!-- prettier-ignore -->
+<pre><code class="language-js"><span class="hljs-keyword">let</span> person1 = {
+  <span class="hljs-string">"firstName"</span>: <span class="hljs-string">"Thomas"</span>,
+  <span class="hljs-string">"lastName"</span>: <span class="hljs-string">"Edison"</span>,
+  <span class="hljs-string">"birthYear"</span>: <span class="hljs-number">1847</span>,
+  <span class="hljs-string">"living"</span>: <span class="hljs-literal">false</span>
+}</code></pre>
+
+      </section></section><section class="section" id="section-4"><section class="slide" id="slide-4-1">
+        <h1 id="javascript-dateien-ausführen">JavaScript-Dateien ausführen</h1>
+
+      </section><section class="slide" id="slide-4-2">
+        <h2 id="javascript-dateien-ausführen">JavaScript-Dateien ausführen</h2>
+<p>2 wichtige Möglichkeiten:</p>
+<ul>
+<li>einbinden in eine HTML-Seite, aufrufen der Seite:</li>
+</ul>
+<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"myscript.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+<ul>
+<li>direktes Ausführen mittels node.js:</li>
+</ul>
+<pre><code class="language-bash">node myscript.js</code></pre>
+
+      </section></section><section class="section" id="section-5"><section class="slide" id="slide-5-1">
+        <h1 id="unser-erstes-javascript-programm">Unser erstes JavaScript-Programm</h1>
+
+      </section><section class="slide" id="slide-5-2">
+        <h2 id="unser-erstes-javascript-programm">Unser erstes JavaScript-Programm</h2>
+<p>Wir schreiben ein JavaScript-Programm für die Verwendung im Browser.</p>
+<p>Unser Programm soll den Benutzer nach seinem Namen fragen und ihn dann begrüßen.</p>
+
+      </section><section class="slide" id="slide-5-3">
+        <h2 id="eingabe-und-ausgabe">Eingabe und Ausgabe</h2>
+<p>Ausgabe in Popup-Fenster:</p>
+<pre><code class="language-js">alert(<span class="hljs-string">'hello!'</span>);</code></pre>
+<p>Alert ist eine sogenannte <em>Funktion</em>.</p>
+
+      </section><section class="slide" id="slide-5-4">
+        <h2 id="eingabe-und-ausgabe">Eingabe und Ausgabe</h2>
+<p>Eingabe: Mit Hilfe von <code>prompt</code>:</p>
+<pre><code class="language-js"><span class="hljs-keyword">let</span> name = prompt(<span class="hljs-string">'What is your name?'</span>);</code></pre>
+
+      </section><section class="slide" id="slide-5-5">
+        <h2 id="eingabe-und-ausgabe">Eingabe und Ausgabe</h2>
+<p>Ausgabe der Begrüßung</p>
+<pre><code class="language-js">alert(<span class="hljs-string">`Nice to meet you, <span class="hljs-subst">${name}</span>!`</span>);</code></pre>
+
+      </section><section class="slide" id="slide-5-6">
+        <h2 id="typen-umwandeln">Typen umwandeln</h2>
+<p>Die Funktion <code>prompt</code> liefert immer Text (einen String) zurück.</p>
+<p>Um den String in eine Zahl zu verwandeln:</p>
+<pre><code class="language-js"><span class="hljs-keyword">let</span> birthYearString = prompt(<span class="hljs-string">'When were you born?'</span>);
+<span class="hljs-keyword">let</span> birthYear = <span class="hljs-built_in">Number</span>(birthYearString);</code></pre>
+<p>Analog für andere Datentypen: <code>String(...)</code>, <code>Boolean(...)</code></p>
+
+      </section><section class="slide" id="slide-5-7">
+        <h2 id="übung-alter-anhand-geburtsjahr">Übung: Alter anhand Geburtsjahr</h2>
+<p>Der Benutzer soll nach seinem Geburtsjahr gefragt werden. Dann soll angegeben werden, wie alt diese Person im Jahr 2019 wird.</p>
+
+      </section><section class="slide" id="slide-5-8">
+        <h2 id="kommentare">Kommentare</h2>
+<p>Kommentare dienen Entwicklern, um den Code zu beschreiben und zu erklären. Sie werden von JavaScript ignoriert.</p>
+<p>Es gibt zwei Möglichkeiten, Kommentare zu erstellen:</p>
+<pre><code class="language-js"><span class="hljs-comment">// dies ist ein Kommentar über 1 Zeile</span>
+
+<span class="hljs-comment">/*
+dies ist
+ein mehrzeiliges
+Kommentar
+*/</span></code></pre>
+
+      </section><section class="slide" id="slide-5-9">
+        <h2 id="variablen">Variablen</h2>
+<p>Wie wir schon gesehen haben: Variablen werden üblicherweise mit <code>let</code> deklariert</p>
+<p>Alternativen:</p>
+<ul>
+<li>Deklaration mit <code>const</code> (nicht mehr neu zuweisbar)</li>
+<li>Deklaration mit <code>var</code> (&quot;veraltete&quot; Version von <code>let</code>)</li>
+</ul>
+<p>Mit <code>let</code> oder <code>const</code> deklarierte Variablen sind nur innerhalb des enstprechenden Codeblocks (innerhalb der umgebenden geschweiften Klammern) gültig. (Mehr dazu später)</p>
+
+      </section><section class="slide" id="slide-5-10">
+        <h2 id="das-semikolon-in-javascript">Das Semikolon in JavaScript</h2>
+<p>In JavaScript sind Semikolons in den meisten Fällen optional; sie werden bei der Ausführung automatisch nach bestimmten Regeln eingesetzt.</p>
+
+      </section><section class="slide" id="slide-5-11">
+        <h2 id="javascript---das-simikolon">JavaScript - das Simikolon</h2>
+<p>Die <em>automatic semicolon insertion</em> kann zu Problemen führen:</p>
+<!-- prettier-ignore-start -->
+<pre><code class="language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span>
+    <span class="hljs-string">"hello"</span>;
+}</code></pre>
+<p>wird interpretiert als:</p>
+<pre><code class="language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span>;
+  <span class="hljs-string">"hello"</span>;
+}</code></pre>
+<!-- prettier-ignore-end -->
+
+
+      </section></section><section class="section" id="section-6"><section class="slide" id="slide-6-1">
+        <h1 id="kontrollstrukturen">Kontrollstrukturen</h1>
+
+      </section><section class="slide" id="slide-6-2">
+        <h2 id="kontrollstrukturen">Kontrollstrukturen</h2>
+<p>Mit Kontrollstrukturen können wir bestimmten Code zB wiederholt ausführen lassen, oder Code nur in bestimmten Situationen ausführen lassen</p>
+
+      </section><section class="slide" id="slide-6-3">
+        <h2 id="kontrollstrukturen">Kontrollstrukturen</h2>
+<p>Die zwei essenziellen Kontrollstrukturen in jeder Programmiersprache:</p>
+<ul>
+<li>if/else-Abfragen, um unter bestimmten Bedingungen die eine oder die andere Aktion zu setzen</li>
+<li>Schleifen, um unter bestimmten Bedingungen eine Aktion zu wiederholen</li>
+</ul>
+
+      </section><section class="slide" id="slide-6-4">
+        <h2 id="vergleiche">Vergleiche</h2>
+<p>Für den Einsatz von grundlegenden Kontrollstrukturen müssen wir Werte vergleichen können:</p>
+<pre><code class="language-js"><span class="hljs-keyword">let</span> a = <span class="hljs-number">2</span>;
+<span class="hljs-keyword">let</span> b = <span class="hljs-number">3</span>;
+<span class="hljs-keyword">let</span> c = <span class="hljs-string">'2'</span>;
+
+<span class="hljs-built_in">console</span>.log(a == b); <span class="hljs-comment">// a gleich b</span>
+<span class="hljs-built_in">console</span>.log(a == c); <span class="hljs-comment">// a gleich c</span>
+<span class="hljs-built_in">console</span>.log(a === c); <span class="hljs-comment">// a gleich c (strikt)</span>
+
+<span class="hljs-built_in">console</span>.log(a != c); <span class="hljs-comment">// a ungleich b</span>
+<span class="hljs-built_in">console</span>.log(a !== c); <span class="hljs-comment">// a ungleich c (strikt)</span></code></pre>
+
+      </section><section class="slide" id="slide-6-5">
+        <h2 id="vergleiche">Vergleiche</h2>
+<p>Viele Entwickler verwenden nur die strikten Vergleichsoperatoren <code>===</code> und <code>!==</code>, um unterwartete Fehler zu vermeiden</p>
+<p>weitere Beispiele:</p>
+<pre><code class="language-js"><span class="hljs-number">3</span> === <span class="hljs-string">'3'</span>; <span class="hljs-comment">// false</span>
+<span class="hljs-number">3</span> == <span class="hljs-string">'3'</span>; <span class="hljs-comment">// true</span>
+<span class="hljs-number">0</span> == []; <span class="hljs-comment">// true</span>
+[] == <span class="hljs-string">''</span>; <span class="hljs-comment">// true</span></code></pre>
+
+      </section><section class="slide" id="slide-6-6">
+        <h2 id="vergleiche">Vergleiche</h2>
+<pre><code class="language-js"><span class="hljs-built_in">console</span>.log(a &lt; b); <span class="hljs-comment">// a kleiner b</span>
+<span class="hljs-built_in">console</span>.log(a &gt; b);
+<span class="hljs-built_in">console</span>.log(a &lt;= b); <span class="hljs-comment">// a kleiner oder gleich b</span>
+<span class="hljs-built_in">console</span>.log(a &gt;= b);</code></pre>
+
+      </section><section class="slide" id="slide-6-7">
+        <h2 id="if--else">if / else</h2>
+<p>wenn, dann - sonst</p>
+
+      </section><section class="slide" id="slide-6-8">
+        <h2 id="if--else">if / else</h2>
+<p>Beispiel:</p>
+<pre><code class="language-js"><span class="hljs-keyword">let</span> age = <span class="hljs-number">30</span>;
+<span class="hljs-keyword">let</span> ageSeconds = age * <span class="hljs-number">365</span> * <span class="hljs-number">24</span> * <span class="hljs-number">60</span> * <span class="hljs-number">60</span>;
+
+<span class="hljs-keyword">if</span> (ageSeconds &lt;= <span class="hljs-number">1000000000</span>) {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'You are less than 1 billion seconds old.'</span>);
+} <span class="hljs-keyword">else</span> {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'You are older than 1 billion seconds.'</span>);
+}</code></pre>
+
+      </section><section class="slide" id="slide-6-9">
+        <h2 id="if--else-if---else">if / else if ... / else</h2>
+<pre><code class="language-js"><span class="hljs-keyword">if</span> (ageSeconds &lt;= <span class="hljs-number">100000000</span>) {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'You are less than 100 million seconds old.'</span>);
+} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (ageSeconds &lt; <span class="hljs-number">1000000000</span>) {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'You are less than 1 billion seconds old'</span>);
+} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (ageSeconds &lt; <span class="hljs-number">1000000000</span>) {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'You are less than 2 billion seconds old'</span>);
+} <span class="hljs-keyword">else</span> {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'You are older than 2 billion seconds'</span>);
+}</code></pre>
+
+      </section><section class="slide" id="slide-6-10">
+        <h2 id="if--else-if---else">if / else if ... / else</h2>
+<p>Beispiel: Zahlenraten</p>
+
+      </section><section class="slide" id="slide-6-11">
+        <h2 id="codeblöcke">Codeblöcke</h2>
+<p>Codeblock = Zusammengehörige Codezeilen, die z.B. als Resultat einer if-Abfrage ausgeführt werden.</p>
+<p>In den meisten Programmiersprachen werden Codeblöcke mit geschweiften Klammern begrenzt.</p>
+
+      </section><section class="slide" id="slide-6-12">
+        <h2 id="codeblöcke">Codeblöcke</h2>
+<pre><code class="language-js"><span class="hljs-keyword">let</span> a = <span class="hljs-number">3</span>;
+<span class="hljs-keyword">if</span> (a === <span class="hljs-number">3</span>) {
+  <span class="hljs-keyword">let</span> message = <span class="hljs-string">'a equals 3'</span>.
+}
+<span class="hljs-built_in">console</span>.log(message); <span class="hljs-comment">// ReferenceError!</span></code></pre>
+
+      </section><section class="slide" id="slide-6-13">
+        <h2 id="while-schleife">while-Schleife</h2>
+<p>Eine if-Abfrage führt einen Codeblock <em>einmal</em> aus, wenn ein Kriterium zutrifft</p>
+<p>Eine while-Schleife wiederholt einen Codeblock, solange ein Kriterium zutrifft</p>
+<p>Beispiel:</p>
+<pre><code class="language-js">a = <span class="hljs-number">1</span>;
+
+<span class="hljs-keyword">while</span> (a &lt; <span class="hljs-number">2000</span>) {
+  <span class="hljs-built_in">console</span>.log(a);
+  a = a * <span class="hljs-number">2</span>;
+}</code></pre>
+
+      </section><section class="slide" id="slide-6-14">
+        <h2 id="while-schleife">while-Schleife</h2>
+<p>Übungen:</p>
+<ul>
+<li>Zahlenraten mit mehreren Versuchen</li>
+<li>Schleife, die die Zahlen 1 bis 10 ausgibt</li>
+<li>Schleife, die die Zahlen der 7er-Reihe des Einmaleins ausgibt</li>
+<li>Zahlenraten mit echten Zufallszahlen</li>
+<li>Rechentrainer mit Zufallsaufgaben</li>
+</ul>
+
+      </section><section class="slide" id="slide-6-15">
+        <h2 id="verknüpfung-von-vergleichen">Verknüpfung von Vergleichen</h2>
+<p>einfach:</p>
+<pre><code class="language-js"><span class="hljs-keyword">if</span> (a === <span class="hljs-number">3</span>) {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'a equals 3'</span>);
+}</code></pre>
+<p>komplexer:</p>
+<pre><code class="language-js"><span class="hljs-keyword">if</span> (a &gt; <span class="hljs-number">3</span> &amp;&amp; a &lt; <span class="hljs-number">10</span>) {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'a lies between 3 and 10'</span>);
+}</code></pre>
+
+      </section><section class="slide" id="slide-6-16">
+        <h2 id="verknüpfung-von-vergleichen">Verknüpfung von Vergleichen</h2>
+<p>Operationen:</p>
+<ul>
+<li><code>&amp;&amp;</code> = und</li>
+<li><code>||</code> = oder</li>
+<li><code>!</code> = nicht</li>
+</ul>
+
+      </section></section><section class="section" id="section-7"><section class="slide" id="slide-7-1">
+        <h1 id="bestandteile-von-programmen">Bestandteile von Programmen</h1>
+
+      </section><section class="slide" id="slide-7-2">
+        <h2 id="bestandteile-von-programmen">Bestandteile von Programmen</h2>
+<ul>
+<li>Programme<ul>
+<li>Codeblöcke<ul>
+<li>Anweisungen<ul>
+<li>Ausdrücke</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+      </section></section><section class="section" id="section-8"><section class="slide" id="slide-8-1">
+        <h1 id="arrays">Arrays</h1>
+
+      </section><section class="slide" id="slide-8-2">
+        <h2 id="arrays">Arrays</h2>
+<p>Weiterer wichtiger Datentyp: <code>Array</code></p>
+
+      </section><section class="slide" id="slide-8-3">
+        <h2 id="erstellen-von-arrays">Erstellen von Arrays</h2>
+<p>Mit eckigen Klammern:</p>
+<pre><code class="language-js"><span class="hljs-keyword">let</span> primes = [<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">7</span>, <span class="hljs-number">11</span>];
+
+<span class="hljs-keyword">let</span> users = [<span class="hljs-string">'Alice'</span>, <span class="hljs-string">'Bob'</span>, <span class="hljs-string">'Charlie'</span>];</code></pre>
+
+      </section><section class="slide" id="slide-8-4">
+        <h2 id="auslesen-von-listenelementen">Auslesen von Listenelementen</h2>
+<p>Mittels Listenindex (bei 0 beginnend)</p>
+<pre><code class="language-js"><span class="hljs-keyword">let</span> users = [<span class="hljs-string">'Alice'</span>, <span class="hljs-string">'Bob'</span>, <span class="hljs-string">'Charlie'</span>];
+
+<span class="hljs-built_in">console</span>.log(users[<span class="hljs-number">0</span>]);
+<span class="hljs-built_in">console</span>.log(users[<span class="hljs-number">2</span>]);
+<span class="hljs-built_in">console</span>.log(users[users.length - <span class="hljs-number">1</span>]);</code></pre>
+
+      </section><section class="slide" id="slide-8-5">
+        <h2 id="operationen-mit-arrays">Operationen mit Arrays</h2>
+<ul>
+<li>Überschreiben: <code>users[0] = &quot;Andrew&quot;;</code></li>
+<li>Anhängen: <code>users.push(&quot;Dan&quot;);</code></li>
+<li>Letztes Element entfernen: <code>users.pop();</code></li>
+<li>Element in der Mitte entfernen: <code>users.splice(2)</code>;</li>
+<li>Länge: <code>users.length;</code></li>
+<li>Zusammenhängen: <code>primes.concat(users);</code></li>
+<li>Abfragen, ob Element in Liste: <code>users.includes(&#39;Andrew&#39;)</code></li>
+</ul>
+
+      </section><section class="slide" id="slide-8-6">
+        <h2 id="übung-einkaufsliste">Übung: Einkaufsliste</h2>
+<p>Beispielhafter Programmlauf:</p>
+<pre><code class="language-text">enter an item or &quot;x&quot; to quit:
+milk
+enter an item or &quot;x&quot; to quit:
+bread
+enter an item or &quot;x&quot; to quit:
+apples
+enter an item or &quot;x&quot; to quit:
+x
+your shopping list is:
+milk,bread,apples</code></pre>
+
+      </section></section><section class="section" id="section-9"><section class="slide" id="slide-9-1">
+        <h1 id="objekte-abändern">Objekte abändern</h1>
+
+      </section><section class="slide" id="slide-9-2">
+        <h2 id="objekte-abändern">Objekte abändern</h2>
+<p>In JavaScript können Arrays verändert werden - z.B. durch das anhängen eines neuen Eintrags</p>
+<p>Viele andere Objekte - z.B. String, Number - können nicht abgeändert werden. Jedoch ist es möglich, neue, veränderte Objekte basierend auf bereits vorhandenen Objekten zu erstellen.</p>
+
+      </section><section class="slide" id="slide-9-3">
+        <h2 id="objekte-abändern">Objekte abändern</h2>
+<pre><code class="language-js"><span class="hljs-keyword">let</span> a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
+<span class="hljs-comment">// creating a new object</span>
+a = a.concat([<span class="hljs-number">4</span>, <span class="hljs-number">5</span>]);
+
+a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
+<span class="hljs-comment">// a is modified directly</span>
+a.push(<span class="hljs-number">4</span>);</code></pre>
+
+      </section><section class="slide" id="slide-9-4">
+        <h2 id="objekte-abändern">Objekte abändern</h2>
+<p>Was wird das folgende Programm ausgeben?</p>
+<pre><code class="language-js"><span class="hljs-keyword">let</span> a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
+<span class="hljs-keyword">let</span> b = a;
+b.push(<span class="hljs-number">4</span>);
+print(a);</code></pre>
+
+      </section><section class="slide" id="slide-9-5">
+        <h2 id="objekte-abändern">Objekte abändern</h2>
+<p>Eine Zuweisung (<code>let b = ...</code>) versieht ein existierendes Objekt mit einem neuen (zusätzlichen) Namen.</p>
+<p>Im Hintergrund steht nach wie vor nur ein einzelnes Objekt.</p>
+
+      </section></section><section class="section" id="section-10"><section class="slide" id="slide-10-1">
+        <h1 id="for-schleifen">For-Schleifen</h1>
+
+      </section><section class="slide" id="slide-10-2">
+        <h2 id="for-schleifen">For-Schleifen</h2>
+<p>Zu for-Schleifen sehen wir uns zwei Konstrukte näher an:</p>
+<ul>
+<li><em>for</em>-Schleife zum zählen</li>
+<li><em>for-of</em>-Schleife zum Iterieren über Arrays</li>
+</ul>
+
+      </section><section class="slide" id="slide-10-3">
+        <h2 id="for-schleife">For-Schleife</h2>
+<p>Zählen von 0 bis 9:</p>
+<pre><code class="language-js"><span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt;= <span class="hljs-number">9</span>; i++) {
+  <span class="hljs-built_in">console</span>.log(i);
+}</code></pre>
+
+      </section><section class="slide" id="slide-10-4">
+        <h2 id="for-schleife">For-schleife</h2>
+<p>Übung: Ausgabe einer Multiplikationstafel</p>
+<pre><code class="language-txt">1 x 7 = 7
+2 x 7 = 14
+3 x 7 = 21
+4 x 7 = 28
+...</code></pre>
+
+      </section><section class="slide" id="slide-10-5">
+        <h2 id="for-of-schleife">For-of-Schleife</h2>
+<p>Mit einer for-of-Schleife können wir die Inhalte eines Arrays durchlaufen.</p>
+<p>Bezeichnung in anderen Programmiersprachen <em>for-each</em></p>
+
+      </section><section class="slide" id="slide-10-6">
+        <h2 id="for-of-schleife">For-of-Schleife</h2>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> names = [<span class="hljs-string">'Alice'</span>, <span class="hljs-string">'Bob'</span>, <span class="hljs-string">'Charlie'</span>];
+
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> name <span class="hljs-keyword">of</span> names) {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Hello, <span class="hljs-subst">${name}</span>`</span>);
+}</code></pre>
+<p>Die Variable <code>name</code> nimmt nacheinander jeden der in <code>names</code> angegebenen Werte ein.</p>
+
+      </section><section class="slide" id="slide-10-7">
+        <h2 id="beispiel-login-system">Beispiel: Login-System</h2>
+<pre><code class="language-js"># Benutzer mit Passwörtern
+let users = [
+  [&quot;Alice&quot;, &quot;1234&quot;],
+  [&quot;Bob&quot;, &quot;password&quot;],
+  [&quot;Charlie&quot;, &quot;paris41&quot;]];</code></pre>
+
+      </section><section class="slide" id="slide-10-8">
+        <h2 id="beispiel-login-system">Beispiel: Login-System</h2>
+<p>Beispielhafter Programmlauf:</p>
+<pre><code class="language-txt">Enter your username:
+lice
+No such user.
+Enter your username:
+Alice
+Enter your password:
+123
+Wrong password
+Enter your password:
+1234
+Logged in as Alice!</code></pre>
+
+      </section></section><section class="section" id="section-11"><section class="slide" id="slide-11-1">
+        <h1 id="builtins">builtins</h1>
+
+      </section><section class="slide" id="slide-11-2">
+        <h2 id="builtins">builtins</h2>
+<ul>
+<li><code>setTimeout</code>, <code>setInterval</code></li>
+<li><code>JSON</code></li>
+<li><code>Date</code></li>
+<li><code>Math</code></li>
+</ul>
+
+      </section><section class="slide" id="slide-11-3">
+        <h2 id="builtins-im-browser">builtins im Browser</h2>
+<ul>
+<li><code>alert</code>, <code>prompt</code></li>
+<li><code>fetch</code></li>
+</ul>
+
+      </section><section class="slide" id="slide-11-4">
+        <h2 id="builtins-json">builtins: JSON</h2>
+<ul>
+<li><code>JSON.parse</code></li>
+<li><code>JSON.stringify</code></li>
+</ul>
+
+      </section><section class="slide" id="slide-11-5">
+        <h2 id="builtins-date">builtins: Date</h2>
+<p>aktueller Timestamp:</p>
+<pre><code class="language-js"><span class="hljs-keyword">let</span> a = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();</code></pre>
+<p>Methoden:</p>
+<pre><code class="language-js">a.toLocaleTimeString();
+a.toLocaleDateString();
+a.toISOString();
+a.getHourse(); <span class="hljs-comment">// ...</span></code></pre>
+
+      </section><section class="slide" id="slide-11-6">
+        <h2 id="builtins-math">builtins: Math</h2>
+<ul>
+<li><code>Math.round</code>, <code>Math.ceil</code>, <code>Math.floor</code></li>
+<li><code>Math.max</code>, <code>Math.min</code></li>
+<li><code>Math.random</code></li>
+<li><code>Math.PI</code></li>
+</ul>
+
+      </section></section><section class="section" id="section-12"><section class="slide" id="slide-12-1">
+        <h1 id="funktionen">Funktionen</h1>
+
+      </section><section class="slide" id="slide-12-2">
+        <h2 id="funktionen">Funktionen</h2>
+<p>Wir kennen schon einige vordefinierte Funktionen, z.B. <code>alert()</code>, <code>console.log()</code></p>
+
+      </section><section class="slide" id="slide-12-3">
+        <h2 id="parameter-und-rückgabewerte">Parameter und Rückgabewerte</h2>
+<p>Funktionen können Parameter übergeben bekommen und Rückgabewerte haben.</p>
+<p>Beispiel: <code>Math.max(2, 9, 4)</code> → <code>9</code></p>
+<p>Parameter: 2, 9, 4</p>
+<p>Rückgabewert: 9</p>
+
+      </section></section><section class="section" id="section-13"><section class="slide" id="slide-13-1">
+        <h1 id="funktionsdefinition">Funktionsdefinition</h1>
+
+      </section><section class="slide" id="slide-13-2">
+        <h2 id="funktionsdefinition">Funktionsdefinition</h2>
+<!-- prettier-ignore -->
+<pre><code class="language-js"><span class="hljs-comment">// function statement</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">double1</span>(<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-number">2</span> * value;
+}
+
+<span class="hljs-comment">// function expression</span>
+<span class="hljs-keyword">const</span> double2 = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-number">2</span> * value;
+}
+
+<span class="hljs-comment">// arrow function</span>
+<span class="hljs-keyword">const</span> double3 = <span class="hljs-function">(<span class="hljs-params">value</span>) =&gt;</span> {
+  <span class="hljs-keyword">return</span> <span class="hljs-number">2</span> * value;
+}
+<span class="hljs-keyword">const</span> double4 = <span class="hljs-function">(<span class="hljs-params">value</span>) =&gt;</span> <span class="hljs-number">2</span> * value;</code></pre>
+
+      </section><section class="slide" id="slide-13-3">
+        <h2 id="pfeilfunktionen">Pfeilfunktionen</h2>
+<p>Seit ES2015 Teil des Standards</p>
+<!-- prettier-ignore -->
+<pre><code class="language-js"><span class="hljs-keyword">const</span> triple1 = <span class="hljs-function">(<span class="hljs-params">value</span>) =&gt;</span> {
+  <span class="hljs-keyword">return</span> value * <span class="hljs-number">3</span>;
+};
+<span class="hljs-comment">// wenn der Funktionskörper nur aus einem einzelnen</span>
+<span class="hljs-comment">// Return-Statement besteht: Kurzschreibweise:</span>
+<span class="hljs-keyword">const</span> triple2 = <span class="hljs-function">(<span class="hljs-params">value</span>) =&gt;</span> value * <span class="hljs-number">3</span>;
+<span class="hljs-comment">// wenn es genau einen Parameter gibt, können die</span>
+<span class="hljs-comment">// Parameterklammern weggelassen werden:</span>
+<span class="hljs-keyword">const</span> triple3 = <span class="hljs-function"><span class="hljs-params">value</span> =&gt;</span> value * <span class="hljs-number">3</span>;</code></pre>
+
+      </section><section class="slide" id="slide-13-4">
+        <h2 id="pfeilfunktionen">Pfeilfunktionen</h2>
+<p>Achtung: <code>{</code> und <code>}</code> sind mehrdeutig</p>
+<pre><code class="language-js"><span class="hljs-comment">// unzulässig:</span>
+<span class="hljs-keyword">const</span> getPerson1 = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+  <span class="hljs-attr">firstName</span>: <span class="hljs-string">'Thomas'</span>,
+  <span class="hljs-attr">lastName</span>: <span class="hljs-string">'Edison'</span>,
+  <span class="hljs-attr">birthYear</span>: <span class="hljs-number">1847</span>,
+};
+<span class="hljs-comment">// stattdessen:</span>
+<span class="hljs-keyword">const</span> getPerson1 = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> ({
+  <span class="hljs-attr">firstName</span>: <span class="hljs-string">'Thomas'</span>,
+  <span class="hljs-attr">lastName</span>: <span class="hljs-string">'Edison'</span>,
+  <span class="hljs-attr">birthYear</span>: <span class="hljs-number">1847</span>,
+});</code></pre>
+
+      </section><section class="slide" id="slide-13-5">
+        <h2 id="standardparameter-in-funktionen">Standardparameter in Funktionen</h2>
+<p>In Funktionen können Standardwerte für Parameter definiert werden:</p>
+<pre><code class="language-js"><span class="hljs-keyword">let</span> join = <span class="hljs-function">(<span class="hljs-params">strings, separator=<span class="hljs-string">''</span></span>) =&gt;</span> {
+  ...
+}</code></pre>
+
+      </section></section><section class="section" id="section-14"><section class="slide" id="slide-14-1">
+        <h1 id="map-filter-reduce">map, filter, reduce</h1>
+<h3 id="array-methoden-für-die-funktionale-programmierung">Array-Methoden für die funktionale Programmierung</h3>
+
+      </section><section class="slide" id="slide-14-2">
+        <h2 id="map">map</h2>
+<ul>
+<li>Ändert jeden Eintrag eines Arrays mit Hilfe einer Funktion ab</li>
+<li>Rückgabewert: neues Array</li>
+</ul>
+<pre><code class="language-js"><span class="hljs-keyword">let</span> myNumbers = [<span class="hljs-number">2</span>, <span class="hljs-number">10</span>, <span class="hljs-number">23</span>];
+
+<span class="hljs-keyword">let</span> triple = <span class="hljs-function"><span class="hljs-params">n</span> =&gt;</span> <span class="hljs-number">3</span> * n;
+
+<span class="hljs-keyword">let</span> newNumbers = myNumbers.map(triple);
+<span class="hljs-comment">// [6, 30, 69]</span></code></pre>
+
+      </section><section class="slide" id="slide-14-3">
+        <h2 id="filter">filter</h2>
+<ul>
+<li>Behält nur gewisse Einträge in einem Array</li>
+<li>Nutzt eine Funktion, um Einträge auf ein bestimmtes Kriterium zu testen</li>
+<li>Rückgabewert: neues Array</li>
+</ul>
+<pre><code class="language-js"><span class="hljs-keyword">let</span> myNumbers = [<span class="hljs-number">2</span>, <span class="hljs-number">10</span>, <span class="hljs-number">23</span>];
+
+<span class="hljs-keyword">let</span> isEven = <span class="hljs-function"><span class="hljs-params">n</span> =&gt;</span> n % <span class="hljs-number">2</span> === <span class="hljs-number">0</span>;
+
+<span class="hljs-keyword">let</span> newNumbers = myNumbers.filter(isEven);
+<span class="hljs-comment">// [2, 10]</span></code></pre>
+
+      </section><section class="slide" id="slide-14-4">
+        <h2 id="reduce">reduce</h2>
+<ul>
+<li>Verarbeitet die Einträge in einem Array zu einem einzelnen Wert</li>
+<li>Verwendet eine Funktion, die aus zwei bestehenden Werten einen resultierenden Wert erstellt - diese Funktion wird wiederholt aufgerufen</li>
+</ul>
+
+      </section><section class="slide" id="slide-14-5">
+        <h2 id="reduce---beispiel">reduce - Beispiel</h2>
+<pre><code class="language-js"><span class="hljs-keyword">let</span> myNumbers = [<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">7</span>, <span class="hljs-number">11</span>];
+
+<span class="hljs-keyword">let</span> multiply = <span class="hljs-function">(<span class="hljs-params">a, b</span>) =&gt;</span> a * b;
+
+<span class="hljs-keyword">let</span> result = myNumbers.reduce(multiply, <span class="hljs-number">1</span>);
+<span class="hljs-comment">// result = 2310</span></code></pre>
+<p>Ablauf:</p>
+<pre><code class="language-txt">value_1 = 1
+value_2 = 1 * 2 = 2
+value_3 = 2 * 3 = 6
+value_4 = 6 * 5 = 30
+value_5 = 30 * 7 = 210
+result = 210 * 11 = 2310</code></pre>
+
+      </section></section><section class="section" id="section-15"><section class="slide" id="slide-15-1">
+        <h1 id="this---quirks">this - quirks</h1>
+
+      </section><section class="slide" id="slide-15-2">
+        <h2 id="this---quirks">this - quirks</h2>
+<ul>
+<li><em>this</em> bezieht sich in Objektmethoden üblicherweise auf das aktuelle Objekt</li>
+<li><strong>allerdings</strong>:<ul>
+<li>jeder Funktionsaufruf setzt <em>this</em> neu (nicht nur Methodenaufrufe)</li>
+<li><em>this</em> wird nur richtig gesetzt, wenn die Methode mit der Syntax <code>object.method()</code> aufgerufen wird</li>
+</ul>
+</li>
+</ul>
+
+      </section><section class="slide" id="slide-15-3">
+        <h2 id="problem-this-in-anonymen-funktionen">Problem: <em>this</em> in anonymen Funktionen</h2>
+<pre><code class="language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">myComponent</span> </span>{
+  <span class="hljs-keyword">constructor</span>() {
+    <span class="hljs-comment">// this ist hier richtig gesetzt</span>
+    <span class="hljs-keyword">this</span>.foo = <span class="hljs-literal">true</span>;
+    setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-comment">//this wird hier überschrieben (auf window)</span>
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.foo);
+    }, <span class="hljs-number">1000</span>);
+  }
+}</code></pre>
+
+      </section><section class="slide" id="slide-15-4">
+        <h2 id="lösung-pfeilfunktionen">Lösung: <em>Pfeilfunktionen</em></h2>
+<pre><code class="language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">myComponent</span> </span>{
+  <span class="hljs-keyword">constructor</span>() {
+    <span class="hljs-comment">// this ist hier richtig gesetzt</span>
+    <span class="hljs-keyword">this</span>.foo = <span class="hljs-literal">true</span>;
+    setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+      <span class="hljs-comment">// this wird hier *nicht* überschrieben</span>
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.foo);
+    }, <span class="hljs-number">1000</span>);
+  }
+}</code></pre>
+
+      </section><section class="slide" id="slide-15-5">
+        <h2 id="problem-methodenaufrufe-ohne-methodensyntax">Problem: Methodenaufrufe ohne Methodensyntax</h2>
+<pre><code class="language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span> </span>{
+  <span class="hljs-keyword">constructor</span>() {
+    <span class="hljs-keyword">this</span>.message = <span class="hljs-string">'hello'</span>;
+  }
+  greet() {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.message);
+  }
+}
+<span class="hljs-keyword">let</span> f = <span class="hljs-keyword">new</span> Foo();
+f.greet(); <span class="hljs-comment">// klappt</span>
+<span class="hljs-keyword">let</span> fg = f.greet;
+fg(); <span class="hljs-comment">// klappt nicht (this ist undefined)</span></code></pre>
+
+      </section><section class="slide" id="slide-15-6">
+        <h2 id="lösung-pfeil-methoden">Lösung: Pfeil-Methoden</h2>
+<p>Seit ES2018 einsetzbar:</p>
+<pre><code class="language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span> </span>{
+  <span class="hljs-keyword">constructor</span>() {
+    <span class="hljs-keyword">this</span>.message = <span class="hljs-string">'hello'</span>;
+  }
+  greet = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.message);
+  };
+}</code></pre>
+
+      </section><section class="slide" id="slide-15-7">
+        <h2 id="lösung-binden-von-methoden">Lösung: Binden von Methoden</h2>
+<pre><code class="language-js"><span class="hljs-keyword">let</span> f = <span class="hljs-keyword">new</span> Foo();
+f.greet(); <span class="hljs-comment">// klappt</span>
+<span class="hljs-keyword">let</span> fg = f.greet.bind(f);
+fg(); <span class="hljs-comment">// klappt jetzt auch</span></code></pre>
+<p>Üblicherweise Zuweisung im constructor:</p>
+<pre><code class="language-js">  <span class="hljs-keyword">constructor</span>() {
+    <span class="hljs-keyword">this</span>.greet = <span class="hljs-keyword">this</span>.greet.bind(<span class="hljs-keyword">this</span>);
+  }</code></pre>
+
+      </section></section>
+
+    </div>
+    <div id="navigation-arrows">
+      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="navigation-arrows-svg"
+        xml:space="preserve" width="100%" height="100%" viewBox="-110 -110 220 220">
+        <path class="arrow right" d="M70,-30L100,0L70,30" />
+        <path class="arrow down" d="M-30,70L0,100L30,70" />
+        <path class="arrow left" d="M-70,-30L-100,0L-70,30" />
+        <path class="arrow up" d="M-30,-70L0,-100L30,-70" />
+      </svg>
+    </div>
+  </div>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 100vw;
+      height: 100vh;
+      margin: 0px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: rgb(150, 150, 150);
+      font-family: -apple-system, "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.5rem;
+    }
+
+    ul {
+      padding-left: 1.5rem;
+    }
+
+    h1, h2 {
+      font-weight: 600;
+    }
+
+    h1 {
+      margin-top: 5vh;
+      text-align: center;
+      font-size: 2rem;
+    }
+
+    h2 {
+      margin-bottom: 1.5em;
+    }
+
+    svg {
+      width: 100%;
+      height: auto;
+    }
+
+    .slide.inactive {
+      display: none;
+    }
+
+    #canvas {
+      box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.3);
+      background-color: #f8f8f8;
+      position: relative;
+      display: flex;
+    }
+
+    #canvas-content {
+      width: 100%;
+      height: 100%;
+    }
+
+    #canvas-content .note {
+      display: none;
+    }
+
+    #canvas-content img {
+      margin: 0px auto;
+      display: block;
+    }
+
+    @media (min-aspect-ratio: 8/5) {
+
+      html {
+        font-size: 3.5vh;
+      }
+
+      /* wide screen */
+      #canvas {
+        width: calc(100vh / 5 * 8);
+        height: 100vh;
+        padding: 10vh;
+        padding-top: 5vh;
+      }
+    }
+
+    @media (max-aspect-ratio: 8/5) {
+
+      html {
+        font-size: calc(3.5vw * 5 / 8);
+      }
+
+      /* narrow screen */
+      #canvas {
+        width: 100vw;
+        height: calc(100vw * 5 / 8);
+        padding: calc(10vh * 5 / 8);
+        padding-top: calc(5vh * 5 / 8);
+      }
+    }
+
+    pre {
+      background-color: rgb(224, 233, 240);
+      box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.2);
+      padding: 0.5em 1em;
+      line-height: 1.2em;
+    }
+
+    #navigation-arrows {
+      position: absolute;
+      right: 2rem;
+      top: 2rem;
+      height: 3rem;
+      width: 3rem;
+    }
+
+    .arrow {
+      stroke: lightblue;
+      /*stroke-width: 0.8em; Chrome behaves differently with ems here */
+      stroke-width: 16px;
+      stroke-linecap: round;
+      fill: none;
+      cursor: pointer;
+    }
+
+    td,
+    th {
+      padding: 0.2em 0.8em;
+    }
+
+    th {
+      text-align: start;
+    }
+  </style>
+  <script>
+    let presenterWindow;
+    let activeSlide;
+    let slideCount;
+
+    const arrowUp = document.querySelector('.arrow.up');
+    const arrowDown = document.querySelector('.arrow.down');
+    const arrowRight = document.querySelector('.arrow.right');
+    const arrowLeft = document.querySelector('.arrow.left');
+    arrowUp.addEventListener('click',
+      () => {activateSlideSafe(activeSlide[0], activeSlide[1] - 1);}
+    );
+    arrowDown.addEventListener('click',
+      () => {activateSlideSafe(activeSlide[0], activeSlide[1] + 1);}
+    );
+    arrowLeft.addEventListener('click',
+      () => {activateSlideSafe(activeSlide[0] - 1, 1);}
+    );
+    arrowRight.addEventListener('click',
+      () => {activateSlideSafe(activeSlide[0] + 1, 1);}
+    )
+    const init = () => {
+      slideCount = countSlides();
+      activateSlideSafe(1, 1);
+    }
+
+    // count slides
+    const countSlides = () => {
+      const counts = [];
+      return [...document.querySelectorAll('.section')].map(section => section.childNodes.length);
+    }
+
+    const updateVisible = () => {
+      for (let slide of document.querySelectorAll('.slide')) {
+        if (slide.id === `slide-${activeSlide[0]}-${activeSlide[1]}`) {
+          slide.className = 'slide active';
+        } else {
+          slide.className = 'slide inactive';
+        }
+      }
+    }
+
+    const updatePageArrows = () => {
+      if (slideCount.length === 1) {
+        arrowLeft.style.opacity = "0";
+        arrowRight.style.opacity = "0";
+      } else {
+        const progressSections = (activeSlide[0] - 1) / (slideCount.length - 1);
+        arrowLeft.style.opacity = progressSections.toString();
+        arrowRight.style.opacity = (1 - progressSections).toString();
+      }
+      const slidesInActiveSection = slideCount[activeSlide[0] - 1]
+      if (slidesInActiveSection === 1) {
+        arrowUp.style.opacity = "0";
+        arrowDown.style.opacity = "0";
+      } else {
+        const progressSlides = (activeSlide[1] - 1) / (slidesInActiveSection - 1);
+        arrowUp.style.opacity = progressSlides.toString();
+        arrowDown.style.opacity = (1 - progressSlides).toString();
+      }
+    }
+
+    /**
+     * Activate a slide if it exists, else do nothing
+    */
+    const activateSlideSafe = (sectionIndex, slideIndex) => {
+      if (1 <= sectionIndex && sectionIndex <= slideCount.length && 1 <= slideIndex && slideIndex <= slideCount[sectionIndex - 1]) {
+        activeSlide = [sectionIndex, slideIndex];
+        updateVisible();
+        updatePageArrows();
+        scrolltoActiveSlide();
+      }
+    }
+
+    const activateNextSlide = () => {
+      console.log(activeSlide);
+      console.log(slideCount)
+      if (activeSlide[1] === slideCount[activeSlide[0] - 1]) {
+        console.log('right')
+        activateSlideSafe(activeSlide[0] + 1, 1);
+      } else {
+        console.log('down')
+        activateSlideSafe(activeSlide[0], activeSlide[1] + 1);
+      }
+    }
+
+    const scrolltoActiveSlide = () => {
+      const slideId = `#slide-${activeSlide[0]}-${activeSlide[1]}`;
+      if (presenterWindow) {
+        const activeSlide = presenterWindow.document.querySelector(slideId);
+        if (activeSlide) {
+          activeSlide.scrollIntoView();
+        }
+      }
+    }
+
+    document.querySelector('body').addEventListener('keydown', event => {
+      if (event.key === 'p') {
+        const canvasContent = document.querySelector('#canvas-content').innerHTML;
+        presenterWindow = window.open(document.URL, '_blank');
+        presenterWindow.onload = () => {
+          presenterWindow.document.querySelector('body').innerHTML = canvasContent;
+        }
+      }
+      if (event.key === 'ArrowRight') {
+        activateSlideSafe(activeSlide[0] + 1, 1);
+      } else if (event.key === 'ArrowLeft') {
+        activateSlideSafe(activeSlide[0] - 1, 1);
+      } else if (event.key === 'ArrowDown') {
+        activateSlideSafe(activeSlide[0], activeSlide[1] + 1);
+      } else if (event.key === 'ArrowUp') {
+        activateSlideSafe(activeSlide[0], activeSlide[1] - 1);
+      } else if (event.key === 'Enter') {
+        activateNextSlide();
+      } else {
+        console.log(event.key)
+      }
+    });
+
+    init();
+
+  </script>
+</body>
+
+</html>

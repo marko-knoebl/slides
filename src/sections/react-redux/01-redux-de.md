@@ -17,7 +17,7 @@ Oft wird der gesamte Anwendungszustand durch ein Datenmodell repräsentiert. Jed
 
 - Redux (oft mit React verwendet)
 - MobX (oft mit React verwendet)
-- ngrx (oft mit Angular verwendet)
+- ngrx (mit Angular verwendet)
 - vuex (mit Vue.js verwendet)
 
 ## Besonderheit von Redux
@@ -67,7 +67,7 @@ const counterReducer = (state = initialState, action) => {
 
 Die Reducer-Funktion erhält als Funktionsparameter den alten Zustand (State) und eine Action, die eine Zustandsänderung beschreibt.
 
-Die Reducer-Funktion gibt den neuen Zustand zurück.
+Die Reducer-Funktion gibt den neuen Zustand zurück. Wichtig: Reducer-Funktionen ändern das alte state-Objekt nicht ab, sondern erstellen ein neues (reine Funktion)
 
 ## Einfaches Redux-Beispiel: Counter
 
@@ -97,3 +97,20 @@ counterStore.getState(); // {count: 1}
 Erstelle einen neuen mathadorStore mit dem Ausgangszustand `{number: 1}` und Actions für "Mal 3" und "Minus 7"
 
 Zusatzaufgabe: Erreiche den Zustand 4 (oder 10) durch das dispatchen passender Actions
+
+## Reducer kombinieren
+
+```js
+const rootReducer = combineReducers({
+  counter: counterReducer,
+  mathador: mathadorReducer,
+});
+
+const rootStore = createStore(rootReducer);
+
+rootStore.getState();
+// {counter: {count: 0}, mathador: {number: 1}}
+
+rootStore.dispatch({ type: 'INCREMENT' });
+// {counter: {count: 1}, mathador: {number: 1}}
+```
