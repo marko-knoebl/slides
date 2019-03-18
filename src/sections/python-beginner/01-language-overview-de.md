@@ -23,5 +23,5 @@ b = 4
 print(a * b)
 
 if a * b > 10:
-    print('hello')
+    print('greater')
 ```

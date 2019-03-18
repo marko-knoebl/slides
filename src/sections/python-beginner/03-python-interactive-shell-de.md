@@ -7,12 +7,6 @@ Starten:
 - Terminal-Befehl `python`
 - Desktop-Anwendung _IDLE_
 
-## Ausdrücke und Operatoren
-
-```py
-2 + 2
-```
-
 ## Mathematische Operatoren
 
 ```py
