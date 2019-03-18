@@ -22,3 +22,7 @@ for (let potentialConfig of fs.readdirSync('./src/configs')) {
 for (let course of courseData) {
   buildPresentation(course.name, course.lang);
 }
+
+// copy overview page
+
+fs.copyFileSync('./src/assets/presentation-index.html', './docs/index.html');
