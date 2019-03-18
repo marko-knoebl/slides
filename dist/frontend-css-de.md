@@ -35,6 +35,10 @@ Marko Knöbl
 
 # CSS
 
+## CSS
+
+Standard Stil-Sprache des webs: definiert Layout und Stil von HTML-Seiten
+
 ## Stile auf HTML-Elemente anwenden
 
 ```html
@@ -68,10 +72,10 @@ h1 {
 
 ## CSS-Selektoren
 
-Universalselektor: `*`
-Tag-Selektor: `h1`
-Klassen-Selektor: `.important`
-ID-Selektor: `#home-button`
+- Universalselektor: `*`
+- Tag-Selektor: `h1`
+- Klassen-Selektor: `.important`
+- ID-Selektor: `#home-button`
 
 ## CSS-Selektoren: Priorität
 
@@ -322,7 +326,10 @@ div {
 
 # CSS-Selektoren
 
+- Unterelemente
+- Kindelemente
 - Pseudoklassen
+- Pseudoelemente
 
 # Übung: Google-Klon
 
@@ -345,7 +352,7 @@ https://github.com/twbs/bootstrap/blob/master/dist/css/bootstrap-reboot.css
 - `:hover`: Der Stil einer Tabellenzeile soll sich ändern, wenn wir die Maus darüber bewegen
 - `:nth-child`: Die Zeilen sollen gestreift dargestellt werden
 
-### Tabellen: Stil
+## Tabellen: Stil
 
 ```css
 table {
