@@ -16,15 +16,6 @@ vollständige Liste:
 Block-Elemente: untereinander angeordnet, so breit wie möglich  
 Inline-Elemente: nebeneinander angeordnet, so breit wie ihr Inhalt
 
-## strukturierende (semantische) Elemente
-
-- main
-- section
-- article
-- footer
-- nav
-- aside
-
 ## Links
 
 - `a`
@@ -49,10 +40,18 @@ Inline-Elemente: nebeneinander angeordnet, so breit wie ihr Inhalt
 - `ol` (ordered list)
 - `li` (list item)
 
+## strukturierende (semantische) Elemente
+
+- `main`
+- `section`
+- `article`
+- `footer`
+- `nav`
+- `aside`
+
 ## Medien
 
 - `img`
-- `picture` (umfasst mehrere Bildgrößen)
 - `video`
 - `audio`
 

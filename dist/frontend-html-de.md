@@ -400,27 +400,16 @@ oft im head:
 <link rel="stylesheet" href="style.css" />
 ```
 
-## Stylesheets - Beispiel Bootstrap
-
-Einbinden:
-
-```html
-<link
-  rel="stylesheet"
-  href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-/>
-```
-
-## Verwendung von Bootstrap
-
-- ohne eigenes Zutun: Standardstil von Elementen wie `body`, `h1`, `button`, ... verändert sich
-- für weitere Funktionalität: Das Attribut `class` kann gesetzt werden
-
 # Bootstrap
 
 ## Bootstrap
 
 CSS-Framework, mit dem HTML-Seiten gestaltet werden können - selbst muss man kein oder kaum CSS schreiben
+
+## Verwendung von Bootstrap
+
+- ohne eigenes Zutun: Standardstil von Elementen wie `body`, `h1`, `button`, ... verändert sich
+- für weitere Funktionalität: Das Attribut `class` kann gesetzt werden
 
 ## Bootstrap - Projekt: Restaurantwebsite
 
@@ -508,17 +497,13 @@ Demo: http://srcset.salcode.com/
 
 ```html
 <video autoplay loop controls width="250">
-  <source
-    src="https://interactive-examples.mdn.mozilla.net/media/examples/flower.webm"
-    type="video/webm"
-  />
-  <source
-    src="https://interactive-examples.mdn.mozilla.net/media/examples/flower.mp4"
-    type="video/mp4"
-  />
+  <source src="myvideo.webm" type="video/webm" />
+  <source src="myvideo.mp4" type="video/mp4" />
   Sorry, your browser doesn't support embedded videos.
 </video>
 ```
+
+Beispielvideo: https://interactive-examples.mdn.mozilla.net/media/examples/flower.*
 
 ## audio
 

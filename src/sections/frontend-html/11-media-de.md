@@ -27,17 +27,13 @@ Demo: http://srcset.salcode.com/
 
 ```html
 <video autoplay loop controls width="250">
-  <source
-    src="https://interactive-examples.mdn.mozilla.net/media/examples/flower.webm"
-    type="video/webm"
-  />
-  <source
-    src="https://interactive-examples.mdn.mozilla.net/media/examples/flower.mp4"
-    type="video/mp4"
-  />
+  <source src="myvideo.webm" type="video/webm" />
+  <source src="myvideo.mp4" type="video/mp4" />
   Sorry, your browser doesn't support embedded videos.
 </video>
 ```
+
+Beispielvideo: https://interactive-examples.mdn.mozilla.net/media/examples/flower.*
 
 ## audio
 
