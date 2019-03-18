@@ -851,8 +851,8 @@ connection.close()</code></pre>
         <h2 id="pep-249">PEP 249</h2>
 <p><a href="https://www.python.org/dev/peps/pep-0249">https://www.python.org/dev/peps/pep-0249</a></p>
 
-      </section></section><section class="section" id="section-12"><section class="slide" id="slide-12-1">
-        <h1 id="pep-249-typen">PEP 249: Typen</h1>
+      </section><section class="slide" id="slide-11-9">
+        <h2 id="pep-249-typen">PEP 249: Typen</h2>
 <ul>
 <li><code>Date</code></li>
 <li><code>Time</code></li>
@@ -862,16 +862,16 @@ connection.close()</code></pre>
 <li><code>NUMBER</code></li>
 </ul>
 
-      </section><section class="slide" id="slide-12-2">
+      </section><section class="slide" id="slide-11-10">
         <h2 id="bedingte-abfragen-mit-parametern">Bedingte Abfragen mit Parametern</h2>
 <pre><code class="language-py">search_name = input()
 command = <span class="hljs-string">f"""SELECT tel FROM person WHERE name = '<span class="hljs-subst">{search_name}</span>'"""</span>
 res = c.execute(command)</code></pre>
 
-      </section><section class="slide" id="slide-12-3">
+      </section><section class="slide" id="slide-11-11">
         <h2 id="achtung-sql-injections">Achtung: SQL-Injections</h2>
 
-      </section><section class="slide" id="slide-12-4">
+      </section><section class="slide" id="slide-11-12">
         <h2 id="achtung-sql-injections">Achtung: SQL-Injections</h2>
 <p>sichere Methode (mit SQL-Escaping):</p>
 <pre><code class="language-py">search_name = input()
@@ -880,7 +880,7 @@ res = c.execute(
   (search_name, )
 )</code></pre>
 
-      </section><section class="slide" id="slide-12-5">
+      </section><section class="slide" id="slide-11-13">
         <h2 id="abfrageparameter">Abfrageparameter</h2>
 <p><a href="https://www.python.org/dev/peps/pep-0249/#paramstyle">https://www.python.org/dev/peps/pep-0249/#paramstyle</a></p>
 <p>Die Attribute <code>sqlite3.paramstyle</code>, <code>pymysql.paramstyle</code> etc geben das Format für Abfragen mit Parametern an</p>
@@ -891,7 +891,7 @@ res = c.execute(
 <li>cx_Oracle: named</li>
 </ul>
 
-      </section><section class="slide" id="slide-12-6">
+      </section><section class="slide" id="slide-11-14">
         <h2 id="pep-249-das-cursor-objekt">PEP 249: das cursor Objekt</h2>
 <p><code>cursor.rowcount</code>: Anzahl der letzten Ergebnisse</p>
 <p><code>cursor.fetchone()</code>: Eine Zeile des Resultats auslesen (üblicherweise als Tupel)</p>
@@ -899,20 +899,20 @@ res = c.execute(
 <p><code>cursor.fetchall()</code></p>
 <p><code>cursor.execute(command, parameters)</code></p>
 
-      </section></section><section class="section" id="section-13"><section class="slide" id="slide-13-1">
+      </section></section><section class="section" id="section-12"><section class="slide" id="slide-12-1">
         <h1 id="sqlalchemy">SQLAlchemy</h1>
 
-      </section><section class="slide" id="slide-13-2">
+      </section><section class="slide" id="slide-12-2">
         <h2 id="sqlalchemy">SQLAlchemy</h2>
 <p>SQLAlchemy = Object Relational Mapper</p>
 <p>Objektorientierter Zugriff auf beliebige SQL-Datenbanken</p>
 <p>Alternative: Django ORM</p>
 
-      </section><section class="slide" id="slide-13-3">
+      </section><section class="slide" id="slide-12-3">
         <h2 id="sqlalchemy">SQLAlchemy</h2>
 <p>Pip-Paket <em>sqlalchemy</em></p>
 
-      </section><section class="slide" id="slide-13-4">
+      </section><section class="slide" id="slide-12-4">
         <h2 id="verbinden-mit-sqlite-datenbank">verbinden mit SQLite-Datenbank</h2>
 <pre><code class="language-py"><span class="hljs-comment"># db_interface.py</span>
 <span class="hljs-keyword">from</span> sqlalchemy <span class="hljs-keyword">import</span> create_engine
@@ -921,7 +921,7 @@ engine = create_engine(<span class="hljs-string">"sqlite:///music.db"</span>, ec
 
 engine.connect()</code></pre>
 
-      </section><section class="slide" id="slide-13-5">
+      </section><section class="slide" id="slide-12-5">
         <h2 id="tabellen-definieren">Tabellen definieren</h2>
 <pre><code class="language-py"><span class="hljs-comment"># schema.py</span>
 <span class="hljs-keyword">from</span> sqlalchemy.ext.declarative <span class="hljs-keyword">import</span> declarative_base
@@ -937,7 +937,7 @@ Base = declarative_base()
 <pre><code class="language-py"><span class="hljs-comment"># db_interface.py</span>
 Base.metadata.create_all(engine)</code></pre>
 
-      </section><section class="slide" id="slide-13-6">
+      </section><section class="slide" id="slide-12-6">
         <h2 id="mit-sessions-arbeiten">Mit Sessions arbeiten</h2>
 <pre><code class="language-py"><span class="hljs-keyword">from</span> sqlalchemy.orm <span class="hljs-keyword">import</span> sessionmaker
 
@@ -949,14 +949,14 @@ session = Session()
 
 session.commit()</code></pre>
 
-      </section><section class="slide" id="slide-13-7">
+      </section><section class="slide" id="slide-12-7">
         <h2 id="insert">insert</h2>
 <pre><code class="language-sql"><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> artist <span class="hljs-keyword">VALUES</span> (<span class="hljs-string">'The Beatles'</span>, <span class="hljs-string">'United Kingdom'</span>);</code></pre>
 <p>wird zu:</p>
 <pre><code class="language-py">beatles = Artist(name=<span class="hljs-string">"The Beatles"</span>, country=<span class="hljs-string">"United Kingdom"</span>)
 session.add(beatles)</code></pre>
 
-      </section><section class="slide" id="slide-13-8">
+      </section><section class="slide" id="slide-12-8">
         <h2 id="select">select</h2>
 <pre><code class="language-sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">name</span>, country <span class="hljs-keyword">FROM</span> artist;</code></pre>
 <p>wird zu:</p>
@@ -966,7 +966,7 @@ session.add(beatles)</code></pre>
 <pre><code class="language-py"><span class="hljs-keyword">for</span> name, country <span class="hljs-keyword">in</span> session.query(Artist.name, Artist.country):
     print(<span class="hljs-string">f"<span class="hljs-subst">{name}</span> (<span class="hljs-subst">{country}</span>)"</span>)</code></pre>
 
-      </section><section class="slide" id="slide-13-9">
+      </section><section class="slide" id="slide-12-9">
         <h2 id="order-by">order by</h2>
 <pre><code class="language-sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">name</span>, country <span class="hljs-keyword">FROM</span> artist <span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> <span class="hljs-keyword">name</span>;</code></pre>
 <p>wird zu:</p>
@@ -974,13 +974,13 @@ session.add(beatles)</code></pre>
         Artist.name, Artist.country).order_by(Artist.name):
     ...</code></pre>
 
-      </section><section class="slide" id="slide-13-10">
+      </section><section class="slide" id="slide-12-10">
         <h2 id="where">where</h2>
 <pre><code class="language-sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">name</span>, country <span class="hljs-keyword">FROM</span> artist <span class="hljs-keyword">WHERE</span> artist.name=<span class="hljs-string">'The Beatles'</span></code></pre>
 <p>wird zu:</p>
 <pre><code class="language-py">session.query(Artist).filter_by(Artist.name==<span class="hljs-string">"The Beatles"</span>).one()</code></pre>
 
-      </section><section class="slide" id="slide-13-11">
+      </section><section class="slide" id="slide-12-11">
         <h2 id="sprechende-ausgabe-von-einträgen">Sprechende Ausgabe von Einträgen</h2>
 <p>aktuell:</p>
 <pre><code class="language-txt">&amp;ltdb_schema.Song object at 0x00000175902A5FD0&gt;</code></pre>
@@ -988,7 +988,7 @@ session.add(beatles)</code></pre>
 <pre><code class="language-txt">Help! - The Beatles</code></pre>
 <p>umsetzbar mittels <code>__repr__</code> / <code>__str__</code></p>
 
-      </section><section class="slide" id="slide-13-12">
+      </section><section class="slide" id="slide-12-12">
         <h2 id="update">update</h2>
 <pre><code class="language-sql"><span class="hljs-keyword">UPDATE</span> song
 <span class="hljs-keyword">SET</span> title = <span class="hljs-string">'Help'</span>
@@ -997,7 +997,7 @@ session.add(beatles)</code></pre>
 <pre><code class="language-py">entry = session.query(Song).filter_by(Song.title==<span class="hljs-string">"Help!"</span>).one()
 entry.title = <span class="hljs-string">"Help"</span></code></pre>
 
-      </section><section class="slide" id="slide-13-13">
+      </section><section class="slide" id="slide-12-13">
         <h2 id="delete">delete</h2>
 <pre><code class="language-sql"><span class="hljs-keyword">DELETE</span>
 <span class="hljs-keyword">FROM</span> song
@@ -1005,7 +1005,7 @@ entry.title = <span class="hljs-string">"Help"</span></code></pre>
 <p>wird zu</p>
 <pre><code class="language-py">session.query(Song).filter_by(Song.title==<span class="hljs-string">"Help!"</span>).delete()</code></pre>
 
-      </section><section class="slide" id="slide-13-14">
+      </section><section class="slide" id="slide-12-14">
         <h2 id="definition-eines-fremdschlüssels">Definition eines Fremdschlüssels</h2>
 <pre><code class="language-py"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Song</span><span class="hljs-params">(Base)</span>:</span>
     __tablename__ = <span class="hljs-string">"song"</span>
@@ -1013,7 +1013,7 @@ entry.title = <span class="hljs-string">"Help"</span></code></pre>
     title = Column(String(<span class="hljs-number">30</span>))
     artist_id = Column(Integer, ForeignKey(<span class="hljs-string">"artist.id"</span>))</code></pre>
 
-      </section><section class="slide" id="slide-13-15">
+      </section><section class="slide" id="slide-12-15">
         <h2 id="einfaches-abfragen-einer-verknüpften-tabelle">Einfaches Abfragen einer verknüpften Tabelle</h2>
 <pre><code class="language-py"><span class="hljs-keyword">from</span> sqlalchemy.orm <span class="hljs-keyword">import</span> relationship
 
@@ -1027,7 +1027,7 @@ entry.title = <span class="hljs-string">"Help"</span></code></pre>
 
     artist = relationship(<span class="hljs-string">"Artist"</span>)</code></pre>
 
-      </section><section class="slide" id="slide-13-16">
+      </section><section class="slide" id="slide-12-16">
         <h2 id="einfaches-abfragen-einer-verknüpften-tabelle">Einfaches Abfragen einer verknüpften Tabelle</h2>
 <pre><code>yesterday = Song(title=&quot;Yesterday&quot;, artist=beatles)
 help = Song(title=&quot;Help!&quot;, artist_id=beatles.id)
@@ -1035,20 +1035,20 @@ session.add(...)
 
 print(yesterday.artist)
 print(beatles.songs)</code></pre>
-      </section></section><section class="section" id="section-14"><section class="slide" id="slide-14-1">
+      </section></section><section class="section" id="section-13"><section class="slide" id="slide-13-1">
         <h1 id="numpy">NumPy</h1>
 
-      </section><section class="slide" id="slide-14-2">
+      </section><section class="slide" id="slide-13-2">
         <h2 id="numpy">NumPy</h2>
 <p>Library zur effizienten Datenverarbeitung</p>
 <p>Daten sind in mehrdimensionalen arrays gespeichert, die resourcenschonend umgesetzt sind</p>
 
-      </section><section class="slide" id="slide-14-3">
+      </section><section class="slide" id="slide-13-3">
         <h2 id="numpy">NumPy</h2>
 <p>NumPy Arrays vs Python Listen:</p>
 <p>Arrays sind im Hintergrund in C implementiert, die numerischen Einträge (z.B. Integer) sind keine Python-Objekte und damit resourcenschonender.</p>
 
-      </section><section class="slide" id="slide-14-4">
+      </section><section class="slide" id="slide-13-4">
         <h2 id="numpy">NumPy</h2>
 <p>NumPy Arrays vs Python Listen:</p>
 <pre><code class="language-py">list_a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>] <span class="hljs-comment"># Python - Liste (mit Verweisen auf andere Integer)</span>
@@ -1060,7 +1060,7 @@ array_b = numpy.array(list_b)
 
 array_a + array_b <span class="hljs-comment"># sehr schnell (da in C implementiert)</span></code></pre>
 
-      </section><section class="slide" id="slide-14-5">
+      </section><section class="slide" id="slide-13-5">
         <h2 id="numpy">NumPy</h2>
 <p>Kapitel 30</p>
 <ul>

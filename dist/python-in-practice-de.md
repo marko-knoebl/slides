@@ -800,7 +800,7 @@ connection.close()
 
 https://www.python.org/dev/peps/pep-0249
 
-# PEP 249: Typen
+## PEP 249: Typen
 
 - `Date`
 - `Time`
