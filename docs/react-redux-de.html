@@ -132,7 +132,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <ul>
 <li>Redux (oft mit React verwendet)</li>
 <li>MobX (oft mit React verwendet)</li>
-<li>ngrx (oft mit Angular verwendet)</li>
+<li>ngrx (mit Angular verwendet)</li>
 <li>vuex (mit Vue.js verwendet)</li>
 </ul>
 
@@ -170,7 +170,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
       </section><section class="slide" id="slide-1-9">
         <h2 id="einfaches-redux-beispiel-counter">Einfaches Redux-Beispiel: Counter</h2>
 <p>Die Reducer-Funktion erhält als Funktionsparameter den alten Zustand (State) und eine Action, die eine Zustandsänderung beschreibt.</p>
-<p>Die Reducer-Funktion gibt den neuen Zustand zurück.</p>
+<p>Die Reducer-Funktion gibt den neuen Zustand zurück. Wichtig: Reducer-Funktionen ändern das alte state-Objekt nicht ab, sondern erstellen ein neues (reine Funktion)</p>
 
       </section><section class="slide" id="slide-1-10">
         <h2 id="einfaches-redux-beispiel-counter">Einfaches Redux-Beispiel: Counter</h2>
@@ -193,6 +193,21 @@ counterStore.getState(); <span class="hljs-comment">// {count: 1}</span></code><
         <h2 id="übung">Übung</h2>
 <p>Erstelle einen neuen mathadorStore mit dem Ausgangszustand <code>{number: 1}</code> und Actions für &quot;Mal 3&quot; und &quot;Minus 7&quot;</p>
 <p>Zusatzaufgabe: Erreiche den Zustand 4 (oder 10) durch das dispatchen passender Actions</p>
+
+      </section><section class="slide" id="slide-1-13">
+        <h2 id="reducer-kombinieren">Reducer kombinieren</h2>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> rootReducer = combineReducers({
+  <span class="hljs-attr">counter</span>: counterReducer,
+  <span class="hljs-attr">mathador</span>: mathadorReducer,
+});
+
+<span class="hljs-keyword">const</span> rootStore = createStore(rootReducer);
+
+rootStore.getState();
+<span class="hljs-comment">// {counter: {count: 0}, mathador: {number: 1}}</span>
+
+rootStore.dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">'INCREMENT'</span> });
+<span class="hljs-comment">// {counter: {count: 1}, mathador: {number: 1}}</span></code></pre>
 
       </section></section><section class="section" id="section-2"><section class="slide" id="slide-2-1">
         <h1 id="react-mit-redux">React mit Redux</h1>
@@ -432,38 +447,6 @@ user.email = <span class="hljs-string">'johndoe@gmail.com'</span>;
 });</code></pre>
 
       </section><section class="slide" id="slide-4-8">
-        <h2 id="reducers">Reducers</h2>
-<ul>
-<li>Actions werden von reducer-Funktionen verarbeitet</li>
-<li>Reducer-Funktionen erhalten als Argumente den alten Zustand (State) und eine Action</li>
-<li>Reducer-Funktionen geben den neuen Zustand zurück</li>
-<li>wichtig: Reducer-Funktionen ändern das alte state-Objekt nicht ab, sondern erstellen ein neues (reine Funktionen)</li>
-</ul>
-
-      </section><section class="slide" id="slide-4-9">
-        <h2 id="stores">Stores</h2>
-<p>Store = Datenspeicher, der von einem Reducer verwaltet wird</p>
-<pre><code class="language-js"><span class="hljs-keyword">import</span> { createStore } <span class="hljs-keyword">from</span> <span class="hljs-string">'redux'</span>;
-<span class="hljs-keyword">import</span> counterReducer <span class="hljs-keyword">from</span> <span class="hljs-string">'./counterReducer'</span>;
-
-<span class="hljs-keyword">const</span> store = createStore(counterReducer);</code></pre>
-
-      </section><section class="slide" id="slide-4-10">
-        <h2 id="reducer-kombinieren">Reducer kombinieren</h2>
-<pre><code class="language-js"><span class="hljs-keyword">const</span> rootReducer = combineReducers({
-  <span class="hljs-attr">counter</span>: counterReducer,
-  <span class="hljs-attr">mathador</span>: mathadorReducer,
-});
-
-<span class="hljs-keyword">const</span> rootStore = createStore(rootReducer);
-
-rootStore.getState();
-<span class="hljs-comment">// {counter: {count: 0}, mathador: {number: 1}}</span>
-
-rootStore.dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">'INCREMENT'</span> });
-<span class="hljs-comment">// {counter: {count: 1}, mathador: {number: 1}}</span></code></pre>
-
-      </section><section class="slide" id="slide-4-11">
         <h2 id="beispiel-todo-verwaltung-mit-redux">Beispiel: Todo-Verwaltung mit Redux</h2>
 
       </section></section><section class="section" id="section-5"><section class="slide" id="slide-5-1">

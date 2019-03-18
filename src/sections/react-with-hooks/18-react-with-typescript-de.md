@@ -39,3 +39,10 @@ class TodoItem extends React.PureComponent<
   TodoItemState
 > {}
 ```
+
+## Event types
+
+- `React.FormEvent`
+- `React.FormEvent<HTMLFormElement>`
+- `React.ChangeEvent<HTMLInputElement>`
+- `React.MouseEvent<HTMLDivElement>`

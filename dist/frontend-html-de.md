@@ -189,6 +189,90 @@ z.B. über _prettierrc.json_:
 }
 ```
 
+# Übung: Tabellen und Formulare
+
+## Übung: Tabellen und Formulare
+
+Wir erstellen eine Website für ein Restaurant
+
+Wir beginnen mit einer Tabelle für die Öffnungszeiten und einem Formular für Reservierungen
+
+Um die optische Gestaltung kümmern wir uns später mit Hilfe des CSS-Frameworks Bootstrap
+
+# HTML Elemente
+
+## HTML Elemente
+
+vollständige Liste:
+
+- https://www.w3schools.com/tags/ref_byfunc.asp
+- https://www.w3schools.com/TAgs/default.asp
+- https://developer.mozilla.org/de/docs/Web/HTML/Element
+
+## allgemeine Elemente
+
+- `div`: allgemeines Block-Element
+- `span`: allgemeines Inline-Element
+
+Block-Elemente: untereinander angeordnet, so breit wie möglich  
+Inline-Elemente: nebeneinander angeordnet, so breit wie ihr Inhalt
+
+## Links
+
+- `a`
+
+## Strukturierung / Begrenzung
+
+- `h1` - `h6`
+- `p`
+- `hr`
+
+## Textformatierung
+
+- `br`
+- `em` (emphasis)
+- `strong`
+- `b` (veraltet)
+- `i` (veraltet)
+
+## Listen
+
+- `ul` (unordered list)
+- `ol` (ordered list)
+- `li` (list item)
+
+## strukturierende (semantische) Elemente
+
+- `main`
+- `section`
+- `article`
+- `footer`
+- `nav`
+- `aside`
+
+## Medien
+
+- `img`
+- `video`
+- `audio`
+
+## Formulare
+
+- `button`
+- `input`
+- `label`
+- `select`
+
+## Tabellen
+
+- `table`
+- (`tbody`)
+- (`thead`)
+- `tr`
+- `th`, `td`
+- `caption`
+- Attribute `colspan`, `rowspan`
+
 # Struktur eines HTML-Dokuments
 
 ## Grundlegende HTML-Struktur
@@ -329,7 +413,7 @@ Einbinden:
 
 ## Verwendung von Bootstrap
 
-- ohne eigenes Zutun: Standardstil von Tags wie `body`, `h1`, `button`, ... verändert sich
+- ohne eigenes Zutun: Standardstil von Elementen wie `body`, `h1`, `button`, ... verändert sich
 - für weitere Funktionalität: Das Attribut `class` kann gesetzt werden
 
 # Bootstrap
@@ -337,6 +421,17 @@ Einbinden:
 ## Bootstrap
 
 CSS-Framework, mit dem HTML-Seiten gestaltet werden können - selbst muss man kein oder kaum CSS schreiben
+
+## Bootstrap - Projekt: Restaurantwebsite
+
+Wir erstellen eine einfache Website - z.B. für ein Restaurant.
+
+Inhalt unter anderem:
+
+- Navigationsmenü
+- Tabelle mit Öffnungszeiten
+- Formular zum Reservieren
+- Slideshow mit Bildern
 
 ## Bootstrap: Container
 
@@ -363,6 +458,17 @@ Mit Klassen `container`, `row` und `col`
 </div>
 ```
 
+## Bootstrap: margins
+
+Margins sind Abstände von Elementen. Sie helfen beim gestalten von Layouts.
+
+Bootstrap bietet hierzu vorgefertigte Klassen, z.B.:
+
+- `ml-auto`: margin-left: auto
+- `ml-1`: kleiner Margin links
+- `mt-4`: großer Margin oben (top)
+- `my-2`: mittlerer Margin in y-Richtung (oben und unten)
+
 ## Bootstrap: Elemente und vorgefertigte Komponenten
 
 z.B.:
@@ -372,81 +478,6 @@ z.B.:
 - carousel
 - navbar
 - ...
-
-# HTML Elemente
-
-## HTML Elemente
-
-vollständige Liste:
-
-- https://www.w3schools.com/tags/ref_byfunc.asp
-- https://www.w3schools.com/TAgs/default.asp
-- https://developer.mozilla.org/de/docs/Web/HTML/Element
-
-## allgemeine Elemente
-
-- `div`: allgemeines Block-Element
-- `span`: allgemeines Inline-Element
-
-Block-Elemente: untereinander angeordnet, so breit wie möglich  
-Inline-Elemente: nebeneinander angeordnet, so breit wie ihr Inhalt
-
-## strukturierende (semantische) Elemente
-
-- main
-- section
-- article
-- footer
-- nav
-- aside
-
-## Links
-
-- `a`
-
-## Strukturierung / Begrenzung
-
-- `h1` - `h6`
-- `p`
-- `hr`
-
-## Textformatierung
-
-- `br`
-- `em` (emphasis)
-- `strong`
-- `b` (veraltet)
-- `i` (veraltet)
-
-## Listen
-
-- `ul` (unordered list)
-- `ol` (ordered list)
-- `li` (list item)
-
-## Medien
-
-- `img`
-- `picture` (umfasst mehrere Bildgrößen)
-- `video`
-- `audio`
-
-## Formulare
-
-- `button`
-- `input`
-- `label`
-- `select`
-
-## Tabellen
-
-- `table`
-- (`tbody`)
-- (`thead`)
-- `tr`
-- `th`, `td`
-- `caption`
-- Attribute `colspan`, `rowspan`
 
 # Medien
 

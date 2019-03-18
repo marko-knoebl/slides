@@ -14,7 +14,8 @@
 
 ### Vertiefung
 
+- Lifecycle
 - Routing
 - Testen von Komponenten
 - Redux
-- Progressive Web Apps
+- Progressive Web Apps mit React

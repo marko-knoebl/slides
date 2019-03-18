@@ -85,6 +85,8 @@ Falls sich zwei CSS-Attribute widersprechen, "gewinnt":
 - Farben
 - Schriftart
 
+# Farben
+
 ## Farben
 
 ```css
@@ -101,6 +103,8 @@ Standard-Farben: z.B. `grey`, `blue`, `lightblue`, ...
 RGB-Definition (rot-grün-blau): z.B. `rgb(255, 128, 128)`
 
 HEX-Definition: z.B. `#ff8080`
+
+# Schrift
 
 ## Schrift
 
@@ -169,6 +173,8 @@ h1 {
 - `start` (neu)
 - `end` (neu)
 
+# Längeneinheiten
+
 ## Längeneinheiten
 
 px, em, rem, %, vh, vw
@@ -179,7 +185,7 @@ früher:
 1px = ein Pixel am Bildschirm
 
 heutzutage:  
-zB beim iPhone 4: 1px = zwei Pixel am Bildschirm (device pixel ratio = 2)
+z.B. beim iPhone 4: 1px = zwei Pixel am Bildschirm (device pixel ratio = 2)
 
 Abfragbar über JS-Variable `devicePixelRatio`
 
@@ -187,7 +193,9 @@ Abfragbar über JS-Variable `devicePixelRatio`
 
 rem = Schriftgröße des `html`-Elements
 
-Standard in Browsern: 1 rem = 16 px
+Standard in Browsern: 1rem = 16px
+
+# Inline- und Block-Elemente
 
 ## Inline- und Block-Elemente
 
@@ -209,6 +217,8 @@ Block-Elemente:
 
 `div` = allgemeinstes block-Element
 
+# Block-Elemente und das Box-Modell
+
 ## Block- Elemente und das Box-Modell
 
 "Schichten" von innen nach außen:
@@ -217,6 +227,10 @@ Block-Elemente:
 - Innenabstand (padding)
 - Rand (border)
 - Außenabstand (margin)
+
+## Block- Elemente und das Box-Modell
+
+Beispiel: zwei Boxen
 
 ## Block- Elemente und das Box-Modell
 
@@ -282,17 +296,7 @@ div {
 }
 ```
 
-## overflow
-
-Um bei Bedarf scroll-Leisten anzuzeigen:
-
-```css
-div {
-  overflow: auto;
-}
-```
-
-## Body mit voller Höhe
+## Layout-Beispiel: Body mit voller Höhe
 
 Standardmäßig: Body ist nur so groß wie dessen Inhalt
 
@@ -304,7 +308,37 @@ body {
 }
 ```
 
-## Tabellen
+# overflow
+
+## overflow
+
+Um bei Bedarf Scrollleisten anzuzeigen:
+
+```css
+div {
+  overflow: auto;
+}
+```
+
+# CSS-Selektoren
+
+- Pseudoklassen
+
+# Übung: Google-Klon
+
+# Reboot
+
+## Reboot
+
+Reboot ist ein _CSS-Reset_, der aus dem bootstrap-Projekt hervorgegangen ist.
+
+Er vereinheitlicht Browserverhalten und bietet einen ansprechenderen Standardstil im Browser
+
+Sourcecode:
+
+https://github.com/twbs/bootstrap/blob/master/dist/css/bootstrap-reboot.css
+
+# Tabellen und CSS
 
 ## Tabellen: verwenden von Pseudoklassen
 
@@ -327,13 +361,35 @@ tr:nth-child(2n) {
 
 ## Übung: Öffnungszeiten
 
-## Übung: Google-Klon
-
 # CSS-Layouts
 
 ## Layout-Grundlagen
 
 [learnlayout.com](https://learnlayout.com)
+
+## Absolute Positionierung
+
+Beispiel: ein `div` soll je `10px` von der rechten unteren Ecke seines Elternelements positioniert sein
+
+## Absolute Positionierung
+
+```html
+<div id="outer">
+  <div id="inner"></div>
+</div>
+```
+
+```css
+#outer {
+  position: relative;
+}
+
+#inner {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+```
 
 ## Positionierung
 
@@ -346,9 +402,16 @@ tr:nth-child(2n) {
 
 [css-tricks.com](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
 
-## Beispiel: Facebook-Klon
+## Beispiele
+
+- Facebook-Klon (mit Chat)
+- Messaging-Anwendung
 
 ## Media Queries
 
-## CSS-Frameworks: Beispiel Bootstrap
+- device-width
+- aspect-ratio
+
+Gerätesimulation im Browser
+# Animations
 

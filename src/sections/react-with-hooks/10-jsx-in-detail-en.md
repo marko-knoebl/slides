@@ -1,8 +1,8 @@
-# JSX im Detail
+# JSX in detail
 
-## JSX: Elemente wiederholen
+## JSX: repeating elements
 
-Grundsätzlich können wir über Arrays mehrere Elemente einbinden:
+Multiple Elements may be added via arrays:
 
 ```xml
 <ul>
@@ -13,9 +13,9 @@ Grundsätzlich können wir über Arrays mehrere Elemente einbinden:
 </ul>
 ```
 
-## JSX: Elemente wiederholen
+## JSX: repeating elements
 
-Meist verwenden wir zum wiederholen die `.map()` - Methode
+In practice this is mostly done via the `.map()` method
 
 <!-- prettier-ignore -->
 ```jsx
@@ -32,10 +32,11 @@ const todos = [
 </ul>
 ```
 
-## JSX: Elemente wiederholen
+## JSX: repeating elements
 
-Bei obigem Code: Warnung in der Browser-Konsole (Wegen Effizienz)  
-Lösung: **key**:
+With the above code:  
+warning in the browser console (concerning efficiency)  
+solution: **key**:
 
 ```jsx
 <ul>
@@ -64,15 +65,21 @@ if (Math.random() > 0.5) {
 return <div>{face}</div>;
 ```
 
-## JSX: CSS-Klassen
+## JSX: if
+
+```jsx
+<div>{state.hasError && state.errorMessage}</div>
+```
+
+## JSX: CSS classes
 
 ```jsx
 <div className={getClassName()}>[...]</div>
 ```
 
-## CSS-Module
+## CSS modules
 
-Bei create-react-app sind CSS-Module vorkonfiguriert. Diese erlauben das Anwenden von CSS auf nur eine Komponente.
+When using create-react-app CSS modules are preconfigured. They allow using CSS class names that are guaranteed to be unique.
 
 ```js
 import styles from './TodoItem.module.css';
@@ -84,7 +91,7 @@ import styles from './TodoItem.module.css';
 </div>;
 ```
 
-## SCSS einbinden
+## using SCSS
 
 ```bash
 npm install node-sass
@@ -105,7 +112,7 @@ $primary: lightblue;
 ...
 ```
 
-## JSX: Dynamische Stile
+## JSX: dynamic style
 
 ```jsx
 <div
@@ -116,11 +123,11 @@ $primary: lightblue;
 />
 ```
 
-## Fragmente
+## Fragments
 
-Erlauben es einer Komponente, mehrere Elemente zurückzugeben (anstatt eines einzenen Elements)
+Fragments enable returning multiple elements from a component / function:
 
-```ts
+```jsx
 return (
   <>
     <td>Hello</td>
@@ -129,18 +136,13 @@ return (
 );
 ```
 
-## JSX Kompilierung
+## JSX compilation
 
-<!-- prettier-ignore -->
 ```jsx
-const element = (
-  <h1 className="greeting">
-    Hello, world!
-  </h1>
-);
+const element = <h1 className="greeting">Hello, world!</h1>;
 ```
 
-wird kompiliert zu:
+compiles to:
 
 ```js
 const element = React.createElement(

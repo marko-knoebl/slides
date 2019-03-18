@@ -58,7 +58,7 @@ b = 4
 print(a * b)
 
 if a * b > 10:
-    print('hello')
+    print('greater')
 ```
 
 # Python Installation
@@ -87,12 +87,6 @@ Starten:
 
 - Terminal-Befehl `python`
 - Desktop-Anwendung _IDLE_
-
-## Ausdrücke und Operatoren
-
-```py
-2 + 2
-```
 
 ## Mathematische Operatoren
 
@@ -613,6 +607,8 @@ x
 your shopping list is:
 ["milk", "bread", "apples"]
 ```
+
+# Objekte abändern
 
 ## Objekte abändern
 

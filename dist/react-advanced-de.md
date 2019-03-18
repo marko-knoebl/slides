@@ -37,15 +37,116 @@ const App = () => {
 };
 ```
 
-# Effect Hook
+# Komponenten-Lebenszyklus
 
-## Effect Hook
+## Komponenten-Lebenszyklus
 
-Der effect Hook kann dienen, um zu bestimmten Zeitpunkten im Lebenszyklus einer Komponente Aktionen zu setzen - insbesondere, wenn sich deren _props_ oder _state_ geändert haben - oder, wenn sie neu eingebunden wurde
+In React können bestimmte Ereignisse im Lebenszyklus einer Komponente abgefragt werden. Insbesondere sind folgende Ereignisse oft von Interesse:
 
-Beispiele für Einsatzgebiete: Anfragen von APIs, manuelle Änderungen am DOM
+- die Komponente wurde neu eingebunden
+- state oder props der Komponente haben sich geändert
+- die Komponente wird entfernt
 
-## useEffect
+## Komponenten-Lebenszyklus
+
+Einsatzgebiete der genannten Ereignisse:
+
+- Abfragen von APIs
+- manuelle Änderungen am DOM
+- Aufräumen vor dem Entfernen einer Komponente
+
+## Komponenten-Lebenszyklus
+
+Die Ereignisse können wie folgt abgefragt werden:
+
+In Klassenkomponenten mittels Lebenszyklus-Methoden:
+
+- `componentDidMount`
+- `componentDidUpdate`
+- `componentWillUnmount`
+
+In funktionalen Komponenten mittels `useEffect`
+
+## Beispiel: DocumentTitle-Komponente
+
+Wir erstellen eine Komponente, die den Dokumenttitel dynamisch setzen kann:
+
+```xml
+<DocumentTitle>my custom title</DocumentTitle>
+```
+
+Diese Komponente kann irgendwo in der React-Anwendung vorkommen.
+
+## Beispiel: DocumentTitle-Komponente
+
+Als Klassenkomponente
+
+```jsx
+class DocumentTitle extends Component {
+  componentDidMount(prevProps, prevState) {
+    document.title = this.props.children;
+  }
+
+  componentDidUpdate() {
+    document.title = this.props.children;
+  }
+
+  render() {
+    return null;
+  }
+}
+```
+
+## Beispiel: DocumentTitle-Komponente
+
+mit useEffect
+
+```jsx
+const DocumentTitle = props => {
+  useEffect(() => {
+    document.title = props.children;
+  });
+
+  return null;
+};
+```
+
+## Beispiel: Clock-Komponente
+
+## Beispiel: Clock-Komponente
+
+Als Klassenkomponente:
+
+```jsx
+  constructor() {
+    super();
+    this.state = {
+      time: new Date().toLocaleTimeString()
+    };
+  }
+
+  render() {
+    return <div>{this.state.time}</div>;
+  }
+```
+
+## Beispiel: Clock-Komponente
+
+```jsx
+  componentDidMount() {
+    this.intervalId = setInterval(() => {
+      this.setState({
+        time: new Date().toLocaleTimeString()
+      });
+    }, 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.intervalId);
+  }
+```
+
+## useEffect im Detail
 
 `useEffect` bekommt zwei Parameter übergeben: Eine Funktion und ein Array von Werten.
 
@@ -53,7 +154,7 @@ Die Funktion nach dem Rendering einer Komponente ausgeführt, wenn sich einer de
 
 Die Funktion wird auch ausgeführt, wenn die Komponente neu eingebunden und zum ersten Mal gerendert wurde.
 
-## useEffect
+## useEffect im Detail
 
 Wenn kein zweiter Parameter übergeben wird, wird die Funktion nach jedem Rendering ausgeführt.
 
@@ -68,14 +169,11 @@ const [weatherData, setWeatherData] = useState(null);
 const [stale, setStale] = useState(true);
 
 // fetch data whenever data is stale
-useEffect(
-  () => {
-    if (stale) {
-      refetch();
-    }
-  },
-  [stale]
-);
+useEffect(() => {
+  if (stale) {
+    refetch();
+  }
+}, [stale]);
 ```
 
 ## useEffect: Beispiel: Weather
@@ -94,54 +192,23 @@ const refetch = () => {
 };
 ```
 
-## Beispiel: Weather
+## useEffect: Entfernen einer Komponente
 
-Zustand 1a (Ausgangszustand):
-
-keine Wetterdaten vorhanden (null)
-es wird gerade geladen (true)
-es gibt keine Fehlermeldung
--> 2a, 2b
-
-Zustand 1b:
-
-es sind aktuelle Wetterdaten vorhanden ({...})
-es wird geladen (true)
-es gibt keine Fehlermeldung
--> 2a, 2b
-
-## Beispiel: Weather
-
-Zustand 2a:
-
-es sind aktuelle Wetterdaten vorhanden ({...})
-es wird nicht geladen (false)
--> 1b
-
-Zustand 2b:
-
-es sind keine aktuellen Wetterdaten vorhanden (null)
-es wird nicht geladen (false)
-es gibt eine Fehlermeldung (404 oder 400)
--> 1a
-
-## Entfernen einer Komponente
-
-```js
-const [time, setTime] = useState(0);
-
-// diese Funktion wird aufgerufen,
-// wenn die Komponente eingebunden wird
-useEffect(() => {
-  const intervalId = setInterval(() => {
-    setTime(time + 1);
-  });
-  // diese Funktion wird aufgerufen,
-  // wenn die Komponente entfernt wird
-  return () => {
-    clearInterval(intervalId);
-  };
-}, []);
+```jsx
+const Clock = () => {
+  ...
+  // wird aufgerufen, wenn die Komponente eingebunden wird
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setTime(new Date().toLocaleTimeString());
+    }, 1000);
+    // wird aufgerufen, wenn die Komponente entfernt wird
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, []);
+  ...
+};
 ```
 
 # reducer Hook
@@ -340,9 +407,7 @@ expect (behaviour-driven)
 
 ## Testen: assertions
 
-assert: Beispiele
-
-node:
+assert (node):
 
 ```js
 assert.equal(a, b);
@@ -350,7 +415,7 @@ assert.deepEqual(a, b);
 // ...
 ```
 
-chai:
+assert (chai):
 
 ```js
 assert.equal(a, b);
@@ -363,9 +428,7 @@ assert.throws(() => {
 
 ## Testen: assertions
 
-expect: Beispiele
-
-jest:
+expect (jest):
 
 ```js
 expect(4).toBeGreaterThan(3);
@@ -375,7 +438,7 @@ expect(() => {
 expect(3).not.toEqual(4);
 ```
 
-chai:
+expect (chai):
 
 ```js
 expect(foo).to.be.a('string');
@@ -472,12 +535,13 @@ it('reacts to click events', () => {
 
 ## Enzyme - Beispiele
 
-<!-- prettier-ignore -->
 ```jsx
 it('reacts to click events', () => {
   const mockFunction = jest.fn();
 
-  const wrapper = mount(<Rating stars={3} onStarsChange={mockFunction} />);
+  const wrapper = mount(
+    <Rating stars={3} onStarsChange={mockFunction} />
+  );
   expect(wrapper.childAt(0).childAt(2).text()).toBe('*');
   wrapper.childAt(0).childAt(1).simulate('click');
   expect(mockFunction).toBeCalledWith(2);
@@ -965,7 +1029,6 @@ export default class Page extends React.Component {
     const json = await res.json();
     return { stars: json.stargazers_count };
   }
-
   render() {
     return <div> Next stars: {this.props.stars} </div>;
   }

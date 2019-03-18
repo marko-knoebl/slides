@@ -2,13 +2,13 @@
 
 ## Komponenten
 
-Möglichkeit, eigene Tags zu definieren, z.B.
+Möglichkeit, eigene Tags zu definieren, z.B.:
 
 ```jsx
-<Rating stars={4} />
+<Rating stars={3} />
 ```
 
-<img src="assets/rating.png" type="image/png" style="height: 4em">
+<img src="assets/rating.png" type="image/png" style="width: 16em">
 
 ## Komponenten
 
@@ -19,7 +19,7 @@ Um sie von normalen Tags zu unterscheiden, beginnen Komponentennamen immer mit e
 - State = interner Zustand einer Komponente
 - Props = vom Elternelement übergebene Parameter
 
-## Komponentendefinition
+## Funktionale Komponenten
 
 Beispiel:
 
@@ -33,6 +33,24 @@ const Rating = props => (
 export default Rating;
 ```
 
+## Klassenkomponenten
+
+example:
+
+```jsx
+import React, { Component } from 'react';
+
+export class Rating extends Component {
+  render() {
+    return (
+      <div className="rating">
+        {'*'.repeat(this.props.stars)}
+      </div>
+    );
+  }
+}
+```
+
 ## Komponentendefinition: Beispiele
 
 - `PlayingCard` - Komponente
@@ -43,24 +61,22 @@ export default Rating;
 - parent → child: props
 - child → parent: events
 
-## Prop Types
+## props.children
 
-Typechecker für Props
+Über `props.children` können Inhalte an eine Komponente übergeben werden
 
-`npm install prop-types`
-
-## Prop Types
+Verwendung einer `Bordered`-Komponente:
 
 ```jsx
-import PropTypes from 'prop-types';
+<Bordered>lorem ipsum</Bordered>
+```
 
-class MyComponent extends Component {}
+Definition der Komponente:
 
-MyComponent.propTypes = {
-  name: PropTypes.string.isRequired,
-  age: PropTypes.number,
-  onChange: PropTypes.func,
-};
+```jsx
+const Bordered = props => (
+  <div class="bordered">{props.children}</div>
+);
 ```
 
 ## Eigene Events
@@ -69,7 +85,7 @@ Eventhandler werden als Funktionen definiert und via props übergeben / erhalten
 
 ## Eigene Events
 
-Beispiel `ToggleButton`: Button der entweder "off" oder "on" anzeigt:
+Beispiel `ToggleButton`: Button, der entweder "off" oder "on" anzeigt:
 
 Prop: `active` - kann auf `true` bzw `false` gesetzt sein
 Event: `onToggle` - Funktion, die mit dem neuen Zustand aufgerufen wird
@@ -87,7 +103,6 @@ Event: `onToggle` - Funktion, die mit dem neuen Zustand aufgerufen wird
 
 Beispiel `ToggleButton`: Der Button muss passend eingebunden werden
 
-<!-- prettier-ignore -->
 ```jsx
 const [myOption, setMyOption] = useState(true);
 
@@ -96,7 +111,7 @@ const [myOption, setMyOption] = useState(true);
   onToggle={newIsActive => {
     setMyOption(newIsActive);
   }}
-/>
+/>;
 ```
 
 ## Eigene Events

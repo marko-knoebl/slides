@@ -29,6 +29,7 @@
 
 - Ab 2011 intern bei Facebook in Verwendung
 - Open Source seit 2013
+- Aktuelle Major Version: React 16 (September 2017)
 - Februar 2019: Einführung von Hooks
 
 ## Beispiel: Datenmodell und -fluss in einer Todo-App

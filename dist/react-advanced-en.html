@@ -359,11 +359,12 @@ it('renders an `.icon-star`', () =&gt; {
 
       </section><section class="slide" id="slide-6-6">
         <h2 id="enzyme---examples">Enzyme - Examples</h2>
-<!-- prettier-ignore -->
 <pre><code class="language-jsx">it(<span class="hljs-string">'reacts to click events'</span>, () =&gt; {
   <span class="hljs-keyword">const</span> mockFunction = jest.fn();
 
-  <span class="hljs-keyword">const</span> wrapper = mount(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Rating</span> <span class="hljs-attr">stars</span>=<span class="hljs-string">{3}</span> <span class="hljs-attr">onStarsChange</span>=<span class="hljs-string">{mockFunction}</span> /&gt;</span>);
+  <span class="hljs-keyword">const</span> wrapper = mount(
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Rating</span> <span class="hljs-attr">stars</span>=<span class="hljs-string">{3}</span> <span class="hljs-attr">onStarsChange</span>=<span class="hljs-string">{mockFunction}</span> /&gt;</span>
+  );
   expect(wrapper.childAt(0).childAt(2).text()).toBe('*');
   wrapper.childAt(0).childAt(1).simulate('click');
   expect(mockFunction).toBeCalledWith(2);

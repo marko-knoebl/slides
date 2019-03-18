@@ -871,29 +871,26 @@ let newNumbers = myNumbers.filter(isEven);
 
 ## reduce
 
-- Verarbeitet die Einträge in einem Array zu einem einzelnen Wert
-- Verwendet eine Funktion, die aus zwei bestehenden Werten einen resultierenden Wert erstellt - diese Funktion wird wiederholt aufgerufen
+- computes one value based on a start value and all entries in an array
+- uses a function that computes a resulting value from two given values - this function will be called repeatedly
 
-## reduce - Beispiel
+## reduce - example
 
 ```js
-let myNumbers = [2, 3, 5, 7, 11];
+let transactions = [
+  { amount: -56, title: 'groceries' },
+  { amount: +1020, title: 'salary' },
+  { amount: -13, title: 'dinner' },
+  { amount: -96, title: 'electricity' },
+];
+let initialBalance = 317;
 
-let multiply = (a, b) => a * b;
+let currentBalance = transactions.reduce(
+  (aggregator, transaction) =>
+    aggregator + transaction.amount
+);
 
-let result = myNumbers.reduce(multiply, 1);
-// result = 2310
-```
-
-Ablauf:
-
-```txt
-value_1 = 1
-value_2 = 1 * 2 = 2
-value_3 = 2 * 3 = 6
-value_4 = 6 * 5 = 30
-value_5 = 30 * 7 = 210
-result = 210 * 11 = 2310
+// 317 -> 261 -> 1281 -> 1268 -> 1172
 ```
 
 # this - quirks

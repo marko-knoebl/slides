@@ -17,7 +17,7 @@ Often the entire application state is represented by a data model and every chan
 
 - Redux (commonly used with React)
 - MobX (commonly used with React)
-- ngrx (commonly used with Angular)
+- ngrx (used with Angular)
 - vuex (used with vue)
 
 ## what makes Redux special
@@ -67,7 +67,7 @@ const counter = (state = initialState, action) => {
 
 The reducer function receives the old state and an action describing a state change
 
-The reducer function returns the new state
+The reducer function returns the new state. Importantly, reducer functions don't mutate the old state object (the are pure functions)
 
 ## Simple Redux example: counter
 
@@ -96,6 +96,23 @@ counterStore.getState(); // {count: 1}
 Create a new `mathadorStore` with an initial state of `{number: 1}` and two actions corresponding to "\*3" and "-7"
 
 additinal tasks: reach the number 4 (or 10) by dispatching actions
+
+## combining reducers
+
+```js
+const rootReducer = combineReducers({
+  a: counter,
+  b: mathador,
+});
+
+const rootStore = createStore(rootReducer);
+
+rootStore.getState();
+// {a: {count: 0}, b: {number: 1}}
+
+rootStore.dispatch({ type: 'INCREMENT' });
+// {a: {count: 1}, b: {number: 1}}
+```
 
 # React with Redux
 
@@ -351,39 +368,6 @@ const addTodo = (title, completed = false) => ({
     completed,
   },
 });
-```
-
-## Reducers
-
-- Actions are processed by reducer functions
-- reducers receive the old state and an action
-- reducers return the new state
-- note: reducers never modify the old state object, but they construct a new one based on it (reducers are pure functions)
-
-## Stores
-
-```js
-import { createStore } from 'redux';
-
-// counter = reducer
-const store = createStore(counter);
-```
-
-## combining reducers
-
-```js
-const rootReducer = combineReducers({
-  a: counter,
-  b: mathador,
-});
-
-const rootStore = createStore(rootReducer);
-
-rootStore.getState();
-// {a: {count: 0}, b: {number: 1}}
-
-rootStore.dispatch({ type: 'INCREMENT' });
-// {a: {count: 1}, b: {number: 1}}
 ```
 
 ## Exercise: state managment in the todo app

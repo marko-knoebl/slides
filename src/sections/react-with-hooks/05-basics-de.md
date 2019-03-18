@@ -1,5 +1,19 @@
 # React & JSX Grundlagen
 
+## Definieren einer Komponente als Klasse
+
+```jsx
+import React, { Component } from 'react';
+
+class App extends Component {
+  render() {
+    return <div>Hello, World!</div>;
+  }
+}
+
+export default App;
+```
+
 ## Definieren einer Komponente als Funktion
 
 ```jsx
@@ -22,7 +36,7 @@ JSX = Templatesprache von React
 ## JSX: JS + XML
 
 ```jsx
-el = <div>Ein Jahr hat {365 * 24} Stunden</div>;
+<div>Ein Jahr hat {365 * 24} Stunden</div>
 ```
 
 ## JSX: Aufgaben

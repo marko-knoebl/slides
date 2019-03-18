@@ -49,10 +49,11 @@ Marko Knöbl
 
 ### Vertiefung
 
+- Lifecycle
 - Routing
 - Testen von Komponenten
 - Redux
-- Progressive Web Apps
+- Progressive Web Apps mit React
 
 # React.js
 
@@ -85,11 +86,140 @@ Marko Knöbl
 
 - Ab 2011 intern bei Facebook in Verwendung
 - Open Source seit 2013
+- Aktuelle Major Version: React 16 (September 2017)
 - Februar 2019: Einführung von Hooks
 
 ## Beispiel: Datenmodell und -fluss in einer Todo-App
 
 <img src="assets/todo-components-datamodel.svg" type="text/svg" style="width: 300px">
+
+# Create-React-App
+
+eine neue React-Anwendung erstellen
+
+## Entwicklung mit node.js und npm
+
+- node.js: JS-Runtime
+  - Ausführen des Testservers
+  - Unit-Tests
+- npm: Paketmanager
+  - zum Verwalten von Abhängigkeiten
+  - Pakete im _node_modules_-Ordner
+  - Konfiguration in _package.json_
+
+## create-react-app
+
+Meistgenutzte Methode zum Erstellen von React-Anwendungen: _create-react-app_
+
+ausführen via:
+
+```bash
+npx create-react-app playground
+```
+
+siehe auch: https://reactjs.org/docs/add-react-to-a-new-app.html
+
+## create-react-app
+
+Erstellt eine einfache React-Anwendung, auf deren Basis weiter gearbeitet werden kann
+
+Viele Aspekte sind vorkonfiguriert:
+
+- lokaler Entwicklungsserver
+- Unittest-Framework jest
+- Webpack und Babel
+- SCSS und CSS Module
+
+## Standard Projektstruktur
+
+- `public/index.html`, `src/index.js`: Einstiegspunkte
+- `App.js`, `App.css`: Definieren App-Komponente
+- `node_modules`: Abhängigkeiten
+
+## Testserver und Build
+
+Im Projektordner:
+
+- `npm start`: Startet den Testserver
+- `npm run build`: Erstellt einen Build (zum Deployen auf einem Webserver)
+
+# React & JSX Grundlagen
+
+## Definieren einer Komponente als Klasse
+
+```jsx
+import React, { Component } from 'react';
+
+class App extends Component {
+  render() {
+    return <div>Hello, World!</div>;
+  }
+}
+
+export default App;
+```
+
+## Definieren einer Komponente als Funktion
+
+```jsx
+import React from 'react';
+
+const App = () => {
+  return <div>Hello, World!</div>;
+};
+
+export default App;
+```
+
+## JSX: JS + XML
+
+JSX = Templatesprache von React
+
+- **<** wechselt von JS zu XML/HTML
+- **{** wechselt zurück zu JS
+
+## JSX: JS + XML
+
+```jsx
+<div>Ein Jahr hat {365 * 24} Stunden</div>
+```
+
+## JSX: Aufgaben
+
+- Zeige das aktuelle Datum an
+- Zeige zufällig entweder den Text "Kopf" oder "Zahl" in einem div an
+
+## JSX: Properties
+
+Der Wechsel von XML auf JS klappt auch bei Properties:
+
+```jsx
+<a href={'https://en.wikipedia.org/wiki/' + articleName}>
+  some article
+</a>
+```
+
+Beachte die fehlenden Anführungszeichen bei href
+
+## JSX Properties: Aufgaben
+
+- Zeige ein Bild basierend auf einer ID an. Verwende dazu:
+
+```js
+const getImgUrl = id =>
+  `https://picsum.photos/200?image=${id}`;
+```
+
+## JSX: events
+
+```jsx
+function hello() {...}
+
+<button onClick={hello}>Say Hello</button>
+```
+
+Liste von Browser-Events:  
+https://www.w3schools.com/jsref/dom_obj_event.asp
 
 # VS Code
 
@@ -150,119 +280,150 @@ Weitere Möglichkeiten:
 - _F2_: Umbenennen von Variablen
 - _Alt_ + Mausklick: Mehrere Textcursor zum gleichzeitigen Schreiben setzen
 
-# Create-React-App
+# map, filter, reduce
 
-eine neue React-Anwendung erstellen
+### Array-Methoden für die funktionale Programmierung
 
-## Entwicklung mit node.js und npm
+## map
 
-- node.js: JS-Runtime
-  - Ausführen des Testservers
-  - Unit-Tests
-- npm: Paketmanager
-  - zum Verwalten von Abhängigkeiten
-  - Pakete im _node_modules_-Ordner
-  - Konfiguration in _package.json_
-
-## create-react-app
-
-Meistgenutzte Methode zum Erstellen von React-Anwendungen: _create-react-app_
-
-ausführen via:
-
-```bash
-npx create-react-app playground
-```
-
-siehe auch: https://reactjs.org/docs/add-react-to-a-new-app.html
-
-## create-react-app
-
-Erstellt eine einfache React-Anwendung, auf deren Basis weiter gearbeitet werden kann
-
-Viele Aspekte sind vorkonfiguriert:
-
-- lokaler Testserver
-- Unittest-Framework jest
-- Webpack und Babel
-- SCSS und CSS Module
-
-## Standard Projektstruktur
-
-- `public/index.html`, `src/index.js`: Einstiegspunkte
-- `App.js`, `App.css`: Definieren App-Komponente
-- `node_modules`: Abhängigkeiten
-
-## Testserver und Build
-
-Im Projektordner:
-
-- `npm start`: Startet den Testserver
-- `npm run build`: Erstellt einen Build (zum Deployen auf einem Webserver)
-
-# React & JSX Grundlagen
-
-## Definieren einer Komponente als Funktion
-
-```jsx
-import React from 'react';
-
-const App = () => {
-  return <div>Hello, World!</div>;
-};
-
-export default App;
-```
-
-## JSX: JS + XML
-
-JSX = Templatesprache von React
-
-- **<** wechselt von JS zu XML/HTML
-- **{** wechselt zurück zu JS
-
-## JSX: JS + XML
-
-```jsx
-el = <div>Ein Jahr hat {365 * 24} Stunden</div>;
-```
-
-## JSX: Aufgaben
-
-- Zeige das aktuelle Datum an
-- Zeige zufällig entweder den Text "Kopf" oder "Zahl" in einem div an
-
-## JSX: Properties
-
-Der Wechsel von XML auf JS klappt auch bei Properties:
-
-```jsx
-<a href={'https://en.wikipedia.org/wiki/' + articleName}>
-  some article
-</a>
-```
-
-Beachte die fehlenden Anführungszeichen bei href
-
-## JSX Properties: Aufgaben
-
-- Zeige ein Bild basierend auf einer ID an. Verwende dazu:
+- Ändert jeden Eintrag eines Arrays mit Hilfe einer Funktion ab
+- Rückgabewert: neues Array
 
 ```js
-const getImgUrl = id =>
-  `https://picsum.photos/200?image=${id}`;
+let myNumbers = [2, 10, 23];
+
+let triple = n => 3 * n;
+
+let newNumbers = myNumbers.map(triple);
+// [6, 30, 69]
 ```
 
-## JSX: events
+## filter
 
-```jsx
-function hello() {...}
+- Behält nur gewisse Einträge in einem Array
+- Nutzt eine Funktion, um Einträge auf ein bestimmtes Kriterium zu testen
+- Rückgabewert: neues Array
 
-<button onClick={hello}>Say Hello</button>
+```js
+let myNumbers = [2, 10, 23];
+
+let isEven = n => n % 2 === 0;
+
+let newNumbers = myNumbers.filter(isEven);
+// [2, 10]
 ```
 
-Liste von Browser-Events:  
-https://www.w3schools.com/jsref/dom_obj_event.asp
+## reduce
+
+- computes one value based on a start value and all entries in an array
+- uses a function that computes a resulting value from two given values - this function will be called repeatedly
+
+## reduce - example
+
+```js
+let transactions = [
+  { amount: -56, title: 'groceries' },
+  { amount: +1020, title: 'salary' },
+  { amount: -13, title: 'dinner' },
+  { amount: -96, title: 'electricity' },
+];
+let initialBalance = 317;
+
+let currentBalance = transactions.reduce(
+  (aggregator, transaction) =>
+    aggregator + transaction.amount
+);
+
+// 317 -> 261 -> 1281 -> 1268 -> 1172
+```
+
+# this - quirks
+
+## this - quirks
+
+- _this_ bezieht sich in Objektmethoden üblicherweise auf das aktuelle Objekt
+- **allerdings**:
+  - jeder Funktionsaufruf setzt _this_ neu (nicht nur Methodenaufrufe)
+  - _this_ wird nur richtig gesetzt, wenn die Methode mit der Syntax `object.method()` aufgerufen wird
+
+## Problem: _this_ in anonymen Funktionen
+
+```js
+class myComponent {
+  constructor() {
+    // this ist hier richtig gesetzt
+    this.foo = true;
+    setTimeout(function() {
+      //this wird hier überschrieben (auf window)
+      console.log(this.foo);
+    }, 1000);
+  }
+}
+```
+
+## Lösung: _Pfeilfunktionen_
+
+```js
+class myComponent {
+  constructor() {
+    // this ist hier richtig gesetzt
+    this.foo = true;
+    setTimeout(() => {
+      // this wird hier *nicht* überschrieben
+      console.log(this.foo);
+    }, 1000);
+  }
+}
+```
+
+## Problem: Methodenaufrufe ohne Methodensyntax
+
+```js
+class Foo {
+  constructor() {
+    this.message = 'hello';
+  }
+  greet() {
+    console.log(this.message);
+  }
+}
+let f = new Foo();
+f.greet(); // klappt
+let fg = f.greet;
+fg(); // klappt nicht (this ist undefined)
+```
+
+## Lösung: Pfeil-Methoden
+
+Seit ES2018 einsetzbar:
+
+```js
+class Foo {
+  constructor() {
+    this.message = 'hello';
+  }
+  greet = () => {
+    console.log(this.message);
+  };
+}
+```
+
+## Lösung: Binden von Methoden
+
+```js
+let f = new Foo();
+f.greet(); // klappt
+let fg = f.greet.bind(f);
+fg(); // klappt jetzt auch
+```
+
+Üblicherweise Zuweisung im constructor:
+
+```js
+  constructor() {
+    this.greet = this.greet.bind(this);
+  }
+```
 
 # State (Komponentenzustand)
 
@@ -323,7 +484,7 @@ Aufgabe: füge zur Anwendung von eben einen _Reset_-Knopf hinzu
 
 ## Beispiel: Diashow
 
-Diashow, die Bilder wie das folgende Anzeigt:
+Diashow, die Bilder wie das folgende anzeigt:
 
 `https://picsum.photos/200?image=10`
 
@@ -333,7 +494,7 @@ Diashow, die Bilder wie das folgende Anzeigt:
 
 ## State in Klassenkomponenten
 
-In Klassenkomponenten rerpräsentiert `this.state` den state.
+In Klassenkomponenten repräsentiert `this.state` den State.
 
 `this.state` ist immer ein JavaScript-Objekt mit verschiedenen Einträgen (Properties)
 
@@ -376,7 +537,7 @@ this.setState(oldState => ({
 }));
 ```
 
-Wir übergeben setState eine callback-Funktion, die den alten in den neuen Zustand überführt.
+Wir übergeben setState eine Funktion, die den alten in den neuen Zustand überführt.
 
 # JSX im Detail
 
@@ -444,10 +605,51 @@ if (Math.random() > 0.5) {
 return <div>{face}</div>;
 ```
 
+## JSX: if
+
+```jsx
+<div>{state.hasError && state.errorMessage}</div>
+```
+
 ## JSX: CSS-Klassen
 
 ```jsx
 <div className={getClassName()}>[...]</div>
+```
+
+## CSS-Module
+
+Bei create-react-app sind CSS-Module vorkonfiguriert. Diese erlauben das Verwenden von CSS-Klassennamen, die garantiert eindeutig sind.
+
+```js
+import styles from './TodoItem.module.css';
+
+<div className={styles.todoItem}>...</div>;
+
+<div className={`${styles.todoItem} ${styles.completed}`}>
+  ...
+</div>;
+```
+
+## SCSS einbinden
+
+```bash
+npm install node-sass
+```
+
+```js
+import styles from './TodoItem.module.scss';
+```
+
+```scss
+/* colors.scss */
+$primary: lightblue;
+```
+
+```scss
+/* TodoItem.module.scss */
+@import '../colors';
+...
 ```
 
 ## JSX: Dynamische Stile
@@ -465,7 +667,7 @@ return <div>{face}</div>;
 
 Erlauben es einer Komponente, mehrere Elemente zurückzugeben (anstatt eines einzenen Elements)
 
-```ts
+```jsx
 return (
   <>
     <td>Hello</td>
@@ -476,13 +678,8 @@ return (
 
 ## JSX Kompilierung
 
-<!-- prettier-ignore -->
 ```jsx
-const element = (
-  <h1 className="greeting">
-    Hello, world!
-  </h1>
-);
+const element = <h1 className="greeting">Hello, world!</h1>;
 ```
 
 wird kompiliert zu:
@@ -528,6 +725,7 @@ https://github.com/facebook/react-devtools
 - Anzeige von State und Props
 - Hervorheben von Änderungen von State und Props
 - Hervorheben des Rerenderings von Komponenten
+- Performanceanalyse des Renderings von Komponenten
 
 ## Debugging in VS Code
 
@@ -566,8 +764,6 @@ https://prettier.io/
 - Code-Formatierung nach strikten Regeln
 - VS-Code-Plugin (via Alt + Shift + F)
 
-## Prettier-Konfiguration in VS Code
-
 ## Prettier-Konfiguration
 
 in VS Code: über Datei - Einstellungen - Einstellungen
@@ -587,13 +783,13 @@ oder über `.prettierrc.json`:
 
 ## Komponenten
 
-Möglichkeit, eigene Tags zu definieren, z.B.
+Möglichkeit, eigene Tags zu definieren, z.B.:
 
 ```jsx
-<Rating stars={4} />
+<Rating stars={3} />
 ```
 
-<img src="assets/rating.png" type="image/png" style="height: 4em">
+<img src="assets/rating.png" type="image/png" style="width: 16em">
 
 ## Komponenten
 
@@ -604,7 +800,7 @@ Um sie von normalen Tags zu unterscheiden, beginnen Komponentennamen immer mit e
 - State = interner Zustand einer Komponente
 - Props = vom Elternelement übergebene Parameter
 
-## Komponentendefinition
+## Funktionale Komponenten
 
 Beispiel:
 
@@ -618,6 +814,24 @@ const Rating = props => (
 export default Rating;
 ```
 
+## Klassenkomponenten
+
+example:
+
+```jsx
+import React, { Component } from 'react';
+
+export class Rating extends Component {
+  render() {
+    return (
+      <div className="rating">
+        {'*'.repeat(this.props.stars)}
+      </div>
+    );
+  }
+}
+```
+
 ## Komponentendefinition: Beispiele
 
 - `PlayingCard` - Komponente
@@ -628,24 +842,22 @@ export default Rating;
 - parent → child: props
 - child → parent: events
 
-## Prop Types
+## props.children
 
-Typechecker für Props
+Über `props.children` können Inhalte an eine Komponente übergeben werden
 
-`npm install prop-types`
-
-## Prop Types
+Verwendung einer `Bordered`-Komponente:
 
 ```jsx
-import PropTypes from 'prop-types';
+<Bordered>lorem ipsum</Bordered>
+```
 
-class MyComponent extends Component {}
+Definition der Komponente:
 
-MyComponent.propTypes = {
-  name: PropTypes.string.isRequired,
-  age: PropTypes.number,
-  onChange: PropTypes.func,
-};
+```jsx
+const Bordered = props => (
+  <div class="bordered">{props.children}</div>
+);
 ```
 
 ## Eigene Events
@@ -654,7 +866,7 @@ Eventhandler werden als Funktionen definiert und via props übergeben / erhalten
 
 ## Eigene Events
 
-Beispiel `ToggleButton`: Button der entweder "off" oder "on" anzeigt:
+Beispiel `ToggleButton`: Button, der entweder "off" oder "on" anzeigt:
 
 Prop: `active` - kann auf `true` bzw `false` gesetzt sein
 Event: `onToggle` - Funktion, die mit dem neuen Zustand aufgerufen wird
@@ -672,7 +884,6 @@ Event: `onToggle` - Funktion, die mit dem neuen Zustand aufgerufen wird
 
 Beispiel `ToggleButton`: Der Button muss passend eingebunden werden
 
-<!-- prettier-ignore -->
 ```jsx
 const [myOption, setMyOption] = useState(true);
 
@@ -681,7 +892,7 @@ const [myOption, setMyOption] = useState(true);
   onToggle={newIsActive => {
     setMyOption(newIsActive);
   }}
-/>
+/>;
 ```
 
 ## Eigene Events
@@ -692,6 +903,21 @@ Beispiele:
 - NumberInput-Komponente zum Angeben einer Ganzzahl mit +/- buttons
   - Bonus: Umsetzung des APIs, sodass es kompatibel zu normalen input-Elementen ist und input-Elemente leicht durch NumberInput-Komponeneten ersetzt werden können
   - Bonus: zusätzliche min / max - Property bei der Komponente
+
+# Komponenten-Library: Material-UI
+
+Vorgefertigte React-Komponenten im Material-Design-Stil (Stil von Google/Android)
+
+## Material-UI: Installation und Verwendung
+
+https://material-ui.com
+
+siehe Info-Boxen zu _Installation_ und _Usage_
+
+## Übungen
+
+- Button
+- Todo App im Material Style
 
 # Übung: todo list
 
@@ -779,6 +1005,9 @@ console.log(myInput.value);
 
 ## Typsystem: Type assertions
 
+```ts
+(window as any).myGlobalVariable = 'foo';
+```
 
 ## Typsystem: Types & Interfaces
 
@@ -948,13 +1177,10 @@ class TodoItem extends React.PureComponent<
 > {}
 ```
 
-# Material-UI
+## Event types
 
-Vorgefertigte React-Komponenten im Material-Design-Stil (Stil von Google/Android)
-
-## Material-UI: Installation und Verwendung
-
-https://material-ui.com
-
-siehe Info-Boxen zu _Installation_ und _Usage_
+- `React.FormEvent`
+- `React.FormEvent<HTMLFormElement>`
+- `React.ChangeEvent<HTMLInputElement>`
+- `React.MouseEvent<HTMLDivElement>`
 

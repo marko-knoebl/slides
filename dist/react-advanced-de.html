@@ -157,41 +157,127 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 };</code></pre>
 
       </section></section><section class="section" id="section-3"><section class="slide" id="slide-3-1">
-        <h1 id="effect-hook">Effect Hook</h1>
+        <h1 id="komponenten-lebenszyklus">Komponenten-Lebenszyklus</h1>
 
       </section><section class="slide" id="slide-3-2">
-        <h2 id="effect-hook">Effect Hook</h2>
-<p>Der effect Hook kann dienen, um zu bestimmten Zeitpunkten im Lebenszyklus einer Komponente Aktionen zu setzen - insbesondere, wenn sich deren <em>props</em> oder <em>state</em> geändert haben - oder, wenn sie neu eingebunden wurde</p>
-<p>Beispiele für Einsatzgebiete: Anfragen von APIs, manuelle Änderungen am DOM</p>
+        <h2 id="komponenten-lebenszyklus">Komponenten-Lebenszyklus</h2>
+<p>In React können bestimmte Ereignisse im Lebenszyklus einer Komponente abgefragt werden. Insbesondere sind folgende Ereignisse oft von Interesse:</p>
+<ul>
+<li>die Komponente wurde neu eingebunden</li>
+<li>state oder props der Komponente haben sich geändert</li>
+<li>die Komponente wird entfernt</li>
+</ul>
 
       </section><section class="slide" id="slide-3-3">
-        <h2 id="useeffect">useEffect</h2>
+        <h2 id="komponenten-lebenszyklus">Komponenten-Lebenszyklus</h2>
+<p>Einsatzgebiete der genannten Ereignisse:</p>
+<ul>
+<li>Abfragen von APIs</li>
+<li>manuelle Änderungen am DOM</li>
+<li>Aufräumen vor dem Entfernen einer Komponente</li>
+</ul>
+
+      </section><section class="slide" id="slide-3-4">
+        <h2 id="komponenten-lebenszyklus">Komponenten-Lebenszyklus</h2>
+<p>Die Ereignisse können wie folgt abgefragt werden:</p>
+<p>In Klassenkomponenten mittels Lebenszyklus-Methoden:</p>
+<ul>
+<li><code>componentDidMount</code></li>
+<li><code>componentDidUpdate</code></li>
+<li><code>componentWillUnmount</code></li>
+</ul>
+<p>In funktionalen Komponenten mittels <code>useEffect</code></p>
+
+      </section><section class="slide" id="slide-3-5">
+        <h2 id="beispiel-documenttitle-komponente">Beispiel: DocumentTitle-Komponente</h2>
+<p>Wir erstellen eine Komponente, die den Dokumenttitel dynamisch setzen kann:</p>
+<pre><code class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">DocumentTitle</span>&gt;</span>my custom title<span class="hljs-tag">&lt;/<span class="hljs-name">DocumentTitle</span>&gt;</span></code></pre>
+<p>Diese Komponente kann irgendwo in der React-Anwendung vorkommen.</p>
+
+      </section><section class="slide" id="slide-3-6">
+        <h2 id="beispiel-documenttitle-komponente">Beispiel: DocumentTitle-Komponente</h2>
+<p>Als Klassenkomponente</p>
+<pre><code class="language-jsx"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DocumentTitle</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
+  componentDidMount(prevProps, prevState) {
+    <span class="hljs-built_in">document</span>.title = <span class="hljs-keyword">this</span>.props.children;
+  }
+
+  componentDidUpdate() {
+    <span class="hljs-built_in">document</span>.title = <span class="hljs-keyword">this</span>.props.children;
+  }
+
+  render() {
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+  }
+}</code></pre>
+
+      </section><section class="slide" id="slide-3-7">
+        <h2 id="beispiel-documenttitle-komponente">Beispiel: DocumentTitle-Komponente</h2>
+<p>mit useEffect</p>
+<pre><code class="language-jsx"><span class="hljs-keyword">const</span> DocumentTitle = <span class="hljs-function"><span class="hljs-params">props</span> =&gt;</span> {
+  useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    <span class="hljs-built_in">document</span>.title = props.children;
+  });
+
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+};</code></pre>
+
+      </section><section class="slide" id="slide-3-8">
+        <h2 id="beispiel-clock-komponente">Beispiel: Clock-Komponente</h2>
+
+      </section><section class="slide" id="slide-3-9">
+        <h2 id="beispiel-clock-komponente">Beispiel: Clock-Komponente</h2>
+<p>Als Klassenkomponente:</p>
+<pre><code class="language-jsx">  <span class="hljs-keyword">constructor</span>() {
+    <span class="hljs-keyword">super</span>();
+    <span class="hljs-keyword">this</span>.state = {
+      <span class="hljs-attr">time</span>: <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>().toLocaleTimeString()
+    };
+  }
+
+  render() {
+    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>{this.state.time}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>;
+  }</code></pre>
+
+      </section><section class="slide" id="slide-3-10">
+        <h2 id="beispiel-clock-komponente">Beispiel: Clock-Komponente</h2>
+<pre><code class="language-jsx">  componentDidMount() {
+    <span class="hljs-keyword">this</span>.intervalId = setInterval(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+      <span class="hljs-keyword">this</span>.setState({
+        <span class="hljs-attr">time</span>: <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>().toLocaleTimeString()
+      });
+    }, <span class="hljs-number">1000</span>);
+  }
+
+  componentWillUnmount() {
+    clearInterval(<span class="hljs-keyword">this</span>.intervalId);
+  }</code></pre>
+
+      </section><section class="slide" id="slide-3-11">
+        <h2 id="useeffect-im-detail">useEffect im Detail</h2>
 <p><code>useEffect</code> bekommt zwei Parameter übergeben: Eine Funktion und ein Array von Werten.</p>
 <p>Die Funktion nach dem Rendering einer Komponente ausgeführt, wenn sich einer der Werte geändert hat.</p>
 <p>Die Funktion wird auch ausgeführt, wenn die Komponente neu eingebunden und zum ersten Mal gerendert wurde.</p>
 
-      </section><section class="slide" id="slide-3-4">
-        <h2 id="useeffect">useEffect</h2>
+      </section><section class="slide" id="slide-3-12">
+        <h2 id="useeffect-im-detail">useEffect im Detail</h2>
 <p>Wenn kein zweiter Parameter übergeben wird, wird die Funktion nach jedem Rendering ausgeführt.</p>
 <p>Wenn ein leeres Array als zweiter Parameter übergeben wird, wird die Funktion nur nach dem ersten Rendering ausgeführt.</p>
 <p>Es gibt auch die Möglichkeit, eine Funktion zu definieren, die vor dem <em>Entfernen</em> einer Komponente aufgerufen wird (mehr dazu später).</p>
 
-      </section><section class="slide" id="slide-3-5">
+      </section><section class="slide" id="slide-3-13">
         <h2 id="useeffect-beispiel-weather">useEffect: Beispiel: Weather</h2>
 <pre><code class="language-js"><span class="hljs-keyword">const</span> [weatherData, setWeatherData] = useState(<span class="hljs-literal">null</span>);
 <span class="hljs-keyword">const</span> [stale, setStale] = useState(<span class="hljs-literal">true</span>);
 
 <span class="hljs-comment">// fetch data whenever data is stale</span>
-useEffect(
-  <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-    <span class="hljs-keyword">if</span> (stale) {
-      refetch();
-    }
-  },
-  [stale]
-);</code></pre>
+useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+  <span class="hljs-keyword">if</span> (stale) {
+    refetch();
+  }
+}, [stale]);</code></pre>
 
-      </section><section class="slide" id="slide-3-6">
+      </section><section class="slide" id="slide-3-14">
         <h2 id="useeffect-beispiel-weather">useEffect: Beispiel: Weather</h2>
 <pre><code class="language-js"><span class="hljs-keyword">const</span> refetch = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
   fetch(
@@ -205,47 +291,22 @@ useEffect(
     });
 };</code></pre>
 
-      </section><section class="slide" id="slide-3-7">
-        <h2 id="beispiel-weather">Beispiel: Weather</h2>
-<p>Zustand 1a (Ausgangszustand):</p>
-<p>keine Wetterdaten vorhanden (null)
-es wird gerade geladen (true)
-es gibt keine Fehlermeldung
--&gt; 2a, 2b</p>
-<p>Zustand 1b:</p>
-<p>es sind aktuelle Wetterdaten vorhanden ({...})
-es wird geladen (true)
-es gibt keine Fehlermeldung
--&gt; 2a, 2b</p>
-
-      </section><section class="slide" id="slide-3-8">
-        <h2 id="beispiel-weather">Beispiel: Weather</h2>
-<p>Zustand 2a:</p>
-<p>es sind aktuelle Wetterdaten vorhanden ({...})
-es wird nicht geladen (false)
--&gt; 1b</p>
-<p>Zustand 2b:</p>
-<p>es sind keine aktuellen Wetterdaten vorhanden (null)
-es wird nicht geladen (false)
-es gibt eine Fehlermeldung (404 oder 400)
--&gt; 1a</p>
-
-      </section><section class="slide" id="slide-3-9">
-        <h2 id="entfernen-einer-komponente">Entfernen einer Komponente</h2>
-<pre><code class="language-js"><span class="hljs-keyword">const</span> [time, setTime] = useState(<span class="hljs-number">0</span>);
-
-<span class="hljs-comment">// diese Funktion wird aufgerufen,</span>
-<span class="hljs-comment">// wenn die Komponente eingebunden wird</span>
-useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-  <span class="hljs-keyword">const</span> intervalId = setInterval(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-    setTime(time + <span class="hljs-number">1</span>);
-  });
-  <span class="hljs-comment">// diese Funktion wird aufgerufen,</span>
-  <span class="hljs-comment">// wenn die Komponente entfernt wird</span>
-  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-    clearInterval(intervalId);
-  };
-}, []);</code></pre>
+      </section><section class="slide" id="slide-3-15">
+        <h2 id="useeffect-entfernen-einer-komponente">useEffect: Entfernen einer Komponente</h2>
+<pre><code class="language-jsx"><span class="hljs-keyword">const</span> Clock = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+  ...
+  <span class="hljs-comment">// wird aufgerufen, wenn die Komponente eingebunden wird</span>
+  useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    <span class="hljs-keyword">const</span> intervalId = setInterval(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+      setTime(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>().toLocaleTimeString());
+    }, <span class="hljs-number">1000</span>);
+    <span class="hljs-comment">// wird aufgerufen, wenn die Komponente entfernt wird</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+      clearInterval(intervalId);
+    };
+  }, []);
+  ...
+};</code></pre>
 
       </section></section><section class="section" id="section-4"><section class="slide" id="slide-4-1">
         <h1 id="reducer-hook">reducer Hook</h1>
@@ -402,12 +463,11 @@ it(<span class="hljs-string">'shortens "loremipsum" to "lor..."'</span>, () =&gt
 
       </section><section class="slide" id="slide-6-4">
         <h2 id="testen-assertions">Testen: assertions</h2>
-<p>assert: Beispiele</p>
-<p>node:</p>
+<p>assert (node):</p>
 <pre><code class="language-js">assert.equal(a, b);
 assert.deepEqual(a, b);
 <span class="hljs-comment">// ...</span></code></pre>
-<p>chai:</p>
+<p>assert (chai):</p>
 <pre><code class="language-js">assert.equal(a, b);
 assert.typeOf(foo, <span class="hljs-string">'string'</span>);
 assert.lengthOf(foo, <span class="hljs-number">3</span>);
@@ -417,14 +477,13 @@ assert.throws(<span class="hljs-function"><span class="hljs-params">()</span> =&
 
       </section><section class="slide" id="slide-6-5">
         <h2 id="testen-assertions">Testen: assertions</h2>
-<p>expect: Beispiele</p>
-<p>jest:</p>
+<p>expect (jest):</p>
 <pre><code class="language-js">expect(<span class="hljs-number">4</span>).toBeGreaterThan(<span class="hljs-number">3</span>);
 expect(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
   <span class="hljs-number">1</span> / <span class="hljs-number">0</span>;
 }).toThrow();
 expect(<span class="hljs-number">3</span>).not.toEqual(<span class="hljs-number">4</span>);</code></pre>
-<p>chai:</p>
+<p>expect (chai):</p>
 <pre><code class="language-js">expect(foo).to.be.a(<span class="hljs-string">'string'</span>);
 expect(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
   <span class="hljs-number">1</span> / <span class="hljs-number">0</span>;
@@ -503,11 +562,12 @@ it('renders an `.icon-star`', () =&gt; {
 
       </section><section class="slide" id="slide-8-6">
         <h2 id="enzyme---beispiele">Enzyme - Beispiele</h2>
-<!-- prettier-ignore -->
 <pre><code class="language-jsx">it(<span class="hljs-string">'reacts to click events'</span>, () =&gt; {
   <span class="hljs-keyword">const</span> mockFunction = jest.fn();
 
-  <span class="hljs-keyword">const</span> wrapper = mount(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Rating</span> <span class="hljs-attr">stars</span>=<span class="hljs-string">{3}</span> <span class="hljs-attr">onStarsChange</span>=<span class="hljs-string">{mockFunction}</span> /&gt;</span>);
+  <span class="hljs-keyword">const</span> wrapper = mount(
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Rating</span> <span class="hljs-attr">stars</span>=<span class="hljs-string">{3}</span> <span class="hljs-attr">onStarsChange</span>=<span class="hljs-string">{mockFunction}</span> /&gt;</span>
+  );
   expect(wrapper.childAt(0).childAt(2).text()).toBe('*');
   wrapper.childAt(0).childAt(1).simulate('click');
   expect(mockFunction).toBeCalledWith(2);
@@ -931,7 +991,6 @@ package.json:
     <span class="hljs-keyword">const</span> json = <span class="hljs-keyword">await</span> res.json();
     <span class="hljs-keyword">return</span> { <span class="hljs-attr">stars</span>: json.stargazers_count };
   }
-
   render() {
     <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span> Next stars: {this.props.stars} <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>;
   }

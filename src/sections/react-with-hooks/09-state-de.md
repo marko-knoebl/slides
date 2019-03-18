@@ -57,7 +57,7 @@ Aufgabe: füge zur Anwendung von eben einen _Reset_-Knopf hinzu
 
 ## Beispiel: Diashow
 
-Diashow, die Bilder wie das folgende Anzeigt:
+Diashow, die Bilder wie das folgende anzeigt:
 
 `https://picsum.photos/200?image=10`
 
@@ -67,7 +67,7 @@ Diashow, die Bilder wie das folgende Anzeigt:
 
 ## State in Klassenkomponenten
 
-In Klassenkomponenten rerpräsentiert `this.state` den state.
+In Klassenkomponenten repräsentiert `this.state` den State.
 
 `this.state` ist immer ein JavaScript-Objekt mit verschiedenen Einträgen (Properties)
 
@@ -110,4 +110,4 @@ this.setState(oldState => ({
 }));
 ```
 
-Wir übergeben setState eine callback-Funktion, die den alten in den neuen Zustand überführt.
+Wir übergeben setState eine Funktion, die den alten in den neuen Zustand überführt.
