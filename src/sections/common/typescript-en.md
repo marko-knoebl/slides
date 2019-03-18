@@ -83,9 +83,7 @@ console.log(ib.value);
 ## type system: type assertions
 
 ```ts
-let someValue = jsonData.name;
-
-let strLength = (someValue as string).length;
+(window as any).myGlobalVariable = 'foo';
 ```
 
 ## type system: types & interfaces
@@ -159,9 +157,11 @@ type TodoActionType =
   | ToggleTodoActionType;
 ```
 
-## type system: generics
+## generics
 
 Generic type declarations that can receive more specific type information when called
+
+## generics
 
 ```ts
 function reducer<MyState, MyAction>(

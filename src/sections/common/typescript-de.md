@@ -82,6 +82,9 @@ console.log(myInput.value);
 
 ## Typsystem: Type assertions
 
+```ts
+(window as any).myGlobalVariable = 'foo';
+```
 
 ## Typsystem: Types & Interfaces
 

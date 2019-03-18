@@ -32,9 +32,7 @@ expect (behaviour-driven)
 
 ## Testen: assertions
 
-assert: Beispiele
-
-node:
+assert (node):
 
 ```js
 assert.equal(a, b);
@@ -42,7 +40,7 @@ assert.deepEqual(a, b);
 // ...
 ```
 
-chai:
+assert (chai):
 
 ```js
 assert.equal(a, b);
@@ -55,9 +53,7 @@ assert.throws(() => {
 
 ## Testen: assertions
 
-expect: Beispiele
-
-jest:
+expect (jest):
 
 ```js
 expect(4).toBeGreaterThan(3);
@@ -67,7 +63,7 @@ expect(() => {
 expect(3).not.toEqual(4);
 ```
 
-chai:
+expect (chai):
 
 ```js
 expect(foo).to.be.a('string');

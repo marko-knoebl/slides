@@ -4,7 +4,7 @@
 
 https://prettier.io/
 
-- Code-Formatting according to strict rules
+- Code formatting according to strict rules
 - VS Code plugin (via Alt + Shift + F)
 
 ## Prettier configuration
