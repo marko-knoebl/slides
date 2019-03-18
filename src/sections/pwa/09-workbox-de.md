@@ -71,9 +71,9 @@ Sie sollte beim install-Event dem Cache hinzugefügt werden.
 
 Frage: Was passiert, wenn beim install-Event der Cache nicht vollständig heruntergeladen werden konnte?
 
----
-
+<!--
 Antwort: in diesem Fall wird der Service-Worker nicht aktiviert. Um das sicherzustellen dient das `.waitUntil()` im install-Event
+-->
 
 ## Strategie: networkFirst
 
@@ -110,5 +110,3 @@ https://developers.google.com/web/tools/workbox/
 ## Zusatz (mit build-Prozess)
 
 https://developers.google.com/web/tools/workbox/guides/codelabs/npm-script
-
----

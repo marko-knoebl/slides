@@ -10,5 +10,3 @@
 - Datenspeicher
 - Benachrichtigungen
 - Push-Benachrichtigungen
-
----

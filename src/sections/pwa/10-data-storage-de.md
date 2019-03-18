@@ -207,5 +207,3 @@ nameIndex.get(['Andy', 'Jones']).then(...)
 
 - Slides: https://developers.google.com/web/ilt/pwa/working-with-indexeddb-slides
 - Lab: https://developers.google.com/web/ilt/pwa/lab-indexeddb
-
----

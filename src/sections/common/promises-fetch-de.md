@@ -1,31 +1,63 @@
-# Promises
+# Promises & Fetch
 
 <!-- siehe auch: webdev/fetch -->
 <!-- https://developers.google.com/web/fundamentals/primers/promises -->
 
----
+## Promises & Fetch
+
+_Promises_: eine Möglichkeit, um asynchronen Code in JavaScript auszuführen
+
+_Fetch_: moderne Möglichkeit, Netzwerkanfragen mit JavaScript zu versenden, basiert auf Promises
 
 ## Promises - Grundlagen
 
-Können verwendet werden, um einmalige Events zu behandeln
+Werden verwendet, um einmalige Events zu behandeln
 
 Erlauben dem Browser, auf ein Event zu _warten_ - zb auf eine Antwort aus dem Netzwerk oder Daten aus der Datenbank
 
----
+Das Warten ist _non-blocking_, damit kann anderer Code währenddessen ausgeführt werden
 
-## Beispiel von vorhin: Fetch einer Website
+## Promises vs Callbacks
+
+Promises sind eine Alternative zu Callbacks; Sie lösen das gleiche Problem mit einem etwas anderen Ansatz.
+
+Beispiel: Funktion `getTodos`, die Todo-Daten von einem Server lädt und sie an `logTodos` übergibt
+
+```js
+// callback
+getTodos(logTodos);
+```
+
+```js
+// promise
+getTodos().then(logTodos);
+```
+
+## Promises vs Callbacks
+
+Ein Vorteil von Promises gegenüber Callbacks ist, dass Promises leicht verkettet werden können:
+
+```js
+getTodos()
+  .then(parseJSON)
+  .then(transformDataFormat)
+  .then(logTodos);
+```
+
+## Promises Beispiel: Fetch einer Website
 
 ```js
 // dieser Code kann zu jeder Website in der
 // Browser-Konsole ausgeführt werden
 const url = '/';
 
+// eine Anfrage auf die Homepage einer Website starten
 fetch(url)
+  // auf die Antwort warten, dann den Textinhalt der Antwort auslesen
   .then(response => response.text())
+  // auf den Textinhalt warten, dann loggen
   .then(console.log);
 ```
-
----
 
 ## Fetch einer Website: Erklärung
 
@@ -37,7 +69,7 @@ Die Funktion `.then()` bekommt einen Handler (in Form einer anderen Funktion) ü
 
 Das Resultat des ersten Handlers (`response => response.text()`) ist wiederum ein neues Promise.
 
----
+Der zweite Handler (`console.log`) loggt das Resultat einfach.
 
 ## Beispiel: Landesflagge
 
@@ -58,8 +90,6 @@ getImageName(country)
   .then(appendFlag);
 ```
 
----
-
 ## Fehlerbehandlung
 
 Fehler können mit `.catch()` behandelt werden
@@ -73,8 +103,6 @@ return getImageName(country)
   .catch(logError);
 ```
 
----
-
 ## Todo App: fetch - grundlegend
 
 ```js
@@ -86,33 +114,26 @@ fetch('https://jsonplaceholder.typicode.com/todos')
   .then(updatePageWithNewTodos);
 ```
 
----
-
 ## Todo App: fetch - fortgeschritten
 
 ```js
 fetch('https://jsonplaceholder.typicode.com/todos')
   .then(response => {
     if (!response.ok) {
-      throw new Error('network response not ok');
+      throw response.statusText;
+    } else {
+      jesponse.json().then(updatePageWithNewTodos);
     }
-    return response.json();
   })
-  .then(data => {
-    console.log(data);
-  })
-  .catch(error => console.log(error.message));
+  .catch(error => console.log('unable to parse data'))
+  .then(updatePageWithNewTodos);
 ```
-
----
 
 ## Übung
 
 Benutzer gibt user-id an, entsprechende todos werden geladen
 
----
-
-## Andere http-Methoden
+## Konfigurieren des fetch Requests
 
 ```js
 fetch(url, {
@@ -122,8 +143,6 @@ fetch(url, {
   headers: { 'content-type': 'application/json' },
 });
 ```
-
----
 
 ## Eigene Promises
 
@@ -140,8 +159,6 @@ const getReply = new Promise((resolve, reject) => {
   }, 1000);
 });
 ```
-
----
 
 ## Promise.all
 
@@ -163,12 +180,8 @@ Promise.all([promise1, promise2])
 TODO: google code lab - code-beispiele durchsehen
 -->
 
----
-
 ## Übungen
 
 - https://developers.google.com/web/ilt/pwa/lab-fetch-api
 
 - https://developers.google.com/web/ilt/pwa/lab-promises
-
----

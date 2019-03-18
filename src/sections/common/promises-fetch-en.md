@@ -1,14 +1,10 @@
 # Promises & Fetch
 
----
-
 ## Promises & Fetch
 
 Promises: one possibility to run code asynchronously in JavaScript
 
 Fetch: modern way to do network requests in JavaScript, based on promises
-
----
 
 ## Promises - Basics
 
@@ -17,8 +13,6 @@ Promises can be used to handle one-off events
 Promises allow the browser to _wait_ for an event - for example for the answer to a network request or data from an in-browser database
 
 Waiting for events via promises is non-blocking, so other code may be executed in the meantime
-
----
 
 ## Promises vs callbacks
 
@@ -36,8 +30,6 @@ getTodos(logTodos);
 getTodos().then(logTodos);
 ```
 
----
-
 ## Promises vs callbacks
 
 One advantage of promises over callbacks is that promises can easily be chained:
@@ -48,22 +40,6 @@ getTodos()
   .then(transformDataFormat)
   .then(logTodos);
 ```
-
----
-
-## Promise example: fetching a webpage
-
-```js
-// this code can be executed in the browser console
-// for any opened website
-const url = '/';
-
-fetch(url)
-  .then(response => response.text())
-  .then(console.log);
-```
-
----
 
 ## Promise example: fetching a webpage
 
@@ -80,8 +56,6 @@ fetch(url)
   .then(console.log);
 ```
 
----
-
 ## Promise example: fetching a webpage
 
 Fetching a URL and reading the response text may both take a little.
@@ -94,8 +68,6 @@ The first handler (`response => response.text()`) will result in another Promise
 
 The second handler (`console.log`) will just log the results.
 
----
-
 ## Exception handling in promises
 
 Let's look at the previous code again:
@@ -106,45 +78,53 @@ fetch('/')
   .then(console.log);
 ```
 
-We want to log two different errors:
+There may be different errors:
 
-- user is offline
+- browser is offline (no reply)
+- server responds with a 404 or similar
 - received non-text or empty reply
 
----
-
-## Exception handling in promises
-
-Our example:
+## Exception handling in promises: catching all
 
 ```js
 fetch('/')
-  .then(response => response.text())
+  .then(response => response.json())
+  .catch(() => {
+    console.log('some error occured');
+  })
   .then(console.log);
 ```
 
----
-
 ## Exception handling in promises
 
 ```js
 fetch('/')
-  .then(response => response.text(), onOffline)
-  .then(console.log, onNoText);
+  .then(response => {
+    if (response.ok) {
+      handleReply(response);
+    } else {
+      console.log('Network response was not ok');
+    }
+  })
+  .catch(() => {
+    console.log('Network error');
+  });
 ```
-
----
 
 ## Exception handling in promises
 
 ```js
-fetch('/')
-  .then(response => response.text())
-  .then(console.log).
-  .catch(onSomeError);
+const handleReply = response => {
+  response
+    .json()
+    .then(data => {
+      console.log(data);
+    })
+    .catch(error => {
+      console.log('Could not parse answer as json');
+    });
+};
 ```
-
----
 
 ## Exception handling in promises
 
@@ -157,8 +137,6 @@ return getImageName(country)
   .catch(logError);
 ```
 
----
-
 ## fetching todos - basic
 
 ```js
@@ -170,34 +148,24 @@ fetch('https://jsonplaceholder.typicode.com/todos')
   .then(updatePageWithNewTodos);
 ```
 
----
-
 ## fetching todos - advanced
 
 ```js
 fetch('https://jsonplaceholder.typicode.com/todos')
-  .then(
-    response => {
-      if (!response.ok) {
-        throw response.statusText;
-      }
-      return response.json();
-    },
-    error => {
-      console.log('unable to retrieve data');
+  .then(response => {
+    if (!response.ok) {
+      throw response.statusText;
+    } else {
+      jesponse.json().then(updatePageWithNewTodos);
     }
-  )
+  })
   .catch(error => console.log('unable to parse data'))
   .then(updatePageWithNewTodos);
 ```
 
----
-
 ## Exercise
 
 Fetch all todos for a given user id
-
----
 
 ## Configuring fetch requests
 
@@ -209,8 +177,6 @@ fetch(url, {
   headers: { 'content-type': 'application/json' },
 });
 ```
-
----
 
 ## Creating custom promises
 
@@ -228,8 +194,6 @@ const getReply = new Promise((resolve, reject) => {
 });
 ```
 
----
-
 ## Promise.all
 
 ```js
@@ -244,12 +208,8 @@ Promise.all([promise1, promise2])
   });
 ```
 
----
-
 ## Exercises
 
 - https://developers.google.com/web/ilt/pwa/lab-fetch-api
 
 - https://developers.google.com/web/ilt/pwa/lab-promises
-
----

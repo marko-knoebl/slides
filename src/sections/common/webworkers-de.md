@@ -1,5 +1,7 @@
 # Web worker
 
+## Web worker
+
 Möglichkeit, Scripts im Hintergrund (in einem eigenen Thread) laufen zu lassen
 
 Können genutzt werden, um intensive Berechnungen durchzuführen - blockieren die User-Interaktion mit der Website nicht.
@@ -49,5 +51,3 @@ function fib(n) {
   return fib(n - 1) + fib(n - 2);
 }
 ```
-
----

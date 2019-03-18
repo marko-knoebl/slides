@@ -89,9 +89,7 @@ if (navigator.serviceWorker) {
 }
 ```
 
----
-
-Nur erklären, nicht selbst implementieren
+<!-- Nur erklären, nicht selbst implementieren -->
 
 ## ServiceWorker - Events
 
@@ -144,9 +142,7 @@ self.addEventListener('activate', event => {
 
 Für jede Netzwerkkommunikation
 
----
-
-Beispiel: Netzwerkanfragen loggen
+<!-- Beispiel: Netzwerkanfragen loggen -->
 
 ## ServiceWorker - Events: Message
 
@@ -229,11 +225,11 @@ self.addEventListener('activate', event => {
 });
 ```
 
----
-
+<!--
 Ursprünglich war hier
 return self.clients.claim();
 im Code
+-->
 
 ## Einfaches Beispiel: Offline-Anwendung
 
@@ -248,5 +244,3 @@ self.addEventListener('fetch', event => {
 ## Übung: "Scripting the Service Worker"
 
 https://developers.google.com/web/ilt/pwa/lab-scripting-the-service-worker
-
----

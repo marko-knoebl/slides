@@ -1,0 +1,1366 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Progressive Web Apps</title>
+  <style>/*
+
+Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
+
+*/
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  background: #F0F0F0;
+}
+
+
+/* Base color: saturation 0; */
+
+.hljs,
+.hljs-subst {
+  color: #444;
+}
+
+.hljs-comment {
+  color: #888888;
+}
+
+.hljs-keyword,
+.hljs-attribute,
+.hljs-selector-tag,
+.hljs-meta-keyword,
+.hljs-doctag,
+.hljs-name {
+  font-weight: bold;
+}
+
+
+/* User color: hue: 0 */
+
+.hljs-type,
+.hljs-string,
+.hljs-number,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-quote,
+.hljs-template-tag,
+.hljs-deletion {
+  color: #880000;
+}
+
+.hljs-title,
+.hljs-section {
+  color: #880000;
+  font-weight: bold;
+}
+
+.hljs-regexp,
+.hljs-symbol,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-link,
+.hljs-selector-attr,
+.hljs-selector-pseudo {
+  color: #BC6060;
+}
+
+
+/* Language color: hue: 90; */
+
+.hljs-literal {
+  color: #78A960;
+}
+
+.hljs-built_in,
+.hljs-bullet,
+.hljs-code,
+.hljs-addition {
+  color: #397300;
+}
+
+
+/* Meta color: hue: 200 */
+
+.hljs-meta {
+  color: #1f7199;
+}
+
+.hljs-meta-string {
+  color: #4d99bf;
+}
+
+
+/* Misc effects */
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+  <div id="canvas">
+    <div id="canvas-content">
+
+      <section class="section" id="section-1"><section class="slide" id="slide-1-1">
+        <h1 id="title">Progressive Web Apps</h1>
+
+      </section><section class="slide" id="slide-1-2">
+        <h2 id="präsentation-und-code">Präsentation und Code</h2>
+<p>Präsentationen verfügbar unter: <a href="https://karuga.eu/courses-presentations">https://karuga.eu/courses-presentations</a></p>
+<p>Code verfügbar unter: <a href="https://github.com/marko-knoebl/courses-code">https://github.com/marko-knoebl/courses-code</a></p>
+
+      </section><section class="slide" id="slide-1-3">
+        <h2 id="ihr-trainer">Ihr Trainer</h2>
+<p>Marko Knöbl</p>
+<ul>
+<li>Frontend Web-Entwicklung<ul>
+<li>JavaScript</li>
+<li>React, Angular</li>
+</ul>
+</li>
+<li>Programmierung<ul>
+<li>Python, JavaScript</li>
+</ul>
+</li>
+</ul>
+
+      </section><section class="slide" id="slide-1-4">
+        <h2 id="vorstellung-der-teilnehmer">Vorstellung der Teilnehmer</h2>
+<ul>
+<li>Name</li>
+<li>Firma</li>
+<li>Aktuelle Projekte</li>
+<li>Grund der Schulung</li>
+<li>Vorkenntnisse</li>
+<li>Erwartungen / Wünsche</li>
+</ul>
+
+      </section><section class="slide" id="slide-1-5">
+        <h2 id="organisatorisches">Organisatorisches</h2>
+<ul>
+<li>Kursdauer</li>
+<li>Pausen</li>
+<li>Mittagessen</li>
+<li>Unterlagen</li>
+<li>Fragen, Feedback? - Jederzeit erwünscht</li>
+</ul>
+
+      </section></section><section class="section" id="section-2"><section class="slide" id="slide-2-1">
+        <h1 id="agenda">Agenda</h1>
+<ul>
+<li>Grundlagen zum Kurs: VS Code, Chrome Developer Tools</li>
+<li>Modernes JavaScript: ES2015+</li>
+<li>Webmanifest-Datei</li>
+<li>Promises</li>
+<li>Web Worker</li>
+<li>Service Worker</li>
+<li>Workbox</li>
+<li>Datenspeicher</li>
+<li>Benachrichtigungen</li>
+<li>Push-Benachrichtigungen</li>
+</ul>
+
+      </section></section><section class="section" id="section-3"><section class="slide" id="slide-3-1">
+        <h1 id="grundlagen-zum-kurs">Grundlagen zum Kurs</h1>
+
+      </section><section class="slide" id="slide-3-2">
+        <h2 id="grundlagen-zum-kurs-am-beispiel-einer-todo-app">Grundlagen zum Kurs (am Beispiel einer Todo-App)</h2>
+<ul>
+<li>Arbeiten mit VS Code &amp; Chrome<ul>
+<li>Prettier</li>
+<li>Chrome Dev Tools</li>
+</ul>
+</li>
+<li>ES2015+<ul>
+<li>Module</li>
+<li>Pfeilfunktionen</li>
+<li>const &amp; let</li>
+</ul>
+</li>
+</ul>
+
+      </section><section class="slide" id="slide-3-3">
+        <h2 id="chrome-plugins">Chrome Plugins</h2>
+<ul>
+<li>Web Server for Chrome:
+<a href="https://chrome.google.com/webstore/detail/web-server-for-chrome/ofhbbkphhbklhfoeikjpcbhemlocgigb">https://chrome.google.com/webstore/detail/web-server-for-chrome/ofhbbkphhbklhfoeikjpcbhemlocgigb</a></li>
+<li>Lighthouse:
+<a href="https://chrome.google.com/webstore/detail/lighthouse/blipmdconlkpinefehnmjammfjpmpbjks">https://chrome.google.com/webstore/detail/lighthouse/blipmdconlkpinefehnmjammfjpmpbjks</a></li>
+</ul>
+
+      </section></section><section class="section" id="section-4"><section class="slide" id="slide-4-1">
+        <h1 id="pwa-grundlagen">PWA Grundlagen</h1>
+<!-- https://developers.google.com/web/ilt/pwa/ -->
+
+
+      </section><section class="slide" id="slide-4-2">
+        <h2 id="grundprinzipien-pwa">Grundprinzipien PWA</h2>
+<p><a href="https://developers.google.com/web/ilt/pwa/why-build-pwa">https://developers.google.com/web/ilt/pwa/why-build-pwa</a></p>
+<ul>
+<li>Brücke zwischen Web und Apps</li>
+<li>Im Browser, am Desktop und Mobil</li>
+<li>Web-Apps, die sich ganz wie native Apps anfühlen:<ul>
+<li>Dauerhafte Installation und Offline-Nutzung (service workers)</li>
+<li>Lokale Speicherung von Anwendungsdaten (localstorage, indexedDB)</li>
+<li>Scheint wie andere Apps im Menü auf (web-manifest)</li>
+<li>Benachrichtigungen am Gerät darstellen (service workers)</li>
+</ul>
+</li>
+</ul>
+<!-- google-präsentation bis S. 23 -->
+
+
+      </section><section class="slide" id="slide-4-3">
+        <h2 id="browser-unterstützung">Browser-Unterstützung</h2>
+<p>Service Worker: ab Edge 17, ab iOS 11.3</p>
+<p>manifest.json: ab Edge 17, ab iOS 11.3, kein Firefox</p>
+
+      </section><section class="slide" id="slide-4-4">
+        <h2 id="beispiele">Beispiele</h2>
+<ul>
+<li><a href="https://pwa.rocks">https://pwa.rocks</a><ul>
+<li>wiki offline</li>
+<li>telegram</li>
+<li>paper planes</li>
+</ul>
+</li>
+</ul>
+
+      </section></section><section class="section" id="section-5"><section class="slide" id="slide-5-1">
+        <h1 id="beispielanwendung">Beispielanwendung</h1>
+<p><a href="https://github.com/marko-knoebl/simple-todo-app">https://github.com/marko-knoebl/simple-todo-app</a></p>
+<p>Herunterladen und im Web Server for Chrome öffnen</p>
+<p>Dann in Lighthouse ansehen</p>
+
+      </section><section class="slide" id="slide-5-2">
+        <h2 id="webmanifest-datei-und-unsere-erste-pwa">Webmanifest-Datei und unsere erste PWA</h2>
+<p>Vorlage: Anwendung aus reinem HTML, CSS &amp; JS</p>
+<p>In Chrome Devtools: Application: No manifest detected</p>
+
+      </section><section class="slide" id="slide-5-3">
+        <h2 id="webmanifest-datei">Webmanifest-Datei</h2>
+<p>Minimal notwendige Schritte, um eine <em>installierbare</em> PWA daraus zu machen:</p>
+<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"manifest"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"manifest.webmanifest"</span> /&gt;</span></code></pre>
+
+      </section><section class="slide" id="slide-5-4">
+        <h2 id="webmanifest-datei">Webmanifest-Datei</h2>
+<p>manifest.webmanifest als JSON-Datei</p>
+<pre><code class="language-json">{
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Todo"</span>,
+  <span class="hljs-attr">"start_url"</span>: <span class="hljs-string">"."</span>,
+  <span class="hljs-attr">"display"</span>: <span class="hljs-string">"standalone"</span>,
+  <span class="hljs-attr">"icons"</span>: [
+    {
+      <span class="hljs-attr">"src"</span>: <span class="hljs-string">"images/icon-32.png"</span>,
+      <span class="hljs-attr">"sizes"</span>: <span class="hljs-string">"32x32"</span>,
+      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"image/png"</span>
+    },
+    ...
+  ]
+}</code></pre>
+
+      </section><section class="slide" id="slide-5-5">
+        <h2 id="service-worker-einbinden">Service Worker einbinden</h2>
+<p>Minimale Variante eines Service-Workers für Chrome:</p>
+<pre><code class="language-js"><span class="hljs-comment">// main.js</span>
+navigator.serviceWorker.register(<span class="hljs-string">'./service-worker.js'</span>);</code></pre>
+
+      </section><section class="slide" id="slide-5-6">
+        <h2 id="service-worker-einbinden">Service Worker einbinden</h2>
+<pre><code class="language-js"><span class="hljs-comment">// service-worker.js</span>
+importScripts(
+  <span class="hljs-string">'https://storage.googleapis.com/'</span> +
+    <span class="hljs-string">'workbox-cdn/releases/3.2.0/workbox-sw.js'</span>
+);
+
+workbox.routing.registerRoute(
+  <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">'.*'</span>),
+  workbox.strategies.networkFirst()
+);</code></pre>
+
+      </section><section class="slide" id="slide-5-7">
+        <h2 id="ausprobieren-installation-in-chrome">Ausprobieren: Installation in Chrome</h2>
+<p>mittels &quot;add to homescreen&quot;</p>
+<!-- neuen Report generieren mittels Lighthouse (55%) -->
+
+
+      </section><section class="slide" id="slide-5-8">
+        <h2 id="manifestwebmanifest-detailierte-konfiguration">manifest.webmanifest: detailierte Konfiguration</h2>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/Manifest">https://developer.mozilla.org/en-US/docs/Web/Manifest</a></p>
+<!--
+
+von hier einbinden:
+https://developer.mozilla.org/en-US/docs/Web/Manifest
+
+- name, short_name
+- description: "Manage your todos"
+- display: fullscreen / standalone / minimal-ui / browser
+  - funktioniert im Chrome-Testserver nicht - erst beim richtigen deployen: standalone funktioniert
+- orientation:
+
+  - any
+  - natural
+  - landscape
+    - landscape-primary
+    - landscape-secondary
+  - portrait
+    - portrait-primary
+    - portrait-secondary
+
+- theme_color
+  gleiche Farbe angebien wie unter:
+  `<meta name="theme-color" content="...">`
+- background_color: "#eeeeee"
+- icons: zB im menü, im splash-screen
+
+Lighthouse: 73%
+
+[\* deployen auf bitballoon
+
+- Seite aufrufen und auf https wechseln]
+- lighthouse
+
+-->
+
+
+      </section><section class="slide" id="slide-5-9">
+        <h2 id="deployment-auf-bitballoon">Deployment auf bitballoon</h2>
+<p>Wichtig: Aufrufen über HTTPS</p>
+
+      </section></section><section class="section" id="section-6"><section class="slide" id="slide-6-1">
+        <h1 id="promises--fetch">Promises &amp; Fetch</h1>
+<!-- siehe auch: webdev/fetch -->
+<!-- https://developers.google.com/web/fundamentals/primers/promises -->
+
+
+      </section><section class="slide" id="slide-6-2">
+        <h2 id="promises--fetch">Promises &amp; Fetch</h2>
+<p><em>Promises</em>: eine Möglichkeit, um asynchronen Code in JavaScript auszuführen</p>
+<p><em>Fetch</em>: moderne Möglichkeit, Netzwerkanfragen mit JavaScript zu versenden, basiert auf Promises</p>
+
+      </section><section class="slide" id="slide-6-3">
+        <h2 id="promises---grundlagen">Promises - Grundlagen</h2>
+<p>Werden verwendet, um einmalige Events zu behandeln</p>
+<p>Erlauben dem Browser, auf ein Event zu <em>warten</em> - zb auf eine Antwort aus dem Netzwerk oder Daten aus der Datenbank</p>
+<p>Das Warten ist <em>non-blocking</em>, damit kann anderer Code währenddessen ausgeführt werden</p>
+
+      </section><section class="slide" id="slide-6-4">
+        <h2 id="promises-vs-callbacks">Promises vs Callbacks</h2>
+<p>Promises sind eine Alternative zu Callbacks; Sie lösen das gleiche Problem mit einem etwas anderen Ansatz.</p>
+<p>Beispiel: Funktion <code>getTodos</code>, die Todo-Daten von einem Server lädt und sie an <code>logTodos</code> übergibt</p>
+<pre><code class="language-js"><span class="hljs-comment">// callback</span>
+getTodos(logTodos);</code></pre>
+<pre><code class="language-js"><span class="hljs-comment">// promise</span>
+getTodos().then(logTodos);</code></pre>
+
+      </section><section class="slide" id="slide-6-5">
+        <h2 id="promises-vs-callbacks">Promises vs Callbacks</h2>
+<p>Ein Vorteil von Promises gegenüber Callbacks ist, dass Promises leicht verkettet werden können:</p>
+<pre><code class="language-js">getTodos()
+  .then(parseJSON)
+  .then(transformDataFormat)
+  .then(logTodos);</code></pre>
+
+      </section><section class="slide" id="slide-6-6">
+        <h2 id="promises-beispiel-fetch-einer-website">Promises Beispiel: Fetch einer Website</h2>
+<pre><code class="language-js"><span class="hljs-comment">// dieser Code kann zu jeder Website in der</span>
+<span class="hljs-comment">// Browser-Konsole ausgeführt werden</span>
+<span class="hljs-keyword">const</span> url = <span class="hljs-string">'/'</span>;
+
+<span class="hljs-comment">// eine Anfrage auf die Homepage einer Website starten</span>
+fetch(url)
+  <span class="hljs-comment">// auf die Antwort warten, dann den Textinhalt der Antwort auslesen</span>
+  .then(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> response.text())
+  <span class="hljs-comment">// auf den Textinhalt warten, dann loggen</span>
+  .then(<span class="hljs-built_in">console</span>.log);</code></pre>
+<hr>
+
+      </section><section class="slide" id="slide-6-7">
+        <h2 id="fetch-einer-website-erklärung">Fetch einer Website: Erklärung</h2>
+<p>Das Abfragen einer URL und das Auslesen des Antworttexts können länger dauern.</p>
+<p>Mit <code>.then()</code> warten wir jeweils auf das Resultat.</p>
+<p>Die Funktion <code>.then()</code> bekommt einen Handler (in Form einer anderen Funktion) übergeben.</p>
+<p>Das Resultat des ersten Handlers (<code>response =&gt; response.text()</code>) ist wiederum ein neues Promise.</p>
+<p>Der zweite Handler (<code>console.log</code>) loggt das Resultat einfach.</p>
+
+      </section><section class="slide" id="slide-6-8">
+        <h2 id="beispiel-landesflagge">Beispiel: Landesflagge</h2>
+<pre><code class="language-js"><span class="hljs-comment">// ohne Promises</span>
+getImageName(country, name =&gt;
+  fetchFlag(name, flagResponse =&gt;
+    processFlag(flagResponse, appendFlag)
+  )
+);</code></pre>
+<pre><code class="language-js"><span class="hljs-comment">// mit Promises</span>
+getImageName(country)
+  .then(fetchFlag)
+  .then(processFlag)
+  .then(appendFlag);</code></pre>
+
+      </section><section class="slide" id="slide-6-9">
+        <h2 id="fehlerbehandlung">Fehlerbehandlung</h2>
+<p>Fehler können mit <code>.catch()</code> behandelt werden</p>
+<pre><code class="language-js"><span class="hljs-keyword">return</span> getImageName(country)
+  .catch(getFallbackName)
+  .then(fetchFlag)
+  .then(processFlag)
+  .then(appendFlag)
+  .catch(logError);</code></pre>
+
+      </section><section class="slide" id="slide-6-10">
+        <h2 id="todo-app-fetch---grundlegend">Todo App: fetch - grundlegend</h2>
+<pre><code class="language-js">fetch(<span class="hljs-string">'https://jsonplaceholder.typicode.com/todos'</span>)
+  .then(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> response.json())
+  .catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'error when getting todos'</span>);
+  })
+  .then(updatePageWithNewTodos);</code></pre>
+<hr>
+
+      </section><section class="slide" id="slide-6-11">
+        <h2 id="todo-app-fetch---fortgeschritten">Todo App: fetch - fortgeschritten</h2>
+<pre><code class="language-js">fetch(<span class="hljs-string">'https://jsonplaceholder.typicode.com/todos'</span>)
+  .then(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> {
+    <span class="hljs-keyword">if</span> (!response.ok) {
+      <span class="hljs-keyword">throw</span> response.statusText;
+    } <span class="hljs-keyword">else</span> {
+      jesponse.json().then(updatePageWithNewTodos);
+    }
+  })
+  .catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'unable to parse data'</span>))
+  .then(updatePageWithNewTodos);</code></pre>
+<hr>
+
+      </section><section class="slide" id="slide-6-12">
+        <h2 id="übung">Übung</h2>
+<p>Benutzer gibt user-id an, entsprechende todos werden geladen</p>
+
+      </section><section class="slide" id="slide-6-13">
+        <h2 id="konfigurieren-des-fetch-requests">Konfigurieren des fetch Requests</h2>
+<pre><code class="language-js">fetch(url, {
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'POST'</span>,
+  <span class="hljs-attr">cache</span>: <span class="hljs-string">'no-cache'</span>,
+  <span class="hljs-attr">body</span>: <span class="hljs-string">'{"text": "learn fetch"}'</span>,
+  <span class="hljs-attr">headers</span>: { <span class="hljs-string">'content-type'</span>: <span class="hljs-string">'application/json'</span> },
+});</code></pre>
+
+      </section><section class="slide" id="slide-6-14">
+        <h2 id="eigene-promises">Eigene Promises</h2>
+<p>Promise, die nach 1 Sekunde entweder mit hello antwortet oder nicht erfolgreich ist</p>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> getReply = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {
+  setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Math</span>.random() &gt; <span class="hljs-number">0.5</span>) {
+      resolve(<span class="hljs-string">'hello'</span>);
+    } <span class="hljs-keyword">else</span> {
+      reject(<span class="hljs-string">'no access'</span>);
+    }
+  }, <span class="hljs-number">1000</span>);
+});</code></pre>
+
+      </section><section class="slide" id="slide-6-15">
+        <h2 id="promiseall">Promise.all</h2>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> promise1 = fetch(<span class="hljs-string">'/users.json'</span>);
+<span class="hljs-keyword">const</span> promise2 = fetch(<span class="hljs-string">'/articles.json'</span>);
+<span class="hljs-built_in">Promise</span>.all([promise1, promise2])
+  .then(<span class="hljs-function"><span class="hljs-params">results</span> =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'all data has loaded'</span>);
+  })
+  .catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`one or more requests failed: <span class="hljs-subst">${error}</span>`</span>);
+  });</code></pre>
+<!--
+# (Promise.race)
+
+TODO: google code lab - code-beispiele durchsehen
+-->
+
+
+      </section><section class="slide" id="slide-6-16">
+        <h2 id="übungen">Übungen</h2>
+<ul>
+<li><p><a href="https://developers.google.com/web/ilt/pwa/lab-fetch-api">https://developers.google.com/web/ilt/pwa/lab-fetch-api</a></p>
+</li>
+<li><p><a href="https://developers.google.com/web/ilt/pwa/lab-promises">https://developers.google.com/web/ilt/pwa/lab-promises</a></p>
+</li>
+</ul>
+
+      </section></section><section class="section" id="section-7"><section class="slide" id="slide-7-1">
+        <h1 id="web-worker">Web worker</h1>
+
+      </section><section class="slide" id="slide-7-2">
+        <h2 id="web-worker">Web worker</h2>
+<p>Möglichkeit, Scripts im Hintergrund (in einem eigenen Thread) laufen zu lassen</p>
+<p>Können genutzt werden, um intensive Berechnungen durchzuführen - blockieren die User-Interaktion mit der Website nicht.</p>
+
+      </section><section class="slide" id="slide-7-3">
+        <h2 id="worker-erstellen">Worker erstellen</h2>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> worker = <span class="hljs-keyword">new</span> Worker(<span class="hljs-string">'worker.js'</span>);</code></pre>
+
+      </section><section class="slide" id="slide-7-4">
+        <h2 id="auf-antwort-des-workers-lauschen">Auf Antwort des Workers lauschen</h2>
+<pre><code class="language-js">worker.onmessage = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">message</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(message.data);
+};</code></pre>
+
+      </section><section class="slide" id="slide-7-5">
+        <h2 id="dem-worker-zu-arbeiten-geben">Dem Worker zu arbeiten geben</h2>
+<pre><code class="language-js">worker.postMessage(<span class="hljs-number">42</span>);</code></pre>
+
+      </section><section class="slide" id="slide-7-6">
+        <h2 id="im-worker-selbst">Im Worker selbst</h2>
+<pre><code class="language-js">onmessage = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">message</span>) </span>{
+  <span class="hljs-keyword">const</span> result = longComputation();
+  postMessage(result);
+};</code></pre>
+
+      </section><section class="slide" id="slide-7-7">
+        <h2 id="daten-übergeben">Daten übergeben</h2>
+<p>Beim hin-und-her-Übergeben von Daten: Daten werden kopiert und als &#39;plain&#39; JS-Objekte verwertet</p>
+
+      </section><section class="slide" id="slide-7-8">
+        <h2 id="übung-fibonacci">Übung: Fibonacci</h2>
+<p>Im WebWorker laufen lassen:</p>
+<pre><code class="language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fib</span>(<span class="hljs-params">n</span>) </span>{
+  <span class="hljs-keyword">if</span> (n &lt;= <span class="hljs-number">2</span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+  }
+  <span class="hljs-keyword">return</span> fib(n - <span class="hljs-number">1</span>) + fib(n - <span class="hljs-number">2</span>);
+}</code></pre>
+
+      </section></section><section class="section" id="section-8"><section class="slide" id="slide-8-1">
+        <h1 id="service-worker-und-workbox">Service Worker und Workbox</h1>
+
+      </section><section class="slide" id="slide-8-2">
+        <h2 id="service-worker---motivation">Service Worker - Motivation</h2>
+<p>Service Worker = &quot;Mittelmann&quot; (Proxy) zwischen Webbrowser und Server (als Teil des Browsers)</p>
+<p>Haupteinsatzgebiet: Offlinenutzung von Webseiten / Webanwendungen (Ersetzt die alte AppCache-Funktionalität)</p>
+
+      </section><section class="slide" id="slide-8-3">
+        <h2 id="service-worker">Service Worker</h2>
+<h3 id="traditionelle-web-app">Traditionelle Web-App:</h3>
+<p>Endgerät ⟺ Web Server</p>
+<h3 id="pwa">PWA:</h3>
+<p>Endgerät ⟺ Service Worker ⟺ Web Server</p>
+
+      </section><section class="slide" id="slide-8-4">
+        <h2 id="grundlagen">Grundlagen</h2>
+<p>service worker = Skript, das im Hintergrund läuft</p>
+<p>Funktionen:</p>
+<ul>
+<li>Caching von Resourcen</li>
+<li>Sync im Hintergrund</li>
+<li>Push-Benachrichtigungen (auch wenn Browser / Anwendung geschlossen)</li>
+</ul>
+<p>Wichtige Funktionalität: Im Hintergrund Netzwerkanfragen abfangen und behandeln</p>
+
+      </section><section class="slide" id="slide-8-5">
+        <h2 id="grundlagen">Grundlagen</h2>
+<p>Service-Worker sind besondere Web-Worker, daher:</p>
+<ul>
+<li>kein direkter Zugriff auf das DOM</li>
+<li>Kommunikation mit Hauptthread mittels postMessage</li>
+</ul>
+
+      </section><section class="slide" id="slide-8-6">
+        <h2 id="browser-unterstützung">Browser-Unterstützung</h2>
+<p><a href="https://caniuse.com/##feat=serviceworkers">caniuse</a></p>
+<p>Wenn ServiceWorker unterstützt werden =&gt; Unterstützung für ES2015</p>
+
+      </section><section class="slide" id="slide-8-7">
+        <h2 id="wichtige-verwandte-technologien">Wichtige verwandte Technologien</h2>
+<ul>
+<li>fetch (Senden von Netzwerkanfragen)</li>
+<li>cache (Resultate von Netzwerkanfragen cachen)</li>
+</ul>
+
+      </section><section class="slide" id="slide-8-8">
+        <h2 id="fetch---kurzes-beispiel">Fetch - Kurzes Beispiel</h2>
+<pre><code class="language-js"><span class="hljs-comment">// dieser Code kann zu jeder Website in der</span>
+<span class="hljs-comment">// Browser-Konsole ausgeführt werden</span>
+<span class="hljs-keyword">const</span> url = <span class="hljs-string">'/'</span>;
+
+fetch(url)
+  .then(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> response.text())
+  .then(<span class="hljs-built_in">console</span>.log);</code></pre>
+
+      </section><section class="slide" id="slide-8-9">
+        <h2 id="cache---kurzes-beispiel">Cache - Kurzes Beispiel</h2>
+<pre><code class="language-js"><span class="hljs-comment">// alle Netzwerkanfragen werden gecacht</span>
+self.addEventListener(<span class="hljs-string">'fetch'</span>, event =&gt; {
+  event.respondWith(
+    caches.open(<span class="hljs-string">'my-cache'</span>).then(<span class="hljs-function"><span class="hljs-params">cache</span> =&gt;</span>
+      cache.match(event.request).then(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> {
+        cache.put(event.request, response.clone());
+        <span class="hljs-keyword">return</span> response;
+      })
+    )
+  );
+});</code></pre>
+
+      </section><section class="slide" id="slide-8-10">
+        <h2 id="serviceworker-registrieren">ServiceWorker registrieren</h2>
+<pre><code class="language-js"><span class="hljs-keyword">if</span> (navigator.serviceWorker) {
+  navigator.serviceWorker
+    .register(<span class="hljs-string">'./serviceworker.js'</span>)
+    .then(
+      <span class="hljs-comment">// wird nur ausgeführt, wenn *neue* serviceworker.js -</span>
+      <span class="hljs-comment">// Datei gefunden wurde,</span>
+      <span class="hljs-comment">// die verschieden von einer eventuellen alten ist</span>
+      () =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Service Worker registered'</span>)
+    );
+}</code></pre>
+<!-- Nur erklären, nicht selbst implementieren -->
+
+
+      </section><section class="slide" id="slide-8-11">
+        <h2 id="serviceworker---events">ServiceWorker - Events</h2>
+<p>Folgende Events können im ServiceWorker behandelt werden:</p>
+<ul>
+<li><strong>install</strong>: wenn es eine neue ServiceWoker-Datei gibt</li>
+<li><strong>activate</strong>: wenn der neue ServiceWorker aktiviert wird</li>
+<li><strong>fetch</strong>: bei jeder Netzwerk-Kommunikation</li>
+<li><strong>push</strong>: vom Backend initiiert</li>
+<li><strong>message</strong>: Kommunikation mit dem Hauptthread</li>
+<li><strong>sync</strong>: Anfrage an den Server, die wiederholt versucht wird (nur Chrome)</li>
+</ul>
+
+      </section><section class="slide" id="slide-8-12">
+        <h2 id="serviceworker---events-install">ServiceWorker - Events: Install</h2>
+<p>Tritt auf, wenn es eine neue ServiceWorker-Datei gibt:</p>
+<ul>
+<li>Erster Aufruf einer PWA</li>
+<li>ServiceWorker-Datei hat sich geändert</li>
+</ul>
+<p>Guter Zeitpunkt, um Resourcen für die spätere Verwendung herunterzuladen und dem Cache hinzuzufügen</p>
+
+      </section><section class="slide" id="slide-8-13">
+        <h2 id="serviceworker---events-install">ServiceWorker - Events: Install</h2>
+<pre><code class="language-js">self.addEventListener(<span class="hljs-string">'install'</span>, event =&gt; {
+  <span class="hljs-built_in">console</span>.log(event);
+});</code></pre>
+
+      </section><section class="slide" id="slide-8-14">
+        <h2 id="serviceworker---events-activate">ServiceWorker - Events: Activate</h2>
+<p>Tritt auf, wenn ein neuer ServiceWorker aktiviert wird:</p>
+<ul>
+<li>Bei erster Installation eines ServiceWorkers sofort</li>
+<li>Wenn sich die ServiceWorker-Datei geändert hat beim &quot;Neustart&quot; der PWA (wenn alle entsprechenden Tabs geschlossen wurden)</li>
+</ul>
+<p>Ein geänderter ServiceWorker wird erst nach einem &quot;Neustart&quot; der PWA aktiv</p>
+<p>Activate: gute Gelegenheit, um alte Caches zu bereinigen</p>
+
+      </section><section class="slide" id="slide-8-15">
+        <h2 id="serviceworker---events-activate">ServiceWorker - Events: Activate</h2>
+<pre><code class="language-js">self.addEventListener(<span class="hljs-string">'activate'</span>, event =&gt; {
+  <span class="hljs-built_in">console</span>.log(event);
+});</code></pre>
+
+      </section><section class="slide" id="slide-8-16">
+        <h2 id="serviceworker---events-fetch">ServiceWorker - Events: Fetch</h2>
+<p>Für jede Netzwerkkommunikation</p>
+<!-- Beispiel: Netzwerkanfragen loggen -->
+
+
+      </section><section class="slide" id="slide-8-17">
+        <h2 id="serviceworker---events-message">ServiceWorker - Events: Message</h2>
+<p>Kommunikation mit dem Haupt-Thread (wie bei WebWorkern)</p>
+
+      </section><section class="slide" id="slide-8-18">
+        <h2 id="serviceworker---events-sync">ServiceWorker - Events: Sync</h2>
+<p>Warten auf Netzwerk-Konnektivität, um Daten zu senden</p>
+<p>Wenn Netzwerk-Konnektivität besteht, aber der sync trotzdem fehlschlägt (das selbstdefinierte Promise rejected wird), werden neue Versuche mit immer größeren Zeitabständen unternommen</p>
+
+      </section><section class="slide" id="slide-8-19">
+        <h2 id="fetch-und-cache-anwendungsbeispiele">fetch und cache: Anwendungsbeispiele</h2>
+<ul>
+<li>Beim ersten Aufruf eines Spiels werden alle benötigten Resourcen heruntergeladen und sind dann offline verfügbar</li>
+<li>Bei einer Chat-Anwendung werden die Avatare aller Freunde im Cache abgelegt. Sie sollen einmal pro Tag aktualisiert werden.</li>
+<li>Bei einer Wikipedia-Anwendung werden die letzten 30 besichtigten Artikel im Cache abgelegt.</li>
+<li>Die Startseite eines Nachrichtenportal soll zwischengespeichert werden und beim öffnen der Seite sofort erscheinen. Danach soll sie allerdings wenn möglich sofort aktualisiert werden</li>
+</ul>
+
+      </section><section class="slide" id="slide-8-20">
+        <h2 id="einfaches-beispiel-offline-anwendung">Einfaches Beispiel: Offline-Anwendung</h2>
+<p>Anwendung, die alle benötigten Resourcen beim ersten Mal herunterlädt und dann so beibehält.</p>
+
+      </section><section class="slide" id="slide-8-21">
+        <h2 id="einfaches-beispiel-offline-anwendung">Einfaches Beispiel: Offline-Anwendung</h2>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> cacheName = <span class="hljs-string">'my-site-cache-v1'</span>;
+<span class="hljs-keyword">const</span> urlsToCache = [
+  <span class="hljs-string">'/'</span>,
+  <span class="hljs-string">'/index.html'</span>,
+  <span class="hljs-string">'/main.css'</span>,
+  <span class="hljs-string">'/main.js'</span>,
+];</code></pre>
+
+      </section><section class="slide" id="slide-8-22">
+        <h2 id="einfaches-beispiel-offline-anwendung">Einfaches Beispiel: Offline-Anwendung</h2>
+<p>Install-Handler</p>
+<pre><code class="language-js">self.addEventListener(<span class="hljs-string">'install'</span>, event =&gt; {
+  event.waitUntil(
+    caches.open(cacheName).then(<span class="hljs-function"><span class="hljs-params">cache</span> =&gt;</span> {
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'opened cache'</span>);
+      <span class="hljs-comment">// Resultat von addAll ist ein Promise</span>
+      <span class="hljs-keyword">return</span> cache.addAll(urlsToCache);
+    })
+  );
+});</code></pre>
+
+      </section><section class="slide" id="slide-8-23">
+        <h2 id="einfaches-beispiel-offline-anwendung">Einfaches Beispiel: Offline-Anwendung</h2>
+<p>Install-Handler</p>
+<pre><code class="language-js">event.waitUntil(
+  ...
+)</code></pre>
+<p><code>waitUntil</code>: wartet auf die Installation und zeigt an, ob diese erfolgreich war</p>
+
+      </section><section class="slide" id="slide-8-24">
+        <h2 id="einfaches-beispiel-offline-anwendung">Einfaches Beispiel: Offline-Anwendung</h2>
+<p>Activate-Handler (alte Caches löschen)</p>
+<pre><code class="language-js">self.addEventListener(<span class="hljs-string">'activate'</span>, event =&gt; {
+  event.waitUntil(
+    caches.keys().then(<span class="hljs-function"><span class="hljs-params">cacheNames</span> =&gt;</span> {
+      <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.all(
+        cacheNames.map(<span class="hljs-function"><span class="hljs-params">oldCacheName</span> =&gt;</span> {
+          <span class="hljs-keyword">if</span> (oldCacheName !== cacheName) {
+            <span class="hljs-keyword">return</span> caches.delete(oldCacheName);
+          }
+        })
+      );
+    })
+  );
+});</code></pre>
+<!--
+Ursprünglich war hier
+return self.clients.claim();
+im Code
+-->
+
+
+      </section><section class="slide" id="slide-8-25">
+        <h2 id="einfaches-beispiel-offline-anwendung">Einfaches Beispiel: Offline-Anwendung</h2>
+<p>Fetch-Handler</p>
+<pre><code class="language-js">self.addEventListener(<span class="hljs-string">'fetch'</span>, event =&gt; {
+  event.respondWith(caches.match(event.request));
+});</code></pre>
+
+      </section><section class="slide" id="slide-8-26">
+        <h2 id="übung-scripting-the-service-worker">Übung: &quot;Scripting the Service Worker&quot;</h2>
+<p><a href="https://developers.google.com/web/ilt/pwa/lab-scripting-the-service-worker">https://developers.google.com/web/ilt/pwa/lab-scripting-the-service-worker</a></p>
+
+      </section></section><section class="section" id="section-9"><section class="slide" id="slide-9-1">
+        <h1 id="workbox">Workbox</h1>
+<p>Library, die das Verwenden von ServiceWorkern erleichtert</p>
+<p><a href="https://developers.google.com/web/tools/workbox/">https://developers.google.com/web/tools/workbox/</a></p>
+
+      </section><section class="slide" id="slide-9-2">
+        <h2 id="einfaches-beispiel-offline-anwendung">Einfaches Beispiel: Offline-Anwendung</h2>
+<p>zuvor:</p>
+<pre><code class="language-js">self.addEventListener(<span class="hljs-string">'install'</span>, event =&gt; {
+  event.waitUntil(
+    caches.open(cacheName).then(<span class="hljs-function"><span class="hljs-params">cache</span> =&gt;</span> {
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'opened cache'</span>);
+      <span class="hljs-comment">// Resultat von addAll ist ein Promise</span>
+      <span class="hljs-keyword">return</span> cache.addAll(urlsToCache);
+    })
+  );
+});</code></pre>
+
+      </section><section class="slide" id="slide-9-3">
+        <h2 id="einfaches-beispiel-offline-anwendung">Einfaches Beispiel: Offline-Anwendung</h2>
+<p>mit Workbox:</p>
+<pre><code class="language-js">workbox.precaching.precache(urlsToCache);</code></pre>
+
+      </section><section class="slide" id="slide-9-4">
+        <h2 id="einfaches-beispiel-offline-anwendung">Einfaches Beispiel: Offline-Anwendung</h2>
+<p>zuvor:</p>
+<pre><code class="language-js">self.addEventListener(<span class="hljs-string">'fetch'</span>, event =&gt; {
+  event.respondWith(caches.match(event.request));
+});</code></pre>
+
+      </section><section class="slide" id="slide-9-5">
+        <h2 id="einfaches-beispiel-offline-anwendung">Einfaches Beispiel: Offline-Anwendung</h2>
+<p>mit Workbox:</p>
+<pre><code class="language-js">workbox.routing.registerRoute(
+  <span class="hljs-string">'.*'</span>,
+  workbox.strategies.cacheOnly
+);</code></pre>
+
+      </section><section class="slide" id="slide-9-6">
+        <h2 id="mögliche-strategien">Mögliche Strategien</h2>
+<ul>
+<li>networkOnly</li>
+<li>cacheOnly</li>
+<li>networkFirst</li>
+<li>cacheFirst</li>
+<li>staleWhileRevalidate</li>
+</ul>
+<p>siehe auch: <a href="https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/">offline Cookbook</a></p>
+
+      </section><section class="slide" id="slide-9-7">
+        <h2 id="strategie-networkonly">Strategie: networkOnly</h2>
+<p>Vom Browser bekannte Strategie</p>
+
+      </section><section class="slide" id="slide-9-8">
+        <h2 id="strategie-cacheonly">Strategie: cacheOnly</h2>
+<p>Resource wird immer aus dem Cache geladen.</p>
+<p>Sie sollte beim install-Event dem Cache hinzugefügt werden.</p>
+<p>Frage: Was passiert, wenn beim install-Event der Cache nicht vollständig heruntergeladen werden konnte?</p>
+<!--
+Antwort: in diesem Fall wird der Service-Worker nicht aktiviert. Um das sicherzustellen dient das `.waitUntil()` im install-Event
+-->
+
+
+      </section><section class="slide" id="slide-9-9">
+        <h2 id="strategie-networkfirst">Strategie: networkFirst</h2>
+<p>Ein Laden aus dem Netzwerk wird versucht; wenn das fehlschlägt, wird aus dem Cache geladen</p>
+
+      </section><section class="slide" id="slide-9-10">
+        <h2 id="strategie-cachefirst">Strategie: cacheFirst</h2>
+<p>Falls es eine Resource im Cache gibt, wird diese direkt aus dem Cache geladen. Ansonsten wird aus dem Netzwerk geladen.</p>
+
+      </section><section class="slide" id="slide-9-11">
+        <h2 id="strategie-stalewhilerevalidate">Strategie: staleWhileRevalidate</h2>
+<p>Ähnlich wie cacheFirst - nur wird im Hintergrund der Cache aktualisiert, sodass beim nächsten Mal die aktuelle Resource zur Verfügung steht</p>
+
+      </section><section class="slide" id="slide-9-12">
+        <h2 id="strategie-cache---then-network">Strategie: cache - then network</h2>
+<p>Ähnlich wie staleWhileRevalidate - nur wird die Seite sofort aktualisiert, wenn die neuere Resource zur Verfügung steht.</p>
+<p>Diese Strategie benötigt auch Code <em>außerhalb</em> des ServiceWorkers.</p>
+<p>Siehe: <a href="https://jakearchibald.com/2014/offline-cookbook/#cache-then-network">Offline Cookbook</a></p>
+
+      </section><section class="slide" id="slide-9-13">
+        <h2 id="aufgaben">Aufgaben</h2>
+<p><a href="https://developers.google.com/web/tools/workbox/">https://developers.google.com/web/tools/workbox/</a></p>
+<p>1-2 der vorgegebenen Anwendungen zu einer PWA machen und dabei verschiedene Caching-Strategien ausprobieren:</p>
+<ul>
+<li><a href="https://github.com/marko-knoebl/simple-todo-app">https://github.com/marko-knoebl/simple-todo-app</a></li>
+<li><a href="https://github.com/marko-knoebl/simple-weather-app">https://github.com/marko-knoebl/simple-weather-app</a></li>
+<li><a href="https://github.com/marko-knoebl/simple-stock-app">https://github.com/marko-knoebl/simple-stock-app</a></li>
+</ul>
+<p>(Hosting via bitballoon)</p>
+
+      </section><section class="slide" id="slide-9-14">
+        <h2 id="zusatz-mit-build-prozess">Zusatz (mit build-Prozess)</h2>
+<p><a href="https://developers.google.com/web/tools/workbox/guides/codelabs/npm-script">https://developers.google.com/web/tools/workbox/guides/codelabs/npm-script</a></p>
+
+      </section></section><section class="section" id="section-10"><section class="slide" id="slide-10-1">
+        <h1 id="datenspeicherung">Datenspeicherung</h1>
+<h3 id="localstorage-und-indexeddb">localStorage und indexedDB</h3>
+
+      </section><section class="slide" id="slide-10-2">
+        <h2 id="überblick">Überblick</h2>
+<ul>
+<li>localStorage: einfacher key-value-Store mit Textwerten)</li>
+<li>indexedDB: &quot;echte Datenbank&quot;</li>
+</ul>
+
+      </section><section class="slide" id="slide-10-3">
+        <h2 id="localstorage">localStorage</h2>
+<p>wichtige Methoden:</p>
+<ul>
+<li><code>localStorage.setItem(&#39;name&#39;, &#39;John&#39;)</code></li>
+<li><code>localStorage.getItem(&#39;name&#39;)</code></li>
+<li><code>localStorage.removeItem(&#39;name&#39;)</code></li>
+</ul>
+
+      </section><section class="slide" id="slide-10-4">
+        <h2 id="localstorage">localStorage</h2>
+<p>Verwendung für Todos:</p>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> todoString = <span class="hljs-built_in">JSON</span>.stringify(todos);
+localStorage.setItem(<span class="hljs-string">'todos'</span>, todoString);</code></pre>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> todoString = localStorage.getItem(<span class="hljs-string">'todos'</span>);
+todos = <span class="hljs-built_in">JSON</span>.parse(todoString);</code></pre>
+
+      </section><section class="slide" id="slide-10-5">
+        <h2 id="indexeddb">indexedDB</h2>
+<p>Echte Datenbank</p>
+<p>Vorteile gegenüber localStorage:</p>
+<ul>
+<li>non-blocking</li>
+<li>schneller (Abfrage mit Indizes)</li>
+<li>Aufteilung in &quot;Tabellen&quot; (stores)</li>
+<li>verschiedene Datentypen</li>
+</ul>
+
+      </section><section class="slide" id="slide-10-6">
+        <h2 id="indexeddb-promised-idb">indexedDB promised (idb)</h2>
+<p>library, die es erlaubt, bei indexedDB mit Promises zu arbeiten</p>
+<p><a href="https://github.com/jakearchibald/idb">https://github.com/jakearchibald/idb</a></p>
+<p>Einbinden über CDN: <a href="https://cdn.jsdelivr.net/npm/idb@2.1.2/lib/idb.min.js">https://cdn.jsdelivr.net/npm/idb@2.1.2/lib/idb.min.js</a></p>
+
+      </section><section class="slide" id="slide-10-7">
+        <h2 id="idb-grundlagen">idb Grundlagen</h2>
+
+      </section><section class="slide" id="slide-10-8">
+        <h2 id="idb-grundlagen-open--upgrade">idb Grundlagen: open &amp; upgrade</h2>
+<p>Erstellen / Öffnen einer DB; gibt ein Promise zurück</p>
+<pre><code class="language-js">idb.open(name, version, upgradeCallback);</code></pre>
+
+      </section><section class="slide" id="slide-10-9">
+        <h2 id="idb-grundlagen-open--upgrade">idb Grundlagen: open &amp; upgrade</h2>
+<p>Beispiel</p>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> upgradeCallback = <span class="hljs-function"><span class="hljs-params">upgradeDb</span> =&gt;</span> {
+  <span class="hljs-keyword">if</span> (!upgradeDb.objectStoreNames.contains(<span class="hljs-string">'todos'</span>)) {
+    upgradeDb.createObjectStore(<span class="hljs-string">'todos'</span>, {
+      <span class="hljs-attr">autoIncrement</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">keyPath</span>: <span class="hljs-string">'key'</span>,
+    });
+  }
+};
+
+<span class="hljs-keyword">const</span> dbPromise = idb.open(<span class="hljs-string">'todo-db'</span>, <span class="hljs-number">1</span>, upgradeCallback);</code></pre>
+
+      </section><section class="slide" id="slide-10-10">
+        <h2 id="upgrade">Upgrade</h2>
+<p>upgrade = callback, das insbesondere genutzt werden kann, um auf ein neues Datenschema zu wechseln</p>
+<p>zb können darin Stores erstellt, gelöscht oder abgeändert werden</p>
+<p>Callbackfunktion wird immer aufgerufen, wenn sich die Versionsnummer der Datenbank erhöht</p>
+
+      </section><section class="slide" id="slide-10-11">
+        <h2 id="keys">Keys</h2>
+<p>Jedes Element im object store hat einen einzigartigen key (~id);</p>
+<p>Der key kann ein Eintrag im Objekt sein oder ein unabhängiger Wert</p>
+
+      </section><section class="slide" id="slide-10-12">
+        <h2 id="keys-numerische-id">Keys: numerische id</h2>
+<pre><code class="language-js">upgradeDb.createObjectStore(<span class="hljs-string">'todos'</span>, {
+  <span class="hljs-attr">autoIncrement</span>: <span class="hljs-literal">true</span>,
+});</code></pre>
+
+      </section><section class="slide" id="slide-10-13">
+        <h2 id="keys-numerische-id-die-im-objekt-abgespeichert-wird">Keys: numerische id, die im Objekt abgespeichert wird</h2>
+<pre><code class="language-js">upgradeDb.createObjectStore(<span class="hljs-string">'todos'</span>, {
+  <span class="hljs-attr">autoIncrement</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">keyPath</span>: <span class="hljs-string">'key'</span>,
+});</code></pre>
+
+      </section><section class="slide" id="slide-10-14">
+        <h2 id="keys-eintrag-im-objekt">Keys: Eintrag im Objekt</h2>
+<pre><code class="language-js"><span class="hljs-comment">// email als id</span>
+upgradeDb.createObjectStore(<span class="hljs-string">'users'</span>, { <span class="hljs-attr">keyPath</span>: <span class="hljs-string">'email'</span> });</code></pre>
+
+      </section><section class="slide" id="slide-10-15">
+        <h2 id="transaktionen">Transaktionen</h2>
+<p>Transaktion = Gruppe von Operationen auf der Datenbank (auslesen / hinzufügen / überschreiben ...)</p>
+
+      </section><section class="slide" id="slide-10-16">
+        <h2 id="transaktionen---schritte">Transaktionen - Schritte</h2>
+<ol>
+<li>Datenbankobjekt holen (idb.open)</li>
+<li>Eine Transaktion auf einem oder mehreren Stores beginnen (zwei Modi: &#39;readonly&#39; (Standard) oder &#39;readwrite&#39;)</li>
+<li>Object Store öffnen</li>
+<li>Operation auf Object Store ausführen</li>
+</ol>
+
+      </section><section class="slide" id="slide-10-17">
+        <h2 id="datenbankobjekt-holen">Datenbankobjekt holen</h2>
+<pre><code class="language-js"><span class="hljs-keyword">let</span> db;
+
+idb.open(<span class="hljs-string">'todo-db'</span>, <span class="hljs-number">1</span>).then(<span class="hljs-function"><span class="hljs-params">openedDb</span> =&gt;</span> {
+  db = openedDb;
+});</code></pre>
+
+      </section><section class="slide" id="slide-10-18">
+        <h2 id="daten-hinzufügen-add">Daten hinzufügen (add)</h2>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> transaction = db.transaction([<span class="hljs-string">'todos'</span>], <span class="hljs-string">'readwrite'</span>);
+<span class="hljs-keyword">const</span> todoStore = transaction.objectStore(<span class="hljs-string">'todos'</span>);
+todoStore.add({ <span class="hljs-attr">text</span>: <span class="hljs-string">'groceries'</span>, <span class="hljs-attr">done</span>: <span class="hljs-literal">false</span> });</code></pre>
+
+      </section><section class="slide" id="slide-10-19">
+        <h2 id="daten-überschreiben-put">Daten überschreiben (put)</h2>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> transaction = db.transaction([<span class="hljs-string">'todos'</span>], <span class="hljs-string">'readwrite'</span>);
+<span class="hljs-keyword">const</span> todoStore = transaction.objectStore(<span class="hljs-string">'todos'</span>);
+<span class="hljs-comment">// ersetze den Eintrag mit index 1</span>
+todoStore.put({ <span class="hljs-attr">text</span>: <span class="hljs-string">'groceris'</span>, <span class="hljs-attr">done</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">key</span>: <span class="hljs-number">1</span> });</code></pre>
+
+      </section><section class="slide" id="slide-10-20">
+        <h2 id="daten-löschen">Daten löschen</h2>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> transaction = db.transaction([<span class="hljs-string">'todos'</span>], <span class="hljs-string">'readwrite'</span>);
+<span class="hljs-keyword">const</span> todoStore = transaction.objectStore(<span class="hljs-string">'todos'</span>);
+todoStore.delete(<span class="hljs-number">1</span>);</code></pre>
+
+      </section><section class="slide" id="slide-10-21">
+        <h2 id="daten-auslesen-getall">Daten auslesen (getAll)</h2>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> transaction = db.transaction([<span class="hljs-string">'artists'</span>], <span class="hljs-string">'readonly'</span>);
+<span class="hljs-keyword">const</span> artistsStore = transaction.objectStore(<span class="hljs-string">'artists'</span>);
+artistsStore.getAll().then(<span class="hljs-built_in">console</span>.log);</code></pre>
+
+      </section><section class="slide" id="slide-10-22">
+        <h2 id="daten-auslesen-get">Daten auslesen (get)</h2>
+<p>Auslesen anhand des keys:</p>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> transaction = db.transaction([<span class="hljs-string">'artists'</span>], <span class="hljs-string">'readonly'</span>);
+<span class="hljs-keyword">const</span> artistsStore = transaction.objectStore(<span class="hljs-string">'artists'</span>);
+artistsStore.get(<span class="hljs-number">1</span>).then(<span class="hljs-built_in">console</span>.log);</code></pre>
+
+      </section><section class="slide" id="slide-10-23">
+        <h2 id="daten-auslesen---via-indizes">Daten auslesen - via indizes</h2>
+<p>Die Einträge werden in der Datenbank im wesentlichen nach dem key sortiert abgelegt.</p>
+<p>Dadurch kann von der Datenbank schnell nach dem key gesucht werden.</p>
+<p>Beispiel: In einem Telefonbuch kann man schnell nach einem Nachnamen suchen, jedoch nicht nach einem Vornamen oder einer Telefonnummer</p>
+
+      </section><section class="slide" id="slide-10-24">
+        <h2 id="indizes">Indizes</h2>
+<p>Um schnell nach etwas anderem als dem primary key zu suchen: zusätzlicher Index (aber: größerer Datenverbrauch)</p>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> store = upgradeDb.createObjectStore(<span class="hljs-string">'contacts'</span>);
+store.createIndex(<span class="hljs-string">'email'</span>, <span class="hljs-string">'email'</span>, { <span class="hljs-attr">unique</span>: <span class="hljs-literal">true</span> });
+store.createIndex(<span class="hljs-string">'firstName'</span>, <span class="hljs-string">'firstName'</span>);
+store.createIndex(<span class="hljs-string">'name'</span>, [<span class="hljs-string">'lastName'</span>, <span class="hljs-string">'firstName'</span>]);</code></pre>
+
+      </section><section class="slide" id="slide-10-25">
+        <h2 id="indizes">Indizes</h2>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> nameIndex = objectStore.index(<span class="hljs-string">'name'</span>);
+nameIndex.get([<span class="hljs-string">'Andy'</span>, <span class="hljs-string">'Jones'</span>]).then(...)</code></pre>
+
+      </section><section class="slide" id="slide-10-26">
+        <h2 id="übungen">Übungen</h2>
+<ul>
+<li>Slides: <a href="https://developers.google.com/web/ilt/pwa/working-with-indexeddb-slides">https://developers.google.com/web/ilt/pwa/working-with-indexeddb-slides</a></li>
+<li>Lab: <a href="https://developers.google.com/web/ilt/pwa/lab-indexeddb">https://developers.google.com/web/ilt/pwa/lab-indexeddb</a></li>
+</ul>
+
+      </section></section><section class="section" id="section-11"><section class="slide" id="slide-11-1">
+        <h1 id="notifications">Notifications</h1>
+<p>siehe auch: <a href="https://developer.mozilla.org/en-US/docs/Web/API/Notifications_API/Using_the_Notifications_API">https://developer.mozilla.org/en-US/docs/Web/API/Notifications_API/Using_the_Notifications_API</a></p>
+
+      </section><section class="slide" id="slide-11-2">
+        <h2 id="notifications">Notifications</h2>
+<p>Möglichkeit, für den Benutzer Benachrichtigungen außerhalb der Anwendung darzustellen (Betriebssystems-Benachrichtigungen)</p>
+
+      </section><section class="slide" id="slide-11-3">
+        <h2 id="erlaubnis-einholen">Erlaubnis einholen</h2>
+<pre><code class="language-js"><span class="hljs-comment">// sw.js</span>
+Notification.requestPermission(<span class="hljs-function"><span class="hljs-params">status</span> =&gt;</span> {});</code></pre>
+<p>Kann in Browser-Konsole ausprobiert werden (aber es muss eine Seite offen sein)</p>
+
+      </section><section class="slide" id="slide-11-4">
+        <h2 id="überprüfen-ob-erlaubnis-erteilt-wurde-und-nachricht-darstellen">Überprüfen, ob Erlaubnis erteilt wurde und Nachricht darstellen</h2>
+<pre><code class="language-js"><span class="hljs-keyword">if</span> (Notification.permission === <span class="hljs-string">'granted'</span>) {
+  navigator.serviceWorker
+    .getRegistration()
+    .then(<span class="hljs-function"><span class="hljs-params">registration</span> =&gt;</span> {
+      registration.showNotification(<span class="hljs-string">'Hello!'</span>);
+    });
+}</code></pre>
+
+      </section><section class="slide" id="slide-11-5">
+        <h2 id="nachricht-optionen">Nachricht-Optionen</h2>
+<pre><code class="language-js">registration.showNotification(condition, {
+  <span class="hljs-attr">body</span>: <span class="hljs-string">`The weather in <span class="hljs-subst">${cityName}</span> is: <span class="hljs-subst">${condition}</span>`</span>,
+  <span class="hljs-attr">icon</span>: iconUrl,
+  <span class="hljs-attr">vibrate</span>: [<span class="hljs-number">100</span>, <span class="hljs-number">50</span>, <span class="hljs-number">100</span>],
+  <span class="hljs-attr">actions</span>: [
+    { <span class="hljs-attr">action</span>: <span class="hljs-string">'close'</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'Close'</span> },
+    { <span class="hljs-attr">action</span>: <span class="hljs-string">'details'</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'Details'</span> },
+  ],
+});</code></pre>
+
+      </section><section class="slide" id="slide-11-6">
+        <h2 id="nachrichten-events">Nachrichten-Events</h2>
+<p>Zwei Events im ServiceWorker:</p>
+<ul>
+<li><strong>notificationclick</strong></li>
+<li>notificationclose</li>
+</ul>
+<!--
+evtl in Firefox testen, da Probleme mit Chrome
+-->
+
+<!--
+# Kommunikation zurück zum Browser-Fenster
+
+eher komplex, da es verschiedene Fenster zu einem Service-Worker geben kann
+
+-->
+
+
+      </section><section class="slide" id="slide-11-7">
+        <h2 id="übungen-labs">Übungen (Labs)</h2>
+<p><a href="https://developers.google.com/web/ilt/pwa/lab-integrating-web-push">https://developers.google.com/web/ilt/pwa/lab-integrating-web-push</a></p>
+<p>1-3</p>
+<p>Entfernen der service-worker in FF: about:debugging -&gt; worker</p>
+<!--
+Dauer: ca 50 min
+-->
+
+
+      </section></section><section class="section" id="section-12"><section class="slide" id="slide-12-1">
+        <h1 id="resourcen">Resourcen</h1>
+<p><a href="https://developers.google.com/web/ilt/pwa/">https://developers.google.com/web/ilt/pwa/</a></p>
+
+      </section></section>
+
+    </div>
+    <div id="navigation-arrows">
+      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="navigation-arrows-svg"
+        xml:space="preserve" width="100%" height="100%" viewBox="-110 -110 220 220">
+        <path class="arrow right" d="M70,-30L100,0L70,30" />
+        <path class="arrow down" d="M-30,70L0,100L30,70" />
+        <path class="arrow left" d="M-70,-30L-100,0L-70,30" />
+        <path class="arrow up" d="M-30,-70L0,-100L30,-70" />
+      </svg>
+    </div>
+  </div>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 100vw;
+      height: 100vh;
+      margin: 0px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: rgb(150, 150, 150);
+      font-family: -apple-system, "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.5rem;
+    }
+
+    ul {
+      padding-left: 1.5rem;
+    }
+
+    h1, h2 {
+      font-weight: 600;
+    }
+
+    h1 {
+      margin-top: 5vh;
+      text-align: center;
+      font-size: 2rem;
+    }
+
+    h2 {
+      margin-bottom: 1.5em;
+    }
+
+    svg {
+      width: 100%;
+      height: auto;
+    }
+
+    .slide.inactive {
+      display: none;
+    }
+
+    #canvas {
+      box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.3);
+      background-color: #f8f8f8;
+      position: relative;
+      display: flex;
+    }
+
+    #canvas-content {
+      width: 100%;
+      height: 100%;
+    }
+
+    #canvas-content .note {
+      display: none;
+    }
+
+    #canvas-content img {
+      margin: 0px auto;
+      display: block;
+    }
+
+    @media (min-aspect-ratio: 8/5) {
+
+      html {
+        font-size: 3.5vh;
+      }
+
+      /* wide screen */
+      #canvas {
+        width: calc(100vh / 5 * 8);
+        height: 100vh;
+        padding: 10vh;
+        padding-top: 5vh;
+      }
+    }
+
+    @media (max-aspect-ratio: 8/5) {
+
+      html {
+        font-size: calc(3.5vw * 5 / 8);
+      }
+
+      /* narrow screen */
+      #canvas {
+        width: 100vw;
+        height: calc(100vw * 5 / 8);
+        padding: calc(10vh * 5 / 8);
+        padding-top: calc(5vh * 5 / 8);
+      }
+    }
+
+    pre {
+      background-color: rgb(224, 233, 240);
+      box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.2);
+      padding: 0.5em 1em;
+      line-height: 1.2em;
+    }
+
+    #navigation-arrows {
+      position: absolute;
+      right: 2rem;
+      top: 2rem;
+      height: 3rem;
+      width: 3rem;
+    }
+
+    .arrow {
+      stroke: lightblue;
+      /*stroke-width: 0.8em; Chrome behaves differently with ems here */
+      stroke-width: 16px;
+      stroke-linecap: round;
+      fill: none;
+      cursor: pointer;
+    }
+
+    td,
+    th {
+      padding: 0.2em 0.8em;
+    }
+
+    th {
+      text-align: start;
+    }
+  </style>
+  <script>
+    let presenterWindow;
+    let activeSlide;
+    let slideCount;
+
+    const arrowUp = document.querySelector('.arrow.up');
+    const arrowDown = document.querySelector('.arrow.down');
+    const arrowRight = document.querySelector('.arrow.right');
+    const arrowLeft = document.querySelector('.arrow.left');
+    arrowUp.addEventListener('click',
+      () => {activateSlideSafe(activeSlide[0], activeSlide[1] - 1);}
+    );
+    arrowDown.addEventListener('click',
+      () => {activateSlideSafe(activeSlide[0], activeSlide[1] + 1);}
+    );
+    arrowLeft.addEventListener('click',
+      () => {activateSlideSafe(activeSlide[0] - 1, 1);}
+    );
+    arrowRight.addEventListener('click',
+      () => {activateSlideSafe(activeSlide[0] + 1, 1);}
+    )
+    const init = () => {
+      slideCount = countSlides();
+      activateSlideSafe(1, 1);
+    }
+
+    // count slides
+    const countSlides = () => {
+      const counts = [];
+      return [...document.querySelectorAll('.section')].map(section => section.childNodes.length);
+    }
+
+    const updateVisible = () => {
+      for (let slide of document.querySelectorAll('.slide')) {
+        if (slide.id === `slide-${activeSlide[0]}-${activeSlide[1]}`) {
+          slide.className = 'slide active';
+        } else {
+          slide.className = 'slide inactive';
+        }
+      }
+    }
+
+    const updatePageArrows = () => {
+      if (slideCount.length === 1) {
+        arrowLeft.style.opacity = "0";
+        arrowRight.style.opacity = "0";
+      } else {
+        const progressSections = (activeSlide[0] - 1) / (slideCount.length - 1);
+        arrowLeft.style.opacity = progressSections.toString();
+        arrowRight.style.opacity = (1 - progressSections).toString();
+      }
+      const slidesInActiveSection = slideCount[activeSlide[0] - 1]
+      if (slidesInActiveSection === 1) {
+        arrowUp.style.opacity = "0";
+        arrowDown.style.opacity = "0";
+      } else {
+        const progressSlides = (activeSlide[1] - 1) / (slidesInActiveSection - 1);
+        arrowUp.style.opacity = progressSlides.toString();
+        arrowDown.style.opacity = (1 - progressSlides).toString();
+      }
+    }
+
+    /**
+     * Activate a slide if it exists, else do nothing
+    */
+    const activateSlideSafe = (sectionIndex, slideIndex) => {
+      if (1 <= sectionIndex && sectionIndex <= slideCount.length && 1 <= slideIndex && slideIndex <= slideCount[sectionIndex - 1]) {
+        activeSlide = [sectionIndex, slideIndex];
+        updateVisible();
+        updatePageArrows();
+        scrolltoActiveSlide();
+      }
+    }
+
+    const activateNextSlide = () => {
+      console.log(activeSlide);
+      console.log(slideCount)
+      if (activeSlide[1] === slideCount[activeSlide[0] - 1]) {
+        console.log('right')
+        activateSlideSafe(activeSlide[0] + 1, 1);
+      } else {
+        console.log('down')
+        activateSlideSafe(activeSlide[0], activeSlide[1] + 1);
+      }
+    }
+
+    const scrolltoActiveSlide = () => {
+      const slideId = `#slide-${activeSlide[0]}-${activeSlide[1]}`;
+      if (presenterWindow) {
+        const activeSlide = presenterWindow.document.querySelector(slideId);
+        if (activeSlide) {
+          activeSlide.scrollIntoView();
+        }
+      }
+    }
+
+    document.querySelector('body').addEventListener('keydown', event => {
+      if (event.key === 'p') {
+        const canvasContent = document.querySelector('#canvas-content').innerHTML;
+        presenterWindow = window.open(document.URL, '_blank');
+        presenterWindow.onload = () => {
+          presenterWindow.document.querySelector('body').innerHTML = canvasContent;
+        }
+      }
+      if (event.key === 'ArrowRight') {
+        activateSlideSafe(activeSlide[0] + 1, 1);
+      } else if (event.key === 'ArrowLeft') {
+        activateSlideSafe(activeSlide[0] - 1, 1);
+      } else if (event.key === 'ArrowDown') {
+        activateSlideSafe(activeSlide[0], activeSlide[1] + 1);
+      } else if (event.key === 'ArrowUp') {
+        activateSlideSafe(activeSlide[0], activeSlide[1] - 1);
+      } else if (event.key === 'Enter') {
+        activateNextSlide();
+      } else {
+        console.log(event.key)
+      }
+    });
+
+    init();
+
+  </script>
+</body>
+
+</html>
