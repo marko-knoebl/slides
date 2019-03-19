@@ -36,14 +36,14 @@ Possible approaches:
 in an existing npm project:
 
 ```bash
-npm install --save-dev mocha
+npm install --save-dev jest
 ```
 
 in _package.json_:
 
 ```json
 "scripts": {
-  "test": "mocha"
+  "test": "jest"
 }
 ```
 
@@ -55,15 +55,22 @@ npm test
 
 ## finding tests
 
-In general testing libraries look for files ending in `.test.js` or `.spec.js`
+In general testing libraries look for files ending in `.test.js` or `.spec.js` inside the `test` directory.
 
-mocha: by default, looks in the `test` directory
-jest: tests can be colocated with regular code
-
-We can run mocha like this to find tests in the src directory:
+We can also pass a custom pattern, e.g.:
 
 ```bash
-mocha src/*.{test,spec}.{js,jsx}
+mocha "src/**/*.{test,spec}.{js,jsx}"
+```
+
+## test coverage
+
+Some testing libraries can report on how much of the code is covered by tests:
+
+example: in a create-react-app project:
+
+```bash
+npm test -- --coverage
 ```
 
 ## Example: shorten

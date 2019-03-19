@@ -21,7 +21,7 @@ describe('rendering', () => {
     expect(wrapper.find('Star')).to.have.length(5);
   });
 
-  it('renders 5 active stars', () => {
+  it('renders 5 stars', () => {
     const wrapper = mount(<Rating stars={5} />);
     expect(wrapper.find('.star')).to.have.length(5);
   });

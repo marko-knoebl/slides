@@ -52,12 +52,13 @@ it('reacts to click events', () => {
 
 ## Enzyme - Examples
 
-<!-- prettier-ignore -->
 ```jsx
 it('reacts to click events', () => {
   const mockFunction = jest.fn();
 
-  const wrapper = mount(<Rating stars={3} onStarsChange={mockFunction} />);
+  const wrapper = mount(
+    <Rating stars={3} onStarsChange={mockFunction} />
+  );
   expect(wrapper.childAt(0).childAt(2).text()).toBe('*');
   wrapper.childAt(0).childAt(1).simulate('click');
   expect(mockFunction).toBeCalledWith(2);

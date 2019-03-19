@@ -13,7 +13,7 @@ npm install --save-dev enzyme enzyme-adapter-react-16
 
 neue Datei `src/setupTests.js`:
 
-```
+```js
 import { configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
@@ -22,11 +22,24 @@ configure({ adapter: new Adapter() });
 
 ## Enzyme - Beispiele
 
+```jsx
+import { shallow, mount } from 'enzyme';
+
+it('renders a component without crashing', () => {
+  const wrapper = shallow(<MyComponent />);
+});
+
+it('renders a component tree without crashing', () => {
+  const wrapper = mount(<MyComponent />);
+});
+```
+
+## Enzyme - Beispiele
+
 Tests mit Jest
 
 ```jsx
 it('renders three <Foo /> components', () => {
-  // Alternative zu shallow: mount()
   const wrapper = shallow(<MyComponent />);
   expect(wrapper.find(Foo)).toHaveLength(3);
 });
@@ -38,6 +51,8 @@ it('renders an `.icon-star`', () => {
 ```
 
 ## Enzyme - Beispiele
+
+Tests mit Mocha und Chai
 
 ```jsx
 it('reacts to click events', () => {
@@ -59,8 +74,16 @@ it('reacts to click events', () => {
   const wrapper = mount(
     <Rating stars={3} onStarsChange={mockFunction} />
   );
-  expect(wrapper.childAt(0).childAt(2).text()).toBe('*');
-  wrapper.childAt(0).childAt(1).simulate('click');
+  expect(
+    wrapper
+      .childAt(0)
+      .childAt(2)
+      .text()
+  ).toBe('*');
+  wrapper
+    .childAt(0)
+    .childAt(1)
+    .simulate('click');
   expect(mockFunction).toBeCalledWith(2);
 });
 ```

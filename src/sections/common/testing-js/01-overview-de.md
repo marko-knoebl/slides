@@ -36,14 +36,14 @@ Mögliche Zugänge
 in einem vorhandenen npm Projekt:
 
 ```bash
-npm install --save-dev mocha
+npm install --save-dev jest
 ```
 
 in _package.json_:
 
 ```json
 "scripts": {
-  "test": "mocha"
+  "test": "jest"
 }
 ```
 
@@ -55,7 +55,23 @@ npm test
 
 ## Finden von Tests
 
-Im allgemeinen suchen Test Libraries nach Dateien mit der Endung `.test.js` oder `.spec.js`
+Im allgemeinen suchen Test Libraries nach Dateien mit der Endung `.test.js` oder `.spec.js` in dem Ordner `test`.
+
+Wir können auch ein eigenes Muster übergeben, z.B.:
+
+```bash
+mocha "src/**/*.{test,spec}.{js,jsx}"
+```
+
+## test coverage
+
+Manche Testlibraries können berichten, wie viel des Codes von Tests abgedeckt ist:
+
+Beispiel - in einem create-react-app Projekt:
+
+```bash
+npm tst -- --coverage
+```
 
 ## Beispiel: shorten
 
