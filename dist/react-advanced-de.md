@@ -8,6 +8,8 @@ Hooks: Erweiterung von funktionalen Komponenten; erlauben die Verwendung von sta
 
 > "In the longer term, we expect Hooks to be the primary way people write React components."
 
+\- [React FAQ](https://reactjs.org/docs/hooks-faq.html#should-i-use-hooks-classes-or-a-mix-of-both)
+
 ## Hooks: derzeitiger Stand
 
 - Dokumentation für Einsteiger noch sehr Klassen-orientiert
@@ -240,7 +242,7 @@ Actions werden durch JavaScript Objekte repräsentiert:
 
 ## reducer Hook
 
-State management mit reducern:
+State management mit Reducern:
 
 Beim _reducer Hook_ bzw _Redux_:
 
@@ -323,14 +325,14 @@ Mögliche Zugänge
 in einem vorhandenen npm Projekt:
 
 ```bash
-npm install --save-dev mocha
+npm install --save-dev jest
 ```
 
 in _package.json_:
 
 ```json
 "scripts": {
-  "test": "mocha"
+  "test": "jest"
 }
 ```
 
@@ -342,7 +344,23 @@ npm test
 
 ## Finden von Tests
 
-Im allgemeinen suchen Test Libraries nach Dateien mit der Endung `.test.js` oder `.spec.js`
+Im allgemeinen suchen Test Libraries nach Dateien mit der Endung `.test.js` oder `.spec.js` in dem Ordner `test`.
+
+Wir können auch ein eigenes Muster übergeben, z.B.:
+
+```bash
+mocha "src/**/*.{test,spec}.{js,jsx}"
+```
+
+## test coverage
+
+Manche Testlibraries können berichten, wie viel des Codes von Tests abgedeckt ist:
+
+Beispiel - in einem create-react-app Projekt:
+
+```bash
+npm tst -- --coverage
+```
 
 ## Beispiel: shorten
 
@@ -496,7 +514,7 @@ npm install --save-dev enzyme enzyme-adapter-react-16
 
 neue Datei `src/setupTests.js`:
 
-```
+```js
 import { configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
@@ -505,11 +523,24 @@ configure({ adapter: new Adapter() });
 
 ## Enzyme - Beispiele
 
+```jsx
+import { shallow, mount } from 'enzyme';
+
+it('renders a component without crashing', () => {
+  const wrapper = shallow(<MyComponent />);
+});
+
+it('renders a component tree without crashing', () => {
+  const wrapper = mount(<MyComponent />);
+});
+```
+
+## Enzyme - Beispiele
+
 Tests mit Jest
 
 ```jsx
 it('renders three <Foo /> components', () => {
-  // Alternative zu shallow: mount()
   const wrapper = shallow(<MyComponent />);
   expect(wrapper.find(Foo)).toHaveLength(3);
 });
@@ -521,6 +552,8 @@ it('renders an `.icon-star`', () => {
 ```
 
 ## Enzyme - Beispiele
+
+Tests mit Chai
 
 ```jsx
 it('reacts to click events', () => {
@@ -542,9 +575,28 @@ it('reacts to click events', () => {
   const wrapper = mount(
     <Rating stars={3} onStarsChange={mockFunction} />
   );
-  expect(wrapper.childAt(0).childAt(2).text()).toBe('*');
-  wrapper.childAt(0).childAt(1).simulate('click');
+  expect(
+    wrapper
+      .childAt(0)
+      .childAt(2)
+      .text()
+  ).toBe('*');
+  wrapper
+    .childAt(0)
+    .childAt(1)
+    .simulate('click');
   expect(mockFunction).toBeCalledWith(2);
+});
+```
+
+## Enzyme - Examples
+
+```jsx
+it('changes state when clicked', () => {
+  const wrapper = shallow(<Counter />);
+  expect(wrapper.instance.state.count).toEqual(0);
+  wrapper.childAt(0).simulate('click');
+  expect(wrapper.instance.state.count).toEqual(1);
 });
 ```
 
@@ -615,7 +667,7 @@ describe('rendering', () => {
     expect(wrapper.find('Star')).to.have.length(5);
   });
 
-  it('renders 5 active stars', () => {
+  it('renders 5 stars', () => {
     const wrapper = mount(<Rating stars={5} />);
     expect(wrapper.find('.star')).to.have.length(5);
   });
@@ -732,10 +784,10 @@ import { Route } from 'react-router-dom';
 ## React Router - Router-Links
 
 ```jsx
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
-<Link to="/">Home</Link>
-<Link to="/add">Add</Link>
+<NavLink to="/" activeClassName="active-link">Home</Link>
+<NavLink to="/add" activeClassName="active-link">Add</Link>
 ```
 
 ## React Router - Redirects
@@ -841,11 +893,10 @@ handleInstallBtnClicked = () => {
 };
 ```
 
-## PWA: Deployment auf Bitballoon
+## PWA: Deployment auf netlify
 
 - `npm run build`
-- dist-Ornder via drag&drop auf bitballoon.com (app.netlify.com/drop)
-- edit name auswählen und kürzeren Namen wählen
+- dist-Ornder via drag&drop auf app.netlify.com/drop
 - Manuell auf https wechseln - in Chrome am Desktop und Mobilgerät ausprobieren
 
 # Context
@@ -878,14 +929,14 @@ const TodosContext = React.createContext();
 ```ts
 // TodosContext.ts
 
-type TodosContext = {
+type TodosContextType = {
   todos: Array<Todo>;
   onToggle: (id: number) => void;
   onClear: () => void;
 };
 
 const TodosContext = React.createContext(
-  {} as TodosContext
+  {} as TodosContextType
 );
 ```
 
@@ -950,88 +1001,4 @@ zu beachten:
 
 - Zu viel Verschachtelung vermeiden
 - Zu Beginn nicht zu viel Gedanken daran verschwenden
-
-# Serverseitiges Rendering mit next.js
-
-## Serverseitiges Rendering mit next.js
-
-[github.com/zeit/next.js](https://github.com/zeit/next.js/)
-
-## Serverseitiges rendering
-
-- Ermöglicht Verwendung von JSX als Templatesprache am Server
-- Anwendungsgebiete:
-  - Erstellen von statischen Websites
-  - Anwendung kann am Server vorgerendert werden
-    - Schnelleres erstes Rendering
-    - Einfacheres indexieren durch Suchmaschinen
-
-## Setup
-
-Siehe https://github.com/zeit/next.js/#setup
-
-<!--
-```bash
-npm init
-npm install --save next react react-dom
-```
-package.json:
-```json
-  [...]
-  "scripts": {
-    "dev": "next",
-    "build": "next build",
-    "start": "next start"
-  }
-```
--->
-
-## Build & Test
-
-Testserver starten:
-
-```bash
-npm run dev
-```
-
-Build:
-
-```bash
-npm build
-```
-
-## Grundlagen
-
-- Seiten definiert unter _./pages_
-- Statische Assets unter _./static_
-- verwendete Komponenten unter _./components_
-
-## Beispiel: Hello world
-
-index.js:
-
-```js
-export default () => <div>Welcome to next.js!</div>;
-```
-
-## Daten einbinden: getInitialProps()
-
-```jsx
-import React from 'react';
-import fetch from 'isomorphic-fetch';
-
-export default class Page extends React.Component {
-  // am Server ausgeführt (node.js)
-  static async getInitialProps() {
-    const res = await fetch(
-      'https://api.github.com/repos/zeit/next.js'
-    );
-    const json = await res.json();
-    return { stars: json.stargazers_count };
-  }
-  render() {
-    return <div> Next stars: {this.props.stars} </div>;
-  }
-}
-```
 

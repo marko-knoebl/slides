@@ -13,9 +13,10 @@ Often the entire application state is represented by a data model and every chan
 - application state is stored in a global object
 - _every_ state change is triggered by an _action_, which describes the change in detail
 
-## State management libraries
+## State management tools
 
 - Redux (commonly used with React)
+- reducer hook (included in React, similar to Redux)
 - MobX (commonly used with React)
 - ngrx (used with Angular)
 - vuex (used with vue)

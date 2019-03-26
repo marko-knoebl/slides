@@ -197,7 +197,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
       </section><section class="slide" id="slide-3-4">
         <h2 id="declarative">declarative</h2>
 <ul>
-<li>In the Background there is a data model which describes the entire application state</li>
+<li>In the background there is a data model which describes the entire application state</li>
 <li>The data model changes in response to user interactions, causing the view to update automatically (and efficiently)</li>
 </ul>
 
@@ -212,8 +212,8 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
       </section><section class="slide" id="slide-3-6">
         <h2 id="what-makes-react-special">What makes React special?</h2>
 <ul>
-<li>JavaScript-based template-syntax</li>
-<li>explicit Mutations of state via <em>setState()</em></li>
+<li>JavaScript-based template syntax</li>
+<li>explicit state mutations via setters</li>
 </ul>
 
       </section><section class="slide" id="slide-3-7">
@@ -635,7 +635,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 
       </section><section class="slide" id="slide-5-5">
         <h2 id="jsx-js--xml">JSX: JS + XML</h2>
-<pre><code class="language-jsx">&lt;div&gt;A year has {<span class="hljs-number">365</span> * <span class="hljs-number">24</span>} hours&lt;<span class="hljs-regexp">/div&gt;;</span></code></pre>
+<pre><code class="language-jsx">&lt;div&gt;A year has {<span class="hljs-number">365</span> * <span class="hljs-number">24</span>} hours&lt;<span class="hljs-regexp">/div&gt;</span></code></pre>
 
       </section><section class="slide" id="slide-5-6">
         <h2 id="jsx-simple-tasks">JSX: Simple tasks</h2>
@@ -645,16 +645,41 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </ul>
 
       </section><section class="slide" id="slide-5-7">
-        <h2 id="component-state">component state</h2>
-<p>A component which will update its state every second:</p>
-<pre><code class="language-js"><span class="hljs-keyword">constructor</span> () {
-  <span class="hljs-keyword">super</span>();
-  <span class="hljs-keyword">this</span>.state = { <span class="hljs-attr">now</span>: <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>() };
-  setInterval(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-    <span class="hljs-keyword">this</span>.setState({ <span class="hljs-attr">now</span>: <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>() });
-  }, <span class="hljs-number">1000</span>);
+        <h2 id="jsx-properties">JSX: Properties</h2>
+<p>we can also change from XML to JS in properties:</p>
+<pre><code class="language-jsx">&lt;a href={<span class="hljs-string">'https://en.wikipedia.org/wiki/'</span> + articleName}&gt;
+  some article
+&lt;<span class="hljs-regexp">/a&gt;</span></code></pre>
+
+      </section><section class="slide" id="slide-5-8">
+        <h2 id="jsx-properties-task">JSX Properties: task</h2>
+<p>Show a picture based on an id; make use of this function:</p>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> getImgUrl = <span class="hljs-function"><span class="hljs-params">id</span> =&gt;</span>
+  <span class="hljs-string">`https://picsum.photos/200?image=<span class="hljs-subst">${id}</span>`</span>;</code></pre>
+
+      </section><section class="slide" id="slide-5-9">
+        <h2 id="jsx-events">JSX: events</h2>
+<pre><code class="language-jsx"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">hello</span>(<span class="hljs-params"></span>) </span>{...}
+
+&lt;button onClick={hello}&gt;Say Hello&lt;<span class="hljs-regexp">/button&gt;</span></code></pre>
+<p>list of browser events:
+<a href="https://www.w3schools.com/jsref/dom_obj_event.asp">https://www.w3schools.com/jsref/dom_obj_event.asp</a></p>
+
+      </section><section class="slide" id="slide-5-10">
+        <h2 id="state-example">State example</h2>
+<p>(we will look into the topic of state in detail later)</p>
+<pre><code class="language-jsx"><span class="hljs-keyword">const</span> Counter = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+  <span class="hljs-keyword">const</span> [count, setCount] = useState(<span class="hljs-number">0</span>);
+
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span>
+      <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> {
+        setCount(count + 1);
+      }}&gt;
+      {count}
+    <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span>
+  );
 };</code></pre>
-<pre><code class="language-jsx">&lt;div&gt;{<span class="hljs-keyword">this</span>.state.now.toLocaleTimeString()}&lt;<span class="hljs-regexp">/div&gt;</span></code></pre>
 
       </section></section><section class="section" id="section-6"><section class="slide" id="slide-6-1">
         <h1 id="vs-code">VS Code</h1>
@@ -744,12 +769,12 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
       </section><section class="slide" id="slide-7-4">
         <h2 id="reduce">reduce</h2>
 <ul>
-<li>Verarbeitet die Einträge in einem Array zu einem einzelnen Wert</li>
-<li>Verwendet eine Funktion, die aus zwei bestehenden Werten einen resultierenden Wert erstellt - diese Funktion wird wiederholt aufgerufen</li>
+<li>computes one value based on a start value and all entries in an array</li>
+<li>uses a function that computes a resulting value from two given values - this function will be called repeatedly</li>
 </ul>
 
       </section><section class="slide" id="slide-7-5">
-        <h2 id="reduce---beispiel">reduce - Beispiel</h2>
+        <h2 id="reduce---example">reduce - example</h2>
 <pre><code class="language-js"><span class="hljs-keyword">let</span> transactions = [
   { <span class="hljs-attr">amount</span>: <span class="hljs-number">-56</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'groceries'</span> },
   { <span class="hljs-attr">amount</span>: +<span class="hljs-number">1020</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'salary'</span> },
@@ -760,7 +785,8 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 
 <span class="hljs-keyword">let</span> currentBalance = transactions.reduce(
   <span class="hljs-function">(<span class="hljs-params">aggregator, transaction</span>) =&gt;</span>
-    aggregator + transaction.amount
+    aggregator + transaction.amount,
+  initialBalance
 );
 
 <span class="hljs-comment">// 317 -&gt; 261 -&gt; 1281 -&gt; 1268 -&gt; 1172</span></code></pre>
@@ -794,7 +820,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 
       </section><section class="slide" id="slide-8-5">
         <h2 id="example-counter">Example: counter</h2>
-<p>We will add a button to our apllication. At the start this button will display the value 0. On each click the value will increment by 1.</p>
+<p>We will add a button to our application. At the start this button will display the value 0. On each click the value will increment by 1.</p>
 
       </section><section class="slide" id="slide-8-6">
         <h2 id="example-counter">Example: Counter</h2>
@@ -828,14 +854,12 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
       </section><section class="slide" id="slide-8-9">
         <h2 id="state-in-class-components">State in class components</h2>
 <p>In class components, <code>this.state</code> represents the state.</p>
-<p><code>this.state</code> is always a JavaScript Object with properties</p>
+<p><code>this.state</code> is always a JavaScript object with properties</p>
 <p>State changes happen via <code>this.setState()</code></p>
 
       </section><section class="slide" id="slide-8-10">
         <h2 id="structure-of-thisstate">structure of this.state</h2>
-<ul>
-<li><em>this.state</em> is always an object:</li>
-</ul>
+<p><em>this.state</em> is always an object:</p>
 <pre><code class="language-js"><span class="hljs-keyword">constructor</span>() {
   [...]
   <span class="hljs-keyword">this</span>.state = {
@@ -874,7 +898,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 
       </section><section class="slide" id="slide-9-3">
         <h2 id="jsx-repeating-elements">JSX: repeating elements</h2>
-<p>In practice this is mostly done via the <code>.map()</code> method</p>
+<p>In practice this is mostly done via <code>.map()</code>:</p>
 <!-- prettier-ignore -->
 <pre><code class="language-jsx"><span class="hljs-keyword">const</span> todos = [
   { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'groceries'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
@@ -935,11 +959,11 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
         <h2 id="using-scss">using SCSS</h2>
 <pre><code class="language-bash">npm install node-sass</code></pre>
 <pre><code class="language-js"><span class="hljs-keyword">import</span> styles <span class="hljs-keyword">from</span> <span class="hljs-string">'./TodoItem.module.scss'</span>;</code></pre>
-<pre><code class="language-scss"><span class="hljs-comment">/* colors.scss */</span>
-<span class="hljs-variable">$primary</span>: lightblue;</code></pre>
 <pre><code class="language-scss"><span class="hljs-comment">/* TodoItem.module.scss */</span>
 @<span class="hljs-keyword">import</span> <span class="hljs-string">'../colors'</span>;
 ...</code></pre>
+<pre><code class="language-scss"><span class="hljs-comment">/* colors.scss */</span>
+<span class="hljs-variable">$primary</span>: lightblue;</code></pre>
 
       </section><section class="slide" id="slide-9-11">
         <h2 id="jsx-dynamic-style">JSX: dynamic style</h2>
@@ -976,7 +1000,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
       </section><section class="slide" id="slide-10-2">
         <h2 id="inputs">Inputs</h2>
 <p>In the context of React, input elements are special:</p>
-<p>Their properties (especially <code>.value</code>) can be directly modified by the user<br>Therefore there are aspects of the UI state which would not be captured in <code>this.state</code>.</p>
+<p>Their properties (especially <code>.value</code>) can be directly modified by the user<br>Therefore there are aspects of the UI state which would not be captured in the state.</p>
 
       </section><section class="slide" id="slide-10-3">
         <h2 id="inputs">Inputs</h2>
@@ -1054,7 +1078,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
       </section><section class="slide" id="slide-13-2">
         <h2 id="components">components</h2>
 <p>Components = custom tags, e.g.</p>
-<pre><code class="language-jsx">&lt;Rating stars={<span class="hljs-number">4</span>} /&gt;</code></pre>
+<pre><code class="language-jsx">&lt;Rating stars={<span class="hljs-number">3</span>} /&gt;</code></pre>
 <img src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAl4AAACACAYAAADaimfwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAJOgAACToAYJjBRwAACC9SURBVHhe7Z0HtC1JVYadAYEhyAACgzAzMICwJEoQWOQgIlHSQhgGRQYRFiBK1uUwBlCCIEviCCgOUXIaREZAEFAQQXjDuzm+m3N6N5+29r27eeee+3fu011V/X9r/Wu9e093dVfVfbvq7F216+cCQgghhBBSCZx4EUIIIYRUBCdehBBCCCEVwYkXIYQQQkhFcOJFCCGEEFIRnHgRQgghhFQEJ16EEEIIIRXBiRchhBBCSEVw4kUIIYQQUhGceBFCCCGEVAQnXoQQQgghFdGsidf6V4JgZ0h/IN6x8rEg2F/WH4h3LL5T/0F8ZHZ2Vv9FfGRyclL/RZo18Rp9sOn95+oPxDuG7hIEMy/XH4h39J8XBPNv0B+Ib5w4cSJYWFjQn4hv/OQnPwmWl/nFWGjWxOukqa6I+An712+kb3uvrz8Qn9jf3z8YmHt6evQ3xCd2dnYO+re/v19/02yaM0qtfvrMwLx9Un9JvGH5fWf6d3daf0m8YeFNZ/p3f0N/SXxhenr6YGAWEf84deoU+7cNY8UawvC9zhjuiWfpL4k3DFx4pn+nX6y/JN7Qd+6Z/p27TH9JfCEclEXz8/P6W+IL7f27tLSkv20uxoo1hNBohyJ+wf71l9ZuR/+erR8QH9jd3T0yMJ88yYiET2xtbR3p376+Pv2kuTRjhFq5ssNwG23+UD8kzrP49uP9uzOoHxLnEQ9XZ//uzemHxHVkt1v7wCxqtVr6KXGdsbGxY/3bdIwFawCDdz5uuE89RT8kztN/6+P9O3Wpfkicp/dGx/t39tX6IXGdzkFZNDfHibUvoP5dXFzUT5uJsWANoNNohyJ+gPpWRNxH8rKhvhUR59ne3oYD8zXXXKNXEJc5ffo07N+m717133otvRsbbdHp7+hFxFnmX4/7VrT1Y72IOIvkZUN9K9oZ0YuIq7TvduvU3t6eXkVcZXR0FPatqMnhZGO9PGfwjthoi8YfpxcRZ5GkmqhvRZOX6EXEWSRvF+pb0fQf6kXEVdCAHGpmZkavIq6C+jVUk5PlGuvlOchgt4u4S2sT92m7iLvsnsJ92i7iLJubm3BADiWZ7Im7rK+vw34N1eTdq35broW3YGPdrvWv6sXEOWb/BPdpu05/Vy8mzjH1Atyn7driWiBXQbvdOiUZz4mbDA8Pwz5tV1PDycZyeczARdhYt2vskXoxcY6+m+M+bdepp+vFxDl6rov7tF1Tf6AXE9dAA3GnJKM9cRPUn51q6u5VY7l8ZR8baiTiHpLHCfUlEnGP7V7cl0jEOTY2NuBAjETcY3V1FfZlp37605/qHc3CX6s19+fYSCOtfVZvIs4w/VLcl0gbV+tNxBkmn4P7Emnze3oTcYW43W6dksznxC3ShBlDNTGcbKyWp7Sf3ZekkQfpTcQZ+m6K+xJp/Il6E3GGnmvjvkSa/F29ibgCGoCjNDU1pXcRV0D9GKXZ2Vm9qzkYq+Uh+6vYQMeJuIPkb0J9GCfiDps/wH0YJ+IMa2trcACOE3GH5eVl2IdRamKyXD8t1uyrsHGO08qH9WZiPVMvxH0Yp7XP683EeiYuxn0Yp42v683EdkZGRuAAHCfJgE7cYGhoCPZhnOQEgyZhLJaH9N8GG+c4Dd9HbybW03tj3IdxGnu03kys5+TZx/svSRPP1JuJ7aCBN0lykDZxA9R/SWpaslxjsTxj1/wHRYY5jVr8VmU9Wydw36URsZ+Nb+K+SyNiPSsrK3DgTSNiP3L4Neq7NGoS/lmruLPdkrR0hRZCrGXq93HfpdHKR7UQYi0Tv437Lo3WvqiFEFvJE2YMJZnQid3kCTOGkpMMmoKxVp7RfytslNNo6K5aCLGW3hvivkuj0YdqIcRaUL+l1aknayHEVtCAG6q3txf+PpQcqE3sBvVbqP7+fvj7UE3avWqslUds92ODnEWSmJPYyeZ/4z7LohZzAlnL+lW4z7KIWMvS0hIccEPJ55JQE30WitiLHHqN+ixUmqSqTcEvSzXzMmyMs2jhbVoYsY6p5+E+y6Kl92lhxDrkeCfUZ1m0+nEtjNhGUlJNQY6QQZ+FklQUxE4GBwdhn4US5Ago9FkoOdGgCRhL5RF9t8DGOIsG76iFEevoOQf3WRaN3E8LI9aB+iurxh+rhRHbQANtKBm0Q9DnocbHx/UqYhuov0LJ2j6h1WrBz0NNTEwcXOc7xlJ5wtaPsCHOI0nQSexi499xX+XR3oIWSqxh9ZO4r/KotauFEltICjO2e7KS1noR+5ifn4d9Fao9D9vJkyfhNaGagLFSnjD9kuMGOK/m/0oLJdYgx8KgvsqjxbdrocQaTj0F91UeLX9ACyW2kCbMGJKUkkBSUhC7SBNmDGE42aeJV9/NsBHOo4HztVBiDT3XwX2VR0P31EKJNaB+yqvRR2ihxBbQABtKDszuBF0XCl1P6iMpfIh2o6LrQjUhnGyslAec/k9sgItoq3nnR1nL+pdxHxXRzpgWTmpHFsSjPiqi/WUtnNRNkgcLLajO4kEh9ZIUZkT5uZJSS/iOsVAeMP0ibHyLaPa1WjipnclLcB8V0fwbtHBSO+O/hfuoiBbfoYWTuklKqolIynAva8aIHQwMDMA+CoVoejjZWCgP6DsXG98ikh2SxA5OXut4/xTV4J21cFI7qH+KauT+WjipGzSwhorbxYauDyVrxkj97O3twf4JJekjokDXh/I9nGwslONs/Ac2vGVo83v6EFIbcgwM6psytH1SH0JqY+UjuG/K0G4ztqbbTFJSzbhjYpKOF9rf39crSV0kLZTf3t7WK4+TxxPqC8Y6Oc7UC7DRLUPTL9WHkNqYeBbumzI0+6f6EFIb40/AfVOG5t+oDyF1UWRwlbMZ0T2hZFJH6iUuzCinEMTR5HCysU6O03sjbHTLUO8v6ENIbaB+KUsDF+pDSG2gfilLQ3fTh5A6EI8UGlBDxYWhQk6cOAHvFbUnXSXVs7OzA/sl1OzsrF4ZDbovlM/hZGOdHGbja9jglqmNr+vDSOWsfQ73SZna/B99GKmclStxn5Sp7T59GKmapDDj1lbyuamSigDdG2p3l8ly6yIpzCgTsyTGxsbgvaF8DScby+QwU5diY1um5HxAUg8Tz8B9UqbkfE9SD3K8D+qTMjV3mT6MVE1cSoikMFSIrAFD94eSwZ/UQ1xKiL6+dF94JFkquj+Ur+FkY5kcpvf62NiWqZ7r6sNI5aD+KFt9v6gPI5XSMt+GUX+UrYGL9IGkSpJ2u6UJQ4XEHTEjgz+pnqQwo+T2Sss111wDyxD5Gk42limGwTsdN2SFdZaZzFz7MBN5z/XM5OkGh+u0em9sBsGbHg6E/bcwupXRrY3hvMDotka3Oy5Yfhd08LwLjc4373Qbo18yOs/IvGffzY1uZnSTwzrIurDeGxqZSaHUTyZuPT9vypGUCKbuqPwiGn2IdlYOpH1RmYWUpn9vaeRA/0pKkbr7t8ihz/KuqMxCau/fc8wzwv4917SRC/1r3ulI/5r3PdK/Upf2/pV6drF/Tz1dOys7ceufikjKDSWDokg8VCKZBIXq6ek5kJytiITKDhW3260TWQuGygglzwrfRdT+jqLw3UVhfUTt9RShsosKZW1PCyqvDIX1bW+LsvtXJt5pkZQiqIxQ8qyi/YvKLUOTk5Nai2yY//kJdHPXIFVMc5drJxWgm7sGqWJaeIt2UgHGn4jLpurX0nu0k/KTdAaijUobhgqRSRoqx3aVsSsvKYO/jcrqpZIDtFE5tqtIklfzvz8F3cy1Q+XT6W9p55TA0hX4GVR92vxf7ZwSWHgrfgZVn0pc9C9hOzQw2Ko867KSjpixTWUu+k/y+NmmPOuykjxoNkk8aFk8eghjAVKyOxkchBiQEaGqk4RIWsU6HSIDAXoeVa0G76AdUjIykUPPo6pVlw5ol/MO0SBho/JMSpJ20Nmibq1JSlqEbpPy7EScmZmBZdmmslJcGEuQkZEHYINCdV8TF2sndBHJfYSeTXVfEtbvNoO3x8+muq+ZP9ZO6B6yBgYNGLYo78QkabG+DZLJQzdptVoH65jQs21R3omJC+HkMnfQGmuQAzlAGhkWqntafr82fgVMvwS/A9U9rXxcG78CJp+L34HqnuToq4pIyo1Up7LsduskKQt+nZIs+1WRdJRSnSqyri3psO06JevQysRYhJysfwUbGKp8bfdoo1fI6qfwu1Dla2dEG71Clj+I34UqV7I7cq+7nhBEUvLSulRkbYwM6qjMOiW76upI8mlr6FW8cnmx8W9W1p4VqVMUxjIUoLUdHGy/RwaHKq7h+2pD18TewuFWe/RuVHGNPlwbuiZkwldFLrymavzx2tD1IJnh0WASJQljiUcqr2TgFC0uLh5IJkqi5eXlAxXZBRYiZRSVvEv4buG7ynsnZcnvlHgW6yTrbkCZJKJ+SytX+zd876ye4CKpQJIw1qEEunnQbVM1+xptXAsYexR+Ryq/5v9SG9cCRh6E35HKr4W3aePWT9YQjmSLbxpJuaQ6JQO6LUh6DvSOUcqSQ80XxsfHYVtESSZv3cRYiJJYeDM2QFR2VbgeJDVzr8PvSmXXxtXaqBYx83L8rlR2nf62Nqo9ZJ1YiIegKWSduJS93qcMsk4sxBvUFLJuOElzhmhRjJUokc3vG8MjGZ47DBGVTpL9e6de93UscmA4em8qnSQsv5f+qJTKWfsCfm8qneSkj/01bUz7kG/xaKCJkgzmPpM1FCuew26s9ykL8cKh946STMZ9JmsoVjZvVIWxFl1g+D7YMFHROvUUbTwHGLorrgMVrcnnaONZjkwcBphyIrOmX6gNaDeSQyuLB6Bbi4vrRjx6qL5Rmpqa0jvtRsKIWVJO+HrWZdbNB91OBdKJsRhdYur52EBRx7X4d9poDjF5Ca4LdVwlHA1TOaeehutCHZfsEHWMrCkJbAyv5SXrIutur/fpBlmPkvJpXd/o6CisY5RWV1f1zuowVqOLSO4pZKioM9r4mjaWgyy+HdeJOqPT39HGcpD51+M6UaqzgmDzh9pY7pH1KBqbFpTnJcvRQ3LQchXrfbqFeOlQvaLk+rov8cxmOXpIdnnu7Ozo3dVirEeX2RlkygkkyRC/lz+ZoDVs/R9TTiCN3D8I9qtLqtg1ZKE4U04cl+z0DarP31Q2WY+i6eYW+26S9Ugl8Zr4gKRXQPWL0uTkpN7pFln/jutev2gsSEUw5cQZTb9YG8UjmHLijGZeqY3iESMPxHVtoub+TBvFD8RTkCXlhOwCLHpIcJVkPURcrvcJ6assOzflb6GOpLB5yXrOo+QkqxtjRSpk7jJsyJqkpSu0MTxEJhyozk3S8pXaGB4iXxhQnZuk1U9oY/hH1gSiVR6Tk5esaRbqWO9TFVnbQryEtpN1vZ4tf7PGklTM2meMAWtgyome6wbB6f/SRvCYlY/g+vsuCbdK2NV3mrpuc+CCINju1Ubwl6y7/WzwHiDEY5PVi1fXep8qybrbz9Z8brI7N6sXT+6xBWNRamB/qVkpJ8YeEwQtf3YFJbI7HgRDd8Ft4aNOPVkr3hC2T5qJyEW4LXzUxDO14s1AdjDKwmM0gCHZtu5L1vucOHECviuSq+vW8iJenywpJ2zL95V13ZqN+cqMVamRJqScmH2VVraBTDwbt4lPkoz+TeXUU3Gb+KT5v9bKNo8sKSfEo2DDUTRZPTq2euyqQBKGojZBGhwctMJjlHW9nq0eO2NZambpXdjg+aCVD2klG8zC3+K28UGrn9JKNhifU06sfUkr2Vyyppyoc41UljVq4hFzYY1at8mSckLaTLyJdZFljZp49Gxeo2asiwWc/m4Q9N8aGz8XNXiHINj6sVaOHOQq67spbisXJalAtv3M+JyLtav8SjkxfN8g2G1W+CmOrKGdqncFiidGPDLoXZDE0+PSrsxuI/m7UDtFSbyKVSJr77LkX5PksbbvyjRWxiLGH48NoUty6eifKtk33z7GHonbzCVNXKwVIkfYm/Ej5cTU87RCpB0JI2ZZrC67zapABlhJdIreAcnVPFXdRhLFZlmsXtW6OJlUZ1mv58rRTsbSWIbkyEEG0QXNXa6VIJG4nHJi/o1aCRKJyykn5CQGEkvacF6VXq+02cp9yLzfbdKG86pcO5V2o4dLmfeNtbGQ1U+b1j77qFG0XfLOJB2upZzoOScI1r+sL08ScS3lRN9NgmDjG/ryJIk0KSeqXGiftA5NBm6fzprsNmk2KFS50F52JaJ3CCUTb9fOmjRWx1IW3oqNpI2iJyQ7c3+B29JGzb9BX5qkZuYVuC1tlIuHmNdM3GAoA2GVyKCL3iOUi4dc101cYlJZb1UlsgkCvUcoFzdJGKtjKXLWHTKSNmr4nvrSJDVDv4Lb0kaNPkRfmqRm4HzcljZq/LH60iQtcXmg6lhnExeOqmq9mU+gdgwlR/RUTdw6LxvzdCVhrI6F7M0eN462S5KGknTsDOE2tFn7/Nacmq0f4Ta0WSQ1SQdO17GNPyktAkmPpARBbRhKFuJXTdzaQtlc4Rp2WpzFd2DjaLMW3qwvTxKRpJSoDW0Ww1HpmX0tbkObtfJhfXmShOwMRAOgqK5BUNZwofcJ5fMZjGUTt8C+p6dHr6oWyR+G3ieUa+FGY3EsZPTB2DjarOF76cuTRIbugdvQZo0+TF+eJOLicULjT9CXJ0nEhRnrPH4HvU8omUyQdKD2C1VnOg70PqFcCzcai2MZco4jMowuSHIZkXgkJIvazgW1/D9EtzBb1+C2c0EkkaQwY52epaTdbySZJM9SnbtD4zxx8mXAJeyzNkvvxUbRBcnxOCSehbfgtnNBS1doJUgkc5fhtnNBKx/VSpAo4sKMojpJ2v3GcGMycWupZIF7nSStPXMp3GisjWWMPgIbRRc0fB+tBIlE2gi1nQuSv00Sz8Dtcdu5oPEnaSVIFHFhRjlUOy/iSZHM+EVDWei9QjHcmAxqt1BF2k88pZIZv+iOV/ReoVwKNxprYxH7ZsaKDKJL2q/vEFHr2Z3GbeaSSDTbfbjNXBKJJGkBe958WZKeoL0cWcCd1zsVF46q22NjO0kew7wHZHcmuJU8b3m9UzK5by+rXS6FG+2yNMsfwMbQJS28TStDjiFHsqA2c0lL79PKkGPM/yVuM5e0+nGtDOmk7JQNkvg07vzHPAv1k9Yo5Z08NIGy18jJRD3ucOs83s2kA9vrSGWSB2NpLGLsN7AxdEkj99PKkGO4HGYMNfYorQw5hou7GTt16slaGdJJXJhxcHBQr0qHnOWIyumUPFMG2yygckIx3BgNaq9Qw8PDelU6Or2YUcrj3UTlhKpz12UWjKWxBNkxhgyhiwpah3UiZ9hbwG3loshxdoxhRm3losgxko7lSXtosiTfjPNyRSnLhEkmCagMEcONmKTdqmnDyOLlkrVcqIw4ZfFuxv39uBJutMfKrFyJjaCLkpAaOcriu3BbuSgJiZOjzP8NbisXtfpJrRQJSTqIOg1pDl+OkyRnTTMB8Gn3W1WUsVs1rZcrSjJpSuP9kr8BdH8oFw7MNlbGEsYejY2gixp5gFaK/Awfwoyh5G+VHMWHMGOoU0/VSpGQuDBj0qHY29vbubwgURodHdWSo0H3haozyautoHYKJR6mOGSiIyFDdG8epfFuovtCuRBuNFbGEpABdFnkDPvmWwxqI5dFzrA7gdvIZZGfIeFBNMCFEk9WFEW9XHGK837FhaMYbjxK0m7VxcVFvfI4adfqZZV4N+O8X3ETPTkw3XbssDArH8PGr2wN3jEI+s/Dn5Wtxb/XypFg6R9wG5WtobsFQd+5+LOytfIhrRw5SByM2qhsDd/XWNzr4c/K1vpVWjmSFEJCiJdLPGHo+igNDQ3B38cpKnfY0tISvD6UTDbIIXl2q8pkXCY46Pooxa29i1KUd3N+fh5eH0r+/mzGWBgLqCLMOPMyfVjL/KU9H19TpkYeqM8jwfC9cRuVqdnXHD6rtRkEk5fga8rU2GMOn0eCYOB2uI3K1Nzlh8+SI8VOPR1fU6bkGeQA8T6gwU2EFjPn8YLIPcLu7m5srqYooZ2P6LpQDDeeAbVPKHQodtJ6PySZKAk7Ozu5JmCd3q/9/X14XSjbw43GwlgAMnxlaeAC8+313/RBbax9Lgj6boHvKUvkcCKE2qYsDf5yEGx8Ux/Wxuq/BEHvDfA9ZYkEwZ4ZMFHblKWhuwfB5vf0YW0s/zO+vkyRA88BGthCySAcIoNqVi+IhATRYmgJb6Hr4yQes3biwlEymSTJu1Xbw8jytxC31g9J+gR5n5I8Vkid3s24LwS2hxvrty6rn8JGrwxNvVAfEoV4vy7F95YhJts0A+Q/4bYpQzN/pA+JoHU6CCaeje8tQ6uf1gc1GAmpo7YpQ7Ov1YdEsCfer6fhe8vQxjf0Qc0lyXu1t7d3cF2eHW1yTxxFvV9Jg7sLu9+6TdowY9J1SHFr/wSZkOXxfoVJcJM8b/JFwFaMdamZsV/HRq+I+m8ZBGtf0AekYO2zQdB7Q1xWEY0+WB/QYIbvhdumiAYuDIL1r+oDUrDycXPfWcfLKarxx+oDGkw3woyDdwqC09/SB6Rg+YO4nKKaeIY+oLnEeRVEMrhl9YJINvMsa6wkRxgqJ05hwk/0WSiGG+PbR/pe1nLJZgT0eZSivJhR5PF+ydovmfSjz0IVPReymxjrUjPI4BXR5O9pwVnZN9P65+Eyi6jJtMy3YdQmRTT9Ii08Iwfer4txmUXUZMTjhNqkiJK8mFHsLR6mgUBlFlGDkUkVGtBCxR0HE6X20GQW8nq/4iYNTQ83Ju1WjdsZGqUkL2YUeb1fcbI53FivZVn7PDZ2eSS72cpIfCjer5NnHy8/r1Y+qgU3kJUP4zbJI9mNuvZFLbgAZe+gXf9XLbiBLL0Ht0keDdzWtOXVWnAByg5tb35fC24eZaYKkDxeZZyjl8f7FSe0/qgp5AkfRkkm4WWEbvN4v+IUhsJtw1iWGpFz75CxyyrxZJSK6SzxnKFnZdXoQ7XMBlJWmDG3FzOCfTMATDwLPyurxh+vhTYQmSyhNsmqvF7MKOR4qrK8X/J30lCSwoxpVXbIR7xfZXlH5GDopoLaI4/yejGjkMlwntQiSGW/W1kYy1IjyNBlUc85h16VbrH6GfzcrGoqqC2yqO8mhx7IbiHeSPTcrGoi++u4LbKo/1Z4x3FZLP8jfm4mnaWFNQuZ3KCBLIskj1cZXq4oyvB+oXQYTSApzJhG4sXs5gaFMrxfKB2GDRjLUhPrXwZGLoOqOtajtRsEk7+D3yGtJHVF05B0Dqgt0qp0L2YEMoEoujMuy0JwX1i6ArdFWsl6yirYmw+Csd/E75BWW81bC1Q0zFiVJ0nWoRX1jsgks2kUDTNWtXBdvF951pq1q9VqaWn2YKxKTeQOM54d1JI1XFIHwPdJodGHayENYvhXcVskqff69aRpWPkIfp80Gn+iFtIgZGcpaoskiRdz/StaSIUU8X7JF6+GkTfMKAuau+nliqKI98vm3W/dArVDGokXs440HEW8X2FyXpswVqUmkIFLUt3racT7lTdrdtNAbZAk8TzVyf7aYYoI9G5JahKtbdwGSZKcanWyN3e45hK9W5x6rqUFNIOkbfpRqjs9g3i/8nhHmhZuFC8Saock1Z0NXt47z2HrNoYbjVWpgY2rsYGL08qVerMF5En6miXvlOusfgK3QaTMwCZtagt5vF+bP9CbG8DSe3EbREm8mDbt/lz+AH7POO3gMwF9JGuYUSYudXi5osjj/ZIjaJpC1jCjeDFtOtsyj/fLNoxFqYHRR2LjhiQJVm2ktRME44/D74xkaz26wfA9cRsgjT9Bb7KM/VXzd/ow/M5ITUq2mSXMaOuZh+L9kkO30Tsjlb3z0mKyhBnHx8f1LrsQ71cW74itu9+6Aap/lGxNMiver7gjoTqVlEW/aoxFqQFk2JDkPDbbyeL9agqo7khl5F3rNllykTWCFq77MV3rcAON7Sy/H7w7UM919Aa/SRtmlMnZ+vq63mUvab0jTQk3JiXFDSXtYZOXK4q03llZm2YTxqJUTJow4+hD9GJHkDUvsoAe1aVdp7+tN3hMmt2MY4/Wix1BvF8jv4br0q5tO7cul0qapKmubTaQg76H7oLr0i65znPSDGRjY2N6tRvIZEMGXlSXdjWBNGFG145SEu9XmsPZbcJYk4oZfQQ2aqHk3DVXOTgTENQp1PiT9EKPGUoIM8r6L1dJWhtUdqJXGxm4ANc91PpVeqGDJB34PfMKvdBf4sKMcvyOC16uKJImlTbufisbVO9Q0vcueLmiSDqoXdb+2YKxJhWDDJpo5H56geO0tg7rguoo8h1UZ5Gsl/KB/RUzubwrrqPId1CdRb4cGL43YyaXEQd/91xPL/ITWWCOBiyRa16uKMT7FeUdsflsvzKIS4rry4Hh4v2K+vJgU7jRWJMKkbPYkEGTHDu+EZU3aOtHeoGHrEZ4/CT86BuL78B13fFjgIJEhRnXvqQXeMT8G3Fd5bgpT4nyCLns5YoiyjviMyjMKF5Ml71cUUSFVG3BWJIK6QwzDt9HP/AU8X4N3e1onX0++23oHkfr6vs5lfvLQTBw0dE6T79YP/SQzjCjZIT3md3pIOi/5dE6z71OP/SPTk/B6OiofuIn4v3qrLMsxveV9nqKbN2RWhboWKSlpSX9tF6MJamQdgMm62WawuI7j9bdV9rrKN6vprDwpqN195X2Oq59UX/ZAGSyFdZbcpJ5iByr0j5A+ejliqLdO2Lr2X5F6dyt6qOXKwo5viqsd39/v/62XowlqQhJICqGa/je+ouG0doMgsHbH7bBdp/+0iPCjQWu7Ugti33zTar/vMM22LNnEWdpLL37sG5jj9FfNIzdSTPputFhG3hIGGb03csVRXs2dx8JJ5e+e7mikGOObOrf6qyIpFuQnDlNZ+HN5n/BpfqDRwzd3Uy+PqY/NJi5y80o9mr9wSMGzg+CtS/oDw1m5pWH6788Q0JuTfJyRSHekcXFRf3JH2TC0SQvVxQy8VxZWdGf6sPPr2+EEEIIIRbCiRchhBBCSEVw4kUIIYQQUhGceBFCCCGEVAQnXoQQQgghFcGJFyGEEEJIRXDiRQghhBBSEZx4EUIIIYRUBCdehBBCCCEVwYkXIYQQQkhFcOJFCCGEEFIRnHgRQgghhFQEJ16EEEIIIRXBiRchhBBCSEVw4kUIIYQQUhGceBFCCCGEVEIQ/D9vm70YPcG+HwAAAABJRU5ErkJggg==" style="width: 16em">
 
 
@@ -1103,10 +1127,10 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 }</code></pre>
 
       </section><section class="slide" id="slide-13-8">
-        <h2 id="komponentendefinition-beispiele">Komponentendefinition: Beispiele</h2>
+        <h2 id="component-defintion-examples">component defintion: examples</h2>
 <ul>
-<li><code>PlayingCard</code> - Komponente</li>
-<li><code>RomanNumber</code> - Komponente</li>
+<li><code>PlayingCard</code> component</li>
+<li><code>RomanNumber</code> component</li>
 </ul>
 
       </section><section class="slide" id="slide-13-9">
@@ -1133,8 +1157,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
       </section><section class="slide" id="slide-13-12">
         <h2 id="custom-events">custom events</h2>
 <p>Example <code>ToggleButton</code>: Button which displays either &quot;off&quot; or &quot;on&quot;:</p>
-<p>Prop: <code>active</code> - may be set to <code>true</code> or <code>false</code>
-Event: <code>onToggle</code> - function which is called with the new state</p>
+<p>Prop: <code>active</code> - may be set to <code>true</code> or <code>false</code><br>Event: <code>onToggle</code> - function which is called with the new state</p>
 <pre><code class="language-jsx">&lt;button
   onClick={() =&gt; {
     props.onToggle(!props.active);
@@ -1158,9 +1181,9 @@ Event: <code>onToggle</code> - function which is called with the new state</p>
         <h2 id="custom-events">custom events</h2>
 <p>examples:</p>
 <ul>
-<li>Rating-component with clickable stars</li>
-<li>NumberInput-component that lets the user specify an integer with + and - buttons<ul>
-<li>bonus: make the API compatible with that of ordinary input-Elements so input-Elements may be easily replaced by NumberInput-components</li>
+<li>Rating component with clickable stars</li>
+<li>NumberInput component that lets the user specify an integer with + and - buttons<ul>
+<li>bonus: make the API compatible with that of ordinary input elements so input elements may be easily replaced by NumberInput-components</li>
 <li>bonus: add a min / max property that can be specified</li>
 </ul>
 </li>
@@ -1216,8 +1239,6 @@ Event: <code>onToggle</code> - function which is called with the new state</p>
 
       </section><section class="slide" id="slide-16-6">
         <h2 id="type-system-arrays">type system: arrays</h2>
-<pre><code class="language-js"><span class="hljs-keyword">let</span> names: <span class="hljs-built_in">Array</span> = [<span class="hljs-string">'Anna'</span>, <span class="hljs-string">'Bernhard'</span>];</code></pre>
-<p>more detailed:</p>
 <pre><code class="language-js"><span class="hljs-keyword">let</span> names: <span class="hljs-built_in">Array</span>&lt;string&gt; = [<span class="hljs-string">'Anna'</span>, <span class="hljs-string">'Bernhard'</span>];</code></pre>
 <p>alternative Syntax:</p>
 <pre><code class="language-ts"><span class="hljs-keyword">let</span> names: <span class="hljs-built_in">string</span>[] = [<span class="hljs-string">'Anna'</span>, <span class="hljs-string">'Bernhard'</span>];</code></pre>
@@ -1232,7 +1253,9 @@ Event: <code>onToggle</code> - function which is called with the new state</p>
 <pre><code class="language-ts"><span class="hljs-keyword">const</span> repeatString = (
   text: <span class="hljs-built_in">string</span>,
   times: <span class="hljs-built_in">number</span>
-): <span class="hljs-function"><span class="hljs-params">string</span> =&gt;</span> {...};</code></pre>
+): <span class="hljs-function"><span class="hljs-params">string</span> =&gt;</span> {
+  <span class="hljs-keyword">return</span> ...;
+};</code></pre>
 
       </section><section class="slide" id="slide-16-8">
         <h2 id="type-system-void">type system: void</h2>
@@ -1253,8 +1276,8 @@ Event: <code>onToggle</code> - function which is called with the new state</p>
 
       </section><section class="slide" id="slide-16-11">
         <h2 id="type-system-types--interfaces">type system: types &amp; interfaces</h2>
-<p>Interfaces describe the structure of an object / of a class in Detail<br>e.g.: <code>TodoInterface</code>, <code>PersonInterface</code></p>
-<p>Types are similar to interface, but are also applicable to strings, arrays, ...</p>
+<p>Interfaces describe the structure of an object / of a class in detail<br>e.g.: <code>TodoInterface</code>, <code>PersonInterface</code></p>
+<p>Types are similar to interfaces, but are also applicable to strings, arrays, ...</p>
 <p>Essentialy types offer more functionality than interfaces</p>
 <p><a href="https://stackoverflow.com/a/52682220/">https://stackoverflow.com/a/52682220/</a></p>
 
@@ -1294,7 +1317,7 @@ Event: <code>onToggle</code> - function which is called with the new state</p>
   payload?: object;
 };
 
-<span class="hljs-keyword">type</span> AddTodoActionType = ReduxActionType &amp; {
+<span class="hljs-keyword">type</span> AddTodoActionType = ActionType &amp; {
   <span class="hljs-keyword">type</span>: <span class="hljs-string">'ADD_TODO'</span>;
   payload: {
     title: <span class="hljs-built_in">string</span>;
@@ -1359,7 +1382,7 @@ Event: <code>onToggle</code> - function which is called with the new state</p>
 
       </section><section class="slide" id="slide-17-3">
         <h2 id="components-functions">components (functions)</h2>
-<pre><code class="language-ts">type TodoListProps = {
+<pre><code class="language-tsx">type TodoListProps = {
   todos: Array&lt;TodoType&gt;;
   onToggle: (id: number) =&gt; void;
   onDelete: (id: number) =&gt; void;
@@ -1427,7 +1450,7 @@ const TodoList = (props: TodoListProps) =&gt; {
       padding-left: 1.5rem;
     }
 
-    h1, h2 {
+    h1, h2, h3 {
       font-weight: 600;
     }
 

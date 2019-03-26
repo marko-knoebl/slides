@@ -859,12 +859,12 @@ a.getHourse(); <span class="hljs-comment">// ...</span></code></pre>
       </section><section class="slide" id="slide-14-4">
         <h2 id="reduce">reduce</h2>
 <ul>
-<li>computes one value based on a start value and all entries in an array</li>
-<li>uses a function that computes a resulting value from two given values - this function will be called repeatedly</li>
+<li>Verarbeitet die Einträge in einem Array zu einem einzelnen Wert</li>
+<li>Verwendet eine Funktion, die aus zwei bestehenden Werten einen resultierenden Wert erstellt - diese Funktion wird wiederholt aufgerufen</li>
 </ul>
 
       </section><section class="slide" id="slide-14-5">
-        <h2 id="reduce---example">reduce - example</h2>
+        <h2 id="reduce---beispiel">reduce - Beispiel</h2>
 <pre><code class="language-js"><span class="hljs-keyword">let</span> transactions = [
   { <span class="hljs-attr">amount</span>: <span class="hljs-number">-56</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'groceries'</span> },
   { <span class="hljs-attr">amount</span>: +<span class="hljs-number">1020</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'salary'</span> },
@@ -875,7 +875,8 @@ a.getHourse(); <span class="hljs-comment">// ...</span></code></pre>
 
 <span class="hljs-keyword">let</span> currentBalance = transactions.reduce(
   <span class="hljs-function">(<span class="hljs-params">aggregator, transaction</span>) =&gt;</span>
-    aggregator + transaction.amount
+    aggregator + transaction.amount,
+  initialBalance
 );
 
 <span class="hljs-comment">// 317 -&gt; 261 -&gt; 1281 -&gt; 1268 -&gt; 1172</span></code></pre>
@@ -930,9 +931,9 @@ a.getHourse(); <span class="hljs-comment">// ...</span></code></pre>
     <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.message);
   }
 }
-<span class="hljs-keyword">let</span> f = <span class="hljs-keyword">new</span> Foo();
-f.greet(); <span class="hljs-comment">// klappt</span>
-<span class="hljs-keyword">let</span> fg = f.greet;
+<span class="hljs-keyword">let</span> foo = <span class="hljs-keyword">new</span> Foo();
+foo.greet(); <span class="hljs-comment">// klappt</span>
+<span class="hljs-keyword">let</span> fg = foo.greet;
 fg(); <span class="hljs-comment">// klappt nicht (this ist undefined)</span></code></pre>
 
       </section><section class="slide" id="slide-15-6">
@@ -992,7 +993,7 @@ fg(); <span class="hljs-comment">// klappt jetzt auch</span></code></pre>
       padding-left: 1.5rem;
     }
 
-    h1, h2 {
+    h1, h2, h3 {
       font-weight: 600;
     }
 

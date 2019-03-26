@@ -871,10 +871,10 @@ let newNumbers = myNumbers.filter(isEven);
 
 ## reduce
 
-- computes one value based on a start value and all entries in an array
-- uses a function that computes a resulting value from two given values - this function will be called repeatedly
+- Verarbeitet die Einträge in einem Array zu einem einzelnen Wert
+- Verwendet eine Funktion, die aus zwei bestehenden Werten einen resultierenden Wert erstellt - diese Funktion wird wiederholt aufgerufen
 
-## reduce - example
+## reduce - Beispiel
 
 ```js
 let transactions = [
@@ -887,7 +887,8 @@ let initialBalance = 317;
 
 let currentBalance = transactions.reduce(
   (aggregator, transaction) =>
-    aggregator + transaction.amount
+    aggregator + transaction.amount,
+  initialBalance
 );
 
 // 317 -> 261 -> 1281 -> 1268 -> 1172
@@ -943,9 +944,9 @@ class Foo {
     console.log(this.message);
   }
 }
-let f = new Foo();
-f.greet(); // klappt
-let fg = f.greet;
+let foo = new Foo();
+foo.greet(); // klappt
+let fg = foo.greet;
 fg(); // klappt nicht (this ist undefined)
 ```
 

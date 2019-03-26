@@ -8,6 +8,8 @@ Hooks = extension of function components; enable the use of state and other feat
 
 > "In the longer term, we expect Hooks to be the primary way people write React components."
 
+\- [React FAQ](https://reactjs.org/docs/hooks-faq.html#should-i-use-hooks-classes-or-a-mix-of-both)
+
 ## Hooks: current state
 
 - Documentation for beginners is still very focused on classes
@@ -37,6 +39,240 @@ const App = () => {
   return ...
 };
 ```
+
+# Component lifecycle
+
+## Component lifecycle
+
+We can listen for certain events in the lifecycle of a component:
+
+- the component is included (mounted)
+- component state or props have changed
+- the component is removed
+
+## Component lifecycle
+
+We can use these events for:
+
+- querying APIs
+- explicitly manipulating the DOM
+- cleaning up after a component was removed
+
+## Component lifecycle
+
+We can listen for lifecycle events via the following means:
+
+In class components we use lifecycle methods like `componentDidMount`, `componentDidUpdate` and `componentWillUnmount`
+
+In functional components we use the effect hook
+
+## Example: DocumentTitle component
+
+We will create a component that can set the document title dynamically:
+
+```xml
+<DocumentTitle>my custom title</DocumentTitle>
+```
+
+This component may appear anywhere in the React application.
+
+## Example: DocumentTitle component
+
+as a class component:
+
+```jsx
+class DocumentTitle extends Component {
+  componentDidMount(prevProps, prevState) {
+    document.title = this.props.children;
+  }
+
+  componentDidUpdate() {
+    document.title = this.props.children;
+  }
+
+  render() {
+    return null;
+  }
+}
+```
+
+## Example: DocumentTitle component
+
+with `useEffect`
+
+```jsx
+const DocumentTitle = props => {
+  useEffect(() => {
+    document.title = props.children;
+  });
+
+  return null;
+};
+```
+
+## Example: Clock component
+
+## Example: Clock component
+
+as a class component:
+
+```jsx
+  constructor() {
+    super();
+    this.state = {
+      time: new Date().toLocaleTimeString()
+    };
+  }
+
+  render() {
+    return <div>{this.state.time}</div>;
+  }
+```
+
+## Example: Clock component
+
+```jsx
+  componentDidMount() {
+    this.intervalId = setInterval(() => {
+      this.setState({
+        time: new Date().toLocaleTimeString()
+      });
+    }, 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.intervalId);
+  }
+```
+
+## useEffect in detail
+
+`useEffect` will receive two parameters: A function and (optionally) an array of values.
+
+The function is executed after the component renders if one of the values in the array has changed.
+
+The function is also executed when the component is included and rendered for the first time.
+
+## useEffect in detail
+
+If no second parameter is passed the function will be called after each render.
+
+If an empty array is passed as the second parameter the function will only be called after the first render.
+
+## useEffect: example: weather
+
+```js
+const [weatherData, setWeatherData] = useState(null);
+const [stale, setStale] = useState(true);
+
+// fetch data whenever data is stale
+useEffect(() => {
+  if (stale) {
+    refetch();
+  }
+}, [stale]);
+```
+
+## useEffect: example: weather
+
+```js
+const refetch = () => {
+  fetch(
+    'https://api.openweathermap.org/data/2.5/weather' +
+      `?q=${city}&appid=${API_KEY}`
+  )
+    .then(response => response.json())
+    .then(data => {
+      setWeatherData({ temperature: data.main.temp });
+      setStale(false);
+    });
+};
+```
+
+## useEffect: component removal
+
+```jsx
+const Clock = () => {
+  ...
+  // will be called when the component has mounted
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setTime(new Date().toLocaleTimeString());
+    }, 1000);
+    // will be called when the component will be removed
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, []);
+  ...
+};
+```
+
+# Reducer hook
+
+## Reducer hook
+
+In complex components / applications it makes sense to separate the state (model) from the view. This can happen via external state management libraries like _redux_ or, in simple cases, via the reducer hook.
+
+## Reducer hook
+
+In state management tools each state change happens through an _event_ - which is usually a simple JavaScript object:
+
+```json
+{
+  "type": "ADD_TODO",
+  "payload": {
+    "title": "learn react"
+  }
+}
+```
+
+## Reducer hook
+
+State management with reducers:
+
+when using the _reducer hook_ or _Redux_:
+
+The transition from one state to the next happens via a reducer function:
+
+The reducer function receives two arguments: the old state and an action describing the state change
+
+The reducer function returns the new state
+
+## Reducer hook
+
+The reducer hook is included in a way that is similar to the state hook:
+
+in general:
+
+```js
+const [state, dispatch] = useReducer(reducer, initialState);
+```
+
+specific example: count:
+
+```js
+const [count, countDispatch] = useReducer(countReducer, 0);
+```
+
+## Reducer hook
+
+```js
+const countReducer = (count, action) => {
+  switch (action.type) {
+    case 'INCREMENT':
+      return count + 1;
+    case 'DECREMENT':
+      return count - 1;
+    default:
+      throw new Error('unknown action');
+  }
+};
+```
+
+## Reducer hook
+
+In order to trigger actions, we call the `dispatch` function of the reducer with the action as an argument
 
 # Automated testing
 
@@ -76,14 +312,14 @@ Possible approaches:
 in an existing npm project:
 
 ```bash
-npm install --save-dev mocha
+npm install --save-dev jest
 ```
 
 in _package.json_:
 
 ```json
 "scripts": {
-  "test": "mocha"
+  "test": "jest"
 }
 ```
 
@@ -95,15 +331,22 @@ npm test
 
 ## finding tests
 
-In general testing libraries look for files ending in `.test.js` or `.spec.js`
+In general testing libraries look for files ending in `.test.js` or `.spec.js` inside the `test` directory.
 
-mocha: by default, looks in the `test` directory
-jest: tests can be colocated with regular code
-
-We can run mocha like this to find tests in the src directory:
+We can also pass a custom pattern, e.g.:
 
 ```bash
-mocha src/*.{test,spec}.{js,jsx}
+mocha "src/**/*.{test,spec}.{js,jsx}"
+```
+
+## test coverage
+
+Some testing libraries can report on how much of the code is covered by tests:
+
+example: in a create-react-app project:
+
+```bash
+npm test -- --coverage
 ```
 
 ## Example: shorten
@@ -169,8 +412,6 @@ expect (behaviour-driven)
 
 ## Testing: assertions
 
-assert: examples
-
 node:
 
 ```js
@@ -191,8 +432,6 @@ assert.throws(() => {
 ```
 
 ## Testing: assertions
-
-expect: examples
 
 jest:
 
@@ -262,11 +501,25 @@ npm install --save-dev enzyme enzyme-adapter-react-16
 
 new file `src/setupTests.js`:
 
-```
+```js
 import { configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
 configure({ adapter: new Adapter() });
+```
+
+## Enzyme - Examples
+
+```jsx
+import { shallow, mount } from 'enzyme';
+
+it('renders a component without crashing', () => {
+  const wrapper = shallow(<MyComponent />);
+});
+
+it('renders a component tree without crashing', () => {
+  const wrapper = mount(<MyComponent />);
+});
 ```
 
 ## Enzyme - Examples
@@ -288,6 +541,8 @@ it('renders an `.icon-star`', () => {
 
 ## Enzyme - Examples
 
+Tests with Chai
+
 ```jsx
 it('reacts to click events', () => {
   const onButtonClick = sinon.spy();
@@ -308,9 +563,28 @@ it('reacts to click events', () => {
   const wrapper = mount(
     <Rating stars={3} onStarsChange={mockFunction} />
   );
-  expect(wrapper.childAt(0).childAt(2).text()).toBe('*');
-  wrapper.childAt(0).childAt(1).simulate('click');
+  expect(
+    wrapper
+      .childAt(0)
+      .childAt(2)
+      .text()
+  ).toBe('*');
+  wrapper
+    .childAt(0)
+    .childAt(1)
+    .simulate('click');
   expect(mockFunction).toBeCalledWith(2);
+});
+```
+
+## Enzyme - Examples
+
+```jsx
+it('changes state when clicked', () => {
+  const wrapper = shallow(<Counter />);
+  expect(wrapper.instance.state.count).toEqual(0);
+  wrapper.childAt(0).simulate('click');
+  expect(wrapper.instance.state.count).toEqual(1);
 });
 ```
 
@@ -340,7 +614,7 @@ import React from 'react';
 import Rating from './Rating.js';
 import renderer from 'react-test-renderer';
 
-test('renders correctly', () => {
+it('renders correctly', () => {
   const tree = renderer
     .create(<Rating stars={2} />)
     .toJSON();
@@ -380,7 +654,7 @@ describe('rendering', () => {
     expect(wrapper.find('Star')).to.have.length(5);
   });
 
-  it('renders 5 active stars', () => {
+  it('renders 5 stars', () => {
     const wrapper = mount(<Rating stars={5} />);
     expect(wrapper.find('.star')).to.have.length(5);
   });
@@ -480,7 +754,7 @@ import { Route } from 'react-router-dom';
 
 ## React Router - defining routes
 
-If Props need to be passed:
+If props need to be passed:
 
 ```jsx
 import { Route } from 'react-router-dom';
@@ -497,10 +771,10 @@ import { Route } from 'react-router-dom';
 ## React Router - Router links
 
 ```jsx
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
-<Link to="/">Home</Link>
-<Link to="/add">Add</Link>
+<NavLink to="/" activeClassName="active-link">Home</Link>
+<NavLink to="/add" activeClassName="active-link">Add</Link>
 ```
 
 ## React Router - Redirects
@@ -606,18 +880,17 @@ handleInstallBtnClicked = () => {
 };
 ```
 
-## PWA: Deployment on Bitballoon
+## PWA: Deployment on netlify
 
 - `npm run build`
-- drag & drop the dist-Ornder to bitballoon.com (app.netlify.com/drop)
-- choose "edit name" and pick a shorter name
+- drag & drop the dist-Ornder to app.netlify.com/drop
 - switch to https manually - try it out in Chrome on desktop and mobile
 
 # Context
 
 ## Context
 
-Context is a means to provide values from a components to all components that are contained within it - without explicitly passing it through all intermediate levels.
+Context is a means to provide values from a component to all components that are contained within it - without explicitly passing it through all intermediate levels.
 
 ## Context
 
@@ -628,7 +901,7 @@ two main elements:
 
 ## Context
 
-The interface of context can pass both data and event handler
+The interface of context can pass both data and event handlers
 
 ## Context - example
 
@@ -643,14 +916,14 @@ const TodosContext = React.createContext();
 ```ts
 // TodosContext.ts
 
-type TodosContext = {
+type TodosContextType = {
   todos: Array<Todo>;
   onToggle: (id: number) => void;
   onClear: () => void;
 };
 
 const TodosContext = React.createContext(
-  {} as TodosContext
+  {} as TodosContextType
 );
 ```
 
@@ -715,66 +988,4 @@ keep in mind:
 
 - Avoid too much nesting
 - Don't overthink it
-
-
-
-## mocking network (fetch) requests
-
-```bash
-npm install --save-dev jest-fetch-mock
-```
-
-## mocking network (fetch) requests
-
-```js
-import fetch from 'jest-fetch-mock';
-
-global.fetch = fetch;
-
-fetch.mockResponse(
-  `[{ "title": "abc", "completed": false, "id": 1 }]`
-);
-```
-
-## testing network requests - thunk
-
-```js
-store.dispatch(requestTodos()).then(() => {
-  expect(store.getActions()).toEqual(expectedActions);
-});
-```
-
-## testing network requests - thunk
-
-```js
-import configureMockStore from 'redux-mock-store';
-import fetch from 'jest-fetch-mock';
-import thunk from 'redux-thunk';
-import { requestTodos } from './actions';
-
-global.fetch = fetch;
-
-const mockStore = configureMockStore([thunk]);
-```
-
-## testing network requests - thunk
-
-```js
-it('dispatches "TODO_REQUEST" and "TODO_RESPONSE"', () => {
-  const todoData = [
-    { title: 'abc', completed: false, id: 1 },
-  ];
-  fetch.mockResponse(
-    `[{ "title": "abc", "completed": false, "id": 1 }]`
-  );
-  const store = mockStore();
-  const expectedActions = [
-    { type: 'TODO_REQUEST' },
-    { type: 'TODO_RESPONSE', payload: todoData },
-  ];
-  store.dispatch(requestTodos()).then(() => {
-    expect(store.getActions()).toEqual(expectedActions);
-  });
-});
-```
 

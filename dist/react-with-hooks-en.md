@@ -66,7 +66,7 @@ Marko Knöbl
 
 ## declarative
 
-- In the Background there is a data model which describes the entire application state
+- In the background there is a data model which describes the entire application state
 - The data model changes in response to user interactions, causing the view to update automatically (and efficiently)
 
 ## component-based
@@ -77,8 +77,8 @@ Marko Knöbl
 
 ## What makes React special?
 
-- JavaScript-based template-syntax
-- explicit Mutations of state via _setState()_
+- JavaScript-based template syntax
+- explicit state mutations via setters
 
 ## History of React
 
@@ -177,7 +177,7 @@ JSX = Template language of React
 ## JSX: JS + XML
 
 ```jsx
-<div>A year has {365 * 24} hours</div>;
+<div>A year has {365 * 24} hours</div>
 ```
 
 ## JSX: Simple tasks
@@ -185,22 +185,53 @@ JSX = Template language of React
 - Show the current date
 - Show either "heads" or "tails" inside a div
 
-## component state
+## JSX: Properties
 
-A component which will update its state every second:
-
-```js
-constructor () {
-  super();
-  this.state = { now: new Date() };
-  setInterval(() => {
-    this.setState({ now: new Date() });
-  }, 1000);
-};
-```
+we can also change from XML to JS in properties:
 
 ```jsx
-<div>{this.state.now.toLocaleTimeString()}</div>
+<a href={'https://en.wikipedia.org/wiki/' + articleName}>
+  some article
+</a>
+```
+
+## JSX Properties: task
+
+Show a picture based on an id; make use of this function:
+
+```js
+const getImgUrl = id =>
+  `https://picsum.photos/200?image=${id}`;
+```
+
+## JSX: events
+
+```jsx
+function hello() {...}
+
+<button onClick={hello}>Say Hello</button>
+```
+
+list of browser events:
+https://www.w3schools.com/jsref/dom_obj_event.asp
+
+## State example
+
+(we will look into the topic of state in detail later)
+
+```jsx
+const Counter = () => {
+  const [count, setCount] = useState(0);
+
+  return (
+    <button
+      onClick={() => {
+        setCount(count + 1);
+      }}>
+      {count}
+    </button>
+  );
+};
 ```
 
 # VS Code
@@ -294,10 +325,10 @@ let newNumbers = myNumbers.filter(isEven);
 
 ## reduce
 
-- Verarbeitet die Einträge in einem Array zu einem einzelnen Wert
-- Verwendet eine Funktion, die aus zwei bestehenden Werten einen resultierenden Wert erstellt - diese Funktion wird wiederholt aufgerufen
+- computes one value based on a start value and all entries in an array
+- uses a function that computes a resulting value from two given values - this function will be called repeatedly
 
-## reduce - Beispiel
+## reduce - example
 
 ```js
 let transactions = [
@@ -310,7 +341,8 @@ let initialBalance = 317;
 
 let currentBalance = transactions.reduce(
   (aggregator, transaction) =>
-    aggregator + transaction.amount
+    aggregator + transaction.amount,
+  initialBalance
 );
 
 // 317 -> 261 -> 1281 -> 1268 -> 1172
@@ -350,7 +382,7 @@ const App = () => {
 
 ## Example: counter
 
-We will add a button to our apllication. At the start this button will display the value 0. On each click the value will increment by 1.
+We will add a button to our application. At the start this button will display the value 0. On each click the value will increment by 1.
 
 ## Example: Counter
 
@@ -387,13 +419,13 @@ implement a diashow that shows images like the following:
 
 In class components, `this.state` represents the state.
 
-`this.state` is always a JavaScript Object with properties
+`this.state` is always a JavaScript object with properties
 
 State changes happen via `this.setState()`
 
 ## structure of this.state
 
-- _this.state_ is always an object:
+_this.state_ is always an object:
 
 ```js
 constructor() {
@@ -446,7 +478,7 @@ Multiple Elements may be added via arrays:
 
 ## JSX: repeating elements
 
-In practice this is mostly done via the `.map()` method
+In practice this is mostly done via `.map()`:
 
 <!-- prettier-ignore -->
 ```jsx
@@ -533,14 +565,14 @@ import styles from './TodoItem.module.scss';
 ```
 
 ```scss
-/* colors.scss */
-$primary: lightblue;
-```
-
-```scss
 /* TodoItem.module.scss */
 @import '../colors';
 ...
+```
+
+```scss
+/* colors.scss */
+$primary: lightblue;
 ```
 
 ## JSX: dynamic style
@@ -590,7 +622,7 @@ const element = React.createElement(
 In the context of React, input elements are special:
 
 Their properties (especially `.value`) can be directly modified by the user  
-Therefore there are aspects of the UI state which would not be captured in `this.state`.
+Therefore there are aspects of the UI state which would not be captured in the state.
 
 ## Inputs
 
@@ -676,7 +708,7 @@ or via `.prettierrc.json`:
 Components = custom tags, e.g.
 
 ```jsx
-<Rating stars={4} />
+<Rating stars={3} />
 ```
 
 <img src="assets/rating.png" type="image/png" style="width: 16em">
@@ -727,10 +759,10 @@ export class Rating extends Component {
 }
 ```
 
-## Komponentendefinition: Beispiele
+## component defintion: examples
 
-- `PlayingCard` - Komponente
-- `RomanNumber` - Komponente
+- `PlayingCard` component
+- `RomanNumber` component
 
 ## data/event flow
 
@@ -763,7 +795,7 @@ Event handlers are defined as functions and passed via props.
 
 Example `ToggleButton`: Button which displays either "off" or "on":
 
-Prop: `active` - may be set to `true` or `false`
+Prop: `active` - may be set to `true` or `false`  
 Event: `onToggle` - function which is called with the new state
 
 ```jsx
@@ -794,9 +826,9 @@ const [myOption, setMyOption] = useState(true);
 
 examples:
 
-- Rating-component with clickable stars
-- NumberInput-component that lets the user specify an integer with + and - buttons
-  - bonus: make the API compatible with that of ordinary input-Elements so input-Elements may be easily replaced by NumberInput-components
+- Rating component with clickable stars
+- NumberInput component that lets the user specify an integer with + and - buttons
+  - bonus: make the API compatible with that of ordinary input elements so input elements may be easily replaced by NumberInput-components
   - bonus: add a min / max property that can be specified
 
 # Component Library: Material-UI
@@ -847,12 +879,6 @@ let name: string = 'Andreas';
 ## type system: arrays
 
 ```js
-let names: Array = ['Anna', 'Bernhard'];
-```
-
-more detailed:
-
-```js
 let names: Array<string> = ['Anna', 'Bernhard'];
 ```
 
@@ -876,7 +902,9 @@ function repeatString(
 const repeatString = (
   text: string,
   times: number
-): string => {...};
+): string => {
+  return ...;
+};
 ```
 
 ## type system: void
@@ -906,10 +934,10 @@ console.log(ib.value);
 
 ## type system: types & interfaces
 
-Interfaces describe the structure of an object / of a class in Detail  
+Interfaces describe the structure of an object / of a class in detail  
 e.g.: `TodoInterface`, `PersonInterface`
 
-Types are similar to interface, but are also applicable to strings, arrays, ...
+Types are similar to interfaces, but are also applicable to strings, arrays, ...
 
 Essentialy types offer more functionality than interfaces
 
@@ -959,7 +987,7 @@ type ActionType = {
   payload?: object;
 };
 
-type AddTodoActionType = ReduxActionType & {
+type AddTodoActionType = ActionType & {
   type: 'ADD_TODO';
   payload: {
     title: string;
@@ -1042,7 +1070,7 @@ npx create-react-app my-app --typescript
 
 ## components (functions)
 
-```ts
+```tsx
 type TodoListProps = {
   todos: Array<TodoType>;
   onToggle: (id: number) => void;

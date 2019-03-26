@@ -221,6 +221,25 @@ function hello() {...}
 Liste von Browser-Events:  
 https://www.w3schools.com/jsref/dom_obj_event.asp
 
+## State Beispiel
+
+(wir widmen uns dem Thema _State_ später im Detail)
+
+```jsx
+const Counter = () => {
+  const [count, setCount] = useState(0);
+
+  return (
+    <button
+      onClick={() => {
+        setCount(count + 1);
+      }}>
+      {count}
+    </button>
+  );
+};
+```
+
 # VS Code
 
 ## VS Code
@@ -315,10 +334,10 @@ let newNumbers = myNumbers.filter(isEven);
 
 ## reduce
 
-- computes one value based on a start value and all entries in an array
-- uses a function that computes a resulting value from two given values - this function will be called repeatedly
+- Verarbeitet die Einträge in einem Array zu einem einzelnen Wert
+- Verwendet eine Funktion, die aus zwei bestehenden Werten einen resultierenden Wert erstellt - diese Funktion wird wiederholt aufgerufen
 
-## reduce - example
+## reduce - Beispiel
 
 ```js
 let transactions = [
@@ -331,7 +350,8 @@ let initialBalance = 317;
 
 let currentBalance = transactions.reduce(
   (aggregator, transaction) =>
-    aggregator + transaction.amount
+    aggregator + transaction.amount,
+  initialBalance
 );
 
 // 317 -> 261 -> 1281 -> 1268 -> 1172
@@ -387,9 +407,9 @@ class Foo {
     console.log(this.message);
   }
 }
-let f = new Foo();
-f.greet(); // klappt
-let fg = f.greet;
+let foo = new Foo();
+foo.greet(); // klappt
+let fg = foo.greet;
 fg(); // klappt nicht (this ist undefined)
 ```
 
@@ -502,7 +522,7 @@ Zustandsänderungen erfolgen über `this.setState()`
 
 ## Struktur von this.state
 
-- _this.state_ ist ein JavaScript-Objekt:
+_this.state_ ist ein JavaScript-Objekt:
 
 ```js
 constructor() {
@@ -642,14 +662,14 @@ import styles from './TodoItem.module.scss';
 ```
 
 ```scss
-/* colors.scss */
-$primary: lightblue;
-```
-
-```scss
 /* TodoItem.module.scss */
 @import '../colors';
 ...
+```
+
+```scss
+/* colors.scss */
+$primary: lightblue;
 ```
 
 ## JSX: Dynamische Stile
@@ -868,7 +888,7 @@ Eventhandler werden als Funktionen definiert und via props übergeben / erhalten
 
 Beispiel `ToggleButton`: Button, der entweder "off" oder "on" anzeigt:
 
-Prop: `active` - kann auf `true` bzw `false` gesetzt sein
+Prop: `active` - kann auf `true` bzw `false` gesetzt sein  
 Event: `onToggle` - Funktion, die mit dem neuen Zustand aufgerufen wird
 
 ```jsx
@@ -952,12 +972,6 @@ let name: string = 'Andreas';
 ## Typsystem: Arrays
 
 ```js
-let names: Array = ['Anna', 'Bernhard'];
-```
-
-genauer:
-
-```js
 let names: Array<string> = ['Anna', 'Bernhard'];
 ```
 
@@ -981,7 +995,9 @@ function repeatString(
 const repeatString = (
   text: string,
   times: number
-): string => {...};
+): string => {
+  return ...;
+};
 ```
 
 ## Typsystem: void
@@ -1064,7 +1080,7 @@ type ActionType = {
   payload?: object;
 };
 
-type AddTodoActionType = ReduxActionType & {
+type AddTodoActionType = ActionType & {
   type: 'ADD_TODO';
   payload: {
     title: string;

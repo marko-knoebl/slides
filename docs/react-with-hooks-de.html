@@ -670,6 +670,22 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 &lt;button onClick={hello}&gt;Say Hello&lt;<span class="hljs-regexp">/button&gt;</span></code></pre>
 <p>Liste von Browser-Events:<br><a href="https://www.w3schools.com/jsref/dom_obj_event.asp">https://www.w3schools.com/jsref/dom_obj_event.asp</a></p>
 
+      </section><section class="slide" id="slide-5-10">
+        <h2 id="state-beispiel">State Beispiel</h2>
+<p>(wir widmen uns dem Thema <em>State</em> später im Detail)</p>
+<pre><code class="language-jsx"><span class="hljs-keyword">const</span> Counter = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+  <span class="hljs-keyword">const</span> [count, setCount] = useState(<span class="hljs-number">0</span>);
+
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span>
+      <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> {
+        setCount(count + 1);
+      }}&gt;
+      {count}
+    <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span>
+  );
+};</code></pre>
+
       </section></section><section class="section" id="section-6"><section class="slide" id="slide-6-1">
         <h1 id="vs-code">VS Code</h1>
 
@@ -764,12 +780,12 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
       </section><section class="slide" id="slide-7-4">
         <h2 id="reduce">reduce</h2>
 <ul>
-<li>computes one value based on a start value and all entries in an array</li>
-<li>uses a function that computes a resulting value from two given values - this function will be called repeatedly</li>
+<li>Verarbeitet die Einträge in einem Array zu einem einzelnen Wert</li>
+<li>Verwendet eine Funktion, die aus zwei bestehenden Werten einen resultierenden Wert erstellt - diese Funktion wird wiederholt aufgerufen</li>
 </ul>
 
       </section><section class="slide" id="slide-7-5">
-        <h2 id="reduce---example">reduce - example</h2>
+        <h2 id="reduce---beispiel">reduce - Beispiel</h2>
 <pre><code class="language-js"><span class="hljs-keyword">let</span> transactions = [
   { <span class="hljs-attr">amount</span>: <span class="hljs-number">-56</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'groceries'</span> },
   { <span class="hljs-attr">amount</span>: +<span class="hljs-number">1020</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'salary'</span> },
@@ -780,7 +796,8 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 
 <span class="hljs-keyword">let</span> currentBalance = transactions.reduce(
   <span class="hljs-function">(<span class="hljs-params">aggregator, transaction</span>) =&gt;</span>
-    aggregator + transaction.amount
+    aggregator + transaction.amount,
+  initialBalance
 );
 
 <span class="hljs-comment">// 317 -&gt; 261 -&gt; 1281 -&gt; 1268 -&gt; 1172</span></code></pre>
@@ -835,9 +852,9 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
     <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.message);
   }
 }
-<span class="hljs-keyword">let</span> f = <span class="hljs-keyword">new</span> Foo();
-f.greet(); <span class="hljs-comment">// klappt</span>
-<span class="hljs-keyword">let</span> fg = f.greet;
+<span class="hljs-keyword">let</span> foo = <span class="hljs-keyword">new</span> Foo();
+foo.greet(); <span class="hljs-comment">// klappt</span>
+<span class="hljs-keyword">let</span> fg = foo.greet;
 fg(); <span class="hljs-comment">// klappt nicht (this ist undefined)</span></code></pre>
 
       </section><section class="slide" id="slide-8-6">
@@ -931,9 +948,7 @@ fg(); <span class="hljs-comment">// klappt jetzt auch</span></code></pre>
 
       </section><section class="slide" id="slide-9-10">
         <h2 id="struktur-von-thisstate">Struktur von this.state</h2>
-<ul>
-<li><em>this.state</em> ist ein JavaScript-Objekt:</li>
-</ul>
+<p><em>this.state</em> ist ein JavaScript-Objekt:</p>
 <pre><code class="language-js"><span class="hljs-keyword">constructor</span>() {
   [...]
   <span class="hljs-keyword">this</span>.state = {
@@ -1034,11 +1049,11 @@ fg(); <span class="hljs-comment">// klappt jetzt auch</span></code></pre>
         <h2 id="scss-einbinden">SCSS einbinden</h2>
 <pre><code class="language-bash">npm install node-sass</code></pre>
 <pre><code class="language-js"><span class="hljs-keyword">import</span> styles <span class="hljs-keyword">from</span> <span class="hljs-string">'./TodoItem.module.scss'</span>;</code></pre>
-<pre><code class="language-scss"><span class="hljs-comment">/* colors.scss */</span>
-<span class="hljs-variable">$primary</span>: lightblue;</code></pre>
 <pre><code class="language-scss"><span class="hljs-comment">/* TodoItem.module.scss */</span>
 @<span class="hljs-keyword">import</span> <span class="hljs-string">'../colors'</span>;
 ...</code></pre>
+<pre><code class="language-scss"><span class="hljs-comment">/* colors.scss */</span>
+<span class="hljs-variable">$primary</span>: lightblue;</code></pre>
 
       </section><section class="slide" id="slide-10-11">
         <h2 id="jsx-dynamische-stile">JSX: Dynamische Stile</h2>
@@ -1226,8 +1241,7 @@ fg(); <span class="hljs-comment">// klappt jetzt auch</span></code></pre>
       </section><section class="slide" id="slide-14-11">
         <h2 id="eigene-events">Eigene Events</h2>
 <p>Beispiel <code>ToggleButton</code>: Button, der entweder &quot;off&quot; oder &quot;on&quot; anzeigt:</p>
-<p>Prop: <code>active</code> - kann auf <code>true</code> bzw <code>false</code> gesetzt sein
-Event: <code>onToggle</code> - Funktion, die mit dem neuen Zustand aufgerufen wird</p>
+<p>Prop: <code>active</code> - kann auf <code>true</code> bzw <code>false</code> gesetzt sein<br>Event: <code>onToggle</code> - Funktion, die mit dem neuen Zustand aufgerufen wird</p>
 <pre><code class="language-jsx">&lt;button
   onClick={() =&gt; {
     props.onToggle(!props.active);
@@ -1309,8 +1323,6 @@ Event: <code>onToggle</code> - Funktion, die mit dem neuen Zustand aufgerufen wi
 
       </section><section class="slide" id="slide-17-6">
         <h2 id="typsystem-arrays">Typsystem: Arrays</h2>
-<pre><code class="language-js"><span class="hljs-keyword">let</span> names: <span class="hljs-built_in">Array</span> = [<span class="hljs-string">'Anna'</span>, <span class="hljs-string">'Bernhard'</span>];</code></pre>
-<p>genauer:</p>
 <pre><code class="language-js"><span class="hljs-keyword">let</span> names: <span class="hljs-built_in">Array</span>&lt;string&gt; = [<span class="hljs-string">'Anna'</span>, <span class="hljs-string">'Bernhard'</span>];</code></pre>
 <p>alternative Schreibweise:</p>
 <pre><code class="language-ts"><span class="hljs-keyword">let</span> names: <span class="hljs-built_in">string</span>[] = [<span class="hljs-string">'Anna'</span>, <span class="hljs-string">'Bernhard'</span>];</code></pre>
@@ -1325,7 +1337,9 @@ Event: <code>onToggle</code> - Funktion, die mit dem neuen Zustand aufgerufen wi
 <pre><code class="language-ts"><span class="hljs-keyword">const</span> repeatString = (
   text: <span class="hljs-built_in">string</span>,
   times: <span class="hljs-built_in">number</span>
-): <span class="hljs-function"><span class="hljs-params">string</span> =&gt;</span> {...};</code></pre>
+): <span class="hljs-function"><span class="hljs-params">string</span> =&gt;</span> {
+  <span class="hljs-keyword">return</span> ...;
+};</code></pre>
 
       </section><section class="slide" id="slide-17-8">
         <h2 id="typsystem-void">Typsystem: void</h2>
@@ -1387,7 +1401,7 @@ Event: <code>onToggle</code> - Funktion, die mit dem neuen Zustand aufgerufen wi
   payload?: object;
 };
 
-<span class="hljs-keyword">type</span> AddTodoActionType = ReduxActionType &amp; {
+<span class="hljs-keyword">type</span> AddTodoActionType = ActionType &amp; {
   <span class="hljs-keyword">type</span>: <span class="hljs-string">'ADD_TODO'</span>;
   payload: {
     title: <span class="hljs-built_in">string</span>;
@@ -1522,7 +1536,7 @@ const TodoList = (props: TodoListProps) =&gt; {
       padding-left: 1.5rem;
     }
 
-    h1, h2 {
+    h1, h2, h3 {
       font-weight: 600;
     }
 

@@ -1,0 +1,2509 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Progressive Web Apps</title>
+  <style>/*
+
+Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
+
+*/
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  background: #F0F0F0;
+}
+
+
+/* Base color: saturation 0; */
+
+.hljs,
+.hljs-subst {
+  color: #444;
+}
+
+.hljs-comment {
+  color: #888888;
+}
+
+.hljs-keyword,
+.hljs-attribute,
+.hljs-selector-tag,
+.hljs-meta-keyword,
+.hljs-doctag,
+.hljs-name {
+  font-weight: bold;
+}
+
+
+/* User color: hue: 0 */
+
+.hljs-type,
+.hljs-string,
+.hljs-number,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-quote,
+.hljs-template-tag,
+.hljs-deletion {
+  color: #880000;
+}
+
+.hljs-title,
+.hljs-section {
+  color: #880000;
+  font-weight: bold;
+}
+
+.hljs-regexp,
+.hljs-symbol,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-link,
+.hljs-selector-attr,
+.hljs-selector-pseudo {
+  color: #BC6060;
+}
+
+
+/* Language color: hue: 90; */
+
+.hljs-literal {
+  color: #78A960;
+}
+
+.hljs-built_in,
+.hljs-bullet,
+.hljs-code,
+.hljs-addition {
+  color: #397300;
+}
+
+
+/* Meta color: hue: 200 */
+
+.hljs-meta {
+  color: #1f7199;
+}
+
+.hljs-meta-string {
+  color: #4d99bf;
+}
+
+
+/* Misc effects */
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+  <div id="canvas">
+    <div id="canvas-content">
+
+      <section class="section" id="section-1"><section class="slide" id="slide-1-1">
+        <h1 id="title">Progressive Web Apps</h1>
+
+      </section><section class="slide" id="slide-1-2">
+        <h2 id="presentation-and-code">Presentation and code</h2>
+<p>Presentations available at: <a href="https://karuga.eu/courses-presentations">https://karuga.eu/courses-presentations</a></p>
+<p>Code available at: <a href="https://github.com/marko-knoebl/courses-code">https://github.com/marko-knoebl/courses-code</a></p>
+
+      </section><section class="slide" id="slide-1-3">
+        <h2 id="your-trainer">Your Trainer</h2>
+<p>Marko Knöbl</p>
+<ul>
+<li>Frontend Web-Development<ul>
+<li>JavaScript</li>
+<li>React, Angular</li>
+</ul>
+</li>
+<li>Programming<ul>
+<li>Python, JavaScript</li>
+</ul>
+</li>
+</ul>
+
+      </section><section class="slide" id="slide-1-4">
+        <h2 id="introduction-of-participants">Introduction of Participants</h2>
+<ul>
+<li>Name</li>
+<li>Company</li>
+<li>Current Projects</li>
+<li>Prior Knowledge</li>
+<li>Expectations</li>
+</ul>
+
+      </section><section class="slide" id="slide-1-5">
+        <h2 id="organizational">Organizational</h2>
+<ul>
+<li>Duration</li>
+<li>Breaks</li>
+<li>Materials</li>
+<li>Questions, Feedback?</li>
+</ul>
+
+      </section></section><section class="section" id="section-2"><section class="slide" id="slide-2-1">
+        <h1 id="topics">Topics</h1>
+
+      </section><section class="slide" id="slide-2-2">
+        <h2 id="topics---basics">Topics - basics</h2>
+<ul>
+<li>VS Code, Chrome developer tools</li>
+<li>modern JavaScript</li>
+<li>promises</li>
+<li>web workers</li>
+</ul>
+
+      </section><section class="slide" id="slide-2-3">
+        <h2 id="topics">Topics</h2>
+<ul>
+<li>web manifest file</li>
+<li>service workers<ul>
+<li>workbox</li>
+<li>writing service workers</li>
+</ul>
+</li>
+<li>data storage<ul>
+<li>localStorage</li>
+<li>indexedDB</li>
+</ul>
+</li>
+<li>notifications and push notifications</li>
+</ul>
+
+      </section></section><section class="section" id="section-3"><section class="slide" id="slide-3-1">
+        <h1 id="basics-for-the-course">Basics for the course</h1>
+
+      </section><section class="slide" id="slide-3-2">
+        <h2 id="basics-for-the-course-example-todo-app">Basics for the course (example: todo-app)</h2>
+<ul>
+<li>Working with VS Code &amp; Chrome<ul>
+<li>Prettier</li>
+<li>Chrome Dev Tools</li>
+</ul>
+</li>
+<li>ES2015+<ul>
+<li>Modules</li>
+<li>Arrow functions</li>
+<li>const &amp; let</li>
+</ul>
+</li>
+<li>running a local dev server</li>
+</ul>
+
+      </section><section class="slide" id="slide-3-3">
+        <h2 id="local-http-server">local HTTP server</h2>
+<p>npm package <code>http-server</code></p>
+<pre><code class="language-bash">npm install -g http-server
+http-server</code></pre>
+
+      </section></section><section class="section" id="section-4"><section class="slide" id="slide-4-1">
+        <h1 id="vs-code">VS Code</h1>
+
+      </section><section class="slide" id="slide-4-2">
+        <h2 id="vs-code">VS Code</h2>
+<p><a href="https://code.visualstudio.com">https://code.visualstudio.com</a></p>
+<p>open source IDE</p>
+<p>independent of <em>Visual Studio</em> itself</p>
+
+      </section><section class="slide" id="slide-4-3">
+        <h2 id="vs-code-saving">VS Code: saving</h2>
+<p>Unsaved files are marked with a circle instead of an &quot;X&quot; in the tab</p>
+<p>Save via <em>Ctrl</em> + <em>S</em></p>
+<p>or: <em>File</em> - <em>Auto Save</em></p>
+
+      </section><section class="slide" id="slide-4-4">
+        <h2 id="vs-code-file-explorer-split-editor">VS Code: File explorer, split editor</h2>
+
+      </section><section class="slide" id="slide-4-5">
+        <h2 id="vs-code-terminal">VS Code: Terminal</h2>
+<p>Open / close the terminal view via <em>ctrl</em> + <em>`</em></p>
+<p>Open an additional terminal via the <em>+</em> Symbol</p>
+<p>Terminals will run in the currently open folder</p>
+
+      </section><section class="slide" id="slide-4-6">
+        <h2 id="vs-code-configuration">VS Code: Configuration</h2>
+<p>Via <em>File - Preferences - Settings</em></p>
+<p>Is split in <em>User Settings</em> and <em>Workspace Settings</em></p>
+
+      </section><section class="slide" id="slide-4-7">
+        <h2 id="vs-code-configuration-options">VS Code: Configuration options</h2>
+<p>Recommendations:</p>
+<ul>
+<li>Auto Save: <em>activate</em></li>
+<li>Accept Suggestions on Commit Character (Autocomplete on other keys than <em>Enter</em>): <em>deactivate</em></li>
+<li>Tab Size: <em>2</em></li>
+</ul>
+<p>Further Options:</p>
+<ul>
+<li>Format on Save</li>
+<li>Format on Paste</li>
+<li>EOL</li>
+<li>Workbench: Color Theme</li>
+</ul>
+
+      </section><section class="slide" id="slide-4-8">
+        <h2 id="vs-code-shortcuts">VS Code: Shortcuts</h2>
+<ul>
+<li><em>Ctrl</em> + <em>F</em>: Search in File</li>
+<li><em>Alt</em> + <em>Shift</em> + <em>F</em>: Auto-format file contents</li>
+<li><em>F2</em>: rename variables</li>
+<li><em>Alt</em> mouse click: Activate multiple text cursors</li>
+</ul>
+
+      </section></section><section class="section" id="section-5"><section class="slide" id="slide-5-1">
+        <h1 id="pwa-basics">PWA Basics</h1>
+
+      </section><section class="slide" id="slide-5-2">
+        <h2 id="pwa-basics">PWA Basics</h2>
+<p><a href="https://developers.google.com/web/ilt/pwa/why-build-pwa">https://developers.google.com/web/ilt/pwa/why-build-pwa</a></p>
+<ul>
+<li>bridge between web and apps</li>
+<li>work in the browser, on mobile and on the desktop</li>
+<li>web apps that feel like native apps:<ul>
+<li>app icon in the menu (web manifest)</li>
+<li>permanent installation and offline use (service workers)</li>
+<li>displaying notifications (service workers)</li>
+<li>local app data storage (localstorage, indexedDB)</li>
+</ul>
+</li>
+</ul>
+<!-- google presentation until page 23 -->
+
+
+      </section><section class="slide" id="slide-5-3">
+        <h2 id="browser-support">Browser support</h2>
+<p>Service workers:</p>
+<p><a href="https://caniuse.com/#search=service%20workers">https://caniuse.com/#search=service%20workers</a></p>
+<p>Web app manifest:</p>
+<p><a href="https://caniuse.com/#search=manifest">https://caniuse.com/#search=manifest</a></p>
+<p>indexedDB:</p>
+<p><a href="https://caniuse.com/#search=indexeddb">https://caniuse.com/#search=indexeddb</a></p>
+
+      </section><section class="slide" id="slide-5-4">
+        <h2 id="examples">examples</h2>
+<p><a href="https://pwa.rocks">https://pwa.rocks</a></p>
+<ul>
+<li>wiki offline</li>
+<li>telegram</li>
+<li>paper planes</li>
+</ul>
+
+      </section><section class="slide" id="slide-5-5">
+        <h2 id="chrome-audit">Chrome audit</h2>
+<p>developer tools - audits</p>
+
+      </section></section><section class="section" id="section-6"><section class="slide" id="slide-6-1">
+        <h1 id="service-worker-basics">Service worker basics</h1>
+
+      </section><section class="slide" id="slide-6-2">
+        <h2 id="service-workers---motivation">Service workers - motivation</h2>
+<p>Service workers are at the core of PWAs. They are a client-side proxy between the web browser and the server.</p>
+<p>Main use case: offline / faster usage of web apps (replaces the old AppCache functionality)</p>
+
+      </section><section class="slide" id="slide-6-3">
+        <h2 id="service-workers---example-use-cases">Service workers - example use cases</h2>
+<ul>
+<li><em>game</em>: on first load all required resources are downloaded and will be available offline</li>
+<li><em>chat app</em>: The avatars of all friends are stored in a cache; they are updated daily</li>
+<li><em>wikipedia app</em>: the last 30 visited articles are cached</li>
+<li><em>news app</em>: The landing page should be cached and be available immediately on opening the app; afterwards it is updated if possible</li>
+</ul>
+
+      </section><section class="slide" id="slide-6-4">
+        <h2 id="service-workers---basic-concept">Service workers - basic concept</h2>
+<h3 id="traditional-web-app">traditional web app:</h3>
+<p>app ⟺ web server</p>
+<h3 id="pwa">PWA:</h3>
+<p>app ⟺ service worker ⟺ web server</p>
+
+      </section><section class="slide" id="slide-6-5">
+        <h2 id="service-workers---basic-concept">Service workers - basic concept</h2>
+<p>service woroker = script (web worker) that runs in the background</p>
+<p>functionality:</p>
+<ul>
+<li>caching resources</li>
+<li>background sync</li>
+<li>push notifications (even when the app is closed)</li>
+</ul>
+
+      </section><section class="slide" id="slide-6-6">
+        <h2 id="registering-a-service-worker">Registering a service worker</h2>
+<p>We call <code>.register()</code> and provide the location of the service worker script</p>
+<pre><code class="language-js"><span class="hljs-comment">// main.js</span>
+navigator.serviceWorker.register(<span class="hljs-string">'./serviceWorker.js'</span>);</code></pre>
+<pre><code class="language-js"><span class="hljs-comment">// serviceWorker.js</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'this is the service worker'</span>);</code></pre>
+
+      </section><section class="slide" id="slide-6-7">
+        <h2 id="inspecting-service-workers-in-the-browser-tools">Inspecting service workers in the browser tools</h2>
+<p>We can check if the service worker is registering in the Chrome dev tools under <em>Application</em> - <em>Service Workers</em></p>
+<p>For Firefox, go to: <code>about:debugging#workers</code></p>
+
+      </section></section><section class="section" id="section-7"><section class="slide" id="slide-7-1">
+        <h1 id="service-workers-with-workbox">Service workers with workbox</h1>
+
+      </section><section class="slide" id="slide-7-2">
+        <h2 id="service-workers-with-workbox">Service workers with workbox</h2>
+<p><strong>Workbox</strong> = Library which simplifies writing service workers</p>
+<p><a href="https://developers.google.com/web/tools/workbox/">https://developers.google.com/web/tools/workbox/</a></p>
+
+      </section><section class="slide" id="slide-7-3">
+        <h2 id="workbox-example">Workbox example</h2>
+<p>Including a service worker which will cache responses and use them as a fallback if they are not reachable:</p>
+<pre><code class="language-js"><span class="hljs-comment">// service-worker.js</span>
+importScripts(
+  <span class="hljs-string">'https://storage.googleapis.com/'</span> +
+    <span class="hljs-string">'workbox-cdn/releases/4.1.1/workbox-sw.js'</span>
+);
+
+workbox.routing.registerRoute(
+  <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">'.*'</span>),
+  <span class="hljs-keyword">new</span> workbox.strategies.NetworkFirst()
+);</code></pre>
+<!-- this approach is used by create-react-app -->
+
+
+      </section><section class="slide" id="slide-7-4">
+        <h2 id="workbox-example">Workbox example</h2>
+<p>We can inspect the effects of using this service worker in the Chrome developer tools under <em>Application/Service Workers</em> and <em>Application/Cache Storage</em></p>
+
+      </section></section><section class="section" id="section-8"><section class="slide" id="slide-8-1">
+        <h1 id="web-app-manifest">Web App Manifest</h1>
+
+      </section><section class="slide" id="slide-8-2">
+        <h2 id="web-app-manifest">Web App Manifest</h2>
+<p>The web app manifest is a json file that provides information on a web app.</p>
+<p>Providing a manifest file can enable installation of a PWA.</p>
+
+      </section><section class="slide" id="slide-8-3">
+        <h2 id="manifest-file">Manifest file</h2>
+<p>include it via:</p>
+<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"manifest"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"manifest.json"</span> /&gt;</span></code></pre>
+
+      </section><section class="slide" id="slide-8-4">
+        <h2 id="manifest-file">Manifest file</h2>
+<pre><code class="language-json">{
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Todo"</span>,
+  <span class="hljs-attr">"short_name"</span>: <span class="hljs-string">"Todo"</span>,
+  <span class="hljs-attr">"start_url"</span>: <span class="hljs-string">"."</span>,
+  <span class="hljs-attr">"display"</span>: <span class="hljs-string">"standalone"</span>,
+  <span class="hljs-attr">"icons"</span>: [
+    {
+      <span class="hljs-attr">"src"</span>: <span class="hljs-string">"images/icon-32.png"</span>,
+      <span class="hljs-attr">"sizes"</span>: <span class="hljs-string">"32x32"</span>,
+      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"image/png"</span>
+    },
+    ...
+  ]
+}</code></pre>
+
+      </section><section class="slide" id="slide-8-5">
+        <h2 id="manifest-file---entries">Manifest file - entries</h2>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/Manifest">https://developer.mozilla.org/en-US/docs/Web/Manifest</a></p>
+
+      </section><section class="slide" id="slide-8-6">
+        <h2 id="manifest-file---entries">Manifest file - entries</h2>
+<p>crucial entries for Chrome:</p>
+<ul>
+<li><code>name</code></li>
+<li><code>short_name</code></li>
+<li><code>start_url</code></li>
+<li><code>icons</code> - used in the menu, in the splash screen; for Chrome you should provide square icons of sizes: <code>144</code>, <code>192</code>, <code>512</code></li>
+<li><code>display</code>: <code>fullscreen</code> / <code>standalone</code> / <code>minimal-ui</code> / <code>browser</code></li>
+</ul>
+
+      </section><section class="slide" id="slide-8-7">
+        <h2 id="manifest-file---entries">Manifest file - entries</h2>
+<ul>
+<li><code>background_color</code> - should be the same as the app&#39;s CSS background color</li>
+<li><code>description</code></li>
+<li><code>orientation</code>:<ul>
+<li><code>any</code></li>
+<li><code>natural</code></li>
+<li><code>landscape</code> (<code>landscape-primary</code>, <code>landscape-secondary</code>)</li>
+<li><code>portrait</code> (<code>portrait-primary</code>,
+<code>portrait-secondary</code>)</li>
+</ul>
+</li>
+<li><code>theme_color</code></li>
+</ul>
+
+      </section><section class="slide" id="slide-8-8">
+        <h2 id="meta-tags-in-html">Meta tags in HTML</h2>
+<p>These meta tags are helpful in the browser:</p>
+<ul>
+<li>in Chrome: Android window color: <code>&lt;meta name=&quot;theme-color&quot; content=&quot;...&quot; /&gt;</code> - this should be the same as <code>theme_color</code> in the manifest</li>
+<li>on iOS: <code>&lt;meta name=&quot;apple-mobile-web-app-capable&quot; content=&quot;yes&quot;&gt;</code> - this hides the browser UI</li>
+</ul>
+
+      </section></section><section class="section" id="section-9"><section class="slide" id="slide-9-1">
+        <h1 id="app-install-prompt">app install prompt</h1>
+
+      </section><section class="slide" id="slide-9-2">
+        <h2 id="app-install-prompt">app install prompt</h2>
+<p>On Chrome it&#39;s possible to ask a user to install the application by adding it to the menu / home screen.</p>
+<p><a href="https://developers.google.com/web/fundamentals/app-install-banners/">https://developers.google.com/web/fundamentals/app-install-banners/</a></p>
+
+      </section><section class="slide" id="slide-9-3">
+        <h2 id="app-install-prompt">app install prompt</h2>
+<p>requirements to show the prompt:</p>
+<ul>
+<li>manifest file includes:<ul>
+<li><em>short_name</em> or <em>name</em></li>
+<li>192px and 512px icons</li>
+<li><em>start_url</em></li>
+<li><em>display</em> must be one of <em>fullscreen</em>, <em>standalone</em>, <em>minimal-ui</em></li>
+</ul>
+</li>
+<li>served via HTTPS</li>
+<li>has a service worker (with a fetch event handler)</li>
+<li>user has interacted with the domain for at least 30 seconds</li>
+</ul>
+
+      </section><section class="slide" id="slide-9-4">
+        <h2 id="app-install-prompt">app install prompt</h2>
+<p>once alle the requirements are met, a <code>beforeinstallprompt</code> event will fire; we can listen for this event and store it for later use</p>
+<pre><code class="language-js"><span class="hljs-keyword">let</span> installPromptEvent;
+
+<span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">'beforeinstallprompt'</span>, event =&gt; {
+  <span class="hljs-comment">// the browser is ready to show the install prompt</span>
+  event.preventDefault();
+  installPromptEvent = event;
+  showInstallBtn();
+});</code></pre>
+
+      </section><section class="slide" id="slide-9-5">
+        <h2 id="app-install-prompt">app install prompt</h2>
+<p>Once the user wants to install the app, we can use the stored event:</p>
+<pre><code class="language-js">installBtn.addEventListener(<span class="hljs-string">'click'</span>, e =&gt; {
+  hideInstallBtn();
+  <span class="hljs-comment">// Show the prompt</span>
+  installPromptEvent.prompt();
+});</code></pre>
+
+      </section><section class="slide" id="slide-9-6">
+        <h2 id="deployment">deployment</h2>
+<p>We can test a deployment on <a href="https://app.netlify.com/drop">https://app.netlify.com/drop</a></p>
+<p>important: Switch to HTTPS</p>
+
+      </section></section><section class="section" id="section-10"><section class="slide" id="slide-10-1">
+        <h1 id="promises--fetch">Promises &amp; Fetch</h1>
+
+      </section><section class="slide" id="slide-10-2">
+        <h2 id="promises--fetch">Promises &amp; Fetch</h2>
+<p>Promises: one possibility to run code asynchronously in JavaScript</p>
+<p>Fetch: modern way to do network requests in JavaScript, based on promises</p>
+
+      </section><section class="slide" id="slide-10-3">
+        <h2 id="promises---basics">Promises - Basics</h2>
+<p>Promises can be used to handle one-off events</p>
+<p>Promises allow the browser to <em>wait</em> for an event - for example for the answer to a network request or data from an in-browser database</p>
+<p>Waiting for events via promises is non-blocking, so other code may be executed in the meantime</p>
+
+      </section><section class="slide" id="slide-10-4">
+        <h2 id="promises-vs-callbacks">Promises vs callbacks</h2>
+<p>Promises are an alternative for callbacks; they both solve the same problem with a slightly different approach.</p>
+<p>The following example shows a <code>getTodos</code> function which retrieves todos from a server. The todos are then passed to the <code>logTodos</code> function.</p>
+<pre><code class="language-js"><span class="hljs-comment">// callback</span>
+getTodos(logTodos);</code></pre>
+<pre><code class="language-js"><span class="hljs-comment">// promise</span>
+getTodos().then(logTodos);</code></pre>
+
+      </section><section class="slide" id="slide-10-5">
+        <h2 id="promises-vs-callbacks">Promises vs callbacks</h2>
+<p>One advantage of promises over callbacks is that promises can easily be chained:</p>
+<pre><code class="language-js">getTodos()
+  .then(parseJSON)
+  .then(transformDataFormat)
+  .then(logTodos);</code></pre>
+
+      </section><section class="slide" id="slide-10-6">
+        <h2 id="promise-example-fetching-a-webpage">Promise example: fetching a webpage</h2>
+<pre><code class="language-js"><span class="hljs-comment">// this code can be executed in the browser console</span>
+<span class="hljs-comment">// for any opened website</span>
+<span class="hljs-keyword">const</span> url = <span class="hljs-string">'/'</span>;
+
+<span class="hljs-comment">// start a request to the homepage of the website</span>
+fetch(url)
+  <span class="hljs-comment">// wait for the response, then read the text content of the response</span>
+  .then(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> response.text())
+  <span class="hljs-comment">// wait for the text content, then log it</span>
+  .then(<span class="hljs-built_in">console</span>.log);</code></pre>
+
+      </section><section class="slide" id="slide-10-7">
+        <h2 id="promise-example-fetching-a-webpage">Promise example: fetching a webpage</h2>
+<p>Fetching a URL and reading the response text may both take a little.</p>
+<p>By using <code>.then()</code> we can wait for their respective results.</p>
+<p>The method <code>.then()</code> will receive another function which will act as a handler for the response.</p>
+<p>The first handler (<code>response =&gt; response.text()</code>) will result in another Promise.</p>
+<p>The second handler (<code>console.log</code>) will just log the results.</p>
+
+      </section><section class="slide" id="slide-10-8">
+        <h2 id="exception-handling-in-promises">Exception handling in promises</h2>
+<p>Let&#39;s look at the previous code again:</p>
+<pre><code class="language-js">fetch(<span class="hljs-string">'/'</span>)
+  .then(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> response.text())
+  .then(<span class="hljs-built_in">console</span>.log);</code></pre>
+<p>There may be different errors:</p>
+<ul>
+<li>browser is offline (no reply)</li>
+<li>server responds with a 404 or similar</li>
+<li>received non-text or empty reply</li>
+</ul>
+
+      </section><section class="slide" id="slide-10-9">
+        <h2 id="exception-handling-in-promises-catching-all">Exception handling in promises: catching all</h2>
+<pre><code class="language-js">fetch(<span class="hljs-string">'/'</span>)
+  .then(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> response.json())
+  .catch(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'some error occured'</span>);
+  })
+  .then(<span class="hljs-built_in">console</span>.log);</code></pre>
+
+      </section><section class="slide" id="slide-10-10">
+        <h2 id="exception-handling-in-promises">Exception handling in promises</h2>
+<pre><code class="language-js">fetch(<span class="hljs-string">'/'</span>)
+  .then(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> {
+    <span class="hljs-keyword">if</span> (response.ok) {
+      handleReply(response);
+    } <span class="hljs-keyword">else</span> {
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Network response was not ok'</span>);
+    }
+  })
+  .catch(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Network error'</span>);
+  });</code></pre>
+
+      </section><section class="slide" id="slide-10-11">
+        <h2 id="exception-handling-in-promises">Exception handling in promises</h2>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> handleReply = <span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> {
+  response
+    .json()
+    .then(<span class="hljs-function"><span class="hljs-params">data</span> =&gt;</span> {
+      <span class="hljs-built_in">console</span>.log(data);
+    })
+    .catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Could not parse answer as json'</span>);
+    });
+};</code></pre>
+
+      </section><section class="slide" id="slide-10-12">
+        <h2 id="exception-handling-in-promises">Exception handling in promises</h2>
+<pre><code class="language-js"><span class="hljs-keyword">return</span> getImageName(country)
+  .catch(getFallbackName)
+  .then(fetchFlag)
+  .then(processFlag)
+  .then(appendFlag)
+  .catch(logError);</code></pre>
+
+      </section><section class="slide" id="slide-10-13">
+        <h2 id="fetching-todos---basic">fetching todos - basic</h2>
+<pre><code class="language-js">fetch(<span class="hljs-string">'https://jsonplaceholder.typicode.com/todos'</span>)
+  .then(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> response.json())
+  .catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'error when getting todos'</span>);
+  })
+  .then(updatePageWithNewTodos);</code></pre>
+
+      </section><section class="slide" id="slide-10-14">
+        <h2 id="fetching-todos---advanced">fetching todos - advanced</h2>
+<pre><code class="language-js">fetch(<span class="hljs-string">'https://jsonplaceholder.typicode.com/todos'</span>)
+  .then(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> {
+    <span class="hljs-keyword">if</span> (!response.ok) {
+      <span class="hljs-keyword">throw</span> response.statusText;
+    } <span class="hljs-keyword">else</span> {
+      jesponse.json().then(updatePageWithNewTodos);
+    }
+  })
+  .catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'unable to parse data'</span>))
+  .then(updatePageWithNewTodos);</code></pre>
+
+      </section><section class="slide" id="slide-10-15">
+        <h2 id="exercise">Exercise</h2>
+<p>Fetch all todos for a given user id</p>
+
+      </section><section class="slide" id="slide-10-16">
+        <h2 id="configuring-fetch-requests">Configuring fetch requests</h2>
+<pre><code class="language-js">fetch(url, {
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'POST'</span>,
+  <span class="hljs-attr">cache</span>: <span class="hljs-string">'no-cache'</span>,
+  <span class="hljs-attr">body</span>: <span class="hljs-string">'{"text": "learn fetch"}'</span>,
+  <span class="hljs-attr">headers</span>: { <span class="hljs-string">'content-type'</span>: <span class="hljs-string">'application/json'</span> },
+});</code></pre>
+
+      </section><section class="slide" id="slide-10-17">
+        <h2 id="creating-custom-promises">Creating custom promises</h2>
+<p>A promise that, after 1 second, either results in the string <code>&#39;hello&#39;</code> or fails</p>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> getReply = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {
+  setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Math</span>.random() &gt; <span class="hljs-number">0.5</span>) {
+      resolve(<span class="hljs-string">'hello'</span>);
+    } <span class="hljs-keyword">else</span> {
+      reject(<span class="hljs-string">'no access'</span>);
+    }
+  }, <span class="hljs-number">1000</span>);
+});</code></pre>
+
+      </section><section class="slide" id="slide-10-18">
+        <h2 id="promiseall">Promise.all</h2>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> promise1 = fetch(<span class="hljs-string">'/users.json'</span>);
+<span class="hljs-keyword">const</span> promise2 = fetch(<span class="hljs-string">'/articles.json'</span>);
+<span class="hljs-built_in">Promise</span>.all([promise1, promise2])
+  .then(<span class="hljs-function"><span class="hljs-params">results</span> =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'all data has loaded'</span>);
+  })
+  .catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`one or more requests failed: <span class="hljs-subst">${error}</span>`</span>);
+  });</code></pre>
+
+      </section><section class="slide" id="slide-10-19">
+        <h2 id="exercises">Exercises</h2>
+<ul>
+<li><p><a href="https://developers.google.com/web/ilt/pwa/lab-fetch-api">https://developers.google.com/web/ilt/pwa/lab-fetch-api</a></p>
+</li>
+<li><p><a href="https://developers.google.com/web/ilt/pwa/lab-promises">https://developers.google.com/web/ilt/pwa/lab-promises</a></p>
+</li>
+</ul>
+
+      </section></section><section class="section" id="section-11"><section class="slide" id="slide-11-1">
+        <h1 id="web-workers">Web workers</h1>
+
+      </section><section class="slide" id="slide-11-2">
+        <h2 id="web-workers">Web workers</h2>
+<ul>
+<li>enable running a script in the background (in a separate thread)</li>
+<li>can be used to run expensive computations - don&#39;t block user interaction</li>
+</ul>
+
+      </section><section class="slide" id="slide-11-3">
+        <h2 id="web-workers">Web workers</h2>
+<p>creating a worker</p>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> worker = <span class="hljs-keyword">new</span> Worker(<span class="hljs-string">'worker.js'</span>);</code></pre>
+
+      </section><section class="slide" id="slide-11-4">
+        <h2 id="web-workers">Web workers</h2>
+<p>listening for messages from the worker</p>
+<pre><code class="language-js">worker.onmessage = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">message</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(message.data);
+};</code></pre>
+
+      </section><section class="slide" id="slide-11-5">
+        <h2 id="web-workers">Web workers</h2>
+<p>passing some task to a worker</p>
+<pre><code class="language-js">worker.postMessage(<span class="hljs-number">42</span>);</code></pre>
+
+      </section><section class="slide" id="slide-11-6">
+        <h2 id="web-workers">Web workers</h2>
+<p>inside the worker:</p>
+<pre><code class="language-js">onmessage = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">message</span>) </span>{
+  <span class="hljs-keyword">const</span> result = longComputation(message);
+  postMessage(result);
+};</code></pre>
+
+      </section><section class="slide" id="slide-11-7">
+        <h2 id="web-workers">Web workers</h2>
+<p>When passing data to and from web workers: Data are copied and passed as &quot;plain&quot; JavaScript Objects</p>
+
+      </section><section class="slide" id="slide-11-8">
+        <h2 id="web-workers">Web workers</h2>
+<p>Exercise: Fibonacci</p>
+<pre><code class="language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fib</span>(<span class="hljs-params">n</span>) </span>{
+  <span class="hljs-keyword">if</span> (n &lt;= <span class="hljs-number">2</span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+  }
+  <span class="hljs-keyword">return</span> fib(n - <span class="hljs-number">1</span>) + fib(n - <span class="hljs-number">2</span>);
+}</code></pre>
+
+      </section></section><section class="section" id="section-12"><section class="slide" id="slide-12-1">
+        <h1 id="service-workers">Service workers</h1>
+
+      </section><section class="slide" id="slide-12-2">
+        <h2 id="service-workers">Service workers</h2>
+<p>Service workers are a local proxy between the web browser and the server.</p>
+<p>Service workers can cache resources and retrieve them from either the network or the internal cache.</p>
+
+      </section><section class="slide" id="slide-12-3">
+        <h2 id="browser-support">Browser support</h2>
+<p><a href="https://caniuse.com/##feat=serviceworkers">caniuse</a></p>
+<p>support for service workers =&gt; support for ES2015</p>
+
+      </section><section class="slide" id="slide-12-4">
+        <h2 id="service-workers---strategies">Service workers - strategies</h2>
+<p>for each resource associated with our web app we should ask ourselves:</p>
+<ul>
+<li>should we download and cache this resource when the user first visits our page?</li>
+<li>if this resource is requested, should we retrieve it from the <em>cache</em> or from the <em>network</em>?</li>
+<li>should we fall back to the other option if this fails?</li>
+<li>if we serve from the cache, should we try to update it in the background?</li>
+</ul>
+
+      </section><section class="slide" id="slide-12-5">
+        <h2 id="service-workers---strategies">Service workers - strategies</h2>
+<p>key questions:</p>
+<ul>
+<li>for any requested resource, do we serve it from the cache, from the network or a combination?</li>
+<li>which resources do we cache and when do we cache them?</li>
+</ul>
+
+      </section><section class="slide" id="slide-12-6">
+        <h2 id="service-workers---strategies">Service workers - strategies</h2>
+<p>asset retrieval:</p>
+<ul>
+<li>always from the network</li>
+<li>always from the cache</li>
+<li>network first</li>
+<li>cache first</li>
+<li>cache, updating the cache in the background</li>
+</ul>
+
+      </section><section class="slide" id="slide-12-7">
+        <h2 id="service-workers---strategies">Service workers - strategies</h2>
+<p>caching strategies:</p>
+<ul>
+<li>precache on install</li>
+<li>precache on user interaction</li>
+<li>cache when new data arrives</li>
+</ul>
+<p>(we can combine these strategies)</p>
+
+      </section><section class="slide" id="slide-12-8">
+        <h2 id="service-workers---strategies">Service workers - strategies</h2>
+<p>See the <a href="https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/#cache-then-network">offline cookbook</a></p>
+
+      </section><section class="slide" id="slide-12-9">
+        <h2 id="service-workers---event-overview">Service workers - event overview</h2>
+<p>These events can be handled in the service worker:</p>
+<ul>
+<li><strong>install</strong>: there is a new service worker file</li>
+<li><strong>activate</strong>: this service worker is now handling requests</li>
+<li><strong>fetch</strong>: on each network communication</li>
+<li><strong>push</strong>: message from the server</li>
+<li><strong>message</strong>: web worker communication with the main thread</li>
+<li><strong>sync</strong>: server request that will be attempted repeatedly (Chrome only)</li>
+</ul>
+
+      </section><section class="slide" id="slide-12-10">
+        <h2 id="service-workers---related-technologies">Service workers - related technologies</h2>
+<ul>
+<li>fetch (Sending network requests)</li>
+<li>cache (Caching netowrk requests)</li>
+</ul>
+
+      </section></section><section class="section" id="section-13"><section class="slide" id="slide-13-1">
+        <h1 id="workbox-in-detail">Workbox in detail</h1>
+
+      </section><section class="slide" id="slide-13-2">
+        <h2 id="service-worker-strategies">Service worker strategies</h2>
+<p>Workbox has built-in support for several service worker strategies</p>
+
+      </section><section class="slide" id="slide-13-3">
+        <h2 id="service-worker-strategies">Service worker strategies</h2>
+<p>asset retrieval:</p>
+<ul>
+<li>always from the network: <code>NetworkOnly</code></li>
+<li>always from the cache: <code>CacheOnly</code></li>
+<li>network first: <code>NetworkFirst</code></li>
+<li>cache first: <code>CacheFirst</code></li>
+<li>cache, updating the cache in the background: <code>StaleWhileRevalidate</code></li>
+</ul>
+
+      </section><section class="slide" id="slide-13-4">
+        <h2 id="service-worker-strategies">Service worker strategies</h2>
+<p>caching:</p>
+<ul>
+<li>precache on install, always serve this version: <code>precacheAndRoute</code></li>
+<li>precache on user interaction: use <code>fetch</code> and the below</li>
+<li>cache when data arrives: automatic with <code>NetworkFirst</code>, <code>CacheFirst</code>, <code>StaleWhileRevalidate</code></li>
+</ul>
+
+      </section><section class="slide" id="slide-13-5">
+        <h2 id="routing">routing</h2>
+<pre><code class="language-js">workbox.routing.registerRoute(
+  <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">'/static/.*'</span>),
+  <span class="hljs-keyword">new</span> workbox.strategies.CacheFirst()
+);
+
+workbox.routing.registerRoute(
+  <span class="hljs-string">'/articles.json'</span>,
+  <span class="hljs-keyword">new</span> workbox.strategies.NetworkFirst()
+);</code></pre>
+
+      </section><section class="slide" id="slide-13-6">
+        <h2 id="plugins">plugins</h2>
+<ul>
+<li>expiration plugin (maxEntries, maxAgeSeconds)</li>
+</ul>
+
+      </section><section class="slide" id="slide-13-7">
+        <h2 id="code-lab">code lab</h2>
+<p><a href="https://codelabs.developers.google.com/codelabs/workbox-lab/">https://codelabs.developers.google.com/codelabs/workbox-lab/</a></p>
+
+      </section></section><section class="section" id="section-14"><section class="slide" id="slide-14-1">
+        <h1 id="service-worker-setup">Service worker setup</h1>
+
+      </section><section class="slide" id="slide-14-2">
+        <h2 id="service-worker-setup">Service worker setup</h2>
+
+      </section><section class="slide" id="slide-14-3">
+        <h2 id="service-worker-lifecycle">Service worker lifecycle</h2>
+<ul>
+<li>register</li>
+<li>install</li>
+<li>activate</li>
+<li>(unregister)</li>
+</ul>
+
+      </section><section class="slide" id="slide-14-4">
+        <h2 id="registering-a-service-worker">Registering a service worker</h2>
+<p>Any time the page is loaded we call <code>navigator.serviceWorker.register</code> and pass in the URL for the service worker.<br>If the service worker file is new or has changed it will be installed.</p>
+
+      </section><section class="slide" id="slide-14-5">
+        <h2 id="registering-a-service-worker">Registering a service worker</h2>
+<pre><code class="language-js"><span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">'load'</span>, () =&gt; {
+  <span class="hljs-comment">// registration can be defered until</span>
+  <span class="hljs-comment">// completion of page load</span>
+  <span class="hljs-keyword">if</span> (navigator.serviceWorker) {
+    navigator.serviceWorker
+      .register(<span class="hljs-string">'/serviceworker.js'</span>)
+      .then(<span class="hljs-function"><span class="hljs-params">registration</span> =&gt;</span> {
+        <span class="hljs-comment">// is executed if there's a *new* sw file</span>
+        <span class="hljs-built_in">console</span>.log(
+          <span class="hljs-string">`SW registered for <span class="hljs-subst">${registration.scope}</span>`</span>
+        );
+      })
+      .catch(<span class="hljs-comment">/* reg failed */</span>);
+  }
+});</code></pre>
+
+      </section><section class="slide" id="slide-14-6">
+        <h2 id="service-worker-scope">Service worker scope</h2>
+<p>By the default a service worker will control all requests that lie within its &quot;directory&quot; on the server.</p>
+<pre><code class="language-js">navigator.serviceWorker.register(<span class="hljs-string">'/css/serviceworker.js'</span>);</code></pre>
+<p>The SW will control requests to <em>/css/default.css</em>, but not to <em>/index.html</em>.</p>
+<p>We can narrow down a service worker to only work on a subpath:</p>
+<pre><code class="language-js">navigator.serviceWorker.register(<span class="hljs-string">'/images-sw.js'</span>, {
+  <span class="hljs-attr">scope</span>: <span class="hljs-string">'/images/'</span>,
+});</code></pre>
+
+      </section><section class="slide" id="slide-14-7">
+        <h2 id="service-worker-installation">Service worker installation</h2>
+<p>The service worker&#39;s <code>install</code> event occurs when there is a new service worker file:</p>
+<ul>
+<li>first page visit</li>
+<li>the service worker file has changed</li>
+</ul>
+<p>Good opportunity for downloading and caching resources for later use</p>
+
+      </section><section class="slide" id="slide-14-8">
+        <h2 id="service-worker-installaion">Service worker installaion</h2>
+<pre><code class="language-js">self.addEventListener(<span class="hljs-string">'install'</span>, event =&gt; {
+  <span class="hljs-built_in">console</span>.log(event);
+});</code></pre>
+
+      </section><section class="slide" id="slide-14-9">
+        <h2 id="service-worker-activation">Service worker activation</h2>
+<p>If there was no previous version of the service worker, it activates immediately</p>
+<p>If there was a previous version, it activates on &quot;restart&quot; (when all corresponding tabs have been closed)</p>
+<p>Good opportunity for cleaning up unneeded cached files</p>
+
+      </section><section class="slide" id="slide-14-10">
+        <h2 id="service-worker-activation">Service worker activation</h2>
+<pre><code class="language-js">self.addEventListener(<span class="hljs-string">'activate'</span>, event =&gt; {
+  <span class="hljs-built_in">console</span>.log(event);
+});</code></pre>
+
+      </section><section class="slide" id="slide-14-11">
+        <h2 id="service-worker-activation">Service worker activation</h2>
+<p>We can force activation of a new service worker from the install event:</p>
+<pre><code class="language-js">self.addEventListener(<span class="hljs-string">'install'</span>, event =&gt; {
+  self.skipWaiting();
+});</code></pre>
+
+      </section><section class="slide" id="slide-14-12">
+        <h2 id="uninstalling-a-service-worker">Uninstalling a service worker</h2>
+<p>Uninstalling all service workers for this domain:</p>
+<pre><code class="language-js">navigator.serviceWorker
+  .getRegistrations()
+  .then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">registrations</span>) </span>{
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> registration <span class="hljs-keyword">of</span> registrations) {
+      registration.unregister();
+    }
+  });</code></pre>
+
+      </section></section><section class="section" id="section-15"><section class="slide" id="slide-15-1">
+        <h1 id="service-workers-with-fetch-and-cache">Service workers with fetch and cache</h1>
+
+      </section><section class="slide" id="slide-15-2">
+        <h2 id="service-workers-with-fetch-and-cache">Service workers with fetch and cache</h2>
+<p>core associated technologies:</p>
+<ul>
+<li>fetch (sending network requests)</li>
+<li>cache (caching results)</li>
+</ul>
+
+      </section><section class="slide" id="slide-15-3">
+        <h2 id="fetch---example">fetch - example</h2>
+<pre><code class="language-js"><span class="hljs-comment">// this code can be executed in the</span>
+<span class="hljs-comment">// browser console for any website</span>
+<span class="hljs-keyword">const</span> url = <span class="hljs-string">'/'</span>;
+
+fetch(url)
+  .then(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> response.text())
+  .then(<span class="hljs-built_in">console</span>.log);</code></pre>
+
+      </section><section class="slide" id="slide-15-4">
+        <h2 id="service-worker-events-fetch">Service worker events: fetch</h2>
+<pre><code class="language-js">self.addEventListener(<span class="hljs-string">'fetch'</span>, event =&gt; {
+  event.respondWith(
+    <span class="hljs-keyword">new</span> Response(<span class="hljs-string">'All pages look like this'</span>)
+  );
+});</code></pre>
+
+      </section><section class="slide" id="slide-15-5">
+        <h2 id="service-worker-events-fetch">Service worker events: fetch</h2>
+<p>Exercise: We can build a small local website with pages like <em>/home</em>, <em>/about</em>, ...</p>
+
+      </section><section class="slide" id="slide-15-6">
+        <h2 id="service-worker-events-fetch">Service worker events: fetch</h2>
+<pre><code class="language-js">self.addEventListener(<span class="hljs-string">'fetch'</span>, event =&gt; {
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">'/about
+
+    </div>
+    <div id="navigation-arrows">
+      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="navigation-arrows-svg"
+        xml:space="preserve" width="100%" height="100%" viewBox="-110 -110 220 220">
+        <path class="arrow right" d="M70,-30L100,0L70,30" />
+        <path class="arrow down" d="M-30,70L0,100L30,70" />
+        <path class="arrow left" d="M-70,-30L-100,0L-70,30" />
+        <path class="arrow up" d="M-30,-70L0,-100L30,-70" />
+      </svg>
+    </div>
+  </div>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 100vw;
+      height: 100vh;
+      margin: 0px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: rgb(150, 150, 150);
+      font-family: -apple-system, "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.5rem;
+    }
+
+    ul {
+      padding-left: 1.5rem;
+    }
+
+    h1, h2, h3 {
+      font-weight: 600;
+    }
+
+    h1 {
+      margin-top: 5vh;
+      text-align: center;
+      font-size: 2rem;
+    }
+
+    h2 {
+      margin-bottom: 1.5em;
+    }
+
+    svg {
+      width: 100%;
+      height: auto;
+    }
+
+    .slide.inactive {
+      display: none;
+    }
+
+    #canvas {
+      box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.3);
+      background-color: #f8f8f8;
+      position: relative;
+      display: flex;
+    }
+
+    #canvas-content {
+      width: 100%;
+      height: 100%;
+    }
+
+    #canvas-content .note {
+      display: none;
+    }
+
+    #canvas-content img {
+      margin: 0px auto;
+      display: block;
+    }
+
+    @media (min-aspect-ratio: 8/5) {
+
+      html {
+        font-size: 3.5vh;
+      }
+
+      /* wide screen */
+      #canvas {
+        width: calc(100vh / 5 * 8);
+        height: 100vh;
+        padding: 10vh;
+        padding-top: 5vh;
+      }
+    }
+
+    @media (max-aspect-ratio: 8/5) {
+
+      html {
+        font-size: calc(3.5vw * 5 / 8);
+      }
+
+      /* narrow screen */
+      #canvas {
+        width: 100vw;
+        height: calc(100vw * 5 / 8);
+        padding: calc(10vh * 5 / 8);
+        padding-top: calc(5vh * 5 / 8);
+      }
+    }
+
+    pre {
+      background-color: rgb(224, 233, 240);
+      box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.2);
+      padding: 0.5em 1em;
+      line-height: 1.2em;
+    }
+
+    #navigation-arrows {
+      position: absolute;
+      right: 2rem;
+      top: 2rem;
+      height: 3rem;
+      width: 3rem;
+    }
+
+    .arrow {
+      stroke: lightblue;
+      /*stroke-width: 0.8em; Chrome behaves differently with ems here */
+      stroke-width: 16px;
+      stroke-linecap: round;
+      fill: none;
+      cursor: pointer;
+    }
+
+    td,
+    th {
+      padding: 0.2em 0.8em;
+    }
+
+    th {
+      text-align: start;
+    }
+  </style>
+  <script>
+    let presenterWindow;
+    let activeSlide;
+    let slideCount;
+
+    const arrowUp = document.querySelector('.arrow.up');
+    const arrowDown = document.querySelector('.arrow.down');
+    const arrowRight = document.querySelector('.arrow.right');
+    const arrowLeft = document.querySelector('.arrow.left');
+    arrowUp.addEventListener('click',
+      () => {activateSlideSafe(activeSlide[0], activeSlide[1] - 1);}
+    );
+    arrowDown.addEventListener('click',
+      () => {activateSlideSafe(activeSlide[0], activeSlide[1] + 1);}
+    );
+    arrowLeft.addEventListener('click',
+      () => {activateSlideSafe(activeSlide[0] - 1, 1);}
+    );
+    arrowRight.addEventListener('click',
+      () => {activateSlideSafe(activeSlide[0] + 1, 1);}
+    )
+    const init = () => {
+      slideCount = countSlides();
+      activateSlideSafe(1, 1);
+    }
+
+    // count slides
+    const countSlides = () => {
+      const counts = [];
+      return [...document.querySelectorAll('.section')].map(section => section.childNodes.length);
+    }
+
+    const updateVisible = () => {
+      for (let slide of document.querySelectorAll('.slide')) {
+        if (slide.id === `slide-${activeSlide[0]}-${activeSlide[1]}`) {
+          slide.className = 'slide active';
+        } else {
+          slide.className = 'slide inactive';
+        }
+      }
+    }
+
+    const updatePageArrows = () => {
+      if (slideCount.length === 1) {
+        arrowLeft.style.opacity = "0";
+        arrowRight.style.opacity = "0";
+      } else {
+        const progressSections = (activeSlide[0] - 1) / (slideCount.length - 1);
+        arrowLeft.style.opacity = progressSections.toString();
+        arrowRight.style.opacity = (1 - progressSections).toString();
+      }
+      const slidesInActiveSection = slideCount[activeSlide[0] - 1]
+      if (slidesInActiveSection === 1) {
+        arrowUp.style.opacity = "0";
+        arrowDown.style.opacity = "0";
+      } else {
+        const progressSlides = (activeSlide[1] - 1) / (slidesInActiveSection - 1);
+        arrowUp.style.opacity = progressSlides.toString();
+        arrowDown.style.opacity = (1 - progressSlides).toString();
+      }
+    }
+
+    /**
+     * Activate a slide if it exists, else do nothing
+    */
+    const activateSlideSafe = (sectionIndex, slideIndex) => {
+      if (1 <= sectionIndex && sectionIndex <= slideCount.length && 1 <= slideIndex && slideIndex <= slideCount[sectionIndex - 1]) {
+        activeSlide = [sectionIndex, slideIndex];
+        updateVisible();
+        updatePageArrows();
+        scrolltoActiveSlide();
+      }
+    }
+
+    const activateNextSlide = () => {
+      console.log(activeSlide);
+      console.log(slideCount)
+      if (activeSlide[1] === slideCount[activeSlide[0] - 1]) {
+        console.log('right')
+        activateSlideSafe(activeSlide[0] + 1, 1);
+      } else {
+        console.log('down')
+        activateSlideSafe(activeSlide[0], activeSlide[1] + 1);
+      }
+    }
+
+    const scrolltoActiveSlide = () => {
+      const slideId = `#slide-${activeSlide[0]}-${activeSlide[1]}`;
+      if (presenterWindow) {
+        const activeSlide = presenterWindow.document.querySelector(slideId);
+        if (activeSlide) {
+          activeSlide.scrollIntoView();
+        }
+      }
+    }
+
+    document.querySelector('body').addEventListener('keydown', event => {
+      if (event.key === 'p') {
+        const canvasContent = document.querySelector('#canvas-content').innerHTML;
+        presenterWindow = window.open(document.URL, '_blank');
+        presenterWindow.onload = () => {
+          presenterWindow.document.querySelector('body').innerHTML = canvasContent;
+        }
+      }
+      if (event.key === 'ArrowRight') {
+        activateSlideSafe(activeSlide[0] + 1, 1);
+      } else if (event.key === 'ArrowLeft') {
+        activateSlideSafe(activeSlide[0] - 1, 1);
+      } else if (event.key === 'ArrowDown') {
+        activateSlideSafe(activeSlide[0], activeSlide[1] + 1);
+      } else if (event.key === 'ArrowUp') {
+        activateSlideSafe(activeSlide[0], activeSlide[1] - 1);
+      } else if (event.key === 'Enter') {
+        activateNextSlide();
+      } else {
+        console.log(event.key)
+      }
+    });
+
+    init();
+
+  </script>
+</body>
+
+</html></span>).test(event.request.url)) {
+    event.respondWith(<span class="hljs-keyword">new</span> Response(<span class="hljs-string">'About'</span>));
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">'/
+
+    </div>
+    <div id="navigation-arrows">
+      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="navigation-arrows-svg"
+        xml:space="preserve" width="100%" height="100%" viewBox="-110 -110 220 220">
+        <path class="arrow right" d="M70,-30L100,0L70,30" />
+        <path class="arrow down" d="M-30,70L0,100L30,70" />
+        <path class="arrow left" d="M-70,-30L-100,0L-70,30" />
+        <path class="arrow up" d="M-30,-70L0,-100L30,-70" />
+      </svg>
+    </div>
+  </div>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 100vw;
+      height: 100vh;
+      margin: 0px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: rgb(150, 150, 150);
+      font-family: -apple-system, "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.5rem;
+    }
+
+    ul {
+      padding-left: 1.5rem;
+    }
+
+    h1, h2, h3 {
+      font-weight: 600;
+    }
+
+    h1 {
+      margin-top: 5vh;
+      text-align: center;
+      font-size: 2rem;
+    }
+
+    h2 {
+      margin-bottom: 1.5em;
+    }
+
+    svg {
+      width: 100%;
+      height: auto;
+    }
+
+    .slide.inactive {
+      display: none;
+    }
+
+    #canvas {
+      box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.3);
+      background-color: #f8f8f8;
+      position: relative;
+      display: flex;
+    }
+
+    #canvas-content {
+      width: 100%;
+      height: 100%;
+    }
+
+    #canvas-content .note {
+      display: none;
+    }
+
+    #canvas-content img {
+      margin: 0px auto;
+      display: block;
+    }
+
+    @media (min-aspect-ratio: 8/5) {
+
+      html {
+        font-size: 3.5vh;
+      }
+
+      /* wide screen */
+      #canvas {
+        width: calc(100vh / 5 * 8);
+        height: 100vh;
+        padding: 10vh;
+        padding-top: 5vh;
+      }
+    }
+
+    @media (max-aspect-ratio: 8/5) {
+
+      html {
+        font-size: calc(3.5vw * 5 / 8);
+      }
+
+      /* narrow screen */
+      #canvas {
+        width: 100vw;
+        height: calc(100vw * 5 / 8);
+        padding: calc(10vh * 5 / 8);
+        padding-top: calc(5vh * 5 / 8);
+      }
+    }
+
+    pre {
+      background-color: rgb(224, 233, 240);
+      box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.2);
+      padding: 0.5em 1em;
+      line-height: 1.2em;
+    }
+
+    #navigation-arrows {
+      position: absolute;
+      right: 2rem;
+      top: 2rem;
+      height: 3rem;
+      width: 3rem;
+    }
+
+    .arrow {
+      stroke: lightblue;
+      /*stroke-width: 0.8em; Chrome behaves differently with ems here */
+      stroke-width: 16px;
+      stroke-linecap: round;
+      fill: none;
+      cursor: pointer;
+    }
+
+    td,
+    th {
+      padding: 0.2em 0.8em;
+    }
+
+    th {
+      text-align: start;
+    }
+  </style>
+  <script>
+    let presenterWindow;
+    let activeSlide;
+    let slideCount;
+
+    const arrowUp = document.querySelector('.arrow.up');
+    const arrowDown = document.querySelector('.arrow.down');
+    const arrowRight = document.querySelector('.arrow.right');
+    const arrowLeft = document.querySelector('.arrow.left');
+    arrowUp.addEventListener('click',
+      () => {activateSlideSafe(activeSlide[0], activeSlide[1] - 1);}
+    );
+    arrowDown.addEventListener('click',
+      () => {activateSlideSafe(activeSlide[0], activeSlide[1] + 1);}
+    );
+    arrowLeft.addEventListener('click',
+      () => {activateSlideSafe(activeSlide[0] - 1, 1);}
+    );
+    arrowRight.addEventListener('click',
+      () => {activateSlideSafe(activeSlide[0] + 1, 1);}
+    )
+    const init = () => {
+      slideCount = countSlides();
+      activateSlideSafe(1, 1);
+    }
+
+    // count slides
+    const countSlides = () => {
+      const counts = [];
+      return [...document.querySelectorAll('.section')].map(section => section.childNodes.length);
+    }
+
+    const updateVisible = () => {
+      for (let slide of document.querySelectorAll('.slide')) {
+        if (slide.id === `slide-${activeSlide[0]}-${activeSlide[1]}`) {
+          slide.className = 'slide active';
+        } else {
+          slide.className = 'slide inactive';
+        }
+      }
+    }
+
+    const updatePageArrows = () => {
+      if (slideCount.length === 1) {
+        arrowLeft.style.opacity = "0";
+        arrowRight.style.opacity = "0";
+      } else {
+        const progressSections = (activeSlide[0] - 1) / (slideCount.length - 1);
+        arrowLeft.style.opacity = progressSections.toString();
+        arrowRight.style.opacity = (1 - progressSections).toString();
+      }
+      const slidesInActiveSection = slideCount[activeSlide[0] - 1]
+      if (slidesInActiveSection === 1) {
+        arrowUp.style.opacity = "0";
+        arrowDown.style.opacity = "0";
+      } else {
+        const progressSlides = (activeSlide[1] - 1) / (slidesInActiveSection - 1);
+        arrowUp.style.opacity = progressSlides.toString();
+        arrowDown.style.opacity = (1 - progressSlides).toString();
+      }
+    }
+
+    /**
+     * Activate a slide if it exists, else do nothing
+    */
+    const activateSlideSafe = (sectionIndex, slideIndex) => {
+      if (1 <= sectionIndex && sectionIndex <= slideCount.length && 1 <= slideIndex && slideIndex <= slideCount[sectionIndex - 1]) {
+        activeSlide = [sectionIndex, slideIndex];
+        updateVisible();
+        updatePageArrows();
+        scrolltoActiveSlide();
+      }
+    }
+
+    const activateNextSlide = () => {
+      console.log(activeSlide);
+      console.log(slideCount)
+      if (activeSlide[1] === slideCount[activeSlide[0] - 1]) {
+        console.log('right')
+        activateSlideSafe(activeSlide[0] + 1, 1);
+      } else {
+        console.log('down')
+        activateSlideSafe(activeSlide[0], activeSlide[1] + 1);
+      }
+    }
+
+    const scrolltoActiveSlide = () => {
+      const slideId = `#slide-${activeSlide[0]}-${activeSlide[1]}`;
+      if (presenterWindow) {
+        const activeSlide = presenterWindow.document.querySelector(slideId);
+        if (activeSlide) {
+          activeSlide.scrollIntoView();
+        }
+      }
+    }
+
+    document.querySelector('body').addEventListener('keydown', event => {
+      if (event.key === 'p') {
+        const canvasContent = document.querySelector('#canvas-content').innerHTML;
+        presenterWindow = window.open(document.URL, '_blank');
+        presenterWindow.onload = () => {
+          presenterWindow.document.querySelector('body').innerHTML = canvasContent;
+        }
+      }
+      if (event.key === 'ArrowRight') {
+        activateSlideSafe(activeSlide[0] + 1, 1);
+      } else if (event.key === 'ArrowLeft') {
+        activateSlideSafe(activeSlide[0] - 1, 1);
+      } else if (event.key === 'ArrowDown') {
+        activateSlideSafe(activeSlide[0], activeSlide[1] + 1);
+      } else if (event.key === 'ArrowUp') {
+        activateSlideSafe(activeSlide[0], activeSlide[1] - 1);
+      } else if (event.key === 'Enter') {
+        activateNextSlide();
+      } else {
+        console.log(event.key)
+      }
+    });
+
+    init();
+
+  </script>
+</body>
+
+</html></span>).test(event.request.url)) {
+    event.respondWith(<span class="hljs-keyword">new</span> Response(<span class="hljs-string">'Home'</span>));
+  } <span class="hljs-keyword">else</span> {
+    event.respondWith(<span class="hljs-keyword">new</span> Response(<span class="hljs-string">'404'</span>));
+  }
+});</code></pre>
+
+      </section><section class="slide" id="slide-15-7">
+        <h2 id="service-worker-events-fetch">Service worker events: fetch</h2>
+<p>Exercise: logging all network requests and passing the work on to <code>fetch</code></p>
+
+      </section><section class="slide" id="slide-15-8">
+        <h2 id="service-worker-events-fetch">Service worker events: fetch</h2>
+<pre><code class="language-js">self.addEventListener(<span class="hljs-string">'fetch'</span>, event =&gt; {
+  <span class="hljs-built_in">console</span>.log(event);
+  <span class="hljs-keyword">return</span> fetch(event.request);
+});</code></pre>
+
+      </section><section class="slide" id="slide-15-9">
+        <h2 id="cache">Cache</h2>
+<p>= &quot;a request to response map&quot;</p>
+
+      </section><section class="slide" id="slide-15-10">
+        <h2 id="accessing-caches">Accessing caches</h2>
+<p>Via the global variable <code>caches.open</code> or via <code>self.caches.open</code> in the service worker</p>
+<p>Promise:</p>
+<pre><code class="language-js"><span class="hljs-keyword">let</span> myCache;
+caches.open(<span class="hljs-string">'test'</span>, mc =&gt; {
+  myCache = mc;
+});</code></pre>
+
+      </section><section class="slide" id="slide-15-11">
+        <h2 id="methods">Methods</h2>
+<p>cache methods:</p>
+<ul>
+<li><code>myCache.add(request)</code></li>
+<li><code>myCache.addAll(requests)</code></li>
+<li><code>myCache.put(request, response)</code></li>
+<li><code>myCache.delete(request)</code></li>
+<li><code>myCache.match(request)</code></li>
+<li><code>myCache.matchAll(requests)</code></li>
+</ul>
+<p>The <code>request</code> can be either a string or a <code>Request</code> object.</p>
+
+      </section><section class="slide" id="slide-15-12">
+        <h2 id="cache---addall">Cache - add(All)</h2>
+<p>We provide a URL; the resource will be automatically requested and stored</p>
+<pre><code class="language-js">cache.add(<span class="hljs-string">'/main.js'</span>);
+
+cache.addAll([<span class="hljs-string">'/'</span>, <span class="hljs-string">'/index.html'</span>, <span class="hljs-string">'/main.js'</span>]);</code></pre>
+
+      </section><section class="slide" id="slide-15-13">
+        <h2 id="cache---put">Cache - put</h2>
+<p>Can be used if we already have the response</p>
+<pre><code class="language-js">fetch(<span class="hljs-string">'myurl'</span>).then(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> {
+  cache.put(<span class="hljs-string">'myurl'</span>, response.clone());
+  cache.put(<span class="hljs-string">'otherurl'</span>, response);
+});</code></pre>
+
+      </section><section class="slide" id="slide-15-14">
+        <h2 id="cache---delete">Cache - delete</h2>
+<pre><code class="language-js">cache.delete(<span class="hljs-string">'myurl'</span>);</code></pre>
+
+      </section><section class="slide" id="slide-15-15">
+        <h2 id="cache---match">Cache - match</h2>
+<p>Retrieve an entry from the cache that matches a request</p>
+<pre><code class="language-js"><span class="hljs-comment">// returns a response or undefined</span>
+<span class="hljs-keyword">const</span> content = cache.match(<span class="hljs-string">'myurl'</span>);</code></pre>
+
+      </section><section class="slide" id="slide-15-16">
+        <h2 id="example-cache-only-short">Example: cache only (short)</h2>
+<p>An application that will precache resources and always provide them to the user</p>
+<pre><code class="language-js">self.addEventListener(<span class="hljs-string">'install'</span>, () =&gt; {
+  cache.addAll([<span class="hljs-string">'/'</span>, <span class="hljs-string">'/index.html'</span>, <span class="hljs-string">'/about'</span>])
+})
+
+self.addEventListener(<span class="hljs-string">'fetch'</span>, event =&gt; {
+  event.respondWith(
+    caches.match(event.request);
+  )
+})</code></pre>
+
+      </section><section class="slide" id="slide-15-17">
+        <h2 id="example-cache-only-full-code">Example: cache only (full code)</h2>
+<pre><code class="language-js">self.addEventListener(<span class="hljs-string">'install'</span>, installEvent =&gt; {
+  <span class="hljs-comment">// wait for the cache to be populated;</span>
+  <span class="hljs-comment">// abort install on error</span>
+  installEvent.waitUntil(
+    caches.open(<span class="hljs-string">'app-shell-cache-v3'</span>).then(<span class="hljs-function"><span class="hljs-params">cache</span> =&gt;</span> {
+      <span class="hljs-keyword">return</span> cache.addAll[(<span class="hljs-string">'/'</span>, <span class="hljs-string">'/index.html'</span>, <span class="hljs-string">'/about'</span>)];
+    })
+  );
+  <span class="hljs-comment">// optional - don't abort install on error</span>
+  caches.open(<span class="hljs-string">'app-shell-cache-v3'</span>).then(<span class="hljs-function"><span class="hljs-params">cache</span> =&gt;</span> {
+    cache.addAll[<span class="hljs-string">'/icon1.png'</span>];
+  });
+});</code></pre>
+
+      </section><section class="slide" id="slide-15-18">
+        <h2 id="example-updating-the-cache">Example: updating the cache</h2>
+<p>deleting old entries:</p>
+<pre><code class="language-js">self.addEventListener(<span class="hljs-string">'activate'</span>, activateEvent =&gt; {
+  activateEvent.waitUntil(
+    <span class="hljs-built_in">Promise</span>.all([
+      caches.delete(<span class="hljs-string">'app-shell-cache-v2'</span>),
+      caches.delete(<span class="hljs-string">'app-shell-cache-v1'</span>),
+    ])
+  );
+});</code></pre>
+
+      </section><section class="slide" id="slide-15-19">
+        <h2 id="example-retrieve-with-network-fallback">Example: retrieve with network fallback</h2>
+<pre><code class="language-js">self.addEventListener(<span class="hljs-string">'fetch'</span>, event =&gt; {
+  event.respondWith(
+    caches
+      .match(event.request)
+      .then(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> response || fetch(event.request))
+  );
+});</code></pre>
+
+      </section><section class="slide" id="slide-15-20">
+        <h2 id="example-updating-the-cache-on-every-request">Example: updating the cache on every request</h2>
+<pre><code class="language-js">self.addEventListener(<span class="hljs-string">'fetch'</span>, event =&gt; {
+  event.respondWith(
+    fetch(event.request).then(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> {
+      cache.put(event.request, response.clone());
+      <span class="hljs-keyword">return</span> response;
+    })
+  );
+});</code></pre>
+<p>caching all network requests:</p>
+<pre><code class="language-js"><span class="hljs-comment">// in the service worker</span>
+self.addEventListener(<span class="hljs-string">'fetch'</span>, event =&gt; {
+  event.respondWith();
+  xxxxxxxxxxxxxxxxxxx;
+});</code></pre>
+
+      </section><section class="slide" id="slide-15-21">
+        <h2 id="example-network---falling-back-to-cache---falling-back-to-default-asset-eg-user-avatar">example: network - falling back to cache - falling back to default asset (e.g. user avatar)</h2>
+
+      </section></section><section class="section" id="section-16"><section class="slide" id="slide-16-1">
+        <h1 id="the-offline-cookbook">The offline cookbook</h1>
+<p><a href="https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/">https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/</a></p>
+
+      </section></section><section class="section" id="section-17"><section class="slide" id="slide-17-1">
+        <h1 id="data-storage">Data storage</h1>
+<h3 id="localstorage-and-indexeddb">localStorage and indexedDB</h3>
+
+      </section><section class="slide" id="slide-17-2">
+        <h2 id="overview">Overview</h2>
+<ul>
+<li><em>localStorage</em>: simple key-value-store with string values</li>
+<li><em>indexedDB</em>: &quot;real database&quot;</li>
+</ul>
+
+      </section></section><section class="section" id="section-18"><section class="slide" id="slide-18-1">
+        <h1 id="localstorage">localStorage</h1>
+
+      </section><section class="slide" id="slide-18-2">
+        <h2 id="localstorage">localStorage</h2>
+<p><em>localStorage</em> is a simple key-value-store in the browser; both keys and values are strings</p>
+<p>The browser stores data separately for each domain</p>
+
+      </section><section class="slide" id="slide-18-3">
+        <h2 id="localstorage">localStorage</h2>
+<p>important methods:</p>
+<ul>
+<li><code>localStorage.setItem(&#39;name&#39;, &#39;John&#39;)</code></li>
+<li><code>localStorage.getItem(&#39;name&#39;)</code></li>
+<li><code>localStorage.removeItem(&#39;name&#39;)</code></li>
+</ul>
+
+      </section><section class="slide" id="slide-18-4">
+        <h2 id="localstorage">localStorage</h2>
+<p>storing and retrieving some data</p>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> todoString = <span class="hljs-built_in">JSON</span>.stringify(todos);
+localStorage.setItem(<span class="hljs-string">'todos'</span>, todoString);</code></pre>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> todoString = localStorage.getItem(<span class="hljs-string">'todos'</span>);
+todos = <span class="hljs-built_in">JSON</span>.parse(todoString);</code></pre>
+
+      </section></section><section class="section" id="section-19"><section class="slide" id="slide-19-1">
+        <h1 id="indexeddb">indexedDB</h1>
+
+      </section><section class="slide" id="slide-19-2">
+        <h2 id="indexeddb">indexedDB</h2>
+<p><em>indexedDB</em> is a &quot;real&quot; database</p>
+<p>advantages over <em>localStorage</em>:</p>
+<ul>
+<li>non-blocking</li>
+<li>faster (queries via indexes)</li>
+<li>separation of data into &quot;tables&quot; (stores)</li>
+<li>supports various data types</li>
+</ul>
+<p>disadvantage: more complicated interface</p>
+
+      </section><section class="slide" id="slide-19-3">
+        <h2 id="indexeddb-interfaces">indexedDB interfaces</h2>
+<ul>
+<li>idb</li>
+<li>dexie</li>
+<li>localForage</li>
+</ul>
+
+      </section><section class="slide" id="slide-19-4">
+        <h2 id="indexeddb-promised-idb">indexedDB promised (idb)</h2>
+<p>library that enables using indexedDB with Promises</p>
+<p><a href="https://github.com/jakearchibald/idb">https://github.com/jakearchibald/idb</a></p>
+<p>CDN link: <a href="https://cdn.jsdelivr.net/npm/idb@2.1.2/lib/idb.min.js">https://cdn.jsdelivr.net/npm/idb@2.1.2/lib/idb.min.js</a></p>
+
+      </section><section class="slide" id="slide-19-5">
+        <h2 id="idb-basics">idb basics</h2>
+
+      </section><section class="slide" id="slide-19-6">
+        <h2 id="idb-basics-open--upgrade">idb basics: open &amp; upgrade</h2>
+<p>creates / opens a database; returns a promise</p>
+<pre><code class="language-js">idb.open(name, version, upgradeCallback);</code></pre>
+
+      </section><section class="slide" id="slide-19-7">
+        <h2 id="idb-basics-open--upgrade">idb basics: open &amp; upgrade</h2>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> upgradeCallback = <span class="hljs-function"><span class="hljs-params">upgradeDb</span> =&gt;</span> {
+  <span class="hljs-keyword">if</span> (!upgradeDb.objectStoreNames.contains(<span class="hljs-string">'todos'</span>)) {
+    upgradeDb.createObjectStore(<span class="hljs-string">'todos'</span>, {
+      <span class="hljs-attr">autoIncrement</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">keyPath</span>: <span class="hljs-string">'key'</span>,
+    });
+  }
+};
+
+<span class="hljs-keyword">const</span> dbPromise = idb.open(<span class="hljs-string">'todo-db'</span>, <span class="hljs-number">1</span>, upgradeCallback);</code></pre>
+
+      </section><section class="slide" id="slide-19-8">
+        <h2 id="idb-basics-open--upgrade">idb basics: open &amp; upgrade</h2>
+<p>The last argument (<code>upgradeCallback</code>) can be used to migrate to a new database schema; it can be used to create, delete or change stores</p>
+<p>The callback is called any time the version increases</p>
+
+      </section><section class="slide" id="slide-19-9">
+        <h2 id="idb-basics-keys">idb basics: keys</h2>
+<p>Each element in the object store has a unique key (~id)</p>
+<p>The key can be an entry in the element or a separate value</p>
+
+      </section><section class="slide" id="slide-19-10">
+        <h2 id="idb-basics-keys">idb basics: keys</h2>
+<p>numeric id:</p>
+<pre><code class="language-js">upgradeDb.createObjectStore(<span class="hljs-string">'todos'</span>, {
+  <span class="hljs-attr">autoIncrement</span>: <span class="hljs-literal">true</span>,
+});</code></pre>
+
+      </section><section class="slide" id="slide-19-11">
+        <h2 id="idb-basics-keys">idb basics: keys</h2>
+<p>numeric id stored in the object</p>
+<pre><code class="language-js">upgradeDb.createObjectStore(&#39;todos&#39;, {
+  autoIncrement: true,
+  keyPath: &#39;key
+})</code></pre>
+
+      </section><section class="slide" id="slide-19-12">
+        <h2 id="idb-basics-keys">idb basics: keys</h2>
+<p>use an entry in the objects as key</p>
+<pre><code class="language-js">upgradeDb.createObjectStore(<span class="hljs-string">'users'</span>, {
+  <span class="hljs-attr">keyPath</span>: <span class="hljs-string">'email'</span>,
+});</code></pre>
+
+      </section><section class="slide" id="slide-19-13">
+        <h2 id="transactions">transactions</h2>
+<p>transaction = group of operations on the database (reading, adding, writing, ...)</p>
+
+      </section><section class="slide" id="slide-19-14">
+        <h2 id="transactions">transactions</h2>
+<p>steps:</p>
+<ol>
+<li>get the database object (<code>idb.open</code>)</li>
+<li>open a transaction on one or more stores (two modes: <code>readonly</code> (default) or <code>readwrite</code>)</li>
+<li>open the object store</li>
+<li>operate on the object store</li>
+</ol>
+
+      </section><section class="slide" id="slide-19-15">
+        <h2 id="transactions">transactions</h2>
+<p>getting the database object:</p>
+<pre><code class="language-js"><span class="hljs-keyword">let</span> db;
+
+idb.open(<span class="hljs-string">'todo-db'</span>, <span class="hljs-number">1</span>).then(<span class="hljs-function"><span class="hljs-params">openedDb</span> =&gt;</span> {
+  db = openedDb;
+});</code></pre>
+
+      </section><section class="slide" id="slide-19-16">
+        <h2 id="transactions">transactions</h2>
+<p>adding data</p>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> transaction = db.transaction([<span class="hljs-string">'todos'</span>], <span class="hljs-string">'readwrite'</span>);
+<span class="hljs-keyword">const</span> todoStore = transaction.objectStore(<span class="hljs-string">'todos'</span>);
+todoStore.add({ <span class="hljs-attr">text</span>: <span class="hljs-string">'groceries'</span>, <span class="hljs-attr">done</span>: <span class="hljs-literal">false</span> });</code></pre>
+
+      </section><section class="slide" id="slide-19-17">
+        <h2 id="transactions">transactions</h2>
+<p>overwriting data (put)</p>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> transaction = db.transaction([<span class="hljs-string">'todos'</span>], <span class="hljs-string">'readwrite'</span>);
+<span class="hljs-keyword">const</span> todoStore = transaction.objectStore(<span class="hljs-string">'todos'</span>);
+<span class="hljs-comment">// ersetze den Eintrag mit index 1</span>
+todoStore.put({ <span class="hljs-attr">text</span>: <span class="hljs-string">'groceris'</span>, <span class="hljs-attr">done</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">key</span>: <span class="hljs-number">1</span> });</code></pre>
+
+      </section><section class="slide" id="slide-19-18">
+        <h2 id="transactions">transactions</h2>
+<p>deleting data</p>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> transaction = db.transaction([<span class="hljs-string">'todos'</span>], <span class="hljs-string">'readwrite'</span>);
+<span class="hljs-keyword">const</span> todoStore = transaction.objectStore(<span class="hljs-string">'todos'</span>);
+todoStore.delete(<span class="hljs-number">1</span>);</code></pre>
+
+      </section><section class="slide" id="slide-19-19">
+        <h2 id="transactions">transactions</h2>
+<p>reading data (<code>getAll</code>)</p>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> transaction = db.transaction([<span class="hljs-string">'artists'</span>], <span class="hljs-string">'readonly'</span>);
+<span class="hljs-keyword">const</span> artistsStore = transaction.objectStore(<span class="hljs-string">'artists'</span>);
+artistsStore.getAll().then(<span class="hljs-built_in">console</span>.log);</code></pre>
+
+      </section><section class="slide" id="slide-19-20">
+        <h2 id="transactions">transactions</h2>
+<p>reading data by its key</p>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> transaction = db.transaction([<span class="hljs-string">'artists'</span>], <span class="hljs-string">'readonly'</span>);
+<span class="hljs-keyword">const</span> artistsStore = transaction.objectStore(<span class="hljs-string">'artists'</span>);
+artistsStore.get(<span class="hljs-number">1</span>).then(<span class="hljs-built_in">console</span>.log);</code></pre>
+
+      </section><section class="slide" id="slide-19-21">
+        <h2 id="indexes">indexes</h2>
+<p>reading data via indexes</p>
+<p>Entries in a database are basically stored sorted by their key.</p>
+<p>This means it&#39;s fast to search for a specific key in the database</p>
+<p>Example: In a phone book looking for a last name is fast, but looking for a first name or for a phone number is slow</p>
+
+      </section><section class="slide" id="slide-19-22">
+        <h2 id="indexes">indexes</h2>
+<p>In order to quickly look up by something other than the primary key: additional index</p>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> store = upgradeDb.createObjectStore(<span class="hljs-string">'contacts'</span>);
+store.createIndex(<span class="hljs-string">'email'</span>, <span class="hljs-string">'email'</span>, { <span class="hljs-attr">unique</span>: <span class="hljs-literal">true</span> });
+store.createIndex(<span class="hljs-string">'firstName'</span>, <span class="hljs-string">'firstName'</span>);
+store.createIndex(<span class="hljs-string">'name'</span>, [<span class="hljs-string">'lastName'</span>, <span class="hljs-string">'firstName'</span>]);</code></pre>
+
+      </section><section class="slide" id="slide-19-23">
+        <h2 id="indexes">indexes</h2>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> nameIndex = objectStore.index(<span class="hljs-string">'name'</span>);
+nameIndex.get([<span class="hljs-string">'Andy'</span>, <span class="hljs-string">'Jones'</span>]).then(...)</code></pre>
+
+      </section><section class="slide" id="slide-19-24">
+        <h2 id="exercises">exercises</h2>
+<ul>
+<li>Slides: <a href="https://developers.google.com/web/ilt/pwa/working-with-indexeddb-slides">https://developers.google.com/web/ilt/pwa/working-with-indexeddb-slides</a></li>
+<li>Lab: <a href="https://developers.google.com/web/ilt/pwa/lab-indexeddb">https://developers.google.com/web/ilt/pwa/lab-indexeddb</a></li>
+</ul>
+
+      </section></section><section class="section" id="section-20"><section class="slide" id="slide-20-1">
+        <h1 id="notifications">Notifications</h1>
+<!-- see also: https://developer.mozilla.org/en-US/docs/Web/API/Notifications_API/Using_the_Notifications_API -->
+
+
+      </section><section class="slide" id="slide-20-2">
+        <h2 id="notifications">Notifications</h2>
+<p>Notification enable displaying messages outside of the app / browser (OS notifications)</p>
+
+      </section><section class="slide" id="slide-20-3">
+        <h2 id="requesting-permission">requesting permission</h2>
+<pre><code class="language-js"><span class="hljs-keyword">let</span> notificationsAllowed;
+
+Notification.requestPermission().then(<span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span> {
+  <span class="hljs-keyword">if</span> (result === <span class="hljs-string">'granted'</span>) {
+    notificationsAllowed = <span class="hljs-literal">true</span>;
+  }
+});</code></pre>
+<p>This can be tried in the browser console when any web page is open</p>
+
+      </section><section class="slide" id="slide-20-4">
+        <h2 id="showing-notifications">showing notifications</h2>
+<pre><code class="language-js"><span class="hljs-keyword">if</span> (Notification.permission === <span class="hljs-string">'granted'</span>) {
+  <span class="hljs-keyword">new</span> Notification(<span class="hljs-string">'Hello world'</span>);
+}</code></pre>
+
+      </section><section class="slide" id="slide-20-5">
+        <h2 id="notification-options">notification options</h2>
+<pre><code class="language-js"><span class="hljs-keyword">new</span> Notification(<span class="hljs-string">'cloudy'</span>, {
+  <span class="hljs-attr">body</span>: <span class="hljs-string">'The weather in Vienna is cloudy'</span>,
+  <span class="hljs-attr">icon</span>: <span class="hljs-string">'static/images/cloudy.png'</span>,
+  <span class="hljs-attr">vibrate</span>: [<span class="hljs-number">100</span>, <span class="hljs-number">50</span>, <span class="hljs-number">100</span>],
+});</code></pre>
+
+      </section></section><section class="section" id="section-21"><section class="slide" id="slide-21-1">
+        <h1 id="notifications-from-the-service-worker">Notifications from the service worker</h1>
+
+      </section><section class="slide" id="slide-21-2">
+        <h2 id="notifications-from-the-service-worker">Notifications from the service worker</h2>
+<p>The notifications we&#39;ve seen so far originated from one particular browser window. Notifications can also be displayed from the service worker. These notifications will be more capable than the ones we&#39;ve encountered so far. In particular:</p>
+<ul>
+<li>Notifications from service workers can provide interactions (Chrome only for now)</li>
+<li>Notifications from service workers can be shown when the app / website isn&#39;t open</li>
+</ul>
+
+      </section><section class="slide" id="slide-21-3">
+        <h2 id="accessing-the-service-worker-registration">Accessing the service worker registration</h2>
+<pre><code class="language-js"><span class="hljs-keyword">let</span> serviceWorkerRegistration;
+
+navigator.serviceWorker
+  .getRegistration()
+  .then(<span class="hljs-function"><span class="hljs-params">registration</span> =&gt;</span> {
+    serviceWorkerRegistration = registration;
+  });</code></pre>
+
+      </section><section class="slide" id="slide-21-4">
+        <h2 id="notifications-via-the-service-worker">Notifications via the service worker</h2>
+<pre><code class="language-js">serviceWorkerRegistration.showNotification(<span class="hljs-string">'cloudy'</span>, {
+  <span class="hljs-attr">body</span>: <span class="hljs-string">'The weather in Vienna is cloudy'</span>,
+  <span class="hljs-attr">icon</span>: <span class="hljs-string">'static/images/cloudy.png'</span>,
+  <span class="hljs-attr">vibrate</span>: [<span class="hljs-number">100</span>, <span class="hljs-number">50</span>, <span class="hljs-number">100</span>],
+  <span class="hljs-comment">// new option available:</span>
+  actions: [
+    { <span class="hljs-attr">action</span>: <span class="hljs-string">'close'</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'Close'</span> },
+    { <span class="hljs-attr">action</span>: <span class="hljs-string">'details'</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'Details'</span> },
+  ],
+});</code></pre>
+
+      </section><section class="slide" id="slide-21-5">
+        <h2 id="listening-for-notification-actions">listening for notification actions</h2>
+<ul>
+<li><code>notificationclick</code></li>
+<li><code>notificationclose</code></li>
+</ul>
+
+      </section></section><section class="section" id="section-22"><section class="slide" id="slide-22-1">
+        <h1 id="push-messages">Push Messages</h1>
+
+      </section><section class="slide" id="slide-22-2">
+        <h2 id="push-messages">Push Messages</h2>
+<p>With push messages we can send messages to our PWA from a server.</p>
+<p>This generally works even if our app is not currently running - though on the desktop at least one browser instance has to be running for push messages to be received</p>
+
+      </section><section class="slide" id="slide-22-3">
+        <h2 id="push-messages-without-notifications">Push messages without notifications</h2>
+<p>When a push notification arrives via the network the app can react in various ways</p>
+<p>Displaying notifications is common but not required by the spec</p>
+<p>Chrome currently <em>requires</em> displaying a notification; Firefox has a limit on how many messages can be received without showing notifications</p>
+
+      </section><section class="slide" id="slide-22-4">
+        <h2 id="push-notifications---basics">Push Notifications - basics</h2>
+<?xml version="1.0" encoding="utf-8"?>
+<svg
+  id="push-message-svg"
+  version="1.1"
+  width="1000"
+  height="500"
+  viewBox="-500 0 1000 500"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <defs>
+    <marker id="arrow-end" refX="0.0" refY="0.0" orient="auto" style="overflow: visible;">
+      <path
+        transform="rotate(180)"
+        d="M 8.7 4 L -2.2 0 L 8.7 -4 C 7 -1.6 7 1.6 8.7 4 z"
+        class="arrowhead"
+        id="path4877"
+      />
+    </marker>
+  </defs>
+  <style>
+    #push-message-svg {
+      font-family: sans-serif;
+    }
+    #push-message-svg path.arrow {
+      stroke: #000;
+      stroke-width: 2;
+      marker-end: url(#arrow-end);
+    }
+    #push-message-svg path.arrowhead {
+      fill: #000;
+    }
+    #push-message-svg text.label {
+      font-size: 32px;
+      font-family: sans-serif;
+      text-anchor: middle;
+    }
+    # push-message-svg text.label>tspan {
+      text-anchor: middle;
+    }
+    # push-message-svg text.arrowtext {
+    font-size: 24px;
+  </style>
+  <text
+    class="label"
+    transform="translate(0 50)">
+    <tspan x="0">
+      push
+    </tspan>
+    <tspan x="0" dy="1.4em">
+      service
+    </tspan>
+  </text>
+  <text
+    class="label"
+    transform="translate(-300 430)">
+    browser
+  </text>
+  <text
+    class="label"
+    transform="translate(300 430)"
+  >
+    application server
+  </text>
+  <path
+    class="arrow"
+    d="M 300 400 L 20 120"
+    id="path1"
+  />
+  <text class="arrowtext">
+    <textPath href="#path1" side="right" startOffset="15%">
+      <tspan y="-8">message &amp; authentication</tspan>
+    </textPath>
+  </text>
+  <path
+    id="path2"
+    class="arrow"
+    d="M -20 120 L -300 400"
+  />
+  <text class="arrowtext">
+    <textPath href="#path2" side="right" startOffset="40%">
+      <tspan y="-8">message</tspan>
+    </textPath>
+  </text>
+</svg>
+
+
+      </section><section class="slide" id="slide-22-5">
+        <h2 id="push-notifications---basics">Push Notifications - basics</h2>
+<p>Push notifications can be sent to a user via the browser vendor (Google, Mozilla, ...). It works via endpoint URLs like these:</p>
+<ul>
+<li><code>https://android.googleapis.com/gcm/send/IDENTIFIER</code></li>
+<li><code>https://updates.push.services.mozilla.com/wpush/v1/IDENTIFIER</code></li>
+</ul>
+
+      </section><section class="slide" id="slide-22-6">
+        <h2 id="push-notification---process">Push Notification - process</h2>
+<?xml version="1.0" encoding="utf-8"?>
+<svg
+  id="push-message-auth-svg"
+  version="1.1"
+  width="1000"
+  height="500"
+  viewBox="-500 0 1000 500"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <defs>
+    <marker id="arrow-end-1" refX="0.0" refY="0.0" orient="auto" style="overflow: visible;">
+      <path
+        transform="rotate(180)"
+        d="M 8.7 4 L -2.2 0 L 8.7 -4 C 7 -1.6 7 1.6 8.7 4 z"
+        class="arrowhead"
+        id="path4877"
+      />
+    </marker>
+  </defs>
+  <style>
+    #push-message-auth-svg {
+      font-family: sans-serif;
+    }
+    #push-message-auth-svg path.arrow {
+      stroke: #000;
+      stroke-width: 2;
+      marker-end: url(#arrow-end-1);
+    }
+    #push-message-auth-svg path.arrowhead {
+      fill: #000;
+    }
+    #push-message-auth-svg text.label {
+      font-size: 32px;
+      font-family: sans-serif;
+      text-anchor: middle;
+    }
+    #push-message-auth-svg text.label>tspan {
+      text-anchor: middle;
+    }
+    #push-message-auth-svg text.arrowtext {
+    font-size: 24px;
+  </style>
+  <text
+    class="label"
+    transform="translate(0 50)">
+    <tspan x="0">
+      push
+    </tspan>
+    <tspan x="0" dy="1.4em">
+      service
+    </tspan>
+  </text>
+  <text
+    class="label"
+    transform="translate(-300 430)">
+    browser
+  </text>
+  <text
+    class="label"
+    transform="translate(300 430)"
+  >
+    application server
+  </text>
+
+  <path
+    id="path1-2"
+    class="arrow"
+    d="M -340 400 L -40 120"/>
+  <text class="arrowtext">
+    <textPath href="#path1-2" side="left" startOffset="15%">
+      <tspan y="-8">(1) auth request</tspan>
+    </textPath>
+  </text>
+
+  <path
+    id="path2-2"
+    class="arrow"
+    d="M 0 120 L -300 400 "
+  />
+  <text class="arrowtext">
+    <textPath href="#path2-2" side="right" startOffset="50%">
+      <tspan y="-8">(2) auth data</tspan>
+    </textPath>
+  </text>
+
+  <path
+    id="path3-2"
+    class="arrow"
+    d="M -220 420 L 160 420"
+  />
+  <text class="arrowtext">
+    <textPath href="#path3-2" side="left" startOffset="40%">
+      <tspan y="-8">(3) auth data</tspan>
+    </textPath>
+  </text>
+</svg>
+
+
+      </section><section class="slide" id="slide-22-7">
+        <h2 id="push-notifications---process">Push Notifications - process</h2>
+<ul>
+<li>user visits a web app, enables notifications</li>
+<li>the web app communicates with the browser vendor (Google, Mozilla, ...); the vendor creates a unique enpoint URL and a public key for encryption and shares them with the browser<br>The endpoint URL could look like this:<ul>
+<li><code>https://android.googleapis.com/gcm/send/IDENTIFIER</code></li>
+<li><code>https://updates.push.services.mozilla.com/wpush/v1/IDENTIFIER</code></li>
+</ul>
+</li>
+<li>the web app shares the endpoint URL and public key with the backend</li>
+<li>from the backend, we can now send data to the endpoint URL, encrypted withe the public key. It will be received by the user&#39;s service worker</li>
+</ul>
+
+      </section><section class="slide" id="slide-22-8">
+        <h2 id="push-notifications---enabling-on-the-client">Push Notifications - enabling on the client</h2>
+<pre><code class="language-js">serviceWorkerRegistration.pushManager
+  .subscribe({
+    <span class="hljs-attr">userVisibleOnly</span>: <span class="hljs-literal">true</span>,
+  })
+  .then(<span class="hljs-function"><span class="hljs-params">subscription</span> =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(subscription.endpoint);
+    <span class="hljs-comment">// could be: https://android.googleapis.com/gcm/send/..</span>
+  });</code></pre>
+
+      </section><section class="slide" id="slide-22-9">
+        <h2 id="push-notifications---getting-the-current-subscription">Push Notifications - getting the current subscription</h2>
+<pre><code class="language-js">serviceWorkerRegistration.pushManager
+  .getSubscription()
+  .then(<span class="hljs-function"><span class="hljs-params">subsription</span> =&gt;</span> {
+    <span class="hljs-keyword">if</span> (subscription === <span class="hljs-literal">undefined</span>) {
+    } <span class="hljs-keyword">else</span> {
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">JSON</span>.stringify(subscription.toJSON()));
+      <span class="hljs-comment">// send the subscription object to our server</span>
+    }
+  });</code></pre>
+
+      </section><section class="slide" id="slide-22-10">
+        <h2 id="push-notifications---the-subscription-object">Push Notifications - the subscription object</h2>
+<p>Once we obtain this subscription object on the server we can send push messages to the client</p>
+<pre><code class="language-json">{
+  <span class="hljs-attr">"endpoint"</span>: <span class="hljs-string">"https://android.googleapis.com/gcm/send/f2L..."</span>,
+  <span class="hljs-attr">"keys"</span>: {
+    <span class="hljs-attr">"auth"</span>: <span class="hljs-string">"5I2BuN..."</span>,
+    <span class="hljs-attr">"p256dh"</span>: <span class="hljs-string">"BLc45n..."</span>
+  }
+}</code></pre>
+
+      </section><section class="slide" id="slide-22-11">
+        <h2 id="push-notifications---server">Push Notifications - server</h2>
+<p>in node.js:</p>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> webPush = <span class="hljs-built_in">require</span>(<span class="hljs-string">'web-push'</span>);
+
+<span class="hljs-keyword">const</span> subscripton = {
+  <span class="hljs-attr">endpoint</span>: <span class="hljs-string">'...'</span>,
+  <span class="hljs-attr">keys</span>: { <span class="hljs-attr">auth</span>: <span class="hljs-string">'...'</span>, <span class="hljs-attr">p256dh</span>: <span class="hljs-string">'...'</span> },
+};
+
+webPush.sendNotification(subscription, <span class="hljs-string">'Hello world!'</span>);</code></pre>
+
+      </section><section class="slide" id="slide-22-12">
+        <h2 id="push-notifications-on-chrome">Push Notifications on Chrome</h2>
+<p>Push notifications for Chrome are sent via <em>Firebase Cloud Messaging</em> (formerly: <em>Google Cloud Messaging</em>); in order to develop an application that receives push notifications on Chrome we need a firebase account and API key</p>
+<pre><code class="language-js">webPush.sendNotification(subscription, <span class="hljs-string">'Hello world!'</span>, {
+  <span class="hljs-attr">gcmAPIKey</span>: <span class="hljs-string">'....'</span>,
+});</code></pre>
+
+      </section><section class="slide" id="slide-22-13">
+        <h2 id="push-notifications-lab">Push Notifications Lab</h2>
+<p><a href="https://developers.google.com/web/ilt/pwa/lab-integrating-web-push">https://developers.google.com/web/ilt/pwa/lab-integrating-web-push</a></p>
+<p>1-3</p>
+<!--
+duration: ca 50 min
+-->
+
+
+      </section></section><section class="section" id="section-23"><section class="slide" id="slide-23-1">
+        <h1 id="app-stores">App Stores</h1>
+
+      </section><section class="slide" id="slide-23-2">
+        <h2 id="app-stores">App Stores</h2>
+<p>Publishing PWAs in App Stores</p>
+
+      </section><section class="slide" id="slide-23-3">
+        <h2 id="pwas-in-the-google-play-store">PWAs in the Google Play Store</h2>
+<p>As of February 2019:</p>
+<p>TWA = Trusted Web Activity = method of publishing a PWA on the Play Store</p>
+<p><a href="https://www.youtube.com/watch?v=7JDFjeMvxos">https://www.youtube.com/watch?v=7JDFjeMvxos</a></p>
+<p><a href="https://developers.google.com/web/updates/2019/02/using-twa">https://developers.google.com/web/updates/2019/02/using-twa</a></p>
+
+      </section><section class="slide" id="slide-23-4">
+        <h2 id="pwas-in-the-microsoft-store">PWAs in the Microsoft Store</h2>
+<p>see <a href="https://www.pwabuilder.com/">https://www.pwabuilder.com/</a></p>
+
+      </section><section class="slide" id="slide-23-5">
+        <h2 id="pwas-in-other-stores">PWAs in other stores</h2>
+<p>PWAs (or HTML apps in general) can be packaged for various stores even if those stores don&#39;t natively support PWAs:</p>
+<p><a href="https://www.pwabuilder.com/">https://www.pwabuilder.com/</a></p>
+
+      </section></section>
+
+    </div>
+    <div id="navigation-arrows">
+      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="navigation-arrows-svg"
+        xml:space="preserve" width="100%" height="100%" viewBox="-110 -110 220 220">
+        <path class="arrow right" d="M70,-30L100,0L70,30" />
+        <path class="arrow down" d="M-30,70L0,100L30,70" />
+        <path class="arrow left" d="M-70,-30L-100,0L-70,30" />
+        <path class="arrow up" d="M-30,-70L0,-100L30,-70" />
+      </svg>
+    </div>
+  </div>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 100vw;
+      height: 100vh;
+      margin: 0px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: rgb(150, 150, 150);
+      font-family: -apple-system, "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.5rem;
+    }
+
+    ul {
+      padding-left: 1.5rem;
+    }
+
+    h1, h2, h3 {
+      font-weight: 600;
+    }
+
+    h1 {
+      margin-top: 5vh;
+      text-align: center;
+      font-size: 2rem;
+    }
+
+    h2 {
+      margin-bottom: 1.5em;
+    }
+
+    svg {
+      width: 100%;
+      height: auto;
+    }
+
+    .slide.inactive {
+      display: none;
+    }
+
+    #canvas {
+      box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.3);
+      background-color: #f8f8f8;
+      position: relative;
+      display: flex;
+    }
+
+    #canvas-content {
+      width: 100%;
+      height: 100%;
+    }
+
+    #canvas-content .note {
+      display: none;
+    }
+
+    #canvas-content img {
+      margin: 0px auto;
+      display: block;
+    }
+
+    @media (min-aspect-ratio: 8/5) {
+
+      html {
+        font-size: 3.5vh;
+      }
+
+      /* wide screen */
+      #canvas {
+        width: calc(100vh / 5 * 8);
+        height: 100vh;
+        padding: 10vh;
+        padding-top: 5vh;
+      }
+    }
+
+    @media (max-aspect-ratio: 8/5) {
+
+      html {
+        font-size: calc(3.5vw * 5 / 8);
+      }
+
+      /* narrow screen */
+      #canvas {
+        width: 100vw;
+        height: calc(100vw * 5 / 8);
+        padding: calc(10vh * 5 / 8);
+        padding-top: calc(5vh * 5 / 8);
+      }
+    }
+
+    pre {
+      background-color: rgb(224, 233, 240);
+      box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.2);
+      padding: 0.5em 1em;
+      line-height: 1.2em;
+    }
+
+    #navigation-arrows {
+      position: absolute;
+      right: 2rem;
+      top: 2rem;
+      height: 3rem;
+      width: 3rem;
+    }
+
+    .arrow {
+      stroke: lightblue;
+      /*stroke-width: 0.8em; Chrome behaves differently with ems here */
+      stroke-width: 16px;
+      stroke-linecap: round;
+      fill: none;
+      cursor: pointer;
+    }
+
+    td,
+    th {
+      padding: 0.2em 0.8em;
+    }
+
+    th {
+      text-align: start;
+    }
+  </style>
+  <script>
+    let presenterWindow;
+    let activeSlide;
+    let slideCount;
+
+    const arrowUp = document.querySelector('.arrow.up');
+    const arrowDown = document.querySelector('.arrow.down');
+    const arrowRight = document.querySelector('.arrow.right');
+    const arrowLeft = document.querySelector('.arrow.left');
+    arrowUp.addEventListener('click',
+      () => {activateSlideSafe(activeSlide[0], activeSlide[1] - 1);}
+    );
+    arrowDown.addEventListener('click',
+      () => {activateSlideSafe(activeSlide[0], activeSlide[1] + 1);}
+    );
+    arrowLeft.addEventListener('click',
+      () => {activateSlideSafe(activeSlide[0] - 1, 1);}
+    );
+    arrowRight.addEventListener('click',
+      () => {activateSlideSafe(activeSlide[0] + 1, 1);}
+    )
+    const init = () => {
+      slideCount = countSlides();
+      activateSlideSafe(1, 1);
+    }
+
+    // count slides
+    const countSlides = () => {
+      const counts = [];
+      return [...document.querySelectorAll('.section')].map(section => section.childNodes.length);
+    }
+
+    const updateVisible = () => {
+      for (let slide of document.querySelectorAll('.slide')) {
+        if (slide.id === `slide-${activeSlide[0]}-${activeSlide[1]}`) {
+          slide.className = 'slide active';
+        } else {
+          slide.className = 'slide inactive';
+        }
+      }
+    }
+
+    const updatePageArrows = () => {
+      if (slideCount.length === 1) {
+        arrowLeft.style.opacity = "0";
+        arrowRight.style.opacity = "0";
+      } else {
+        const progressSections = (activeSlide[0] - 1) / (slideCount.length - 1);
+        arrowLeft.style.opacity = progressSections.toString();
+        arrowRight.style.opacity = (1 - progressSections).toString();
+      }
+      const slidesInActiveSection = slideCount[activeSlide[0] - 1]
+      if (slidesInActiveSection === 1) {
+        arrowUp.style.opacity = "0";
+        arrowDown.style.opacity = "0";
+      } else {
+        const progressSlides = (activeSlide[1] - 1) / (slidesInActiveSection - 1);
+        arrowUp.style.opacity = progressSlides.toString();
+        arrowDown.style.opacity = (1 - progressSlides).toString();
+      }
+    }
+
+    /**
+     * Activate a slide if it exists, else do nothing
+    */
+    const activateSlideSafe = (sectionIndex, slideIndex) => {
+      if (1 <= sectionIndex && sectionIndex <= slideCount.length && 1 <= slideIndex && slideIndex <= slideCount[sectionIndex - 1]) {
+        activeSlide = [sectionIndex, slideIndex];
+        updateVisible();
+        updatePageArrows();
+        scrolltoActiveSlide();
+      }
+    }
+
+    const activateNextSlide = () => {
+      console.log(activeSlide);
+      console.log(slideCount)
+      if (activeSlide[1] === slideCount[activeSlide[0] - 1]) {
+        console.log('right')
+        activateSlideSafe(activeSlide[0] + 1, 1);
+      } else {
+        console.log('down')
+        activateSlideSafe(activeSlide[0], activeSlide[1] + 1);
+      }
+    }
+
+    const scrolltoActiveSlide = () => {
+      const slideId = `#slide-${activeSlide[0]}-${activeSlide[1]}`;
+      if (presenterWindow) {
+        const activeSlide = presenterWindow.document.querySelector(slideId);
+        if (activeSlide) {
+          activeSlide.scrollIntoView();
+        }
+      }
+    }
+
+    document.querySelector('body').addEventListener('keydown', event => {
+      if (event.key === 'p') {
+        const canvasContent = document.querySelector('#canvas-content').innerHTML;
+        presenterWindow = window.open(document.URL, '_blank');
+        presenterWindow.onload = () => {
+          presenterWindow.document.querySelector('body').innerHTML = canvasContent;
+        }
+      }
+      if (event.key === 'ArrowRight') {
+        activateSlideSafe(activeSlide[0] + 1, 1);
+      } else if (event.key === 'ArrowLeft') {
+        activateSlideSafe(activeSlide[0] - 1, 1);
+      } else if (event.key === 'ArrowDown') {
+        activateSlideSafe(activeSlide[0], activeSlide[1] + 1);
+      } else if (event.key === 'ArrowUp') {
+        activateSlideSafe(activeSlide[0], activeSlide[1] - 1);
+      } else if (event.key === 'Enter') {
+        activateNextSlide();
+      } else {
+        console.log(event.key)
+      }
+    });
+
+    init();
+
+  </script>
+</body>
+
+</html>

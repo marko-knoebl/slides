@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>React extras (2019-03-27)</title>
+  <style>/*
+
+Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
+
+*/
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  background: #F0F0F0;
+}
+
+
+/* Base color: saturation 0; */
+
+.hljs,
+.hljs-subst {
+  color: #444;
+}
+
+.hljs-comment {
+  color: #888888;
+}
+
+.hljs-keyword,
+.hljs-attribute,
+.hljs-selector-tag,
+.hljs-meta-keyword,
+.hljs-doctag,
+.hljs-name {
+  font-weight: bold;
+}
+
+
+/* User color: hue: 0 */
+
+.hljs-type,
+.hljs-string,
+.hljs-number,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-quote,
+.hljs-template-tag,
+.hljs-deletion {
+  color: #880000;
+}
+
+.hljs-title,
+.hljs-section {
+  color: #880000;
+  font-weight: bold;
+}
+
+.hljs-regexp,
+.hljs-symbol,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-link,
+.hljs-selector-attr,
+.hljs-selector-pseudo {
+  color: #BC6060;
+}
+
+
+/* Language color: hue: 90; */
+
+.hljs-literal {
+  color: #78A960;
+}
+
+.hljs-built_in,
+.hljs-bullet,
+.hljs-code,
+.hljs-addition {
+  color: #397300;
+}
+
+
+/* Meta color: hue: 200 */
+
+.hljs-meta {
+  color: #1f7199;
+}
+
+.hljs-meta-string {
+  color: #4d99bf;
+}
+
+
+/* Misc effects */
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+  <div id="canvas">
+    <div id="canvas-content">
+
+      <section class="section" id="section-1"><section class="slide" id="slide-1-1">
+        <h1 id="lodash">lodash</h1>
+
+      </section><section class="slide" id="slide-1-2">
+        <h2 id="lodash">lodash</h2>
+<p>JavaScript utility library</p>
+<pre><code class="language-js">_.defaults({ <span class="hljs-attr">a</span>: <span class="hljs-number">1</span> }, { <span class="hljs-attr">a</span>: <span class="hljs-number">3</span>, <span class="hljs-attr">b</span>: <span class="hljs-number">2</span> });
+<span class="hljs-comment">// → { a: 1, b: 2 }</span>
+_.partition([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>], n =&gt; n % <span class="hljs-number">2</span>);
+<span class="hljs-comment">// → [[1, 3], [2, 4]]</span></code></pre>
+
+      </section><section class="slide" id="slide-1-3">
+        <h2 id="lodash">lodash</h2>
+<p>collection of utility functions for working with arrays, objects, functions, strings, ...</p>
+
+      </section><section class="slide" id="slide-1-4">
+        <h2 id="lodash">lodash</h2>
+<pre><code class="language-js"><span class="hljs-keyword">import</span> { chunk } <span class="hljs-keyword">from</span> <span class="hljs-string">'lodash'</span>;
+
+chunk([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>], <span class="hljs-number">3</span>);
+<span class="hljs-comment">// -&gt; [[1, 2, 3], [4, 5, 6], [7]]</span></code></pre>
+
+      </section><section class="slide" id="slide-1-5">
+        <h2 id="functions-for-arrays">functions for arrays</h2>
+<ul>
+<li><code>chunk</code></li>
+<li><code>difference</code></li>
+<li><code>drop</code></li>
+<li><code>flatten</code>, <code>flattenDeep</code></li>
+<li><code>intersection</code>, <code>union</code>, <code>difference</code>, <code>without</code></li>
+<li><code>last</code></li>
+<li><code>uniq</code></li>
+<li><code>zip</code></li>
+</ul>
+
+      </section><section class="slide" id="slide-1-6">
+        <h2 id="functions-for-arrays-and-objects">functions for arrays and objects</h2>
+<ul>
+<li><code>groupBy</code></li>
+<li><code>keyBy</code></li>
+<li><code>partition</code></li>
+<li><code>shuffle</code></li>
+<li><code>sortBy</code> (creates new array)</li>
+<li><code>cloneDeep</code></li>
+<li><code>isEqual</code></li>
+</ul>
+
+      </section><section class="slide" id="slide-1-7">
+        <h2 id="functions-for-functions">functions for functions</h2>
+<ul>
+<li><code>curry</code></li>
+<li><code>partial</code></li>
+<li><code>debounce</code></li>
+<li><code>memoize</code></li>
+</ul>
+
+      </section><section class="slide" id="slide-1-8">
+        <h2 id="utilities">utilities</h2>
+<ul>
+<li><code>bindAll</code></li>
+<li><code>range</code></li>
+</ul>
+
+      </section></section><section class="section" id="section-2"><section class="slide" id="slide-2-1">
+        <h1 id="craco">craco</h1>
+
+      </section><section class="slide" id="slide-2-2">
+        <h2 id="craco">craco</h2>
+<p>= Create React App Configuration Override</p>
+
+      </section><section class="slide" id="slide-2-3">
+        <h2 id="craco-setup">craco setup</h2>
+<pre><code class="language-bash">npm install @craco/craco</code></pre>
+
+      </section><section class="slide" id="slide-2-4">
+        <h2 id="craco-setup">craco setup</h2>
+<p>package.json:</p>
+<pre><code class="language-json">  &quot;scripts&quot;: {
+    &quot;start&quot;: &quot;craco start&quot;,
+    &quot;build&quot;: &quot;craco build&quot;,
+    &quot;test&quot;: &quot;craco test&quot;,
+    &quot;eject&quot;: &quot;craco eject&quot;
+  },</code></pre>
+
+      </section><section class="slide" id="slide-2-5">
+        <h2 id="craco-setup-for-less">craco setup for LESS</h2>
+<pre><code class="language-bash">npm install craco-less</code></pre>
+<pre><code class="language-js"><span class="hljs-comment">// craco.config.js</span>
+<span class="hljs-built_in">module</span>.exports = {
+  <span class="hljs-attr">plugins</span>: [
+    {
+      <span class="hljs-attr">plugin</span>: <span class="hljs-built_in">require</span>(<span class="hljs-string">'craco-less'</span>),
+    },
+  ],
+};</code></pre>
+
+      </section></section><section class="section" id="section-3"><section class="slide" id="slide-3-1">
+        <h1 id="less">LESS</h1>
+
+      </section><section class="slide" id="slide-3-2">
+        <h2 id="stylesheet-languages">Stylesheet languages</h2>
+<ul>
+<li>CSS</li>
+<li>SASS / SCSSS</li>
+<li>LESS</li>
+</ul>
+
+      </section><section class="slide" id="slide-3-3">
+        <h2 id="variables">Variables</h2>
+<pre><code class="language-less"><span class="hljs-variable">@theme-color:</span> blue;
+
+<span class="hljs-selector-tag">body</span> {
+  <span class="hljs-attribute">color</span>: <span class="hljs-variable">@theme-color</span>;
+}</code></pre>
+
+      </section><section class="slide" id="slide-3-4">
+        <h2 id="mixins">Mixins</h2>
+<pre><code class="language-less"><span class="hljs-selector-class">.theme-color-combination</span> {
+  <span class="hljs-attribute">color</span>: blue;
+  <span class="hljs-attribute">background-color</span>: lightblue;
+}
+
+<span class="hljs-selector-tag">body</span> {
+  <span class="hljs-selector-class">.theme-color-combination</span>();
+}</code></pre>
+
+      </section><section class="slide" id="slide-3-5">
+        <h2 id="nesting">Nesting</h2>
+<pre><code class="language-less"><span class="hljs-selector-tag">nav</span> {
+  <span class="hljs-attribute">color</span>: black;
+  <span class="hljs-selector-tag">ul</span> {
+    <span class="hljs-attribute">margin</span>: <span class="hljs-number">0px</span>;
+  }
+}</code></pre>
+
+      </section><section class="slide" id="slide-3-6">
+        <h2 id="computations">Computations</h2>
+<pre><code class="language-less"><span class="hljs-selector-tag">div</span> {
+  <span class="hljs-attribute">width</span>: <span class="hljs-number">50%</span> - <span class="hljs-number">80px</span>;
+}</code></pre>
+
+      </section><section class="slide" id="slide-3-7">
+        <h2 id="functions">Functions</h2>
+<ul>
+<li><code>lighten()</code></li>
+<li><code>darken()</code></li>
+<li><code>saturate()</code></li>
+<li>...</li>
+</ul>
+<pre><code class="language-less"><span class="hljs-variable">@theme-text-color:</span> darken(<span class="hljs-variable">@theme-color</span>, <span class="hljs-number">50%</span>);</code></pre>
+
+      </section><section class="slide" id="slide-3-8">
+        <h2 id="imports">Imports</h2>
+<pre><code class="language-less"><span class="hljs-keyword">@import</span> <span class="hljs-string">'../theme.less'</span>;</code></pre>
+
+      </section></section>
+
+    </div>
+    <div id="navigation-arrows">
+      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="navigation-arrows-svg"
+        xml:space="preserve" width="100%" height="100%" viewBox="-110 -110 220 220">
+        <path class="arrow right" d="M70,-30L100,0L70,30" />
+        <path class="arrow down" d="M-30,70L0,100L30,70" />
+        <path class="arrow left" d="M-70,-30L-100,0L-70,30" />
+        <path class="arrow up" d="M-30,-70L0,-100L30,-70" />
+      </svg>
+    </div>
+  </div>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 100vw;
+      height: 100vh;
+      margin: 0px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: rgb(150, 150, 150);
+      font-family: -apple-system, "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.5rem;
+    }
+
+    ul {
+      padding-left: 1.5rem;
+    }
+
+    h1, h2, h3 {
+      font-weight: 600;
+    }
+
+    h1 {
+      margin-top: 5vh;
+      text-align: center;
+      font-size: 2rem;
+    }
+
+    h2 {
+      margin-bottom: 1.5em;
+    }
+
+    svg {
+      width: 100%;
+      height: auto;
+    }
+
+    .slide.inactive {
+      display: none;
+    }
+
+    #canvas {
+      box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.3);
+      background-color: #f8f8f8;
+      position: relative;
+      display: flex;
+    }
+
+    #canvas-content {
+      width: 100%;
+      height: 100%;
+    }
+
+    #canvas-content .note {
+      display: none;
+    }
+
+    #canvas-content img {
+      margin: 0px auto;
+      display: block;
+    }
+
+    @media (min-aspect-ratio: 8/5) {
+
+      html {
+        font-size: 3.5vh;
+      }
+
+      /* wide screen */
+      #canvas {
+        width: calc(100vh / 5 * 8);
+        height: 100vh;
+        padding: 10vh;
+        padding-top: 5vh;
+      }
+    }
+
+    @media (max-aspect-ratio: 8/5) {
+
+      html {
+        font-size: calc(3.5vw * 5 / 8);
+      }
+
+      /* narrow screen */
+      #canvas {
+        width: 100vw;
+        height: calc(100vw * 5 / 8);
+        padding: calc(10vh * 5 / 8);
+        padding-top: calc(5vh * 5 / 8);
+      }
+    }
+
+    pre {
+      background-color: rgb(224, 233, 240);
+      box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.2);
+      padding: 0.5em 1em;
+      line-height: 1.2em;
+    }
+
+    #navigation-arrows {
+      position: absolute;
+      right: 2rem;
+      top: 2rem;
+      height: 3rem;
+      width: 3rem;
+    }
+
+    .arrow {
+      stroke: lightblue;
+      /*stroke-width: 0.8em; Chrome behaves differently with ems here */
+      stroke-width: 16px;
+      stroke-linecap: round;
+      fill: none;
+      cursor: pointer;
+    }
+
+    td,
+    th {
+      padding: 0.2em 0.8em;
+    }
+
+    th {
+      text-align: start;
+    }
+  </style>
+  <script>
+    let presenterWindow;
+    let activeSlide;
+    let slideCount;
+
+    const arrowUp = document.querySelector('.arrow.up');
+    const arrowDown = document.querySelector('.arrow.down');
+    const arrowRight = document.querySelector('.arrow.right');
+    const arrowLeft = document.querySelector('.arrow.left');
+    arrowUp.addEventListener('click',
+      () => {activateSlideSafe(activeSlide[0], activeSlide[1] - 1);}
+    );
+    arrowDown.addEventListener('click',
+      () => {activateSlideSafe(activeSlide[0], activeSlide[1] + 1);}
+    );
+    arrowLeft.addEventListener('click',
+      () => {activateSlideSafe(activeSlide[0] - 1, 1);}
+    );
+    arrowRight.addEventListener('click',
+      () => {activateSlideSafe(activeSlide[0] + 1, 1);}
+    )
+    const init = () => {
+      slideCount = countSlides();
+      activateSlideSafe(1, 1);
+    }
+
+    // count slides
+    const countSlides = () => {
+      const counts = [];
+      return [...document.querySelectorAll('.section')].map(section => section.childNodes.length);
+    }
+
+    const updateVisible = () => {
+      for (let slide of document.querySelectorAll('.slide')) {
+        if (slide.id === `slide-${activeSlide[0]}-${activeSlide[1]}`) {
+          slide.className = 'slide active';
+        } else {
+          slide.className = 'slide inactive';
+        }
+      }
+    }
+
+    const updatePageArrows = () => {
+      if (slideCount.length === 1) {
+        arrowLeft.style.opacity = "0";
+        arrowRight.style.opacity = "0";
+      } else {
+        const progressSections = (activeSlide[0] - 1) / (slideCount.length - 1);
+        arrowLeft.style.opacity = progressSections.toString();
+        arrowRight.style.opacity = (1 - progressSections).toString();
+      }
+      const slidesInActiveSection = slideCount[activeSlide[0] - 1]
+      if (slidesInActiveSection === 1) {
+        arrowUp.style.opacity = "0";
+        arrowDown.style.opacity = "0";
+      } else {
+        const progressSlides = (activeSlide[1] - 1) / (slidesInActiveSection - 1);
+        arrowUp.style.opacity = progressSlides.toString();
+        arrowDown.style.opacity = (1 - progressSlides).toString();
+      }
+    }
+
+    /**
+     * Activate a slide if it exists, else do nothing
+    */
+    const activateSlideSafe = (sectionIndex, slideIndex) => {
+      if (1 <= sectionIndex && sectionIndex <= slideCount.length && 1 <= slideIndex && slideIndex <= slideCount[sectionIndex - 1]) {
+        activeSlide = [sectionIndex, slideIndex];
+        updateVisible();
+        updatePageArrows();
+        scrolltoActiveSlide();
+      }
+    }
+
+    const activateNextSlide = () => {
+      console.log(activeSlide);
+      console.log(slideCount)
+      if (activeSlide[1] === slideCount[activeSlide[0] - 1]) {
+        console.log('right')
+        activateSlideSafe(activeSlide[0] + 1, 1);
+      } else {
+        console.log('down')
+        activateSlideSafe(activeSlide[0], activeSlide[1] + 1);
+      }
+    }
+
+    const scrolltoActiveSlide = () => {
+      const slideId = `#slide-${activeSlide[0]}-${activeSlide[1]}`;
+      if (presenterWindow) {
+        const activeSlide = presenterWindow.document.querySelector(slideId);
+        if (activeSlide) {
+          activeSlide.scrollIntoView();
+        }
+      }
+    }
+
+    document.querySelector('body').addEventListener('keydown', event => {
+      if (event.key === 'p') {
+        const canvasContent = document.querySelector('#canvas-content').innerHTML;
+        presenterWindow = window.open(document.URL, '_blank');
+        presenterWindow.onload = () => {
+          presenterWindow.document.querySelector('body').innerHTML = canvasContent;
+        }
+      }
+      if (event.key === 'ArrowRight') {
+        activateSlideSafe(activeSlide[0] + 1, 1);
+      } else if (event.key === 'ArrowLeft') {
+        activateSlideSafe(activeSlide[0] - 1, 1);
+      } else if (event.key === 'ArrowDown') {
+        activateSlideSafe(activeSlide[0], activeSlide[1] + 1);
+      } else if (event.key === 'ArrowUp') {
+        activateSlideSafe(activeSlide[0], activeSlide[1] - 1);
+      } else if (event.key === 'Enter') {
+        activateNextSlide();
+      } else {
+        console.log(event.key)
+      }
+    });
+
+    init();
+
+  </script>
+</body>
+
+</html>

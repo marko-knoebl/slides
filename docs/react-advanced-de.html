@@ -123,6 +123,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <blockquote>
 <p>&quot;In the longer term, we expect Hooks to be the primary way people write React components.&quot;</p>
 </blockquote>
+<p>- <a href="https://reactjs.org/docs/hooks-faq.html#should-i-use-hooks-classes-or-a-mix-of-both">React FAQ</a></p>
 
       </section><section class="slide" id="slide-1-4">
         <h2 id="hooks-derzeitiger-stand">Hooks: derzeitiger Stand</h2>
@@ -332,7 +333,7 @@ useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;<
 
       </section><section class="slide" id="slide-4-5">
         <h2 id="reducer-hook">reducer Hook</h2>
-<p>State management mit reducern:</p>
+<p>State management mit Reducern:</p>
 <p>Beim <em>reducer Hook</em> bzw <em>Redux</em>:</p>
 <p>Der Übergang von einem State auf den nächsten geschieht mittels einer Reducer-Funktion:</p>
 <p>Die Reducer-Funktion erhält als Funktionsparameter den alten Zustand (State) und eine Action, die eine Zustandsänderung beschreibt.</p>
@@ -398,19 +399,27 @@ useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;<
       </section><section class="slide" id="slide-5-5">
         <h2 id="einrichten-des-test-runners">Einrichten des Test Runners</h2>
 <p>in einem vorhandenen npm Projekt:</p>
-<pre><code class="language-bash">npm install --save-dev mocha</code></pre>
+<pre><code class="language-bash">npm install --save-dev jest</code></pre>
 <p>in <em>package.json</em>:</p>
 <pre><code class="language-json">&quot;scripts&quot;: {
-  &quot;test&quot;: &quot;mocha&quot;
+  &quot;test&quot;: &quot;jest&quot;
 }</code></pre>
 <p>Tests ausführen:</p>
 <pre><code class="language-bash">npm <span class="hljs-built_in">test</span></code></pre>
 
       </section><section class="slide" id="slide-5-6">
         <h2 id="finden-von-tests">Finden von Tests</h2>
-<p>Im allgemeinen suchen Test Libraries nach Dateien mit der Endung <code>.test.js</code> oder <code>.spec.js</code></p>
+<p>Im allgemeinen suchen Test Libraries nach Dateien mit der Endung <code>.test.js</code> oder <code>.spec.js</code> in dem Ordner <code>test</code>.</p>
+<p>Wir können auch ein eigenes Muster übergeben, z.B.:</p>
+<pre><code class="language-bash">mocha <span class="hljs-string">"src/**/*.{test,spec}.{js,jsx}"</span></code></pre>
 
       </section><section class="slide" id="slide-5-7">
+        <h2 id="test-coverage">test coverage</h2>
+<p>Manche Testlibraries können berichten, wie viel des Codes von Tests abgedeckt ist:</p>
+<p>Beispiel - in einem create-react-app Projekt:</p>
+<pre><code class="language-bash">npm tst -- --coverage</code></pre>
+
+      </section><section class="slide" id="slide-5-8">
         <h2 id="beispiel-shorten">Beispiel: shorten</h2>
 <pre><code class="language-js"><span class="hljs-comment">// shorten.js</span>
 <span class="hljs-keyword">const</span> shorten = <span class="hljs-function">(<span class="hljs-params">s, maxlength</span>) =&gt;</span> {
@@ -422,7 +431,7 @@ useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;<
 
 <span class="hljs-built_in">module</span>.exports.shorten = shorten;</code></pre>
 
-      </section><section class="slide" id="slide-5-8">
+      </section><section class="slide" id="slide-5-9">
         <h2 id="beispiel-shorten">Beispiel: shorten</h2>
 <pre><code class="language-js"><span class="hljs-comment">// shorten.test.js</span>
 <span class="hljs-keyword">const</span> shorten = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./shorten.js'</span>).shorten;
@@ -531,15 +540,27 @@ afterEach(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;<
       </section><section class="slide" id="slide-8-3">
         <h2 id="enzyme---einrichtung">Enzyme - Einrichtung</h2>
 <pre><code>npm install --save-dev enzyme enzyme-adapter-react-16</code></pre><p>neue Datei <code>src/setupTests.js</code>:</p>
-<pre><code>import { configure } from &#39;enzyme&#39;;
-import Adapter from &#39;enzyme-adapter-react-16&#39;;
+<pre><code class="language-js"><span class="hljs-keyword">import</span> { configure } <span class="hljs-keyword">from</span> <span class="hljs-string">'enzyme'</span>;
+<span class="hljs-keyword">import</span> Adapter <span class="hljs-keyword">from</span> <span class="hljs-string">'enzyme-adapter-react-16'</span>;
 
-configure({ adapter: new Adapter() });</code></pre>
+configure({ <span class="hljs-attr">adapter</span>: <span class="hljs-keyword">new</span> Adapter() });</code></pre>
+
       </section><section class="slide" id="slide-8-4">
+        <h2 id="enzyme---beispiele">Enzyme - Beispiele</h2>
+<pre><code class="language-jsx"><span class="hljs-keyword">import</span> { shallow, mount } <span class="hljs-keyword">from</span> <span class="hljs-string">'enzyme'</span>;
+
+it(<span class="hljs-string">'renders a component without crashing'</span>, () =&gt; {
+  <span class="hljs-keyword">const</span> wrapper = shallow(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">MyComponent</span> /&gt;</span>);
+});
+
+it('renders a component tree without crashing', () =&gt; {
+  const wrapper = mount(<span class="hljs-tag">&lt;<span class="hljs-name">MyComponent</span> /&gt;</span>);
+});</span></code></pre>
+
+      </section><section class="slide" id="slide-8-5">
         <h2 id="enzyme---beispiele">Enzyme - Beispiele</h2>
 <p>Tests mit Jest</p>
 <pre><code class="language-jsx">it(<span class="hljs-string">'renders three &lt;Foo /&gt; components'</span>, () =&gt; {
-  <span class="hljs-comment">// Alternative zu shallow: mount()</span>
   <span class="hljs-keyword">const</span> wrapper = shallow(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">MyComponent</span> /&gt;</span>);
   expect(wrapper.find(Foo)).toHaveLength(3);
 });
@@ -549,8 +570,9 @@ it('renders an `.icon-star`', () =&gt; {
   expect(wrapper.find('.icon-star')).toHaveLength(1);
 });</span></code></pre>
 
-      </section><section class="slide" id="slide-8-5">
+      </section><section class="slide" id="slide-8-6">
         <h2 id="enzyme---beispiele">Enzyme - Beispiele</h2>
+<p>Tests mit Chai</p>
 <pre><code class="language-jsx">it(<span class="hljs-string">'reacts to click events'</span>, () =&gt; {
   <span class="hljs-keyword">const</span> onButtonClick = sinon.spy();
   <span class="hljs-keyword">const</span> wrapper = shallow(
@@ -560,7 +582,7 @@ it('renders an `.icon-star`', () =&gt; {
   expect(onButtonClick).to.have.property('callCount', 1);
 });</span></code></pre>
 
-      </section><section class="slide" id="slide-8-6">
+      </section><section class="slide" id="slide-8-7">
         <h2 id="enzyme---beispiele">Enzyme - Beispiele</h2>
 <pre><code class="language-jsx">it(<span class="hljs-string">'reacts to click events'</span>, () =&gt; {
   <span class="hljs-keyword">const</span> mockFunction = jest.fn();
@@ -568,23 +590,40 @@ it('renders an `.icon-star`', () =&gt; {
   <span class="hljs-keyword">const</span> wrapper = mount(
     <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Rating</span> <span class="hljs-attr">stars</span>=<span class="hljs-string">{3}</span> <span class="hljs-attr">onStarsChange</span>=<span class="hljs-string">{mockFunction}</span> /&gt;</span>
   );
-  expect(wrapper.childAt(0).childAt(2).text()).toBe('*');
-  wrapper.childAt(0).childAt(1).simulate('click');
+  expect(
+    wrapper
+      .childAt(0)
+      .childAt(2)
+      .text()
+  ).toBe('*');
+  wrapper
+    .childAt(0)
+    .childAt(1)
+    .simulate('click');
   expect(mockFunction).toBeCalledWith(2);
 });</span></code></pre>
 
-      </section><section class="slide" id="slide-8-7">
+      </section><section class="slide" id="slide-8-8">
+        <h2 id="enzyme---examples">Enzyme - Examples</h2>
+<pre><code class="language-jsx">it(<span class="hljs-string">'changes state when clicked'</span>, () =&gt; {
+  <span class="hljs-keyword">const</span> wrapper = shallow(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Counter</span> /&gt;</span>);
+  expect(wrapper.instance.state.count).toEqual(0);
+  wrapper.childAt(0).simulate('click');
+  expect(wrapper.instance.state.count).toEqual(1);
+});</span></code></pre>
+
+      </section><section class="slide" id="slide-8-9">
         <h2 id="snapshot-tests">Snapshot Tests</h2>
 <p>Komponenten werden gerendert und mit früheren Versionen (Snapshots) verglichen</p>
 <p>Snapshot Tests fallen unter Regressionstests.</p>
 
-      </section><section class="slide" id="slide-8-8">
+      </section><section class="slide" id="slide-8-10">
         <h2 id="snapshot-tests---setup">Snapshot Tests - setup</h2>
 <pre><code class="language-bash">npm install --save-dev react-test-renderer</code></pre>
 <p>für TypeScript:</p>
 <pre><code class="language-bash">npm install --save-dev @types/react-test-renderer</code></pre>
 
-      </section><section class="slide" id="slide-8-9">
+      </section><section class="slide" id="slide-8-11">
         <h2 id="snapshot-tests-in-react---tests-erstellen">Snapshot Tests in React - Tests erstellen</h2>
 <pre><code class="language-jsx"><span class="hljs-comment">// Rating.test.js</span>
 <span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
@@ -598,7 +637,7 @@ it(<span class="hljs-string">'renders correctly'</span>, () =&gt; {
   expect(tree).toMatchSnapshot();
 });</span></code></pre>
 
-      </section><section class="slide" id="slide-8-10">
+      </section><section class="slide" id="slide-8-12">
         <h2 id="snapshot-tests-aktualisieren">Snapshot Tests aktualisieren</h2>
 <p>Haben wir das Verhalten einer Komponente geändert und danach ihr Verhalten überprüft,
 können wir Snapshot-Tests entsprechend aktualisieren:</p>
@@ -625,7 +664,7 @@ Inspect your code changes or press `u` to update them.</code></pre>
     expect(wrapper.find(<span class="hljs-string">'Star'</span>)).to.have.length(<span class="hljs-number">5</span>);
   });
 
-  it(<span class="hljs-string">'renders 5 active stars'</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+  it(<span class="hljs-string">'renders 5 stars'</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
     <span class="hljs-keyword">const</span> wrapper = mount(&lt;Rating stars={<span class="hljs-number">5</span>} /&gt;);
     expect(wrapper.find(<span class="hljs-string">'.star'</span>)).to.have.length(<span class="hljs-number">5</span>);
   });
@@ -721,10 +760,10 @@ npm install react-router-dom @types/react-router-dom</code></pre>
 
       </section><section class="slide" id="slide-10-7">
         <h2 id="react-router---router-links">React Router - Router-Links</h2>
-<pre><code class="language-jsx"><span class="hljs-keyword">import</span> { Link } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router-dom'</span>;
+<pre><code class="language-jsx"><span class="hljs-keyword">import</span> { NavLink } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router-dom'</span>;
 
-<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Link</span> <span class="hljs-attr">to</span>=<span class="hljs-string">"/"</span>&gt;</span>Home<span class="hljs-tag">&lt;/<span class="hljs-name">Link</span>&gt;</span></span>
-&lt;Link to=<span class="hljs-string">"/add"</span>&gt;Add&lt;<span class="hljs-regexp">/Link&gt;</span></code></pre>
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">NavLink</span> <span class="hljs-attr">to</span>=<span class="hljs-string">"/"</span> <span class="hljs-attr">activeClassName</span>=<span class="hljs-string">"active-link"</span>&gt;</span>Home<span class="hljs-tag">&lt;/<span class="hljs-name">Link</span>&gt;</span></span>
+&lt;NavLink to=<span class="hljs-string">"/add"</span> activeClassName=<span class="hljs-string">"active-link"</span>&gt;Add&lt;<span class="hljs-regexp">/Link&gt;</span></code></pre>
 
       </section><section class="slide" id="slide-10-8">
         <h2 id="react-router---redirects">React Router - Redirects</h2>
@@ -814,11 +853,10 @@ componentDidMount() {
 };</code></pre>
 
       </section><section class="slide" id="slide-11-9">
-        <h2 id="pwa-deployment-auf-bitballoon">PWA: Deployment auf Bitballoon</h2>
+        <h2 id="pwa-deployment-auf-netlify">PWA: Deployment auf netlify</h2>
 <ul>
 <li><code>npm run build</code></li>
-<li>dist-Ornder via drag&amp;drop auf bitballoon.com (app.netlify.com/drop)</li>
-<li>edit name auswählen und kürzeren Namen wählen</li>
+<li>dist-Ornder via drag&amp;drop auf app.netlify.com/drop</li>
 <li>Manuell auf https wechseln - in Chrome am Desktop und Mobilgerät ausprobieren</li>
 </ul>
 
@@ -851,14 +889,14 @@ componentDidMount() {
         <h2 id="context---beispiel-typescript">Context - Beispiel: TypeScript</h2>
 <pre><code class="language-ts"><span class="hljs-comment">// TodosContext.ts</span>
 
-<span class="hljs-keyword">type</span> TodosContext = {
+<span class="hljs-keyword">type</span> TodosContextType = {
   todos: <span class="hljs-built_in">Array</span>&lt;Todo&gt;;
   onToggle: <span class="hljs-function">(<span class="hljs-params">id: <span class="hljs-built_in">number</span></span>) =&gt;</span> <span class="hljs-built_in">void</span>;
   onClear: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-built_in">void</span>;
 };
 
 <span class="hljs-keyword">const</span> TodosContext = React.createContext(
-  {} <span class="hljs-keyword">as</span> TodosContext
+  {} <span class="hljs-keyword">as</span> TodosContextType
 );</code></pre>
 
       </section><section class="slide" id="slide-12-7">
@@ -915,87 +953,6 @@ componentDidMount() {
 <li>Zu Beginn nicht zu viel Gedanken daran verschwenden</li>
 </ul>
 
-      </section></section><section class="section" id="section-14"><section class="slide" id="slide-14-1">
-        <h1 id="serverseitiges-rendering-mit-nextjs">Serverseitiges Rendering mit next.js</h1>
-
-      </section><section class="slide" id="slide-14-2">
-        <h2 id="serverseitiges-rendering-mit-nextjs">Serverseitiges Rendering mit next.js</h2>
-<p><a href="https://github.com/zeit/next.js/">github.com/zeit/next.js</a></p>
-
-      </section><section class="slide" id="slide-14-3">
-        <h2 id="serverseitiges-rendering">Serverseitiges rendering</h2>
-<ul>
-<li>Ermöglicht Verwendung von JSX als Templatesprache am Server</li>
-<li>Anwendungsgebiete:<ul>
-<li>Erstellen von statischen Websites</li>
-<li>Anwendung kann am Server vorgerendert werden<ul>
-<li>Schnelleres erstes Rendering</li>
-<li>Einfacheres indexieren durch Suchmaschinen</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-      </section><section class="slide" id="slide-14-4">
-        <h2 id="setup">Setup</h2>
-<p>Siehe <a href="https://github.com/zeit/next.js/#setup">https://github.com/zeit/next.js/#setup</a></p>
-<!--
-```bash
-npm init
-npm install --save next react react-dom
-```
-package.json:
-```json
-  [...]
-  "scripts": {
-    "dev": "next",
-    "build": "next build",
-    "start": "next start"
-  }
-```
--->
-
-
-      </section><section class="slide" id="slide-14-5">
-        <h2 id="build--test">Build &amp; Test</h2>
-<p>Testserver starten:</p>
-<pre><code class="language-bash">npm run dev</code></pre>
-<p>Build:</p>
-<pre><code class="language-bash">npm build</code></pre>
-
-      </section><section class="slide" id="slide-14-6">
-        <h2 id="grundlagen">Grundlagen</h2>
-<ul>
-<li>Seiten definiert unter <em>./pages</em></li>
-<li>Statische Assets unter <em>./static</em></li>
-<li>verwendete Komponenten unter <em>./components</em></li>
-</ul>
-
-      </section><section class="slide" id="slide-14-7">
-        <h2 id="beispiel-hello-world">Beispiel: Hello world</h2>
-<p>index.js:</p>
-<pre><code class="language-js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> () =&gt; <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Welcome to next.js!<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>;</code></pre>
-
-      </section><section class="slide" id="slide-14-8">
-        <h2 id="daten-einbinden-getinitialprops">Daten einbinden: getInitialProps()</h2>
-<pre><code class="language-jsx"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
-<span class="hljs-keyword">import</span> fetch <span class="hljs-keyword">from</span> <span class="hljs-string">'isomorphic-fetch'</span>;
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Page</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
-  <span class="hljs-comment">// am Server ausgeführt (node.js)</span>
-  <span class="hljs-keyword">static</span> <span class="hljs-keyword">async</span> getInitialProps() {
-    <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> fetch(
-      <span class="hljs-string">'https://api.github.com/repos/zeit/next.js'</span>
-    );
-    <span class="hljs-keyword">const</span> json = <span class="hljs-keyword">await</span> res.json();
-    <span class="hljs-keyword">return</span> { <span class="hljs-attr">stars</span>: json.stargazers_count };
-  }
-  render() {
-    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span> Next stars: {this.props.stars} <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>;
-  }
-}</code></pre>
-
       </section></section>
 
     </div>
@@ -1030,7 +987,7 @@ package.json:
       padding-left: 1.5rem;
     }
 
-    h1, h2 {
+    h1, h2, h3 {
       font-weight: 600;
     }
 

@@ -418,12 +418,6 @@ let name: string = 'Andreas';
 ## Typsystem: Arrays
 
 ```js
-let names: Array = ['Anna', 'Bernhard'];
-```
-
-genauer:
-
-```js
 let names: Array<string> = ['Anna', 'Bernhard'];
 ```
 
@@ -447,7 +441,9 @@ function repeatString(
 const repeatString = (
   text: string,
   times: number
-): string => {...};
+): string => {
+  return ...;
+};
 ```
 
 ## Typsystem: void
@@ -530,7 +526,7 @@ type ActionType = {
   payload?: object;
 };
 
-type AddTodoActionType = ReduxActionType & {
+type AddTodoActionType = ActionType & {
   type: 'ADD_TODO';
   payload: {
     title: string;
