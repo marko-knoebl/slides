@@ -39,7 +39,7 @@ class myComponent {
 }
 ```
 
-## Problem: Methodenaufrufe ohne Methodensyntax
+## Problem: method calls without method syntax
 
 ```js
 class Foo {
@@ -50,9 +50,9 @@ class Foo {
     console.log(this.message);
   }
 }
-let f = new Foo();
-f.greet(); // works
-let fg = f.greet;
+let foo = new Foo();
+foo.greet(); // works
+let fg = foo.greet;
 fg(); // doesn't work (this is undefined)
 ```
 

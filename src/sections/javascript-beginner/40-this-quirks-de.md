@@ -48,9 +48,9 @@ class Foo {
     console.log(this.message);
   }
 }
-let f = new Foo();
-f.greet(); // klappt
-let fg = f.greet;
+let foo = new Foo();
+foo.greet(); // klappt
+let fg = foo.greet;
 fg(); // klappt nicht (this ist undefined)
 ```
 

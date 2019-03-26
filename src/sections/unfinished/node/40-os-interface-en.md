@@ -92,3 +92,7 @@ readFileAsync();
 ## exercise: listing all files of a specific type
 
 (see exercise from learnyounode)
+
+## exercise: form letters
+
+create a series of HTML form letters for different recipients from a template
