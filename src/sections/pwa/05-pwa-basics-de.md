@@ -2,7 +2,7 @@
 
 <!-- https://developers.google.com/web/ilt/pwa/ -->
 
-## Grundprinzipien PWA
+## PWA Grundlagen
 
 https://developers.google.com/web/ilt/pwa/why-build-pwa
 
@@ -18,9 +18,18 @@ https://developers.google.com/web/ilt/pwa/why-build-pwa
 
 ## Browser-Unterstützung
 
-Service Worker: ab Edge 17, ab iOS 11.3
+Service worker:
 
-manifest.json: ab Edge 17, ab iOS 11.3, kein Firefox
+https://caniuse.com/#search=service%20workers
+
+Web app manifest:
+
+https://caniuse.com/#search=manifest
+
+indexedDB:
+
+https://caniuse.com/#search=indexeddb
+
 
 ## Beispiele
 

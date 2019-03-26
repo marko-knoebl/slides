@@ -1,45 +1,11 @@
 # Service Worker und Workbox
 
-## Service Worker - Motivation
-
-Service Worker = "Mittelmann" (Proxy) zwischen Webbrowser und Server (als Teil des Browsers)
-
-Haupteinsatzgebiet: Offlinenutzung von Webseiten / Webanwendungen (Ersetzt die alte AppCache-Funktionalität)
-
-## Service Worker
-
-### Traditionelle Web-App:
-
-Endgerät ⟺ Web Server
-
-### PWA:
-
-Endgerät ⟺ Service Worker ⟺ Web Server
-
-## Grundlagen
-
-service worker = Skript, das im Hintergrund läuft
-
-Funktionen:
-
-- Caching von Resourcen
-- Sync im Hintergrund
-- Push-Benachrichtigungen (auch wenn Browser / Anwendung geschlossen)
-
-Wichtige Funktionalität: Im Hintergrund Netzwerkanfragen abfangen und behandeln
-
 ## Grundlagen
 
 Service-Worker sind besondere Web-Worker, daher:
 
 - kein direkter Zugriff auf das DOM
 - Kommunikation mit Hauptthread mittels postMessage
-
-## Browser-Unterstützung
-
-[caniuse](https://caniuse.com/##feat=serviceworkers)
-
-Wenn ServiceWorker unterstützt werden => Unterstützung für ES2015
 
 ## Wichtige verwandte Technologien
 

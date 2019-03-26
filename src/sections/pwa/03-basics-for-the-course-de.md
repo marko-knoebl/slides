@@ -9,10 +9,13 @@
   - Module
   - Pfeilfunktionen
   - const & let
+- einen lokalen Entwicklungsserver starten
 
-## Chrome Plugins
+## lokaler Entwicklungsserver
 
-- Web Server for Chrome:
-  https://chrome.google.com/webstore/detail/web-server-for-chrome/ofhbbkphhbklhfoeikjpcbhemlocgigb
-- Lighthouse:
-  https://chrome.google.com/webstore/detail/lighthouse/blipmdconlkpinefehnmjammfjpmpbjks
+npm-Paket `http-server`
+
+```bash
+npm install -g http-server
+http-server
+```

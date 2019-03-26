@@ -1,9 +1,5 @@
 # Workbox
 
-Library, die das Verwenden von ServiceWorkern erleichtert
-
-https://developers.google.com/web/tools/workbox/
-
 ## Einfaches Beispiel: Offline-Anwendung
 
 zuvor:

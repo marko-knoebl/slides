@@ -1,37 +1,8 @@
-# Datenspeicherung
-
-### localStorage und indexedDB
-
-## Überblick
-
-- localStorage: einfacher key-value-Store mit Textwerten)
-- indexedDB: "echte Datenbank"
-
-## localStorage
-
-wichtige Methoden:
-
-- `localStorage.setItem('name', 'John')`
-- `localStorage.getItem('name')`
-- `localStorage.removeItem('name')`
-
-## localStorage
-
-Verwendung für Todos:
-
-```js
-const todoString = JSON.stringify(todos);
-localStorage.setItem('todos', todoString);
-```
-
-```js
-const todoString = localStorage.getItem('todos');
-todos = JSON.parse(todoString);
-```
+# indexedDB
 
 ## indexedDB
 
-Echte Datenbank
+Vollwertige Datenbank
 
 Vorteile gegenüber localStorage:
 
@@ -39,6 +10,14 @@ Vorteile gegenüber localStorage:
 - schneller (Abfrage mit Indizes)
 - Aufteilung in "Tabellen" (stores)
 - verschiedene Datentypen
+
+Nachteil: Komplexeres Interface
+
+## indexedDB Interfaces
+
+- idb
+- dexie
+- localForage
 
 ## indexedDB promised (idb)
 
@@ -110,7 +89,9 @@ upgradeDb.createObjectStore('todos', {
 
 ```js
 // email als id
-upgradeDb.createObjectStore('users', { keyPath: 'email' });
+upgradeDb.createObjectStore('users', {
+  keyPath: 'email',
+});
 ```
 
 ## Transaktionen
