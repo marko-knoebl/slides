@@ -100,7 +100,7 @@ eine neue React-Anwendung erstellen
 ## Entwicklung mit node.js und npm
 
 - node.js: JS-Runtime
-  - Ausführen des Testservers
+  - Ausführen des lokalen Enwicklungsservers
   - Unit-Tests
 - npm: Paketmanager
   - zum Verwalten von Abhängigkeiten
@@ -109,7 +109,7 @@ eine neue React-Anwendung erstellen
 
 ## create-react-app
 
-Meistgenutzte Methode zum Erstellen von React-Anwendungen: _create-react-app_
+Meistgenutzte Methode zum Erstellen von React-Anwendungen
 
 ausführen via:
 
@@ -136,11 +136,11 @@ Viele Aspekte sind vorkonfiguriert:
 - `App.js`, `App.css`: Definieren App-Komponente
 - `node_modules`: Abhängigkeiten
 
-## Testserver und Build
+## Entwicklungsserver und Build
 
 Im Projektordner:
 
-- `npm start`: Startet den Testserver
+- `npm start`: Startet den lokalen Entwicklungsserver
 - `npm run build`: Erstellt einen Build (zum Deployen auf einem Webserver)
 
 # React & JSX Grundlagen
@@ -207,13 +207,13 @@ Beachte die fehlenden Anführungszeichen bei href
 
 ```js
 const getImgUrl = id =>
-  `https://picsum.photos/200?image=${id}`;
+  'https://picsum.photos/200?image=' + id.toString();
 ```
 
 ## JSX: events
 
 ```jsx
-function hello() {...}
+const hello = () => {...}
 
 <button onClick={hello}>Say Hello</button>
 ```
@@ -639,7 +639,7 @@ return <div>{face}</div>;
 
 ## CSS-Module
 
-Bei create-react-app sind CSS-Module vorkonfiguriert. Diese erlauben das Verwenden von CSS-Klassennamen, die garantiert eindeutig sind.
+Bei create-react-app sind CSS-Module vorkonfiguriert. Diese erlauben das Verwenden von CSS-Klassennamen, die garantiert über CSS-Dateien hinweg eindeutig sind.
 
 ```js
 import styles from './TodoItem.module.css';
@@ -866,7 +866,7 @@ export class Rating extends Component {
 
 Über `props.children` können Inhalte an eine Komponente übergeben werden
 
-Verwendung einer `Bordered`-Komponente:
+Beispiel: `Bordered`-Komponente:
 
 ```jsx
 <Bordered>lorem ipsum</Bordered>
@@ -1150,6 +1150,12 @@ class Clock {
   }
 }
 ```
+
+## Typendeklarationen für Libraries
+
+Einige JavaScript Libraries beinhalten auch Typendeklarationen für TypeScript - z.B. _react_, _redux_.
+
+Für andere Libraries gibt es meist externe Deklarationen mit dem Präfix _@types/_, z.B. für _react-redux_ existiert das Paket _@types/react-redux_.
 
 # React mit TypeScript
 

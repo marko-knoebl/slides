@@ -68,7 +68,7 @@ const counter = (state = initialState, action) => {
 
 The reducer function receives the old state and an action describing a state change
 
-The reducer function returns the new state. Importantly, reducer functions don't mutate the old state object (the are pure functions)
+The reducer function returns the new state. Importantly, reducer functions don't mutate the old state object (they are pure functions)
 
 ## Simple Redux example: counter
 

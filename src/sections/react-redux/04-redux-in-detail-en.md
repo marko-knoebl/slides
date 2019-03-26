@@ -24,7 +24,7 @@
 ## actions
 
 - actions describe a change to the state
-- actions are objects with a _type_-property and optionally other properties
+- actions are objects with a _type_ property and optionally other properties
 - the _type_ property is usually a string, often defined as a constant in a separate module
 - actions often adhere to the _FSA_ standard, meaning they may have a _payload_, an _error_ and a _meta_ property
 
@@ -35,7 +35,9 @@ import { ADD_TODO } from './constants';
 
 let a = {
   type: ADD_TODO,
-  payload: 'Build my first redux app',
+  payload: {
+    title: 'Build my first redux app',
+  },
 };
 ```
 
@@ -44,7 +46,9 @@ let a = {
 ```js
 let a = {
   type: TOGGLE_TODO,
-  payload: 2,
+  payload: {
+    id: 2,
+  },
 };
 ```
 

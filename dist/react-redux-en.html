@@ -171,7 +171,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
       </section><section class="slide" id="slide-1-9">
         <h2 id="simple-redux-example-counter">Simple Redux example: counter</h2>
 <p>The reducer function receives the old state and an action describing a state change</p>
-<p>The reducer function returns the new state. Importantly, reducer functions don&#39;t mutate the old state object (the are pure functions)</p>
+<p>The reducer function returns the new state. Importantly, reducer functions don&#39;t mutate the old state object (they are pure functions)</p>
 
       </section><section class="slide" id="slide-1-10">
         <h2 id="simple-redux-example-counter">Simple Redux example: counter</h2>
@@ -221,8 +221,8 @@ rootStore.dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-stri
       </section><section class="slide" id="slide-2-3">
         <h2 id="presentational-and-container-components">Presentational and Container Components</h2>
 <ul>
-<li>presentational components: &quot;Ordinary&quot; React components (reusable)</li>
-<li>container components: Have access to the redux store / are connected with the Redux store</li>
+<li>presentational components: &quot;ordinary&quot; React components (reusable)</li>
+<li>container components: Have access to the redux store / are connected to the Redux store</li>
 </ul>
 
       </section><section class="slide" id="slide-2-4">
@@ -267,7 +267,7 @@ ReactDOM.render(
 
       </section><section class="slide" id="slide-2-8">
         <h2 id="counter-connect">Counter: Connect</h2>
-<p>connect: connects React components with the Redux store</p>
+<p>connect: connects React components to the Redux store</p>
 <ul>
 <li>mapStateToProps: connects React props to Redux state</li>
 <li>mapDispatchToProps: connects React props to Redux actions</li>
@@ -283,7 +283,7 @@ ReactDOM.render(
 <pre><code class="language-jsx">import { connect } from 'react-redux';
 
 const mapStateToProps = (state) =&gt; {
-  return { count: state };
+  return { count: state.count };
 }
 
 [...]
@@ -324,8 +324,8 @@ export default connect(mapStateToProps)(App);</code></pre>
 });</code></pre>
 
       </section><section class="slide" id="slide-2-12">
-        <h2 id="redux-mit-typescript">Redux mit TypeScript</h2>
-<p>siehe <a href="https://github.com/piotrwitek/react-redux-typescript-guide">https://github.com/piotrwitek/react-redux-typescript-guide</a></p>
+        <h2 id="redux-with-typescript">Redux with TypeScript</h2>
+<p>see <a href="https://github.com/piotrwitek/react-redux-typescript-guide">https://github.com/piotrwitek/react-redux-typescript-guide</a></p>
 
       </section></section><section class="section" id="section-3"><section class="slide" id="slide-3-1">
         <h1 id="immutability">Immutability</h1>
@@ -338,7 +338,7 @@ export default connect(mapStateToProps)(App);</code></pre>
         <h2 id="immutability">Immutability</h2>
 <p>When using Redux or React&#39;s PureComponent:</p>
 <p>Objects that describe the application state must not be modified directly</p>
-<p>Instead, these Objects should be replaced by new, modified Objects</p>
+<p>Instead, these objects should be replaced by new, derived objects</p>
 <p>Advantages: increased performance, more possibilities when it comes to debugging</p>
 
       </section><section class="slide" id="slide-3-4">
@@ -348,10 +348,10 @@ export default connect(mapStateToProps)(App);</code></pre>
 <p>Entries in state or props are considered to have changed only if they refer to a different object than before</p>
 
       </section><section class="slide" id="slide-3-5">
-        <h2 id="data-managment-without-mutations">Data managment without mutations</h2>
+        <h2 id="data-management-without-mutations">Data management without mutations</h2>
 
       </section><section class="slide" id="slide-3-6">
-        <h2 id="data-managment-without-mutations-arrays">Data managment without mutations: Arrays</h2>
+        <h2 id="data-management-without-mutations-arrays">Data management without mutations: Arrays</h2>
 <pre><code class="language-js"><span class="hljs-keyword">let</span> names = [<span class="hljs-string">'Alice'</span>, <span class="hljs-string">'Bob'</span>, <span class="hljs-string">'Charlie'</span>];
 <span class="hljs-comment">// invalid: modifies the original array</span>
 names.push(<span class="hljs-string">'Dan'</span>);
@@ -366,7 +366,7 @@ names = newNames;
 names = [...names, <span class="hljs-string">'Dan'</span>];</code></pre>
 
       </section><section class="slide" id="slide-3-7">
-        <h2 id="data-managment-without-mutations-objects">Data managment without mutations: Objects</h2>
+        <h2 id="data-management-without-mutations-objects">Data management without mutations: Objects</h2>
 <pre><code class="language-js"><span class="hljs-keyword">let</span> user = {
   <span class="hljs-attr">name</span>: <span class="hljs-string">'john'</span>
   email: <span class="hljs-string">'john@doe.com'</span>
@@ -405,7 +405,7 @@ user.email = <span class="hljs-string">'johndoe@gmail.com'</span>;
         <h2 id="actions">actions</h2>
 <ul>
 <li>actions describe a change to the state</li>
-<li>actions are objects with a <em>type</em>-property and optionally other properties</li>
+<li>actions are objects with a <em>type</em> property and optionally other properties</li>
 <li>the <em>type</em> property is usually a string, often defined as a constant in a separate module</li>
 <li>actions often adhere to the <em>FSA</em> standard, meaning they may have a <em>payload</em>, an <em>error</em> and a <em>meta</em> property</li>
 </ul>
@@ -416,14 +416,18 @@ user.email = <span class="hljs-string">'johndoe@gmail.com'</span>;
 
 <span class="hljs-keyword">let</span> a = {
   <span class="hljs-attr">type</span>: ADD_TODO,
-  <span class="hljs-attr">payload</span>: <span class="hljs-string">'Build my first redux app'</span>,
+  <span class="hljs-attr">payload</span>: {
+    <span class="hljs-attr">title</span>: <span class="hljs-string">'Build my first redux app'</span>,
+  },
 };</code></pre>
 
       </section><section class="slide" id="slide-4-6">
         <h2 id="actions---examples">Actions - examples</h2>
 <pre><code class="language-js"><span class="hljs-keyword">let</span> a = {
   <span class="hljs-attr">type</span>: TOGGLE_TODO,
-  <span class="hljs-attr">payload</span>: <span class="hljs-number">2</span>,
+  <span class="hljs-attr">payload</span>: {
+    <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>,
+  },
 };</code></pre>
 
       </section><section class="slide" id="slide-4-7">
@@ -504,7 +508,8 @@ user.email = <span class="hljs-string">'johndoe@gmail.com'</span>;
       .then(<span class="hljs-function"><span class="hljs-params">parsedResponse</span> =&gt;</span> {
         store.dispatch({
           <span class="hljs-attr">type</span>: <span class="hljs-string">'FETCH_JSON_COMPLETE'</span>,
-          <span class="hljs-attr">payload</span>: parsedResponse,
+          <span class="hljs-attr">requestedUrl</span>: url,
+          <span class="hljs-attr">response</span>: parsedResponse,
         });
       });
   } <span class="hljs-keyword">else</span> {
@@ -514,7 +519,7 @@ user.email = <span class="hljs-string">'johndoe@gmail.com'</span>;
 
       </section><section class="slide" id="slide-5-10">
         <h2 id="custom-middleware---dispatching-a-function">Custom Middleware - dispatching a function</h2>
-<p>We want to be even more flexible and be able to dispatch a function. This function should then be able to do asynchronous requests and similar and dispatch more actions during that time.</p>
+<p>We want to be even more flexible and be able to dispatch a function. This function should then be able to do asynchronous requests and dispatch more actions during that time.</p>
 
       </section><section class="slide" id="slide-5-11">
         <h2 id="custom-middleware---dispatching-a-function">Custom Middleware - dispatching a function</h2>

@@ -69,7 +69,8 @@ const fetcher = store => next => action => {
       .then(parsedResponse => {
         store.dispatch({
           type: 'FETCH_JSON_COMPLETE',
-          payload: parsedResponse,
+          requestedUrl: url,
+          response: parsedResponse,
         });
       });
   } else {

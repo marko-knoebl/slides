@@ -192,11 +192,11 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
         <h2 id="example-documenttitle-component">Example: DocumentTitle component</h2>
 <p>as a class component:</p>
 <pre><code class="language-jsx"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DocumentTitle</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
-  componentDidMount(prevProps, prevState) {
+  componentDidMount() {
     <span class="hljs-built_in">document</span>.title = <span class="hljs-keyword">this</span>.props.children;
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps, prevState) {
     <span class="hljs-built_in">document</span>.title = <span class="hljs-keyword">this</span>.props.children;
   }
 
@@ -572,6 +572,7 @@ it('renders an `.icon-star`', () =&gt; {
 
       </section><section class="slide" id="slide-8-7">
         <h2 id="enzyme---examples">Enzyme - Examples</h2>
+<!-- prettier-ignore -->
 <pre><code class="language-jsx">it(<span class="hljs-string">'reacts to click events'</span>, () =&gt; {
   <span class="hljs-keyword">const</span> mockFunction = jest.fn();
 
@@ -579,15 +580,9 @@ it('renders an `.icon-star`', () =&gt; {
     <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Rating</span> <span class="hljs-attr">stars</span>=<span class="hljs-string">{3}</span> <span class="hljs-attr">onStarsChange</span>=<span class="hljs-string">{mockFunction}</span> /&gt;</span>
   );
   expect(
-    wrapper
-      .childAt(0)
-      .childAt(2)
-      .text()
+    wrapper.childAt(0).childAt(2).text()
   ).toBe('*');
-  wrapper
-    .childAt(0)
-    .childAt(1)
-    .simulate('click');
+  wrapper.childAt(0).childAt(1).simulate('click');
   expect(mockFunction).toBeCalledWith(2);
 });</span></code></pre>
 

@@ -8,7 +8,7 @@ https://github.com/facebook/react-devtools
 - show state and props
 - highlight changes to state and props
 - highlight updates / rerenderings of components
-- analyze render performance of components
+- analyse render performance of components
 
 ## Debugging in VS Code
 

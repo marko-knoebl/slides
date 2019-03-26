@@ -68,7 +68,7 @@ const counter = (state = initialState, action) => {
 
 The reducer function receives the old state and an action describing a state change
 
-The reducer function returns the new state. Importantly, reducer functions don't mutate the old state object (the are pure functions)
+The reducer function returns the new state. Importantly, reducer functions don't mutate the old state object (they are pure functions)
 
 ## Simple Redux example: counter
 
@@ -127,8 +127,8 @@ TypeScript: `npm install @types/react-redux`
 
 ## Presentational and Container Components
 
-- presentational components: "Ordinary" React components (reusable)
-- container components: Have access to the redux store / are connected with the Redux store
+- presentational components: "ordinary" React components (reusable)
+- container components: Have access to the redux store / are connected to the Redux store
 
 ## React-Redux: < Provider >
 
@@ -178,7 +178,7 @@ const store = createStore(
 
 ## Counter: Connect
 
-connect: connects React components with the Redux store
+connect: connects React components to the Redux store
 
 - mapStateToProps: connects React props to Redux state
 - mapDispatchToProps: connects React props to Redux actions
@@ -198,7 +198,7 @@ component = connect(
 import { connect } from 'react-redux';
 
 const mapStateToProps = (state) => {
-  return { count: state };
+  return { count: state.count };
 }
 
 [...]
@@ -246,9 +246,9 @@ const mapDispatchToProps = (
 });
 ```
 
-## Redux mit TypeScript
+## Redux with TypeScript
 
-siehe https://github.com/piotrwitek/react-redux-typescript-guide
+see https://github.com/piotrwitek/react-redux-typescript-guide
 
 # Immutability
 
@@ -262,7 +262,7 @@ When using Redux or React's PureComponent:
 
 Objects that describe the application state must not be modified directly
 
-Instead, these Objects should be replaced by new, modified Objects
+Instead, these objects should be replaced by new, derived objects
 
 Advantages: increased performance, more possibilities when it comes to debugging
 
@@ -274,9 +274,9 @@ The component will onl be rerendered if either state or props have changed
 
 Entries in state or props are considered to have changed only if they refer to a different object than before
 
-## Data managment without mutations
+## Data management without mutations
 
-## Data managment without mutations: Arrays
+## Data management without mutations: Arrays
 
 ```js
 let names = ['Alice', 'Bob', 'Charlie'];
@@ -293,7 +293,7 @@ names = newNames;
 names = [...names, 'Dan'];
 ```
 
-## Data managment without mutations: Objects
+## Data management without mutations: Objects
 
 ```js
 let user = {
@@ -333,7 +333,7 @@ let newUser = { ...user, email: 'johndoe@gmail.com' };
 ## actions
 
 - actions describe a change to the state
-- actions are objects with a _type_-property and optionally other properties
+- actions are objects with a _type_ property and optionally other properties
 - the _type_ property is usually a string, often defined as a constant in a separate module
 - actions often adhere to the _FSA_ standard, meaning they may have a _payload_, an _error_ and a _meta_ property
 
@@ -344,7 +344,9 @@ import { ADD_TODO } from './constants';
 
 let a = {
   type: ADD_TODO,
-  payload: 'Build my first redux app',
+  payload: {
+    title: 'Build my first redux app',
+  },
 };
 ```
 
@@ -353,7 +355,9 @@ let a = {
 ```js
 let a = {
   type: TOGGLE_TODO,
-  payload: 2,
+  payload: {
+    id: 2,
+  },
 };
 ```
 
@@ -440,7 +444,8 @@ const fetcher = store => next => action => {
       .then(parsedResponse => {
         store.dispatch({
           type: 'FETCH_JSON_COMPLETE',
-          payload: parsedResponse,
+          requestedUrl: url,
+          response: parsedResponse,
         });
       });
   } else {
@@ -451,7 +456,7 @@ const fetcher = store => next => action => {
 
 ## Custom Middleware - dispatching a function
 
-We want to be even more flexible and be able to dispatch a function. This function should then be able to do asynchronous requests and similar and dispatch more actions during that time.
+We want to be even more flexible and be able to dispatch a function. This function should then be able to do asynchronous requests and dispatch more actions during that time.
 
 ## Custom Middleware - dispatching a function
 

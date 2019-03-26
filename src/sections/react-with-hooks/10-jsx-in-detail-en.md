@@ -79,7 +79,7 @@ return <div>{face}</div>;
 
 ## CSS modules
 
-When using create-react-app CSS modules are preconfigured. They allow using CSS class names that are guaranteed to be unique.
+When using create-react-app CSS modules are preconfigured. They allow using CSS class names that are guaranteed to be unique across CSS files.
 
 ```js
 import styles from './TodoItem.module.css';

@@ -5,7 +5,7 @@ eine neue React-Anwendung erstellen
 ## Entwicklung mit node.js und npm
 
 - node.js: JS-Runtime
-  - Ausführen des Testservers
+  - Ausführen des lokalen Enwicklungsservers
   - Unit-Tests
 - npm: Paketmanager
   - zum Verwalten von Abhängigkeiten
@@ -14,7 +14,7 @@ eine neue React-Anwendung erstellen
 
 ## create-react-app
 
-Meistgenutzte Methode zum Erstellen von React-Anwendungen: _create-react-app_
+Meistgenutzte Methode zum Erstellen von React-Anwendungen
 
 ausführen via:
 
@@ -41,9 +41,9 @@ Viele Aspekte sind vorkonfiguriert:
 - `App.js`, `App.css`: Definieren App-Komponente
 - `node_modules`: Abhängigkeiten
 
-## Testserver und Build
+## Entwicklungsserver und Build
 
 Im Projektordner:
 
-- `npm start`: Startet den Testserver
+- `npm start`: Startet den lokalen Entwicklungsserver
 - `npm run build`: Erstellt einen Build (zum Deployen auf einem Webserver)

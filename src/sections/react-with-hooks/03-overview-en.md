@@ -2,9 +2,9 @@
 
 ## What is React?
 
-- One of the 3 big JavaScript-UI-Libraries (besides Angular, vue.js)
+- One of the 3 big JavaScript UI libraries (besides Angular, vue.js)
 
-## Basics of modern JavaScript-UI-Libraries
+## Basics of modern JavaScript UI libraries
 
 - declarative
 - component-based
@@ -17,7 +17,7 @@
 ## component-based
 
 - "custom" HTML-Tags
-- data-flow via props and events
+- data flow via props and events
 - usually unidirectional dataflow (from parent to child)
 
 ## What makes React special?

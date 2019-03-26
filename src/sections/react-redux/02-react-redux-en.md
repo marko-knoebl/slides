@@ -10,8 +10,8 @@ TypeScript: `npm install @types/react-redux`
 
 ## Presentational and Container Components
 
-- presentational components: "Ordinary" React components (reusable)
-- container components: Have access to the redux store / are connected with the Redux store
+- presentational components: "ordinary" React components (reusable)
+- container components: Have access to the redux store / are connected to the Redux store
 
 ## React-Redux: < Provider >
 
@@ -61,7 +61,7 @@ const store = createStore(
 
 ## Counter: Connect
 
-connect: connects React components with the Redux store
+connect: connects React components to the Redux store
 
 - mapStateToProps: connects React props to Redux state
 - mapDispatchToProps: connects React props to Redux actions
@@ -81,7 +81,7 @@ component = connect(
 import { connect } from 'react-redux';
 
 const mapStateToProps = (state) => {
-  return { count: state };
+  return { count: state.count };
 }
 
 [...]
@@ -129,6 +129,6 @@ const mapDispatchToProps = (
 });
 ```
 
-## Redux mit TypeScript
+## Redux with TypeScript
 
-siehe https://github.com/piotrwitek/react-redux-typescript-guide
+see https://github.com/piotrwitek/react-redux-typescript-guide

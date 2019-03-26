@@ -141,6 +141,8 @@ nav {
 }
 ```
 
+(`ul`s within `nav`s don't have 0 margins)
+
 ## Computations
 
 ```less

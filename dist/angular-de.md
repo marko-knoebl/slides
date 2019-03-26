@@ -597,6 +597,12 @@ class Clock {
 }
 ```
 
+## Typendeklarationen für Libraries
+
+Einige JavaScript Libraries beinhalten auch Typendeklarationen für TypeScript - z.B. _react_, _redux_.
+
+Für andere Libraries gibt es meist externe Deklarationen mit dem Präfix _@types/_, z.B. für _react-redux_ existiert das Paket _@types/react-redux_.
+
 # TypeScript für Angular
 
 ## Properties im Constructor

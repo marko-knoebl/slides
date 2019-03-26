@@ -57,9 +57,9 @@ Marko Knöbl
 
 ## What is React?
 
-- One of the 3 big JavaScript-UI-Libraries (besides Angular, vue.js)
+- One of the 3 big JavaScript UI libraries (besides Angular, vue.js)
 
-## Basics of modern JavaScript-UI-Libraries
+## Basics of modern JavaScript UI libraries
 
 - declarative
 - component-based
@@ -72,7 +72,7 @@ Marko Knöbl
 ## component-based
 
 - "custom" HTML-Tags
-- data-flow via props and events
+- data flow via props and events
 - usually unidirectional dataflow (from parent to child)
 
 ## What makes React special?
@@ -96,16 +96,16 @@ Marko Knöbl
 ## Developing with node.js and npm
 
 - node.js: JS-Runtime
-  - Running the testservr
-  - unit-tests
+  - running the local development server
+  - unit tests
 - npm: package manager
   - managing dependencies
-  - packages are located in the _node_modules_ - Directory
+  - packages are located in the _node_modules_ directory
   - configuration via _package.json_
 
 ## create-react-app
 
-most-used method for generating React projects: _create-react-app_
+most-used method for generating React projects
 
 run it via:
 
@@ -132,11 +132,11 @@ many aspects are preconfigured:
 - `App.js`, `App.css`: define the App component
 - `node_modules`: dependencies
 
-## test server and build
+## development server and build
 
 inside the project directory:
 
-- `npm start`: starts the test server
+- `npm start`: starts the local development server
 - `npm run build`: creates a build (for deployment)
 
 # React & JSX Basics
@@ -201,13 +201,13 @@ Show a picture based on an id; make use of this function:
 
 ```js
 const getImgUrl = id =>
-  `https://picsum.photos/200?image=${id}`;
+  'https://picsum.photos/200?image=' + id.toString();
 ```
 
 ## JSX: events
 
 ```jsx
-function hello() {...}
+const hello = () => {...}
 
 <button onClick={hello}>Say Hello</button>
 ```
@@ -356,15 +356,15 @@ React components may have an internal _state_
 
 The state can be referenced in the template. The view will automatically update if parts of the state are changed.
 
-## state in functional components
+## state in function components
 
-In functional components we make use of `useState`:
+In function components we make use of `useState`:
 
 ```js
 import { useState } from 'react';
 ```
 
-## state in functional components
+## state in function components
 
 The function `useState` may be called (repeatedly) at the beginning of the component function.
 
@@ -542,7 +542,7 @@ return <div>{face}</div>;
 
 ## CSS modules
 
-When using create-react-app CSS modules are preconfigured. They allow using CSS class names that are guaranteed to be unique.
+When using create-react-app CSS modules are preconfigured. They allow using CSS class names that are guaranteed to be unique across CSS files.
 
 ```js
 import styles from './TodoItem.module.css';
@@ -647,7 +647,7 @@ https://github.com/facebook/react-devtools
 - show state and props
 - highlight changes to state and props
 - highlight updates / rerenderings of components
-- analyze render performance of components
+- analyse render performance of components
 
 ## Debugging in VS Code
 
@@ -725,9 +725,9 @@ In order to distinguish them from ordinary tags, components start with a capital
 ## component definition
 
 - class components
-- functional components
+- function components
 
-## functional components
+## function components
 
 example:
 
@@ -773,7 +773,7 @@ export class Rating extends Component {
 
 A component may receive content to be displayed via `props.children`
 
-Usage of a `Bordered` component:
+Example: a `Bordered` component:
 
 ```jsx
 <Bordered>lorem ipsum</Bordered>
@@ -1059,6 +1059,12 @@ class Clock {
   }
 }
 ```
+
+## Type declarations for libraries
+
+Several JavaScript Libraries come with type declarations for TypeScript - e.g. _react_, _redux_.
+
+For other libraries there are usually external declaration packages that are prefixed with _@types/_; e.g. for _react-redux_ there's the package _@types/react-redux_.
 
 # React with TypeScript
 

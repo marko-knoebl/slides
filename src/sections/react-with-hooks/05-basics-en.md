@@ -60,13 +60,13 @@ Show a picture based on an id; make use of this function:
 
 ```js
 const getImgUrl = id =>
-  `https://picsum.photos/200?image=${id}`;
+  'https://picsum.photos/200?image=' + id.toString();
 ```
 
 ## JSX: events
 
 ```jsx
-function hello() {...}
+const hello = () => {...}
 
 <button onClick={hello}>Say Hello</button>
 ```

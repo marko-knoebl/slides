@@ -6,15 +6,15 @@ React components may have an internal _state_
 
 The state can be referenced in the template. The view will automatically update if parts of the state are changed.
 
-## state in functional components
+## state in function components
 
-In functional components we make use of `useState`:
+In function components we make use of `useState`:
 
 ```js
 import { useState } from 'react';
 ```
 
-## state in functional components
+## state in function components
 
 The function `useState` may be called (repeatedly) at the beginning of the component function.
 

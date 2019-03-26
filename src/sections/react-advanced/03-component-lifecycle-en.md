@@ -40,11 +40,11 @@ as a class component:
 
 ```jsx
 class DocumentTitle extends Component {
-  componentDidMount(prevProps, prevState) {
+  componentDidMount() {
     document.title = this.props.children;
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps, prevState) {
     document.title = this.props.children;
   }
 

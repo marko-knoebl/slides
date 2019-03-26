@@ -85,11 +85,11 @@ Als Klassenkomponente
 
 ```jsx
 class DocumentTitle extends Component {
-  componentDidMount(prevProps, prevState) {
+  componentDidMount() {
     document.title = this.props.children;
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps, prevState) {
     document.title = this.props.children;
   }
 
@@ -568,6 +568,7 @@ it('reacts to click events', () => {
 
 ## Enzyme - Beispiele
 
+<!-- prettier-ignore -->
 ```jsx
 it('reacts to click events', () => {
   const mockFunction = jest.fn();
@@ -576,15 +577,9 @@ it('reacts to click events', () => {
     <Rating stars={3} onStarsChange={mockFunction} />
   );
   expect(
-    wrapper
-      .childAt(0)
-      .childAt(2)
-      .text()
+    wrapper.childAt(0).childAt(2).text()
   ).toBe('*');
-  wrapper
-    .childAt(0)
-    .childAt(1)
-    .simulate('click');
+  wrapper.childAt(0).childAt(1).simulate('click');
   expect(mockFunction).toBeCalledWith(2);
 });
 ```

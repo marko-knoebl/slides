@@ -65,7 +65,8 @@ const fetcher = store => next => action => {
       .then(parsedResponse => {
         store.dispatch({
           type: 'FETCH_JSON_COMPLETE',
-          payload: parsedResponse,
+          requestedUrl: url,
+          response: parsedResponse,
         });
       });
   } else {
@@ -76,7 +77,7 @@ const fetcher = store => next => action => {
 
 ## Custom Middleware - dispatching a function
 
-We want to be even more flexible and be able to dispatch a function. This function should then be able to do asynchronous requests and similar and dispatch more actions during that time.
+We want to be even more flexible and be able to dispatch a function. This function should then be able to do asynchronous requests and dispatch more actions during that time.
 
 ## Custom Middleware - dispatching a function
 

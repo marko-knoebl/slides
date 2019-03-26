@@ -78,7 +78,7 @@ return <div>{face}</div>;
 
 ## CSS-Module
 
-Bei create-react-app sind CSS-Module vorkonfiguriert. Diese erlauben das Verwenden von CSS-Klassennamen, die garantiert eindeutig sind.
+Bei create-react-app sind CSS-Module vorkonfiguriert. Diese erlauben das Verwenden von CSS-Klassennamen, die garantiert über CSS-Dateien hinweg eindeutig sind.
 
 ```js
 import styles from './TodoItem.module.css';

@@ -557,7 +557,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
         <h2 id="entwicklung-mit-nodejs-und-npm">Entwicklung mit node.js und npm</h2>
 <ul>
 <li>node.js: JS-Runtime<ul>
-<li>Ausführen des Testservers</li>
+<li>Ausführen des lokalen Enwicklungsservers</li>
 <li>Unit-Tests</li>
 </ul>
 </li>
@@ -571,7 +571,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 
       </section><section class="slide" id="slide-4-3">
         <h2 id="create-react-app">create-react-app</h2>
-<p>Meistgenutzte Methode zum Erstellen von React-Anwendungen: <em>create-react-app</em></p>
+<p>Meistgenutzte Methode zum Erstellen von React-Anwendungen</p>
 <p>ausführen via:</p>
 <pre><code class="language-bash">npx create-react-app playground</code></pre>
 <p>siehe auch: <a href="https://reactjs.org/docs/add-react-to-a-new-app.html">https://reactjs.org/docs/add-react-to-a-new-app.html</a></p>
@@ -596,10 +596,10 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </ul>
 
       </section><section class="slide" id="slide-4-6">
-        <h2 id="testserver-und-build">Testserver und Build</h2>
+        <h2 id="entwicklungsserver-und-build">Entwicklungsserver und Build</h2>
 <p>Im Projektordner:</p>
 <ul>
-<li><code>npm start</code>: Startet den Testserver</li>
+<li><code>npm start</code>: Startet den lokalen Entwicklungsserver</li>
 <li><code>npm run build</code>: Erstellt einen Build (zum Deployen auf einem Webserver)</li>
 </ul>
 
@@ -661,11 +661,11 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li>Zeige ein Bild basierend auf einer ID an. Verwende dazu:</li>
 </ul>
 <pre><code class="language-js"><span class="hljs-keyword">const</span> getImgUrl = <span class="hljs-function"><span class="hljs-params">id</span> =&gt;</span>
-  <span class="hljs-string">`https://picsum.photos/200?image=<span class="hljs-subst">${id}</span>`</span>;</code></pre>
+  <span class="hljs-string">'https://picsum.photos/200?image='</span> + id.toString();</code></pre>
 
       </section><section class="slide" id="slide-5-9">
         <h2 id="jsx-events">JSX: events</h2>
-<pre><code class="language-jsx"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">hello</span>(<span class="hljs-params"></span>) </span>{...}
+<pre><code class="language-jsx"><span class="hljs-keyword">const</span> hello = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {...}
 
 &lt;button onClick={hello}&gt;Say Hello&lt;<span class="hljs-regexp">/button&gt;</span></code></pre>
 <p>Liste von Browser-Events:<br><a href="https://www.w3schools.com/jsref/dom_obj_event.asp">https://www.w3schools.com/jsref/dom_obj_event.asp</a></p>
@@ -1036,7 +1036,7 @@ fg(); <span class="hljs-comment">// klappt jetzt auch</span></code></pre>
 
       </section><section class="slide" id="slide-10-9">
         <h2 id="css-module">CSS-Module</h2>
-<p>Bei create-react-app sind CSS-Module vorkonfiguriert. Diese erlauben das Verwenden von CSS-Klassennamen, die garantiert eindeutig sind.</p>
+<p>Bei create-react-app sind CSS-Module vorkonfiguriert. Diese erlauben das Verwenden von CSS-Klassennamen, die garantiert über CSS-Dateien hinweg eindeutig sind.</p>
 <pre><code class="language-js"><span class="hljs-keyword">import</span> styles <span class="hljs-keyword">from</span> <span class="hljs-string">'./TodoItem.module.css'</span>;
 
 <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">{styles.todoItem}</span>&gt;</span>...<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>;
@@ -1227,7 +1227,7 @@ fg(); <span class="hljs-comment">// klappt jetzt auch</span></code></pre>
       </section><section class="slide" id="slide-14-9">
         <h2 id="propschildren">props.children</h2>
 <p>Über <code>props.children</code> können Inhalte an eine Komponente übergeben werden</p>
-<p>Verwendung einer <code>Bordered</code>-Komponente:</p>
+<p>Beispiel: <code>Bordered</code>-Komponente:</p>
 <pre><code class="language-jsx">&lt;Bordered&gt;lorem ipsum&lt;<span class="hljs-regexp">/Bordered&gt;</span></code></pre>
 <p>Definition der Komponente:</p>
 <pre><code class="language-jsx"><span class="hljs-keyword">const</span> Bordered = <span class="hljs-function"><span class="hljs-params">props</span> =&gt;</span> (
@@ -1458,6 +1458,11 @@ fg(); <span class="hljs-comment">// klappt jetzt auch</span></code></pre>
     ...
   }
 }</code></pre>
+
+      </section><section class="slide" id="slide-17-21">
+        <h2 id="typendeklarationen-für-libraries">Typendeklarationen für Libraries</h2>
+<p>Einige JavaScript Libraries beinhalten auch Typendeklarationen für TypeScript - z.B. <em>react</em>, <em>redux</em>.</p>
+<p>Für andere Libraries gibt es meist externe Deklarationen mit dem Präfix <em>@types/</em>, z.B. für <em>react-redux</em> existiert das Paket <em>@types/react-redux</em>.</p>
 
       </section></section><section class="section" id="section-18"><section class="slide" id="slide-18-1">
         <h1 id="react-mit-typescript">React mit TypeScript</h1>

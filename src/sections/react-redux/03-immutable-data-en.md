@@ -10,7 +10,7 @@ When using Redux or React's PureComponent:
 
 Objects that describe the application state must not be modified directly
 
-Instead, these Objects should be replaced by new, modified Objects
+Instead, these objects should be replaced by new, derived objects
 
 Advantages: increased performance, more possibilities when it comes to debugging
 
@@ -22,9 +22,9 @@ The component will onl be rerendered if either state or props have changed
 
 Entries in state or props are considered to have changed only if they refer to a different object than before
 
-## Data managment without mutations
+## Data management without mutations
 
-## Data managment without mutations: Arrays
+## Data management without mutations: Arrays
 
 ```js
 let names = ['Alice', 'Bob', 'Charlie'];
@@ -41,7 +41,7 @@ names = newNames;
 names = [...names, 'Dan'];
 ```
 
-## Data managment without mutations: Objects
+## Data management without mutations: Objects
 
 ```js
 let user = {

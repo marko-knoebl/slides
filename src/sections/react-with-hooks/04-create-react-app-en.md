@@ -3,16 +3,16 @@
 ## Developing with node.js and npm
 
 - node.js: JS-Runtime
-  - Running the testservr
-  - unit-tests
+  - running the local development server
+  - unit tests
 - npm: package manager
   - managing dependencies
-  - packages are located in the _node_modules_ - Directory
+  - packages are located in the _node_modules_ directory
   - configuration via _package.json_
 
 ## create-react-app
 
-most-used method for generating React projects: _create-react-app_
+most-used method for generating React projects
 
 run it via:
 
@@ -39,9 +39,9 @@ many aspects are preconfigured:
 - `App.js`, `App.css`: define the App component
 - `node_modules`: dependencies
 
-## test server and build
+## development server and build
 
 inside the project directory:
 
-- `npm start`: starts the test server
+- `npm start`: starts the local development server
 - `npm run build`: creates a build (for deployment)

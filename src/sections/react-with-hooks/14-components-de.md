@@ -65,7 +65,7 @@ export class Rating extends Component {
 
 Über `props.children` können Inhalte an eine Komponente übergeben werden
 
-Verwendung einer `Bordered`-Komponente:
+Beispiel: `Bordered`-Komponente:
 
 ```jsx
 <Bordered>lorem ipsum</Bordered>

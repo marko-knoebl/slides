@@ -22,9 +22,9 @@ In order to distinguish them from ordinary tags, components start with a capital
 ## component definition
 
 - class components
-- functional components
+- function components
 
-## functional components
+## function components
 
 example:
 
@@ -70,7 +70,7 @@ export class Rating extends Component {
 
 A component may receive content to be displayed via `props.children`
 
-Usage of a `Bordered` component:
+Example: a `Bordered` component:
 
 ```jsx
 <Bordered>lorem ipsum</Bordered>
