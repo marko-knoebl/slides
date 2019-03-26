@@ -11,7 +11,7 @@
 
 ## declarative
 
-- In the Background there is a data model which describes the entire application state
+- In the background there is a data model which describes the entire application state
 - The data model changes in response to user interactions, causing the view to update automatically (and efficiently)
 
 ## component-based
@@ -22,8 +22,8 @@
 
 ## What makes React special?
 
-- JavaScript-based template-syntax
-- explicit Mutations of state via _setState()_
+- JavaScript-based template syntax
+- explicit state mutations via setters
 
 ## History of React
 

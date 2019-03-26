@@ -52,7 +52,7 @@ it('renders an `.icon-star`', () => {
 
 ## Enzyme - Beispiele
 
-Tests mit Mocha und Chai
+Tests mit Chai
 
 ```jsx
 it('reacts to click events', () => {
@@ -85,6 +85,17 @@ it('reacts to click events', () => {
     .childAt(1)
     .simulate('click');
   expect(mockFunction).toBeCalledWith(2);
+});
+```
+
+## Enzyme - Examples
+
+```jsx
+it('changes state when clicked', () => {
+  const wrapper = shallow(<Counter />);
+  expect(wrapper.instance.state.count).toEqual(0);
+  wrapper.childAt(0).simulate('click');
+  expect(wrapper.instance.state.count).toEqual(1);
 });
 ```
 

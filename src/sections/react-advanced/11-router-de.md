@@ -58,10 +58,10 @@ import { Route } from 'react-router-dom';
 ## React Router - Router-Links
 
 ```jsx
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
-<Link to="/">Home</Link>
-<Link to="/add">Add</Link>
+<NavLink to="/" activeClassName="active-link">Home</Link>
+<NavLink to="/add" activeClassName="active-link">Add</Link>
 ```
 
 ## React Router - Redirects

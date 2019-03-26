@@ -64,9 +64,8 @@ handleInstallBtnClicked = () => {
 };
 ```
 
-## PWA: Deployment on Bitballoon
+## PWA: Deployment on netlify
 
 - `npm run build`
-- drag & drop the dist-Ornder to bitballoon.com (app.netlify.com/drop)
-- choose "edit name" and pick a shorter name
+- drag & drop the dist-Ornder to app.netlify.com/drop
 - switch to https manually - try it out in Chrome on desktop and mobile

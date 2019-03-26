@@ -36,7 +36,7 @@ JSX = Template language of React
 ## JSX: JS + XML
 
 ```jsx
-<div>A year has {365 * 24} hours</div>;
+<div>A year has {365 * 24} hours</div>
 ```
 
 ## JSX: Simple tasks
@@ -44,20 +44,51 @@ JSX = Template language of React
 - Show the current date
 - Show either "heads" or "tails" inside a div
 
-## component state
+## JSX: Properties
 
-A component which will update its state every second:
-
-```js
-constructor () {
-  super();
-  this.state = { now: new Date() };
-  setInterval(() => {
-    this.setState({ now: new Date() });
-  }, 1000);
-};
-```
+we can also change from XML to JS in properties:
 
 ```jsx
-<div>{this.state.now.toLocaleTimeString()}</div>
+<a href={'https://en.wikipedia.org/wiki/' + articleName}>
+  some article
+</a>
+```
+
+## JSX Properties: task
+
+Show a picture based on an id; make use of this function:
+
+```js
+const getImgUrl = id =>
+  `https://picsum.photos/200?image=${id}`;
+```
+
+## JSX: events
+
+```jsx
+function hello() {...}
+
+<button onClick={hello}>Say Hello</button>
+```
+
+list of browser events:
+https://www.w3schools.com/jsref/dom_obj_event.asp
+
+## State example
+
+(we will look into the topic of state in detail later)
+
+```jsx
+const Counter = () => {
+  const [count, setCount] = useState(0);
+
+  return (
+    <button
+      onClick={() => {
+        setCount(count + 1);
+      }}>
+      {count}
+    </button>
+  );
+};
 ```

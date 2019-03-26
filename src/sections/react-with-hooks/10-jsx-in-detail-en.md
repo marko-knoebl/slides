@@ -15,7 +15,7 @@ Multiple Elements may be added via arrays:
 
 ## JSX: repeating elements
 
-In practice this is mostly done via the `.map()` method
+In practice this is mostly done via `.map()`:
 
 <!-- prettier-ignore -->
 ```jsx
@@ -102,14 +102,14 @@ import styles from './TodoItem.module.scss';
 ```
 
 ```scss
-/* colors.scss */
-$primary: lightblue;
-```
-
-```scss
 /* TodoItem.module.scss */
 @import '../colors';
 ...
+```
+
+```scss
+/* colors.scss */
+$primary: lightblue;
 ```
 
 ## JSX: dynamic style

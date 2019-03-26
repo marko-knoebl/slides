@@ -5,7 +5,7 @@
 Components = custom tags, e.g.
 
 ```jsx
-<Rating stars={4} />
+<Rating stars={3} />
 ```
 
 <img src="assets/rating.png" type="image/png" style="width: 16em">
@@ -56,10 +56,10 @@ export class Rating extends Component {
 }
 ```
 
-## Komponentendefinition: Beispiele
+## component defintion: examples
 
-- `PlayingCard` - Komponente
-- `RomanNumber` - Komponente
+- `PlayingCard` component
+- `RomanNumber` component
 
 ## data/event flow
 
@@ -92,7 +92,7 @@ Event handlers are defined as functions and passed via props.
 
 Example `ToggleButton`: Button which displays either "off" or "on":
 
-Prop: `active` - may be set to `true` or `false`
+Prop: `active` - may be set to `true` or `false`  
 Event: `onToggle` - function which is called with the new state
 
 ```jsx
@@ -123,7 +123,7 @@ const [myOption, setMyOption] = useState(true);
 
 examples:
 
-- Rating-component with clickable stars
-- NumberInput-component that lets the user specify an integer with + and - buttons
-  - bonus: make the API compatible with that of ordinary input-Elements so input-Elements may be easily replaced by NumberInput-components
+- Rating component with clickable stars
+- NumberInput component that lets the user specify an integer with + and - buttons
+  - bonus: make the API compatible with that of ordinary input elements so input elements may be easily replaced by NumberInput-components
   - bonus: add a min / max property that can be specified

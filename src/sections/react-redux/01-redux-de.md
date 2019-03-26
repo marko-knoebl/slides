@@ -16,6 +16,7 @@ Oft wird der gesamte Anwendungszustand durch ein Datenmodell repräsentiert. Jed
 ## State management libraries
 
 - Redux (oft mit React verwendet)
+- reducer Hook (in React beinhaltet, ähnlich zu Redux)
 - MobX (oft mit React verwendet)
 - ngrx (mit Angular verwendet)
 - vuex (mit Vue.js verwendet)

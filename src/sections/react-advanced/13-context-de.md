@@ -28,14 +28,14 @@ const TodosContext = React.createContext();
 ```ts
 // TodosContext.ts
 
-type TodosContext = {
+type TodosContextType = {
   todos: Array<Todo>;
   onToggle: (id: number) => void;
   onClear: () => void;
 };
 
 const TodosContext = React.createContext(
-  {} as TodosContext
+  {} as TodosContextType
 );
 ```
 

@@ -75,7 +75,7 @@ Zustandsänderungen erfolgen über `this.setState()`
 
 ## Struktur von this.state
 
-- _this.state_ ist ein JavaScript-Objekt:
+_this.state_ ist ein JavaScript-Objekt:
 
 ```js
 constructor() {

@@ -8,6 +8,8 @@ Hooks: Erweiterung von funktionalen Komponenten; erlauben die Verwendung von sta
 
 > "In the longer term, we expect Hooks to be the primary way people write React components."
 
+\- [React FAQ](https://reactjs.org/docs/hooks-faq.html#should-i-use-hooks-classes-or-a-mix-of-both)
+
 ## Hooks: derzeitiger Stand
 
 - Dokumentation für Einsteiger noch sehr Klassen-orientiert

@@ -32,7 +32,7 @@ const App = () => {
 
 ## Example: counter
 
-We will add a button to our apllication. At the start this button will display the value 0. On each click the value will increment by 1.
+We will add a button to our application. At the start this button will display the value 0. On each click the value will increment by 1.
 
 ## Example: Counter
 
@@ -69,13 +69,13 @@ implement a diashow that shows images like the following:
 
 In class components, `this.state` represents the state.
 
-`this.state` is always a JavaScript Object with properties
+`this.state` is always a JavaScript object with properties
 
 State changes happen via `this.setState()`
 
 ## structure of this.state
 
-- _this.state_ is always an object:
+_this.state_ is always an object:
 
 ```js
 constructor() {

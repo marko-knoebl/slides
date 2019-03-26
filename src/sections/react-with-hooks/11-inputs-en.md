@@ -5,7 +5,7 @@
 In the context of React, input elements are special:
 
 Their properties (especially `.value`) can be directly modified by the user  
-Therefore there are aspects of the UI state which would not be captured in `this.state`.
+Therefore there are aspects of the UI state which would not be captured in the state.
 
 ## Inputs
 

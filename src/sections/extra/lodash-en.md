@@ -42,15 +42,15 @@ chunk([1, 2, 3, 4, 5, 6, 7], 3);
 - `partition`
 - `shuffle`
 - `sortBy` (creates new array)
-
-* `cloneDeep`
-* `isEqual`
+- `cloneDeep`
+- `isEqual`
 
 ## functions for functions
 
 - `curry`
-- `memoize`
 - `partial`
+- `debounce`
+- `memoize`
 
 ## utilities
 

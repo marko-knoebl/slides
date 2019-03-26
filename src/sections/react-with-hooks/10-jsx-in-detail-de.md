@@ -101,14 +101,14 @@ import styles from './TodoItem.module.scss';
 ```
 
 ```scss
-/* colors.scss */
-$primary: lightblue;
-```
-
-```scss
 /* TodoItem.module.scss */
 @import '../colors';
 ...
+```
+
+```scss
+/* colors.scss */
+$primary: lightblue;
 ```
 
 ## JSX: Dynamische Stile

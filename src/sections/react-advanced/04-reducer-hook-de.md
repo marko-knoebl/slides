@@ -27,7 +27,7 @@ Actions werden durch JavaScript Objekte repräsentiert:
 
 ## reducer Hook
 
-State management mit reducern:
+State management mit Reducern:
 
 Beim _reducer Hook_ bzw _Redux_:
 

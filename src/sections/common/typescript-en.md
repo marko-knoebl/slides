@@ -29,12 +29,6 @@ let name: string = 'Andreas';
 ## type system: arrays
 
 ```js
-let names: Array = ['Anna', 'Bernhard'];
-```
-
-more detailed:
-
-```js
 let names: Array<string> = ['Anna', 'Bernhard'];
 ```
 
@@ -58,7 +52,9 @@ function repeatString(
 const repeatString = (
   text: string,
   times: number
-): string => {...};
+): string => {
+  return ...;
+};
 ```
 
 ## type system: void
@@ -88,10 +84,10 @@ console.log(ib.value);
 
 ## type system: types & interfaces
 
-Interfaces describe the structure of an object / of a class in Detail  
+Interfaces describe the structure of an object / of a class in detail  
 e.g.: `TodoInterface`, `PersonInterface`
 
-Types are similar to interface, but are also applicable to strings, arrays, ...
+Types are similar to interfaces, but are also applicable to strings, arrays, ...
 
 Essentialy types offer more functionality than interfaces
 
@@ -141,7 +137,7 @@ type ActionType = {
   payload?: object;
 };
 
-type AddTodoActionType = ReduxActionType & {
+type AddTodoActionType = ActionType & {
   type: 'ADD_TODO';
   payload: {
     title: string;

@@ -8,7 +8,7 @@ npx create-react-app my-app --typescript
 
 ## components (functions)
 
-```ts
+```tsx
 type TodoListProps = {
   todos: Array<TodoType>;
   onToggle: (id: number) => void;

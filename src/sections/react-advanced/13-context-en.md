@@ -2,7 +2,7 @@
 
 ## Context
 
-Context is a means to provide values from a components to all components that are contained within it - without explicitly passing it through all intermediate levels.
+Context is a means to provide values from a component to all components that are contained within it - without explicitly passing it through all intermediate levels.
 
 ## Context
 
@@ -13,7 +13,7 @@ two main elements:
 
 ## Context
 
-The interface of context can pass both data and event handler
+The interface of context can pass both data and event handlers
 
 ## Context - example
 
@@ -28,14 +28,14 @@ const TodosContext = React.createContext();
 ```ts
 // TodosContext.ts
 
-type TodosContext = {
+type TodosContextType = {
   todos: Array<Todo>;
   onToggle: (id: number) => void;
   onClear: () => void;
 };
 
 const TodosContext = React.createContext(
-  {} as TodosContext
+  {} as TodosContextType
 );
 ```
 

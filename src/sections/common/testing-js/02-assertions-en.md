@@ -32,8 +32,6 @@ expect (behaviour-driven)
 
 ## Testing: assertions
 
-assert: examples
-
 node:
 
 ```js
@@ -54,8 +52,6 @@ assert.throws(() => {
 ```
 
 ## Testing: assertions
-
-expect: examples
 
 jest:
 

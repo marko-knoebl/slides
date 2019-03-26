@@ -87,7 +87,7 @@ Eventhandler werden als Funktionen definiert und via props übergeben / erhalten
 
 Beispiel `ToggleButton`: Button, der entweder "off" oder "on" anzeigt:
 
-Prop: `active` - kann auf `true` bzw `false` gesetzt sein
+Prop: `active` - kann auf `true` bzw `false` gesetzt sein  
 Event: `onToggle` - Funktion, die mit dem neuen Zustand aufgerufen wird
 
 ```jsx

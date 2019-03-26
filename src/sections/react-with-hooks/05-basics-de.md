@@ -75,3 +75,22 @@ function hello() {...}
 
 Liste von Browser-Events:  
 https://www.w3schools.com/jsref/dom_obj_event.asp
+
+## State Beispiel
+
+(wir widmen uns dem Thema _State_ später im Detail)
+
+```jsx
+const Counter = () => {
+  const [count, setCount] = useState(0);
+
+  return (
+    <button
+      onClick={() => {
+        setCount(count + 1);
+      }}>
+      {count}
+    </button>
+  );
+};
+```
