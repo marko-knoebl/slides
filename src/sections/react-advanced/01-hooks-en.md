@@ -14,6 +14,7 @@ Hooks = extension of function components; enable the use of state and other feat
 
 - Documentation for beginners is still very focused on classes
 - Limited support from React developer tools (browser plugins)
+- Test libraries like enzyme don't support them yet
 
 ## important hooks
 

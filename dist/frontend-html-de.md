@@ -167,6 +167,7 @@ Weitere Möglichkeiten:
 
 - _Strg_ + _F_: Suchen in Datei
 - _Alt_ + _Shift_ + _F_: Formatieren der Datei
+- _Ctrl_ + _#_: aus- / einkommentieren
 - _F2_: Umbenennen von Variablen
 - _Alt_ + Mausklick: Mehrere Textcursor zum gleichzeitigen Schreiben setzen
 
@@ -589,6 +590,39 @@ CSS-Pseudoklassen: `:valid`, `:invalid`
 ```
 
 Bei Betätigen des Buttons sendet das Formular einen post-Request an die Adresse _login.php_ und übermittelt die Daten _username_ und _password_
+
+# SVG
+
+## SVG
+
+SVG (scalable vector graphics): XML-basiertes Format für Vektorgrafiken
+
+## Das SVG Tag
+
+Attribute (Beispiele):
+
+```html
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  version="1.1"
+  width="1000"
+  height="500"
+  viewBox="-500 0 1000 500"
+></svg>
+```
+
+## SVG Elemente
+
+- `g`: Gruppe
+- `path`
+- `rect`
+- `text`, `tspan`
+
+## Allgemeine SVG Attribute
+
+- `id`, `class`
+- `transform` (z.B. `"rotate(180)"`, `"translate(20 30)"`)
+- `x`, `y` (Position)
 
 # Online Resourcen
 

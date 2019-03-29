@@ -34,6 +34,10 @@ it('renders a component tree without crashing', () => {
 });
 ```
 
+## Enzyme - Cheatsheet
+
+https://devhints.io/enzyme
+
 ## Enzyme - Examples
 
 Tests with Jest
@@ -49,6 +53,18 @@ it('renders an `.icon-star`', () => {
   const wrapper = shallow(<MyComponent />);
   expect(wrapper.find('.icon-star')).toHaveLength(1);
 });
+```
+
+## Enzyme - find
+
+```jsx
+expect(ratingWrapper.find('.star')).toHaveLength(5);
+expect(
+  todoListWrapper
+    .find(TodoItem)
+    .get(0)
+    .text()
+).toEqual('my-todo');
 ```
 
 ## Enzyme - Examples
@@ -107,7 +123,7 @@ Snapshot tests are a kind of regression tests
 npm install --save-dev react-test-renderer
 ```
 
-für TypeScript:
+for TypeScript:
 
 ```bash
 npm install --save-dev @types/react-test-renderer

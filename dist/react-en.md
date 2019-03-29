@@ -239,6 +239,14 @@ let b = 2;
 const [result, errors] = someComputation();
 ```
 
+## destructuring assignment
+
+```js
+const person = { name: 'John', age: 48 };
+
+const { name, age } = person;
+```
+
 ## arrow functions
 
 - short notation for anonymous functions
@@ -317,7 +325,7 @@ let moreSquares = [...squares, 16, 25];
 // moreSquares: [1, 4, 9, 16, 25]
 ```
 
-## spread syntax (arrays)
+## spread syntax (objects)
 
 ```js
 let person = {

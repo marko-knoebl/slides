@@ -742,15 +742,182 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <ul>
 <li><em>Strg</em> + <em>F</em>: Suchen in Datei</li>
 <li><em>Alt</em> + <em>Shift</em> + <em>F</em>: Formatieren der Datei</li>
+<li><em>Ctrl</em> + <em>#</em>: aus- / einkommentieren</li>
 <li><em>F2</em>: Umbenennen von Variablen</li>
 <li><em>Alt</em> + Mausklick: Mehrere Textcursor zum gleichzeitigen Schreiben setzen</li>
 </ul>
 
       </section></section><section class="section" id="section-7"><section class="slide" id="slide-7-1">
+        <h1 id="es2015">ES2015+</h1>
+
+      </section><section class="slide" id="slide-7-2">
+        <h2 id="modernes-javascript">Modernes JavaScript</h2>
+
+      </section><section class="slide" id="slide-7-3">
+        <h2 id="javascript-standardisierung">JavaScript-Standardisierung</h2>
+<p>JavaScript wird unter dem Namen <em>ECMAScript</em> (kurz ES) standardisiert</p>
+
+      </section><section class="slide" id="slide-7-4">
+        <h2 id="javascript-versionen">JavaScript: Versionen</h2>
+<ul>
+<li>Von allen Browsern unterstützt: ES5 (2009 veröffentlicht)</li>
+<li>Nächste große Version: <em>ES2015</em> (oder ES6)</li>
+<li>Seither: jährliche kleinere Änderungen (aktuell: ES2018)</li>
+</ul>
+
+      </section><section class="slide" id="slide-7-5">
+        <h2 id="javascript-versionsunterstützung">JavaScript: Versionsunterstützung</h2>
+<ul>
+<li>Übersicht: siehe <a href="http://kangax.github.io/compat-table/es6/">http://kangax.github.io/compat-table/es6/</a></li>
+<li>In der Praxis: Modernes JavaScript wird in ES5 transpiliert (mittels Babel, webpack)</li>
+</ul>
+
+      </section><section class="slide" id="slide-7-6">
+        <h2 id="wichtige-neuerungen-in-es2015">Wichtige Neuerungen in ES2015</h2>
+
+      </section><section class="slide" id="slide-7-7">
+        <h2 id="module--imports">Module &amp; Imports</h2>
+<ul>
+<li>Möglichkeit, Funktionalität aus anderen js-Dateien zu importieren – kein globaler Namespace mehr</li>
+<li>Benötigt einen Bundler, z.B. webpack</li>
+</ul>
+<pre><code class="language-js"><span class="hljs-comment">// user.js</span>
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span> </span>{
+  ...
+}</code></pre>
+<pre><code class="language-js"><span class="hljs-comment">// main.js</span>
+<span class="hljs-keyword">import</span> { User } <span class="hljs-keyword">from</span> <span class="hljs-string">'user.js'</span>;</code></pre>
+
+      </section><section class="slide" id="slide-7-8">
+        <h2 id="module--imports">Module &amp; Imports</h2>
+<pre><code class="language-js"><span class="hljs-comment">// User.js</span>
+<span class="hljs-comment">// es kann 1 default export geben</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span> </span>{
+   ...
+}</code></pre>
+<pre><code class="language-js"><span class="hljs-comment">// main.js</span>
+<span class="hljs-keyword">import</span> User <span class="hljs-keyword">from</span> <span class="hljs-string">'User.js'</span>;</code></pre>
+
+      </section><section class="slide" id="slide-7-9">
+        <h2 id="let">let</h2>
+<ul>
+<li>Neue Alternative zu var – mit leicht anderem Scoping</li>
+<li>Scope: umgebende geschweifte Klammern (statt umgebender Funktion)</li>
+</ul>
+<pre><code class="language-js"><span class="hljs-keyword">if</span> (<span class="hljs-literal">true</span>) {
+  <span class="hljs-keyword">let</span> a = <span class="hljs-number">3</span>;
+}
+<span class="hljs-built_in">console</span>.log(a); <span class="hljs-comment">// ReferenceError</span></code></pre>
+
+      </section><section class="slide" id="slide-7-10">
+        <h2 id="const">const</h2>
+<p>Deklariert eine Variable, die nicht mehr neu zugewiesen werden kann.<br>Das bezeichnete Objekt selbst kann allerdings modifiziert werden</p>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> names = [<span class="hljs-string">'Alice'</span>, <span class="hljs-string">'Bob'</span>, <span class="hljs-string">'Claire'</span>];
+names = [<span class="hljs-string">'Andrew'</span>, <span class="hljs-string">'Bob'</span>, <span class="hljs-string">'Claire'</span>]; <span class="hljs-comment">// ungültig!</span>
+names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</span>; <span class="hljs-comment">// gültig</span></code></pre>
+
+      </section><section class="slide" id="slide-7-11">
+        <h2 id="destrukturierende-zuweisung">Destrukturierende Zuweisung</h2>
+<pre><code class="language-js"><span class="hljs-keyword">let</span> a = <span class="hljs-number">1</span>;
+<span class="hljs-keyword">let</span> b = <span class="hljs-number">2</span>;
+[a, b] = [b, a];
+
+<span class="hljs-keyword">const</span> [result, errors] = someComputation();</code></pre>
+
+      </section><section class="slide" id="slide-7-12">
+        <h2 id="destrukturierende-zuweisung">Destrukturierende Zuweisung</h2>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> person = { <span class="hljs-attr">name</span>: <span class="hljs-string">'John'</span>, <span class="hljs-attr">age</span>: <span class="hljs-number">48</span> };
+
+<span class="hljs-keyword">const</span> { name, age } = person;</code></pre>
+
+      </section><section class="slide" id="slide-7-13">
+        <h2 id="pfeilfunktionen">Pfeilfunktionen</h2>
+<ul>
+<li>Kurzschreibweise für anonyme Funktionen</li>
+<li>Lässt <em>this</em> unverändert (überschreibt es nicht)</li>
+</ul>
+<pre><code class="language-js"><span class="hljs-keyword">let</span> multiply = <span class="hljs-function">(<span class="hljs-params">a, b</span>) =&gt;</span> {
+  <span class="hljs-keyword">return</span> a * b;
+};
+
+<span class="hljs-keyword">let</span> multiply = <span class="hljs-function">(<span class="hljs-params">a, b</span>) =&gt;</span> a * b;</code></pre>
+
+      </section><section class="slide" id="slide-7-14">
+        <h2 id="pfeilfunktionen">Pfeilfunktionen</h2>
+<p>wenn es genau einen Parameter gibt: Parameterklammern optional</p>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> square = <span class="hljs-function"><span class="hljs-params">a</span> =&gt;</span> a * a;</code></pre>
+<p>wenn direkt ein Objekt zurückgegeben werden soll: mit runden Klammern umschießen</p>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> getState = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> ({
+  <span class="hljs-attr">loggedIn</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">userName</span>: <span class="hljs-string">'mike'</span>,
+});</code></pre>
+
+      </section><section class="slide" id="slide-7-15">
+        <h2 id="klassen">Klassen</h2>
+<p>Ersetzen die alten Konstruktorfunktionen und Prototypen</p>
+
+      </section><section class="slide" id="slide-7-16">
+        <h2 id="klassen">Klassen</h2>
+<pre><code class="language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> </span>{
+  <span class="hljs-keyword">constructor</span>(firstName, lastName) {
+    <span class="hljs-keyword">this</span>.firstName = firstName;
+    <span class="hljs-keyword">this</span>.lastName = lastName;
+  }
+  hello() {
+    <span class="hljs-keyword">return</span> <span class="hljs-string">`My name is <span class="hljs-subst">${<span class="hljs-keyword">this</span>.firstName}</span>`</span>;
+  }
+}</code></pre>
+
+      </section><section class="slide" id="slide-7-17">
+        <h2 id="klassen-und-vererbung">Klassen und Vererbung</h2>
+<pre><code class="language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Person</span> </span>{
+  <span class="hljs-keyword">constructor</span>(firstName, lastName, userName) {
+    <span class="hljs-comment">// ruft Person.constructor auf</span>
+    <span class="hljs-keyword">super</span>(firstName, lastName);
+    <span class="hljs-keyword">this</span>.userName = userName;
+  }
+}</code></pre>
+
+      </section><section class="slide" id="slide-7-18">
+        <h2 id="array-iteration-for--of">Array-Iteration (for ... of)</h2>
+<p>Über die Einträge in einem Array iterieren:</p>
+<pre><code class="language-js"><span class="hljs-keyword">let</span> names = [<span class="hljs-string">'Anna'</span>, <span class="hljs-string">'Bernhard'</span>, <span class="hljs-string">'Caro'</span>];
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> name <span class="hljs-keyword">of</span> names) {
+  <span class="hljs-built_in">console</span>.log(name);
+}</code></pre>
+
+      </section><section class="slide" id="slide-7-19">
+        <h2 id="spread-syntax-arrays-und-objekte">Spread Syntax (Arrays und Objekte)</h2>
+<pre><code class="language-js"><span class="hljs-keyword">let</span> squares = [<span class="hljs-number">1</span>, <span class="hljs-number">4</span>, <span class="hljs-number">9</span>];
+<span class="hljs-keyword">let</span> moreSquares = [...squares, <span class="hljs-number">16</span>, <span class="hljs-number">25</span>];
+<span class="hljs-comment">// moreSquares: [1, 4, 9, 16, 25]</span></code></pre>
+<pre><code class="language-js"><span class="hljs-keyword">let</span> person = { <span class="hljs-attr">firstName</span>: <span class="hljs-string">'Joe'</span>, <span class="hljs-attr">lastName</span>: <span class="hljs-string">'Doe'</span>, <span class="hljs-attr">age</span>: <span class="hljs-number">31</span> };
+<span class="hljs-keyword">let</span> newPerson = { ...person, <span class="hljs-attr">email</span>: <span class="hljs-string">'j@d.com'</span>, <span class="hljs-attr">age</span>: <span class="hljs-number">32</span> };
+<span class="hljs-comment">// {firstName: 'Joe', lastName: 'Doe', email: 'j@d.com', age: 32}</span></code></pre>
+
+      </section><section class="slide" id="slide-7-20">
+        <h2 id="template-strings">Template-Strings</h2>
+<ul>
+<li>Neue Syntax zum <em>Erstellen</em> von Strings</li>
+<li>Werden mit Backticks begrenzt</li>
+<li>Erlauben mehrzeilige Strings und Interpolation:</li>
+</ul>
+<pre><code class="language-js"><span class="hljs-keyword">let</span> name = <span class="hljs-string">'Anton'</span>;
+<span class="hljs-keyword">let</span> greeting = <span class="hljs-string">`Hallo, <span class="hljs-subst">${name}</span>!
+                Das ist ES2015!`</span>;</code></pre>
+
+      </section><section class="slide" id="slide-7-21">
+        <h2 id="standardparameter-in-funktionen">Standardparameter in Funktionen</h2>
+<p>In Funktionen können nun Standardparameter definiert werden:</p>
+<pre><code class="language-js"><span class="hljs-keyword">let</span> join = <span class="hljs-function">(<span class="hljs-params">strings, separator=<span class="hljs-string">''</span></span>) =&gt;</span> {
+  ...
+}</code></pre>
+
+      </section></section><section class="section" id="section-8"><section class="slide" id="slide-8-1">
         <h1 id="map-filter-reduce">map, filter, reduce</h1>
 <h3 id="array-methoden-für-die-funktionale-programmierung">Array-Methoden für die funktionale Programmierung</h3>
 
-      </section><section class="slide" id="slide-7-2">
+      </section><section class="slide" id="slide-8-2">
         <h2 id="map">map</h2>
 <ul>
 <li>Ändert jeden Eintrag eines Arrays mit Hilfe einer Funktion ab</li>
@@ -763,7 +930,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <span class="hljs-keyword">let</span> newNumbers = myNumbers.map(triple);
 <span class="hljs-comment">// [6, 30, 69]</span></code></pre>
 
-      </section><section class="slide" id="slide-7-3">
+      </section><section class="slide" id="slide-8-3">
         <h2 id="filter">filter</h2>
 <ul>
 <li>Behält nur gewisse Einträge in einem Array</li>
@@ -777,14 +944,14 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <span class="hljs-keyword">let</span> newNumbers = myNumbers.filter(isEven);
 <span class="hljs-comment">// [2, 10]</span></code></pre>
 
-      </section><section class="slide" id="slide-7-4">
+      </section><section class="slide" id="slide-8-4">
         <h2 id="reduce">reduce</h2>
 <ul>
 <li>Verarbeitet die Einträge in einem Array zu einem einzelnen Wert</li>
 <li>Verwendet eine Funktion, die aus zwei bestehenden Werten einen resultierenden Wert erstellt - diese Funktion wird wiederholt aufgerufen</li>
 </ul>
 
-      </section><section class="slide" id="slide-7-5">
+      </section><section class="slide" id="slide-8-5">
         <h2 id="reduce---beispiel">reduce - Beispiel</h2>
 <pre><code class="language-js"><span class="hljs-keyword">let</span> transactions = [
   { <span class="hljs-attr">amount</span>: <span class="hljs-number">-56</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'groceries'</span> },
@@ -802,10 +969,10 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 
 <span class="hljs-comment">// 317 -&gt; 261 -&gt; 1281 -&gt; 1268 -&gt; 1172</span></code></pre>
 
-      </section></section><section class="section" id="section-8"><section class="slide" id="slide-8-1">
+      </section></section><section class="section" id="section-9"><section class="slide" id="slide-9-1">
         <h1 id="this---quirks">this - quirks</h1>
 
-      </section><section class="slide" id="slide-8-2">
+      </section><section class="slide" id="slide-9-2">
         <h2 id="this---quirks">this - quirks</h2>
 <ul>
 <li><em>this</em> bezieht sich in Objektmethoden üblicherweise auf das aktuelle Objekt</li>
@@ -816,7 +983,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </li>
 </ul>
 
-      </section><section class="slide" id="slide-8-3">
+      </section><section class="slide" id="slide-9-3">
         <h2 id="problem-this-in-anonymen-funktionen">Problem: <em>this</em> in anonymen Funktionen</h2>
 <pre><code class="language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">myComponent</span> </span>{
   <span class="hljs-keyword">constructor</span>() {
@@ -829,7 +996,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   }
 }</code></pre>
 
-      </section><section class="slide" id="slide-8-4">
+      </section><section class="slide" id="slide-9-4">
         <h2 id="lösung-pfeilfunktionen">Lösung: <em>Pfeilfunktionen</em></h2>
 <pre><code class="language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">myComponent</span> </span>{
   <span class="hljs-keyword">constructor</span>() {
@@ -842,7 +1009,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   }
 }</code></pre>
 
-      </section><section class="slide" id="slide-8-5">
+      </section><section class="slide" id="slide-9-5">
         <h2 id="problem-methodenaufrufe-ohne-methodensyntax">Problem: Methodenaufrufe ohne Methodensyntax</h2>
 <pre><code class="language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span> </span>{
   <span class="hljs-keyword">constructor</span>() {
@@ -857,7 +1024,7 @@ foo.greet(); <span class="hljs-comment">// klappt</span>
 <span class="hljs-keyword">let</span> fg = foo.greet;
 fg(); <span class="hljs-comment">// klappt nicht (this ist undefined)</span></code></pre>
 
-      </section><section class="slide" id="slide-8-6">
+      </section><section class="slide" id="slide-9-6">
         <h2 id="lösung-pfeil-methoden">Lösung: Pfeil-Methoden</h2>
 <p>Seit ES2018 einsetzbar:</p>
 <pre><code class="language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span> </span>{
@@ -869,7 +1036,7 @@ fg(); <span class="hljs-comment">// klappt nicht (this ist undefined)</span></co
   };
 }</code></pre>
 
-      </section><section class="slide" id="slide-8-7">
+      </section><section class="slide" id="slide-9-7">
         <h2 id="lösung-binden-von-methoden">Lösung: Binden von Methoden</h2>
 <pre><code class="language-js"><span class="hljs-keyword">let</span> f = <span class="hljs-keyword">new</span> Foo();
 f.greet(); <span class="hljs-comment">// klappt</span>
@@ -880,20 +1047,20 @@ fg(); <span class="hljs-comment">// klappt jetzt auch</span></code></pre>
     <span class="hljs-keyword">this</span>.greet = <span class="hljs-keyword">this</span>.greet.bind(<span class="hljs-keyword">this</span>);
   }</code></pre>
 
-      </section></section><section class="section" id="section-9"><section class="slide" id="slide-9-1">
+      </section></section><section class="section" id="section-10"><section class="slide" id="slide-10-1">
         <h1 id="state-komponentenzustand">State (Komponentenzustand)</h1>
 
-      </section><section class="slide" id="slide-9-2">
+      </section><section class="slide" id="slide-10-2">
         <h2 id="state">State</h2>
 <p>React Komponenten können einen internen Zustand (<em>state</em>) haben</p>
 <p>Auf den state kann im Template verwiesen werden. Damit ändert sich die Anzeige automatisch, wenn Teile des States neu gesetzt werden.</p>
 
-      </section><section class="slide" id="slide-9-3">
+      </section><section class="slide" id="slide-10-3">
         <h2 id="state-in-funktionalen-komponenten">State in funktionalen Komponenten</h2>
 <p>In funktionalen Komponenten verwenden wir den Hook <code>useState</code>:</p>
 <pre><code class="language-js"><span class="hljs-keyword">import</span> { useState } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;</code></pre>
 
-      </section><section class="slide" id="slide-9-4">
+      </section><section class="slide" id="slide-10-4">
         <h2 id="state-in-funktionalen-komponenten">State in funktionalen Komponenten</h2>
 <p>Die Funktion <code>useState</code> kann zu Beginn der Komponentenfunktion (wiederholt) aufgerufen werden. Sie hat die folgende Signatur:</p>
 <ul>
@@ -907,11 +1074,11 @@ fg(); <span class="hljs-comment">// klappt jetzt auch</span></code></pre>
   <span class="hljs-keyword">return</span> ...
 };</code></pre>
 
-      </section><section class="slide" id="slide-9-5">
+      </section><section class="slide" id="slide-10-5">
         <h2 id="beispiel-counter">Beispiel: Counter</h2>
 <p>Wir fügen unserer Anwendung einen Button hinzu. Zu Beginn zeigt dieser den Wert 0. Bei jedem Klick erhöht er sich um 1.</p>
 
-      </section><section class="slide" id="slide-9-6">
+      </section><section class="slide" id="slide-10-6">
         <h2 id="beispiel-counter">Beispiel: Counter</h2>
 <pre><code class="language-jsx"><span class="hljs-keyword">const</span> App = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
   <span class="hljs-keyword">const</span> [count, setCount] = useState(<span class="hljs-number">0</span>);
@@ -926,11 +1093,11 @@ fg(); <span class="hljs-comment">// klappt jetzt auch</span></code></pre>
   );
 };</code></pre>
 
-      </section><section class="slide" id="slide-9-7">
+      </section><section class="slide" id="slide-10-7">
         <h2 id="beispiel-counter">Beispiel: Counter</h2>
 <p>Aufgabe: füge zur Anwendung von eben einen <em>Reset</em>-Knopf hinzu</p>
 
-      </section><section class="slide" id="slide-9-8">
+      </section><section class="slide" id="slide-10-8">
         <h2 id="beispiel-diashow">Beispiel: Diashow</h2>
 <p>Diashow, die Bilder wie das folgende anzeigt:</p>
 <p><code>https://picsum.photos/200?image=10</code></p>
@@ -940,13 +1107,13 @@ fg(); <span class="hljs-comment">// klappt jetzt auch</span></code></pre>
 <li>Verhindern, dass ins negative gezählt wird</li>
 </ul>
 
-      </section><section class="slide" id="slide-9-9">
+      </section><section class="slide" id="slide-10-9">
         <h2 id="state-in-klassenkomponenten">State in Klassenkomponenten</h2>
 <p>In Klassenkomponenten repräsentiert <code>this.state</code> den State.</p>
 <p><code>this.state</code> ist immer ein JavaScript-Objekt mit verschiedenen Einträgen (Properties)</p>
 <p>Zustandsänderungen erfolgen über <code>this.setState()</code></p>
 
-      </section><section class="slide" id="slide-9-10">
+      </section><section class="slide" id="slide-10-10">
         <h2 id="struktur-von-thisstate">Struktur von this.state</h2>
 <p><em>this.state</em> ist ein JavaScript-Objekt:</p>
 <pre><code class="language-js"><span class="hljs-keyword">constructor</span>() {
@@ -957,13 +1124,13 @@ fg(); <span class="hljs-comment">// klappt jetzt auch</span></code></pre>
   }
 }</code></pre>
 
-      </section><section class="slide" id="slide-9-11">
+      </section><section class="slide" id="slide-10-11">
         <h2 id="änderung-von-thisstate">Änderung von this.state</h2>
 <p>via <code>this.setState()</code></p>
 <pre><code class="language-js"><span class="hljs-keyword">this</span>.setState({ <span class="hljs-attr">loggedIn</span>: <span class="hljs-literal">false</span> });</code></pre>
 <p>setState überschreibt alle angegebenen Einträge im state-Objekt</p>
 
-      </section><section class="slide" id="slide-9-12">
+      </section><section class="slide" id="slide-10-12">
         <h2 id="wiederholtes-aufrufen-von-thissetstate">Wiederholtes Aufrufen von this.setState</h2>
 <p>Rat: in einem Event-Handler nur 1x <code>setState</code> aufrufen.</p>
 <p>Wenn doch mehrere Aufrufe von <code>setState</code> erfolgen und ein Aufruf auf der vorhergehenden Zustandsänderung basiert:</p>
@@ -973,10 +1140,10 @@ fg(); <span class="hljs-comment">// klappt jetzt auch</span></code></pre>
 }));</code></pre>
 <p>Wir übergeben setState eine Funktion, die den alten in den neuen Zustand überführt.</p>
 
-      </section></section><section class="section" id="section-10"><section class="slide" id="slide-10-1">
+      </section></section><section class="section" id="section-11"><section class="slide" id="slide-11-1">
         <h1 id="jsx-im-detail">JSX im Detail</h1>
 
-      </section><section class="slide" id="slide-10-2">
+      </section><section class="slide" id="slide-11-2">
         <h2 id="jsx-elemente-wiederholen">JSX: Elemente wiederholen</h2>
 <p>Grundsätzlich können wir über Arrays mehrere Elemente einbinden:</p>
 <pre><code class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
@@ -986,7 +1153,7 @@ fg(); <span class="hljs-comment">// klappt jetzt auch</span></code></pre>
   ] }
 <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></code></pre>
 
-      </section><section class="slide" id="slide-10-3">
+      </section><section class="slide" id="slide-11-3">
         <h2 id="jsx-elemente-wiederholen">JSX: Elemente wiederholen</h2>
 <p>Meist verwenden wir zum wiederholen die <code>.map()</code> - Methode</p>
 <!-- prettier-ignore -->
@@ -1002,7 +1169,7 @@ fg(); <span class="hljs-comment">// klappt jetzt auch</span></code></pre>
   ))}
 <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></span></code></pre>
 
-      </section><section class="slide" id="slide-10-4">
+      </section><section class="slide" id="slide-11-4">
         <h2 id="jsx-elemente-wiederholen">JSX: Elemente wiederholen</h2>
 <p>Bei obigem Code: Warnung in der Browser-Konsole (Wegen Effizienz)<br>Lösung: <strong>key</strong>:</p>
 <pre><code class="language-jsx">&lt;ul&gt;
@@ -1011,11 +1178,11 @@ fg(); <span class="hljs-comment">// klappt jetzt auch</span></code></pre>
   ))}
 &lt;<span class="hljs-regexp">/ul&gt;</span></code></pre>
 
-      </section><section class="slide" id="slide-10-5">
+      </section><section class="slide" id="slide-11-5">
         <h2 id="jsx-if--else">JSX: if / else</h2>
 <pre><code class="language-jsx">&lt;div&gt;{<span class="hljs-built_in">Math</span>.random() &gt; <span class="hljs-number">0.5</span> ? <span class="hljs-string">'heads'</span> : <span class="hljs-string">'tails'</span>}&lt;<span class="hljs-regexp">/div&gt;</span></code></pre>
 
-      </section><section class="slide" id="slide-10-6">
+      </section><section class="slide" id="slide-11-6">
         <h2 id="jsx-if--else">JSX: if / else</h2>
 <pre><code class="language-jsx"><span class="hljs-keyword">let</span> face;
 <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Math</span>.random() &gt; <span class="hljs-number">0.5</span>) {
@@ -1026,15 +1193,15 @@ fg(); <span class="hljs-comment">// klappt jetzt auch</span></code></pre>
 
 <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>{face}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>;</code></pre>
 
-      </section><section class="slide" id="slide-10-7">
+      </section><section class="slide" id="slide-11-7">
         <h2 id="jsx-if">JSX: if</h2>
 <pre><code class="language-jsx">&lt;div&gt;{state.hasError &amp;&amp; state.errorMessage}&lt;<span class="hljs-regexp">/div&gt;</span></code></pre>
 
-      </section><section class="slide" id="slide-10-8">
+      </section><section class="slide" id="slide-11-8">
         <h2 id="jsx-css-klassen">JSX: CSS-Klassen</h2>
 <pre><code class="language-jsx">&lt;div className={getClassName()}&gt;[...]&lt;<span class="hljs-regexp">/div&gt;</span></code></pre>
 
-      </section><section class="slide" id="slide-10-9">
+      </section><section class="slide" id="slide-11-9">
         <h2 id="css-module">CSS-Module</h2>
 <p>Bei create-react-app sind CSS-Module vorkonfiguriert. Diese erlauben das Verwenden von CSS-Klassennamen, die garantiert über CSS-Dateien hinweg eindeutig sind.</p>
 <pre><code class="language-js"><span class="hljs-keyword">import</span> styles <span class="hljs-keyword">from</span> <span class="hljs-string">'./TodoItem.module.css'</span>;
@@ -1045,7 +1212,7 @@ fg(); <span class="hljs-comment">// klappt jetzt auch</span></code></pre>
   ...
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>;</code></pre>
 
-      </section><section class="slide" id="slide-10-10">
+      </section><section class="slide" id="slide-11-10">
         <h2 id="scss-einbinden">SCSS einbinden</h2>
 <pre><code class="language-bash">npm install node-sass</code></pre>
 <pre><code class="language-js"><span class="hljs-keyword">import</span> styles <span class="hljs-keyword">from</span> <span class="hljs-string">'./TodoItem.module.scss'</span>;</code></pre>
@@ -1055,7 +1222,7 @@ fg(); <span class="hljs-comment">// klappt jetzt auch</span></code></pre>
 <pre><code class="language-scss"><span class="hljs-comment">/* colors.scss */</span>
 <span class="hljs-variable">$primary</span>: lightblue;</code></pre>
 
-      </section><section class="slide" id="slide-10-11">
+      </section><section class="slide" id="slide-11-11">
         <h2 id="jsx-dynamische-stile">JSX: Dynamische Stile</h2>
 <pre><code class="language-jsx">&lt;div
   style={{
@@ -1064,7 +1231,7 @@ fg(); <span class="hljs-comment">// klappt jetzt auch</span></code></pre>
   }}
 /&gt;</code></pre>
 
-      </section><section class="slide" id="slide-10-12">
+      </section><section class="slide" id="slide-11-12">
         <h2 id="fragmente">Fragmente</h2>
 <p>Erlauben es einer Komponente, mehrere Elemente zurückzugeben (anstatt eines einzenen Elements)</p>
 <pre><code class="language-jsx"><span class="hljs-keyword">return</span> (
@@ -1074,7 +1241,7 @@ fg(); <span class="hljs-comment">// klappt jetzt auch</span></code></pre>
   <span class="hljs-tag">&lt;/&gt;</span>
 );</span></code></pre>
 
-      </section><section class="slide" id="slide-10-13">
+      </section><section class="slide" id="slide-11-13">
         <h2 id="jsx-kompilierung">JSX Kompilierung</h2>
 <pre><code class="language-jsx"><span class="hljs-keyword">const</span> element = <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"greeting"</span>&gt;</span>Hello, world!<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span>;</code></pre>
 <p>wird kompiliert zu:</p>
@@ -1084,16 +1251,16 @@ fg(); <span class="hljs-comment">// klappt jetzt auch</span></code></pre>
   <span class="hljs-string">'Hello, world!'</span>
 );</code></pre>
 
-      </section></section><section class="section" id="section-11"><section class="slide" id="slide-11-1">
+      </section></section><section class="section" id="section-12"><section class="slide" id="slide-12-1">
         <h1 id="inputs">Inputs</h1>
 
-      </section><section class="slide" id="slide-11-2">
+      </section><section class="slide" id="slide-12-2">
         <h2 id="inputs">Inputs</h2>
 <p>Besonderheit von input-Elementen:</p>
 <p>Ihre Properties (insbesondere <code>.value</code>) können durch User-Interaktionen direkt geändert werden</p>
 <p>Es gibt damit Aspekte des UI-Zustands, die nicht im state erfasst sind.</p>
 
-      </section><section class="slide" id="slide-11-3">
+      </section><section class="slide" id="slide-12-3">
         <h2 id="inputs">Inputs</h2>
 <p>So können wir den Value eines Inputs im State erfassen:</p>
 <pre><code class="language-jsx">&lt;input
@@ -1103,10 +1270,10 @@ fg(); <span class="hljs-comment">// klappt jetzt auch</span></code></pre>
   }}
 /&gt;</code></pre>
 
-      </section></section><section class="section" id="section-12"><section class="slide" id="slide-12-1">
+      </section></section><section class="section" id="section-13"><section class="slide" id="slide-13-1">
         <h1 id="entwicklerwerkzeuge-für-react">Entwicklerwerkzeuge für React</h1>
 
-      </section><section class="slide" id="slide-12-2">
+      </section><section class="slide" id="slide-13-2">
         <h2 id="react-developer-tools">React Developer Tools</h2>
 <p><a href="https://github.com/facebook/react-devtools">https://github.com/facebook/react-devtools</a></p>
 <ul>
@@ -1117,7 +1284,7 @@ fg(); <span class="hljs-comment">// klappt jetzt auch</span></code></pre>
 <li>Performanceanalyse des Renderings von Komponenten</li>
 </ul>
 
-      </section><section class="slide" id="slide-12-3">
+      </section><section class="slide" id="slide-13-3">
         <h2 id="debugging-in-vs-code">Debugging in VS Code</h2>
 <p>Extensions:</p>
 <ul>
@@ -1125,7 +1292,7 @@ fg(); <span class="hljs-comment">// klappt jetzt auch</span></code></pre>
 <li>Debugger for Firefox</li>
 </ul>
 
-      </section><section class="slide" id="slide-12-4">
+      </section><section class="slide" id="slide-13-4">
         <h2 id="debugging-in-vs-code-konfiguration">Debugging in VS Code: Konfiguration</h2>
 <p>Konfigurationsdatei erstellen: In der Debugger-Sidebar auf das Zahnradsymbol (<em>Configure or fix &#39;launch.json&#39;</em>)</p>
 <p>in <em>launch.json</em>:</p>
@@ -1136,15 +1303,15 @@ fg(); <span class="hljs-comment">// klappt jetzt auch</span></code></pre>
   <span class="hljs-attr">"url"</span>: <span class="hljs-string">"http://localhost:3000"</span>
 }</code></pre>
 
-      </section><section class="slide" id="slide-12-5">
+      </section><section class="slide" id="slide-13-5">
         <h2 id="debugging-in-vs-code-starten">Debugging in VS Code: starten</h2>
 <p>Testserver muss im Hintergrund schon laufen</p>
 <p>Debugging in VS Code starten: mittels <em>F5</em></p>
 
-      </section></section><section class="section" id="section-13"><section class="slide" id="slide-13-1">
+      </section></section><section class="section" id="section-14"><section class="slide" id="slide-14-1">
         <h1 id="prettier">Prettier</h1>
 
-      </section><section class="slide" id="slide-13-2">
+      </section><section class="slide" id="slide-14-2">
         <h2 id="prettier">Prettier</h2>
 <p><a href="https://prettier.io/">https://prettier.io/</a></p>
 <ul>
@@ -1152,7 +1319,7 @@ fg(); <span class="hljs-comment">// klappt jetzt auch</span></code></pre>
 <li>VS-Code-Plugin (via Alt + Shift + F)</li>
 </ul>
 
-      </section><section class="slide" id="slide-13-3">
+      </section><section class="slide" id="slide-14-3">
         <h2 id="prettier-konfiguration">Prettier-Konfiguration</h2>
 <p>in VS Code: über Datei - Einstellungen - Einstellungen</p>
 <p>oder über <code>.prettierrc.json</code>:</p>
@@ -1163,28 +1330,28 @@ fg(); <span class="hljs-comment">// klappt jetzt auch</span></code></pre>
   <span class="hljs-attr">"jsxBracketSameLine"</span>: <span class="hljs-literal">true</span>
 }</code></pre>
 
-      </section></section><section class="section" id="section-14"><section class="slide" id="slide-14-1">
+      </section></section><section class="section" id="section-15"><section class="slide" id="slide-15-1">
         <h1 id="komponenten">Komponenten</h1>
 
-      </section><section class="slide" id="slide-14-2">
+      </section><section class="slide" id="slide-15-2">
         <h2 id="komponenten">Komponenten</h2>
 <p>Möglichkeit, eigene Tags zu definieren, z.B.:</p>
 <pre><code class="language-jsx">&lt;Rating stars={<span class="hljs-number">3</span>} /&gt;</code></pre>
 <img src="data:image/png;base64, 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" style="width: 16em">
 
 
-      </section><section class="slide" id="slide-14-3">
+      </section><section class="slide" id="slide-15-3">
         <h2 id="komponenten">Komponenten</h2>
 <p>Um sie von normalen Tags zu unterscheiden, beginnen Komponentennamen immer mit einem Großbuchstaben</p>
 
-      </section><section class="slide" id="slide-14-4">
+      </section><section class="slide" id="slide-15-4">
         <h2 id="komponenten-state--props">Komponenten: State &amp; Props</h2>
 <ul>
 <li>State = interner Zustand einer Komponente</li>
 <li>Props = vom Elternelement übergebene Parameter</li>
 </ul>
 
-      </section><section class="slide" id="slide-14-5">
+      </section><section class="slide" id="slide-15-5">
         <h2 id="funktionale-komponenten">Funktionale Komponenten</h2>
 <p>Beispiel:</p>
 <pre><code class="language-jsx"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
@@ -1195,7 +1362,7 @@ fg(); <span class="hljs-comment">// klappt jetzt auch</span></code></pre>
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Rating;</code></pre>
 
-      </section><section class="slide" id="slide-14-6">
+      </section><section class="slide" id="slide-15-6">
         <h2 id="klassenkomponenten">Klassenkomponenten</h2>
 <p>example:</p>
 <pre><code class="language-jsx"><span class="hljs-keyword">import</span> React, { Component } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
@@ -1210,21 +1377,21 @@ fg(); <span class="hljs-comment">// klappt jetzt auch</span></code></pre>
   }
 }</code></pre>
 
-      </section><section class="slide" id="slide-14-7">
+      </section><section class="slide" id="slide-15-7">
         <h2 id="komponentendefinition-beispiele">Komponentendefinition: Beispiele</h2>
 <ul>
 <li><code>PlayingCard</code> - Komponente</li>
 <li><code>RomanNumber</code> - Komponente</li>
 </ul>
 
-      </section><section class="slide" id="slide-14-8">
+      </section><section class="slide" id="slide-15-8">
         <h2 id="datenfluss">Datenfluss</h2>
 <ul>
 <li>parent → child: props</li>
 <li>child → parent: events</li>
 </ul>
 
-      </section><section class="slide" id="slide-14-9">
+      </section><section class="slide" id="slide-15-9">
         <h2 id="propschildren">props.children</h2>
 <p>Über <code>props.children</code> können Inhalte an eine Komponente übergeben werden</p>
 <p>Beispiel: <code>Bordered</code>-Komponente:</p>
@@ -1234,11 +1401,11 @@ fg(); <span class="hljs-comment">// klappt jetzt auch</span></code></pre>
   <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"bordered"</span>&gt;</span>{props.children}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
 );</code></pre>
 
-      </section><section class="slide" id="slide-14-10">
+      </section><section class="slide" id="slide-15-10">
         <h2 id="eigene-events">Eigene Events</h2>
 <p>Eventhandler werden als Funktionen definiert und via props übergeben / erhalten.</p>
 
-      </section><section class="slide" id="slide-14-11">
+      </section><section class="slide" id="slide-15-11">
         <h2 id="eigene-events">Eigene Events</h2>
 <p>Beispiel <code>ToggleButton</code>: Button, der entweder &quot;off&quot; oder &quot;on&quot; anzeigt:</p>
 <p>Prop: <code>active</code> - kann auf <code>true</code> bzw <code>false</code> gesetzt sein<br>Event: <code>onToggle</code> - Funktion, die mit dem neuen Zustand aufgerufen wird</p>
@@ -1249,7 +1416,7 @@ fg(); <span class="hljs-comment">// klappt jetzt auch</span></code></pre>
   {props.active ? <span class="hljs-string">'on'</span> : <span class="hljs-string">'off'</span>}
 &lt;<span class="hljs-regexp">/button&gt;</span></code></pre>
 
-      </section><section class="slide" id="slide-14-12">
+      </section><section class="slide" id="slide-15-12">
         <h2 id="eigene-events">Eigene Events</h2>
 <p>Beispiel <code>ToggleButton</code>: Der Button muss passend eingebunden werden</p>
 <pre><code class="language-jsx"><span class="hljs-keyword">const</span> [myOption, setMyOption] = useState(<span class="hljs-literal">true</span>);
@@ -1261,7 +1428,7 @@ fg(); <span class="hljs-comment">// klappt jetzt auch</span></code></pre>
   }}
 /&gt;;</span></code></pre>
 
-      </section><section class="slide" id="slide-14-13">
+      </section><section class="slide" id="slide-15-13">
         <h2 id="eigene-events">Eigene Events</h2>
 <p>Beispiele:</p>
 <ul>
@@ -1273,29 +1440,29 @@ fg(); <span class="hljs-comment">// klappt jetzt auch</span></code></pre>
 </li>
 </ul>
 
-      </section></section><section class="section" id="section-15"><section class="slide" id="slide-15-1">
+      </section></section><section class="section" id="section-16"><section class="slide" id="slide-16-1">
         <h1 id="komponenten-library-material-ui">Komponenten-Library: Material-UI</h1>
 <p>Vorgefertigte React-Komponenten im Material-Design-Stil (Stil von Google/Android)</p>
 
-      </section><section class="slide" id="slide-15-2">
+      </section><section class="slide" id="slide-16-2">
         <h2 id="material-ui-installation-und-verwendung">Material-UI: Installation und Verwendung</h2>
 <p><a href="https://material-ui.com">https://material-ui.com</a></p>
 <p>siehe Info-Boxen zu <em>Installation</em> und <em>Usage</em></p>
 
-      </section><section class="slide" id="slide-15-3">
+      </section><section class="slide" id="slide-16-3">
         <h2 id="übungen">Übungen</h2>
 <ul>
 <li>Button</li>
 <li>Todo App im Material Style</li>
 </ul>
 
-      </section></section><section class="section" id="section-16"><section class="slide" id="slide-16-1">
+      </section></section><section class="section" id="section-17"><section class="slide" id="slide-17-1">
         <h1 id="übung-todo-list">Übung: todo list</h1>
 
-      </section></section><section class="section" id="section-17"><section class="slide" id="slide-17-1">
+      </section></section><section class="section" id="section-18"><section class="slide" id="slide-18-1">
         <h1 id="typescript">TypeScript</h1>
 
-      </section><section class="slide" id="slide-17-2">
+      </section><section class="slide" id="slide-18-2">
         <h2 id="typescript">TypeScript</h2>
 <p>= Obermenge von JavaScript mit Erweiterungen:</p>
 <ul>
@@ -1304,7 +1471,7 @@ fg(); <span class="hljs-comment">// klappt jetzt auch</span></code></pre>
 <li>Decorators</li>
 </ul>
 
-      </section><section class="slide" id="slide-17-3">
+      </section><section class="slide" id="slide-18-3">
         <h2 id="statische-typisierung">Statische Typisierung</h2>
 <p>Datentypen können angegeben werden und unterstützen insbesondere die Entwicklungsumgebung:</p>
 <ul>
@@ -1312,27 +1479,29 @@ fg(); <span class="hljs-comment">// klappt jetzt auch</span></code></pre>
 <li>Fehlermeldungen bei nicht passenden Datentypen</li>
 </ul>
 
-      </section><section class="slide" id="slide-17-4">
+      </section><section class="slide" id="slide-18-4">
         <h2 id="statische-typisierung">Statische Typisierung</h2>
 <p>Beim build: TypeScript wird in JavaScript übersetzt, alle Typeninformationen gehen dabei verloren</p>
 
-      </section><section class="slide" id="slide-17-5">
+      </section><section class="slide" id="slide-18-5">
         <h2 id="typsystem-variablen">Typsystem: Variablen</h2>
 <pre><code class="language-ts"><span class="hljs-keyword">let</span> age: <span class="hljs-built_in">number</span> = <span class="hljs-number">32</span>;
 <span class="hljs-keyword">let</span> name: <span class="hljs-built_in">string</span> = <span class="hljs-string">'Andreas'</span>;</code></pre>
 
-      </section><section class="slide" id="slide-17-6">
+      </section><section class="slide" id="slide-18-6">
         <h2 id="typsystem-arrays">Typsystem: Arrays</h2>
 <pre><code class="language-js"><span class="hljs-keyword">let</span> names: <span class="hljs-built_in">Array</span>&lt;string&gt; = [<span class="hljs-string">'Anna'</span>, <span class="hljs-string">'Bernhard'</span>];</code></pre>
 <p>alternative Schreibweise:</p>
 <pre><code class="language-ts"><span class="hljs-keyword">let</span> names: <span class="hljs-built_in">string</span>[] = [<span class="hljs-string">'Anna'</span>, <span class="hljs-string">'Bernhard'</span>];</code></pre>
 
-      </section><section class="slide" id="slide-17-7">
+      </section><section class="slide" id="slide-18-7">
         <h2 id="typsystem-funktionen">Typsystem: Funktionen</h2>
+<!-- prettier-ignore -->
 <pre><code class="language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">repeatString</span>(<span class="hljs-params">
-    text: <span class="hljs-built_in">string</span>,
-    times: <span class="hljs-built_in">number</span></span>): <span class="hljs-title">string</span> </span>{
-  <span class="hljs-keyword">return</span> ...;
+  text: <span class="hljs-built_in">string</span>,
+  times: <span class="hljs-built_in">number</span>
+</span>): <span class="hljs-title">string</span> </span>{
+  <span class="hljs-keyword">return</span> ...
 }</code></pre>
 <pre><code class="language-ts"><span class="hljs-keyword">const</span> repeatString = (
   text: <span class="hljs-built_in">string</span>,
@@ -1341,31 +1510,31 @@ fg(); <span class="hljs-comment">// klappt jetzt auch</span></code></pre>
   <span class="hljs-keyword">return</span> ...;
 };</code></pre>
 
-      </section><section class="slide" id="slide-17-8">
+      </section><section class="slide" id="slide-18-8">
         <h2 id="typsystem-void">Typsystem: void</h2>
-<p>Void: umfasst <em>undefined</em> und <em>null</em></p>
+<p>Void: umfasst <em>undefined</em> und <em>null</em> - hauptsächlich genutzt für Funktionen, die nichts zurückgeben</p>
 <pre><code class="language-ts"><span class="hljs-keyword">const</span> warnUser = (): <span class="hljs-function"><span class="hljs-params">void</span> =&gt;</span> {
   alert(<span class="hljs-string">'warning!'</span>);
 };</code></pre>
 
-      </section><section class="slide" id="slide-17-9">
+      </section><section class="slide" id="slide-18-9">
         <h2 id="typsystem-any">Typsystem: any</h2>
 <p>Any: lässt alle Typen zu</p>
 <pre><code class="language-ts"><span class="hljs-keyword">let</span> myInput: <span class="hljs-built_in">any</span> = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'myinput'</span>);
 <span class="hljs-built_in">console</span>.log(myInput.value);</code></pre>
 
-      </section><section class="slide" id="slide-17-10">
+      </section><section class="slide" id="slide-18-10">
         <h2 id="typsystem-type-assertions">Typsystem: Type assertions</h2>
 <pre><code class="language-ts">(<span class="hljs-built_in">window</span> <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).myGlobalVariable = <span class="hljs-string">'foo'</span>;</code></pre>
 
-      </section><section class="slide" id="slide-17-11">
+      </section><section class="slide" id="slide-18-11">
         <h2 id="typsystem-types--interfaces">Typsystem: Types &amp; Interfaces</h2>
 <p>Interfaces: beschreiben die Struktur eines Objekts / einer Klasse genauer<br>z.B.: <code>TodoInterface</code>, <code>PersonInterface</code></p>
 <p>Types: Ähnlich wie Interfaces, nur auch auf Strings, Arrays, ... anwendbar</p>
 <p>Types bieten im wesentlichen mehr Funktionalität als Interfaces</p>
 <p><a href="https://stackoverflow.com/a/52682220/">https://stackoverflow.com/a/52682220/</a></p>
 
-      </section><section class="slide" id="slide-17-12">
+      </section><section class="slide" id="slide-18-12">
         <h2 id="typsystem-types">Typsystem: Types</h2>
 <pre><code class="language-ts"><span class="hljs-keyword">type</span> TodoType = {
   id: <span class="hljs-built_in">number</span>;
@@ -1375,7 +1544,7 @@ fg(); <span class="hljs-comment">// klappt jetzt auch</span></code></pre>
 
 <span class="hljs-keyword">type</span> TodoCollection = <span class="hljs-built_in">Array</span>&lt;TodoType&gt;;</code></pre>
 
-      </section><section class="slide" id="slide-17-13">
+      </section><section class="slide" id="slide-18-13">
         <h2 id="types-bei-objekten">Types bei Objekten</h2>
 <pre><code class="language-ts"><span class="hljs-keyword">type</span> TodoType = {
   id: <span class="hljs-built_in">number</span>;
@@ -1387,13 +1556,13 @@ fg(); <span class="hljs-comment">// klappt jetzt auch</span></code></pre>
   toggle: <span class="hljs-function">(<span class="hljs-params">id: <span class="hljs-built_in">number</span></span>) =&gt;</span> <span class="hljs-built_in">void</span>;
 };</code></pre>
 
-      </section><section class="slide" id="slide-17-14">
+      </section><section class="slide" id="slide-18-14">
         <h2 id="types-bei-objekten">Types bei Objekten</h2>
 <pre><code class="language-ts"><span class="hljs-keyword">class</span> AdvancedTodo <span class="hljs-keyword">implements</span> TodoType {
   ...
 }</code></pre>
 
-      </section><section class="slide" id="slide-17-15">
+      </section><section class="slide" id="slide-18-15">
         <h2 id="extends">Extends</h2>
 <p>Mittels <code>&amp;</code>:</p>
 <pre><code class="language-ts"><span class="hljs-keyword">type</span> ActionType = {
@@ -1408,34 +1577,23 @@ fg(); <span class="hljs-comment">// klappt jetzt auch</span></code></pre>
   };
 };</code></pre>
 
-      </section><section class="slide" id="slide-17-16">
+      </section><section class="slide" id="slide-18-16">
         <h2 id="union-types">Union Types</h2>
 <pre><code class="language-ts"><span class="hljs-keyword">type</span> TodoActionType =
   | AddTodoActionType
   | ToggleTodoActionType;</code></pre>
 
-      </section><section class="slide" id="slide-17-17">
+      </section><section class="slide" id="slide-18-17">
         <h2 id="generics">Generics</h2>
-<p>Allgemeine Typendeklaration, bei der beim Aufruf nähere Informationen spezifiziert werden können</p>
+<p>Allgemeine Typendeklaration, bei der bei der Anwendung nähere Informationen spezifiziert werden können</p>
 
-      </section><section class="slide" id="slide-17-18">
+      </section><section class="slide" id="slide-18-18">
         <h2 id="generics">Generics</h2>
-<pre><code class="language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">reducer</span>&lt;<span class="hljs-title">MyState</span>, <span class="hljs-title">MyAction</span>&gt;(<span class="hljs-params">
-  state: MyState,
-  action: MyAction
-</span>): <span class="hljs-title">MyState</span> </span>{
-  ...
-}
+<p>Beispiel: <code>Array</code> ist ein Generic</p>
+<pre><code class="language-ts"><span class="hljs-keyword">let</span> a: <span class="hljs-built_in">Array</span>&lt;<span class="hljs-built_in">number</span>&gt; = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
+<span class="hljs-keyword">let</span> b: <span class="hljs-built_in">Array</span>&lt;<span class="hljs-built_in">string</span>&gt; = [<span class="hljs-string">'one'</span>, <span class="hljs-string">'two'</span>, <span class="hljs-string">'three'</span>];</code></pre>
 
-<span class="hljs-comment">// Verwendung</span>
-
-<span class="hljs-comment">// newState hat automatisch den richtigen Typ</span>
-<span class="hljs-keyword">const</span> newState = reducer&lt;TodoState, TodoAction&gt;(
-  myTodoState,
-  myTodoAction
-);</code></pre>
-
-      </section><section class="slide" id="slide-17-19">
+      </section><section class="slide" id="slide-18-19">
         <h2 id="generics">Generics</h2>
 <pre><code class="language-ts"><span class="hljs-keyword">class</span> Component&lt;Props, State&gt; {
   props: Props;
@@ -1448,7 +1606,7 @@ fg(); <span class="hljs-comment">// klappt jetzt auch</span></code></pre>
   ...
 }</code></pre>
 
-      </section><section class="slide" id="slide-17-20">
+      </section><section class="slide" id="slide-18-20">
         <h2 id="private--public-properties">Private &amp; Public Properties</h2>
 <pre><code class="language-ts"><span class="hljs-keyword">class</span> Clock {
   <span class="hljs-keyword">private</span> formatTime(time) {
@@ -1459,19 +1617,19 @@ fg(); <span class="hljs-comment">// klappt jetzt auch</span></code></pre>
   }
 }</code></pre>
 
-      </section><section class="slide" id="slide-17-21">
+      </section><section class="slide" id="slide-18-21">
         <h2 id="typendeklarationen-für-libraries">Typendeklarationen für Libraries</h2>
 <p>Einige JavaScript Libraries beinhalten auch Typendeklarationen für TypeScript - z.B. <em>react</em>, <em>redux</em>.</p>
 <p>Für andere Libraries gibt es meist externe Deklarationen mit dem Präfix <em>@types/</em>, z.B. für <em>react-redux</em> existiert das Paket <em>@types/react-redux</em>.</p>
 
-      </section></section><section class="section" id="section-18"><section class="slide" id="slide-18-1">
+      </section></section><section class="section" id="section-19"><section class="slide" id="slide-19-1">
         <h1 id="react-mit-typescript">React mit TypeScript</h1>
 
-      </section><section class="slide" id="slide-18-2">
+      </section><section class="slide" id="slide-19-2">
         <h2 id="create-react-app">Create-React-App</h2>
 <pre><code class="language-bash">npx create-react-app my-app --typescript</code></pre>
 
-      </section><section class="slide" id="slide-18-3">
+      </section><section class="slide" id="slide-19-3">
         <h2 id="komponenten-funktionen">Komponenten (Funktionen)</h2>
 <pre><code class="language-tsx">type TodoListProps = {
   todos: Array&lt;TodoType&gt;;
@@ -1485,7 +1643,7 @@ const TodoList = (props: TodoListProps) =&gt; {
   return &lt;div&gt;...&lt;/div&gt;;
 };</code></pre>
 
-      </section><section class="slide" id="slide-18-4">
+      </section><section class="slide" id="slide-19-4">
         <h2 id="komponenten-klassen">Komponenten (Klassen)</h2>
 <pre><code class="language-tsx"><span class="hljs-comment">// TodoList.tsx</span>
 <span class="hljs-keyword">type</span> TodoItemProps = {
@@ -1498,7 +1656,7 @@ const TodoList = (props: TodoListProps) =&gt; {
   TodoItemState
 &gt; {}</code></pre>
 
-      </section><section class="slide" id="slide-18-5">
+      </section><section class="slide" id="slide-19-5">
         <h2 id="event-types">Event types</h2>
 <ul>
 <li><code>React.FormEvent</code></li>

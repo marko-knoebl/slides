@@ -14,6 +14,7 @@ Hooks = extension of function components; enable the use of state and other feat
 
 - Documentation for beginners is still very focused on classes
 - Limited support from React developer tools (browser plugins)
+- Test libraries like enzyme don't support them yet
 
 ## important hooks
 
@@ -417,6 +418,7 @@ node:
 ```js
 assert.equal(a, b);
 assert.deepEqual(a, b);
+assert.throws(() => 1 / 0);
 // ...
 ```
 
@@ -424,11 +426,10 @@ chai:
 
 ```js
 assert.equal(a, b);
+assert.deepEqual(a, b);
 assert.typeOf(foo, 'string');
 assert.lengthOf(foo, 3);
-assert.throws(() => {
-  1 / 0;
-});
+assert.throws(() => 1 / 0;);
 ```
 
 ## Testing: assertions
@@ -436,21 +437,21 @@ assert.throws(() => {
 jest:
 
 ```js
-expect(4).toBeGreaterThan(3);
-expect(() => {
-  1 / 0;
-}).toThrow();
-expect(3).not.toEqual(4);
+expect(a).toEqual(4)
+expect(a).not.toEqual(2);
+expect(a).toBeGreaterThan(3);
+expect(a).toBeInstanceOf(Number);
+expect(() => 1 / 0).toThrow();
 ```
 
 chai:
 
 ```js
-expect(foo).to.be.a('string');
-expect(() => {
-  1 / 0;
-}).to.throw();
-expect(foo).to.equal('bar');
+expect(a).to.equal(4);
+expect(a).not.to.equal(2);
+expect(a).to.be.greaterThan(3);
+expect(a).to.be.a('number');
+expect(() => 1 / 0).to.throw();
 ```
 
 # Structuring tests
@@ -522,6 +523,10 @@ it('renders a component tree without crashing', () => {
 });
 ```
 
+## Enzyme - Cheatsheet
+
+https://devhints.io/enzyme
+
 ## Enzyme - Examples
 
 Tests with Jest
@@ -537,6 +542,18 @@ it('renders an `.icon-star`', () => {
   const wrapper = shallow(<MyComponent />);
   expect(wrapper.find('.icon-star')).toHaveLength(1);
 });
+```
+
+## Enzyme - find
+
+```jsx
+expect(ratingWrapper.find('.star')).toHaveLength(5);
+expect(
+  todoListWrapper
+    .find(TodoItem)
+    .get(0)
+    .text()
+).toEqual('my-todo');
 ```
 
 ## Enzyme - Examples
@@ -595,7 +612,7 @@ Snapshot tests are a kind of regression tests
 npm install --save-dev react-test-renderer
 ```
 
-für TypeScript:
+for TypeScript:
 
 ```bash
 npm install --save-dev @types/react-test-renderer

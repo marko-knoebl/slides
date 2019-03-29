@@ -280,6 +280,14 @@ let b = 2;
 const [result, errors] = someComputation();
 ```
 
+## Destrukturierende Zuweisung
+
+```js
+const person = { name: 'John', age: 48 };
+
+const { name, age } = person;
+```
+
 ## Pfeilfunktionen
 
 - Kurzschreibweise für anonyme Funktionen
@@ -429,11 +437,13 @@ let names: string[] = ['Anna', 'Bernhard'];
 
 ## Typsystem: Funktionen
 
+<!-- prettier-ignore -->
 ```ts
 function repeatString(
-    text: string,
-    times: number): string {
-  return ...;
+  text: string,
+  times: number
+): string {
+  return ...
 }
 ```
 
@@ -448,7 +458,7 @@ const repeatString = (
 
 ## Typsystem: void
 
-Void: umfasst _undefined_ und _null_
+Void: umfasst _undefined_ und _null_ - hauptsächlich genutzt für Funktionen, die nichts zurückgeben
 
 ```ts
 const warnUser = (): void => {
@@ -544,25 +554,15 @@ type TodoActionType =
 
 ## Generics
 
-Allgemeine Typendeklaration, bei der beim Aufruf nähere Informationen spezifiziert werden können
+Allgemeine Typendeklaration, bei der bei der Anwendung nähere Informationen spezifiziert werden können
 
 ## Generics
 
+Beispiel: `Array` ist ein Generic
+
 ```ts
-function reducer<MyState, MyAction>(
-  state: MyState,
-  action: MyAction
-): MyState {
-  ...
-}
-
-// Verwendung
-
-// newState hat automatisch den richtigen Typ
-const newState = reducer<TodoState, TodoAction>(
-  myTodoState,
-  myTodoAction
-);
+let a: Array<number> = [1, 2, 3];
+let b: Array<string> = ['one', 'two', 'three'];
 ```
 
 ## Generics

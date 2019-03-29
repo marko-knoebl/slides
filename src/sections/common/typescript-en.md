@@ -32,7 +32,7 @@ let name: string = 'Andreas';
 let names: Array<string> = ['Anna', 'Bernhard'];
 ```
 
-alternative Syntax:
+alternative syntax:
 
 ```ts
 let names: string[] = ['Anna', 'Bernhard'];
@@ -40,11 +40,13 @@ let names: string[] = ['Anna', 'Bernhard'];
 
 ## type system: functions
 
+<!-- prettier-ignore -->
 ```ts
 function repeatString(
-    text: string,
-    times: number): string {
-  return ...;
+  text: string,
+  times: number
+): string {
+  return ...
 }
 ```
 
@@ -53,13 +55,13 @@ const repeatString = (
   text: string,
   times: number
 ): string => {
-  return ...;
+  return ...
 };
 ```
 
 ## type system: void
 
-Void: can either be _undefined_ or _null_ - is often used with functions that don't return anything
+Void: can either be _undefined_ or _null_ - is mostly used with functions that don't return anything
 
 ```ts
 function warnUser(): void {
@@ -72,8 +74,8 @@ function warnUser(): void {
 Any: variable can be of any type - disables the typechecker for this variable
 
 ```ts
-let ib: any = document.getElementById('myinput');
-console.log(ib.value);
+let myInput: any = document.getElementById('myinput');
+console.log(myInput.value);
 ```
 
 ## type system: type assertions
@@ -114,7 +116,7 @@ type TodoType = {
   completed: boolean;
   // optional
   description?: string;
-  // Methode
+  // method
   toggle: (id: number) => void;
 };
 ```
@@ -155,27 +157,17 @@ type TodoActionType =
 
 ## generics
 
-Generic type declarations that can receive more specific type information when called
+Generic type declarations that can receive more specific type information when applied (via `<...>`)
 
 ## generics
 
-```ts
-function reducer<MyState, MyAction>(
-  state: MyState,
-  action: MyAction
-): MyState {
-  ...
-}
-```
+example:
 
-usage:
+`Array` is a generic
 
 ```ts
-// newState will automatically have the correct type
-const newState = reducer<TodoState, TodoAction>(
-  myTodoState,
-  myTodoAction
-);
+let a: Array<number> = [1, 2, 3];
+let b: Array<string> = ['one', 'two', 'three'];
 ```
 
 ## Generics

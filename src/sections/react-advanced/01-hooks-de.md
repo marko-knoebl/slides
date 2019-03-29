@@ -14,6 +14,7 @@ Hooks: Erweiterung von funktionalen Komponenten; erlauben die Verwendung von sta
 
 - Dokumentation für Einsteiger noch sehr Klassen-orientiert
 - Eingeschränkte Unterstützung der React developer tools (Browser Plugins)
+- Keine Unterstützung durch Test Libraries wie enzyme
 
 ## wichtige Hooks
 

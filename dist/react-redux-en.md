@@ -132,7 +132,7 @@ TypeScript: `npm install @types/react-redux`
 
 ## React-Redux: < Provider >
 
-Provider: Helps in adding a redux store to a React App
+Provider: Helps with adding a redux store to a React app
 
 ## React-Redux: < Provider >
 
@@ -180,8 +180,8 @@ const store = createStore(
 
 connect: connects React components to the Redux store
 
-- mapStateToProps: connects React props to Redux state
-- mapDispatchToProps: connects React props to Redux actions
+- `mapStateToProps`: connects React props to Redux state
+- `mapDispatchToProps`: connects React props to Redux actions
 
 calling connect:
 

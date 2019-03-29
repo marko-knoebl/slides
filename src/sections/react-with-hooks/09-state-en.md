@@ -55,9 +55,9 @@ const App = () => {
 
 Task: Add a _reset_ button to the application
 
-## Example: Diashow
+## Example: Slideshow
 
-implement a diashow that shows images like the following:
+implement a slideshow that shows images like the following:
 
 `https://picsum.photos/200?image=10`
 

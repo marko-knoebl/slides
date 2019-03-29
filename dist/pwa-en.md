@@ -126,8 +126,9 @@ Further Options:
 
 - _Ctrl_ + _F_: Search in File
 - _Alt_ + _Shift_ + _F_: Auto-format file contents
+- _Ctrl_ + _#_: comment / uncomment
 - _F2_: rename variables
-- _Alt_ mouse click: Activate multiple text cursors
+- _Alt_ + mouse click: Activate multiple text cursors
 
 # PWA Basics
 

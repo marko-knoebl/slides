@@ -130,6 +130,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <ul>
 <li>Documentation for beginners is still very focused on classes</li>
 <li>Limited support from React developer tools (browser plugins)</li>
+<li>Test libraries like enzyme don&#39;t support them yet</li>
 </ul>
 
       </section><section class="slide" id="slide-1-5">
@@ -462,29 +463,29 @@ it(<span class="hljs-string">'shortens "loremipsum" to "lor..."'</span>, () =&gt
 <p>node:</p>
 <pre><code class="language-js">assert.equal(a, b);
 assert.deepEqual(a, b);
+assert.throws(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-number">1</span> / <span class="hljs-number">0</span>);
 <span class="hljs-comment">// ...</span></code></pre>
 <p>chai:</p>
 <pre><code class="language-js">assert.equal(a, b);
+assert.deepEqual(a, b);
 assert.typeOf(foo, <span class="hljs-string">'string'</span>);
 assert.lengthOf(foo, <span class="hljs-number">3</span>);
-assert.throws(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-  <span class="hljs-number">1</span> / <span class="hljs-number">0</span>;
-});</code></pre>
+assert.throws(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-number">1</span> / <span class="hljs-number">0</span>;);</code></pre>
 
       </section><section class="slide" id="slide-6-5">
         <h2 id="testing-assertions">Testing: assertions</h2>
 <p>jest:</p>
-<pre><code class="language-js">expect(<span class="hljs-number">4</span>).toBeGreaterThan(<span class="hljs-number">3</span>);
-expect(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-  <span class="hljs-number">1</span> / <span class="hljs-number">0</span>;
-}).toThrow();
-expect(<span class="hljs-number">3</span>).not.toEqual(<span class="hljs-number">4</span>);</code></pre>
+<pre><code class="language-js">expect(a).toEqual(<span class="hljs-number">4</span>)
+expect(a).not.toEqual(<span class="hljs-number">2</span>);
+expect(a).toBeGreaterThan(<span class="hljs-number">3</span>);
+expect(a).toBeInstanceOf(<span class="hljs-built_in">Number</span>);
+expect(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-number">1</span> / <span class="hljs-number">0</span>).toThrow();</code></pre>
 <p>chai:</p>
-<pre><code class="language-js">expect(foo).to.be.a(<span class="hljs-string">'string'</span>);
-expect(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-  <span class="hljs-number">1</span> / <span class="hljs-number">0</span>;
-}).to.throw();
-expect(foo).to.equal(<span class="hljs-string">'bar'</span>);</code></pre>
+<pre><code class="language-js">expect(a).to.equal(<span class="hljs-number">4</span>);
+expect(a).not.to.equal(<span class="hljs-number">2</span>);
+expect(a).to.be.greaterThan(<span class="hljs-number">3</span>);
+expect(a).to.be.a(<span class="hljs-string">'number'</span>);
+expect(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-number">1</span> / <span class="hljs-number">0</span>).to.throw();</code></pre>
 
       </section></section><section class="section" id="section-7"><section class="slide" id="slide-7-1">
         <h1 id="structuring-tests">Structuring tests</h1>
@@ -545,6 +546,10 @@ it('renders a component tree without crashing', () =&gt; {
 });</span></code></pre>
 
       </section><section class="slide" id="slide-8-5">
+        <h2 id="enzyme---cheatsheet">Enzyme - Cheatsheet</h2>
+<p><a href="https://devhints.io/enzyme">https://devhints.io/enzyme</a></p>
+
+      </section><section class="slide" id="slide-8-6">
         <h2 id="enzyme---examples">Enzyme - Examples</h2>
 <p>Tests with Jest</p>
 <pre><code class="language-jsx">it(<span class="hljs-string">'renders three &lt;Foo /&gt; components'</span>, () =&gt; {
@@ -558,7 +563,17 @@ it('renders an `.icon-star`', () =&gt; {
   expect(wrapper.find('.icon-star')).toHaveLength(1);
 });</span></code></pre>
 
-      </section><section class="slide" id="slide-8-6">
+      </section><section class="slide" id="slide-8-7">
+        <h2 id="enzyme---find">Enzyme - find</h2>
+<pre><code class="language-jsx">expect(ratingWrapper.find(<span class="hljs-string">'.star'</span>)).toHaveLength(<span class="hljs-number">5</span>);
+expect(
+  todoListWrapper
+    .find(TodoItem)
+    .get(<span class="hljs-number">0</span>)
+    .text()
+).toEqual(<span class="hljs-string">'my-todo'</span>);</code></pre>
+
+      </section><section class="slide" id="slide-8-8">
         <h2 id="enzyme---examples">Enzyme - Examples</h2>
 <p>Tests with Chai</p>
 <pre><code class="language-jsx">it(<span class="hljs-string">'reacts to click events'</span>, () =&gt; {
@@ -570,7 +585,7 @@ it('renders an `.icon-star`', () =&gt; {
   expect(onButtonClick).to.have.property('callCount', 1);
 });</span></code></pre>
 
-      </section><section class="slide" id="slide-8-7">
+      </section><section class="slide" id="slide-8-9">
         <h2 id="enzyme---examples">Enzyme - Examples</h2>
 <!-- prettier-ignore -->
 <pre><code class="language-jsx">it(<span class="hljs-string">'reacts to click events'</span>, () =&gt; {
@@ -586,7 +601,7 @@ it('renders an `.icon-star`', () =&gt; {
   expect(mockFunction).toBeCalledWith(2);
 });</span></code></pre>
 
-      </section><section class="slide" id="slide-8-8">
+      </section><section class="slide" id="slide-8-10">
         <h2 id="enzyme---examples">Enzyme - Examples</h2>
 <pre><code class="language-jsx">it(<span class="hljs-string">'changes state when clicked'</span>, () =&gt; {
   <span class="hljs-keyword">const</span> wrapper = shallow(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Counter</span> /&gt;</span>);
@@ -595,18 +610,18 @@ it('renders an `.icon-star`', () =&gt; {
   expect(wrapper.instance.state.count).toEqual(1);
 });</span></code></pre>
 
-      </section><section class="slide" id="slide-8-9">
+      </section><section class="slide" id="slide-8-11">
         <h2 id="snapshot-tests">Snapshot tests</h2>
 <p>Components are rendered and compared to earlier versions (snapshots)</p>
 <p>Snapshot tests are a kind of regression tests</p>
 
-      </section><section class="slide" id="slide-8-10">
+      </section><section class="slide" id="slide-8-12">
         <h2 id="snapshot-tests---setup">Snapshot tests - setup</h2>
 <pre><code class="language-bash">npm install --save-dev react-test-renderer</code></pre>
-<p>für TypeScript:</p>
+<p>for TypeScript:</p>
 <pre><code class="language-bash">npm install --save-dev @types/react-test-renderer</code></pre>
 
-      </section><section class="slide" id="slide-8-11">
+      </section><section class="slide" id="slide-8-13">
         <h2 id="snapshot-tests-in-react---creating-tests">Snapshot tests in React - creating tests</h2>
 <pre><code class="language-jsx"><span class="hljs-comment">// Rating.test.js</span>
 <span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
@@ -620,7 +635,7 @@ it(<span class="hljs-string">'renders correctly'</span>, () =&gt; {
   expect(tree).toMatchSnapshot();
 });</span></code></pre>
 
-      </section><section class="slide" id="slide-8-12">
+      </section><section class="slide" id="slide-8-14">
         <h2 id="updating-snapshot-tests">updating snapshot tests</h2>
 <p>Once we have changed and and verified the behaviour of a component we can update the corresponding tests accordingly:</p>
 <pre><code class="language-txt">2 snapshot tests failed in 1 test suite.
