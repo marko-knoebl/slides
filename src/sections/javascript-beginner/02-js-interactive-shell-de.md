@@ -5,7 +5,6 @@
 Zugriff auf eine JavaScript-Konsole:
 
 - im _Webbrowser_: Developer Tools (F12) - Konsole
-- _online_: repl.it
 - in node.js (falls installiert): Terminal-Befehl `node`
 
 ## Mathematische Operatoren

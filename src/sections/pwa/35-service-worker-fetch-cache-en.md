@@ -35,11 +35,17 @@ Exercise: We can build a small local website with pages like _/home_, _/about_, 
 
 ## Service worker events: fetch
 
+<!-- 
+there are two $ signs in regexes in this code
+if they are at the very end of the string
+they will mess up the result
+-->
+
 ```js
 self.addEventListener('fetch', event => {
-  if (new RegExp('/about$').test(event.request.url)) {
+  if (new RegExp('/about/$ ').test(event.request.url)) {
     event.respondWith(new Response('About'));
-  } else if (new RegExp('/$').test(event.request.url)) {
+  } else if (new RegExp('/a$ ').test(event.request.url)) {
     event.respondWith(new Response('Home'));
   } else {
     event.respondWith(new Response('404'));
@@ -106,6 +112,7 @@ Can be used if we already have the response
 
 ```js
 fetch('myurl').then(response => {
+  console.log(response.clone());
   cache.put('myurl', response.clone());
   cache.put('otherurl', response);
 });
@@ -160,6 +167,10 @@ self.addEventListener('install', installEvent => {
 });
 ```
 
+## Example: cache only - waitUntil
+
+A call to `waitUntil` can be used to signify when the _install_ was successfull - the service worker will only _activate_ if it was
+
 ## Example: updating the cache
 
 deleting old entries:
@@ -175,7 +186,7 @@ self.addEventListener('activate', activateEvent => {
 });
 ```
 
-## Example: retrieve with network fallback
+## Example: retrieve from cache with network fallback
 
 ```js
 self.addEventListener('fetch', event => {
@@ -206,7 +217,6 @@ caching all network requests:
 // in the service worker
 self.addEventListener('fetch', event => {
   event.respondWith();
-  xxxxxxxxxxxxxxxxxxx;
 });
 ```
 

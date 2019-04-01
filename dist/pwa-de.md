@@ -584,76 +584,9 @@ https://developers.google.com/web/ilt/pwa/lab-scripting-the-service-worker
 
 # Workbox
 
-## Einfaches Beispiel: Offline-Anwendung
-
-zuvor:
-
-```js
-self.addEventListener('install', event => {
-  event.waitUntil(
-    caches.open(cacheName).then(cache => {
-      console.log('opened cache');
-      // Resultat von addAll ist ein Promise
-      return cache.addAll(urlsToCache);
-    })
-  );
-});
-```
-
-## Einfaches Beispiel: Offline-Anwendung
-
-mit Workbox:
-
-```js
-workbox.precaching.precache(urlsToCache);
-```
-
-## Einfaches Beispiel: Offline-Anwendung
-
-zuvor:
-
-```js
-self.addEventListener('fetch', event => {
-  event.respondWith(caches.match(event.request));
-});
-```
-
-## Einfaches Beispiel: Offline-Anwendung
-
-mit Workbox:
-
-```js
-workbox.routing.registerRoute(
-  '.*',
-  workbox.strategies.cacheOnly
-);
-```
-
-## Mögliche Strategien
-
-- networkOnly
-- cacheOnly
-- networkFirst
-- cacheFirst
-- staleWhileRevalidate
-
-siehe auch: [offline Cookbook](https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/)
-
 ## Strategie: networkOnly
 
 Vom Browser bekannte Strategie
-
-## Strategie: cacheOnly
-
-Resource wird immer aus dem Cache geladen.
-
-Sie sollte beim install-Event dem Cache hinzugefügt werden.
-
-Frage: Was passiert, wenn beim install-Event der Cache nicht vollständig heruntergeladen werden konnte?
-
-<!--
-Antwort: in diesem Fall wird der Service-Worker nicht aktiviert. Um das sicherzustellen dient das `.waitUntil()` im install-Event
--->
 
 ## Strategie: networkFirst
 
@@ -746,7 +679,8 @@ const url = '/';
 
 // eine Anfrage auf die Homepage einer Website starten
 fetch(url)
-  // auf die Antwort warten, dann den Textinhalt der Antwort auslesen
+  // auf die Antwort warten, dann den Textinhalt der
+  // Antwort auslesen
   .then(response => response.text())
   // auf den Textinhalt warten, dann loggen
   .then(console.log);
@@ -801,10 +735,24 @@ return getImageName(country)
 ```js
 fetch('https://jsonplaceholder.typicode.com/todos')
   .then(response => response.json())
+  .then(updatePageWithNewTodos);
   .catch(error => {
     console.log('error when getting todos');
   })
-  .then(updatePageWithNewTodos);
+```
+
+## Nutzung mit async / await (moderne Browser)
+
+```js
+const url = 'https://jsonplaceholder.typicode.com/todos';
+
+const fetchAsync = async () => {
+  let response = await fetch(url);
+  let todos = await response.json();
+  displayTodos(todos);
+};
+
+fetchAsync();
 ```
 
 ## Todo App: fetch - fortgeschritten
@@ -873,6 +821,11 @@ Promise.all([promise1, promise2])
 TODO: google code lab - code-beispiele durchsehen
 -->
 
+## Beispiele
+
+- Todo-API (https://jsonplaceholder.typicode.com)
+- Wetter-API (https://openweathermap.org)
+
 ## Übungen
 
 - https://developers.google.com/web/ilt/pwa/lab-fetch-api
@@ -931,6 +884,45 @@ function fib(n) {
   }
   return fib(n - 1) + fib(n - 2);
 }
+```
+
+# Service Worker Beispiele
+
+## Offline App Installation
+
+```js
+self.addEventListener('install', event => {
+  event.waitUntil(
+    caches.open(cacheName).then(cache => {
+      console.log('opened cache');
+      // Resultat von addAll ist ein Promise
+      return cache.addAll(urlsToCache);
+    })
+  );
+});
+```
+
+## Offline App Installation - workbox
+
+```js
+workbox.precaching.precache(urlsToCache);
+```
+
+## Offline App fetch
+
+```js
+self.addEventListener('fetch', event => {
+  event.respondWith(caches.match(event.request));
+});
+```
+
+## Offline App fetch - workbox
+
+```js
+workbox.routing.registerRoute(
+  '.*',
+  workbox.strategies.cacheOnly
+);
 ```
 
 # Datenspeicherung

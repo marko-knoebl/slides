@@ -4,7 +4,7 @@
 
 2 wichtige Möglichkeiten:
 
-- einbinden in eine HTML-Seite, aufrufen der Seite:
+- einbinden in eine HTML-Seite, aufrufen der Seite im Browser:
 
 ```html
 <script src="myscript.js"></script>

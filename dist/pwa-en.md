@@ -680,8 +680,6 @@ for each resource associated with our web app we should ask ourselves:
 - should we fall back to the other option if this fails?
 - if we serve from the cache, should we try to update it in the background?
 
-## Service workers - strategies
-
 key questions:
 
 - for any requested resource, do we serve it from the cache, from the network or a combination?
@@ -693,9 +691,10 @@ asset retrieval:
 
 - always from the network
 - always from the cache
-- network first
-- cache first
-- cache, updating the cache in the background
+- network, falling back to cache
+- cache, falling back to network
+- cache, updating the cache from the network in the background
+- cache, fetching new resource in the background and displaying once received
 
 ## Service workers - strategies
 
@@ -811,7 +810,7 @@ window.addEventListener('load', () => {
 
 ## Service worker scope
 
-By the default a service worker will control all requests that lie within its "directory" on the server.
+By default a service worker will control all requests that lie within its "directory" on the server.
 
 ```js
 navigator.serviceWorker.register('/css/serviceworker.js');
@@ -862,7 +861,7 @@ self.addEventListener('activate', event => {
 
 ## Service worker activation
 
-We can force activation of a new service worker from the install event:
+We can force immediate activation of a new service worker from the install event:
 
 ```js
 self.addEventListener('install', event => {
@@ -921,11 +920,17 @@ Exercise: We can build a small local website with pages like _/home_, _/about_, 
 
 ## Service worker events: fetch
 
+<!-- 
+there are two $ signs in regexes in this code
+if they are at the very end of the string
+they will mess up the result
+-->
+
 ```js
 self.addEventListener('fetch', event => {
-  if (new RegExp('/about$').test(event.request.url)) {
+  if (new RegExp('/about/$ ').test(event.request.url)) {
     event.respondWith(new Response('About'));
-  } else if (new RegExp('/$').test(event.request.url)) {
+  } else if (new RegExp('/a$ ').test(event.request.url)) {
     event.respondWith(new Response('Home'));
   } else {
     event.respondWith(new Response('404'));
@@ -992,6 +997,7 @@ Can be used if we already have the response
 
 ```js
 fetch('myurl').then(response => {
+  console.log(response.clone());
   cache.put('myurl', response.clone());
   cache.put('otherurl', response);
 });
@@ -1046,6 +1052,10 @@ self.addEventListener('install', installEvent => {
 });
 ```
 
+## Example: cache only - waitUntil
+
+A call to `waitUntil` can be used to signify when the _install_ was successfull - the service worker will only _activate_ if it was
+
 ## Example: updating the cache
 
 deleting old entries:
@@ -1061,7 +1071,7 @@ self.addEventListener('activate', activateEvent => {
 });
 ```
 
-## Example: retrieve with network fallback
+## Example: retrieve from cache with network fallback
 
 ```js
 self.addEventListener('fetch', event => {
@@ -1092,7 +1102,6 @@ caching all network requests:
 // in the service worker
 self.addEventListener('fetch', event => {
   event.respondWith();
-  xxxxxxxxxxxxxxxxxxx;
 });
 ```
 

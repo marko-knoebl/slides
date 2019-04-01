@@ -21,8 +21,6 @@ for each resource associated with our web app we should ask ourselves:
 - should we fall back to the other option if this fails?
 - if we serve from the cache, should we try to update it in the background?
 
-## Service workers - strategies
-
 key questions:
 
 - for any requested resource, do we serve it from the cache, from the network or a combination?
@@ -34,9 +32,10 @@ asset retrieval:
 
 - always from the network
 - always from the cache
-- network first
-- cache first
-- cache, updating the cache in the background
+- network, falling back to cache
+- cache, falling back to network
+- cache, updating the cache from the network in the background
+- cache, fetching new resource in the background and displaying once received
 
 ## Service workers - strategies
 

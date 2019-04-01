@@ -1,1 +1,0 @@
-# Übung: Google-Klon

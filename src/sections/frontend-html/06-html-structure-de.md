@@ -28,7 +28,7 @@ Deklariert die Datei als HTML(5)-Dokument
 
 ## title
 
-Dokumenttitel (erscheind in der Fensterleiste)
+Dokumenttitel (erscheint in der Fensterleiste)
 
 ```html
 <title>my website</title>

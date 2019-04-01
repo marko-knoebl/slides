@@ -108,6 +108,8 @@ RGB-Definition (rot-grün-blau): z.B. `rgb(255, 128, 128)`
 
 HEX-Definition: z.B. `#ff8080`
 
+HSL-Definition (hue, saturation, lightness - Farbton, Sättigung, Helligkeit): z.B. `hsl(180, 60%, 70%)`
+
 # Schrift
 
 ## Schrift
@@ -324,15 +326,6 @@ div {
 }
 ```
 
-# CSS-Selektoren
-
-- Unterelemente
-- Kindelemente
-- Pseudoklassen
-- Pseudoelemente
-
-# Übung: Google-Klon
-
 # Reboot
 
 ## Reboot
@@ -344,6 +337,97 @@ Er vereinheitlicht Browserverhalten und bietet einen ansprechenderen Standardsti
 Sourcecode:
 
 https://github.com/twbs/bootstrap/blob/master/dist/css/bootstrap-reboot.css
+
+# Beispiele
+
+- Beispiel: Google-Klon
+
+# Flexbox
+
+## Display property
+
+Möglichkeiten:
+
+- `display: block`
+- `display: inline`
+- `display: none`
+- `display: flex`
+
+## Flexbox
+
+Einfache Möglichkeit, Elemente _nebeneinander_ oder _untereinander_ anzuordnen
+
+## Flexbox
+
+[css-tricks.com](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
+
+## Beispiel
+
+- Beispiel: Chat-Anwendung
+
+# Media queries
+
+## Media queries
+
+Möglichkeit, insbesondere die Bildschirmgröße für CSS abzufragen
+
+## Media queries
+
+```css
+.menu {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 800px) {
+  .menu {
+    flex-direction: row;
+  }
+}
+```
+
+## Media queries
+
+```css
+@media (orientation: landscape) {
+  .layout {
+    flex-direction: row;
+  }
+}
+```
+
+# erweiterte CSS-Selektoren
+
+- Unterelemente
+- Kindelemente
+- Pseudoklassen
+- Pseudoelemente
+
+# Pseudoklassen
+
+## Pseudoklassen
+
+in CSS können mit `:` sogenannte Pseudoklassen abgefragt werden
+
+## Pseudoklassen in Formularen
+
+- `:checked`
+- `:empty`
+- `:valid`
+- `:invalid`
+- `:required`
+
+## Pseudoklassen für Links, Buttons, ...
+
+- `:hover`
+- `:visited`
+- `:active`
+
+## Pseudoklassen für die Reihenfolge
+
+- `:first-child`
+- `:last-child`
+- `:nth-child(2n)`
 
 # Tabellen und CSS
 
@@ -368,11 +452,7 @@ tr:nth-child(2n) {
 
 ## Übung: Öffnungszeiten
 
-# CSS-Layouts
-
-## Layout-Grundlagen
-
-[learnlayout.com](https://learnlayout.com)
+# Positionierung
 
 ## Absolute Positionierung
 
@@ -405,20 +485,95 @@ Beispiel: ein `div` soll je `10px` von der rechten unteren Ecke seines Elternele
 - (`position`: `fixed`)
 - (`position`: `static`: Standardwert)
 
-## Flexbox
+## Positionierung
 
-[css-tricks.com](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
+Beispiel für `position: relative`: hochgestellter oder tiefgestellter Text
 
 ## Beispiele
 
 - Facebook-Klon (mit Chat)
-- Messaging-Anwendung
 
-## Media Queries
+# Transformationen
 
-- device-width
-- aspect-ratio
+## Transformationen
 
-Gerätesimulation im Browser
-# Animations
+Beispiel:
+
+```css
+#element {
+  transform: translsate(0, 0) rotate(90, -10, -10);
+}
+```
+
+# Übergänge (Animationen)
+
+## Übergänge
+
+Die Änderung verschiedener CSS-Properties kann wie folgt animiert werden:
+
+```css
+#animated {
+  transition: background-color: 3s, margin-top: 1s;
+}
+```
+
+## Beispiel: Animation bei hover
+
+```css
+div.box {
+  width: 40px;
+  height: 40px;
+  background-color: blue;
+  transform: rotate(0);
+  transition: transform 9s, background-color 9s;
+}
+div.box:hover {
+  background-color: red;
+  transform: rotate(360deg) scale(2);
+  transition: transform 0.5s, background-color 0.5s;
+}
+```
+
+## Beispiel: Spiel
+
+```css
+div {
+  width: 40px;
+  height: 40px;
+  background-color: blue;
+  transform: translate(0 0) rotate(0);
+  transition: transform 9s, background-color 9s;
+}
+div:hover {
+  background-color: red;
+  transform: translate(200px 0) rotate(360deg);
+  transition: transform 3s, background-color 3s;
+}
+```
+
+## Aufgabe: Dropdown
+
+Dropdown, das bei einem Buttonklick aktiv wird
+
+HTML-Vorlage:
+
+```html
+<div id="dropdown">
+  dropdown
+</div>
+<button
+  id="dropdown-button"
+  onclick="dropdown.className = 'active'"
+>
+  menu
+</button>
+```
+
+## Aufgabe: Overlay bei Hover
+
+## Aufgabe: Animation von Löffel und Gabel
+
+<img src="assets/spoon-fork-animated.svg" type="text/svg" style="width: 100%"/>
+
+Achtung: Wir verwenden nun CSS-Transformationen, nicht SVG-Transformationen; wir müssen nun beispielsweise `transform-origin` separat setzen
 

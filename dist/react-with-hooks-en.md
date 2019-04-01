@@ -467,8 +467,8 @@ let moreSquares = [...squares, 16, 25];
 
 ```js
 let person = {
-  firstName: 'John',
-  lastName: 'Doe',
+  fName: 'John',
+  lName: 'Doe',
   age: 31,
 };
 let updatedPerson = {
@@ -476,7 +476,7 @@ let updatedPerson = {
   email: 'j@d.com',
   age: 32,
 };
-// {firstName: 'John', lastName: 'Doe', email: 'j@d.com', age: 32}
+// {fName: 'John', lName: 'Doe', email: 'j@d.com', age: 32}
 ```
 
 ## template strings

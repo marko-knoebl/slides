@@ -97,26 +97,15 @@ body {
 }
 ```
 
-## Nesting / Verschachtelung
+## Verschachtelung
 
-CSS:
+SASS / LESS:
 
 ```css
 nav {
   color: black;
-  & ul {
-    margin: 0px;
-  }
-}
-```
-
-SASS / LESS:
-
-```scss
-nav {
-  color: black;
-  ul {
-    margin: 0px;
+  &:hover {
+    color: blue;
   }
 }
 ```
@@ -141,21 +130,14 @@ div {
 
 ## Funktionen
 
-CSS:
+CSS: `min()`, `max()`, `rgb()`, ...
+
+SCSS / LESS: `lighten()`, `darken()`, `saturate()`, ...
+
+Beispiel:
 
 ```css
 * {
   color: rgb(10, 10, 10);
 }
 ```
-
-CSS:
-
-- `min()` / `max()`
-
-SCSS / LESS:
-
-- `lighten()`
-- `darken()`
-- `saturate()`
-- ...

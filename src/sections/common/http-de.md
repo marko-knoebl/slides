@@ -35,7 +35,7 @@ Content-Length: 23
 ```http
 HTTP/2.0 200 OK
 Content-Type: text/html; charset=UTF-8
-Content-Length: 138
+Content-Length: 118
 ETag: "3f80f-1b6-3e1cb03b"
 
 <html>
@@ -43,7 +43,7 @@ ETag: "3f80f-1b6-3e1cb03b"
   <title>An Example Page</title>
 </head>
 <body>
-  Hello World, this is a very simple HTML document.
+  Hello, you are now logged in.
 </body>
 </html>
 ```

@@ -53,7 +53,8 @@ const url = '/';
 
 // eine Anfrage auf die Homepage einer Website starten
 fetch(url)
-  // auf die Antwort warten, dann den Textinhalt der Antwort auslesen
+  // auf die Antwort warten, dann den Textinhalt der
+  // Antwort auslesen
   .then(response => response.text())
   // auf den Textinhalt warten, dann loggen
   .then(console.log);
@@ -108,10 +109,24 @@ return getImageName(country)
 ```js
 fetch('https://jsonplaceholder.typicode.com/todos')
   .then(response => response.json())
+  .then(updatePageWithNewTodos);
   .catch(error => {
     console.log('error when getting todos');
   })
-  .then(updatePageWithNewTodos);
+```
+
+## Nutzung mit async / await (moderne Browser)
+
+```js
+const url = 'https://jsonplaceholder.typicode.com/todos';
+
+const fetchAsync = async () => {
+  let response = await fetch(url);
+  let todos = await response.json();
+  displayTodos(todos);
+};
+
+fetchAsync();
 ```
 
 ## Todo App: fetch - fortgeschritten
@@ -179,6 +194,11 @@ Promise.all([promise1, promise2])
 
 TODO: google code lab - code-beispiele durchsehen
 -->
+
+## Beispiele
+
+- Todo-API (https://jsonplaceholder.typicode.com)
+- Wetter-API (https://openweathermap.org)
 
 ## Übungen
 

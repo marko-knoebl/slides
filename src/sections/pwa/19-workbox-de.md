@@ -1,75 +1,8 @@
 # Workbox
 
-## Einfaches Beispiel: Offline-Anwendung
-
-zuvor:
-
-```js
-self.addEventListener('install', event => {
-  event.waitUntil(
-    caches.open(cacheName).then(cache => {
-      console.log('opened cache');
-      // Resultat von addAll ist ein Promise
-      return cache.addAll(urlsToCache);
-    })
-  );
-});
-```
-
-## Einfaches Beispiel: Offline-Anwendung
-
-mit Workbox:
-
-```js
-workbox.precaching.precache(urlsToCache);
-```
-
-## Einfaches Beispiel: Offline-Anwendung
-
-zuvor:
-
-```js
-self.addEventListener('fetch', event => {
-  event.respondWith(caches.match(event.request));
-});
-```
-
-## Einfaches Beispiel: Offline-Anwendung
-
-mit Workbox:
-
-```js
-workbox.routing.registerRoute(
-  '.*',
-  workbox.strategies.cacheOnly
-);
-```
-
-## Mögliche Strategien
-
-- networkOnly
-- cacheOnly
-- networkFirst
-- cacheFirst
-- staleWhileRevalidate
-
-siehe auch: [offline Cookbook](https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/)
-
 ## Strategie: networkOnly
 
 Vom Browser bekannte Strategie
-
-## Strategie: cacheOnly
-
-Resource wird immer aus dem Cache geladen.
-
-Sie sollte beim install-Event dem Cache hinzugefügt werden.
-
-Frage: Was passiert, wenn beim install-Event der Cache nicht vollständig heruntergeladen werden konnte?
-
-<!--
-Antwort: in diesem Fall wird der Service-Worker nicht aktiviert. Um das sicherzustellen dient das `.waitUntil()` im install-Event
--->
 
 ## Strategie: networkFirst
 

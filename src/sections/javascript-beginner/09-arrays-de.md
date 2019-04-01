@@ -1,9 +1,5 @@
 # Arrays
 
-## Arrays
-
-Weiterer wichtiger Datentyp: `Array`
-
 ## Erstellen von Arrays
 
 Mit eckigen Klammern:
@@ -14,9 +10,9 @@ let primes = [2, 3, 5, 7, 11];
 let users = ['Alice', 'Bob', 'Charlie'];
 ```
 
-## Auslesen von Listenelementen
+## Auslesen von Arrayelementen
 
-Mittels Listenindex (bei 0 beginnend)
+Mittels Index (bei 0 beginnend)
 
 ```js
 let users = ['Alice', 'Bob', 'Charlie'];

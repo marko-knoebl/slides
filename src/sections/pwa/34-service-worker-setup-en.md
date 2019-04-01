@@ -36,7 +36,7 @@ window.addEventListener('load', () => {
 
 ## Service worker scope
 
-By the default a service worker will control all requests that lie within its "directory" on the server.
+By default a service worker will control all requests that lie within its "directory" on the server.
 
 ```js
 navigator.serviceWorker.register('/css/serviceworker.js');
@@ -87,7 +87,7 @@ self.addEventListener('activate', event => {
 
 ## Service worker activation
 
-We can force activation of a new service worker from the install event:
+We can force immediate activation of a new service worker from the install event:
 
 ```js
 self.addEventListener('install', event => {

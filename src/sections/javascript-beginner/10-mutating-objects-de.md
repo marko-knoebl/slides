@@ -2,9 +2,9 @@
 
 ## Objekte abändern
 
-In JavaScript können Arrays verändert werden - z.B. durch das anhängen eines neuen Eintrags
+In JavaScript können bestehende Arrays verändert werden - z.B. durch das Anhängen eines neuen Eintrags
 
-Viele andere Objekte - z.B. String, Number - können nicht abgeändert werden. Jedoch ist es möglich, neue, veränderte Objekte basierend auf bereits vorhandenen Objekten zu erstellen.
+Manche andere Objekte - z.B. String, Number - können nicht abgeändert werden. Jedoch ist es möglich, neue, veränderte Objekte basierend auf bereits vorhandenen Objekten zu erstellen.
 
 ## Objekte abändern
 

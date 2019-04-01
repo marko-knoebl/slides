@@ -53,8 +53,8 @@ let moreSquares = [...squares, 16, 25];
 ```
 
 ```js
-let person = {firstName: 'John', lastName: 'Doe', age: 31};
-let updatedPerson = {...person, email: 'j@d.com', age: 32};
-// {firstName: 'John', lastName: 'Doe', email: 'j@d.com', age: 32}
+let pers = { firstName: 'John', lastName: 'Doe', age: 31 };
+let updatedPers = { ...person, email: 'j@d.com', age: 32 };
+// {firstName: 'John', lastName: 'Doe',
+// email: 'j@d.com', age: 32}
 ```
-

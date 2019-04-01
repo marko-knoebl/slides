@@ -494,6 +494,10 @@ tdl.stats() <span class="hljs-comment"># {open: 1, completed: 1}</span></code></
       line-height: 1.5rem;
     }
 
+    p, ul, pre {
+      margin-top: 0;
+    }
+
     ul {
       padding-left: 1.5rem;
     }
@@ -515,6 +519,21 @@ tdl.stats() <span class="hljs-comment"># {open: 1, completed: 1}</span></code></
     svg {
       width: 100%;
       height: auto;
+    }
+
+    .section {
+      height: 100%;
+      display: none;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    .slide {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
     }
 
     .slide.inactive {
@@ -577,6 +596,7 @@ tdl.stats() <span class="hljs-comment"># {open: 1, completed: 1}</span></code></
       box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.2);
       padding: 0.5em 1em;
       line-height: 1.2em;
+      overflow: auto;
     }
 
     #navigation-arrows {
@@ -638,6 +658,13 @@ tdl.stats() <span class="hljs-comment"># {open: 1, completed: 1}</span></code></
     }
 
     const updateVisible = () => {
+      for (let section of document.querySelectorAll('.section')) {
+        if (section.id === `section-${activeSlide[0]}`) {
+          section.className = 'section active';
+        } else {
+          section.className = 'section inactive';
+        }
+      }
       for (let slide of document.querySelectorAll('.slide')) {
         if (slide.id === `slide-${activeSlide[0]}-${activeSlide[1]}`) {
           slide.className = 'slide active';
@@ -680,13 +707,9 @@ tdl.stats() <span class="hljs-comment"># {open: 1, completed: 1}</span></code></
     }
 
     const activateNextSlide = () => {
-      console.log(activeSlide);
-      console.log(slideCount)
       if (activeSlide[1] === slideCount[activeSlide[0] - 1]) {
-        console.log('right')
         activateSlideSafe(activeSlide[0] + 1, 1);
       } else {
-        console.log('down')
         activateSlideSafe(activeSlide[0], activeSlide[1] + 1);
       }
     }

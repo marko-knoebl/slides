@@ -1,8 +1,4 @@
-# CSS-Layouts
-
-## Layout-Grundlagen
-
-[learnlayout.com](https://learnlayout.com)
+# Positionierung
 
 ## Absolute Positionierung
 
@@ -35,18 +31,10 @@ Beispiel: ein `div` soll je `10px` von der rechten unteren Ecke seines Elternele
 - (`position`: `fixed`)
 - (`position`: `static`: Standardwert)
 
-## Flexbox
+## Positionierung
 
-[css-tricks.com](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
+Beispiel für `position: relative`: hochgestellter oder tiefgestellter Text
 
 ## Beispiele
 
 - Facebook-Klon (mit Chat)
-- Messaging-Anwendung
-
-## Media Queries
-
-- device-width
-- aspect-ratio
-
-Gerätesimulation im Browser

@@ -62,7 +62,7 @@ Math.random();
 ## DOM: Stile und Attribute (href, ...)
 
 - `element.style`
-- (`element.className`)
+- `element.className`
 - `element.classList` (`.add`, `.remove`, `.toggle`, `.contains`)
 
 ## DOM: createElement, appendChild
@@ -75,7 +75,7 @@ Math.random();
 ## DOM: createElement, appendChild - Beispiele
 
 - Schachbrett
-- Todo-Liste
+- Todo-Liste (nicht interaktiv)
 
 ## Events
 
@@ -93,18 +93,31 @@ Math.random();
 
 Beispiel: Todo-Liste
 
-- "debugger" - statement
-- black boxing of files
-- breakpoints in the browser
-  - set breakpoints
-  - activate / deactivate breakpoints
-  - conditional breakpoints
-- step in code
-  - play / pause
-  - step over
-  - step in
-  - step out
-- watch variables
+# Debuggen im Browser
+
+## Debuggen im Browser
+
+`debugger` Statement
+
+## Debuggen im Browser
+
+Breakpoints:
+
+- setzen von Breakpoints
+- Aktivieren / Deaktivieren von Breakpoints
+
+## Debugger im Browser
+
+Manuell weiterspringen:
+
+- play / pause
+- _step over / Schritt darüber_: in die nächste Zeile
+- _step into / Schritt hinein_: einem Funktionsaufruf folgen
+- _step out / Schritt heraus_: aktuellen Funktionsaufruf verlassen
+
+## Debugger im Browser
+
+Beobachten von Variablen
 
 # HTTP
 
@@ -143,7 +156,7 @@ Content-Length: 23
 ```http
 HTTP/2.0 200 OK
 Content-Type: text/html; charset=UTF-8
-Content-Length: 138
+Content-Length: 118
 ETag: "3f80f-1b6-3e1cb03b"
 
 <html>
@@ -151,7 +164,7 @@ ETag: "3f80f-1b6-3e1cb03b"
   <title>An Example Page</title>
 </head>
 <body>
-  Hello World, this is a very simple HTML document.
+  Hello, you are now logged in.
 </body>
 </html>
 ```
@@ -161,45 +174,125 @@ ETag: "3f80f-1b6-3e1cb03b"
 Möglichkeiten:
 
 - XMLHttpRequest
-- jQuery
 - fetch
+- jQuery
+- axios
 
-## Fetch
+# Promises & Fetch
 
-<!-- siehe auch: pwa/promises -->
+<!-- siehe auch: webdev/fetch -->
+<!-- https://developers.google.com/web/fundamentals/primers/promises -->
 
-## Fetch
+## Promises & Fetch
 
-moderne Möglichkeit, um asynchron Daten vom Server zu laden
+_Promises_: eine Möglichkeit, um asynchronen Code in JavaScript auszuführen
 
-Alternative zu XMLHTTPRequest
+_Fetch_: moderne Möglichkeit, Netzwerkanfragen mit JavaScript zu versenden, basiert auf Promises
 
-## Nutzung mit Promises
+## Promises - Grundlagen
+
+Werden verwendet, um einmalige Events zu behandeln
+
+Erlauben dem Browser, auf ein Event zu _warten_ - zb auf eine Antwort aus dem Netzwerk oder Daten aus der Datenbank
+
+Das Warten ist _non-blocking_, damit kann anderer Code währenddessen ausgeführt werden
+
+## Promises vs Callbacks
+
+Promises sind eine Alternative zu Callbacks; Sie lösen das gleiche Problem mit einem etwas anderen Ansatz.
+
+Beispiel: Funktion `getTodos`, die Todo-Daten von einem Server lädt und sie an `logTodos` übergibt
 
 ```js
-const url = 'index.html';
-
-fetch(url)
-  .then(function(response) {
-    return response.text();
-  })
-  .then(function(text) {
-    console.log(text);
-  });
+// callback
+getTodos(logTodos);
 ```
 
-## Nutzung mit Promises
+```js
+// promise
+getTodos().then(logTodos);
+```
+
+## Promises vs Callbacks
+
+Ein Vorteil von Promises gegenüber Callbacks ist, dass Promises leicht verkettet werden können:
 
 ```js
-const url = 'https://jsonplaceholder.typicode.com/todos';
+getTodos()
+  .then(parseJSON)
+  .then(transformDataFormat)
+  .then(logTodos);
+```
 
+## Promises Beispiel: Fetch einer Website
+
+```js
+// dieser Code kann zu jeder Website in der
+// Browser-Konsole ausgeführt werden
+const url = '/';
+
+// eine Anfrage auf die Homepage einer Website starten
 fetch(url)
-  .then(function(response) {
-    return response.json();
+  // auf die Antwort warten, dann den Textinhalt der
+  // Antwort auslesen
+  .then(response => response.text())
+  // auf den Textinhalt warten, dann loggen
+  .then(console.log);
+```
+
+## Fetch einer Website: Erklärung
+
+Das Abfragen einer URL und das Auslesen des Antworttexts können länger dauern.
+
+Mit `.then()` warten wir jeweils auf das Resultat.
+
+Die Funktion `.then()` bekommt einen Handler (in Form einer anderen Funktion) übergeben.
+
+Das Resultat des ersten Handlers (`response => response.text()`) ist wiederum ein neues Promise.
+
+Der zweite Handler (`console.log`) loggt das Resultat einfach.
+
+## Beispiel: Landesflagge
+
+```js
+// ohne Promises
+getImageName(country, name =>
+  fetchFlag(name, flagResponse =>
+    processFlag(flagResponse, appendFlag)
+  )
+);
+```
+
+```js
+// mit Promises
+getImageName(country)
+  .then(fetchFlag)
+  .then(processFlag)
+  .then(appendFlag);
+```
+
+## Fehlerbehandlung
+
+Fehler können mit `.catch()` behandelt werden
+
+```js
+return getImageName(country)
+  .catch(getFallbackName)
+  .then(fetchFlag)
+  .then(processFlag)
+  .then(appendFlag)
+  .catch(logError);
+```
+
+## Todo App: fetch - grundlegend
+
+```js
+fetch('https://jsonplaceholder.typicode.com/todos')
+  .then(response => response.json())
+  .then(updatePageWithNewTodos);
+  .catch(error => {
+    console.log('error when getting todos');
   })
-  .then(function(todos) {
-    console.log(todos);
-  });
 ```
 
 ## Nutzung mit async / await (moderne Browser)
@@ -216,7 +309,26 @@ const fetchAsync = async () => {
 fetchAsync();
 ```
 
-## Andere http-Methoden
+## Todo App: fetch - fortgeschritten
+
+```js
+fetch('https://jsonplaceholder.typicode.com/todos')
+  .then(response => {
+    if (!response.ok) {
+      throw response.statusText;
+    } else {
+      jesponse.json().then(updatePageWithNewTodos);
+    }
+  })
+  .catch(error => console.log('unable to parse data'))
+  .then(updatePageWithNewTodos);
+```
+
+## Übung
+
+Benutzer gibt user-id an, entsprechende todos werden geladen
+
+## Konfigurieren des fetch Requests
 
 ```js
 fetch(url, {
@@ -227,10 +339,52 @@ fetch(url, {
 });
 ```
 
+## Eigene Promises
+
+Promise, die nach 1 Sekunde entweder mit hello antwortet oder nicht erfolgreich ist
+
+```js
+const getReply = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    if (Math.random() > 0.5) {
+      resolve('hello');
+    } else {
+      reject('no access');
+    }
+  }, 1000);
+});
+```
+
+## Promise.all
+
+```js
+const promise1 = fetch('/users.json');
+const promise2 = fetch('/articles.json');
+Promise.all([promise1, promise2])
+  .then(results => {
+    console.log('all data has loaded');
+  })
+  .catch(error => {
+    console.log(`one or more requests failed: ${error}`);
+  });
+```
+
+<!--
+# (Promise.race)
+
+TODO: google code lab - code-beispiele durchsehen
+-->
+
 ## Beispiele
 
 - Todo-API (https://jsonplaceholder.typicode.com)
 - Wetter-API (https://openweathermap.org)
+
+## Übungen
+
+- https://developers.google.com/web/ilt/pwa/lab-fetch-api
+
+- https://developers.google.com/web/ilt/pwa/lab-promises
 
 # JavaScript Fortgeschritten
 
@@ -287,11 +441,157 @@ let moreSquares = [...squares, 16, 25];
 ```
 
 ```js
-let person = {firstName: 'John', lastName: 'Doe', age: 31};
-let updatedPerson = {...person, email: 'j@d.com', age: 32};
-// {firstName: 'John', lastName: 'Doe', email: 'j@d.com', age: 32}
+let pers = { firstName: 'John', lastName: 'Doe', age: 31 };
+let updatedPers = { ...person, email: 'j@d.com', age: 32 };
+// {firstName: 'John', lastName: 'Doe',
+// email: 'j@d.com', age: 32}
 ```
 
+# map, filter, reduce
+
+### Array-Methoden für die funktionale Programmierung
+
+## map
+
+- Ändert jeden Eintrag eines Arrays mit Hilfe einer Funktion ab
+- Rückgabewert: neues Array
+
+```js
+let myNumbers = [2, 10, 23];
+
+let triple = n => 3 * n;
+
+let newNumbers = myNumbers.map(triple);
+// [6, 30, 69]
+```
+
+## filter
+
+- Behält nur gewisse Einträge in einem Array
+- Nutzt eine Funktion, um Einträge auf ein bestimmtes Kriterium zu testen
+- Rückgabewert: neues Array
+
+```js
+let myNumbers = [2, 10, 23];
+
+let isEven = n => n % 2 === 0;
+
+let newNumbers = myNumbers.filter(isEven);
+// [2, 10]
+```
+
+## reduce
+
+- Verarbeitet die Einträge in einem Array zu einem einzelnen Wert
+- Verwendet eine Funktion, die aus zwei bestehenden Werten einen resultierenden Wert erstellt - diese Funktion wird wiederholt aufgerufen
+
+## reduce - Beispiel
+
+```js
+let transactions = [
+  { amount: -56, title: 'groceries' },
+  { amount: +1020, title: 'salary' },
+  { amount: -13, title: 'dinner' },
+  { amount: -96, title: 'electricity' },
+];
+let initialBalance = 317;
+
+let currentBalance = transactions.reduce(
+  (aggregator, transaction) =>
+    aggregator + transaction.amount,
+  initialBalance
+);
+
+// 317 -> 261 -> 1281 -> 1268 -> 1172
+```
+
+# this - quirks
+
+## this - quirks
+
+- _this_ bezieht sich in Objektmethoden üblicherweise auf das aktuelle Objekt
+- **allerdings**:
+  - jeder Funktionsaufruf setzt _this_ neu (nicht nur Methodenaufrufe)
+  - _this_ wird nur richtig gesetzt, wenn die Methode mit der Syntax `object.method()` aufgerufen wird
+
+## Problem: _this_ in anonymen Funktionen
+
+```js
+class myComponent {
+  constructor() {
+    // this ist hier richtig gesetzt
+    this.foo = true;
+    setTimeout(function() {
+      //this wird hier überschrieben (auf window)
+      console.log(this.foo);
+    }, 1000);
+  }
+}
+```
+
+## Lösung: _Pfeilfunktionen_
+
+```js
+class myComponent {
+  constructor() {
+    // this ist hier richtig gesetzt
+    this.foo = true;
+    setTimeout(() => {
+      // this wird hier *nicht* überschrieben
+      console.log(this.foo);
+    }, 1000);
+  }
+}
+```
+
+## Problem: Methodenaufrufe ohne Methodensyntax
+
+```js
+class Foo {
+  constructor() {
+    this.message = 'hello';
+  }
+  greet() {
+    console.log(this.message);
+  }
+}
+let foo = new Foo();
+foo.greet(); // klappt
+let fg = foo.greet;
+fg(); // klappt nicht (this ist undefined)
+```
+
+## Lösung: Pfeil-Methoden
+
+Seit ES2018 einsetzbar:
+
+```js
+class Foo {
+  constructor() {
+    this.message = 'hello';
+  }
+  greet = () => {
+    console.log(this.message);
+  };
+}
+```
+
+## Lösung: Binden von Methoden
+
+```js
+let f = new Foo();
+f.greet(); // klappt
+let fg = f.greet.bind(f);
+fg(); // klappt jetzt auch
+```
+
+Üblicherweise Zuweisung im constructor:
+
+```js
+  constructor() {
+    this.greet = this.greet.bind(this);
+  }
+```
 
 # Objektorientierte Programmierung (alt)
 
@@ -330,7 +630,7 @@ Car.prototype.getDescription = function() {
 
 ## Verwendung von Objekten
 
-```
+```js
 var myCar = new Car('VW', 'Golf');
 
 console.log(myCar);
@@ -355,21 +655,48 @@ class Car {
 }
 ```
 
+## OOP (neu)
+
+Vererbung
+
+```js
+class LuxuryCar extends Car {
+  openRoof() {}
+}
+```
+
 # Libraries
 
-moment.js, underscore.js, immutable.js
+## Libraries
+
+verbreitete Libraries:
+
+- _lodash_ (Sammlung nützlicher Funktionen)
+- _jQuery_ (Erleichtert das Arbeiten mit dem DOM)
+- _immutable.js_ (Arbeiten mit unveränderlichen Objekten)
+- _moment.js_ (Arbeiten mit Zeitangaben)
 
 ## jQuery
+
+Ändern von Elementen
 
 - `$('#myelement')`
 - `el.html('content')`
 - `el.css('color', 'blue')`
 - `el.addClass('abc')`
-- `el.prop()`
+- `el.prop('style')`
 
-- `$('<div>)`
+## jQuery
+
+Erstellen / hinzufügen / entfernen von Elementen
+
+- `$('<div>')`
 - `parent.append(child)`
 - `child.remove()`
+
+## jQuery
+
+Abfragen von Events
 
 - `$(element).on('click', ...)`
 - `$(element).click(...)`

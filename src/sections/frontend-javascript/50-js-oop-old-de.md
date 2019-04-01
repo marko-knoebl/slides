@@ -35,7 +35,7 @@ Car.prototype.getDescription = function() {
 
 ## Verwendung von Objekten
 
-```
+```js
 var myCar = new Car('VW', 'Golf');
 
 console.log(myCar);

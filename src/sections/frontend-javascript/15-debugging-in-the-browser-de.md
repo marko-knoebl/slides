@@ -1,12 +1,25 @@
-- "debugger" - statement
-- black boxing of files
-- breakpoints in the browser
-  - set breakpoints
-  - activate / deactivate breakpoints
-  - conditional breakpoints
-- step in code
-  - play / pause
-  - step over
-  - step in
-  - step out
-- watch variables
+# Debuggen im Browser
+
+## Debuggen im Browser
+
+`debugger` Statement
+
+## Debuggen im Browser
+
+Breakpoints:
+
+- setzen von Breakpoints
+- Aktivieren / Deaktivieren von Breakpoints
+
+## Debugger im Browser
+
+Manuell weiterspringen:
+
+- play / pause
+- _step over / Schritt darüber_: in die nächste Zeile
+- _step into / Schritt hinein_: einem Funktionsaufruf folgen
+- _step out / Schritt heraus_: aktuellen Funktionsaufruf verlassen
+
+## Debugger im Browser
+
+Beobachten von Variablen

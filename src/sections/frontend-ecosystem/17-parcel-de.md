@@ -49,7 +49,7 @@ export const add = (a, b) => a + b;
 
 ## Parcel ausführen
 
-Lokalen Testserver mit automatischem Build starten:
+Lokalen Entwicklungsserver mit automatischem Build starten:
 
 ```bash
 parcel src/*.html

@@ -52,7 +52,6 @@ if (a * b > 10) {
 Zugriff auf eine JavaScript-Konsole:
 
 - im _Webbrowser_: Developer Tools (F12) - Konsole
-- _online_: repl.it
 - in node.js (falls installiert): Terminal-Befehl `node`
 
 ## Mathematische Operatoren
@@ -256,7 +255,7 @@ let person1 = {
 
 2 wichtige Möglichkeiten:
 
-- einbinden in eine HTML-Seite, aufrufen der Seite:
+- einbinden in eine HTML-Seite, aufrufen der Seite im Browser:
 
 ```html
 <script src="myscript.js"></script>
@@ -314,6 +313,8 @@ let birthYear = Number(birthYearString);
 ```
 
 Analog für andere Datentypen: `String(...)`, `Boolean(...)`
+
+Alternativen: `.toString()`, `parseInt()`, `parseFloat()`
 
 ## Übung: Alter anhand Geburtsjahr
 
@@ -541,10 +542,6 @@ Operationen:
 
 # Arrays
 
-## Arrays
-
-Weiterer wichtiger Datentyp: `Array`
-
 ## Erstellen von Arrays
 
 Mit eckigen Klammern:
@@ -555,9 +552,9 @@ let primes = [2, 3, 5, 7, 11];
 let users = ['Alice', 'Bob', 'Charlie'];
 ```
 
-## Auslesen von Listenelementen
+## Auslesen von Arrayelementen
 
-Mittels Listenindex (bei 0 beginnend)
+Mittels Index (bei 0 beginnend)
 
 ```js
 let users = ['Alice', 'Bob', 'Charlie'];
@@ -598,9 +595,9 @@ milk,bread,apples
 
 ## Objekte abändern
 
-In JavaScript können Arrays verändert werden - z.B. durch das anhängen eines neuen Eintrags
+In JavaScript können bestehende Arrays verändert werden - z.B. durch das Anhängen eines neuen Eintrags
 
-Viele andere Objekte - z.B. String, Number - können nicht abgeändert werden. Jedoch ist es möglich, neue, veränderte Objekte basierend auf bereits vorhandenen Objekten zu erstellen.
+Manche andere Objekte - z.B. String, Number - können nicht abgeändert werden. Jedoch ist es möglich, neue, veränderte Objekte basierend auf bereits vorhandenen Objekten zu erstellen.
 
 ## Objekte abändern
 
@@ -834,151 +831,5 @@ In Funktionen können Standardwerte für Parameter definiert werden:
 let join = (strings, separator='') => {
   ...
 }
-```
-
-# map, filter, reduce
-
-### Array-Methoden für die funktionale Programmierung
-
-## map
-
-- Ändert jeden Eintrag eines Arrays mit Hilfe einer Funktion ab
-- Rückgabewert: neues Array
-
-```js
-let myNumbers = [2, 10, 23];
-
-let triple = n => 3 * n;
-
-let newNumbers = myNumbers.map(triple);
-// [6, 30, 69]
-```
-
-## filter
-
-- Behält nur gewisse Einträge in einem Array
-- Nutzt eine Funktion, um Einträge auf ein bestimmtes Kriterium zu testen
-- Rückgabewert: neues Array
-
-```js
-let myNumbers = [2, 10, 23];
-
-let isEven = n => n % 2 === 0;
-
-let newNumbers = myNumbers.filter(isEven);
-// [2, 10]
-```
-
-## reduce
-
-- Verarbeitet die Einträge in einem Array zu einem einzelnen Wert
-- Verwendet eine Funktion, die aus zwei bestehenden Werten einen resultierenden Wert erstellt - diese Funktion wird wiederholt aufgerufen
-
-## reduce - Beispiel
-
-```js
-let transactions = [
-  { amount: -56, title: 'groceries' },
-  { amount: +1020, title: 'salary' },
-  { amount: -13, title: 'dinner' },
-  { amount: -96, title: 'electricity' },
-];
-let initialBalance = 317;
-
-let currentBalance = transactions.reduce(
-  (aggregator, transaction) =>
-    aggregator + transaction.amount,
-  initialBalance
-);
-
-// 317 -> 261 -> 1281 -> 1268 -> 1172
-```
-
-# this - quirks
-
-## this - quirks
-
-- _this_ bezieht sich in Objektmethoden üblicherweise auf das aktuelle Objekt
-- **allerdings**:
-  - jeder Funktionsaufruf setzt _this_ neu (nicht nur Methodenaufrufe)
-  - _this_ wird nur richtig gesetzt, wenn die Methode mit der Syntax `object.method()` aufgerufen wird
-
-## Problem: _this_ in anonymen Funktionen
-
-```js
-class myComponent {
-  constructor() {
-    // this ist hier richtig gesetzt
-    this.foo = true;
-    setTimeout(function() {
-      //this wird hier überschrieben (auf window)
-      console.log(this.foo);
-    }, 1000);
-  }
-}
-```
-
-## Lösung: _Pfeilfunktionen_
-
-```js
-class myComponent {
-  constructor() {
-    // this ist hier richtig gesetzt
-    this.foo = true;
-    setTimeout(() => {
-      // this wird hier *nicht* überschrieben
-      console.log(this.foo);
-    }, 1000);
-  }
-}
-```
-
-## Problem: Methodenaufrufe ohne Methodensyntax
-
-```js
-class Foo {
-  constructor() {
-    this.message = 'hello';
-  }
-  greet() {
-    console.log(this.message);
-  }
-}
-let foo = new Foo();
-foo.greet(); // klappt
-let fg = foo.greet;
-fg(); // klappt nicht (this ist undefined)
-```
-
-## Lösung: Pfeil-Methoden
-
-Seit ES2018 einsetzbar:
-
-```js
-class Foo {
-  constructor() {
-    this.message = 'hello';
-  }
-  greet = () => {
-    console.log(this.message);
-  };
-}
-```
-
-## Lösung: Binden von Methoden
-
-```js
-let f = new Foo();
-f.greet(); // klappt
-let fg = f.greet.bind(f);
-fg(); // klappt jetzt auch
-```
-
-Üblicherweise Zuweisung im constructor:
-
-```js
-  constructor() {
-    this.greet = this.greet.bind(this);
-  }
 ```
 

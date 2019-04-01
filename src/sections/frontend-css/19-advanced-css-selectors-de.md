@@ -1,4 +1,4 @@
-# CSS-Selektoren
+# erweiterte CSS-Selektoren
 
 - Unterelemente
 - Kindelemente

@@ -3,5 +3,6 @@
 Möglichkeiten:
 
 - XMLHttpRequest
-- jQuery
 - fetch
+- jQuery
+- axios

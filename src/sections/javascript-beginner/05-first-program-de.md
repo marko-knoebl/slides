@@ -45,6 +45,8 @@ let birthYear = Number(birthYearString);
 
 Analog für andere Datentypen: `String(...)`, `Boolean(...)`
 
+Alternativen: `.toString()`, `parseInt()`, `parseFloat()`
+
 ## Übung: Alter anhand Geburtsjahr
 
 Der Benutzer soll nach seinem Geburtsjahr gefragt werden. Dann soll angegeben werden, wie alt diese Person im Jahr 2019 wird.

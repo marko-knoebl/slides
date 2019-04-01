@@ -302,13 +302,96 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 }</code></pre>
 
       </section></section><section class="section" id="section-6"><section class="slide" id="slide-6-1">
-        <h1 id="übung-tabellen-und-formulare">Übung: Tabellen und Formulare</h1>
+        <h1 id="struktur-eines-html-dokuments">Struktur eines HTML-Dokuments</h1>
 
       </section><section class="slide" id="slide-6-2">
-        <h2 id="übung-tabellen-und-formulare">Übung: Tabellen und Formulare</h2>
-<p>Wir erstellen eine Website für ein Restaurant</p>
-<p>Wir beginnen mit einer Tabelle für die Öffnungszeiten und einem Formular für Reservierungen</p>
-<p>Um die optische Gestaltung kümmern wir uns später mit Hilfe des CSS-Frameworks Bootstrap</p>
+        <h2 id="grundlegende-html-struktur">Grundlegende HTML-Struktur</h2>
+<p>In VS Code: Codeschnipsel <code>html:5</code></p>
+
+      </section><section class="slide" id="slide-6-3">
+        <h2 id="grundlegende-html-struktur">Grundlegende HTML-Struktur</h2>
+<pre><code class="language-html"><span class="hljs-meta">&lt;!DOCTYPE html&gt;</span></code></pre>
+<p>Deklariert die Datei als HTML(5)-Dokument</p>
+
+      </section><section class="slide" id="slide-6-4">
+        <h2 id="grundlegende-html-struktur">Grundlegende HTML Struktur</h2>
+<ul>
+<li><code>&lt;html&gt;</code>: beinhaltet das ganze Dokument; oft ist z.B. <code>lang=&quot;de&quot;</code> oder ähnliches gesetzt</li>
+<li><code>&lt;head&gt;</code>: beinhaltet Informationen wie Dokumenttitel, Zeichensatz, ...</li>
+<li><code>&lt;body&gt;</code>: die eigentlichen Inhalte - das, was im Browserfenster erscheint</li>
+</ul>
+
+      </section><section class="slide" id="slide-6-5">
+        <h2 id="einträge-im-head">Einträge im head</h2>
+<ul>
+<li><code>title</code></li>
+<li><code>meta</code></li>
+<li>favicon</li>
+<li>stylesheet</li>
+<li>scripts</li>
+</ul>
+
+      </section><section class="slide" id="slide-6-6">
+        <h2 id="title">title</h2>
+<p>Dokumenttitel (erscheint in der Fensterleiste)</p>
+<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>my website<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span></code></pre>
+
+      </section><section class="slide" id="slide-6-7">
+        <h2 id="meta">meta</h2>
+<p>zum Einbinden verschiedener Metadaten über das Dokument</p>
+
+      </section><section class="slide" id="slide-6-8">
+        <h2 id="meta-charset">meta: charset</h2>
+<p>Es sollte heutzutage immer <code>&lt;meta charset=&quot;UTF-8&quot; /&gt;</code> angegeben sein, dann können generell beliebige Unicode-Zeichen verwendet werden.</p>
+<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">button</span>&gt;</span>😊<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code></pre>
+
+      </section><section class="slide" id="slide-6-9">
+        <h2 id="besondere-zeichen">Besondere Zeichen</h2>
+<p>Um die folgenden Zeichen in einem HTML-Dokument darzustellen, sollten sie immer &quot;escaped&quot; werden:</p>
+<ul>
+<li><code>&lt;</code> wird zu <code>&amp;lt;</code></li>
+<li><code>&gt;</code> wird zu <code>&amp;gt;</code></li>
+<li><code>&amp;</code> wird zu <code>&amp;amp;</code></li>
+</ul>
+<p>Folgende Zeichen müssen in HTML-Attributen escaped werden:</p>
+<ul>
+<li><code>&quot;</code> wird zu <code>&amp;quot;</code></li>
+<li>(<code>&#39;</code> wird zu <code>&amp;apos;</code>, wenn das HTML-Attribut durch <code>&#39;</code> begrenzt wird)</li>
+</ul>
+
+      </section><section class="slide" id="slide-6-10">
+        <h2 id="meta-viewport">meta: viewport</h2>
+<p>Sollte auf allen Websites verwendet werden, um die Browser-Skalierung zurückzusetzen</p>
+<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"viewport"</span> <span class="hljs-attr">width</span>=<span class="hljs-string">"device-width"</span> /&gt;</span></code></pre>
+<p>Hintergrund:<br>In den Anfängen des mobilen Web (vor responsive Design) wurden Websites von Browsern of verkleinert dargestellt. Mit obigem Code wird dies verhindert.</p>
+<p><a href="https://viewportsizes.com/mine">https://viewportsizes.com/mine</a></p>
+
+      </section><section class="slide" id="slide-6-11">
+        <h2 id="meta-description">meta: description</h2>
+<p>Kann von Suchmaschinen verwendet werden, um eine Seitenzusammenfassung anzuzeigen<br>Standardtitel für Lesezeichen</p>
+<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">meta</span>
+  <span class="hljs-attr">name</span>=<span class="hljs-string">"description"</span>
+  <span class="hljs-attr">content</span>=<span class="hljs-string">"Wikipedia is a free online encyclopedia, ..."</span>
+/&gt;</span></code></pre>
+
+      </section><section class="slide" id="slide-6-12">
+        <h2 id="meta-keywords">meta: keywords</h2>
+<p>Kann von Suchmaschinen verwendet werden</p>
+<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"keywords"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"HTML,javascript"</span> /&gt;</span></code></pre>
+
+      </section><section class="slide" id="slide-6-13">
+        <h2 id="meta-http-equivx-ua-compatible">meta: http-equiv=&quot;X-UA-Compatible&quot;</h2>
+<p>Ist bei Internet Explorer &lt;= 10 relevant; führt zur Verwendung der modernsten Version der Rendering-Engine</p>
+
+      </section><section class="slide" id="slide-6-14">
+        <h2 id="favicon">favicon</h2>
+<p>Icon, das im Tab der Website angezeigt wird</p>
+<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">link</span>
+  <span class="hljs-attr">rel</span>=<span class="hljs-string">"icon"</span>
+  <span class="hljs-attr">sizes</span>=<span class="hljs-string">"16x16"</span>
+  <span class="hljs-attr">href</span>=<span class="hljs-string">"favicon_16.png"</span>
+  <span class="hljs-attr">type</span>=<span class="hljs-string">"image/png"</span>
+/&gt;</span></code></pre>
 
       </section></section><section class="section" id="section-7"><section class="slide" id="slide-7-1">
         <h1 id="html-elemente">HTML Elemente</h1>
@@ -403,96 +486,13 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </ul>
 
       </section></section><section class="section" id="section-8"><section class="slide" id="slide-8-1">
-        <h1 id="struktur-eines-html-dokuments">Struktur eines HTML-Dokuments</h1>
+        <h1 id="übung-tabellen-und-formulare">Übung: Tabellen und Formulare</h1>
 
       </section><section class="slide" id="slide-8-2">
-        <h2 id="grundlegende-html-struktur">Grundlegende HTML-Struktur</h2>
-<p>In VS Code: Codeschnipsel <code>html:5</code></p>
-
-      </section><section class="slide" id="slide-8-3">
-        <h2 id="grundlegende-html-struktur">Grundlegende HTML-Struktur</h2>
-<pre><code class="language-html"><span class="hljs-meta">&lt;!DOCTYPE html&gt;</span></code></pre>
-<p>Deklariert die Datei als HTML(5)-Dokument</p>
-
-      </section><section class="slide" id="slide-8-4">
-        <h2 id="grundlegende-html-struktur">Grundlegende HTML Struktur</h2>
-<ul>
-<li><code>&lt;html&gt;</code>: beinhaltet das ganze Dokument; oft ist z.B. <code>lang=&quot;de&quot;</code> oder ähnliches gesetzt</li>
-<li><code>&lt;head&gt;</code>: beinhaltet Informationen wie Dokumenttitel, Zeichensatz, ...</li>
-<li><code>&lt;body&gt;</code>: die eigentlichen Inhalte - das, was im Browserfenster erscheint</li>
-</ul>
-
-      </section><section class="slide" id="slide-8-5">
-        <h2 id="einträge-im-head">Einträge im head</h2>
-<ul>
-<li><code>title</code></li>
-<li><code>meta</code></li>
-<li>favicon</li>
-<li>stylesheet</li>
-<li>scripts</li>
-</ul>
-
-      </section><section class="slide" id="slide-8-6">
-        <h2 id="title">title</h2>
-<p>Dokumenttitel (erscheind in der Fensterleiste)</p>
-<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>my website<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span></code></pre>
-
-      </section><section class="slide" id="slide-8-7">
-        <h2 id="meta">meta</h2>
-<p>zum Einbinden verschiedener Metadaten über das Dokument</p>
-
-      </section><section class="slide" id="slide-8-8">
-        <h2 id="meta-charset">meta: charset</h2>
-<p>Es sollte heutzutage immer <code>&lt;meta charset=&quot;UTF-8&quot; /&gt;</code> angegeben sein, dann können generell beliebige Unicode-Zeichen verwendet werden.</p>
-<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">button</span>&gt;</span>😊<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code></pre>
-
-      </section><section class="slide" id="slide-8-9">
-        <h2 id="besondere-zeichen">Besondere Zeichen</h2>
-<p>Um die folgenden Zeichen in einem HTML-Dokument darzustellen, sollten sie immer &quot;escaped&quot; werden:</p>
-<ul>
-<li><code>&lt;</code> wird zu <code>&amp;lt;</code></li>
-<li><code>&gt;</code> wird zu <code>&amp;gt;</code></li>
-<li><code>&amp;</code> wird zu <code>&amp;amp;</code></li>
-</ul>
-<p>Folgende Zeichen müssen in HTML-Attributen escaped werden:</p>
-<ul>
-<li><code>&quot;</code> wird zu <code>&amp;quot;</code></li>
-<li>(<code>&#39;</code> wird zu <code>&amp;apos;</code>, wenn das HTML-Attribut durch <code>&#39;</code> begrenzt wird)</li>
-</ul>
-
-      </section><section class="slide" id="slide-8-10">
-        <h2 id="meta-viewport">meta: viewport</h2>
-<p>Sollte auf allen Websites verwendet werden, um die Browser-Skalierung zurückzusetzen</p>
-<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"viewport"</span> <span class="hljs-attr">width</span>=<span class="hljs-string">"device-width"</span> /&gt;</span></code></pre>
-<p>Hintergrund:<br>In den Anfängen des mobilen Web (vor responsive Design) wurden Websites von Browsern of verkleinert dargestellt. Mit obigem Code wird dies verhindert.</p>
-<p><a href="https://viewportsizes.com/mine">https://viewportsizes.com/mine</a></p>
-
-      </section><section class="slide" id="slide-8-11">
-        <h2 id="meta-description">meta: description</h2>
-<p>Kann von Suchmaschinen verwendet werden, um eine Seitenzusammenfassung anzuzeigen<br>Standardtitel für Lesezeichen</p>
-<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">meta</span>
-  <span class="hljs-attr">name</span>=<span class="hljs-string">"description"</span>
-  <span class="hljs-attr">content</span>=<span class="hljs-string">"Wikipedia is a free online encyclopedia, ..."</span>
-/&gt;</span></code></pre>
-
-      </section><section class="slide" id="slide-8-12">
-        <h2 id="meta-keywords">meta: keywords</h2>
-<p>Kann von Suchmaschinen verwendet werden</p>
-<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"keywords"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"HTML,javascript"</span> /&gt;</span></code></pre>
-
-      </section><section class="slide" id="slide-8-13">
-        <h2 id="meta-http-equivx-ua-compatible">meta: http-equiv=&quot;X-UA-Compatible&quot;</h2>
-<p>Ist bei Internet Explorer &lt;= 10 relevant; führt zur Verwendung der modernsten Version der Rendering-Engine</p>
-
-      </section><section class="slide" id="slide-8-14">
-        <h2 id="favicon">favicon</h2>
-<p>Icon, das im Tab der Website angezeigt wird</p>
-<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">link</span>
-  <span class="hljs-attr">rel</span>=<span class="hljs-string">"icon"</span>
-  <span class="hljs-attr">sizes</span>=<span class="hljs-string">"16x16"</span>
-  <span class="hljs-attr">href</span>=<span class="hljs-string">"favicon_16.png"</span>
-  <span class="hljs-attr">type</span>=<span class="hljs-string">"image/png"</span>
-/&gt;</span></code></pre>
+        <h2 id="übung-tabellen-und-formulare">Übung: Tabellen und Formulare</h2>
+<p>Wir erstellen eine Website für ein Restaurant</p>
+<p>Wir beginnen mit einer Tabelle für die Öffnungszeiten und einem <em>einfachen</em> Formular für Reservierungen</p>
+<p>Um die optische Gestaltung kümmern wir uns später mit Hilfe des CSS-Frameworks Bootstrap</p>
 
       </section></section><section class="section" id="section-9"><section class="slide" id="slide-9-1">
         <h1 id="stylesheets-und-klassen">Stylesheets und Klassen</h1>
@@ -712,9 +712,11 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
         <h2 id="svg-elemente">SVG Elemente</h2>
 <ul>
 <li><code>g</code>: Gruppe</li>
-<li><code>path</code></li>
 <li><code>rect</code></li>
+<li><code>circle</code></li>
+<li><code>ellipse</code></li>
 <li><code>text</code>, <code>tspan</code></li>
+<li><code>path</code></li>
 </ul>
 
       </section><section class="slide" id="slide-13-5">
@@ -723,7 +725,115 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li><code>id</code>, <code>class</code></li>
 <li><code>transform</code> (z.B. <code>&quot;rotate(180)&quot;</code>, <code>&quot;translate(20 30)&quot;</code>)</li>
 <li><code>x</code>, <code>y</code> (Position)</li>
+<li><code>stroke</code> (Linienfarbe)</li>
+<li><code>fill</code> (Füllfarbe)</li>
 </ul>
+
+      </section><section class="slide" id="slide-13-6">
+        <h2 id="rect">rect</h2>
+<pre><code class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">rect</span> <span class="hljs-attr">x</span>=<span class="hljs-string">"50"</span> <span class="hljs-attr">y</span>=<span class="hljs-string">"50"</span> <span class="hljs-attr">width</span>=<span class="hljs-string">"20"</span> <span class="hljs-attr">height</span>=<span class="hljs-string">"200"</span> <span class="hljs-attr">fill</span>=<span class="hljs-string">"darkgrey"</span>&gt;</span></code></pre>
+
+      </section><section class="slide" id="slide-13-7">
+        <h2 id="circle">circle</h2>
+<pre><code class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">circle</span> <span class="hljs-attr">r</span>=<span class="hljs-string">"10"</span> <span class="hljs-attr">cy</span>=<span class="hljs-string">"290"</span>/&gt;</span></code></pre>
+
+      </section><section class="slide" id="slide-13-8">
+        <h2 id="ellipse">ellipse</h2>
+<pre><code class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">ellipse</span> <span class="hljs-attr">cy</span>=<span class="hljs-string">"60"</span> <span class="hljs-attr">rx</span>=<span class="hljs-string">"30"</span> <span class="hljs-attr">ry</span>=<span class="hljs-string">"50"</span>/&gt;</span></code></pre>
+
+      </section><section class="slide" id="slide-13-9">
+        <h2 id="path">path</h2>
+<p>Element <code>path</code>, Attribut <code>d</code></p>
+<p>Rechteck:</p>
+<pre><code class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">path</span> <span class="hljs-attr">d</span>=<span class="hljs-string">"M 0,0 L 10,0 L 10,10 L 0,10 L 0,0"</span>&gt;</span></code></pre>
+
+      </section><section class="slide" id="slide-13-10">
+        <h2 id="pfade---befehle">Pfade - Befehle</h2>
+<ul>
+<li><code>M</code>: move to</li>
+<li><code>L</code>: line to</li>
+<li><code>H</code>: horizontal line to</li>
+<li><code>V</code>: vertical line to</li>
+<li><code>Q</code>: quadratic bézier curve to</li>
+<li><code>T</code>: smooth quadratic bézier curve to</li>
+<li><code>C</code>: cubic bézier curve to</li>
+<li><code>S</code>: smooth cubic bézier curve to</li>
+<li><code>A</code>: elliptical arc to</li>
+<li><code>Z</code>: close path</li>
+</ul>
+
+      </section><section class="slide" id="slide-13-11">
+        <h2 id="pfade---befehle">Pfade - Befehle</h2>
+<p>Alle Pfadbefehle sind auch als relative Koordinatenangaben möglich (mit klein geschriebenen Befehlsnamen):</p>
+<pre><code class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">path</span> <span class="hljs-attr">d</span>=<span class="hljs-string">"M 500,500 l 10,10"</span>&gt;</span></code></pre>
+<p>ist äquivalent zu:</p>
+<pre><code class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">path</span> <span class="hljs-attr">d</span>=<span class="hljs-string">"M 500,500 L 510,510"</span>&gt;</span></code></pre>
+
+      </section><section class="slide" id="slide-13-12">
+        <h2 id="g-gruppe">g (Gruppe)</h2>
+<pre><code class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">g</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">rect</span> <span class="hljs-attr">width</span>=<span class="hljs-string">"10"</span> <span class="hljs-attr">height</span>=<span class="hljs-string">"10"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">rect</span> <span class="hljs-attr">x</span>=<span class="hljs-string">"20"</span> <span class="hljs-attr">width</span>=<span class="hljs-string">"10"</span> <span class="hljs-attr">height</span>=<span class="hljs-string">"10"</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">g</span>&gt;</span></code></pre>
+
+      </section><section class="slide" id="slide-13-13">
+        <h2 id="transformationen">Transformationen</h2>
+<p>Via Attribut <code>transform</code>:</p>
+<pre><code class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">rect</span> <span class="hljs-attr">transform</span>=<span class="hljs-string">"translate(250, 0) rotate(-90, 50, 50)"</span>/&gt;</span></code></pre>
+
+      </section><section class="slide" id="slide-13-14">
+        <h2 id="stil">Stil</h2>
+<pre><code class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">g</span> <span class="hljs-attr">fill</span>=<span class="hljs-string">"grey"</span> <span class="hljs-attr">stroke</span>=<span class="hljs-string">"black"</span> <span class="hljs-attr">stroke-width</span>=<span class="hljs-string">"3"</span>&gt;</span></code></pre>
+
+      </section><section class="slide" id="slide-13-15">
+        <h2 id="beispiel-löffel-und-gabel">Beispiel: Löffel und Gabel</h2>
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  version="1.1" width="500" height="500" viewBox="0 0 500 500">
+  <g
+    transform="translate(250, 0) rotate(45, 0, 160)"
+    fill="grey">
+    <rect y="100" x="-10" width="20" height="190"/>
+    <circle r="10" cy="290"/>
+    <ellipse cy="60" rx="35" ry="55"/>
+  </g>
+  <g
+    transform="translate(250,0) rotate(-45, 0, 160)"
+    fill="darkgrey">
+    <path d="
+      M -10,310 L 10,310 L10,100
+      C 10,90 20,80 20,70
+      L 19,0 L13,0 L11,70 L5,70 L3,0
+      L-3,0 L-5,70 L-11,70 L-13,0 L-19,0 L-20,70
+      C-20,80 -10,90 -10,100 Z"/>
+  </g>
+</svg>
+
+
+
+      </section><section class="slide" id="slide-13-16">
+        <h2 id="beispiel-löffel-und-gabel">Beispiel: Löffel und Gabel</h2>
+<pre><code class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">svg</span>
+  <span class="hljs-attr">xmlns</span>=<span class="hljs-string">"http://www.w3.org/2000/svg"</span>
+  <span class="hljs-attr">version</span>=<span class="hljs-string">"1.1"</span> <span class="hljs-attr">width</span>=<span class="hljs-string">"500"</span> <span class="hljs-attr">height</span>=<span class="hljs-string">"500"</span> <span class="hljs-attr">viewBox</span>=<span class="hljs-string">"0 0 500 500"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">g</span>
+    <span class="hljs-attr">transform</span>=<span class="hljs-string">"translate(250, 0) rotate(45, 0, 160)"</span>
+    <span class="hljs-attr">fill</span>=<span class="hljs-string">"grey"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">rect</span> <span class="hljs-attr">y</span>=<span class="hljs-string">"100"</span> <span class="hljs-attr">x</span>=<span class="hljs-string">"-10"</span> <span class="hljs-attr">width</span>=<span class="hljs-string">"20"</span> <span class="hljs-attr">height</span>=<span class="hljs-string">"190"</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">circle</span> <span class="hljs-attr">r</span>=<span class="hljs-string">"10"</span> <span class="hljs-attr">cy</span>=<span class="hljs-string">"290"</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">ellipse</span> <span class="hljs-attr">cy</span>=<span class="hljs-string">"60"</span> <span class="hljs-attr">rx</span>=<span class="hljs-string">"35"</span> <span class="hljs-attr">ry</span>=<span class="hljs-string">"55"</span>/&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">g</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">g</span>
+    <span class="hljs-attr">transform</span>=<span class="hljs-string">"translate(250,0) rotate(-45, 0, 160)"</span>
+    <span class="hljs-attr">fill</span>=<span class="hljs-string">"darkgrey"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">path</span> <span class="hljs-attr">d</span>=<span class="hljs-string">"
+      M -10,310 L 10,310 L10,100
+      C 10,90 20,80 20,70
+      L 19,0 L13,0 L11,70 L5,70 L3,0
+      L-3,0 L-5,70 L-11,70 L-13,0 L-19,0 L-20,70
+      C-20,80 -10,90 -10,100 Z"</span>/&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">g</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">svg</span>&gt;</span></code></pre>
 
       </section></section><section class="section" id="section-14"><section class="slide" id="slide-14-1">
         <h1 id="online-resourcen">Online Resourcen</h1>
@@ -763,6 +873,10 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
       line-height: 1.5rem;
     }
 
+    p, ul, pre {
+      margin-top: 0;
+    }
+
     ul {
       padding-left: 1.5rem;
     }
@@ -784,6 +898,21 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
     svg {
       width: 100%;
       height: auto;
+    }
+
+    .section {
+      height: 100%;
+      display: none;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    .slide {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
     }
 
     .slide.inactive {
@@ -846,6 +975,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
       box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.2);
       padding: 0.5em 1em;
       line-height: 1.2em;
+      overflow: auto;
     }
 
     #navigation-arrows {
@@ -907,6 +1037,13 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
     }
 
     const updateVisible = () => {
+      for (let section of document.querySelectorAll('.section')) {
+        if (section.id === `section-${activeSlide[0]}`) {
+          section.className = 'section active';
+        } else {
+          section.className = 'section inactive';
+        }
+      }
       for (let slide of document.querySelectorAll('.slide')) {
         if (slide.id === `slide-${activeSlide[0]}-${activeSlide[1]}`) {
           slide.className = 'slide active';
@@ -949,13 +1086,9 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
     }
 
     const activateNextSlide = () => {
-      console.log(activeSlide);
-      console.log(slideCount)
       if (activeSlide[1] === slideCount[activeSlide[0] - 1]) {
-        console.log('right')
         activateSlideSafe(activeSlide[0] + 1, 1);
       } else {
-        console.log('down')
         activateSlideSafe(activeSlide[0], activeSlide[1] + 1);
       }
     }

@@ -749,27 +749,25 @@ fetch(url)
 <li>should we fall back to the other option if this fails?</li>
 <li>if we serve from the cache, should we try to update it in the background?</li>
 </ul>
-
-      </section><section class="slide" id="slide-12-5">
-        <h2 id="service-workers---strategies">Service workers - strategies</h2>
 <p>key questions:</p>
 <ul>
 <li>for any requested resource, do we serve it from the cache, from the network or a combination?</li>
 <li>which resources do we cache and when do we cache them?</li>
 </ul>
 
-      </section><section class="slide" id="slide-12-6">
+      </section><section class="slide" id="slide-12-5">
         <h2 id="service-workers---strategies">Service workers - strategies</h2>
 <p>asset retrieval:</p>
 <ul>
 <li>always from the network</li>
 <li>always from the cache</li>
-<li>network first</li>
-<li>cache first</li>
-<li>cache, updating the cache in the background</li>
+<li>network, falling back to cache</li>
+<li>cache, falling back to network</li>
+<li>cache, updating the cache from the network in the background</li>
+<li>cache, fetching new resource in the background and displaying once received</li>
 </ul>
 
-      </section><section class="slide" id="slide-12-7">
+      </section><section class="slide" id="slide-12-6">
         <h2 id="service-workers---strategies">Service workers - strategies</h2>
 <p>caching strategies:</p>
 <ul>
@@ -779,11 +777,11 @@ fetch(url)
 </ul>
 <p>(we can combine these strategies)</p>
 
-      </section><section class="slide" id="slide-12-8">
+      </section><section class="slide" id="slide-12-7">
         <h2 id="service-workers---strategies">Service workers - strategies</h2>
 <p>See the <a href="https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/#cache-then-network">offline cookbook</a></p>
 
-      </section><section class="slide" id="slide-12-9">
+      </section><section class="slide" id="slide-12-8">
         <h2 id="service-workers---event-overview">Service workers - event overview</h2>
 <p>These events can be handled in the service worker:</p>
 <ul>
@@ -795,7 +793,7 @@ fetch(url)
 <li><strong>sync</strong>: server request that will be attempted repeatedly (Chrome only)</li>
 </ul>
 
-      </section><section class="slide" id="slide-12-10">
+      </section><section class="slide" id="slide-12-9">
         <h2 id="service-workers---related-technologies">Service workers - related technologies</h2>
 <ul>
 <li>fetch (Sending network requests)</li>
@@ -890,7 +888,7 @@ workbox.routing.registerRoute(
 
       </section><section class="slide" id="slide-14-6">
         <h2 id="service-worker-scope">Service worker scope</h2>
-<p>By the default a service worker will control all requests that lie within its &quot;directory&quot; on the server.</p>
+<p>By default a service worker will control all requests that lie within its &quot;directory&quot; on the server.</p>
 <pre><code class="language-js">navigator.serviceWorker.register(<span class="hljs-string">'/css/serviceworker.js'</span>);</code></pre>
 <p>The SW will control requests to <em>/css/default.css</em>, but not to <em>/index.html</em>.</p>
 <p>We can narrow down a service worker to only work on a subpath:</p>
@@ -927,7 +925,7 @@ workbox.routing.registerRoute(
 
       </section><section class="slide" id="slide-14-11">
         <h2 id="service-worker-activation">Service worker activation</h2>
-<p>We can force activation of a new service worker from the install event:</p>
+<p>We can force immediate activation of a new service worker from the install event:</p>
 <pre><code class="language-js">self.addEventListener(<span class="hljs-string">'install'</span>, event =&gt; {
   self.skipWaiting();
 });</code></pre>
@@ -978,540 +976,16 @@ fetch(url)
 
       </section><section class="slide" id="slide-15-6">
         <h2 id="service-worker-events-fetch">Service worker events: fetch</h2>
+<!-- 
+there are two $ signs in regexes in this code
+if they are at the very end of the string
+they will mess up the result
+-->
+
 <pre><code class="language-js">self.addEventListener(<span class="hljs-string">'fetch'</span>, event =&gt; {
-  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">'/about
-
-    </div>
-    <div id="navigation-arrows">
-      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="navigation-arrows-svg"
-        xml:space="preserve" width="100%" height="100%" viewBox="-110 -110 220 220">
-        <path class="arrow right" d="M70,-30L100,0L70,30" />
-        <path class="arrow down" d="M-30,70L0,100L30,70" />
-        <path class="arrow left" d="M-70,-30L-100,0L-70,30" />
-        <path class="arrow up" d="M-30,-70L0,-100L30,-70" />
-      </svg>
-    </div>
-  </div>
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      width: 100vw;
-      height: 100vh;
-      margin: 0px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-color: rgb(150, 150, 150);
-      font-family: -apple-system, "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
-      line-height: 1.5rem;
-    }
-
-    ul {
-      padding-left: 1.5rem;
-    }
-
-    h1, h2, h3 {
-      font-weight: 600;
-    }
-
-    h1 {
-      margin-top: 5vh;
-      text-align: center;
-      font-size: 2rem;
-    }
-
-    h2 {
-      margin-bottom: 1.5em;
-    }
-
-    svg {
-      width: 100%;
-      height: auto;
-    }
-
-    .slide.inactive {
-      display: none;
-    }
-
-    #canvas {
-      box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.3);
-      background-color: #f8f8f8;
-      position: relative;
-      display: flex;
-    }
-
-    #canvas-content {
-      width: 100%;
-      height: 100%;
-    }
-
-    #canvas-content .note {
-      display: none;
-    }
-
-    #canvas-content img {
-      margin: 0px auto;
-      display: block;
-    }
-
-    @media (min-aspect-ratio: 8/5) {
-
-      html {
-        font-size: 3.5vh;
-      }
-
-      /* wide screen */
-      #canvas {
-        width: calc(100vh / 5 * 8);
-        height: 100vh;
-        padding: 10vh;
-        padding-top: 5vh;
-      }
-    }
-
-    @media (max-aspect-ratio: 8/5) {
-
-      html {
-        font-size: calc(3.5vw * 5 / 8);
-      }
-
-      /* narrow screen */
-      #canvas {
-        width: 100vw;
-        height: calc(100vw * 5 / 8);
-        padding: calc(10vh * 5 / 8);
-        padding-top: calc(5vh * 5 / 8);
-      }
-    }
-
-    pre {
-      background-color: rgb(224, 233, 240);
-      box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.2);
-      padding: 0.5em 1em;
-      line-height: 1.2em;
-    }
-
-    #navigation-arrows {
-      position: absolute;
-      right: 2rem;
-      top: 2rem;
-      height: 3rem;
-      width: 3rem;
-    }
-
-    .arrow {
-      stroke: lightblue;
-      /*stroke-width: 0.8em; Chrome behaves differently with ems here */
-      stroke-width: 16px;
-      stroke-linecap: round;
-      fill: none;
-      cursor: pointer;
-    }
-
-    td,
-    th {
-      padding: 0.2em 0.8em;
-    }
-
-    th {
-      text-align: start;
-    }
-  </style>
-  <script>
-    let presenterWindow;
-    let activeSlide;
-    let slideCount;
-
-    const arrowUp = document.querySelector('.arrow.up');
-    const arrowDown = document.querySelector('.arrow.down');
-    const arrowRight = document.querySelector('.arrow.right');
-    const arrowLeft = document.querySelector('.arrow.left');
-    arrowUp.addEventListener('click',
-      () => {activateSlideSafe(activeSlide[0], activeSlide[1] - 1);}
-    );
-    arrowDown.addEventListener('click',
-      () => {activateSlideSafe(activeSlide[0], activeSlide[1] + 1);}
-    );
-    arrowLeft.addEventListener('click',
-      () => {activateSlideSafe(activeSlide[0] - 1, 1);}
-    );
-    arrowRight.addEventListener('click',
-      () => {activateSlideSafe(activeSlide[0] + 1, 1);}
-    )
-    const init = () => {
-      slideCount = countSlides();
-      activateSlideSafe(1, 1);
-    }
-
-    // count slides
-    const countSlides = () => {
-      const counts = [];
-      return [...document.querySelectorAll('.section')].map(section => section.childNodes.length);
-    }
-
-    const updateVisible = () => {
-      for (let slide of document.querySelectorAll('.slide')) {
-        if (slide.id === `slide-${activeSlide[0]}-${activeSlide[1]}`) {
-          slide.className = 'slide active';
-        } else {
-          slide.className = 'slide inactive';
-        }
-      }
-    }
-
-    const updatePageArrows = () => {
-      if (slideCount.length === 1) {
-        arrowLeft.style.opacity = "0";
-        arrowRight.style.opacity = "0";
-      } else {
-        const progressSections = (activeSlide[0] - 1) / (slideCount.length - 1);
-        arrowLeft.style.opacity = progressSections.toString();
-        arrowRight.style.opacity = (1 - progressSections).toString();
-      }
-      const slidesInActiveSection = slideCount[activeSlide[0] - 1]
-      if (slidesInActiveSection === 1) {
-        arrowUp.style.opacity = "0";
-        arrowDown.style.opacity = "0";
-      } else {
-        const progressSlides = (activeSlide[1] - 1) / (slidesInActiveSection - 1);
-        arrowUp.style.opacity = progressSlides.toString();
-        arrowDown.style.opacity = (1 - progressSlides).toString();
-      }
-    }
-
-    /**
-     * Activate a slide if it exists, else do nothing
-    */
-    const activateSlideSafe = (sectionIndex, slideIndex) => {
-      if (1 <= sectionIndex && sectionIndex <= slideCount.length && 1 <= slideIndex && slideIndex <= slideCount[sectionIndex - 1]) {
-        activeSlide = [sectionIndex, slideIndex];
-        updateVisible();
-        updatePageArrows();
-        scrolltoActiveSlide();
-      }
-    }
-
-    const activateNextSlide = () => {
-      console.log(activeSlide);
-      console.log(slideCount)
-      if (activeSlide[1] === slideCount[activeSlide[0] - 1]) {
-        console.log('right')
-        activateSlideSafe(activeSlide[0] + 1, 1);
-      } else {
-        console.log('down')
-        activateSlideSafe(activeSlide[0], activeSlide[1] + 1);
-      }
-    }
-
-    const scrolltoActiveSlide = () => {
-      const slideId = `#slide-${activeSlide[0]}-${activeSlide[1]}`;
-      if (presenterWindow) {
-        const activeSlide = presenterWindow.document.querySelector(slideId);
-        if (activeSlide) {
-          activeSlide.scrollIntoView();
-        }
-      }
-    }
-
-    document.querySelector('body').addEventListener('keydown', event => {
-      if (event.key === 'p') {
-        const canvasContent = document.querySelector('#canvas-content').innerHTML;
-        presenterWindow = window.open(document.URL, '_blank');
-        presenterWindow.onload = () => {
-          presenterWindow.document.querySelector('body').innerHTML = canvasContent;
-        }
-      }
-      if (event.key === 'ArrowRight') {
-        activateSlideSafe(activeSlide[0] + 1, 1);
-      } else if (event.key === 'ArrowLeft') {
-        activateSlideSafe(activeSlide[0] - 1, 1);
-      } else if (event.key === 'ArrowDown') {
-        activateSlideSafe(activeSlide[0], activeSlide[1] + 1);
-      } else if (event.key === 'ArrowUp') {
-        activateSlideSafe(activeSlide[0], activeSlide[1] - 1);
-      } else if (event.key === 'Enter') {
-        activateNextSlide();
-      } else {
-        console.log(event.key)
-      }
-    });
-
-    init();
-
-  </script>
-</body>
-
-</html></span>).test(event.request.url)) {
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">'/about/$ '</span>).test(event.request.url)) {
     event.respondWith(<span class="hljs-keyword">new</span> Response(<span class="hljs-string">'About'</span>));
-  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">'/
-
-    </div>
-    <div id="navigation-arrows">
-      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="navigation-arrows-svg"
-        xml:space="preserve" width="100%" height="100%" viewBox="-110 -110 220 220">
-        <path class="arrow right" d="M70,-30L100,0L70,30" />
-        <path class="arrow down" d="M-30,70L0,100L30,70" />
-        <path class="arrow left" d="M-70,-30L-100,0L-70,30" />
-        <path class="arrow up" d="M-30,-70L0,-100L30,-70" />
-      </svg>
-    </div>
-  </div>
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      width: 100vw;
-      height: 100vh;
-      margin: 0px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-color: rgb(150, 150, 150);
-      font-family: -apple-system, "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
-      line-height: 1.5rem;
-    }
-
-    ul {
-      padding-left: 1.5rem;
-    }
-
-    h1, h2, h3 {
-      font-weight: 600;
-    }
-
-    h1 {
-      margin-top: 5vh;
-      text-align: center;
-      font-size: 2rem;
-    }
-
-    h2 {
-      margin-bottom: 1.5em;
-    }
-
-    svg {
-      width: 100%;
-      height: auto;
-    }
-
-    .slide.inactive {
-      display: none;
-    }
-
-    #canvas {
-      box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.3);
-      background-color: #f8f8f8;
-      position: relative;
-      display: flex;
-    }
-
-    #canvas-content {
-      width: 100%;
-      height: 100%;
-    }
-
-    #canvas-content .note {
-      display: none;
-    }
-
-    #canvas-content img {
-      margin: 0px auto;
-      display: block;
-    }
-
-    @media (min-aspect-ratio: 8/5) {
-
-      html {
-        font-size: 3.5vh;
-      }
-
-      /* wide screen */
-      #canvas {
-        width: calc(100vh / 5 * 8);
-        height: 100vh;
-        padding: 10vh;
-        padding-top: 5vh;
-      }
-    }
-
-    @media (max-aspect-ratio: 8/5) {
-
-      html {
-        font-size: calc(3.5vw * 5 / 8);
-      }
-
-      /* narrow screen */
-      #canvas {
-        width: 100vw;
-        height: calc(100vw * 5 / 8);
-        padding: calc(10vh * 5 / 8);
-        padding-top: calc(5vh * 5 / 8);
-      }
-    }
-
-    pre {
-      background-color: rgb(224, 233, 240);
-      box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.2);
-      padding: 0.5em 1em;
-      line-height: 1.2em;
-    }
-
-    #navigation-arrows {
-      position: absolute;
-      right: 2rem;
-      top: 2rem;
-      height: 3rem;
-      width: 3rem;
-    }
-
-    .arrow {
-      stroke: lightblue;
-      /*stroke-width: 0.8em; Chrome behaves differently with ems here */
-      stroke-width: 16px;
-      stroke-linecap: round;
-      fill: none;
-      cursor: pointer;
-    }
-
-    td,
-    th {
-      padding: 0.2em 0.8em;
-    }
-
-    th {
-      text-align: start;
-    }
-  </style>
-  <script>
-    let presenterWindow;
-    let activeSlide;
-    let slideCount;
-
-    const arrowUp = document.querySelector('.arrow.up');
-    const arrowDown = document.querySelector('.arrow.down');
-    const arrowRight = document.querySelector('.arrow.right');
-    const arrowLeft = document.querySelector('.arrow.left');
-    arrowUp.addEventListener('click',
-      () => {activateSlideSafe(activeSlide[0], activeSlide[1] - 1);}
-    );
-    arrowDown.addEventListener('click',
-      () => {activateSlideSafe(activeSlide[0], activeSlide[1] + 1);}
-    );
-    arrowLeft.addEventListener('click',
-      () => {activateSlideSafe(activeSlide[0] - 1, 1);}
-    );
-    arrowRight.addEventListener('click',
-      () => {activateSlideSafe(activeSlide[0] + 1, 1);}
-    )
-    const init = () => {
-      slideCount = countSlides();
-      activateSlideSafe(1, 1);
-    }
-
-    // count slides
-    const countSlides = () => {
-      const counts = [];
-      return [...document.querySelectorAll('.section')].map(section => section.childNodes.length);
-    }
-
-    const updateVisible = () => {
-      for (let slide of document.querySelectorAll('.slide')) {
-        if (slide.id === `slide-${activeSlide[0]}-${activeSlide[1]}`) {
-          slide.className = 'slide active';
-        } else {
-          slide.className = 'slide inactive';
-        }
-      }
-    }
-
-    const updatePageArrows = () => {
-      if (slideCount.length === 1) {
-        arrowLeft.style.opacity = "0";
-        arrowRight.style.opacity = "0";
-      } else {
-        const progressSections = (activeSlide[0] - 1) / (slideCount.length - 1);
-        arrowLeft.style.opacity = progressSections.toString();
-        arrowRight.style.opacity = (1 - progressSections).toString();
-      }
-      const slidesInActiveSection = slideCount[activeSlide[0] - 1]
-      if (slidesInActiveSection === 1) {
-        arrowUp.style.opacity = "0";
-        arrowDown.style.opacity = "0";
-      } else {
-        const progressSlides = (activeSlide[1] - 1) / (slidesInActiveSection - 1);
-        arrowUp.style.opacity = progressSlides.toString();
-        arrowDown.style.opacity = (1 - progressSlides).toString();
-      }
-    }
-
-    /**
-     * Activate a slide if it exists, else do nothing
-    */
-    const activateSlideSafe = (sectionIndex, slideIndex) => {
-      if (1 <= sectionIndex && sectionIndex <= slideCount.length && 1 <= slideIndex && slideIndex <= slideCount[sectionIndex - 1]) {
-        activeSlide = [sectionIndex, slideIndex];
-        updateVisible();
-        updatePageArrows();
-        scrolltoActiveSlide();
-      }
-    }
-
-    const activateNextSlide = () => {
-      console.log(activeSlide);
-      console.log(slideCount)
-      if (activeSlide[1] === slideCount[activeSlide[0] - 1]) {
-        console.log('right')
-        activateSlideSafe(activeSlide[0] + 1, 1);
-      } else {
-        console.log('down')
-        activateSlideSafe(activeSlide[0], activeSlide[1] + 1);
-      }
-    }
-
-    const scrolltoActiveSlide = () => {
-      const slideId = `#slide-${activeSlide[0]}-${activeSlide[1]}`;
-      if (presenterWindow) {
-        const activeSlide = presenterWindow.document.querySelector(slideId);
-        if (activeSlide) {
-          activeSlide.scrollIntoView();
-        }
-      }
-    }
-
-    document.querySelector('body').addEventListener('keydown', event => {
-      if (event.key === 'p') {
-        const canvasContent = document.querySelector('#canvas-content').innerHTML;
-        presenterWindow = window.open(document.URL, '_blank');
-        presenterWindow.onload = () => {
-          presenterWindow.document.querySelector('body').innerHTML = canvasContent;
-        }
-      }
-      if (event.key === 'ArrowRight') {
-        activateSlideSafe(activeSlide[0] + 1, 1);
-      } else if (event.key === 'ArrowLeft') {
-        activateSlideSafe(activeSlide[0] - 1, 1);
-      } else if (event.key === 'ArrowDown') {
-        activateSlideSafe(activeSlide[0], activeSlide[1] + 1);
-      } else if (event.key === 'ArrowUp') {
-        activateSlideSafe(activeSlide[0], activeSlide[1] - 1);
-      } else if (event.key === 'Enter') {
-        activateNextSlide();
-      } else {
-        console.log(event.key)
-      }
-    });
-
-    init();
-
-  </script>
-</body>
-
-</html></span>).test(event.request.url)) {
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">'/a$ '</span>).test(event.request.url)) {
     event.respondWith(<span class="hljs-keyword">new</span> Response(<span class="hljs-string">'Home'</span>));
   } <span class="hljs-keyword">else</span> {
     event.respondWith(<span class="hljs-keyword">new</span> Response(<span class="hljs-string">'404'</span>));
@@ -1566,6 +1040,7 @@ cache.addAll([<span class="hljs-string">'/'</span>, <span class="hljs-string">'/
         <h2 id="cache---put">Cache - put</h2>
 <p>Can be used if we already have the response</p>
 <pre><code class="language-js">fetch(<span class="hljs-string">'myurl'</span>).then(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(response.clone());
   cache.put(<span class="hljs-string">'myurl'</span>, response.clone());
   cache.put(<span class="hljs-string">'otherurl'</span>, response);
 });</code></pre>
@@ -1610,6 +1085,10 @@ self.addEventListener(<span class="hljs-string">'fetch'</span>, event =&gt; {
 });</code></pre>
 
       </section><section class="slide" id="slide-15-18">
+        <h2 id="example-cache-only---waituntil">Example: cache only - waitUntil</h2>
+<p>A call to <code>waitUntil</code> can be used to signify when the <em>install</em> was successfull - the service worker will only <em>activate</em> if it was</p>
+
+      </section><section class="slide" id="slide-15-19">
         <h2 id="example-updating-the-cache">Example: updating the cache</h2>
 <p>deleting old entries:</p>
 <pre><code class="language-js">self.addEventListener(<span class="hljs-string">'activate'</span>, activateEvent =&gt; {
@@ -1621,8 +1100,8 @@ self.addEventListener(<span class="hljs-string">'fetch'</span>, event =&gt; {
   );
 });</code></pre>
 
-      </section><section class="slide" id="slide-15-19">
-        <h2 id="example-retrieve-with-network-fallback">Example: retrieve with network fallback</h2>
+      </section><section class="slide" id="slide-15-20">
+        <h2 id="example-retrieve-from-cache-with-network-fallback">Example: retrieve from cache with network fallback</h2>
 <pre><code class="language-js">self.addEventListener(<span class="hljs-string">'fetch'</span>, event =&gt; {
   event.respondWith(
     caches
@@ -1631,7 +1110,7 @@ self.addEventListener(<span class="hljs-string">'fetch'</span>, event =&gt; {
   );
 });</code></pre>
 
-      </section><section class="slide" id="slide-15-20">
+      </section><section class="slide" id="slide-15-21">
         <h2 id="example-updating-the-cache-on-every-request">Example: updating the cache on every request</h2>
 <pre><code class="language-js">self.addEventListener(<span class="hljs-string">'fetch'</span>, event =&gt; {
   event.respondWith(
@@ -1645,10 +1124,9 @@ self.addEventListener(<span class="hljs-string">'fetch'</span>, event =&gt; {
 <pre><code class="language-js"><span class="hljs-comment">// in the service worker</span>
 self.addEventListener(<span class="hljs-string">'fetch'</span>, event =&gt; {
   event.respondWith();
-  xxxxxxxxxxxxxxxxxxx;
 });</code></pre>
 
-      </section><section class="slide" id="slide-15-21">
+      </section><section class="slide" id="slide-15-22">
         <h2 id="example-network---falling-back-to-cache---falling-back-to-default-asset-eg-user-avatar">example: network - falling back to cache - falling back to default asset (e.g. user avatar)</h2>
 
       </section></section><section class="section" id="section-16"><section class="slide" id="slide-16-1">
@@ -2272,6 +1750,10 @@ duration: ca 50 min
       line-height: 1.5rem;
     }
 
+    p, ul, pre {
+      margin-top: 0;
+    }
+
     ul {
       padding-left: 1.5rem;
     }
@@ -2293,6 +1775,21 @@ duration: ca 50 min
     svg {
       width: 100%;
       height: auto;
+    }
+
+    .section {
+      height: 100%;
+      display: none;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    .slide {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
     }
 
     .slide.inactive {
@@ -2355,6 +1852,7 @@ duration: ca 50 min
       box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.2);
       padding: 0.5em 1em;
       line-height: 1.2em;
+      overflow: auto;
     }
 
     #navigation-arrows {
@@ -2416,6 +1914,13 @@ duration: ca 50 min
     }
 
     const updateVisible = () => {
+      for (let section of document.querySelectorAll('.section')) {
+        if (section.id === `section-${activeSlide[0]}`) {
+          section.className = 'section active';
+        } else {
+          section.className = 'section inactive';
+        }
+      }
       for (let slide of document.querySelectorAll('.slide')) {
         if (slide.id === `slide-${activeSlide[0]}-${activeSlide[1]}`) {
           slide.className = 'slide active';
@@ -2458,13 +1963,9 @@ duration: ca 50 min
     }
 
     const activateNextSlide = () => {
-      console.log(activeSlide);
-      console.log(slideCount)
       if (activeSlide[1] === slideCount[activeSlide[0] - 1]) {
-        console.log('right')
         activateSlideSafe(activeSlide[0] + 1, 1);
       } else {
-        console.log('down')
         activateSlideSafe(activeSlide[0], activeSlide[1] + 1);
       }
     }

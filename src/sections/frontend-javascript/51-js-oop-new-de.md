@@ -14,3 +14,13 @@ class Car {
   }
 }
 ```
+
+## OOP (neu)
+
+Vererbung
+
+```js
+class LuxuryCar extends Car {
+  openRoof() {}
+}
+```

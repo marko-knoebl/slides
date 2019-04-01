@@ -27,7 +27,7 @@ Math.random();
 ## DOM: Stile und Attribute (href, ...)
 
 - `element.style`
-- (`element.className`)
+- `element.className`
 - `element.classList` (`.add`, `.remove`, `.toggle`, `.contains`)
 
 ## DOM: createElement, appendChild
@@ -40,7 +40,7 @@ Math.random();
 ## DOM: createElement, appendChild - Beispiele
 
 - Schachbrett
-- Todo-Liste
+- Todo-Liste (nicht interaktiv)
 
 ## Events
 
