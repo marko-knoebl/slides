@@ -1,8 +1,18 @@
-# app install prompt
+# app installation
+
+## app installation
+
+Browsers may offer the ability to add entries to the device's start menu / to the homescreen
+
+## app installation on Chrome and iOS
+
+In iOS users can add any website to the phone's menu. The mechanism for PWAs is the same.
+
+On Chrome PWAs may prompt the user to be installed. Installed PWAs will behave differently from websites - e.g. they will be displayed in a standalone window.
 
 ## app install prompt
 
-On Chrome it's possible to ask a user to install the application by adding it to the menu / home screen.
+App install prompt on Chrome:
 
 https://developers.google.com/web/fundamentals/app-install-banners/
 
@@ -21,7 +31,7 @@ requirements to show the prompt:
 
 ## app install prompt
 
-once alle the requirements are met, a `beforeinstallprompt` event will fire; we can listen for this event and store it for later use
+once all the requirements are met, a `beforeinstallprompt` event will fire; we can listen for this event and store it for later use
 
 ```js
 let installPromptEvent;
@@ -39,7 +49,7 @@ window.addEventListener('beforeinstallprompt', event => {
 Once the user wants to install the app, we can use the stored event:
 
 ```js
-installBtn.addEventListener('click', e => {
+installBtn.addEventListener('click', () => {
   hideInstallBtn();
   // Show the prompt
   installPromptEvent.prompt();
@@ -50,4 +60,4 @@ installBtn.addEventListener('click', e => {
 
 We can test a deployment on https://app.netlify.com/drop
 
-important: Switch to HTTPS
+important: Switch to HTTPS in the Browser

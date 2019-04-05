@@ -178,7 +178,7 @@ developer tools - audits
 
 Service workers are at the core of PWAs. They are a client-side proxy between the web browser and the server.
 
-Main use case: offline / faster usage of web apps (replaces the old AppCache functionality)
+Main use case: offline / faster usage of web apps (replaces the deprecated AppCache functionality)
 
 ## Service workers - example use cases
 
@@ -304,7 +304,7 @@ crucial entries for Chrome:
 - `name`
 - `short_name`
 - `start_url`
-- `icons` - used in the menu, in the splash screen; for Chrome you should provide square icons of sizes: `144`, `192`, `512`
+- `icons` - used in the menu, in the splash screen; for Chrome we should provide square icons of sizes: `144`, `192`, `512`
 - `display`: `fullscreen` / `standalone` / `minimal-ui` / `browser`
 
 ## Manifest file - entries
@@ -317,7 +317,7 @@ crucial entries for Chrome:
   - `landscape` (`landscape-primary`, `landscape-secondary`)
   - `portrait` (`portrait-primary`,
     `portrait-secondary`)
-- `theme_color`
+- `theme_color`:
 
 ## Meta tags in HTML
 
@@ -326,11 +326,21 @@ These meta tags are helpful in the browser:
 - in Chrome: Android window color: `<meta name="theme-color" content="..." />` - this should be the same as `theme_color` in the manifest
 - on iOS: `<meta name="apple-mobile-web-app-capable" content="yes">` - this hides the browser UI
 
-# app install prompt
+# app installation
+
+## app installation
+
+Browsers may offer the ability to add entries to the device's start menu / to the homescreen
+
+## app installation on Chrome and iOS
+
+In iOS users can add any website to the phone's menu. The mechanism for PWAs is the same.
+
+On Chrome PWAs may prompt the user to be installed. Installed PWAs will behave differently from websites - e.g. they will be displayed in a standalone window.
 
 ## app install prompt
 
-On Chrome it's possible to ask a user to install the application by adding it to the menu / home screen.
+App install prompt on Chrome:
 
 https://developers.google.com/web/fundamentals/app-install-banners/
 
@@ -349,7 +359,7 @@ requirements to show the prompt:
 
 ## app install prompt
 
-once alle the requirements are met, a `beforeinstallprompt` event will fire; we can listen for this event and store it for later use
+once all the requirements are met, a `beforeinstallprompt` event will fire; we can listen for this event and store it for later use
 
 ```js
 let installPromptEvent;
@@ -367,7 +377,7 @@ window.addEventListener('beforeinstallprompt', event => {
 Once the user wants to install the app, we can use the stored event:
 
 ```js
-installBtn.addEventListener('click', e => {
+installBtn.addEventListener('click', () => {
   hideInstallBtn();
   // Show the prompt
   installPromptEvent.prompt();
@@ -378,7 +388,158 @@ installBtn.addEventListener('click', e => {
 
 We can test a deployment on https://app.netlify.com/drop
 
-important: Switch to HTTPS
+important: Switch to HTTPS in the Browser
+
+# Service workers
+
+## Service workers
+
+Service workers are client-side proxies between the web browser and the server.
+
+Service workers can cache resources and retrieve them from either the network or the internal cache.
+
+## Browser support
+
+[caniuse](https://caniuse.com/##feat=serviceworkers)
+
+support for service workers => support for ES2015
+
+## Service workers - related technologies
+
+- fetch (Sending network requests)
+- cache (Caching network requests)
+
+# Service worker strategies
+
+## Service workers - strategies
+
+When deciding on a strategy there are different goals to consider:
+
+- serve content as fast as possible
+- serve content which is up-to-date
+- save on network data usage
+- save on cache size
+
+## Service workers - strategies
+
+for each resource associated with our web app we should ask ourselves:
+
+- should we download and cache this resource when the user first visits our page?
+- if this resource is requested, should we retrieve it from the _cache_ or from the _network_?
+- should we fall back to the other option if this fails?
+- if we serve from the cache, should we try to update it in the background?
+
+key questions:
+
+- for any requested resource, do we serve it from the cache, from the network or a combination?
+- which resources do we cache and when do we cache them?
+
+## Service workers - strategies
+
+asset retrieval:
+
+- always from the network
+- always from the cache
+- network, falling back to cache
+- cache, falling back to network
+- cache, updating the cache from the network in the background
+- cache, fetching new resource in the background and displaying once received
+
+## Service workers - strategies
+
+caching strategies:
+
+- precache on install
+- precache on user interaction
+- cache when new data arrives
+
+(we can combine these strategies)
+
+## Service workers - strategies
+
+See the [offline cookbook](https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/#cache-then-network)
+
+# Workbox in detail
+
+## Service worker strategies
+
+Workbox has built-in support for several service worker strategies
+
+## Service worker strategies
+
+asset retrieval:
+
+- always from the network: `NetworkOnly`
+- always from the cache: `CacheOnly`
+- network first: `NetworkFirst`
+- cache first: `CacheFirst`
+- cache, updating the cache in the background: `StaleWhileRevalidate`
+
+## Service worker strategies
+
+caching:
+
+- precache on install, always serve this version: `precacheAndRoute`
+- precache on user interaction: use `fetch` and the below
+- cache whenever data arrives: automatic with `NetworkFirst`, `CacheFirst`, `StaleWhileRevalidate`
+
+## routing
+
+```js
+workbox.routing.registerRoute(
+  new RegExp('/static/.*'),
+  new workbox.strategies.CacheFirst()
+);
+
+workbox.routing.registerRoute(
+  '/articles.json',
+  new workbox.strategies.NetworkFirst()
+);
+```
+
+## plugins
+
+- expiration plugin (maxEntries, maxAgeSeconds)
+
+## precaching
+
+```js
+workbox.precaching.precacheAndRoute([
+  '/',
+  '/index.html',
+  '/logo.svg',
+]);
+```
+
+## CLI
+
+Workbox CLI: Tool for simplifying precaching in particular
+
+```bash
+workbox wizard --injectManifest
+```
+
+## code lab
+
+https://codelabs.developers.google.com/codelabs/workbox-lab/
+
+(update version of "workbox-cli" in package.json - older versions will fail on Windows)
+
+<!--
+~ 45mins
+-->
+
+## exercises
+
+Turn one of these apps into a PWA and use various caching strategies:
+
+- https://github.com/marko-knoebl/simple-todo-app
+- https://github.com/marko-knoebl/simple-weather-app
+- https://github.com/marko-knoebl/simple-stock-app
+
+## bonus (with build)
+
+https://developers.google.com/web/tools/workbox/guides/codelabs/npm-script
 
 # Promises & Fetch
 
@@ -657,124 +818,23 @@ function fib(n) {
 }
 ```
 
-# Service workers
+# Cache overview
 
-## Service workers
+## Cache overview
 
-Service workers are a local proxy between the web browser and the server.
+= "a request to response map"
 
-Service workers can cache resources and retrieve them from either the network or the internal cache.
+## Cache Types
 
-## Browser support
+We can cache resources from both the current domain and other domains; we can distinguish between three types:
 
-[caniuse](https://caniuse.com/##feat=serviceworkers)
+- basic (current domain)
+- cors (other domain, CORS is enabled)
+- opaque (other domain, CORS not enabled) - data is not readable from JavaScript
 
-support for service workers => support for ES2015
-
-## Service workers - strategies
-
-for each resource associated with our web app we should ask ourselves:
-
-- should we download and cache this resource when the user first visits our page?
-- if this resource is requested, should we retrieve it from the _cache_ or from the _network_?
-- should we fall back to the other option if this fails?
-- if we serve from the cache, should we try to update it in the background?
-
-key questions:
-
-- for any requested resource, do we serve it from the cache, from the network or a combination?
-- which resources do we cache and when do we cache them?
-
-## Service workers - strategies
-
-asset retrieval:
-
-- always from the network
-- always from the cache
-- network, falling back to cache
-- cache, falling back to network
-- cache, updating the cache from the network in the background
-- cache, fetching new resource in the background and displaying once received
-
-## Service workers - strategies
-
-caching strategies:
-
-- precache on install
-- precache on user interaction
-- cache when new data arrives
-
-(we can combine these strategies)
-
-## Service workers - strategies
-
-See the [offline cookbook](https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/#cache-then-network)
-
-## Service workers - event overview
-
-These events can be handled in the service worker:
-
-- **install**: there is a new service worker file
-- **activate**: this service worker is now handling requests
-- **fetch**: on each network communication
-- **push**: message from the server
-- **message**: web worker communication with the main thread
-- **sync**: server request that will be attempted repeatedly (Chrome only)
-
-## Service workers - related technologies
-
-- fetch (Sending network requests)
-- cache (Caching netowrk requests)
-
-# Workbox in detail
-
-## Service worker strategies
-
-Workbox has built-in support for several service worker strategies
-
-## Service worker strategies
-
-asset retrieval:
-
-- always from the network: `NetworkOnly`
-- always from the cache: `CacheOnly`
-- network first: `NetworkFirst`
-- cache first: `CacheFirst`
-- cache, updating the cache in the background: `StaleWhileRevalidate`
-
-## Service worker strategies
-
-caching:
-
-- precache on install, always serve this version: `precacheAndRoute`
-- precache on user interaction: use `fetch` and the below
-- cache when data arrives: automatic with `NetworkFirst`, `CacheFirst`, `StaleWhileRevalidate`
-
-## routing
-
-```js
-workbox.routing.registerRoute(
-  new RegExp('/static/.*'),
-  new workbox.strategies.CacheFirst()
-);
-
-workbox.routing.registerRoute(
-  '/articles.json',
-  new workbox.strategies.NetworkFirst()
-);
-```
-
-## plugins
-
-- expiration plugin (maxEntries, maxAgeSeconds)
-
-## code lab
-
-https://codelabs.developers.google.com/codelabs/workbox-lab/
+Example: see the _stock app_ examples in the Chrome devtools
 
 # Service worker setup
-
-## Service worker setup
 
 ## Service worker lifecycle
 
@@ -821,9 +881,9 @@ The SW will control requests to _/css/default.css_, but not to _/index.html_.
 We can narrow down a service worker to only work on a subpath:
 
 ```js
-navigator.serviceWorker.register('/images-sw.js', {
-  scope: '/images/',
-});
+navigator.serviceWorker.register('/css/serviceworker.js', {
+  scope: '/css/xyz/
+})
 ```
 
 ## Service worker installation
@@ -883,16 +943,9 @@ navigator.serviceWorker
   });
 ```
 
-# Service workers with fetch and cache
+# Service workers: using fetch
 
-## Service workers with fetch and cache
-
-core associated technologies:
-
-- fetch (sending network requests)
-- cache (caching results)
-
-## fetch - example
+## The function fetch()
 
 ```js
 // this code can be executed in the
@@ -904,7 +957,7 @@ fetch(url)
   .then(console.log);
 ```
 
-## Service worker events: fetch
+## Service workers: handling fetch
 
 ```js
 self.addEventListener('fetch', event => {
@@ -914,13 +967,13 @@ self.addEventListener('fetch', event => {
 });
 ```
 
-## Service worker events: fetch
+## Service workers: handling fetch
 
 Exercise: We can build a small local website with pages like _/home_, _/about_, ...
 
-## Service worker events: fetch
+## Service workers: handling fetch
 
-<!-- 
+<!--
 there are two $ signs in regexes in this code
 if they are at the very end of the string
 they will mess up the result
@@ -938,11 +991,11 @@ self.addEventListener('fetch', event => {
 });
 ```
 
-## Service worker events: fetch
+## Service workers: handling fetch
 
 Exercise: logging all network requests and passing the work on to `fetch`
 
-## Service worker events: fetch
+## Service workers: handling fetch
 
 ```js
 self.addEventListener('fetch', event => {
@@ -950,6 +1003,15 @@ self.addEventListener('fetch', event => {
   return fetch(event.request);
 });
 ```
+
+# Service workers with fetch and cache
+
+## Service workers with fetch and cache
+
+core associated technologies:
+
+- fetch (sending network requests)
+- cache (caching results)
 
 ## Cache
 
@@ -1042,7 +1104,7 @@ self.addEventListener('install', installEvent => {
   // abort install on error
   installEvent.waitUntil(
     caches.open('app-shell-cache-v3').then(cache => {
-      return cache.addAll[('/', '/index.html', '/about')];
+      return cache.addAll(['/', '/index.html', '/about']);
     })
   );
   // optional - don't abort install on error
@@ -1096,16 +1158,11 @@ self.addEventListener('fetch', event => {
 });
 ```
 
-caching all network requests:
-
-```js
-// in the service worker
-self.addEventListener('fetch', event => {
-  event.respondWith();
-});
-```
-
 ## example: network - falling back to cache - falling back to default asset (e.g. user avatar)
+
+## exercise: scripting the service worker
+
+https://developers.google.com/web/ilt/pwa/lab-scripting-the-service-worker
 
 # The offline cookbook
 

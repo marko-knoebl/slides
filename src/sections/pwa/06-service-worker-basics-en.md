@@ -4,7 +4,7 @@
 
 Service workers are at the core of PWAs. They are a client-side proxy between the web browser and the server.
 
-Main use case: offline / faster usage of web apps (replaces the old AppCache functionality)
+Main use case: offline / faster usage of web apps (replaces the deprecated AppCache functionality)
 
 ## Service workers - example use cases
 

@@ -30,10 +30,13 @@ indexedDB:
 
 https://caniuse.com/#search=indexeddb
 
-
 ## Beispiele
 
 - https://pwa.rocks
   - wiki offline
   - telegram
   - paper planes
+
+## Chrome audit
+
+Entwicklerwerkzeuge - audits

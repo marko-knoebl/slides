@@ -1,12 +1,19 @@
 # Agenda
 
-- Grundlagen zum Kurs: VS Code, Chrome Developer Tools
-- Modernes JavaScript: ES2015+
-- Webmanifest-Datei
+## Agenda - Grundlagen
+
+- VS Code, Chrome Developer Tools
+- modern JavaScript
 - Promises
 - Web Worker
+
+## Agenda
+
+- Webmanifest-Datei
 - Service Worker
-- Workbox
+  - Workbox
+  - Service Worker schreiben
 - Datenspeicher
-- Benachrichtigungen
-- Push-Benachrichtigungen
+  - localStorage
+  - indexedDB
+- Benachrichtigungen und Push-Benachrichtigungen

@@ -157,17 +157,31 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 
       </section></section><section class="section" id="section-2"><section class="slide" id="slide-2-1">
         <h1 id="agenda">Agenda</h1>
+
+      </section><section class="slide" id="slide-2-2">
+        <h2 id="agenda---grundlagen">Agenda - Grundlagen</h2>
 <ul>
-<li>Grundlagen zum Kurs: VS Code, Chrome Developer Tools</li>
-<li>Modernes JavaScript: ES2015+</li>
-<li>Webmanifest-Datei</li>
+<li>VS Code, Chrome Developer Tools</li>
+<li>modern JavaScript</li>
 <li>Promises</li>
 <li>Web Worker</li>
-<li>Service Worker</li>
+</ul>
+
+      </section><section class="slide" id="slide-2-3">
+        <h2 id="agenda">Agenda</h2>
+<ul>
+<li>Webmanifest-Datei</li>
+<li>Service Worker<ul>
 <li>Workbox</li>
-<li>Datenspeicher</li>
-<li>Benachrichtigungen</li>
-<li>Push-Benachrichtigungen</li>
+<li>Service Worker schreiben</li>
+</ul>
+</li>
+<li>Datenspeicher<ul>
+<li>localStorage</li>
+<li>indexedDB</li>
+</ul>
+</li>
+<li>Benachrichtigungen und Push-Benachrichtigungen</li>
 </ul>
 
       </section></section><section class="section" id="section-3"><section class="slide" id="slide-3-1">
@@ -299,13 +313,17 @@ http-server</code></pre>
 </li>
 </ul>
 
+      </section><section class="slide" id="slide-5-5">
+        <h2 id="chrome-audit">Chrome audit</h2>
+<p>Entwicklerwerkzeuge - audits</p>
+
       </section></section><section class="section" id="section-6"><section class="slide" id="slide-6-1">
         <h1 id="service-worker-gundlagen">Service Worker Gundlagen</h1>
 
       </section><section class="slide" id="slide-6-2">
         <h2 id="service-worker---motivation">Service Worker - Motivation</h2>
 <p>Service Worker sind ein Kernelement von PWAs. Sie dienen als lokaler Proxy zwischen dem Web Browser und dem Server.</p>
-<p>Haupteinsatzgebiet: Offlinenutzung / schnellere Nutzung von Web Apps (Ersatz für die alte AppCache-Funktion)</p>
+<p>Haupteinsatzgebiet: Offlinenutzung / schnellere Nutzung von Web Apps (Ersatz für die veraltete AppCache-Funktion)</p>
 
       </section><section class="slide" id="slide-6-3">
         <h2 id="service-worker---nutzungsbeispiele">Service Worker - Nutzungsbeispiele</h2>
@@ -431,7 +449,15 @@ workbox.routing.registerRoute(
 <code>portrait-secondary</code>)</li>
 </ul>
 </li>
-<li><code>theme_color</code>: in Chrome sollte im Dokument unter <code>&lt;meta name=&quot;theme-color&quot; content=&quot;...&quot; /&gt;</code> die gleiche Farbe angegeen sein - dies wird die Fensterfarbe in Android</li>
+<li><code>theme_color</code></li>
+</ul>
+
+      </section><section class="slide" id="slide-8-8">
+        <h2 id="meta-tags-in-html">Meta tags in HTML</h2>
+<p>Diese Mata Tags sind hilfreich:</p>
+<ul>
+<li>in Chrome: Android Fensterfarbe: <code>&lt;meta name=&quot;theme-color&quot; content=&quot;...&quot; /&gt;</code> - das sollte das gleiche sein wie <code>theme_color</code> in der Manifest-Datei</li>
+<li>in iOS: <code>&lt;meta name=&quot;apple-mobile-web-app-capable&quot; content=&quot;yes&quot;&gt;</code> - versteckt das Browser UI</li>
 </ul>
 
       </section></section><section class="section" id="section-9"><section class="slide" id="slide-9-1">
@@ -439,10 +465,19 @@ workbox.routing.registerRoute(
 
       </section><section class="slide" id="slide-9-2">
         <h2 id="app-installation">App-Installation</h2>
-<p>In Chrome ist es möglich, dem Benutzer das Installieren einer Anwendung anzubieten - durch Hinzufügen zum Menü / Home Screen.</p>
-<p><a href="https://developers.google.com/web/fundamentals/app-install-banners/">https://developers.google.com/web/fundamentals/app-install-banners/</a></p>
+<p>Browser können die Möglichkeit bieten, für PWAs Einträge zum Startmenü / zum Homescreen hinzuzufügen</p>
 
       </section><section class="slide" id="slide-9-3">
+        <h2 id="app-installation-unter-chrome-und-ios">App-Installation unter Chrome und iOS</h2>
+<p>Unter iOS können Benutzer einen Shortcut zu jeder Website zum Menü hinzufügen. Für PWAs funktioniert das auf die gleiche Art.</p>
+<p>Bei Chrome können PWAs den Benutzer zur Installation auffordern. Installierte PWAs verhalten sich anders als Webseiten - z.B. erscheinen sie in einem seperaten Fenster.</p>
+
+      </section><section class="slide" id="slide-9-4">
+        <h2 id="app-installation">App-Installation</h2>
+<p>für Chrome:</p>
+<p><a href="https://developers.google.com/web/fundamentals/app-install-banners/">https://developers.google.com/web/fundamentals/app-install-banners/</a></p>
+
+      </section><section class="slide" id="slide-9-5">
         <h2 id="app-installation">App-Installation</h2>
 <p>Voraussetzung, um den App-Installations-Dialog anzuzeigen:</p>
 <ul>
@@ -458,7 +493,7 @@ workbox.routing.registerRoute(
 <li>Benutzer hat mit der Domain zumindest 30 Sekunden interagiert</li>
 </ul>
 
-      </section><section class="slide" id="slide-9-4">
+      </section><section class="slide" id="slide-9-6">
         <h2 id="app-installation">App-Installation</h2>
 <p>Sobald alle Voraussetzungen erfüllt sind, wird das <code>beforeinstallprompt</code> Event ausgelöst; Wir können dieses Event abfangen und für später speichern</p>
 <pre><code class="language-js"><span class="hljs-keyword">let</span> installPromptEvent;
@@ -470,271 +505,67 @@ workbox.routing.registerRoute(
   showInstallBtn();
 });</code></pre>
 
-      </section><section class="slide" id="slide-9-5">
+      </section><section class="slide" id="slide-9-7">
         <h2 id="app-installation">App-Installation</h2>
 <p>Sobald der Benutzer die Anwendung installieren möchte können wir das gespeicherte Event verwenden:</p>
-<pre><code class="language-js">installBtn.addEventListener(<span class="hljs-string">'click'</span>, e =&gt; {
+<pre><code class="language-js">installBtn.addEventListener(<span class="hljs-string">'click'</span>, () =&gt; {
   hideInstallBtn();
   <span class="hljs-comment">// Show the prompt</span>
   installPromptEvent.prompt();
 });</code></pre>
 
-      </section><section class="slide" id="slide-9-6">
+      </section><section class="slide" id="slide-9-8">
         <h2 id="deployment">Deployment</h2>
 <p>Deployment z.B. auf <a href="https://app.netlify.com/drop">https://app.netlify.com/drop</a></p>
 <p>Wichtig: Aufrufen über HTTPS</p>
 
       </section></section><section class="section" id="section-10"><section class="slide" id="slide-10-1">
-        <h1 id="service-worker-und-workbox">Service Worker und Workbox</h1>
+        <h1 id="service-worker">Service worker</h1>
 
       </section><section class="slide" id="slide-10-2">
-        <h2 id="grundlagen">Grundlagen</h2>
-<p>Service-Worker sind besondere Web-Worker, daher:</p>
+        <h2 id="service-worker">Service worker</h2>
+<p>Service worker sind client-seitige Proxies zwischen Webbrowser und Server.</p>
+<p>Service worker können Resourcen cachen und sie entweder aus dem Netzwerk oder dem internen Cache abrufen.</p>
+
+      </section><section class="slide" id="slide-10-3">
+        <h2 id="service-worker">Service worker</h2>
+<p>Es läuft zu jeder Domain / registrierten URL genau ein ServiceWorker</p>
+<p>Service worker sind besondere Web-Worker, daher:</p>
 <ul>
 <li>kein direkter Zugriff auf das DOM</li>
 <li>Kommunikation mit Hauptthread mittels postMessage</li>
 </ul>
 
-      </section><section class="slide" id="slide-10-3">
-        <h2 id="wichtige-verwandte-technologien">Wichtige verwandte Technologien</h2>
-<ul>
-<li>fetch (Senden von Netzwerkanfragen)</li>
-<li>cache (Resultate von Netzwerkanfragen cachen)</li>
-</ul>
-
       </section><section class="slide" id="slide-10-4">
-        <h2 id="fetch---kurzes-beispiel">Fetch - Kurzes Beispiel</h2>
-<pre><code class="language-js"><span class="hljs-comment">// dieser Code kann zu jeder Website in der</span>
-<span class="hljs-comment">// Browser-Konsole ausgeführt werden</span>
-<span class="hljs-keyword">const</span> url = <span class="hljs-string">'/'</span>;
-
-fetch(url)
-  .then(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> response.text())
-  .then(<span class="hljs-built_in">console</span>.log);</code></pre>
+        <h2 id="browser-unterstützung">Browser Unterstützung</h2>
+<p><a href="https://caniuse.com/##feat=serviceworkers">caniuse</a></p>
+<p>Serviceworker werden unterstützt =&gt; ES2015 wird unterstützt</p>
 
       </section><section class="slide" id="slide-10-5">
-        <h2 id="cache---kurzes-beispiel">Cache - Kurzes Beispiel</h2>
-<pre><code class="language-js"><span class="hljs-comment">// alle Netzwerkanfragen werden gecacht</span>
-self.addEventListener(<span class="hljs-string">'fetch'</span>, event =&gt; {
-  event.respondWith(
-    caches.open(<span class="hljs-string">'my-cache'</span>).then(<span class="hljs-function"><span class="hljs-params">cache</span> =&gt;</span>
-      cache.match(event.request).then(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> {
-        cache.put(event.request, response.clone());
-        <span class="hljs-keyword">return</span> response;
-      })
-    )
-  );
-});</code></pre>
-
-      </section><section class="slide" id="slide-10-6">
-        <h2 id="serviceworker-registrieren">ServiceWorker registrieren</h2>
-<pre><code class="language-js"><span class="hljs-keyword">if</span> (navigator.serviceWorker) {
-  navigator.serviceWorker
-    .register(<span class="hljs-string">'./serviceworker.js'</span>)
-    .then(
-      <span class="hljs-comment">// wird nur ausgeführt, wenn *neue* serviceworker.js -</span>
-      <span class="hljs-comment">// Datei gefunden wurde,</span>
-      <span class="hljs-comment">// die verschieden von einer eventuellen alten ist</span>
-      () =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Service Worker registered'</span>)
-    );
-}</code></pre>
-<!-- Nur erklären, nicht selbst implementieren -->
-
-
-      </section><section class="slide" id="slide-10-7">
-        <h2 id="serviceworker---events">ServiceWorker - Events</h2>
-<p>Folgende Events können im ServiceWorker behandelt werden:</p>
+        <h2 id="verwandthe-technologien">Verwandthe Technologien</h2>
 <ul>
-<li><strong>install</strong>: wenn es eine neue ServiceWoker-Datei gibt</li>
-<li><strong>activate</strong>: wenn der neue ServiceWorker aktiviert wird</li>
-<li><strong>fetch</strong>: bei jeder Netzwerk-Kommunikation</li>
-<li><strong>push</strong>: vom Backend initiiert</li>
-<li><strong>message</strong>: Kommunikation mit dem Hauptthread</li>
-<li><strong>sync</strong>: Anfrage an den Server, die wiederholt versucht wird (nur Chrome)</li>
+<li>fetch (Netzwerkanfragen senden)</li>
+<li>cache (Netzwerkanfragen cachen)</li>
 </ul>
-
-      </section><section class="slide" id="slide-10-8">
-        <h2 id="serviceworker---events-install">ServiceWorker - Events: Install</h2>
-<p>Tritt auf, wenn es eine neue ServiceWorker-Datei gibt:</p>
-<ul>
-<li>Erster Aufruf einer PWA</li>
-<li>ServiceWorker-Datei hat sich geändert</li>
-</ul>
-<p>Guter Zeitpunkt, um Resourcen für die spätere Verwendung herunterzuladen und dem Cache hinzuzufügen</p>
-
-      </section><section class="slide" id="slide-10-9">
-        <h2 id="serviceworker---events-install">ServiceWorker - Events: Install</h2>
-<pre><code class="language-js">self.addEventListener(<span class="hljs-string">'install'</span>, event =&gt; {
-  <span class="hljs-built_in">console</span>.log(event);
-});</code></pre>
-
-      </section><section class="slide" id="slide-10-10">
-        <h2 id="serviceworker---events-activate">ServiceWorker - Events: Activate</h2>
-<p>Tritt auf, wenn ein neuer ServiceWorker aktiviert wird:</p>
-<ul>
-<li>Bei erster Installation eines ServiceWorkers sofort</li>
-<li>Wenn sich die ServiceWorker-Datei geändert hat beim &quot;Neustart&quot; der PWA (wenn alle entsprechenden Tabs geschlossen wurden)</li>
-</ul>
-<p>Ein geänderter ServiceWorker wird erst nach einem &quot;Neustart&quot; der PWA aktiv</p>
-<p>Activate: gute Gelegenheit, um alte Caches zu bereinigen</p>
-
-      </section><section class="slide" id="slide-10-11">
-        <h2 id="serviceworker---events-activate">ServiceWorker - Events: Activate</h2>
-<pre><code class="language-js">self.addEventListener(<span class="hljs-string">'activate'</span>, event =&gt; {
-  <span class="hljs-built_in">console</span>.log(event);
-});</code></pre>
-
-      </section><section class="slide" id="slide-10-12">
-        <h2 id="serviceworker---events-fetch">ServiceWorker - Events: Fetch</h2>
-<p>Für jede Netzwerkkommunikation</p>
-<!-- Beispiel: Netzwerkanfragen loggen -->
-
-
-      </section><section class="slide" id="slide-10-13">
-        <h2 id="serviceworker---events-message">ServiceWorker - Events: Message</h2>
-<p>Kommunikation mit dem Haupt-Thread (wie bei WebWorkern)</p>
-
-      </section><section class="slide" id="slide-10-14">
-        <h2 id="serviceworker---events-sync">ServiceWorker - Events: Sync</h2>
-<p>Warten auf Netzwerk-Konnektivität, um Daten zu senden</p>
-<p>Wenn Netzwerk-Konnektivität besteht, aber der sync trotzdem fehlschlägt (das selbstdefinierte Promise rejected wird), werden neue Versuche mit immer größeren Zeitabständen unternommen</p>
-
-      </section><section class="slide" id="slide-10-15">
-        <h2 id="fetch-und-cache-anwendungsbeispiele">fetch und cache: Anwendungsbeispiele</h2>
-<ul>
-<li>Beim ersten Aufruf eines Spiels werden alle benötigten Resourcen heruntergeladen und sind dann offline verfügbar</li>
-<li>Bei einer Chat-Anwendung werden die Avatare aller Freunde im Cache abgelegt. Sie sollen einmal pro Tag aktualisiert werden.</li>
-<li>Bei einer Wikipedia-Anwendung werden die letzten 30 besichtigten Artikel im Cache abgelegt.</li>
-<li>Die Startseite eines Nachrichtenportal soll zwischengespeichert werden und beim öffnen der Seite sofort erscheinen. Danach soll sie allerdings wenn möglich sofort aktualisiert werden</li>
-</ul>
-
-      </section><section class="slide" id="slide-10-16">
-        <h2 id="einfaches-beispiel-offline-anwendung">Einfaches Beispiel: Offline-Anwendung</h2>
-<p>Anwendung, die alle benötigten Resourcen beim ersten Mal herunterlädt und dann so beibehält.</p>
-
-      </section><section class="slide" id="slide-10-17">
-        <h2 id="einfaches-beispiel-offline-anwendung">Einfaches Beispiel: Offline-Anwendung</h2>
-<pre><code class="language-js"><span class="hljs-keyword">const</span> cacheName = <span class="hljs-string">'my-site-cache-v1'</span>;
-<span class="hljs-keyword">const</span> urlsToCache = [
-  <span class="hljs-string">'/'</span>,
-  <span class="hljs-string">'/index.html'</span>,
-  <span class="hljs-string">'/main.css'</span>,
-  <span class="hljs-string">'/main.js'</span>,
-];</code></pre>
-
-      </section><section class="slide" id="slide-10-18">
-        <h2 id="einfaches-beispiel-offline-anwendung">Einfaches Beispiel: Offline-Anwendung</h2>
-<p>Install-Handler</p>
-<pre><code class="language-js">self.addEventListener(<span class="hljs-string">'install'</span>, event =&gt; {
-  event.waitUntil(
-    caches.open(cacheName).then(<span class="hljs-function"><span class="hljs-params">cache</span> =&gt;</span> {
-      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'opened cache'</span>);
-      <span class="hljs-comment">// Resultat von addAll ist ein Promise</span>
-      <span class="hljs-keyword">return</span> cache.addAll(urlsToCache);
-    })
-  );
-});</code></pre>
-
-      </section><section class="slide" id="slide-10-19">
-        <h2 id="einfaches-beispiel-offline-anwendung">Einfaches Beispiel: Offline-Anwendung</h2>
-<p>Install-Handler</p>
-<pre><code class="language-js">event.waitUntil(
-  ...
-)</code></pre>
-<p><code>waitUntil</code>: wartet auf die Installation und zeigt an, ob diese erfolgreich war</p>
-
-      </section><section class="slide" id="slide-10-20">
-        <h2 id="einfaches-beispiel-offline-anwendung">Einfaches Beispiel: Offline-Anwendung</h2>
-<p>Activate-Handler (alte Caches löschen)</p>
-<pre><code class="language-js">self.addEventListener(<span class="hljs-string">'activate'</span>, event =&gt; {
-  event.waitUntil(
-    caches.keys().then(<span class="hljs-function"><span class="hljs-params">cacheNames</span> =&gt;</span> {
-      <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.all(
-        cacheNames.map(<span class="hljs-function"><span class="hljs-params">oldCacheName</span> =&gt;</span> {
-          <span class="hljs-keyword">if</span> (oldCacheName !== cacheName) {
-            <span class="hljs-keyword">return</span> caches.delete(oldCacheName);
-          }
-        })
-      );
-    })
-  );
-});</code></pre>
-<!--
-Ursprünglich war hier
-return self.clients.claim();
-im Code
--->
-
-
-      </section><section class="slide" id="slide-10-21">
-        <h2 id="einfaches-beispiel-offline-anwendung">Einfaches Beispiel: Offline-Anwendung</h2>
-<p>Fetch-Handler</p>
-<pre><code class="language-js">self.addEventListener(<span class="hljs-string">'fetch'</span>, event =&gt; {
-  event.respondWith(caches.match(event.request));
-});</code></pre>
-
-      </section><section class="slide" id="slide-10-22">
-        <h2 id="übung-scripting-the-service-worker">Übung: &quot;Scripting the Service Worker&quot;</h2>
-<p><a href="https://developers.google.com/web/ilt/pwa/lab-scripting-the-service-worker">https://developers.google.com/web/ilt/pwa/lab-scripting-the-service-worker</a></p>
 
       </section></section><section class="section" id="section-11"><section class="slide" id="slide-11-1">
-        <h1 id="workbox">Workbox</h1>
-
-      </section><section class="slide" id="slide-11-2">
-        <h2 id="strategie-networkonly">Strategie: networkOnly</h2>
-<p>Vom Browser bekannte Strategie</p>
-
-      </section><section class="slide" id="slide-11-3">
-        <h2 id="strategie-networkfirst">Strategie: networkFirst</h2>
-<p>Ein Laden aus dem Netzwerk wird versucht; wenn das fehlschlägt, wird aus dem Cache geladen</p>
-
-      </section><section class="slide" id="slide-11-4">
-        <h2 id="strategie-cachefirst">Strategie: cacheFirst</h2>
-<p>Falls es eine Resource im Cache gibt, wird diese direkt aus dem Cache geladen. Ansonsten wird aus dem Netzwerk geladen.</p>
-
-      </section><section class="slide" id="slide-11-5">
-        <h2 id="strategie-stalewhilerevalidate">Strategie: staleWhileRevalidate</h2>
-<p>Ähnlich wie cacheFirst - nur wird im Hintergrund der Cache aktualisiert, sodass beim nächsten Mal die aktuelle Resource zur Verfügung steht</p>
-
-      </section><section class="slide" id="slide-11-6">
-        <h2 id="strategie-cache---then-network">Strategie: cache - then network</h2>
-<p>Ähnlich wie staleWhileRevalidate - nur wird die Seite sofort aktualisiert, wenn die neuere Resource zur Verfügung steht.</p>
-<p>Diese Strategie benötigt auch Code <em>außerhalb</em> des ServiceWorkers.</p>
-<p>Siehe: <a href="https://jakearchibald.com/2014/offline-cookbook/#cache-then-network">Offline Cookbook</a></p>
-
-      </section><section class="slide" id="slide-11-7">
-        <h2 id="aufgaben">Aufgaben</h2>
-<p><a href="https://developers.google.com/web/tools/workbox/">https://developers.google.com/web/tools/workbox/</a></p>
-<p>1-2 der vorgegebenen Anwendungen zu einer PWA machen und dabei verschiedene Caching-Strategien ausprobieren:</p>
-<ul>
-<li><a href="https://github.com/marko-knoebl/simple-todo-app">https://github.com/marko-knoebl/simple-todo-app</a></li>
-<li><a href="https://github.com/marko-knoebl/simple-weather-app">https://github.com/marko-knoebl/simple-weather-app</a></li>
-<li><a href="https://github.com/marko-knoebl/simple-stock-app">https://github.com/marko-knoebl/simple-stock-app</a></li>
-</ul>
-<p>(Hosting via bitballoon)</p>
-
-      </section><section class="slide" id="slide-11-8">
-        <h2 id="zusatz-mit-build-prozess">Zusatz (mit build-Prozess)</h2>
-<p><a href="https://developers.google.com/web/tools/workbox/guides/codelabs/npm-script">https://developers.google.com/web/tools/workbox/guides/codelabs/npm-script</a></p>
-
-      </section></section><section class="section" id="section-12"><section class="slide" id="slide-12-1">
         <h1 id="promises--fetch">Promises &amp; Fetch</h1>
 <!-- siehe auch: webdev/fetch -->
 <!-- https://developers.google.com/web/fundamentals/primers/promises -->
 
 
-      </section><section class="slide" id="slide-12-2">
+      </section><section class="slide" id="slide-11-2">
         <h2 id="promises--fetch">Promises &amp; Fetch</h2>
 <p><em>Promises</em>: eine Möglichkeit, um asynchronen Code in JavaScript auszuführen</p>
 <p><em>Fetch</em>: moderne Möglichkeit, Netzwerkanfragen mit JavaScript zu versenden, basiert auf Promises</p>
 
-      </section><section class="slide" id="slide-12-3">
+      </section><section class="slide" id="slide-11-3">
         <h2 id="promises---grundlagen">Promises - Grundlagen</h2>
 <p>Werden verwendet, um einmalige Events zu behandeln</p>
 <p>Erlauben dem Browser, auf ein Event zu <em>warten</em> - zb auf eine Antwort aus dem Netzwerk oder Daten aus der Datenbank</p>
 <p>Das Warten ist <em>non-blocking</em>, damit kann anderer Code währenddessen ausgeführt werden</p>
 
-      </section><section class="slide" id="slide-12-4">
+      </section><section class="slide" id="slide-11-4">
         <h2 id="promises-vs-callbacks">Promises vs Callbacks</h2>
 <p>Promises sind eine Alternative zu Callbacks; Sie lösen das gleiche Problem mit einem etwas anderen Ansatz.</p>
 <p>Beispiel: Funktion <code>getTodos</code>, die Todo-Daten von einem Server lädt und sie an <code>logTodos</code> übergibt</p>
@@ -743,7 +574,7 @@ getTodos(logTodos);</code></pre>
 <pre><code class="language-js"><span class="hljs-comment">// promise</span>
 getTodos().then(logTodos);</code></pre>
 
-      </section><section class="slide" id="slide-12-5">
+      </section><section class="slide" id="slide-11-5">
         <h2 id="promises-vs-callbacks">Promises vs Callbacks</h2>
 <p>Ein Vorteil von Promises gegenüber Callbacks ist, dass Promises leicht verkettet werden können:</p>
 <pre><code class="language-js">getTodos()
@@ -751,7 +582,7 @@ getTodos().then(logTodos);</code></pre>
   .then(transformDataFormat)
   .then(logTodos);</code></pre>
 
-      </section><section class="slide" id="slide-12-6">
+      </section><section class="slide" id="slide-11-6">
         <h2 id="promises-beispiel-fetch-einer-website">Promises Beispiel: Fetch einer Website</h2>
 <pre><code class="language-js"><span class="hljs-comment">// dieser Code kann zu jeder Website in der</span>
 <span class="hljs-comment">// Browser-Konsole ausgeführt werden</span>
@@ -765,7 +596,7 @@ fetch(url)
   <span class="hljs-comment">// auf den Textinhalt warten, dann loggen</span>
   .then(<span class="hljs-built_in">console</span>.log);</code></pre>
 
-      </section><section class="slide" id="slide-12-7">
+      </section><section class="slide" id="slide-11-7">
         <h2 id="fetch-einer-website-erklärung">Fetch einer Website: Erklärung</h2>
 <p>Das Abfragen einer URL und das Auslesen des Antworttexts können länger dauern.</p>
 <p>Mit <code>.then()</code> warten wir jeweils auf das Resultat.</p>
@@ -773,7 +604,7 @@ fetch(url)
 <p>Das Resultat des ersten Handlers (<code>response =&gt; response.text()</code>) ist wiederum ein neues Promise.</p>
 <p>Der zweite Handler (<code>console.log</code>) loggt das Resultat einfach.</p>
 
-      </section><section class="slide" id="slide-12-8">
+      </section><section class="slide" id="slide-11-8">
         <h2 id="beispiel-landesflagge">Beispiel: Landesflagge</h2>
 <pre><code class="language-js"><span class="hljs-comment">// ohne Promises</span>
 getImageName(country, name =&gt;
@@ -787,7 +618,7 @@ getImageName(country)
   .then(processFlag)
   .then(appendFlag);</code></pre>
 
-      </section><section class="slide" id="slide-12-9">
+      </section><section class="slide" id="slide-11-9">
         <h2 id="fehlerbehandlung">Fehlerbehandlung</h2>
 <p>Fehler können mit <code>.catch()</code> behandelt werden</p>
 <pre><code class="language-js"><span class="hljs-keyword">return</span> getImageName(country)
@@ -797,7 +628,7 @@ getImageName(country)
   .then(appendFlag)
   .catch(logError);</code></pre>
 
-      </section><section class="slide" id="slide-12-10">
+      </section><section class="slide" id="slide-11-10">
         <h2 id="todo-app-fetch---grundlegend">Todo App: fetch - grundlegend</h2>
 <pre><code class="language-js">fetch(<span class="hljs-string">'https://jsonplaceholder.typicode.com/todos'</span>)
   .then(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> response.json())
@@ -806,7 +637,7 @@ getImageName(country)
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'error when getting todos'</span>);
   })</code></pre>
 
-      </section><section class="slide" id="slide-12-11">
+      </section><section class="slide" id="slide-11-11">
         <h2 id="nutzung-mit-async--await-moderne-browser">Nutzung mit async / await (moderne Browser)</h2>
 <pre><code class="language-js"><span class="hljs-keyword">const</span> url = <span class="hljs-string">'https://jsonplaceholder.typicode.com/todos'</span>;
 
@@ -818,7 +649,7 @@ getImageName(country)
 
 fetchAsync();</code></pre>
 
-      </section><section class="slide" id="slide-12-12">
+      </section><section class="slide" id="slide-11-12">
         <h2 id="todo-app-fetch---fortgeschritten">Todo App: fetch - fortgeschritten</h2>
 <pre><code class="language-js">fetch(<span class="hljs-string">'https://jsonplaceholder.typicode.com/todos'</span>)
   .then(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> {
@@ -831,11 +662,11 @@ fetchAsync();</code></pre>
   .catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'unable to parse data'</span>))
   .then(updatePageWithNewTodos);</code></pre>
 
-      </section><section class="slide" id="slide-12-13">
+      </section><section class="slide" id="slide-11-13">
         <h2 id="übung">Übung</h2>
 <p>Benutzer gibt user-id an, entsprechende todos werden geladen</p>
 
-      </section><section class="slide" id="slide-12-14">
+      </section><section class="slide" id="slide-11-14">
         <h2 id="konfigurieren-des-fetch-requests">Konfigurieren des fetch Requests</h2>
 <pre><code class="language-js">fetch(url, {
   <span class="hljs-attr">method</span>: <span class="hljs-string">'POST'</span>,
@@ -844,7 +675,7 @@ fetchAsync();</code></pre>
   <span class="hljs-attr">headers</span>: { <span class="hljs-string">'content-type'</span>: <span class="hljs-string">'application/json'</span> },
 });</code></pre>
 
-      </section><section class="slide" id="slide-12-15">
+      </section><section class="slide" id="slide-11-15">
         <h2 id="eigene-promises">Eigene Promises</h2>
 <p>Promise, die nach 1 Sekunde entweder mit hello antwortet oder nicht erfolgreich ist</p>
 <pre><code class="language-js"><span class="hljs-keyword">const</span> getReply = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {
@@ -857,7 +688,7 @@ fetchAsync();</code></pre>
   }, <span class="hljs-number">1000</span>);
 });</code></pre>
 
-      </section><section class="slide" id="slide-12-16">
+      </section><section class="slide" id="slide-11-16">
         <h2 id="promiseall">Promise.all</h2>
 <pre><code class="language-js"><span class="hljs-keyword">const</span> promise1 = fetch(<span class="hljs-string">'/users.json'</span>);
 <span class="hljs-keyword">const</span> promise2 = fetch(<span class="hljs-string">'/articles.json'</span>);
@@ -875,14 +706,14 @@ TODO: google code lab - code-beispiele durchsehen
 -->
 
 
-      </section><section class="slide" id="slide-12-17">
+      </section><section class="slide" id="slide-11-17">
         <h2 id="beispiele">Beispiele</h2>
 <ul>
 <li>Todo-API (<a href="https://jsonplaceholder.typicode.com">https://jsonplaceholder.typicode.com</a>)</li>
 <li>Wetter-API (<a href="https://openweathermap.org">https://openweathermap.org</a>)</li>
 </ul>
 
-      </section><section class="slide" id="slide-12-18">
+      </section><section class="slide" id="slide-11-18">
         <h2 id="übungen">Übungen</h2>
 <ul>
 <li><p><a href="https://developers.google.com/web/ilt/pwa/lab-fetch-api">https://developers.google.com/web/ilt/pwa/lab-fetch-api</a></p>
@@ -891,40 +722,40 @@ TODO: google code lab - code-beispiele durchsehen
 </li>
 </ul>
 
-      </section></section><section class="section" id="section-13"><section class="slide" id="slide-13-1">
+      </section></section><section class="section" id="section-12"><section class="slide" id="slide-12-1">
         <h1 id="web-worker">Web worker</h1>
 
-      </section><section class="slide" id="slide-13-2">
+      </section><section class="slide" id="slide-12-2">
         <h2 id="web-worker">Web worker</h2>
 <p>Möglichkeit, Scripts im Hintergrund (in einem eigenen Thread) laufen zu lassen</p>
 <p>Können genutzt werden, um intensive Berechnungen durchzuführen - blockieren die User-Interaktion mit der Website nicht.</p>
 
-      </section><section class="slide" id="slide-13-3">
+      </section><section class="slide" id="slide-12-3">
         <h2 id="worker-erstellen">Worker erstellen</h2>
 <pre><code class="language-js"><span class="hljs-keyword">const</span> worker = <span class="hljs-keyword">new</span> Worker(<span class="hljs-string">'worker.js'</span>);</code></pre>
 
-      </section><section class="slide" id="slide-13-4">
+      </section><section class="slide" id="slide-12-4">
         <h2 id="auf-antwort-des-workers-lauschen">Auf Antwort des Workers lauschen</h2>
 <pre><code class="language-js">worker.onmessage = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">message</span>) </span>{
   <span class="hljs-built_in">console</span>.log(message.data);
 };</code></pre>
 
-      </section><section class="slide" id="slide-13-5">
+      </section><section class="slide" id="slide-12-5">
         <h2 id="dem-worker-zu-arbeiten-geben">Dem Worker zu arbeiten geben</h2>
 <pre><code class="language-js">worker.postMessage(<span class="hljs-number">42</span>);</code></pre>
 
-      </section><section class="slide" id="slide-13-6">
+      </section><section class="slide" id="slide-12-6">
         <h2 id="im-worker-selbst">Im Worker selbst</h2>
 <pre><code class="language-js">onmessage = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">message</span>) </span>{
   <span class="hljs-keyword">const</span> result = longComputation();
   postMessage(result);
 };</code></pre>
 
-      </section><section class="slide" id="slide-13-7">
+      </section><section class="slide" id="slide-12-7">
         <h2 id="daten-übergeben">Daten übergeben</h2>
 <p>Beim hin-und-her-Übergeben von Daten: Daten werden kopiert und als &#39;plain&#39; JS-Objekte verwertet</p>
 
-      </section><section class="slide" id="slide-13-8">
+      </section><section class="slide" id="slide-12-8">
         <h2 id="übung-fibonacci">Übung: Fibonacci</h2>
 <p>Im WebWorker laufen lassen:</p>
 <pre><code class="language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fib</span>(<span class="hljs-params">n</span>) </span>{
@@ -934,10 +765,292 @@ TODO: google code lab - code-beispiele durchsehen
   <span class="hljs-keyword">return</span> fib(n - <span class="hljs-number">1</span>) + fib(n - <span class="hljs-number">2</span>);
 }</code></pre>
 
+      </section></section><section class="section" id="section-13"><section class="slide" id="slide-13-1">
+        <h1 id="service-worker-setup">Service Worker Setup</h1>
+
+      </section><section class="slide" id="slide-13-2">
+        <h2 id="service-worker-lebenszyklus">Service Worker Lebenszyklus</h2>
+<ul>
+<li>register</li>
+<li>install</li>
+<li>activate</li>
+<li>(unregister)</li>
+</ul>
+
+      </section><section class="slide" id="slide-13-3">
+        <h2 id="einen-service-worker-registrieren">Einen Service Worker registrieren</h2>
+<p>Jedes Mal wenn eine Seite geladen wird, rufen wir <code>navigator.serviceWorker.register</code> mit der URL des Service Workers als Parameter auf. Wenn eine neue oder geänderte Service Worker Datei gefunden wird, wird diese <em>installiert</em>.</p>
+
+      </section><section class="slide" id="slide-13-4">
+        <h2 id="einen-service-worker-registrieren">Einen Service Worker registrieren</h2>
+<pre><code class="language-js"><span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">'load'</span>, () =&gt; {
+  <span class="hljs-comment">// registration can be defered until</span>
+  <span class="hljs-comment">// completion of page load</span>
+  <span class="hljs-keyword">if</span> (navigator.serviceWorker) {
+    navigator.serviceWorker
+      .register(<span class="hljs-string">'/serviceworker.js'</span>)
+      .then(<span class="hljs-function"><span class="hljs-params">registration</span> =&gt;</span> {
+        <span class="hljs-comment">// is executed if there's a *new* sw file</span>
+        <span class="hljs-built_in">console</span>.log(
+          <span class="hljs-string">`SW registered for <span class="hljs-subst">${registration.scope}</span>`</span>
+        );
+      })
+      .catch(<span class="hljs-comment">/* reg failed */</span>);
+  }
+});</code></pre>
+
+      </section><section class="slide" id="slide-13-5">
+        <h2 id="service-worker-scope">Service Worker Scope</h2>
+<p>Üblicherweise behandelt ein Service Worker alle Anfragen, die auf dem Server in seinem &quot;Ordner&quot; liegen.</p>
+<pre><code class="language-js">navigator.serviceWorker.register(<span class="hljs-string">'/css/serviceworker.js'</span>);</code></pre>
+<p>Der Service Worker behandelt Anfragen an _ /css/default.css_, aber nicht an <em>/index.html</em>.</p>
+<p>Wir können einen Service Worker auch weiter einschränken:</p>
+<pre><code class="language-js">navigator.serviceWorker.register(&#39;/css/serviceworker.js&#39;, {
+  scope: &#39;/css/xyz/
+})</code></pre>
+
+      </section><section class="slide" id="slide-13-6">
+        <h2 id="service-worker-installation">Service Worker Installation</h2>
+<p>Das <code>install</code> Event wird ausgelöst, wenn es eine neue Service Worker Datei gibt:</p>
+<ul>
+<li>beim ersten Besuch der Seite</li>
+<li>wenn sich die Service Worker Datei geändert hat</li>
+</ul>
+<p>Guter Zeitpunkt, um Resourcen für die spätere Verwendung herunterzuladen und dem Cache hinzuzufügen</p>
+
+      </section><section class="slide" id="slide-13-7">
+        <h2 id="service-worker-installation">Service Worker Installation</h2>
+<pre><code class="language-js">self.addEventListener(<span class="hljs-string">'install'</span>, event =&gt; {
+  <span class="hljs-built_in">console</span>.log(event);
+});</code></pre>
+
+      </section><section class="slide" id="slide-13-8">
+        <h2 id="service-worker-aktivierung">Service Worker Aktivierung</h2>
+<p>Wenn zuvor kein Service Worker vorhanden war, wird der Service Worker sofort nach der Installation aktiv</p>
+<p>Wenn zuvor ein anderer Service Worker vorhanden war, wird dieser nach einem &quot;Neustart&quot; der Anwendung aktiv (wenn alle entsprechenden Tabs geschlossen wurden)</p>
+<p>Event <code>activate</code>: gute Gelegenheit, um alte Caches zu bereinigen</p>
+
+      </section><section class="slide" id="slide-13-9">
+        <h2 id="service-worker-aktivierung">Service Worker Aktivierung</h2>
+<pre><code class="language-js">self.addEventListener(<span class="hljs-string">'activate'</span>, event =&gt; {
+  <span class="hljs-built_in">console</span>.log(event);
+});</code></pre>
+
+      </section><section class="slide" id="slide-13-10">
+        <h2 id="service-worker-aktivierung">Service Worker Aktivierung</h2>
+<p>Wir können eine sofortige Aktivierung eines neuen Service Workers aus dem <code>install</code>-Event veranlassen:</p>
+<pre><code class="language-js">self.addEventListener(<span class="hljs-string">'install'</span>, event =&gt; {
+  self.skipWaiting();
+});</code></pre>
+
+      </section><section class="slide" id="slide-13-11">
+        <h2 id="service-worker-deinstallieren">Service Worker Deinstallieren</h2>
+<p>Deinstallation aller Service Worker für diese Domain:</p>
+<pre><code class="language-js">navigator.serviceWorker
+  .getRegistrations()
+  .then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">registrations</span>) </span>{
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> registration <span class="hljs-keyword">of</span> registrations) {
+      registration.unregister();
+    }
+  });</code></pre>
+
       </section></section><section class="section" id="section-14"><section class="slide" id="slide-14-1">
-        <h1 id="service-worker-beispiele">Service Worker Beispiele</h1>
+        <h1 id="service-worker-mit-fetch-und-cache">Service Worker mit fetch und cache</h1>
 
       </section><section class="slide" id="slide-14-2">
+        <h2 id="service-worker-mit-fetch-und-cache">Service Worker mit fetch und cache</h2>
+
+      </section><section class="slide" id="slide-14-3">
+        <h2 id="fetch---beispiel">fetch - Beispiel</h2>
+<pre><code class="language-js"><span class="hljs-comment">// this code can be executed in the</span>
+<span class="hljs-comment">// browser console for any website</span>
+<span class="hljs-keyword">const</span> url = <span class="hljs-string">'/'</span>;
+
+fetch(url)
+  .then(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> response.text())
+  .then(<span class="hljs-built_in">console</span>.log);</code></pre>
+
+      </section><section class="slide" id="slide-14-4">
+        <h2 id="service-worker-events-fetch">Service Worker Events: Fetch</h2>
+<pre><code class="language-js">self.addEventListener(<span class="hljs-string">'fetch'</span>, event =&gt; {
+  event.respondWith(
+    <span class="hljs-keyword">new</span> Response(<span class="hljs-string">'All pages look like this'</span>)
+  );
+});</code></pre>
+
+      </section><section class="slide" id="slide-14-5">
+        <h2 id="service-worker-events-fetch">Service Worker Events: Fetch</h2>
+<p>Übung: wir erstellen eine kleine lokale Website mit Seiten wie <em>/home</em>, <em>/about</em>, ...</p>
+
+      </section><section class="slide" id="slide-14-6">
+        <h2 id="service-worker-events-fetch">Service Worker Events: fetch</h2>
+<!--
+there are two $ signs in regexes in this code
+if they are at the very end of the string
+they will mess up the result
+-->
+
+<pre><code class="language-js">self.addEventListener(<span class="hljs-string">'fetch'</span>, event =&gt; {
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">'/about/$ '</span>).test(event.request.url)) {
+    event.respondWith(<span class="hljs-keyword">new</span> Response(<span class="hljs-string">'About'</span>));
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">'/a$ '</span>).test(event.request.url)) {
+    event.respondWith(<span class="hljs-keyword">new</span> Response(<span class="hljs-string">'Home'</span>));
+  } <span class="hljs-keyword">else</span> {
+    event.respondWith(<span class="hljs-keyword">new</span> Response(<span class="hljs-string">'404'</span>));
+  }
+});</code></pre>
+
+      </section><section class="slide" id="slide-14-7">
+        <h2 id="service-worker-events-fetch">Service Worker Events: fetch</h2>
+<p>Übung: Loggen aller Netzwerkanfragen, die Netzwerkanfragen dann mittels <code>fetch</code> beantworkten lassen</p>
+
+      </section><section class="slide" id="slide-14-8">
+        <h2 id="service-worker-events-fetch">Service Worker Events: fetch</h2>
+<pre><code class="language-js">self.addEventListener(<span class="hljs-string">'fetch'</span>, event =&gt; {
+  <span class="hljs-built_in">console</span>.log(event);
+  <span class="hljs-keyword">return</span> fetch(event.request);
+});</code></pre>
+
+      </section></section><section class="section" id="section-15"><section class="slide" id="slide-15-1">
+        <h1 id="service-worker-mit-fetch-und-cache">Service Worker mit fetch und cache</h1>
+
+      </section><section class="slide" id="slide-15-2">
+        <h2 id="service-worker-mit-fetch-und-cache">Service Worker mit fetch und cache</h2>
+<p>Wichtige verwandte Technologien:</p>
+<ul>
+<li>fetch (Netzwerkanfragen senden)</li>
+<li>cache (Resultate cachen)</li>
+</ul>
+
+      </section><section class="slide" id="slide-15-3">
+        <h2 id="cache">Cache</h2>
+<p>= &quot;a request to response map&quot;</p>
+
+      </section><section class="slide" id="slide-15-4">
+        <h2 id="auf-caches-zugreifen">Auf Caches zugreifen</h2>
+<p>Durch die globale Variable <code>caches.open</code> oder <code>self.caches.open</code> im Service Worker</p>
+<p>Promise:</p>
+<pre><code class="language-js"><span class="hljs-keyword">let</span> myCache;
+caches.open(<span class="hljs-string">'test'</span>, mc =&gt; {
+  myCache = mc;
+});</code></pre>
+
+      </section><section class="slide" id="slide-15-5">
+        <h2 id="methoden">Methoden</h2>
+<p>Cache-Methoden:</p>
+<ul>
+<li><code>myCache.add(request)</code></li>
+<li><code>myCache.addAll(requests)</code></li>
+<li><code>myCache.put(request, response)</code></li>
+<li><code>myCache.delete(request)</code></li>
+<li><code>myCache.match(request)</code></li>
+<li><code>myCache.matchAll(requests)</code></li>
+</ul>
+<p>Die Variable <code>request</code> kann entweder ein String sein, oder ein <code>Request</code> objekt.</p>
+
+      </section><section class="slide" id="slide-15-6">
+        <h2 id="cache---addall">Cache - add(All)</h2>
+<p>Wir übergeben eine URL; die Resource wird automatisch angefragt und gespeichert</p>
+<pre><code class="language-js">cache.add(<span class="hljs-string">'/main.js'</span>);
+
+cache.addAll([<span class="hljs-string">'/'</span>, <span class="hljs-string">'/index.html'</span>, <span class="hljs-string">'/main.js'</span>]);</code></pre>
+
+      </section><section class="slide" id="slide-15-7">
+        <h2 id="cache---put">Cache - put</h2>
+<p>Kann verwendet werden, wenn wir schon über die Antwort verfügen</p>
+<pre><code class="language-js">fetch(<span class="hljs-string">'myurl'</span>).then(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(response.clone());
+  cache.put(<span class="hljs-string">'myurl'</span>, response.clone());
+  cache.put(<span class="hljs-string">'otherurl'</span>, response);
+});</code></pre>
+
+      </section><section class="slide" id="slide-15-8">
+        <h2 id="cache---delete">Cache - delete</h2>
+<pre><code class="language-js">cache.delete(<span class="hljs-string">'myurl'</span>);</code></pre>
+
+      </section><section class="slide" id="slide-15-9">
+        <h2 id="cache---match">Cache - match</h2>
+<p>Einen Eintrag aus dem Cache holen, der auf einen bestimmten Request passt</p>
+<pre><code class="language-js"><span class="hljs-comment">// returns a response or undefined</span>
+<span class="hljs-keyword">const</span> content = cache.match(<span class="hljs-string">'myurl'</span>);</code></pre>
+
+      </section><section class="slide" id="slide-15-10">
+        <h2 id="beispiel-cache-only-kurz">Beispiel: cache only (kurz)</h2>
+<p>Eine Anwendung, die Resourcen bei der Installation cacht und sie dauerhaft aus dem Cache zur Verfügung stellt</p>
+<pre><code class="language-js">self.addEventListener(<span class="hljs-string">'install'</span>, () =&gt; {
+  cache.addAll([<span class="hljs-string">'/'</span>, <span class="hljs-string">'/index.html'</span>, <span class="hljs-string">'/about'</span>])
+})
+
+self.addEventListener(<span class="hljs-string">'fetch'</span>, event =&gt; {
+  event.respondWith(
+    caches.match(event.request);
+  )
+})</code></pre>
+
+      </section><section class="slide" id="slide-15-11">
+        <h2 id="beispiel-cache-only-ganzer-code">Beispiel: cache only (ganzer Code)</h2>
+<pre><code class="language-js">self.addEventListener(<span class="hljs-string">'install'</span>, installEvent =&gt; {
+  <span class="hljs-comment">// wait for the cache to be populated;</span>
+  <span class="hljs-comment">// abort install on error</span>
+  installEvent.waitUntil(
+    caches.open(<span class="hljs-string">'app-shell-cache-v3'</span>).then(<span class="hljs-function"><span class="hljs-params">cache</span> =&gt;</span> {
+      <span class="hljs-keyword">return</span> cache.addAll([<span class="hljs-string">'/'</span>, <span class="hljs-string">'/index.html'</span>, <span class="hljs-string">'/about'</span>]);
+    })
+  );
+  <span class="hljs-comment">// optional - don't abort install on error</span>
+  caches.open(<span class="hljs-string">'app-shell-cache-v3'</span>).then(<span class="hljs-function"><span class="hljs-params">cache</span> =&gt;</span> {
+    cache.addAll[<span class="hljs-string">'/icon1.png'</span>];
+  });
+});</code></pre>
+
+      </section><section class="slide" id="slide-15-12">
+        <h2 id="beispiel-cache-only---waituntil">Beispiel: cache only - waitUntil</h2>
+<p>Ein Aufruf von <code>waitUntil</code> kann verwendet werden, um anzuzeigen, ob die Installation erfolgreich war - dier Service Worker wird nur bei Erfolg aktiviert</p>
+
+      </section><section class="slide" id="slide-15-13">
+        <h2 id="beispiel-den-cache-aktualisieren">Beispiel: den Cache aktualisieren</h2>
+<p>alte Einträge löschen:</p>
+<pre><code class="language-js">self.addEventListener(<span class="hljs-string">'activate'</span>, activateEvent =&gt; {
+  activateEvent.waitUntil(
+    <span class="hljs-built_in">Promise</span>.all([
+      caches.delete(<span class="hljs-string">'app-shell-cache-v2'</span>),
+      caches.delete(<span class="hljs-string">'app-shell-cache-v1'</span>),
+    ])
+  );
+});</code></pre>
+
+      </section><section class="slide" id="slide-15-14">
+        <h2 id="beispiel-aus-dem-cache-laden---mit-netzwerk-fallback">Beispiel: Aus dem Cache laden - mit Netzwerk-Fallback</h2>
+<pre><code class="language-js">self.addEventListener(<span class="hljs-string">'fetch'</span>, event =&gt; {
+  event.respondWith(
+    caches
+      .match(event.request)
+      .then(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> response || fetch(event.request))
+  );
+});</code></pre>
+
+      </section><section class="slide" id="slide-15-15">
+        <h2 id="beispiel-den-cache-bei-jedem-request-aktualisieren">Beispiel: Den Cache bei jedem Request aktualisieren</h2>
+<pre><code class="language-js">self.addEventListener(<span class="hljs-string">'fetch'</span>, event =&gt; {
+  event.respondWith(
+    fetch(event.request).then(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> {
+      cache.put(event.request, response.clone());
+      <span class="hljs-keyword">return</span> response;
+    })
+  );
+});</code></pre>
+
+      </section><section class="slide" id="slide-15-16">
+        <h2 id="beispiel-network---falling-back-to-cache---falling-back-to-default-asset-eg-user-avatar">Beispiel: Network - Falling back to Cache - Falling back to default asset (e.g. user avatar)</h2>
+
+      </section><section class="slide" id="slide-15-17">
+        <h2 id="übung-scripting-the-service-worker">Übung: scripting the service worker</h2>
+<p><a href="https://developers.google.com/web/ilt/pwa/lab-scripting-the-service-worker">https://developers.google.com/web/ilt/pwa/lab-scripting-the-service-worker</a></p>
+
+      </section></section><section class="section" id="section-16"><section class="slide" id="slide-16-1">
+        <h1 id="service-worker-beispiele">Service Worker Beispiele</h1>
+
+      </section><section class="slide" id="slide-16-2">
         <h2 id="offline-app-installation">Offline App Installation</h2>
 <pre><code class="language-js">self.addEventListener(<span class="hljs-string">'install'</span>, event =&gt; {
   event.waitUntil(
@@ -949,43 +1062,43 @@ TODO: google code lab - code-beispiele durchsehen
   );
 });</code></pre>
 
-      </section><section class="slide" id="slide-14-3">
+      </section><section class="slide" id="slide-16-3">
         <h2 id="offline-app-installation---workbox">Offline App Installation - workbox</h2>
 <pre><code class="language-js">workbox.precaching.precache(urlsToCache);</code></pre>
 
-      </section><section class="slide" id="slide-14-4">
+      </section><section class="slide" id="slide-16-4">
         <h2 id="offline-app-fetch">Offline App fetch</h2>
 <pre><code class="language-js">self.addEventListener(<span class="hljs-string">'fetch'</span>, event =&gt; {
   event.respondWith(caches.match(event.request));
 });</code></pre>
 
-      </section><section class="slide" id="slide-14-5">
+      </section><section class="slide" id="slide-16-5">
         <h2 id="offline-app-fetch---workbox">Offline App fetch - workbox</h2>
 <pre><code class="language-js">workbox.routing.registerRoute(
   <span class="hljs-string">'.*'</span>,
   workbox.strategies.cacheOnly
 );</code></pre>
 
-      </section></section><section class="section" id="section-15"><section class="slide" id="slide-15-1">
+      </section></section><section class="section" id="section-17"><section class="slide" id="slide-17-1">
         <h1 id="datenspeicherung">Datenspeicherung</h1>
 <h3 id="localstorage-und-indexeddb">localStorage und indexedDB</h3>
 
-      </section><section class="slide" id="slide-15-2">
+      </section><section class="slide" id="slide-17-2">
         <h2 id="überblick">Überblick</h2>
 <ul>
 <li>localStorage: einfacher key-value-Store mit Textwerten)</li>
 <li>indexedDB: &quot;echte Datenbank&quot;</li>
 </ul>
 
-      </section></section><section class="section" id="section-16"><section class="slide" id="slide-16-1">
+      </section></section><section class="section" id="section-18"><section class="slide" id="slide-18-1">
         <h1 id="localstorage">localStorage</h1>
 
-      </section><section class="slide" id="slide-16-2">
+      </section><section class="slide" id="slide-18-2">
         <h2 id="localstorage">localStorage</h2>
 <p><em>localStorage</em> ist ein einfacher key-value-Store im Browser; Sowohl <em>keys</em> als auch <em>values</em> sind strings</p>
 <p>Der Browser speichert Daten seperat für jede Domain</p>
 
-      </section><section class="slide" id="slide-16-3">
+      </section><section class="slide" id="slide-18-3">
         <h2 id="localstorage">localStorage</h2>
 <p>wichtige Methoden:</p>
 <ul>
@@ -994,7 +1107,7 @@ TODO: google code lab - code-beispiele durchsehen
 <li><code>localStorage.removeItem(&#39;name&#39;)</code></li>
 </ul>
 
-      </section><section class="slide" id="slide-16-4">
+      </section><section class="slide" id="slide-18-4">
         <h2 id="localstorage">localStorage</h2>
 <p>Speichern und Laden von Daten:</p>
 <pre><code class="language-js"><span class="hljs-keyword">const</span> todoString = <span class="hljs-built_in">JSON</span>.stringify(todos);
@@ -1002,10 +1115,10 @@ localStorage.setItem(<span class="hljs-string">'todos'</span>, todoString);</cod
 <pre><code class="language-js"><span class="hljs-keyword">const</span> todoString = localStorage.getItem(<span class="hljs-string">'todos'</span>);
 todos = <span class="hljs-built_in">JSON</span>.parse(todoString);</code></pre>
 
-      </section></section><section class="section" id="section-17"><section class="slide" id="slide-17-1">
+      </section></section><section class="section" id="section-19"><section class="slide" id="slide-19-1">
         <h1 id="indexeddb">indexedDB</h1>
 
-      </section><section class="slide" id="slide-17-2">
+      </section><section class="slide" id="slide-19-2">
         <h2 id="indexeddb">indexedDB</h2>
 <p>Vollwertige Datenbank</p>
 <p>Vorteile gegenüber localStorage:</p>
@@ -1017,7 +1130,7 @@ todos = <span class="hljs-built_in">JSON</span>.parse(todoString);</code></pre>
 </ul>
 <p>Nachteil: Komplexeres Interface</p>
 
-      </section><section class="slide" id="slide-17-3">
+      </section><section class="slide" id="slide-19-3">
         <h2 id="indexeddb-interfaces">indexedDB Interfaces</h2>
 <ul>
 <li>idb</li>
@@ -1025,21 +1138,21 @@ todos = <span class="hljs-built_in">JSON</span>.parse(todoString);</code></pre>
 <li>localForage</li>
 </ul>
 
-      </section><section class="slide" id="slide-17-4">
+      </section><section class="slide" id="slide-19-4">
         <h2 id="indexeddb-promised-idb">indexedDB promised (idb)</h2>
 <p>library, die es erlaubt, bei indexedDB mit Promises zu arbeiten</p>
 <p><a href="https://github.com/jakearchibald/idb">https://github.com/jakearchibald/idb</a></p>
 <p>Einbinden über CDN: <a href="https://cdn.jsdelivr.net/npm/idb@2.1.2/lib/idb.min.js">https://cdn.jsdelivr.net/npm/idb@2.1.2/lib/idb.min.js</a></p>
 
-      </section><section class="slide" id="slide-17-5">
+      </section><section class="slide" id="slide-19-5">
         <h2 id="idb-grundlagen">idb Grundlagen</h2>
 
-      </section><section class="slide" id="slide-17-6">
+      </section><section class="slide" id="slide-19-6">
         <h2 id="idb-grundlagen-open--upgrade">idb Grundlagen: open &amp; upgrade</h2>
 <p>Erstellen / Öffnen einer DB; gibt ein Promise zurück</p>
 <pre><code class="language-js">idb.open(name, version, upgradeCallback);</code></pre>
 
-      </section><section class="slide" id="slide-17-7">
+      </section><section class="slide" id="slide-19-7">
         <h2 id="idb-grundlagen-open--upgrade">idb Grundlagen: open &amp; upgrade</h2>
 <p>Beispiel</p>
 <pre><code class="language-js"><span class="hljs-keyword">const</span> upgradeCallback = <span class="hljs-function"><span class="hljs-params">upgradeDb</span> =&gt;</span> {
@@ -1053,42 +1166,42 @@ todos = <span class="hljs-built_in">JSON</span>.parse(todoString);</code></pre>
 
 <span class="hljs-keyword">const</span> dbPromise = idb.open(<span class="hljs-string">'todo-db'</span>, <span class="hljs-number">1</span>, upgradeCallback);</code></pre>
 
-      </section><section class="slide" id="slide-17-8">
+      </section><section class="slide" id="slide-19-8">
         <h2 id="upgrade">Upgrade</h2>
 <p>upgrade = callback, das insbesondere genutzt werden kann, um auf ein neues Datenschema zu wechseln</p>
 <p>zb können darin Stores erstellt, gelöscht oder abgeändert werden</p>
 <p>Callbackfunktion wird immer aufgerufen, wenn sich die Versionsnummer der Datenbank erhöht</p>
 
-      </section><section class="slide" id="slide-17-9">
+      </section><section class="slide" id="slide-19-9">
         <h2 id="keys">Keys</h2>
 <p>Jedes Element im object store hat einen einzigartigen key (~id);</p>
 <p>Der key kann ein Eintrag im Objekt sein oder ein unabhängiger Wert</p>
 
-      </section><section class="slide" id="slide-17-10">
+      </section><section class="slide" id="slide-19-10">
         <h2 id="keys-numerische-id">Keys: numerische id</h2>
 <pre><code class="language-js">upgradeDb.createObjectStore(<span class="hljs-string">'todos'</span>, {
   <span class="hljs-attr">autoIncrement</span>: <span class="hljs-literal">true</span>,
 });</code></pre>
 
-      </section><section class="slide" id="slide-17-11">
+      </section><section class="slide" id="slide-19-11">
         <h2 id="keys-numerische-id-die-im-objekt-abgespeichert-wird">Keys: numerische id, die im Objekt abgespeichert wird</h2>
 <pre><code class="language-js">upgradeDb.createObjectStore(<span class="hljs-string">'todos'</span>, {
   <span class="hljs-attr">autoIncrement</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">keyPath</span>: <span class="hljs-string">'key'</span>,
 });</code></pre>
 
-      </section><section class="slide" id="slide-17-12">
+      </section><section class="slide" id="slide-19-12">
         <h2 id="keys-eintrag-im-objekt">Keys: Eintrag im Objekt</h2>
 <pre><code class="language-js"><span class="hljs-comment">// email als id</span>
 upgradeDb.createObjectStore(<span class="hljs-string">'users'</span>, {
   <span class="hljs-attr">keyPath</span>: <span class="hljs-string">'email'</span>,
 });</code></pre>
 
-      </section><section class="slide" id="slide-17-13">
+      </section><section class="slide" id="slide-19-13">
         <h2 id="transaktionen">Transaktionen</h2>
 <p>Transaktion = Gruppe von Operationen auf der Datenbank (auslesen / hinzufügen / überschreiben ...)</p>
 
-      </section><section class="slide" id="slide-17-14">
+      </section><section class="slide" id="slide-19-14">
         <h2 id="transaktionen---schritte">Transaktionen - Schritte</h2>
 <ol>
 <li>Datenbankobjekt holen (idb.open)</li>
@@ -1097,7 +1210,7 @@ upgradeDb.createObjectStore(<span class="hljs-string">'users'</span>, {
 <li>Operation auf Object Store ausführen</li>
 </ol>
 
-      </section><section class="slide" id="slide-17-15">
+      </section><section class="slide" id="slide-19-15">
         <h2 id="datenbankobjekt-holen">Datenbankobjekt holen</h2>
 <pre><code class="language-js"><span class="hljs-keyword">let</span> db;
 
@@ -1105,45 +1218,45 @@ idb.open(<span class="hljs-string">'todo-db'</span>, <span class="hljs-number">1
   db = openedDb;
 });</code></pre>
 
-      </section><section class="slide" id="slide-17-16">
+      </section><section class="slide" id="slide-19-16">
         <h2 id="daten-hinzufügen-add">Daten hinzufügen (add)</h2>
 <pre><code class="language-js"><span class="hljs-keyword">const</span> transaction = db.transaction([<span class="hljs-string">'todos'</span>], <span class="hljs-string">'readwrite'</span>);
 <span class="hljs-keyword">const</span> todoStore = transaction.objectStore(<span class="hljs-string">'todos'</span>);
 todoStore.add({ <span class="hljs-attr">text</span>: <span class="hljs-string">'groceries'</span>, <span class="hljs-attr">done</span>: <span class="hljs-literal">false</span> });</code></pre>
 
-      </section><section class="slide" id="slide-17-17">
+      </section><section class="slide" id="slide-19-17">
         <h2 id="daten-überschreiben-put">Daten überschreiben (put)</h2>
 <pre><code class="language-js"><span class="hljs-keyword">const</span> transaction = db.transaction([<span class="hljs-string">'todos'</span>], <span class="hljs-string">'readwrite'</span>);
 <span class="hljs-keyword">const</span> todoStore = transaction.objectStore(<span class="hljs-string">'todos'</span>);
 <span class="hljs-comment">// ersetze den Eintrag mit index 1</span>
 todoStore.put({ <span class="hljs-attr">text</span>: <span class="hljs-string">'groceris'</span>, <span class="hljs-attr">done</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">key</span>: <span class="hljs-number">1</span> });</code></pre>
 
-      </section><section class="slide" id="slide-17-18">
+      </section><section class="slide" id="slide-19-18">
         <h2 id="daten-löschen">Daten löschen</h2>
 <pre><code class="language-js"><span class="hljs-keyword">const</span> transaction = db.transaction([<span class="hljs-string">'todos'</span>], <span class="hljs-string">'readwrite'</span>);
 <span class="hljs-keyword">const</span> todoStore = transaction.objectStore(<span class="hljs-string">'todos'</span>);
 todoStore.delete(<span class="hljs-number">1</span>);</code></pre>
 
-      </section><section class="slide" id="slide-17-19">
+      </section><section class="slide" id="slide-19-19">
         <h2 id="daten-auslesen-getall">Daten auslesen (getAll)</h2>
 <pre><code class="language-js"><span class="hljs-keyword">const</span> transaction = db.transaction([<span class="hljs-string">'artists'</span>], <span class="hljs-string">'readonly'</span>);
 <span class="hljs-keyword">const</span> artistsStore = transaction.objectStore(<span class="hljs-string">'artists'</span>);
 artistsStore.getAll().then(<span class="hljs-built_in">console</span>.log);</code></pre>
 
-      </section><section class="slide" id="slide-17-20">
+      </section><section class="slide" id="slide-19-20">
         <h2 id="daten-auslesen-get">Daten auslesen (get)</h2>
 <p>Auslesen anhand des keys:</p>
 <pre><code class="language-js"><span class="hljs-keyword">const</span> transaction = db.transaction([<span class="hljs-string">'artists'</span>], <span class="hljs-string">'readonly'</span>);
 <span class="hljs-keyword">const</span> artistsStore = transaction.objectStore(<span class="hljs-string">'artists'</span>);
 artistsStore.get(<span class="hljs-number">1</span>).then(<span class="hljs-built_in">console</span>.log);</code></pre>
 
-      </section><section class="slide" id="slide-17-21">
+      </section><section class="slide" id="slide-19-21">
         <h2 id="daten-auslesen---via-indizes">Daten auslesen - via indizes</h2>
 <p>Die Einträge werden in der Datenbank im wesentlichen nach dem key sortiert abgelegt.</p>
 <p>Dadurch kann von der Datenbank schnell nach dem key gesucht werden.</p>
 <p>Beispiel: In einem Telefonbuch kann man schnell nach einem Nachnamen suchen, jedoch nicht nach einem Vornamen oder einer Telefonnummer</p>
 
-      </section><section class="slide" id="slide-17-22">
+      </section><section class="slide" id="slide-19-22">
         <h2 id="indizes">Indizes</h2>
 <p>Um schnell nach etwas anderem als dem primary key zu suchen: zusätzlicher Index (aber: größerer Datenverbrauch)</p>
 <pre><code class="language-js"><span class="hljs-keyword">const</span> store = upgradeDb.createObjectStore(<span class="hljs-string">'contacts'</span>);
@@ -1151,28 +1264,28 @@ store.createIndex(<span class="hljs-string">'email'</span>, <span class="hljs-st
 store.createIndex(<span class="hljs-string">'firstName'</span>, <span class="hljs-string">'firstName'</span>);
 store.createIndex(<span class="hljs-string">'name'</span>, [<span class="hljs-string">'lastName'</span>, <span class="hljs-string">'firstName'</span>]);</code></pre>
 
-      </section><section class="slide" id="slide-17-23">
+      </section><section class="slide" id="slide-19-23">
         <h2 id="indizes">Indizes</h2>
 <pre><code class="language-js"><span class="hljs-keyword">const</span> nameIndex = objectStore.index(<span class="hljs-string">'name'</span>);
 nameIndex.get([<span class="hljs-string">'Andy'</span>, <span class="hljs-string">'Jones'</span>]).then(...)</code></pre>
 
-      </section><section class="slide" id="slide-17-24">
+      </section><section class="slide" id="slide-19-24">
         <h2 id="übungen">Übungen</h2>
 <ul>
 <li>Slides: <a href="https://developers.google.com/web/ilt/pwa/working-with-indexeddb-slides">https://developers.google.com/web/ilt/pwa/working-with-indexeddb-slides</a></li>
 <li>Lab: <a href="https://developers.google.com/web/ilt/pwa/lab-indexeddb">https://developers.google.com/web/ilt/pwa/lab-indexeddb</a></li>
 </ul>
 
-      </section></section><section class="section" id="section-18"><section class="slide" id="slide-18-1">
+      </section></section><section class="section" id="section-20"><section class="slide" id="slide-20-1">
         <h1 id="notifications">Notifications</h1>
 <!-- siehe auch: https://developer.mozilla.org/en-US/docs/Web/API/Notifications_API/Using_the_Notifications_API -->
 
 
-      </section><section class="slide" id="slide-18-2">
+      </section><section class="slide" id="slide-20-2">
         <h2 id="notifications">Notifications</h2>
 <p>Möglichkeit, für den Benutzer Benachrichtigungen außerhalb der Anwendung darzustellen (Betriebssystems-Benachrichtigungen)</p>
 
-      </section><section class="slide" id="slide-18-3">
+      </section><section class="slide" id="slide-20-3">
         <h2 id="erlaubnis-einholen">Erlaubnis einholen</h2>
 <pre><code class="language-js"><span class="hljs-keyword">let</span> notificationsAllowed;
 
@@ -1183,13 +1296,13 @@ Notification.requestPermission().then(<span class="hljs-function"><span class="h
 });</code></pre>
 <p>Kann zu jeder Seite in der Browser-Konsole ausprobiert werden</p>
 
-      </section><section class="slide" id="slide-18-4">
+      </section><section class="slide" id="slide-20-4">
         <h2 id="nachricht-darstellen">Nachricht darstellen</h2>
 <pre><code class="language-js"><span class="hljs-keyword">if</span> (Notification.permission === <span class="hljs-string">'granted'</span>) {
   <span class="hljs-keyword">new</span> Notification(<span class="hljs-string">'Hello world'</span>);
 }</code></pre>
 
-      </section><section class="slide" id="slide-18-5">
+      </section><section class="slide" id="slide-20-5">
         <h2 id="nachricht-optionen">Nachricht-Optionen</h2>
 <pre><code class="language-js"><span class="hljs-keyword">new</span> Notification(<span class="hljs-string">'cloudy'</span>, {
   <span class="hljs-attr">body</span>: <span class="hljs-string">'The weather in Vienna is cloudy'</span>,
@@ -1197,10 +1310,10 @@ Notification.requestPermission().then(<span class="hljs-function"><span class="h
   <span class="hljs-attr">vibrate</span>: [<span class="hljs-number">100</span>, <span class="hljs-number">50</span>, <span class="hljs-number">100</span>],
 });</code></pre>
 
-      </section></section><section class="section" id="section-19"><section class="slide" id="slide-19-1">
+      </section></section><section class="section" id="section-21"><section class="slide" id="slide-21-1">
         <h1 id="benachrichtigungen-aus-dem-service-worker">Benachrichtigungen aus dem Service Worker</h1>
 
-      </section><section class="slide" id="slide-19-2">
+      </section><section class="slide" id="slide-21-2">
         <h2 id="benachrichtigungen-aus-dem-service-worker">Benachrichtigungen aus dem Service Worker</h2>
 <p>Die bisherigen Benachrichtigungen stammten aus einem bestimmten Browser-Fenster. Benachrichtigungen können auch aus dem Service Worker dargestellt werden. Diese Benachrichtigungen bieten mehr Möglichkeiten, insbesondere:</p>
 <ul>
@@ -1208,7 +1321,7 @@ Notification.requestPermission().then(<span class="hljs-function"><span class="h
 <li>Benachrichtigungen können angezeigt werden, wenn die Website nicht geöffnet ist</li>
 </ul>
 
-      </section><section class="slide" id="slide-19-3">
+      </section><section class="slide" id="slide-21-3">
         <h2 id="zugriff-auf-die-service-worker-registrierung">Zugriff auf die Service Worker Registrierung:</h2>
 <pre><code class="language-js"><span class="hljs-keyword">let</span> serviceWorkerRegistration;
 
@@ -1218,7 +1331,7 @@ navigator.serviceWorker
     serviceWorkerRegistration = registration;
   });</code></pre>
 
-      </section><section class="slide" id="slide-19-4">
+      </section><section class="slide" id="slide-21-4">
         <h2 id="benachrichtigungen-aus-dem-service-worker">Benachrichtigungen aus dem Service Worker</h2>
 <pre><code class="language-js">serviceWorkerRegistration.showNotification(<span class="hljs-string">'cloudy'</span>, {
   <span class="hljs-attr">body</span>: <span class="hljs-string">'The weather in Vienna is cloudy'</span>,
@@ -1231,7 +1344,7 @@ navigator.serviceWorker
   ],
 });</code></pre>
 
-      </section><section class="slide" id="slide-19-5">
+      </section><section class="slide" id="slide-21-5">
         <h2 id="auf-benachrichtigungsaktionen-reagieren">Auf Benachrichtigungsaktionen reagieren</h2>
 <p>Zwei Events im ServiceWorker:</p>
 <ul>
@@ -1249,7 +1362,7 @@ eher komplex, da es verschiedene Fenster zu einem Service-Worker geben kann
 -->
 
 
-      </section><section class="slide" id="slide-19-6">
+      </section><section class="slide" id="slide-21-6">
         <h2 id="übungen-labs">Übungen (Labs)</h2>
 <p><a href="https://developers.google.com/web/ilt/pwa/lab-integrating-web-push">https://developers.google.com/web/ilt/pwa/lab-integrating-web-push</a></p>
 <p>1-3</p>
@@ -1259,22 +1372,22 @@ Dauer: ca 50 min
 -->
 
 
-      </section></section><section class="section" id="section-20"><section class="slide" id="slide-20-1">
+      </section></section><section class="section" id="section-22"><section class="slide" id="slide-22-1">
         <h1 id="push-benachrichtigungen">Push-Benachrichtigungen</h1>
 
-      </section><section class="slide" id="slide-20-2">
+      </section><section class="slide" id="slide-22-2">
         <h2 id="push-benachrichtigungen">Push-Benachrichtigungen</h2>
 <ul>
 <li>Möglichkeit, Benachrichtigungen von einem Server zu unserer PWA senden</li>
 <li>funktioniert auch, wenn die Anwendung nicht läuft (Am Desktop muss allerdings zumindest eine Instanz des Browsers geöffnet sein)</li>
 </ul>
 
-      </section><section class="slide" id="slide-20-3">
+      </section><section class="slide" id="slide-22-3">
         <h2 id="push-benachrichtigungen---grundlagen">Push-Benachrichtigungen - Grundlagen</h2>
 undefined
 
 
-      </section><section class="slide" id="slide-20-4">
+      </section><section class="slide" id="slide-22-4">
         <h2 id="push-benachrichtigungen---grundlagen">Push-Benachrichtigungen - Grundlagen</h2>
 <p>Push-Benachrichtigungen werden über den Browserhersteller (Google, Mozilla, ...) gesendet. Dies geschieht über URLs wie diese:</p>
 <ul>
@@ -1282,12 +1395,12 @@ undefined
 <li><code>https://updates.push.services.mozilla.com/wpush/v1/IDENTIFIER</code></li>
 </ul>
 
-      </section><section class="slide" id="slide-20-5">
+      </section><section class="slide" id="slide-22-5">
         <h2 id="push-benachrichtigungen---ablauf">Push-Benachrichtigungen - Ablauf</h2>
 undefined
 
 
-      </section><section class="slide" id="slide-20-6">
+      </section><section class="slide" id="slide-22-6">
         <h2 id="push-benachrichtigungen---ablauf">Push-Benachrichtigungen - Ablauf</h2>
 <ul>
 <li>Benutzer besucht eine Web App, aktiviert Benachrichtigungen</li>
@@ -1296,7 +1409,7 @@ undefined
 <li>Aus dem Backend können wir mit Hilfe dieser Daten Nachrichten an den Service Worker schicken</li>
 </ul>
 
-      </section><section class="slide" id="slide-20-7">
+      </section><section class="slide" id="slide-22-7">
         <h2 id="push-benachrichtigungen">Push-Benachrichtigungen</h2>
 <p>Aktivierung im Browser:</p>
 <pre><code class="language-js">serviceWorkerRegistration.pushManager
@@ -1308,7 +1421,7 @@ undefined
     <span class="hljs-comment">// could be: https://android.googleapis.com/gcm/send/..</span>
   });</code></pre>
 
-      </section><section class="slide" id="slide-20-8">
+      </section><section class="slide" id="slide-22-8">
         <h2 id="push-benachrichtigunen">Push-Benachrichtigunen</h2>
 <p>Aktuelle Subscription auslesen:</p>
 <pre><code class="language-js">serviceWorkerRegistration.pushManager
@@ -1321,7 +1434,7 @@ undefined
     }
   });</code></pre>
 
-      </section><section class="slide" id="slide-20-9">
+      </section><section class="slide" id="slide-22-9">
         <h2 id="push-benachrichtigungen---das-subscription-objekt">Push-Benachrichtigungen - Das Subscription-Objekt</h2>
 <p>Sobald wir diese Daten am Server haben, können wir Benachrichtigungen an den Client senden</p>
 <pre><code class="language-json">{
@@ -1332,7 +1445,7 @@ undefined
   }
 }</code></pre>
 
-      </section><section class="slide" id="slide-20-10">
+      </section><section class="slide" id="slide-22-10">
         <h2 id="push-benachrichtigungen---serverseitig">Push-Benachrichtigungen - serverseitig</h2>
 <p>in node.js:</p>
 <pre><code class="language-js"><span class="hljs-keyword">const</span> webPush = <span class="hljs-built_in">require</span>(<span class="hljs-string">'web-push'</span>);
@@ -1344,7 +1457,7 @@ undefined
 
 webPush.sendNotification(subscription, <span class="hljs-string">'Hello world!'</span>);</code></pre>
 
-      </section><section class="slide" id="slide-20-11">
+      </section><section class="slide" id="slide-22-11">
         <h2 id="push-benachrichtigungen-in-chrome">Push-Benachrichtigungen in Chrome</h2>
 <p>In Chrome werden Push-Benachrichtigungen via <em>Firebase Cloud Messaging</em> (früher: <em>Google Cloud Messaging</em>) gesendet</p>
 <p>Für die Entwicklung benötigen wir einen Firebase Account und API key</p>
@@ -1352,11 +1465,11 @@ webPush.sendNotification(subscription, <span class="hljs-string">'Hello world!'<
   <span class="hljs-attr">gcmAPIKey</span>: <span class="hljs-string">'....'</span>,
 });</code></pre>
 
-      </section><section class="slide" id="slide-20-12">
+      </section><section class="slide" id="slide-22-12">
         <h2 id="push-benachrichtigungen-lab">Push-Benachrichtigungen: Lab</h2>
 <p><a href="https://developers.google.com/web/ilt/pwa/lab-integrating-web-push">https://developers.google.com/web/ilt/pwa/lab-integrating-web-push</a></p>
 
-      </section></section><section class="section" id="section-21"><section class="slide" id="slide-21-1">
+      </section></section><section class="section" id="section-23"><section class="slide" id="slide-23-1">
         <h1 id="resourcen">Resourcen</h1>
 <p><a href="https://developers.google.com/web/ilt/pwa/">https://developers.google.com/web/ilt/pwa/</a></p>
 

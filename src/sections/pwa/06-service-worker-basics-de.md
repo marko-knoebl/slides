@@ -4,7 +4,7 @@
 
 Service Worker sind ein Kernelement von PWAs. Sie dienen als lokaler Proxy zwischen dem Web Browser und dem Server.
 
-Haupteinsatzgebiet: Offlinenutzung / schnellere Nutzung von Web Apps (Ersatz für die alte AppCache-Funktion)
+Haupteinsatzgebiet: Offlinenutzung / schnellere Nutzung von Web Apps (Ersatz für die veraltete AppCache-Funktion)
 
 ## Service Worker - Nutzungsbeispiele
 

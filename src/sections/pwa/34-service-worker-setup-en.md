@@ -1,7 +1,5 @@
 # Service worker setup
 
-## Service worker setup
-
 ## Service worker lifecycle
 
 - register
@@ -47,9 +45,9 @@ The SW will control requests to _/css/default.css_, but not to _/index.html_.
 We can narrow down a service worker to only work on a subpath:
 
 ```js
-navigator.serviceWorker.register('/images-sw.js', {
-  scope: '/images/',
-});
+navigator.serviceWorker.register('/css/serviceworker.js', {
+  scope: '/css/xyz/
+})
 ```
 
 ## Service worker installation

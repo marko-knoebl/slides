@@ -35,16 +35,23 @@ Marko Knöbl
 
 # Agenda
 
-- Grundlagen zum Kurs: VS Code, Chrome Developer Tools
-- Modernes JavaScript: ES2015+
-- Webmanifest-Datei
+## Agenda - Grundlagen
+
+- VS Code, Chrome Developer Tools
+- modern JavaScript
 - Promises
 - Web Worker
+
+## Agenda
+
+- Webmanifest-Datei
 - Service Worker
-- Workbox
+  - Workbox
+  - Service Worker schreiben
 - Datenspeicher
-- Benachrichtigungen
-- Push-Benachrichtigungen
+  - localStorage
+  - indexedDB
+- Benachrichtigungen und Push-Benachrichtigungen
 
 # Grundlagen zum Kurs
 
@@ -160,7 +167,6 @@ indexedDB:
 
 https://caniuse.com/#search=indexeddb
 
-
 ## Beispiele
 
 - https://pwa.rocks
@@ -168,13 +174,17 @@ https://caniuse.com/#search=indexeddb
   - telegram
   - paper planes
 
+## Chrome audit
+
+Entwicklerwerkzeuge - audits
+
 # Service Worker Gundlagen
 
 ## Service Worker - Motivation
 
 Service Worker sind ein Kernelement von PWAs. Sie dienen als lokaler Proxy zwischen dem Web Browser und dem Server.
 
-Haupteinsatzgebiet: Offlinenutzung / schnellere Nutzung von Web Apps (Ersatz für die alte AppCache-Funktion)
+Haupteinsatzgebiet: Offlinenutzung / schnellere Nutzung von Web Apps (Ersatz für die veraltete AppCache-Funktion)
 
 ## Service Worker - Nutzungsbeispiele
 
@@ -313,13 +323,30 @@ essentielle Einträge in Chrome:
   - `landscape` (`landscape-primary`, `landscape-secondary`)
   - `portrait` (`portrait-primary`,
     `portrait-secondary`)
-- `theme_color`: in Chrome sollte im Dokument unter `<meta name="theme-color" content="..." />` die gleiche Farbe angegeen sein - dies wird die Fensterfarbe in Android
+- `theme_color`
+
+## Meta tags in HTML
+
+Diese Mata Tags sind hilfreich:
+
+- in Chrome: Android Fensterfarbe: `<meta name="theme-color" content="..." />` - das sollte das gleiche sein wie `theme_color` in der Manifest-Datei
+- in iOS: `<meta name="apple-mobile-web-app-capable" content="yes">` - versteckt das Browser UI
 
 # App-Installation
 
 ## App-Installation
 
-In Chrome ist es möglich, dem Benutzer das Installieren einer Anwendung anzubieten - durch Hinzufügen zum Menü / Home Screen.
+Browser können die Möglichkeit bieten, für PWAs Einträge zum Startmenü / zum Homescreen hinzuzufügen
+
+## App-Installation unter Chrome und iOS
+
+Unter iOS können Benutzer einen Shortcut zu jeder Website zum Menü hinzufügen. Für PWAs funktioniert das auf die gleiche Art.
+
+Bei Chrome können PWAs den Benutzer zur Installation auffordern. Installierte PWAs verhalten sich anders als Webseiten - z.B. erscheinen sie in einem seperaten Fenster.
+
+## App-Installation
+
+für Chrome:
 
 https://developers.google.com/web/fundamentals/app-install-banners/
 
@@ -356,7 +383,7 @@ window.addEventListener('beforeinstallprompt', event => {
 Sobald der Benutzer die Anwendung installieren möchte können wir das gespeicherte Event verwenden:
 
 ```js
-installBtn.addEventListener('click', e => {
+installBtn.addEventListener('click', () => {
   hideInstallBtn();
   // Show the prompt
   installPromptEvent.prompt();
@@ -369,260 +396,33 @@ Deployment z.B. auf https://app.netlify.com/drop
 
 Wichtig: Aufrufen über HTTPS
 
-# Service Worker und Workbox
+# Service worker
 
-## Grundlagen
+## Service worker
 
-Service-Worker sind besondere Web-Worker, daher:
+Service worker sind client-seitige Proxies zwischen Webbrowser und Server.
+
+Service worker können Resourcen cachen und sie entweder aus dem Netzwerk oder dem internen Cache abrufen.
+
+## Service worker
+
+Es läuft zu jeder Domain / registrierten URL genau ein ServiceWorker
+
+Service worker sind besondere Web-Worker, daher:
 
 - kein direkter Zugriff auf das DOM
 - Kommunikation mit Hauptthread mittels postMessage
 
-## Wichtige verwandte Technologien
+## Browser Unterstützung
 
-- fetch (Senden von Netzwerkanfragen)
-- cache (Resultate von Netzwerkanfragen cachen)
+[caniuse](https://caniuse.com/##feat=serviceworkers)
 
-## Fetch - Kurzes Beispiel
+Serviceworker werden unterstützt => ES2015 wird unterstützt
 
-```js
-// dieser Code kann zu jeder Website in der
-// Browser-Konsole ausgeführt werden
-const url = '/';
+## Verwandthe Technologien
 
-fetch(url)
-  .then(response => response.text())
-  .then(console.log);
-```
-
-## Cache - Kurzes Beispiel
-
-```js
-// alle Netzwerkanfragen werden gecacht
-self.addEventListener('fetch', event => {
-  event.respondWith(
-    caches.open('my-cache').then(cache =>
-      cache.match(event.request).then(response => {
-        cache.put(event.request, response.clone());
-        return response;
-      })
-    )
-  );
-});
-```
-
-## ServiceWorker registrieren
-
-```js
-if (navigator.serviceWorker) {
-  navigator.serviceWorker
-    .register('./serviceworker.js')
-    .then(
-      // wird nur ausgeführt, wenn *neue* serviceworker.js -
-      // Datei gefunden wurde,
-      // die verschieden von einer eventuellen alten ist
-      () => console.log('Service Worker registered')
-    );
-}
-```
-
-<!-- Nur erklären, nicht selbst implementieren -->
-
-## ServiceWorker - Events
-
-Folgende Events können im ServiceWorker behandelt werden:
-
-- **install**: wenn es eine neue ServiceWoker-Datei gibt
-- **activate**: wenn der neue ServiceWorker aktiviert wird
-- **fetch**: bei jeder Netzwerk-Kommunikation
-- **push**: vom Backend initiiert
-- **message**: Kommunikation mit dem Hauptthread
-- **sync**: Anfrage an den Server, die wiederholt versucht wird (nur Chrome)
-
-## ServiceWorker - Events: Install
-
-Tritt auf, wenn es eine neue ServiceWorker-Datei gibt:
-
-- Erster Aufruf einer PWA
-- ServiceWorker-Datei hat sich geändert
-
-Guter Zeitpunkt, um Resourcen für die spätere Verwendung herunterzuladen und dem Cache hinzuzufügen
-
-## ServiceWorker - Events: Install
-
-```js
-self.addEventListener('install', event => {
-  console.log(event);
-});
-```
-
-## ServiceWorker - Events: Activate
-
-Tritt auf, wenn ein neuer ServiceWorker aktiviert wird:
-
-- Bei erster Installation eines ServiceWorkers sofort
-- Wenn sich die ServiceWorker-Datei geändert hat beim "Neustart" der PWA (wenn alle entsprechenden Tabs geschlossen wurden)
-
-Ein geänderter ServiceWorker wird erst nach einem "Neustart" der PWA aktiv
-
-Activate: gute Gelegenheit, um alte Caches zu bereinigen
-
-## ServiceWorker - Events: Activate
-
-```js
-self.addEventListener('activate', event => {
-  console.log(event);
-});
-```
-
-## ServiceWorker - Events: Fetch
-
-Für jede Netzwerkkommunikation
-
-<!-- Beispiel: Netzwerkanfragen loggen -->
-
-## ServiceWorker - Events: Message
-
-Kommunikation mit dem Haupt-Thread (wie bei WebWorkern)
-
-## ServiceWorker - Events: Sync
-
-Warten auf Netzwerk-Konnektivität, um Daten zu senden
-
-Wenn Netzwerk-Konnektivität besteht, aber der sync trotzdem fehlschlägt (das selbstdefinierte Promise rejected wird), werden neue Versuche mit immer größeren Zeitabständen unternommen
-
-## fetch und cache: Anwendungsbeispiele
-
-- Beim ersten Aufruf eines Spiels werden alle benötigten Resourcen heruntergeladen und sind dann offline verfügbar
-- Bei einer Chat-Anwendung werden die Avatare aller Freunde im Cache abgelegt. Sie sollen einmal pro Tag aktualisiert werden.
-- Bei einer Wikipedia-Anwendung werden die letzten 30 besichtigten Artikel im Cache abgelegt.
-- Die Startseite eines Nachrichtenportal soll zwischengespeichert werden und beim öffnen der Seite sofort erscheinen. Danach soll sie allerdings wenn möglich sofort aktualisiert werden
-
-## Einfaches Beispiel: Offline-Anwendung
-
-Anwendung, die alle benötigten Resourcen beim ersten Mal herunterlädt und dann so beibehält.
-
-## Einfaches Beispiel: Offline-Anwendung
-
-```js
-const cacheName = 'my-site-cache-v1';
-const urlsToCache = [
-  '/',
-  '/index.html',
-  '/main.css',
-  '/main.js',
-];
-```
-
-## Einfaches Beispiel: Offline-Anwendung
-
-Install-Handler
-
-```js
-self.addEventListener('install', event => {
-  event.waitUntil(
-    caches.open(cacheName).then(cache => {
-      console.log('opened cache');
-      // Resultat von addAll ist ein Promise
-      return cache.addAll(urlsToCache);
-    })
-  );
-});
-```
-
-## Einfaches Beispiel: Offline-Anwendung
-
-Install-Handler
-
-```js
-event.waitUntil(
-  ...
-)
-```
-
-`waitUntil`: wartet auf die Installation und zeigt an, ob diese erfolgreich war
-
-## Einfaches Beispiel: Offline-Anwendung
-
-Activate-Handler (alte Caches löschen)
-
-```js
-self.addEventListener('activate', event => {
-  event.waitUntil(
-    caches.keys().then(cacheNames => {
-      return Promise.all(
-        cacheNames.map(oldCacheName => {
-          if (oldCacheName !== cacheName) {
-            return caches.delete(oldCacheName);
-          }
-        })
-      );
-    })
-  );
-});
-```
-
-<!--
-Ursprünglich war hier
-return self.clients.claim();
-im Code
--->
-
-## Einfaches Beispiel: Offline-Anwendung
-
-Fetch-Handler
-
-```js
-self.addEventListener('fetch', event => {
-  event.respondWith(caches.match(event.request));
-});
-```
-
-## Übung: "Scripting the Service Worker"
-
-https://developers.google.com/web/ilt/pwa/lab-scripting-the-service-worker
-
-# Workbox
-
-## Strategie: networkOnly
-
-Vom Browser bekannte Strategie
-
-## Strategie: networkFirst
-
-Ein Laden aus dem Netzwerk wird versucht; wenn das fehlschlägt, wird aus dem Cache geladen
-
-## Strategie: cacheFirst
-
-Falls es eine Resource im Cache gibt, wird diese direkt aus dem Cache geladen. Ansonsten wird aus dem Netzwerk geladen.
-
-## Strategie: staleWhileRevalidate
-
-Ähnlich wie cacheFirst - nur wird im Hintergrund der Cache aktualisiert, sodass beim nächsten Mal die aktuelle Resource zur Verfügung steht
-
-## Strategie: cache - then network
-
-Ähnlich wie staleWhileRevalidate - nur wird die Seite sofort aktualisiert, wenn die neuere Resource zur Verfügung steht.
-
-Diese Strategie benötigt auch Code _außerhalb_ des ServiceWorkers.
-
-Siehe: [Offline Cookbook](https://jakearchibald.com/2014/offline-cookbook/#cache-then-network)
-
-## Aufgaben
-
-https://developers.google.com/web/tools/workbox/
-
-1-2 der vorgegebenen Anwendungen zu einer PWA machen und dabei verschiedene Caching-Strategien ausprobieren:
-
-- https://github.com/marko-knoebl/simple-todo-app
-- https://github.com/marko-knoebl/simple-weather-app
-- https://github.com/marko-knoebl/simple-stock-app
-
-(Hosting via bitballoon)
-
-## Zusatz (mit build-Prozess)
-
-https://developers.google.com/web/tools/workbox/guides/codelabs/npm-script
+- fetch (Netzwerkanfragen senden)
+- cache (Netzwerkanfragen cachen)
 
 # Promises & Fetch
 
@@ -885,6 +685,337 @@ function fib(n) {
   return fib(n - 1) + fib(n - 2);
 }
 ```
+
+# Service Worker Setup
+
+## Service Worker Lebenszyklus
+
+- register
+- install
+- activate
+- (unregister)
+
+## Einen Service Worker registrieren
+
+Jedes Mal wenn eine Seite geladen wird, rufen wir `navigator.serviceWorker.register` mit der URL des Service Workers als Parameter auf. Wenn eine neue oder geänderte Service Worker Datei gefunden wird, wird diese _installiert_.
+
+## Einen Service Worker registrieren
+
+```js
+window.addEventListener('load', () => {
+  // registration can be defered until
+  // completion of page load
+  if (navigator.serviceWorker) {
+    navigator.serviceWorker
+      .register('/serviceworker.js')
+      .then(registration => {
+        // is executed if there's a *new* sw file
+        console.log(
+          `SW registered for ${registration.scope}`
+        );
+      })
+      .catch(/* reg failed */);
+  }
+});
+```
+
+## Service Worker Scope
+
+Üblicherweise behandelt ein Service Worker alle Anfragen, die auf dem Server in seinem "Ordner" liegen.
+
+```js
+navigator.serviceWorker.register('/css/serviceworker.js');
+```
+
+Der Service Worker behandelt Anfragen an _ /css/default.css_, aber nicht an _/index.html_.
+
+Wir können einen Service Worker auch weiter einschränken:
+
+```js
+navigator.serviceWorker.register('/css/serviceworker.js', {
+  scope: '/css/xyz/
+})
+```
+
+## Service Worker Installation
+
+Das `install` Event wird ausgelöst, wenn es eine neue Service Worker Datei gibt:
+
+- beim ersten Besuch der Seite
+- wenn sich die Service Worker Datei geändert hat
+
+Guter Zeitpunkt, um Resourcen für die spätere Verwendung herunterzuladen und dem Cache hinzuzufügen
+
+## Service Worker Installation
+
+```js
+self.addEventListener('install', event => {
+  console.log(event);
+});
+```
+
+## Service Worker Aktivierung
+
+Wenn zuvor kein Service Worker vorhanden war, wird der Service Worker sofort nach der Installation aktiv
+
+Wenn zuvor ein anderer Service Worker vorhanden war, wird dieser nach einem "Neustart" der Anwendung aktiv (wenn alle entsprechenden Tabs geschlossen wurden)
+
+Event `activate`: gute Gelegenheit, um alte Caches zu bereinigen
+
+## Service Worker Aktivierung
+
+```js
+self.addEventListener('activate', event => {
+  console.log(event);
+});
+```
+
+## Service Worker Aktivierung
+
+Wir können eine sofortige Aktivierung eines neuen Service Workers aus dem `install`-Event veranlassen:
+
+```js
+self.addEventListener('install', event => {
+  self.skipWaiting();
+});
+```
+
+## Service Worker Deinstallieren
+
+Deinstallation aller Service Worker für diese Domain:
+
+```js
+navigator.serviceWorker
+  .getRegistrations()
+  .then(function(registrations) {
+    for (let registration of registrations) {
+      registration.unregister();
+    }
+  });
+```
+
+# Service Worker mit fetch und cache
+
+## Service Worker mit fetch und cache
+
+## fetch - Beispiel
+
+```js
+// this code can be executed in the
+// browser console for any website
+const url = '/';
+
+fetch(url)
+  .then(response => response.text())
+  .then(console.log);
+```
+
+## Service Worker Events: Fetch
+
+```js
+self.addEventListener('fetch', event => {
+  event.respondWith(
+    new Response('All pages look like this')
+  );
+});
+```
+
+## Service Worker Events: Fetch
+
+Übung: wir erstellen eine kleine lokale Website mit Seiten wie _/home_, _/about_, ...
+
+## Service Worker Events: fetch
+
+<!--
+there are two $ signs in regexes in this code
+if they are at the very end of the string
+they will mess up the result
+-->
+
+```js
+self.addEventListener('fetch', event => {
+  if (new RegExp('/about/$ ').test(event.request.url)) {
+    event.respondWith(new Response('About'));
+  } else if (new RegExp('/a$ ').test(event.request.url)) {
+    event.respondWith(new Response('Home'));
+  } else {
+    event.respondWith(new Response('404'));
+  }
+});
+```
+
+## Service Worker Events: fetch
+
+Übung: Loggen aller Netzwerkanfragen, die Netzwerkanfragen dann mittels `fetch` beantworkten lassen
+
+## Service Worker Events: fetch
+
+```js
+self.addEventListener('fetch', event => {
+  console.log(event);
+  return fetch(event.request);
+});
+```
+
+# Service Worker mit fetch und cache
+
+## Service Worker mit fetch und cache
+
+Wichtige verwandte Technologien:
+
+- fetch (Netzwerkanfragen senden)
+- cache (Resultate cachen)
+
+## Cache
+
+= "a request to response map"
+
+## Auf Caches zugreifen
+
+Durch die globale Variable `caches.open` oder `self.caches.open` im Service Worker
+
+Promise:
+
+```js
+let myCache;
+caches.open('test', mc => {
+  myCache = mc;
+});
+```
+
+## Methoden
+
+Cache-Methoden:
+
+- `myCache.add(request)`
+- `myCache.addAll(requests)`
+- `myCache.put(request, response)`
+- `myCache.delete(request)`
+- `myCache.match(request)`
+- `myCache.matchAll(requests)`
+
+Die Variable `request` kann entweder ein String sein, oder ein `Request` objekt.
+
+## Cache - add(All)
+
+Wir übergeben eine URL; die Resource wird automatisch angefragt und gespeichert
+
+```js
+cache.add('/main.js');
+
+cache.addAll(['/', '/index.html', '/main.js']);
+```
+
+## Cache - put
+
+Kann verwendet werden, wenn wir schon über die Antwort verfügen
+
+```js
+fetch('myurl').then(response => {
+  console.log(response.clone());
+  cache.put('myurl', response.clone());
+  cache.put('otherurl', response);
+});
+```
+
+## Cache - delete
+
+```js
+cache.delete('myurl');
+```
+
+## Cache - match
+
+Einen Eintrag aus dem Cache holen, der auf einen bestimmten Request passt
+
+```js
+// returns a response or undefined
+const content = cache.match('myurl');
+```
+
+## Beispiel: cache only (kurz)
+
+Eine Anwendung, die Resourcen bei der Installation cacht und sie dauerhaft aus dem Cache zur Verfügung stellt
+
+```js
+self.addEventListener('install', () => {
+  cache.addAll(['/', '/index.html', '/about'])
+})
+
+self.addEventListener('fetch', event => {
+  event.respondWith(
+    caches.match(event.request);
+  )
+})
+```
+
+## Beispiel: cache only (ganzer Code)
+
+```js
+self.addEventListener('install', installEvent => {
+  // wait for the cache to be populated;
+  // abort install on error
+  installEvent.waitUntil(
+    caches.open('app-shell-cache-v3').then(cache => {
+      return cache.addAll(['/', '/index.html', '/about']);
+    })
+  );
+  // optional - don't abort install on error
+  caches.open('app-shell-cache-v3').then(cache => {
+    cache.addAll['/icon1.png'];
+  });
+});
+```
+
+## Beispiel: cache only - waitUntil
+
+Ein Aufruf von `waitUntil` kann verwendet werden, um anzuzeigen, ob die Installation erfolgreich war - dier Service Worker wird nur bei Erfolg aktiviert
+
+## Beispiel: den Cache aktualisieren
+
+alte Einträge löschen:
+
+```js
+self.addEventListener('activate', activateEvent => {
+  activateEvent.waitUntil(
+    Promise.all([
+      caches.delete('app-shell-cache-v2'),
+      caches.delete('app-shell-cache-v1'),
+    ])
+  );
+});
+```
+
+## Beispiel: Aus dem Cache laden - mit Netzwerk-Fallback
+
+```js
+self.addEventListener('fetch', event => {
+  event.respondWith(
+    caches
+      .match(event.request)
+      .then(response => response || fetch(event.request))
+  );
+});
+```
+
+## Beispiel: Den Cache bei jedem Request aktualisieren
+
+```js
+self.addEventListener('fetch', event => {
+  event.respondWith(
+    fetch(event.request).then(response => {
+      cache.put(event.request, response.clone());
+      return response;
+    })
+  );
+});
+```
+
+## Beispiel: Network - Falling back to Cache - Falling back to default asset (e.g. user avatar)
+
+## Übung: scripting the service worker
+
+https://developers.google.com/web/ilt/pwa/lab-scripting-the-service-worker
 
 # Service Worker Beispiele
 

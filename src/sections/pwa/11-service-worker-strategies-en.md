@@ -1,16 +1,13 @@
-# Service workers
+# Service worker strategies
 
-## Service workers
+## Service workers - strategies
 
-Service workers are a local proxy between the web browser and the server.
+When deciding on a strategy there are different goals to consider:
 
-Service workers can cache resources and retrieve them from either the network or the internal cache.
-
-## Browser support
-
-[caniuse](https://caniuse.com/##feat=serviceworkers)
-
-support for service workers => support for ES2015
+- serve content as fast as possible
+- serve content which is up-to-date
+- save on network data usage
+- save on cache size
 
 ## Service workers - strategies
 
@@ -50,19 +47,3 @@ caching strategies:
 ## Service workers - strategies
 
 See the [offline cookbook](https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/#cache-then-network)
-
-## Service workers - event overview
-
-These events can be handled in the service worker:
-
-- **install**: there is a new service worker file
-- **activate**: this service worker is now handling requests
-- **fetch**: on each network communication
-- **push**: message from the server
-- **message**: web worker communication with the main thread
-- **sync**: server request that will be attempted repeatedly (Chrome only)
-
-## Service workers - related technologies
-
-- fetch (Sending network requests)
-- cache (Caching netowrk requests)

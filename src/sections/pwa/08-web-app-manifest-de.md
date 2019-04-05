@@ -57,4 +57,11 @@ essentielle Einträge in Chrome:
   - `landscape` (`landscape-primary`, `landscape-secondary`)
   - `portrait` (`portrait-primary`,
     `portrait-secondary`)
-- `theme_color`: in Chrome sollte im Dokument unter `<meta name="theme-color" content="..." />` die gleiche Farbe angegeen sein - dies wird die Fensterfarbe in Android
+- `theme_color`
+
+## Meta tags in HTML
+
+Diese Mata Tags sind hilfreich:
+
+- in Chrome: Android Fensterfarbe: `<meta name="theme-color" content="..." />` - das sollte das gleiche sein wie `theme_color` in der Manifest-Datei
+- in iOS: `<meta name="apple-mobile-web-app-capable" content="yes">` - versteckt das Browser UI

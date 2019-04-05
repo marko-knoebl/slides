@@ -7,65 +7,6 @@ core associated technologies:
 - fetch (sending network requests)
 - cache (caching results)
 
-## fetch - example
-
-```js
-// this code can be executed in the
-// browser console for any website
-const url = '/';
-
-fetch(url)
-  .then(response => response.text())
-  .then(console.log);
-```
-
-## Service worker events: fetch
-
-```js
-self.addEventListener('fetch', event => {
-  event.respondWith(
-    new Response('All pages look like this')
-  );
-});
-```
-
-## Service worker events: fetch
-
-Exercise: We can build a small local website with pages like _/home_, _/about_, ...
-
-## Service worker events: fetch
-
-<!-- 
-there are two $ signs in regexes in this code
-if they are at the very end of the string
-they will mess up the result
--->
-
-```js
-self.addEventListener('fetch', event => {
-  if (new RegExp('/about/$ ').test(event.request.url)) {
-    event.respondWith(new Response('About'));
-  } else if (new RegExp('/a$ ').test(event.request.url)) {
-    event.respondWith(new Response('Home'));
-  } else {
-    event.respondWith(new Response('404'));
-  }
-});
-```
-
-## Service worker events: fetch
-
-Exercise: logging all network requests and passing the work on to `fetch`
-
-## Service worker events: fetch
-
-```js
-self.addEventListener('fetch', event => {
-  console.log(event);
-  return fetch(event.request);
-});
-```
-
 ## Cache
 
 = "a request to response map"
@@ -157,7 +98,7 @@ self.addEventListener('install', installEvent => {
   // abort install on error
   installEvent.waitUntil(
     caches.open('app-shell-cache-v3').then(cache => {
-      return cache.addAll[('/', '/index.html', '/about')];
+      return cache.addAll(['/', '/index.html', '/about']);
     })
   );
   // optional - don't abort install on error
@@ -211,13 +152,8 @@ self.addEventListener('fetch', event => {
 });
 ```
 
-caching all network requests:
-
-```js
-// in the service worker
-self.addEventListener('fetch', event => {
-  event.respondWith();
-});
-```
-
 ## example: network - falling back to cache - falling back to default asset (e.g. user avatar)
+
+## exercise: scripting the service worker
+
+https://developers.google.com/web/ilt/pwa/lab-scripting-the-service-worker

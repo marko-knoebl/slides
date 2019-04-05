@@ -44,7 +44,7 @@ crucial entries for Chrome:
 - `name`
 - `short_name`
 - `start_url`
-- `icons` - used in the menu, in the splash screen; for Chrome you should provide square icons of sizes: `144`, `192`, `512`
+- `icons` - used in the menu, in the splash screen; for Chrome we should provide square icons of sizes: `144`, `192`, `512`
 - `display`: `fullscreen` / `standalone` / `minimal-ui` / `browser`
 
 ## Manifest file - entries
@@ -57,7 +57,7 @@ crucial entries for Chrome:
   - `landscape` (`landscape-primary`, `landscape-secondary`)
   - `portrait` (`portrait-primary`,
     `portrait-secondary`)
-- `theme_color`
+- `theme_color`:
 
 ## Meta tags in HTML
 

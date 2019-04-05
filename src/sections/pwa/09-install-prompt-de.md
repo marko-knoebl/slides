@@ -2,7 +2,17 @@
 
 ## App-Installation
 
-In Chrome ist es möglich, dem Benutzer das Installieren einer Anwendung anzubieten - durch Hinzufügen zum Menü / Home Screen.
+Browser können die Möglichkeit bieten, für PWAs Einträge zum Startmenü / zum Homescreen hinzuzufügen
+
+## App-Installation unter Chrome und iOS
+
+Unter iOS können Benutzer einen Shortcut zu jeder Website zum Menü hinzufügen. Für PWAs funktioniert das auf die gleiche Art.
+
+Bei Chrome können PWAs den Benutzer zur Installation auffordern. Installierte PWAs verhalten sich anders als Webseiten - z.B. erscheinen sie in einem seperaten Fenster.
+
+## App-Installation
+
+für Chrome:
 
 https://developers.google.com/web/fundamentals/app-install-banners/
 
@@ -39,7 +49,7 @@ window.addEventListener('beforeinstallprompt', event => {
 Sobald der Benutzer die Anwendung installieren möchte können wir das gespeicherte Event verwenden:
 
 ```js
-installBtn.addEventListener('click', e => {
+installBtn.addEventListener('click', () => {
   hideInstallBtn();
   // Show the prompt
   installPromptEvent.prompt();
