@@ -1850,6 +1850,8 @@ const TodoList = (props: TodoListProps) =&gt; {
     const init = () => {
       slideCount = countSlides();
       activateSlideSafe(1, 1);
+      addKeyControls();
+      addSwipeControls();
     }
 
     // count slides
@@ -1907,12 +1909,28 @@ const TodoList = (props: TodoListProps) =&gt; {
       }
     }
 
-    const activateNextSlide = () => {
+    const activateSlideNextSafe = () => {
       if (activeSlide[1] === slideCount[activeSlide[0] - 1]) {
         activateSlideSafe(activeSlide[0] + 1, 1);
       } else {
         activateSlideSafe(activeSlide[0], activeSlide[1] + 1);
       }
+    }
+
+    const activateSlideRightSafe = () => {
+      activateSlideSafe(activeSlide[0] + 1, 1);
+    }
+
+    const activateSlideLeftSafe = () => {
+      activateSlideSafe(activeSlide[0] - 1, 1);
+    }
+
+    const activateSlideDownSafe = () => {
+      activateSlideSafe(activeSlide[0], activeSlide[1] + 1);
+    }
+
+    const activateSlideUpSafe = () => {
+      activateSlideSafe(activeSlide[0], activeSlide[1] - 1);
     }
 
     const scrolltoActiveSlide = () => {
@@ -1925,28 +1943,65 @@ const TodoList = (props: TodoListProps) =&gt; {
       }
     }
 
-    document.querySelector('body').addEventListener('keydown', event => {
-      if (event.key === 'p') {
-        const canvasContent = document.querySelector('#canvas-content').innerHTML;
-        presenterWindow = window.open(document.URL, '_blank');
-        presenterWindow.onload = () => {
-          presenterWindow.document.querySelector('body').innerHTML = canvasContent;
+    const addKeyControls = () => {
+      document.querySelector('body').addEventListener('keydown', event => {
+        if (event.key === 'p') {
+          const canvasContent = document.querySelector('#canvas-content').innerHTML;
+          presenterWindow = window.open(document.URL, '_blank');
+          presenterWindow.onload = () => {
+            presenterWindow.document.querySelector('body').innerHTML = canvasContent;
+          }
         }
-      }
-      if (event.key === 'ArrowRight') {
-        activateSlideSafe(activeSlide[0] + 1, 1);
-      } else if (event.key === 'ArrowLeft') {
-        activateSlideSafe(activeSlide[0] - 1, 1);
-      } else if (event.key === 'ArrowDown') {
-        activateSlideSafe(activeSlide[0], activeSlide[1] + 1);
-      } else if (event.key === 'ArrowUp') {
-        activateSlideSafe(activeSlide[0], activeSlide[1] - 1);
-      } else if (event.key === 'Enter') {
-        activateNextSlide();
-      } else {
-        console.log(event.key)
-      }
-    });
+        if (event.key === 'ArrowRight') {
+          activateSlideRightSafe();
+        } else if (event.key === 'ArrowLeft') {
+          activateSlideLeftSafe();
+        } else if (event.key === 'ArrowDown') {
+          activateSlideDownSafe();
+        } else if (event.key === 'ArrowUp') {
+          activateSlideUpSafe();
+        } else if (event.key === 'Enter') {
+          activateSlideNextSafe();
+        }
+      });
+    }
+
+    const addSwipeControls = () => {
+
+      const distance = 100;
+
+      let startPos;
+      let handled;
+
+      document.addEventListener('touchstart', event => {
+        startPos = event.touches[0];
+        handled = false;
+      });
+
+      document.addEventListener('touchmove', event => {
+        if (!handled) {
+          let currentPos = event.touches[0];
+          const xDiff = currentPos.clientX - startPos.clientX;
+          const yDiff = currentPos.clientY - startPos.clientY;
+          if (Math.abs(xDiff) > 2*Math.abs(yDiff) ||
+              Math.abs(yDiff) > 2*Math.abs(xDiff)) {
+            if (xDiff > distance) {
+              activateSlideLeftSafe();
+              handled = true;
+            } else if (xDiff < -distance) {
+              activateSlideRightSafe();
+              handled = true;
+            } else if (yDiff > distance) {
+              activateSlideUpSafe();
+              handled = true;
+            } else if (yDiff < -distance) {
+              activateSlideDownSafe();
+              handled = true;
+            }
+          }
+        }
+      });
+    }
 
     init();
 
