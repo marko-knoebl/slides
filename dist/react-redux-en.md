@@ -21,9 +21,13 @@ Often the entire application state is represented by a data model and every chan
 - ngrx (used with Angular)
 - vuex (used with vue)
 
-## what makes Redux special
+## What makes Redux special
 
-In Redux a state change is applied via a _reducer_ function, wich transform the previous state into the new state
+In Redux a state change is applied via a _reducer_ function, wich transform the previous state into the new state based on an _action_
+
+## Redux diagram
+
+<img src="assets/redux-flow.svg" type="text/svg" style="width: 100%">
 
 ## Installation
 

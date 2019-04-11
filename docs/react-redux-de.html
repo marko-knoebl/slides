@@ -139,20 +139,123 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 
       </section><section class="slide" id="slide-1-5">
         <h2 id="besonderheit-von-redux">Besonderheit von Redux</h2>
-<p>In Redux geschieht jede Zustandsänderung mittels eines <em>Reducers</em> - einer Funktion, die einen Zustand in den nächsten überführt</p>
+<p>In Redux geschieht jede Zustandsänderung mittels eines <em>Reducers</em> - einer Funktion, die einen Zustand basierend auf einer <em>action</em> in den nächsten überführt</p>
 
       </section><section class="slide" id="slide-1-6">
+        <h2 id="redux-diagramm">Redux Diagramm</h2>
+<?xml version="1.0" encoding="utf-8"?>
+<svg
+  id="redux-flow-svg"
+  version="1.1"
+  width="1000"
+  height="500"
+  viewBox="0 0 1000 500"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <defs>
+    <g id="state">
+      <circle r="60px" stroke="#000" stroke-width="2" fill="#2196f3"/>
+      <text x="-15">
+        state
+      </text>
+    </g>
+    <g id="action">
+      <circle r="40px" stroke="#000" stroke-width="2" fill="#f44336"/>
+      <text x="-15">
+        action
+      </text>
+    </g>
+    <g id="reducer">
+      <rect
+        width="60"
+        height="150"
+        stroke="#000"
+        stroke-width="2"
+        fill="#9c27b0"
+      />
+      <text
+        x="5"
+        y="65"
+      >
+        reducer
+      </text>
+    </g>
+    <marker id="arrow-end" refX="0.0" refY="0.0" orient="auto" style="overflow: visible;">
+      <path
+        transform="rotate(180)"
+        d="M 8.7 4 L -2.2 0 L 8.7 -4 C 7 -1.6 7 1.6 8.7 4 z"
+        class="arrowhead"
+        id="path4877"
+      />
+    </marker>
+    <path
+      id="arrow-right-1"
+      stroke="#000"
+      stroke-width="2"
+      fill="none"
+      class="arrow"
+      d="M0 0 L 145 0"
+      marker-end="url(#arrow-end)"
+    />
+    <path
+      id="arrow-right-2"
+      stroke="#000"
+      stroke-width="2"
+      fill="none"
+      class="arrow"
+      d="M 0 0 L 65 0"
+      marker-end="url(#arrow-end)"
+    />
+    <path
+      id="arrow-right-up"
+      stroke="#000"
+      stroke-width="2"
+      fill="none"
+      class="arrow"
+      d="M0 140 Q 0 0, 95 0"
+      marker-end="url(#arrow-end)"
+    />
+  </defs>
+  <style>
+    #redux-flow-svg path.arrow {
+      stroke: #000;
+      stroke-width: 2;
+      marker-end: url(#arrow-end);
+      fill: none;
+    }
+    #redux-flow-svg {
+      font-size: 16px;
+      font-family: sans-serif;
+    }
+  </style>
+  <use href="#state" transform="translate(100 100)"/>
+  <use href="#state" transform="translate(500 100)"/>
+  <use href="#state" transform="translate(900 100)"/>
+  <use href="#action" transform="translate(210 300)"/>
+  <use href="#action" transform="translate(610 300)"/>
+  <use href="#reducer" transform="translate(310 40)"/>
+  <use href="#reducer" transform="translate(710 40)"/>
+  <use href="#arrow-right-1" transform="translate(160 100)"/>
+  <use href="#arrow-right-1" transform="translate(560 100)"/>
+  <use href="#arrow-right-2" transform="translate(370 100)"/>
+  <use href="#arrow-right-2" transform="translate(770 100)"/>
+  <use href="#arrow-right-up" transform="translate(210 120)"/>
+  <use href="#arrow-right-up" transform="translate(610 120)"/>
+</svg>
+
+
+      </section><section class="slide" id="slide-1-7">
         <h2 id="installation">Installation</h2>
 <pre><code class="language-bash">npm install redux</code></pre>
 
-      </section><section class="slide" id="slide-1-7">
+      </section><section class="slide" id="slide-1-8">
         <h2 id="einfaches-redux-beispiel-counter">Einfaches Redux-Beispiel: Counter</h2>
 <p>Wir erstellen einen Counter, der eine Zahl als Zustand hat und für den die zwei Actions <em>increment</em> und <em>decrement</em> definiert sind.</p>
 <p>Diese werden durch JavaScript Objekte repräsentiert:</p>
 <pre><code class="language-json">{ <span class="hljs-attr">"type"</span>: <span class="hljs-string">"INCREMENT"</span> }</code></pre>
 <pre><code class="language-json">{ <span class="hljs-attr">"type"</span>: <span class="hljs-string">"DECREMENT"</span> }</code></pre>
 
-      </section><section class="slide" id="slide-1-8">
+      </section><section class="slide" id="slide-1-9">
         <h2 id="einfaches-redux-beispiel-counter">Einfaches Redux-Beispiel: Counter</h2>
 <p>Zentrales Element ist die <em>Reducer</em>-Funktion:</p>
 <pre><code class="language-js"><span class="hljs-keyword">const</span> initialState = { <span class="hljs-attr">count</span>: <span class="hljs-number">0</span> };
@@ -168,12 +271,12 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   }
 };</code></pre>
 
-      </section><section class="slide" id="slide-1-9">
+      </section><section class="slide" id="slide-1-10">
         <h2 id="einfaches-redux-beispiel-counter">Einfaches Redux-Beispiel: Counter</h2>
 <p>Die Reducer-Funktion erhält als Funktionsparameter den alten Zustand (State) und eine Action, die eine Zustandsänderung beschreibt.</p>
 <p>Die Reducer-Funktion gibt den neuen Zustand zurück. Wichtig: Reducer-Funktionen ändern das alte state-Objekt nicht ab, sondern erstellen ein neues (reine Funktion)</p>
 
-      </section><section class="slide" id="slide-1-10">
+      </section><section class="slide" id="slide-1-11">
         <h2 id="einfaches-redux-beispiel-counter">Einfaches Redux-Beispiel: Counter</h2>
 <p>Store = Datenspeicher, der von einem Reducer verwaltet wird</p>
 <pre><code class="language-js"><span class="hljs-comment">// stores.js</span>
@@ -183,19 +286,19 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <span class="hljs-comment">// counter = reducer</span>
 <span class="hljs-keyword">const</span> counterStore = createStore(counterReducer);</code></pre>
 
-      </section><section class="slide" id="slide-1-11">
+      </section><section class="slide" id="slide-1-12">
         <h2 id="einfaches-redux-beispiel-counter">Einfaches Redux-Beispiel: Counter</h2>
 <p>Store verwenden</p>
 <pre><code class="language-js">counterStore.getState(); <span class="hljs-comment">// {count: 0}</span>
 counterStore.dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">'INCREMENT'</span> });
 counterStore.getState(); <span class="hljs-comment">// {count: 1}</span></code></pre>
 
-      </section><section class="slide" id="slide-1-12">
+      </section><section class="slide" id="slide-1-13">
         <h2 id="übung">Übung</h2>
 <p>Erstelle einen neuen mathadorStore mit dem Ausgangszustand <code>{number: 1}</code> und Actions für &quot;Mal 3&quot; und &quot;Minus 7&quot;</p>
 <p>Zusatzaufgabe: Erreiche den Zustand 4 (oder 10) durch das dispatchen passender Actions</p>
 
-      </section><section class="slide" id="slide-1-13">
+      </section><section class="slide" id="slide-1-14">
         <h2 id="reducer-kombinieren">Reducer kombinieren</h2>
 <pre><code class="language-js"><span class="hljs-keyword">const</span> rootReducer = combineReducers({
   <span class="hljs-attr">counter</span>: counterReducer,
@@ -804,7 +907,7 @@ user.email = <span class="hljs-string">'johndoe@gmail.com'</span>;
       width: 3rem;
     }
 
-    .arrow {
+    #navigation-arrows .arrow {
       stroke: lightblue;
       /*stroke-width: 0.8em; Chrome behaves differently with ems here */
       stroke-width: 16px;

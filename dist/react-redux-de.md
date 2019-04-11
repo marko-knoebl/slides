@@ -23,7 +23,11 @@ Oft wird der gesamte Anwendungszustand durch ein Datenmodell repräsentiert. Jed
 
 ## Besonderheit von Redux
 
-In Redux geschieht jede Zustandsänderung mittels eines _Reducers_ - einer Funktion, die einen Zustand in den nächsten überführt
+In Redux geschieht jede Zustandsänderung mittels eines _Reducers_ - einer Funktion, die einen Zustand basierend auf einer _action_ in den nächsten überführt
+
+## Redux Diagramm
+
+<img src="assets/redux-flow.svg" type="text/svg" style="width: 100%">
 
 ## Installation
 
