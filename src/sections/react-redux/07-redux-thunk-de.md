@@ -118,7 +118,3 @@ const actionAsync = () => (dispatch, getState) => {
 Erstelle ein thunk, das Todos vom folgenden API lädt:
 
 `https://jsonplaceholder.typicode.com/todos`
-
-## Präsentation: Taming Large React Applications w/ Redux
-
-https://slides.com/joelkanzelmeyer/taming-large-redux-apps

@@ -117,7 +117,3 @@ create a thunk that will load example todos from `https://jsonplaceholder.typico
 create a thunk that will load example todos from `https://5qn401kkl9.lp.gql.zone/graphql`
 
 (admin: https://launchpad.graphql.com/5qn401kkl9)
-
-## resource: Taming Large React Applications w/ Redux
-
-https://slides.com/joelkanzelmeyer/taming-large-redux-apps

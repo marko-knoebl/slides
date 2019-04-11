@@ -92,3 +92,7 @@ const functionMiddleware = store => next => action => {
   }
 };
 ```
+
+## resource: Taming Large React Applications w/ Redux
+
+https://slides.com/joelkanzelmeyer/taming-large-redux-apps

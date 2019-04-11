@@ -451,101 +451,16 @@ user.email = <span class="hljs-string">'johndoe@gmail.com'</span>;
         <h2 id="beispiel-todo-verwaltung-mit-redux">Beispiel: Todo-Verwaltung mit Redux</h2>
 
       </section></section><section class="section" id="section-5"><section class="slide" id="slide-5-1">
-        <h1 id="redux-ecosystem">Redux Ecosystem</h1>
+        <h1 id="asynchrone-actions">Asynchrone Actions</h1>
 
       </section><section class="slide" id="slide-5-2">
-        <h2 id="redux-ecosystem---beispiele">Redux Ecosystem - Beispiele</h2>
+        <h2 id="asynchrone-actions">Asynchrone Actions</h2>
+<p>Asynchrone Actions betreffen beispielsweise HTTP-Anfragen oder das Abfragen von Caches oder indexedDB-Einträgen.</p>
+<p>Asynchrone Actions können in Redux mit <em>middleware</em> realisiert werden, z.B.:</p>
 <ul>
-<li>redux-logger</li>
-<li>redux-thunk: asynchrone Actions</li>
-<li>redux-saga: asynchrone Actions</li>
-<li>normalizr: normalisierte Struktur für state</li>
-<li>reselect: Performanceverbesserung via Memoisation</li>
-<li>redux-actions: Boilerplate-Reduktion (createAction, createReducer)</li>
-<li>immutable.js</li>
+<li><em>thunk</em></li>
+<li><em>saga</em></li>
 </ul>
-
-      </section><section class="slide" id="slide-5-3">
-        <h2 id="redux-middleware">Redux Middleware</h2>
-<ul>
-<li>kann zu einem Redux Store hinzugefügt werden</li>
-<li>Erweiterungspunkt / Eingriffspunkt zwischen dem Dispatchen einer Aktion und dem Zeitpunkt an dem sie beim Reducer eintrifft</li>
-</ul>
-
-      </section><section class="slide" id="slide-5-4">
-        <h2 id="redux-middleware---beispiele">Redux Middleware - Beispiele</h2>
-<ul>
-<li>Middleware, die eine action loggt (zB redux-logger)</li>
-<li>Middleware, die eine einzelne action erhält und basierend darauf verschiedene andere actions asynchron auslöst (zB redux-thunk)</li>
-</ul>
-
-      </section><section class="slide" id="slide-5-5">
-        <h2 id="redux-middleware---implementierung">Redux Middleware - Implementierung</h2>
-<pre><code class="language-js"><span class="hljs-keyword">const</span> myLogger = <span class="hljs-function"><span class="hljs-params">store</span> =&gt;</span> next =&gt; <span class="hljs-function"><span class="hljs-params">action</span> =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(action);
-  next(action);
-};</code></pre>
-
-      </section><section class="slide" id="slide-5-6">
-        <h2 id="redux-middleware---einbindung">Redux Middleware - Einbindung</h2>
-<pre><code class="language-ts"><span class="hljs-keyword">const</span> store = createStore(
-  rootReducer,
-  applyMiddleware(myLogger)
-);</code></pre>
-
-      </section><section class="slide" id="slide-5-7">
-        <h2 id="eigene-middleware---json-fetcher">Eigene Middleware - json fetcher</h2>
-<p>Beispielhafte Nutzung:</p>
-<pre><code class="language-js">dispatch({
-  <span class="hljs-attr">type</span>: <span class="hljs-string">'FETCH_JSON'</span>,
-  <span class="hljs-attr">payload</span>: {
-    <span class="hljs-attr">url</span>: <span class="hljs-string">'https://jsonplaceholder.typicode.com/todos'</span>,
-  },
-});</code></pre>
-
-      </section><section class="slide" id="slide-5-8">
-        <h2 id="eigene-middleware---json-fetcher">Eigene Middleware - json fetcher</h2>
-<p>Die action <code>FETCH_JSON</code> sollte im Hintergrund zwei einzelne actions dispatchen:</p>
-<ul>
-<li><code>FETCH_JSON_START</code></li>
-<li><code>FETCH_JSON_COMPLETE</code> (diese enthält auch JSON-daten als payload)</li>
-</ul>
-
-      </section><section class="slide" id="slide-5-9">
-        <h2 id="eigene-middleware---json-fetcher">Eigene Middleware - json fetcher</h2>
-<pre><code class="language-js"><span class="hljs-keyword">const</span> fetcher = <span class="hljs-function"><span class="hljs-params">store</span> =&gt;</span> next =&gt; <span class="hljs-function"><span class="hljs-params">action</span> =&gt;</span> {
-  <span class="hljs-keyword">if</span> (action.type === <span class="hljs-string">'FETCH_JSON'</span>) {
-    store.dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">'FETCH_JSON_START'</span> });
-    fetch(action.payload.url)
-      .then(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> response.json())
-      .then(<span class="hljs-function"><span class="hljs-params">parsedResponse</span> =&gt;</span> {
-        store.dispatch({
-          <span class="hljs-attr">type</span>: <span class="hljs-string">'FETCH_JSON_COMPLETE'</span>,
-          <span class="hljs-attr">requestedUrl</span>: url,
-          <span class="hljs-attr">response</span>: parsedResponse,
-        });
-      });
-  } <span class="hljs-keyword">else</span> {
-    next(action);
-  }
-};</code></pre>
-
-      </section><section class="slide" id="slide-5-10">
-        <h2 id="eigene-middleware---eine-funktion-dispatchen">Eigene Middleware - eine Funktion dispatchen</h2>
-<p>Wir wollen noch flexibler sein und eine Funktion dispatchen.</p>
-<p>Diese Funktion soll asynchrone Anfragen durchführen und weitere Actions dispatchen können.</p>
-
-      </section><section class="slide" id="slide-5-11">
-        <h2 id="eigene-middleware---eine-funktion-dispatchen">Eigene Middleware - eine Funktion dispatchen</h2>
-<pre><code class="language-js"><span class="hljs-keyword">const</span> functionMiddleware = <span class="hljs-function"><span class="hljs-params">store</span> =&gt;</span> next =&gt; <span class="hljs-function"><span class="hljs-params">action</span> =&gt;</span> {
-  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> action === <span class="hljs-string">'function'</span>) {
-    <span class="hljs-comment">// we pass dispatch to the action function</span>
-    <span class="hljs-comment">// so the action can call it</span>
-    <span class="hljs-keyword">return</span> action(store.dispatch);
-  } <span class="hljs-keyword">else</span> {
-    <span class="hljs-keyword">return</span> next(action);
-  }
-};</code></pre>
 
       </section></section><section class="section" id="section-6"><section class="slide" id="slide-6-1">
         <h1 id="redux-thunk">Redux Thunk</h1>
@@ -645,7 +560,104 @@ user.email = <span class="hljs-string">'johndoe@gmail.com'</span>;
 <p>Erstelle ein thunk, das Todos vom folgenden API lädt:</p>
 <p><code>https://jsonplaceholder.typicode.com/todos</code></p>
 
-      </section><section class="slide" id="slide-6-14">
+      </section></section><section class="section" id="section-7"><section class="slide" id="slide-7-1">
+        <h1 id="redux-ecosystem">Redux Ecosystem</h1>
+
+      </section><section class="slide" id="slide-7-2">
+        <h2 id="redux-ecosystem---beispiele">Redux Ecosystem - Beispiele</h2>
+<ul>
+<li>redux-logger</li>
+<li>redux-thunk: asynchrone Actions</li>
+<li>redux-saga: asynchrone Actions</li>
+<li>normalizr: normalisierte Struktur für state</li>
+<li>reselect: Performanceverbesserung via Memoisation</li>
+<li>redux-actions: Boilerplate-Reduktion (createAction, createReducer)</li>
+<li>immutable.js</li>
+</ul>
+
+      </section><section class="slide" id="slide-7-3">
+        <h2 id="redux-middleware">Redux Middleware</h2>
+<ul>
+<li>kann zu einem Redux Store hinzugefügt werden</li>
+<li>Erweiterungspunkt / Eingriffspunkt zwischen dem Dispatchen einer Aktion und dem Zeitpunkt an dem sie beim Reducer eintrifft</li>
+</ul>
+
+      </section><section class="slide" id="slide-7-4">
+        <h2 id="redux-middleware---beispiele">Redux Middleware - Beispiele</h2>
+<ul>
+<li>Middleware, die eine action loggt (zB redux-logger)</li>
+<li>Middleware, die eine einzelne action erhält und basierend darauf verschiedene andere actions asynchron auslöst (zB redux-thunk)</li>
+</ul>
+
+      </section><section class="slide" id="slide-7-5">
+        <h2 id="redux-middleware---implementierung">Redux Middleware - Implementierung</h2>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> myLogger = <span class="hljs-function"><span class="hljs-params">store</span> =&gt;</span> next =&gt; <span class="hljs-function"><span class="hljs-params">action</span> =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(action);
+  next(action);
+};</code></pre>
+
+      </section><section class="slide" id="slide-7-6">
+        <h2 id="redux-middleware---einbindung">Redux Middleware - Einbindung</h2>
+<pre><code class="language-ts"><span class="hljs-keyword">const</span> store = createStore(
+  rootReducer,
+  applyMiddleware(myLogger)
+);</code></pre>
+
+      </section><section class="slide" id="slide-7-7">
+        <h2 id="eigene-middleware---json-fetcher">Eigene Middleware - json fetcher</h2>
+<p>Beispielhafte Nutzung:</p>
+<pre><code class="language-js">dispatch({
+  <span class="hljs-attr">type</span>: <span class="hljs-string">'FETCH_JSON'</span>,
+  <span class="hljs-attr">payload</span>: {
+    <span class="hljs-attr">url</span>: <span class="hljs-string">'https://jsonplaceholder.typicode.com/todos'</span>,
+  },
+});</code></pre>
+
+      </section><section class="slide" id="slide-7-8">
+        <h2 id="eigene-middleware---json-fetcher">Eigene Middleware - json fetcher</h2>
+<p>Die action <code>FETCH_JSON</code> sollte im Hintergrund zwei einzelne actions dispatchen:</p>
+<ul>
+<li><code>FETCH_JSON_START</code></li>
+<li><code>FETCH_JSON_COMPLETE</code> (diese enthält auch JSON-daten als payload)</li>
+</ul>
+
+      </section><section class="slide" id="slide-7-9">
+        <h2 id="eigene-middleware---json-fetcher">Eigene Middleware - json fetcher</h2>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> fetcher = <span class="hljs-function"><span class="hljs-params">store</span> =&gt;</span> next =&gt; <span class="hljs-function"><span class="hljs-params">action</span> =&gt;</span> {
+  <span class="hljs-keyword">if</span> (action.type === <span class="hljs-string">'FETCH_JSON'</span>) {
+    store.dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">'FETCH_JSON_START'</span> });
+    fetch(action.payload.url)
+      .then(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> response.json())
+      .then(<span class="hljs-function"><span class="hljs-params">parsedResponse</span> =&gt;</span> {
+        store.dispatch({
+          <span class="hljs-attr">type</span>: <span class="hljs-string">'FETCH_JSON_COMPLETE'</span>,
+          <span class="hljs-attr">requestedUrl</span>: url,
+          <span class="hljs-attr">response</span>: parsedResponse,
+        });
+      });
+  } <span class="hljs-keyword">else</span> {
+    next(action);
+  }
+};</code></pre>
+
+      </section><section class="slide" id="slide-7-10">
+        <h2 id="eigene-middleware---eine-funktion-dispatchen">Eigene Middleware - eine Funktion dispatchen</h2>
+<p>Wir wollen noch flexibler sein und eine Funktion dispatchen.</p>
+<p>Diese Funktion soll asynchrone Anfragen durchführen und weitere Actions dispatchen können.</p>
+
+      </section><section class="slide" id="slide-7-11">
+        <h2 id="eigene-middleware---eine-funktion-dispatchen">Eigene Middleware - eine Funktion dispatchen</h2>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> functionMiddleware = <span class="hljs-function"><span class="hljs-params">store</span> =&gt;</span> next =&gt; <span class="hljs-function"><span class="hljs-params">action</span> =&gt;</span> {
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> action === <span class="hljs-string">'function'</span>) {
+    <span class="hljs-comment">// we pass dispatch to the action function</span>
+    <span class="hljs-comment">// so the action can call it</span>
+    <span class="hljs-keyword">return</span> action(store.dispatch);
+  } <span class="hljs-keyword">else</span> {
+    <span class="hljs-keyword">return</span> next(action);
+  }
+};</code></pre>
+
+      </section><section class="slide" id="slide-7-12">
         <h2 id="präsentation-taming-large-react-applications-w-redux">Präsentation: Taming Large React Applications w/ Redux</h2>
 <p><a href="https://slides.com/joelkanzelmeyer/taming-large-redux-apps">https://slides.com/joelkanzelmeyer/taming-large-redux-apps</a></p>
 
