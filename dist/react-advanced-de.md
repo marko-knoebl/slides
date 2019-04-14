@@ -40,6 +40,74 @@ const App = () => {
 };
 ```
 
+# Reducer Hook
+
+## State Managment & Reducer Hook
+
+In komplexeren Anwendungen macht es Sinn, den Anwendungszustand (model) von der Ansicht (view) zu trennen. Dies kann durch externe State Managment Libreries, wie _redux_, oder auch durch den sogenannten _reducer Hook_ erfolgen
+
+Oft wird der gesamte Anwendungszustand durch ein Datenmodell repräsentiert. Jede Änderung am Anwendungszustand läuft über das Datenmodell.
+
+## Reducer Hook
+
+Bei State Managment Tools geschieht jede Änderung am Anwendungszustand üblicherweise durch ein _Event_ / eine _Action_. Bei Verwendung des Reducer Hooks oder von Redux hat eine action üblicherweise einen _type_ und (optional) eine _payload_:
+
+```json
+{
+  "type": "ADD_TODO",
+  "payload": {
+    "title": "learn react"
+  }
+}
+```
+
+## reducer Hook
+
+State management mit Reducern:
+
+Beim _reducer Hook_ bzw _Redux_:
+
+Der Übergang von einem State auf den nächsten geschieht mittels einer Reducer-Funktion:
+
+Die Reducer-Funktion erhält als Funktionsparameter den alten Zustand (State) und eine Action, die eine Zustandsänderung beschreibt.
+
+Die Reducer-Funktion gibt den neuen Zustand zurück.
+
+## reducer Hook
+
+Der reducer Hook wird ähnlich eingebunden wie der state hook:
+
+Allgemein:
+
+```js
+const [state, dispatch] = useReducer(reducer, initialState);
+```
+
+Konkretes Beispiel count:
+
+```js
+const [count, countDispatch] = useReducer(countReducer, 0);
+```
+
+## reducer Hook
+
+```js
+const countReducer = (count, action) => {
+  switch (action.type) {
+    case 'INCREMENT':
+      return count + 1;
+    case 'DECREMENT':
+      return count - 1;
+    default:
+      throw new Error('unknown action');
+  }
+};
+```
+
+## reducer Hook
+
+Auslösen von Actions: wir rufen die `dispatch`-Funktion des Reducers mit der gewünschten Action als Parameter auf
+
 # Komponenten-Lebenszyklus
 
 ## Komponenten-Lebenszyklus
@@ -214,80 +282,6 @@ const Clock = () => {
 };
 ```
 
-# reducer Hook
-
-## reducer Hook
-
-In komplexeren Anwendungen macht es Sinn, den Anwendungszustand (model) von der Ansicht (view) zu trennen.
-
-Oft wird der gesamte Anwendungszustand durch ein Datenmodell repräsentiert. Jede Änderung am Anwendungszustand läuft über das Datenmodell.
-
-## reducer Hook
-
-Grundprinzipien von state management:
-
-- Anwendungszustand (state) wird in einem globalen Objekt gespeichert
-- _Jede_ Zustandsänderung wird durch eine _Action_ ausgelöst, die die Zustandsänderung genau beschreibt
-
-## reducer Hook
-
-Actions werden durch JavaScript Objekte repräsentiert:
-
-```json
-{ "type": "INCREMENT" }
-```
-
-```json
-{ "type": "DECREMENT" }
-```
-
-## reducer Hook
-
-State management mit Reducern:
-
-Beim _reducer Hook_ bzw _Redux_:
-
-Der Übergang von einem State auf den nächsten geschieht mittels einer Reducer-Funktion:
-
-Die Reducer-Funktion erhält als Funktionsparameter den alten Zustand (State) und eine Action, die eine Zustandsänderung beschreibt.
-
-Die Reducer-Funktion gibt den neuen Zustand zurück.
-
-## reducer Hook
-
-Der reducer Hook wird ähnlich eingebunden wie der state hook:
-
-Allgemein:
-
-```js
-const [state, dispatch] = useReducer(reducer, initialState);
-```
-
-Konkretes Beispiel count:
-
-```js
-const [count, countDispatch] = useReducer(countReducer, 0);
-```
-
-## reducer Hook
-
-```js
-const countReducer = (count, action) => {
-  switch (action.type) {
-    case 'INCREMENT':
-      return count + 1;
-    case 'DECREMENT':
-      return count - 1;
-    default:
-      throw new Error('unknown action');
-  }
-};
-```
-
-## reducer Hook
-
-Auslösen von Actions: wir rufen die `dispatch`-Funktion des Reducers mit der gewünschten Action als Parameter auf
-
 # Automatisiertes Testen
 
 ## Automatisiertes Testen
@@ -360,7 +354,7 @@ Manche Testlibraries können berichten, wie viel des Codes von Tests abgedeckt i
 Beispiel - in einem create-react-app Projekt:
 
 ```bash
-npm tst -- --coverage
+npm test -- --coverage
 ```
 
 ## Beispiel: shorten
@@ -431,6 +425,7 @@ assert (node):
 ```js
 assert.equal(a, b);
 assert.deepEqual(a, b);
+assert.throws(() => 1 / 0);
 // ...
 ```
 
@@ -438,33 +433,32 @@ assert (chai):
 
 ```js
 assert.equal(a, b);
+assert.deepEqual(a, b);
 assert.typeOf(foo, 'string');
 assert.lengthOf(foo, 3);
-assert.throws(() => {
-  1 / 0;
-});
+assert.throws(() => 1 / 0);
 ```
 
 ## Testen: assertions
 
-expect (jest):
+jest:
 
 ```js
-expect(4).toBeGreaterThan(3);
-expect(() => {
-  1 / 0;
-}).toThrow();
-expect(3).not.toEqual(4);
+expect(a).toEqual(4);
+expect(a).not.toEqual(2);
+expect(a).toBeGreaterThan(3);
+expect(a).toBeInstanceOf(Number);
+expect(() => 1 / 0).toThrow();
 ```
 
-expect (chai):
+chai:
 
 ```js
-expect(foo).to.be.a('string');
-expect(() => {
-  1 / 0;
-}).to.throw();
-expect(foo).to.equal('bar');
+expect(a).to.equal(4);
+expect(a).not.to.equal(2);
+expect(a).to.be.greaterThan(3);
+expect(a).to.be.a('number');
+expect(() => 1 / 0).to.throw();
 ```
 
 # Strukturierung von Tests
@@ -536,65 +530,107 @@ it('renders a component tree without crashing', () => {
 });
 ```
 
-## Enzyme - Beispiele
+## Enzyme - Cheatsheet
 
-Tests mit Jest
+https://devhints.io/enzyme
 
-```jsx
-it('renders three <Foo /> components', () => {
-  const wrapper = shallow(<MyComponent />);
-  expect(wrapper.find(Foo)).toHaveLength(3);
-});
+# Beispiel: Testen einer Rating-Komponente
 
-it('renders an `.icon-star`', () => {
-  const wrapper = shallow(<MyComponent />);
-  expect(wrapper.find('.icon-star')).toHaveLength(1);
+Mit jest und enzyme
+
+## Beispiel: Testen einer Rating-Komponente
+
+```tsx
+import React from 'react';
+import { shallow, mount } from 'enzyme';
+
+import Rating from './Rating';
+```
+
+## Beispiel: Testen einer Rating-Komponente
+
+```tsx
+describe('rendering', () => {
+  it('renders 5 Star components', () => {
+    const wrapper = shallow(<Rating stars={5} />);
+    expect(wrapper.find('Star')).toHaveLength(5);
+  });
+
+  it('renders 5 stars', () => {
+    const wrapper = mount(<Rating stars={5} />);
+    expect(wrapper.find('.star')).toHaveLength(5);
+  });
 });
 ```
 
-## Enzyme - Beispiele
+## Beispiel: Testen einer Rating-Komponente
 
-Tests mit Chai
-
-```jsx
-it('reacts to click events', () => {
-  const onButtonClick = sinon.spy();
-  const wrapper = shallow(
-    <Foo onButtonClick={onButtonClick} />
-  );
-  wrapper.find('button').simulate('click');
-  expect(onButtonClick).to.have.property('callCount', 1);
+```tsx
+describe('rendering', () => {
+  it('renders 3 active stars', () => {
+    const wrapper = mount(<Rating stars={3} />);
+    expect(wrapper.find('.star')).toHaveLength(5);
+    expect(
+      wrapper.find('.star').get(2).props.className
+    ).toEqual('star active');
+    expect(
+      wrapper.find('.star').get(3).props.className
+    ).toEqual('star');
+  });
 });
 ```
 
-## Enzyme - Beispiele
+## Beispiel: Testen einer Rating-Komponente
 
-<!-- prettier-ignore -->
-```jsx
-it('reacts to click events', () => {
-  const mockFunction = jest.fn();
-
-  const wrapper = mount(
-    <Rating stars={3} onStarsChange={mockFunction} />
-  );
-  expect(
-    wrapper.childAt(0).childAt(2).text()
-  ).toBe('*');
-  wrapper.childAt(0).childAt(1).simulate('click');
-  expect(mockFunction).toBeCalledWith(2);
+```tsx
+describe('events', () => {
+  it('reacts to click on first star', () => {
+    const mockFn = fn();
+    const wrapper = mount(
+      <Rating stars={3} onStarsChange={mockFn} />
+    );
+    wrapper
+      .find('span')
+      .at(0)
+      .simulate('click');
+    expect(mockFn.mock.calls[0][0]).toEqual(1);
+  });
 });
 ```
 
-## Enzyme - Examples
+## Beispiel: Testen einer Rating-Komponente
 
-```jsx
-it('changes state when clicked', () => {
-  const wrapper = shallow(<Counter />);
-  expect(wrapper.instance.state.count).toEqual(0);
-  wrapper.childAt(0).simulate('click');
-  expect(wrapper.instance.state.count).toEqual(1);
+Testen einer (hypothetischen) Rating-Komponente, die ihren eigenen internen State hat:
+
+```tsx
+describe('events', () => {
+  it('reacts to click on first star', () => {
+    const wrapper = mount(<Rating />);
+    wrapper
+      .find('span')
+      .at(0)
+      .simulate('click');
+    expect(wrapper.instance.state.count).toEqual(1);
+  });
 });
 ```
+
+## Beispiel: Testen einer Rating-Komponente
+
+```tsx
+describe('errors', () => {
+  it('throws an error if the number of stars is 0', () => {
+    const testFn = () => {
+      const wrapper = shallow(<Rating stars={0} />);
+    };
+    expect(testFn).toThrow(
+      'number of stars must be positive'
+    );
+  });
+});
+```
+
+# Snapshot Tests
 
 ## Snapshot Tests
 
@@ -602,7 +638,7 @@ Komponenten werden gerendert und mit früheren Versionen (Snapshots) verglichen
 
 Snapshot Tests fallen unter Regressionstests.
 
-## Snapshot Tests - setup
+## Snapshot Tests - Setup
 
 ```bash
 npm install --save-dev react-test-renderer
@@ -632,92 +668,11 @@ it('renders correctly', () => {
 
 ## Snapshot Tests aktualisieren
 
-Haben wir das Verhalten einer Komponente geändert und danach ihr Verhalten überprüft,
-können wir Snapshot-Tests entsprechend aktualisieren:
+Haben wir das Verhalten einer Komponente geändert und danach ihr Verhalten überprüft, können wir Snapshot-Tests entsprechend aktualisieren:
 
 ```txt
 2 snapshot tests failed in 1 test suite.
 Inspect your code changes or press `u` to update them.
-```
-
-# Beispiel: Testen einer Rating-Komponente
-
-Mit Jest, Enzyme, Chai und Sinon
-
-## Beispiel: Testen einer Rating-Komponente
-
-```tsx
-import React from 'react';
-import { shallow, mount } from 'enzyme';
-import { expect } from 'chai';
-import sinon from 'sinon';
-import Rating from './Rating';
-```
-
-## Beispiel: Testen einer Rating-Komponente
-
-```tsx
-describe('rendering', () => {
-  it('renders 5 Star components', () => {
-    const wrapper = shallow(<Rating stars={5} />);
-    expect(wrapper.find('Star')).to.have.length(5);
-  });
-
-  it('renders 5 stars', () => {
-    const wrapper = mount(<Rating stars={5} />);
-    expect(wrapper.find('.star')).to.have.length(5);
-  });
-});
-```
-
-## Beispiel: Testen einer Rating-Komponente
-
-```tsx
-describe('rendering', () => {
-  it('renders 3 active stars', () => {
-    const wrapper = mount(<Rating stars={3} />);
-    expect(wrapper.find('.star')).to.have.length(5);
-    expect(
-      wrapper.find('.star').get(2).props.className
-    ).to.equal('star active');
-    expect(
-      wrapper.find('.star').get(3).props.className
-    ).to.equal('star');
-  });
-});
-```
-
-## Beispiel: Testen einer Rating-Komponente
-
-```tsx
-describe('events', () => {
-  it('reacts to click on first star', () => {
-    const spy = sinon.spy();
-    const wrapper = mount(
-      <Rating stars={3} onStarsChange={spy} />
-    );
-    wrapper
-      .find('span')
-      .at(0)
-      .simulate('click');
-    expect(spy.getCall(0).args[0]).to.equal(1);
-  });
-});
-```
-
-## Beispiel: Testen einer Rating-Komponente
-
-```tsx
-describe('errors', () => {
-  it('throws an error if the number of stars is 0', () => {
-    const testFn = () => {
-      const wrapper = shallow(<Rating stars={0} />);
-    };
-    expect(testFn).to.throw(
-      'number of stars must be positive'
-    );
-  });
-});
 ```
 
 # React Router
@@ -740,7 +695,7 @@ npm install react-router-dom @types/react-router-dom
 ## React Router - BrowserRouter
 
 Um React Router verwenden zu können:  
-Ganze Anwendung wird mit einem < BrowserRouter > - Tag umschlossen
+Ganze Anwendung von einem `BrowserRouter` - Tag umschlossen
 
 ```js
 import { BrowserRouter } from 'react-router-dom';
@@ -756,9 +711,9 @@ import { BrowserRouter } from 'react-router-dom';
 ```js
 import { Route } from 'react-router-dom';
 
-<Route path="/about" component={About} />
-<Route path="/" exact component={List} />
-<Route path="/add" component={AddTodo} />
+<Route path="/" exact component={TodoList} />
+<Route path="/about" exact component={About} />
+<Route path="/add" exact component={AddTodo} />
 ```
 
 ## React Router - Routen definieren
@@ -786,6 +741,19 @@ import { NavLink } from 'react-router-dom';
 <NavLink to="/add" activeClassName="active-link">Add</Link>
 ```
 
+## React Router - Switch
+
+Nur die erste zutreffende Route wird angezeigt
+
+```jsx
+import { Switch } from 'react-router-dom';
+
+<Switch>
+  <Route path="/todos/:todoId" component={Todo} />
+  <Route path="/" component={NotFound} />
+</Switch>;
+```
+
 ## React Router - Redirects
 
 ```jsx
@@ -810,26 +778,13 @@ import { Redirect } from 'react-router';
 
 Routenparameter sind unter _props.match.params_ abzurufen
 
-## React Router - Switch
-
-Nur die erste zutreffende Route wird angezeigt
-
-```jsx
-import { Switch } from 'react-router-dom';
-
-<Switch>
-  <Route path="/todos/:todoId" component={Todo} />
-  <Route path="/" component={NotFound} />
-</Switch>;
-```
-
 # PWAs
 
 Progressive Web Apps mit React
 
 ## PWAs
 
-Progressive Web Apps: Möglichkeit, Anwendungen für Mobilgeräte und PCs mit HTML, CSS und JavaScript zu schreiben
+**Progressive Web Apps**: Möglichkeit, Anwendungen für Mobilgeräte und PCs mit HTML, CSS und JavaScript zu schreiben
 
 Mit `create-react-app` erstellte Anwendungen bieten dafür schon die Grundvoraussetzungen:
 
@@ -893,7 +848,7 @@ handleInstallBtnClicked = () => {
 
 - `npm run build`
 - dist-Ornder via drag&drop auf app.netlify.com/drop
-- Manuell auf https wechseln - in Chrome am Desktop und Mobilgerät ausprobieren
+- Manuell auf HTTPS wechseln - in Chrome am Desktop und Mobilgerät ausprobieren
 
 # Context
 

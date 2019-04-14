@@ -1,12 +1,14 @@
 # Reducer hook
 
-## Reducer hook
+## State managment & reducer hook
 
 In complex components / applications it makes sense to separate the state (model) from the view. This can happen via external state management libraries like _redux_ or, in simple cases, via the reducer hook.
 
+Often the entire application state is contained in a data model. Each change to the application state is done via that data model.
+
 ## Reducer hook
 
-In state management tools each state change happens through an _event_ - which is usually a simple JavaScript object:
+In state management tools each state change usually happens through an _event_ or _action_; With the reducer hook or Redux an action usually has a _type_ and (optionally) a _payload_:
 
 ```json
 {

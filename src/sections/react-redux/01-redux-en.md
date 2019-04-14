@@ -8,11 +8,6 @@ In more complex fontend-applications it makes sense to manage the state (model) 
 
 Often the entire application state is represented by a data model and every change to the state will be done by triggering a change to the data model.
 
-## Basic principles of state management libraries
-
-- application state is stored in a global object
-- _every_ state change is triggered by an _action_, which describes the change in detail
-
 ## State management tools
 
 - Redux (commonly used with React)
@@ -117,4 +112,31 @@ rootStore.getState();
 
 rootStore.dispatch({ type: 'INCREMENT' });
 // {a: {count: 1}, b: {number: 1}}
+```
+
+## Redux devtools
+
+Browser plugin:
+
+https://github.com/zalmoxisus/redux-devtools-extension
+
+## Redux devtools
+
+include via:
+
+```js
+import {
+  createStore,
+  applyMiddleware,
+  compose,
+} from 'redux';
+
+// typescript: (window as any)
+const composeEnhancers =
+  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const store = createStore(
+  reducer,
+  composeEnhancers(applyMiddleware())
+);
 ```

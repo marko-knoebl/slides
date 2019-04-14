@@ -77,6 +77,10 @@ Marko Knöbl
 - Datenfluss via Properties und Events
 - Üblicherweise unidirektionaler Datenfluss (vom Eltern- zum Kindelement)
 
+## Beispiel: Datenmodell und -fluss in einer Todo-App
+
+<img src="assets/todo-components-datamodel.svg" type="text/svg" style="width: 300px">
+
 ## Was macht React besonders?
 
 - JavaScript-basierte Template-Syntax
@@ -88,10 +92,6 @@ Marko Knöbl
 - Open Source seit 2013
 - Aktuelle Major Version: React 16 (September 2017)
 - Februar 2019: Einführung von Hooks
-
-## Beispiel: Datenmodell und -fluss in einer Todo-App
-
-<img src="assets/todo-components-datamodel.svg" type="text/svg" style="width: 300px">
 
 # Create-React-App
 
@@ -704,9 +704,9 @@ const App = () => {
 
 Aufgabe: füge zur Anwendung von eben einen _Reset_-Knopf hinzu
 
-## Beispiel: Diashow
+## Beispiel: Slideshow
 
-Diashow, die Bilder wie das folgende anzeigt:
+Slideshow, die Bilder wie das folgende anzeigt:
 
 `https://picsum.photos/200?image=10`
 
@@ -716,7 +716,7 @@ Diashow, die Bilder wie das folgende anzeigt:
 
 ## State in Klassenkomponenten
 
-In Klassenkomponenten repräsentiert `this.state` den State.
+In Klassenkomponenten repräsentiert `this.state` den Zustand.
 
 `this.state` ist immer ein JavaScript-Objekt mit verschiedenen Einträgen (Properties)
 
@@ -1022,6 +1022,11 @@ Um sie von normalen Tags zu unterscheiden, beginnen Komponentennamen immer mit e
 - State = interner Zustand einer Komponente
 - Props = vom Elternelement übergebene Parameter
 
+## Komponentendefinition
+
+- Klassenkomponenten
+- Funktionale Komponenten
+
 ## Funktionale Komponenten
 
 Beispiel:
@@ -1053,11 +1058,6 @@ export class Rating extends Component {
   }
 }
 ```
-
-## Komponentendefinition: Beispiele
-
-- `PlayingCard` - Komponente
-- `RomanNumber` - Komponente
 
 ## Datenfluss
 

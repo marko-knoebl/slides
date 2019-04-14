@@ -6,7 +6,7 @@
 
 - Overview of React
 - Modern JS / JS-Basics for React
-- Declarative Rendering / Working with application state
+- Declarative rendering / Working with application state
 - Components
 - Using predefined Components
 
@@ -16,6 +16,6 @@
 
 - Lifecycle
 - Routing
-- Testing Components
+- Testing components
 - Redux
 - Progressive Web Apps with React

@@ -1,14 +1,13 @@
 # Beispiel: Testen einer Rating-Komponente
 
-Mit Jest, Enzyme, Chai und Sinon
+Mit jest und enzyme
 
 ## Beispiel: Testen einer Rating-Komponente
 
 ```tsx
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { expect } from 'chai';
-import sinon from 'sinon';
+
 import Rating from './Rating';
 ```
 
@@ -18,12 +17,12 @@ import Rating from './Rating';
 describe('rendering', () => {
   it('renders 5 Star components', () => {
     const wrapper = shallow(<Rating stars={5} />);
-    expect(wrapper.find('Star')).to.have.length(5);
+    expect(wrapper.find('Star')).toHaveLength(5);
   });
 
   it('renders 5 stars', () => {
     const wrapper = mount(<Rating stars={5} />);
-    expect(wrapper.find('.star')).to.have.length(5);
+    expect(wrapper.find('.star')).toHaveLength(5);
   });
 });
 ```
@@ -34,13 +33,13 @@ describe('rendering', () => {
 describe('rendering', () => {
   it('renders 3 active stars', () => {
     const wrapper = mount(<Rating stars={3} />);
-    expect(wrapper.find('.star')).to.have.length(5);
+    expect(wrapper.find('.star')).toHaveLength(5);
     expect(
       wrapper.find('.star').get(2).props.className
-    ).to.equal('star active');
+    ).toEqual('star active');
     expect(
       wrapper.find('.star').get(3).props.className
-    ).to.equal('star');
+    ).toEqual('star');
   });
 });
 ```
@@ -50,15 +49,32 @@ describe('rendering', () => {
 ```tsx
 describe('events', () => {
   it('reacts to click on first star', () => {
-    const spy = sinon.spy();
+    const mockFn = fn();
     const wrapper = mount(
-      <Rating stars={3} onStarsChange={spy} />
+      <Rating stars={3} onStarsChange={mockFn} />
     );
     wrapper
       .find('span')
       .at(0)
       .simulate('click');
-    expect(spy.getCall(0).args[0]).to.equal(1);
+    expect(mockFn.mock.calls[0][0]).toEqual(1);
+  });
+});
+```
+
+## Beispiel: Testen einer Rating-Komponente
+
+Testen einer (hypothetischen) Rating-Komponente, die ihren eigenen internen State hat:
+
+```tsx
+describe('events', () => {
+  it('reacts to click on first star', () => {
+    const wrapper = mount(<Rating />);
+    wrapper
+      .find('span')
+      .at(0)
+      .simulate('click');
+    expect(wrapper.instance.state.count).toEqual(1);
   });
 });
 ```
@@ -71,7 +87,7 @@ describe('errors', () => {
     const testFn = () => {
       const wrapper = shallow(<Rating stars={0} />);
     };
-    expect(testFn).to.throw(
+    expect(testFn).toThrow(
       'number of stars must be positive'
     );
   });

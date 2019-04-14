@@ -1,28 +1,22 @@
-# reducer Hook
+# Reducer Hook
 
-## reducer Hook
+## State Managment & Reducer Hook
 
-In komplexeren Anwendungen macht es Sinn, den Anwendungszustand (model) von der Ansicht (view) zu trennen.
+In komplexeren Anwendungen macht es Sinn, den Anwendungszustand (model) von der Ansicht (view) zu trennen. Dies kann durch externe State Managment Libreries, wie _redux_, oder auch durch den sogenannten _reducer Hook_ erfolgen
 
 Oft wird der gesamte Anwendungszustand durch ein Datenmodell repräsentiert. Jede Änderung am Anwendungszustand läuft über das Datenmodell.
 
-## reducer Hook
+## Reducer Hook
 
-Grundprinzipien von state management:
-
-- Anwendungszustand (state) wird in einem globalen Objekt gespeichert
-- _Jede_ Zustandsänderung wird durch eine _Action_ ausgelöst, die die Zustandsänderung genau beschreibt
-
-## reducer Hook
-
-Actions werden durch JavaScript Objekte repräsentiert:
+Bei State Managment Tools geschieht jede Änderung am Anwendungszustand üblicherweise durch ein _Event_ / eine _Action_. Bei Verwendung des Reducer Hooks oder von Redux hat eine action üblicherweise einen _type_ und (optional) eine _payload_:
 
 ```json
-{ "type": "INCREMENT" }
-```
-
-```json
-{ "type": "DECREMENT" }
+{
+  "type": "ADD_TODO",
+  "payload": {
+    "title": "learn react"
+  }
+}
 ```
 
 ## reducer Hook

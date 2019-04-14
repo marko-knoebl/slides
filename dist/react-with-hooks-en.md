@@ -39,7 +39,7 @@ Marko Knöbl
 
 - Overview of React
 - Modern JS / JS-Basics for React
-- Declarative Rendering / Working with application state
+- Declarative rendering / Working with application state
 - Components
 - Using predefined Components
 
@@ -49,7 +49,7 @@ Marko Knöbl
 
 - Lifecycle
 - Routing
-- Testing Components
+- Testing components
 - Redux
 - Progressive Web Apps with React
 
@@ -75,6 +75,10 @@ Marko Knöbl
 - data flow via props and events
 - usually unidirectional dataflow (from parent to child)
 
+## Example: data model and data flow in a Todo app
+
+<img src="assets/todo-components-datamodel.svg" type="text/svg" style="width: 300px">
+
 ## What makes React special?
 
 - JavaScript-based template syntax
@@ -86,10 +90,6 @@ Marko Knöbl
 - open source since 2013
 - current major version: React 16 (September 2017)
 - February 2019: introction of hooks
-
-## Example: data model and data flow in a Todo app
-
-<img src="assets/todo-components-datamodel.svg" type="text/svg" style="width: 300px">
 
 # Create-React-App
 
@@ -630,7 +630,7 @@ implement a slideshow that shows images like the following:
 
 In class components, `this.state` represents the state.
 
-`this.state` is always a JavaScript object with properties
+`this.state` is always a JavaScript object which can have varois entries (properties)
 
 State changes happen via `this.setState()`
 
@@ -654,7 +654,6 @@ only via `setState()`:
 
 ```js
 this.setState({ loggedIn: false });
-this.setState({ todos: ['learn react'] });
 ```
 
 `setState` will change all specified entries
@@ -670,7 +669,7 @@ this.setState(oldState => ({ count: oldState.count + 1 }));
 this.setState(oldState => ({ count: oldState.count + 1 }));
 ```
 
-We pass a function to `setState`. This function will transform the old state into the new state.
+Pass a function to `setState`. This function will transform the old state into the new state.
 
 # JSX in detail
 
@@ -786,7 +785,7 @@ import styles from './TodoItem.module.scss';
 $primary: lightblue;
 ```
 
-## JSX: dynamic style
+## JSX: dynamic styles
 
 ```jsx
 <div
@@ -969,11 +968,6 @@ export class Rating extends Component {
   }
 }
 ```
-
-## component defintion: examples
-
-- `PlayingCard` component
-- `RomanNumber` component
 
 ## data/event flow
 

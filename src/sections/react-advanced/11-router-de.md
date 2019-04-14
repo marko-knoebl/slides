@@ -18,7 +18,7 @@ npm install react-router-dom @types/react-router-dom
 ## React Router - BrowserRouter
 
 Um React Router verwenden zu können:  
-Ganze Anwendung wird mit einem < BrowserRouter > - Tag umschlossen
+Ganze Anwendung von einem `BrowserRouter` - Tag umschlossen
 
 ```js
 import { BrowserRouter } from 'react-router-dom';
@@ -34,9 +34,9 @@ import { BrowserRouter } from 'react-router-dom';
 ```js
 import { Route } from 'react-router-dom';
 
-<Route path="/about" component={About} />
-<Route path="/" exact component={List} />
-<Route path="/add" component={AddTodo} />
+<Route path="/" exact component={TodoList} />
+<Route path="/about" exact component={About} />
+<Route path="/add" exact component={AddTodo} />
 ```
 
 ## React Router - Routen definieren
@@ -64,6 +64,19 @@ import { NavLink } from 'react-router-dom';
 <NavLink to="/add" activeClassName="active-link">Add</Link>
 ```
 
+## React Router - Switch
+
+Nur die erste zutreffende Route wird angezeigt
+
+```jsx
+import { Switch } from 'react-router-dom';
+
+<Switch>
+  <Route path="/todos/:todoId" component={Todo} />
+  <Route path="/" component={NotFound} />
+</Switch>;
+```
+
 ## React Router - Redirects
 
 ```jsx
@@ -87,16 +100,3 @@ import { Redirect } from 'react-router';
 ```
 
 Routenparameter sind unter _props.match.params_ abzurufen
-
-## React Router - Switch
-
-Nur die erste zutreffende Route wird angezeigt
-
-```jsx
-import { Switch } from 'react-router-dom';
-
-<Switch>
-  <Route path="/todos/:todoId" component={Todo} />
-  <Route path="/" component={NotFound} />
-</Switch>;
-```

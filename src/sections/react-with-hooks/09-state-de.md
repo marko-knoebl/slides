@@ -55,9 +55,9 @@ const App = () => {
 
 Aufgabe: füge zur Anwendung von eben einen _Reset_-Knopf hinzu
 
-## Beispiel: Diashow
+## Beispiel: Slideshow
 
-Diashow, die Bilder wie das folgende anzeigt:
+Slideshow, die Bilder wie das folgende anzeigt:
 
 `https://picsum.photos/200?image=10`
 
@@ -67,7 +67,7 @@ Diashow, die Bilder wie das folgende anzeigt:
 
 ## State in Klassenkomponenten
 
-In Klassenkomponenten repräsentiert `this.state` den State.
+In Klassenkomponenten repräsentiert `this.state` den Zustand.
 
 `this.state` ist immer ein JavaScript-Objekt mit verschiedenen Einträgen (Properties)
 

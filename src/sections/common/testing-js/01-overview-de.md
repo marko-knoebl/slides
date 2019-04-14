@@ -70,7 +70,7 @@ Manche Testlibraries können berichten, wie viel des Codes von Tests abgedeckt i
 Beispiel - in einem create-react-app Projekt:
 
 ```bash
-npm tst -- --coverage
+npm test -- --coverage
 ```
 
 ## Beispiel: shorten

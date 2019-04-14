@@ -20,6 +20,10 @@
 - data flow via props and events
 - usually unidirectional dataflow (from parent to child)
 
+## Example: data model and data flow in a Todo app
+
+<img src="assets/todo-components-datamodel.svg" type="text/svg" style="width: 300px">
+
 ## What makes React special?
 
 - JavaScript-based template syntax
@@ -31,7 +35,3 @@
 - open source since 2013
 - current major version: React 16 (September 2017)
 - February 2019: introction of hooks
-
-## Example: data model and data flow in a Todo app
-
-<img src="assets/todo-components-datamodel.svg" type="text/svg" style="width: 300px">

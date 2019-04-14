@@ -112,7 +112,7 @@ import styles from './TodoItem.module.scss';
 $primary: lightblue;
 ```
 
-## JSX: dynamic style
+## JSX: dynamic styles
 
 ```jsx
 <div

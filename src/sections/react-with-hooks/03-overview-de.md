@@ -20,6 +20,10 @@
 - Datenfluss via Properties und Events
 - Üblicherweise unidirektionaler Datenfluss (vom Eltern- zum Kindelement)
 
+## Beispiel: Datenmodell und -fluss in einer Todo-App
+
+<img src="assets/todo-components-datamodel.svg" type="text/svg" style="width: 300px">
+
 ## Was macht React besonders?
 
 - JavaScript-basierte Template-Syntax
@@ -31,7 +35,3 @@
 - Open Source seit 2013
 - Aktuelle Major Version: React 16 (September 2017)
 - Februar 2019: Einführung von Hooks
-
-## Beispiel: Datenmodell und -fluss in einer Todo-App
-
-<img src="assets/todo-components-datamodel.svg" type="text/svg" style="width: 300px">

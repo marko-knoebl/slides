@@ -56,3 +56,32 @@ user.email = 'johndoe@gmail.com';
 // stattedessen: Erzeugen eines neuen Objekts:
 let newUser = { ...user, email: 'johndoe@gmail.com' };
 ```
+
+## immutable.js
+
+**immutable.js** ist eine Library, die das Arbeiten ohne Mutationen noch erleichtert
+
+Immutable.js bietet insbesondere die Datenstrukturen _List_ und _Map_, die als unveränderliche Alternativen zu _Array_ und _Object_ dienen können.
+
+```js
+import { List, Map } from 'immutable';
+
+const a1 = List([1, 2, 3]);
+const a2 = a1.push(4);
+
+const b1 = Map({ a: 1, b: 2 });
+const b2 = b1.set('b', null);
+```
+
+## immutable.js
+
+```js
+import { fromJS, setIn } from 'immutable';
+
+const todos = fromJS([
+  { id: 1, title: 'groceries', completed: false },
+  { id: 2, title: 'gardening', completed: false },
+]);
+
+const newTodos = todos.setIn([1, 'completed'], true);
+```

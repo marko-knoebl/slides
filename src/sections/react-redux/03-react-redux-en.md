@@ -32,33 +32,6 @@ ReactDOM.render(
 );
 ```
 
-## Redux devtools
-
-Browser-plugin:
-
-https://github.com/zalmoxisus/redux-devtools-extension
-
-## Redux devtools
-
-include via:
-
-```js
-import {
-  createStore,
-  applyMiddleware,
-  compose,
-} from 'redux';
-
-// typescript: (window as any)
-const composeEnhancers =
-  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
-const store = createStore(
-  reducer,
-  composeEnhancers(applyMiddleware())
-);
-```
-
 ## Counter: Connect
 
 connect: connects React components to the Redux store

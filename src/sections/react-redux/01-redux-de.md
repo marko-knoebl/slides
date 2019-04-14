@@ -8,12 +8,7 @@ In komplexeren Anwendungen macht es Sinn, den Anwendungszustand (model) von der 
 
 Oft wird der gesamte Anwendungszustand durch ein Datenmodell repräsentiert. Jede Änderung am Anwendungszustand läuft über das Datenmodell.
 
-## Grundprinzipien von state management libraries
-
-- Anwendungszustand (state) wird in globalem Objekt gespeichert
-- _Jede_ Zustandsänderung wird durch eine _Action_ ausgelöst, die die Zustandsänderung genau beschreibt
-
-## State management libraries
+## State management Tools
 
 - Redux (oft mit React verwendet)
 - reducer Hook (in React beinhaltet, ähnlich zu Redux)
@@ -118,4 +113,31 @@ rootStore.getState();
 
 rootStore.dispatch({ type: 'INCREMENT' });
 // {counter: {count: 1}, mathador: {number: 1}}
+```
+
+## Redux devtools
+
+Browser-plugin:
+
+https://github.com/zalmoxisus/redux-devtools-extension
+
+## Redux devtools
+
+einbinden:
+
+```js
+import {
+  createStore,
+  applyMiddleware,
+  compose,
+} from 'redux';
+
+// typescript: (window as any)
+const composeEnhancers =
+  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const store = createStore(
+  reducer,
+  composeEnhancers(applyMiddleware())
+);
 ```

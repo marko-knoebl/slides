@@ -8,11 +8,6 @@ In more complex fontend-applications it makes sense to manage the state (model) 
 
 Often the entire application state is represented by a data model and every change to the state will be done by triggering a change to the data model.
 
-## Basic principles of state management libraries
-
-- application state is stored in a global object
-- _every_ state change is triggered by an _action_, which describes the change in detail
-
 ## State management tools
 
 - Redux (commonly used with React)
@@ -119,6 +114,90 @@ rootStore.dispatch({ type: 'INCREMENT' });
 // {a: {count: 1}, b: {number: 1}}
 ```
 
+## Redux devtools
+
+Browser plugin:
+
+https://github.com/zalmoxisus/redux-devtools-extension
+
+## Redux devtools
+
+include via:
+
+```js
+import {
+  createStore,
+  applyMiddleware,
+  compose,
+} from 'redux';
+
+// typescript: (window as any)
+const composeEnhancers =
+  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const store = createStore(
+  reducer,
+  composeEnhancers(applyMiddleware())
+);
+```
+
+# Immutability
+
+## Immutability
+
+important concept in functional programing and with React / Redux
+
+## Immutability
+
+When using Redux or React's PureComponent:
+
+Objects that describe the application state must not be modified directly
+
+Instead, these objects should be replaced by new, derived objects
+
+Advantages: increased performance, more possibilities when it comes to debugging
+
+## PureComponent
+
+Instead of `Component` we can inherit from `PureComponent`:
+
+The component will onl be rerendered if either state or props have changed
+
+Entries in state or props are considered to have changed only if they refer to a different object than before
+
+## Data management without mutations
+
+## Data management without mutations: Arrays
+
+```js
+let names = ['Alice', 'Bob', 'Charlie'];
+// invalid: modifies the original array
+names.push('Dan');
+
+// instead: new array
+let newNames = names.slice();
+newNames.push('Dan');
+// overwrite the original
+names = newNames;
+
+// or:
+names = [...names, 'Dan'];
+```
+
+## Data management without mutations: Objects
+
+```js
+let user = {
+  name: 'john'
+  email: 'john@doe.com'
+}
+// invalid: modifies the object
+user.email = 'johndoe@gmail.com';
+
+// instead: create a new object
+let newUser = { ...user, email: 'johndoe@gmail.com' };
+```
+
 # React with Redux
 
 ## React with Redux
@@ -150,33 +229,6 @@ ReactDOM.render(
   <Provider store={myStore}>
     <App/>
   </Provider>
-);
-```
-
-## Redux devtools
-
-Browser-plugin:
-
-https://github.com/zalmoxisus/redux-devtools-extension
-
-## Redux devtools
-
-include via:
-
-```js
-import {
-  createStore,
-  applyMiddleware,
-  compose,
-} from 'redux';
-
-// typescript: (window as any)
-const composeEnhancers =
-  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
-const store = createStore(
-  reducer,
-  composeEnhancers(applyMiddleware())
 );
 ```
 
@@ -253,63 +305,6 @@ const mapDispatchToProps = (
 ## Redux with TypeScript
 
 see https://github.com/piotrwitek/react-redux-typescript-guide
-
-# Immutability
-
-## Immutability
-
-important concept in functional programing and with React / Redux
-
-## Immutability
-
-When using Redux or React's PureComponent:
-
-Objects that describe the application state must not be modified directly
-
-Instead, these objects should be replaced by new, derived objects
-
-Advantages: increased performance, more possibilities when it comes to debugging
-
-## PureComponent
-
-Instead of `Component` we can inherit from `PureComponent`:
-
-The component will onl be rerendered if either state or props have changed
-
-Entries in state or props are considered to have changed only if they refer to a different object than before
-
-## Data management without mutations
-
-## Data management without mutations: Arrays
-
-```js
-let names = ['Alice', 'Bob', 'Charlie'];
-// invalid: modifies the original array
-names.push('Dan');
-
-// instead: new array
-let newNames = names.slice();
-newNames.push('Dan');
-// overwrite the original
-names = newNames;
-
-// or:
-names = [...names, 'Dan'];
-```
-
-## Data management without mutations: Objects
-
-```js
-let user = {
-  name: 'john'
-  email: 'john@doe.com'
-}
-// invalid: modifies the object
-user.email = 'johndoe@gmail.com';
-
-// instead: create a new object
-let newUser = { ...user, email: 'johndoe@gmail.com' };
-```
 
 # Redux in detail
 
@@ -511,6 +506,128 @@ create a thunk that will load example todos from `https://jsonplaceholder.typico
 create a thunk that will load example todos from `https://5qn401kkl9.lp.gql.zone/graphql`
 
 (admin: https://launchpad.graphql.com/5qn401kkl9)
+
+# Iterables, iterators and generators
+
+## Iterables
+
+Iterable = object which can be iterated over via `for ... of`
+
+Examples: Arrays, Iterators
+
+Iterables define a Method under the symbol `Symbol.iterator`
+
+## Iterators
+
+Superficially: An iterator is a particular object that can be iterated over via `for (let item of iterator)`.
+
+More precisely: An iterator is a particular object that has a method named `next`.
+
+Iterators can be created in various ways.
+
+## Generator functions
+
+A generator function is one way to to create an iterator. A generator function can be entered an left repeatedly. It will remember its state in the meantime.
+
+## Generator functions
+
+A generator function is defined with the keyword `function*`. Instead of `return` statements it will usually contain `yield` statements.
+
+## Generator functions
+
+Example:
+
+```js
+function* countTo100() {
+  let i = 1;
+  while (i <= 100) {
+    yield i;
+    i++;
+  }
+}
+```
+
+## Generator functions
+
+usage:
+
+```js
+for (let i of countTo100()) {
+  console.log(i);
+}
+```
+
+```js
+const c = countTo100();
+const firstEnetry = c.next();
+console.log(firstEntry.value);
+const secondEntry = c.next();
+console.log(secondEntry.value);
+```
+
+# Redux Saga
+
+## Redux Saga
+
+Like Thunk, Saga is a middleware that enables asynchronous behaviour in Redux
+
+## Installation
+
+```bash
+npm install redux-saga
+```
+
+## Including Saga Middleware
+
+```js
+import createSagaMiddleWare from 'redux-saga';
+
+const sagaMiddleware = createSagaMiddleware();
+
+const store = createStore(
+  rootReducer,
+  applyMiddleware(sagaMiddleWare)
+);
+```
+
+## Running a Saga
+
+A saga is like a separate thread in our application that is responsible for side effects.
+
+```js
+import todoSaga from './todosaga';
+
+sagaMiddleWare.run(todoSaga);
+```
+
+## Defining a Saga
+
+Sagas are defined as generators; they can connect specific actions to functions which can in turn dispatch other actions
+
+```js
+import { takeEvery } from 'redux-saga/effects';
+
+function* todoSaga() {
+  yield takeEvery('TODOS_FETCH_REQUEST', fetchTodos);
+  yield takeEvery('USERS_FETCH_REQUEST', fetchUsers);
+}
+
+export default todoSaga;
+```
+
+## Defining a Saga
+
+```js
+function* fetchTodos() {
+  const todoData = yield fetch(
+    'https://jsonplaceholder.typicode.com/todos'
+  ).then(response => response.json());
+  yield put({
+    type: 'TODOS_FETCH_SUCCESS',
+    payload: todoData,
+  });
+}
+```
 
 # Redux Ecosystem
 

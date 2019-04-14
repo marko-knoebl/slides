@@ -69,7 +69,7 @@ implement a slideshow that shows images like the following:
 
 In class components, `this.state` represents the state.
 
-`this.state` is always a JavaScript object with properties
+`this.state` is always a JavaScript object which can have varois entries (properties)
 
 State changes happen via `this.setState()`
 
@@ -93,7 +93,6 @@ only via `setState()`:
 
 ```js
 this.setState({ loggedIn: false });
-this.setState({ todos: ['learn react'] });
 ```
 
 `setState` will change all specified entries
@@ -109,4 +108,4 @@ this.setState(oldState => ({ count: oldState.count + 1 }));
 this.setState(oldState => ({ count: oldState.count + 1 }));
 ```
 
-We pass a function to `setState`. This function will transform the old state into the new state.
+Pass a function to `setState`. This function will transform the old state into the new state.

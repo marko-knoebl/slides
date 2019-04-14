@@ -48,7 +48,7 @@ assert.equal(a, b);
 assert.deepEqual(a, b);
 assert.typeOf(foo, 'string');
 assert.lengthOf(foo, 3);
-assert.throws(() => 1 / 0;);
+assert.throws(() => 1 / 0);
 ```
 
 ## Testing: assertions
@@ -56,7 +56,7 @@ assert.throws(() => 1 / 0;);
 jest:
 
 ```js
-expect(a).toEqual(4)
+expect(a).toEqual(4);
 expect(a).not.toEqual(2);
 expect(a).toBeGreaterThan(3);
 expect(a).toBeInstanceOf(Number);

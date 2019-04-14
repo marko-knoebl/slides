@@ -56,11 +56,6 @@ export class Rating extends Component {
 }
 ```
 
-## component defintion: examples
-
-- `PlayingCard` component
-- `RomanNumber` component
-
 ## data/event flow
 
 - parent → child: props

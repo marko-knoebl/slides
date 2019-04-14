@@ -37,6 +37,7 @@ assert (node):
 ```js
 assert.equal(a, b);
 assert.deepEqual(a, b);
+assert.throws(() => 1 / 0);
 // ...
 ```
 
@@ -44,31 +45,30 @@ assert (chai):
 
 ```js
 assert.equal(a, b);
+assert.deepEqual(a, b);
 assert.typeOf(foo, 'string');
 assert.lengthOf(foo, 3);
-assert.throws(() => {
-  1 / 0;
-});
+assert.throws(() => 1 / 0);
 ```
 
 ## Testen: assertions
 
-expect (jest):
+jest:
 
 ```js
-expect(4).toBeGreaterThan(3);
-expect(() => {
-  1 / 0;
-}).toThrow();
-expect(3).not.toEqual(4);
+expect(a).toEqual(4);
+expect(a).not.toEqual(2);
+expect(a).toBeGreaterThan(3);
+expect(a).toBeInstanceOf(Number);
+expect(() => 1 / 0).toThrow();
 ```
 
-expect (chai):
+chai:
 
 ```js
-expect(foo).to.be.a('string');
-expect(() => {
-  1 / 0;
-}).to.throw();
-expect(foo).to.equal('bar');
+expect(a).to.equal(4);
+expect(a).not.to.equal(2);
+expect(a).to.be.greaterThan(3);
+expect(a).to.be.a('number');
+expect(() => 1 / 0).to.throw();
 ```

@@ -4,7 +4,7 @@ Progressive Web Apps mit React
 
 ## PWAs
 
-Progressive Web Apps: Möglichkeit, Anwendungen für Mobilgeräte und PCs mit HTML, CSS und JavaScript zu schreiben
+**Progressive Web Apps**: Möglichkeit, Anwendungen für Mobilgeräte und PCs mit HTML, CSS und JavaScript zu schreiben
 
 Mit `create-react-app` erstellte Anwendungen bieten dafür schon die Grundvoraussetzungen:
 
@@ -68,4 +68,4 @@ handleInstallBtnClicked = () => {
 
 - `npm run build`
 - dist-Ornder via drag&drop auf app.netlify.com/drop
-- Manuell auf https wechseln - in Chrome am Desktop und Mobilgerät ausprobieren
+- Manuell auf HTTPS wechseln - in Chrome am Desktop und Mobilgerät ausprobieren

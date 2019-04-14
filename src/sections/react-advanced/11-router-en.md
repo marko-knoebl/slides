@@ -34,9 +34,9 @@ import { BrowserRouter } from 'react-router-dom';
 ```js
 import { Route } from 'react-router-dom';
 
-<Route path="/about" component={About} />
-<Route path="/" exact component={List} />
-<Route path="/add" component={AddTodo} />
+<Route path="/" exact component={TodoList} />
+<Route path="/about" exact component={About} />
+<Route path="/add" exact component={AddTodo} />
 ```
 
 ## React Router - defining routes
@@ -64,6 +64,19 @@ import { NavLink } from 'react-router-dom';
 <NavLink to="/add" activeClassName="active-link">Add</Link>
 ```
 
+## React Router - Switch
+
+Only the first matching route will be displayed
+
+```jsx
+import { Switch } from 'react-router-dom';
+
+<Switch>
+  <Route path="/todos/:todoId" component={Todo} />
+  <Route path="/" component={NotFound} />
+</Switch>;
+```
+
 ## React Router - Redirects
 
 ```jsx
@@ -87,16 +100,3 @@ import { Redirect } from 'react-router-dom';
 ```
 
 Route parameters may be accessed via _props.match.params_
-
-## React Router - Switch
-
-Only the first matching route will be displayed
-
-```jsx
-import { Switch } from 'react-router-dom';
-
-<Switch>
-  <Route path="/todos/:todoId" component={Todo} />
-  <Route path="/" component={NotFound} />
-</Switch>;
-```

@@ -19,6 +19,11 @@ Um sie von normalen Tags zu unterscheiden, beginnen Komponentennamen immer mit e
 - State = interner Zustand einer Komponente
 - Props = vom Elternelement übergebene Parameter
 
+## Komponentendefinition
+
+- Klassenkomponenten
+- Funktionale Komponenten
+
 ## Funktionale Komponenten
 
 Beispiel:
@@ -50,11 +55,6 @@ export class Rating extends Component {
   }
 }
 ```
-
-## Komponentendefinition: Beispiele
-
-- `PlayingCard` - Komponente
-- `RomanNumber` - Komponente
 
 ## Datenfluss
 

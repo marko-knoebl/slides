@@ -27,7 +27,7 @@ name, short_name
 
 ## PWAs: configuring icons
 
-Adding icons for the resolutions `144x144px`, `192x192px` and `512x512px` (in manifest.json)
+Add icons for the resolutions `144x144px`, `192x192px` and `512x512px` (in manifest.json)
 
 ## PWA: add to homescreen
 
@@ -67,5 +67,5 @@ handleInstallBtnClicked = () => {
 ## PWA: Deployment on netlify
 
 - `npm run build`
-- drag & drop the dist-Ornder to app.netlify.com/drop
-- switch to https manually - try it out in Chrome on desktop and mobile
+- drag & drop the dist folder to app.netlify.com/drop
+- switch to HTTPS manually - try it out in Chrome on desktop and mobile

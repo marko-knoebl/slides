@@ -41,6 +41,74 @@ const App = () => {
 };
 ```
 
+# Reducer hook
+
+## State managment & reducer hook
+
+In complex components / applications it makes sense to separate the state (model) from the view. This can happen via external state management libraries like _redux_ or, in simple cases, via the reducer hook.
+
+Often the entire application state is contained in a data model. Each change to the application state is done via that data model.
+
+## Reducer hook
+
+In state management tools each state change usually happens through an _event_ or _action_; With the reducer hook or Redux an action usually has a _type_ and (optionally) a _payload_:
+
+```json
+{
+  "type": "ADD_TODO",
+  "payload": {
+    "title": "learn react"
+  }
+}
+```
+
+## Reducer hook
+
+State management with reducers:
+
+when using the _reducer hook_ or _Redux_:
+
+The transition from one state to the next happens via a reducer function:
+
+The reducer function receives two arguments: the old state and an action describing the state change
+
+The reducer function returns the new state
+
+## Reducer hook
+
+The reducer hook is included in a way that is similar to the state hook:
+
+in general:
+
+```js
+const [state, dispatch] = useReducer(reducer, initialState);
+```
+
+specific example: count:
+
+```js
+const [count, countDispatch] = useReducer(countReducer, 0);
+```
+
+## Reducer hook
+
+```js
+const countReducer = (count, action) => {
+  switch (action.type) {
+    case 'INCREMENT':
+      return count + 1;
+    case 'DECREMENT':
+      return count - 1;
+    default:
+      throw new Error('unknown action');
+  }
+};
+```
+
+## Reducer hook
+
+In order to trigger actions, we call the `dispatch` function of the reducer with the action as an argument
+
 # Component lifecycle
 
 ## Component lifecycle
@@ -209,72 +277,6 @@ const Clock = () => {
 };
 ```
 
-# Reducer hook
-
-## Reducer hook
-
-In complex components / applications it makes sense to separate the state (model) from the view. This can happen via external state management libraries like _redux_ or, in simple cases, via the reducer hook.
-
-## Reducer hook
-
-In state management tools each state change happens through an _event_ - which is usually a simple JavaScript object:
-
-```json
-{
-  "type": "ADD_TODO",
-  "payload": {
-    "title": "learn react"
-  }
-}
-```
-
-## Reducer hook
-
-State management with reducers:
-
-when using the _reducer hook_ or _Redux_:
-
-The transition from one state to the next happens via a reducer function:
-
-The reducer function receives two arguments: the old state and an action describing the state change
-
-The reducer function returns the new state
-
-## Reducer hook
-
-The reducer hook is included in a way that is similar to the state hook:
-
-in general:
-
-```js
-const [state, dispatch] = useReducer(reducer, initialState);
-```
-
-specific example: count:
-
-```js
-const [count, countDispatch] = useReducer(countReducer, 0);
-```
-
-## Reducer hook
-
-```js
-const countReducer = (count, action) => {
-  switch (action.type) {
-    case 'INCREMENT':
-      return count + 1;
-    case 'DECREMENT':
-      return count - 1;
-    default:
-      throw new Error('unknown action');
-  }
-};
-```
-
-## Reducer hook
-
-In order to trigger actions, we call the `dispatch` function of the reducer with the action as an argument
-
 # Automated testing
 
 ## Automated testing
@@ -429,7 +431,7 @@ assert.equal(a, b);
 assert.deepEqual(a, b);
 assert.typeOf(foo, 'string');
 assert.lengthOf(foo, 3);
-assert.throws(() => 1 / 0;);
+assert.throws(() => 1 / 0);
 ```
 
 ## Testing: assertions
@@ -437,7 +439,7 @@ assert.throws(() => 1 / 0;);
 jest:
 
 ```js
-expect(a).toEqual(4)
+expect(a).toEqual(4);
 expect(a).not.toEqual(2);
 expect(a).toBeGreaterThan(3);
 expect(a).toBeInstanceOf(Number);
@@ -527,78 +529,103 @@ it('renders a component tree without crashing', () => {
 
 https://devhints.io/enzyme
 
-## Enzyme - Examples
+# Example: testing a rating component
 
-Tests with Jest
+With jest and enzyme
 
-```jsx
-it('renders three <Foo /> components', () => {
-  // Alternative for shallow: mount()
-  const wrapper = shallow(<MyComponent />);
-  expect(wrapper.find(Foo)).toHaveLength(3);
-});
+## Example: testing a rating component
 
-it('renders an `.icon-star`', () => {
-  const wrapper = shallow(<MyComponent />);
-  expect(wrapper.find('.icon-star')).toHaveLength(1);
-});
+```tsx
+import React from 'react';
+import { shallow, mount } from 'enzyme';
+
+import Rating from './Rating';
 ```
 
-## Enzyme - find
+## Example: testing a rating component
 
-```jsx
-expect(ratingWrapper.find('.star')).toHaveLength(5);
-expect(
-  todoListWrapper
-    .find(TodoItem)
-    .get(0)
-    .text()
-).toEqual('my-todo');
-```
+```tsx
+describe('rendering', () => {
+  it('renders 5 Star components', () => {
+    const wrapper = shallow(<Rating stars={5} />);
+    expect(wrapper.find('Star')).toHaveLength(5);
+  });
 
-## Enzyme - Examples
-
-Tests with Chai
-
-```jsx
-it('reacts to click events', () => {
-  const onButtonClick = sinon.spy();
-  const wrapper = shallow(
-    <Foo onButtonClick={onButtonClick} />
-  );
-  wrapper.find('button').simulate('click');
-  expect(onButtonClick).to.have.property('callCount', 1);
+  it('renders 5 stars', () => {
+    const wrapper = mount(<Rating stars={5} />);
+    expect(wrapper.find('.star')).toHaveLength(5);
+  });
 });
 ```
 
-## Enzyme - Examples
+## Example: testing a rating component
 
-<!-- prettier-ignore -->
-```jsx
-it('reacts to click events', () => {
-  const mockFunction = jest.fn();
-
-  const wrapper = mount(
-    <Rating stars={3} onStarsChange={mockFunction} />
-  );
-  expect(
-    wrapper.childAt(0).childAt(2).text()
-  ).toBe('*');
-  wrapper.childAt(0).childAt(1).simulate('click');
-  expect(mockFunction).toBeCalledWith(2);
+```tsx
+describe('rendering', () => {
+  it('renders 3 active stars', () => {
+    const wrapper = mount(<Rating stars={3} />);
+    expect(wrapper.find('.star')).toHaveLength(5);
+    expect(
+      wrapper.find('.star').get(2).props.className
+    ).toEqual('star active');
+    expect(
+      wrapper.find('.star').get(3).props.className
+    ).toEqual('star');
+  });
 });
 ```
 
-## Enzyme - Examples
+## Example: testing a rating component
 
-```jsx
-it('changes state when clicked', () => {
-  const wrapper = shallow(<Counter />);
-  expect(wrapper.instance.state.count).toEqual(0);
-  wrapper.childAt(0).simulate('click');
-  expect(wrapper.instance.state.count).toEqual(1);
+```tsx
+describe('events', () => {
+  it('reacts to click on first star', () => {
+    const mockFn = fn();
+    const wrapper = mount(
+      <Rating stars={3} onStarsChange={mockFn} />
+    );
+    wrapper
+      .find('span')
+      .at(0)
+      .simulate('click');
+    expect(mockFn.mock.calls[0][0]).toEqual(1);
+  });
 });
 ```
+
+## Example: testing a rating component
+
+Testing a (hypothetical) rating component that has its own internal state:
+
+```tsx
+describe('events', () => {
+  it('reacts to click on first star', () => {
+    const wrapper = mount(<Rating />);
+    wrapper
+      .find('span')
+      .at(0)
+      .simulate('click');
+    expect(wrapper.instance.state.count).toEqual(1);
+  });
+});
+```
+
+## Example: testing a rating component
+
+```tsx
+describe('errors', () => {
+  it('throws an error if the number of stars is 0', () => {
+    const testFn = () => {
+      const wrapper = shallow(<Rating stars={0} />);
+    };
+    expect(testFn).toThrow(
+      'number of stars must be positive'
+    );
+  });
+});
+```
+
+# Snapshot tests
 
 ## Snapshot tests
 
@@ -643,86 +670,6 @@ Once we have changed and and verified the behaviour of a component we can update
 Inspect your code changes or press `u` to update them.
 ```
 
-# Example: testing a rating component
-
-With Jest, Enzyme, Chai and Sinon
-
-## Example: testing a rating component
-
-```tsx
-import React from 'react';
-import { shallow, mount } from 'enzyme';
-import { expect } from 'chai';
-import sinon from 'sinon';
-import Rating from './Rating';
-```
-
-## Example: testing a rating component
-
-```tsx
-describe('rendering', () => {
-  it('renders 5 Star components', () => {
-    const wrapper = shallow(<Rating stars={5} />);
-    expect(wrapper.find('Star')).to.have.length(5);
-  });
-
-  it('renders 5 stars', () => {
-    const wrapper = mount(<Rating stars={5} />);
-    expect(wrapper.find('.star')).to.have.length(5);
-  });
-});
-```
-
-## Example: testing a rating component
-
-```tsx
-describe('rendering', () => {
-  it('renders 3 active stars', () => {
-    const wrapper = mount(<Rating stars={3} />);
-    expect(wrapper.find('.star')).to.have.length(5);
-    expect(
-      wrapper.find('.star').get(2).props.className
-    ).to.equal('star active');
-    expect(
-      wrapper.find('.star').get(3).props.className
-    ).to.equal('star');
-  });
-});
-```
-
-## Example: testing a rating component
-
-```tsx
-describe('events', () => {
-  it('reacts to click on first star', () => {
-    const spy = sinon.spy();
-    const wrapper = mount(
-      <Rating stars={3} onStarsChange={spy} />
-    );
-    wrapper
-      .find('span')
-      .at(0)
-      .simulate('click');
-    expect(spy.getCall(0).args[0]).to.equal(1);
-  });
-});
-```
-
-## Example: testing a rating component
-
-```tsx
-describe('errors', () => {
-  it('throws an error if the number of stars is 0', () => {
-    const testFn = () => {
-      const wrapper = shallow(<Rating stars={0} />);
-    };
-    expect(testFn).to.throw(
-      'number of stars must be positive'
-    );
-  });
-});
-```
-
 # React Router
 
 ## React Router
@@ -759,9 +706,9 @@ import { BrowserRouter } from 'react-router-dom';
 ```js
 import { Route } from 'react-router-dom';
 
-<Route path="/about" component={About} />
-<Route path="/" exact component={List} />
-<Route path="/add" component={AddTodo} />
+<Route path="/" exact component={TodoList} />
+<Route path="/about" exact component={About} />
+<Route path="/add" exact component={AddTodo} />
 ```
 
 ## React Router - defining routes
@@ -789,6 +736,19 @@ import { NavLink } from 'react-router-dom';
 <NavLink to="/add" activeClassName="active-link">Add</Link>
 ```
 
+## React Router - Switch
+
+Only the first matching route will be displayed
+
+```jsx
+import { Switch } from 'react-router-dom';
+
+<Switch>
+  <Route path="/todos/:todoId" component={Todo} />
+  <Route path="/" component={NotFound} />
+</Switch>;
+```
+
 ## React Router - Redirects
 
 ```jsx
@@ -812,19 +772,6 @@ import { Redirect } from 'react-router-dom';
 ```
 
 Route parameters may be accessed via _props.match.params_
-
-## React Router - Switch
-
-Only the first matching route will be displayed
-
-```jsx
-import { Switch } from 'react-router-dom';
-
-<Switch>
-  <Route path="/todos/:todoId" component={Todo} />
-  <Route path="/" component={NotFound} />
-</Switch>;
-```
 
 # PWAs
 
@@ -855,7 +802,7 @@ name, short_name
 
 ## PWAs: configuring icons
 
-Adding icons for the resolutions `144x144px`, `192x192px` and `512x512px` (in manifest.json)
+Add icons for the resolutions `144x144px`, `192x192px` and `512x512px` (in manifest.json)
 
 ## PWA: add to homescreen
 
@@ -895,8 +842,8 @@ handleInstallBtnClicked = () => {
 ## PWA: Deployment on netlify
 
 - `npm run build`
-- drag & drop the dist-Ornder to app.netlify.com/drop
-- switch to https manually - try it out in Chrome on desktop and mobile
+- drag & drop the dist folder to app.netlify.com/drop
+- switch to HTTPS manually - try it out in Chrome on desktop and mobile
 
 # Context
 
