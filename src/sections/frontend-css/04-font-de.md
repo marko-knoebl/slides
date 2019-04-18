@@ -33,8 +33,8 @@ mögliche Einheiten:
 
 - `px`: "Pixel"
 - `%`: Prozent relativ zum umgebenden Text
-- `em`: Prozent relativ zum umgebenden Text
-- `rem`: Prozent relativ zur Schriftgröße des `html`-Elements
+- `em`: relativ zum umgebenden Text
+- `rem`: relativ zur Schriftgröße des `html`-Elements
 
 ## font-style
 
@@ -48,7 +48,17 @@ h1 {
 
 ## font-weight
 
-Um die Schriftstärke zu verändern, insbesondere: `font-weight: bold;`
+Um die Schriftstärke zu verändern, mögliche Werte:
+
+- `100`
+- `200`
+- `300` (auch: `light`)
+- `400` (auch: `regular`)
+- `500`
+- `600` (auch: `semibold`)
+- `700` (auch: `bold`)
+- `800`
+- `900`
 
 ## text-decoration
 

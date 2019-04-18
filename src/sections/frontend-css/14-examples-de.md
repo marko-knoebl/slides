@@ -1,3 +1,0 @@
-# Beispiele
-
-- Beispiel: Google-Klon

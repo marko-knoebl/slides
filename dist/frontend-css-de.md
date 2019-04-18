@@ -145,8 +145,8 @@ mögliche Einheiten:
 
 - `px`: "Pixel"
 - `%`: Prozent relativ zum umgebenden Text
-- `em`: Prozent relativ zum umgebenden Text
-- `rem`: Prozent relativ zur Schriftgröße des `html`-Elements
+- `em`: relativ zum umgebenden Text
+- `rem`: relativ zur Schriftgröße des `html`-Elements
 
 ## font-style
 
@@ -160,7 +160,17 @@ h1 {
 
 ## font-weight
 
-Um die Schriftstärke zu verändern, insbesondere: `font-weight: bold;`
+Um die Schriftstärke zu verändern, mögliche Werte:
+
+- `100`
+- `200`
+- `300` (auch: `light`)
+- `400` (auch: `regular`)
+- `500`
+- `600` (auch: `semibold`)
+- `700` (auch: `bold`)
+- `800`
+- `900`
 
 ## text-decoration
 
@@ -338,10 +348,6 @@ Sourcecode:
 
 https://github.com/twbs/bootstrap/blob/master/dist/css/bootstrap-reboot.css
 
-# Beispiele
-
-- Beispiel: Google-Klon
-
 # Flexbox
 
 ## Display property
@@ -361,9 +367,10 @@ Einfache Möglichkeit, Elemente _nebeneinander_ oder _untereinander_ anzuordnen
 
 [css-tricks.com](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
 
-## Beispiel
+# Beispiele
 
-- Beispiel: Chat-Anwendung
+- Google-Klon
+- Chat-Anwendung
 
 # Media queries
 
@@ -497,11 +504,16 @@ Beispiel für `position: relative`: hochgestellter oder tiefgestellter Text
 
 ## Transformationen
 
-Beispiel:
+Beispiele:
 
 ```css
-#element {
-  transform: translsate(0, 0) rotate(90, -10, -10);
+#element1 {
+  transform: translsate(100px, 0);
+}
+
+#element2 {
+  transform: translate(10px, 0) rotate(-90deg);
+  transform-origin: 0 0;
 }
 ```
 

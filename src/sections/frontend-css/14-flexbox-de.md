@@ -16,7 +16,3 @@ Einfache Möglichkeit, Elemente _nebeneinander_ oder _untereinander_ anzuordnen
 ## Flexbox
 
 [css-tricks.com](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
-
-## Beispiel
-
-- Beispiel: Chat-Anwendung
