@@ -1,10 +1,10 @@
-# comprehensions
+# Comprehensions
 
 ## List comprehensions
 
 Wichtige Möglichkeit, um Listen basierend auf anderen Listen zu erstellen
 
-In anderen Programmiersprachen oft umgesetzt mittels `map` und `filter`/`grep`
+In anderen Programmiersprachen oft umgesetzt mittels `map` und `filter` / `grep`
 
 ## List comprehension
 

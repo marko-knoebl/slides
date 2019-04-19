@@ -1,4 +1,4 @@
-# Exceptions
+# Exceptions (Ausnahmen)
 
 ## Arten von Exceptions (Auswahl)
 

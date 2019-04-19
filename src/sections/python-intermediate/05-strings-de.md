@@ -1,5 +1,9 @@
 # Strings
 
+## Strings
+
+Strings sind Zeichenfolgen, die jedes Unicodezeichen repräsentieren können
+
 ## String-Methoden
 
 - `.lower()`

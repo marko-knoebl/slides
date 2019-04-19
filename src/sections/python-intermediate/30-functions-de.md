@@ -42,11 +42,16 @@ Spielt beim _Zuweisen_ von Variablen eine Rolle
 
 ## Standard-Parameter
 
-```py
-def sum(a=0, b=0):
-    return a + b
+Parameter können einen Standardwert haben. Dieser wird verwendet, wenn kein expliziter anderer Wert übergeben wird.
 
-sum() # 0
+Beispiel:
+
+```py
+def shout(phrase, end="!"):
+    print(phrase.upper() + end)
+
+shout("hallo") # HALLO!
+shout("hi", ".") # HI.
 ```
 
 ## Schlüsselwort-Parameter

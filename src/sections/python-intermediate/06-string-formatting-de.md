@@ -1,14 +1,14 @@
+# String-Formatierung
+
 ## String-Formatierung
 
 String-Formatierung = Einsetzen von Werten in Strings
 
-Bekanntes Verfahren:
+Möglichkeiten:
 
 ```py
 greeting = "Hello, " + name + "!"
 ```
-
-Neueste Möglichkeit (f-strings):
 
 ```py
 greeting = f"Hello, {name}!"

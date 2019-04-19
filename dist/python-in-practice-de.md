@@ -1,3 +1,256 @@
+# Arbeiten mit Dateien
+
+## Arbeiten mit Dateien
+
+Datei = Abfolge von Bytes auf einem Speichermedium
+
+## Die Funktion "open"
+
+```py
+file_obj = open("todos.txt")
+content = file_obj.read()
+file_obj.close()
+print(content)
+```
+
+Open erstellt eine Instanz einer Unterklasse von IOBase
+
+## Dateimodi
+
+```py
+# mode: text, append
+open("todos.txt", mode="ta")
+```
+
+## Dateimodi
+
+- `t`: Textmodus (standard)
+- `b`: Binär
+
+* `r`: Lesen (standard)
+* `w`: (Über)schreiben
+* `a`: Anhängen
+
+## Lesen und Schreiben
+
+```py
+t = open("loremipsum.txt")
+print(t.read())
+t.close()
+```
+
+## Lesen und Schreiben
+
+```py
+t = open("todos.txt", mode="a", encoding="utf-8")
+t.write("Learn Python")
+t.close()
+```
+
+```py
+coins = open("coins.b", mode="ba")
+coins.write(bytes([0b01001110, 0b11100100]))
+coins.close()
+```
+
+## open und das with-Statement
+
+```py
+with open("todos.txt", encoding="utf-8") as file_obj:
+    content = file_obj.read()
+```
+
+Kein explizites Schließen des Dateiobjekts mehr notwendig. Datei wird automatisch geschlossen, wenn der eingerückte Abschnitt verlassen wird.
+
+## Zeichencodierung
+
+Textdateien können unterschiedlich codiert sein:
+
+- ASCII
+- CP-1252 / western european / latin1
+- UTF-8
+
+Praxistipp: Immer UTF-8 verwenden
+
+## Zeichencodierung
+
+Die Standard-Zeichencodierung für Textdateien hängt vom Betriebssystem ab:
+
+```py
+import locale
+locale.getpreferredencoding()
+```
+
+## Zeichencodierung
+
+Explizites angeben der Textcodierung:
+
+```py
+open("file.txt", encoding="utf-8")
+```
+
+## File-like objects
+
+Objekte, die zB `.read()` oder `.write()` unterstützen:
+
+- Dateien (zB via `open()`)
+- `sys.stdout`, `sys.stdin`
+  - z.B. `sys.stdin.readline()`
+- Antworten aus dem Netzwerk, zB via `urllib.request.urlopen('https://google.com')`
+
+## File-like objects
+
+```py
+with file as open('myfile.txt', encoding="utf-8"):
+    # read individual lines
+    for line in file:
+        print(line)
+    # read entire file
+    print(file.read())
+```
+
+## File-like objects
+
+Methoden:
+
+- `.close()`
+- `.mode`
+- `.read()` (lies die ganze Datei ein)
+- `.read(10)` (lies die nächsten 10 Bytes)
+- `.readline()` (lies die nächste Zeile)
+
+# Speichern verschiedener Dateiformate
+
+## Speichern verschiedener Dateiformate
+
+Möglichkeiten:
+
+- Speichern in Text-Datei
+- Speichern als JSON
+- Speichern von Python-Objekten mittels pickle (und shelve)
+- Speichern als XML
+- Speichern von Binärdaten in eigenem Format
+
+## JSON
+
+## JSON speichern
+
+```py
+import json
+
+data = ["one", "two", "three"]
+jsonstring = json.dumps(data)
+
+with open("numbers.json", encoding="utf-8") as jsonfile:
+    jsonfile.write(jsonstring)
+```
+
+## JSON lesen
+
+```py
+import json
+
+with open("numbers.json", encoding="utf-8") as jsonfile:
+    jsonstring = jsonfile.read()
+data = json.loads(jsonstring)
+```
+
+## XML
+
+zwei Pakete in der Python-Standardlibrary:
+
+- `xml.etree.ElementTree`
+- `xml.dom.minidom`
+
+externe Library (Erweiterung von ElementTree):
+
+- `lxml`
+
+## XML mit ElementTree: erstellen
+
+```py
+import xml.etree.ElementTree as et
+
+person = et.Element('person')
+name = et.SubElement(person, 'name')
+name.text = 'Adam'
+age = et.SubElement(person, 'age')
+age.text = '40'
+age.set("unit", "years")
+```
+
+## XML mit ElementTree: speichern
+
+```py
+xmlbytestring: bytes = et.tostring(person, encoding='utf-8')
+with open("myfile.xml", mode="wb") as file:
+    file.write(xmlbytestring)
+
+# oder
+xmlstring: str = et.tostring(person, encoding='unicode')
+with open("myfile.xml", encoding="utf-8", mode="w") as file:
+    file.write(xmlstring)
+
+# oder
+tree = et.ElementTree(person)
+tree.write("myfile.xml", encoding="utf-8")
+```
+
+## XML mit ElementTree: lesen
+
+```py
+import xml.etree.ElementTree as et
+
+person = et.fromstring(xmlstring)
+for childnode in person:
+    print(childnode.tag)
+    print(childnode.text)
+    print(childnode.attrib)
+```
+
+## Pickle
+
+Eigenes Dateiformat, in dem verschiedene Python-Dateitypen gespeichert werden können
+
+## Pickle
+
+```py
+import pickle
+import datetime
+
+now = datetime.datetime.now()
+
+serialized = pickle.dumps()
+
+with open("datetime.pickle", mode="wb") as picklefile:
+    picklefile.write(serialized)
+```
+
+## Pickle
+
+```py
+import pickle
+
+with open("datetime.pickle", mode="rb") as picklefile:
+    serialized = picklefile.read()
+earlier = pickle.reads(serialized)
+```
+
+## Übung
+
+- Speichern und Lesen eines Tic-Tac-Toe-Feldes in verschiedenen Formaten
+
+Python-Datenstruktur:
+
+```py
+field = [
+  ['X', 'O', None],
+  ['X', 'X', 'O'],
+  ['O', 'O', 'X']
+]
+```
+
+
 # Reguläre Ausdrücke
 
 ## Reguläre Ausdrücke
@@ -124,6 +377,22 @@ https://automatetheboringstuff.com/chapter14/
 ## Web Scraping: xkcd-Downloader
 
 https://automatetheboringstuff.com/chapter11/
+
+## Selenium
+
+Installation:
+
+```bash
+pip install selenium
+```
+
+geckodriver / chromedriver / ...
+
+geckodriver Download von:
+
+https://github.com/mozilla/geckodriver/releases/tag/v0.23.0
+
+herunterladen und in einem pfad in Pythons `sys.path` ablegen - oder im aktuellen Verzeichnis (working directory)
 
 # FTP
 

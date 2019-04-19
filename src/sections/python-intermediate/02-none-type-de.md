@@ -1,4 +1,6 @@
-## NoneType
+# None
+
+## None
 
 Der Ausdruck `None` steht in Python für "nichts" - analog zu `undefined` oder `null` in anderen Sprachen.
 
@@ -12,7 +14,7 @@ users = [
 ]
 ```
 
-## NoneType
+## None
 
 - Singleton
 - Vergleich üblicherweise mit `is`
@@ -50,73 +52,3 @@ Nachdem `None` ein Singleton ist und daher immer auf die gleiche Instanz verweis
 if a is None:
     ...
 ```
-
-## bool
-
-True oder False
-
-```py
-a = True
-if a:
-    print('hello')
-```
-
-## bool
-
-Für welche Objekte liefert `bool(x)` False?
-
----
-
-Anekdote: Mitternacht (datetime.time(0, 0, 0) vor Python 3.5)
-
-## int
-
-beliebig große Ganzzahlen
-
-## int
-
-Andere Zahlensysteme:
-
-```py
-a = 42
-b = 0o52
-c = 0x2a
-```
-
-```py
-a = int('10010', 2)
-```
-
-## float
-
-64-bit Gleitkommazahlen
-
-## float
-
-```py
-a = 2.3
-b = .2
-c = 6e23
-d = float('nan')
-e = float('inf')
-```
-
----
-
-Anekdote: `d != d`
-
-## complex
-
-```py
-a = 2 + 3j
-```
-
-## weitere Operationen mit Zahlen
-
-- Division mit Rest: `10 // 3`
-- Divisionsrest / Modulo: `10 % 3`
-- Potenzieren: `2 ** 3`
-
-## Strings
-
-Strings sind Zeichenfolgen, die jedes Unicodezeichen repräsentieren können

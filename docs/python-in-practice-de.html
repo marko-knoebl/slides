@@ -112,9 +112,237 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
     <div id="canvas-content">
 
       <section class="section" id="section-1"><section class="slide" id="slide-1-1">
-        <h1 id="reguläre-ausdrücke">Reguläre Ausdrücke</h1>
+        <h1 id="arbeiten-mit-dateien">Arbeiten mit Dateien</h1>
 
       </section><section class="slide" id="slide-1-2">
+        <h2 id="arbeiten-mit-dateien">Arbeiten mit Dateien</h2>
+<p>Datei = Abfolge von Bytes auf einem Speichermedium</p>
+
+      </section><section class="slide" id="slide-1-3">
+        <h2 id="die-funktion-open">Die Funktion &quot;open&quot;</h2>
+<pre><code class="language-py">file_obj = open(<span class="hljs-string">"todos.txt"</span>)
+content = file_obj.read()
+file_obj.close()
+print(content)</code></pre>
+<p>Open erstellt eine Instanz einer Unterklasse von IOBase</p>
+
+      </section><section class="slide" id="slide-1-4">
+        <h2 id="dateimodi">Dateimodi</h2>
+<pre><code class="language-py"><span class="hljs-comment"># mode: text, append</span>
+open(<span class="hljs-string">"todos.txt"</span>, mode=<span class="hljs-string">"ta"</span>)</code></pre>
+
+      </section><section class="slide" id="slide-1-5">
+        <h2 id="dateimodi">Dateimodi</h2>
+<ul>
+<li><p><code>t</code>: Textmodus (standard)</p>
+</li>
+<li><p><code>b</code>: Binär</p>
+</li>
+<li><p><code>r</code>: Lesen (standard)</p>
+</li>
+<li><p><code>w</code>: (Über)schreiben</p>
+</li>
+<li><p><code>a</code>: Anhängen</p>
+</li>
+</ul>
+
+      </section><section class="slide" id="slide-1-6">
+        <h2 id="lesen-und-schreiben">Lesen und Schreiben</h2>
+<pre><code class="language-py">t = open(<span class="hljs-string">"loremipsum.txt"</span>)
+print(t.read())
+t.close()</code></pre>
+
+      </section><section class="slide" id="slide-1-7">
+        <h2 id="lesen-und-schreiben">Lesen und Schreiben</h2>
+<pre><code class="language-py">t = open(<span class="hljs-string">"todos.txt"</span>, mode=<span class="hljs-string">"a"</span>, encoding=<span class="hljs-string">"utf-8"</span>)
+t.write(<span class="hljs-string">"Learn Python"</span>)
+t.close()</code></pre>
+<pre><code class="language-py">coins = open(<span class="hljs-string">"coins.b"</span>, mode=<span class="hljs-string">"ba"</span>)
+coins.write(bytes([<span class="hljs-number">0b01001110</span>, <span class="hljs-number">0b11100100</span>]))
+coins.close()</code></pre>
+
+      </section><section class="slide" id="slide-1-8">
+        <h2 id="open-und-das-with-statement">open und das with-Statement</h2>
+<pre><code class="language-py"><span class="hljs-keyword">with</span> open(<span class="hljs-string">"todos.txt"</span>, encoding=<span class="hljs-string">"utf-8"</span>) <span class="hljs-keyword">as</span> file_obj:
+    content = file_obj.read()</code></pre>
+<p>Kein explizites Schließen des Dateiobjekts mehr notwendig. Datei wird automatisch geschlossen, wenn der eingerückte Abschnitt verlassen wird.</p>
+
+      </section><section class="slide" id="slide-1-9">
+        <h2 id="zeichencodierung">Zeichencodierung</h2>
+<p>Textdateien können unterschiedlich codiert sein:</p>
+<ul>
+<li>ASCII</li>
+<li>CP-1252 / western european / latin1</li>
+<li>UTF-8</li>
+</ul>
+<p>Praxistipp: Immer UTF-8 verwenden</p>
+
+      </section><section class="slide" id="slide-1-10">
+        <h2 id="zeichencodierung">Zeichencodierung</h2>
+<p>Die Standard-Zeichencodierung für Textdateien hängt vom Betriebssystem ab:</p>
+<pre><code class="language-py"><span class="hljs-keyword">import</span> locale
+locale.getpreferredencoding()</code></pre>
+
+      </section><section class="slide" id="slide-1-11">
+        <h2 id="zeichencodierung">Zeichencodierung</h2>
+<p>Explizites angeben der Textcodierung:</p>
+<pre><code class="language-py">open(<span class="hljs-string">"file.txt"</span>, encoding=<span class="hljs-string">"utf-8"</span>)</code></pre>
+
+      </section><section class="slide" id="slide-1-12">
+        <h2 id="file-like-objects">File-like objects</h2>
+<p>Objekte, die zB <code>.read()</code> oder <code>.write()</code> unterstützen:</p>
+<ul>
+<li>Dateien (zB via <code>open()</code>)</li>
+<li><code>sys.stdout</code>, <code>sys.stdin</code><ul>
+<li>z.B. <code>sys.stdin.readline()</code></li>
+</ul>
+</li>
+<li>Antworten aus dem Netzwerk, zB via <code>urllib.request.urlopen(&#39;https://google.com&#39;)</code></li>
+</ul>
+
+      </section><section class="slide" id="slide-1-13">
+        <h2 id="file-like-objects">File-like objects</h2>
+<pre><code class="language-py"><span class="hljs-keyword">with</span> file <span class="hljs-keyword">as</span> open(<span class="hljs-string">'myfile.txt'</span>, encoding=<span class="hljs-string">"utf-8"</span>):
+    <span class="hljs-comment"># read individual lines</span>
+    <span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> file:
+        print(line)
+    <span class="hljs-comment"># read entire file</span>
+    print(file.read())</code></pre>
+
+      </section><section class="slide" id="slide-1-14">
+        <h2 id="file-like-objects">File-like objects</h2>
+<p>Methoden:</p>
+<ul>
+<li><code>.close()</code></li>
+<li><code>.mode</code></li>
+<li><code>.read()</code> (lies die ganze Datei ein)</li>
+<li><code>.read(10)</code> (lies die nächsten 10 Bytes)</li>
+<li><code>.readline()</code> (lies die nächste Zeile)</li>
+</ul>
+
+      </section></section><section class="section" id="section-2"><section class="slide" id="slide-2-1">
+        <h1 id="speichern-verschiedener-dateiformate">Speichern verschiedener Dateiformate</h1>
+
+      </section><section class="slide" id="slide-2-2">
+        <h2 id="speichern-verschiedener-dateiformate">Speichern verschiedener Dateiformate</h2>
+<p>Möglichkeiten:</p>
+<ul>
+<li>Speichern in Text-Datei</li>
+<li>Speichern als JSON</li>
+<li>Speichern von Python-Objekten mittels pickle (und shelve)</li>
+<li>Speichern als XML</li>
+<li>Speichern von Binärdaten in eigenem Format</li>
+</ul>
+
+      </section><section class="slide" id="slide-2-3">
+        <h2 id="json">JSON</h2>
+
+      </section><section class="slide" id="slide-2-4">
+        <h2 id="json-speichern">JSON speichern</h2>
+<pre><code class="language-py"><span class="hljs-keyword">import</span> json
+
+data = [<span class="hljs-string">"one"</span>, <span class="hljs-string">"two"</span>, <span class="hljs-string">"three"</span>]
+jsonstring = json.dumps(data)
+
+<span class="hljs-keyword">with</span> open(<span class="hljs-string">"numbers.json"</span>, encoding=<span class="hljs-string">"utf-8"</span>) <span class="hljs-keyword">as</span> jsonfile:
+    jsonfile.write(jsonstring)</code></pre>
+
+      </section><section class="slide" id="slide-2-5">
+        <h2 id="json-lesen">JSON lesen</h2>
+<pre><code class="language-py"><span class="hljs-keyword">import</span> json
+
+<span class="hljs-keyword">with</span> open(<span class="hljs-string">"numbers.json"</span>, encoding=<span class="hljs-string">"utf-8"</span>) <span class="hljs-keyword">as</span> jsonfile:
+    jsonstring = jsonfile.read()
+data = json.loads(jsonstring)</code></pre>
+
+      </section><section class="slide" id="slide-2-6">
+        <h2 id="xml">XML</h2>
+<p>zwei Pakete in der Python-Standardlibrary:</p>
+<ul>
+<li><code>xml.etree.ElementTree</code></li>
+<li><code>xml.dom.minidom</code></li>
+</ul>
+<p>externe Library (Erweiterung von ElementTree):</p>
+<ul>
+<li><code>lxml</code></li>
+</ul>
+
+      </section><section class="slide" id="slide-2-7">
+        <h2 id="xml-mit-elementtree-erstellen">XML mit ElementTree: erstellen</h2>
+<pre><code class="language-py"><span class="hljs-keyword">import</span> xml.etree.ElementTree <span class="hljs-keyword">as</span> et
+
+person = et.Element(<span class="hljs-string">'person'</span>)
+name = et.SubElement(person, <span class="hljs-string">'name'</span>)
+name.text = <span class="hljs-string">'Adam'</span>
+age = et.SubElement(person, <span class="hljs-string">'age'</span>)
+age.text = <span class="hljs-string">'40'</span>
+age.set(<span class="hljs-string">"unit"</span>, <span class="hljs-string">"years"</span>)</code></pre>
+
+      </section><section class="slide" id="slide-2-8">
+        <h2 id="xml-mit-elementtree-speichern">XML mit ElementTree: speichern</h2>
+<pre><code class="language-py">xmlbytestring: bytes = et.tostring(person, encoding=<span class="hljs-string">'utf-8'</span>)
+<span class="hljs-keyword">with</span> open(<span class="hljs-string">"myfile.xml"</span>, mode=<span class="hljs-string">"wb"</span>) <span class="hljs-keyword">as</span> file:
+    file.write(xmlbytestring)
+
+<span class="hljs-comment"># oder</span>
+xmlstring: str = et.tostring(person, encoding=<span class="hljs-string">'unicode'</span>)
+<span class="hljs-keyword">with</span> open(<span class="hljs-string">"myfile.xml"</span>, encoding=<span class="hljs-string">"utf-8"</span>, mode=<span class="hljs-string">"w"</span>) <span class="hljs-keyword">as</span> file:
+    file.write(xmlstring)
+
+<span class="hljs-comment"># oder</span>
+tree = et.ElementTree(person)
+tree.write(<span class="hljs-string">"myfile.xml"</span>, encoding=<span class="hljs-string">"utf-8"</span>)</code></pre>
+
+      </section><section class="slide" id="slide-2-9">
+        <h2 id="xml-mit-elementtree-lesen">XML mit ElementTree: lesen</h2>
+<pre><code class="language-py"><span class="hljs-keyword">import</span> xml.etree.ElementTree <span class="hljs-keyword">as</span> et
+
+person = et.fromstring(xmlstring)
+<span class="hljs-keyword">for</span> childnode <span class="hljs-keyword">in</span> person:
+    print(childnode.tag)
+    print(childnode.text)
+    print(childnode.attrib)</code></pre>
+
+      </section><section class="slide" id="slide-2-10">
+        <h2 id="pickle">Pickle</h2>
+<p>Eigenes Dateiformat, in dem verschiedene Python-Dateitypen gespeichert werden können</p>
+
+      </section><section class="slide" id="slide-2-11">
+        <h2 id="pickle">Pickle</h2>
+<pre><code class="language-py"><span class="hljs-keyword">import</span> pickle
+<span class="hljs-keyword">import</span> datetime
+
+now = datetime.datetime.now()
+
+serialized = pickle.dumps()
+
+<span class="hljs-keyword">with</span> open(<span class="hljs-string">"datetime.pickle"</span>, mode=<span class="hljs-string">"wb"</span>) <span class="hljs-keyword">as</span> picklefile:
+    picklefile.write(serialized)</code></pre>
+
+      </section><section class="slide" id="slide-2-12">
+        <h2 id="pickle">Pickle</h2>
+<pre><code class="language-py"><span class="hljs-keyword">import</span> pickle
+
+<span class="hljs-keyword">with</span> open(<span class="hljs-string">"datetime.pickle"</span>, mode=<span class="hljs-string">"rb"</span>) <span class="hljs-keyword">as</span> picklefile:
+    serialized = picklefile.read()
+earlier = pickle.reads(serialized)</code></pre>
+
+      </section><section class="slide" id="slide-2-13">
+        <h2 id="übung">Übung</h2>
+<ul>
+<li>Speichern und Lesen eines Tic-Tac-Toe-Feldes in verschiedenen Formaten</li>
+</ul>
+<p>Python-Datenstruktur:</p>
+<pre><code class="language-py">field = [
+  [<span class="hljs-string">'X'</span>, <span class="hljs-string">'O'</span>, <span class="hljs-keyword">None</span>],
+  [<span class="hljs-string">'X'</span>, <span class="hljs-string">'X'</span>, <span class="hljs-string">'O'</span>],
+  [<span class="hljs-string">'O'</span>, <span class="hljs-string">'O'</span>, <span class="hljs-string">'X'</span>]
+]</code></pre>
+
+      </section></section><section class="section" id="section-3"><section class="slide" id="slide-3-1">
+        <h1 id="reguläre-ausdrücke">Reguläre Ausdrücke</h1>
+
+      </section><section class="slide" id="slide-3-2">
         <h2 id="reguläre-ausdrücke">Reguläre Ausdrücke</h2>
 <p>Beispiel:</p>
 <pre><code class="language-py"><span class="hljs-keyword">import</span> re
@@ -127,7 +355,7 @@ match = re.search(<span class="hljs-string">r"[a-z][A-Z]"</span>, <span class="h
 <span class="hljs-keyword">else</span>:
     print(<span class="hljs-string">"no match"</span>)</code></pre>
 
-      </section><section class="slide" id="slide-1-3">
+      </section><section class="slide" id="slide-3-3">
         <h2 id="mehrfach-finden">Mehrfach finden</h2>
 <p>Beispiel:</p>
 <pre><code class="language-py"><span class="hljs-keyword">import</span> re
@@ -137,19 +365,19 @@ match_iter = re.finditer(<span class="hljs-string">r"https?://.+?\\.com"</span>,
 <span class="hljs-keyword">for</span> match <span class="hljs-keyword">in</span> match_iter:
     print(match[<span class="hljs-number">0</span>])</code></pre>
 
-      </section><section class="slide" id="slide-1-4">
+      </section><section class="slide" id="slide-3-4">
         <h2 id="mehrfach-finden">Mehrfach finden</h2>
 <p>Aufgabe: finde alle URLs in einem HTML-Dokument auf der Festplatte</p>
 <p>(Beispieldokument: zB Seite <a href="https://news.ycombinator.com">https://news.ycombinator.com</a> auf Festplatte speichern)</p>
 
-      </section><section class="slide" id="slide-1-5">
+      </section><section class="slide" id="slide-3-5">
         <h2 id="einen-ausdruck-und-unterausdrücke-finden">Einen Ausdruck und Unterausdrücke finden</h2>
 <pre><code class="language-py">re.search(
     <span class="hljs-string">r'\d?\d\.\d?\d\.\d\d\d\d'</span>,
     <span class="hljs-string">'Heute ist der 23.10.1970!'</span>
 )</code></pre>
 
-      </section><section class="slide" id="slide-1-6">
+      </section><section class="slide" id="slide-3-6">
         <h2 id="einen-ausdruck-und-unterausdrücke-finden">Einen Ausdruck und Unterausdrücke finden</h2>
 <pre><code class="language-py">m = re.search(
     <span class="hljs-string">r'(\d?\d)\.(\d?\d)\.(\d\d\d\d)'</span>,
@@ -160,7 +388,7 @@ m[<span class="hljs-number">1</span>] <span class="hljs-comment"># 23</span>
 m[<span class="hljs-number">2</span>] <span class="hljs-comment"># 1</span>
 m[<span class="hljs-number">3</span>] <span class="hljs-comment"># 1970</span></code></pre>
 
-      </section><section class="slide" id="slide-1-7">
+      </section><section class="slide" id="slide-3-7">
         <h2 id="reguläre-ausdrücke">Reguläre Ausdrücke</h2>
 <ul>
 <li>Buch Aufgabe 4 (Lesbarkeitsanalyse)</li>
@@ -168,14 +396,14 @@ m[<span class="hljs-number">3</span>] <span class="hljs-comment"># 1970</span></
 <li>Beispiel: Alle Funktionsdefinitionen in einer Python-Datei finden</li>
 </ul>
 
-      </section><section class="slide" id="slide-1-8">
+      </section><section class="slide" id="slide-3-8">
         <h2 id="lösung-gleichung-erkennen">Lösung: Gleichung erkennen</h2>
 <p><code>\A-?\d+x[\+-]\d+y[\+-]\d+z=\d+\Z</code></p>
 
-      </section></section><section class="section" id="section-2"><section class="slide" id="slide-2-1">
+      </section></section><section class="section" id="section-4"><section class="slide" id="slide-4-1">
         <h1 id="http-mit-python">HTTP mit Python</h1>
 
-      </section><section class="slide" id="slide-2-2">
+      </section><section class="slide" id="slide-4-2">
         <h2 id="http">HTTP</h2>
 <ul>
 <li>http.client.HTTP(S)Connection</li>
@@ -183,7 +411,7 @@ m[<span class="hljs-number">3</span>] <span class="hljs-comment"># 1970</span></
 <li>requests</li>
 </ul>
 
-      </section><section class="slide" id="slide-2-3">
+      </section><section class="slide" id="slide-4-3">
         <h2 id="httpsconnection">HTTP(S)Connection</h2>
 <p>low-level interface</p>
 <pre><code class="language-py"><span class="hljs-keyword">from</span> http.client <span class="hljs-keyword">import</span> HTTPSConnection
@@ -195,7 +423,7 @@ content = answer.read()
 connection.close()
 print(content)</code></pre>
 
-      </section><section class="slide" id="slide-2-4">
+      </section><section class="slide" id="slide-4-4">
         <h2 id="urllib">urllib</h2>
 <p>in Standardlibrary</p>
 <pre><code class="language-py"><span class="hljs-keyword">import</span> urllib
@@ -203,7 +431,7 @@ print(content)</code></pre>
 content: bytes = urllib.request.urlopen(
                     <span class="hljs-string">"https://www.google.com"</span>).read()</code></pre>
 
-      </section><section class="slide" id="slide-2-5">
+      </section><section class="slide" id="slide-4-5">
         <h2 id="requests">requests</h2>
 <p>Externes Paket, installierbar via <em>pip</em>:</p>
 <pre><code class="language-bash">pip install requests</code></pre>
@@ -211,31 +439,40 @@ content: bytes = urllib.request.urlopen(
 
 content: str = requests.get(<span class="hljs-string">"https://www.google.com"</span>).text</code></pre>
 
-      </section><section class="slide" id="slide-2-6">
+      </section><section class="slide" id="slide-4-6">
         <h2 id="web-scraping-anzahl-der-google-suchergebnisse">Web Scraping: Anzahl der Google-Suchergebnisse</h2>
 
-      </section><section class="slide" id="slide-2-7">
+      </section><section class="slide" id="slide-4-7">
         <h2 id="apis-wetterdaten">APIs: Wetterdaten</h2>
 <p><a href="https://automatetheboringstuff.com/chapter14/">https://automatetheboringstuff.com/chapter14/</a></p>
 
-      </section><section class="slide" id="slide-2-8">
+      </section><section class="slide" id="slide-4-8">
         <h2 id="web-scraping-xkcd-downloader">Web Scraping: xkcd-Downloader</h2>
 <p><a href="https://automatetheboringstuff.com/chapter11/">https://automatetheboringstuff.com/chapter11/</a></p>
 
-      </section></section><section class="section" id="section-3"><section class="slide" id="slide-3-1">
+      </section><section class="slide" id="slide-4-9">
+        <h2 id="selenium">Selenium</h2>
+<p>Installation:</p>
+<pre><code class="language-bash">pip install selenium</code></pre>
+<p>geckodriver / chromedriver / ...</p>
+<p>geckodriver Download von:</p>
+<p><a href="https://github.com/mozilla/geckodriver/releases/tag/v0.23.0">https://github.com/mozilla/geckodriver/releases/tag/v0.23.0</a></p>
+<p>herunterladen und in einem pfad in Pythons <code>sys.path</code> ablegen - oder im aktuellen Verzeichnis (working directory)</p>
+
+      </section></section><section class="section" id="section-5"><section class="slide" id="slide-5-1">
         <h1 id="ftp">FTP</h1>
 <p>Modul ftplib</p>
 <p>siehe Buch 23.2.2</p>
 
-      </section></section><section class="section" id="section-4"><section class="slide" id="slide-4-1">
+      </section></section><section class="section" id="section-6"><section class="slide" id="slide-6-1">
         <h1 id="smtp--imap">SMTP / IMAP</h1>
 
-      </section><section class="slide" id="slide-4-2">
+      </section><section class="slide" id="slide-6-2">
         <h2 id="smtp--imap">SMTP / IMAP</h2>
 <p><a href="https://automatetheboringstuff.com/chapter16/">https://automatetheboringstuff.com/chapter16/</a></p>
 <p>zur verdeckten Passworteingabe: Modul &quot;getpass&quot;</p>
 
-      </section><section class="slide" id="slide-4-3">
+      </section><section class="slide" id="slide-6-3">
         <h2 id="smtp--imap">SMTP / IMAP</h2>
 <p>Achtung Fehler:</p>
 <p>falsch:</p>
@@ -245,22 +482,22 @@ content: str = requests.get(<span class="hljs-string">"https://www.google.com"</
 <p>Achtung veraltet: <code>pyzmail</code> -&gt; <code>pyzmail36</code></p>
 <p>Achtung: <code>&#39;BODY[]&#39;</code> -&gt; <code>b&#39;BODY[]</code> (bytes statt string)</p>
 
-      </section></section><section class="section" id="section-5"><section class="slide" id="slide-5-1">
+      </section></section><section class="section" id="section-7"><section class="slide" id="slide-7-1">
         <h1 id="serverseitiges-http">Serverseitiges HTTP</h1>
 
-      </section><section class="slide" id="slide-5-2">
+      </section><section class="slide" id="slide-7-2">
         <h2 id="lokalen-dateiserver-mit-python-betreiben">lokalen Dateiserver mit Python betreiben</h2>
 <pre><code class="language-bash"><span class="hljs-comment"># py2</span>
 pyton -m SimpleHTTPServer</code></pre>
 <pre><code class="language-bash"><span class="hljs-comment"># py3</span>
 python -m http.server</code></pre>
 
-      </section><section class="slide" id="slide-5-3">
+      </section><section class="slide" id="slide-7-3">
         <h2 id="python-am-server---überblick">Python am Server - Überblick</h2>
 <p><a href="https://docs.python.org/2/howto/webservers.html">https://docs.python.org/2/howto/webservers.html</a></p>
 <p>(etwas veraltet)</p>
 
-      </section><section class="slide" id="slide-5-4">
+      </section><section class="slide" id="slide-7-4">
         <h2 id="cgi">CGI</h2>
 <p>CGI = <em>Common Gateway Interface</em></p>
 <p>Standard, um ein Programm am Server auf eine HTTP-Anfrage antworten zu lassen</p>
@@ -268,13 +505,13 @@ python -m http.server</code></pre>
 <p>Interface beruht auf <em>stdin</em>, <em>stdout</em> und Umgebungsvariablen</p>
 <p>Nachteil: für jede Anfrage muss ein neuer Prozess gestartet werden (langsam)</p>
 
-      </section><section class="slide" id="slide-5-5">
+      </section><section class="slide" id="slide-7-5">
         <h2 id="wsgi">WSGI</h2>
 <p>WSGI = Web Server Gateway Interface</p>
 <p>Standard, um ein Python-Programm am Server auf HTTP-Anfragen antworten zu lassen</p>
 <p>Inspiriert von CGI; wichtiger Vorteil: <em>ein</em> laufender Prozess kann der Reihe nach mehrere Anfragen beantworten</p>
 
-      </section><section class="slide" id="slide-5-6">
+      </section><section class="slide" id="slide-7-6">
         <h2 id="python-web-frameworks">Python Web-Frameworks</h2>
 <ul>
 <li>Werkzeug (Python WSGI Utility Library)</li>
@@ -282,14 +519,14 @@ python -m http.server</code></pre>
 <li>Django (vollwertiges Framework)</li>
 </ul>
 
-      </section><section class="slide" id="slide-5-7">
+      </section><section class="slide" id="slide-7-7">
         <h2 id="wsgi-interface">WSGI-Interface</h2>
 <p>Einstiegspunkt ist eine Python-Funktion</p>
 <p>Die Funktion bekommt zwei Parameter übergeben: <code>environ</code> und <code>start_response</code></p>
 <p>Die Anfrageparameter sind über <code>environ</code> abzufragen (zB URL, HTTP header, Formulardaten, ...)</p>
 <p>Der zweite Parameter ist eine Funktion, üblicherweise <code>start_response</code> genannt.</p>
 
-      </section><section class="slide" id="slide-5-8">
+      </section><section class="slide" id="slide-7-8">
         <h2 id="wsgi">WSGI</h2>
 <p>Zum starten der Antwort rufen wir <code>start_response(status, response_headers)</code> auf, zB:</p>
 <pre><code class="language-py">start_response(
@@ -298,7 +535,7 @@ python -m http.server</code></pre>
 )</code></pre>
 <p>Der Antwortkörper wird als ein Iterable von Bytestrings zurückgegeben, zB als Liste von Bytestrings.</p>
 
-      </section><section class="slide" id="slide-5-9">
+      </section><section class="slide" id="slide-7-9">
         <h2 id="wsgi-server-software">WSGI-Server-Software</h2>
 <p>server-software:</p>
 <ul>
@@ -307,7 +544,7 @@ python -m http.server</code></pre>
 <li>mod_wsgi</li>
 </ul>
 
-      </section><section class="slide" id="slide-5-10">
+      </section><section class="slide" id="slide-7-10">
         <h2 id="eigener-wsgi-server-in-python">Eigener WSGI-Server in Python</h2>
 <pre><code class="language-py"><span class="hljs-keyword">from</span> wsgiref.simple_server <span class="hljs-keyword">import</span> make_server
 
@@ -317,7 +554,7 @@ server = make_server(<span class="hljs-string">"localhost"</span>, <span class="
 server.serve_forever()</code></pre>
 <p>Dieser Teil wird üblicherweise von Libraries wie gunicorn übernommen</p>
 
-      </section><section class="slide" id="slide-5-11">
+      </section><section class="slide" id="slide-7-11">
         <h2 id="eigene-wsgi-anwendung-in-python">Eigene WSGI-Anwendung in Python</h2>
 <pre><code class="language-py"><span class="hljs-comment"># app.py</span>
 <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">application</span><span class="hljs-params">(environ, start_response)</span>:</span>
@@ -331,7 +568,7 @@ server.serve_forever()</code></pre>
     start_response(response_status, response_headers)
     <span class="hljs-keyword">return</span> [response_body]</code></pre>
 
-      </section><section class="slide" id="slide-5-12">
+      </section><section class="slide" id="slide-7-12">
         <h2 id="wichtige-http-statuscodes">wichtige HTTP-Statuscodes</h2>
 <ul>
 <li><code>200 OK</code></li>
@@ -360,7 +597,7 @@ server.serve_forever()</code></pre>
 </ul>
 <p>siehe auch: <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">https://en.wikipedia.org/wiki/List_of_HTTP_status_codes</a></p>
 
-      </section><section class="slide" id="slide-5-13">
+      </section><section class="slide" id="slide-7-13">
         <h2 id="wichtige-http-antwort-headerfelder">wichtige HTTP-Antwort-Headerfelder</h2>
 <ul>
 <li><code>Content-Length</code></li>
@@ -370,7 +607,7 @@ server.serve_forever()</code></pre>
 <li><code>Cache-Control</code></li>
 </ul>
 
-      </section><section class="slide" id="slide-5-14">
+      </section><section class="slide" id="slide-7-14">
         <h2 id="content-type-headerfeld">Content-Type-Headerfeld</h2>
 <p>Mögliche Werte:</p>
 <ul>
@@ -384,7 +621,7 @@ server.serve_forever()</code></pre>
 <li>...</li>
 </ul>
 
-      </section><section class="slide" id="slide-5-15">
+      </section><section class="slide" id="slide-7-15">
         <h2 id="das-environ-dictionary">Das environ-dictionary</h2>
 <p>Wir können es im debugger begutachten, zB:</p>
 <pre><code class="language-py">{
@@ -397,15 +634,15 @@ server.serve_forever()</code></pre>
 }</code></pre>
 <p><a href="https://www.python.org/dev/peps/pep-0333/#environ-variables">https://www.python.org/dev/peps/pep-0333/#environ-variables</a></p>
 
-      </section><section class="slide" id="slide-5-16">
+      </section><section class="slide" id="slide-7-16">
         <h2 id="path_info">PATH_INFO</h2>
 <p>PATH_INFO im environ-dictionary: angefragter Pfad am Server</p>
 
-      </section><section class="slide" id="slide-5-17">
+      </section><section class="slide" id="slide-7-17">
         <h2 id="path_info">PATH_INFO</h2>
 <p>Aufgabe: Anzeige verschiedener Seiten unter verschiedenen Adressen</p>
 
-      </section><section class="slide" id="slide-5-18">
+      </section><section class="slide" id="slide-7-18">
         <h2 id="redirects-mit-http">Redirects mit HTTP</h2>
 <pre><code class="language-py">response_headers = [
     (<span class="hljs-string">"Location"</span>, <span class="hljs-string">"/login"</span>),
@@ -414,11 +651,11 @@ server.serve_forever()</code></pre>
 start_response(<span class="hljs-string">"307 Temporary Redirect"</span>, response_headers)
 <span class="hljs-keyword">return</span> [<span class="hljs-string">b''</span>]</code></pre>
 
-      </section><section class="slide" id="slide-5-19">
+      </section><section class="slide" id="slide-7-19">
         <h2 id="redirects-mit-http">Redirects mit HTTP</h2>
 <p>Aufgabe: Weiterleitung einiger Seiten, z.B. <code>/now</code> leitet weiter auf <code>/time</code></p>
 
-      </section><section class="slide" id="slide-5-20">
+      </section><section class="slide" id="slide-7-20">
         <h2 id="cookies">Cookies</h2>
 <p>Cookies = kleine Datenmengen, die von einer Website im Browser abgelegt werden können</p>
 <p>Cookies dienen insbesondere dazu, einen früheren Besucher wiederzuerkennen, z.B. für:</p>
@@ -428,13 +665,13 @@ start_response(<span class="hljs-string">"307 Temporary Redirect"</span>, respon
 <li>Tracking der Useraktivitäten</li>
 </ul>
 
-      </section><section class="slide" id="slide-5-21">
+      </section><section class="slide" id="slide-7-21">
         <h2 id="cookies-setzen">Cookies setzen</h2>
 <pre><code class="language-py">response_headers.append((
     <span class="hljs-string">"Set-Cookie"</span>, <span class="hljs-string">"mycookie123=abcd; Max-Age=30"</span>
 ))</code></pre>
 
-      </section><section class="slide" id="slide-5-22">
+      </section><section class="slide" id="slide-7-22">
         <h2 id="cookies-lesen">Cookies lesen</h2>
 <pre><code class="language-py"><span class="hljs-keyword">try</span>:
     current_cookies_str = environ[<span class="hljs-string">"HTTP_COOKIE"</span>]
@@ -442,7 +679,7 @@ start_response(<span class="hljs-string">"307 Temporary Redirect"</span>, respon
     ...</code></pre>
 <p>Resultat z.B.: <code>&quot;cookie1=one; cookie2=two&quot;</code></p>
 
-      </section><section class="slide" id="slide-5-23">
+      </section><section class="slide" id="slide-7-23">
         <h2 id="cookies-parsen">Cookies parsen</h2>
 <pre><code class="language-py"><span class="hljs-keyword">from</span> http <span class="hljs-keyword">import</span> cookies
 
@@ -452,7 +689,7 @@ mycookies = cookies.SimpleCookie()
 mycookies.load(current_cookies_str)
 mycookies[<span class="hljs-string">"cookie1"</span>].value</code></pre>
 
-      </section><section class="slide" id="slide-5-24">
+      </section><section class="slide" id="slide-7-24">
         <h2 id="cookies-löschen">Cookies löschen</h2>
 <p>indem ein neues Cookie gesetzt wird, dessen &quot;Ablaufsdatum&quot; in der Vergangenheit liegt:</p>
 <pre><code class="language-py">response_headers.append((
@@ -460,11 +697,11 @@ mycookies[<span class="hljs-string">"cookie1"</span>].value</code></pre>
     <span class="hljs-string">"mycookie123=; expires=Thu, 01 Jan 1970 00:00:00 GMT"</span>
 ))</code></pre>
 
-      </section><section class="slide" id="slide-5-25">
+      </section><section class="slide" id="slide-7-25">
         <h2 id="cookies">Cookies</h2>
 <p>Aufgabe: Website, die einen Benutzer nur 5x eine Seite aufrufen lässt und ihn dann auffordert, sich zu registrieren, um die Seite weiter zu verwenden</p>
 
-      </section><section class="slide" id="slide-5-26">
+      </section><section class="slide" id="slide-7-26">
         <h2 id="formular-und-post-request">Formular und post-request</h2>
 <p>So lesen wir Parameter aus Formularen aus:</p>
 <pre><code class="language-py"><span class="hljs-keyword">from</span> urllib.parse <span class="hljs-keyword">import</span> parse_qs
@@ -478,7 +715,7 @@ request_body = (environ[<span class="hljs-string">"wsgi.input"</span>]
 parameters = parse_qs(request_body)
 first_name = parameters.get(<span class="hljs-string">"first-name"</span>)[<span class="hljs-number">0</span>]</code></pre>
 
-      </section><section class="slide" id="slide-5-27">
+      </section><section class="slide" id="slide-7-27">
         <h2 id="wsgi-beispiele">wsgi-Beispiele</h2>
 <ul>
 <li>Online-Abstimmung</li>
@@ -487,10 +724,10 @@ first_name = parameters.get(<span class="hljs-string">"first-name"</span>)[<span
 <li>Todo-Anwendung</li>
 </ul>
 
-      </section><section class="slide" id="slide-5-28">
+      </section><section class="slide" id="slide-7-28">
         <h2 id="achtung-javascript-injection">Achtung: JavaScript-Injection</h2>
 
-      </section><section class="slide" id="slide-5-29">
+      </section><section class="slide" id="slide-7-29">
         <h2 id="deployment-auf-pythonanywherecom">Deployment auf pythonanywhere.com</h2>
 <ul>
 <li>neues Benutzerkonto auf <a href="https://pythonanywhere.com">https://pythonanywhere.com</a></li>
@@ -498,7 +735,7 @@ first_name = parameters.get(<span class="hljs-string">"first-name"</span>)[<span
 <li>manual configuration</li>
 </ul>
 
-      </section><section class="slide" id="slide-5-30">
+      </section><section class="slide" id="slide-7-30">
         <h2 id="deployment-auf-pythonanywherecom">Deployment auf pythonanywhere.com</h2>
 <p>WSGI Konfigurationsdatei</p>
 <pre><code class="language-py"><span class="hljs-comment"># /var/www/username_pythonanywhere_com_wsgi.py</span>
@@ -510,10 +747,10 @@ path = <span class="hljs-string">"/home/username/"</span>
 
 <span class="hljs-keyword">from</span> app <span class="hljs-keyword">import</span> application</code></pre>
 
-      </section></section><section class="section" id="section-6"><section class="slide" id="slide-6-1">
+      </section></section><section class="section" id="section-8"><section class="slide" id="slide-8-1">
         <h1 id="sys-os-shutil">sys, os, shutil</h1>
 
-      </section><section class="slide" id="slide-6-2">
+      </section><section class="slide" id="slide-8-2">
         <h2 id="sys-os-shutil">sys, os, shutil</h2>
 <ul>
 <li>sys: Funktionen zur Python-Umgebung</li>
@@ -521,7 +758,7 @@ path = <span class="hljs-string">"/home/username/"</span>
 <li>shutil: Funktionen zum Arbeiten mit Dateien</li>
 </ul>
 
-      </section><section class="slide" id="slide-6-3">
+      </section><section class="slide" id="slide-8-3">
         <h2 id="sys">sys</h2>
 <p>Beispiele:</p>
 <ul>
@@ -532,11 +769,11 @@ path = <span class="hljs-string">"/home/username/"</span>
 <li><code>version_info</code></li>
 </ul>
 
-      </section><section class="slide" id="slide-6-4">
+      </section><section class="slide" id="slide-8-4">
         <h2 id="kommandozeilenparameter">Kommandozeilenparameter</h2>
 <p>Auslesbar über <code>sys.argv</code></p>
 
-      </section><section class="slide" id="slide-6-5">
+      </section><section class="slide" id="slide-8-5">
         <h2 id="sys-stdoutwrite-überschreiben">sys: stdout.write überschreiben</h2>
 <pre><code class="language-py"><span class="hljs-keyword">import</span> sys
 
@@ -550,11 +787,11 @@ loudstdout = LoudStdout()
 
 sys.stdout = loudstdout</code></pre>
 
-      </section><section class="slide" id="slide-6-6">
+      </section><section class="slide" id="slide-8-6">
         <h2 id="os">os</h2>
 <p>Funktionen zu Betriebssystem und Dateizugriff</p>
 
-      </section><section class="slide" id="slide-6-7">
+      </section><section class="slide" id="slide-8-7">
         <h2 id="os---arbeiten-mit-dateien-und-ordnern">os - Arbeiten mit Dateien und Ordnern</h2>
 <ul>
 <li><code>os.getcwd()</code> (aktueller Pfad)</li>
@@ -569,7 +806,7 @@ sys.stdout = loudstdout</code></pre>
 <li><code>os.walk()</code></li>
 </ul>
 
-      </section><section class="slide" id="slide-6-8">
+      </section><section class="slide" id="slide-8-8">
         <h2 id="shutil">shutil</h2>
 <ul>
 <li><code>shutil.copy(&#39;origin&#39;, &#39;destination&#39;)</code> (Datei kopieren)</li>
@@ -578,14 +815,14 @@ sys.stdout = loudstdout</code></pre>
 <li><code>shutil.move()</code> (Datei oder Ordner verschieben)</li>
 </ul>
 
-      </section><section class="slide" id="slide-6-9">
+      </section><section class="slide" id="slide-8-9">
         <h2 id="übungen">Übungen</h2>
 <p>Buch 14.4.2 (Suchbegriffanzahl in Dateien im Verzeichnis)</p>
 
-      </section></section><section class="section" id="section-7"><section class="slide" id="slide-7-1">
+      </section></section><section class="section" id="section-9"><section class="slide" id="slide-9-1">
         <h1 id="datum-und-zeit">Datum und Zeit</h1>
 
-      </section><section class="slide" id="slide-7-2">
+      </section><section class="slide" id="slide-9-2">
         <h2 id="datum-und-zeit">Datum und Zeit</h2>
 <p>Python-Pakete:</p>
 <h3 id="datetime">datetime</h3>
@@ -593,7 +830,7 @@ sys.stdout = loudstdout</code></pre>
 <h3 id="time">time</h3>
 <p>Arbeiten mit Unix-Timestamps, sleep</p>
 
-      </section><section class="slide" id="slide-7-3">
+      </section><section class="slide" id="slide-9-3">
         <h2 id="datetime">datetime</h2>
 <ul>
 <li><code>datetime.date</code></li>
@@ -601,7 +838,7 @@ sys.stdout = loudstdout</code></pre>
 <li><code>datetime.datetime</code></li>
 </ul>
 
-      </section><section class="slide" id="slide-7-4">
+      </section><section class="slide" id="slide-9-4">
         <h2 id="datetime">datetime</h2>
 <pre><code class="language-py">a = datetime.time(hour, minute, second, microsecond)</code></pre>
 <pre><code class="language-py">b = datetime.datetime(<span class="hljs-number">2018</span>, <span class="hljs-number">1</span>, <span class="hljs-number">13</span>)
@@ -609,26 +846,26 @@ c = datetime.datetime(<span class="hljs-number">2018</span>, <span class="hljs-n
 
 c - b</code></pre>
 
-      </section><section class="slide" id="slide-7-5">
+      </section><section class="slide" id="slide-9-5">
         <h2 id="timesleep">time.sleep</h2>
 <pre><code class="language-py"><span class="hljs-keyword">import</span> time
 <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">10</span>):
     print(i)
     time.sleep(<span class="hljs-number">1</span>)</code></pre>
 
-      </section><section class="slide" id="slide-7-6">
+      </section><section class="slide" id="slide-9-6">
         <h2 id="timetime">time.time</h2>
 <p>aktuelle Unix-Zeit</p>
 <pre><code class="language-py"><span class="hljs-keyword">import</span> time
 time.time()</code></pre>
 
-      </section></section><section class="section" id="section-8"><section class="slide" id="slide-8-1">
+      </section></section><section class="section" id="section-10"><section class="slide" id="slide-10-1">
         <h1 id="gui">GUI</h1>
 
-      </section><section class="slide" id="slide-8-2">
+      </section><section class="slide" id="slide-10-2">
         <h2 id="graphical-user-interface">Graphical User Interface</h2>
 
-      </section><section class="slide" id="slide-8-3">
+      </section><section class="slide" id="slide-10-3">
         <h2 id="gui-libraries-für-python">GUI-Libraries für Python</h2>
 <ul>
 <li>tk</li>
@@ -636,7 +873,7 @@ time.time()</code></pre>
 <li>Kivy</li>
 </ul>
 
-      </section><section class="slide" id="slide-8-4">
+      </section><section class="slide" id="slide-10-4">
         <h2 id="tk">tk</h2>
 <ul>
 <li>Einfache UI-Library</li>
@@ -644,23 +881,23 @@ time.time()</code></pre>
 <li>in Python vorinstalliert</li>
 </ul>
 
-      </section><section class="slide" id="slide-8-5">
+      </section><section class="slide" id="slide-10-5">
         <h2 id="qt">Qt</h2>
 <ul>
 <li>Weit verbreitete UI-Library</li>
 <li>Anbindungen an Python: PyQt oder PySide</li>
 </ul>
 
-      </section><section class="slide" id="slide-8-6">
+      </section><section class="slide" id="slide-10-6">
         <h2 id="kivy">Kivy</h2>
 <ul>
 <li>speziell für Python entwickelt</li>
 </ul>
 
-      </section></section><section class="section" id="section-9"><section class="slide" id="slide-9-1">
+      </section></section><section class="section" id="section-11"><section class="slide" id="slide-11-1">
         <h1 id="tkinter">Tkinter</h1>
 
-      </section><section class="slide" id="slide-9-2">
+      </section><section class="slide" id="slide-11-2">
         <h2 id="tkinter---beispiel">Tkinter - Beispiel</h2>
 <pre><code class="language-py"><span class="hljs-comment"># simple.pyw</span>
 <span class="hljs-keyword">import</span> tkinter
@@ -671,7 +908,7 @@ window = tkinter.Tk()
 <span class="hljs-comment">#   (auf Benutzerinteraktion warten)</span>
 window.mainloop()</code></pre>
 
-      </section><section class="slide" id="slide-9-3">
+      </section><section class="slide" id="slide-11-3">
         <h2 id="tkinter---text-anzeigen">Tkinter - Text anzeigen</h2>
 <pre><code class="language-py"><span class="hljs-keyword">import</span> tkinter
 
@@ -682,12 +919,12 @@ hello_label.pack()
 
 window.mainloop()</code></pre>
 
-      </section><section class="slide" id="slide-9-4">
+      </section><section class="slide" id="slide-11-4">
         <h2 id="tkinter---elemente-nachträglich-ändern">Tkinter - Elemente nachträglich ändern</h2>
 <pre><code class="language-py">time_label = tkinter.Label(master=window, text=<span class="hljs-string">""</span>)
 time_label.config(text=<span class="hljs-string">"Hello!"</span>)</code></pre>
 
-      </section><section class="slide" id="slide-9-5">
+      </section><section class="slide" id="slide-11-5">
         <h2 id="tkinter---benutzerinteraktion">Tkinter - Benutzerinteraktion</h2>
 <pre><code class="language-py">...
 
@@ -704,11 +941,11 @@ hello_button.pack()
 
 ...</code></pre>
 
-      </section><section class="slide" id="slide-9-6">
+      </section><section class="slide" id="slide-11-6">
         <h2 id="beispiel-counter">Beispiel: Counter</h2>
 <p>Button, der bei 0 startet und die Klickanzahl mitzählt und anzeigt</p>
 
-      </section><section class="slide" id="slide-9-7">
+      </section><section class="slide" id="slide-11-7">
         <h2 id="tkinter---widget-konfiguration">Tkinter - Widget-Konfiguration</h2>
 <p>Möglichkeiten:</p>
 <ul>
@@ -721,7 +958,7 @@ hello_button.pack()
 <li><code>padx</code>, <code>pady</code> (Abstand Rahmen zum Inhalt)</li>
 </ul>
 
-      </section><section class="slide" id="slide-9-8">
+      </section><section class="slide" id="slide-11-8">
         <h2 id="tkinter---widgets">Tkinter - Widgets</h2>
 <ul>
 <li><code>Label</code></li>
@@ -729,30 +966,30 @@ hello_button.pack()
 <li><code>Frame</code></li>
 </ul>
 
-      </section><section class="slide" id="slide-9-9">
+      </section><section class="slide" id="slide-11-9">
         <h2 id="tkinter---beispiele">Tkinter - Beispiele</h2>
 <ul>
 <li>zufälliger Sehtest</li>
 </ul>
 
-      </section></section><section class="section" id="section-10"><section class="slide" id="slide-10-1">
+      </section></section><section class="section" id="section-12"><section class="slide" id="slide-12-1">
         <h1 id="datenbanken">Datenbanken</h1>
 <p>siehe auch Buch Kapitel 24</p>
 
-      </section><section class="slide" id="slide-10-2">
+      </section><section class="slide" id="slide-12-2">
         <h2 id="datenbanken">Datenbanken</h2>
 <p>Verwendung: Verwaltung großer Datenmengen</p>
 
-      </section><section class="slide" id="slide-10-3">
+      </section><section class="slide" id="slide-12-3">
         <h2 id="entity-relationship-diagramme">Entity-Relationship-Diagramme</h2>
 <p><a href="https://en.wikipedia.org/wiki/Entity%E2%80%93relationship_model">https://en.wikipedia.org/wiki/Entity%E2%80%93relationship_model</a></p>
 <p>Buch 24.2</p>
 
-      </section><section class="slide" id="slide-10-4">
+      </section><section class="slide" id="slide-12-4">
         <h2 id="tabellen-und-datenschemata">Tabellen und Datenschemata</h2>
 <p>Die meisten Datenbanken verwalten ihre Daten in Tabellen</p>
 
-      </section><section class="slide" id="slide-10-5">
+      </section><section class="slide" id="slide-12-5">
         <h2 id="erfassen-von-daten-in-tabellen">Erfassen von Daten in Tabellen</h2>
 <p>Überlegungen:</p>
 <ul>
@@ -760,7 +997,7 @@ hello_button.pack()
 <li>Modellierung von Freundschaften</li>
 </ul>
 
-      </section><section class="slide" id="slide-10-6">
+      </section><section class="slide" id="slide-12-6">
         <h2 id="beispiel-online-redaktionssystem-mit-datenbankanbindung">Beispiel: Online-Redaktionssystem mit Datenbankanbindung</h2>
 <p>siehe Buch</p>
 <ul>
@@ -768,10 +1005,10 @@ hello_button.pack()
 <li>Admin-Skript</li>
 </ul>
 
-      </section><section class="slide" id="slide-10-7">
+      </section><section class="slide" id="slide-12-7">
         <h2 id="beispiel-todo-anwendung">Beispiel: Todo-Anwendung</h2>
 
-      </section><section class="slide" id="slide-10-8">
+      </section><section class="slide" id="slide-12-8">
         <h2 id="beispiel-todo-anwendung">Beispiel: Todo-Anwendung</h2>
 <ul>
 <li>run_server.py und (minimale) app.py</li>
@@ -780,15 +1017,15 @@ hello_button.pack()
 </ul>
 <p>siehe courses-tutorials/python-todolist-wsgi-sqlite</p>
 
-      </section></section><section class="section" id="section-11"><section class="slide" id="slide-11-1">
+      </section></section><section class="section" id="section-13"><section class="slide" id="slide-13-1">
         <h1 id="sql">SQL</h1>
 
-      </section><section class="slide" id="slide-11-2">
+      </section><section class="slide" id="slide-13-2">
         <h2 id="die-abfragesprache-sql">Die Abfragesprache SQL</h2>
 <p>SQL = Structured Query Language</p>
 <p>Standardisierte Abfragesprache für tabellarische Datenbanken</p>
 
-      </section><section class="slide" id="slide-11-3">
+      </section><section class="slide" id="slide-13-3">
         <h2 id="sql-varianten">SQL-Varianten</h2>
 <ul>
 <li>SQL Server</li>
@@ -799,31 +1036,31 @@ hello_button.pack()
 <li>SQLite</li>
 </ul>
 
-      </section><section class="slide" id="slide-11-4">
+      </section><section class="slide" id="slide-13-4">
         <h2 id="online-tutorial">Online Tutorial</h2>
 <p><a href="https://www.w3schools.com/sql/default.asp">https://www.w3schools.com/sql/default.asp</a></p>
 
-      </section><section class="slide" id="slide-11-5">
+      </section><section class="slide" id="slide-13-5">
         <h2 id="sql-ausprobieren">SQL ausprobieren</h2>
 <p><a href="https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all">https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all</a></p>
 <p>Desktop-Anwendung:</p>
 <p><a href="https://sqlitebrowser.org/">https://sqlitebrowser.org/</a></p>
 
-      </section><section class="slide" id="slide-11-6">
+      </section><section class="slide" id="slide-13-6">
         <h2 id="tabellen-erstellen">Tabellen erstellen</h2>
 <p>Befehl: <code>CREATE TABLE</code></p>
 <pre><code class="language-sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> person(
     <span class="hljs-keyword">name</span> <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">50</span>),
     tel <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">20</span>));</code></pre>
 
-      </section><section class="slide" id="slide-11-7">
+      </section><section class="slide" id="slide-13-7">
         <h2 id="tabellen-erstellen">Tabellen erstellen</h2>
 <pre><code class="language-sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> person(
     <span class="hljs-keyword">id</span> <span class="hljs-built_in">INTEGER</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> AUTO_INCREMENT,
     <span class="hljs-keyword">name</span> <span class="hljs-built_in">TEXT</span>,
     tel <span class="hljs-built_in">TEXT</span>);</code></pre>
 
-      </section><section class="slide" id="slide-11-8">
+      </section><section class="slide" id="slide-13-8">
         <h2 id="sql-datentypen">SQL-Datentypen</h2>
 <table>
 <thead>
@@ -902,7 +1139,7 @@ hello_button.pack()
 </tr>
 </tbody></table>
 
-      </section></section><section class="section" id="section-12"><section class="slide" id="slide-12-1">
+      </section></section><section class="section" id="section-14"><section class="slide" id="slide-14-1">
         <h1 id="signed--unsigned">signed &amp; unsigned</h1>
 <p>MySQL unterscheidet zB zwischen:</p>
 <ul>
@@ -910,7 +1147,7 @@ hello_button.pack()
 <li><code>UNSIGNED SMALLINT</code> (0 bis 65535)</li>
 </ul>
 
-      </section><section class="slide" id="slide-12-2">
+      </section><section class="slide" id="slide-14-2">
         <h2 id="not-null">not null</h2>
 <p>Eintrag darf nicht leer gelassen werden</p>
 <pre><code class="language-sql"><span class="hljs-comment">/* MySQL */</span>
@@ -918,7 +1155,7 @@ hello_button.pack()
     <span class="hljs-keyword">id</span> <span class="hljs-built_in">INT</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
     <span class="hljs-keyword">name</span> <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">50</span>));</code></pre>
 
-      </section><section class="slide" id="slide-12-3">
+      </section><section class="slide" id="slide-14-3">
         <h2 id="unique">unique</h2>
 <p>Jeder Eintrag muss einen einzigartigen Wert in der Tabelle haben</p>
 <pre><code class="language-sql"><span class="hljs-comment">/* alle außer MySQL */</span>
@@ -933,7 +1170,7 @@ hello_button.pack()
     <span class="hljs-keyword">UNIQUE</span>(<span class="hljs-keyword">id</span>)
 );</code></pre>
 
-      </section><section class="slide" id="slide-12-4">
+      </section><section class="slide" id="slide-14-4">
         <h2 id="auto-increment">auto increment</h2>
 <p>Integer wird automatisch bei jedem neuen Element erhöht</p>
 <pre><code class="language-sql"><span class="hljs-comment">/* MySQL */</span>
@@ -945,7 +1182,7 @@ hello_button.pack()
 <li>Postgres: <code>SERIAL</code></li>
 </ul>
 
-      </section><section class="slide" id="slide-12-5">
+      </section><section class="slide" id="slide-14-5">
         <h2 id="primary-key">primary key</h2>
 <p>Eindeutige Identifizierung einer Zeile in einer Tabelle</p>
 <ul>
@@ -960,7 +1197,7 @@ hello_button.pack()
 );</code></pre>
 <p>In sqlite wird immer automatisch ein numerischer Primärschlüssel unter dem Namen <code>rowid</code> angelegt.</p>
 
-      </section><section class="slide" id="slide-12-6">
+      </section><section class="slide" id="slide-14-6">
         <h2 id="foreign-key">foreign key</h2>
 <p>Referenz auf jeweils einen Eintrag einer anderen Tabelle</p>
 <p>z.B.: Jeder Eintrag in der Tabelle <em>person</em> kann über die Spalte <em>country_id</em> mit der Tabelle <em>country</em> verknüpft werden</p>
@@ -971,33 +1208,33 @@ hello_button.pack()
     FOREIGN <span class="hljs-keyword">KEY</span> (country_id) <span class="hljs-keyword">REFERENCES</span> country(<span class="hljs-keyword">id</span>)
 );</code></pre>
 
-      </section><section class="slide" id="slide-12-7">
+      </section><section class="slide" id="slide-14-7">
         <h2 id="daten-eintragen">Daten eintragen</h2>
 <pre><code class="language-sql"><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> person <span class="hljs-keyword">VALUES</span> (<span class="hljs-string">'Andreas Berger'</span>, <span class="hljs-string">'012345'</span>);</code></pre>
 <pre><code class="language-sql"><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> person (<span class="hljs-keyword">name</span>, tel) <span class="hljs-keyword">VALUES</span> (<span class="hljs-string">'Andreas Berger'</span>, <span class="hljs-string">'012345'</span>);</code></pre>
 
-      </section><section class="slide" id="slide-12-8">
+      </section><section class="slide" id="slide-14-8">
         <h2 id="daten-auslesen">Daten auslesen</h2>
 <p>Daten aller Personen auslesen</p>
 <pre><code class="language-sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">name</span>, tel <span class="hljs-keyword">FROM</span> person
 <span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> person</code></pre>
 
-      </section><section class="slide" id="slide-12-9">
+      </section><section class="slide" id="slide-14-9">
         <h2 id="bedingte-abfragen-where">Bedingte Abfragen (WHERE)</h2>
 <pre><code class="language-sql"><span class="hljs-keyword">SELECT</span> tel <span class="hljs-keyword">FROM</span> person <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">name</span> = <span class="hljs-string">'Andreas Berger'</span>;
 <span class="hljs-keyword">SELECT</span> tel <span class="hljs-keyword">FROM</span> person <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">name</span> <span class="hljs-keyword">LIKE</span> <span class="hljs-string">'Andreas%'</span> <span class="hljs-keyword">AND</span> tel <span class="hljs-keyword">LIKE</span> <span class="hljs-string">'+49%'</span>;</code></pre>
 
-      </section><section class="slide" id="slide-12-10">
+      </section><section class="slide" id="slide-14-10">
         <h2 id="daten-eintragen-update">Daten eintragen (UPDATE)</h2>
 <pre><code class="language-sql"><span class="hljs-keyword">UPDATE</span> person
 <span class="hljs-keyword">SET</span> <span class="hljs-keyword">name</span> = <span class="hljs-string">'Andreas Müller'</span>
 <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">name</span> = <span class="hljs-string">'Andreas Müller'</span>;</code></pre>
 
-      </section><section class="slide" id="slide-12-11">
+      </section><section class="slide" id="slide-14-11">
         <h2 id="daten-löschen-delete">Daten löschen (DELETE)</h2>
 <pre><code class="language-sql"><span class="hljs-keyword">DELETE</span> <span class="hljs-keyword">FROM</span> person <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">name</span> = <span class="hljs-string">'Andreas Müller'</span>;</code></pre>
 
-      </section><section class="slide" id="slide-12-12">
+      </section><section class="slide" id="slide-14-12">
         <h2 id="tabellen-verknüpfen-inner-join">Tabellen verknüpfen (INNER JOIN)</h2>
 <pre><code class="language-sql"><span class="hljs-keyword">SELECT</span> song.title, album.year
 <span class="hljs-keyword">FROM</span> song
@@ -1005,7 +1242,7 @@ hello_button.pack()
 <span class="hljs-keyword">ON</span> song.albumid = album.id;</code></pre>
 <p>Der obige Code listet alle Kombinationen auf, bei denen <code>song.albumid</code> und <code>album.id</code> übereinstimmen</p>
 
-      </section><section class="slide" id="slide-12-13">
+      </section><section class="slide" id="slide-14-13">
         <h2 id="tabellen-verknüpfen-left-join">Tabellen verknüpfen (LEFT JOIN)</h2>
 <pre><code class="language-sql"><span class="hljs-keyword">SELECT</span> song.title, album.year
 <span class="hljs-keyword">FROM</span> song
@@ -1013,24 +1250,24 @@ hello_button.pack()
 <span class="hljs-keyword">ON</span> song.albumid = album.id;</code></pre>
 <p>Der obige Code listet alle Kombinationen auf und beinhaltet auch Lieder, für die kein Album definiert ist</p>
 
-      </section><section class="slide" id="slide-12-14">
+      </section><section class="slide" id="slide-14-14">
         <h2 id="indizes-in-datenbanken">Indizes in Datenbanken</h2>
 <p>Generell: geordnete Listen können viel schneller durchsucht werden als ungeordnete (binäre Suche)</p>
 <p>Beispiel: im Telefonbuch kann man schnell nach dem Nachnamen einer Person suchen, aber nicht nach dem Vornamen</p>
 <p>Auf eine oder mehrere Spalten kann ein Index angewendet werden: Zusätzliche Datenstruktur, die auf die Daten in bestimmter Ordnung verweist.</p>
 
-      </section><section class="slide" id="slide-12-15">
+      </section><section class="slide" id="slide-14-15">
         <h2 id="indizes-erstellen">Indizes erstellen</h2>
 <pre><code class="language-sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">INDEX</span> person_name <span class="hljs-keyword">ON</span> person (<span class="hljs-keyword">name</span>)</code></pre>
 
-      </section><section class="slide" id="slide-12-16">
+      </section><section class="slide" id="slide-14-16">
         <h2 id="sql-ausprobieren">SQL ausprobieren</h2>
 <p>Auf <a href="https://pythonanywhere.com">https://pythonanywhere.com</a> stehen <em>MySQL</em> und <em>PostgreSQL</em> kostenfrei zur Verfügung.</p>
 
-      </section></section><section class="section" id="section-13"><section class="slide" id="slide-13-1">
+      </section></section><section class="section" id="section-15"><section class="slide" id="slide-15-1">
         <h1 id="sql-mit-python">SQL mit Python</h1>
 
-      </section><section class="slide" id="slide-13-2">
+      </section><section class="slide" id="slide-15-2">
         <h2 id="python-anbindung-von-sql-datenbanken">Python-Anbindung von SQL-Datenbanken</h2>
 <p>Database API Specification: Standard, der von verschiedenen Python-Datenbankanbindungen umgesetzt wird; standardisiert in PEP 249</p>
 <p>Anbindungen für:</p>
@@ -1041,7 +1278,7 @@ hello_button.pack()
 <li>Oracle (PIP-Paket <em>cx_oracle</em>)</li>
 </ul>
 
-      </section><section class="slide" id="slide-13-3">
+      </section><section class="slide" id="slide-15-3">
         <h2 id="sqlite-und-python">SQLite und Python</h2>
 <p>SQLite: Datenbank, die nur eine einzelne Datenbankdatei verwendet</p>
 <p>Ist in Python integriert (Modul <code>sqlite3</code>)</p>
@@ -1049,7 +1286,7 @@ hello_button.pack()
 
 connection = sqlite3.connect(<span class="hljs-string">'contacts.db'</span>)</code></pre>
 
-      </section><section class="slide" id="slide-13-4">
+      </section><section class="slide" id="slide-15-4">
         <h2 id="mysql-und-python">MySQL und Python</h2>
 <p>PIP-Paket <em>PyMySQL</em></p>
 <pre><code class="language-py"><span class="hljs-keyword">import</span> pymysql.cursors
@@ -1060,7 +1297,7 @@ connection = pymysql.connect(host=<span class="hljs-string">'localhost'</span>,
                              db=<span class="hljs-string">'db'</span>,
                              charset=<span class="hljs-string">'utf8mb4'</span>)</code></pre>
 
-      </section><section class="slide" id="slide-13-5">
+      </section><section class="slide" id="slide-15-5">
         <h2 id="python-und-oracle-database">Python und Oracle Database</h2>
 <p>Python-Paket <em>cx_Oracle</em></p>
 <pre><code class="language-py"><span class="hljs-keyword">import</span> cx_Oracle
@@ -1069,7 +1306,7 @@ connection = cx_Oracle.connect(user=<span class="hljs-string">"user"</span>,
                                password=<span class="hljs-string">"password"</span>,
                                dsn=<span class="hljs-string">"localhost/oraclepdb"</span>)</code></pre>
 
-      </section><section class="slide" id="slide-13-6">
+      </section><section class="slide" id="slide-15-6">
         <h2 id="pyodbc">pyodbc</h2>
 <p>ODBC = open database connectivity: Standard zur Anbindung an Datenbanken (unabhängig von Python)</p>
 <p>pyodbc = Implementierung für Python, damit können beliebige ODBC-Datenbanken angebunden werden</p>
@@ -1078,7 +1315,7 @@ connection = cx_Oracle.connect(user=<span class="hljs-string">"user"</span>,
 connection = pyodbc.connect(
   <span class="hljs-string">"Driver=SQLite3 ODBC Driver;Database=contacts.db"</span>)</code></pre>
 
-      </section><section class="slide" id="slide-13-7">
+      </section><section class="slide" id="slide-15-7">
         <h2 id="gemeinsames-interface-pep-249">Gemeinsames Interface (PEP 249)</h2>
 <pre><code class="language-py">connection = ...
 ...
@@ -1094,11 +1331,11 @@ conection.commit()
 ...
 connection.close()</code></pre>
 
-      </section><section class="slide" id="slide-13-8">
+      </section><section class="slide" id="slide-15-8">
         <h2 id="pep-249">PEP 249</h2>
 <p><a href="https://www.python.org/dev/peps/pep-0249">https://www.python.org/dev/peps/pep-0249</a></p>
 
-      </section><section class="slide" id="slide-13-9">
+      </section><section class="slide" id="slide-15-9">
         <h2 id="pep-249-typen">PEP 249: Typen</h2>
 <ul>
 <li><code>Date</code></li>
@@ -1109,16 +1346,16 @@ connection.close()</code></pre>
 <li><code>NUMBER</code></li>
 </ul>
 
-      </section><section class="slide" id="slide-13-10">
+      </section><section class="slide" id="slide-15-10">
         <h2 id="bedingte-abfragen-mit-parametern">Bedingte Abfragen mit Parametern</h2>
 <pre><code class="language-py">search_name = input()
 command = <span class="hljs-string">f"""SELECT tel FROM person WHERE name = '<span class="hljs-subst">{search_name}</span>'"""</span>
 res = c.execute(command)</code></pre>
 
-      </section><section class="slide" id="slide-13-11">
+      </section><section class="slide" id="slide-15-11">
         <h2 id="achtung-sql-injections">Achtung: SQL-Injections</h2>
 
-      </section><section class="slide" id="slide-13-12">
+      </section><section class="slide" id="slide-15-12">
         <h2 id="achtung-sql-injections">Achtung: SQL-Injections</h2>
 <p>sichere Methode (mit SQL-Escaping):</p>
 <pre><code class="language-py">search_name = input()
@@ -1127,7 +1364,7 @@ res = c.execute(
   (search_name, )
 )</code></pre>
 
-      </section><section class="slide" id="slide-13-13">
+      </section><section class="slide" id="slide-15-13">
         <h2 id="abfrageparameter">Abfrageparameter</h2>
 <p><a href="https://www.python.org/dev/peps/pep-0249/#paramstyle">https://www.python.org/dev/peps/pep-0249/#paramstyle</a></p>
 <p>Die Attribute <code>sqlite3.paramstyle</code>, <code>pymysql.paramstyle</code> etc geben das Format für Abfragen mit Parametern an</p>
@@ -1138,7 +1375,7 @@ res = c.execute(
 <li>cx_Oracle: named</li>
 </ul>
 
-      </section><section class="slide" id="slide-13-14">
+      </section><section class="slide" id="slide-15-14">
         <h2 id="pep-249-das-cursor-objekt">PEP 249: das cursor Objekt</h2>
 <p><code>cursor.rowcount</code>: Anzahl der letzten Ergebnisse</p>
 <p><code>cursor.fetchone()</code>: Eine Zeile des Resultats auslesen (üblicherweise als Tupel)</p>
@@ -1146,20 +1383,20 @@ res = c.execute(
 <p><code>cursor.fetchall()</code></p>
 <p><code>cursor.execute(command, parameters)</code></p>
 
-      </section></section><section class="section" id="section-14"><section class="slide" id="slide-14-1">
+      </section></section><section class="section" id="section-16"><section class="slide" id="slide-16-1">
         <h1 id="sqlalchemy">SQLAlchemy</h1>
 
-      </section><section class="slide" id="slide-14-2">
+      </section><section class="slide" id="slide-16-2">
         <h2 id="sqlalchemy">SQLAlchemy</h2>
 <p>SQLAlchemy = Object Relational Mapper</p>
 <p>Objektorientierter Zugriff auf beliebige SQL-Datenbanken</p>
 <p>Alternative: Django ORM</p>
 
-      </section><section class="slide" id="slide-14-3">
+      </section><section class="slide" id="slide-16-3">
         <h2 id="sqlalchemy">SQLAlchemy</h2>
 <p>Pip-Paket <em>sqlalchemy</em></p>
 
-      </section><section class="slide" id="slide-14-4">
+      </section><section class="slide" id="slide-16-4">
         <h2 id="verbinden-mit-sqlite-datenbank">verbinden mit SQLite-Datenbank</h2>
 <pre><code class="language-py"><span class="hljs-comment"># db_interface.py</span>
 <span class="hljs-keyword">from</span> sqlalchemy <span class="hljs-keyword">import</span> create_engine
@@ -1168,7 +1405,7 @@ engine = create_engine(<span class="hljs-string">"sqlite:///music.db"</span>, ec
 
 engine.connect()</code></pre>
 
-      </section><section class="slide" id="slide-14-5">
+      </section><section class="slide" id="slide-16-5">
         <h2 id="tabellen-definieren">Tabellen definieren</h2>
 <pre><code class="language-py"><span class="hljs-comment"># schema.py</span>
 <span class="hljs-keyword">from</span> sqlalchemy.ext.declarative <span class="hljs-keyword">import</span> declarative_base
@@ -1184,7 +1421,7 @@ Base = declarative_base()
 <pre><code class="language-py"><span class="hljs-comment"># db_interface.py</span>
 Base.metadata.create_all(engine)</code></pre>
 
-      </section><section class="slide" id="slide-14-6">
+      </section><section class="slide" id="slide-16-6">
         <h2 id="mit-sessions-arbeiten">Mit Sessions arbeiten</h2>
 <pre><code class="language-py"><span class="hljs-keyword">from</span> sqlalchemy.orm <span class="hljs-keyword">import</span> sessionmaker
 
@@ -1196,14 +1433,14 @@ session = Session()
 
 session.commit()</code></pre>
 
-      </section><section class="slide" id="slide-14-7">
+      </section><section class="slide" id="slide-16-7">
         <h2 id="insert">insert</h2>
 <pre><code class="language-sql"><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> artist <span class="hljs-keyword">VALUES</span> (<span class="hljs-string">'The Beatles'</span>, <span class="hljs-string">'United Kingdom'</span>);</code></pre>
 <p>wird zu:</p>
 <pre><code class="language-py">beatles = Artist(name=<span class="hljs-string">"The Beatles"</span>, country=<span class="hljs-string">"United Kingdom"</span>)
 session.add(beatles)</code></pre>
 
-      </section><section class="slide" id="slide-14-8">
+      </section><section class="slide" id="slide-16-8">
         <h2 id="select">select</h2>
 <pre><code class="language-sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">name</span>, country <span class="hljs-keyword">FROM</span> artist;</code></pre>
 <p>wird zu:</p>
@@ -1213,7 +1450,7 @@ session.add(beatles)</code></pre>
 <pre><code class="language-py"><span class="hljs-keyword">for</span> name, country <span class="hljs-keyword">in</span> session.query(Artist.name, Artist.country):
     print(<span class="hljs-string">f"<span class="hljs-subst">{name}</span> (<span class="hljs-subst">{country}</span>)"</span>)</code></pre>
 
-      </section><section class="slide" id="slide-14-9">
+      </section><section class="slide" id="slide-16-9">
         <h2 id="order-by">order by</h2>
 <pre><code class="language-sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">name</span>, country <span class="hljs-keyword">FROM</span> artist <span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> <span class="hljs-keyword">name</span>;</code></pre>
 <p>wird zu:</p>
@@ -1221,13 +1458,13 @@ session.add(beatles)</code></pre>
         Artist.name, Artist.country).order_by(Artist.name):
     ...</code></pre>
 
-      </section><section class="slide" id="slide-14-10">
+      </section><section class="slide" id="slide-16-10">
         <h2 id="where">where</h2>
 <pre><code class="language-sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">name</span>, country <span class="hljs-keyword">FROM</span> artist <span class="hljs-keyword">WHERE</span> artist.name=<span class="hljs-string">'The Beatles'</span></code></pre>
 <p>wird zu:</p>
 <pre><code class="language-py">session.query(Artist).filter_by(Artist.name==<span class="hljs-string">"The Beatles"</span>).one()</code></pre>
 
-      </section><section class="slide" id="slide-14-11">
+      </section><section class="slide" id="slide-16-11">
         <h2 id="sprechende-ausgabe-von-einträgen">Sprechende Ausgabe von Einträgen</h2>
 <p>aktuell:</p>
 <pre><code class="language-txt">&amp;ltdb_schema.Song object at 0x00000175902A5FD0&gt;</code></pre>
@@ -1235,7 +1472,7 @@ session.add(beatles)</code></pre>
 <pre><code class="language-txt">Help! - The Beatles</code></pre>
 <p>umsetzbar mittels <code>__repr__</code> / <code>__str__</code></p>
 
-      </section><section class="slide" id="slide-14-12">
+      </section><section class="slide" id="slide-16-12">
         <h2 id="update">update</h2>
 <pre><code class="language-sql"><span class="hljs-keyword">UPDATE</span> song
 <span class="hljs-keyword">SET</span> title = <span class="hljs-string">'Help'</span>
@@ -1244,7 +1481,7 @@ session.add(beatles)</code></pre>
 <pre><code class="language-py">entry = session.query(Song).filter_by(Song.title==<span class="hljs-string">"Help!"</span>).one()
 entry.title = <span class="hljs-string">"Help"</span></code></pre>
 
-      </section><section class="slide" id="slide-14-13">
+      </section><section class="slide" id="slide-16-13">
         <h2 id="delete">delete</h2>
 <pre><code class="language-sql"><span class="hljs-keyword">DELETE</span>
 <span class="hljs-keyword">FROM</span> song
@@ -1252,7 +1489,7 @@ entry.title = <span class="hljs-string">"Help"</span></code></pre>
 <p>wird zu</p>
 <pre><code class="language-py">session.query(Song).filter_by(Song.title==<span class="hljs-string">"Help!"</span>).delete()</code></pre>
 
-      </section><section class="slide" id="slide-14-14">
+      </section><section class="slide" id="slide-16-14">
         <h2 id="definition-eines-fremdschlüssels">Definition eines Fremdschlüssels</h2>
 <pre><code class="language-py"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Song</span><span class="hljs-params">(Base)</span>:</span>
     __tablename__ = <span class="hljs-string">"song"</span>
@@ -1260,7 +1497,7 @@ entry.title = <span class="hljs-string">"Help"</span></code></pre>
     title = Column(String(<span class="hljs-number">30</span>))
     artist_id = Column(Integer, ForeignKey(<span class="hljs-string">"artist.id"</span>))</code></pre>
 
-      </section><section class="slide" id="slide-14-15">
+      </section><section class="slide" id="slide-16-15">
         <h2 id="einfaches-abfragen-einer-verknüpften-tabelle">Einfaches Abfragen einer verknüpften Tabelle</h2>
 <pre><code class="language-py"><span class="hljs-keyword">from</span> sqlalchemy.orm <span class="hljs-keyword">import</span> relationship
 
@@ -1274,7 +1511,7 @@ entry.title = <span class="hljs-string">"Help"</span></code></pre>
 
     artist = relationship(<span class="hljs-string">"Artist"</span>)</code></pre>
 
-      </section><section class="slide" id="slide-14-16">
+      </section><section class="slide" id="slide-16-16">
         <h2 id="einfaches-abfragen-einer-verknüpften-tabelle">Einfaches Abfragen einer verknüpften Tabelle</h2>
 <pre><code>yesterday = Song(title=&quot;Yesterday&quot;, artist=beatles)
 help = Song(title=&quot;Help!&quot;, artist_id=beatles.id)
@@ -1282,20 +1519,20 @@ session.add(...)
 
 print(yesterday.artist)
 print(beatles.songs)</code></pre>
-      </section></section><section class="section" id="section-15"><section class="slide" id="slide-15-1">
+      </section></section><section class="section" id="section-17"><section class="slide" id="slide-17-1">
         <h1 id="numpy">NumPy</h1>
 
-      </section><section class="slide" id="slide-15-2">
+      </section><section class="slide" id="slide-17-2">
         <h2 id="numpy">NumPy</h2>
 <p>Library zur effizienten Datenverarbeitung</p>
 <p>Daten sind in mehrdimensionalen arrays gespeichert, die resourcenschonend umgesetzt sind</p>
 
-      </section><section class="slide" id="slide-15-3">
+      </section><section class="slide" id="slide-17-3">
         <h2 id="numpy">NumPy</h2>
 <p>NumPy Arrays vs Python Listen:</p>
 <p>Arrays sind im Hintergrund in C implementiert, die numerischen Einträge (z.B. Integer) sind keine Python-Objekte und damit resourcenschonender.</p>
 
-      </section><section class="slide" id="slide-15-4">
+      </section><section class="slide" id="slide-17-4">
         <h2 id="numpy">NumPy</h2>
 <p>NumPy Arrays vs Python Listen:</p>
 <pre><code class="language-py">list_a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>] <span class="hljs-comment"># Python - Liste (mit Verweisen auf andere Integer)</span>
@@ -1307,7 +1544,7 @@ array_b = numpy.array(list_b)
 
 array_a + array_b <span class="hljs-comment"># sehr schnell (da in C implementiert)</span></code></pre>
 
-      </section><section class="slide" id="slide-15-5">
+      </section><section class="slide" id="slide-17-5">
         <h2 id="numpy">NumPy</h2>
 <p>Kapitel 30</p>
 <ul>

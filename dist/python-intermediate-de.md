@@ -1,14 +1,45 @@
+# {{title}}
+
+## Präsentation und Code
+
+Präsentationen verfügbar unter: https://karuga.eu/courses-presentations
+
+Code verfügbar unter: https://github.com/marko-knoebl/courses-code
+
+## Ihr Trainer
+
+Marko Knöbl
+
+- Frontend Web-Entwicklung
+  - JavaScript
+  - React, Angular
+- Programmierung
+  - Python, JavaScript
+
+## Vorstellung der Teilnehmer
+
+- Name
+- Firma
+- Aktuelle Projekte
+- Grund der Schulung
+- Vorkenntnisse
+- Erwartungen / Wünsche
+
+## Organisatorisches
+
+- Kursdauer
+- Pausen
+- Mittagessen
+- Unterlagen
+- Fragen, Feedback? - Jederzeit erwünscht
+
 # Datentypen in Python
 
-## Zahlen
+## Grundlegende Datentypen
 
-- bool
 - int
 - float
-- complex
-
-## weitere grundlegende Typen
-
+- bool
 - NoneType
 - string
 - bytes
@@ -20,14 +51,17 @@
 - dict
 - set
 
-## weitere Kollektionen
+## weitere Datentypen
 
+- complex
 - frozenset
 - bytearray
 - OrderedDict
 - NamedTuple
 
-## NoneType
+# None
+
+## None
 
 Der Ausdruck `None` steht in Python für "nichts" - analog zu `undefined` oder `null` in anderen Sprachen.
 
@@ -41,7 +75,7 @@ users = [
 ]
 ```
 
-## NoneType
+## None
 
 - Singleton
 - Vergleich üblicherweise mit `is`
@@ -80,6 +114,8 @@ if a is None:
     ...
 ```
 
+# bool
+
 ## bool
 
 True oder False
@@ -92,11 +128,19 @@ if a:
 
 ## bool
 
-Für welche Objekte liefert `bool(x)` False?
+Frage: Für welche Objekte liefert `bool(x)` false? (Welche Objekte sind "falsy"?)
 
----
+Anekdote: Mitternacht (`datetime.time(0, 0, 0`) vor Python 3.5
 
-Anekdote: Mitternacht (datetime.time(0, 0, 0) vor Python 3.5)
+## bool
+
+Intern verhält sich `False` fast wie `0` und `True` fast wie `1`
+
+```py
+False + True # 1
+```
+
+# Zahlen
 
 ## int
 
@@ -130,10 +174,6 @@ d = float('nan')
 e = float('inf')
 ```
 
----
-
-Anekdote: `d != d`
-
 ## complex
 
 ```py
@@ -146,11 +186,11 @@ a = 2 + 3j
 - Divisionsrest / Modulo: `10 % 3`
 - Potenzieren: `2 ** 3`
 
+# Strings
+
 ## Strings
 
 Strings sind Zeichenfolgen, die jedes Unicodezeichen repräsentieren können
-
-# Strings
 
 ## String-Methoden
 
@@ -204,17 +244,17 @@ Weitere Aufgaben:
 - Zeilennummern nur alle 5 Zeilen
 - Zeilennummern alle 5 Zeilen, wenn die Zeile Text enthält - ansonsten in der nächsten Zeile
 
+# String-Formatierung
+
 ## String-Formatierung
 
 String-Formatierung = Einsetzen von Werten in Strings
 
-Bekanntes Verfahren:
+Möglichkeiten:
 
 ```py
 greeting = "Hello, " + name + "!"
 ```
-
-Neueste Möglichkeit (f-strings):
 
 ```py
 greeting = f"Hello, {name}!"
@@ -246,11 +286,158 @@ t = 333.333
 
 https://mkaz.blog/code/python-string-format-cookbook/
 
+# Listen
+
+## Listen
+
+Listen sind veränderliche Sequenzen von Objekten; sie werden üblicherweise verwendet, um gleichartige (homogene) Einträge abzulegen
+
+```py
+primes = [2, 3, 5, 7, 11]
+
+users = ["Alice", "Bob", "Charlie"]
+```
+
+## Operationen auf Listen
+
+Die folgenden Operationen klappen auch bei anderen _Sequenzen_ - z.B. Tupeln, Strings oder Bytes
+
+## Operationen auf Listen
+
+- Elementzugriff (via index): `users[2]`
+- Zugriff auf mehrere Elemente (Unterliste): `users[2:4]`
+- Wiederholung: `3 * users`
+- Länge: `len(users)`
+- for-Schleife: `for user in users:`
+- if-Abfrage: `if 'Tim' in users:`
+
+## Operationen auf Listen - Mutationen
+
+Listen sind die einzigen veränderlichen Sequenzen
+
+- Anhängen: `users.append("Dan")`
+- Letztes Element entfernen: `users.pop()`
+- Ein Element anhand des Index entfernen: `users.pop(2)`
+
+## Sortieren von Listen
+
+```py
+l.sort()
+```
+
+```py
+l.sort(key=...)
+```
+
+## Übungen
+
+- Mischen von Karten
+- Liste von Primzahlen
+
+# Tupel
+
+## Tupel
+
+Repräsentieren üblicherweise inhomogene Daten vorgegebener Länge - jeder Eintrag hat eine besondere Bedeutung
+
+Erstellung: Einträge werden mit Kommas getrennt, üblicherweise mit runden Klammern umschlossen
+
+Tupel sind nach der Erstellung unveränderlich
+
+## Tupel
+
+Bei Tupeln hat jeder Eintrag eine bestimmte Bedeutung
+
+Alternative Datenstrukturen mit benannten Einträgen:
+
+- `dict`
+- `NamedTuple`
+
+## Tupel
+
+```py
+empty_tuple = ()
+single_value = ('Thomas', )
+two_values = ('Thomas', 'Bauer')
+two_values = 'Thomas', 'Bauer'
+```
+
+## Unpacking (von Tupeln)
+
+```py
+# Tauschen von Variablennamen
+
+a, b = b, a
+```
+
+## Unpacking (von Tupeln)
+
+```py
+# enumerate
+l = ['Alice', 'Bob', 'Charlie']
+
+for i, name in enumerate(l):
+    print(f'{i}: {name}')
+```
+
+# Bytes
+
+## Bytes
+
+= Sequenz von Zahlen zwischen 0 und 255
+
+```py
+m = bytes([104, 101, 108, 108, 111])
+
+# oder:
+
+m = b"hello"
+```
+
+## Bytes
+
+Können zum Teil (bis 127) als ASCII-Text dargestellt werden
+
+## Umwandlung zwischen Strings und Bytes
+
+Strings können jeden beliebigen Text darstellen (intern üblicherweise mittels Unicode repräsentiert)
+
+Bytes können einen encodierten String enthalten. Dabei gilt:
+
+Für die Bytes von 0-127 ist das Zeichen in jedem Encoding das gleiche.
+Für Bytes über 128 können verschiedene Encodings verschiedene Repräsentationen liefern.
+
+## Encodings
+
+```py
+'a'.encode('ascii')
+# b'a'
+
+'a'.encode('latin-1')
+# b'a'
+
+'a'.encode('utf-8')
+# b'a'
+```
+
+## Encodings
+
+```py
+'ä'.encode('ascii')
+# UnicodeEncodeError: 'ascii' codec can't encode character ...
+
+'ä'.encode('latin-1')
+# b'\xe4'
+
+'ä'.encode('utf-8')
+# b'\xc3\xa4'
+```
+
 # Sequenzen
 
 ## Sequenzen
 
-Objekte, die aus einer Aufreihung anderer Objekte bestehen, zB:
+Objekte, die aus einer Aufreihung anderer Objekte bestehen, z.B.:
 
 - Listen
 - Tupel
@@ -266,14 +453,6 @@ Objekte, die aus einer Aufreihung anderer Objekte bestehen, zB:
 - Länge: `len(s)`
 - for-Schleife: `for el in s:`
 - if-Abfrage: `if el in s:`
-
-## Liste
-
-Eine Veränderliche Sequenz von Objekten - üblicherweise verwendet für homogene (gleichartige) Einträge
-
-```py
-users = ['mike', 'tim', 'theresa']
-```
 
 ## Operationen auf Sequenzen
 
@@ -347,112 +526,6 @@ for user in users:
     print(user.upper())
 ```
 
-## Sortieren von Listen
-
-```py
-l.sort()
-```
-
-```py
-l.sort(key=...)
-```
-
-## Übungen
-
-- Aufgabe 7:3 (Mischen von Karten)
-- Aufgabe 7:4 (Liste von rechtwinkligen Dreiecken)
-
-## Tupel
-
-Repräsentieren üblicherweise inhomogene Daten vorgegebener Länge - jeder Eintrag hat eine besondere Bedeutung
-
-Erstellung: Einträge werden mit Kommas getrennt, üblicherweise mit runden Klammern umschlossen
-
-Tupel sind nach der Erstellung unveränderlich
-
-## Tupel
-
-```py
-empty_tuple = ()
-single_value = ('Thomas', )
-two_values = ('Thomas', 'Bauer')
-two_values = 'Thomas', 'Bauer'
-```
-
-## Unpacking (von Tupeln)
-
-```py
-# Tauschen von Variablennamen
-
-a, b = b, a
-```
-
-## Unpacking (von Tupeln)
-
-```py
-# enumerate
-l = ['Alice', 'Bob', 'Charlie']
-
-for i, name in enumerate(l):
-    print(f'{i}: {name}')
-```
-
-## Bytes
-
-= Sequenz von Zahlen zwischen 0 und 255
-
-```py
-m = bytes([104, 101, 108, 108, 111])
-
-# oder:
-
-m = b"hello"
-```
-
-## Bytes
-
-Können zum Teil (bis 127) als ASCII-Text dargestellt werden
-
-## Umwandlung zwischen Strings und Bytes
-
-Strings können jeden beliebigen Text darstellen (intern üblicherweise mittels Unicode repräsentiert)
-
-Bytes können einen encodierten String enthalten. Dabei gilt:
-
-Für die Bytes von 0-127 ist das Zeichen in jedem Encoding das gleiche.
-Für Bytes über 128 können verschiedene Encodings verschiedene Repräsentationen liefern.
-
-## Encodings
-
-```py
-'a'.encode('ascii')
-# b'a'
-
-'a'.encode('latin-1')
-# b'a'
-
-'a'.encode('utf-8')
-# b'a'
-```
-
-## Encodings
-
-```py
-'ä'.encode('ascii')
-# UnicodeEncodeError: 'ascii' codec can't encode character ...
-
-'ä'.encode('latin-1')
-# b'\xe4'
-
-'ä'.encode('utf-8')
-# b'\xc3\xa4'
-```
-
-## Beispiele
-
-- ISBN
-- IBAN
-
 # Dictionaries
 
 ## Dictionaries
@@ -524,13 +597,13 @@ d1.update(d2)
 
 Was kann als key verwendet werden?
 
-# comprehensions
+# Comprehensions
 
 ## List comprehensions
 
 Wichtige Möglichkeit, um Listen basierend auf anderen Listen zu erstellen
 
-In anderen Programmiersprachen oft umgesetzt mittels `map` und `filter`/`grep`
+In anderen Programmiersprachen oft umgesetzt mittels `map` und `filter` / `grep`
 
 ## List comprehension
 
@@ -607,35 +680,59 @@ x <= y
 - Raumplan (7.6.2)
 - Tanzpaare (7.7.5)
 
-
 # Kontrollstrukturen
 
 ## Kontrollstrukturen
 
-- if / elif / else
+- `if`
 - Schleifen
-  - while
-  - for ... in ...
-  - for ... in range(...)
-- try
+  - `while`
+  - `for ... in ...`
+  - `for ... in range(...)`
+- `try ... except ...`
 
-## Übung: 1x1-Liste
+# if
 
-## break & continue
+## if
+
+wir erinnern uns:
+
+```py
+if age_seconds < 1000000000:
+    print("You are less than 1 billion seconds old")
+else:
+    print("You are older than 1 billion seconds")
+```
 
 ## if-Expression
 
 ```py
-match = True if 0 in li else False
+age = 'young' if age_seconds < 1000000000 else 'old'
 ```
 
-## try ... except
+# Schleifen
+
+## Schleifen
+
+Übung: 1x1-Liste
+
+## Continue & break
+
+Die Schlüsselwörter `continue` und `break` können verwendet werden, um einen Schleifendurchlauf bzw die ganze Schleife zu beenden
+
+Bei verschachtelten Schleifen beziehen sie sich immer auf die innerste Schleife
 
 ## for ... else
 
-## try / except / else / finally
+Einer for-Schleife kann eine optionale else-Klausel hinzugefügt werden - diese wird ausgeführt, wenn die Schleife ganz durchläuft - wenn also Python während des Ausführens nicht auf ein `break` (oder `return` oder ähnliches) stößt.
 
-# Exceptions
+Zitat von Guido van Rossum:
+
+> I would not have the feature at all if I had to do it over.
+
+## Beispiel: is_prime()
+
+# Exceptions (Ausnahmen)
 
 ## Arten von Exceptions (Auswahl)
 
@@ -698,7 +795,6 @@ EAFP vs LBYL
 
 (Beispiel: Parsen von Zahlen)
 
-
 # Funktionen
 
 ## Funktionen
@@ -743,11 +839,16 @@ Spielt beim _Zuweisen_ von Variablen eine Rolle
 
 ## Standard-Parameter
 
-```py
-def sum(a=0, b=0):
-    return a + b
+Parameter können einen Standardwert haben. Dieser wird verwendet, wenn kein expliziter anderer Wert übergeben wird.
 
-sum() # 0
+Beispiel:
+
+```py
+def shout(phrase, end="!"):
+    print(phrase.upper() + end)
+
+shout("hallo") # HALLO!
+shout("hi", ".") # HI.
 ```
 
 ## Schlüsselwort-Parameter
@@ -782,266 +883,12 @@ fib(25)
 - 4 (Hanoi)
 - 5 (Bäume)
 
-
-# Arbeiten mit Dateien
-
-## Arbeiten mit Dateien
-
-Datei = Abfolge von Bytes auf einem Speichermedium
-
-## Die Funktion "open"
-
-```py
-file_obj = open("todos.txt")
-content = file_obj.read()
-file_obj.close()
-print(content)
-```
-
-Open erstellt eine Instanz einer Unterklasse von IOBase
-
-## Dateimodi
-
-```py
-# mode: text, append
-open("todos.txt", mode="ta")
-```
-
-## Dateimodi
-
-- `t`: Textmodus (standard)
-- `b`: Binär
-
-* `r`: Lesen (standard)
-* `w`: (Über)schreiben
-* `a`: Anhängen
-
-## Lesen und Schreiben
-
-```py
-t = open("loremipsum.txt")
-print(t.read())
-t.close()
-```
-
-## Lesen und Schreiben
-
-```py
-t = open("todos.txt", mode="a", encoding="utf-8")
-t.write("Learn Python")
-t.close()
-```
-
-```py
-coins = open("coins.b", mode="ba")
-coins.write(bytes([0b01001110, 0b11100100]))
-coins.close()
-```
-
-## open und das with-Statement
-
-```py
-with open("todos.txt", encoding="utf-8") as file_obj:
-    content = file_obj.read()
-```
-
-Kein explizites Schließen des Dateiobjekts mehr notwendig. Datei wird automatisch geschlossen, wenn der eingerückte Abschnitt verlassen wird.
-
-## Zeichencodierung
-
-Textdateien können unterschiedlich codiert sein:
-
-- ASCII
-- CP-1252 / western european / latin1
-- UTF-8
-
-Praxistipp: Immer UTF-8 verwenden
-
-## Zeichencodierung
-
-Die Standard-Zeichencodierung für Textdateien hängt vom Betriebssystem ab:
-
-```py
-import locale
-locale.getpreferredencoding()
-```
-
-## Zeichencodierung
-
-Explizites angeben der Textcodierung:
-
-```py
-open("file.txt", encoding="utf-8")
-```
-
-## File-like objects
-
-Objekte, die zB `.read()` oder `.write()` unterstützen:
-
-- Dateien (zB via `open()`)
-- `sys.stdout`, `sys.stdin`
-  - z.B. `sys.stdin.readline()`
-- Antworten aus dem Netzwerk, zB via `urllib.request.urlopen('https://google.com')`
-
-## File-like objects
-
-```py
-with file as open('myfile.txt', encoding="utf-8"):
-    # read individual lines
-    for line in file:
-        print(line)
-    # read entire file
-    print(file.read())
-```
-
-## File-like objects
-
-Methoden:
-
-- `.close()`
-- `.mode`
-- `.read()` (lies die ganze Datei ein)
-- `.read(10)` (lies die nächsten 10 Bytes)
-- `.readline()` (lies die nächste Zeile)
-
-# Speichern verschiedener Dateiformate
-
-## Speichern verschiedener Dateiformate
-
-Möglichkeiten:
-
-- Speichern in Text-Datei
-- Speichern als JSON
-- Speichern von Python-Objekten mittels pickle (und shelve)
-- Speichern als XML
-- Speichern von Binärdaten in eigenem Format
-
-## JSON
-
-## JSON speichern
-
-```py
-import json
-
-data = ["one", "two", "three"]
-jsonstring = json.dumps(data)
-
-with open("numbers.json", encoding="utf-8") as jsonfile:
-    jsonfile.write(jsonstring)
-```
-
-## JSON lesen
-
-```py
-import json
-
-with open("numbers.json", encoding="utf-8") as jsonfile:
-    jsonstring = jsonfile.read()
-data = json.loads(jsonstring)
-```
-
-## XML
-
-zwei Pakete in der Python-Standardlibrary:
-
-- `xml.etree.ElementTree`
-- `xml.dom.minidom`
-
-externe Library (Erweiterung von ElementTree):
-
-- `lxml`
-
-## XML mit ElementTree: erstellen
-
-```py
-import xml.etree.ElementTree as et
-
-person = et.Element('person')
-name = et.SubElement(person, 'name')
-name.text = 'Adam'
-age = et.SubElement(person, 'age')
-age.text = '40'
-age.set("unit", "years")
-```
-
-## XML mit ElementTree: speichern
-
-```py
-xmlbytestring: bytes = et.tostring(person, encoding='utf-8')
-with open("myfile.xml", mode="wb") as file:
-    file.write(xmlbytestring)
-
-# oder
-xmlstring: str = et.tostring(person, encoding='unicode')
-with open("myfile.xml", encoding="utf-8", mode="w") as file:
-    file.write(xmlstring)
-
-# oder
-tree = et.ElementTree(person)
-tree.write("myfile.xml", encoding="utf-8")
-```
-
-## XML mit ElementTree: lesen
-
-```py
-import xml.etree.ElementTree as et
-
-person = et.fromstring(xmlstring)
-for childnode in person:
-    print(childnode.tag)
-    print(childnode.text)
-    print(childnode.attrib)
-```
-
-## Pickle
-
-Eigenes Dateiformat, in dem verschiedene Python-Dateitypen gespeichert werden können
-
-## Pickle
-
-```py
-import pickle
-import datetime
-
-now = datetime.datetime.now()
-
-serialized = pickle.dumps()
-
-with open("datetime.pickle", mode="wb") as picklefile:
-    picklefile.write(serialized)
-```
-
-## Pickle
-
-```py
-import pickle
-
-with open("datetime.pickle", mode="rb") as picklefile:
-    serialized = picklefile.read()
-earlier = pickle.reads(serialized)
-```
-
-## Übung
-
-- Speichern und Lesen eines Tic-Tac-Toe-Feldes in verschiedenen Formaten
-
-Python-Datenstruktur:
-
-```py
-field = [
-  ['X', 'O', None],
-  ['X', 'X', 'O'],
-  ['O', 'O', 'X']
-]
-```
-
-
 # Module und Pakete
 
 ## Module und Pakete
 
 - Modul = Python-Datei, aus der Objekte importiert werden können
-- Paket = Verzeichnis, in dem Python-Module abgelegt sind (Bis Python 3.3: benötigt `__init__.py` im Verzeichnis)
+- Paket = Verzeichnis, in dem Python-Module abgelegt sind
 
 ## Beispiele für imports
 

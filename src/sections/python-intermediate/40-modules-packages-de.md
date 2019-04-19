@@ -3,7 +3,7 @@
 ## Module und Pakete
 
 - Modul = Python-Datei, aus der Objekte importiert werden können
-- Paket = Verzeichnis, in dem Python-Module abgelegt sind (Bis Python 3.3: benötigt `__init__.py` im Verzeichnis)
+- Paket = Verzeichnis, in dem Python-Module abgelegt sind
 
 ## Beispiele für imports
 

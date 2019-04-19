@@ -1,255 +1,61 @@
-# Working with files
+# {{title}}
 
-## Working with files
+## Presentation and code
 
-file = a sequence of bytes on a storage device
+Presentations available at: https://karuga.eu/courses-presentations
 
-## the function "open()"
+Code available at: https://github.com/marko-knoebl/courses-code
 
-```py
-file_obj = open("todos.txt")
-content = file_obj.read()
-file_obj.close()
-print(content)
-```
+## Your Trainer
 
-Open erstellt eine Instanz einer Unterklasse von IOBase
+Marko Knöbl
 
-## file modes
+- Frontend Web-Development
+  - JavaScript
+  - React, Angular
+- Programming
+  - Python, JavaScript
 
-```py
-# mode: text, append
-open("todos.txt", mode="ta")
-```
+## Introduction of Participants
 
-## file modes
+- Name
+- Company
+- Current Projects
+- Prior Knowledge
+- Expectations
 
-- `t`: text mode (standard)
-- `b`: binary
+## Organizational
 
-* `r`: reading (standard)
-* `w`: (over)writing
-* `a`: appending
+- Duration
+- Breaks
+- Materials
+- Questions, Feedback?
 
-## reading and writing
+# Data types in Python
 
-```py
-t = open("loremipsum.txt")
-print(t.read())
-t.close()
-```
+## Basic data types
 
-## reading and writing
+- int
+- float
+- bool
+- NoneType
+- string
+- bytes
 
-```py
-t = open("todos.txt", mode="a", encoding="utf-8")
-t.write("Learn Python")
-t.close()
-```
+## Collections
 
-```py
-coins = open("coins.b", mode="ba")
-coins.write(bytes([0b01001110, 0b11100100]))
-coins.close()
-```
+- list
+- tuple
+- dict
+- set
 
-## open and the with statement
+## other data types
 
-```py
-with open("todos.txt", encoding="utf-8") as file_obj:
-    content = file_obj.read()
-```
-
-In this example using the with statement relieves us from explicitly closing the file object. The file will be automatically closed when the program leaves the indented block.
-
-## character encoding
-
-Text files may be encoded in various ways:
-
-- ASCII
-- CP-1252 / western european / latin1
-- UTF-8
-
-Recommendation: _always_ use utf-8 as the encoding for text files (best support for special characters)
-
-## character encoding
-
-The default character encoding for text files depends on the operating system:
-
-```py
-import locale
-locale.getpreferredencoding()
-```
-
-## character encoding
-
-Explicitly stating the character encoding:
-
-```py
-open("file.txt", encoding="utf-8")
-```
-
-## File-like objects
-
-Objects that support using `.read()` or `.write()` etc:
-
-- files (zB via `open()`)
-- `sys.stdout`, `sys.stdin`
-  - example: `sys.stdin.readline()`
-- Network replies, e.g. via `urllib.request.urlopen('https://google.com')`
-
-## File-like objects
-
-```py
-with file as open('myfile.txt', encoding="utf-8"):
-    # read individual lines
-    for line in file:
-        print(line)
-    # read entire file
-    print(file.read())
-```
-
-## File-like objects
-
-Methods:
-
-- `.close()`
-- `.mode`
-- `.read()` (read the entire file)
-- `.read(10)` (read the next 10 bytes)
-- `.readline()` (read the next line)
-
-# Working with various file formats
-
-## Working with file formats
-
-possibilities:
-
-- text files
-- JSON
-- XML
-- Python object files (via pickle and shelve)
-- binary files
-
-## JSON
-
-## saving JSON
-
-```py
-import json
-
-data = ["one", "two", "three"]
-jsonstring = json.dumps(data)
-
-with open("numbers.json", encoding="utf-8") as jsonfile:
-    jsonfile.write(jsonstring)
-```
-
-## reading JSON
-
-```py
-import json
-
-with open("numbers.json", encoding="utf-8") as jsonfile:
-    jsonstring = jsonfile.read()
-data = json.loads(jsonstring)
-```
-
-## XML
-
-two packages in the standard library:
-
-- `xml.etree.ElementTree`
-- `xml.dom.minidom`
-
-external library (extension of ElementTree):
-
-- `lxml`
-
-## XML with ElementTree: creating a document
-
-```py
-import xml.etree.ElementTree as et
-
-person = et.Element('person')
-name = et.SubElement(person, 'name')
-name.text = 'Adam'
-age = et.SubElement(person, 'age')
-age.text = '40'
-age.set("unit", "years")
-```
-
-## XML with ElementTree: saving
-
-```py
-xmlbytestring: bytes = et.tostring(person, encoding='utf-8')
-with open("myfile.xml", mode="wb") as file:
-    file.write(xmlbytestring)
-
-# oder
-xmlstring: str = et.tostring(person, encoding='unicode')
-with open("myfile.xml", encoding="utf-8", mode="w") as file:
-    file.write(xmlstring)
-
-# oder
-tree = et.ElementTree(person)
-tree.write("myfile.xml", encoding="utf-8")
-```
-
-## XML mit ElementTree: reading
-
-```py
-import xml.etree.ElementTree as et
-
-person = et.fromstring(xmlstring)
-for childnode in person:
-    print(childnode.tag)
-    print(childnode.text)
-    print(childnode.attrib)
-```
-
-## Pickle
-
-File format that can be used to save various types of Python objects
-
-## Pickle
-
-```py
-import pickle
-import datetime
-
-now = datetime.datetime.now()
-
-serialized = pickle.dumps()
-
-with open("datetime.pickle", mode="wb") as picklefile:
-    picklefile.write(serialized)
-```
-
-## Pickle
-
-```py
-import pickle
-
-with open("datetime.pickle", mode="rb") as picklefile:
-    serialized = picklefile.read()
-earlier = pickle.reads(serialized)
-```
-
-## exercise
-
-- saving / loading of a tic-tac-toe board in various formats
-
-Python data structure:
-
-```py
-field = [
-  ['X', 'O', None],
-  ['X', 'X', 'O'],
-  ['O', 'O', 'X']
-]
-```
-
+- complex
+- frozenset
+- bytearray
+- OrderedDict
+- NamedTuple
 
 # Modules and Packages
 
