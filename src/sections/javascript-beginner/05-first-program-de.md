@@ -82,7 +82,7 @@ Mit `let` oder `const` deklarierte Variablen sind nur innerhalb des enstprechend
 
 In JavaScript sind Semikolons in den meisten Fällen optional; sie werden bei der Ausführung automatisch nach bestimmten Regeln eingesetzt.
 
-## JavaScript - das Simikolon
+## Das Semikolon in JavaScript
 
 Die _automatic semicolon insertion_ kann zu Problemen führen:
 

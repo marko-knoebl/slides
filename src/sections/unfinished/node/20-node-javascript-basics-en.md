@@ -4,7 +4,7 @@
 
 The node JavaScript environment was taken from Chrome
 
-There are some minor differences to the original environment. For example, `alert` does not exist and the global variable is called `global` instead of `window`.
+There are some minor differences to the original environment. For example, `alert` does not exist and the global namespace is called `global` instead of `window`.
 
 ## importing modules
 

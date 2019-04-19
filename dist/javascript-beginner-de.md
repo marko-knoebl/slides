@@ -351,7 +351,7 @@ Mit `let` oder `const` deklarierte Variablen sind nur innerhalb des enstprechend
 
 In JavaScript sind Semikolons in den meisten Fällen optional; sie werden bei der Ausführung automatisch nach bestimmten Regeln eingesetzt.
 
-## JavaScript - das Simikolon
+## Das Semikolon in JavaScript
 
 Die _automatic semicolon insertion_ kann zu Problemen führen:
 
@@ -377,7 +377,7 @@ function foo() {
 
 ## Kontrollstrukturen
 
-Mit Kontrollstrukturen können wir bestimmten Code zB wiederholt ausführen lassen, oder Code nur in bestimmten Situationen ausführen lassen
+Mit Kontrollstrukturen können wir bestimmten Code z.B. wiederholt ausführen lassen, oder Code nur in bestimmten Situationen ausführen lassen
 
 ## Kontrollstrukturen
 
@@ -531,6 +531,40 @@ Operationen:
 - `||` = oder
 - `!` = nicht
 
+# For-Schleifen
+
+## For-Schleifen
+
+Zählen von 0 bis 9:
+
+```js
+for (let i = 0; i <= 9; i++) {
+  console.log(i);
+}
+```
+
+äquivalent zu:
+
+```js
+let i = 0;
+while (i <= 9) {
+  console.log(i);
+  i++;
+}
+```
+
+## For-Schleifen
+
+Übung: Ausgabe einer Multiplikationstafel
+
+```txt
+1 x 7 = 7
+2 x 7 = 14
+3 x 7 = 21
+4 x 7 = 28
+...
+```
+
 # Bestandteile von Programmen
 
 ## Bestandteile von Programmen
@@ -628,44 +662,15 @@ Eine Zuweisung (`let b = ...`) versieht ein existierendes Objekt mit einem neuen
 
 Im Hintergrund steht nach wie vor nur ein einzelnes Objekt.
 
-# For-Schleifen
+# For-of-Schleifen
 
-## For-Schleifen
-
-Zu for-Schleifen sehen wir uns zwei Konstrukte näher an:
-
-- _for_-Schleife zum zählen
-- _for-of_-Schleife zum Iterieren über Arrays
-
-## For-Schleife
-
-Zählen von 0 bis 9:
-
-```js
-for (let i = 0; i <= 9; i++) {
-  console.log(i);
-}
-```
-
-## For-schleife
-
-Übung: Ausgabe einer Multiplikationstafel
-
-```txt
-1 x 7 = 7
-2 x 7 = 14
-3 x 7 = 21
-4 x 7 = 28
-...
-```
-
-## For-of-Schleife
+## For-of-Schleifen
 
 Mit einer for-of-Schleife können wir die Inhalte eines Arrays durchlaufen.
 
 Bezeichnung in anderen Programmiersprachen _for-each_
 
-## For-of-Schleife
+## For-of-Schleifen
 
 ```js
 const names = ['Alice', 'Bob', 'Charlie'];
