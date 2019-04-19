@@ -5,7 +5,7 @@
 Starten:
 
 - Terminal-Befehl `python`
-- Desktop-Anwendung _IDLE_
+- aus dem Startmenü (z.B. _Python 3.7 (64-bit)_)
 
 ## Mathematische Operatoren
 
@@ -76,9 +76,9 @@ Andreas"""
 Ungültige Operationen:
 
 ```py
-"Hallo" - "Andreas"
-"Hallo" * "Andreas"
-"Hallo" * 3.0
+"Hello" - "Tim"
+"Hello" * "Tim"
+"Hello" * 3.0
 ```
 
 ## f-strings
@@ -91,7 +91,7 @@ f"A year has {365 * 24} hours."
 
 ## Strings - Escape-Sequenzen
 
-Problem: Wie schreiben wir Zeichen wie zB `"` innerhalb eines Strings?
+Problem: Wie schreiben wir Zeichen wie z.B. `"` innerhalb eines Strings?
 
 Ungültig:
 
@@ -138,14 +138,14 @@ Daten können in Python mit einem Namen versehen werden - man spricht von Variab
 ```py
 first_name = "John"
 last_name = "Doe"
-age = 40
+birth_year = 1978
 ```
 
 ## Variablen
 
 ```py
 full_name = f"{first_name} {last_name}"
-birth_year = 2018 - age
+age = 2019 - birth_year
 ```
 
 ## Variablen

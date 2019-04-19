@@ -86,12 +86,6 @@ launching the Python shell:
 - command `python` in the command prompt
 - from the start menu (e.g. _Python 3.7 (64-bit)_)
 
-## expressions and operators
-
-```py
-2 + 2
-```
-
 ## mathematical operators
 
 ```py
@@ -214,6 +208,8 @@ boolean value: yes/no
 
 In Python: `True` or `False`
 
+Note: capitalization is crucial!
+
 ## Variables
 
 Data can be labeled with a name in Python - this is called a _variable_
@@ -228,7 +224,7 @@ birth_year = 1978
 
 ```py
 full_name = f"{first_name} {last_name}"
-age = 2018 - birth_year
+age = 2019 - birth_year
 ```
 
 ## Variables
@@ -269,9 +265,62 @@ https://code.visualstudio.com/
   - wait...
   - choose Python 3.7
 
-## VS Code: automatic saving
+# VS Code
 
-## VS Code: opening folders
+## VS Code
+
+https://code.visualstudio.com
+
+open source IDE
+
+independent of _Visual Studio_ itself
+
+## VS Code: saving
+
+Unsaved files are marked with a circle instead of an "X" in the tab
+
+Save via _Ctrl_ + _S_
+
+or: _File_ - _Auto Save_
+
+## VS Code: File explorer, split editor
+
+## VS Code: Terminal
+
+Open / close the terminal view via _ctrl_ + _`_
+
+Open an additional terminal via the _+_ Symbol
+
+Terminals will run in the currently open folder
+
+## VS Code: Configuration
+
+Via _File - Preferences - Settings_
+
+Is split in _User Settings_ and _Workspace Settings_
+
+## VS Code: Configuration options
+
+Recommendations:
+
+- Auto Save: _activate_
+- Accept Suggestions on Commit Character (Autocomplete on other keys than _Enter_): _deactivate_
+- Tab Size: _2_
+
+Further Options:
+
+- Format on Save
+- Format on Paste
+- EOL
+- Workbench: Color Theme
+
+## VS Code: Shortcuts
+
+- _Ctrl_ + _F_: Search in File
+- _Alt_ + _Shift_ + _F_: Auto-format file contents
+- _Ctrl_ + _#_: comment / uncomment
+- _F2_: rename variables
+- _Alt_ + mouse click: Activate multiple text cursors
 
 # Our first Python program
 
@@ -399,8 +448,10 @@ if age_seconds < 100000000:
     print("You are les than 100 million seconds old")
 elif age_seconds < 1000000000:
     print("You are less than 1 billion seconds old")
+elif age_seconds < 2000000000:
+    print("You are less than 2 billion seconds old")
 else:
-    print("You are older than 1 billion seconds")
+    print("You are older than 2 billion seconds")
 ```
 
 ## if / elif / else
@@ -428,6 +479,15 @@ while a < 2000:
     print(a)
     a = a * 2
 ```
+
+## while loop
+
+examples:
+
+- guess the number with multiple attempts
+- a loop that prints the numbers 1 to 10
+- a loop that prints the numbers 7, 14, 21, ..., 70
+- exercise program for simple calculations
 
 ## combining comparisons
 
@@ -459,6 +519,31 @@ not 4 < c < 10
 
 # alternative version:
 c <= 4 or c >= 10
+```
+
+# Counting loops
+
+## Counting loops
+
+This is how we can count from 0 to 9 in Python:
+
+```py
+for i in range(10):
+    print(i)
+```
+
+The function call `range(n)` returns the first `n` natural numbers (starting at 0)
+
+## Counting loops
+
+exercise: creating a "multiplication table"
+
+```txt
+1 x 7 = 7
+2 x 7 = 14
+3 x 7 = 21
+4 x 7 = 28
+...
 ```
 
 # control structures - examples
@@ -544,7 +629,7 @@ a = 2 + 3 + 4 + 5 + 6 + \
 
 ## Lists
 
-another important data type: `list`
+Lists are a data type that represents a sequence of other objects
 
 ## Creating lists
 
@@ -679,7 +764,7 @@ Logged in as Alice!
 
 ## counting with for loops
 
-In order to count with Python there's a function named `range`.
+Remember: In order to count we may use the function `range`
 
 The function call `range(5)` creates an Object that behaves like the list `[0, 1, 2, 3, 4]`.
 
@@ -688,18 +773,6 @@ Example use:
 ```py
 for i in range(5):
     print(i)
-```
-
-## counting with for loops
-
-exercise: creating a "multiplication table"
-
-```txt
-1 x 7 = 7
-2 x 7 = 14
-3 x 7 = 21
-4 x 7 = 28
-...
 ```
 
 # Builtins, Modules
@@ -753,6 +826,7 @@ modules of interest:
 - `math`
 - `datetime`
 - `os` (operating system, file system)
+- `sys` (python environment)
 - `pprint` (pretty printing)
 
 ## print and pprint
@@ -788,6 +862,24 @@ pprint.pprint(['Mercuy', 'Venus', 'Earth', 'Mars', 'Jupiter',
  'Uranus',
  'Neptune',
  'Pluto']
+```
+
+## sys
+
+Command line arguments can be read via `sys.argv`
+
+```py
+# hello.py
+import sys
+print(sys.argv)
+```
+
+```bash
+python hello.py one two three
+```
+
+```bash
+['hello.py', 'one', 'two', 'three']
 ```
 
 # Exercises
@@ -991,7 +1083,7 @@ print(check_isbn(isbn, expected))
 
 ## IBAN
 
-# VS Code - Advanced
+# VS Code - Setup für Python
 
 ## VS Code - Setup for Python
 
@@ -1002,14 +1094,6 @@ recommendations:
 - `python.linting.pylintEnabled`: `true`
 - `python.linting.flake8Enabled`: `true`
 - `python.formatting.provider`: `black`
-
-## VS Code - keyboard shortcuts
-
-- Terminal: `Ctrl` + `,`
-- Rename: `F2` (requires _rope_ to be installed)
-- Multiple text cursors: `Alt` + click
-- Automatic formatting: `Alt` + `Shift` + `F`
-- (un)comment: `Ctrl` + `#`
 
 # Code quality and linting
 
@@ -1025,7 +1109,7 @@ aspects:
 
 Finding and displaying general errors
 
-Configurable via `python.linting.pylintEnabled` and `python.linting.pylintUseMinimalCheckers`
+VS Code configuration via `python.linting.pylintEnabled` and `python.linting.pylintUseMinimalCheckers`
 
 ## PEP8
 
@@ -1102,11 +1186,11 @@ python -m pydoc math
 python -m pydoc math.floor
 ```
 
-## Docstring-Format
+## Docstring structure
 
 PEP 257: https://www.python.org/dev/peps/pep-0257/
 
-## Docstrig-Format
+## Docstrig structure
 
 docstring of a module: description, list of exported functions with single-line summaries
 

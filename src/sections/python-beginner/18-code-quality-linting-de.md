@@ -7,13 +7,12 @@ Aspekte:
 - allgemeines Linting
 - Stil-Konventionen (PEP8)
 - Docstrings
-- Statische Typisierung (mypy)
 
 ## Allgemeines Linting: Pylint
 
 Finden allgemeiner Fehler
 
-Konfigurierbar mittels `python.linting.pylintEnabled` und `python.linting.pylintUseMinimalCheckers`
+VS Code configuration via `python.linting.pylintEnabled` und `python.linting.pylintUseMinimalCheckers`
 
 ## PEP8
 
@@ -84,6 +83,13 @@ def fib(n):
     ...
 ```
 
+## Docstrings anzeigen
+
+```bash
+python -m pydoc math
+python -m pydoc math.floor
+```
+
 ## Docstring-Format
 
 PEP 257: https://www.python.org/dev/peps/pep-0257/
@@ -99,13 +105,6 @@ Docstring einer Funktion: Beschreibung, Liste der Parameter
 ## Pydocstyle
 
 Linter zum validieren von Docstrings
-
-## Docstrings anzeigen
-
-```bash
-python -m pydoc isprime
-python -m pydoc isprime.isprime
-```
 
 ## Python-Philosophie, PEP20
 

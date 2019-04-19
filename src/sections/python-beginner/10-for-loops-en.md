@@ -45,7 +45,7 @@ Logged in as Alice!
 
 ## counting with for loops
 
-In order to count with Python there's a function named `range`.
+Remember: In order to count we may use the function `range`
 
 The function call `range(5)` creates an Object that behaves like the list `[0, 1, 2, 3, 4]`.
 
@@ -54,16 +54,4 @@ Example use:
 ```py
 for i in range(5):
     print(i)
-```
-
-## counting with for loops
-
-exercise: creating a "multiplication table"
-
-```txt
-1 x 7 = 7
-2 x 7 = 14
-3 x 7 = 21
-4 x 7 = 28
-...
 ```

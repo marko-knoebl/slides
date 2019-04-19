@@ -18,7 +18,3 @@ https://code.visualstudio.com/
   - Enter
   - wait...
   - choose Python 3.7
-
-## VS Code: automatic saving
-
-## VS Code: opening folders

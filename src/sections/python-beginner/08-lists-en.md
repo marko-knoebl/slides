@@ -2,7 +2,7 @@
 
 ## Lists
 
-another important data type: `list`
+Lists are a data type that represents a sequence of other objects
 
 ## Creating lists
 

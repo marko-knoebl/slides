@@ -2,7 +2,7 @@
 
 ## Kontrollstrukturen
 
-Mit Kontrollstrukturen können wir bestimmten Code zB wiederholt ausführen lassen, oder Code nur in bestimmten Situationen ausführen lassen
+Mit Kontrollstrukturen können wir bestimmten Code z.B. wiederholt ausführen lassen, oder Code nur in bestimmten Situationen ausführen lassen
 
 ## Kontrollstrukturen
 
@@ -64,7 +64,7 @@ Beispiel: Zahlenraten
 
 ## Codeblöcke
 
-Codeblock = Zusammengehörige Codezeilen, die zB als Resultat einer if-Abfrage ausgeführt werden.
+Codeblock = Zusammengehörige Codezeilen, die z.B. als Resultat einer if-Abfrage ausgeführt werden.
 
 In Python endet die Zeile vor einem Codeblock mit einem `:`, der Codeblock ist eingerückt (meist mit 4 Leerzeichen).
 

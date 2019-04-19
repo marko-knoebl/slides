@@ -2,7 +2,7 @@
 
 ## Textdateien lesen und schreiben
 
-Viele Dateiformate am PC sind nichts anderes als eine Folge von Textzeichen - zB die Formate `.txt`, `.html`, `.csv` oder `.py`.
+Viele Dateiformate am PC sind nichts anderes als eine Folge von Textzeichen - z.B. die Formate `.txt`, `.html`, `.csv` oder `.py`.
 
 Diese können wir in Python einfach als Strings repräsentieren und leicht lesen und schreiben.
 

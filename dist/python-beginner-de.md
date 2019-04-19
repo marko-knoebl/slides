@@ -86,7 +86,7 @@ Python Installation beinhaltet:
 Starten:
 
 - Terminal-Befehl `python`
-- Desktop-Anwendung _IDLE_
+- aus dem Startmenü (z.B. _Python 3.7 (64-bit)_)
 
 ## Mathematische Operatoren
 
@@ -157,9 +157,9 @@ Andreas"""
 Ungültige Operationen:
 
 ```py
-"Hallo" - "Andreas"
-"Hallo" * "Andreas"
-"Hallo" * 3.0
+"Hello" - "Tim"
+"Hello" * "Tim"
+"Hello" * 3.0
 ```
 
 ## f-strings
@@ -172,7 +172,7 @@ f"A year has {365 * 24} hours."
 
 ## Strings - Escape-Sequenzen
 
-Problem: Wie schreiben wir Zeichen wie zB `"` innerhalb eines Strings?
+Problem: Wie schreiben wir Zeichen wie z.B. `"` innerhalb eines Strings?
 
 Ungültig:
 
@@ -219,14 +219,14 @@ Daten können in Python mit einem Namen versehen werden - man spricht von Variab
 ```py
 first_name = "John"
 last_name = "Doe"
-age = 40
+birth_year = 1978
 ```
 
 ## Variablen
 
 ```py
 full_name = f"{first_name} {last_name}"
-birth_year = 2018 - age
+age = 2019 - birth_year
 ```
 
 ## Variablen
@@ -250,9 +250,7 @@ a = a + 1
 
 ## Python Programme
 
-Den Code für ganze Programme schreiben wir in einzelne Dateien.
-
-Das tun wir mit einer sogenannten _Entwicklungsumgebung_
+Zum schreiben ganzer Programme verwenden wir eine sogenannte _Entwicklungsumgebung_
 
 ## Installation der Entwicklungsumgebung VS Code
 
@@ -269,9 +267,65 @@ https://code.visualstudio.com/
   - warten...
   - Python 3.7 auswählen
 
-## VS Code: automatisches speichern
+# VS Code
+
+## VS Code
+
+https://code.visualstudio.com
+
+- Open-Source-Entwicklungsumgebung
+- Unabhängig vom eigentlichen Visual Studio
 
 ## VS Code: Ordner öffnen
+
+ganzen Ordner öffnen mit _File_ - _Open Folder_
+
+## VS Code: speichern
+
+Nicht gespeicherte Dateien sind durch einen Kreis statt des "X" im Tab erkennbar
+
+Speichern mit _Strg_ + _S_
+
+oder: _File_ - _Auto Save_
+
+## VS Code: Datei-Explorer, Split Editor
+
+## VS Code: Terminal
+
+Öffnen und Schließen der Ansicht via _Strg_ + _Ö_
+
+zusätzliches Terminal via Symbol _+_
+
+übernimmt das aktuell geöffnete Verzeichnis
+
+## VS Code - Konfiguration
+
+Via _File - Preferences - Settings_
+
+Eingeteilt in _User Settings_ und _Workspace Settings_
+
+## VS Code - Konfigurationsmöglichkeiten
+
+Empfehlungen:
+
+- Auto Save: _aktivieren_
+- Accept Suggestion on Commit Character (Autovervollständigung ohne _Enter_): _deaktivieren_
+- Tab Size: _2_
+
+Weitere Möglichkeiten:
+
+- Format on Save
+- Format on Paste
+- EOL
+- Workbench: Color Theme
+
+## VS Code - Kurzbefehle
+
+- _Strg_ + _F_: Suchen in Datei
+- _Alt_ + _Shift_ + _F_: Formatieren der Datei
+- _Ctrl_ + _#_: aus- / einkommentieren
+- _F2_: Umbenennen von Variablen
+- _Alt_ + Mausklick: Mehrere Textcursor zum gleichzeitigen Schreiben setzen
 
 # Unser erstes Python-Programm
 
@@ -351,7 +405,7 @@ name_length = len(name)
 
 ## Kontrollstrukturen
 
-Mit Kontrollstrukturen können wir bestimmten Code zB wiederholt ausführen lassen, oder Code nur in bestimmten Situationen ausführen lassen
+Mit Kontrollstrukturen können wir bestimmten Code z.B. wiederholt ausführen lassen, oder Code nur in bestimmten Situationen ausführen lassen
 
 ## Kontrollstrukturen
 
@@ -413,7 +467,7 @@ Beispiel: Zahlenraten
 
 ## Codeblöcke
 
-Codeblock = Zusammengehörige Codezeilen, die zB als Resultat einer if-Abfrage ausgeführt werden.
+Codeblock = Zusammengehörige Codezeilen, die z.B. als Resultat einer if-Abfrage ausgeführt werden.
 
 In Python endet die Zeile vor einem Codeblock mit einem `:`, der Codeblock ist eingerückt (meist mit 4 Leerzeichen).
 
@@ -473,6 +527,31 @@ not 4 < c < 10
 
 # andere Version:
 c <= 4 or c >= 10
+```
+
+# Zählschleifen
+
+## Zählschleifen
+
+Folgendermaßen können wir in Python von 0 bis 9 zählen:
+
+```py
+for i in range(10):
+    print(i)
+```
+
+Der Funktionsaufruf `range(n)` gibt die ersten `n` natürlichen Zahlen (beginnend bei 0) zurück
+
+## Zählschleifen
+
+Übung: Ausgabe einer Multiplikationstafel
+
+```txt
+1 x 7 = 7
+2 x 7 = 14
+3 x 7 = 21
+4 x 7 = 28
+...
 ```
 
 # Kontrollstrukturen - Beispiele
@@ -556,7 +635,7 @@ a = 2 + 3 + 4 + 5 + 6 + \
 
 ## Listen
 
-Weiterer wichtiger Datentyp: Liste (`list`)
+Listen sind ein Datentyp, der eine Folge von anderen Objekten repräsentiert
 
 ## Erstellen von Listen
 
@@ -587,6 +666,7 @@ print(len(users))
 - Überschreiben: `users[0] = "Andrew"`
 - Anhängen: `users.append("Dan")`
 - Letztes Element entfernen: `users.pop()`
+- Ein Element anhand des Index entfernen: `users.pop(2)`
 - Länge: `len(users)`
 - Zusammenhängen: `primes + users`
 - Abfragen, ob Element in Liste: `if "Andrew" in users:`
@@ -692,27 +772,15 @@ Logged in as Alice!
 
 ## Zählschleifen
 
-Um mit Python zu zählen, gibt es ein besondere Funktion, die `range` heißt.
+Wir erinnern uns zurück: Für das Zählen verwendeten wir die Funktion `range`
 
-Der Aufruf `range(5)` erstellt ein Objekt, das sich wie die Liste `[0, 1, 2, 3, 4]` verhält.
+Der Aufruf `range(5)` erstellt ein Objekt, das sich wie die Liste `[0, 1, 2, 3, 4]` verhält
 
 Beispiel zur Verwendung:
 
 ```py
 for i in range(5):
     print(i)
-```
-
-## Zählschleifen
-
-Übung: Ausgabe einer Multiplikationstafel
-
-```txt
-1 x 7 = 7
-2 x 7 = 14
-3 x 7 = 21
-4 x 7 = 28
-...
 ```
 
 # Builtins, Module
@@ -759,6 +827,7 @@ interessante Module:
 - `math`
 - `datetime`
 - `os` (Betriebssystem, Dateisystem)
+- `sys` (Python Umgebung)
 - `pprint` (formatierte Ausgabe)
 
 ## print und pprint
@@ -794,6 +863,24 @@ pprint.pprint(['Mercuy', 'Venus', 'Earth', 'Mars', 'Jupiter',
  'Uranus',
  'Neptune',
  'Pluto']
+```
+
+## sys
+
+Kommandozeilenparameter sind auslesbar über `sys.argv`
+
+```py
+# hello.py
+import sys
+print(sys.argv)
+```
+
+```bash
+python hello.py one two three
+```
+
+```bash
+['hello.py', 'one', 'two', 'three']
 ```
 
 # Übungsbeispiele
@@ -893,7 +980,7 @@ Schreibe eine Funktion namens `ask_yes_no`, die dem Benutzer eine Ja/Nein-Frage 
 
 ## Textdateien lesen und schreiben
 
-Viele Dateiformate am PC sind nichts anderes als eine Folge von Textzeichen - zB die Formate `.txt`, `.html`, `.csv` oder `.py`.
+Viele Dateiformate am PC sind nichts anderes als eine Folge von Textzeichen - z.B. die Formate `.txt`, `.html`, `.csv` oder `.py`.
 
 Diese können wir in Python einfach als Strings repräsentieren und leicht lesen und schreiben.
 
@@ -999,28 +1086,17 @@ print(check_isbn(isbn, expected))
 
 ## IBAN
 
-# VS Code - Fortgeschritten
+# VS Code - Setup für Python
 
 ## VS Code - Setup für Python
 
-Datei - Einstellungen - Einstellungen
+File - Settings - Preferences
 
 Empfehlungen:
 
 - `python.linting.pylintEnabled`: `true`
-- `python.linting.pylintUseMinimalCheckers`: meist auf `true` - oder eigene Konfiguration
 - `python.linting.flake8Enabled`: für Formatierungsüberprüfung auf `true`
 - `python.formatting.provider`: `black`
-
-## VS Code - Befehle und Einrichtung
-
-- automatisches Speichern
-- Tastenkürzel:
-  - Terminal: Ctrl + Ö
-  - Umbenennen: F2 (Rope installieren)
-  - Mehrere Cursor: Alt + Klick
-  - Automatische Formatierung: Alt + Shift + F
-  - Ein- / Auskommentieren: Ctrl + #
 
 # Codequalität und Linting
 
@@ -1031,13 +1107,12 @@ Aspekte:
 - allgemeines Linting
 - Stil-Konventionen (PEP8)
 - Docstrings
-- Statische Typisierung (mypy)
 
 ## Allgemeines Linting: Pylint
 
 Finden allgemeiner Fehler
 
-Konfigurierbar mittels `python.linting.pylintEnabled` und `python.linting.pylintUseMinimalCheckers`
+VS Code configuration via `python.linting.pylintEnabled` und `python.linting.pylintUseMinimalCheckers`
 
 ## PEP8
 
@@ -1108,6 +1183,13 @@ def fib(n):
     ...
 ```
 
+## Docstrings anzeigen
+
+```bash
+python -m pydoc math
+python -m pydoc math.floor
+```
+
 ## Docstring-Format
 
 PEP 257: https://www.python.org/dev/peps/pep-0257/
@@ -1123,13 +1205,6 @@ Docstring einer Funktion: Beschreibung, Liste der Parameter
 ## Pydocstyle
 
 Linter zum validieren von Docstrings
-
-## Docstrings anzeigen
-
-```bash
-python -m pydoc isprime
-python -m pydoc isprime.isprime
-```
 
 ## Python-Philosophie, PEP20
 
@@ -1206,24 +1281,4 @@ Unterstützung von Python 2 und Python 3 aus der gleichen Codebase
 ehmatthes.github.io/pcc#cheatsheets
 
 (fehlende Inhalte: break, None, Kommentare)
-
-class: center, middle
-
-# Standardparameter
-
-Parameter können einen Standardwert haben. Dieser wird verwendet, wenn kein expliziter anderer Wert übergeben wird.
-
-Beispiel:
-
-```py
-def shout(phrase, end="!"):
-    print(phrase.upper() + end)
-
-shout("hallo") # HALLO!
-shout("hi", ".") # HI.
-```
-
-# Schlüsselwortparameter
-
-# beliebige Anzahl von Parametern
 

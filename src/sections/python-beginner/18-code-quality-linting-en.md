@@ -12,7 +12,7 @@ aspects:
 
 Finding and displaying general errors
 
-Configurable via `python.linting.pylintEnabled` and `python.linting.pylintUseMinimalCheckers`
+VS Code configuration via `python.linting.pylintEnabled` and `python.linting.pylintUseMinimalCheckers`
 
 ## PEP8
 
@@ -89,11 +89,11 @@ python -m pydoc math
 python -m pydoc math.floor
 ```
 
-## Docstring-Format
+## Docstring structure
 
 PEP 257: https://www.python.org/dev/peps/pep-0257/
 
-## Docstrig-Format
+## Docstrig structure
 
 docstring of a module: description, list of exported functions with single-line summaries
 

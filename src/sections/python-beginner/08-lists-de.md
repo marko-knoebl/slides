@@ -2,7 +2,7 @@
 
 ## Listen
 
-Weiterer wichtiger Datentyp: Liste (`list`)
+Listen sind ein Datentyp, der eine Folge von anderen Objekten repräsentiert
 
 ## Erstellen von Listen
 
@@ -33,6 +33,7 @@ print(len(users))
 - Überschreiben: `users[0] = "Andrew"`
 - Anhängen: `users.append("Dan")`
 - Letztes Element entfernen: `users.pop()`
+- Ein Element anhand des Index entfernen: `users.pop(2)`
 - Länge: `len(users)`
 - Zusammenhängen: `primes + users`
 - Abfragen, ob Element in Liste: `if "Andrew" in users:`

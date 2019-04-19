@@ -42,6 +42,7 @@ interessante Module:
 - `math`
 - `datetime`
 - `os` (Betriebssystem, Dateisystem)
+- `sys` (Python Umgebung)
 - `pprint` (formatierte Ausgabe)
 
 ## print und pprint
@@ -77,4 +78,22 @@ pprint.pprint(['Mercuy', 'Venus', 'Earth', 'Mars', 'Jupiter',
  'Uranus',
  'Neptune',
  'Pluto']
+```
+
+## sys
+
+Kommandozeilenparameter sind auslesbar über `sys.argv`
+
+```py
+# hello.py
+import sys
+print(sys.argv)
+```
+
+```bash
+python hello.py one two three
+```
+
+```bash
+['hello.py', 'one', 'two', 'three']
 ```

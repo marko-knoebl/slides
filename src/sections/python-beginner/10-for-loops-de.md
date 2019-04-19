@@ -45,25 +45,13 @@ Logged in as Alice!
 
 ## Zählschleifen
 
-Um mit Python zu zählen, gibt es ein besondere Funktion, die `range` heißt.
+Wir erinnern uns zurück: Für das Zählen verwendeten wir die Funktion `range`
 
-Der Aufruf `range(5)` erstellt ein Objekt, das sich wie die Liste `[0, 1, 2, 3, 4]` verhält.
+Der Aufruf `range(5)` erstellt ein Objekt, das sich wie die Liste `[0, 1, 2, 3, 4]` verhält
 
 Beispiel zur Verwendung:
 
 ```py
 for i in range(5):
     print(i)
-```
-
-## Zählschleifen
-
-Übung: Ausgabe einer Multiplikationstafel
-
-```txt
-1 x 7 = 7
-2 x 7 = 14
-3 x 7 = 21
-4 x 7 = 28
-...
 ```

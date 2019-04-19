@@ -50,8 +50,10 @@ if age_seconds < 100000000:
     print("You are les than 100 million seconds old")
 elif age_seconds < 1000000000:
     print("You are less than 1 billion seconds old")
+elif age_seconds < 2000000000:
+    print("You are less than 2 billion seconds old")
 else:
-    print("You are older than 1 billion seconds")
+    print("You are older than 2 billion seconds")
 ```
 
 ## if / elif / else
@@ -79,6 +81,15 @@ while a < 2000:
     print(a)
     a = a * 2
 ```
+
+## while loop
+
+examples:
+
+- guess the number with multiple attempts
+- a loop that prints the numbers 1 to 10
+- a loop that prints the numbers 7, 14, 21, ..., 70
+- exercise program for simple calculations
 
 ## combining comparisons
 

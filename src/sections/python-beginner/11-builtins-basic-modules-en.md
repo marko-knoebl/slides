@@ -49,6 +49,7 @@ modules of interest:
 - `math`
 - `datetime`
 - `os` (operating system, file system)
+- `sys` (python environment)
 - `pprint` (pretty printing)
 
 ## print and pprint
@@ -84,4 +85,22 @@ pprint.pprint(['Mercuy', 'Venus', 'Earth', 'Mars', 'Jupiter',
  'Uranus',
  'Neptune',
  'Pluto']
+```
+
+## sys
+
+Command line arguments can be read via `sys.argv`
+
+```py
+# hello.py
+import sys
+print(sys.argv)
+```
+
+```bash
+python hello.py one two three
+```
+
+```bash
+['hello.py', 'one', 'two', 'three']
 ```

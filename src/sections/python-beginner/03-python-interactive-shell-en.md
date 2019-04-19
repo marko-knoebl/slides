@@ -7,12 +7,6 @@ launching the Python shell:
 - command `python` in the command prompt
 - from the start menu (e.g. _Python 3.7 (64-bit)_)
 
-## expressions and operators
-
-```py
-2 + 2
-```
-
 ## mathematical operators
 
 ```py
@@ -135,6 +129,8 @@ boolean value: yes/no
 
 In Python: `True` or `False`
 
+Note: capitalization is crucial!
+
 ## Variables
 
 Data can be labeled with a name in Python - this is called a _variable_
@@ -149,7 +145,7 @@ birth_year = 1978
 
 ```py
 full_name = f"{first_name} {last_name}"
-age = 2018 - birth_year
+age = 2019 - birth_year
 ```
 
 ## Variables
