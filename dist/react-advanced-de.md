@@ -675,6 +675,34 @@ Haben wir das Verhalten einer Komponente geändert und danach ihr Verhalten übe
 Inspect your code changes or press `u` to update them.
 ```
 
+# Storybook
+
+## Storybook
+
+Ermöglicht das Erstellen isolierter Komponentendemos
+
+Beispiel:
+
+https://airbnb.io/react-dates/
+
+## Storybook - Setup
+
+```bash
+npx -p @storybook/cli sb init --type react
+```
+
+Erstellt einen Konfigurationsordner unter `.storybook` und Beispielstories unter `stories`.
+
+## Storybook
+
+```bash
+npm run storybook
+```
+
+## Storybook
+
+Konfiguration via `.storybook/config.js`
+
 # React Router
 
 ## React Router
