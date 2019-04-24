@@ -2,40 +2,49 @@
 
 ## Funktionsdefinition
 
+### Function Statement
+
 <!-- prettier-ignore -->
 ```js
-// function statement
 function double1(value) {
   return 2 * value;
 }
-
-// function expression
-const double2 = function(value) {
-  return 2 * value;
-}
-
-// arrow function
-const double3 = (value) => {
-  return 2 * value;
-}
-const double4 = (value) => 2 * value;
 ```
 
-## Pfeilfunktionen
+### Function Expression
+
+```js
+const double2 = function(value) {
+  return 2 * value;
+};
+```
+
+## Funktionsdefinition
+
+### Pfeilfunktion
 
 Seit ES2015 Teil des Standards
 
 <!-- prettier-ignore -->
 ```js
-const triple1 = (value) => {
-  return value * 3;
-};
-// wenn der Funktionskörper nur aus einem einzelnen
-// Return-Statement besteht: Kurzschreibweise:
-const triple2 = (value) => value * 3;
-// wenn es genau einen Parameter gibt, können die
-// Parameterklammern weggelassen werden:
-const triple3 = value => value * 3;
+const double3 = (value) => {
+  return 2 * value;
+}
+```
+
+## Pfeilfunktionen
+
+Wenn der Funktionskörper nur aus einem einzelnen Return-Statement besteht: Kurzschreibweise:
+
+<!-- prettier-ignore -->
+```js
+const double4 = (value) => value * 2;
+```
+
+Wenn es genau einen Parameter gibt, können die Parameterklammern weggelassen werden:
+
+```js
+const double5 = value => value * 2;
 ```
 
 ## Pfeilfunktionen

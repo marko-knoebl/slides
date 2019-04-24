@@ -43,7 +43,7 @@ Variablennamen dürfen nur aus Buchstaben, Ziffern und Unterstrichen bestehen
 
 ## Variablen
 
-Überschreiben (neu setzen von Variablen):
+Überschreiben (neu setzen) von Variablen:
 
 ```js
 let birthYear = 1962;
@@ -65,7 +65,7 @@ Mit welchen Arten von Daten - außer Zahlen - arbeitet ein Computer noch?
 
 Achtung Rundungsfehler: Einige Zahlen können nicht genau als Kommazahlen repräseniert werden, sie werden immer gerundet
 
-zB: `1/3`
+z.B.: `1/3`
 
 Der Computer kann auch Zahlen wie `0.1` oder `0.2` nicht genau repräsentieren
 

@@ -62,7 +62,7 @@ Es gibt zwei Möglichkeiten, Kommentare zu erstellen:
 
 /*
 dies ist
-ein mehrzeiliges
+ein mehrzeiliger
 Kommentar
 */
 ```
@@ -80,11 +80,11 @@ Mit `let` oder `const` deklarierte Variablen sind nur innerhalb des enstprechend
 
 ## Das Semikolon in JavaScript
 
-In JavaScript sind Semikolons in den meisten Fällen optional; sie werden bei der Ausführung automatisch nach bestimmten Regeln eingesetzt.
+In JavaScript sind Semikolons in den meisten Fällen optional; sie werden bei der Ausführung automatisch nach bestimmten Regeln eingesetzt. (_automatic semicolon insertion_)
 
 ## Das Semikolon in JavaScript
 
-Die _automatic semicolon insertion_ kann zu Problemen führen:
+Das automatische hinzufügen von Semikolons kann zu Problemen führen:
 
 <!-- prettier-ignore-start -->
 ```js

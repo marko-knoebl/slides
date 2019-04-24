@@ -1,23 +1,23 @@
-# builtins
+# Builtins
 
-## builtins
+## Builtins
 
 - `setTimeout`, `setInterval`
 - `JSON`
 - `Date`
 - `Math`
 
-## builtins im Browser
+## Builtins im Browser
 
 - `alert`, `prompt`
 - `fetch`
 
-## builtins: JSON
+## Builtins: JSON
 
 - `JSON.parse`
 - `JSON.stringify`
 
-## builtins: Date
+## Builtins: Date
 
 aktueller Timestamp:
 
@@ -34,7 +34,7 @@ a.toISOString();
 a.getHourse(); // ...
 ```
 
-## builtins: Math
+## Builtins: Math
 
 - `Math.round`, `Math.ceil`, `Math.floor`
 - `Math.max`, `Math.min`

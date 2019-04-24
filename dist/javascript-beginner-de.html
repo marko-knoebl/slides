@@ -196,7 +196,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 
       </section><section class="slide" id="slide-2-8">
         <h2 id="variablen">Variablen</h2>
-<p>Überschreiben (neu setzen von Variablen):</p>
+<p>Überschreiben (neu setzen) von Variablen:</p>
 <pre><code class="language-js"><span class="hljs-keyword">let</span> birthYear = <span class="hljs-number">1962</span>;
 birthYear = <span class="hljs-number">1970</span>;
 birthYear = birthYear + <span class="hljs-number">1</span>;</code></pre>
@@ -216,7 +216,7 @@ birthYear = birthYear + <span class="hljs-number">1</span>;</code></pre>
       </section><section class="slide" id="slide-2-11">
         <h2 id="number">Number</h2>
 <p>Achtung Rundungsfehler: Einige Zahlen können nicht genau als Kommazahlen repräseniert werden, sie werden immer gerundet</p>
-<p>zB: <code>1/3</code></p>
+<p>z.B.: <code>1/3</code></p>
 <p>Der Computer kann auch Zahlen wie <code>0.1</code> oder <code>0.2</code> nicht genau repräsentieren</p>
 <p>Beispiel: <code>0.3 - 0.2 - 0.1</code></p>
 
@@ -323,14 +323,10 @@ birthYear = birthYear + <span class="hljs-number">1</span>;</code></pre>
 
       </section><section class="slide" id="slide-4-2">
         <h2 id="javascript-dateien-ausführen">JavaScript-Dateien ausführen</h2>
-<p>2 wichtige Möglichkeiten:</p>
-<ul>
-<li>einbinden in eine HTML-Seite, aufrufen der Seite im Browser:</li>
-</ul>
-<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"myscript.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
-<ul>
-<li>direktes Ausführen mittels node.js:</li>
-</ul>
+<p>Zwei wichtige Möglichkeiten:</p>
+<p>Einbinden in eine HTML-Seite, aufrufen der Seite im Browser:</p>
+<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"myscript.js"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"module"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+<p>Direktes Ausführen mittels node.js:</p>
 <pre><code class="language-bash">node myscript.js</code></pre>
 
       </section></section><section class="section" id="section-5"><section class="slide" id="slide-5-1">
@@ -378,7 +374,7 @@ birthYear = birthYear + <span class="hljs-number">1</span>;</code></pre>
 
 <span class="hljs-comment">/*
 dies ist
-ein mehrzeiliges
+ein mehrzeiliger
 Kommentar
 */</span></code></pre>
 
@@ -394,11 +390,11 @@ Kommentar
 
       </section><section class="slide" id="slide-5-10">
         <h2 id="das-semikolon-in-javascript">Das Semikolon in JavaScript</h2>
-<p>In JavaScript sind Semikolons in den meisten Fällen optional; sie werden bei der Ausführung automatisch nach bestimmten Regeln eingesetzt.</p>
+<p>In JavaScript sind Semikolons in den meisten Fällen optional; sie werden bei der Ausführung automatisch nach bestimmten Regeln eingesetzt. (<em>automatic semicolon insertion</em>)</p>
 
       </section><section class="slide" id="slide-5-11">
         <h2 id="das-semikolon-in-javascript">Das Semikolon in JavaScript</h2>
-<p>Die <em>automatic semicolon insertion</em> kann zu Problemen führen:</p>
+<p>Das automatische hinzufügen von Semikolons kann zu Problemen führen:</p>
 <!-- prettier-ignore-start -->
 <pre><code class="language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">return</span>
@@ -622,7 +618,7 @@ Kommentar
       </section><section class="slide" id="slide-9-5">
         <h2 id="übung-einkaufsliste">Übung: Einkaufsliste</h2>
 <p>Beispielhafter Programmlauf:</p>
-<pre><code class="language-text">enter an item or &quot;x&quot; to quit:
+<pre><code class="language-txt">enter an item or &quot;x&quot; to quit:
 milk
 enter an item or &quot;x&quot; to quit:
 bread
@@ -670,7 +666,7 @@ print(a);</code></pre>
       </section><section class="slide" id="slide-11-2">
         <h2 id="for-of-schleifen">For-of-Schleifen</h2>
 <p>Mit einer for-of-Schleife können wir die Inhalte eines Arrays durchlaufen.</p>
-<p>Bezeichnung in anderen Programmiersprachen <em>for-each</em></p>
+<p>Bezeichnung in anderen Programmiersprachen: <em>for-each</em></p>
 
       </section><section class="slide" id="slide-11-3">
         <h2 id="for-of-schleifen">For-of-Schleifen</h2>
@@ -683,11 +679,12 @@ print(a);</code></pre>
 
       </section><section class="slide" id="slide-11-4">
         <h2 id="beispiel-login-system">Beispiel: Login-System</h2>
-<pre><code class="language-js"># Benutzer mit Passwörtern
-let users = [
-  [&quot;Alice&quot;, &quot;1234&quot;],
-  [&quot;Bob&quot;, &quot;password&quot;],
-  [&quot;Charlie&quot;, &quot;paris41&quot;]];</code></pre>
+<pre><code class="language-js"><span class="hljs-comment">// users and passwords</span>
+<span class="hljs-keyword">let</span> users = [
+  [<span class="hljs-string">'Alice'</span>, <span class="hljs-string">'1234'</span>],
+  [<span class="hljs-string">'Bob'</span>, <span class="hljs-string">'password'</span>],
+  [<span class="hljs-string">'Charlie'</span>, <span class="hljs-string">'paris41'</span>],
+];</code></pre>
 
       </section><section class="slide" id="slide-11-5">
         <h2 id="beispiel-login-system">Beispiel: Login-System</h2>
@@ -705,10 +702,10 @@ Enter your password:
 Logged in as Alice!</code></pre>
 
       </section></section><section class="section" id="section-12"><section class="slide" id="slide-12-1">
-        <h1 id="builtins">builtins</h1>
+        <h1 id="builtins">Builtins</h1>
 
       </section><section class="slide" id="slide-12-2">
-        <h2 id="builtins">builtins</h2>
+        <h2 id="builtins">Builtins</h2>
 <ul>
 <li><code>setTimeout</code>, <code>setInterval</code></li>
 <li><code>JSON</code></li>
@@ -717,21 +714,21 @@ Logged in as Alice!</code></pre>
 </ul>
 
       </section><section class="slide" id="slide-12-3">
-        <h2 id="builtins-im-browser">builtins im Browser</h2>
+        <h2 id="builtins-im-browser">Builtins im Browser</h2>
 <ul>
 <li><code>alert</code>, <code>prompt</code></li>
 <li><code>fetch</code></li>
 </ul>
 
       </section><section class="slide" id="slide-12-4">
-        <h2 id="builtins-json">builtins: JSON</h2>
+        <h2 id="builtins-json">Builtins: JSON</h2>
 <ul>
 <li><code>JSON.parse</code></li>
 <li><code>JSON.stringify</code></li>
 </ul>
 
       </section><section class="slide" id="slide-12-5">
-        <h2 id="builtins-date">builtins: Date</h2>
+        <h2 id="builtins-date">Builtins: Date</h2>
 <p>aktueller Timestamp:</p>
 <pre><code class="language-js"><span class="hljs-keyword">let</span> a = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();</code></pre>
 <p>Methoden:</p>
@@ -741,7 +738,7 @@ a.toISOString();
 a.getHourse(); <span class="hljs-comment">// ...</span></code></pre>
 
       </section><section class="slide" id="slide-12-6">
-        <h2 id="builtins-math">builtins: Math</h2>
+        <h2 id="builtins-math">Builtins: Math</h2>
 <ul>
 <li><code>Math.round</code>, <code>Math.ceil</code>, <code>Math.floor</code></li>
 <li><code>Math.max</code>, <code>Math.min</code></li>
@@ -768,38 +765,34 @@ a.getHourse(); <span class="hljs-comment">// ...</span></code></pre>
 
       </section><section class="slide" id="slide-14-2">
         <h2 id="funktionsdefinition">Funktionsdefinition</h2>
+<h3 id="function-statement">Function Statement</h3>
 <!-- prettier-ignore -->
-<pre><code class="language-js"><span class="hljs-comment">// function statement</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">double1</span>(<span class="hljs-params">value</span>) </span>{
+<pre><code class="language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">double1</span>(<span class="hljs-params">value</span>) </span>{
   <span class="hljs-keyword">return</span> <span class="hljs-number">2</span> * value;
-}
-
-<span class="hljs-comment">// function expression</span>
-<span class="hljs-keyword">const</span> double2 = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">value</span>) </span>{
+}</code></pre>
+<h3 id="function-expression">Function Expression</h3>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> double2 = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">value</span>) </span>{
   <span class="hljs-keyword">return</span> <span class="hljs-number">2</span> * value;
-}
-
-<span class="hljs-comment">// arrow function</span>
-<span class="hljs-keyword">const</span> double3 = <span class="hljs-function">(<span class="hljs-params">value</span>) =&gt;</span> {
-  <span class="hljs-keyword">return</span> <span class="hljs-number">2</span> * value;
-}
-<span class="hljs-keyword">const</span> double4 = <span class="hljs-function">(<span class="hljs-params">value</span>) =&gt;</span> <span class="hljs-number">2</span> * value;</code></pre>
+};</code></pre>
 
       </section><section class="slide" id="slide-14-3">
-        <h2 id="pfeilfunktionen">Pfeilfunktionen</h2>
+        <h2 id="funktionsdefinition">Funktionsdefinition</h2>
+<h3 id="pfeilfunktion">Pfeilfunktion</h3>
 <p>Seit ES2015 Teil des Standards</p>
 <!-- prettier-ignore -->
-<pre><code class="language-js"><span class="hljs-keyword">const</span> triple1 = <span class="hljs-function">(<span class="hljs-params">value</span>) =&gt;</span> {
-  <span class="hljs-keyword">return</span> value * <span class="hljs-number">3</span>;
-};
-<span class="hljs-comment">// wenn der Funktionskörper nur aus einem einzelnen</span>
-<span class="hljs-comment">// Return-Statement besteht: Kurzschreibweise:</span>
-<span class="hljs-keyword">const</span> triple2 = <span class="hljs-function">(<span class="hljs-params">value</span>) =&gt;</span> value * <span class="hljs-number">3</span>;
-<span class="hljs-comment">// wenn es genau einen Parameter gibt, können die</span>
-<span class="hljs-comment">// Parameterklammern weggelassen werden:</span>
-<span class="hljs-keyword">const</span> triple3 = <span class="hljs-function"><span class="hljs-params">value</span> =&gt;</span> value * <span class="hljs-number">3</span>;</code></pre>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> double3 = <span class="hljs-function">(<span class="hljs-params">value</span>) =&gt;</span> {
+  <span class="hljs-keyword">return</span> <span class="hljs-number">2</span> * value;
+}</code></pre>
 
       </section><section class="slide" id="slide-14-4">
+        <h2 id="pfeilfunktionen">Pfeilfunktionen</h2>
+<p>Wenn der Funktionskörper nur aus einem einzelnen Return-Statement besteht: Kurzschreibweise:</p>
+<!-- prettier-ignore -->
+<pre><code class="language-js"><span class="hljs-keyword">const</span> double4 = <span class="hljs-function">(<span class="hljs-params">value</span>) =&gt;</span> value * <span class="hljs-number">2</span>;</code></pre>
+<p>Wenn es genau einen Parameter gibt, können die Parameterklammern weggelassen werden:</p>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> double5 = <span class="hljs-function"><span class="hljs-params">value</span> =&gt;</span> value * <span class="hljs-number">2</span>;</code></pre>
+
+      </section><section class="slide" id="slide-14-5">
         <h2 id="pfeilfunktionen">Pfeilfunktionen</h2>
 <p>Achtung: <code>{</code> und <code>}</code> sind mehrdeutig</p>
 <pre><code class="language-js"><span class="hljs-comment">// unzulässig:</span>
@@ -815,7 +808,7 @@ a.getHourse(); <span class="hljs-comment">// ...</span></code></pre>
   <span class="hljs-attr">birthYear</span>: <span class="hljs-number">1847</span>,
 });</code></pre>
 
-      </section><section class="slide" id="slide-14-5">
+      </section><section class="slide" id="slide-14-6">
         <h2 id="standardparameter-in-funktionen">Standardparameter in Funktionen</h2>
 <p>In Funktionen können Standardwerte für Parameter definiert werden:</p>
 <pre><code class="language-js"><span class="hljs-keyword">let</span> join = <span class="hljs-function">(<span class="hljs-params">strings, separator=<span class="hljs-string">''</span></span>) =&gt;</span> {
@@ -861,6 +854,7 @@ a.getHourse(); <span class="hljs-comment">// ...</span></code></pre>
     }
 
     h1, h2, h3 {
+      margin-top: 0px;
       font-weight: 600;
     }
 

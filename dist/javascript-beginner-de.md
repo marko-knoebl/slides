@@ -90,7 +90,7 @@ Variablennamen dürfen nur aus Buchstaben, Ziffern und Unterstrichen bestehen
 
 ## Variablen
 
-Überschreiben (neu setzen von Variablen):
+Überschreiben (neu setzen) von Variablen:
 
 ```js
 let birthYear = 1962;
@@ -112,7 +112,7 @@ Mit welchen Arten von Daten - außer Zahlen - arbeitet ein Computer noch?
 
 Achtung Rundungsfehler: Einige Zahlen können nicht genau als Kommazahlen repräseniert werden, sie werden immer gerundet
 
-zB: `1/3`
+z.B.: `1/3`
 
 Der Computer kann auch Zahlen wie `0.1` oder `0.2` nicht genau repräsentieren
 
@@ -253,15 +253,15 @@ let person1 = {
 
 ## JavaScript-Dateien ausführen
 
-2 wichtige Möglichkeiten:
+Zwei wichtige Möglichkeiten:
 
-- einbinden in eine HTML-Seite, aufrufen der Seite im Browser:
+Einbinden in eine HTML-Seite, aufrufen der Seite im Browser:
 
 ```html
-<script src="myscript.js"></script>
+<script src="myscript.js" type="module"></script>
 ```
 
-- direktes Ausführen mittels node.js:
+Direktes Ausführen mittels node.js:
 
 ```bash
 node myscript.js
@@ -331,7 +331,7 @@ Es gibt zwei Möglichkeiten, Kommentare zu erstellen:
 
 /*
 dies ist
-ein mehrzeiliges
+ein mehrzeiliger
 Kommentar
 */
 ```
@@ -349,11 +349,11 @@ Mit `let` oder `const` deklarierte Variablen sind nur innerhalb des enstprechend
 
 ## Das Semikolon in JavaScript
 
-In JavaScript sind Semikolons in den meisten Fällen optional; sie werden bei der Ausführung automatisch nach bestimmten Regeln eingesetzt.
+In JavaScript sind Semikolons in den meisten Fällen optional; sie werden bei der Ausführung automatisch nach bestimmten Regeln eingesetzt. (_automatic semicolon insertion_)
 
 ## Das Semikolon in JavaScript
 
-Die _automatic semicolon insertion_ kann zu Problemen führen:
+Das automatische hinzufügen von Semikolons kann zu Problemen führen:
 
 <!-- prettier-ignore-start -->
 ```js
@@ -612,7 +612,7 @@ console.log(users[users.length - 1]);
 
 Beispielhafter Programmlauf:
 
-```text
+```txt
 enter an item or "x" to quit:
 milk
 enter an item or "x" to quit:
@@ -668,7 +668,7 @@ Im Hintergrund steht nach wie vor nur ein einzelnes Objekt.
 
 Mit einer for-of-Schleife können wir die Inhalte eines Arrays durchlaufen.
 
-Bezeichnung in anderen Programmiersprachen _for-each_
+Bezeichnung in anderen Programmiersprachen: _for-each_
 
 ## For-of-Schleifen
 
@@ -685,11 +685,12 @@ Die Variable `name` nimmt nacheinander jeden der in `names` angegebenen Werte ei
 ## Beispiel: Login-System
 
 ```js
-# Benutzer mit Passwörtern
+// users and passwords
 let users = [
-  ["Alice", "1234"],
-  ["Bob", "password"],
-  ["Charlie", "paris41"]];
+  ['Alice', '1234'],
+  ['Bob', 'password'],
+  ['Charlie', 'paris41'],
+];
 ```
 
 ## Beispiel: Login-System
@@ -710,26 +711,26 @@ Enter your password:
 Logged in as Alice!
 ```
 
-# builtins
+# Builtins
 
-## builtins
+## Builtins
 
 - `setTimeout`, `setInterval`
 - `JSON`
 - `Date`
 - `Math`
 
-## builtins im Browser
+## Builtins im Browser
 
 - `alert`, `prompt`
 - `fetch`
 
-## builtins: JSON
+## Builtins: JSON
 
 - `JSON.parse`
 - `JSON.stringify`
 
-## builtins: Date
+## Builtins: Date
 
 aktueller Timestamp:
 
@@ -746,7 +747,7 @@ a.toISOString();
 a.getHourse(); // ...
 ```
 
-## builtins: Math
+## Builtins: Math
 
 - `Math.round`, `Math.ceil`, `Math.floor`
 - `Math.max`, `Math.min`
@@ -773,40 +774,49 @@ Rückgabewert: 9
 
 ## Funktionsdefinition
 
+### Function Statement
+
 <!-- prettier-ignore -->
 ```js
-// function statement
 function double1(value) {
   return 2 * value;
 }
-
-// function expression
-const double2 = function(value) {
-  return 2 * value;
-}
-
-// arrow function
-const double3 = (value) => {
-  return 2 * value;
-}
-const double4 = (value) => 2 * value;
 ```
 
-## Pfeilfunktionen
+### Function Expression
+
+```js
+const double2 = function(value) {
+  return 2 * value;
+};
+```
+
+## Funktionsdefinition
+
+### Pfeilfunktion
 
 Seit ES2015 Teil des Standards
 
 <!-- prettier-ignore -->
 ```js
-const triple1 = (value) => {
-  return value * 3;
-};
-// wenn der Funktionskörper nur aus einem einzelnen
-// Return-Statement besteht: Kurzschreibweise:
-const triple2 = (value) => value * 3;
-// wenn es genau einen Parameter gibt, können die
-// Parameterklammern weggelassen werden:
-const triple3 = value => value * 3;
+const double3 = (value) => {
+  return 2 * value;
+}
+```
+
+## Pfeilfunktionen
+
+Wenn der Funktionskörper nur aus einem einzelnen Return-Statement besteht: Kurzschreibweise:
+
+<!-- prettier-ignore -->
+```js
+const double4 = (value) => value * 2;
+```
+
+Wenn es genau einen Parameter gibt, können die Parameterklammern weggelassen werden:
+
+```js
+const double5 = value => value * 2;
 ```
 
 ## Pfeilfunktionen

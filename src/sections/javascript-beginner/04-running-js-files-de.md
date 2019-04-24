@@ -2,15 +2,15 @@
 
 ## JavaScript-Dateien ausführen
 
-2 wichtige Möglichkeiten:
+Zwei wichtige Möglichkeiten:
 
-- einbinden in eine HTML-Seite, aufrufen der Seite im Browser:
+Einbinden in eine HTML-Seite, aufrufen der Seite im Browser:
 
 ```html
-<script src="myscript.js"></script>
+<script src="myscript.js" type="module"></script>
 ```
 
-- direktes Ausführen mittels node.js:
+Direktes Ausführen mittels node.js:
 
 ```bash
 node myscript.js

@@ -36,7 +36,7 @@ console.log(users[users.length - 1]);
 
 Beispielhafter Programmlauf:
 
-```text
+```txt
 enter an item or "x" to quit:
 milk
 enter an item or "x" to quit:

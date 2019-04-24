@@ -4,7 +4,7 @@
 
 Mit einer for-of-Schleife können wir die Inhalte eines Arrays durchlaufen.
 
-Bezeichnung in anderen Programmiersprachen _for-each_
+Bezeichnung in anderen Programmiersprachen: _for-each_
 
 ## For-of-Schleifen
 
@@ -21,11 +21,12 @@ Die Variable `name` nimmt nacheinander jeden der in `names` angegebenen Werte ei
 ## Beispiel: Login-System
 
 ```js
-# Benutzer mit Passwörtern
+// users and passwords
 let users = [
-  ["Alice", "1234"],
-  ["Bob", "password"],
-  ["Charlie", "paris41"]];
+  ['Alice', '1234'],
+  ['Bob', 'password'],
+  ['Charlie', 'paris41'],
+];
 ```
 
 ## Beispiel: Login-System
