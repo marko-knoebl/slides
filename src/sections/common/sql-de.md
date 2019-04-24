@@ -59,7 +59,7 @@ CREATE TABLE person(
 | varchar(20)      | varchar(20)   | varchar2(20) | varchar(20)   | varchar          | text    |
 | varbinary(20)    | varbinary(20) | blob         | varbinary(20) | bytea            | blob    |
 
-# signed & unsigned
+## signed & unsigned
 
 MySQL unterscheidet zB zwischen:
 

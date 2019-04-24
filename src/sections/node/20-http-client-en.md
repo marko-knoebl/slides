@@ -1,6 +1,6 @@
 # HTTP client
 
-## retrieving a website
+## Retrieving a website
 
 ```js
 const http = require('http');
@@ -12,7 +12,7 @@ http.get('http://www.google.com', responseStream => {
 });
 ```
 
-## using the request package
+## Using the request package
 
 ```bash
 npm install request
@@ -27,8 +27,8 @@ request('http://google.com', (error, response, body) => {
 });
 ```
 
-## exercise: retrieving multiple websites
+## Exercise: retrieving multiple websites
 
 see learnyounode: juggling async
 
-
+## Exercise: number of Google search results

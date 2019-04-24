@@ -6,7 +6,7 @@ The node JavaScript environment was taken from Chrome
 
 There are some minor differences to the original environment. For example, `alert` does not exist and the global namespace is called `global` instead of `window`.
 
-## importing modules
+## Importing modules
 
 modules can be imported via `require`:
 
@@ -18,9 +18,9 @@ const folderContents = fs.readdirSync('.');
 console.log(folderContents);
 ```
 
-## exporting objects
+## Exporting objects
 
-a js file becomes a module by changing its `exports` object:
+A JavaScript file becomes a module by changing its `exports` object:
 
 single export
 
@@ -32,5 +32,23 @@ multiple exports / export object
 
 ```js
 module.exports.message1 = 'hello world';
-module.exports.message2 = 'bye';
+module.exports.message2 = 'hello';
+// shorthand:
+exports.message3 = 'hi';
+```
+
+## Reading command line arguments
+
+command line arguments are available via the global `process.argv`
+
+example:
+
+```bash
+node program.js 1 2 3
+```
+
+will result in
+
+```json
+["node", "/path/to/your/program.js", "1", "2", "3"];
 ```

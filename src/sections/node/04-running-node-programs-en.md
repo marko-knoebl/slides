@@ -1,6 +1,6 @@
-# running node programs
+# Running node programs
 
-## running programs on the command line
+## Running programs on the command line
 
 hello.js:
 
@@ -12,17 +12,17 @@ console.log('Hello world!');
 node hello.js
 ```
 
-## running code in VS Code
+## Running programs in VS Code
 
-debugging: `F5`
+with debugging: `F5`
 
 without debugging: `Ctrl + F5`
 
 choose node as an environment in the debugger pane
 
-## running code in VS Code
+## Running programs in VS Code
 
-configuration file (launch.json):
+configuration file (_launch.json_):
 
 ```json
 {

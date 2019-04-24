@@ -104,52 +104,6 @@ def application(environ, start_response):
     return [response_body]
 ```
 
-## wichtige HTTP-Statuscodes
-
-- `200 OK`
-
-<!-- list separator -->
-
-- `301 Moved Permanently`
-- `307 Temporary Redirect` (Weiterleitung auf eine andere Adresse)
-- `303 See Other` (Weiterleitung auf eine andere Adresse, Methode ändert sich zu `GET`)
-- `308 Permanent Redirect`
-- `304 Not Modified` (Resource hat sich seit letzter Anfrage nicht geändert)
-
-<!-- list separator -->
-
-- `400 Bad Request`
-- `401 Unauthorized`
-- `403 Forbidden`
-- `404 Not Found`
-
-<!-- list separator -->
-
-- `500 Internal Server Error`
-
-siehe auch: https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
-
-## wichtige HTTP-Antwort-Headerfelder
-
-- `Content-Length`
-- `Content-Type`
-- `Set-Cookie`
-- `Location`
-- `Cache-Control`
-
-## Content-Type-Headerfeld
-
-Mögliche Werte:
-
-- `text/plain; charset=utf-8`
-- `text/html; charset=utf-8`
-- `application/json`
-- `application/javascript`
-- `application/ecmascript`
-- `image/jpeg`
-- `image/png`
-- ...
-
 ## Das environ-dictionary
 
 Wir können es im debugger begutachten, zB:

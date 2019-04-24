@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Node.js</title>
+  <style>/*
+
+Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
+
+*/
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  background: #F0F0F0;
+}
+
+
+/* Base color: saturation 0; */
+
+.hljs,
+.hljs-subst {
+  color: #444;
+}
+
+.hljs-comment {
+  color: #888888;
+}
+
+.hljs-keyword,
+.hljs-attribute,
+.hljs-selector-tag,
+.hljs-meta-keyword,
+.hljs-doctag,
+.hljs-name {
+  font-weight: bold;
+}
+
+
+/* User color: hue: 0 */
+
+.hljs-type,
+.hljs-string,
+.hljs-number,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-quote,
+.hljs-template-tag,
+.hljs-deletion {
+  color: #880000;
+}
+
+.hljs-title,
+.hljs-section {
+  color: #880000;
+  font-weight: bold;
+}
+
+.hljs-regexp,
+.hljs-symbol,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-link,
+.hljs-selector-attr,
+.hljs-selector-pseudo {
+  color: #BC6060;
+}
+
+
+/* Language color: hue: 90; */
+
+.hljs-literal {
+  color: #78A960;
+}
+
+.hljs-built_in,
+.hljs-bullet,
+.hljs-code,
+.hljs-addition {
+  color: #397300;
+}
+
+
+/* Meta color: hue: 200 */
+
+.hljs-meta {
+  color: #1f7199;
+}
+
+.hljs-meta-string {
+  color: #4d99bf;
+}
+
+
+/* Misc effects */
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+  <div id="canvas">
+    <div id="canvas-content">
+
+      <section class="section" id="section-1"><section class="slide" id="slide-1-1">
+        <h1 id="title">Node.js</h1>
+
+      </section><section class="slide" id="slide-1-2">
+        <h2 id="presentation-and-code">Presentation and code</h2>
+<p>Presentations available at: <a href="https://karuga.eu/courses-presentations">https://karuga.eu/courses-presentations</a></p>
+<p>Code available at: <a href="https://github.com/marko-knoebl/courses-code">https://github.com/marko-knoebl/courses-code</a></p>
+
+      </section><section class="slide" id="slide-1-3">
+        <h2 id="your-trainer">Your Trainer</h2>
+<p>Marko Knöbl</p>
+<ul>
+<li>Frontend Web-Development<ul>
+<li>JavaScript</li>
+<li>React, Angular</li>
+</ul>
+</li>
+<li>Programming<ul>
+<li>Python, JavaScript</li>
+</ul>
+</li>
+</ul>
+
+      </section><section class="slide" id="slide-1-4">
+        <h2 id="introduction-of-participants">Introduction of Participants</h2>
+<ul>
+<li>Name</li>
+<li>Company</li>
+<li>Current Projects</li>
+<li>Prior Knowledge</li>
+<li>Expectations</li>
+</ul>
+
+      </section><section class="slide" id="slide-1-5">
+        <h2 id="organizational">Organizational</h2>
+<ul>
+<li>Duration</li>
+<li>Breaks</li>
+<li>Materials</li>
+<li>Questions, Feedback?</li>
+</ul>
+
+      </section></section><section class="section" id="section-2"><section class="slide" id="slide-2-1">
+        <h1 id="nodejs-and-npm">Node.js and npm</h1>
+
+      </section><section class="slide" id="slide-2-2">
+        <h2 id="nodejs-and-npm">Node.js and npm</h2>
+<p>Node.js is a JavaScript runtime</p>
+<p>It may be used to:</p>
+<ul>
+<li>run scripts locally</li>
+<li>provide development tools (e.g. for build process, unit tests, ...)</li>
+<li>run a backend</li>
+</ul>
+
+      </section><section class="slide" id="slide-2-3">
+        <h2 id="nodejs-and-npm">Node.js and npm</h2>
+<p><em>npm</em> is short for <em>Node package manager</em>; it is used to access the npm package registry which provides a huge collection of libraries to download</p>
+<p>npm comes bundled with node.js; another alternative would be <em>yarn</em></p>
+
+      </section><section class="slide" id="slide-2-4">
+        <h2 id="nodejs-installation">Node.js installation</h2>
+<p>Node can be downloaded from <a href="https://nodejs.org">https://nodejs.org</a></p>
+<p>Major releases are made available every 6 months. Major releases with even version numbers (e.g. 10) are long-term-support releases.</p>
+
+      </section></section><section class="section" id="section-3"><section class="slide" id="slide-3-1">
+        <h1 id="npm">npm</h1>
+
+      </section><section class="slide" id="slide-3-2">
+        <h2 id="npm-registry">npm registry</h2>
+<p>The npm registry is an online registry consisting primarily of open source JavaScript packages</p>
+<p>With <a href="http://www.modulecounts.com/">over 800,000 packages</a> it is by far the largest software registry in existence</p>
+<p>examples: <a href="https://www.npmjs.com/browse/depended">most depended upon packages</a></p>
+
+      </section><section class="slide" id="slide-3-3">
+        <h2 id="package-managers">Package managers</h2>
+<p>two major package managers for the npm registry:</p>
+<ul>
+<li><em>npm</em>: Node package manager, comes with node.js</li>
+<li><em>yarn</em>: may be installed separately</li>
+</ul>
+
+      </section><section class="slide" id="slide-3-4">
+        <h2 id="package-configuration">Package configuration</h2>
+<p>All the packages we find on <a href="https://www.npmjs.com">https://www.npmjs.com</a> are public packages that we can install.</p>
+<p>Both public packages and our private projects will be managed via a configuration file named <em>package.json</em>.</p>
+
+      </section><section class="slide" id="slide-3-5">
+        <h2 id="package-configuration">Package configuration</h2>
+<p>In order to add dependencies to our project we can start out with an empty <em>package.json</em> configuration:</p>
+<pre><code class="language-json">{}</code></pre>
+<p>We could also create such a file with some content via <code>npm init</code> (or <code>npm init -y</code> for default options)</p>
+
+      </section><section class="slide" id="slide-3-6">
+        <h2 id="adding-dependencies">Adding dependencies</h2>
+<p>we can add some dependencies via:</p>
+<pre><code class="language-bash">npm install lodash bootstrap</code></pre>
+<p>we can add dependencies that are only used for development (and not for building) via:</p>
+<pre><code class="language-bash">npm install eslint --save-dev</code></pre>
+
+      </section><section class="slide" id="slide-3-7">
+        <h2 id="adding-dependencies">Adding dependencies</h2>
+<p>What did the previous commands do? We can see the consequences in three locations:</p>
+<ul>
+<li><code>package.json</code> - lists minimum versions of the packages we just installed</li>
+<li><code>node_modules</code> - folder that contains all installed packages</li>
+<li><code>package-lock.json</code> - lists exact versions of all packages in <code>node_modules</code></li>
+</ul>
+
+      </section><section class="slide" id="slide-3-8">
+        <h2 id="dependencies-in-packagejson">Dependencies in package.json</h2>
+<p>The file <code>package.json</code> now lists dependencies together with a version specifier</p>
+<p>The version specifier uses <em>semantic versioning</em>: <code>major.minor.patch</code></p>
+<p>possible configurations:</p>
+<ul>
+<li><code>&quot;bootstrap&quot;: &quot;4.3.1&quot;</code> - exactly this version</li>
+<li><code>&quot;bootstrap&quot;: &quot;~4.3.1&quot;</code> - patch version updates allowed - for example to <code>4.3.2</code></li>
+<li><code>&quot;bootstrap&quot;: &quot;^4.3.1&quot;</code> - minor version updates allowed - for example to <code>4.4.0</code></li>
+</ul>
+
+      </section><section class="slide" id="slide-3-9">
+        <h2 id="dependencies-in-package-lockjson">Dependencies in package-lock.json</h2>
+<p>The file <code>package-lock.json</code> lists <em>exact</em> versions for all dependencies and their dependencies</p>
+
+      </section><section class="slide" id="slide-3-10">
+        <h2 id="node_modules">node_modules</h2>
+<p>contains the actual packages</p>
+<p>this should not be put under version control - instead, this folder can be reacreated from <code>package.json</code> by running <code>npm install</code> (without any arguments)</p>
+
+      </section><section class="slide" id="slide-3-11">
+        <h2 id="npm-scripts">npm scripts</h2>
+<p>Npm can be used to execute scripts / commands that are needed for development, for example:</p>
+<ul>
+<li><code>npm run test</code> - would run unit tests</li>
+<li><code>npm run build</code> - would create a build</li>
+<li><code>npm run start</code></li>
+<li><code>npm run deploy</code></li>
+</ul>
+<p>Some npm scripts have shorthands, notably <code>npm test</code> and <code>npm start</code></p>
+
+      </section><section class="slide" id="slide-3-12">
+        <h2 id="npm-scripts">npm scripts</h2>
+<p>Npm scripts are configured in <code>package.json</code>:</p>
+<pre><code class="language-json">{
+  <span class="hljs-attr">"scripts"</span>: { <span class="hljs-attr">"start"</span>: <span class="hljs-string">"node run-server.js"</span> }
+}</code></pre>
+
+      </section><section class="slide" id="slide-3-13">
+        <h2 id="packagejson-contents-for-public-packages">package.json contents (for public packages)</h2>
+<p>See <a href="https://docs.npmjs.com/files/package.json">https://docs.npmjs.com/files/package.json</a></p>
+
+      </section><section class="slide" id="slide-3-14">
+        <h2 id="global-installs-and-npx">Global installs and npx</h2>
+<p>Node packages may be installed globally on a computer or may be executed directly from the npm registry</p>
+<p>global installation of <code>cowsay</code>:</p>
+<pre><code class="language-bash">npm install -g cowsay
+
+cowsay hello</code></pre>
+<p>direct execution (without installation):</p>
+<pre><code class="language-bash">npx cowsay hello</code></pre>
+
+      </section></section><section class="section" id="section-4"><section class="slide" id="slide-4-1">
+        <h1 id="running-node-programs">Running node programs</h1>
+
+      </section><section class="slide" id="slide-4-2">
+        <h2 id="running-programs-on-the-command-line">Running programs on the command line</h2>
+<p>hello.js:</p>
+<pre><code class="language-js"><span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Hello world!'</span>);</code></pre>
+<pre><code class="language-bash">node hello.js</code></pre>
+
+      </section><section class="slide" id="slide-4-3">
+        <h2 id="running-programs-in-vs-code">Running programs in VS Code</h2>
+<p>with debugging: <code>F5</code></p>
+<p>without debugging: <code>Ctrl + F5</code></p>
+<p>choose node as an environment in the debugger pane</p>
+
+      </section><section class="slide" id="slide-4-4">
+        <h2 id="running-programs-in-vs-code">Running programs in VS Code</h2>
+<p>configuration file (<em>launch.json</em>):</p>
+<pre><code class="language-json">{
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"node"</span>,
+  <span class="hljs-attr">"request"</span>: <span class="hljs-string">"launch"</span>,
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Debug file"</span>,
+  <span class="hljs-attr">"program"</span>: <span class="hljs-string">"${file}"</span>
+}</code></pre>
+
+      </section></section><section class="section" id="section-5"><section class="slide" id="slide-5-1">
+        <h1 id="nodes-javascript">Node&#39;s JavaScript</h1>
+
+      </section><section class="slide" id="slide-5-2">
+        <h2 id="nodes-javascript">Node&#39;s JavaScript</h2>
+<p>The node JavaScript environment was taken from Chrome</p>
+<p>There are some minor differences to the original environment. For example, <code>alert</code> does not exist and the global namespace is called <code>global</code> instead of <code>window</code>.</p>
+
+      </section><section class="slide" id="slide-5-3">
+        <h2 id="importing-modules">Importing modules</h2>
+<p>modules can be imported via <code>require</code>:</p>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
+
+<span class="hljs-keyword">const</span> folderContents = fs.readdirSync(<span class="hljs-string">'.'</span>);
+
+<span class="hljs-built_in">console</span>.log(folderContents);</code></pre>
+
+      </section><section class="slide" id="slide-5-4">
+        <h2 id="exporting-objects">Exporting objects</h2>
+<p>A JavaScript file becomes a module by changing its <code>exports</code> object:</p>
+<p>single export</p>
+<pre><code class="language-js"><span class="hljs-built_in">module</span>.exports = <span class="hljs-string">'hello world'</span>;</code></pre>
+<p>multiple exports / export object</p>
+<pre><code class="language-js"><span class="hljs-built_in">module</span>.exports.message1 = <span class="hljs-string">'hello world'</span>;
+<span class="hljs-built_in">module</span>.exports.message2 = <span class="hljs-string">'hello'</span>;
+<span class="hljs-comment">// shorthand:</span>
+exports.message3 = <span class="hljs-string">'hi'</span>;</code></pre>
+
+      </section><section class="slide" id="slide-5-5">
+        <h2 id="reading-command-line-arguments">Reading command line arguments</h2>
+<p>command line arguments are available via the global <code>process.argv</code></p>
+<p>example:</p>
+<pre><code class="language-bash">node program.js 1 2 3</code></pre>
+<p>will result in</p>
+<pre><code class="language-json">[&quot;node&quot;, &quot;/path/to/your/program.js&quot;, &quot;1&quot;, &quot;2&quot;, &quot;3&quot;];</code></pre>
+
+      </section></section><section class="section" id="section-6"><section class="slide" id="slide-6-1">
+        <h1 id="node-modules--npm">Node modules &amp; npm</h1>
+
+      </section><section class="slide" id="slide-6-2">
+        <h2 id="node-modules--npm">Node modules &amp; npm</h2>
+<p>Node comes with some additional modules that can be imported and used. Many more modules are available via the npm registry</p>
+
+      </section><section class="slide" id="slide-6-3">
+        <h2 id="built-in-modules">Built-in modules</h2>
+<ul>
+<li>assert</li>
+<li>fs</li>
+<li>http(s)</li>
+<li>net</li>
+<li>os</li>
+<li>path</li>
+<li>url</li>
+<li>...</li>
+</ul>
+
+      </section></section><section class="section" id="section-7"><section class="slide" id="slide-7-1">
+        <h1 id="reading-and-writing-text-files">Reading and writing text files</h1>
+
+      </section><section class="slide" id="slide-7-2">
+        <h2 id="reading-and-writing-files">Reading and writing files</h2>
+<p>Via the <em>fs</em> module:</p>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);</code></pre>
+
+      </section><section class="slide" id="slide-7-3">
+        <h2 id="writing-text-files">Writing text files</h2>
+<pre><code class="language-js">fs.writeFileSync(<span class="hljs-string">'message.txt'</span>, <span class="hljs-string">'hello world'</span>);</code></pre>
+<p>This will write to a text file in UTF-8 encoding.</p>
+
+      </section><section class="slide" id="slide-7-4">
+        <h2 id="reading-text-files">Reading text files</h2>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> fileContent = fs.readFileSync(<span class="hljs-string">'package.json'</span>, <span class="hljs-string">'utf8'</span>);</code></pre>
+<p>When reading text files, we <em>must</em> specify an encoding (in this case, UTF-8)</p>
+
+      </section><section class="slide" id="slide-7-5">
+        <h2 id="exercise-form-letters">Exercise: form letters</h2>
+<p>create a series of HTML form letters for different recipients from a template</p>
+
+      </section></section><section class="section" id="section-8"><section class="slide" id="slide-8-1">
+        <h1 id="reading-and-writing-files">Reading and writing files</h1>
+
+      </section><section class="slide" id="slide-8-2">
+        <h2 id="reading-binary-files">Reading binary files</h2>
+<p>Reading a file</p>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> myFile = fs.readFileSync(<span class="hljs-string">'./package.json'</span>);</code></pre>
+<p>This will return a buffer (a sequence of bytes)</p>
+
+      </section><section class="slide" id="slide-8-3">
+        <h2 id="reading-files">Reading files</h2>
+<p>converting a buffer into a string:</p>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> fileTextContent = myFile.toString(<span class="hljs-string">'utf-8'</span>);</code></pre>
+
+      </section><section class="slide" id="slide-8-4">
+        <h2 id="asynchronous-io">Asynchronous I/O</h2>
+<p>Reading a file will take (relatively) long. With the previous code node cannot execute any code during that time.</p>
+
+      </section><section class="slide" id="slide-8-5">
+        <h2 id="asynchronous-io-with-callbacks">Asynchronous I/O with callbacks</h2>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
+
+fs.readFile(<span class="hljs-string">'read-file.js'</span>, <span class="hljs-string">'utf8'</span>, (err, data) =&gt; {
+  <span class="hljs-built_in">console</span>.log(data);
+});</code></pre>
+
+      </section><section class="slide" id="slide-8-6">
+        <h2 id="asynchronous-io-with-callbacks-error-handling">Asynchronous I/O with callbacks: error handling</h2>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
+
+fs.readFile(<span class="hljs-string">'read-file.js'</span>, <span class="hljs-string">'utf8'</span>, (err, data) =&gt; {
+  <span class="hljs-keyword">if</span> (err) {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Error while reading file'</span>);
+    <span class="hljs-keyword">return</span>;
+  }
+  <span class="hljs-built_in">console</span>.log(data);
+});</code></pre>
+
+      </section><section class="slide" id="slide-8-7">
+        <h2 id="asynchronous-io-with-promises-experimental">Asynchronous I/O with promises (experimental)</h2>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
+
+fs.promises
+  .readFile(<span class="hljs-string">'read-file.js'</span>, <span class="hljs-string">'utf8'</span>)
+  .then(<span class="hljs-built_in">console</span>.log)
+  .catch(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'error while reading file'</span>);
+  });</code></pre>
+
+      </section><section class="slide" id="slide-8-8">
+        <h2 id="asynchronous-io-with-async--await-experimental">Asynchronous I/O with async / await (experimental)</h2>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
+
+<span class="hljs-keyword">const</span> readFileAsync = <span class="hljs-keyword">async</span> () =&gt; {
+  <span class="hljs-keyword">const</span> fileContent = <span class="hljs-keyword">await</span> fs.promises.readFile(
+    <span class="hljs-string">'read-file.js'</span>,
+    <span class="hljs-string">'utf8'</span>
+  );
+  <span class="hljs-built_in">console</span>.log(fileContent);
+};
+
+readFileAsync();</code></pre>
+
+      </section><section class="slide" id="slide-8-9">
+        <h2 id="exercise-listing-all-files-of-a-specific-type">Exercise: listing all files of a specific type</h2>
+<p>(see exercise from learnyounode)</p>
+
+      </section></section><section class="section" id="section-9"><section class="slide" id="slide-9-1">
+        <h1 id="http-client">HTTP client</h1>
+
+      </section><section class="slide" id="slide-9-2">
+        <h2 id="retrieving-a-website">Retrieving a website</h2>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> http = <span class="hljs-built_in">require</span>(<span class="hljs-string">'http'</span>);
+
+http.get(<span class="hljs-string">'http://www.google.com'</span>, responseStream =&gt; {
+  responseStream.setEncoding(<span class="hljs-string">'utf-8'</span>);
+  responseStream.on(<span class="hljs-string">'data'</span>, <span class="hljs-built_in">console</span>.log);
+  responseStream.on(<span class="hljs-string">'error'</span>, <span class="hljs-built_in">console</span>.error);
+});</code></pre>
+
+      </section><section class="slide" id="slide-9-3">
+        <h2 id="using-the-request-package">Using the request package</h2>
+<pre><code class="language-bash">npm install request</code></pre>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> request = <span class="hljs-built_in">require</span>(<span class="hljs-string">'request'</span>);
+
+request(<span class="hljs-string">'http://google.com'</span>, (error, response, body) =&gt; {
+  <span class="hljs-built_in">console</span>.log(response.statusCode);
+  <span class="hljs-built_in">console</span>.log(body);
+});</code></pre>
+
+      </section><section class="slide" id="slide-9-4">
+        <h2 id="exercise-retrieving-multiple-websites">Exercise: retrieving multiple websites</h2>
+<p>see learnyounode: juggling async</p>
+
+      </section><section class="slide" id="slide-9-5">
+        <h2 id="exercise-number-of-google-search-results">Exercise: number of Google search results</h2>
+
+      </section></section><section class="section" id="section-10"><section class="slide" id="slide-10-1">
+        <h1 id="http-server-with-node">HTTP server with node</h1>
+
+      </section><section class="slide" id="slide-10-2">
+        <h2 id="running-an-http-server-with-node">Running an HTTP server with node</h2>
+<p>see <a href="https://nodejs.org/en/docs/guides/getting-started-guide/">https://nodejs.org/en/docs/guides/getting-started-guide/</a></p>
+
+      </section><section class="slide" id="slide-10-3">
+        <h2 id="running-an-http-server-with-node">Running an HTTP server with node</h2>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> http = <span class="hljs-built_in">require</span>(<span class="hljs-string">'http'</span>);
+
+<span class="hljs-keyword">const</span> hostname = <span class="hljs-string">'127.0.0.1'</span>;
+<span class="hljs-keyword">const</span> port = <span class="hljs-number">3000</span>;
+
+<span class="hljs-keyword">const</span> requestHandler = <span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> {
+  res.statusCode = <span class="hljs-number">200</span>;
+  res.setHeader(<span class="hljs-string">'Content-Type'</span>, <span class="hljs-string">'text/plain'</span>);
+  res.end(<span class="hljs-string">'Hello World\n'</span>);
+};
+
+server = http.createServer(requestHandler);
+
+server.listen(port, hostname);</code></pre>
+
+      </section></section><section class="section" id="section-11"><section class="slide" id="slide-11-1">
+        <h1 id="resources">Resources</h1>
+
+      </section><section class="slide" id="slide-11-2">
+        <h2 id="resources">Resources</h2>
+<p><a href="https://medium.freecodecamp.org/the-definitive-node-js-handbook-6912378afc6e">The definitive Node.js handbook by Flavio Copes</a></p>
+
+      </section></section>
+
+    </div>
+    <div id="navigation-arrows">
+      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="navigation-arrows-svg"
+        xml:space="preserve" width="100%" height="100%" viewBox="-110 -110 220 220">
+        <path class="arrow right" d="M70,-30L100,0L70,30" />
+        <path class="arrow down" d="M-30,70L0,100L30,70" />
+        <path class="arrow left" d="M-70,-30L-100,0L-70,30" />
+        <path class="arrow up" d="M-30,-70L0,-100L30,-70" />
+      </svg>
+    </div>
+  </div>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 100vw;
+      height: 100vh;
+      margin: 0px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: rgb(150, 150, 150);
+      font-family: -apple-system, "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.5rem;
+    }
+
+    p, ul, pre {
+      margin-top: 0;
+    }
+
+    ul {
+      padding-left: 1.5rem;
+    }
+
+    h1, h2, h3 {
+      font-weight: 600;
+    }
+
+    h1 {
+      margin-top: 5vh;
+      text-align: center;
+      font-size: 2rem;
+    }
+
+    h2 {
+      margin-bottom: 1.5em;
+    }
+
+    svg {
+      width: 100%;
+      height: auto;
+    }
+
+    .section {
+      height: 100%;
+      display: none;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    .slide {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .slide.inactive {
+      display: none;
+    }
+
+    #canvas {
+      box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.3);
+      background-color: #f8f8f8;
+      position: relative;
+      display: flex;
+    }
+
+    #canvas-content {
+      width: 100%;
+      height: 100%;
+    }
+
+    #canvas-content .note {
+      display: none;
+    }
+
+    #canvas-content img {
+      margin: 0px auto;
+      display: block;
+    }
+
+    @media (min-aspect-ratio: 8/5) {
+
+      html {
+        font-size: 3.5vh;
+      }
+
+      /* wide screen */
+      #canvas {
+        width: calc(100vh / 5 * 8);
+        height: 100vh;
+        padding: 10vh;
+        padding-top: 5vh;
+      }
+    }
+
+    @media (max-aspect-ratio: 8/5) {
+
+      html {
+        font-size: calc(3.5vw * 5 / 8);
+      }
+
+      /* narrow screen */
+      #canvas {
+        width: 100vw;
+        height: calc(100vw * 5 / 8);
+        padding: calc(10vh * 5 / 8);
+        padding-top: calc(5vh * 5 / 8);
+      }
+    }
+
+    pre {
+      background-color: rgb(224, 233, 240);
+      box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.2);
+      padding: 0.5em 1em;
+      line-height: 1.2em;
+      overflow: auto;
+    }
+
+    #navigation-arrows {
+      position: absolute;
+      right: 2rem;
+      top: 2rem;
+      height: 3rem;
+      width: 3rem;
+    }
+
+    #navigation-arrows .arrow {
+      stroke: lightblue;
+      /*stroke-width: 0.8em; Chrome behaves differently with ems here */
+      stroke-width: 16px;
+      stroke-linecap: round;
+      fill: none;
+      cursor: pointer;
+    }
+
+    td,
+    th {
+      padding: 0.2em 0.8em;
+    }
+
+    th {
+      text-align: start;
+    }
+  </style>
+  <script>
+    let presenterWindow;
+    let activeSlide;
+    let slideCount;
+
+    const arrowUp = document.querySelector('.arrow.up');
+    const arrowDown = document.querySelector('.arrow.down');
+    const arrowRight = document.querySelector('.arrow.right');
+    const arrowLeft = document.querySelector('.arrow.left');
+    arrowUp.addEventListener('click',
+      () => {activateSlideSafe(activeSlide[0], activeSlide[1] - 1);}
+    );
+    arrowDown.addEventListener('click',
+      () => {activateSlideSafe(activeSlide[0], activeSlide[1] + 1);}
+    );
+    arrowLeft.addEventListener('click',
+      () => {activateSlideSafe(activeSlide[0] - 1, 1);}
+    );
+    arrowRight.addEventListener('click',
+      () => {activateSlideSafe(activeSlide[0] + 1, 1);}
+    )
+    const init = () => {
+      slideCount = countSlides();
+      activateSlideSafe(1, 1);
+      addKeyControls();
+      addSwipeControls();
+    }
+
+    // count slides
+    const countSlides = () => {
+      const counts = [];
+      return [...document.querySelectorAll('.section')].map(section => section.childNodes.length);
+    }
+
+    const updateVisible = () => {
+      for (let section of document.querySelectorAll('.section')) {
+        if (section.id === `section-${activeSlide[0]}`) {
+          section.className = 'section active';
+        } else {
+          section.className = 'section inactive';
+        }
+      }
+      for (let slide of document.querySelectorAll('.slide')) {
+        if (slide.id === `slide-${activeSlide[0]}-${activeSlide[1]}`) {
+          slide.className = 'slide active';
+        } else {
+          slide.className = 'slide inactive';
+        }
+      }
+    }
+
+    const updatePageArrows = () => {
+      if (slideCount.length === 1) {
+        arrowLeft.style.opacity = "0";
+        arrowRight.style.opacity = "0";
+      } else {
+        const progressSections = (activeSlide[0] - 1) / (slideCount.length - 1);
+        arrowLeft.style.opacity = progressSections.toString();
+        arrowRight.style.opacity = (1 - progressSections).toString();
+      }
+      const slidesInActiveSection = slideCount[activeSlide[0] - 1]
+      if (slidesInActiveSection === 1) {
+        arrowUp.style.opacity = "0";
+        arrowDown.style.opacity = "0";
+      } else {
+        const progressSlides = (activeSlide[1] - 1) / (slidesInActiveSection - 1);
+        arrowUp.style.opacity = progressSlides.toString();
+        arrowDown.style.opacity = (1 - progressSlides).toString();
+      }
+    }
+
+    /**
+     * Activate a slide if it exists, else do nothing
+    */
+    const activateSlideSafe = (sectionIndex, slideIndex) => {
+      if (1 <= sectionIndex && sectionIndex <= slideCount.length && 1 <= slideIndex && slideIndex <= slideCount[sectionIndex - 1]) {
+        activeSlide = [sectionIndex, slideIndex];
+        updateVisible();
+        updatePageArrows();
+        scrolltoActiveSlide();
+      }
+    }
+
+    const activateSlideNextSafe = () => {
+      if (activeSlide[1] === slideCount[activeSlide[0] - 1]) {
+        activateSlideSafe(activeSlide[0] + 1, 1);
+      } else {
+        activateSlideSafe(activeSlide[0], activeSlide[1] + 1);
+      }
+    }
+
+    const activateSlideRightSafe = () => {
+      activateSlideSafe(activeSlide[0] + 1, 1);
+    }
+
+    const activateSlideLeftSafe = () => {
+      activateSlideSafe(activeSlide[0] - 1, 1);
+    }
+
+    const activateSlideDownSafe = () => {
+      activateSlideSafe(activeSlide[0], activeSlide[1] + 1);
+    }
+
+    const activateSlideUpSafe = () => {
+      activateSlideSafe(activeSlide[0], activeSlide[1] - 1);
+    }
+
+    const scrolltoActiveSlide = () => {
+      const slideId = `#slide-${activeSlide[0]}-${activeSlide[1]}`;
+      if (presenterWindow) {
+        const activeSlide = presenterWindow.document.querySelector(slideId);
+        if (activeSlide) {
+          activeSlide.scrollIntoView();
+        }
+      }
+    }
+
+    const addKeyControls = () => {
+      document.querySelector('body').addEventListener('keydown', event => {
+        if (event.key === 'p') {
+          const canvasContent = document.querySelector('#canvas-content').innerHTML;
+          presenterWindow = window.open(document.URL, '_blank');
+          presenterWindow.onload = () => {
+            presenterWindow.document.querySelector('body').innerHTML = canvasContent;
+          }
+        }
+        if (event.key === 'ArrowRight') {
+          activateSlideRightSafe();
+        } else if (event.key === 'ArrowLeft') {
+          activateSlideLeftSafe();
+        } else if (event.key === 'ArrowDown') {
+          activateSlideDownSafe();
+        } else if (event.key === 'ArrowUp') {
+          activateSlideUpSafe();
+        } else if (event.key === 'Enter') {
+          activateSlideNextSafe();
+        }
+      });
+    }
+
+    const addSwipeControls = () => {
+
+      const distance = 100;
+
+      let startPos;
+      let handled;
+
+      document.addEventListener('touchstart', event => {
+        startPos = event.touches[0];
+        handled = false;
+      });
+
+      document.addEventListener('touchmove', event => {
+        if (!handled) {
+          let currentPos = event.touches[0];
+          const xDiff = currentPos.clientX - startPos.clientX;
+          const yDiff = currentPos.clientY - startPos.clientY;
+          if (Math.abs(xDiff) > 2*Math.abs(yDiff) ||
+              Math.abs(yDiff) > 2*Math.abs(xDiff)) {
+            if (xDiff > distance) {
+              activateSlideLeftSafe();
+              handled = true;
+            } else if (xDiff < -distance) {
+              activateSlideRightSafe();
+              handled = true;
+            } else if (yDiff > distance) {
+              activateSlideUpSafe();
+              handled = true;
+            } else if (yDiff < -distance) {
+              activateSlideDownSafe();
+              handled = true;
+            }
+          }
+        }
+      });
+    }
+
+    init();
+
+  </script>
+</body>
+
+</html>

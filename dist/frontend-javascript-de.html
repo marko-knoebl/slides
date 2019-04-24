@@ -273,33 +273,150 @@ prompt(<span class="hljs-string">"What's your name?"</span>);
 <p>Beispiel: Siehe Browser-Tools unter &quot;Netzwerkanalyse&quot;</p>
 
       </section><section class="slide" id="slide-4-4">
-        <h2 id="http-anfrage-beispiel">HTTP-Anfrage: Beispiel</h2>
-<pre><code class="language-http"><span class="hljs-keyword">GET</span> <span class="hljs-string">/index.html</span> HTTP/2.0
-<span class="hljs-attribute">Host</span>: example.com
-<span class="hljs-attribute">User-Agent</span>: Mozilla/5.0...
-<span class="hljs-attribute">Content-Type</span>: application/json
-<span class="hljs-attribute">Content-Length</span>: 23
+        <h2 id="http-beispiel-wikipedia">HTTP: Beispiel Wikipedia</h2>
+<p>Anfrage:</p>
+<pre><code class="language-http"><span class="hljs-keyword">GET</span> <span class="hljs-string">/wiki/Main_Page</span> HTTP/2.0
+<span class="hljs-attribute">Host</span>: en.wikipedia.org
+<span class="hljs-attribute">Connection</span>: keep-alive</code></pre>
+<p>Antwort:</p>
+<pre><code class="language-http">HTTP/2.0 <span class="hljs-number">200</span> OK
+<span class="hljs-attribute">Date</span>: Wed, 24 Apr 2019 07:50:41 GMT
+<span class="hljs-attribute">Content-Type</span>: text/html; charset=UTF-8
 
-<span class="json">{
-  <span class="hljs-attr">"action"</span>: <span class="hljs-string">"login"</span>
-}</span></code></pre>
+<span class="xml"><span class="hljs-meta">&lt;!DOCTYPE html&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">...</span></span></span></code></pre>
 
       </section><section class="slide" id="slide-4-5">
-        <h2 id="http-antwort-beispiel">HTTP-Antwort: Beispiel</h2>
+        <h2 id="http-beispiel-wikipedia-suche-1">HTTP: Beispiel Wikipedia Suche (1)</h2>
+<p>Anfrage:</p>
+<pre><code class="language-http"><span class="hljs-keyword">GET</span> <span class="hljs-string">/w/index.php?search=test&amp;title=Special:Search&amp;go=Go</span> HTTP/2.0
+<span class="hljs-attribute">Host</span>: en.wikipedia.org
+<span class="hljs-attribute">Connection</span>: keep-alive</code></pre>
+<p>Antwort:</p>
+<pre><code class="language-http">HTTP/2.0 <span class="hljs-number">302</span> Found
+<span class="hljs-attribute">Location</span>: https://en.wikipedia.org/wiki/Test
+<span class="hljs-attribute">Content-Length</span>: 0</code></pre>
+
+      </section><section class="slide" id="slide-4-6">
+        <h2 id="http-beispiel-wikipedia-suche-2">HTTP: Beispiel Wikipedia Suche (2)</h2>
+<p>Anfrage:</p>
+<pre><code class="language-http"><span class="hljs-keyword">GET</span> <span class="hljs-string">/wiki/Test</span> HTTP/2.0
+<span class="hljs-attribute">Host</span>: en.wikipedia.org
+<span class="hljs-attribute">Connection</span>: keep-alive</code></pre>
+<p>Antwort:</p>
 <pre><code class="language-http">HTTP/2.0 <span class="hljs-number">200</span> OK
 <span class="hljs-attribute">Content-Type</span>: text/html; charset=UTF-8
-<span class="hljs-attribute">Content-Length</span>: 118
-<span class="hljs-attribute">ETag</span>: "3f80f-1b6-3e1cb03b"
 
-<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>An Example Page<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
-  Hello, you are now logged in.
-<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></span></code></pre>
+<span class="xml"><span class="hljs-meta">&lt;!DOCTYPE html&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">...</span></span></span></code></pre>
 
+      </section><section class="slide" id="slide-4-7">
+        <h2 id="http-beispiel-post-request">HTTP: Beispiel POST-Request</h2>
+<p>Anfrage:</p>
+<pre><code class="language-http"><span class="hljs-keyword">POST</span> <span class="hljs-string">/submit-posting</span> HTTP/2.0
+<span class="hljs-attribute">Host</span>: example.com
+<span class="hljs-attribute">Connection</span>: keep-alive
+<span class="hljs-attribute">Content-Type</span>: text/plain; encoding=UTF-8
+<span class="hljs-attribute">Content-Length</span>: 33
+
+<span class="ada">This <span class="hljs-keyword">is</span> the post content (<span class="hljs-keyword">body</span>)</span></code></pre>
+<p>Antwort:</p>
+<pre><code class="language-http">HTTP/2.0 <span class="hljs-number">200</span> OK
+<span class="hljs-attribute">Content-Type</span>: text/html; charset=UTF-8
+
+<span class="clean">...</span></code></pre>
+
+      </section><section class="slide" id="slide-4-8">
+        <h2 id="http-beispiel-api">HTTP: Beispiel API</h2>
+<pre><code class="language-http">GET /todos/12
+Host: jsonplaceholder.typicode.com
+Connection: keep-alive</code></pre>
+<pre><code class="language-http">HTTP/2.0 <span class="hljs-number">200</span> OK
+<span class="hljs-attribute">Content-Type</span>: application/json; charset=utf-8
+<span class="hljs-attribute">Etag</span>: W/"5c-cn8o...
+
+<span class="json">{
+  <span class="hljs-attr">"userId"</span>: <span class="hljs-number">1</span>,
+  <span class="hljs-attr">"id"</span>: <span class="hljs-number">12</span>,
+  <span class="hljs-attr">"title"</span>: <span class="hljs-string">"ipsa repellendus fugit nisi"</span>,
+  <span class="hljs-attr">"completed"</span>: <span class="hljs-literal">true</span>
+}</span></code></pre>
+
+      </section><section class="slide" id="slide-4-9">
+        <h2 id="wichtige-anfrage-headerfelder">wichtige Anfrage-Headerfelder</h2>
+<ul>
+<li><em><code>Host</code></em></li>
+<li><em><code>Connection</code></em></li>
+<li><code>Origin</code></li>
+<li><code>Accept</code></li>
+<li><code>Accept-Encoding</code></li>
+<li><code>Cookie</code></li>
+<li><code>Cache-Control</code></li>
+<li><code>Dnt</code></li>
+</ul>
+
+      </section><section class="slide" id="slide-4-10">
+        <h2 id="wichtige-http-statuscodes">Wichtige HTTP-Statuscodes</h2>
+<ul>
+<li><code>200 OK</code></li>
+</ul>
+<!-- list separator -->
+
+<ul>
+<li><code>301 Moved Permanently</code></li>
+<li><code>307 Temporary Redirect</code> (Weiterleitung auf eine andere Adresse)</li>
+<li><code>303 See Other</code> (Weiterleitung auf eine andere Adresse, Methode ändert sich zu <code>GET</code>)</li>
+<li><code>308 Permanent Redirect</code></li>
+<li><code>304 Not Modified</code> (Resource hat sich seit letzter Anfrage nicht geändert)</li>
+</ul>
+
+      </section><section class="slide" id="slide-4-11">
+        <h2 id="wichtige-http-statuscodes">Wichtige HTTP-Statuscodes</h2>
+<ul>
+<li><code>400 Bad Request</code></li>
+<li><code>401 Unauthorized</code></li>
+<li><code>403 Forbidden</code></li>
+<li><code>404 Not Found</code></li>
+</ul>
+<!-- list separator -->
+
+<ul>
+<li><code>500 Internal Server Error</code></li>
+</ul>
+<p>siehe auch: <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">https://en.wikipedia.org/wiki/List_of_HTTP_status_codes</a></p>
+
+      </section><section class="slide" id="slide-4-12">
+        <h2 id="wichtige-antwort-headerfelder">wichtige Antwort-Headerfelder</h2>
+<ul>
+<li><code>Content-Length</code></li>
+<li><code>Content-Type</code></li>
+<li><code>Set-Cookie</code></li>
+<li><code>Location</code></li>
+<li><code>Cache-Control</code></li>
+</ul>
+
+      </section><section class="slide" id="slide-4-13">
+        <h2 id="content-type-headerfeld">Content-Type-Headerfeld</h2>
+<p>Mögliche Werte:</p>
+<ul>
+<li><code>text/plain; charset=utf-8</code></li>
+<li><code>text/html; charset=utf-8</code></li>
+<li><code>application/json</code></li>
+<li><code>application/javascript</code></li>
+<li><code>application/ecmascript</code></li>
+<li><code>image/jpeg</code></li>
+<li><code>image/png</code></li>
+<li>...</li>
+</ul>
+
+      </section><section class="slide" id="slide-4-14">
+        <h2 id="set-cookie-headerfeld">Set-Cookie-Headerfeld</h2>
+<p>Beispiel:</p>
+<pre><code>GET /
+Host: www.google.com
+
+Set-Cookie: 1P_JAR=2019-04-24-08; expires=...; path=/; domain=.google.com
+Set-Cookie: IDCC=AN0-TYtU7...fo; expires=...; path=/; domain=.google.com</code></pre>
       </section></section><section class="section" id="section-5"><section class="slide" id="slide-5-1">
         <h1 id="http-in-javascript">HTTP in JavaScript</h1>
 <p>Möglichkeiten:</p>

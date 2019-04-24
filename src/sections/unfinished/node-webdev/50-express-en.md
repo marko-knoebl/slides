@@ -3,8 +3,8 @@
 for use on glitch.com
 
 ```js
-const express = require('express');
 const cors = require('cors');
+const express = require('express');
 
 const messages = [{ text: 'default message' }];
 
