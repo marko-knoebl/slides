@@ -32,4 +32,4 @@ Recommendation: _always_ use utf-8 as the encoding for text files (best support 
 
 ## Exercise
 
-- program that gets a list of todos from a user and saves them to a file
+program that gets a list of todos from a user and saves them to a file

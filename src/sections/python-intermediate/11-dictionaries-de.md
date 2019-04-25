@@ -15,7 +15,7 @@ person = {
 
 ## Dictionaries
 
-Elementezugriff bei dictionaries
+Elementzugriff bei dictionaries
 
 ```py
 person["first_name"] # "John"

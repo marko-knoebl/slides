@@ -14,8 +14,6 @@ users = ["Alice", "Bob", "Charlie"]
 
 Die folgenden Operationen klappen auch bei anderen _Sequenzen_ - z.B. Tupeln, Strings oder Bytes
 
-## Operationen auf Listen
-
 - Elementzugriff (via index): `users[2]`
 - Zugriff auf mehrere Elemente (Unterliste): `users[2:4]`
 - Wiederholung: `3 * users`

@@ -29,7 +29,7 @@ gesucht: Quadratwurzel aus 12345
 
 n = 12345
 
-Beginne mit zwei "Näherungswerten", zB a=1 und b=n
+Beginne mit zwei "Näherungswerten", z.B. a=1 und b=n
 
 wiederhole das folgende, bis a und b fast gleich sind:
 neues a = Durchschnitt aus alten Werten a und b

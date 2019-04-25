@@ -29,6 +29,7 @@ try:
 except ValueError as e:
     print("Could not parse input as number")
     print(e)
+    print(e.args)
 ```
 
 ## finally und else bei exceptions
@@ -57,6 +58,8 @@ except ClientError as e
 
 ## Python-Philosophie: EAFP
 
-EAFP vs LBYL
+LBYL: _Look before you leap_
+
+EAFP: _It's easier to ask for forgiveness than permission_
 
 (Beispiel: Parsen von Zahlen)

@@ -22,7 +22,7 @@ isinstance(message, str)
 
 ## Klassen
 
-Klassen können _verschiedenste_ Dinge repräsentieren, zB:
+Klassen können _verschiedenste_ Dinge repräsentieren, z.B.:
 
 - eine Nachricht in einem E-Mail-Programm
 - einen Benutzer einer Website

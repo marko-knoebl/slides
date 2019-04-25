@@ -2,7 +2,7 @@
 
 ## Funktionen
 
-Wir kennen schon einige vordefinierte Funktionen, zB `len()`, `range()` oder `print()`
+Wir kennen schon einige vordefinierte Funktionen, z.B. `len()`, `range()` oder `print()`
 
 ## Parameter und Rückgabewerte
 

@@ -319,8 +319,6 @@ f.b = 3 # prints: "set propery 'b'"
 
 ## Lambdas
 
-## Reine Funktionen
-
 ## Memoisation
 
 (Beispiel: Fibonacci)

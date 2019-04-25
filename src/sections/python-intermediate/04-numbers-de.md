@@ -38,7 +38,7 @@ e = float('inf')
 a = 2 + 3j
 ```
 
-## weitere Operationen mit Zahlen
+## Weitere Operationen mit Zahlen
 
 - Division mit Rest: `10 // 3`
 - Divisionsrest / Modulo: `10 % 3`

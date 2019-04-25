@@ -32,4 +32,4 @@ Empfehlung: Textdateien _immer_ im utf-8 encoding lesen oder schreiben (beste Un
 
 ## Beispiel
 
-- Programm, das Todos vom Benutzer abfragt und in einer Datei abspeichert
+Programm, das Todos vom Benutzer abfragt und in einer Datei abspeichert

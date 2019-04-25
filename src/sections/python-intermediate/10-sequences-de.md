@@ -2,7 +2,7 @@
 
 ## Sequenzen
 
-Objekte, die aus einer Aufreihung anderer Objekte bestehen, z.B.:
+Sequenzen sind Objekte, die aus einer Aufreihung anderer Objekte bestehen, z.B.:
 
 - Listen
 - Tupel

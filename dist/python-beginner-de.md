@@ -117,7 +117,7 @@ Beispiele: `3.3`, `3.0`
 
 Achtung Rundungsfehler: Einige Zahlen können nicht genau als Kommazahlen repräseniert werden, sie werden immer gerundet
 
-zB: `1/3`
+z.B.: `1/3`
 
 Der Computer kann auch Zahlen wie `0.1` oder `0.2` nicht genau repräsentieren
 
@@ -585,7 +585,7 @@ gesucht: Quadratwurzel aus 12345
 
 n = 12345
 
-Beginne mit zwei "Näherungswerten", zB a=1 und b=n
+Beginne mit zwei "Näherungswerten", z.B. a=1 und b=n
 
 wiederhole das folgende, bis a und b fast gleich sind:
 neues a = Durchschnitt aus alten Werten a und b
@@ -675,7 +675,7 @@ print(len(users))
 
 Beispielhafter Programmlauf:
 
-```text
+```txt
 enter an item or "x" to quit:
 milk
 enter an item or "x" to quit:
@@ -810,7 +810,7 @@ unter anderem:
 
 Module beinhalten zusätzliche Objekte, die importiert werden können
 
-zB:
+z.B.:
 
 ```py
 from math import floor
@@ -916,7 +916,7 @@ for todo in todolist:
 
 ## Funktionen
 
-Wir kennen schon einige vordefinierte Funktionen, zB `len()`, `range()` oder `print()`
+Wir kennen schon einige vordefinierte Funktionen, z.B. `len()`, `range()` oder `print()`
 
 ## Parameter und Rückgabewerte
 
@@ -1010,7 +1010,7 @@ Empfehlung: Textdateien _immer_ im utf-8 encoding lesen oder schreiben (beste Un
 
 ## Beispiel
 
-- Programm, das Todos vom Benutzer abfragt und in einer Datei abspeichert
+Programm, das Todos vom Benutzer abfragt und in einer Datei abspeichert
 
 # Übungsaufgaben
 
@@ -1112,7 +1112,7 @@ Aspekte:
 
 Finden allgemeiner Fehler
 
-VS Code configuration via `python.linting.pylintEnabled` und `python.linting.pylintUseMinimalCheckers`
+VS Code Konfiguration via `python.linting.pylintEnabled` und `python.linting.pylintUseMinimalCheckers`
 
 ## PEP8
 
@@ -1206,11 +1206,14 @@ Docstring einer Funktion: Beschreibung, Liste der Parameter
 
 Linter zum validieren von Docstrings
 
-## Python-Philosophie, PEP20
+## Python-Philosophie, Zen of Python
 
-## import this
+Auszüge aus dem _Zen of Python_ (anzeigbar via `import this`):
 
-## one way to do it
+- _Explicit is better than implicit._
+- _Readability counts._
+- _Special cases aren't special enough to break the rules._
+- _There should be one-- and preferably only one --obvious way to do it._
 
 # Python Versionen
 

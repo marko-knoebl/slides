@@ -20,7 +20,6 @@ users = [
 - Vergleich üblicherweise mit `is`
 
 ```py
-a = None
 if a is None:
     print("a is None")
 ```

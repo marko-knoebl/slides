@@ -33,6 +33,8 @@ Formatierung von Goethes Faust
 
 https://www.gutenberg.org/ebooks/2229
 
+(siehe auch: "Gutenberg Mirror")
+
 ## Übung: Faust
 
 Original:

@@ -179,7 +179,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </ul>
 
       </section><section class="slide" id="slide-2-4">
-        <h2 id="weitere-datentypen">weitere Datentypen</h2>
+        <h2 id="weitere-datentypen">Weitere Datentypen</h2>
 <ul>
 <li>complex</li>
 <li>frozenset</li>
@@ -207,8 +207,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li>Singleton</li>
 <li>Vergleich üblicherweise mit <code>is</code></li>
 </ul>
-<pre><code class="language-py">a = <span class="hljs-keyword">None</span>
-<span class="hljs-keyword">if</span> a <span class="hljs-keyword">is</span> <span class="hljs-keyword">None</span>:
+<pre><code class="language-py"><span class="hljs-keyword">if</span> a <span class="hljs-keyword">is</span> <span class="hljs-keyword">None</span>:
     print(<span class="hljs-string">"a is None"</span>)</code></pre>
 <p><code>None</code> ist ein Singleton (es gibt nur ein einziges None-Objekt innerhalb eines laufenden Python-Programms, auf das aber viele Variablen verweisen können)</p>
 
@@ -283,7 +282,7 @@ e = float(<span class="hljs-string">'inf'</span>)</code></pre>
 <pre><code class="language-py">a = <span class="hljs-number">2</span> + <span class="hljs-number">3j</span></code></pre>
 
       </section><section class="slide" id="slide-5-7">
-        <h2 id="weitere-operationen-mit-zahlen">weitere Operationen mit Zahlen</h2>
+        <h2 id="weitere-operationen-mit-zahlen">Weitere Operationen mit Zahlen</h2>
 <ul>
 <li>Division mit Rest: <code>10 // 3</code></li>
 <li>Divisionsrest / Modulo: <code>10 % 3</code></li>
@@ -332,6 +331,7 @@ e = float(<span class="hljs-string">'inf'</span>)</code></pre>
         <h2 id="übung-faust">Übung: Faust</h2>
 <p>Formatierung von Goethes Faust</p>
 <p><a href="https://www.gutenberg.org/ebooks/2229">https://www.gutenberg.org/ebooks/2229</a></p>
+<p>(siehe auch: &quot;Gutenberg Mirror&quot;)</p>
 
       </section><section class="slide" id="slide-6-8">
         <h2 id="übung-faust">Übung: Faust</h2>
@@ -394,9 +394,6 @@ users = [<span class="hljs-string">"Alice"</span>, <span class="hljs-string">"Bo
       </section><section class="slide" id="slide-8-3">
         <h2 id="operationen-auf-listen">Operationen auf Listen</h2>
 <p>Die folgenden Operationen klappen auch bei anderen <em>Sequenzen</em> - z.B. Tupeln, Strings oder Bytes</p>
-
-      </section><section class="slide" id="slide-8-4">
-        <h2 id="operationen-auf-listen">Operationen auf Listen</h2>
 <ul>
 <li>Elementzugriff (via index): <code>users[2]</code></li>
 <li>Zugriff auf mehrere Elemente (Unterliste): <code>users[2:4]</code></li>
@@ -406,7 +403,7 @@ users = [<span class="hljs-string">"Alice"</span>, <span class="hljs-string">"Bo
 <li>if-Abfrage: <code>if &#39;Tim&#39; in users:</code></li>
 </ul>
 
-      </section><section class="slide" id="slide-8-5">
+      </section><section class="slide" id="slide-8-4">
         <h2 id="operationen-auf-listen---mutationen">Operationen auf Listen - Mutationen</h2>
 <p>Listen sind die einzigen veränderlichen Sequenzen</p>
 <ul>
@@ -415,12 +412,12 @@ users = [<span class="hljs-string">"Alice"</span>, <span class="hljs-string">"Bo
 <li>Ein Element anhand des Index entfernen: <code>users.pop(2)</code></li>
 </ul>
 
-      </section><section class="slide" id="slide-8-6">
+      </section><section class="slide" id="slide-8-5">
         <h2 id="sortieren-von-listen">Sortieren von Listen</h2>
 <pre><code class="language-py">l.sort()</code></pre>
 <pre><code class="language-py">l.sort(key=...)</code></pre>
 
-      </section><section class="slide" id="slide-8-7">
+      </section><section class="slide" id="slide-8-6">
         <h2 id="übungen">Übungen</h2>
 <ul>
 <li>Mischen von Karten</li>
@@ -516,7 +513,7 @@ Für Bytes über 128 können verschiedene Encodings verschiedene Repräsentation
 
       </section><section class="slide" id="slide-11-2">
         <h2 id="sequenzen">Sequenzen</h2>
-<p>Objekte, die aus einer Aufreihung anderer Objekte bestehen, z.B.:</p>
+<p>Sequenzen sind Objekte, die aus einer Aufreihung anderer Objekte bestehen, z.B.:</p>
 <ul>
 <li>Listen</li>
 <li>Tupel</li>
@@ -602,7 +599,7 @@ print(len(users))</code></pre>
 
       </section><section class="slide" id="slide-12-3">
         <h2 id="dictionaries">Dictionaries</h2>
-<p>Elementezugriff bei dictionaries</p>
+<p>Elementzugriff bei dictionaries</p>
 <pre><code class="language-py">person[<span class="hljs-string">"first_name"</span>] <span class="hljs-comment"># "John"</span></code></pre>
 
       </section><section class="slide" id="slide-12-4">
@@ -696,13 +693,21 @@ m_colors = { color: colors[color][<span class="hljs-number">1</span>:] <span cla
       </section><section class="slide" id="slide-14-2">
         <h2 id="set">Set</h2>
 <p>Ungeordnete Menge von Elementen (ohne Duplikate)</p>
-<pre><code>primes = {2, 3, 5, 7, 11, 13, 17, 19}</code></pre>
+<pre><code class="language-py">ingredients = {<span class="hljs-string">"flour"</span>, <span class="hljs-string">"water"</span>, <span class="hljs-string">"salt"</span>, <span class="hljs-string">"yeast"</span>}</code></pre>
+
       </section><section class="slide" id="slide-14-3">
+        <h2 id="set">Set</h2>
+<p>Sets können insbesondere Listen Ersetzen, wenn die Reihenfolge nicht von Bedeutung sein soll.</p>
+<pre><code class="language-py">ingredients1 = {<span class="hljs-string">"flour"</span>, <span class="hljs-string">"water"</span>, <span class="hljs-string">"salt"</span>, <span class="hljs-string">"yeast"</span>}
+ingredients2 = {<span class="hljs-string">"water"</span>, <span class="hljs-string">"salt"</span>, <span class="hljs-string">"flour"</span>, <span class="hljs-string">"yeast"</span>}
+ingredients1 == ingredients2 <span class="hljs-comment"># True</span></code></pre>
+
+      </section><section class="slide" id="slide-14-4">
         <h2 id="set">Set</h2>
 <p>Achtung: Ein leeres set erstellen wir immer mittels <code>set()</code>.</p>
 <p>Warum ergibt der Ausdruck <code>{}</code> kein leeres set?</p>
 
-      </section><section class="slide" id="slide-14-4">
+      </section><section class="slide" id="slide-14-5">
         <h2 id="operationen-auf-sets">Operationen auf Sets</h2>
 <pre><code class="language-py">x = set(<span class="hljs-string">'abc'</span>)
 y = set(<span class="hljs-string">'aeiou'</span>)
@@ -711,12 +716,28 @@ x &amp; y
 x - y
 x &lt;= y</code></pre>
 
-      </section><section class="slide" id="slide-14-5">
-        <h2 id="übungen">Übungen</h2>
-<ul>
-<li>Raumplan (7.6.2)</li>
-<li>Tanzpaare (7.7.5)</li>
-</ul>
+      </section><section class="slide" id="slide-14-6">
+        <h2 id="beispiel-nachbarländer-in-nordamerika">Beispiel: Nachbarländer in Nordamerika</h2>
+<pre><code class="language-py">countries = {
+    <span class="hljs-string">"Canada"</span>, <span class="hljs-string">"USA"</span>, <span class="hljs-string">"Mexico"</span>, <span class="hljs-string">"Guatemala"</span>, <span class="hljs-string">"Belize"</span>,
+    <span class="hljs-string">"El Salvador"</span>, <span class="hljs-string">"Honduras"</span>, <span class="hljs-string">"Nicaragua"</span>, <span class="hljs-string">"Costa Rica"</span>,
+    <span class="hljs-string">"Panama"</span>}
+
+neighbors = {
+    {<span class="hljs-string">"Canada"</span>, <span class="hljs-string">"USA"</span>},
+    {<span class="hljs-string">"USA"</span>, <span class="hljs-string">"Mexico"</span>},
+    {<span class="hljs-string">"Mexico"</span>, <span class="hljs-string">"Guatemala"</span>},
+    {<span class="hljs-string">"Mexico"</span>, <span class="hljs-string">"Belize"</span>},
+    {<span class="hljs-string">"Guatemala"</span>, <span class="hljs-string">"Belize"</span>},
+    {<span class="hljs-string">"Guatemala"</span>, <span class="hljs-string">"El Salvador"</span>},
+    {<span class="hljs-string">"Guatemala"</span>, <span class="hljs-string">"Honduras"</span>},
+    {<span class="hljs-string">"Honduras"</span>, <span class="hljs-string">"Nicaragua"</span>},
+    {<span class="hljs-string">"Nicaragua"</span>, <span class="hljs-string">"Costa Rica"</span>},
+    {<span class="hljs-string">"Costa Rica"</span>, <span class="hljs-string">"Panama"</span>}
+}</code></pre>
+
+      </section><section class="slide" id="slide-14-7">
+        <h2 id="aufgabe-route-von-einem-land-in-ein-anderes">Aufgabe: &quot;Route&quot; von einem Land in ein anderes</h2>
 
       </section></section><section class="section" id="section-15"><section class="slide" id="slide-15-1">
         <h1 id="kontrollstrukturen">Kontrollstrukturen</h1>
@@ -759,12 +780,12 @@ x &lt;= y</code></pre>
       </section><section class="slide" id="slide-17-3">
         <h2 id="continue--break">Continue &amp; break</h2>
 <p>Die Schlüsselwörter <code>continue</code> und <code>break</code> können verwendet werden, um einen Schleifendurchlauf bzw die ganze Schleife zu beenden</p>
-<p>Bei verschachtelten Schleifen beziehen sie sich immer auf die innerste Schleife</p>
+<p>Bei verschachtelten Schleifen beziehen sie sich auf die innerste Schleife</p>
 
       </section><section class="slide" id="slide-17-4">
         <h2 id="for--else">for ... else</h2>
 <p>Einer for-Schleife kann eine optionale else-Klausel hinzugefügt werden - diese wird ausgeführt, wenn die Schleife ganz durchläuft - wenn also Python während des Ausführens nicht auf ein <code>break</code> (oder <code>return</code> oder ähnliches) stößt.</p>
-<p>Zitat von Guido van Rossum:</p>
+<p>Diese Funktionalität gibt es bei keiner anderen verbreiteten Programmiersprache; viele Python-Entwickler kennen sie auch nicht - Zitat vom Erfinder von Python:</p>
 <blockquote>
 <p>I would not have the feature at all if I had to do it over.</p>
 </blockquote>
@@ -802,7 +823,8 @@ x &lt;= y</code></pre>
     age = int(age_str)
 <span class="hljs-keyword">except</span> ValueError <span class="hljs-keyword">as</span> e:
     print(<span class="hljs-string">"Could not parse input as number"</span>)
-    print(e)</code></pre>
+    print(e)
+    print(e.args)</code></pre>
 
       </section><section class="slide" id="slide-18-5">
         <h2 id="finally-und-else-bei-exceptions">finally und else bei exceptions</h2>
@@ -826,7 +848,8 @@ x &lt;= y</code></pre>
 
       </section><section class="slide" id="slide-18-7">
         <h2 id="python-philosophie-eafp">Python-Philosophie: EAFP</h2>
-<p>EAFP vs LBYL</p>
+<p>LBYL: <em>Look before you leap</em></p>
+<p>EAFP: <em>It&#39;s easier to ask for forgiveness than permission</em></p>
 <p>(Beispiel: Parsen von Zahlen)</p>
 
       </section></section><section class="section" id="section-19"><section class="slide" id="slide-19-1">
@@ -882,17 +905,61 @@ shout(<span class="hljs-string">"hi"</span>, <span class="hljs-string">"."</span
         <h2 id="schlüsselwort-parameter">Schlüsselwort-Parameter</h2>
 
       </section><section class="slide" id="slide-19-9">
-        <h2 id="beliebige-anzahl-an-parametern-args--kwargs">beliebige Anzahl an Parametern (args / kwargs)</h2>
+        <h2 id="beliebige-anzahl-an-parametern-args--kwargs">Beliebige Anzahl an Parametern (args / kwargs)</h2>
+<pre><code class="language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">foo</span><span class="hljs-params">(*args, **kwargs)</span>:</span>
+    print(args)
+    print(kwargs)
+
+foo(<span class="hljs-string">"one"</span>, <span class="hljs-string">"two"</span>, x=<span class="hljs-string">"hello"</span>)
+<span class="hljs-comment"># args: ("one", "two")</span>
+<span class="hljs-comment"># kwargs: {"x": "hello"}</span></code></pre>
 
       </section><section class="slide" id="slide-19-10">
         <h2 id="beispiel">Beispiel</h2>
 <p>Aufgabe: &quot;Nachbau&quot; von <code>range()</code></p>
 
       </section><section class="slide" id="slide-19-11">
+        <h2 id="reine-funktionen">Reine Funktionen</h2>
+<p>Reine Funktionen sind Funktionen, die mit ihrer Umgebung nur über Eingabeparameter und Rückgabewerte interagieren</p>
+<p>Das bedeutet insbesondere:</p>
+<ul>
+<li>alle Eingabewerte werden über Parameter übergeben (die Funktion bekommt liest keine weiteren Variablen ein und interagiert auch nicht mit der Umwelt, z.B. durch das Lesen von Daten auf der Festplatte)</li>
+<li>die Funktion verändert ihre Umwelt nicht; wenn sie veränderliche Objekte übergeben bekommt, ändert sie diese nicht ab</li>
+<li>das Resultat des Funktionsaufrufs ist der Rückgabewert; sonst wird von der Funktion nichts geändert</li>
+</ul>
+
+      </section><section class="slide" id="slide-19-12">
+        <h2 id="reine-funktionen">Reine Funktionen</h2>
+<p>Beispiel für eine Funktion, die nicht rein ist:</p>
+<pre><code class="language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">remove_negatives</span><span class="hljs-params">(numbers)</span>:</span>
+    i = <span class="hljs-number">0</span>
+    <span class="hljs-keyword">while</span> i &lt; len(numbers):
+        <span class="hljs-keyword">if</span> numbers[i] &lt; <span class="hljs-number">0</span>:
+            numbers.pop(i)
+    <span class="hljs-keyword">return</span> numbers
+
+a = [<span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">-1</span>, <span class="hljs-number">-2</span>, <span class="hljs-number">0</span>]
+b = remove_negatives(a)</code></pre>
+
+      </section><section class="slide" id="slide-19-13">
+        <h2 id="reine-funktionen">Reine Funktionen</h2>
+<p>Reine Funktion als Alternative:</p>
+<pre><code class="language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">remove_negatives</span><span class="hljs-params">(numbers)</span>:</span>
+    nonnegatives = []
+    <span class="hljs-keyword">for</span> n <span class="hljs-keyword">in</span> numbers:
+        <span class="hljs-keyword">if</span> n &gt;= <span class="hljs-number">0</span>:
+            nonnegatives.append(n)
+    <span class="hljs-keyword">return</span> nonnegatives</code></pre>
+<p>Anmerkung: In Python wäre die Ideallösung hier das verwenden von List Comprehensions</p>
+
+      </section></section><section class="section" id="section-20"><section class="slide" id="slide-20-1">
+        <h1 id="rekursive-funktionen">Rekursive Funktionen</h1>
+
+      </section><section class="slide" id="slide-20-2">
         <h2 id="rekursive-funktionen">Rekursive Funktionen</h2>
 <p>Funktionen, die sich selbst aufrufen</p>
 
-      </section><section class="slide" id="slide-19-12">
+      </section><section class="slide" id="slide-20-3">
         <h2 id="rekursive-funktionen">Rekursive Funktionen</h2>
 <p>Aufgabe: Fibonacci-Folge</p>
 <pre><code class="language-py"><span class="hljs-comment"># 0 1 1 2 3 5 8 13 21 34 55 89 ...</span>
@@ -901,28 +968,27 @@ fib(<span class="hljs-number">3</span>)
 
 fib(<span class="hljs-number">25</span>)</code></pre>
 
-      </section><section class="slide" id="slide-19-13">
+      </section><section class="slide" id="slide-20-4">
         <h2 id="rekursion-mit-turtle">Rekursion mit Turtle</h2>
 
-      </section><section class="slide" id="slide-19-14">
-        <h2 id="aufgaben">Aufgaben</h2>
+      </section><section class="slide" id="slide-20-5">
+        <h2 id="aufgaben-zu-rekursion">Aufgaben zu Rekursion</h2>
 <ul>
-<li>3 (Heron)</li>
-<li>4 (Hanoi)</li>
-<li>5 (Bäume)</li>
+<li>Babylonisches Wurzelziehen</li>
+<li>Bäume mit Turtel-Grafik</li>
 </ul>
 
-      </section></section><section class="section" id="section-20"><section class="slide" id="slide-20-1">
+      </section></section><section class="section" id="section-21"><section class="slide" id="slide-21-1">
         <h1 id="module-und-pakete">Module und Pakete</h1>
 
-      </section><section class="slide" id="slide-20-2">
+      </section><section class="slide" id="slide-21-2">
         <h2 id="module-und-pakete">Module und Pakete</h2>
 <ul>
 <li>Modul = Python-Datei, aus der Objekte importiert werden können</li>
 <li>Paket = Verzeichnis, in dem Python-Module abgelegt sind</li>
 </ul>
 
-      </section><section class="slide" id="slide-20-3">
+      </section><section class="slide" id="slide-21-3">
         <h2 id="beispiele-für-imports">Beispiele für imports</h2>
 <pre><code class="language-py"><span class="hljs-keyword">import</span> module1
 <span class="hljs-keyword">import</span> package1.module2
@@ -932,7 +998,7 @@ fib(<span class="hljs-number">25</span>)</code></pre>
 
 <span class="hljs-keyword">from</span> package1.module2 <span class="hljs-keyword">import</span> *</code></pre>
 
-      </section><section class="slide" id="slide-20-4">
+      </section><section class="slide" id="slide-21-4">
         <h2 id="beispiele-für-imports-urllib">Beispiele für imports: urllib</h2>
 <ul>
 <li><code>urllib</code> = Paket</li>
@@ -940,18 +1006,18 @@ fib(<span class="hljs-number">25</span>)</code></pre>
 <li><code>urllib.request.urlopen</code> = Funktion</li>
 </ul>
 
-      </section><section class="slide" id="slide-20-5">
+      </section><section class="slide" id="slide-21-5">
         <h2 id="kompilieren-von-modulen">Kompilieren von Modulen</h2>
 <p>Importierte Module werden in kompilierter Form abgelegt, um später schneller eingelesen werden zu können.</p>
 <p>Wir finden die kompilierten Versionen im Ordner <code>__pycache__</code></p>
 
-      </section><section class="slide" id="slide-20-6">
+      </section><section class="slide" id="slide-21-6">
         <h2 id="achtung-circular-imports-vermeiden">Achtung: circular imports vermeiden</h2>
 
-      </section></section><section class="section" id="section-21"><section class="slide" id="slide-21-1">
+      </section></section><section class="section" id="section-22"><section class="slide" id="slide-22-1">
         <h1 id="objektorientierung-und-klassen">Objektorientierung und Klassen</h1>
 
-      </section><section class="slide" id="slide-21-2">
+      </section><section class="slide" id="slide-22-2">
         <h2 id="objektorientierung-in-python-alles-ist-ein-objekt">Objektorientierung in Python: &quot;Alles ist ein Objekt&quot;</h2>
 <pre><code class="language-py">a = <span class="hljs-number">20</span>
 
@@ -959,7 +1025,7 @@ a.to_bytes(<span class="hljs-number">1</span>, <span class="hljs-string">"big"</
 
 <span class="hljs-string">"hello"</span>.upper()</code></pre>
 
-      </section><section class="slide" id="slide-21-3">
+      </section><section class="slide" id="slide-22-3">
         <h2 id="typen-und-instanzen">Typen und Instanzen</h2>
 <pre><code class="language-py">message = <span class="hljs-string">"hello"</span>
 
@@ -967,9 +1033,9 @@ type(message)
 
 isinstance(message, str)</code></pre>
 
-      </section><section class="slide" id="slide-21-4">
+      </section><section class="slide" id="slide-22-4">
         <h2 id="klassen">Klassen</h2>
-<p>Klassen können <em>verschiedenste</em> Dinge repräsentieren, zB:</p>
+<p>Klassen können <em>verschiedenste</em> Dinge repräsentieren, z.B.:</p>
 <ul>
 <li>eine Nachricht in einem E-Mail-Programm</li>
 <li>einen Benutzer einer Website</li>
@@ -979,7 +1045,7 @@ isinstance(message, str)</code></pre>
 <li>...</li>
 </ul>
 
-      </section><section class="slide" id="slide-21-5">
+      </section><section class="slide" id="slide-22-5">
         <h2 id="klassen">Klassen</h2>
 <p>Definition einer Klasse umfasst üblicherweise:</p>
 <ul>
@@ -987,7 +1053,7 @@ isinstance(message, str)</code></pre>
 <li>&quot;Verhalten&quot; (Methoden)</li>
 </ul>
 
-      </section><section class="slide" id="slide-21-6">
+      </section><section class="slide" id="slide-22-6">
         <h2 id="klassen">Klassen</h2>
 <p>Beispiel: Klasse <code>BankAccount</code></p>
 <ul>
@@ -995,7 +1061,7 @@ isinstance(message, str)</code></pre>
 <li>&quot;Verhalten&quot; (Methoden)</li>
 </ul>
 
-      </section><section class="slide" id="slide-21-7">
+      </section><section class="slide" id="slide-22-7">
         <h2 id="definition-von-klassen">Definition von Klassen</h2>
 <pre><code class="language-py"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span><span class="hljs-params">()</span>:</span>
 
@@ -1008,7 +1074,7 @@ isinstance(message, str)</code></pre>
 instance = MyClass()
 instance.message <span class="hljs-comment"># "hello"</span></code></pre>
 
-      </section><section class="slide" id="slide-21-8">
+      </section><section class="slide" id="slide-22-8">
         <h2 id="vererbung">Vererbung</h2>
 <pre><code class="language-py"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span><span class="hljs-params">()</span>:</span>
     ...
@@ -1016,7 +1082,7 @@ instance.message <span class="hljs-comment"># "hello"</span></code></pre>
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Admin</span><span class="hljs-params">(Person)</span>:</span>
     ...</code></pre>
 
-      </section><section class="slide" id="slide-21-9">
+      </section><section class="slide" id="slide-22-9">
         <h2 id="beispiel-umsetzung-einer-money-klasse">Beispiel: Umsetzung einer Money-Klasse</h2>
 <pre><code class="language-py">a = Money(<span class="hljs-string">'EUR'</span>, <span class="hljs-number">10</span>)
 b = Money(<span class="hljs-string">'USD'</span>, <span class="hljs-number">10</span>)
@@ -1025,7 +1091,7 @@ a.currency
 
 a.amount</code></pre>
 
-      </section><section class="slide" id="slide-21-10">
+      </section><section class="slide" id="slide-22-10">
         <h2 id="übung-todolist--und-todo-klassen">Übung: TodoList- und Todo-Klassen</h2>
 <pre><code class="language-py">tdl = TodoList(<span class="hljs-string">"groceries"</span>)
 

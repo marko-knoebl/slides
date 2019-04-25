@@ -12,7 +12,7 @@ Aspekte:
 
 Finden allgemeiner Fehler
 
-VS Code configuration via `python.linting.pylintEnabled` und `python.linting.pylintUseMinimalCheckers`
+VS Code Konfiguration via `python.linting.pylintEnabled` und `python.linting.pylintUseMinimalCheckers`
 
 ## PEP8
 
@@ -106,8 +106,11 @@ Docstring einer Funktion: Beschreibung, Liste der Parameter
 
 Linter zum validieren von Docstrings
 
-## Python-Philosophie, PEP20
+## Python-Philosophie, Zen of Python
 
-## import this
+Auszüge aus dem _Zen of Python_ (anzeigbar via `import this`):
 
-## one way to do it
+- _Explicit is better than implicit._
+- _Readability counts._
+- _Special cases aren't special enough to break the rules._
+- _There should be one-- and preferably only one --obvious way to do it._

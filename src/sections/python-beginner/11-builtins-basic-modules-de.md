@@ -25,7 +25,7 @@ unter anderem:
 
 Module beinhalten zusätzliche Objekte, die importiert werden können
 
-zB:
+z.B.:
 
 ```py
 from math import floor

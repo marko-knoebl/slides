@@ -51,7 +51,7 @@ Marko Knöbl
 - dict
 - set
 
-## weitere Datentypen
+## Weitere Datentypen
 
 - complex
 - frozenset
@@ -81,7 +81,6 @@ users = [
 - Vergleich üblicherweise mit `is`
 
 ```py
-a = None
 if a is None:
     print("a is None")
 ```
@@ -180,7 +179,7 @@ e = float('inf')
 a = 2 + 3j
 ```
 
-## weitere Operationen mit Zahlen
+## Weitere Operationen mit Zahlen
 
 - Division mit Rest: `10 // 3`
 - Divisionsrest / Modulo: `10 % 3`
@@ -220,6 +219,8 @@ Strings sind Zeichenfolgen, die jedes Unicodezeichen repräsentieren können
 Formatierung von Goethes Faust
 
 https://www.gutenberg.org/ebooks/2229
+
+(siehe auch: "Gutenberg Mirror")
 
 ## Übung: Faust
 
@@ -301,8 +302,6 @@ users = ["Alice", "Bob", "Charlie"]
 ## Operationen auf Listen
 
 Die folgenden Operationen klappen auch bei anderen _Sequenzen_ - z.B. Tupeln, Strings oder Bytes
-
-## Operationen auf Listen
 
 - Elementzugriff (via index): `users[2]`
 - Zugriff auf mehrere Elemente (Unterliste): `users[2:4]`
@@ -437,7 +436,7 @@ Für Bytes über 128 können verschiedene Encodings verschiedene Repräsentation
 
 ## Sequenzen
 
-Objekte, die aus einer Aufreihung anderer Objekte bestehen, z.B.:
+Sequenzen sind Objekte, die aus einer Aufreihung anderer Objekte bestehen, z.B.:
 
 - Listen
 - Tupel
@@ -543,7 +542,7 @@ person = {
 
 ## Dictionaries
 
-Elementezugriff bei dictionaries
+Elementzugriff bei dictionaries
 
 ```py
 person["first_name"] # "John"
@@ -654,8 +653,18 @@ m_colors = { color: colors[color][1:] for color in colors}
 
 Ungeordnete Menge von Elementen (ohne Duplikate)
 
+```py
+ingredients = {"flour", "water", "salt", "yeast"}
 ```
-primes = {2, 3, 5, 7, 11, 13, 17, 19}
+
+## Set
+
+Sets können insbesondere Listen Ersetzen, wenn die Reihenfolge nicht von Bedeutung sein soll.
+
+```py
+ingredients1 = {"flour", "water", "salt", "yeast"}
+ingredients2 = {"water", "salt", "flour", "yeast"}
+ingredients1 == ingredients2 # True
 ```
 
 ## Set
@@ -675,10 +684,29 @@ x - y
 x <= y
 ```
 
-## Übungen
+## Beispiel: Nachbarländer in Nordamerika
 
-- Raumplan (7.6.2)
-- Tanzpaare (7.7.5)
+```py
+countries = {
+    "Canada", "USA", "Mexico", "Guatemala", "Belize",
+    "El Salvador", "Honduras", "Nicaragua", "Costa Rica",
+    "Panama"}
+
+neighbors = {
+    {"Canada", "USA"},
+    {"USA", "Mexico"},
+    {"Mexico", "Guatemala"},
+    {"Mexico", "Belize"},
+    {"Guatemala", "Belize"},
+    {"Guatemala", "El Salvador"},
+    {"Guatemala", "Honduras"},
+    {"Honduras", "Nicaragua"},
+    {"Nicaragua", "Costa Rica"},
+    {"Costa Rica", "Panama"}
+}
+```
+
+## Aufgabe: "Route" von einem Land in ein anderes
 
 # Kontrollstrukturen
 
@@ -720,13 +748,13 @@ age = 'young' if age_seconds < 1000000000 else 'old'
 
 Die Schlüsselwörter `continue` und `break` können verwendet werden, um einen Schleifendurchlauf bzw die ganze Schleife zu beenden
 
-Bei verschachtelten Schleifen beziehen sie sich immer auf die innerste Schleife
+Bei verschachtelten Schleifen beziehen sie sich auf die innerste Schleife
 
 ## for ... else
 
 Einer for-Schleife kann eine optionale else-Klausel hinzugefügt werden - diese wird ausgeführt, wenn die Schleife ganz durchläuft - wenn also Python während des Ausführens nicht auf ein `break` (oder `return` oder ähnliches) stößt.
 
-Zitat von Guido van Rossum:
+Diese Funktionalität gibt es bei keiner anderen verbreiteten Programmiersprache; viele Python-Entwickler kennen sie auch nicht - Zitat vom Erfinder von Python:
 
 > I would not have the feature at all if I had to do it over.
 
@@ -763,6 +791,7 @@ try:
 except ValueError as e:
     print("Could not parse input as number")
     print(e)
+    print(e.args)
 ```
 
 ## finally und else bei exceptions
@@ -791,7 +820,9 @@ except ClientError as e
 
 ## Python-Philosophie: EAFP
 
-EAFP vs LBYL
+LBYL: _Look before you leap_
+
+EAFP: _It's easier to ask for forgiveness than permission_
 
 (Beispiel: Parsen von Zahlen)
 
@@ -853,11 +884,64 @@ shout("hi", ".") # HI.
 
 ## Schlüsselwort-Parameter
 
-## beliebige Anzahl an Parametern (args / kwargs)
+## Beliebige Anzahl an Parametern (args / kwargs)
+
+```py
+def foo(*args, **kwargs):
+    print(args)
+    print(kwargs)
+
+foo("one", "two", x="hello")
+# args: ("one", "two")
+# kwargs: {"x": "hello"}
+```
 
 ## Beispiel
 
 Aufgabe: "Nachbau" von `range()`
+
+## Reine Funktionen
+
+Reine Funktionen sind Funktionen, die mit ihrer Umgebung nur über Eingabeparameter und Rückgabewerte interagieren
+
+Das bedeutet insbesondere:
+
+- alle Eingabewerte werden über Parameter übergeben (die Funktion bekommt liest keine weiteren Variablen ein und interagiert auch nicht mit der Umwelt, z.B. durch das Lesen von Daten auf der Festplatte)
+- die Funktion verändert ihre Umwelt nicht; wenn sie veränderliche Objekte übergeben bekommt, ändert sie diese nicht ab
+- das Resultat des Funktionsaufrufs ist der Rückgabewert; sonst wird von der Funktion nichts geändert
+
+## Reine Funktionen
+
+Beispiel für eine Funktion, die nicht rein ist:
+
+```py
+def remove_negatives(numbers):
+    i = 0
+    while i < len(numbers):
+        if numbers[i] < 0:
+            numbers.pop(i)
+    return numbers
+
+a = [2, 4, -1, -2, 0]
+b = remove_negatives(a)
+```
+
+## Reine Funktionen
+
+Reine Funktion als Alternative:
+
+```py
+def remove_negatives(numbers):
+    nonnegatives = []
+    for n in numbers:
+        if n >= 0:
+            nonnegatives.append(n)
+    return nonnegatives
+```
+
+Anmerkung: In Python wäre die Ideallösung hier das verwenden von List Comprehensions
+
+# Rekursive Funktionen
 
 ## Rekursive Funktionen
 
@@ -877,11 +961,10 @@ fib(25)
 
 ## Rekursion mit Turtle
 
-## Aufgaben
+## Aufgaben zu Rekursion
 
-- 3 (Heron)
-- 4 (Hanoi)
-- 5 (Bäume)
+- Babylonisches Wurzelziehen
+- Bäume mit Turtel-Grafik
 
 # Module und Pakete
 
@@ -940,7 +1023,7 @@ isinstance(message, str)
 
 ## Klassen
 
-Klassen können _verschiedenste_ Dinge repräsentieren, zB:
+Klassen können _verschiedenste_ Dinge repräsentieren, z.B.:
 
 - eine Nachricht in einem E-Mail-Programm
 - einen Benutzer einer Website

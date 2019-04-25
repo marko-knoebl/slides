@@ -2,8 +2,6 @@
 
 ## Lambdas
 
-## Reine Funktionen
-
 ## Memoisation
 
 (Beispiel: Fibonacci)

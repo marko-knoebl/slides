@@ -669,7 +669,7 @@ print(len(users))
 
 Example:
 
-```text
+```txt
 enter an item or "x" to quit:
 milk
 enter an item or "x" to quit:
@@ -1009,7 +1009,7 @@ Recommendation: _always_ use utf-8 as the encoding for text files (best support 
 
 ## Exercise
 
-- program that gets a list of todos from a user and saves them to a file
+program that gets a list of todos from a user and saves them to a file
 
 # Exercises
 
@@ -1202,11 +1202,14 @@ docstring of a function: description, list of its parameters
 
 linter for validating docstrings
 
-## Python philosophy, PEP20
+## Python philosophy, Zen of Python
 
-## import this
+Quotes from the _zen of Python_ (full text via `import this`):
 
-## one way to do it
+- _Explicit is better than implicit._
+- _Readability counts._
+- _Special cases aren't special enough to break the rules._
+- _There should be one-- and preferably only one --obvious way to do it._
 
 # Python versions
 

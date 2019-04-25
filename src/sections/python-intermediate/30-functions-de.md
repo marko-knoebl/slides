@@ -56,32 +56,59 @@ shout("hi", ".") # HI.
 
 ## Schlüsselwort-Parameter
 
-## beliebige Anzahl an Parametern (args / kwargs)
+## Beliebige Anzahl an Parametern (args / kwargs)
+
+```py
+def foo(*args, **kwargs):
+    print(args)
+    print(kwargs)
+
+foo("one", "two", x="hello")
+# args: ("one", "two")
+# kwargs: {"x": "hello"}
+```
 
 ## Beispiel
 
 Aufgabe: "Nachbau" von `range()`
 
-## Rekursive Funktionen
+## Reine Funktionen
 
-Funktionen, die sich selbst aufrufen
+Reine Funktionen sind Funktionen, die mit ihrer Umgebung nur über Eingabeparameter und Rückgabewerte interagieren
 
-## Rekursive Funktionen
+Das bedeutet insbesondere:
 
-Aufgabe: Fibonacci-Folge
+- alle Eingabewerte werden über Parameter übergeben (die Funktion bekommt liest keine weiteren Variablen ein und interagiert auch nicht mit der Umwelt, z.B. durch das Lesen von Daten auf der Festplatte)
+- die Funktion verändert ihre Umwelt nicht; wenn sie veränderliche Objekte übergeben bekommt, ändert sie diese nicht ab
+- das Resultat des Funktionsaufrufs ist der Rückgabewert; sonst wird von der Funktion nichts geändert
+
+## Reine Funktionen
+
+Beispiel für eine Funktion, die nicht rein ist:
 
 ```py
-# 0 1 1 2 3 5 8 13 21 34 55 89 ...
+def remove_negatives(numbers):
+    i = 0
+    while i < len(numbers):
+        if numbers[i] < 0:
+            numbers.pop(i)
+    return numbers
 
-fib(3)
-
-fib(25)
+a = [2, 4, -1, -2, 0]
+b = remove_negatives(a)
 ```
 
-## Rekursion mit Turtle
+## Reine Funktionen
 
-## Aufgaben
+Reine Funktion als Alternative:
 
-- 3 (Heron)
-- 4 (Hanoi)
-- 5 (Bäume)
+```py
+def remove_negatives(numbers):
+    nonnegatives = []
+    for n in numbers:
+        if n >= 0:
+            nonnegatives.append(n)
+    return nonnegatives
+```
+
+Anmerkung: In Python wäre die Ideallösung hier das verwenden von List Comprehensions

@@ -42,7 +42,7 @@ print(len(users))
 
 Beispielhafter Programmlauf:
 
-```text
+```txt
 enter an item or "x" to quit:
 milk
 enter an item or "x" to quit:

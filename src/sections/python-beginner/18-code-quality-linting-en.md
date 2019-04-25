@@ -105,8 +105,11 @@ docstring of a function: description, list of its parameters
 
 linter for validating docstrings
 
-## Python philosophy, PEP20
+## Python philosophy, Zen of Python
 
-## import this
+Quotes from the _zen of Python_ (full text via `import this`):
 
-## one way to do it
+- _Explicit is better than implicit._
+- _Readability counts._
+- _Special cases aren't special enough to break the rules._
+- _There should be one-- and preferably only one --obvious way to do it._

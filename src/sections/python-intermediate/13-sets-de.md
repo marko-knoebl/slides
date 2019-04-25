@@ -4,8 +4,18 @@
 
 Ungeordnete Menge von Elementen (ohne Duplikate)
 
+```py
+ingredients = {"flour", "water", "salt", "yeast"}
 ```
-primes = {2, 3, 5, 7, 11, 13, 17, 19}
+
+## Set
+
+Sets können insbesondere Listen Ersetzen, wenn die Reihenfolge nicht von Bedeutung sein soll.
+
+```py
+ingredients1 = {"flour", "water", "salt", "yeast"}
+ingredients2 = {"water", "salt", "flour", "yeast"}
+ingredients1 == ingredients2 # True
 ```
 
 ## Set
@@ -25,7 +35,26 @@ x - y
 x <= y
 ```
 
-## Übungen
+## Beispiel: Nachbarländer in Nordamerika
 
-- Raumplan (7.6.2)
-- Tanzpaare (7.7.5)
+```py
+countries = {
+    "Canada", "USA", "Mexico", "Guatemala", "Belize",
+    "El Salvador", "Honduras", "Nicaragua", "Costa Rica",
+    "Panama"}
+
+neighbors = {
+    {"Canada", "USA"},
+    {"USA", "Mexico"},
+    {"Mexico", "Guatemala"},
+    {"Mexico", "Belize"},
+    {"Guatemala", "Belize"},
+    {"Guatemala", "El Salvador"},
+    {"Guatemala", "Honduras"},
+    {"Honduras", "Nicaragua"},
+    {"Nicaragua", "Costa Rica"},
+    {"Costa Rica", "Panama"}
+}
+```
+
+## Aufgabe: "Route" von einem Land in ein anderes
