@@ -8,7 +8,7 @@
 
 ## HTTP(S)Connection
 
-low-level interface
+low-level Interface
 
 ```py
 from http.client import HTTPSConnection
@@ -70,4 +70,4 @@ geckodriver Download von:
 
 https://github.com/mozilla/geckodriver/releases/tag/v0.23.0
 
-herunterladen und in einem pfad in Pythons `sys.path` ablegen - oder im aktuellen Verzeichnis (working directory)
+Herunterladen und in einem Pfad in Pythons `sys.path` ablegen - oder im aktuellen Verzeichnis (working directory)

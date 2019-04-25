@@ -12,7 +12,7 @@ Alternative: Django ORM
 
 Pip-Paket _sqlalchemy_
 
-## verbinden mit SQLite-Datenbank
+## Verbinden mit SQLite-Datenbank
 
 ```py
 # db_interface.py
@@ -58,7 +58,7 @@ session = Session()
 session.commit()
 ```
 
-## insert
+## Insert
 
 ```sql
 INSERT INTO artist VALUES ('The Beatles', 'United Kingdom');
@@ -71,7 +71,7 @@ beatles = Artist(name="The Beatles", country="United Kingdom")
 session.add(beatles)
 ```
 
-## select
+## Select
 
 ```sql
 SELECT name, country FROM artist;
@@ -91,7 +91,7 @@ for name, country in session.query(Artist.name, Artist.country):
     print(f"{name} ({country})")
 ```
 
-## order by
+## Order by
 
 ```sql
 SELECT name, country FROM artist ORDER BY name;
@@ -105,7 +105,7 @@ for name, country in session.query(
     ...
 ```
 
-## where
+## Where
 
 ```sql
 SELECT name, country FROM artist WHERE artist.name='The Beatles'
@@ -133,7 +133,7 @@ Help! - The Beatles
 
 umsetzbar mittels `__repr__` / `__str__`
 
-## update
+## Update
 
 ```sql
 UPDATE song
@@ -148,7 +148,7 @@ entry = session.query(Song).filter_by(Song.title=="Help!").one()
 entry.title = "Help"
 ```
 
-## delete
+## Delete
 
 ```sql
 DELETE
@@ -190,7 +190,7 @@ class Song(Base):
 
 ## Einfaches Abfragen einer verknüpften Tabelle
 
-```
+```py
 yesterday = Song(title="Yesterday", artist=beatles)
 help = Song(title="Help!", artist_id=beatles.id)
 session.add(...)

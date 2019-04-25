@@ -33,7 +33,7 @@ for match in match_iter:
 
 Aufgabe: finde alle URLs in einem HTML-Dokument auf der Festplatte
 
-(Beispieldokument: zB Seite https://news.ycombinator.com auf Festplatte speichern)
+(Beispieldokument: z.B. Seite https://news.ycombinator.com auf Festplatte speichern)
 
 ## Einen Ausdruck und Unterausdrücke finden
 
@@ -57,9 +57,9 @@ m[2] # 1
 m[3] # 1970
 ```
 
-## Reguläre Ausdrücke
+## Beispiele
 
-- Buch Aufgabe 4 (Lesbarkeitsanalyse)
+- Lesbarkeitsanalyse (Lesbarkeitsindex)
 - Beispiel: Gleichungen erkennen und auslesen
 - Beispiel: Alle Funktionsdefinitionen in einer Python-Datei finden
 

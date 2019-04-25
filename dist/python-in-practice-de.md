@@ -1,3 +1,51 @@
+# {{title}}
+
+## Präsentation und Code
+
+Präsentationen verfügbar unter: https://karuga.eu/courses-presentations
+
+Code verfügbar unter: https://github.com/marko-knoebl/courses-code
+
+## Ihr Trainer
+
+Marko Knöbl
+
+- Frontend Web-Entwicklung
+  - JavaScript
+  - React, Angular
+- Programmierung
+  - Python, JavaScript
+
+## Vorstellung der Teilnehmer
+
+- Name
+- Firma
+- Aktuelle Projekte
+- Grund der Schulung
+- Vorkenntnisse
+- Erwartungen / Wünsche
+
+## Organisatorisches
+
+- Kursdauer
+- Pausen
+- Mittagessen
+- Unterlagen
+- Fragen, Feedback? - Jederzeit erwünscht
+
+# Themen
+
+- Arbeiten mit Dateien und Ordnern
+- Reguläre Ausdrücke
+- Zeit und Datum
+- sys
+- HTTP Client
+- Webentwicklung
+- Datenbanken
+- GUI
+- e-mail
+- Numpy
+
 # Arbeiten mit Dateien
 
 ## Arbeiten mit Dateien
@@ -27,9 +75,11 @@ open("todos.txt", mode="ta")
 - `t`: Textmodus (standard)
 - `b`: Binär
 
-* `r`: Lesen (standard)
-* `w`: (Über)schreiben
-* `a`: Anhängen
+<!-- list-separator -->
+
+- `r`: Lesen (standard)
+- `w`: (Über)schreiben
+- `a`: Anhängen
 
 ## Lesen und Schreiben
 
@@ -53,7 +103,7 @@ coins.write(bytes([0b01001110, 0b11100100]))
 coins.close()
 ```
 
-## open und das with-Statement
+## Open und das with-Statement
 
 ```py
 with open("todos.txt", encoding="utf-8") as file_obj:
@@ -181,17 +231,19 @@ age.set("unit", "years")
 
 ## XML mit ElementTree: speichern
 
+Beim Speichern von XML immer ein Encoding angeben!
+
 ```py
 xmlbytestring: bytes = et.tostring(person, encoding='utf-8')
 with open("myfile.xml", mode="wb") as file:
     file.write(xmlbytestring)
 
-# oder
+# or
 xmlstring: str = et.tostring(person, encoding='unicode')
 with open("myfile.xml", encoding="utf-8", mode="w") as file:
     file.write(xmlstring)
 
-# oder
+# or
 tree = et.ElementTree(person)
 tree.write("myfile.xml", encoding="utf-8")
 ```
@@ -211,6 +263,11 @@ for childnode in person:
 ## Pickle
 
 Eigenes Dateiformat, in dem verschiedene Python-Dateitypen gespeichert werden können
+
+Achtung:
+
+- Pickle-Dateien können nur von Python gelesen werden
+- Pickle-Dateien können bösartigen Code enthalten
 
 ## Pickle
 
@@ -238,7 +295,7 @@ earlier = pickle.reads(serialized)
 
 ## Übung
 
-- Speichern und Lesen eines Tic-Tac-Toe-Feldes in verschiedenen Formaten
+Speichern und Lesen eines Tic-Tac-Toe-Feldes in verschiedenen Formaten
 
 Python-Datenstruktur:
 
@@ -250,6 +307,38 @@ field = [
 ]
 ```
 
+# Arbeiten mit Dateien und Ordnern
+
+## Arbeiten mit Dateien und Ordnern
+
+zwei wichtige Pakete:
+
+- _os_
+- _shutil_
+
+## os
+
+- `os.getcwd()` (aktueller Pfad)
+- `os.chdir()`
+- `os.chmod()`
+- `os.listdir()`
+- `os.mkdir('foo')`
+- `os.rename('foo', 'bar')`
+- `os.mkdir('foo/bar/baz')`
+- `os.remove('foo/bar/baz/qux.txt')`
+- `os.rmdir('foo/bar/baz')`
+- `os.walk()`
+
+## shutil
+
+- `shutil.copy('origin', 'destination')` (Datei kopieren)
+- `shutil.copytree()` (Ordner kopieren)
+- `shutil.rmtree()` (Ordner löschen)
+- `shutil.move()` (Datei oder Ordner verschieben)
+
+## Übung
+
+Programm, das alle Textdateien in einem Ordner nach einem Begriff durchsucht und die Anzahlen angibt
 
 # Reguläre Ausdrücke
 
@@ -286,7 +375,7 @@ for match in match_iter:
 
 Aufgabe: finde alle URLs in einem HTML-Dokument auf der Festplatte
 
-(Beispieldokument: zB Seite https://news.ycombinator.com auf Festplatte speichern)
+(Beispieldokument: z.B. Seite https://news.ycombinator.com auf Festplatte speichern)
 
 ## Einen Ausdruck und Unterausdrücke finden
 
@@ -310,15 +399,101 @@ m[2] # 1
 m[3] # 1970
 ```
 
-## Reguläre Ausdrücke
+## Beispiele
 
-- Buch Aufgabe 4 (Lesbarkeitsanalyse)
+- Lesbarkeitsanalyse (Lesbarkeitsindex)
 - Beispiel: Gleichungen erkennen und auslesen
 - Beispiel: Alle Funktionsdefinitionen in einer Python-Datei finden
 
 ## Lösung: Gleichung erkennen
 
 `\A-?\d+x[\+-]\d+y[\+-]\d+z=\d+\Z`
+
+# Datum und Zeit
+
+## Datum und Zeit
+
+Python-Pakete:
+
+### datetime
+
+Arbeiten mit Zeiten und Datumsangaben
+
+### time
+
+Arbeiten mit Unix-Timestamps, sleep
+
+## datetime
+
+- `datetime.date`
+- `datetime.time`
+- `datetime.datetime`
+
+## datetime
+
+```py
+a = datetime.time(hour, minute, second, microsecond)
+```
+
+```py
+b = datetime.datetime(2018, 1, 13)
+c = datetime.datetime(2018, 3, 26, 12, 30)
+
+c - b
+```
+
+## time.sleep
+
+```py
+import time
+for i in range(10):
+    print(i)
+    time.sleep(1)
+```
+
+## time.time
+
+aktuelle Unix-Zeit
+
+```py
+import time
+time.time()
+```
+
+# sys
+
+## sys
+
+Funktionen zur Python-Umgebung
+
+Beispiele:
+
+- `argv`
+- `stdout.write`
+- `getrefcount`
+- `path`
+- `version`
+- `version_info`
+
+## Kommandozeilenparameter
+
+Auslesbar über `sys.argv`
+
+## Überschreiben von stdout.write
+
+```py
+import sys
+
+old_stdout = sys.stdout
+
+class LoudStdout:
+    def write(self, text):
+        old_stdout.write(text.upper())
+
+loudstdout = LoudStdout()
+
+sys.stdout = loudstdout
+```
 
 # HTTP mit Python
 
@@ -330,7 +505,7 @@ m[3] # 1970
 
 ## HTTP(S)Connection
 
-low-level interface
+low-level Interface
 
 ```py
 from http.client import HTTPSConnection
@@ -392,37 +567,7 @@ geckodriver Download von:
 
 https://github.com/mozilla/geckodriver/releases/tag/v0.23.0
 
-herunterladen und in einem pfad in Pythons `sys.path` ablegen - oder im aktuellen Verzeichnis (working directory)
-
-# FTP
-
-Modul ftplib
-
-siehe Buch 23.2.2
-
-# SMTP / IMAP
-
-## SMTP / IMAP
-
-https://automatetheboringstuff.com/chapter16/
-
-zur verdeckten Passworteingabe: Modul "getpass"
-
-## SMTP / IMAP
-
-Achtung Fehler:
-
-falsch:
-
-`UIDs = imapObj.search(['SINCE 05-Jul-2014'])`
-
-richtig:
-
-`UIDs = imapObj.search(['SINCE', '05-Jul-2014'])`
-
-Achtung veraltet: `pyzmail` -> `pyzmail36`
-
-Achtung: `'BODY[]'` -> `b'BODY[]` (bytes statt string)
+Herunterladen und in einem Pfad in Pythons `sys.path` ablegen - oder im aktuellen Verzeichnis (working directory)
 
 # HTTP
 
@@ -606,7 +751,7 @@ Mögliche Werte:
 
 Beispiel:
 
-```
+```http
 GET /
 Host: www.google.com
 
@@ -616,15 +761,9 @@ Set-Cookie: IDCC=AN0-TYtU7...fo; expires=...; path=/; domain=.google.com
 
 # Serverseitiges HTTP
 
-## lokalen Dateiserver mit Python betreiben
+## Exkurs: Lokalen Dateiserver mit Python betreiben
 
 ```bash
-# py2
-pyton -m SimpleHTTPServer
-```
-
-```bash
-# py3
 python -m http.server
 ```
 
@@ -666,13 +805,13 @@ Einstiegspunkt ist eine Python-Funktion
 
 Die Funktion bekommt zwei Parameter übergeben: `environ` und `start_response`
 
-Die Anfrageparameter sind über `environ` abzufragen (zB URL, HTTP header, Formulardaten, ...)
+Die Anfrageparameter sind über `environ` abzufragen (z.B. URL, HTTP Header, Formulardaten, ...)
 
 Der zweite Parameter ist eine Funktion, üblicherweise `start_response` genannt.
 
 ## WSGI
 
-Zum starten der Antwort rufen wir `start_response(status, response_headers)` auf, zB:
+Zum starten der Antwort rufen wir `start_response(status, response_headers)` auf, z.B.:
 
 ```py
 start_response(
@@ -681,7 +820,7 @@ start_response(
 )
 ```
 
-Der Antwortkörper wird als ein Iterable von Bytestrings zurückgegeben, zB als Liste von Bytestrings.
+Der Antwortkörper wird als ein Iterable von Bytestrings zurückgegeben, z.B. als Liste von Bytestrings.
 
 ## WSGI-Server-Software
 
@@ -722,7 +861,7 @@ def application(environ, start_response):
 
 ## Das environ-dictionary
 
-Wir können es im debugger begutachten, zB:
+Wir können es im debugger begutachten, z.B.:
 
 ```py
 {
@@ -863,231 +1002,7 @@ if path not in sys.path:
 from app import application
 ```
 
-# sys, os, shutil
-
-## sys, os, shutil
-
-- sys: Funktionen zur Python-Umgebung
-- os: Funktionen zum Betriebssystem, Arbeiten mit Dateien
-- shutil: Funktionen zum Arbeiten mit Dateien
-
-## sys
-
-Beispiele:
-
-- `stdout.write`
-- `getrefcount`
-- `path`
-- `version`
-- `version_info`
-
-## Kommandozeilenparameter
-
-Auslesbar über `sys.argv`
-
-## sys: stdout.write überschreiben
-
-```py
-import sys
-
-old_stdout = sys.stdout
-
-class LoudStdout:
-    def write(self, text):
-        old_stdout.write(text.upper())
-
-loudstdout = LoudStdout()
-
-sys.stdout = loudstdout
-```
-
-## os
-
-Funktionen zu Betriebssystem und Dateizugriff
-
-## os - Arbeiten mit Dateien und Ordnern
-
-- `os.getcwd()` (aktueller Pfad)
-- `os.chdir()`
-- `os.chmod()`
-- `os.listdir()`
-- `os.mkdir('foo')`
-- `os.rename('foo', 'bar')`
-- `os.mkdir('foo/bar/baz')`
-- `os.remove('foo/bar/baz/qux.txt')`
-- `os.rmdir('foo/bar/baz')`
-- `os.walk()`
-
-## shutil
-
-- `shutil.copy('origin', 'destination')` (Datei kopieren)
-- `shutil.copytree()` (Ordner kopieren)
-- `shutil.rmtree()` (Ordner löschen)
-- `shutil.move()` (Datei oder Ordner verschieben)
-
-## Übungen
-
-Buch 14.4.2 (Suchbegriffanzahl in Dateien im Verzeichnis)
-
-# Datum und Zeit
-
-## Datum und Zeit
-
-Python-Pakete:
-
-### datetime
-
-Arbeiten mit Zeiten und Datumsangaben
-
-### time
-
-Arbeiten mit Unix-Timestamps, sleep
-
-## datetime
-
-- `datetime.date`
-- `datetime.time`
-- `datetime.datetime`
-
-## datetime
-
-```py
-a = datetime.time(hour, minute, second, microsecond)
-```
-
-```py
-b = datetime.datetime(2018, 1, 13)
-c = datetime.datetime(2018, 3, 26, 12, 30)
-
-c - b
-```
-
-## time.sleep
-
-```py
-import time
-for i in range(10):
-    print(i)
-    time.sleep(1)
-```
-
-## time.time
-
-aktuelle Unix-Zeit
-
-```py
-import time
-time.time()
-```
-
-# GUI
-
-## Graphical User Interface
-
-## GUI-Libraries für Python
-
-- tk
-- Qt
-- Kivy
-
-## tk
-
-- Einfache UI-Library
-- Anbindung an Python: tkinter
-- in Python vorinstalliert
-
-## Qt
-
-- Weit verbreitete UI-Library
-- Anbindungen an Python: PyQt oder PySide
-
-## Kivy
-
-- speziell für Python entwickelt
-
-# Tkinter
-
-## Tkinter - Beispiel
-
-```py
-# simple.pyw
-import tkinter
-
-# ein Objekt vom Typ "Tk" erstellen
-window = tkinter.Tk()
-# Programm (event loop) starten
-#   (auf Benutzerinteraktion warten)
-window.mainloop()
-```
-
-## Tkinter - Text anzeigen
-
-```py
-import tkinter
-
-window = tkinter.Tk()
-
-hello_label = tkinter.Label(master=window, text="Hello!")
-hello_label.pack()
-
-window.mainloop()
-```
-
-## Tkinter - Elemente nachträglich ändern
-
-```py
-time_label = tkinter.Label(master=window, text="")
-time_label.config(text="Hello!")
-```
-
-## Tkinter - Benutzerinteraktion
-
-```py
-...
-
-message_label = tkinter.Label(master=window, text="")
-message_label.pack()
-
-def display_message():
-    message_label.config(text="Hello!")
-
-hello_button = tkinter.Button(master=window,
-                              text="Say Hello!",
-                              command=display_message)
-hello_button.pack()
-
-...
-```
-
-## Beispiel: Counter
-
-Button, der bei 0 startet und die Klickanzahl mitzählt und anzeigt
-
-## Tkinter - Widget-Konfiguration
-
-Möglichkeiten:
-
-- `height`
-- `width`
-- `borderwidth`
-- `background` (Hintergrundfarbe)
-- `foreground` (Textfarbe)
-- `justify` (Textausrichtung, Werte: `CENTER`, `LEFT`, `RIGHT`)
-- `padx`, `pady` (Abstand Rahmen zum Inhalt)
-
-## Tkinter - Widgets
-
-- `Label`
-- `Button`
-- `Frame`
-
-## Tkinter - Beispiele
-
-- zufälliger Sehtest
-
 # Datenbanken
-
-siehe auch Buch Kapitel 24
 
 ## Datenbanken
 
@@ -1096,8 +1011,6 @@ Verwendung: Verwaltung großer Datenmengen
 ## Entity-Relationship-Diagramme
 
 https://en.wikipedia.org/wiki/Entity%E2%80%93relationship_model
-
-Buch 24.2
 
 ## Tabellen und Datenschemata
 
@@ -1110,9 +1023,7 @@ Die meisten Datenbanken verwalten ihre Daten in Tabellen
 - Modellierung von Verwandtschaftsverhältnissen
 - Modellierung von Freundschaften
 
-## Beispiel: Online-Redaktionssystem mit Datenbankanbindung
-
-siehe Buch
+## Beispiel: Forum mit Datenbankanbindung
 
 - Authentifizierung (MD5)
 - Admin-Skript
@@ -1485,15 +1396,11 @@ Die Attribute `sqlite3.paramstyle`, `pymysql.paramstyle` etc geben das Format f�
 
 ## PEP 249: das cursor Objekt
 
-`cursor.rowcount`: Anzahl der letzten Ergebnisse
-
-`cursor.fetchone()`: Eine Zeile des Resultats auslesen (üblicherweise als Tupel)
-
-`cursor.fetchmany(10)`
-
-`cursor.fetchall()`
-
-`cursor.execute(command, parameters)`
+- `cursor.rowcount`: Anzahl der letzten Ergebnisse
+- `cursor.fetchone()`: Eine Zeile des Resultats auslesen (üblicherweise als Tupel)
+- `cursor.fetchmany(10)`
+- `cursor.fetchall()`
+- `cursor.execute(command, parameters)`
 
 # SQLAlchemy
 
@@ -1509,7 +1416,7 @@ Alternative: Django ORM
 
 Pip-Paket _sqlalchemy_
 
-## verbinden mit SQLite-Datenbank
+## Verbinden mit SQLite-Datenbank
 
 ```py
 # db_interface.py
@@ -1555,7 +1462,7 @@ session = Session()
 session.commit()
 ```
 
-## insert
+## Insert
 
 ```sql
 INSERT INTO artist VALUES ('The Beatles', 'United Kingdom');
@@ -1568,7 +1475,7 @@ beatles = Artist(name="The Beatles", country="United Kingdom")
 session.add(beatles)
 ```
 
-## select
+## Select
 
 ```sql
 SELECT name, country FROM artist;
@@ -1588,7 +1495,7 @@ for name, country in session.query(Artist.name, Artist.country):
     print(f"{name} ({country})")
 ```
 
-## order by
+## Order by
 
 ```sql
 SELECT name, country FROM artist ORDER BY name;
@@ -1602,7 +1509,7 @@ for name, country in session.query(
     ...
 ```
 
-## where
+## Where
 
 ```sql
 SELECT name, country FROM artist WHERE artist.name='The Beatles'
@@ -1630,7 +1537,7 @@ Help! - The Beatles
 
 umsetzbar mittels `__repr__` / `__str__`
 
-## update
+## Update
 
 ```sql
 UPDATE song
@@ -1645,7 +1552,7 @@ entry = session.query(Song).filter_by(Song.title=="Help!").one()
 entry.title = "Help"
 ```
 
-## delete
+## Delete
 
 ```sql
 DELETE
@@ -1687,7 +1594,7 @@ class Song(Base):
 
 ## Einfaches Abfragen einer verknüpften Tabelle
 
-```
+```py
 yesterday = Song(title="Yesterday", artist=beatles)
 help = Song(title="Help!", artist_id=beatles.id)
 session.add(...)
@@ -1695,6 +1602,135 @@ session.add(...)
 print(yesterday.artist)
 print(beatles.songs)
 ```
+
+# GUI
+
+## Graphical User Interface
+
+## GUI-Libraries für Python
+
+- tk
+- Qt
+- Kivy
+
+## tk
+
+- Einfache UI-Library
+- Anbindung an Python: tkinter
+- in Python vorinstalliert
+
+## Qt
+
+- Weit verbreitete UI-Library
+- Anbindungen an Python: PyQt oder PySide
+
+## Kivy
+
+- speziell für Python entwickelt
+
+# Tkinter
+
+## Tkinter - Beispiel
+
+```py
+# simple.pyw
+import tkinter
+
+# ein Objekt vom Typ "Tk" erstellen
+window = tkinter.Tk()
+# Programm (event loop) starten
+#   (auf Benutzerinteraktion warten)
+window.mainloop()
+```
+
+## Tkinter - Text anzeigen
+
+```py
+import tkinter
+
+window = tkinter.Tk()
+
+hello_label = tkinter.Label(master=window, text="Hello!")
+hello_label.pack()
+
+window.mainloop()
+```
+
+## Tkinter - Elemente nachträglich ändern
+
+```py
+time_label = tkinter.Label(master=window, text="")
+time_label.config(text="Hello!")
+```
+
+## Tkinter - Benutzerinteraktion
+
+```py
+...
+
+message_label = tkinter.Label(master=window, text="")
+message_label.pack()
+
+def display_message():
+    message_label.config(text="Hello!")
+
+hello_button = tkinter.Button(master=window,
+                              text="Say Hello!",
+                              command=display_message)
+hello_button.pack()
+
+...
+```
+
+## Beispiel: Counter
+
+Button, der bei 0 startet und die Klickanzahl mitzählt und anzeigt
+
+## Tkinter - Widget-Konfiguration
+
+Möglichkeiten:
+
+- `height`
+- `width`
+- `borderwidth`
+- `background` (Hintergrundfarbe)
+- `foreground` (Textfarbe)
+- `justify` (Textausrichtung, Werte: `CENTER`, `LEFT`, `RIGHT`)
+- `padx`, `pady` (Abstand Rahmen zum Inhalt)
+
+## Tkinter - Widgets
+
+- `Label`
+- `Button`
+- `Frame`
+
+## Tkinter - Beispiele
+
+- zufälliger Sehtest
+
+# SMTP / IMAP
+
+## SMTP / IMAP
+
+https://automatetheboringstuff.com/chapter16/
+
+zur verdeckten Passworteingabe: Modul "getpass"
+
+## SMTP / IMAP
+
+Achtung Fehler:
+
+falsch:
+
+`UIDs = imapObj.search(['SINCE 05-Jul-2014'])`
+
+richtig:
+
+`UIDs = imapObj.search(['SINCE', '05-Jul-2014'])`
+
+Achtung veraltet: `pyzmail` -> `pyzmail36`
+
+Achtung: `'BODY[]'` -> `b'BODY[]` (bytes statt string)
 
 # NumPy
 
@@ -1715,10 +1751,13 @@ Arrays sind im Hintergrund in C implementiert, die numerischen Einträge (z.B. I
 NumPy Arrays vs Python Listen:
 
 ```py
-list_a = [1, 2] # Python - Liste (mit Verweisen auf andere Integer)
-list_b = [3, 4] # Python - Liste
+# Python - Listen (mit Verweisen auf andere Integer)
+list_a = [1, 2]
+list_b = [3, 4]
 
-# NumPy - Array - Daten sind hierin enthalten, ohne auf Python-Integer zu verweisen
+# NumPy - Array -
+# Daten sind hierin enthalten, ohne auf Python-Integer
+# zu verweisen
 array_a = numpy.array(list_a)
 array_b = numpy.array(list_b)
 
@@ -1736,5 +1775,5 @@ Kapitel 30
 
 - 10 mio mal Würfeln (mit 10 Würfeln)
 - Gleichungslösung (Klassen, doctests, numpy)
-- Lagerbestand von Produkten (2d-array) & preisliste (1d-array); gesucht: warenwert pro lager
+- Lagerbestand von Produkten (2d-array) & preisliste (1d-array); gesucht: Warenwert pro Lager
 

@@ -214,6 +214,16 @@ Strings sind Zeichenfolgen, die jedes Unicodezeichen repräsentieren können
 - `.splitlines()`
 - `.join()`
 
+## Raw Strings
+
+Üblicherweise hat das Zeichen `\` eine besondere Bedeutung in Strings - z.B. in den Kombinationen `\n`, `\"` oder `\\`
+
+Benötigen wir die ersten beiden nicht, können wir sogenannte _raw strings_ verwenden:
+
+```py
+path = r"C:\documents\foo\bar.txt"
+```
+
 ## Übung: Faust
 
 Formatierung von Goethes Faust

@@ -180,7 +180,7 @@ Mögliche Werte:
 
 Beispiel:
 
-```
+```http
 GET /
 Host: www.google.com
 

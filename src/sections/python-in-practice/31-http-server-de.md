@@ -1,14 +1,8 @@
 # Serverseitiges HTTP
 
-## lokalen Dateiserver mit Python betreiben
+## Exkurs: Lokalen Dateiserver mit Python betreiben
 
 ```bash
-# py2
-pyton -m SimpleHTTPServer
-```
-
-```bash
-# py3
 python -m http.server
 ```
 
@@ -50,13 +44,13 @@ Einstiegspunkt ist eine Python-Funktion
 
 Die Funktion bekommt zwei Parameter übergeben: `environ` und `start_response`
 
-Die Anfrageparameter sind über `environ` abzufragen (zB URL, HTTP header, Formulardaten, ...)
+Die Anfrageparameter sind über `environ` abzufragen (z.B. URL, HTTP Header, Formulardaten, ...)
 
 Der zweite Parameter ist eine Funktion, üblicherweise `start_response` genannt.
 
 ## WSGI
 
-Zum starten der Antwort rufen wir `start_response(status, response_headers)` auf, zB:
+Zum starten der Antwort rufen wir `start_response(status, response_headers)` auf, z.B.:
 
 ```py
 start_response(
@@ -65,7 +59,7 @@ start_response(
 )
 ```
 
-Der Antwortkörper wird als ein Iterable von Bytestrings zurückgegeben, zB als Liste von Bytestrings.
+Der Antwortkörper wird als ein Iterable von Bytestrings zurückgegeben, z.B. als Liste von Bytestrings.
 
 ## WSGI-Server-Software
 
@@ -106,7 +100,7 @@ def application(environ, start_response):
 
 ## Das environ-dictionary
 
-Wir können es im debugger begutachten, zB:
+Wir können es im debugger begutachten, z.B.:
 
 ```py
 {

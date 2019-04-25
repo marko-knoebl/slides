@@ -1,7 +1,5 @@
 # Datenbanken
 
-siehe auch Buch Kapitel 24
-
 ## Datenbanken
 
 Verwendung: Verwaltung großer Datenmengen
@@ -9,8 +7,6 @@ Verwendung: Verwaltung großer Datenmengen
 ## Entity-Relationship-Diagramme
 
 https://en.wikipedia.org/wiki/Entity%E2%80%93relationship_model
-
-Buch 24.2
 
 ## Tabellen und Datenschemata
 
@@ -23,9 +19,7 @@ Die meisten Datenbanken verwalten ihre Daten in Tabellen
 - Modellierung von Verwandtschaftsverhältnissen
 - Modellierung von Freundschaften
 
-## Beispiel: Online-Redaktionssystem mit Datenbankanbindung
-
-siehe Buch
+## Beispiel: Forum mit Datenbankanbindung
 
 - Authentifizierung (MD5)
 - Admin-Skript
