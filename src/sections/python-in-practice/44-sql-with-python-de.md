@@ -133,3 +133,18 @@ Die Attribute `sqlite3.paramstyle`, `pymysql.paramstyle` etc geben das Format f√
 - `cursor.fetchmany(10)`
 - `cursor.fetchall()`
 - `cursor.execute(command, parameters)`
+
+## Beispiel: Forum mit Datenbankanbindung
+
+- Authentifizierung (MD5)
+- Admin-Skript
+
+## Beispiel: Todo-Anwendung
+
+## Beispiel: Todo-Anwendung
+
+- run_server.py und (minimale) app.py
+- init_db.py
+- db_interface.get_all_todos
+
+siehe courses-tutorials/python-todolist-wsgi-sqlite

@@ -18,18 +18,3 @@ Die meisten Datenbanken verwalten ihre Daten in Tabellen
 
 - Modellierung von Verwandtschaftsverhältnissen
 - Modellierung von Freundschaften
-
-## Beispiel: Forum mit Datenbankanbindung
-
-- Authentifizierung (MD5)
-- Admin-Skript
-
-## Beispiel: Todo-Anwendung
-
-## Beispiel: Todo-Anwendung
-
-- run_server.py und (minimale) app.py
-- init_db.py
-- db_interface.get_all_todos
-
-siehe courses-tutorials/python-todolist-wsgi-sqlite

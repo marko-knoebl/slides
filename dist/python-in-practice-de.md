@@ -1023,45 +1023,39 @@ Die meisten Datenbanken verwalten ihre Daten in Tabellen
 - Modellierung von Verwandtschaftsverhältnissen
 - Modellierung von Freundschaften
 
-## Beispiel: Forum mit Datenbankanbindung
+# SQL Grundlagen
 
-- Authentifizierung (MD5)
-- Admin-Skript
-
-## Beispiel: Todo-Anwendung
-
-## Beispiel: Todo-Anwendung
-
-- run_server.py und (minimale) app.py
-- init_db.py
-- db_interface.get_all_todos
-
-siehe courses-tutorials/python-todolist-wsgi-sqlite
-
-# SQL
-
-## Die Abfragesprache SQL
+## SQL
 
 SQL = Structured Query Language
 
 Standardisierte Abfragesprache für tabellarische Datenbanken
 
-## SQL-Varianten
+## SQL Standardisierung
 
-- SQL Server
+Standardisiert von _ANSI_ und _ISO_ - allerdings weichen Implementierungen oft vom Standard ab
+
+Alte Version des Standards (kostenlos): http://www.contrib.andrew.cmu.edu/~shadow/sql/sql1992.txt
+
+## SQL Implementierungen
+
+proprietär:
+
 - Oracle
+- SQL Server (Microsoft)
+
+open source:
+
 - MySQL
 - MariaDB
 - PostgreSQL
 - SQLite
 
-## Online Tutorial
-
-https://www.w3schools.com/sql/default.asp
-
 ## SQL ausprobieren
 
 https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all
+
+https://db-fiddle.com
 
 Desktop-Anwendung:
 
@@ -1074,126 +1068,33 @@ Befehl: `CREATE TABLE`
 ```sql
 CREATE TABLE person(
     name VARCHAR(50),
-    tel VARCHAR(20));
-```
-
-## Tabellen erstellen
-
-```sql
-CREATE TABLE person(
-    id INTEGER NOT NULL AUTO_INCREMENT,
-    name TEXT,
-    tel TEXT);
+    tel VARCHAR(20)
+)
 ```
 
 ## SQL-Datentypen
 
-| ANSI SQL         | SQLServer     | Oracle       | MySQL         | Postgres         | SQLite  |
-| ---------------- | ------------- | ------------ | ------------- | ---------------- | ------- |
-| boolean          | bit           | byte         |               | boolean          |         |
-| smallint         | smallint      | number       | smallint      | smallint         | integer |
-| int/integer      | int           | number       | int           | integer          | integer |
-| bigint           | bigint        | number       | bigint        | bigint           | integer |
-| float            | float         | float        | float         | real             | real    |
-| double precision | float         | float        | float         | double precision | real    |
-| varchar(20)      | varchar(20)   | varchar2(20) | varchar(20)   | varchar          | text    |
-| varbinary(20)    | varbinary(20) | blob         | varbinary(20) | bytea            | blob    |
+ISO / ANSI SQL Standard (Auswahl):
 
-## signed & unsigned
-
-MySQL unterscheidet zB zwischen:
-
-- `SMALLINT` (-32768 bis 32767)
-- `UNSIGNED SMALLINT` (0 bis 65535)
-
-## not null
-
-Eintrag darf nicht leer gelassen werden
-
-```sql
-/* MySQL */
-CREATE TABLE person(
-    id INT NOT NULL,
-    name VARCHAR(50));
-```
-
-## unique
-
-Jeder Eintrag muss einen einzigartigen Wert in der Tabelle haben
-
-```sql
-/* alle außer MySQL */
-CREATE TABLE person(
-    id INTEGER UNIQUE NOT NULL,
-    name VARCHAR(50)
-);
-```
-
-```sql
-/* MySQL */
-CREATE TABLE person(
-    id INTEGER NOT NULL,
-    name VARCHAR(50),
-    UNIQUE(id)
-);
-```
-
-## auto increment
-
-Integer wird automatisch bei jedem neuen Element erhöht
-
-```sql
-/* MySQL */
-CREATE TABLE person(
-    id INTEGER NOT NULL AUTO_INCREMENT,
-    name VARCHAR(50));
-```
-
-- sqlite: `AUTOINCREMENT`
-- Postgres: `SERIAL`
-
-## primary key
-
-Eindeutige Identifizierung einer Zeile in einer Tabelle
-
-- Sprechender Schlüssel: von Haus aus in den Daten enthalten
-- Surrogatschlüssel: zusätzlich hinzugefügter Schlüssel (meist Integerwert)
-
-```sql
-/* mysql */
-CREATE TABLE person(
-    id INT NOT NULL,
-    name VARCHAR(50) NOT NULL,
-    PRIMARY KEY (id)
-);
-```
-
-In sqlite wird immer automatisch ein numerischer Primärschlüssel unter dem Namen `rowid` angelegt.
-
-## foreign key
-
-Referenz auf jeweils einen Eintrag einer anderen Tabelle
-
-z.B.: Jeder Eintrag in der Tabelle _person_ kann über die Spalte _country_id_ mit der Tabelle _country_ verknüpft werden
-
-Der Zusatz `FOREIGN KEY ...` garantiert, dass ein entsprechender Eintrag in der anderen Tabelle existiert
-
-```sql
-/* mysql, sqlite */
-CREATE TABLE person(
-    country_id INT NOT NULL,
-    FOREIGN KEY (country_id) REFERENCES country(id)
-);
-```
+- `boolean`
+- `smallint` (üblicherweise 16 Bit)
+- `int` / `integer` (üblicherweise 32 Bit)
+- `bigint` (üblicherweise 64 Bit)
+- `real` (üblicherweise 32 Bit)
+- `double precision` (üblicherweise 64 Bit)
+- `varchar(n)` (Unicode-String mit Maximallänge _n_)
+- `varbinary(n)` (Bytesequenz mit Maximallänge _n_)
 
 ## Daten eintragen
 
 ```sql
-INSERT INTO person VALUES ('Andreas Berger', '012345');
+INSERT INTO person
+VALUES ('John Smith', '012345');
 ```
 
 ```sql
-INSERT INTO person (name, tel) VALUES ('Andreas Berger', '012345');
+INSERT INTO person (name, tel)
+VALUES ('John Smith', '012345');
 ```
 
 ## Daten auslesen
@@ -1208,45 +1109,213 @@ SELECT * FROM person
 ## Bedingte Abfragen (WHERE)
 
 ```sql
-SELECT tel FROM person WHERE name = 'Andreas Berger';
-SELECT tel FROM person WHERE name LIKE 'Andreas%' AND tel LIKE '+49%';
+SELECT tel
+FROM person
+WHERE name = 'John Smith';
+```
+
+```sql
+SELECT tel
+FROM person
+WHERE name LIKE 'John%' AND tel LIKE '+49%';
 ```
 
 ## Daten eintragen (UPDATE)
 
 ```sql
 UPDATE person
-SET name = 'Andreas Müller'
-WHERE name = 'Andreas Müller';
+SET name = 'John Miller'
+WHERE name = 'John Smith';
 ```
 
 ## Daten löschen (DELETE)
 
 ```sql
-DELETE FROM person WHERE name = 'Andreas Müller';
+DELETE FROM person
+WHERE name = 'John Miller';
 ```
 
-## Tabellen verknüpfen (INNER JOIN)
+## Übung
+
+Erstellen und Abändern einer Kontaktdatenbank
+
+# SQL Intermediate
+
+## Online Tutorial
+
+https://www.w3schools.com/sql/default.asp
+
+## Wiederholung: SQL Datentypen
+
+ISO / ANSI SQL Standard (Auswahl):
+
+- `boolean`
+- `smallint` (üblicherweise 16 Bit)
+- `int` / `integer` (üblicherweise 32 Bit)
+- `bigint` (üblicherweise 64 Bit)
+- `real` (üblicherweise 32 Bit)
+- `double precision` (üblicherweise 64 Bit)
+- `varchar(n)` (Unicode-String mit Maximallänge _n_)
+- `varbinary(n)` (Bytesequenz mit Maximallänge _n_)
+
+## SQL-Datentypen: Ausnahmen
+
+Der SQL Standard wird von keiner Implementierung voll umgesetzt
+
+SQLServer: `boolean` → `bit`
+
+Oracle: ~~`boolean`~~ → X, `varchar` → `varchar2`
+
+MySQL: ~~`boolean`~~ → X, `real` → `float`
+
+Postgres: `varbinary(n)` → `bytea` (siehe auch [Postgres SQL Conformance](https://www.postgresql.org/docs/current/features.html))
+
+SQLite: ~~`boolean`~~ → X, (`smallint`, `int`, `bigint`) → `integer`, ~~`real`~~ → X, `varbinary` → `blob`
+
+## Signed & unsigned
+
+MySQL unterscheidet z.B. zwischen:
+
+- `SMALLINT` (-32768 bis 32767)
+- `UNSIGNED SMALLINT` (0 bis 65535)
+
+## Beispiel: Datenbank chemischer Elemente
+
+Einträge:
+
+- _atomic_number_
+- _symbol_
+- _name_
+- _atomic_mass_
+
+## Beispiel: Datenbank chemischer Elemente
 
 ```sql
-SELECT song.title, album.year
-FROM song
-INNER JOIN album
-ON song.albumid = album.id;
+CREATE TABLE element(
+    atomic_number INT,
+    symbol VARCHAR(2),
+    name VARCHAR(20),
+    atomic_mass REAL
+);
 ```
 
-Der obige Code listet alle Kombinationen auf, bei denen `song.albumid` und `album.id` übereinstimmen
+## Constraints
 
-## Tabellen verknüpfen (LEFT JOIN)
+Einschränkungen von Spalten:
+
+- `not null`
+- `unique`
+- `primary key`
+- (`foreign key`)
+
+## Not null
+
+Eintrag darf nicht leer gelassen werden
 
 ```sql
-SELECT song.title, album.year
-FROM song
-LEFT JOIN album
-ON song.albumid = album.id;
+CREATE TABLE element(
+    atomic_number INT NOT NULL,
+    symbol VARCHAR(2) NOT NULL,
+    name VARCHAR(20) NOT NULL,
+    atomic_mass REAL NOT NULL
+);
 ```
 
-Der obige Code listet alle Kombinationen auf und beinhaltet auch Lieder, für die kein Album definiert ist
+## Unique
+
+Jeder Eintrag in einer Spalte muss einzigartig sein
+
+```sql
+CREATE TABLE element(
+    atomic_number INT NOT NULL UNIQUE,
+    symbol VARCHAR(2) NOT NULL UNIQUE,
+    name VARCHAR(20) NOT NULL UNIQUE,
+    atomic_mass REAL NOT NULL
+);
+```
+
+## Primary key
+
+Ermöglicht eindeutige Identifizierung einer Zeile in einer Tabelle
+
+- Sprechender Schlüssel: von Haus aus in den Daten enthalten
+- Surrogatschlüssel: zusätzlich hinzugefügter Schlüssel (meist Integerwert)
+
+Ein sprechender Schlüssel ist nur in besonderen Fällen einsetzbar, ein Surrogatschlüssel ist immer möglich
+
+Ein Primary Key ist automatisch _unique_ und _not null_.
+
+## Primary key
+
+Sprechender Schlüssel:
+
+```sql
+CREATE TABLE element(
+    atomic_number INT PRIMARY KEY,
+    symbol VARCHAR(2) NOT NULL UNIQUE,
+    name VARCHAR(20) NOT NULL UNIQUE,
+    atomic_mass REAL NOT NULL
+);
+```
+
+## Primary key
+
+Surrogatschlüssel:
+
+```sql
+CREATE TABLE element(
+    id INT PRIMARY KEY,
+    atomic_numer INT,
+    symbol VARCHAR(2) NOT NULL UNIQUE,
+    name VARCHAR(20) NOT NULL UNIQUE,
+    atomic_mass REAL NOT NULL
+);
+```
+
+## Auto increment
+
+Automatisches Erstellen eines numerischen Primary Keys beginnend bei 1:
+
+Standard SQL (implementiert in PostgreSQL, Oracle):
+
+```sql
+CREATE TABLE element(
+    id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY
+    ...
+);
+```
+
+## Auto increment
+
+Nicht-standardisierte Varianten:
+
+- MySQL: `AUTO_INCREMENT`
+- SQLite: `AUTOINCREMENT`
+- PostgreSQL: `SERIAL`
+
+In SQLite wird immer automatisch ein numerischer eindeutiger Schlüssel unter dem Namen `rowid` angelegt.
+
+## Code: Periodensystem
+
+```sql
+CREATE TABLE element(
+    id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    atomic_number INT,
+    symbol VARCHAR(2) NOT NULL UNIQUE,
+    name VARCHAR(20) NOT NULL UNIQUE,
+    atomic_mass REAL NOT NULL
+);
+
+INSERT INTO element(atomic_number, symbol, name, atomic_mass)
+VALUES (1, 'H', 'Hydrogen', 1.008);
+
+INSERT INTO element(atomic_number, symbol, name, atomic_mass)
+VALUES (2, 'He', 'Helium', 4.0026);
+
+SELECT *
+FROM element
+WHERE name='Hydrogen';
+```
 
 ## Indizes in Datenbanken
 
@@ -1259,12 +1328,93 @@ Auf eine oder mehrere Spalten kann ein Index angewendet werden: Zusätzliche Dat
 ## Indizes erstellen
 
 ```sql
-CREATE INDEX person_name ON person (name)
+CREATE INDEX idx_name
+ON element (name);
 ```
 
-## SQL ausprobieren
+Es kann nun nach den Elementnamen schneller gesucht werden
 
-Auf https://pythonanywhere.com stehen _MySQL_ und _PostgreSQL_ kostenfrei zur Verfügung.
+# SQL Joins
+
+## Beispiel: Musikdatenbank
+
+Tabellen:
+
+- _artist_
+- _album_
+- _song_
+
+## Beispiel: Musikdatenbank - artist
+
+```sql
+CREATE TABLE artist(
+    id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    name VARCHAR(20) NOT NULL,
+    country VARCHAR(5) NOT NULL,
+    year SMALLINT NOT NULL
+);
+
+INSERT INTO artist (name, country, year)
+VALUES ('The Beatles', 'UK', 1960);
+
+INSERT INTO artist (name, country, year)
+VALUES ('AC/DC', 'AUS', 1973);
+```
+
+## Foreign key
+
+Referenz auf jeweils einen Eintrag einer anderen Tabelle
+
+z.B.: Jeder Eintrag in der Tabelle _song_ kann über die Spalte _artist_id_ mit der Tabelle _artist_ verknüpft werden
+
+Der Zusatz `FOREIGN KEY(column) REFERENCES other_table(column)` garantiert, dass ein entsprechender Eintrag in der anderen Tabelle existiert
+
+## Foreign key
+
+```sql
+CREATE TABLE song(
+    id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    title VARCHAR(30) NOT NULL,
+    artist_id INT,
+    FOREIGN KEY(artist_id) REFERENCES artist(id)
+);
+
+INSERT INTO song (title, artist_id)
+VALUES ('Let it Be', 1);
+```
+
+## Foreign key
+
+Ein foreign key garantiert, dass ein entsprechender Eintrag in der zugehörigen anderen Tabelle existiert
+
+```sql
+INSERT INTO song (title, artist_id)
+VALUES ('Wish You Were Here', 10);
+```
+
+→ Fehlermeldung
+
+## Tabellen verknüpfen (INNER JOIN)
+
+```sql
+SELECT song.title, artist.name
+FROM artist
+INNER JOIN song
+ON artist.id=song.artist_id;
+```
+
+Der obige Code listet alle Kombinationen auf, bei denen `artist.id` und `song.artist_id` übereinstimmen
+
+## Tabellen verknüpfen (LEFT JOIN)
+
+```sql
+SELECT song.title, artist.name
+FROM song
+LEFT JOIN artist
+ON artist.id=song.artist_id;
+```
+
+Der obige Code listet alle Kombinationen auf und beinhaltet auch Lieder, für die kein Künstler definiert ist
 
 # SQL mit Python
 
@@ -1401,6 +1551,21 @@ Die Attribute `sqlite3.paramstyle`, `pymysql.paramstyle` etc geben das Format f�
 - `cursor.fetchmany(10)`
 - `cursor.fetchall()`
 - `cursor.execute(command, parameters)`
+
+## Beispiel: Forum mit Datenbankanbindung
+
+- Authentifizierung (MD5)
+- Admin-Skript
+
+## Beispiel: Todo-Anwendung
+
+## Beispiel: Todo-Anwendung
+
+- run_server.py und (minimale) app.py
+- init_db.py
+- db_interface.get_all_todos
+
+siehe courses-tutorials/python-todolist-wsgi-sqlite
 
 # SQLAlchemy
 
@@ -1738,13 +1903,23 @@ Achtung: `'BODY[]'` -> `b'BODY[]` (bytes statt string)
 
 Library zur effizienten Datenverarbeitung
 
-Daten sind in mehrdimensionalen arrays gespeichert, die resourcenschonend umgesetzt sind
+Daten sind in mehrdimensionalen Arrays von Zahlen gespeichert, die resourcenschonend umgesetzt sind
+
+Daten können z.B. Bilder, Tondateien, Messwerte und vieles anderes repräsentieren
 
 ## NumPy
 
 NumPy Arrays vs Python Listen:
 
 Arrays sind im Hintergrund in C implementiert, die numerischen Einträge (z.B. Integer) sind keine Python-Objekte und damit resourcenschonender.
+
+## Importieren von NumPy
+
+oft verkürzt als:
+
+```python
+import numpy as np
+```
 
 ## NumPy
 
@@ -1762,6 +1937,91 @@ array_a = numpy.array(list_a)
 array_b = numpy.array(list_b)
 
 array_a + array_b # sehr schnell (da in C implementiert)
+```
+
+## Arrays
+
+Jedes Array kann nur Daten eines Typs enthalten (z.B. nur 64-bit floats oder nur bytes)
+
+## Arrays
+
+Erstellen eines 2-dimensionalen Arrays:
+
+```py
+np.array([[1, 2, 3], [2, 4, 6], [3, 6, 9]])
+```
+
+Ausgabe:
+
+```py
+array([[1, 2, 3],
+       [2, 4, 6],
+       [3, 6, 9]])
+```
+
+## Arrays
+
+Erstellen eines 3-dimensionalen Arrays:
+
+```py
+np.array([[[1, 2], [3, 4]], [[5, 6], [7,8]]])
+```
+
+Ausgabe:
+
+```py
+array([[[1, 2],
+        [3, 4]],
+
+       [[5, 6],
+        [7, 8]]])
+```
+
+## Array Typen
+
+Jedes Array hat einen vorgegebenen Datentyp für alle Einträge
+
+```py
+a = np.array([1])
+a.dtype # int32
+b = np.array([1.0])
+b.dtype # float64
+c = np.array(['abc'])
+c.dtype # <U3
+d = np.array([b'abc'])
+d.dtype # |S3
+```
+
+## Array Typen
+
+Typen können explizit angegeben werden:
+
+```py
+a = np.array([1], dtype='int64')
+b = np.array([1], dtype='uint8')
+```
+
+Typen werden wenn möglich automatisch umgewandelt:
+
+```py
+c = a + b
+c.dtype # int64
+```
+
+## Overflow
+
+Achtung bei zu großen / zu kleinen Werten
+
+Der Typ `int8` erlaubt nur Werte im Bereich `-128` bis `+127`
+
+```py
+np.array([127, 128, 129], dtype="int8")
+```
+
+Output:
+
+```py
+array([127, -128, -127])
 ```
 
 ## NumPy

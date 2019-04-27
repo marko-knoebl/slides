@@ -1027,51 +1027,38 @@ path = <span class="hljs-string">"/home/username/"</span>
 <li>Modellierung von Freundschaften</li>
 </ul>
 
-      </section><section class="slide" id="slide-12-6">
-        <h2 id="beispiel-forum-mit-datenbankanbindung">Beispiel: Forum mit Datenbankanbindung</h2>
-<ul>
-<li>Authentifizierung (MD5)</li>
-<li>Admin-Skript</li>
-</ul>
-
-      </section><section class="slide" id="slide-12-7">
-        <h2 id="beispiel-todo-anwendung">Beispiel: Todo-Anwendung</h2>
-
-      </section><section class="slide" id="slide-12-8">
-        <h2 id="beispiel-todo-anwendung">Beispiel: Todo-Anwendung</h2>
-<ul>
-<li>run_server.py und (minimale) app.py</li>
-<li>init_db.py</li>
-<li>db_interface.get_all_todos</li>
-</ul>
-<p>siehe courses-tutorials/python-todolist-wsgi-sqlite</p>
-
       </section></section><section class="section" id="section-13"><section class="slide" id="slide-13-1">
-        <h1 id="sql">SQL</h1>
+        <h1 id="sql-grundlagen">SQL Grundlagen</h1>
 
       </section><section class="slide" id="slide-13-2">
-        <h2 id="die-abfragesprache-sql">Die Abfragesprache SQL</h2>
+        <h2 id="sql">SQL</h2>
 <p>SQL = Structured Query Language</p>
 <p>Standardisierte Abfragesprache für tabellarische Datenbanken</p>
 
       </section><section class="slide" id="slide-13-3">
-        <h2 id="sql-varianten">SQL-Varianten</h2>
+        <h2 id="sql-standardisierung">SQL Standardisierung</h2>
+<p>Standardisiert von <em>ANSI</em> und <em>ISO</em> - allerdings weichen Implementierungen oft vom Standard ab</p>
+<p>Alte Version des Standards (kostenlos): <a href="http://www.contrib.andrew.cmu.edu/~shadow/sql/sql1992.txt">http://www.contrib.andrew.cmu.edu/~shadow/sql/sql1992.txt</a></p>
+
+      </section><section class="slide" id="slide-13-4">
+        <h2 id="sql-implementierungen">SQL Implementierungen</h2>
+<p>proprietär:</p>
 <ul>
-<li>SQL Server</li>
 <li>Oracle</li>
+<li>SQL Server (Microsoft)</li>
+</ul>
+<p>open source:</p>
+<ul>
 <li>MySQL</li>
 <li>MariaDB</li>
 <li>PostgreSQL</li>
 <li>SQLite</li>
 </ul>
 
-      </section><section class="slide" id="slide-13-4">
-        <h2 id="online-tutorial">Online Tutorial</h2>
-<p><a href="https://www.w3schools.com/sql/default.asp">https://www.w3schools.com/sql/default.asp</a></p>
-
       </section><section class="slide" id="slide-13-5">
         <h2 id="sql-ausprobieren">SQL ausprobieren</h2>
 <p><a href="https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all">https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all</a></p>
+<p><a href="https://db-fiddle.com">https://db-fiddle.com</a></p>
 <p>Desktop-Anwendung:</p>
 <p><a href="https://sqlitebrowser.org/">https://sqlitebrowser.org/</a></p>
 
@@ -1080,223 +1067,301 @@ path = <span class="hljs-string">"/home/username/"</span>
 <p>Befehl: <code>CREATE TABLE</code></p>
 <pre><code class="language-sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> person(
     <span class="hljs-keyword">name</span> <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">50</span>),
-    tel <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">20</span>));</code></pre>
+    tel <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">20</span>)
+)</code></pre>
 
       </section><section class="slide" id="slide-13-7">
-        <h2 id="tabellen-erstellen">Tabellen erstellen</h2>
-<pre><code class="language-sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> person(
-    <span class="hljs-keyword">id</span> <span class="hljs-built_in">INTEGER</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> AUTO_INCREMENT,
-    <span class="hljs-keyword">name</span> <span class="hljs-built_in">TEXT</span>,
-    tel <span class="hljs-built_in">TEXT</span>);</code></pre>
+        <h2 id="sql-datentypen">SQL-Datentypen</h2>
+<p>ISO / ANSI SQL Standard (Auswahl):</p>
+<ul>
+<li><code>boolean</code></li>
+<li><code>smallint</code> (üblicherweise 16 Bit)</li>
+<li><code>int</code> / <code>integer</code> (üblicherweise 32 Bit)</li>
+<li><code>bigint</code> (üblicherweise 64 Bit)</li>
+<li><code>real</code> (üblicherweise 32 Bit)</li>
+<li><code>double precision</code> (üblicherweise 64 Bit)</li>
+<li><code>varchar(n)</code> (Unicode-String mit Maximallänge <em>n</em>)</li>
+<li><code>varbinary(n)</code> (Bytesequenz mit Maximallänge <em>n</em>)</li>
+</ul>
 
       </section><section class="slide" id="slide-13-8">
-        <h2 id="sql-datentypen">SQL-Datentypen</h2>
-<table>
-<thead>
-<tr>
-<th>ANSI SQL</th>
-<th>SQLServer</th>
-<th>Oracle</th>
-<th>MySQL</th>
-<th>Postgres</th>
-<th>SQLite</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>boolean</td>
-<td>bit</td>
-<td>byte</td>
-<td></td>
-<td>boolean</td>
-<td></td>
-</tr>
-<tr>
-<td>smallint</td>
-<td>smallint</td>
-<td>number</td>
-<td>smallint</td>
-<td>smallint</td>
-<td>integer</td>
-</tr>
-<tr>
-<td>int/integer</td>
-<td>int</td>
-<td>number</td>
-<td>int</td>
-<td>integer</td>
-<td>integer</td>
-</tr>
-<tr>
-<td>bigint</td>
-<td>bigint</td>
-<td>number</td>
-<td>bigint</td>
-<td>bigint</td>
-<td>integer</td>
-</tr>
-<tr>
-<td>float</td>
-<td>float</td>
-<td>float</td>
-<td>float</td>
-<td>real</td>
-<td>real</td>
-</tr>
-<tr>
-<td>double precision</td>
-<td>float</td>
-<td>float</td>
-<td>float</td>
-<td>double precision</td>
-<td>real</td>
-</tr>
-<tr>
-<td>varchar(20)</td>
-<td>varchar(20)</td>
-<td>varchar2(20)</td>
-<td>varchar(20)</td>
-<td>varchar</td>
-<td>text</td>
-</tr>
-<tr>
-<td>varbinary(20)</td>
-<td>varbinary(20)</td>
-<td>blob</td>
-<td>varbinary(20)</td>
-<td>bytea</td>
-<td>blob</td>
-</tr>
-</tbody></table>
+        <h2 id="daten-eintragen">Daten eintragen</h2>
+<pre><code class="language-sql"><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> person
+<span class="hljs-keyword">VALUES</span> (<span class="hljs-string">'John Smith'</span>, <span class="hljs-string">'012345'</span>);</code></pre>
+<pre><code class="language-sql"><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> person (<span class="hljs-keyword">name</span>, tel)
+<span class="hljs-keyword">VALUES</span> (<span class="hljs-string">'John Smith'</span>, <span class="hljs-string">'012345'</span>);</code></pre>
 
       </section><section class="slide" id="slide-13-9">
-        <h2 id="signed--unsigned">signed &amp; unsigned</h2>
-<p>MySQL unterscheidet zB zwischen:</p>
-<ul>
-<li><code>SMALLINT</code> (-32768 bis 32767)</li>
-<li><code>UNSIGNED SMALLINT</code> (0 bis 65535)</li>
-</ul>
-
-      </section><section class="slide" id="slide-13-10">
-        <h2 id="not-null">not null</h2>
-<p>Eintrag darf nicht leer gelassen werden</p>
-<pre><code class="language-sql"><span class="hljs-comment">/* MySQL */</span>
-<span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> person(
-    <span class="hljs-keyword">id</span> <span class="hljs-built_in">INT</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
-    <span class="hljs-keyword">name</span> <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">50</span>));</code></pre>
-
-      </section><section class="slide" id="slide-13-11">
-        <h2 id="unique">unique</h2>
-<p>Jeder Eintrag muss einen einzigartigen Wert in der Tabelle haben</p>
-<pre><code class="language-sql"><span class="hljs-comment">/* alle außer MySQL */</span>
-<span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> person(
-    <span class="hljs-keyword">id</span> <span class="hljs-built_in">INTEGER</span> <span class="hljs-keyword">UNIQUE</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
-    <span class="hljs-keyword">name</span> <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">50</span>)
-);</code></pre>
-<pre><code class="language-sql"><span class="hljs-comment">/* MySQL */</span>
-<span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> person(
-    <span class="hljs-keyword">id</span> <span class="hljs-built_in">INTEGER</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
-    <span class="hljs-keyword">name</span> <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">50</span>),
-    <span class="hljs-keyword">UNIQUE</span>(<span class="hljs-keyword">id</span>)
-);</code></pre>
-
-      </section><section class="slide" id="slide-13-12">
-        <h2 id="auto-increment">auto increment</h2>
-<p>Integer wird automatisch bei jedem neuen Element erhöht</p>
-<pre><code class="language-sql"><span class="hljs-comment">/* MySQL */</span>
-<span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> person(
-    <span class="hljs-keyword">id</span> <span class="hljs-built_in">INTEGER</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> AUTO_INCREMENT,
-    <span class="hljs-keyword">name</span> <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">50</span>));</code></pre>
-<ul>
-<li>sqlite: <code>AUTOINCREMENT</code></li>
-<li>Postgres: <code>SERIAL</code></li>
-</ul>
-
-      </section><section class="slide" id="slide-13-13">
-        <h2 id="primary-key">primary key</h2>
-<p>Eindeutige Identifizierung einer Zeile in einer Tabelle</p>
-<ul>
-<li>Sprechender Schlüssel: von Haus aus in den Daten enthalten</li>
-<li>Surrogatschlüssel: zusätzlich hinzugefügter Schlüssel (meist Integerwert)</li>
-</ul>
-<pre><code class="language-sql"><span class="hljs-comment">/* mysql */</span>
-<span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> person(
-    <span class="hljs-keyword">id</span> <span class="hljs-built_in">INT</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
-    <span class="hljs-keyword">name</span> <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">50</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
-    PRIMARY <span class="hljs-keyword">KEY</span> (<span class="hljs-keyword">id</span>)
-);</code></pre>
-<p>In sqlite wird immer automatisch ein numerischer Primärschlüssel unter dem Namen <code>rowid</code> angelegt.</p>
-
-      </section><section class="slide" id="slide-13-14">
-        <h2 id="foreign-key">foreign key</h2>
-<p>Referenz auf jeweils einen Eintrag einer anderen Tabelle</p>
-<p>z.B.: Jeder Eintrag in der Tabelle <em>person</em> kann über die Spalte <em>country_id</em> mit der Tabelle <em>country</em> verknüpft werden</p>
-<p>Der Zusatz <code>FOREIGN KEY ...</code> garantiert, dass ein entsprechender Eintrag in der anderen Tabelle existiert</p>
-<pre><code class="language-sql"><span class="hljs-comment">/* mysql, sqlite */</span>
-<span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> person(
-    country_id <span class="hljs-built_in">INT</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
-    FOREIGN <span class="hljs-keyword">KEY</span> (country_id) <span class="hljs-keyword">REFERENCES</span> country(<span class="hljs-keyword">id</span>)
-);</code></pre>
-
-      </section><section class="slide" id="slide-13-15">
-        <h2 id="daten-eintragen">Daten eintragen</h2>
-<pre><code class="language-sql"><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> person <span class="hljs-keyword">VALUES</span> (<span class="hljs-string">'Andreas Berger'</span>, <span class="hljs-string">'012345'</span>);</code></pre>
-<pre><code class="language-sql"><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> person (<span class="hljs-keyword">name</span>, tel) <span class="hljs-keyword">VALUES</span> (<span class="hljs-string">'Andreas Berger'</span>, <span class="hljs-string">'012345'</span>);</code></pre>
-
-      </section><section class="slide" id="slide-13-16">
         <h2 id="daten-auslesen">Daten auslesen</h2>
 <p>Daten aller Personen auslesen</p>
 <pre><code class="language-sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">name</span>, tel <span class="hljs-keyword">FROM</span> person
 <span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> person</code></pre>
 
-      </section><section class="slide" id="slide-13-17">
+      </section><section class="slide" id="slide-13-10">
         <h2 id="bedingte-abfragen-where">Bedingte Abfragen (WHERE)</h2>
-<pre><code class="language-sql"><span class="hljs-keyword">SELECT</span> tel <span class="hljs-keyword">FROM</span> person <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">name</span> = <span class="hljs-string">'Andreas Berger'</span>;
-<span class="hljs-keyword">SELECT</span> tel <span class="hljs-keyword">FROM</span> person <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">name</span> <span class="hljs-keyword">LIKE</span> <span class="hljs-string">'Andreas%'</span> <span class="hljs-keyword">AND</span> tel <span class="hljs-keyword">LIKE</span> <span class="hljs-string">'+49%'</span>;</code></pre>
+<pre><code class="language-sql"><span class="hljs-keyword">SELECT</span> tel
+<span class="hljs-keyword">FROM</span> person
+<span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">name</span> = <span class="hljs-string">'John Smith'</span>;</code></pre>
+<pre><code class="language-sql"><span class="hljs-keyword">SELECT</span> tel
+<span class="hljs-keyword">FROM</span> person
+<span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">name</span> <span class="hljs-keyword">LIKE</span> <span class="hljs-string">'John%'</span> <span class="hljs-keyword">AND</span> tel <span class="hljs-keyword">LIKE</span> <span class="hljs-string">'+49%'</span>;</code></pre>
 
-      </section><section class="slide" id="slide-13-18">
+      </section><section class="slide" id="slide-13-11">
         <h2 id="daten-eintragen-update">Daten eintragen (UPDATE)</h2>
 <pre><code class="language-sql"><span class="hljs-keyword">UPDATE</span> person
-<span class="hljs-keyword">SET</span> <span class="hljs-keyword">name</span> = <span class="hljs-string">'Andreas Müller'</span>
-<span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">name</span> = <span class="hljs-string">'Andreas Müller'</span>;</code></pre>
+<span class="hljs-keyword">SET</span> <span class="hljs-keyword">name</span> = <span class="hljs-string">'John Miller'</span>
+<span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">name</span> = <span class="hljs-string">'John Smith'</span>;</code></pre>
 
-      </section><section class="slide" id="slide-13-19">
+      </section><section class="slide" id="slide-13-12">
         <h2 id="daten-löschen-delete">Daten löschen (DELETE)</h2>
-<pre><code class="language-sql"><span class="hljs-keyword">DELETE</span> <span class="hljs-keyword">FROM</span> person <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">name</span> = <span class="hljs-string">'Andreas Müller'</span>;</code></pre>
+<pre><code class="language-sql"><span class="hljs-keyword">DELETE</span> <span class="hljs-keyword">FROM</span> person
+<span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">name</span> = <span class="hljs-string">'John Miller'</span>;</code></pre>
 
-      </section><section class="slide" id="slide-13-20">
-        <h2 id="tabellen-verknüpfen-inner-join">Tabellen verknüpfen (INNER JOIN)</h2>
-<pre><code class="language-sql"><span class="hljs-keyword">SELECT</span> song.title, album.year
-<span class="hljs-keyword">FROM</span> song
-<span class="hljs-keyword">INNER</span> <span class="hljs-keyword">JOIN</span> album
-<span class="hljs-keyword">ON</span> song.albumid = album.id;</code></pre>
-<p>Der obige Code listet alle Kombinationen auf, bei denen <code>song.albumid</code> und <code>album.id</code> übereinstimmen</p>
+      </section><section class="slide" id="slide-13-13">
+        <h2 id="übung">Übung</h2>
+<p>Erstellen und Abändern einer Kontaktdatenbank</p>
 
-      </section><section class="slide" id="slide-13-21">
-        <h2 id="tabellen-verknüpfen-left-join">Tabellen verknüpfen (LEFT JOIN)</h2>
-<pre><code class="language-sql"><span class="hljs-keyword">SELECT</span> song.title, album.year
-<span class="hljs-keyword">FROM</span> song
-<span class="hljs-keyword">LEFT</span> <span class="hljs-keyword">JOIN</span> album
-<span class="hljs-keyword">ON</span> song.albumid = album.id;</code></pre>
-<p>Der obige Code listet alle Kombinationen auf und beinhaltet auch Lieder, für die kein Album definiert ist</p>
+      </section></section><section class="section" id="section-14"><section class="slide" id="slide-14-1">
+        <h1 id="sql-intermediate">SQL Intermediate</h1>
 
-      </section><section class="slide" id="slide-13-22">
+      </section><section class="slide" id="slide-14-2">
+        <h2 id="online-tutorial">Online Tutorial</h2>
+<p><a href="https://www.w3schools.com/sql/default.asp">https://www.w3schools.com/sql/default.asp</a></p>
+
+      </section><section class="slide" id="slide-14-3">
+        <h2 id="wiederholung-sql-datentypen">Wiederholung: SQL Datentypen</h2>
+<p>ISO / ANSI SQL Standard (Auswahl):</p>
+<ul>
+<li><code>boolean</code></li>
+<li><code>smallint</code> (üblicherweise 16 Bit)</li>
+<li><code>int</code> / <code>integer</code> (üblicherweise 32 Bit)</li>
+<li><code>bigint</code> (üblicherweise 64 Bit)</li>
+<li><code>real</code> (üblicherweise 32 Bit)</li>
+<li><code>double precision</code> (üblicherweise 64 Bit)</li>
+<li><code>varchar(n)</code> (Unicode-String mit Maximallänge <em>n</em>)</li>
+<li><code>varbinary(n)</code> (Bytesequenz mit Maximallänge <em>n</em>)</li>
+</ul>
+
+      </section><section class="slide" id="slide-14-4">
+        <h2 id="sql-datentypen-ausnahmen">SQL-Datentypen: Ausnahmen</h2>
+<p>Der SQL Standard wird von keiner Implementierung voll umgesetzt</p>
+<p>SQLServer: <code>boolean</code> → <code>bit</code></p>
+<p>Oracle: <del><code>boolean</code></del> → X, <code>varchar</code> → <code>varchar2</code></p>
+<p>MySQL: <del><code>boolean</code></del> → X, <code>real</code> → <code>float</code></p>
+<p>Postgres: <code>varbinary(n)</code> → <code>bytea</code> (siehe auch <a href="https://www.postgresql.org/docs/current/features.html">Postgres SQL Conformance</a>)</p>
+<p>SQLite: <del><code>boolean</code></del> → X, (<code>smallint</code>, <code>int</code>, <code>bigint</code>) → <code>integer</code>, <del><code>real</code></del> → X, <code>varbinary</code> → <code>blob</code></p>
+
+      </section><section class="slide" id="slide-14-5">
+        <h2 id="signed--unsigned">Signed &amp; unsigned</h2>
+<p>MySQL unterscheidet z.B. zwischen:</p>
+<ul>
+<li><code>SMALLINT</code> (-32768 bis 32767)</li>
+<li><code>UNSIGNED SMALLINT</code> (0 bis 65535)</li>
+</ul>
+
+      </section><section class="slide" id="slide-14-6">
+        <h2 id="beispiel-datenbank-chemischer-elemente">Beispiel: Datenbank chemischer Elemente</h2>
+<p>Einträge:</p>
+<ul>
+<li><em>atomic_number</em></li>
+<li><em>symbol</em></li>
+<li><em>name</em></li>
+<li><em>atomic_mass</em></li>
+</ul>
+
+      </section><section class="slide" id="slide-14-7">
+        <h2 id="beispiel-datenbank-chemischer-elemente">Beispiel: Datenbank chemischer Elemente</h2>
+<pre><code class="language-sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> <span class="hljs-keyword">element</span>(
+    atomic_number <span class="hljs-built_in">INT</span>,
+    symbol <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">2</span>),
+    <span class="hljs-keyword">name</span> <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">20</span>),
+    atomic_mass <span class="hljs-built_in">REAL</span>
+);</code></pre>
+
+      </section><section class="slide" id="slide-14-8">
+        <h2 id="constraints">Constraints</h2>
+<p>Einschränkungen von Spalten:</p>
+<ul>
+<li><code>not null</code></li>
+<li><code>unique</code></li>
+<li><code>primary key</code></li>
+<li>(<code>foreign key</code>)</li>
+</ul>
+
+      </section><section class="slide" id="slide-14-9">
+        <h2 id="not-null">Not null</h2>
+<p>Eintrag darf nicht leer gelassen werden</p>
+<pre><code class="language-sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> <span class="hljs-keyword">element</span>(
+    atomic_number <span class="hljs-built_in">INT</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+    symbol <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">2</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+    <span class="hljs-keyword">name</span> <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">20</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+    atomic_mass <span class="hljs-built_in">REAL</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>
+);</code></pre>
+
+      </section><section class="slide" id="slide-14-10">
+        <h2 id="unique">Unique</h2>
+<p>Jeder Eintrag in einer Spalte muss einzigartig sein</p>
+<pre><code class="language-sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> <span class="hljs-keyword">element</span>(
+    atomic_number <span class="hljs-built_in">INT</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">UNIQUE</span>,
+    symbol <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">2</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">UNIQUE</span>,
+    <span class="hljs-keyword">name</span> <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">20</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">UNIQUE</span>,
+    atomic_mass <span class="hljs-built_in">REAL</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>
+);</code></pre>
+
+      </section><section class="slide" id="slide-14-11">
+        <h2 id="primary-key">Primary key</h2>
+<p>Ermöglicht eindeutige Identifizierung einer Zeile in einer Tabelle</p>
+<ul>
+<li>Sprechender Schlüssel: von Haus aus in den Daten enthalten</li>
+<li>Surrogatschlüssel: zusätzlich hinzugefügter Schlüssel (meist Integerwert)</li>
+</ul>
+<p>Ein sprechender Schlüssel ist nur in besonderen Fällen einsetzbar, ein Surrogatschlüssel ist immer möglich</p>
+<p>Ein Primary Key ist automatisch <em>unique</em> und <em>not null</em>.</p>
+
+      </section><section class="slide" id="slide-14-12">
+        <h2 id="primary-key">Primary key</h2>
+<p>Sprechender Schlüssel:</p>
+<pre><code class="language-sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> <span class="hljs-keyword">element</span>(
+    atomic_number <span class="hljs-built_in">INT</span> PRIMARY <span class="hljs-keyword">KEY</span>,
+    symbol <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">2</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">UNIQUE</span>,
+    <span class="hljs-keyword">name</span> <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">20</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">UNIQUE</span>,
+    atomic_mass <span class="hljs-built_in">REAL</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>
+);</code></pre>
+
+      </section><section class="slide" id="slide-14-13">
+        <h2 id="primary-key">Primary key</h2>
+<p>Surrogatschlüssel:</p>
+<pre><code class="language-sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> <span class="hljs-keyword">element</span>(
+    <span class="hljs-keyword">id</span> <span class="hljs-built_in">INT</span> PRIMARY <span class="hljs-keyword">KEY</span>,
+    atomic_numer <span class="hljs-built_in">INT</span>,
+    symbol <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">2</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">UNIQUE</span>,
+    <span class="hljs-keyword">name</span> <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">20</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">UNIQUE</span>,
+    atomic_mass <span class="hljs-built_in">REAL</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>
+);</code></pre>
+
+      </section><section class="slide" id="slide-14-14">
+        <h2 id="auto-increment">Auto increment</h2>
+<p>Automatisches Erstellen eines numerischen Primary Keys beginnend bei 1:</p>
+<p>Standard SQL (implementiert in PostgreSQL, Oracle):</p>
+<pre><code class="language-sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> <span class="hljs-keyword">element</span>(
+    <span class="hljs-keyword">id</span> <span class="hljs-built_in">INT</span> PRIMARY <span class="hljs-keyword">KEY</span> <span class="hljs-keyword">GENERATED</span> <span class="hljs-keyword">ALWAYS</span> <span class="hljs-keyword">AS</span> <span class="hljs-keyword">IDENTITY</span>
+    ...
+);</code></pre>
+
+      </section><section class="slide" id="slide-14-15">
+        <h2 id="auto-increment">Auto increment</h2>
+<p>Nicht-standardisierte Varianten:</p>
+<ul>
+<li>MySQL: <code>AUTO_INCREMENT</code></li>
+<li>SQLite: <code>AUTOINCREMENT</code></li>
+<li>PostgreSQL: <code>SERIAL</code></li>
+</ul>
+<p>In SQLite wird immer automatisch ein numerischer eindeutiger Schlüssel unter dem Namen <code>rowid</code> angelegt.</p>
+
+      </section><section class="slide" id="slide-14-16">
+        <h2 id="code-periodensystem">Code: Periodensystem</h2>
+<pre><code class="language-sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> <span class="hljs-keyword">element</span>(
+    <span class="hljs-keyword">id</span> <span class="hljs-built_in">INT</span> PRIMARY <span class="hljs-keyword">KEY</span> <span class="hljs-keyword">GENERATED</span> <span class="hljs-keyword">ALWAYS</span> <span class="hljs-keyword">AS</span> <span class="hljs-keyword">IDENTITY</span>,
+    atomic_number <span class="hljs-built_in">INT</span>,
+    symbol <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">2</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">UNIQUE</span>,
+    <span class="hljs-keyword">name</span> <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">20</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">UNIQUE</span>,
+    atomic_mass <span class="hljs-built_in">REAL</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>
+);
+
+<span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> <span class="hljs-keyword">element</span>(atomic_number, symbol, <span class="hljs-keyword">name</span>, atomic_mass)
+<span class="hljs-keyword">VALUES</span> (<span class="hljs-number">1</span>, <span class="hljs-string">'H'</span>, <span class="hljs-string">'Hydrogen'</span>, <span class="hljs-number">1.008</span>);
+
+<span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> <span class="hljs-keyword">element</span>(atomic_number, symbol, <span class="hljs-keyword">name</span>, atomic_mass)
+<span class="hljs-keyword">VALUES</span> (<span class="hljs-number">2</span>, <span class="hljs-string">'He'</span>, <span class="hljs-string">'Helium'</span>, <span class="hljs-number">4.0026</span>);
+
+<span class="hljs-keyword">SELECT</span> *
+<span class="hljs-keyword">FROM</span> <span class="hljs-keyword">element</span>
+<span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">name</span>=<span class="hljs-string">'Hydrogen'</span>;</code></pre>
+
+      </section><section class="slide" id="slide-14-17">
         <h2 id="indizes-in-datenbanken">Indizes in Datenbanken</h2>
 <p>Generell: geordnete Listen können viel schneller durchsucht werden als ungeordnete (binäre Suche)</p>
 <p>Beispiel: im Telefonbuch kann man schnell nach dem Nachnamen einer Person suchen, aber nicht nach dem Vornamen</p>
 <p>Auf eine oder mehrere Spalten kann ein Index angewendet werden: Zusätzliche Datenstruktur, die auf die Daten in bestimmter Ordnung verweist.</p>
 
-      </section><section class="slide" id="slide-13-23">
+      </section><section class="slide" id="slide-14-18">
         <h2 id="indizes-erstellen">Indizes erstellen</h2>
-<pre><code class="language-sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">INDEX</span> person_name <span class="hljs-keyword">ON</span> person (<span class="hljs-keyword">name</span>)</code></pre>
+<pre><code class="language-sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">INDEX</span> idx_name
+<span class="hljs-keyword">ON</span> <span class="hljs-keyword">element</span> (<span class="hljs-keyword">name</span>);</code></pre>
+<p>Es kann nun nach den Elementnamen schneller gesucht werden</p>
 
-      </section><section class="slide" id="slide-13-24">
-        <h2 id="sql-ausprobieren">SQL ausprobieren</h2>
-<p>Auf <a href="https://pythonanywhere.com">https://pythonanywhere.com</a> stehen <em>MySQL</em> und <em>PostgreSQL</em> kostenfrei zur Verfügung.</p>
+      </section></section><section class="section" id="section-15"><section class="slide" id="slide-15-1">
+        <h1 id="sql-joins">SQL Joins</h1>
 
-      </section></section><section class="section" id="section-14"><section class="slide" id="slide-14-1">
+      </section><section class="slide" id="slide-15-2">
+        <h2 id="beispiel-musikdatenbank">Beispiel: Musikdatenbank</h2>
+<p>Tabellen:</p>
+<ul>
+<li><em>artist</em></li>
+<li><em>album</em></li>
+<li><em>song</em></li>
+</ul>
+
+      </section><section class="slide" id="slide-15-3">
+        <h2 id="beispiel-musikdatenbank---artist">Beispiel: Musikdatenbank - artist</h2>
+<pre><code class="language-sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> artist(
+    <span class="hljs-keyword">id</span> <span class="hljs-built_in">INT</span> PRIMARY <span class="hljs-keyword">KEY</span> <span class="hljs-keyword">GENERATED</span> <span class="hljs-keyword">ALWAYS</span> <span class="hljs-keyword">AS</span> <span class="hljs-keyword">IDENTITY</span>,
+    <span class="hljs-keyword">name</span> <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">20</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+    country <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">5</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+    <span class="hljs-keyword">year</span> <span class="hljs-built_in">SMALLINT</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>
+);
+
+<span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> artist (<span class="hljs-keyword">name</span>, country, <span class="hljs-keyword">year</span>)
+<span class="hljs-keyword">VALUES</span> (<span class="hljs-string">'The Beatles'</span>, <span class="hljs-string">'UK'</span>, <span class="hljs-number">1960</span>);
+
+<span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> artist (<span class="hljs-keyword">name</span>, country, <span class="hljs-keyword">year</span>)
+<span class="hljs-keyword">VALUES</span> (<span class="hljs-string">'AC/DC'</span>, <span class="hljs-string">'AUS'</span>, <span class="hljs-number">1973</span>);</code></pre>
+
+      </section><section class="slide" id="slide-15-4">
+        <h2 id="foreign-key">Foreign key</h2>
+<p>Referenz auf jeweils einen Eintrag einer anderen Tabelle</p>
+<p>z.B.: Jeder Eintrag in der Tabelle <em>song</em> kann über die Spalte <em>artist_id</em> mit der Tabelle <em>artist</em> verknüpft werden</p>
+<p>Der Zusatz <code>FOREIGN KEY(column) REFERENCES other_table(column)</code> garantiert, dass ein entsprechender Eintrag in der anderen Tabelle existiert</p>
+
+      </section><section class="slide" id="slide-15-5">
+        <h2 id="foreign-key">Foreign key</h2>
+<pre><code class="language-sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> song(
+    <span class="hljs-keyword">id</span> <span class="hljs-built_in">INT</span> PRIMARY <span class="hljs-keyword">KEY</span> <span class="hljs-keyword">GENERATED</span> <span class="hljs-keyword">ALWAYS</span> <span class="hljs-keyword">AS</span> <span class="hljs-keyword">IDENTITY</span>,
+    title <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">30</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+    artist_id <span class="hljs-built_in">INT</span>,
+    FOREIGN <span class="hljs-keyword">KEY</span>(artist_id) <span class="hljs-keyword">REFERENCES</span> artist(<span class="hljs-keyword">id</span>)
+);
+
+<span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> song (title, artist_id)
+<span class="hljs-keyword">VALUES</span> (<span class="hljs-string">'Let it Be'</span>, <span class="hljs-number">1</span>);</code></pre>
+
+      </section><section class="slide" id="slide-15-6">
+        <h2 id="foreign-key">Foreign key</h2>
+<p>Ein foreign key garantiert, dass ein entsprechender Eintrag in der zugehörigen anderen Tabelle existiert</p>
+<pre><code class="language-sql"><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> song (title, artist_id)
+<span class="hljs-keyword">VALUES</span> (<span class="hljs-string">'Wish You Were Here'</span>, <span class="hljs-number">10</span>);</code></pre>
+<p>→ Fehlermeldung</p>
+
+      </section><section class="slide" id="slide-15-7">
+        <h2 id="tabellen-verknüpfen-inner-join">Tabellen verknüpfen (INNER JOIN)</h2>
+<pre><code class="language-sql"><span class="hljs-keyword">SELECT</span> song.title, artist.name
+<span class="hljs-keyword">FROM</span> artist
+<span class="hljs-keyword">INNER</span> <span class="hljs-keyword">JOIN</span> song
+<span class="hljs-keyword">ON</span> artist.id=song.artist_id;</code></pre>
+<p>Der obige Code listet alle Kombinationen auf, bei denen <code>artist.id</code> und <code>song.artist_id</code> übereinstimmen</p>
+
+      </section><section class="slide" id="slide-15-8">
+        <h2 id="tabellen-verknüpfen-left-join">Tabellen verknüpfen (LEFT JOIN)</h2>
+<pre><code class="language-sql"><span class="hljs-keyword">SELECT</span> song.title, artist.name
+<span class="hljs-keyword">FROM</span> song
+<span class="hljs-keyword">LEFT</span> <span class="hljs-keyword">JOIN</span> artist
+<span class="hljs-keyword">ON</span> artist.id=song.artist_id;</code></pre>
+<p>Der obige Code listet alle Kombinationen auf und beinhaltet auch Lieder, für die kein Künstler definiert ist</p>
+
+      </section></section><section class="section" id="section-16"><section class="slide" id="slide-16-1">
         <h1 id="sql-mit-python">SQL mit Python</h1>
 
-      </section><section class="slide" id="slide-14-2">
+      </section><section class="slide" id="slide-16-2">
         <h2 id="python-anbindung-von-sql-datenbanken">Python-Anbindung von SQL-Datenbanken</h2>
 <p>Database API Specification: Standard, der von verschiedenen Python-Datenbankanbindungen umgesetzt wird; standardisiert in PEP 249</p>
 <p>Anbindungen für:</p>
@@ -1307,7 +1372,7 @@ path = <span class="hljs-string">"/home/username/"</span>
 <li>Oracle (PIP-Paket <em>cx_oracle</em>)</li>
 </ul>
 
-      </section><section class="slide" id="slide-14-3">
+      </section><section class="slide" id="slide-16-3">
         <h2 id="sqlite-und-python">SQLite und Python</h2>
 <p>SQLite: Datenbank, die nur eine einzelne Datenbankdatei verwendet</p>
 <p>Ist in Python integriert (Modul <code>sqlite3</code>)</p>
@@ -1315,7 +1380,7 @@ path = <span class="hljs-string">"/home/username/"</span>
 
 connection = sqlite3.connect(<span class="hljs-string">'contacts.db'</span>)</code></pre>
 
-      </section><section class="slide" id="slide-14-4">
+      </section><section class="slide" id="slide-16-4">
         <h2 id="mysql-und-python">MySQL und Python</h2>
 <p>PIP-Paket <em>PyMySQL</em></p>
 <pre><code class="language-py"><span class="hljs-keyword">import</span> pymysql.cursors
@@ -1326,7 +1391,7 @@ connection = pymysql.connect(host=<span class="hljs-string">'localhost'</span>,
                              db=<span class="hljs-string">'db'</span>,
                              charset=<span class="hljs-string">'utf8mb4'</span>)</code></pre>
 
-      </section><section class="slide" id="slide-14-5">
+      </section><section class="slide" id="slide-16-5">
         <h2 id="python-und-oracle-database">Python und Oracle Database</h2>
 <p>Python-Paket <em>cx_Oracle</em></p>
 <pre><code class="language-py"><span class="hljs-keyword">import</span> cx_Oracle
@@ -1335,7 +1400,7 @@ connection = cx_Oracle.connect(user=<span class="hljs-string">"user"</span>,
                                password=<span class="hljs-string">"password"</span>,
                                dsn=<span class="hljs-string">"localhost/oraclepdb"</span>)</code></pre>
 
-      </section><section class="slide" id="slide-14-6">
+      </section><section class="slide" id="slide-16-6">
         <h2 id="pyodbc">pyodbc</h2>
 <p>ODBC = open database connectivity: Standard zur Anbindung an Datenbanken (unabhängig von Python)</p>
 <p>pyodbc = Implementierung für Python, damit können beliebige ODBC-Datenbanken angebunden werden</p>
@@ -1344,7 +1409,7 @@ connection = cx_Oracle.connect(user=<span class="hljs-string">"user"</span>,
 connection = pyodbc.connect(
   <span class="hljs-string">"Driver=SQLite3 ODBC Driver;Database=contacts.db"</span>)</code></pre>
 
-      </section><section class="slide" id="slide-14-7">
+      </section><section class="slide" id="slide-16-7">
         <h2 id="gemeinsames-interface-pep-249">Gemeinsames Interface (PEP 249)</h2>
 <pre><code class="language-py">connection = ...
 ...
@@ -1360,11 +1425,11 @@ conection.commit()
 ...
 connection.close()</code></pre>
 
-      </section><section class="slide" id="slide-14-8">
+      </section><section class="slide" id="slide-16-8">
         <h2 id="pep-249">PEP 249</h2>
 <p><a href="https://www.python.org/dev/peps/pep-0249">https://www.python.org/dev/peps/pep-0249</a></p>
 
-      </section><section class="slide" id="slide-14-9">
+      </section><section class="slide" id="slide-16-9">
         <h2 id="pep-249-typen">PEP 249: Typen</h2>
 <ul>
 <li><code>Date</code></li>
@@ -1375,16 +1440,16 @@ connection.close()</code></pre>
 <li><code>NUMBER</code></li>
 </ul>
 
-      </section><section class="slide" id="slide-14-10">
+      </section><section class="slide" id="slide-16-10">
         <h2 id="bedingte-abfragen-mit-parametern">Bedingte Abfragen mit Parametern</h2>
 <pre><code class="language-py">search_name = input()
 command = <span class="hljs-string">f"""SELECT tel FROM person WHERE name = '<span class="hljs-subst">{search_name}</span>'"""</span>
 res = c.execute(command)</code></pre>
 
-      </section><section class="slide" id="slide-14-11">
+      </section><section class="slide" id="slide-16-11">
         <h2 id="achtung-sql-injections">Achtung: SQL-Injections</h2>
 
-      </section><section class="slide" id="slide-14-12">
+      </section><section class="slide" id="slide-16-12">
         <h2 id="achtung-sql-injections">Achtung: SQL-Injections</h2>
 <p>sichere Methode (mit SQL-Escaping):</p>
 <pre><code class="language-py">search_name = input()
@@ -1393,7 +1458,7 @@ res = c.execute(
   (search_name, )
 )</code></pre>
 
-      </section><section class="slide" id="slide-14-13">
+      </section><section class="slide" id="slide-16-13">
         <h2 id="abfrageparameter">Abfrageparameter</h2>
 <p><a href="https://www.python.org/dev/peps/pep-0249/#paramstyle">https://www.python.org/dev/peps/pep-0249/#paramstyle</a></p>
 <p>Die Attribute <code>sqlite3.paramstyle</code>, <code>pymysql.paramstyle</code> etc geben das Format für Abfragen mit Parametern an</p>
@@ -1404,7 +1469,7 @@ res = c.execute(
 <li>cx_Oracle: named</li>
 </ul>
 
-      </section><section class="slide" id="slide-14-14">
+      </section><section class="slide" id="slide-16-14">
         <h2 id="pep-249-das-cursor-objekt">PEP 249: das cursor Objekt</h2>
 <ul>
 <li><code>cursor.rowcount</code>: Anzahl der letzten Ergebnisse</li>
@@ -1414,20 +1479,39 @@ res = c.execute(
 <li><code>cursor.execute(command, parameters)</code></li>
 </ul>
 
-      </section></section><section class="section" id="section-15"><section class="slide" id="slide-15-1">
+      </section><section class="slide" id="slide-16-15">
+        <h2 id="beispiel-forum-mit-datenbankanbindung">Beispiel: Forum mit Datenbankanbindung</h2>
+<ul>
+<li>Authentifizierung (MD5)</li>
+<li>Admin-Skript</li>
+</ul>
+
+      </section><section class="slide" id="slide-16-16">
+        <h2 id="beispiel-todo-anwendung">Beispiel: Todo-Anwendung</h2>
+
+      </section><section class="slide" id="slide-16-17">
+        <h2 id="beispiel-todo-anwendung">Beispiel: Todo-Anwendung</h2>
+<ul>
+<li>run_server.py und (minimale) app.py</li>
+<li>init_db.py</li>
+<li>db_interface.get_all_todos</li>
+</ul>
+<p>siehe courses-tutorials/python-todolist-wsgi-sqlite</p>
+
+      </section></section><section class="section" id="section-17"><section class="slide" id="slide-17-1">
         <h1 id="sqlalchemy">SQLAlchemy</h1>
 
-      </section><section class="slide" id="slide-15-2">
+      </section><section class="slide" id="slide-17-2">
         <h2 id="sqlalchemy">SQLAlchemy</h2>
 <p>SQLAlchemy = Object Relational Mapper</p>
 <p>Objektorientierter Zugriff auf beliebige SQL-Datenbanken</p>
 <p>Alternative: Django ORM</p>
 
-      </section><section class="slide" id="slide-15-3">
+      </section><section class="slide" id="slide-17-3">
         <h2 id="sqlalchemy">SQLAlchemy</h2>
 <p>Pip-Paket <em>sqlalchemy</em></p>
 
-      </section><section class="slide" id="slide-15-4">
+      </section><section class="slide" id="slide-17-4">
         <h2 id="verbinden-mit-sqlite-datenbank">Verbinden mit SQLite-Datenbank</h2>
 <pre><code class="language-py"><span class="hljs-comment"># db_interface.py</span>
 <span class="hljs-keyword">from</span> sqlalchemy <span class="hljs-keyword">import</span> create_engine
@@ -1436,7 +1520,7 @@ engine = create_engine(<span class="hljs-string">"sqlite:///music.db"</span>, ec
 
 engine.connect()</code></pre>
 
-      </section><section class="slide" id="slide-15-5">
+      </section><section class="slide" id="slide-17-5">
         <h2 id="tabellen-definieren">Tabellen definieren</h2>
 <pre><code class="language-py"><span class="hljs-comment"># schema.py</span>
 <span class="hljs-keyword">from</span> sqlalchemy.ext.declarative <span class="hljs-keyword">import</span> declarative_base
@@ -1452,7 +1536,7 @@ Base = declarative_base()
 <pre><code class="language-py"><span class="hljs-comment"># db_interface.py</span>
 Base.metadata.create_all(engine)</code></pre>
 
-      </section><section class="slide" id="slide-15-6">
+      </section><section class="slide" id="slide-17-6">
         <h2 id="mit-sessions-arbeiten">Mit Sessions arbeiten</h2>
 <pre><code class="language-py"><span class="hljs-keyword">from</span> sqlalchemy.orm <span class="hljs-keyword">import</span> sessionmaker
 
@@ -1464,14 +1548,14 @@ session = Session()
 
 session.commit()</code></pre>
 
-      </section><section class="slide" id="slide-15-7">
+      </section><section class="slide" id="slide-17-7">
         <h2 id="insert">Insert</h2>
 <pre><code class="language-sql"><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> artist <span class="hljs-keyword">VALUES</span> (<span class="hljs-string">'The Beatles'</span>, <span class="hljs-string">'United Kingdom'</span>);</code></pre>
 <p>wird zu:</p>
 <pre><code class="language-py">beatles = Artist(name=<span class="hljs-string">"The Beatles"</span>, country=<span class="hljs-string">"United Kingdom"</span>)
 session.add(beatles)</code></pre>
 
-      </section><section class="slide" id="slide-15-8">
+      </section><section class="slide" id="slide-17-8">
         <h2 id="select">Select</h2>
 <pre><code class="language-sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">name</span>, country <span class="hljs-keyword">FROM</span> artist;</code></pre>
 <p>wird zu:</p>
@@ -1481,7 +1565,7 @@ session.add(beatles)</code></pre>
 <pre><code class="language-py"><span class="hljs-keyword">for</span> name, country <span class="hljs-keyword">in</span> session.query(Artist.name, Artist.country):
     print(<span class="hljs-string">f"<span class="hljs-subst">{name}</span> (<span class="hljs-subst">{country}</span>)"</span>)</code></pre>
 
-      </section><section class="slide" id="slide-15-9">
+      </section><section class="slide" id="slide-17-9">
         <h2 id="order-by">Order by</h2>
 <pre><code class="language-sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">name</span>, country <span class="hljs-keyword">FROM</span> artist <span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> <span class="hljs-keyword">name</span>;</code></pre>
 <p>wird zu:</p>
@@ -1489,13 +1573,13 @@ session.add(beatles)</code></pre>
         Artist.name, Artist.country).order_by(Artist.name):
     ...</code></pre>
 
-      </section><section class="slide" id="slide-15-10">
+      </section><section class="slide" id="slide-17-10">
         <h2 id="where">Where</h2>
 <pre><code class="language-sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">name</span>, country <span class="hljs-keyword">FROM</span> artist <span class="hljs-keyword">WHERE</span> artist.name=<span class="hljs-string">'The Beatles'</span></code></pre>
 <p>wird zu:</p>
 <pre><code class="language-py">session.query(Artist).filter_by(Artist.name==<span class="hljs-string">"The Beatles"</span>).one()</code></pre>
 
-      </section><section class="slide" id="slide-15-11">
+      </section><section class="slide" id="slide-17-11">
         <h2 id="sprechende-ausgabe-von-einträgen">Sprechende Ausgabe von Einträgen</h2>
 <p>aktuell:</p>
 <pre><code class="language-txt">&amp;ltdb_schema.Song object at 0x00000175902A5FD0&gt;</code></pre>
@@ -1503,7 +1587,7 @@ session.add(beatles)</code></pre>
 <pre><code class="language-txt">Help! - The Beatles</code></pre>
 <p>umsetzbar mittels <code>__repr__</code> / <code>__str__</code></p>
 
-      </section><section class="slide" id="slide-15-12">
+      </section><section class="slide" id="slide-17-12">
         <h2 id="update">Update</h2>
 <pre><code class="language-sql"><span class="hljs-keyword">UPDATE</span> song
 <span class="hljs-keyword">SET</span> title = <span class="hljs-string">'Help'</span>
@@ -1512,7 +1596,7 @@ session.add(beatles)</code></pre>
 <pre><code class="language-py">entry = session.query(Song).filter_by(Song.title==<span class="hljs-string">"Help!"</span>).one()
 entry.title = <span class="hljs-string">"Help"</span></code></pre>
 
-      </section><section class="slide" id="slide-15-13">
+      </section><section class="slide" id="slide-17-13">
         <h2 id="delete">Delete</h2>
 <pre><code class="language-sql"><span class="hljs-keyword">DELETE</span>
 <span class="hljs-keyword">FROM</span> song
@@ -1520,7 +1604,7 @@ entry.title = <span class="hljs-string">"Help"</span></code></pre>
 <p>wird zu</p>
 <pre><code class="language-py">session.query(Song).filter_by(Song.title==<span class="hljs-string">"Help!"</span>).delete()</code></pre>
 
-      </section><section class="slide" id="slide-15-14">
+      </section><section class="slide" id="slide-17-14">
         <h2 id="definition-eines-fremdschlüssels">Definition eines Fremdschlüssels</h2>
 <pre><code class="language-py"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Song</span><span class="hljs-params">(Base)</span>:</span>
     __tablename__ = <span class="hljs-string">"song"</span>
@@ -1528,7 +1612,7 @@ entry.title = <span class="hljs-string">"Help"</span></code></pre>
     title = Column(String(<span class="hljs-number">30</span>))
     artist_id = Column(Integer, ForeignKey(<span class="hljs-string">"artist.id"</span>))</code></pre>
 
-      </section><section class="slide" id="slide-15-15">
+      </section><section class="slide" id="slide-17-15">
         <h2 id="einfaches-abfragen-einer-verknüpften-tabelle">Einfaches Abfragen einer verknüpften Tabelle</h2>
 <pre><code class="language-py"><span class="hljs-keyword">from</span> sqlalchemy.orm <span class="hljs-keyword">import</span> relationship
 
@@ -1542,7 +1626,7 @@ entry.title = <span class="hljs-string">"Help"</span></code></pre>
 
     artist = relationship(<span class="hljs-string">"Artist"</span>)</code></pre>
 
-      </section><section class="slide" id="slide-15-16">
+      </section><section class="slide" id="slide-17-16">
         <h2 id="einfaches-abfragen-einer-verknüpften-tabelle">Einfaches Abfragen einer verknüpften Tabelle</h2>
 <pre><code class="language-py">yesterday = Song(title=<span class="hljs-string">"Yesterday"</span>, artist=beatles)
 help = Song(title=<span class="hljs-string">"Help!"</span>, artist_id=beatles.id)
@@ -1551,13 +1635,13 @@ session.add(...)
 print(yesterday.artist)
 print(beatles.songs)</code></pre>
 
-      </section></section><section class="section" id="section-16"><section class="slide" id="slide-16-1">
+      </section></section><section class="section" id="section-18"><section class="slide" id="slide-18-1">
         <h1 id="gui">GUI</h1>
 
-      </section><section class="slide" id="slide-16-2">
+      </section><section class="slide" id="slide-18-2">
         <h2 id="graphical-user-interface">Graphical User Interface</h2>
 
-      </section><section class="slide" id="slide-16-3">
+      </section><section class="slide" id="slide-18-3">
         <h2 id="gui-libraries-für-python">GUI-Libraries für Python</h2>
 <ul>
 <li>tk</li>
@@ -1565,7 +1649,7 @@ print(beatles.songs)</code></pre>
 <li>Kivy</li>
 </ul>
 
-      </section><section class="slide" id="slide-16-4">
+      </section><section class="slide" id="slide-18-4">
         <h2 id="tk">tk</h2>
 <ul>
 <li>Einfache UI-Library</li>
@@ -1573,23 +1657,23 @@ print(beatles.songs)</code></pre>
 <li>in Python vorinstalliert</li>
 </ul>
 
-      </section><section class="slide" id="slide-16-5">
+      </section><section class="slide" id="slide-18-5">
         <h2 id="qt">Qt</h2>
 <ul>
 <li>Weit verbreitete UI-Library</li>
 <li>Anbindungen an Python: PyQt oder PySide</li>
 </ul>
 
-      </section><section class="slide" id="slide-16-6">
+      </section><section class="slide" id="slide-18-6">
         <h2 id="kivy">Kivy</h2>
 <ul>
 <li>speziell für Python entwickelt</li>
 </ul>
 
-      </section></section><section class="section" id="section-17"><section class="slide" id="slide-17-1">
+      </section></section><section class="section" id="section-19"><section class="slide" id="slide-19-1">
         <h1 id="tkinter">Tkinter</h1>
 
-      </section><section class="slide" id="slide-17-2">
+      </section><section class="slide" id="slide-19-2">
         <h2 id="tkinter---beispiel">Tkinter - Beispiel</h2>
 <pre><code class="language-py"><span class="hljs-comment"># simple.pyw</span>
 <span class="hljs-keyword">import</span> tkinter
@@ -1600,7 +1684,7 @@ window = tkinter.Tk()
 <span class="hljs-comment">#   (auf Benutzerinteraktion warten)</span>
 window.mainloop()</code></pre>
 
-      </section><section class="slide" id="slide-17-3">
+      </section><section class="slide" id="slide-19-3">
         <h2 id="tkinter---text-anzeigen">Tkinter - Text anzeigen</h2>
 <pre><code class="language-py"><span class="hljs-keyword">import</span> tkinter
 
@@ -1611,12 +1695,12 @@ hello_label.pack()
 
 window.mainloop()</code></pre>
 
-      </section><section class="slide" id="slide-17-4">
+      </section><section class="slide" id="slide-19-4">
         <h2 id="tkinter---elemente-nachträglich-ändern">Tkinter - Elemente nachträglich ändern</h2>
 <pre><code class="language-py">time_label = tkinter.Label(master=window, text=<span class="hljs-string">""</span>)
 time_label.config(text=<span class="hljs-string">"Hello!"</span>)</code></pre>
 
-      </section><section class="slide" id="slide-17-5">
+      </section><section class="slide" id="slide-19-5">
         <h2 id="tkinter---benutzerinteraktion">Tkinter - Benutzerinteraktion</h2>
 <pre><code class="language-py">...
 
@@ -1633,11 +1717,11 @@ hello_button.pack()
 
 ...</code></pre>
 
-      </section><section class="slide" id="slide-17-6">
+      </section><section class="slide" id="slide-19-6">
         <h2 id="beispiel-counter">Beispiel: Counter</h2>
 <p>Button, der bei 0 startet und die Klickanzahl mitzählt und anzeigt</p>
 
-      </section><section class="slide" id="slide-17-7">
+      </section><section class="slide" id="slide-19-7">
         <h2 id="tkinter---widget-konfiguration">Tkinter - Widget-Konfiguration</h2>
 <p>Möglichkeiten:</p>
 <ul>
@@ -1650,7 +1734,7 @@ hello_button.pack()
 <li><code>padx</code>, <code>pady</code> (Abstand Rahmen zum Inhalt)</li>
 </ul>
 
-      </section><section class="slide" id="slide-17-8">
+      </section><section class="slide" id="slide-19-8">
         <h2 id="tkinter---widgets">Tkinter - Widgets</h2>
 <ul>
 <li><code>Label</code></li>
@@ -1658,21 +1742,21 @@ hello_button.pack()
 <li><code>Frame</code></li>
 </ul>
 
-      </section><section class="slide" id="slide-17-9">
+      </section><section class="slide" id="slide-19-9">
         <h2 id="tkinter---beispiele">Tkinter - Beispiele</h2>
 <ul>
 <li>zufälliger Sehtest</li>
 </ul>
 
-      </section></section><section class="section" id="section-18"><section class="slide" id="slide-18-1">
+      </section></section><section class="section" id="section-20"><section class="slide" id="slide-20-1">
         <h1 id="smtp--imap">SMTP / IMAP</h1>
 
-      </section><section class="slide" id="slide-18-2">
+      </section><section class="slide" id="slide-20-2">
         <h2 id="smtp--imap">SMTP / IMAP</h2>
 <p><a href="https://automatetheboringstuff.com/chapter16/">https://automatetheboringstuff.com/chapter16/</a></p>
 <p>zur verdeckten Passworteingabe: Modul &quot;getpass&quot;</p>
 
-      </section><section class="slide" id="slide-18-3">
+      </section><section class="slide" id="slide-20-3">
         <h2 id="smtp--imap">SMTP / IMAP</h2>
 <p>Achtung Fehler:</p>
 <p>falsch:</p>
@@ -1682,20 +1766,26 @@ hello_button.pack()
 <p>Achtung veraltet: <code>pyzmail</code> -&gt; <code>pyzmail36</code></p>
 <p>Achtung: <code>&#39;BODY[]&#39;</code> -&gt; <code>b&#39;BODY[]</code> (bytes statt string)</p>
 
-      </section></section><section class="section" id="section-19"><section class="slide" id="slide-19-1">
+      </section></section><section class="section" id="section-21"><section class="slide" id="slide-21-1">
         <h1 id="numpy">NumPy</h1>
 
-      </section><section class="slide" id="slide-19-2">
+      </section><section class="slide" id="slide-21-2">
         <h2 id="numpy">NumPy</h2>
 <p>Library zur effizienten Datenverarbeitung</p>
-<p>Daten sind in mehrdimensionalen arrays gespeichert, die resourcenschonend umgesetzt sind</p>
+<p>Daten sind in mehrdimensionalen Arrays von Zahlen gespeichert, die resourcenschonend umgesetzt sind</p>
+<p>Daten können z.B. Bilder, Tondateien, Messwerte und vieles anderes repräsentieren</p>
 
-      </section><section class="slide" id="slide-19-3">
+      </section><section class="slide" id="slide-21-3">
         <h2 id="numpy">NumPy</h2>
 <p>NumPy Arrays vs Python Listen:</p>
 <p>Arrays sind im Hintergrund in C implementiert, die numerischen Einträge (z.B. Integer) sind keine Python-Objekte und damit resourcenschonender.</p>
 
-      </section><section class="slide" id="slide-19-4">
+      </section><section class="slide" id="slide-21-4">
+        <h2 id="importieren-von-numpy">Importieren von NumPy</h2>
+<p>oft verkürzt als:</p>
+<pre><code class="language-python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np</code></pre>
+
+      </section><section class="slide" id="slide-21-5">
         <h2 id="numpy">NumPy</h2>
 <p>NumPy Arrays vs Python Listen:</p>
 <pre><code class="language-py"><span class="hljs-comment"># Python - Listen (mit Verweisen auf andere Integer)</span>
@@ -1710,7 +1800,60 @@ array_b = numpy.array(list_b)
 
 array_a + array_b <span class="hljs-comment"># sehr schnell (da in C implementiert)</span></code></pre>
 
-      </section><section class="slide" id="slide-19-5">
+      </section><section class="slide" id="slide-21-6">
+        <h2 id="arrays">Arrays</h2>
+<p>Jedes Array kann nur Daten eines Typs enthalten (z.B. nur 64-bit floats oder nur bytes)</p>
+
+      </section><section class="slide" id="slide-21-7">
+        <h2 id="arrays">Arrays</h2>
+<p>Erstellen eines 2-dimensionalen Arrays:</p>
+<pre><code class="language-py">np.array([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], [<span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">6</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">6</span>, <span class="hljs-number">9</span>]])</code></pre>
+<p>Ausgabe:</p>
+<pre><code class="language-py">array([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>],
+       [<span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">6</span>],
+       [<span class="hljs-number">3</span>, <span class="hljs-number">6</span>, <span class="hljs-number">9</span>]])</code></pre>
+
+      </section><section class="slide" id="slide-21-8">
+        <h2 id="arrays">Arrays</h2>
+<p>Erstellen eines 3-dimensionalen Arrays:</p>
+<pre><code class="language-py">np.array([[[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]], [[<span class="hljs-number">5</span>, <span class="hljs-number">6</span>], [<span class="hljs-number">7</span>,<span class="hljs-number">8</span>]]])</code></pre>
+<p>Ausgabe:</p>
+<pre><code class="language-py">array([[[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>],
+        [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]],
+
+       [[<span class="hljs-number">5</span>, <span class="hljs-number">6</span>],
+        [<span class="hljs-number">7</span>, <span class="hljs-number">8</span>]]])</code></pre>
+
+      </section><section class="slide" id="slide-21-9">
+        <h2 id="array-typen">Array Typen</h2>
+<p>Jedes Array hat einen vorgegebenen Datentyp für alle Einträge</p>
+<pre><code class="language-py">a = np.array([<span class="hljs-number">1</span>])
+a.dtype <span class="hljs-comment"># int32</span>
+b = np.array([<span class="hljs-number">1.0</span>])
+b.dtype <span class="hljs-comment"># float64</span>
+c = np.array([<span class="hljs-string">'abc'</span>])
+c.dtype <span class="hljs-comment"># &lt;U3</span>
+d = np.array([<span class="hljs-string">b'abc'</span>])
+d.dtype <span class="hljs-comment"># |S3</span></code></pre>
+
+      </section><section class="slide" id="slide-21-10">
+        <h2 id="array-typen">Array Typen</h2>
+<p>Typen können explizit angegeben werden:</p>
+<pre><code class="language-py">a = np.array([<span class="hljs-number">1</span>], dtype=<span class="hljs-string">'int64'</span>)
+b = np.array([<span class="hljs-number">1</span>], dtype=<span class="hljs-string">'uint8'</span>)</code></pre>
+<p>Typen werden wenn möglich automatisch umgewandelt:</p>
+<pre><code class="language-py">c = a + b
+c.dtype <span class="hljs-comment"># int64</span></code></pre>
+
+      </section><section class="slide" id="slide-21-11">
+        <h2 id="overflow">Overflow</h2>
+<p>Achtung bei zu großen / zu kleinen Werten</p>
+<p>Der Typ <code>int8</code> erlaubt nur Werte im Bereich <code>-128</code> bis <code>+127</code></p>
+<pre><code class="language-py">np.array([<span class="hljs-number">127</span>, <span class="hljs-number">128</span>, <span class="hljs-number">129</span>], dtype=<span class="hljs-string">"int8"</span>)</code></pre>
+<p>Output:</p>
+<pre><code class="language-py">array([<span class="hljs-number">127</span>, <span class="hljs-number">-128</span>, <span class="hljs-number">-127</span>])</code></pre>
+
+      </section><section class="slide" id="slide-21-12">
         <h2 id="numpy">NumPy</h2>
 <p>Kapitel 30</p>
 <ul>
