@@ -10,6 +10,8 @@ Standardisierte Abfragesprache für tabellarische Datenbanken
 
 Standardisiert von _ANSI_ und _ISO_ - allerdings weichen Implementierungen oft vom Standard ab
 
+Die beste Unterstützung für standardisiertes SQL bietet wohl _PostgreSQL_
+
 Alte Version des Standards (kostenlos): http://www.contrib.andrew.cmu.edu/~shadow/sql/sql1992.txt
 
 ## SQL Implementierungen
@@ -26,15 +28,34 @@ open source:
 - PostgreSQL
 - SQLite
 
+[Popularität laut Stackoverflow Developer Survey](https://insights.stackoverflow.com/survey/2019#technology-_-databases)
+
 ## SQL ausprobieren
 
-https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all
+https://db-fiddle.com (PostgreSQL, MySQL, SQLite)
 
-https://db-fiddle.com
+https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all (SQLite)
 
 Desktop-Anwendung:
 
-https://sqlitebrowser.org/
+https://sqlitebrowser.org/ (SQLite)
+
+## Allgemeine SQL Syntax
+
+Größtenteils _case-insensitive_; Konvention: Keywords _groß_ geschrieben, Rest normal
+
+SQL Statements werden mit `;` beendet
+
+Kommentare sind auf zwei Arten möglich:
+
+```sql
+/* mehrzeiliger
+Kommentar */
+```
+
+```sql
+-- einzeiliger Kommentar
+```
 
 ## Tabellen erstellen
 
@@ -44,31 +65,31 @@ Befehl: `CREATE TABLE`
 CREATE TABLE person(
     name VARCHAR(50),
     tel VARCHAR(20)
-)
+);
 ```
 
-## SQL-Datentypen
+## SQL Datentypen
 
 ISO / ANSI SQL Standard (Auswahl):
 
-- `boolean`
-- `smallint` (üblicherweise 16 Bit)
-- `int` / `integer` (üblicherweise 32 Bit)
-- `bigint` (üblicherweise 64 Bit)
-- `real` (üblicherweise 32 Bit)
-- `double precision` (üblicherweise 64 Bit)
-- `varchar(n)` (Unicode-String mit Maximallänge _n_)
-- `varbinary(n)` (Bytesequenz mit Maximallänge _n_)
+- `BOOLEAN`
+- `INT` / `INTEGER`, `SMALLINT`, `BIGINT`
+- `REAL`, `DOUBLE PRECISION`
+- `VARCHAR(n)`
+- `VARBINARY(n)`
+- `DATE`, `TIME`, `TIMESTAMP`
 
 ## Daten eintragen
 
 ```sql
-INSERT INTO person
+INSERT INTO person (name, tel)
 VALUES ('John Smith', '012345');
 ```
 
+Kurzschreibweise:
+
 ```sql
-INSERT INTO person (name, tel)
+INSERT INTO person
 VALUES ('John Smith', '012345');
 ```
 
@@ -77,8 +98,13 @@ VALUES ('John Smith', '012345');
 Daten aller Personen auslesen
 
 ```sql
-SELECT name, tel FROM person
-SELECT * FROM person
+SELECT name, tel FROM person;
+```
+
+oder
+
+```sql
+SELECT * FROM person;
 ```
 
 ## Bedingte Abfragen (WHERE)
@@ -92,7 +118,8 @@ WHERE name = 'John Smith';
 ```sql
 SELECT tel
 FROM person
-WHERE name LIKE 'John%' AND tel LIKE '+49%';
+WHERE name LIKE '% Smith'
+AND tel LIKE '+49%';
 ```
 
 ## Daten eintragen (UPDATE)

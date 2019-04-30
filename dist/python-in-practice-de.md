@@ -1035,6 +1035,8 @@ Standardisierte Abfragesprache für tabellarische Datenbanken
 
 Standardisiert von _ANSI_ und _ISO_ - allerdings weichen Implementierungen oft vom Standard ab
 
+Die beste Unterstützung für standardisiertes SQL bietet wohl _PostgreSQL_
+
 Alte Version des Standards (kostenlos): http://www.contrib.andrew.cmu.edu/~shadow/sql/sql1992.txt
 
 ## SQL Implementierungen
@@ -1051,15 +1053,34 @@ open source:
 - PostgreSQL
 - SQLite
 
+[Popularität laut Stackoverflow Developer Survey](https://insights.stackoverflow.com/survey/2019#technology-_-databases)
+
 ## SQL ausprobieren
 
-https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all
+https://db-fiddle.com (PostgreSQL, MySQL, SQLite)
 
-https://db-fiddle.com
+https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all (SQLite)
 
 Desktop-Anwendung:
 
-https://sqlitebrowser.org/
+https://sqlitebrowser.org/ (SQLite)
+
+## Allgemeine SQL Syntax
+
+Größtenteils _case-insensitive_; Konvention: Keywords _groß_ geschrieben, Rest normal
+
+SQL Statements werden mit `;` beendet
+
+Kommentare sind auf zwei Arten möglich:
+
+```sql
+/* mehrzeiliger
+Kommentar */
+```
+
+```sql
+-- einzeiliger Kommentar
+```
 
 ## Tabellen erstellen
 
@@ -1069,31 +1090,31 @@ Befehl: `CREATE TABLE`
 CREATE TABLE person(
     name VARCHAR(50),
     tel VARCHAR(20)
-)
+);
 ```
 
-## SQL-Datentypen
+## SQL Datentypen
 
 ISO / ANSI SQL Standard (Auswahl):
 
-- `boolean`
-- `smallint` (üblicherweise 16 Bit)
-- `int` / `integer` (üblicherweise 32 Bit)
-- `bigint` (üblicherweise 64 Bit)
-- `real` (üblicherweise 32 Bit)
-- `double precision` (üblicherweise 64 Bit)
-- `varchar(n)` (Unicode-String mit Maximallänge _n_)
-- `varbinary(n)` (Bytesequenz mit Maximallänge _n_)
+- `BOOLEAN`
+- `INT` / `INTEGER`, `SMALLINT`, `BIGINT`
+- `REAL`, `DOUBLE PRECISION`
+- `VARCHAR(n)`
+- `VARBINARY(n)`
+- `DATE`, `TIME`, `TIMESTAMP`
 
 ## Daten eintragen
 
 ```sql
-INSERT INTO person
+INSERT INTO person (name, tel)
 VALUES ('John Smith', '012345');
 ```
 
+Kurzschreibweise:
+
 ```sql
-INSERT INTO person (name, tel)
+INSERT INTO person
 VALUES ('John Smith', '012345');
 ```
 
@@ -1102,8 +1123,13 @@ VALUES ('John Smith', '012345');
 Daten aller Personen auslesen
 
 ```sql
-SELECT name, tel FROM person
-SELECT * FROM person
+SELECT name, tel FROM person;
+```
+
+oder
+
+```sql
+SELECT * FROM person;
 ```
 
 ## Bedingte Abfragen (WHERE)
@@ -1117,7 +1143,8 @@ WHERE name = 'John Smith';
 ```sql
 SELECT tel
 FROM person
-WHERE name LIKE 'John%' AND tel LIKE '+49%';
+WHERE name LIKE '% Smith'
+AND tel LIKE '+49%';
 ```
 
 ## Daten eintragen (UPDATE)
@@ -1149,35 +1176,103 @@ https://www.w3schools.com/sql/default.asp
 
 ISO / ANSI SQL Standard (Auswahl):
 
-- `boolean`
-- `smallint` (üblicherweise 16 Bit)
-- `int` / `integer` (üblicherweise 32 Bit)
-- `bigint` (üblicherweise 64 Bit)
-- `real` (üblicherweise 32 Bit)
-- `double precision` (üblicherweise 64 Bit)
-- `varchar(n)` (Unicode-String mit Maximallänge _n_)
-- `varbinary(n)` (Bytesequenz mit Maximallänge _n_)
+- `BOOLEAN`
+- `INT` / `INTEGER`, `SMALLINT`, `BIGINT`
+- `REAL`, `DOUBLE PRECISION`
+- `VARCHAR(n)`
+- `VARBINARY(n)`
+- `DATE`, `TIME`, `TIMESTAMP`
 
-## SQL-Datentypen: Ausnahmen
+## Boolean
 
-Der SQL Standard wird von keiner Implementierung voll umgesetzt
+Werden durch die Ausdrücke `TRUE` und `FALSE` repräsentiert
 
-SQLServer: `boolean` → `bit`
+Abweichungen vom Standard:
 
-Oracle: ~~`boolean`~~ → X, `varchar` → `varchar2`
+- _SQL Server_: `BOOLEAN` → `BIT`
+- _MySQL_, _SQLite_, _Oracle_: nicht unterstützt, Alternativen z.B. `0` und `1`
 
-MySQL: ~~`boolean`~~ → X, `real` → `float`
+## Zahlen
 
-Postgres: `varbinary(n)` → `bytea` (siehe auch [Postgres SQL Conformance](https://www.postgresql.org/docs/current/features.html))
+- `SMALLINT` (üblicherweise 16 Bit)
+- `INT` / `INTEGER` (üblicherweise 32 Bit)
+- `BIGINT` (üblicherweise 64 Bit)
+- `REAL` (üblicherweise 32 Bit)
+- `DOUBLE PRECISION` (üblicherweise 64 Bit)
 
-SQLite: ~~`boolean`~~ → X, (`smallint`, `int`, `bigint`) → `integer`, ~~`real`~~ → X, `varbinary` → `blob`
+Abweichungen vom Standard:
 
-## Signed & unsigned
+- _MySQL_: `REAL` → `FLOAT`
+- _SQLite_: Erlaubt für alle Typen 64 Bit Genauigkeit
+
+## Zahlen
 
 MySQL unterscheidet z.B. zwischen:
 
 - `SMALLINT` (-32768 bis 32767)
 - `UNSIGNED SMALLINT` (0 bis 65535)
+
+Dies ist nicht Teil des SQL Standards
+
+## Text
+
+- `VARCHAR(10)`: Text der Maximallänge 10
+
+Üblicherweise wird Unicode unterstützt
+
+Bei _SQL Server_ sollte für Unicodeunterstütztung `NVARCHAR` verwendet werden (benötigt doppelt so viel Speicherplatz)
+
+bei _Oracle_ nennt sich der entsprechende Datentyp `VARCHAR2`
+
+## Text
+
+Text wird _immer_ mit einfachen Anführungszeichen begrenzt.
+
+```SQL
+INSERT INTO test VALUES ('Hello');
+```
+
+Escapen von einfachen Anführungszeichen durch Verdoppelung:
+
+```SQL
+INSERT INTO test VALUES ('Let''s go');
+```
+
+## Binärdaten
+
+`VARBINARY(n)`: Bytesequenz mit Maximallänge _n_
+
+Abweichungen vom Standard:
+
+- _PostgreSQL_: `BYTEA`
+- _SQLite_: Intern heißt der Datentyp `BLOB`, aber `VARBINARY` wird akzeptiert
+
+## Date, Time
+
+Typen:
+
+- `DATE`: Datum
+- `TIME`: Uhrzeit
+- `TIMESTAMP`: Datum und Uhrzeit
+
+Beispiele:
+
+- `'2013-02-14'` (empfohlenes Format)
+- `'13:02:17'`, `'13:02:17.232'`
+- `'2013-02-14 13:02:17'`, `'2013-02-14T13:02:17'`
+
+## Date, Time
+
+Abweichungen vom Standard:
+
+- nicht von `SQLite` unterstützt
+- _SQL Server_: `TIMESTAMP` → `DATETIME`
+
+## Resourcen zu Datentypen
+
+- [SQLite Datentypen](https://sqlite.org/datatype3.html)
+- [Postgres Datentypen](https://www.postgresql.org/docs/current/datatype.html)
+- [Postgres SQL Conformance](https://www.postgresql.org/docs/current/features.html)
 
 ## Beispiel: Datenbank chemischer Elemente
 
@@ -1215,7 +1310,7 @@ Eintrag darf nicht leer gelassen werden
 ```sql
 CREATE TABLE element(
     atomic_number INT NOT NULL,
-    symbol VARCHAR(2) NOT NULL,
+    symbol VARCHAR(3) NOT NULL,
     name VARCHAR(20) NOT NULL,
     atomic_mass REAL NOT NULL
 );
@@ -1295,28 +1390,6 @@ Nicht-standardisierte Varianten:
 
 In SQLite wird immer automatisch ein numerischer eindeutiger Schlüssel unter dem Namen `rowid` angelegt.
 
-## Code: Periodensystem
-
-```sql
-CREATE TABLE element(
-    id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    atomic_number INT,
-    symbol VARCHAR(2) NOT NULL UNIQUE,
-    name VARCHAR(20) NOT NULL UNIQUE,
-    atomic_mass REAL NOT NULL
-);
-
-INSERT INTO element(atomic_number, symbol, name, atomic_mass)
-VALUES (1, 'H', 'Hydrogen', 1.008);
-
-INSERT INTO element(atomic_number, symbol, name, atomic_mass)
-VALUES (2, 'He', 'Helium', 4.0026);
-
-SELECT *
-FROM element
-WHERE name='Hydrogen';
-```
-
 ## Indizes in Datenbanken
 
 Generell: geordnete Listen können viel schneller durchsucht werden als ungeordnete (binäre Suche)
@@ -1334,6 +1407,30 @@ ON element (name);
 
 Es kann nun nach den Elementnamen schneller gesucht werden
 
+## Code: Periodensystem
+
+```sql
+CREATE TABLE element(
+    atomic_number INT,
+    symbol VARCHAR(2) NOT NULL UNIQUE,
+    name VARCHAR(20) NOT NULL UNIQUE,
+    atomic_mass REAL NOT NULL
+);
+
+CREATE INDEX idx_name
+ON element (name);
+
+INSERT INTO element(atomic_number, symbol, name, atomic_mass)
+VALUES (1, 'H', 'Hydrogen', 1.008);
+
+INSERT INTO element(atomic_number, symbol, name, atomic_mass)
+VALUES (2, 'He', 'Helium', 4.0026);
+
+SELECT *
+FROM element
+WHERE name='Hydrogen';
+```
+
 # SQL Joins
 
 ## Beispiel: Musikdatenbank
@@ -1343,6 +1440,12 @@ Tabellen:
 - _artist_
 - _album_
 - _song_
+
+Vorlage: Chinook Musikdatenbank
+
+(GitHub)[https://github.com/lerocha/chinook-database]
+
+(Inspektor auf SchemaSpy)[http://schemaspy.org/sample/index.html]
 
 ## Beispiel: Musikdatenbank - artist
 

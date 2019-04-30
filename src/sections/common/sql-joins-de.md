@@ -8,6 +8,12 @@ Tabellen:
 - _album_
 - _song_
 
+Vorlage: Chinook Musikdatenbank
+
+(GitHub)[https://github.com/lerocha/chinook-database]
+
+(Inspektor auf SchemaSpy)[http://schemaspy.org/sample/index.html]
+
 ## Beispiel: Musikdatenbank - artist
 
 ```sql

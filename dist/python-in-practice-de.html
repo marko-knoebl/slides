@@ -1038,6 +1038,7 @@ path = <span class="hljs-string">"/home/username/"</span>
       </section><section class="slide" id="slide-13-3">
         <h2 id="sql-standardisierung">SQL Standardisierung</h2>
 <p>Standardisiert von <em>ANSI</em> und <em>ISO</em> - allerdings weichen Implementierungen oft vom Standard ab</p>
+<p>Die beste Unterstützung für standardisiertes SQL bietet wohl <em>PostgreSQL</em></p>
 <p>Alte Version des Standards (kostenlos): <a href="http://www.contrib.andrew.cmu.edu/~shadow/sql/sql1992.txt">http://www.contrib.andrew.cmu.edu/~shadow/sql/sql1992.txt</a></p>
 
       </section><section class="slide" id="slide-13-4">
@@ -1054,70 +1055,81 @@ path = <span class="hljs-string">"/home/username/"</span>
 <li>PostgreSQL</li>
 <li>SQLite</li>
 </ul>
+<p><a href="https://insights.stackoverflow.com/survey/2019#technology-_-databases">Popularität laut Stackoverflow Developer Survey</a></p>
 
       </section><section class="slide" id="slide-13-5">
         <h2 id="sql-ausprobieren">SQL ausprobieren</h2>
-<p><a href="https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all">https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all</a></p>
-<p><a href="https://db-fiddle.com">https://db-fiddle.com</a></p>
+<p><a href="https://db-fiddle.com">https://db-fiddle.com</a> (PostgreSQL, MySQL, SQLite)</p>
+<p><a href="https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all">https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all</a> (SQLite)</p>
 <p>Desktop-Anwendung:</p>
-<p><a href="https://sqlitebrowser.org/">https://sqlitebrowser.org/</a></p>
+<p><a href="https://sqlitebrowser.org/">https://sqlitebrowser.org/</a> (SQLite)</p>
 
       </section><section class="slide" id="slide-13-6">
+        <h2 id="allgemeine-sql-syntax">Allgemeine SQL Syntax</h2>
+<p>Größtenteils <em>case-insensitive</em>; Konvention: Keywords <em>groß</em> geschrieben, Rest normal</p>
+<p>SQL Statements werden mit <code>;</code> beendet</p>
+<p>Kommentare sind auf zwei Arten möglich:</p>
+<pre><code class="language-sql"><span class="hljs-comment">/* mehrzeiliger
+Kommentar */</span></code></pre>
+<pre><code class="language-sql"><span class="hljs-comment">-- einzeiliger Kommentar</span></code></pre>
+
+      </section><section class="slide" id="slide-13-7">
         <h2 id="tabellen-erstellen">Tabellen erstellen</h2>
 <p>Befehl: <code>CREATE TABLE</code></p>
 <pre><code class="language-sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> person(
     <span class="hljs-keyword">name</span> <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">50</span>),
     tel <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">20</span>)
-)</code></pre>
-
-      </section><section class="slide" id="slide-13-7">
-        <h2 id="sql-datentypen">SQL-Datentypen</h2>
-<p>ISO / ANSI SQL Standard (Auswahl):</p>
-<ul>
-<li><code>boolean</code></li>
-<li><code>smallint</code> (üblicherweise 16 Bit)</li>
-<li><code>int</code> / <code>integer</code> (üblicherweise 32 Bit)</li>
-<li><code>bigint</code> (üblicherweise 64 Bit)</li>
-<li><code>real</code> (üblicherweise 32 Bit)</li>
-<li><code>double precision</code> (üblicherweise 64 Bit)</li>
-<li><code>varchar(n)</code> (Unicode-String mit Maximallänge <em>n</em>)</li>
-<li><code>varbinary(n)</code> (Bytesequenz mit Maximallänge <em>n</em>)</li>
-</ul>
+);</code></pre>
 
       </section><section class="slide" id="slide-13-8">
-        <h2 id="daten-eintragen">Daten eintragen</h2>
-<pre><code class="language-sql"><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> person
-<span class="hljs-keyword">VALUES</span> (<span class="hljs-string">'John Smith'</span>, <span class="hljs-string">'012345'</span>);</code></pre>
-<pre><code class="language-sql"><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> person (<span class="hljs-keyword">name</span>, tel)
-<span class="hljs-keyword">VALUES</span> (<span class="hljs-string">'John Smith'</span>, <span class="hljs-string">'012345'</span>);</code></pre>
+        <h2 id="sql-datentypen">SQL Datentypen</h2>
+<p>ISO / ANSI SQL Standard (Auswahl):</p>
+<ul>
+<li><code>BOOLEAN</code></li>
+<li><code>INT</code> / <code>INTEGER</code>, <code>SMALLINT</code>, <code>BIGINT</code></li>
+<li><code>REAL</code>, <code>DOUBLE PRECISION</code></li>
+<li><code>VARCHAR(n)</code></li>
+<li><code>VARBINARY(n)</code></li>
+<li><code>DATE</code>, <code>TIME</code>, <code>TIMESTAMP</code></li>
+</ul>
 
       </section><section class="slide" id="slide-13-9">
-        <h2 id="daten-auslesen">Daten auslesen</h2>
-<p>Daten aller Personen auslesen</p>
-<pre><code class="language-sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">name</span>, tel <span class="hljs-keyword">FROM</span> person
-<span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> person</code></pre>
+        <h2 id="daten-eintragen">Daten eintragen</h2>
+<pre><code class="language-sql"><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> person (<span class="hljs-keyword">name</span>, tel)
+<span class="hljs-keyword">VALUES</span> (<span class="hljs-string">'John Smith'</span>, <span class="hljs-string">'012345'</span>);</code></pre>
+<p>Kurzschreibweise:</p>
+<pre><code class="language-sql"><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> person
+<span class="hljs-keyword">VALUES</span> (<span class="hljs-string">'John Smith'</span>, <span class="hljs-string">'012345'</span>);</code></pre>
 
       </section><section class="slide" id="slide-13-10">
+        <h2 id="daten-auslesen">Daten auslesen</h2>
+<p>Daten aller Personen auslesen</p>
+<pre><code class="language-sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">name</span>, tel <span class="hljs-keyword">FROM</span> person;</code></pre>
+<p>oder</p>
+<pre><code class="language-sql"><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> person;</code></pre>
+
+      </section><section class="slide" id="slide-13-11">
         <h2 id="bedingte-abfragen-where">Bedingte Abfragen (WHERE)</h2>
 <pre><code class="language-sql"><span class="hljs-keyword">SELECT</span> tel
 <span class="hljs-keyword">FROM</span> person
 <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">name</span> = <span class="hljs-string">'John Smith'</span>;</code></pre>
 <pre><code class="language-sql"><span class="hljs-keyword">SELECT</span> tel
 <span class="hljs-keyword">FROM</span> person
-<span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">name</span> <span class="hljs-keyword">LIKE</span> <span class="hljs-string">'John%'</span> <span class="hljs-keyword">AND</span> tel <span class="hljs-keyword">LIKE</span> <span class="hljs-string">'+49%'</span>;</code></pre>
+<span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">name</span> <span class="hljs-keyword">LIKE</span> <span class="hljs-string">'% Smith'</span>
+<span class="hljs-keyword">AND</span> tel <span class="hljs-keyword">LIKE</span> <span class="hljs-string">'+49%'</span>;</code></pre>
 
-      </section><section class="slide" id="slide-13-11">
+      </section><section class="slide" id="slide-13-12">
         <h2 id="daten-eintragen-update">Daten eintragen (UPDATE)</h2>
 <pre><code class="language-sql"><span class="hljs-keyword">UPDATE</span> person
 <span class="hljs-keyword">SET</span> <span class="hljs-keyword">name</span> = <span class="hljs-string">'John Miller'</span>
 <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">name</span> = <span class="hljs-string">'John Smith'</span>;</code></pre>
 
-      </section><section class="slide" id="slide-13-12">
+      </section><section class="slide" id="slide-13-13">
         <h2 id="daten-löschen-delete">Daten löschen (DELETE)</h2>
 <pre><code class="language-sql"><span class="hljs-keyword">DELETE</span> <span class="hljs-keyword">FROM</span> person
 <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">name</span> = <span class="hljs-string">'John Miller'</span>;</code></pre>
 
-      </section><section class="slide" id="slide-13-13">
+      </section><section class="slide" id="slide-13-14">
         <h2 id="übung">Übung</h2>
 <p>Erstellen und Abändern einer Kontaktdatenbank</p>
 
@@ -1132,34 +1144,104 @@ path = <span class="hljs-string">"/home/username/"</span>
         <h2 id="wiederholung-sql-datentypen">Wiederholung: SQL Datentypen</h2>
 <p>ISO / ANSI SQL Standard (Auswahl):</p>
 <ul>
-<li><code>boolean</code></li>
-<li><code>smallint</code> (üblicherweise 16 Bit)</li>
-<li><code>int</code> / <code>integer</code> (üblicherweise 32 Bit)</li>
-<li><code>bigint</code> (üblicherweise 64 Bit)</li>
-<li><code>real</code> (üblicherweise 32 Bit)</li>
-<li><code>double precision</code> (üblicherweise 64 Bit)</li>
-<li><code>varchar(n)</code> (Unicode-String mit Maximallänge <em>n</em>)</li>
-<li><code>varbinary(n)</code> (Bytesequenz mit Maximallänge <em>n</em>)</li>
+<li><code>BOOLEAN</code></li>
+<li><code>INT</code> / <code>INTEGER</code>, <code>SMALLINT</code>, <code>BIGINT</code></li>
+<li><code>REAL</code>, <code>DOUBLE PRECISION</code></li>
+<li><code>VARCHAR(n)</code></li>
+<li><code>VARBINARY(n)</code></li>
+<li><code>DATE</code>, <code>TIME</code>, <code>TIMESTAMP</code></li>
 </ul>
 
       </section><section class="slide" id="slide-14-4">
-        <h2 id="sql-datentypen-ausnahmen">SQL-Datentypen: Ausnahmen</h2>
-<p>Der SQL Standard wird von keiner Implementierung voll umgesetzt</p>
-<p>SQLServer: <code>boolean</code> → <code>bit</code></p>
-<p>Oracle: <del><code>boolean</code></del> → X, <code>varchar</code> → <code>varchar2</code></p>
-<p>MySQL: <del><code>boolean</code></del> → X, <code>real</code> → <code>float</code></p>
-<p>Postgres: <code>varbinary(n)</code> → <code>bytea</code> (siehe auch <a href="https://www.postgresql.org/docs/current/features.html">Postgres SQL Conformance</a>)</p>
-<p>SQLite: <del><code>boolean</code></del> → X, (<code>smallint</code>, <code>int</code>, <code>bigint</code>) → <code>integer</code>, <del><code>real</code></del> → X, <code>varbinary</code> → <code>blob</code></p>
+        <h2 id="boolean">Boolean</h2>
+<p>Werden durch die Ausdrücke <code>TRUE</code> und <code>FALSE</code> repräsentiert</p>
+<p>Abweichungen vom Standard:</p>
+<ul>
+<li><em>SQL Server</em>: <code>BOOLEAN</code> → <code>BIT</code></li>
+<li><em>MySQL</em>, <em>SQLite</em>, <em>Oracle</em>: nicht unterstützt, Alternativen z.B. <code>0</code> und <code>1</code></li>
+</ul>
 
       </section><section class="slide" id="slide-14-5">
-        <h2 id="signed--unsigned">Signed &amp; unsigned</h2>
+        <h2 id="zahlen">Zahlen</h2>
+<ul>
+<li><code>SMALLINT</code> (üblicherweise 16 Bit)</li>
+<li><code>INT</code> / <code>INTEGER</code> (üblicherweise 32 Bit)</li>
+<li><code>BIGINT</code> (üblicherweise 64 Bit)</li>
+<li><code>REAL</code> (üblicherweise 32 Bit)</li>
+<li><code>DOUBLE PRECISION</code> (üblicherweise 64 Bit)</li>
+</ul>
+<p>Abweichungen vom Standard:</p>
+<ul>
+<li><em>MySQL</em>: <code>REAL</code> → <code>FLOAT</code></li>
+<li><em>SQLite</em>: Erlaubt für alle Typen 64 Bit Genauigkeit</li>
+</ul>
+
+      </section><section class="slide" id="slide-14-6">
+        <h2 id="zahlen">Zahlen</h2>
 <p>MySQL unterscheidet z.B. zwischen:</p>
 <ul>
 <li><code>SMALLINT</code> (-32768 bis 32767)</li>
 <li><code>UNSIGNED SMALLINT</code> (0 bis 65535)</li>
 </ul>
+<p>Dies ist nicht Teil des SQL Standards</p>
 
-      </section><section class="slide" id="slide-14-6">
+      </section><section class="slide" id="slide-14-7">
+        <h2 id="text">Text</h2>
+<ul>
+<li><code>VARCHAR(10)</code>: Text der Maximallänge 10</li>
+</ul>
+<p>Üblicherweise wird Unicode unterstützt</p>
+<p>Bei <em>SQL Server</em> sollte für Unicodeunterstütztung <code>NVARCHAR</code> verwendet werden (benötigt doppelt so viel Speicherplatz)</p>
+<p>bei <em>Oracle</em> nennt sich der entsprechende Datentyp <code>VARCHAR2</code></p>
+
+      </section><section class="slide" id="slide-14-8">
+        <h2 id="text">Text</h2>
+<p>Text wird <em>immer</em> mit einfachen Anführungszeichen begrenzt.</p>
+<pre><code class="language-SQL"><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> <span class="hljs-keyword">test</span> <span class="hljs-keyword">VALUES</span> (<span class="hljs-string">'Hello'</span>);</code></pre>
+<p>Escapen von einfachen Anführungszeichen durch Verdoppelung:</p>
+<pre><code class="language-SQL"><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> <span class="hljs-keyword">test</span> <span class="hljs-keyword">VALUES</span> (<span class="hljs-string">'Let''s go'</span>);</code></pre>
+
+      </section><section class="slide" id="slide-14-9">
+        <h2 id="binärdaten">Binärdaten</h2>
+<p><code>VARBINARY(n)</code>: Bytesequenz mit Maximallänge <em>n</em></p>
+<p>Abweichungen vom Standard:</p>
+<ul>
+<li><em>PostgreSQL</em>: <code>BYTEA</code></li>
+<li><em>SQLite</em>: Intern heißt der Datentyp <code>BLOB</code>, aber <code>VARBINARY</code> wird akzeptiert</li>
+</ul>
+
+      </section><section class="slide" id="slide-14-10">
+        <h2 id="date-time">Date, Time</h2>
+<p>Typen:</p>
+<ul>
+<li><code>DATE</code>: Datum</li>
+<li><code>TIME</code>: Uhrzeit</li>
+<li><code>TIMESTAMP</code>: Datum und Uhrzeit</li>
+</ul>
+<p>Beispiele:</p>
+<ul>
+<li><code>&#39;2013-02-14&#39;</code> (empfohlenes Format)</li>
+<li><code>&#39;13:02:17&#39;</code>, <code>&#39;13:02:17.232&#39;</code></li>
+<li><code>&#39;2013-02-14 13:02:17&#39;</code>, <code>&#39;2013-02-14T13:02:17&#39;</code></li>
+</ul>
+
+      </section><section class="slide" id="slide-14-11">
+        <h2 id="date-time">Date, Time</h2>
+<p>Abweichungen vom Standard:</p>
+<ul>
+<li>nicht von <code>SQLite</code> unterstützt</li>
+<li><em>SQL Server</em>: <code>TIMESTAMP</code> → <code>DATETIME</code></li>
+</ul>
+
+      </section><section class="slide" id="slide-14-12">
+        <h2 id="resourcen-zu-datentypen">Resourcen zu Datentypen</h2>
+<ul>
+<li><a href="https://sqlite.org/datatype3.html">SQLite Datentypen</a></li>
+<li><a href="https://www.postgresql.org/docs/current/datatype.html">Postgres Datentypen</a></li>
+<li><a href="https://www.postgresql.org/docs/current/features.html">Postgres SQL Conformance</a></li>
+</ul>
+
+      </section><section class="slide" id="slide-14-13">
         <h2 id="beispiel-datenbank-chemischer-elemente">Beispiel: Datenbank chemischer Elemente</h2>
 <p>Einträge:</p>
 <ul>
@@ -1169,7 +1251,7 @@ path = <span class="hljs-string">"/home/username/"</span>
 <li><em>atomic_mass</em></li>
 </ul>
 
-      </section><section class="slide" id="slide-14-7">
+      </section><section class="slide" id="slide-14-14">
         <h2 id="beispiel-datenbank-chemischer-elemente">Beispiel: Datenbank chemischer Elemente</h2>
 <pre><code class="language-sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> <span class="hljs-keyword">element</span>(
     atomic_number <span class="hljs-built_in">INT</span>,
@@ -1178,7 +1260,7 @@ path = <span class="hljs-string">"/home/username/"</span>
     atomic_mass <span class="hljs-built_in">REAL</span>
 );</code></pre>
 
-      </section><section class="slide" id="slide-14-8">
+      </section><section class="slide" id="slide-14-15">
         <h2 id="constraints">Constraints</h2>
 <p>Einschränkungen von Spalten:</p>
 <ul>
@@ -1188,17 +1270,17 @@ path = <span class="hljs-string">"/home/username/"</span>
 <li>(<code>foreign key</code>)</li>
 </ul>
 
-      </section><section class="slide" id="slide-14-9">
+      </section><section class="slide" id="slide-14-16">
         <h2 id="not-null">Not null</h2>
 <p>Eintrag darf nicht leer gelassen werden</p>
 <pre><code class="language-sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> <span class="hljs-keyword">element</span>(
     atomic_number <span class="hljs-built_in">INT</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
-    symbol <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">2</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+    symbol <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
     <span class="hljs-keyword">name</span> <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">20</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
     atomic_mass <span class="hljs-built_in">REAL</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>
 );</code></pre>
 
-      </section><section class="slide" id="slide-14-10">
+      </section><section class="slide" id="slide-14-17">
         <h2 id="unique">Unique</h2>
 <p>Jeder Eintrag in einer Spalte muss einzigartig sein</p>
 <pre><code class="language-sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> <span class="hljs-keyword">element</span>(
@@ -1208,7 +1290,7 @@ path = <span class="hljs-string">"/home/username/"</span>
     atomic_mass <span class="hljs-built_in">REAL</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>
 );</code></pre>
 
-      </section><section class="slide" id="slide-14-11">
+      </section><section class="slide" id="slide-14-18">
         <h2 id="primary-key">Primary key</h2>
 <p>Ermöglicht eindeutige Identifizierung einer Zeile in einer Tabelle</p>
 <ul>
@@ -1218,7 +1300,7 @@ path = <span class="hljs-string">"/home/username/"</span>
 <p>Ein sprechender Schlüssel ist nur in besonderen Fällen einsetzbar, ein Surrogatschlüssel ist immer möglich</p>
 <p>Ein Primary Key ist automatisch <em>unique</em> und <em>not null</em>.</p>
 
-      </section><section class="slide" id="slide-14-12">
+      </section><section class="slide" id="slide-14-19">
         <h2 id="primary-key">Primary key</h2>
 <p>Sprechender Schlüssel:</p>
 <pre><code class="language-sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> <span class="hljs-keyword">element</span>(
@@ -1228,7 +1310,7 @@ path = <span class="hljs-string">"/home/username/"</span>
     atomic_mass <span class="hljs-built_in">REAL</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>
 );</code></pre>
 
-      </section><section class="slide" id="slide-14-13">
+      </section><section class="slide" id="slide-14-20">
         <h2 id="primary-key">Primary key</h2>
 <p>Surrogatschlüssel:</p>
 <pre><code class="language-sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> <span class="hljs-keyword">element</span>(
@@ -1239,7 +1321,7 @@ path = <span class="hljs-string">"/home/username/"</span>
     atomic_mass <span class="hljs-built_in">REAL</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>
 );</code></pre>
 
-      </section><section class="slide" id="slide-14-14">
+      </section><section class="slide" id="slide-14-21">
         <h2 id="auto-increment">Auto increment</h2>
 <p>Automatisches Erstellen eines numerischen Primary Keys beginnend bei 1:</p>
 <p>Standard SQL (implementiert in PostgreSQL, Oracle):</p>
@@ -1248,7 +1330,7 @@ path = <span class="hljs-string">"/home/username/"</span>
     ...
 );</code></pre>
 
-      </section><section class="slide" id="slide-14-15">
+      </section><section class="slide" id="slide-14-22">
         <h2 id="auto-increment">Auto increment</h2>
 <p>Nicht-standardisierte Varianten:</p>
 <ul>
@@ -1258,15 +1340,29 @@ path = <span class="hljs-string">"/home/username/"</span>
 </ul>
 <p>In SQLite wird immer automatisch ein numerischer eindeutiger Schlüssel unter dem Namen <code>rowid</code> angelegt.</p>
 
-      </section><section class="slide" id="slide-14-16">
+      </section><section class="slide" id="slide-14-23">
+        <h2 id="indizes-in-datenbanken">Indizes in Datenbanken</h2>
+<p>Generell: geordnete Listen können viel schneller durchsucht werden als ungeordnete (binäre Suche)</p>
+<p>Beispiel: im Telefonbuch kann man schnell nach dem Nachnamen einer Person suchen, aber nicht nach dem Vornamen</p>
+<p>Auf eine oder mehrere Spalten kann ein Index angewendet werden: Zusätzliche Datenstruktur, die auf die Daten in bestimmter Ordnung verweist.</p>
+
+      </section><section class="slide" id="slide-14-24">
+        <h2 id="indizes-erstellen">Indizes erstellen</h2>
+<pre><code class="language-sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">INDEX</span> idx_name
+<span class="hljs-keyword">ON</span> <span class="hljs-keyword">element</span> (<span class="hljs-keyword">name</span>);</code></pre>
+<p>Es kann nun nach den Elementnamen schneller gesucht werden</p>
+
+      </section><section class="slide" id="slide-14-25">
         <h2 id="code-periodensystem">Code: Periodensystem</h2>
 <pre><code class="language-sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> <span class="hljs-keyword">element</span>(
-    <span class="hljs-keyword">id</span> <span class="hljs-built_in">INT</span> PRIMARY <span class="hljs-keyword">KEY</span> <span class="hljs-keyword">GENERATED</span> <span class="hljs-keyword">ALWAYS</span> <span class="hljs-keyword">AS</span> <span class="hljs-keyword">IDENTITY</span>,
     atomic_number <span class="hljs-built_in">INT</span>,
     symbol <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">2</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">UNIQUE</span>,
     <span class="hljs-keyword">name</span> <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">20</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">UNIQUE</span>,
     atomic_mass <span class="hljs-built_in">REAL</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>
 );
+
+<span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">INDEX</span> idx_name
+<span class="hljs-keyword">ON</span> <span class="hljs-keyword">element</span> (<span class="hljs-keyword">name</span>);
 
 <span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> <span class="hljs-keyword">element</span>(atomic_number, symbol, <span class="hljs-keyword">name</span>, atomic_mass)
 <span class="hljs-keyword">VALUES</span> (<span class="hljs-number">1</span>, <span class="hljs-string">'H'</span>, <span class="hljs-string">'Hydrogen'</span>, <span class="hljs-number">1.008</span>);
@@ -1277,18 +1373,6 @@ path = <span class="hljs-string">"/home/username/"</span>
 <span class="hljs-keyword">SELECT</span> *
 <span class="hljs-keyword">FROM</span> <span class="hljs-keyword">element</span>
 <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">name</span>=<span class="hljs-string">'Hydrogen'</span>;</code></pre>
-
-      </section><section class="slide" id="slide-14-17">
-        <h2 id="indizes-in-datenbanken">Indizes in Datenbanken</h2>
-<p>Generell: geordnete Listen können viel schneller durchsucht werden als ungeordnete (binäre Suche)</p>
-<p>Beispiel: im Telefonbuch kann man schnell nach dem Nachnamen einer Person suchen, aber nicht nach dem Vornamen</p>
-<p>Auf eine oder mehrere Spalten kann ein Index angewendet werden: Zusätzliche Datenstruktur, die auf die Daten in bestimmter Ordnung verweist.</p>
-
-      </section><section class="slide" id="slide-14-18">
-        <h2 id="indizes-erstellen">Indizes erstellen</h2>
-<pre><code class="language-sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">INDEX</span> idx_name
-<span class="hljs-keyword">ON</span> <span class="hljs-keyword">element</span> (<span class="hljs-keyword">name</span>);</code></pre>
-<p>Es kann nun nach den Elementnamen schneller gesucht werden</p>
 
       </section></section><section class="section" id="section-15"><section class="slide" id="slide-15-1">
         <h1 id="sql-joins">SQL Joins</h1>
@@ -1301,6 +1385,9 @@ path = <span class="hljs-string">"/home/username/"</span>
 <li><em>album</em></li>
 <li><em>song</em></li>
 </ul>
+<p>Vorlage: Chinook Musikdatenbank</p>
+<p>(GitHub)[<a href="https://github.com/lerocha/chinook-database%5D">https://github.com/lerocha/chinook-database]</a></p>
+<p>(Inspektor auf SchemaSpy)[<a href="http://schemaspy.org/sample/index.html%5D">http://schemaspy.org/sample/index.html]</a></p>
 
       </section><section class="slide" id="slide-15-3">
         <h2 id="beispiel-musikdatenbank---artist">Beispiel: Musikdatenbank - artist</h2>
