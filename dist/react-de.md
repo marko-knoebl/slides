@@ -35,15 +35,25 @@ Marko Knöbl
 
 # Agenda
 
+## Agenda
+
+### Einstieg
+
 - Kurzüberblick über React
 - Modernes JS / JS-Grundlagen für React
 - Deklaratives Rendering / Arbeiten mit application-state
 - Komponenten
 - Einbinden vordefinierter Komponenten
-- Redux
+
+## Agenda
+
+### Vertiefung
+
+- Lifecycle
 - Routing
 - Testen von Komponenten
-- Progressive Web Apps
+- Redux
+- Progressive Web Apps mit React
 
 # React.js
 
@@ -67,27 +77,30 @@ Marko Knöbl
 - Datenfluss via Properties und Events
 - Üblicherweise unidirektionaler Datenfluss (vom Eltern- zum Kindelement)
 
+## Beispiel: Datenmodell und -fluss in einer Todo-App
+
+<img src="assets/todo-components-datamodel.svg" type="text/svg" style="width: 300px">
+
 ## Was macht React besonders?
 
 - JavaScript-basierte Template-Syntax
-- Explizite Änderung des Anwendungszustands via _setState()_
+- Explizite Änderung des Anwendungszustands mittels Settern
 
 ## Geschichte von React
 
 - Ab 2011 intern bei Facebook in Verwendung
 - Open Source seit 2013
-- Aktuelle Version: React 16 (September 2017): Komplette interne Neuentwicklung mit gleichem API
+- Aktuelle Major Version: React 16 (September 2017)
+- Februar 2019: Einführung von Hooks
 
-## Beispiel: Datenmodell und -fluss in einer Todo-App
+# Create-React-App
 
-![Bild: Datenmodell in einer Todo-App](./images/todo-components-datamodel.svg)
-
-# React.js - Grundlagen
+eine neue React-Anwendung erstellen
 
 ## Entwicklung mit node.js und npm
 
 - node.js: JS-Runtime
-  - Ausführen des Testservers
+  - Ausführen des lokalen Enwicklungsservers
   - Unit-Tests
 - npm: Paketmanager
   - zum Verwalten von Abhängigkeiten
@@ -96,9 +109,9 @@ Marko Knöbl
 
 ## create-react-app
 
-Meistgenutzte Methode zum Erstellen von React-Anwendungen: _create-react-app_
+Meistgenutzte Methode zum Erstellen von React-Anwendungen
 
-ausführen:
+ausführen via:
 
 ```bash
 npx create-react-app playground
@@ -106,18 +119,57 @@ npx create-react-app playground
 
 siehe auch: https://reactjs.org/docs/add-react-to-a-new-app.html
 
+## create-react-app
+
+Erstellt eine einfache React-Anwendung, auf deren Basis weiter gearbeitet werden kann
+
+Viele Aspekte sind vorkonfiguriert:
+
+- lokaler Entwicklungsserver
+- Unittest-Framework jest
+- Webpack und Babel
+- SCSS und CSS Module
+
 ## Standard Projektstruktur
 
 - `public/index.html`, `src/index.js`: Einstiegspunkte
 - `App.js`, `App.css`: Definieren App-Komponente
 - `node_modules`: Abhängigkeiten
 
-## Testserver und Build
+## Entwicklungsserver und Build
 
 Im Projektordner:
 
-- `npm start`: Startet den Testserver
+- `npm start`: Startet den lokalen Entwicklungsserver
 - `npm run build`: Erstellt einen Build (zum Deployen auf einem Webserver)
+
+# React & JSX Grundlagen
+
+## Definieren einer Komponente als Klasse
+
+```jsx
+import React, { Component } from 'react';
+
+class App extends Component {
+  render() {
+    return <div>Hello, World!</div>;
+  }
+}
+
+export default App;
+```
+
+## Definieren einer Komponente als Funktion
+
+```jsx
+import React from 'react';
+
+const App = () => {
+  return <div>Hello, World!</div>;
+};
+
+export default App;
+```
 
 ## JSX: JS + XML
 
@@ -129,31 +181,126 @@ JSX = Templatesprache von React
 ## JSX: JS + XML
 
 ```jsx
-el = <div>Hallo, ich bin {2018 - 1970} Jahre alt</div>;
+<div>Ein Jahr hat {365 * 24} Stunden</div>
 ```
 
-## JSX: Einfache Aufgaben
+## JSX: Aufgaben
 
 - Zeige das aktuelle Datum an
-- Zeige eine zufällige Roulettezahl an (0-36)
+- Zeige zufällig entweder den Text "Kopf" oder "Zahl" in einem div an
 
-## Komponentenzustand (State)
+## JSX: Properties
 
-Komponente, die jede Sekunde ihren Zustand aktualisiert:
+Der Wechsel von XML auf JS klappt auch bei Properties:
+
+```jsx
+<a href={'https://en.wikipedia.org/wiki/' + articleName}>
+  some article
+</a>
+```
+
+Beachte die fehlenden Anführungszeichen bei href
+
+## JSX Properties: Aufgaben
+
+- Zeige ein Bild basierend auf einer ID an. Verwende dazu:
 
 ```js
-constructor () {
-  super();
-  this.state = { now: new Date() };
-  setInterval(() => {
-    this.setState({ now: new Date() });
-  }, 1000);
+const getImgUrl = id =>
+  'https://picsum.photos/200?image=' + id.toString();
+```
+
+## JSX: events
+
+```jsx
+const hello = () => {...}
+
+<button onClick={hello}>Say Hello</button>
+```
+
+Liste von Browser-Events:  
+https://www.w3schools.com/jsref/dom_obj_event.asp
+
+## State Beispiel
+
+(wir widmen uns dem Thema _State_ später im Detail)
+
+```jsx
+const Counter = () => {
+  const [count, setCount] = useState(0);
+
+  return (
+    <button
+      onClick={() => {
+        setCount(count + 1);
+      }}>
+      {count}
+    </button>
+  );
 };
 ```
 
-```jsx
-<div>{this.state.now.toLocaleTimeString()}</div>
-```
+# VS Code
+
+## VS Code
+
+https://code.visualstudio.com
+
+- Open-Source-Entwicklungsumgebung
+- Unabhängig vom eigentlichen Visual Studio
+
+## VS Code: Ordner öffnen
+
+ganzen Ordner öffnen mit _File_ - _Open Folder_
+
+## VS Code: speichern
+
+Nicht gespeicherte Dateien sind durch einen Kreis statt des "X" im Tab erkennbar
+
+Speichern mit _Strg_ + _S_
+
+oder: _File_ - _Auto Save_
+
+## VS Code: Datei-Explorer, Split Editor
+
+## VS Code: Terminal
+
+Öffnen und Schließen der Ansicht via _Strg_ + _Ö_
+
+zusätzliches Terminal via Symbol _+_
+
+übernimmt das aktuell geöffnete Verzeichnis
+
+## VS Code - Konfiguration
+
+Via _File - Preferences - Settings_
+
+Eingeteilt in _User Settings_ und _Workspace Settings_
+
+## VS Code - Konfigurationsmöglichkeiten
+
+Empfehlungen:
+
+- Auto Save: _aktivieren_
+- Accept Suggestion on Commit Character (Autovervollständigung ohne _Enter_): _deaktivieren_
+- Tab Size: _2_
+
+Weitere Möglichkeiten:
+
+- Format on Save
+- Format on Paste
+- EOL
+- Workbench: Color Theme
+
+## VS Code - Kurzbefehle
+
+- _Strg_ + _F_: Suchen in Datei
+- _Alt_ + _Shift_ + _F_: Formatieren der Datei
+- _Ctrl_ + _#_: aus- / einkommentieren
+- _F12_: Zur Definition springen
+- _Shift_ + _F12_: Definition anzeigen
+- _F2_: Umbenennen von Variablen
+- _Alt_ + Mausklick: Mehrere Textcursor zum gleichzeitigen Schreiben setzen
 
 # ES2015+
 
@@ -356,55 +503,19 @@ let join = (strings, separator='') => {
 }
 ```
 
-# ESLint
+# map, filter, reduce
 
-## ESLint
-
-JavaScript-Linter
-
-- VS Code plugin
-
-# Prettier
-
-## Prettier
-
-https://prettier.io/
-
-- Code-Formatierung nach strikten Regeln
-- VS-Code-Plugin (via Alt + Shift + F)
-
-## Prettier-Konfiguration
-
-in VS Code: über Datei - Einstellungen - Einstellungen
-
-oder über `.prettierrc.json`:
-
-```json
-{
-  "bracketSpacing": false,
-  "singleQuote": true,
-  "trailingComma": true,
-  "jsxBracketSameLine": true
-}
-```
-
-# JavaScript-Grundlagen für React
-
-## map, filter, reduce
-
-- Array-Methoden für die funktionale Programmierung
+### Array-Methoden für die funktionale Programmierung
 
 ## map
 
 - Ändert jeden Eintrag eines Arrays mit Hilfe einer Funktion ab
-- Rückgabewert: neuer Array
+- Rückgabewert: neues Array
 
 ```js
 let myNumbers = [2, 10, 23];
 
-function triple(n) {
-  return 3 * n;
-}
+let triple = n => 3 * n;
 
 let newNumbers = myNumbers.map(triple);
 // [6, 30, 69]
@@ -414,14 +525,12 @@ let newNumbers = myNumbers.map(triple);
 
 - Behält nur gewisse Einträge in einem Array
 - Nutzt eine Funktion, um Einträge auf ein bestimmtes Kriterium zu testen
-- Rückgabewert: neuer Array
+- Rückgabewert: neues Array
 
 ```js
 let myNumbers = [2, 10, 23];
 
-function isEven(n) {
-  return n % 2 === 0;
-}
+let isEven = n => n % 2 === 0;
 
 let newNumbers = myNumbers.filter(isEven);
 // [2, 10]
@@ -429,7 +538,32 @@ let newNumbers = myNumbers.filter(isEven);
 
 ## reduce
 
-## this
+- Verarbeitet die Einträge in einem Array zu einem einzelnen Wert
+- Verwendet eine Funktion, die aus zwei bestehenden Werten einen resultierenden Wert erstellt - diese Funktion wird wiederholt aufgerufen
+
+## reduce - Beispiel
+
+```js
+let transactions = [
+  { amount: -56, title: 'groceries' },
+  { amount: +1020, title: 'salary' },
+  { amount: -13, title: 'dinner' },
+  { amount: -96, title: 'electricity' },
+];
+let initialBalance = 317;
+
+let currentBalance = transactions.reduce(
+  (aggregator, transaction) =>
+    aggregator + transaction.amount,
+  initialBalance
+);
+
+// 317 -> 261 -> 1281 -> 1268 -> 1172
+```
+
+# this - quirks
+
+## this - quirks
 
 - _this_ bezieht sich in Objektmethoden üblicherweise auf das aktuelle Objekt
 - **allerdings**:
@@ -446,22 +580,6 @@ class myComponent {
     setTimeout(function() {
       //this wird hier überschrieben (auf window)
       console.log(this.foo);
-    }, 1000);
-  }
-}
-```
-
-## Lösung: _that_ / _self_
-
-```js
-class myComponent {
-  constructor() {
-    // this ist hier richtig gesetzt
-    this.foo = true;
-    let that = this;
-    setTimeout(function() {
-      //this wird hier überschrieben (auf window)
-      console.log(that.foo);
     }, 1000);
   }
 }
@@ -493,9 +611,9 @@ class Foo {
     console.log(this.message);
   }
 }
-let f = new Foo();
-f.greet(); // klappt
-let fg = f.greet;
+let foo = new Foo();
+foo.greet(); // klappt
+let fg = foo.greet;
 fg(); // klappt nicht (this ist undefined)
 ```
 
@@ -531,68 +649,121 @@ fg(); // klappt jetzt auch
   }
 ```
 
-# React.js - Grundlagen II
+# State (Komponentenzustand)
 
-## JSX Kompilierung
+## State
 
-<!-- prettier-ignore -->
-```jsx
-const element = (
-  <h1 className="greeting">
-    Hello, world!
-  </h1>
-);
-```
+React Komponenten können einen internen Zustand (_state_) haben
 
-wird kompiliert zu:
+Auf den state kann im Template verwiesen werden. Damit ändert sich die Anzeige automatisch, wenn Teile des States neu gesetzt werden.
+
+## State in funktionalen Komponenten
+
+In funktionalen Komponenten verwenden wir den Hook `useState`:
 
 ```js
-const element = React.createElement(
-  'h1',
-  { className: 'greeting' },
-  'Hello, world!'
-);
+import { useState } from 'react';
 ```
 
-## JSX: Properties
+## State in funktionalen Komponenten
 
-Der Wechsel von XML auf JS klappt auch bei Properties:
+Die Funktion `useState` kann zu Beginn der Komponentenfunktion (wiederholt) aufgerufen werden. Sie hat die folgende Signatur:
 
-```html
-<a href={"https://en.wikipedia.org/wiki/" + articleName}>
-  some article
-</a>
-```
-
-Beachte die fehlenden Anführungszeichen bei href
-
-## JSX Properties: Aufgaben
-
-- Zeige ein Bild basierend auf einer ID an. Verwende dazu:
+- sie nimmt einen Parameter entgegen - den initialen Zustand
+- sie gibt bei jedem Aufruf ein Array mit zwei Einträgen zurück: Den aktuellen Zustand sowie eine Funktion, mit der der Zustand neu gesetzt werden kann
 
 ```js
-const getImgUrl = id =>
-  `https://picsum.photos/200?image=${id}`;
+const App = () => {
+  const [count, setCount] = useState(0);
+  const [title, setTitle] = useState('React app');
+
+  return ...
+};
 ```
 
-## JSX: events
+## Beispiel: Counter
+
+Wir fügen unserer Anwendung einen Button hinzu. Zu Beginn zeigt dieser den Wert 0. Bei jedem Klick erhöht er sich um 1.
+
+## Beispiel: Counter
 
 ```jsx
-function hello() {...}
+const App = () => {
+  const [count, setCount] = useState(0);
 
-<button onClick={hello}>Say Hello</button>
+  return (
+    <button
+      onClick={() => {
+        setCount(count + 1);
+      }}>
+      {count}
+    </button>
+  );
+};
 ```
 
-Liste von Browser-Events:  
-https://www.w3schools.com/jsref/dom_obj_event.asp
+## Beispiel: Counter
 
-## JSX: Methoden als Eventhandler
+Aufgabe: füge zur Anwendung von eben einen _Reset_-Knopf hinzu
 
-Achtung: Werden Klassenmethoden als Eventhandler verwendet, sollten sie entweder als Pfeilfunktionen definiert sein oder mit _.bind()_ korrekt zugewiesen werden.
+## Beispiel: Slideshow
 
-## Browser-Events: Beispiel
+Slideshow, die Bilder wie das folgende anzeigt:
 
-- einfacher Button (Hello world)
+`https://picsum.photos/200?image=10`
+
+- Buttons für _vorwärts_ und _zurück_
+- Button für _zurück zum Start_
+- Verhindern, dass ins negative gezählt wird
+
+## State in Klassenkomponenten
+
+In Klassenkomponenten repräsentiert `this.state` den Zustand.
+
+`this.state` ist immer ein JavaScript-Objekt mit verschiedenen Einträgen (Properties)
+
+Zustandsänderungen erfolgen über `this.setState()`
+
+## Struktur von this.state
+
+_this.state_ ist ein JavaScript-Objekt:
+
+```js
+constructor() {
+  [...]
+  this.state = {
+    loggedIn: true,
+    todos: ['laundry', 'groceries', 'taxes'],
+  }
+}
+```
+
+## Änderung von this.state
+
+via `this.setState()`
+
+```js
+this.setState({ loggedIn: false });
+```
+
+setState überschreibt alle angegebenen Einträge im state-Objekt
+
+## Wiederholtes Aufrufen von this.setState
+
+Rat: in einem Event-Handler nur 1x `setState` aufrufen.
+
+Wenn doch mehrere Aufrufe von `setState` erfolgen und ein Aufruf auf der vorhergehenden Zustandsänderung basiert:
+
+```js
+// löschen eines Todos
+this.setState(oldState => ({
+  todos: oldState.todos.slice(0, oldState.todos.length - 1),
+}));
+```
+
+Wir übergeben setState eine Funktion, die den alten in den neuen Zustand überführt.
+
+# JSX im Detail
 
 ## JSX: Elemente wiederholen
 
@@ -611,10 +782,9 @@ Grundsätzlich können wir über Arrays mehrere Elemente einbinden:
 
 Meist verwenden wir zum wiederholen die `.map()` - Methode
 
-<!-- prettier-ignore-start -->
-
+<!-- prettier-ignore -->
 ```jsx
-let todos = [
+const todos = [
   { id: 1, title: 'groceries', completed: false },
   { id: 2, title: 'cooking', completed: true },
   { id: 3, title: 'gardening', completed: false },
@@ -627,17 +797,15 @@ let todos = [
 </ul>
 ```
 
-<!-- prettier-ignore-end -->
-
 ## JSX: Elemente wiederholen
 
 Bei obigem Code: Warnung in der Browser-Konsole (Wegen Effizienz)  
-Lösung: **key** (als string):
+Lösung: **key**:
 
 ```jsx
 <ul>
   {todos.map(todo => (
-    <li key={todo.id.toString()}>{todo.title}</li>
+    <li key={todo.id}>{todo.title}</li>
   ))}
 </ul>
 ```
@@ -651,20 +819,61 @@ Lösung: **key** (als string):
 ## JSX: if / else
 
 ```jsx
-function cointoss() {
-  if (Math.random() > 0.5) {return 'heads';}
-  else {return 'tails';}
+let face;
+if (Math.random() > 0.5) {
+  face = 'heads';
+} else {
+  face = 'tails';
 }
-[...]
-<div>
-  {cointoss()}
-</div>
+
+return <div>{face}</div>;
+```
+
+## JSX: if
+
+```jsx
+<div>{state.hasError && state.errorMessage}</div>
 ```
 
 ## JSX: CSS-Klassen
 
 ```jsx
 <div className={getClassName()}>[...]</div>
+```
+
+## CSS-Module
+
+Bei create-react-app sind CSS-Module vorkonfiguriert. Diese erlauben das Verwenden von CSS-Klassennamen, die garantiert über CSS-Dateien hinweg eindeutig sind.
+
+```js
+import styles from './TodoItem.module.css';
+
+<div className={styles.todoItem}>...</div>;
+
+<div className={`${styles.todoItem} ${styles.completed}`}>
+  ...
+</div>;
+```
+
+## SCSS einbinden
+
+```bash
+npm install node-sass
+```
+
+```js
+import styles from './TodoItem.module.scss';
+```
+
+```scss
+/* TodoItem.module.scss */
+@import '../colors';
+...
+```
+
+```scss
+/* colors.scss */
+$primary: lightblue;
 ```
 
 ## JSX: Dynamische Stile
@@ -678,85 +887,56 @@ function cointoss() {
 />
 ```
 
-## State
+## Fragmente
 
-- React-Komponenten können einen internen Zustand (_state_) haben
+Erlauben es einer Komponente, mehrere Elemente zurückzugeben (anstatt eines einzenen Elements)
 
-## State
-
-- In jeder Komponente hat _this.state_ eine besondere Bedeutung
-- Auf Daten in _this.state_ kann im Template verwiesen werden. Damit ändert sich die Anzeige automatisch, wenn die Daten neu gesetzt werden.
-
-## Struktur von this.state
-
-- _this.state_ ist ein JavaScript-Objekt:
-
-```js
-constructor() {
-  [...]
-  this.state = {
-    loggedIn: true,
-    todos: ['laundry', 'groceries', 'taxes'],
-  }
-}
+```jsx
+return (
+  <>
+    <td>Hello</td>
+    <td>World</td>
+  </>
+);
 ```
 
-## Änderung von this.state
+## JSX Kompilierung
 
-Nur via setState()
-
-```js
-this.setState({ loggedIn: false });
-this.setState({ todos: ['learn react'] });
+```jsx
+const element = <h1 className="greeting">Hello, world!</h1>;
 ```
 
-setState überschreibt alle angegebenen Einträge im state-Objekt
-
-## Änderung von this.state
-
-Wenn der neue state vom alten abhängt:
+wird kompiliert zu:
 
 ```js
-// löschen eines Todos
-this.setState(oldState => {
-  let newTodos = oldState.todos;
-  newTodos.pop();
-  return { todos: newTodos };
-});
+const element = React.createElement(
+  'h1',
+  { className: 'greeting' },
+  'Hello, world!'
+);
 ```
 
-Wir übergeben setState eine callback-Funktion, die den alten in den neuen Zustand überführt.
-
-## Beispiel: Counter
-
-## Weitere Beispiele
-
-Ideen:
-
-- Uhr
-- Countdown-Zähler
-- Diashow
+# Inputs
 
 ## Inputs
 
 Besonderheit von input-Elementen:
 
-- Ihre Properties (insbesondere `.value`) können durch User-Interaktionen direkt geändert werden
-- Es gibt damit Aspekte des UI-Zustands, die nicht in _.state_ erfasst sind
+Ihre Properties (insbesondere `.value`) können durch User-Interaktionen direkt geändert werden
+
+Es gibt damit Aspekte des UI-Zustands, die nicht im state erfasst sind.
 
 ## Inputs
 
-So können wir `input.value` in `.state` erfassen:
+So können wir den Value eines Inputs im State erfassen:
 
 ```jsx
 <input
-  value={this.state.inputText}
-  onChange={this.handleChange}
-/>;
-
-handleChange = event => {
-  this.setState({ inputText: event.target.value });
-};
+  value={inputText}
+  onChange={event => {
+    setInputText(event.target.value);
+  }}
+/>
 ```
 
 # Entwicklerwerkzeuge für React
@@ -769,6 +949,7 @@ https://github.com/facebook/react-devtools
 - Anzeige von State und Props
 - Hervorheben von Änderungen von State und Props
 - Hervorheben des Rerenderings von Komponenten
+- Performanceanalyse des Renderings von Komponenten
 
 ## Debugging in VS Code
 
@@ -798,17 +979,41 @@ Testserver muss im Hintergrund schon laufen
 
 Debugging in VS Code starten: mittels _F5_
 
+# Prettier
+
+## Prettier
+
+https://prettier.io/
+
+- Code-Formatierung nach strikten Regeln
+- VS-Code-Plugin (via Alt + Shift + F)
+
+## Prettier-Konfiguration
+
+in VS Code: über Datei - Einstellungen - Einstellungen
+
+oder über `.prettierrc.json`:
+
+```json
+{
+  "bracketSpacing": false,
+  "singleQuote": true,
+  "trailingComma": true,
+  "jsxBracketSameLine": true
+}
+```
+
 # Komponenten
 
 ## Komponenten
 
-Möglichkeit, eigene Tags zu definieren, z.B.
+Möglichkeit, eigene Tags zu definieren, z.B.:
 
-```xml
-<Rating stars={4}/>
+```jsx
+<Rating stars={3} />
 ```
 
-<img src="assets/rating.png" style="height: 4em">
+<img src="assets/rating.png" type="image/png" style="width: 16em">
 
 ## Komponenten
 
@@ -817,14 +1022,30 @@ Um sie von normalen Tags zu unterscheiden, beginnen Komponentennamen immer mit e
 ## Komponenten: State & Props
 
 - State = interner Zustand einer Komponente
-  - `this.state`
-  - `this.setState`
 - Props = vom Elternelement übergebene Parameter
-  - `this.props`
 
 ## Komponentendefinition
 
+- Klassenkomponenten
+- Funktionale Komponenten
+
+## Funktionale Komponenten
+
 Beispiel:
+
+```jsx
+import React from 'react';
+
+const Rating = props => (
+  <div className="rating">{'*'.repeat(props.stars)}</div>
+);
+
+export default Rating;
+```
+
+## Klassenkomponenten
+
+example:
 
 ```jsx
 import React, { Component } from 'react';
@@ -840,34 +1061,27 @@ export class Rating extends Component {
 }
 ```
 
-## Komponentendefinition: Beispiele
-
-- `PlayingCard` - Komponente
-- `RomanNumber` - Komponente
-
 ## Datenfluss
 
 - parent → child: props
 - child → parent: events
 
-## Prop Types
+## props.children
 
-Typechecker für Props
+Über `props.children` können Inhalte an eine Komponente übergeben werden
 
-`npm install prop-types`
-
-## Prop Types
+Beispiel: `Bordered`-Komponente:
 
 ```jsx
-import PropTypes from 'prop-types';
+<Bordered>lorem ipsum</Bordered>
+```
 
-class MyComponent extends Component {}
+Definition der Komponente:
 
-MyComponent.propTypes = {
-  name: PropTypes.string.isRequired,
-  age: PropTypes.number,
-  onChange: PropTypes.func,
-};
+```jsx
+const Bordered = props => (
+  <div class="bordered">{props.children}</div>
+);
 ```
 
 ## Eigene Events
@@ -876,21 +1090,18 @@ Eventhandler werden als Funktionen definiert und via props übergeben / erhalten
 
 ## Eigene Events
 
-Beispiel `ToggleButton`: Button der entweder "off" oder "on" anzeigt:
+Beispiel `ToggleButton`: Button, der entweder "off" oder "on" anzeigt:
 
-Prop: `on` - kann auf `true` bzw `false` gesetzt sein
+Prop: `active` - kann auf `true` bzw `false` gesetzt sein  
 Event: `onToggle` - Funktion, die mit dem neuen Zustand aufgerufen wird
 
 ```jsx
-<button onClick={this.handleClick}>
-  {this.props.on ? 'on' : 'off'}
+<button
+  onClick={() => {
+    props.onToggle(!props.active);
+  }}>
+  {props.active ? 'on' : 'off'}
 </button>
-```
-
-```js
-handleClick = () => {
-  this.props.onToggle(!this.props.on);
-};
 ```
 
 ## Eigene Events
@@ -898,19 +1109,14 @@ handleClick = () => {
 Beispiel `ToggleButton`: Der Button muss passend eingebunden werden
 
 ```jsx
-state: {
-  ...
-  someOptionActive: true
-}
+const [myOption, setMyOption] = useState(true);
 
 <ToggleButton
-  on={this.state.someOptionActive}
-  onToggle={this.handleToggle}
-/>
-
-handleToggle = (isToggled) => {
-  this.setState({someOptionActive: isToggled});
-}
+  active={myOption}
+  onToggle={newIsActive => {
+    setMyOption(newIsActive);
+  }}
+/>;
 ```
 
 ## Eigene Events
@@ -922,33 +1128,59 @@ Beispiele:
   - Bonus: Umsetzung des APIs, sodass es kompatibel zu normalen input-Elementen ist und input-Elemente leicht durch NumberInput-Komponeneten ersetzt werden können
   - Bonus: zusätzliche min / max - Property bei der Komponente
 
-## Lifecycle-Hooks
+# Komponenten-Library: Material-UI
 
-Bei Klassenkomponenten ist es möglich, Events in ihrem Lebenszyklus abzufragen:
+Vorgefertigte React-Komponenten im Material-Design-Stil (Stil von Google/Android)
 
-- `componentDidMount()`
-- `componentDidUpdate()`
-- `componentWillUnmount()`
+## Material-UI: Installation und Verwendung
 
-Diese werden als Methoden der Klasse implementiert
+https://material-ui.com
 
-## Übung
+siehe Info-Boxen zu _Installation_ und _Usage_
 
-Clock-Komponente (mit `componentDidMount` und `componentWillUnmount`)
+## Übungen
+
+- Button
+- Todo App im Material Style
 
 # Übung: todo list
 
-# React mit TypeScript
+# Typechecker für React
 
-## Create-React-App
+## Typechecker für React
+
+Insbesondere was das Interface von Komponenten angeht, ist es sehr sinvoll, vorhandene Properties und Events anzugeben
+
+Dies kann mit Hilfe der Library `prop-types` geschehen
+
+Eine noch viel weitreichendere Unterstützung liefert die Verwendung von TypeScript als Programmiersprache
+
+## prop-types
+
+Beispiel:
+
+```js
+import PropTypes from 'prop-types';
+
+// definition of Rating component here
+
+Rating.propTypes = {
+  stars: PropTypes.number.isRequired,
+  onStarsChange: PropTypes.func,
+};
+```
+
+## React mit TypeScript
+
+neues Projekt:
 
 ```bash
 npx create-react-app my-app --typescript
 ```
 
-## Komponenten (Funktionen)
+## Komponenten mit TypeScript (Funktionen)
 
-```ts
+```tsx
 type TodoListProps = {
   todos: Array<TodoType>;
   onToggle: (id: number) => void;
@@ -962,7 +1194,7 @@ const TodoList = (props: TodoListProps) => {
 };
 ```
 
-## Komponenten (Klassen)
+## Komponenten mit TypeScript (Klassen)
 
 ```tsx
 // TodoList.tsx
@@ -980,20 +1212,218 @@ class TodoItem extends React.PureComponent<
 > {}
 ```
 
-# Material-UI
+## Eventtypen
 
-Vorgefertigte React-Komponenten im Material-Design-Stil (Stil von Google/Android)
+- `React.FormEvent`
+- `React.FormEvent<HTMLFormElement>`
+- `React.ChangeEvent<HTMLInputElement>`
+- `React.MouseEvent<HTMLDivElement>`
 
-## Material-UI: Installation und Verwendung
+# TypeScript
 
-https://material-ui.com
+## TypeScript
 
-siehe Info-Boxen zu _Installation_ und _Usage_
+= Obermenge von JavaScript mit Erweiterungen:
 
-## Übungen
+- **Statische Typisierung**
+- Public / Private Properties
+- Decorators
 
-- Button
-- Texteingabe mit Validierung: Mindesteingabelänge 3 Zeichen
-- Texteingabe mit Validierung: 2 Passwörter müssen übereinstimmen
-- Todo-App im Material-Stil
+## Statische Typisierung
+
+Datentypen können angegeben werden und unterstützen insbesondere die Entwicklungsumgebung:
+
+- Autovervollständigung
+- Fehlermeldungen bei nicht passenden Datentypen
+
+## Statische Typisierung
+
+Beim build: TypeScript wird in JavaScript übersetzt, alle Typeninformationen gehen dabei verloren
+
+## Typsystem: Variablen
+
+```ts
+let age: number = 32;
+let name: string = 'Andreas';
+```
+
+## Typsystem: Arrays
+
+```js
+let names: Array<string> = ['Anna', 'Bernhard'];
+```
+
+alternative Schreibweise:
+
+```ts
+let names: string[] = ['Anna', 'Bernhard'];
+```
+
+## Typsystem: Funktionen
+
+<!-- prettier-ignore -->
+```ts
+function repeatString(
+  text: string,
+  times: number
+): string {
+  return ...
+}
+```
+
+```ts
+const repeatString = (
+  text: string,
+  times: number
+): string => {
+  return ...;
+};
+```
+
+## Typsystem: void
+
+Void: umfasst _undefined_ und _null_ - hauptsächlich genutzt für Funktionen, die nichts zurückgeben
+
+```ts
+const warnUser = (): void => {
+  alert('warning!');
+};
+```
+
+## Typsystem: any
+
+Any: lässt alle Typen zu
+
+```ts
+let myInput: any = document.getElementById('myinput');
+console.log(myInput.value);
+```
+
+## Typsystem: Type assertions
+
+```ts
+(window as any).myGlobalVariable = 'foo';
+```
+
+## Typsystem: Types & Interfaces
+
+Interfaces: beschreiben die Struktur eines Objekts / einer Klasse genauer  
+z.B.: `TodoInterface`, `PersonInterface`
+
+Types: Ähnlich wie Interfaces, nur auch auf Strings, Arrays, ... anwendbar
+
+Types bieten im wesentlichen mehr Funktionalität als Interfaces
+
+https://stackoverflow.com/a/52682220/
+
+## Typsystem: Types
+
+```ts
+type TodoType = {
+  id: number;
+  title: string;
+  completed: boolean;
+};
+
+type TodoCollection = Array<TodoType>;
+```
+
+## Types bei Objekten
+
+```ts
+type TodoType = {
+  id: number;
+  title: string;
+  completed: boolean;
+  // optional
+  description?: string;
+  // Methode
+  toggle: (id: number) => void;
+};
+```
+
+## Types bei Objekten
+
+```ts
+class AdvancedTodo implements TodoType {
+  ...
+}
+```
+
+## Extends
+
+Mittels `&`:
+
+```ts
+type ActionType = {
+  type: string;
+  payload?: object;
+};
+
+type AddTodoActionType = ActionType & {
+  type: 'ADD_TODO';
+  payload: {
+    title: string;
+  };
+};
+```
+
+## Union Types
+
+```ts
+type TodoActionType =
+  | AddTodoActionType
+  | ToggleTodoActionType;
+```
+
+## Generics
+
+Allgemeine Typendeklaration, bei der bei der Anwendung nähere Informationen spezifiziert werden können
+
+## Generics
+
+Beispiel: `Array` ist ein Generic
+
+```ts
+let a: Array<number> = [1, 2, 3];
+let b: Array<string> = ['one', 'two', 'three'];
+```
+
+## Generics
+
+```ts
+class Component<Props, State> {
+  props: Props;
+  state: State;
+
+  setState: (newState: Partial<State>) => void;
+}
+```
+
+Verwendung:
+
+```ts
+class MyComp extends Component<MyProps, MyState> {
+  ...
+}
+```
+
+## Private & Public Properties
+
+```ts
+class Clock {
+  private formatTime(time) {
+    return ...
+  }
+  public start() {
+    ...
+  }
+}
+```
+
+## Typendeklarationen für Libraries
+
+Einige JavaScript Libraries beinhalten auch Typendeklarationen für TypeScript - z.B. _react_, _redux_.
+
+Für andere Libraries gibt es meist externe Deklarationen mit dem Präfix _@types/_, z.B. für _react-redux_ existiert das Paket _@types/react-redux_.
 
