@@ -12,14 +12,12 @@ Standardisiert von _ANSI_ und _ISO_ - allerdings weichen Implementierungen oft v
 
 Die beste Unterstützung für standardisiertes SQL bietet wohl _PostgreSQL_
 
-Alte Version des Standards (kostenlos): http://www.contrib.andrew.cmu.edu/~shadow/sql/sql1992.txt
+Alte Entwürfe des Standards (kostenlos):
+
+- [SQL 1992 Entwurf (txt, 1.5 MB)](http://www.contrib.andrew.cmu.edu/~shadow/sql/sql1992.txt)
+- [SQL 2011 Entwurf (zip von PDFs, 13 MB)](www.wiscorp.com/sql20nn.zip)
 
 ## SQL Implementierungen
-
-proprietär:
-
-- Oracle
-- SQL Server (Microsoft)
 
 open source:
 
@@ -27,6 +25,11 @@ open source:
 - MariaDB
 - PostgreSQL
 - SQLite
+
+proprietär:
+
+- Oracle
+- SQL Server (Microsoft)
 
 [Popularität laut Stackoverflow Developer Survey](https://insights.stackoverflow.com/survey/2019#technology-_-databases)
 
@@ -42,8 +45,6 @@ https://sqlitebrowser.org/ (SQLite)
 
 ## Allgemeine SQL Syntax
 
-Größtenteils _case-insensitive_; Konvention: Keywords _groß_ geschrieben, Rest normal
-
 SQL Statements werden mit `;` beendet
 
 Kommentare sind auf zwei Arten möglich:
@@ -56,6 +57,38 @@ Kommentar */
 ```sql
 -- einzeiliger Kommentar
 ```
+
+## Allgemeine SQL Syntax
+
+SQL ist größtenteils _case-insensitive_
+
+Konvention: Keywords groß geschrieben, Rest meist klein und durch Unterstriche getrennt
+
+Beispiel:
+
+```sql
+SELECT first_name, last_name, tel FROM person;
+```
+
+## Allgemeine SQL Syntax
+
+Tabellen- und Spaltennamen werden von SQL in Großschreibweise übertragen, z.B. `first_name` → `FIRST_NAME`, `person` → `PERSON`
+
+Ausnahme: In _PostgreSQL_ werden Namen in Kleinschreibweise übertragen
+
+## Allgemeine SQL Syntax
+
+Sollen Namen in exakter Schreibweise übernommen werden, müssen sie in Anführungszeichen gesetzt werden. Dies ist eher unüblich.
+
+```sql
+SELECT "First_Name", "Last_Name", "Tel" FROM "Person";
+```
+
+Ausnahme: In _MySQL_ würden hier Backticks (\`) statt Anführungszeichen verwendet werden; hier kann über den Modus `ANSI_QUOTES` ein Standard-kompatibles Verhalten erreicht werden
+
+## Übungsdaten
+
+https://github.com/datasets
 
 ## Tabellen erstellen
 
@@ -74,6 +107,7 @@ ISO / ANSI SQL Standard (Auswahl):
 
 - `BOOLEAN`
 - `INT` / `INTEGER`, `SMALLINT`, `BIGINT`
+- `NUMERIC` / `DECIMAL`
 - `REAL`, `DOUBLE PRECISION`
 - `VARCHAR(n)`
 - `VARBINARY(n)`

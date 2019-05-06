@@ -10,9 +10,9 @@ Tabellen:
 
 Vorlage: Chinook Musikdatenbank
 
-(GitHub)[https://github.com/lerocha/chinook-database]
+[GitHub](https://github.com/lerocha/chinook-database)
 
-(Inspektor auf SchemaSpy)[http://schemaspy.org/sample/index.html]
+[Inspektor auf SchemaSpy](http://schemaspy.org/sample/index.html)
 
 ## Beispiel: Musikdatenbank - artist
 

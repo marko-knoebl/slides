@@ -109,7 +109,7 @@ sichere Methode (mit SQL-Escaping):
 
 ```py
 search_name = input()
-res = c.execute(
+res = cursor.execute(
   """SELECT tel FROM person WHERE name = ?;""",
   (search_name, )
 )

@@ -28,6 +28,7 @@ Abweichungen vom Standard:
 
 - `SMALLINT` (üblicherweise 16 Bit)
 - `INT` / `INTEGER` (üblicherweise 32 Bit)
+- `NUMERIC` / `DECIMAL` (Dezimalzahlen mit variabler Genauigkeit)
 - `BIGINT` (üblicherweise 64 Bit)
 - `REAL` (üblicherweise 32 Bit)
 - `DOUBLE PRECISION` (üblicherweise 64 Bit)
@@ -36,6 +37,14 @@ Abweichungen vom Standard:
 
 - _MySQL_: `REAL` → `FLOAT`
 - _SQLite_: Erlaubt für alle Typen 64 Bit Genauigkeit
+
+## Zahlen
+
+Dezimalzahl mit 10 Stellen vor und 2 Stellen nach dem Komma:
+
+```sql
+DECIMAL(12, 2)
+```
 
 ## Zahlen
 
@@ -55,6 +64,8 @@ Dies ist nicht Teil des SQL Standards
 Bei _SQL Server_ sollte für Unicodeunterstütztung `NVARCHAR` verwendet werden (benötigt doppelt so viel Speicherplatz)
 
 bei _Oracle_ nennt sich der entsprechende Datentyp `VARCHAR2`
+
+Die Maximallänge hat keine Auswirkung auf den Speicherbedarf auf der Festplatte; allerdings kann sie den RAM-Verbrauch beim Lesen und Schreiben beeinflussen
 
 ## Text
 
@@ -100,6 +111,10 @@ Abweichungen vom Standard:
 - nicht von `SQLite` unterstützt
 - _SQL Server_: `TIMESTAMP` → `DATETIME`
 
+Einschränkungen:
+
+- in _MySQL_ ist `TIMESTAMP` auf Jahre zwischen 1970 und 2038 beschränkt - eine bessere Alternative ist `DATETIME`
+
 ## Resourcen zu Datentypen
 
 - [SQLite Datentypen](https://sqlite.org/datatype3.html)
@@ -130,10 +145,10 @@ CREATE TABLE element(
 
 Einschränkungen von Spalten:
 
-- `not null`
-- `unique`
-- `primary key`
-- (`foreign key`)
+- `NOT NULL`
+- `UNIQUE`
+- `PRIMARY KEY`
+- (`FOREIGN KEY`)
 
 ## Not null
 
