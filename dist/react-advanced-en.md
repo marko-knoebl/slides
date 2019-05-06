@@ -873,6 +873,27 @@ handleInstallBtnClicked = () => {
 - drag & drop the dist folder to app.netlify.com/drop
 - switch to HTTPS manually - try it out in Chrome on desktop and mobile
 
+# React Native
+
+## React Native
+
+React Native can be used to write React applications for iOS and Android devices
+
+## Online editor
+
+see https://snack.expo.io/
+
+## React Native components
+
+- View (=div)
+- Text (=span)
+- Image
+- Button
+- TextInput (=input)
+- ScrollView
+
+[detailed list](https://facebook.github.io/react-native/docs/components-and-apis#basic-components)
+
 # Context
 
 ## Context
