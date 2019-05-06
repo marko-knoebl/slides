@@ -1379,9 +1379,71 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
         <h1 id="exercise-todo-list">Exercise: todo list</h1>
 
       </section></section><section class="section" id="section-17"><section class="slide" id="slide-17-1">
-        <h1 id="typescript">TypeScript</h1>
+        <h1 id="type-checkers-for-react">Type checkers for React</h1>
 
       </section><section class="slide" id="slide-17-2">
+        <h2 id="type-checkers-for-react">Type checkers for React</h2>
+<p>Declaring the component interface made up by props and events can be very useful</p>
+<p>This can be done via the library <code>prop-types</code></p>
+<p>An alternative is using TypeScript as a programming language, which offers type checking throughout a program</p>
+
+      </section><section class="slide" id="slide-17-3">
+        <h2 id="prop-types">prop-types</h2>
+<p>example:</p>
+<pre><code class="language-js"><span class="hljs-keyword">import</span> PropTypes <span class="hljs-keyword">from</span> <span class="hljs-string">'prop-types'</span>;
+
+<span class="hljs-comment">// definition of Rating component here</span>
+
+Rating.propTypes = {
+  <span class="hljs-attr">stars</span>: PropTypes.number.isRequired,
+  <span class="hljs-attr">onStarsChange</span>: PropTypes.func,
+};</code></pre>
+
+      </section><section class="slide" id="slide-17-4">
+        <h2 id="react-with-typescript">React with TypeScript</h2>
+<p>new Project:</p>
+<pre><code class="language-bash">npx create-react-app my-app --typescript</code></pre>
+
+      </section><section class="slide" id="slide-17-5">
+        <h2 id="components-with-typescript-functions">Components with TypeScript (functions)</h2>
+<pre><code class="language-tsx">type TodoListProps = {
+  todos: Array&lt;TodoType&gt;;
+  onToggle: (id: number) =&gt; void;
+  onDelete: (id: number) =&gt; void;
+};
+
+const TodoList = (props: TodoListProps) =&gt; {
+  const [filterText, setFilterText] = useState&lt;string&gt;('');
+
+  return &lt;div&gt;...&lt;/div&gt;;
+};</code></pre>
+
+      </section><section class="slide" id="slide-17-6">
+        <h2 id="components-with-typescript-classes">Components with TypeScript (Classes)</h2>
+<pre><code class="language-tsx"><span class="hljs-comment">// TodoList.tsx</span>
+<span class="hljs-keyword">type</span> TodoItemProps = {
+  todo: TodoType;
+  onToggle: <span class="hljs-function">(<span class="hljs-params">id: int</span>) =&gt;</span> <span class="hljs-built_in">void</span>;
+};
+<span class="hljs-keyword">type</span> TodoItemState = {};</code></pre>
+<pre><code class="language-tsx"><span class="hljs-keyword">class</span> TodoItem <span class="hljs-keyword">extends</span> React.PureComponent&lt;
+  TodoItemProps,
+  TodoItemState
+&gt; {}</code></pre>
+
+      </section><section class="slide" id="slide-17-7">
+        <h2 id="event-types">Event types</h2>
+<ul>
+<li><code>React.FormEvent</code></li>
+<li><code>React.FormEvent&lt;HTMLFormElement&gt;</code></li>
+<li><code>React.ChangeEvent&lt;HTMLInputElement&gt;</code></li>
+<li><code>React.MouseEvent&lt;HTMLDivElement&gt;</code></li>
+</ul>
+
+      </section></section><section class="section" id="section-18"><section class="slide" id="slide-18-1">
+        <h1 id="typescript">TypeScript</h1>
+
+      </section><section class="slide" id="slide-18-2">
         <h2 id="typescript">TypeScript</h2>
 <p>= superset of JavaScript with extensions:</p>
 <ul>
@@ -1390,7 +1452,7 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
 <li>decorators</li>
 </ul>
 
-      </section><section class="slide" id="slide-17-3">
+      </section><section class="slide" id="slide-18-3">
         <h2 id="static-typing">static typing</h2>
 <p>data types may be specified in order to support the development environment:</p>
 <ul>
@@ -1398,22 +1460,22 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
 <li>errors when types mismatch</li>
 </ul>
 
-      </section><section class="slide" id="slide-17-4">
+      </section><section class="slide" id="slide-18-4">
         <h2 id="static-typing">static typing</h2>
 <p>when building: TypeScript is translated to JavaScript, all type information is discarded</p>
 
-      </section><section class="slide" id="slide-17-5">
+      </section><section class="slide" id="slide-18-5">
         <h2 id="type-system-variables">type system: variables</h2>
 <pre><code class="language-ts"><span class="hljs-keyword">let</span> age: <span class="hljs-built_in">number</span> = <span class="hljs-number">32</span>;
 <span class="hljs-keyword">let</span> name: <span class="hljs-built_in">string</span> = <span class="hljs-string">'Andreas'</span>;</code></pre>
 
-      </section><section class="slide" id="slide-17-6">
+      </section><section class="slide" id="slide-18-6">
         <h2 id="type-system-arrays">type system: arrays</h2>
 <pre><code class="language-js"><span class="hljs-keyword">let</span> names: <span class="hljs-built_in">Array</span>&lt;string&gt; = [<span class="hljs-string">'Anna'</span>, <span class="hljs-string">'Bernhard'</span>];</code></pre>
 <p>alternative syntax:</p>
 <pre><code class="language-ts"><span class="hljs-keyword">let</span> names: <span class="hljs-built_in">string</span>[] = [<span class="hljs-string">'Anna'</span>, <span class="hljs-string">'Bernhard'</span>];</code></pre>
 
-      </section><section class="slide" id="slide-17-7">
+      </section><section class="slide" id="slide-18-7">
         <h2 id="type-system-functions">type system: functions</h2>
 <!-- prettier-ignore -->
 <pre><code class="language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">repeatString</span>(<span class="hljs-params">
@@ -1429,31 +1491,31 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
   <span class="hljs-keyword">return</span> ...
 };</code></pre>
 
-      </section><section class="slide" id="slide-17-8">
+      </section><section class="slide" id="slide-18-8">
         <h2 id="type-system-void">type system: void</h2>
 <p>Void: can either be <em>undefined</em> or <em>null</em> - is mostly used with functions that don&#39;t return anything</p>
 <pre><code class="language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">warnUser</span>(<span class="hljs-params"></span>): <span class="hljs-title">void</span> </span>{
   alert(<span class="hljs-string">'warning!'</span>);
 }</code></pre>
 
-      </section><section class="slide" id="slide-17-9">
+      </section><section class="slide" id="slide-18-9">
         <h2 id="type-system-any">type system: any</h2>
 <p>Any: variable can be of any type - disables the typechecker for this variable</p>
 <pre><code class="language-ts"><span class="hljs-keyword">let</span> myInput: <span class="hljs-built_in">any</span> = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'myinput'</span>);
 <span class="hljs-built_in">console</span>.log(myInput.value);</code></pre>
 
-      </section><section class="slide" id="slide-17-10">
+      </section><section class="slide" id="slide-18-10">
         <h2 id="type-system-type-assertions">type system: type assertions</h2>
 <pre><code class="language-ts">(<span class="hljs-built_in">window</span> <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).myGlobalVariable = <span class="hljs-string">'foo'</span>;</code></pre>
 
-      </section><section class="slide" id="slide-17-11">
+      </section><section class="slide" id="slide-18-11">
         <h2 id="type-system-types--interfaces">type system: types &amp; interfaces</h2>
 <p>Interfaces describe the structure of an object / of a class in detail<br>e.g.: <code>TodoInterface</code>, <code>PersonInterface</code></p>
 <p>Types are similar to interfaces, but are also applicable to strings, arrays, ...</p>
 <p>Essentialy types offer more functionality than interfaces</p>
 <p><a href="https://stackoverflow.com/a/52682220/">https://stackoverflow.com/a/52682220/</a></p>
 
-      </section><section class="slide" id="slide-17-12">
+      </section><section class="slide" id="slide-18-12">
         <h2 id="type-system-types">type system: types</h2>
 <pre><code class="language-ts"><span class="hljs-keyword">type</span> TodoType = {
   id: <span class="hljs-built_in">number</span>;
@@ -1463,7 +1525,7 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
 
 <span class="hljs-keyword">type</span> TodoCollection = <span class="hljs-built_in">Array</span>&lt;TodoType&gt;;</code></pre>
 
-      </section><section class="slide" id="slide-17-13">
+      </section><section class="slide" id="slide-18-13">
         <h2 id="types-and-objects">Types and objects</h2>
 <pre><code class="language-ts"><span class="hljs-keyword">type</span> TodoType = {
   id: <span class="hljs-built_in">number</span>;
@@ -1475,13 +1537,13 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
   toggle: <span class="hljs-function">(<span class="hljs-params">id: <span class="hljs-built_in">number</span></span>) =&gt;</span> <span class="hljs-built_in">void</span>;
 };</code></pre>
 
-      </section><section class="slide" id="slide-17-14">
+      </section><section class="slide" id="slide-18-14">
         <h2 id="types-and-objects">Types and objects</h2>
 <pre><code class="language-ts"><span class="hljs-keyword">class</span> AdvancedTodo <span class="hljs-keyword">implements</span> TodoType {
   ...
 }</code></pre>
 
-      </section><section class="slide" id="slide-17-15">
+      </section><section class="slide" id="slide-18-15">
         <h2 id="extends">Extends</h2>
 <p>Via <code>&amp;</code>:</p>
 <pre><code class="language-ts"><span class="hljs-keyword">type</span> ActionType = {
@@ -1496,24 +1558,24 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
   };
 };</code></pre>
 
-      </section><section class="slide" id="slide-17-16">
+      </section><section class="slide" id="slide-18-16">
         <h2 id="union-types">Union Types</h2>
 <pre><code class="language-ts"><span class="hljs-keyword">type</span> TodoActionType =
   | AddTodoActionType
   | ToggleTodoActionType;</code></pre>
 
-      </section><section class="slide" id="slide-17-17">
+      </section><section class="slide" id="slide-18-17">
         <h2 id="generics">generics</h2>
 <p>Generic type declarations that can receive more specific type information when applied (via <code>&lt;...&gt;</code>)</p>
 
-      </section><section class="slide" id="slide-17-18">
+      </section><section class="slide" id="slide-18-18">
         <h2 id="generics">generics</h2>
 <p>example:</p>
 <p><code>Array</code> is a generic</p>
 <pre><code class="language-ts"><span class="hljs-keyword">let</span> a: <span class="hljs-built_in">Array</span>&lt;<span class="hljs-built_in">number</span>&gt; = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
 <span class="hljs-keyword">let</span> b: <span class="hljs-built_in">Array</span>&lt;<span class="hljs-built_in">string</span>&gt; = [<span class="hljs-string">'one'</span>, <span class="hljs-string">'two'</span>, <span class="hljs-string">'three'</span>];</code></pre>
 
-      </section><section class="slide" id="slide-17-19">
+      </section><section class="slide" id="slide-18-19">
         <h2 id="generics">Generics</h2>
 <pre><code class="language-ts"><span class="hljs-keyword">class</span> Component&lt;Props, State&gt; {
   props: Props;
@@ -1526,7 +1588,7 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
   ...
 }</code></pre>
 
-      </section><section class="slide" id="slide-17-20">
+      </section><section class="slide" id="slide-18-20">
         <h2 id="private--public-properties">private &amp; public properties</h2>
 <pre><code class="language-ts"><span class="hljs-keyword">class</span> Clock {
   <span class="hljs-keyword">private</span> formatTime(time) {
@@ -1537,53 +1599,10 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
   }
 }</code></pre>
 
-      </section><section class="slide" id="slide-17-21">
+      </section><section class="slide" id="slide-18-21">
         <h2 id="type-declarations-for-libraries">Type declarations for libraries</h2>
 <p>Several JavaScript Libraries come with type declarations for TypeScript - e.g. <em>react</em>, <em>redux</em>.</p>
 <p>For other libraries there are usually external declaration packages that are prefixed with <em>@types/</em>; e.g. for <em>react-redux</em> there&#39;s the package <em>@types/react-redux</em>.</p>
-
-      </section></section><section class="section" id="section-18"><section class="slide" id="slide-18-1">
-        <h1 id="react-with-typescript">React with TypeScript</h1>
-
-      </section><section class="slide" id="slide-18-2">
-        <h2 id="create-react-app-with-typescript">create-react-app with TypeScript</h2>
-<pre><code class="language-bash">npx create-react-app my-app --typescript</code></pre>
-
-      </section><section class="slide" id="slide-18-3">
-        <h2 id="components-functions">components (functions)</h2>
-<pre><code class="language-tsx">type TodoListProps = {
-  todos: Array&lt;TodoType&gt;;
-  onToggle: (id: number) =&gt; void;
-  onDelete: (id: number) =&gt; void;
-};
-
-const TodoList = (props: TodoListProps) =&gt; {
-  const [filterText, setFilterText] = useState&lt;string&gt;('');
-
-  return &lt;div&gt;...&lt;/div&gt;;
-};</code></pre>
-
-      </section><section class="slide" id="slide-18-4">
-        <h2 id="components-classes">components (classes)</h2>
-<pre><code class="language-tsx"><span class="hljs-comment">// TodoList.tsx</span>
-<span class="hljs-keyword">type</span> TodoItemProps {
-  todo: TodoType;
-  onToggle: <span class="hljs-function">(<span class="hljs-params">id: int</span>) =&gt;</span> <span class="hljs-built_in">void</span>;
-}
-<span class="hljs-keyword">interface</span> TodoItemState {}</code></pre>
-<pre><code class="language-tsx"><span class="hljs-keyword">class</span> TodoItem <span class="hljs-keyword">extends</span> React.PureComponent&lt;
-  TodoItemProps,
-  TodoItemState
-&gt; {}</code></pre>
-
-      </section><section class="slide" id="slide-18-5">
-        <h2 id="event-types">Event types</h2>
-<ul>
-<li><code>React.FormEvent</code></li>
-<li><code>React.FormEvent&lt;HTMLFormElement&gt;</code></li>
-<li><code>React.ChangeEvent&lt;HTMLInputElement&gt;</code></li>
-<li><code>React.MouseEvent&lt;HTMLDivElement&gt;</code></li>
-</ul>
 
       </section></section>
 

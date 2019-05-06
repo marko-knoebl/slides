@@ -1460,9 +1460,71 @@ fg(); <span class="hljs-comment">// klappt jetzt auch</span></code></pre>
         <h1 id="übung-todo-list">Übung: todo list</h1>
 
       </section></section><section class="section" id="section-18"><section class="slide" id="slide-18-1">
-        <h1 id="typescript">TypeScript</h1>
+        <h1 id="typechecker-für-react">Typechecker für React</h1>
 
       </section><section class="slide" id="slide-18-2">
+        <h2 id="typechecker-für-react">Typechecker für React</h2>
+<p>Insbesondere was das Interface von Komponenten angeht, ist es sehr sinvoll, vorhandene Properties und Events anzugeben</p>
+<p>Dies kann mit Hilfe der Library <code>prop-types</code> geschehen</p>
+<p>Eine noch viel weitreichendere Unterstützung liefert die Verwendung von TypeScript als Programmiersprache</p>
+
+      </section><section class="slide" id="slide-18-3">
+        <h2 id="prop-types">prop-types</h2>
+<p>Beispiel:</p>
+<pre><code class="language-js"><span class="hljs-keyword">import</span> PropTypes <span class="hljs-keyword">from</span> <span class="hljs-string">'prop-types'</span>;
+
+<span class="hljs-comment">// definition of Rating component here</span>
+
+Rating.propTypes = {
+  <span class="hljs-attr">stars</span>: PropTypes.number.isRequired,
+  <span class="hljs-attr">onStarsChange</span>: PropTypes.func,
+};</code></pre>
+
+      </section><section class="slide" id="slide-18-4">
+        <h2 id="react-mit-typescript">React mit TypeScript</h2>
+<p>neues Projekt:</p>
+<pre><code class="language-bash">npx create-react-app my-app --typescript</code></pre>
+
+      </section><section class="slide" id="slide-18-5">
+        <h2 id="komponenten-mit-typescript-funktionen">Komponenten mit TypeScript (Funktionen)</h2>
+<pre><code class="language-tsx">type TodoListProps = {
+  todos: Array&lt;TodoType&gt;;
+  onToggle: (id: number) =&gt; void;
+  onDelete: (id: number) =&gt; void;
+};
+
+const TodoList = (props: TodoListProps) =&gt; {
+  const [filterText, setFilterText] = useState&lt;string&gt;('');
+
+  return &lt;div&gt;...&lt;/div&gt;;
+};</code></pre>
+
+      </section><section class="slide" id="slide-18-6">
+        <h2 id="komponenten-mit-typescript-klassen">Komponenten mit TypeScript (Klassen)</h2>
+<pre><code class="language-tsx"><span class="hljs-comment">// TodoList.tsx</span>
+<span class="hljs-keyword">type</span> TodoItemProps = {
+  todo: TodoType;
+  onToggle: <span class="hljs-function">(<span class="hljs-params">id: int</span>) =&gt;</span> <span class="hljs-built_in">void</span>;
+};
+<span class="hljs-keyword">type</span> TodoItemState = {};</code></pre>
+<pre><code class="language-tsx"><span class="hljs-keyword">class</span> TodoItem <span class="hljs-keyword">extends</span> React.PureComponent&lt;
+  TodoItemProps,
+  TodoItemState
+&gt; {}</code></pre>
+
+      </section><section class="slide" id="slide-18-7">
+        <h2 id="eventtypen">Eventtypen</h2>
+<ul>
+<li><code>React.FormEvent</code></li>
+<li><code>React.FormEvent&lt;HTMLFormElement&gt;</code></li>
+<li><code>React.ChangeEvent&lt;HTMLInputElement&gt;</code></li>
+<li><code>React.MouseEvent&lt;HTMLDivElement&gt;</code></li>
+</ul>
+
+      </section></section><section class="section" id="section-19"><section class="slide" id="slide-19-1">
+        <h1 id="typescript">TypeScript</h1>
+
+      </section><section class="slide" id="slide-19-2">
         <h2 id="typescript">TypeScript</h2>
 <p>= Obermenge von JavaScript mit Erweiterungen:</p>
 <ul>
@@ -1471,7 +1533,7 @@ fg(); <span class="hljs-comment">// klappt jetzt auch</span></code></pre>
 <li>Decorators</li>
 </ul>
 
-      </section><section class="slide" id="slide-18-3">
+      </section><section class="slide" id="slide-19-3">
         <h2 id="statische-typisierung">Statische Typisierung</h2>
 <p>Datentypen können angegeben werden und unterstützen insbesondere die Entwicklungsumgebung:</p>
 <ul>
@@ -1479,22 +1541,22 @@ fg(); <span class="hljs-comment">// klappt jetzt auch</span></code></pre>
 <li>Fehlermeldungen bei nicht passenden Datentypen</li>
 </ul>
 
-      </section><section class="slide" id="slide-18-4">
+      </section><section class="slide" id="slide-19-4">
         <h2 id="statische-typisierung">Statische Typisierung</h2>
 <p>Beim build: TypeScript wird in JavaScript übersetzt, alle Typeninformationen gehen dabei verloren</p>
 
-      </section><section class="slide" id="slide-18-5">
+      </section><section class="slide" id="slide-19-5">
         <h2 id="typsystem-variablen">Typsystem: Variablen</h2>
 <pre><code class="language-ts"><span class="hljs-keyword">let</span> age: <span class="hljs-built_in">number</span> = <span class="hljs-number">32</span>;
 <span class="hljs-keyword">let</span> name: <span class="hljs-built_in">string</span> = <span class="hljs-string">'Andreas'</span>;</code></pre>
 
-      </section><section class="slide" id="slide-18-6">
+      </section><section class="slide" id="slide-19-6">
         <h2 id="typsystem-arrays">Typsystem: Arrays</h2>
 <pre><code class="language-js"><span class="hljs-keyword">let</span> names: <span class="hljs-built_in">Array</span>&lt;string&gt; = [<span class="hljs-string">'Anna'</span>, <span class="hljs-string">'Bernhard'</span>];</code></pre>
 <p>alternative Schreibweise:</p>
 <pre><code class="language-ts"><span class="hljs-keyword">let</span> names: <span class="hljs-built_in">string</span>[] = [<span class="hljs-string">'Anna'</span>, <span class="hljs-string">'Bernhard'</span>];</code></pre>
 
-      </section><section class="slide" id="slide-18-7">
+      </section><section class="slide" id="slide-19-7">
         <h2 id="typsystem-funktionen">Typsystem: Funktionen</h2>
 <!-- prettier-ignore -->
 <pre><code class="language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">repeatString</span>(<span class="hljs-params">
@@ -1510,31 +1572,31 @@ fg(); <span class="hljs-comment">// klappt jetzt auch</span></code></pre>
   <span class="hljs-keyword">return</span> ...;
 };</code></pre>
 
-      </section><section class="slide" id="slide-18-8">
+      </section><section class="slide" id="slide-19-8">
         <h2 id="typsystem-void">Typsystem: void</h2>
 <p>Void: umfasst <em>undefined</em> und <em>null</em> - hauptsächlich genutzt für Funktionen, die nichts zurückgeben</p>
 <pre><code class="language-ts"><span class="hljs-keyword">const</span> warnUser = (): <span class="hljs-function"><span class="hljs-params">void</span> =&gt;</span> {
   alert(<span class="hljs-string">'warning!'</span>);
 };</code></pre>
 
-      </section><section class="slide" id="slide-18-9">
+      </section><section class="slide" id="slide-19-9">
         <h2 id="typsystem-any">Typsystem: any</h2>
 <p>Any: lässt alle Typen zu</p>
 <pre><code class="language-ts"><span class="hljs-keyword">let</span> myInput: <span class="hljs-built_in">any</span> = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'myinput'</span>);
 <span class="hljs-built_in">console</span>.log(myInput.value);</code></pre>
 
-      </section><section class="slide" id="slide-18-10">
+      </section><section class="slide" id="slide-19-10">
         <h2 id="typsystem-type-assertions">Typsystem: Type assertions</h2>
 <pre><code class="language-ts">(<span class="hljs-built_in">window</span> <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).myGlobalVariable = <span class="hljs-string">'foo'</span>;</code></pre>
 
-      </section><section class="slide" id="slide-18-11">
+      </section><section class="slide" id="slide-19-11">
         <h2 id="typsystem-types--interfaces">Typsystem: Types &amp; Interfaces</h2>
 <p>Interfaces: beschreiben die Struktur eines Objekts / einer Klasse genauer<br>z.B.: <code>TodoInterface</code>, <code>PersonInterface</code></p>
 <p>Types: Ähnlich wie Interfaces, nur auch auf Strings, Arrays, ... anwendbar</p>
 <p>Types bieten im wesentlichen mehr Funktionalität als Interfaces</p>
 <p><a href="https://stackoverflow.com/a/52682220/">https://stackoverflow.com/a/52682220/</a></p>
 
-      </section><section class="slide" id="slide-18-12">
+      </section><section class="slide" id="slide-19-12">
         <h2 id="typsystem-types">Typsystem: Types</h2>
 <pre><code class="language-ts"><span class="hljs-keyword">type</span> TodoType = {
   id: <span class="hljs-built_in">number</span>;
@@ -1544,7 +1606,7 @@ fg(); <span class="hljs-comment">// klappt jetzt auch</span></code></pre>
 
 <span class="hljs-keyword">type</span> TodoCollection = <span class="hljs-built_in">Array</span>&lt;TodoType&gt;;</code></pre>
 
-      </section><section class="slide" id="slide-18-13">
+      </section><section class="slide" id="slide-19-13">
         <h2 id="types-bei-objekten">Types bei Objekten</h2>
 <pre><code class="language-ts"><span class="hljs-keyword">type</span> TodoType = {
   id: <span class="hljs-built_in">number</span>;
@@ -1556,13 +1618,13 @@ fg(); <span class="hljs-comment">// klappt jetzt auch</span></code></pre>
   toggle: <span class="hljs-function">(<span class="hljs-params">id: <span class="hljs-built_in">number</span></span>) =&gt;</span> <span class="hljs-built_in">void</span>;
 };</code></pre>
 
-      </section><section class="slide" id="slide-18-14">
+      </section><section class="slide" id="slide-19-14">
         <h2 id="types-bei-objekten">Types bei Objekten</h2>
 <pre><code class="language-ts"><span class="hljs-keyword">class</span> AdvancedTodo <span class="hljs-keyword">implements</span> TodoType {
   ...
 }</code></pre>
 
-      </section><section class="slide" id="slide-18-15">
+      </section><section class="slide" id="slide-19-15">
         <h2 id="extends">Extends</h2>
 <p>Mittels <code>&amp;</code>:</p>
 <pre><code class="language-ts"><span class="hljs-keyword">type</span> ActionType = {
@@ -1577,23 +1639,23 @@ fg(); <span class="hljs-comment">// klappt jetzt auch</span></code></pre>
   };
 };</code></pre>
 
-      </section><section class="slide" id="slide-18-16">
+      </section><section class="slide" id="slide-19-16">
         <h2 id="union-types">Union Types</h2>
 <pre><code class="language-ts"><span class="hljs-keyword">type</span> TodoActionType =
   | AddTodoActionType
   | ToggleTodoActionType;</code></pre>
 
-      </section><section class="slide" id="slide-18-17">
+      </section><section class="slide" id="slide-19-17">
         <h2 id="generics">Generics</h2>
 <p>Allgemeine Typendeklaration, bei der bei der Anwendung nähere Informationen spezifiziert werden können</p>
 
-      </section><section class="slide" id="slide-18-18">
+      </section><section class="slide" id="slide-19-18">
         <h2 id="generics">Generics</h2>
 <p>Beispiel: <code>Array</code> ist ein Generic</p>
 <pre><code class="language-ts"><span class="hljs-keyword">let</span> a: <span class="hljs-built_in">Array</span>&lt;<span class="hljs-built_in">number</span>&gt; = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
 <span class="hljs-keyword">let</span> b: <span class="hljs-built_in">Array</span>&lt;<span class="hljs-built_in">string</span>&gt; = [<span class="hljs-string">'one'</span>, <span class="hljs-string">'two'</span>, <span class="hljs-string">'three'</span>];</code></pre>
 
-      </section><section class="slide" id="slide-18-19">
+      </section><section class="slide" id="slide-19-19">
         <h2 id="generics">Generics</h2>
 <pre><code class="language-ts"><span class="hljs-keyword">class</span> Component&lt;Props, State&gt; {
   props: Props;
@@ -1606,7 +1668,7 @@ fg(); <span class="hljs-comment">// klappt jetzt auch</span></code></pre>
   ...
 }</code></pre>
 
-      </section><section class="slide" id="slide-18-20">
+      </section><section class="slide" id="slide-19-20">
         <h2 id="private--public-properties">Private &amp; Public Properties</h2>
 <pre><code class="language-ts"><span class="hljs-keyword">class</span> Clock {
   <span class="hljs-keyword">private</span> formatTime(time) {
@@ -1617,53 +1679,10 @@ fg(); <span class="hljs-comment">// klappt jetzt auch</span></code></pre>
   }
 }</code></pre>
 
-      </section><section class="slide" id="slide-18-21">
+      </section><section class="slide" id="slide-19-21">
         <h2 id="typendeklarationen-für-libraries">Typendeklarationen für Libraries</h2>
 <p>Einige JavaScript Libraries beinhalten auch Typendeklarationen für TypeScript - z.B. <em>react</em>, <em>redux</em>.</p>
 <p>Für andere Libraries gibt es meist externe Deklarationen mit dem Präfix <em>@types/</em>, z.B. für <em>react-redux</em> existiert das Paket <em>@types/react-redux</em>.</p>
-
-      </section></section><section class="section" id="section-19"><section class="slide" id="slide-19-1">
-        <h1 id="react-mit-typescript">React mit TypeScript</h1>
-
-      </section><section class="slide" id="slide-19-2">
-        <h2 id="create-react-app">Create-React-App</h2>
-<pre><code class="language-bash">npx create-react-app my-app --typescript</code></pre>
-
-      </section><section class="slide" id="slide-19-3">
-        <h2 id="komponenten-funktionen">Komponenten (Funktionen)</h2>
-<pre><code class="language-tsx">type TodoListProps = {
-  todos: Array&lt;TodoType&gt;;
-  onToggle: (id: number) =&gt; void;
-  onDelete: (id: number) =&gt; void;
-};
-
-const TodoList = (props: TodoListProps) =&gt; {
-  const [filterText, setFilterText] = useState&lt;string&gt;('');
-
-  return &lt;div&gt;...&lt;/div&gt;;
-};</code></pre>
-
-      </section><section class="slide" id="slide-19-4">
-        <h2 id="komponenten-klassen">Komponenten (Klassen)</h2>
-<pre><code class="language-tsx"><span class="hljs-comment">// TodoList.tsx</span>
-<span class="hljs-keyword">type</span> TodoItemProps = {
-  todo: TodoType;
-  onToggle: <span class="hljs-function">(<span class="hljs-params">id: int</span>) =&gt;</span> <span class="hljs-built_in">void</span>;
-};
-<span class="hljs-keyword">type</span> TodoItemState = {};</code></pre>
-<pre><code class="language-tsx"><span class="hljs-keyword">class</span> TodoItem <span class="hljs-keyword">extends</span> React.PureComponent&lt;
-  TodoItemProps,
-  TodoItemState
-&gt; {}</code></pre>
-
-      </section><section class="slide" id="slide-19-5">
-        <h2 id="event-types">Event types</h2>
-<ul>
-<li><code>React.FormEvent</code></li>
-<li><code>React.FormEvent&lt;HTMLFormElement&gt;</code></li>
-<li><code>React.ChangeEvent&lt;HTMLInputElement&gt;</code></li>
-<li><code>React.MouseEvent&lt;HTMLDivElement&gt;</code></li>
-</ul>
 
       </section></section>
 
