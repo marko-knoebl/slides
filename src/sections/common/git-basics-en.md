@@ -62,7 +62,7 @@ git diff
 
 ## Staging and committing
 
-preparing all HTML files for commiting (staging files)
+preparing all changed / added / removed HTML files for commiting (staging files)
 
 ```bash
 git add *.html
@@ -71,5 +71,15 @@ git add *.html
 making a commit with a commit message
 
 ```bash
-git commit -m "changing HTML some files"
+git commit -m "changing some HTML files"
+```
+
+## Ignoring files
+
+We can list files to ignore in a special text file called `.gitignore` (without a file extension):
+
+```txt
+.gitignore
+node_modules
+.vscode
 ```

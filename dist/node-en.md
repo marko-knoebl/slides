@@ -161,18 +161,18 @@ See https://docs.npmjs.com/files/package.json
 
 Node packages may be installed globally on a computer or may be executed directly from the npm registry
 
+direct execution (without installation):
+
+```bash
+npx cowsay hello
+```
+
 global installation of `cowsay`:
 
 ```bash
 npm install -g cowsay
 
 cowsay hello
-```
-
-direct execution (without installation):
-
-```bash
-npx cowsay hello
 ```
 
 # Running node programs
@@ -218,17 +218,70 @@ The node JavaScript environment was taken from Chrome
 
 There are some minor differences to the original environment. For example, `alert` does not exist and the global namespace is called `global` instead of `window`.
 
+## Reading command line arguments
+
+command line arguments are available via the global `process.argv`
+
+example:
+
+```bash
+node program.js 1 2 3
+```
+
+will result in
+
+```json
+["node", "/path/to/your/program.js", "1", "2", "3"];
+```
+
+## Exercise
+
+Implement a program that would work like this:
+
+```bash
+node sum.js 1 2 3
+
+the sum is 6
+```
+
+# Node modules
+
+## Node modules
+
+Node programs can import objects from so-called modules
+
+These modules are generally in 3 categories:
+
+- built-in modules
+- modules from npm
+- modules in the local directory
+
 ## Importing modules
 
 modules can be imported via `require`:
 
 ```js
+// built-in module
 const fs = require('fs');
 
-const folderContents = fs.readdirSync('.');
+console.log(fs.readdirSync('.'));
 
-console.log(folderContents);
+// local module
+const hello = require('./hello.js');
+
+hello.sayHello();
 ```
+
+## Built-in modules
+
+- assert
+- fs
+- http(s)
+- net
+- os
+- path
+- url
+- ...
 
 ## Exporting objects
 
@@ -249,38 +302,11 @@ module.exports.message2 = 'hello';
 exports.message3 = 'hi';
 ```
 
-## Reading command line arguments
+## ES modules
 
-command line arguments are available via the global `process.argv`
+The standard ES syntax for importing and exporting is currently experimental in node.js
 
-example:
-
-```bash
-node program.js 1 2 3
-```
-
-will result in
-
-```json
-["node", "/path/to/your/program.js", "1", "2", "3"];
-```
-
-# Node modules & npm
-
-## Node modules & npm
-
-Node comes with some additional modules that can be imported and used. Many more modules are available via the npm registry
-
-## Built-in modules
-
-- assert
-- fs
-- http(s)
-- net
-- os
-- path
-- url
-- ...
+There are plans to have it officially supported in Node 12 before it enters long-term-support mode in October 2019
 
 # Reading and writing text files
 
@@ -360,7 +386,7 @@ fs.readFile('read-file.js', 'utf8', (err, data) => {
 });
 ```
 
-## Asynchronous I/O with promises (experimental)
+## Asynchronous I/O with promises
 
 ```js
 const fs = require('fs');
@@ -373,7 +399,7 @@ fs.promises
   });
 ```
 
-## Asynchronous I/O with async / await (experimental)
+## Asynchronous I/O with async / await
 
 ```js
 const fs = require('fs');
@@ -397,15 +423,19 @@ readFileAsync();
 
 ## Retrieving a website
 
+Low-level functionality (separate TCP packages)
+
 ```js
 const http = require('http');
 
 http.get('http://www.google.com', responseStream => {
-  responseStream.setEncoding('utf-8');
+  responseStream.setEncoding('latin1');
   responseStream.on('data', console.log);
   responseStream.on('error', console.error);
 });
 ```
+
+## Exercise: retrieve the Google website and save chunks to a JSON array
 
 ## Using the request package
 

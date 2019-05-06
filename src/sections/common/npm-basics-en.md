@@ -104,16 +104,16 @@ See https://docs.npmjs.com/files/package.json
 
 Node packages may be installed globally on a computer or may be executed directly from the npm registry
 
+direct execution (without installation):
+
+```bash
+npx cowsay hello
+```
+
 global installation of `cowsay`:
 
 ```bash
 npm install -g cowsay
 
 cowsay hello
-```
-
-direct execution (without installation):
-
-```bash
-npx cowsay hello
 ```

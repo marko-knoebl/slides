@@ -46,7 +46,7 @@ fs.readFile('read-file.js', 'utf8', (err, data) => {
 });
 ```
 
-## Asynchronous I/O with promises (experimental)
+## Asynchronous I/O with promises
 
 ```js
 const fs = require('fs');
@@ -59,7 +59,7 @@ fs.promises
   });
 ```
 
-## Asynchronous I/O with async / await (experimental)
+## Asynchronous I/O with async / await
 
 ```js
 const fs = require('fs');

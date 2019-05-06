@@ -2,15 +2,19 @@
 
 ## Retrieving a website
 
+Low-level functionality (separate TCP packages)
+
 ```js
 const http = require('http');
 
 http.get('http://www.google.com', responseStream => {
-  responseStream.setEncoding('utf-8');
+  responseStream.setEncoding('latin1');
   responseStream.on('data', console.log);
   responseStream.on('error', console.error);
 });
 ```
+
+## Exercise: retrieve the Google website and save chunks to a JSON array
 
 ## Using the request package
 
