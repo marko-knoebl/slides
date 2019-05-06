@@ -30,7 +30,7 @@ console.log(users[users.length - 1]);
 - Element in der Mitte entfernen: `users.splice(2)`;
 - Länge: `users.length;`
 - Zusammenhängen: `primes.concat(users);`
-- Abfragen, ob Element in Liste: `users.includes('Andrew')`
+- Abfragen, ob Element in Liste vorkommt: `users.includes('Andrew')`
 
 ## Übung: Einkaufsliste
 

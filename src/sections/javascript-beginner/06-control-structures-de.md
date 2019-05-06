@@ -32,7 +32,7 @@ console.log(a !== c); // a ungleich c (strikt)
 
 Viele Entwickler verwenden nur die strikten Vergleichsoperatoren `===` und `!==`, um unterwartete Fehler zu vermeiden
 
-weitere Beispiele:
+Beispiele:
 
 ```js
 3 === '3'; // false
@@ -83,10 +83,6 @@ if (ageSeconds <= 100000000) {
 }
 ```
 
-## if / else if ... / else
-
-Beispiel: Zahlenraten
-
 ## Codeblöcke
 
 Codeblock = Zusammengehörige Codezeilen, die z.B. als Resultat einer if-Abfrage ausgeführt werden.
@@ -102,6 +98,10 @@ if (a === 3) {
 }
 console.log(message); // ReferenceError!
 ```
+
+## if / else if ... / else
+
+Beispiel: Zahlenraten
 
 ## while-Schleife
 

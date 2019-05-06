@@ -49,7 +49,7 @@ const double5 = value => value * 2;
 
 ## Pfeilfunktionen
 
-Achtung: `{` und `}` sind mehrdeutig
+Achtung: `{` und `}` sind mehrdeutig (können sowohl Objekte als auch Codeblöcke begrenzen)
 
 ```js
 // unzulässig:

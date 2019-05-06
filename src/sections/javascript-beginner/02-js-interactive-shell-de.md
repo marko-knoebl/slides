@@ -99,7 +99,7 @@ Strings werden entweder mit einfachen oder doppelten Anführungszeichen begrenzt
 ```js
 let name = 'Anton';
 let greeting = `Hallo, ${name}!
-                Das ist ES2015!`;
+                Wir schreiben JavaScript!`;
 ```
 
 ## Template-Strings
@@ -114,7 +114,7 @@ oder:
 
 ## Strings - Escape-Sequenzen
 
-Problem: Wie setzen wir Zeichen wie zB `'` innerhalb eines gewöhnlichen Strings?
+Problem: Wie setzen wir Zeichen wie z.B. `'` innerhalb eines gewöhnlichen Strings?
 
 Ungültig:
 

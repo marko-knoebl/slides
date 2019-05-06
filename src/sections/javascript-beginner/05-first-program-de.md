@@ -53,7 +53,7 @@ Der Benutzer soll nach seinem Geburtsjahr gefragt werden. Dann soll angegeben we
 
 ## Kommentare
 
-Kommentare dienen Entwicklern, um den Code zu beschreiben und zu erklären. Sie werden von JavaScript ignoriert.
+Kommentare dienen Entwicklern, um ihren Code zu beschreiben und zu erklären. Sie werden bei der Ausführung von JavaScript ignoriert.
 
 Es gibt zwei Möglichkeiten, Kommentare zu erstellen:
 
@@ -84,9 +84,9 @@ In JavaScript sind Semikolons in den meisten Fällen optional; sie werden bei de
 
 ## Das Semikolon in JavaScript
 
-Das automatische hinzufügen von Semikolons kann zu Problemen führen:
+Das automatische Hinzufügen von Semikolons kann zu Problemen führen:
 
-<!-- prettier-ignore-start -->
+<!-- prettier-ignore -->
 ```js
 function foo() {
   return
@@ -96,10 +96,10 @@ function foo() {
 
 wird interpretiert als:
 
+<!-- prettier-ignore -->
 ```js
 function foo() {
   return;
   "hello";
 }
 ```
-<!-- prettier-ignore-end -->

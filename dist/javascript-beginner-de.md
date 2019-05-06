@@ -146,7 +146,7 @@ Strings werden entweder mit einfachen oder doppelten Anführungszeichen begrenzt
 ```js
 let name = 'Anton';
 let greeting = `Hallo, ${name}!
-                Das ist ES2015!`;
+                Wir schreiben JavaScript!`;
 ```
 
 ## Template-Strings
@@ -161,7 +161,7 @@ oder:
 
 ## Strings - Escape-Sequenzen
 
-Problem: Wie setzen wir Zeichen wie zB `'` innerhalb eines gewöhnlichen Strings?
+Problem: Wie setzen wir Zeichen wie z.B. `'` innerhalb eines gewöhnlichen Strings?
 
 Ungültig:
 
@@ -218,34 +218,67 @@ JSON = _JavaScript Object Notation_: Datenformat, das insbesondere in der Webent
 - Number
 - String
 - Boolean
-- Null
+- Null (& Undefined)
 - Array
 - Object
 
-## Datentypen: Null
+## Datentypen: Null (& undefined)
 
-symbolisiert das "fehlen" eines Wertes
+symbolisiert das "Fehlen" eines Wertes
+
+```json
+null
+```
+
+`null` existiert sowohl in JavaScript als auch in JSON; in JavaScript gibt es einen weiteren ähnlichen Wert: `undefined`
+
+## Datentypen: String
+
+In JSON werden Strings _immer_ mit doppelten Anführungszeichen begrenzt
+
+```json
+"Hello, world!"
+```
 
 ## Datentypen: Array
 
 Ein _Array_ beinhaltet eine Abfolge von anderen Objekten
 
-```js
-let names = ['Anne', 'Bob', 'Chris'];
-let primes = [2, 3, 5, 7, 11];
+```json
+["Anne", "Bob", "Chris"]
+```
+
+```json
+[2, 3, 5, 7, 11]
 ```
 
 ## Datentypen: Objekt
 
 Ein _Objekt_ beinhaltet benannte Einträge
 
-<!-- prettier-ignore -->
-```js
-let person1 = {
+## Datentypen: Objekt
+
+In JSON müssen die Namen der Einträge mit Anführungszeichen umschlossen sein
+
+```json
+{
   "firstName": "Thomas",
   "lastName": "Edison",
   "birthYear": 1847,
   "living": false
+}
+```
+
+## Datentypen: Objekt
+
+In JavaScript können Namen der Einträge auch ohne Anführungszeichen stehen, sofern sie nur aus Buchstaben, Ziffern und Unterstrichen bestehen
+
+```js
+{
+  firstName: "Thomas",
+  lastName: "Edison",
+  birthYear: 1847,
+  living: false
 }
 ```
 
@@ -322,7 +355,7 @@ Der Benutzer soll nach seinem Geburtsjahr gefragt werden. Dann soll angegeben we
 
 ## Kommentare
 
-Kommentare dienen Entwicklern, um den Code zu beschreiben und zu erklären. Sie werden von JavaScript ignoriert.
+Kommentare dienen Entwicklern, um ihren Code zu beschreiben und zu erklären. Sie werden bei der Ausführung von JavaScript ignoriert.
 
 Es gibt zwei Möglichkeiten, Kommentare zu erstellen:
 
@@ -353,9 +386,9 @@ In JavaScript sind Semikolons in den meisten Fällen optional; sie werden bei de
 
 ## Das Semikolon in JavaScript
 
-Das automatische hinzufügen von Semikolons kann zu Problemen führen:
+Das automatische Hinzufügen von Semikolons kann zu Problemen führen:
 
-<!-- prettier-ignore-start -->
+<!-- prettier-ignore -->
 ```js
 function foo() {
   return
@@ -365,13 +398,13 @@ function foo() {
 
 wird interpretiert als:
 
+<!-- prettier-ignore -->
 ```js
 function foo() {
   return;
   "hello";
 }
 ```
-<!-- prettier-ignore-end -->
 
 # Kontrollstrukturen
 
@@ -407,7 +440,7 @@ console.log(a !== c); // a ungleich c (strikt)
 
 Viele Entwickler verwenden nur die strikten Vergleichsoperatoren `===` und `!==`, um unterwartete Fehler zu vermeiden
 
-weitere Beispiele:
+Beispiele:
 
 ```js
 3 === '3'; // false
@@ -458,10 +491,6 @@ if (ageSeconds <= 100000000) {
 }
 ```
 
-## if / else if ... / else
-
-Beispiel: Zahlenraten
-
 ## Codeblöcke
 
 Codeblock = Zusammengehörige Codezeilen, die z.B. als Resultat einer if-Abfrage ausgeführt werden.
@@ -477,6 +506,10 @@ if (a === 3) {
 }
 console.log(message); // ReferenceError!
 ```
+
+## if / else if ... / else
+
+Beispiel: Zahlenraten
 
 ## while-Schleife
 
@@ -606,7 +639,7 @@ console.log(users[users.length - 1]);
 - Element in der Mitte entfernen: `users.splice(2)`;
 - Länge: `users.length;`
 - Zusammenhängen: `primes.concat(users);`
-- Abfragen, ob Element in Liste: `users.includes('Andrew')`
+- Abfragen, ob Element in Liste vorkommt: `users.includes('Andrew')`
 
 ## Übung: Einkaufsliste
 
@@ -625,27 +658,9 @@ your shopping list is:
 milk,bread,apples
 ```
 
-# Objekte abändern
+# Objektreferenzen und Abändern von Objekten
 
-## Objekte abändern
-
-In JavaScript können bestehende Arrays verändert werden - z.B. durch das Anhängen eines neuen Eintrags
-
-Manche andere Objekte - z.B. String, Number - können nicht abgeändert werden. Jedoch ist es möglich, neue, veränderte Objekte basierend auf bereits vorhandenen Objekten zu erstellen.
-
-## Objekte abändern
-
-```js
-let a = [1, 2, 3];
-// creating a new object
-a = a.concat([4, 5]);
-
-a = [1, 2, 3];
-// a is modified directly
-a.push(4);
-```
-
-## Objekte abändern
+## Objektreferenzen und Abändern von Objekten
 
 Was wird das folgende Programm ausgeben?
 
@@ -656,11 +671,43 @@ b.push(4);
 print(a);
 ```
 
-## Objekte abändern
+## Objektreferenzen und Abändern von Objekten
+
+Der Code von eben ändert das Objekt `a` ab. Die beiden Variablen verweisen im Hintergrund auf das gleiche Objekt.
 
 Eine Zuweisung (`let b = ...`) versieht ein existierendes Objekt mit einem neuen (zusätzlichen) Namen.
 
 Im Hintergrund steht nach wie vor nur ein einzelnes Objekt.
+
+## Objektreferenzen und Abändern von Objekten
+
+Ändert man ein Objekt ab, muss man sicherstellen, dass die alte Version anderswo nicht mehr gebraucht wird.
+
+Oft ist es sinnvoller, basierend auf einem existierenden Objekt ein anderes, abgeändertes Objekt zu erstellen
+
+## Objektreferenzen und Abändern von Objekten
+
+```js
+let a = [1, 2, 3];
+```
+
+direktes Abändern des Objekts mittels `push`:
+
+```js
+a.push(4);
+```
+
+Erstellen eines neuen, abgeleiteten Objekts mittels `concat`:
+
+```js
+newA = a.concat([4]);
+```
+
+## Objektreferenzen und Abändern von Objekten
+
+Ob eine Methode ein Objekt direkt abändert (wie `push`) oder ein neues Objekt zurückgibt (wie `concat`) muss in der Dokumentation nachgelesen werden.
+
+Viele grundlegende Datantypen, wie `number`, `string`, `boolean`, ... können nicht direkt abgeändert werden - bei diesen müssen wir uns also keine Sorgen über ungewünschte Nebeneffekte machen.
 
 # For-of-Schleifen
 
@@ -821,7 +868,7 @@ const double5 = value => value * 2;
 
 ## Pfeilfunktionen
 
-Achtung: `{` und `}` sind mehrdeutig
+Achtung: `{` und `}` sind mehrdeutig (können sowohl Objekte als auch Codeblöcke begrenzen)
 
 ```js
 // unzulässig:

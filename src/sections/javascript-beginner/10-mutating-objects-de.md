@@ -1,24 +1,6 @@
-# Objekte abändern
+# Objektreferenzen und Abändern von Objekten
 
-## Objekte abändern
-
-In JavaScript können bestehende Arrays verändert werden - z.B. durch das Anhängen eines neuen Eintrags
-
-Manche andere Objekte - z.B. String, Number - können nicht abgeändert werden. Jedoch ist es möglich, neue, veränderte Objekte basierend auf bereits vorhandenen Objekten zu erstellen.
-
-## Objekte abändern
-
-```js
-let a = [1, 2, 3];
-// creating a new object
-a = a.concat([4, 5]);
-
-a = [1, 2, 3];
-// a is modified directly
-a.push(4);
-```
-
-## Objekte abändern
+## Objektreferenzen und Abändern von Objekten
 
 Was wird das folgende Programm ausgeben?
 
@@ -29,8 +11,40 @@ b.push(4);
 print(a);
 ```
 
-## Objekte abändern
+## Objektreferenzen und Abändern von Objekten
+
+Der Code von eben ändert das Objekt `a` ab. Die beiden Variablen verweisen im Hintergrund auf das gleiche Objekt.
 
 Eine Zuweisung (`let b = ...`) versieht ein existierendes Objekt mit einem neuen (zusätzlichen) Namen.
 
 Im Hintergrund steht nach wie vor nur ein einzelnes Objekt.
+
+## Objektreferenzen und Abändern von Objekten
+
+Ändert man ein Objekt ab, muss man sicherstellen, dass die alte Version anderswo nicht mehr gebraucht wird.
+
+Oft ist es sinnvoller, basierend auf einem existierenden Objekt ein anderes, abgeändertes Objekt zu erstellen
+
+## Objektreferenzen und Abändern von Objekten
+
+```js
+let a = [1, 2, 3];
+```
+
+direktes Abändern des Objekts mittels `push`:
+
+```js
+a.push(4);
+```
+
+Erstellen eines neuen, abgeleiteten Objekts mittels `concat`:
+
+```js
+newA = a.concat([4]);
+```
+
+## Objektreferenzen und Abändern von Objekten
+
+Ob eine Methode ein Objekt direkt abändert (wie `push`) oder ein neues Objekt zurückgibt (wie `concat`) muss in der Dokumentation nachgelesen werden.
+
+Viele grundlegende Datantypen, wie `number`, `string`, `boolean`, ... können nicht direkt abgeändert werden - bei diesen müssen wir uns also keine Sorgen über ungewünschte Nebeneffekte machen.
