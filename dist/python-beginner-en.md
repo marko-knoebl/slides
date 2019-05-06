@@ -275,6 +275,10 @@ open source IDE
 
 independent of _Visual Studio_ itself
 
+## VS Code: open folder
+
+via _File_ - _Open Folder_
+
 ## VS Code: saving
 
 Unsaved files are marked with a circle instead of an "X" in the tab
@@ -319,6 +323,8 @@ Further Options:
 - _Ctrl_ + _F_: Search in File
 - _Alt_ + _Shift_ + _F_: Auto-format file contents
 - _Ctrl_ + _#_: comment / uncomment
+- _F12_: Go to definition
+- _F12_: Peek definition
 - _F2_: rename variables
 - _Alt_ + mouse click: Activate multiple text cursors
 

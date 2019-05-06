@@ -324,6 +324,8 @@ Weitere Möglichkeiten:
 - _Strg_ + _F_: Suchen in Datei
 - _Alt_ + _Shift_ + _F_: Formatieren der Datei
 - _Ctrl_ + _#_: aus- / einkommentieren
+- _F12_: Zur Definition springen
+- _Shift_ + _F12_: Definition anzeigen
 - _F2_: Umbenennen von Variablen
 - _Alt_ + Mausklick: Mehrere Textcursor zum gleichzeitigen Schreiben setzen
 
