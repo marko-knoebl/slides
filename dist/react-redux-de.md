@@ -125,20 +125,16 @@ https://github.com/zalmoxisus/redux-devtools-extension
 
 einbinden:
 
-```js
-import {
-  createStore,
-  applyMiddleware,
-  compose,
-} from 'redux';
+```bash
+npm install --save-dev redux-devtools-extension
+```
 
-// typescript: (window as any)
-const composeEnhancers =
-  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+```js
+import { createStore, applyMiddleware } from 'redux';
+import { composeWithDevtools } from 'redux-devtools-extension';
 
 const store = createStore(
-  reducer,
-  composeEnhancers(applyMiddleware())
+  composeWithDevtools(applyMiddleware())
 );
 ```
 
@@ -230,116 +226,135 @@ const todos = fromJS([
 const newTodos = todos.setIn([1, 'completed'], true);
 ```
 
-# React mit Redux
+# Aufgabe: Todolist
 
-## React mit Redux
+Umsetzung eines Modells für eine Todoliste in Redux
 
-https://redux.js.org/basics/usage-with-react
+## Aufgabe: Todolist
 
-Setup: `npm install redux react-redux`
+Datenstruktur (Beispiel):
 
-Typescript: `npm install @types/react-redux`
+- todoData
+  - todos
+  - isFetching
+  - hasError
+- ui
+  - newTodoTitle
+  - filterText
 
-## Presentational und Container Components
+## Aufgabe: Todolist
 
-- presentational components: "Normale" React-Komponenten (wiederverwendbar)
-- container components: Zugriff auf Redux-Store / Mit dem Redux-Store verbunden
+Actions (Beispiel):
 
-## React-Redux: < Provider >
+- addTodo
+- toggleTodo
+- deleteTodo
+- loadTodosFromApi
 
-Provider: Hinzufügen von Redux-Store zu einer React-App
+# Selektoren
 
-## React-Redux: < Provider >
+## Speicherung des minimalen States
+
+Best Practice in Redux: Immer den _minimalen_ State speichern (keine redundanten Daten)
+
+Negativbeispiele:
 
 ```js
-// index.js
-import { Provider } from 'react-redux';
+{
+  todos: [...],
+  maxTodoId: 3
+}
+```
 
-[...]
+```js
+{
+  shoppingCartItems: [{itemid: ..., price: ...}, ...],
+  totalPrice: ...
+}
+```
 
-ReactDOM.render(
-  <Provider store={myStore}>
-    <App/>
-  </Provider>
-  ...
+## Sepeicherung des minimalen States
+
+Daten wie `maxTodoId` und `totalPrice` können aus den anderen Daten abgeleitet werden und sollten keinen separaten Eintrag im State haben.
+
+## Selektoren
+
+Selektor = Funktion, die abgeleitete Daten aus einem minimalen State errechnet
+
+Ein Selektor erhält den ganzen State als Argument und gibt abgeleitete Daten zurück
+
+## Beispiele für Selektoren
+
+- `getMaxTodoId`
+- `getFilteredTodos`
+
+## Beispiele für Selektoren
+
+```js
+const getMaxTodoId = state =>
+  state.todos.reduce((aggregator, item) =>
+    Math.max(aggregator, item.id, 1)
+  );
+```
+
+```js
+const getFilteredTodos = state =>
+  state.todos.filter(todo =>
+    todo.title
+      .toLowerCase()
+      .includes(state.ui.filterText.toLowerCase())
+  );
+```
+
+# Memoisierte Selektoren
+
+## Memoisierung
+
+Memoisierung bezeichnet das Cachen von Rückgabewerten reiner Funktionen
+
+## Memoisierung in reselect
+
+_Reselect_ = Library für Memoisierung.
+
+Einfaches Standardverhalten:
+
+Letzter Input und Output einer Berechnung werden gecacht; Wird die Berechnung erneut mit dem gleichen Input angefordert, wird das gecachte Resultat verwendet
+
+## Memoisierung in reselect
+
+```js
+import { createSelector } from 'reselect';
+
+// regular function that computes the area of a rectangle
+const getRectArea = rect => rect.length * rect.width;
+
+// memoized function that computes the area of a rectangle
+const getRectAreaMemoized = createSelector(
+  // selector functions signify which input values to watch:
+  [rect => rect.length, rect => rect.width],
+  // this function will only be called if one of the
+  // input values changed:
+  (length, width) => length * width
 );
 ```
 
-## Counter: Connect
+## Memoisierung in reselect
 
-connect: verbindet React-Komponenten mit dem Redux store
-
-- `mapStateToProps`: verbindet React props mit Redux state
-- `mapDispatchToProps`: verbindet React props mit Redux actions
-
-Aufruf:
+The last function call will not recompute the area
 
 ```js
-const ConnectedComponent = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Component);
+getRectArea({ length: 2, width: 3, color: 'blue' });
+getRectArea({ length: 2, width: 3, color: 'red' });
+
+getRectAreaMemoized({ length: 2, width: 3, color: 'blue' });
+getRectAreaMemoized({ length: 2, width: 3, color: 'red' });
 ```
 
-## Counter: Connect (state)
+## Reselect installieren
 
-```jsx
-import { connect } from 'react-redux';
-
-const mapStateToProps = (state) => ({ count: state });
-}
-
-[...]
-    <div className="App">
-      {JSON.stringify(this.props)}
-    </div>
-[...]
-
-export default connect(mapStateToProps)(App);
+```bash
+npm install reselect
 ```
-
-## Counter: Connect (actions)
-
-```jsx
-const mapDispatchToProps = dispatch => ({
-  // dispatch ist die dispatch-Funktion des Stores.
-  // sie wird uns hier mittels dependency injection
-  // zur Verfügung gestellt
-  increment: () => dispatch({ type: 'INCREMENT' }),
-  decrement: () => dispatch({ type: 'DECREMENT' }),
-});
-```
-
-```xml
-<button onClick={this.props.increment}>+</button>
-<button onClick={this.props.decrement}>-</button>
-```
-
-## Counter: Dispatch mit TypeScript
-
-```ts
-import { Action, Dispatch } from 'redux';
-
-interface MyAction extends Action {
-  payload: any;
-}
-
-const mapDispatchToProps = (
-  dispatch: Dispatch<MyAction>
-) => ({
-  increment: () => {
-    dispatch({ type: 'INCREMENT', payload: 1 });
-  },
-});
-```
-
-## Redux mit TypeScript
-
-siehe:
-
-- https://github.com/piotrwitek/react-redux-typescript-guide
-- https://medium.com/@resir014/a-type-safe-approach-to-redux-stores-in-typescript-6474e012b81e
-- https://www.carlrippon.com/strongly-typed-react-redux-code-with-typescript/
 
 # Redux im Detail
 
@@ -569,10 +584,6 @@ Eine Generator-Funktion ist eine Möglichkeit, einen Iterator zu erstellen. Eine
 
 Eine Funktion kann mit `function*` definiert werden und anstatt eines `return`-Statements ein `yield` Statement enthalten - sie wird damit zu einer Generator-Funktion, die beim Aufruf einen Iterator zurückgibt.
 
-## Generator-Funktionen
-
-Beispiel:
-
 ```js
 function* countTo100() {
   let i = 1;
@@ -633,12 +644,14 @@ Ein Saga ist ähnlich einem separaten Thread in unserer Anwendung, der für side
 ```js
 import todoSaga from './todosaga';
 
-sagaMiddleWare.run(todoSaga);
+sagaMiddleware.run(todoSaga);
 ```
 
 ## Ein Saga definieren
 
-Sagas werden as Generators definiert; Sie verbinden bestimmte Actions mit Funktionen, die wiederum andere Actions dispatchen können
+Sagas werden als Generators definiert
+
+Der folgende Code bewirkt, dass z.B. `TODOS_FETCH_REQUEST` von `fetchTodos` behandelt wird.
 
 ```js
 import { takeEvery } from 'redux-saga/effects';
@@ -651,17 +664,71 @@ function* todoSaga() {
 export default todoSaga;
 ```
 
-## Ein Saga definieren
+## Asynchrone Logik mittels async und await
+
+Asynchrone Funktionen mittels `async` und `await` sind seit ES2017 im JavaScript Standard
 
 ```js
+const url = 'https://jsonplaceholder.typicode.com/todos';
+
+async function fetchTodos() {
+  const response = await fetch(url);
+  const todoData = await response.json();
+  console.log(todoData);
+}
+```
+
+## Asynchrone Logik mittels Generators
+
+Redux-Saga setzt etwas ganz ähnliches mittels Generators um:
+
+```js
+const url = 'https://jsonplaceholder.typicode.com/todos';
+
 function* fetchTodos() {
-  const todoData = yield fetch(
-    'https://jsonplaceholder.typicode.com/todos'
-  ).then(response => response.json());
+  const response = yield fetch(url);
+  const todoData = yield response.json();
+  console.log(todoData);
+}
+```
+
+([Benötigter Code zum Ausführen dieses Beispiels](https://gist.github.com/jakearchibald/31b89cba627924972ad6))
+
+## Redux Actions aus Saga dispatchen
+
+mittels `put`:
+
+```js
+import { put } from 'redux-saga/effects';
+
+function* fetchTodos() {
+  const response = yield fetch(url);
+  const todoData = yield response.json();
   yield put({
     type: 'TODOS_FETCH_SUCCESS',
     payload: todoData,
   });
+}
+```
+
+## Saga mit Fehlerbehandlung
+
+```js
+import { put } from 'redux-saga/effects';
+
+function* fetchTodos() {
+  const response = yield fetch(url);
+  if (response.ok) {
+    const todoData = yield response.json();
+    yield put({
+      type: 'TODOS_FETCH_SUCCESS',
+      payload: todoData,
+    });
+  } else {
+    cield put({
+      type: 'TODOS_FETCH_ERROR'
+    })
+  }
 }
 ```
 
@@ -769,4 +836,115 @@ const functionMiddleware = store => next => action => {
 ## Präsentation: Taming Large React Applications w/ Redux
 
 https://slides.com/joelkanzelmeyer/taming-large-redux-apps
+
+# React mit Redux
+
+## React mit Redux
+
+https://redux.js.org/basics/usage-with-react
+
+Setup: `npm install redux react-redux`
+
+Typescript: `npm install @types/react-redux`
+
+## Presentational und Container Components
+
+- presentational components: "Normale" React-Komponenten (wiederverwendbar)
+- container components: Zugriff auf Redux-Store / Mit dem Redux-Store verbunden
+
+## React-Redux: < Provider >
+
+Provider: Hinzufügen von Redux-Store zu einer React-App
+
+## React-Redux: < Provider >
+
+```js
+// index.js
+import { Provider } from 'react-redux';
+
+[...]
+
+ReactDOM.render(
+  <Provider store={myStore}>
+    <App/>
+  </Provider>
+  ...
+);
+```
+
+## Counter: Connect
+
+connect: verbindet React-Komponenten mit dem Redux store
+
+- `mapStateToProps`: verbindet React props mit Redux state
+- `mapDispatchToProps`: verbindet React props mit Redux actions
+
+Aufruf:
+
+```js
+const ConnectedComponent = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Component);
+```
+
+## Counter: Connect (state)
+
+```jsx
+import { connect } from 'react-redux';
+
+const mapStateToProps = (state) => ({ count: state });
+}
+
+[...]
+    <div className="App">
+      {JSON.stringify(this.props)}
+    </div>
+[...]
+
+export default connect(mapStateToProps)(App);
+```
+
+## Counter: Connect (actions)
+
+```jsx
+const mapDispatchToProps = dispatch => ({
+  // dispatch ist die dispatch-Funktion des Stores.
+  // sie wird uns hier mittels dependency injection
+  // zur Verfügung gestellt
+  increment: () => dispatch({ type: 'INCREMENT' }),
+  decrement: () => dispatch({ type: 'DECREMENT' }),
+});
+```
+
+```xml
+<button onClick={this.props.increment}>+</button>
+<button onClick={this.props.decrement}>-</button>
+```
+
+## Counter: Dispatch mit TypeScript
+
+```ts
+import { Action, Dispatch } from 'redux';
+
+interface MyAction extends Action {
+  payload: any;
+}
+
+const mapDispatchToProps = (
+  dispatch: Dispatch<MyAction>
+) => ({
+  increment: () => {
+    dispatch({ type: 'INCREMENT', payload: 1 });
+  },
+});
+```
+
+## Redux mit TypeScript
+
+siehe:
+
+- https://github.com/piotrwitek/react-redux-typescript-guide
+- https://medium.com/@resir014/a-type-safe-approach-to-redux-stores-in-typescript-6474e012b81e
+- https://www.carlrippon.com/strongly-typed-react-redux-code-with-typescript/
 

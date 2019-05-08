@@ -387,6 +387,14 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <span class="hljs-keyword">import</span> User <span class="hljs-keyword">from</span> <span class="hljs-string">'User.js'</span>;</code></pre>
 
       </section><section class="slide" id="slide-5-9">
+        <h2 id="imports-in-webpack">Imports in webpack</h2>
+<p>Bundler wie webpack können beim Importieren vom JavaScript Standard abweichen:</p>
+<ul>
+<li>Dateiendungen wie <code>.js</code> können optional sein</li>
+<li>wenn der Import auf einen Ordner verweist, sucht webpack nach einer <code>index.js</code> Datei in diesem Ordner</li>
+</ul>
+
+      </section><section class="slide" id="slide-5-10">
         <h2 id="let">let</h2>
 <ul>
 <li>Neue Alternative zu var – mit leicht anderem Scoping</li>
@@ -397,14 +405,14 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 }
 <span class="hljs-built_in">console</span>.log(a); <span class="hljs-comment">// ReferenceError</span></code></pre>
 
-      </section><section class="slide" id="slide-5-10">
+      </section><section class="slide" id="slide-5-11">
         <h2 id="const">const</h2>
 <p>Deklariert eine Variable, die nicht mehr neu zugewiesen werden kann.<br>Das bezeichnete Objekt selbst kann allerdings modifiziert werden</p>
 <pre><code class="language-js"><span class="hljs-keyword">const</span> names = [<span class="hljs-string">'Alice'</span>, <span class="hljs-string">'Bob'</span>, <span class="hljs-string">'Claire'</span>];
 names = [<span class="hljs-string">'Andrew'</span>, <span class="hljs-string">'Bob'</span>, <span class="hljs-string">'Claire'</span>]; <span class="hljs-comment">// ungültig!</span>
 names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</span>; <span class="hljs-comment">// gültig</span></code></pre>
 
-      </section><section class="slide" id="slide-5-11">
+      </section><section class="slide" id="slide-5-12">
         <h2 id="destrukturierende-zuweisung">Destrukturierende Zuweisung</h2>
 <pre><code class="language-js"><span class="hljs-keyword">let</span> a = <span class="hljs-number">1</span>;
 <span class="hljs-keyword">let</span> b = <span class="hljs-number">2</span>;
@@ -412,13 +420,13 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
 
 <span class="hljs-keyword">const</span> [result, errors] = someComputation();</code></pre>
 
-      </section><section class="slide" id="slide-5-12">
+      </section><section class="slide" id="slide-5-13">
         <h2 id="destrukturierende-zuweisung">Destrukturierende Zuweisung</h2>
 <pre><code class="language-js"><span class="hljs-keyword">const</span> person = { <span class="hljs-attr">name</span>: <span class="hljs-string">'John'</span>, <span class="hljs-attr">age</span>: <span class="hljs-number">48</span> };
 
 <span class="hljs-keyword">const</span> { name, age } = person;</code></pre>
 
-      </section><section class="slide" id="slide-5-13">
+      </section><section class="slide" id="slide-5-14">
         <h2 id="pfeilfunktionen">Pfeilfunktionen</h2>
 <ul>
 <li>Kurzschreibweise für anonyme Funktionen</li>
@@ -430,7 +438,7 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
 
 <span class="hljs-keyword">let</span> multiply = <span class="hljs-function">(<span class="hljs-params">a, b</span>) =&gt;</span> a * b;</code></pre>
 
-      </section><section class="slide" id="slide-5-14">
+      </section><section class="slide" id="slide-5-15">
         <h2 id="pfeilfunktionen">Pfeilfunktionen</h2>
 <p>wenn es genau einen Parameter gibt: Parameterklammern optional</p>
 <pre><code class="language-js"><span class="hljs-keyword">const</span> square = <span class="hljs-function"><span class="hljs-params">a</span> =&gt;</span> a * a;</code></pre>
@@ -440,11 +448,11 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
   <span class="hljs-attr">userName</span>: <span class="hljs-string">'mike'</span>,
 });</code></pre>
 
-      </section><section class="slide" id="slide-5-15">
+      </section><section class="slide" id="slide-5-16">
         <h2 id="klassen">Klassen</h2>
 <p>Ersetzen die alten Konstruktorfunktionen und Prototypen</p>
 
-      </section><section class="slide" id="slide-5-16">
+      </section><section class="slide" id="slide-5-17">
         <h2 id="klassen">Klassen</h2>
 <pre><code class="language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> </span>{
   <span class="hljs-keyword">constructor</span>(firstName, lastName) {
@@ -456,7 +464,7 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
   }
 }</code></pre>
 
-      </section><section class="slide" id="slide-5-17">
+      </section><section class="slide" id="slide-5-18">
         <h2 id="klassen-und-vererbung">Klassen und Vererbung</h2>
 <pre><code class="language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Person</span> </span>{
   <span class="hljs-keyword">constructor</span>(firstName, lastName, userName) {
@@ -466,7 +474,7 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
   }
 }</code></pre>
 
-      </section><section class="slide" id="slide-5-18">
+      </section><section class="slide" id="slide-5-19">
         <h2 id="array-iteration-for--of">Array-Iteration (for ... of)</h2>
 <p>Über die Einträge in einem Array iterieren:</p>
 <pre><code class="language-js"><span class="hljs-keyword">let</span> names = [<span class="hljs-string">'Anna'</span>, <span class="hljs-string">'Bernhard'</span>, <span class="hljs-string">'Caro'</span>];
@@ -474,7 +482,7 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
   <span class="hljs-built_in">console</span>.log(name);
 }</code></pre>
 
-      </section><section class="slide" id="slide-5-19">
+      </section><section class="slide" id="slide-5-20">
         <h2 id="spread-syntax-arrays-und-objekte">Spread Syntax (Arrays und Objekte)</h2>
 <pre><code class="language-js"><span class="hljs-keyword">let</span> squares = [<span class="hljs-number">1</span>, <span class="hljs-number">4</span>, <span class="hljs-number">9</span>];
 <span class="hljs-keyword">let</span> moreSquares = [...squares, <span class="hljs-number">16</span>, <span class="hljs-number">25</span>];
@@ -483,7 +491,7 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
 <span class="hljs-keyword">let</span> newPerson = { ...person, <span class="hljs-attr">email</span>: <span class="hljs-string">'j@d.com'</span>, <span class="hljs-attr">age</span>: <span class="hljs-number">32</span> };
 <span class="hljs-comment">// {firstName: 'Joe', lastName: 'Doe', email: 'j@d.com', age: 32}</span></code></pre>
 
-      </section><section class="slide" id="slide-5-20">
+      </section><section class="slide" id="slide-5-21">
         <h2 id="template-strings">Template-Strings</h2>
 <ul>
 <li>Neue Syntax zum <em>Erstellen</em> von Strings</li>
@@ -494,7 +502,7 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
 <span class="hljs-keyword">let</span> greeting = <span class="hljs-string">`Hallo, <span class="hljs-subst">${name}</span>!
                 Das ist ES2015!`</span>;</code></pre>
 
-      </section><section class="slide" id="slide-5-21">
+      </section><section class="slide" id="slide-5-22">
         <h2 id="standardparameter-in-funktionen">Standardparameter in Funktionen</h2>
 <p>In Funktionen können nun Standardparameter definiert werden:</p>
 <pre><code class="language-js"><span class="hljs-keyword">let</span> join = <span class="hljs-function">(<span class="hljs-params">strings, separator=<span class="hljs-string">''</span></span>) =&gt;</span> {

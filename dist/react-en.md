@@ -350,6 +350,13 @@ export default class User {
 import User from 'user.js';
 ```
 
+## imports in webpack
+
+Bundlers like webpack can deviate from standard JavaScript import behavior:
+
+- the import doesn't require a file name extension like `.js`
+- if the import leads to a folder webpack will look for an `index.js` file in the folder
+
 ## let
 
 - New alternative to `var` - with different scoping
@@ -1057,7 +1064,20 @@ see info boxes on _Installation_ und _Usage_
 - Button
 - Todo-App in Material Style
 
-# Exercise: todo list
+# Exercises
+
+Liste an verfügbaren React-Komponenten:
+
+[awesome-react-components](https://github.com/brillout/awesome-react-components)
+
+Aufgabe: "Nachbau" einer der Komponenten
+
+Beispiele:
+
+- table / data grid
+- tabs
+- bar chart
+- color picker
 
 # Type checkers for React
 

@@ -124,19 +124,15 @@ https://github.com/zalmoxisus/redux-devtools-extension
 
 include via:
 
-```js
-import {
-  createStore,
-  applyMiddleware,
-  compose,
-} from 'redux';
+```bash
+npm install --save-dev redux-devtools-extension
+```
 
-// typescript: (window as any)
-const composeEnhancers =
-  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+```js
+import { createStore, applyMiddleware } from 'redux';
+import { composeWithDevtools } from 'redux-devtools-extension';
 
 const store = createStore(
-  reducer,
-  composeEnhancers(applyMiddleware())
+  composeWithDevtools(applyMiddleware())
 );
 ```

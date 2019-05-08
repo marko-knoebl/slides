@@ -794,6 +794,14 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <span class="hljs-keyword">import</span> User <span class="hljs-keyword">from</span> <span class="hljs-string">'user.js'</span>;</code></pre>
 
       </section><section class="slide" id="slide-7-9">
+        <h2 id="imports-in-webpack">imports in webpack</h2>
+<p>Bundlers like webpack can deviate from standard JavaScript import behavior:</p>
+<ul>
+<li>the import doesn&#39;t require a file name extension like <code>.js</code></li>
+<li>if the import leads to a folder webpack will look for an <code>index.js</code> file in the folder</li>
+</ul>
+
+      </section><section class="slide" id="slide-7-10">
         <h2 id="let">let</h2>
 <ul>
 <li>New alternative to <code>var</code> - with different scoping</li>
@@ -804,7 +812,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 }
 <span class="hljs-built_in">console</span>.log(a); <span class="hljs-comment">// ReferenceError</span></code></pre>
 
-      </section><section class="slide" id="slide-7-10">
+      </section><section class="slide" id="slide-7-11">
         <h2 id="const">const</h2>
 <p>Declares a variable that cannot be reassigned.
 However, the named object itself may be modified.</p>
@@ -812,7 +820,7 @@ However, the named object itself may be modified.</p>
 names = [<span class="hljs-string">'Andrew'</span>, <span class="hljs-string">'Bob'</span>, <span class="hljs-string">'Claire'</span>]; <span class="hljs-comment">// invalid!</span>
 names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</span>; <span class="hljs-comment">// valid</span></code></pre>
 
-      </section><section class="slide" id="slide-7-11">
+      </section><section class="slide" id="slide-7-12">
         <h2 id="destructuring-assignment">destructuring assignment</h2>
 <pre><code class="language-js"><span class="hljs-keyword">let</span> a = <span class="hljs-number">1</span>;
 <span class="hljs-keyword">let</span> b = <span class="hljs-number">2</span>;
@@ -820,13 +828,13 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
 
 <span class="hljs-keyword">const</span> [result, errors] = someComputation();</code></pre>
 
-      </section><section class="slide" id="slide-7-12">
+      </section><section class="slide" id="slide-7-13">
         <h2 id="destructuring-assignment">destructuring assignment</h2>
 <pre><code class="language-js"><span class="hljs-keyword">const</span> person = { <span class="hljs-attr">name</span>: <span class="hljs-string">'John'</span>, <span class="hljs-attr">age</span>: <span class="hljs-number">48</span> };
 
 <span class="hljs-keyword">const</span> { name, age } = person;</code></pre>
 
-      </section><section class="slide" id="slide-7-13">
+      </section><section class="slide" id="slide-7-14">
         <h2 id="arrow-functions">arrow functions</h2>
 <ul>
 <li>short notation for anonymous functions</li>
@@ -837,7 +845,7 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
 };
 <span class="hljs-keyword">let</span> multiply = <span class="hljs-function">(<span class="hljs-params">a, b</span>) =&gt;</span> a * b;</code></pre>
 
-      </section><section class="slide" id="slide-7-14">
+      </section><section class="slide" id="slide-7-15">
         <h2 id="arrow-functions">arrow functions</h2>
 <p>if there&#39;s exactly one parameter: parentheses are optional</p>
 <pre><code class="language-js"><span class="hljs-keyword">const</span> square = <span class="hljs-function"><span class="hljs-params">a</span> =&gt;</span> a * a;</code></pre>
@@ -847,11 +855,11 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
   <span class="hljs-attr">userName</span>: <span class="hljs-string">'mike'</span>,
 });</code></pre>
 
-      </section><section class="slide" id="slide-7-15">
+      </section><section class="slide" id="slide-7-16">
         <h2 id="classes">classes</h2>
 <p>Class syntax replaces the old constructor functions and prototypes</p>
 
-      </section><section class="slide" id="slide-7-16">
+      </section><section class="slide" id="slide-7-17">
         <h2 id="classes">classes</h2>
 <pre><code class="language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> </span>{
   <span class="hljs-keyword">constructor</span>(firstName, lastName) {
@@ -863,7 +871,7 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
   }
 }</code></pre>
 
-      </section><section class="slide" id="slide-7-17">
+      </section><section class="slide" id="slide-7-18">
         <h2 id="inheritance">inheritance</h2>
 <pre><code class="language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Person</span> </span>{
   <span class="hljs-keyword">constructor</span>(firstName, lastName, userName) {
@@ -873,7 +881,7 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
   }
 }</code></pre>
 
-      </section><section class="slide" id="slide-7-18">
+      </section><section class="slide" id="slide-7-19">
         <h2 id="array-iteration-for--of">Array iteration (for ... of)</h2>
 <p>Iterating over entries of an array:</p>
 <pre><code class="language-js"><span class="hljs-keyword">let</span> names = [<span class="hljs-string">'Anna'</span>, <span class="hljs-string">'Bernhard'</span>, <span class="hljs-string">'Caro'</span>];
@@ -881,13 +889,13 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
   <span class="hljs-built_in">console</span>.log(name);
 }</code></pre>
 
-      </section><section class="slide" id="slide-7-19">
+      </section><section class="slide" id="slide-7-20">
         <h2 id="spread-syntax-arrays">spread syntax (arrays)</h2>
 <pre><code class="language-js"><span class="hljs-keyword">let</span> squares = [<span class="hljs-number">1</span>, <span class="hljs-number">4</span>, <span class="hljs-number">9</span>];
 <span class="hljs-keyword">let</span> moreSquares = [...squares, <span class="hljs-number">16</span>, <span class="hljs-number">25</span>];
 <span class="hljs-comment">// moreSquares: [1, 4, 9, 16, 25]</span></code></pre>
 
-      </section><section class="slide" id="slide-7-20">
+      </section><section class="slide" id="slide-7-21">
         <h2 id="spread-syntax-objects">spread syntax (objects)</h2>
 <pre><code class="language-js"><span class="hljs-keyword">let</span> person = {
   <span class="hljs-attr">fName</span>: <span class="hljs-string">'John'</span>,
@@ -901,7 +909,7 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
 };
 <span class="hljs-comment">// {fName: 'John', lName: 'Doe', email: 'j@d.com', age: 32}</span></code></pre>
 
-      </section><section class="slide" id="slide-7-21">
+      </section><section class="slide" id="slide-7-22">
         <h2 id="template-strings">template strings</h2>
 <ul>
 <li>new syntax for <em>creating</em> strings</li>
@@ -912,7 +920,7 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
 <span class="hljs-keyword">let</span> greeting = <span class="hljs-string">`Hello, <span class="hljs-subst">${name}</span>!
                 This is ES2015!`</span>;</code></pre>
 
-      </section><section class="slide" id="slide-7-22">
+      </section><section class="slide" id="slide-7-23">
         <h2 id="default-arguments">default arguments</h2>
 <p>Functions may now have default arguments</p>
 <pre><code class="language-js"><span class="hljs-keyword">let</span> join = <span class="hljs-function">(<span class="hljs-params">strings, separator=<span class="hljs-string">''</span></span>) =&gt;</span> {
@@ -1382,7 +1390,17 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
 </ul>
 
       </section></section><section class="section" id="section-16"><section class="slide" id="slide-16-1">
-        <h1 id="exercise-todo-list">Exercise: todo list</h1>
+        <h1 id="exercises">Exercises</h1>
+<p>Liste an verfügbaren React-Komponenten:</p>
+<p><a href="https://github.com/brillout/awesome-react-components">awesome-react-components</a></p>
+<p>Aufgabe: &quot;Nachbau&quot; einer der Komponenten</p>
+<p>Beispiele:</p>
+<ul>
+<li>table / data grid</li>
+<li>tabs</li>
+<li>bar chart</li>
+<li>color picker</li>
+</ul>
 
       </section></section><section class="section" id="section-17"><section class="slide" id="slide-17-1">
         <h1 id="type-checkers-for-react">Type checkers for React</h1>

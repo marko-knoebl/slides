@@ -24,10 +24,6 @@ Eine Generator-Funktion ist eine Möglichkeit, einen Iterator zu erstellen. Eine
 
 Eine Funktion kann mit `function*` definiert werden und anstatt eines `return`-Statements ein `yield` Statement enthalten - sie wird damit zu einer Generator-Funktion, die beim Aufruf einen Iterator zurückgibt.
 
-## Generator-Funktionen
-
-Beispiel:
-
 ```js
 function* countTo100() {
   let i = 1;

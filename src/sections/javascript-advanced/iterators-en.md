@@ -22,11 +22,7 @@ A generator function is one way to to create an iterator. A generator function c
 
 ## Generator functions
 
-A generator function is defined with the keyword `function*`. Instead of `return` statements it will usually contain `yield` statements.
-
-## Generator functions
-
-Example:
+A generator function is defined with the keyword `function*`. Instead of `return` statements it will contain `yield` statements.
 
 ```js
 function* countTo100() {
