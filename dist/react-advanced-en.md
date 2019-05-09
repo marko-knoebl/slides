@@ -13,8 +13,8 @@ Hooks = extension of function components; enable the use of state and other feat
 ## Hooks: current state
 
 - Documentation for beginners is still very focused on classes
-- Limited support from React developer tools (browser plugins)
-- Test libraries like enzyme don't support them yet
+- Limited support from React developer tools ([GitHub issue](https://github.com/facebook/react-devtools/issues/1215))
+- Not supported by the _enzyme_ test library
 
 ## important hooks
 
@@ -496,7 +496,26 @@ afterEach(() => {
 - `react-test-renderer` (developed by the React team)
 - `Enzyme` (developed by Airbnb)
 
-## Enzyme - Setup
+Enzyme does not yet support React hooks
+
+## React-Test-Renderer - installation
+
+```bash
+npm install --save-dev react-test-renderer
+```
+
+## React-Test-Renderer - Example
+
+```js
+import TestRenderer from 'react-test-renderer';
+
+it('renders a component without crashing', () => {
+  const instance = TestRenderer.create(<MyComponent />)
+    .root;
+});
+```
+
+## Enzyme - Installation & Setup
 
 ```
 npm install --save-dev enzyme enzyme-adapter-react-16
@@ -617,6 +636,72 @@ describe('errors', () => {
   it('throws an error if the number of stars is 0', () => {
     const testFn = () => {
       const wrapper = shallow(<Rating stars={0} />);
+    };
+    expect(testFn).toThrow(
+      'number of stars must be positive'
+    );
+  });
+});
+```
+
+# Example: Testing with Jest and React Test Renderer
+
+Testing a Rating component
+
+## Test setup
+
+```tsx
+import React from 'react';
+import TestRenderer from 'react-test-renderer';
+
+import Rating from './Rating';
+```
+
+## Testing the rendering
+
+```tsx
+describe('rendering', () => {
+  it('renders 5 divs', () => {
+    const instance = TestRenderer.create(
+      <Rating stars={3} />
+    ).root;
+    expect(instance.findAllByType('span')).toHaveLength(5);
+  });
+
+  it('renders 3 active stars', () => {
+    const instance = TestRenderer.create(
+      <Rating stars={3} />
+    ).root;
+    expect(
+      instance.findAllByProps({ className: 'star active' })
+    ).toHaveLength(3);
+  });
+});
+```
+
+## Testing events
+
+```jsx
+describe('events', () => {
+  it('reacts to click on the first star', () => {
+    const mockFn = jest.fn();
+    const instance = TestRenderer.create(
+      <Rating stars={3} onStarsChange={mockFn} />
+    ).root;
+    const fourthStar = instance.findAllByType('span')[3];
+    fourthStar.props.onClick();
+    expect(mockFn).toBeCalledWith(4);
+  });
+});
+```
+
+## Testing exceptions
+
+```jsx
+describe('errors', () => {
+  it('throws an error if the number of stars is 0', () => {
+    const testFn = () => {
+      TestRenderer.create(<Rating stars={0} />);
     };
     expect(testFn).toThrow(
       'number of stars must be positive'

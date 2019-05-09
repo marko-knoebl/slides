@@ -510,6 +510,14 @@ let join = (strings, separator='') => {
 }
 ```
 
+# ESLint
+
+## ESLint
+
+Linter für JavaScript (und TypeScript)
+
+VS Code Plugin verfügbar
+
 # map, filter, reduce
 
 ### Array-Methoden für die funktionale Programmierung
@@ -1189,6 +1197,10 @@ Rating.propTypes = {
   onStarsChange: PropTypes.func,
 };
 ```
+
+## prop-types in VS Code
+
+Plugin: _React PropTypes IntelliSense_
 
 ## React mit TypeScript
 

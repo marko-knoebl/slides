@@ -23,6 +23,10 @@ Rating.propTypes = {
 };
 ```
 
+## prop-types in VS Code
+
+Plugin: _React PropTypes IntelliSense_
+
 ## React mit TypeScript
 
 neues Projekt:

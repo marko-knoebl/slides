@@ -2,6 +2,6 @@
 
 ## ESLint
 
-JavaScript-Linter
+Linter for JavaScript (and TypeScript)
 
-- VS Code plugin
+VS Code Plugin is available

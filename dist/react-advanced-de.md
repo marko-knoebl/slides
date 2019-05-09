@@ -13,8 +13,8 @@ Hooks: Erweiterung von funktionalen Komponenten; erlauben die Verwendung von sta
 ## Hooks: derzeitiger Stand
 
 - Dokumentation für Einsteiger noch sehr Klassen-orientiert
-- Eingeschränkte Unterstützung der React developer tools (Browser Plugins)
-- Keine Unterstützung durch Test Libraries wie enzyme
+- Eingeschränkte Unterstützung der React developer tools ([GitHub issue](https://github.com/facebook/react-devtools/issues/1215))
+- Keine Unterstützung durch die Test Library _enzyme_
 
 ## wichtige Hooks
 
@@ -501,9 +501,28 @@ afterEach(() => {
 - `react-test-renderer` (vom React Team entwickelt)
 - `Enzyme` (von Airbnb entwickelt)
 
-## Enzyme - Einrichtung
+Enzyme bietet noch keine Unterstützung für Hooks
 
+## React-Test-Renderer - Installation
+
+```bash
+npm install --save-dev react-test-renderer
 ```
+
+## React-Test-Renderer - Beispiel
+
+```js
+import TestRenderer from 'react-test-renderer';
+
+it('renders a component without crashing', () => {
+  const instance = TestRenderer.create(<MyComponent />)
+    .root;
+});
+```
+
+## Enzyme - Installation & Einrichtung
+
+```bash
 npm install --save-dev enzyme enzyme-adapter-react-16
 ```
 
@@ -534,9 +553,9 @@ it('renders a component tree without crashing', () => {
 
 https://devhints.io/enzyme
 
-# Beispiel: Testen einer Rating-Komponente
+# Beispiel: Testen mit Jest und Enzyme
 
-Mit jest und enzyme
+Testen einer Rating-Komponente
 
 ## Beispiel: Testen einer Rating-Komponente
 
@@ -585,7 +604,7 @@ describe('rendering', () => {
 ```tsx
 describe('events', () => {
   it('reacts to click on first star', () => {
-    const mockFn = fn();
+    const mockFn = jest.fn();
     const wrapper = mount(
       <Rating stars={3} onStarsChange={mockFn} />
     );
@@ -622,6 +641,72 @@ describe('errors', () => {
   it('throws an error if the number of stars is 0', () => {
     const testFn = () => {
       const wrapper = shallow(<Rating stars={0} />);
+    };
+    expect(testFn).toThrow(
+      'number of stars must be positive'
+    );
+  });
+});
+```
+
+# Beispiel: Testen mit Jest und React Test Renderer
+
+Testen einer Rating Komponente
+
+## Test-Setup
+
+```tsx
+import React from 'react';
+import TestRenderer from 'react-test-renderer';
+
+import Rating from './Rating';
+```
+
+## Testen des Renderings
+
+```tsx
+describe('rendering', () => {
+  it('renders 5 divs', () => {
+    const instance = TestRenderer.create(
+      <Rating stars={3} />
+    ).root;
+    expect(instance.findAllByType('span')).toHaveLength(5);
+  });
+
+  it('renders 3 active stars', () => {
+    const instance = TestRenderer.create(
+      <Rating stars={3} />
+    ).root;
+    expect(
+      instance.findAllByProps({ className: 'star active' })
+    ).toHaveLength(3);
+  });
+});
+```
+
+## Testen von Events
+
+```jsx
+describe('events', () => {
+  it('reacts to click on the first star', () => {
+    const mockFn = jest.fn();
+    const instance = TestRenderer.create(
+      <Rating stars={3} onStarsChange={mockFn} />
+    ).root;
+    const fourthStar = instance.findAllByType('span')[3];
+    fourthStar.props.onClick();
+    expect(mockFn).toBeCalledWith(4);
+  });
+});
+```
+
+## Testen von Fehlern
+
+```jsx
+describe('errors', () => {
+  it('throws an error if the number of stars is 0', () => {
+    const testFn = () => {
+      TestRenderer.create(<Rating stars={0} />);
     };
     expect(testFn).toThrow(
       'number of stars must be positive'

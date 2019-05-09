@@ -129,8 +129,8 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
         <h2 id="hooks-derzeitiger-stand">Hooks: derzeitiger Stand</h2>
 <ul>
 <li>Dokumentation für Einsteiger noch sehr Klassen-orientiert</li>
-<li>Eingeschränkte Unterstützung der React developer tools (Browser Plugins)</li>
-<li>Keine Unterstützung durch Test Libraries wie enzyme</li>
+<li>Eingeschränkte Unterstützung der React developer tools (<a href="https://github.com/facebook/react-devtools/issues/1215">GitHub issue</a>)</li>
+<li>Keine Unterstützung durch die Test Library <em>enzyme</em></li>
 </ul>
 
       </section><section class="slide" id="slide-1-5">
@@ -533,16 +533,31 @@ afterEach(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;<
 <li><code>react-test-renderer</code> (vom React Team entwickelt)</li>
 <li><code>Enzyme</code> (von Airbnb entwickelt)</li>
 </ul>
+<p>Enzyme bietet noch keine Unterstützung für Hooks</p>
 
       </section><section class="slide" id="slide-8-3">
-        <h2 id="enzyme---einrichtung">Enzyme - Einrichtung</h2>
-<pre><code>npm install --save-dev enzyme enzyme-adapter-react-16</code></pre><p>neue Datei <code>src/setupTests.js</code>:</p>
+        <h2 id="react-test-renderer---installation">React-Test-Renderer - Installation</h2>
+<pre><code class="language-bash">npm install --save-dev react-test-renderer</code></pre>
+
+      </section><section class="slide" id="slide-8-4">
+        <h2 id="react-test-renderer---beispiel">React-Test-Renderer - Beispiel</h2>
+<pre><code class="language-js"><span class="hljs-keyword">import</span> TestRenderer <span class="hljs-keyword">from</span> <span class="hljs-string">'react-test-renderer'</span>;
+
+it(<span class="hljs-string">'renders a component without crashing'</span>, () =&gt; {
+  <span class="hljs-keyword">const</span> instance = TestRenderer.create(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">MyComponent</span> /&gt;</span>)
+    .root;
+});</span></code></pre>
+
+      </section><section class="slide" id="slide-8-5">
+        <h2 id="enzyme---installation--einrichtung">Enzyme - Installation &amp; Einrichtung</h2>
+<pre><code class="language-bash">npm install --save-dev enzyme enzyme-adapter-react-16</code></pre>
+<p>neue Datei <code>src/setupTests.js</code>:</p>
 <pre><code class="language-js"><span class="hljs-keyword">import</span> { configure } <span class="hljs-keyword">from</span> <span class="hljs-string">'enzyme'</span>;
 <span class="hljs-keyword">import</span> Adapter <span class="hljs-keyword">from</span> <span class="hljs-string">'enzyme-adapter-react-16'</span>;
 
 configure({ <span class="hljs-attr">adapter</span>: <span class="hljs-keyword">new</span> Adapter() });</code></pre>
 
-      </section><section class="slide" id="slide-8-4">
+      </section><section class="slide" id="slide-8-6">
         <h2 id="enzyme---beispiele">Enzyme - Beispiele</h2>
 <pre><code class="language-jsx"><span class="hljs-keyword">import</span> { shallow, mount } <span class="hljs-keyword">from</span> <span class="hljs-string">'enzyme'</span>;
 
@@ -554,13 +569,13 @@ it('renders a component tree without crashing', () =&gt; {
   const wrapper = mount(<span class="hljs-tag">&lt;<span class="hljs-name">MyComponent</span> /&gt;</span>);
 });</span></code></pre>
 
-      </section><section class="slide" id="slide-8-5">
+      </section><section class="slide" id="slide-8-7">
         <h2 id="enzyme---cheatsheet">Enzyme - Cheatsheet</h2>
 <p><a href="https://devhints.io/enzyme">https://devhints.io/enzyme</a></p>
 
       </section></section><section class="section" id="section-9"><section class="slide" id="slide-9-1">
-        <h1 id="beispiel-testen-einer-rating-komponente">Beispiel: Testen einer Rating-Komponente</h1>
-<p>Mit jest und enzyme</p>
+        <h1 id="beispiel-testen-mit-jest-und-enzyme">Beispiel: Testen mit Jest und Enzyme</h1>
+<p>Testen einer Rating-Komponente</p>
 
       </section><section class="slide" id="slide-9-2">
         <h2 id="beispiel-testen-einer-rating-komponente">Beispiel: Testen einer Rating-Komponente</h2>
@@ -602,7 +617,7 @@ it('renders a component tree without crashing', () =&gt; {
         <h2 id="beispiel-testen-einer-rating-komponente">Beispiel: Testen einer Rating-Komponente</h2>
 <pre><code class="language-tsx">describe(<span class="hljs-string">'events'</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
   it(<span class="hljs-string">'reacts to click on first star'</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-    <span class="hljs-keyword">const</span> mockFn = fn();
+    <span class="hljs-keyword">const</span> mockFn = jest.fn();
     <span class="hljs-keyword">const</span> wrapper = mount(
       &lt;Rating stars={<span class="hljs-number">3</span>} onStarsChange={mockFn} /&gt;
     );
@@ -642,20 +657,78 @@ it('renders a component tree without crashing', () =&gt; {
 });</code></pre>
 
       </section></section><section class="section" id="section-10"><section class="slide" id="slide-10-1">
-        <h1 id="snapshot-tests">Snapshot Tests</h1>
+        <h1 id="beispiel-testen-mit-jest-und-react-test-renderer">Beispiel: Testen mit Jest und React Test Renderer</h1>
+<p>Testen einer Rating Komponente</p>
 
       </section><section class="slide" id="slide-10-2">
+        <h2 id="test-setup">Test-Setup</h2>
+<pre><code class="language-tsx"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+<span class="hljs-keyword">import</span> TestRenderer <span class="hljs-keyword">from</span> <span class="hljs-string">'react-test-renderer'</span>;
+
+<span class="hljs-keyword">import</span> Rating <span class="hljs-keyword">from</span> <span class="hljs-string">'./Rating'</span>;</code></pre>
+
+      </section><section class="slide" id="slide-10-3">
+        <h2 id="testen-des-renderings">Testen des Renderings</h2>
+<pre><code class="language-tsx">describe(<span class="hljs-string">'rendering'</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+  it(<span class="hljs-string">'renders 5 divs'</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    <span class="hljs-keyword">const</span> instance = TestRenderer.create(
+      &lt;Rating stars={<span class="hljs-number">3</span>} /&gt;
+    ).root;
+    expect(instance.findAllByType(<span class="hljs-string">'span'</span>)).toHaveLength(<span class="hljs-number">5</span>);
+  });
+
+  it(<span class="hljs-string">'renders 3 active stars'</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    <span class="hljs-keyword">const</span> instance = TestRenderer.create(
+      &lt;Rating stars={<span class="hljs-number">3</span>} /&gt;
+    ).root;
+    expect(
+      instance.findAllByProps({ className: <span class="hljs-string">'star active'</span> })
+    ).toHaveLength(<span class="hljs-number">3</span>);
+  });
+});</code></pre>
+
+      </section><section class="slide" id="slide-10-4">
+        <h2 id="testen-von-events">Testen von Events</h2>
+<pre><code class="language-jsx">describe(<span class="hljs-string">'events'</span>, () =&gt; {
+  it(<span class="hljs-string">'reacts to click on the first star'</span>, () =&gt; {
+    <span class="hljs-keyword">const</span> mockFn = jest.fn();
+    <span class="hljs-keyword">const</span> instance = TestRenderer.create(
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Rating</span> <span class="hljs-attr">stars</span>=<span class="hljs-string">{3}</span> <span class="hljs-attr">onStarsChange</span>=<span class="hljs-string">{mockFn}</span> /&gt;</span>
+    ).root;
+    const fourthStar = instance.findAllByType('span')[3];
+    fourthStar.props.onClick();
+    expect(mockFn).toBeCalledWith(4);
+  });
+});</span></code></pre>
+
+      </section><section class="slide" id="slide-10-5">
+        <h2 id="testen-von-fehlern">Testen von Fehlern</h2>
+<pre><code class="language-jsx">describe(<span class="hljs-string">'errors'</span>, () =&gt; {
+  it(<span class="hljs-string">'throws an error if the number of stars is 0'</span>, () =&gt; {
+    <span class="hljs-keyword">const</span> testFn = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+      TestRenderer.create(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Rating</span> <span class="hljs-attr">stars</span>=<span class="hljs-string">{0}</span> /&gt;</span>);
+    };
+    expect(testFn).toThrow(
+      'number of stars must be positive'
+    );
+  });
+});</span></code></pre>
+
+      </section></section><section class="section" id="section-11"><section class="slide" id="slide-11-1">
+        <h1 id="snapshot-tests">Snapshot Tests</h1>
+
+      </section><section class="slide" id="slide-11-2">
         <h2 id="snapshot-tests">Snapshot Tests</h2>
 <p>Komponenten werden gerendert und mit früheren Versionen (Snapshots) verglichen</p>
 <p>Snapshot Tests fallen unter Regressionstests.</p>
 
-      </section><section class="slide" id="slide-10-3">
+      </section><section class="slide" id="slide-11-3">
         <h2 id="snapshot-tests---setup">Snapshot Tests - Setup</h2>
 <pre><code class="language-bash">npm install --save-dev react-test-renderer</code></pre>
 <p>für TypeScript:</p>
 <pre><code class="language-bash">npm install --save-dev @types/react-test-renderer</code></pre>
 
-      </section><section class="slide" id="slide-10-4">
+      </section><section class="slide" id="slide-11-4">
         <h2 id="snapshot-tests-in-react---tests-erstellen">Snapshot Tests in React - Tests erstellen</h2>
 <pre><code class="language-jsx"><span class="hljs-comment">// Rating.test.js</span>
 <span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
@@ -669,48 +742,48 @@ it(<span class="hljs-string">'renders correctly'</span>, () =&gt; {
   expect(tree).toMatchSnapshot();
 });</span></code></pre>
 
-      </section><section class="slide" id="slide-10-5">
+      </section><section class="slide" id="slide-11-5">
         <h2 id="snapshot-tests-aktualisieren">Snapshot Tests aktualisieren</h2>
 <p>Haben wir das Verhalten einer Komponente geändert und danach ihr Verhalten überprüft, können wir Snapshot-Tests entsprechend aktualisieren:</p>
 <pre><code class="language-txt">2 snapshot tests failed in 1 test suite.
 Inspect your code changes or press `u` to update them.</code></pre>
 
-      </section></section><section class="section" id="section-11"><section class="slide" id="slide-11-1">
+      </section></section><section class="section" id="section-12"><section class="slide" id="slide-12-1">
         <h1 id="storybook">Storybook</h1>
 
-      </section><section class="slide" id="slide-11-2">
+      </section><section class="slide" id="slide-12-2">
         <h2 id="storybook">Storybook</h2>
 <p>Ermöglicht das Erstellen isolierter Komponentendemos</p>
 <p>Beispiel:</p>
 <p><a href="https://airbnb.io/react-dates/">https://airbnb.io/react-dates/</a></p>
 
-      </section><section class="slide" id="slide-11-3">
+      </section><section class="slide" id="slide-12-3">
         <h2 id="storybook---setup">Storybook - Setup</h2>
 <pre><code class="language-bash">npx -p @storybook/cli sb init --<span class="hljs-built_in">type</span> react</code></pre>
 <p>Erstellt einen Konfigurationsordner unter <code>.storybook</code> und Beispielstories unter <code>stories</code>.</p>
 
-      </section><section class="slide" id="slide-11-4">
+      </section><section class="slide" id="slide-12-4">
         <h2 id="storybook">Storybook</h2>
 <pre><code class="language-bash">npm run storybook</code></pre>
 
-      </section><section class="slide" id="slide-11-5">
+      </section><section class="slide" id="slide-12-5">
         <h2 id="storybook">Storybook</h2>
 <p>Konfiguration via <code>.storybook/config.js</code></p>
 
-      </section></section><section class="section" id="section-12"><section class="slide" id="slide-12-1">
+      </section></section><section class="section" id="section-13"><section class="slide" id="slide-13-1">
         <h1 id="react-router">React Router</h1>
 
-      </section><section class="slide" id="slide-12-2">
+      </section><section class="slide" id="slide-13-2">
         <h2 id="react-router">React Router</h2>
 <p><a href="https://reacttraining.com/react-router/">https://reacttraining.com/react-router/</a></p>
 
-      </section><section class="slide" id="slide-12-3">
+      </section><section class="slide" id="slide-13-3">
         <h2 id="react-router---setup">React Router - Setup</h2>
 <pre><code class="language-bash">npm install react-router-dom</code></pre>
 <pre><code class="language-bash">// TypeScript:
 npm install react-router-dom @types/react-router-dom</code></pre>
 
-      </section><section class="slide" id="slide-12-4">
+      </section><section class="slide" id="slide-13-4">
         <h2 id="react-router---browserrouter">React Router - BrowserRouter</h2>
 <p>Um React Router verwenden zu können:<br>Ganze Anwendung von einem <code>BrowserRouter</code> - Tag umschlossen</p>
 <pre><code class="language-js"><span class="hljs-keyword">import</span> { BrowserRouter } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router-dom'</span>;
@@ -720,7 +793,7 @@ npm install react-router-dom @types/react-router-dom</code></pre>
   <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">App</span>/&gt;</span></span>
 &lt;<span class="hljs-regexp">/BrowserRouter&gt;</span></code></pre>
 
-      </section><section class="slide" id="slide-12-5">
+      </section><section class="slide" id="slide-13-5">
         <h2 id="react-router---routen-definieren">React Router - Routen definieren</h2>
 <pre><code class="language-js"><span class="hljs-keyword">import</span> { Route } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router-dom'</span>;
 
@@ -728,7 +801,7 @@ npm install react-router-dom @types/react-router-dom</code></pre>
 &lt;Route path="/about" exact component={About} /&gt;
 &lt;Route path="/add" exact component={AddTodo} /&gt;</code></pre>
 
-      </section><section class="slide" id="slide-12-6">
+      </section><section class="slide" id="slide-13-6">
         <h2 id="react-router---routen-definieren">React Router - Routen definieren</h2>
 <p>Wenn props übergeben werden müssen:</p>
 <pre><code class="language-jsx"><span class="hljs-keyword">import</span> { Route } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router-dom'</span>;
@@ -741,14 +814,14 @@ npm install react-router-dom @types/react-router-dom</code></pre>
   )}
 /&gt;;</code></pre>
 
-      </section><section class="slide" id="slide-12-7">
+      </section><section class="slide" id="slide-13-7">
         <h2 id="react-router---router-links">React Router - Router-Links</h2>
 <pre><code class="language-jsx"><span class="hljs-keyword">import</span> { NavLink } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router-dom'</span>;
 
 <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">NavLink</span> <span class="hljs-attr">to</span>=<span class="hljs-string">"/"</span> <span class="hljs-attr">activeClassName</span>=<span class="hljs-string">"active-link"</span>&gt;</span>Home<span class="hljs-tag">&lt;/<span class="hljs-name">Link</span>&gt;</span></span>
 &lt;NavLink to=<span class="hljs-string">"/add"</span> activeClassName=<span class="hljs-string">"active-link"</span>&gt;Add&lt;<span class="hljs-regexp">/Link&gt;</span></code></pre>
 
-      </section><section class="slide" id="slide-12-8">
+      </section><section class="slide" id="slide-13-8">
         <h2 id="react-router---switch">React Router - Switch</h2>
 <p>Nur die erste zutreffende Route wird angezeigt</p>
 <pre><code class="language-jsx"><span class="hljs-keyword">import</span> { Switch } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router-dom'</span>;
@@ -758,7 +831,7 @@ npm install react-router-dom @types/react-router-dom</code></pre>
   &lt;Route path="/" component={NotFound} /&gt;
 &lt;/Switch&gt;;</code></pre>
 
-      </section><section class="slide" id="slide-12-9">
+      </section><section class="slide" id="slide-13-9">
         <h2 id="react-router---redirects">React Router - Redirects</h2>
 <pre><code class="language-jsx"><span class="hljs-keyword">import</span> { Redirect } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router'</span>;
 
@@ -767,7 +840,7 @@ npm install react-router-dom @types/react-router-dom</code></pre>
   render={props =&gt; &lt;Redirect to="/" /&gt;}
 /&gt;;</code></pre>
 
-      </section><section class="slide" id="slide-12-10">
+      </section><section class="slide" id="slide-13-10">
         <h2 id="react-router---routenparameter">React Router - Routenparameter</h2>
 <pre><code class="language-jsx">&lt;Route
   path=<span class="hljs-string">"/todos/:todoId"</span>
@@ -777,11 +850,11 @@ npm install react-router-dom @types/react-router-dom</code></pre>
 /&gt;</code></pre>
 <p>Routenparameter sind unter <em>props.match.params</em> abzurufen</p>
 
-      </section></section><section class="section" id="section-13"><section class="slide" id="slide-13-1">
+      </section></section><section class="section" id="section-14"><section class="slide" id="slide-14-1">
         <h1 id="pwas">PWAs</h1>
 <p>Progressive Web Apps mit React</p>
 
-      </section><section class="slide" id="slide-13-2">
+      </section><section class="slide" id="slide-14-2">
         <h2 id="pwas">PWAs</h2>
 <p><strong>Progressive Web Apps</strong>: Möglichkeit, Anwendungen für Mobilgeräte und PCs mit HTML, CSS und JavaScript zu schreiben</p>
 <p>Mit <code>create-react-app</code> erstellte Anwendungen bieten dafür schon die Grundvoraussetzungen:</p>
@@ -790,25 +863,25 @@ npm install react-router-dom @types/react-router-dom</code></pre>
 <li>PWA-Boilerplate in <code>src/serviceWorker.js</code></li>
 </ul>
 
-      </section><section class="slide" id="slide-13-3">
+      </section><section class="slide" id="slide-14-3">
         <h2 id="pwas-aktivierung">PWAs: Aktivierung</h2>
 <p>in <code>index.js</code> / <code>index.tsx</code>:</p>
 <pre><code class="language-js">serviceWorker.register();</code></pre>
 
-      </section><section class="slide" id="slide-13-4">
+      </section><section class="slide" id="slide-14-4">
         <h2 id="pwas-konfiguration">PWAs: Konfiguration</h2>
 <p>Via <code>public/manifest.json</code>:</p>
 <p>name, short_name</p>
 
-      </section><section class="slide" id="slide-13-5">
+      </section><section class="slide" id="slide-14-5">
         <h2 id="pwas-logos-konfigurieren">PWAs: Logos konfigurieren</h2>
 <p>Hinzufügen von Logos in den Formaten <code>144x144px</code>, <code>192x192px</code> und <code>512x512px</code> (in manifest.json)</p>
 
-      </section><section class="slide" id="slide-13-6">
+      </section><section class="slide" id="slide-14-6">
         <h2 id="pwa-add-to-homescreen">PWA: add to homescreen</h2>
 <p><a href="https://developers.google.com/web/fundamentals/app-install-banners/">https://developers.google.com/web/fundamentals/app-install-banners/</a></p>
 
-      </section><section class="slide" id="slide-13-7">
+      </section><section class="slide" id="slide-14-7">
         <h2 id="pwa-add-to-homescreen">PWA: add to homescreen</h2>
 <pre><code class="language-js"><span class="hljs-keyword">let</span> deferredPrompt;
 
@@ -820,7 +893,7 @@ componentDidMount() {
   });
 }</code></pre>
 
-      </section><section class="slide" id="slide-13-8">
+      </section><section class="slide" id="slide-14-8">
         <h2 id="pwa-add-to-homescreen">PWA: add to homescreen</h2>
 <pre><code class="language-js">handleInstallBtnClicked = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
   deferredPrompt.prompt();
@@ -835,7 +908,7 @@ componentDidMount() {
   });
 };</code></pre>
 
-      </section><section class="slide" id="slide-13-9">
+      </section><section class="slide" id="slide-14-9">
         <h2 id="pwa-deployment-auf-netlify">PWA: Deployment auf netlify</h2>
 <ul>
 <li><code>npm run build</code></li>
@@ -843,18 +916,18 @@ componentDidMount() {
 <li>Manuell auf HTTPS wechseln - in Chrome am Desktop und Mobilgerät ausprobieren</li>
 </ul>
 
-      </section></section><section class="section" id="section-14"><section class="slide" id="slide-14-1">
+      </section></section><section class="section" id="section-15"><section class="slide" id="slide-15-1">
         <h1 id="react-native">React Native</h1>
 
-      </section><section class="slide" id="slide-14-2">
+      </section><section class="slide" id="slide-15-2">
         <h2 id="react-native">React Native</h2>
 <p>Mit React Native können React Anwendungen für iOS- und Android-Geräte erstellt werden</p>
 
-      </section><section class="slide" id="slide-14-3">
+      </section><section class="slide" id="slide-15-3">
         <h2 id="online-editor">Online Editor</h2>
 <p>Siehe <a href="https://snack.expo.io/">https://snack.expo.io/</a></p>
 
-      </section><section class="slide" id="slide-14-4">
+      </section><section class="slide" id="slide-15-4">
         <h2 id="react-native-komponenten">React Native Komponenten</h2>
 <ul>
 <li>View (=div)</li>
@@ -866,14 +939,14 @@ componentDidMount() {
 </ul>
 <p><a href="https://facebook.github.io/react-native/docs/components-and-apis#basic-components">ausführlichere Liste</a></p>
 
-      </section></section><section class="section" id="section-15"><section class="slide" id="slide-15-1">
+      </section></section><section class="section" id="section-16"><section class="slide" id="slide-16-1">
         <h1 id="context">Context</h1>
 
-      </section><section class="slide" id="slide-15-2">
+      </section><section class="slide" id="slide-16-2">
         <h2 id="context">Context</h2>
 <p>Möglichkeit, Werte aus einer Komponente direkt allen weiter unten im Dokumentenbaum liegenden Komponenten zur Verfügung zu stellen - ohne den state über jede Ebene übergeben zu müssen</p>
 
-      </section><section class="slide" id="slide-15-3">
+      </section><section class="slide" id="slide-16-3">
         <h2 id="context">Context</h2>
 <p>zwei Elemente:</p>
 <ul>
@@ -881,17 +954,17 @@ componentDidMount() {
 <li><code>Consumer</code>: verwendet diese Werte (kann weit unten in der Komponentenhierarchie liegen)</li>
 </ul>
 
-      </section><section class="slide" id="slide-15-4">
+      </section><section class="slide" id="slide-16-4">
         <h2 id="context">Context</h2>
 <p>Das Interface von Context kann sowohl Daten (aus dem State) als auch Eventhandler übergeben.</p>
 
-      </section><section class="slide" id="slide-15-5">
+      </section><section class="slide" id="slide-16-5">
         <h2 id="context---beispiel">Context - Beispiel</h2>
 <pre><code class="language-js"><span class="hljs-comment">// TodosContext.js</span>
 
 <span class="hljs-keyword">const</span> TodosContext = React.createContext();</code></pre>
 
-      </section><section class="slide" id="slide-15-6">
+      </section><section class="slide" id="slide-16-6">
         <h2 id="context---beispiel-typescript">Context - Beispiel: TypeScript</h2>
 <pre><code class="language-ts"><span class="hljs-comment">// TodosContext.ts</span>
 
@@ -905,7 +978,7 @@ componentDidMount() {
   {} <span class="hljs-keyword">as</span> TodosContextType
 );</code></pre>
 
-      </section><section class="slide" id="slide-15-7">
+      </section><section class="slide" id="slide-16-7">
         <h2 id="context---beispiel-provider">Context - Beispiel: Provider</h2>
 <pre><code class="language-jsx"><span class="hljs-keyword">const</span> App = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
   <span class="hljs-keyword">return</span> (
@@ -920,7 +993,7 @@ componentDidMount() {
   );
 };</span></code></pre>
 
-      </section><section class="slide" id="slide-15-8">
+      </section><section class="slide" id="slide-16-8">
         <h2 id="context---beispiel-consumer">Context - Beispiel: Consumer</h2>
 <p>funktionale Komponente:</p>
 <pre><code class="language-jsx"><span class="hljs-keyword">const</span> TodoStats = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
@@ -928,7 +1001,7 @@ componentDidMount() {
   <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>There are {context.todos.length} todos<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>;
 };</code></pre>
 
-      </section><section class="slide" id="slide-15-9">
+      </section><section class="slide" id="slide-16-9">
         <h2 id="context---beispiel-consumer">Context - Beispiel: Consumer</h2>
 <p>Klassenkomponente</p>
 <pre><code class="language-jsx"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TodoStats</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
@@ -945,7 +1018,7 @@ componentDidMount() {
   }
 }</span></code></pre>
 
-      </section></section><section class="section" id="section-16"><section class="slide" id="slide-16-1">
+      </section></section><section class="section" id="section-17"><section class="slide" id="slide-17-1">
         <h1 id="dateistruktur">Dateistruktur</h1>
 <p><a href="https://reactjs.org/docs/faq-structure.html">https://reactjs.org/docs/faq-structure.html</a></p>
 <p>Verbreitete Zugänge:</p>

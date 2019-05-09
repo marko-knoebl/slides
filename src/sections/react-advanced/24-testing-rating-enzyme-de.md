@@ -1,6 +1,6 @@
-# Beispiel: Testen einer Rating-Komponente
+# Beispiel: Testen mit Jest und Enzyme
 
-Mit jest und enzyme
+Testen einer Rating-Komponente
 
 ## Beispiel: Testen einer Rating-Komponente
 
@@ -49,7 +49,7 @@ describe('rendering', () => {
 ```tsx
 describe('events', () => {
   it('reacts to click on first star', () => {
-    const mockFn = fn();
+    const mockFn = jest.fn();
     const wrapper = mount(
       <Rating stars={3} onStarsChange={mockFn} />
     );

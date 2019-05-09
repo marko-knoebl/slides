@@ -5,9 +5,28 @@
 - `react-test-renderer` (vom React Team entwickelt)
 - `Enzyme` (von Airbnb entwickelt)
 
-## Enzyme - Einrichtung
+Enzyme bietet noch keine Unterstützung für Hooks
 
+## React-Test-Renderer - Installation
+
+```bash
+npm install --save-dev react-test-renderer
 ```
+
+## React-Test-Renderer - Beispiel
+
+```js
+import TestRenderer from 'react-test-renderer';
+
+it('renders a component without crashing', () => {
+  const instance = TestRenderer.create(<MyComponent />)
+    .root;
+});
+```
+
+## Enzyme - Installation & Einrichtung
+
+```bash
 npm install --save-dev enzyme enzyme-adapter-react-16
 ```
 
