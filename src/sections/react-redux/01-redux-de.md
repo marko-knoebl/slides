@@ -131,9 +131,10 @@ npm install --save-dev redux-devtools-extension
 
 ```js
 import { createStore, applyMiddleware } from 'redux';
-import { composeWithDevtools } from 'redux-devtools-extension';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 const store = createStore(
-  composeWithDevtools(applyMiddleware())
+  rootReducer,
+  composeWithDevTools(applyMiddleware())
 );
 ```

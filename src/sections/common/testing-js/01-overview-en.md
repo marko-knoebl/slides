@@ -47,11 +47,13 @@ in _package.json_:
 }
 ```
 
-run tests:
+## Running tests
 
 ```bash
 npm test
 ```
+
+Note: running tests should always be cancelled bevor running `npm install ...` - otherwise the Installation may fail
 
 ## finding tests
 

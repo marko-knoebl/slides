@@ -331,11 +331,13 @@ in _package.json_:
 }
 ```
 
-Tests ausführen:
+## Tests ausführen
 
 ```bash
 npm test
 ```
+
+Achtung: laufende Tests sollten immer abgebrochen werden, bevor `npm install ...` ausgeführt wird - sonst kann die Installation fehlschlagen
 
 ## Finden von Tests
 
@@ -850,8 +852,8 @@ import { Route } from 'react-router-dom';
 ```jsx
 import { NavLink } from 'react-router-dom';
 
-<NavLink to="/" activeClassName="active-link">Home</Link>
-<NavLink to="/add" activeClassName="active-link">Add</Link>
+<NavLink to="/" activeClassName="active-link">Home</NavLink>
+<NavLink to="/add" activeClassName="active-link">Add</NavLink>
 ```
 
 ## React Router - Switch

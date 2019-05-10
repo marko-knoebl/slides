@@ -47,11 +47,13 @@ in _package.json_:
 }
 ```
 
-Tests ausführen:
+## Tests ausführen
 
 ```bash
 npm test
 ```
+
+Achtung: laufende Tests sollten immer abgebrochen werden, bevor `npm install ...` ausgeführt wird - sonst kann die Installation fehlschlagen
 
 ## Finden von Tests
 
