@@ -177,7 +177,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </ul>
 
       </section><section class="slide" id="slide-2-4">
-        <h2 id="other-data-types">other data types</h2>
+        <h2 id="other-data-types">Other data types</h2>
 <ul>
 <li>complex</li>
 <li>frozenset</li>
@@ -187,16 +187,686 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </ul>
 
       </section></section><section class="section" id="section-3"><section class="slide" id="slide-3-1">
-        <h1 id="modules-and-packages">Modules and Packages</h1>
+        <h1 id="none">None</h1>
 
       </section><section class="slide" id="slide-3-2">
+        <h2 id="none">None</h2>
+<p>The expression <code>None</code> is for &quot;nothing&quot; - analogous to <code>null</code> or <code>undefined</code> in other languages.</p>
+<p>It may be used if a certain value is unknown</p>
+<pre><code class="language-py">users = [
+  [<span class="hljs-string">"John"</span>, <span class="hljs-string">"Doe"</span>, <span class="hljs-string">"1976-10-23"</span>],
+  [<span class="hljs-string">"Jane"</span>, <span class="hljs-string">"Doe"</span>, <span class="hljs-keyword">None</span>]
+]</code></pre>
+
+      </section><section class="slide" id="slide-3-3">
+        <h2 id="none">None</h2>
+<p><code>None</code> is a Singleton:</p>
+<ul>
+<li>there is only ever a single instance of it inside a running Python program</li>
+<li>multiple variables may refer to that same instance</li>
+</ul>
+
+      </section><section class="slide" id="slide-3-4">
+        <h2 id="comparisons-via-is">Comparisons via &quot;is&quot;</h2>
+<p>The keyword <code>is</code> checks whether two references / names refer to the same object.</p>
+<pre><code class="language-py">a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>]
+b = a
+x = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>]
+
+a == b <span class="hljs-comment"># True</span>
+a <span class="hljs-keyword">is</span> b <span class="hljs-comment"># True</span>
+a == x <span class="hljs-comment"># True</span>
+a <span class="hljs-keyword">is</span> x <span class="hljs-comment"># False</span></code></pre>
+
+      </section><section class="slide" id="slide-3-5">
+        <h2 id="none-and-is">None and &quot;is&quot;</h2>
+<p>As <code>None</code> is a singleton we can check for it via <code>is None</code>:</p>
+<pre><code class="language-py"><span class="hljs-keyword">if</span> a <span class="hljs-keyword">is</span> <span class="hljs-keyword">None</span>:
+    print(<span class="hljs-string">"a is None"</span>)</code></pre>
+
+      </section></section><section class="section" id="section-4"><section class="slide" id="slide-4-1">
+        <h1 id="bool">bool</h1>
+
+      </section><section class="slide" id="slide-4-2">
+        <h2 id="bool">bool</h2>
+<p><code>True</code> or <code>False</code></p>
+<pre><code class="language-py">a = <span class="hljs-keyword">True</span>
+<span class="hljs-keyword">if</span> a:
+    print(<span class="hljs-string">'hello'</span>)</code></pre>
+
+      </section><section class="slide" id="slide-4-3">
+        <h2 id="bool">bool</h2>
+<p>Internally <code>False</code> behaves almost like <code>0</code> and <code>True</code> behaves almost like <code>1</code></p>
+<pre><code class="language-py"><span class="hljs-keyword">False</span> + <span class="hljs-keyword">True</span> <span class="hljs-comment"># 1</span></code></pre>
+
+      </section></section><section class="section" id="section-5"><section class="slide" id="slide-5-1">
+        <h1 id="numbers">Numbers</h1>
+
+      </section><section class="slide" id="slide-5-2">
+        <h2 id="int">int</h2>
+<p>integers of arbitrary size</p>
+
+      </section><section class="slide" id="slide-5-3">
+        <h2 id="int">int</h2>
+<p>Other numeral systems:</p>
+<pre><code class="language-py">a = <span class="hljs-number">42</span>
+b = <span class="hljs-number">0o52</span>
+c = <span class="hljs-number">0x2a</span>
+d = <span class="hljs-number">0b101010</span></code></pre>
+<pre><code class="language-py">e = int(<span class="hljs-string">'101010'</span>, <span class="hljs-number">2</span>)</code></pre>
+
+      </section><section class="slide" id="slide-5-4">
+        <h2 id="float">float</h2>
+<p>64 bit integer</p>
+<pre><code class="language-py">a = <span class="hljs-number">2.3</span>
+b = <span class="hljs-number">.2</span>
+c = <span class="hljs-number">6e23</span>
+d = float(<span class="hljs-string">'nan'</span>)
+e = float(<span class="hljs-string">'inf'</span>)</code></pre>
+
+      </section><section class="slide" id="slide-5-5">
+        <h2 id="complex">complex</h2>
+<pre><code class="language-py">a = <span class="hljs-number">2</span> + <span class="hljs-number">3j</span></code></pre>
+
+      </section><section class="slide" id="slide-5-6">
+        <h2 id="operations-with-numbers">Operations with numbers</h2>
+<ul>
+<li>Integer division: <code>10 // 3</code></li>
+<li>Remainder: <code>10 % 3</code></li>
+<li>Power: <code>2 ** 3</code></li>
+</ul>
+
+      </section></section><section class="section" id="section-6"><section class="slide" id="slide-6-1">
+        <h1 id="character-encodings">Character encodings</h1>
+
+      </section><section class="slide" id="slide-6-2">
+        <h2 id="unicode-characters">Unicode characters</h2>
+<p><em>Unicode</em>: catalog of over 100,000 international characters, each with a unique identifying name and number (usually written in hexadecimal)</p>
+<p>examples:</p>
+<ul>
+<li><em>K</em>: U+004B (<em>Latin capital letter K</em>)</li>
+<li><em>?</em>: U+003F (<em>Question mark</em>)</li>
+<li><em>ä</em>: U+00E4 (<em>Latin small letter a with a diaeresis</em>)</li>
+<li><em>€</em>: U+20AC (<em>Euro sign</em>)</li>
+<li>🙂: U+1F642 (<em>Slightly smiling face</em>)</li>
+</ul>
+<p><a href="https://en.wikibooks.org/wiki/Unicode/Character_reference">tables of all Unicode characters</a></p>
+
+      </section><section class="slide" id="slide-6-3">
+        <h2 id="character-encodings">Character encodings</h2>
+<p><em>Character encoding</em> = mapping of characters to bit sequences</p>
+<ul>
+<li><em>ASCII</em>: encodes the first 128 Unicode characters, can represent characters like <em>A</em>, <em>!</em>, <em>$</em>, <em>space</em>, <em>line break</em></li>
+<li><em>Latin1</em>: encodes the first 256 Unicode characters, can represent ASCII characters and characters like <em>ä</em>, <em>á</em>, <em>ß</em>, <em>§</em></li>
+<li><em>UTF-8</em>, <em>UTF-16</em>, <em>UTF-32</em>: encode all Unicode characters</li>
+</ul>
+<p>A character encoding is necessary in order to write text to disk or transfer it over the network</p>
+
+      </section><section class="slide" id="slide-6-4">
+        <h2 id="character-encodings">Character encodings</h2>
+<p>Examples in ASCII / Latin1 / UTF-8:</p>
+<ul>
+<li><code>!</code> ↔ <code>00100001</code></li>
+<li><code>A</code> ↔ <code>01000001</code></li>
+<li><code>a</code> ↔ <code>01100001</code></li>
+</ul>
+<p>Examples in Latin1:</p>
+<ul>
+<li><code>Ä</code> ↔ <code>11000100</code></li>
+</ul>
+<p>Examples in UTF-8:</p>
+<ul>
+<li><code>Ä</code> ↔ <code>11000011 10100100</code></li>
+<li><code>🙂</code> ↔ <code>11110000 10011111 10011001 10000010</code></li>
+</ul>
+
+      </section><section class="slide" id="slide-6-5">
+        <h2 id="character-encodings">Character encodings</h2>
+<table>
+<thead>
+<tr>
+<th>Character</th>
+<th align="right">Unicode</th>
+<th align="right">ASCII</th>
+<th align="right">Latin-1</th>
+<th align="right">UTF-8</th>
+<th align="right">UTF-16</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>K</td>
+<td align="right">U+004B</td>
+<td align="right">4B</td>
+<td align="right">4B</td>
+<td align="right">4B</td>
+<td align="right">FFFE4B00</td>
+</tr>
+<tr>
+<td>ä</td>
+<td align="right">U+00E4</td>
+<td align="right"></td>
+<td align="right">E4</td>
+<td align="right">C3A4</td>
+<td align="right">FFFEE400</td>
+</tr>
+<tr>
+<td>€</td>
+<td align="right">U+20AC</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right">E282AC</td>
+<td align="right">FFFEAC20</td>
+</tr>
+<tr>
+<td>🙂</td>
+<td align="right">U+1F642</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right">F09F9982</td>
+<td align="right">FFFE3DD842DE</td>
+</tr>
+</tbody></table>
+
+      </section><section class="slide" id="slide-6-6">
+        <h2 id="utf-8">UTF-8</h2>
+<p>In many areas (in particular on the web) <em>UTF-8</em> has become the standard text encoding</p>
+<p>In UTF-8 the first 128 Unicode characters can be encoded in just 8 bit</p>
+<p>All other characters need either 16, 24 or 32 bit</p>
+
+      </section><section class="slide" id="slide-6-7">
+        <h2 id="line-breaks">Line breaks</h2>
+<p>Line breaks can be represented by the characters <code>LF</code> (line feed, <code>U+000A</code>) and / or <code>CR</code> (carriage return, <code>U+000D</code>)</p>
+<ul>
+<li><code>LF</code>: Standard on Linux, MacOS</li>
+<li><code>CRLF</code>: Standard on Windows, in network protocols like HTTP</li>
+</ul>
+
+      </section></section><section class="section" id="section-7"><section class="slide" id="slide-7-1">
+        <h1 id="strings">Strings</h1>
+
+      </section><section class="slide" id="slide-7-2">
+        <h2 id="strings">Strings</h2>
+<p>In Python 3 strings are sequences of Unicode characters</p>
+
+      </section><section class="slide" id="slide-7-3">
+        <h2 id="string-literals">String literals</h2>
+<p>Examples:</p>
+<pre><code class="language-py">a = <span class="hljs-string">"test"</span>
+b = <span class="hljs-string">'test'</span></code></pre>
+
+      </section><section class="slide" id="slide-7-4">
+        <h2 id="multi-line-string-literals">Multi-line string literals</h2>
+<pre><code class="language-py">a = <span class="hljs-string">"""this
+is a multi-line
+string literal.
+"""</span></code></pre>
+
+      </section><section class="slide" id="slide-7-5">
+        <h2 id="escape-sequences">Escape sequences</h2>
+<p>Some characters may be entered via so-called <em>escape sequences</em>:</p>
+<pre><code class="language-py">a = <span class="hljs-string">"He said:\n\"Hi!\""</span></code></pre>
+
+      </section><section class="slide" id="slide-7-6">
+        <h2 id="escape-sequences">Escape sequences</h2>
+<ul>
+<li><code>\&#39;</code> → <code>&#39;</code></li>
+<li><code>\&quot;</code> → <code>&quot;</code></li>
+<li><code>\\</code> → <code>\</code></li>
+<li><code>\n</code> → Line Feed (line separator on Unix)</li>
+<li><code>\r\n</code> → Carriage Return + Line Feed (line separator on Windows)</li>
+<li><code>\t</code> → Tab</li>
+<li><code>\xHH</code> or <code>\uHHHH</code> or <code>\UHHHHHHHH</code> → Unicode-Codepoint (hexadecimal)</li>
+</ul>
+
+      </section><section class="slide" id="slide-7-7">
+        <h2 id="raw-strings">Raw Strings</h2>
+<p>If we don&#39;t need to use any escape sequences in a string:</p>
+<pre><code class="language-py">path = <span class="hljs-string">r"C:\documents\foo\news.txt"</span></code></pre>
+<p>This can be useful when writing Windows paths and regular expressions</p>
+
+      </section><section class="slide" id="slide-7-8">
+        <h2 id="string-methods">String methods</h2>
+<ul>
+<li><code>.lower()</code></li>
+<li><code>.upper()</code></li>
+</ul>
+
+      </section><section class="slide" id="slide-7-9">
+        <h2 id="string-methods">String methods</h2>
+<ul>
+<li><code>.startswith(...)</code></li>
+<li><code>.endswith(&quot;.txt&quot;)</code></li>
+</ul>
+
+      </section><section class="slide" id="slide-7-10">
+        <h2 id="string-methods">String methods</h2>
+<ul>
+<li><code>.center(10)</code></li>
+<li><code>.ljust(10)</code></li>
+<li><code>.rjust(10)</code></li>
+</ul>
+
+      </section><section class="slide" id="slide-7-11">
+        <h2 id="string-methods">String methods</h2>
+<ul>
+<li><code>.strip()</code></li>
+<li><code>.split(&#39; &#39;)</code></li>
+<li><code>.splitlines()</code></li>
+<li><code>.join()</code></li>
+</ul>
+
+      </section><section class="slide" id="slide-7-12">
+        <h2 id="exercise-formatting-othello">Exercise: formatting Othello</h2>
+<p>Source:</p>
+<p><a href="http://www.gutenberg.org/cache/epub/2267/pg2267.txt">http://www.gutenberg.org/cache/epub/2267/pg2267.txt</a></p>
+<p>tasks:</p>
+<ul>
+<li>remove leading whitespace of each line</li>
+<li>add a line number to the end of each line and place the line number right-aligned at character 70</li>
+<li>(place line numbers only in every 5th line)</li>
+</ul>
+
+      </section></section><section class="section" id="section-8"><section class="slide" id="slide-8-1">
+        <h1 id="string-formatting">String formatting</h1>
+
+      </section><section class="slide" id="slide-8-2">
+        <h2 id="string-formatting">String formatting</h2>
+<p>String formatting = placing values in strings</p>
+<p>Methods:</p>
+<pre><code class="language-py">greeting = <span class="hljs-string">"Hello, "</span> + name + <span class="hljs-string">"!"</span></code></pre>
+<pre><code class="language-py">greeting = <span class="hljs-string">f"Hello, <span class="hljs-subst">{name}</span>!"</span></code></pre>
+
+      </section><section class="slide" id="slide-8-3">
+        <h2 id="string-formatting-methods">String formatting: methods</h2>
+<pre><code class="language-py">city = <span class="hljs-string">'Vienna'</span>
+temperature = <span class="hljs-number">23.7</span>
+
+<span class="hljs-comment"># rather obsolete</span>
+<span class="hljs-string">'weather in %s: %f°C'</span> % (city, temperature)
+
+<span class="hljs-string">'weather in {0}: {1}°C'</span>.format(city, temperature)
+<span class="hljs-string">'weather in {}: {}°C'</span>.format(city, temperature)
+<span class="hljs-string">'weather in {c}: {t}°C'</span>.format(c=city, t=temperature)
+
+<span class="hljs-string">f'weather in <span class="hljs-subst">{city}</span>: <span class="hljs-subst">{temperature}</span>°C'</span></code></pre>
+
+      </section><section class="slide" id="slide-8-4">
+        <h2 id="format-specification">Format specification</h2>
+<pre><code class="language-py">t = <span class="hljs-number">333.333</span>
+<span class="hljs-string">'{t.4f}°K'</span> <span class="hljs-comment"># 333.3330°K</span>
+<span class="hljs-string">'{t.4g}°K'</span> <span class="hljs-comment"># 333.3°K</span></code></pre>
+<p><a href="https://mkaz.blog/code/python-string-format-cookbook/">https://mkaz.blog/code/python-string-format-cookbook/</a></p>
+
+      </section></section><section class="section" id="section-9"><section class="slide" id="slide-9-1">
+        <h1 id="lists">Lists</h1>
+
+      </section><section class="slide" id="slide-9-2">
+        <h2 id="lists">Lists</h2>
+<p>Lists are mutable sequences of objects; they are usually used to store homogenous entries of the same type and structure</p>
+<pre><code class="language-py">primes = [<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">7</span>, <span class="hljs-number">11</span>]
+
+users = [<span class="hljs-string">"Alice"</span>, <span class="hljs-string">"Bob"</span>, <span class="hljs-string">"Charlie"</span>]</code></pre>
+
+      </section><section class="slide" id="slide-9-3">
+        <h2 id="operations-on-lists">Operations on lists</h2>
+<p>The following operations will also work on other <em>sequences</em> - e.g. tuples, strings or bytes</p>
+<ul>
+<li>accessing elements (via index): <code>users[2]</code></li>
+<li>accessing multiple elements (sublist): <code>users[2:4]</code></li>
+<li>concatenation: <code>users + users</code></li>
+<li>repetition: <code>3 * users</code></li>
+<li>length: <code>len(users)</code></li>
+<li>for loop: <code>for user in users:</code></li>
+<li>if clause : <code>if &#39;Tim&#39; in users:</code></li>
+</ul>
+
+      </section><section class="slide" id="slide-9-4">
+        <h2 id="operations-on-lists---mutations">Operations on lists - mutations</h2>
+<p>Lists are the only sequences that can be mutated:</p>
+<ul>
+<li>appending: <code>users.append(&quot;Dan&quot;)</code></li>
+<li>removing the last element: <code>users.pop()</code></li>
+<li>removing an element by index: <code>users.pop(2)</code></li>
+</ul>
+
+      </section><section class="slide" id="slide-9-5">
+        <h2 id="sorting-lists">Sorting lists</h2>
+<pre><code class="language-py">l.sort()</code></pre>
+<pre><code class="language-py">l.sort(key=...)</code></pre>
+
+      </section><section class="slide" id="slide-9-6">
+        <h2 id="exercises">Exercises</h2>
+<ul>
+<li>shuffling cards</li>
+<li>list of prime numbers</li>
+</ul>
+
+      </section></section><section class="section" id="section-10"><section class="slide" id="slide-10-1">
+        <h1 id="tuples">Tuples</h1>
+
+      </section><section class="slide" id="slide-10-2">
+        <h2 id="tuples">Tuples</h2>
+<pre><code class="language-py">person = (<span class="hljs-string">"Thomas"</span>, <span class="hljs-string">"Smith"</span>, <span class="hljs-string">"1972-03-15"</span>)</code></pre>
+<ul>
+<li>similar to lists</li>
+<li>used to represent inhomogenous data of a predefined structure - each entry has a specific meaning</li>
+<li>immutable (unchangeable)</li>
+</ul>
+
+      </section><section class="slide" id="slide-10-3">
+        <h2 id="tuples">Tuples</h2>
+<p>Each entry in a tuple has a specific meaning</p>
+<p>Alternative data structures with named entries:</p>
+<ul>
+<li><code>dict</code></li>
+<li><code>NamedTuple</code></li>
+</ul>
+
+      </section><section class="slide" id="slide-10-4">
+        <h2 id="creating-tuples">Creating tuples</h2>
+<pre><code class="language-py">empty_tuple = ()
+single_value = (<span class="hljs-string">'Thomas'</span>, )
+two_values = (<span class="hljs-string">'Thomas'</span>, <span class="hljs-string">'Smith'</span>)
+two_values = <span class="hljs-string">'Thomas'</span>, <span class="hljs-string">'Smith'</span></code></pre>
+
+      </section><section class="slide" id="slide-10-5">
+        <h2 id="unpacking-of-tuples">Unpacking (of tuples)</h2>
+<p>swapping variables:</p>
+<pre><code class="language-py">a, b = b, a</code></pre>
+
+      </section><section class="slide" id="slide-10-6">
+        <h2 id="unpacking-of-tuples">Unpacking (of tuples)</h2>
+<p>enumerating list items:</p>
+<pre><code class="language-py">l = [<span class="hljs-string">'Alice'</span>, <span class="hljs-string">'Bob'</span>, <span class="hljs-string">'Charlie'</span>]
+
+<span class="hljs-keyword">for</span> i, name <span class="hljs-keyword">in</span> enumerate(l):
+    print(<span class="hljs-string">f'<span class="hljs-subst">{i}</span>: <span class="hljs-subst">{name}</span>'</span>)</code></pre>
+<p>Enumerate returns the following data structure:</p>
+<pre><code class="language-py">[(<span class="hljs-number">0</span>, <span class="hljs-string">'Alice'</span>), (<span class="hljs-number">1</span>, <span class="hljs-string">'Bob'</span>), (<span class="hljs-number">2</span>, <span class="hljs-string">'Charlie'</span>)]</code></pre>
+
+      </section></section><section class="section" id="section-11"><section class="slide" id="slide-11-1">
+        <h1 id="bytes">Bytes</h1>
+
+      </section><section class="slide" id="slide-11-2">
+        <h2 id="bytes">Bytes</h2>
+<p>= Sequence of numbers in the range of 0 to 255</p>
+<pre><code class="language-py">m = bytes([<span class="hljs-number">0</span>, <span class="hljs-number">0x40</span>, <span class="hljs-number">0x70</span>, <span class="hljs-number">0xa0</span>])</code></pre>
+<pre><code>m[1] == 64
+m[2] == 160</code></pre>
+      </section><section class="slide" id="slide-11-3">
+        <h2 id="bytes">Bytes</h2>
+<p>Standard representation in Python:</p>
+<pre><code class="language-py">print(bytes[<span class="hljs-number">0</span>, <span class="hljs-number">0x40</span>, <span class="hljs-number">0x70</span>, <span class="hljs-number">0xa0</span>])</code></pre>
+<pre><code class="language-py"><span class="hljs-string">b' @p\xa0'</span></code></pre>
+<p>Where possible, bytes will be represented by ASCII characters; otherwise their hex code will be shown</p>
+<p>The <code>b</code> signifies a byte string literal</p>
+
+      </section><section class="slide" id="slide-11-4">
+        <h2 id="bytes-and-strings">Bytes and Strings</h2>
+<p>Bytes can hold arbitrary data, but often they will hold encoded text</p>
+<p>If we know the encoding we can convert between bytes and strings:</p>
+<pre><code class="language-py"><span class="hljs-string">'ä'</span>.encode(<span class="hljs-string">'utf-8'</span>)
+<span class="hljs-comment"># b'\xc3\xa4'</span></code></pre>
+<pre><code class="language-py"><span class="hljs-string">b'\xc3\xa4'</span>.decode(<span class="hljs-string">'utf-8'</span>)
+<span class="hljs-comment"># 'ä'</span></code></pre>
+
+      </section><section class="slide" id="slide-11-5">
+        <h2 id="bytes-and-strings">Bytes and Strings</h2>
+<p>Storage media and networks will only handle bytes; in order to read a text file from disk or from the network we need to know its encoding</p>
+
+      </section></section><section class="section" id="section-12"><section class="slide" id="slide-12-1">
+        <h1 id="sequences">Sequences</h1>
+
+      </section><section class="slide" id="slide-12-2">
+        <h2 id="sequences">Sequences</h2>
+<p>Python Sequences consist of other Python objects</p>
+<p>examples:</p>
+<ul>
+<li>lists</li>
+<li>tuples</li>
+<li>strings</li>
+<li>bytes</li>
+</ul>
+
+      </section><section class="slide" id="slide-12-3">
+        <h2 id="operations-on-sequences">Operations on sequences</h2>
+<ul>
+<li>accessing elements (via index): <code>s[2]</code></li>
+<li>accessing multiple elements: <code>s[2:4]</code></li>
+<li>concatenation: <code>s + t</code></li>
+<li>repetition: <code>3 * s</code></li>
+<li>length: <code>len(s)</code></li>
+<li>for loop: <code>for el in s:</code></li>
+<li>if clause : <code>if el in s:</code></li>
+</ul>
+
+      </section><section class="slide" id="slide-12-4">
+        <h2 id="operations">Operations</h2>
+<p>Accessing elements</p>
+<pre><code class="language-py">users = [<span class="hljs-string">'mike'</span>, <span class="hljs-string">'tim'</span>, <span class="hljs-string">'theresa'</span>]
+
+users[<span class="hljs-number">0</span>] <span class="hljs-comment"># 'mike'</span>
+users[<span class="hljs-number">-1</span>] <span class="hljs-comment"># 'theresa'</span></code></pre>
+
+      </section><section class="slide" id="slide-12-5">
+        <h2 id="operations">Operations</h2>
+<p>Changing elements</p>
+<p>(if the sequence is mutable)</p>
+<pre><code class="language-py">users = [<span class="hljs-string">'mike'</span>, <span class="hljs-string">'tim'</span>, <span class="hljs-string">'theresa'</span>]
+
+users[<span class="hljs-number">0</span>] = <span class="hljs-string">'molly'</span></code></pre>
+
+      </section><section class="slide" id="slide-12-6">
+        <h2 id="operations">Operations</h2>
+<p>Accessing multiple elements</p>
+<pre><code class="language-py">users = [<span class="hljs-string">'mike'</span>, <span class="hljs-string">'tim'</span>, <span class="hljs-string">'theresa'</span>]
+
+users[<span class="hljs-number">0</span>:<span class="hljs-number">2</span>] <span class="hljs-comment"># ['mike', 'tim']</span></code></pre>
+
+      </section><section class="slide" id="slide-12-7">
+        <h2 id="operations">Operations</h2>
+<p>Concatenation</p>
+<pre><code class="language-py">users = [<span class="hljs-string">'mike'</span>, <span class="hljs-string">'tim'</span>, <span class="hljs-string">'theresa'</span>]
+
+new_users = users + [<span class="hljs-string">'tina'</span>, <span class="hljs-string">'michelle'</span>]</code></pre>
+
+      </section><section class="slide" id="slide-12-8">
+        <h2 id="operations">Operations</h2>
+<p>Repetition</p>
+<pre><code class="language-py">users = [<span class="hljs-string">'mike'</span>, <span class="hljs-string">'tim'</span>, <span class="hljs-string">'theresa'</span>]
+
+new_users = users * <span class="hljs-number">3</span></code></pre>
+
+      </section><section class="slide" id="slide-12-9">
+        <h2 id="operations">Operations</h2>
+<p>Length</p>
+<pre><code class="language-py">users = [<span class="hljs-string">'mike'</span>, <span class="hljs-string">'tim'</span>, <span class="hljs-string">'theresa'</span>]
+
+print(len(users))</code></pre>
+
+      </section><section class="slide" id="slide-12-10">
+        <h2 id="operations">Operations</h2>
+<p>for loop</p>
+<pre><code class="language-py">users = [<span class="hljs-string">'mike'</span>, <span class="hljs-string">'tim'</span>, <span class="hljs-string">'theresa'</span>]
+
+<span class="hljs-keyword">for</span> user <span class="hljs-keyword">in</span> users:
+    print(user.upper())</code></pre>
+
+      </section></section><section class="section" id="section-13"><section class="slide" id="slide-13-1">
+        <h1 id="dictionaries">Dictionaries</h1>
+
+      </section><section class="slide" id="slide-13-2">
+        <h2 id="dictionaries">Dictionaries</h2>
+<p>Dictionaries are mappings of keys to values</p>
+<pre><code class="language-py">person = {
+    <span class="hljs-string">"first_name"</span>: <span class="hljs-string">"John"</span>
+    <span class="hljs-string">"last_name"</span>: <span class="hljs-string">"Doe"</span>
+    <span class="hljs-string">"nationality"</span>: <span class="hljs-string">"Canada"</span>
+    <span class="hljs-string">"birth_year"</span>: <span class="hljs-number">1980</span>
+}</code></pre>
+
+      </section><section class="slide" id="slide-13-3">
+        <h2 id="dictionaries">Dictionaries</h2>
+<p>Accessing entries</p>
+<pre><code class="language-py">person[<span class="hljs-string">"first_name"</span>] <span class="hljs-comment"># "John"</span></code></pre>
+
+      </section><section class="slide" id="slide-13-4">
+        <h2 id="dictionaries">Dictionaries</h2>
+<p>Iterating over dictionaries</p>
+<pre><code class="language-py"><span class="hljs-keyword">for</span> entry <span class="hljs-keyword">in</span> person:
+    print(entry)</code></pre>
+<p>This will yield the keys: <code>&quot;first_name&quot;</code>, <code>&quot;last_name&quot;</code>, <code>&quot;nationality&quot;</code>, <code>&quot;birth_year&quot;</code></p>
+<p>Since Python 3.7 the keys will always remain in insertion order</p>
+
+      </section><section class="slide" id="slide-13-5">
+        <h2 id="dictionaries">Dictionaries</h2>
+<p>Iterating over key-value-pairs:</p>
+<pre><code class="language-py"><span class="hljs-keyword">for</span> key, value <span class="hljs-keyword">in</span> person.items():
+    print(<span class="hljs-string">f'<span class="hljs-subst">{key}</span>, <span class="hljs-subst">{value}</span>'</span>)</code></pre>
+<p>see also: tuples</p>
+
+      </section><section class="slide" id="slide-13-6">
+        <h2 id="operations-on-dictionaries">Operations on dictionaries</h2>
+<pre><code class="language-py">d = {<span class="hljs-number">0</span>: <span class="hljs-string">'zero'</span>, <span class="hljs-number">1</span>: <span class="hljs-string">'one'</span>, <span class="hljs-number">2</span>: <span class="hljs-string">'two'</span>}
+
+d[<span class="hljs-number">2</span>]
+d[<span class="hljs-number">2</span>] = <span class="hljs-string">'TWO'</span>
+d[<span class="hljs-number">3</span>] <span class="hljs-comment"># KeyError</span>
+d.get(<span class="hljs-number">3</span>, <span class="hljs-keyword">None</span>)
+
+d.keys()
+d.items()
+
+d1.update(d2)</code></pre>
+
+      </section><section class="slide" id="slide-13-7">
+        <h2 id="valid-keys">Valid keys</h2>
+<p>Any immutable object can act as a dictionary key. The most common types of keys are strings.</p>
+
+      </section><section class="slide" id="slide-13-8">
+        <h2 id="exercises">Exercises</h2>
+<ul>
+<li>vocabulary trainer<ul>
+<li>read a (JSON) file</li>
+<li>create a data model with dictionaries</li>
+<li>randomly pick an entry</li>
+</ul>
+</li>
+<li>todo list</li>
+</ul>
+
+      </section></section><section class="section" id="section-14"><section class="slide" id="slide-14-1">
+        <h1 id="comprehensions">Comprehensions</h1>
+
+      </section><section class="slide" id="slide-14-2">
+        <h2 id="list-comprehensions">List comprehensions</h2>
+<p><em>List comprehensions</em> enable the creation of lists based on existing lists</p>
+<p>In other programming languages this is often done via <code>map</code> and <code>filter</code></p>
+
+      </section><section class="slide" id="slide-14-3">
+        <h2 id="list-comprehensions">List comprehensions</h2>
+<p><em>Transforming each entry</em>:</p>
+<pre><code class="language-py">names = [<span class="hljs-string">"Alice"</span>, <span class="hljs-string">"Bob"</span>, <span class="hljs-string">"Charlie"</span>]
+
+uppercase_names = [name.upper() <span class="hljs-keyword">for</span> name <span class="hljs-keyword">in</span> names]</code></pre>
+<p>result:</p>
+<pre><code class="language-py">[<span class="hljs-string">"ALICE"</span>, <span class="hljs-string">"BOB"</span>, <span class="hljs-string">"CHARLIE"</span>]</code></pre>
+
+      </section><section class="slide" id="slide-14-4">
+        <h2 id="list-comprehensions">List comprehensions</h2>
+<p><em>Filtering</em>:</p>
+<pre><code class="language-py">amounts = [<span class="hljs-number">10</span>, <span class="hljs-number">-7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">19</span>, <span class="hljs-number">-2</span>]
+
+positive_amounts = [amount <span class="hljs-keyword">for</span> amount <span class="hljs-keyword">in</span> amounts <span class="hljs-keyword">if</span> amount &gt; <span class="hljs-number">0</span>]</code></pre>
+<p>result:</p>
+<pre><code class="language-py">[<span class="hljs-number">10</span>, <span class="hljs-number">8</span>, <span class="hljs-number">19</span>]</code></pre>
+
+      </section><section class="slide" id="slide-14-5">
+        <h2 id="list-comprehensions">List comprehensions</h2>
+<p>Generic syntax:</p>
+<pre><code class="language-py">new_list = [new_entry <span class="hljs-keyword">for</span> entry <span class="hljs-keyword">in</span> old_list]
+
+new_list = [new_entry <span class="hljs-keyword">for</span> entry <span class="hljs-keyword">in</span> old_list <span class="hljs-keyword">if</span> condition]</code></pre>
+
+      </section><section class="slide" id="slide-14-6">
+        <h2 id="dictionary-comprehensions">Dictionary comprehensions</h2>
+<pre><code class="language-py">colors: {
+  <span class="hljs-string">'red'</span>: <span class="hljs-string">'#ff0000'</span>,
+  <span class="hljs-string">'blue'</span>: <span class="hljs-string">'#0000ff'</span>,
+  <span class="hljs-string">'green'</span>: <span class="hljs-string">'#008000'</span>
+}
+
+m_colors = { color: colors[color][<span class="hljs-number">1</span>:] <span class="hljs-keyword">for</span> color <span class="hljs-keyword">in</span> colors}</code></pre>
+
+      </section><section class="slide" id="slide-14-7">
+        <h2 id="exercises">Exercises</h2>
+<ul>
+<li>todo list: add functionality to remove completed entries</li>
+</ul>
+
+      </section></section><section class="section" id="section-15"><section class="slide" id="slide-15-1">
+        <h1 id="set">Set</h1>
+
+      </section><section class="slide" id="slide-15-2">
+        <h2 id="set">Set</h2>
+<p>Unordered collection of elements with no duplicates</p>
+<pre><code class="language-py">ingredients = {<span class="hljs-string">"flour"</span>, <span class="hljs-string">"water"</span>, <span class="hljs-string">"salt"</span>, <span class="hljs-string">"yeast"</span>}</code></pre>
+
+      </section><section class="slide" id="slide-15-3">
+        <h2 id="set">Set</h2>
+<p>Sets can be an alternative for Lists if the order is not relevant.</p>
+<pre><code class="language-py">ingredients1 = {<span class="hljs-string">"flour"</span>, <span class="hljs-string">"water"</span>, <span class="hljs-string">"salt"</span>, <span class="hljs-string">"yeast"</span>}
+ingredients2 = {<span class="hljs-string">"water"</span>, <span class="hljs-string">"salt"</span>, <span class="hljs-string">"flour"</span>, <span class="hljs-string">"yeast"</span>}
+ingredients1 == ingredients2 <span class="hljs-comment"># True</span></code></pre>
+
+      </section><section class="slide" id="slide-15-4">
+        <h2 id="set">Set</h2>
+<p>Take care: An empty set must always be created via <code>set()</code></p>
+<p>Why does <code>{}</code> not produce an empty set?</p>
+
+      </section><section class="slide" id="slide-15-5">
+        <h2 id="operations-on-sets">Operations on Sets</h2>
+<pre><code class="language-py">x = set(<span class="hljs-string">'abc'</span>)
+y = set(<span class="hljs-string">'aeiou'</span>)
+x | y
+x &amp; y
+x - y
+x &lt;= y</code></pre>
+
+      </section><section class="slide" id="slide-15-6">
+        <h2 id="example-neighboring-countries-in-north-america">Example: Neighboring countries in North America</h2>
+<pre><code class="language-py">countries = {
+    <span class="hljs-string">"Canada"</span>, <span class="hljs-string">"USA"</span>, <span class="hljs-string">"Mexico"</span>, <span class="hljs-string">"Guatemala"</span>, <span class="hljs-string">"Belize"</span>,
+    <span class="hljs-string">"El Salvador"</span>, <span class="hljs-string">"Honduras"</span>, <span class="hljs-string">"Nicaragua"</span>, <span class="hljs-string">"Costa Rica"</span>,
+    <span class="hljs-string">"Panama"</span>}
+
+neighbors = {
+    {<span class="hljs-string">"Canada"</span>, <span class="hljs-string">"USA"</span>},
+    {<span class="hljs-string">"USA"</span>, <span class="hljs-string">"Mexico"</span>},
+    {<span class="hljs-string">"Mexico"</span>, <span class="hljs-string">"Guatemala"</span>},
+    {<span class="hljs-string">"Mexico"</span>, <span class="hljs-string">"Belize"</span>},
+    {<span class="hljs-string">"Guatemala"</span>, <span class="hljs-string">"Belize"</span>},
+    {<span class="hljs-string">"Guatemala"</span>, <span class="hljs-string">"El Salvador"</span>},
+    {<span class="hljs-string">"Guatemala"</span>, <span class="hljs-string">"Honduras"</span>},
+    {<span class="hljs-string">"Honduras"</span>, <span class="hljs-string">"Nicaragua"</span>},
+    {<span class="hljs-string">"Nicaragua"</span>, <span class="hljs-string">"Costa Rica"</span>},
+    {<span class="hljs-string">"Costa Rica"</span>, <span class="hljs-string">"Panama"</span>}
+}</code></pre>
+
+      </section><section class="slide" id="slide-15-7">
+        <h2 id="task-find-the-route-from-any-country-to-another">Task: Find the &quot;route&quot; from any country to another</h2>
+
+      </section></section><section class="section" id="section-16"><section class="slide" id="slide-16-1">
+        <h1 id="modules-and-packages">Modules and Packages</h1>
+
+      </section><section class="slide" id="slide-16-2">
         <h2 id="modules-and-packages">Modules and Packages</h2>
 <ul>
 <li>Module = Python file from which objects can be imported</li>
 <li>Package = directory that includes Python modules</li>
 </ul>
 
-      </section><section class="slide" id="slide-3-3">
+      </section><section class="slide" id="slide-16-3">
         <h2 id="example-imports">example imports</h2>
 <pre><code class="language-py"><span class="hljs-keyword">import</span> module1
 <span class="hljs-keyword">import</span> package1.module2
@@ -206,7 +876,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 
 <span class="hljs-keyword">from</span> package1.module2 <span class="hljs-keyword">import</span> *</code></pre>
 
-      </section><section class="slide" id="slide-3-4">
+      </section><section class="slide" id="slide-16-4">
         <h2 id="example-imports-urllib">example imports: urllib</h2>
 <ul>
 <li><code>urllib</code> = package</li>
@@ -214,18 +884,18 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li><code>urllib.request.urlopen</code> = function</li>
 </ul>
 
-      </section><section class="slide" id="slide-3-5">
+      </section><section class="slide" id="slide-16-5">
         <h2 id="compilation-of-modules">compilation of modules</h2>
 <p>Imported modules will be saved in a compiled form, making subsequent loading of the modules faster.</p>
 <p>Compiled versions will be saved in the folder <code>__pycache__</code></p>
 
-      </section><section class="slide" id="slide-3-6">
+      </section><section class="slide" id="slide-16-6">
         <h2 id="be-careful-avoid-circular-imports">be careful: avoid circular imports</h2>
 
-      </section></section><section class="section" id="section-4"><section class="slide" id="slide-4-1">
+      </section></section><section class="section" id="section-17"><section class="slide" id="slide-17-1">
         <h1 id="object-oriented-programming-and-classes">Object-oriented programming and classes</h1>
 
-      </section><section class="slide" id="slide-4-2">
+      </section><section class="slide" id="slide-17-2">
         <h2 id="object-orientation-in-python-everything-is-an-object">object orientation in Python &quot;Everything is an object&quot;</h2>
 <pre><code class="language-py">a = <span class="hljs-number">20</span>
 
@@ -233,7 +903,7 @@ a.to_bytes(<span class="hljs-number">1</span>, <span class="hljs-string">"big"</
 
 <span class="hljs-string">"hello"</span>.upper()</code></pre>
 
-      </section><section class="slide" id="slide-4-3">
+      </section><section class="slide" id="slide-17-3">
         <h2 id="types-and-instances">types and instances</h2>
 <pre><code class="language-py">message = <span class="hljs-string">"hello"</span>
 
@@ -241,7 +911,7 @@ type(message)
 
 isinstance(message, str)</code></pre>
 
-      </section><section class="slide" id="slide-4-4">
+      </section><section class="slide" id="slide-17-4">
         <h2 id="classes">classes</h2>
 <p>Classes may represent <em>various</em> things, e.g.:</p>
 <ul>
@@ -253,7 +923,7 @@ isinstance(message, str)</code></pre>
 <li>...</li>
 </ul>
 
-      </section><section class="slide" id="slide-4-5">
+      </section><section class="slide" id="slide-17-5">
         <h2 id="classes">classes</h2>
 <p>The definition of a class usually encompasses:</p>
 <ul>
@@ -261,7 +931,7 @@ isinstance(message, str)</code></pre>
 <li>a &quot;behaviour&quot; (methods)</li>
 </ul>
 
-      </section><section class="slide" id="slide-4-6">
+      </section><section class="slide" id="slide-17-6">
         <h2 id="classes">classes</h2>
 <p>example: class <code>BankAccount</code></p>
 <ul>
@@ -269,7 +939,7 @@ isinstance(message, str)</code></pre>
 <li>&quot;behaviour&quot; (methods)</li>
 </ul>
 
-      </section><section class="slide" id="slide-4-7">
+      </section><section class="slide" id="slide-17-7">
         <h2 id="defining-classes">defining classes</h2>
 <pre><code class="language-py"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span><span class="hljs-params">()</span>:</span>
 
@@ -282,7 +952,7 @@ isinstance(message, str)</code></pre>
 instance = MyClass()
 instance.message <span class="hljs-comment"># "hello"</span></code></pre>
 
-      </section><section class="slide" id="slide-4-8">
+      </section><section class="slide" id="slide-17-8">
         <h2 id="inheritance">Inheritance</h2>
 <pre><code class="language-py"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span><span class="hljs-params">()</span>:</span>
     ...
@@ -290,7 +960,7 @@ instance.message <span class="hljs-comment"># "hello"</span></code></pre>
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Admin</span><span class="hljs-params">(Person)</span>:</span>
     ...</code></pre>
 
-      </section><section class="slide" id="slide-4-9">
+      </section><section class="slide" id="slide-17-9">
         <h2 id="example-class-money">Example: class &quot;Money&quot;</h2>
 <pre><code class="language-py">a = Money(<span class="hljs-string">'EUR'</span>, <span class="hljs-number">10</span>)
 b = Money(<span class="hljs-string">'USD'</span>, <span class="hljs-number">10</span>)
@@ -299,7 +969,7 @@ a.currency
 
 a.amount</code></pre>
 
-      </section><section class="slide" id="slide-4-10">
+      </section><section class="slide" id="slide-17-10">
         <h2 id="exercise-classes-todolist-and-todo">Exercise: classes &quot;TodoList&quot; and &quot;Todo&quot;</h2>
 <pre><code class="language-py">tdl = TodoList(<span class="hljs-string">"groceries"</span>)
 

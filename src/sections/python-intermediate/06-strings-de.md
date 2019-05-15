@@ -2,7 +2,53 @@
 
 ## Strings
 
-Strings sind Zeichenfolgen, die jedes Unicodezeichen repräsentieren können
+Strings in Python sind Zeichenfolgen, die jedes Unicodezeichen repräsentieren können
+
+## String-Literale
+
+Beispiele:
+
+```py
+a = "test"
+b = 'test'
+```
+
+## Mehrzeilige String-Literale
+
+```py
+a = """this
+is a multi-line
+string literal.
+"""
+```
+
+## Escape Sequenzen
+
+Mit Hilfe des Backslashes können besondere Zeichen eingefügt werden:
+
+```py
+a = "He said:\n\"Hi!\""
+```
+
+## Escape Sequenzen
+
+- `\'` → `'`
+- `\"` → `"`
+- `\\` → `\`
+- `\n` → Line Feed (Zeilenumbruch unter Unix)
+- `\r\n` → Carriage Return + Line Feed (Zeilenumbruch unter Windows)
+- `\t` → Tab
+- `\xHH` bzw. `\uHHHH` bzw. `\UHHHHHHHH` → Unicode-Codepunkt (hexadezimal)
+
+## Raw Strings
+
+Wenn in einem String keine Escape Sequenzen benötigt werden:
+
+```py
+path = r"C:\documents\foo\news.txt"
+```
+
+(besonders nützlich bei regulären Ausdrücken)
 
 ## String-Methoden
 
@@ -26,16 +72,6 @@ Strings sind Zeichenfolgen, die jedes Unicodezeichen repräsentieren können
 - `.split(' ')`
 - `.splitlines()`
 - `.join()`
-
-## Raw Strings
-
-Üblicherweise hat das Zeichen `\` eine besondere Bedeutung in Strings - z.B. in den Kombinationen `\n`, `\"` oder `\\`
-
-Benötigen wir die ersten beiden nicht, können wir sogenannte _raw strings_ verwenden:
-
-```py
-path = r"C:\documents\foo\bar.txt"
-```
 
 ## Übung: Faust
 

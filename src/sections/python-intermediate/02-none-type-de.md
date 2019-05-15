@@ -4,13 +4,12 @@
 
 Der Ausdruck `None` steht in Python für "nichts" - analog zu `undefined` oder `null` in anderen Sprachen.
 
-Er kann zB verwendet werden, wenn ein bestimmter Wert nicht bekannt ist
+Er kann z.B. verwendet werden, wenn ein bestimmter Wert nicht bekannt ist
 
 ```py
 users = [
   ["John", "Doe", "1976-10-23"],
-  ["Jane", "Doe", "1974-01-20"],
-  ["James", "Doe", None]
+  ["Jane", "Doe", None]
 ]
 ```
 

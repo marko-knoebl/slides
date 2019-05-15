@@ -503,6 +503,21 @@ sys.stdout = loudstdout
 - urllib
 - requests
 
+## HTTP via TCP
+
+```py
+import socket
+
+client = socket.socket()
+client.connect(("google.com", 80))
+client.send(b"GET / HTTP/1.1\r\nHost: www.google.com\r\n\r\n")
+
+response = client.recv(4096)
+print(response)
+```
+
+Übung: Skript, das die eine Datei `request.httpreq` einliest und verarbeitet und eine Datei `response.httpres` generiert
+
 ## HTTP(S)Connection
 
 low-level Interface
@@ -585,7 +600,14 @@ Anfrage: meist aus dem Browser
 
 Antwort: kommt vom Server
 
-Beispiel: Siehe Browser-Tools unter "Netzwerkanalyse"
+HTTP Anfragen und Antworten werden wiederum über ein "niedrigeres" Protokoll übertragen, üblicherweise _TCP_.
+
+## Experimentieren mit HTTP
+
+Möglichkeiten:
+
+- Browser-Tools unter "Netzwerkanalyse"
+- VS Code Plugin _HTTP Client_
 
 ## HTTP: Beispiel Wikipedia
 

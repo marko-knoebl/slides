@@ -270,9 +270,17 @@ prompt(<span class="hljs-string">"What's your name?"</span>);
 <p>Paar: Anfrage - Antwort</p>
 <p>Anfrage: meist aus dem Browser</p>
 <p>Antwort: kommt vom Server</p>
-<p>Beispiel: Siehe Browser-Tools unter &quot;Netzwerkanalyse&quot;</p>
+<p>HTTP Anfragen und Antworten werden wiederum über ein &quot;niedrigeres&quot; Protokoll übertragen, üblicherweise <em>TCP</em>.</p>
 
       </section><section class="slide" id="slide-4-4">
+        <h2 id="experimentieren-mit-http">Experimentieren mit HTTP</h2>
+<p>Möglichkeiten:</p>
+<ul>
+<li>Browser-Tools unter &quot;Netzwerkanalyse&quot;</li>
+<li>VS Code Plugin <em>HTTP Client</em></li>
+</ul>
+
+      </section><section class="slide" id="slide-4-5">
         <h2 id="http-beispiel-wikipedia">HTTP: Beispiel Wikipedia</h2>
 <p>Anfrage:</p>
 <pre><code class="language-http"><span class="hljs-keyword">GET</span> <span class="hljs-string">/wiki/Main_Page</span> HTTP/2.0
@@ -286,7 +294,7 @@ prompt(<span class="hljs-string">"What's your name?"</span>);
 <span class="xml"><span class="hljs-meta">&lt;!DOCTYPE html&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">...</span></span></span></code></pre>
 
-      </section><section class="slide" id="slide-4-5">
+      </section><section class="slide" id="slide-4-6">
         <h2 id="http-beispiel-wikipedia-suche-1">HTTP: Beispiel Wikipedia Suche (1)</h2>
 <p>Anfrage:</p>
 <pre><code class="language-http"><span class="hljs-keyword">GET</span> <span class="hljs-string">/w/index.php?search=test&amp;title=Special:Search&amp;go=Go</span> HTTP/2.0
@@ -297,7 +305,7 @@ prompt(<span class="hljs-string">"What's your name?"</span>);
 <span class="hljs-attribute">Location</span>: https://en.wikipedia.org/wiki/Test
 <span class="hljs-attribute">Content-Length</span>: 0</code></pre>
 
-      </section><section class="slide" id="slide-4-6">
+      </section><section class="slide" id="slide-4-7">
         <h2 id="http-beispiel-wikipedia-suche-2">HTTP: Beispiel Wikipedia Suche (2)</h2>
 <p>Anfrage:</p>
 <pre><code class="language-http"><span class="hljs-keyword">GET</span> <span class="hljs-string">/wiki/Test</span> HTTP/2.0
@@ -310,7 +318,7 @@ prompt(<span class="hljs-string">"What's your name?"</span>);
 <span class="xml"><span class="hljs-meta">&lt;!DOCTYPE html&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">...</span></span></span></code></pre>
 
-      </section><section class="slide" id="slide-4-7">
+      </section><section class="slide" id="slide-4-8">
         <h2 id="http-beispiel-post-request">HTTP: Beispiel POST-Request</h2>
 <p>Anfrage:</p>
 <pre><code class="language-http"><span class="hljs-keyword">POST</span> <span class="hljs-string">/submit-posting</span> HTTP/2.0
@@ -326,7 +334,7 @@ prompt(<span class="hljs-string">"What's your name?"</span>);
 
 <span class="clean">...</span></code></pre>
 
-      </section><section class="slide" id="slide-4-8">
+      </section><section class="slide" id="slide-4-9">
         <h2 id="http-beispiel-api">HTTP: Beispiel API</h2>
 <pre><code class="language-http">GET /todos/12
 Host: jsonplaceholder.typicode.com
@@ -342,7 +350,7 @@ Connection: keep-alive</code></pre>
   <span class="hljs-attr">"completed"</span>: <span class="hljs-literal">true</span>
 }</span></code></pre>
 
-      </section><section class="slide" id="slide-4-9">
+      </section><section class="slide" id="slide-4-10">
         <h2 id="wichtige-anfrage-headerfelder">wichtige Anfrage-Headerfelder</h2>
 <ul>
 <li><em><code>Host</code></em></li>
@@ -355,7 +363,7 @@ Connection: keep-alive</code></pre>
 <li><code>Dnt</code></li>
 </ul>
 
-      </section><section class="slide" id="slide-4-10">
+      </section><section class="slide" id="slide-4-11">
         <h2 id="wichtige-http-statuscodes">Wichtige HTTP-Statuscodes</h2>
 <ul>
 <li><code>200 OK</code></li>
@@ -370,7 +378,7 @@ Connection: keep-alive</code></pre>
 <li><code>304 Not Modified</code> (Resource hat sich seit letzter Anfrage nicht geändert)</li>
 </ul>
 
-      </section><section class="slide" id="slide-4-11">
+      </section><section class="slide" id="slide-4-12">
         <h2 id="wichtige-http-statuscodes">Wichtige HTTP-Statuscodes</h2>
 <ul>
 <li><code>400 Bad Request</code></li>
@@ -385,7 +393,7 @@ Connection: keep-alive</code></pre>
 </ul>
 <p>siehe auch: <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">https://en.wikipedia.org/wiki/List_of_HTTP_status_codes</a></p>
 
-      </section><section class="slide" id="slide-4-12">
+      </section><section class="slide" id="slide-4-13">
         <h2 id="wichtige-antwort-headerfelder">wichtige Antwort-Headerfelder</h2>
 <ul>
 <li><code>Content-Length</code></li>
@@ -395,7 +403,7 @@ Connection: keep-alive</code></pre>
 <li><code>Cache-Control</code></li>
 </ul>
 
-      </section><section class="slide" id="slide-4-13">
+      </section><section class="slide" id="slide-4-14">
         <h2 id="content-type-headerfeld">Content-Type-Headerfeld</h2>
 <p>Mögliche Werte:</p>
 <ul>
@@ -409,7 +417,7 @@ Connection: keep-alive</code></pre>
 <li>...</li>
 </ul>
 
-      </section><section class="slide" id="slide-4-14">
+      </section><section class="slide" id="slide-4-15">
         <h2 id="set-cookie-headerfeld">Set-Cookie-Headerfeld</h2>
 <p>Beispiel:</p>
 <pre><code class="language-http">GET /

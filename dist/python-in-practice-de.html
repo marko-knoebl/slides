@@ -587,6 +587,18 @@ sys.stdout = loudstdout</code></pre>
 </ul>
 
       </section><section class="slide" id="slide-9-3">
+        <h2 id="http-via-tcp">HTTP via TCP</h2>
+<pre><code class="language-py"><span class="hljs-keyword">import</span> socket
+
+client = socket.socket()
+client.connect((<span class="hljs-string">"google.com"</span>, <span class="hljs-number">80</span>))
+client.send(<span class="hljs-string">b"GET / HTTP/1.1\r\nHost: www.google.com\r\n\r\n"</span>)
+
+response = client.recv(<span class="hljs-number">4096</span>)
+print(response)</code></pre>
+<p>Übung: Skript, das die eine Datei <code>request.httpreq</code> einliest und verarbeitet und eine Datei <code>response.httpres</code> generiert</p>
+
+      </section><section class="slide" id="slide-9-4">
         <h2 id="httpsconnection">HTTP(S)Connection</h2>
 <p>low-level Interface</p>
 <pre><code class="language-py"><span class="hljs-keyword">from</span> http.client <span class="hljs-keyword">import</span> HTTPSConnection
@@ -598,7 +610,7 @@ content = answer.read()
 connection.close()
 print(content)</code></pre>
 
-      </section><section class="slide" id="slide-9-4">
+      </section><section class="slide" id="slide-9-5">
         <h2 id="urllib">urllib</h2>
 <p>in Standardlibrary</p>
 <pre><code class="language-py"><span class="hljs-keyword">import</span> urllib
@@ -606,7 +618,7 @@ print(content)</code></pre>
 content: bytes = urllib.request.urlopen(
                     <span class="hljs-string">"https://www.google.com"</span>).read()</code></pre>
 
-      </section><section class="slide" id="slide-9-5">
+      </section><section class="slide" id="slide-9-6">
         <h2 id="requests">requests</h2>
 <p>Externes Paket, installierbar via <em>pip</em>:</p>
 <pre><code class="language-bash">pip install requests</code></pre>
@@ -614,18 +626,18 @@ content: bytes = urllib.request.urlopen(
 
 content: str = requests.get(<span class="hljs-string">"https://www.google.com"</span>).text</code></pre>
 
-      </section><section class="slide" id="slide-9-6">
+      </section><section class="slide" id="slide-9-7">
         <h2 id="web-scraping-anzahl-der-google-suchergebnisse">Web Scraping: Anzahl der Google-Suchergebnisse</h2>
 
-      </section><section class="slide" id="slide-9-7">
+      </section><section class="slide" id="slide-9-8">
         <h2 id="apis-wetterdaten">APIs: Wetterdaten</h2>
 <p><a href="https://automatetheboringstuff.com/chapter14/">https://automatetheboringstuff.com/chapter14/</a></p>
 
-      </section><section class="slide" id="slide-9-8">
+      </section><section class="slide" id="slide-9-9">
         <h2 id="web-scraping-xkcd-downloader">Web Scraping: xkcd-Downloader</h2>
 <p><a href="https://automatetheboringstuff.com/chapter11/">https://automatetheboringstuff.com/chapter11/</a></p>
 
-      </section><section class="slide" id="slide-9-9">
+      </section><section class="slide" id="slide-9-10">
         <h2 id="selenium">Selenium</h2>
 <p>Installation:</p>
 <pre><code class="language-bash">pip install selenium</code></pre>
@@ -647,9 +659,17 @@ content: str = requests.get(<span class="hljs-string">"https://www.google.com"</
 <p>Paar: Anfrage - Antwort</p>
 <p>Anfrage: meist aus dem Browser</p>
 <p>Antwort: kommt vom Server</p>
-<p>Beispiel: Siehe Browser-Tools unter &quot;Netzwerkanalyse&quot;</p>
+<p>HTTP Anfragen und Antworten werden wiederum über ein &quot;niedrigeres&quot; Protokoll übertragen, üblicherweise <em>TCP</em>.</p>
 
       </section><section class="slide" id="slide-10-4">
+        <h2 id="experimentieren-mit-http">Experimentieren mit HTTP</h2>
+<p>Möglichkeiten:</p>
+<ul>
+<li>Browser-Tools unter &quot;Netzwerkanalyse&quot;</li>
+<li>VS Code Plugin <em>HTTP Client</em></li>
+</ul>
+
+      </section><section class="slide" id="slide-10-5">
         <h2 id="http-beispiel-wikipedia">HTTP: Beispiel Wikipedia</h2>
 <p>Anfrage:</p>
 <pre><code class="language-http"><span class="hljs-keyword">GET</span> <span class="hljs-string">/wiki/Main_Page</span> HTTP/2.0
@@ -663,7 +683,7 @@ content: str = requests.get(<span class="hljs-string">"https://www.google.com"</
 <span class="xml"><span class="hljs-meta">&lt;!DOCTYPE html&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">...</span></span></span></code></pre>
 
-      </section><section class="slide" id="slide-10-5">
+      </section><section class="slide" id="slide-10-6">
         <h2 id="http-beispiel-wikipedia-suche-1">HTTP: Beispiel Wikipedia Suche (1)</h2>
 <p>Anfrage:</p>
 <pre><code class="language-http"><span class="hljs-keyword">GET</span> <span class="hljs-string">/w/index.php?search=test&amp;title=Special:Search&amp;go=Go</span> HTTP/2.0
@@ -674,7 +694,7 @@ content: str = requests.get(<span class="hljs-string">"https://www.google.com"</
 <span class="hljs-attribute">Location</span>: https://en.wikipedia.org/wiki/Test
 <span class="hljs-attribute">Content-Length</span>: 0</code></pre>
 
-      </section><section class="slide" id="slide-10-6">
+      </section><section class="slide" id="slide-10-7">
         <h2 id="http-beispiel-wikipedia-suche-2">HTTP: Beispiel Wikipedia Suche (2)</h2>
 <p>Anfrage:</p>
 <pre><code class="language-http"><span class="hljs-keyword">GET</span> <span class="hljs-string">/wiki/Test</span> HTTP/2.0
@@ -687,7 +707,7 @@ content: str = requests.get(<span class="hljs-string">"https://www.google.com"</
 <span class="xml"><span class="hljs-meta">&lt;!DOCTYPE html&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">...</span></span></span></code></pre>
 
-      </section><section class="slide" id="slide-10-7">
+      </section><section class="slide" id="slide-10-8">
         <h2 id="http-beispiel-post-request">HTTP: Beispiel POST-Request</h2>
 <p>Anfrage:</p>
 <pre><code class="language-http"><span class="hljs-keyword">POST</span> <span class="hljs-string">/submit-posting</span> HTTP/2.0
@@ -703,7 +723,7 @@ content: str = requests.get(<span class="hljs-string">"https://www.google.com"</
 
 <span class="clean">...</span></code></pre>
 
-      </section><section class="slide" id="slide-10-8">
+      </section><section class="slide" id="slide-10-9">
         <h2 id="http-beispiel-api">HTTP: Beispiel API</h2>
 <pre><code class="language-http">GET /todos/12
 Host: jsonplaceholder.typicode.com
@@ -719,7 +739,7 @@ Connection: keep-alive</code></pre>
   <span class="hljs-attr">"completed"</span>: <span class="hljs-literal">true</span>
 }</span></code></pre>
 
-      </section><section class="slide" id="slide-10-9">
+      </section><section class="slide" id="slide-10-10">
         <h2 id="wichtige-anfrage-headerfelder">wichtige Anfrage-Headerfelder</h2>
 <ul>
 <li><em><code>Host</code></em></li>
@@ -732,7 +752,7 @@ Connection: keep-alive</code></pre>
 <li><code>Dnt</code></li>
 </ul>
 
-      </section><section class="slide" id="slide-10-10">
+      </section><section class="slide" id="slide-10-11">
         <h2 id="wichtige-http-statuscodes">Wichtige HTTP-Statuscodes</h2>
 <ul>
 <li><code>200 OK</code></li>
@@ -747,7 +767,7 @@ Connection: keep-alive</code></pre>
 <li><code>304 Not Modified</code> (Resource hat sich seit letzter Anfrage nicht geändert)</li>
 </ul>
 
-      </section><section class="slide" id="slide-10-11">
+      </section><section class="slide" id="slide-10-12">
         <h2 id="wichtige-http-statuscodes">Wichtige HTTP-Statuscodes</h2>
 <ul>
 <li><code>400 Bad Request</code></li>
@@ -762,7 +782,7 @@ Connection: keep-alive</code></pre>
 </ul>
 <p>siehe auch: <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">https://en.wikipedia.org/wiki/List_of_HTTP_status_codes</a></p>
 
-      </section><section class="slide" id="slide-10-12">
+      </section><section class="slide" id="slide-10-13">
         <h2 id="wichtige-antwort-headerfelder">wichtige Antwort-Headerfelder</h2>
 <ul>
 <li><code>Content-Length</code></li>
@@ -772,7 +792,7 @@ Connection: keep-alive</code></pre>
 <li><code>Cache-Control</code></li>
 </ul>
 
-      </section><section class="slide" id="slide-10-13">
+      </section><section class="slide" id="slide-10-14">
         <h2 id="content-type-headerfeld">Content-Type-Headerfeld</h2>
 <p>Mögliche Werte:</p>
 <ul>
@@ -786,7 +806,7 @@ Connection: keep-alive</code></pre>
 <li>...</li>
 </ul>
 
-      </section><section class="slide" id="slide-10-14">
+      </section><section class="slide" id="slide-10-15">
         <h2 id="set-cookie-headerfeld">Set-Cookie-Headerfeld</h2>
 <p>Beispiel:</p>
 <pre><code class="language-http">GET /

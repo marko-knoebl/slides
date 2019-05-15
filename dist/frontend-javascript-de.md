@@ -135,7 +135,14 @@ Anfrage: meist aus dem Browser
 
 Antwort: kommt vom Server
 
-Beispiel: Siehe Browser-Tools unter "Netzwerkanalyse"
+HTTP Anfragen und Antworten werden wiederum über ein "niedrigeres" Protokoll übertragen, üblicherweise _TCP_.
+
+## Experimentieren mit HTTP
+
+Möglichkeiten:
+
+- Browser-Tools unter "Netzwerkanalyse"
+- VS Code Plugin _HTTP Client_
 
 ## HTTP: Beispiel Wikipedia
 

@@ -28,18 +28,25 @@ two_values = 'Thomas', 'Bauer'
 
 ## Unpacking (von Tupeln)
 
-```py
-# Tauschen von Variablennamen
+Tauschen von Variablennamen
 
+```py
 a, b = b, a
 ```
 
 ## Unpacking (von Tupeln)
 
+Aufzählen von Listenelementen:
+
 ```py
-# enumerate
 l = ['Alice', 'Bob', 'Charlie']
 
 for i, name in enumerate(l):
     print(f'{i}: {name}')
+```
+
+Enumerate gibt die folgende Datenstruktur zurück:
+
+```py
+[(0, 'Alice'), (1, 'Bob'), (2, 'Charlie')]
 ```

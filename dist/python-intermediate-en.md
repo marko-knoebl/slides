@@ -49,13 +49,772 @@ Marko Knöbl
 - dict
 - set
 
-## other data types
+## Other data types
 
 - complex
 - frozenset
 - bytearray
 - OrderedDict
 - NamedTuple
+
+# None
+
+## None
+
+The expression `None` is for "nothing" - analogous to `null` or `undefined` in other languages.
+
+It may be used if a certain value is unknown
+
+```py
+users = [
+  ["John", "Doe", "1976-10-23"],
+  ["Jane", "Doe", None]
+]
+```
+
+## None
+
+`None` is a Singleton:
+
+- there is only ever a single instance of it inside a running Python program
+- multiple variables may refer to that same instance
+
+## Comparisons via "is"
+
+The keyword `is` checks whether two references / names refer to the same object.
+
+```py
+a = [1, 2]
+b = a
+x = [1, 2]
+
+a == b # True
+a is b # True
+a == x # True
+a is x # False
+```
+
+## None and "is"
+
+As `None` is a singleton we can check for it via `is None`:
+
+```py
+if a is None:
+    print("a is None")
+```
+
+# bool
+
+## bool
+
+`True` or `False`
+
+```py
+a = True
+if a:
+    print('hello')
+```
+
+## bool
+
+Internally `False` behaves almost like `0` and `True` behaves almost like `1`
+
+```py
+False + True # 1
+```
+
+# Numbers
+
+## int
+
+integers of arbitrary size
+
+## int
+
+Other numeral systems:
+
+```py
+a = 42
+b = 0o52
+c = 0x2a
+d = 0b101010
+```
+
+```py
+e = int('101010', 2)
+```
+
+## float
+
+64 bit integer
+
+```py
+a = 2.3
+b = .2
+c = 6e23
+d = float('nan')
+e = float('inf')
+```
+
+## complex
+
+```py
+a = 2 + 3j
+```
+
+## Operations with numbers
+
+- Integer division: `10 // 3`
+- Remainder: `10 % 3`
+- Power: `2 ** 3`
+
+# Character encodings
+
+## Unicode characters
+
+_Unicode_: catalog of over 100,000 international characters, each with a unique identifying name and number (usually written in hexadecimal)
+
+examples:
+
+- _K_: U+004B (_Latin capital letter K_)
+- _?_: U+003F (_Question mark_)
+- _ä_: U+00E4 (_Latin small letter a with a diaeresis_)
+- _€_: U+20AC (_Euro sign_)
+- 🙂: U+1F642 (_Slightly smiling face_)
+
+[tables of all Unicode characters](https://en.wikibooks.org/wiki/Unicode/Character_reference)
+
+## Character encodings
+
+_Character encoding_ = mapping of characters to bit sequences
+
+- _ASCII_: encodes the first 128 Unicode characters, can represent characters like _A_, _!_, _\$_, _space_, _line break_
+- _Latin1_: encodes the first 256 Unicode characters, can represent ASCII characters and characters like _ä_, _á_, _ß_, _§_
+- _UTF-8_, _UTF-16_, _UTF-32_: encode all Unicode characters
+
+A character encoding is necessary in order to write text to disk or transfer it over the network
+
+## Character encodings
+
+Examples in ASCII / Latin1 / UTF-8:
+
+- `!` ↔ `00100001`
+- `A` ↔ `01000001`
+- `a` ↔ `01100001`
+
+Examples in Latin1:
+
+- `Ä` ↔ `11000100`
+
+Examples in UTF-8:
+
+- `Ä` ↔ `11000011 10100100`
+- `🙂` ↔ `11110000 10011111 10011001 10000010`
+
+## Character encodings
+
+| Character | Unicode | ASCII | Latin-1 |    UTF-8 |       UTF-16 |
+| --------- | ------: | ----: | ------: | -------: | -----------: |
+| K         |  U+004B |    4B |      4B |       4B |     FFFE4B00 |
+| ä         |  U+00E4 |       |      E4 |     C3A4 |     FFFEE400 |
+| €         |  U+20AC |       |         |   E282AC |     FFFEAC20 |
+| 🙂        | U+1F642 |       |         | F09F9982 | FFFE3DD842DE |
+
+## UTF-8
+
+In many areas (in particular on the web) _UTF-8_ has become the standard text encoding
+
+In UTF-8 the first 128 Unicode characters can be encoded in just 8 bit
+
+All other characters need either 16, 24 or 32 bit
+
+## Line breaks
+
+Line breaks can be represented by the characters `LF` (line feed, `U+000A`) and / or `CR` (carriage return, `U+000D`)
+
+- `LF`: Standard on Linux, MacOS
+- `CRLF`: Standard on Windows, in network protocols like HTTP
+
+# Strings
+
+## Strings
+
+In Python 3 strings are sequences of Unicode characters
+
+## String literals
+
+Examples:
+
+```py
+a = "test"
+b = 'test'
+```
+
+## Multi-line string literals
+
+```py
+a = """this
+is a multi-line
+string literal.
+"""
+```
+
+## Escape sequences
+
+Some characters may be entered via so-called _escape sequences_:
+
+```py
+a = "He said:\n\"Hi!\""
+```
+
+## Escape sequences
+
+- `\'` → `'`
+- `\"` → `"`
+- `\\` → `\`
+- `\n` → Line Feed (line separator on Unix)
+- `\r\n` → Carriage Return + Line Feed (line separator on Windows)
+- `\t` → Tab
+- `\xHH` or `\uHHHH` or `\UHHHHHHHH` → Unicode-Codepoint (hexadecimal)
+
+## Raw Strings
+
+If we don't need to use any escape sequences in a string:
+
+```py
+path = r"C:\documents\foo\news.txt"
+```
+
+This can be useful when writing Windows paths and regular expressions
+
+## String methods
+
+- `.lower()`
+- `.upper()`
+
+## String methods
+
+- `.startswith(...)`
+- `.endswith(".txt")`
+
+## String methods
+
+- `.center(10)`
+- `.ljust(10)`
+- `.rjust(10)`
+
+## String methods
+
+- `.strip()`
+- `.split(' ')`
+- `.splitlines()`
+- `.join()`
+
+## Exercise: formatting Othello
+
+Source:
+
+http://www.gutenberg.org/cache/epub/2267/pg2267.txt
+
+tasks:
+
+- remove leading whitespace of each line
+- add a line number to the end of each line and place the line number right-aligned at character 70
+- (place line numbers only in every 5th line)
+
+# String formatting
+
+## String formatting
+
+String formatting = placing values in strings
+
+Methods:
+
+```py
+greeting = "Hello, " + name + "!"
+```
+
+```py
+greeting = f"Hello, {name}!"
+```
+
+## String formatting: methods
+
+```py
+city = 'Vienna'
+temperature = 23.7
+
+# rather obsolete
+'weather in %s: %f°C' % (city, temperature)
+
+'weather in {0}: {1}°C'.format(city, temperature)
+'weather in {}: {}°C'.format(city, temperature)
+'weather in {c}: {t}°C'.format(c=city, t=temperature)
+
+f'weather in {city}: {temperature}°C'
+```
+
+## Format specification
+
+```py
+t = 333.333
+'{t.4f}°K' # 333.3330°K
+'{t.4g}°K' # 333.3°K
+```
+
+https://mkaz.blog/code/python-string-format-cookbook/
+
+# Lists
+
+## Lists
+
+Lists are mutable sequences of objects; they are usually used to store homogenous entries of the same type and structure
+
+```py
+primes = [2, 3, 5, 7, 11]
+
+users = ["Alice", "Bob", "Charlie"]
+```
+
+## Operations on lists
+
+The following operations will also work on other _sequences_ - e.g. tuples, strings or bytes
+
+- accessing elements (via index): `users[2]`
+- accessing multiple elements (sublist): `users[2:4]`
+- concatenation: `users + users`
+- repetition: `3 * users`
+- length: `len(users)`
+- for loop: `for user in users:`
+- if clause : `if 'Tim' in users:`
+
+## Operations on lists - mutations
+
+Lists are the only sequences that can be mutated:
+
+- appending: `users.append("Dan")`
+- removing the last element: `users.pop()`
+- removing an element by index: `users.pop(2)`
+
+## Sorting lists
+
+```py
+l.sort()
+```
+
+```py
+l.sort(key=...)
+```
+
+## Exercises
+
+- shuffling cards
+- list of prime numbers
+
+# Tuples
+
+## Tuples
+
+```py
+person = ("Thomas", "Smith", "1972-03-15")
+```
+
+- similar to lists
+- used to represent inhomogenous data of a predefined structure - each entry has a specific meaning
+- immutable (unchangeable)
+
+## Tuples
+
+Each entry in a tuple has a specific meaning
+
+Alternative data structures with named entries:
+
+- `dict`
+- `NamedTuple`
+
+## Creating tuples
+
+```py
+empty_tuple = ()
+single_value = ('Thomas', )
+two_values = ('Thomas', 'Smith')
+two_values = 'Thomas', 'Smith'
+```
+
+## Unpacking (of tuples)
+
+swapping variables:
+
+```py
+a, b = b, a
+```
+
+## Unpacking (of tuples)
+
+enumerating list items:
+
+```py
+l = ['Alice', 'Bob', 'Charlie']
+
+for i, name in enumerate(l):
+    print(f'{i}: {name}')
+```
+
+Enumerate returns the following data structure:
+
+```py
+[(0, 'Alice'), (1, 'Bob'), (2, 'Charlie')]
+```
+
+# Bytes
+
+## Bytes
+
+= Sequence of numbers in the range of 0 to 255
+
+```py
+m = bytes([0, 0x40, 0x70, 0xa0])
+```
+
+```
+m[1] == 64
+m[2] == 160
+```
+
+## Bytes
+
+Standard representation in Python:
+
+```py
+print(bytes[0, 0x40, 0x70, 0xa0])
+```
+
+```py
+b' @p\xa0'
+```
+
+Where possible, bytes will be represented by ASCII characters; otherwise their hex code will be shown
+
+The `b` signifies a byte string literal
+
+## Bytes and Strings
+
+Bytes can hold arbitrary data, but often they will hold encoded text
+
+If we know the encoding we can convert between bytes and strings:
+
+```py
+'ä'.encode('utf-8')
+# b'\xc3\xa4'
+```
+
+```py
+b'\xc3\xa4'.decode('utf-8')
+# 'ä'
+```
+
+## Bytes and Strings
+
+Storage media and networks will only handle bytes; in order to read a text file from disk or from the network we need to know its encoding
+
+# Sequences
+
+## Sequences
+
+Python Sequences consist of other Python objects
+
+examples:
+
+- lists
+- tuples
+- strings
+- bytes
+
+## Operations on sequences
+
+- accessing elements (via index): `s[2]`
+- accessing multiple elements: `s[2:4]`
+- concatenation: `s + t`
+- repetition: `3 * s`
+- length: `len(s)`
+- for loop: `for el in s:`
+- if clause : `if el in s:`
+
+## Operations
+
+Accessing elements
+
+```py
+users = ['mike', 'tim', 'theresa']
+
+users[0] # 'mike'
+users[-1] # 'theresa'
+```
+
+## Operations
+
+Changing elements
+
+(if the sequence is mutable)
+
+```py
+users = ['mike', 'tim', 'theresa']
+
+users[0] = 'molly'
+```
+
+## Operations
+
+Accessing multiple elements
+
+```py
+users = ['mike', 'tim', 'theresa']
+
+users[0:2] # ['mike', 'tim']
+```
+
+## Operations
+
+Concatenation
+
+```py
+users = ['mike', 'tim', 'theresa']
+
+new_users = users + ['tina', 'michelle']
+```
+
+## Operations
+
+Repetition
+
+```py
+users = ['mike', 'tim', 'theresa']
+
+new_users = users * 3
+```
+
+## Operations
+
+Length
+
+```py
+users = ['mike', 'tim', 'theresa']
+
+print(len(users))
+```
+
+## Operations
+
+for loop
+
+```py
+users = ['mike', 'tim', 'theresa']
+
+for user in users:
+    print(user.upper())
+```
+
+# Dictionaries
+
+## Dictionaries
+
+Dictionaries are mappings of keys to values
+
+```py
+person = {
+    "first_name": "John"
+    "last_name": "Doe"
+    "nationality": "Canada"
+    "birth_year": 1980
+}
+```
+
+## Dictionaries
+
+Accessing entries
+
+```py
+person["first_name"] # "John"
+```
+
+## Dictionaries
+
+Iterating over dictionaries
+
+```py
+for entry in person:
+    print(entry)
+```
+
+This will yield the keys: `"first_name"`, `"last_name"`, `"nationality"`, `"birth_year"`
+
+Since Python 3.7 the keys will always remain in insertion order
+
+## Dictionaries
+
+Iterating over key-value-pairs:
+
+```py
+for key, value in person.items():
+    print(f'{key}, {value}')
+```
+
+see also: tuples
+
+## Operations on dictionaries
+
+```py
+d = {0: 'zero', 1: 'one', 2: 'two'}
+
+d[2]
+d[2] = 'TWO'
+d[3] # KeyError
+d.get(3, None)
+
+d.keys()
+d.items()
+
+d1.update(d2)
+```
+
+## Valid keys
+
+Any immutable object can act as a dictionary key. The most common types of keys are strings.
+
+## Exercises
+
+- vocabulary trainer
+  - read a (JSON) file
+  - create a data model with dictionaries
+  - randomly pick an entry
+- todo list
+
+# Comprehensions
+
+## List comprehensions
+
+_List comprehensions_ enable the creation of lists based on existing lists
+
+In other programming languages this is often done via `map` and `filter`
+
+## List comprehensions
+
+_Transforming each entry_:
+
+```py
+names = ["Alice", "Bob", "Charlie"]
+
+uppercase_names = [name.upper() for name in names]
+```
+
+result:
+
+```py
+["ALICE", "BOB", "CHARLIE"]
+```
+
+## List comprehensions
+
+_Filtering_:
+
+```py
+amounts = [10, -7, 8, 19, -2]
+
+positive_amounts = [amount for amount in amounts if amount > 0]
+```
+
+result:
+
+```py
+[10, 8, 19]
+```
+
+## List comprehensions
+
+Generic syntax:
+
+```py
+new_list = [new_entry for entry in old_list]
+
+new_list = [new_entry for entry in old_list if condition]
+```
+
+## Dictionary comprehensions
+
+```py
+colors: {
+  'red': '#ff0000',
+  'blue': '#0000ff',
+  'green': '#008000'
+}
+
+m_colors = { color: colors[color][1:] for color in colors}
+```
+
+## Exercises
+
+- todo list: add functionality to remove completed entries
+
+# Set
+
+## Set
+
+Unordered collection of elements with no duplicates
+
+```py
+ingredients = {"flour", "water", "salt", "yeast"}
+```
+
+## Set
+
+Sets can be an alternative for Lists if the order is not relevant.
+
+```py
+ingredients1 = {"flour", "water", "salt", "yeast"}
+ingredients2 = {"water", "salt", "flour", "yeast"}
+ingredients1 == ingredients2 # True
+```
+
+## Set
+
+Take care: An empty set must always be created via `set()`
+
+Why does `{}` not produce an empty set?
+
+## Operations on Sets
+
+```py
+x = set('abc')
+y = set('aeiou')
+x | y
+x & y
+x - y
+x <= y
+```
+
+## Example: Neighboring countries in North America
+
+```py
+countries = {
+    "Canada", "USA", "Mexico", "Guatemala", "Belize",
+    "El Salvador", "Honduras", "Nicaragua", "Costa Rica",
+    "Panama"}
+
+neighbors = {
+    {"Canada", "USA"},
+    {"USA", "Mexico"},
+    {"Mexico", "Guatemala"},
+    {"Mexico", "Belize"},
+    {"Guatemala", "Belize"},
+    {"Guatemala", "El Salvador"},
+    {"Guatemala", "Honduras"},
+    {"Honduras", "Nicaragua"},
+    {"Nicaragua", "Costa Rica"},
+    {"Costa Rica", "Panama"}
+}
+```
+
+## Task: Find the "route" from any country to another
 
 # Modules and Packages
 

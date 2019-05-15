@@ -2,7 +2,7 @@
 
 ## bool
 
-`True` oder `False`
+`True` or `False`
 
 ```py
 a = True
@@ -12,7 +12,7 @@ if a:
 
 ## bool
 
-Intern verhält sich `False` fast wie `0` und `True` fast wie `1`
+Internally `False` behaves almost like `0` and `True` behaves almost like `1`
 
 ```py
 False + True # 1

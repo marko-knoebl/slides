@@ -16,7 +16,7 @@
 - dict
 - set
 
-## other data types
+## Other data types
 
 - complex
 - frozenset

@@ -6,6 +6,21 @@
 - urllib
 - requests
 
+## HTTP via TCP
+
+```py
+import socket
+
+client = socket.socket()
+client.connect(("google.com", 80))
+client.send(b"GET / HTTP/1.1\r\nHost: www.google.com\r\n\r\n")
+
+response = client.recv(4096)
+print(response)
+```
+
+Übung: Skript, das die eine Datei `request.httpreq` einliest und verarbeitet und eine Datei `response.httpres` generiert
+
 ## HTTP(S)Connection
 
 low-level Interface
