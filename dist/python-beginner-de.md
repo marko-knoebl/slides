@@ -930,15 +930,11 @@ Parameter: `[1, 1, 1]`
 
 Rückgabewert: `3`
 
-## Optionale Parameter
-
-Experiment: Wie verhält sich die Funktion `range`, wenn wir 1, 2 oder 3 Parameter übergeben?
-
-## Positionelle Parameter und Schlüsselwortparameter
+## Positionale Parameter und Schlüsselwortparameter
 
 Aufruf von `open`:
 
-mit Positionellen Parametern:
+mit positionalen Parametern:
 
 ```py
 f = open("myfile.txt", "w", -1, "utf-8")
@@ -950,9 +946,19 @@ mit Schlüsselwortparametern:
 f = open("myfile.txt", encoding="utf-8", mode="w")
 ```
 
-# Funktionen selbst definieren
+Die Namen der Schlüsselwortparameter entnehmen wir der Dokumentation (z.B. via `help(open)`)
 
-## Funktionen selbst definieren
+## Optionale Parameter und Standardwerte
+
+Bei manchen Funktionen sind Parameter optional (sie haben einen Standardwert)
+
+Beispiel: Bei der Funktion `open()` ist nur der erste Parameter zwingend anzugeben
+
+Die Werte der Standardparameter entnehmen wir der Dokumentation
+
+# Funktionsdefintion
+
+## Funktionsdefinition
 
 Beispiel:
 
@@ -961,6 +967,29 @@ def average(a, b):
     m = (a + b) / 2
     return m
 ```
+
+## Scope
+
+Eine Funktionsdefinition öffnet einen neuen _Scope_, einen Geltungsbereich für Variablen
+
+Im folgenden Beispiel gibt es zwei separate Variablen, die beide mit `m` benannt sind:
+
+```py
+m = "Hello, world"
+
+def average(a, b):
+    m = (a + b) / 2
+    return m
+x = average(1, 2)
+
+print(m)
+```
+
+## Scope
+
+Innerhalb einer Funktion gilt: Variablen, die außerhalb definiert sind, können gelesen, aber nicht geschrieben werden
+
+In anderen Programmiersprachen: auch Konstrukte wie `if` oder `for` eröffnen einen neuen Scope - nicht so in Python
 
 ## Aufgabe: Funktion lottery()
 
@@ -1283,7 +1312,7 @@ Unterstützung von Python 2 und Python 3 aus der gleichen Codebase
 
 # Cheatsheet
 
-ehmatthes.github.io/pcc#cheatsheets
+https://ehmatthes.github.io/pcc#cheatsheets
 
 (fehlende Inhalte: break, None, Kommentare)
 

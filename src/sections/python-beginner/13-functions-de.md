@@ -14,15 +14,11 @@ Parameter: `[1, 1, 1]`
 
 Rückgabewert: `3`
 
-## Optionale Parameter
-
-Experiment: Wie verhält sich die Funktion `range`, wenn wir 1, 2 oder 3 Parameter übergeben?
-
-## Positionelle Parameter und Schlüsselwortparameter
+## Positionale Parameter und Schlüsselwortparameter
 
 Aufruf von `open`:
 
-mit Positionellen Parametern:
+mit positionalen Parametern:
 
 ```py
 f = open("myfile.txt", "w", -1, "utf-8")
@@ -33,3 +29,13 @@ mit Schlüsselwortparametern:
 ```py
 f = open("myfile.txt", encoding="utf-8", mode="w")
 ```
+
+Die Namen der Schlüsselwortparameter entnehmen wir der Dokumentation (z.B. via `help(open)`)
+
+## Optionale Parameter und Standardwerte
+
+Bei manchen Funktionen sind Parameter optional (sie haben einen Standardwert)
+
+Beispiel: Bei der Funktion `open()` ist nur der erste Parameter zwingend anzugeben
+
+Die Werte der Standardparameter entnehmen wir der Dokumentation

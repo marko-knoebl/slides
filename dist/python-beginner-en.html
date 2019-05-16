@@ -929,38 +929,59 @@ proceed = <span class="hljs-keyword">True</span>
 <p>return value: <code>3</code></p>
 
       </section><section class="slide" id="slide-16-4">
-        <h2 id="optional-parameters">optional parameters</h2>
-<p>Let&#39;s experiment: How does the function <code>range</code> behave if we pass it 1, 2 or 3 parameters?</p>
-
-      </section><section class="slide" id="slide-16-5">
         <h2 id="positional-parameters-and-keyword-parameters">Positional parameters and keyword parameters</h2>
 <p>Calling <code>open</code>:</p>
 <p>with positional parameters:</p>
 <pre><code class="language-py">f = open(<span class="hljs-string">"myfile.txt"</span>, <span class="hljs-string">"w"</span>, <span class="hljs-number">-1</span>, <span class="hljs-string">"utf-8"</span>)</code></pre>
 <p>with keyword parameters:</p>
 <pre><code class="language-py">f = open(<span class="hljs-string">"myfile.txt"</span>, encoding=<span class="hljs-string">"utf-8"</span>, mode=<span class="hljs-string">"w"</span>)</code></pre>
+<p>We can names of keyword parameters in the documentation (e.g. via <code>help(open)</code>)</p>
+
+      </section><section class="slide" id="slide-16-5">
+        <h2 id="optional-parameters-and-default-parameters">Optional parameters and default parameters</h2>
+<p>Some parameters of functions can be optional (they have a default value)</p>
+<p>Example: For <code>open</code> only the first parameter is required, the others are optional</p>
+<p>The values of default parameters can be looked up in the documentation</p>
 
       </section></section><section class="section" id="section-17"><section class="slide" id="slide-17-1">
-        <h1 id="defining-custom-functions">Defining custom functions</h1>
+        <h1 id="defining-functions">Defining functions</h1>
 
       </section><section class="slide" id="slide-17-2">
-        <h2 id="defining-custom-functions">Defining custom functions</h2>
+        <h2 id="defining-functions">Defining functions</h2>
 <p>example:</p>
 <pre><code class="language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">average</span><span class="hljs-params">(a, b)</span>:</span>
     m = (a + b) / <span class="hljs-number">2</span>
     <span class="hljs-keyword">return</span> m</code></pre>
 
       </section><section class="slide" id="slide-17-3">
+        <h2 id="scope">Scope</h2>
+<p>A function definition creates a new <em>scope</em>, an area where variables are valid</p>
+<p>In the following example there are two distinct variables named <code>m</code>:</p>
+<pre><code class="language-py">m = <span class="hljs-string">"Hello, world"</span>
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">average</span><span class="hljs-params">(a, b)</span>:</span>
+    m = (a + b) / <span class="hljs-number">2</span>
+    <span class="hljs-keyword">return</span> m
+x = average(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>)
+
+print(m)</code></pre>
+
+      </section><section class="slide" id="slide-17-4">
+        <h2 id="scope">Scope</h2>
+<p>Inside a function, outer variables may be read but not overwritten</p>
+<p>In other programming languages constructs like <code>if</code> or <code>for</code> usually also open a new scope - this is not the case in Python</p>
+
+      </section><section class="slide" id="slide-17-5">
         <h2 id="exercise-function-lottery">Exercise: function lottery()</h2>
 <p>Write a function named <code>lottery</code> which creates a list of lottery numbers</p>
 <p><code>lottery()</code> → <code>[2, 35, 19, 27, 10]</code></p>
 
-      </section><section class="slide" id="slide-17-4">
+      </section><section class="slide" id="slide-17-6">
         <h2 id="exercise-isprime">Exercise: isprime()</h2>
 <p>Write a function named <code>isprime</code> which tests whether a number is prime</p>
 <p><code>isprime(59)</code> → <code>True</code></p>
 
-      </section><section class="slide" id="slide-17-5">
+      </section><section class="slide" id="slide-17-7">
         <h2 id="aufgabe-ask_yes_no">Aufgabe: ask_yes_no()</h2>
 <p>Write a function named <code>ask_yes_no</code>, which asks the user a yes/no question and returns either <code>True</code> or <code>False</code></p>
 
@@ -1222,7 +1243,7 @@ python -m pydoc math.floor</code></pre>
 
       </section></section><section class="section" id="section-23"><section class="slide" id="slide-23-1">
         <h1 id="cheatsheet">Cheatsheet</h1>
-<p>ehmatthes.github.io/pcc#cheatsheets</p>
+<p><a href="https://ehmatthes.github.io/pcc#cheatsheets">https://ehmatthes.github.io/pcc#cheatsheets</a></p>
 <p>(missing topics: break, None, comments)</p>
 
       </section></section>

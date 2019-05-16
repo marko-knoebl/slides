@@ -934,38 +934,59 @@ proceed = <span class="hljs-keyword">True</span>
 <p>Rückgabewert: <code>3</code></p>
 
       </section><section class="slide" id="slide-17-4">
-        <h2 id="optionale-parameter">Optionale Parameter</h2>
-<p>Experiment: Wie verhält sich die Funktion <code>range</code>, wenn wir 1, 2 oder 3 Parameter übergeben?</p>
-
-      </section><section class="slide" id="slide-17-5">
-        <h2 id="positionelle-parameter-und-schlüsselwortparameter">Positionelle Parameter und Schlüsselwortparameter</h2>
+        <h2 id="positionale-parameter-und-schlüsselwortparameter">Positionale Parameter und Schlüsselwortparameter</h2>
 <p>Aufruf von <code>open</code>:</p>
-<p>mit Positionellen Parametern:</p>
+<p>mit positionalen Parametern:</p>
 <pre><code class="language-py">f = open(<span class="hljs-string">"myfile.txt"</span>, <span class="hljs-string">"w"</span>, <span class="hljs-number">-1</span>, <span class="hljs-string">"utf-8"</span>)</code></pre>
 <p>mit Schlüsselwortparametern:</p>
 <pre><code class="language-py">f = open(<span class="hljs-string">"myfile.txt"</span>, encoding=<span class="hljs-string">"utf-8"</span>, mode=<span class="hljs-string">"w"</span>)</code></pre>
+<p>Die Namen der Schlüsselwortparameter entnehmen wir der Dokumentation (z.B. via <code>help(open)</code>)</p>
+
+      </section><section class="slide" id="slide-17-5">
+        <h2 id="optionale-parameter-und-standardwerte">Optionale Parameter und Standardwerte</h2>
+<p>Bei manchen Funktionen sind Parameter optional (sie haben einen Standardwert)</p>
+<p>Beispiel: Bei der Funktion <code>open()</code> ist nur der erste Parameter zwingend anzugeben</p>
+<p>Die Werte der Standardparameter entnehmen wir der Dokumentation</p>
 
       </section></section><section class="section" id="section-18"><section class="slide" id="slide-18-1">
-        <h1 id="funktionen-selbst-definieren">Funktionen selbst definieren</h1>
+        <h1 id="funktionsdefintion">Funktionsdefintion</h1>
 
       </section><section class="slide" id="slide-18-2">
-        <h2 id="funktionen-selbst-definieren">Funktionen selbst definieren</h2>
+        <h2 id="funktionsdefinition">Funktionsdefinition</h2>
 <p>Beispiel:</p>
 <pre><code class="language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">average</span><span class="hljs-params">(a, b)</span>:</span>
     m = (a + b) / <span class="hljs-number">2</span>
     <span class="hljs-keyword">return</span> m</code></pre>
 
       </section><section class="slide" id="slide-18-3">
+        <h2 id="scope">Scope</h2>
+<p>Eine Funktionsdefinition öffnet einen neuen <em>Scope</em>, einen Geltungsbereich für Variablen</p>
+<p>Im folgenden Beispiel gibt es zwei separate Variablen, die beide mit <code>m</code> benannt sind:</p>
+<pre><code class="language-py">m = <span class="hljs-string">"Hello, world"</span>
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">average</span><span class="hljs-params">(a, b)</span>:</span>
+    m = (a + b) / <span class="hljs-number">2</span>
+    <span class="hljs-keyword">return</span> m
+x = average(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>)
+
+print(m)</code></pre>
+
+      </section><section class="slide" id="slide-18-4">
+        <h2 id="scope">Scope</h2>
+<p>Innerhalb einer Funktion gilt: Variablen, die außerhalb definiert sind, können gelesen, aber nicht geschrieben werden</p>
+<p>In anderen Programmiersprachen: auch Konstrukte wie <code>if</code> oder <code>for</code> eröffnen einen neuen Scope - nicht so in Python</p>
+
+      </section><section class="slide" id="slide-18-5">
         <h2 id="aufgabe-funktion-lottery">Aufgabe: Funktion lottery()</h2>
 <p>Schreibe eine Funktion namens <code>lottery</code>, die eine Liste von Lotteriezahlen erzeugt</p>
 <p><code>lottery()</code> → <code>[2, 35, 19, 27, 10]</code></p>
 
-      </section><section class="slide" id="slide-18-4">
+      </section><section class="slide" id="slide-18-6">
         <h2 id="aufgabe-isprime">Aufgabe: isprime()</h2>
 <p>Schreibe eine Funktion namens <code>isprime</code>, die überprüft, ob eine Zahl eine Primzahl ist</p>
 <p><code>isprime(59)</code> → <code>True</code></p>
 
-      </section><section class="slide" id="slide-18-5">
+      </section><section class="slide" id="slide-18-7">
         <h2 id="aufgabe-ask_yes_no">Aufgabe: ask_yes_no()</h2>
 <p>Schreibe eine Funktion namens <code>ask_yes_no</code>, die dem Benutzer eine Ja/Nein-Frage stellt und entweder <code>True</code> oder <code>False</code> zurückliefert</p>
 
@@ -1229,7 +1250,7 @@ python -m pydoc math.floor</code></pre>
 
       </section></section><section class="section" id="section-24"><section class="slide" id="slide-24-1">
         <h1 id="cheatsheet">Cheatsheet</h1>
-<p>ehmatthes.github.io/pcc#cheatsheets</p>
+<p><a href="https://ehmatthes.github.io/pcc#cheatsheets">https://ehmatthes.github.io/pcc#cheatsheets</a></p>
 <p>(fehlende Inhalte: break, None, Kommentare)</p>
 
       </section></section>

@@ -933,10 +933,6 @@ parameter: `[1, 1, 1]`
 
 return value: `3`
 
-## optional parameters
-
-Let's experiment: How does the function `range` behave if we pass it 1, 2 or 3 parameters?
-
 ## Positional parameters and keyword parameters
 
 Calling `open`:
@@ -953,9 +949,19 @@ with keyword parameters:
 f = open("myfile.txt", encoding="utf-8", mode="w")
 ```
 
-# Defining custom functions
+We can names of keyword parameters in the documentation (e.g. via `help(open)`)
 
-## Defining custom functions
+## Optional parameters and default parameters
+
+Some parameters of functions can be optional (they have a default value)
+
+Example: For `open` only the first parameter is required, the others are optional
+
+The values of default parameters can be looked up in the documentation
+
+# Defining functions
+
+## Defining functions
 
 example:
 
@@ -964,6 +970,29 @@ def average(a, b):
     m = (a + b) / 2
     return m
 ```
+
+## Scope
+
+A function definition creates a new _scope_, an area where variables are valid
+
+In the following example there are two distinct variables named `m`:
+
+```py
+m = "Hello, world"
+
+def average(a, b):
+    m = (a + b) / 2
+    return m
+x = average(1, 2)
+
+print(m)
+```
+
+## Scope
+
+Inside a function, outer variables may be read but not overwritten
+
+In other programming languages constructs like `if` or `for` usually also open a new scope - this is not the case in Python
 
 ## Exercise: function lottery()
 
@@ -1283,7 +1312,7 @@ Enables supporting both Python 2 and Python 3 from the same codebase
 
 # Cheatsheet
 
-ehmatthes.github.io/pcc#cheatsheets
+https://ehmatthes.github.io/pcc#cheatsheets
 
 (missing topics: break, None, comments)
 
