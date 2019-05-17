@@ -1,58 +1,56 @@
 # {{title}}
 
-## Präsentation und Code
+## Presentation and code
 
-Präsentationen verfügbar unter: https://karuga.eu/courses-presentations
+Presentations available at: https://karuga.eu/courses-presentations
 
-Code verfügbar unter: https://github.com/marko-knoebl/courses-code
+Code available at: https://github.com/marko-knoebl/courses-code
 
-## Ihr Trainer
+## Your Trainer
 
 Marko Knöbl
 
-- Frontend Web-Entwicklung
+- Frontend Web-Development
   - JavaScript
   - React, Angular
-- Programmierung
+- Programming
   - Python, JavaScript
 
-## Vorstellung der Teilnehmer
+## Introduction of Participants
 
 - Name
-- Firma
-- Aktuelle Projekte
-- Grund der Schulung
-- Vorkenntnisse
-- Erwartungen / Wünsche
+- Company
+- Current Projects
+- Prior Knowledge
+- Expectations
 
-## Organisatorisches
+## Organizational
 
-- Kursdauer
-- Pausen
-- Mittagessen
-- Unterlagen
-- Fragen, Feedback? - Jederzeit erwünscht
+- Duration
+- Breaks
+- Materials
+- Questions, Feedback?
 
-# Themen
+# Topics
 
-- Arbeiten mit Dateien und Ordnern
-- Reguläre Ausdrücke
-- Zeit und Datum
+- working with files and folders
+- regular expressions
+- time and date
 - sys
-- HTTP Client
-- Webentwicklung
-- Datenbanken
-- GUI
+- HTTP client
+- web development
+- databases
 - e-mail
-- Numpy
+- NumPy
 
-# Arbeiten mit Dateien
 
-## Arbeiten mit Dateien
+# Working with files
 
-Datei = Abfolge von Bytes auf einem Speichermedium
+## Working with files
 
-## Die Funktion "open"
+file = a sequence of bytes on a storage device
+
+## The function "open()"
 
 ```py
 file_obj = open("todos.txt")
@@ -61,27 +59,27 @@ file_obj.close()
 print(content)
 ```
 
-Open erstellt eine Instanz einer Unterklasse von IOBase
+Open creates an instance of a subclass of IOBase
 
-## Dateimodi
+## File modes
 
 ```py
 # mode: text, append
 open("todos.txt", mode="ta")
 ```
 
-## Dateimodi
+## File modes
 
-- `t`: Textmodus (standard)
-- `b`: Binär
+- `t`: text mode (default)
+- `b`: binary
 
 <!-- list-separator -->
 
-- `r`: Lesen (standard)
-- `w`: (Über)schreiben
-- `a`: Anhängen
+- `r`: reading (default)
+- `w`: (over)writing
+- `a`: appending
 
-## Lesen und Schreiben
+## Reading and writing
 
 ```py
 t = open("loremipsum.txt")
@@ -89,7 +87,7 @@ print(t.read())
 t.close()
 ```
 
-## Lesen und Schreiben
+## Reading and writing
 
 ```py
 t = open("todos.txt", mode="a", encoding="utf-8")
@@ -103,37 +101,37 @@ coins.write(bytes([0b01001110, 0b11100100]))
 coins.close()
 ```
 
-## Open und das with-Statement
+## Open and the with statement
 
 ```py
 with open("todos.txt", encoding="utf-8") as file_obj:
     content = file_obj.read()
 ```
 
-Kein explizites Schließen des Dateiobjekts mehr notwendig. Datei wird automatisch geschlossen, wenn der eingerückte Abschnitt verlassen wird.
+In this example using the with statement relieves us from explicitly closing the file object. The file will be automatically closed when the program leaves the indented block.
 
-## Zeichencodierung
+## character encoding
 
-Textdateien können unterschiedlich codiert sein:
+Text files may be encoded in various ways:
 
 - ASCII
 - CP-1252 / western european / latin1
 - UTF-8
 
-Praxistipp: Immer UTF-8 verwenden
+Recommendation: _always_ use utf-8 as the encoding for text files (best support for special characters)
 
-## Zeichencodierung
+## character encoding
 
-Die Standard-Zeichencodierung für Textdateien hängt vom Betriebssystem ab:
+The default character encoding for text files depends on the operating system:
 
 ```py
 import locale
 locale.getpreferredencoding()
 ```
 
-## Zeichencodierung
+## character encoding
 
-Explizites angeben der Textcodierung:
+Explicitly stating the character encoding:
 
 ```py
 open("file.txt", encoding="utf-8")
@@ -141,12 +139,12 @@ open("file.txt", encoding="utf-8")
 
 ## File-like objects
 
-Objekte, die z.B. `.read()` oder `.write()` unterstützen:
+Objects that support using `.read()` or `.write()` etc:
 
-- Dateien (z.B. via `open()`)
+- files (e.g. via `open()`)
 - `sys.stdout`, `sys.stdin`
-  - z.B. `sys.stdin.readline()`
-- Antworten aus dem Netzwerk, z.B. via `urllib.request.urlopen('https://google.com')`
+  - example: `sys.stdin.readline()`
+- Network replies, e.g. via `urllib.request.urlopen('https://google.com')`
 
 ## File-like objects
 
@@ -161,29 +159,29 @@ with file as open('myfile.txt', encoding="utf-8"):
 
 ## File-like objects
 
-Methoden:
+Methods:
 
 - `.close()`
 - `.mode`
-- `.read()` (lies die ganze Datei ein)
-- `.read(10)` (lies die nächsten 10 Bytes)
-- `.readline()` (lies die nächste Zeile)
+- `.read()` (read the entire file)
+- `.read(10)` (read the next 10 bytes)
+- `.readline()` (read the next line)
 
-# Speichern verschiedener Dateiformate
+# Working with various file formats
 
-## Speichern verschiedener Dateiformate
+## Working with file formats
 
-Möglichkeiten:
+possibilities:
 
-- Speichern in Text-Datei
-- Speichern als JSON
-- Speichern von Python-Objekten mittels pickle (und shelve)
-- Speichern als XML
-- Speichern von Binärdaten in eigenem Format
+- text files
+- JSON
+- XML
+- Python object files (via pickle and shelve)
+- binary files
 
 ## JSON
 
-## JSON speichern
+## Saving JSON
 
 ```py
 import json
@@ -195,7 +193,7 @@ with open("numbers.json", encoding="utf-8") as jsonfile:
     jsonfile.write(jsonstring)
 ```
 
-## JSON lesen
+## Reading JSON
 
 ```py
 import json
@@ -207,16 +205,16 @@ data = json.loads(jsonstring)
 
 ## XML
 
-zwei Pakete in der Python-Standardlibrary:
+two packages in the standard library:
 
 - `xml.etree.ElementTree`
 - `xml.dom.minidom`
 
-externe Library (Erweiterung von ElementTree):
+external library (extension of ElementTree):
 
 - `lxml`
 
-## XML mit ElementTree: erstellen
+## XML with ElementTree: creating a document
 
 ```py
 import xml.etree.ElementTree as et
@@ -229,9 +227,9 @@ age.text = '40'
 age.set("unit", "years")
 ```
 
-## XML mit ElementTree: speichern
+## XML with ElementTree: saving
 
-Beim Speichern von XML immer ein Encoding angeben!
+Always specify an encoding when saving XML!
 
 ```py
 xmlbytestring: bytes = et.tostring(person, encoding='utf-8')
@@ -248,7 +246,7 @@ tree = et.ElementTree(person)
 tree.write("myfile.xml", encoding="utf-8")
 ```
 
-## XML mit ElementTree: lesen
+## XML with ElementTree: reading
 
 ```py
 import xml.etree.ElementTree as et
@@ -262,12 +260,12 @@ for childnode in person:
 
 ## Pickle
 
-Eigenes Dateiformat, in dem verschiedene Python-Dateitypen gespeichert werden können
+File format that can be used to save various types of Python objects
 
-Achtung:
+Warning:
 
-- Pickle-Dateien können nur von Python gelesen werden
-- Pickle-Dateien können bösartigen Code enthalten
+- Pickle files can only be read by Python Programs
+- Pickle files may contain malicious code
 
 ## Pickle
 
@@ -293,11 +291,11 @@ with open("datetime.pickle", mode="rb") as picklefile:
 earlier = pickle.reads(serialized)
 ```
 
-## Übung
+## Exercise
 
-Speichern und Lesen eines Tic-Tac-Toe-Feldes in verschiedenen Formaten
+saving / loading of a tic-tac-toe board in various formats
 
-Python-Datenstruktur:
+Python data structure:
 
 ```py
 field = [
@@ -307,18 +305,18 @@ field = [
 ]
 ```
 
-# Arbeiten mit Dateien und Ordnern
+# Working with files and folders
 
-## Arbeiten mit Dateien und Ordnern
+## Working with files and folders
 
-zwei wichtige Pakete:
+two important packages:
 
 - _os_
 - _shutil_
 
 ## os
 
-- `os.getcwd()` (aktueller Pfad)
+- `os.getcwd()` (current directory)
 - `os.chdir()`
 - `os.chmod()`
 - `os.listdir()`
@@ -331,27 +329,29 @@ zwei wichtige Pakete:
 
 ## shutil
 
-- `shutil.copy('origin', 'destination')` (Datei kopieren)
-- `shutil.copytree()` (Ordner kopieren)
-- `shutil.rmtree()` (Ordner löschen)
-- `shutil.move()` (Datei oder Ordner verschieben)
+- `shutil.copy('origin', 'destination')` (copy file)
+- `shutil.copytree()` (copy folder)
+- `shutil.rmtree()` (delete folder)
+- `shutil.move()` (move file or folder)
 
-## Übung
+## Exercise
 
-Programm, das alle Textdateien in einem Ordner nach einem Begriff durchsucht und die Anzahlen angibt
+create a program that searches for occurrences of a term in all files from a folder and prints their number
 
-# Reguläre Ausdrücke
+# Regular expressions
 
-Reguläre Ausdrücke werden verwendet, um einen Teil eines Strings, der einem bestimmten Muster entspricht, zu finden
+## Regular expressions
 
-In Python können reguläre Ausdrücke mittels des Pakets `re` behandelt werden, insbesondere:
+Regular expressions are used to find a substring of a specific pattern inside a string
+
+in Python regular expressions can be handled via the `re` Package, in particular:
 
 - `re.search`
 - `re.finditer`
 
-## Reguläre Ausdrücke
+## Regular expressions
 
-Beispiel:
+example:
 
 ```py
 import re
@@ -365,9 +365,9 @@ else:
     print("no match")
 ```
 
-## Mehrfach finden
+## Finding multiple occurrences
 
-Beispiel:
+example:
 
 ```py
 import re
@@ -378,13 +378,13 @@ for match in match_iter:
     print(match[0])
 ```
 
-## Mehrfach finden
+## Finding multiple occurrences
 
-Aufgabe: finde alle URLs in einem HTML-Dokument auf der Festplatte
+Exercise: find all URLs in a HTML document on the drive
 
-(Beispieldokument: z.B. Seite https://news.ycombinator.com auf Festplatte speichern)
+For an example, save the page https://news.ycombinator.com to disk
 
-## Einen Ausdruck und Unterausdrücke finden
+## Finding an expression and sub expressions
 
 ```py
 times = re.finditer(
@@ -397,28 +397,28 @@ for time in times:
     print(f"minute: {time[2]}")
 ```
 
-## Beispiele
+## Exercises
 
-- Gleichungen erkennen und auslesen
-- Alle Funktionsdefinitionen in einer Python-Datei finden
+- find and parse equations in text
+- find function definitions in a Python file
 
-## Lösung: Gleichung erkennen
+## Solution: finding equations
 
 `\A-?\d+x[\+-]\d+y[\+-]\d+z=\d+\Z`
 
-# Datum und Zeit
+# Date and time
 
-## Datum und Zeit
+## Date and time
 
-Python-Pakete:
+Python packages:
 
 ### datetime
 
-Arbeiten mit Zeiten und Datumsangaben
+Working with times and dates
 
 ### time
 
-Arbeiten mit Unix-Timestamps, sleep
+Working with Unix timestamps, sleep
 
 ## datetime
 
@@ -450,7 +450,7 @@ for i in range(10):
 
 ## time.time
 
-aktuelle Unix-Zeit (Sekunden seit 1970-01-01 00:00:00 UTC)
+current Unix time (seconds since 1970-01-01 00:00:00 UTC)
 
 ```py
 import time
@@ -461,9 +461,9 @@ time.time()
 
 ## sys
 
-Funktionen zur Python-Umgebung
+Functions for the Python environment
 
-Beispiele:
+examples:
 
 - `argv`
 - `stdout.write`
@@ -472,11 +472,11 @@ Beispiele:
 - `version`
 - `version_info`
 
-## Kommandozeilenparameter
+## Command line parameters
 
-Auslesbar über `sys.argv`
+may be read via `sys.argv`
 
-## Überschreiben von stdout.write
+## Overwriting stdout.write
 
 ```py
 import sys
@@ -492,9 +492,9 @@ loudstdout = LoudStdout()
 sys.stdout = loudstdout
 ```
 
-# HTTP mit Python
+# HTTP with Python
 
-## HTTP mit Python
+## HTTP with Python
 
 - http.client.HTTP(S)Connection
 - urllib
@@ -513,11 +513,11 @@ response = client.recv(4096)
 print(response)
 ```
 
-Übung: Skript, das die eine Datei `request.httpreq` einliest und verarbeitet und eine Datei `response.httpres` generiert
+Exercise: script that reads and processes a file named `request.httpreq` and creates a file named `response.httpres`
 
 ## HTTP(S)Connection
 
-low-level Interface
+low level HTTP interface
 
 ```py
 from http.client import HTTPSConnection
@@ -532,7 +532,7 @@ print(content)
 
 ## urllib
 
-in Standardlibrary
+part of the standard library
 
 ```py
 import urllib
@@ -543,7 +543,7 @@ content: bytes = urllib.request.urlopen(
 
 ## requests
 
-Externes Paket, installierbar via _pip_:
+external package that may be installed via _pip_:
 
 ```bash
 pip install requests
@@ -555,12 +555,12 @@ import requests
 content: str = requests.get("https://www.google.com").text
 ```
 
-## Übungen
+## Exercises
 
-- web scraping: Anzahl der Google-Suchergebnisse
-- APIs: Wetterdaten
+- web scraping: number of Google search results
+- APIs: weather data
   https://automatetheboringstuff.com/chapter14/
-- Web Scraping: xkcd Downloader
+- web scraping: xkcd downloader
   https://automatetheboringstuff.com/chapter11/
 
 ## Selenium
@@ -573,11 +573,11 @@ pip install selenium
 
 geckodriver / chromedriver / ...
 
-geckodriver Download von:
+download geckodriver from:
 
 https://github.com/mozilla/geckodriver/releases/tag/v0.23.0
 
-Herunterladen und in einem Pfad in Pythons `sys.path` ablegen - oder im Projektverzeichnis
+Download and save in a folder in Python's `sys.path` - or in the project directory
 
 # HTTP
 
@@ -585,28 +585,28 @@ Herunterladen und in einem Pfad in Pythons `sys.path` ablegen - oder im Projektv
 
 Hypertext Transfer Protocol
 
-= Protokoll, auf dessen Basis Resourcen über das Netzwerk angefragt und übertragen werden können
+= protocol for requesting and transferring resources over a network
 
 ## HTTP
 
-Paar: Anfrage - Antwort
+Pair: Request - Response
 
-Anfrage: meist aus dem Browser
+Request: from the browser (mostly)
 
-Antwort: kommt vom Server
+Response: from the server
 
-HTTP Anfragen und Antworten werden wiederum über ein "niedrigeres" Protokoll übertragen, üblicherweise _TCP_.
+HTTP requests and responses are transferred via a _lower-level_ protocol, most commonly _TCP_
 
-## Experimentieren mit HTTP
+## Experimenting with HTTP
 
-Möglichkeiten:
+via:
 
-- Browser-Tools unter "Netzwerkanalyse"
+- Firefox tools under _network_
 - VS Code Plugin _HTTP Client_
 
-## HTTP: Beispiel Wikipedia
+## HTTP example: Wikipedia
 
-Anfrage:
+Request:
 
 ```http
 GET /wiki/Main_Page HTTP/2.0
@@ -614,7 +614,7 @@ Host: en.wikipedia.org
 Connection: keep-alive
 ```
 
-Antwort:
+Response:
 
 ```http
 HTTP/2.0 200 OK
@@ -625,9 +625,9 @@ Content-Type: text/html; charset=UTF-8
 <html ...
 ```
 
-## HTTP: Beispiel Wikipedia Suche (1)
+## HTTP example: Wikipedia search (1)
 
-Anfrage:
+request:
 
 ```http
 GET /w/index.php?search=test&title=Special:Search&go=Go HTTP/2.0
@@ -635,7 +635,7 @@ Host: en.wikipedia.org
 Connection: keep-alive
 ```
 
-Antwort:
+response:
 
 ```http
 HTTP/2.0 302 Found
@@ -643,9 +643,9 @@ Location: https://en.wikipedia.org/wiki/Test
 Content-Length: 0
 ```
 
-## HTTP: Beispiel Wikipedia Suche (2)
+## HTTP example: Wikipedia search (2)
 
-Anfrage:
+request:
 
 ```http
 GET /wiki/Test HTTP/2.0
@@ -653,7 +653,7 @@ Host: en.wikipedia.org
 Connection: keep-alive
 ```
 
-Antwort:
+response:
 
 ```http
 HTTP/2.0 200 OK
@@ -663,9 +663,9 @@ Content-Type: text/html; charset=UTF-8
 <html ...
 ```
 
-## HTTP: Beispiel POST-Request
+## HTTP example: POST request
 
-Anfrage:
+request:
 
 ```http
 POST /submit-posting HTTP/2.0
@@ -677,7 +677,7 @@ Content-Length: 33
 This is the post content (body)
 ```
 
-Antwort:
+response:
 
 ```http
 HTTP/2.0 200 OK
@@ -686,7 +686,7 @@ Content-Type: text/html; charset=UTF-8
 ...
 ```
 
-## HTTP: Beispiel API
+## HTTP example: API
 
 ```http
 GET /todos/12
@@ -707,7 +707,7 @@ Etag: W/"5c-cn8o...
 }
 ```
 
-## wichtige Anfrage-Headerfelder
+## Important request header fields
 
 - _`Host`_
 - _`Connection`_
@@ -718,19 +718,19 @@ Etag: W/"5c-cn8o...
 - `Cache-Control`
 - `Dnt`
 
-## Wichtige HTTP-Statuscodes
+## Important HTTP status codes
 
 - `200 OK`
 
 <!-- list separator -->
 
 - `301 Moved Permanently`
-- `307 Temporary Redirect` (Weiterleitung auf eine andere Adresse)
-- `303 See Other` (Weiterleitung auf eine andere Adresse, Methode ändert sich zu `GET`)
+- `307 Temporary Redirect` (Redirect to other address)
+- `303 See Other` (Redirect to other address, HTTP method changes is set to `GET`)
 - `308 Permanent Redirect`
-- `304 Not Modified` (Resource hat sich seit letzter Anfrage nicht geändert)
+- `304 Not Modified` (Resource did not change since last query)
 
-## Wichtige HTTP-Statuscodes
+## Important HTTP status codes
 
 - `400 Bad Request`
 - `401 Unauthorized`
@@ -741,9 +741,9 @@ Etag: W/"5c-cn8o...
 
 - `500 Internal Server Error`
 
-siehe auch: https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+see also: https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
 
-## wichtige Antwort-Headerfelder
+## Important response header fields
 
 - `Content-Length`
 - `Content-Type`
@@ -751,9 +751,9 @@ siehe auch: https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
 - `Location`
 - `Cache-Control`
 
-## Content-Type-Headerfeld
+## Header field "Content-Type"
 
-Mögliche Werte:
+possible values:
 
 - `text/plain; charset=utf-8`
 - `text/html; charset=utf-8`
@@ -764,9 +764,9 @@ Mögliche Werte:
 - `image/png`
 - ...
 
-## Set-Cookie-Headerfeld
+## Header field "Set-Cookie"
 
-Beispiel:
+example:
 
 ```http
 GET /
@@ -776,59 +776,59 @@ Set-Cookie: 1P_JAR=2019-04-24-08; expires=...; path=/; domain=.google.com
 Set-Cookie: IDCC=AN0-TYtU7...fo; expires=...; path=/; domain=.google.com
 ```
 
-# Serverseitiges HTTP
+# Server-side HTTP
 
-## Exkurs: Lokalen Dateiserver mit Python betreiben
+## Operating a local file server with Python
 
 ```bash
 python -m http.server
 ```
 
-## Python am Server - Überblick
+## Overview
 
 https://docs.python.org/2/howto/webservers.html
 
-(etwas veraltet)
+(info is somewhat dated)
 
 ## CGI
 
 CGI = _Common Gateway Interface_
 
-Standard, um ein Programm am Server auf eine HTTP-Anfrage antworten zu lassen
+Standard for letting a program on a server reply to an HTTP request
 
-Interface zwischen Serversoftware (z.B. Apache) und Webanwendung (geschrieben in beliebiger Programmiersprache)
+Interface between server software (e.g. Apache) and web application (written in any programming language)
 
-Interface beruht auf _stdin_, _stdout_ und Umgebungsvariablen
+Interface relies on _stdin_, _stdout_ and environment variables
 
-Nachteil: für jede Anfrage muss ein neuer Prozess gestartet werden (langsam)
+Drawback: a new Process has to be started for every request (which is slow)
 
 ## WSGI
 
 WSGI = Web Server Gateway Interface
 
-Standard, um ein Python-Programm am Server auf HTTP-Anfragen antworten zu lassen
+Standard for letting a Python program on a server reply to an HTTP request
 
-Inspiriert von CGI; wichtiger Vorteil: _ein_ laufender Prozess kann der Reihe nach mehrere Anfragen beantworten
+Inspired by CGI; advantage: _one_ running Process can handle multiple request one after another
 
-## Python Web-Frameworks
+## Python web frameworks
 
-- Werkzeug (Python WSGI Utility Library)
-- Flask (vollwertiges, modulares Framework basierend auf Werkzeug)
-- Django (vollwertiges Framework)
+- Werkzeug (Python WSGI utility library)
+- Flask (fully fledged, modular framework based on Werkzeug)
+- Django (full framework)
 
-## WSGI-Interface
+## WSGI interface
 
-Einstiegspunkt ist eine Python-Funktion
+The entry point is a Python function:
 
-Die Funktion bekommt zwei Parameter übergeben: `environ` und `start_response`
+The function will receive two parameters: `environ` and `start_response`
 
-Die Anfrageparameter sind über `environ` abzufragen (z.B. URL, HTTP Header, Formulardaten, ...)
+The request parameters are available via `environ` (e.g. URL, HTTP headers, form data, ...)
 
-Der zweite Parameter ist eine Funktion, üblicherweise `start_response` genannt.
+The second parameter is a function which we usually name `start_response`.
 
 ## WSGI
 
-Zum starten der Antwort rufen wir `start_response(status, response_headers)` auf, z.B.:
+In order to start a response we call `start_response(status, response_headers)`, e.g.:
 
 ```py
 start_response(
@@ -837,17 +837,17 @@ start_response(
 )
 ```
 
-Der Antwortkörper wird als ein Iterable von Bytestrings zurückgegeben, z.B. als Liste von Bytestrings.
+The response body is an iterable (e.g. a list) of bytestrings.
 
-## WSGI-Server-Software
+## WSGI server software
 
-server-software:
+server software:
 
 - gunicorn
 - uWSGI
 - mod_wsgi
 
-## Eigener WSGI-Server in Python
+## Custom WSGI server in Python
 
 ```py
 from wsgiref.simple_server import make_server
@@ -858,9 +858,9 @@ server = make_server("localhost", 8000, application)
 server.serve_forever()
 ```
 
-Dieser Teil wird üblicherweise von Libraries wie gunicorn übernommen
+This part will usually be handled by libraries like _guinicorn_
 
-## Eigene WSGI-Anwendung in Python
+## WSGI application
 
 ```py
 # app.py
@@ -876,9 +876,9 @@ def application(environ, start_response):
     return [response_body]
 ```
 
-## Das environ-dictionary
+## The environ dictionary
 
-Wir können es im debugger begutachten, z.B.:
+We can view it in the debugger, e.g.:
 
 ```py
 {
@@ -895,13 +895,11 @@ https://www.python.org/dev/peps/pep-0333/#environ-variables
 
 ## PATH_INFO
 
-PATH_INFO im environ-dictionary: angefragter Pfad am Server
+PATH_INFO in the environ dictionary: requested path on the server
 
-## PATH_INFO
+task: show different pages at different addresses
 
-Aufgabe: Anzeige verschiedener Seiten unter verschiedenen Adressen
-
-## Redirects mit HTTP
+## Redirects with HTTP
 
 ```py
 response_headers = [
@@ -912,21 +910,21 @@ start_response("307 Temporary Redirect", response_headers)
 return [b'']
 ```
 
-## Redirects mit HTTP
-
-Aufgabe: Weiterleitung einiger Seiten, z.B. `/now` leitet weiter auf `/time`
+Task: Make some pages redirect, e.g. make `/now` redirect to `/time`
 
 ## Cookies
 
-Cookies = kleine Datenmengen, die von einer Website im Browser abgelegt werden können
+Cookies = small sets of data which may be placed in the Browser by a website
 
-Cookies dienen insbesondere dazu, einen früheren Besucher wiederzuerkennen, z.B. für:
+Cookies may be used to recognize a previous visitor, e.g. for:
 
-- Eingeloggt bleiben auf Websites
-- Personenbezogene Werbung
-- Tracking der Useraktivitäten
+- staying logged in
+- tracking user activities
+- displaying custom ads
 
-## Cookies setzen
+## Cookies
+
+setting cookies:
 
 ```py
 response_headers.append((
@@ -934,7 +932,9 @@ response_headers.append((
 ))
 ```
 
-## Cookies lesen
+## Cookies
+
+reading cookies:
 
 ```py
 try:
@@ -943,9 +943,11 @@ except KeyError:
     ...
 ```
 
-Resultat z.B.: `"cookie1=one; cookie2=two"`
+result may be: `"cookie1=one; cookie2=two"`
 
-## Cookies parsen
+## Cookies
+
+parsing cookies
 
 ```py
 from http import cookies
@@ -957,9 +959,9 @@ mycookies.load(current_cookies_str)
 mycookies["cookie1"].value
 ```
 
-## Cookies löschen
+## Cookies
 
-indem ein neues Cookie gesetzt wird, dessen "Ablaufsdatum" in der Vergangenheit liegt:
+deleting cookies (by setting an expired cookie):
 
 ```py
 response_headers.append((
@@ -970,11 +972,11 @@ response_headers.append((
 
 ## Cookies
 
-Aufgabe: Website, die einen Benutzer nur 5x eine Seite aufrufen lässt und ihn dann auffordert, sich zu registrieren, um die Seite weiter zu verwenden
+Task: Create a website which only lets the user visit content 5 times before requiring them to log in
 
-## Formular und post-request
+## Forms and POST requests
 
-So lesen wir Parameter aus Formularen aus:
+This is how we read parameters from forms:
 
 ```py
 from urllib.parse import parse_qs
@@ -989,24 +991,24 @@ parameters = parse_qs(request_body)
 first_name = parameters.get("first-name")[0]
 ```
 
-## wsgi-Beispiele
+## Exercises
 
-- Online-Abstimmung
-- Gästebuch
-- Chat-System
-- Todo-Anwendung
+- online voting
+- guest book
+- chat
+- todo application
 
-## Achtung: JavaScript-Injection
+## Beware: JavaScript injection
 
-## Deployment auf pythonanywhere.com
+## Deployment on pythonanywhere.com
 
-- neues Benutzerkonto auf https://pythonanywhere.com
+- new user account on https://pythonanywhere.com
 - add new web app
 - manual configuration
 
-## Deployment auf pythonanywhere.com
+## Deployment on pythonanywhere.com
 
-WSGI Konfigurationsdatei
+WSGI configuration file
 
 ```py
 # /var/www/username_pythonanywhere_com_wsgi.py
@@ -1019,28 +1021,28 @@ if path not in sys.path:
 from app import application
 ```
 
-# Datenbanken
+# Databases
 
-Zu Grundlagen siehe Präsentation _Datenbanken und Datenspeicherung_
+For basics see presentation _databases and data store_
 
-# SQL mit Python
+# SQL with Python
 
-## Python-Anbindung von SQL-Datenbanken
+## Python interfaces for SQL databases
 
-Database API Specification: Standard, der von verschiedenen Python-Datenbankanbindungen umgesetzt wird; standardisiert in PEP 249
+Database API specification: standard which is implemented by various Python database bindings; standardized in PEP 249
 
-Anbindungen für:
+bindings for:
 
-- sqlite (Python-Paket _sqlite3_)
-- Postgresql (PIP-Paket _psycopg2_)
-- MySQL / mariadb (PIP-Paket _PyMySQL_
-- Oracle (PIP-Paket _cx_oracle_)
+- sqlite (Python package _sqlite3_)
+- Postgresql (PIP package _psycopg2_)
+- MySQL / mariadb (PIP package _PyMySQL_
+- Oracle (PIP package _cx_oracle_)
 
-## SQLite und Python
+## SQLite and Python
 
-SQLite: Datenbank, die nur eine einzelne Datenbankdatei verwendet
+SQLite uses one file to store a database
 
-Ist in Python integriert (Modul `sqlite3`)
+comes with Python (module `sqlite3`)
 
 ```py
 import sqlite3
@@ -1048,9 +1050,9 @@ import sqlite3
 connection = sqlite3.connect('contacts.db')
 ```
 
-## MySQL und Python
+## MySQL and Python
 
-PIP-Paket _PyMySQL_
+PIP package _PyMySQL_
 
 ```py
 import pymysql.cursors
@@ -1062,9 +1064,9 @@ connection = pymysql.connect(host='localhost',
                              charset='utf8mb4')
 ```
 
-## Python und Oracle Database
+## Python and Oracle Database
 
-Python-Paket _cx_Oracle_
+Python package _cx_Oracle_
 
 ```py
 import cx_Oracle
@@ -1076,9 +1078,9 @@ connection = cx_Oracle.connect(user="user",
 
 ## pyodbc
 
-ODBC = open database connectivity: Standard zur Anbindung an Datenbanken (unabhängig von Python)
+ODBC = open database connectivity: Standard for database interfaces (independent of Python)
 
-pyodbc = Implementierung für Python, damit können beliebige ODBC-Datenbanken angebunden werden
+pyodbc = implementation for Python - this enables access to any ODBC database
 
 ```py
 import pyodbc
@@ -1087,7 +1089,7 @@ connection = pyodbc.connect(
   "Driver=SQLite3 ODBC Driver;Database=contacts.db")
 ```
 
-## Gemeinsames Interface (PEP 249)
+## Common interface (PEP 249)
 
 ```py
 connection = ...
@@ -1108,7 +1110,7 @@ connection.close()
 
 https://www.python.org/dev/peps/pep-0249
 
-## PEP 249: Typen
+## PEP 249: types
 
 - `Date`
 - `Time`
@@ -1117,7 +1119,9 @@ https://www.python.org/dev/peps/pep-0249
 - `STRING`
 - `NUMBER`
 
-## Bedingte Abfragen mit Parametern
+## Queries with parameters
+
+dangerous:
 
 ```py
 search_name = input()
@@ -1125,11 +1129,9 @@ command = f"""SELECT tel FROM person WHERE name = '{search_name}'"""
 res = c.execute(command)
 ```
 
-## Achtung: SQL-Injections
+## Queries with parameters
 
-## Achtung: SQL-Injections
-
-sichere Methode (mit SQL-Escaping):
+safe method (with SQL escaping):
 
 ```py
 search_name = input()
@@ -1139,39 +1141,30 @@ res = cursor.execute(
 )
 ```
 
-## Abfrageparameter
+## Queries with parameters
 
 https://www.python.org/dev/peps/pep-0249/#paramstyle
 
-Die Attribute `sqlite3.paramstyle`, `pymysql.paramstyle` etc geben das Format für Abfragen mit Parametern an
+The attributes `sqlite3.paramstyle`, `pymysql.paramstyle` etc indicate the format for queries with parameters
 
 - sqlite3: qmark
 - pymysql: pyformat
 - psycopg2: pyformat
 - cx_Oracle: named
 
-## PEP 249: das cursor Objekt
+## PEP 249: the cursor object
 
-- `cursor.rowcount`: Anzahl der letzten Ergebnisse
-- `cursor.fetchone()`: Eine Zeile des Resultats auslesen (üblicherweise als Tupel)
+- `cursor.rowcount`: number of result rows in the last query
+- `cursor.fetchone()`: get a single row of the result (usually as a tuple)
 - `cursor.fetchmany(10)`
 - `cursor.fetchall()`
 - `cursor.execute(command, parameters)`
 
-## Beispiel: Forum mit Datenbankanbindung
+## Exercises
 
-- Authentifizierung (MD5)
-- Admin-Skript
-
-## Beispiel: Todo-Anwendung
-
-## Beispiel: Todo-Anwendung
-
-- run_server.py und (minimale) app.py
-- init_db.py
-- db_interface.get_all_todos
-
-siehe courses-tutorials/python-todolist-wsgi-sqlite
+- Forum with database binding (and admin script)
+- Todo application (with web interface)
+  (see courses-tutorials/python-todolist-wsgi-sqlite)
 
 # SQLAlchemy
 
@@ -1179,15 +1172,15 @@ siehe courses-tutorials/python-todolist-wsgi-sqlite
 
 SQLAlchemy = Object Relational Mapper
 
-Objektorientierter Zugriff auf beliebige SQL-Datenbanken
+Object oriented access to arbitrary SQL databases
 
-Alternative: Django ORM
+potential alternative: Django ORM
 
 ## SQLAlchemy
 
-Pip-Paket _sqlalchemy_
+Pip package _sqlalchemy_
 
-## Verbinden mit SQLite-Datenbank
+## Connecting with an SQLite database
 
 ```py
 # db_interface.py
@@ -1198,7 +1191,7 @@ engine = create_engine("sqlite:///music.db", echo=True)
 engine.connect()
 ```
 
-## Tabellen definieren
+## Defining tables
 
 ```py
 # schema.py
@@ -1219,7 +1212,7 @@ class Artist(Base):
 Base.metadata.create_all(engine)
 ```
 
-## Mit Sessions arbeiten
+## Working with sessions
 
 ```py
 from sqlalchemy.orm import sessionmaker
@@ -1239,7 +1232,7 @@ session.commit()
 INSERT INTO artist VALUES ('The Beatles', 'United Kingdom');
 ```
 
-wird zu:
+becomes:
 
 ```py
 beatles = Artist(name="The Beatles", country="United Kingdom")
@@ -1252,14 +1245,14 @@ session.add(beatles)
 SELECT name, country FROM artist;
 ```
 
-wird zu:
+becomes:
 
 ```py
 for artist in session.query(Artist):
     print(f"{artist.name} ({artist.country})")
 ```
 
-oder
+or
 
 ```py
 for name, country in session.query(Artist.name, Artist.country):
@@ -1272,7 +1265,7 @@ for name, country in session.query(Artist.name, Artist.country):
 SELECT name, country FROM artist ORDER BY name;
 ```
 
-wird zu:
+becomes:
 
 ```py
 for name, country in session.query(
@@ -1286,27 +1279,27 @@ for name, country in session.query(
 SELECT name, country FROM artist WHERE artist.name='The Beatles'
 ```
 
-wird zu:
+becomes:
 
 ```py
 session.query(Artist).filter_by(Artist.name=="The Beatles").one()
 ```
 
-## Sprechende Ausgabe von Einträgen
+## Nicer representation of entries
 
-aktuell:
+currently:
 
 ```txt
 &ltdb_schema.Song object at 0x00000175902A5FD0>
 ```
 
-besser:
+better:
 
 ```txt
 Help! - The Beatles
 ```
 
-umsetzbar mittels `__repr__` / `__str__`
+We can achieve this via the methods `__repr__` / `__str__`
 
 ## Update
 
@@ -1316,7 +1309,7 @@ SET title = 'Help'
 WHERE title = 'Help!';
 ```
 
-wird zu
+becomes
 
 ```py
 entry = session.query(Song).filter_by(Song.title=="Help!").one()
@@ -1331,13 +1324,13 @@ FROM song
 WHERE title = 'Help!';
 ```
 
-wird zu
+becomes
 
 ```py
 session.query(Song).filter_by(Song.title=="Help!").delete()
 ```
 
-## Definition eines Fremdschlüssels
+## Defining a foreign key
 
 ```py
 class Song(Base):
@@ -1347,7 +1340,7 @@ class Song(Base):
     artist_id = Column(Integer, ForeignKey("artist.id"))
 ```
 
-## Einfaches Abfragen einer verknüpften Tabelle
+## Querying a related table
 
 ```py
 from sqlalchemy.orm import relationship
@@ -1363,7 +1356,7 @@ class Song(Base):
     artist = relationship("Artist")
 ```
 
-## Einfaches Abfragen einer verknüpften Tabelle
+## Querying a related table
 
 ```py
 yesterday = Song(title="Yesterday", artist=beatles)
@@ -1378,7 +1371,7 @@ print(beatles.songs)
 
 ## Graphical User Interface
 
-## GUI-Libraries für Python
+## GUI-Libraries for Python
 
 - tk
 - Qt
@@ -1386,22 +1379,22 @@ print(beatles.songs)
 
 ## tk
 
-- Einfache UI-Library
-- Anbindung an Python: tkinter
-- in Python vorinstalliert
+- Simple UI library
+- Python interface: tkinter
+- comes with Python
 
 ## Qt
 
-- Weit verbreitete UI-Library
-- Anbindungen an Python: PyQt oder PySide
+- widely used UI library
+- Python interfaces: PyQt or PySide
 
 ## Kivy
 
-- speziell für Python entwickelt
+- specifically developed for Python
 
 # Tkinter
 
-## Tkinter - Beispiel
+## Example
 
 ```py
 # simple.pyw
@@ -1414,7 +1407,7 @@ window = tkinter.Tk()
 window.mainloop()
 ```
 
-## Tkinter - Text anzeigen
+## Displaying text
 
 ```py
 import tkinter
@@ -1427,14 +1420,14 @@ hello_label.pack()
 window.mainloop()
 ```
 
-## Tkinter - Elemente nachträglich ändern
+## Modifying elements
 
 ```py
 time_label = tkinter.Label(master=window, text="")
 time_label.config(text="Hello!")
 ```
 
-## Tkinter - Benutzerinteraktion
+## User interactions
 
 ```py
 ...
@@ -1453,31 +1446,31 @@ hello_button.pack()
 ...
 ```
 
-## Beispiel: Counter
+## Example: counter
 
-Button, der bei 0 startet und die Klickanzahl mitzählt und anzeigt
+Implement a button that starts at 0 and counts the number of clicks
 
-## Tkinter - Widget-Konfiguration
+## Widget configuration
 
-Möglichkeiten:
+config options:
 
 - `height`
 - `width`
 - `borderwidth`
-- `background` (Hintergrundfarbe)
-- `foreground` (Textfarbe)
-- `justify` (Textausrichtung, Werte: `CENTER`, `LEFT`, `RIGHT`)
-- `padx`, `pady` (Abstand Rahmen zum Inhalt)
+- `background` (background color)
+- `foreground` (text color)
+- `justify` (text alignments, values: `CENTER`, `LEFT`, `RIGHT`)
+- `padx`, `pady` (distance between the border and the content)
 
-## Tkinter - Widgets
+## Widgets
 
 - `Label`
 - `Button`
 - `Frame`
 
-## Tkinter - Beispiele
+## Examples
 
-- zufälliger Sehtest
+- Snellen chart
 
 # SMTP / IMAP
 
@@ -1485,25 +1478,25 @@ Möglichkeiten:
 
 https://automatetheboringstuff.com/chapter16/
 
-(für Fehler und Korrekturen siehe nächste Folie)
+(for error corrections see next slide)
 
-zur verdeckten Passworteingabe: Modul "getpass"
+for hidden password entry: use module _getpass_
 
 ## SMTP / IMAP
 
-Fehler in der resouce:
+Errors in the resource:
 
-Die query besteht aus zwei Einträgen:
+provide the query as two entries:
 
 ~~`UIDs = imapObj.search(['SINCE 05-Jul-2014'])`~~
 
 `UIDs = imapObj.search(['SINCE', '05-Jul-2014'])`
 
-Neuere Version von _pyzmail_ verwenden:
+use newer version of _pyzmail_:
 
 ~~`pyzmail`~~ → `pyzmail36`
 
-_bytes_ statt _string_ verwenden:
+use bytes instead of a string:
 
 ~~`'BODY[]'`~~ → `b'BODY[]`
 
@@ -1511,21 +1504,15 @@ _bytes_ statt _string_ verwenden:
 
 ## NumPy
 
-Library zur effizienten Datenverarbeitung
+Library for efficient data processing
 
-Daten sind in mehrdimensionalen Arrays von Zahlen gespeichert, die resourcenschonend umgesetzt sind
+Data are stored in multidimensional arrays of numeric values which are implemented in an efficient way
 
-Daten können z.B. Bilder, Tondateien, Messwerte und vieles anderes repräsentieren
+Data can represent images, sound, measurements and much more
 
 ## NumPy
 
-NumPy Arrays vs Python Listen:
-
-Arrays sind im Hintergrund in C implementiert, die numerischen Einträge (z.B. Integer) sind keine Python-Objekte und damit resourcenschonender.
-
-## Importieren von NumPy
-
-oft verkürzt als:
+common import convention:
 
 ```python
 import numpy as np
@@ -1533,35 +1520,42 @@ import numpy as np
 
 ## NumPy
 
-NumPy Arrays vs Python Listen:
+NumPy Arrays vs Python lists:
+
+Arrays are implemented in C; the entries (e.g. integers) are no Python Objects and are therefore lighter on resources
+
+## NumPy
+
+NumPy Arrays vs Python lists:
 
 ```py
-# Python - Listen (mit Verweisen auf andere Integer)
+# Python lists (with references to Python integer objects)
 list_a = [1, 2]
 list_b = [3, 4]
 
-# NumPy - Array -
-# Daten sind hierin enthalten, ohne auf Python-Integer
-# zu verweisen
+# NumPy array
+# data are contained within the array without referencing
+# Python integers
 array_a = numpy.array(list_a)
 array_b = numpy.array(list_b)
 
-array_a + array_b # sehr schnell (da in C implementiert)
+# fast multiplication (C implemented in C)
+array_a * array_b
 ```
 
 ## Arrays
 
-Jedes Array kann nur Daten eines Typs enthalten (z.B. nur 64-bit floats oder nur bytes)
+Each array can only hold data of one type (e.g. only 64 bit floats or only bytes)
 
 ## Arrays
 
-Erstellen eines 2-dimensionalen Arrays:
+Creating a 2-dimensional array:
 
 ```py
 np.array([[1, 2, 3], [2, 4, 6], [3, 6, 9]])
 ```
 
-Ausgabe:
+output:
 
 ```py
 array([[1, 2, 3],
@@ -1571,13 +1565,13 @@ array([[1, 2, 3],
 
 ## Arrays
 
-Erstellen eines 3-dimensionalen Arrays:
+Creating a 3-dimensional array:
 
 ```py
 np.array([[[1, 2], [3, 4]], [[5, 6], [7,8]]])
 ```
 
-Ausgabe:
+output:
 
 ```py
 array([[[1, 2],
@@ -1587,9 +1581,9 @@ array([[[1, 2],
         [7, 8]]])
 ```
 
-## Array Typen
+## Array types
 
-Jedes Array hat einen vorgegebenen Datentyp für alle Einträge
+Each array has a predefined data type for all entries
 
 ```py
 a = np.array([1])
@@ -1602,16 +1596,16 @@ d = np.array([b'abc'])
 d.dtype # |S3
 ```
 
-## Array Typen
+## Array types
 
-Typen können explizit angegeben werden:
+Types may be named explicitly:
 
 ```py
 a = np.array([1], dtype='int64')
 b = np.array([1], dtype='uint8')
 ```
 
-Typen werden wenn möglich automatisch umgewandelt:
+If possible, types are converted automatically:
 
 ```py
 c = a + b
@@ -1620,9 +1614,9 @@ c.dtype # int64
 
 ## Overflow
 
-Achtung bei zu großen / zu kleinen Werten
+Be careful with values that are too big or too small
 
-Der Typ `int8` erlaubt nur Werte im Bereich `-128` bis `+127`
+The type `int8` is only suitable for values in the range from  `-128` to `+127`
 
 ```py
 np.array([127, 128, 129], dtype="int8")
@@ -1634,16 +1628,9 @@ Output:
 array([127, -128, -127])
 ```
 
-## NumPy
+## Exercises
 
-Kapitel 30
-
-- Rechnen mit Matrizen
-- Darstellung von Daten (matplotlib): Graphen, Histogramme
-
-Übungen:
-
-- 10 mio mal Würfeln (mit 10 Würfeln)
-- Gleichungslösung (Klassen, doctests, numpy)
-- Lagerbestand von Produkten (2d-array) & preisliste (1d-array); gesucht: Warenwert pro Lager
+- 10 million dice rolls (with 10 dice) - histograms
+- solving linear equations
+- inventory of products & price list
 

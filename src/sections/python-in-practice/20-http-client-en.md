@@ -1,6 +1,6 @@
-# HTTP mit Python
+# HTTP with Python
 
-## HTTP mit Python
+## HTTP with Python
 
 - http.client.HTTP(S)Connection
 - urllib
@@ -19,11 +19,11 @@ response = client.recv(4096)
 print(response)
 ```
 
-Übung: Skript, das die eine Datei `request.httpreq` einliest und verarbeitet und eine Datei `response.httpres` generiert
+Exercise: script that reads and processes a file named `request.httpreq` and creates a file named `response.httpres`
 
 ## HTTP(S)Connection
 
-low-level Interface
+low level HTTP interface
 
 ```py
 from http.client import HTTPSConnection
@@ -38,7 +38,7 @@ print(content)
 
 ## urllib
 
-in Standardlibrary
+part of the standard library
 
 ```py
 import urllib
@@ -49,7 +49,7 @@ content: bytes = urllib.request.urlopen(
 
 ## requests
 
-Externes Paket, installierbar via _pip_:
+external package that may be installed via _pip_:
 
 ```bash
 pip install requests
@@ -61,12 +61,12 @@ import requests
 content: str = requests.get("https://www.google.com").text
 ```
 
-## Übungen
+## Exercises
 
-- web scraping: Anzahl der Google-Suchergebnisse
-- APIs: Wetterdaten
+- web scraping: number of Google search results
+- APIs: weather data
   https://automatetheboringstuff.com/chapter14/
-- Web Scraping: xkcd Downloader
+- web scraping: xkcd downloader
   https://automatetheboringstuff.com/chapter11/
 
 ## Selenium
@@ -79,8 +79,8 @@ pip install selenium
 
 geckodriver / chromedriver / ...
 
-geckodriver Download von:
+download geckodriver from:
 
 https://github.com/mozilla/geckodriver/releases/tag/v0.23.0
 
-Herunterladen und in einem Pfad in Pythons `sys.path` ablegen - oder im Projektverzeichnis
+Download and save in a folder in Python's `sys.path` - or in the project directory

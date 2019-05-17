@@ -53,7 +53,7 @@ Analog für andere Datantypen: `str()`, `float()`, `bool()`
 
 ## Übung: Alter anhand Geburtsjahr
 
-Schreibe ein Programm namens `age.py`, das den Benutzer nach seinem Geburtsjahr fragt und dann angibt, wie alt diese Person im Jahr 2018 wird.
+Schreibe ein Programm namens `age.py`, das den Benutzer nach seinem Geburtsjahr fragt und dann angibt, wie alt diese Person im Jahr 2019 wird.
 
 ## Übung: Länge des Namens
 

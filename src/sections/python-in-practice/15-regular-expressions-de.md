@@ -1,5 +1,12 @@
 # Reguläre Ausdrücke
 
+Reguläre Ausdrücke werden verwendet, um einen Teil eines Strings, der einem bestimmten Muster entspricht, zu finden
+
+In Python können reguläre Ausdrücke mittels des Pakets `re` behandelt werden, insbesondere:
+
+- `re.search`
+- `re.finditer`
+
 ## Reguläre Ausdrücke
 
 Beispiel:
@@ -38,30 +45,20 @@ Aufgabe: finde alle URLs in einem HTML-Dokument auf der Festplatte
 ## Einen Ausdruck und Unterausdrücke finden
 
 ```py
-re.search(
-    r'\d?\d\.\d?\d\.\d\d\d\d',
-    'Heute ist der 23.10.1970!'
+times = re.finditer(
+    r'(\d?\d):(\d\d)',
+    'The course times are 9:30 - 16:30'
 )
-```
 
-## Einen Ausdruck und Unterausdrücke finden
-
-```py
-m = re.search(
-    r'(\d?\d)\.(\d?\d)\.(\d\d\d\d)',
-    'Heute ist der 23.1.1970!'
-)
-m[0] # 23.1.1970
-m[1] # 23
-m[2] # 1
-m[3] # 1970
+for time in times:
+    print(f"hour: {time[1]}")
+    print(f"minute: {time[2]}")
 ```
 
 ## Beispiele
 
-- Lesbarkeitsanalyse (Lesbarkeitsindex)
-- Beispiel: Gleichungen erkennen und auslesen
-- Beispiel: Alle Funktionsdefinitionen in einer Python-Datei finden
+- Gleichungen erkennen und auslesen
+- Alle Funktionsdefinitionen in einer Python-Datei finden
 
 ## Lösung: Gleichung erkennen
 

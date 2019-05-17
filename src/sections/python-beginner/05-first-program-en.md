@@ -53,7 +53,7 @@ This works similarly for other types: `str()`, `float()`, `bool()`
 
 ## Exercise: age from birth year
 
-Write a program called `age.py` which will ask the user for their birth year and will respond with the user's age in the year 2018.
+Write a program called `age.py` which will ask the user for their birth year and will respond with the user's age in the year 2019.
 
 ## Exercise: length of the name
 

@@ -57,6 +57,6 @@ Further Options:
 - _Alt_ + _Shift_ + _F_: Auto-format file contents
 - _Ctrl_ + _#_: comment / uncomment
 - _F12_: Go to definition
-- _F12_: Peek definition
+- _Shift_ + _F12_: Peek definition
 - _F2_: rename variables
 - _Alt_ + mouse click: Activate multiple text cursors

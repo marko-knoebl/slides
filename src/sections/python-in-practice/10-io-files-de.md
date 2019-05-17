@@ -93,12 +93,12 @@ open("file.txt", encoding="utf-8")
 
 ## File-like objects
 
-Objekte, die zB `.read()` oder `.write()` unterstützen:
+Objekte, die z.B. `.read()` oder `.write()` unterstützen:
 
-- Dateien (zB via `open()`)
+- Dateien (z.B. via `open()`)
 - `sys.stdout`, `sys.stdin`
   - z.B. `sys.stdin.readline()`
-- Antworten aus dem Netzwerk, zB via `urllib.request.urlopen('https://google.com')`
+- Antworten aus dem Netzwerk, z.B. via `urllib.request.urlopen('https://google.com')`
 
 ## File-like objects
 

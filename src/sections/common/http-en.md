@@ -4,7 +4,7 @@
 
 Hypertext Transfer Protocol
 
-= protocol for requesting and transfering resources over a network
+= protocol for requesting and transferring resources over a network
 
 ## HTTP
 

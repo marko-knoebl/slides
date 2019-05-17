@@ -248,14 +248,14 @@ locale.getpreferredencoding()</code></pre>
 
       </section><section class="slide" id="slide-3-12">
         <h2 id="file-like-objects">File-like objects</h2>
-<p>Objekte, die zB <code>.read()</code> oder <code>.write()</code> unterstützen:</p>
+<p>Objekte, die z.B. <code>.read()</code> oder <code>.write()</code> unterstützen:</p>
 <ul>
-<li>Dateien (zB via <code>open()</code>)</li>
+<li>Dateien (z.B. via <code>open()</code>)</li>
 <li><code>sys.stdout</code>, <code>sys.stdin</code><ul>
 <li>z.B. <code>sys.stdin.readline()</code></li>
 </ul>
 </li>
-<li>Antworten aus dem Netzwerk, zB via <code>urllib.request.urlopen(&#39;https://google.com&#39;)</code></li>
+<li>Antworten aus dem Netzwerk, z.B. via <code>urllib.request.urlopen(&#39;https://google.com&#39;)</code></li>
 </ul>
 
       </section><section class="slide" id="slide-3-13">
@@ -442,6 +442,12 @@ earlier = pickle.reads(serialized)</code></pre>
 
       </section></section><section class="section" id="section-6"><section class="slide" id="slide-6-1">
         <h1 id="reguläre-ausdrücke">Reguläre Ausdrücke</h1>
+<p>Reguläre Ausdrücke werden verwendet, um einen Teil eines Strings, der einem bestimmten Muster entspricht, zu finden</p>
+<p>In Python können reguläre Ausdrücke mittels des Pakets <code>re</code> behandelt werden, insbesondere:</p>
+<ul>
+<li><code>re.search</code></li>
+<li><code>re.finditer</code></li>
+</ul>
 
       </section><section class="slide" id="slide-6-2">
         <h2 id="reguläre-ausdrücke">Reguläre Ausdrücke</h2>
@@ -473,31 +479,23 @@ match_iter = re.finditer(<span class="hljs-string">r"https?://.+?\\.com"</span>,
 
       </section><section class="slide" id="slide-6-5">
         <h2 id="einen-ausdruck-und-unterausdrücke-finden">Einen Ausdruck und Unterausdrücke finden</h2>
-<pre><code class="language-py">re.search(
-    <span class="hljs-string">r'\d?\d\.\d?\d\.\d\d\d\d'</span>,
-    <span class="hljs-string">'Heute ist der 23.10.1970!'</span>
-)</code></pre>
+<pre><code class="language-py">times = re.finditer(
+    <span class="hljs-string">r'(\d?\d):(\d\d)'</span>,
+    <span class="hljs-string">'The course times are 9:30 - 16:30'</span>
+)
+
+<span class="hljs-keyword">for</span> time <span class="hljs-keyword">in</span> times:
+    print(<span class="hljs-string">f"hour: <span class="hljs-subst">{time[<span class="hljs-number">1</span>]}</span>"</span>)
+    print(<span class="hljs-string">f"minute: <span class="hljs-subst">{time[<span class="hljs-number">2</span>]}</span>"</span>)</code></pre>
 
       </section><section class="slide" id="slide-6-6">
-        <h2 id="einen-ausdruck-und-unterausdrücke-finden">Einen Ausdruck und Unterausdrücke finden</h2>
-<pre><code class="language-py">m = re.search(
-    <span class="hljs-string">r'(\d?\d)\.(\d?\d)\.(\d\d\d\d)'</span>,
-    <span class="hljs-string">'Heute ist der 23.1.1970!'</span>
-)
-m[<span class="hljs-number">0</span>] <span class="hljs-comment"># 23.1.1970</span>
-m[<span class="hljs-number">1</span>] <span class="hljs-comment"># 23</span>
-m[<span class="hljs-number">2</span>] <span class="hljs-comment"># 1</span>
-m[<span class="hljs-number">3</span>] <span class="hljs-comment"># 1970</span></code></pre>
-
-      </section><section class="slide" id="slide-6-7">
         <h2 id="beispiele">Beispiele</h2>
 <ul>
-<li>Lesbarkeitsanalyse (Lesbarkeitsindex)</li>
-<li>Beispiel: Gleichungen erkennen und auslesen</li>
-<li>Beispiel: Alle Funktionsdefinitionen in einer Python-Datei finden</li>
+<li>Gleichungen erkennen und auslesen</li>
+<li>Alle Funktionsdefinitionen in einer Python-Datei finden</li>
 </ul>
 
-      </section><section class="slide" id="slide-6-8">
+      </section><section class="slide" id="slide-6-7">
         <h2 id="lösung-gleichung-erkennen">Lösung: Gleichung erkennen</h2>
 <p><code>\A-?\d+x[\+-]\d+y[\+-]\d+z=\d+\Z</code></p>
 
@@ -537,7 +535,7 @@ c - b</code></pre>
 
       </section><section class="slide" id="slide-7-6">
         <h2 id="timetime">time.time</h2>
-<p>aktuelle Unix-Zeit</p>
+<p>aktuelle Unix-Zeit (Sekunden seit 1970-01-01 00:00:00 UTC)</p>
 <pre><code class="language-py"><span class="hljs-keyword">import</span> time
 time.time()</code></pre>
 
@@ -579,7 +577,7 @@ sys.stdout = loudstdout</code></pre>
         <h1 id="http-mit-python">HTTP mit Python</h1>
 
       </section><section class="slide" id="slide-9-2">
-        <h2 id="http">HTTP</h2>
+        <h2 id="http-mit-python">HTTP mit Python</h2>
 <ul>
 <li>http.client.HTTP(S)Connection</li>
 <li>urllib</li>
@@ -627,24 +625,23 @@ content: bytes = urllib.request.urlopen(
 content: str = requests.get(<span class="hljs-string">"https://www.google.com"</span>).text</code></pre>
 
       </section><section class="slide" id="slide-9-7">
-        <h2 id="web-scraping-anzahl-der-google-suchergebnisse">Web Scraping: Anzahl der Google-Suchergebnisse</h2>
+        <h2 id="übungen">Übungen</h2>
+<ul>
+<li>web scraping: Anzahl der Google-Suchergebnisse</li>
+<li>APIs: Wetterdaten
+<a href="https://automatetheboringstuff.com/chapter14/">https://automatetheboringstuff.com/chapter14/</a></li>
+<li>Web Scraping: xkcd Downloader
+<a href="https://automatetheboringstuff.com/chapter11/">https://automatetheboringstuff.com/chapter11/</a></li>
+</ul>
 
       </section><section class="slide" id="slide-9-8">
-        <h2 id="apis-wetterdaten">APIs: Wetterdaten</h2>
-<p><a href="https://automatetheboringstuff.com/chapter14/">https://automatetheboringstuff.com/chapter14/</a></p>
-
-      </section><section class="slide" id="slide-9-9">
-        <h2 id="web-scraping-xkcd-downloader">Web Scraping: xkcd-Downloader</h2>
-<p><a href="https://automatetheboringstuff.com/chapter11/">https://automatetheboringstuff.com/chapter11/</a></p>
-
-      </section><section class="slide" id="slide-9-10">
         <h2 id="selenium">Selenium</h2>
 <p>Installation:</p>
 <pre><code class="language-bash">pip install selenium</code></pre>
 <p>geckodriver / chromedriver / ...</p>
 <p>geckodriver Download von:</p>
 <p><a href="https://github.com/mozilla/geckodriver/releases/tag/v0.23.0">https://github.com/mozilla/geckodriver/releases/tag/v0.23.0</a></p>
-<p>Herunterladen und in einem Pfad in Pythons <code>sys.path</code> ablegen - oder im aktuellen Verzeichnis (working directory)</p>
+<p>Herunterladen und in einem Pfad in Pythons <code>sys.path</code> ablegen - oder im Projektverzeichnis</p>
 
       </section></section><section class="section" id="section-10"><section class="slide" id="slide-10-1">
         <h1 id="http">HTTP</h1>
@@ -1084,14 +1081,13 @@ connection = pyodbc.connect(
 <pre><code class="language-py">connection = ...
 ...
 cursor = connection.cursor()
-cursor.execute(...)
+cursor.execute(<span class="hljs-string">"SELECT ..."</span>)
 print(cursor.fetchall())
-connection.commit()
 ...
 cursor = connection.cursor()
-cursor.execute(...)
-print(cursor.fetchall())
-conection.commit()
+cursor.execute(<span class="hljs-string">"INSERT INTO ..."</span>)
+cursor.execute(<span class="hljs-string">"INSERT INTO ..."</span>)
+connection.commit()
 ...
 connection.close()</code></pre>
 
@@ -1424,17 +1420,19 @@ hello_button.pack()
       </section><section class="slide" id="slide-17-2">
         <h2 id="smtp--imap">SMTP / IMAP</h2>
 <p><a href="https://automatetheboringstuff.com/chapter16/">https://automatetheboringstuff.com/chapter16/</a></p>
+<p>(für Fehler und Korrekturen siehe nächste Folie)</p>
 <p>zur verdeckten Passworteingabe: Modul &quot;getpass&quot;</p>
 
       </section><section class="slide" id="slide-17-3">
         <h2 id="smtp--imap">SMTP / IMAP</h2>
-<p>Achtung Fehler:</p>
-<p>falsch:</p>
-<p><code>UIDs = imapObj.search([&#39;SINCE 05-Jul-2014&#39;])</code></p>
-<p>richtig:</p>
+<p>Fehler in der resouce:</p>
+<p>Die query besteht aus zwei Einträgen:</p>
+<p><del><code>UIDs = imapObj.search([&#39;SINCE 05-Jul-2014&#39;])</code></del></p>
 <p><code>UIDs = imapObj.search([&#39;SINCE&#39;, &#39;05-Jul-2014&#39;])</code></p>
-<p>Achtung veraltet: <code>pyzmail</code> -&gt; <code>pyzmail36</code></p>
-<p>Achtung: <code>&#39;BODY[]&#39;</code> -&gt; <code>b&#39;BODY[]</code> (bytes statt string)</p>
+<p>Neuere Version von <em>pyzmail</em> verwenden:</p>
+<p><del><code>pyzmail</code></del> → <code>pyzmail36</code></p>
+<p><em>bytes</em> statt <em>string</em> verwenden:</p>
+<p><del><code>&#39;BODY[]&#39;</code></del> → <code>b&#39;BODY[]</code></p>
 
       </section></section><section class="section" id="section-18"><section class="slide" id="slide-18-1">
         <h1 id="numpy">NumPy</h1>

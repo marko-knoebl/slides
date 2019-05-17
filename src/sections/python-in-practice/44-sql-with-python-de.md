@@ -68,14 +68,13 @@ connection = pyodbc.connect(
 connection = ...
 ...
 cursor = connection.cursor()
-cursor.execute(...)
+cursor.execute("SELECT ...")
 print(cursor.fetchall())
-connection.commit()
 ...
 cursor = connection.cursor()
-cursor.execute(...)
-print(cursor.fetchall())
-conection.commit()
+cursor.execute("INSERT INTO ...")
+cursor.execute("INSERT INTO ...")
+connection.commit()
 ...
 connection.close()
 ```

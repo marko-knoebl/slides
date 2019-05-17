@@ -1057,24 +1057,6 @@ size = length &lt; <span class="hljs-number">110</span> ? <span class="hljs-stri
         <h1 id="funktionen">Funktionen</h1>
 
       </section><section class="slide" id="slide-21-2">
-        <h2 id="funktionen">Funktionen</h2>
-<p>Definition:</p>
-<pre><code class="language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">sum</span><span class="hljs-params">(a, b)</span>:</span>
-    <span class="hljs-keyword">return</span> a + b
-
-sum(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>) <span class="hljs-comment"># 3</span></code></pre>
-
-      </section><section class="slide" id="slide-21-3">
-        <h2 id="standard-parameter--optionale-parameter">Standard-Parameter / optionale Parameter</h2>
-<p>Parameter können einen Standardwert haben. Dieser wird verwendet, wenn kein expliziter anderer Wert übergeben wird.</p>
-<p>Beispiel:</p>
-<pre><code class="language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">shout</span><span class="hljs-params">(phrase, end=<span class="hljs-string">"!"</span>)</span>:</span>
-    print(phrase.upper() + end)
-
-shout(<span class="hljs-string">"hello"</span>) <span class="hljs-comment"># HELLO!</span>
-shout(<span class="hljs-string">"hi"</span>, <span class="hljs-string">"."</span>) <span class="hljs-comment"># HI.</span></code></pre>
-
-      </section><section class="slide" id="slide-21-4">
         <h2 id="beliebige-anzahl-an-parametern-args--kwargs">Beliebige Anzahl an Parametern (args / kwargs)</h2>
 <pre><code class="language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">foo</span><span class="hljs-params">(*args, **kwargs)</span>:</span>
     print(args)
@@ -1083,36 +1065,35 @@ shout(<span class="hljs-string">"hi"</span>, <span class="hljs-string">"."</span
 foo(<span class="hljs-string">"one"</span>, <span class="hljs-string">"two"</span>, x=<span class="hljs-string">"hello"</span>)
 <span class="hljs-comment"># args: ("one", "two")</span>
 <span class="hljs-comment"># kwargs: {"x": "hello"}</span></code></pre>
+<p><code>args</code> ist ein Tupel, <code>kwargs</code> ein Dictionary.</p>
 
-      </section><section class="slide" id="slide-21-5">
+      </section><section class="slide" id="slide-21-3">
         <h2 id="beispiel">Beispiel</h2>
 <p>Aufgabe: &quot;Nachbau&quot; von <code>range()</code></p>
 
-      </section><section class="slide" id="slide-21-6">
-        <h2 id="globaler-und-lokaler-scope">Globaler und lokaler scope</h2>
+      </section><section class="slide" id="slide-21-4">
+        <h2 id="globaler-und-lokaler-scope">Globaler und lokaler Scope</h2>
 <p><code>global</code> / <code>nonlocal</code></p>
 <p>Spielt beim <em>Zuweisen</em> von Variablen eine Rolle</p>
 
-      </section><section class="slide" id="slide-21-7">
+      </section><section class="slide" id="slide-21-5">
         <h2 id="call-by-sharing">Call by sharing</h2>
+<p>In Python werden Werte mittels <em>call by sharing</em> an Funktionen übergeben (ähnlich wie <em>call by reference</em> in anderen Sprachen)</p>
+<p>Dies bedeutet: Eine Funktion <em>kann</em> übergebene Parameter abändern - und wir sollten darauf achten, das in der Praxis nicht zu tun</p>
 
-      </section><section class="slide" id="slide-21-8">
-        <h2 id="call-by-sharing">Call by sharing</h2>
-<p>Java / C:</p>
-<ul>
-<li>call by reference</li>
-<li>call by value</li>
-</ul>
-
-      </section><section class="slide" id="slide-21-9">
+      </section><section class="slide" id="slide-21-6">
         <h2 id="call-by-sharing">Call by sharing</h2>
 <p>Beispiel:</p>
-<pre><code class="language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">modify1</span><span class="hljs-params">(mylist)</span>:</span>
+<pre><code class="language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">modify_a</span><span class="hljs-params">(mylist)</span>:</span>
     mylist.append(<span class="hljs-number">1</span>)
     <span class="hljs-keyword">return</span> mylist
 
-<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">modify2</span><span class="hljs-params">(mylist)</span>:</span>
-    <span class="hljs-keyword">return</span> mylist + [<span class="hljs-number">1</span>]</code></pre>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">modify_b</span><span class="hljs-params">(mylist)</span>:</span>
+    <span class="hljs-keyword">return</span> mylist + [<span class="hljs-number">1</span>]
+
+list1 = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>]
+list2 = modify_a(list1)
+print(list1) <span class="hljs-comment"># [1, 2, 1]</span></code></pre>
 
       </section></section><section class="section" id="section-22"><section class="slide" id="slide-22-1">
         <h1 id="reine-funktionen">Reine Funktionen</h1>
@@ -1196,7 +1177,7 @@ fib(<span class="hljs-number">25</span>)</code></pre>
 </ul>
 
       </section><section class="slide" id="slide-24-3">
-        <h2 id="beispiele-für-imports">Beispiele für imports</h2>
+        <h2 id="beispiele-für-imports">Beispiele für Imports</h2>
 <pre><code class="language-py"><span class="hljs-keyword">import</span> module1
 <span class="hljs-keyword">import</span> package1.module2
 
@@ -1214,11 +1195,39 @@ fib(<span class="hljs-number">25</span>)</code></pre>
 </ul>
 
       </section><section class="slide" id="slide-24-5">
+        <h2 id="konventionen-für-imports">Konventionen für Imports</h2>
+<ul>
+<li>alle imports <em>sollten</em> am Anfang einer Python-Datei stehen</li>
+<li>die imports <em>sollten</em> in drei Gruppen geteilt werden:<ul>
+<li>standard Library</li>
+<li>andere Libraries</li>
+<li>projektinterne Module</li>
+</ul>
+</li>
+</ul>
+
+      </section><section class="slide" id="slide-24-6">
+        <h2 id="auflösen-von-imports">Auflösen von Imports</h2>
+<p>Suchreihenfolge:</p>
+<ul>
+<li>Verzeichnis, in dem das ursprünglich ausgeführte Python Skript liegt</li>
+<li>Standardlibrary</li>
+<li>externe Libraries</li>
+</ul>
+<p>Vermeide Namensgleichheit mit existierenden Modulen / Paketen!</p>
+
+      </section><section class="slide" id="slide-24-7">
+        <h2 id="auflösen-von-imports">Auflösen von Imports</h2>
+<p>Alle Pfade für Imports sehen wir via:</p>
+<pre><code class="language-py"><span class="hljs-keyword">import</span> sys
+print(sys.path)</code></pre>
+
+      </section><section class="slide" id="slide-24-8">
         <h2 id="kompilieren-von-modulen">Kompilieren von Modulen</h2>
 <p>Importierte Module werden in kompilierter Form abgelegt, um später schneller eingelesen werden zu können.</p>
 <p>Wir finden die kompilierten Versionen im Ordner <code>__pycache__</code></p>
 
-      </section><section class="slide" id="slide-24-6">
+      </section><section class="slide" id="slide-24-9">
         <h2 id="achtung-circular-imports-vermeiden">Achtung: circular imports vermeiden</h2>
 
       </section></section><section class="section" id="section-25"><section class="slide" id="slide-25-1">

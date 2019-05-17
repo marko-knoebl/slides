@@ -24,12 +24,12 @@ open("todos.txt", mode="ta")
 
 ## File modes
 
-- `t`: text mode (standard)
+- `t`: text mode (default)
 - `b`: binary
 
 <!-- list-separator -->
 
-- `r`: reading (standard)
+- `r`: reading (default)
 - `w`: (over)writing
 - `a`: appending
 
@@ -95,7 +95,7 @@ open("file.txt", encoding="utf-8")
 
 Objects that support using `.read()` or `.write()` etc:
 
-- files (zB via `open()`)
+- files (e.g. via `open()`)
 - `sys.stdout`, `sys.stdin`
   - example: `sys.stdin.readline()`
 - Network replies, e.g. via `urllib.request.urlopen('https://google.com')`

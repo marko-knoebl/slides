@@ -436,9 +436,9 @@ SELECT first_name, last_name, tel FROM person;
 
 ## Allgemeine SQL Syntax
 
-Tabellen- und Spaltennamen werden von SQL in Großschreibweise übertragen, z.B. `first_name` → `FIRST_NAME`, `person` → `PERSON`
+Tabellen- und Spaltennamen werden von SQL in Großschreibweise konvertiert, z.B. `first_name` → `FIRST_NAME`, `person` → `PERSON`
 
-Ausnahme: In _PostgreSQL_ werden Namen in Kleinschreibweise übertragen
+Ausnahme: In _PostgreSQL_ werden Namen in Kleinschreibweise konvertiert
 
 ## Allgemeine SQL Syntax
 

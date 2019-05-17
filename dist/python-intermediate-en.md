@@ -1018,14 +1018,138 @@ class MoneyParseException(Exception):
 raise MoneyParseException()
 ```
 
-# Modules and Packages
+# Functions
 
-## Modules and Packages
+## Arbitrary number of Arguments (args / kwargs)
+
+```py
+def foo(*args, **kwargs):
+    print(args)
+    print(kwargs)
+
+foo("one", "two", x="hello")
+# args: ("one", "two")
+# kwargs: {"x": "hello"}
+```
+
+`args` will be a tuple, `kwargs` will be a dictionary
+
+## Example
+
+Task: recreate `range()`
+
+## Global and local scope
+
+`global` / `nonlocal`
+
+change the behavior of _assignments_
+
+## Call by sharing
+
+In Python values are passed to functions via _call by sharing_ (similar to _call by reference_ in other languages)
+
+This means: A function _may_ mutate parameters that are passed in - and we should usually make sure not to do so
+
+## Call by sharing
+
+Example:
+
+```py
+def modify_a(mylist):
+    mylist.append(1)
+    return mylist
+
+def modify_b(mylist):
+    return mylist + [1]
+
+list1 = [1, 2]
+list2 = modify_a(list1)
+print(list1) # [1, 2, 1]
+```
+
+# Pure functions
+
+## Pure functions
+
+Pure functions are functions which only interact with their environment via input parameters and return values
+
+in particular, this means:
+
+- no reading / writing of variables outside of the function
+- no I/O (no access to disk / network)
+- no mutating of objects that are passed in
+
+## Pure functions
+
+Advantages of pure functions
+
+- easily reusable (as they are independent of their environment)
+- easy to test
+
+## Pure functions
+
+Example of a function which isn't pure:
+
+```py
+def remove_negatives(numbers):
+    i = 0
+    while i < len(numbers):
+        if numbers[i] < 0:
+            numbers.pop(i)
+    return numbers
+
+a = [2, 4, -1, -2, 0]
+b = remove_negatives(a)
+```
+
+## Pure functions
+
+A pure function as an alternative:
+
+```py
+def remove_negatives(numbers):
+    nonnegatives = []
+    for n in numbers:
+        if n >= 0:
+            nonnegatives.append(n)
+    return nonnegatives
+```
+
+Note: in Python the ideal solution would be using list comprehensions
+
+# Recursive functions
+
+## Recursive functions
+
+Functions that call themselves
+
+## Recursive function
+
+Task: fibonacci sequence
+
+```py
+# 0 1 1 2 3 5 8 13 21 34 55 89 ...
+
+fib(3)
+
+fib(25)
+```
+
+## Recursion with Turtle graphics
+
+## Exercises
+
+- babylonian method for finding square roots
+- trees with turtle graphics
+
+# Modules and packages
+
+## Modules and packages
 
 - Module = Python file from which objects can be imported
 - Package = directory that includes Python modules
 
-## example imports
+## Example imports
 
 ```py
 import module1
@@ -1037,23 +1161,50 @@ from package1.module2 import myobject
 from package1.module2 import *
 ```
 
-## example imports: urllib
+## Example imports: urllib
 
 - `urllib` = package
 - `urllib.request` = modules
 - `urllib.request.urlopen` = function
 
-## compilation of modules
+## Conventions for imports
+
+- all imports in a Python file _should_ be at the start of the file
+- imports _should_ be split into three groups:
+  - imports from the standard library
+  - imports from other libraries
+  - imports within the project
+
+## Resolving imports
+
+Search order:
+
+- directory of the Python script that was executed
+- standard library
+- external libraries
+
+Avoid name clashes with existing modules / packages!
+
+## Resolving imports
+
+To see all search paths for imports:
+
+```py
+import sys
+print(sys.path)
+```
+
+## Compilation of modules
 
 Imported modules will be saved in a compiled form, making subsequent loading of the modules faster.
 
 Compiled versions will be saved in the folder `__pycache__`
 
-## be careful: avoid circular imports
+## Be careful: avoid circular imports
 
 # Object-oriented programming and classes
 
-## object orientation in Python "Everything is an object"
+## Object orientation in Python: "Everything is an object"
 
 ```py
 a = 20
@@ -1063,7 +1214,7 @@ a.to_bytes(1, "big")
 "hello".upper()
 ```
 
-## types and instances
+## Types and instances
 
 ```py
 message = "hello"
@@ -1073,7 +1224,7 @@ type(message)
 isinstance(message, str)
 ```
 
-## classes
+## Classes
 
 Classes may represent _various_ things, e.g.:
 
@@ -1084,21 +1235,21 @@ Classes may represent _various_ things, e.g.:
 - a bank account
 - ...
 
-## classes
+## Classes
 
 The definition of a class usually encompasses:
 
 - a "data structure" (attributes)
 - a "behaviour" (methods)
 
-## classes
+## Classes
 
 example: class `BankAccount`
 
 - "data structure" (attributes)
 - "behaviour" (methods)
 
-## defining classes
+## Defining classes
 
 ```py
 class MyClass():

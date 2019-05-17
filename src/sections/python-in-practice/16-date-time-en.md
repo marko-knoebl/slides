@@ -1,16 +1,16 @@
-# Datum und Zeit
+# Date and time
 
-## Datum und Zeit
+## Date and time
 
-Python-Pakete:
+Python packages:
 
 ### datetime
 
-Arbeiten mit Zeiten und Datumsangaben
+Working with times and dates
 
 ### time
 
-Arbeiten mit Unix-Timestamps, sleep
+Working with Unix timestamps, sleep
 
 ## datetime
 
@@ -42,7 +42,7 @@ for i in range(10):
 
 ## time.time
 
-aktuelle Unix-Zeit (Sekunden seit 1970-01-01 00:00:00 UTC)
+current Unix time (seconds since 1970-01-01 00:00:00 UTC)
 
 ```py
 import time

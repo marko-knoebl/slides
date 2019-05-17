@@ -1,6 +1,6 @@
-# VS Code - Setup für Python
+# VS Code - setup for Python
 
-## VS Code - Setup for Python
+## VS Code - setup for Python
 
 File - Settings - Preferences
 

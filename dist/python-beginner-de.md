@@ -384,7 +384,7 @@ Analog für andere Datantypen: `str()`, `float()`, `bool()`
 
 ## Übung: Alter anhand Geburtsjahr
 
-Schreibe ein Programm namens `age.py`, das den Benutzer nach seinem Geburtsjahr fragt und dann angibt, wie alt diese Person im Jahr 2018 wird.
+Schreibe ein Programm namens `age.py`, das den Benutzer nach seinem Geburtsjahr fragt und dann angibt, wie alt diese Person im Jahr 2019 wird.
 
 ## Übung: Länge des Namens
 
@@ -966,6 +966,18 @@ Beispiel:
 def average(a, b):
     m = (a + b) / 2
     return m
+```
+
+## Optionale Parameter und Standardwerte
+
+Folgendermaßen definieren wir Standardwerte für Parameter:
+
+```py
+def shout(phrase, end="!"):
+    print(phrase.upper() + end)
+
+shout("hello") # HELLO!
+shout("hi", ".") # HI.
 ```
 
 ## Scope
