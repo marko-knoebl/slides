@@ -10,6 +10,18 @@ def average(a, b):
     return m
 ```
 
+## Optional parameters and default parameters
+
+This is how we define default values for parameters:
+
+```py
+def shout(phrase, end="!"):
+    print(phrase.upper() + end)
+
+shout("hello") # HELLO!
+shout("hi", ".") # HI.
+```
+
 ## Scope
 
 A function definition creates a new _scope_, an area where variables are valid

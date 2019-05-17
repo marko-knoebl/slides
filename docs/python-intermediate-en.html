@@ -857,16 +857,192 @@ neighbors = {
         <h2 id="task-find-the-route-from-any-country-to-another">Task: Find the &quot;route&quot; from any country to another</h2>
 
       </section></section><section class="section" id="section-16"><section class="slide" id="slide-16-1">
-        <h1 id="modules-and-packages">Modules and Packages</h1>
+        <h1 id="control-structures">Control structures</h1>
 
       </section><section class="slide" id="slide-16-2">
+        <h2 id="control-structures">Control structures</h2>
+<ul>
+<li><code>if</code></li>
+<li>loops<ul>
+<li><code>while</code></li>
+<li><code>for ... in ...</code></li>
+<li><code>for ... in range()</code></li>
+</ul>
+</li>
+<li><code>try ... except ...</code></li>
+</ul>
+
+      </section></section><section class="section" id="section-17"><section class="slide" id="slide-17-1">
+        <h1 id="if">if</h1>
+
+      </section><section class="slide" id="slide-17-2">
+        <h2 id="if">if</h2>
+<p>From a previous example:</p>
+<pre><code class="language-py"><span class="hljs-keyword">if</span> age_seconds &lt; <span class="hljs-number">1000000000</span>:
+    print(<span class="hljs-string">"You are less than 1 billion seconds old"</span>)
+<span class="hljs-keyword">else</span>:
+    print(<span class="hljs-string">"You are older than 1 billion seconds"</span>)</code></pre>
+
+      </section><section class="slide" id="slide-17-3">
+        <h2 id="conditions">Conditions</h2>
+<p>When using conditions for <code>if</code> / <code>while</code> we usually use expressions that evaluate to boolean values.</p>
+<p>However, we can also use other types:</p>
+<pre><code class="language-py">a = <span class="hljs-number">0</span>
+<span class="hljs-keyword">if</span> a: ...
+name = input(<span class="hljs-string">"enter your name"</span>)
+<span class="hljs-keyword">if</span> name: ...
+products = []
+<span class="hljs-keyword">if</span> products: ...</code></pre>
+
+      </section><section class="slide" id="slide-17-4">
+        <h2 id="conditions">Conditions</h2>
+<p>Any value may be used as a condition in Python. Most values will be &quot;truthy&quot;.</p>
+<p>Only these values are considered &quot;falsy&quot;:</p>
+<ul>
+<li><code>False</code></li>
+<li><code>0</code>, <code>0.0</code></li>
+<li><code>None</code></li>
+<li>empty collections / sequences (<code>&quot;&quot;</code>, <code>[]</code>, <code>()</code>, <code>{}</code>)</li>
+<li>(before Python 3.5: <code>datetime.time(0, 0, 0)</code>)</li>
+</ul>
+
+      </section><section class="slide" id="slide-17-5">
+        <h2 id="conditions">Conditions</h2>
+<p>Not &quot;pythonic&quot;:</p>
+<pre><code class="language-py">name = input(<span class="hljs-string">"Enter your name:"</span>)
+<span class="hljs-keyword">if</span> name != <span class="hljs-string">""</span>:
+    ...</code></pre>
+<p>&quot;pythonic&quot; version:</p>
+<pre><code class="language-py">name = input(<span class="hljs-string">"Enter your name:"</span>)
+<span class="hljs-keyword">if</span> name:
+    ...</code></pre>
+
+      </section><section class="slide" id="slide-17-6">
+        <h2 id="if-expressions">if expressions</h2>
+<p>An expression that evaluates to one of two possibilities based on a boolean criterion</p>
+<pre><code class="language-py">size = <span class="hljs-string">'small'</span> <span class="hljs-keyword">if</span> length &lt; <span class="hljs-number">110</span> <span class="hljs-keyword">else</span> <span class="hljs-string">'big'</span></code></pre>
+<p>in other languages this could be written as:</p>
+<pre><code class="language-js"><span class="hljs-comment">// JavaScript</span>
+size = length &lt; <span class="hljs-number">110</span> ? <span class="hljs-string">'small'</span> : <span class="hljs-string">'big'</span>;</code></pre>
+
+      </section></section><section class="section" id="section-18"><section class="slide" id="slide-18-1">
+        <h1 id="loops">Loops</h1>
+
+      </section><section class="slide" id="slide-18-2">
+        <h2 id="loops">Loops</h2>
+<p>Exercise: Multiplication table</p>
+
+      </section><section class="slide" id="slide-18-3">
+        <h2 id="continue--break">Continue &amp; break</h2>
+<p>The keywords <code>continue</code> and <code>break</code> may be used to end the current iteration or the entire loop respectively.</p>
+<p>In nested loops they refer to the innermost loop.</p>
+
+      </section><section class="slide" id="slide-18-4">
+        <h2 id="for--else">for ... else</h2>
+<p>A for loop can have an optional else clause</p>
+<p>It will be executed if the loop finishes normally - i.e. if Python does not encounter a <code>break</code> or <code>return</code> statement</p>
+
+      </section><section class="slide" id="slide-18-5">
+        <h2 id="for--else">for ... else</h2>
+<p>This functionality is not present in any other widespread language</p>
+<p>Many Python developers don&#39;t know it either</p>
+<p>Quote from Python&#39;s inventor:</p>
+<blockquote>
+<p>I would not have the feature at all if I had to do it over.</p>
+</blockquote>
+
+      </section><section class="slide" id="slide-18-6">
+        <h2 id="exercises">Exercises</h2>
+<ul>
+<li><code>is_prime()</code> with loops and <code>for ... else</code></li>
+</ul>
+
+      </section></section><section class="section" id="section-19"><section class="slide" id="slide-19-1">
+        <h1 id="exceptions">Exceptions</h1>
+
+      </section><section class="slide" id="slide-19-2">
+        <h2 id="types-of-exceptions">Types of exceptions</h2>
+<ul>
+<li>AssertionError</li>
+<li>AttributeError, IndexError, KeyError</li>
+<li>NameError</li>
+<li>TypeError</li>
+<li>ValueError</li>
+<li>IOError</li>
+<li>ZeroDivisionError</li>
+<li>...</li>
+</ul>
+
+      </section><section class="slide" id="slide-19-3">
+        <h2 id="catching-exceptions">Catching exceptions</h2>
+<pre><code class="language-py">age_str = input(<span class="hljs-string">"Enter your age"</span>)
+<span class="hljs-keyword">try</span>:
+    age = int(age_str)
+<span class="hljs-keyword">except</span> ValueError:
+    print(<span class="hljs-string">"Could not parse input as number"</span>)</code></pre>
+
+      </section><section class="slide" id="slide-19-4">
+        <h2 id="catching-exceptions">Catching exceptions</h2>
+<pre><code class="language-py">age_str = input(<span class="hljs-string">"Enter your age"</span>)
+<span class="hljs-keyword">try</span>:
+    age = int(age_str)
+<span class="hljs-keyword">except</span> ValueError <span class="hljs-keyword">as</span> e:
+    print(<span class="hljs-string">"Could not parse input as number"</span>)
+    print(e)
+    print(e.args)</code></pre>
+
+      </section><section class="slide" id="slide-19-5">
+        <h2 id="exceptions-with-finally-and-else">Exceptions with finally and else</h2>
+<pre><code class="language-py"><span class="hljs-keyword">try</span>:
+    file = open(<span class="hljs-string">"log.txt"</span>, <span class="hljs-string">"w"</span>, encoding=<span class="hljs-string">"utf-8"</span>)
+<span class="hljs-keyword">except</span> IOError:
+    print(<span class="hljs-string">"could not open file"</span>)
+<span class="hljs-keyword">else</span>:
+    file.write(<span class="hljs-string">"abc"</span>)
+    file.write(<span class="hljs-string">"def"</span>)
+<span class="hljs-keyword">finally</span>:
+    file.close()</code></pre>
+
+      </section><section class="slide" id="slide-19-6">
+        <h2 id="python-philosophy-eafp">Python philosophy: EAFP</h2>
+<p>LBYL: <em>Look before you leap</em></p>
+<p>EAFP: <em>It&#39;s easier to ask for forgiveness than permission</em></p>
+<p>(example: parsing numbers)</p>
+
+      </section></section><section class="section" id="section-20"><section class="slide" id="slide-20-1">
+        <h1 id="raising-exceptions">Raising exceptions</h1>
+
+      </section><section class="slide" id="slide-20-2">
+        <h2 id="raising-exceptions">Raising exceptions</h2>
+<pre><code class="language-py"><span class="hljs-keyword">raise</span> ValueError(<span class="hljs-string">'test'</span>)</code></pre>
+
+      </section><section class="slide" id="slide-20-3">
+        <h2 id="re-raising-caught-exceptions">Re-raising caught exceptions</h2>
+<pre><code class="language-py"><span class="hljs-keyword">try</span>:
+    ...
+<span class="hljs-keyword">except</span> ClientError <span class="hljs-keyword">as</span> e
+    <span class="hljs-keyword">if</span> <span class="hljs-string">"DryRunOperation"</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> str(e):
+        <span class="hljs-keyword">raise</span></code></pre>
+
+      </section><section class="slide" id="slide-20-4">
+        <h2 id="custom-exceptions">Custom exceptions</h2>
+<p>We can define custom exceptions as subclasses of other exception classes:</p>
+<pre><code class="language-py"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MoneyParseException</span><span class="hljs-params">(Exception)</span>:</span>
+    <span class="hljs-keyword">pass</span>
+
+<span class="hljs-keyword">raise</span> MoneyParseException()</code></pre>
+
+      </section></section><section class="section" id="section-21"><section class="slide" id="slide-21-1">
+        <h1 id="modules-and-packages">Modules and Packages</h1>
+
+      </section><section class="slide" id="slide-21-2">
         <h2 id="modules-and-packages">Modules and Packages</h2>
 <ul>
 <li>Module = Python file from which objects can be imported</li>
 <li>Package = directory that includes Python modules</li>
 </ul>
 
-      </section><section class="slide" id="slide-16-3">
+      </section><section class="slide" id="slide-21-3">
         <h2 id="example-imports">example imports</h2>
 <pre><code class="language-py"><span class="hljs-keyword">import</span> module1
 <span class="hljs-keyword">import</span> package1.module2
@@ -876,7 +1052,7 @@ neighbors = {
 
 <span class="hljs-keyword">from</span> package1.module2 <span class="hljs-keyword">import</span> *</code></pre>
 
-      </section><section class="slide" id="slide-16-4">
+      </section><section class="slide" id="slide-21-4">
         <h2 id="example-imports-urllib">example imports: urllib</h2>
 <ul>
 <li><code>urllib</code> = package</li>
@@ -884,18 +1060,18 @@ neighbors = {
 <li><code>urllib.request.urlopen</code> = function</li>
 </ul>
 
-      </section><section class="slide" id="slide-16-5">
+      </section><section class="slide" id="slide-21-5">
         <h2 id="compilation-of-modules">compilation of modules</h2>
 <p>Imported modules will be saved in a compiled form, making subsequent loading of the modules faster.</p>
 <p>Compiled versions will be saved in the folder <code>__pycache__</code></p>
 
-      </section><section class="slide" id="slide-16-6">
+      </section><section class="slide" id="slide-21-6">
         <h2 id="be-careful-avoid-circular-imports">be careful: avoid circular imports</h2>
 
-      </section></section><section class="section" id="section-17"><section class="slide" id="slide-17-1">
+      </section></section><section class="section" id="section-22"><section class="slide" id="slide-22-1">
         <h1 id="object-oriented-programming-and-classes">Object-oriented programming and classes</h1>
 
-      </section><section class="slide" id="slide-17-2">
+      </section><section class="slide" id="slide-22-2">
         <h2 id="object-orientation-in-python-everything-is-an-object">object orientation in Python &quot;Everything is an object&quot;</h2>
 <pre><code class="language-py">a = <span class="hljs-number">20</span>
 
@@ -903,7 +1079,7 @@ a.to_bytes(<span class="hljs-number">1</span>, <span class="hljs-string">"big"</
 
 <span class="hljs-string">"hello"</span>.upper()</code></pre>
 
-      </section><section class="slide" id="slide-17-3">
+      </section><section class="slide" id="slide-22-3">
         <h2 id="types-and-instances">types and instances</h2>
 <pre><code class="language-py">message = <span class="hljs-string">"hello"</span>
 
@@ -911,7 +1087,7 @@ type(message)
 
 isinstance(message, str)</code></pre>
 
-      </section><section class="slide" id="slide-17-4">
+      </section><section class="slide" id="slide-22-4">
         <h2 id="classes">classes</h2>
 <p>Classes may represent <em>various</em> things, e.g.:</p>
 <ul>
@@ -923,7 +1099,7 @@ isinstance(message, str)</code></pre>
 <li>...</li>
 </ul>
 
-      </section><section class="slide" id="slide-17-5">
+      </section><section class="slide" id="slide-22-5">
         <h2 id="classes">classes</h2>
 <p>The definition of a class usually encompasses:</p>
 <ul>
@@ -931,7 +1107,7 @@ isinstance(message, str)</code></pre>
 <li>a &quot;behaviour&quot; (methods)</li>
 </ul>
 
-      </section><section class="slide" id="slide-17-6">
+      </section><section class="slide" id="slide-22-6">
         <h2 id="classes">classes</h2>
 <p>example: class <code>BankAccount</code></p>
 <ul>
@@ -939,7 +1115,7 @@ isinstance(message, str)</code></pre>
 <li>&quot;behaviour&quot; (methods)</li>
 </ul>
 
-      </section><section class="slide" id="slide-17-7">
+      </section><section class="slide" id="slide-22-7">
         <h2 id="defining-classes">defining classes</h2>
 <pre><code class="language-py"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span><span class="hljs-params">()</span>:</span>
 
@@ -952,7 +1128,7 @@ isinstance(message, str)</code></pre>
 instance = MyClass()
 instance.message <span class="hljs-comment"># "hello"</span></code></pre>
 
-      </section><section class="slide" id="slide-17-8">
+      </section><section class="slide" id="slide-22-8">
         <h2 id="inheritance">Inheritance</h2>
 <pre><code class="language-py"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span><span class="hljs-params">()</span>:</span>
     ...
@@ -960,7 +1136,7 @@ instance.message <span class="hljs-comment"># "hello"</span></code></pre>
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Admin</span><span class="hljs-params">(Person)</span>:</span>
     ...</code></pre>
 
-      </section><section class="slide" id="slide-17-9">
+      </section><section class="slide" id="slide-22-9">
         <h2 id="example-class-money">Example: class &quot;Money&quot;</h2>
 <pre><code class="language-py">a = Money(<span class="hljs-string">'EUR'</span>, <span class="hljs-number">10</span>)
 b = Money(<span class="hljs-string">'USD'</span>, <span class="hljs-number">10</span>)
@@ -969,7 +1145,7 @@ a.currency
 
 a.amount</code></pre>
 
-      </section><section class="slide" id="slide-17-10">
+      </section><section class="slide" id="slide-22-10">
         <h2 id="exercise-classes-todolist-and-todo">Exercise: classes &quot;TodoList&quot; and &quot;Todo&quot;</h2>
 <pre><code class="language-py">tdl = TodoList(<span class="hljs-string">"groceries"</span>)
 

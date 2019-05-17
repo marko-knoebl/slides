@@ -13,17 +13,17 @@ else:
 
 ## Kriterien bei if
 
-Bei Kriterien für `if` und `while` verwenden wir üblicherweise Ausdrücke mit Vergleichsoperatoren wie `==`, `!=` oder `<`.
+Bei Kriterien für `if` und `while` verwenden wir üblicherweise Ausdrücke, die bei der Auswertung boolesche Werte ergeben.
 
-"""Es sind aber auch andere Konstrukte möglich:"""
+Wir könnten jedoch auch andere Typen verwenden:
 
 ```py
 a = 0
 if a: ...
-name = "Steven"
+name = input("enter your name")
 if name: ...
 products = []
-if products
+if products: ...
 ```
 
 ## Kriterien bei if
@@ -38,15 +38,35 @@ Folgende Werte gelten als "falsy":
 - leere Sammlungen (`""`, `[]`, `()`, `{}`)
 - Vor Python 3.5: Mitternacht (`datetime.time(0, 0, 0)`)
 
+## Kriterien bei if
+
+nicht "pythonic":
+
 ```py
-const name = input("Enter your name:")
-# not: if len(name) > 0:
+name = input("Enter your name:")
+if name != "":
+    ...
+```
+
+"pythonic":
+
+```py
+name = input("Enter your name:")
 if name:
     ...
 ```
 
-## if-Expression
+## if Expression
+
+Ein Ausdruck der einen von zwei möglichen Werten ergibt - basierend auf einem booleschen Kriterium
 
 ```py
-age = 'young' if age_seconds < 1000000000 else 'old'
+size = 'small' if length < 110 else 'big'
+```
+
+In anderen Sprachen:
+
+```js
+// JavaScript
+size = length < 110 ? 'small' : 'big';
 ```

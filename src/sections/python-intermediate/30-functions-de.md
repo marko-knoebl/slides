@@ -1,61 +1,5 @@
 # Funktionen
 
-## Funktionen
-
-Definition:
-
-```py
-def sum(a, b):
-    return a + b
-
-sum(1, 2) # 3
-```
-
-## Call by sharing
-
-## Call by sharing
-
-Java / C:
-
-- call by reference
-
-- call by value
-
-## Call by sharing
-
-Beispiel:
-
-```py
-def modify1(mylist):
-    mylist.append(1)
-    return mylist
-
-def modify2(mylist):
-    return mylist + [1]
-```
-
-## Globaler und lokaler scope
-
-`global` / `nonlocal`
-
-Spielt beim _Zuweisen_ von Variablen eine Rolle
-
-## Standard-Parameter
-
-Parameter können einen Standardwert haben. Dieser wird verwendet, wenn kein expliziter anderer Wert übergeben wird.
-
-Beispiel:
-
-```py
-def shout(phrase, end="!"):
-    print(phrase.upper() + end)
-
-shout("hallo") # HALLO!
-shout("hi", ".") # HI.
-```
-
-## Schlüsselwort-Parameter
-
 ## Beliebige Anzahl an Parametern (args / kwargs)
 
 ```py
@@ -68,47 +12,37 @@ foo("one", "two", x="hello")
 # kwargs: {"x": "hello"}
 ```
 
+`args` ist ein Tupel, `kwargs` ein Dictionary.
+
 ## Beispiel
 
 Aufgabe: "Nachbau" von `range()`
 
-## Reine Funktionen
+## Globaler und lokaler Scope
 
-Reine Funktionen sind Funktionen, die mit ihrer Umgebung nur über Eingabeparameter und Rückgabewerte interagieren
+`global` / `nonlocal`
 
-Das bedeutet insbesondere:
+Spielt beim _Zuweisen_ von Variablen eine Rolle
 
-- alle Eingabewerte werden über Parameter übergeben (die Funktion bekommt liest keine weiteren Variablen ein und interagiert auch nicht mit der Umwelt, z.B. durch das Lesen von Daten auf der Festplatte)
-- die Funktion verändert ihre Umwelt nicht; wenn sie veränderliche Objekte übergeben bekommt, ändert sie diese nicht ab
-- das Resultat des Funktionsaufrufs ist der Rückgabewert; sonst wird von der Funktion nichts geändert
+## Call by sharing
 
-## Reine Funktionen
+In Python werden Werte mittels _call by sharing_ an Funktionen übergeben (ähnlich wie _call by reference_ in anderen Sprachen)
 
-Beispiel für eine Funktion, die nicht rein ist:
+Dies bedeutet: Eine Funktion _kann_ übergebene Parameter abändern - und wir sollten darauf achten, das in der Praxis nicht zu tun
 
-```py
-def remove_negatives(numbers):
-    i = 0
-    while i < len(numbers):
-        if numbers[i] < 0:
-            numbers.pop(i)
-    return numbers
+## Call by sharing
 
-a = [2, 4, -1, -2, 0]
-b = remove_negatives(a)
-```
-
-## Reine Funktionen
-
-Reine Funktion als Alternative:
+Beispiel:
 
 ```py
-def remove_negatives(numbers):
-    nonnegatives = []
-    for n in numbers:
-        if n >= 0:
-            nonnegatives.append(n)
-    return nonnegatives
-```
+def modify_a(mylist):
+    mylist.append(1)
+    return mylist
 
-Anmerkung: In Python wäre die Ideallösung hier das verwenden von List Comprehensions
+def modify_b(mylist):
+    return mylist + [1]
+
+list1 = [1, 2]
+list2 = modify_a(list1)
+print(list1) # [1, 2, 1]
+```

@@ -816,6 +816,208 @@ neighbors = {
 
 ## Task: Find the "route" from any country to another
 
+# Control structures
+
+## Control structures
+
+- `if`
+- loops
+  - `while`
+  - `for ... in ...`
+  - `for ... in range()`
+- `try ... except ...`
+
+# if
+
+## if
+
+From a previous example:
+
+```py
+if age_seconds < 1000000000:
+    print("You are less than 1 billion seconds old")
+else:
+    print("You are older than 1 billion seconds")
+```
+
+## Conditions
+
+When using conditions for `if` / `while` we usually use expressions that evaluate to boolean values.
+
+However, we can also use other types:
+
+```py
+a = 0
+if a: ...
+name = input("enter your name")
+if name: ...
+products = []
+if products: ...
+```
+
+## Conditions
+
+Any value may be used as a condition in Python. Most values will be "truthy".
+
+Only these values are considered "falsy":
+
+- `False`
+- `0`, `0.0`
+- `None`
+- empty collections / sequences (`""`, `[]`, `()`, `{}`)
+- (before Python 3.5: `datetime.time(0, 0, 0)`)
+
+## Conditions
+
+Not "pythonic":
+
+```py
+name = input("Enter your name:")
+if name != "":
+    ...
+```
+
+"pythonic" version:
+
+```py
+name = input("Enter your name:")
+if name:
+    ...
+```
+
+## if expressions
+
+An expression that evaluates to one of two possibilities based on a boolean criterion
+
+```py
+size = 'small' if length < 110 else 'big'
+```
+
+in other languages this could be written as:
+
+```js
+// JavaScript
+size = length < 110 ? 'small' : 'big';
+```
+
+# Loops
+
+## Loops
+
+Exercise: Multiplication table
+
+## Continue & break
+
+The keywords `continue` and `break` may be used to end the current iteration or the entire loop respectively.
+
+In nested loops they refer to the innermost loop.
+
+## for ... else
+
+A for loop can have an optional else clause
+
+It will be executed if the loop finishes normally - i.e. if Python does not encounter a `break` or `return` statement
+
+## for ... else
+
+This functionality is not present in any other widespread language
+
+Many Python developers don't know it either
+
+Quote from Python's inventor:
+
+> I would not have the feature at all if I had to do it over.
+
+## Exercises
+
+- `is_prime()` with loops and `for ... else`
+
+# Exceptions
+
+## Types of exceptions
+
+- AssertionError
+- AttributeError, IndexError, KeyError
+- NameError
+- TypeError
+- ValueError
+- IOError
+- ZeroDivisionError
+- ...
+
+## Catching exceptions
+
+```py
+age_str = input("Enter your age")
+try:
+    age = int(age_str)
+except ValueError:
+    print("Could not parse input as number")
+```
+
+## Catching exceptions
+
+```py
+age_str = input("Enter your age")
+try:
+    age = int(age_str)
+except ValueError as e:
+    print("Could not parse input as number")
+    print(e)
+    print(e.args)
+```
+
+## Exceptions with finally and else
+
+```py
+try:
+    file = open("log.txt", "w", encoding="utf-8")
+except IOError:
+    print("could not open file")
+else:
+    file.write("abc")
+    file.write("def")
+finally:
+    file.close()
+```
+
+## Python philosophy: EAFP
+
+LBYL: _Look before you leap_
+
+EAFP: _It's easier to ask for forgiveness than permission_
+
+(example: parsing numbers)
+
+# Raising exceptions
+
+## Raising exceptions
+
+```py
+raise ValueError('test')
+```
+
+## Re-raising caught exceptions
+
+```py
+try:
+    ...
+except ClientError as e
+    if "DryRunOperation" not in str(e):
+        raise
+```
+
+## Custom exceptions
+
+We can define custom exceptions as subclasses of other exception classes:
+
+```py
+class MoneyParseException(Exception):
+    pass
+
+raise MoneyParseException()
+```
+
 # Modules and Packages
 
 ## Modules and Packages

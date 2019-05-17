@@ -10,6 +10,18 @@ def average(a, b):
     return m
 ```
 
+## Optionale Parameter und Standardwerte
+
+Folgendermaßen definieren wir Standardwerte für Parameter:
+
+```py
+def shout(phrase, end="!"):
+    print(phrase.upper() + end)
+
+shout("hello") # HELLO!
+shout("hi", ".") # HI.
+```
+
 ## Scope
 
 Eine Funktionsdefinition öffnet einen neuen _Scope_, einen Geltungsbereich für Variablen

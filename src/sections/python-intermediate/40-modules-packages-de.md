@@ -5,7 +5,7 @@
 - Modul = Python-Datei, aus der Objekte importiert werden können
 - Paket = Verzeichnis, in dem Python-Module abgelegt sind
 
-## Beispiele für imports
+## Beispiele für Imports
 
 ```py
 import module1
@@ -22,6 +22,33 @@ from package1.module2 import *
 - `urllib` = Paket
 - `urllib.request` = Modul
 - `urllib.request.urlopen` = Funktion
+
+## Konventionen für Imports
+
+- alle imports _sollten_ am Anfang einer Python-Datei stehen
+- die imports _sollten_ in drei Gruppen geteilt werden:
+  - standard Library
+  - andere Libraries
+  - projektinterne Module
+
+## Auflösen von Imports
+
+Suchreihenfolge:
+
+- Verzeichnis, in dem das ursprünglich ausgeführte Python Skript liegt
+- Standardlibrary
+- externe Libraries
+
+Vermeide Namensgleichheit mit existierenden Modulen / Paketen!
+
+## Auflösen von Imports
+
+Alle Pfade für Imports sehen wir via:
+
+```py
+import sys
+print(sys.path)
+```
 
 ## Kompilieren von Modulen
 

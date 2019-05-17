@@ -21,4 +21,4 @@ fib(25)
 ## Aufgaben zu Rekursion
 
 - Babylonisches Wurzelziehen
-- Bäume mit Turtel-Grafik
+- Bäume mit Turtle-Grafik

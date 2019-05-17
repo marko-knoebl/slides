@@ -18,4 +18,6 @@ Diese Funktionalität gibt es bei keiner anderen verbreiteten Programmiersprache
 
 > I would not have the feature at all if I had to do it over.
 
-## Beispiel: is_prime()
+## Beispiele
+
+- `is_prime()` mit Schleifen und `for ... else`

@@ -847,17 +847,17 @@ else:
 
 ## Kriterien bei if
 
-Bei Kriterien für `if` und `while` verwenden wir üblicherweise Ausdrücke mit Vergleichsoperatoren wie `==`, `!=` oder `<`.
+Bei Kriterien für `if` und `while` verwenden wir üblicherweise Ausdrücke, die bei der Auswertung boolesche Werte ergeben.
 
-"""Es sind aber auch andere Konstrukte möglich:"""
+Wir könnten jedoch auch andere Typen verwenden:
 
 ```py
 a = 0
 if a: ...
-name = "Steven"
+name = input("enter your name")
 if name: ...
 products = []
-if products
+if products: ...
 ```
 
 ## Kriterien bei if
@@ -872,17 +872,37 @@ Folgende Werte gelten als "falsy":
 - leere Sammlungen (`""`, `[]`, `()`, `{}`)
 - Vor Python 3.5: Mitternacht (`datetime.time(0, 0, 0)`)
 
+## Kriterien bei if
+
+nicht "pythonic":
+
 ```py
-const name = input("Enter your name:")
-# not: if len(name) > 0:
+name = input("Enter your name:")
+if name != "":
+    ...
+```
+
+"pythonic":
+
+```py
+name = input("Enter your name:")
 if name:
     ...
 ```
 
-## if-Expression
+## if Expression
+
+Ein Ausdruck der einen von zwei möglichen Werten ergibt - basierend auf einem booleschen Kriterium
 
 ```py
-age = 'young' if age_seconds < 1000000000 else 'old'
+size = 'small' if length < 110 else 'big'
+```
+
+In anderen Sprachen:
+
+```js
+// JavaScript
+size = length < 110 ? 'small' : 'big';
 ```
 
 # Schleifen
@@ -905,11 +925,13 @@ Diese Funktionalität gibt es bei keiner anderen verbreiteten Programmiersprache
 
 > I would not have the feature at all if I had to do it over.
 
-## Beispiel: is_prime()
+## Beispiele
+
+- `is_prime()` mit Schleifen und `for ... else`
 
 # Exceptions (Ausnahmen)
 
-## Arten von Exceptions (Auswahl)
+## Arten von Exceptions
 
 - AssertionError
 - AttributeError, IndexError, KeyError
@@ -918,6 +940,7 @@ Diese Funktionalität gibt es bei keiner anderen verbreiteten Programmiersprache
 - ValueError
 - IOError
 - ZeroDivisionError
+- ...
 
 ## Exceptions abfangen
 
@@ -973,6 +996,35 @@ EAFP: _It's easier to ask for forgiveness than permission_
 
 (Beispiel: Parsen von Zahlen)
 
+# Exceptions auslösen
+
+## Exceptions auslösen
+
+```py
+raise ValueError('test')
+```
+
+## Abgefangene exceptions erneut auslösen
+
+```py
+try:
+    ...
+except ClientError as e
+    if "DryRunOperation" not in str(e):
+        raise
+```
+
+## Eigene exceptions
+
+Eigene exceptions können wir als Unterklassen von `Exception` definieren
+
+```py
+class MoneyParseException(Exception):
+    pass
+
+raise MoneyParseException()
+```
+
 # Funktionen
 
 ## Funktionen
@@ -986,36 +1038,7 @@ def sum(a, b):
 sum(1, 2) # 3
 ```
 
-## Call by sharing
-
-## Call by sharing
-
-Java / C:
-
-- call by reference
-
-- call by value
-
-## Call by sharing
-
-Beispiel:
-
-```py
-def modify1(mylist):
-    mylist.append(1)
-    return mylist
-
-def modify2(mylist):
-    return mylist + [1]
-```
-
-## Globaler und lokaler scope
-
-`global` / `nonlocal`
-
-Spielt beim _Zuweisen_ von Variablen eine Rolle
-
-## Standard-Parameter
+## Standard-Parameter / optionale Parameter
 
 Parameter können einen Standardwert haben. Dieser wird verwendet, wenn kein expliziter anderer Wert übergeben wird.
 
@@ -1025,11 +1048,9 @@ Beispiel:
 def shout(phrase, end="!"):
     print(phrase.upper() + end)
 
-shout("hallo") # HALLO!
+shout("hello") # HELLO!
 shout("hi", ".") # HI.
 ```
-
-## Schlüsselwort-Parameter
 
 ## Beliebige Anzahl an Parametern (args / kwargs)
 
@@ -1047,15 +1068,52 @@ foo("one", "two", x="hello")
 
 Aufgabe: "Nachbau" von `range()`
 
+## Globaler und lokaler scope
+
+`global` / `nonlocal`
+
+Spielt beim _Zuweisen_ von Variablen eine Rolle
+
+## Call by sharing
+
+## Call by sharing
+
+Java / C:
+
+- call by reference
+- call by value
+
+## Call by sharing
+
+Beispiel:
+
+```py
+def modify1(mylist):
+    mylist.append(1)
+    return mylist
+
+def modify2(mylist):
+    return mylist + [1]
+```
+
+# Reine Funktionen
+
 ## Reine Funktionen
 
 Reine Funktionen sind Funktionen, die mit ihrer Umgebung nur über Eingabeparameter und Rückgabewerte interagieren
 
 Das bedeutet insbesondere:
 
-- alle Eingabewerte werden über Parameter übergeben (die Funktion bekommt liest keine weiteren Variablen ein und interagiert auch nicht mit der Umwelt, z.B. durch das Lesen von Daten auf der Festplatte)
+- alle Eingabewerte werden über Parameter übergeben (die Funktion liest keine weiteren Variablen ein und interagiert auch nicht mit der Umwelt, z.B. durch das Lesen von Daten auf der Festplatte)
 - die Funktion verändert ihre Umwelt nicht; wenn sie veränderliche Objekte übergeben bekommt, ändert sie diese nicht ab
 - das Resultat des Funktionsaufrufs ist der Rückgabewert; sonst wird von der Funktion nichts geändert
+
+## Reine Funktionen
+
+Vorteile reiner Funktionen:
+
+- leicht wiederverwendbar (da sie nicht von ihrer Umgebung abhängen)
+- leicht zu testen
 
 ## Reine Funktionen
 
@@ -1111,7 +1169,7 @@ fib(25)
 ## Aufgaben zu Rekursion
 
 - Babylonisches Wurzelziehen
-- Bäume mit Turtel-Grafik
+- Bäume mit Turtle-Grafik
 
 # Module und Pakete
 

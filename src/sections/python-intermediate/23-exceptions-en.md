@@ -1,6 +1,6 @@
-# Exceptions (Ausnahmen)
+# Exceptions
 
-## Arten von Exceptions
+## Types of exceptions
 
 - AssertionError
 - AttributeError, IndexError, KeyError
@@ -11,7 +11,7 @@
 - ZeroDivisionError
 - ...
 
-## Exceptions abfangen
+## Catching exceptions
 
 ```py
 age_str = input("Enter your age")
@@ -21,7 +21,7 @@ except ValueError:
     print("Could not parse input as number")
 ```
 
-## Exceptions abfangen
+## Catching exceptions
 
 ```py
 age_str = input("Enter your age")
@@ -33,7 +33,7 @@ except ValueError as e:
     print(e.args)
 ```
 
-## finally und else bei exceptions
+## Exceptions with finally and else
 
 ```py
 try:
@@ -47,20 +47,10 @@ finally:
     file.close()
 ```
 
-## Exceptions erneut raisen
-
-```py
-try:
-    ...
-except ClientError as e
-    if "DryRunOperation" not in str(e):
-        raise
-```
-
-## Python-Philosophie: EAFP
+## Python philosophy: EAFP
 
 LBYL: _Look before you leap_
 
 EAFP: _It's easier to ask for forgiveness than permission_
 
-(Beispiel: Parsen von Zahlen)
+(example: parsing numbers)
