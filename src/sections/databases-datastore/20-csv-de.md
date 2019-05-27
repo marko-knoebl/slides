@@ -25,6 +25,8 @@ Varianten des CSV Formats können sich durch die folgenden Aspekte unterscheiden
 
 ## Standardisierung
 
+Das Format ist älter als die Standards - in der Praxis gibt es viele Variationen
+
 - RFC 4180: https://tools.ietf.org/html/rfc4180
 - W3C: https://www.w3.org/TR/2015/REC-tabular-data-model-20151217/
 

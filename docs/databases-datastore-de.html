@@ -331,6 +331,7 @@ AF,Afghanistan,Kabul,&quot;AF,tk&quot;</code></pre>
 
       </section><section class="slide" id="slide-9-5">
         <h2 id="standardisierung">Standardisierung</h2>
+<p>Das Format ist älter als die Standards - in der Praxis gibt es viele Variationen</p>
 <ul>
 <li>RFC 4180: <a href="https://tools.ietf.org/html/rfc4180">https://tools.ietf.org/html/rfc4180</a></li>
 <li>W3C: <a href="https://www.w3.org/TR/2015/REC-tabular-data-model-20151217/">https://www.w3.org/TR/2015/REC-tabular-data-model-20151217/</a></li>
@@ -438,20 +439,28 @@ AF    Afghanistan    Kabul    AF,tk</code></pre>
 <p>Verwendung: Verwaltung großer Datenmengen</p>
 
       </section><section class="slide" id="slide-12-3">
-        <h2 id="entity-relationship-diagramme">Entity-Relationship-Diagramme</h2>
-<p><a href="https://en.wikipedia.org/wiki/Entity%E2%80%93relationship_model">https://en.wikipedia.org/wiki/Entity%E2%80%93relationship_model</a></p>
-
-      </section><section class="slide" id="slide-12-4">
         <h2 id="tabellen-und-datenschemata">Tabellen und Datenschemata</h2>
 <p>Die meisten Datenbanken verwalten ihre Daten in Tabellen</p>
 
-      </section><section class="slide" id="slide-12-5">
-        <h2 id="erfassen-von-daten-in-tabellen">Erfassen von Daten in Tabellen</h2>
-<p>Überlegungen:</p>
+      </section><section class="slide" id="slide-12-4">
+        <h2 id="relationen-zwischen-tabellen">Relationen zwischen Tabellen</h2>
 <ul>
-<li>Modellierung von Verwandtschaftsverhältnissen</li>
-<li>Modellierung von Freundschaften</li>
+<li><code>1 : 1</code></li>
+<li><code>1 : n</code></li>
+<li><code>m : n</code></li>
 </ul>
+
+      </section><section class="slide" id="slide-12-5">
+        <h2 id="relationen-zwischen-tabellen-beispiele">Relationen zwischen Tabellen: Beispiele</h2>
+<ul>
+<li><code>0..1 : 1..1</code><br>department ←manages→ person</li>
+<li><code>0..1 : 0..n</code><br>department ←works in→ person</li>
+<li><code>0..m : 0..n</code><br>project ←works on→ person</li>
+</ul>
+
+      </section><section class="slide" id="slide-12-6">
+        <h2 id="entity-relationship-model">Entity-Relationship-Model</h2>
+<p><a href="https://en.wikipedia.org/wiki/Entity%E2%80%93relationship_model">https://en.wikipedia.org/wiki/Entity%E2%80%93relationship_model</a></p>
 
       </section></section><section class="section" id="section-13"><section class="slide" id="slide-13-1">
         <h1 id="sql-grundlagen">SQL Grundlagen</h1>
@@ -971,112 +980,6 @@ Kommentar */</span></code></pre>
         <h2 id="bson-dateiformat">BSON Dateiformat</h2>
 <p>MongoDB basiert auf dem BSON Dateiformat. Dieses ähnelt JSON, ist aber ein binäres Format und lässt sich effizienter lesen und schreiben.</p>
 <p>Der Export bzw Import geschieht mittels der Programme <code>mongodump</code> und <code>mongorestore</code></p>
-
-      </section></section><section class="section" id="section-17"><section class="slide" id="slide-17-1">
-        <h1 id="querying-data">Querying data</h1>
-
-      </section><section class="slide" id="slide-17-2">
-        <h2 id="getting-all-data">Getting all data</h2>
-<p>SQL:</p>
-<pre><code class="language-sql"><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> iris;</code></pre>
-<p>SQLAlchemy (Python):</p>
-<pre><code class="language-sql">session.query(Iris)</code></pre>
-<p>mongo shell (JS):</p>
-<pre><code class="language-js">db.collection(<span class="hljs-string">'iris'</span>).find({});</code></pre>
-<p>Pandas (Python): N/A</p>
-
-      </section><section class="slide" id="slide-17-3">
-        <h2 id="selecting-only-some-columns--fields">Selecting only some columns / fields</h2>
-<p>SQL:</p>
-<pre><code class="language-sql"><span class="hljs-keyword">SELECT</span> sepal_length, sepal_width <span class="hljs-keyword">FROM</span> iris;</code></pre>
-<p>SQLAlchemy (Python):</p>
-<pre><code class="language-sql">session.query(Iris.sepal_length, Iris.sepal_width)</code></pre>
-
-      </section><section class="slide" id="slide-17-4">
-        <h2 id="selecting-only-some-columns--fields">Selecting only some columns / fields</h2>
-<p>Mongo shell:</p>
-<pre><code class="language-js">db.collection(<span class="hljs-string">'iris'</span>).find(
-  {},
-  { <span class="hljs-attr">sepal_length</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">sepal_width</span>: <span class="hljs-number">1</span> }
-);</code></pre>
-<p>Pandas:</p>
-<pre><code class="language-py">iris_data.loc[:,[<span class="hljs-string">"sepal_length"</span>, <span class="hljs-string">"sepal_width"</span>]]</code></pre>
-
-      </section><section class="slide" id="slide-17-5">
-        <h2 id="finding-specific-rows">Finding specific rows</h2>
-<p>SQL:</p>
-<pre><code class="language-sql"><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> iris <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">name</span>=<span class="hljs-string">'Iris-setosa'</span>;</code></pre>
-<p>SQLAlchemy (Python):</p>
-<pre><code class="language-py">session.query(Iris).filter_by(Iris.name=<span class="hljs-string">"Iris-setosa"</span>)</code></pre>
-
-      </section><section class="slide" id="slide-17-6">
-        <h2 id="finding-specific-rows">Finding specific rows</h2>
-<p>mongo shell:</p>
-<pre><code class="language-js">db.collection(<span class="hljs-string">'iris'</span>).find({ <span class="hljs-attr">name</span>: <span class="hljs-string">'Iris-setosa'</span> });</code></pre>
-<p>pandas (Python):</p>
-<pre><code class="language-py">iris_setosa_data = iris_data.loc[
-    iris_data[<span class="hljs-string">"name"</span>] == <span class="hljs-string">"Iris-setosa"</span>
-]</code></pre>
-<p>pandas (Python): selecting a range of rows:</p>
-<pre><code class="language-py">iris_data.iloc[<span class="hljs-number">10</span>:<span class="hljs-number">20</span>]</code></pre>
-
-      </section><section class="slide" id="slide-17-7">
-        <h2 id="combination-rows-and-columns">Combination: rows and columns</h2>
-<p>SQL:</p>
-<pre><code class="language-sql"><span class="hljs-keyword">SELECT</span> sepal_length, sepal_width
-<span class="hljs-keyword">FROM</span> iris
-<span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">name</span>=<span class="hljs-string">'Iris-setosa'</span>;</code></pre>
-
-      </section><section class="slide" id="slide-17-8">
-        <h2 id="combination-rows-and-columns">Combination: rows and columns</h2>
-<p>SQLAlchemy (Python):</p>
-<pre><code class="language-py">session.query(
-    Iris.sepal_length, Iris.sepal_width
-).filter_by(Iris.name=<span class="hljs-string">"Iris-setosa"</span>)</code></pre>
-
-      </section><section class="slide" id="slide-17-9">
-        <h2 id="combination-rows-and-columns">Combination: rows and columns</h2>
-<p>mongo shell:</p>
-<pre><code class="language-js">db.collection(<span class="hljs-string">'iris'</span>).find(
-  { <span class="hljs-attr">name</span>: <span class="hljs-string">'Iris-setosa'</span> },
-  { <span class="hljs-attr">sepal_length</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">sepal_width</span>: <span class="hljs-number">1</span> }
-);</code></pre>
-
-      </section><section class="slide" id="slide-17-10">
-        <h2 id="combination-rows-and-columns">Combination: rows and columns</h2>
-<p>pandas (Python):</p>
-<pre><code class="language-py">iris_data.loc[
-    [iris_data[<span class="hljs-string">"name"</span>] == <span class="hljs-string">"Iris-setosa"</span>],
-    [<span class="hljs-string">"sepal_length"</span>, <span class="hljs-string">"sepal_width"</span>],
-]</code></pre>
-
-      </section><section class="slide" id="slide-17-11">
-        <h2 id="sorting-data">Sorting data</h2>
-<p>SQL:</p>
-<pre><code class="language-sql"><span class="hljs-keyword">SELECT</span> sepal_length, sepal_width
-<span class="hljs-keyword">FROM</span> iris
-<span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> sepal_length;</code></pre>
-
-      </section><section class="slide" id="slide-17-12">
-        <h2 id="sorting-data">Sorting data</h2>
-<p>SQLAlchemy:</p>
-<pre><code class="language-py">session.query(
-    Iris.sepal_length, Iris.sepal_width
-).order_by(Iris.sepal_length)</code></pre>
-
-      </section><section class="slide" id="slide-17-13">
-        <h2 id="sorting-data">Sorting data</h2>
-<p>mongo shell:</p>
-<pre><code class="language-js">db.collection(<span class="hljs-string">'iris'</span>)
-  .find({}, { <span class="hljs-attr">sepal_length</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">sepal_width</span>: <span class="hljs-number">1</span> })
-  .sort({ <span class="hljs-attr">sepal_length</span>: <span class="hljs-number">1</span> });</code></pre>
-
-      </section><section class="slide" id="slide-17-14">
-        <h2 id="sorting-data">Sorting data</h2>
-<p>pandas (Python):</p>
-<pre><code class="language-py">iris_data.loc[[<span class="hljs-string">"sepal_length"</span>, <span class="hljs-string">"sepal_width"</span>]].sort_values(
-    by=<span class="hljs-string">"sepal_length"</span>
-)</code></pre>
 
       </section></section>
 

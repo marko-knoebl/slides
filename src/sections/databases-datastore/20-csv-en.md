@@ -25,6 +25,8 @@ CSV formats can vary based on:
 
 ## Standardization
 
+The format is older than the standards - in practice the format varies widely
+
 - RFC 4180: https://tools.ietf.org/html/rfc4180
 - W3C: https://www.w3.org/TR/2015/REC-tabular-data-model-20151217/
   - includes _Best Practice CSV_
