@@ -92,17 +92,18 @@ https://www.python.org/dev/peps/pep-0249
 - `STRING`
 - `NUMBER`
 
-## Bedingte Abfragen mit Parametern
+## Abfragen mit Parametern
+
+gefährlich:
 
 ```py
 search_name = input()
-command = f"""SELECT tel FROM person WHERE name = '{search_name}'"""
-res = c.execute(command)
+res = cursor.execute(
+  f"""SELECT tel FROM person WHERE name = '{search_name}'"""
+)
 ```
 
-## Achtung: SQL-Injections
-
-## Achtung: SQL-Injections
+## Abfragen mit Parametern
 
 sichere Methode (mit SQL-Escaping):
 

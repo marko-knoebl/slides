@@ -20,8 +20,10 @@ However, we can also use other types:
 ```py
 a = 0
 if a: ...
+
 name = input("enter your name")
 if name: ...
+
 products = []
 if products: ...
 ```

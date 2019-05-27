@@ -13,7 +13,7 @@ https://code.visualstudio.com/
 - Installing the Python extension for VS Code
 
 - finding previously installed Python:
-  - Ctrl + Shift + P
+  - press `F1`
   - Search for "Python: choose interpreter"
   - Enter
   - wait...

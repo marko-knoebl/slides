@@ -11,6 +11,8 @@
 - ZeroDivisionError
 - ...
 
+Übung: versuche, jede der obigen Exceptions auszulösen
+
 ## Exceptions abfangen
 
 ```py

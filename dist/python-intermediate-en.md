@@ -156,10 +156,37 @@ d = float('nan')
 e = float('inf')
 ```
 
+## float
+
+_IEEE 754_: standardized floating point arithmetic
+
+Python mostly acts as defined in the standard
+
+deviation from the standard: in some cases Python will throw exceptions where the standard produces a result - e.g. `1.0/0.0`
+
+Special numbers in IEEE 754:
+
+- `inf` and `-inf` (infinite values)
+- `nan` (not-a-number: undefined / unknown value)
+
 ## complex
 
 ```py
 a = 2 + 3j
+```
+
+## Augmented assignment
+
+For binary operators there are so-called _augmented assignments_:
+
+```py
+a = a + 1
+```
+
+short form (augmented assignment):
+
+```py
+a += 1
 ```
 
 ## Operations with numbers
@@ -358,8 +385,8 @@ f'weather in {city}: {temperature}°C'
 
 ```py
 t = 333.333
-'{t.4f}°K' # 333.3330°K
-'{t.4g}°K' # 333.3°K
+f'{t.4f}°K' # 333.3330°K
+f'{t.4g}°K' # 333.3°K
 ```
 
 https://mkaz.blog/code/python-string-format-cookbook/
@@ -486,11 +513,11 @@ m[2] == 160
 Standard representation in Python:
 
 ```py
-print(bytes[0, 0x40, 0x70, 0xa0])
+print(bytes([0x00, 0x40, 0x70, 0xa0]))
 ```
 
 ```py
-b' @p\xa0'
+b'\x00@p\xa0'
 ```
 
 Where possible, bytes will be represented by ASCII characters; otherwise their hex code will be shown
@@ -515,7 +542,7 @@ b'\xc3\xa4'.decode('utf-8')
 
 ## Bytes and Strings
 
-Storage media and networks will only handle bytes; in order to read a text file from disk or from the network we need to know its encoding
+Storage media and networks will only handle bytes; in order to read a text file from disk or from the network we need to know / specify the encoding
 
 # Sequences
 
@@ -622,9 +649,9 @@ Dictionaries are mappings of keys to values
 
 ```py
 person = {
-    "first_name": "John"
-    "last_name": "Doe"
-    "nationality": "Canada"
+    "first_name": "John",
+    "last_name": "Doe",
+    "nationality": "Canada",
     "birth_year": 1980
 }
 ```
@@ -849,8 +876,10 @@ However, we can also use other types:
 ```py
 a = 0
 if a: ...
+
 name = input("enter your name")
 if name: ...
+
 products = []
 if products: ...
 ```
@@ -944,6 +973,8 @@ Quote from Python's inventor:
 - IOError
 - ZeroDivisionError
 - ...
+
+Exercise: try and trigger all of the above exceptions
 
 ## Catching exceptions
 
@@ -1298,4 +1329,68 @@ tdl.todos[0].toggle()
 
 tdl.stats() # {open: 1, completed: 1}
 ```
+
+# Python versions
+
+## Python versions
+
+Python 2 vs Python 3
+
+## Strings and Bytes
+
+major change in Python 3:
+
+strict separation of text (strings) and binary data (bytes)
+
+in Python 2: data types `bytes`, `str` and `unicode`
+
+## Print
+
+Python 2:
+
+```py
+print "a",
+```
+
+Python 3:
+
+```py
+print("a", end="")
+```
+
+## Division
+
+Python 2:
+
+```py
+10 / 3    # 3
+```
+
+## range
+
+in Python 2: `range()` returns a list, `xrange()` returns an object that saves on memory
+
+in Python 3: `range()` returns an object that saves on memory
+
+## input
+
+in Python 2: `input()` will evaluate / execute the input, `raw_input()` returns a string
+
+in Python 3: `input()` returns a string
+
+## \_\_future\_\_ imports
+
+Getting some of the behavior of Python 3 in Python 2:
+
+```py
+from __future__ import print_function
+from __future__ import unicode_literals
+from __future__ import division
+```
+
+## Python-Future
+
+Compatibility layer between Python 2 and Python 3
+
+Enables supporting both Python 2 and Python 3 from the same codebase
 

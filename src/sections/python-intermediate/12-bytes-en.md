@@ -18,11 +18,11 @@ m[2] == 160
 Standard representation in Python:
 
 ```py
-print(bytes[0, 0x40, 0x70, 0xa0])
+print(bytes([0x00, 0x40, 0x70, 0xa0]))
 ```
 
 ```py
-b' @p\xa0'
+b'\x00@p\xa0'
 ```
 
 Where possible, bytes will be represented by ASCII characters; otherwise their hex code will be shown
@@ -47,4 +47,4 @@ b'\xc3\xa4'.decode('utf-8')
 
 ## Bytes and Strings
 
-Storage media and networks will only handle bytes; in order to read a text file from disk or from the network we need to know its encoding
+Storage media and networks will only handle bytes; in order to read a text file from disk or from the network we need to know / specify the encoding

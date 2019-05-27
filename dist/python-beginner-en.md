@@ -259,7 +259,7 @@ https://code.visualstudio.com/
 - Installing the Python extension for VS Code
 
 - finding previously installed Python:
-  - Ctrl + Shift + P
+  - press `F1`
   - Search for "Python: choose interpreter"
   - Enter
   - wait...
@@ -395,7 +395,9 @@ For this purpose use the function `len(...)` to determine the length of a string
 
 Comments are a useful tool for developers to describe what the code is doing. They don't influence the program itself.
 
-A comment line starts with a `#`
+A comment starts with a `#` and extends to the line end.
+
+Usually comments are placed _above_ the code they describe
 
 ```py
 # determine the length of the name
@@ -925,7 +927,7 @@ We already know some predefined functions, like `len()`, `range()` or `print()`
 
 ## Parameters and return values
 
-functions can receive parameters and return values
+functions can receive parameters and return a value
 
 example: `len([1, 1, 1])` → `3`
 
@@ -1130,18 +1132,6 @@ print(check_isbn(isbn, expected))
 
 ## IBAN
 
-# VS Code - Setup für Python
-
-## VS Code - Setup for Python
-
-File - Settings - Preferences
-
-recommendations:
-
-- `python.linting.pylintEnabled`: `true`
-- `python.linting.flake8Enabled`: `true`
-- `python.formatting.provider`: `black`
-
 # Code quality and linting
 
 ## Code quality and linting
@@ -1257,70 +1247,6 @@ Quotes from the _zen of Python_ (full text via `import this`):
 - _Readability counts._
 - _Special cases aren't special enough to break the rules._
 - _There should be one-- and preferably only one --obvious way to do it._
-
-# Python versions
-
-## Python versions
-
-Python 2 vs Python 3
-
-## Strings and Bytes
-
-major change in Python 3:
-
-strict separation of text (strings) and binary data (bytes)
-
-in Python 2: data types `bytes`, `str` and `unicode`
-
-## Print
-
-Python 2:
-
-```py
-print "a",
-```
-
-Python 3:
-
-```py
-print("a", end="")
-```
-
-## Division
-
-Python 2:
-
-```py
-10 / 3    # 3
-```
-
-## range
-
-in Python 2: `range()` returns a list, `xrange()` returns an object that saves on memory
-
-in Python 3: `range()` returns an object that saves on memory
-
-## input
-
-in Python 2: `input()` will evaluate / execute the input, `raw_input()` returns a string
-
-in Python 3: `input()` returns a string
-
-## \_\_future\_\_ imports
-
-Getting some of the behavior of Python 3 in Python 2:
-
-```py
-from __future__ import print_function
-from __future__ import unicode_literals
-from __future__ import division
-```
-
-## Python-Future
-
-Compatibility layer between Python 2 and Python 3
-
-Enables supporting both Python 2 and Python 3 from the same codebase
 
 # Cheatsheet
 

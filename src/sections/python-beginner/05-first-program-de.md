@@ -65,7 +65,9 @@ Verwende dazu die Funktion `len(...)`, um die Länge eines Strings zu ermitteln
 
 Kommentare dienen Entwicklern, um den Code zu beschreiben und zu erklären. Sie werden von Python ignoriert.
 
-Eine Kommentarzeile beginnt mit einem `#`-Zeichen.
+Ein Kommentar beginnt mit einem `#`-Zeichen und reicht bis zum Ende der Zeile.
+
+Üblicherweise stehen Kommentare _oberhalb_ des Codes, den sie beschreiben
 
 ```py
 # determine the length of the name

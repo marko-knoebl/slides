@@ -6,9 +6,40 @@ possibilities:
 
 - text files
 - JSON
+- CSV
 - XML
 - Python object files (via pickle and shelve)
 - binary files
+
+## CSV
+
+## Writing CSV
+
+```py
+import csv
+
+data = [
+    ['code', 'area', 'population'],
+    ['CN', 9.6, 1386],
+    ['RU', 17, 144],
+    ['US', 9.8, 327]
+]
+
+with open('data.csv', 'w', encoding='utf-8', newline='') as f:
+    writer = csv.writer(f)
+    writer.writerows(data)
+```
+
+## Reading CSV
+
+```py
+import csv
+
+with open('countries.csv', encoding='utf-8', newline='') as csv_file:
+    reader = csv.reader(csv_file)
+    for row in reader:
+        print(row)
+```
 
 ## JSON
 

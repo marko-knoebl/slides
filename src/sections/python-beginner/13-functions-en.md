@@ -6,7 +6,7 @@ We already know some predefined functions, like `len()`, `range()` or `print()`
 
 ## Parameters and return values
 
-functions can receive parameters and return values
+functions can receive parameters and return a value
 
 example: `len([1, 1, 1])` → `3`
 

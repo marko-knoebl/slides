@@ -28,8 +28,8 @@ Abweichungen vom Standard:
 
 - `SMALLINT` (üblicherweise 16 Bit)
 - `INT` / `INTEGER` (üblicherweise 32 Bit)
-- `NUMERIC` / `DECIMAL` (Dezimalzahlen mit variabler Genauigkeit)
 - `BIGINT` (üblicherweise 64 Bit)
+- `NUMERIC` / `DECIMAL` (Dezimalzahlen mit variabler Genauigkeit)
 - `REAL` (üblicherweise 32 Bit)
 - `DOUBLE PRECISION` (üblicherweise 64 Bit)
 

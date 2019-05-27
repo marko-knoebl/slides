@@ -6,9 +6,9 @@ Dictionaries sind Zuordnungen, die bestimmten Einträgen zugehörige Werte zuwei
 
 ```py
 person = {
-    "first_name": "John"
-    "last_name": "Doe"
-    "nationality": "Canada"
+    "first_name": "John",
+    "last_name": "Doe",
+    "nationality": "Canada",
     "birth_year": 1980
 }
 ```

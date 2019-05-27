@@ -8,5 +8,4 @@
 - web development
 - databases
 - e-mail
-- NumPy
 

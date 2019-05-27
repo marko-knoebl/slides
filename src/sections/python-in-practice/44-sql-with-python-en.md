@@ -98,8 +98,9 @@ dangerous:
 
 ```py
 search_name = input()
-command = f"""SELECT tel FROM person WHERE name = '{search_name}'"""
-res = c.execute(command)
+res = cursor.execute(
+  f"""SELECT tel FROM person WHERE name = '{search_name}'"""
+)
 ```
 
 ## Queries with parameters

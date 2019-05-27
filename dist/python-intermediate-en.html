@@ -265,10 +265,28 @@ d = float(<span class="hljs-string">'nan'</span>)
 e = float(<span class="hljs-string">'inf'</span>)</code></pre>
 
       </section><section class="slide" id="slide-5-5">
+        <h2 id="float">float</h2>
+<p><em>IEEE 754</em>: standardized floating point arithmetic</p>
+<p>Python mostly acts as defined in the standard</p>
+<p>deviation from the standard: in some cases Python will throw exceptions where the standard produces a result - e.g. <code>1.0/0.0</code></p>
+<p>Special numbers in IEEE 754:</p>
+<ul>
+<li><code>inf</code> and <code>-inf</code> (infinite values)</li>
+<li><code>nan</code> (not-a-number: undefined / unknown value)</li>
+</ul>
+
+      </section><section class="slide" id="slide-5-6">
         <h2 id="complex">complex</h2>
 <pre><code class="language-py">a = <span class="hljs-number">2</span> + <span class="hljs-number">3j</span></code></pre>
 
-      </section><section class="slide" id="slide-5-6">
+      </section><section class="slide" id="slide-5-7">
+        <h2 id="augmented-assignment">Augmented assignment</h2>
+<p>For binary operators there are so-called <em>augmented assignments</em>:</p>
+<pre><code class="language-py">a = a + <span class="hljs-number">1</span></code></pre>
+<p>short form (augmented assignment):</p>
+<pre><code class="language-py">a += <span class="hljs-number">1</span></code></pre>
+
+      </section><section class="slide" id="slide-5-8">
         <h2 id="operations-with-numbers">Operations with numbers</h2>
 <ul>
 <li>Integer division: <code>10 // 3</code></li>
@@ -493,8 +511,8 @@ temperature = <span class="hljs-number">23.7</span>
       </section><section class="slide" id="slide-8-4">
         <h2 id="format-specification">Format specification</h2>
 <pre><code class="language-py">t = <span class="hljs-number">333.333</span>
-<span class="hljs-string">'{t.4f}°K'</span> <span class="hljs-comment"># 333.3330°K</span>
-<span class="hljs-string">'{t.4g}°K'</span> <span class="hljs-comment"># 333.3°K</span></code></pre>
+<span class="hljs-string">f'<span class="hljs-subst">{t<span class="hljs-number">.4</span>f}</span>°K'</span> <span class="hljs-comment"># 333.3330°K</span>
+<span class="hljs-string">f'<span class="hljs-subst">{t<span class="hljs-number">.4</span>g}</span>°K'</span> <span class="hljs-comment"># 333.3°K</span></code></pre>
 <p><a href="https://mkaz.blog/code/python-string-format-cookbook/">https://mkaz.blog/code/python-string-format-cookbook/</a></p>
 
       </section></section><section class="section" id="section-9"><section class="slide" id="slide-9-1">
@@ -596,8 +614,8 @@ m[2] == 160</code></pre>
       </section><section class="slide" id="slide-11-3">
         <h2 id="bytes">Bytes</h2>
 <p>Standard representation in Python:</p>
-<pre><code class="language-py">print(bytes[<span class="hljs-number">0</span>, <span class="hljs-number">0x40</span>, <span class="hljs-number">0x70</span>, <span class="hljs-number">0xa0</span>])</code></pre>
-<pre><code class="language-py"><span class="hljs-string">b' @p\xa0'</span></code></pre>
+<pre><code class="language-py">print(bytes([<span class="hljs-number">0x00</span>, <span class="hljs-number">0x40</span>, <span class="hljs-number">0x70</span>, <span class="hljs-number">0xa0</span>]))</code></pre>
+<pre><code class="language-py"><span class="hljs-string">b'\x00@p\xa0'</span></code></pre>
 <p>Where possible, bytes will be represented by ASCII characters; otherwise their hex code will be shown</p>
 <p>The <code>b</code> signifies a byte string literal</p>
 
@@ -612,7 +630,7 @@ m[2] == 160</code></pre>
 
       </section><section class="slide" id="slide-11-5">
         <h2 id="bytes-and-strings">Bytes and Strings</h2>
-<p>Storage media and networks will only handle bytes; in order to read a text file from disk or from the network we need to know its encoding</p>
+<p>Storage media and networks will only handle bytes; in order to read a text file from disk or from the network we need to know / specify the encoding</p>
 
       </section></section><section class="section" id="section-12"><section class="slide" id="slide-12-1">
         <h1 id="sequences">Sequences</h1>
@@ -699,9 +717,9 @@ print(len(users))</code></pre>
         <h2 id="dictionaries">Dictionaries</h2>
 <p>Dictionaries are mappings of keys to values</p>
 <pre><code class="language-py">person = {
-    <span class="hljs-string">"first_name"</span>: <span class="hljs-string">"John"</span>
-    <span class="hljs-string">"last_name"</span>: <span class="hljs-string">"Doe"</span>
-    <span class="hljs-string">"nationality"</span>: <span class="hljs-string">"Canada"</span>
+    <span class="hljs-string">"first_name"</span>: <span class="hljs-string">"John"</span>,
+    <span class="hljs-string">"last_name"</span>: <span class="hljs-string">"Doe"</span>,
+    <span class="hljs-string">"nationality"</span>: <span class="hljs-string">"Canada"</span>,
     <span class="hljs-string">"birth_year"</span>: <span class="hljs-number">1980</span>
 }</code></pre>
 
@@ -889,8 +907,10 @@ neighbors = {
 <p>However, we can also use other types:</p>
 <pre><code class="language-py">a = <span class="hljs-number">0</span>
 <span class="hljs-keyword">if</span> a: ...
+
 name = input(<span class="hljs-string">"enter your name"</span>)
 <span class="hljs-keyword">if</span> name: ...
+
 products = []
 <span class="hljs-keyword">if</span> products: ...</code></pre>
 
@@ -972,6 +992,7 @@ size = length &lt; <span class="hljs-number">110</span> ? <span class="hljs-stri
 <li>ZeroDivisionError</li>
 <li>...</li>
 </ul>
+<p>Exercise: try and trigger all of the above exceptions</p>
 
       </section><section class="slide" id="slide-19-3">
         <h2 id="catching-exceptions">Catching exceptions</h2>
@@ -1297,6 +1318,53 @@ print(tdl.todos)
 tdl.todos[<span class="hljs-number">0</span>].toggle()
 
 tdl.stats() <span class="hljs-comment"># {open: 1, completed: 1}</span></code></pre>
+
+      </section></section><section class="section" id="section-26"><section class="slide" id="slide-26-1">
+        <h1 id="python-versions">Python versions</h1>
+
+      </section><section class="slide" id="slide-26-2">
+        <h2 id="python-versions">Python versions</h2>
+<p>Python 2 vs Python 3</p>
+
+      </section><section class="slide" id="slide-26-3">
+        <h2 id="strings-and-bytes">Strings and Bytes</h2>
+<p>major change in Python 3:</p>
+<p>strict separation of text (strings) and binary data (bytes)</p>
+<p>in Python 2: data types <code>bytes</code>, <code>str</code> and <code>unicode</code></p>
+
+      </section><section class="slide" id="slide-26-4">
+        <h2 id="print">Print</h2>
+<p>Python 2:</p>
+<pre><code class="language-py"><span class="hljs-keyword">print</span> <span class="hljs-string">"a"</span>,</code></pre>
+<p>Python 3:</p>
+<pre><code class="language-py">print(<span class="hljs-string">"a"</span>, end=<span class="hljs-string">""</span>)</code></pre>
+
+      </section><section class="slide" id="slide-26-5">
+        <h2 id="division">Division</h2>
+<p>Python 2:</p>
+<pre><code class="language-py"><span class="hljs-number">10</span> / <span class="hljs-number">3</span>    <span class="hljs-comment"># 3</span></code></pre>
+
+      </section><section class="slide" id="slide-26-6">
+        <h2 id="range">range</h2>
+<p>in Python 2: <code>range()</code> returns a list, <code>xrange()</code> returns an object that saves on memory</p>
+<p>in Python 3: <code>range()</code> returns an object that saves on memory</p>
+
+      </section><section class="slide" id="slide-26-7">
+        <h2 id="input">input</h2>
+<p>in Python 2: <code>input()</code> will evaluate / execute the input, <code>raw_input()</code> returns a string</p>
+<p>in Python 3: <code>input()</code> returns a string</p>
+
+      </section><section class="slide" id="slide-26-8">
+        <h2 id="__future__-imports">__future__ imports</h2>
+<p>Getting some of the behavior of Python 3 in Python 2:</p>
+<pre><code class="language-py"><span class="hljs-keyword">from</span> __future__ <span class="hljs-keyword">import</span> print_function
+<span class="hljs-keyword">from</span> __future__ <span class="hljs-keyword">import</span> unicode_literals
+<span class="hljs-keyword">from</span> __future__ <span class="hljs-keyword">import</span> division</code></pre>
+
+      </section><section class="slide" id="slide-26-9">
+        <h2 id="python-future">Python-Future</h2>
+<p>Compatibility layer between Python 2 and Python 3</p>
+<p>Enables supporting both Python 2 and Python 3 from the same codebase</p>
 
       </section></section>
 

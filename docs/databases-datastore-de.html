@@ -231,8 +231,23 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <p>Beispiele:</p>
 <ul>
 <li>ein <em>integer</em> in <em>SQL</em> kann typischerweise die Werte <em>-2,147,483,648</em> bis <em>2,147,483,647</em> annehmen</li>
-<li>eine Kommazahl im Binärsystem hat in JavaScript und Python ca eine Genauigkeit von 15 Stellen (<em>64-Bit</em> Genauigkeit)</li>
+<li>eine Kommazahl im Binärsystem hat oft eine Genauigkeit von etwa 15 Dezimalstellen (<em>64-Bit</em> Genauigkeit)</li>
 </ul>
+
+      </section><section class="slide" id="slide-5-6">
+        <h2 id="zahlen">Zahlen</h2>
+<p>Speicherung als Zahl oder als Text?</p>
+<p>Wie speichert man Kreditkartennummern, Postleitzahlen, Telefonnummern, ...?</p>
+
+      </section><section class="slide" id="slide-5-7">
+        <h2 id="zahlen">Zahlen</h2>
+<p>Kreditkartennummern, Postleitzahlen, Telefonnummern, etc sollten als Text gespeichert werden</p>
+<p>Gründe:</p>
+<ul>
+<li>solche Daten können mit Nullen beginnen, die bei einer Zahl nicht erfasst würden</li>
+<li>solche Daten können Sonderzeichen (z.B. <code>/</code>, Leerzeichen, ...) enthalten</li>
+</ul>
+<p>Grundregel: wenn mit einer Zahl nicht sinnvoll gerechet werden kann, sollte sie als String gespeichert werden.</p>
 
       </section></section><section class="section" id="section-6"><section class="slide" id="slide-6-1">
         <h1 id="boolesche-werte">Boolesche Werte</h1>
@@ -288,7 +303,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 
       </section><section class="slide" id="slide-8-2">
         <h2 id="null">null</h2>
-<p>Mit <code>null</code> wird oft ausgedrückt, dass ein bestimmter Wert fehlt oder nicht bekannt ist</p>
+<p>Mit <code>null</code> wird ausgedrückt, dass ein bestimmter Wert fehlt oder unbekannt ist</p>
 
       </section></section><section class="section" id="section-9"><section class="slide" id="slide-9-1">
         <h1 id="csv">CSV</h1>
@@ -603,8 +618,8 @@ Kommentar */</span></code></pre>
 <ul>
 <li><code>SMALLINT</code> (üblicherweise 16 Bit)</li>
 <li><code>INT</code> / <code>INTEGER</code> (üblicherweise 32 Bit)</li>
-<li><code>NUMERIC</code> / <code>DECIMAL</code> (Dezimalzahlen mit variabler Genauigkeit)</li>
 <li><code>BIGINT</code> (üblicherweise 64 Bit)</li>
+<li><code>NUMERIC</code> / <code>DECIMAL</code> (Dezimalzahlen mit variabler Genauigkeit)</li>
 <li><code>REAL</code> (üblicherweise 32 Bit)</li>
 <li><code>DOUBLE PRECISION</code> (üblicherweise 64 Bit)</li>
 </ul>
@@ -897,14 +912,171 @@ Kommentar */</span></code></pre>
         <h1 id="mongodb">MongoDB</h1>
 
       </section><section class="slide" id="slide-16-2">
+        <h2 id="mongodb-vs-sql">MongoDB vs SQL</h2>
+<p>SQL:</p>
+<ul>
+<li>standardisierte Sprache, unabhängig von der verwendeten Programmiersprache</li>
+<li>Verwendung aus Programmiersprachen oft über viele verschiedene <em>ORMs</em> (<em>object realtional mappings</em>)</li>
+</ul>
+<p>MongoDB:</p>
+<ul>
+<li><em>ein</em> Abfrageschema pro Programmiersprache</li>
+</ul>
+
+      </section><section class="slide" id="slide-16-3">
+        <h2 id="mongodb-vs-sql">MongoDB vs SQL</h2>
+<p>SQL:</p>
+<ul>
+<li>vordefiniertes Schema bei der Erstellung von Tabellen</li>
+<li>Änderung eines Tabellenschemas (Migration) kann aufwändig sein</li>
+</ul>
+<p>MongoDB:</p>
+<ul>
+<li>Ein <em>Dokument</em> kann grundsätzlich Einträge beliebiger Struktur enthalten</li>
+<li>Optional können</li>
+</ul>
+
+      </section><section class="slide" id="slide-16-4">
+        <h2 id="mongodb-vs-sql">MongoDB vs SQL</h2>
+<p>SQL:</p>
+<ul>
+<li>Skalierung hauptsächlich vertikal: Ergänzen von Resourcen bei einem bestehenden Server</li>
+</ul>
+<p>MongoDB:</p>
+<ul>
+<li>Skalierung hauptsächlich horizontal: Ergänzen zusätzlicher Server (via Sharding)</li>
+</ul>
+
+      </section><section class="slide" id="slide-16-5">
+        <h2 id="mongodb-vs-sql">MongoDB vs SQL</h2>
+<p>SQL:</p>
+<ul>
+<li>verwendet meist <em>atomare</em> Einträge (und erste Normalform)</li>
+</ul>
+<p>MongoDB:</p>
+<ul>
+<li>beinhaltet oft zusammengesetzte Einträge (Arrays, Objekte):</li>
+</ul>
+<pre><code class="language-json">{
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"sue"</span>,
+  <span class="hljs-attr">"groups"</span>: [<span class="hljs-string">"news"</span>, <span class="hljs-string">"sports"</span>]
+}</code></pre>
+
+      </section><section class="slide" id="slide-16-6">
         <h2 id="mongodb">MongoDB</h2>
 <p><em>MongoDB</em> ist eine sogenannte <em>dokumentorientierte</em> Datenbank</p>
 <p>Ihre Struktur kann ähnlich aussehen wie die eines JSON-Dokuments</p>
 
-      </section><section class="slide" id="slide-16-3">
+      </section><section class="slide" id="slide-16-7">
         <h2 id="bson-dateiformat">BSON Dateiformat</h2>
 <p>MongoDB basiert auf dem BSON Dateiformat. Dieses ähnelt JSON, ist aber ein binäres Format und lässt sich effizienter lesen und schreiben.</p>
 <p>Der Export bzw Import geschieht mittels der Programme <code>mongodump</code> und <code>mongorestore</code></p>
+
+      </section></section><section class="section" id="section-17"><section class="slide" id="slide-17-1">
+        <h1 id="querying-data">Querying data</h1>
+
+      </section><section class="slide" id="slide-17-2">
+        <h2 id="getting-all-data">Getting all data</h2>
+<p>SQL:</p>
+<pre><code class="language-sql"><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> iris;</code></pre>
+<p>SQLAlchemy (Python):</p>
+<pre><code class="language-sql">session.query(Iris)</code></pre>
+<p>mongo shell (JS):</p>
+<pre><code class="language-js">db.collection(<span class="hljs-string">'iris'</span>).find({});</code></pre>
+<p>Pandas (Python): N/A</p>
+
+      </section><section class="slide" id="slide-17-3">
+        <h2 id="selecting-only-some-columns--fields">Selecting only some columns / fields</h2>
+<p>SQL:</p>
+<pre><code class="language-sql"><span class="hljs-keyword">SELECT</span> sepal_length, sepal_width <span class="hljs-keyword">FROM</span> iris;</code></pre>
+<p>SQLAlchemy (Python):</p>
+<pre><code class="language-sql">session.query(Iris.sepal_length, Iris.sepal_width)</code></pre>
+
+      </section><section class="slide" id="slide-17-4">
+        <h2 id="selecting-only-some-columns--fields">Selecting only some columns / fields</h2>
+<p>Mongo shell:</p>
+<pre><code class="language-js">db.collection(<span class="hljs-string">'iris'</span>).find(
+  {},
+  { <span class="hljs-attr">sepal_length</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">sepal_width</span>: <span class="hljs-number">1</span> }
+);</code></pre>
+<p>Pandas:</p>
+<pre><code class="language-py">iris_data.loc[:,[<span class="hljs-string">"sepal_length"</span>, <span class="hljs-string">"sepal_width"</span>]]</code></pre>
+
+      </section><section class="slide" id="slide-17-5">
+        <h2 id="finding-specific-rows">Finding specific rows</h2>
+<p>SQL:</p>
+<pre><code class="language-sql"><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> iris <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">name</span>=<span class="hljs-string">'Iris-setosa'</span>;</code></pre>
+<p>SQLAlchemy (Python):</p>
+<pre><code class="language-py">session.query(Iris).filter_by(Iris.name=<span class="hljs-string">"Iris-setosa"</span>)</code></pre>
+
+      </section><section class="slide" id="slide-17-6">
+        <h2 id="finding-specific-rows">Finding specific rows</h2>
+<p>mongo shell:</p>
+<pre><code class="language-js">db.collection(<span class="hljs-string">'iris'</span>).find({ <span class="hljs-attr">name</span>: <span class="hljs-string">'Iris-setosa'</span> });</code></pre>
+<p>pandas (Python):</p>
+<pre><code class="language-py">iris_setosa_data = iris_data.loc[
+    iris_data[<span class="hljs-string">"name"</span>] == <span class="hljs-string">"Iris-setosa"</span>
+]</code></pre>
+<p>pandas (Python): selecting a range of rows:</p>
+<pre><code class="language-py">iris_data.iloc[<span class="hljs-number">10</span>:<span class="hljs-number">20</span>]</code></pre>
+
+      </section><section class="slide" id="slide-17-7">
+        <h2 id="combination-rows-and-columns">Combination: rows and columns</h2>
+<p>SQL:</p>
+<pre><code class="language-sql"><span class="hljs-keyword">SELECT</span> sepal_length, sepal_width
+<span class="hljs-keyword">FROM</span> iris
+<span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">name</span>=<span class="hljs-string">'Iris-setosa'</span>;</code></pre>
+
+      </section><section class="slide" id="slide-17-8">
+        <h2 id="combination-rows-and-columns">Combination: rows and columns</h2>
+<p>SQLAlchemy (Python):</p>
+<pre><code class="language-py">session.query(
+    Iris.sepal_length, Iris.sepal_width
+).filter_by(Iris.name=<span class="hljs-string">"Iris-setosa"</span>)</code></pre>
+
+      </section><section class="slide" id="slide-17-9">
+        <h2 id="combination-rows-and-columns">Combination: rows and columns</h2>
+<p>mongo shell:</p>
+<pre><code class="language-js">db.collection(<span class="hljs-string">'iris'</span>).find(
+  { <span class="hljs-attr">name</span>: <span class="hljs-string">'Iris-setosa'</span> },
+  { <span class="hljs-attr">sepal_length</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">sepal_width</span>: <span class="hljs-number">1</span> }
+);</code></pre>
+
+      </section><section class="slide" id="slide-17-10">
+        <h2 id="combination-rows-and-columns">Combination: rows and columns</h2>
+<p>pandas (Python):</p>
+<pre><code class="language-py">iris_data.loc[
+    [iris_data[<span class="hljs-string">"name"</span>] == <span class="hljs-string">"Iris-setosa"</span>],
+    [<span class="hljs-string">"sepal_length"</span>, <span class="hljs-string">"sepal_width"</span>],
+]</code></pre>
+
+      </section><section class="slide" id="slide-17-11">
+        <h2 id="sorting-data">Sorting data</h2>
+<p>SQL:</p>
+<pre><code class="language-sql"><span class="hljs-keyword">SELECT</span> sepal_length, sepal_width
+<span class="hljs-keyword">FROM</span> iris
+<span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> sepal_length;</code></pre>
+
+      </section><section class="slide" id="slide-17-12">
+        <h2 id="sorting-data">Sorting data</h2>
+<p>SQLAlchemy:</p>
+<pre><code class="language-py">session.query(
+    Iris.sepal_length, Iris.sepal_width
+).order_by(Iris.sepal_length)</code></pre>
+
+      </section><section class="slide" id="slide-17-13">
+        <h2 id="sorting-data">Sorting data</h2>
+<p>mongo shell:</p>
+<pre><code class="language-js">db.collection(<span class="hljs-string">'iris'</span>)
+  .find({}, { <span class="hljs-attr">sepal_length</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">sepal_width</span>: <span class="hljs-number">1</span> })
+  .sort({ <span class="hljs-attr">sepal_length</span>: <span class="hljs-number">1</span> });</code></pre>
+
+      </section><section class="slide" id="slide-17-14">
+        <h2 id="sorting-data">Sorting data</h2>
+<p>pandas (Python):</p>
+<pre><code class="language-py">iris_data.loc[[<span class="hljs-string">"sepal_length"</span>, <span class="hljs-string">"sepal_width"</span>]].sort_values(
+    by=<span class="hljs-string">"sepal_length"</span>
+)</code></pre>
 
       </section></section>
 

@@ -65,7 +65,9 @@ For this purpose use the function `len(...)` to determine the length of a string
 
 Comments are a useful tool for developers to describe what the code is doing. They don't influence the program itself.
 
-A comment line starts with a `#`
+A comment starts with a `#` and extends to the line end.
+
+Usually comments are placed _above_ the code they describe
 
 ```py
 # determine the length of the name

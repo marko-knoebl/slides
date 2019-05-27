@@ -166,11 +166,40 @@ d = float('nan')
 e = float('inf')
 ```
 
+## float
+
+_IEEE 754_: Standard für Gleitkommazahlen am Computer
+
+wird von Python großteils umgesetzt
+
+Ausnahme: Python löst für manche Operationen Exceptions aus, die unter dem Standard ein Ergebnis liefern würden - z.B. `1.0/0.0`
+
+Besondere Zahlen in IEEE 754:
+
+- `inf` und `-inf` (unendliche Werte)
+- `nan` (not-a-number: undefinierter / unbekannter Wert)
+
 ## complex
 
 ```py
 a = 2 + 3j
 ```
+
+## Erweiterte Zuweisung
+
+Zu binären Operatoren gibt es sogenannte _erweiterte Zuweisungen_ (_augmented assignments_):
+
+```py
+a = a + 1
+```
+
+Kurzform (erweiterte Zuweisung):
+
+```py
+a += 1
+```
+
+Weitere Formen: `-=`, `*=`, ...
 
 ## Weitere Operationen mit Zahlen
 
@@ -387,8 +416,8 @@ f'weather in {city}: {temperature}°C'
 
 ```py
 t = 333.333
-'{t.4f}°K' # 333.3330°K
-'{t.4g}°K' # 333.3°K
+f'{t.4f}°K' # 333.3330°K
+f'{t.4g}°K' # 333.3°K
 ```
 
 https://mkaz.blog/code/python-string-format-cookbook/
@@ -499,16 +528,45 @@ Enumerate gibt die folgende Datenstruktur zurück:
 = Sequenz von Zahlen zwischen 0 und 255
 
 ```py
-m = bytes([104, 101, 108, 108, 111])
+m = bytes([0, 0x40, 0x70, 0xa0])
+```
 
-# oder:
-
-m = b"hello"
+```
+m[1] == 64
+m[2] == 160
 ```
 
 ## Bytes
 
-Können zum Teil (bis 127) als ASCII-Text dargestellt werden
+Standard representation in Python:
+
+```py
+print(bytes([0x00, 0x40, 0x70, 0xa0]))
+```
+
+```py
+b'\x00@p\xa0'
+```
+
+Wenn möglich werden bytes als ASCII-Zeichen dargestellt; sonst wird ihr Hexadezimalcode angezeigt
+
+Das `b` zeigt an dass, es sich um Bytes - und nicht einen gewöhnlichen String - handelt
+
+## Bytes and Strings
+
+Bytes können beliebige Daten beinhalten - oft beinhalten sie aber codierten Text
+
+Wenn wir das Encoding kennen, können wir zwischen Bytes und Strings wechseln:
+
+```py
+'ä'.encode('utf-8')
+# b'\xc3\xa4'
+```
+
+```py
+b'\xc3\xa4'.decode('utf-8')
+# 'ä'
+```
 
 ## Umwandlung zwischen Strings und Bytes
 
@@ -646,9 +704,9 @@ Dictionaries sind Zuordnungen, die bestimmten Einträgen zugehörige Werte zuwei
 
 ```py
 person = {
-    "first_name": "John"
-    "last_name": "Doe"
-    "nationality": "Canada"
+    "first_name": "John",
+    "last_name": "Doe",
+    "nationality": "Canada",
     "birth_year": 1980
 }
 ```
@@ -854,8 +912,10 @@ Wir könnten jedoch auch andere Typen verwenden:
 ```py
 a = 0
 if a: ...
+
 name = input("enter your name")
 if name: ...
+
 products = []
 if products: ...
 ```
@@ -941,6 +1001,8 @@ Diese Funktionalität gibt es bei keiner anderen verbreiteten Programmiersprache
 - IOError
 - ZeroDivisionError
 - ...
+
+Übung: versuche, jede der obigen Exceptions auszulösen
 
 ## Exceptions abfangen
 
@@ -1305,4 +1367,68 @@ tdl.todos[0].toggle()
 
 tdl.stats() # {open: 1, completed: 1}
 ```
+
+# Python Versionen
+
+## Python Versionen
+
+Python 2 vs Python 3
+
+## Strings und Bytes
+
+Tiefgreifende Änderung in Python 3:
+
+Strikte Trennung von Text (strings) und Binärdaten (bytes)
+
+in Python 2: Datentypen `bytes`, `str` und `unicode`
+
+## Print
+
+Python 2:
+
+```py
+print "a",
+```
+
+Python 3:
+
+```py
+print("a", end="")
+```
+
+## Division
+
+Python 2:
+
+```py
+10 / 3    # 3
+```
+
+## range
+
+in Python 2: `range()` liefert Liste zurück, `xrange()` liefert speicherschonendes Objekt
+
+in Python 3: `range()` liefert speicherschonendes Objekt
+
+## input
+
+in Python 2: `input()` wertet die Eingabe aus, `raw_input()` gibt String zurück
+
+in Python 3: `input()` gibt String zurück
+
+## \_\_future\_\_ imports
+
+Verhalten von Python 3 in Python 2 übernehmen:
+
+```py
+from __future__ import print_function
+from __future__ import unicode_literals
+from __future__ import division
+```
+
+## Python-Future
+
+Kompatibilitätsschicht zwischen Python 2 und Python 3
+
+Unterstützung von Python 2 und Python 3 aus der gleichen Codebase
 

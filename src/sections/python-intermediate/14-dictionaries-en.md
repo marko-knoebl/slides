@@ -6,9 +6,9 @@ Dictionaries are mappings of keys to values
 
 ```py
 person = {
-    "first_name": "John"
-    "last_name": "Doe"
-    "nationality": "Canada"
+    "first_name": "John",
+    "last_name": "Doe",
+    "nationality": "Canada",
     "birth_year": 1980
 }
 ```

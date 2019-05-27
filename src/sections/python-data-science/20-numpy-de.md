@@ -8,12 +8,6 @@ Daten sind in mehrdimensionalen Arrays von Zahlen gespeichert, die resourcenscho
 
 Daten können z.B. Bilder, Tondateien, Messwerte und vieles anderes repräsentieren
 
-## NumPy
-
-NumPy Arrays vs Python Listen:
-
-Arrays sind im Hintergrund in C implementiert, die numerischen Einträge (z.B. Integer) sind keine Python-Objekte und damit resourcenschonender.
-
 ## Importieren von NumPy
 
 oft verkürzt als:
@@ -21,6 +15,12 @@ oft verkürzt als:
 ```python
 import numpy as np
 ```
+
+## NumPy
+
+NumPy Arrays vs Python Listen:
+
+Arrays sind im Hintergrund in C implementiert, die numerischen Einträge (z.B. Integer) sind keine Python-Objekte und damit resourcenschonender.
 
 ## NumPy
 

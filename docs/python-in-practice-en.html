@@ -164,7 +164,6 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li>web development</li>
 <li>databases</li>
 <li>e-mail</li>
-<li>NumPy</li>
 </ul>
 
       </section></section><section class="section" id="section-3"><section class="slide" id="slide-3-1">
@@ -284,15 +283,43 @@ locale.getpreferredencoding()</code></pre>
 <ul>
 <li>text files</li>
 <li>JSON</li>
+<li>CSV</li>
 <li>XML</li>
 <li>Python object files (via pickle and shelve)</li>
 <li>binary files</li>
 </ul>
 
       </section><section class="slide" id="slide-4-3">
-        <h2 id="json">JSON</h2>
+        <h2 id="csv">CSV</h2>
 
       </section><section class="slide" id="slide-4-4">
+        <h2 id="writing-csv">Writing CSV</h2>
+<pre><code class="language-py"><span class="hljs-keyword">import</span> csv
+
+data = [
+    [<span class="hljs-string">'code'</span>, <span class="hljs-string">'area'</span>, <span class="hljs-string">'population'</span>],
+    [<span class="hljs-string">'CN'</span>, <span class="hljs-number">9.6</span>, <span class="hljs-number">1386</span>],
+    [<span class="hljs-string">'RU'</span>, <span class="hljs-number">17</span>, <span class="hljs-number">144</span>],
+    [<span class="hljs-string">'US'</span>, <span class="hljs-number">9.8</span>, <span class="hljs-number">327</span>]
+]
+
+<span class="hljs-keyword">with</span> open(<span class="hljs-string">'data.csv'</span>, <span class="hljs-string">'w'</span>, encoding=<span class="hljs-string">'utf-8'</span>, newline=<span class="hljs-string">''</span>) <span class="hljs-keyword">as</span> f:
+    writer = csv.writer(f)
+    writer.writerows(data)</code></pre>
+
+      </section><section class="slide" id="slide-4-5">
+        <h2 id="reading-csv">Reading CSV</h2>
+<pre><code class="language-py"><span class="hljs-keyword">import</span> csv
+
+<span class="hljs-keyword">with</span> open(<span class="hljs-string">'countries.csv'</span>, encoding=<span class="hljs-string">'utf-8'</span>, newline=<span class="hljs-string">''</span>) <span class="hljs-keyword">as</span> csv_file:
+    reader = csv.reader(csv_file)
+    <span class="hljs-keyword">for</span> row <span class="hljs-keyword">in</span> reader:
+        print(row)</code></pre>
+
+      </section><section class="slide" id="slide-4-6">
+        <h2 id="json">JSON</h2>
+
+      </section><section class="slide" id="slide-4-7">
         <h2 id="saving-json">Saving JSON</h2>
 <pre><code class="language-py"><span class="hljs-keyword">import</span> json
 
@@ -302,7 +329,7 @@ jsonstring = json.dumps(data)
 <span class="hljs-keyword">with</span> open(<span class="hljs-string">"numbers.json"</span>, encoding=<span class="hljs-string">"utf-8"</span>) <span class="hljs-keyword">as</span> jsonfile:
     jsonfile.write(jsonstring)</code></pre>
 
-      </section><section class="slide" id="slide-4-5">
+      </section><section class="slide" id="slide-4-8">
         <h2 id="reading-json">Reading JSON</h2>
 <pre><code class="language-py"><span class="hljs-keyword">import</span> json
 
@@ -310,7 +337,7 @@ jsonstring = json.dumps(data)
     jsonstring = jsonfile.read()
 data = json.loads(jsonstring)</code></pre>
 
-      </section><section class="slide" id="slide-4-6">
+      </section><section class="slide" id="slide-4-9">
         <h2 id="xml">XML</h2>
 <p>two packages in the standard library:</p>
 <ul>
@@ -322,7 +349,7 @@ data = json.loads(jsonstring)</code></pre>
 <li><code>lxml</code></li>
 </ul>
 
-      </section><section class="slide" id="slide-4-7">
+      </section><section class="slide" id="slide-4-10">
         <h2 id="xml-with-elementtree-creating-a-document">XML with ElementTree: creating a document</h2>
 <pre><code class="language-py"><span class="hljs-keyword">import</span> xml.etree.ElementTree <span class="hljs-keyword">as</span> et
 
@@ -333,7 +360,7 @@ age = et.SubElement(person, <span class="hljs-string">'age'</span>)
 age.text = <span class="hljs-string">'40'</span>
 age.set(<span class="hljs-string">"unit"</span>, <span class="hljs-string">"years"</span>)</code></pre>
 
-      </section><section class="slide" id="slide-4-8">
+      </section><section class="slide" id="slide-4-11">
         <h2 id="xml-with-elementtree-saving">XML with ElementTree: saving</h2>
 <p>Always specify an encoding when saving XML!</p>
 <pre><code class="language-py">xmlbytestring: bytes = et.tostring(person, encoding=<span class="hljs-string">'utf-8'</span>)
@@ -349,7 +376,7 @@ xmlstring: str = et.tostring(person, encoding=<span class="hljs-string">'unicode
 tree = et.ElementTree(person)
 tree.write(<span class="hljs-string">"myfile.xml"</span>, encoding=<span class="hljs-string">"utf-8"</span>)</code></pre>
 
-      </section><section class="slide" id="slide-4-9">
+      </section><section class="slide" id="slide-4-12">
         <h2 id="xml-with-elementtree-reading">XML with ElementTree: reading</h2>
 <pre><code class="language-py"><span class="hljs-keyword">import</span> xml.etree.ElementTree <span class="hljs-keyword">as</span> et
 
@@ -359,7 +386,7 @@ person = et.fromstring(xmlstring)
     print(childnode.text)
     print(childnode.attrib)</code></pre>
 
-      </section><section class="slide" id="slide-4-10">
+      </section><section class="slide" id="slide-4-13">
         <h2 id="pickle">Pickle</h2>
 <p>File format that can be used to save various types of Python objects</p>
 <p>Warning:</p>
@@ -368,7 +395,7 @@ person = et.fromstring(xmlstring)
 <li>Pickle files may contain malicious code</li>
 </ul>
 
-      </section><section class="slide" id="slide-4-11">
+      </section><section class="slide" id="slide-4-14">
         <h2 id="pickle">Pickle</h2>
 <pre><code class="language-py"><span class="hljs-keyword">import</span> pickle
 <span class="hljs-keyword">import</span> datetime
@@ -380,7 +407,7 @@ serialized = pickle.dumps()
 <span class="hljs-keyword">with</span> open(<span class="hljs-string">"datetime.pickle"</span>, mode=<span class="hljs-string">"wb"</span>) <span class="hljs-keyword">as</span> picklefile:
     picklefile.write(serialized)</code></pre>
 
-      </section><section class="slide" id="slide-4-12">
+      </section><section class="slide" id="slide-4-15">
         <h2 id="pickle">Pickle</h2>
 <pre><code class="language-py"><span class="hljs-keyword">import</span> pickle
 
@@ -388,7 +415,7 @@ serialized = pickle.dumps()
     serialized = picklefile.read()
 earlier = pickle.reads(serialized)</code></pre>
 
-      </section><section class="slide" id="slide-4-13">
+      </section><section class="slide" id="slide-4-16">
         <h2 id="exercise">Exercise</h2>
 <p>saving / loading of a tic-tac-toe board in various formats</p>
 <p>Python data structure:</p>
@@ -1107,8 +1134,9 @@ connection.close()</code></pre>
         <h2 id="queries-with-parameters">Queries with parameters</h2>
 <p>dangerous:</p>
 <pre><code class="language-py">search_name = input()
-command = <span class="hljs-string">f"""SELECT tel FROM person WHERE name = '<span class="hljs-subst">{search_name}</span>'"""</span>
-res = c.execute(command)</code></pre>
+res = cursor.execute(
+  <span class="hljs-string">f"""SELECT tel FROM person WHERE name = '<span class="hljs-subst">{search_name}</span>'"""</span>
+)</code></pre>
 
       </section><section class="slide" id="slide-13-11">
         <h2 id="queries-with-parameters">Queries with parameters</h2>
@@ -1150,6 +1178,10 @@ res = cursor.execute(
 
       </section></section><section class="section" id="section-14"><section class="slide" id="slide-14-1">
         <h1 id="sqlalchemy">SQLAlchemy</h1>
+<!--
+requirements: classes
+-->
+
 
       </section><section class="slide" id="slide-14-2">
         <h2 id="sqlalchemy">SQLAlchemy</h2>
@@ -1417,102 +1449,6 @@ hello_button.pack()
 <p><del><code>pyzmail</code></del> → <code>pyzmail36</code></p>
 <p>use bytes instead of a string:</p>
 <p><del><code>&#39;BODY[]&#39;</code></del> → <code>b&#39;BODY[]</code></p>
-
-      </section></section><section class="section" id="section-18"><section class="slide" id="slide-18-1">
-        <h1 id="numpy">NumPy</h1>
-
-      </section><section class="slide" id="slide-18-2">
-        <h2 id="numpy">NumPy</h2>
-<p>Library for efficient data processing</p>
-<p>Data are stored in multidimensional arrays of numeric values which are implemented in an efficient way</p>
-<p>Data can represent images, sound, measurements and much more</p>
-
-      </section><section class="slide" id="slide-18-3">
-        <h2 id="numpy">NumPy</h2>
-<p>common import convention:</p>
-<pre><code class="language-python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np</code></pre>
-
-      </section><section class="slide" id="slide-18-4">
-        <h2 id="numpy">NumPy</h2>
-<p>NumPy Arrays vs Python lists:</p>
-<p>Arrays are implemented in C; the entries (e.g. integers) are no Python Objects and are therefore lighter on resources</p>
-
-      </section><section class="slide" id="slide-18-5">
-        <h2 id="numpy">NumPy</h2>
-<p>NumPy Arrays vs Python lists:</p>
-<pre><code class="language-py"><span class="hljs-comment"># Python lists (with references to Python integer objects)</span>
-list_a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>]
-list_b = [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]
-
-<span class="hljs-comment"># NumPy array</span>
-<span class="hljs-comment"># data are contained within the array without referencing</span>
-<span class="hljs-comment"># Python integers</span>
-array_a = numpy.array(list_a)
-array_b = numpy.array(list_b)
-
-<span class="hljs-comment"># fast multiplication (C implemented in C)</span>
-array_a * array_b</code></pre>
-
-      </section><section class="slide" id="slide-18-6">
-        <h2 id="arrays">Arrays</h2>
-<p>Each array can only hold data of one type (e.g. only 64 bit floats or only bytes)</p>
-
-      </section><section class="slide" id="slide-18-7">
-        <h2 id="arrays">Arrays</h2>
-<p>Creating a 2-dimensional array:</p>
-<pre><code class="language-py">np.array([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], [<span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">6</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">6</span>, <span class="hljs-number">9</span>]])</code></pre>
-<p>output:</p>
-<pre><code class="language-py">array([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>],
-       [<span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">6</span>],
-       [<span class="hljs-number">3</span>, <span class="hljs-number">6</span>, <span class="hljs-number">9</span>]])</code></pre>
-
-      </section><section class="slide" id="slide-18-8">
-        <h2 id="arrays">Arrays</h2>
-<p>Creating a 3-dimensional array:</p>
-<pre><code class="language-py">np.array([[[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]], [[<span class="hljs-number">5</span>, <span class="hljs-number">6</span>], [<span class="hljs-number">7</span>,<span class="hljs-number">8</span>]]])</code></pre>
-<p>output:</p>
-<pre><code class="language-py">array([[[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>],
-        [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]],
-
-       [[<span class="hljs-number">5</span>, <span class="hljs-number">6</span>],
-        [<span class="hljs-number">7</span>, <span class="hljs-number">8</span>]]])</code></pre>
-
-      </section><section class="slide" id="slide-18-9">
-        <h2 id="array-types">Array types</h2>
-<p>Each array has a predefined data type for all entries</p>
-<pre><code class="language-py">a = np.array([<span class="hljs-number">1</span>])
-a.dtype <span class="hljs-comment"># int32</span>
-b = np.array([<span class="hljs-number">1.0</span>])
-b.dtype <span class="hljs-comment"># float64</span>
-c = np.array([<span class="hljs-string">'abc'</span>])
-c.dtype <span class="hljs-comment"># &lt;U3</span>
-d = np.array([<span class="hljs-string">b'abc'</span>])
-d.dtype <span class="hljs-comment"># |S3</span></code></pre>
-
-      </section><section class="slide" id="slide-18-10">
-        <h2 id="array-types">Array types</h2>
-<p>Types may be named explicitly:</p>
-<pre><code class="language-py">a = np.array([<span class="hljs-number">1</span>], dtype=<span class="hljs-string">'int64'</span>)
-b = np.array([<span class="hljs-number">1</span>], dtype=<span class="hljs-string">'uint8'</span>)</code></pre>
-<p>If possible, types are converted automatically:</p>
-<pre><code class="language-py">c = a + b
-c.dtype <span class="hljs-comment"># int64</span></code></pre>
-
-      </section><section class="slide" id="slide-18-11">
-        <h2 id="overflow">Overflow</h2>
-<p>Be careful with values that are too big or too small</p>
-<p>The type <code>int8</code> is only suitable for values in the range from  <code>-128</code> to <code>+127</code></p>
-<pre><code class="language-py">np.array([<span class="hljs-number">127</span>, <span class="hljs-number">128</span>, <span class="hljs-number">129</span>], dtype=<span class="hljs-string">"int8"</span>)</code></pre>
-<p>Output:</p>
-<pre><code class="language-py">array([<span class="hljs-number">127</span>, <span class="hljs-number">-128</span>, <span class="hljs-number">-127</span>])</code></pre>
-
-      </section><section class="slide" id="slide-18-12">
-        <h2 id="exercises">Exercises</h2>
-<ul>
-<li>10 million dice rolls (with 10 dice) - histograms</li>
-<li>solving linear equations</li>
-<li>inventory of products &amp; price list</li>
-</ul>
 
       </section></section>
 

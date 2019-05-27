@@ -1,5 +1,9 @@
 # SQLAlchemy
 
+<!--
+requirements: classes
+-->
+
 ## SQLAlchemy
 
 SQLAlchemy = Object Relational Mapper

@@ -261,7 +261,7 @@ https://code.visualstudio.com/
 - Python-Erweiterung für VS Code installieren
 
 - Zuvor installiertes Python finden:
-  - Strg + Shift + P
+  - Taste `F1` drücken
   - Suche nach: "Python: Interpreter auswählen"
   - Enter
   - warten...
@@ -396,7 +396,9 @@ Verwende dazu die Funktion `len(...)`, um die Länge eines Strings zu ermitteln
 
 Kommentare dienen Entwicklern, um den Code zu beschreiben und zu erklären. Sie werden von Python ignoriert.
 
-Eine Kommentarzeile beginnt mit einem `#`-Zeichen.
+Ein Kommentar beginnt mit einem `#`-Zeichen und reicht bis zum Ende der Zeile.
+
+Üblicherweise stehen Kommentare _oberhalb_ des Codes, den sie beschreiben
 
 ```py
 # determine the length of the name
@@ -1129,18 +1131,6 @@ print(check_isbn(isbn, expected))
 
 ## IBAN
 
-# VS Code - Setup für Python
-
-## VS Code - Setup für Python
-
-File - Settings - Preferences
-
-Empfehlungen:
-
-- `python.linting.pylintEnabled`: `true`
-- `python.linting.flake8Enabled`: für Formatierungsüberprüfung auf `true`
-- `python.formatting.provider`: `black`
-
 # Codequalität und Linting
 
 ## Codequalität und Linting
@@ -1257,70 +1247,6 @@ Auszüge aus dem _Zen of Python_ (anzeigbar via `import this`):
 - _Readability counts._
 - _Special cases aren't special enough to break the rules._
 - _There should be one-- and preferably only one --obvious way to do it._
-
-# Python Versionen
-
-## Python Versionen
-
-Python 2 vs Python 3
-
-## Strings und Bytes
-
-Tiefgreifende Änderung in Python 3:
-
-Strikte Trennung von Text (strings) und Binärdaten (bytes)
-
-in Python 2: Datentypen `bytes`, `str` und `unicode`
-
-## Print
-
-Python 2:
-
-```py
-print "a",
-```
-
-Python 3:
-
-```py
-print("a", end="")
-```
-
-## Division
-
-Python 2:
-
-```py
-10 / 3    # 3
-```
-
-## range
-
-in Python 2: `range()` liefert Liste zurück, `xrange()` liefert speicherschonendes Objekt
-
-in Python 3: `range()` liefert speicherschonendes Objekt
-
-## input
-
-in Python 2: `input()` wertet die Eingabe aus, `raw_input()` gibt String zurück
-
-in Python 3: `input()` gibt String zurück
-
-## \_\_future\_\_ imports
-
-Verhalten von Python 3 in Python 2 übernehmen:
-
-```py
-from __future__ import print_function
-from __future__ import unicode_literals
-from __future__ import division
-```
-
-## Python-Future
-
-Kompatibilitätsschicht zwischen Python 2 und Python 3
-
-Unterstützung von Python 2 und Python 3 aus der gleichen Codebase
 
 # Cheatsheet
 

@@ -104,7 +104,24 @@ Typen wie _integer_ oder _float_ haben üblicherweise eine vorgegebene Genauigke
 Beispiele:
 
 - ein _integer_ in _SQL_ kann typischerweise die Werte _-2,147,483,648_ bis _2,147,483,647_ annehmen
-- eine Kommazahl im Binärsystem hat in JavaScript und Python ca eine Genauigkeit von 15 Stellen (_64-Bit_ Genauigkeit)
+- eine Kommazahl im Binärsystem hat oft eine Genauigkeit von etwa 15 Dezimalstellen (_64-Bit_ Genauigkeit)
+
+## Zahlen
+
+Speicherung als Zahl oder als Text?
+
+Wie speichert man Kreditkartennummern, Postleitzahlen, Telefonnummern, ...?
+
+## Zahlen
+
+Kreditkartennummern, Postleitzahlen, Telefonnummern, etc sollten als Text gespeichert werden
+
+Gründe:
+
+- solche Daten können mit Nullen beginnen, die bei einer Zahl nicht erfasst würden
+- solche Daten können Sonderzeichen (z.B. `/`, Leerzeichen, ...) enthalten
+
+Grundregel: wenn mit einer Zahl nicht sinnvoll gerechet werden kann, sollte sie als String gespeichert werden.
 
 # Boolesche Werte
 
@@ -194,7 +211,7 @@ Einzelner Backslash:
 
 ## null
 
-Mit `null` wird oft ausgedrückt, dass ein bestimmter Wert fehlt oder nicht bekannt ist
+Mit `null` wird ausgedrückt, dass ein bestimmter Wert fehlt oder unbekannt ist
 
 # CSV
 
@@ -569,8 +586,8 @@ Abweichungen vom Standard:
 
 - `SMALLINT` (üblicherweise 16 Bit)
 - `INT` / `INTEGER` (üblicherweise 32 Bit)
-- `NUMERIC` / `DECIMAL` (Dezimalzahlen mit variabler Genauigkeit)
 - `BIGINT` (üblicherweise 64 Bit)
+- `NUMERIC` / `DECIMAL` (Dezimalzahlen mit variabler Genauigkeit)
 - `REAL` (üblicherweise 32 Bit)
 - `DOUBLE PRECISION` (üblicherweise 64 Bit)
 
@@ -909,6 +926,56 @@ Der obige Code listet alle Kombinationen auf und beinhaltet auch Lieder, für di
 
 # MongoDB
 
+## MongoDB vs SQL
+
+SQL:
+
+- standardisierte Sprache, unabhängig von der verwendeten Programmiersprache
+- Verwendung aus Programmiersprachen oft über viele verschiedene _ORMs_ (_object realtional mappings_)
+
+MongoDB:
+
+- _ein_ Abfrageschema pro Programmiersprache
+
+## MongoDB vs SQL
+
+SQL:
+
+- vordefiniertes Schema bei der Erstellung von Tabellen
+- Änderung eines Tabellenschemas (Migration) kann aufwändig sein
+
+MongoDB:
+
+- Ein _Dokument_ kann grundsätzlich Einträge beliebiger Struktur enthalten
+- Optional können
+
+## MongoDB vs SQL
+
+SQL:
+
+- Skalierung hauptsächlich vertikal: Ergänzen von Resourcen bei einem bestehenden Server
+
+MongoDB:
+
+- Skalierung hauptsächlich horizontal: Ergänzen zusätzlicher Server (via Sharding)
+
+## MongoDB vs SQL
+
+SQL:
+
+- verwendet meist _atomare_ Einträge (und erste Normalform)
+
+MongoDB:
+
+- beinhaltet oft zusammengesetzte Einträge (Arrays, Objekte):
+
+```json
+{
+  "name": "sue",
+  "groups": ["news", "sports"]
+}
+```
+
 ## MongoDB
 
 _MongoDB_ ist eine sogenannte _dokumentorientierte_ Datenbank
@@ -920,4 +987,177 @@ Ihre Struktur kann ähnlich aussehen wie die eines JSON-Dokuments
 MongoDB basiert auf dem BSON Dateiformat. Dieses ähnelt JSON, ist aber ein binäres Format und lässt sich effizienter lesen und schreiben.
 
 Der Export bzw Import geschieht mittels der Programme `mongodump` und `mongorestore`
+
+# Querying data
+
+## Getting all data
+
+SQL:
+
+```sql
+SELECT * FROM iris;
+```
+
+SQLAlchemy (Python):
+
+```sql
+session.query(Iris)
+```
+
+mongo shell (JS):
+
+```js
+db.collection('iris').find({});
+```
+
+Pandas (Python): N/A
+
+## Selecting only some columns / fields
+
+SQL:
+
+```sql
+SELECT sepal_length, sepal_width FROM iris;
+```
+
+SQLAlchemy (Python):
+
+```sql
+session.query(Iris.sepal_length, Iris.sepal_width)
+```
+
+## Selecting only some columns / fields
+
+Mongo shell:
+
+```js
+db.collection('iris').find(
+  {},
+  { sepal_length: 1, sepal_width: 1 }
+);
+```
+
+Pandas:
+
+```py
+iris_data.loc[:,["sepal_length", "sepal_width"]]
+```
+
+## Finding specific rows
+
+SQL:
+
+```sql
+SELECT * FROM iris WHERE name='Iris-setosa';
+```
+
+SQLAlchemy (Python):
+
+```py
+session.query(Iris).filter_by(Iris.name="Iris-setosa")
+```
+
+## Finding specific rows
+
+mongo shell:
+
+```js
+db.collection('iris').find({ name: 'Iris-setosa' });
+```
+
+pandas (Python):
+
+```py
+iris_setosa_data = iris_data.loc[
+    iris_data["name"] == "Iris-setosa"
+]
+```
+
+pandas (Python): selecting a range of rows:
+
+```py
+iris_data.iloc[10:20]
+```
+
+## Combination: rows and columns
+
+SQL:
+
+```sql
+SELECT sepal_length, sepal_width
+FROM iris
+WHERE name='Iris-setosa';
+```
+
+## Combination: rows and columns
+
+SQLAlchemy (Python):
+
+```py
+session.query(
+    Iris.sepal_length, Iris.sepal_width
+).filter_by(Iris.name="Iris-setosa")
+```
+
+## Combination: rows and columns
+
+mongo shell:
+
+```js
+db.collection('iris').find(
+  { name: 'Iris-setosa' },
+  { sepal_length: 1, sepal_width: 1 }
+);
+```
+
+## Combination: rows and columns
+
+pandas (Python):
+
+```py
+iris_data.loc[
+    [iris_data["name"] == "Iris-setosa"],
+    ["sepal_length", "sepal_width"],
+]
+```
+
+## Sorting data
+
+SQL:
+
+```sql
+SELECT sepal_length, sepal_width
+FROM iris
+ORDER BY sepal_length;
+```
+
+## Sorting data
+
+SQLAlchemy:
+
+```py
+session.query(
+    Iris.sepal_length, Iris.sepal_width
+).order_by(Iris.sepal_length)
+```
+
+## Sorting data
+
+mongo shell:
+
+```js
+db.collection('iris')
+  .find({}, { sepal_length: 1, sepal_width: 1 })
+  .sort({ sepal_length: 1 });
+```
+
+## Sorting data
+
+pandas (Python):
+
+```py
+iris_data.loc[["sepal_length", "sepal_width"]].sort_values(
+    by="sepal_length"
+)
+```
 

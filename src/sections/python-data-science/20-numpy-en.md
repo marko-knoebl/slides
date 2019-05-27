@@ -20,7 +20,7 @@ import numpy as np
 
 NumPy Arrays vs Python lists:
 
-Arrays are implemented in C; the entries (e.g. integers) are no Python Objects and are therefore lighter on resources
+Arrays are implemented in C; the entries (e.g. integers) are not Python Objects and are therefore lighter on resources
 
 ## NumPy
 
@@ -37,7 +37,7 @@ list_b = [3, 4]
 array_a = numpy.array(list_a)
 array_b = numpy.array(list_b)
 
-# fast multiplication (C implemented in C)
+# fast multiplication (implemented in C)
 array_a * array_b
 ```
 
@@ -96,7 +96,7 @@ d.dtype # |S3
 
 ## Array types
 
-Types may be named explicitly:
+Types may be stated explicitly:
 
 ```py
 a = np.array([1], dtype='int64')
@@ -114,7 +114,7 @@ c.dtype # int64
 
 Be careful with values that are too big or too small
 
-The type `int8` is only suitable for values in the range from  `-128` to `+127`
+The type `int8` is only suitable for values in the range from `-128` to `+127`
 
 ```py
 np.array([127, 128, 129], dtype="int8")
@@ -126,8 +126,44 @@ Output:
 array([127, -128, -127])
 ```
 
+## Operations on arrays
+
+operations are applied element-wise:
+
+```py
+a = np.array([1, 2, 3])
+b = np.array([2, 2, 2])
+
+print(a + b)
+# np.array([3, 4, 5])
+print(a * b)
+# np.array([2, 4, 6])
+```
+
 ## Exercises
 
-- 10 million dice rolls (with 10 dice) - histograms
+given an array of prices and an array of quantities, determine the total price:
+
+```py
+prices = np.array([3.99, 4.99, 3.99, 12.99])
+# buying the first item 3 times and the last item 2 times
+quantities = np.array([3, 0, 0, 2])
+
+# solution: 37.95
+```
+
+given the coordinates of the vertices of a triangle (in 2D or 3D), determine its centroid
+
+```py
+a = np.array([5, 1])
+b = np.array([6, 8])
+c = np.array([1, 3])
+
+# solution: [4, 4]
+```
+
+## Exercises
+
+advanced:
+
 - solving linear equations
-- inventory of products & price list

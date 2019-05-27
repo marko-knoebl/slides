@@ -13,7 +13,7 @@ https://code.visualstudio.com/
 - Python-Erweiterung für VS Code installieren
 
 - Zuvor installiertes Python finden:
-  - Strg + Shift + P
+  - Taste `F1` drücken
   - Suche nach: "Python: Interpreter auswählen"
   - Enter
   - warten...

@@ -34,8 +34,8 @@ f'weather in {city}: {temperature}°C'
 
 ```py
 t = 333.333
-'{t.4f}°K' # 333.3330°K
-'{t.4g}°K' # 333.3°K
+f'{t.4f}°K' # 333.3330°K
+f'{t.4g}°K' # 333.3°K
 ```
 
 https://mkaz.blog/code/python-string-format-cookbook/

@@ -31,4 +31,21 @@ Typen wie _integer_ oder _float_ haben üblicherweise eine vorgegebene Genauigke
 Beispiele:
 
 - ein _integer_ in _SQL_ kann typischerweise die Werte _-2,147,483,648_ bis _2,147,483,647_ annehmen
-- eine Kommazahl im Binärsystem hat in JavaScript und Python ca eine Genauigkeit von 15 Stellen (_64-Bit_ Genauigkeit)
+- eine Kommazahl im Binärsystem hat oft eine Genauigkeit von etwa 15 Dezimalstellen (_64-Bit_ Genauigkeit)
+
+## Zahlen
+
+Speicherung als Zahl oder als Text?
+
+Wie speichert man Kreditkartennummern, Postleitzahlen, Telefonnummern, ...?
+
+## Zahlen
+
+Kreditkartennummern, Postleitzahlen, Telefonnummern, etc sollten als Text gespeichert werden
+
+Gründe:
+
+- solche Daten können mit Nullen beginnen, die bei einer Zahl nicht erfasst würden
+- solche Daten können Sonderzeichen (z.B. `/`, Leerzeichen, ...) enthalten
+
+Grundregel: wenn mit einer Zahl nicht sinnvoll gerechet werden kann, sollte sie als String gespeichert werden.

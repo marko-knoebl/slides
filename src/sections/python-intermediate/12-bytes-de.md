@@ -5,16 +5,45 @@
 = Sequenz von Zahlen zwischen 0 und 255
 
 ```py
-m = bytes([104, 101, 108, 108, 111])
+m = bytes([0, 0x40, 0x70, 0xa0])
+```
 
-# oder:
-
-m = b"hello"
+```
+m[1] == 64
+m[2] == 160
 ```
 
 ## Bytes
 
-Können zum Teil (bis 127) als ASCII-Text dargestellt werden
+Standard representation in Python:
+
+```py
+print(bytes([0x00, 0x40, 0x70, 0xa0]))
+```
+
+```py
+b'\x00@p\xa0'
+```
+
+Wenn möglich werden bytes als ASCII-Zeichen dargestellt; sonst wird ihr Hexadezimalcode angezeigt
+
+Das `b` zeigt an dass, es sich um Bytes - und nicht einen gewöhnlichen String - handelt
+
+## Bytes and Strings
+
+Bytes können beliebige Daten beinhalten - oft beinhalten sie aber codierten Text
+
+Wenn wir das Encoding kennen, können wir zwischen Bytes und Strings wechseln:
+
+```py
+'ä'.encode('utf-8')
+# b'\xc3\xa4'
+```
+
+```py
+b'\xc3\xa4'.decode('utf-8')
+# 'ä'
+```
 
 ## Umwandlung zwischen Strings und Bytes
 

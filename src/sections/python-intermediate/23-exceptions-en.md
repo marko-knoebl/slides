@@ -11,6 +11,8 @@
 - ZeroDivisionError
 - ...
 
+Exercise: try and trigger all of the above exceptions
+
 ## Catching exceptions
 
 ```py
