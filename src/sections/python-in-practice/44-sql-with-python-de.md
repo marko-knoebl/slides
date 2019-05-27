@@ -128,11 +128,11 @@ Die Attribute `sqlite3.paramstyle`, `pymysql.paramstyle` etc geben das Format f√
 
 ## PEP 249: das cursor Objekt
 
+- `cursor.execute(command, parameters)`
 - `cursor.rowcount`: Anzahl der letzten Ergebnisse
 - `cursor.fetchone()`: Eine Zeile des Resultats auslesen (√ºblicherweise als Tupel)
 - `cursor.fetchmany(10)`
 - `cursor.fetchall()`
-- `cursor.execute(command, parameters)`
 
 ## Beispiel: Forum mit Datenbankanbindung
 

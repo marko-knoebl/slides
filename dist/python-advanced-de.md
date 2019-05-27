@@ -1,3 +1,38 @@
+# {{title}}
+
+## Präsentation und Code
+
+Präsentationen verfügbar unter: https://karuga.eu/courses-presentations
+
+Code verfügbar unter: https://github.com/marko-knoebl/courses-code
+
+## Ihr Trainer
+
+Marko Knöbl
+
+- Frontend Web-Entwicklung
+  - JavaScript
+  - React, Angular
+- Programmierung
+  - Python, JavaScript
+
+## Vorstellung der Teilnehmer
+
+- Name
+- Firma
+- Aktuelle Projekte
+- Grund der Schulung
+- Vorkenntnisse
+- Erwartungen / Wünsche
+
+## Organisatorisches
+
+- Kursdauer
+- Pausen
+- Mittagessen
+- Unterlagen
+- Fragen, Feedback? - Jederzeit erwünscht
+
 # QA & Testen
 
 ## logging
@@ -103,25 +138,6 @@ python -m unittest
 
 ## debugger
 
-# Exceptions auslösen
-
-## Exceptions auslösen
-
-```py
-raise ValueError('test')
-```
-
-## Eigene Exceptions
-
-Eigene exceptions können wir als Unterklassen von `Exception` definieren
-
-```py
-class MoneyParseException(Exception):
-    pass
-
-raise MoneyParseException()
-```
-
 # Typendeklarationen
 
 ## Typendeklarationen
@@ -170,6 +186,46 @@ roman: Dict[int, str] = {1: 'I', 2: 'II', 3: 'III', 4: 'IV'}
 https://mypy.readthedocs.io
 
 (auch für Python 2)
+
+# Funktionen - Fortgeschritten
+
+## Lambdas
+
+## Memoisation
+
+(Beispiel: Fibonacci)
+
+## Decorators
+
+Decorator: Möglichkeit, eine Funktion nach deren Erstellung zu verändern
+
+Der Decorator ist eine Funktion, die eine Funktion als Parameter übernimmt und eine neue, veränderte Funktion zurückgibt
+
+## Decorators
+
+```py
+@cache
+def fib(n):
+    ...
+```
+
+äquivalent zu:
+
+```py
+def fib(n):
+    ...
+
+fib = cache(fib)
+```
+
+## Functools
+
+## Functools - Beispiel
+
+```py
+from functools import partial
+open_utf8 = partial(open, encoding='UTF-8')
+```
 
 # Objektorientierung (Fortgeschritten)
 
@@ -314,46 +370,6 @@ f.b = 3 # prints: "set propery 'b'"
 - Klasse "Vector"
 - Klasse "BankAccount"
 - Klasse "Dictionary" (Wörterbuch)
-
-# Funktionen - Fortgeschritten
-
-## Lambdas
-
-## Memoisation
-
-(Beispiel: Fibonacci)
-
-## Decorators
-
-Decorator: Möglichkeit, eine Funktion nach deren Erstellung zu verändern
-
-Der Decorator ist eine Funktion, die eine Funktion als Parameter übernimmt und eine neue, veränderte Funktion zurückgibt
-
-## Decorators
-
-```py
-@cache
-def fib(n):
-    ...
-```
-
-äquivalent zu:
-
-```py
-def fib(n):
-    ...
-
-fib = cache(fib)
-```
-
-## Functools
-
-## Functools - Beispiel
-
-```py
-from functools import partial
-open_utf8 = partial(open, encoding='UTF-8')
-```
 
 # Iterators
 

@@ -1,8 +1,8 @@
-# QA & Testen
+# QA & Testing
 
-## logging
+## Logging
 
-## logging
+## Logging
 
 ```py
 import logging
@@ -15,19 +15,17 @@ logging.basicConfig(
 logging.debug("hello")
 ```
 
-## logging
+## Logging
 
-Beispiel: Sortieralgorithmus
+Example: sorting algorithm
 
 ## assert
 
-## doctests
+## Doctests
 
-## doctests
+Code examples and unit tests in one - inside the doc string
 
-Codebeispiele und unittests in einem - innerhalb der docstrings
-
-## doctests
+## Doctests
 
 ```py
 def add(a, b):
@@ -38,7 +36,7 @@ def add(a, b):
     """
 ```
 
-## doctests ausführen
+## Running doctests
 
 ```py
 if __name__ == "__main__":
@@ -46,7 +44,7 @@ if __name__ == "__main__":
     doctest.testmod()
 ```
 
-## doctests: lange Ausgaben
+## Doctests: long outputs
 
 ```py
 """
@@ -58,15 +56,13 @@ if __name__ == "__main__":
 """
 ```
 
-## Unittests
+## Unit tests
 
-Möglichkeiten
+Possibilities:
 
-- unittest (Standardlibrary)
+- unittest (standard library)
 - pytest
 - nose
-
-## unittest
 
 ## unittest
 
@@ -87,18 +83,18 @@ class HasWon(unittest.TestCase):
 
 ## unittest
 
-Ausführen:
+running:
 
 ```bash
 python -m unittest mymodule
 ```
 
-oder
+or
 
 ```bash
 python -m unittest
 ```
 
-(findet Tests im Ordner)
+(finds tests inside the current folder)
 
-## debugger
+## Debugger

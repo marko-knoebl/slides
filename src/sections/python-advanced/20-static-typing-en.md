@@ -1,29 +1,33 @@
-# Typendeklarationen
+# Static typing
 
-## Typendeklarationen
+## Static typing
 
-MyPy: Typechecker für Python, insbesondere sinnvoll für Python3
+Newer Python versions support optional type annotations
+
+MyPy: type checker for Python that makes use of type annotations
 
 https://mypy-lang.org
 
-## Typendeklarationen
+## Type declarations
 
-Variablen:
+Variables:
 
 ```py
 i: int = 3
 ```
 
-## Typendeklarationen
+## Type declarations
 
-Funktionen:
+Functions:
 
 ```py
 def double(n: int) -> int:
     return 2 * n
 ```
 
-## Typendeklarationen: Kollektionen
+## Type declarations
+
+collections:
 
 ```py
 from typing import Iterable
@@ -31,7 +35,9 @@ from typing import Iterable
 names: Iterable[str] = ...
 ```
 
-## Typendeklarationen: Kollektionen
+## Type declarations
+
+collections:
 
 ```py
 from typing import List, Set, Dict, Tuple
@@ -41,8 +47,6 @@ anna: Tuple[str, str, int] = ('Anna', 'Berger', 1990)
 roman: Dict[int, str] = {1: 'I', 2: 'II', 3: 'III', 4: 'IV'}
 ```
 
-## Mypy - Dokumentation
+## Mypy documentation
 
 https://mypy.readthedocs.io
-
-(auch für Python 2)

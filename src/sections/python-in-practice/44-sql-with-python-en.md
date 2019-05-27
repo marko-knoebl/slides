@@ -128,11 +128,11 @@ The attributes `sqlite3.paramstyle`, `pymysql.paramstyle` etc indicate the forma
 
 ## PEP 249: the cursor object
 
+- `cursor.execute(command, parameters)`
 - `cursor.rowcount`: number of result rows in the last query
 - `cursor.fetchone()`: get a single row of the result (usually as a tuple)
 - `cursor.fetchmany(10)`
 - `cursor.fetchall()`
-- `cursor.execute(command, parameters)`
 
 ## Exercises
 
