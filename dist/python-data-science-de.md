@@ -290,12 +290,20 @@ iris = pd.read_csv(
 
 ## CSV lesen
 
-Beispiel: Wechselkurse (Multiindex)
+Beispiel: S&P 500 monatliche Preise
+
+```py
+sp500 = pd.read_csv(
+    "https://datahub.io/core/s-and-p-500/r/data.csv",
+    index_col="Date")
+```
+
+Beispiel: Wechselkurse
 
 ```py
 exchange_rates = pd.read_csv(
     "https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv",
-    index_col=("Date", "Country"))
+    parse_dates=[1])
 ```
 
 # Pandas: Daten auslesen

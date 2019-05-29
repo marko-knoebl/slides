@@ -163,7 +163,7 @@ WHERE title = 'Help!';
 wird zu
 
 ```py
-session.query(Song).filter_by(Song.title=="Help!").delete()
+session.query(Song).filter(Song.title=="Help!").delete()
 ```
 
 ## Definition eines Fremdschlüssels

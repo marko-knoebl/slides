@@ -565,9 +565,9 @@ print(content)
 part of the standard library
 
 ```py
-import urllib
+from urllib import request
 
-content: bytes = urllib.request.urlopen(
+content: bytes = request.urlopen(
                     "https://www.google.com").read()
 ```
 
@@ -588,6 +588,7 @@ content: str = requests.get("https://www.google.com").text
 ## Exercises
 
 - web scraping: number of Google search results
+- web scraping: headings in a Wikipedia article
 - APIs: weather data
   https://automatetheboringstuff.com/chapter14/
 - web scraping: xkcd downloader

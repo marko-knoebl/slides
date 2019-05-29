@@ -31,10 +31,10 @@ sp500 = pd.read_csv(
     index_col="Date")
 ```
 
-Example: exchange rates (multi index)
+Example: exchange rates
 
 ```py
 exchange_rates = pd.read_csv(
     "https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv",
-    index_col=("Date", "Country"))
+    parse_dates=[1])
 ```

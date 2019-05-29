@@ -333,12 +333,12 @@ sp500 = pd.read_csv(
     index_col="Date")
 ```
 
-Example: exchange rates (multi index)
+Example: exchange rates
 
 ```py
 exchange_rates = pd.read_csv(
     "https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv",
-    index_col=("Date", "Country"))
+    parse_dates=[1])
 ```
 
 # Pandas: Querying data
@@ -676,6 +676,14 @@ euribor.iloc[-36:].plot.bar()
 exercise:
 
 plot median _sepal-width_ and _sepal-length_ for all three types of flowers
+
+## Box plots
+
+Display statistical data in a diagram (min, median, max, ...)
+
+```py
+iris.plot.box()
+```
 
 ## Histograms
 

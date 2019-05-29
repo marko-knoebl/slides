@@ -42,7 +42,19 @@ def modify_a(mylist):
 def modify_b(mylist):
     return mylist + [1]
 
-list1 = [1, 2]
-list2 = modify_a(list1)
-print(list1) # [1, 2, 1]
+list_a = [1, 2]
+list_a_mod = modify_a(list_a)
+list_b = [1, 2]
+list_b_mod = modify_b(list_b)
+```
+
+(results on next slide)
+
+## Call by sharing
+
+```py
+list_a_mod # [1, 2, 1]
+list_b_mod # [1, 2, 1]
+list_a # [1, 2, 1]
+list_b # [1, 2]
 ```

@@ -6,7 +6,7 @@
 - `df.iloc[:5]`: first 5 rows (returns a `DataFrame` object)
 - `df.iloc[10:20]`: rows 10-19
 - `df.iloc[5, 1]`: row 5, column 1
-- `df.iloc[5, [0, 2]]`: row 5, column 0 und 2
+- `df.iloc[5, [0, 2]]`: row 5, column 0 and 2
 
 ## Querying data (by row names / column names)
 

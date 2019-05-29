@@ -381,10 +381,14 @@ area[<span class="hljs-string">'CN'</span>] <span class="hljs-comment"># 9.6</sp
 
       </section><section class="slide" id="slide-6-3">
         <h2 id="csv-lesen">CSV lesen</h2>
-<p>Beispiel: Wechselkurse (Multiindex)</p>
+<p>Beispiel: S&amp;P 500 monatliche Preise</p>
+<pre><code class="language-py">sp500 = pd.read_csv(
+    <span class="hljs-string">"https://datahub.io/core/s-and-p-500/r/data.csv"</span>,
+    index_col=<span class="hljs-string">"Date"</span>)</code></pre>
+<p>Beispiel: Wechselkurse</p>
 <pre><code class="language-py">exchange_rates = pd.read_csv(
     <span class="hljs-string">"https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv"</span>,
-    index_col=(<span class="hljs-string">"Date"</span>, <span class="hljs-string">"Country"</span>))</code></pre>
+    parse_dates=[<span class="hljs-number">1</span>])</code></pre>
 
       </section></section><section class="section" id="section-7"><section class="slide" id="slide-7-1">
         <h1 id="pandas-daten-auslesen">Pandas: Daten auslesen</h1>

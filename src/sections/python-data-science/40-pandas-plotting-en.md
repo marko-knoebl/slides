@@ -43,6 +43,14 @@ exercise:
 
 plot median _sepal-width_ and _sepal-length_ for all three types of flowers
 
+## Box plots
+
+Display statistical data in a diagram (min, median, max, ...)
+
+```py
+iris.plot.box()
+```
+
 ## Histograms
 
 counts occurrences of certain values / value ranges

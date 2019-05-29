@@ -1046,7 +1046,7 @@ SELECT * FROM iris WHERE name='Iris-setosa';
 SQLAlchemy (Python):
 
 ```py
-session.query(Iris).filter_by(Iris.name="Iris-setosa")
+session.query(Iris).filter(Iris.name="Iris-setosa")
 ```
 
 ## Finding specific rows
@@ -1088,7 +1088,7 @@ SQLAlchemy (Python):
 ```py
 session.query(
     Iris.sepal_length, Iris.sepal_width
-).filter_by(Iris.name="Iris-setosa")
+).filter(Iris.name="Iris-setosa")
 ```
 
 ## Combination: rows and columns

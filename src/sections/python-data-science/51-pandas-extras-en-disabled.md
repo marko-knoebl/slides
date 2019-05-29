@@ -10,3 +10,11 @@ iat
 ## Filtering entries
 
 - `df[df >= 0]` (all negative entries will be set to `NaN`)
+
+## composite index
+
+```py
+exchange_rates = pd.read_csv(
+    "https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv",
+    index_col=("Date", "Country"))
+```

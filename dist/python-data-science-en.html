@@ -405,10 +405,10 @@ area[<span class="hljs-string">'CN'</span>] <span class="hljs-comment"># 9.6</sp
 <pre><code class="language-py">sp500 = pd.read_csv(
     <span class="hljs-string">"https://datahub.io/core/s-and-p-500/r/data.csv"</span>,
     index_col=<span class="hljs-string">"Date"</span>)</code></pre>
-<p>Example: exchange rates (multi index)</p>
+<p>Example: exchange rates</p>
 <pre><code class="language-py">exchange_rates = pd.read_csv(
     <span class="hljs-string">"https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv"</span>,
-    index_col=(<span class="hljs-string">"Date"</span>, <span class="hljs-string">"Country"</span>))</code></pre>
+    parse_dates=[<span class="hljs-number">1</span>])</code></pre>
 
       </section></section><section class="section" id="section-7"><section class="slide" id="slide-7-1">
         <h1 id="pandas-querying-data">Pandas: Querying data</h1>
@@ -697,24 +697,29 @@ sp500[<span class="hljs-string">"SP500"</span>].plot()</code></pre>
 <p>plot median <em>sepal-width</em> and <em>sepal-length</em> for all three types of flowers</p>
 
       </section><section class="slide" id="slide-13-5">
+        <h2 id="box-plots">Box plots</h2>
+<p>Display statistical data in a diagram (min, median, max, ...)</p>
+<pre><code class="language-py">iris.plot.box()</code></pre>
+
+      </section><section class="slide" id="slide-13-6">
         <h2 id="histograms">Histograms</h2>
 <p>counts occurrences of certain values / value ranges</p>
 <p>examples:</p>
 <pre><code class="language-py">iris.sepal_lenght.plot.hist()</code></pre>
 <pre><code class="language-py">iris.sepal_length.plot.hist(bins=<span class="hljs-number">30</span>)</code></pre>
 
-      </section><section class="slide" id="slide-13-6">
+      </section><section class="slide" id="slide-13-7">
         <h2 id="histograms">Histograms</h2>
 <p>exercise:</p>
 <p>simulate 10 million rolls of dice - each using 10 dice; plot the distribution of the sums as a histogram</p>
 
-      </section><section class="slide" id="slide-13-7">
+      </section><section class="slide" id="slide-13-8">
         <h2 id="scatter-plots">Scatter plots</h2>
 <p>creates data points with two values - one on the x-axis and the other on the y-axis</p>
 <pre><code class="language-py">iris.plot.scatter(x=<span class="hljs-string">"sepal_length"</span>, y=<span class="hljs-string">"sepal_width"</span>)</code></pre>
 <p>task: scatter plot of just <em>Iris-setosa</em></p>
 
-      </section><section class="slide" id="slide-13-8">
+      </section><section class="slide" id="slide-13-9">
         <h2 id="scatter-matrix">Scatter matrix</h2>
 <p>creates several scatter plots - if there are 4 data series it will create 4x4 plots (scatter plots and histograms)</p>
 <pre><code class="language-py"><span class="hljs-keyword">from</span> pandas.plotting <span class="hljs-keyword">import</span> scatter_matrix
