@@ -497,6 +497,26 @@ examples:
 - a loop that prints the numbers 7, 14, 21, ..., 70
 - exercise program for simple calculations
 
+## Continue & break
+
+The keywords `continue` and `break` may be used to end the current iteration or the entire loop respectively.
+
+In nested loops they refer to the innermost loop.
+
+## Continue & break
+
+example:
+
+```py
+a = 1
+
+while True:
+    a = a * 2
+    print(a)
+    if (a > 1000):
+        break
+```
+
 ## combining comparisons
 
 simple:

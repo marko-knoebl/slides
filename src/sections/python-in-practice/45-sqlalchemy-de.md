@@ -118,7 +118,7 @@ SELECT name, country FROM artist WHERE artist.name='The Beatles'
 wird zu:
 
 ```py
-session.query(Artist).filter_by(Artist.name=="The Beatles").one()
+session.query(Artist).filter(Artist.name=="The Beatles").one()
 ```
 
 ## Sprechende Ausgabe von Einträgen
@@ -148,7 +148,7 @@ WHERE title = 'Help!';
 wird zu
 
 ```py
-entry = session.query(Song).filter_by(Song.title=="Help!").one()
+entry = session.query(Song).filter(Song.title=="Help!").one()
 entry.title = "Help"
 ```
 

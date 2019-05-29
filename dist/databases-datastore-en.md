@@ -250,15 +250,6 @@ The format is older than the standards - in practice the format varies widely
 - Fields may be enclosed in double quotes; this is necessary if a field contains a comma, a double quote or a line break
 - If a double quote (`"`) appears within a field, it must be escaped by doubling it (`""`)
 
-## Example
-
-```csv
-ISO,Country,Capital,Languages
-AD,Andorra,Andorra la Vella,"ES,FR"
-AE,United Arab Emirates,Abu Dhabi,"AE,fa,en,hi,ur"
-AF,Afghanistan,Kabul,"AF,tk"
-```
-
 ## TSV
 
 Derived from CSV: _tab-separated values_

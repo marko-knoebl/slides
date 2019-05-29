@@ -5,6 +5,17 @@
 - Modul = Python-Datei, aus der Objekte importiert werden können
 - Paket = Verzeichnis, in dem Python-Module abgelegt sind
 
+## Beispiele für imports
+
+- `urllib` = Paket
+- `urllib.request` = Modul
+- `urllib.request.urlopen` = Funktion
+
+<!-- list separator -->
+
+- `sys` = Modul
+- `sys.path` = Objekt
+
 ## Beispiele für Imports
 
 ```py
@@ -17,11 +28,12 @@ from package1.module2 import myobject
 from package1.module2 import *
 ```
 
-## Beispiele für imports: urllib
+mit neuen Namen:
 
-- `urllib` = Paket
-- `urllib.request` = Modul
-- `urllib.request.urlopen` = Funktion
+```py
+import pandas as pd
+import matplotlib.pyplot as plt
+```
 
 ## Konventionen für Imports
 

@@ -1259,7 +1259,7 @@ session.add(beatles)</code></pre>
         <h2 id="where">Where</h2>
 <pre><code class="language-sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">name</span>, country <span class="hljs-keyword">FROM</span> artist <span class="hljs-keyword">WHERE</span> artist.name=<span class="hljs-string">'The Beatles'</span></code></pre>
 <p>becomes:</p>
-<pre><code class="language-py">session.query(Artist).filter_by(Artist.name==<span class="hljs-string">"The Beatles"</span>).one()</code></pre>
+<pre><code class="language-py">session.query(Artist).filter(Artist.name==<span class="hljs-string">"The Beatles"</span>).one()</code></pre>
 
       </section><section class="slide" id="slide-14-11">
         <h2 id="nicer-representation-of-entries">Nicer representation of entries</h2>
@@ -1275,7 +1275,7 @@ session.add(beatles)</code></pre>
 <span class="hljs-keyword">SET</span> title = <span class="hljs-string">'Help'</span>
 <span class="hljs-keyword">WHERE</span> title = <span class="hljs-string">'Help!'</span>;</code></pre>
 <p>becomes</p>
-<pre><code class="language-py">entry = session.query(Song).filter_by(Song.title==<span class="hljs-string">"Help!"</span>).one()
+<pre><code class="language-py">entry = session.query(Song).filter(Song.title==<span class="hljs-string">"Help!"</span>).one()
 entry.title = <span class="hljs-string">"Help"</span></code></pre>
 
       </section><section class="slide" id="slide-14-13">
@@ -1284,7 +1284,7 @@ entry.title = <span class="hljs-string">"Help"</span></code></pre>
 <span class="hljs-keyword">FROM</span> song
 <span class="hljs-keyword">WHERE</span> title = <span class="hljs-string">'Help!'</span>;</code></pre>
 <p>becomes</p>
-<pre><code class="language-py">session.query(Song).filter_by(Song.title==<span class="hljs-string">"Help!"</span>).delete()</code></pre>
+<pre><code class="language-py">session.query(Song).filter(Song.title==<span class="hljs-string">"Help!"</span>).delete()</code></pre>
 
       </section><section class="slide" id="slide-14-14">
         <h2 id="defining-a-foreign-key">Defining a foreign key</h2>

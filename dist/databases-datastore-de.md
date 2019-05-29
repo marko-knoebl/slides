@@ -255,15 +255,6 @@ Regeln aus _RFC 4180_ und dem _W3C_-Standard
 - Felder können von doppelten Anführungszeichen umfasst werden - dies ist notwendig, falls ein Feld ein Komma, ein doppeltes Anführungzeichen oder einen Zeilenumbruch enthält
 - Falls ein doppeltes Anführungszeichen (`"`) innerhalb eines Felds vorkommt, muss es verdoppelt werden (`""`)
 
-## Beispiel
-
-```csv
-ISO,Country,Capital,Languages
-AD,Andorra,Andorra la Vella,"ES,FR"
-AE,United Arab Emirates,Abu Dhabi,"AE,fa,en,hi,ur"
-AF,Afghanistan,Kabul,"AF,tk"
-```
-
 ## TSV
 
 In Anlehnung an CSV: _tab-separated values_

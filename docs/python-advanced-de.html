@@ -551,9 +551,30 @@ mygenerator = (i*i <span class="hljs-keyword">for</span> i <span class="hljs-key
 <p>Beispiele: Listen, Iterators</p>
 
       </section></section><section class="section" id="section-7"><section class="slide" id="slide-7-1">
-        <h1 id="prallelisierung-threads--multiprocessing">Prallelisierung: Threads &amp; Multiprocessing</h1>
+        <h1 id="schleifen">Schleifen</h1>
 
       </section><section class="slide" id="slide-7-2">
+        <h2 id="schleifen">Schleifen</h2>
+<p>Übung: 1x1-Liste</p>
+
+      </section><section class="slide" id="slide-7-3">
+        <h2 id="for--else">for ... else</h2>
+<p>Einer for-Schleife kann eine optionale else-Klausel hinzugefügt werden - diese wird ausgeführt, wenn die Schleife ganz durchläuft - wenn also Python während des Ausführens nicht auf ein <code>break</code> (oder <code>return</code> oder ähnliches) stößt.</p>
+<p>Diese Funktionalität gibt es bei keiner anderen verbreiteten Programmiersprache; viele Python-Entwickler kennen sie auch nicht - Zitat vom Erfinder von Python:</p>
+<blockquote>
+<p>I would not have the feature at all if I had to do it over.</p>
+</blockquote>
+
+      </section><section class="slide" id="slide-7-4">
+        <h2 id="beispiele">Beispiele</h2>
+<ul>
+<li><code>is_prime()</code> mit Schleifen und <code>for ... else</code></li>
+</ul>
+
+      </section></section><section class="section" id="section-8"><section class="slide" id="slide-8-1">
+        <h1 id="prallelisierung-threads--multiprocessing">Prallelisierung: Threads &amp; Multiprocessing</h1>
+
+      </section><section class="slide" id="slide-8-2">
         <h2 id="threads--multiprocessing---wozu">Threads &amp; Multiprocessing - wozu?</h2>
 <p>Threads:</p>
 <ul>
@@ -566,23 +587,23 @@ mygenerator = (i*i <span class="hljs-keyword">for</span> i <span class="hljs-key
 </ul>
 <p>Vorteil von Threading: einfacher, Variablen können direkt verändert werden</p>
 
-      </section><section class="slide" id="slide-7-3">
+      </section><section class="slide" id="slide-8-3">
         <h2 id="threads">Threads</h2>
 <p>Python schaltet wiederholt zwischen parallel laufenden Threads um, sodass diese scheinbar parallel laufen.<br>In Wahrheit ist aber zu jedem Zeitpunkt nur ein Thread aktiv (Global Interpreter Lock - GIL)</p>
 <p>Zwei Threads können auf die gleichen Daten zugreifen</p>
 
-      </section><section class="slide" id="slide-7-4">
+      </section><section class="slide" id="slide-8-4">
         <h2 id="neuen-thread-starten">neuen Thread starten</h2>
 <pre><code class="language-py"><span class="hljs-keyword">from</span> threading <span class="hljs-keyword">import</span> Thread
 
 my_thread = Thread(target=<span class="hljs-keyword">print</span>, args=(<span class="hljs-string">'hello'</span>, ), kwargs={end: <span class="hljs-string">""</span>})
 my_thread.start()</code></pre>
 
-      </section><section class="slide" id="slide-7-5">
+      </section><section class="slide" id="slide-8-5">
         <h2 id="auf-beendigung-des-threads-warten">auf beendigung des Threads warten</h2>
 <pre><code class="language-py">my_thread.join()</code></pre>
 
-      </section><section class="slide" id="slide-7-6">
+      </section><section class="slide" id="slide-8-6">
         <h2 id="beispiel-wiederholtes-printen">Beispiel: wiederholtes printen</h2>
 <pre><code class="language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">print_multiple</span><span class="hljs-params">(text, n)</span>:</span>
     <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(n):
@@ -595,7 +616,7 @@ thread_b.start()
 thread_a.join()
 thread_b.join()</code></pre>
 
-      </section><section class="slide" id="slide-7-7">
+      </section><section class="slide" id="slide-8-7">
         <h2 id="übung-iterationen-in-thread">Übung: Iterationen in Thread</h2>
 <p>Wir schreiben ein Programm, das zwei Threads (a und b) ausführt. Die zwei Threads enthalten Schleifen, welche mitzählen, wie oft sie aufgerufen wurden.</p>
 <p>Beispielausgabe:</p>
@@ -605,25 +626,25 @@ thread_b.join()</code></pre>
 20254 iterations <span class="hljs-keyword">in</span> thread b
 829 iterations <span class="hljs-keyword">in</span> thread a</code></pre>
 
-      </section><section class="slide" id="slide-7-8">
+      </section><section class="slide" id="slide-8-8">
         <h2 id="locks">Locks</h2>
 <p>für bestimmte Zeit auf einen Thread beschränken (zB um mehrere Dinge zu printen) - andere Threads sind währenddessen blockiert</p>
 
-      </section><section class="slide" id="slide-7-9">
+      </section><section class="slide" id="slide-8-9">
         <h2 id="locks">Locks</h2>
 <p>Im ganzen Programm sollte es nur 1 Lock-Objekt geben</p>
 <pre><code class="language-py"><span class="hljs-keyword">from</span> threading <span class="hljs-keyword">import</span> Lock
 
 l = Lock()</code></pre>
 
-      </section><section class="slide" id="slide-7-10">
+      </section><section class="slide" id="slide-8-10">
         <h2 id="locks">Locks</h2>
 <pre><code class="language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">print_multiple_locked</span><span class="hljs-params">(text, n)</span>:</span>
     <span class="hljs-keyword">with</span> l:
         <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(n):
             print(text, end=<span class="hljs-string">""</span>)</code></pre>
 
-      </section><section class="slide" id="slide-7-11">
+      </section><section class="slide" id="slide-8-11">
         <h2 id="threads---beispiel">Threads - Beispiel</h2>
 <pre><code class="language-py">threads = []
 
@@ -636,14 +657,14 @@ l = Lock()</code></pre>
     thread.join()
 print(<span class="hljs-string">'all threads finished'</span>)</code></pre>
 
-      </section><section class="slide" id="slide-7-12">
+      </section><section class="slide" id="slide-8-12">
         <h2 id="threads-und-xkcd-download">Threads und xkcd-Download</h2>
 <p>Aufgabe: die xkcd-Comics 100-109 herunterladen - einmal sequenziell und einmal parallel</p>
 
-      </section><section class="slide" id="slide-7-13">
+      </section><section class="slide" id="slide-8-13">
         <h2 id="multiprocessing">Multiprocessing</h2>
 
-      </section><section class="slide" id="slide-7-14">
+      </section><section class="slide" id="slide-8-14">
         <h2 id="funktionen-in-eigenen-prozessen-starten">Funktionen in eigenen Prozessen starten</h2>
 <p>Python ermöglicht es, eine Funktion jeweils in einem eigenen Prozess laufen zu lassen.</p>
 <pre><code class="language-py"><span class="hljs-keyword">from</span> multiprocessing <span class="hljs-keyword">import</span> Process
@@ -652,7 +673,7 @@ print(<span class="hljs-string">'all threads finished'</span>)</code></pre>
     p = Process(target=hello)
     p.start()</code></pre>
 
-      </section><section class="slide" id="slide-7-15">
+      </section><section class="slide" id="slide-8-15">
         <h2 id="funktionen-in-eigenen-prozessen-starten">Funktionen in eigenen Prozessen starten</h2>
 <pre><code class="language-py"><span class="hljs-keyword">from</span> multiprocessing <span class="hljs-keyword">import</span> Process
 
@@ -665,22 +686,22 @@ print(<span class="hljs-string">'all threads finished'</span>)</code></pre>
     <span class="hljs-keyword">for</span> process <span class="hljs-keyword">in</span> processes:
         process.join()</code></pre>
 
-      </section><section class="slide" id="slide-7-16">
+      </section><section class="slide" id="slide-8-16">
         <h2 id="pools">Pools</h2>
 <p>Für gleichartige Verarbeitung mehrerer Daten, die gleichzeitig gestartet wird.</p>
 <p>Beispiel: Alle Bilder in einem Verzeichnis verarbeiten</p>
 
-      </section><section class="slide" id="slide-7-17">
+      </section><section class="slide" id="slide-8-17">
         <h2 id="aufgabe-fibonaccizahlen-mit-map-1-prozess">Aufgabe: Fibonaccizahlen mit map() (1 Prozess)</h2>
 <p>Ausgangswert: <code>[0, 1, 2, 3, 4, 5, 6, ...]</code></p>
 <p>Rückgabewert: <code>[0, 1, 1, 2, 3, 5, 8, ...]</code></p>
 
-      </section><section class="slide" id="slide-7-18">
+      </section><section class="slide" id="slide-8-18">
         <h2 id="pools">Pools</h2>
 <pre><code class="language-py"><span class="hljs-keyword">with</span> Pool(processes=<span class="hljs-number">4</span>) <span class="hljs-keyword">as</span> pool:
     print(pool.map(fib, range(<span class="hljs-number">1000</span>, <span class="hljs-number">1100</span>)))</code></pre>
 
-      </section><section class="slide" id="slide-7-19">
+      </section><section class="slide" id="slide-8-19">
         <h2 id="datenaustausch-shared-memory">Datenaustausch: shared memory</h2>
 <p>integer und floats (und arrays davon) über mehrere Prozesse verteilen</p>
 <pre><code class="language-py"><span class="hljs-keyword">from</span> multiprocessing <span class="hljs-keyword">import</span> Value, Array, Process
@@ -690,7 +711,7 @@ p = Process(target=f, args=(a,))
 p.start()
 ...</code></pre>
 
-      </section><section class="slide" id="slide-7-20">
+      </section><section class="slide" id="slide-8-20">
         <h2 id="weitere-möglichkeiten-pipes--queues">Weitere Möglichkeiten: Pipes &amp; Queues</h2>
 <p>Pipe: Messaging zwischen Prozessen in zwei Richtungen - zB Hintergrundprozess, der immer wieder etwas zu tun bekommen und dazwischen im Ruhezustand ist</p>
 <p>Queue: Messaging in eine Richtung von verschiedenen Producern zu verschiedenen Consumern (langsamer als Pipes)</p>

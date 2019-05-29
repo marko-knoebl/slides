@@ -7,6 +7,17 @@
 
 ## Example imports
 
+- `urllib` = package
+- `urllib.request` = module
+- `urllib.request.urlopen` = function
+
+<!-- list separator -->
+
+- `sys` = module
+- `sys.path` = object
+
+## Example imports
+
 ```py
 import module1
 import package1.module2
@@ -17,11 +28,12 @@ from package1.module2 import myobject
 from package1.module2 import *
 ```
 
-## Example imports: urllib
+assigning a new name
 
-- `urllib` = package
-- `urllib.request` = modules
-- `urllib.request.urlopen` = function
+```py
+import pandas as pd
+import matplotlib.pyplot as plt
+```
 
 ## Conventions for imports
 

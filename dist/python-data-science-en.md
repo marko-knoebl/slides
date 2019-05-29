@@ -64,6 +64,13 @@ IPython = advanced interactive Python console, supports autocompletion
 
 Jupyter Notebook = interactive graphical Python environment, includes IPython functionalities
 
+Try Jupyter online:
+
+- Go to https://jupyter.org/try
+- Select _Try Jupyter with Python_
+- wait ...
+- Select _File_ - _New Notebook_ - _Python 3_
+
 # NumPy
 
 ## NumPy
@@ -708,19 +715,5 @@ creates several scatter plots - if there are 4 data series it will create 4x4 pl
 from pandas.plotting import scatter_matrix
 
 scatter_matrix(iris)
-```
-
-# Pandas: data types
-
-## Pandas: data types
-
-One data type per series (for all its entries)
-
-Each series (column) in a data frame can have a different data type
-
-Most generic data type: `object` - can hold any data, but will be inefficient
-
-```py
-dates = usd_eur['Date'].astype('datetime64[ns]')
 ```
 

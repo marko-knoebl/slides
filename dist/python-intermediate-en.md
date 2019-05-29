@@ -929,38 +929,6 @@ in other languages this could be written as:
 size = length < 110 ? 'small' : 'big';
 ```
 
-# Loops
-
-## Loops
-
-Exercise: Multiplication table
-
-## Continue & break
-
-The keywords `continue` and `break` may be used to end the current iteration or the entire loop respectively.
-
-In nested loops they refer to the innermost loop.
-
-## for ... else
-
-A for loop can have an optional else clause
-
-It will be executed if the loop finishes normally - i.e. if Python does not encounter a `break` or `return` statement
-
-## for ... else
-
-This functionality is not present in any other widespread language
-
-Many Python developers don't know it either
-
-Quote from Python's inventor:
-
-> I would not have the feature at all if I had to do it over.
-
-## Exercises
-
-- `is_prime()` with loops and `for ... else`
-
 # Exceptions
 
 ## Types of exceptions
@@ -1182,6 +1150,17 @@ fib(25)
 
 ## Example imports
 
+- `urllib` = package
+- `urllib.request` = module
+- `urllib.request.urlopen` = function
+
+<!-- list separator -->
+
+- `sys` = module
+- `sys.path` = object
+
+## Example imports
+
 ```py
 import module1
 import package1.module2
@@ -1192,11 +1171,12 @@ from package1.module2 import myobject
 from package1.module2 import *
 ```
 
-## Example imports: urllib
+assigning a new name
 
-- `urllib` = package
-- `urllib.request` = modules
-- `urllib.request.urlopen` = function
+```py
+import pandas as pd
+import matplotlib.pyplot as plt
+```
 
 ## Conventions for imports
 
@@ -1271,14 +1251,14 @@ Classes may represent _various_ things, e.g.:
 The definition of a class usually encompasses:
 
 - a "data structure" (attributes)
-- a "behaviour" (methods)
+- a "behavior" (methods)
 
 ## Classes
 
 example: class `BankAccount`
 
 - "data structure" (attributes)
-- "behaviour" (methods)
+- "behavior" (methods)
 
 ## Defining classes
 

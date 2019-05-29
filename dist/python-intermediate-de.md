@@ -965,30 +965,6 @@ In anderen Sprachen:
 size = length < 110 ? 'small' : 'big';
 ```
 
-# Schleifen
-
-## Schleifen
-
-Übung: 1x1-Liste
-
-## Continue & break
-
-Die Schlüsselwörter `continue` und `break` können verwendet werden, um einen Schleifendurchlauf bzw die ganze Schleife zu beenden
-
-Bei verschachtelten Schleifen beziehen sie sich auf die innerste Schleife
-
-## for ... else
-
-Einer for-Schleife kann eine optionale else-Klausel hinzugefügt werden - diese wird ausgeführt, wenn die Schleife ganz durchläuft - wenn also Python während des Ausführens nicht auf ein `break` (oder `return` oder ähnliches) stößt.
-
-Diese Funktionalität gibt es bei keiner anderen verbreiteten Programmiersprache; viele Python-Entwickler kennen sie auch nicht - Zitat vom Erfinder von Python:
-
-> I would not have the feature at all if I had to do it over.
-
-## Beispiele
-
-- `is_prime()` mit Schleifen und `for ... else`
-
 # Exceptions (Ausnahmen)
 
 ## Arten von Exceptions
@@ -1218,6 +1194,17 @@ fib(25)
 - Modul = Python-Datei, aus der Objekte importiert werden können
 - Paket = Verzeichnis, in dem Python-Module abgelegt sind
 
+## Beispiele für imports
+
+- `urllib` = Paket
+- `urllib.request` = Modul
+- `urllib.request.urlopen` = Funktion
+
+<!-- list separator -->
+
+- `sys` = Modul
+- `sys.path` = Objekt
+
 ## Beispiele für Imports
 
 ```py
@@ -1230,11 +1217,12 @@ from package1.module2 import myobject
 from package1.module2 import *
 ```
 
-## Beispiele für imports: urllib
+mit neuen Namen:
 
-- `urllib` = Paket
-- `urllib.request` = Modul
-- `urllib.request.urlopen` = Funktion
+```py
+import pandas as pd
+import matplotlib.pyplot as plt
+```
 
 ## Konventionen für Imports
 

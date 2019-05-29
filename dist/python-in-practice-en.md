@@ -1317,7 +1317,7 @@ SELECT name, country FROM artist WHERE artist.name='The Beatles'
 becomes:
 
 ```py
-session.query(Artist).filter_by(Artist.name=="The Beatles").one()
+session.query(Artist).filter(Artist.name=="The Beatles").one()
 ```
 
 ## Nicer representation of entries
@@ -1347,7 +1347,7 @@ WHERE title = 'Help!';
 becomes
 
 ```py
-entry = session.query(Song).filter_by(Song.title=="Help!").one()
+entry = session.query(Song).filter(Song.title=="Help!").one()
 entry.title = "Help"
 ```
 
@@ -1362,7 +1362,7 @@ WHERE title = 'Help!';
 becomes
 
 ```py
-session.query(Song).filter_by(Song.title=="Help!").delete()
+session.query(Song).filter(Song.title=="Help!").delete()
 ```
 
 ## Defining a foreign key

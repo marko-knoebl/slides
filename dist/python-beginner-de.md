@@ -501,6 +501,26 @@ Beispiele:
 - Zahlenraten mit echten Zufallszahlen
 - Rechentrainer mit Zufallsaufgaben
 
+## Continue & break
+
+Die Schlüsselwörter `continue` und `break` können verwendet werden, um einen Schleifendurchlauf bzw die ganze Schleife zu beenden
+
+Bei verschachtelten Schleifen beziehen sie sich auf die innerste Schleife
+
+## Continue & break
+
+Beispiel:
+
+```py
+a = 1
+
+while True:
+    a = a * 2
+    print(a)
+    if (a > 1000):
+        break
+```
+
 ## Verknüpfung von Vergleichen
 
 einfach:

@@ -36,14 +36,14 @@ Classes may represent _various_ things, e.g.:
 The definition of a class usually encompasses:
 
 - a "data structure" (attributes)
-- a "behaviour" (methods)
+- a "behavior" (methods)
 
 ## Classes
 
 example: class `BankAccount`
 
 - "data structure" (attributes)
-- "behaviour" (methods)
+- "behavior" (methods)
 
 ## Defining classes
 

@@ -4,12 +4,6 @@
 
 Exercise: Multiplication table
 
-## Continue & break
-
-The keywords `continue` and `break` may be used to end the current iteration or the entire loop respectively.
-
-In nested loops they refer to the innermost loop.
-
 ## for ... else
 
 A for loop can have an optional else clause
