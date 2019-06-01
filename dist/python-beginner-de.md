@@ -94,16 +94,31 @@ Starten:
 2 * 2 + 3 / 2
 ```
 
-## Einfache (primitive) Datentypen
+## Variablen
 
-Mit welchen Arten von Daten - außer Zahlen - arbeitet ein Computer noch?
+```py
+birth_year = 1970
+current_year = 2019
+age = current_year - birth_year
+```
 
-## Einfache (primitive) Datentypen
+Variablennamen werden üblicherweise klein geschrieben und durch Unterstriche getrennt
+
+# Datentypen
+
+## Datentypen
+
+Primitive Datentypen:
 
 - `int` (integer): Ganzzahl
 - `float`: Kommazahl
 - `str` (string): Text
 - `bool` (boolean): Ja/Nein - Wert (Wahrheitswert)
+
+Weitere Datentypen:
+
+- `list`: Aufreihung anderer Objekte
+- `dict` (dictionary): Sammlung von Einträgen, die unter einem bestimmten Namen / Schlüssel abrufbar sind
 
 ## int
 
@@ -117,11 +132,11 @@ Beispiele: `3.3`, `3.0`
 
 Achtung Rundungsfehler: Einige Zahlen können nicht genau als Kommazahlen repräseniert werden, sie werden immer gerundet
 
-z.B.: `1/3`
+Beispiel: `1/3`
 
 Der Computer kann auch Zahlen wie `0.1` oder `0.2` nicht genau repräsentieren
 
-Beispiel: `0.3 - 0.2 - 0.1`
+Beispiel: `0.3 - 0.2`
 
 ## str
 
@@ -152,16 +167,6 @@ my name is
 Andreas"""
 ```
 
-## str
-
-Ungültige Operationen:
-
-```py
-"Hello" - "Tim"
-"Hello" * "Tim"
-"Hello" * 3.0
-```
-
 ## f-strings
 
 Werte in Strings einsetzen:
@@ -190,17 +195,17 @@ text = "He said: \"hi!\""
 
 Python interpretiert die Zeichenfolge `\"` wie ein einzelnes `"`
 
-```py
-print(len(text)) # 14
-```
-
 ## Strings - Escape-Sequenzen
 
-```py
-# Zeilenumbruch in 1 Zeile: \n
-a = 'line 1\nline 2'
+Zeilenumbruch: `\n`
 
-# einzelner Backslash: \\
+```py
+a = 'line 1\nline 2'
+```
+
+einzelner Backslash: `\\`
+
+```py
 b = 'C:\\docs'
 ```
 
@@ -212,38 +217,63 @@ In Python: `True` oder `False`
 
 Achtung: Groß- und Kleinschreibung ist wichtig!
 
-## Variablen
+## list
 
-Daten können in Python mit einem Namen versehen werden - man spricht von Variablen
+Listen sind ein Datentyp, der eine Folge von anderen Objekten repräsentiert
 
 ```py
-first_name = "John"
-last_name = "Doe"
-birth_year = 1978
+primes = [2, 3, 5, 7, 11]
+
+users = ["Alice", "Bob", "Charlie"]
 ```
 
-## Variablen
+## list
+
+Auslesen von Listenelementen mittels Listenindex (bei 0 beginnend)
 
 ```py
-full_name = f"{first_name} {last_name}"
-age = 2019 - birth_year
+users = ["Alice", "Bob", "Charlie"]
+
+users[0]
+users[2]
+users[-1]
 ```
 
-## Variablen
+## list
 
-Variablennamen werden üblicherweise klein geschrieben und durch Unterstriche getrennt
-
-Variablennamen dürfen nur aus Buchstaben, Ziffern und Unterstrichen bestehen
-
-## Variablen
-
-Überschreiben (neu Setzen) von Variablen:
+Überschreiben von Listenelementen
 
 ```py
-name = "John"
-name = "Jane"
-a = 3
-a = a + 1
+users[0] = "Andrew"
+```
+
+## list
+
+Entfernen von Listenelementen
+
+```py
+users.pop(1)
+```
+
+## dict
+
+Dictionaries sind Zuordnungen, die bestimmten Einträgen zugehörige Werte zuweisen.
+
+```py
+person = {
+    "first_name": "John",
+    "last_name": "Doe",
+    "nationality": "Canada",
+    "birth_year": 1980
+}
+```
+
+## dict
+
+Elementzugriff bei dicts
+
+```py
+person["first_name"]
 ```
 
 # Python Programme
@@ -262,7 +292,7 @@ https://code.visualstudio.com/
 
 - Zuvor installiertes Python finden:
   - Taste `F1` drücken
-  - Suche nach: "Python: Interpreter auswählen"
+  - Suche nach: "Python: choose interpreter"
   - Enter
   - warten...
   - Python 3.7 auswählen
@@ -360,7 +390,7 @@ name = input()
 Ausgabe der Begrüßung
 
 ```py
-print("Nice to meet you," + name)
+print("Nice to meet you, " + name)
 ```
 
 ## Programme ausführen

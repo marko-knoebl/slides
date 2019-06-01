@@ -29,7 +29,7 @@ name = input()
 Ausgabe der Begrüßung
 
 ```py
-print("Nice to meet you," + name)
+print("Nice to meet you, " + name)
 ```
 
 ## Programme ausführen

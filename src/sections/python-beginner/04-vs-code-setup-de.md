@@ -14,7 +14,7 @@ https://code.visualstudio.com/
 
 - Zuvor installiertes Python finden:
   - Taste `F1` drücken
-  - Suche nach: "Python: Interpreter auswählen"
+  - Suche nach: "Python: choose interpreter"
   - Enter
   - warten...
   - Python 3.7 auswählen

@@ -359,7 +359,7 @@ name = input()
 writing the greeting
 
 ```py
-print("Nice to meet you," + name)
+print("Nice to meet you, " + name)
 ```
 
 ## Executing programs
