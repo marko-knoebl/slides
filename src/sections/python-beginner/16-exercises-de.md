@@ -42,7 +42,7 @@ International Standard Book Number = 10-stellige Buchnummer mit Prüfziffer am E
 
 Berechnung der Prüfziffer:
 
-(erste Ziffer + 2 _ zweite Ziffer + 3 _ dritte Ziffer ... + 9 \* neunte Ziffer) modulo 11
+(erste Ziffer + 2 \* zweite Ziffer + 3 \* dritte Ziffer ... + 9 \* neunte Ziffer) modulo 11
 
 Aufgabe:
 

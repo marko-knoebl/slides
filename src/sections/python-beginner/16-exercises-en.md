@@ -9,7 +9,7 @@
 
 ## Luhn algorithm (checksum)
 
-The Luhn algorithm is used to prevent errors in identification numers, such as credit card numbers
+The Luhn algorithm is used to prevent errors in identification numbers, such as credit card numbers
 
 The last digit of these numbers is a check digit which is computed from the other digits
 
@@ -40,7 +40,7 @@ International Standard Book Number = 10-digit book number with a check digit at 
 
 computing the check digit:
 
-(1st digit + 2\* 2nd digit + 3 \* 3rd digit ... + 9 \* 9th digit) modulo 11
+(1st digit + 2 \* 2nd digit + 3 \* 3rd digit ... + 9 \* 9th digit) modulo 11
 
 task:
 

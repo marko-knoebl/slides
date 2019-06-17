@@ -79,14 +79,54 @@ Python Installation beinhaltet:
 - PIP: Paketmanager zum Installieren von Erweiterungen
 - Python Dokumentation
 
-# Die interaktive Python-Konsole
+# Python im interaktiven Modus
 
-## Die interaktive Python-Konsole
+## Python im interaktiven Modus
+
+Möglichkeiten
+
+- lokale Installation
+- online-Notebook (Jupyter)
+
+## Python im interaktiven Modus (lokal)
 
 Starten:
 
 - Terminal-Befehl `python`
 - aus dem Startmenü (z.B. _Python 3.7 (64-bit)_)
+
+Beenden:
+
+```py
+exit()
+```
+
+## Python im interaktiven Modus (online)
+
+Python online (einfach):
+
+https://www.python.org/shell/
+
+Python online (**Jupyter Notebooks**):
+
+- Google Colab (Google Account benötigt)
+- Binder (begrenzte Sessions)
+- Microsoft Azure Notebooks (Account benötigt)
+- ...
+
+## Python im interaktiven Modus (online)
+
+Google Colab:
+
+- Gehe zu https://colab.research.google.com
+- Wähle _File_ - _New Python 3 Notebook_
+
+Binder:
+
+- Gehe zu https://jupyter.org/try
+- _Try Jupyter with Python_ auswählen
+- warten ...
+- _File_ - _New Notebook_ - _Python 3_
 
 ## Mathematische Operatoren
 
@@ -114,6 +154,7 @@ Primitive Datentypen:
 - `float`: Kommazahl
 - `str` (string): Text
 - `bool` (boolean): Ja/Nein - Wert (Wahrheitswert)
+- none: fehlender / unbekannter Wert
 
 Weitere Datentypen:
 
@@ -217,6 +258,16 @@ In Python: `True` oder `False`
 
 Achtung: Groß- und Kleinschreibung ist wichtig!
 
+## None
+
+Wert ist unbekannt oder fehlt
+
+```py
+first_name = "Mike"
+middle_name = None
+last_name = "Jones"
+```
+
 ## list
 
 Listen sind ein Datentyp, der eine Folge von anderen Objekten repräsentiert
@@ -249,6 +300,14 @@ users[0] = "Andrew"
 
 ## list
 
+Anhängen von Listenelementen
+
+```py
+users.append("Dora")
+```
+
+## list
+
 Entfernen von Listenelementen
 
 ```py
@@ -275,6 +334,33 @@ Elementzugriff bei dicts
 ```py
 person["first_name"]
 ```
+
+## Datentypen - Aufgaben
+
+Wir beginnen mit einem leeren _dictionary_ und erstellen daraus eine Datenstruktur, die z.B. eine Person darstellt
+
+```py
+person = {}
+```
+
+gewünschtes Resultat z.B.:
+
+```py
+{
+    "first_name": "Kofi",
+    "last_name": "Annan",
+    "birth_year": 1938,
+    "children": ["Ama", "Kojo"]
+}
+```
+
+## Datentypen - Aufgaben
+
+erstelle und ändere Datenstrukturen, die folgendes darstellen:
+
+- Daten zu einem Staat der Welt (Einwohnerzahl, Hauptstadt, Nachbarländer)
+- eine Liste von erledigten bzw nicht erledigten Todos
+- Transaktionen auf einem Bankkonto
 
 # Python Programme
 
@@ -310,14 +396,6 @@ https://code.visualstudio.com
 
 ganzen Ordner öffnen mit _File_ - _Open Folder_
 
-## VS Code: speichern
-
-Nicht gespeicherte Dateien sind durch einen Kreis statt des "X" im Tab erkennbar
-
-Speichern mit _Strg_ + _S_
-
-oder: _File_ - _Auto Save_
-
 ## VS Code: Datei-Explorer, Split Editor
 
 ## VS Code: Terminal
@@ -338,14 +416,13 @@ Eingeteilt in _User Settings_ und _Workspace Settings_
 
 Empfehlungen:
 
-- Auto Save: _aktivieren_
 - Accept Suggestion on Commit Character (Autovervollständigung ohne _Enter_): _deaktivieren_
-- Tab Size: _2_
+- Auto Save: _afterDelay_
+- Tab Size: _2_ oder _4_
 
 Weitere Möglichkeiten:
 
-- Format on Save
-- Format on Paste
+- Word Wrap
 - EOL
 - Workbench: Color Theme
 
@@ -1151,7 +1228,7 @@ International Standard Book Number = 10-stellige Buchnummer mit Prüfziffer am E
 
 Berechnung der Prüfziffer:
 
-(erste Ziffer + 2 _ zweite Ziffer + 3 _ dritte Ziffer ... + 9 \* neunte Ziffer) modulo 11
+(erste Ziffer + 2 \* zweite Ziffer + 3 \* dritte Ziffer ... + 9 \* neunte Ziffer) modulo 11
 
 Aufgabe:
 

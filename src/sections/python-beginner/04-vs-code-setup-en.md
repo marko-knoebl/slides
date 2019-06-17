@@ -18,3 +18,14 @@ https://code.visualstudio.com/
   - Enter
   - wait...
   - choose Python 3.7
+
+<!--
+adding Python to path on windows for
+
+program "environment variables" / "Umgebungsvariablen für dieses Konto bearbeiten"
+zu PATH hinzufügen:
+
+für Anaconda:
+C:\Users\Marko\Anaconda3
+C:\Users\Marko\Anaconda3\Scripts
+-->

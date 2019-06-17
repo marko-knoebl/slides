@@ -265,6 +265,17 @@ https://code.visualstudio.com/
   - wait...
   - choose Python 3.7
 
+<!--
+adding Python to path on windows for
+
+program "environment variables" / "Umgebungsvariablen für dieses Konto bearbeiten"
+zu PATH hinzufügen:
+
+für Anaconda:
+C:\Users\Marko\Anaconda3
+C:\Users\Marko\Anaconda3\Scripts
+-->
+
 # VS Code
 
 ## VS Code
@@ -278,14 +289,6 @@ independent of _Visual Studio_ itself
 ## VS Code: open folder
 
 via _File_ - _Open Folder_
-
-## VS Code: saving
-
-Unsaved files are marked with a circle instead of an "X" in the tab
-
-Save via _Ctrl_ + _S_
-
-or: _File_ - _Auto Save_
 
 ## VS Code: File explorer, split editor
 
@@ -307,14 +310,13 @@ Is split in _User Settings_ and _Workspace Settings_
 
 Recommendations:
 
-- Auto Save: _activate_
 - Accept Suggestions on Commit Character (Autocomplete on other keys than _Enter_): _deactivate_
-- Tab Size: _2_
+- Auto Save: _afterDelay_
+- Tab Size: _2_ or _4_
 
 Further Options:
 
-- Format on Save
-- Format on Paste
+- Word Wrap
 - EOL
 - Workbench: Color Theme
 
@@ -1091,7 +1093,7 @@ program that gets a list of todos from a user and saves them to a file
 
 ## Luhn algorithm (checksum)
 
-The Luhn algorithm is used to prevent errors in identification numers, such as credit card numbers
+The Luhn algorithm is used to prevent errors in identification numbers, such as credit card numbers
 
 The last digit of these numbers is a check digit which is computed from the other digits
 
@@ -1122,7 +1124,7 @@ International Standard Book Number = 10-digit book number with a check digit at 
 
 computing the check digit:
 
-(1st digit + 2\* 2nd digit + 3 \* 3rd digit ... + 9 \* 9th digit) modulo 11
+(1st digit + 2 \* 2nd digit + 3 \* 3rd digit ... + 9 \* 9th digit) modulo 11
 
 task:
 
@@ -1270,7 +1272,7 @@ Quotes from the _zen of Python_ (full text via `import this`):
 
 # Cheatsheet
 
-https://ehmatthes.github.io/pcc#cheatsheets
+https://ehmatthes.github.io/pcc/cheatsheets/README.html
 
 (missing topics: break, None, comments)
 

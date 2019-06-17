@@ -8,11 +8,12 @@ Primitive Datentypen:
 - `float`: Kommazahl
 - `str` (string): Text
 - `bool` (boolean): Ja/Nein - Wert (Wahrheitswert)
+- none: fehlender / unbekannter Wert
 
 Weitere Datentypen:
 
-- `list`: Aufreihung anderer Objekte
 - `dict` (dictionary): Sammlung von Einträgen, die unter einem bestimmten Namen / Schlüssel abrufbar sind
+- `list`: Aufreihung anderer Objekte
 
 ## int
 
@@ -111,6 +112,41 @@ In Python: `True` oder `False`
 
 Achtung: Groß- und Kleinschreibung ist wichtig!
 
+## None
+
+Wert ist unbekannt oder fehlt
+
+```py
+first_name = "Mike"
+middle_name = None
+last_name = "Jones"
+```
+
+## dict
+
+Dictionaries sind Zuordnungen, die bestimmten Einträgen zugehörige Werte zuweisen.
+
+```py
+person = {
+    "first_name": "John",
+    "last_name": "Doe",
+    "nationality": "Canada",
+    "birth_year": 1980
+}
+```
+
+## dict
+
+Elementzugriff bei dicts
+
+```py
+person["first_name"]
+```
+
+```py
+person["first_name"] = "Jane"
+```
+
 ## list
 
 Listen sind ein Datentyp, der eine Folge von anderen Objekten repräsentiert
@@ -143,29 +179,43 @@ users[0] = "Andrew"
 
 ## list
 
+Anhängen von Listenelementen
+
+```py
+users.append("Dora")
+```
+
+## list
+
 Entfernen von Listenelementen
 
 ```py
 users.pop(1)
 ```
 
-## dict
+## Datentypen - Aufgaben
 
-Dictionaries sind Zuordnungen, die bestimmten Einträgen zugehörige Werte zuweisen.
+Wir beginnen mit einem leeren _dictionary_ und erstellen daraus eine Datenstruktur, die z.B. eine Person darstellt
 
 ```py
-person = {
-    "first_name": "John",
-    "last_name": "Doe",
-    "nationality": "Canada",
-    "birth_year": 1980
+person = {}
+```
+
+gewünschtes Resultat z.B.:
+
+```py
+{
+    "first_name": "Kofi",
+    "last_name": "Annan",
+    "birth_year": 1938,
+    "children": ["Ama", "Kojo"]
 }
 ```
 
-## dict
+## Datentypen - Aufgaben
 
-Elementzugriff bei dicts
+erstelle und ändere Datenstrukturen, die folgendes darstellen:
 
-```py
-person["first_name"]
-```
+- Daten zu einem Staat der Welt (Einwohnerzahl, Hauptstadt, Nachbarländer)
+- eine Liste von erledigten bzw nicht erledigten Todos
+- Transaktionen auf einem Bankkonto
