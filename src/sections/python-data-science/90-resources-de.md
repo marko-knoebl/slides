@@ -1,5 +1,7 @@
 # Resources
 
-https://jakevdp.github.io/PythonDataScienceHandbook/
+Pandas website: https://pandas.pydata.org/
 
-<!-- https://github.com/devakar/deep-learning-books -->
+Python Data Science Handbook: https://jakevdp.github.io/PythonDataScienceHandbook/
+
+<!-- https://github.com/jakevdp/PythonDataScienceHandbook -->

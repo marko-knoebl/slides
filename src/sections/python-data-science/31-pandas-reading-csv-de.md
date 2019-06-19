@@ -2,7 +2,7 @@
 
 ## CSV lesen
 
-Beispiel: Euribor (Zinsen europäischer Staatsanleihen)
+Beispiel: Euribor (Monatliche Zinssätze europäischer Staatsanleihen)
 
 ```py
 euribor = pd.read_csv(
@@ -10,7 +10,7 @@ euribor = pd.read_csv(
     index_col="date")
 ```
 
-Beispiel: Iris Dataset
+Beispiel: Iris Dataset (Statistiken zu Blütengrößen von Iris-Blumen)
 
 ```py
 iris = pd.read_csv(
@@ -23,7 +23,7 @@ iris = pd.read_csv(
 
 ## CSV lesen
 
-Beispiel: S&P 500 monatliche Preise
+Beispiel: Monatliche Preise des S&P 500 (US-Aktienindex)
 
 ```py
 sp500 = pd.read_csv(

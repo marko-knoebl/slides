@@ -33,7 +33,21 @@ Marko Knöbl
 - Unterlagen
 - Fragen, Feedback? - Jederzeit erwünscht
 
-# Conda
+# Pakete
+
+## Python Pakete for data science
+
+- _Jupyter_ & _IPython_: interaktive Python Umgebungen
+- _NumPy_: Bibliothek zum effizienten Verarbeiten numerischer Daten
+- _Pandas_: Bibliothek zur Datenanalyse, basiert auf NumPy
+- _Matplotlib_: Bibliothek zur Datenvisualisierung
+- _Scikit-Learn_: Bibliothek für Machine Learning, basiert auf NumPy
+
+## Anaconda
+
+Anaconda = Python Distribution, die viele vorinstallierte Pakete und Entwicklerwerkzeuge enthält
+
+Benötigt ~3GB Platz auf der Festplatte
 
 ## Conda
 
@@ -41,47 +55,128 @@ Conda = Environment- und Paketmanager
 
 Erlaubt das Installieren verschiedener Versionen von Python, von Python-Paketen und anderen Abhängigkeiten - insbesondere hilfreich für externe Libraries, die nicht in Python geschrieben sind und kompiliert werden müssen
 
-## Anaconda & Miniconda
+## Miniconda
 
-Anaconda und Miniconda sind Distributionen von Conda und vielen vorinstallierten Paketen.
+_Miniconda_ = Distribution, die nur Python und Conda enthält, weitere Pakete müssen über Conda installiert werden
 
-Miniconda: ca 250 MB, beinhaltet Python und Conda
-
-Anaconda: ca 3 GB, beinhaltet Python, Conda, viele vorinstallierte Pakete und Entwicklertools
-
-## Anaconda prompt
-
-Eintrag im Startmenü: Anaconda prompt - Zugriff auf _conda_, _ipython_, _jupyter_, ...
-
-## Paketinstallation mit Conda
-
-Via _Anaconda Prompt_:
-
-```bash
-conda install numpy
-```
-
-## Pakete
-
-- _Jupyter_ & _IPython_: interaktive Python Umgebungen
-- _NumPy_: Bibliothek zum effizienten Verarbeiten numerischer Daten
-- _pandas_: Bibliothek zur Datenanalyse, basiert auf NumPy
-- _matplotlib_: Bibliothek zur Datenvisualisierung
+Benötigt anfangs ~250 MB Speicherplatz
 
 # Jupyter & IPython
 
-## Jupyter & IPython
+## IPython
 
 IPython = Fortgeschrittene interaktive Python Konsole, beinhaltet u.a. Autovervollständigung
 
+## Jupyter Notebooks
+
 Jupyter Notebook = Interaktive Python-Umgebung, beinhaltet IPython
 
+Jupyter läuft Browser-basiert; das Backend kann auf dem lokalen Rechner oder auf einem Server laufen
+
+## Jupyter Notebooks - online
+
 Jupyter online ausprobieren:
+
+### Google Colab (Google Account benötigt)
+
+- Gehe zu https://colab.research.google.com
+- Wähle _File_ - _New Python 3 Notebook_
+
+### Binder (begrenzte Sessions)
 
 - Gehe zu https://jupyter.org/try
 - _Try Jupyter with Python_ auswählen
 - warten ...
 - _File_ - _New Notebook_ - _Python 3_
+
+## Jupyter Notebooks - lokal
+
+Starten: Eintrag _Jupyter Notebook_ im Startmenü
+
+Stoppen: _Quit_ im rechten oberen Eck der Ordneransicht (üblicherweise unter http://localhost:8888/tree)
+
+## Notebook Dateien
+
+Anlegen neuer Notebook Dateien via _new_ - _Notebook: Python 3_
+
+Speicherung unter _notebook.ipynb_
+
+_Ipynb_: Dateiformat, das Python Code, Ausgaben und Dokumentation/Notizen beinhalten kann
+
+## Code schreiben und ausführen
+
+Code in eine Zelle schreiben, z.B.
+
+```py
+import time
+time.sleep(3)
+"hello"
+```
+
+dann _Shift_ + _Enter_ drücken
+
+## Code schreiben und ausführen
+
+In IPython gibt es nummerierte Eingaben, z.B. `In [1]`
+
+Während eine Eingabe ausgewertet wird, wird `In [*]` angezeigt
+
+Wenn das letzte Statement in einer Zelle einen Wert ergibt, wird dies als Ausgabe angezeigt
+
+Um das Notebook neu zu starten und alle Zellen neu auszuwerten, drücke ⏩
+
+## Code schreiben und ausführen
+
+Auf die letzte Ausgabe zugreifen:
+
+```py
+print(_ * 3)
+```
+
+## Dokumentation via Markdown
+
+Wir können Dokumentation über die standardisierte Sprache _Markdown_ hinzufügen:
+
+Wir ändern das Dropdown von _Code_ auf _Markdown_ und versuchen den folgenden Code:
+
+```md
+# Heading
+
+- item 1
+- item 2
+```
+
+Zelle ausführen, um das Resultat anzuzeigen, doppelklicken zum erneuten Editieren
+
+[Markdown Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
+
+## Dokumentation
+
+Dokumentation zu Funktion / Klasse / Modul / ... in einer Python Konsole anzeigen:
+
+```py
+help(str)
+```
+
+(Navigieren durch lange Ausgaben via _Enter_, Beenden via _Q_)
+
+Shortcut in IPython / Jupyter:
+
+```ipython
+str?
+```
+
+## Tab-Vervollständigung und Wildcard-Ausdrücke
+
+```ipython
+*Error?
+```
+
+## Terminal-Befehle ausführen
+
+IPython beinhaltet direkten Zugriff auf viele Terminal-Befehle, z.B. `ls`, `cd`, ...
+
+Wir können beliebige Terminal-Befehle ausführen, indem wir ein `!` davor setzen
 
 # NumPy
 
@@ -269,7 +364,7 @@ countries = pd.DataFrame({
 
 ## CSV lesen
 
-Beispiel: Euribor (Zinsen europäischer Staatsanleihen)
+Beispiel: Euribor (Monatliche Zinssätze europäischer Staatsanleihen)
 
 ```py
 euribor = pd.read_csv(
@@ -277,7 +372,7 @@ euribor = pd.read_csv(
     index_col="date")
 ```
 
-Beispiel: Iris Dataset
+Beispiel: Iris Dataset (Statistiken zu Blütengrößen von Iris-Blumen)
 
 ```py
 iris = pd.read_csv(
@@ -290,7 +385,7 @@ iris = pd.read_csv(
 
 ## CSV lesen
 
-Beispiel: S&P 500 monatliche Preise
+Beispiel: Monatliche Preise des S&P 500 (US-Aktienindex)
 
 ```py
 sp500 = pd.read_csv(
@@ -327,7 +422,7 @@ exchange_rates = pd.read_csv(
 - `df.loc["2009-01-01" : "2009-01-31"]`: Zeile in bestimmtem Bereich (beide Grenzen inklusive)
 - `df.loc[:, "rate"]`: Spalte `"rate"`
 - `df["rate"]`: Spalte `"rate"` (Kurzschreibweise)
-- `df["rate"]`: Spalte `"rate"` (kürzere Version - klappt nicht mit Sonderzeichen)
+- `df.rate`: Spalte `"rate"` (kürzere Version - klappt nicht mit Sonderzeichen)
 - `df.loc[:, ["rate", "maturity_level"]]`: zwei Spalten
 - `df.loc["2009-01-02", "rate"]`: Bestimmte Zeile und Spalte
 
@@ -349,8 +444,7 @@ exchange_rates = pd.read_csv(
 - letzter Eintrag
 - letzte 10 Einträge
 - Eintrag vom 2.1.2009
-- Einträge vom 1.1.2009 bis 31.12.2009
-- ...
+- Einträge aus dem Jahr 2009
 
 ## Lösungen (Euribor)
 
@@ -564,7 +658,9 @@ ir_uk_weekly = ir_uk.resample('7d').interpolate()
 
 # Resources
 
-https://jakevdp.github.io/PythonDataScienceHandbook/
+Pandas website: https://pandas.pydata.org/
 
-<!-- https://github.com/devakar/deep-learning-books -->
+Python Data Science Handbook: https://jakevdp.github.io/PythonDataScienceHandbook/
+
+<!-- https://github.com/jakevdp/PythonDataScienceHandbook -->
 

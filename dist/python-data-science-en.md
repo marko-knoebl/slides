@@ -31,45 +31,150 @@ Marko Knöbl
 - Materials
 - Questions, Feedback?
 
-# Conda
+# Packages
+
+## Python packages for data science
+
+- _Jupyter_ & _IPython_: interactive Python environments
+- _NumPy_: library for efficient processing of numerical data
+- _Pandas_: library for data analysis, based on NumPy
+- _Matplotlib_: library for data visualization
+- _Scikit-Learn_: library for machine learning, based on NumPy
+
+## Anaconda
+
+Anaconda = Python distribution that includes many pre-installed packages and developer tools
+
+Takes ~ 3 GB of disk space
 
 ## Conda
 
-Conda = management tool for Python packages and environments
+Conda = management tool for Python packages and environments, used by Anaconda
 
 Enables installation of multiple versions of Python and Python packages
 
 Particularly useful for external libraries that are written in a compiled language
 
-## Anaconda & Miniconda
+## Miniconda
 
-Anaconda and Miniconda are distributions that include Conda
+_Miniconda_ = distribution that only includes Python and Conda, all other packages must be installed via Conda
 
-_Miniconda_: ~ 250 MB, includes Python and Conda
-
-_Anaconda_: ~ 3 GB, includes Python, Conda, preinstalled Packages and developer tools
-
-## Conda packages
-
-- _jupyter_ & _ipython_: interactive Python environments
-- _numpy_: library for efficient processing of numerical data
-- _pandas_: library for data analysis, based on numpy
-- _matplotlib_: library for data visualization
+Initially takes ~ 250 MB of disk space
 
 # Jupyter & IPython
 
-## Jupyter & IPython
+## IPython
 
-IPython = advanced interactive Python console, supports autocompletion
+IPython = advanced interactive Python console, supports features like autocompletion
 
-Jupyter Notebook = interactive graphical Python environment, includes IPython functionalities
+## Jupyter notebooks
+
+Jupyter notebook = interactive graphical Python environment, includes IPython functionalities
+
+Jupyter is browser-based; the backend can be run on the local machine or can be hosted on a server
+
+## Jupyter notebooks - online
 
 Try Jupyter online:
+
+### Google Colab (Google account needed)
+
+- Go to https://colab.research.google.com
+- Select _File_ - _New Python 3 Notebook_
+
+### Binder (limited sessions)
 
 - Go to https://jupyter.org/try
 - Select _Try Jupyter with Python_
 - wait ...
 - Select _File_ - _New Notebook_ - _Python 3_
+
+## Jupyter notebooks - locally
+
+Launching Jupyter: Entry _Jupyter Notebook_ in the start menu
+
+Stopping Jupyter: Press _Quit_ in the top right corner of the directory tree view (usually under http://localhost:8888/tree)
+
+## Notebook files
+
+Jupyter notebook files can be created via _new_ - _Notebook: Python 3_
+
+Will be saved under _notebook.ipynb_
+
+_Ipynb_: File format that can contain Python code, outputs, text documentation
+
+## Writing and evaluating code
+
+Write code into a cell, e.g.
+
+```py
+import time
+time.sleep(3)
+"hello"
+```
+
+and press _Shift_ + _Enter_
+
+## Writing and evaluating code
+
+IPython has numbered inputs, e.g. `In [1]`
+
+When a computation is ongoing it will display `In [*]`
+
+If the last statement in a cell evaluates to something it will be considered the output and displayed
+
+In order to restart the notebook and re-evaluate all cells, press ⏩
+
+## Accessing the last output
+
+```py
+print(_ * 3)
+```
+
+## Writing documentation via markdown
+
+We can add documentation via the standardized _markdown_ language:
+
+Change the dropdown from _Code_ to _Markdown_ and try the following code:
+
+```md
+# Heading
+
+- item 1
+- item 2
+```
+
+Run the cell to display the result, double click to edit again
+
+[markdown cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
+
+## Documentation
+
+displaying documentation in any Python console:
+
+```py
+help(str)
+```
+
+(navigate through long outputs via _Enter_, exit via _Q_)
+
+shortcut for IPython / Jupyter:
+
+```ipython
+str?
+```
+
+## Tab completion and wildcard expressions
+
+```ipython
+*Error?
+```
+
+## Running terminal commands
+
+IPython includes direct access to many terminal commands, e.g. `ls`, `cd`, ...
+
+We can execute any terminal command by prefixing it with `!`
 
 # NumPy
 
@@ -182,6 +287,15 @@ If possible, types are converted automatically:
 c = a + b
 c.dtype # int64
 ```
+
+## Array types
+
+common types:
+
+- _bool_ / <em>bool\_</em> (stored as 8 bits)
+- _int8_, _int16_, _int32_, _int64_
+- _uint8_, _uint16_, _uint32_, _uint64_
+- _float16_, _float32_, _float64_
 
 ## Overflow
 
@@ -656,6 +770,24 @@ data_frame.plot()
 plt.show()
 ```
 
+## Plotting functions
+
+```py
+# graph
+data.plot()
+# bar chart
+data.plot.bar()
+# box plots
+data.plot.box()
+# histograms
+data.plot.hist()
+# scatter plots
+data.plot.scatter(x="colname_1", y="colname_2")
+# scatter matrix
+from pandas.plotting import scatter_matrix
+scatter_matrix(data)
+```
+
 ## Graphs
 
 example:
@@ -723,5 +855,30 @@ creates several scatter plots - if there are 4 data series it will create 4x4 pl
 from pandas.plotting import scatter_matrix
 
 scatter_matrix(iris)
+```
+
+# NumPy advanced
+
+## Creating arrays
+
+create a 2x6 array filled with 0.0:
+
+```py
+np.full((2, 6), 0.0)
+```
+
+create the sequence _0.0, 0.5, 1.0, 1.5_:
+
+```py
+# fixed step width (0.5)
+a = np.arange(0, 2, 0.5)
+# fixed number of entries (4)
+b = np.linspace(0, 1.5, 4)
+```
+
+create a 3x3 array of random values:
+
+```py
+np.random.random(3, 3)
 ```
 

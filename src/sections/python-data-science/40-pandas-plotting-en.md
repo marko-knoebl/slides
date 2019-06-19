@@ -22,6 +22,24 @@ data_frame.plot()
 plt.show()
 ```
 
+## Plotting functions
+
+```py
+# graph
+data.plot()
+# bar chart
+data.plot.bar()
+# box plots
+data.plot.box()
+# histograms
+data.plot.hist()
+# scatter plots
+data.plot.scatter(x="colname_1", y="colname_2")
+# scatter matrix
+from pandas.plotting import scatter_matrix
+scatter_matrix(data)
+```
+
 ## Graphs
 
 example:

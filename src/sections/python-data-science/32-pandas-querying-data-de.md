@@ -19,7 +19,7 @@
 - `df.loc["2009-01-01" : "2009-01-31"]`: Zeile in bestimmtem Bereich (beide Grenzen inklusive)
 - `df.loc[:, "rate"]`: Spalte `"rate"`
 - `df["rate"]`: Spalte `"rate"` (Kurzschreibweise)
-- `df["rate"]`: Spalte `"rate"` (kürzere Version - klappt nicht mit Sonderzeichen)
+- `df.rate`: Spalte `"rate"` (kürzere Version - klappt nicht mit Sonderzeichen)
 - `df.loc[:, ["rate", "maturity_level"]]`: zwei Spalten
 - `df.loc["2009-01-02", "rate"]`: Bestimmte Zeile und Spalte
 
@@ -41,8 +41,7 @@
 - letzter Eintrag
 - letzte 10 Einträge
 - Eintrag vom 2.1.2009
-- Einträge vom 1.1.2009 bis 31.12.2009
-- ...
+- Einträge aus dem Jahr 2009
 
 ## Lösungen (Euribor)
 

@@ -110,6 +110,15 @@ c = a + b
 c.dtype # int64
 ```
 
+## Array types
+
+common types:
+
+- _bool_ / <em>bool\_</em> (stored as 8 bits)
+- _int8_, _int16_, _int32_, _int64_
+- _uint8_, _uint16_, _uint32_, _uint64_
+- _float16_, _float32_, _float64_
+
 ## Overflow
 
 Be careful with values that are too big or too small
