@@ -18,3 +18,5 @@ https://code.visualstudio.com/
   - Enter
   - warten...
   - Python 3.7 auswählen
+
+- Pylint installieren

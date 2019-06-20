@@ -1,17 +1,22 @@
 # Tkinter
 
-## Tkinter - Beispiel
+## Tkinter
+
+https://tkdocs.com/
+
+## Tkinter - Ein Fenster anzeigen
 
 ```py
-# simple.pyw
 import tkinter
 
-# ein Objekt vom Typ "Tk" erstellen
 window = tkinter.Tk()
-# Programm (event loop) starten
-#   (auf Benutzerinteraktion warten)
+
 window.mainloop()
 ```
+
+Ein Fenster wird als `Tk`-Objekt erstellt
+
+Mit `mainloop()` starten wir das Programm (und warten auf Benutzerinteraktion)
 
 ## Tkinter - Text anzeigen
 
@@ -29,8 +34,8 @@ window.mainloop()
 ## Tkinter - Elemente nachträglich ändern
 
 ```py
-time_label = tkinter.Label(master=window, text="")
-time_label.config(text="Hello!")
+hello_label = tkinter.Label(master=window, text="Hello!")
+hello_label.config(text="Hi!")
 ```
 
 ## Tkinter - Benutzerinteraktion
@@ -66,7 +71,7 @@ Möglichkeiten:
 - `background` (Hintergrundfarbe)
 - `foreground` (Textfarbe)
 - `justify` (Textausrichtung, Werte: `CENTER`, `LEFT`, `RIGHT`)
-- `padx`, `pady` (Abstand Rahmen zum Inhalt)
+- `padx`, `pady` (Abstand Rahmen zu Inhalt)
 
 ## Tkinter - Widgets
 
@@ -76,4 +81,4 @@ Möglichkeiten:
 
 ## Tkinter - Beispiele
 
-- zufälliger Sehtest
+- zufälliger Sehtest (Snellen Chart)

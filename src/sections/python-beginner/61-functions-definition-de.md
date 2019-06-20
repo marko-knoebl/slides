@@ -45,6 +45,30 @@ Innerhalb einer Funktion gilt: Variablen, die außerhalb definiert sind, können
 
 In anderen Programmiersprachen: auch Konstrukte wie `if` oder `for` eröffnen einen neuen Scope - nicht so in Python
 
+## Docstrings
+
+Dokumentationsstrings, die Funktionen / Klassen / Module genauer beschreiben
+
+## Docstrings
+
+Beispiel:
+
+```py
+def fib(n):
+    """Compute the n-th fibonacci number.
+
+    n must be a nonnegative integer
+    """
+    ...
+```
+
+## Docstrings ausgeben
+
+```py
+help(fib)
+help(round)
+```
+
 ## Aufgabe: Funktion lottery()
 
 Schreibe eine Funktion namens `lottery`, die eine Liste von Lotteriezahlen erzeugt

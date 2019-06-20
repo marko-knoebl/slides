@@ -28,22 +28,23 @@ Module beinhalten zusätzliche Objekte, die importiert werden können
 z.B.:
 
 ```py
-from math import floor
+import math
 
 # abrunden
-print(floor(3.6))
+print(math.floor(3.6))
 ```
 
 ## Module
 
 interessante Module:
 
+- `pprint` (formatierte Ausgabe)
 - `random`
 - `math`
 - `datetime`
 - `os` (Betriebssystem, Dateisystem)
 - `sys` (Python Umgebung)
-- `pprint` (formatierte Ausgabe)
+- `urllib.request` (HTTP-Anfragen)
 
 ## print und pprint
 
@@ -80,6 +81,17 @@ pprint.pprint(['Mercuy', 'Venus', 'Earth', 'Mars', 'Jupiter',
  'Pluto']
 ```
 
+## random
+
+Zufallsergebnisse
+
+```py
+import random
+
+print(random.randint(1, 6))
+print(random.choice(["heads", "tails"]))
+```
+
 ## sys
 
 Kommandozeilenparameter sind auslesbar über `sys.argv`
@@ -96,4 +108,16 @@ python hello.py one two three
 
 ```bash
 ['hello.py', 'one', 'two', 'three']
+```
+
+## urllib.request
+
+Abfrage von Web-Inhalten
+
+```py
+from urllib import request
+
+content = request.urlopen("https://google.com").read()
+print(content)
+print(len(content))
 ```

@@ -5,6 +5,7 @@
 - Todoliste
 - Lottozahlengenerator
 - Hangman
+- Tic-Tac-Toe - Spiel mit textbasierter grafischer Ausgabe
 
 ## Todoliste
 

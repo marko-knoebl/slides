@@ -1,9 +1,8 @@
-# Übungsaufgaben
+# Funktionen: Übungsaufgaben
 
 ## Übungsaufgaben
 
-- Programm, das eine Kreditkartennummer / ISBN / IBAN validiert
-- Tic-Tac-Toe - Spiel mit textbasierter grafischer Ausgabe
+- Funktion, die eine Kreditkartennummer / ISBN / IBAN validiert
 - Primzahlen in einem Intervall
 - Fibonacci-Zahlen
 

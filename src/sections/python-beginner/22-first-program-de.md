@@ -1,6 +1,6 @@
-# Unser erstes Python-Programm
+# Python-Programme
 
-## Unser erstes Python-Programm
+## Python-Programme
 
 Wir legen eine Datei namens `greeting.py` an.
 
@@ -24,6 +24,8 @@ Eingabe: Mit Hilfe von `input()`:
 name = input()
 ```
 
+`input` liefert immer einen String zurück
+
 ## Eingabe und Ausgabe
 
 Ausgabe der Begrüßung
@@ -37,19 +39,6 @@ print("Nice to meet you, " + name)
 In der Kommandozeile via `python greeting.py`
 
 In VS Code via Taste _F5_
-
-## Typen umwandeln
-
-Die Funktion `input` liefert immer Text (einen string) zurück.
-
-Um den string in einen int zu verwandeln:
-
-```py
-birth_year_string = input("when were you born?")
-birth_year_int = int(birth_year_string)
-```
-
-Analog für andere Datantypen: `str()`, `float()`, `bool()`
 
 ## Übung: Alter anhand Geburtsjahr
 

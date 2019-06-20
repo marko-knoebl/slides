@@ -2,7 +2,7 @@
 
 ## Objekte abändern
 
-In Python können Listen verändert werden - z.B. durch das anhängen eines neuen Eintrags
+In Python können Listen und Dictionaries direkt verändert werden - z.B. durch das Ergänzen eines neuen Eintrags
 
 Viele andere Objekte - z.B. str, int, float - können nicht abgeändert werden. Jedoch ist es möglich, neue, veränderte Objekte basierend auf bereits vorhandenen Objekten zu erstellen.
 
@@ -31,6 +31,6 @@ print(a)
 
 ## Objekte abändern
 
-Eine Zuweisung (`b = ...`) versieht ein existierendes Objekt mit einem neuen (zusätzlichen) Namen.
+Eine Zuweisung (z.B. `b = a`) versieht ein existierendes Objekt mit einem neuen (zusätzlichen) Namen.
 
 Im Hintergrund steht nach wie vor nur ein einzelnes Objekt.

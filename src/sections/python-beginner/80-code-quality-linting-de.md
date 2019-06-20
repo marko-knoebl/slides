@@ -66,46 +66,6 @@ a[0 + 3:1]
 a[0 + 3 : 1]
 ```
 
-## Docstrings
-
-Beschreiben eine Funktion / Klasse / Modul genauer
-
-## Docstrings
-
-Beispiel:
-
-```py
-def fib(n):
-    """Compute the n-th fibonacci number.
-
-    n must be a nonnegative integer
-    """
-    ...
-```
-
-## Docstrings anzeigen
-
-```bash
-python -m pydoc math
-python -m pydoc math.floor
-```
-
-## Docstring-Format
-
-PEP 257: https://www.python.org/dev/peps/pep-0257/
-
-## Docstrig-Format
-
-Docstring eines Moduls: Beschreibung, Liste der exportierten Funktionen mit einzeiligen Zusammenfassungen
-
-Docstring einer Klasse: Beschreibung, Liste der Methoden
-
-Docstring einer Funktion: Beschreibung, Liste der Parameter
-
-## Pydocstyle
-
-Linter zum validieren von Docstrings
-
 ## Python-Philosophie, Zen of Python
 
 Auszüge aus dem _Zen of Python_ (anzeigbar via `import this`):

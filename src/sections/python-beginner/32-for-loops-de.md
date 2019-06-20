@@ -42,16 +42,3 @@ Enter your password:
 1234
 Logged in as Alice!
 ```
-
-## Zählschleifen
-
-Wir erinnern uns zurück: Für das Zählen verwendeten wir die Funktion `range`
-
-Der Aufruf `range(5)` erstellt ein Objekt, das sich wie die Liste `[0, 1, 2, 3, 4]` verhält
-
-Beispiel zur Verwendung:
-
-```py
-for i in range(5):
-    print(i)
-```

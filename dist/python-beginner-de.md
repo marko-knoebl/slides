@@ -69,6 +69,17 @@ für Windows: Download von https://python.org (Windows x86-64 web-based installe
 
 Häkchen bei "Add Python 3.7 to PATH" setzen
 
+<!--
+Python zu path hinzufügen
+
+program "environment variables" / "Umgebungsvariablen für dieses Konto bearbeiten"
+zu PATH hinzufügen:
+
+für Anaconda:
+C:\Users\Marko\Anaconda3
+C:\Users\Marko\Anaconda3\Scripts
+-->
+
 ## Python Installation
 
 Python Installation beinhaltet:
@@ -128,11 +139,7 @@ Binder:
 - warten ...
 - _File_ - _New Notebook_ - _Python 3_
 
-## Mathematische Operatoren
-
-```py
-2 * 2 + 3 / 2
-```
+# Variablen
 
 ## Variablen
 
@@ -142,13 +149,11 @@ current_year = 2019
 age = current_year - birth_year
 ```
 
-Variablennamen werden üblicherweise klein geschrieben und durch Unterstriche getrennt
+Variablennamen werden üblicherweise klein geschrieben; Wörter werden durch Unterstriche getrennt
 
-# Datentypen
+# Grundlegende Datentypen
 
-## Datentypen
-
-Primitive Datentypen:
+## Grundlegende Datentypen
 
 - `int` (integer): Ganzzahl
 - `float`: Kommazahl
@@ -156,14 +161,15 @@ Primitive Datentypen:
 - `bool` (boolean): Ja/Nein - Wert (Wahrheitswert)
 - none: fehlender / unbekannter Wert
 
-Weitere Datentypen:
-
-- `list`: Aufreihung anderer Objekte
-- `dict` (dictionary): Sammlung von Einträgen, die unter einem bestimmten Namen / Schlüssel abrufbar sind
-
 ## int
 
-Beispiele: `3`, `10`
+Beispiel: `3`
+
+Operationen:
+
+```py
+5 - 3 * 4 / 2
+```
 
 ## float
 
@@ -177,25 +183,17 @@ Beispiel: `1/3`
 
 Der Computer kann auch Zahlen wie `0.1` oder `0.2` nicht genau repräsentieren
 
-Beispiel: `0.3 - 0.2`
+Beispiel: `0.3 - 0.2` ergibt `0.09999999999999998`
 
 ## str
 
 Ein _String_ - auch _Zeichenkette_ genannt - repräsentiert Text
 
-```py
-"Hallo"
-"Hallo" + "Andreas"
-"Hallo" * 3
-```
-
-## str
-
 Strings werden entweder mit einfachen oder doppelten Anführungszeichen begrenzt
 
 ```py
-"Hallo"
-'Hallo'
+greeting = "Hello"
+name = 'Tom'
 ```
 
 ## str
@@ -208,12 +206,22 @@ my name is
 Andreas"""
 ```
 
-## f-strings
-
-Werte in Strings einsetzen:
+## Strings zusammensetzen
 
 ```py
-f"A year has {365 * 24} hours."
+name = 'Tom'
+```
+
+Option 1 (f-strings):
+
+```py
+msg2 = f"Hello, {name}"
+```
+
+Option 2:
+
+```py
+msg1 = "Hello, " + name
 ```
 
 ## Strings - Escape-Sequenzen
@@ -268,6 +276,55 @@ middle_name = None
 last_name = "Jones"
 ```
 
+# Typen und Typenumwandlungen
+
+## Typen
+
+Den Typ einer Variablen stellen wir mit `type()` fest:
+
+```py
+a = 4 / 2
+
+type(a)
+```
+
+## Typenumwandlungen
+
+Datentypen können mit Funktionen wie `int()`, `float()`, `str()`, `bool()`, ... ineinander umgewandelt werden
+
+```py
+pi = 3.1415
+pi_int = int(pi)
+message = "Pi is approximately " + str(pi_int)
+```
+
+# Weitere Datentypen: dict, list
+
+## dict
+
+Dictionaries sind Zuordnungen, die bestimmten Einträgen zugehörige Werte zuweisen.
+
+```py
+person = {
+    "first_name": "John",
+    "last_name": "Doe",
+    "nationality": "Canada",
+    "birth_year": 1980
+}
+```
+
+## dict
+
+Elementzugriff bei dicts
+
+```py
+person["first_name"]
+```
+
+```py
+person["first_name"] = "Jane"
+```
+
 ## list
 
 Listen sind ein Datentyp, der eine Folge von anderen Objekten repräsentiert
@@ -308,31 +365,24 @@ users.append("Dora")
 
 ## list
 
-Entfernen von Listenelementen
+Entfernen des letzen Elements:
 
 ```py
-users.pop(1)
+users.pop()
 ```
 
-## dict
-
-Dictionaries sind Zuordnungen, die bestimmten Einträgen zugehörige Werte zuweisen.
+Entfernen anhand des Index:
 
 ```py
-person = {
-    "first_name": "John",
-    "last_name": "Doe",
-    "nationality": "Canada",
-    "birth_year": 1980
-}
+users.pop(0)
 ```
 
-## dict
+## list
 
-Elementzugriff bei dicts
+Die Länge einer Liste bestimmen:
 
 ```py
-person["first_name"]
+len(users)
 ```
 
 ## Datentypen - Aufgaben
@@ -362,6 +412,43 @@ erstelle und ändere Datenstrukturen, die folgendes darstellen:
 - eine Liste von erledigten bzw nicht erledigten Todos
 - Transaktionen auf einem Bankkonto
 
+# Objekte abändern
+
+## Objekte abändern
+
+In Python können Listen und Dictionaries direkt verändert werden - z.B. durch das Ergänzen eines neuen Eintrags
+
+Viele andere Objekte - z.B. str, int, float - können nicht abgeändert werden. Jedoch ist es möglich, neue, veränderte Objekte basierend auf bereits vorhandenen Objekten zu erstellen.
+
+## Objekte abändern
+
+```py
+a = [1, 2, 3]
+# creating a new object
+a = a + [4]
+
+a = [1, 2, 3]
+# a is modified directly
+a.append(4)
+```
+
+## Objekte abändern
+
+Was wird das folgende Programm ausgeben?
+
+```py
+a = [1, 2, 3]
+b = a
+b.append(4)
+print(a)
+```
+
+## Objekte abändern
+
+Eine Zuweisung (z.B. `b = a`) versieht ein existierendes Objekt mit einem neuen (zusätzlichen) Namen.
+
+Im Hintergrund steht nach wie vor nur ein einzelnes Objekt.
+
 # Python Programme
 
 ## Python Programme
@@ -382,6 +469,8 @@ https://code.visualstudio.com/
   - Enter
   - warten...
   - Python 3.7 auswählen
+
+- Pylint installieren
 
 # VS Code
 
@@ -436,9 +525,9 @@ Weitere Möglichkeiten:
 - _F2_: Umbenennen von Variablen
 - _Alt_ + Mausklick: Mehrere Textcursor zum gleichzeitigen Schreiben setzen
 
-# Unser erstes Python-Programm
+# Python-Programme
 
-## Unser erstes Python-Programm
+## Python-Programme
 
 Wir legen eine Datei namens `greeting.py` an.
 
@@ -462,6 +551,8 @@ Eingabe: Mit Hilfe von `input()`:
 name = input()
 ```
 
+`input` liefert immer einen String zurück
+
 ## Eingabe und Ausgabe
 
 Ausgabe der Begrüßung
@@ -475,19 +566,6 @@ print("Nice to meet you, " + name)
 In der Kommandozeile via `python greeting.py`
 
 In VS Code via Taste _F5_
-
-## Typen umwandeln
-
-Die Funktion `input` liefert immer Text (einen string) zurück.
-
-Um den string in einen int zu verwandeln:
-
-```py
-birth_year_string = input("when were you born?")
-birth_year_int = int(birth_year_string)
-```
-
-Analog für andere Datantypen: `str()`, `float()`, `bool()`
 
 ## Übung: Alter anhand Geburtsjahr
 
@@ -512,6 +590,130 @@ Ein Kommentar beginnt mit einem `#`-Zeichen und reicht bis zum Ende der Zeile.
 name_length = len(name)
 ```
 
+# Builtins, Module
+
+## Builtins, Module
+
+- Builtins: Funktionen und Objekte, die oft verwendet werden und immer verfügbar sind
+- Module: Sammlungen von zusätzlichen Objekten, die importiert werden können
+
+## Builtins
+
+unter anderem:
+
+- `print()`
+- `input()`
+- `len()`
+- `max()`
+- `min()`
+- `open()`
+- `range()`
+- `round()`
+- `sorted()`
+- `sum()`
+- `type()`
+
+## Module
+
+Module beinhalten zusätzliche Objekte, die importiert werden können
+
+z.B.:
+
+```py
+import math
+
+# abrunden
+print(math.floor(3.6))
+```
+
+## Module
+
+interessante Module:
+
+- `pprint` (formatierte Ausgabe)
+- `random`
+- `math`
+- `datetime`
+- `os` (Betriebssystem, Dateisystem)
+- `sys` (Python Umgebung)
+- `urllib.request` (HTTP-Anfragen)
+
+## print und pprint
+
+Ausgabe mehrerer Elemente:
+
+```py
+print(1, 2, 3, sep=", ", end="\n\n")
+```
+
+```bash
+1, 2, 3
+
+
+```
+
+## print und pprint
+
+```py
+import pprint
+
+pprint.pprint(['Mercuy', 'Venus', 'Earth', 'Mars', 'Jupiter',
+               'Saturn', 'Uranus', 'Neptune', 'Pluto'])
+```
+
+```txt
+['Mercuy',
+ 'Venus',
+ 'Earth',
+ 'Mars',
+ 'Jupiter',
+ 'Saturn',
+ 'Uranus',
+ 'Neptune',
+ 'Pluto']
+```
+
+## random
+
+Zufallsergebnisse
+
+```py
+import random
+
+print(random.randint(1, 6))
+print(random.choice(["heads", "tails"]))
+```
+
+## sys
+
+Kommandozeilenparameter sind auslesbar über `sys.argv`
+
+```py
+# hello.py
+import sys
+print(sys.argv)
+```
+
+```bash
+python hello.py one two three
+```
+
+```bash
+['hello.py', 'one', 'two', 'three']
+```
+
+## urllib.request
+
+Abfrage von Web-Inhalten
+
+```py
+from urllib import request
+
+content = request.urlopen("https://google.com").read()
+print(content)
+print(len(content))
+```
+
 # Kontrollstrukturen
 
 ## Kontrollstrukturen
@@ -522,12 +724,22 @@ Mit Kontrollstrukturen können wir bestimmten Code z.B. wiederholt ausführen la
 
 Die zwei essenziellen Kontrollstrukturen in jeder Programmiersprache:
 
-- if/else-Abfragen, um unter bestimmten Bedingungen die eine oder die andere Aktion zu setzen
-- Schleifen, um unter bestimmten Bedingungen eine Aktion zu wiederholen
+- if-Abfragen, um unter bestimmten Bedingungen die eine oder die andere Aktion zu setzen
+- Schleifen, um Aktionen zu wiederholen
+
+## Konstrollstrukturen in Python
+
+- `if`
+- Schleifen:
+  - `while`
+  - `for ... in ...`
+  - `for ... in range(...)`
+
+# If und while
 
 ## Vergleiche
 
-Für den Einsatz von grundlegenden Kontrollstrukturen müssen wir Werte vergleichen können:
+Für den Einsatz von if und while müssen wir Werte vergleichen können:
 
 ```py
 a = 2
@@ -565,16 +777,12 @@ else:
 if age_seconds < 100000000:
     print("You are les than 100 million seconds old")
 elif age_seconds < 1000000000:
-    print("You are less than 1 billion seconds old")
+    print("You are between 100 million and 1 billion seconds old")
 elif age_seconds < 2000000000:
-    print("You are less than 2 billion seconds old")
+    print("You are between 1 billion and 2 billion seconds old")
 else:
     print("You are older than 2 billion seconds")
 ```
-
-## if / elif / else
-
-Beispiel: Zahlenraten
 
 ## Codeblöcke
 
@@ -607,6 +815,24 @@ Beispiele:
 - Schleife, die die Zahlen der 7er-Reihe des Einmaleins ausgibt
 - Zahlenraten mit echten Zufallszahlen
 - Rechentrainer mit Zufallsaufgaben
+- Einkaufsliste
+
+## Übung: Einkaufsliste
+
+Beispielhafter Programmlauf:
+
+```txt
+enter an item or "x" to quit:
+milk
+enter an item or "x" to quit:
+bread
+enter an item or "x" to quit:
+apples
+enter an item or "x" to quit:
+x
+your shopping list is:
+["milk", "bread", "apples"]
+```
 
 ## Continue & break
 
@@ -660,6 +886,51 @@ not 4 < c < 10
 c <= 4 or c >= 10
 ```
 
+# For-Schleifen
+
+## For-Schleifen
+
+Mit for-Schleifen können wir die Inhalte einer Liste (oder ähnlicher Objekte) durchlaufen.
+
+Bezeichnung in anderen Programmiersprachen: _for-each_
+
+## For-Schleifen
+
+```py
+names = ["Alice", "Bob", "Charlie"]
+
+for name in names:
+    print("Hello, " + name + "!")
+```
+
+## Beispiel: Login-System
+
+```py
+# Benutzer mit Passwörtern
+users = [
+  ["Alice", "1234"],
+  ["Bob", "password"],
+  ["Charlie", "paris41"]]
+```
+
+## Beispiel: Login-System
+
+Beispielhafter Programmlauf:
+
+```txt
+Enter your username:
+lice
+No such user.
+Enter your username:
+Alice
+Enter your password:
+123
+Wrong password
+Enter your password:
+1234
+Logged in as Alice!
+```
+
 # Zählschleifen
 
 ## Zählschleifen
@@ -667,11 +938,11 @@ c <= 4 or c >= 10
 Folgendermaßen können wir in Python von 0 bis 9 zählen:
 
 ```py
-for i in range(10):
+for i in range(5):
     print(i)
 ```
 
-Der Funktionsaufruf `range(n)` gibt die ersten `n` natürlichen Zahlen (beginnend bei 0) zurück
+Der Aufruf `range(5)` erstellt ein Objekt, das sich wie die Liste `[0, 1, 2, 3, 4]` verhält
 
 ## Zählschleifen
 
@@ -683,6 +954,31 @@ Der Funktionsaufruf `range(n)` gibt die ersten `n` natürlichen Zahlen (beginnen
 3 x 7 = 21
 4 x 7 = 28
 ...
+```
+
+# Bestandteile von Programmen
+
+## Bestandteile von Programmen
+
+- Programme
+  - Codeblöcke
+    - Anweisungen
+      - Ausdrücke
+
+## Anweisungen über mehrere Zeilen
+
+Wenn ein Statement über mehrere Zeilen gehen soll, wird es üblicherweise in Klammern gesetzt
+
+```py
+a = (2 + 3 + 4 + 5 + 6 +
+     7 + 8 + 9 + 10)
+```
+
+Alternative: Escapen von Zeilenumbrüchen mit `\`
+
+```py
+a = 2 + 3 + 4 + 5 + 6 + \
+    7 + 8 + 9 + 10
 ```
 
 # Kontrollstrukturen - Beispiele
@@ -737,283 +1033,6 @@ for i in range(10):
 print(b)
 ```
 
-# Bestandteile von Programmen
-
-## Bestandteile von Programmen
-
-- Programme
-  - Codeblöcke
-    - Anweisungen
-      - Ausdrücke
-
-## Anweisungen über mehrere Zeilen
-
-Wenn ein Statement über mehrere Zeilen gehen soll, wird es üblicherweise in Klammern gesetzt
-
-```py
-a = (2 + 3 + 4 + 5 + 6 +
-     7 + 8 + 9 + 10)
-```
-
-Alternative: Escapen von Zeilenumbrüchen mit `\`
-
-```py
-a = 2 + 3 + 4 + 5 + 6 + \
-    7 + 8 + 9 + 10
-```
-
-# Listen
-
-## Listen
-
-Listen sind ein Datentyp, der eine Folge von anderen Objekten repräsentiert
-
-## Erstellen von Listen
-
-Mit eckigen Klammern:
-
-```py
-primes = [2, 3, 5, 7, 11]
-
-users = ["Alice", "Bob", "Charlie"]
-```
-
-## Auslesen von Listenelementen
-
-Mittels Listenindex (bei 0 beginnend)
-
-```py
-users = ["Alice", "Bob", "Charlie"]
-
-print(users[0])
-print(users[2])
-print(users[-1])
-
-print(len(users))
-```
-
-## Operationen mit Listen
-
-- Überschreiben: `users[0] = "Andrew"`
-- Anhängen: `users.append("Dan")`
-- Letztes Element entfernen: `users.pop()`
-- Ein Element anhand des Index entfernen: `users.pop(2)`
-- Länge: `len(users)`
-- Zusammenhängen: `primes + users`
-- Abfragen, ob Element in Liste: `if "Andrew" in users:`
-
-## Übung: Einkaufsliste
-
-Beispielhafter Programmlauf:
-
-```txt
-enter an item or "x" to quit:
-milk
-enter an item or "x" to quit:
-bread
-enter an item or "x" to quit:
-apples
-enter an item or "x" to quit:
-x
-your shopping list is:
-["milk", "bread", "apples"]
-```
-
-# Objekte abändern
-
-## Objekte abändern
-
-In Python können Listen verändert werden - z.B. durch das anhängen eines neuen Eintrags
-
-Viele andere Objekte - z.B. str, int, float - können nicht abgeändert werden. Jedoch ist es möglich, neue, veränderte Objekte basierend auf bereits vorhandenen Objekten zu erstellen.
-
-## Objekte abändern
-
-```py
-a = [1, 2, 3]
-# creating a new object
-a = a + [4]
-
-a = [1, 2, 3]
-# a is modified directly
-a.append(4)
-```
-
-## Objekte abändern
-
-Was wird das folgende Programm ausgeben?
-
-```py
-a = [1, 2, 3]
-b = a
-b.append(4)
-print(a)
-```
-
-## Objekte abändern
-
-Eine Zuweisung (`b = ...`) versieht ein existierendes Objekt mit einem neuen (zusätzlichen) Namen.
-
-Im Hintergrund steht nach wie vor nur ein einzelnes Objekt.
-
-# For-Schleifen
-
-## For-Schleifen
-
-Mit for-Schleifen können wir die Inhalte einer Liste (oder ähnlicher Objekte) durchlaufen.
-
-Bezeichnung in anderen Programmiersprachen: _for-each_
-
-## For-Schleifen
-
-```py
-names = ["Alice", "Bob", "Charlie"]
-
-for name in names:
-    print("Hello, " + name + "!")
-```
-
-## Beispiel: Login-System
-
-```py
-# Benutzer mit Passwörtern
-users = [
-  ["Alice", "1234"],
-  ["Bob", "password"],
-  ["Charlie", "paris41"]]
-```
-
-## Beispiel: Login-System
-
-Beispielhafter Programmlauf:
-
-```txt
-Enter your username:
-lice
-No such user.
-Enter your username:
-Alice
-Enter your password:
-123
-Wrong password
-Enter your password:
-1234
-Logged in as Alice!
-```
-
-## Zählschleifen
-
-Wir erinnern uns zurück: Für das Zählen verwendeten wir die Funktion `range`
-
-Der Aufruf `range(5)` erstellt ein Objekt, das sich wie die Liste `[0, 1, 2, 3, 4]` verhält
-
-Beispiel zur Verwendung:
-
-```py
-for i in range(5):
-    print(i)
-```
-
-# Builtins, Module
-
-## Builtins, Module
-
-- Builtins: Funktionen und Objekte, die oft verwendet werden und immer verfügbar sind
-- Module: Sammlungen von zusätzlichen Objekten, die importiert werden können
-
-## Builtins
-
-unter anderem:
-
-- `print()`
-- `input()`
-- `len()`
-- `max()`
-- `min()`
-- `open()`
-- `range()`
-- `round()`
-- `sorted()`
-- `sum()`
-- `type()`
-
-## Module
-
-Module beinhalten zusätzliche Objekte, die importiert werden können
-
-z.B.:
-
-```py
-from math import floor
-
-# abrunden
-print(floor(3.6))
-```
-
-## Module
-
-interessante Module:
-
-- `random`
-- `math`
-- `datetime`
-- `os` (Betriebssystem, Dateisystem)
-- `sys` (Python Umgebung)
-- `pprint` (formatierte Ausgabe)
-
-## print und pprint
-
-Ausgabe mehrerer Elemente:
-
-```py
-print(1, 2, 3, sep=", ", end="\n\n")
-```
-
-```bash
-1, 2, 3
-
-
-```
-
-## print und pprint
-
-```py
-import pprint
-
-pprint.pprint(['Mercuy', 'Venus', 'Earth', 'Mars', 'Jupiter',
-               'Saturn', 'Uranus', 'Neptune', 'Pluto'])
-```
-
-```txt
-['Mercuy',
- 'Venus',
- 'Earth',
- 'Mars',
- 'Jupiter',
- 'Saturn',
- 'Uranus',
- 'Neptune',
- 'Pluto']
-```
-
-## sys
-
-Kommandozeilenparameter sind auslesbar über `sys.argv`
-
-```py
-# hello.py
-import sys
-print(sys.argv)
-```
-
-```bash
-python hello.py one two three
-```
-
-```bash
-['hello.py', 'one', 'two', 'three']
-```
-
 # Übungsbeispiele
 
 ## Übungsbeispiele
@@ -1021,6 +1040,7 @@ python hello.py one two three
 - Todoliste
 - Lottozahlengenerator
 - Hangman
+- Tic-Tac-Toe - Spiel mit textbasierter grafischer Ausgabe
 
 ## Todoliste
 
@@ -1132,6 +1152,30 @@ Innerhalb einer Funktion gilt: Variablen, die außerhalb definiert sind, können
 
 In anderen Programmiersprachen: auch Konstrukte wie `if` oder `for` eröffnen einen neuen Scope - nicht so in Python
 
+## Docstrings
+
+Dokumentationsstrings, die Funktionen / Klassen / Module genauer beschreiben
+
+## Docstrings
+
+Beispiel:
+
+```py
+def fib(n):
+    """Compute the n-th fibonacci number.
+
+    n must be a nonnegative integer
+    """
+    ...
+```
+
+## Docstrings ausgeben
+
+```py
+help(fib)
+help(round)
+```
+
 ## Aufgabe: Funktion lottery()
 
 Schreibe eine Funktion namens `lottery`, die eine Liste von Lotteriezahlen erzeugt
@@ -1148,48 +1192,11 @@ Schreibe eine Funktion namens `isprime`, die überprüft, ob eine Zahl eine Prim
 
 Schreibe eine Funktion namens `ask_yes_no`, die dem Benutzer eine Ja/Nein-Frage stellt und entweder `True` oder `False` zurückliefert
 
-# Textdateien schreiben
-
-## Textdateien lesen und schreiben
-
-Viele Dateiformate am PC sind nichts anderes als eine Folge von Textzeichen - z.B. die Formate `.txt`, `.html`, `.csv` oder `.py`.
-
-Diese können wir in Python einfach als Strings repräsentieren und leicht lesen und schreiben.
-
-## Textdatei schreiben
-
-```py
-# zum schreiben öffnen (w = write)
-# als utf-8-Datei öffnen
-file = open("message.txt", "w", encoding="utf-8")
-file.write("hello world")
-file.close()
-```
-
-## Textdatei lesen
-
-```py
-# standardmodus = zum lesen öffnen
-file = open("message.txt", encoding="utf-8")
-content = file.read()
-file.close()
-print(content)
-```
-
-## Encoding
-
-Empfehlung: Textdateien _immer_ im utf-8 encoding lesen oder schreiben (beste Unterstützung für Sonderzeichen)
-
-## Beispiel
-
-Programm, das Todos vom Benutzer abfragt und in einer Datei abspeichert
-
-# Übungsaufgaben
+# Funktionen: Übungsaufgaben
 
 ## Übungsaufgaben
 
-- Programm, das eine Kreditkartennummer / ISBN / IBAN validiert
-- Tic-Tac-Toe - Spiel mit textbasierter grafischer Ausgabe
+- Funktion, die eine Kreditkartennummer / ISBN / IBAN validiert
 - Primzahlen in einem Intervall
 - Fibonacci-Zahlen
 
@@ -1257,6 +1264,42 @@ print(check_isbn(isbn, expected))
 ```
 
 ## IBAN
+
+# Textdateien lesen und schreiben
+
+## Textdateien lesen und schreiben
+
+Viele Dateiformate am PC sind nichts anderes als eine Folge von Textzeichen - z.B. die Formate `.txt`, `.html`, `.csv` oder `.py`.
+
+Diese können wir in Python einfach als Strings repräsentieren und leicht lesen und schreiben.
+
+## Textdatei schreiben
+
+```py
+# zum schreiben öffnen (w = write)
+# als utf-8-Datei öffnen
+file = open("message.txt", "w", encoding="utf-8")
+file.write("hello world")
+file.close()
+```
+
+## Textdatei lesen
+
+```py
+# standardmodus = zum lesen öffnen
+file = open("message.txt", encoding="utf-8")
+content = file.read()
+file.close()
+print(content)
+```
+
+## Encoding
+
+Empfehlung: Textdateien _immer_ im utf-8 encoding lesen oder schreiben (beste Unterstützung für Sonderzeichen)
+
+## Beispiel
+
+Programm, das Todos vom Benutzer abfragt und in einer Datei abspeichert
 
 # Codequalität und Linting
 
@@ -1326,46 +1369,6 @@ a[0 + 3:1]
 a[0 + 3 : 1]
 ```
 
-## Docstrings
-
-Beschreiben eine Funktion / Klasse / Modul genauer
-
-## Docstrings
-
-Beispiel:
-
-```py
-def fib(n):
-    """Compute the n-th fibonacci number.
-
-    n must be a nonnegative integer
-    """
-    ...
-```
-
-## Docstrings anzeigen
-
-```bash
-python -m pydoc math
-python -m pydoc math.floor
-```
-
-## Docstring-Format
-
-PEP 257: https://www.python.org/dev/peps/pep-0257/
-
-## Docstrig-Format
-
-Docstring eines Moduls: Beschreibung, Liste der exportierten Funktionen mit einzeiligen Zusammenfassungen
-
-Docstring einer Klasse: Beschreibung, Liste der Methoden
-
-Docstring einer Funktion: Beschreibung, Liste der Parameter
-
-## Pydocstyle
-
-Linter zum validieren von Docstrings
-
 ## Python-Philosophie, Zen of Python
 
 Auszüge aus dem _Zen of Python_ (anzeigbar via `import this`):
@@ -1374,6 +1377,28 @@ Auszüge aus dem _Zen of Python_ (anzeigbar via `import this`):
 - _Readability counts._
 - _Special cases aren't special enough to break the rules._
 - _There should be one-- and preferably only one --obvious way to do it._
+
+# Debuggen in VS Code
+
+## Debuggen in VS Code
+
+Breakpoints (Haltepunkte) setzen:
+
+In VS Code links neben die Zeilennummer klicken
+
+Die Ausführung hält an, sobald der Breakpoint erreicht wird
+
+## Debuggen in VS Code
+
+Begutachten von Variablen
+
+## Debuggen in VS Code
+
+Manuell weiterspringen:
+
+- _step over_: in die nächste Zeile
+- _step into_: einem Funktionsaufruf folgen
+- _step out_: aktuellen Funktionsaufruf verlassen
 
 # Cheatsheet
 

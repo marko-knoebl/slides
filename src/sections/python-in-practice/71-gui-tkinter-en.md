@@ -3,13 +3,10 @@
 ## Example
 
 ```py
-# simple.pyw
 import tkinter
 
-# ein Objekt vom Typ "Tk" erstellen
 window = tkinter.Tk()
-# Programm (event loop) starten
-#   (auf Benutzerinteraktion warten)
+
 window.mainloop()
 ```
 

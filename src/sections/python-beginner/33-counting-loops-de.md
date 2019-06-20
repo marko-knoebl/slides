@@ -5,11 +5,11 @@
 Folgendermaßen können wir in Python von 0 bis 9 zählen:
 
 ```py
-for i in range(10):
+for i in range(5):
     print(i)
 ```
 
-Der Funktionsaufruf `range(n)` gibt die ersten `n` natürlichen Zahlen (beginnend bei 0) zurück
+Der Aufruf `range(5)` erstellt ein Objekt, das sich wie die Liste `[0, 1, 2, 3, 4]` verhält
 
 ## Zählschleifen
 

@@ -67,6 +67,17 @@ on Windows: Download from https://python.org (Windows x86-64 web-based installer
 
 check the option "Add Python 3.7 to PATH"
 
+<!--
+Python zu path hinzufügen
+
+program "environment variables" / "Umgebungsvariablen für dieses Konto bearbeiten"
+zu PATH hinzufügen:
+
+für Anaconda:
+C:\Users\Marko\Anaconda3
+C:\Users\Marko\Anaconda3\Scripts
+-->
+
 ## Python Installation
 
 installation includes:
@@ -265,16 +276,7 @@ https://code.visualstudio.com/
   - wait...
   - choose Python 3.7
 
-<!--
-adding Python to path on windows for
-
-program "environment variables" / "Umgebungsvariablen für dieses Konto bearbeiten"
-zu PATH hinzufügen:
-
-für Anaconda:
-C:\Users\Marko\Anaconda3
-C:\Users\Marko\Anaconda3\Scripts
--->
+- Installing Pylint
 
 # VS Code
 
