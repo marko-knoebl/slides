@@ -993,6 +993,55 @@ export default connect(mapStateToProps)(App);</code></pre>
         <h2 id="redux-with-typescript">Redux with TypeScript</h2>
 <p>see <a href="https://github.com/piotrwitek/react-redux-typescript-guide">https://github.com/piotrwitek/react-redux-typescript-guide</a></p>
 
+      </section></section><section class="section" id="section-13"><section class="slide" id="slide-13-1">
+        <h1 id="react-with-redux-with-hooks">React with Redux (with Hooks)</h1>
+
+      </section><section class="slide" id="slide-13-2">
+        <h2 id="react-with-redux-with-hooks">React with Redux (with Hooks)</h2>
+<p><a href="https://redux.js.org/basics/usage-with-react">https://redux.js.org/basics/usage-with-react</a></p>
+<p>Setup: <code>npm install redux react-redux</code></p>
+<p>Typescript: <code>npm install @types/react-redux</code></p>
+
+      </section><section class="slide" id="slide-13-3">
+        <h2 id="react-redux--provider">React-Redux: &lt; Provider &gt;</h2>
+<p>Provider: Helps with adding a redux store to a React app</p>
+
+      </section><section class="slide" id="slide-13-4">
+        <h2 id="react-redux--provider">React-Redux: &lt; Provider &gt;</h2>
+<pre><code class="language-js"><span class="hljs-comment">// index.js</span>
+<span class="hljs-keyword">import</span> { Provider } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-redux'</span>;
+
+[...]
+
+ReactDOM.render(
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Provider</span> <span class="hljs-attr">store</span>=<span class="hljs-string">{myStore}</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">App</span>/&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">Provider</span>&gt;</span></span>
+  ...
+);</code></pre>
+
+      </section><section class="slide" id="slide-13-5">
+        <h2 id="useselector">useSelector</h2>
+<p>By using <code>useSelector</code> we can query the state of the Redux store.</p>
+<p>We pass a so-called <em>selector function</em> to <code>useSelector</code>. The selector function receives the entire Redux state and returns a value that is derived from the state.</p>
+<p>example:</p>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> numTodos = useSelector(<span class="hljs-function"><span class="hljs-params">state</span> =&gt;</span> state.todos.length);</code></pre>
+
+      </section><section class="slide" id="slide-13-6">
+        <h2 id="usedispatch">useDispatch</h2>
+<p>By using <code>useDispatch</code> we can access the <code>dispatch</code> function of the Redux store and use it to dispatch actions.</p>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> dispatch = useDispatch();
+
+dispatch({
+  <span class="hljs-attr">type</span>: <span class="hljs-string">'REMOVE_COMPLETED_TODOS'</span>,
+});</code></pre>
+
+      </section><section class="slide" id="slide-13-7">
+        <h2 id="usedispatch-with-typescript">useDispatch with TypeScript</h2>
+<pre><code class="language-ts"><span class="hljs-keyword">import</span> { Dispatch } <span class="hljs-keyword">from</span> <span class="hljs-string">'redux'</span>;
+
+<span class="hljs-keyword">const</span> dispatch: Dispatch&lt;TodolistAction&gt; = useDispatch();</code></pre>
+
       </section></section>
 
     </div>
