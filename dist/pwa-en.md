@@ -87,14 +87,6 @@ independent of _Visual Studio_ itself
 
 via _File_ - _Open Folder_
 
-## VS Code: saving
-
-Unsaved files are marked with a circle instead of an "X" in the tab
-
-Save via _Ctrl_ + _S_
-
-or: _File_ - _Auto Save_
-
 ## VS Code: File explorer, split editor
 
 ## VS Code: Terminal
@@ -115,14 +107,13 @@ Is split in _User Settings_ and _Workspace Settings_
 
 Recommendations:
 
-- Auto Save: _activate_
 - Accept Suggestions on Commit Character (Autocomplete on other keys than _Enter_): _deactivate_
-- Tab Size: _2_
+- Auto Save: _afterDelay_
+- Tab Size: _2_ or _4_
 
 Further Options:
 
-- Format on Save
-- Format on Paste
+- Word Wrap
 - EOL
 - Workbench: Color Theme
 

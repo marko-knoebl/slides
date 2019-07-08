@@ -124,14 +124,6 @@ https://code.visualstudio.com
 
 ganzen Ordner öffnen mit _File_ - _Open Folder_
 
-## VS Code: speichern
-
-Nicht gespeicherte Dateien sind durch einen Kreis statt des "X" im Tab erkennbar
-
-Speichern mit _Strg_ + _S_
-
-oder: _File_ - _Auto Save_
-
 ## VS Code: Datei-Explorer, Split Editor
 
 ## VS Code: Terminal
@@ -152,14 +144,13 @@ Eingeteilt in _User Settings_ und _Workspace Settings_
 
 Empfehlungen:
 
-- Auto Save: _aktivieren_
 - Accept Suggestion on Commit Character (Autovervollständigung ohne _Enter_): _deaktivieren_
-- Tab Size: _2_
+- Auto Save: _afterDelay_
+- Tab Size: _2_ oder _4_
 
 Weitere Möglichkeiten:
 
-- Format on Save
-- Format on Paste
+- Word Wrap
 - EOL
 - Workbench: Color Theme
 
