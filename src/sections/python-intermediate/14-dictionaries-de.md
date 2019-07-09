@@ -49,7 +49,7 @@ d = {0: 'null', 1: 'eins', 2: 'zwei'}
 d[2]
 d[2] = 'ZWEI'
 d[3] # KeyError
-d.get(3, None)
+d.get(3) # None
 
 d.keys()
 d.items()

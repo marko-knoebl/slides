@@ -6,7 +6,7 @@
 raise ValueError('test')
 ```
 
-## Abgefangene exceptions erneut auslösen
+## Abgefangene Exceptions erneut auslösen
 
 ```py
 try:
@@ -16,9 +16,9 @@ except ClientError as e
         raise
 ```
 
-## Eigene exceptions
+## Eigene Exceptions
 
-Eigene exceptions können wir als Unterklassen von `Exception` definieren
+Eigene Exceptions können wir als Unterklassen von `Exception` definieren
 
 ```py
 class MoneyParseException(Exception):

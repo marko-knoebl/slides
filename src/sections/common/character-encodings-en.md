@@ -43,12 +43,12 @@ Examples in UTF-8:
 
 ## Character encodings
 
-| Character | Unicode | ASCII | Latin-1 |    UTF-8 |       UTF-16 |
-| --------- | ------: | ----: | ------: | -------: | -----------: |
-| K         |  U+004B |    4B |      4B |       4B |     FFFE4B00 |
-| ä         |  U+00E4 |       |      E4 |     C3A4 |     FFFEE400 |
-| €         |  U+20AC |       |         |   E282AC |     FFFEAC20 |
-| 🙂        | U+1F642 |       |         | F09F9982 | FFFE3DD842DE |
+| Character | Unicode | ASCII | Latin-1 |    UTF-8 |   UTF-16 |
+| --------- | ------: | ----: | ------: | -------: | -------: |
+| K         |  U+004B |    4B |      4B |       4B |     4B00 |
+| ä         |  U+00E4 |       |      E4 |     C3A4 |     E400 |
+| €         |  U+20AC |       |         |   E282AC |     AC20 |
+| 🙂        | U+1F642 |       |         | F09F9982 | 3DD842DE |
 
 ## UTF-8
 
@@ -58,9 +58,21 @@ In UTF-8 the first 128 Unicode characters can be encoded in just 8 bit
 
 All other characters need either 16, 24 or 32 bit
 
+## UTF-32
+
+UTF-32 encodes the Unicode code points directly
+
+Depending on the area of application the byte order may differ (big endian or little endian)
+
+example:
+
+🙂 (U+1F642) ↔ `00 01 F6 42` (big endian) or `42 F6 01 00` (little endian)
+
 ## Line breaks
 
 Line breaks can be represented by the characters `LF` (line feed, `U+000A`) and / or `CR` (carriage return, `U+000D`)
 
 - `LF`: Standard on Linux, MacOS
 - `CRLF`: Standard on Windows, in network protocols like HTTP
+
+In string literals `LF` is often represented by `\n` and `CR` is represented by `\r`

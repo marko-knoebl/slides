@@ -18,9 +18,9 @@ Beispiele:
 
 Zeichenkodierung = Zuordnung von Zeichen zu Bitsequenzen
 
-- _ASCII_: Codiert die ersten 128 Unicodezeichen, u.a. _A_, _!_, _\$_, _Leerzeichen_, _Zeilenumbruch_
-- _Latin1_: Codiert die ersten 256 Unicodezeichen, u.a. _ä_, _á_, _ß_, _§_
-- _UTF-8_, _UTF-16_, _UTF-32_: Codieren alle Unicodezeichen
+- _ASCII_: Kodiert die ersten 128 Unicodezeichen, u.a. _A_, _!_, _\$_, _Leerzeichen_, _Zeilenumbruch_
+- _Latin1_: Kodiert die ersten 256 Unicodezeichen, u.a. _ä_, _á_, _ß_, _§_
+- _UTF-8_, _UTF-16_, _UTF-32_: Kodieren alle Unicodezeichen
 
 Eine Zeichenkodierung ist notwendig, um Text auf ein Speichermedium zu schreiben oder über das Netzwerk zu übertragen
 
@@ -43,12 +43,12 @@ Beispiele in UTF-8:
 
 ## Zeichenkodierung
 
-| Zeichen | Unicode | ASCII | Latin-1 |    UTF-8 |       UTF-16 |
-| ------- | ------: | ----: | ------: | -------: | -----------: |
-| K       |  U+004B |    4B |      4B |       4B |     FFFE4B00 |
-| ä       |  U+00E4 |       |      E4 |     C3A4 |     FFFEE400 |
-| €       |  U+20AC |       |         |   E282AC |     FFFEAC20 |
-| 🙂      | U+1F642 |       |         | F09F9982 | FFFE3DD842DE |
+| Zeichen | Unicode | ASCII | Latin-1 |    UTF-8 |   UTF-16 |
+| ------- | ------: | ----: | ------: | -------: | -------: |
+| K       |  U+004B |    4B |      4B |       4B |     4B00 |
+| ä       |  U+00E4 |       |      E4 |     C3A4 |     E400 |
+| €       |  U+20AC |       |         |   E282AC |     AC20 |
+| 🙂      | U+1F642 |       |         | F09F9982 | 3DD842DE |
 
 ## UTF-8
 
@@ -58,9 +58,19 @@ Die ersten 128 Unicode-Zeichen benötigen nur 8 Bit (wie bei ASCII / Latin1)
 
 Alle anderen Zeichen benötigen jeweils 16, 24 oder 32 Bit
 
+## UTF-32
+
+UTF-32 kodiert unmittelbar die Unicode-Codepukte, wobei je nach Anwendungsbereich eine andere Bytereihenfolge (big endian oder little endian) auftreten kann.
+
+Beispiel:
+
+🙂 (U+1F642) ↔ `00 01 F6 42` (big endian) oder `42 F6 01 00` (little endian)
+
 ## Zeilenumbrüche
 
-Zeilenumbrüche können durch die Zeichen `LF` (line feed, `U+000A`) bzw `CR` (carriage return, `U+000D`) codiert werden
+Zeilenumbrüche können durch die Zeichen `LF` (line feed, `U+000A`) bzw `CR` (carriage return, `U+000D`) kodiert werden
 
 - `LF`: Standard unter Linux, MacOS
 - `CRLF`: Standard unter Windows, in Netzwerkprotokollen wie HTTP
+
+In String-Literalen wird `LF` oft durch `\n` und `CR` oft durch `\r` repräsentiert

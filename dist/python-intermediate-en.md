@@ -240,12 +240,12 @@ Examples in UTF-8:
 
 ## Character encodings
 
-| Character | Unicode | ASCII | Latin-1 |    UTF-8 |       UTF-16 |
-| --------- | ------: | ----: | ------: | -------: | -----------: |
-| K         |  U+004B |    4B |      4B |       4B |     FFFE4B00 |
-| ä         |  U+00E4 |       |      E4 |     C3A4 |     FFFEE400 |
-| €         |  U+20AC |       |         |   E282AC |     FFFEAC20 |
-| 🙂        | U+1F642 |       |         | F09F9982 | FFFE3DD842DE |
+| Character | Unicode | ASCII | Latin-1 |    UTF-8 |   UTF-16 |
+| --------- | ------: | ----: | ------: | -------: | -------: |
+| K         |  U+004B |    4B |      4B |       4B |     4B00 |
+| ä         |  U+00E4 |       |      E4 |     C3A4 |     E400 |
+| €         |  U+20AC |       |         |   E282AC |     AC20 |
+| 🙂        | U+1F642 |       |         | F09F9982 | 3DD842DE |
 
 ## UTF-8
 
@@ -255,12 +255,24 @@ In UTF-8 the first 128 Unicode characters can be encoded in just 8 bit
 
 All other characters need either 16, 24 or 32 bit
 
+## UTF-32
+
+UTF-32 encodes the Unicode code points directly
+
+Depending on the area of application the byte order may differ (big endian or little endian)
+
+example:
+
+🙂 (U+1F642) ↔ `00 01 F6 42` (big endian) or `42 F6 01 00` (little endian)
+
 ## Line breaks
 
 Line breaks can be represented by the characters `LF` (line feed, `U+000A`) and / or `CR` (carriage return, `U+000D`)
 
 - `LF`: Standard on Linux, MacOS
 - `CRLF`: Standard on Windows, in network protocols like HTTP
+
+In string literals `LF` is often represented by `\n` and `CR` is represented by `\r`
 
 # Strings
 
@@ -696,7 +708,7 @@ d = {0: 'zero', 1: 'one', 2: 'two'}
 d[2]
 d[2] = 'TWO'
 d[3] # KeyError
-d.get(3, None)
+d.get(3) # None
 
 d.keys()
 d.items()
@@ -843,6 +855,103 @@ neighbors = {
 
 ## Task: Find the "route" from any country to another
 
+# Object-oriented programming and classes
+
+## Object orientation in Python: "Everything is an object"
+
+```py
+a = 20
+
+a.to_bytes(1, "big")
+
+"hello".upper()
+```
+
+## Types and instances
+
+```py
+message = "hello"
+
+type(message)
+
+isinstance(message, str)
+```
+
+## Classes
+
+Classes may represent _various_ things, e.g.:
+
+- a Message inside an e-mail program
+- a user of a website
+- a car in a racing game
+- a shopping basket in an online shop
+- a bank account
+- ...
+
+## Classes
+
+The definition of a class usually encompasses:
+
+- a "data structure" (attributes)
+- a "behavior" (methods)
+
+## Classes
+
+example: class `BankAccount`
+
+- "data structure" (attributes)
+- "behavior" (methods)
+
+## Defining classes
+
+```py
+class MyClass():
+
+    # the method __init__ initializes the object
+    def __init__(self):
+        # inside any method, self will refer
+        # to the current instance of the class
+        self.message = "hello"
+
+instance = MyClass()
+instance.message # "hello"
+```
+
+## Inheritance
+
+```py
+class Person():
+    ...
+
+class Admin(Person):
+    ...
+```
+
+## Example: class "Money"
+
+```py
+a = Money('EUR', 10)
+b = Money('USD', 10)
+
+a.currency
+
+a.amount
+```
+
+## Exercise: classes "TodoList" and "Todo"
+
+```py
+tdl = TodoList("groceries")
+
+tdl.add("milk")
+tdl.add("bread")
+
+print(tdl.todos)
+tdl.todos[0].toggle()
+
+tdl.stats() # {open: 1, completed: 1}
+```
+
 # Control structures
 
 ## Control structures
@@ -966,7 +1075,24 @@ except ValueError as e:
     print(e.args)
 ```
 
-## Exceptions with finally and else
+## Catching exceptions
+
+Using `finally`:
+
+```py
+try:
+    file = open("log.txt", "w", encoding="utf-8")
+    file.write("abc")
+    file.write("def")
+except IOError:
+    print("could not open file")
+finally:
+    file.close()
+```
+
+## Catching exceptions
+
+Using `else`:
 
 ```py
 try:
@@ -1186,7 +1312,7 @@ from package1.module2 import *
 assigning a new name
 
 ```py
-import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
 ```
 
@@ -1224,103 +1350,6 @@ Imported modules will be saved in a compiled form, making subsequent loading of 
 Compiled versions will be saved in the folder `__pycache__`
 
 ## Be careful: avoid circular imports
-
-# Object-oriented programming and classes
-
-## Object orientation in Python: "Everything is an object"
-
-```py
-a = 20
-
-a.to_bytes(1, "big")
-
-"hello".upper()
-```
-
-## Types and instances
-
-```py
-message = "hello"
-
-type(message)
-
-isinstance(message, str)
-```
-
-## Classes
-
-Classes may represent _various_ things, e.g.:
-
-- a Message inside an e-mail program
-- a user of a website
-- a car in a racing game
-- a shopping basket in an online shop
-- a bank account
-- ...
-
-## Classes
-
-The definition of a class usually encompasses:
-
-- a "data structure" (attributes)
-- a "behavior" (methods)
-
-## Classes
-
-example: class `BankAccount`
-
-- "data structure" (attributes)
-- "behavior" (methods)
-
-## Defining classes
-
-```py
-class MyClass():
-
-    # the method __init__ initializes the object
-    def __init__(self):
-        # inside any method, self will refer
-        # to the current instance of the class
-        self.message = "hello"
-
-instance = MyClass()
-instance.message # "hello"
-```
-
-## Inheritance
-
-```py
-class Person():
-    ...
-
-class Admin(Person):
-    ...
-```
-
-## Example: class "Money"
-
-```py
-a = Money('EUR', 10)
-b = Money('USD', 10)
-
-a.currency
-
-a.amount
-```
-
-## Exercise: classes "TodoList" and "Todo"
-
-```py
-tdl = TodoList("groceries")
-
-tdl.add("milk")
-tdl.add("bread")
-
-print(tdl.todos)
-tdl.todos[0].toggle()
-
-tdl.stats() # {open: 1, completed: 1}
-```
 
 # Python versions
 

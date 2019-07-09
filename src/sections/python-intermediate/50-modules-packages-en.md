@@ -31,7 +31,7 @@ from package1.module2 import *
 assigning a new name
 
 ```py
-import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
 ```
 

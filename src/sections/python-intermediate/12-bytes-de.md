@@ -15,7 +15,7 @@ m[2] == 160
 
 ## Bytes
 
-Standard representation in Python:
+Standard Repräsentation in Python:
 
 ```py
 print(bytes([0x00, 0x40, 0x70, 0xa0]))
@@ -29,7 +29,7 @@ Wenn möglich werden bytes als ASCII-Zeichen dargestellt; sonst wird ihr Hexadez
 
 Das `b` zeigt an dass, es sich um Bytes - und nicht einen gewöhnlichen String - handelt
 
-## Bytes and Strings
+## Bytes und Strings
 
 Bytes können beliebige Daten beinhalten - oft beinhalten sie aber codierten Text
 
@@ -45,37 +45,6 @@ b'\xc3\xa4'.decode('utf-8')
 # 'ä'
 ```
 
-## Umwandlung zwischen Strings und Bytes
+## Bytes und Strings
 
-Strings können jeden beliebigen Text darstellen (intern üblicherweise mittels Unicode repräsentiert)
-
-Bytes können einen encodierten String enthalten. Dabei gilt:
-
-Für die Bytes von 0-127 ist das Zeichen in jedem Encoding das gleiche.
-Für Bytes über 128 können verschiedene Encodings verschiedene Repräsentationen liefern.
-
-## Encodings
-
-```py
-'a'.encode('ascii')
-# b'a'
-
-'a'.encode('latin-1')
-# b'a'
-
-'a'.encode('utf-8')
-# b'a'
-```
-
-## Encodings
-
-```py
-'ä'.encode('ascii')
-# UnicodeEncodeError: 'ascii' codec can't encode character ...
-
-'ä'.encode('latin-1')
-# b'\xe4'
-
-'ä'.encode('utf-8')
-# b'\xc3\xa4'
-```
+Speichermedien und Netzwerke verarbeiten nur Bytes. Um Text von einem Speichermedium oder Netzwerk zu lesen müssen wir das Encoding kennen bzw spezifizieren.

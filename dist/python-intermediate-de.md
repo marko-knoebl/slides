@@ -227,9 +227,9 @@ Beispiele:
 
 Zeichenkodierung = Zuordnung von Zeichen zu Bitsequenzen
 
-- _ASCII_: Codiert die ersten 128 Unicodezeichen, u.a. _A_, _!_, _\$_, _Leerzeichen_, _Zeilenumbruch_
-- _Latin1_: Codiert die ersten 256 Unicodezeichen, u.a. _ä_, _á_, _ß_, _§_
-- _UTF-8_, _UTF-16_, _UTF-32_: Codieren alle Unicodezeichen
+- _ASCII_: Kodiert die ersten 128 Unicodezeichen, u.a. _A_, _!_, _\$_, _Leerzeichen_, _Zeilenumbruch_
+- _Latin1_: Kodiert die ersten 256 Unicodezeichen, u.a. _ä_, _á_, _ß_, _§_
+- _UTF-8_, _UTF-16_, _UTF-32_: Kodieren alle Unicodezeichen
 
 Eine Zeichenkodierung ist notwendig, um Text auf ein Speichermedium zu schreiben oder über das Netzwerk zu übertragen
 
@@ -252,12 +252,12 @@ Beispiele in UTF-8:
 
 ## Zeichenkodierung
 
-| Zeichen | Unicode | ASCII | Latin-1 |    UTF-8 |       UTF-16 |
-| ------- | ------: | ----: | ------: | -------: | -----------: |
-| K       |  U+004B |    4B |      4B |       4B |     FFFE4B00 |
-| ä       |  U+00E4 |       |      E4 |     C3A4 |     FFFEE400 |
-| €       |  U+20AC |       |         |   E282AC |     FFFEAC20 |
-| 🙂      | U+1F642 |       |         | F09F9982 | FFFE3DD842DE |
+| Zeichen | Unicode | ASCII | Latin-1 |    UTF-8 |   UTF-16 |
+| ------- | ------: | ----: | ------: | -------: | -------: |
+| K       |  U+004B |    4B |      4B |       4B |     4B00 |
+| ä       |  U+00E4 |       |      E4 |     C3A4 |     E400 |
+| €       |  U+20AC |       |         |   E282AC |     AC20 |
+| 🙂      | U+1F642 |       |         | F09F9982 | 3DD842DE |
 
 ## UTF-8
 
@@ -267,12 +267,22 @@ Die ersten 128 Unicode-Zeichen benötigen nur 8 Bit (wie bei ASCII / Latin1)
 
 Alle anderen Zeichen benötigen jeweils 16, 24 oder 32 Bit
 
+## UTF-32
+
+UTF-32 kodiert unmittelbar die Unicode-Codepukte, wobei je nach Anwendungsbereich eine andere Bytereihenfolge (big endian oder little endian) auftreten kann.
+
+Beispiel:
+
+🙂 (U+1F642) ↔ `00 01 F6 42` (big endian) oder `42 F6 01 00` (little endian)
+
 ## Zeilenumbrüche
 
-Zeilenumbrüche können durch die Zeichen `LF` (line feed, `U+000A`) bzw `CR` (carriage return, `U+000D`) codiert werden
+Zeilenumbrüche können durch die Zeichen `LF` (line feed, `U+000A`) bzw `CR` (carriage return, `U+000D`) kodiert werden
 
 - `LF`: Standard unter Linux, MacOS
 - `CRLF`: Standard unter Windows, in Netzwerkprotokollen wie HTTP
+
+In String-Literalen wird `LF` oft durch `\n` und `CR` oft durch `\r` repräsentiert
 
 # Strings
 
@@ -538,7 +548,7 @@ m[2] == 160
 
 ## Bytes
 
-Standard representation in Python:
+Standard Repräsentation in Python:
 
 ```py
 print(bytes([0x00, 0x40, 0x70, 0xa0]))
@@ -552,7 +562,7 @@ Wenn möglich werden bytes als ASCII-Zeichen dargestellt; sonst wird ihr Hexadez
 
 Das `b` zeigt an dass, es sich um Bytes - und nicht einen gewöhnlichen String - handelt
 
-## Bytes and Strings
+## Bytes und Strings
 
 Bytes können beliebige Daten beinhalten - oft beinhalten sie aber codierten Text
 
@@ -568,40 +578,9 @@ b'\xc3\xa4'.decode('utf-8')
 # 'ä'
 ```
 
-## Umwandlung zwischen Strings und Bytes
+## Bytes und Strings
 
-Strings können jeden beliebigen Text darstellen (intern üblicherweise mittels Unicode repräsentiert)
-
-Bytes können einen encodierten String enthalten. Dabei gilt:
-
-Für die Bytes von 0-127 ist das Zeichen in jedem Encoding das gleiche.
-Für Bytes über 128 können verschiedene Encodings verschiedene Repräsentationen liefern.
-
-## Encodings
-
-```py
-'a'.encode('ascii')
-# b'a'
-
-'a'.encode('latin-1')
-# b'a'
-
-'a'.encode('utf-8')
-# b'a'
-```
-
-## Encodings
-
-```py
-'ä'.encode('ascii')
-# UnicodeEncodeError: 'ascii' codec can't encode character ...
-
-'ä'.encode('latin-1')
-# b'\xe4'
-
-'ä'.encode('utf-8')
-# b'\xc3\xa4'
-```
+Speichermedien und Netzwerke verarbeiten nur Bytes. Um Text von einem Speichermedium oder Netzwerk zu lesen müssen wir das Encoding kennen bzw spezifizieren.
 
 # Sequenzen
 
@@ -747,7 +726,7 @@ d = {0: 'null', 1: 'eins', 2: 'zwei'}
 d[2]
 d[2] = 'ZWEI'
 d[3] # KeyError
-d.get(3, None)
+d.get(3) # None
 
 d.keys()
 d.items()
@@ -879,6 +858,103 @@ neighbors = {
 
 ## Aufgabe: "Route" von einem Land in ein anderes
 
+# Objektorientierung und Klassen
+
+## Objektorientierung in Python: "Alles ist ein Objekt"
+
+```py
+a = 20
+
+a.to_bytes(1, "big")
+
+"hello".upper()
+```
+
+## Typen und Instanzen
+
+```py
+message = "hello"
+
+type(message)
+
+isinstance(message, str)
+```
+
+## Klassen
+
+Klassen können _verschiedenste_ Dinge repräsentieren, z.B.:
+
+- eine Nachricht in einem E-Mail-Programm
+- einen Benutzer einer Website
+- ein Auto in einem Computer-Rennspiel
+- einen Einkaufskorb in einem Onlineshop
+- ein Bankkonto
+- ...
+
+## Klassen
+
+Definition einer Klasse umfasst üblicherweise:
+
+- "Datenstruktur" (Attribute)
+- "Verhalten" (Methoden)
+
+## Klassen
+
+Beispiel: Klasse `BankAccount`
+
+- "Datenstruktur" (Attribute)
+- "Verhalten" (Methoden)
+
+## Definition von Klassen
+
+```py
+class MyClass():
+
+    # die Methode __init__ initialisiert das Objekt
+    def __init__(self):
+        # self bezieht sich in jeder Methode
+        # auf die aktuelle Instanz
+        self.message = "hello"
+
+instance = MyClass()
+instance.message # "hello"
+```
+
+## Vererbung
+
+```py
+class Person():
+    ...
+
+class Admin(Person):
+    ...
+```
+
+## Beispiel: Umsetzung einer Money-Klasse
+
+```py
+a = Money('EUR', 10)
+b = Money('USD', 10)
+
+a.currency
+
+a.amount
+```
+
+## Übung: TodoList- und Todo-Klassen
+
+```py
+tdl = TodoList("groceries")
+
+tdl.add("milk")
+tdl.add("bread")
+
+print(tdl.todos)
+tdl.todos[0].toggle()
+
+tdl.stats() # {open: 1, completed: 1}
+```
+
 # Kontrollstrukturen
 
 ## Kontrollstrukturen
@@ -1002,7 +1078,24 @@ except ValueError as e:
     print(e.args)
 ```
 
-## finally und else bei exceptions
+## Exceptions abfangen
+
+Einsatz von `finally`:
+
+```py
+try:
+    file = open("log.txt", "w", encoding="utf-8")
+    file.write("abc")
+    file.write("def")
+except IOError:
+    print("could not open file")
+finally:
+    file.close()
+```
+
+## Exceptions abfangen
+
+Einsatz von `else`:
 
 ```py
 try:
@@ -1042,7 +1135,7 @@ EAFP: _It's easier to ask for forgiveness than permission_
 raise ValueError('test')
 ```
 
-## Abgefangene exceptions erneut auslösen
+## Abgefangene Exceptions erneut auslösen
 
 ```py
 try:
@@ -1052,9 +1145,9 @@ except ClientError as e
         raise
 ```
 
-## Eigene exceptions
+## Eigene Exceptions
 
-Eigene exceptions können wir als Unterklassen von `Exception` definieren
+Eigene Exceptions können wir als Unterklassen von `Exception` definieren
 
 ```py
 class MoneyParseException(Exception):
@@ -1204,7 +1297,7 @@ fib(25)
 - Modul = Python-Datei, aus der Objekte importiert werden können
 - Paket = Verzeichnis, in dem Python-Module abgelegt sind
 
-## Beispiele für imports
+## Beispiele für Imports
 
 - `urllib` = Paket
 - `urllib.request` = Modul
@@ -1230,7 +1323,7 @@ from package1.module2 import *
 mit neuen Namen:
 
 ```py
-import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
 ```
 
@@ -1268,103 +1361,6 @@ Importierte Module werden in kompilierter Form abgelegt, um später schneller ei
 Wir finden die kompilierten Versionen im Ordner `__pycache__`
 
 ## Achtung: circular imports vermeiden
-
-# Objektorientierung und Klassen
-
-## Objektorientierung in Python: "Alles ist ein Objekt"
-
-```py
-a = 20
-
-a.to_bytes(1, "big")
-
-"hello".upper()
-```
-
-## Typen und Instanzen
-
-```py
-message = "hello"
-
-type(message)
-
-isinstance(message, str)
-```
-
-## Klassen
-
-Klassen können _verschiedenste_ Dinge repräsentieren, z.B.:
-
-- eine Nachricht in einem E-Mail-Programm
-- einen Benutzer einer Website
-- ein Auto in einem Computer-Rennspiel
-- einen Einkaufskorb in einem Onlineshop
-- ein Bankkonto
-- ...
-
-## Klassen
-
-Definition einer Klasse umfasst üblicherweise:
-
-- "Datenstruktur" (Attribute)
-- "Verhalten" (Methoden)
-
-## Klassen
-
-Beispiel: Klasse `BankAccount`
-
-- "Datenstruktur" (Attribute)
-- "Verhalten" (Methoden)
-
-## Definition von Klassen
-
-```py
-class MyClass():
-
-    # die Methode __init__ initialisiert das Objekt
-    def __init__(self):
-        # self bezieht sich in jeder Methode
-        # auf die aktuelle Instanz
-        self.message = "hello"
-
-instance = MyClass()
-instance.message # "hello"
-```
-
-## Vererbung
-
-```py
-class Person():
-    ...
-
-class Admin(Person):
-    ...
-```
-
-## Beispiel: Umsetzung einer Money-Klasse
-
-```py
-a = Money('EUR', 10)
-b = Money('USD', 10)
-
-a.currency
-
-a.amount
-```
-
-## Übung: TodoList- und Todo-Klassen
-
-```py
-tdl = TodoList("groceries")
-
-tdl.add("milk")
-tdl.add("bread")
-
-print(tdl.todos)
-tdl.todos[0].toggle()
-
-tdl.stats() # {open: 1, completed: 1}
-```
 
 # Python Versionen
 
