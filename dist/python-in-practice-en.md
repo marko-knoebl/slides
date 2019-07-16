@@ -1417,7 +1417,7 @@ print(beatles.songs)
 
 - Simple UI library
 - Python interface: tkinter
-- comes with Python
+- comes with Python on Windows
 
 ## Qt
 

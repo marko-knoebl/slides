@@ -12,7 +12,7 @@
 
 - Einfache UI-Library
 - Anbindung an Python: tkinter
-- in Python vorinstalliert
+- unter Windows mit Python vorinstalliert
 
 ## Qt
 
