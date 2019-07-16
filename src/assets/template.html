@@ -10,6 +10,10 @@
 
 <body>
   <div id="canvas">
+    <div id="no-script">
+      Could not execute modern JavaScript code. Please switch to a modern browser,
+      e.g. the most recent version of Firefox, Chrome or Edge and enable JavaScript.
+    </div>
     <div id="canvas-content">
 
       {{content}}
@@ -200,6 +204,7 @@
       activateSlideSafe(1, 1);
       addKeyControls();
       addSwipeControls();
+      hideNoScriptMessage();
     }
 
     // count slides
@@ -349,6 +354,10 @@
           }
         }
       });
+    }
+
+    const hideNoScriptMessage = () => {
+      document.querySelector("#no-script").innerHTML = "";
     }
 
     init();

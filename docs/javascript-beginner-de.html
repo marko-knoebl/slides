@@ -109,6 +109,10 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 
 <body>
   <div id="canvas">
+    <div id="no-script">
+      Could not execute modern JavaScript code. Please switch to a modern browser,
+      e.g. the most recent version of Firefox, Chrome or Edge and enable JavaScript.
+    </div>
     <div id="canvas-content">
 
       <section class="section" id="section-1"><section class="slide" id="slide-1-1">
@@ -1026,6 +1030,7 @@ a.getHourse(); <span class="hljs-comment">// ...</span></code></pre>
       activateSlideSafe(1, 1);
       addKeyControls();
       addSwipeControls();
+      hideNoScriptMessage();
     }
 
     // count slides
@@ -1175,6 +1180,10 @@ a.getHourse(); <span class="hljs-comment">// ...</span></code></pre>
           }
         }
       });
+    }
+
+    const hideNoScriptMessage = () => {
+      document.querySelector("#no-script").innerHTML = "";
     }
 
     init();
