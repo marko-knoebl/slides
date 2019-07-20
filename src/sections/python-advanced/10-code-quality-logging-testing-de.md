@@ -1,8 +1,8 @@
 # QA & Testen
 
-## logging
+## Logging
 
-## logging
+## Logging
 
 ```py
 import logging
@@ -15,19 +15,19 @@ logging.basicConfig(
 logging.debug("hello")
 ```
 
-## logging
+## Logging
 
 Beispiel: Sortieralgorithmus
 
-## assert
+## Assert
 
-## doctests
+## Doctests
 
-## doctests
+## Doctests
 
 Codebeispiele und unittests in einem - innerhalb der docstrings
 
-## doctests
+## Doctests
 
 ```py
 def add(a, b):
@@ -38,7 +38,7 @@ def add(a, b):
     """
 ```
 
-## doctests ausführen
+## Doctests ausführen
 
 ```py
 if __name__ == "__main__":
@@ -46,7 +46,7 @@ if __name__ == "__main__":
     doctest.testmod()
 ```
 
-## doctests: lange Ausgaben
+## Doctests: lange Ausgaben
 
 ```py
 """
@@ -100,5 +100,3 @@ python -m unittest
 ```
 
 (findet Tests im Ordner)
-
-## debugger

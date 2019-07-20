@@ -2,7 +2,7 @@
 
 ## Set
 
-Unordered collection of elements with no duplicates
+Ungeordnete Menge von Elementen (ohne Duplikate)
 
 ```py
 ingredients = {"flour", "water", "salt", "yeast"}
@@ -10,7 +10,7 @@ ingredients = {"flour", "water", "salt", "yeast"}
 
 ## Set
 
-Sets can be an alternative for Lists if the order is not relevant.
+Sets können insbesondere Listen Ersetzen, wenn die Reihenfolge nicht von Bedeutung sein soll.
 
 ```py
 ingredients1 = {"flour", "water", "salt", "yeast"}
@@ -20,11 +20,11 @@ ingredients1 == ingredients2 # True
 
 ## Set
 
-Take care: An empty set must always be created via `set()`
+Achtung: Ein leeres set erstellen wir immer mittels `set()`.
 
-Why does `{}` not produce an empty set?
+Warum ergibt der Ausdruck `{}` kein leeres set?
 
-## Operations on Sets
+## Operationen auf Sets
 
 ```py
 x = set('abc')
@@ -35,7 +35,7 @@ x - y
 x <= y
 ```
 
-## Example: Neighboring countries in North America
+## Beispiel: Nachbarländer in Nordamerika
 
 ```py
 countries = {
@@ -43,7 +43,7 @@ countries = {
     "El Salvador", "Honduras", "Nicaragua", "Costa Rica",
     "Panama"}
 
-neighbors = {
+neighbors = [
     {"Canada", "USA"},
     {"USA", "Mexico"},
     {"Mexico", "Guatemala"},
@@ -54,7 +54,7 @@ neighbors = {
     {"Honduras", "Nicaragua"},
     {"Nicaragua", "Costa Rica"},
     {"Costa Rica", "Panama"}
-}
+]
 ```
 
-## Task: Find the "route" from any country to another
+## Aufgabe: "Route" von einem Land in ein anderes

@@ -60,15 +60,13 @@ instance = MyClass()
 instance.message # "hello"
 ```
 
-## Vererbung
+## Private Attribute und Methoden und Python-Philosophie
 
-```py
-class Person():
-    ...
+Kennzeichnung von Attributen und Methoden, die von außen nicht verwendet werden sollten mit `_`
 
-class Admin(Person):
-    ...
-```
+We're all consenting adults here: https://mail.python.org/pipermail/tutor/2003-October/025932.html
+
+Achtung: oft Fehlinformation bezüglich `__`! In der Praxis sollten doppelte Unterstriche kaum verwendet werden.
 
 ## Beispiel: Umsetzung einer Money-Klasse
 
@@ -93,4 +91,14 @@ print(tdl.todos)
 tdl.todos[0].toggle()
 
 tdl.stats() # {open: 1, completed: 1}
+```
+
+## Vererbung
+
+```py
+class Person():
+    ...
+
+class Admin(Person):
+    ...
 ```

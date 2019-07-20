@@ -1,9 +1,5 @@
 # Loops
 
-## Loops
-
-Exercise: Multiplication table
-
 ## for ... else
 
 A for loop can have an optional else clause

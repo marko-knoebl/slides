@@ -797,67 +797,6 @@ colors: {
 m_colors = { color: colors[color][1:] for color in colors}
 ```
 
-# Set
-
-## Set
-
-Ungeordnete Menge von Elementen (ohne Duplikate)
-
-```py
-ingredients = {"flour", "water", "salt", "yeast"}
-```
-
-## Set
-
-Sets können insbesondere Listen Ersetzen, wenn die Reihenfolge nicht von Bedeutung sein soll.
-
-```py
-ingredients1 = {"flour", "water", "salt", "yeast"}
-ingredients2 = {"water", "salt", "flour", "yeast"}
-ingredients1 == ingredients2 # True
-```
-
-## Set
-
-Achtung: Ein leeres set erstellen wir immer mittels `set()`.
-
-Warum ergibt der Ausdruck `{}` kein leeres set?
-
-## Operationen auf Sets
-
-```py
-x = set('abc')
-y = set('aeiou')
-x | y
-x & y
-x - y
-x <= y
-```
-
-## Beispiel: Nachbarländer in Nordamerika
-
-```py
-countries = {
-    "Canada", "USA", "Mexico", "Guatemala", "Belize",
-    "El Salvador", "Honduras", "Nicaragua", "Costa Rica",
-    "Panama"}
-
-neighbors = {
-    {"Canada", "USA"},
-    {"USA", "Mexico"},
-    {"Mexico", "Guatemala"},
-    {"Mexico", "Belize"},
-    {"Guatemala", "Belize"},
-    {"Guatemala", "El Salvador"},
-    {"Guatemala", "Honduras"},
-    {"Honduras", "Nicaragua"},
-    {"Nicaragua", "Costa Rica"},
-    {"Costa Rica", "Panama"}
-}
-```
-
-## Aufgabe: "Route" von einem Land in ein anderes
-
 # Objektorientierung und Klassen
 
 ## Objektorientierung in Python: "Alles ist ein Objekt"
@@ -920,15 +859,13 @@ instance = MyClass()
 instance.message # "hello"
 ```
 
-## Vererbung
+## Private Attribute und Methoden und Python-Philosophie
 
-```py
-class Person():
-    ...
+Kennzeichnung von Attributen und Methoden, die von außen nicht verwendet werden sollten mit `_`
 
-class Admin(Person):
-    ...
-```
+We're all consenting adults here: https://mail.python.org/pipermail/tutor/2003-October/025932.html
+
+Achtung: oft Fehlinformation bezüglich `__`! In der Praxis sollten doppelte Unterstriche kaum verwendet werden.
 
 ## Beispiel: Umsetzung einer Money-Klasse
 
@@ -953,6 +890,16 @@ print(tdl.todos)
 tdl.todos[0].toggle()
 
 tdl.stats() # {open: 1, completed: 1}
+```
+
+## Vererbung
+
+```py
+class Person():
+    ...
+
+class Admin(Person):
+    ...
 ```
 
 # Kontrollstrukturen

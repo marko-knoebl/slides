@@ -30,7 +30,7 @@ Beispiel:
 ```py
 import re
 
-match_iter = re.finditer(r"https?://.+?\\.com", website_content)
+match_iter = re.finditer(r"https?://.+?\.com", website_content)
 
 for match in match_iter:
     print(match[0])
@@ -57,9 +57,6 @@ for time in times:
 
 ## Beispiele
 
+- Alle Funktionsdefinitionen in einer Python-Datei finden und deren Namen auslesen
+- Geldbeträge finden und parsen
 - Gleichungen erkennen und auslesen
-- Alle Funktionsdefinitionen in einer Python-Datei finden
-
-## Lösung: Gleichung erkennen
-
-`\A-?\d+x[\+-]\d+y[\+-]\d+z=\d+\Z`

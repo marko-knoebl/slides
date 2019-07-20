@@ -1,9 +1,5 @@
 # Schleifen
 
-## Schleifen
-
-Übung: 1x1-Liste
-
 ## for ... else
 
 Einer for-Schleife kann eine optionale else-Klausel hinzugefügt werden - diese wird ausgeführt, wenn die Schleife ganz durchläuft - wenn also Python während des Ausführens nicht auf ein `break` (oder `return` oder ähnliches) stößt.

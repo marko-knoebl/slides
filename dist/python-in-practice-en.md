@@ -402,7 +402,7 @@ example:
 ```py
 import re
 
-match_iter = re.finditer(r"https?://.+?\\.com", website_content)
+match_iter = re.finditer(r"https?://.+?\.com", website_content)
 
 for match in match_iter:
     print(match[0])
@@ -429,12 +429,9 @@ for time in times:
 
 ## Exercises
 
-- find and parse equations in text
 - find function definitions in a Python file
-
-## Solution: finding equations
-
-`\A-?\d+x[\+-]\d+y[\+-]\d+z=\d+\Z`
+- find and parse monetary amounts in a text
+- find and parse equations in text
 
 # Date and time
 

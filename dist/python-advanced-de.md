@@ -35,9 +35,9 @@ Marko Knöbl
 
 # QA & Testen
 
-## logging
+## Logging
 
-## logging
+## Logging
 
 ```py
 import logging
@@ -50,19 +50,19 @@ logging.basicConfig(
 logging.debug("hello")
 ```
 
-## logging
+## Logging
 
 Beispiel: Sortieralgorithmus
 
-## assert
+## Assert
 
-## doctests
+## Doctests
 
-## doctests
+## Doctests
 
 Codebeispiele und unittests in einem - innerhalb der docstrings
 
-## doctests
+## Doctests
 
 ```py
 def add(a, b):
@@ -73,7 +73,7 @@ def add(a, b):
     """
 ```
 
-## doctests ausführen
+## Doctests ausführen
 
 ```py
 if __name__ == "__main__":
@@ -81,7 +81,7 @@ if __name__ == "__main__":
     doctest.testmod()
 ```
 
-## doctests: lange Ausgaben
+## Doctests: lange Ausgaben
 
 ```py
 """
@@ -136,7 +136,49 @@ python -m unittest
 
 (findet Tests im Ordner)
 
-## debugger
+# Docstrings
+
+## Docstring-Format
+
+PEP 257: https://www.python.org/dev/peps/pep-0257/
+
+## Docstrig-Format
+
+Docstring eines Moduls: Beschreibung, Liste exportierter Funktionen mit einzeiligen Zusammenfassungen
+
+Docstring einer Klasse: Beschreibung, Liste der Methoden
+
+Docstring einer Funktion: Beschreibung, Liste der Parameter
+
+## Pydocstyle
+
+Linter zum Validieren von Docstrings
+
+## reStructuredText und Sphinx
+
+_reStructuredText (reST)_ = einfache Auszeichnungssprache (ähnlich zu _Markdown_), die in Python Docstrings verwendet werden kann
+
+_Sphinx_ = Werkzeug, das aus bestehenden Docstrings Dokumentation in HTML und ähnlichen Formaten generiert
+
+## reST
+
+Beispiel
+
+```rest
+Heading
+=======
+
+- list item 1
+- list item 2
+
+Link to `Wikipedia`_.
+
+.. _Wikipedia: https://www.wikipedia.org/
+
+.. code:: python
+
+   print("hello")
+```
 
 # Typendeklarationen
 
@@ -227,59 +269,191 @@ from functools import partial
 open_utf8 = partial(open, encoding='UTF-8')
 ```
 
-# Objektorientierung (Fortgeschritten)
-
-## Private Attribute und Methoden und Python-Philosophie
-
-Kennzeichnung von Attributen, die von außen nicht verwendet werden sollten mit `_`
-
-We're all consenting adults here: https://mail.python.org/pipermail/tutor/2003-October/025932.html
-
-Achtung: oft Fehlinformation bezüglich `__`! In der Praxis sollten doppelte Unterstriche kaum verwendet werden.
-
-## Instanzattribute und Slots
-
-Generell können beliebige Attribute festgesetzt werden:
-
-```py
-a.value = 3
-```
-
-Um den Speicherverbrauch zu verringern, können in einer Klasse sogenannte "slots" definiert werden:
-
-```py
-class Money():
-    __slots__ = ['currency', 'amount']
-```
-
-## Klassenattribute
-
-sind Attribute, die nur auf der Klasse (nicht auf jeder Instanz) definiert sind - alle Instanzen teilen sich die Attribute
-
-## Klassenattribute: Beispiel
-
-`_exchange_rates = {'EUR': 1, 'USD': 0.85, 'GBP': 1.4}`
-
-## Getters & Setters
-
-Beispiel: `a.set_currency('EUR')`
+# OOP: Properties
 
 ## Properties
 
-Alternative zu Getters & Setters
+Getter & Setter (in Python unüblich, in anderen Sprachen verbreitet):
 
 ```py
-def _get_currency(self):
-    return self._currency
-
-def _set_currency(self, currency):
-    rates = type(self)._exchange_rates
-    factor = rates[self._currency] / rates[currency]
-    self._currency = currency
-    self.amount *= factor
-
-currency = property(_get_currency, _set_currency)
+r = Rectangle(length=3, width=4)
+print(r.get_area()) # 12
+r.set_length(4)
+print(r.get_area()) # 16
 ```
+
+Mit Properties in Python:
+
+```py
+r = Rectangle(length=3, width=4)
+print(r.area) # 12
+r.length = 4
+print(r.area) # 16
+```
+
+## Properties
+
+Übung: Umsetzen einer Klasse `Rectangle_gs` mit Gettern und Settern
+
+## Properties
+
+```py
+class Rectangle_gs:
+    def __init__(self, length, width):
+        self._length = length
+        self._width = width
+
+    def get_length(self):
+        return self._length
+
+    def set_length(self, new_length):
+        self._length = new_length
+
+    def get_width(self):
+        return self._width
+
+    def set_width(self, new_width):
+        self._width = new_width
+
+    def get_area(self):
+        return self._length * self._width
+```
+
+## Properties
+
+Mit Properties können wir das Auslesen oder Setzen von Attributen über eine Funktion "umleiten" - es kann also der Zugriff auf `r.area` im Hintergrund zum Ausführen einer Getter- oder Setterfunktion führen.
+
+## Properties
+
+```py
+class Rectangle:
+    def __init__(self, length, width):
+        self.length = length
+        self.width = width
+
+    def _get_area(self):
+        return self.length * self.width
+    
+    area = property(_get_area)
+```
+
+`property` ist ein built-in, also ähnlich wie `print` immer verfügbar.
+
+## Properties
+
+Erweiterung: Setter für _area_
+
+```py
+class Rectangle:
+    ...
+
+    def _set_area(self, new_area):
+        # adjust the length
+        self.length = new_area / self.width
+    
+    area = property(_get_area, _set_area)
+```
+
+## Properties
+
+Alternative Schreibweise mit Decorators:
+
+```py
+class Rectangle:
+    def __init__(self, length, width):
+        self.length = length
+        self.width = width
+
+    @property
+    def area(self):
+        return self.length * self.width
+    
+    @area.setter
+    def area(self, new_area):
+        self.length = new_area / self.width
+```
+
+# OOP: Statische Attribute und Methoden
+
+## Klassenattribute (statische Attribute)
+
+_Klassenattribute_ sind Attribute, die nur auf der Klasse (nicht auf jeder Instanz) definiert sind - alle Instanzen teilen sich die Attribute.
+
+## Klassenattribute (statische Attribute)
+
+Beispiel `Money`-Klasse: `_currency_data` kann von allen Instanzen verwendet werden.
+
+```py
+class Money:
+    _currency_data = [
+        {"code": "USD", "symbol": "$", "rate": 1.0},
+        {"code": "EUR", "symbol": "€", "rate": 1.1},
+        {"code": "GBP", "symbol": "£", "rate": 1.25},
+        {"code": "JPY", "symbol": "¥", "rate": 0.01},
+    ]
+
+    def __init__(self, ...):
+        ...
+```
+
+## Statische Methoden
+
+Muss eine Methode nicht auf die Daten einer bestimmten Instanz zugreifen, so kann sie als statische Methode deklariert werden.
+
+```py
+class Money:
+    ...
+
+    @staticmethod
+    def _get_currency_data(code):
+        for currency in Money._currency_data:
+            if code == currency["code"]:
+                return currency
+        raise ValueError(f"unknown currency: {code}")
+```
+
+Beachte: Bei einer statischen Methode wird als erster Parameter nicht `self` übergeben - die Referenz auf die Instanz ist nicht vorhanden.
+
+## Statische Methoden
+
+Statische Methoden haben zwei wichtige Anwendungsbereiche:
+
+- Erstellen von Instanzen: z.B. `Money.from_string("23.40EUR")`
+- Bündeln von Hilfsfunktionen mit einer Klasse: z.B. `_get_currency_data`
+
+## Klassenmethoden
+
+Um den folgenden Code für Vererbung portabler zu machen, wäre es sinnvoll, den Klassennamen (`Money`) nicht in der Methodendefinition zu erwähnen:
+
+```py
+class Money:
+    ...
+
+    @staticmethod
+    def _get_currency_data(code):
+        for currency in Money._currency_data:
+            if code == currency["code"]:
+                return currency
+        raise ValueError(f"unknown currency: {code}")
+```
+
+## Klassenmethoden
+
+Klassenmethoden sind besondere statische Methoden, die die Möglichkeit bieten, unter einem allgemeinen Namen (üblicherweise `cls`) auf die Klasse zu verweisen:
+
+```py
+class Money:
+    ...
+
+    @classmethod
+    def _get_currency_data(cls, code):
+        for currency in cls._currency_data:
+            if code == currency["code"]:
+                return currency
+        raise ValueError(f"unknown currency: {code}")
+```
+
+# OOP: Magic Methods
 
 ## Magic Methods
 
@@ -295,25 +469,16 @@ Besondere Methoden, die das Verhalten einer Klasse beeinflussen
 - `__rmul__`
 - ...
 
-## Statische Methoden, Klassenmethoden und Decorators
+## Magic Methods
 
-_Klassenmethoden_: Methoden, die nicht auf eine bestimmte Instanz zugreifen müssen, sondern auf die Klasse
+- `__call__`
 
-_Statische Methoden_: Methoden, die weder auf eine Instanz noch Klasse zugreifen müssen
+## __str__ und __repr__
 
-## Beispiel Klassenmethode
+- `__repr__`: möglichst vollständige Informationen zum Objekt, idealerweise von Python interpretierbar
+- `__str__`: "schön" zu lesen
 
-```py
-Money.from_string('23.40 EUR')
-```
-
-## Definition von statischen und Klassenmethoden
-
-```py
-@classmethod
-def from_string(cls, inputstring):
-    ...
-```
+# OOP: Vererbung
 
 ## Unterklassen und Vererbungsreihenfolge
 
@@ -334,6 +499,14 @@ class Child(A, B):
 
 ## super()
 
+Python 3:
+
+```py
+class Child(A, B):
+    def __init__(self):
+        super().__init__()
+```
+
 Python 2:
 
 ```py
@@ -342,13 +515,7 @@ class Child(A, B):
         super(Child, self).__init__()
 ```
 
-Python 3:
-
-```py
-class Child(A, B):
-    def __init__(self):
-        super().__init__()
-```
+# OOP: Vertiefung
 
 ## Klassendekoration
 
@@ -362,6 +529,21 @@ f = Foo()
 
 f.a # prints: "get property 'a'"
 f.b = 3 # prints: "set propery 'b'"
+```
+
+## Instanzattribute und Slots
+
+Generell können beliebige Attribute festgesetzt werden:
+
+```py
+a.value = 3
+```
+
+Um den Speicherverbrauch zu verringern, können in einer Klasse sogenannte _Slots_ definiert werden:
+
+```py
+class Money():
+    __slots__ = ['currency', 'amount']
 ```
 
 ## Übungen
@@ -502,10 +684,6 @@ Beispiele: Listen, Iterators
 
 # Schleifen
 
-## Schleifen
-
-Übung: 1x1-Liste
-
 ## for ... else
 
 Einer for-Schleife kann eine optionale else-Klausel hinzugefügt werden - diese wird ausgeführt, wenn die Schleife ganz durchläuft - wenn also Python während des Ausführens nicht auf ein `break` (oder `return` oder ähnliches) stößt.
@@ -517,6 +695,126 @@ Diese Funktionalität gibt es bei keiner anderen verbreiteten Programmiersprache
 ## Beispiele
 
 - `is_prime()` mit Schleifen und `for ... else`
+
+# Fortgeschrittene Datentypen
+
+## Fortgeschrittene Datentypen
+
+- set / frozenset
+- NamedTuple
+- enum
+
+# Set
+
+## Set
+
+Ungeordnete Menge von Elementen (ohne Duplikate)
+
+```py
+ingredients = {"flour", "water", "salt", "yeast"}
+```
+
+## Set
+
+Sets können insbesondere Listen Ersetzen, wenn die Reihenfolge nicht von Bedeutung sein soll.
+
+```py
+ingredients1 = {"flour", "water", "salt", "yeast"}
+ingredients2 = {"water", "salt", "flour", "yeast"}
+ingredients1 == ingredients2 # True
+```
+
+## Set
+
+Achtung: Ein leeres set erstellen wir immer mittels `set()`.
+
+Warum ergibt der Ausdruck `{}` kein leeres set?
+
+## Operationen auf Sets
+
+```py
+x = set('abc')
+y = set('aeiou')
+x | y
+x & y
+x - y
+x <= y
+```
+
+## Beispiel: Nachbarländer in Nordamerika
+
+```py
+countries = {
+    "Canada", "USA", "Mexico", "Guatemala", "Belize",
+    "El Salvador", "Honduras", "Nicaragua", "Costa Rica",
+    "Panama"}
+
+neighbors = [
+    {"Canada", "USA"},
+    {"USA", "Mexico"},
+    {"Mexico", "Guatemala"},
+    {"Mexico", "Belize"},
+    {"Guatemala", "Belize"},
+    {"Guatemala", "El Salvador"},
+    {"Guatemala", "Honduras"},
+    {"Honduras", "Nicaragua"},
+    {"Nicaragua", "Costa Rica"},
+    {"Costa Rica", "Panama"}
+]
+```
+
+## Aufgabe: "Route" von einem Land in ein anderes
+
+# namedtuple
+
+## namedtuple
+
+Beispiel:
+
+```py
+from collections import namedtuple
+
+Point = namedtuple('Point', ['x', 'y'])
+
+p = Point(11, y=22)
+
+print(p[0])
+print(p.x)
+```
+
+# Enum
+
+## Enum
+
+Enum = eine Sammlung Symbolischer Namen, die z.B. anstatt vorgegebener Strings verwendet werden kann.
+
+Verwendung eines Strings:
+
+```py
+a = Button(position="left")
+```
+
+Verwendung eines Enums namens _Position_:
+
+```py
+a = Button(position=Position.left)
+```
+
+Enums können Tippfehler vermeiden und Autovervollständigung erleichtern.
+
+## Enum
+
+Definieren eines Enums:
+
+```py
+from enum import Enum
+
+class Position(Enum):
+    UP = 1
+    RIGHT = 2
+    DOWN = 3
+    LEFT = 4
+```
 
 # Prallelisierung: Threads & Multiprocessing
 
