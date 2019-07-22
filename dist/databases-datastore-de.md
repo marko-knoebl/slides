@@ -948,7 +948,7 @@ SQL:
 MongoDB:
 
 - Ein _Dokument_ kann grundsätzlich Einträge beliebiger Struktur enthalten
-- Optional können
+- Optional können Validatoren spezifiziert werden
 
 ## MongoDB vs SQL
 
