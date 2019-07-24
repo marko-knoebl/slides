@@ -22,3 +22,15 @@ create a 3x3 array of random values:
 ```py
 np.random.random(3, 3)
 ```
+
+## Reshaping arrays
+
+Turning a 2 x 2 array into a 2 x 2 x 1 array:
+
+```py
+array_2d = np.array([[1, 2], [3, 4]])
+
+array_3d = array_2d[:, :, np.newaxis]
+
+# [[[1], [2]], [[3], [4]]]
+```

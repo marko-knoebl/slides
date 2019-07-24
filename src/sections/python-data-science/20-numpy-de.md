@@ -37,7 +37,8 @@ list_b = [3, 4]
 array_a = numpy.array(list_a)
 array_b = numpy.array(list_b)
 
-array_a + array_b # sehr schnell (da in C implementiert)
+# sehr schnell (da in C implementiert)
+array_a + array_b
 ```
 
 ## Arrays
@@ -49,7 +50,7 @@ Jedes Array kann nur Daten eines Typs enthalten (z.B. nur 64-bit floats oder nur
 Erstellen eines 2-dimensionalen Arrays:
 
 ```py
-np.array([[1, 2, 3], [2, 4, 6], [3, 6, 9]])
+a2d = np.array([[1, 2, 3], [2, 4, 6], [3, 6, 9]])
 ```
 
 Ausgabe:
@@ -65,7 +66,7 @@ array([[1, 2, 3],
 Erstellen eines 3-dimensionalen Arrays:
 
 ```py
-np.array([[[1, 2], [3, 4]], [[5, 6], [7,8]]])
+a3d = np.array([[[1, 2], [3, 4]], [[5, 6], [7,8]]])
 ```
 
 Ausgabe:
@@ -109,6 +110,15 @@ c = a + b
 c.dtype # int64
 ```
 
+## Array Typen
+
+wichtige Typen:
+
+- _bool_ / <em>bool\_</em> (Speicherverbrauch 8 Bit)
+- _int8_, _int16_, _int32_, _int64_
+- _uint8_, _uint16_, _uint32_, _uint64_
+- _float16_, _float32_, _float64_
+
 ## Overflow
 
 Achtung bei zu großen / zu kleinen Werten
@@ -125,15 +135,52 @@ Output:
 array([127, -128, -127])
 ```
 
-## NumPy
+## Operationen auf Arrays
 
-Kapitel 30
+Auswählen von Einträgen:
 
-- Rechnen mit Matrizen
-- Darstellung von Daten (matplotlib): Graphen, Histogramme
+```py
+a3d[0, 1, 0] # 3
 
-Übungen:
+a3d[0, :, 0] # [1, 3]
+```
 
-- 10 mio mal Würfeln (mit 10 Würfeln)
-- Gleichungslösung (Klassen, doctests, numpy)
-- Lagerbestand von Produkten (2d-array) & preisliste (1d-array); gesucht: Warenwert pro Lager
+## Operationen auf Arrays
+
+Operatoren werden elementweise angewendet:
+
+```py
+a = np.array([1, 2, 3])
+b = np.array([2, 2, 2])
+
+print(a + b)
+# np.array([3, 4, 5])
+print(a * b)
+# np.array([2, 4, 6])
+```
+
+## Übungen
+
+Gegeben sind ein Array von Preisen und ein Array von gekauften Mengen. Bestimme den Gesamtpreis:
+
+```py
+prices = np.array([3.99, 4.99, 3.99, 12.99])
+# buying the first item 3 times and the last item 2 times
+quantities = np.array([3, 0, 0, 2])
+
+# solution: 37.95
+```
+
+Gegeben sind die Koordinaten von Eckpunkten eines Dreiecks (2D oder 3D). Bestimme den Schwerpunkt (arithmetisches Mittel der Eckpunkte).
+
+```py
+a = np.array([5, 1])
+b = np.array([6, 8])
+c = np.array([1, 3])
+
+# solution: [4, 4]
+```
+
+## Übungen
+
+Fortgeschritten: Lösen linearer Gleichungssysteme

@@ -314,7 +314,7 @@ array_a * array_b</code></pre>
       </section><section class="slide" id="slide-4-7">
         <h2 id="arrays">Arrays</h2>
 <p>Creating a 2-dimensional array:</p>
-<pre><code class="language-py">np.array([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], [<span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">6</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">6</span>, <span class="hljs-number">9</span>]])</code></pre>
+<pre><code class="language-py">a2d = np.array([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], [<span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">6</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">6</span>, <span class="hljs-number">9</span>]])</code></pre>
 <p>output:</p>
 <pre><code class="language-py">array([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>],
        [<span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">6</span>],
@@ -323,7 +323,7 @@ array_a * array_b</code></pre>
       </section><section class="slide" id="slide-4-8">
         <h2 id="arrays">Arrays</h2>
 <p>Creating a 3-dimensional array:</p>
-<pre><code class="language-py">np.array([[[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]], [[<span class="hljs-number">5</span>, <span class="hljs-number">6</span>], [<span class="hljs-number">7</span>,<span class="hljs-number">8</span>]]])</code></pre>
+<pre><code class="language-py">a3d = np.array([[[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]], [[<span class="hljs-number">5</span>, <span class="hljs-number">6</span>], [<span class="hljs-number">7</span>,<span class="hljs-number">8</span>]]])</code></pre>
 <p>output:</p>
 <pre><code class="language-py">array([[[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>],
         [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]],
@@ -372,7 +372,14 @@ c.dtype <span class="hljs-comment"># int64</span></code></pre>
 
       </section><section class="slide" id="slide-4-13">
         <h2 id="operations-on-arrays">Operations on arrays</h2>
-<p>operations are applied element-wise:</p>
+<p>Selecting entries:</p>
+<pre><code class="language-py">a3d[<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>] <span class="hljs-comment"># 3</span>
+
+a3d[<span class="hljs-number">0</span>, :, <span class="hljs-number">0</span>] <span class="hljs-comment"># [1, 3]</span></code></pre>
+
+      </section><section class="slide" id="slide-4-14">
+        <h2 id="operations-on-arrays">Operations on arrays</h2>
+<p>Operators are applied element-wise:</p>
 <pre><code class="language-py">a = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])
 b = np.array([<span class="hljs-number">2</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>])
 
@@ -381,7 +388,7 @@ print(a + b)
 print(a * b)
 <span class="hljs-comment"># np.array([2, 4, 6])</span></code></pre>
 
-      </section><section class="slide" id="slide-4-14">
+      </section><section class="slide" id="slide-4-15">
         <h2 id="exercises">Exercises</h2>
 <p>given an array of prices and an array of quantities, determine the total price:</p>
 <pre><code class="language-py">prices = np.array([<span class="hljs-number">3.99</span>, <span class="hljs-number">4.99</span>, <span class="hljs-number">3.99</span>, <span class="hljs-number">12.99</span>])
@@ -396,12 +403,9 @@ c = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">3</s
 
 <span class="hljs-comment"># solution: [4, 4]</span></code></pre>
 
-      </section><section class="slide" id="slide-4-15">
+      </section><section class="slide" id="slide-4-16">
         <h2 id="exercises">Exercises</h2>
-<p>advanced:</p>
-<ul>
-<li>solving linear equations</li>
-</ul>
+<p>advanced: solving linear equations</p>
 
       </section></section><section class="section" id="section-5"><section class="slide" id="slide-5-1">
         <h1 id="pandas">Pandas</h1>
@@ -846,6 +850,15 @@ a = np.arange(<span class="hljs-number">0</span>, <span class="hljs-number">2</s
 b = np.linspace(<span class="hljs-number">0</span>, <span class="hljs-number">1.5</span>, <span class="hljs-number">4</span>)</code></pre>
 <p>create a 3x3 array of random values:</p>
 <pre><code class="language-py">np.random.random(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>)</code></pre>
+
+      </section><section class="slide" id="slide-14-3">
+        <h2 id="reshaping-arrays">Reshaping arrays</h2>
+<p>Turning a 2 x 2 array into a 2 x 2 x 1 array:</p>
+<pre><code class="language-py">array_2d = np.array([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]])
+
+array_3d = array_2d[:, :, np.newaxis]
+
+<span class="hljs-comment"># [[[1], [2]], [[3], [4]]]</span></code></pre>
 
       </section></section>
 

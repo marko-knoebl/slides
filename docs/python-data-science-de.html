@@ -306,7 +306,8 @@ list_b = [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>
 array_a = numpy.array(list_a)
 array_b = numpy.array(list_b)
 
-array_a + array_b <span class="hljs-comment"># sehr schnell (da in C implementiert)</span></code></pre>
+<span class="hljs-comment"># sehr schnell (da in C implementiert)</span>
+array_a + array_b</code></pre>
 
       </section><section class="slide" id="slide-4-6">
         <h2 id="arrays">Arrays</h2>
@@ -315,7 +316,7 @@ array_a + array_b <span class="hljs-comment"># sehr schnell (da in C implementie
       </section><section class="slide" id="slide-4-7">
         <h2 id="arrays">Arrays</h2>
 <p>Erstellen eines 2-dimensionalen Arrays:</p>
-<pre><code class="language-py">np.array([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], [<span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">6</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">6</span>, <span class="hljs-number">9</span>]])</code></pre>
+<pre><code class="language-py">a2d = np.array([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], [<span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">6</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">6</span>, <span class="hljs-number">9</span>]])</code></pre>
 <p>Ausgabe:</p>
 <pre><code class="language-py">array([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>],
        [<span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">6</span>],
@@ -324,7 +325,7 @@ array_a + array_b <span class="hljs-comment"># sehr schnell (da in C implementie
       </section><section class="slide" id="slide-4-8">
         <h2 id="arrays">Arrays</h2>
 <p>Erstellen eines 3-dimensionalen Arrays:</p>
-<pre><code class="language-py">np.array([[[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]], [[<span class="hljs-number">5</span>, <span class="hljs-number">6</span>], [<span class="hljs-number">7</span>,<span class="hljs-number">8</span>]]])</code></pre>
+<pre><code class="language-py">a3d = np.array([[[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]], [[<span class="hljs-number">5</span>, <span class="hljs-number">6</span>], [<span class="hljs-number">7</span>,<span class="hljs-number">8</span>]]])</code></pre>
 <p>Ausgabe:</p>
 <pre><code class="language-py">array([[[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>],
         [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]],
@@ -354,6 +355,16 @@ b = np.array([<span class="hljs-number">1</span>], dtype=<span class="hljs-strin
 c.dtype <span class="hljs-comment"># int64</span></code></pre>
 
       </section><section class="slide" id="slide-4-11">
+        <h2 id="array-typen">Array Typen</h2>
+<p>wichtige Typen:</p>
+<ul>
+<li><em>bool</em> / <em>bool_</em> (Speicherverbrauch 8 Bit)</li>
+<li><em>int8</em>, <em>int16</em>, <em>int32</em>, <em>int64</em></li>
+<li><em>uint8</em>, <em>uint16</em>, <em>uint32</em>, <em>uint64</em></li>
+<li><em>float16</em>, <em>float32</em>, <em>float64</em></li>
+</ul>
+
+      </section><section class="slide" id="slide-4-12">
         <h2 id="overflow">Overflow</h2>
 <p>Achtung bei zu großen / zu kleinen Werten</p>
 <p>Der Typ <code>int8</code> erlaubt nur Werte im Bereich <code>-128</code> bis <code>+127</code></p>
@@ -361,19 +372,42 @@ c.dtype <span class="hljs-comment"># int64</span></code></pre>
 <p>Output:</p>
 <pre><code class="language-py">array([<span class="hljs-number">127</span>, <span class="hljs-number">-128</span>, <span class="hljs-number">-127</span>])</code></pre>
 
-      </section><section class="slide" id="slide-4-12">
-        <h2 id="numpy">NumPy</h2>
-<p>Kapitel 30</p>
-<ul>
-<li>Rechnen mit Matrizen</li>
-<li>Darstellung von Daten (matplotlib): Graphen, Histogramme</li>
-</ul>
-<p>Übungen:</p>
-<ul>
-<li>10 mio mal Würfeln (mit 10 Würfeln)</li>
-<li>Gleichungslösung (Klassen, doctests, numpy)</li>
-<li>Lagerbestand von Produkten (2d-array) &amp; preisliste (1d-array); gesucht: Warenwert pro Lager</li>
-</ul>
+      </section><section class="slide" id="slide-4-13">
+        <h2 id="operationen-auf-arrays">Operationen auf Arrays</h2>
+<p>Auswählen von Einträgen:</p>
+<pre><code class="language-py">a3d[<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>] <span class="hljs-comment"># 3</span>
+
+a3d[<span class="hljs-number">0</span>, :, <span class="hljs-number">0</span>] <span class="hljs-comment"># [1, 3]</span></code></pre>
+
+      </section><section class="slide" id="slide-4-14">
+        <h2 id="operationen-auf-arrays">Operationen auf Arrays</h2>
+<p>Operatoren werden elementweise angewendet:</p>
+<pre><code class="language-py">a = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])
+b = np.array([<span class="hljs-number">2</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>])
+
+print(a + b)
+<span class="hljs-comment"># np.array([3, 4, 5])</span>
+print(a * b)
+<span class="hljs-comment"># np.array([2, 4, 6])</span></code></pre>
+
+      </section><section class="slide" id="slide-4-15">
+        <h2 id="übungen">Übungen</h2>
+<p>Gegeben sind ein Array von Preisen und ein Array von gekauften Mengen. Bestimme den Gesamtpreis:</p>
+<pre><code class="language-py">prices = np.array([<span class="hljs-number">3.99</span>, <span class="hljs-number">4.99</span>, <span class="hljs-number">3.99</span>, <span class="hljs-number">12.99</span>])
+<span class="hljs-comment"># buying the first item 3 times and the last item 2 times</span>
+quantities = np.array([<span class="hljs-number">3</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">2</span>])
+
+<span class="hljs-comment"># solution: 37.95</span></code></pre>
+<p>Gegeben sind die Koordinaten von Eckpunkten eines Dreiecks (2D oder 3D). Bestimme den Schwerpunkt (arithmetisches Mittel der Eckpunkte).</p>
+<pre><code class="language-py">a = np.array([<span class="hljs-number">5</span>, <span class="hljs-number">1</span>])
+b = np.array([<span class="hljs-number">6</span>, <span class="hljs-number">8</span>])
+c = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">3</span>])
+
+<span class="hljs-comment"># solution: [4, 4]</span></code></pre>
+
+      </section><section class="slide" id="slide-4-16">
+        <h2 id="übungen">Übungen</h2>
+<p>Fortgeschritten: Lösen linearer Gleichungssysteme</p>
 
       </section></section><section class="section" id="section-5"><section class="slide" id="slide-5-1">
         <h1 id="pandas">Pandas</h1>
@@ -695,6 +729,72 @@ ir_uk = pd.read_csv(url, index_col=<span class="hljs-string">"date"</span>,
 ir_uk_weekly = ir_uk.resample(<span class="hljs-string">'7d'</span>).interpolate()</code></pre>
 
       </section></section><section class="section" id="section-13"><section class="slide" id="slide-13-1">
+        <h1 id="plotting">Plotting</h1>
+
+      </section><section class="slide" id="slide-13-2">
+        <h2 id="graph">Graph</h2>
+<p>Pandas:</p>
+<pre><code class="language-py">series.plot()
+dataframe.plot()</code></pre>
+<p>Matplotlib / Pyplot:</p>
+<pre><code class="language-py">plt.plot(data)</code></pre>
+
+      </section><section class="slide" id="slide-13-3">
+        <h2 id="graph-x--y">Graph (x / y)</h2>
+<p>Matplotlib / Pyplot:</p>
+<pre><code class="language-py">plt.plot(x, y)</code></pre>
+
+      </section><section class="slide" id="slide-13-4">
+        <h2 id="bar-chart">Bar Chart</h2>
+<p>Pandas:</p>
+<pre><code class="language-py">df.plot.bar()</code></pre>
+<p>Matplotlib / Pyplot:</p>
+<pre><code class="language-py">plt.bar(x=[<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], height=y)</code></pre>
+<p>Seaborn</p>
+<pre><code class="language-py">sns.barplot(x=[<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], y=y)</code></pre>
+
+      </section></section><section class="section" id="section-14"><section class="slide" id="slide-14-1">
+        <h1 id="machine-learning">Machine learning</h1>
+
+      </section><section class="slide" id="slide-14-2">
+        <h2 id="beispielhafte-aufgaben">Beispielhafte Aufgaben</h2>
+<ul>
+<li>Regression</li>
+<li>Klassifizierung</li>
+<li>Clustering</li>
+<li>Dimensionsreduktion</li>
+</ul>
+
+      </section></section><section class="section" id="section-15"><section class="slide" id="slide-15-1">
+        <h1 id="regression">Regression</h1>
+
+      </section><section class="slide" id="slide-15-2">
+        <h2 id="lineare-regression">Lineare Regression</h2>
+<p>Bedeutet: Festlegen einer linearen Funktion, die die Datenpunkte bestmöglich approximiert (kleinste Quadratsumme).</p>
+
+      </section><section class="slide" id="slide-15-3">
+        <h2 id="lineare-regression">Lineare Regression</h2>
+<p>Beispiel:</p>
+<pre><code class="language-py"><span class="hljs-keyword">from</span> sklearn.linear_model <span class="hljs-keyword">import</span> LinearRegression
+
+x = np.array([<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])
+y = np.array([<span class="hljs-number">3</span>, <span class="hljs-number">4.5</span>, <span class="hljs-number">5</span>, <span class="hljs-number">5</span>, <span class="hljs-number">4.5</span>])
+X = x[:, np.newaxis]
+
+model = LinearRegression
+model.fit(X, y)
+
+yfit = model.predict(X)</code></pre>
+
+      </section><section class="slide" id="slide-15-4">
+        <h2 id="beispiele">Beispiele</h2>
+<ul>
+<li>Umlaufzeit der Planeten -&gt; Mittlerer Sonnenabstand (oder andere Richtung)</li>
+<li>Rechnungsbetrag -&gt; Trinkgeld</li>
+<li>Radverkehr</li>
+</ul>
+
+      </section></section><section class="section" id="section-16"><section class="slide" id="slide-16-1">
         <h1 id="resources">Resources</h1>
 <p>Pandas website: <a href="https://pandas.pydata.org/">https://pandas.pydata.org/</a></p>
 <p>Python Data Science Handbook: <a href="https://jakevdp.github.io/PythonDataScienceHandbook/">https://jakevdp.github.io/PythonDataScienceHandbook/</a></p>

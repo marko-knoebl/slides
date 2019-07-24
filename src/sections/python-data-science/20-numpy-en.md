@@ -50,7 +50,7 @@ Each array can only hold data of one type (e.g. only 64 bit floats or only bytes
 Creating a 2-dimensional array:
 
 ```py
-np.array([[1, 2, 3], [2, 4, 6], [3, 6, 9]])
+a2d = np.array([[1, 2, 3], [2, 4, 6], [3, 6, 9]])
 ```
 
 output:
@@ -66,7 +66,7 @@ array([[1, 2, 3],
 Creating a 3-dimensional array:
 
 ```py
-np.array([[[1, 2], [3, 4]], [[5, 6], [7,8]]])
+a3d = np.array([[[1, 2], [3, 4]], [[5, 6], [7,8]]])
 ```
 
 output:
@@ -137,7 +137,17 @@ array([127, -128, -127])
 
 ## Operations on arrays
 
-operations are applied element-wise:
+Selecting entries:
+
+```py
+a3d[0, 1, 0] # 3
+
+a3d[0, :, 0] # [1, 3]
+```
+
+## Operations on arrays
+
+Operators are applied element-wise:
 
 ```py
 a = np.array([1, 2, 3])
@@ -173,6 +183,4 @@ c = np.array([1, 3])
 
 ## Exercises
 
-advanced:
-
-- solving linear equations
+advanced: solving linear equations
