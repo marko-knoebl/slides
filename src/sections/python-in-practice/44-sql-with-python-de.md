@@ -20,7 +20,11 @@ Ist in Python integriert (Modul `sqlite3`)
 ```py
 import sqlite3
 
+# database stored in a file
 connection = sqlite3.connect('contacts.db')
+
+# in-memory database
+connection = sqlite3.connect(':memory:')
 ```
 
 ## MySQL und Python
@@ -115,7 +119,7 @@ res = cursor.execute(
 )
 ```
 
-## Abfrageparameter
+## Abfragen mit Parametern
 
 https://www.python.org/dev/peps/pep-0249/#paramstyle
 
@@ -133,6 +137,10 @@ Die Attribute `sqlite3.paramstyle`, `pymysql.paramstyle` etc geben das Format f�
 - `cursor.fetchone()`: Eine Zeile des Resultats auslesen (üblicherweise als Tupel)
 - `cursor.fetchmany(10)`
 - `cursor.fetchall()`
+
+## Adapter und Converter für SQLite
+
+
 
 ## Beispiel: Forum mit Datenbankanbindung
 

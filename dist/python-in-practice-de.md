@@ -1164,7 +1164,11 @@ Ist in Python integriert (Modul `sqlite3`)
 ```py
 import sqlite3
 
+# database stored in a file
 connection = sqlite3.connect('contacts.db')
+
+# in-memory database
+connection = sqlite3.connect(':memory:')
 ```
 
 ## MySQL und Python
@@ -1259,7 +1263,7 @@ res = cursor.execute(
 )
 ```
 
-## Abfrageparameter
+## Abfragen mit Parametern
 
 https://www.python.org/dev/peps/pep-0249/#paramstyle
 
@@ -1278,6 +1282,10 @@ Die Attribute `sqlite3.paramstyle`, `pymysql.paramstyle` etc geben das Format f�
 - `cursor.fetchmany(10)`
 - `cursor.fetchall()`
 
+## Adapter und Converter für SQLite
+
+
+
 ## Beispiel: Forum mit Datenbankanbindung
 
 - Authentifizierung (MD5)
@@ -1292,6 +1300,35 @@ Die Attribute `sqlite3.paramstyle`, `pymysql.paramstyle` etc geben das Format f�
 - db_interface.get_all_todos
 
 siehe courses-tutorials/python-todolist-wsgi-sqlite
+
+# SQLite mit Python
+
+## Erweiterte Typen konvertieren
+
+SQLite unterstützt nur eine eingeschränkte Anzahl an Typen. Es unterstützt nativ nicht Typen wie `DATE` oder `TIMESTAMP` - diese müssten als Strings gespeichert werden.
+
+Wir können in Python automatisch die Konvertierung in / von Strings vornehmen lassen, indem wir den parameter `detect_types=sqlit3.PARSE_DECLTYPES` an `sqlite3.connect` übergeben.
+
+## Erweiterte Typen konvertieren
+
+Übung: Erstelle eine Kontaktdatenbank die automatisch SQL Strings die das Geburtsdatum beschreiben als `date`-Objekte ausliest.
+
+## Adapter und Converter
+
+Wir können weitere Typen speichern, indem wir sogenannte _Adapter_- und _Converer_- Funktionen schreiben. Diese zusätzlichen Typen werden üblicherweise als Bytesequenzen in der Datanbank abgelegt.
+
+Ein _Adapter_ ist eine Funktion, die ein Python Objekt in einen SQL Wert umwandelt.
+Ein _Converter_ ist eine Funktion, dien einen SQL Wert in ein Python Objekt umwandelt.
+
+Siehe:
+
+https://docs.python.org/3/library/sqlite3.html#using-adapters-to-store-additional-python-types-in-sqlite-databases
+
+## Adapter und Converter
+
+Übungen:
+
+- Schreibe Adapter und Converter, um direkt Instanzen von Pythons `ipadress.IPv4Address` zu speichern bzw zu lesen
 
 # SQLAlchemy
 
