@@ -4,10 +4,21 @@
 
 Besondere Methoden, die das Verhalten einer Klasse beeinflussen
 
-- `__str__`
-- `__repr__`
+Beginnen und enden mit zwei Unterstrichen, z.B. `__init__`
+
+Liste von magic Methods: https://docs.python.org/3/reference/datamodel.html#special-method-names
 
 ## Magic Methods
+
+Methoden zur Umwandlung in Strings:
+
+- `__repr__`: möglichst vollständige Informationen zum Objekt, idealerweise von Python interpretierbar
+- `__str__`: "schön" zu lesen
+
+
+## Magic Methods
+
+Methoden für mathematische operatoren:
 
 - `__add__`
 - `__mul__`
@@ -17,8 +28,4 @@ Besondere Methoden, die das Verhalten einer Klasse beeinflussen
 ## Magic Methods
 
 - `__call__`
-
-## __str__ und __repr__
-
-- `__repr__`: möglichst vollständige Informationen zum Objekt, idealerweise von Python interpretierbar
-- `__str__`: "schön" zu lesen
+- `__getitem__`

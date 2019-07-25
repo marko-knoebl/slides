@@ -1055,9 +1055,83 @@ path = <span class="hljs-string">"/home/username/"</span>
 <p>Zu Grundlagen siehe Präsentation <em>Datenbanken und Datenspeicherung</em></p>
 
       </section></section><section class="section" id="section-13"><section class="slide" id="slide-13-1">
-        <h1 id="sql-mit-python">SQL mit Python</h1>
+        <h1 id="zodb">ZODB</h1>
 
       </section><section class="slide" id="slide-13-2">
+        <h2 id="zodb">ZODB</h2>
+<p>Zope Object Database = Einfache Objektbank speziell für Python</p>
+
+      </section><section class="slide" id="slide-13-3">
+        <h2 id="zodb">ZODB</h2>
+<p>Öffnen einer Datenbank:</p>
+<pre><code class="language-py"><span class="hljs-keyword">from</span> ZODB <span class="hljs-keyword">import</span> DB, FileStorage
+<span class="hljs-keyword">import</span> transaction
+
+db = DB(FileStorage.FileStorage(<span class="hljs-string">"dbfile.fs"</span>))
+connection = db.open()
+root = connection.root()
+
+print(root) <span class="hljs-comment"># {}</span></code></pre>
+
+      </section><section class="slide" id="slide-13-4">
+        <h2 id="zodb">ZODB</h2>
+<p>Befüllen einer Datenbank:</p>
+<pre><code class="language-py">root[<span class="hljs-string">"user"</span>] = {<span class="hljs-string">"first_name"</span>: <span class="hljs-string">"Jane"</span>, <span class="hljs-string">"last_name"</span>: <span class="hljs-string">"Doe"</span>}
+root[<span class="hljs-string">"todos"</span>] = [<span class="hljs-string">"laundry"</span>, <span class="hljs-string">"shopping"</span>]
+transaction.commit()</code></pre>
+
+      </section><section class="slide" id="slide-13-5">
+        <h2 id="zodb">ZODB</h2>
+<p>Abändern von Einträgen:</p>
+<p>Folgendes klappt nicht (ZODB bemerkt die Änderung der Elemente nicht):</p>
+<pre><code class="language-py">root[<span class="hljs-string">"user"</span>][<span class="hljs-string">"first_name"</span>] = <span class="hljs-string">"John"</span>
+root[<span class="hljs-string">"todos"</span>].append(<span class="hljs-string">"learn zodb"</span>)
+transaction.commit()</code></pre>
+
+      </section><section class="slide" id="slide-13-6">
+        <h2 id="zodb">ZODB</h2>
+<p>Möglichkeiten, um Änderungen an Elementen an ZODB signalisieren:</p>
+<ul>
+<li>Eintrag neu setzen (z.B.: <code>root[&quot;user&quot;] = root[&quot;user&quot;]</code>)</li>
+<li>Verwendung der Typen <code>PersistentList</code>, <code>PersistentMapping</code> und <code>BTree</code> anstelle von Listen und Dictionaries</li>
+<li>Verwendung persistenter Klassen (z.B.: <code>class User(Persistent):</code>)</li>
+</ul>
+
+      </section><section class="slide" id="slide-13-7">
+        <h2 id="zodb">ZODB</h2>
+<p>Eintrag neu setzen:</p>
+<pre><code class="language-py">root[<span class="hljs-string">"user"</span>][<span class="hljs-string">"first_name"</span>] = <span class="hljs-string">"Jane"</span>
+root[<span class="hljs-string">"todos"</span>] = root[<span class="hljs-string">"user"</span>]
+transaction.commit()</code></pre>
+
+      </section><section class="slide" id="slide-13-8">
+        <h2 id="zodb">ZODB</h2>
+<p>Verwendung der Typen <code>PersistentList</code>, <code>PersistentMapping</code> und <code>BTree</code> anstelle von Listen und Dictionaries:</p>
+<pre><code class="language-py"><span class="hljs-keyword">from</span> persistent.list <span class="hljs-keyword">import</span> PersistentList
+<span class="hljs-keyword">from</span> persistent.mapping <span class="hljs-keyword">import</span> PersistentMapping
+<span class="hljs-keyword">from</span> BTrees <span class="hljs-keyword">import</span> IOBTree
+
+root[<span class="hljs-string">"todos"</span>] = PersistentList([<span class="hljs-string">"laundry"</span>, <span class="hljs-string">"shopping"</span>])
+root[<span class="hljs-string">"todos"</span>].append(<span class="hljs-string">"learn zodb"</span>)
+
+root[<span class="hljs-string">"user"</span>] = PersistentMapping({<span class="hljs-string">"first_name"</span>: <span class="hljs-string">"Jane"</span>, <span class="hljs-string">"last_name"</span>: <span class="hljs-string">"Doe"</span>})
+root[<span class="hljs-string">"user"</span>][<span class="hljs-string">"first_name"</span>] = <span class="hljs-string">"John"</span>
+transaction.commit()</code></pre>
+
+      </section><section class="slide" id="slide-13-9">
+        <h2 id="zodb">ZODB</h2>
+<p>Verwendung persistenter Klassen:</p>
+<pre><code class="language-py"><span class="hljs-keyword">from</span> persistent <span class="hljs-keyword">import</span> Persistent
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span><span class="hljs-params">(Persistent)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self, first_name, last_name)</span>:</span>
+        self.first_name = first_name
+        self.last_name = last_name</code></pre>
+
+      </section></section><section class="section" id="section-14"><section class="slide" id="slide-14-1">
+        <h1 id="sql-mit-python">SQL mit Python</h1>
+
+      </section><section class="slide" id="slide-14-2">
         <h2 id="python-anbindung-von-sql-datenbanken">Python-Anbindung von SQL-Datenbanken</h2>
 <p>Database API Specification: Standard, der von verschiedenen Python-Datenbankanbindungen umgesetzt wird; standardisiert in PEP 249</p>
 <p>Anbindungen für:</p>
@@ -1068,7 +1142,7 @@ path = <span class="hljs-string">"/home/username/"</span>
 <li>Oracle (PIP-Paket <em>cx_oracle</em>)</li>
 </ul>
 
-      </section><section class="slide" id="slide-13-3">
+      </section><section class="slide" id="slide-14-3">
         <h2 id="sqlite-und-python">SQLite und Python</h2>
 <p>SQLite: Datenbank, die nur eine einzelne Datenbankdatei verwendet</p>
 <p>Ist in Python integriert (Modul <code>sqlite3</code>)</p>
@@ -1076,7 +1150,7 @@ path = <span class="hljs-string">"/home/username/"</span>
 
 connection = sqlite3.connect(<span class="hljs-string">'contacts.db'</span>)</code></pre>
 
-      </section><section class="slide" id="slide-13-4">
+      </section><section class="slide" id="slide-14-4">
         <h2 id="mysql-und-python">MySQL und Python</h2>
 <p>PIP-Paket <em>PyMySQL</em></p>
 <pre><code class="language-py"><span class="hljs-keyword">import</span> pymysql.cursors
@@ -1087,7 +1161,7 @@ connection = pymysql.connect(host=<span class="hljs-string">'localhost'</span>,
                              db=<span class="hljs-string">'db'</span>,
                              charset=<span class="hljs-string">'utf8mb4'</span>)</code></pre>
 
-      </section><section class="slide" id="slide-13-5">
+      </section><section class="slide" id="slide-14-5">
         <h2 id="python-und-oracle-database">Python und Oracle Database</h2>
 <p>Python-Paket <em>cx_Oracle</em></p>
 <pre><code class="language-py"><span class="hljs-keyword">import</span> cx_Oracle
@@ -1096,7 +1170,7 @@ connection = cx_Oracle.connect(user=<span class="hljs-string">"user"</span>,
                                password=<span class="hljs-string">"password"</span>,
                                dsn=<span class="hljs-string">"localhost/oraclepdb"</span>)</code></pre>
 
-      </section><section class="slide" id="slide-13-6">
+      </section><section class="slide" id="slide-14-6">
         <h2 id="pyodbc">pyodbc</h2>
 <p>ODBC = open database connectivity: Standard zur Anbindung an Datenbanken (unabhängig von Python)</p>
 <p>pyodbc = Implementierung für Python, damit können beliebige ODBC-Datenbanken angebunden werden</p>
@@ -1105,7 +1179,7 @@ connection = cx_Oracle.connect(user=<span class="hljs-string">"user"</span>,
 connection = pyodbc.connect(
   <span class="hljs-string">"Driver=SQLite3 ODBC Driver;Database=contacts.db"</span>)</code></pre>
 
-      </section><section class="slide" id="slide-13-7">
+      </section><section class="slide" id="slide-14-7">
         <h2 id="gemeinsames-interface-pep-249">Gemeinsames Interface (PEP 249)</h2>
 <pre><code class="language-py">connection = ...
 ...
@@ -1120,11 +1194,11 @@ connection.commit()
 ...
 connection.close()</code></pre>
 
-      </section><section class="slide" id="slide-13-8">
+      </section><section class="slide" id="slide-14-8">
         <h2 id="pep-249">PEP 249</h2>
 <p><a href="https://www.python.org/dev/peps/pep-0249">https://www.python.org/dev/peps/pep-0249</a></p>
 
-      </section><section class="slide" id="slide-13-9">
+      </section><section class="slide" id="slide-14-9">
         <h2 id="pep-249-typen">PEP 249: Typen</h2>
 <ul>
 <li><code>Date</code></li>
@@ -1135,7 +1209,7 @@ connection.close()</code></pre>
 <li><code>NUMBER</code></li>
 </ul>
 
-      </section><section class="slide" id="slide-13-10">
+      </section><section class="slide" id="slide-14-10">
         <h2 id="abfragen-mit-parametern">Abfragen mit Parametern</h2>
 <p>gefährlich:</p>
 <pre><code class="language-py">search_name = input()
@@ -1143,7 +1217,7 @@ res = cursor.execute(
   <span class="hljs-string">f"""SELECT tel FROM person WHERE name = '<span class="hljs-subst">{search_name}</span>'"""</span>
 )</code></pre>
 
-      </section><section class="slide" id="slide-13-11">
+      </section><section class="slide" id="slide-14-11">
         <h2 id="abfragen-mit-parametern">Abfragen mit Parametern</h2>
 <p>sichere Methode (mit SQL-Escaping):</p>
 <pre><code class="language-py">search_name = input()
@@ -1152,7 +1226,7 @@ res = cursor.execute(
   (search_name, )
 )</code></pre>
 
-      </section><section class="slide" id="slide-13-12">
+      </section><section class="slide" id="slide-14-12">
         <h2 id="abfrageparameter">Abfrageparameter</h2>
 <p><a href="https://www.python.org/dev/peps/pep-0249/#paramstyle">https://www.python.org/dev/peps/pep-0249/#paramstyle</a></p>
 <p>Die Attribute <code>sqlite3.paramstyle</code>, <code>pymysql.paramstyle</code> etc geben das Format für Abfragen mit Parametern an</p>
@@ -1163,7 +1237,7 @@ res = cursor.execute(
 <li>cx_Oracle: named</li>
 </ul>
 
-      </section><section class="slide" id="slide-13-13">
+      </section><section class="slide" id="slide-14-13">
         <h2 id="pep-249-das-cursor-objekt">PEP 249: das cursor Objekt</h2>
 <ul>
 <li><code>cursor.execute(command, parameters)</code></li>
@@ -1173,17 +1247,17 @@ res = cursor.execute(
 <li><code>cursor.fetchall()</code></li>
 </ul>
 
-      </section><section class="slide" id="slide-13-14">
+      </section><section class="slide" id="slide-14-14">
         <h2 id="beispiel-forum-mit-datenbankanbindung">Beispiel: Forum mit Datenbankanbindung</h2>
 <ul>
 <li>Authentifizierung (MD5)</li>
 <li>Admin-Skript</li>
 </ul>
 
-      </section><section class="slide" id="slide-13-15">
+      </section><section class="slide" id="slide-14-15">
         <h2 id="beispiel-todo-anwendung">Beispiel: Todo-Anwendung</h2>
 
-      </section><section class="slide" id="slide-13-16">
+      </section><section class="slide" id="slide-14-16">
         <h2 id="beispiel-todo-anwendung">Beispiel: Todo-Anwendung</h2>
 <ul>
 <li>run_server.py und (minimale) app.py</li>
@@ -1192,24 +1266,24 @@ res = cursor.execute(
 </ul>
 <p>siehe courses-tutorials/python-todolist-wsgi-sqlite</p>
 
-      </section></section><section class="section" id="section-14"><section class="slide" id="slide-14-1">
+      </section></section><section class="section" id="section-15"><section class="slide" id="slide-15-1">
         <h1 id="sqlalchemy">SQLAlchemy</h1>
 <!--
 requirements: classes
 -->
 
 
-      </section><section class="slide" id="slide-14-2">
+      </section><section class="slide" id="slide-15-2">
         <h2 id="sqlalchemy">SQLAlchemy</h2>
 <p>SQLAlchemy = Object Relational Mapper</p>
 <p>Objektorientierter Zugriff auf beliebige SQL-Datenbanken</p>
 <p>Alternative: Django ORM</p>
 
-      </section><section class="slide" id="slide-14-3">
+      </section><section class="slide" id="slide-15-3">
         <h2 id="sqlalchemy">SQLAlchemy</h2>
 <p>Pip-Paket <em>sqlalchemy</em></p>
 
-      </section><section class="slide" id="slide-14-4">
+      </section><section class="slide" id="slide-15-4">
         <h2 id="verbinden-mit-sqlite-datenbank">Verbinden mit SQLite-Datenbank</h2>
 <pre><code class="language-py"><span class="hljs-comment"># db_interface.py</span>
 <span class="hljs-keyword">from</span> sqlalchemy <span class="hljs-keyword">import</span> create_engine
@@ -1218,7 +1292,7 @@ engine = create_engine(<span class="hljs-string">"sqlite:///music.db"</span>, ec
 
 engine.connect()</code></pre>
 
-      </section><section class="slide" id="slide-14-5">
+      </section><section class="slide" id="slide-15-5">
         <h2 id="tabellen-definieren">Tabellen definieren</h2>
 <pre><code class="language-py"><span class="hljs-comment"># schema.py</span>
 <span class="hljs-keyword">from</span> sqlalchemy.ext.declarative <span class="hljs-keyword">import</span> declarative_base
@@ -1234,7 +1308,7 @@ Base = declarative_base()
 <pre><code class="language-py"><span class="hljs-comment"># db_interface.py</span>
 Base.metadata.create_all(engine)</code></pre>
 
-      </section><section class="slide" id="slide-14-6">
+      </section><section class="slide" id="slide-15-6">
         <h2 id="mit-sessions-arbeiten">Mit Sessions arbeiten</h2>
 <pre><code class="language-py"><span class="hljs-keyword">from</span> sqlalchemy.orm <span class="hljs-keyword">import</span> sessionmaker
 
@@ -1246,14 +1320,14 @@ session = Session()
 
 session.commit()</code></pre>
 
-      </section><section class="slide" id="slide-14-7">
+      </section><section class="slide" id="slide-15-7">
         <h2 id="insert">Insert</h2>
 <pre><code class="language-sql"><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> artist <span class="hljs-keyword">VALUES</span> (<span class="hljs-string">'The Beatles'</span>, <span class="hljs-string">'United Kingdom'</span>);</code></pre>
 <p>wird zu:</p>
 <pre><code class="language-py">beatles = Artist(name=<span class="hljs-string">"The Beatles"</span>, country=<span class="hljs-string">"United Kingdom"</span>)
 session.add(beatles)</code></pre>
 
-      </section><section class="slide" id="slide-14-8">
+      </section><section class="slide" id="slide-15-8">
         <h2 id="select">Select</h2>
 <pre><code class="language-sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">name</span>, country <span class="hljs-keyword">FROM</span> artist;</code></pre>
 <p>wird zu:</p>
@@ -1263,7 +1337,7 @@ session.add(beatles)</code></pre>
 <pre><code class="language-py"><span class="hljs-keyword">for</span> name, country <span class="hljs-keyword">in</span> session.query(Artist.name, Artist.country):
     print(<span class="hljs-string">f"<span class="hljs-subst">{name}</span> (<span class="hljs-subst">{country}</span>)"</span>)</code></pre>
 
-      </section><section class="slide" id="slide-14-9">
+      </section><section class="slide" id="slide-15-9">
         <h2 id="order-by">Order by</h2>
 <pre><code class="language-sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">name</span>, country <span class="hljs-keyword">FROM</span> artist <span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> <span class="hljs-keyword">name</span>;</code></pre>
 <p>wird zu:</p>
@@ -1271,13 +1345,13 @@ session.add(beatles)</code></pre>
         Artist.name, Artist.country).order_by(Artist.name):
     ...</code></pre>
 
-      </section><section class="slide" id="slide-14-10">
+      </section><section class="slide" id="slide-15-10">
         <h2 id="where">Where</h2>
 <pre><code class="language-sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">name</span>, country <span class="hljs-keyword">FROM</span> artist <span class="hljs-keyword">WHERE</span> artist.name=<span class="hljs-string">'The Beatles'</span></code></pre>
 <p>wird zu:</p>
 <pre><code class="language-py">session.query(Artist).filter(Artist.name==<span class="hljs-string">"The Beatles"</span>).one()</code></pre>
 
-      </section><section class="slide" id="slide-14-11">
+      </section><section class="slide" id="slide-15-11">
         <h2 id="sprechende-ausgabe-von-einträgen">Sprechende Ausgabe von Einträgen</h2>
 <p>aktuell:</p>
 <pre><code class="language-txt">&amp;ltdb_schema.Song object at 0x00000175902A5FD0&gt;</code></pre>
@@ -1285,7 +1359,7 @@ session.add(beatles)</code></pre>
 <pre><code class="language-txt">Help! - The Beatles</code></pre>
 <p>umsetzbar mittels <code>__repr__</code> / <code>__str__</code></p>
 
-      </section><section class="slide" id="slide-14-12">
+      </section><section class="slide" id="slide-15-12">
         <h2 id="update">Update</h2>
 <pre><code class="language-sql"><span class="hljs-keyword">UPDATE</span> song
 <span class="hljs-keyword">SET</span> title = <span class="hljs-string">'Help'</span>
@@ -1294,7 +1368,7 @@ session.add(beatles)</code></pre>
 <pre><code class="language-py">entry = session.query(Song).filter(Song.title==<span class="hljs-string">"Help!"</span>).one()
 entry.title = <span class="hljs-string">"Help"</span></code></pre>
 
-      </section><section class="slide" id="slide-14-13">
+      </section><section class="slide" id="slide-15-13">
         <h2 id="delete">Delete</h2>
 <pre><code class="language-sql"><span class="hljs-keyword">DELETE</span>
 <span class="hljs-keyword">FROM</span> song
@@ -1302,7 +1376,7 @@ entry.title = <span class="hljs-string">"Help"</span></code></pre>
 <p>wird zu</p>
 <pre><code class="language-py">session.query(Song).filter(Song.title==<span class="hljs-string">"Help!"</span>).delete()</code></pre>
 
-      </section><section class="slide" id="slide-14-14">
+      </section><section class="slide" id="slide-15-14">
         <h2 id="definition-eines-fremdschlüssels">Definition eines Fremdschlüssels</h2>
 <pre><code class="language-py"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Song</span><span class="hljs-params">(Base)</span>:</span>
     __tablename__ = <span class="hljs-string">"song"</span>
@@ -1310,7 +1384,7 @@ entry.title = <span class="hljs-string">"Help"</span></code></pre>
     title = Column(String(<span class="hljs-number">30</span>))
     artist_id = Column(Integer, ForeignKey(<span class="hljs-string">"artist.id"</span>))</code></pre>
 
-      </section><section class="slide" id="slide-14-15">
+      </section><section class="slide" id="slide-15-15">
         <h2 id="einfaches-abfragen-einer-verknüpften-tabelle">Einfaches Abfragen einer verknüpften Tabelle</h2>
 <pre><code class="language-py"><span class="hljs-keyword">from</span> sqlalchemy.orm <span class="hljs-keyword">import</span> relationship
 
@@ -1324,7 +1398,7 @@ entry.title = <span class="hljs-string">"Help"</span></code></pre>
 
     artist = relationship(<span class="hljs-string">"Artist"</span>)</code></pre>
 
-      </section><section class="slide" id="slide-14-16">
+      </section><section class="slide" id="slide-15-16">
         <h2 id="einfaches-abfragen-einer-verknüpften-tabelle">Einfaches Abfragen einer verknüpften Tabelle</h2>
 <pre><code class="language-py">yesterday = Song(title=<span class="hljs-string">"Yesterday"</span>, artist=beatles)
 help = Song(title=<span class="hljs-string">"Help!"</span>, artist_id=beatles.id)
@@ -1333,13 +1407,13 @@ session.add(...)
 print(yesterday.artist)
 print(beatles.songs)</code></pre>
 
-      </section></section><section class="section" id="section-15"><section class="slide" id="slide-15-1">
+      </section></section><section class="section" id="section-16"><section class="slide" id="slide-16-1">
         <h1 id="gui">GUI</h1>
 
-      </section><section class="slide" id="slide-15-2">
+      </section><section class="slide" id="slide-16-2">
         <h2 id="graphical-user-interface">Graphical User Interface</h2>
 
-      </section><section class="slide" id="slide-15-3">
+      </section><section class="slide" id="slide-16-3">
         <h2 id="gui-libraries-für-python">GUI-Libraries für Python</h2>
 <ul>
 <li>tk</li>
@@ -1347,7 +1421,7 @@ print(beatles.songs)</code></pre>
 <li>Kivy</li>
 </ul>
 
-      </section><section class="slide" id="slide-15-4">
+      </section><section class="slide" id="slide-16-4">
         <h2 id="tk">tk</h2>
 <ul>
 <li>Einfache UI-Library</li>
@@ -1355,27 +1429,27 @@ print(beatles.songs)</code></pre>
 <li>unter Windows mit Python vorinstalliert</li>
 </ul>
 
-      </section><section class="slide" id="slide-15-5">
+      </section><section class="slide" id="slide-16-5">
         <h2 id="qt">Qt</h2>
 <ul>
 <li>Weit verbreitete UI-Library</li>
 <li>Anbindungen an Python: PyQt oder PySide</li>
 </ul>
 
-      </section><section class="slide" id="slide-15-6">
+      </section><section class="slide" id="slide-16-6">
         <h2 id="kivy">Kivy</h2>
 <ul>
 <li>speziell für Python entwickelt</li>
 </ul>
 
-      </section></section><section class="section" id="section-16"><section class="slide" id="slide-16-1">
+      </section></section><section class="section" id="section-17"><section class="slide" id="slide-17-1">
         <h1 id="tkinter">Tkinter</h1>
 
-      </section><section class="slide" id="slide-16-2">
+      </section><section class="slide" id="slide-17-2">
         <h2 id="tkinter">Tkinter</h2>
 <p><a href="https://tkdocs.com/">https://tkdocs.com/</a></p>
 
-      </section><section class="slide" id="slide-16-3">
+      </section><section class="slide" id="slide-17-3">
         <h2 id="tkinter---ein-fenster-anzeigen">Tkinter - Ein Fenster anzeigen</h2>
 <pre><code class="language-py"><span class="hljs-keyword">import</span> tkinter
 
@@ -1385,7 +1459,7 @@ window.mainloop()</code></pre>
 <p>Ein Fenster wird als <code>Tk</code>-Objekt erstellt</p>
 <p>Mit <code>mainloop()</code> starten wir das Programm (und warten auf Benutzerinteraktion)</p>
 
-      </section><section class="slide" id="slide-16-4">
+      </section><section class="slide" id="slide-17-4">
         <h2 id="tkinter---text-anzeigen">Tkinter - Text anzeigen</h2>
 <pre><code class="language-py"><span class="hljs-keyword">import</span> tkinter
 
@@ -1396,12 +1470,12 @@ hello_label.pack()
 
 window.mainloop()</code></pre>
 
-      </section><section class="slide" id="slide-16-5">
+      </section><section class="slide" id="slide-17-5">
         <h2 id="tkinter---elemente-nachträglich-ändern">Tkinter - Elemente nachträglich ändern</h2>
 <pre><code class="language-py">hello_label = tkinter.Label(master=window, text=<span class="hljs-string">"Hello!"</span>)
 hello_label.config(text=<span class="hljs-string">"Hi!"</span>)</code></pre>
 
-      </section><section class="slide" id="slide-16-6">
+      </section><section class="slide" id="slide-17-6">
         <h2 id="tkinter---benutzerinteraktion">Tkinter - Benutzerinteraktion</h2>
 <pre><code class="language-py">...
 
@@ -1418,11 +1492,11 @@ hello_button.pack()
 
 ...</code></pre>
 
-      </section><section class="slide" id="slide-16-7">
+      </section><section class="slide" id="slide-17-7">
         <h2 id="beispiel-counter">Beispiel: Counter</h2>
 <p>Button, der bei 0 startet und die Klickanzahl mitzählt und anzeigt</p>
 
-      </section><section class="slide" id="slide-16-8">
+      </section><section class="slide" id="slide-17-8">
         <h2 id="tkinter---widget-konfiguration">Tkinter - Widget-Konfiguration</h2>
 <p>Möglichkeiten:</p>
 <ul>
@@ -1435,7 +1509,7 @@ hello_button.pack()
 <li><code>padx</code>, <code>pady</code> (Abstand Rahmen zu Inhalt)</li>
 </ul>
 
-      </section><section class="slide" id="slide-16-9">
+      </section><section class="slide" id="slide-17-9">
         <h2 id="tkinter---widgets">Tkinter - Widgets</h2>
 <ul>
 <li><code>Label</code></li>
@@ -1443,41 +1517,41 @@ hello_button.pack()
 <li><code>Frame</code></li>
 </ul>
 
-      </section><section class="slide" id="slide-16-10">
+      </section><section class="slide" id="slide-17-10">
         <h2 id="tkinter---beispiele">Tkinter - Beispiele</h2>
 <ul>
 <li>zufälliger Sehtest (Snellen Chart)</li>
 </ul>
 
-      </section></section><section class="section" id="section-17"><section class="slide" id="slide-17-1">
+      </section></section><section class="section" id="section-18"><section class="slide" id="slide-18-1">
         <h1 id="pyinstaller">PyInstaller</h1>
 
-      </section><section class="slide" id="slide-17-2">
+      </section><section class="slide" id="slide-18-2">
         <h2 id="pyinstaller">PyInstaller</h2>
 <p>Ermöglicht das erstellen von <em>.exe</em>-Dateien aus Python-Projekten</p>
 <p>Insbesondere für GUI-Anwendungen sinnvoll</p>
 
-      </section><section class="slide" id="slide-17-3">
+      </section><section class="slide" id="slide-18-3">
         <h2 id="pyinstaller---verwendung">PyInstaller - Verwendung</h2>
 <p>Installation:</p>
 <pre><code class="language-bash">pip install pyinstaller</code></pre>
 
-      </section><section class="slide" id="slide-17-4">
+      </section><section class="slide" id="slide-18-4">
         <h2 id="pyinstaller---verwendung">PyInstaller - Verwendung</h2>
 <p>Erstellen einer ausführbaren Anwendung:</p>
 <pre><code class="language-bash">pyinstaller app.pyw --onefile --windowed</code></pre>
 <p>Resultat: Datei <em>dist/app.exe</em></p>
 
-      </section></section><section class="section" id="section-18"><section class="slide" id="slide-18-1">
+      </section></section><section class="section" id="section-19"><section class="slide" id="slide-19-1">
         <h1 id="smtp--imap">SMTP / IMAP</h1>
 
-      </section><section class="slide" id="slide-18-2">
+      </section><section class="slide" id="slide-19-2">
         <h2 id="smtp--imap">SMTP / IMAP</h2>
 <p><a href="https://automatetheboringstuff.com/chapter16/">https://automatetheboringstuff.com/chapter16/</a></p>
 <p>(für Fehler und Korrekturen siehe nächste Folie)</p>
 <p>zur verdeckten Passworteingabe: Modul &quot;getpass&quot;</p>
 
-      </section><section class="slide" id="slide-18-3">
+      </section><section class="slide" id="slide-19-3">
         <h2 id="smtp--imap">SMTP / IMAP</h2>
 <p>Fehler in der resouce:</p>
 <p>Die query besteht aus zwei Einträgen:</p>
