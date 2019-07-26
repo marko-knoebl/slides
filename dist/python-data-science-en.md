@@ -313,6 +313,14 @@ Output:
 array([127, -128, -127])
 ```
 
+## Array shapes
+
+We can query:
+
+- `a3d.ndim`: 3
+- `a3d.shape`: (2, 2, 2)
+- `a3d.size`: 8
+
 ## Operations on arrays
 
 Selecting entries:
@@ -422,45 +430,108 @@ countries = pd.DataFrame({
     'population': population})
 ```
 
-# Reading CSV
+# Importing and exporting data
 
-## Reading CSV
+## Importing and exporting data
+
+data formats:
+
+- CSV
+- Excel
+- JSON
+- HDF5 (efficient binary format)
+- SQL tables (via _SQLAlchemy_)
+
+## Importing and exporting data
+
+The following functions can import / export data from files. Imports may read files from online sources.
+
+import: `pd.read_csv`, `pd.read_excel`, ...
+
+export: `df.to_csv`, `df.to_excel`, ...
+
+## Importing CSV
 
 Example: Euribor (interest rates of European bonds)
 
 ```py
 euribor = pd.read_csv(
-    "https://datahub.io/core/euribor/r/euribor-12m-monthly.csv",
-    index_col="date")
+    "https://datahub.io/core/euribor/r/euribor-12m-monthly.csv"
+)
 ```
 
-Example: Iris Dataset
+## Importing CSV
+
+Possible keyword arguments for `read_csv`:
+
+- `index_col`: identifies a column to be used as an index instead of a numerical index
+- `header`: passing a value of `None` signifies that there is no header row
+- `names`: column names to be used in the resulting `DataFrame`
+- `sep`: for specifying other separators than a comma
+- `usecols`: for importing only specific columns
+- `parse_dates`: expects a list of column names
+- ...
+
+See also: https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html
+
+## Importing CSV
+
+Advanced Euribor example:
+
+- parse the date
+- use the date as the index
+- only import the columns _date_ and _rate_
+
+```py
+euribor = pd.read_csv(
+    "https://datahub.io/core/euribor/r/euribor-12m-monthly.csv",
+    parse_dates=["date"],
+    index_col="date",
+    usecols=["date", "rate"]
+)
+```
+
+## Importing CSV
+
+Task: Import the following data sources, ensuring the data is formatted nicely:
+
+- S&P 500 monthly prices (US stock index): https://datahub.io/core/s-and-p-500/r/data.csv
+- Exchange rates: https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv
+- Iris dataset (statistics of leaf sizes for iris flowers): http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data (look up appropriate column names on the web)
+
+## Importing CSV
+
+possible solutions:
 
 ```py
 iris = pd.read_csv(
     "http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data",
     header=None,
     names=["sepal_length", "sepal_width", "petal_length",
-           "petal_width", "name"],
-)
-```
-
-## Reading CSV
-
-Example: S&P 500 monthly prices
-
-```py
+           "petal_width", "name"])
 sp500 = pd.read_csv(
     "https://datahub.io/core/s-and-p-500/r/data.csv",
-    index_col="Date")
-```
-
-Example: exchange rates
-
-```py
+    index_col="Date",
+    parse_dates=["Date"])
 exchange_rates = pd.read_csv(
     "https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv",
-    parse_dates=[1])
+    parse_dates=["Date"])
+```
+
+## Importing and exporting data
+
+Excel:
+
+```py
+euribor.to_excel('euribor.xlsx')
+euribor = pd.read_excel('euribor.xlsx', index_col=0)
+```
+
+HDF5 (_pytables_ must be installed):
+
+```py
+euribor.to_hdf("data.hdf5", "euribor")
+euribor = read_hdf("data.hdf5", "euribor")
 ```
 
 # Pandas: Querying data
@@ -663,48 +734,6 @@ iris.iloc[0, 0] = 6
 iris.loc[:, "sepal_ratio"] = float('nan')
 ```
 
-# Importing and exporting data
-
-## Importing and exporting data
-
-data formats:
-
-- CSV
-- Excel
-- JSON
-- HDF5 (efficient binary format)
-- SQL tables (via _SQLAlchemy_)
-
-## Importing and exporting data
-
-import: `pd.read_csv`, `pd.read_excel`, ...
-
-export: `df.to_csv`, `df.to_excel`, ...
-
-## Importing and exporting data
-
-```py
-df.to_excel('iris.xlsx')
-```
-
-```py
-data = pd.read_excel('iris.xlsx', index_col=0)
-```
-
-## Importing and exporting data
-
-HDF5:
-
-- via _pytables_ (must me installed)
-
-```py
-df.to_hdf('data.hdf5', 'iris')
-```
-
-```py
-pd.read_hdf('data.hdf5', 'iris')
-```
-
 # Missing data
 
 ## Missing data
@@ -869,10 +898,11 @@ scatter_matrix(iris)
 
 ## Creating arrays
 
-create a 2x6 array filled with 0.0:
+create a 2x6 array filled with 0:
 
 ```py
-np.full((2, 6), 0.0)
+np.zeros((2, 6))
+np.full((2, 6), 0)
 ```
 
 create the sequence _0.0, 0.5, 1.0, 1.5_:
@@ -892,7 +922,7 @@ np.random.random(3, 3)
 
 ## Reshaping arrays
 
-Turning a 2 x 2 array into a 2 x 2 x 1 array:
+Adding an extra dimension of length 1 via `newaxis` - turning a 2 x 2 array into a 2 x 2 x 1 array:
 
 ```py
 array_2d = np.array([[1, 2], [3, 4]])
@@ -901,3 +931,41 @@ array_3d = array_2d[:, :, np.newaxis]
 
 # [[[1], [2]], [[3], [4]]]
 ```
+
+## Slicing arrays
+
+```py
+a2d = np.array([[1, 2, 3], [2, 4, 6], [3, 6, 9]])
+
+a2d[0] # [1, 2, 3]
+a2d[0, :] # [1, 2, 3]
+a2d[1:, 1:] # [[4, 6], [6, 9]]
+a2d[:, ::-1] # [3, 2, 1]
+```
+
+## Slices as views
+
+In ordinary Python we can make a shallow copy of a list by slicing it - this works differently in NumPy (in order to improve efficiency):
+
+```py
+list = [1, 2, 3]
+list_copy = list[:]
+list_copy[0] = 10 # does NOT change list
+
+array = np.array([1, 2, 3])
+array_view = array[:]
+array_view[0] = 10 # DOES change array
+```
+
+## Copying arrays
+
+Arrays can be copied via `array.copy()`
+
+## Concatenating arrays
+
+```py
+np.concatenate([a2d, a2d])
+
+np.concatenate([a2d, a2n], axis=1)
+```
+

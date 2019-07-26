@@ -373,13 +373,22 @@ c.dtype <span class="hljs-comment"># int64</span></code></pre>
 <pre><code class="language-py">array([<span class="hljs-number">127</span>, <span class="hljs-number">-128</span>, <span class="hljs-number">-127</span>])</code></pre>
 
       </section><section class="slide" id="slide-4-13">
+        <h2 id="array-shape">Array Shape</h2>
+<p>Wir können folgendes abfragen:</p>
+<ul>
+<li><code>a3d.ndim</code>: 3</li>
+<li><code>a3d.shape</code>: (2, 2, 2)</li>
+<li><code>a3d.size</code>: 8</li>
+</ul>
+
+      </section><section class="slide" id="slide-4-14">
         <h2 id="operationen-auf-arrays">Operationen auf Arrays</h2>
 <p>Auswählen von Einträgen:</p>
 <pre><code class="language-py">a3d[<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>] <span class="hljs-comment"># 3</span>
 
 a3d[<span class="hljs-number">0</span>, :, <span class="hljs-number">0</span>] <span class="hljs-comment"># [1, 3]</span></code></pre>
 
-      </section><section class="slide" id="slide-4-14">
+      </section><section class="slide" id="slide-4-15">
         <h2 id="operationen-auf-arrays">Operationen auf Arrays</h2>
 <p>Operatoren werden elementweise angewendet:</p>
 <pre><code class="language-py">a = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])
@@ -390,7 +399,7 @@ print(a + b)
 print(a * b)
 <span class="hljs-comment"># np.array([2, 4, 6])</span></code></pre>
 
-      </section><section class="slide" id="slide-4-15">
+      </section><section class="slide" id="slide-4-16">
         <h2 id="übungen">Übungen</h2>
 <p>Gegeben sind ein Array von Preisen und ein Array von gekauften Mengen. Bestimme den Gesamtpreis:</p>
 <pre><code class="language-py">prices = np.array([<span class="hljs-number">3.99</span>, <span class="hljs-number">4.99</span>, <span class="hljs-number">3.99</span>, <span class="hljs-number">12.99</span>])
@@ -405,7 +414,7 @@ c = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">3</s
 
 <span class="hljs-comment"># solution: [4, 4]</span></code></pre>
 
-      </section><section class="slide" id="slide-4-16">
+      </section><section class="slide" id="slide-4-17">
         <h2 id="übungen">Übungen</h2>
 <p>Fortgeschritten: Lösen linearer Gleichungssysteme</p>
 
@@ -469,32 +478,94 @@ area[<span class="hljs-string">'CN'</span>] <span class="hljs-comment"># 9.6</sp
     <span class="hljs-string">'population'</span>: population})</code></pre>
 
       </section></section><section class="section" id="section-6"><section class="slide" id="slide-6-1">
-        <h1 id="csv-lesen">CSV lesen</h1>
+        <h1 id="daten-importieren-und-exportieren">Daten importieren und exportieren</h1>
 
       </section><section class="slide" id="slide-6-2">
-        <h2 id="csv-lesen">CSV lesen</h2>
-<p>Beispiel: Euribor (Monatliche Zinssätze europäischer Staatsanleihen)</p>
+        <h2 id="daten-importieren-und-exportieren">Daten importieren und exportieren</h2>
+<p>Datenformate:</p>
+<ul>
+<li>CSV</li>
+<li>Excel</li>
+<li>JSON</li>
+<li>HDF5 (effizientes Binärformat)</li>
+<li>SQL tables (via <em>SQLAlchemy</em>)</li>
+</ul>
+
+      </section><section class="slide" id="slide-6-3">
+        <h2 id="daten-importieren-und-exportieren">Daten importieren und exportieren</h2>
+<p>Die folgenden Funktionen können Daten importieren / exportieren. Beim Importieren können Daten auch aus dem Internet gelesen werden.</p>
+<p>Import: <code>pd.read_csv</code>, <code>pd.read_excel</code>, ...</p>
+<p>Export: <code>df.to_csv</code>, <code>df.to_excel</code>, ...</p>
+
+      </section><section class="slide" id="slide-6-4">
+        <h2 id="csv-importieren">CSV importieren</h2>
+<p>Beispiel: Euribor (Zinsen für europäische Anleihen)</p>
+<pre><code class="language-py">euribor = pd.read_csv(
+    <span class="hljs-string">"https://datahub.io/core/euribor/r/euribor-12m-monthly.csv"</span>
+)</code></pre>
+
+      </section><section class="slide" id="slide-6-5">
+        <h2 id="csv-importieren">CSV importieren</h2>
+<p>Mögliche Schlüsselwortargumente für <code>read_csv</code>:</p>
+<ul>
+<li><code>index_col</code>: identifiziert eine Spalte, die als Index verwendet werden soll</li>
+<li><code>header</code>: übergeben des Werts <code>None</code> zeigt an, dass es keine Header-Zeile gibt</li>
+<li><code>names</code>: Spaltennamen zur Verwendung im neuen <code>DataFrame</code></li>
+<li><code>sep</code>: Angeben anderer Trennzeichen als ein Komma</li>
+<li><code>usecols</code>: um nur bestimmte Spalten zu importieren</li>
+<li><code>parse_dates</code>: erwartet eine Liste von Spaltennamen</li>
+<li>...</li>
+</ul>
+<p>Siehe auch: <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html">https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html</a></p>
+
+      </section><section class="slide" id="slide-6-6">
+        <h2 id="importing-csv">Importing CSV</h2>
+<p>Fortgeschrittenes Euribor-Beispiel:</p>
+<ul>
+<li>Parsen des Datums</li>
+<li>Datum als Index verwenden</li>
+<li>Nur die Spalten <em>date</em> und <em>rate</em> importieren</li>
+</ul>
 <pre><code class="language-py">euribor = pd.read_csv(
     <span class="hljs-string">"https://datahub.io/core/euribor/r/euribor-12m-monthly.csv"</span>,
-    index_col=<span class="hljs-string">"date"</span>)</code></pre>
-<p>Beispiel: Iris Dataset (Statistiken zu Blütengrößen von Iris-Blumen)</p>
+    parse_dates=[<span class="hljs-string">"date"</span>],
+    index_col=<span class="hljs-string">"date"</span>,
+    usecols=[<span class="hljs-string">"date"</span>, <span class="hljs-string">"rate"</span>]
+)</code></pre>
+
+      </section><section class="slide" id="slide-6-7">
+        <h2 id="csv-importieren">CSV importieren</h2>
+<p>Aufgabe: Importiere die folgenden Datenquellen und achte dabei auf passendes Format:</p>
+<ul>
+<li>Monatliche Preise des US-Aktienindex <em>S&amp;P 500</em>: <a href="https://datahub.io/core/s-and-p-500/r/data.csv">https://datahub.io/core/s-and-p-500/r/data.csv</a></li>
+<li>Wechselkurse: <a href="https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv">https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv</a></li>
+<li>Iris Dataset (Statistiken zu Blütengrößen von Iris-Blumen): <a href="http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data">http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data</a> (recherchiere passende Spaltennamen im Internet)</li>
+</ul>
+
+      </section><section class="slide" id="slide-6-8">
+        <h2 id="csv-importieren">CSV importieren</h2>
+<p>mögliche Lösungen:</p>
 <pre><code class="language-py">iris = pd.read_csv(
     <span class="hljs-string">"http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data"</span>,
     header=<span class="hljs-keyword">None</span>,
     names=[<span class="hljs-string">"sepal_length"</span>, <span class="hljs-string">"sepal_width"</span>, <span class="hljs-string">"petal_length"</span>,
-           <span class="hljs-string">"petal_width"</span>, <span class="hljs-string">"name"</span>],
-)</code></pre>
-
-      </section><section class="slide" id="slide-6-3">
-        <h2 id="csv-lesen">CSV lesen</h2>
-<p>Beispiel: Monatliche Preise des S&amp;P 500 (US-Aktienindex)</p>
-<pre><code class="language-py">sp500 = pd.read_csv(
+           <span class="hljs-string">"petal_width"</span>, <span class="hljs-string">"name"</span>])
+sp500 = pd.read_csv(
     <span class="hljs-string">"https://datahub.io/core/s-and-p-500/r/data.csv"</span>,
-    index_col=<span class="hljs-string">"Date"</span>)</code></pre>
-<p>Beispiel: Wechselkurse</p>
-<pre><code class="language-py">exchange_rates = pd.read_csv(
+    index_col=<span class="hljs-string">"Date"</span>,
+    parse_dates=[<span class="hljs-string">"Date"</span>])
+exchange_rates = pd.read_csv(
     <span class="hljs-string">"https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv"</span>,
-    parse_dates=[<span class="hljs-number">1</span>])</code></pre>
+    parse_dates=[<span class="hljs-string">"Date"</span>])</code></pre>
+
+      </section><section class="slide" id="slide-6-9">
+        <h2 id="daten-importieren-und-exportieren">Daten importieren und exportieren</h2>
+<p>Excel:</p>
+<pre><code class="language-py">euribor.to_excel(<span class="hljs-string">'euribor.xlsx'</span>)
+euribor = pd.read_excel(<span class="hljs-string">'euribor.xlsx'</span>, index_col=<span class="hljs-number">0</span>)</code></pre>
+<p>HDF5 (<em>pytables</em> muss installiert sein):</p>
+<pre><code class="language-py">euribor.to_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class="hljs-string">"euribor"</span>)
+euribor = read_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class="hljs-string">"euribor"</span>)</code></pre>
 
       </section></section><section class="section" id="section-7"><section class="slide" id="slide-7-1">
         <h1 id="pandas-daten-auslesen">Pandas: Daten auslesen</h1>
@@ -663,42 +734,9 @@ iris_setosa[<span class="hljs-string">"sepal_ratio"</span>].std()</code></pre>
 iris.loc[:, <span class="hljs-string">"sepal_ratio"</span>] = float(<span class="hljs-string">'nan'</span>)</code></pre>
 
       </section></section><section class="section" id="section-11"><section class="slide" id="slide-11-1">
-        <h1 id="daten-importieren-und-exportieren">Daten importieren und exportieren</h1>
-
-      </section><section class="slide" id="slide-11-2">
-        <h2 id="daten-importieren-und-exportieren">Daten importieren und exportieren</h2>
-<p>Datenformate:</p>
-<ul>
-<li>CSV</li>
-<li>Excel</li>
-<li>JSON</li>
-<li>HDF5 (effizientes Binärformat)</li>
-<li>SQL tables (via <em>SQLAlchemy</em>)</li>
-</ul>
-
-      </section><section class="slide" id="slide-11-3">
-        <h2 id="daten-importieren-und-exportieren">Daten importieren und exportieren</h2>
-<p>Import: <code>pd.read_csv</code>, <code>pd.read_excel</code>, ...</p>
-<p>Export: <code>df.to_csv</code>, <code>df.to_excel</code>, ...</p>
-
-      </section><section class="slide" id="slide-11-4">
-        <h2 id="daten-importieren-und-exportieren">Daten importieren und exportieren</h2>
-<pre><code class="language-py">df.to_excel(<span class="hljs-string">'iris.xlsx'</span>)</code></pre>
-<pre><code class="language-py">data = pd.read_excel(<span class="hljs-string">'iris.xlsx'</span>, index_col=<span class="hljs-number">0</span>)</code></pre>
-
-      </section><section class="slide" id="slide-11-5">
-        <h2 id="daten-importieren-und-exportieren">Daten importieren und exportieren</h2>
-<p>HDF5:</p>
-<ul>
-<li>via <em>pytables</em> (muss installiert sein)</li>
-</ul>
-<pre><code class="language-py">df.to_hdf(<span class="hljs-string">'data.hdf5'</span>, <span class="hljs-string">'iris'</span>)</code></pre>
-<pre><code class="language-py">pd.read_hdf(<span class="hljs-string">'data.hdf5'</span>, <span class="hljs-string">'iris'</span>)</code></pre>
-
-      </section></section><section class="section" id="section-12"><section class="slide" id="slide-12-1">
         <h1 id="fehlende-daten">Fehlende Daten</h1>
 
-      </section><section class="slide" id="slide-12-2">
+      </section><section class="slide" id="slide-11-2">
         <h2 id="fehlende-daten">Fehlende Daten</h2>
 <p>In den Wechselkursdaten fehlen manche Einträge:</p>
 <ul>
@@ -706,7 +744,7 @@ iris.loc[:, <span class="hljs-string">"sepal_ratio"</span>] = float(<span class=
 <li>manche Tage sind asl <code>NaN</code>s eingetragen</li>
 </ul>
 
-      </section><section class="slide" id="slide-12-3">
+      </section><section class="slide" id="slide-11-3">
         <h2 id="fehlende-daten">Fehlende Daten</h2>
 <p>Entfernen aller Zeilen mit fehlenden Daten:</p>
 <pre><code class="language-py">er = er.dropna()</code></pre>
@@ -715,7 +753,7 @@ iris.loc[:, <span class="hljs-string">"sepal_ratio"</span>] = float(<span class=
 <p>Ersetzen aller fehlernder Daten mit Werten der Reihe zuvor:</p>
 <pre><code class="language-py">er = er.fillna(method=<span class="hljs-string">"backfill"</span>)</code></pre>
 
-      </section><section class="slide" id="slide-12-4">
+      </section><section class="slide" id="slide-11-4">
         <h2 id="fehlende-daten">Fehlende Daten</h2>
 <p>Daten interpolieren:</p>
 <pre><code class="language-py">er = er.intepolate()
@@ -728,10 +766,10 @@ ir_uk = pd.read_csv(url, index_col=<span class="hljs-string">"date"</span>,
 
 ir_uk_weekly = ir_uk.resample(<span class="hljs-string">'7d'</span>).interpolate()</code></pre>
 
-      </section></section><section class="section" id="section-13"><section class="slide" id="slide-13-1">
+      </section></section><section class="section" id="section-12"><section class="slide" id="slide-12-1">
         <h1 id="plotting">Plotting</h1>
 
-      </section><section class="slide" id="slide-13-2">
+      </section><section class="slide" id="slide-12-2">
         <h2 id="graph">Graph</h2>
 <p>Pandas:</p>
 <pre><code class="language-py">series.plot()
@@ -739,12 +777,12 @@ dataframe.plot()</code></pre>
 <p>Matplotlib / Pyplot:</p>
 <pre><code class="language-py">plt.plot(data)</code></pre>
 
-      </section><section class="slide" id="slide-13-3">
+      </section><section class="slide" id="slide-12-3">
         <h2 id="graph-x--y">Graph (x / y)</h2>
 <p>Matplotlib / Pyplot:</p>
 <pre><code class="language-py">plt.plot(x, y)</code></pre>
 
-      </section><section class="slide" id="slide-13-4">
+      </section><section class="slide" id="slide-12-4">
         <h2 id="bar-chart">Bar Chart</h2>
 <p>Pandas:</p>
 <pre><code class="language-py">df.plot.bar()</code></pre>
@@ -752,6 +790,59 @@ dataframe.plot()</code></pre>
 <pre><code class="language-py">plt.bar(x=[<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], height=y)</code></pre>
 <p>Seaborn</p>
 <pre><code class="language-py">sns.barplot(x=[<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], y=y)</code></pre>
+
+      </section></section><section class="section" id="section-13"><section class="slide" id="slide-13-1">
+        <h1 id="numpy-fortgeschritten">NumPy Fortgeschritten</h1>
+
+      </section><section class="slide" id="slide-13-2">
+        <h2 id="arrays-erstellen">Arrays erstellen</h2>
+<p>Ein Array der Größe 2x6, gefüllt mit Nullen:</p>
+<pre><code class="language-py">np.zeros((<span class="hljs-number">2</span>, <span class="hljs-number">6</span>))
+np.full((<span class="hljs-number">2</span>, <span class="hljs-number">6</span>), <span class="hljs-number">0</span>)</code></pre>
+<p>Die Folge <em>0.0, 0.5, 1.0, 1.5</em>:</p>
+<pre><code class="language-py"><span class="hljs-comment"># fixed step width (0.5)</span>
+a = np.arange(<span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">0.5</span>)
+<span class="hljs-comment"># fixed number of entries (4)</span>
+b = np.linspace(<span class="hljs-number">0</span>, <span class="hljs-number">1.5</span>, <span class="hljs-number">4</span>)</code></pre>
+<p>Ein 3x3 Array mit Zufallswerten:</p>
+<pre><code class="language-py">np.random.random(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>)</code></pre>
+
+      </section><section class="slide" id="slide-13-3">
+        <h2 id="dimension-erhöhen">Dimension erhöhen</h2>
+<p>Hinzufügen einer extra Dimension der Länge 1 via <code>newaxis</code> - Verwandeln eines 2 x 2 Arrays in ein 2 x 2 x 1 Array:</p>
+<pre><code class="language-py">array_2d = np.array([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]])
+array_3d = array_2d[:, :, np.newaxis]
+<span class="hljs-comment"># [[[1], [2]], [[3], [4]]]</span></code></pre>
+
+      </section><section class="slide" id="slide-13-4">
+        <h2 id="slicen-von-arrays">Slicen von Arrays</h2>
+<pre><code class="language-py">a2d = np.array([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], [<span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">6</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">6</span>, <span class="hljs-number">9</span>]])
+
+a2d[<span class="hljs-number">0</span>] <span class="hljs-comment"># [1, 2, 3]</span>
+a2d[<span class="hljs-number">0</span>, :] <span class="hljs-comment"># [1, 2, 3]</span>
+a2d[<span class="hljs-number">1</span>:, <span class="hljs-number">1</span>:] <span class="hljs-comment"># [[4, 6], [6, 9]]</span>
+a2d[:, ::<span class="hljs-number">-1</span>] <span class="hljs-comment"># [3, 2, 1]</span></code></pre>
+
+      </section><section class="slide" id="slide-13-5">
+        <h2 id="slices-als-views">Slices als Views</h2>
+<p>In Python können wir eine flache Kopie einer Liste erstellen, indem wir sie slicen - dies ist in NumPy nicht so (um die Effizienz zu steigern):</p>
+<pre><code class="language-py">list = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]
+list_copy = list[:]
+list_copy[<span class="hljs-number">0</span>] = <span class="hljs-number">10</span> <span class="hljs-comment"># does NOT change list</span>
+
+array = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])
+array_view = array[:]
+array_view[<span class="hljs-number">0</span>] = <span class="hljs-number">10</span> <span class="hljs-comment"># DOES change array</span></code></pre>
+
+      </section><section class="slide" id="slide-13-6">
+        <h2 id="arrays-kopieren">Arrays kopieren</h2>
+<p>Arrays können via <code>array.copy()</code> kopiert werden</p>
+
+      </section><section class="slide" id="slide-13-7">
+        <h2 id="arrays-aneinanderfügen">Arrays aneinanderfügen</h2>
+<pre><code class="language-py">np.concatenate([a2d, a2d])
+
+np.concatenate([a2d, a2n], axis=<span class="hljs-number">1</span>)</code></pre>
 
       </section></section><section class="section" id="section-14"><section class="slide" id="slide-14-1">
         <h1 id="machine-learning">Machine learning</h1>

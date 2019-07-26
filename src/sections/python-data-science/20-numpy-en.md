@@ -135,6 +135,14 @@ Output:
 array([127, -128, -127])
 ```
 
+## Array shapes
+
+We can query:
+
+- `a3d.ndim`: 3
+- `a3d.shape`: (2, 2, 2)
+- `a3d.size`: 8
+
 ## Operations on arrays
 
 Selecting entries:
