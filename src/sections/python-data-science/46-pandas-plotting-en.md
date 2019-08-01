@@ -26,14 +26,15 @@ plt.show()
 
 ```py
 # graph
+data.plot.line()
 data.plot()
 # bar chart
 data.plot.bar()
-# box plots
+# box plot
 data.plot.box()
-# histograms
+# histogram
 data.plot.hist()
-# scatter plots
+# scatter plot
 data.plot.scatter(x="colname_1", y="colname_2")
 # scatter matrix
 from pandas.plotting import scatter_matrix
@@ -45,8 +46,8 @@ scatter_matrix(data)
 example:
 
 ```py
-euribor.plot()
-sp500["SP500"].plot()
+euribor.plot.line()
+sp500["SP500"].plot.line(figsize=(9, 6))
 ```
 
 ## Bar charts

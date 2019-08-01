@@ -22,13 +22,13 @@ Jupyter online ausprobieren:
 ### Binder (begrenzte Sessions)
 
 - Gehe zu https://jupyter.org/try
-- _Try Jupyter with Python_ auswählen
+- _Try Classic Notebook_ auswählen
 - warten ...
 - _File_ - _New Notebook_ - _Python 3_
 
 ## Jupyter Notebooks - lokal
 
-Starten: Eintrag _Jupyter Notebook_ im Startmenü
+Starten: Eintrag _Jupyter Notebook_ im Startmenü / Befeh `jupyter notebook` im Terminal
 
 Stoppen: _Quit_ im rechten oberen Eck der Ordneransicht (üblicherweise unter http://localhost:8888/tree)
 

@@ -42,7 +42,7 @@ Mögliche Schlüsselwortargumente für `read_csv`:
 
 Siehe auch: https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html
 
-## Importing CSV
+## CSV importieren
 
 Fortgeschrittenes Euribor-Beispiel:
 

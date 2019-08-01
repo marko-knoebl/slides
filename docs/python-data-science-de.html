@@ -163,7 +163,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
         <h1 id="pakete">Pakete</h1>
 
       </section><section class="slide" id="slide-2-2">
-        <h2 id="python-pakete-for-data-science">Python Pakete for data science</h2>
+        <h2 id="python-pakete-für-data-science">Python Pakete für Data Science</h2>
 <ul>
 <li><em>Jupyter</em> &amp; <em>IPython</em>: interaktive Python Umgebungen</li>
 <li><em>NumPy</em>: Bibliothek zum effizienten Verarbeiten numerischer Daten</li>
@@ -174,18 +174,28 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 
       </section><section class="slide" id="slide-2-3">
         <h2 id="anaconda">Anaconda</h2>
-<p>Anaconda = Python Distribution, die viele vorinstallierte Pakete und Entwicklerwerkzeuge enthält</p>
+<p><em>Anaconda</em> = Python Distribution, die viele vorinstallierte Pakete und Entwicklerwerkzeuge enthält</p>
 <p>Benötigt ~3GB Platz auf der Festplatte</p>
 
       </section><section class="slide" id="slide-2-4">
-        <h2 id="conda">Conda</h2>
-<p>Conda = Environment- und Paketmanager</p>
-<p>Erlaubt das Installieren verschiedener Versionen von Python, von Python-Paketen und anderen Abhängigkeiten - insbesondere hilfreich für externe Libraries, die nicht in Python geschrieben sind und kompiliert werden müssen</p>
+        <h2 id="installation-von-anaconda">Installation von Anaconda</h2>
+<p>Download von <a href="https://www.anaconda.com/distribution/">https://www.anaconda.com/distribution/</a></p>
+<p>(Achte auf die Wahl des richtigen Betriebssystems)</p>
+<p>Unter Windows sollte der Installationspfad keine Leerzeichen enthalten (Empfehlung: <code>C:/anaconda</code>) - siehe <a href="https://docs.anaconda.com/anaconda/user-guide/faq/#distribution-faq-windows-folder">https://docs.anaconda.com/anaconda/user-guide/faq/#distribution-faq-windows-folder</a></p>
 
       </section><section class="slide" id="slide-2-5">
+        <h2 id="conda">Conda</h2>
+<p><em>Conda</em> = Environment- und Paketmanager</p>
+<p>Erlaubt das Installieren verschiedener Versionen von Python, von Python-Paketen und anderen Abhängigkeiten - insbesondere hilfreich für externe Libraries, die nicht in Python geschrieben sind und kompiliert werden müssen</p>
+
+      </section><section class="slide" id="slide-2-6">
         <h2 id="miniconda">Miniconda</h2>
 <p><em>Miniconda</em> = Distribution, die nur Python und Conda enthält, weitere Pakete müssen über Conda installiert werden</p>
 <p>Benötigt anfangs ~250 MB Speicherplatz</p>
+
+      </section><section class="slide" id="slide-2-7">
+        <h2 id="pyodide">Pyodide</h2>
+<p><em>Pyodide</em> = Python Distribution, die direkt im Browser ausgeführt wird (via <em>WebAssembly</em>)</p>
 
       </section></section><section class="section" id="section-3"><section class="slide" id="slide-3-1">
         <h1 id="jupyter--ipython">Jupyter &amp; IPython</h1>
@@ -808,13 +818,19 @@ b = np.linspace(<span class="hljs-number">0</span>, <span class="hljs-number">1.
 <pre><code class="language-py">np.random.random(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>)</code></pre>
 
       </section><section class="slide" id="slide-13-3">
+        <h2 id="form-ändern">Form ändern</h2>
+<pre><code class="language-py">array_1d = array_3d.reshape(<span class="hljs-number">8</span>)
+array_2d = array_3d.reshape(<span class="hljs-number">2</span>, <span class="hljs-number">4</span>)
+array_2d = array_3d.reshape(<span class="hljs-number">2</span>, <span class="hljs-number">-1</span>) <span class="hljs-comment"># automatic second dimension</span></code></pre>
+
+      </section><section class="slide" id="slide-13-4">
         <h2 id="dimension-erhöhen">Dimension erhöhen</h2>
 <p>Hinzufügen einer extra Dimension der Länge 1 via <code>newaxis</code> - Verwandeln eines 2 x 2 Arrays in ein 2 x 2 x 1 Array:</p>
 <pre><code class="language-py">array_2d = np.array([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]])
 array_3d = array_2d[:, :, np.newaxis]
 <span class="hljs-comment"># [[[1], [2]], [[3], [4]]]</span></code></pre>
 
-      </section><section class="slide" id="slide-13-4">
+      </section><section class="slide" id="slide-13-5">
         <h2 id="slicen-von-arrays">Slicen von Arrays</h2>
 <pre><code class="language-py">a2d = np.array([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], [<span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">6</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">6</span>, <span class="hljs-number">9</span>]])
 
@@ -823,7 +839,7 @@ a2d[<span class="hljs-number">0</span>, :] <span class="hljs-comment"># [1, 2, 3
 a2d[<span class="hljs-number">1</span>:, <span class="hljs-number">1</span>:] <span class="hljs-comment"># [[4, 6], [6, 9]]</span>
 a2d[:, ::<span class="hljs-number">-1</span>] <span class="hljs-comment"># [3, 2, 1]</span></code></pre>
 
-      </section><section class="slide" id="slide-13-5">
+      </section><section class="slide" id="slide-13-6">
         <h2 id="slices-als-views">Slices als Views</h2>
 <p>In Python können wir eine flache Kopie einer Liste erstellen, indem wir sie slicen - dies ist in NumPy nicht so (um die Effizienz zu steigern):</p>
 <pre><code class="language-py">list = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]
@@ -834,11 +850,11 @@ array = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">
 array_view = array[:]
 array_view[<span class="hljs-number">0</span>] = <span class="hljs-number">10</span> <span class="hljs-comment"># DOES change array</span></code></pre>
 
-      </section><section class="slide" id="slide-13-6">
+      </section><section class="slide" id="slide-13-7">
         <h2 id="arrays-kopieren">Arrays kopieren</h2>
 <p>Arrays können via <code>array.copy()</code> kopiert werden</p>
 
-      </section><section class="slide" id="slide-13-7">
+      </section><section class="slide" id="slide-13-8">
         <h2 id="arrays-aneinanderfügen">Arrays aneinanderfügen</h2>
 <pre><code class="language-py">np.concatenate([a2d, a2d])
 
@@ -848,7 +864,15 @@ np.concatenate([a2d, a2n], axis=<span class="hljs-number">1</span>)</code></pre>
         <h1 id="machine-learning">Machine learning</h1>
 
       </section><section class="slide" id="slide-14-2">
-        <h2 id="beispielhafte-aufgaben">Beispielhafte Aufgaben</h2>
+        <h2 id="kategorien-von-methoden">Kategorien von Methoden</h2>
+<ul>
+<li>Supervised learning (Überwachtes Lernen)</li>
+<li>Unsupervised learning</li>
+<li>Reinforcement learning</li>
+</ul>
+
+      </section><section class="slide" id="slide-14-3">
+        <h2 id="beispiele-für-aufgaben">Beispiele für Aufgaben</h2>
 <ul>
 <li>Regression</li>
 <li>Klassifizierung</li>
@@ -856,36 +880,384 @@ np.concatenate([a2d, a2n], axis=<span class="hljs-number">1</span>)</code></pre>
 <li>Dimensionsreduktion</li>
 </ul>
 
+      </section><section class="slide" id="slide-14-4">
+        <h2 id="beispiele-für-aufgaben">Beispiele für Aufgaben</h2>
+<h3 id="regression">Regression</h3>
+<p>Zuweisung von numerischen Werten zu numerischen Eingabedaten</p>
+<p>Beispiele:</p>
+<ul>
+<li>Schätzung der Entfernung einer Galaxie basierend auf der Rotverschiebung</li>
+<li>Schätzung der Kursentwicklung einer Aktie</li>
+</ul>
+
+      </section><section class="slide" id="slide-14-5">
+        <h2 id="beispiele-für-aufgaben">Beispiele für Aufgaben</h2>
+<h3 id="klassifikation">Klassifikation</h3>
+<p>Zuweisung von Klassen zu numerischen Eingabedaten</p>
+<p>Beispiele:</p>
+<ul>
+<li>Spam-Filterung basierend auf einer Anzahl an Wörtern / Phrasen (2x &quot;nigerian prince&quot;, 1x &quot;viagra&quot;)</li>
+<li>Erkennen von Objekten / Personen / Zeichen auf Bildern</li>
+</ul>
+
+      </section><section class="slide" id="slide-14-6">
+        <h2 id="beispiele-für-aufgaben">Beispiele für Aufgaben</h2>
+<h3 id="clustering">Clustering</h3>
+<p>Erkennen von Gruppierungen / Clustern bei numerischen Eingabedaten</p>
+<p>Beispiele:</p>
+<ul>
+<li>Erkennen wiederkehrender Elemente in Bildern</li>
+</ul>
+
       </section></section><section class="section" id="section-15"><section class="slide" id="slide-15-1">
-        <h1 id="regression">Regression</h1>
+        <h1 id="regression---grundlagen">Regression - Grundlagen</h1>
 
       </section><section class="slide" id="slide-15-2">
         <h2 id="lineare-regression">Lineare Regression</h2>
-<p>Bedeutet: Festlegen einer linearen Funktion, die die Datenpunkte bestmöglich approximiert (kleinste Quadratsumme).</p>
 
       </section><section class="slide" id="slide-15-3">
+        <h2 id="lineare-regression">Lineare Regression</h2>
+<p>Beispiel: Wir betrachten verschiedene Einkäufe bei verschiedenen Supermärkten:</p>
+<ul>
+<li>1 l Milch, 1 kg Brot: 4.58€</li>
+<li>2 l Milch, 3 kg Brot: 13.50€</li>
+<li>3 l Milch, 2 kg Brot: 11.98€</li>
+<li>(0 l Milch, 0 kg Brot: 0€)</li>
+</ul>
+<p>Was wäre eine passende Schätzung für den Preis von 1 Liter Milch / 1 kg Brot? Wenn wir bei einem Supermarkt 2 Liter Milch und 2 kg Brot kaufen, welcher Preis wäre in etwa zu erwarten?</p>
+<p>Diese Aufgabe kann mit Hilfe von linearer Regression beantwortet werden.</p>
+
+      </section><section class="slide" id="slide-15-4">
         <h2 id="lineare-regression">Lineare Regression</h2>
 <p>Beispiel:</p>
 <pre><code class="language-py"><span class="hljs-keyword">from</span> sklearn.linear_model <span class="hljs-keyword">import</span> LinearRegression
 
-x = np.array([<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])
-y = np.array([<span class="hljs-number">3</span>, <span class="hljs-number">4.5</span>, <span class="hljs-number">5</span>, <span class="hljs-number">5</span>, <span class="hljs-number">4.5</span>])
-X = x[:, np.newaxis]
+X = [[<span class="hljs-number">1</span>, <span class="hljs-number">1</span>], [<span class="hljs-number">2</span>, <span class="hljs-number">3</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">0</span>, <span class="hljs-number">0</span>]]
+y = [<span class="hljs-number">4.58</span>, <span class="hljs-number">14.50</span>, <span class="hljs-number">11.98</span>, <span class="hljs-number">0.0</span>]
 
-model = LinearRegression
+model = LinearRegression()
 model.fit(X, y)
 
-yfit = model.predict(X)</code></pre>
+yfit = model.predict([[<span class="hljs-number">1</span>, <span class="hljs-number">0</span>], [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>], [<span class="hljs-number">2</span>, <span class="hljs-number">2</span>]])
+print(yfit)</code></pre>
 
-      </section><section class="slide" id="slide-15-4">
+      </section><section class="slide" id="slide-15-5">
+        <h2 id="lineare-regression---beispiel">Lineare Regression - Beispiel</h2>
+<p>Iris-Datensatz: Abschätzen der <em>sepal width</em> basierend auf der <em>sepal length</em></p>
+
+      </section><section class="slide" id="slide-15-6">
         <h2 id="beispiele">Beispiele</h2>
 <ul>
-<li>Umlaufzeit der Planeten -&gt; Mittlerer Sonnenabstand (oder andere Richtung)</li>
-<li>Rechnungsbetrag -&gt; Trinkgeld</li>
 <li>Radverkehr</li>
 </ul>
 
       </section></section><section class="section" id="section-16"><section class="slide" id="slide-16-1">
+        <h1 id="klassifizierung---grundlagen">Klassifizierung - Grundlagen</h1>
+
+      </section><section class="slide" id="slide-16-2">
+        <h2 id="klassifizierung">Klassifizierung</h2>
+<p>Aufgabe: Klassifizierung von Iris-Pflanzen basierend auf ihren Maßen</p>
+<p>Gegeben ist eine Reihe von Daten mit bekannten Maßen und bekannten Spezies. Baiserend darauf: Trainieren eines Algorithmus, um später die Spezies anderer Pflanzen zu bestimmen.</p>
+
+      </section><section class="slide" id="slide-16-3">
+        <h2 id="klassifizierung">Klassifizierung</h2>
+<p>In diesem Fall verwenden wir einen <em>K-nearest-neighbors-Klassifikator</em> als Algorithmus, andere Algorithmen wären genauso denkbar.</p>
+
+      </section><section class="slide" id="slide-16-4">
+        <h2 id="klassifizierung">Klassifizierung</h2>
+<p>Vorbereiten der Daten:</p>
+<pre><code class="language-py"><span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> datasets
+
+iris = datasets.load_iris()
+
+X = iris.data
+y = iris.target
+
+test_data = [
+    [<span class="hljs-number">5.3</span>, <span class="hljs-number">3.4</span>, <span class="hljs-number">1.9</span>, <span class="hljs-number">0.6</span>],
+    [<span class="hljs-number">6.0</span>, <span class="hljs-number">3.0</span>, <span class="hljs-number">4.7</span>, <span class="hljs-number">1.5</span>],
+    [<span class="hljs-number">6.5</span>, <span class="hljs-number">3.1</span>, <span class="hljs-number">5.0</span>, <span class="hljs-number">1.7</span>]
+]</code></pre>
+
+      </section><section class="slide" id="slide-16-5">
+        <h2 id="klassifizierung">Klassifizierung</h2>
+<p>Durchführen der Klassifizierung</p>
+<pre><code class="language-py"><span class="hljs-keyword">from</span> sklearn.neighbors <span class="hljs-keyword">import</span> KNeighborsClassifier
+
+model = KNeighborsClassifier()
+model.fit(X, y)
+
+y_pred = model.predict(test_data)
+print(y_pred)</code></pre>
+
+      </section><section class="slide" id="slide-16-6">
+        <h2 id="klassifizierung">Klassifizierung</h2>
+<p>Weitere Aufgaben:</p>
+<p>Wir verwenden andere Klassifikatoren, wie etwa:</p>
+<ul>
+<li><code>SVC</code></li>
+<li><code>DecisionTreeClassifier</code></li>
+<li><code>GaussianNB</code></li>
+</ul>
+
+      </section></section><section class="section" id="section-17"><section class="slide" id="slide-17-1">
+        <h1 id="validierung">Validierung</h1>
+
+      </section><section class="slide" id="slide-17-2">
+        <h2 id="train-test-split">Train-Test Split</h2>
+<p>Um zu validieren, ob ein Verfahren ein passendes Ergebnis liefert:</p>
+<p>Die Daten (X, y) werden in Trainingsdaten und Testdaten unterteilt. Die Testdaten dienen zur Validierung</p>
+
+      </section><section class="slide" id="slide-17-3">
+        <h2 id="train-test-split">Train-Test Split</h2>
+<p>Frage: wie gut approximiert unsere lineare Regression die Iris Daten?</p>
+<pre><code class="language-py"><span class="hljs-keyword">from</span> sklearn.model_selection <span class="hljs-keyword">import</span> train_test_split
+<span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> metrics
+
+X_train, X_test, y_train, y_test = train_test_split(X, y)
+
+...
+
+print(metrics.r2_score(y_prediction, y_test))</code></pre>
+<p>Wir können einen Parameter <code>test_size</code> angeben, dessen Standardwert <code>0.25</code> ist (d.h. 25% der Daten werden zur Validierung verwendet)</p>
+
+      </section><section class="slide" id="slide-17-4">
+        <h2 id="kreuzvalidierung">Kreuzvalidierung</h2>
+<p>Bei der cross-validation werden die Daten wiederholt in unterschiedliche Trainings- und Testdaten unterteilt, sodass jeder Eintrag einmal in den Testdaten vorkommt</p>
+<pre><code class="language-py"><span class="hljs-keyword">from</span> sklearn.model_selection <span class="hljs-keyword">import</span> cross_validate
+
+...
+
+test_results = cross_validate(model, X, y, cv=<span class="hljs-number">5</span>, scoring=<span class="hljs-string">"r2"</span>)
+test_scores = test_results[<span class="hljs-string">"test_score"</span>]
+print(test_scores)
+<span class="hljs-comment"># [ 0.61840428  0.72569954 -1.1742135   0.44294841  0.50589789]</span>
+print(test_scores.mean())</code></pre>
+
+      </section><section class="slide" id="slide-17-5">
+        <h2 id="validierung">Validierung</h2>
+<p>Regression:</p>
+<ul>
+<li>R2 score</li>
+<li>mean squared error</li>
+</ul>
+<p>Klassifizierung:</p>
+<ul>
+<li>Accuracy (Anteil an richtig klassifizierten Einträgen)</li>
+<li>Confusion Matrix (Anteil an richtig / falsch klassifizierten Einträgen für jede Klasse)</li>
+</ul>
+<p>Siehe <a href="https://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics">https://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics</a></p>
+
+      </section><section class="slide" id="slide-17-6">
+        <h2 id="validierung">Validierung</h2>
+<p>Aufgabe: Validierung der Iris-Klassifizierung mittels eines einfachen Train-Test Splits</p>
+
+      </section><section class="slide" id="slide-17-7">
+        <h2 id="roc">ROC</h2>
+<p><em>ROC</em> = <em>Receiver Operating Characteristic</em></p>
+<p>Ist eine Metrik, die bei einer ja/nein-Entscheidung zu einer Klassenzugehörigkeit ins Spiel kommt. Sie beschäftigt sich mit <em>true positives</em> und <em>false positives</em></p>
+
+      </section><section class="slide" id="slide-17-8">
+        <h2 id="roc">ROC</h2>
+<p>Beispiel: Die Erkennung der Klasse <em>iris versicolor</em> kann z.B. folgendermaßen fein eingestellt werden (Daten sind erfunden):</p>
+<ul>
+<li>Option 1: 60% der <em>iris versicolor</em> werden richtig als solche erkannt</li>
+<li>Option 2: 80% der <em>iris versicolor</em> werden richtig als solche erkannt (aber auch 10% der <em>iris virginica</em> werden fälschlicherweise als solche klassifiziert)</li>
+<li>Option 3: 90% der <em>iris versicolor</em> werden richtig als solche erkannt (aber auch 25% der <em>iris virginica</em> werden fälschlicherweise als solche klassifiziert)</li>
+</ul>
+<p>Die ROC beschreibt den Zusammenhang von <em>true positives</em> und <em>false positives</em> und kann als Kurve dargestellt werden. Je größer die Fläche unter der Kurve (AUC), umso besser die Klassifizierung. </p>
+
+      </section><section class="slide" id="slide-17-9">
+        <h2 id="roc">ROC</h2>
+<p>Zeichnen der ROC</p>
+<pre><code class="language-py">false_positive_rates, true_positive_rates, thresholds = metrics.roc_curve(
+    y_test,
+    classifier.predict_proba(X_test)[: <span class="hljs-number">1</span>]
+)
+
+plt.plot(false_positive_rate, true_positive_rate)</code></pre>
+<p>Bestimmen der Fläche unter der Kurve:</p>
+<pre><code class="language-py">auc = metrics.auc(false_positive_rates, true_positive_rates)</code></pre>
+
+      </section><section class="slide" id="slide-17-10">
+        <h2 id="roc">ROC</h2>
+<p>Aufgabe: Zeichne eine ROC für die Klassifikation von <em>iris setosa</em></p>
+
+      </section></section><section class="section" id="section-18"><section class="slide" id="slide-18-1">
+        <h1 id="daten-vorbereiten">Daten vorbereiten</h1>
+
+      </section><section class="slide" id="slide-18-2">
+        <h2 id="daten-vorbereiten">Daten vorbereiten</h2>
+<p>üblicherweise:</p>
+<ul>
+<li><code>X</code>: zweidimensionales Array mit Eingangsdaten</li>
+<li><code>y</code>: eindimensionales Array mit Resultaten</li>
+</ul>
+<p>Die Arrays <code>X</code> und <code>y</code> sollten numerische Daten enthalten</p>
+
+      </section><section class="slide" id="slide-18-3">
+        <h2 id="fehlende-daten">Fehlende Daten</h2>
+<p>Fehlende Daten werden häufig in der Form von <code>NaN</code>s auftreten.</p>
+<p>Mögliche Behandlungen:</p>
+<ul>
+<li>Löschen aller Zeilen, die an irgendeiner Stelle undefinierte Werte enthalten</li>
+<li>Interpolieren der fehlenden Werte durch andere Daten</li>
+</ul>
+
+      </section><section class="slide" id="slide-18-4">
+        <h2 id="skalieren-von-werten">Skalieren von Werten</h2>
+<p>Welche dieser beiden Sterne ist der Sonne am ähnlichsten?</p>
+<pre><code class="language-py"><span class="hljs-comment"># data: radius (km), mass (kg), temparature (K)</span>
+sun =    [<span class="hljs-number">7.0e7</span>, <span class="hljs-number">2.0e30</span>, <span class="hljs-number">5.8e3</span>]
+
+star_a = [<span class="hljs-number">6.5e7</span>, <span class="hljs-number">3.0e30</span>, <span class="hljs-number">5.2e3</span>]
+star_b = [<span class="hljs-number">7.0e8</span>, <span class="hljs-number">2.5e30</span>, <span class="hljs-number">8.1e3</span>]</code></pre>
+<p>Machine Learning Algorithmen wie z.B. k-Nearest-Neighbor betrachten Absolutwerte. Hier würde vom Algorithmus im wesentlichen nur die Masse herangezogen worden, da alle anderen Werte im Vergleich verschwindend gering sind.</p>
+
+      </section><section class="slide" id="slide-18-5">
+        <h2 id="skalieren-von-werten">Skalieren von Werten</h2>
+<p>Lösung: Die Werte werden zentriert und skaliert, sodass ihr Mittelwert 0 und die Standardabweichung 1 ist</p>
+<pre><code class="language-py"><span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> preprocessing
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+X_train = np.array([[ <span class="hljs-number">7.0e7</span>, <span class="hljs-number">2.0e30</span>, <span class="hljs-number">5.8e3</span>],
+                    [ <span class="hljs-number">6.5e7</span>, <span class="hljs-number">3.0e30</span>, <span class="hljs-number">5.2e3</span>],
+                    [ <span class="hljs-number">7.0e9</span>, <span class="hljs-number">2.5e30</span>, <span class="hljs-number">3.1e3</span>]])
+X_scaled = preprocessing.scale(X_train)</code></pre>
+<p>Resultat:</p>
+<pre><code class="language-py">array([[<span class="hljs-number">-0.70634165</span>, <span class="hljs-number">-1.22474487</span>,  <span class="hljs-number">0.95025527</span>],
+       [<span class="hljs-number">-0.70787163</span>,  <span class="hljs-number">1.22474487</span>,  <span class="hljs-number">0.43193421</span>],
+       [ <span class="hljs-number">1.41421329</span>,  <span class="hljs-number">0.</span>        , <span class="hljs-number">-1.38218948</span>]])</code></pre>
+
+      </section><section class="slide" id="slide-18-6">
+        <h2 id="kategoriedaten">Kategoriedaten</h2>
+<p>Manchmal sind Kategorien als Daten angegeben - z.B. <code>iris setosa</code>, <code>iris virginica</code>, <code>iris versicolor</code></p>
+
+      </section><section class="slide" id="slide-18-7">
+        <h2 id="textdaten">Textdaten</h2>
+
+      </section><section class="slide" id="slide-18-8">
+        <h2 id="pipelines">Pipelines</h2>
+<ul>
+<li><code>Imputer</code></li>
+<li><code>StandardScaler</code></li>
+<li>(<code>PolynomialFeatures</code> - mehr dazu später)</li>
+</ul>
+
+      </section></section><section class="section" id="section-19"><section class="slide" id="slide-19-1">
+        <h1 id="regression">Regression</h1>
+
+      </section><section class="slide" id="slide-19-2">
+        <h2 id="lineare-regression">Lineare Regression</h2>
+<p>Bedeutet: Festlegen einer linearen Funktion, die die Datenpunkte bestmöglich approximiert (kleinste Quadratsumme)</p>
+
+      </section><section class="slide" id="slide-19-3">
+        <h2 id="lineare-regression---beispiele">Lineare Regression - Beispiele</h2>
+<ul>
+<li><a href="https://jakevdp.github.io/PythonDataScienceHandbook/05.06-linear-regression.html">Radverkehr</a></li>
+<li>Diabetes Verhersage</li>
+<li>Hauspreise in Boston</li>
+</ul>
+
+      </section><section class="slide" id="slide-19-4">
+        <h2 id="polynomiale-regression">Polynomiale Regression</h2>
+<p>Manche Daten passen nicht in das Schema eines linearen Zusammenhangs <code>y = a*x + b</code>.</p>
+<p>Wir können z.B. versuchen, sie durch einen polynomialen Zusammenhang <code>y = a*x^2 + b*x + c</code> darzustellen.</p>
+
+      </section><section class="slide" id="slide-19-5">
+        <h2 id="polynomiale-regression">Polynomiale Regression</h2>
+<p>In scikit-learn können wir eine polynomiale Regression durch einen <em>Preprocessor</em> namens <code>PolynomialFeatures</code> durchführen.</p>
+
+      </section><section class="slide" id="slide-19-6">
+        <h2 id="polynomiale-regression">Polynomiale Regression</h2>
+<p>Als Beispieldaten verwenden wir den Datensatz <em>II</em> aus den sogenannten Anscombe Daten:</p>
+<pre><code class="language-py"><span class="hljs-keyword">import</span> seaborn <span class="hljs-keyword">as</span> sns
+
+anscombe = sns.load_dataset(<span class="hljs-string">"anscombe"</span>)
+anscombe_2 = anscombe[anscombe.dataset == <span class="hljs-string">"II"</span>]</code></pre>
+
+      </section><section class="slide" id="slide-19-7">
+        <h2 id="polynomiale-regression">Polynomiale Regression</h2>
+<p>Wir nähern die Daten mit einer Polynomfunktion vom Grad 3 an:</p>
+<pre><code class="language-py">poly_model = make_pipeline(
+    PolynomialFeatures(<span class="hljs-number">3</span>),
+    linear_model.LinearRegression()
+)
+
+poly_model.fit(X, y)</code></pre>
+<p>Aufgabe: Vergleiche die Ergebnisse einer einfachen Linearen Regression mit der polynomialen Regression.</p>
+
+      </section><section class="slide" id="slide-19-8">
+        <h2 id="overfitting">Overfitting</h2>
+
+      </section></section><section class="section" id="section-20"><section class="slide" id="slide-20-1">
+        <h1 id="klassifizierung">Klassifizierung</h1>
+
+      </section><section class="slide" id="slide-20-2">
+        <h2 id="klassifizierungsalgorithmen">Klassifizierungsalgorithmen</h2>
+<ul>
+<li>K-Nearest-Neighbors</li>
+<li>Logistische Regression</li>
+<li>Naive Bayes</li>
+<li>Support Vector Machine</li>
+<li>Entscheidungsbäume und Random Forests</li>
+</ul>
+<p>Siehe auch: <a href="https://scikit-learn.org/stable/auto_examples/classification/plot_classifier_comparison.html">classifier comparison von scikit-learn</a></p>
+
+      </section><section class="slide" id="slide-20-3">
+        <h2 id="k-nearest-neighbors">K-Nearest-Neighbors</h2>
+<p>Ein neuer Datenpunkt wird klassifiziert, indem seine nächsten Nachbarn betrachtet werden. Die bei den Nachbarn am häufigsten vorkommende Klasse wird auch für den Datenpunkt festgesetzt.</p>
+<p>Die Anzahl <code>k</code> der betrachteten Nachbarn kann festgesetzt werden (Standardwert = 5)</p>
+<p>Siehe auch: <a href="https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html#sklearn.neighbors.KNeighborsClassifier">https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html#sklearn.neighbors.KNeighborsClassifier</a></p>
+
+      </section><section class="slide" id="slide-20-4">
+        <h2 id="logistische-regression">Logistische Regression</h2>
+<p>An einer Grenze zwischen zwei Klassen wird mit Hilfe einer <em>logistischen Funktion</em> angegeben, wie groß die Wahrscheinlichkeit ist, dass der Datenpunkt zu der einen (bzw zu der anderen) Klasse gehört. Je nachdem, welche der Wahrscheinlichkeiten größer als 50% ist, wird die entsprechende Klasse zugewiesen.</p>
+<p>Die logistische Funktion selbst wird intern mittels Regression bestimmt (daher der Name).</p>
+<p>Beispiel: <a href="https://scikit-learn.org/stable/auto_examples/linear_model/plot_logistic.html#sphx-glr-auto-examples-linear-model-plot-logistic-py">https://scikit-learn.org/stable/auto_examples/linear_model/plot_logistic.html#sphx-glr-auto-examples-linear-model-plot-logistic-py</a></p>
+
+      </section><section class="slide" id="slide-20-5">
+        <h2 id="naive-bayes">Naive Bayes</h2>
+<p>Für die bekannten Klassen werden Wahrscheinlichkeitsverteilungen angenommen (z.B. Normalverteilung, Multinomialverteilung). Diese Verteilungen werden aus den Trainingsdaten hergeleitet.</p>
+<p>Für einen neuen Datenpunkt wird dann errechnet, unter welcher der Verteilungen er am ehesten auftreten würde.</p>
+<p>Zwei wichtige Verteilungen sind die Normalverteilung (Gauß&#39;sche Verteilung) für kontinuierliche Werte und die Multinomialverteilung für diskrete Werte (Ganzzahlen).</p>
+
+      </section><section class="slide" id="slide-20-6">
+        <h2 id="support-vector-machines">Support Vector Machines</h2>
+<p>Einfachster Fall: Trennung von Klassen durch Geraden / Ebenen / Hyperebenen - diese Trenner sollen von den getrennten Punkten maximalen Abstand haben.</p>
+<p>Durch Kernelfunktionen können die Grenzen auch andere Formen annehmen, z.B. die von Kegelschnitten für polynomiale Kernel vom Grad 2 oder anderen Kurven.</p>
+<p>Siehe auch: <a href="https://scikit-learn.org/stable/modules/svm.html">https://scikit-learn.org/stable/modules/svm.html</a></p>
+
+      </section><section class="slide" id="slide-20-7">
+        <h2 id="entscheidungsbäume-decision-trees">Entscheidungsbäume (Decision Trees)</h2>
+<p>Machine Learning Bibliotheken können sogenannte Entscheidungsbäume auf Basis von Trainingsdaten generieren.</p>
+<p>Beispiel für einen Entscheidungsbaum für die Iris-Klassifizierung:</p>
+<ul>
+<li>Ist die <em>petal length</em> kleiner oder gleich 2.4?<ul>
+<li>ja: <strong>setosa</strong></li>
+<li>nein: Ist die <em>petal width</em> kleiner oder gleich 1.7?<ul>
+<li>ja: Ist die <em>petal length</em> kleiner oder gleich 5.0?<ul>
+<li>ja: <strong>versicolor</strong></li>
+<li>nein: <strong>virginica</strong></li>
+</ul>
+</li>
+<li>nein: <strong>virginica</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+      </section><section class="slide" id="slide-20-8">
+        <h2 id="beispiele-zur-klassifizierung">Beispiele zur Klassifizierung</h2>
+<ul>
+<li>Erkennen von Ziffern</li>
+</ul>
+
+      </section></section><section class="section" id="section-21"><section class="slide" id="slide-21-1">
+        <h1 id="modellauswahl-und-hyperparameter">Modellauswahl und Hyperparameter</h1>
+<p>siehe <a href="https://jakevdp.github.io/PythonDataScienceHandbook/05.03-hyperparameters-and-model-validation.html#Selecting-the-Best-Model">Python Data Science Handbook → Hyperparameters and Model Validation → Selecting the Best Model</a></p>
+
+      </section></section><section class="section" id="section-22"><section class="slide" id="slide-22-1">
         <h1 id="resources">Resources</h1>
 <p>Pandas website: <a href="https://pandas.pydata.org/">https://pandas.pydata.org/</a></p>
 <p>Python Data Science Handbook: <a href="https://jakevdp.github.io/PythonDataScienceHandbook/">https://jakevdp.github.io/PythonDataScienceHandbook/</a></p>

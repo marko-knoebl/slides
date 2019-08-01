@@ -1,6 +1,6 @@
 # Machine learning
 
-## Machine learning methods
+## Categories of methods
 
 - supervised learning
 - unsupervised learning
@@ -18,10 +18,9 @@
 
 ## Real-world tasks
 
-- spam detection based on a number of words / phrases (2x "nigerian prince", 1x "viagra")
-- estimation of distance of galaxy based on its redshift
-- ?
-- mapping position of two hands of a clock to a single time value?
+- _classification_: spam detection based on a number of words / phrases (2x "nigerian prince", 1x "viagra")
+- _regression_: estimation of distance of galaxy based on its redshift
+- _clustering_ recognizing reoccuring elements in computer vision
 
 ## Example: linear regression
 

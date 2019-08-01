@@ -167,6 +167,41 @@ print(a * b)
 # np.array([2, 4, 6])
 ```
 
+## Operationen auf Arrays
+
+NumPy bietet spezielle Funktionen, die elementweise angewendet werden
+
+```py
+a = np.array([0, 1, 2, 3])
+
+print(np.sin(a)) # [0.0, 0.84147098, 0.9... ]
+print(np.sqrt(a)) # [0.0, 1.0, 1.414... ]
+```
+
+## Arrays erstellen
+
+Ein Array der Größe 2x6, gefüllt mit Nullen:
+
+```py
+np.zeros((2, 6))
+np.full((2, 6), 0)
+```
+
+Die Folge _0.0, 0.5, 1.0, 1.5_:
+
+```py
+# fixed step width (0.5)
+a = np.arange(0, 2, 0.5)
+# fixed number of entries (4)
+b = np.linspace(0, 1.5, 4)
+```
+
+Ein 3x3 Array mit Zufallswerten:
+
+```py
+np.random.random(3, 3)
+```
+
 ## Übungen
 
 Gegeben sind ein Array von Preisen und ein Array von gekauften Mengen. Bestimme den Gesamtpreis:

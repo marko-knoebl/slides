@@ -35,7 +35,7 @@ Marko Knöbl
 
 # Pakete
 
-## Python Pakete for data science
+## Python Pakete für Data Science
 
 - _Jupyter_ & _IPython_: interaktive Python Umgebungen
 - _NumPy_: Bibliothek zum effizienten Verarbeiten numerischer Daten
@@ -45,13 +45,21 @@ Marko Knöbl
 
 ## Anaconda
 
-Anaconda = Python Distribution, die viele vorinstallierte Pakete und Entwicklerwerkzeuge enthält
+_Anaconda_ = Python Distribution, die viele vorinstallierte Pakete und Entwicklerwerkzeuge enthält
 
 Benötigt ~3GB Platz auf der Festplatte
 
+## Installation von Anaconda
+
+Download von https://www.anaconda.com/distribution/
+
+(Achte auf die Wahl des richtigen Betriebssystems)
+
+Unter Windows sollte der Installationspfad keine Leerzeichen enthalten (Empfehlung: `C:/anaconda`) - siehe https://docs.anaconda.com/anaconda/user-guide/faq/#distribution-faq-windows-folder
+
 ## Conda
 
-Conda = Environment- und Paketmanager
+_Conda_ = Environment- und Paketmanager
 
 Erlaubt das Installieren verschiedener Versionen von Python, von Python-Paketen und anderen Abhängigkeiten - insbesondere hilfreich für externe Libraries, die nicht in Python geschrieben sind und kompiliert werden müssen
 
@@ -60,6 +68,10 @@ Erlaubt das Installieren verschiedener Versionen von Python, von Python-Paketen 
 _Miniconda_ = Distribution, die nur Python und Conda enthält, weitere Pakete müssen über Conda installiert werden
 
 Benötigt anfangs ~250 MB Speicherplatz
+
+## Pyodide
+
+_Pyodide_ = Python Distribution, die direkt im Browser ausgeführt wird (via _WebAssembly_)
 
 # Jupyter & IPython
 
@@ -802,6 +814,14 @@ Ein 3x3 Array mit Zufallswerten:
 np.random.random(3, 3)
 ```
 
+## Form ändern
+
+```py
+array_1d = array_3d.reshape(8)
+array_2d = array_3d.reshape(2, 4)
+array_2d = array_3d.reshape(2, -1) # automatic second dimension
+```
+
 ## Dimension erhöhen
 
 Hinzufügen einer extra Dimension der Länge 1 via `newaxis` - Verwandeln eines 2 x 2 Arrays in ein 2 x 2 x 1 Array:
@@ -851,18 +871,67 @@ np.concatenate([a2d, a2n], axis=1)
 
 # Machine learning
 
-## Beispielhafte Aufgaben
+## Kategorien von Methoden
+
+- Supervised learning (Überwachtes Lernen)
+- Unsupervised learning
+- Reinforcement learning
+
+## Beispiele für Aufgaben
 
 - Regression
 - Klassifizierung
 - Clustering
 - Dimensionsreduktion
 
-# Regression
+## Beispiele für Aufgaben
+
+### Regression
+
+Zuweisung von numerischen Werten zu numerischen Eingabedaten
+
+Beispiele:
+
+- Schätzung der Entfernung einer Galaxie basierend auf der Rotverschiebung
+- Schätzung der Kursentwicklung einer Aktie
+
+## Beispiele für Aufgaben
+
+### Klassifikation
+
+Zuweisung von Klassen zu numerischen Eingabedaten
+
+Beispiele:
+
+- Spam-Filterung basierend auf einer Anzahl an Wörtern / Phrasen (2x "nigerian prince", 1x "viagra")
+- Erkennen von Objekten / Personen / Zeichen auf Bildern
+
+## Beispiele für Aufgaben
+
+### Clustering
+
+Erkennen von Gruppierungen / Clustern bei numerischen Eingabedaten
+
+Beispiele:
+
+- Erkennen wiederkehrender Elemente in Bildern
+
+# Regression - Grundlagen
 
 ## Lineare Regression
 
-Bedeutet: Festlegen einer linearen Funktion, die die Datenpunkte bestmöglich approximiert (kleinste Quadratsumme).
+## Lineare Regression
+
+Beispiel: Wir betrachten verschiedene Einkäufe bei verschiedenen Supermärkten:
+
+- 1 l Milch, 1 kg Brot: 4.58€
+- 2 l Milch, 3 kg Brot: 13.50€
+- 3 l Milch, 2 kg Brot: 11.98€
+- (0 l Milch, 0 kg Brot: 0€)
+
+Was wäre eine passende Schätzung für den Preis von 1 Liter Milch / 1 kg Brot? Wenn wir bei einem Supermarkt 2 Liter Milch und 2 kg Brot kaufen, welcher Preis wäre in etwa zu erwarten?
+
+Diese Aufgabe kann mit Hilfe von linearer Regression beantwortet werden.
 
 ## Lineare Regression
 
@@ -871,21 +940,359 @@ Beispiel:
 ```py
 from sklearn.linear_model import LinearRegression
 
-x = np.array([0, 1, 1, 2, 3])
-y = np.array([3, 4.5, 5, 5, 4.5])
-X = x[:, np.newaxis]
+X = [[1, 1], [2, 3], [3, 2], [0, 0]]
+y = [4.58, 14.50, 11.98, 0.0]
 
-model = LinearRegression
+model = LinearRegression()
 model.fit(X, y)
 
-yfit = model.predict(X)
+yfit = model.predict([[1, 0], [0, 1], [2, 2]])
+print(yfit)
 ```
+
+## Lineare Regression - Beispiel
+
+Iris-Datensatz: Abschätzen der _sepal width_ basierend auf der _sepal length_
 
 ## Beispiele
 
-- Umlaufzeit der Planeten -> Mittlerer Sonnenabstand (oder andere Richtung)
-- Rechnungsbetrag -> Trinkgeld
 - Radverkehr
+
+# Klassifizierung - Grundlagen
+
+## Klassifizierung
+
+Aufgabe: Klassifizierung von Iris-Pflanzen basierend auf ihren Maßen
+
+Gegeben ist eine Reihe von Daten mit bekannten Maßen und bekannten Spezies. Baiserend darauf: Trainieren eines Algorithmus, um später die Spezies anderer Pflanzen zu bestimmen.
+
+## Klassifizierung
+
+In diesem Fall verwenden wir einen _K-nearest-neighbors-Klassifikator_ als Algorithmus, andere Algorithmen wären genauso denkbar.
+
+## Klassifizierung
+
+Vorbereiten der Daten:
+
+```py
+from sklearn import datasets
+
+iris = datasets.load_iris()
+
+X = iris.data
+y = iris.target
+
+test_data = [
+    [5.3, 3.4, 1.9, 0.6],
+    [6.0, 3.0, 4.7, 1.5],
+    [6.5, 3.1, 5.0, 1.7]
+]
+```
+
+## Klassifizierung
+
+Durchführen der Klassifizierung
+
+```py
+from sklearn.neighbors import KNeighborsClassifier
+
+model = KNeighborsClassifier()
+model.fit(X, y)
+
+y_pred = model.predict(test_data)
+print(y_pred)
+```
+
+## Klassifizierung
+
+Weitere Aufgaben:
+
+Wir verwenden andere Klassifikatoren, wie etwa:
+
+- `SVC`
+- `DecisionTreeClassifier`
+- `GaussianNB`
+
+# Validierung
+
+## Train-Test Split
+
+Um zu validieren, ob ein Verfahren ein passendes Ergebnis liefert:
+
+Die Daten (X, y) werden in Trainingsdaten und Testdaten unterteilt. Die Testdaten dienen zur Validierung
+
+## Train-Test Split
+
+Frage: wie gut approximiert unsere lineare Regression die Iris Daten?
+
+```py
+from sklearn.model_selection import train_test_split
+from sklearn import metrics
+
+X_train, X_test, y_train, y_test = train_test_split(X, y)
+
+...
+
+print(metrics.r2_score(y_prediction, y_test))
+```
+
+Wir können einen Parameter `test_size` angeben, dessen Standardwert `0.25` ist (d.h. 25% der Daten werden zur Validierung verwendet)
+
+## Kreuzvalidierung
+
+Bei der cross-validation werden die Daten wiederholt in unterschiedliche Trainings- und Testdaten unterteilt, sodass jeder Eintrag einmal in den Testdaten vorkommt
+
+```py
+from sklearn.model_selection import cross_validate
+
+...
+
+test_results = cross_validate(model, X, y, cv=5, scoring="r2")
+test_scores = test_results["test_score"]
+print(test_scores)
+# [ 0.61840428  0.72569954 -1.1742135   0.44294841  0.50589789]
+print(test_scores.mean())
+```
+
+## Validierung
+
+Regression:
+
+- R2 score
+- mean squared error
+
+Klassifizierung:
+
+- Accuracy (Anteil an richtig klassifizierten Einträgen)
+- Confusion Matrix (Anteil an richtig / falsch klassifizierten Einträgen für jede Klasse)
+
+Siehe https://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics
+
+## Validierung
+
+Aufgabe: Validierung der Iris-Klassifizierung mittels eines einfachen Train-Test Splits
+
+## ROC
+
+_ROC_ = _Receiver Operating Characteristic_
+
+Ist eine Metrik, die bei einer ja/nein-Entscheidung zu einer Klassenzugehörigkeit ins Spiel kommt. Sie beschäftigt sich mit _true positives_ und _false positives_
+
+## ROC
+
+Beispiel: Die Erkennung der Klasse _iris versicolor_ kann z.B. folgendermaßen fein eingestellt werden (Daten sind erfunden):
+
+- Option 1: 60% der _iris versicolor_ werden richtig als solche erkannt
+- Option 2: 80% der _iris versicolor_ werden richtig als solche erkannt (aber auch 10% der _iris virginica_ werden fälschlicherweise als solche klassifiziert)
+- Option 3: 90% der _iris versicolor_ werden richtig als solche erkannt (aber auch 25% der _iris virginica_ werden fälschlicherweise als solche klassifiziert)
+
+Die ROC beschreibt den Zusammenhang von _true positives_ und _false positives_ und kann als Kurve dargestellt werden. Je größer die Fläche unter der Kurve (AUC), umso besser die Klassifizierung. 
+
+## ROC
+
+Zeichnen der ROC
+
+```py
+false_positive_rates, true_positive_rates, thresholds = metrics.roc_curve(
+    y_test,
+    classifier.predict_proba(X_test)[: 1]
+)
+
+plt.plot(false_positive_rate, true_positive_rate)
+```
+
+Bestimmen der Fläche unter der Kurve:
+
+```py
+auc = metrics.auc(false_positive_rates, true_positive_rates)
+```
+
+## ROC
+
+Aufgabe: Zeichne eine ROC für die Klassifikation von _iris setosa_
+
+# Daten vorbereiten
+
+## Daten vorbereiten
+
+üblicherweise:
+
+- `X`: zweidimensionales Array mit Eingangsdaten
+- `y`: eindimensionales Array mit Resultaten
+
+Die Arrays `X` und `y` sollten numerische Daten enthalten
+
+## Fehlende Daten
+
+Fehlende Daten werden häufig in der Form von `NaN`s auftreten.
+
+Mögliche Behandlungen:
+
+- Löschen aller Zeilen, die an irgendeiner Stelle undefinierte Werte enthalten
+- Interpolieren der fehlenden Werte durch andere Daten
+
+## Skalieren von Werten
+
+Welche dieser beiden Sterne ist der Sonne am ähnlichsten?
+
+```py
+# data: radius (km), mass (kg), temparature (K)
+sun =    [7.0e7, 2.0e30, 5.8e3]
+
+star_a = [6.5e7, 3.0e30, 5.2e3]
+star_b = [7.0e8, 2.5e30, 8.1e3]
+```
+
+Machine Learning Algorithmen wie z.B. k-Nearest-Neighbor betrachten Absolutwerte. Hier würde vom Algorithmus im wesentlichen nur die Masse herangezogen worden, da alle anderen Werte im Vergleich verschwindend gering sind.
+
+## Skalieren von Werten
+
+Lösung: Die Werte werden zentriert und skaliert, sodass ihr Mittelwert 0 und die Standardabweichung 1 ist
+
+```py
+from sklearn import preprocessing
+import numpy as np
+X_train = np.array([[ 7.0e7, 2.0e30, 5.8e3],
+                    [ 6.5e7, 3.0e30, 5.2e3],
+                    [ 7.0e9, 2.5e30, 3.1e3]])
+X_scaled = preprocessing.scale(X_train)
+```
+
+Resultat:
+
+```py
+array([[-0.70634165, -1.22474487,  0.95025527],
+       [-0.70787163,  1.22474487,  0.43193421],
+       [ 1.41421329,  0.        , -1.38218948]])
+```
+
+## Kategoriedaten
+
+Manchmal sind Kategorien als Daten angegeben - z.B. `iris setosa`, `iris virginica`, `iris versicolor`
+
+## Textdaten
+
+## Pipelines
+
+- `Imputer`
+- `StandardScaler`
+- (`PolynomialFeatures` - mehr dazu später)
+
+# Regression
+
+## Lineare Regression
+
+Bedeutet: Festlegen einer linearen Funktion, die die Datenpunkte bestmöglich approximiert (kleinste Quadratsumme)
+
+## Lineare Regression - Beispiele
+
+- [Radverkehr](https://jakevdp.github.io/PythonDataScienceHandbook/05.06-linear-regression.html)
+- Diabetes Verhersage
+- Hauspreise in Boston
+
+## Polynomiale Regression
+
+Manche Daten passen nicht in das Schema eines linearen Zusammenhangs `y = a*x + b`.
+
+Wir können z.B. versuchen, sie durch einen polynomialen Zusammenhang `y = a*x^2 + b*x + c` darzustellen.
+
+## Polynomiale Regression
+
+In scikit-learn können wir eine polynomiale Regression durch einen _Preprocessor_ namens `PolynomialFeatures` durchführen.
+
+## Polynomiale Regression
+
+Als Beispieldaten verwenden wir den Datensatz _II_ aus den sogenannten Anscombe Daten:
+
+```py
+import seaborn as sns
+
+anscombe = sns.load_dataset("anscombe")
+anscombe_2 = anscombe[anscombe.dataset == "II"]
+```
+
+## Polynomiale Regression
+
+Wir nähern die Daten mit einer Polynomfunktion vom Grad 3 an:
+
+```py
+poly_model = make_pipeline(
+    PolynomialFeatures(3),
+    linear_model.LinearRegression()
+)
+
+poly_model.fit(X, y)
+```
+
+Aufgabe: Vergleiche die Ergebnisse einer einfachen Linearen Regression mit der polynomialen Regression.
+
+## Overfitting
+
+# Klassifizierung
+
+## Klassifizierungsalgorithmen
+
+- K-Nearest-Neighbors
+- Logistische Regression
+- Naive Bayes
+- Support Vector Machine
+- Entscheidungsbäume und Random Forests
+
+Siehe auch: [classifier comparison von scikit-learn](https://scikit-learn.org/stable/auto_examples/classification/plot_classifier_comparison.html)
+
+## K-Nearest-Neighbors
+
+Ein neuer Datenpunkt wird klassifiziert, indem seine nächsten Nachbarn betrachtet werden. Die bei den Nachbarn am häufigsten vorkommende Klasse wird auch für den Datenpunkt festgesetzt.
+
+Die Anzahl `k` der betrachteten Nachbarn kann festgesetzt werden (Standardwert = 5)
+
+Siehe auch: https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html#sklearn.neighbors.KNeighborsClassifier
+
+## Logistische Regression
+
+An einer Grenze zwischen zwei Klassen wird mit Hilfe einer _logistischen Funktion_ angegeben, wie groß die Wahrscheinlichkeit ist, dass der Datenpunkt zu der einen (bzw zu der anderen) Klasse gehört. Je nachdem, welche der Wahrscheinlichkeiten größer als 50% ist, wird die entsprechende Klasse zugewiesen.
+
+Die logistische Funktion selbst wird intern mittels Regression bestimmt (daher der Name).
+
+Beispiel: https://scikit-learn.org/stable/auto_examples/linear_model/plot_logistic.html#sphx-glr-auto-examples-linear-model-plot-logistic-py
+
+## Naive Bayes
+
+Für die bekannten Klassen werden Wahrscheinlichkeitsverteilungen angenommen (z.B. Normalverteilung, Multinomialverteilung). Diese Verteilungen werden aus den Trainingsdaten hergeleitet.
+
+Für einen neuen Datenpunkt wird dann errechnet, unter welcher der Verteilungen er am ehesten auftreten würde.
+
+Zwei wichtige Verteilungen sind die Normalverteilung (Gauß'sche Verteilung) für kontinuierliche Werte und die Multinomialverteilung für diskrete Werte (Ganzzahlen).
+
+## Support Vector Machines
+
+Einfachster Fall: Trennung von Klassen durch Geraden / Ebenen / Hyperebenen - diese Trenner sollen von den getrennten Punkten maximalen Abstand haben.
+
+Durch Kernelfunktionen können die Grenzen auch andere Formen annehmen, z.B. die von Kegelschnitten für polynomiale Kernel vom Grad 2 oder anderen Kurven.
+
+Siehe auch: https://scikit-learn.org/stable/modules/svm.html
+
+## Entscheidungsbäume (Decision Trees)
+
+Machine Learning Bibliotheken können sogenannte Entscheidungsbäume auf Basis von Trainingsdaten generieren.
+
+Beispiel für einen Entscheidungsbaum für die Iris-Klassifizierung:
+
+- Ist die _petal length_ kleiner oder gleich 2.4?
+  - ja: **setosa**
+  - nein: Ist die _petal width_ kleiner oder gleich 1.7?
+    - ja: Ist die _petal length_ kleiner oder gleich 5.0?
+      - ja: **versicolor**
+      - nein: **virginica**
+    - nein: **virginica**
+
+## Beispiele zur Klassifizierung
+
+- Erkennen von Ziffern
+
+# Modellauswahl und Hyperparameter
+
+siehe [Python Data Science Handbook → Hyperparameters and Model Validation → Selecting the Best Model](https://jakevdp.github.io/PythonDataScienceHandbook/05.03-hyperparameters-and-model-validation.html#Selecting-the-Best-Model)
 
 # Resources
 

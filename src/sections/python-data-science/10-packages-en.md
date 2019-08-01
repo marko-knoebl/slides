@@ -10,20 +10,26 @@
 
 ## Anaconda
 
-Anaconda = Python distribution that includes many pre-installed packages and developer tools
+_Anaconda_ = Python distribution that includes many pre-installed packages and developer tools
 
 Takes ~ 3 GB of disk space
 
+## Anaconda installation
+
+download from https://www.anaconda.com/distribution/
+
+(make sure to download for the correct OS)
+
+On Windows, the installation path should not contain spaces or underscores (recommendation: `C:/anaconda`) - see https://docs.anaconda.com/anaconda/user-guide/faq/#distribution-faq-windows-folder
+
 ## Conda
 
-Conda = management tool for Python packages and environments, used by Anaconda
+_Conda_ = management tool for Python packages and environments, used by Anaconda
 
 Enables installation of multiple versions of Python and Python packages
 
 Particularly useful for external libraries that are written in a compiled language
 
-## Miniconda
+## Pyodide
 
-_Miniconda_ = distribution that only includes Python and Conda, all other packages must be installed via Conda
-
-Initially takes ~ 250 MB of disk space
+_Pyodide_ = Python distribution that can be run directly in the Browser (via _WebAssembly_)

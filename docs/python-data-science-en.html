@@ -176,15 +176,20 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <p>Takes ~ 3 GB of disk space</p>
 
       </section><section class="slide" id="slide-2-4">
+        <h2 id="anaconda-installation">Anaconda installation</h2>
+<p>download from <a href="https://www.anaconda.com/distribution/">https://www.anaconda.com/distribution/</a></p>
+<p>(make sure to download for the correct OS)</p>
+<p>On Windows, the installation path should not contain spaces or underscores (recommendation: <code>C:/anaconda</code>) - see <a href="https://docs.anaconda.com/anaconda/user-guide/faq/#distribution-faq-windows-folder">https://docs.anaconda.com/anaconda/user-guide/faq/#distribution-faq-windows-folder</a></p>
+
+      </section><section class="slide" id="slide-2-5">
         <h2 id="conda">Conda</h2>
-<p>Conda = management tool for Python packages and environments, used by Anaconda</p>
+<p><em>Conda</em> = management tool for Python packages and environments, used by Anaconda</p>
 <p>Enables installation of multiple versions of Python and Python packages</p>
 <p>Particularly useful for external libraries that are written in a compiled language</p>
 
-      </section><section class="slide" id="slide-2-5">
-        <h2 id="miniconda">Miniconda</h2>
-<p><em>Miniconda</em> = distribution that only includes Python and Conda, all other packages must be installed via Conda</p>
-<p>Initially takes ~ 250 MB of disk space</p>
+      </section><section class="slide" id="slide-2-6">
+        <h2 id="pyodide">Pyodide</h2>
+<p><em>Pyodide</em> = Python distribution that can be run directly in the Browser (via <em>WebAssembly</em>)</p>
 
       </section></section><section class="section" id="section-3"><section class="slide" id="slide-3-1">
         <h1 id="jupyter--ipython">Jupyter &amp; IPython</h1>
@@ -818,14 +823,15 @@ plt.show()</code></pre>
       </section><section class="slide" id="slide-12-3">
         <h2 id="plotting-functions">Plotting functions</h2>
 <pre><code class="language-py"><span class="hljs-comment"># graph</span>
+data.plot.line()
 data.plot()
 <span class="hljs-comment"># bar chart</span>
 data.plot.bar()
-<span class="hljs-comment"># box plots</span>
+<span class="hljs-comment"># box plot</span>
 data.plot.box()
-<span class="hljs-comment"># histograms</span>
+<span class="hljs-comment"># histogram</span>
 data.plot.hist()
-<span class="hljs-comment"># scatter plots</span>
+<span class="hljs-comment"># scatter plot</span>
 data.plot.scatter(x=<span class="hljs-string">"colname_1"</span>, y=<span class="hljs-string">"colname_2"</span>)
 <span class="hljs-comment"># scatter matrix</span>
 <span class="hljs-keyword">from</span> pandas.plotting <span class="hljs-keyword">import</span> scatter_matrix
@@ -834,8 +840,8 @@ scatter_matrix(data)</code></pre>
       </section><section class="slide" id="slide-12-4">
         <h2 id="graphs">Graphs</h2>
 <p>example:</p>
-<pre><code class="language-py">euribor.plot()
-sp500[<span class="hljs-string">"SP500"</span>].plot()</code></pre>
+<pre><code class="language-py">euribor.plot.line()
+sp500[<span class="hljs-string">"SP500"</span>].plot.line(figsize=(<span class="hljs-number">9</span>, <span class="hljs-number">6</span>))</code></pre>
 
       </section><section class="slide" id="slide-12-5">
         <h2 id="bar-charts">Bar charts</h2>
@@ -875,9 +881,49 @@ sp500[<span class="hljs-string">"SP500"</span>].plot()</code></pre>
 scatter_matrix(iris)</code></pre>
 
       </section></section><section class="section" id="section-13"><section class="slide" id="slide-13-1">
-        <h1 id="numpy-advanced">NumPy advanced</h1>
+        <h1 id="plotting">Plotting</h1>
 
       </section><section class="slide" id="slide-13-2">
+        <h2 id="plotting">Plotting</h2>
+<ul>
+<li>plotting a series of y - values<ul>
+<li>bar chart</li>
+<li>(graph)</li>
+</ul>
+</li>
+<li>plotting a series of y - values (with x specified) (a functional correspondence)<ul>
+<li>bar chart</li>
+<li>graph</li>
+</ul>
+</li>
+<li>plotting data points with 2-4 features<ul>
+<li>scatter plot</li>
+<li>advanced scatter plot</li>
+</ul>
+</li>
+<li>plotting z = f(x, y)<ul>
+<li>contour plots</li>
+<li>3d plots</li>
+</ul>
+</li>
+<li>plotting density of some distribution<ul>
+<li>histogram</li>
+<li>box plot</li>
+<li>kde</li>
+<li>violin plot</li>
+</ul>
+</li>
+<li>plotting density (2d)<ul>
+<li>2d histogram (hist2d, hexbin)</li>
+<li>kde</li>
+</ul>
+</li>
+</ul>
+
+      </section></section><section class="section" id="section-14"><section class="slide" id="slide-14-1">
+        <h1 id="numpy-advanced">NumPy advanced</h1>
+
+      </section><section class="slide" id="slide-14-2">
         <h2 id="creating-arrays">Creating arrays</h2>
 <p>create a 2x6 array filled with 0:</p>
 <pre><code class="language-py">np.zeros((<span class="hljs-number">2</span>, <span class="hljs-number">6</span>))
@@ -890,7 +936,7 @@ b = np.linspace(<span class="hljs-number">0</span>, <span class="hljs-number">1.
 <p>create a 3x3 array of random values:</p>
 <pre><code class="language-py">np.random.random(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>)</code></pre>
 
-      </section><section class="slide" id="slide-13-3">
+      </section><section class="slide" id="slide-14-3">
         <h2 id="reshaping-arrays">Reshaping arrays</h2>
 <p>Adding an extra dimension of length 1 via <code>newaxis</code> - turning a 2 x 2 array into a 2 x 2 x 1 array:</p>
 <pre><code class="language-py">array_2d = np.array([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]])
@@ -899,7 +945,7 @@ array_3d = array_2d[:, :, np.newaxis]
 
 <span class="hljs-comment"># [[[1], [2]], [[3], [4]]]</span></code></pre>
 
-      </section><section class="slide" id="slide-13-4">
+      </section><section class="slide" id="slide-14-4">
         <h2 id="slicing-arrays">Slicing arrays</h2>
 <pre><code class="language-py">a2d = np.array([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], [<span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">6</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">6</span>, <span class="hljs-number">9</span>]])
 
@@ -908,7 +954,7 @@ a2d[<span class="hljs-number">0</span>, :] <span class="hljs-comment"># [1, 2, 3
 a2d[<span class="hljs-number">1</span>:, <span class="hljs-number">1</span>:] <span class="hljs-comment"># [[4, 6], [6, 9]]</span>
 a2d[:, ::<span class="hljs-number">-1</span>] <span class="hljs-comment"># [3, 2, 1]</span></code></pre>
 
-      </section><section class="slide" id="slide-13-5">
+      </section><section class="slide" id="slide-14-5">
         <h2 id="slices-as-views">Slices as views</h2>
 <p>In ordinary Python we can make a shallow copy of a list by slicing it - this works differently in NumPy (in order to improve efficiency):</p>
 <pre><code class="language-py">list = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]
@@ -919,11 +965,11 @@ array = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">
 array_view = array[:]
 array_view[<span class="hljs-number">0</span>] = <span class="hljs-number">10</span> <span class="hljs-comment"># DOES change array</span></code></pre>
 
-      </section><section class="slide" id="slide-13-6">
+      </section><section class="slide" id="slide-14-6">
         <h2 id="copying-arrays">Copying arrays</h2>
 <p>Arrays can be copied via <code>array.copy()</code></p>
 
-      </section><section class="slide" id="slide-13-7">
+      </section><section class="slide" id="slide-14-7">
         <h2 id="concatenating-arrays">Concatenating arrays</h2>
 <pre><code class="language-py">np.concatenate([a2d, a2d])
 

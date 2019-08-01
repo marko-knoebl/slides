@@ -1,6 +1,6 @@
 # Pakete
 
-## Python Pakete for data science
+## Python Pakete für Data Science
 
 - _Jupyter_ & _IPython_: interaktive Python Umgebungen
 - _NumPy_: Bibliothek zum effizienten Verarbeiten numerischer Daten
@@ -10,18 +10,24 @@
 
 ## Anaconda
 
-Anaconda = Python Distribution, die viele vorinstallierte Pakete und Entwicklerwerkzeuge enthält
+_Anaconda_ = Python Distribution, die viele vorinstallierte Pakete und Entwicklerwerkzeuge enthält
 
 Benötigt ~3GB Platz auf der Festplatte
 
+## Installation von Anaconda
+
+Download von https://www.anaconda.com/distribution/
+
+(Achte auf die Wahl des richtigen Betriebssystems)
+
+Unter Windows sollte der Installationspfad keine Leerzeichen enthalten (Empfehlung: `C:/anaconda`) - siehe https://docs.anaconda.com/anaconda/user-guide/faq/#distribution-faq-windows-folder
+
 ## Conda
 
-Conda = Environment- und Paketmanager
+_Conda_ = Environment- und Paketmanager
 
 Erlaubt das Installieren verschiedener Versionen von Python, von Python-Paketen und anderen Abhängigkeiten - insbesondere hilfreich für externe Libraries, die nicht in Python geschrieben sind und kompiliert werden müssen
 
-## Miniconda
+## Pyodide
 
-_Miniconda_ = Distribution, die nur Python und Conda enthält, weitere Pakete müssen über Conda installiert werden
-
-Benötigt anfangs ~250 MB Speicherplatz
+_Pyodide_ = Python Distribution, die direkt im Browser ausgeführt wird (via _WebAssembly_)

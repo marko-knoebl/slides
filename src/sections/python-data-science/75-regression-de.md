@@ -2,27 +2,48 @@
 
 ## Lineare Regression
 
-Bedeutet: Festlegen einer linearen Funktion, die die Datenpunkte bestmöglich approximiert (kleinste Quadratsumme).
+Bedeutet: Festlegen einer linearen Funktion, die die Datenpunkte bestmöglich approximiert (kleinste Quadratsumme)
 
-## Lineare Regression
+## Lineare Regression - Beispiele
 
-Beispiel:
+- [Radverkehr](https://jakevdp.github.io/PythonDataScienceHandbook/05.06-linear-regression.html)
+- Diabetes Verhersage
+- Hauspreise in Boston
+
+## Polynomiale Regression
+
+Manche Daten passen nicht in das Schema eines linearen Zusammenhangs `y = a*x + b`.
+
+Wir können z.B. versuchen, sie durch einen polynomialen Zusammenhang `y = a*x^2 + b*x + c` darzustellen.
+
+## Polynomiale Regression
+
+In scikit-learn können wir eine polynomiale Regression durch einen _Preprocessor_ namens `PolynomialFeatures` durchführen.
+
+## Polynomiale Regression
+
+Als Beispieldaten verwenden wir den Datensatz _II_ aus den sogenannten Anscombe Daten:
 
 ```py
-from sklearn.linear_model import LinearRegression
+import seaborn as sns
 
-x = np.array([0, 1, 1, 2, 3])
-y = np.array([3, 4.5, 5, 5, 4.5])
-X = x[:, np.newaxis]
-
-model = LinearRegression
-model.fit(X, y)
-
-yfit = model.predict(X)
+anscombe = sns.load_dataset("anscombe")
+anscombe_2 = anscombe[anscombe.dataset == "II"]
 ```
 
-## Beispiele
+## Polynomiale Regression
 
-- Umlaufzeit der Planeten -> Mittlerer Sonnenabstand (oder andere Richtung)
-- Rechnungsbetrag -> Trinkgeld
-- Radverkehr
+Wir nähern die Daten mit einer Polynomfunktion vom Grad 3 an:
+
+```py
+poly_model = make_pipeline(
+    PolynomialFeatures(3),
+    linear_model.LinearRegression()
+)
+
+poly_model.fit(X, y)
+```
+
+Aufgabe: Vergleiche die Ergebnisse einer einfachen Linearen Regression mit der polynomialen Regression.
+
+## Overfitting

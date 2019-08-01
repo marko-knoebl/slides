@@ -47,19 +47,25 @@ Anaconda = Python distribution that includes many pre-installed packages and dev
 
 Takes ~ 3 GB of disk space
 
+## Anaconda installation
+
+download from https://www.anaconda.com/distribution/
+
+(make sure to download for the correct OS)
+
+On Windows, the installation path should not contain spaces or underscores (recommendation: `C:/anaconda`) - see https://docs.anaconda.com/anaconda/user-guide/faq/#distribution-faq-windows-folder
+
 ## Conda
 
-Conda = management tool for Python packages and environments, used by Anaconda
+_Conda_ = management tool for Python packages and environments, used by Anaconda
 
 Enables installation of multiple versions of Python and Python packages
 
 Particularly useful for external libraries that are written in a compiled language
 
-## Miniconda
+## Pyodide
 
-_Miniconda_ = distribution that only includes Python and Conda, all other packages must be installed via Conda
-
-Initially takes ~ 250 MB of disk space
+_Pyodide_ = Python distribution that can be run directly in the Browser (via _WebAssembly_)
 
 # Jupyter & IPython
 
@@ -811,14 +817,15 @@ plt.show()
 
 ```py
 # graph
+data.plot.line()
 data.plot()
 # bar chart
 data.plot.bar()
-# box plots
+# box plot
 data.plot.box()
-# histograms
+# histogram
 data.plot.hist()
-# scatter plots
+# scatter plot
 data.plot.scatter(x="colname_1", y="colname_2")
 # scatter matrix
 from pandas.plotting import scatter_matrix
@@ -830,8 +837,8 @@ scatter_matrix(data)
 example:
 
 ```py
-euribor.plot()
-sp500["SP500"].plot()
+euribor.plot.line()
+sp500["SP500"].plot.line(figsize=(9, 6))
 ```
 
 ## Bar charts
@@ -893,6 +900,31 @@ from pandas.plotting import scatter_matrix
 
 scatter_matrix(iris)
 ```
+
+# Plotting
+
+## Plotting
+
+- plotting a series of y - values
+  - bar chart
+  - (graph)
+- plotting a series of y - values (with x specified) (a functional correspondence)
+  - bar chart
+  - graph
+- plotting data points with 2-4 features
+  - scatter plot
+  - advanced scatter plot
+- plotting z = f(x, y)
+  - contour plots
+  - 3d plots
+- plotting density of some distribution
+  - histogram
+  - box plot
+  - kde
+  - violin plot
+- plotting density (2d)
+  - 2d histogram (hist2d, hexbin)
+  - kde
 
 # NumPy advanced
 
