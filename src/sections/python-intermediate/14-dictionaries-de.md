@@ -44,18 +44,24 @@ for key, value in person.items():
 ## Operationen auf Dictionaries
 
 ```py
-d = {0: 'null', 1: 'eins', 2: 'zwei'}
+d = {0: 'zero', 1: 'one', 2: 'two'}
 
 d[2]
 d[2] = 'ZWEI'
 d[3] # KeyError
 d.get(3) # None
+d.setdefault(2, 'n')
+d.setdefault(3, 'n')
 
 d.keys()
 d.items()
 
 d1.update(d2)
 ```
+
+## Dictionaries
+
+Was kann als key verwendet werden?
 
 ## Beispiel: Vokabelprogramm
 
@@ -64,7 +70,3 @@ d1.update(d2)
 - zufälliges Auswählen eines Eintrags
 
 ## Beispiel: Todo-Liste
-
-## Dictionaries
-
-Was kann als key verwendet werden?

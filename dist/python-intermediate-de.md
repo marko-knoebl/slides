@@ -721,18 +721,24 @@ for key, value in person.items():
 ## Operationen auf Dictionaries
 
 ```py
-d = {0: 'null', 1: 'eins', 2: 'zwei'}
+d = {0: 'zero', 1: 'one', 2: 'two'}
 
 d[2]
 d[2] = 'ZWEI'
 d[3] # KeyError
 d.get(3) # None
+d.setdefault(2, 'n')
+d.setdefault(3, 'n')
 
 d.keys()
 d.items()
 
 d1.update(d2)
 ```
+
+## Dictionaries
+
+Was kann als key verwendet werden?
 
 ## Beispiel: Vokabelprogramm
 
@@ -741,10 +747,6 @@ d1.update(d2)
 - zufälliges Auswählen eines Eintrags
 
 ## Beispiel: Todo-Liste
-
-## Dictionaries
-
-Was kann als key verwendet werden?
 
 # Comprehensions
 
@@ -943,11 +945,13 @@ products = []
 if products: ...
 ```
 
+Diese Typen werden in boolesche Werte konvertiert bevor sie als Kriterium herangezogen werden.
+
 ## Kriterien bei if
 
 Grundsätzlich können beliebige Werte als Kriterium verwendet werden. Die meisten sind dabei "truthy".
 
-Folgende Werte gelten als "falsy":
+Folgende Werte gelten als "falsy" - ein Aufruf von `bool(...)` liefert `False` zurück:
 
 - `False`
 - `0`, `0.0`
@@ -975,7 +979,7 @@ if name:
 
 ## if Expression
 
-Ein Ausdruck der einen von zwei möglichen Werten ergibt - basierend auf einem booleschen Kriterium
+Ein Ausdruck, der einen von zwei möglichen Werten ergibt - basierend auf einem booleschen Kriterium
 
 ```py
 size = 'small' if length < 110 else 'big'
@@ -1119,9 +1123,20 @@ foo("one", "two", x="hello")
 
 `args` ist ein Tupel, `kwargs` ein Dictionary.
 
-## Beispiel
+## Beliebige Anzahl an Parametern (args / kwargs)
 
 Aufgabe: "Nachbau" von `range()`
+
+## Entpacken von Parameterlisten
+
+```py
+numbers = ["one", "two", "three"]
+
+# equivalent:
+print(numbers[0], numbers[1], numbers[2])
+
+print(*numbers)
+```
 
 ## Globaler und lokaler Scope
 

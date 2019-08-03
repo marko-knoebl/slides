@@ -28,11 +28,13 @@ products = []
 if products: ...
 ```
 
+Diese Typen werden in boolesche Werte konvertiert bevor sie als Kriterium herangezogen werden.
+
 ## Kriterien bei if
 
 Grundsätzlich können beliebige Werte als Kriterium verwendet werden. Die meisten sind dabei "truthy".
 
-Folgende Werte gelten als "falsy":
+Folgende Werte gelten als "falsy" - ein Aufruf von `bool(...)` liefert `False` zurück:
 
 - `False`
 - `0`, `0.0`
@@ -60,7 +62,7 @@ if name:
 
 ## if Expression
 
-Ein Ausdruck der einen von zwei möglichen Werten ergibt - basierend auf einem booleschen Kriterium
+Ein Ausdruck, der einen von zwei möglichen Werten ergibt - basierend auf einem booleschen Kriterium
 
 ```py
 size = 'small' if length < 110 else 'big'

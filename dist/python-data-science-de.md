@@ -63,12 +63,6 @@ _Conda_ = Environment- und Paketmanager
 
 Erlaubt das Installieren verschiedener Versionen von Python, von Python-Paketen und anderen Abhängigkeiten - insbesondere hilfreich für externe Libraries, die nicht in Python geschrieben sind und kompiliert werden müssen
 
-## Miniconda
-
-_Miniconda_ = Distribution, die nur Python und Conda enthält, weitere Pakete müssen über Conda installiert werden
-
-Benötigt anfangs ~250 MB Speicherplatz
-
 ## Pyodide
 
 _Pyodide_ = Python Distribution, die direkt im Browser ausgeführt wird (via _WebAssembly_)
@@ -97,13 +91,13 @@ Jupyter online ausprobieren:
 ### Binder (begrenzte Sessions)
 
 - Gehe zu https://jupyter.org/try
-- _Try Jupyter with Python_ auswählen
+- _Try Classic Notebook_ auswählen
 - warten ...
 - _File_ - _New Notebook_ - _Python 3_
 
 ## Jupyter Notebooks - lokal
 
-Starten: Eintrag _Jupyter Notebook_ im Startmenü
+Starten: Eintrag _Jupyter Notebook_ im Startmenü / Befeh `jupyter notebook` im Terminal
 
 Stoppen: _Quit_ im rechten oberen Eck der Ordneransicht (üblicherweise unter http://localhost:8888/tree)
 
@@ -359,6 +353,41 @@ print(a * b)
 # np.array([2, 4, 6])
 ```
 
+## Operationen auf Arrays
+
+NumPy bietet spezielle Funktionen, die elementweise angewendet werden
+
+```py
+a = np.array([0, 1, 2, 3])
+
+print(np.sin(a)) # [0.0, 0.84147098, 0.9... ]
+print(np.sqrt(a)) # [0.0, 1.0, 1.414... ]
+```
+
+## Arrays erstellen
+
+Ein Array der Größe 2x6, gefüllt mit Nullen:
+
+```py
+np.zeros((2, 6))
+np.full((2, 6), 0)
+```
+
+Die Folge _0.0, 0.5, 1.0, 1.5_:
+
+```py
+# fixed step width (0.5)
+a = np.arange(0, 2, 0.5)
+# fixed number of entries (4)
+b = np.linspace(0, 1.5, 4)
+```
+
+Ein 3x3 Array mit Zufallswerten:
+
+```py
+np.random.random(3, 3)
+```
+
 ## Übungen
 
 Gegeben sind ein Array von Preisen und ein Array von gekauften Mengen. Bestimme den Gesamtpreis:
@@ -471,7 +500,7 @@ Mögliche Schlüsselwortargumente für `read_csv`:
 
 Siehe auch: https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html
 
-## Importing CSV
+## CSV importieren
 
 Fortgeschrittenes Euribor-Beispiel:
 
@@ -746,6 +775,182 @@ ir_uk_weekly = ir_uk.resample('7d').interpolate()
 
 # Plotting
 
+### Grafische Darstellung von Daten
+
+## Plotting
+
+Grundlegende (low-level) Library für Plotting: _matplotlib_
+
+Abstrahierende Interfaces zu grundlegenden matplotlib Funktionen:
+
+- _pyplot_ (enthalten in matplotlib, ähnlich zum matlab Plotinterface)
+- _pandas_ Plotfunktionen
+- _seaborn_
+
+## Einfacher Plot mit pyplot
+
+```py
+import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.array([0, 1, 2, 3])
+
+y1 = x*2
+y2 = x**2
+
+plt.plot(x, y1)
+plt.plot(x, y2)
+
+# plt.show is not needed in Jupyter
+plt.show()
+```
+
+## Einfacher Plot mit pandas
+
+```py
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+
+x = np.array([0, 1, 2, 3])
+
+data = pd.DataFrame({
+    "y1": x*2,
+    "y2": x**2
+})
+
+data.plot.line()
+
+# plt.show is not needed in Jupyter
+plt.show()
+```
+
+## Übung
+
+Erstelle einen Plot, der die Sinus- und Kosinusfunktion im Intervall von _0_ bis _2π_ zeigt.
+
+## Übung
+
+```py
+x = np.linspace(0, 2*3.1415, 200)
+
+plt.plot(x, np.sin(x))
+plt.plot(x, np.cos(x))
+```
+
+```py
+x = np.linspace(0, 2*3.1415, 200)
+
+df = pd.DataFrame({"sin": np.sin(x), "cos": np.cos(x)}, index=x)
+
+df.plot.line()
+```
+
+# Figure Objekte
+
+## Figure Objekte
+
+Jede Zeichnung in _pyplot_ erfolgt mittels eines _Figure_-Objekts (wird beim plotten meist automatisch erzeugt).
+
+Manuelles Erstellen einer Figure mit Größe 800 x 600 px (bei 100 dpi):
+
+```py
+fig = plt.figure(
+    figsize=(8, 6),
+    facecolor="#eeeeee"
+)
+```
+
+Dies wird automatisch zur aktiven Figure.
+
+## Figure Objekte
+
+Exportieren einer Figure:
+
+```py
+fig.savefig("myplot.png")
+fig.savefig("myplot.svg")
+```
+
+## Figure Objekte
+
+Aufgabe: Skript, das eine PNG-Datei eines Graphen der aktuellen CPU-Last erstellt und jede Sekunde aktuelisiert. (verwende hierzu das PIP-Paket _psutil_)
+
+# Konfiguration und Styling
+
+## Stile
+
+Vorgefertigte Stylesheets verwendbar mittels:
+
+```py
+plt.style.use("stylename")
+```
+
+Für Demos verfügbarer Stile siehe:
+
+https://matplotlib.org/3.1.0/gallery/style_sheets/style_sheets_reference.html
+
+## Stile von Graphen
+
+Kurzform:
+
+```py
+plt.plot(x, y, "g--")
+```
+
+Langform:
+
+```py
+plt.plot(x, y, color="green", linestyle="dashed")
+```
+
+In der Langform sind genauere Farb- und Größenangaben möglich
+
+## Stile von Graphen
+
+
+
+## Achsenlabel
+
+
+
+# Plotting
+
+## Grundlegende Plots
+
+- funktionaler Zusammenhang (x-y)
+  - Graph
+  - Bar Chart
+- Datenpunkte mit zwei Merkmalen
+  - Scatter Plot
+- Dichte / Lage einer Verteilung
+  - Histogram
+  - Box Plot
+
+## Graph
+
+Pyplot: `plt.plot(x, y)`
+
+Pandas: `df.plot()` / `df.plot.line()`
+
+## Säulendiagramm
+
+Pyplot: `plt.bar(x, y)`
+
+Pandas: `df.plot.bar()`
+
+## Scatter Plot
+
+Pyplot: `plt.scatter(x, y)`
+
+Pandas: `df.plot.scatter(x="name1", y="name2")`
+
+## Histogramm
+
+Pyplot: `plt.hist(x)`
+
+Pandas: `df.plot.hist()`
+
 ## Graph
 
 Pandas:
@@ -788,33 +993,11 @@ Seaborn
 ```py
 sns.barplot(x=[0, 1, 2, 3], y=y)
 ```
+# Subplots
+
 # NumPy Fortgeschritten
 
-## Arrays erstellen
-
-Ein Array der Größe 2x6, gefüllt mit Nullen:
-
-```py
-np.zeros((2, 6))
-np.full((2, 6), 0)
-```
-
-Die Folge _0.0, 0.5, 1.0, 1.5_:
-
-```py
-# fixed step width (0.5)
-a = np.arange(0, 2, 0.5)
-# fixed number of entries (4)
-b = np.linspace(0, 1.5, 4)
-```
-
-Ein 3x3 Array mit Zufallswerten:
-
-```py
-np.random.random(3, 3)
-```
-
-## Form ändern
+## Form von Arrays ändern
 
 ```py
 array_1d = array_3d.reshape(8)
@@ -822,7 +1005,7 @@ array_2d = array_3d.reshape(2, 4)
 array_2d = array_3d.reshape(2, -1) # automatic second dimension
 ```
 
-## Dimension erhöhen
+## Dimensionalität erhöhen
 
 Hinzufügen einer extra Dimension der Länge 1 via `newaxis` - Verwandeln eines 2 x 2 Arrays in ein 2 x 2 x 1 Array:
 
@@ -1286,6 +1469,10 @@ Beispiel für einen Entscheidungsbaum für die Iris-Klassifizierung:
       - nein: **virginica**
     - nein: **virginica**
 
+## Random Forests
+
+Basierend auf Decision Trees: Die Daten werden in verschiedene Untermengen zerlegt. Mittels jeder Untermenge wird ein einzelner Decision Tree erstellt. Die Gesamtheit der Decision Trees wird zu einem sogenannten _Random Forest_ zusammengeführt.
+
 ## Beispiele zur Klassifizierung
 
 - Erkennen von Ziffern
@@ -1293,6 +1480,17 @@ Beispiel für einen Entscheidungsbaum für die Iris-Klassifizierung:
 # Modellauswahl und Hyperparameter
 
 siehe [Python Data Science Handbook → Hyperparameters and Model Validation → Selecting the Best Model](https://jakevdp.github.io/PythonDataScienceHandbook/05.03-hyperparameters-and-model-validation.html#Selecting-the-Best-Model)
+
+# Clustering
+
+## Clustering
+
+Beim Clustering handelt es sich um _unsupervised learning_. Solche Algorithmen haben keine Zieldaten (_y_), sondern suchen nur in den Ausgangsdaten nach einer bestimmten Struktur.
+
+## Clustering
+
+- _k-Means Clustering_
+- _Gaussian Mixture Models_
 
 # Resources
 

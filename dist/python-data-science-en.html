@@ -172,7 +172,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 
       </section><section class="slide" id="slide-2-3">
         <h2 id="anaconda">Anaconda</h2>
-<p>Anaconda = Python distribution that includes many pre-installed packages and developer tools</p>
+<p><em>Anaconda</em> = Python distribution that includes many pre-installed packages and developer tools</p>
 <p>Takes ~ 3 GB of disk space</p>
 
       </section><section class="slide" id="slide-2-4">
@@ -214,14 +214,14 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <h3 id="binder-limited-sessions">Binder (limited sessions)</h3>
 <ul>
 <li>Go to <a href="https://jupyter.org/try">https://jupyter.org/try</a></li>
-<li>Select <em>Try Jupyter with Python</em></li>
+<li>Select <em>Try Classic Notebook</em></li>
 <li>wait ...</li>
 <li>Select <em>File</em> - <em>New Notebook</em> - <em>Python 3</em></li>
 </ul>
 
       </section><section class="slide" id="slide-3-5">
         <h2 id="jupyter-notebooks---locally">Jupyter notebooks - locally</h2>
-<p>Launching Jupyter: Entry <em>Jupyter Notebook</em> in the start menu</p>
+<p>Launching Jupyter: Entry <em>Jupyter Notebook</em> in the start menu / terminal command <code>jupyter notebook</code></p>
 <p>Stopping Jupyter: Press <em>Quit</em> in the top right corner of the directory tree view (usually under <a href="http://localhost:8888/tree">http://localhost:8888/tree</a>)</p>
 
       </section><section class="slide" id="slide-3-6">
@@ -403,6 +403,27 @@ print(a * b)
 <span class="hljs-comment"># np.array([2, 4, 6])</span></code></pre>
 
       </section><section class="slide" id="slide-4-16">
+        <h2 id="operations-on-arrays">Operations on arrays</h2>
+<p>NumPy has special functions that are applied to arrays element-wise</p>
+<pre><code class="language-py">a = np.array([<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])
+
+print(np.sin(a)) <span class="hljs-comment"># [0.0, 0.84147098, 0.9... ]</span>
+print(np.sqrt(a)) <span class="hljs-comment"># [0.0, 1.0, 1.414... ]</span></code></pre>
+
+      </section><section class="slide" id="slide-4-17">
+        <h2 id="creating-arrays">Creating arrays</h2>
+<p>create a 2x6 array filled with 0:</p>
+<pre><code class="language-py">np.zeros((<span class="hljs-number">2</span>, <span class="hljs-number">6</span>))
+np.full((<span class="hljs-number">2</span>, <span class="hljs-number">6</span>), <span class="hljs-number">0</span>)</code></pre>
+<p>create the sequence <em>0.0, 0.5, 1.0, 1.5</em>:</p>
+<pre><code class="language-py"><span class="hljs-comment"># fixed step width (0.5)</span>
+a = np.arange(<span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">0.5</span>)
+<span class="hljs-comment"># fixed number of entries (4)</span>
+b = np.linspace(<span class="hljs-number">0</span>, <span class="hljs-number">1.5</span>, <span class="hljs-number">4</span>)</code></pre>
+<p>create a 3x3 array of random values:</p>
+<pre><code class="language-py">np.random.random(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>)</code></pre>
+
+      </section><section class="slide" id="slide-4-18">
         <h2 id="exercises">Exercises</h2>
 <p>given an array of prices and an array of quantities, determine the total price:</p>
 <pre><code class="language-py">prices = np.array([<span class="hljs-number">3.99</span>, <span class="hljs-number">4.99</span>, <span class="hljs-number">3.99</span>, <span class="hljs-number">12.99</span>])
@@ -417,7 +438,7 @@ c = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">3</s
 
 <span class="hljs-comment"># solution: [4, 4]</span></code></pre>
 
-      </section><section class="slide" id="slide-4-17">
+      </section><section class="slide" id="slide-4-19">
         <h2 id="exercises">Exercises</h2>
 <p>advanced: solving linear equations</p>
 
@@ -807,6 +828,60 @@ ir_uk_weekly = ir_uk.resample(<span class="hljs-string">'7d'</span>).interpolate
         <h1 id="plotting">Plotting</h1>
 
       </section><section class="slide" id="slide-12-2">
+        <h2 id="plotting---basic-plots">Plotting - basic plots</h2>
+<ul>
+<li>plotting a series of y - values<ul>
+<li>bar chart</li>
+<li>(graph)</li>
+</ul>
+</li>
+<li>plotting a series of y - values (with x specified) (a functional correspondence)<ul>
+<li>bar chart</li>
+<li>graph</li>
+</ul>
+</li>
+<li>plotting data points with 2 features<ul>
+<li>scatter plot</li>
+</ul>
+</li>
+<li>plotting density of some distribution<ul>
+<li>histogram</li>
+<li>box plot</li>
+</ul>
+</li>
+</ul>
+
+      </section><section class="slide" id="slide-12-3">
+        <h2 id="plotting---advanced-plots">Plotting - advanced plots</h2>
+<ul>
+<li>plotting data points with more than 2 features<ul>
+<li>advanced scatter plot (size, color)</li>
+<li>scatter matrix</li>
+</ul>
+</li>
+<li>plotting z = f(x, y)<ul>
+<li>contour plots</li>
+<li>3d plots</li>
+</ul>
+</li>
+<li>plotting density of some distribution (advanced)<ul>
+<li>histogram</li>
+<li>box plot</li>
+<li>kde</li>
+<li>violin plot</li>
+</ul>
+</li>
+<li>plotting density (2d)<ul>
+<li>2d histogram (hist2d, hexbin)</li>
+<li>kde</li>
+</ul>
+</li>
+</ul>
+
+      </section></section><section class="section" id="section-13"><section class="slide" id="slide-13-1">
+        <h1 id="plotting">Plotting</h1>
+
+      </section><section class="slide" id="slide-13-2">
         <h2 id="plotting">Plotting</h2>
 <p>general procedure:</p>
 <p>In Jupyter:</p>
@@ -820,7 +895,7 @@ data_frame.plot()
 <span class="hljs-comment"># call to .show()</span>
 plt.show()</code></pre>
 
-      </section><section class="slide" id="slide-12-3">
+      </section><section class="slide" id="slide-13-3">
         <h2 id="plotting-functions">Plotting functions</h2>
 <pre><code class="language-py"><span class="hljs-comment"># graph</span>
 data.plot.line()
@@ -837,107 +912,60 @@ data.plot.scatter(x=<span class="hljs-string">"colname_1"</span>, y=<span class=
 <span class="hljs-keyword">from</span> pandas.plotting <span class="hljs-keyword">import</span> scatter_matrix
 scatter_matrix(data)</code></pre>
 
-      </section><section class="slide" id="slide-12-4">
+      </section><section class="slide" id="slide-13-4">
         <h2 id="graphs">Graphs</h2>
 <p>example:</p>
 <pre><code class="language-py">euribor.plot.line()
 sp500[<span class="hljs-string">"SP500"</span>].plot.line(figsize=(<span class="hljs-number">9</span>, <span class="hljs-number">6</span>))</code></pre>
 
-      </section><section class="slide" id="slide-12-5">
+      </section><section class="slide" id="slide-13-5">
         <h2 id="bar-charts">Bar charts</h2>
 <p>example:</p>
 <pre><code class="language-py">euribor.iloc[<span class="hljs-number">-36</span>:].plot.bar()</code></pre>
 <p>exercise:</p>
 <p>plot median <em>sepal-width</em> and <em>sepal-length</em> for all three types of flowers</p>
 
-      </section><section class="slide" id="slide-12-6">
+      </section><section class="slide" id="slide-13-6">
         <h2 id="box-plots">Box plots</h2>
 <p>Display statistical data in a diagram (min, median, max, ...)</p>
 <pre><code class="language-py">iris.plot.box()</code></pre>
 
-      </section><section class="slide" id="slide-12-7">
+      </section><section class="slide" id="slide-13-7">
         <h2 id="histograms">Histograms</h2>
 <p>counts occurrences of certain values / value ranges</p>
 <p>examples:</p>
 <pre><code class="language-py">iris.sepal_lenght.plot.hist()</code></pre>
 <pre><code class="language-py">iris.sepal_length.plot.hist(bins=<span class="hljs-number">30</span>)</code></pre>
 
-      </section><section class="slide" id="slide-12-8">
+      </section><section class="slide" id="slide-13-8">
         <h2 id="histograms">Histograms</h2>
 <p>exercise:</p>
 <p>simulate 10 million rolls of dice - each using 10 dice; plot the distribution of the sums as a histogram</p>
 
-      </section><section class="slide" id="slide-12-9">
+      </section><section class="slide" id="slide-13-9">
         <h2 id="scatter-plots">Scatter plots</h2>
 <p>creates data points with two values - one on the x-axis and the other on the y-axis</p>
 <pre><code class="language-py">iris.plot.scatter(x=<span class="hljs-string">"sepal_length"</span>, y=<span class="hljs-string">"sepal_width"</span>)</code></pre>
 <p>task: scatter plot of just <em>Iris-setosa</em></p>
 
-      </section><section class="slide" id="slide-12-10">
+      </section><section class="slide" id="slide-13-10">
         <h2 id="scatter-matrix">Scatter matrix</h2>
 <p>creates several scatter plots - if there are 4 data series it will create 4x4 plots (scatter plots and histograms)</p>
 <pre><code class="language-py"><span class="hljs-keyword">from</span> pandas.plotting <span class="hljs-keyword">import</span> scatter_matrix
 
 scatter_matrix(iris)</code></pre>
 
-      </section></section><section class="section" id="section-13"><section class="slide" id="slide-13-1">
-        <h1 id="plotting">Plotting</h1>
-
-      </section><section class="slide" id="slide-13-2">
-        <h2 id="plotting">Plotting</h2>
-<ul>
-<li>plotting a series of y - values<ul>
-<li>bar chart</li>
-<li>(graph)</li>
-</ul>
-</li>
-<li>plotting a series of y - values (with x specified) (a functional correspondence)<ul>
-<li>bar chart</li>
-<li>graph</li>
-</ul>
-</li>
-<li>plotting data points with 2-4 features<ul>
-<li>scatter plot</li>
-<li>advanced scatter plot</li>
-</ul>
-</li>
-<li>plotting z = f(x, y)<ul>
-<li>contour plots</li>
-<li>3d plots</li>
-</ul>
-</li>
-<li>plotting density of some distribution<ul>
-<li>histogram</li>
-<li>box plot</li>
-<li>kde</li>
-<li>violin plot</li>
-</ul>
-</li>
-<li>plotting density (2d)<ul>
-<li>2d histogram (hist2d, hexbin)</li>
-<li>kde</li>
-</ul>
-</li>
-</ul>
-
       </section></section><section class="section" id="section-14"><section class="slide" id="slide-14-1">
         <h1 id="numpy-advanced">NumPy advanced</h1>
 
       </section><section class="slide" id="slide-14-2">
-        <h2 id="creating-arrays">Creating arrays</h2>
-<p>create a 2x6 array filled with 0:</p>
-<pre><code class="language-py">np.zeros((<span class="hljs-number">2</span>, <span class="hljs-number">6</span>))
-np.full((<span class="hljs-number">2</span>, <span class="hljs-number">6</span>), <span class="hljs-number">0</span>)</code></pre>
-<p>create the sequence <em>0.0, 0.5, 1.0, 1.5</em>:</p>
-<pre><code class="language-py"><span class="hljs-comment"># fixed step width (0.5)</span>
-a = np.arange(<span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">0.5</span>)
-<span class="hljs-comment"># fixed number of entries (4)</span>
-b = np.linspace(<span class="hljs-number">0</span>, <span class="hljs-number">1.5</span>, <span class="hljs-number">4</span>)</code></pre>
-<p>create a 3x3 array of random values:</p>
-<pre><code class="language-py">np.random.random(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>)</code></pre>
+        <h2 id="reshaping-arrays">Reshaping arrays</h2>
+<pre><code class="language-py">array_1d = array_3d.reshape(<span class="hljs-number">8</span>)
+array_2d = array_3d.reshape(<span class="hljs-number">2</span>, <span class="hljs-number">4</span>)
+array_2d = array_3d.reshape(<span class="hljs-number">2</span>, <span class="hljs-number">-1</span>) <span class="hljs-comment"># automatic second dimension</span></code></pre>
 
       </section><section class="slide" id="slide-14-3">
-        <h2 id="reshaping-arrays">Reshaping arrays</h2>
+        <h2 id="adding-an-extra-dimension">Adding an extra dimension</h2>
 <p>Adding an extra dimension of length 1 via <code>newaxis</code> - turning a 2 x 2 array into a 2 x 2 x 1 array:</p>
 <pre><code class="language-py">array_2d = np.array([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]])
 

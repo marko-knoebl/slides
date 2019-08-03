@@ -932,11 +932,13 @@ products = []
 if products: ...
 ```
 
+These types are converted to boolean values before being used as criteria for the if condition.
+
 ## Conditions
 
 Any value may be used as a condition in Python. Most values will be "truthy".
 
-Only these values are considered "falsy":
+Only these values are considered "falsy" - calling `bool(...)` will return `False`:
 
 - `False`
 - `0`, `0.0`
@@ -1098,9 +1100,20 @@ foo("one", "two", x="hello")
 
 `args` will be a tuple, `kwargs` will be a dictionary
 
-## Example
+## Arbitrary number of Arguments (args / kwargs)
 
 Task: recreate `range()`
+
+## Unpacking of parameter lists
+
+```py
+numbers = ["one", "two", "three"]
+
+# equivalent:
+print(numbers[0], numbers[1], numbers[2])
+
+print(*numbers)
+```
 
 ## Global and local scope
 

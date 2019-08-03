@@ -1,9 +1,9 @@
-# Builtins, Module
+# Builtins, Standard Library
 
-## Builtins, Module
+## Builtins, Standard Library
 
 - Builtins: Funktionen und Objekte, die oft verwendet werden und immer verfügbar sind
-- Module: Sammlungen von zusätzlichen Objekten, die importiert werden können
+- Standard Library: Sammlungen von zusätzlichen Modulen und Paketen, die importiert werden können
 
 ## Builtins
 
@@ -21,9 +21,9 @@ unter anderem:
 - `sum()`
 - `type()`
 
-## Module
+## Standard Library
 
-Module beinhalten zusätzliche Objekte, die importiert werden können
+Die _Standard Library_ bietet zusätzliche Module, die importiert werden können
 
 z.B.:
 
@@ -34,7 +34,7 @@ import math
 print(math.floor(3.6))
 ```
 
-## Module
+## Standard Library
 
 interessante Module:
 

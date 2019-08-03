@@ -31,6 +31,20 @@ hello_label.pack()
 window.mainloop()
 ```
 
+## Tkinter - pack und grid
+
+Mit `pack`: Einfache Zeilen- oder Spaltenlayouts
+
+```py
+hello_label.pack()
+```
+
+Mit `grid`: Komplexere Ausrichtungen an einem Raster sind möglich
+
+```py
+hello_label.grid(column=0, row=0)
+```
+
 ## Tkinter - Elemente nachträglich ändern
 
 ```py
@@ -65,12 +79,12 @@ Button, der bei 0 startet und die Klickanzahl mitzählt und anzeigt
 
 Möglichkeiten:
 
-- `height`
+- `height` (in Pixeln oder relativ zur Schriftgröße)
 - `width`
 - `borderwidth`
 - `background` (Hintergrundfarbe)
 - `foreground` (Textfarbe)
-- `justify` (Textausrichtung, Werte: `CENTER`, `LEFT`, `RIGHT`)
+- `justify` (Textausrichtung, Werte: `tkinter.CENTER`, `tkinter.LEFT`, `tkinter.RIGHT`)
 - `padx`, `pady` (Abstand Rahmen zu Inhalt)
 
 ## Tkinter - Widgets
@@ -78,7 +92,9 @@ Möglichkeiten:
 - `Label`
 - `Button`
 - `Frame`
+- `Entry`
 
 ## Tkinter - Beispiele
 
 - zufälliger Sehtest (Snellen Chart)
+- Tic-Tac-Toe

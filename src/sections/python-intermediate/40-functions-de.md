@@ -14,9 +14,20 @@ foo("one", "two", x="hello")
 
 `args` ist ein Tupel, `kwargs` ein Dictionary.
 
-## Beispiel
+## Beliebige Anzahl an Parametern (args / kwargs)
 
 Aufgabe: "Nachbau" von `range()`
+
+## Entpacken von Parameterlisten
+
+```py
+numbers = ["one", "two", "three"]
+
+# equivalent:
+print(numbers[0], numbers[1], numbers[2])
+
+print(*numbers)
+```
 
 ## Globaler und lokaler Scope
 

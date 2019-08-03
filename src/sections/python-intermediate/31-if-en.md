@@ -28,11 +28,13 @@ products = []
 if products: ...
 ```
 
+These types are converted to boolean values before being used as criteria for the if condition.
+
 ## Conditions
 
 Any value may be used as a condition in Python. Most values will be "truthy".
 
-Only these values are considered "falsy":
+Only these values are considered "falsy" - calling `bool(...)` will return `False`:
 
 - `False`
 - `0`, `0.0`

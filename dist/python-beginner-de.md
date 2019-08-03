@@ -590,12 +590,12 @@ Ein Kommentar beginnt mit einem `#`-Zeichen und reicht bis zum Ende der Zeile.
 name_length = len(name)
 ```
 
-# Builtins, Module
+# Builtins, Standard Library
 
-## Builtins, Module
+## Builtins, Standard Library
 
 - Builtins: Funktionen und Objekte, die oft verwendet werden und immer verfügbar sind
-- Module: Sammlungen von zusätzlichen Objekten, die importiert werden können
+- Standard Library: Sammlungen von zusätzlichen Modulen und Paketen, die importiert werden können
 
 ## Builtins
 
@@ -613,9 +613,9 @@ unter anderem:
 - `sum()`
 - `type()`
 
-## Module
+## Standard Library
 
-Module beinhalten zusätzliche Objekte, die importiert werden können
+Die _Standard Library_ bietet zusätzliche Module, die importiert werden können
 
 z.B.:
 
@@ -626,7 +626,7 @@ import math
 print(math.floor(3.6))
 ```
 
-## Module
+## Standard Library
 
 interessante Module:
 
@@ -735,7 +735,7 @@ Die zwei essenziellen Kontrollstrukturen in jeder Programmiersprache:
   - `for ... in ...`
   - `for ... in range(...)`
 
-# If und while
+# If
 
 ## Vergleiche
 
@@ -753,11 +753,11 @@ print(a <= b) # a kleiner oder gleich b
 print(a >= b)
 ```
 
-## if / else
+## If / else
 
 wenn, dann - sonst
 
-## if / else
+## If / else
 
 Beispiel:
 
@@ -771,7 +771,7 @@ else:
     print("You are older than 1 billion seconds")
 ```
 
-## if / elif / else
+## If / elif / else
 
 ```py
 if age_seconds < 100000000:
@@ -790,7 +790,41 @@ Codeblock = Zusammengehörige Codezeilen, die z.B. als Resultat einer if-Abfrage
 
 In Python endet die Zeile vor einem Codeblock mit einem `:`, der Codeblock ist eingerückt (meist mit 4 Leerzeichen).
 
-## while-Schleife
+## Verknüpfung von Vergleichen
+
+einfach:
+
+```py
+if a == 3:
+    print("a is 3")
+```
+
+komplexer:
+
+```py
+if a == 3 and 4 < b < 10:
+    print("a is 3 and b is between 4 and 10")
+```
+
+## Verknüpfung von Vergleichen
+
+```py
+# b ist größer als 4 und kleiner als 10 (verketteter Vergleich)
+4 < b < 10
+
+# längere Version
+b > 4 and b < 10
+
+# c liegt nicht zwischen 4 und 10
+not 4 < c < 10
+
+# andere Version:
+c <= 4 or c >= 10
+```
+
+# While-Schleife
+
+## While-Schleife
 
 Eine if-Abfrage führt einen Codeblock _einmal_ aus, wenn ein Kriterium zutrifft
 
@@ -806,7 +840,7 @@ while a < 2000:
     a = a * 2
 ```
 
-## while-Schleife
+## While-Schleife
 
 Beispiele:
 
@@ -852,38 +886,6 @@ while True:
     print(a)
     if (a > 1000):
         break
-```
-
-## Verknüpfung von Vergleichen
-
-einfach:
-
-```py
-if a == 3:
-    print("a is 3")
-```
-
-komplexer:
-
-```py
-if a == 3 and 4 < b < 10:
-    print("a is 3 and b is between 4 and 10")
-```
-
-## Verknüpfung von Vergleichen
-
-```py
-# b ist größer als 4 und kleiner als 10 (verketteter Vergleich)
-4 < b < 10
-
-# längere Version
-b > 4 and b < 10
-
-# c liegt nicht zwischen 4 und 10
-not 4 < c < 10
-
-# andere Version:
-c <= 4 or c >= 10
 ```
 
 # For-Schleifen
@@ -1031,36 +1033,6 @@ for i in range(10):
     a = (a + b) / 2
     b = n / a
 print(b)
-```
-
-# Übungsbeispiele
-
-## Übungsbeispiele
-
-- Todoliste
-- Lottozahlengenerator
-- Hangman
-- Tic-Tac-Toe - Spiel mit textbasierter grafischer Ausgabe
-
-## Todoliste
-
-Interaktive Eingabe, die den Benutzer eine Liste von Todos erstellen lässt und diese am Ende ausgibt
-
-Python Themen: list, while, for, input
-
-## Todoliste
-
-```py
-todolist = []
-proceed = True
-while proceed:
-    new_todo = input("enter new todo:")
-    todolist.append(new_todo)
-    proceed_input = input("add another todo? (y/N)")
-    proceed = proceed_input == 'y'
-
-for todo in todolist:
-    print('-', todo)
 ```
 
 # Funktionen

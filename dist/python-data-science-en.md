@@ -43,7 +43,7 @@ Marko Knöbl
 
 ## Anaconda
 
-Anaconda = Python distribution that includes many pre-installed packages and developer tools
+_Anaconda_ = Python distribution that includes many pre-installed packages and developer tools
 
 Takes ~ 3 GB of disk space
 
@@ -91,13 +91,13 @@ Try Jupyter online:
 ### Binder (limited sessions)
 
 - Go to https://jupyter.org/try
-- Select _Try Jupyter with Python_
+- Select _Try Classic Notebook_
 - wait ...
 - Select _File_ - _New Notebook_ - _Python 3_
 
 ## Jupyter notebooks - locally
 
-Launching Jupyter: Entry _Jupyter Notebook_ in the start menu
+Launching Jupyter: Entry _Jupyter Notebook_ in the start menu / terminal command `jupyter notebook`
 
 Stopping Jupyter: Press _Quit_ in the top right corner of the directory tree view (usually under http://localhost:8888/tree)
 
@@ -349,6 +349,41 @@ print(a + b)
 # np.array([3, 4, 5])
 print(a * b)
 # np.array([2, 4, 6])
+```
+
+## Operations on arrays
+
+NumPy has special functions that are applied to arrays element-wise
+
+```py
+a = np.array([0, 1, 2, 3])
+
+print(np.sin(a)) # [0.0, 0.84147098, 0.9... ]
+print(np.sqrt(a)) # [0.0, 1.0, 1.414... ]
+```
+
+## Creating arrays
+
+create a 2x6 array filled with 0:
+
+```py
+np.zeros((2, 6))
+np.full((2, 6), 0)
+```
+
+create the sequence _0.0, 0.5, 1.0, 1.5_:
+
+```py
+# fixed step width (0.5)
+a = np.arange(0, 2, 0.5)
+# fixed number of entries (4)
+b = np.linspace(0, 1.5, 4)
+```
+
+create a 3x3 array of random values:
+
+```py
+np.random.random(3, 3)
 ```
 
 ## Exercises
@@ -791,6 +826,39 @@ ir_uk_weekly = ir_uk.resample('7d').interpolate()
 
 # Plotting
 
+## Plotting - basic plots
+
+- plotting a series of y - values
+  - bar chart
+  - (graph)
+- plotting a series of y - values (with x specified) (a functional correspondence)
+  - bar chart
+  - graph
+- plotting data points with 2 features
+  - scatter plot
+- plotting density of some distribution
+  - histogram
+  - box plot
+
+## Plotting - advanced plots
+
+- plotting data points with more than 2 features
+  - advanced scatter plot (size, color)
+  - scatter matrix
+- plotting z = f(x, y)
+  - contour plots
+  - 3d plots
+- plotting density of some distribution (advanced)
+  - histogram
+  - box plot
+  - kde
+  - violin plot
+- plotting density (2d)
+  - 2d histogram (hist2d, hexbin)
+  - kde
+
+# Plotting
+
 ## Plotting
 
 general procedure:
@@ -901,58 +969,17 @@ from pandas.plotting import scatter_matrix
 scatter_matrix(iris)
 ```
 
-# Plotting
-
-## Plotting
-
-- plotting a series of y - values
-  - bar chart
-  - (graph)
-- plotting a series of y - values (with x specified) (a functional correspondence)
-  - bar chart
-  - graph
-- plotting data points with 2-4 features
-  - scatter plot
-  - advanced scatter plot
-- plotting z = f(x, y)
-  - contour plots
-  - 3d plots
-- plotting density of some distribution
-  - histogram
-  - box plot
-  - kde
-  - violin plot
-- plotting density (2d)
-  - 2d histogram (hist2d, hexbin)
-  - kde
-
 # NumPy advanced
 
-## Creating arrays
-
-create a 2x6 array filled with 0:
-
-```py
-np.zeros((2, 6))
-np.full((2, 6), 0)
-```
-
-create the sequence _0.0, 0.5, 1.0, 1.5_:
-
-```py
-# fixed step width (0.5)
-a = np.arange(0, 2, 0.5)
-# fixed number of entries (4)
-b = np.linspace(0, 1.5, 4)
-```
-
-create a 3x3 array of random values:
-
-```py
-np.random.random(3, 3)
-```
-
 ## Reshaping arrays
+
+```py
+array_1d = array_3d.reshape(8)
+array_2d = array_3d.reshape(2, 4)
+array_2d = array_3d.reshape(2, -1) # automatic second dimension
+```
+
+## Adding an extra dimension
 
 Adding an extra dimension of length 1 via `newaxis` - turning a 2 x 2 array into a 2 x 2 x 1 array:
 

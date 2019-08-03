@@ -605,33 +605,92 @@ f.b = <span class="hljs-number">3</span> <span class="hljs-comment"># prints: "s
       </section><section class="slide" id="slide-10-4">
         <h2 id="übungen">Übungen</h2>
 <ul>
-<li>Buch 10.11.4 (Laenge)</li>
 <li>Klasse &quot;Vector&quot;</li>
 <li>Klasse &quot;BankAccount&quot;</li>
 <li>Klasse &quot;Dictionary&quot; (Wörterbuch)</li>
 </ul>
 
       </section></section><section class="section" id="section-11"><section class="slide" id="slide-11-1">
-        <h1 id="iterators">Iterators</h1>
+        <h1 id="iterables--iteratoren">Iterables &amp; Iteratoren</h1>
 
       </section><section class="slide" id="slide-11-2">
-        <h2 id="iterators">Iterators</h2>
-<p>Oberflächlich: Ein Iterator ist ein besonderes Objekt, über das wir mit <code>for o in my_iterator</code> iterieren können.</p>
-<p>Iterators können auf verschiedene Arten erzeugt werden.</p>
+        <h2 id="iterable">Iterable</h2>
+<p>Ein Iterable ist ein Objekt, über das mittels <code>for o in my_iterable</code> iteriert werden kann.</p>
+<p>Beispiele für Iterables:</p>
+<ul>
+<li>Liste</li>
+<li>Dictionary</li>
+<li>range-Objekte</li>
+<li>Iteratoren</li>
+</ul>
 
       </section><section class="slide" id="slide-11-3">
-        <h2 id="iterators">Iterators</h2>
-<p>Genauer Hintergrund: Ein Iterator ist ein besonderes Objekt, das eine <code>__next__</code>-Methode besitzt.</p>
+        <h2 id="iteratoren">Iteratoren</h2>
+<p>Das Iterieren über Objekte erfolgt immer über einen sogenannten <em>Iterator</em> - ein Hilfsobjekt für die Iteration.</p>
+<p>Erhalten des Iterators via: <code>my_iterable.__iter__()</code>.</p>
 
       </section><section class="slide" id="slide-11-4">
-        <h2 id="iterators---beispiel-count">Iterators - Beispiel count</h2>
+        <h2 id="iteratoren">Iteratoren</h2>
+<p>Iterator einer Liste:</p>
+<pre><code class="language-py">primes = [<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">7</span>]
+
+primes_iterator = primes.__iter__()</code></pre>
+<p>Auch Iteratoren haben einen Iterator (sich selbst):</p>
+<pre><code class="language-py">primes_iterator_iterator = primes_iterator.__iter__()
+
+print(primes_iterator_iterator == primes iterator) <span class="hljs-comment"># True</span></code></pre>
+
+      </section><section class="slide" id="slide-11-5">
+        <h2 id="iteratoren">Iteratoren</h2>
+<p>Iteratoren haben eine <code>__next__</code>-Methode, die jeweils das nächste Element der Iteration liefert.</p>
+<p>Beispiel:</p>
+<pre><code class="language-py">numbers = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]
+
+numbers_iterator = numbers.__iter__()
+
+print(numbers_iterator.__next__())
+print(numbers_iterator.__next__())</code></pre>
+
+      </section><section class="slide" id="slide-11-6">
+        <h2 id="iteratoren">Iteratoren</h2>
+<p>Wenn ein Iterator aufgebraucht ist, wird eine <code>StopIteration</code>-Exception ausgelöst.</p>
+<pre><code class="language-py">print(numbers_iterator.__next__()) <span class="hljs-comment"># 1</span>
+print(numbers_iterator.__next__()) <span class="hljs-comment"># 2</span>
+print(numbers_iterator.__next__()) <span class="hljs-comment"># 3</span>
+print(numbers_iterator.__next__()) <span class="hljs-comment"># StopIteration</span></code></pre>
+
+      </section><section class="slide" id="slide-11-7">
+        <h2 id="iteratoren-erzeugen">Iteratoren erzeugen</h2>
+<p>Bekannte Möglichkeit:</p>
+<ul>
+<li>aus Iterables (z.B. <em>list</em>, <em>range</em> oder eigene Klasse) mittels <code>__iter__</code></li>
+</ul>
+<p>Weitere Möglichkeiten:</p>
+<ul>
+<li>Funktionen aus <code>itertools</code></li>
+<li>Generator-Ausdruck</li>
+<li>Funktion mit <code>yield</code></li>
+</ul>
+
+      </section><section class="slide" id="slide-11-8">
+        <h2 id="itertools">Itertools</h2>
+<p>Modul zum Erzeugen von Iteratoren</p>
+<ul>
+<li><code>itertools.count</code></li>
+<li><code>itertools.repeat</code></li>
+<li><code>itertools.product</code></li>
+</ul>
+<p><a href="https://docs.python.org/3/library/itertools.html">https://docs.python.org/3/library/itertools.html</a></p>
+
+      </section><section class="slide" id="slide-11-9">
+        <h2 id="itertools---beispiel-count">Itertools - Beispiel count</h2>
 <pre><code class="language-py"><span class="hljs-keyword">from</span> itertools <span class="hljs-keyword">import</span> count
 
 <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> count():
     print(i)</code></pre>
 
-      </section><section class="slide" id="slide-11-5">
-        <h2 id="iterators---beispiel-count">Iterators - Beispiel count</h2>
+      </section><section class="slide" id="slide-11-10">
+        <h2 id="iteratoren---beispiel-count">Iteratoren - Beispiel count</h2>
 <pre><code class="language-py"><span class="hljs-keyword">from</span> itertools <span class="hljs-keyword">import</span> count
 
 c = count()
@@ -639,8 +698,8 @@ c = count()
 c.__next__()
 c.__next__()</code></pre>
 
-      </section><section class="slide" id="slide-11-6">
-        <h2 id="iterators---beispiel-count">Iterators - Beispiel count</h2>
+      </section><section class="slide" id="slide-11-11">
+        <h2 id="iteratoren---beispiel-count">Iteratoren - Beispiel count</h2>
 <pre><code class="language-py"><span class="hljs-keyword">from</span> itertools <span class="hljs-keyword">import</span> count
 
 c = count()
@@ -648,8 +707,8 @@ c = count()
 next(c)
 next(c)</code></pre>
 
-      </section><section class="slide" id="slide-11-7">
-        <h2 id="iterators---beispiel-repeat">Iterators - Beispiel repeat</h2>
+      </section><section class="slide" id="slide-11-12">
+        <h2 id="iteratoren---beispiel-repeat">Iteratoren - Beispiel repeat</h2>
 <pre><code class="language-py"><span class="hljs-keyword">from</span> itertools <span class="hljs-keyword">import</span> repeat
 
 r = repeat(<span class="hljs-string">'a'</span>, <span class="hljs-number">5</span>)
@@ -657,26 +716,7 @@ r = repeat(<span class="hljs-string">'a'</span>, <span class="hljs-number">5</sp
 next(r)
 ...</code></pre>
 
-      </section><section class="slide" id="slide-11-8">
-        <h2 id="iterators---beispiel-repeat">Iterators - Beispiel repeat</h2>
-<p>Wenn ein Iterator &quot;aufgebraucht&quot; ist:</p>
-<p><code>StopIteration</code>-Exception</p>
-
-      </section><section class="slide" id="slide-11-9">
-        <h2 id="iterators-erzeugen">Iterators erzeugen</h2>
-<p>Möglichkeiten:</p>
-<ul>
-<li>Funktionen aus <code>itertools</code></li>
-<li>Eigene Klasse mit <code>__next__</code> (und <code>__iter__</code>)</li>
-<li>Generator-Expression</li>
-<li>Funktion mit <code>yield</code></li>
-</ul>
-
-      </section><section class="slide" id="slide-11-10">
-        <h2 id="itertools">itertools</h2>
-<p><a href="https://docs.python.org/3/library/itertools.html">https://docs.python.org/3/library/itertools.html</a></p>
-
-      </section><section class="slide" id="slide-11-11">
+      </section><section class="slide" id="slide-11-13">
         <h2 id="eigene-klasse">Eigene Klasse</h2>
 <p>Übungen:</p>
 <pre><code class="language-py"><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> random():
@@ -687,7 +727,7 @@ next(r)
 
 <span class="hljs-number">4</span> <span class="hljs-number">0</span> <span class="hljs-number">29</span> <span class="hljs-number">7</span> <span class="hljs-number">13</span> <span class="hljs-number">19</span></code></pre>
 
-      </section><section class="slide" id="slide-11-12">
+      </section><section class="slide" id="slide-11-14">
         <h2 id="generator-expression">Generator-Expression</h2>
 <p>Sehr ähnlich zur List-Comprehension</p>
 <pre><code class="language-py"><span class="hljs-comment"># list-comprehension</span>
@@ -696,7 +736,7 @@ mylist = [i*i <span class="hljs-keyword">for</span> i <span class="hljs-keyword"
 <span class="hljs-comment"># generator</span>
 mygenerator = (i*i <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">3</span>))</code></pre>
 
-      </section><section class="slide" id="slide-11-13">
+      </section><section class="slide" id="slide-11-15">
         <h2 id="generator-expression">Generator-Expression</h2>
 <p>Unterschiede zur List-Comprehension</p>
 <ul>
@@ -704,7 +744,7 @@ mygenerator = (i*i <span class="hljs-keyword">for</span> i <span class="hljs-key
 <li>Durchlauf nur 1x und nach der Reihe</li>
 </ul>
 
-      </section><section class="slide" id="slide-11-14">
+      </section><section class="slide" id="slide-11-16">
         <h2 id="yield">yield</h2>
 <p>Eine Funktion kann anstatt eines return-Statements ein yield-Statement enthalten und wird dann zum Generator</p>
 <pre><code class="language-py"><span class="hljs-comment"># eigener count-generator</span>
@@ -713,11 +753,6 @@ mygenerator = (i*i <span class="hljs-keyword">for</span> i <span class="hljs-key
     <span class="hljs-keyword">while</span> <span class="hljs-keyword">True</span>:
         <span class="hljs-keyword">yield</span> i
         i += i</code></pre>
-
-      </section><section class="slide" id="slide-11-15">
-        <h2 id="iterable-und-__iter__">Iterable und __iter__</h2>
-<p>Iterable = Objekt, über das iteriert werden kann - definiert eine <code>__iter__</code>-Methode</p>
-<p>Beispiele: Listen, Iterators</p>
 
       </section></section><section class="section" id="section-12"><section class="slide" id="slide-12-1">
         <h1 id="schleifen">Schleifen</h1>

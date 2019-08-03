@@ -962,11 +962,12 @@ name = input(<span class="hljs-string">"enter your name"</span>)
 
 products = []
 <span class="hljs-keyword">if</span> products: ...</code></pre>
+<p>These types are converted to boolean values before being used as criteria for the if condition.</p>
 
       </section><section class="slide" id="slide-17-4">
         <h2 id="conditions">Conditions</h2>
 <p>Any value may be used as a condition in Python. Most values will be &quot;truthy&quot;.</p>
-<p>Only these values are considered &quot;falsy&quot;:</p>
+<p>Only these values are considered &quot;falsy&quot; - calling <code>bool(...)</code> will return <code>False</code>:</p>
 <ul>
 <li><code>False</code></li>
 <li><code>0</code>, <code>0.0</code></li>
@@ -1098,20 +1099,29 @@ foo(<span class="hljs-string">"one"</span>, <span class="hljs-string">"two"</spa
 <p><code>args</code> will be a tuple, <code>kwargs</code> will be a dictionary</p>
 
       </section><section class="slide" id="slide-20-3">
-        <h2 id="example">Example</h2>
+        <h2 id="arbitrary-number-of-arguments-args--kwargs">Arbitrary number of Arguments (args / kwargs)</h2>
 <p>Task: recreate <code>range()</code></p>
 
       </section><section class="slide" id="slide-20-4">
+        <h2 id="unpacking-of-parameter-lists">Unpacking of parameter lists</h2>
+<pre><code class="language-py">numbers = [<span class="hljs-string">"one"</span>, <span class="hljs-string">"two"</span>, <span class="hljs-string">"three"</span>]
+
+<span class="hljs-comment"># equivalent:</span>
+print(numbers[<span class="hljs-number">0</span>], numbers[<span class="hljs-number">1</span>], numbers[<span class="hljs-number">2</span>])
+
+print(*numbers)</code></pre>
+
+      </section><section class="slide" id="slide-20-5">
         <h2 id="global-and-local-scope">Global and local scope</h2>
 <p><code>global</code> / <code>nonlocal</code></p>
 <p>change the behavior of <em>assignments</em></p>
 
-      </section><section class="slide" id="slide-20-5">
+      </section><section class="slide" id="slide-20-6">
         <h2 id="call-by-sharing">Call by sharing</h2>
 <p>In Python values are passed to functions via <em>call by sharing</em> (similar to <em>call by reference</em> in other languages)</p>
 <p>This means: A function <em>may</em> mutate parameters that are passed in - and we should usually make sure not to do so</p>
 
-      </section><section class="slide" id="slide-20-6">
+      </section><section class="slide" id="slide-20-7">
         <h2 id="call-by-sharing">Call by sharing</h2>
 <p>Example:</p>
 <pre><code class="language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">modify_a</span><span class="hljs-params">(mylist)</span>:</span>
@@ -1127,7 +1137,7 @@ list_b = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>
 list_b_mod = modify_b(list_b)</code></pre>
 <p>(results on next slide)</p>
 
-      </section><section class="slide" id="slide-20-7">
+      </section><section class="slide" id="slide-20-8">
         <h2 id="call-by-sharing">Call by sharing</h2>
 <pre><code class="language-py">list_a_mod <span class="hljs-comment"># [1, 2, 1]</span>
 list_b_mod <span class="hljs-comment"># [1, 2, 1]</span>

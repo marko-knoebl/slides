@@ -263,16 +263,14 @@ locale.getpreferredencoding()</code></pre>
 
       </section><section class="slide" id="slide-3-13">
         <h2 id="file-like-objects">File-like objects</h2>
-<pre><code class="language-py"><span class="hljs-keyword">with</span> file <span class="hljs-keyword">as</span> open(<span class="hljs-string">'myfile.txt'</span>, encoding=<span class="hljs-string">"utf-8"</span>):
-    <span class="hljs-comment"># read individual lines</span>
+<p>Zeile für Zeile einlesen (geringer Speicherbedarf):</p>
+<pre><code class="language-py"><span class="hljs-keyword">with</span> open(<span class="hljs-string">"myfile.txt"</span>, encoding=<span class="hljs-string">"utf-8"</span>) <span class="hljs-keyword">as</span> file:
     <span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> file:
-        print(line)
-    <span class="hljs-comment"># read entire file</span>
-    print(file.read())</code></pre>
+        print(line)</code></pre>
 
       </section><section class="slide" id="slide-3-14">
         <h2 id="file-like-objects">File-like objects</h2>
-<p>Methoden:</p>
+<p>Methoden / Attribute:</p>
 <ul>
 <li><code>.close()</code></li>
 <li><code>.mode</code></li>
@@ -1505,11 +1503,18 @@ hello_label.pack()
 window.mainloop()</code></pre>
 
       </section><section class="slide" id="slide-18-5">
+        <h2 id="tkinter---pack-und-grid">Tkinter - pack und grid</h2>
+<p>Mit <code>pack</code>: Einfache Zeilen- oder Spaltenlayouts</p>
+<pre><code class="language-py">hello_label.pack()</code></pre>
+<p>Mit <code>grid</code>: Komplexere Ausrichtungen an einem Raster sind möglich</p>
+<pre><code class="language-py">hello_label.grid(column=<span class="hljs-number">0</span>, row=<span class="hljs-number">0</span>)</code></pre>
+
+      </section><section class="slide" id="slide-18-6">
         <h2 id="tkinter---elemente-nachträglich-ändern">Tkinter - Elemente nachträglich ändern</h2>
 <pre><code class="language-py">hello_label = tkinter.Label(master=window, text=<span class="hljs-string">"Hello!"</span>)
 hello_label.config(text=<span class="hljs-string">"Hi!"</span>)</code></pre>
 
-      </section><section class="slide" id="slide-18-6">
+      </section><section class="slide" id="slide-18-7">
         <h2 id="tkinter---benutzerinteraktion">Tkinter - Benutzerinteraktion</h2>
 <pre><code class="language-py">...
 
@@ -1526,35 +1531,37 @@ hello_button.pack()
 
 ...</code></pre>
 
-      </section><section class="slide" id="slide-18-7">
+      </section><section class="slide" id="slide-18-8">
         <h2 id="beispiel-counter">Beispiel: Counter</h2>
 <p>Button, der bei 0 startet und die Klickanzahl mitzählt und anzeigt</p>
 
-      </section><section class="slide" id="slide-18-8">
+      </section><section class="slide" id="slide-18-9">
         <h2 id="tkinter---widget-konfiguration">Tkinter - Widget-Konfiguration</h2>
 <p>Möglichkeiten:</p>
 <ul>
-<li><code>height</code></li>
+<li><code>height</code> (in Pixeln oder relativ zur Schriftgröße)</li>
 <li><code>width</code></li>
 <li><code>borderwidth</code></li>
 <li><code>background</code> (Hintergrundfarbe)</li>
 <li><code>foreground</code> (Textfarbe)</li>
-<li><code>justify</code> (Textausrichtung, Werte: <code>CENTER</code>, <code>LEFT</code>, <code>RIGHT</code>)</li>
+<li><code>justify</code> (Textausrichtung, Werte: <code>tkinter.CENTER</code>, <code>tkinter.LEFT</code>, <code>tkinter.RIGHT</code>)</li>
 <li><code>padx</code>, <code>pady</code> (Abstand Rahmen zu Inhalt)</li>
 </ul>
 
-      </section><section class="slide" id="slide-18-9">
+      </section><section class="slide" id="slide-18-10">
         <h2 id="tkinter---widgets">Tkinter - Widgets</h2>
 <ul>
 <li><code>Label</code></li>
 <li><code>Button</code></li>
 <li><code>Frame</code></li>
+<li><code>Entry</code></li>
 </ul>
 
-      </section><section class="slide" id="slide-18-10">
+      </section><section class="slide" id="slide-18-11">
         <h2 id="tkinter---beispiele">Tkinter - Beispiele</h2>
 <ul>
 <li>zufälliger Sehtest (Snellen Chart)</li>
+<li>Tic-Tac-Toe</li>
 </ul>
 
       </section></section><section class="section" id="section-19"><section class="slide" id="slide-19-1">

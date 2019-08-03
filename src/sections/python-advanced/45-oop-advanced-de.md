@@ -31,7 +31,6 @@ class Money():
 
 ## Übungen
 
-- Buch 10.11.4 (Laenge)
 - Klasse "Vector"
 - Klasse "BankAccount"
 - Klasse "Dictionary" (Wörterbuch)

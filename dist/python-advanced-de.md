@@ -555,24 +555,96 @@ class Money():
 
 ## Übungen
 
-- Buch 10.11.4 (Laenge)
 - Klasse "Vector"
 - Klasse "BankAccount"
 - Klasse "Dictionary" (Wörterbuch)
 
-# Iterators
+# Iterables & Iteratoren
 
-## Iterators
+## Iterable
 
-Oberflächlich: Ein Iterator ist ein besonderes Objekt, über das wir mit `for o in my_iterator` iterieren können.
+Ein Iterable ist ein Objekt, über das mittels `for o in my_iterable` iteriert werden kann.
 
-Iterators können auf verschiedene Arten erzeugt werden.
+Beispiele für Iterables:
 
-## Iterators
+- Liste
+- Dictionary
+- range-Objekte
+- Iteratoren
 
-Genauer Hintergrund: Ein Iterator ist ein besonderes Objekt, das eine `__next__`-Methode besitzt.
+## Iteratoren
 
-## Iterators - Beispiel count
+Das Iterieren über Objekte erfolgt immer über einen sogenannten _Iterator_ - ein Hilfsobjekt für die Iteration.
+
+Erhalten des Iterators via: `my_iterable.__iter__()`.
+
+## Iteratoren
+
+Iterator einer Liste:
+
+```py
+primes = [2, 3, 5, 7]
+
+primes_iterator = primes.__iter__()
+```
+
+Auch Iteratoren haben einen Iterator (sich selbst):
+
+```py
+primes_iterator_iterator = primes_iterator.__iter__()
+
+print(primes_iterator_iterator == primes iterator) # True
+```
+
+## Iteratoren
+
+Iteratoren haben eine `__next__`-Methode, die jeweils das nächste Element der Iteration liefert.
+
+Beispiel:
+
+```py
+numbers = [1, 2, 3]
+
+numbers_iterator = numbers.__iter__()
+
+print(numbers_iterator.__next__())
+print(numbers_iterator.__next__())
+```
+
+## Iteratoren
+
+Wenn ein Iterator aufgebraucht ist, wird eine `StopIteration`-Exception ausgelöst.
+
+```py
+print(numbers_iterator.__next__()) # 1
+print(numbers_iterator.__next__()) # 2
+print(numbers_iterator.__next__()) # 3
+print(numbers_iterator.__next__()) # StopIteration
+```
+
+## Iteratoren erzeugen
+
+Bekannte Möglichkeit:
+
+- aus Iterables (z.B. _list_, _range_ oder eigene Klasse) mittels `__iter__`
+
+Weitere Möglichkeiten:
+
+- Funktionen aus `itertools`
+- Generator-Ausdruck
+- Funktion mit `yield`
+
+## Itertools
+
+Modul zum Erzeugen von Iteratoren
+
+- `itertools.count`
+- `itertools.repeat`
+- `itertools.product`
+
+https://docs.python.org/3/library/itertools.html
+
+## Itertools - Beispiel count
 
 ```py
 from itertools import count
@@ -581,7 +653,7 @@ for i in count():
     print(i)
 ```
 
-## Iterators - Beispiel count
+## Iteratoren - Beispiel count
 
 ```py
 from itertools import count
@@ -592,7 +664,7 @@ c.__next__()
 c.__next__()
 ```
 
-## Iterators - Beispiel count
+## Iteratoren - Beispiel count
 
 ```py
 from itertools import count
@@ -603,7 +675,7 @@ next(c)
 next(c)
 ```
 
-## Iterators - Beispiel repeat
+## Iteratoren - Beispiel repeat
 
 ```py
 from itertools import repeat
@@ -613,25 +685,6 @@ r = repeat('a', 5)
 next(r)
 ...
 ```
-
-## Iterators - Beispiel repeat
-
-Wenn ein Iterator "aufgebraucht" ist:
-
-`StopIteration`-Exception
-
-## Iterators erzeugen
-
-Möglichkeiten:
-
-- Funktionen aus `itertools`
-- Eigene Klasse mit `__next__` (und `__iter__`)
-- Generator-Expression
-- Funktion mit `yield`
-
-## itertools
-
-https://docs.python.org/3/library/itertools.html
 
 ## Eigene Klasse
 
@@ -682,12 +735,6 @@ def count():
         yield i
         i += i
 ```
-
-## Iterable und \_\_iter\_\_
-
-Iterable = Objekt, über das iteriert werden kann - definiert eine `__iter__`-Methode
-
-Beispiele: Listen, Iterators
 
 # Schleifen
 

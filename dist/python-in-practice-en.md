@@ -147,18 +147,17 @@ Objects that support using `.read()` or `.write()` etc:
 
 ## File-like objects
 
+Read line by line (small memory consumption):
+
 ```py
-with file as open('myfile.txt', encoding="utf-8"):
-    # read individual lines
+with open("myfile.txt", encoding="utf-8") as file:
     for line in file:
         print(line)
-    # read entire file
-    print(file.read())
 ```
 
 ## File-like objects
 
-Methods:
+Methods / Attributes:
 
 - `.close()`
 - `.mode`

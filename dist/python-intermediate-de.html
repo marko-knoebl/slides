@@ -769,12 +769,14 @@ print(len(users))</code></pre>
 
       </section><section class="slide" id="slide-13-6">
         <h2 id="operationen-auf-dictionaries">Operationen auf Dictionaries</h2>
-<pre><code class="language-py">d = {<span class="hljs-number">0</span>: <span class="hljs-string">'null'</span>, <span class="hljs-number">1</span>: <span class="hljs-string">'eins'</span>, <span class="hljs-number">2</span>: <span class="hljs-string">'zwei'</span>}
+<pre><code class="language-py">d = {<span class="hljs-number">0</span>: <span class="hljs-string">'zero'</span>, <span class="hljs-number">1</span>: <span class="hljs-string">'one'</span>, <span class="hljs-number">2</span>: <span class="hljs-string">'two'</span>}
 
 d[<span class="hljs-number">2</span>]
 d[<span class="hljs-number">2</span>] = <span class="hljs-string">'ZWEI'</span>
 d[<span class="hljs-number">3</span>] <span class="hljs-comment"># KeyError</span>
 d.get(<span class="hljs-number">3</span>) <span class="hljs-comment"># None</span>
+d.setdefault(<span class="hljs-number">2</span>, <span class="hljs-string">'n'</span>)
+d.setdefault(<span class="hljs-number">3</span>, <span class="hljs-string">'n'</span>)
 
 d.keys()
 d.items()
@@ -782,6 +784,10 @@ d.items()
 d1.update(d2)</code></pre>
 
       </section><section class="slide" id="slide-13-7">
+        <h2 id="dictionaries">Dictionaries</h2>
+<p>Was kann als key verwendet werden?</p>
+
+      </section><section class="slide" id="slide-13-8">
         <h2 id="beispiel-vokabelprogramm">Beispiel: Vokabelprogramm</h2>
 <ul>
 <li>Einlesen von (JSON-)Datei</li>
@@ -789,12 +795,8 @@ d1.update(d2)</code></pre>
 <li>zufälliges Auswählen eines Eintrags</li>
 </ul>
 
-      </section><section class="slide" id="slide-13-8">
-        <h2 id="beispiel-todo-liste">Beispiel: Todo-Liste</h2>
-
       </section><section class="slide" id="slide-13-9">
-        <h2 id="dictionaries">Dictionaries</h2>
-<p>Was kann als key verwendet werden?</p>
+        <h2 id="beispiel-todo-liste">Beispiel: Todo-Liste</h2>
 
       </section></section><section class="section" id="section-14"><section class="slide" id="slide-14-1">
         <h1 id="comprehensions">Comprehensions</h1>
@@ -972,11 +974,12 @@ name = input(<span class="hljs-string">"enter your name"</span>)
 
 products = []
 <span class="hljs-keyword">if</span> products: ...</code></pre>
+<p>Diese Typen werden in boolesche Werte konvertiert bevor sie als Kriterium herangezogen werden.</p>
 
       </section><section class="slide" id="slide-17-4">
         <h2 id="kriterien-bei-if">Kriterien bei if</h2>
 <p>Grundsätzlich können beliebige Werte als Kriterium verwendet werden. Die meisten sind dabei &quot;truthy&quot;.</p>
-<p>Folgende Werte gelten als &quot;falsy&quot;:</p>
+<p>Folgende Werte gelten als &quot;falsy&quot; - ein Aufruf von <code>bool(...)</code> liefert <code>False</code> zurück:</p>
 <ul>
 <li><code>False</code></li>
 <li><code>0</code>, <code>0.0</code></li>
@@ -998,7 +1001,7 @@ products = []
 
       </section><section class="slide" id="slide-17-6">
         <h2 id="if-expression">if Expression</h2>
-<p>Ein Ausdruck der einen von zwei möglichen Werten ergibt - basierend auf einem booleschen Kriterium</p>
+<p>Ein Ausdruck, der einen von zwei möglichen Werten ergibt - basierend auf einem booleschen Kriterium</p>
 <pre><code class="language-py">size = <span class="hljs-string">'small'</span> <span class="hljs-keyword">if</span> length &lt; <span class="hljs-number">110</span> <span class="hljs-keyword">else</span> <span class="hljs-string">'big'</span></code></pre>
 <p>In anderen Sprachen:</p>
 <pre><code class="language-js"><span class="hljs-comment">// JavaScript</span>
@@ -1116,20 +1119,29 @@ foo(<span class="hljs-string">"one"</span>, <span class="hljs-string">"two"</spa
 <p><code>args</code> ist ein Tupel, <code>kwargs</code> ein Dictionary.</p>
 
       </section><section class="slide" id="slide-20-3">
-        <h2 id="beispiel">Beispiel</h2>
+        <h2 id="beliebige-anzahl-an-parametern-args--kwargs">Beliebige Anzahl an Parametern (args / kwargs)</h2>
 <p>Aufgabe: &quot;Nachbau&quot; von <code>range()</code></p>
 
       </section><section class="slide" id="slide-20-4">
+        <h2 id="entpacken-von-parameterlisten">Entpacken von Parameterlisten</h2>
+<pre><code class="language-py">numbers = [<span class="hljs-string">"one"</span>, <span class="hljs-string">"two"</span>, <span class="hljs-string">"three"</span>]
+
+<span class="hljs-comment"># equivalent:</span>
+print(numbers[<span class="hljs-number">0</span>], numbers[<span class="hljs-number">1</span>], numbers[<span class="hljs-number">2</span>])
+
+print(*numbers)</code></pre>
+
+      </section><section class="slide" id="slide-20-5">
         <h2 id="globaler-und-lokaler-scope">Globaler und lokaler Scope</h2>
 <p><code>global</code> / <code>nonlocal</code></p>
 <p>Spielt beim <em>Zuweisen</em> von Variablen eine Rolle</p>
 
-      </section><section class="slide" id="slide-20-5">
+      </section><section class="slide" id="slide-20-6">
         <h2 id="call-by-sharing">Call by sharing</h2>
 <p>In Python werden Werte mittels <em>call by sharing</em> an Funktionen übergeben (ähnlich wie <em>call by reference</em> in anderen Sprachen)</p>
 <p>Dies bedeutet: Eine Funktion <em>kann</em> übergebene Parameter abändern - und wir sollten darauf achten, das in der Praxis nicht zu tun</p>
 
-      </section><section class="slide" id="slide-20-6">
+      </section><section class="slide" id="slide-20-7">
         <h2 id="call-by-sharing">Call by sharing</h2>
 <p>Beispiel:</p>
 <pre><code class="language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">modify_a</span><span class="hljs-params">(mylist)</span>:</span>
@@ -1144,7 +1156,7 @@ list_a_mod = modify_a(list_a)
 list_b = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>]
 list_b_mod = modify_b(list_b)</code></pre>
 
-      </section><section class="slide" id="slide-20-7">
+      </section><section class="slide" id="slide-20-8">
         <h2 id="call-by-sharing">Call by sharing</h2>
 <pre><code class="language-py">list_a_mod <span class="hljs-comment"># [1, 2, 1]</span>
 list_b_mod <span class="hljs-comment"># [1, 2, 1]</span>
