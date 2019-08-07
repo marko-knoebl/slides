@@ -1,12 +1,12 @@
-# Comprehensions
+# Comprehension
 
-## List comprehensions
+## List Comprehension
 
 Wichtige Möglichkeit, um Listen basierend auf anderen Listen zu erstellen
 
 In anderen Programmiersprachen oft umgesetzt mittels `map` und `filter` / `grep`
 
-## List comprehension
+## List Comprehension
 
 ```py
 names = ["Alice", "Bob", "Charlie"]
@@ -15,7 +15,7 @@ uppercase_names = [name.upper() for name in names]
 ["ALICE", "BOB", "CHARLIE"]
 ```
 
-## List comprehension
+## List Comprehension
 
 ```py
 amounts = [10, -7, 8, 19, -2]
@@ -23,7 +23,7 @@ amounts = [10, -7, 8, 19, -2]
 negative_amounts = [amount for amount in amounts if amount < 0]
 ```
 
-## List comprehension
+## List Comprehension
 
 Allgemeine Syntax:
 
@@ -33,11 +33,11 @@ new_list = [new_entry for entry in old_list]
 new_list = [new_entry for entry in old_list if condition]
 ```
 
-## List comprehension
+## List Comprehension
 
 Beispiel Todo-Liste: Entfernen erledigter Todos
 
-## Dictionary comprehensions
+## Dictionary Comprehension
 
 ```py
 colors: {

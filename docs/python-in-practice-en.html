@@ -1069,7 +1069,11 @@ path = <span class="hljs-string">"/home/username/"</span>
 <p>comes with Python (module <code>sqlite3</code>)</p>
 <pre><code class="language-py"><span class="hljs-keyword">import</span> sqlite3
 
-connection = sqlite3.connect(<span class="hljs-string">'contacts.db'</span>)</code></pre>
+<span class="hljs-comment"># database stored in a file</span>
+connection = sqlite3.connect(<span class="hljs-string">'contacts.db'</span>)
+
+<span class="hljs-comment"># in-memory database</span>
+connection = sqlite3.connect(<span class="hljs-string">':memory:'</span>)</code></pre>
 
       </section><section class="slide" id="slide-13-4">
         <h2 id="mysql-and-python">MySQL and Python</h2>
@@ -1120,26 +1124,15 @@ connection.close()</code></pre>
 <p><a href="https://www.python.org/dev/peps/pep-0249">https://www.python.org/dev/peps/pep-0249</a></p>
 
       </section><section class="slide" id="slide-13-9">
-        <h2 id="pep-249-types">PEP 249: types</h2>
-<ul>
-<li><code>Date</code></li>
-<li><code>Time</code></li>
-<li><code>Timestamp</code></li>
-<li><code>Binary</code></li>
-<li><code>STRING</code></li>
-<li><code>NUMBER</code></li>
-</ul>
-
-      </section><section class="slide" id="slide-13-10">
-        <h2 id="queries-with-parameters">Queries with parameters</h2>
+        <h2 id="sql-statements-with-parameters">SQL statements with parameters</h2>
 <p>dangerous:</p>
 <pre><code class="language-py">search_name = input()
 res = cursor.execute(
   <span class="hljs-string">f"""SELECT tel FROM person WHERE name = '<span class="hljs-subst">{search_name}</span>'"""</span>
 )</code></pre>
 
-      </section><section class="slide" id="slide-13-11">
-        <h2 id="queries-with-parameters">Queries with parameters</h2>
+      </section><section class="slide" id="slide-13-10">
+        <h2 id="sql-statements-with-parameters">SQL statements with parameters</h2>
 <p>safe method (with SQL escaping):</p>
 <pre><code class="language-py">search_name = input()
 res = cursor.execute(
@@ -1147,10 +1140,10 @@ res = cursor.execute(
   (search_name, )
 )</code></pre>
 
-      </section><section class="slide" id="slide-13-12">
-        <h2 id="queries-with-parameters">Queries with parameters</h2>
+      </section><section class="slide" id="slide-13-11">
+        <h2 id="sql-statements-with-parameters">SQL statements with parameters</h2>
 <p><a href="https://www.python.org/dev/peps/pep-0249/#paramstyle">https://www.python.org/dev/peps/pep-0249/#paramstyle</a></p>
-<p>The attributes <code>sqlite3.paramstyle</code>, <code>pymysql.paramstyle</code> etc indicate the format for queries with parameters</p>
+<p>The attributes <code>sqlite3.paramstyle</code>, <code>pymysql.paramstyle</code> etc. indicate the format for queries with parameters</p>
 <ul>
 <li>sqlite3: qmark</li>
 <li>pymysql: pyformat</li>
@@ -1158,7 +1151,7 @@ res = cursor.execute(
 <li>cx_Oracle: named</li>
 </ul>
 
-      </section><section class="slide" id="slide-13-13">
+      </section><section class="slide" id="slide-13-12">
         <h2 id="pep-249-the-cursor-object">PEP 249: the cursor object</h2>
 <ul>
 <li><code>cursor.execute(command, parameters)</code></li>
@@ -1168,7 +1161,7 @@ res = cursor.execute(
 <li><code>cursor.fetchall()</code></li>
 </ul>
 
-      </section><section class="slide" id="slide-13-14">
+      </section><section class="slide" id="slide-13-13">
         <h2 id="exercises">Exercises</h2>
 <ul>
 <li>Forum with database binding (and admin script)</li>

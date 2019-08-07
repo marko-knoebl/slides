@@ -1074,7 +1074,11 @@ comes with Python (module `sqlite3`)
 ```py
 import sqlite3
 
+# database stored in a file
 connection = sqlite3.connect('contacts.db')
+
+# in-memory database
+connection = sqlite3.connect(':memory:')
 ```
 
 ## MySQL and Python
@@ -1137,16 +1141,7 @@ connection.close()
 
 https://www.python.org/dev/peps/pep-0249
 
-## PEP 249: types
-
-- `Date`
-- `Time`
-- `Timestamp`
-- `Binary`
-- `STRING`
-- `NUMBER`
-
-## Queries with parameters
+## SQL statements with parameters
 
 dangerous:
 
@@ -1157,7 +1152,7 @@ res = cursor.execute(
 )
 ```
 
-## Queries with parameters
+## SQL statements with parameters
 
 safe method (with SQL escaping):
 
@@ -1169,11 +1164,11 @@ res = cursor.execute(
 )
 ```
 
-## Queries with parameters
+## SQL statements with parameters
 
 https://www.python.org/dev/peps/pep-0249/#paramstyle
 
-The attributes `sqlite3.paramstyle`, `pymysql.paramstyle` etc indicate the format for queries with parameters
+The attributes `sqlite3.paramstyle`, `pymysql.paramstyle` etc. indicate the format for queries with parameters
 
 - sqlite3: qmark
 - pymysql: pyformat

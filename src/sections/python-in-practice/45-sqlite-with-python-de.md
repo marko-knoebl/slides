@@ -25,4 +25,4 @@ https://docs.python.org/3/library/sqlite3.html#using-adapters-to-store-additiona
 
 Übungen:
 
-- Schreibe Adapter und Converter, um direkt Instanzen von Pythons `ipadress.IPv4Address` zu speichern bzw zu lesen
+- Schreibe Adapter und Converter, um direkt Instanzen von Pythons `ipadress.IPv4Address` zu speichern bzw zu lesen - in SQL würden diese als kodierter Bytestring gespeichert werden

@@ -1230,16 +1230,7 @@ connection.close()
 
 https://www.python.org/dev/peps/pep-0249
 
-## PEP 249: Typen
-
-- `Date`
-- `Time`
-- `Timestamp`
-- `Binary`
-- `STRING`
-- `NUMBER`
-
-## Abfragen mit Parametern
+## SQL Statements mit Parametern
 
 gefährlich:
 
@@ -1250,7 +1241,7 @@ res = cursor.execute(
 )
 ```
 
-## Abfragen mit Parametern
+## SQL Statements mit Parametern
 
 sichere Methode (mit SQL-Escaping):
 
@@ -1262,11 +1253,11 @@ res = cursor.execute(
 )
 ```
 
-## Abfragen mit Parametern
+## SQL Statements mit Parametern
 
 https://www.python.org/dev/peps/pep-0249/#paramstyle
 
-Die Attribute `sqlite3.paramstyle`, `pymysql.paramstyle` etc geben das Format für Abfragen mit Parametern an
+Die Attribute `sqlite3.paramstyle`, `pymysql.paramstyle` etc. geben das Format für Abfragen mit Parametern an
 
 - sqlite3: qmark
 - pymysql: pyformat
@@ -1280,10 +1271,6 @@ Die Attribute `sqlite3.paramstyle`, `pymysql.paramstyle` etc geben das Format f�
 - `cursor.fetchone()`: Eine Zeile des Resultats auslesen (üblicherweise als Tupel)
 - `cursor.fetchmany(10)`
 - `cursor.fetchall()`
-
-## Adapter und Converter für SQLite
-
-
 
 ## Beispiel: Forum mit Datenbankanbindung
 
@@ -1327,7 +1314,7 @@ https://docs.python.org/3/library/sqlite3.html#using-adapters-to-store-additiona
 
 Übungen:
 
-- Schreibe Adapter und Converter, um direkt Instanzen von Pythons `ipadress.IPv4Address` zu speichern bzw zu lesen
+- Schreibe Adapter und Converter, um direkt Instanzen von Pythons `ipadress.IPv4Address` zu speichern bzw zu lesen - in SQL würden diese als kodierter Bytestring gespeichert werden
 
 # SQLAlchemy
 
