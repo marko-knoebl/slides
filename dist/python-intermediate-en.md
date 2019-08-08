@@ -983,7 +983,6 @@ size = length < 110 ? 'small' : 'big';
 
 ## Types of exceptions
 
-- AssertionError
 - AttributeError, IndexError, KeyError
 - NameError
 - TypeError
@@ -1195,7 +1194,7 @@ foo("one", "two", x="hello")
 
 ## Arbitrary number of Arguments (args / kwargs)
 
-Task: recreate `range()`
+Task: recreate `range()` by using a while loop
 
 ## Unpacking of parameter lists
 

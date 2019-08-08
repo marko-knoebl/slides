@@ -16,7 +16,7 @@ foo("one", "two", x="hello")
 
 ## Arbitrary number of Arguments (args / kwargs)
 
-Task: recreate `range()`
+Task: recreate `range()` by using a while loop
 
 ## Unpacking of parameter lists
 

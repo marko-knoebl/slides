@@ -16,7 +16,7 @@ foo("one", "two", x="hello")
 
 ## Beliebige Anzahl an Parametern (args / kwargs)
 
-Aufgabe: "Nachbau" von `range()`
+Aufgabe: "Nachbau" von `range()` mit Hilfe einer while-Schleife
 
 ## Entpacken von Parameterlisten
 

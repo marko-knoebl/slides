@@ -2,7 +2,6 @@
 
 ## Arten von Exceptions
 
-- AssertionError
 - AttributeError, IndexError, KeyError
 - NameError
 - TypeError
