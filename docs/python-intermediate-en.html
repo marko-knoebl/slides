@@ -523,8 +523,8 @@ temperature = <span class="hljs-number">23.7</span>
       </section><section class="slide" id="slide-8-4">
         <h2 id="format-specification">Format specification</h2>
 <pre><code class="language-py">t = <span class="hljs-number">333.333</span>
-<span class="hljs-string">f'<span class="hljs-subst">{t<span class="hljs-number">.4</span>f}</span>°K'</span> <span class="hljs-comment"># 333.3330°K</span>
-<span class="hljs-string">f'<span class="hljs-subst">{t<span class="hljs-number">.4</span>g}</span>°K'</span> <span class="hljs-comment"># 333.3°K</span></code></pre>
+<span class="hljs-string">f'<span class="hljs-subst">{t:<span class="hljs-number">.4</span>f}</span>°K'</span> <span class="hljs-comment"># 333.3330°K</span>
+<span class="hljs-string">f'<span class="hljs-subst">{t:<span class="hljs-number">.4</span>g}</span>°K'</span> <span class="hljs-comment"># 333.3°K</span></code></pre>
 <p><a href="https://mkaz.blog/code/python-string-format-cookbook/">https://mkaz.blog/code/python-string-format-cookbook/</a></p>
 
       </section></section><section class="section" id="section-9"><section class="slide" id="slide-9-1">
@@ -1085,9 +1085,94 @@ size = length &lt; <span class="hljs-number">110</span> ? <span class="hljs-stri
 <span class="hljs-keyword">raise</span> MoneyParseException()</code></pre>
 
       </section></section><section class="section" id="section-20"><section class="slide" id="slide-20-1">
-        <h1 id="functions">Functions</h1>
+        <h1 id="modules-and-packages">Modules and packages</h1>
 
       </section><section class="slide" id="slide-20-2">
+        <h2 id="modules-and-packages">Modules and packages</h2>
+<ul>
+<li>Module = Python file from which objects can be imported</li>
+<li>Package = directory that includes Python modules</li>
+</ul>
+
+      </section><section class="slide" id="slide-20-3">
+        <h2 id="example-imports">Example imports</h2>
+<ul>
+<li><code>urllib</code> = package</li>
+<li><code>urllib.request</code> = module</li>
+<li><code>urllib.request.urlopen</code> = function</li>
+</ul>
+<!-- list separator -->
+
+<ul>
+<li><code>sys</code> = module</li>
+<li><code>sys.path</code> = object</li>
+</ul>
+
+      </section><section class="slide" id="slide-20-4">
+        <h2 id="example-imports">Example imports</h2>
+<p>Typical imports:</p>
+<pre><code class="language-py"><span class="hljs-keyword">import</span> module1
+<span class="hljs-keyword">import</span> module2
+<span class="hljs-keyword">from</span> package3 <span class="hljs-keyword">import</span> module3a, module3b
+<span class="hljs-keyword">from</span> module4 <span class="hljs-keyword">import</span> object4a, object4b
+<span class="hljs-keyword">from</span> package5.module5 <span class="hljs-keyword">import</span> object5a, object5b</code></pre>
+<p>Specific examples:</p>
+<pre><code class="language-py"><span class="hljs-keyword">import</span> os
+<span class="hljs-keyword">import</span> sys
+<span class="hljs-keyword">from</span> urllib <span class="hljs-keyword">import</span> request, response
+<span class="hljs-keyword">from</span> math <span class="hljs-keyword">import</span> sqrt, pi
+<span class="hljs-keyword">from</span> http.client <span class="hljs-keyword">import</span> HTTPConnection, HTTPSConnection</code></pre>
+
+      </section><section class="slide" id="slide-20-5">
+        <h2 id="shorter-names-for-imports">Shorter names for imports</h2>
+<p>Typically used in an interactive console to save keystrokes:</p>
+<p>Short names:</p>
+<pre><code class="language-py"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+<span class="hljs-keyword">import</span> tkinter <span class="hljs-keyword">as</span> tk</code></pre>
+<p>Importing everything from a module (usually not recommended):</p>
+<pre><code class="language-py"><span class="hljs-keyword">from</span> math <span class="hljs-keyword">import</span> *</code></pre>
+
+      </section><section class="slide" id="slide-20-6">
+        <h2 id="conventions-for-imports">Conventions for imports</h2>
+<ul>
+<li>all imports in a Python file <em>should</em> be at the start of the file</li>
+<li>imports <em>should</em> be split into three groups:<ul>
+<li>imports from the standard library</li>
+<li>imports from other libraries</li>
+<li>imports within the project</li>
+</ul>
+</li>
+</ul>
+
+      </section><section class="slide" id="slide-20-7">
+        <h2 id="resolving-imports">Resolving imports</h2>
+<p>Search order:</p>
+<ul>
+<li>directory of the Python script that was executed</li>
+<li>standard library</li>
+<li>external libraries</li>
+</ul>
+<p>Avoid name clashes with existing modules / packages!</p>
+
+      </section><section class="slide" id="slide-20-8">
+        <h2 id="resolving-imports">Resolving imports</h2>
+<p>To see all search paths for imports:</p>
+<pre><code class="language-py"><span class="hljs-keyword">import</span> sys
+print(sys.path)</code></pre>
+
+      </section><section class="slide" id="slide-20-9">
+        <h2 id="compilation-of-modules">Compilation of modules</h2>
+<p>Imported modules will be saved in a compiled form, making subsequent loading of the modules faster.</p>
+<p>Compiled versions will be saved in the folder <code>__pycache__</code></p>
+
+      </section><section class="slide" id="slide-20-10">
+        <h2 id="be-careful-avoid-circular-imports">Be careful: avoid circular imports</h2>
+
+      </section></section><section class="section" id="section-21"><section class="slide" id="slide-21-1">
+        <h1 id="functions">Functions</h1>
+
+      </section><section class="slide" id="slide-21-2">
         <h2 id="arbitrary-number-of-arguments-args--kwargs">Arbitrary number of Arguments (args / kwargs)</h2>
 <pre><code class="language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">foo</span><span class="hljs-params">(*args, **kwargs)</span>:</span>
     print(args)
@@ -1098,11 +1183,11 @@ foo(<span class="hljs-string">"one"</span>, <span class="hljs-string">"two"</spa
 <span class="hljs-comment"># kwargs: {"x": "hello"}</span></code></pre>
 <p><code>args</code> will be a tuple, <code>kwargs</code> will be a dictionary</p>
 
-      </section><section class="slide" id="slide-20-3">
+      </section><section class="slide" id="slide-21-3">
         <h2 id="arbitrary-number-of-arguments-args--kwargs">Arbitrary number of Arguments (args / kwargs)</h2>
 <p>Task: recreate <code>range()</code></p>
 
-      </section><section class="slide" id="slide-20-4">
+      </section><section class="slide" id="slide-21-4">
         <h2 id="unpacking-of-parameter-lists">Unpacking of parameter lists</h2>
 <pre><code class="language-py">numbers = [<span class="hljs-string">"one"</span>, <span class="hljs-string">"two"</span>, <span class="hljs-string">"three"</span>]
 
@@ -1111,17 +1196,17 @@ print(numbers[<span class="hljs-number">0</span>], numbers[<span class="hljs-num
 
 print(*numbers)</code></pre>
 
-      </section><section class="slide" id="slide-20-5">
+      </section><section class="slide" id="slide-21-5">
         <h2 id="global-and-local-scope">Global and local scope</h2>
 <p><code>global</code> / <code>nonlocal</code></p>
 <p>change the behavior of <em>assignments</em></p>
 
-      </section><section class="slide" id="slide-20-6">
+      </section><section class="slide" id="slide-21-6">
         <h2 id="call-by-sharing">Call by sharing</h2>
 <p>In Python values are passed to functions via <em>call by sharing</em> (similar to <em>call by reference</em> in other languages)</p>
 <p>This means: A function <em>may</em> mutate parameters that are passed in - and we should usually make sure not to do so</p>
 
-      </section><section class="slide" id="slide-20-7">
+      </section><section class="slide" id="slide-21-7">
         <h2 id="call-by-sharing">Call by sharing</h2>
 <p>Example:</p>
 <pre><code class="language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">modify_a</span><span class="hljs-params">(mylist)</span>:</span>
@@ -1137,17 +1222,17 @@ list_b = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>
 list_b_mod = modify_b(list_b)</code></pre>
 <p>(results on next slide)</p>
 
-      </section><section class="slide" id="slide-20-8">
+      </section><section class="slide" id="slide-21-8">
         <h2 id="call-by-sharing">Call by sharing</h2>
 <pre><code class="language-py">list_a_mod <span class="hljs-comment"># [1, 2, 1]</span>
 list_b_mod <span class="hljs-comment"># [1, 2, 1]</span>
 list_a <span class="hljs-comment"># [1, 2, 1]</span>
 list_b <span class="hljs-comment"># [1, 2]</span></code></pre>
 
-      </section></section><section class="section" id="section-21"><section class="slide" id="slide-21-1">
+      </section></section><section class="section" id="section-22"><section class="slide" id="slide-22-1">
         <h1 id="pure-functions">Pure functions</h1>
 
-      </section><section class="slide" id="slide-21-2">
+      </section><section class="slide" id="slide-22-2">
         <h2 id="pure-functions">Pure functions</h2>
 <p>Pure functions are functions which only interact with their environment via input parameters and return values</p>
 <p>in particular, this means:</p>
@@ -1157,7 +1242,7 @@ list_b <span class="hljs-comment"># [1, 2]</span></code></pre>
 <li>no mutating of objects that are passed in</li>
 </ul>
 
-      </section><section class="slide" id="slide-21-3">
+      </section><section class="slide" id="slide-22-3">
         <h2 id="pure-functions">Pure functions</h2>
 <p>Advantages of pure functions</p>
 <ul>
@@ -1165,7 +1250,7 @@ list_b <span class="hljs-comment"># [1, 2]</span></code></pre>
 <li>easy to test</li>
 </ul>
 
-      </section><section class="slide" id="slide-21-4">
+      </section><section class="slide" id="slide-22-4">
         <h2 id="pure-functions">Pure functions</h2>
 <p>Example of a function which isn&#39;t pure:</p>
 <pre><code class="language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">remove_negatives</span><span class="hljs-params">(numbers)</span>:</span>
@@ -1178,7 +1263,7 @@ list_b <span class="hljs-comment"># [1, 2]</span></code></pre>
 a = [<span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">-1</span>, <span class="hljs-number">-2</span>, <span class="hljs-number">0</span>]
 b = remove_negatives(a)</code></pre>
 
-      </section><section class="slide" id="slide-21-5">
+      </section><section class="slide" id="slide-22-5">
         <h2 id="pure-functions">Pure functions</h2>
 <p>A pure function as an alternative:</p>
 <pre><code class="language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">remove_negatives</span><span class="hljs-params">(numbers)</span>:</span>
@@ -1189,14 +1274,14 @@ b = remove_negatives(a)</code></pre>
     <span class="hljs-keyword">return</span> nonnegatives</code></pre>
 <p>Note: in Python the ideal solution would be using list comprehensions</p>
 
-      </section></section><section class="section" id="section-22"><section class="slide" id="slide-22-1">
+      </section></section><section class="section" id="section-23"><section class="slide" id="slide-23-1">
         <h1 id="recursive-functions">Recursive functions</h1>
 
-      </section><section class="slide" id="slide-22-2">
+      </section><section class="slide" id="slide-23-2">
         <h2 id="recursive-functions">Recursive functions</h2>
 <p>Functions that call themselves</p>
 
-      </section><section class="slide" id="slide-22-3">
+      </section><section class="slide" id="slide-23-3">
         <h2 id="recursive-function">Recursive function</h2>
 <p>Task: fibonacci sequence</p>
 <pre><code class="language-py"><span class="hljs-comment"># 0 1 1 2 3 5 8 13 21 34 55 89 ...</span>
@@ -1205,100 +1290,15 @@ fib(<span class="hljs-number">3</span>)
 
 fib(<span class="hljs-number">25</span>)</code></pre>
 
-      </section><section class="slide" id="slide-22-4">
+      </section><section class="slide" id="slide-23-4">
         <h2 id="recursion-with-turtle-graphics">Recursion with Turtle graphics</h2>
 
-      </section><section class="slide" id="slide-22-5">
+      </section><section class="slide" id="slide-23-5">
         <h2 id="exercises">Exercises</h2>
 <ul>
 <li>babylonian method for finding square roots</li>
 <li>trees with turtle graphics</li>
 </ul>
-
-      </section></section><section class="section" id="section-23"><section class="slide" id="slide-23-1">
-        <h1 id="modules-and-packages">Modules and packages</h1>
-
-      </section><section class="slide" id="slide-23-2">
-        <h2 id="modules-and-packages">Modules and packages</h2>
-<ul>
-<li>Module = Python file from which objects can be imported</li>
-<li>Package = directory that includes Python modules</li>
-</ul>
-
-      </section><section class="slide" id="slide-23-3">
-        <h2 id="example-imports">Example imports</h2>
-<ul>
-<li><code>urllib</code> = package</li>
-<li><code>urllib.request</code> = module</li>
-<li><code>urllib.request.urlopen</code> = function</li>
-</ul>
-<!-- list separator -->
-
-<ul>
-<li><code>sys</code> = module</li>
-<li><code>sys.path</code> = object</li>
-</ul>
-
-      </section><section class="slide" id="slide-23-4">
-        <h2 id="example-imports">Example imports</h2>
-<p>Typical imports:</p>
-<pre><code class="language-py"><span class="hljs-keyword">import</span> module1
-<span class="hljs-keyword">import</span> module2
-<span class="hljs-keyword">from</span> package3 <span class="hljs-keyword">import</span> module3a, module3b
-<span class="hljs-keyword">from</span> module4 <span class="hljs-keyword">import</span> object4a, object4b
-<span class="hljs-keyword">from</span> package5.module5 <span class="hljs-keyword">import</span> object5a, object5b</code></pre>
-<p>Specific examples:</p>
-<pre><code class="language-py"><span class="hljs-keyword">import</span> os
-<span class="hljs-keyword">import</span> sys
-<span class="hljs-keyword">from</span> urllib <span class="hljs-keyword">import</span> request, response
-<span class="hljs-keyword">from</span> math <span class="hljs-keyword">import</span> sqrt, pi
-<span class="hljs-keyword">from</span> http.client <span class="hljs-keyword">import</span> HTTPConnection, HTTPSConnection</code></pre>
-
-      </section><section class="slide" id="slide-23-5">
-        <h2 id="shorter-names-for-imports">Shorter names for imports</h2>
-<p>Typically used in an interactive console to save keystrokes:</p>
-<p>Short names:</p>
-<pre><code class="language-py"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
-<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
-<span class="hljs-keyword">import</span> tkinter <span class="hljs-keyword">as</span> tk</code></pre>
-<p>Importing everything from a module (usually not recommended):</p>
-<pre><code class="language-py"><span class="hljs-keyword">from</span> math <span class="hljs-keyword">import</span> *</code></pre>
-
-      </section><section class="slide" id="slide-23-6">
-        <h2 id="conventions-for-imports">Conventions for imports</h2>
-<ul>
-<li>all imports in a Python file <em>should</em> be at the start of the file</li>
-<li>imports <em>should</em> be split into three groups:<ul>
-<li>imports from the standard library</li>
-<li>imports from other libraries</li>
-<li>imports within the project</li>
-</ul>
-</li>
-</ul>
-
-      </section><section class="slide" id="slide-23-7">
-        <h2 id="resolving-imports">Resolving imports</h2>
-<p>Search order:</p>
-<ul>
-<li>directory of the Python script that was executed</li>
-<li>standard library</li>
-<li>external libraries</li>
-</ul>
-<p>Avoid name clashes with existing modules / packages!</p>
-
-      </section><section class="slide" id="slide-23-8">
-        <h2 id="resolving-imports">Resolving imports</h2>
-<p>To see all search paths for imports:</p>
-<pre><code class="language-py"><span class="hljs-keyword">import</span> sys
-print(sys.path)</code></pre>
-
-      </section><section class="slide" id="slide-23-9">
-        <h2 id="compilation-of-modules">Compilation of modules</h2>
-<p>Imported modules will be saved in a compiled form, making subsequent loading of the modules faster.</p>
-<p>Compiled versions will be saved in the folder <code>__pycache__</code></p>
-
-      </section><section class="slide" id="slide-23-10">
-        <h2 id="be-careful-avoid-circular-imports">Be careful: avoid circular imports</h2>
 
       </section></section><section class="section" id="section-24"><section class="slide" id="slide-24-1">
         <h1 id="python-versions">Python versions</h1>
