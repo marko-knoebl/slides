@@ -1,11 +1,12 @@
-# Exercises
+# Functions: Exercises
 
 ## Exercises
 
-- program that verifies a credit card number / ISBN / IBAN
-- Tic-Tac-Toe with text-based graphic output
+- function that verifies a credit card number / ISBN / IBAN
 - prime numbers within an interval
 - fibonacci numbers
+
+For ISBN / primes: use the % operator
 
 ## Luhn algorithm (checksum)
 

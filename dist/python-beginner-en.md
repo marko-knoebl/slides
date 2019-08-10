@@ -88,39 +88,57 @@ installation includes:
 - PIP: package manager for installing extensions
 - Python documentation
 
-# The interactive Python shell
+# The interactive Python console
 
-## The interactive Python shell
+## The interactive Python console
 
-launching the Python shell:
+launching the Python console / shell:
 
 - command `python` in the command prompt
 - from the start menu (e.g. _Python 3.7 (64-bit)_)
 
-## mathematical operators
+# Variables
+
+## Variables
+
+Data can be labeled with a name in Python - this is called a _variable_
 
 ```py
-2 * 2 + 3 / 2
+birth_year = 1970
+current_year = 2019
+age = current_year - birth_year
 ```
 
-## simple (primitive) data types
+Names of variables are usually written in lower case, separating words by underscores
 
-Which kinds of data does a computer handle?
+Variable names may only consist of letters, digits and underscores
 
-## simple (primitive) data types
+## Variables
+
+Overwriting (reassigning) variables:
+
+```py
+name = "John"
+name = "Jane"
+a = 3
+a = a + 1
+```
+
+# Basic data types
+
+## Basic data types
 
 - `int` (integer)
 - `float` (floating point number)
 - `str` (string): text
 - `bool` (boolean): yes / no
+- none: missing / unknown value
 
-## int
+## int & float
 
-examples: `3`, `10`
-
-## float
-
-examples: `3.3`, `3.0`
+```py
+(7 - 3) * 0.5 / 3.5
+```
 
 ## float
 
@@ -130,53 +148,35 @@ e.g.: `1/3`
 
 A computer is also unable to represent numbers like `0.1` or `0.2` exactly
 
-example: `0.3 - 0.2 - 0.1`
+example: `0.3 - 0.2` evaluates to `0.09999999999999998`
 
 ## str
 
 A _string_ represents text
 
-```py
-"Hello"
-"Hello" + "Tom"
-"Hello" * 3
-```
-
-## str
-
 Strings can be enclosed in single or double quotes
 
 ```py
-"Hello"
-'Hello'
+greeting = "Hello"
+name = 'Tom'
 ```
 
-## str
-
-multiline strings: in triple quotes
+## Building strings
 
 ```py
-"""Hello,
-my name is
-Andreas"""
+name = "Tom"
 ```
 
-## str
-
-invalid operations:
+Inserting a variable (f-strings):
 
 ```py
-"Hello" - "Tim"
-"Hello" * "Tim"
-"Hello" * 3.0
+message1 = f"Hello, {name}!"
 ```
 
-## f-strings
-
-Including values in strings:
+Joining strings:
 
 ```py
-f"A year has {365 * 24} hours."
+message2 = "Hello, " + name + "!"
 ```
 
 ## Strings - escape sequences
@@ -199,17 +199,17 @@ text = "He said: \"hi!\""
 
 Python treats the sequence `\"` like a single `"`
 
-```py
-print(len(text)) # 14
-```
-
 ## Strings - escape sequences
 
-```py
-# including a line break: \n
-a = 'line 1\nline 2'
+Line break: `\n`
 
-# including a single backslash: \\
+```py
+a = 'line 1\nline 2'
+```
+
+single Backslash: `\\`
+
+```py
 b = 'C:\\docs'
 ```
 
@@ -221,39 +221,211 @@ In Python: `True` or `False`
 
 Note: capitalization is crucial!
 
-## Variables
+## None
 
-Data can be labeled with a name in Python - this is called a _variable_
-
-```py
-first_name = "John"
-last_name = "Doe"
-birth_year = 1978
-```
-
-## Variables
+None represents a value that is unknown or missing
 
 ```py
-full_name = f"{first_name} {last_name}"
-age = 2019 - birth_year
+first_name = "Mike"
+middle_name = None
+last_name = "Jones"
 ```
 
-## Variables
+# Types and type conversions
 
-Names of variables are usually written in lower case, separating words by underscores
+## Types
 
-Variable names may only consist of letters, digits and underscores
-
-## Variables
-
-Overwriting (reassigning) variables:
+Determining the type of a variable via `type`:
 
 ```py
-name = "John"
-name = "Jane"
-a = 3
-a = a + 1
+a = 4 / 2
+
+type(a)
 ```
+
+## Type conversions
+
+Objects may be converted to other types `int()`, `float()`, `str()`, `bool()`, ...
+
+```py
+pi = 3.1415
+pi_int = int(pi)
+message = "Pi is approximately " + str(pi_int)
+```
+
+# Composite types: dict, list
+
+## dict
+
+Dicts (_dictionaries_) are mappings that contain "named" entries with associated values
+
+```py
+person = {
+    "first_name": "John",
+    "last_name": "Doe",
+    "nationality": "Canada",
+    "birth_year": 1980
+}
+```
+
+## dict
+
+Retrieving and setting elements:
+
+```py
+person["first_name"]
+```
+
+```py
+person["first_name"] = "Jane"
+```
+
+## list
+
+A list represents a sequence of objects
+
+```py
+primes = [2, 3, 5, 7, 11]
+
+users = ["Alice", "Bob", "Charlie"]
+```
+
+## list
+
+Retrieving list elements via their index (starting at 0):
+
+```py
+users = ["Alice", "Bob", "Charlie"]
+
+users[0]
+users[1]
+users[2]
+```
+
+## list
+
+Overwriting a list element
+
+```py
+users[0] = "Andrew"
+```
+
+## list
+
+Appending an element
+
+```py
+users.append("Dora")
+```
+
+## list
+
+Removing the last element:
+
+```py
+users.pop()
+```
+
+Removing by index:
+
+```py
+users.pop(0)
+```
+
+## list
+
+Determining the length
+
+```py
+len(users)
+```
+
+## Data types - exercises
+
+We start out with an empty _dict_ - we want to create a data structure that represents a person
+
+```py
+person = {}
+```
+
+the desired result could look like this:
+
+```py
+{
+    "first_name": "Kofi",
+    "last_name": "Annan",
+    "birth_year": 1938,
+    "children": ["Ama", "Kojo"]
+}
+```
+
+## Data types - exercises
+
+create and modify data structures that represent the following:
+
+- data of a country (inhabitants, capital, neighboring countries)
+- a transaction on a bank account
+- a set of transactions on a bank account
+
+# Object references and mutations
+
+## Mutations
+
+Some objects can be mutated (changed) directly - e.g. we can add entries to lists and dicts.
+
+Other objects cannot be mutated directly - however, we can create new, derived objects based on them.
+
+## Mutations
+
+Changing a list directly:
+
+```py
+primes = [2, 3, 5, 7]
+primes.append(11)
+```
+
+Creating a new string based on an existing string (but assigning it to the same name as before):
+
+```py
+greeting = "Hello"
+greeting = greeting + "!"
+```
+
+## Mutations and object references
+
+What will be the value of `a` at the end of this code?
+
+```py
+a = [1, 2, 3]
+b = a
+b.append(4)
+```
+
+## Mutations and object references
+
+An assignment (e.g. `b = a`) assigns a new (additional) name to an object.
+
+The object in the background is the same.
+
+# Help and documentation
+
+## Help and documentation
+
+Interactive help on objects in the Python console:
+
+```py
+help(list)
+```
+
+(navigate through long outputs via _Enter_, exit via _Q_)
+
+## Help and documentation
+
+Documentation on built-ins and the standard library:
+
+https://docs.python.org/3/library/index.html
+
+Similar to the `help` Function, but often with more detailed descriptions
 
 # Python programs
 
@@ -358,6 +530,8 @@ Input: via `input()`:
 name = input()
 ```
 
+`input` will always return a string
+
 ## Input and output of text
 
 writing the greeting
@@ -371,19 +545,6 @@ print("Nice to meet you, " + name)
 on the command line via `python greeting.py`
 
 In VS Code via _F5_
-
-## Type conversion
-
-The `input` function will always return text (a string).
-
-We can convert the string to an int:
-
-```py
-birth_year_string = input("when were you born?")
-birth_year_int = int(birth_year_string)
-```
-
-This works similarly for other types: `str()`, `float()`, `bool()`
 
 ## Exercise: age from birth year
 
@@ -408,411 +569,14 @@ Usually comments are placed _above_ the code they describe
 name_length = len(name)
 ```
 
-# control structures
+# Builtins, Standard library
 
-## control structures
+## Builtins, Standard library
 
-By using control structures we can let Python execute some code repeatedly or only under certain circumstances
+- _Builtins_: functions and objects that are used frequently and available at all times
+- _Standard library_: collections of more functions etc that can be imported
 
-## control structures
-
-The two most essential control structures in every programming language are:
-
-- if/else
-- loops
-
-## comparisons
-
-In order to use basic control structures we have to be able to compare values:
-
-```py
-a = 2
-b = 5
-
-print(a == b) # a is equal to b
-print(a != b) # a not equal to b
-print(a < b)  # a is smaller than b
-print(a > b)
-print(a <= b) # a is smaller than or equal to b
-print(a >= b)
-```
-
-## if / else
-
-## if / else
-
-example:
-
-```py
-age = 30
-age_seconds = age * 365 * 24 * 60 * 60
-
-if age_seconds < 1000000000:
-    print("You are less than 1 billion seconds old")
-else:
-    print("You are older than 1 billion seconds")
-```
-
-## if / elif / else
-
-```py
-if age_seconds < 100000000:
-    print("You are les than 100 million seconds old")
-elif age_seconds < 1000000000:
-    print("You are less than 1 billion seconds old")
-elif age_seconds < 2000000000:
-    print("You are less than 2 billion seconds old")
-else:
-    print("You are older than 2 billion seconds")
-```
-
-## if / elif / else
-
-example: guess the number
-
-## code blocks
-
-code block = a group of lines that belong together - for example the code that gets executed when an if condition is true
-
-In Python the line before the code block ends with a `:` and the code block is indented (usually by 4 spaces)
-
-## while loops
-
-An if clause will execute a code block _once_ if a criterion holds
-
-A while clause will execute a code blok _as long as_ a criterion holds
-
-example:
-
-```py
-a = 1
-
-while a < 2000:
-    print(a)
-    a = a * 2
-```
-
-## while loop
-
-examples:
-
-- guess the number with multiple attempts
-- a loop that prints the numbers 1 to 10
-- a loop that prints the numbers 7, 14, 21, ..., 70
-- exercise program for simple calculations
-
-## Continue & break
-
-The keywords `continue` and `break` may be used to end the current iteration or the entire loop respectively.
-
-In nested loops they refer to the innermost loop.
-
-## Continue & break
-
-example:
-
-```py
-a = 1
-
-while True:
-    a = a * 2
-    print(a)
-    if (a > 1000):
-        break
-```
-
-## combining comparisons
-
-simple:
-
-```py
-if a == 3:
-    print("a is 3")
-```
-
-more complex:
-
-```py
-if a == 3 and 4 < b < 10:
-    print("a is 3 and b is between 4 and 10")
-```
-
-## combining comparisons
-
-```py
-# b is greater than 4 and less than 10 (chained comparison)
-4 < b < 10
-
-# longer version
-b > 4 and b < 10
-
-# c is not between 4 and 10
-not 4 < c < 10
-
-# alternative version:
-c <= 4 or c >= 10
-```
-
-# Counting loops
-
-## Counting loops
-
-This is how we can count from 0 to 9 in Python:
-
-```py
-for i in range(10):
-    print(i)
-```
-
-The function call `range(n)` returns the first `n` natural numbers (starting at 0)
-
-## Counting loops
-
-exercise: creating a "multiplication table"
-
-```txt
-1 x 7 = 7
-2 x 7 = 14
-3 x 7 = 21
-4 x 7 = 28
-...
-```
-
-# control structures - examples
-
-## control structures - examples
-
-- leap year
-- guess the number with multiple tries
-- loop that prints the numbers 1 to 10
-- loop that prints the sequence 7, 14, 21, ...
-- guess the number with random numbers
-- math trainer with random tasks
-- babylonian method (for finding the square root)
-
-## leap year
-
-example: leap year
-
-- a year is a leap year if it's divisible by for
-- exception: it's _not_ a leap year if it's also divisible by 100
-- exception from the exception: it _is_ a leap year if it's divisible by 400
-
-Hint: "x is divisible by y" in Python: `x % y == 0`
-
-## example: babylonian method
-
-method for computing the square root of a number which was already in use 4000 years ago in mesopotamia
-
-## example: babylonian method
-
-```pseudocode
-wanted: square root of 12345
-
-n = 12345
-
-Start with two approximations, e.g. a=1 and b=n
-
-repeat the following until a nd b are almost equal:
-new a = average of old a and old b
-new b = n / a
-
-=> a and b will approach the square root
-```
-
-## babylonian method: solution
-
-```py
-n = 12345
-a = 1
-b = n
-for i in range(10):
-    a = (a + b) / 2
-    b = n / a
-print(b)
-```
-
-# constituent parts of programs
-
-## constituent parts of programs
-
-- programs
-  - code blocks
-    - statements
-      - expressions
-
-## statements across multiple lines
-
-If a statement should encompass multiple lines it is usually written in parentheses:
-
-```py
-a = (2 + 3 + 4 + 5 + 6 +
-     7 + 8 + 9 + 10)
-```
-
-Alternative: _escaping_ newlines with `\`
-
-```py
-a = 2 + 3 + 4 + 5 + 6 + \
-    7 + 8 + 9 + 10
-```
-
-# Lists
-
-## Lists
-
-Lists are a data type that represents a sequence of other objects
-
-## Creating lists
-
-with square brackets:
-
-```py
-primes = [2, 3, 5, 7, 11]
-
-users = ["Alice", "Bob", "Charlie"]
-```
-
-## retrieving list elements
-
-via a list index (starting at 0)
-
-```py
-users = ["Alice", "Bob", "Charlie"]
-
-print(users[0])
-print(users[2])
-print(users[-1])
-
-print(len(users))
-```
-
-## operations on lists
-
-- overwriting an element: `users[0] = "Andrew"`
-- appending an element: `users.append("Dan")`
-- removing the last element: `users.pop()`
-- removing an element by index: `users.pop(2)`
-- length: `len(users)`
-- concatenating lists: `primes + users`
-- checking whether an element is included in a list: `if "Andrew" in users:`
-
-## Exercise: shopping list
-
-Example:
-
-```txt
-enter an item or "x" to quit:
-milk
-enter an item or "x" to quit:
-bread
-enter an item or "x" to quit:
-apples
-enter an item or "x" to quit:
-x
-your shopping list is:
-["milk", "bread", "apples"]
-```
-
-## Mutating objects
-
-In Python lists can be changed - e.g. by appending a new entry
-
-Many other objects - e.g. str, int, float - cannot be modified. However it's always possible to create new, modified objects based on existing ones
-
-## Mutating objects
-
-```py
-a = [1, 2, 3]
-# creating a new object
-a = a + [4]
-
-a = [1, 2, 3]
-# a is modified directly
-a.append(4)
-```
-
-## Mutating objects
-
-What will be the output of the following program?
-
-```py
-a = [1, 2, 3]
-b = a
-b.append(4)
-print(a)
-```
-
-## Mutating objects
-
-An assignment (`b = ...`) will attach a new (additional) name to an existing object.
-
-Behind the scenes there's still only one object
-
-# For loops
-
-## For loops
-
-With for loops we can iterate over the contents of lists (and similar objects).
-
-In other programming languages this construct is called _for-each_
-
-## For loops
-
-```py
-names = ["Alice", "Bob", "Charlie"]
-
-for name in names:
-    print("Hello, " + name + "!")
-```
-
-## Example: login system
-
-```py
-# users and passwords
-users = [
-  ["Alice", "1234"],
-  ["Bob", "password"],
-  ["Charlie", "paris41"]]
-```
-
-## Example: login system
-
-example program run:
-
-```txt
-Enter your username:
-lice
-No such user.
-Enter your username:
-Alice
-Enter your password:
-123
-Wrong password
-Enter your password:
-1234
-Logged in as Alice!
-```
-
-## counting with for loops
-
-Remember: In order to count we may use the function `range`
-
-The function call `range(5)` creates an Object that behaves like the list `[0, 1, 2, 3, 4]`.
-
-Example use:
-
-```py
-for i in range(5):
-    print(i)
-```
-
-# Builtins, Modules
-
-## Builtins, Modules
-
-- Builtins: functions and objects that are used frequently and available at all times
-- Modules: collections of more functions etc that can be imported
+documentation: https://docs.python.org/3/library/index.html
 
 ## Builtins
 
@@ -830,7 +594,7 @@ amongst others:
 - `sum()`
 - `type()`
 
-## Modules
+## Standard library
 
 Modules contain additional objects that can be imported
 
@@ -850,7 +614,7 @@ from math import floor
 print(floor(3.6))
 ```
 
-## Modules
+## Standard library
 
 modules of interest:
 
@@ -914,33 +678,349 @@ python hello.py one two three
 ['hello.py', 'one', 'two', 'three']
 ```
 
-# Exercises
+## urllib.request
 
-## Exercises
-
-- todo list
-- lottery generator
-- hangman
-
-## todo list
-
-Interactive interface that allows a user to create a list of todos which will be printed in the end
-
-Python topics: list, while, for, input
-
-## todo list
+Qerying web contents
 
 ```py
-todolist = []
-proceed = True
-while proceed:
-    new_todo = input("enter new todo:")
-    todolist.append(new_todo)
-    proceed_input = input("add another todo? (y/N)")
-    proceed = proceed_input == 'y'
+from urllib.request import urlopen
 
-for todo in todolist:
-    print('-', todo)
+content = urlopen("https://google.com").read()
+print(content)
+print(len(content))
+```
+
+# Control structures
+
+## Control structures
+
+By using control structures we can execute some code repeatedly or only under certain circumstances.
+
+## Control structures
+
+The two most essential control structures in every programming language are:
+
+- if/else
+- loops
+
+## if / elif / else
+
+example: guess the number
+
+# If
+
+## Comparisons
+
+In order to use if and while we have to be able to compare values:
+
+```py
+a = 2
+b = 5
+
+print(a == b) # a is equal to b
+print(a != b) # a not equal to b
+print(a < b)  # a is smaller than b
+print(a > b)
+print(a <= b) # a is smaller than or equal to b
+print(a >= b)
+```
+
+## If / else
+
+example:
+
+```py
+age = 30
+age_seconds = age * 365 * 24 * 60 * 60
+
+if age_seconds < 1000000000:
+    print("You are less than 1 billion seconds old")
+else:
+    print("You are older than 1 billion seconds")
+```
+
+
+## If / elif / else
+
+```py
+if age_seconds < 100000000:
+    print("You are les than 100 million seconds old")
+elif age_seconds < 1000000000:
+    print("You are less than 1 billion seconds old")
+elif age_seconds < 2000000000:
+    print("You are less than 2 billion seconds old")
+else:
+    print("You are older than 2 billion seconds")
+```
+
+## Code blocks
+
+code block = a group of lines that belong together - for example the code that gets executed when an if condition is true
+
+In Python the line before the code block ends with a `:` and the code block is indented (usually by 4 spaces)
+
+# While loops
+
+## While loops
+
+An if clause will execute a code block _once_ if a criterion holds
+
+A while clause will execute a code blok _as long as_ a criterion holds
+
+example:
+
+```py
+a = 1
+
+while a < 2000:
+    print(a)
+    a = a * 2
+```
+
+## While loops
+
+examples:
+
+- guess the number with multiple attempts
+- a loop that prints the numbers 1 to 10
+- a loop that prints the numbers 7, 14, 21, ..., 70
+- exercise program for simple calculations
+
+## While loops
+
+Exercise: shopping list
+
+Example interaction:
+
+```txt
+enter an item or "x" to quit:
+milk
+enter an item or "x" to quit:
+bread
+enter an item or "x" to quit:
+apples
+enter an item or "x" to quit:
+x
+your shopping list is:
+["milk", "bread", "apples"]
+```
+
+## Continue & break
+
+The keywords `continue` and `break` may be used to end the current iteration or the entire loop respectively.
+
+In nested loops they refer to the innermost loop.
+
+## Continue & break
+
+example:
+
+```py
+a = 1
+
+while True:
+    a = a * 2
+    print(a)
+    if (a > 1000):
+        break
+```
+
+# Combining comparisons
+
+## Combining comparisons
+
+- combining with `and`, `or`, `not`
+- chaining comparisons
+
+## Combining with and, or, not
+
+Examples:
+
+```py
+if age >= 18 and country == "de":
+    print("may drink alcohol")
+
+if temperature < -10 or temperature > 30:
+    print("exterme weather")
+
+if not value > 10:
+    print("value not greater than 10")
+```
+
+## Chaining comparisons
+
+`a` and `b` are both `0`
+
+```py
+a == b == 0
+```
+
+`b` is between 4 and 10
+
+```py
+4 < b < 10
+```
+
+# For loops
+
+## For loops
+
+With for loops we can iterate over the contents of lists (and similar objects).
+
+In other programming languages this construct is called _for-each_
+
+## For loops
+
+```py
+names = ["Alice", "Bob", "Charlie"]
+
+for name in names:
+    print("Hello, " + name + "!")
+```
+
+## Example: login system
+
+```py
+# users and passwords
+users = [
+  ["Alice", "1234"],
+  ["Bob", "password"],
+  ["Charlie", "paris41"]]
+```
+
+## Example: login system
+
+example program run:
+
+```txt
+Enter your username:
+lice
+No such user.
+Enter your username:
+Alice
+Enter your password:
+123
+Wrong password
+Enter your password:
+1234
+Logged in as Alice!
+```
+
+## counting with for loops
+
+Remember: In order to count we may use the function `range`
+
+The function call `range(5)` creates an Object that behaves like the list `[0, 1, 2, 3, 4]`.
+
+Example use:
+
+```py
+for i in range(5):
+    print(i)
+```
+
+# Counting loops
+
+## Counting loops
+
+This is how we can count from 0 to 9 in Python:
+
+```py
+for i in range(10):
+    print(i)
+```
+
+The function call `range(n)` returns the first `n` natural numbers (starting at 0)
+
+## Counting loops
+
+exercise: creating a "multiplication table"
+
+```txt
+1 x 7 = 7
+2 x 7 = 14
+3 x 7 = 21
+4 x 7 = 28
+...
+```
+
+# constituent parts of programs
+
+## constituent parts of programs
+
+- programs
+  - code blocks
+    - statements
+      - expressions
+
+## statements across multiple lines
+
+If a statement should encompass multiple lines it is usually written in parentheses:
+
+```py
+a = (2 + 3 + 4 + 5 + 6 +
+     7 + 8 + 9 + 10)
+```
+
+Alternative: _escaping_ newlines with `\`
+
+```py
+a = 2 + 3 + 4 + 5 + 6 + \
+    7 + 8 + 9 + 10
+```
+
+# control structures - examples
+
+## control structures - examples
+
+- leap year
+- guess the number with multiple tries
+- loop that prints the numbers 1 to 10
+- loop that prints the sequence 7, 14, 21, ...
+- guess the number with random numbers
+- math trainer with random tasks
+- babylonian method (for finding the square root)
+
+## leap year
+
+example: leap year
+
+- a year is a leap year if it's divisible by for
+- exception: it's _not_ a leap year if it's also divisible by 100
+- exception from the exception: it _is_ a leap year if it's divisible by 400
+
+Hint: "x is divisible by y" in Python: `x % y == 0`
+
+## example: babylonian method
+
+method for computing the square root of a number which was already in use 4000 years ago in mesopotamia
+
+## example: babylonian method
+
+```pseudocode
+wanted: square root of 12345
+
+n = 12345
+
+Start with two approximations, e.g. a=1 and b=n
+
+repeat the following until a nd b are almost equal:
+new a = average of old a and old b
+new b = n / a
+
+=> a and b will approach the square root
+```
+
+## babylonian method: solution
+
+```py
+n = 12345
+a = 1
+b = n
+for i in range(10):
+    a = (a + b) / 2
+    b = n / a
+print(b)
 ```
 
 # Functions
@@ -1048,50 +1128,15 @@ Write a function named `isprime` which tests whether a number is prime
 
 Write a function named `ask_yes_no`, which asks the user a yes/no question and returns either `True` or `False`
 
-# Reading and writing text files
-
-## Reading and writing text files
-
-Many file formats are nothing but sequences of characters - e.g. the formats `.txt`, `.html`, `.csv` or `.py`.
-
-These can be represented as strings in Python and can be easily read and written.
-
-## Writing a text file
-
-```py
-# open for writing (w = write)
-# open as a utf-8 file
-file = open("message.txt", "w", encoding="utf-8")
-file.write("hello world")
-file.close()
-```
-
-## Reading a text file
-
-```py
-# default mode = open for reading
-file = open("message.txt", encoding="utf-8")
-content = file.read()
-file.close()
-print(content)
-```
-
-## Encoding
-
-Recommendation: _always_ use utf-8 as the encoding for text files (best support for special characters)
-
-## Exercise
-
-program that gets a list of todos from a user and saves them to a file
-
-# Exercises
+# Functions: Exercises
 
 ## Exercises
 
-- program that verifies a credit card number / ISBN / IBAN
-- Tic-Tac-Toe with text-based graphic output
+- function that verifies a credit card number / ISBN / IBAN
 - prime numbers within an interval
 - fibonacci numbers
+
+For ISBN / primes: use the % operator
 
 ## Luhn algorithm (checksum)
 
@@ -1155,6 +1200,42 @@ print(check_isbn(isbn, expected))
 ```
 
 ## IBAN
+
+# Reading and writing text files
+
+## Reading and writing text files
+
+Many file formats are nothing but sequences of characters - e.g. the formats `.txt`, `.html`, `.csv` or `.py`.
+
+These can be represented as strings in Python and can be easily read and written.
+
+## Writing a text file
+
+```py
+# open for writing (w = write)
+# open as a utf-8 file
+file = open("message.txt", "w", encoding="utf-8")
+file.write("hello world")
+file.close()
+```
+
+## Reading a text file
+
+```py
+# default mode = open for reading
+file = open("message.txt", encoding="utf-8")
+content = file.read()
+file.close()
+print(content)
+```
+
+## Encoding
+
+Recommendation: _always_ use utf-8 as the encoding for text files (best support for special characters)
+
+## Exercise
+
+program that gets a list of todos from a user and saves them to a file
 
 # Code quality and linting
 
@@ -1271,6 +1352,26 @@ Quotes from the _zen of Python_ (full text via `import this`):
 - _Readability counts._
 - _Special cases aren't special enough to break the rules._
 - _There should be one-- and preferably only one --obvious way to do it._
+
+# Debugging in VS Code
+
+## Debugging in VS Code
+
+To set a breakpoint: click left of the line number
+
+Execution will stop when reaching the breakpoint
+
+## Debugging in VS Code
+
+examining variables
+
+## Debugging in VS Code
+
+Proceeeding manually:
+
+- _step over_: to the next line
+- _step into_: follow a function call
+- _step out_: leave the current function
 
 # Cheatsheet
 

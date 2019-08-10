@@ -24,6 +24,8 @@ Input: via `input()`:
 name = input()
 ```
 
+`input` will always return a string
+
 ## Input and output of text
 
 writing the greeting
@@ -37,19 +39,6 @@ print("Nice to meet you, " + name)
 on the command line via `python greeting.py`
 
 In VS Code via _F5_
-
-## Type conversion
-
-The `input` function will always return text (a string).
-
-We can convert the string to an int:
-
-```py
-birth_year_string = input("when were you born?")
-birth_year_int = int(birth_year_string)
-```
-
-This works similarly for other types: `str()`, `float()`, `bool()`
 
 ## Exercise: age from birth year
 

@@ -1,9 +1,11 @@
-# Builtins, Modules
+# Builtins, Standard library
 
-## Builtins, Modules
+## Builtins, Standard library
 
-- Builtins: functions and objects that are used frequently and available at all times
-- Modules: collections of more functions etc that can be imported
+- _Builtins_: functions and objects that are used frequently and available at all times
+- _Standard library_: collections of more functions etc that can be imported
+
+documentation: https://docs.python.org/3/library/index.html
 
 ## Builtins
 
@@ -21,7 +23,7 @@ amongst others:
 - `sum()`
 - `type()`
 
-## Modules
+## Standard library
 
 Modules contain additional objects that can be imported
 
@@ -41,7 +43,7 @@ from math import floor
 print(floor(3.6))
 ```
 
-## Modules
+## Standard library
 
 modules of interest:
 
@@ -103,4 +105,16 @@ python hello.py one two three
 
 ```bash
 ['hello.py', 'one', 'two', 'three']
+```
+
+## urllib.request
+
+Qerying web contents
+
+```py
+from urllib.request import urlopen
+
+content = urlopen("https://google.com").read()
+print(content)
+print(len(content))
 ```

@@ -94,7 +94,7 @@ Python Installation beinhaltet:
 
 ## Python im interaktiven Modus
 
-Möglichkeiten
+Möglichkeiten:
 
 - lokale Installation
 - online-Notebook (Jupyter)
@@ -614,8 +614,10 @@ name_length = len(name)
 
 ## Builtins, Standard Library
 
-- Builtins: Funktionen und Objekte, die oft verwendet werden und immer verfügbar sind
-- Standard Library: Sammlungen von zusätzlichen Modulen und Paketen, die importiert werden können
+- _Builtins_: Funktionen und Objekte, die oft verwendet werden und immer verfügbar sind
+- _Standard Library_: Sammlungen von zusätzlichen Modulen und Paketen, die importiert werden können
+
+Dokumentation: https://docs.python.org/3/library/index.html
 
 ## Builtins
 
@@ -637,13 +639,20 @@ unter anderem:
 
 Die _Standard Library_ bietet zusätzliche Module, die importiert werden können
 
-z.B.:
+Beispiel (abrunden):
 
 ```py
 import math
 
-# abrunden
 print(math.floor(3.6))
+```
+
+oder 
+
+```py
+from math import floor
+
+print(flor(3.6))
 ```
 
 ## Standard Library
@@ -727,9 +736,9 @@ python hello.py one two three
 Abfrage von Web-Inhalten
 
 ```py
-from urllib import request
+from urllib.request import urlopen
 
-content = request.urlopen("https://google.com").read()
+content = urlopen("https://google.com").read()
 print(content)
 print(len(content))
 ```
@@ -738,8 +747,7 @@ print(len(content))
 
 ## Kontrollstrukturen
 
-Mit Kontrollstrukturen können wir bestimmten Code z.B. wiederholt ausführen lassen, oder Code nur in bestimmten Situationen ausführen lassen
-
+Mit Kontrollstrukturen können wir bestimmten Code z.B. wiederholt ausführen lassen, oder Code nur in bestimmten Situationen ausführen lassen.
 ## Kontrollstrukturen
 
 Die zwei essenziellen Kontrollstrukturen in jeder Programmiersprache:

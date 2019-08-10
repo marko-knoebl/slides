@@ -2,7 +2,7 @@
 
 ## Python im interaktiven Modus
 
-Möglichkeiten
+Möglichkeiten:
 
 - lokale Installation
 - online-Notebook (Jupyter)
