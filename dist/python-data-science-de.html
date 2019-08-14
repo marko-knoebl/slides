@@ -914,10 +914,140 @@ df = pd.DataFrame({<span class="hljs-string">"sin"</span>: np.sin(x), <span clas
 df.plot.line()</code></pre>
 
       </section></section><section class="section" id="section-15"><section class="slide" id="slide-15-1">
-        <h1 id="figure-objekte">Figure Objekte</h1>
+        <h1 id="konfiguration-und-styling">Konfiguration und Styling</h1>
 
       </section><section class="slide" id="slide-15-2">
-        <h2 id="figure-objekte">Figure Objekte</h2>
+        <h2 id="stile">Stile</h2>
+<p>Vorgefertigte Stylesheets verwendbar mittels:</p>
+<pre><code class="language-py">plt.style.use(<span class="hljs-string">"stylename"</span>)</code></pre>
+<p>Für Demos verfügbarer Stile siehe:</p>
+<p><a href="https://matplotlib.org/3.1.0/gallery/style_sheets/style_sheets_reference.html">https://matplotlib.org/3.1.0/gallery/style_sheets/style_sheets_reference.html</a></p>
+
+      </section><section class="slide" id="slide-15-3">
+        <h2 id="stile-von-graphen">Stile von Graphen</h2>
+<p>Kurzformen:</p>
+<pre><code class="language-py">plt.plot(x, y, <span class="hljs-string">"gx--"</span>)</code></pre>
+<p>Langform:</p>
+<pre><code class="language-py">plt.plot(x, y, color=<span class="hljs-string">"green"</span>, linestyle=<span class="hljs-string">"dashed"</span>, marker=<span class="hljs-string">"x"</span>)</code></pre>
+<p>In der Langform sind genauere Farb- und Größenangaben möglich</p>
+
+      </section><section class="slide" id="slide-15-4">
+        <h2 id="stile-von-graphen">Stile von Graphen</h2>
+<p>mögliche Farbangaben:</p>
+<ul>
+<li>Farbname (<code>green</code> / <code>lighblue</code> / ...)</li>
+<li>Kurzname (<code>r</code> / <code>g</code> / <code>b</code> / <code>c</code> / <code>m</code> / <code>y</code> / <code>k</code>)</li>
+<li>Hex-Code (z.B. <code>#FFAA00</code>)</li>
+<li>RGB-Tupel (z.B. <code>(1, 0.7, 0)</code>)</li>
+</ul>
+
+      </section><section class="slide" id="slide-15-5">
+        <h2 id="stile-von-graphen">Stile von Graphen</h2>
+<p>mögliche Lininenstile:</p>
+<ul>
+<li><code>&quot;&quot;</code> (<em>none</em>)</li>
+<li><code>&quot;-&quot;</code> (<em>solid</em>)</li>
+<li><code>&quot;--&quot;</code> (<em>dashed</em>)</li>
+<li><code>&quot;:&quot;</code> (<em>dotted</em>)</li>
+<li><code>&quot;-.&quot;</code> (<em>dashdot</em>)</li>
+</ul>
+
+      </section><section class="slide" id="slide-15-6">
+        <h2 id="stile-von-graphen">Stile von Graphen</h2>
+<p>mögliche Marker:</p>
+<ul>
+<li><code>&quot;&quot;</code> (keine)</li>
+<li><code>&quot;,&quot;</code> (kleiner Punkt)</li>
+<li><code>&quot;.&quot;</code> (mittelgroßer Punkt)</li>
+<li><code>&quot;o&quot;</code> (großer Punkt)</li>
+<li><code>&quot;s&quot;</code> (Quadrat)</li>
+<li><code>&quot;x&quot;</code></li>
+<li><code>&quot;+&quot;</code></li>
+<li>...</li>
+</ul>
+
+      </section><section class="slide" id="slide-15-7">
+        <h2 id="label">Label</h2>
+<ul>
+<li><code>plt.title(&quot;Trigonometric functions&quot;)</code></li>
+<li><code>plt.xlabel(&quot;x (radians)&quot;)</code></li>
+<li><code>plt.ylabel(&quot;y&quot;)</code></li>
+</ul>
+
+      </section><section class="slide" id="slide-15-8">
+        <h2 id="label">Label</h2>
+<p>Label für verschiedene Funktionen:</p>
+<pre><code class="language-py">plt.plot(x, np.sin(x), label=<span class="hljs-string">'sin(x)'</span>)
+plt.plot(x, np.cos(x), label=<span class="hljs-string">'cos(x)'</span>)
+
+plt.legend()</code></pre>
+
+      </section><section class="slide" id="slide-15-9">
+        <h2 id="achsenlimits-und-skalierung">Achsenlimits und Skalierung</h2>
+<p>Bestimmten Ausschnitt anzeigen:</p>
+<pre><code class="language-py">plt.xlim(<span class="hljs-number">-0.1</span>, <span class="hljs-number">0.1</span>)
+plt.ylim(<span class="hljs-number">-0.1</span>, <span class="hljs-number">0.1</span>)</code></pre>
+<p>Gleiche Einheitengröße auf beiden Achesn:</p>
+<pre><code class="language-py">plt.axis(<span class="hljs-string">"equal"</span>)</code></pre>
+<p>Ansicht einpassen (ohne Abstand zum Rand):</p>
+<pre><code class="language-py">plt.axis(<span class="hljs-string">"tight"</span>)</code></pre>
+
+      </section></section><section class="section" id="section-16"><section class="slide" id="slide-16-1">
+        <h1 id="grundlegende-plots">Grundlegende Plots</h1>
+
+      </section><section class="slide" id="slide-16-2">
+        <h2 id="grundlegende-plots">Grundlegende Plots</h2>
+<ul>
+<li>Graph</li>
+<li>Säulendiagramm</li>
+<li>Scatter Plot</li>
+<li>Histogram</li>
+<li>Box Plot</li>
+<li>Tortendiagramm</li>
+</ul>
+
+      </section><section class="slide" id="slide-16-3">
+        <h2 id="graph">Graph</h2>
+<p>Pyplot: <code>plt.plot(x, y)</code> / <code>plt.plot(y)</code></p>
+<p>Pandas: <code>df.plot.line()</code> / <code>df.plot()</code></p>
+
+      </section><section class="slide" id="slide-16-4">
+        <h2 id="säulendiagramm">Säulendiagramm</h2>
+<p>Pyplot: <code>plt.bar(x, y)</code></p>
+<p>Pandas: <code>df.plot.bar()</code></p>
+
+      </section><section class="slide" id="slide-16-5">
+        <h2 id="scatter-plot">Scatter Plot</h2>
+<p>Pyplot: <code>plt.plot(x, y, &quot;.&quot;)</code></p>
+<p>Pyplot (fortgeschritten): <code>plt.scatter(x, y, size, color)</code></p>
+<p>Pandas: <code>df.plot.scatter(x=&quot;name1&quot;, y=&quot;name2&quot;)</code></p>
+
+      </section><section class="slide" id="slide-16-6">
+        <h2 id="histogramm">Histogramm</h2>
+<p>Pyplot: <code>plt.hist(x)</code></p>
+<p>Pandas: <code>df.plot.hist()</code></p>
+
+      </section><section class="slide" id="slide-16-7">
+        <h2 id="box-plot">Box Plot</h2>
+<p>Pyplot: <code>plt.boxplot(data)</code></p>
+<p>Pandas: <code>df.plot.box()</code></p>
+
+      </section><section class="slide" id="slide-16-8">
+        <h2 id="tortendiagramm">Tortendiagramm</h2>
+<p>Pyplot: <code>plt.pie(x, labels=[...])</code></p>
+<p>Pandas: <code>df.pie()</code></p>
+
+      </section></section><section class="section" id="section-17"><section class="slide" id="slide-17-1">
+        <h1 id="figure-axes--subplots">Figure, Axes &amp; Subplots</h1>
+
+      </section><section class="slide" id="slide-17-2">
+        <h2 id="figure--axes">Figure &amp; Axes</h2>
+<p>Figure = ganze Zeichnung</p>
+<p>Axes = Koordinatensystem, in das Daten eingetragen werden</p>
+<p>Eine Figure kann mehrere Axes-Objekte (nebeneinander, untereinander, ...) enthalten</p>
+
+      </section><section class="slide" id="slide-17-3">
+        <h2 id="figure">Figure</h2>
 <p>Jede Zeichnung in <em>pyplot</em> erfolgt mittels eines <em>Figure</em>-Objekts (wird beim plotten meist automatisch erzeugt).</p>
 <p>Manuelles Erstellen einer Figure mit Größe 800 x 600 px (bei 100 dpi):</p>
 <pre><code class="language-py">fig = plt.figure(
@@ -926,106 +1056,68 @@ df.plot.line()</code></pre>
 )</code></pre>
 <p>Dies wird automatisch zur aktiven Figure.</p>
 
-      </section><section class="slide" id="slide-15-3">
+      </section><section class="slide" id="slide-17-4">
         <h2 id="figure-objekte">Figure Objekte</h2>
 <p>Exportieren einer Figure:</p>
 <pre><code class="language-py">fig.savefig(<span class="hljs-string">"myplot.png"</span>)
 fig.savefig(<span class="hljs-string">"myplot.svg"</span>)</code></pre>
 
-      </section><section class="slide" id="slide-15-4">
+      </section><section class="slide" id="slide-17-5">
         <h2 id="figure-objekte">Figure Objekte</h2>
 <p>Aufgabe: Skript, das eine PNG-Datei eines Graphen der aktuellen CPU-Last erstellt und jede Sekunde aktuelisiert. (verwende hierzu das PIP-Paket <em>psutil</em>)</p>
 
-      </section></section><section class="section" id="section-16"><section class="slide" id="slide-16-1">
-        <h1 id="konfiguration-und-styling">Konfiguration und Styling</h1>
-
-      </section><section class="slide" id="slide-16-2">
-        <h2 id="stile">Stile</h2>
-<p>Vorgefertigte Stylesheets verwendbar mittels:</p>
-<pre><code class="language-py">plt.style.use(<span class="hljs-string">"stylename"</span>)</code></pre>
-<p>Für Demos verfügbarer Stile siehe:</p>
-<p><a href="https://matplotlib.org/3.1.0/gallery/style_sheets/style_sheets_reference.html">https://matplotlib.org/3.1.0/gallery/style_sheets/style_sheets_reference.html</a></p>
-
-      </section><section class="slide" id="slide-16-3">
-        <h2 id="stile-von-graphen">Stile von Graphen</h2>
-<p>Kurzform:</p>
-<pre><code class="language-py">plt.plot(x, y, <span class="hljs-string">"g--"</span>)</code></pre>
-<p>Langform:</p>
-<pre><code class="language-py">plt.plot(x, y, color=<span class="hljs-string">"green"</span>, linestyle=<span class="hljs-string">"dashed"</span>)</code></pre>
-<p>In der Langform sind genauere Farb- und Größenangaben möglich</p>
-
-      </section><section class="slide" id="slide-16-4">
-        <h2 id="stile-von-graphen">Stile von Graphen</h2>
-
-      </section><section class="slide" id="slide-16-5">
-        <h2 id="achsenlabel">Achsenlabel</h2>
-
-      </section></section><section class="section" id="section-17"><section class="slide" id="slide-17-1">
-        <h1 id="plotting">Plotting</h1>
-
-      </section><section class="slide" id="slide-17-2">
-        <h2 id="grundlegende-plots">Grundlegende Plots</h2>
-<ul>
-<li>funktionaler Zusammenhang (x-y)<ul>
-<li>Graph</li>
-<li>Bar Chart</li>
-</ul>
-</li>
-<li>Datenpunkte mit zwei Merkmalen<ul>
-<li>Scatter Plot</li>
-</ul>
-</li>
-<li>Dichte / Lage einer Verteilung<ul>
-<li>Histogram</li>
-<li>Box Plot</li>
-</ul>
-</li>
-</ul>
-
-      </section><section class="slide" id="slide-17-3">
-        <h2 id="graph">Graph</h2>
-<p>Pyplot: <code>plt.plot(x, y)</code></p>
-<p>Pandas: <code>df.plot()</code> / <code>df.plot.line()</code></p>
-
-      </section><section class="slide" id="slide-17-4">
-        <h2 id="säulendiagramm">Säulendiagramm</h2>
-<p>Pyplot: <code>plt.bar(x, y)</code></p>
-<p>Pandas: <code>df.plot.bar()</code></p>
-
-      </section><section class="slide" id="slide-17-5">
-        <h2 id="scatter-plot">Scatter Plot</h2>
-<p>Pyplot: <code>plt.scatter(x, y)</code></p>
-<p>Pandas: <code>df.plot.scatter(x=&quot;name1&quot;, y=&quot;name2&quot;)</code></p>
-
       </section><section class="slide" id="slide-17-6">
-        <h2 id="histogramm">Histogramm</h2>
-<p>Pyplot: <code>plt.hist(x)</code></p>
-<p>Pandas: <code>df.plot.hist()</code></p>
+        <h2 id="axes-objekte">Axes Objekte</h2>
+<p>Manuell neue <em>Axes</em> erstellen:</p>
+<pre><code class="language-py">ax = plt.axes([<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>])</code></pre>
+<p>Die schon bekannten Methoden von <code>plt</code> verwenden im Hintergrund Methoden des aktiven <em>Axes</em> Objekts:</p>
+<pre><code class="language-py">ax.plot(...)
+ax.set_title(...)
+ax.set_xlabel(...)
+ax.legend()
+ax.set_aspect(<span class="hljs-string">"equal"</span>)</code></pre>
 
       </section><section class="slide" id="slide-17-7">
-        <h2 id="graph">Graph</h2>
-<p>Pandas:</p>
-<pre><code class="language-py">series.plot()
-dataframe.plot()</code></pre>
-<p>Matplotlib / Pyplot:</p>
-<pre><code class="language-py">plt.plot(data)</code></pre>
+        <h2 id="axes-objekte">Axes Objekte</h2>
+<p>Aufgabe: Erstellen des Sinus- und Kosinusplots via <em>Axes</em></p>
 
       </section><section class="slide" id="slide-17-8">
-        <h2 id="graph-x--y">Graph (x / y)</h2>
-<p>Matplotlib / Pyplot:</p>
-<pre><code class="language-py">plt.plot(x, y)</code></pre>
+        <h2 id="subplots">Subplots</h2>
+<p>Erstellen mehrerer Axes-Objekte in einem Raster (hier: 2 Zeilen, 3 Spalten):</p>
+<pre><code class="language-py">fig, ax = plt.subplots(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>)
 
-      </section><section class="slide" id="slide-17-9">
-        <h2 id="bar-chart">Bar Chart</h2>
-<p>Pandas:</p>
-<pre><code class="language-py">df.plot.bar()</code></pre>
-<p>Matplotlib / Pyplot:</p>
-<pre><code class="language-py">plt.bar(x=[<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], height=y)</code></pre>
-<p>Seaborn</p>
-<pre><code class="language-py">sns.barplot(x=[<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], y=y)</code></pre>
+ax0 = ax[<span class="hljs-number">0</span>, <span class="hljs-number">0</span>]
+ax1 = ax[<span class="hljs-number">0</span>, <span class="hljs-number">1</span>]
+ax5 = ax[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>]</code></pre>
 
       </section></section><section class="section" id="section-18"><section class="slide" id="slide-18-1">
-        <h1 id="subplots">Subplots</h1>
+        <h1 id="erweiterte-arten-von-plots">Erweiterte Arten von Plots</h1>
+
+      </section><section class="slide" id="slide-18-2">
+        <h2 id="erweiterte-arten-von-plots">Erweiterte Arten von Plots</h2>
+<ul>
+<li>Datenpunkte mit mehr als 2 Features<ul>
+<li>Erweiterter Scatter Plot (Größe, Farbe)</li>
+<li>Scatter Matrix</li>
+</ul>
+</li>
+<li>Plotten von z = f(x, y)<ul>
+<li>Contour Plots</li>
+<li>3D Plots</li>
+</ul>
+</li>
+<li>Dichte einer Verteilung<ul>
+<li>(Histogramm)</li>
+<li>KDE</li>
+<li>Violin Plot</li>
+</ul>
+</li>
+<li>Dichte einer Verteilung (2D)<ul>
+<li>2D Histogramm (hist2d, hexbin)</li>
+<li>KDE</li>
+</ul>
+</li>
+</ul>
 
       </section></section><section class="section" id="section-19"><section class="slide" id="slide-19-1">
         <h1 id="numpy-fortgeschritten">NumPy Fortgeschritten</h1>

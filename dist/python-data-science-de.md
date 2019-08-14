@@ -889,9 +889,166 @@ df = pd.DataFrame({"sin": np.sin(x), "cos": np.cos(x)}, index=x)
 df.plot.line()
 ```
 
-# Figure Objekte
+# Konfiguration und Styling
 
-## Figure Objekte
+## Stile
+
+Vorgefertigte Stylesheets verwendbar mittels:
+
+```py
+plt.style.use("stylename")
+```
+
+Für Demos verfügbarer Stile siehe:
+
+https://matplotlib.org/3.1.0/gallery/style_sheets/style_sheets_reference.html
+
+## Stile von Graphen
+
+Kurzformen:
+
+```py
+plt.plot(x, y, "gx--")
+```
+
+Langform:
+
+```py
+plt.plot(x, y, color="green", linestyle="dashed", marker="x")
+```
+
+In der Langform sind genauere Farb- und Größenangaben möglich
+
+## Stile von Graphen
+
+mögliche Farbangaben:
+
+- Farbname (`green` / `lighblue` / ...)
+- Kurzname (`r` / `g` / `b` / `c` / `m` / `y` / `k`)
+- Hex-Code (z.B. `#FFAA00`)
+- RGB-Tupel (z.B. `(1, 0.7, 0)`)
+
+## Stile von Graphen
+
+mögliche Lininenstile:
+
+- `""` (_none_)
+- `"-"` (_solid_)
+- `"--"` (_dashed_)
+- `":"` (_dotted_)
+- `"-."` (_dashdot_)
+
+## Stile von Graphen
+
+mögliche Marker:
+
+- `""` (keine)
+- `","` (kleiner Punkt)
+- `"."` (mittelgroßer Punkt)
+- `"o"` (großer Punkt)
+- `"s"` (Quadrat)
+- `"x"`
+- `"+"`
+- ...
+
+## Label
+
+- `plt.title("Trigonometric functions")`
+- `plt.xlabel("x (radians)")`
+- `plt.ylabel("y")`
+
+## Label
+
+Label für verschiedene Funktionen:
+
+```py
+plt.plot(x, np.sin(x), label='sin(x)')
+plt.plot(x, np.cos(x), label='cos(x)')
+
+plt.legend()
+```
+
+## Achsenlimits und Skalierung
+
+Bestimmten Ausschnitt anzeigen:
+
+```py
+plt.xlim(-0.1, 0.1)
+plt.ylim(-0.1, 0.1)
+```
+
+Gleiche Einheitengröße auf beiden Achesn:
+
+```py
+plt.axis("equal")
+```
+
+Ansicht einpassen (ohne Abstand zum Rand):
+
+```py
+plt.axis("tight")
+```
+
+# Grundlegende Plots
+
+## Grundlegende Plots
+
+- Graph
+- Säulendiagramm
+- Scatter Plot
+- Histogram
+- Box Plot
+- Tortendiagramm
+
+## Graph
+
+Pyplot: `plt.plot(x, y)` / `plt.plot(y)`
+
+Pandas: `df.plot.line()` / `df.plot()`
+
+## Säulendiagramm
+
+Pyplot: `plt.bar(x, y)`
+
+Pandas: `df.plot.bar()`
+
+## Scatter Plot
+
+Pyplot: `plt.plot(x, y, ".")`
+
+Pyplot (fortgeschritten): `plt.scatter(x, y, size, color)`
+
+Pandas: `df.plot.scatter(x="name1", y="name2")`
+
+## Histogramm
+
+Pyplot: `plt.hist(x)`
+
+Pandas: `df.plot.hist()`
+
+## Box Plot
+
+Pyplot: `plt.boxplot(data)`
+
+Pandas: `df.plot.box()`
+
+## Tortendiagramm
+
+Pyplot: `plt.pie(x, labels=[...])`
+
+Pandas: `df.pie()`
+
+# Figure, Axes & Subplots
+
+## Figure & Axes
+
+Figure = ganze Zeichnung
+
+Axes = Koordinatensystem, in das Daten eingetragen werden
+
+Eine Figure kann mehrere Axes-Objekte (nebeneinander, untereinander, ...) enthalten
+
+## Figure
 
 Jede Zeichnung in _pyplot_ erfolgt mittels eines _Figure_-Objekts (wird beim plotten meist automatisch erzeugt).
 
@@ -919,124 +1076,57 @@ fig.savefig("myplot.svg")
 
 Aufgabe: Skript, das eine PNG-Datei eines Graphen der aktuellen CPU-Last erstellt und jede Sekunde aktuelisiert. (verwende hierzu das PIP-Paket _psutil_)
 
-# Konfiguration und Styling
+## Axes Objekte
 
-## Stile
-
-Vorgefertigte Stylesheets verwendbar mittels:
+Manuell neue _Axes_ erstellen:
 
 ```py
-plt.style.use("stylename")
+ax = plt.axes([0, 0, 1, 1])
 ```
 
-Für Demos verfügbarer Stile siehe:
-
-https://matplotlib.org/3.1.0/gallery/style_sheets/style_sheets_reference.html
-
-## Stile von Graphen
-
-Kurzform:
+Die schon bekannten Methoden von `plt` verwenden im Hintergrund Methoden des aktiven _Axes_ Objekts:
 
 ```py
-plt.plot(x, y, "g--")
+ax.plot(...)
+ax.set_title(...)
+ax.set_xlabel(...)
+ax.legend()
+ax.set_aspect("equal")
 ```
 
-Langform:
+## Axes Objekte
+
+Aufgabe: Erstellen des Sinus- und Kosinusplots via _Axes_
+
+## Subplots
+
+Erstellen mehrerer Axes-Objekte in einem Raster (hier: 2 Zeilen, 3 Spalten):
 
 ```py
-plt.plot(x, y, color="green", linestyle="dashed")
+fig, ax = plt.subplots(2, 3)
+
+ax0 = ax[0, 0]
+ax1 = ax[0, 1]
+ax5 = ax[1, 2]
 ```
 
-In der Langform sind genauere Farb- und Größenangaben möglich
+# Erweiterte Arten von Plots
 
-## Stile von Graphen
+## Erweiterte Arten von Plots
 
-
-
-## Achsenlabel
-
-
-
-# Plotting
-
-## Grundlegende Plots
-
-- funktionaler Zusammenhang (x-y)
-  - Graph
-  - Bar Chart
-- Datenpunkte mit zwei Merkmalen
-  - Scatter Plot
-- Dichte / Lage einer Verteilung
-  - Histogram
-  - Box Plot
-
-## Graph
-
-Pyplot: `plt.plot(x, y)`
-
-Pandas: `df.plot()` / `df.plot.line()`
-
-## Säulendiagramm
-
-Pyplot: `plt.bar(x, y)`
-
-Pandas: `df.plot.bar()`
-
-## Scatter Plot
-
-Pyplot: `plt.scatter(x, y)`
-
-Pandas: `df.plot.scatter(x="name1", y="name2")`
-
-## Histogramm
-
-Pyplot: `plt.hist(x)`
-
-Pandas: `df.plot.hist()`
-
-## Graph
-
-Pandas:
-
-```py
-series.plot()
-dataframe.plot()
-```
-
-Matplotlib / Pyplot:
-
-```py
-plt.plot(data)
-```
-
-## Graph (x / y)
-
-Matplotlib / Pyplot:
-
-```py
-plt.plot(x, y)
-```
-
-## Bar Chart
-
-Pandas:
-
-```py
-df.plot.bar()
-```
-
-Matplotlib / Pyplot:
-
-```py
-plt.bar(x=[0, 1, 2, 3], height=y)
-```
-
-Seaborn
-
-```py
-sns.barplot(x=[0, 1, 2, 3], y=y)
-```
-# Subplots
+- Datenpunkte mit mehr als 2 Features
+  - Erweiterter Scatter Plot (Größe, Farbe)
+  - Scatter Matrix
+- Plotten von z = f(x, y)
+  - Contour Plots
+  - 3D Plots
+- Dichte einer Verteilung
+  - (Histogramm)
+  - KDE
+  - Violin Plot
+- Dichte einer Verteilung (2D)
+  - 2D Histogramm (hist2d, hexbin)
+  - KDE
 
 # NumPy Fortgeschritten
 
