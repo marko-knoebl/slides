@@ -5,7 +5,7 @@
 In den Wechselkursdaten fehlen manche Einträge:
 
 - manche Tage sind nicht eingetragen (Wochenenden)
-- manche Tage sind asl `NaN`s eingetragen
+- manche Tage sind als `NaN`s eingetragen
 
 ## Fehlende Daten
 
@@ -46,3 +46,7 @@ ir_uk = pd.read_csv(url, index_col="date",
 
 ir_uk_weekly = ir_uk.resample('7d').interpolate()
 ```
+
+## Übung
+
+Nutze die Daten aus _sp500_ und _euribor_, um die Entwicklungen der europäischen und amerikanischen Zinssätze einander gegenüberzustellen.

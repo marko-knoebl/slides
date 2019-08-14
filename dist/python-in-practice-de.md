@@ -340,9 +340,10 @@ field = [
 
 ## Arbeiten mit Dateien und Ordnern
 
-zwei wichtige Pakete:
+wichtige Pakete:
 
 - _os_
+- _os.path_
 - _shutil_
 
 ## os

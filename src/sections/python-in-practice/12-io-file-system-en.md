@@ -2,9 +2,10 @@
 
 ## Working with files and folders
 
-two important packages:
+important packages:
 
 - _os_
+- _os.path_
 - _shutil_
 
 ## os
