@@ -364,14 +364,22 @@ print(np.sqrt(a)) # [0.0, 1.0, 1.414... ]
 
 ## Creating arrays
 
-create a 2x6 array filled with 0:
+creating a 2x6 array filled with 0:
 
 ```py
 np.zeros((2, 6))
 np.full((2, 6), 0)
 ```
 
-create the sequence _0.0, 0.5, 1.0, 1.5_:
+creating a 3x3 array of random values:
+
+```py
+np.random.random(3, 3)
+```
+
+## Creating arrays
+
+creating the sequence _0.0, 0.5, 1.0, 1.5_:
 
 ```py
 # fixed step width (0.5)
@@ -379,13 +387,6 @@ a = np.arange(0, 2, 0.5)
 # fixed number of entries (4)
 b = np.linspace(0, 1.5, 4)
 ```
-
-create a 3x3 array of random values:
-
-```py
-np.random.random(3, 3)
-```
-
 ## Exercises
 
 given an array of prices and an array of quantities, determine the total price:
@@ -600,19 +601,47 @@ euribor = read_hdf("data.hdf5", "euribor")
 - `df.loc[:, ["rate", "maturity_level"]]`: two columns
 - `df.loc["2009-01-02", "rate"]`: specific row and column
 
-## Filtering rows
-
-via _boolean indexing_:
-
-- `df.loc[df.rate < 0]`
-- `df.loc[df.name == "Iris-setosa"]`
-- `df.loc[df.name.isin(["Iris-setosa", "Iris-virginica"])])]`
-
 ## Sorting rows
 
-- `df.sort_index(ascending=False)`
 - `df.sort_values(by="rate")`
 - `df.loc["2009-01-02" : "2009-12-31"].sort_values(by="rate")`
+- `df.sort_index(ascending=False)`
+
+## Sampling data
+
+- `df.sample()` - random entry
+- `df.sample(5)` - five entries
+- `df.sample(frac=0.1)` - 10% of all entries
+
+## Filtering rows
+
+via _boolean indexing_ - which is applied by rows:
+
+- `df[df.rate < 0]`
+- `df[df.length < 0] = np.nan`
+- `df[df.name == "Iris-setosa"]`
+- `df[df.name.isin(["Iris-setosa", "Iris-virginica"])])]`
+
+## Filtering rows
+
+SQL template:
+
+```sql
+SELECT * FROM df
+WHERE a < b AND b < c
+```
+
+Pandas:
+
+```py
+df[(df.a < df.b) & (df.b < df.c)]
+```
+
+or
+
+```py
+df.query("a < b < c")
+```
 
 ## Exercises (Euribor)
 
@@ -985,7 +1014,7 @@ a2d = np.array([[1, 2, 3], [2, 4, 6], [3, 6, 9]])
 a2d[0] # [1, 2, 3]
 a2d[0, :] # [1, 2, 3]
 a2d[1:, 1:] # [[4, 6], [6, 9]]
-a2d[:, ::-1] # [3, 2, 1]
+a2d[1, ::-1] # [3, 2, 1]
 ```
 
 ## Slices as views

@@ -1,19 +1,49 @@
-# Debugging in VS Code
+# Debugging
 
-## Debugging in VS Code
+## Debugging
 
-To set a breakpoint: click left of the line number
+Breakpoints can be set to pause execution at a certain point.
 
-Execution will stop when reaching the breakpoint
+Possibilities to set breakpoints:
 
-## Debugging in VS Code
+- directly in Python Code via `breakpoint()` (since Python 3.7)
+- in VS Code: click next to the line number
 
-examining variables
+## Debugging
 
-## Debugging in VS Code
+Continuing manually:
 
-Proceeeding manually:
+- proceed until the next breakpoint:
+  - `c` for _continue_ in the Python debugger
+  - _Continue_ in VS Code
+- end debugging:
+  - `q` for _quit_ in the Python debugger
+  - _Stop_ in VS Code
 
-- _step over_: to the next line
-- _step into_: follow a function call
-- _step out_: leave the current function
+## Debugging
+
+Continuing manually:
+
+- proceed to the next line:
+  - `n` for _next_ in the Python debugger
+  - _Step Over_ in VS Code
+- proceed to the next line - following function calls
+  - `s` for _step_ in the Python debugger
+  - _Step Into_ in VS Code
+- run the current function to its end:
+  - `r` for _return_ in the Python debugger
+  - _Step Out_ in VS Code
+
+## Debugging
+
+Printing values in the Python debugger via `p`:
+
+```py
+p mylist
+p mylist[0]
+```
+
+Examining values in VS Code:
+
+- local variables in the _variables_ widget
+- watch custom expressions in the _watch_ widget

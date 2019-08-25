@@ -56,6 +56,28 @@ Alles aus einem Modul importieren (eher nicht empfohlen):
 from math import *
 ```
 
+## Automatischer Import von Untermodulen
+
+Beim Import _mancher_ Pakete werden automatisch auch Untermodule importiert.
+
+Beispiele:
+
+```py
+import os
+import numpy as np
+
+os.path.join(...)
+np.random.randint(10)
+```
+
+Gegenbeispiel - schlägt fehl:
+
+```py
+import urllib
+
+urllib.request.urlopen(...)
+```
+
 ## Konventionen für Imports
 
 - alle imports _sollten_ am Anfang einer Python-Datei stehen
@@ -88,5 +110,3 @@ print(sys.path)
 Importierte Module werden in kompilierter Form abgelegt, um später schneller eingelesen werden zu können.
 
 Wir finden die kompilierten Versionen im Ordner `__pycache__`
-
-## Achtung: circular imports vermeiden

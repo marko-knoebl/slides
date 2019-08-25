@@ -23,19 +23,47 @@
 - `df.loc[:, ["rate", "maturity_level"]]`: two columns
 - `df.loc["2009-01-02", "rate"]`: specific row and column
 
-## Filtering rows
-
-via _boolean indexing_:
-
-- `df.loc[df.rate < 0]`
-- `df.loc[df.name == "Iris-setosa"]`
-- `df.loc[df.name.isin(["Iris-setosa", "Iris-virginica"])])]`
-
 ## Sorting rows
 
-- `df.sort_index(ascending=False)`
 - `df.sort_values(by="rate")`
 - `df.loc["2009-01-02" : "2009-12-31"].sort_values(by="rate")`
+- `df.sort_index(ascending=False)`
+
+## Sampling data
+
+- `df.sample()` - random entry
+- `df.sample(5)` - five entries
+- `df.sample(frac=0.1)` - 10% of all entries
+
+## Filtering rows
+
+via _boolean indexing_ - which is applied by rows:
+
+- `df[df.rate < 0]`
+- `df[df.length < 0] = np.nan`
+- `df[df.name == "Iris-setosa"]`
+- `df[df.name.isin(["Iris-setosa", "Iris-virginica"])])]`
+
+## Filtering rows
+
+SQL template:
+
+```sql
+SELECT * FROM df
+WHERE a < b AND b < c
+```
+
+Pandas:
+
+```py
+df[(df.a < df.b) & (df.b < df.c)]
+```
+
+or
+
+```py
+df.query("a < b < c")
+```
 
 ## Exercises (Euribor)
 

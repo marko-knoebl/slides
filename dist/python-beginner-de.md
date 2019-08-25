@@ -1378,27 +1378,55 @@ Auszüge aus dem _Zen of Python_ (anzeigbar via `import this`):
 - _Special cases aren't special enough to break the rules._
 - _There should be one-- and preferably only one --obvious way to do it._
 
-# Debuggen in VS Code
+# Debuggen
 
-## Debuggen in VS Code
+## Debuggen
 
-Breakpoints (Haltepunkte) setzen:
+Breakpoints (Haltepunkte) können gesetzt werden, um die Ausführung des Codes an diesem Punkt zu pausieren.
 
-In VS Code links neben die Zeilennummer klicken
+Möglichkeiten, um Breakpoints zu setzen:
 
-Die Ausführung hält an, sobald der Breakpoint erreicht wird
+- direkt in Python mittels `breakpoint()` (seit Python 3.7)
+- in VS Code links neben die Zeilennummer klicken
 
-## Debuggen in VS Code
-
-Begutachten von Variablen
-
-## Debuggen in VS Code
+## Debuggen
 
 Manuell weiterspringen:
 
-- _step over_: in die nächste Zeile
-- _step into_: einem Funktionsaufruf folgen
-- _step out_: aktuellen Funktionsaufruf verlassen
+- bis zum nächsten Breakpoint weiter ausführen:
+  - `c` für _continue_ im Python Debugger
+  - _Continue_ in VS Code
+- debugging beenden:
+  - `q` für _quit_ im Python Debugger
+  - _Stop_ in VS Code
+
+## Debuggen
+
+Manuell weiterspringen:
+
+- in die nächste Zeile springen: 
+  - `n` für _next_ im Python Debugger
+  - _Step Over_ in VS Code
+- in die nächste Zeile springen - und evtuell einem Funktionsaufruf folgen:
+  - `s` für _step_ im Python Debugger
+  - _Step Into_ in VS Code
+- die aktuelle Funktion verlassen:
+  - `r` für _return_ im Python Debugger
+  - _Step Out_ in VS Code
+
+## Debuggen
+
+Ausgabe von Werten im Python Debugger mittels `p` für _print_:
+
+```py
+p mylist
+p mylist[0]
+```
+
+Werte in VS Code begutachten:
+
+- direkt unter _variables_
+- eigene Ausdrücke angeben unter _watch_
 
 # Cheatsheet
 

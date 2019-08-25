@@ -77,23 +77,44 @@ plt.plot(x, np.cos(x), label='cos(x)')
 plt.legend()
 ```
 
-## Achsenlimits und Skalierung
+## Achsen
 
-Bestimmten Ausschnitt anzeigen:
-
-```py
-plt.xlim(-0.1, 0.1)
-plt.ylim(-0.1, 0.1)
-```
-
-Gleiche Einheitengröße auf beiden Achesn:
+Achsen ausblenden:
 
 ```py
-plt.axis("equal")
+plt.axis("off")
 ```
+
+## Achsenlimits
 
 Ansicht einpassen (ohne Abstand zum Rand):
 
 ```py
 plt.axis("tight")
+```
+
+Bestimmten Ausschnitt anzeigen:
+
+```py
+plt.axis([-1, 1, -1, 1])
+```
+
+Bestimmten Ausschnitt für einzelne Achse:
+
+```py
+plt.xlim(-1, 1)
+```
+
+## Achsenskalierung
+
+Gleiche Einheitengröße auf beiden Achsen:
+
+```py
+plt.axis("equal")
+```
+
+Gleiche Einheitengrößen und Beschränkung der Achsenmarkierungen auf verwendete Datenbereiche:
+
+```py
+plt.axis("scaled")
 ```

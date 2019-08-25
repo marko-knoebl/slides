@@ -18,17 +18,6 @@ array_3d = array_2d[:, :, np.newaxis]
 # [[[1], [2]], [[3], [4]]]
 ```
 
-## Slicen von Arrays
-
-```py
-a2d = np.array([[1, 2, 3], [2, 4, 6], [3, 6, 9]])
-
-a2d[0] # [1, 2, 3]
-a2d[0, :] # [1, 2, 3]
-a2d[1:, 1:] # [[4, 6], [6, 9]]
-a2d[:, ::-1] # [3, 2, 1]
-```
-
 ## Slices als Views
 
 In Python können wir eine flache Kopie einer Liste erstellen, indem wir sie slicen - dies ist in NumPy nicht so (um die Effizienz zu steigern):

@@ -58,6 +58,15 @@ ax.set_aspect("equal")
 
 Aufgabe: Erstellen des Sinus- und Kosinusplots via _Axes_
 
+## Axis und Axes
+
+Achtung unglückliche Namensvergabe:
+
+- `plt.axis`: z.B. zum Einstellen der Skalierung
+- `plt.axes`: zum Erstellen eines neuen Koordinatensystems
+
+Eigentliche Bedeutungen aus dem Lateinischen / Englischen: _axis_ = Achse, _axes_ = Achsen
+
 ## Subplots
 
 Erstellen mehrerer Axes-Objekte in einem Raster (hier: 2 Zeilen, 3 Spalten):

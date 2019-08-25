@@ -23,17 +23,47 @@
 - `df.loc[:, ["rate", "maturity_level"]]`: zwei Spalten
 - `df.loc["2009-01-02", "rate"]`: Bestimmte Zeile und Spalte
 
-## Zeilen suchen
-
-- `df.loc[df.rate < 0]`
-- `df.loc[df.name == "Iris-setosa"]`
-- `df.loc[df.name.isin(["Iris-setosa", "Iris-virginica"])])]`
-
 ## Zeilen sortieren
 
-- `df.sort_index(ascending=False)`
 - `df.sort_values(by="rate")`
 - `df.loc["2009-01-02" : "2009-12-31"].sort_values(by="rate")`
+- `df.sort_index(ascending=False)`
+
+## Zufällig Daten auswählen
+
+- `df.sample()` - ein zufälliger Eintrag)
+- `df.sample(5)` - fünf Einträge
+- `df.sample(frac=0.1)` - 10% aller Einträge
+
+## Zeilen suchen
+
+Boolesche Indizierung arbeitet bei DataFrames zeilenweise:
+
+- `df[df.rate < 0]`
+- `df[df.length < 0] = np.nan`
+- `df[df.name == "Iris-setosa"]`
+- `df[df.name.isin(["Iris-setosa", "Iris-virginica"])])]`
+
+## Zeilen suchen
+
+SQL Vorlage:
+
+```sql
+SELECT * FROM df
+WHERE a < b AND b < c
+```
+
+Pandas:
+
+```py
+df[(df.a < df.b) & (df.b < df.c)]
+```
+
+oder
+
+```py
+df.query("a < b < c")
+```
 
 ## Aufgaben (Euribor)
 

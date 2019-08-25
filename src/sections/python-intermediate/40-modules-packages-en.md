@@ -56,6 +56,28 @@ Importing everything from a module (usually not recommended):
 from math import *
 ```
 
+## Automatic import of submodules
+
+When importing _some_ packages, submodules will be imported automatically.
+
+Examples:
+
+```py
+import os
+import numpy as np
+
+os.path.join(...)
+np.random.randint(10)
+```
+
+Counterexample - this will fail:
+
+```py
+import urllib
+
+urllib.request.urlopen(...)
+```
+
 ## Conventions for imports
 
 - all imports in a Python file _should_ be at the start of the file
@@ -88,5 +110,3 @@ print(sys.path)
 Imported modules will be saved in a compiled form, making subsequent loading of the modules faster.
 
 Compiled versions will be saved in the folder `__pycache__`
-
-## Be careful: avoid circular imports

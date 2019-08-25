@@ -1133,6 +1133,20 @@ size = length &lt; <span class="hljs-number">110</span> ? <span class="hljs-stri
 <pre><code class="language-py"><span class="hljs-keyword">from</span> math <span class="hljs-keyword">import</span> *</code></pre>
 
       </section><section class="slide" id="slide-20-6">
+        <h2 id="automatic-import-of-submodules">Automatic import of submodules</h2>
+<p>When importing <em>some</em> packages, submodules will be imported automatically.</p>
+<p>Examples:</p>
+<pre><code class="language-py"><span class="hljs-keyword">import</span> os
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+
+os.path.join(...)
+np.random.randint(<span class="hljs-number">10</span>)</code></pre>
+<p>Counterexample - this will fail:</p>
+<pre><code class="language-py"><span class="hljs-keyword">import</span> urllib
+
+urllib.request.urlopen(...)</code></pre>
+
+      </section><section class="slide" id="slide-20-7">
         <h2 id="conventions-for-imports">Conventions for imports</h2>
 <ul>
 <li>all imports in a Python file <em>should</em> be at the start of the file</li>
@@ -1144,7 +1158,7 @@ size = length &lt; <span class="hljs-number">110</span> ? <span class="hljs-stri
 </li>
 </ul>
 
-      </section><section class="slide" id="slide-20-7">
+      </section><section class="slide" id="slide-20-8">
         <h2 id="resolving-imports">Resolving imports</h2>
 <p>Search order:</p>
 <ul>
@@ -1154,19 +1168,16 @@ size = length &lt; <span class="hljs-number">110</span> ? <span class="hljs-stri
 </ul>
 <p>Avoid name clashes with existing modules / packages!</p>
 
-      </section><section class="slide" id="slide-20-8">
+      </section><section class="slide" id="slide-20-9">
         <h2 id="resolving-imports">Resolving imports</h2>
 <p>To see all search paths for imports:</p>
 <pre><code class="language-py"><span class="hljs-keyword">import</span> sys
 print(sys.path)</code></pre>
 
-      </section><section class="slide" id="slide-20-9">
+      </section><section class="slide" id="slide-20-10">
         <h2 id="compilation-of-modules">Compilation of modules</h2>
 <p>Imported modules will be saved in a compiled form, making subsequent loading of the modules faster.</p>
 <p>Compiled versions will be saved in the folder <code>__pycache__</code></p>
-
-      </section><section class="slide" id="slide-20-10">
-        <h2 id="be-careful-avoid-circular-imports">Be careful: avoid circular imports</h2>
 
       </section></section><section class="section" id="section-21"><section class="slide" id="slide-21-1">
         <h1 id="functions">Functions</h1>

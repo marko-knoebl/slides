@@ -412,18 +412,21 @@ print(np.sqrt(a)) <span class="hljs-comment"># [0.0, 1.0, 1.414... ]</span></cod
 
       </section><section class="slide" id="slide-4-17">
         <h2 id="creating-arrays">Creating arrays</h2>
-<p>create a 2x6 array filled with 0:</p>
+<p>creating a 2x6 array filled with 0:</p>
 <pre><code class="language-py">np.zeros((<span class="hljs-number">2</span>, <span class="hljs-number">6</span>))
 np.full((<span class="hljs-number">2</span>, <span class="hljs-number">6</span>), <span class="hljs-number">0</span>)</code></pre>
-<p>create the sequence <em>0.0, 0.5, 1.0, 1.5</em>:</p>
+<p>creating a 3x3 array of random values:</p>
+<pre><code class="language-py">np.random.random(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>)</code></pre>
+
+      </section><section class="slide" id="slide-4-18">
+        <h2 id="creating-arrays">Creating arrays</h2>
+<p>creating the sequence <em>0.0, 0.5, 1.0, 1.5</em>:</p>
 <pre><code class="language-py"><span class="hljs-comment"># fixed step width (0.5)</span>
 a = np.arange(<span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">0.5</span>)
 <span class="hljs-comment"># fixed number of entries (4)</span>
 b = np.linspace(<span class="hljs-number">0</span>, <span class="hljs-number">1.5</span>, <span class="hljs-number">4</span>)</code></pre>
-<p>create a 3x3 array of random values:</p>
-<pre><code class="language-py">np.random.random(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>)</code></pre>
 
-      </section><section class="slide" id="slide-4-18">
+      </section><section class="slide" id="slide-4-19">
         <h2 id="exercises">Exercises</h2>
 <p>given an array of prices and an array of quantities, determine the total price:</p>
 <pre><code class="language-py">prices = np.array([<span class="hljs-number">3.99</span>, <span class="hljs-number">4.99</span>, <span class="hljs-number">3.99</span>, <span class="hljs-number">12.99</span>])
@@ -438,7 +441,7 @@ c = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">3</s
 
 <span class="hljs-comment"># solution: [4, 4]</span></code></pre>
 
-      </section><section class="slide" id="slide-4-19">
+      </section><section class="slide" id="slide-4-20">
         <h2 id="exercises">Exercises</h2>
 <p>advanced: solving linear equations</p>
 
@@ -633,23 +636,42 @@ euribor = read_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class="hl
 </ul>
 
       </section><section class="slide" id="slide-7-4">
-        <h2 id="filtering-rows">Filtering rows</h2>
-<p>via <em>boolean indexing</em>:</p>
+        <h2 id="sorting-rows">Sorting rows</h2>
 <ul>
-<li><code>df.loc[df.rate &lt; 0]</code></li>
-<li><code>df.loc[df.name == &quot;Iris-setosa&quot;]</code></li>
-<li><code>df.loc[df.name.isin([&quot;Iris-setosa&quot;, &quot;Iris-virginica&quot;])])]</code></li>
+<li><code>df.sort_values(by=&quot;rate&quot;)</code></li>
+<li><code>df.loc[&quot;2009-01-02&quot; : &quot;2009-12-31&quot;].sort_values(by=&quot;rate&quot;)</code></li>
+<li><code>df.sort_index(ascending=False)</code></li>
 </ul>
 
       </section><section class="slide" id="slide-7-5">
-        <h2 id="sorting-rows">Sorting rows</h2>
+        <h2 id="sampling-data">Sampling data</h2>
 <ul>
-<li><code>df.sort_index(ascending=False)</code></li>
-<li><code>df.sort_values(by=&quot;rate&quot;)</code></li>
-<li><code>df.loc[&quot;2009-01-02&quot; : &quot;2009-12-31&quot;].sort_values(by=&quot;rate&quot;)</code></li>
+<li><code>df.sample()</code> - random entry</li>
+<li><code>df.sample(5)</code> - five entries</li>
+<li><code>df.sample(frac=0.1)</code> - 10% of all entries</li>
 </ul>
 
       </section><section class="slide" id="slide-7-6">
+        <h2 id="filtering-rows">Filtering rows</h2>
+<p>via <em>boolean indexing</em> - which is applied by rows:</p>
+<ul>
+<li><code>df[df.rate &lt; 0]</code></li>
+<li><code>df[df.length &lt; 0] = np.nan</code></li>
+<li><code>df[df.name == &quot;Iris-setosa&quot;]</code></li>
+<li><code>df[df.name.isin([&quot;Iris-setosa&quot;, &quot;Iris-virginica&quot;])])]</code></li>
+</ul>
+
+      </section><section class="slide" id="slide-7-7">
+        <h2 id="filtering-rows">Filtering rows</h2>
+<p>SQL template:</p>
+<pre><code class="language-sql"><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> df
+<span class="hljs-keyword">WHERE</span> a &lt; b <span class="hljs-keyword">AND</span> b &lt; c</code></pre>
+<p>Pandas:</p>
+<pre><code class="language-py">df[(df.a &lt; df.b) &amp; (df.b &lt; df.c)]</code></pre>
+<p>or</p>
+<pre><code class="language-py">df.query(<span class="hljs-string">"a &lt; b &lt; c"</span>)</code></pre>
+
+      </section><section class="slide" id="slide-7-8">
         <h2 id="exercises-euribor">Exercises (Euribor)</h2>
 <ul>
 <li>first entry</li>
@@ -660,7 +682,7 @@ euribor = read_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class="hl
 <li>...</li>
 </ul>
 
-      </section><section class="slide" id="slide-7-7">
+      </section><section class="slide" id="slide-7-9">
         <h2 id="solutions-euribor">Solutions (Euribor)</h2>
 <ul>
 <li>first entry: <code>euribor.iloc[0]</code></li>
@@ -670,7 +692,7 @@ euribor = read_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class="hl
 <li>entries from the year 2009: <code>euribor.loc[&quot;2009-01-01&quot;: &quot;2009-12-31&quot;]</code></li>
 </ul>
 
-      </section><section class="slide" id="slide-7-8">
+      </section><section class="slide" id="slide-7-10">
         <h2 id="exercises-iris">Exercises (Iris)</h2>
 <ul>
 <li>maximum <em>petal length</em> of <em>iris setosa</em> (without using <code>.max</code>)</li>
@@ -956,7 +978,7 @@ array_3d = array_2d[:, :, np.newaxis]
 a2d[<span class="hljs-number">0</span>] <span class="hljs-comment"># [1, 2, 3]</span>
 a2d[<span class="hljs-number">0</span>, :] <span class="hljs-comment"># [1, 2, 3]</span>
 a2d[<span class="hljs-number">1</span>:, <span class="hljs-number">1</span>:] <span class="hljs-comment"># [[4, 6], [6, 9]]</span>
-a2d[:, ::<span class="hljs-number">-1</span>] <span class="hljs-comment"># [3, 2, 1]</span></code></pre>
+a2d[<span class="hljs-number">1</span>, ::<span class="hljs-number">-1</span>] <span class="hljs-comment"># [3, 2, 1]</span></code></pre>
 
       </section><section class="slide" id="slide-14-5">
         <h2 id="slices-as-views">Slices as views</h2>
