@@ -12,7 +12,7 @@ Siehe auch: [classifier comparison von scikit-learn](https://scikit-learn.org/st
 
 ## K-Nearest-Neighbors
 
-Ein neuer Datenpunkt wird klassifiziert, indem seine nächsten Nachbarn betrachtet werden. Die bei den Nachbarn am häufigsten vorkommende Klasse wird auch für den Datenpunkt festgesetzt.
+Ein neuer Datenpunkt wird klassifiziert, indem seine nächsten Nachbarn betrachtet werden. Die bei diesen Nachbarn am häufigsten vorkommende Klasse wird auch für den Datenpunkt festgesetzt.
 
 Die Anzahl `k` der betrachteten Nachbarn kann festgesetzt werden (Standardwert = 5)
 

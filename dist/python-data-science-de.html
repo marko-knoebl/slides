@@ -404,6 +404,9 @@ print(a * b)
 
 print(a + <span class="hljs-number">1</span>)
 <span class="hljs-comment"># np.array([2, 3, 4])</span></code></pre>
+<p>Einige Konstanten sind direkt in NumPy verfügbar:</p>
+<pre><code class="language-py">print(a + np.pi)
+print(a + np.e)</code></pre>
 
       </section><section class="slide" id="slide-6-6">
         <h2 id="operationen-auf-arrays">Operationen auf Arrays</h2>
@@ -482,6 +485,9 @@ print(np.sqrt(a)) <span class="hljs-comment"># [0.0, 1.0, 1.414... ]</span></cod
 quantities = np.array([<span class="hljs-number">3</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">2</span>])
 
 <span class="hljs-comment"># solution: 37.95</span></code></pre>
+
+      </section><section class="slide" id="slide-6-14">
+        <h2 id="übungen">Übungen</h2>
 <p>Gegeben sind die Koordinaten von Eckpunkten eines Dreiecks (2D oder 3D). Bestimme den Schwerpunkt (arithmetisches Mittel der Eckpunkte).</p>
 <pre><code class="language-py">a = np.array([<span class="hljs-number">5</span>, <span class="hljs-number">1</span>])
 b = np.array([<span class="hljs-number">6</span>, <span class="hljs-number">8</span>])
@@ -489,11 +495,12 @@ c = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">3</s
 
 <span class="hljs-comment"># solution: [4, 4]</span></code></pre>
 
-      </section><section class="slide" id="slide-6-14">
+      </section><section class="slide" id="slide-6-15">
         <h2 id="übungen">Übungen</h2>
 <p>Erstelle eine Wertetabelle für Sinus- und Kosinusfunktion im Intervall von 0 bis 2*pi.</p>
 <p>Resultat:</p>
-<pre><code class="language-py">np.array([[<span class="hljs-number">0.0</span>, <span class="hljs-number">0.01</span>, <span class="hljs-number">0.02</span>, ...],
+<pre><code class="language-py"><span class="hljs-comment"># x, sin(x), cos(x)</span>
+np.array([[<span class="hljs-number">0.0</span>, <span class="hljs-number">0.01</span>, <span class="hljs-number">0.02</span>, ...],
           [<span class="hljs-number">0.0</span>, <span class="hljs-number">0.0099998</span>, <span class="hljs-number">0.99995</span>, ...],
           [<span class="hljs-number">1.0</span>, <span class="hljs-number">0.99995</span>, <span class="hljs-number">0.99980</span>, ...]])</code></pre>
 <p>Überprüfe anhand der Daten, ob näherungsweise gilt: <em>sin(x)^2 + cos(x)^2 == 1</em></p>
@@ -608,6 +615,10 @@ df = pd.DataFrame({<span class="hljs-string">"sin"</span>: np.sin(x), <span clas
 
 df.plot.line()</code></pre>
 
+      </section><section class="slide" id="slide-8-7">
+        <h2 id="übungen">Übungen</h2>
+<p>Zeichne eine Gauß&#39;sche Glockenkurve</p>
+
       </section></section><section class="section" id="section-9"><section class="slide" id="slide-9-1">
         <h1 id="konfiguration-und-styling">Konfiguration und Styling</h1>
 
@@ -697,6 +708,10 @@ plt.legend()</code></pre>
 <pre><code class="language-py">plt.axis(<span class="hljs-string">"equal"</span>)</code></pre>
 <p>Gleiche Einheitengrößen und Beschränkung der Achsenmarkierungen auf verwendete Datenbereiche:</p>
 <pre><code class="language-py">plt.axis(<span class="hljs-string">"scaled"</span>)</code></pre>
+
+      </section><section class="slide" id="slide-9-12">
+        <h2 id="übung">Übung</h2>
+<p>n-te Primzahl und Approximation via <em>n * ln(n)</em></p>
 
       </section></section><section class="section" id="section-10"><section class="slide" id="slide-10-1">
         <h1 id="grundlegende-plots">Grundlegende Plots</h1>
@@ -1607,7 +1622,7 @@ X_scaled = preprocessing.scale(X_train)</code></pre>
 
       </section><section class="slide" id="slide-29-6">
         <h2 id="kategoriedaten">Kategoriedaten</h2>
-<p>Manchmal sind Kategorien als Daten angegeben - z.B. <code>iris setosa</code>, <code>iris virginica</code>, <code>iris versicolor</code></p>
+<p>Manchmal sind Kategorien als Eingangsdaten angegeben - z.B. Berufsgruppe, Messverfahren, ...</p>
 
       </section><section class="slide" id="slide-29-7">
         <h2 id="textdaten">Textdaten</h2>
@@ -1631,7 +1646,7 @@ X_scaled = preprocessing.scale(X_train)</code></pre>
         <h2 id="lineare-regression---beispiele">Lineare Regression - Beispiele</h2>
 <ul>
 <li><a href="https://jakevdp.github.io/PythonDataScienceHandbook/05.06-linear-regression.html">Radverkehr</a></li>
-<li>Diabetes Verhersage</li>
+<li>Diabetes Vorhersage</li>
 <li>Hauspreise in Boston</li>
 </ul>
 
@@ -1682,7 +1697,7 @@ poly_model.fit(X, y)</code></pre>
 
       </section><section class="slide" id="slide-31-3">
         <h2 id="k-nearest-neighbors">K-Nearest-Neighbors</h2>
-<p>Ein neuer Datenpunkt wird klassifiziert, indem seine nächsten Nachbarn betrachtet werden. Die bei den Nachbarn am häufigsten vorkommende Klasse wird auch für den Datenpunkt festgesetzt.</p>
+<p>Ein neuer Datenpunkt wird klassifiziert, indem seine nächsten Nachbarn betrachtet werden. Die bei diesen Nachbarn am häufigsten vorkommende Klasse wird auch für den Datenpunkt festgesetzt.</p>
 <p>Die Anzahl <code>k</code> der betrachteten Nachbarn kann festgesetzt werden (Standardwert = 5)</p>
 <p>Siehe auch: <a href="https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html#sklearn.neighbors.KNeighborsClassifier">https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html#sklearn.neighbors.KNeighborsClassifier</a></p>
 

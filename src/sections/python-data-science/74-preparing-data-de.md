@@ -55,7 +55,7 @@ array([[-0.70634165, -1.22474487,  0.95025527],
 
 ## Kategoriedaten
 
-Manchmal sind Kategorien als Daten angegeben - z.B. `iris setosa`, `iris virginica`, `iris versicolor`
+Manchmal sind Kategorien als Eingangsdaten angegeben - z.B. Berufsgruppe, Messverfahren, ...
 
 ## Textdaten
 

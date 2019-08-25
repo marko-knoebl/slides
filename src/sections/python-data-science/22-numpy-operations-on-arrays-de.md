@@ -47,6 +47,13 @@ print(a + 1)
 # np.array([2, 3, 4])
 ```
 
+Einige Konstanten sind direkt in NumPy verfügbar:
+
+```py
+print(a + np.pi)
+print(a + np.e)
+```
+
 ## Operationen auf Arrays
 
 Elementweises Vergleichen von Arrays:
@@ -138,6 +145,8 @@ quantities = np.array([3, 0, 0, 2])
 # solution: 37.95
 ```
 
+## Übungen
+
 Gegeben sind die Koordinaten von Eckpunkten eines Dreiecks (2D oder 3D). Bestimme den Schwerpunkt (arithmetisches Mittel der Eckpunkte).
 
 ```py
@@ -155,6 +164,7 @@ Erstelle eine Wertetabelle für Sinus- und Kosinusfunktion im Intervall von 0 bi
 Resultat:
 
 ```py
+# x, sin(x), cos(x)
 np.array([[0.0, 0.01, 0.02, ...],
           [0.0, 0.0099998, 0.99995, ...],
           [1.0, 0.99995, 0.99980, ...]])

@@ -118,3 +118,7 @@ Gleiche Einheitengrößen und Beschränkung der Achsenmarkierungen auf verwendet
 ```py
 plt.axis("scaled")
 ```
+
+## Übung
+
+n-te Primzahl und Approximation via _n * ln(n)_

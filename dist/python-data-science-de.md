@@ -354,6 +354,13 @@ print(a + 1)
 # np.array([2, 3, 4])
 ```
 
+Einige Konstanten sind direkt in NumPy verfügbar:
+
+```py
+print(a + np.pi)
+print(a + np.e)
+```
+
 ## Operationen auf Arrays
 
 Elementweises Vergleichen von Arrays:
@@ -445,6 +452,8 @@ quantities = np.array([3, 0, 0, 2])
 # solution: 37.95
 ```
 
+## Übungen
+
 Gegeben sind die Koordinaten von Eckpunkten eines Dreiecks (2D oder 3D). Bestimme den Schwerpunkt (arithmetisches Mittel der Eckpunkte).
 
 ```py
@@ -462,6 +471,7 @@ Erstelle eine Wertetabelle für Sinus- und Kosinusfunktion im Intervall von 0 bi
 Resultat:
 
 ```py
+# x, sin(x), cos(x)
 np.array([[0.0, 0.01, 0.02, ...],
           [0.0, 0.0099998, 0.99995, ...],
           [1.0, 0.99995, 0.99980, ...]])
@@ -604,6 +614,10 @@ df = pd.DataFrame({"sin": np.sin(x), "cos": np.cos(x)}, index=x)
 df.plot.line()
 ```
 
+## Übungen
+
+Zeichne eine Gauß'sche Glockenkurve
+
 # Konfiguration und Styling
 
 ## Stile
@@ -724,6 +738,10 @@ Gleiche Einheitengrößen und Beschränkung der Achsenmarkierungen auf verwendet
 ```py
 plt.axis("scaled")
 ```
+
+## Übung
+
+n-te Primzahl und Approximation via _n * ln(n)_
 
 # Grundlegende Plots
 
@@ -1708,7 +1726,7 @@ array([[-0.70634165, -1.22474487,  0.95025527],
 
 ## Kategoriedaten
 
-Manchmal sind Kategorien als Daten angegeben - z.B. `iris setosa`, `iris virginica`, `iris versicolor`
+Manchmal sind Kategorien als Eingangsdaten angegeben - z.B. Berufsgruppe, Messverfahren, ...
 
 ## Textdaten
 
@@ -1727,7 +1745,7 @@ Bedeutet: Festlegen einer linearen Funktion, die die Datenpunkte bestmöglich ap
 ## Lineare Regression - Beispiele
 
 - [Radverkehr](https://jakevdp.github.io/PythonDataScienceHandbook/05.06-linear-regression.html)
-- Diabetes Verhersage
+- Diabetes Vorhersage
 - Hauspreise in Boston
 
 ## Polynomiale Regression
@@ -1782,7 +1800,7 @@ Siehe auch: [classifier comparison von scikit-learn](https://scikit-learn.org/st
 
 ## K-Nearest-Neighbors
 
-Ein neuer Datenpunkt wird klassifiziert, indem seine nächsten Nachbarn betrachtet werden. Die bei den Nachbarn am häufigsten vorkommende Klasse wird auch für den Datenpunkt festgesetzt.
+Ein neuer Datenpunkt wird klassifiziert, indem seine nächsten Nachbarn betrachtet werden. Die bei diesen Nachbarn am häufigsten vorkommende Klasse wird auch für den Datenpunkt festgesetzt.
 
 Die Anzahl `k` der betrachteten Nachbarn kann festgesetzt werden (Standardwert = 5)
 

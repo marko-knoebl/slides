@@ -7,7 +7,7 @@ Bedeutet: Festlegen einer linearen Funktion, die die Datenpunkte bestmöglich ap
 ## Lineare Regression - Beispiele
 
 - [Radverkehr](https://jakevdp.github.io/PythonDataScienceHandbook/05.06-linear-regression.html)
-- Diabetes Verhersage
+- Diabetes Vorhersage
 - Hauspreise in Boston
 
 ## Polynomiale Regression

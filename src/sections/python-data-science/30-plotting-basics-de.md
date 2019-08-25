@@ -70,3 +70,7 @@ df = pd.DataFrame({"sin": np.sin(x), "cos": np.cos(x)}, index=x)
 
 df.plot.line()
 ```
+
+## Übungen
+
+Zeichne eine Gauß'sche Glockenkurve
