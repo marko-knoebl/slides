@@ -446,14 +446,44 @@ c = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">3</s
 <p>advanced: solving linear equations</p>
 
       </section></section><section class="section" id="section-5"><section class="slide" id="slide-5-1">
-        <h1 id="pandas">Pandas</h1>
+        <h1 id="plotting">Plotting</h1>
 
       </section><section class="slide" id="slide-5-2">
+        <h2 id="plotting---advanced-plots">Plotting - advanced plots</h2>
+<ul>
+<li>plotting data points with more than 2 features<ul>
+<li>advanced scatter plot (size, color)</li>
+<li>scatter matrix</li>
+</ul>
+</li>
+<li>plotting z = f(x, y)<ul>
+<li>contour plots</li>
+<li>3d plots</li>
+</ul>
+</li>
+<li>plotting density of some distribution (advanced)<ul>
+<li>histogram</li>
+<li>box plot</li>
+<li>kde</li>
+<li>violin plot</li>
+</ul>
+</li>
+<li>plotting density (2d)<ul>
+<li>2d histogram (hist2d, hexbin)</li>
+<li>kde</li>
+</ul>
+</li>
+</ul>
+
+      </section></section><section class="section" id="section-6"><section class="slide" id="slide-6-1">
+        <h1 id="pandas">Pandas</h1>
+
+      </section><section class="slide" id="slide-6-2">
         <h2 id="pandas">Pandas</h2>
 <p><em>Pandas</em> is a data analysis library; it is based on <em>NumPy</em></p>
 <pre><code class="language-py"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd</code></pre>
 
-      </section><section class="slide" id="slide-5-3">
+      </section><section class="slide" id="slide-6-3">
         <h2 id="series-and-dataframe">Series and DataFrame</h2>
 <ul>
 <li><strong>Series</strong>: Collection of values for some keys (table column)</li>
@@ -489,7 +519,7 @@ c = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">3</s
 </tr>
 </tbody></table>
 
-      </section><section class="slide" id="slide-5-4">
+      </section><section class="slide" id="slide-6-4">
         <h2 id="series">Series</h2>
 <pre><code class="language-py">area = pd.Series({<span class="hljs-string">'CN'</span>: <span class="hljs-number">9.6</span>, <span class="hljs-string">'RU'</span>: <span class="hljs-number">17</span>, <span class="hljs-string">'US'</span>: <span class="hljs-number">9.8</span>})
 population = pd.Series({<span class="hljs-string">'CN'</span>: <span class="hljs-number">1386</span>, <span class="hljs-string">'RU'</span>: <span class="hljs-number">144</span>, <span class="hljs-string">'US'</span>: <span class="hljs-number">327</span>})
@@ -500,7 +530,7 @@ area[<span class="hljs-number">0</span>] <span class="hljs-comment"># 9.6</span>
 
 area[<span class="hljs-string">'CN'</span>] <span class="hljs-comment"># 9.6</span></code></pre>
 
-      </section><section class="slide" id="slide-5-5">
+      </section><section class="slide" id="slide-6-5">
         <h2 id="series">Series</h2>
 <p>Each series has a specific data type</p>
 <pre><code class="language-py">area.dtype <span class="hljs-comment"># float64</span></code></pre>
@@ -508,16 +538,16 @@ area[<span class="hljs-string">'CN'</span>] <span class="hljs-comment"># 9.6</sp
 <pre><code class="language-py">area = pd.Series({<span class="hljs-string">"CN"</span>: <span class="hljs-number">9.6</span>, <span class="hljs-string">"RU"</span>: <span class="hljs-number">17</span>, <span class="hljs-string">"US"</span>: <span class="hljs-number">9.8</span>},
                  dtype=<span class="hljs-string">"float32"</span>)</code></pre>
 
-      </section><section class="slide" id="slide-5-6">
+      </section><section class="slide" id="slide-6-6">
         <h2 id="dataframe">DataFrame</h2>
 <pre><code class="language-py">countries = pd.DataFrame({
     <span class="hljs-string">'area'</span>: area,
     <span class="hljs-string">'population'</span>: population})</code></pre>
 
-      </section></section><section class="section" id="section-6"><section class="slide" id="slide-6-1">
+      </section></section><section class="section" id="section-7"><section class="slide" id="slide-7-1">
         <h1 id="importing-and-exporting-data">Importing and exporting data</h1>
 
-      </section><section class="slide" id="slide-6-2">
+      </section><section class="slide" id="slide-7-2">
         <h2 id="importing-and-exporting-data">Importing and exporting data</h2>
 <p>data formats:</p>
 <ul>
@@ -528,20 +558,20 @@ area[<span class="hljs-string">'CN'</span>] <span class="hljs-comment"># 9.6</sp
 <li>SQL tables (via <em>SQLAlchemy</em>)</li>
 </ul>
 
-      </section><section class="slide" id="slide-6-3">
+      </section><section class="slide" id="slide-7-3">
         <h2 id="importing-and-exporting-data">Importing and exporting data</h2>
 <p>The following functions can import / export data from files. Imports may read files from online sources.</p>
 <p>import: <code>pd.read_csv</code>, <code>pd.read_excel</code>, ...</p>
 <p>export: <code>df.to_csv</code>, <code>df.to_excel</code>, ...</p>
 
-      </section><section class="slide" id="slide-6-4">
+      </section><section class="slide" id="slide-7-4">
         <h2 id="importing-csv">Importing CSV</h2>
 <p>Example: Euribor (interest rates of European bonds)</p>
 <pre><code class="language-py">euribor = pd.read_csv(
     <span class="hljs-string">"https://datahub.io/core/euribor/r/euribor-12m-monthly.csv"</span>
 )</code></pre>
 
-      </section><section class="slide" id="slide-6-5">
+      </section><section class="slide" id="slide-7-5">
         <h2 id="importing-csv">Importing CSV</h2>
 <p>Possible keyword arguments for <code>read_csv</code>:</p>
 <ul>
@@ -555,7 +585,7 @@ area[<span class="hljs-string">'CN'</span>] <span class="hljs-comment"># 9.6</sp
 </ul>
 <p>See also: <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html">https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html</a></p>
 
-      </section><section class="slide" id="slide-6-6">
+      </section><section class="slide" id="slide-7-6">
         <h2 id="importing-csv">Importing CSV</h2>
 <p>Advanced Euribor example:</p>
 <ul>
@@ -570,7 +600,7 @@ area[<span class="hljs-string">'CN'</span>] <span class="hljs-comment"># 9.6</sp
     usecols=[<span class="hljs-string">"date"</span>, <span class="hljs-string">"rate"</span>]
 )</code></pre>
 
-      </section><section class="slide" id="slide-6-7">
+      </section><section class="slide" id="slide-7-7">
         <h2 id="importing-csv">Importing CSV</h2>
 <p>Task: Import the following data sources, ensuring the data is formatted nicely:</p>
 <ul>
@@ -579,7 +609,7 @@ area[<span class="hljs-string">'CN'</span>] <span class="hljs-comment"># 9.6</sp
 <li>Iris dataset (statistics of leaf sizes for iris flowers): <a href="http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data">http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data</a> (look up appropriate column names on the web)</li>
 </ul>
 
-      </section><section class="slide" id="slide-6-8">
+      </section><section class="slide" id="slide-7-8">
         <h2 id="importing-csv">Importing CSV</h2>
 <p>possible solutions:</p>
 <pre><code class="language-py">iris = pd.read_csv(
@@ -595,7 +625,7 @@ exchange_rates = pd.read_csv(
     <span class="hljs-string">"https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv"</span>,
     parse_dates=[<span class="hljs-string">"Date"</span>])</code></pre>
 
-      </section><section class="slide" id="slide-6-9">
+      </section><section class="slide" id="slide-7-9">
         <h2 id="importing-and-exporting-data">Importing and exporting data</h2>
 <p>Excel:</p>
 <pre><code class="language-py">euribor.to_excel(<span class="hljs-string">'euribor.xlsx'</span>)
@@ -604,10 +634,10 @@ euribor = pd.read_excel(<span class="hljs-string">'euribor.xlsx'</span>, index_c
 <pre><code class="language-py">euribor.to_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class="hljs-string">"euribor"</span>)
 euribor = read_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class="hljs-string">"euribor"</span>)</code></pre>
 
-      </section></section><section class="section" id="section-7"><section class="slide" id="slide-7-1">
+      </section></section><section class="section" id="section-8"><section class="slide" id="slide-8-1">
         <h1 id="pandas-querying-data">Pandas: Querying data</h1>
 
-      </section><section class="slide" id="slide-7-2">
+      </section><section class="slide" id="slide-8-2">
         <h2 id="querying-data-by-row-numbers--column-numbers">Querying data (by row numbers / column numbers)</h2>
 <ul>
 <li><code>df.iloc[5]</code>: row 5 (returns a <code>Series</code> object)</li>
@@ -617,7 +647,7 @@ euribor = read_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class="hl
 <li><code>df.iloc[5, [0, 2]]</code>: row 5, column 0 and 2</li>
 </ul>
 
-      </section><section class="slide" id="slide-7-3">
+      </section><section class="slide" id="slide-8-3">
         <h2 id="querying-data-by-row-names--column-names">Querying data (by row names / column names)</h2>
 <ul>
 <li><code>df.index</code>: row names</li>
@@ -635,7 +665,7 @@ euribor = read_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class="hl
 <li><code>df.loc[&quot;2009-01-02&quot;, &quot;rate&quot;]</code>: specific row and column</li>
 </ul>
 
-      </section><section class="slide" id="slide-7-4">
+      </section><section class="slide" id="slide-8-4">
         <h2 id="sorting-rows">Sorting rows</h2>
 <ul>
 <li><code>df.sort_values(by=&quot;rate&quot;)</code></li>
@@ -643,7 +673,7 @@ euribor = read_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class="hl
 <li><code>df.sort_index(ascending=False)</code></li>
 </ul>
 
-      </section><section class="slide" id="slide-7-5">
+      </section><section class="slide" id="slide-8-5">
         <h2 id="sampling-data">Sampling data</h2>
 <ul>
 <li><code>df.sample()</code> - random entry</li>
@@ -651,7 +681,7 @@ euribor = read_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class="hl
 <li><code>df.sample(frac=0.1)</code> - 10% of all entries</li>
 </ul>
 
-      </section><section class="slide" id="slide-7-6">
+      </section><section class="slide" id="slide-8-6">
         <h2 id="filtering-rows">Filtering rows</h2>
 <p>via <em>boolean indexing</em> - which is applied by rows:</p>
 <ul>
@@ -661,7 +691,7 @@ euribor = read_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class="hl
 <li><code>df[df.name.isin([&quot;Iris-setosa&quot;, &quot;Iris-virginica&quot;])])]</code></li>
 </ul>
 
-      </section><section class="slide" id="slide-7-7">
+      </section><section class="slide" id="slide-8-7">
         <h2 id="filtering-rows">Filtering rows</h2>
 <p>SQL template:</p>
 <pre><code class="language-sql"><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> df
@@ -671,7 +701,7 @@ euribor = read_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class="hl
 <p>or</p>
 <pre><code class="language-py">df.query(<span class="hljs-string">"a &lt; b &lt; c"</span>)</code></pre>
 
-      </section><section class="slide" id="slide-7-8">
+      </section><section class="slide" id="slide-8-8">
         <h2 id="exercises-euribor">Exercises (Euribor)</h2>
 <ul>
 <li>first entry</li>
@@ -682,7 +712,7 @@ euribor = read_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class="hl
 <li>...</li>
 </ul>
 
-      </section><section class="slide" id="slide-7-9">
+      </section><section class="slide" id="slide-8-9">
         <h2 id="solutions-euribor">Solutions (Euribor)</h2>
 <ul>
 <li>first entry: <code>euribor.iloc[0]</code></li>
@@ -692,20 +722,20 @@ euribor = read_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class="hl
 <li>entries from the year 2009: <code>euribor.loc[&quot;2009-01-01&quot;: &quot;2009-12-31&quot;]</code></li>
 </ul>
 
-      </section><section class="slide" id="slide-7-10">
+      </section><section class="slide" id="slide-8-10">
         <h2 id="exercises-iris">Exercises (Iris)</h2>
 <ul>
 <li>maximum <em>petal length</em> of <em>iris setosa</em> (without using <code>.max</code>)</li>
 </ul>
 
-      </section></section><section class="section" id="section-8"><section class="slide" id="slide-8-1">
+      </section></section><section class="section" id="section-9"><section class="slide" id="slide-9-1">
         <h1 id="data-statistics">Data statistics</h1>
 
-      </section><section class="slide" id="slide-8-2">
+      </section><section class="slide" id="slide-9-2">
         <h2 id="data-statistics">Data statistics</h2>
 <pre><code class="language-py">df.describe()</code></pre>
 
-      </section><section class="slide" id="slide-8-3">
+      </section><section class="slide" id="slide-9-3">
         <h2 id="statistics-on-a-data-frames--series">Statistics on a data frames / series</h2>
 <pre><code class="language-py">countries.area.describe()</code></pre>
 <pre><code class="language-txt">count     3.000000
@@ -719,7 +749,7 @@ max      17.000000
 dtype: float64</code></pre>
 <p>(see next slide for explanations)</p>
 
-      </section><section class="slide" id="slide-8-4">
+      </section><section class="slide" id="slide-9-4">
         <h2 id="statistics-on-series">Statistics on series</h2>
 <pre><code class="language-py">countries.area.describe()</code></pre>
 <p>The above computes the following data:</p>
@@ -734,7 +764,7 @@ dtype: float64</code></pre>
 <li><code>area.quantile(1)</code> / <code>ara.max()</code></li>
 </ul>
 
-      </section><section class="slide" id="slide-8-5">
+      </section><section class="slide" id="slide-9-5">
         <h2 id="statistical-quantities">Statistical quantities</h2>
 <ul>
 <li><em>std</em>: <em>Standard deviation</em></li>
@@ -743,16 +773,16 @@ dtype: float64</code></pre>
 <li><em>25%-quantile</em>: 25% of all values are less</li>
 </ul>
 
-      </section></section><section class="section" id="section-9"><section class="slide" id="slide-9-1">
+      </section></section><section class="section" id="section-10"><section class="slide" id="slide-10-1">
         <h1 id="example-exchange-rates">Example: exchange rates</h1>
 
-      </section><section class="slide" id="slide-9-2">
+      </section><section class="slide" id="slide-10-2">
         <h2 id="exchange-rates">Exchange rates</h2>
 <p><a href="https://datahub.io/core/exchange-rates/r/daily.csv">https://datahub.io/core/exchange-rates/r/daily.csv</a></p>
 <p>Daily Exchange rates between USD and other countries</p>
 <p>We will read exchange data - transform it so it only contains data for EUR-USD exchange rates and turn the dates into the index</p>
 
-      </section><section class="slide" id="slide-9-3">
+      </section><section class="slide" id="slide-10-3">
         <h2 id="exchange-rates">Exchange rates</h2>
 <p>Solution:</p>
 <pre><code class="language-py">er = pd.read_csv(
@@ -768,10 +798,10 @@ er_eur_dateindex = er_eur_full.set_index(<span class="hljs-string">'Date'</span>
 <span class="hljs-comment"># we can drop the country information</span>
 er_eur = er_eur_dateindex.loc[:, <span class="hljs-string">'Value'</span>]</code></pre>
 
-      </section></section><section class="section" id="section-10"><section class="slide" id="slide-10-1">
+      </section></section><section class="section" id="section-11"><section class="slide" id="slide-11-1">
         <h1 id="pandas-setting-data">Pandas: setting data</h1>
 
-      </section><section class="slide" id="slide-10-2">
+      </section><section class="slide" id="slide-11-2">
         <h2 id="computing-derived-data">Computing derived data</h2>
 <p>Adding a new column:</p>
 <pre><code class="language-py">iris[<span class="hljs-string">"sepal_ratio"</span>] = iris[<span class="hljs-string">"sepal_length"</span>] / iris[<span class="hljs-string">"sepal_width"</span>]
@@ -786,7 +816,7 @@ iris_setosa = iris.loc[
 iris_setosa[<span class="hljs-string">"sepal_ratio"</span>].mean()
 iris_setosa[<span class="hljs-string">"sepal_ratio"</span>].std()</code></pre>
 
-      </section><section class="slide" id="slide-10-3">
+      </section><section class="slide" id="slide-11-3">
         <h2 id="computing-derived-data-via-numpy">Computing derived data via NumPy</h2>
 <p>Task:</p>
 <ul>
@@ -794,7 +824,7 @@ iris_setosa[<span class="hljs-string">"sepal_ratio"</span>].std()</code></pre>
 <li>What was the biggest loss / gain in a month?</li>
 </ul>
 
-      </section><section class="slide" id="slide-10-4">
+      </section><section class="slide" id="slide-11-4">
         <h2 id="computing-derived-data-via-numpy">Computing derived data via NumPy</h2>
 <p>converting to NumPy array:</p>
 <pre><code class="language-py">values_np = sp500[<span class="hljs-string">"SP500"</span>].to_numpy()</code></pre>
@@ -807,16 +837,16 @@ diffs = np.concatenate([
 <pre><code class="language-py">sp500[<span class="hljs-string">"Diff"</span>] = diffs
 sp500[<span class="hljs-string">"Gain"</span>] = sp500[<span class="hljs-string">"Diff"</span>] / sp500[<span class="hljs-string">"SP500"</span>]</code></pre>
 
-      </section><section class="slide" id="slide-10-5">
+      </section><section class="slide" id="slide-11-5">
         <h2 id="setting-data">Setting data</h2>
 <pre><code class="language-py">iris.iloc[<span class="hljs-number">0</span>, <span class="hljs-number">0</span>] = <span class="hljs-number">6</span>
 
 iris.loc[:, <span class="hljs-string">"sepal_ratio"</span>] = float(<span class="hljs-string">'nan'</span>)</code></pre>
 
-      </section></section><section class="section" id="section-11"><section class="slide" id="slide-11-1">
+      </section></section><section class="section" id="section-12"><section class="slide" id="slide-12-1">
         <h1 id="missing-data">Missing data</h1>
 
-      </section><section class="slide" id="slide-11-2">
+      </section><section class="slide" id="slide-12-2">
         <h2 id="missing-data">Missing data</h2>
 <p>In the exchange rate data there are some missing entries:</p>
 <ul>
@@ -824,7 +854,7 @@ iris.loc[:, <span class="hljs-string">"sepal_ratio"</span>] = float(<span class=
 <li>some days are stored as <code>NaN</code>s</li>
 </ul>
 
-      </section><section class="slide" id="slide-11-3">
+      </section><section class="slide" id="slide-12-3">
         <h2 id="missing-data">Missing data</h2>
 <p>removing any rows with missing data:</p>
 <pre><code class="language-py">er = er.dropna()</code></pre>
@@ -833,7 +863,7 @@ iris.loc[:, <span class="hljs-string">"sepal_ratio"</span>] = float(<span class=
 <p>filling any missing data with the value from the previous row:</p>
 <pre><code class="language-py">er = er.fillna(method=<span class="hljs-string">"backfill"</span>)</code></pre>
 
-      </section><section class="slide" id="slide-11-4">
+      </section><section class="slide" id="slide-12-4">
         <h2 id="missing-data">Missing data</h2>
 <p>interpolating data:</p>
 <pre><code class="language-py">er = er.intepolate()
@@ -845,36 +875,6 @@ ir_uk = pd.read_csv(url, index_col=<span class="hljs-string">"date"</span>,
                     parse_dates=<span class="hljs-keyword">True</span>)
 
 ir_uk_weekly = ir_uk.resample(<span class="hljs-string">'7d'</span>).interpolate()</code></pre>
-
-      </section></section><section class="section" id="section-12"><section class="slide" id="slide-12-1">
-        <h1 id="plotting">Plotting</h1>
-
-      </section><section class="slide" id="slide-12-2">
-        <h2 id="plotting---advanced-plots">Plotting - advanced plots</h2>
-<ul>
-<li>plotting data points with more than 2 features<ul>
-<li>advanced scatter plot (size, color)</li>
-<li>scatter matrix</li>
-</ul>
-</li>
-<li>plotting z = f(x, y)<ul>
-<li>contour plots</li>
-<li>3d plots</li>
-</ul>
-</li>
-<li>plotting density of some distribution (advanced)<ul>
-<li>histogram</li>
-<li>box plot</li>
-<li>kde</li>
-<li>violin plot</li>
-</ul>
-</li>
-<li>plotting density (2d)<ul>
-<li>2d histogram (hist2d, hexbin)</li>
-<li>kde</li>
-</ul>
-</li>
-</ul>
 
       </section></section><section class="section" id="section-13"><section class="slide" id="slide-13-1">
         <h1 id="plotting">Plotting</h1>

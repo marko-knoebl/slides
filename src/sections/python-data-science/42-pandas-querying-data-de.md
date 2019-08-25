@@ -35,9 +35,17 @@
 - `df.sample(5)` - fünf Einträge
 - `df.sample(frac=0.1)` - 10% aller Einträge
 
-## Zeilen suchen
+## Einträge filtern
 
-Boolesche Indizierung arbeitet bei DataFrames zeilenweise:
+Analog zur Funktionsweise von _NumPy_: alle Werte, die das Kriterium nicht erfüllen werden zu _NaN_.
+
+```py
+iris[iris > 0]
+```
+
+## Zeilen filtern
+
+Zeilenweise filtern (ein zeilenweise gefilterter _DataFrame_ wird zurückgegeben):
 
 - `df[df.rate < 0]`
 - `df[df.length < 0] = np.nan`

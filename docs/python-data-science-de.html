@@ -545,14 +545,304 @@ c.dtype <span class="hljs-comment"># int64</span></code></pre>
 <pre><code class="language-py">array([<span class="hljs-number">127</span>, <span class="hljs-number">-128</span>, <span class="hljs-number">-127</span>])</code></pre>
 
       </section></section><section class="section" id="section-8"><section class="slide" id="slide-8-1">
-        <h1 id="pandas">Pandas</h1>
+        <h1 id="plotting">Plotting</h1>
+<h3 id="grafische-darstellung-von-daten">Grafische Darstellung von Daten</h3>
 
       </section><section class="slide" id="slide-8-2">
+        <h2 id="plotting">Plotting</h2>
+<p>Grundlegende (low-level) Library für Plotting: <em>matplotlib</em></p>
+<p>Abstrahierende Interfaces zu grundlegenden matplotlib Funktionen:</p>
+<ul>
+<li><em>pyplot</em> (enthalten in matplotlib, ähnlich zum matlab Plotinterface)</li>
+<li><em>pandas</em> Plotfunktionen</li>
+<li><em>seaborn</em></li>
+</ul>
+
+      </section><section class="slide" id="slide-8-3">
+        <h2 id="einfacher-plot-mit-pyplot">Einfacher Plot mit pyplot</h2>
+<pre><code class="language-py"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+
+x = np.array([<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])
+
+y1 = x*<span class="hljs-number">2</span>
+y2 = x**<span class="hljs-number">2</span>
+
+plt.plot(x, y1)
+plt.plot(x, y2)
+
+<span class="hljs-comment"># plt.show is not needed in Jupyter</span>
+plt.show()</code></pre>
+
+      </section><section class="slide" id="slide-8-4">
+        <h2 id="einfacher-plot-mit-pandas">Einfacher Plot mit pandas</h2>
+<pre><code class="language-py"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+<span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+
+x = np.array([<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])
+
+data = pd.DataFrame({
+    <span class="hljs-string">"y1"</span>: x*<span class="hljs-number">2</span>,
+    <span class="hljs-string">"y2"</span>: x**<span class="hljs-number">2</span>
+})
+
+data.plot.line()
+
+<span class="hljs-comment"># plt.show is not needed in Jupyter</span>
+plt.show()</code></pre>
+
+      </section><section class="slide" id="slide-8-5">
+        <h2 id="übung">Übung</h2>
+<p>Erstelle einen Plot, der die Sinus- und Kosinusfunktion im Intervall von <em>0</em> bis <em>2π</em> zeigt.</p>
+
+      </section><section class="slide" id="slide-8-6">
+        <h2 id="übung">Übung</h2>
+<pre><code class="language-py">x = np.linspace(<span class="hljs-number">0</span>, <span class="hljs-number">2</span>*<span class="hljs-number">3.1415</span>, <span class="hljs-number">200</span>)
+
+plt.plot(x, np.sin(x))
+plt.plot(x, np.cos(x))</code></pre>
+<pre><code class="language-py">x = np.linspace(<span class="hljs-number">0</span>, <span class="hljs-number">2</span>*<span class="hljs-number">3.1415</span>, <span class="hljs-number">200</span>)
+
+df = pd.DataFrame({<span class="hljs-string">"sin"</span>: np.sin(x), <span class="hljs-string">"cos"</span>: np.cos(x)}, index=x)
+
+df.plot.line()</code></pre>
+
+      </section></section><section class="section" id="section-9"><section class="slide" id="slide-9-1">
+        <h1 id="konfiguration-und-styling">Konfiguration und Styling</h1>
+
+      </section><section class="slide" id="slide-9-2">
+        <h2 id="stile">Stile</h2>
+<p>Vorgefertigte Stylesheets verwendbar mittels:</p>
+<pre><code class="language-py">plt.style.use(<span class="hljs-string">"stylename"</span>)</code></pre>
+<p>Für Demos verfügbarer Stile siehe:</p>
+<p><a href="https://matplotlib.org/3.1.0/gallery/style_sheets/style_sheets_reference.html">https://matplotlib.org/3.1.0/gallery/style_sheets/style_sheets_reference.html</a></p>
+
+      </section><section class="slide" id="slide-9-3">
+        <h2 id="stile-von-graphen">Stile von Graphen</h2>
+<p>Kurzformen:</p>
+<pre><code class="language-py">plt.plot(x, y, <span class="hljs-string">"gx--"</span>)</code></pre>
+<p>Langform:</p>
+<pre><code class="language-py">plt.plot(x, y, color=<span class="hljs-string">"green"</span>, linestyle=<span class="hljs-string">"dashed"</span>, marker=<span class="hljs-string">"x"</span>)</code></pre>
+<p>In der Langform sind genauere Farb- und Größenangaben möglich</p>
+
+      </section><section class="slide" id="slide-9-4">
+        <h2 id="stile-von-graphen">Stile von Graphen</h2>
+<p>mögliche Farbangaben:</p>
+<ul>
+<li>Farbname (<code>green</code> / <code>lighblue</code> / ...)</li>
+<li>Kurzname (<code>r</code> / <code>g</code> / <code>b</code> / <code>c</code> / <code>m</code> / <code>y</code> / <code>k</code>)</li>
+<li>Hex-Code (z.B. <code>#FFAA00</code>)</li>
+<li>RGB-Tupel (z.B. <code>(1, 0.7, 0)</code>)</li>
+</ul>
+
+      </section><section class="slide" id="slide-9-5">
+        <h2 id="stile-von-graphen">Stile von Graphen</h2>
+<p>mögliche Lininenstile:</p>
+<ul>
+<li><code>&quot;&quot;</code> (<em>none</em>)</li>
+<li><code>&quot;-&quot;</code> (<em>solid</em>)</li>
+<li><code>&quot;--&quot;</code> (<em>dashed</em>)</li>
+<li><code>&quot;:&quot;</code> (<em>dotted</em>)</li>
+<li><code>&quot;-.&quot;</code> (<em>dashdot</em>)</li>
+</ul>
+
+      </section><section class="slide" id="slide-9-6">
+        <h2 id="stile-von-graphen">Stile von Graphen</h2>
+<p>mögliche Marker:</p>
+<ul>
+<li><code>&quot;&quot;</code> (keine)</li>
+<li><code>&quot;,&quot;</code> (kleiner Punkt)</li>
+<li><code>&quot;.&quot;</code> (mittelgroßer Punkt)</li>
+<li><code>&quot;o&quot;</code> (großer Punkt)</li>
+<li><code>&quot;s&quot;</code> (Quadrat)</li>
+<li><code>&quot;x&quot;</code></li>
+<li><code>&quot;+&quot;</code></li>
+<li>...</li>
+</ul>
+
+      </section><section class="slide" id="slide-9-7">
+        <h2 id="label">Label</h2>
+<ul>
+<li><code>plt.title(&quot;Trigonometric functions&quot;)</code></li>
+<li><code>plt.xlabel(&quot;x (radians)&quot;)</code></li>
+<li><code>plt.ylabel(&quot;y&quot;)</code></li>
+</ul>
+
+      </section><section class="slide" id="slide-9-8">
+        <h2 id="label">Label</h2>
+<p>Label für verschiedene Funktionen:</p>
+<pre><code class="language-py">plt.plot(x, np.sin(x), label=<span class="hljs-string">'sin(x)'</span>)
+plt.plot(x, np.cos(x), label=<span class="hljs-string">'cos(x)'</span>)
+
+plt.legend()</code></pre>
+
+      </section><section class="slide" id="slide-9-9">
+        <h2 id="achsen">Achsen</h2>
+<p>Achsen ausblenden:</p>
+<pre><code class="language-py">plt.axis(<span class="hljs-string">"off"</span>)</code></pre>
+
+      </section><section class="slide" id="slide-9-10">
+        <h2 id="achsenlimits">Achsenlimits</h2>
+<p>Ansicht einpassen (ohne Abstand zum Rand):</p>
+<pre><code class="language-py">plt.axis(<span class="hljs-string">"tight"</span>)</code></pre>
+<p>Bestimmten Ausschnitt anzeigen:</p>
+<pre><code class="language-py">plt.axis([<span class="hljs-number">-1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">-1</span>, <span class="hljs-number">1</span>])</code></pre>
+<p>Bestimmten Ausschnitt für einzelne Achse:</p>
+<pre><code class="language-py">plt.xlim(<span class="hljs-number">-1</span>, <span class="hljs-number">1</span>)</code></pre>
+
+      </section><section class="slide" id="slide-9-11">
+        <h2 id="achsenskalierung">Achsenskalierung</h2>
+<p>Gleiche Einheitengröße auf beiden Achsen:</p>
+<pre><code class="language-py">plt.axis(<span class="hljs-string">"equal"</span>)</code></pre>
+<p>Gleiche Einheitengrößen und Beschränkung der Achsenmarkierungen auf verwendete Datenbereiche:</p>
+<pre><code class="language-py">plt.axis(<span class="hljs-string">"scaled"</span>)</code></pre>
+
+      </section></section><section class="section" id="section-10"><section class="slide" id="slide-10-1">
+        <h1 id="grundlegende-plots">Grundlegende Plots</h1>
+
+      </section><section class="slide" id="slide-10-2">
+        <h2 id="grundlegende-plots">Grundlegende Plots</h2>
+<ul>
+<li>Graph</li>
+<li>Säulendiagramm</li>
+<li>Scatter Plot</li>
+<li>Histogram</li>
+<li>Box Plot</li>
+<li>Tortendiagramm</li>
+</ul>
+
+      </section><section class="slide" id="slide-10-3">
+        <h2 id="graph">Graph</h2>
+<p>Pyplot: <code>plt.plot(x, y)</code> / <code>plt.plot(y)</code></p>
+<p>Pandas: <code>df.plot.line()</code> / <code>df.plot()</code></p>
+
+      </section><section class="slide" id="slide-10-4">
+        <h2 id="säulendiagramm">Säulendiagramm</h2>
+<p>Pyplot: <code>plt.bar(x, y)</code></p>
+<p>Pandas: <code>df.plot.bar()</code></p>
+
+      </section><section class="slide" id="slide-10-5">
+        <h2 id="scatter-plot">Scatter Plot</h2>
+<p>Pyplot: <code>plt.plot(x, y, &quot;.&quot;)</code></p>
+<p>Pyplot (fortgeschritten): <code>plt.scatter(x, y, size, color)</code></p>
+<p>Pandas: <code>df.plot.scatter(x=&quot;name1&quot;, y=&quot;name2&quot;)</code></p>
+
+      </section><section class="slide" id="slide-10-6">
+        <h2 id="histogramm">Histogramm</h2>
+<p>Pyplot: <code>plt.hist(x)</code></p>
+<p>Pandas: <code>df.plot.hist()</code></p>
+
+      </section><section class="slide" id="slide-10-7">
+        <h2 id="box-plot">Box Plot</h2>
+<p>Pyplot: <code>plt.boxplot(data)</code></p>
+<p>Pandas: <code>df.plot.box()</code></p>
+
+      </section><section class="slide" id="slide-10-8">
+        <h2 id="tortendiagramm">Tortendiagramm</h2>
+<p>Pyplot: <code>plt.pie(x, labels=[...])</code></p>
+<p>Pandas: <code>df.pie()</code></p>
+
+      </section></section><section class="section" id="section-11"><section class="slide" id="slide-11-1">
+        <h1 id="figure-axes--subplots">Figure, Axes &amp; Subplots</h1>
+
+      </section><section class="slide" id="slide-11-2">
+        <h2 id="figure--axes">Figure &amp; Axes</h2>
+<p>Figure = ganze Zeichnung</p>
+<p>Axes = Koordinatensystem, in das Daten eingetragen werden</p>
+<p>Eine Figure kann mehrere Axes-Objekte (nebeneinander, untereinander, ...) enthalten</p>
+
+      </section><section class="slide" id="slide-11-3">
+        <h2 id="figure">Figure</h2>
+<p>Jede Zeichnung in <em>pyplot</em> erfolgt mittels eines <em>Figure</em>-Objekts (wird beim plotten meist automatisch erzeugt).</p>
+<p>Manuelles Erstellen einer Figure mit Größe 800 x 600 px (bei 100 dpi):</p>
+<pre><code class="language-py">fig = plt.figure(
+    figsize=(<span class="hljs-number">8</span>, <span class="hljs-number">6</span>),
+    facecolor=<span class="hljs-string">"#eeeeee"</span>
+)</code></pre>
+<p>Dies wird automatisch zur aktiven Figure.</p>
+
+      </section><section class="slide" id="slide-11-4">
+        <h2 id="figure-objekte">Figure Objekte</h2>
+<p>Exportieren einer Figure:</p>
+<pre><code class="language-py">fig.savefig(<span class="hljs-string">"myplot.png"</span>)
+fig.savefig(<span class="hljs-string">"myplot.svg"</span>)</code></pre>
+
+      </section><section class="slide" id="slide-11-5">
+        <h2 id="figure-objekte">Figure Objekte</h2>
+<p>Aufgabe: Skript, das eine PNG-Datei eines Graphen der aktuellen CPU-Last erstellt und jede Sekunde aktuelisiert. (verwende hierzu das PIP-Paket <em>psutil</em>)</p>
+
+      </section><section class="slide" id="slide-11-6">
+        <h2 id="axes-objekte">Axes Objekte</h2>
+<p>Manuell neue <em>Axes</em> erstellen:</p>
+<pre><code class="language-py">ax = plt.axes([<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>])</code></pre>
+<p>Die schon bekannten Methoden von <code>plt</code> verwenden im Hintergrund Methoden des aktiven <em>Axes</em> Objekts:</p>
+<pre><code class="language-py">ax.plot(...)
+ax.set_title(...)
+ax.set_xlabel(...)
+ax.legend()
+ax.set_aspect(<span class="hljs-string">"equal"</span>)</code></pre>
+
+      </section><section class="slide" id="slide-11-7">
+        <h2 id="axes-objekte">Axes Objekte</h2>
+<p>Aufgabe: Erstellen des Sinus- und Kosinusplots via <em>Axes</em></p>
+
+      </section><section class="slide" id="slide-11-8">
+        <h2 id="axis-und-axes">Axis und Axes</h2>
+<p>Achtung unglückliche Namensvergabe:</p>
+<ul>
+<li><code>plt.axis</code>: z.B. zum Einstellen der Skalierung</li>
+<li><code>plt.axes</code>: zum Erstellen eines neuen Koordinatensystems</li>
+</ul>
+<p>Eigentliche Bedeutungen aus dem Lateinischen / Englischen: <em>axis</em> = Achse, <em>axes</em> = Achsen</p>
+
+      </section><section class="slide" id="slide-11-9">
+        <h2 id="subplots">Subplots</h2>
+<p>Erstellen mehrerer Axes-Objekte in einem Raster (hier: 2 Zeilen, 3 Spalten):</p>
+<pre><code class="language-py">fig, ax = plt.subplots(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>)
+
+ax0 = ax[<span class="hljs-number">0</span>, <span class="hljs-number">0</span>]
+ax1 = ax[<span class="hljs-number">0</span>, <span class="hljs-number">1</span>]
+ax5 = ax[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>]</code></pre>
+
+      </section></section><section class="section" id="section-12"><section class="slide" id="slide-12-1">
+        <h1 id="erweiterte-arten-von-plots">Erweiterte Arten von Plots</h1>
+
+      </section><section class="slide" id="slide-12-2">
+        <h2 id="erweiterte-arten-von-plots">Erweiterte Arten von Plots</h2>
+<ul>
+<li>Datenpunkte mit mehr als 2 Features<ul>
+<li>Erweiterter Scatter Plot (Größe, Farbe)</li>
+<li>Scatter Matrix</li>
+</ul>
+</li>
+<li>Plotten von z = f(x, y)<ul>
+<li>Contour Plots</li>
+<li>3D Plots</li>
+</ul>
+</li>
+<li>Dichte einer Verteilung<ul>
+<li>(Histogramm)</li>
+<li>KDE</li>
+<li>Violin Plot</li>
+</ul>
+</li>
+<li>Dichte einer Verteilung (2D)<ul>
+<li>2D Histogramm (hist2d, hexbin)</li>
+<li>KDE</li>
+</ul>
+</li>
+</ul>
+
+      </section></section><section class="section" id="section-13"><section class="slide" id="slide-13-1">
+        <h1 id="pandas">Pandas</h1>
+
+      </section><section class="slide" id="slide-13-2">
         <h2 id="pandas">Pandas</h2>
 <p><em>Pandas</em> ist eine Datenanalysebibliothek; sie beruht auf <em>NumPy</em></p>
 <pre><code class="language-py"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd</code></pre>
 
-      </section><section class="slide" id="slide-8-3">
+      </section><section class="slide" id="slide-13-3">
         <h2 id="series-und-dataframe">Series und DataFrame</h2>
 <ul>
 <li><strong>Series</strong>: Sammlung von gleichartigen Einträgen zu bestimmten Schlüsseln (Tabellenspalte)</li>
@@ -588,7 +878,7 @@ c.dtype <span class="hljs-comment"># int64</span></code></pre>
 </tr>
 </tbody></table>
 
-      </section><section class="slide" id="slide-8-4">
+      </section><section class="slide" id="slide-13-4">
         <h2 id="series">Series</h2>
 <pre><code class="language-py">area = pd.Series({<span class="hljs-string">'CN'</span>: <span class="hljs-number">9.6</span>, <span class="hljs-string">'RU'</span>: <span class="hljs-number">17</span>, <span class="hljs-string">'US'</span>: <span class="hljs-number">9.8</span>})
 population = pd.Series({<span class="hljs-string">'CN'</span>: <span class="hljs-number">1386</span>, <span class="hljs-string">'RU'</span>: <span class="hljs-number">144</span>, <span class="hljs-string">'US'</span>: <span class="hljs-number">327</span>})
@@ -597,16 +887,16 @@ area[<span class="hljs-number">0</span>] <span class="hljs-comment"># 9.6</span>
 
 area[<span class="hljs-string">'CN'</span>] <span class="hljs-comment"># 9.6</span></code></pre>
 
-      </section><section class="slide" id="slide-8-5">
+      </section><section class="slide" id="slide-13-5">
         <h2 id="dataframe">DataFrame</h2>
 <pre><code class="language-py">countries = pd.DataFrame({
     <span class="hljs-string">'area'</span>: area,
     <span class="hljs-string">'population'</span>: population})</code></pre>
 
-      </section></section><section class="section" id="section-9"><section class="slide" id="slide-9-1">
+      </section></section><section class="section" id="section-14"><section class="slide" id="slide-14-1">
         <h1 id="daten-importieren-und-exportieren">Daten importieren und exportieren</h1>
 
-      </section><section class="slide" id="slide-9-2">
+      </section><section class="slide" id="slide-14-2">
         <h2 id="daten-importieren-und-exportieren">Daten importieren und exportieren</h2>
 <p>Datenformate:</p>
 <ul>
@@ -617,20 +907,20 @@ area[<span class="hljs-string">'CN'</span>] <span class="hljs-comment"># 9.6</sp
 <li>SQL tables (via <em>SQLAlchemy</em>)</li>
 </ul>
 
-      </section><section class="slide" id="slide-9-3">
+      </section><section class="slide" id="slide-14-3">
         <h2 id="daten-importieren-und-exportieren">Daten importieren und exportieren</h2>
 <p>Die folgenden Funktionen können Daten importieren / exportieren. Beim Importieren können Daten auch aus dem Internet gelesen werden.</p>
 <p>Import: <code>pd.read_csv</code>, <code>pd.read_excel</code>, ...</p>
 <p>Export: <code>df.to_csv</code>, <code>df.to_excel</code>, ...</p>
 
-      </section><section class="slide" id="slide-9-4">
+      </section><section class="slide" id="slide-14-4">
         <h2 id="csv-importieren">CSV importieren</h2>
 <p>Beispiel: Euribor (Zinsen für europäische Anleihen)</p>
 <pre><code class="language-py">euribor = pd.read_csv(
     <span class="hljs-string">"https://datahub.io/core/euribor/r/euribor-12m-monthly.csv"</span>
 )</code></pre>
 
-      </section><section class="slide" id="slide-9-5">
+      </section><section class="slide" id="slide-14-5">
         <h2 id="csv-importieren">CSV importieren</h2>
 <p>Mögliche Schlüsselwortargumente für <code>read_csv</code>:</p>
 <ul>
@@ -644,7 +934,7 @@ area[<span class="hljs-string">'CN'</span>] <span class="hljs-comment"># 9.6</sp
 </ul>
 <p>Siehe auch: <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html">https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html</a></p>
 
-      </section><section class="slide" id="slide-9-6">
+      </section><section class="slide" id="slide-14-6">
         <h2 id="csv-importieren">CSV importieren</h2>
 <p>Fortgeschrittenes Euribor-Beispiel:</p>
 <ul>
@@ -659,7 +949,7 @@ area[<span class="hljs-string">'CN'</span>] <span class="hljs-comment"># 9.6</sp
     usecols=[<span class="hljs-string">"date"</span>, <span class="hljs-string">"rate"</span>]
 )</code></pre>
 
-      </section><section class="slide" id="slide-9-7">
+      </section><section class="slide" id="slide-14-7">
         <h2 id="csv-importieren">CSV importieren</h2>
 <p>Aufgabe: Importiere die folgenden Datenquellen und achte dabei auf passendes Format:</p>
 <ul>
@@ -668,7 +958,7 @@ area[<span class="hljs-string">'CN'</span>] <span class="hljs-comment"># 9.6</sp
 <li>Iris Dataset (Statistiken zu Blütengrößen von Iris-Blumen): <a href="http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data">http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data</a> (recherchiere passende Spaltennamen im Internet)</li>
 </ul>
 
-      </section><section class="slide" id="slide-9-8">
+      </section><section class="slide" id="slide-14-8">
         <h2 id="csv-importieren">CSV importieren</h2>
 <p>mögliche Lösungen:</p>
 <pre><code class="language-py">iris = pd.read_csv(
@@ -684,7 +974,7 @@ exchange_rates = pd.read_csv(
     <span class="hljs-string">"https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv"</span>,
     parse_dates=[<span class="hljs-string">"Date"</span>])</code></pre>
 
-      </section><section class="slide" id="slide-9-9">
+      </section><section class="slide" id="slide-14-9">
         <h2 id="daten-importieren-und-exportieren">Daten importieren und exportieren</h2>
 <p>Excel:</p>
 <pre><code class="language-py">euribor.to_excel(<span class="hljs-string">'euribor.xlsx'</span>)
@@ -693,10 +983,10 @@ euribor = pd.read_excel(<span class="hljs-string">'euribor.xlsx'</span>, index_c
 <pre><code class="language-py">euribor.to_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class="hljs-string">"euribor"</span>)
 euribor = read_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class="hljs-string">"euribor"</span>)</code></pre>
 
-      </section></section><section class="section" id="section-10"><section class="slide" id="slide-10-1">
+      </section></section><section class="section" id="section-15"><section class="slide" id="slide-15-1">
         <h1 id="pandas-daten-auslesen">Pandas: Daten auslesen</h1>
 
-      </section><section class="slide" id="slide-10-2">
+      </section><section class="slide" id="slide-15-2">
         <h2 id="daten-auslesen-nach-zeilen--und-spaltennummern">Daten auslesen (nach Zeilen- und Spaltennummern)</h2>
 <ul>
 <li><code>df.iloc[5]</code>: Zeile 5 (gibt <code>Series</code>-Objekt zurück)</li>
@@ -706,7 +996,7 @@ euribor = read_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class="hl
 <li><code>df.iloc[5, [0, 2]]</code>: Zeile 5, Spalten 0 und 2</li>
 </ul>
 
-      </section><section class="slide" id="slide-10-3">
+      </section><section class="slide" id="slide-15-3">
         <h2 id="daten-auslesen-nach-zeilen--und-spaltennamen">Daten auslesen (nach Zeilen- und Spaltennamen)</h2>
 <ul>
 <li><code>df.index</code>: Zeilennamen</li>
@@ -724,7 +1014,7 @@ euribor = read_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class="hl
 <li><code>df.loc[&quot;2009-01-02&quot;, &quot;rate&quot;]</code>: Bestimmte Zeile und Spalte</li>
 </ul>
 
-      </section><section class="slide" id="slide-10-4">
+      </section><section class="slide" id="slide-15-4">
         <h2 id="zeilen-sortieren">Zeilen sortieren</h2>
 <ul>
 <li><code>df.sort_values(by=&quot;rate&quot;)</code></li>
@@ -732,7 +1022,7 @@ euribor = read_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class="hl
 <li><code>df.sort_index(ascending=False)</code></li>
 </ul>
 
-      </section><section class="slide" id="slide-10-5">
+      </section><section class="slide" id="slide-15-5">
         <h2 id="zufällig-daten-auswählen">Zufällig Daten auswählen</h2>
 <ul>
 <li><code>df.sample()</code> - ein zufälliger Eintrag)</li>
@@ -740,9 +1030,14 @@ euribor = read_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class="hl
 <li><code>df.sample(frac=0.1)</code> - 10% aller Einträge</li>
 </ul>
 
-      </section><section class="slide" id="slide-10-6">
-        <h2 id="zeilen-suchen">Zeilen suchen</h2>
-<p>Boolesche Indizierung arbeitet bei DataFrames zeilenweise:</p>
+      </section><section class="slide" id="slide-15-6">
+        <h2 id="einträge-filtern">Einträge filtern</h2>
+<p>Analog zur Funktionsweise von <em>NumPy</em>: alle Werte, die das Kriterium nicht erfüllen werden zu <em>NaN</em>.</p>
+<pre><code class="language-py">iris[iris &gt; <span class="hljs-number">0</span>]</code></pre>
+
+      </section><section class="slide" id="slide-15-7">
+        <h2 id="zeilen-filtern">Zeilen filtern</h2>
+<p>Zeilenweise filtern (ein zeilenweise gefilterter <em>DataFrame</em> wird zurückgegeben):</p>
 <ul>
 <li><code>df[df.rate &lt; 0]</code></li>
 <li><code>df[df.length &lt; 0] = np.nan</code></li>
@@ -750,7 +1045,7 @@ euribor = read_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class="hl
 <li><code>df[df.name.isin([&quot;Iris-setosa&quot;, &quot;Iris-virginica&quot;])])]</code></li>
 </ul>
 
-      </section><section class="slide" id="slide-10-7">
+      </section><section class="slide" id="slide-15-8">
         <h2 id="zeilen-suchen">Zeilen suchen</h2>
 <p>SQL Vorlage:</p>
 <pre><code class="language-sql"><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> df
@@ -760,7 +1055,7 @@ euribor = read_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class="hl
 <p>oder</p>
 <pre><code class="language-py">df.query(<span class="hljs-string">"a &lt; b &lt; c"</span>)</code></pre>
 
-      </section><section class="slide" id="slide-10-8">
+      </section><section class="slide" id="slide-15-9">
         <h2 id="aufgaben-euribor">Aufgaben (Euribor)</h2>
 <ul>
 <li>erster Eintrag</li>
@@ -770,7 +1065,7 @@ euribor = read_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class="hl
 <li>Einträge aus dem Jahr 2009</li>
 </ul>
 
-      </section><section class="slide" id="slide-10-9">
+      </section><section class="slide" id="slide-15-10">
         <h2 id="lösungen-euribor">Lösungen (Euribor)</h2>
 <ul>
 <li>erster Eintrag: <code>euribor.iloc[0]</code></li>
@@ -780,20 +1075,20 @@ euribor = read_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class="hl
 <li>Einträge vom 1.1.2009 bis 31.12.2009: <code>euribor.loc[&quot;2009-01-01&quot;: &quot;2009-12-31&quot;]</code></li>
 </ul>
 
-      </section><section class="slide" id="slide-10-10">
+      </section><section class="slide" id="slide-15-11">
         <h2 id="aufgaben-iris">Aufgaben (Iris)</h2>
 <ul>
 <li>Maximale <em>petal length</em> von <em>iris setosa</em> (ohne <code>.max</code>)</li>
 </ul>
 
-      </section></section><section class="section" id="section-11"><section class="slide" id="slide-11-1">
+      </section></section><section class="section" id="section-16"><section class="slide" id="slide-16-1">
         <h1 id="statistische-grundwerte">Statistische Grundwerte</h1>
 
-      </section><section class="slide" id="slide-11-2">
+      </section><section class="slide" id="slide-16-2">
         <h2 id="statistische-grundwerte">Statistische Grundwerte</h2>
 <pre><code class="language-py">df.describe()</code></pre>
 
-      </section><section class="slide" id="slide-11-3">
+      </section><section class="slide" id="slide-16-3">
         <h2 id="statistische-grundwerte">Statistische Grundwerte</h2>
 <pre><code class="language-py">countries.area.describe()</code></pre>
 <pre><code class="language-txt">count     3.000000
@@ -807,7 +1102,7 @@ max      17.000000
 dtype: float64</code></pre>
 <p>(Siehe nächste Folie für Erklärungen)</p>
 
-      </section><section class="slide" id="slide-11-4">
+      </section><section class="slide" id="slide-16-4">
         <h2 id="statistik-einer-series">Statistik einer Series</h2>
 <pre><code class="language-py">countries.area.describe()</code></pre>
 <p>berechnet die folgenden Daten:</p>
@@ -822,7 +1117,7 @@ dtype: float64</code></pre>
 <li><code>area.quantile(1)</code> / <code>ara.max()</code></li>
 </ul>
 
-      </section><section class="slide" id="slide-11-5">
+      </section><section class="slide" id="slide-16-5">
         <h2 id="statistische-werte">Statistische Werte</h2>
 <ul>
 <li><em>std</em>: <em>Standardabweichung (Standard deviation)</em></li>
@@ -831,16 +1126,16 @@ dtype: float64</code></pre>
 <li><em>25%-Quantil</em>: 25% aller Werte sind kleiner</li>
 </ul>
 
-      </section></section><section class="section" id="section-12"><section class="slide" id="slide-12-1">
+      </section></section><section class="section" id="section-17"><section class="slide" id="slide-17-1">
         <h1 id="beispiel">Beispiel</h1>
 
-      </section><section class="slide" id="slide-12-2">
+      </section><section class="slide" id="slide-17-2">
         <h2 id="wechselkurse">Wechselkurse</h2>
 <p><a href="https://datahub.io/core/exchange-rates/r/daily.csv">https://datahub.io/core/exchange-rates/r/daily.csv</a></p>
 <p>Tägliche Wechselkurse zwischen USD und anderen Währungen</p>
 <p>Wir lesen die Daten ein und wandeln sie so um, dass sie eine Zuordnung von Kalenderdaten zu täglichen EUR-USD Kursen darstellen</p>
 
-      </section><section class="slide" id="slide-12-3">
+      </section><section class="slide" id="slide-17-3">
         <h2 id="wechselkurse">Wechselkurse</h2>
 <p>Lösung:</p>
 <pre><code class="language-py">er = pd.read_csv(
@@ -856,10 +1151,10 @@ er_eur_dateindex = er_eur_full.set_index(<span class="hljs-string">'Date'</span>
 <span class="hljs-comment"># we can drop the country information</span>
 er_eur = er_eur_dateindex.loc[:, <span class="hljs-string">'Value'</span>]</code></pre>
 
-      </section></section><section class="section" id="section-13"><section class="slide" id="slide-13-1">
+      </section></section><section class="section" id="section-18"><section class="slide" id="slide-18-1">
         <h1 id="pandas-daten-setzen">Pandas: Daten setzen</h1>
 
-      </section><section class="slide" id="slide-13-2">
+      </section><section class="slide" id="slide-18-2">
         <h2 id="abgeleitete-werte-berechnen">Abgeleitete Werte berechnen</h2>
 <pre><code class="language-py">iris[<span class="hljs-string">"sepal_ratio"</span>] = iris[<span class="hljs-string">"sepal_length"</span>] / iris[<span class="hljs-string">"sepal_width"</span>]
 
@@ -873,16 +1168,16 @@ iris_setosa = iris.loc[
 iris_setosa[<span class="hljs-string">"sepal_ratio"</span>].mean()
 iris_setosa[<span class="hljs-string">"sepal_ratio"</span>].std()</code></pre>
 
-      </section><section class="slide" id="slide-13-3">
+      </section><section class="slide" id="slide-18-3">
         <h2 id="daten-setzen">Daten setzen</h2>
 <pre><code class="language-py">iris.iloc[<span class="hljs-number">0</span>, <span class="hljs-number">0</span>] = <span class="hljs-number">6</span>
 
 iris.loc[:, <span class="hljs-string">"sepal_ratio"</span>] = float(<span class="hljs-string">'nan'</span>)</code></pre>
 
-      </section></section><section class="section" id="section-14"><section class="slide" id="slide-14-1">
+      </section></section><section class="section" id="section-19"><section class="slide" id="slide-19-1">
         <h1 id="fehlende-daten">Fehlende Daten</h1>
 
-      </section><section class="slide" id="slide-14-2">
+      </section><section class="slide" id="slide-19-2">
         <h2 id="fehlende-daten">Fehlende Daten</h2>
 <p>In den Wechselkursdaten fehlen manche Einträge:</p>
 <ul>
@@ -890,7 +1185,7 @@ iris.loc[:, <span class="hljs-string">"sepal_ratio"</span>] = float(<span class=
 <li>manche Tage sind als <code>NaN</code>s eingetragen</li>
 </ul>
 
-      </section><section class="slide" id="slide-14-3">
+      </section><section class="slide" id="slide-19-3">
         <h2 id="fehlende-daten">Fehlende Daten</h2>
 <p>Entfernen aller Zeilen mit fehlenden Daten:</p>
 <pre><code class="language-py">er = er.dropna()</code></pre>
@@ -899,7 +1194,7 @@ iris.loc[:, <span class="hljs-string">"sepal_ratio"</span>] = float(<span class=
 <p>Ersetzen aller fehlernder Daten mit Werten der Reihe zuvor:</p>
 <pre><code class="language-py">er = er.fillna(method=<span class="hljs-string">"backfill"</span>)</code></pre>
 
-      </section><section class="slide" id="slide-14-4">
+      </section><section class="slide" id="slide-19-4">
         <h2 id="fehlende-daten">Fehlende Daten</h2>
 <p>Daten interpolieren:</p>
 <pre><code class="language-py">er = er.intepolate()
@@ -912,18 +1207,18 @@ ir_uk = pd.read_csv(url, index_col=<span class="hljs-string">"date"</span>,
 
 ir_uk_weekly = ir_uk.resample(<span class="hljs-string">'7d'</span>).interpolate()</code></pre>
 
-      </section><section class="slide" id="slide-14-5">
+      </section><section class="slide" id="slide-19-5">
         <h2 id="übung">Übung</h2>
 <p>Nutze die Daten aus <em>sp500</em> und <em>euribor</em>, um die Entwicklungen der europäischen und amerikanischen Zinssätze einander gegenüberzustellen.</p>
 
-      </section></section><section class="section" id="section-15"><section class="slide" id="slide-15-1">
+      </section></section><section class="section" id="section-20"><section class="slide" id="slide-20-1">
         <h1 id="kontingenztabelle">Kontingenztabelle</h1>
 
-      </section><section class="slide" id="slide-15-2">
+      </section><section class="slide" id="slide-20-2">
         <h2 id="kontingenztabelle">Kontingenztabelle</h2>
 <p>Eine <em>Kontingenztabelle</em> oder <em>Kreuztabelle</em> kann mittels <code>pd.crosstab</code> erstellt werden.</p>
 
-      </section><section class="slide" id="slide-15-3">
+      </section><section class="slide" id="slide-20-3">
         <h2 id="kontingenztabelle">Kontingenztabelle</h2>
 <p>Beispiel:</p>
 <pre><code class="language-py"><span class="hljs-keyword">import</span> seaborn <span class="hljs-keyword">as</span> sns
@@ -935,10 +1230,10 @@ pd.crosstab(titanic.survived, titanic.sex)</code></pre>
 survived              
 0             81   468
 1            233   109</code></pre>
-      </section></section><section class="section" id="section-16"><section class="slide" id="slide-16-1">
+      </section></section><section class="section" id="section-21"><section class="slide" id="slide-21-1">
         <h1 id="gruppierung">Gruppierung</h1>
 
-      </section><section class="slide" id="slide-16-2">
+      </section><section class="slide" id="slide-21-2">
         <h2 id="gruppierung">Gruppierung</h2>
 <p>Einteilung der Daten in Gruppen / Kategorien und berechnen von Werten auf deren Basis</p>
 <p>Beispiel: Durchschnittswerte der Iris-Daten basierend auf dem Namen der Art</p>
@@ -948,19 +1243,19 @@ name
 Iris-setosa             5.006        3.418         1.464        0.244
 Iris-versicolor         5.936        2.770         4.260        1.326
 Iris-virginica          6.588        2.974         5.552        2.026</code></pre>
-      </section><section class="slide" id="slide-16-3">
+      </section><section class="slide" id="slide-21-3">
         <h2 id="gruppierung">Gruppierung</h2>
 <p>Aufgabe: Durchschnittliche USD-Wechselkurse für jede Währung in den 90ern</p>
 
-      </section></section><section class="section" id="section-17"><section class="slide" id="slide-17-1">
+      </section></section><section class="section" id="section-22"><section class="slide" id="slide-22-1">
         <h1 id="multi-index">Multi-Index</h1>
 
-      </section><section class="slide" id="slide-17-2">
+      </section><section class="slide" id="slide-22-2">
         <h2 id="multi-index">Multi-Index</h2>
 <p>Index-Spalte: Spalte, anhand deren Einträge die Zeilen eindeutig identifiziert werden können</p>
 <p>Multi-Index: Kombination aus mehreren Spalten zur eindeutigen Identifikation</p>
 
-      </section><section class="slide" id="slide-17-3">
+      </section><section class="slide" id="slide-22-3">
         <h2 id="multi-index">Multi-Index</h2>
 <p>Beispiel: Exchange rates</p>
 <table>
@@ -989,7 +1284,7 @@ Iris-virginica          6.588        2.974         5.552        2.026</code></pr
 </tbody></table>
 <p>Eine Zeile kann durch Kombination von <em>date</em> und <em>country</em> eindeutig identifiziert werden.</p>
 
-      </section><section class="slide" id="slide-17-4">
+      </section><section class="slide" id="slide-22-4">
         <h2 id="multi-index">Multi-Index</h2>
 <p>Importieren mit Multi-Index:</p>
 <pre><code class="language-py">exchange_rates = pd.read_csv(
@@ -997,303 +1292,13 @@ Iris-virginica          6.588        2.974         5.552        2.026</code></pr
     index_col=[<span class="hljs-string">"Country"</span>, <span class="hljs-string">"Date"</span>]
     parse_dates=[<span class="hljs-string">"Date"</span>])</code></pre>
 
-      </section></section><section class="section" id="section-18"><section class="slide" id="slide-18-1">
+      </section></section><section class="section" id="section-23"><section class="slide" id="slide-23-1">
         <h1 id="joins">Joins</h1>
 
-      </section><section class="slide" id="slide-18-2">
+      </section><section class="slide" id="slide-23-2">
         <h2 id="joins">Joins</h2>
 <p>Mit <em>joins</em> können mehrere <em>DataFrames</em> zusammengeführt werden.</p>
 <p><a href="https://jakevdp.github.io/PythonDataScienceHandbook/03.07-merge-and-join.html">https://jakevdp.github.io/PythonDataScienceHandbook/03.07-merge-and-join.html</a></p>
-
-      </section></section><section class="section" id="section-19"><section class="slide" id="slide-19-1">
-        <h1 id="plotting">Plotting</h1>
-<h3 id="grafische-darstellung-von-daten">Grafische Darstellung von Daten</h3>
-
-      </section><section class="slide" id="slide-19-2">
-        <h2 id="plotting">Plotting</h2>
-<p>Grundlegende (low-level) Library für Plotting: <em>matplotlib</em></p>
-<p>Abstrahierende Interfaces zu grundlegenden matplotlib Funktionen:</p>
-<ul>
-<li><em>pyplot</em> (enthalten in matplotlib, ähnlich zum matlab Plotinterface)</li>
-<li><em>pandas</em> Plotfunktionen</li>
-<li><em>seaborn</em></li>
-</ul>
-
-      </section><section class="slide" id="slide-19-3">
-        <h2 id="einfacher-plot-mit-pyplot">Einfacher Plot mit pyplot</h2>
-<pre><code class="language-py"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
-<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
-
-x = np.array([<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])
-
-y1 = x*<span class="hljs-number">2</span>
-y2 = x**<span class="hljs-number">2</span>
-
-plt.plot(x, y1)
-plt.plot(x, y2)
-
-<span class="hljs-comment"># plt.show is not needed in Jupyter</span>
-plt.show()</code></pre>
-
-      </section><section class="slide" id="slide-19-4">
-        <h2 id="einfacher-plot-mit-pandas">Einfacher Plot mit pandas</h2>
-<pre><code class="language-py"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
-<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
-<span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
-
-x = np.array([<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])
-
-data = pd.DataFrame({
-    <span class="hljs-string">"y1"</span>: x*<span class="hljs-number">2</span>,
-    <span class="hljs-string">"y2"</span>: x**<span class="hljs-number">2</span>
-})
-
-data.plot.line()
-
-<span class="hljs-comment"># plt.show is not needed in Jupyter</span>
-plt.show()</code></pre>
-
-      </section><section class="slide" id="slide-19-5">
-        <h2 id="übung">Übung</h2>
-<p>Erstelle einen Plot, der die Sinus- und Kosinusfunktion im Intervall von <em>0</em> bis <em>2π</em> zeigt.</p>
-
-      </section><section class="slide" id="slide-19-6">
-        <h2 id="übung">Übung</h2>
-<pre><code class="language-py">x = np.linspace(<span class="hljs-number">0</span>, <span class="hljs-number">2</span>*<span class="hljs-number">3.1415</span>, <span class="hljs-number">200</span>)
-
-plt.plot(x, np.sin(x))
-plt.plot(x, np.cos(x))</code></pre>
-<pre><code class="language-py">x = np.linspace(<span class="hljs-number">0</span>, <span class="hljs-number">2</span>*<span class="hljs-number">3.1415</span>, <span class="hljs-number">200</span>)
-
-df = pd.DataFrame({<span class="hljs-string">"sin"</span>: np.sin(x), <span class="hljs-string">"cos"</span>: np.cos(x)}, index=x)
-
-df.plot.line()</code></pre>
-
-      </section></section><section class="section" id="section-20"><section class="slide" id="slide-20-1">
-        <h1 id="konfiguration-und-styling">Konfiguration und Styling</h1>
-
-      </section><section class="slide" id="slide-20-2">
-        <h2 id="stile">Stile</h2>
-<p>Vorgefertigte Stylesheets verwendbar mittels:</p>
-<pre><code class="language-py">plt.style.use(<span class="hljs-string">"stylename"</span>)</code></pre>
-<p>Für Demos verfügbarer Stile siehe:</p>
-<p><a href="https://matplotlib.org/3.1.0/gallery/style_sheets/style_sheets_reference.html">https://matplotlib.org/3.1.0/gallery/style_sheets/style_sheets_reference.html</a></p>
-
-      </section><section class="slide" id="slide-20-3">
-        <h2 id="stile-von-graphen">Stile von Graphen</h2>
-<p>Kurzformen:</p>
-<pre><code class="language-py">plt.plot(x, y, <span class="hljs-string">"gx--"</span>)</code></pre>
-<p>Langform:</p>
-<pre><code class="language-py">plt.plot(x, y, color=<span class="hljs-string">"green"</span>, linestyle=<span class="hljs-string">"dashed"</span>, marker=<span class="hljs-string">"x"</span>)</code></pre>
-<p>In der Langform sind genauere Farb- und Größenangaben möglich</p>
-
-      </section><section class="slide" id="slide-20-4">
-        <h2 id="stile-von-graphen">Stile von Graphen</h2>
-<p>mögliche Farbangaben:</p>
-<ul>
-<li>Farbname (<code>green</code> / <code>lighblue</code> / ...)</li>
-<li>Kurzname (<code>r</code> / <code>g</code> / <code>b</code> / <code>c</code> / <code>m</code> / <code>y</code> / <code>k</code>)</li>
-<li>Hex-Code (z.B. <code>#FFAA00</code>)</li>
-<li>RGB-Tupel (z.B. <code>(1, 0.7, 0)</code>)</li>
-</ul>
-
-      </section><section class="slide" id="slide-20-5">
-        <h2 id="stile-von-graphen">Stile von Graphen</h2>
-<p>mögliche Lininenstile:</p>
-<ul>
-<li><code>&quot;&quot;</code> (<em>none</em>)</li>
-<li><code>&quot;-&quot;</code> (<em>solid</em>)</li>
-<li><code>&quot;--&quot;</code> (<em>dashed</em>)</li>
-<li><code>&quot;:&quot;</code> (<em>dotted</em>)</li>
-<li><code>&quot;-.&quot;</code> (<em>dashdot</em>)</li>
-</ul>
-
-      </section><section class="slide" id="slide-20-6">
-        <h2 id="stile-von-graphen">Stile von Graphen</h2>
-<p>mögliche Marker:</p>
-<ul>
-<li><code>&quot;&quot;</code> (keine)</li>
-<li><code>&quot;,&quot;</code> (kleiner Punkt)</li>
-<li><code>&quot;.&quot;</code> (mittelgroßer Punkt)</li>
-<li><code>&quot;o&quot;</code> (großer Punkt)</li>
-<li><code>&quot;s&quot;</code> (Quadrat)</li>
-<li><code>&quot;x&quot;</code></li>
-<li><code>&quot;+&quot;</code></li>
-<li>...</li>
-</ul>
-
-      </section><section class="slide" id="slide-20-7">
-        <h2 id="label">Label</h2>
-<ul>
-<li><code>plt.title(&quot;Trigonometric functions&quot;)</code></li>
-<li><code>plt.xlabel(&quot;x (radians)&quot;)</code></li>
-<li><code>plt.ylabel(&quot;y&quot;)</code></li>
-</ul>
-
-      </section><section class="slide" id="slide-20-8">
-        <h2 id="label">Label</h2>
-<p>Label für verschiedene Funktionen:</p>
-<pre><code class="language-py">plt.plot(x, np.sin(x), label=<span class="hljs-string">'sin(x)'</span>)
-plt.plot(x, np.cos(x), label=<span class="hljs-string">'cos(x)'</span>)
-
-plt.legend()</code></pre>
-
-      </section><section class="slide" id="slide-20-9">
-        <h2 id="achsen">Achsen</h2>
-<p>Achsen ausblenden:</p>
-<pre><code class="language-py">plt.axis(<span class="hljs-string">"off"</span>)</code></pre>
-
-      </section><section class="slide" id="slide-20-10">
-        <h2 id="achsenlimits">Achsenlimits</h2>
-<p>Ansicht einpassen (ohne Abstand zum Rand):</p>
-<pre><code class="language-py">plt.axis(<span class="hljs-string">"tight"</span>)</code></pre>
-<p>Bestimmten Ausschnitt anzeigen:</p>
-<pre><code class="language-py">plt.axis([<span class="hljs-number">-1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">-1</span>, <span class="hljs-number">1</span>])</code></pre>
-<p>Bestimmten Ausschnitt für einzelne Achse:</p>
-<pre><code class="language-py">plt.xlim(<span class="hljs-number">-1</span>, <span class="hljs-number">1</span>)</code></pre>
-
-      </section><section class="slide" id="slide-20-11">
-        <h2 id="achsenskalierung">Achsenskalierung</h2>
-<p>Gleiche Einheitengröße auf beiden Achsen:</p>
-<pre><code class="language-py">plt.axis(<span class="hljs-string">"equal"</span>)</code></pre>
-<p>Gleiche Einheitengrößen und Beschränkung der Achsenmarkierungen auf verwendete Datenbereiche:</p>
-<pre><code class="language-py">plt.axis(<span class="hljs-string">"scaled"</span>)</code></pre>
-
-      </section></section><section class="section" id="section-21"><section class="slide" id="slide-21-1">
-        <h1 id="grundlegende-plots">Grundlegende Plots</h1>
-
-      </section><section class="slide" id="slide-21-2">
-        <h2 id="grundlegende-plots">Grundlegende Plots</h2>
-<ul>
-<li>Graph</li>
-<li>Säulendiagramm</li>
-<li>Scatter Plot</li>
-<li>Histogram</li>
-<li>Box Plot</li>
-<li>Tortendiagramm</li>
-</ul>
-
-      </section><section class="slide" id="slide-21-3">
-        <h2 id="graph">Graph</h2>
-<p>Pyplot: <code>plt.plot(x, y)</code> / <code>plt.plot(y)</code></p>
-<p>Pandas: <code>df.plot.line()</code> / <code>df.plot()</code></p>
-
-      </section><section class="slide" id="slide-21-4">
-        <h2 id="säulendiagramm">Säulendiagramm</h2>
-<p>Pyplot: <code>plt.bar(x, y)</code></p>
-<p>Pandas: <code>df.plot.bar()</code></p>
-
-      </section><section class="slide" id="slide-21-5">
-        <h2 id="scatter-plot">Scatter Plot</h2>
-<p>Pyplot: <code>plt.plot(x, y, &quot;.&quot;)</code></p>
-<p>Pyplot (fortgeschritten): <code>plt.scatter(x, y, size, color)</code></p>
-<p>Pandas: <code>df.plot.scatter(x=&quot;name1&quot;, y=&quot;name2&quot;)</code></p>
-
-      </section><section class="slide" id="slide-21-6">
-        <h2 id="histogramm">Histogramm</h2>
-<p>Pyplot: <code>plt.hist(x)</code></p>
-<p>Pandas: <code>df.plot.hist()</code></p>
-
-      </section><section class="slide" id="slide-21-7">
-        <h2 id="box-plot">Box Plot</h2>
-<p>Pyplot: <code>plt.boxplot(data)</code></p>
-<p>Pandas: <code>df.plot.box()</code></p>
-
-      </section><section class="slide" id="slide-21-8">
-        <h2 id="tortendiagramm">Tortendiagramm</h2>
-<p>Pyplot: <code>plt.pie(x, labels=[...])</code></p>
-<p>Pandas: <code>df.pie()</code></p>
-
-      </section></section><section class="section" id="section-22"><section class="slide" id="slide-22-1">
-        <h1 id="figure-axes--subplots">Figure, Axes &amp; Subplots</h1>
-
-      </section><section class="slide" id="slide-22-2">
-        <h2 id="figure--axes">Figure &amp; Axes</h2>
-<p>Figure = ganze Zeichnung</p>
-<p>Axes = Koordinatensystem, in das Daten eingetragen werden</p>
-<p>Eine Figure kann mehrere Axes-Objekte (nebeneinander, untereinander, ...) enthalten</p>
-
-      </section><section class="slide" id="slide-22-3">
-        <h2 id="figure">Figure</h2>
-<p>Jede Zeichnung in <em>pyplot</em> erfolgt mittels eines <em>Figure</em>-Objekts (wird beim plotten meist automatisch erzeugt).</p>
-<p>Manuelles Erstellen einer Figure mit Größe 800 x 600 px (bei 100 dpi):</p>
-<pre><code class="language-py">fig = plt.figure(
-    figsize=(<span class="hljs-number">8</span>, <span class="hljs-number">6</span>),
-    facecolor=<span class="hljs-string">"#eeeeee"</span>
-)</code></pre>
-<p>Dies wird automatisch zur aktiven Figure.</p>
-
-      </section><section class="slide" id="slide-22-4">
-        <h2 id="figure-objekte">Figure Objekte</h2>
-<p>Exportieren einer Figure:</p>
-<pre><code class="language-py">fig.savefig(<span class="hljs-string">"myplot.png"</span>)
-fig.savefig(<span class="hljs-string">"myplot.svg"</span>)</code></pre>
-
-      </section><section class="slide" id="slide-22-5">
-        <h2 id="figure-objekte">Figure Objekte</h2>
-<p>Aufgabe: Skript, das eine PNG-Datei eines Graphen der aktuellen CPU-Last erstellt und jede Sekunde aktuelisiert. (verwende hierzu das PIP-Paket <em>psutil</em>)</p>
-
-      </section><section class="slide" id="slide-22-6">
-        <h2 id="axes-objekte">Axes Objekte</h2>
-<p>Manuell neue <em>Axes</em> erstellen:</p>
-<pre><code class="language-py">ax = plt.axes([<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>])</code></pre>
-<p>Die schon bekannten Methoden von <code>plt</code> verwenden im Hintergrund Methoden des aktiven <em>Axes</em> Objekts:</p>
-<pre><code class="language-py">ax.plot(...)
-ax.set_title(...)
-ax.set_xlabel(...)
-ax.legend()
-ax.set_aspect(<span class="hljs-string">"equal"</span>)</code></pre>
-
-      </section><section class="slide" id="slide-22-7">
-        <h2 id="axes-objekte">Axes Objekte</h2>
-<p>Aufgabe: Erstellen des Sinus- und Kosinusplots via <em>Axes</em></p>
-
-      </section><section class="slide" id="slide-22-8">
-        <h2 id="axis-und-axes">Axis und Axes</h2>
-<p>Achtung unglückliche Namensvergabe:</p>
-<ul>
-<li><code>plt.axis</code>: z.B. zum Einstellen der Skalierung</li>
-<li><code>plt.axes</code>: zum Erstellen eines neuen Koordinatensystems</li>
-</ul>
-<p>Eigentliche Bedeutungen aus dem Lateinischen / Englischen: <em>axis</em> = Achse, <em>axes</em> = Achsen</p>
-
-      </section><section class="slide" id="slide-22-9">
-        <h2 id="subplots">Subplots</h2>
-<p>Erstellen mehrerer Axes-Objekte in einem Raster (hier: 2 Zeilen, 3 Spalten):</p>
-<pre><code class="language-py">fig, ax = plt.subplots(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>)
-
-ax0 = ax[<span class="hljs-number">0</span>, <span class="hljs-number">0</span>]
-ax1 = ax[<span class="hljs-number">0</span>, <span class="hljs-number">1</span>]
-ax5 = ax[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>]</code></pre>
-
-      </section></section><section class="section" id="section-23"><section class="slide" id="slide-23-1">
-        <h1 id="erweiterte-arten-von-plots">Erweiterte Arten von Plots</h1>
-
-      </section><section class="slide" id="slide-23-2">
-        <h2 id="erweiterte-arten-von-plots">Erweiterte Arten von Plots</h2>
-<ul>
-<li>Datenpunkte mit mehr als 2 Features<ul>
-<li>Erweiterter Scatter Plot (Größe, Farbe)</li>
-<li>Scatter Matrix</li>
-</ul>
-</li>
-<li>Plotten von z = f(x, y)<ul>
-<li>Contour Plots</li>
-<li>3D Plots</li>
-</ul>
-</li>
-<li>Dichte einer Verteilung<ul>
-<li>(Histogramm)</li>
-<li>KDE</li>
-<li>Violin Plot</li>
-</ul>
-</li>
-<li>Dichte einer Verteilung (2D)<ul>
-<li>2D Histogramm (hist2d, hexbin)</li>
-<li>KDE</li>
-</ul>
-</li>
-</ul>
 
       </section></section><section class="section" id="section-24"><section class="slide" id="slide-24-1">
         <h1 id="numpy-fortgeschritten">NumPy Fortgeschritten</h1>

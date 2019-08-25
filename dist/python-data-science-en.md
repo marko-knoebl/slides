@@ -413,6 +413,25 @@ c = np.array([1, 3])
 
 advanced: solving linear equations
 
+# Plotting
+
+## Plotting - advanced plots
+
+- plotting data points with more than 2 features
+  - advanced scatter plot (size, color)
+  - scatter matrix
+- plotting z = f(x, y)
+  - contour plots
+  - 3d plots
+- plotting density of some distribution (advanced)
+  - histogram
+  - box plot
+  - kde
+  - violin plot
+- plotting density (2d)
+  - 2d histogram (hist2d, hexbin)
+  - kde
+
 # Pandas
 
 ## Pandas
@@ -852,25 +871,6 @@ ir_uk = pd.read_csv(url, index_col="date",
 
 ir_uk_weekly = ir_uk.resample('7d').interpolate()
 ```
-
-# Plotting
-
-## Plotting - advanced plots
-
-- plotting data points with more than 2 features
-  - advanced scatter plot (size, color)
-  - scatter matrix
-- plotting z = f(x, y)
-  - contour plots
-  - 3d plots
-- plotting density of some distribution (advanced)
-  - histogram
-  - box plot
-  - kde
-  - violin plot
-- plotting density (2d)
-  - 2d histogram (hist2d, hexbin)
-  - kde
 
 # Plotting
 
