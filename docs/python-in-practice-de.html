@@ -331,7 +331,7 @@ data = [
 data = [<span class="hljs-string">"one"</span>, <span class="hljs-string">"two"</span>, <span class="hljs-string">"three"</span>]
 jsonstring = json.dumps(data)
 
-<span class="hljs-keyword">with</span> open(<span class="hljs-string">"numbers.json"</span>, encoding=<span class="hljs-string">"utf-8"</span>) <span class="hljs-keyword">as</span> jsonfile:
+<span class="hljs-keyword">with</span> open(<span class="hljs-string">"numbers.json"</span>, mode=<span class="hljs-string">"w"</span>, encoding=<span class="hljs-string">"utf-8"</span>) <span class="hljs-keyword">as</span> jsonfile:
     jsonfile.write(jsonstring)</code></pre>
 
       </section><section class="slide" id="slide-4-8">
@@ -407,7 +407,7 @@ person = et.fromstring(xmlstring)
 
 now = datetime.datetime.now()
 
-serialized = pickle.dumps()
+serialized = pickle.dumps(now)
 
 <span class="hljs-keyword">with</span> open(<span class="hljs-string">"datetime.pickle"</span>, mode=<span class="hljs-string">"wb"</span>) <span class="hljs-keyword">as</span> picklefile:
     picklefile.write(serialized)</code></pre>
@@ -418,7 +418,7 @@ serialized = pickle.dumps()
 
 <span class="hljs-keyword">with</span> open(<span class="hljs-string">"datetime.pickle"</span>, mode=<span class="hljs-string">"rb"</span>) <span class="hljs-keyword">as</span> picklefile:
     serialized = picklefile.read()
-earlier = pickle.reads(serialized)</code></pre>
+earlier = pickle.loads(serialized)</code></pre>
 
       </section><section class="slide" id="slide-4-16">
         <h2 id="übung">Übung</h2>

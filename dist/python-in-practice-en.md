@@ -218,7 +218,7 @@ import json
 data = ["one", "two", "three"]
 jsonstring = json.dumps(data)
 
-with open("numbers.json", encoding="utf-8") as jsonfile:
+with open("numbers.json", mode="w",encoding="utf-8") as jsonfile:
     jsonfile.write(jsonstring)
 ```
 
@@ -304,7 +304,7 @@ import datetime
 
 now = datetime.datetime.now()
 
-serialized = pickle.dumps()
+serialized = pickle.dumps(now)
 
 with open("datetime.pickle", mode="wb") as picklefile:
     picklefile.write(serialized)
@@ -317,7 +317,7 @@ import pickle
 
 with open("datetime.pickle", mode="rb") as picklefile:
     serialized = picklefile.read()
-earlier = pickle.reads(serialized)
+earlier = pickle.loads(serialized)
 ```
 
 ## Exercise
