@@ -23,8 +23,6 @@ Beispiel: Sortieralgorithmus
 
 ## Doctests
 
-## Doctests
-
 Codebeispiele und unittests in einem - innerhalb der docstrings
 
 ## Doctests
@@ -60,13 +58,11 @@ if __name__ == "__main__":
 
 ## Unittests
 
-Möglichkeiten
+Möglichkeiten:
 
 - unittest (Standardlibrary)
 - pytest
 - nose
-
-## unittest
 
 ## unittest
 
@@ -87,16 +83,46 @@ class HasWon(unittest.TestCase):
 
 ## unittest
 
-Ausführen:
-
-```bash
-python -m unittest mymodule
-```
-
-oder
+Ausführen aller Tests in Dateien mit dem Dateinamen _test\*.py_:
 
 ```bash
 python -m unittest
 ```
 
-(findet Tests im Ordner)
+Tests mit anderem Muster:
+
+```bash
+python -m unittest discover -p "*_test.py"
+```
+
+Achtung: um erkannt zu werden, müssen Pakete eine _\_\_init\_\_.py_ Datei enthalten (siehe https://bugs.python.org/issue35617)
+
+## unittest - Assertions
+
+mögliche Assertions:
+
+- `.assertEqual(a, 3)`
+- `.assertTrue(b)`
+- `.assertFalse(c)`
+- `.assertIsNone(d)`
+- `.assertIn(a, [2, 3, 4])`
+- `.assertIsInstance(a, int)`
+- `.assertRaises(TypeError, len)`
+- ...
+
+es existieren auch gegenteilige Assertions, z.B. `.assertNotEqual(a, 3)`
+
+## unittest - setUp und tearDown
+
+Definieren von Funktionen, die vor / nach jedem Test ausgeführt werden:
+
+```py
+import unittest
+
+class WidgetTestCase(unittest.TestCase):
+    def setUp(self):
+        self.widget = Widget('The widget')
+
+    def tearDown(self):
+        self.widget.dispose()
+```

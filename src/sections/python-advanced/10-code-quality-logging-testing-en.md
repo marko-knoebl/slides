@@ -83,18 +83,46 @@ class HasWon(unittest.TestCase):
 
 ## unittest
 
-running:
-
-```bash
-python -m unittest mymodule
-```
-
-or
+Running all tests in files that end in _test*.py_:
 
 ```bash
 python -m unittest
 ```
 
-(finds tests inside the current folder)
+Search for a different pattern:
 
-## Debugger
+```bash
+python -m unittest discover -p "*_test.py"
+```
+
+Note: in order to be discovered all packages must contain a file named _\_\_init\_\_.py_ (siehe https://bugs.python.org/issue35617)
+
+## unittest - Assertions
+
+assertions:
+
+- `.assertEqual(a, 3)`
+- `.assertTrue(b)`
+- `.assertFalse(c)`
+- `.assertIsNone(d)`
+- `.assertIn(a, [2, 3, 4])`
+- `.assertIsInstance(a, int)`
+- `.assertRaises(TypeError, len)`
+- ...
+
+there are also contrary assertions, e.g. `.assertNotEqual(a, 3)`
+
+## unittest - setUp and tearDown
+
+Defining functions that are executed before / after each test:
+
+```py
+import unittest
+
+class WidgetTestCase(unittest.TestCase):
+    def setUp(self):
+        self.widget = Widget('The widget')
+
+    def tearDown(self):
+        self.widget.dispose()
+```

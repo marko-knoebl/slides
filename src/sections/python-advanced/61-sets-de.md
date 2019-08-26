@@ -1,14 +1,18 @@
-# Set
+# set & frozenset
 
-## Set
+## set & frozenset
 
-Ungeordnete Menge von Elementen (ohne Duplikate)
+Set: ungeordnete Menge von Elementen (ohne Duplikate)
+
+Frozenset: unveränderliches set
 
 ```py
 ingredients = {"flour", "water", "salt", "yeast"}
+ingredients = set(["flour", "water", "salt", "yeast"])
+ingredients = frozenset(["flour", "water", "salt", "yeast"])
 ```
 
-## Set
+## set
 
 Sets können insbesondere Listen Ersetzen, wenn die Reihenfolge nicht von Bedeutung sein soll.
 
@@ -18,7 +22,7 @@ ingredients2 = {"water", "salt", "flour", "yeast"}
 ingredients1 == ingredients2 # True
 ```
 
-## Set
+## set
 
 Achtung: Ein leeres set erstellen wir immer mittels `set()`.
 

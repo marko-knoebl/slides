@@ -185,12 +185,9 @@ logging.debug(<span class="hljs-string">"hello"</span>)</code></pre>
 
       </section><section class="slide" id="slide-2-6">
         <h2 id="doctests">Doctests</h2>
-
-      </section><section class="slide" id="slide-2-7">
-        <h2 id="doctests">Doctests</h2>
 <p>Codebeispiele und unittests in einem - innerhalb der docstrings</p>
 
-      </section><section class="slide" id="slide-2-8">
+      </section><section class="slide" id="slide-2-7">
         <h2 id="doctests">Doctests</h2>
 <pre><code class="language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">add</span><span class="hljs-params">(a, b)</span>:</span>
     <span class="hljs-string">"""Add two numbers.
@@ -199,13 +196,13 @@ logging.debug(<span class="hljs-string">"hello"</span>)</code></pre>
     5
     """</span></code></pre>
 
-      </section><section class="slide" id="slide-2-9">
+      </section><section class="slide" id="slide-2-8">
         <h2 id="doctests-ausführen">Doctests ausführen</h2>
 <pre><code class="language-py"><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">"__main__"</span>:
     <span class="hljs-keyword">import</span> doctest
     doctest.testmod()</code></pre>
 
-      </section><section class="slide" id="slide-2-10">
+      </section><section class="slide" id="slide-2-9">
         <h2 id="doctests-lange-ausgaben">Doctests: lange Ausgaben</h2>
 <pre><code class="language-py"><span class="hljs-string">"""
 <span class="hljs-meta">&gt;&gt;&gt; </span>bubblesort(list(range(10))) #doctest: +NORMALIZE_WHITESPACE
@@ -215,19 +212,16 @@ logging.debug(<span class="hljs-string">"hello"</span>)</code></pre>
 [0, 1, 2, ..., 8, 9]
 """</span></code></pre>
 
-      </section><section class="slide" id="slide-2-11">
+      </section><section class="slide" id="slide-2-10">
         <h2 id="unittests">Unittests</h2>
-<p>Möglichkeiten</p>
+<p>Möglichkeiten:</p>
 <ul>
 <li>unittest (Standardlibrary)</li>
 <li>pytest</li>
 <li>nose</li>
 </ul>
 
-      </section><section class="slide" id="slide-2-12">
-        <h2 id="unittest">unittest</h2>
-
-      </section><section class="slide" id="slide-2-13">
+      </section><section class="slide" id="slide-2-11">
         <h2 id="unittest">unittest</h2>
 <p>test_tictactoe.py</p>
 <pre><code class="language-py"><span class="hljs-keyword">import</span> unittest
@@ -241,13 +235,40 @@ logging.debug(<span class="hljs-string">"hello"</span>)</code></pre>
         w = has_won(board, <span class="hljs-string">"X"</span>)
         self.assertTrue(w)</code></pre>
 
-      </section><section class="slide" id="slide-2-14">
+      </section><section class="slide" id="slide-2-12">
         <h2 id="unittest">unittest</h2>
-<p>Ausführen:</p>
-<pre><code class="language-bash">python -m unittest mymodule</code></pre>
-<p>oder</p>
+<p>Ausführen aller Tests in Dateien mit dem Dateinamen <em>test*.py</em>:</p>
 <pre><code class="language-bash">python -m unittest</code></pre>
-<p>(findet Tests im Ordner)</p>
+<p>Tests mit anderem Muster:</p>
+<pre><code class="language-bash">python -m unittest discover -p <span class="hljs-string">"*_test.py"</span></code></pre>
+<p>Achtung: um erkannt zu werden, müssen Pakete eine <em>\</em>_init__.py_ Datei enthalten (siehe <a href="https://bugs.python.org/issue35617">https://bugs.python.org/issue35617</a>)</p>
+
+      </section><section class="slide" id="slide-2-13">
+        <h2 id="unittest---assertions">unittest - Assertions</h2>
+<p>mögliche Assertions:</p>
+<ul>
+<li><code>.assertEqual(a, 3)</code></li>
+<li><code>.assertTrue(b)</code></li>
+<li><code>.assertFalse(c)</code></li>
+<li><code>.assertIsNone(d)</code></li>
+<li><code>.assertIn(a, [2, 3, 4])</code></li>
+<li><code>.assertIsInstance(a, int)</code></li>
+<li><code>.assertRaises(TypeError, len)</code></li>
+<li>...</li>
+</ul>
+<p>es existieren auch gegenteilige Assertions, z.B. <code>.assertNotEqual(a, 3)</code></p>
+
+      </section><section class="slide" id="slide-2-14">
+        <h2 id="unittest---setup-und-teardown">unittest - setUp und tearDown</h2>
+<p>Definieren von Funktionen, die vor / nach jedem Test ausgeführt werden:</p>
+<pre><code class="language-py"><span class="hljs-keyword">import</span> unittest
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">WidgetTestCase</span><span class="hljs-params">(unittest.TestCase)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">setUp</span><span class="hljs-params">(self)</span>:</span>
+        self.widget = Widget(<span class="hljs-string">'The widget'</span>)
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">tearDown</span><span class="hljs-params">(self)</span>:</span>
+        self.widget.dispose()</code></pre>
 
       </section></section><section class="section" id="section-3"><section class="slide" id="slide-3-1">
         <h1 id="docstrings">Docstrings</h1>
@@ -783,22 +804,25 @@ mygenerator = (i*i <span class="hljs-keyword">for</span> i <span class="hljs-key
 </ul>
 
       </section></section><section class="section" id="section-14"><section class="slide" id="slide-14-1">
-        <h1 id="set">Set</h1>
+        <h1 id="set--frozenset">set &amp; frozenset</h1>
 
       </section><section class="slide" id="slide-14-2">
-        <h2 id="set">Set</h2>
-<p>Ungeordnete Menge von Elementen (ohne Duplikate)</p>
-<pre><code class="language-py">ingredients = {<span class="hljs-string">"flour"</span>, <span class="hljs-string">"water"</span>, <span class="hljs-string">"salt"</span>, <span class="hljs-string">"yeast"</span>}</code></pre>
+        <h2 id="set--frozenset">set &amp; frozenset</h2>
+<p>Set: ungeordnete Menge von Elementen (ohne Duplikate)</p>
+<p>Frozenset: unveränderliches set</p>
+<pre><code class="language-py">ingredients = {<span class="hljs-string">"flour"</span>, <span class="hljs-string">"water"</span>, <span class="hljs-string">"salt"</span>, <span class="hljs-string">"yeast"</span>}
+ingredients = set([<span class="hljs-string">"flour"</span>, <span class="hljs-string">"water"</span>, <span class="hljs-string">"salt"</span>, <span class="hljs-string">"yeast"</span>])
+ingredients = frozenset([<span class="hljs-string">"flour"</span>, <span class="hljs-string">"water"</span>, <span class="hljs-string">"salt"</span>, <span class="hljs-string">"yeast"</span>])</code></pre>
 
       </section><section class="slide" id="slide-14-3">
-        <h2 id="set">Set</h2>
+        <h2 id="set">set</h2>
 <p>Sets können insbesondere Listen Ersetzen, wenn die Reihenfolge nicht von Bedeutung sein soll.</p>
 <pre><code class="language-py">ingredients1 = {<span class="hljs-string">"flour"</span>, <span class="hljs-string">"water"</span>, <span class="hljs-string">"salt"</span>, <span class="hljs-string">"yeast"</span>}
 ingredients2 = {<span class="hljs-string">"water"</span>, <span class="hljs-string">"salt"</span>, <span class="hljs-string">"flour"</span>, <span class="hljs-string">"yeast"</span>}
 ingredients1 == ingredients2 <span class="hljs-comment"># True</span></code></pre>
 
       </section><section class="slide" id="slide-14-4">
-        <h2 id="set">Set</h2>
+        <h2 id="set">set</h2>
 <p>Achtung: Ein leeres set erstellen wir immer mittels <code>set()</code>.</p>
 <p>Warum ergibt der Ausdruck <code>{}</code> kein leeres set?</p>
 

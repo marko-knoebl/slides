@@ -1,14 +1,18 @@
-# Set
+# set & frozenset
 
-## Set
+## set & frozenset
 
-Unordered collection of elements with no duplicates
+Set: Unordered collection of elements with no duplicates
+
+Frozenset: immutable set
 
 ```py
 ingredients = {"flour", "water", "salt", "yeast"}
+ingredients = set(["flour", "water", "salt", "yeast"])
+ingredients = frozenset(["flour", "water", "salt", "yeast"])
 ```
 
-## Set
+## set
 
 Sets can be an alternative for Lists if the order is not relevant.
 
@@ -18,13 +22,13 @@ ingredients2 = {"water", "salt", "flour", "yeast"}
 ingredients1 == ingredients2 # True
 ```
 
-## Set
+## set
 
 Take care: An empty set must always be created via `set()`
 
 Why does `{}` not produce an empty set?
 
-## Operations on Sets
+## Operations on sets
 
 ```py
 x = set('abc')
