@@ -2,8 +2,10 @@
 
 ## Modules and packages
 
-- Module = Python file from which objects can be imported
-- Package = directory that includes Python modules
+- Module = collection of Python objects that can be imported
+- Package = collection of modules
+
+(packages are actually a special type of modules)
 
 ## Example imports
 
@@ -85,28 +87,3 @@ urllib.request.urlopen(...)
   - imports from the standard library
   - imports from other libraries
   - imports within the project
-
-## Resolving imports
-
-Search order:
-
-- directory of the Python script that was executed
-- standard library
-- external libraries
-
-Avoid name clashes with existing modules / packages!
-
-## Resolving imports
-
-To see all search paths for imports:
-
-```py
-import sys
-print(sys.path)
-```
-
-## Compilation of modules
-
-Imported modules will be saved in a compiled form, making subsequent loading of the modules faster.
-
-Compiled versions will be saved in the folder `__pycache__`

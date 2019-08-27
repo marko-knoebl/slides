@@ -1087,8 +1087,10 @@ raise MoneyParseException()
 
 ## Modules and packages
 
-- Module = Python file from which objects can be imported
-- Package = directory that includes Python modules
+- Module = collection of Python objects that can be imported
+- Package = collection of modules
+
+(packages are actually a special type of modules)
 
 ## Example imports
 
@@ -1171,6 +1173,76 @@ urllib.request.urlopen(...)
   - imports from other libraries
   - imports within the project
 
+# Custom modules
+
+## Custom modules
+
+Goal: creating a custom module that can be used like this:
+
+```py
+from foo import a, b
+```
+
+## Custom modules
+
+Simple module as a Python file:
+
+```py
+# foo.py
+a = 1
+b = 2
+```
+
+## Custom modules
+
+Module as a directory:
+
+```
+- foo/
+  - __init__.py
+```
+
+```py
+# __init__.py
+a = 1
+b = 2
+```
+
+## Custom modules
+
+Module as a directory with separated defintions:
+
+```
+- foo/
+  - __init__.py
+  - _a_mod.py
+  - _b_mod.py
+```
+
+```py
+# __init__.py
+from _a_mod import a
+from _b_mod import b
+```
+
+## Custom packages
+
+Goal: creating a custom package that can be used like this:
+
+```py
+from foo import bar
+
+print(bar.a)
+print(bar.b)
+```
+
+## Custom packages
+
+```
+- foo/
+  - bar.py
+```
+
 ## Resolving imports
 
 Search order:
@@ -1195,6 +1267,76 @@ print(sys.path)
 Imported modules will be saved in a compiled form, making subsequent loading of the modules faster.
 
 Compiled versions will be saved in the folder `__pycache__`
+
+# PIP & pipenv
+
+## PIP
+
+_PIP_ = Package manager for Python
+
+Simple usage:
+
+```bash
+pip install requests numpy
+```
+
+Packages and their dependencies are looked up in the Python Package Index: https://pypi.org/
+
+## PIP
+
+Installing specific Versions:
+
+```
+pip install requests==1.1
+pip install numpy>=1.16
+```
+
+## PIP
+
+dependency list ina requirements file that can be shared with others:
+
+requirements.txt:
+
+```
+requests==1.1
+numpy>=1.16
+```
+
+```bash
+pip install -r requirements.txt
+```
+
+## Pipenv
+
+_Pipenv_: virtual environments that enable installation of different package versions per project
+
+## Pipenv
+
+```bash
+pip install pipenv
+```
+
+## Pipenv
+
+Using pipenv:
+
+```bash
+pipenv install requests
+pipenv install numpy
+```
+
+This creates two files:
+
+- _Pipfile_: general dependency information
+- _Pipfile.lock_: exact version numbers
+
+## Pipenv
+
+Executing Python scripts in a PIP environment:
+
+```bash
+pipenv run python foo.py
+```
 
 # Functions
 

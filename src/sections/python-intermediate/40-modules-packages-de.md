@@ -2,8 +2,10 @@
 
 ## Module und Pakete
 
-- Modul = Python-Datei, aus der Objekte importiert werden können
-- Paket = Verzeichnis, in dem Python-Module abgelegt sind
+- Modul = Sammlung von Python-Objekten, die importiert werden können
+- Paket = Sammlung von Modulen
+
+(Pakete sind eigenlich eine besondere Form von Modulen)
 
 ## Beispiele für Imports
 
@@ -85,28 +87,3 @@ urllib.request.urlopen(...)
   - standard Library
   - andere Libraries
   - projektinterne Module
-
-## Auflösen von Imports
-
-Suchreihenfolge:
-
-- Verzeichnis, in dem das ursprünglich ausgeführte Python Skript liegt
-- Standardlibrary
-- externe Libraries
-
-Vermeide Namensgleichheit mit existierenden Modulen / Paketen!
-
-## Auflösen von Imports
-
-Alle Pfade für Imports sehen wir via:
-
-```py
-import sys
-print(sys.path)
-```
-
-## Kompilieren von Modulen
-
-Importierte Module werden in kompilierter Form abgelegt, um später schneller eingelesen werden zu können.
-
-Wir finden die kompilierten Versionen im Ordner `__pycache__`

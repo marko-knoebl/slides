@@ -1109,9 +1109,10 @@ size = length &lt; <span class="hljs-number">110</span> ? <span class="hljs-stri
       </section><section class="slide" id="slide-20-2">
         <h2 id="module-und-pakete">Module und Pakete</h2>
 <ul>
-<li>Modul = Python-Datei, aus der Objekte importiert werden können</li>
-<li>Paket = Verzeichnis, in dem Python-Module abgelegt sind</li>
+<li>Modul = Sammlung von Python-Objekten, die importiert werden können</li>
+<li>Paket = Sammlung von Modulen</li>
 </ul>
+<p>(Pakete sind eigenlich eine besondere Form von Modulen)</p>
 
       </section><section class="slide" id="slide-20-3">
         <h2 id="beispiele-für-imports">Beispiele für Imports</h2>
@@ -1178,7 +1179,52 @@ urllib.request.urlopen(...)</code></pre>
 </li>
 </ul>
 
-      </section><section class="slide" id="slide-20-8">
+      </section></section><section class="section" id="section-21"><section class="slide" id="slide-21-1">
+        <h1 id="eigene-module">Eigene Module</h1>
+
+      </section><section class="slide" id="slide-21-2">
+        <h2 id="eigene-module">Eigene Module</h2>
+<p>Ziel: Erstellen eines eigenen Moduls, das wie folgend verwendet werden kann:</p>
+<pre><code class="language-py"><span class="hljs-keyword">from</span> foo <span class="hljs-keyword">import</span> a, b</code></pre>
+
+      </section><section class="slide" id="slide-21-3">
+        <h2 id="eigene-module">Eigene Module</h2>
+<p>Einfaches Modul as Python-Datei:</p>
+<pre><code class="language-py"><span class="hljs-comment"># foo.py</span>
+a = <span class="hljs-number">1</span>
+b = <span class="hljs-number">2</span></code></pre>
+
+      </section><section class="slide" id="slide-21-4">
+        <h2 id="eigene-module">Eigene Module</h2>
+<p>Modul als Verzeichnis:</p>
+<pre><code>- foo/
+  - __init__.py</code></pre><pre><code class="language-py"><span class="hljs-comment"># __init__.py</span>
+a = <span class="hljs-number">1</span>
+b = <span class="hljs-number">2</span></code></pre>
+
+      </section><section class="slide" id="slide-21-5">
+        <h2 id="eigene-module">Eigene Module</h2>
+<p>Module as a directory with separated defintions:</p>
+<pre><code>- foo/
+  - __init__.py
+  - _a_mod.py
+  - _b_mod.py</code></pre><pre><code class="language-py"><span class="hljs-comment"># __init__.py</span>
+<span class="hljs-keyword">from</span> _a_mod <span class="hljs-keyword">import</span> a
+<span class="hljs-keyword">from</span> _b_mod <span class="hljs-keyword">import</span> b</code></pre>
+
+      </section><section class="slide" id="slide-21-6">
+        <h2 id="eigene-pakete">Eigene Pakete</h2>
+<p>Ziel: Erstellen eines eigenen Pakets, das wie folgt verwendet werden kann:</p>
+<pre><code class="language-py"><span class="hljs-keyword">from</span> foo <span class="hljs-keyword">import</span> bar
+
+print(bar.a)
+print(bar.b)</code></pre>
+
+      </section><section class="slide" id="slide-21-7">
+        <h2 id="eigene-pakete">Eigene Pakete</h2>
+<pre><code>- foo/
+  - bar.py</code></pre>
+      </section><section class="slide" id="slide-21-8">
         <h2 id="auflösen-von-imports">Auflösen von Imports</h2>
 <p>Suchreihenfolge:</p>
 <ul>
@@ -1188,21 +1234,68 @@ urllib.request.urlopen(...)</code></pre>
 </ul>
 <p>Vermeide Namensgleichheit mit existierenden Modulen / Paketen!</p>
 
-      </section><section class="slide" id="slide-20-9">
+      </section><section class="slide" id="slide-21-9">
         <h2 id="auflösen-von-imports">Auflösen von Imports</h2>
 <p>Alle Pfade für Imports sehen wir via:</p>
 <pre><code class="language-py"><span class="hljs-keyword">import</span> sys
 print(sys.path)</code></pre>
 
-      </section><section class="slide" id="slide-20-10">
+      </section><section class="slide" id="slide-21-10">
         <h2 id="kompilieren-von-modulen">Kompilieren von Modulen</h2>
 <p>Importierte Module werden in kompilierter Form abgelegt, um später schneller eingelesen werden zu können.</p>
 <p>Wir finden die kompilierten Versionen im Ordner <code>__pycache__</code></p>
 
-      </section></section><section class="section" id="section-21"><section class="slide" id="slide-21-1">
+      </section></section><section class="section" id="section-22"><section class="slide" id="slide-22-1">
+        <h1 id="pip">PIP</h1>
+
+      </section><section class="slide" id="slide-22-2">
+        <h2 id="pip">PIP</h2>
+<p><em>PIP</em> = Paketmanager für Python</p>
+<p>Einfache Verwendung:</p>
+<pre><code class="language-bash">pip install requests numpy</code></pre>
+<p>Pakete und deren Abhängigkeiten werden im Python Package Index gesucht: <a href="https://pypi.org/">https://pypi.org/</a></p>
+
+      </section><section class="slide" id="slide-22-3">
+        <h2 id="pip">PIP</h2>
+<p>Installation bestimmter Versionen:</p>
+<pre><code>pip install requests==1.1
+pip install numpy&gt;=1.16</code></pre>
+      </section><section class="slide" id="slide-22-4">
+        <h2 id="pip">PIP</h2>
+<p>Abhängigkeitenliste in einer Requirements-Datei, die einfach mit anderen geteilt werden kann:</p>
+<p>requirements.txt:</p>
+<pre><code>requests==1.1
+numpy&gt;=1.16</code></pre><pre><code class="language-bash">pip install -r requirements.txt</code></pre>
+
+      </section><section class="slide" id="slide-22-5">
+        <h2 id="pipenv">Pipenv</h2>
+<p>Via Pipenv: virtuelle Umgebungen, die die projektweise Installation verschiedener Paketversionen erlauben</p>
+
+      </section><section class="slide" id="slide-22-6">
+        <h2 id="pipenv">Pipenv</h2>
+<p>Installation von pipenv:</p>
+<pre><code class="language-bash">pip install pipenv</code></pre>
+
+      </section><section class="slide" id="slide-22-7">
+        <h2 id="pipenv">Pipenv</h2>
+<p>Verwendung von pipenv:</p>
+<pre><code class="language-bash">pipenv install requests
+pipenv install numpy</code></pre>
+<p>Es entstehen zwei Dateien:</p>
+<ul>
+<li><em>Pipfile</em>: allgemeine Abhängigkeitsinformationen</li>
+<li><em>Pipfile.lock</em>: genaue Versionsnummern</li>
+</ul>
+
+      </section><section class="slide" id="slide-22-8">
+        <h2 id="pipenv">Pipenv</h2>
+<p>Ausführen in einer PIP-Umgebung:</p>
+<pre><code class="language-bash">pipenv run python foo.py</code></pre>
+
+      </section></section><section class="section" id="section-23"><section class="slide" id="slide-23-1">
         <h1 id="funktionen">Funktionen</h1>
 
-      </section><section class="slide" id="slide-21-2">
+      </section><section class="slide" id="slide-23-2">
         <h2 id="beliebige-anzahl-an-parametern-args--kwargs">Beliebige Anzahl an Parametern (args / kwargs)</h2>
 <pre><code class="language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">foo</span><span class="hljs-params">(*args, **kwargs)</span>:</span>
     print(args)
@@ -1213,11 +1306,11 @@ foo(<span class="hljs-string">"one"</span>, <span class="hljs-string">"two"</spa
 <span class="hljs-comment"># kwargs: {"x": "hello"}</span></code></pre>
 <p><code>args</code> ist ein Tupel, <code>kwargs</code> ein Dictionary.</p>
 
-      </section><section class="slide" id="slide-21-3">
+      </section><section class="slide" id="slide-23-3">
         <h2 id="beliebige-anzahl-an-parametern-args--kwargs">Beliebige Anzahl an Parametern (args / kwargs)</h2>
 <p>Aufgabe: &quot;Nachbau&quot; von <code>range()</code> mit Hilfe einer while-Schleife</p>
 
-      </section><section class="slide" id="slide-21-4">
+      </section><section class="slide" id="slide-23-4">
         <h2 id="entpacken-von-parameterlisten">Entpacken von Parameterlisten</h2>
 <pre><code class="language-py">numbers = [<span class="hljs-string">"one"</span>, <span class="hljs-string">"two"</span>, <span class="hljs-string">"three"</span>]
 
@@ -1226,17 +1319,17 @@ print(numbers[<span class="hljs-number">0</span>], numbers[<span class="hljs-num
 
 print(*numbers)</code></pre>
 
-      </section><section class="slide" id="slide-21-5">
+      </section><section class="slide" id="slide-23-5">
         <h2 id="globaler-und-lokaler-scope">Globaler und lokaler Scope</h2>
 <p><code>global</code> / <code>nonlocal</code></p>
 <p>Spielt beim <em>Zuweisen</em> von Variablen eine Rolle</p>
 
-      </section><section class="slide" id="slide-21-6">
+      </section><section class="slide" id="slide-23-6">
         <h2 id="call-by-sharing">Call by sharing</h2>
 <p>In Python werden Werte mittels <em>call by sharing</em> an Funktionen übergeben (ähnlich wie <em>call by reference</em> in anderen Sprachen)</p>
 <p>Dies bedeutet: Eine Funktion <em>kann</em> übergebene Parameter abändern - und wir sollten darauf achten, das in der Praxis nicht zu tun</p>
 
-      </section><section class="slide" id="slide-21-7">
+      </section><section class="slide" id="slide-23-7">
         <h2 id="call-by-sharing">Call by sharing</h2>
 <p>Beispiel:</p>
 <pre><code class="language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">modify_a</span><span class="hljs-params">(mylist)</span>:</span>
@@ -1251,17 +1344,17 @@ list_a_mod = modify_a(list_a)
 list_b = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>]
 list_b_mod = modify_b(list_b)</code></pre>
 
-      </section><section class="slide" id="slide-21-8">
+      </section><section class="slide" id="slide-23-8">
         <h2 id="call-by-sharing">Call by sharing</h2>
 <pre><code class="language-py">list_a_mod <span class="hljs-comment"># [1, 2, 1]</span>
 list_b_mod <span class="hljs-comment"># [1, 2, 1]</span>
 list_a <span class="hljs-comment"># [1, 2, 1]</span>
 list_b <span class="hljs-comment"># [1, 2]</span></code></pre>
 
-      </section></section><section class="section" id="section-22"><section class="slide" id="slide-22-1">
+      </section></section><section class="section" id="section-24"><section class="slide" id="slide-24-1">
         <h1 id="reine-funktionen">Reine Funktionen</h1>
 
-      </section><section class="slide" id="slide-22-2">
+      </section><section class="slide" id="slide-24-2">
         <h2 id="reine-funktionen">Reine Funktionen</h2>
 <p>Reine Funktionen sind Funktionen, die mit ihrer Umgebung nur über Eingabeparameter und Rückgabewerte interagieren</p>
 <p>Das bedeutet insbesondere:</p>
@@ -1271,7 +1364,7 @@ list_b <span class="hljs-comment"># [1, 2]</span></code></pre>
 <li>das Resultat des Funktionsaufrufs ist der Rückgabewert; sonst wird von der Funktion nichts geändert</li>
 </ul>
 
-      </section><section class="slide" id="slide-22-3">
+      </section><section class="slide" id="slide-24-3">
         <h2 id="reine-funktionen">Reine Funktionen</h2>
 <p>Vorteile reiner Funktionen:</p>
 <ul>
@@ -1279,7 +1372,7 @@ list_b <span class="hljs-comment"># [1, 2]</span></code></pre>
 <li>leicht zu testen</li>
 </ul>
 
-      </section><section class="slide" id="slide-22-4">
+      </section><section class="slide" id="slide-24-4">
         <h2 id="reine-funktionen">Reine Funktionen</h2>
 <p>Beispiel für eine Funktion, die nicht rein ist:</p>
 <pre><code class="language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">remove_negatives</span><span class="hljs-params">(numbers)</span>:</span>
@@ -1292,7 +1385,7 @@ list_b <span class="hljs-comment"># [1, 2]</span></code></pre>
 a = [<span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">-1</span>, <span class="hljs-number">-2</span>, <span class="hljs-number">0</span>]
 b = remove_negatives(a)</code></pre>
 
-      </section><section class="slide" id="slide-22-5">
+      </section><section class="slide" id="slide-24-5">
         <h2 id="reine-funktionen">Reine Funktionen</h2>
 <p>Reine Funktion als Alternative:</p>
 <pre><code class="language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">remove_negatives</span><span class="hljs-params">(numbers)</span>:</span>
@@ -1303,14 +1396,14 @@ b = remove_negatives(a)</code></pre>
     <span class="hljs-keyword">return</span> nonnegatives</code></pre>
 <p>Anmerkung: In Python wäre die Ideallösung hier das verwenden von List Comprehensions</p>
 
-      </section></section><section class="section" id="section-23"><section class="slide" id="slide-23-1">
+      </section></section><section class="section" id="section-25"><section class="slide" id="slide-25-1">
         <h1 id="rekursive-funktionen">Rekursive Funktionen</h1>
 
-      </section><section class="slide" id="slide-23-2">
+      </section><section class="slide" id="slide-25-2">
         <h2 id="rekursive-funktionen">Rekursive Funktionen</h2>
 <p>Funktionen, die sich selbst aufrufen</p>
 
-      </section><section class="slide" id="slide-23-3">
+      </section><section class="slide" id="slide-25-3">
         <h2 id="rekursive-funktionen">Rekursive Funktionen</h2>
 <p>Aufgabe: Fibonacci-Folge</p>
 <pre><code class="language-py"><span class="hljs-comment"># 0 1 1 2 3 5 8 13 21 34 55 89 ...</span>
@@ -1319,59 +1412,59 @@ fib(<span class="hljs-number">3</span>)
 
 fib(<span class="hljs-number">25</span>)</code></pre>
 
-      </section><section class="slide" id="slide-23-4">
+      </section><section class="slide" id="slide-25-4">
         <h2 id="rekursion-mit-turtle">Rekursion mit Turtle</h2>
 
-      </section><section class="slide" id="slide-23-5">
+      </section><section class="slide" id="slide-25-5">
         <h2 id="aufgaben-zu-rekursion">Aufgaben zu Rekursion</h2>
 <ul>
 <li>Babylonisches Wurzelziehen</li>
 <li>Bäume mit Turtle-Grafik</li>
 </ul>
 
-      </section></section><section class="section" id="section-24"><section class="slide" id="slide-24-1">
+      </section></section><section class="section" id="section-26"><section class="slide" id="slide-26-1">
         <h1 id="python-versionen">Python Versionen</h1>
 
-      </section><section class="slide" id="slide-24-2">
+      </section><section class="slide" id="slide-26-2">
         <h2 id="python-versionen">Python Versionen</h2>
 <p>Python 2 vs Python 3</p>
 
-      </section><section class="slide" id="slide-24-3">
+      </section><section class="slide" id="slide-26-3">
         <h2 id="strings-und-bytes">Strings und Bytes</h2>
 <p>Tiefgreifende Änderung in Python 3:</p>
 <p>Strikte Trennung von Text (strings) und Binärdaten (bytes)</p>
 <p>in Python 2: Datentypen <code>bytes</code>, <code>str</code> und <code>unicode</code></p>
 
-      </section><section class="slide" id="slide-24-4">
+      </section><section class="slide" id="slide-26-4">
         <h2 id="print">Print</h2>
 <p>Python 2:</p>
 <pre><code class="language-py"><span class="hljs-keyword">print</span> <span class="hljs-string">"a"</span>,</code></pre>
 <p>Python 3:</p>
 <pre><code class="language-py">print(<span class="hljs-string">"a"</span>, end=<span class="hljs-string">""</span>)</code></pre>
 
-      </section><section class="slide" id="slide-24-5">
+      </section><section class="slide" id="slide-26-5">
         <h2 id="division">Division</h2>
 <p>Python 2:</p>
 <pre><code class="language-py"><span class="hljs-number">10</span> / <span class="hljs-number">3</span>    <span class="hljs-comment"># 3</span></code></pre>
 
-      </section><section class="slide" id="slide-24-6">
+      </section><section class="slide" id="slide-26-6">
         <h2 id="range">range</h2>
 <p>in Python 2: <code>range()</code> liefert Liste zurück, <code>xrange()</code> liefert speicherschonendes Objekt</p>
 <p>in Python 3: <code>range()</code> liefert speicherschonendes Objekt</p>
 
-      </section><section class="slide" id="slide-24-7">
+      </section><section class="slide" id="slide-26-7">
         <h2 id="input">input</h2>
 <p>in Python 2: <code>input()</code> wertet die Eingabe aus, <code>raw_input()</code> gibt String zurück</p>
 <p>in Python 3: <code>input()</code> gibt String zurück</p>
 
-      </section><section class="slide" id="slide-24-8">
+      </section><section class="slide" id="slide-26-8">
         <h2 id="__future__-imports">__future__ imports</h2>
 <p>Verhalten von Python 3 in Python 2 übernehmen:</p>
 <pre><code class="language-py"><span class="hljs-keyword">from</span> __future__ <span class="hljs-keyword">import</span> print_function
 <span class="hljs-keyword">from</span> __future__ <span class="hljs-keyword">import</span> unicode_literals
 <span class="hljs-keyword">from</span> __future__ <span class="hljs-keyword">import</span> division</code></pre>
 
-      </section><section class="slide" id="slide-24-9">
+      </section><section class="slide" id="slide-26-9">
         <h2 id="python-future">Python-Future</h2>
 <p>Kompatibilitätsschicht zwischen Python 2 und Python 3</p>
 <p>Unterstützung von Python 2 und Python 3 aus der gleichen Codebase</p>

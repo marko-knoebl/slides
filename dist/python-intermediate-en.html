@@ -1089,9 +1089,10 @@ size = length &lt; <span class="hljs-number">110</span> ? <span class="hljs-stri
       </section><section class="slide" id="slide-20-2">
         <h2 id="modules-and-packages">Modules and packages</h2>
 <ul>
-<li>Module = Python file from which objects can be imported</li>
-<li>Package = directory that includes Python modules</li>
+<li>Module = collection of Python objects that can be imported</li>
+<li>Package = collection of modules</li>
 </ul>
+<p>(packages are actually a special type of modules)</p>
 
       </section><section class="slide" id="slide-20-3">
         <h2 id="example-imports">Example imports</h2>
@@ -1158,7 +1159,52 @@ urllib.request.urlopen(...)</code></pre>
 </li>
 </ul>
 
-      </section><section class="slide" id="slide-20-8">
+      </section></section><section class="section" id="section-21"><section class="slide" id="slide-21-1">
+        <h1 id="custom-modules">Custom modules</h1>
+
+      </section><section class="slide" id="slide-21-2">
+        <h2 id="custom-modules">Custom modules</h2>
+<p>Goal: creating a custom module that can be used like this:</p>
+<pre><code class="language-py"><span class="hljs-keyword">from</span> foo <span class="hljs-keyword">import</span> a, b</code></pre>
+
+      </section><section class="slide" id="slide-21-3">
+        <h2 id="custom-modules">Custom modules</h2>
+<p>Simple module as a Python file:</p>
+<pre><code class="language-py"><span class="hljs-comment"># foo.py</span>
+a = <span class="hljs-number">1</span>
+b = <span class="hljs-number">2</span></code></pre>
+
+      </section><section class="slide" id="slide-21-4">
+        <h2 id="custom-modules">Custom modules</h2>
+<p>Module as a directory:</p>
+<pre><code>- foo/
+  - __init__.py</code></pre><pre><code class="language-py"><span class="hljs-comment"># __init__.py</span>
+a = <span class="hljs-number">1</span>
+b = <span class="hljs-number">2</span></code></pre>
+
+      </section><section class="slide" id="slide-21-5">
+        <h2 id="custom-modules">Custom modules</h2>
+<p>Module as a directory with separated defintions:</p>
+<pre><code>- foo/
+  - __init__.py
+  - _a_mod.py
+  - _b_mod.py</code></pre><pre><code class="language-py"><span class="hljs-comment"># __init__.py</span>
+<span class="hljs-keyword">from</span> _a_mod <span class="hljs-keyword">import</span> a
+<span class="hljs-keyword">from</span> _b_mod <span class="hljs-keyword">import</span> b</code></pre>
+
+      </section><section class="slide" id="slide-21-6">
+        <h2 id="custom-packages">Custom packages</h2>
+<p>Goal: creating a custom package that can be used like this:</p>
+<pre><code class="language-py"><span class="hljs-keyword">from</span> foo <span class="hljs-keyword">import</span> bar
+
+print(bar.a)
+print(bar.b)</code></pre>
+
+      </section><section class="slide" id="slide-21-7">
+        <h2 id="custom-packages">Custom packages</h2>
+<pre><code>- foo/
+  - bar.py</code></pre>
+      </section><section class="slide" id="slide-21-8">
         <h2 id="resolving-imports">Resolving imports</h2>
 <p>Search order:</p>
 <ul>
@@ -1168,21 +1214,67 @@ urllib.request.urlopen(...)</code></pre>
 </ul>
 <p>Avoid name clashes with existing modules / packages!</p>
 
-      </section><section class="slide" id="slide-20-9">
+      </section><section class="slide" id="slide-21-9">
         <h2 id="resolving-imports">Resolving imports</h2>
 <p>To see all search paths for imports:</p>
 <pre><code class="language-py"><span class="hljs-keyword">import</span> sys
 print(sys.path)</code></pre>
 
-      </section><section class="slide" id="slide-20-10">
+      </section><section class="slide" id="slide-21-10">
         <h2 id="compilation-of-modules">Compilation of modules</h2>
 <p>Imported modules will be saved in a compiled form, making subsequent loading of the modules faster.</p>
 <p>Compiled versions will be saved in the folder <code>__pycache__</code></p>
 
-      </section></section><section class="section" id="section-21"><section class="slide" id="slide-21-1">
+      </section></section><section class="section" id="section-22"><section class="slide" id="slide-22-1">
+        <h1 id="pip--pipenv">PIP &amp; pipenv</h1>
+
+      </section><section class="slide" id="slide-22-2">
+        <h2 id="pip">PIP</h2>
+<p><em>PIP</em> = Package manager for Python</p>
+<p>Simple usage:</p>
+<pre><code class="language-bash">pip install requests numpy</code></pre>
+<p>Packages and their dependencies are looked up in the Python Package Index: <a href="https://pypi.org/">https://pypi.org/</a></p>
+
+      </section><section class="slide" id="slide-22-3">
+        <h2 id="pip">PIP</h2>
+<p>Installing specific Versions:</p>
+<pre><code>pip install requests==1.1
+pip install numpy&gt;=1.16</code></pre>
+      </section><section class="slide" id="slide-22-4">
+        <h2 id="pip">PIP</h2>
+<p>dependency list ina requirements file that can be shared with others:</p>
+<p>requirements.txt:</p>
+<pre><code>requests==1.1
+numpy&gt;=1.16</code></pre><pre><code class="language-bash">pip install -r requirements.txt</code></pre>
+
+      </section><section class="slide" id="slide-22-5">
+        <h2 id="pipenv">Pipenv</h2>
+<p><em>Pipenv</em>: virtual environments that enable installation of different package versions per project</p>
+
+      </section><section class="slide" id="slide-22-6">
+        <h2 id="pipenv">Pipenv</h2>
+<pre><code class="language-bash">pip install pipenv</code></pre>
+
+      </section><section class="slide" id="slide-22-7">
+        <h2 id="pipenv">Pipenv</h2>
+<p>Using pipenv:</p>
+<pre><code class="language-bash">pipenv install requests
+pipenv install numpy</code></pre>
+<p>This creates two files:</p>
+<ul>
+<li><em>Pipfile</em>: general dependency information</li>
+<li><em>Pipfile.lock</em>: exact version numbers</li>
+</ul>
+
+      </section><section class="slide" id="slide-22-8">
+        <h2 id="pipenv">Pipenv</h2>
+<p>Executing Python scripts in a PIP environment:</p>
+<pre><code class="language-bash">pipenv run python foo.py</code></pre>
+
+      </section></section><section class="section" id="section-23"><section class="slide" id="slide-23-1">
         <h1 id="functions">Functions</h1>
 
-      </section><section class="slide" id="slide-21-2">
+      </section><section class="slide" id="slide-23-2">
         <h2 id="arbitrary-number-of-arguments-args--kwargs">Arbitrary number of Arguments (args / kwargs)</h2>
 <pre><code class="language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">foo</span><span class="hljs-params">(*args, **kwargs)</span>:</span>
     print(args)
@@ -1193,11 +1285,11 @@ foo(<span class="hljs-string">"one"</span>, <span class="hljs-string">"two"</spa
 <span class="hljs-comment"># kwargs: {"x": "hello"}</span></code></pre>
 <p><code>args</code> will be a tuple, <code>kwargs</code> will be a dictionary</p>
 
-      </section><section class="slide" id="slide-21-3">
+      </section><section class="slide" id="slide-23-3">
         <h2 id="arbitrary-number-of-arguments-args--kwargs">Arbitrary number of Arguments (args / kwargs)</h2>
 <p>Task: recreate <code>range()</code> by using a while loop</p>
 
-      </section><section class="slide" id="slide-21-4">
+      </section><section class="slide" id="slide-23-4">
         <h2 id="unpacking-of-parameter-lists">Unpacking of parameter lists</h2>
 <pre><code class="language-py">numbers = [<span class="hljs-string">"one"</span>, <span class="hljs-string">"two"</span>, <span class="hljs-string">"three"</span>]
 
@@ -1206,17 +1298,17 @@ print(numbers[<span class="hljs-number">0</span>], numbers[<span class="hljs-num
 
 print(*numbers)</code></pre>
 
-      </section><section class="slide" id="slide-21-5">
+      </section><section class="slide" id="slide-23-5">
         <h2 id="global-and-local-scope">Global and local scope</h2>
 <p><code>global</code> / <code>nonlocal</code></p>
 <p>change the behavior of <em>assignments</em></p>
 
-      </section><section class="slide" id="slide-21-6">
+      </section><section class="slide" id="slide-23-6">
         <h2 id="call-by-sharing">Call by sharing</h2>
 <p>In Python values are passed to functions via <em>call by sharing</em> (similar to <em>call by reference</em> in other languages)</p>
 <p>This means: A function <em>may</em> mutate parameters that are passed in - and we should usually make sure not to do so</p>
 
-      </section><section class="slide" id="slide-21-7">
+      </section><section class="slide" id="slide-23-7">
         <h2 id="call-by-sharing">Call by sharing</h2>
 <p>Example:</p>
 <pre><code class="language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">modify_a</span><span class="hljs-params">(mylist)</span>:</span>
@@ -1232,17 +1324,17 @@ list_b = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>
 list_b_mod = modify_b(list_b)</code></pre>
 <p>(results on next slide)</p>
 
-      </section><section class="slide" id="slide-21-8">
+      </section><section class="slide" id="slide-23-8">
         <h2 id="call-by-sharing">Call by sharing</h2>
 <pre><code class="language-py">list_a_mod <span class="hljs-comment"># [1, 2, 1]</span>
 list_b_mod <span class="hljs-comment"># [1, 2, 1]</span>
 list_a <span class="hljs-comment"># [1, 2, 1]</span>
 list_b <span class="hljs-comment"># [1, 2]</span></code></pre>
 
-      </section></section><section class="section" id="section-22"><section class="slide" id="slide-22-1">
+      </section></section><section class="section" id="section-24"><section class="slide" id="slide-24-1">
         <h1 id="pure-functions">Pure functions</h1>
 
-      </section><section class="slide" id="slide-22-2">
+      </section><section class="slide" id="slide-24-2">
         <h2 id="pure-functions">Pure functions</h2>
 <p>Pure functions are functions which only interact with their environment via input parameters and return values</p>
 <p>in particular, this means:</p>
@@ -1252,7 +1344,7 @@ list_b <span class="hljs-comment"># [1, 2]</span></code></pre>
 <li>no mutating of objects that are passed in</li>
 </ul>
 
-      </section><section class="slide" id="slide-22-3">
+      </section><section class="slide" id="slide-24-3">
         <h2 id="pure-functions">Pure functions</h2>
 <p>Advantages of pure functions</p>
 <ul>
@@ -1260,7 +1352,7 @@ list_b <span class="hljs-comment"># [1, 2]</span></code></pre>
 <li>easy to test</li>
 </ul>
 
-      </section><section class="slide" id="slide-22-4">
+      </section><section class="slide" id="slide-24-4">
         <h2 id="pure-functions">Pure functions</h2>
 <p>Example of a function which isn&#39;t pure:</p>
 <pre><code class="language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">remove_negatives</span><span class="hljs-params">(numbers)</span>:</span>
@@ -1273,7 +1365,7 @@ list_b <span class="hljs-comment"># [1, 2]</span></code></pre>
 a = [<span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">-1</span>, <span class="hljs-number">-2</span>, <span class="hljs-number">0</span>]
 b = remove_negatives(a)</code></pre>
 
-      </section><section class="slide" id="slide-22-5">
+      </section><section class="slide" id="slide-24-5">
         <h2 id="pure-functions">Pure functions</h2>
 <p>A pure function as an alternative:</p>
 <pre><code class="language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">remove_negatives</span><span class="hljs-params">(numbers)</span>:</span>
@@ -1284,14 +1376,14 @@ b = remove_negatives(a)</code></pre>
     <span class="hljs-keyword">return</span> nonnegatives</code></pre>
 <p>Note: in Python the ideal solution would be using list comprehensions</p>
 
-      </section></section><section class="section" id="section-23"><section class="slide" id="slide-23-1">
+      </section></section><section class="section" id="section-25"><section class="slide" id="slide-25-1">
         <h1 id="recursive-functions">Recursive functions</h1>
 
-      </section><section class="slide" id="slide-23-2">
+      </section><section class="slide" id="slide-25-2">
         <h2 id="recursive-functions">Recursive functions</h2>
 <p>Functions that call themselves</p>
 
-      </section><section class="slide" id="slide-23-3">
+      </section><section class="slide" id="slide-25-3">
         <h2 id="recursive-function">Recursive function</h2>
 <p>Task: fibonacci sequence</p>
 <pre><code class="language-py"><span class="hljs-comment"># 0 1 1 2 3 5 8 13 21 34 55 89 ...</span>
@@ -1300,59 +1392,59 @@ fib(<span class="hljs-number">3</span>)
 
 fib(<span class="hljs-number">25</span>)</code></pre>
 
-      </section><section class="slide" id="slide-23-4">
+      </section><section class="slide" id="slide-25-4">
         <h2 id="recursion-with-turtle-graphics">Recursion with Turtle graphics</h2>
 
-      </section><section class="slide" id="slide-23-5">
+      </section><section class="slide" id="slide-25-5">
         <h2 id="exercises">Exercises</h2>
 <ul>
 <li>babylonian method for finding square roots</li>
 <li>trees with turtle graphics</li>
 </ul>
 
-      </section></section><section class="section" id="section-24"><section class="slide" id="slide-24-1">
+      </section></section><section class="section" id="section-26"><section class="slide" id="slide-26-1">
         <h1 id="python-versions">Python versions</h1>
 
-      </section><section class="slide" id="slide-24-2">
+      </section><section class="slide" id="slide-26-2">
         <h2 id="python-versions">Python versions</h2>
 <p>Python 2 vs Python 3</p>
 
-      </section><section class="slide" id="slide-24-3">
+      </section><section class="slide" id="slide-26-3">
         <h2 id="strings-and-bytes">Strings and Bytes</h2>
 <p>major change in Python 3:</p>
 <p>strict separation of text (strings) and binary data (bytes)</p>
 <p>in Python 2: data types <code>bytes</code>, <code>str</code> and <code>unicode</code></p>
 
-      </section><section class="slide" id="slide-24-4">
+      </section><section class="slide" id="slide-26-4">
         <h2 id="print">Print</h2>
 <p>Python 2:</p>
 <pre><code class="language-py"><span class="hljs-keyword">print</span> <span class="hljs-string">"a"</span>,</code></pre>
 <p>Python 3:</p>
 <pre><code class="language-py">print(<span class="hljs-string">"a"</span>, end=<span class="hljs-string">""</span>)</code></pre>
 
-      </section><section class="slide" id="slide-24-5">
+      </section><section class="slide" id="slide-26-5">
         <h2 id="division">Division</h2>
 <p>Python 2:</p>
 <pre><code class="language-py"><span class="hljs-number">10</span> / <span class="hljs-number">3</span>    <span class="hljs-comment"># 3</span></code></pre>
 
-      </section><section class="slide" id="slide-24-6">
+      </section><section class="slide" id="slide-26-6">
         <h2 id="range">range</h2>
 <p>in Python 2: <code>range()</code> returns a list, <code>xrange()</code> returns an object that saves on memory</p>
 <p>in Python 3: <code>range()</code> returns an object that saves on memory</p>
 
-      </section><section class="slide" id="slide-24-7">
+      </section><section class="slide" id="slide-26-7">
         <h2 id="input">input</h2>
 <p>in Python 2: <code>input()</code> will evaluate / execute the input, <code>raw_input()</code> returns a string</p>
 <p>in Python 3: <code>input()</code> returns a string</p>
 
-      </section><section class="slide" id="slide-24-8">
+      </section><section class="slide" id="slide-26-8">
         <h2 id="__future__-imports">__future__ imports</h2>
 <p>Getting some of the behavior of Python 3 in Python 2:</p>
 <pre><code class="language-py"><span class="hljs-keyword">from</span> __future__ <span class="hljs-keyword">import</span> print_function
 <span class="hljs-keyword">from</span> __future__ <span class="hljs-keyword">import</span> unicode_literals
 <span class="hljs-keyword">from</span> __future__ <span class="hljs-keyword">import</span> division</code></pre>
 
-      </section><section class="slide" id="slide-24-9">
+      </section><section class="slide" id="slide-26-9">
         <h2 id="python-future">Python-Future</h2>
 <p>Compatibility layer between Python 2 and Python 3</p>
 <p>Enables supporting both Python 2 and Python 3 from the same codebase</p>

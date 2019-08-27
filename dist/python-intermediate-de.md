@@ -1110,8 +1110,10 @@ raise MoneyParseException()
 
 ## Module und Pakete
 
-- Modul = Python-Datei, aus der Objekte importiert werden können
-- Paket = Verzeichnis, in dem Python-Module abgelegt sind
+- Modul = Sammlung von Python-Objekten, die importiert werden können
+- Paket = Sammlung von Modulen
+
+(Pakete sind eigenlich eine besondere Form von Modulen)
 
 ## Beispiele für Imports
 
@@ -1194,6 +1196,76 @@ urllib.request.urlopen(...)
   - andere Libraries
   - projektinterne Module
 
+# Eigene Module
+
+## Eigene Module
+
+Ziel: Erstellen eines eigenen Moduls, das wie folgend verwendet werden kann:
+
+```py
+from foo import a, b
+```
+
+## Eigene Module
+
+Einfaches Modul as Python-Datei:
+
+```py
+# foo.py
+a = 1
+b = 2
+```
+
+## Eigene Module
+
+Modul als Verzeichnis:
+
+```
+- foo/
+  - __init__.py
+```
+
+```py
+# __init__.py
+a = 1
+b = 2
+```
+
+## Eigene Module
+
+Module as a directory with separated defintions:
+
+```
+- foo/
+  - __init__.py
+  - _a_mod.py
+  - _b_mod.py
+```
+
+```py
+# __init__.py
+from _a_mod import a
+from _b_mod import b
+```
+
+## Eigene Pakete
+
+Ziel: Erstellen eines eigenen Pakets, das wie folgt verwendet werden kann:
+
+```py
+from foo import bar
+
+print(bar.a)
+print(bar.b)
+```
+
+## Eigene Pakete
+
+```
+- foo/
+  - bar.py
+```
+
 ## Auflösen von Imports
 
 Suchreihenfolge:
@@ -1218,6 +1290,78 @@ print(sys.path)
 Importierte Module werden in kompilierter Form abgelegt, um später schneller eingelesen werden zu können.
 
 Wir finden die kompilierten Versionen im Ordner `__pycache__`
+
+# PIP
+
+## PIP
+
+_PIP_ = Paketmanager für Python
+
+Einfache Verwendung:
+
+```bash
+pip install requests numpy
+```
+
+Pakete und deren Abhängigkeiten werden im Python Package Index gesucht: https://pypi.org/
+
+## PIP
+
+Installation bestimmter Versionen:
+
+```
+pip install requests==1.1
+pip install numpy>=1.16
+```
+
+## PIP
+
+Abhängigkeitenliste in einer Requirements-Datei, die einfach mit anderen geteilt werden kann:
+
+requirements.txt:
+
+```
+requests==1.1
+numpy>=1.16
+```
+
+```bash
+pip install -r requirements.txt
+```
+
+## Pipenv
+
+Via Pipenv: virtuelle Umgebungen, die die projektweise Installation verschiedener Paketversionen erlauben
+
+## Pipenv
+
+Installation von pipenv:
+
+```bash
+pip install pipenv
+```
+
+## Pipenv
+
+Verwendung von pipenv:
+
+```bash
+pipenv install requests
+pipenv install numpy
+```
+
+Es entstehen zwei Dateien:
+
+- _Pipfile_: allgemeine Abhängigkeitsinformationen
+- _Pipfile.lock_: genaue Versionsnummern
+
+## Pipenv
+
+Ausführen in einer PIP-Umgebung:
+
+```bash
+pipenv run python foo.py
+```
 
 # Funktionen
 
