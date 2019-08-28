@@ -1,4 +1,18 @@
-# Pandas: setting data
+# Pandas: changing data
+
+## Dropping data
+
+dropping rows:
+
+```py
+df2 = df1.drop(["CN", "US"])
+```
+
+dropping columns:
+
+```py
+df2 = df1.drop(columns=["pop"])
+```
 
 ## Computing derived data
 

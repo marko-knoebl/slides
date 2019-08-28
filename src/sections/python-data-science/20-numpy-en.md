@@ -225,6 +225,17 @@ c = np.array([1, 3])
 # solution: [4, 4]
 ```
 
+## Slicing arrays
+
+```py
+a2d = np.array([[1, 2, 3], [2, 4, 6], [3, 6, 9]])
+
+a2d[0] # [1, 2, 3]
+a2d[0, :] # [1, 2, 3]
+a2d[1:, 1:] # [[4, 6], [6, 9]]
+a2d[1, ::-1] # [3, 2, 1]
+```
+
 ## Exercises
 
 advanced: solving linear equations

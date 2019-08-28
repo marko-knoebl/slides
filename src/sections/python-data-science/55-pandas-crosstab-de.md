@@ -2,7 +2,9 @@
 
 ## Kontingenztabelle
 
-Eine _Kontingenztabelle_ oder _Kreuztabelle_ kann mittels `pd.crosstab` erstellt werden.
+Eine _Kontingenztabelle_ oder _Kreuztabelle_ gibt Anzahlen über mehrere Merkmale hinweg an.
+
+Sie kann mittels `pd.crosstab` erstellt werden.
 
 ## Kontingenztabelle
 

@@ -680,6 +680,16 @@ mögliche Marker:
 - `"+"`
 - ...
 
+## Stile von Graphen
+
+wichtige Parameter:
+
+- `color`
+- `linestyle`
+- `linewidth`
+- `marker`
+- `markersize`
+
 ## Label
 
 - `plt.title("Trigonometric functions")`
@@ -739,9 +749,24 @@ Gleiche Einheitengrößen und Beschränkung der Achsenmarkierungen auf verwendet
 plt.axis("scaled")
 ```
 
-## Übung
+## Gitter
 
-n-te Primzahl und Approximation via _n * ln(n)_
+```py
+plt.grid(True)
+```
+
+## Achsenmarkierungen
+
+```py
+plt.yticks([-1, 0, 1])
+plt.xticks(np.linspace(0, 2*np.pi, 5))
+```
+
+## Übungen
+
+- Sinus und Kosinus mit erweiterten Optionen
+- n-te Primzahl und Approximation via _n * ln(n)_
+- Schätzung von Pi durch zufällige Punkte
 
 # Grundlegende Plots
 
@@ -791,6 +816,84 @@ Pandas: `df.plot.box()`
 Pyplot: `plt.pie(x, labels=[...])`
 
 Pandas: `df.pie()`
+
+# Grundlegende Plots mit pyplot
+
+## Graph
+
+Graph zusammengehöriger x- und y-Werte:
+
+```py
+plt.plot(x, y)
+```
+
+Graph mit automatischem x (0, 1, ...):
+
+```py
+plt.plot(y)
+```
+
+## Graph
+
+Mehrere Datensätze:
+
+```py
+x = [1, 2, 3, 4]
+
+y = [[1, 2, 3, 4],
+     [3, 0, 1, 0]]
+
+plt.plot(x, y)
+```
+
+## Säulen- und Balkendiagramm
+
+```py
+plt.bar(x, y, width=0.6)
+plt.bar(x, y, width=1, align="edge")
+
+plt.bar(
+    [0, 1, 2],
+    [9.6, 17, 9.8],
+    tick_label=["China", "Russia", "USA"]
+)
+
+plt.barh([0, 1, 2], [9.6, 17, 9.8])
+```
+
+## Scatter Plot
+
+Einfach:
+
+```py
+plt.plot(x, y, ".")
+```
+
+Fortgeschritten:
+
+```py
+plt.scatter(x, y, size, color)
+```
+
+## Histogramm
+
+```py
+plt.hist(iris[:, 2], bins=[1, 2, 4, 5, 6], density=True)
+```
+
+## Box Plot
+
+```py
+plt.boxplot(iris[:, :4], labels=["a", "b", "c", "d"])
+```
+
+## Tortendiagramm
+
+```py
+plt.pie([3, 10, 17, 9], labels=["a", "b", "c", "d"])
+
+plt.pie([3, 10, 17, 9], explode=[0, 0, 0, 0.1])
+```
 
 # Figure, Axes & Subplots
 
@@ -914,12 +1017,21 @@ Beispiel:
 | RU  |   17 |        144 | Moscow           |
 | US  |  9.8 |        327 | Washington, D.C. |
 
-## Series
+## Series erstellen
 
 ```py
 area = pd.Series({'CN': 9.6, 'RU': 17, 'US': 9.8})
 population = pd.Series({'CN': 1386, 'RU': 144, 'US': 327})
+```
 
+```py
+area = pd.Series([9.6, 17, 9.8], ["CN", "RU", "US"])
+population = pd.Series([1386, 144, 327], ["CN", "RU", "US"])
+```
+
+## Werte auslesen
+
+```py
 area[0] # 9.6
 
 area['CN'] # 9.6
@@ -930,7 +1042,8 @@ area['CN'] # 9.6
 ```py
 countries = pd.DataFrame({
     'area': area,
-    'population': population})
+    'population': population
+})
 ```
 
 # Daten importieren und exportieren
@@ -1213,7 +1326,27 @@ er_eur_dateindex = er_eur_full.set_index('Date')
 er_eur = er_eur_dateindex.loc[:, 'Value']
 ```
 
-# Pandas: Daten setzen
+# Pandas: Daten manipulieren
+
+## Spalten umbenennen
+
+```py
+df.columns = ["name1", "name2"]
+```
+
+## Daten entfernen
+
+Zeilen entfernen:
+
+```py
+df2 = df1.drop(["CN", "US"])
+```
+
+Spalten entfernen:
+
+```py
+df2 = df1.drop(columns=["pop"])
+```
 
 ## Abgeleitete Werte berechnen
 
@@ -1231,7 +1364,21 @@ iris_setosa["sepal_ratio"].mean()
 iris_setosa["sepal_ratio"].std()
 ```
 
-## Daten setzen
+## Abgeleitete Werte berechnen mittels eigenen Funktionen
+
+```py
+def classifier(value):
+    if value < 2:
+        return 0
+    elif value < 10:
+        return 1
+    else:
+        return 2
+
+df["class"] = df["value"].apply(classifier)
+```
+
+## Einzelne Daten setzen
 
 ```py
 iris.iloc[0, 0] = 6
@@ -1296,7 +1443,9 @@ Nutze die Daten aus _sp500_ und _euribor_, um die Entwicklungen der europäische
 
 ## Kontingenztabelle
 
-Eine _Kontingenztabelle_ oder _Kreuztabelle_ kann mittels `pd.crosstab` erstellt werden.
+Eine _Kontingenztabelle_ oder _Kreuztabelle_ gibt Anzahlen über mehrere Merkmale hinweg an.
+
+Sie kann mittels `pd.crosstab` erstellt werden.
 
 ## Kontingenztabelle
 
@@ -1373,22 +1522,16 @@ exchange_rates = pd.read_csv(
     parse_dates=["Date"])
 ```
 
-# Joins
-
-## Joins
-
-Mit _joins_ können mehrere _DataFrames_ zusammengeführt werden.
-
-https://jakevdp.github.io/PythonDataScienceHandbook/03.07-merge-and-join.html
-
 # NumPy Fortgeschritten
 
 ## Form von Arrays ändern
 
 ```py
+array_1d = array_3d.ravel()
 array_1d = array_3d.reshape(8)
 array_2d = array_3d.reshape(2, 4)
 array_2d = array_3d.reshape(2, -1) # automatic second dimension
+array_2d_transposed = array_2d.T
 ```
 
 ## Dimensionalität erhöhen
@@ -1421,11 +1564,62 @@ Arrays können via `array.copy()` kopiert werden
 
 ## Arrays aneinanderfügen
 
+nebeineinander anfügen:
+
 ```py
 np.concatenate([a2d, a2d])
-
-np.concatenate([a2d, a2n], axis=1)
 ```
+
+untereinander anfügen:
+
+```py
+np.concatenate([a2d, a2d], axis=1)
+```
+
+## Matrix-Multiplikation
+
+Matrix-Multiplikation kann durch den binären Operator `@` durchgeführt werden
+
+```py
+a = np.array([1, 1])
+
+M = np.array([[0.707, 0.707],
+              [-0.707, 0.707]])
+
+print(a @ M)
+# array([0.   , 1.414])
+```
+
+## Matrix-Multiplikation
+
+Rotation verschiedener Punkte um 45° gegen den Uhrzeigersinn:
+
+```py
+points = np.array([[0, 0], [0, 1], [1, 0], [1, 1]])
+
+M = np.array([[0.707, 0.707],
+              [-0.707, 0.707]])
+
+print(points @ M)
+```
+
+## Matrix-Multiplikation
+
+Preise verschiedener Produkte:
+
+```py
+prices = np.array([3.99, 12.99, 5.90, 15])
+```
+
+Bestände in verschiedenen Lagern:
+
+```py
+quantities = np.array([[0, 80, 80, 100],
+                       [100, 0, 0, 0],
+                       [50, 0, 0, 50]])
+```
+
+Gesucht: Warenwert pro Lager
 
 # Machine learning
 

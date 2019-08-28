@@ -60,6 +60,16 @@ mögliche Marker:
 - `"+"`
 - ...
 
+## Stile von Graphen
+
+wichtige Parameter:
+
+- `color`
+- `linestyle`
+- `linewidth`
+- `marker`
+- `markersize`
+
 ## Label
 
 - `plt.title("Trigonometric functions")`
@@ -119,6 +129,21 @@ Gleiche Einheitengrößen und Beschränkung der Achsenmarkierungen auf verwendet
 plt.axis("scaled")
 ```
 
-## Übung
+## Gitter
 
-n-te Primzahl und Approximation via _n * ln(n)_
+```py
+plt.grid(True)
+```
+
+## Achsenmarkierungen
+
+```py
+plt.yticks([-1, 0, 1])
+plt.xticks(np.linspace(0, 2*np.pi, 5))
+```
+
+## Übungen
+
+- Sinus und Kosinus mit erweiterten Optionen
+- n-te Primzahl und Approximation via _n * ln(n)_
+- Schätzung von Pi durch zufällige Punkte

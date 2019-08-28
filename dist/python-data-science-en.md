@@ -409,6 +409,17 @@ c = np.array([1, 3])
 # solution: [4, 4]
 ```
 
+## Slicing arrays
+
+```py
+a2d = np.array([[1, 2, 3], [2, 4, 6], [3, 6, 9]])
+
+a2d[0] # [1, 2, 3]
+a2d[0, :] # [1, 2, 3]
+a2d[1:, 1:] # [[4, 6], [6, 9]]
+a2d[1, ::-1] # [3, 2, 1]
+```
+
 ## Exercises
 
 advanced: solving linear equations
@@ -455,14 +466,21 @@ Example:
 | RU  |   17 |        144 | Moscow           |
 | US  |  9.8 |        327 | Washington, D.C. |
 
-## Series
+## Creating a Series
 
 ```py
 area = pd.Series({'CN': 9.6, 'RU': 17, 'US': 9.8})
 population = pd.Series({'CN': 1386, 'RU': 144, 'US': 327})
-capital = pd.Series({'CN': 'Beijing', 'RU': 'Moscow',
-                     'US': 'Washington, D.C.'})
+```
 
+```py
+area = pd.Series([9.6, 17, 9.8], ["CN", "RU", "US"])
+population = pd.Series([1386, 144, 327], ["CN", "RU", "US"])
+```
+
+## Reading values
+
+```py
 area[0] # 9.6
 
 area['CN'] # 9.6
@@ -764,7 +782,21 @@ er_eur_dateindex = er_eur_full.set_index('Date')
 er_eur = er_eur_dateindex.loc[:, 'Value']
 ```
 
-# Pandas: setting data
+# Pandas: changing data
+
+## Dropping data
+
+dropping rows:
+
+```py
+df2 = df1.drop(["CN", "US"])
+```
+
+dropping columns:
+
+```py
+df2 = df1.drop(columns=["pop"])
+```
 
 ## Computing derived data
 
@@ -989,9 +1021,11 @@ scatter_matrix(iris)
 ## Reshaping arrays
 
 ```py
+array_1d = array_3d.ravel()
 array_1d = array_3d.reshape(8)
 array_2d = array_3d.reshape(2, 4)
 array_2d = array_3d.reshape(2, -1) # automatic second dimension
+array_2d_transposed = array_2d.T
 ```
 
 ## Adding an extra dimension
@@ -1000,21 +1034,8 @@ Adding an extra dimension of length 1 via `newaxis` - turning a 2 x 2 array into
 
 ```py
 array_2d = np.array([[1, 2], [3, 4]])
-
 array_3d = array_2d[:, :, np.newaxis]
-
 # [[[1], [2]], [[3], [4]]]
-```
-
-## Slicing arrays
-
-```py
-a2d = np.array([[1, 2, 3], [2, 4, 6], [3, 6, 9]])
-
-a2d[0] # [1, 2, 3]
-a2d[0, :] # [1, 2, 3]
-a2d[1:, 1:] # [[4, 6], [6, 9]]
-a2d[1, ::-1] # [3, 2, 1]
 ```
 
 ## Slices as views
@@ -1037,9 +1058,15 @@ Arrays can be copied via `array.copy()`
 
 ## Concatenating arrays
 
+concatenating horizontally:
+
 ```py
 np.concatenate([a2d, a2d])
+```
 
-np.concatenate([a2d, a2n], axis=1)
+concatenating vertically:
+
+```py
+np.concatenate([a2d, a2d], axis=1)
 ```
 

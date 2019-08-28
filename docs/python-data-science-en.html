@@ -442,6 +442,15 @@ c = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">3</s
 <span class="hljs-comment"># solution: [4, 4]</span></code></pre>
 
       </section><section class="slide" id="slide-4-20">
+        <h2 id="slicing-arrays">Slicing arrays</h2>
+<pre><code class="language-py">a2d = np.array([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], [<span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">6</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">6</span>, <span class="hljs-number">9</span>]])
+
+a2d[<span class="hljs-number">0</span>] <span class="hljs-comment"># [1, 2, 3]</span>
+a2d[<span class="hljs-number">0</span>, :] <span class="hljs-comment"># [1, 2, 3]</span>
+a2d[<span class="hljs-number">1</span>:, <span class="hljs-number">1</span>:] <span class="hljs-comment"># [[4, 6], [6, 9]]</span>
+a2d[<span class="hljs-number">1</span>, ::<span class="hljs-number">-1</span>] <span class="hljs-comment"># [3, 2, 1]</span></code></pre>
+
+      </section><section class="slide" id="slide-4-21">
         <h2 id="exercises">Exercises</h2>
 <p>advanced: solving linear equations</p>
 
@@ -520,17 +529,19 @@ c = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">3</s
 </tbody></table>
 
       </section><section class="slide" id="slide-6-4">
-        <h2 id="series">Series</h2>
+        <h2 id="creating-a-series">Creating a Series</h2>
 <pre><code class="language-py">area = pd.Series({<span class="hljs-string">'CN'</span>: <span class="hljs-number">9.6</span>, <span class="hljs-string">'RU'</span>: <span class="hljs-number">17</span>, <span class="hljs-string">'US'</span>: <span class="hljs-number">9.8</span>})
-population = pd.Series({<span class="hljs-string">'CN'</span>: <span class="hljs-number">1386</span>, <span class="hljs-string">'RU'</span>: <span class="hljs-number">144</span>, <span class="hljs-string">'US'</span>: <span class="hljs-number">327</span>})
-capital = pd.Series({<span class="hljs-string">'CN'</span>: <span class="hljs-string">'Beijing'</span>, <span class="hljs-string">'RU'</span>: <span class="hljs-string">'Moscow'</span>,
-                     <span class="hljs-string">'US'</span>: <span class="hljs-string">'Washington, D.C.'</span>})
+population = pd.Series({<span class="hljs-string">'CN'</span>: <span class="hljs-number">1386</span>, <span class="hljs-string">'RU'</span>: <span class="hljs-number">144</span>, <span class="hljs-string">'US'</span>: <span class="hljs-number">327</span>})</code></pre>
+<pre><code class="language-py">area = pd.Series([<span class="hljs-number">9.6</span>, <span class="hljs-number">17</span>, <span class="hljs-number">9.8</span>], [<span class="hljs-string">"CN"</span>, <span class="hljs-string">"RU"</span>, <span class="hljs-string">"US"</span>])
+population = pd.Series([<span class="hljs-number">1386</span>, <span class="hljs-number">144</span>, <span class="hljs-number">327</span>], [<span class="hljs-string">"CN"</span>, <span class="hljs-string">"RU"</span>, <span class="hljs-string">"US"</span>])</code></pre>
 
-area[<span class="hljs-number">0</span>] <span class="hljs-comment"># 9.6</span>
+      </section><section class="slide" id="slide-6-5">
+        <h2 id="reading-values">Reading values</h2>
+<pre><code class="language-py">area[<span class="hljs-number">0</span>] <span class="hljs-comment"># 9.6</span>
 
 area[<span class="hljs-string">'CN'</span>] <span class="hljs-comment"># 9.6</span></code></pre>
 
-      </section><section class="slide" id="slide-6-5">
+      </section><section class="slide" id="slide-6-6">
         <h2 id="series">Series</h2>
 <p>Each series has a specific data type</p>
 <pre><code class="language-py">area.dtype <span class="hljs-comment"># float64</span></code></pre>
@@ -538,7 +549,7 @@ area[<span class="hljs-string">'CN'</span>] <span class="hljs-comment"># 9.6</sp
 <pre><code class="language-py">area = pd.Series({<span class="hljs-string">"CN"</span>: <span class="hljs-number">9.6</span>, <span class="hljs-string">"RU"</span>: <span class="hljs-number">17</span>, <span class="hljs-string">"US"</span>: <span class="hljs-number">9.8</span>},
                  dtype=<span class="hljs-string">"float32"</span>)</code></pre>
 
-      </section><section class="slide" id="slide-6-6">
+      </section><section class="slide" id="slide-6-7">
         <h2 id="dataframe">DataFrame</h2>
 <pre><code class="language-py">countries = pd.DataFrame({
     <span class="hljs-string">'area'</span>: area,
@@ -799,9 +810,16 @@ er_eur_dateindex = er_eur_full.set_index(<span class="hljs-string">'Date'</span>
 er_eur = er_eur_dateindex.loc[:, <span class="hljs-string">'Value'</span>]</code></pre>
 
       </section></section><section class="section" id="section-11"><section class="slide" id="slide-11-1">
-        <h1 id="pandas-setting-data">Pandas: setting data</h1>
+        <h1 id="pandas-changing-data">Pandas: changing data</h1>
 
       </section><section class="slide" id="slide-11-2">
+        <h2 id="dropping-data">Dropping data</h2>
+<p>dropping rows:</p>
+<pre><code class="language-py">df2 = df1.drop([<span class="hljs-string">"CN"</span>, <span class="hljs-string">"US"</span>])</code></pre>
+<p>dropping columns:</p>
+<pre><code class="language-py">df2 = df1.drop(columns=[<span class="hljs-string">"pop"</span>])</code></pre>
+
+      </section><section class="slide" id="slide-11-3">
         <h2 id="computing-derived-data">Computing derived data</h2>
 <p>Adding a new column:</p>
 <pre><code class="language-py">iris[<span class="hljs-string">"sepal_ratio"</span>] = iris[<span class="hljs-string">"sepal_length"</span>] / iris[<span class="hljs-string">"sepal_width"</span>]
@@ -816,7 +834,7 @@ iris_setosa = iris.loc[
 iris_setosa[<span class="hljs-string">"sepal_ratio"</span>].mean()
 iris_setosa[<span class="hljs-string">"sepal_ratio"</span>].std()</code></pre>
 
-      </section><section class="slide" id="slide-11-3">
+      </section><section class="slide" id="slide-11-4">
         <h2 id="computing-derived-data-via-numpy">Computing derived data via NumPy</h2>
 <p>Task:</p>
 <ul>
@@ -824,7 +842,7 @@ iris_setosa[<span class="hljs-string">"sepal_ratio"</span>].std()</code></pre>
 <li>What was the biggest loss / gain in a month?</li>
 </ul>
 
-      </section><section class="slide" id="slide-11-4">
+      </section><section class="slide" id="slide-11-5">
         <h2 id="computing-derived-data-via-numpy">Computing derived data via NumPy</h2>
 <p>converting to NumPy array:</p>
 <pre><code class="language-py">values_np = sp500[<span class="hljs-string">"SP500"</span>].to_numpy()</code></pre>
@@ -837,7 +855,7 @@ diffs = np.concatenate([
 <pre><code class="language-py">sp500[<span class="hljs-string">"Diff"</span>] = diffs
 sp500[<span class="hljs-string">"Gain"</span>] = sp500[<span class="hljs-string">"Diff"</span>] / sp500[<span class="hljs-string">"SP500"</span>]</code></pre>
 
-      </section><section class="slide" id="slide-11-5">
+      </section><section class="slide" id="slide-11-6">
         <h2 id="setting-data">Setting data</h2>
 <pre><code class="language-py">iris.iloc[<span class="hljs-number">0</span>, <span class="hljs-number">0</span>] = <span class="hljs-number">6</span>
 
@@ -958,29 +976,20 @@ scatter_matrix(iris)</code></pre>
 
       </section><section class="slide" id="slide-14-2">
         <h2 id="reshaping-arrays">Reshaping arrays</h2>
-<pre><code class="language-py">array_1d = array_3d.reshape(<span class="hljs-number">8</span>)
+<pre><code class="language-py">array_1d = array_3d.ravel()
+array_1d = array_3d.reshape(<span class="hljs-number">8</span>)
 array_2d = array_3d.reshape(<span class="hljs-number">2</span>, <span class="hljs-number">4</span>)
-array_2d = array_3d.reshape(<span class="hljs-number">2</span>, <span class="hljs-number">-1</span>) <span class="hljs-comment"># automatic second dimension</span></code></pre>
+array_2d = array_3d.reshape(<span class="hljs-number">2</span>, <span class="hljs-number">-1</span>) <span class="hljs-comment"># automatic second dimension</span>
+array_2d_transposed = array_2d.T</code></pre>
 
       </section><section class="slide" id="slide-14-3">
         <h2 id="adding-an-extra-dimension">Adding an extra dimension</h2>
 <p>Adding an extra dimension of length 1 via <code>newaxis</code> - turning a 2 x 2 array into a 2 x 2 x 1 array:</p>
 <pre><code class="language-py">array_2d = np.array([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]])
-
 array_3d = array_2d[:, :, np.newaxis]
-
 <span class="hljs-comment"># [[[1], [2]], [[3], [4]]]</span></code></pre>
 
       </section><section class="slide" id="slide-14-4">
-        <h2 id="slicing-arrays">Slicing arrays</h2>
-<pre><code class="language-py">a2d = np.array([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], [<span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">6</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">6</span>, <span class="hljs-number">9</span>]])
-
-a2d[<span class="hljs-number">0</span>] <span class="hljs-comment"># [1, 2, 3]</span>
-a2d[<span class="hljs-number">0</span>, :] <span class="hljs-comment"># [1, 2, 3]</span>
-a2d[<span class="hljs-number">1</span>:, <span class="hljs-number">1</span>:] <span class="hljs-comment"># [[4, 6], [6, 9]]</span>
-a2d[<span class="hljs-number">1</span>, ::<span class="hljs-number">-1</span>] <span class="hljs-comment"># [3, 2, 1]</span></code></pre>
-
-      </section><section class="slide" id="slide-14-5">
         <h2 id="slices-as-views">Slices as views</h2>
 <p>In ordinary Python we can make a shallow copy of a list by slicing it - this works differently in NumPy (in order to improve efficiency):</p>
 <pre><code class="language-py">list = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]
@@ -991,15 +1000,16 @@ array = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">
 array_view = array[:]
 array_view[<span class="hljs-number">0</span>] = <span class="hljs-number">10</span> <span class="hljs-comment"># DOES change array</span></code></pre>
 
-      </section><section class="slide" id="slide-14-6">
+      </section><section class="slide" id="slide-14-5">
         <h2 id="copying-arrays">Copying arrays</h2>
 <p>Arrays can be copied via <code>array.copy()</code></p>
 
-      </section><section class="slide" id="slide-14-7">
+      </section><section class="slide" id="slide-14-6">
         <h2 id="concatenating-arrays">Concatenating arrays</h2>
-<pre><code class="language-py">np.concatenate([a2d, a2d])
-
-np.concatenate([a2d, a2n], axis=<span class="hljs-number">1</span>)</code></pre>
+<p>concatenating horizontally:</p>
+<pre><code class="language-py">np.concatenate([a2d, a2d])</code></pre>
+<p>concatenating vertically:</p>
+<pre><code class="language-py">np.concatenate([a2d, a2d], axis=<span class="hljs-number">1</span>)</code></pre>
 
       </section></section>
 

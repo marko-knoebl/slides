@@ -673,6 +673,17 @@ df.plot.line()</code></pre>
 </ul>
 
       </section><section class="slide" id="slide-9-7">
+        <h2 id="stile-von-graphen">Stile von Graphen</h2>
+<p>wichtige Parameter:</p>
+<ul>
+<li><code>color</code></li>
+<li><code>linestyle</code></li>
+<li><code>linewidth</code></li>
+<li><code>marker</code></li>
+<li><code>markersize</code></li>
+</ul>
+
+      </section><section class="slide" id="slide-9-8">
         <h2 id="label">Label</h2>
 <ul>
 <li><code>plt.title(&quot;Trigonometric functions&quot;)</code></li>
@@ -680,7 +691,7 @@ df.plot.line()</code></pre>
 <li><code>plt.ylabel(&quot;y&quot;)</code></li>
 </ul>
 
-      </section><section class="slide" id="slide-9-8">
+      </section><section class="slide" id="slide-9-9">
         <h2 id="label">Label</h2>
 <p>Label für verschiedene Funktionen:</p>
 <pre><code class="language-py">plt.plot(x, np.sin(x), label=<span class="hljs-string">'sin(x)'</span>)
@@ -688,12 +699,12 @@ plt.plot(x, np.cos(x), label=<span class="hljs-string">'cos(x)'</span>)
 
 plt.legend()</code></pre>
 
-      </section><section class="slide" id="slide-9-9">
+      </section><section class="slide" id="slide-9-10">
         <h2 id="achsen">Achsen</h2>
 <p>Achsen ausblenden:</p>
 <pre><code class="language-py">plt.axis(<span class="hljs-string">"off"</span>)</code></pre>
 
-      </section><section class="slide" id="slide-9-10">
+      </section><section class="slide" id="slide-9-11">
         <h2 id="achsenlimits">Achsenlimits</h2>
 <p>Ansicht einpassen (ohne Abstand zum Rand):</p>
 <pre><code class="language-py">plt.axis(<span class="hljs-string">"tight"</span>)</code></pre>
@@ -702,16 +713,29 @@ plt.legend()</code></pre>
 <p>Bestimmten Ausschnitt für einzelne Achse:</p>
 <pre><code class="language-py">plt.xlim(<span class="hljs-number">-1</span>, <span class="hljs-number">1</span>)</code></pre>
 
-      </section><section class="slide" id="slide-9-11">
+      </section><section class="slide" id="slide-9-12">
         <h2 id="achsenskalierung">Achsenskalierung</h2>
 <p>Gleiche Einheitengröße auf beiden Achsen:</p>
 <pre><code class="language-py">plt.axis(<span class="hljs-string">"equal"</span>)</code></pre>
 <p>Gleiche Einheitengrößen und Beschränkung der Achsenmarkierungen auf verwendete Datenbereiche:</p>
 <pre><code class="language-py">plt.axis(<span class="hljs-string">"scaled"</span>)</code></pre>
 
-      </section><section class="slide" id="slide-9-12">
-        <h2 id="übung">Übung</h2>
-<p>n-te Primzahl und Approximation via <em>n * ln(n)</em></p>
+      </section><section class="slide" id="slide-9-13">
+        <h2 id="gitter">Gitter</h2>
+<pre><code class="language-py">plt.grid(<span class="hljs-keyword">True</span>)</code></pre>
+
+      </section><section class="slide" id="slide-9-14">
+        <h2 id="achsenmarkierungen">Achsenmarkierungen</h2>
+<pre><code class="language-py">plt.yticks([<span class="hljs-number">-1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>])
+plt.xticks(np.linspace(<span class="hljs-number">0</span>, <span class="hljs-number">2</span>*np.pi, <span class="hljs-number">5</span>))</code></pre>
+
+      </section><section class="slide" id="slide-9-15">
+        <h2 id="übungen">Übungen</h2>
+<ul>
+<li>Sinus und Kosinus mit erweiterten Optionen</li>
+<li>n-te Primzahl und Approximation via <em>n * ln(n)</em></li>
+<li>Schätzung von Pi durch zufällige Punkte</li>
+</ul>
 
       </section></section><section class="section" id="section-10"><section class="slide" id="slide-10-1">
         <h1 id="grundlegende-plots">Grundlegende Plots</h1>
@@ -759,15 +783,69 @@ plt.legend()</code></pre>
 <p>Pandas: <code>df.pie()</code></p>
 
       </section></section><section class="section" id="section-11"><section class="slide" id="slide-11-1">
-        <h1 id="figure-axes--subplots">Figure, Axes &amp; Subplots</h1>
+        <h1 id="grundlegende-plots-mit-pyplot">Grundlegende Plots mit pyplot</h1>
 
       </section><section class="slide" id="slide-11-2">
+        <h2 id="graph">Graph</h2>
+<p>Graph zusammengehöriger x- und y-Werte:</p>
+<pre><code class="language-py">plt.plot(x, y)</code></pre>
+<p>Graph mit automatischem x (0, 1, ...):</p>
+<pre><code class="language-py">plt.plot(y)</code></pre>
+
+      </section><section class="slide" id="slide-11-3">
+        <h2 id="graph">Graph</h2>
+<p>Mehrere Datensätze:</p>
+<pre><code class="language-py">x = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>]
+
+y = [[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>],
+     [<span class="hljs-number">3</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>]]
+
+plt.plot(x, y)</code></pre>
+
+      </section><section class="slide" id="slide-11-4">
+        <h2 id="säulen--und-balkendiagramm">Säulen- und Balkendiagramm</h2>
+<pre><code class="language-py">plt.bar(x, y, width=<span class="hljs-number">0.6</span>)
+plt.bar(x, y, width=<span class="hljs-number">1</span>, align=<span class="hljs-string">"edge"</span>)
+
+plt.bar(
+    [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>],
+    [<span class="hljs-number">9.6</span>, <span class="hljs-number">17</span>, <span class="hljs-number">9.8</span>],
+    tick_label=[<span class="hljs-string">"China"</span>, <span class="hljs-string">"Russia"</span>, <span class="hljs-string">"USA"</span>]
+)
+
+plt.barh([<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">9.6</span>, <span class="hljs-number">17</span>, <span class="hljs-number">9.8</span>])</code></pre>
+
+      </section><section class="slide" id="slide-11-5">
+        <h2 id="scatter-plot">Scatter Plot</h2>
+<p>Einfach:</p>
+<pre><code class="language-py">plt.plot(x, y, <span class="hljs-string">"."</span>)</code></pre>
+<p>Fortgeschritten:</p>
+<pre><code class="language-py">plt.scatter(x, y, size, color)</code></pre>
+
+      </section><section class="slide" id="slide-11-6">
+        <h2 id="histogramm">Histogramm</h2>
+<pre><code class="language-py">plt.hist(iris[:, <span class="hljs-number">2</span>], bins=[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>], density=<span class="hljs-keyword">True</span>)</code></pre>
+
+      </section><section class="slide" id="slide-11-7">
+        <h2 id="box-plot">Box Plot</h2>
+<pre><code class="language-py">plt.boxplot(iris[:, :<span class="hljs-number">4</span>], labels=[<span class="hljs-string">"a"</span>, <span class="hljs-string">"b"</span>, <span class="hljs-string">"c"</span>, <span class="hljs-string">"d"</span>])</code></pre>
+
+      </section><section class="slide" id="slide-11-8">
+        <h2 id="tortendiagramm">Tortendiagramm</h2>
+<pre><code class="language-py">plt.pie([<span class="hljs-number">3</span>, <span class="hljs-number">10</span>, <span class="hljs-number">17</span>, <span class="hljs-number">9</span>], labels=[<span class="hljs-string">"a"</span>, <span class="hljs-string">"b"</span>, <span class="hljs-string">"c"</span>, <span class="hljs-string">"d"</span>])
+
+plt.pie([<span class="hljs-number">3</span>, <span class="hljs-number">10</span>, <span class="hljs-number">17</span>, <span class="hljs-number">9</span>], explode=[<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.1</span>])</code></pre>
+
+      </section></section><section class="section" id="section-12"><section class="slide" id="slide-12-1">
+        <h1 id="figure-axes--subplots">Figure, Axes &amp; Subplots</h1>
+
+      </section><section class="slide" id="slide-12-2">
         <h2 id="figure--axes">Figure &amp; Axes</h2>
 <p>Figure = ganze Zeichnung</p>
 <p>Axes = Koordinatensystem, in das Daten eingetragen werden</p>
 <p>Eine Figure kann mehrere Axes-Objekte (nebeneinander, untereinander, ...) enthalten</p>
 
-      </section><section class="slide" id="slide-11-3">
+      </section><section class="slide" id="slide-12-3">
         <h2 id="figure">Figure</h2>
 <p>Jede Zeichnung in <em>pyplot</em> erfolgt mittels eines <em>Figure</em>-Objekts (wird beim plotten meist automatisch erzeugt).</p>
 <p>Manuelles Erstellen einer Figure mit Größe 800 x 600 px (bei 100 dpi):</p>
@@ -777,17 +855,17 @@ plt.legend()</code></pre>
 )</code></pre>
 <p>Dies wird automatisch zur aktiven Figure.</p>
 
-      </section><section class="slide" id="slide-11-4">
+      </section><section class="slide" id="slide-12-4">
         <h2 id="figure-objekte">Figure Objekte</h2>
 <p>Exportieren einer Figure:</p>
 <pre><code class="language-py">fig.savefig(<span class="hljs-string">"myplot.png"</span>)
 fig.savefig(<span class="hljs-string">"myplot.svg"</span>)</code></pre>
 
-      </section><section class="slide" id="slide-11-5">
+      </section><section class="slide" id="slide-12-5">
         <h2 id="figure-objekte">Figure Objekte</h2>
 <p>Aufgabe: Skript, das eine PNG-Datei eines Graphen der aktuellen CPU-Last erstellt und jede Sekunde aktuelisiert. (verwende hierzu das PIP-Paket <em>psutil</em>)</p>
 
-      </section><section class="slide" id="slide-11-6">
+      </section><section class="slide" id="slide-12-6">
         <h2 id="axes-objekte">Axes Objekte</h2>
 <p>Manuell neue <em>Axes</em> erstellen:</p>
 <pre><code class="language-py">ax = plt.axes([<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>])</code></pre>
@@ -798,11 +876,11 @@ ax.set_xlabel(...)
 ax.legend()
 ax.set_aspect(<span class="hljs-string">"equal"</span>)</code></pre>
 
-      </section><section class="slide" id="slide-11-7">
+      </section><section class="slide" id="slide-12-7">
         <h2 id="axes-objekte">Axes Objekte</h2>
 <p>Aufgabe: Erstellen des Sinus- und Kosinusplots via <em>Axes</em></p>
 
-      </section><section class="slide" id="slide-11-8">
+      </section><section class="slide" id="slide-12-8">
         <h2 id="axis-und-axes">Axis und Axes</h2>
 <p>Achtung unglückliche Namensvergabe:</p>
 <ul>
@@ -811,7 +889,7 @@ ax.set_aspect(<span class="hljs-string">"equal"</span>)</code></pre>
 </ul>
 <p>Eigentliche Bedeutungen aus dem Lateinischen / Englischen: <em>axis</em> = Achse, <em>axes</em> = Achsen</p>
 
-      </section><section class="slide" id="slide-11-9">
+      </section><section class="slide" id="slide-12-9">
         <h2 id="subplots">Subplots</h2>
 <p>Erstellen mehrerer Axes-Objekte in einem Raster (hier: 2 Zeilen, 3 Spalten):</p>
 <pre><code class="language-py">fig, ax = plt.subplots(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>)
@@ -820,10 +898,10 @@ ax0 = ax[<span class="hljs-number">0</span>, <span class="hljs-number">0</span>]
 ax1 = ax[<span class="hljs-number">0</span>, <span class="hljs-number">1</span>]
 ax5 = ax[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>]</code></pre>
 
-      </section></section><section class="section" id="section-12"><section class="slide" id="slide-12-1">
+      </section></section><section class="section" id="section-13"><section class="slide" id="slide-13-1">
         <h1 id="erweiterte-arten-von-plots">Erweiterte Arten von Plots</h1>
 
-      </section><section class="slide" id="slide-12-2">
+      </section><section class="slide" id="slide-13-2">
         <h2 id="erweiterte-arten-von-plots">Erweiterte Arten von Plots</h2>
 <ul>
 <li>Datenpunkte mit mehr als 2 Features<ul>
@@ -849,15 +927,15 @@ ax5 = ax[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>]
 </li>
 </ul>
 
-      </section></section><section class="section" id="section-13"><section class="slide" id="slide-13-1">
+      </section></section><section class="section" id="section-14"><section class="slide" id="slide-14-1">
         <h1 id="pandas">Pandas</h1>
 
-      </section><section class="slide" id="slide-13-2">
+      </section><section class="slide" id="slide-14-2">
         <h2 id="pandas">Pandas</h2>
 <p><em>Pandas</em> ist eine Datenanalysebibliothek; sie beruht auf <em>NumPy</em></p>
 <pre><code class="language-py"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd</code></pre>
 
-      </section><section class="slide" id="slide-13-3">
+      </section><section class="slide" id="slide-14-3">
         <h2 id="series-und-dataframe">Series und DataFrame</h2>
 <ul>
 <li><strong>Series</strong>: Sammlung von gleichartigen Einträgen zu bestimmten Schlüsseln (Tabellenspalte)</li>
@@ -893,25 +971,30 @@ ax5 = ax[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>]
 </tr>
 </tbody></table>
 
-      </section><section class="slide" id="slide-13-4">
-        <h2 id="series">Series</h2>
+      </section><section class="slide" id="slide-14-4">
+        <h2 id="series-erstellen">Series erstellen</h2>
 <pre><code class="language-py">area = pd.Series({<span class="hljs-string">'CN'</span>: <span class="hljs-number">9.6</span>, <span class="hljs-string">'RU'</span>: <span class="hljs-number">17</span>, <span class="hljs-string">'US'</span>: <span class="hljs-number">9.8</span>})
-population = pd.Series({<span class="hljs-string">'CN'</span>: <span class="hljs-number">1386</span>, <span class="hljs-string">'RU'</span>: <span class="hljs-number">144</span>, <span class="hljs-string">'US'</span>: <span class="hljs-number">327</span>})
+population = pd.Series({<span class="hljs-string">'CN'</span>: <span class="hljs-number">1386</span>, <span class="hljs-string">'RU'</span>: <span class="hljs-number">144</span>, <span class="hljs-string">'US'</span>: <span class="hljs-number">327</span>})</code></pre>
+<pre><code class="language-py">area = pd.Series([<span class="hljs-number">9.6</span>, <span class="hljs-number">17</span>, <span class="hljs-number">9.8</span>], [<span class="hljs-string">"CN"</span>, <span class="hljs-string">"RU"</span>, <span class="hljs-string">"US"</span>])
+population = pd.Series([<span class="hljs-number">1386</span>, <span class="hljs-number">144</span>, <span class="hljs-number">327</span>], [<span class="hljs-string">"CN"</span>, <span class="hljs-string">"RU"</span>, <span class="hljs-string">"US"</span>])</code></pre>
 
-area[<span class="hljs-number">0</span>] <span class="hljs-comment"># 9.6</span>
+      </section><section class="slide" id="slide-14-5">
+        <h2 id="werte-auslesen">Werte auslesen</h2>
+<pre><code class="language-py">area[<span class="hljs-number">0</span>] <span class="hljs-comment"># 9.6</span>
 
 area[<span class="hljs-string">'CN'</span>] <span class="hljs-comment"># 9.6</span></code></pre>
 
-      </section><section class="slide" id="slide-13-5">
+      </section><section class="slide" id="slide-14-6">
         <h2 id="dataframe">DataFrame</h2>
 <pre><code class="language-py">countries = pd.DataFrame({
     <span class="hljs-string">'area'</span>: area,
-    <span class="hljs-string">'population'</span>: population})</code></pre>
+    <span class="hljs-string">'population'</span>: population
+})</code></pre>
 
-      </section></section><section class="section" id="section-14"><section class="slide" id="slide-14-1">
+      </section></section><section class="section" id="section-15"><section class="slide" id="slide-15-1">
         <h1 id="daten-importieren-und-exportieren">Daten importieren und exportieren</h1>
 
-      </section><section class="slide" id="slide-14-2">
+      </section><section class="slide" id="slide-15-2">
         <h2 id="daten-importieren-und-exportieren">Daten importieren und exportieren</h2>
 <p>Datenformate:</p>
 <ul>
@@ -922,20 +1005,20 @@ area[<span class="hljs-string">'CN'</span>] <span class="hljs-comment"># 9.6</sp
 <li>SQL tables (via <em>SQLAlchemy</em>)</li>
 </ul>
 
-      </section><section class="slide" id="slide-14-3">
+      </section><section class="slide" id="slide-15-3">
         <h2 id="daten-importieren-und-exportieren">Daten importieren und exportieren</h2>
 <p>Die folgenden Funktionen können Daten importieren / exportieren. Beim Importieren können Daten auch aus dem Internet gelesen werden.</p>
 <p>Import: <code>pd.read_csv</code>, <code>pd.read_excel</code>, ...</p>
 <p>Export: <code>df.to_csv</code>, <code>df.to_excel</code>, ...</p>
 
-      </section><section class="slide" id="slide-14-4">
+      </section><section class="slide" id="slide-15-4">
         <h2 id="csv-importieren">CSV importieren</h2>
 <p>Beispiel: Euribor (Zinsen für europäische Anleihen)</p>
 <pre><code class="language-py">euribor = pd.read_csv(
     <span class="hljs-string">"https://datahub.io/core/euribor/r/euribor-12m-monthly.csv"</span>
 )</code></pre>
 
-      </section><section class="slide" id="slide-14-5">
+      </section><section class="slide" id="slide-15-5">
         <h2 id="csv-importieren">CSV importieren</h2>
 <p>Mögliche Schlüsselwortargumente für <code>read_csv</code>:</p>
 <ul>
@@ -949,7 +1032,7 @@ area[<span class="hljs-string">'CN'</span>] <span class="hljs-comment"># 9.6</sp
 </ul>
 <p>Siehe auch: <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html">https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html</a></p>
 
-      </section><section class="slide" id="slide-14-6">
+      </section><section class="slide" id="slide-15-6">
         <h2 id="csv-importieren">CSV importieren</h2>
 <p>Fortgeschrittenes Euribor-Beispiel:</p>
 <ul>
@@ -964,7 +1047,7 @@ area[<span class="hljs-string">'CN'</span>] <span class="hljs-comment"># 9.6</sp
     usecols=[<span class="hljs-string">"date"</span>, <span class="hljs-string">"rate"</span>]
 )</code></pre>
 
-      </section><section class="slide" id="slide-14-7">
+      </section><section class="slide" id="slide-15-7">
         <h2 id="csv-importieren">CSV importieren</h2>
 <p>Aufgabe: Importiere die folgenden Datenquellen und achte dabei auf passendes Format:</p>
 <ul>
@@ -973,7 +1056,7 @@ area[<span class="hljs-string">'CN'</span>] <span class="hljs-comment"># 9.6</sp
 <li>Iris Dataset (Statistiken zu Blütengrößen von Iris-Blumen): <a href="http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data">http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data</a> (recherchiere passende Spaltennamen im Internet)</li>
 </ul>
 
-      </section><section class="slide" id="slide-14-8">
+      </section><section class="slide" id="slide-15-8">
         <h2 id="csv-importieren">CSV importieren</h2>
 <p>mögliche Lösungen:</p>
 <pre><code class="language-py">iris = pd.read_csv(
@@ -989,7 +1072,7 @@ exchange_rates = pd.read_csv(
     <span class="hljs-string">"https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv"</span>,
     parse_dates=[<span class="hljs-string">"Date"</span>])</code></pre>
 
-      </section><section class="slide" id="slide-14-9">
+      </section><section class="slide" id="slide-15-9">
         <h2 id="daten-importieren-und-exportieren">Daten importieren und exportieren</h2>
 <p>Excel:</p>
 <pre><code class="language-py">euribor.to_excel(<span class="hljs-string">'euribor.xlsx'</span>)
@@ -998,10 +1081,10 @@ euribor = pd.read_excel(<span class="hljs-string">'euribor.xlsx'</span>, index_c
 <pre><code class="language-py">euribor.to_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class="hljs-string">"euribor"</span>)
 euribor = read_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class="hljs-string">"euribor"</span>)</code></pre>
 
-      </section></section><section class="section" id="section-15"><section class="slide" id="slide-15-1">
+      </section></section><section class="section" id="section-16"><section class="slide" id="slide-16-1">
         <h1 id="pandas-daten-auslesen">Pandas: Daten auslesen</h1>
 
-      </section><section class="slide" id="slide-15-2">
+      </section><section class="slide" id="slide-16-2">
         <h2 id="daten-auslesen-nach-zeilen--und-spaltennummern">Daten auslesen (nach Zeilen- und Spaltennummern)</h2>
 <ul>
 <li><code>df.iloc[5]</code>: Zeile 5 (gibt <code>Series</code>-Objekt zurück)</li>
@@ -1011,7 +1094,7 @@ euribor = read_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class="hl
 <li><code>df.iloc[5, [0, 2]]</code>: Zeile 5, Spalten 0 und 2</li>
 </ul>
 
-      </section><section class="slide" id="slide-15-3">
+      </section><section class="slide" id="slide-16-3">
         <h2 id="daten-auslesen-nach-zeilen--und-spaltennamen">Daten auslesen (nach Zeilen- und Spaltennamen)</h2>
 <ul>
 <li><code>df.index</code>: Zeilennamen</li>
@@ -1029,7 +1112,7 @@ euribor = read_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class="hl
 <li><code>df.loc[&quot;2009-01-02&quot;, &quot;rate&quot;]</code>: Bestimmte Zeile und Spalte</li>
 </ul>
 
-      </section><section class="slide" id="slide-15-4">
+      </section><section class="slide" id="slide-16-4">
         <h2 id="zeilen-sortieren">Zeilen sortieren</h2>
 <ul>
 <li><code>df.sort_values(by=&quot;rate&quot;)</code></li>
@@ -1037,7 +1120,7 @@ euribor = read_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class="hl
 <li><code>df.sort_index(ascending=False)</code></li>
 </ul>
 
-      </section><section class="slide" id="slide-15-5">
+      </section><section class="slide" id="slide-16-5">
         <h2 id="zufällig-daten-auswählen">Zufällig Daten auswählen</h2>
 <ul>
 <li><code>df.sample()</code> - ein zufälliger Eintrag)</li>
@@ -1045,12 +1128,12 @@ euribor = read_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class="hl
 <li><code>df.sample(frac=0.1)</code> - 10% aller Einträge</li>
 </ul>
 
-      </section><section class="slide" id="slide-15-6">
+      </section><section class="slide" id="slide-16-6">
         <h2 id="einträge-filtern">Einträge filtern</h2>
 <p>Analog zur Funktionsweise von <em>NumPy</em>: alle Werte, die das Kriterium nicht erfüllen werden zu <em>NaN</em>.</p>
 <pre><code class="language-py">iris[iris &gt; <span class="hljs-number">0</span>]</code></pre>
 
-      </section><section class="slide" id="slide-15-7">
+      </section><section class="slide" id="slide-16-7">
         <h2 id="zeilen-filtern">Zeilen filtern</h2>
 <p>Zeilenweise filtern (ein zeilenweise gefilterter <em>DataFrame</em> wird zurückgegeben):</p>
 <ul>
@@ -1060,7 +1143,7 @@ euribor = read_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class="hl
 <li><code>df[df.name.isin([&quot;Iris-setosa&quot;, &quot;Iris-virginica&quot;])])]</code></li>
 </ul>
 
-      </section><section class="slide" id="slide-15-8">
+      </section><section class="slide" id="slide-16-8">
         <h2 id="zeilen-suchen">Zeilen suchen</h2>
 <p>SQL Vorlage:</p>
 <pre><code class="language-sql"><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> df
@@ -1070,7 +1153,7 @@ euribor = read_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class="hl
 <p>oder</p>
 <pre><code class="language-py">df.query(<span class="hljs-string">"a &lt; b &lt; c"</span>)</code></pre>
 
-      </section><section class="slide" id="slide-15-9">
+      </section><section class="slide" id="slide-16-9">
         <h2 id="aufgaben-euribor">Aufgaben (Euribor)</h2>
 <ul>
 <li>erster Eintrag</li>
@@ -1080,7 +1163,7 @@ euribor = read_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class="hl
 <li>Einträge aus dem Jahr 2009</li>
 </ul>
 
-      </section><section class="slide" id="slide-15-10">
+      </section><section class="slide" id="slide-16-10">
         <h2 id="lösungen-euribor">Lösungen (Euribor)</h2>
 <ul>
 <li>erster Eintrag: <code>euribor.iloc[0]</code></li>
@@ -1090,20 +1173,20 @@ euribor = read_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class="hl
 <li>Einträge vom 1.1.2009 bis 31.12.2009: <code>euribor.loc[&quot;2009-01-01&quot;: &quot;2009-12-31&quot;]</code></li>
 </ul>
 
-      </section><section class="slide" id="slide-15-11">
+      </section><section class="slide" id="slide-16-11">
         <h2 id="aufgaben-iris">Aufgaben (Iris)</h2>
 <ul>
 <li>Maximale <em>petal length</em> von <em>iris setosa</em> (ohne <code>.max</code>)</li>
 </ul>
 
-      </section></section><section class="section" id="section-16"><section class="slide" id="slide-16-1">
+      </section></section><section class="section" id="section-17"><section class="slide" id="slide-17-1">
         <h1 id="statistische-grundwerte">Statistische Grundwerte</h1>
 
-      </section><section class="slide" id="slide-16-2">
+      </section><section class="slide" id="slide-17-2">
         <h2 id="statistische-grundwerte">Statistische Grundwerte</h2>
 <pre><code class="language-py">df.describe()</code></pre>
 
-      </section><section class="slide" id="slide-16-3">
+      </section><section class="slide" id="slide-17-3">
         <h2 id="statistische-grundwerte">Statistische Grundwerte</h2>
 <pre><code class="language-py">countries.area.describe()</code></pre>
 <pre><code class="language-txt">count     3.000000
@@ -1117,7 +1200,7 @@ max      17.000000
 dtype: float64</code></pre>
 <p>(Siehe nächste Folie für Erklärungen)</p>
 
-      </section><section class="slide" id="slide-16-4">
+      </section><section class="slide" id="slide-17-4">
         <h2 id="statistik-einer-series">Statistik einer Series</h2>
 <pre><code class="language-py">countries.area.describe()</code></pre>
 <p>berechnet die folgenden Daten:</p>
@@ -1132,7 +1215,7 @@ dtype: float64</code></pre>
 <li><code>area.quantile(1)</code> / <code>ara.max()</code></li>
 </ul>
 
-      </section><section class="slide" id="slide-16-5">
+      </section><section class="slide" id="slide-17-5">
         <h2 id="statistische-werte">Statistische Werte</h2>
 <ul>
 <li><em>std</em>: <em>Standardabweichung (Standard deviation)</em></li>
@@ -1141,16 +1224,16 @@ dtype: float64</code></pre>
 <li><em>25%-Quantil</em>: 25% aller Werte sind kleiner</li>
 </ul>
 
-      </section></section><section class="section" id="section-17"><section class="slide" id="slide-17-1">
+      </section></section><section class="section" id="section-18"><section class="slide" id="slide-18-1">
         <h1 id="beispiel">Beispiel</h1>
 
-      </section><section class="slide" id="slide-17-2">
+      </section><section class="slide" id="slide-18-2">
         <h2 id="wechselkurse">Wechselkurse</h2>
 <p><a href="https://datahub.io/core/exchange-rates/r/daily.csv">https://datahub.io/core/exchange-rates/r/daily.csv</a></p>
 <p>Tägliche Wechselkurse zwischen USD und anderen Währungen</p>
 <p>Wir lesen die Daten ein und wandeln sie so um, dass sie eine Zuordnung von Kalenderdaten zu täglichen EUR-USD Kursen darstellen</p>
 
-      </section><section class="slide" id="slide-17-3">
+      </section><section class="slide" id="slide-18-3">
         <h2 id="wechselkurse">Wechselkurse</h2>
 <p>Lösung:</p>
 <pre><code class="language-py">er = pd.read_csv(
@@ -1166,10 +1249,21 @@ er_eur_dateindex = er_eur_full.set_index(<span class="hljs-string">'Date'</span>
 <span class="hljs-comment"># we can drop the country information</span>
 er_eur = er_eur_dateindex.loc[:, <span class="hljs-string">'Value'</span>]</code></pre>
 
-      </section></section><section class="section" id="section-18"><section class="slide" id="slide-18-1">
-        <h1 id="pandas-daten-setzen">Pandas: Daten setzen</h1>
+      </section></section><section class="section" id="section-19"><section class="slide" id="slide-19-1">
+        <h1 id="pandas-daten-manipulieren">Pandas: Daten manipulieren</h1>
 
-      </section><section class="slide" id="slide-18-2">
+      </section><section class="slide" id="slide-19-2">
+        <h2 id="spalten-umbenennen">Spalten umbenennen</h2>
+<pre><code class="language-py">df.columns = [<span class="hljs-string">"name1"</span>, <span class="hljs-string">"name2"</span>]</code></pre>
+
+      </section><section class="slide" id="slide-19-3">
+        <h2 id="daten-entfernen">Daten entfernen</h2>
+<p>Zeilen entfernen:</p>
+<pre><code class="language-py">df2 = df1.drop([<span class="hljs-string">"CN"</span>, <span class="hljs-string">"US"</span>])</code></pre>
+<p>Spalten entfernen:</p>
+<pre><code class="language-py">df2 = df1.drop(columns=[<span class="hljs-string">"pop"</span>])</code></pre>
+
+      </section><section class="slide" id="slide-19-4">
         <h2 id="abgeleitete-werte-berechnen">Abgeleitete Werte berechnen</h2>
 <pre><code class="language-py">iris[<span class="hljs-string">"sepal_ratio"</span>] = iris[<span class="hljs-string">"sepal_length"</span>] / iris[<span class="hljs-string">"sepal_width"</span>]
 
@@ -1183,16 +1277,28 @@ iris_setosa = iris.loc[
 iris_setosa[<span class="hljs-string">"sepal_ratio"</span>].mean()
 iris_setosa[<span class="hljs-string">"sepal_ratio"</span>].std()</code></pre>
 
-      </section><section class="slide" id="slide-18-3">
-        <h2 id="daten-setzen">Daten setzen</h2>
+      </section><section class="slide" id="slide-19-5">
+        <h2 id="abgeleitete-werte-berechnen-mittels-eigenen-funktionen">Abgeleitete Werte berechnen mittels eigenen Funktionen</h2>
+<pre><code class="language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">classifier</span><span class="hljs-params">(value)</span>:</span>
+    <span class="hljs-keyword">if</span> value &lt; <span class="hljs-number">2</span>:
+        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>
+    <span class="hljs-keyword">elif</span> value &lt; <span class="hljs-number">10</span>:
+        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>
+    <span class="hljs-keyword">else</span>:
+        <span class="hljs-keyword">return</span> <span class="hljs-number">2</span>
+
+df[<span class="hljs-string">"class"</span>] = df[<span class="hljs-string">"value"</span>].apply(classifier)</code></pre>
+
+      </section><section class="slide" id="slide-19-6">
+        <h2 id="einzelne-daten-setzen">Einzelne Daten setzen</h2>
 <pre><code class="language-py">iris.iloc[<span class="hljs-number">0</span>, <span class="hljs-number">0</span>] = <span class="hljs-number">6</span>
 
 iris.loc[:, <span class="hljs-string">"sepal_ratio"</span>] = float(<span class="hljs-string">'nan'</span>)</code></pre>
 
-      </section></section><section class="section" id="section-19"><section class="slide" id="slide-19-1">
+      </section></section><section class="section" id="section-20"><section class="slide" id="slide-20-1">
         <h1 id="fehlende-daten">Fehlende Daten</h1>
 
-      </section><section class="slide" id="slide-19-2">
+      </section><section class="slide" id="slide-20-2">
         <h2 id="fehlende-daten">Fehlende Daten</h2>
 <p>In den Wechselkursdaten fehlen manche Einträge:</p>
 <ul>
@@ -1200,7 +1306,7 @@ iris.loc[:, <span class="hljs-string">"sepal_ratio"</span>] = float(<span class=
 <li>manche Tage sind als <code>NaN</code>s eingetragen</li>
 </ul>
 
-      </section><section class="slide" id="slide-19-3">
+      </section><section class="slide" id="slide-20-3">
         <h2 id="fehlende-daten">Fehlende Daten</h2>
 <p>Entfernen aller Zeilen mit fehlenden Daten:</p>
 <pre><code class="language-py">er = er.dropna()</code></pre>
@@ -1209,7 +1315,7 @@ iris.loc[:, <span class="hljs-string">"sepal_ratio"</span>] = float(<span class=
 <p>Ersetzen aller fehlernder Daten mit Werten der Reihe zuvor:</p>
 <pre><code class="language-py">er = er.fillna(method=<span class="hljs-string">"backfill"</span>)</code></pre>
 
-      </section><section class="slide" id="slide-19-4">
+      </section><section class="slide" id="slide-20-4">
         <h2 id="fehlende-daten">Fehlende Daten</h2>
 <p>Daten interpolieren:</p>
 <pre><code class="language-py">er = er.intepolate()
@@ -1222,18 +1328,19 @@ ir_uk = pd.read_csv(url, index_col=<span class="hljs-string">"date"</span>,
 
 ir_uk_weekly = ir_uk.resample(<span class="hljs-string">'7d'</span>).interpolate()</code></pre>
 
-      </section><section class="slide" id="slide-19-5">
+      </section><section class="slide" id="slide-20-5">
         <h2 id="übung">Übung</h2>
 <p>Nutze die Daten aus <em>sp500</em> und <em>euribor</em>, um die Entwicklungen der europäischen und amerikanischen Zinssätze einander gegenüberzustellen.</p>
 
-      </section></section><section class="section" id="section-20"><section class="slide" id="slide-20-1">
+      </section></section><section class="section" id="section-21"><section class="slide" id="slide-21-1">
         <h1 id="kontingenztabelle">Kontingenztabelle</h1>
 
-      </section><section class="slide" id="slide-20-2">
+      </section><section class="slide" id="slide-21-2">
         <h2 id="kontingenztabelle">Kontingenztabelle</h2>
-<p>Eine <em>Kontingenztabelle</em> oder <em>Kreuztabelle</em> kann mittels <code>pd.crosstab</code> erstellt werden.</p>
+<p>Eine <em>Kontingenztabelle</em> oder <em>Kreuztabelle</em> gibt Anzahlen über mehrere Merkmale hinweg an.</p>
+<p>Sie kann mittels <code>pd.crosstab</code> erstellt werden.</p>
 
-      </section><section class="slide" id="slide-20-3">
+      </section><section class="slide" id="slide-21-3">
         <h2 id="kontingenztabelle">Kontingenztabelle</h2>
 <p>Beispiel:</p>
 <pre><code class="language-py"><span class="hljs-keyword">import</span> seaborn <span class="hljs-keyword">as</span> sns
@@ -1245,10 +1352,10 @@ pd.crosstab(titanic.survived, titanic.sex)</code></pre>
 survived              
 0             81   468
 1            233   109</code></pre>
-      </section></section><section class="section" id="section-21"><section class="slide" id="slide-21-1">
+      </section></section><section class="section" id="section-22"><section class="slide" id="slide-22-1">
         <h1 id="gruppierung">Gruppierung</h1>
 
-      </section><section class="slide" id="slide-21-2">
+      </section><section class="slide" id="slide-22-2">
         <h2 id="gruppierung">Gruppierung</h2>
 <p>Einteilung der Daten in Gruppen / Kategorien und berechnen von Werten auf deren Basis</p>
 <p>Beispiel: Durchschnittswerte der Iris-Daten basierend auf dem Namen der Art</p>
@@ -1258,19 +1365,19 @@ name
 Iris-setosa             5.006        3.418         1.464        0.244
 Iris-versicolor         5.936        2.770         4.260        1.326
 Iris-virginica          6.588        2.974         5.552        2.026</code></pre>
-      </section><section class="slide" id="slide-21-3">
+      </section><section class="slide" id="slide-22-3">
         <h2 id="gruppierung">Gruppierung</h2>
 <p>Aufgabe: Durchschnittliche USD-Wechselkurse für jede Währung in den 90ern</p>
 
-      </section></section><section class="section" id="section-22"><section class="slide" id="slide-22-1">
+      </section></section><section class="section" id="section-23"><section class="slide" id="slide-23-1">
         <h1 id="multi-index">Multi-Index</h1>
 
-      </section><section class="slide" id="slide-22-2">
+      </section><section class="slide" id="slide-23-2">
         <h2 id="multi-index">Multi-Index</h2>
 <p>Index-Spalte: Spalte, anhand deren Einträge die Zeilen eindeutig identifiziert werden können</p>
 <p>Multi-Index: Kombination aus mehreren Spalten zur eindeutigen Identifikation</p>
 
-      </section><section class="slide" id="slide-22-3">
+      </section><section class="slide" id="slide-23-3">
         <h2 id="multi-index">Multi-Index</h2>
 <p>Beispiel: Exchange rates</p>
 <table>
@@ -1299,7 +1406,7 @@ Iris-virginica          6.588        2.974         5.552        2.026</code></pr
 </tbody></table>
 <p>Eine Zeile kann durch Kombination von <em>date</em> und <em>country</em> eindeutig identifiziert werden.</p>
 
-      </section><section class="slide" id="slide-22-4">
+      </section><section class="slide" id="slide-23-4">
         <h2 id="multi-index">Multi-Index</h2>
 <p>Importieren mit Multi-Index:</p>
 <pre><code class="language-py">exchange_rates = pd.read_csv(
@@ -1307,22 +1414,16 @@ Iris-virginica          6.588        2.974         5.552        2.026</code></pr
     index_col=[<span class="hljs-string">"Country"</span>, <span class="hljs-string">"Date"</span>]
     parse_dates=[<span class="hljs-string">"Date"</span>])</code></pre>
 
-      </section></section><section class="section" id="section-23"><section class="slide" id="slide-23-1">
-        <h1 id="joins">Joins</h1>
-
-      </section><section class="slide" id="slide-23-2">
-        <h2 id="joins">Joins</h2>
-<p>Mit <em>joins</em> können mehrere <em>DataFrames</em> zusammengeführt werden.</p>
-<p><a href="https://jakevdp.github.io/PythonDataScienceHandbook/03.07-merge-and-join.html">https://jakevdp.github.io/PythonDataScienceHandbook/03.07-merge-and-join.html</a></p>
-
       </section></section><section class="section" id="section-24"><section class="slide" id="slide-24-1">
         <h1 id="numpy-fortgeschritten">NumPy Fortgeschritten</h1>
 
       </section><section class="slide" id="slide-24-2">
         <h2 id="form-von-arrays-ändern">Form von Arrays ändern</h2>
-<pre><code class="language-py">array_1d = array_3d.reshape(<span class="hljs-number">8</span>)
+<pre><code class="language-py">array_1d = array_3d.ravel()
+array_1d = array_3d.reshape(<span class="hljs-number">8</span>)
 array_2d = array_3d.reshape(<span class="hljs-number">2</span>, <span class="hljs-number">4</span>)
-array_2d = array_3d.reshape(<span class="hljs-number">2</span>, <span class="hljs-number">-1</span>) <span class="hljs-comment"># automatic second dimension</span></code></pre>
+array_2d = array_3d.reshape(<span class="hljs-number">2</span>, <span class="hljs-number">-1</span>) <span class="hljs-comment"># automatic second dimension</span>
+array_2d_transposed = array_2d.T</code></pre>
 
       </section><section class="slide" id="slide-24-3">
         <h2 id="dimensionalität-erhöhen">Dimensionalität erhöhen</h2>
@@ -1348,9 +1449,41 @@ array_view[<span class="hljs-number">0</span>] = <span class="hljs-number">10</s
 
       </section><section class="slide" id="slide-24-6">
         <h2 id="arrays-aneinanderfügen">Arrays aneinanderfügen</h2>
-<pre><code class="language-py">np.concatenate([a2d, a2d])
+<p>nebeineinander anfügen:</p>
+<pre><code class="language-py">np.concatenate([a2d, a2d])</code></pre>
+<p>untereinander anfügen:</p>
+<pre><code class="language-py">np.concatenate([a2d, a2d], axis=<span class="hljs-number">1</span>)</code></pre>
 
-np.concatenate([a2d, a2n], axis=<span class="hljs-number">1</span>)</code></pre>
+      </section><section class="slide" id="slide-24-7">
+        <h2 id="matrix-multiplikation">Matrix-Multiplikation</h2>
+<p>Matrix-Multiplikation kann durch den binären Operator <code>@</code> durchgeführt werden</p>
+<pre><code class="language-py">a = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">1</span>])
+
+M = np.array([[<span class="hljs-number">0.707</span>, <span class="hljs-number">0.707</span>],
+              [<span class="hljs-number">-0.707</span>, <span class="hljs-number">0.707</span>]])
+
+print(a @ M)
+<span class="hljs-comment"># array([0.   , 1.414])</span></code></pre>
+
+      </section><section class="slide" id="slide-24-8">
+        <h2 id="matrix-multiplikation">Matrix-Multiplikation</h2>
+<p>Rotation verschiedener Punkte um 45° gegen den Uhrzeigersinn:</p>
+<pre><code class="language-py">points = np.array([[<span class="hljs-number">0</span>, <span class="hljs-number">0</span>], [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>], [<span class="hljs-number">1</span>, <span class="hljs-number">0</span>], [<span class="hljs-number">1</span>, <span class="hljs-number">1</span>]])
+
+M = np.array([[<span class="hljs-number">0.707</span>, <span class="hljs-number">0.707</span>],
+              [<span class="hljs-number">-0.707</span>, <span class="hljs-number">0.707</span>]])
+
+print(points @ M)</code></pre>
+
+      </section><section class="slide" id="slide-24-9">
+        <h2 id="matrix-multiplikation">Matrix-Multiplikation</h2>
+<p>Preise verschiedener Produkte:</p>
+<pre><code class="language-py">prices = np.array([<span class="hljs-number">3.99</span>, <span class="hljs-number">12.99</span>, <span class="hljs-number">5.90</span>, <span class="hljs-number">15</span>])</code></pre>
+<p>Bestände in verschiedenen Lagern:</p>
+<pre><code class="language-py">quantities = np.array([[<span class="hljs-number">0</span>, <span class="hljs-number">80</span>, <span class="hljs-number">80</span>, <span class="hljs-number">100</span>],
+                       [<span class="hljs-number">100</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>],
+                       [<span class="hljs-number">50</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">50</span>]])</code></pre>
+<p>Gesucht: Warenwert pro Lager</p>
 
       </section></section><section class="section" id="section-25"><section class="slide" id="slide-25-1">
         <h1 id="machine-learning">Machine learning</h1>
