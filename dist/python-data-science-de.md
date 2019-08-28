@@ -315,7 +315,7 @@ Auswählen von Einträgen:
 a2d[0] # [1, 2, 3]
 a2d[0, 1] # 2
 a2d[0, :] # [1, 2, 3]
-a2d[:, 0] # [[1], [2], [3]]
+a2d[:, 0] # [1, 2, 3]
 ```
 
 ## Operationen auf Arrays
@@ -372,7 +372,7 @@ a == b
 # np.array([False, True, False])
 ```
 
-Achtung: `a == b` kann nicht sinnvoll in if-Abfragen verwendet werden - verwende `np.array_equals(a, b)`.
+Achtung: `a == b` kann nicht sinnvoll in if-Abfragen verwendet werden - verwende `np.array_equal(a, b)`.
 
 ## Operationen auf Arrays
 
