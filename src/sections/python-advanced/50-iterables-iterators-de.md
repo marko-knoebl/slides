@@ -32,7 +32,7 @@ Auch Iteratoren haben einen Iterator (sich selbst):
 ```py
 primes_iterator_iterator = primes_iterator.__iter__()
 
-print(primes_iterator_iterator == primes iterator) # True
+print(primes_iterator_iterator == primes_iterator) # True
 ```
 
 ## Iteratoren
@@ -157,7 +157,7 @@ mygenerator = (i*i for i in range(3))
 
 ## Generator-Expression
 
-Unterschiede zur List-Comprehension
+Unterschiede zur List-Comprehension:
 
 - weniger Resourcenverbrauch (Speicher, ...)
 - Durchlauf nur 1x und nach der Reihe

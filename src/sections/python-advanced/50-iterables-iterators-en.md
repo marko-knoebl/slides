@@ -32,7 +32,7 @@ An Iterator can also provide an iterator (itself):
 ```py
 primes_iterator_iterator = primes_iterator.__iter__()
 
-print(primes_iterator_iterator == primes iterator) # True
+print(primes_iterator_iterator == primes_iterator) # True
 ```
 
 ## Iterators

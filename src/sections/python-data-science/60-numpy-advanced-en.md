@@ -43,6 +43,7 @@ Arrays can be copied via `array.copy()`
 concatenating horizontally:
 
 ```py
+np.concatenate([a1d, a1d])
 np.concatenate([a2d, a2d])
 ```
 

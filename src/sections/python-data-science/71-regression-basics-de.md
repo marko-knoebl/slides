@@ -36,6 +36,7 @@ print(yfit)
 
 Iris-Datensatz: Abschätzen der _sepal width_ basierend auf der _sepal length_
 
-## Beispiele
-
-- Radverkehr
+```py
+from sklearn import datasets
+iris = datasets.load_iris()
+```

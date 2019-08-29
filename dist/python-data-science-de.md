@@ -1567,6 +1567,7 @@ Arrays können via `array.copy()` kopiert werden
 nebeineinander anfügen:
 
 ```py
+np.concatenate([a1d, a1d])
 np.concatenate([a2d, a2d])
 ```
 
@@ -1706,9 +1707,10 @@ print(yfit)
 
 Iris-Datensatz: Abschätzen der _sepal width_ basierend auf der _sepal length_
 
-## Beispiele
-
-- Radverkehr
+```py
+from sklearn import datasets
+iris = datasets.load_iris()
+```
 
 # Klassifizierung - Grundlagen
 
@@ -1724,9 +1726,10 @@ In diesem Fall verwenden wir einen _K-nearest-neighbors-Klassifikator_ als Algor
 
 ## Klassifizierung
 
-Vorbereiten der Daten:
+Trainieren des Algorithmus:
 
 ```py
+from sklearn.neighbors import KNeighborsClassifier
 from sklearn import datasets
 
 iris = datasets.load_iris()
@@ -1734,11 +1737,8 @@ iris = datasets.load_iris()
 X = iris.data
 y = iris.target
 
-test_data = [
-    [5.3, 3.4, 1.9, 0.6],
-    [6.0, 3.0, 4.7, 1.5],
-    [6.5, 3.1, 5.0, 1.7]
-]
+model = KNeighborsClassifier()
+model.fit(X, y)
 ```
 
 ## Klassifizierung
@@ -1746,10 +1746,11 @@ test_data = [
 Durchführen der Klassifizierung
 
 ```py
-from sklearn.neighbors import KNeighborsClassifier
-
-model = KNeighborsClassifier()
-model.fit(X, y)
+test_data = [
+    [5.3, 3.4, 1.9, 0.6],
+    [6.0, 3.0, 4.7, 1.5],
+    [6.5, 3.1, 5.0, 1.7]
+]
 
 y_pred = model.predict(test_data)
 print(y_pred)
@@ -1765,13 +1766,38 @@ Wir verwenden andere Klassifikatoren, wie etwa:
 - `DecisionTreeClassifier`
 - `GaussianNB`
 
+## Klassifizierung
+
+Bei vielen Klassifizierungsalgorithmen können auch Wahrscheinlichkeiten für die einzelnen Klassen angezeigt werden:
+
+```py
+model.predict_proba(test_data)
+```
+
+```py
+array([[1. , 0. , 0. ],
+       [0. , 0.8, 0.2],
+       [0. , 0.6, 0.4]])
+```
+
+Der erste Eintrag gehört sicher zur ersten Klasse, der letzte Eintrag gehört mit 60-prozentiger Sicherheit zur zweiten Klasse.
+
+# Regression und Klassifikation: Verfahren
+
+## Regression und Klassifikation: Verfahren
+
+- Instanziierung einer Algorithmenklasse, z.B. `LinerRegression`, `KNeighborsClassifier`, `DecisionTreeClassifier`, ...
+- Erstellen einer Eingangsmatrix `X` und eines Zielvektors `y`
+- "Lernen" mittels `model.fit(X, y)`
+- Voraussagen weiterer Ergebnisse mittels `model.predict(...)`
+
 # Validierung
 
 ## Train-Test Split
 
 Um zu validieren, ob ein Verfahren ein passendes Ergebnis liefert:
 
-Die Daten (X, y) werden in Trainingsdaten und Testdaten unterteilt. Die Testdaten dienen zur Validierung
+Die Daten (X, y) werden in Trainingsdaten und Testdaten unterteilt. Die Testdaten dienen zur Validierung.
 
 ## Train-Test Split
 
@@ -1790,9 +1816,38 @@ print(metrics.r2_score(y_prediction, y_test))
 
 Wir können einen Parameter `test_size` angeben, dessen Standardwert `0.25` ist (d.h. 25% der Daten werden zur Validierung verwendet)
 
+## Validierungsmetriken
+
+Regression:
+
+- `metrics.mean_squared_error(y_true, y_pred)` (mittlere quadratische Abweichung)
+- `metrics.r2_score(y_true, y_pred)` (R², Bestimmtheitsmaß)
+
+Klassifizierung:
+
+- `metrics.accuracy_score(y_true, y_pred)` (Anteil an richtig klassifizierten Einträgen)
+- `metrics.confusion_matrix(y_true, y_pred)` (Anteil an richtig / falsch klassifizierten Einträgen für jede Klasse)
+
+Siehe auch https://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics
+
+## Validierungsmetriken: Bestimmtheitsmaß
+
+Das Bestimmtheitsmaß (R²) gibt an, wie nahe die Interpolation an den Testdaten liegt:
+
+- R²=1 - perfekte Interpolation
+- R²=0 - Interpolation nicht besser als der einfache Durchschnitt
+- R²<0 - schlechter als der einfache Durchschnitt 
+
+## Validierung
+
+Aufgaben:
+
+- Validierung der Iris-Regression
+- Validierung der Iris-Klassifizierung
+
 ## Kreuzvalidierung
 
-Bei der cross-validation werden die Daten wiederholt in unterschiedliche Trainings- und Testdaten unterteilt, sodass jeder Eintrag einmal in den Testdaten vorkommt
+Bei der Kreuzvalidierung (cross-validation) werden die Daten wiederholt in unterschiedliche Trainings- und Testdaten unterteilt, sodass jeder Eintrag einmal in den Testdaten vorkommt.
 
 ```py
 from sklearn.model_selection import cross_validate
@@ -1803,65 +1858,7 @@ test_results = cross_validate(model, X, y, cv=5, scoring="r2")
 test_scores = test_results["test_score"]
 print(test_scores)
 # [ 0.61840428  0.72569954 -1.1742135   0.44294841  0.50589789]
-print(test_scores.mean())
 ```
-
-## Validierung
-
-Regression:
-
-- R2 score
-- mean squared error
-
-Klassifizierung:
-
-- Accuracy (Anteil an richtig klassifizierten Einträgen)
-- Confusion Matrix (Anteil an richtig / falsch klassifizierten Einträgen für jede Klasse)
-
-Siehe https://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics
-
-## Validierung
-
-Aufgabe: Validierung der Iris-Klassifizierung mittels eines einfachen Train-Test Splits
-
-## ROC
-
-_ROC_ = _Receiver Operating Characteristic_
-
-Ist eine Metrik, die bei einer ja/nein-Entscheidung zu einer Klassenzugehörigkeit ins Spiel kommt. Sie beschäftigt sich mit _true positives_ und _false positives_
-
-## ROC
-
-Beispiel: Die Erkennung der Klasse _iris versicolor_ kann z.B. folgendermaßen fein eingestellt werden (Daten sind erfunden):
-
-- Option 1: 60% der _iris versicolor_ werden richtig als solche erkannt
-- Option 2: 80% der _iris versicolor_ werden richtig als solche erkannt (aber auch 10% der _iris virginica_ werden fälschlicherweise als solche klassifiziert)
-- Option 3: 90% der _iris versicolor_ werden richtig als solche erkannt (aber auch 25% der _iris virginica_ werden fälschlicherweise als solche klassifiziert)
-
-Die ROC beschreibt den Zusammenhang von _true positives_ und _false positives_ und kann als Kurve dargestellt werden. Je größer die Fläche unter der Kurve (AUC), umso besser die Klassifizierung. 
-
-## ROC
-
-Zeichnen der ROC
-
-```py
-false_positive_rates, true_positive_rates, thresholds = metrics.roc_curve(
-    y_test,
-    classifier.predict_proba(X_test)[: 1]
-)
-
-plt.plot(false_positive_rate, true_positive_rate)
-```
-
-Bestimmen der Fläche unter der Kurve:
-
-```py
-auc = metrics.auc(false_positive_rates, true_positive_rates)
-```
-
-## ROC
-
-Aufgabe: Zeichne eine ROC für die Klassifikation von _iris setosa_
 
 # Daten vorbereiten
 
@@ -1874,6 +1871,23 @@ Aufgabe: Zeichne eine ROC für die Klassifikation von _iris setosa_
 
 Die Arrays `X` und `y` sollten numerische Daten enthalten
 
+## Daten vorbereiten
+
+Aufgaben:
+
+- Fehlende Daten ergänzen
+- Skalieren von Werten
+- Kategoriedaten in numerische Daten umwandeln
+- Textdaten in numerische Daten umwandeln
+
+## Daten vorbereiten
+
+Klassen zum vorbereiten der Daten besitzen folgende Methoden:
+
+- `.fit`: erlernt anhand vorgegebener Eingangsdaten (`X1`) eine passende Umwandlung für das Modell
+- `.transform`: wandelt gegebene Eingangsdaten (`X2`) anhand des gelernten in die neue Form um
+- `.fit_transform`: beides in einem Schritt (für die gleichen Daten)
+
 ## Fehlende Daten
 
 Fehlende Daten werden häufig in der Form von `NaN`s auftreten.
@@ -1883,9 +1897,27 @@ Mögliche Behandlungen:
 - Löschen aller Zeilen, die an irgendeiner Stelle undefinierte Werte enthalten
 - Interpolieren der fehlenden Werte durch andere Daten
 
+## Fehlende Daten: Interpolation
+
+```py
+import numpy as np
+from sklearn.impute import SimpleImputer
+X = np.array([[ np.nan, 0,   3  ],
+              [ 3,   7,   9  ],
+              [ 3,   5,   2  ],
+              [ 4,   np.nan, 6  ],
+              [ 8,   8,   1  ]])
+
+imputer = SimpleImputer(strategy="mean")
+imputer.fit(X)
+
+imputer.transform(X)
+imputer.transform(np.array([[np.nan, 1, 1]]))
+```
+
 ## Skalieren von Werten
 
-Welche dieser beiden Sterne ist der Sonne am ähnlichsten?
+Welcher dieser beiden Sterne ist der Sonne am ähnlichsten?
 
 ```py
 # data: radius (km), mass (kg), temparature (K)
@@ -1907,10 +1939,15 @@ import numpy as np
 X_train = np.array([[ 7.0e7, 2.0e30, 5.8e3],
                     [ 6.5e7, 3.0e30, 5.2e3],
                     [ 7.0e9, 2.5e30, 3.1e3]])
-X_scaled = preprocessing.scale(X_train)
+
+scaler = preprocessing.StandardScaler()
+scaler.fit(X_train)
+X_train_scaled = scaler.transform(X_train)
 ```
 
-Resultat:
+## Skalieren von Werten
+
+Skalierte Werte:
 
 ```py
 array([[-0.70634165, -1.22474487,  0.95025527],
@@ -1918,17 +1955,73 @@ array([[-0.70634165, -1.22474487,  0.95025527],
        [ 1.41421329,  0.        , -1.38218948]])
 ```
 
-## Kategoriedaten
+## Kategorien als Eingangsdaten
 
-Manchmal sind Kategorien als Eingangsdaten angegeben - z.B. Berufsgruppe, Messverfahren, ...
+Manchmal sind _Kategorien_ als Eingangsdaten angegeben - z.B. Land, Berufsgruppe, Messverfahren, ...
+
+Diese können in numerische Daten umgewandelt werden, indem jeder Kategorie eine Spalte mit booleschen Einträgen (0 / 1) zugeordnet wird.
+
+Dies geschieht z.B. mit `sklearn.preprocessing.LabelBinarizer`.
+
+## Kategorien als Eingangsdaten
+
+```py
+from sklearn.preprocessing import LabelBinarizer
+data = ['cold', 'cold', 'warm', 'cold', 'hot', 'hot']
+
+lb = LabelBinarizer()
+lb.fit(data)
+X = lb.transform(data)
+print(X)
+```
+
+```py
+array([[1, 0, 0],
+       [1, 0, 0],
+       [0, 0, 1],
+       [1, 0, 0],
+       [0, 1, 0],
+       [0, 1, 0]])
+```
 
 ## Textdaten
 
+Beispiel für das Preprocessing von Textdaten: Zählen von Worten
+
+```py
+from sklearn.feature_extraction.text import CountVectorizer
+
+sample = ['problem of evil',
+          'evil queen',
+          'horizon problem']
+
+vectorizer = CountVectorizer()
+vectorizer.fit(sample)
+print(vectorizer.vocabulary_)
+X = vectorizer.transform(sample)
+print(X)
+print(X.todense())
+```
+
 ## Pipelines
 
-- `Imputer`
-- `StandardScaler`
-- (`PolynomialFeatures` - mehr dazu später)
+Pipelines können aus mehreren transformierenden Algorithmen und einem vorhersagenden Algorithmus zusammengesetzt werden:
+
+```py
+from sklearn.pipeline import make_pipeline
+from sklearn.impute import SimpleImputer
+from sklearn.preprocessing import StandardScaler
+
+model = make_pipeline(
+    SimpleImputer(strategy='mean'),
+    StandardScaler,
+    LinearRegression()
+)
+```
+
+## Beispiel: Preprocessing von Textdaten (Newsgroups)
+
+[Multinomial Naive Bayes - Python Data Science Handbook](https://jakevdp.github.io/PythonDataScienceHandbook/05.05-naive-bayes.html#Multinomial-Naive-Bayes)
 
 # Regression
 
@@ -1938,9 +2031,10 @@ Bedeutet: Festlegen einer linearen Funktion, die die Datenpunkte bestmöglich ap
 
 ## Lineare Regression - Beispiele
 
-- [Radverkehr](https://jakevdp.github.io/PythonDataScienceHandbook/05.06-linear-regression.html)
 - Diabetes Vorhersage
-- Hauspreise in Boston
+- ([Radverkehr](https://jakevdp.github.io/PythonDataScienceHandbook/05.06-linear-regression.html#Example:-Predicting-Bicycle-Traffic))
+
+# Polynomiale Regression
 
 ## Polynomiale Regression
 
@@ -1968,17 +2062,16 @@ anscombe_2 = anscombe[anscombe.dataset == "II"]
 Wir nähern die Daten mit einer Polynomfunktion vom Grad 3 an:
 
 ```py
+from sklearn.preprocessing import PolynomialFeatures
 poly_model = make_pipeline(
     PolynomialFeatures(3),
-    linear_model.LinearRegression()
+    LinearRegression()
 )
 
 poly_model.fit(X, y)
 ```
 
 Aufgabe: Vergleiche die Ergebnisse einer einfachen Linearen Regression mit der polynomialen Regression.
-
-## Overfitting
 
 # Klassifizierung
 
@@ -2016,6 +2109,8 @@ Für einen neuen Datenpunkt wird dann errechnet, unter welcher der Verteilungen 
 
 Zwei wichtige Verteilungen sind die Normalverteilung (Gauß'sche Verteilung) für kontinuierliche Werte und die Multinomialverteilung für diskrete Werte (Ganzzahlen).
 
+[Python Data Science Handbook - Naive Bayes](https://jakevdp.github.io/PythonDataScienceHandbook/05.05-naive-bayes.html)
+
 ## Support Vector Machines
 
 Einfachster Fall: Trennung von Klassen durch Geraden / Ebenen / Hyperebenen - diese Trenner sollen von den getrennten Punkten maximalen Abstand haben.
@@ -2023,6 +2118,8 @@ Einfachster Fall: Trennung von Klassen durch Geraden / Ebenen / Hyperebenen - di
 Durch Kernelfunktionen können die Grenzen auch andere Formen annehmen, z.B. die von Kegelschnitten für polynomiale Kernel vom Grad 2 oder anderen Kurven.
 
 Siehe auch: https://scikit-learn.org/stable/modules/svm.html
+
+[Python Data Science Handbook - Support Vector Machines](https://jakevdp.github.io/PythonDataScienceHandbook/05.07-support-vector-machines.html)
 
 ## Entscheidungsbäume (Decision Trees)
 
@@ -2042,11 +2139,63 @@ Beispiel für einen Entscheidungsbaum für die Iris-Klassifizierung:
 
 Basierend auf Decision Trees: Die Daten werden in verschiedene Untermengen zerlegt. Mittels jeder Untermenge wird ein einzelner Decision Tree erstellt. Die Gesamtheit der Decision Trees wird zu einem sogenannten _Random Forest_ zusammengeführt.
 
+[Python Data Science Handbook - Decision Trees and Random Forests](https://jakevdp.github.io/PythonDataScienceHandbook/05.08-random-forests.html)
+
+## Klassifizierungsalgorithmen - Übersicht
+
+Mögliche Algorithmen:
+
+```py
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.naive_bayes import GaussianNB
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.linear_model import LogisticRegression
+from sklearn.svm import SVC
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
+```
+
+<!--
+```py
+LogisticRegression(solver="liblinear", multi_class="auto")
+SVC(gamma="scale")
+RandomForestClassifier(n_estimators=100)
+```
+-->
+
 ## Beispiele zur Klassifizierung
 
-- Erkennen von Ziffern
+- [Klassifizierung von Newsgroup-Postings (mittels Naive Bayes, logistischer Regression oder Decision Tree)](https://jakevdp.github.io/PythonDataScienceHandbook/05.05-naive-bayes.html#Multinomial-Naive-Bayes)
+- [Erkennen von Ziffern (Random Forest)](https://jakevdp.github.io/PythonDataScienceHandbook/05.08-random-forests.html#Example:-Random-Forest-for-Classifying-Digits)
 
-# Modellauswahl und Hyperparameter
+# Overfitting
+
+## Overfitting
+
+Mögliches Problem beim Lernen: Der Algorithmus ist zu flexibel und erkennt scheinbare Muster in zufälligen Schwankungen.
+
+Algorithmen, die anfällig für Overfitting sind:
+
+- Entscheidungsbäume
+- Polynomiale Regression
+
+## Overfitting - Lösungmöglichkeiten
+
+- Einschränkung der Flexibilität (z.B. Grad des Polynoms, Tiefe des Entscheidungsbaums)
+- Kombination mehrerer Entscheidungsbäume (Random Forest)
+- "Bestrafung" großer Koeffizienten bei der polynomialen Regression (L2- und L1-Regularisierung)
+
+Zur polynomialen Regression siehe: [Data Science Handbook - Regularization](https://jakevdp.github.io/PythonDataScienceHandbook/05.06-linear-regression.html#Regularization)
+
+# Modellbewertung & Verbesserung
+
+## Modellbewertung & Verbesserung
+
+Um das bestmögliche Modell zu bestimmen:
+
+- Testen mehrerer Algorithmen
+- Testen mehrerer Parameter für den Algorithmus
+- Testen, ob mehr Lerndaten zu besseren Ergebnissen führen
 
 siehe [Python Data Science Handbook → Hyperparameters and Model Validation → Selecting the Best Model](https://jakevdp.github.io/PythonDataScienceHandbook/05.03-hyperparameters-and-model-validation.html#Selecting-the-Best-Model)
 
@@ -2056,10 +2205,36 @@ siehe [Python Data Science Handbook → Hyperparameters and Model Validation →
 
 Beim Clustering handelt es sich um _unsupervised learning_. Solche Algorithmen haben keine Zieldaten (_y_), sondern suchen nur in den Ausgangsdaten nach einer bestimmten Struktur.
 
+Ziel von Clustering ist es, in vorhandenen Daten Gruppierungen (Cluster) von Datenpunkten zu finden.
+
 ## Clustering
 
 - _k-Means Clustering_
 - _Gaussian Mixture Models_
+
+## k-Means Clustering
+
+Zum Verfahren: Es werden im n-dimensionalen Raum gewisse Clusterzentren bestimmt. Ein Datenpunkt wird zu jenem Cluster gezählt, zu dessen Zentrum er den geringsten Abstand hat.
+
+Bestimmung der Clusterzentren:
+
+Initialisierung: zufällige Festlegung der Zentren
+
+Wiederholt:
+
+- bestimmen der Zugehörigkeit jedes Datenpunktes basierend auf den Zentren
+- neue Festlegung der Zentren als Mittel der ihm zugeordneten Punkte
+
+Dieses Verfahren konvergiert.
+
+[Python Data Science Handbook - k-Means Clustering](https://jakevdp.github.io/PythonDataScienceHandbook/05.11-k-means.html)
+
+## k-Means Clustering
+
+Beispiele:
+
+- [Anwendung auf Ziffern](https://jakevdp.github.io/PythonDataScienceHandbook/05.11-k-means.html#Example-1:-k-means-on-digits)
+- [Farbkomprimierung von Bildern](https://jakevdp.github.io/PythonDataScienceHandbook/05.11-k-means.html#Example-2:-k-means-for-color-compression)
 
 # Resources
 

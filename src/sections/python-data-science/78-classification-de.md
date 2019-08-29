@@ -34,6 +34,8 @@ Für einen neuen Datenpunkt wird dann errechnet, unter welcher der Verteilungen 
 
 Zwei wichtige Verteilungen sind die Normalverteilung (Gauß'sche Verteilung) für kontinuierliche Werte und die Multinomialverteilung für diskrete Werte (Ganzzahlen).
 
+[Python Data Science Handbook - Naive Bayes](https://jakevdp.github.io/PythonDataScienceHandbook/05.05-naive-bayes.html)
+
 ## Support Vector Machines
 
 Einfachster Fall: Trennung von Klassen durch Geraden / Ebenen / Hyperebenen - diese Trenner sollen von den getrennten Punkten maximalen Abstand haben.
@@ -41,6 +43,8 @@ Einfachster Fall: Trennung von Klassen durch Geraden / Ebenen / Hyperebenen - di
 Durch Kernelfunktionen können die Grenzen auch andere Formen annehmen, z.B. die von Kegelschnitten für polynomiale Kernel vom Grad 2 oder anderen Kurven.
 
 Siehe auch: https://scikit-learn.org/stable/modules/svm.html
+
+[Python Data Science Handbook - Support Vector Machines](https://jakevdp.github.io/PythonDataScienceHandbook/05.07-support-vector-machines.html)
 
 ## Entscheidungsbäume (Decision Trees)
 
@@ -60,6 +64,31 @@ Beispiel für einen Entscheidungsbaum für die Iris-Klassifizierung:
 
 Basierend auf Decision Trees: Die Daten werden in verschiedene Untermengen zerlegt. Mittels jeder Untermenge wird ein einzelner Decision Tree erstellt. Die Gesamtheit der Decision Trees wird zu einem sogenannten _Random Forest_ zusammengeführt.
 
+[Python Data Science Handbook - Decision Trees and Random Forests](https://jakevdp.github.io/PythonDataScienceHandbook/05.08-random-forests.html)
+
+## Klassifizierungsalgorithmen - Übersicht
+
+Mögliche Algorithmen:
+
+```py
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.naive_bayes import GaussianNB
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.linear_model import LogisticRegression
+from sklearn.svm import SVC
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
+```
+
+<!--
+```py
+LogisticRegression(solver="liblinear", multi_class="auto")
+SVC(gamma="scale")
+RandomForestClassifier(n_estimators=100)
+```
+-->
+
 ## Beispiele zur Klassifizierung
 
-- Erkennen von Ziffern
+- [Klassifizierung von Newsgroup-Postings (mittels Naive Bayes, logistischer Regression oder Decision Tree)](https://jakevdp.github.io/PythonDataScienceHandbook/05.05-naive-bayes.html#Multinomial-Naive-Bayes)
+- [Erkennen von Ziffern (Random Forest)](https://jakevdp.github.io/PythonDataScienceHandbook/05.08-random-forests.html#Example:-Random-Forest-for-Classifying-Digits)

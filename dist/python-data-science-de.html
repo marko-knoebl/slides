@@ -1450,7 +1450,8 @@ array_view[<span class="hljs-number">0</span>] = <span class="hljs-number">10</s
       </section><section class="slide" id="slide-24-6">
         <h2 id="arrays-aneinanderfügen">Arrays aneinanderfügen</h2>
 <p>nebeineinander anfügen:</p>
-<pre><code class="language-py">np.concatenate([a2d, a2d])</code></pre>
+<pre><code class="language-py">np.concatenate([a1d, a1d])
+np.concatenate([a2d, a2d])</code></pre>
 <p>untereinander anfügen:</p>
 <pre><code class="language-py">np.concatenate([a2d, a2d], axis=<span class="hljs-number">1</span>)</code></pre>
 
@@ -1569,12 +1570,8 @@ print(yfit)</code></pre>
       </section><section class="slide" id="slide-26-5">
         <h2 id="lineare-regression---beispiel">Lineare Regression - Beispiel</h2>
 <p>Iris-Datensatz: Abschätzen der <em>sepal width</em> basierend auf der <em>sepal length</em></p>
-
-      </section><section class="slide" id="slide-26-6">
-        <h2 id="beispiele">Beispiele</h2>
-<ul>
-<li>Radverkehr</li>
-</ul>
+<pre><code class="language-py"><span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> datasets
+iris = datasets.load_iris()</code></pre>
 
       </section></section><section class="section" id="section-27"><section class="slide" id="slide-27-1">
         <h1 id="klassifizierung---grundlagen">Klassifizierung - Grundlagen</h1>
@@ -1590,27 +1587,26 @@ print(yfit)</code></pre>
 
       </section><section class="slide" id="slide-27-4">
         <h2 id="klassifizierung">Klassifizierung</h2>
-<p>Vorbereiten der Daten:</p>
-<pre><code class="language-py"><span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> datasets
+<p>Trainieren des Algorithmus:</p>
+<pre><code class="language-py"><span class="hljs-keyword">from</span> sklearn.neighbors <span class="hljs-keyword">import</span> KNeighborsClassifier
+<span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> datasets
 
 iris = datasets.load_iris()
 
 X = iris.data
 y = iris.target
 
-test_data = [
-    [<span class="hljs-number">5.3</span>, <span class="hljs-number">3.4</span>, <span class="hljs-number">1.9</span>, <span class="hljs-number">0.6</span>],
-    [<span class="hljs-number">6.0</span>, <span class="hljs-number">3.0</span>, <span class="hljs-number">4.7</span>, <span class="hljs-number">1.5</span>],
-    [<span class="hljs-number">6.5</span>, <span class="hljs-number">3.1</span>, <span class="hljs-number">5.0</span>, <span class="hljs-number">1.7</span>]
-]</code></pre>
+model = KNeighborsClassifier()
+model.fit(X, y)</code></pre>
 
       </section><section class="slide" id="slide-27-5">
         <h2 id="klassifizierung">Klassifizierung</h2>
 <p>Durchführen der Klassifizierung</p>
-<pre><code class="language-py"><span class="hljs-keyword">from</span> sklearn.neighbors <span class="hljs-keyword">import</span> KNeighborsClassifier
-
-model = KNeighborsClassifier()
-model.fit(X, y)
+<pre><code class="language-py">test_data = [
+    [<span class="hljs-number">5.3</span>, <span class="hljs-number">3.4</span>, <span class="hljs-number">1.9</span>, <span class="hljs-number">0.6</span>],
+    [<span class="hljs-number">6.0</span>, <span class="hljs-number">3.0</span>, <span class="hljs-number">4.7</span>, <span class="hljs-number">1.5</span>],
+    [<span class="hljs-number">6.5</span>, <span class="hljs-number">3.1</span>, <span class="hljs-number">5.0</span>, <span class="hljs-number">1.7</span>]
+]
 
 y_pred = model.predict(test_data)
 print(y_pred)</code></pre>
@@ -1625,15 +1621,36 @@ print(y_pred)</code></pre>
 <li><code>GaussianNB</code></li>
 </ul>
 
+      </section><section class="slide" id="slide-27-7">
+        <h2 id="klassifizierung">Klassifizierung</h2>
+<p>Bei vielen Klassifizierungsalgorithmen können auch Wahrscheinlichkeiten für die einzelnen Klassen angezeigt werden:</p>
+<pre><code class="language-py">model.predict_proba(test_data)</code></pre>
+<pre><code class="language-py">array([[<span class="hljs-number">1.</span> , <span class="hljs-number">0.</span> , <span class="hljs-number">0.</span> ],
+       [<span class="hljs-number">0.</span> , <span class="hljs-number">0.8</span>, <span class="hljs-number">0.2</span>],
+       [<span class="hljs-number">0.</span> , <span class="hljs-number">0.6</span>, <span class="hljs-number">0.4</span>]])</code></pre>
+<p>Der erste Eintrag gehört sicher zur ersten Klasse, der letzte Eintrag gehört mit 60-prozentiger Sicherheit zur zweiten Klasse.</p>
+
       </section></section><section class="section" id="section-28"><section class="slide" id="slide-28-1">
-        <h1 id="validierung">Validierung</h1>
+        <h1 id="regression-und-klassifikation-verfahren">Regression und Klassifikation: Verfahren</h1>
 
       </section><section class="slide" id="slide-28-2">
+        <h2 id="regression-und-klassifikation-verfahren">Regression und Klassifikation: Verfahren</h2>
+<ul>
+<li>Instanziierung einer Algorithmenklasse, z.B. <code>LinerRegression</code>, <code>KNeighborsClassifier</code>, <code>DecisionTreeClassifier</code>, ...</li>
+<li>Erstellen einer Eingangsmatrix <code>X</code> und eines Zielvektors <code>y</code></li>
+<li>&quot;Lernen&quot; mittels <code>model.fit(X, y)</code></li>
+<li>Voraussagen weiterer Ergebnisse mittels <code>model.predict(...)</code></li>
+</ul>
+
+      </section></section><section class="section" id="section-29"><section class="slide" id="slide-29-1">
+        <h1 id="validierung">Validierung</h1>
+
+      </section><section class="slide" id="slide-29-2">
         <h2 id="train-test-split">Train-Test Split</h2>
 <p>Um zu validieren, ob ein Verfahren ein passendes Ergebnis liefert:</p>
-<p>Die Daten (X, y) werden in Trainingsdaten und Testdaten unterteilt. Die Testdaten dienen zur Validierung</p>
+<p>Die Daten (X, y) werden in Trainingsdaten und Testdaten unterteilt. Die Testdaten dienen zur Validierung.</p>
 
-      </section><section class="slide" id="slide-28-3">
+      </section><section class="slide" id="slide-29-3">
         <h2 id="train-test-split">Train-Test Split</h2>
 <p>Frage: wie gut approximiert unsere lineare Regression die Iris Daten?</p>
 <pre><code class="language-py"><span class="hljs-keyword">from</span> sklearn.model_selection <span class="hljs-keyword">import</span> train_test_split
@@ -1646,9 +1663,40 @@ X_train, X_test, y_train, y_test = train_test_split(X, y)
 print(metrics.r2_score(y_prediction, y_test))</code></pre>
 <p>Wir können einen Parameter <code>test_size</code> angeben, dessen Standardwert <code>0.25</code> ist (d.h. 25% der Daten werden zur Validierung verwendet)</p>
 
-      </section><section class="slide" id="slide-28-4">
+      </section><section class="slide" id="slide-29-4">
+        <h2 id="validierungsmetriken">Validierungsmetriken</h2>
+<p>Regression:</p>
+<ul>
+<li><code>metrics.mean_squared_error(y_true, y_pred)</code> (mittlere quadratische Abweichung)</li>
+<li><code>metrics.r2_score(y_true, y_pred)</code> (R², Bestimmtheitsmaß)</li>
+</ul>
+<p>Klassifizierung:</p>
+<ul>
+<li><code>metrics.accuracy_score(y_true, y_pred)</code> (Anteil an richtig klassifizierten Einträgen)</li>
+<li><code>metrics.confusion_matrix(y_true, y_pred)</code> (Anteil an richtig / falsch klassifizierten Einträgen für jede Klasse)</li>
+</ul>
+<p>Siehe auch <a href="https://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics">https://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics</a></p>
+
+      </section><section class="slide" id="slide-29-5">
+        <h2 id="validierungsmetriken-bestimmtheitsmaß">Validierungsmetriken: Bestimmtheitsmaß</h2>
+<p>Das Bestimmtheitsmaß (R²) gibt an, wie nahe die Interpolation an den Testdaten liegt:</p>
+<ul>
+<li>R²=1 - perfekte Interpolation</li>
+<li>R²=0 - Interpolation nicht besser als der einfache Durchschnitt</li>
+<li>R²&lt;0 - schlechter als der einfache Durchschnitt </li>
+</ul>
+
+      </section><section class="slide" id="slide-29-6">
+        <h2 id="validierung">Validierung</h2>
+<p>Aufgaben:</p>
+<ul>
+<li>Validierung der Iris-Regression</li>
+<li>Validierung der Iris-Klassifizierung</li>
+</ul>
+
+      </section><section class="slide" id="slide-29-7">
         <h2 id="kreuzvalidierung">Kreuzvalidierung</h2>
-<p>Bei der cross-validation werden die Daten wiederholt in unterschiedliche Trainings- und Testdaten unterteilt, sodass jeder Eintrag einmal in den Testdaten vorkommt</p>
+<p>Bei der Kreuzvalidierung (cross-validation) werden die Daten wiederholt in unterschiedliche Trainings- und Testdaten unterteilt, sodass jeder Eintrag einmal in den Testdaten vorkommt.</p>
 <pre><code class="language-py"><span class="hljs-keyword">from</span> sklearn.model_selection <span class="hljs-keyword">import</span> cross_validate
 
 ...
@@ -1656,62 +1704,12 @@ print(metrics.r2_score(y_prediction, y_test))</code></pre>
 test_results = cross_validate(model, X, y, cv=<span class="hljs-number">5</span>, scoring=<span class="hljs-string">"r2"</span>)
 test_scores = test_results[<span class="hljs-string">"test_score"</span>]
 print(test_scores)
-<span class="hljs-comment"># [ 0.61840428  0.72569954 -1.1742135   0.44294841  0.50589789]</span>
-print(test_scores.mean())</code></pre>
+<span class="hljs-comment"># [ 0.61840428  0.72569954 -1.1742135   0.44294841  0.50589789]</span></code></pre>
 
-      </section><section class="slide" id="slide-28-5">
-        <h2 id="validierung">Validierung</h2>
-<p>Regression:</p>
-<ul>
-<li>R2 score</li>
-<li>mean squared error</li>
-</ul>
-<p>Klassifizierung:</p>
-<ul>
-<li>Accuracy (Anteil an richtig klassifizierten Einträgen)</li>
-<li>Confusion Matrix (Anteil an richtig / falsch klassifizierten Einträgen für jede Klasse)</li>
-</ul>
-<p>Siehe <a href="https://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics">https://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics</a></p>
-
-      </section><section class="slide" id="slide-28-6">
-        <h2 id="validierung">Validierung</h2>
-<p>Aufgabe: Validierung der Iris-Klassifizierung mittels eines einfachen Train-Test Splits</p>
-
-      </section><section class="slide" id="slide-28-7">
-        <h2 id="roc">ROC</h2>
-<p><em>ROC</em> = <em>Receiver Operating Characteristic</em></p>
-<p>Ist eine Metrik, die bei einer ja/nein-Entscheidung zu einer Klassenzugehörigkeit ins Spiel kommt. Sie beschäftigt sich mit <em>true positives</em> und <em>false positives</em></p>
-
-      </section><section class="slide" id="slide-28-8">
-        <h2 id="roc">ROC</h2>
-<p>Beispiel: Die Erkennung der Klasse <em>iris versicolor</em> kann z.B. folgendermaßen fein eingestellt werden (Daten sind erfunden):</p>
-<ul>
-<li>Option 1: 60% der <em>iris versicolor</em> werden richtig als solche erkannt</li>
-<li>Option 2: 80% der <em>iris versicolor</em> werden richtig als solche erkannt (aber auch 10% der <em>iris virginica</em> werden fälschlicherweise als solche klassifiziert)</li>
-<li>Option 3: 90% der <em>iris versicolor</em> werden richtig als solche erkannt (aber auch 25% der <em>iris virginica</em> werden fälschlicherweise als solche klassifiziert)</li>
-</ul>
-<p>Die ROC beschreibt den Zusammenhang von <em>true positives</em> und <em>false positives</em> und kann als Kurve dargestellt werden. Je größer die Fläche unter der Kurve (AUC), umso besser die Klassifizierung. </p>
-
-      </section><section class="slide" id="slide-28-9">
-        <h2 id="roc">ROC</h2>
-<p>Zeichnen der ROC</p>
-<pre><code class="language-py">false_positive_rates, true_positive_rates, thresholds = metrics.roc_curve(
-    y_test,
-    classifier.predict_proba(X_test)[: <span class="hljs-number">1</span>]
-)
-
-plt.plot(false_positive_rate, true_positive_rate)</code></pre>
-<p>Bestimmen der Fläche unter der Kurve:</p>
-<pre><code class="language-py">auc = metrics.auc(false_positive_rates, true_positive_rates)</code></pre>
-
-      </section><section class="slide" id="slide-28-10">
-        <h2 id="roc">ROC</h2>
-<p>Aufgabe: Zeichne eine ROC für die Klassifikation von <em>iris setosa</em></p>
-
-      </section></section><section class="section" id="section-29"><section class="slide" id="slide-29-1">
+      </section></section><section class="section" id="section-30"><section class="slide" id="slide-30-1">
         <h1 id="daten-vorbereiten">Daten vorbereiten</h1>
 
-      </section><section class="slide" id="slide-29-2">
+      </section><section class="slide" id="slide-30-2">
         <h2 id="daten-vorbereiten">Daten vorbereiten</h2>
 <p>üblicherweise:</p>
 <ul>
@@ -1720,7 +1718,26 @@ plt.plot(false_positive_rate, true_positive_rate)</code></pre>
 </ul>
 <p>Die Arrays <code>X</code> und <code>y</code> sollten numerische Daten enthalten</p>
 
-      </section><section class="slide" id="slide-29-3">
+      </section><section class="slide" id="slide-30-3">
+        <h2 id="daten-vorbereiten">Daten vorbereiten</h2>
+<p>Aufgaben:</p>
+<ul>
+<li>Fehlende Daten ergänzen</li>
+<li>Skalieren von Werten</li>
+<li>Kategoriedaten in numerische Daten umwandeln</li>
+<li>Textdaten in numerische Daten umwandeln</li>
+</ul>
+
+      </section><section class="slide" id="slide-30-4">
+        <h2 id="daten-vorbereiten">Daten vorbereiten</h2>
+<p>Klassen zum vorbereiten der Daten besitzen folgende Methoden:</p>
+<ul>
+<li><code>.fit</code>: erlernt anhand vorgegebener Eingangsdaten (<code>X1</code>) eine passende Umwandlung für das Modell</li>
+<li><code>.transform</code>: wandelt gegebene Eingangsdaten (<code>X2</code>) anhand des gelernten in die neue Form um</li>
+<li><code>.fit_transform</code>: beides in einem Schritt (für die gleichen Daten)</li>
+</ul>
+
+      </section><section class="slide" id="slide-30-5">
         <h2 id="fehlende-daten">Fehlende Daten</h2>
 <p>Fehlende Daten werden häufig in der Form von <code>NaN</code>s auftreten.</p>
 <p>Mögliche Behandlungen:</p>
@@ -1729,9 +1746,25 @@ plt.plot(false_positive_rate, true_positive_rate)</code></pre>
 <li>Interpolieren der fehlenden Werte durch andere Daten</li>
 </ul>
 
-      </section><section class="slide" id="slide-29-4">
+      </section><section class="slide" id="slide-30-6">
+        <h2 id="fehlende-daten-interpolation">Fehlende Daten: Interpolation</h2>
+<pre><code class="language-py"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">from</span> sklearn.impute <span class="hljs-keyword">import</span> SimpleImputer
+X = np.array([[ np.nan, <span class="hljs-number">0</span>,   <span class="hljs-number">3</span>  ],
+              [ <span class="hljs-number">3</span>,   <span class="hljs-number">7</span>,   <span class="hljs-number">9</span>  ],
+              [ <span class="hljs-number">3</span>,   <span class="hljs-number">5</span>,   <span class="hljs-number">2</span>  ],
+              [ <span class="hljs-number">4</span>,   np.nan, <span class="hljs-number">6</span>  ],
+              [ <span class="hljs-number">8</span>,   <span class="hljs-number">8</span>,   <span class="hljs-number">1</span>  ]])
+
+imputer = SimpleImputer(strategy=<span class="hljs-string">"mean"</span>)
+imputer.fit(X)
+
+imputer.transform(X)
+imputer.transform(np.array([[np.nan, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>]]))</code></pre>
+
+      </section><section class="slide" id="slide-30-7">
         <h2 id="skalieren-von-werten">Skalieren von Werten</h2>
-<p>Welche dieser beiden Sterne ist der Sonne am ähnlichsten?</p>
+<p>Welcher dieser beiden Sterne ist der Sonne am ähnlichsten?</p>
 <pre><code class="language-py"><span class="hljs-comment"># data: radius (km), mass (kg), temparature (K)</span>
 sun =    [<span class="hljs-number">7.0e7</span>, <span class="hljs-number">2.0e30</span>, <span class="hljs-number">5.8e3</span>]
 
@@ -1739,7 +1772,7 @@ star_a = [<span class="hljs-number">6.5e7</span>, <span class="hljs-number">3.0e
 star_b = [<span class="hljs-number">7.0e8</span>, <span class="hljs-number">2.5e30</span>, <span class="hljs-number">8.1e3</span>]</code></pre>
 <p>Machine Learning Algorithmen wie z.B. k-Nearest-Neighbor betrachten Absolutwerte. Hier würde vom Algorithmus im wesentlichen nur die Masse herangezogen worden, da alle anderen Werte im Vergleich verschwindend gering sind.</p>
 
-      </section><section class="slide" id="slide-29-5">
+      </section><section class="slide" id="slide-30-8">
         <h2 id="skalieren-von-werten">Skalieren von Werten</h2>
 <p>Lösung: Die Werte werden zentriert und skaliert, sodass ihr Mittelwert 0 und die Standardabweichung 1 ist</p>
 <pre><code class="language-py"><span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> preprocessing
@@ -1747,52 +1780,100 @@ star_b = [<span class="hljs-number">7.0e8</span>, <span class="hljs-number">2.5e
 X_train = np.array([[ <span class="hljs-number">7.0e7</span>, <span class="hljs-number">2.0e30</span>, <span class="hljs-number">5.8e3</span>],
                     [ <span class="hljs-number">6.5e7</span>, <span class="hljs-number">3.0e30</span>, <span class="hljs-number">5.2e3</span>],
                     [ <span class="hljs-number">7.0e9</span>, <span class="hljs-number">2.5e30</span>, <span class="hljs-number">3.1e3</span>]])
-X_scaled = preprocessing.scale(X_train)</code></pre>
-<p>Resultat:</p>
+
+scaler = preprocessing.StandardScaler()
+scaler.fit(X_train)
+X_train_scaled = scaler.transform(X_train)</code></pre>
+
+      </section><section class="slide" id="slide-30-9">
+        <h2 id="skalieren-von-werten">Skalieren von Werten</h2>
+<p>Skalierte Werte:</p>
 <pre><code class="language-py">array([[<span class="hljs-number">-0.70634165</span>, <span class="hljs-number">-1.22474487</span>,  <span class="hljs-number">0.95025527</span>],
        [<span class="hljs-number">-0.70787163</span>,  <span class="hljs-number">1.22474487</span>,  <span class="hljs-number">0.43193421</span>],
        [ <span class="hljs-number">1.41421329</span>,  <span class="hljs-number">0.</span>        , <span class="hljs-number">-1.38218948</span>]])</code></pre>
 
-      </section><section class="slide" id="slide-29-6">
-        <h2 id="kategoriedaten">Kategoriedaten</h2>
-<p>Manchmal sind Kategorien als Eingangsdaten angegeben - z.B. Berufsgruppe, Messverfahren, ...</p>
+      </section><section class="slide" id="slide-30-10">
+        <h2 id="kategorien-als-eingangsdaten">Kategorien als Eingangsdaten</h2>
+<p>Manchmal sind <em>Kategorien</em> als Eingangsdaten angegeben - z.B. Land, Berufsgruppe, Messverfahren, ...</p>
+<p>Diese können in numerische Daten umgewandelt werden, indem jeder Kategorie eine Spalte mit booleschen Einträgen (0 / 1) zugeordnet wird.</p>
+<p>Dies geschieht z.B. mit <code>sklearn.preprocessing.LabelBinarizer</code>.</p>
 
-      </section><section class="slide" id="slide-29-7">
+      </section><section class="slide" id="slide-30-11">
+        <h2 id="kategorien-als-eingangsdaten">Kategorien als Eingangsdaten</h2>
+<pre><code class="language-py"><span class="hljs-keyword">from</span> sklearn.preprocessing <span class="hljs-keyword">import</span> LabelBinarizer
+data = [<span class="hljs-string">'cold'</span>, <span class="hljs-string">'cold'</span>, <span class="hljs-string">'warm'</span>, <span class="hljs-string">'cold'</span>, <span class="hljs-string">'hot'</span>, <span class="hljs-string">'hot'</span>]
+
+lb = LabelBinarizer()
+lb.fit(data)
+X = lb.transform(data)
+print(X)</code></pre>
+<pre><code class="language-py">array([[<span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>],
+       [<span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>],
+       [<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>],
+       [<span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>],
+       [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>],
+       [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>]])</code></pre>
+
+      </section><section class="slide" id="slide-30-12">
         <h2 id="textdaten">Textdaten</h2>
+<p>Beispiel für das Preprocessing von Textdaten: Zählen von Worten</p>
+<pre><code class="language-py"><span class="hljs-keyword">from</span> sklearn.feature_extraction.text <span class="hljs-keyword">import</span> CountVectorizer
 
-      </section><section class="slide" id="slide-29-8">
+sample = [<span class="hljs-string">'problem of evil'</span>,
+          <span class="hljs-string">'evil queen'</span>,
+          <span class="hljs-string">'horizon problem'</span>]
+
+vectorizer = CountVectorizer()
+vectorizer.fit(sample)
+print(vectorizer.vocabulary_)
+X = vectorizer.transform(sample)
+print(X)
+print(X.todense())</code></pre>
+
+      </section><section class="slide" id="slide-30-13">
         <h2 id="pipelines">Pipelines</h2>
-<ul>
-<li><code>Imputer</code></li>
-<li><code>StandardScaler</code></li>
-<li>(<code>PolynomialFeatures</code> - mehr dazu später)</li>
-</ul>
+<p>Pipelines können aus mehreren transformierenden Algorithmen und einem vorhersagenden Algorithmus zusammengesetzt werden:</p>
+<pre><code class="language-py"><span class="hljs-keyword">from</span> sklearn.pipeline <span class="hljs-keyword">import</span> make_pipeline
+<span class="hljs-keyword">from</span> sklearn.impute <span class="hljs-keyword">import</span> SimpleImputer
+<span class="hljs-keyword">from</span> sklearn.preprocessing <span class="hljs-keyword">import</span> StandardScaler
 
-      </section></section><section class="section" id="section-30"><section class="slide" id="slide-30-1">
+model = make_pipeline(
+    SimpleImputer(strategy=<span class="hljs-string">'mean'</span>),
+    StandardScaler,
+    LinearRegression()
+)</code></pre>
+
+      </section><section class="slide" id="slide-30-14">
+        <h2 id="beispiel-preprocessing-von-textdaten-newsgroups">Beispiel: Preprocessing von Textdaten (Newsgroups)</h2>
+<p><a href="https://jakevdp.github.io/PythonDataScienceHandbook/05.05-naive-bayes.html#Multinomial-Naive-Bayes">Multinomial Naive Bayes - Python Data Science Handbook</a></p>
+
+      </section></section><section class="section" id="section-31"><section class="slide" id="slide-31-1">
         <h1 id="regression">Regression</h1>
 
-      </section><section class="slide" id="slide-30-2">
+      </section><section class="slide" id="slide-31-2">
         <h2 id="lineare-regression">Lineare Regression</h2>
 <p>Bedeutet: Festlegen einer linearen Funktion, die die Datenpunkte bestmöglich approximiert (kleinste Quadratsumme)</p>
 
-      </section><section class="slide" id="slide-30-3">
+      </section><section class="slide" id="slide-31-3">
         <h2 id="lineare-regression---beispiele">Lineare Regression - Beispiele</h2>
 <ul>
-<li><a href="https://jakevdp.github.io/PythonDataScienceHandbook/05.06-linear-regression.html">Radverkehr</a></li>
 <li>Diabetes Vorhersage</li>
-<li>Hauspreise in Boston</li>
+<li>(<a href="https://jakevdp.github.io/PythonDataScienceHandbook/05.06-linear-regression.html#Example:-Predicting-Bicycle-Traffic">Radverkehr</a>)</li>
 </ul>
 
-      </section><section class="slide" id="slide-30-4">
+      </section></section><section class="section" id="section-32"><section class="slide" id="slide-32-1">
+        <h1 id="polynomiale-regression">Polynomiale Regression</h1>
+
+      </section><section class="slide" id="slide-32-2">
         <h2 id="polynomiale-regression">Polynomiale Regression</h2>
 <p>Manche Daten passen nicht in das Schema eines linearen Zusammenhangs <code>y = a*x + b</code>.</p>
 <p>Wir können z.B. versuchen, sie durch einen polynomialen Zusammenhang <code>y = a*x^2 + b*x + c</code> darzustellen.</p>
 
-      </section><section class="slide" id="slide-30-5">
+      </section><section class="slide" id="slide-32-3">
         <h2 id="polynomiale-regression">Polynomiale Regression</h2>
 <p>In scikit-learn können wir eine polynomiale Regression durch einen <em>Preprocessor</em> namens <code>PolynomialFeatures</code> durchführen.</p>
 
-      </section><section class="slide" id="slide-30-6">
+      </section><section class="slide" id="slide-32-4">
         <h2 id="polynomiale-regression">Polynomiale Regression</h2>
 <p>Als Beispieldaten verwenden wir den Datensatz <em>II</em> aus den sogenannten Anscombe Daten:</p>
 <pre><code class="language-py"><span class="hljs-keyword">import</span> seaborn <span class="hljs-keyword">as</span> sns
@@ -1800,24 +1881,22 @@ X_scaled = preprocessing.scale(X_train)</code></pre>
 anscombe = sns.load_dataset(<span class="hljs-string">"anscombe"</span>)
 anscombe_2 = anscombe[anscombe.dataset == <span class="hljs-string">"II"</span>]</code></pre>
 
-      </section><section class="slide" id="slide-30-7">
+      </section><section class="slide" id="slide-32-5">
         <h2 id="polynomiale-regression">Polynomiale Regression</h2>
 <p>Wir nähern die Daten mit einer Polynomfunktion vom Grad 3 an:</p>
-<pre><code class="language-py">poly_model = make_pipeline(
+<pre><code class="language-py"><span class="hljs-keyword">from</span> sklearn.preprocessing <span class="hljs-keyword">import</span> PolynomialFeatures
+poly_model = make_pipeline(
     PolynomialFeatures(<span class="hljs-number">3</span>),
-    linear_model.LinearRegression()
+    LinearRegression()
 )
 
 poly_model.fit(X, y)</code></pre>
 <p>Aufgabe: Vergleiche die Ergebnisse einer einfachen Linearen Regression mit der polynomialen Regression.</p>
 
-      </section><section class="slide" id="slide-30-8">
-        <h2 id="overfitting">Overfitting</h2>
-
-      </section></section><section class="section" id="section-31"><section class="slide" id="slide-31-1">
+      </section></section><section class="section" id="section-33"><section class="slide" id="slide-33-1">
         <h1 id="klassifizierung">Klassifizierung</h1>
 
-      </section><section class="slide" id="slide-31-2">
+      </section><section class="slide" id="slide-33-2">
         <h2 id="klassifizierungsalgorithmen">Klassifizierungsalgorithmen</h2>
 <ul>
 <li>K-Nearest-Neighbors</li>
@@ -1828,31 +1907,33 @@ poly_model.fit(X, y)</code></pre>
 </ul>
 <p>Siehe auch: <a href="https://scikit-learn.org/stable/auto_examples/classification/plot_classifier_comparison.html">classifier comparison von scikit-learn</a></p>
 
-      </section><section class="slide" id="slide-31-3">
+      </section><section class="slide" id="slide-33-3">
         <h2 id="k-nearest-neighbors">K-Nearest-Neighbors</h2>
 <p>Ein neuer Datenpunkt wird klassifiziert, indem seine nächsten Nachbarn betrachtet werden. Die bei diesen Nachbarn am häufigsten vorkommende Klasse wird auch für den Datenpunkt festgesetzt.</p>
 <p>Die Anzahl <code>k</code> der betrachteten Nachbarn kann festgesetzt werden (Standardwert = 5)</p>
 <p>Siehe auch: <a href="https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html#sklearn.neighbors.KNeighborsClassifier">https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html#sklearn.neighbors.KNeighborsClassifier</a></p>
 
-      </section><section class="slide" id="slide-31-4">
+      </section><section class="slide" id="slide-33-4">
         <h2 id="logistische-regression">Logistische Regression</h2>
 <p>An einer Grenze zwischen zwei Klassen wird mit Hilfe einer <em>logistischen Funktion</em> angegeben, wie groß die Wahrscheinlichkeit ist, dass der Datenpunkt zu der einen (bzw zu der anderen) Klasse gehört. Je nachdem, welche der Wahrscheinlichkeiten größer als 50% ist, wird die entsprechende Klasse zugewiesen.</p>
 <p>Die logistische Funktion selbst wird intern mittels Regression bestimmt (daher der Name).</p>
 <p>Beispiel: <a href="https://scikit-learn.org/stable/auto_examples/linear_model/plot_logistic.html#sphx-glr-auto-examples-linear-model-plot-logistic-py">https://scikit-learn.org/stable/auto_examples/linear_model/plot_logistic.html#sphx-glr-auto-examples-linear-model-plot-logistic-py</a></p>
 
-      </section><section class="slide" id="slide-31-5">
+      </section><section class="slide" id="slide-33-5">
         <h2 id="naive-bayes">Naive Bayes</h2>
 <p>Für die bekannten Klassen werden Wahrscheinlichkeitsverteilungen angenommen (z.B. Normalverteilung, Multinomialverteilung). Diese Verteilungen werden aus den Trainingsdaten hergeleitet.</p>
 <p>Für einen neuen Datenpunkt wird dann errechnet, unter welcher der Verteilungen er am ehesten auftreten würde.</p>
 <p>Zwei wichtige Verteilungen sind die Normalverteilung (Gauß&#39;sche Verteilung) für kontinuierliche Werte und die Multinomialverteilung für diskrete Werte (Ganzzahlen).</p>
+<p><a href="https://jakevdp.github.io/PythonDataScienceHandbook/05.05-naive-bayes.html">Python Data Science Handbook - Naive Bayes</a></p>
 
-      </section><section class="slide" id="slide-31-6">
+      </section><section class="slide" id="slide-33-6">
         <h2 id="support-vector-machines">Support Vector Machines</h2>
 <p>Einfachster Fall: Trennung von Klassen durch Geraden / Ebenen / Hyperebenen - diese Trenner sollen von den getrennten Punkten maximalen Abstand haben.</p>
 <p>Durch Kernelfunktionen können die Grenzen auch andere Formen annehmen, z.B. die von Kegelschnitten für polynomiale Kernel vom Grad 2 oder anderen Kurven.</p>
 <p>Siehe auch: <a href="https://scikit-learn.org/stable/modules/svm.html">https://scikit-learn.org/stable/modules/svm.html</a></p>
+<p><a href="https://jakevdp.github.io/PythonDataScienceHandbook/05.07-support-vector-machines.html">Python Data Science Handbook - Support Vector Machines</a></p>
 
-      </section><section class="slide" id="slide-31-7">
+      </section><section class="slide" id="slide-33-7">
         <h2 id="entscheidungsbäume-decision-trees">Entscheidungsbäume (Decision Trees)</h2>
 <p>Machine Learning Bibliotheken können sogenannte Entscheidungsbäume auf Basis von Trainingsdaten generieren.</p>
 <p>Beispiel für einen Entscheidungsbaum für die Iris-Klassifizierung:</p>
@@ -1872,35 +1953,108 @@ poly_model.fit(X, y)</code></pre>
 </li>
 </ul>
 
-      </section><section class="slide" id="slide-31-8">
+      </section><section class="slide" id="slide-33-8">
         <h2 id="random-forests">Random Forests</h2>
 <p>Basierend auf Decision Trees: Die Daten werden in verschiedene Untermengen zerlegt. Mittels jeder Untermenge wird ein einzelner Decision Tree erstellt. Die Gesamtheit der Decision Trees wird zu einem sogenannten <em>Random Forest</em> zusammengeführt.</p>
+<p><a href="https://jakevdp.github.io/PythonDataScienceHandbook/05.08-random-forests.html">Python Data Science Handbook - Decision Trees and Random Forests</a></p>
 
-      </section><section class="slide" id="slide-31-9">
+      </section><section class="slide" id="slide-33-9">
+        <h2 id="klassifizierungsalgorithmen---übersicht">Klassifizierungsalgorithmen - Übersicht</h2>
+<p>Mögliche Algorithmen:</p>
+<pre><code class="language-py"><span class="hljs-keyword">from</span> sklearn.neighbors <span class="hljs-keyword">import</span> KNeighborsClassifier
+<span class="hljs-keyword">from</span> sklearn.naive_bayes <span class="hljs-keyword">import</span> GaussianNB
+<span class="hljs-keyword">from</span> sklearn.naive_bayes <span class="hljs-keyword">import</span> MultinomialNB
+<span class="hljs-keyword">from</span> sklearn.linear_model <span class="hljs-keyword">import</span> LogisticRegression
+<span class="hljs-keyword">from</span> sklearn.svm <span class="hljs-keyword">import</span> SVC
+<span class="hljs-keyword">from</span> sklearn.tree <span class="hljs-keyword">import</span> DecisionTreeClassifier
+<span class="hljs-keyword">from</span> sklearn.ensemble <span class="hljs-keyword">import</span> RandomForestClassifier</code></pre>
+<!--
+```py
+LogisticRegression(solver="liblinear", multi_class="auto")
+SVC(gamma="scale")
+RandomForestClassifier(n_estimators=100)
+```
+-->
+
+
+      </section><section class="slide" id="slide-33-10">
         <h2 id="beispiele-zur-klassifizierung">Beispiele zur Klassifizierung</h2>
 <ul>
-<li>Erkennen von Ziffern</li>
+<li><a href="https://jakevdp.github.io/PythonDataScienceHandbook/05.05-naive-bayes.html#Multinomial-Naive-Bayes">Klassifizierung von Newsgroup-Postings (mittels Naive Bayes, logistischer Regression oder Decision Tree)</a></li>
+<li><a href="https://jakevdp.github.io/PythonDataScienceHandbook/05.08-random-forests.html#Example:-Random-Forest-for-Classifying-Digits">Erkennen von Ziffern (Random Forest)</a></li>
 </ul>
 
-      </section></section><section class="section" id="section-32"><section class="slide" id="slide-32-1">
-        <h1 id="modellauswahl-und-hyperparameter">Modellauswahl und Hyperparameter</h1>
+      </section></section><section class="section" id="section-34"><section class="slide" id="slide-34-1">
+        <h1 id="overfitting">Overfitting</h1>
+
+      </section><section class="slide" id="slide-34-2">
+        <h2 id="overfitting">Overfitting</h2>
+<p>Mögliches Problem beim Lernen: Der Algorithmus ist zu flexibel und erkennt scheinbare Muster in zufälligen Schwankungen.</p>
+<p>Algorithmen, die anfällig für Overfitting sind:</p>
+<ul>
+<li>Entscheidungsbäume</li>
+<li>Polynomiale Regression</li>
+</ul>
+
+      </section><section class="slide" id="slide-34-3">
+        <h2 id="overfitting---lösungmöglichkeiten">Overfitting - Lösungmöglichkeiten</h2>
+<ul>
+<li>Einschränkung der Flexibilität (z.B. Grad des Polynoms, Tiefe des Entscheidungsbaums)</li>
+<li>Kombination mehrerer Entscheidungsbäume (Random Forest)</li>
+<li>&quot;Bestrafung&quot; großer Koeffizienten bei der polynomialen Regression (L2- und L1-Regularisierung)</li>
+</ul>
+<p>Zur polynomialen Regression siehe: <a href="https://jakevdp.github.io/PythonDataScienceHandbook/05.06-linear-regression.html#Regularization">Data Science Handbook - Regularization</a></p>
+
+      </section></section><section class="section" id="section-35"><section class="slide" id="slide-35-1">
+        <h1 id="modellbewertung--verbesserung">Modellbewertung &amp; Verbesserung</h1>
+
+      </section><section class="slide" id="slide-35-2">
+        <h2 id="modellbewertung--verbesserung">Modellbewertung &amp; Verbesserung</h2>
+<p>Um das bestmögliche Modell zu bestimmen:</p>
+<ul>
+<li>Testen mehrerer Algorithmen</li>
+<li>Testen mehrerer Parameter für den Algorithmus</li>
+<li>Testen, ob mehr Lerndaten zu besseren Ergebnissen führen</li>
+</ul>
 <p>siehe <a href="https://jakevdp.github.io/PythonDataScienceHandbook/05.03-hyperparameters-and-model-validation.html#Selecting-the-Best-Model">Python Data Science Handbook → Hyperparameters and Model Validation → Selecting the Best Model</a></p>
 
-      </section></section><section class="section" id="section-33"><section class="slide" id="slide-33-1">
+      </section></section><section class="section" id="section-36"><section class="slide" id="slide-36-1">
         <h1 id="clustering">Clustering</h1>
 
-      </section><section class="slide" id="slide-33-2">
+      </section><section class="slide" id="slide-36-2">
         <h2 id="clustering">Clustering</h2>
 <p>Beim Clustering handelt es sich um <em>unsupervised learning</em>. Solche Algorithmen haben keine Zieldaten (<em>y</em>), sondern suchen nur in den Ausgangsdaten nach einer bestimmten Struktur.</p>
+<p>Ziel von Clustering ist es, in vorhandenen Daten Gruppierungen (Cluster) von Datenpunkten zu finden.</p>
 
-      </section><section class="slide" id="slide-33-3">
+      </section><section class="slide" id="slide-36-3">
         <h2 id="clustering">Clustering</h2>
 <ul>
 <li><em>k-Means Clustering</em></li>
 <li><em>Gaussian Mixture Models</em></li>
 </ul>
 
-      </section></section><section class="section" id="section-34"><section class="slide" id="slide-34-1">
+      </section><section class="slide" id="slide-36-4">
+        <h2 id="k-means-clustering">k-Means Clustering</h2>
+<p>Zum Verfahren: Es werden im n-dimensionalen Raum gewisse Clusterzentren bestimmt. Ein Datenpunkt wird zu jenem Cluster gezählt, zu dessen Zentrum er den geringsten Abstand hat.</p>
+<p>Bestimmung der Clusterzentren:</p>
+<p>Initialisierung: zufällige Festlegung der Zentren</p>
+<p>Wiederholt:</p>
+<ul>
+<li>bestimmen der Zugehörigkeit jedes Datenpunktes basierend auf den Zentren</li>
+<li>neue Festlegung der Zentren als Mittel der ihm zugeordneten Punkte</li>
+</ul>
+<p>Dieses Verfahren konvergiert.</p>
+<p><a href="https://jakevdp.github.io/PythonDataScienceHandbook/05.11-k-means.html">Python Data Science Handbook - k-Means Clustering</a></p>
+
+      </section><section class="slide" id="slide-36-5">
+        <h2 id="k-means-clustering">k-Means Clustering</h2>
+<p>Beispiele:</p>
+<ul>
+<li><a href="https://jakevdp.github.io/PythonDataScienceHandbook/05.11-k-means.html#Example-1:-k-means-on-digits">Anwendung auf Ziffern</a></li>
+<li><a href="https://jakevdp.github.io/PythonDataScienceHandbook/05.11-k-means.html#Example-2:-k-means-for-color-compression">Farbkomprimierung von Bildern</a></li>
+</ul>
+
+      </section></section><section class="section" id="section-37"><section class="slide" id="slide-37-1">
         <h1 id="resources">Resources</h1>
 <p>Pandas website: <a href="https://pandas.pydata.org/">https://pandas.pydata.org/</a></p>
 <p>Python Data Science Handbook: <a href="https://jakevdp.github.io/PythonDataScienceHandbook/">https://jakevdp.github.io/PythonDataScienceHandbook/</a></p>

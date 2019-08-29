@@ -1,14 +1,4 @@
-# Regression
-
-## Lineare Regression
-
-Bedeutet: Festlegen einer linearen Funktion, die die Datenpunkte bestmöglich approximiert (kleinste Quadratsumme)
-
-## Lineare Regression - Beispiele
-
-- [Radverkehr](https://jakevdp.github.io/PythonDataScienceHandbook/05.06-linear-regression.html)
-- Diabetes Vorhersage
-- Hauspreise in Boston
+# Polynomiale Regression
 
 ## Polynomiale Regression
 
@@ -36,14 +26,13 @@ anscombe_2 = anscombe[anscombe.dataset == "II"]
 Wir nähern die Daten mit einer Polynomfunktion vom Grad 3 an:
 
 ```py
+from sklearn.preprocessing import PolynomialFeatures
 poly_model = make_pipeline(
     PolynomialFeatures(3),
-    linear_model.LinearRegression()
+    LinearRegression()
 )
 
 poly_model.fit(X, y)
 ```
 
 Aufgabe: Vergleiche die Ergebnisse einer einfachen Linearen Regression mit der polynomialen Regression.
-
-## Overfitting
