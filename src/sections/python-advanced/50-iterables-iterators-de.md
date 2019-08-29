@@ -65,7 +65,7 @@ print(numbers_iterator.__next__()) # StopIteration
 
 Bekannte Möglichkeit:
 
-- aus Iterables (z.B. _list_, _range_ oder eigene Klasse) mittels `__iter__`
+- aus Iterables (z.B. _list_, _range_ oder _eigene Klasse_) mittels `__iter__`
 
 Weitere Möglichkeiten:
 

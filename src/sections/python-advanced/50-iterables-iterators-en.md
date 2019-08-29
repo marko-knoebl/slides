@@ -65,7 +65,7 @@ print(numbers_iterator.__next__()) # StopIteration
 
 We've seen:
 
-- creation from iterables (e.g. _list_, _range_, custom classes) via `__iter__`
+- creation from iterables (e.g. _list_, _range_, _custom classes_) via `__iter__`
 
 Other possibilities:
 

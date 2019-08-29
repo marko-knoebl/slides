@@ -382,9 +382,25 @@ fib = cache(fib)</code></pre>
 open_utf8 = partial(open, encoding=<span class="hljs-string">'UTF-8'</span>)</code></pre>
 
       </section></section><section class="section" id="section-6"><section class="slide" id="slide-6-1">
-        <h1 id="oop-properties">OOP: Properties</h1>
+        <h1 id="fortgeschrittene-objektorientierte-programmierung">Fortgeschrittene objektorientierte Programmierung</h1>
 
       </section><section class="slide" id="slide-6-2">
+        <h2 id="fortgeschrittene-objektorientierte-programmierung">Fortgeschrittene objektorientierte Programmierung</h2>
+<p>Beispiel: Klasse <em>Length</em></p>
+<pre><code class="language-py">a = Length(<span class="hljs-number">130</span>, <span class="hljs-string">"cm"</span>)
+a.value <span class="hljs-comment"># 130</span>
+a.unit <span class="hljs-comment"># cm</span>
+a.unit = <span class="hljs-string">"in"</span>
+a.value <span class="hljs-comment"># 51.18</span>
+print(a) <span class="hljs-comment"># 51.18 in</span>
+b = Length.from_string(<span class="hljs-string">"12cm"</span>)
+<span class="hljs-number">2</span> * b <span class="hljs-comment"># 24cm</span>
+b + a <span class="hljs-comment"># 142cm</span></code></pre>
+
+      </section></section><section class="section" id="section-7"><section class="slide" id="slide-7-1">
+        <h1 id="oop-properties">OOP: Properties</h1>
+
+      </section><section class="slide" id="slide-7-2">
         <h2 id="properties">Properties</h2>
 <p>Getter &amp; Setter (in Python unüblich, in anderen Sprachen verbreitet):</p>
 <pre><code class="language-py">r = Rectangle(length=<span class="hljs-number">3</span>, width=<span class="hljs-number">4</span>)
@@ -397,11 +413,11 @@ print(r.area) <span class="hljs-comment"># 12</span>
 r.length = <span class="hljs-number">4</span>
 print(r.area) <span class="hljs-comment"># 16</span></code></pre>
 
-      </section><section class="slide" id="slide-6-3">
+      </section><section class="slide" id="slide-7-3">
         <h2 id="properties">Properties</h2>
 <p>Übung: Umsetzen einer Klasse <code>Rectangle_gs</code> mit Gettern und Settern</p>
 
-      </section><section class="slide" id="slide-6-4">
+      </section><section class="slide" id="slide-7-4">
         <h2 id="properties">Properties</h2>
 <pre><code class="language-py"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Rectangle_gs</span>:</span>
     <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self, length, width)</span>:</span>
@@ -423,11 +439,11 @@ print(r.area) <span class="hljs-comment"># 16</span></code></pre>
     <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_area</span><span class="hljs-params">(self)</span>:</span>
         <span class="hljs-keyword">return</span> self._length * self._width</code></pre>
 
-      </section><section class="slide" id="slide-6-5">
+      </section><section class="slide" id="slide-7-5">
         <h2 id="properties">Properties</h2>
 <p>Mit Properties können wir das Auslesen oder Setzen von Attributen über eine Funktion &quot;umleiten&quot; - es kann also der Zugriff auf <code>r.area</code> im Hintergrund zum Ausführen einer Getter- oder Setterfunktion führen.</p>
 
-      </section><section class="slide" id="slide-6-6">
+      </section><section class="slide" id="slide-7-6">
         <h2 id="properties">Properties</h2>
 <pre><code class="language-py"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Rectangle</span>:</span>
     <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self, length, width)</span>:</span>
@@ -440,7 +456,7 @@ print(r.area) <span class="hljs-comment"># 16</span></code></pre>
     area = property(_get_area)</code></pre>
 <p><code>property</code> ist ein built-in, also ähnlich wie <code>print</code> immer verfügbar.</p>
 
-      </section><section class="slide" id="slide-6-7">
+      </section><section class="slide" id="slide-7-7">
         <h2 id="properties">Properties</h2>
 <p>Erweiterung: Setter für <em>area</em></p>
 <pre><code class="language-py"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Rectangle</span>:</span>
@@ -452,7 +468,7 @@ print(r.area) <span class="hljs-comment"># 16</span></code></pre>
 
     area = property(_get_area, _set_area)</code></pre>
 
-      </section><section class="slide" id="slide-6-8">
+      </section><section class="slide" id="slide-7-8">
         <h2 id="properties">Properties</h2>
 <p>Alternative Schreibweise mit Decorators:</p>
 <pre><code class="language-py"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Rectangle</span>:</span>
@@ -468,14 +484,14 @@ print(r.area) <span class="hljs-comment"># 16</span></code></pre>
     <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">area</span><span class="hljs-params">(self, new_area)</span>:</span>
         self.length = new_area / self.width</code></pre>
 
-      </section></section><section class="section" id="section-7"><section class="slide" id="slide-7-1">
+      </section></section><section class="section" id="section-8"><section class="slide" id="slide-8-1">
         <h1 id="oop-statische-attribute-und-methoden">OOP: Statische Attribute und Methoden</h1>
 
-      </section><section class="slide" id="slide-7-2">
+      </section><section class="slide" id="slide-8-2">
         <h2 id="klassenattribute-statische-attribute">Klassenattribute (statische Attribute)</h2>
 <p><em>Klassenattribute</em> sind Attribute, die nur auf der Klasse (nicht auf jeder Instanz) definiert sind - alle Instanzen teilen sich die Attribute.</p>
 
-      </section><section class="slide" id="slide-7-3">
+      </section><section class="slide" id="slide-8-3">
         <h2 id="klassenattribute-statische-attribute">Klassenattribute (statische Attribute)</h2>
 <p>Beispiel <code>Money</code>-Klasse: <code>_currency_data</code> kann von allen Instanzen verwendet werden.</p>
 <pre><code class="language-py"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Money</span>:</span>
@@ -489,7 +505,7 @@ print(r.area) <span class="hljs-comment"># 16</span></code></pre>
     <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self, ...)</span>:</span>
         ...</code></pre>
 
-      </section><section class="slide" id="slide-7-4">
+      </section><section class="slide" id="slide-8-4">
         <h2 id="statische-methoden">Statische Methoden</h2>
 <p>Muss eine Methode nicht auf die Daten einer bestimmten Instanz zugreifen, so kann sie als statische Methode deklariert werden.</p>
 <pre><code class="language-py"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Money</span>:</span>
@@ -503,7 +519,7 @@ print(r.area) <span class="hljs-comment"># 16</span></code></pre>
         <span class="hljs-keyword">raise</span> ValueError(<span class="hljs-string">f"unknown currency: <span class="hljs-subst">{code}</span>"</span>)</code></pre>
 <p>Beachte: Bei einer statischen Methode wird als erster Parameter nicht <code>self</code> übergeben - die Referenz auf die Instanz ist nicht vorhanden.</p>
 
-      </section><section class="slide" id="slide-7-5">
+      </section><section class="slide" id="slide-8-5">
         <h2 id="statische-methoden">Statische Methoden</h2>
 <p>Statische Methoden haben zwei wichtige Anwendungsbereiche:</p>
 <ul>
@@ -511,7 +527,7 @@ print(r.area) <span class="hljs-comment"># 16</span></code></pre>
 <li>Bündeln von Hilfsfunktionen mit einer Klasse: z.B. <code>_get_currency_data</code></li>
 </ul>
 
-      </section><section class="slide" id="slide-7-6">
+      </section><section class="slide" id="slide-8-6">
         <h2 id="klassenmethoden">Klassenmethoden</h2>
 <p>Um den folgenden Code für Vererbung portabler zu machen, wäre es sinnvoll, den Klassennamen (<code>Money</code>) nicht in der Methodendefinition zu erwähnen:</p>
 <pre><code class="language-py"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Money</span>:</span>
@@ -524,7 +540,7 @@ print(r.area) <span class="hljs-comment"># 16</span></code></pre>
                 <span class="hljs-keyword">return</span> currency
         <span class="hljs-keyword">raise</span> ValueError(<span class="hljs-string">f"unknown currency: <span class="hljs-subst">{code}</span>"</span>)</code></pre>
 
-      </section><section class="slide" id="slide-7-7">
+      </section><section class="slide" id="slide-8-7">
         <h2 id="klassenmethoden">Klassenmethoden</h2>
 <p>Klassenmethoden sind besondere statische Methoden, die die Möglichkeit bieten, unter einem allgemeinen Namen (üblicherweise <code>cls</code>) auf die Klasse zu verweisen:</p>
 <pre><code class="language-py"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Money</span>:</span>
@@ -537,16 +553,16 @@ print(r.area) <span class="hljs-comment"># 16</span></code></pre>
                 <span class="hljs-keyword">return</span> currency
         <span class="hljs-keyword">raise</span> ValueError(<span class="hljs-string">f"unknown currency: <span class="hljs-subst">{code}</span>"</span>)</code></pre>
 
-      </section></section><section class="section" id="section-8"><section class="slide" id="slide-8-1">
+      </section></section><section class="section" id="section-9"><section class="slide" id="slide-9-1">
         <h1 id="oop-magic-methods">OOP: Magic Methods</h1>
 
-      </section><section class="slide" id="slide-8-2">
+      </section><section class="slide" id="slide-9-2">
         <h2 id="magic-methods">Magic Methods</h2>
 <p>Besondere Methoden, die das Verhalten einer Klasse beeinflussen</p>
 <p>Beginnen und enden mit zwei Unterstrichen, z.B. <code>__init__</code></p>
 <p>Liste von magic Methods: <a href="https://docs.python.org/3/reference/datamodel.html#special-method-names">https://docs.python.org/3/reference/datamodel.html#special-method-names</a></p>
 
-      </section><section class="slide" id="slide-8-3">
+      </section><section class="slide" id="slide-9-3">
         <h2 id="magic-methods">Magic Methods</h2>
 <p>Methoden zur Umwandlung in Strings:</p>
 <ul>
@@ -554,9 +570,9 @@ print(r.area) <span class="hljs-comment"># 16</span></code></pre>
 <li><code>__str__</code>: &quot;schön&quot; zu lesen</li>
 </ul>
 
-      </section><section class="slide" id="slide-8-4">
+      </section><section class="slide" id="slide-9-4">
         <h2 id="magic-methods">Magic Methods</h2>
-<p>Methoden für mathematische operatoren:</p>
+<p>Methoden für mathematische Operatoren:</p>
 <ul>
 <li><code>__add__</code></li>
 <li><code>__mul__</code></li>
@@ -564,24 +580,24 @@ print(r.area) <span class="hljs-comment"># 16</span></code></pre>
 <li>...</li>
 </ul>
 
-      </section><section class="slide" id="slide-8-5">
+      </section><section class="slide" id="slide-9-5">
         <h2 id="magic-methods">Magic Methods</h2>
 <ul>
 <li><code>__call__</code></li>
 <li><code>__getitem__</code></li>
 </ul>
 
-      </section></section><section class="section" id="section-9"><section class="slide" id="slide-9-1">
+      </section></section><section class="section" id="section-10"><section class="slide" id="slide-10-1">
         <h1 id="oop-vererbung">OOP: Vererbung</h1>
 
-      </section><section class="slide" id="slide-9-2">
+      </section><section class="slide" id="slide-10-2">
         <h2 id="unterklassen-und-vererbungsreihenfolge">Unterklassen und Vererbungsreihenfolge</h2>
 
-      </section><section class="slide" id="slide-9-3">
+      </section><section class="slide" id="slide-10-3">
         <h2 id="super">super()</h2>
 <p>Proxy zu den Elternklassen</p>
 
-      </section><section class="slide" id="slide-9-4">
+      </section><section class="slide" id="slide-10-4">
         <h2 id="super">super()</h2>
 <p>ohne super:</p>
 <pre><code class="language-py"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Child</span><span class="hljs-params">(A, B)</span>:</span>
@@ -589,7 +605,7 @@ print(r.area) <span class="hljs-comment"># 16</span></code></pre>
         A.__init__(self)
         B.__init__(self)</code></pre>
 
-      </section><section class="slide" id="slide-9-5">
+      </section><section class="slide" id="slide-10-5">
         <h2 id="super">super()</h2>
 <p>Python 3:</p>
 <pre><code class="language-py"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Child</span><span class="hljs-params">(A, B)</span>:</span>
@@ -600,10 +616,10 @@ print(r.area) <span class="hljs-comment"># 16</span></code></pre>
     <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self)</span>:</span>
         super(Child, self).__init__()</code></pre>
 
-      </section></section><section class="section" id="section-10"><section class="slide" id="slide-10-1">
+      </section></section><section class="section" id="section-11"><section class="slide" id="slide-11-1">
         <h1 id="oop-vertiefung">OOP: Vertiefung</h1>
 
-      </section><section class="slide" id="slide-10-2">
+      </section><section class="slide" id="slide-11-2">
         <h2 id="klassendekoration">Klassendekoration</h2>
 <pre><code class="language-py"><span class="hljs-meta">@logattraccess</span>
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span><span class="hljs-params">()</span>:</span>
@@ -615,7 +631,7 @@ f = Foo()
 f.a <span class="hljs-comment"># prints: "get property 'a'"</span>
 f.b = <span class="hljs-number">3</span> <span class="hljs-comment"># prints: "set propery 'b'"</span></code></pre>
 
-      </section><section class="slide" id="slide-10-3">
+      </section><section class="slide" id="slide-11-3">
         <h2 id="instanzattribute-und-slots">Instanzattribute und Slots</h2>
 <p>Generell können beliebige Attribute festgesetzt werden:</p>
 <pre><code class="language-py">a.value = <span class="hljs-number">3</span></code></pre>
@@ -623,7 +639,7 @@ f.b = <span class="hljs-number">3</span> <span class="hljs-comment"># prints: "s
 <pre><code class="language-py"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Money</span><span class="hljs-params">()</span>:</span>
     __slots__ = [<span class="hljs-string">'currency'</span>, <span class="hljs-string">'amount'</span>]</code></pre>
 
-      </section><section class="slide" id="slide-10-4">
+      </section><section class="slide" id="slide-11-4">
         <h2 id="übungen">Übungen</h2>
 <ul>
 <li>Klasse &quot;Vector&quot;</li>
@@ -631,10 +647,10 @@ f.b = <span class="hljs-number">3</span> <span class="hljs-comment"># prints: "s
 <li>Klasse &quot;Dictionary&quot; (Wörterbuch)</li>
 </ul>
 
-      </section></section><section class="section" id="section-11"><section class="slide" id="slide-11-1">
+      </section></section><section class="section" id="section-12"><section class="slide" id="slide-12-1">
         <h1 id="iterables--iteratoren">Iterables &amp; Iteratoren</h1>
 
-      </section><section class="slide" id="slide-11-2">
+      </section><section class="slide" id="slide-12-2">
         <h2 id="iterable">Iterable</h2>
 <p>Ein Iterable ist ein Objekt, über das mittels <code>for o in my_iterable</code> iteriert werden kann.</p>
 <p>Beispiele für Iterables:</p>
@@ -645,12 +661,12 @@ f.b = <span class="hljs-number">3</span> <span class="hljs-comment"># prints: "s
 <li>Iteratoren</li>
 </ul>
 
-      </section><section class="slide" id="slide-11-3">
+      </section><section class="slide" id="slide-12-3">
         <h2 id="iteratoren">Iteratoren</h2>
 <p>Das Iterieren über Objekte erfolgt immer über einen sogenannten <em>Iterator</em> - ein Hilfsobjekt für die Iteration.</p>
 <p>Erhalten des Iterators via: <code>my_iterable.__iter__()</code>.</p>
 
-      </section><section class="slide" id="slide-11-4">
+      </section><section class="slide" id="slide-12-4">
         <h2 id="iteratoren">Iteratoren</h2>
 <p>Iterator einer Liste:</p>
 <pre><code class="language-py">primes = [<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">7</span>]
@@ -661,7 +677,7 @@ primes_iterator = primes.__iter__()</code></pre>
 
 print(primes_iterator_iterator == primes iterator) <span class="hljs-comment"># True</span></code></pre>
 
-      </section><section class="slide" id="slide-11-5">
+      </section><section class="slide" id="slide-12-5">
         <h2 id="iteratoren">Iteratoren</h2>
 <p>Iteratoren haben eine <code>__next__</code>-Methode, die jeweils das nächste Element der Iteration liefert.</p>
 <p>Beispiel:</p>
@@ -672,7 +688,7 @@ numbers_iterator = numbers.__iter__()
 print(numbers_iterator.__next__())
 print(numbers_iterator.__next__())</code></pre>
 
-      </section><section class="slide" id="slide-11-6">
+      </section><section class="slide" id="slide-12-6">
         <h2 id="iteratoren">Iteratoren</h2>
 <p>Wenn ein Iterator aufgebraucht ist, wird eine <code>StopIteration</code>-Exception ausgelöst.</p>
 <pre><code class="language-py">print(numbers_iterator.__next__()) <span class="hljs-comment"># 1</span>
@@ -680,11 +696,11 @@ print(numbers_iterator.__next__()) <span class="hljs-comment"># 2</span>
 print(numbers_iterator.__next__()) <span class="hljs-comment"># 3</span>
 print(numbers_iterator.__next__()) <span class="hljs-comment"># StopIteration</span></code></pre>
 
-      </section><section class="slide" id="slide-11-7">
+      </section><section class="slide" id="slide-12-7">
         <h2 id="iteratoren-erzeugen">Iteratoren erzeugen</h2>
 <p>Bekannte Möglichkeit:</p>
 <ul>
-<li>aus Iterables (z.B. <em>list</em>, <em>range</em> oder eigene Klasse) mittels <code>__iter__</code></li>
+<li>aus Iterables (z.B. <em>list</em>, <em>range</em> oder <em>eigene Klasse</em>) mittels <code>__iter__</code></li>
 </ul>
 <p>Weitere Möglichkeiten:</p>
 <ul>
@@ -693,7 +709,7 @@ print(numbers_iterator.__next__()) <span class="hljs-comment"># StopIteration</s
 <li>Funktion mit <code>yield</code></li>
 </ul>
 
-      </section><section class="slide" id="slide-11-8">
+      </section><section class="slide" id="slide-12-8">
         <h2 id="itertools">Itertools</h2>
 <p>Modul zum Erzeugen von Iteratoren</p>
 <ul>
@@ -703,14 +719,14 @@ print(numbers_iterator.__next__()) <span class="hljs-comment"># StopIteration</s
 </ul>
 <p><a href="https://docs.python.org/3/library/itertools.html">https://docs.python.org/3/library/itertools.html</a></p>
 
-      </section><section class="slide" id="slide-11-9">
+      </section><section class="slide" id="slide-12-9">
         <h2 id="itertools---beispiel-count">Itertools - Beispiel count</h2>
 <pre><code class="language-py"><span class="hljs-keyword">from</span> itertools <span class="hljs-keyword">import</span> count
 
 <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> count():
     print(i)</code></pre>
 
-      </section><section class="slide" id="slide-11-10">
+      </section><section class="slide" id="slide-12-10">
         <h2 id="iteratoren---beispiel-count">Iteratoren - Beispiel count</h2>
 <pre><code class="language-py"><span class="hljs-keyword">from</span> itertools <span class="hljs-keyword">import</span> count
 
@@ -719,7 +735,7 @@ c = count()
 c.__next__()
 c.__next__()</code></pre>
 
-      </section><section class="slide" id="slide-11-11">
+      </section><section class="slide" id="slide-12-11">
         <h2 id="iteratoren---beispiel-count">Iteratoren - Beispiel count</h2>
 <pre><code class="language-py"><span class="hljs-keyword">from</span> itertools <span class="hljs-keyword">import</span> count
 
@@ -728,7 +744,7 @@ c = count()
 next(c)
 next(c)</code></pre>
 
-      </section><section class="slide" id="slide-11-12">
+      </section><section class="slide" id="slide-12-12">
         <h2 id="iteratoren---beispiel-repeat">Iteratoren - Beispiel repeat</h2>
 <pre><code class="language-py"><span class="hljs-keyword">from</span> itertools <span class="hljs-keyword">import</span> repeat
 
@@ -737,7 +753,7 @@ r = repeat(<span class="hljs-string">'a'</span>, <span class="hljs-number">5</sp
 next(r)
 ...</code></pre>
 
-      </section><section class="slide" id="slide-11-13">
+      </section><section class="slide" id="slide-12-13">
         <h2 id="eigene-klasse">Eigene Klasse</h2>
 <p>Übungen:</p>
 <pre><code class="language-py"><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> random():
@@ -748,7 +764,7 @@ next(r)
 
 <span class="hljs-number">4</span> <span class="hljs-number">0</span> <span class="hljs-number">29</span> <span class="hljs-number">7</span> <span class="hljs-number">13</span> <span class="hljs-number">19</span></code></pre>
 
-      </section><section class="slide" id="slide-11-14">
+      </section><section class="slide" id="slide-12-14">
         <h2 id="generator-expression">Generator-Expression</h2>
 <p>Sehr ähnlich zur List-Comprehension</p>
 <pre><code class="language-py"><span class="hljs-comment"># list-comprehension</span>
@@ -757,7 +773,7 @@ mylist = [i*i <span class="hljs-keyword">for</span> i <span class="hljs-keyword"
 <span class="hljs-comment"># generator</span>
 mygenerator = (i*i <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">3</span>))</code></pre>
 
-      </section><section class="slide" id="slide-11-15">
+      </section><section class="slide" id="slide-12-15">
         <h2 id="generator-expression">Generator-Expression</h2>
 <p>Unterschiede zur List-Comprehension</p>
 <ul>
@@ -765,7 +781,7 @@ mygenerator = (i*i <span class="hljs-keyword">for</span> i <span class="hljs-key
 <li>Durchlauf nur 1x und nach der Reihe</li>
 </ul>
 
-      </section><section class="slide" id="slide-11-16">
+      </section><section class="slide" id="slide-12-16">
         <h2 id="yield">yield</h2>
 <p>Eine Funktion kann anstatt eines return-Statements ein yield-Statement enthalten und wird dann zum Generator</p>
 <pre><code class="language-py"><span class="hljs-comment"># eigener count-generator</span>
@@ -775,10 +791,10 @@ mygenerator = (i*i <span class="hljs-keyword">for</span> i <span class="hljs-key
         <span class="hljs-keyword">yield</span> i
         i += i</code></pre>
 
-      </section></section><section class="section" id="section-12"><section class="slide" id="slide-12-1">
+      </section></section><section class="section" id="section-13"><section class="slide" id="slide-13-1">
         <h1 id="schleifen">Schleifen</h1>
 
-      </section><section class="slide" id="slide-12-2">
+      </section><section class="slide" id="slide-13-2">
         <h2 id="for--else">for ... else</h2>
 <p>Einer for-Schleife kann eine optionale else-Klausel hinzugefügt werden - diese wird ausgeführt, wenn die Schleife ganz durchläuft - wenn also Python während des Ausführens nicht auf ein <code>break</code> (oder <code>return</code> oder ähnliches) stößt.</p>
 <p>Diese Funktionalität gibt es bei keiner anderen verbreiteten Programmiersprache; viele Python-Entwickler kennen sie auch nicht - Zitat vom Erfinder von Python:</p>
@@ -786,16 +802,16 @@ mygenerator = (i*i <span class="hljs-keyword">for</span> i <span class="hljs-key
 <p>I would not have the feature at all if I had to do it over.</p>
 </blockquote>
 
-      </section><section class="slide" id="slide-12-3">
+      </section><section class="slide" id="slide-13-3">
         <h2 id="beispiele">Beispiele</h2>
 <ul>
 <li><code>is_prime()</code> mit Schleifen und <code>for ... else</code></li>
 </ul>
 
-      </section></section><section class="section" id="section-13"><section class="slide" id="slide-13-1">
+      </section></section><section class="section" id="section-14"><section class="slide" id="slide-14-1">
         <h1 id="fortgeschrittene-datentypen">Fortgeschrittene Datentypen</h1>
 
-      </section><section class="slide" id="slide-13-2">
+      </section><section class="slide" id="slide-14-2">
         <h2 id="fortgeschrittene-datentypen">Fortgeschrittene Datentypen</h2>
 <ul>
 <li>set / frozenset</li>
@@ -803,10 +819,10 @@ mygenerator = (i*i <span class="hljs-keyword">for</span> i <span class="hljs-key
 <li>enum</li>
 </ul>
 
-      </section></section><section class="section" id="section-14"><section class="slide" id="slide-14-1">
+      </section></section><section class="section" id="section-15"><section class="slide" id="slide-15-1">
         <h1 id="set--frozenset">set &amp; frozenset</h1>
 
-      </section><section class="slide" id="slide-14-2">
+      </section><section class="slide" id="slide-15-2">
         <h2 id="set--frozenset">set &amp; frozenset</h2>
 <p>Set: ungeordnete Menge von Elementen (ohne Duplikate)</p>
 <p>Frozenset: unveränderliches set</p>
@@ -814,19 +830,19 @@ mygenerator = (i*i <span class="hljs-keyword">for</span> i <span class="hljs-key
 ingredients = set([<span class="hljs-string">"flour"</span>, <span class="hljs-string">"water"</span>, <span class="hljs-string">"salt"</span>, <span class="hljs-string">"yeast"</span>])
 ingredients = frozenset([<span class="hljs-string">"flour"</span>, <span class="hljs-string">"water"</span>, <span class="hljs-string">"salt"</span>, <span class="hljs-string">"yeast"</span>])</code></pre>
 
-      </section><section class="slide" id="slide-14-3">
+      </section><section class="slide" id="slide-15-3">
         <h2 id="set">set</h2>
 <p>Sets können insbesondere Listen Ersetzen, wenn die Reihenfolge nicht von Bedeutung sein soll.</p>
 <pre><code class="language-py">ingredients1 = {<span class="hljs-string">"flour"</span>, <span class="hljs-string">"water"</span>, <span class="hljs-string">"salt"</span>, <span class="hljs-string">"yeast"</span>}
 ingredients2 = {<span class="hljs-string">"water"</span>, <span class="hljs-string">"salt"</span>, <span class="hljs-string">"flour"</span>, <span class="hljs-string">"yeast"</span>}
 ingredients1 == ingredients2 <span class="hljs-comment"># True</span></code></pre>
 
-      </section><section class="slide" id="slide-14-4">
+      </section><section class="slide" id="slide-15-4">
         <h2 id="set">set</h2>
 <p>Achtung: Ein leeres set erstellen wir immer mittels <code>set()</code>.</p>
 <p>Warum ergibt der Ausdruck <code>{}</code> kein leeres set?</p>
 
-      </section><section class="slide" id="slide-14-5">
+      </section><section class="slide" id="slide-15-5">
         <h2 id="operationen-auf-sets">Operationen auf Sets</h2>
 <pre><code class="language-py">x = set(<span class="hljs-string">'abc'</span>)
 y = set(<span class="hljs-string">'aeiou'</span>)
@@ -835,7 +851,7 @@ x &amp; y
 x - y
 x &lt;= y</code></pre>
 
-      </section><section class="slide" id="slide-14-6">
+      </section><section class="slide" id="slide-15-6">
         <h2 id="beispiel-nachbarländer-in-nordamerika">Beispiel: Nachbarländer in Nordamerika</h2>
 <pre><code class="language-py">countries = {
     <span class="hljs-string">"Canada"</span>, <span class="hljs-string">"USA"</span>, <span class="hljs-string">"Mexico"</span>, <span class="hljs-string">"Guatemala"</span>, <span class="hljs-string">"Belize"</span>,
@@ -855,13 +871,13 @@ neighbors = [
     {<span class="hljs-string">"Costa Rica"</span>, <span class="hljs-string">"Panama"</span>}
 ]</code></pre>
 
-      </section><section class="slide" id="slide-14-7">
+      </section><section class="slide" id="slide-15-7">
         <h2 id="aufgabe-route-von-einem-land-in-ein-anderes">Aufgabe: &quot;Route&quot; von einem Land in ein anderes</h2>
 
-      </section></section><section class="section" id="section-15"><section class="slide" id="slide-15-1">
+      </section></section><section class="section" id="section-16"><section class="slide" id="slide-16-1">
         <h1 id="namedtuple">namedtuple</h1>
 
-      </section><section class="slide" id="slide-15-2">
+      </section><section class="slide" id="slide-16-2">
         <h2 id="namedtuple">namedtuple</h2>
 <p>Beispiel:</p>
 <pre><code class="language-py"><span class="hljs-keyword">from</span> collections <span class="hljs-keyword">import</span> namedtuple
@@ -873,10 +889,10 @@ p = Point(<span class="hljs-number">11</span>, y=<span class="hljs-number">22</s
 print(p[<span class="hljs-number">0</span>])
 print(p.x)</code></pre>
 
-      </section></section><section class="section" id="section-16"><section class="slide" id="slide-16-1">
+      </section></section><section class="section" id="section-17"><section class="slide" id="slide-17-1">
         <h1 id="enum">Enum</h1>
 
-      </section><section class="slide" id="slide-16-2">
+      </section><section class="slide" id="slide-17-2">
         <h2 id="enum">Enum</h2>
 <p>Enum = eine Sammlung Symbolischer Namen, die z.B. anstatt vorgegebener Strings verwendet werden kann.</p>
 <p>Verwendung eines Strings:</p>
@@ -885,7 +901,7 @@ print(p.x)</code></pre>
 <pre><code class="language-py">a = Button(position=Position.left)</code></pre>
 <p>Enums können Tippfehler vermeiden und Autovervollständigung erleichtern.</p>
 
-      </section><section class="slide" id="slide-16-3">
+      </section><section class="slide" id="slide-17-3">
         <h2 id="enum">Enum</h2>
 <p>Definieren eines Enums:</p>
 <pre><code class="language-py"><span class="hljs-keyword">from</span> enum <span class="hljs-keyword">import</span> Enum
@@ -896,10 +912,10 @@ print(p.x)</code></pre>
     DOWN = <span class="hljs-number">3</span>
     LEFT = <span class="hljs-number">4</span></code></pre>
 
-      </section></section><section class="section" id="section-17"><section class="slide" id="slide-17-1">
+      </section></section><section class="section" id="section-18"><section class="slide" id="slide-18-1">
         <h1 id="prallelisierung-threads--multiprocessing">Prallelisierung: Threads &amp; Multiprocessing</h1>
 
-      </section><section class="slide" id="slide-17-2">
+      </section><section class="slide" id="slide-18-2">
         <h2 id="threads--multiprocessing---wozu">Threads &amp; Multiprocessing - wozu?</h2>
 <p>Threads:</p>
 <ul>
@@ -912,23 +928,23 @@ print(p.x)</code></pre>
 </ul>
 <p>Vorteil von Threading: einfacher, Variablen können direkt verändert werden</p>
 
-      </section><section class="slide" id="slide-17-3">
+      </section><section class="slide" id="slide-18-3">
         <h2 id="threads">Threads</h2>
 <p>Python schaltet wiederholt zwischen parallel laufenden Threads um, sodass diese scheinbar parallel laufen.<br>In Wahrheit ist aber zu jedem Zeitpunkt nur ein Thread aktiv (Global Interpreter Lock - GIL)</p>
 <p>Zwei Threads können auf die gleichen Daten zugreifen</p>
 
-      </section><section class="slide" id="slide-17-4">
+      </section><section class="slide" id="slide-18-4">
         <h2 id="neuen-thread-starten">neuen Thread starten</h2>
 <pre><code class="language-py"><span class="hljs-keyword">from</span> threading <span class="hljs-keyword">import</span> Thread
 
 my_thread = Thread(target=<span class="hljs-keyword">print</span>, args=(<span class="hljs-string">'hello'</span>, ), kwargs={end: <span class="hljs-string">""</span>})
 my_thread.start()</code></pre>
 
-      </section><section class="slide" id="slide-17-5">
+      </section><section class="slide" id="slide-18-5">
         <h2 id="auf-beendigung-des-threads-warten">auf beendigung des Threads warten</h2>
 <pre><code class="language-py">my_thread.join()</code></pre>
 
-      </section><section class="slide" id="slide-17-6">
+      </section><section class="slide" id="slide-18-6">
         <h2 id="beispiel-wiederholtes-printen">Beispiel: wiederholtes printen</h2>
 <pre><code class="language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">print_multiple</span><span class="hljs-params">(text, n)</span>:</span>
     <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(n):
@@ -941,7 +957,7 @@ thread_b.start()
 thread_a.join()
 thread_b.join()</code></pre>
 
-      </section><section class="slide" id="slide-17-7">
+      </section><section class="slide" id="slide-18-7">
         <h2 id="übung-iterationen-in-thread">Übung: Iterationen in Thread</h2>
 <p>Wir schreiben ein Programm, das zwei Threads (a und b) ausführt. Die zwei Threads enthalten Schleifen, welche mitzählen, wie oft sie aufgerufen wurden.</p>
 <p>Beispielausgabe:</p>
@@ -951,25 +967,25 @@ thread_b.join()</code></pre>
 20254 iterations <span class="hljs-keyword">in</span> thread b
 829 iterations <span class="hljs-keyword">in</span> thread a</code></pre>
 
-      </section><section class="slide" id="slide-17-8">
+      </section><section class="slide" id="slide-18-8">
         <h2 id="locks">Locks</h2>
 <p>für bestimmte Zeit auf einen Thread beschränken (zB um mehrere Dinge zu printen) - andere Threads sind währenddessen blockiert</p>
 
-      </section><section class="slide" id="slide-17-9">
+      </section><section class="slide" id="slide-18-9">
         <h2 id="locks">Locks</h2>
 <p>Im ganzen Programm sollte es nur 1 Lock-Objekt geben</p>
 <pre><code class="language-py"><span class="hljs-keyword">from</span> threading <span class="hljs-keyword">import</span> Lock
 
 l = Lock()</code></pre>
 
-      </section><section class="slide" id="slide-17-10">
+      </section><section class="slide" id="slide-18-10">
         <h2 id="locks">Locks</h2>
 <pre><code class="language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">print_multiple_locked</span><span class="hljs-params">(text, n)</span>:</span>
     <span class="hljs-keyword">with</span> l:
         <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(n):
             print(text, end=<span class="hljs-string">""</span>)</code></pre>
 
-      </section><section class="slide" id="slide-17-11">
+      </section><section class="slide" id="slide-18-11">
         <h2 id="threads---beispiel">Threads - Beispiel</h2>
 <pre><code class="language-py">threads = []
 
@@ -982,14 +998,14 @@ l = Lock()</code></pre>
     thread.join()
 print(<span class="hljs-string">'all threads finished'</span>)</code></pre>
 
-      </section><section class="slide" id="slide-17-12">
+      </section><section class="slide" id="slide-18-12">
         <h2 id="threads-und-xkcd-download">Threads und xkcd-Download</h2>
 <p>Aufgabe: die xkcd-Comics 100-109 herunterladen - einmal sequenziell und einmal parallel</p>
 
-      </section><section class="slide" id="slide-17-13">
+      </section><section class="slide" id="slide-18-13">
         <h2 id="multiprocessing">Multiprocessing</h2>
 
-      </section><section class="slide" id="slide-17-14">
+      </section><section class="slide" id="slide-18-14">
         <h2 id="funktionen-in-eigenen-prozessen-starten">Funktionen in eigenen Prozessen starten</h2>
 <p>Python ermöglicht es, eine Funktion jeweils in einem eigenen Prozess laufen zu lassen.</p>
 <pre><code class="language-py"><span class="hljs-keyword">from</span> multiprocessing <span class="hljs-keyword">import</span> Process
@@ -998,7 +1014,7 @@ print(<span class="hljs-string">'all threads finished'</span>)</code></pre>
     p = Process(target=hello)
     p.start()</code></pre>
 
-      </section><section class="slide" id="slide-17-15">
+      </section><section class="slide" id="slide-18-15">
         <h2 id="funktionen-in-eigenen-prozessen-starten">Funktionen in eigenen Prozessen starten</h2>
 <pre><code class="language-py"><span class="hljs-keyword">from</span> multiprocessing <span class="hljs-keyword">import</span> Process
 
@@ -1011,22 +1027,22 @@ print(<span class="hljs-string">'all threads finished'</span>)</code></pre>
     <span class="hljs-keyword">for</span> process <span class="hljs-keyword">in</span> processes:
         process.join()</code></pre>
 
-      </section><section class="slide" id="slide-17-16">
+      </section><section class="slide" id="slide-18-16">
         <h2 id="pools">Pools</h2>
 <p>Für gleichartige Verarbeitung mehrerer Daten, die gleichzeitig gestartet wird.</p>
 <p>Beispiel: Alle Bilder in einem Verzeichnis verarbeiten</p>
 
-      </section><section class="slide" id="slide-17-17">
+      </section><section class="slide" id="slide-18-17">
         <h2 id="aufgabe-fibonaccizahlen-mit-map-1-prozess">Aufgabe: Fibonaccizahlen mit map() (1 Prozess)</h2>
 <p>Ausgangswert: <code>[0, 1, 2, 3, 4, 5, 6, ...]</code></p>
 <p>Rückgabewert: <code>[0, 1, 1, 2, 3, 5, 8, ...]</code></p>
 
-      </section><section class="slide" id="slide-17-18">
+      </section><section class="slide" id="slide-18-18">
         <h2 id="pools">Pools</h2>
 <pre><code class="language-py"><span class="hljs-keyword">with</span> Pool(processes=<span class="hljs-number">4</span>) <span class="hljs-keyword">as</span> pool:
     print(pool.map(fib, range(<span class="hljs-number">1000</span>, <span class="hljs-number">1100</span>)))</code></pre>
 
-      </section><section class="slide" id="slide-17-19">
+      </section><section class="slide" id="slide-18-19">
         <h2 id="datenaustausch-shared-memory">Datenaustausch: shared memory</h2>
 <p>integer und floats (und arrays davon) über mehrere Prozesse verteilen</p>
 <pre><code class="language-py"><span class="hljs-keyword">from</span> multiprocessing <span class="hljs-keyword">import</span> Value, Array, Process
@@ -1036,7 +1052,7 @@ p = Process(target=f, args=(a,))
 p.start()
 ...</code></pre>
 
-      </section><section class="slide" id="slide-17-20">
+      </section><section class="slide" id="slide-18-20">
         <h2 id="weitere-möglichkeiten-pipes--queues">Weitere Möglichkeiten: Pipes &amp; Queues</h2>
 <p>Pipe: Messaging zwischen Prozessen in zwei Richtungen - zB Hintergrundprozess, der immer wieder etwas zu tun bekommen und dazwischen im Ruhezustand ist</p>
 <p>Queue: Messaging in eine Richtung von verschiedenen Producern zu verschiedenen Consumern (langsamer als Pipes)</p>

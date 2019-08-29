@@ -18,7 +18,7 @@ Methoden zur Umwandlung in Strings:
 
 ## Magic Methods
 
-Methoden für mathematische operatoren:
+Methoden für mathematische Operatoren:
 
 - `__add__`
 - `__mul__`

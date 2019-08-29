@@ -295,6 +295,24 @@ from functools import partial
 open_utf8 = partial(open, encoding='UTF-8')
 ```
 
+# Fortgeschrittene objektorientierte Programmierung
+
+## Fortgeschrittene objektorientierte Programmierung
+
+Beispiel: Klasse _Length_
+
+```py
+a = Length(130, "cm")
+a.value # 130
+a.unit # cm
+a.unit = "in"
+a.value # 51.18
+print(a) # 51.18 in
+b = Length.from_string("12cm")
+2 * b # 24cm
+b + a # 142cm
+```
+
 # OOP: Properties
 
 ## Properties
@@ -499,7 +517,7 @@ Methoden zur Umwandlung in Strings:
 
 ## Magic Methods
 
-Methoden für mathematische operatoren:
+Methoden für mathematische Operatoren:
 
 - `__add__`
 - `__mul__`
@@ -652,7 +670,7 @@ print(numbers_iterator.__next__()) # StopIteration
 
 Bekannte Möglichkeit:
 
-- aus Iterables (z.B. _list_, _range_ oder eigene Klasse) mittels `__iter__`
+- aus Iterables (z.B. _list_, _range_ oder _eigene Klasse_) mittels `__iter__`
 
 Weitere Möglichkeiten:
 
