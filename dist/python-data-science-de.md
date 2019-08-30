@@ -1712,6 +1712,11 @@ from sklearn import datasets
 iris = datasets.load_iris()
 ```
 
+## Lineare Regression - erlernte Koeffizienten
+
+- `model.coef_`
+- `model.intercept_`
+
 # Klassifizierung - Grundlagen
 
 ## Klassifizierung
@@ -1827,6 +1832,7 @@ Klassifizierung:
 
 - `metrics.accuracy_score(y_true, y_pred)` (Anteil an richtig klassifizierten Einträgen)
 - `metrics.confusion_matrix(y_true, y_pred)` (Anteil an richtig / falsch klassifizierten Einträgen für jede Klasse)
+- `metrics.precision_recall_fscore_support(y_true, y_pred)` (Zusammenfassung wichtiger Metriken)
 
 Siehe auch https://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics
 
@@ -1954,6 +1960,10 @@ array([[-0.70634165, -1.22474487,  0.95025527],
        [-0.70787163,  1.22474487,  0.43193421],
        [ 1.41421329,  0.        , -1.38218948]])
 ```
+
+## Skalieren von Werten
+
+Aufgabe: Vergleich einer skalierten Version der Iris k-Nearest-Neighbor-Klassifizierung mit der nichtskalierten
 
 ## Kategorien als Eingangsdaten
 

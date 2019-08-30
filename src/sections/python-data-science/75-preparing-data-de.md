@@ -93,6 +93,10 @@ array([[-0.70634165, -1.22474487,  0.95025527],
        [ 1.41421329,  0.        , -1.38218948]])
 ```
 
+## Skalieren von Werten
+
+Aufgabe: Vergleich einer skalierten Version der Iris k-Nearest-Neighbor-Klassifizierung mit der nichtskalierten
+
 ## Kategorien als Eingangsdaten
 
 Manchmal sind _Kategorien_ als Eingangsdaten angegeben - z.B. Land, Berufsgruppe, Messverfahren, ...

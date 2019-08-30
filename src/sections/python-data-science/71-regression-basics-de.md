@@ -40,3 +40,8 @@ Iris-Datensatz: Abschätzen der _sepal width_ basierend auf der _sepal length_
 from sklearn import datasets
 iris = datasets.load_iris()
 ```
+
+## Lineare Regression - erlernte Koeffizienten
+
+- `model.coef_`
+- `model.intercept_`

@@ -34,6 +34,7 @@ Klassifizierung:
 
 - `metrics.accuracy_score(y_true, y_pred)` (Anteil an richtig klassifizierten Einträgen)
 - `metrics.confusion_matrix(y_true, y_pred)` (Anteil an richtig / falsch klassifizierten Einträgen für jede Klasse)
+- `metrics.precision_recall_fscore_support(y_true, y_pred)` (Zusammenfassung wichtiger Metriken)
 
 Siehe auch https://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics
 

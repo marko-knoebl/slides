@@ -1573,6 +1573,13 @@ print(yfit)</code></pre>
 <pre><code class="language-py"><span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> datasets
 iris = datasets.load_iris()</code></pre>
 
+      </section><section class="slide" id="slide-26-6">
+        <h2 id="lineare-regression---erlernte-koeffizienten">Lineare Regression - erlernte Koeffizienten</h2>
+<ul>
+<li><code>model.coef_</code></li>
+<li><code>model.intercept_</code></li>
+</ul>
+
       </section></section><section class="section" id="section-27"><section class="slide" id="slide-27-1">
         <h1 id="klassifizierung---grundlagen">Klassifizierung - Grundlagen</h1>
 
@@ -1674,6 +1681,7 @@ print(metrics.r2_score(y_prediction, y_test))</code></pre>
 <ul>
 <li><code>metrics.accuracy_score(y_true, y_pred)</code> (Anteil an richtig klassifizierten Einträgen)</li>
 <li><code>metrics.confusion_matrix(y_true, y_pred)</code> (Anteil an richtig / falsch klassifizierten Einträgen für jede Klasse)</li>
+<li><code>metrics.precision_recall_fscore_support(y_true, y_pred)</code> (Zusammenfassung wichtiger Metriken)</li>
 </ul>
 <p>Siehe auch <a href="https://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics">https://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics</a></p>
 
@@ -1793,12 +1801,16 @@ X_train_scaled = scaler.transform(X_train)</code></pre>
        [ <span class="hljs-number">1.41421329</span>,  <span class="hljs-number">0.</span>        , <span class="hljs-number">-1.38218948</span>]])</code></pre>
 
       </section><section class="slide" id="slide-30-10">
+        <h2 id="skalieren-von-werten">Skalieren von Werten</h2>
+<p>Aufgabe: Vergleich einer skalierten Version der Iris k-Nearest-Neighbor-Klassifizierung mit der nichtskalierten</p>
+
+      </section><section class="slide" id="slide-30-11">
         <h2 id="kategorien-als-eingangsdaten">Kategorien als Eingangsdaten</h2>
 <p>Manchmal sind <em>Kategorien</em> als Eingangsdaten angegeben - z.B. Land, Berufsgruppe, Messverfahren, ...</p>
 <p>Diese können in numerische Daten umgewandelt werden, indem jeder Kategorie eine Spalte mit booleschen Einträgen (0 / 1) zugeordnet wird.</p>
 <p>Dies geschieht z.B. mit <code>sklearn.preprocessing.LabelBinarizer</code>.</p>
 
-      </section><section class="slide" id="slide-30-11">
+      </section><section class="slide" id="slide-30-12">
         <h2 id="kategorien-als-eingangsdaten">Kategorien als Eingangsdaten</h2>
 <pre><code class="language-py"><span class="hljs-keyword">from</span> sklearn.preprocessing <span class="hljs-keyword">import</span> LabelBinarizer
 data = [<span class="hljs-string">'cold'</span>, <span class="hljs-string">'cold'</span>, <span class="hljs-string">'warm'</span>, <span class="hljs-string">'cold'</span>, <span class="hljs-string">'hot'</span>, <span class="hljs-string">'hot'</span>]
@@ -1814,7 +1826,7 @@ print(X)</code></pre>
        [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>],
        [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>]])</code></pre>
 
-      </section><section class="slide" id="slide-30-12">
+      </section><section class="slide" id="slide-30-13">
         <h2 id="textdaten">Textdaten</h2>
 <p>Beispiel für das Preprocessing von Textdaten: Zählen von Worten</p>
 <pre><code class="language-py"><span class="hljs-keyword">from</span> sklearn.feature_extraction.text <span class="hljs-keyword">import</span> CountVectorizer
@@ -1830,7 +1842,7 @@ X = vectorizer.transform(sample)
 print(X)
 print(X.todense())</code></pre>
 
-      </section><section class="slide" id="slide-30-13">
+      </section><section class="slide" id="slide-30-14">
         <h2 id="pipelines">Pipelines</h2>
 <p>Pipelines können aus mehreren transformierenden Algorithmen und einem vorhersagenden Algorithmus zusammengesetzt werden:</p>
 <pre><code class="language-py"><span class="hljs-keyword">from</span> sklearn.pipeline <span class="hljs-keyword">import</span> make_pipeline
@@ -1843,7 +1855,7 @@ model = make_pipeline(
     LinearRegression()
 )</code></pre>
 
-      </section><section class="slide" id="slide-30-14">
+      </section><section class="slide" id="slide-30-15">
         <h2 id="beispiel-preprocessing-von-textdaten-newsgroups">Beispiel: Preprocessing von Textdaten (Newsgroups)</h2>
 <p><a href="https://jakevdp.github.io/PythonDataScienceHandbook/05.05-naive-bayes.html#Multinomial-Naive-Bayes">Multinomial Naive Bayes - Python Data Science Handbook</a></p>
 
