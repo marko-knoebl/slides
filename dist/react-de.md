@@ -558,9 +558,11 @@ let transactions = [
 ];
 let initialBalance = 317;
 
+let reducer = (aggregator, transaction) =>
+  aggregator + transaction.amount;
+
 let currentBalance = transactions.reduce(
-  (aggregator, transaction) =>
-    aggregator + transaction.amount,
+  reducer,
   initialBalance
 );
 
@@ -953,8 +955,7 @@ https://github.com/facebook/react-devtools
 
 - Anzeige der Komponententags im Inspektor
 - Anzeige von State und Props
-- Hervorheben von Änderungen von State und Props
-- Hervorheben des Rerenderings von Komponenten
+- Ändern von State und Props
 - Performanceanalyse des Renderings von Komponenten
 
 ## Debugging in VS Code
@@ -1373,17 +1374,28 @@ class AdvancedTodo implements TodoType {
 }
 ```
 
-## Extends
+## Intersection Types
 
 Mittels `&`:
 
 ```ts
-type ActionType = {
+type x = a & b;
+```
+
+Der Intersection Typ `x` kann gegenüber `a`:
+
+- Werte von existierenden Properties weiter einschränken
+- zusätzliche verpflichtende Properties hinzufügen
+
+## Intersection Types: Konkretisierung von Typen
+
+```ts
+type Action = {
   type: string;
   payload?: object;
 };
 
-type AddTodoActionType = ActionType & {
+type AddTodoAction = Action & {
   type: 'ADD_TODO';
   payload: {
     title: string;
@@ -1391,7 +1403,27 @@ type AddTodoActionType = ActionType & {
 };
 ```
 
+## Intersection Types: Kombinieren von Typen
+
+```ts
+type Serializable = {
+  serialize: () => string;
+};
+
+type SerializableAction = Action & Serializable;
+```
+
+Objekte, die den Typ `SerializableAction` implementieren, müssen sowohl alle Einträge aus `Serializable` als auch aus `Action` implementieren.
+
 ## Union Types
+
+Der Typ `x` muss entweder alle Kriterien von `a` erfüllen oder alle Kriterien von `b` erfüllen.
+
+```ts
+type x = a | b;
+```
+
+Alternative Schreibweise über mehrere Zeilen:
 
 ```ts
 type TodoActionType =
@@ -1401,7 +1433,7 @@ type TodoActionType =
 
 ## Generics
 
-Allgemeine Typendeklaration, bei der bei der Anwendung nähere Informationen spezifiziert werden können
+Allgemeine Typendeklaration, zu der bei der Anwendung nähere Informationen spezifiziert werden können (via `<...>`)
 
 ## Generics
 
@@ -1412,18 +1444,7 @@ let a: Array<number> = [1, 2, 3];
 let b: Array<string> = ['one', 'two', 'three'];
 ```
 
-## Generics
-
-```ts
-class Component<Props, State> {
-  props: Props;
-  state: State;
-
-  setState: (newState: Partial<State>) => void;
-}
-```
-
-Verwendung:
+Beispiel: Reacts `Component` ist ein Generic
 
 ```ts
 class MyComp extends Component<MyProps, MyState> {

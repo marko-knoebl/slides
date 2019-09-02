@@ -46,10 +46,9 @@ Hooks = extension of function components; enable the use of state and other feat
 ## Hooks: current state
 
 - Documentation for beginners is still very focused on classes
-- Limited support from React developer tools ([GitHub issue](https://github.com/facebook/react-devtools/issues/1215))
-- Not supported by the _enzyme_ test library
+- Not supported by the test library _enzyme_ (https://github.com/airbnb/enzyme/issues/2011)
 
-## important hooks
+## Important hooks
 
 - state hook
 - effect hook

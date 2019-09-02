@@ -708,9 +708,11 @@ TODO: google code lab - code-beispiele durchsehen
 ];
 <span class="hljs-keyword">let</span> initialBalance = <span class="hljs-number">317</span>;
 
+<span class="hljs-keyword">let</span> reducer = <span class="hljs-function">(<span class="hljs-params">aggregator, transaction</span>) =&gt;</span>
+  aggregator + transaction.amount;
+
 <span class="hljs-keyword">let</span> currentBalance = transactions.reduce(
-  <span class="hljs-function">(<span class="hljs-params">aggregator, transaction</span>) =&gt;</span>
-    aggregator + transaction.amount,
+  reducer,
   initialBalance
 );
 

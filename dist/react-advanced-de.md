@@ -48,10 +48,9 @@ Hooks: Erweiterung von funktionalen Komponenten; erlauben die Verwendung von sta
 ## Hooks: derzeitiger Stand
 
 - Dokumentation für Einsteiger noch sehr Klassen-orientiert
-- Eingeschränkte Unterstützung der React developer tools ([GitHub issue](https://github.com/facebook/react-devtools/issues/1215))
-- Keine Unterstützung durch die Test Library _enzyme_
+- Keine Unterstützung durch die Test Library _enzyme_ (https://github.com/airbnb/enzyme/issues/2011)
 
-## wichtige Hooks
+## Wichtige Hooks
 
 - state Hook
 - effect Hook

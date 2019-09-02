@@ -643,9 +643,11 @@ let transactions = [
 ];
 let initialBalance = 317;
 
+let reducer = (aggregator, transaction) =>
+  aggregator + transaction.amount;
+
 let currentBalance = transactions.reduce(
-  (aggregator, transaction) =>
-    aggregator + transaction.amount,
+  reducer,
   initialBalance
 );
 

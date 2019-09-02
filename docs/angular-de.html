@@ -617,50 +617,62 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
 }</code></pre>
 
       </section><section class="slide" id="slide-6-15">
-        <h2 id="extends">Extends</h2>
+        <h2 id="intersection-types">Intersection Types</h2>
 <p>Mittels <code>&amp;</code>:</p>
-<pre><code class="language-ts"><span class="hljs-keyword">type</span> ActionType = {
+<pre><code class="language-ts"><span class="hljs-keyword">type</span> x = a &amp; b;</code></pre>
+<p>Der Intersection Typ <code>x</code> kann gegenüber <code>a</code>:</p>
+<ul>
+<li>Werte von existierenden Properties weiter einschränken</li>
+<li>zusätzliche verpflichtende Properties hinzufügen</li>
+</ul>
+
+      </section><section class="slide" id="slide-6-16">
+        <h2 id="intersection-types-konkretisierung-von-typen">Intersection Types: Konkretisierung von Typen</h2>
+<pre><code class="language-ts"><span class="hljs-keyword">type</span> Action = {
   <span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span>;
   payload?: object;
 };
 
-<span class="hljs-keyword">type</span> AddTodoActionType = ActionType &amp; {
+<span class="hljs-keyword">type</span> AddTodoAction = Action &amp; {
   <span class="hljs-keyword">type</span>: <span class="hljs-string">'ADD_TODO'</span>;
   payload: {
     title: <span class="hljs-built_in">string</span>;
   };
 };</code></pre>
 
-      </section><section class="slide" id="slide-6-16">
+      </section><section class="slide" id="slide-6-17">
+        <h2 id="intersection-types-kombinieren-von-typen">Intersection Types: Kombinieren von Typen</h2>
+<pre><code class="language-ts"><span class="hljs-keyword">type</span> Serializable = {
+  serialize: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-built_in">string</span>;
+};
+
+<span class="hljs-keyword">type</span> SerializableAction = Action &amp; Serializable;</code></pre>
+<p>Objekte, die den Typ <code>SerializableAction</code> implementieren, müssen sowohl alle Einträge aus <code>Serializable</code> als auch aus <code>Action</code> implementieren.</p>
+
+      </section><section class="slide" id="slide-6-18">
         <h2 id="union-types">Union Types</h2>
+<p>Der Typ <code>x</code> muss entweder alle Kriterien von <code>a</code> erfüllen oder alle Kriterien von <code>b</code> erfüllen.</p>
+<pre><code class="language-ts"><span class="hljs-keyword">type</span> x = a | b;</code></pre>
+<p>Alternative Schreibweise über mehrere Zeilen:</p>
 <pre><code class="language-ts"><span class="hljs-keyword">type</span> TodoActionType =
   | AddTodoActionType
   | ToggleTodoActionType;</code></pre>
 
-      </section><section class="slide" id="slide-6-17">
+      </section><section class="slide" id="slide-6-19">
         <h2 id="generics">Generics</h2>
-<p>Allgemeine Typendeklaration, bei der bei der Anwendung nähere Informationen spezifiziert werden können</p>
+<p>Allgemeine Typendeklaration, zu der bei der Anwendung nähere Informationen spezifiziert werden können (via <code>&lt;...&gt;</code>)</p>
 
-      </section><section class="slide" id="slide-6-18">
+      </section><section class="slide" id="slide-6-20">
         <h2 id="generics">Generics</h2>
 <p>Beispiel: <code>Array</code> ist ein Generic</p>
 <pre><code class="language-ts"><span class="hljs-keyword">let</span> a: <span class="hljs-built_in">Array</span>&lt;<span class="hljs-built_in">number</span>&gt; = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
 <span class="hljs-keyword">let</span> b: <span class="hljs-built_in">Array</span>&lt;<span class="hljs-built_in">string</span>&gt; = [<span class="hljs-string">'one'</span>, <span class="hljs-string">'two'</span>, <span class="hljs-string">'three'</span>];</code></pre>
-
-      </section><section class="slide" id="slide-6-19">
-        <h2 id="generics">Generics</h2>
-<pre><code class="language-ts"><span class="hljs-keyword">class</span> Component&lt;Props, State&gt; {
-  props: Props;
-  state: State;
-
-  setState: <span class="hljs-function">(<span class="hljs-params">newState: Partial&lt;State&gt;</span>) =&gt;</span> <span class="hljs-built_in">void</span>;
-}</code></pre>
-<p>Verwendung:</p>
+<p>Beispiel: Reacts <code>Component</code> ist ein Generic</p>
 <pre><code class="language-ts"><span class="hljs-keyword">class</span> MyComp <span class="hljs-keyword">extends</span> Component&lt;MyProps, MyState&gt; {
   ...
 }</code></pre>
 
-      </section><section class="slide" id="slide-6-20">
+      </section><section class="slide" id="slide-6-21">
         <h2 id="private--public-properties">Private &amp; Public Properties</h2>
 <pre><code class="language-ts"><span class="hljs-keyword">class</span> Clock {
   <span class="hljs-keyword">private</span> formatTime(time) {
@@ -671,7 +683,7 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
   }
 }</code></pre>
 
-      </section><section class="slide" id="slide-6-21">
+      </section><section class="slide" id="slide-6-22">
         <h2 id="typendeklarationen-für-libraries">Typendeklarationen für Libraries</h2>
 <p>Einige JavaScript Libraries beinhalten auch Typendeklarationen für TypeScript - z.B. <em>react</em>, <em>redux</em>.</p>
 <p>Für andere Libraries gibt es meist externe Deklarationen mit dem Präfix <em>@types/</em>, z.B. für <em>react-redux</em> existiert das Paket <em>@types/react-redux</em>.</p>

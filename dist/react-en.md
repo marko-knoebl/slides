@@ -562,9 +562,11 @@ let transactions = [
 ];
 let initialBalance = 317;
 
+let reducer = (aggregator, transaction) =>
+  aggregator + transaction.amount;
+
 let currentBalance = transactions.reduce(
-  (aggregator, transaction) =>
-    aggregator + transaction.amount,
+  reducer,
   initialBalance
 );
 
@@ -867,8 +869,7 @@ https://github.com/facebook/react-devtools
 
 - display component tags in an inspector
 - show state and props
-- highlight changes to state and props
-- highlight updates / rerenderings of components
+- change state and props
 - analyse render performance of components
 
 ## Debugging in VS Code
@@ -1166,25 +1167,25 @@ class TodoItem extends React.PureComponent<
 - public / private properties
 - decorators
 
-## static typing
+## Static typing
 
 data types may be specified in order to support the development environment:
 
 - auto completion
 - errors when types mismatch
 
-## static typing
+## Static typing
 
 when building: TypeScript is translated to JavaScript, all type information is discarded
 
-## type system: variables
+## Type system: variables
 
 ```ts
 let age: number = 32;
 let name: string = 'Andreas';
 ```
 
-## type system: arrays
+## Type system: arrays
 
 ```js
 let names: Array<string> = ['Anna', 'Bernhard'];
@@ -1196,7 +1197,7 @@ alternative syntax:
 let names: string[] = ['Anna', 'Bernhard'];
 ```
 
-## type system: functions
+## Type system: functions
 
 <!-- prettier-ignore -->
 ```ts
@@ -1217,7 +1218,7 @@ const repeatString = (
 };
 ```
 
-## type system: void
+## Type system: void
 
 Void: can either be _undefined_ or _null_ - is mostly used with functions that don't return anything
 
@@ -1227,7 +1228,7 @@ function warnUser(): void {
 }
 ```
 
-## type system: any
+## Type system: any
 
 Any: variable can be of any type - disables the typechecker for this variable
 
@@ -1236,13 +1237,13 @@ let myInput: any = document.getElementById('myinput');
 console.log(myInput.value);
 ```
 
-## type system: type assertions
+## Type system: type assertions
 
 ```ts
 (window as any).myGlobalVariable = 'foo';
 ```
 
-## type system: types & interfaces
+## Type system: types & interfaces
 
 Interfaces describe the structure of an object / of a class in detail  
 e.g.: `TodoInterface`, `PersonInterface`
@@ -1253,7 +1254,7 @@ Essentialy types offer more functionality than interfaces
 
 https://stackoverflow.com/a/52682220/
 
-## type system: types
+## Type system: types
 
 ```ts
 type TodoType = {
@@ -1287,9 +1288,20 @@ class AdvancedTodo implements TodoType {
 }
 ```
 
-## Extends
+## Intersection Types
 
 Via `&`:
+
+```ts
+type x = a & b;
+```
+
+With regards to `a` the intersection type `x` may:
+
+- restrict the values of existing properties
+- add additional required properties
+
+## Intersection Types: Restricting values
 
 ```ts
 type ActionType = {
@@ -1305,7 +1317,27 @@ type AddTodoActionType = ActionType & {
 };
 ```
 
+## Intersection Types: Combining Types
+
+```ts
+type Serializable = {
+  serialize: () => string;
+};
+
+type SerializableAction = Action & Serializable;
+```
+
+Objects that implement the Type `SerializableAction` must implement all entries from both `Serializable` and `Action`.
+
 ## Union Types
+
+The type `x` must either fulfil all criteria of `a` or all criteria of `b`.
+
+```ts
+type x = a | b;
+```
+
+Alternative notation across multiple lines:
 
 ```ts
 type TodoActionType =
@@ -1313,33 +1345,20 @@ type TodoActionType =
   | ToggleTodoActionType;
 ```
 
-## generics
+## Generics
 
 Generic type declarations that can receive more specific type information when applied (via `<...>`)
 
-## generics
+## Generics
 
-example:
-
-`Array` is a generic
+example: `Array` is a generic
 
 ```ts
 let a: Array<number> = [1, 2, 3];
 let b: Array<string> = ['one', 'two', 'three'];
 ```
 
-## Generics
-
-```ts
-class Component<Props, State> {
-  props: Props;
-  state: State;
-
-  setState: (newState: Partial<State>) => void;
-}
-```
-
-usage:
+example: React's `Component` is a generic
 
 ```ts
 class MyComp extends Component<MyProps, MyState> {
@@ -1347,7 +1366,7 @@ class MyComp extends Component<MyProps, MyState> {
 }
 ```
 
-## private & public properties
+## Private & public properties
 
 ```ts
 class Clock {

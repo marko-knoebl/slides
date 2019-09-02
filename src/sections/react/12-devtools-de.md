@@ -6,8 +6,7 @@ https://github.com/facebook/react-devtools
 
 - Anzeige der Komponententags im Inspektor
 - Anzeige von State und Props
-- Hervorheben von Änderungen von State und Props
-- Hervorheben des Rerenderings von Komponenten
+- Ändern von State und Props
 - Performanceanalyse des Renderings von Komponenten
 
 ## Debugging in VS Code
