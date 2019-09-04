@@ -46,6 +46,8 @@ Further Options:
 
 - _F1_ or _Ctrl_ + _Shift_ + _P_: command palette
 
+<!-- list separator -->
+
 - _Ctrl_ + _F_: Search in File
 - _Alt_ + _Shift_ + _F_: Auto-format file contents
 - _Ctrl_ + _#_: comment / uncomment

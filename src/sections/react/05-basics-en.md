@@ -26,6 +26,10 @@ class App extends Component {
 export default App;
 ```
 
+## Component definition
+
+In order to distinguish them from ordinary tags, components start with a capital letter
+
 ## JSX: JS + XML
 
 JSX = Template language of React

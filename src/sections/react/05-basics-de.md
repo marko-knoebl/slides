@@ -26,6 +26,10 @@ class App extends Component {
 export default App;
 ```
 
+## Komponentendefinition
+
+Um sie von normalen Tags zu unterscheiden, beginnen Komponentennamen immer mit einem Großbuchstaben
+
 ## JSX: JS + XML
 
 JSX = Templatesprache von React

@@ -539,6 +539,8 @@ Weitere Möglichkeiten:
 
 - _F1_ oder _Ctrl_ + _Shift_ + _P_: Kommandopalette
 
+<!-- list separator -->
+
 - _Strg_ + _F_: Suchen in Datei
 - _Alt_ + _Shift_ + _F_: Formatieren der Datei
 - _Ctrl_ + _#_: aus- / einkommentieren

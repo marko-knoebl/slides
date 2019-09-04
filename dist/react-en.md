@@ -167,6 +167,10 @@ class App extends Component {
 export default App;
 ```
 
+## Component definition
+
+In order to distinguish them from ordinary tags, components start with a capital letter
+
 ## JSX: JS + XML
 
 JSX = Template language of React
@@ -282,6 +286,8 @@ Further Options:
 
 - _F1_ or _Ctrl_ + _Shift_ + _P_: command palette
 
+<!-- list separator -->
+
 - _Ctrl_ + _F_: Search in File
 - _Alt_ + _Shift_ + _F_: Auto-format file contents
 - _Ctrl_ + _#_: comment / uncomment
@@ -289,6 +295,38 @@ Further Options:
 - _Shift_ + _F12_: Peek definition
 - _F2_: rename variables
 - _Alt_ + mouse click: Activate multiple text cursors
+
+# Prettier
+
+## Prettier
+
+https://prettier.io/
+
+- Code formatting according to strict rules
+- VS Code plugin (via Alt + Shift + F)
+
+## Prettier configuration
+
+in VS Code: via File - Preferences - Settings
+
+or via `.prettierrc.json`:
+
+```json
+{
+  "bracketSpacing": false,
+  "singleQuote": true,
+  "trailingComma": true,
+  "jsxBracketSameLine": true
+}
+```
+
+# ESLint
+
+## ESLint
+
+Linter for JavaScript (and TypeScript)
+
+VS Code Plugin is available
 
 # ES2015+
 
@@ -507,74 +545,6 @@ let join = (strings, separator='') => {
 }
 ```
 
-# ESLint
-
-## ESLint
-
-Linter for JavaScript (and TypeScript)
-
-VS Code Plugin is available
-
-# map, filter, reduce
-
-### Array methods for functional programming
-
-## map
-
-- modifies each entry in an array via a function
-- returns a new array
-
-```js
-let myNumbers = [2, 10, 23];
-
-let triple = n => 3 * n;
-
-let newNumbers = myNumbers.map(triple);
-// [6, 30, 69]
-```
-
-## filter
-
-- only keeps specific entries in an array
-- uses a function to check entries for a specific criterion
-- returns a new array
-
-```js
-let myNumbers = [2, 10, 23];
-
-let isEven = n => n % 2 === 0;
-
-let newNumbers = myNumbers.filter(isEven);
-// [2, 10]
-```
-
-## reduce
-
-- computes one value based on a start value and all entries in an array
-- uses a function that computes a resulting value from two given values - this function will be called repeatedly
-
-## reduce - example
-
-```js
-let transactions = [
-  { amount: -56, title: 'groceries' },
-  { amount: +1020, title: 'salary' },
-  { amount: -13, title: 'dinner' },
-  { amount: -96, title: 'electricity' },
-];
-let initialBalance = 317;
-
-let reducer = (aggregator, transaction) =>
-  aggregator + transaction.amount;
-
-let currentBalance = transactions.reduce(
-  reducer,
-  initialBalance
-);
-
-// 317 -> 261 -> 1281 -> 1268 -> 1172
-```
-
 # State
 
 ## State
@@ -687,6 +657,88 @@ this.setState(oldState => ({ count: oldState.count + 1 }));
 
 Pass a function to `setState`. This function will transform the old state into the new state.
 
+# Inputs
+
+## Inputs
+
+In the context of React, input elements are special:
+
+Their properties (especially `.value`) can be directly modified by the user  
+Therefore there are aspects of the UI state which would not be captured in the state.
+
+## Inputs
+
+This is how we can capture changes and track them in the state:
+
+```jsx
+<input
+  value={inputText}
+  onChange={event => {
+    setInputText(event.target.value);
+  }}
+/>
+```
+
+# map, filter, reduce
+
+### Array methods for functional programming
+
+## map
+
+- modifies each entry in an array via a function
+- returns a new array
+
+```js
+let myNumbers = [2, 10, 23];
+
+let triple = n => 3 * n;
+
+let newNumbers = myNumbers.map(triple);
+// [6, 30, 69]
+```
+
+## filter
+
+- only keeps specific entries in an array
+- uses a function to check entries for a specific criterion
+- returns a new array
+
+```js
+let myNumbers = [2, 10, 23];
+
+let isEven = n => n % 2 === 0;
+
+let newNumbers = myNumbers.filter(isEven);
+// [2, 10]
+```
+
+## reduce
+
+- computes one value based on a start value and all entries in an array
+- uses a function that computes a resulting value from two given values - this function will be called repeatedly
+
+## reduce - example
+
+```js
+let transactions = [
+  { amount: -56, title: 'groceries' },
+  { amount: +1020, title: 'salary' },
+  { amount: -13, title: 'dinner' },
+  { amount: -96, title: 'electricity' },
+];
+let initialBalance = 317;
+
+let reducer = (aggregator, transaction) =>
+  aggregator + transaction.amount;
+
+let currentBalance = transactions.reduce(
+  reducer,
+  initialBalance
+);
+
+// 317 -> 261 -> 1281 -> 1268 -> 1172
+```
+
 # JSX in detail
 
 ## JSX: repeating elements
@@ -760,6 +812,37 @@ return <div>{face}</div>;
 <div>{state.hasError && state.errorMessage}</div>
 ```
 
+## Fragments
+
+Fragments enable returning multiple elements from a component / function:
+
+```jsx
+return (
+  <>
+    <td>Hello</td>
+    <td>World</td>
+  </>
+);
+```
+
+## JSX compilation
+
+```jsx
+const element = <a href="https://google.com">Google</a>;
+```
+
+compiles to:
+
+```js
+const element = React.createElement(
+  'a',
+  { href: 'https://google.com' },
+  'Google'
+);
+```
+
+# Styling in JSX
+
 ## JSX: CSS classes
 
 ```jsx
@@ -812,125 +895,16 @@ $primary: lightblue;
 />
 ```
 
-## Fragments
+# Props
 
-Fragments enable returning multiple elements from a component / function:
+## State & props
 
-```jsx
-return (
-  <>
-    <td>Hello</td>
-    <td>World</td>
-  </>
-);
-```
+- state = internal to the component
+- props = parameters that are passed down from the parent
 
-## JSX compilation
+## Props in custom components
 
-```jsx
-const element = <h1 className="greeting">Hello, world!</h1>;
-```
-
-compiles to:
-
-```js
-const element = React.createElement(
-  'h1',
-  { className: 'greeting' },
-  'Hello, world!'
-);
-```
-
-# Inputs
-
-## Inputs
-
-In the context of React, input elements are special:
-
-Their properties (especially `.value`) can be directly modified by the user  
-Therefore there are aspects of the UI state which would not be captured in the state.
-
-## Inputs
-
-This is how we can capture changes and track them in the state:
-
-```jsx
-<input
-  value={inputText}
-  onChange={event => {
-    setInputText(event.target.value);
-  }}
-/>
-```
-
-# Development tools for React
-
-## React Developer Tools
-
-https://github.com/facebook/react-devtools
-
-- display component tags in an inspector
-- show state and props
-- change state and props
-- analyse render performance of components
-
-## Debugging in VS Code
-
-Extensions:
-
-- **Debugger for Chrome**
-- Debugger for Firefox
-
-## Debugging in VS Code: configuration
-
-creating config file: in the debugger sidebar, click on the gear symbol (_Configure or fix 'launch.json'_)
-
-in _launch.json_:
-
-```json
-{
-  "type": "chrome",
-  "request": "launch",
-  "name": "Launch Chrome for React",
-  "url": "http://localhost:3000"
-}
-```
-
-## Debugging in VS Code: starting
-
-The development server has to be running in the background
-
-Start debugging in VS Code via _F5_
-
-# Prettier
-
-## Prettier
-
-https://prettier.io/
-
-- Code formatting according to strict rules
-- VS Code plugin (via Alt + Shift + F)
-
-## Prettier configuration
-
-in VS Code: via File - Preferences - Settings
-
-or via `.prettierrc.json`:
-
-```json
-{
-  "bracketSpacing": false,
-  "singleQuote": true,
-  "trailingComma": true,
-  "jsxBracketSameLine": true
-}
-```
-
-# components
-
-## components
-
-Components = custom tags, e.g.
+Example:
 
 ```jsx
 <Rating stars={3} />
@@ -938,21 +912,7 @@ Components = custom tags, e.g.
 
 <img src="assets/rating.png" type="image/png" style="width: 16em">
 
-## components
-
-In order to distinguish them from ordinary tags, components start with a capital letter
-
-## components: state & props
-
-- state = internal to the component
-- props = parameters that are passed down from the parent
-
-## component definition
-
-- class components
-- function components
-
-## function components
+## Props in function components
 
 example:
 
@@ -966,7 +926,7 @@ const Rating = props => (
 export default Rating;
 ```
 
-## class components
+## Props in class components
 
 example:
 
@@ -983,11 +943,6 @@ export class Rating extends Component {
   }
 }
 ```
-
-## data/event flow
-
-- parent → child: props
-- child → parent: events
 
 ## props.children
 
@@ -1007,11 +962,18 @@ const Bordered = props => (
 );
 ```
 
-## custom events
+# Events
 
-Event handlers are defined as functions and passed via props.
+## Data/event flow
 
-## custom events
+- parent → child: props
+- child → parent: events
+
+## Custom events
+
+Event handlers are defined as functions and passed down via props.
+
+## Custom events
 
 Example `ToggleButton`: Button which displays either "off" or "on":
 
@@ -1027,7 +989,7 @@ Event: `onToggle` - function which is called with the new state
 </button>
 ```
 
-## custom events
+## Custom events
 
 The `ToggleButton` can be included like this:
 
@@ -1042,7 +1004,7 @@ const [myOption, setMyOption] = useState(true);
 />;
 ```
 
-## custom events
+## Custom events
 
 examples:
 

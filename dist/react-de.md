@@ -171,6 +171,10 @@ class App extends Component {
 export default App;
 ```
 
+## Komponentendefinition
+
+Um sie von normalen Tags zu unterscheiden, beginnen Komponentennamen immer mit einem Großbuchstaben
+
 ## JSX: JS + XML
 
 JSX = Templatesprache von React
@@ -287,6 +291,8 @@ Weitere Möglichkeiten:
 
 - _F1_ oder _Ctrl_ + _Shift_ + _P_: Kommandopalette
 
+<!-- list separator -->
+
 - _Strg_ + _F_: Suchen in Datei
 - _Alt_ + _Shift_ + _F_: Formatieren der Datei
 - _Ctrl_ + _#_: aus- / einkommentieren
@@ -295,6 +301,38 @@ Weitere Möglichkeiten:
 - _F2_: Umbenennen von Variablen
 - _Ctrl_ + _F2_: Mehrere Textcursor setzen
 - _Alt_ + Mausklick: Mehrere Textcursor setzen
+
+# Prettier
+
+## Prettier
+
+https://prettier.io/
+
+- Code-Formatierung nach strikten Regeln
+- VS-Code-Plugin (via Alt + Shift + F)
+
+## Prettier-Konfiguration
+
+in VS Code: über Datei - Einstellungen - Einstellungen
+
+oder über `.prettierrc.json`:
+
+```json
+{
+  "bracketSpacing": false,
+  "singleQuote": true,
+  "trailingComma": true,
+  "jsxBracketSameLine": true
+}
+```
+
+# ESLint
+
+## ESLint
+
+Linter für JavaScript (und TypeScript)
+
+VS Code Plugin verfügbar
 
 # ES2015+
 
@@ -504,74 +542,6 @@ let join = (strings, separator='') => {
 }
 ```
 
-# ESLint
-
-## ESLint
-
-Linter für JavaScript (und TypeScript)
-
-VS Code Plugin verfügbar
-
-# map, filter, reduce
-
-### Array-Methoden für die funktionale Programmierung
-
-## map
-
-- Ändert jeden Eintrag eines Arrays mit Hilfe einer Funktion ab
-- Rückgabewert: neues Array
-
-```js
-let myNumbers = [2, 10, 23];
-
-let triple = n => 3 * n;
-
-let newNumbers = myNumbers.map(triple);
-// [6, 30, 69]
-```
-
-## filter
-
-- Behält nur gewisse Einträge in einem Array
-- Nutzt eine Funktion, um Einträge auf ein bestimmtes Kriterium zu testen
-- Rückgabewert: neues Array
-
-```js
-let myNumbers = [2, 10, 23];
-
-let isEven = n => n % 2 === 0;
-
-let newNumbers = myNumbers.filter(isEven);
-// [2, 10]
-```
-
-## reduce
-
-- Verarbeitet die Einträge in einem Array zu einem einzelnen Wert
-- Verwendet eine Funktion, die aus zwei bestehenden Werten einen resultierenden Wert erstellt - diese Funktion wird wiederholt aufgerufen
-
-## reduce - Beispiel
-
-```js
-let transactions = [
-  { amount: -56, title: 'groceries' },
-  { amount: +1020, title: 'salary' },
-  { amount: -13, title: 'dinner' },
-  { amount: -96, title: 'electricity' },
-];
-let initialBalance = 317;
-
-let reducer = (aggregator, transaction) =>
-  aggregator + transaction.amount;
-
-let currentBalance = transactions.reduce(
-  reducer,
-  initialBalance
-);
-
-// 317 -> 261 -> 1281 -> 1268 -> 1172
-```
-
 # this - quirks
 
 ## this - quirks
@@ -774,6 +744,89 @@ this.setState(oldState => ({
 
 Wir übergeben setState eine Funktion, die den alten in den neuen Zustand überführt.
 
+# Inputs
+
+## Inputs
+
+Besonderheit von input-Elementen:
+
+Ihre Properties (insbesondere `.value`) können durch User-Interaktionen direkt geändert werden
+
+Es gibt damit Aspekte des UI-Zustands, die nicht im state erfasst sind.
+
+## Inputs
+
+So können wir den Value eines Inputs im State erfassen:
+
+```jsx
+<input
+  value={inputText}
+  onChange={event => {
+    setInputText(event.target.value);
+  }}
+/>
+```
+
+# map, filter, reduce
+
+### Array-Methoden für die funktionale Programmierung
+
+## map
+
+- Ändert jeden Eintrag eines Arrays mit Hilfe einer Funktion ab
+- Rückgabewert: neues Array
+
+```js
+let myNumbers = [2, 10, 23];
+
+let triple = n => 3 * n;
+
+let newNumbers = myNumbers.map(triple);
+// [6, 30, 69]
+```
+
+## filter
+
+- Behält nur gewisse Einträge in einem Array
+- Nutzt eine Funktion, um Einträge auf ein bestimmtes Kriterium zu testen
+- Rückgabewert: neues Array
+
+```js
+let myNumbers = [2, 10, 23];
+
+let isEven = n => n % 2 === 0;
+
+let newNumbers = myNumbers.filter(isEven);
+// [2, 10]
+```
+
+## reduce
+
+- Verarbeitet die Einträge in einem Array zu einem einzelnen Wert
+- Verwendet eine Funktion, die aus zwei bestehenden Werten einen resultierenden Wert erstellt - diese Funktion wird wiederholt aufgerufen
+
+## reduce - Beispiel
+
+```js
+let transactions = [
+  { amount: -56, title: 'groceries' },
+  { amount: +1020, title: 'salary' },
+  { amount: -13, title: 'dinner' },
+  { amount: -96, title: 'electricity' },
+];
+let initialBalance = 317;
+
+let reducer = (aggregator, transaction) =>
+  aggregator + transaction.amount;
+
+let currentBalance = transactions.reduce(
+  reducer,
+  initialBalance
+);
+
+// 317 -> 261 -> 1281 -> 1268 -> 1172
+```
+
 # JSX im Detail
 
 ## JSX: Elemente wiederholen
@@ -810,7 +863,8 @@ const todos = [
 
 ## JSX: Elemente wiederholen
 
-Bei obigem Code: Warnung in der Browser-Konsole (Wegen Effizienz)  
+Bei obigem Code:  
+Warnung in der Browser-Konsole (Wegen Effizienz)  
 Lösung: **key**:
 
 ```jsx
@@ -845,6 +899,37 @@ return <div>{face}</div>;
 ```jsx
 <div>{state.hasError && state.errorMessage}</div>
 ```
+
+## Fragmente
+
+Erlauben es einer Komponente, mehrere Elemente zurückzugeben (anstatt eines einzenen Elements)
+
+```jsx
+return (
+  <>
+    <td>Hello</td>
+    <td>World</td>
+  </>
+);
+```
+
+## JSX Kompilierung
+
+```jsx
+const element = <a href="https://google.com">Google</a>;
+```
+
+wird kompiliert zu:
+
+```js
+const element = React.createElement(
+  'a',
+  { href: 'https://google.com' },
+  'Google'
+);
+```
+
+# Styling in JSX
 
 ## JSX: CSS-Klassen
 
@@ -898,126 +983,16 @@ $primary: lightblue;
 />
 ```
 
-## Fragmente
+# Props
 
-Erlauben es einer Komponente, mehrere Elemente zurückzugeben (anstatt eines einzenen Elements)
+## State & Props
 
-```jsx
-return (
-  <>
-    <td>Hello</td>
-    <td>World</td>
-  </>
-);
-```
+- State = interner Zustand einer Komponente
+- Props = vom Elternelement übergebene Parameter
 
-## JSX Kompilierung
+## Props in eigenen Komponenten
 
-```jsx
-const element = <h1 className="greeting">Hello, world!</h1>;
-```
-
-wird kompiliert zu:
-
-```js
-const element = React.createElement(
-  'h1',
-  { className: 'greeting' },
-  'Hello, world!'
-);
-```
-
-# Inputs
-
-## Inputs
-
-Besonderheit von input-Elementen:
-
-Ihre Properties (insbesondere `.value`) können durch User-Interaktionen direkt geändert werden
-
-Es gibt damit Aspekte des UI-Zustands, die nicht im state erfasst sind.
-
-## Inputs
-
-So können wir den Value eines Inputs im State erfassen:
-
-```jsx
-<input
-  value={inputText}
-  onChange={event => {
-    setInputText(event.target.value);
-  }}
-/>
-```
-
-# Entwicklerwerkzeuge für React
-
-## React Developer Tools
-
-https://github.com/facebook/react-devtools
-
-- Anzeige der Komponententags im Inspektor
-- Anzeige von State und Props
-- Ändern von State und Props
-- Performanceanalyse des Renderings von Komponenten
-
-## Debugging in VS Code
-
-Extensions:
-
-- **Debugger for Chrome**
-- Debugger for Firefox
-
-## Debugging in VS Code: Konfiguration
-
-Konfigurationsdatei erstellen: In der Debugger-Sidebar auf das Zahnradsymbol (_Configure or fix 'launch.json'_)
-
-in _launch.json_:
-
-```json
-{
-  "type": "chrome",
-  "request": "launch",
-  "name": "Launch Chrome for React",
-  "url": "http://localhost:3000"
-}
-```
-
-## Debugging in VS Code: starten
-
-Testserver muss im Hintergrund schon laufen
-
-Debugging in VS Code starten: mittels _F5_
-
-# Prettier
-
-## Prettier
-
-https://prettier.io/
-
-- Code-Formatierung nach strikten Regeln
-- VS-Code-Plugin (via Alt + Shift + F)
-
-## Prettier-Konfiguration
-
-in VS Code: über Datei - Einstellungen - Einstellungen
-
-oder über `.prettierrc.json`:
-
-```json
-{
-  "bracketSpacing": false,
-  "singleQuote": true,
-  "trailingComma": true,
-  "jsxBracketSameLine": true
-}
-```
-
-# Komponenten
-
-## Komponenten
-
-Möglichkeit, eigene Tags zu definieren, z.B.:
+Beispiel:
 
 ```jsx
 <Rating stars={3} />
@@ -1025,21 +1000,7 @@ Möglichkeit, eigene Tags zu definieren, z.B.:
 
 <img src="assets/rating.png" type="image/png" style="width: 16em">
 
-## Komponenten
-
-Um sie von normalen Tags zu unterscheiden, beginnen Komponentennamen immer mit einem Großbuchstaben
-
-## Komponenten: State & Props
-
-- State = interner Zustand einer Komponente
-- Props = vom Elternelement übergebene Parameter
-
-## Komponentendefinition
-
-- Klassenkomponenten
-- Funktionale Komponenten
-
-## Funktionale Komponenten
+## Props in Funktionskomponenten
 
 Beispiel:
 
@@ -1053,7 +1014,7 @@ const Rating = props => (
 export default Rating;
 ```
 
-## Klassenkomponenten
+## Props in Klassenkomponenten
 
 example:
 
@@ -1070,11 +1031,6 @@ export class Rating extends Component {
   }
 }
 ```
-
-## Datenfluss
-
-- parent → child: props
-- child → parent: events
 
 ## props.children
 
@@ -1093,6 +1049,13 @@ const Bordered = props => (
   <div class="bordered">{props.children}</div>
 );
 ```
+
+# Events
+
+## Datenfluss
+
+- parent → child: props
+- child → parent: events
 
 ## Eigene Events
 
