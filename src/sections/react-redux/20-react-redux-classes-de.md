@@ -1,6 +1,6 @@
-# React mit Redux
+# React mit Redux (mit Klassen)
 
-## React mit Redux
+## React mit Redux (mit Klassen)
 
 https://redux.js.org/basics/usage-with-react
 

@@ -24,6 +24,14 @@ it('renders a component without crashing', () => {
 });
 ```
 
+## React-Test-Renderer - mit Instanzen arbeiten
+
+- `instance.find(All)`
+- `instance.find(All)ByType`
+- `instance.find(All)ByProps`
+- `instance.props`
+- `instance.children`
+
 ## Enzyme - Installation & Einrichtung
 
 ```bash

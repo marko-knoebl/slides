@@ -145,6 +145,18 @@ Im Projektordner:
 
 # React & JSX Grundlagen
 
+## Definieren einer Komponente als Funktion
+
+```jsx
+import React from 'react';
+
+const App = () => {
+  return <div>Hello, World!</div>;
+};
+
+export default App;
+```
+
 ## Definieren einer Komponente als Klasse
 
 ```jsx
@@ -155,18 +167,6 @@ class App extends Component {
     return <div>Hello, World!</div>;
   }
 }
-
-export default App;
-```
-
-## Definieren einer Komponente als Funktion
-
-```jsx
-import React from 'react';
-
-const App = () => {
-  return <div>Hello, World!</div>;
-};
 
 export default App;
 ```
@@ -201,9 +201,9 @@ Der Wechsel von XML auf JS klappt auch bei Properties:
 
 Beachte die fehlenden Anführungszeichen bei href
 
-## JSX Properties: Aufgaben
+## JSX Properties: Aufgabe
 
-- Zeige ein Bild basierend auf einer ID an. Verwende dazu:
+Zeige ein Bild basierend auf einer ID an. Verwende dazu:
 
 ```js
 const getImgUrl = id =>
@@ -285,13 +285,16 @@ Weitere Möglichkeiten:
 
 ## VS Code - Kurzbefehle
 
+- _F1_ oder _Ctrl_ + _Shift_ + _P_: Kommandopalette
+
 - _Strg_ + _F_: Suchen in Datei
 - _Alt_ + _Shift_ + _F_: Formatieren der Datei
 - _Ctrl_ + _#_: aus- / einkommentieren
 - _F12_: Zur Definition springen
 - _Shift_ + _F12_: Definition anzeigen
 - _F2_: Umbenennen von Variablen
-- _Alt_ + Mausklick: Mehrere Textcursor zum gleichzeitigen Schreiben setzen
+- _Ctrl_ + _F2_: Mehrere Textcursor setzen
+- _Alt_ + Mausklick: Mehrere Textcursor setzen
 
 # ES2015+
 

@@ -752,6 +752,16 @@ it(<span class="hljs-string">'renders a component without crashing'</span>, () =
 });</span></code></pre>
 
       </section><section class="slide" id="slide-9-5">
+        <h2 id="react-test-renderer---mit-instanzen-arbeiten">React-Test-Renderer - mit Instanzen arbeiten</h2>
+<ul>
+<li><code>instance.find(All)</code></li>
+<li><code>instance.find(All)ByType</code></li>
+<li><code>instance.find(All)ByProps</code></li>
+<li><code>instance.props</code></li>
+<li><code>instance.children</code></li>
+</ul>
+
+      </section><section class="slide" id="slide-9-6">
         <h2 id="enzyme---installation--einrichtung">Enzyme - Installation &amp; Einrichtung</h2>
 <pre><code class="language-bash">npm install --save-dev enzyme enzyme-adapter-react-16</code></pre>
 <p>neue Datei <code>src/setupTests.js</code>:</p>
@@ -760,7 +770,7 @@ it(<span class="hljs-string">'renders a component without crashing'</span>, () =
 
 configure({ <span class="hljs-attr">adapter</span>: <span class="hljs-keyword">new</span> Adapter() });</code></pre>
 
-      </section><section class="slide" id="slide-9-6">
+      </section><section class="slide" id="slide-9-7">
         <h2 id="enzyme---beispiele">Enzyme - Beispiele</h2>
 <pre><code class="language-jsx"><span class="hljs-keyword">import</span> { shallow, mount } <span class="hljs-keyword">from</span> <span class="hljs-string">'enzyme'</span>;
 
@@ -772,7 +782,7 @@ it('renders a component tree without crashing', () =&gt; {
   const wrapper = mount(<span class="hljs-tag">&lt;<span class="hljs-name">MyComponent</span> /&gt;</span>);
 });</span></code></pre>
 
-      </section><section class="slide" id="slide-9-7">
+      </section><section class="slide" id="slide-9-8">
         <h2 id="enzyme---cheatsheet">Enzyme - Cheatsheet</h2>
 <p><a href="https://devhints.io/enzyme">https://devhints.io/enzyme</a></p>
 
@@ -873,7 +883,7 @@ it('renders a component tree without crashing', () =&gt; {
       </section><section class="slide" id="slide-11-3">
         <h2 id="testen-des-renderings">Testen des Renderings</h2>
 <pre><code class="language-tsx">describe(<span class="hljs-string">'rendering'</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-  it(<span class="hljs-string">'renders 5 divs'</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+  it(<span class="hljs-string">'renders 5 spans'</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
     <span class="hljs-keyword">const</span> instance = TestRenderer.create(
       &lt;Rating stars={<span class="hljs-number">3</span>} /&gt;
     ).root;
@@ -893,7 +903,7 @@ it('renders a component tree without crashing', () =&gt; {
       </section><section class="slide" id="slide-11-4">
         <h2 id="testen-von-events">Testen von Events</h2>
 <pre><code class="language-jsx">describe(<span class="hljs-string">'events'</span>, () =&gt; {
-  it(<span class="hljs-string">'reacts to click on the first star'</span>, () =&gt; {
+  it(<span class="hljs-string">'reacts to click on the fourth star'</span>, () =&gt; {
     <span class="hljs-keyword">const</span> mockFn = jest.fn();
     <span class="hljs-keyword">const</span> instance = TestRenderer.create(
       <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Rating</span> <span class="hljs-attr">stars</span>=<span class="hljs-string">{3}</span> <span class="hljs-attr">onStarsChange</span>=<span class="hljs-string">{mockFn}</span> /&gt;</span>
@@ -912,7 +922,7 @@ it('renders a component tree without crashing', () =&gt; {
       TestRenderer.create(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Rating</span> <span class="hljs-attr">stars</span>=<span class="hljs-string">{0}</span> /&gt;</span>);
     };
     expect(testFn).toThrow(
-      'number of stars must be positive'
+      'number of stars must be 1-5'
     );
   });
 });</span></code></pre>
@@ -1073,43 +1083,48 @@ npm install react-router-dom @types/react-router-dom</code></pre>
 
       </section><section class="slide" id="slide-15-4">
         <h2 id="pwas-konfiguration">PWAs: Konfiguration</h2>
-<p>Via <code>public/manifest.json</code>:</p>
-<p>name, short_name</p>
+<p>Via <code>public/manifest.json</code></p>
 
       </section><section class="slide" id="slide-15-5">
-        <h2 id="pwas-logos-konfigurieren">PWAs: Logos konfigurieren</h2>
-<p>Hinzufügen von Logos in den Formaten <code>144x144px</code>, <code>192x192px</code> und <code>512x512px</code> (in manifest.json)</p>
-
-      </section><section class="slide" id="slide-15-6">
         <h2 id="pwa-add-to-homescreen">PWA: add to homescreen</h2>
 <p><a href="https://developers.google.com/web/fundamentals/app-install-banners/">https://developers.google.com/web/fundamentals/app-install-banners/</a></p>
 
+      </section><section class="slide" id="slide-15-6">
+        <h2 id="pwa-add-to-homescreen">PWA: add to homescreen</h2>
+<p>Prozess in Chrome:</p>
+<ul>
+<li>warten, bis eine Installationsdialog angezeigt werden darf</li>
+<li>anzeigen eines Buttons o.ä., der die Installation anbietet</li>
+<li>beim Anklicken des Buttons via Chrome den Installationsdialog anzeigen</li>
+</ul>
+
       </section><section class="slide" id="slide-15-7">
         <h2 id="pwa-add-to-homescreen">PWA: add to homescreen</h2>
-<pre><code class="language-js"><span class="hljs-keyword">let</span> deferredPrompt;
+<pre><code class="language-js"><span class="hljs-keyword">const</span> [installPrompt, setInstallPrompt] = useState(<span class="hljs-literal">null</span>);
 
-componentDidMount() {
-  <span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">'beforeinstallprompt'</span>, e =&gt; {
-    e.preventDefault();
-    deferredPrompt = e;
-    <span class="hljs-keyword">this</span>.setState({ <span class="hljs-attr">showInstallBtn</span>: <span class="hljs-literal">true</span> });
-  });
-}</code></pre>
+<span class="hljs-comment">// executed when the component has mounted</span>
+useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+  <span class="hljs-built_in">window</span>.addEventListener(
+    <span class="hljs-string">'beforeinstallprompt'</span>,
+    ipEvent =&gt; {
+      ipEvent.preventDefault();
+      setInstallPrompt(ipEvent);
+    }
+  );
+}, []);</code></pre>
 
       </section><section class="slide" id="slide-15-8">
         <h2 id="pwa-add-to-homescreen">PWA: add to homescreen</h2>
-<pre><code class="language-js">handleInstallBtnClicked = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-  deferredPrompt.prompt();
-  deferredPrompt.userChoice.then(<span class="hljs-function"><span class="hljs-params">choiceResult</span> =&gt;</span> {
-    <span class="hljs-keyword">if</span> (choiceResult.outcome === <span class="hljs-string">'accepted'</span>) {
-      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'user accepted'</span>);
-    } <span class="hljs-keyword">else</span> {
-      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'user dismissed'</span>);
-    }
-    deferredPrompt = <span class="hljs-literal">null</span>;
-    <span class="hljs-keyword">this</span>.setState({ <span class="hljs-attr">showInstallBtn</span>: <span class="hljs-literal">false</span> });
-  });
-};</code></pre>
+<pre><code class="language-jsx">&lt;div&gt;
+  {installPrompt &amp;&amp; (
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span>
+      <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> {
+        installPrompt.prompt();
+      }}&gt;
+      install
+    <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span>
+  )}
+&lt;<span class="hljs-regexp">/div&gt;</span></code></pre>
 
       </section><section class="slide" id="slide-15-9">
         <h2 id="pwa-deployment-auf-netlify">PWA: Deployment auf netlify</h2>

@@ -1,5 +1,17 @@
 # React & JSX Grundlagen
 
+## Definieren einer Komponente als Funktion
+
+```jsx
+import React from 'react';
+
+const App = () => {
+  return <div>Hello, World!</div>;
+};
+
+export default App;
+```
+
 ## Definieren einer Komponente als Klasse
 
 ```jsx
@@ -10,18 +22,6 @@ class App extends Component {
     return <div>Hello, World!</div>;
   }
 }
-
-export default App;
-```
-
-## Definieren einer Komponente als Funktion
-
-```jsx
-import React from 'react';
-
-const App = () => {
-  return <div>Hello, World!</div>;
-};
 
 export default App;
 ```
@@ -56,9 +56,9 @@ Der Wechsel von XML auf JS klappt auch bei Properties:
 
 Beachte die fehlenden Anführungszeichen bei href
 
-## JSX Properties: Aufgaben
+## JSX Properties: Aufgabe
 
-- Zeige ein Bild basierend auf einer ID an. Verwende dazu:
+Zeige ein Bild basierend auf einer ID an. Verwende dazu:
 
 ```js
 const getImgUrl = id =>

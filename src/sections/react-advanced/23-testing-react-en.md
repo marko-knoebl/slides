@@ -24,6 +24,14 @@ it('renders a component without crashing', () => {
 });
 ```
 
+## React-Test-Renderer - working with instances
+
+- `instance.find(All)`
+- `instance.find(All)ByType`
+- `instance.find(All)ByProps`
+- `instance.props`
+- `instance.children`
+
 ## Enzyme - Installation & Setup
 
 ```

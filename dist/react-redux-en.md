@@ -791,9 +791,9 @@ const functionMiddleware = store => next => action => {
 
 https://slides.com/joelkanzelmeyer/taming-large-redux-apps
 
-# React with Redux
+# React with Redux (with classes)
 
-## React with Redux
+## React with Redux (with classes)
 
 https://redux.js.org/basics/usage-with-react
 

@@ -15,7 +15,7 @@ import Rating from './Rating';
 
 ```tsx
 describe('rendering', () => {
-  it('renders 5 divs', () => {
+  it('renders 5 spans', () => {
     const instance = TestRenderer.create(
       <Rating stars={3} />
     ).root;
@@ -37,7 +37,7 @@ describe('rendering', () => {
 
 ```jsx
 describe('events', () => {
-  it('reacts to click on the first star', () => {
+  it('reacts to click on the fourth star', () => {
     const mockFn = jest.fn();
     const instance = TestRenderer.create(
       <Rating stars={3} onStarsChange={mockFn} />
@@ -58,7 +58,7 @@ describe('errors', () => {
       TestRenderer.create(<Rating stars={0} />);
     };
     expect(testFn).toThrow(
-      'number of stars must be positive'
+      'number of stars must be 1-5'
     );
   });
 });

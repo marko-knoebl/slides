@@ -1,5 +1,17 @@
 # React & JSX Basics
 
+## Defining a component as a function
+
+```jsx
+import React from 'react';
+
+const App = () => {
+  return <div>Hello, World!</div>;
+};
+
+export default App;
+```
+
 ## Defining a component as a class
 
 ```jsx
@@ -10,18 +22,6 @@ class App extends Component {
     return <div>Hello, World!</div>;
   }
 }
-
-export default App;
-```
-
-## Defining a component as a function
-
-```jsx
-import React from 'react';
-
-const App = () => {
-  return <div>Hello, World!</div>;
-};
 
 export default App;
 ```

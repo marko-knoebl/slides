@@ -21,13 +21,7 @@ serviceWorker.register();
 
 ## PWAs: configuration
 
-Via `public/manifest.json`:
-
-name, short_name
-
-## PWAs: configuring icons
-
-Add icons for the resolutions `144x144px`, `192x192px` and `512x512px` (in manifest.json)
+Via `public/manifest.json`
 
 ## PWA: add to homescreen
 
@@ -35,33 +29,42 @@ https://developers.google.com/web/fundamentals/app-install-banners/
 
 ## PWA: add to homescreen
 
-```js
-let deferredPrompt;
+Procedure in Chrome:
 
-componentDidMount() {
-  window.addEventListener('beforeinstallprompt', e => {
-    e.preventDefault();
-    deferredPrompt = e;
-    this.setState({ showInstallBtn: true });
-  });
-}
-```
+- wait until Chrome will allow the install prompt to be displayed
+- display a button or the like that offers installation
+- when the button is clicked, make Chrome display an installation prompt
 
 ## PWA: add to homescreen
 
 ```js
-handleInstallBtnClicked = () => {
-  deferredPrompt.prompt();
-  deferredPrompt.userChoice.then(choiceResult => {
-    if (choiceResult.outcome === 'accepted') {
-      console.log('user accepted');
-    } else {
-      console.log('user dismissed');
+const [installPrompt, setInstallPrompt] = useState(null);
+
+// executed when the component has mounted
+useEffect(() => {
+  window.addEventListener(
+    'beforeinstallprompt',
+    ipEvent => {
+      ipEvent.preventDefault();
+      setInstallPrompt(ipEvent);
     }
-    deferredPrompt = null;
-    this.setState({ showInstallBtn: false });
-  });
-};
+  );
+}, []);
+```
+
+## PWA: add to homescreen
+
+```jsx
+<div>
+  {installPrompt && (
+    <button
+      onClick={() => {
+        installPrompt.prompt();
+      }}>
+      install
+    </button>
+  )}
+</div>
 ```
 
 ## PWA: Deployment on netlify
