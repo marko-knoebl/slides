@@ -79,11 +79,14 @@ class HasWon(unittest.TestCase):
                  [None, None, None]]
         w = has_won(board, "X")
         self.assertTrue(w)
+
+if __name__ == "__main__":
+    unittest.main()
 ```
 
 ## unittest
 
-Running all tests in files that end in _test*.py_:
+Running all tests in files that end in _test\*.py_:
 
 ```bash
 python -m unittest
@@ -125,4 +128,26 @@ class WidgetTestCase(unittest.TestCase):
 
     def tearDown(self):
         self.widget.dispose()
+```
+
+## unittest - test coverage
+
+PIP package _coverage_
+
+execution:
+
+```bash
+coverage run test_shorten.py
+coverage report
+```
+
+Example output:
+
+```
+Name              Stmts   Miss  Cover
+-------------------------------------
+shorten.py            4      0   100%
+test_shorten.py      11      0   100%
+-------------------------------------
+TOTAL                15      0   100%
 ```
