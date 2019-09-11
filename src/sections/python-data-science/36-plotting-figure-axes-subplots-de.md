@@ -38,10 +38,10 @@ Aufgabe: Skript, das eine PNG-Datei eines Graphen der aktuellen CPU-Last erstell
 
 ## Axes Objekte
 
-Manuell neue _Axes_ erstellen:
+Das aktive _Axes_-Objekt abfragen:
 
 ```py
-ax = plt.axes([0, 0, 1, 1])
+ax = plt.gca() # get current axes
 ```
 
 Die schon bekannten Methoden von `plt` verwenden im Hintergrund Methoden des aktiven _Axes_ Objekts:
