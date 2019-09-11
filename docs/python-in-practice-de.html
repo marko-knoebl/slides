@@ -1427,12 +1427,96 @@ print(yesterday.artist)
 print(beatles.songs)</code></pre>
 
       </section></section><section class="section" id="section-17"><section class="slide" id="slide-17-1">
-        <h1 id="gui">GUI</h1>
+        <h1 id="arbeiten-mit-excel-dateien">Arbeiten mit Excel-Dateien</h1>
 
       </section><section class="slide" id="slide-17-2">
-        <h2 id="graphical-user-interface">Graphical User Interface</h2>
+        <h2 id="arbeiten-mit-excel-dateien">Arbeiten mit Excel-Dateien</h2>
+<p>PIP-Paket <em>openpyxl</em></p>
 
       </section><section class="slide" id="slide-17-3">
+        <h2 id="openpyxl">Openpyxl</h2>
+<p>Erstellen, Speichern, Laden:</p>
+<pre><code class="language-py"><span class="hljs-keyword">import</span> openpyxl
+
+wb = openpyxl.Workbook()
+wb.save(<span class="hljs-string">"wb.xlsx"</span>)
+
+wb2 = openpyxl.load_workbook(<span class="hljs-string">"wb.xlsx"</span>)</code></pre>
+
+      </section><section class="slide" id="slide-17-4">
+        <h2 id="openpyxl">Openpyxl</h2>
+<p>Erstellen und Abfragen von Worksheets:</p>
+<pre><code class="language-py">ws1 = wb.worksheets[<span class="hljs-number">0</span>]
+print(wb.sheetnames) <span class="hljs-comment"># ["Sheet"]</span>
+ws1 = wb[<span class="hljs-string">"Sheet"</span>]
+
+<span class="hljs-comment"># new sheet 0</span>
+wb.create_sheet(<span class="hljs-string">"Sheet2"</span>, <span class="hljs-number">0</span>)
+ws2 = wb[<span class="hljs-string">"Sheet2"</span>]</code></pre>
+
+      </section><section class="slide" id="slide-17-5">
+        <h2 id="openpyxl">Openpyxl</h2>
+<p>Arbeiten mit Worksheets</p>
+<pre><code class="language-py">ws = wb.worksheets[<span class="hljs-number">0</span>]
+
+ws.title = <span class="hljs-string">"times table"</span></code></pre>
+
+      </section><section class="slide" id="slide-17-6">
+        <h2 id="openpyxl">Openpyxl</h2>
+<p>Arbeiten mit Zellen</p>
+<pre><code class="language-py">a1 = ws.cell(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>)
+a1 = ws[<span class="hljs-string">"A1"</span>]
+
+a1.value <span class="hljs-comment"># None</span>
+a1.value = <span class="hljs-number">3</span>
+
+a1.row <span class="hljs-comment"># 1</span>
+a1.column <span class="hljs-comment"># 1</span>
+a1.coordinate <span class="hljs-comment"># "A1"</span></code></pre>
+
+      </section><section class="slide" id="slide-17-7">
+        <h2 id="openpyxl">Openpyxl</h2>
+<p>Beispiel: Erstellen der folgenden Tabelle:</p>
+<table>
+<thead>
+<tr>
+<th>product</th>
+<th>price</th>
+<th>stock</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>apple</td>
+<td>1.00</td>
+<td>10</td>
+</tr>
+<tr>
+<td>banana</td>
+<td>0.70</td>
+<td>20</td>
+</tr>
+<tr>
+<td>pear</td>
+<td>0.80</td>
+<td>20</td>
+</tr>
+</tbody></table>
+
+      </section><section class="slide" id="slide-17-8">
+        <h2 id="resourcen">Resourcen</h2>
+<ul>
+<li><a href="https://openpyxl.readthedocs.io/en/stable/usage.html">openpyxl documentation - Simple usage</a></li>
+<li><a href="https://openpyxl.readthedocs.io/en/stable/#key-classes">openpyxl documentation - Key Classes</a></li>
+<li><a href="http://automatetheboringstuff.com/chapter12/">Automate the Boring Stuff with Python - Chapter 12</a></li>
+</ul>
+
+      </section></section><section class="section" id="section-18"><section class="slide" id="slide-18-1">
+        <h1 id="gui">GUI</h1>
+
+      </section><section class="slide" id="slide-18-2">
+        <h2 id="graphical-user-interface">Graphical User Interface</h2>
+
+      </section><section class="slide" id="slide-18-3">
         <h2 id="gui-libraries-für-python">GUI-Libraries für Python</h2>
 <ul>
 <li>tk</li>
@@ -1440,7 +1524,7 @@ print(beatles.songs)</code></pre>
 <li>Kivy</li>
 </ul>
 
-      </section><section class="slide" id="slide-17-4">
+      </section><section class="slide" id="slide-18-4">
         <h2 id="tk">tk</h2>
 <ul>
 <li>Einfache UI-Library</li>
@@ -1448,27 +1532,27 @@ print(beatles.songs)</code></pre>
 <li>unter Windows mit Python vorinstalliert</li>
 </ul>
 
-      </section><section class="slide" id="slide-17-5">
+      </section><section class="slide" id="slide-18-5">
         <h2 id="qt">Qt</h2>
 <ul>
 <li>Weit verbreitete UI-Library</li>
 <li>Anbindungen an Python: PyQt oder PySide</li>
 </ul>
 
-      </section><section class="slide" id="slide-17-6">
+      </section><section class="slide" id="slide-18-6">
         <h2 id="kivy">Kivy</h2>
 <ul>
 <li>speziell für Python entwickelt</li>
 </ul>
 
-      </section></section><section class="section" id="section-18"><section class="slide" id="slide-18-1">
+      </section></section><section class="section" id="section-19"><section class="slide" id="slide-19-1">
         <h1 id="tkinter">Tkinter</h1>
 
-      </section><section class="slide" id="slide-18-2">
+      </section><section class="slide" id="slide-19-2">
         <h2 id="tkinter">Tkinter</h2>
 <p><a href="https://tkdocs.com/">https://tkdocs.com/</a></p>
 
-      </section><section class="slide" id="slide-18-3">
+      </section><section class="slide" id="slide-19-3">
         <h2 id="tkinter---ein-fenster-anzeigen">Tkinter - Ein Fenster anzeigen</h2>
 <pre><code class="language-py"><span class="hljs-keyword">import</span> tkinter
 
@@ -1478,7 +1562,7 @@ window.mainloop()</code></pre>
 <p>Ein Fenster wird als <code>Tk</code>-Objekt erstellt</p>
 <p>Mit <code>mainloop()</code> starten wir das Programm (und warten auf Benutzerinteraktion)</p>
 
-      </section><section class="slide" id="slide-18-4">
+      </section><section class="slide" id="slide-19-4">
         <h2 id="tkinter---text-anzeigen">Tkinter - Text anzeigen</h2>
 <pre><code class="language-py"><span class="hljs-keyword">import</span> tkinter
 
@@ -1489,19 +1573,19 @@ hello_label.pack()
 
 window.mainloop()</code></pre>
 
-      </section><section class="slide" id="slide-18-5">
+      </section><section class="slide" id="slide-19-5">
         <h2 id="tkinter---pack-und-grid">Tkinter - pack und grid</h2>
 <p>Mit <code>pack</code>: Einfache Zeilen- oder Spaltenlayouts</p>
 <pre><code class="language-py">hello_label.pack()</code></pre>
 <p>Mit <code>grid</code>: Komplexere Ausrichtungen an einem Raster sind möglich</p>
 <pre><code class="language-py">hello_label.grid(column=<span class="hljs-number">0</span>, row=<span class="hljs-number">0</span>)</code></pre>
 
-      </section><section class="slide" id="slide-18-6">
+      </section><section class="slide" id="slide-19-6">
         <h2 id="tkinter---elemente-nachträglich-ändern">Tkinter - Elemente nachträglich ändern</h2>
 <pre><code class="language-py">hello_label = tkinter.Label(master=window, text=<span class="hljs-string">"Hello!"</span>)
 hello_label.config(text=<span class="hljs-string">"Hi!"</span>)</code></pre>
 
-      </section><section class="slide" id="slide-18-7">
+      </section><section class="slide" id="slide-19-7">
         <h2 id="tkinter---benutzerinteraktion">Tkinter - Benutzerinteraktion</h2>
 <pre><code class="language-py">...
 
@@ -1518,11 +1602,11 @@ hello_button.pack()
 
 ...</code></pre>
 
-      </section><section class="slide" id="slide-18-8">
+      </section><section class="slide" id="slide-19-8">
         <h2 id="beispiel-counter">Beispiel: Counter</h2>
 <p>Button, der bei 0 startet und die Klickanzahl mitzählt und anzeigt</p>
 
-      </section><section class="slide" id="slide-18-9">
+      </section><section class="slide" id="slide-19-9">
         <h2 id="tkinter---widget-konfiguration">Tkinter - Widget-Konfiguration</h2>
 <p>Möglichkeiten:</p>
 <ul>
@@ -1535,7 +1619,7 @@ hello_button.pack()
 <li><code>padx</code>, <code>pady</code> (Abstand Rahmen zu Inhalt)</li>
 </ul>
 
-      </section><section class="slide" id="slide-18-10">
+      </section><section class="slide" id="slide-19-10">
         <h2 id="tkinter---widgets">Tkinter - Widgets</h2>
 <ul>
 <li><code>Label</code></li>
@@ -1544,42 +1628,42 @@ hello_button.pack()
 <li><code>Entry</code></li>
 </ul>
 
-      </section><section class="slide" id="slide-18-11">
+      </section><section class="slide" id="slide-19-11">
         <h2 id="tkinter---beispiele">Tkinter - Beispiele</h2>
 <ul>
 <li>zufälliger Sehtest (Snellen Chart)</li>
 <li>Tic-Tac-Toe</li>
 </ul>
 
-      </section></section><section class="section" id="section-19"><section class="slide" id="slide-19-1">
+      </section></section><section class="section" id="section-20"><section class="slide" id="slide-20-1">
         <h1 id="pyinstaller">PyInstaller</h1>
 
-      </section><section class="slide" id="slide-19-2">
+      </section><section class="slide" id="slide-20-2">
         <h2 id="pyinstaller">PyInstaller</h2>
 <p>Ermöglicht das erstellen von <em>.exe</em>-Dateien aus Python-Projekten</p>
 <p>Insbesondere für GUI-Anwendungen sinnvoll</p>
 
-      </section><section class="slide" id="slide-19-3">
+      </section><section class="slide" id="slide-20-3">
         <h2 id="pyinstaller---verwendung">PyInstaller - Verwendung</h2>
 <p>Installation:</p>
 <pre><code class="language-bash">pip install pyinstaller</code></pre>
 
-      </section><section class="slide" id="slide-19-4">
+      </section><section class="slide" id="slide-20-4">
         <h2 id="pyinstaller---verwendung">PyInstaller - Verwendung</h2>
 <p>Erstellen einer ausführbaren Anwendung:</p>
 <pre><code class="language-bash">pyinstaller app.pyw --onefile --windowed</code></pre>
 <p>Resultat: Datei <em>dist/app.exe</em></p>
 
-      </section></section><section class="section" id="section-20"><section class="slide" id="slide-20-1">
+      </section></section><section class="section" id="section-21"><section class="slide" id="slide-21-1">
         <h1 id="smtp--imap">SMTP / IMAP</h1>
 
-      </section><section class="slide" id="slide-20-2">
+      </section><section class="slide" id="slide-21-2">
         <h2 id="smtp--imap">SMTP / IMAP</h2>
 <p><a href="https://automatetheboringstuff.com/chapter16/">https://automatetheboringstuff.com/chapter16/</a></p>
 <p>(für Fehler und Korrekturen siehe nächste Folie)</p>
 <p>zur verdeckten Passworteingabe: Modul &quot;getpass&quot;</p>
 
-      </section><section class="slide" id="slide-20-3">
+      </section><section class="slide" id="slide-21-3">
         <h2 id="smtp--imap">SMTP / IMAP</h2>
 <p>Fehler in der resouce:</p>
 <p>Die query besteht aus zwei Einträgen:</p>
