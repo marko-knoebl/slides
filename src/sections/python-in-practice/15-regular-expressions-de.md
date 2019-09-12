@@ -1,4 +1,6 @@
-# Reguläre Ausdrücke
+# Reguläre Ausdrücke in Python
+
+## Reguläre Ausdrücke
 
 Reguläre Ausdrücke werden verwendet, um einen Teil eines Strings, der einem bestimmten Muster entspricht, zu finden
 
@@ -55,8 +57,33 @@ for time in times:
     print(f"minute: {time[2]}")
 ```
 
+## Kompilieren von regulären Ausdrücken
+
+Performanceoptimierung, wenn viele reguläre Ausdrücke wiederverwendet werden:
+
+```py
+my_re = "..."
+
+re.search(my_re, ...)
+re.finditer(my_re, ...)
+```
+
+wird zu
+
+```py
+my_re = "..."
+my_re_obj = re.compile(my_re)
+
+my_re_obj.search(...)
+my_re_obj.finditer(...)
+```
+
 ## Beispiele
 
 - Alle Funktionsdefinitionen in einer Python-Datei finden und deren Namen auslesen
 - Geldbeträge finden und parsen
 - Gleichungen erkennen und auslesen
+
+## Resourcen
+
+- http://automatetheboringstuff.com/chapter7/

@@ -472,6 +472,116 @@ earlier = pickle.loads(serialized)</code></pre>
 
       </section><section class="slide" id="slide-6-2">
         <h2 id="regular-expressions">Regular expressions</h2>
+<p>Mini language that can define a search pattern for text</p>
+<p>Examples of simple search patterns:</p>
+<ul>
+<li>a .com domain: <code>https?://.+?\.com</code></li>
+<li>an HTML heading: <code>&lt;h1&gt;.+?&lt;/h1&gt;</code></li>
+<li>a time: <code>\d?\d:\d\d</code></li>
+</ul>
+
+      </section><section class="slide" id="slide-6-3">
+        <h2 id="try-it-out">Try it out</h2>
+<p>Online: <a href="https://regexr.com/">https://regexr.com/</a></p>
+<p>In VS Code: Ctrl+F and click the button labeled <em>.*</em></p>
+
+      </section><section class="slide" id="slide-6-4">
+        <h2 id="special-characters-and-escapes">Special characters and escapes</h2>
+<p>The following characters have special meanings:</p>
+<ul>
+<li>\</li>
+<li>^</li>
+<li>$</li>
+<li>.</li>
+<li>|</li>
+<li>?</li>
+<li>*</li>
+<li>+</li>
+<li>()</li>
+<li>[]</li>
+<li>{}</li>
+</ul>
+
+      </section><section class="slide" id="slide-6-5">
+        <h2 id="special-characters-and-escapes">Special characters and escapes</h2>
+<p>Avoid the special meaning by prepending a backslash:</p>
+<ul>
+<li><code>13\$</code></li>
+<li><code>9\.99€</code></li>
+<li><code>1\+1=2</code></li>
+</ul>
+
+      </section><section class="slide" id="slide-6-6">
+        <h2 id="character-categories">Character categories</h2>
+<ul>
+<li><code>.</code> : any character except newline</li>
+<li><code>\s</code> : whitespace</li>
+<li><code>\d</code> : digit</li>
+<li><code>\w</code> : digit, letter or underscore</li>
+</ul>
+<p>Exercise: find all digits in a document</p>
+
+      </section><section class="slide" id="slide-6-7">
+        <h2 id="repetitions">Repetitions</h2>
+<ul>
+<li><code>a*</code> : character <em>a</em> repeated 0 or more times (matches <em>longest</em> string)</li>
+<li><code>a*?</code> : character <em>a</em> repeated 0 or more times (matches <em>shortest</em> string)</li>
+<li><code>a+</code> : character <em>a</em> repeated 1 or more times (matches <em>longest</em> string)</li>
+<li><code>a+?</code> : charcter <em>a</em> repeated 1 or more times (matches <em>shortest</em> string)</li>
+<li><code>a?</code> : optional character <em>a</em></li>
+</ul>
+<p>Exercises:</p>
+<ul>
+<li>find all numbers, e.g. <em>12</em> or <em>0.99</em> </li>
+<li>find all text within quotation marks in a document</li>
+<li>find all &quot;words&quot; that end in <code>.jpeg</code> or <code>jpg</code></li>
+</ul>
+
+      </section><section class="slide" id="slide-6-8">
+        <h2 id="groups">Groups</h2>
+<p>Group expressions via <code>(...)</code></p>
+<p>Examples:</p>
+<ul>
+<li><code>(ab)+</code> matches repetitions of the sequence <em>ab</em></li>
+<li><code>&lt;(-=)+-&gt;</code> matches the following pattern: <code>&lt;-=-=-=-=-&gt;</code></li>
+</ul>
+
+      </section><section class="slide" id="slide-6-9">
+        <h2 id="alternatives">Alternatives</h2>
+<p><code>...|...|...</code> : Match any of the listed alternatives</p>
+<p>Example to find an image: <code>\.(jpe?g|png|gif)</code></p>
+<p>Exercises:</p>
+<ul>
+<li>find URLs that start with <code>http://</code> or <code>https://</code> and end with <code>.com</code> or <code>.org</code></li>
+</ul>
+
+      </section><section class="slide" id="slide-6-10">
+        <h2 id="capture-groups">Capture groups</h2>
+<p>Groups can be used to extract information</p>
+<p>Example: <code>(\d?\d):(\d\d)</code> will extract two values</p>
+
+      </section><section class="slide" id="slide-6-11">
+        <h2 id="start--end">Start &amp; end</h2>
+<ul>
+<li><code>\A</code> : start of the string</li>
+<li><code>\Z</code> : end of the string</li>
+<li><code>^</code> : start of a line</li>
+<li><code>$</code> : end of a line</li>
+</ul>
+
+      </section><section class="slide" id="slide-6-12">
+        <h2 id="character-classes">Character classes</h2>
+<ul>
+<li><code>[a-z]</code> : any lowercase ASCII character</li>
+<li><code>[a-zA-Z]</code> : any ASCII character</li>
+<li><code>[,;.]</code> : same as <code>(,|;|.)</code></li>
+</ul>
+
+      </section></section><section class="section" id="section-7"><section class="slide" id="slide-7-1">
+        <h1 id="regular-expressions-in-python">Regular expressions in Python</h1>
+
+      </section><section class="slide" id="slide-7-2">
+        <h2 id="regular-expressions">Regular expressions</h2>
 <p>Regular expressions are used to find a substring of a specific pattern inside a string</p>
 <p>in Python regular expressions can be handled via the <code>re</code> Package, in particular:</p>
 <ul>
@@ -479,7 +589,7 @@ earlier = pickle.loads(serialized)</code></pre>
 <li><code>re.finditer</code></li>
 </ul>
 
-      </section><section class="slide" id="slide-6-3">
+      </section><section class="slide" id="slide-7-3">
         <h2 id="regular-expressions">Regular expressions</h2>
 <p>example:</p>
 <pre><code class="language-py"><span class="hljs-keyword">import</span> re
@@ -492,7 +602,7 @@ match = re.search(<span class="hljs-string">r"[a-z][A-Z]"</span>, <span class="h
 <span class="hljs-keyword">else</span>:
     print(<span class="hljs-string">"no match"</span>)</code></pre>
 
-      </section><section class="slide" id="slide-6-4">
+      </section><section class="slide" id="slide-7-4">
         <h2 id="finding-multiple-occurrences">Finding multiple occurrences</h2>
 <p>example:</p>
 <pre><code class="language-py"><span class="hljs-keyword">import</span> re
@@ -502,12 +612,12 @@ match_iter = re.finditer(<span class="hljs-string">r"https?://.+?\.com"</span>, 
 <span class="hljs-keyword">for</span> match <span class="hljs-keyword">in</span> match_iter:
     print(match[<span class="hljs-number">0</span>])</code></pre>
 
-      </section><section class="slide" id="slide-6-5">
+      </section><section class="slide" id="slide-7-5">
         <h2 id="finding-multiple-occurrences">Finding multiple occurrences</h2>
 <p>Exercise: find all URLs in a HTML document on the drive</p>
 <p>For an example, save the page <a href="https://news.ycombinator.com">https://news.ycombinator.com</a> to disk</p>
 
-      </section><section class="slide" id="slide-6-6">
+      </section><section class="slide" id="slide-7-6">
         <h2 id="finding-an-expression-and-sub-expressions">Finding an expression and sub expressions</h2>
 <pre><code class="language-py">times = re.finditer(
     <span class="hljs-string">r'(\d?\d):(\d\d)'</span>,
@@ -518,7 +628,21 @@ match_iter = re.finditer(<span class="hljs-string">r"https?://.+?\.com"</span>, 
     print(<span class="hljs-string">f"hour: <span class="hljs-subst">{time[<span class="hljs-number">1</span>]}</span>"</span>)
     print(<span class="hljs-string">f"minute: <span class="hljs-subst">{time[<span class="hljs-number">2</span>]}</span>"</span>)</code></pre>
 
-      </section><section class="slide" id="slide-6-7">
+      </section><section class="slide" id="slide-7-7">
+        <h2 id="compiling-regular-expressions">Compiling regular expressions</h2>
+<p>Optimizing performance if many regular expressions are reused:</p>
+<pre><code class="language-py">my_re = <span class="hljs-string">"..."</span>
+
+re.search(my_re, ...)
+re.finditer(my_re, ...)</code></pre>
+<p>becomes</p>
+<pre><code class="language-py">my_re = <span class="hljs-string">"..."</span>
+my_re_obj = re.compile(my_re)
+
+my_re_obj.search(...)
+my_re_obj.finditer(...)</code></pre>
+
+      </section><section class="slide" id="slide-7-8">
         <h2 id="exercises">Exercises</h2>
 <ul>
 <li>find function definitions in a Python file</li>
@@ -526,10 +650,16 @@ match_iter = re.finditer(<span class="hljs-string">r"https?://.+?\.com"</span>, 
 <li>find and parse equations in text</li>
 </ul>
 
-      </section></section><section class="section" id="section-7"><section class="slide" id="slide-7-1">
+      </section><section class="slide" id="slide-7-9">
+        <h2 id="resources">Resources</h2>
+<ul>
+<li><a href="http://automatetheboringstuff.com/chapter7/">http://automatetheboringstuff.com/chapter7/</a></li>
+</ul>
+
+      </section></section><section class="section" id="section-8"><section class="slide" id="slide-8-1">
         <h1 id="date-and-time">Date and time</h1>
 
-      </section><section class="slide" id="slide-7-2">
+      </section><section class="slide" id="slide-8-2">
         <h2 id="date-and-time">Date and time</h2>
 <p>Python packages:</p>
 <h3 id="datetime">datetime</h3>
@@ -537,7 +667,7 @@ match_iter = re.finditer(<span class="hljs-string">r"https?://.+?\.com"</span>, 
 <h3 id="time">time</h3>
 <p>Working with Unix timestamps, sleep</p>
 
-      </section><section class="slide" id="slide-7-3">
+      </section><section class="slide" id="slide-8-3">
         <h2 id="datetime">datetime</h2>
 <ul>
 <li><code>datetime.date</code></li>
@@ -545,7 +675,7 @@ match_iter = re.finditer(<span class="hljs-string">r"https?://.+?\.com"</span>, 
 <li><code>datetime.datetime</code></li>
 </ul>
 
-      </section><section class="slide" id="slide-7-4">
+      </section><section class="slide" id="slide-8-4">
         <h2 id="datetime">datetime</h2>
 <pre><code class="language-py">a = datetime.time(hour, minute, second, microsecond)</code></pre>
 <pre><code class="language-py">b = datetime.datetime(<span class="hljs-number">2018</span>, <span class="hljs-number">1</span>, <span class="hljs-number">13</span>)
@@ -553,23 +683,23 @@ c = datetime.datetime(<span class="hljs-number">2018</span>, <span class="hljs-n
 
 c - b</code></pre>
 
-      </section><section class="slide" id="slide-7-5">
+      </section><section class="slide" id="slide-8-5">
         <h2 id="timesleep">time.sleep</h2>
 <pre><code class="language-py"><span class="hljs-keyword">import</span> time
 <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">10</span>):
     print(i)
     time.sleep(<span class="hljs-number">1</span>)</code></pre>
 
-      </section><section class="slide" id="slide-7-6">
+      </section><section class="slide" id="slide-8-6">
         <h2 id="timetime">time.time</h2>
 <p>current Unix time (seconds since 1970-01-01 00:00:00 UTC)</p>
 <pre><code class="language-py"><span class="hljs-keyword">import</span> time
 time.time()</code></pre>
 
-      </section></section><section class="section" id="section-8"><section class="slide" id="slide-8-1">
+      </section></section><section class="section" id="section-9"><section class="slide" id="slide-9-1">
         <h1 id="sys">sys</h1>
 
-      </section><section class="slide" id="slide-8-2">
+      </section><section class="slide" id="slide-9-2">
         <h2 id="sys">sys</h2>
 <p>Functions for the Python environment</p>
 <p>examples:</p>
@@ -582,11 +712,11 @@ time.time()</code></pre>
 <li><code>version_info</code></li>
 </ul>
 
-      </section><section class="slide" id="slide-8-3">
+      </section><section class="slide" id="slide-9-3">
         <h2 id="command-line-parameters">Command line parameters</h2>
 <p>may be read via <code>sys.argv</code></p>
 
-      </section><section class="slide" id="slide-8-4">
+      </section><section class="slide" id="slide-9-4">
         <h2 id="overwriting-stdoutwrite">Overwriting stdout.write</h2>
 <pre><code class="language-py"><span class="hljs-keyword">import</span> sys
 
@@ -600,10 +730,10 @@ loudstdout = LoudStdout()
 
 sys.stdout = loudstdout</code></pre>
 
-      </section></section><section class="section" id="section-9"><section class="slide" id="slide-9-1">
+      </section></section><section class="section" id="section-10"><section class="slide" id="slide-10-1">
         <h1 id="http-with-python">HTTP with Python</h1>
 
-      </section><section class="slide" id="slide-9-2">
+      </section><section class="slide" id="slide-10-2">
         <h2 id="http-with-python">HTTP with Python</h2>
 <ul>
 <li>http.client.HTTP(S)Connection</li>
@@ -611,7 +741,7 @@ sys.stdout = loudstdout</code></pre>
 <li>requests</li>
 </ul>
 
-      </section><section class="slide" id="slide-9-3">
+      </section><section class="slide" id="slide-10-3">
         <h2 id="http-via-tcp">HTTP via TCP</h2>
 <pre><code class="language-py"><span class="hljs-keyword">import</span> socket
 
@@ -623,7 +753,7 @@ response = client.recv(<span class="hljs-number">4096</span>)
 print(response)</code></pre>
 <p>Exercise: script that reads and processes a file named <code>request.httpreq</code> and creates a file named <code>response.httpres</code></p>
 
-      </section><section class="slide" id="slide-9-4">
+      </section><section class="slide" id="slide-10-4">
         <h2 id="httpsconnection">HTTP(S)Connection</h2>
 <p>low level HTTP interface</p>
 <pre><code class="language-py"><span class="hljs-keyword">from</span> http.client <span class="hljs-keyword">import</span> HTTPSConnection
@@ -635,7 +765,7 @@ content = answer.read()
 connection.close()
 print(content)</code></pre>
 
-      </section><section class="slide" id="slide-9-5">
+      </section><section class="slide" id="slide-10-5">
         <h2 id="urllib">urllib</h2>
 <p>part of the standard library</p>
 <pre><code class="language-py"><span class="hljs-keyword">from</span> urllib <span class="hljs-keyword">import</span> request
@@ -643,7 +773,7 @@ print(content)</code></pre>
 content: bytes = request.urlopen(
                     <span class="hljs-string">"https://www.google.com"</span>).read()</code></pre>
 
-      </section><section class="slide" id="slide-9-6">
+      </section><section class="slide" id="slide-10-6">
         <h2 id="requests">requests</h2>
 <p>external package that may be installed via <em>pip</em>:</p>
 <pre><code class="language-bash">pip install requests</code></pre>
@@ -651,7 +781,7 @@ content: bytes = request.urlopen(
 
 content: str = requests.get(<span class="hljs-string">"https://www.google.com"</span>).text</code></pre>
 
-      </section><section class="slide" id="slide-9-7">
+      </section><section class="slide" id="slide-10-7">
         <h2 id="exercises">Exercises</h2>
 <ul>
 <li>web scraping: number of Google search results</li>
@@ -662,7 +792,7 @@ content: str = requests.get(<span class="hljs-string">"https://www.google.com"</
 <a href="https://automatetheboringstuff.com/chapter11/">https://automatetheboringstuff.com/chapter11/</a></li>
 </ul>
 
-      </section><section class="slide" id="slide-9-8">
+      </section><section class="slide" id="slide-10-8">
         <h2 id="selenium">Selenium</h2>
 <p>Installation:</p>
 <pre><code class="language-bash">pip install selenium</code></pre>
@@ -671,22 +801,22 @@ content: str = requests.get(<span class="hljs-string">"https://www.google.com"</
 <p><a href="https://github.com/mozilla/geckodriver/releases/tag/v0.23.0">https://github.com/mozilla/geckodriver/releases/tag/v0.23.0</a></p>
 <p>Download and save in a folder in Python&#39;s <code>sys.path</code> - or in the project directory</p>
 
-      </section></section><section class="section" id="section-10"><section class="slide" id="slide-10-1">
+      </section></section><section class="section" id="section-11"><section class="slide" id="slide-11-1">
         <h1 id="http">HTTP</h1>
 
-      </section><section class="slide" id="slide-10-2">
+      </section><section class="slide" id="slide-11-2">
         <h2 id="http">HTTP</h2>
 <p>Hypertext Transfer Protocol</p>
 <p>= protocol for requesting and transferring resources over a network</p>
 
-      </section><section class="slide" id="slide-10-3">
+      </section><section class="slide" id="slide-11-3">
         <h2 id="http">HTTP</h2>
 <p>Pair: Request - Response</p>
 <p>Request: from the browser (mostly)</p>
 <p>Response: from the server</p>
 <p>HTTP requests and responses are transferred via a <em>lower-level</em> protocol, most commonly <em>TCP</em></p>
 
-      </section><section class="slide" id="slide-10-4">
+      </section><section class="slide" id="slide-11-4">
         <h2 id="experimenting-with-http">Experimenting with HTTP</h2>
 <p>via:</p>
 <ul>
@@ -694,7 +824,7 @@ content: str = requests.get(<span class="hljs-string">"https://www.google.com"</
 <li>VS Code Plugin <em>HTTP Client</em></li>
 </ul>
 
-      </section><section class="slide" id="slide-10-5">
+      </section><section class="slide" id="slide-11-5">
         <h2 id="http-example-wikipedia">HTTP example: Wikipedia</h2>
 <p>Request:</p>
 <pre><code class="language-http"><span class="hljs-keyword">GET</span> <span class="hljs-string">/wiki/Main_Page</span> HTTP/2.0
@@ -708,7 +838,7 @@ content: str = requests.get(<span class="hljs-string">"https://www.google.com"</
 <span class="xml"><span class="hljs-meta">&lt;!DOCTYPE html&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">...</span></span></span></code></pre>
 
-      </section><section class="slide" id="slide-10-6">
+      </section><section class="slide" id="slide-11-6">
         <h2 id="http-example-wikipedia-search-1">HTTP example: Wikipedia search (1)</h2>
 <p>request:</p>
 <pre><code class="language-http"><span class="hljs-keyword">GET</span> <span class="hljs-string">/w/index.php?search=test&amp;title=Special:Search&amp;go=Go</span> HTTP/2.0
@@ -719,7 +849,7 @@ content: str = requests.get(<span class="hljs-string">"https://www.google.com"</
 <span class="hljs-attribute">Location</span>: https://en.wikipedia.org/wiki/Test
 <span class="hljs-attribute">Content-Length</span>: 0</code></pre>
 
-      </section><section class="slide" id="slide-10-7">
+      </section><section class="slide" id="slide-11-7">
         <h2 id="http-example-wikipedia-search-2">HTTP example: Wikipedia search (2)</h2>
 <p>request:</p>
 <pre><code class="language-http"><span class="hljs-keyword">GET</span> <span class="hljs-string">/wiki/Test</span> HTTP/2.0
@@ -732,7 +862,7 @@ content: str = requests.get(<span class="hljs-string">"https://www.google.com"</
 <span class="xml"><span class="hljs-meta">&lt;!DOCTYPE html&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">...</span></span></span></code></pre>
 
-      </section><section class="slide" id="slide-10-8">
+      </section><section class="slide" id="slide-11-8">
         <h2 id="http-example-post-request">HTTP example: POST request</h2>
 <p>request:</p>
 <pre><code class="language-http"><span class="hljs-keyword">POST</span> <span class="hljs-string">/submit-posting</span> HTTP/2.0
@@ -748,7 +878,7 @@ content: str = requests.get(<span class="hljs-string">"https://www.google.com"</
 
 <span class="clean">...</span></code></pre>
 
-      </section><section class="slide" id="slide-10-9">
+      </section><section class="slide" id="slide-11-9">
         <h2 id="http-example-api">HTTP example: API</h2>
 <pre><code class="language-http">GET /todos/12
 Host: jsonplaceholder.typicode.com
@@ -764,7 +894,7 @@ Connection: keep-alive</code></pre>
   <span class="hljs-attr">"completed"</span>: <span class="hljs-literal">true</span>
 }</span></code></pre>
 
-      </section><section class="slide" id="slide-10-10">
+      </section><section class="slide" id="slide-11-10">
         <h2 id="important-request-header-fields">Important request header fields</h2>
 <ul>
 <li><em><code>Host</code></em></li>
@@ -777,7 +907,7 @@ Connection: keep-alive</code></pre>
 <li><code>Dnt</code></li>
 </ul>
 
-      </section><section class="slide" id="slide-10-11">
+      </section><section class="slide" id="slide-11-11">
         <h2 id="important-http-status-codes">Important HTTP status codes</h2>
 <ul>
 <li><code>200 OK</code></li>
@@ -792,7 +922,7 @@ Connection: keep-alive</code></pre>
 <li><code>304 Not Modified</code> (Resource did not change since last query)</li>
 </ul>
 
-      </section><section class="slide" id="slide-10-12">
+      </section><section class="slide" id="slide-11-12">
         <h2 id="important-http-status-codes">Important HTTP status codes</h2>
 <ul>
 <li><code>400 Bad Request</code></li>
@@ -807,7 +937,7 @@ Connection: keep-alive</code></pre>
 </ul>
 <p>see also: <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">https://en.wikipedia.org/wiki/List_of_HTTP_status_codes</a></p>
 
-      </section><section class="slide" id="slide-10-13">
+      </section><section class="slide" id="slide-11-13">
         <h2 id="important-response-header-fields">Important response header fields</h2>
 <ul>
 <li><code>Content-Length</code></li>
@@ -817,7 +947,7 @@ Connection: keep-alive</code></pre>
 <li><code>Cache-Control</code></li>
 </ul>
 
-      </section><section class="slide" id="slide-10-14">
+      </section><section class="slide" id="slide-11-14">
         <h2 id="header-field-content-type">Header field &quot;Content-Type&quot;</h2>
 <p>possible values:</p>
 <ul>
@@ -831,7 +961,7 @@ Connection: keep-alive</code></pre>
 <li>...</li>
 </ul>
 
-      </section><section class="slide" id="slide-10-15">
+      </section><section class="slide" id="slide-11-15">
         <h2 id="header-field-set-cookie">Header field &quot;Set-Cookie&quot;</h2>
 <p>example:</p>
 <pre><code class="language-http">GET /
@@ -840,19 +970,19 @@ Host: www.google.com
 Set-Cookie: 1P_JAR=2019-04-24-08; expires=...; path=/; domain=.google.com
 Set-Cookie: IDCC=AN0-TYtU7...fo; expires=...; path=/; domain=.google.com</code></pre>
 
-      </section></section><section class="section" id="section-11"><section class="slide" id="slide-11-1">
+      </section></section><section class="section" id="section-12"><section class="slide" id="slide-12-1">
         <h1 id="server-side-http">Server-side HTTP</h1>
 
-      </section><section class="slide" id="slide-11-2">
+      </section><section class="slide" id="slide-12-2">
         <h2 id="operating-a-local-file-server-with-python">Operating a local file server with Python</h2>
 <pre><code class="language-bash">python -m http.server</code></pre>
 
-      </section><section class="slide" id="slide-11-3">
+      </section><section class="slide" id="slide-12-3">
         <h2 id="overview">Overview</h2>
 <p><a href="https://docs.python.org/2/howto/webservers.html">https://docs.python.org/2/howto/webservers.html</a></p>
 <p>(info is somewhat dated)</p>
 
-      </section><section class="slide" id="slide-11-4">
+      </section><section class="slide" id="slide-12-4">
         <h2 id="cgi">CGI</h2>
 <p>CGI = <em>Common Gateway Interface</em></p>
 <p>Standard for letting a program on a server reply to an HTTP request</p>
@@ -860,13 +990,13 @@ Set-Cookie: IDCC=AN0-TYtU7...fo; expires=...; path=/; domain=.google.com</code><
 <p>Interface relies on <em>stdin</em>, <em>stdout</em> and environment variables</p>
 <p>Drawback: a new Process has to be started for every request (which is slow)</p>
 
-      </section><section class="slide" id="slide-11-5">
+      </section><section class="slide" id="slide-12-5">
         <h2 id="wsgi">WSGI</h2>
 <p>WSGI = Web Server Gateway Interface</p>
 <p>Standard for letting a Python program on a server reply to an HTTP request</p>
 <p>Inspired by CGI; advantage: <em>one</em> running Process can handle multiple request one after another</p>
 
-      </section><section class="slide" id="slide-11-6">
+      </section><section class="slide" id="slide-12-6">
         <h2 id="python-web-frameworks">Python web frameworks</h2>
 <ul>
 <li>Werkzeug (Python WSGI utility library)</li>
@@ -874,14 +1004,14 @@ Set-Cookie: IDCC=AN0-TYtU7...fo; expires=...; path=/; domain=.google.com</code><
 <li>Django (full framework)</li>
 </ul>
 
-      </section><section class="slide" id="slide-11-7">
+      </section><section class="slide" id="slide-12-7">
         <h2 id="wsgi-interface">WSGI interface</h2>
 <p>The entry point is a Python function:</p>
 <p>The function will receive two parameters: <code>environ</code> and <code>start_response</code></p>
 <p>The request parameters are available via <code>environ</code> (e.g. URL, HTTP headers, form data, ...)</p>
 <p>The second parameter is a function which we usually name <code>start_response</code>.</p>
 
-      </section><section class="slide" id="slide-11-8">
+      </section><section class="slide" id="slide-12-8">
         <h2 id="wsgi">WSGI</h2>
 <p>In order to start a response we call <code>start_response(status, response_headers)</code>, e.g.:</p>
 <pre><code class="language-py">start_response(
@@ -890,7 +1020,7 @@ Set-Cookie: IDCC=AN0-TYtU7...fo; expires=...; path=/; domain=.google.com</code><
 )</code></pre>
 <p>The response body is an iterable (e.g. a list) of bytestrings.</p>
 
-      </section><section class="slide" id="slide-11-9">
+      </section><section class="slide" id="slide-12-9">
         <h2 id="wsgi-server-software">WSGI server software</h2>
 <p>server software:</p>
 <ul>
@@ -899,7 +1029,7 @@ Set-Cookie: IDCC=AN0-TYtU7...fo; expires=...; path=/; domain=.google.com</code><
 <li>mod_wsgi</li>
 </ul>
 
-      </section><section class="slide" id="slide-11-10">
+      </section><section class="slide" id="slide-12-10">
         <h2 id="custom-wsgi-server-in-python">Custom WSGI server in Python</h2>
 <pre><code class="language-py"><span class="hljs-keyword">from</span> wsgiref.simple_server <span class="hljs-keyword">import</span> make_server
 
@@ -909,7 +1039,7 @@ server = make_server(<span class="hljs-string">"localhost"</span>, <span class="
 server.serve_forever()</code></pre>
 <p>This part will usually be handled by libraries like <em>guinicorn</em></p>
 
-      </section><section class="slide" id="slide-11-11">
+      </section><section class="slide" id="slide-12-11">
         <h2 id="wsgi-application">WSGI application</h2>
 <pre><code class="language-py"><span class="hljs-comment"># app.py</span>
 <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">application</span><span class="hljs-params">(environ, start_response)</span>:</span>
@@ -923,7 +1053,7 @@ server.serve_forever()</code></pre>
     start_response(response_status, response_headers)
     <span class="hljs-keyword">return</span> [response_body]</code></pre>
 
-      </section><section class="slide" id="slide-11-12">
+      </section><section class="slide" id="slide-12-12">
         <h2 id="the-environ-dictionary">The environ dictionary</h2>
 <p>We can view it in the debugger, e.g.:</p>
 <pre><code class="language-py">{
@@ -936,12 +1066,12 @@ server.serve_forever()</code></pre>
 }</code></pre>
 <p><a href="https://www.python.org/dev/peps/pep-0333/#environ-variables">https://www.python.org/dev/peps/pep-0333/#environ-variables</a></p>
 
-      </section><section class="slide" id="slide-11-13">
+      </section><section class="slide" id="slide-12-13">
         <h2 id="path_info">PATH_INFO</h2>
 <p>PATH_INFO in the environ dictionary: requested path on the server</p>
 <p>task: show different pages at different addresses</p>
 
-      </section><section class="slide" id="slide-11-14">
+      </section><section class="slide" id="slide-12-14">
         <h2 id="redirects-with-http">Redirects with HTTP</h2>
 <pre><code class="language-py">response_headers = [
     (<span class="hljs-string">"Location"</span>, <span class="hljs-string">"/login"</span>),
@@ -951,7 +1081,7 @@ start_response(<span class="hljs-string">"307 Temporary Redirect"</span>, respon
 <span class="hljs-keyword">return</span> [<span class="hljs-string">b''</span>]</code></pre>
 <p>Task: Make some pages redirect, e.g. make <code>/now</code> redirect to <code>/time</code></p>
 
-      </section><section class="slide" id="slide-11-15">
+      </section><section class="slide" id="slide-12-15">
         <h2 id="cookies">Cookies</h2>
 <p>Cookies = small sets of data which may be placed in the Browser by a website</p>
 <p>Cookies may be used to recognize a previous visitor, e.g. for:</p>
@@ -961,14 +1091,14 @@ start_response(<span class="hljs-string">"307 Temporary Redirect"</span>, respon
 <li>displaying custom ads</li>
 </ul>
 
-      </section><section class="slide" id="slide-11-16">
+      </section><section class="slide" id="slide-12-16">
         <h2 id="cookies">Cookies</h2>
 <p>setting cookies:</p>
 <pre><code class="language-py">response_headers.append((
     <span class="hljs-string">"Set-Cookie"</span>, <span class="hljs-string">"mycookie123=abcd; Max-Age=30"</span>
 ))</code></pre>
 
-      </section><section class="slide" id="slide-11-17">
+      </section><section class="slide" id="slide-12-17">
         <h2 id="cookies">Cookies</h2>
 <p>reading cookies:</p>
 <pre><code class="language-py"><span class="hljs-keyword">try</span>:
@@ -977,7 +1107,7 @@ start_response(<span class="hljs-string">"307 Temporary Redirect"</span>, respon
     ...</code></pre>
 <p>result may be: <code>&quot;cookie1=one; cookie2=two&quot;</code></p>
 
-      </section><section class="slide" id="slide-11-18">
+      </section><section class="slide" id="slide-12-18">
         <h2 id="cookies">Cookies</h2>
 <p>parsing cookies</p>
 <pre><code class="language-py"><span class="hljs-keyword">from</span> http <span class="hljs-keyword">import</span> cookies
@@ -988,7 +1118,7 @@ mycookies = cookies.SimpleCookie()
 mycookies.load(current_cookies_str)
 mycookies[<span class="hljs-string">"cookie1"</span>].value</code></pre>
 
-      </section><section class="slide" id="slide-11-19">
+      </section><section class="slide" id="slide-12-19">
         <h2 id="cookies">Cookies</h2>
 <p>deleting cookies (by setting an expired cookie):</p>
 <pre><code class="language-py">response_headers.append((
@@ -996,11 +1126,11 @@ mycookies[<span class="hljs-string">"cookie1"</span>].value</code></pre>
     <span class="hljs-string">"mycookie123=; expires=Thu, 01 Jan 1970 00:00:00 GMT"</span>
 ))</code></pre>
 
-      </section><section class="slide" id="slide-11-20">
+      </section><section class="slide" id="slide-12-20">
         <h2 id="cookies">Cookies</h2>
 <p>Task: Create a website which only lets the user visit content 5 times before requiring them to log in</p>
 
-      </section><section class="slide" id="slide-11-21">
+      </section><section class="slide" id="slide-12-21">
         <h2 id="forms-and-post-requests">Forms and POST requests</h2>
 <p>This is how we read parameters from forms:</p>
 <pre><code class="language-py"><span class="hljs-keyword">from</span> urllib.parse <span class="hljs-keyword">import</span> parse_qs
@@ -1014,7 +1144,7 @@ request_body = (environ[<span class="hljs-string">"wsgi.input"</span>]
 parameters = parse_qs(request_body)
 first_name = parameters.get(<span class="hljs-string">"first-name"</span>)[<span class="hljs-number">0</span>]</code></pre>
 
-      </section><section class="slide" id="slide-11-22">
+      </section><section class="slide" id="slide-12-22">
         <h2 id="exercises">Exercises</h2>
 <ul>
 <li>online voting</li>
@@ -1023,10 +1153,10 @@ first_name = parameters.get(<span class="hljs-string">"first-name"</span>)[<span
 <li>todo application</li>
 </ul>
 
-      </section><section class="slide" id="slide-11-23">
+      </section><section class="slide" id="slide-12-23">
         <h2 id="beware-javascript-injection">Beware: JavaScript injection</h2>
 
-      </section><section class="slide" id="slide-11-24">
+      </section><section class="slide" id="slide-12-24">
         <h2 id="deployment-on-pythonanywherecom">Deployment on pythonanywhere.com</h2>
 <ul>
 <li>new user account on <a href="https://pythonanywhere.com">https://pythonanywhere.com</a></li>
@@ -1034,7 +1164,7 @@ first_name = parameters.get(<span class="hljs-string">"first-name"</span>)[<span
 <li>manual configuration</li>
 </ul>
 
-      </section><section class="slide" id="slide-11-25">
+      </section><section class="slide" id="slide-12-25">
         <h2 id="deployment-on-pythonanywherecom">Deployment on pythonanywhere.com</h2>
 <p>WSGI configuration file</p>
 <pre><code class="language-py"><span class="hljs-comment"># /var/www/username_pythonanywhere_com_wsgi.py</span>
@@ -1046,14 +1176,14 @@ path = <span class="hljs-string">"/home/username/"</span>
 
 <span class="hljs-keyword">from</span> app <span class="hljs-keyword">import</span> application</code></pre>
 
-      </section></section><section class="section" id="section-12"><section class="slide" id="slide-12-1">
+      </section></section><section class="section" id="section-13"><section class="slide" id="slide-13-1">
         <h1 id="databases">Databases</h1>
 <p>For basics see presentation <em>databases and data store</em></p>
 
-      </section></section><section class="section" id="section-13"><section class="slide" id="slide-13-1">
+      </section></section><section class="section" id="section-14"><section class="slide" id="slide-14-1">
         <h1 id="sql-with-python">SQL with Python</h1>
 
-      </section><section class="slide" id="slide-13-2">
+      </section><section class="slide" id="slide-14-2">
         <h2 id="python-interfaces-for-sql-databases">Python interfaces for SQL databases</h2>
 <p>Database API specification: standard which is implemented by various Python database bindings; standardized in PEP 249</p>
 <p>bindings for:</p>
@@ -1064,7 +1194,7 @@ path = <span class="hljs-string">"/home/username/"</span>
 <li>Oracle (PIP package <em>cx_oracle</em>)</li>
 </ul>
 
-      </section><section class="slide" id="slide-13-3">
+      </section><section class="slide" id="slide-14-3">
         <h2 id="sqlite-and-python">SQLite and Python</h2>
 <p>SQLite uses one file to store a database</p>
 <p>comes with Python (module <code>sqlite3</code>)</p>
@@ -1076,7 +1206,7 @@ connection = sqlite3.connect(<span class="hljs-string">'contacts.db'</span>)
 <span class="hljs-comment"># in-memory database</span>
 connection = sqlite3.connect(<span class="hljs-string">':memory:'</span>)</code></pre>
 
-      </section><section class="slide" id="slide-13-4">
+      </section><section class="slide" id="slide-14-4">
         <h2 id="mysql-and-python">MySQL and Python</h2>
 <p>PIP package <em>PyMySQL</em></p>
 <pre><code class="language-py"><span class="hljs-keyword">import</span> pymysql.cursors
@@ -1087,7 +1217,7 @@ connection = pymysql.connect(host=<span class="hljs-string">'localhost'</span>,
                              db=<span class="hljs-string">'db'</span>,
                              charset=<span class="hljs-string">'utf8mb4'</span>)</code></pre>
 
-      </section><section class="slide" id="slide-13-5">
+      </section><section class="slide" id="slide-14-5">
         <h2 id="python-and-oracle-database">Python and Oracle Database</h2>
 <p>Python package <em>cx_Oracle</em></p>
 <pre><code class="language-py"><span class="hljs-keyword">import</span> cx_Oracle
@@ -1096,7 +1226,7 @@ connection = cx_Oracle.connect(user=<span class="hljs-string">"user"</span>,
                                password=<span class="hljs-string">"password"</span>,
                                dsn=<span class="hljs-string">"localhost/oraclepdb"</span>)</code></pre>
 
-      </section><section class="slide" id="slide-13-6">
+      </section><section class="slide" id="slide-14-6">
         <h2 id="pyodbc">pyodbc</h2>
 <p>ODBC = open database connectivity: Standard for database interfaces (independent of Python)</p>
 <p>pyodbc = implementation for Python - this enables access to any ODBC database</p>
@@ -1105,7 +1235,7 @@ connection = cx_Oracle.connect(user=<span class="hljs-string">"user"</span>,
 connection = pyodbc.connect(
   <span class="hljs-string">"Driver=SQLite3 ODBC Driver;Database=contacts.db"</span>)</code></pre>
 
-      </section><section class="slide" id="slide-13-7">
+      </section><section class="slide" id="slide-14-7">
         <h2 id="common-interface-pep-249">Common interface (PEP 249)</h2>
 <pre><code class="language-py">connection = ...
 ...
@@ -1120,11 +1250,11 @@ connection.commit()
 ...
 connection.close()</code></pre>
 
-      </section><section class="slide" id="slide-13-8">
+      </section><section class="slide" id="slide-14-8">
         <h2 id="pep-249">PEP 249</h2>
 <p><a href="https://www.python.org/dev/peps/pep-0249">https://www.python.org/dev/peps/pep-0249</a></p>
 
-      </section><section class="slide" id="slide-13-9">
+      </section><section class="slide" id="slide-14-9">
         <h2 id="sql-statements-with-parameters">SQL statements with parameters</h2>
 <p>dangerous:</p>
 <pre><code class="language-py">search_name = input()
@@ -1132,7 +1262,7 @@ res = cursor.execute(
   <span class="hljs-string">f"""SELECT tel FROM person WHERE name = '<span class="hljs-subst">{search_name}</span>'"""</span>
 )</code></pre>
 
-      </section><section class="slide" id="slide-13-10">
+      </section><section class="slide" id="slide-14-10">
         <h2 id="sql-statements-with-parameters">SQL statements with parameters</h2>
 <p>safe method (with SQL escaping):</p>
 <pre><code class="language-py">search_name = input()
@@ -1141,7 +1271,7 @@ res = cursor.execute(
   (search_name, )
 )</code></pre>
 
-      </section><section class="slide" id="slide-13-11">
+      </section><section class="slide" id="slide-14-11">
         <h2 id="sql-statements-with-parameters">SQL statements with parameters</h2>
 <p><a href="https://www.python.org/dev/peps/pep-0249/#paramstyle">https://www.python.org/dev/peps/pep-0249/#paramstyle</a></p>
 <p>The attributes <code>sqlite3.paramstyle</code>, <code>pymysql.paramstyle</code> etc. indicate the format for queries with parameters</p>
@@ -1152,7 +1282,7 @@ res = cursor.execute(
 <li>cx_Oracle: named</li>
 </ul>
 
-      </section><section class="slide" id="slide-13-12">
+      </section><section class="slide" id="slide-14-12">
         <h2 id="pep-249-the-cursor-object">PEP 249: the cursor object</h2>
 <ul>
 <li><code>cursor.execute(command, parameters)</code></li>
@@ -1162,7 +1292,7 @@ res = cursor.execute(
 <li><code>cursor.fetchall()</code></li>
 </ul>
 
-      </section><section class="slide" id="slide-13-13">
+      </section><section class="slide" id="slide-14-13">
         <h2 id="exercises">Exercises</h2>
 <ul>
 <li>Forum with database binding (and admin script)</li>
@@ -1170,19 +1300,19 @@ res = cursor.execute(
 (see courses-tutorials/python-todolist-wsgi-sqlite)</li>
 </ul>
 
-      </section></section><section class="section" id="section-14"><section class="slide" id="slide-14-1">
+      </section></section><section class="section" id="section-15"><section class="slide" id="slide-15-1">
         <h1 id="sqlite-with-python">SQLite with Python</h1>
 
-      </section><section class="slide" id="slide-14-2">
+      </section><section class="slide" id="slide-15-2">
         <h2 id="detecting-advanced-types">Detecting advanced types</h2>
 <p>SQLite only supports a limited set of types. It does not natively support types like <code>DATE</code> or <code>TIMESTAMP</code> - those would have to be stored as strings.</p>
 <p>We can make Python automatically convert these to and from a string representation by passing <code>detect_types=sqlite3.PARSE_DECLTYPES</code> to <code>sqlite3.connect</code>.</p>
 
-      </section><section class="slide" id="slide-14-3">
+      </section><section class="slide" id="slide-15-3">
         <h2 id="detecting-advanced-types">Detecting advanced types</h2>
 <p>Task: Create a contacts database that automatically converts SQL strings that represent the date of birth into Python <code>date</code> objects.</p>
 
-      </section><section class="slide" id="slide-14-4">
+      </section><section class="slide" id="slide-15-4">
         <h2 id="adapters-and-converters">Adapters and converters</h2>
 <p>We can add support for more types by writing so-called <em>adapter</em> and <em>converter</em> functions. These custom types will usually be stored as byte sequences in the database.</p>
 <p>An <em>adapter</em> is a custom function that converts a Python object into an SQL value.
@@ -1190,31 +1320,31 @@ A <em>converter</em> is a custom function that converts an SQL value into a Pyth
 <p>see:</p>
 <p><a href="https://docs.python.org/3/library/sqlite3.html#using-adapters-to-store-additional-python-types-in-sqlite-databases">https://docs.python.org/3/library/sqlite3.html#using-adapters-to-store-additional-python-types-in-sqlite-databases</a></p>
 
-      </section><section class="slide" id="slide-14-5">
+      </section><section class="slide" id="slide-15-5">
         <h2 id="adapters-and-converters">Adapters and converters</h2>
 <p>Tasks:</p>
 <ul>
 <li>Write an adapter and converter that enable us to directly save instances of Python&#39;s <code>ipadress.IPv4Address</code> class - in SQL it would be saved as an encoded byte string</li>
 </ul>
 
-      </section></section><section class="section" id="section-15"><section class="slide" id="slide-15-1">
+      </section></section><section class="section" id="section-16"><section class="slide" id="slide-16-1">
         <h1 id="sqlalchemy">SQLAlchemy</h1>
 <!--
 requirements: classes
 -->
 
 
-      </section><section class="slide" id="slide-15-2">
+      </section><section class="slide" id="slide-16-2">
         <h2 id="sqlalchemy">SQLAlchemy</h2>
 <p>SQLAlchemy = Object Relational Mapper</p>
 <p>Object oriented access to arbitrary SQL databases</p>
 <p>potential alternative: Django ORM</p>
 
-      </section><section class="slide" id="slide-15-3">
+      </section><section class="slide" id="slide-16-3">
         <h2 id="sqlalchemy">SQLAlchemy</h2>
 <p>Pip package <em>sqlalchemy</em></p>
 
-      </section><section class="slide" id="slide-15-4">
+      </section><section class="slide" id="slide-16-4">
         <h2 id="connecting-with-an-sqlite-database">Connecting with an SQLite database</h2>
 <pre><code class="language-py"><span class="hljs-comment"># db_interface.py</span>
 <span class="hljs-keyword">from</span> sqlalchemy <span class="hljs-keyword">import</span> create_engine
@@ -1223,7 +1353,7 @@ engine = create_engine(<span class="hljs-string">"sqlite:///music.db"</span>, ec
 
 engine.connect()</code></pre>
 
-      </section><section class="slide" id="slide-15-5">
+      </section><section class="slide" id="slide-16-5">
         <h2 id="defining-tables">Defining tables</h2>
 <pre><code class="language-py"><span class="hljs-comment"># schema.py</span>
 <span class="hljs-keyword">from</span> sqlalchemy.ext.declarative <span class="hljs-keyword">import</span> declarative_base
@@ -1239,7 +1369,7 @@ Base = declarative_base()
 <pre><code class="language-py"><span class="hljs-comment"># db_interface.py</span>
 Base.metadata.create_all(engine)</code></pre>
 
-      </section><section class="slide" id="slide-15-6">
+      </section><section class="slide" id="slide-16-6">
         <h2 id="working-with-sessions">Working with sessions</h2>
 <pre><code class="language-py"><span class="hljs-keyword">from</span> sqlalchemy.orm <span class="hljs-keyword">import</span> sessionmaker
 
@@ -1251,14 +1381,14 @@ session = Session()
 
 session.commit()</code></pre>
 
-      </section><section class="slide" id="slide-15-7">
+      </section><section class="slide" id="slide-16-7">
         <h2 id="insert">Insert</h2>
 <pre><code class="language-sql"><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> artist <span class="hljs-keyword">VALUES</span> (<span class="hljs-string">'The Beatles'</span>, <span class="hljs-string">'United Kingdom'</span>);</code></pre>
 <p>becomes:</p>
 <pre><code class="language-py">beatles = Artist(name=<span class="hljs-string">"The Beatles"</span>, country=<span class="hljs-string">"United Kingdom"</span>)
 session.add(beatles)</code></pre>
 
-      </section><section class="slide" id="slide-15-8">
+      </section><section class="slide" id="slide-16-8">
         <h2 id="select">Select</h2>
 <pre><code class="language-sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">name</span>, country <span class="hljs-keyword">FROM</span> artist;</code></pre>
 <p>becomes:</p>
@@ -1268,7 +1398,7 @@ session.add(beatles)</code></pre>
 <pre><code class="language-py"><span class="hljs-keyword">for</span> name, country <span class="hljs-keyword">in</span> session.query(Artist.name, Artist.country):
     print(<span class="hljs-string">f"<span class="hljs-subst">{name}</span> (<span class="hljs-subst">{country}</span>)"</span>)</code></pre>
 
-      </section><section class="slide" id="slide-15-9">
+      </section><section class="slide" id="slide-16-9">
         <h2 id="order-by">Order by</h2>
 <pre><code class="language-sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">name</span>, country <span class="hljs-keyword">FROM</span> artist <span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> <span class="hljs-keyword">name</span>;</code></pre>
 <p>becomes:</p>
@@ -1276,13 +1406,13 @@ session.add(beatles)</code></pre>
         Artist.name, Artist.country).order_by(Artist.name):
     ...</code></pre>
 
-      </section><section class="slide" id="slide-15-10">
+      </section><section class="slide" id="slide-16-10">
         <h2 id="where">Where</h2>
 <pre><code class="language-sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">name</span>, country <span class="hljs-keyword">FROM</span> artist <span class="hljs-keyword">WHERE</span> artist.name=<span class="hljs-string">'The Beatles'</span></code></pre>
 <p>becomes:</p>
 <pre><code class="language-py">session.query(Artist).filter(Artist.name==<span class="hljs-string">"The Beatles"</span>).one()</code></pre>
 
-      </section><section class="slide" id="slide-15-11">
+      </section><section class="slide" id="slide-16-11">
         <h2 id="nicer-representation-of-entries">Nicer representation of entries</h2>
 <p>currently:</p>
 <pre><code class="language-txt">&amp;ltdb_schema.Song object at 0x00000175902A5FD0&gt;</code></pre>
@@ -1290,7 +1420,7 @@ session.add(beatles)</code></pre>
 <pre><code class="language-txt">Help! - The Beatles</code></pre>
 <p>We can achieve this via the methods <code>__repr__</code> / <code>__str__</code></p>
 
-      </section><section class="slide" id="slide-15-12">
+      </section><section class="slide" id="slide-16-12">
         <h2 id="update">Update</h2>
 <pre><code class="language-sql"><span class="hljs-keyword">UPDATE</span> song
 <span class="hljs-keyword">SET</span> title = <span class="hljs-string">'Help'</span>
@@ -1299,7 +1429,7 @@ session.add(beatles)</code></pre>
 <pre><code class="language-py">entry = session.query(Song).filter(Song.title==<span class="hljs-string">"Help!"</span>).one()
 entry.title = <span class="hljs-string">"Help"</span></code></pre>
 
-      </section><section class="slide" id="slide-15-13">
+      </section><section class="slide" id="slide-16-13">
         <h2 id="delete">Delete</h2>
 <pre><code class="language-sql"><span class="hljs-keyword">DELETE</span>
 <span class="hljs-keyword">FROM</span> song
@@ -1307,7 +1437,7 @@ entry.title = <span class="hljs-string">"Help"</span></code></pre>
 <p>becomes</p>
 <pre><code class="language-py">session.query(Song).filter(Song.title==<span class="hljs-string">"Help!"</span>).delete()</code></pre>
 
-      </section><section class="slide" id="slide-15-14">
+      </section><section class="slide" id="slide-16-14">
         <h2 id="defining-a-foreign-key">Defining a foreign key</h2>
 <pre><code class="language-py"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Song</span><span class="hljs-params">(Base)</span>:</span>
     __tablename__ = <span class="hljs-string">"song"</span>
@@ -1315,7 +1445,7 @@ entry.title = <span class="hljs-string">"Help"</span></code></pre>
     title = Column(String(<span class="hljs-number">30</span>))
     artist_id = Column(Integer, ForeignKey(<span class="hljs-string">"artist.id"</span>))</code></pre>
 
-      </section><section class="slide" id="slide-15-15">
+      </section><section class="slide" id="slide-16-15">
         <h2 id="querying-a-related-table">Querying a related table</h2>
 <pre><code class="language-py"><span class="hljs-keyword">from</span> sqlalchemy.orm <span class="hljs-keyword">import</span> relationship
 
@@ -1329,7 +1459,7 @@ entry.title = <span class="hljs-string">"Help"</span></code></pre>
 
     artist = relationship(<span class="hljs-string">"Artist"</span>)</code></pre>
 
-      </section><section class="slide" id="slide-15-16">
+      </section><section class="slide" id="slide-16-16">
         <h2 id="querying-a-related-table">Querying a related table</h2>
 <pre><code class="language-py">yesterday = Song(title=<span class="hljs-string">"Yesterday"</span>, artist=beatles)
 help = Song(title=<span class="hljs-string">"Help!"</span>, artist_id=beatles.id)
@@ -1338,14 +1468,14 @@ session.add(...)
 print(yesterday.artist)
 print(beatles.songs)</code></pre>
 
-      </section></section><section class="section" id="section-16"><section class="slide" id="slide-16-1">
+      </section></section><section class="section" id="section-17"><section class="slide" id="slide-17-1">
         <h1 id="working-with-excel-files">Working with Excel files</h1>
 
-      </section><section class="slide" id="slide-16-2">
+      </section><section class="slide" id="slide-17-2">
         <h2 id="working-with-excel-files">Working with Excel files</h2>
 <p>PIP package <em>openpyxl</em></p>
 
-      </section><section class="slide" id="slide-16-3">
+      </section><section class="slide" id="slide-17-3">
         <h2 id="openpyxl">Openpyxl</h2>
 <p>Creating, saving, loading:</p>
 <pre><code class="language-py"><span class="hljs-keyword">import</span> openpyxl
@@ -1355,7 +1485,7 @@ wb.save(<span class="hljs-string">"wb.xlsx"</span>)
 
 wb2 = openpyxl.load_workbook(<span class="hljs-string">"wb.xlsx"</span>)</code></pre>
 
-      </section><section class="slide" id="slide-16-4">
+      </section><section class="slide" id="slide-17-4">
         <h2 id="openpyxl">Openpyxl</h2>
 <p>Creating and getting worksheets:</p>
 <pre><code class="language-py">ws1 = wb.worksheets[<span class="hljs-number">0</span>]
@@ -1366,14 +1496,14 @@ ws1 = wb[<span class="hljs-string">"Sheet"</span>]
 wb.create_sheet(<span class="hljs-string">"Sheet2"</span>, <span class="hljs-number">0</span>)
 ws2 = wb[<span class="hljs-string">"Sheet2"</span>]</code></pre>
 
-      </section><section class="slide" id="slide-16-5">
+      </section><section class="slide" id="slide-17-5">
         <h2 id="openpyxl">Openpyxl</h2>
 <p>Working with worksheets:</p>
 <pre><code class="language-py">ws = wb.worksheets[<span class="hljs-number">0</span>]
 
 ws.title = <span class="hljs-string">"times table"</span></code></pre>
 
-      </section><section class="slide" id="slide-16-6">
+      </section><section class="slide" id="slide-17-6">
         <h2 id="openpyxl">Openpyxl</h2>
 <p>Working with cells:</p>
 <pre><code class="language-py">a1 = ws.cell(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>)
@@ -1386,7 +1516,7 @@ a1.row <span class="hljs-comment"># 1</span>
 a1.column <span class="hljs-comment"># 1</span>
 a1.coordinate <span class="hljs-comment"># "A1"</span></code></pre>
 
-      </section><section class="slide" id="slide-16-7">
+      </section><section class="slide" id="slide-17-7">
         <h2 id="openpyxl">Openpyxl</h2>
 <p>Exercise: Create the followng table:</p>
 <table>
@@ -1414,7 +1544,7 @@ a1.coordinate <span class="hljs-comment"># "A1"</span></code></pre>
 </tr>
 </tbody></table>
 
-      </section><section class="slide" id="slide-16-8">
+      </section><section class="slide" id="slide-17-8">
         <h2 id="resources">Resources</h2>
 <ul>
 <li><a href="https://openpyxl.readthedocs.io/en/stable/usage.html">openpyxl documentation - Simple usage</a></li>
@@ -1422,13 +1552,13 @@ a1.coordinate <span class="hljs-comment"># "A1"</span></code></pre>
 <li><a href="http://automatetheboringstuff.com/chapter12/">Automate the Boring Stuff with Python - Chapter 12</a></li>
 </ul>
 
-      </section></section><section class="section" id="section-17"><section class="slide" id="slide-17-1">
+      </section></section><section class="section" id="section-18"><section class="slide" id="slide-18-1">
         <h1 id="gui">GUI</h1>
 
-      </section><section class="slide" id="slide-17-2">
+      </section><section class="slide" id="slide-18-2">
         <h2 id="graphical-user-interface">Graphical User Interface</h2>
 
-      </section><section class="slide" id="slide-17-3">
+      </section><section class="slide" id="slide-18-3">
         <h2 id="gui-libraries-for-python">GUI-Libraries for Python</h2>
 <ul>
 <li>tk</li>
@@ -1436,7 +1566,7 @@ a1.coordinate <span class="hljs-comment"># "A1"</span></code></pre>
 <li>Kivy</li>
 </ul>
 
-      </section><section class="slide" id="slide-17-4">
+      </section><section class="slide" id="slide-18-4">
         <h2 id="tk">tk</h2>
 <ul>
 <li>Simple UI library</li>
@@ -1444,23 +1574,23 @@ a1.coordinate <span class="hljs-comment"># "A1"</span></code></pre>
 <li>comes with Python on Windows</li>
 </ul>
 
-      </section><section class="slide" id="slide-17-5">
+      </section><section class="slide" id="slide-18-5">
         <h2 id="qt">Qt</h2>
 <ul>
 <li>widely used UI library</li>
 <li>Python interfaces: PyQt or PySide</li>
 </ul>
 
-      </section><section class="slide" id="slide-17-6">
+      </section><section class="slide" id="slide-18-6">
         <h2 id="kivy">Kivy</h2>
 <ul>
 <li>specifically developed for Python</li>
 </ul>
 
-      </section></section><section class="section" id="section-18"><section class="slide" id="slide-18-1">
+      </section></section><section class="section" id="section-19"><section class="slide" id="slide-19-1">
         <h1 id="tkinter">Tkinter</h1>
 
-      </section><section class="slide" id="slide-18-2">
+      </section><section class="slide" id="slide-19-2">
         <h2 id="example">Example</h2>
 <pre><code class="language-py"><span class="hljs-keyword">import</span> tkinter
 
@@ -1468,7 +1598,7 @@ window = tkinter.Tk()
 
 window.mainloop()</code></pre>
 
-      </section><section class="slide" id="slide-18-3">
+      </section><section class="slide" id="slide-19-3">
         <h2 id="displaying-text">Displaying text</h2>
 <pre><code class="language-py"><span class="hljs-keyword">import</span> tkinter
 
@@ -1479,12 +1609,12 @@ hello_label.pack()
 
 window.mainloop()</code></pre>
 
-      </section><section class="slide" id="slide-18-4">
+      </section><section class="slide" id="slide-19-4">
         <h2 id="modifying-elements">Modifying elements</h2>
 <pre><code class="language-py">time_label = tkinter.Label(master=window, text=<span class="hljs-string">""</span>)
 time_label.config(text=<span class="hljs-string">"Hello!"</span>)</code></pre>
 
-      </section><section class="slide" id="slide-18-5">
+      </section><section class="slide" id="slide-19-5">
         <h2 id="user-interactions">User interactions</h2>
 <pre><code class="language-py">...
 
@@ -1501,11 +1631,11 @@ hello_button.pack()
 
 ...</code></pre>
 
-      </section><section class="slide" id="slide-18-6">
+      </section><section class="slide" id="slide-19-6">
         <h2 id="example-counter">Example: counter</h2>
 <p>Implement a button that starts at 0 and counts the number of clicks</p>
 
-      </section><section class="slide" id="slide-18-7">
+      </section><section class="slide" id="slide-19-7">
         <h2 id="widget-configuration">Widget configuration</h2>
 <p>config options:</p>
 <ul>
@@ -1518,7 +1648,7 @@ hello_button.pack()
 <li><code>padx</code>, <code>pady</code> (distance between the border and the content)</li>
 </ul>
 
-      </section><section class="slide" id="slide-18-8">
+      </section><section class="slide" id="slide-19-8">
         <h2 id="widgets">Widgets</h2>
 <ul>
 <li><code>Label</code></li>
@@ -1526,22 +1656,22 @@ hello_button.pack()
 <li><code>Frame</code></li>
 </ul>
 
-      </section><section class="slide" id="slide-18-9">
+      </section><section class="slide" id="slide-19-9">
         <h2 id="examples">Examples</h2>
 <ul>
 <li>Snellen chart</li>
 </ul>
 
-      </section></section><section class="section" id="section-19"><section class="slide" id="slide-19-1">
+      </section></section><section class="section" id="section-20"><section class="slide" id="slide-20-1">
         <h1 id="smtp--imap">SMTP / IMAP</h1>
 
-      </section><section class="slide" id="slide-19-2">
+      </section><section class="slide" id="slide-20-2">
         <h2 id="smtp--imap">SMTP / IMAP</h2>
 <p><a href="https://automatetheboringstuff.com/chapter16/">https://automatetheboringstuff.com/chapter16/</a></p>
 <p>(for error corrections see next slide)</p>
 <p>for hidden password entry: use module <em>getpass</em></p>
 
-      </section><section class="slide" id="slide-19-3">
+      </section><section class="slide" id="slide-20-3">
         <h2 id="smtp--imap">SMTP / IMAP</h2>
 <p>Errors in the resource:</p>
 <p>provide the query as two entries:</p>

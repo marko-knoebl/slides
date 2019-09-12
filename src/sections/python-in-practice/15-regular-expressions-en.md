@@ -1,4 +1,4 @@
-# Regular expressions
+# Regular expressions in Python
 
 ## Regular expressions
 
@@ -57,8 +57,33 @@ for time in times:
     print(f"minute: {time[2]}")
 ```
 
+## Compiling regular expressions
+
+Optimizing performance if many regular expressions are reused:
+
+```py
+my_re = "..."
+
+re.search(my_re, ...)
+re.finditer(my_re, ...)
+```
+
+becomes
+
+```py
+my_re = "..."
+my_re_obj = re.compile(my_re)
+
+my_re_obj.search(...)
+my_re_obj.finditer(...)
+```
+
 ## Exercises
 
 - find function definitions in a Python file
 - find and parse monetary amounts in a text
 - find and parse equations in text
+
+## Resources
+
+- http://automatetheboringstuff.com/chapter7/
