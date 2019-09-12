@@ -1,0 +1,1435 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Python Advanced</title>
+  <style>/*
+
+Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
+
+*/
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  background: #F0F0F0;
+}
+
+
+/* Base color: saturation 0; */
+
+.hljs,
+.hljs-subst {
+  color: #444;
+}
+
+.hljs-comment {
+  color: #888888;
+}
+
+.hljs-keyword,
+.hljs-attribute,
+.hljs-selector-tag,
+.hljs-meta-keyword,
+.hljs-doctag,
+.hljs-name {
+  font-weight: bold;
+}
+
+
+/* User color: hue: 0 */
+
+.hljs-type,
+.hljs-string,
+.hljs-number,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-quote,
+.hljs-template-tag,
+.hljs-deletion {
+  color: #880000;
+}
+
+.hljs-title,
+.hljs-section {
+  color: #880000;
+  font-weight: bold;
+}
+
+.hljs-regexp,
+.hljs-symbol,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-link,
+.hljs-selector-attr,
+.hljs-selector-pseudo {
+  color: #BC6060;
+}
+
+
+/* Language color: hue: 90; */
+
+.hljs-literal {
+  color: #78A960;
+}
+
+.hljs-built_in,
+.hljs-bullet,
+.hljs-code,
+.hljs-addition {
+  color: #397300;
+}
+
+
+/* Meta color: hue: 200 */
+
+.hljs-meta {
+  color: #1f7199;
+}
+
+.hljs-meta-string {
+  color: #4d99bf;
+}
+
+
+/* Misc effects */
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+  <div id="canvas">
+    <div id="no-script">
+      Could not execute modern JavaScript code. Please switch to a modern browser,
+      e.g. the most recent version of Firefox, Chrome or Edge and enable JavaScript.
+    </div>
+    <div id="canvas-content">
+
+      <section class="section" id="section-1"><section class="slide" id="slide-1-1">
+        <h1 id="title">Python Advanced</h1>
+
+      </section><section class="slide" id="slide-1-2">
+        <h2 id="presentation-and-code">Presentation and code</h2>
+<p>Presentations available at: <a href="https://karuga.eu/courses-presentations">https://karuga.eu/courses-presentations</a></p>
+<p>Code available at: <a href="https://github.com/marko-knoebl/courses-code">https://github.com/marko-knoebl/courses-code</a></p>
+
+      </section><section class="slide" id="slide-1-3">
+        <h2 id="your-trainer">Your Trainer</h2>
+<p>Marko Knöbl</p>
+<ul>
+<li>Frontend Web-Development<ul>
+<li>JavaScript</li>
+<li>React, Angular</li>
+</ul>
+</li>
+<li>Programming<ul>
+<li>Python, JavaScript</li>
+</ul>
+</li>
+</ul>
+
+      </section><section class="slide" id="slide-1-4">
+        <h2 id="introduction-of-participants">Introduction of Participants</h2>
+<ul>
+<li>Name</li>
+<li>Company</li>
+<li>Current Projects</li>
+<li>Prior Knowledge</li>
+<li>Expectations</li>
+</ul>
+
+      </section><section class="slide" id="slide-1-5">
+        <h2 id="organizational">Organizational</h2>
+<ul>
+<li>Duration</li>
+<li>Breaks</li>
+<li>Materials</li>
+<li>Questions, Feedback?</li>
+</ul>
+
+      </section></section><section class="section" id="section-2"><section class="slide" id="slide-2-1">
+        <h1 id="qa--testing">QA &amp; Testing</h1>
+
+      </section><section class="slide" id="slide-2-2">
+        <h2 id="logging">Logging</h2>
+
+      </section><section class="slide" id="slide-2-3">
+        <h2 id="logging">Logging</h2>
+<pre><code class="language-py"><span class="hljs-keyword">import</span> logging
+logging.basicConfig(
+    filename=<span class="hljs-string">"sort.log"</span>,
+    level=logging.DEBUG,
+    filemode=<span class="hljs-string">"w"</span>
+)
+
+logging.debug(<span class="hljs-string">"hello"</span>)</code></pre>
+
+      </section><section class="slide" id="slide-2-4">
+        <h2 id="logging">Logging</h2>
+<p>Example: sorting algorithm</p>
+
+      </section><section class="slide" id="slide-2-5">
+        <h2 id="assert">assert</h2>
+
+      </section><section class="slide" id="slide-2-6">
+        <h2 id="doctests">Doctests</h2>
+<p>Code examples and unit tests in one - inside the doc string</p>
+
+      </section><section class="slide" id="slide-2-7">
+        <h2 id="doctests">Doctests</h2>
+<pre><code class="language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">add</span><span class="hljs-params">(a, b)</span>:</span>
+    <span class="hljs-string">"""Add two numbers.
+
+    &gt;&gt;&gt; add(2, 3)
+    5
+    """</span></code></pre>
+
+      </section><section class="slide" id="slide-2-8">
+        <h2 id="running-doctests">Running doctests</h2>
+<pre><code class="language-py"><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">"__main__"</span>:
+    <span class="hljs-keyword">import</span> doctest
+    doctest.testmod()</code></pre>
+
+      </section><section class="slide" id="slide-2-9">
+        <h2 id="doctests-long-outputs">Doctests: long outputs</h2>
+<pre><code class="language-py"><span class="hljs-string">"""
+<span class="hljs-meta">&gt;&gt;&gt; </span>bubblesort(list(range(10))) #doctest: +NORMALIZE_WHITESPACE
+[0, 1, 2, 3, 4, 5,
+6, 7, 8, 9]
+<span class="hljs-meta">&gt;&gt;&gt; </span>bubblesort(list(range(10))) #doctest: +ELLIPSIS
+[0, 1, 2, ..., 8, 9]
+"""</span></code></pre>
+
+      </section><section class="slide" id="slide-2-10">
+        <h2 id="unit-tests">Unit tests</h2>
+<p>Possibilities:</p>
+<ul>
+<li>unittest (standard library)</li>
+<li>pytest</li>
+<li>nose</li>
+</ul>
+
+      </section><section class="slide" id="slide-2-11">
+        <h2 id="unittest">unittest</h2>
+<p>test_tictactoe.py</p>
+<pre><code class="language-py"><span class="hljs-keyword">import</span> unittest
+<span class="hljs-keyword">from</span> tictactoe <span class="hljs-keyword">import</span> has_won
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HasWon</span><span class="hljs-params">(unittest.TestCase)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">test_has_won_first_row_x</span><span class="hljs-params">(self)</span>:</span>
+        board = [[<span class="hljs-string">"X"</span>, <span class="hljs-string">"X"</span>, <span class="hljs-string">"X"</span>],
+                 [<span class="hljs-keyword">None</span>, <span class="hljs-keyword">None</span>, <span class="hljs-keyword">None</span>],
+                 [<span class="hljs-keyword">None</span>, <span class="hljs-keyword">None</span>, <span class="hljs-keyword">None</span>]]
+        w = has_won(board, <span class="hljs-string">"X"</span>)
+        self.assertTrue(w)
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">"__main__"</span>:
+    unittest.main()</code></pre>
+
+      </section><section class="slide" id="slide-2-12">
+        <h2 id="unittest">unittest</h2>
+<p>Running all tests in files that end in <em>test*.py</em>:</p>
+<pre><code class="language-bash">python -m unittest</code></pre>
+<p>Search for a different pattern:</p>
+<pre><code class="language-bash">python -m unittest discover -p <span class="hljs-string">"*_test.py"</span></code></pre>
+<p>Note: in order to be discovered all packages must contain a file named <em>\</em>_init__.py_ (siehe <a href="https://bugs.python.org/issue35617">https://bugs.python.org/issue35617</a>)</p>
+
+      </section><section class="slide" id="slide-2-13">
+        <h2 id="unittest---assertions">unittest - Assertions</h2>
+<p>assertions:</p>
+<ul>
+<li><code>.assertEqual(a, 3)</code></li>
+<li><code>.assertTrue(b)</code></li>
+<li><code>.assertFalse(c)</code></li>
+<li><code>.assertIsNone(d)</code></li>
+<li><code>.assertIn(a, [2, 3, 4])</code></li>
+<li><code>.assertIsInstance(a, int)</code></li>
+<li><code>.assertRaises(TypeError, len)</code></li>
+<li>...</li>
+</ul>
+<p>there are also contrary assertions, e.g. <code>.assertNotEqual(a, 3)</code></p>
+
+      </section><section class="slide" id="slide-2-14">
+        <h2 id="unittest---setup-and-teardown">unittest - setUp and tearDown</h2>
+<p>Defining functions that are executed before / after each test:</p>
+<pre><code class="language-py"><span class="hljs-keyword">import</span> unittest
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">WidgetTestCase</span><span class="hljs-params">(unittest.TestCase)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">setUp</span><span class="hljs-params">(self)</span>:</span>
+        self.widget = Widget(<span class="hljs-string">'The widget'</span>)
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">tearDown</span><span class="hljs-params">(self)</span>:</span>
+        self.widget.dispose()</code></pre>
+
+      </section><section class="slide" id="slide-2-15">
+        <h2 id="unittest---test-coverage">unittest - test coverage</h2>
+<p>PIP package <em>coverage</em></p>
+<p>execution:</p>
+<pre><code class="language-bash">coverage run test_shorten.py
+coverage report</code></pre>
+<p>Example output:</p>
+<pre><code>Name              Stmts   Miss  Cover
+-------------------------------------
+shorten.py            4      0   100%
+test_shorten.py      11      0   100%
+-------------------------------------
+TOTAL                15      0   100%</code></pre>
+      </section></section><section class="section" id="section-3"><section class="slide" id="slide-3-1">
+        <h1 id="docstrings">Docstrings</h1>
+
+      </section><section class="slide" id="slide-3-2">
+        <h2 id="docstring-format">Docstring format</h2>
+<p>PEP 257: <a href="https://www.python.org/dev/peps/pep-0257/">https://www.python.org/dev/peps/pep-0257/</a></p>
+
+      </section><section class="slide" id="slide-3-3">
+        <h2 id="docstrig-format">Docstrig format</h2>
+<p>Docstring of a module: description, list of exported Functions with single-line summaries</p>
+<p>Docstring of a class: description, list of methods</p>
+<p>Docstring of a function: description, list of parameters</p>
+
+      </section><section class="slide" id="slide-3-4">
+        <h2 id="pydocstyle">Pydocstyle</h2>
+<p>Linter for validating docstrings</p>
+
+      </section><section class="slide" id="slide-3-5">
+        <h2 id="restructuredtext-and-sphinx">reStructuredText and Sphinx</h2>
+<p><em>reStructuredText (reST)</em> = simple markup language (similar to <em>Markdown</em>), is used in Python docstrings</p>
+<p><em>Sphinx</em> = tool that uses existing docstrings to generate documentation in HTML and similar formats</p>
+
+      </section><section class="slide" id="slide-3-6">
+        <h2 id="restructuredtext">reStructuredText</h2>
+<p>Example:</p>
+<pre><code class="language-rest">Heading
+=======
+
+- list item 1
+- list item 2
+
+Link to `Wikipedia`_.
+
+.. _Wikipedia: https://www.wikipedia.org/
+
+.. code:: python
+
+   print(&quot;hello&quot;)</code></pre>
+
+      </section></section><section class="section" id="section-4"><section class="slide" id="slide-4-1">
+        <h1 id="static-typing">Static typing</h1>
+
+      </section><section class="slide" id="slide-4-2">
+        <h2 id="static-typing">Static typing</h2>
+<p>Newer Python versions support optional type annotations</p>
+<p>MyPy: type checker for Python that makes use of type annotations</p>
+<p><a href="https://mypy-lang.org">https://mypy-lang.org</a></p>
+
+      </section><section class="slide" id="slide-4-3">
+        <h2 id="type-declarations">Type declarations</h2>
+<p>Variables:</p>
+<pre><code class="language-py">i: int = <span class="hljs-number">3</span></code></pre>
+
+      </section><section class="slide" id="slide-4-4">
+        <h2 id="type-declarations">Type declarations</h2>
+<p>Functions:</p>
+<pre><code class="language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">double</span><span class="hljs-params">(n: int)</span> -&gt; int:</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-number">2</span> * n</code></pre>
+
+      </section><section class="slide" id="slide-4-5">
+        <h2 id="type-declarations">Type declarations</h2>
+<p>collections:</p>
+<pre><code class="language-py"><span class="hljs-keyword">from</span> typing <span class="hljs-keyword">import</span> Iterable
+
+names: Iterable[str] = ...</code></pre>
+
+      </section><section class="slide" id="slide-4-6">
+        <h2 id="type-declarations">Type declarations</h2>
+<p>collections:</p>
+<pre><code class="language-py"><span class="hljs-keyword">from</span> typing <span class="hljs-keyword">import</span> List, Set, Dict, Tuple
+
+names: List[int] = [<span class="hljs-string">'Anna'</span>, <span class="hljs-string">'Bernd'</span>, <span class="hljs-string">'Caro'</span>]
+anna: Tuple[str, str, int] = (<span class="hljs-string">'Anna'</span>, <span class="hljs-string">'Berger'</span>, <span class="hljs-number">1990</span>)
+roman: Dict[int, str] = {<span class="hljs-number">1</span>: <span class="hljs-string">'I'</span>, <span class="hljs-number">2</span>: <span class="hljs-string">'II'</span>, <span class="hljs-number">3</span>: <span class="hljs-string">'III'</span>, <span class="hljs-number">4</span>: <span class="hljs-string">'IV'</span>}</code></pre>
+
+      </section><section class="slide" id="slide-4-7">
+        <h2 id="mypy-documentation">Mypy documentation</h2>
+<p><a href="https://mypy.readthedocs.io">https://mypy.readthedocs.io</a></p>
+
+      </section></section><section class="section" id="section-5"><section class="slide" id="slide-5-1">
+        <h1 id="functions---advanced">Functions - advanced</h1>
+
+      </section><section class="slide" id="slide-5-2">
+        <h2 id="lambdas">Lambdas</h2>
+
+      </section><section class="slide" id="slide-5-3">
+        <h2 id="memoisation">Memoisation</h2>
+<p>(example: fibonacci)</p>
+
+      </section><section class="slide" id="slide-5-4">
+        <h2 id="decorators">Decorators</h2>
+<p>Decorators: Enable easily modifying a function to add to its behavior</p>
+<p>The decorator is a function that takes a function as a parameter and returns a new, modified function</p>
+
+      </section><section class="slide" id="slide-5-5">
+        <h2 id="decorators">Decorators</h2>
+<pre><code class="language-py"><span class="hljs-meta">@cache</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">fib</span><span class="hljs-params">(n)</span>:</span>
+    ...</code></pre>
+<p>is equivalent to:</p>
+<pre><code class="language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">fib</span><span class="hljs-params">(n)</span>:</span>
+    ...
+
+fib = cache(fib)</code></pre>
+
+      </section><section class="slide" id="slide-5-6">
+        <h2 id="functools">Functools</h2>
+
+      </section><section class="slide" id="slide-5-7">
+        <h2 id="functools---example">Functools - example</h2>
+<pre><code class="language-py"><span class="hljs-keyword">from</span> functools <span class="hljs-keyword">import</span> partial
+open_utf8 = partial(open, encoding=<span class="hljs-string">'UTF-8'</span>)</code></pre>
+
+      </section></section><section class="section" id="section-6"><section class="slide" id="slide-6-1">
+        <h1 id="advanced-object-oriented-programming">Advanced object-oriented programming</h1>
+
+      </section><section class="slide" id="slide-6-2">
+        <h2 id="advanced-object-oriented-programming">Advanced object-oriented programming</h2>
+<p>Example: class <em>Length</em></p>
+<pre><code class="language-py">a = Length(<span class="hljs-number">130</span>, <span class="hljs-string">"cm"</span>)
+a.value <span class="hljs-comment"># 130</span>
+a.unit <span class="hljs-comment"># cm</span>
+a.unit = <span class="hljs-string">"in"</span>
+a.value <span class="hljs-comment"># 51.18</span>
+str(a) <span class="hljs-comment"># 51.18in</span>
+b = Length.from_string(<span class="hljs-string">"12cm"</span>)
+<span class="hljs-number">2</span> * b <span class="hljs-comment"># 24cm</span>
+b + a <span class="hljs-comment"># 142cm</span></code></pre>
+
+      </section></section><section class="section" id="section-7"><section class="slide" id="slide-7-1">
+        <h1 id="oop-properties">OOP: Properties</h1>
+
+      </section><section class="slide" id="slide-7-2">
+        <h2 id="properties">Properties</h2>
+<p>Getters &amp; setters (not common in Python):</p>
+<pre><code class="language-py">r = Rectangle(length=<span class="hljs-number">3</span>, width=<span class="hljs-number">4</span>)
+print(r.get_area()) <span class="hljs-comment"># 12</span>
+r.set_length(<span class="hljs-number">4</span>)
+print(r.get_area()) <span class="hljs-comment"># 16</span></code></pre>
+<p>Using properties in Python:</p>
+<pre><code class="language-py">r = Rectangle(length=<span class="hljs-number">3</span>, width=<span class="hljs-number">4</span>)
+print(r.area) <span class="hljs-comment"># 12</span>
+r.length = <span class="hljs-number">4</span>
+print(r.area) <span class="hljs-comment"># 16</span></code></pre>
+
+      </section><section class="slide" id="slide-7-3">
+        <h2 id="properties">Properties</h2>
+<p>Exercise: Implement a class called <code>Rectangle_gs</code> that uses getters and setters</p>
+
+      </section><section class="slide" id="slide-7-4">
+        <h2 id="properties">Properties</h2>
+<pre><code class="language-py"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Rectangle_gs</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self, length, width)</span>:</span>
+        self._length = length
+        self._width = width
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_length</span><span class="hljs-params">(self)</span>:</span>
+        <span class="hljs-keyword">return</span> self._length
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">set_length</span><span class="hljs-params">(self, new_length)</span>:</span>
+        self._length = new_length
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_width</span><span class="hljs-params">(self)</span>:</span>
+        <span class="hljs-keyword">return</span> self._width
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">set_width</span><span class="hljs-params">(self, new_width)</span>:</span>
+        self._width = new_width
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_area</span><span class="hljs-params">(self)</span>:</span>
+        <span class="hljs-keyword">return</span> self._length * self._width</code></pre>
+
+      </section><section class="slide" id="slide-7-5">
+        <h2 id="properties">Properties</h2>
+<p>With properties we can &quot;redirect&quot; reading and writing of attributes to a function - so accessing <code>r.area</code> can lead to the execution of a getter or setter function.</p>
+
+      </section><section class="slide" id="slide-7-6">
+        <h2 id="properties">Properties</h2>
+<pre><code class="language-py"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Rectangle</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self, length, width)</span>:</span>
+        self.length = length
+        self.width = width
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">_get_area</span><span class="hljs-params">(self)</span>:</span>
+        <span class="hljs-keyword">return</span> self.length * self.width
+
+    area = property(_get_area)</code></pre>
+<p><code>property</code> is a built-in, so it&#39;s always available</p>
+
+      </section><section class="slide" id="slide-7-7">
+        <h2 id="properties">Properties</h2>
+<p>Extension: Setter for <em>area</em></p>
+<pre><code class="language-py"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Rectangle</span>:</span>
+    ...
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">_set_area</span><span class="hljs-params">(self, new_area)</span>:</span>
+        <span class="hljs-comment"># adjust the length</span>
+        self.length = new_area / self.width
+
+    area = property(_get_area, _set_area)</code></pre>
+
+      </section><section class="slide" id="slide-7-8">
+        <h2 id="properties">Properties</h2>
+<p>Alternative way to create Properties via decorators:</p>
+<pre><code class="language-py"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Rectangle</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self, length, width)</span>:</span>
+        self.length = length
+        self.width = width
+
+<span class="hljs-meta">    @property</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">area</span><span class="hljs-params">(self)</span>:</span>
+        <span class="hljs-keyword">return</span> self.length * self.width
+
+<span class="hljs-meta">    @area.setter</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">area</span><span class="hljs-params">(self, new_area)</span>:</span>
+        self.length = new_area / self.width</code></pre>
+
+      </section></section><section class="section" id="section-8"><section class="slide" id="slide-8-1">
+        <h1 id="oop-static-attributes-and-methods">OOP: Static attributes and methods</h1>
+
+      </section><section class="slide" id="slide-8-2">
+        <h2 id="class-attributes-static-attributes">Class attributes (static attributes)</h2>
+<p><em>Class attributes</em> are attributes that are only defined on the class (not on each instance) - all instances share these attributes.</p>
+
+      </section><section class="slide" id="slide-8-3">
+        <h2 id="class-attributes-static-attributes">Class attributes (static attributes)</h2>
+<p>Example: <code>Money</code> class with a shared class attribute called <code>_currency_data</code></p>
+<pre><code class="language-py"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Money</span>:</span>
+    _currency_data = [
+        {<span class="hljs-string">"code"</span>: <span class="hljs-string">"USD"</span>, <span class="hljs-string">"symbol"</span>: <span class="hljs-string">"$"</span>, <span class="hljs-string">"rate"</span>: <span class="hljs-number">1.0</span>},
+        {<span class="hljs-string">"code"</span>: <span class="hljs-string">"EUR"</span>, <span class="hljs-string">"symbol"</span>: <span class="hljs-string">"€"</span>, <span class="hljs-string">"rate"</span>: <span class="hljs-number">1.1</span>},
+        {<span class="hljs-string">"code"</span>: <span class="hljs-string">"GBP"</span>, <span class="hljs-string">"symbol"</span>: <span class="hljs-string">"£"</span>, <span class="hljs-string">"rate"</span>: <span class="hljs-number">1.25</span>},
+        {<span class="hljs-string">"code"</span>: <span class="hljs-string">"JPY"</span>, <span class="hljs-string">"symbol"</span>: <span class="hljs-string">"¥"</span>, <span class="hljs-string">"rate"</span>: <span class="hljs-number">0.01</span>},
+    ]
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self, ...)</span>:</span>
+        ...</code></pre>
+
+      </section><section class="slide" id="slide-8-4">
+        <h2 id="static-methods">Static methods</h2>
+<p>If a method does not have to access data of a specific instance it can be declared as a static Method.</p>
+<pre><code class="language-py"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Money</span>:</span>
+    ...
+
+<span class="hljs-meta">    @staticmethod</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">_get_currency_data</span><span class="hljs-params">(code)</span>:</span>
+        <span class="hljs-keyword">for</span> currency <span class="hljs-keyword">in</span> Money._currency_data:
+            <span class="hljs-keyword">if</span> code == currency[<span class="hljs-string">"code"</span>]:
+                <span class="hljs-keyword">return</span> currency
+        <span class="hljs-keyword">raise</span> ValueError(<span class="hljs-string">f"unknown currency: <span class="hljs-subst">{code}</span>"</span>)</code></pre>
+<p>Note: A static method does not receive <code>self</code> as its first parameter - there is no reference to a specific instance.</p>
+
+      </section><section class="slide" id="slide-8-5">
+        <h2 id="static-methods">Static methods</h2>
+<p>There are two main applications for static methods:</p>
+<ul>
+<li>Creation of instances: e.g. <code>Money.from_string(&quot;23.40EUR&quot;)</code></li>
+<li>Bundling of helper functions into a class: e.g. <code>_get_currency_data</code></li>
+</ul>
+
+      </section><section class="slide" id="slide-8-6">
+        <h2 id="class-methods">Class methods</h2>
+<p>If we want to make the followng code more portable (especially for inheritance) it would make sense not to mention the class name (<code>Money</code>) in the method definition:</p>
+<pre><code class="language-py"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Money</span>:</span>
+    ...
+
+<span class="hljs-meta">    @staticmethod</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">_get_currency_data</span><span class="hljs-params">(code)</span>:</span>
+        <span class="hljs-keyword">for</span> currency <span class="hljs-keyword">in</span> Money._currency_data:
+            <span class="hljs-keyword">if</span> code == currency[<span class="hljs-string">"code"</span>]:
+                <span class="hljs-keyword">return</span> currency
+        <span class="hljs-keyword">raise</span> ValueError(<span class="hljs-string">f"unknown currency: <span class="hljs-subst">{code}</span>"</span>)</code></pre>
+
+      </section><section class="slide" id="slide-8-7">
+        <h2 id="class-methods">Class methods</h2>
+<p>Class methods are special static methods which enable referencing the class by a generic name (conventionally <code>cls</code>):</p>
+<pre><code class="language-py"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Money</span>:</span>
+    ...
+
+<span class="hljs-meta">    @classmethod</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">_get_currency_data</span><span class="hljs-params">(cls, code)</span>:</span>
+        <span class="hljs-keyword">for</span> currency <span class="hljs-keyword">in</span> cls._currency_data:
+            <span class="hljs-keyword">if</span> code == currency[<span class="hljs-string">"code"</span>]:
+                <span class="hljs-keyword">return</span> currency
+        <span class="hljs-keyword">raise</span> ValueError(<span class="hljs-string">f"unknown currency: <span class="hljs-subst">{code}</span>"</span>)</code></pre>
+
+      </section></section><section class="section" id="section-9"><section class="slide" id="slide-9-1">
+        <h1 id="oop-magic-methods">OOP: Magic Methods</h1>
+
+      </section><section class="slide" id="slide-9-2">
+        <h2 id="magic-methods">Magic Methods</h2>
+<p>Magic methods are special methods that influence the behavior of a class.</p>
+<p>They begin and end with two underscores, e.g. <code>__init__</code></p>
+<p>List of magic methods: <a href="https://docs.python.org/3/reference/datamodel.html#special-method-names">https://docs.python.org/3/reference/datamodel.html#special-method-names</a></p>
+
+      </section><section class="slide" id="slide-9-3">
+        <h2 id="magic-methods">Magic Methods</h2>
+<p>Methods for converting to strings:</p>
+<ul>
+<li><code>__repr__</code>: default representation, ideally readable / interpretable by Python</li>
+<li><code>__str__</code>: &quot;nice&quot; representation for humans, falls back to <code>__repr__</code> if not overwritten</li>
+</ul>
+<p>Example:</p>
+<pre><code class="language-py"><span class="hljs-keyword">from</span> datetime <span class="hljs-keyword">import</span> time
+a = time(<span class="hljs-number">23</span>, <span class="hljs-number">45</span>)
+repr(a) <span class="hljs-comment"># 'datetime.time(23, 45)'</span>
+str(a) <span class="hljs-comment"># '23:45:00'</span></code></pre>
+
+      </section><section class="slide" id="slide-9-4">
+        <h2 id="magic-methods">Magic Methods</h2>
+<p>Methods for mathematical operators:</p>
+<ul>
+<li><code>__add__</code></li>
+<li><code>__mul__</code></li>
+<li><code>__rmul__</code></li>
+<li>...</li>
+</ul>
+
+      </section><section class="slide" id="slide-9-5">
+        <h2 id="magic-methods">Magic Methods</h2>
+<ul>
+<li><code>__call__</code></li>
+<li><code>__getitem__</code></li>
+</ul>
+
+      </section></section><section class="section" id="section-10"><section class="slide" id="slide-10-1">
+        <h1 id="oop-inheritance">OOP: Inheritance</h1>
+
+      </section><section class="slide" id="slide-10-2">
+        <h2 id="subclasses-and-order-of-inheritance">Subclasses and order of inheritance</h2>
+
+      </section><section class="slide" id="slide-10-3">
+        <h2 id="super">super()</h2>
+<p>Proxy for parent classes</p>
+
+      </section><section class="slide" id="slide-10-4">
+        <h2 id="super">super()</h2>
+<p>without super:</p>
+<pre><code class="language-py"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Child</span><span class="hljs-params">(A, B)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self)</span>:</span>
+        A.__init__(self)
+        B.__init__(self)</code></pre>
+
+      </section><section class="slide" id="slide-10-5">
+        <h2 id="super">super()</h2>
+<p>with super:</p>
+<pre><code class="language-py"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Child</span><span class="hljs-params">(A, B)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self)</span>:</span>
+        super().__init__()</code></pre>
+
+      </section></section><section class="section" id="section-11"><section class="slide" id="slide-11-1">
+        <h1 id="oop-in-depth">OOP: In depth</h1>
+
+      </section><section class="slide" id="slide-11-2">
+        <h2 id="class-decoration">Class decoration</h2>
+<pre><code class="language-py"><span class="hljs-meta">@logattraccess</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span><span class="hljs-params">()</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self)</span>:</span>
+        self.a = <span class="hljs-number">3</span>
+
+f = Foo()
+
+f.a <span class="hljs-comment"># prints: "get property 'a'"</span>
+f.b = <span class="hljs-number">3</span> <span class="hljs-comment"># prints: "set propery 'b'"</span></code></pre>
+
+      </section><section class="slide" id="slide-11-3">
+        <h2 id="instance-attributes-and-slots">Instance attributes and slots</h2>
+<p>In general we can assign any attributes</p>
+<pre><code class="language-py">a.value = <span class="hljs-number">3</span></code></pre>
+<p>In order to reduce memory consumption we can define so-called <em>slots</em> in a class:</p>
+<pre><code class="language-py"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Money</span><span class="hljs-params">()</span>:</span>
+    __slots__ = [<span class="hljs-string">'currency'</span>, <span class="hljs-string">'amount'</span>]</code></pre>
+
+      </section><section class="slide" id="slide-11-4">
+        <h2 id="exercises">Exercises</h2>
+<ul>
+<li>class &quot;Vector&quot;</li>
+<li>class &quot;BankAccount&quot;</li>
+<li>class &quot;Dictionary&quot; (thesaurus)</li>
+</ul>
+
+      </section></section><section class="section" id="section-12"><section class="slide" id="slide-12-1">
+        <h1 id="iterables--iterators">Iterables &amp; Iterators</h1>
+
+      </section><section class="slide" id="slide-12-2">
+        <h2 id="iterable">Iterable</h2>
+<p>An iterable is an object that can be iterated over bia <code>for o in my_iterable</code></p>
+<p>Examples of iterables:</p>
+<ul>
+<li>list</li>
+<li>dict</li>
+<li>range objects</li>
+<li>iterators</li>
+</ul>
+
+      </section><section class="slide" id="slide-12-3">
+        <h2 id="iterators">Iterators</h2>
+<p>Iterating over objects is always done via so-called <em>iterators</em>.</p>
+<p>An iterator can be created via <code>my_iterable.__iter__()</code>.</p>
+
+      </section><section class="slide" id="slide-12-4">
+        <h2 id="iterators">Iterators</h2>
+<p>Iterator of a list:</p>
+<pre><code class="language-py">primes = [<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">7</span>]
+
+primes_iterator = primes.__iter__()</code></pre>
+<p>An Iterator can also provide an iterator (itself):</p>
+<pre><code class="language-py">primes_iterator_iterator = primes_iterator.__iter__()
+
+print(primes_iterator_iterator == primes_iterator) <span class="hljs-comment"># True</span></code></pre>
+
+      </section><section class="slide" id="slide-12-5">
+        <h2 id="iterators">Iterators</h2>
+<p>Iterators have a method named <code>__next__</code> which will return the next object of an iteration.</p>
+<p>Example:</p>
+<pre><code class="language-py">numbers = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]
+
+numbers_iterator = numbers.__iter__()
+
+print(numbers_iterator.__next__()) <span class="hljs-comment"># 1</span>
+print(numbers_iterator.__next__()) <span class="hljs-comment"># 2</span></code></pre>
+
+      </section><section class="slide" id="slide-12-6">
+        <h2 id="iterators">Iterators</h2>
+<p>When an iterator is used up a <code>StopIteration</code> exception is raised.</p>
+<pre><code class="language-py">print(numbers_iterator.__next__()) <span class="hljs-comment"># 1</span>
+print(numbers_iterator.__next__()) <span class="hljs-comment"># 2</span>
+print(numbers_iterator.__next__()) <span class="hljs-comment"># 3</span>
+print(numbers_iterator.__next__()) <span class="hljs-comment"># StopIteration</span></code></pre>
+
+      </section><section class="slide" id="slide-12-7">
+        <h2 id="creating-iterators">Creating iterators</h2>
+<p>We&#39;ve seen:</p>
+<ul>
+<li>creation from iterables (e.g. <em>list</em>, <em>range</em>, <em>custom classes</em>) via <code>__iter__</code></li>
+</ul>
+<p>Other possibilities:</p>
+<ul>
+<li>Functions from the <code>itertools</code> module</li>
+<li>Generator expressions</li>
+<li>Functions with <code>yield</code></li>
+</ul>
+
+      </section><section class="slide" id="slide-12-8">
+        <h2 id="itertools">Itertools</h2>
+<p>Module for creating iterators</p>
+<ul>
+<li><code>itertools.count</code></li>
+<li><code>itertools.repeat</code></li>
+<li><code>itertools.product</code></li>
+</ul>
+<p><a href="https://docs.python.org/3/library/itertools.html">https://docs.python.org/3/library/itertools.html</a></p>
+
+      </section><section class="slide" id="slide-12-9">
+        <h2 id="itertools---example-count">Itertools - example: count</h2>
+<pre><code class="language-py"><span class="hljs-keyword">from</span> itertools <span class="hljs-keyword">import</span> count
+
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> count():
+    print(i)</code></pre>
+
+      </section><section class="slide" id="slide-12-10">
+        <h2 id="iterators---example-count">Iterators - example: count</h2>
+<pre><code class="language-py"><span class="hljs-keyword">from</span> itertools <span class="hljs-keyword">import</span> count
+
+c = count()
+
+c.__next__()
+c.__next__()</code></pre>
+
+      </section><section class="slide" id="slide-12-11">
+        <h2 id="iterators---example-count">Iterators - example: count</h2>
+<pre><code class="language-py"><span class="hljs-keyword">from</span> itertools <span class="hljs-keyword">import</span> count
+
+c = count()
+
+next(c)
+next(c)</code></pre>
+
+      </section><section class="slide" id="slide-12-12">
+        <h2 id="iterators---example-repeat">Iterators - example: repeat</h2>
+<pre><code class="language-py"><span class="hljs-keyword">from</span> itertools <span class="hljs-keyword">import</span> repeat
+
+r = repeat(<span class="hljs-string">'a'</span>, <span class="hljs-number">5</span>)
+
+next(r)
+...</code></pre>
+
+      </section><section class="slide" id="slide-12-13">
+        <h2 id="custom-class">Custom class</h2>
+<p>exercise:</p>
+<pre><code class="language-py"><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> random():
+    ...</code></pre>
+<p>or</p>
+<pre><code class="language-py"><span class="hljs-keyword">for</span> number <span class="hljs-keyword">in</span> roulette():
+    print(number, end=<span class="hljs-string">" "</span>)
+
+<span class="hljs-number">4</span> <span class="hljs-number">0</span> <span class="hljs-number">29</span> <span class="hljs-number">7</span> <span class="hljs-number">13</span> <span class="hljs-number">19</span></code></pre>
+
+      </section><section class="slide" id="slide-12-14">
+        <h2 id="generator-expressions">Generator expressions</h2>
+<p>Similar to list comprehensions</p>
+<pre><code class="language-py"><span class="hljs-comment"># list comprehension</span>
+mylist = [i*i <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">3</span>)]
+
+<span class="hljs-comment"># generator</span>
+mygenerator = (i*i <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">3</span>))</code></pre>
+
+      </section><section class="slide" id="slide-12-15">
+        <h2 id="generator-expressions">Generator expressions</h2>
+<p>Generator expressions are slightly different from list comprehensions:</p>
+<ul>
+<li>lighter on resources (memory, ...)</li>
+<li>can be iterated over only once and in sequence</li>
+</ul>
+
+      </section><section class="slide" id="slide-12-16">
+        <h2 id="yield">yield</h2>
+<p>A function can contain a <code>yield</code> statement instead of a <code>return</code> statement - this makes it a generator</p>
+<pre><code class="language-py"><span class="hljs-comment"># custom count generator</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">count</span><span class="hljs-params">()</span>:</span>
+    i = <span class="hljs-number">0</span>
+    <span class="hljs-keyword">while</span> <span class="hljs-keyword">True</span>:
+        <span class="hljs-keyword">yield</span> i
+        i += i</code></pre>
+
+      </section></section><section class="section" id="section-13"><section class="slide" id="slide-13-1">
+        <h1 id="loops">Loops</h1>
+
+      </section><section class="slide" id="slide-13-2">
+        <h2 id="for--else">for ... else</h2>
+<p>A for loop can have an optional else clause</p>
+<p>It will be executed if the loop finishes normally - i.e. if Python does not encounter a <code>break</code> or <code>return</code> statement</p>
+
+      </section><section class="slide" id="slide-13-3">
+        <h2 id="for--else">for ... else</h2>
+<p>This functionality is not present in any other widespread language</p>
+<p>Many Python developers don&#39;t know it either</p>
+<p>Quote from Python&#39;s inventor:</p>
+<blockquote>
+<p>I would not have the feature at all if I had to do it over.</p>
+</blockquote>
+
+      </section><section class="slide" id="slide-13-4">
+        <h2 id="exercises">Exercises</h2>
+<ul>
+<li><code>is_prime()</code> with loops and <code>for ... else</code></li>
+</ul>
+
+      </section></section><section class="section" id="section-14"><section class="slide" id="slide-14-1">
+        <h1 id="advanced-data-types">Advanced data types</h1>
+
+      </section><section class="slide" id="slide-14-2">
+        <h2 id="advanced-data-types">Advanced data types</h2>
+<ul>
+<li>set / frozenset</li>
+<li>NamedTuple</li>
+<li>enum</li>
+</ul>
+
+      </section></section><section class="section" id="section-15"><section class="slide" id="slide-15-1">
+        <h1 id="set--frozenset">set &amp; frozenset</h1>
+
+      </section><section class="slide" id="slide-15-2">
+        <h2 id="set--frozenset">set &amp; frozenset</h2>
+<p>Set: Unordered collection of elements with no duplicates</p>
+<p>Frozenset: immutable set</p>
+<pre><code class="language-py">ingredients = {<span class="hljs-string">"flour"</span>, <span class="hljs-string">"water"</span>, <span class="hljs-string">"salt"</span>, <span class="hljs-string">"yeast"</span>}
+ingredients = set([<span class="hljs-string">"flour"</span>, <span class="hljs-string">"water"</span>, <span class="hljs-string">"salt"</span>, <span class="hljs-string">"yeast"</span>])
+ingredients = frozenset([<span class="hljs-string">"flour"</span>, <span class="hljs-string">"water"</span>, <span class="hljs-string">"salt"</span>, <span class="hljs-string">"yeast"</span>])</code></pre>
+
+      </section><section class="slide" id="slide-15-3">
+        <h2 id="set">set</h2>
+<p>Sets can be an alternative for Lists if the order is not relevant.</p>
+<pre><code class="language-py">ingredients1 = {<span class="hljs-string">"flour"</span>, <span class="hljs-string">"water"</span>, <span class="hljs-string">"salt"</span>, <span class="hljs-string">"yeast"</span>}
+ingredients2 = {<span class="hljs-string">"water"</span>, <span class="hljs-string">"salt"</span>, <span class="hljs-string">"flour"</span>, <span class="hljs-string">"yeast"</span>}
+ingredients1 == ingredients2 <span class="hljs-comment"># True</span></code></pre>
+
+      </section><section class="slide" id="slide-15-4">
+        <h2 id="set">set</h2>
+<p>Take care: An empty set must always be created via <code>set()</code></p>
+<p>Why does <code>{}</code> not produce an empty set?</p>
+
+      </section><section class="slide" id="slide-15-5">
+        <h2 id="operations-on-sets">Operations on sets</h2>
+<pre><code class="language-py">x = set(<span class="hljs-string">'abc'</span>)
+y = set(<span class="hljs-string">'aeiou'</span>)
+x | y
+x &amp; y
+x - y
+x &lt;= y</code></pre>
+
+      </section><section class="slide" id="slide-15-6">
+        <h2 id="example-neighboring-countries-in-north-america">Example: Neighboring countries in North America</h2>
+<pre><code class="language-py">countries = {
+    <span class="hljs-string">"Canada"</span>, <span class="hljs-string">"USA"</span>, <span class="hljs-string">"Mexico"</span>, <span class="hljs-string">"Guatemala"</span>, <span class="hljs-string">"Belize"</span>,
+    <span class="hljs-string">"El Salvador"</span>, <span class="hljs-string">"Honduras"</span>, <span class="hljs-string">"Nicaragua"</span>, <span class="hljs-string">"Costa Rica"</span>,
+    <span class="hljs-string">"Panama"</span>}
+
+neighbors = [
+    {<span class="hljs-string">"Canada"</span>, <span class="hljs-string">"USA"</span>},
+    {<span class="hljs-string">"USA"</span>, <span class="hljs-string">"Mexico"</span>},
+    {<span class="hljs-string">"Mexico"</span>, <span class="hljs-string">"Guatemala"</span>},
+    {<span class="hljs-string">"Mexico"</span>, <span class="hljs-string">"Belize"</span>},
+    {<span class="hljs-string">"Guatemala"</span>, <span class="hljs-string">"Belize"</span>},
+    {<span class="hljs-string">"Guatemala"</span>, <span class="hljs-string">"El Salvador"</span>},
+    {<span class="hljs-string">"Guatemala"</span>, <span class="hljs-string">"Honduras"</span>},
+    {<span class="hljs-string">"Honduras"</span>, <span class="hljs-string">"Nicaragua"</span>},
+    {<span class="hljs-string">"Nicaragua"</span>, <span class="hljs-string">"Costa Rica"</span>},
+    {<span class="hljs-string">"Costa Rica"</span>, <span class="hljs-string">"Panama"</span>}
+]</code></pre>
+
+      </section><section class="slide" id="slide-15-7">
+        <h2 id="task-find-the-route-from-any-country-to-another">Task: Find the &quot;route&quot; from any country to another</h2>
+
+      </section></section><section class="section" id="section-16"><section class="slide" id="slide-16-1">
+        <h1 id="namedtuple">namedtuple</h1>
+
+      </section><section class="slide" id="slide-16-2">
+        <h2 id="namedtuple">namedtuple</h2>
+<p>Example:</p>
+<pre><code class="language-py"><span class="hljs-keyword">from</span> collections <span class="hljs-keyword">import</span> namedtuple
+
+Point = namedtuple(<span class="hljs-string">'Point'</span>, [<span class="hljs-string">'x'</span>, <span class="hljs-string">'y'</span>])
+
+p = Point(<span class="hljs-number">11</span>, y=<span class="hljs-number">22</span>)
+
+print(p[<span class="hljs-number">0</span>])
+print(p.x)</code></pre>
+
+      </section></section><section class="section" id="section-17"><section class="slide" id="slide-17-1">
+        <h1 id="enum">Enum</h1>
+
+      </section><section class="slide" id="slide-17-2">
+        <h2 id="enum">Enum</h2>
+<p>Enum = collection of symbolic names that can be used instead of specific strings</p>
+<p>Using a string:</p>
+<pre><code class="language-py">a = Button(position=<span class="hljs-string">"left"</span>)</code></pre>
+<p>Using an enum named <em>Position</em>:</p>
+<pre><code class="language-py">a = Button(position=Position.LEFT)</code></pre>
+<p>Enums can prevent typos and help with autocompletion.</p>
+
+      </section><section class="slide" id="slide-17-3">
+        <h2 id="enum">Enum</h2>
+<p>Defining an enum:</p>
+<pre><code class="language-py"><span class="hljs-keyword">from</span> enum <span class="hljs-keyword">import</span> Enum
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Position</span><span class="hljs-params">(Enum)</span>:</span>
+    UP = <span class="hljs-number">1</span>
+    RIGHT = <span class="hljs-number">2</span>
+    DOWN = <span class="hljs-number">3</span>
+    LEFT = <span class="hljs-number">4</span></code></pre>
+
+      </section></section><section class="section" id="section-18"><section class="slide" id="slide-18-1">
+        <h1 id="parallelization-threads--multiprocessing">Parallelization: threads &amp; multiprocessing</h1>
+
+      </section><section class="slide" id="slide-18-2">
+        <h2 id="threads--multiprocessing---why">Threads &amp; multiprocessing - why?</h2>
+<p>Threads:</p>
+<ul>
+<li>dividing resources of a single processor core across various tasks</li>
+<li>waiting for I/O</li>
+</ul>
+<p>Multiprocessing:</p>
+<ul>
+<li>using multiple processor cores</li>
+</ul>
+<p>Advantages of threads: simpler, variables may be modified directly</p>
+
+      </section><section class="slide" id="slide-18-3">
+        <h2 id="threads">Threads</h2>
+<p>Python will repeatedly switch between parallel threads so they are seemingly running concurrently<br>However at any point in time only one thread is active (Global interpreter lock - GIL)</p>
+<p>Two threads may access the same data</p>
+
+      </section><section class="slide" id="slide-18-4">
+        <h2 id="starting-a-new-thread">Starting a new thread</h2>
+<pre><code class="language-py"><span class="hljs-keyword">from</span> threading <span class="hljs-keyword">import</span> Thread
+
+my_thread = Thread(target=<span class="hljs-keyword">print</span>, args=(<span class="hljs-string">'hello'</span>, ), kwargs={end: <span class="hljs-string">""</span>})
+my_thread.start()</code></pre>
+
+      </section><section class="slide" id="slide-18-5">
+        <h2 id="waiting-for-a-thread-to-end">Waiting for a thread to end</h2>
+<pre><code class="language-py">my_thread.join()</code></pre>
+
+      </section><section class="slide" id="slide-18-6">
+        <h2 id="example-repeated-printing">Example: repeated printing</h2>
+<pre><code class="language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">print_multiple</span><span class="hljs-params">(text, n)</span>:</span>
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(n):
+        print(text, end=<span class="hljs-string">""</span>)
+
+thread_a = Thread(target=print_multiple, args=(<span class="hljs-string">"a"</span>, <span class="hljs-number">20</span>))
+thread_b = Thread(target=print_multiple, args=(<span class="hljs-string">"b"</span>, <span class="hljs-number">20</span>))
+thread_a.start()
+thread_b.start()
+thread_a.join()
+thread_b.join()</code></pre>
+
+      </section><section class="slide" id="slide-18-7">
+        <h2 id="exercise-iterations-in-a-thread">Exercise: iterations in a thread</h2>
+<p>We&#39;ll write a program that executes two threads (a and b)</p>
+<p>The two threads contain loops that count how often they were called</p>
+<p>example output:</p>
+<pre><code class="language-bash">797 iterations <span class="hljs-keyword">in</span> thread a
+799 iterations <span class="hljs-keyword">in</span> thread b
+1750 iterations <span class="hljs-keyword">in</span> thread a
+20254 iterations <span class="hljs-keyword">in</span> thread b
+829 iterations <span class="hljs-keyword">in</span> thread a</code></pre>
+
+      </section><section class="slide" id="slide-18-8">
+        <h2 id="locks">Locks</h2>
+<p>Limiting execution to a single thread for some time (e.g. to print multiple things)</p>
+<p>Other threads are blocked during this time</p>
+
+      </section><section class="slide" id="slide-18-9">
+        <h2 id="locks">Locks</h2>
+<p>In the entire program there should only be one lock object</p>
+<pre><code class="language-py"><span class="hljs-keyword">from</span> threading <span class="hljs-keyword">import</span> Lock
+
+l = Lock()</code></pre>
+
+      </section><section class="slide" id="slide-18-10">
+        <h2 id="locks">Locks</h2>
+<pre><code class="language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">print_multiple_locked</span><span class="hljs-params">(text, n)</span>:</span>
+    <span class="hljs-keyword">with</span> l:
+        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(n):
+            print(text, end=<span class="hljs-string">""</span>)</code></pre>
+
+      </section><section class="slide" id="slide-18-11">
+        <h2 id="threads---example">Threads - Example</h2>
+<pre><code class="language-py">threads = []
+
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">1000000000000</span>, <span class="hljs-number">1000000000064</span>):
+    prime_thread = Thread(target=print_is_prime, args=(i,))
+    prime_thread.start()
+    threads.append(prime_thread)
+
+<span class="hljs-keyword">for</span> thread <span class="hljs-keyword">in</span> threads:
+    thread.join()
+print(<span class="hljs-string">'all threads finished'</span>)</code></pre>
+
+      </section><section class="slide" id="slide-18-12">
+        <h2 id="threads-and-xkcd-download">Threads and xkcd download</h2>
+<p>Task: download xkcd comics 100-109 - once in sequence and once in parallel</p>
+
+      </section><section class="slide" id="slide-18-13">
+        <h2 id="multiprocessing">Multiprocessing</h2>
+
+      </section><section class="slide" id="slide-18-14">
+        <h2 id="running-functions-in-separate-processes">Running functions in separate processes</h2>
+<p>Multiprocessing enables running a function inside a separate process</p>
+<pre><code class="language-py"><span class="hljs-keyword">from</span> multiprocessing <span class="hljs-keyword">import</span> Process
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">"__main__"</span>:
+    p = Process(target=hello)
+    p.start()</code></pre>
+
+      </section><section class="slide" id="slide-18-15">
+        <h2 id="running-functions-in-separate-processes">Running functions in separate processes</h2>
+<pre><code class="language-py"><span class="hljs-keyword">from</span> multiprocessing <span class="hljs-keyword">import</span> Process
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">"__main__"</span>:
+    processes = []
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">30</span>, <span class="hljs-number">40</span>):
+        p = Process(target=print_fib, args=(i,))
+        processes.append(p)
+        p.start()
+    <span class="hljs-keyword">for</span> process <span class="hljs-keyword">in</span> processes:
+        process.join()</code></pre>
+
+      </section><section class="slide" id="slide-18-16">
+        <h2 id="pools">Pools</h2>
+<p>My be used for concurrent processing of multiple data points which is started concurrently</p>
+<p>Example: processing all images inside a folder</p>
+
+      </section><section class="slide" id="slide-18-17">
+        <h2 id="pools">Pools</h2>
+<p>Task: compute fibonacci numbers via map() (1 process)</p>
+<p>input: <code>[0, 1, 2, 3, 4, 5, 6, ...]</code></p>
+<p>return value: <code>[0, 1, 1, 2, 3, 5, 8, ...]</code></p>
+
+      </section><section class="slide" id="slide-18-18">
+        <h2 id="pools">Pools</h2>
+<pre><code class="language-py"><span class="hljs-keyword">with</span> Pool(processes=<span class="hljs-number">4</span>) <span class="hljs-keyword">as</span> pool:
+    print(pool.map(fib, range(<span class="hljs-number">1000</span>, <span class="hljs-number">1100</span>)))</code></pre>
+
+      </section><section class="slide" id="slide-18-19">
+        <h2 id="data-exchange-shared-memory">Data exchange: shared memory</h2>
+<p>Integers and floats (and arrays of these types) may be shared across processes</p>
+<pre><code class="language-py"><span class="hljs-keyword">from</span> multiprocessing <span class="hljs-keyword">import</span> Value, Array, Process
+
+a = Array(<span class="hljs-string">'i'</span>, [<span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">13</span>])
+p = Process(target=f, args=(a,))
+p.start()
+...</code></pre>
+
+      </section><section class="slide" id="slide-18-20">
+        <h2 id="other-possibilities-pipes--queues">Other possibilities: Pipes &amp; Queues</h2>
+<p><em>Pipe</em>: Messaging between processes in two directions - e.g. 1 background process which receives tasks from time to time and idles in the meantime</p>
+<p><em>Queue</em>: Messaging in one direction from various producers to various consumers (slower than pipes)</p>
+
+      </section></section>
+
+    </div>
+    <div id="navigation-arrows">
+      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="navigation-arrows-svg"
+        xml:space="preserve" width="100%" height="100%" viewBox="-110 -110 220 220">
+        <path class="arrow right" d="M70,-30L100,0L70,30" />
+        <path class="arrow down" d="M-30,70L0,100L30,70" />
+        <path class="arrow left" d="M-70,-30L-100,0L-70,30" />
+        <path class="arrow up" d="M-30,-70L0,-100L30,-70" />
+      </svg>
+    </div>
+  </div>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 100vw;
+      height: 100vh;
+      margin: 0px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: rgb(150, 150, 150);
+      font-family: -apple-system, "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.5rem;
+    }
+
+    p, ul, pre {
+      margin-top: 0;
+    }
+
+    ul {
+      padding-left: 1.5rem;
+    }
+
+    h1, h2, h3 {
+      margin-top: 0px;
+      font-weight: 600;
+    }
+
+    h1 {
+      margin-top: 5vh;
+      text-align: center;
+      font-size: 2rem;
+    }
+
+    h2 {
+      margin-bottom: 1.5em;
+    }
+
+    svg {
+      width: 100%;
+      height: auto;
+    }
+
+    .section {
+      height: 100%;
+      display: none;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    .slide {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .slide.inactive {
+      display: none;
+    }
+
+    #canvas {
+      box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.3);
+      background-color: #f8f8f8;
+      position: relative;
+      display: flex;
+    }
+
+    #canvas-content {
+      width: 100%;
+      height: 100%;
+    }
+
+    #canvas-content .note {
+      display: none;
+    }
+
+    #canvas-content img {
+      margin: 0px auto;
+      display: block;
+    }
+
+    @media (min-aspect-ratio: 8/5) {
+
+      html {
+        font-size: 3.5vh;
+      }
+
+      /* wide screen */
+      #canvas {
+        width: calc(100vh / 5 * 8);
+        height: 100vh;
+        padding: 10vh;
+        padding-top: 5vh;
+      }
+    }
+
+    @media (max-aspect-ratio: 8/5) {
+
+      html {
+        font-size: calc(3.5vw * 5 / 8);
+      }
+
+      /* narrow screen */
+      #canvas {
+        width: 100vw;
+        height: calc(100vw * 5 / 8);
+        padding: calc(10vh * 5 / 8);
+        padding-top: calc(5vh * 5 / 8);
+      }
+    }
+
+    pre {
+      background-color: rgb(224, 233, 240);
+      box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.2);
+      padding: 0.5em 1em;
+      line-height: 1.2em;
+      overflow: auto;
+    }
+
+    #navigation-arrows {
+      position: absolute;
+      right: 2rem;
+      top: 2rem;
+      height: 3rem;
+      width: 3rem;
+    }
+
+    #navigation-arrows .arrow {
+      stroke: lightblue;
+      /*stroke-width: 0.8em; Chrome behaves differently with ems here */
+      stroke-width: 16px;
+      stroke-linecap: round;
+      fill: none;
+      cursor: pointer;
+    }
+
+    td,
+    th {
+      padding: 0.2em 0.8em;
+    }
+
+    th {
+      text-align: start;
+    }
+  </style>
+  <script>
+    let presenterWindow;
+    let activeSlide;
+    let slideCount;
+
+    const arrowUp = document.querySelector('.arrow.up');
+    const arrowDown = document.querySelector('.arrow.down');
+    const arrowRight = document.querySelector('.arrow.right');
+    const arrowLeft = document.querySelector('.arrow.left');
+    arrowUp.addEventListener('click',
+      () => {activateSlideSafe(activeSlide[0], activeSlide[1] - 1);}
+    );
+    arrowDown.addEventListener('click',
+      () => {activateSlideSafe(activeSlide[0], activeSlide[1] + 1);}
+    );
+    arrowLeft.addEventListener('click',
+      () => {activateSlideSafe(activeSlide[0] - 1, 1);}
+    );
+    arrowRight.addEventListener('click',
+      () => {activateSlideSafe(activeSlide[0] + 1, 1);}
+    )
+    const init = () => {
+      slideCount = countSlides();
+      activateSlideSafe(1, 1);
+      addKeyControls();
+      addSwipeControls();
+      hideNoScriptMessage();
+    }
+
+    // count slides
+    const countSlides = () => {
+      const counts = [];
+      return [...document.querySelectorAll('.section')].map(section => section.childNodes.length);
+    }
+
+    const updateVisible = () => {
+      for (let section of document.querySelectorAll('.section')) {
+        if (section.id === `section-${activeSlide[0]}`) {
+          section.className = 'section active';
+        } else {
+          section.className = 'section inactive';
+        }
+      }
+      for (let slide of document.querySelectorAll('.slide')) {
+        if (slide.id === `slide-${activeSlide[0]}-${activeSlide[1]}`) {
+          slide.className = 'slide active';
+        } else {
+          slide.className = 'slide inactive';
+        }
+      }
+    }
+
+    const updatePageArrows = () => {
+      if (slideCount.length === 1) {
+        arrowLeft.style.opacity = "0";
+        arrowRight.style.opacity = "0";
+      } else {
+        const progressSections = (activeSlide[0] - 1) / (slideCount.length - 1);
+        arrowLeft.style.opacity = progressSections.toString();
+        arrowRight.style.opacity = (1 - progressSections).toString();
+      }
+      const slidesInActiveSection = slideCount[activeSlide[0] - 1]
+      if (slidesInActiveSection === 1) {
+        arrowUp.style.opacity = "0";
+        arrowDown.style.opacity = "0";
+      } else {
+        const progressSlides = (activeSlide[1] - 1) / (slidesInActiveSection - 1);
+        arrowUp.style.opacity = progressSlides.toString();
+        arrowDown.style.opacity = (1 - progressSlides).toString();
+      }
+    }
+
+    /**
+     * Activate a slide if it exists, else do nothing
+    */
+    const activateSlideSafe = (sectionIndex, slideIndex) => {
+      if (1 <= sectionIndex && sectionIndex <= slideCount.length && 1 <= slideIndex && slideIndex <= slideCount[sectionIndex - 1]) {
+        activeSlide = [sectionIndex, slideIndex];
+        updateVisible();
+        updatePageArrows();
+        scrolltoActiveSlide();
+      }
+    }
+
+    const activateSlideNextSafe = () => {
+      if (activeSlide[1] === slideCount[activeSlide[0] - 1]) {
+        activateSlideSafe(activeSlide[0] + 1, 1);
+      } else {
+        activateSlideSafe(activeSlide[0], activeSlide[1] + 1);
+      }
+    }
+
+    const activateSlideRightSafe = () => {
+      activateSlideSafe(activeSlide[0] + 1, 1);
+    }
+
+    const activateSlideLeftSafe = () => {
+      activateSlideSafe(activeSlide[0] - 1, 1);
+    }
+
+    const activateSlideDownSafe = () => {
+      activateSlideSafe(activeSlide[0], activeSlide[1] + 1);
+    }
+
+    const activateSlideUpSafe = () => {
+      activateSlideSafe(activeSlide[0], activeSlide[1] - 1);
+    }
+
+    const scrolltoActiveSlide = () => {
+      const slideId = `#slide-${activeSlide[0]}-${activeSlide[1]}`;
+      if (presenterWindow) {
+        const activeSlide = presenterWindow.document.querySelector(slideId);
+        if (activeSlide) {
+          activeSlide.scrollIntoView();
+        }
+      }
+    }
+
+    const addKeyControls = () => {
+      document.querySelector('body').addEventListener('keydown', event => {
+        if (event.key === 'p') {
+          const canvasContent = document.querySelector('#canvas-content').innerHTML;
+          presenterWindow = window.open(document.URL, '_blank');
+          presenterWindow.onload = () => {
+            presenterWindow.document.querySelector('body').innerHTML = canvasContent;
+          }
+        }
+        if (event.key === 'ArrowRight') {
+          activateSlideRightSafe();
+        } else if (event.key === 'ArrowLeft') {
+          activateSlideLeftSafe();
+        } else if (event.key === 'ArrowDown') {
+          activateSlideDownSafe();
+        } else if (event.key === 'ArrowUp') {
+          activateSlideUpSafe();
+        } else if (event.key === 'Enter') {
+          activateSlideNextSafe();
+        }
+      });
+    }
+
+    const addSwipeControls = () => {
+
+      const distance = 100;
+
+      let startPos;
+      let handled;
+
+      document.addEventListener('touchstart', event => {
+        startPos = event.touches[0];
+        handled = false;
+      });
+
+      document.addEventListener('touchmove', event => {
+        if (!handled) {
+          let currentPos = event.touches[0];
+          const xDiff = currentPos.clientX - startPos.clientX;
+          const yDiff = currentPos.clientY - startPos.clientY;
+          if (Math.abs(xDiff) > 2*Math.abs(yDiff) ||
+              Math.abs(yDiff) > 2*Math.abs(xDiff)) {
+            if (xDiff > distance) {
+              activateSlideLeftSafe();
+              handled = true;
+            } else if (xDiff < -distance) {
+              activateSlideRightSafe();
+              handled = true;
+            } else if (yDiff > distance) {
+              activateSlideUpSafe();
+              handled = true;
+            } else if (yDiff < -distance) {
+              activateSlideDownSafe();
+              handled = true;
+            }
+          }
+        }
+      });
+    }
+
+    const hideNoScriptMessage = () => {
+      document.querySelector("#no-script").innerHTML = "";
+    }
+
+    init();
+
+  </script>
+</body>
+
+</html>
