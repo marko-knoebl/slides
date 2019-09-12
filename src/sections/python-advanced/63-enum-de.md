@@ -13,7 +13,7 @@ a = Button(position="left")
 Verwendung eines Enums namens _Position_:
 
 ```py
-a = Button(position=Position.left)
+a = Button(position=Position.LEFT)
 ```
 
 Enums können Tippfehler vermeiden und Autovervollständigung erleichtern.

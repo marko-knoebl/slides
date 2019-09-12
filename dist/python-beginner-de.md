@@ -823,38 +823,6 @@ Codeblock = Zusammengehörige Codezeilen, die z.B. als Resultat einer if-Abfrage
 
 In Python endet die Zeile vor einem Codeblock mit einem `:`, der Codeblock ist eingerückt (meist mit 4 Leerzeichen).
 
-## Verknüpfung von Vergleichen
-
-einfach:
-
-```py
-if a == 3:
-    print("a is 3")
-```
-
-komplexer:
-
-```py
-if a == 3 and 4 < b < 10:
-    print("a is 3 and b is between 4 and 10")
-```
-
-## Verknüpfung von Vergleichen
-
-```py
-# b ist größer als 4 und kleiner als 10 (verketteter Vergleich)
-4 < b < 10
-
-# längere Version
-b > 4 and b < 10
-
-# c liegt nicht zwischen 4 und 10
-not 4 < c < 10
-
-# andere Version:
-c <= 4 or c >= 10
-```
-
 # While-Schleife
 
 ## While-Schleife
@@ -921,6 +889,42 @@ while True:
         break
 ```
 
+# Verknüpfung von Vergleichen
+
+## Verknüpfung von Vergleichen
+
+- Verknüpfung mit `and`, `or`, `not`
+- Verkettung von Vergleichen
+
+## Verknüpfung mit and, or, not
+
+Beispiele:
+
+```py
+if age >= 18 and country == "de":
+    print("may drink alcohol")
+
+if temperature < -10 or temperature > 30:
+    print("extreme weather")
+
+if not value > 10:
+    print("value not greater than 10")
+```
+
+## Verketten von Vergleichen
+
+`a` und `b` sind beide `0`
+
+```py
+a == b == 0
+```
+
+`b` ist zwischen 4 und 10
+
+```py
+4 < b < 10
+```
+
 # For-Schleifen
 
 ## For-Schleifen
@@ -973,11 +977,11 @@ Logged in as Alice!
 Folgendermaßen können wir in Python von 0 bis 9 zählen:
 
 ```py
-for i in range(5):
+for i in range(10):
     print(i)
 ```
 
-Der Aufruf `range(5)` erstellt ein Objekt, das sich wie die Liste `[0, 1, 2, 3, 4]` verhält
+Der Aufruf `range(10)` erstellt ein Objekt, das sich wie die Liste `[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]` verhält.
 
 ## Zählschleifen
 

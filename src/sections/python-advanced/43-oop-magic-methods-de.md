@@ -15,6 +15,14 @@ Methoden zur Umwandlung in Strings:
 - `__repr__`: möglichst vollständige Informationen zum Objekt, idealerweise von Python interpretierbar
 - `__str__`: "schön" zu lesen
 
+Beispiel:
+
+```py
+from datetime import time
+a = time(23, 45)
+repr(a) # 'datetime.time(23, 45)'
+str(a) # '23:45:00'
+```
 
 ## Magic Methods
 

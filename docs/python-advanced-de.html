@@ -309,7 +309,7 @@ TOTAL                15      0   100%</code></pre>
 <p><em>Sphinx</em> = Werkzeug, das aus bestehenden Docstrings Dokumentation in HTML und ähnlichen Formaten generiert</p>
 
       </section><section class="slide" id="slide-3-6">
-        <h2 id="rest">reST</h2>
+        <h2 id="restructuredtext">reStructuredText</h2>
 <p>Beispiel</p>
 <pre><code class="language-rest">Heading
 =======
@@ -408,7 +408,7 @@ a.value <span class="hljs-comment"># 130</span>
 a.unit <span class="hljs-comment"># cm</span>
 a.unit = <span class="hljs-string">"in"</span>
 a.value <span class="hljs-comment"># 51.18</span>
-print(a) <span class="hljs-comment"># 51.18 in</span>
+str(a) <span class="hljs-comment"># 51.18in</span>
 b = Length.from_string(<span class="hljs-string">"12cm"</span>)
 <span class="hljs-number">2</span> * b <span class="hljs-comment"># 24cm</span>
 b + a <span class="hljs-comment"># 142cm</span></code></pre>
@@ -585,6 +585,11 @@ print(r.area) <span class="hljs-comment"># 16</span></code></pre>
 <li><code>__repr__</code>: möglichst vollständige Informationen zum Objekt, idealerweise von Python interpretierbar</li>
 <li><code>__str__</code>: &quot;schön&quot; zu lesen</li>
 </ul>
+<p>Beispiel:</p>
+<pre><code class="language-py"><span class="hljs-keyword">from</span> datetime <span class="hljs-keyword">import</span> time
+a = time(<span class="hljs-number">23</span>, <span class="hljs-number">45</span>)
+repr(a) <span class="hljs-comment"># 'datetime.time(23, 45)'</span>
+str(a) <span class="hljs-comment"># '23:45:00'</span></code></pre>
 
       </section><section class="slide" id="slide-9-4">
         <h2 id="magic-methods">Magic Methods</h2>
@@ -623,14 +628,10 @@ print(r.area) <span class="hljs-comment"># 16</span></code></pre>
 
       </section><section class="slide" id="slide-10-5">
         <h2 id="super">super()</h2>
-<p>Python 3:</p>
+<p>Mit super:</p>
 <pre><code class="language-py"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Child</span><span class="hljs-params">(A, B)</span>:</span>
     <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self)</span>:</span>
         super().__init__()</code></pre>
-<p>Python 2:</p>
-<pre><code class="language-py"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Child</span><span class="hljs-params">(A, B)</span>:</span>
-    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self)</span>:</span>
-        super(Child, self).__init__()</code></pre>
 
       </section></section><section class="section" id="section-11"><section class="slide" id="slide-11-1">
         <h1 id="oop-vertiefung">OOP: Vertiefung</h1>
@@ -914,7 +915,7 @@ print(p.x)</code></pre>
 <p>Verwendung eines Strings:</p>
 <pre><code class="language-py">a = Button(position=<span class="hljs-string">"left"</span>)</code></pre>
 <p>Verwendung eines Enums namens <em>Position</em>:</p>
-<pre><code class="language-py">a = Button(position=Position.left)</code></pre>
+<pre><code class="language-py">a = Button(position=Position.LEFT)</code></pre>
 <p>Enums können Tippfehler vermeiden und Autovervollständigung erleichtern.</p>
 
       </section><section class="slide" id="slide-17-3">

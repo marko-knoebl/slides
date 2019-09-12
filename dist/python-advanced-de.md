@@ -211,7 +211,7 @@ _reStructuredText (reST)_ = einfache Auszeichnungssprache (ähnlich zu _Markdown
 
 _Sphinx_ = Werkzeug, das aus bestehenden Docstrings Dokumentation in HTML und ähnlichen Formaten generiert
 
-## reST
+## reStructuredText
 
 Beispiel
 
@@ -332,7 +332,7 @@ a.value # 130
 a.unit # cm
 a.unit = "in"
 a.value # 51.18
-print(a) # 51.18 in
+str(a) # 51.18in
 b = Length.from_string("12cm")
 2 * b # 24cm
 b + a # 142cm
@@ -539,6 +539,14 @@ Methoden zur Umwandlung in Strings:
 - `__repr__`: möglichst vollständige Informationen zum Objekt, idealerweise von Python interpretierbar
 - `__str__`: "schön" zu lesen
 
+Beispiel:
+
+```py
+from datetime import time
+a = time(23, 45)
+repr(a) # 'datetime.time(23, 45)'
+str(a) # '23:45:00'
+```
 
 ## Magic Methods
 
@@ -575,20 +583,12 @@ class Child(A, B):
 
 ## super()
 
-Python 3:
+Mit super:
 
 ```py
 class Child(A, B):
     def __init__(self):
         super().__init__()
-```
-
-Python 2:
-
-```py
-class Child(A, B):
-    def __init__(self):
-        super(Child, self).__init__()
 ```
 
 # OOP: Vertiefung
@@ -924,7 +924,7 @@ a = Button(position="left")
 Verwendung eines Enums namens _Position_:
 
 ```py
-a = Button(position=Position.left)
+a = Button(position=Position.LEFT)
 ```
 
 Enums können Tippfehler vermeiden und Autovervollständigung erleichtern.

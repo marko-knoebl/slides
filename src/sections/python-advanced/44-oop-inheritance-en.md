@@ -1,14 +1,14 @@
-# OOP: Vererbung
+# OOP: Inheritance
 
-## Unterklassen und Vererbungsreihenfolge
-
-## super()
-
-Proxy zu den Elternklassen
+## Subclasses and order of inheritance
 
 ## super()
 
-ohne super:
+Proxy for parent classes
+
+## super()
+
+without super:
 
 ```py
 class Child(A, B):
@@ -19,7 +19,7 @@ class Child(A, B):
 
 ## super()
 
-Mit super:
+with super:
 
 ```py
 class Child(A, B):

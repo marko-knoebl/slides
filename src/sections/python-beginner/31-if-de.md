@@ -52,35 +52,3 @@ else:
 Codeblock = Zusammengehörige Codezeilen, die z.B. als Resultat einer if-Abfrage ausgeführt werden.
 
 In Python endet die Zeile vor einem Codeblock mit einem `:`, der Codeblock ist eingerückt (meist mit 4 Leerzeichen).
-
-## Verknüpfung von Vergleichen
-
-einfach:
-
-```py
-if a == 3:
-    print("a is 3")
-```
-
-komplexer:
-
-```py
-if a == 3 and 4 < b < 10:
-    print("a is 3 and b is between 4 and 10")
-```
-
-## Verknüpfung von Vergleichen
-
-```py
-# b ist größer als 4 und kleiner als 10 (verketteter Vergleich)
-4 < b < 10
-
-# längere Version
-b > 4 and b < 10
-
-# c liegt nicht zwischen 4 und 10
-not 4 < c < 10
-
-# andere Version:
-c <= 4 or c >= 10
-```

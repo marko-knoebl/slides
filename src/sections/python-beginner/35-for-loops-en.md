@@ -42,16 +42,3 @@ Enter your password:
 1234
 Logged in as Alice!
 ```
-
-## counting with for loops
-
-Remember: In order to count we may use the function `range`
-
-The function call `range(5)` creates an Object that behaves like the list `[0, 1, 2, 3, 4]`.
-
-Example use:
-
-```py
-for i in range(5):
-    print(i)
-```

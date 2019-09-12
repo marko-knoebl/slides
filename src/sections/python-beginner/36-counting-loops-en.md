@@ -9,7 +9,7 @@ for i in range(10):
     print(i)
 ```
 
-The function call `range(n)` returns the first `n` natural numbers (starting at 0)
+The function call `range(10)` creates an Object that behaves like the list `[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]`.
 
 ## Counting loops
 

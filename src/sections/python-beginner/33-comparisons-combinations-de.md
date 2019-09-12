@@ -1,13 +1,13 @@
-# Combining comparisons
+# Verknüpfung von Vergleichen
 
-## Combining comparisons
+## Verknüpfung von Vergleichen
 
-- combining with `and`, `or`, `not`
-- chaining comparisons
+- Verknüpfung mit `and`, `or`, `not`
+- Verkettung von Vergleichen
 
-## Combining with and, or, not
+## Verknüpfung mit and, or, not
 
-Examples:
+Beispiele:
 
 ```py
 if age >= 18 and country == "de":
@@ -20,15 +20,15 @@ if not value > 10:
     print("value not greater than 10")
 ```
 
-## Chaining comparisons
+## Verketten von Vergleichen
 
-`a` and `b` are both `0`
+`a` und `b` sind beide `0`
 
 ```py
 a == b == 0
 ```
 
-`b` is between 4 and 10
+`b` ist zwischen 4 und 10
 
 ```py
 4 < b < 10

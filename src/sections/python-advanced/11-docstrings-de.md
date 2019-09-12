@@ -22,7 +22,7 @@ _reStructuredText (reST)_ = einfache Auszeichnungssprache (ähnlich zu _Markdown
 
 _Sphinx_ = Werkzeug, das aus bestehenden Docstrings Dokumentation in HTML und ähnlichen Formaten generiert
 
-## reST
+## reStructuredText
 
 Beispiel
 
