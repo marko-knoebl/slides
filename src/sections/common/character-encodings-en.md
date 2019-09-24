@@ -41,15 +41,6 @@ Examples in UTF-8:
 - `Ä` ↔ `11000011 10100100`
 - `🙂` ↔ `11110000 10011111 10011001 10000010`
 
-## Character encodings
-
-| Character | Unicode | ASCII | Latin-1 |    UTF-8 |   UTF-16 |
-| --------- | ------: | ----: | ------: | -------: | -------: |
-| K         |  U+004B |    4B |      4B |       4B |     4B00 |
-| ä         |  U+00E4 |       |      E4 |     C3A4 |     E400 |
-| €         |  U+20AC |       |         |   E282AC |     AC20 |
-| 🙂        | U+1F642 |       |         | F09F9982 | 3DD842DE |
-
 ## UTF-8
 
 In many areas (in particular on the web) _UTF-8_ has become the standard text encoding

@@ -344,25 +344,49 @@ important packages:
 - _os.path_
 - _shutil_
 
-## os
+## os and shutil (1)
 
-- `os.getcwd()` (current directory)
+- `os.getcwd()` (current path)
 - `os.chdir()`
-- `os.chmod()`
 - `os.listdir()`
-- `os.mkdir('foo')`
-- `os.rename('foo', 'bar')`
-- `os.mkdir('foo/bar/baz')`
-- `os.remove('foo/bar/baz/qux.txt')`
-- `os.rmdir('foo/bar/baz')`
+
+<!-- list separator -->
+
 - `os.walk()`
 
-## shutil
+## os und shutil (2)
 
-- `shutil.copy('origin', 'destination')` (copy file)
-- `shutil.copytree()` (copy folder)
+- `os.mkdir("foo")`
+- `os.mkdir("foo/bar/baz")`
+
+<!-- list separator -->
+
+- `os.remove("foo.txt")` (delete file)
+- `os.rmdir("foo/bar/baz")` (delete empty folder)
 - `shutil.rmtree()` (delete folder)
+
+<!-- list separator -->
+
+- `os.rename("foo.txt", "bar.txt")`
 - `shutil.move()` (move file or folder)
+- `shutil.copy("foo.txt", "bar")` (copy file)
+- `shutil.copytree()` (copy folder)
+
+## Extra: general terminal commands
+
+Direct output via `os.system`:
+
+```py
+os.system("ls .")
+os.system("mkdir foo")
+```
+
+Read results in Python via `os.popen`:
+
+```py
+a = os.popen("ls .").read()
+print(a)
+```
 
 ## Exercise
 
@@ -1320,13 +1344,32 @@ The attributes `sqlite3.paramstyle`, `pymysql.paramstyle` etc. indicate the form
 
 # SQLite with Python
 
-## Detecting advanced types
+## Data types
 
-SQLite only supports a limited set of types. It does not natively support types like `DATE` or `TIMESTAMP` - those would have to be stored as strings.
+SQLite data types and corresponding Python types:
 
-We can make Python automatically convert these to and from a string representation by passing `detect_types=sqlite3.PARSE_DECLTYPES` to `sqlite3.connect`.
+- `NULL` - `None`
+- `INT` / `INTEGER` - `int`
+- `REAL` - `float`
+- `TEXT` - `str`
+- `BLOB` - `bytes`
 
-## Detecting advanced types
+## Supporting dates and timestamps
+
+Two types that are usually not supported by SQLite:
+
+- `TIMESTAMP` - `datetime`
+- `DATE` - `date`
+
+Storing them as SQL _DECIMAL_ values with automatic conversion to / from Python types:
+
+```py
+connection = sqlite3.connect(
+    'contacts.db'
+    detect_types=sqlite3.PARSE_DECLTYPES)
+```
+
+## Supporting dates and timestamps
 
 Task: Create a contacts database that automatically converts SQL strings that represent the date of birth into Python `date` objects.
 
@@ -1335,6 +1378,7 @@ Task: Create a contacts database that automatically converts SQL strings that re
 We can add support for more types by writing so-called _adapter_ and _converter_ functions. These custom types will usually be stored as byte sequences in the database.
 
 An _adapter_ is a custom function that converts a Python object into an SQL value.
+
 A _converter_ is a custom function that converts an SQL value into a Python object.
 
 see:

@@ -175,16 +175,6 @@ Operationen:
 
 Beispiele: `3.3`, `3.0`
 
-## float
-
-Achtung Rundungsfehler: Einige Zahlen können nicht genau als Kommazahlen repräseniert werden, sie werden immer gerundet
-
-Beispiel: `1/3`
-
-Der Computer kann auch Zahlen wie `0.1` oder `0.2` nicht genau repräsentieren
-
-Beispiel: `0.3 - 0.2` ergibt `0.09999999999999998`
-
 ## str
 
 Ein _String_ - auch _Zeichenkette_ genannt - repräsentiert Text
@@ -215,13 +205,13 @@ name = 'Tom'
 Option 1 (f-strings):
 
 ```py
-msg2 = f"Hello, {name}"
+msg1 = f"Hello, {name}"
 ```
 
 Option 2:
 
 ```py
-msg1 = "Hello, " + name
+msg2 = "Hello, " + name
 ```
 
 ## Strings - Escape-Sequenzen
@@ -498,8 +488,9 @@ https://code.visualstudio.com/
 
 https://code.visualstudio.com
 
-- Open-Source-Entwicklungsumgebung
-- Unabhängig vom eigentlichen Visual Studio
+Open-Source-Entwicklungsumgebung
+
+Unabhängig vom eigentlichen Visual Studio
 
 ## VS Code: Ordner öffnen
 

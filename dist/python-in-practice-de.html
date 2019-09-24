@@ -443,30 +443,51 @@ earlier = pickle.loads(serialized)</code></pre>
 </ul>
 
       </section><section class="slide" id="slide-5-3">
-        <h2 id="os">os</h2>
+        <h2 id="os-und-shutil-1">os und shutil (1)</h2>
 <ul>
 <li><code>os.getcwd()</code> (aktueller Pfad)</li>
 <li><code>os.chdir()</code></li>
-<li><code>os.chmod()</code></li>
 <li><code>os.listdir()</code></li>
-<li><code>os.mkdir(&#39;foo&#39;)</code></li>
-<li><code>os.rename(&#39;foo&#39;, &#39;bar&#39;)</code></li>
-<li><code>os.mkdir(&#39;foo/bar/baz&#39;)</code></li>
-<li><code>os.remove(&#39;foo/bar/baz/qux.txt&#39;)</code></li>
-<li><code>os.rmdir(&#39;foo/bar/baz&#39;)</code></li>
+</ul>
+<!-- list separator -->
+
+<ul>
 <li><code>os.walk()</code></li>
 </ul>
 
       </section><section class="slide" id="slide-5-4">
-        <h2 id="shutil">shutil</h2>
+        <h2 id="os-und-shutil-2">os und shutil (2)</h2>
 <ul>
-<li><code>shutil.copy(&#39;origin&#39;, &#39;destination&#39;)</code> (Datei kopieren)</li>
-<li><code>shutil.copytree()</code> (Ordner kopieren)</li>
+<li><code>os.mkdir(&quot;foo&quot;)</code></li>
+<li><code>os.mkdir(&quot;foo/bar/baz&quot;)</code></li>
+</ul>
+<!-- list separator -->
+
+<ul>
+<li><code>os.remove(&quot;foo.txt&quot;)</code> (Datei löschen)</li>
+<li><code>os.rmdir(&quot;foo/bar/baz&quot;)</code> (leeren Ordner löschen)</li>
 <li><code>shutil.rmtree()</code> (Ordner löschen)</li>
+</ul>
+<!-- list separator -->
+
+<ul>
+<li><code>os.rename(&quot;foo.txt&quot;, &quot;bar.txt&quot;)</code></li>
 <li><code>shutil.move()</code> (Datei oder Ordner verschieben)</li>
+<li><code>shutil.copy(&quot;foo.txt&quot;, &quot;bar&quot;)</code> (Datei kopieren)</li>
+<li><code>shutil.copytree()</code> (Ordner kopieren)</li>
 </ul>
 
       </section><section class="slide" id="slide-5-5">
+        <h2 id="exkurs-allgemeine-terminal-befehle">Exkurs: allgemeine Terminal-Befehle</h2>
+<p>Direkte Ausgabe mittels <code>os.system</code>:</p>
+<pre><code class="language-py">os.system(<span class="hljs-string">"ls ."</span>)
+os.system(<span class="hljs-string">"mkdir foo"</span>)
+os.system(<span class="hljs-string">"ls ."</span>)</code></pre>
+<p>Ergebnisse in Python einlesen mittels <code>os.popen</code>:</p>
+<pre><code class="language-py">a = os.popen(<span class="hljs-string">"ls ."</span>).read()
+print(a)</code></pre>
+
+      </section><section class="slide" id="slide-5-6">
         <h2 id="übung">Übung</h2>
 <p>Programm, das alle Textdateien in einem Ordner nach einem Begriff durchsucht und die Anzahlen angibt</p>
 
@@ -1394,23 +1415,41 @@ res = cursor.execute(
         <h1 id="sqlite-mit-python">SQLite mit Python</h1>
 
       </section><section class="slide" id="slide-16-2">
-        <h2 id="erweiterte-typen-konvertieren">Erweiterte Typen konvertieren</h2>
-<p>SQLite unterstützt nur eine eingeschränkte Anzahl an Typen. Es unterstützt nativ nicht Typen wie <code>DATE</code> oder <code>TIMESTAMP</code> - diese müssten als Strings gespeichert werden.</p>
-<p>Wir können in Python automatisch die Konvertierung in / von Strings vornehmen lassen, indem wir den parameter <code>detect_types=sqlit3.PARSE_DECLTYPES</code> an <code>sqlite3.connect</code> übergeben.</p>
+        <h2 id="datentypen">Datentypen</h2>
+<p>SQLite Datentypen und zugehörige Python Datentypen:</p>
+<ul>
+<li><code>NULL</code> - <code>None</code></li>
+<li><code>INT</code> / <code>INTEGER</code> - <code>int</code></li>
+<li><code>REAL</code> - <code>float</code></li>
+<li><code>TEXT</code> - <code>str</code></li>
+<li><code>BLOB</code> - <code>bytes</code></li>
+</ul>
 
       </section><section class="slide" id="slide-16-3">
-        <h2 id="erweiterte-typen-konvertieren">Erweiterte Typen konvertieren</h2>
-<p>Übung: Erstelle eine Kontaktdatenbank die automatisch SQL Strings die das Geburtsdatum beschreiben als <code>date</code>-Objekte ausliest.</p>
+        <h2 id="unterstützung-für-date-und-timestamp">Unterstützung für date und timestamp</h2>
+<p>Zwei Typen, die üblicherweise nicht von SQLite unterstütz werden:</p>
+<ul>
+<li><code>TIMESTAMP</code> - <code>datetime</code></li>
+<li><code>DATE</code> - <code>date</code></li>
+</ul>
+<p>Speicherung dieser Typen als SQL <em>DECIMAL</em> mit automatischer Umwandlung in / von Python Typen:</p>
+<pre><code class="language-py">connection = sqlite3.connect(
+    <span class="hljs-string">'contacts.db'</span>
+    detect_types=sqlite3.PARSE_DECLTYPES)</code></pre>
 
       </section><section class="slide" id="slide-16-4">
+        <h2 id="unterstützung-für-date-und-timestamp">Unterstützung für date und timestamp</h2>
+<p>Übung: Erstelle eine Kontaktdatenbank die automatisch SQL Strings die das Geburtsdatum beschreiben als <code>date</code>-Objekte ausliest.</p>
+
+      </section><section class="slide" id="slide-16-5">
         <h2 id="adapter-und-converter">Adapter und Converter</h2>
 <p>Wir können weitere Typen speichern, indem wir sogenannte <em>Adapter</em>- und <em>Converer</em>- Funktionen schreiben. Diese zusätzlichen Typen werden üblicherweise als Bytesequenzen in der Datanbank abgelegt.</p>
-<p>Ein <em>Adapter</em> ist eine Funktion, die ein Python Objekt in einen SQL Wert umwandelt.
-Ein <em>Converter</em> ist eine Funktion, dien einen SQL Wert in ein Python Objekt umwandelt.</p>
+<p>Ein <em>Adapter</em> ist eine Funktion, die ein Python Objekt in einen SQL Wert umwandelt.</p>
+<p>Ein <em>Converter</em> ist eine Funktion, dien einen SQL Wert in ein Python Objekt umwandelt.</p>
 <p>Siehe:</p>
 <p><a href="https://docs.python.org/3/library/sqlite3.html#using-adapters-to-store-additional-python-types-in-sqlite-databases">https://docs.python.org/3/library/sqlite3.html#using-adapters-to-store-additional-python-types-in-sqlite-databases</a></p>
 
-      </section><section class="slide" id="slide-16-5">
+      </section><section class="slide" id="slide-16-6">
         <h2 id="adapter-und-converter">Adapter und Converter</h2>
 <p>Übungen:</p>
 <ul>

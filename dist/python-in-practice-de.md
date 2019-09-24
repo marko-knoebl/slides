@@ -346,25 +346,50 @@ wichtige Pakete:
 - _os.path_
 - _shutil_
 
-## os
+## os und shutil (1)
 
 - `os.getcwd()` (aktueller Pfad)
 - `os.chdir()`
-- `os.chmod()`
 - `os.listdir()`
-- `os.mkdir('foo')`
-- `os.rename('foo', 'bar')`
-- `os.mkdir('foo/bar/baz')`
-- `os.remove('foo/bar/baz/qux.txt')`
-- `os.rmdir('foo/bar/baz')`
+
+<!-- list separator -->
+
 - `os.walk()`
 
-## shutil
+## os und shutil (2)
 
-- `shutil.copy('origin', 'destination')` (Datei kopieren)
-- `shutil.copytree()` (Ordner kopieren)
+- `os.mkdir("foo")`
+- `os.mkdir("foo/bar/baz")`
+
+<!-- list separator -->
+
+- `os.remove("foo.txt")` (Datei löschen)
+- `os.rmdir("foo/bar/baz")` (leeren Ordner löschen)
 - `shutil.rmtree()` (Ordner löschen)
+
+<!-- list separator -->
+
+- `os.rename("foo.txt", "bar.txt")`
 - `shutil.move()` (Datei oder Ordner verschieben)
+- `shutil.copy("foo.txt", "bar")` (Datei kopieren)
+- `shutil.copytree()` (Ordner kopieren)
+
+## Exkurs: allgemeine Terminal-Befehle
+
+Direkte Ausgabe mittels `os.system`:
+
+```py
+os.system("ls .")
+os.system("mkdir foo")
+os.system("ls .")
+```
+
+Ergebnisse in Python einlesen mittels `os.popen`:
+
+```py
+a = os.popen("ls .").read()
+print(a)
+```
 
 ## Übung
 
@@ -1419,13 +1444,32 @@ siehe courses-tutorials/python-todolist-wsgi-sqlite
 
 # SQLite mit Python
 
-## Erweiterte Typen konvertieren
+## Datentypen
 
-SQLite unterstützt nur eine eingeschränkte Anzahl an Typen. Es unterstützt nativ nicht Typen wie `DATE` oder `TIMESTAMP` - diese müssten als Strings gespeichert werden.
+SQLite Datentypen und zugehörige Python Datentypen:
 
-Wir können in Python automatisch die Konvertierung in / von Strings vornehmen lassen, indem wir den parameter `detect_types=sqlit3.PARSE_DECLTYPES` an `sqlite3.connect` übergeben.
+- `NULL` - `None`
+- `INT` / `INTEGER` - `int`
+- `REAL` - `float`
+- `TEXT` - `str`
+- `BLOB` - `bytes`
 
-## Erweiterte Typen konvertieren
+## Unterstützung für date und timestamp
+
+Zwei Typen, die üblicherweise nicht von SQLite unterstütz werden:
+
+- `TIMESTAMP` - `datetime`
+- `DATE` - `date`
+
+Speicherung dieser Typen als SQL _DECIMAL_ mit automatischer Umwandlung in / von Python Typen:
+
+```py
+connection = sqlite3.connect(
+    'contacts.db'
+    detect_types=sqlite3.PARSE_DECLTYPES)
+```
+
+## Unterstützung für date und timestamp
 
 Übung: Erstelle eine Kontaktdatenbank die automatisch SQL Strings die das Geburtsdatum beschreiben als `date`-Objekte ausliest.
 
@@ -1434,6 +1478,7 @@ Wir können in Python automatisch die Konvertierung in / von Strings vornehmen l
 Wir können weitere Typen speichern, indem wir sogenannte _Adapter_- und _Converer_- Funktionen schreiben. Diese zusätzlichen Typen werden üblicherweise als Bytesequenzen in der Datanbank abgelegt.
 
 Ein _Adapter_ ist eine Funktion, die ein Python Objekt in einen SQL Wert umwandelt.
+
 Ein _Converter_ ist eine Funktion, dien einen SQL Wert in ein Python Objekt umwandelt.
 
 Siehe:

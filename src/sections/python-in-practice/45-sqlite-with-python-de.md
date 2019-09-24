@@ -1,12 +1,31 @@
 # SQLite mit Python
 
-## Erweiterte Typen konvertieren
+## Datentypen
 
-SQLite unterstützt nur eine eingeschränkte Anzahl an Typen. Es unterstützt nativ nicht Typen wie `DATE` oder `TIMESTAMP` - diese müssten als Strings gespeichert werden.
+SQLite Datentypen und zugehörige Python Datentypen:
 
-Wir können in Python automatisch die Konvertierung in / von Strings vornehmen lassen, indem wir den parameter `detect_types=sqlit3.PARSE_DECLTYPES` an `sqlite3.connect` übergeben.
+- `NULL` - `None`
+- `INT` / `INTEGER` - `int`
+- `REAL` - `float`
+- `TEXT` - `str`
+- `BLOB` - `bytes`
 
-## Erweiterte Typen konvertieren
+## Unterstützung für date und timestamp
+
+Zwei Typen, die üblicherweise nicht von SQLite unterstütz werden:
+
+- `TIMESTAMP` - `datetime`
+- `DATE` - `date`
+
+Speicherung dieser Typen als SQL _DECIMAL_ mit automatischer Umwandlung in / von Python Typen:
+
+```py
+connection = sqlite3.connect(
+    'contacts.db'
+    detect_types=sqlite3.PARSE_DECLTYPES)
+```
+
+## Unterstützung für date und timestamp
 
 Übung: Erstelle eine Kontaktdatenbank die automatisch SQL Strings die das Geburtsdatum beschreiben als `date`-Objekte ausliest.
 
@@ -15,6 +34,7 @@ Wir können in Python automatisch die Konvertierung in / von Strings vornehmen l
 Wir können weitere Typen speichern, indem wir sogenannte _Adapter_- und _Converer_- Funktionen schreiben. Diese zusätzlichen Typen werden üblicherweise als Bytesequenzen in der Datanbank abgelegt.
 
 Ein _Adapter_ ist eine Funktion, die ein Python Objekt in einen SQL Wert umwandelt.
+
 Ein _Converter_ ist eine Funktion, dien einen SQL Wert in ein Python Objekt umwandelt.
 
 Siehe:

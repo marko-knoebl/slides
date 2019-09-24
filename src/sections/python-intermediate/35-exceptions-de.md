@@ -36,6 +36,21 @@ except ValueError as e:
 
 ## Exceptions abfangen
 
+Mehrere Arten von Exceptions abfangen:
+
+```py
+try:
+    file = open("log.txt", encoding="utf-8")
+except FileNotFoundError:
+    print("could not find log file")
+except PermissionError:
+    print("reading of file is not permitted")
+except Exception:
+    print("error when reading file")
+```
+
+## Exceptions abfangen
+
 Einsatz von `finally`:
 
 ```py
@@ -44,7 +59,7 @@ try:
     file.write("abc")
     file.write("def")
 except IOError:
-    print("could not open file")
+    print("Error when writing to file")
 finally:
     file.close()
 ```
@@ -59,10 +74,10 @@ try:
 except IOError:
     print("could not open file")
 else:
+    # no errors expected here
     file.write("abc")
     file.write("def")
-finally:
-    file.close()
+file.close()
 ```
 
 ## Exceptions erneut raisen

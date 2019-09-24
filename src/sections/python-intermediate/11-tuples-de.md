@@ -2,51 +2,63 @@
 
 ## Tupel
 
-Repräsentieren üblicherweise inhomogene Daten vorgegebener Länge - jeder Eintrag hat eine besondere Bedeutung
+```py
+date = (1973, 10, 23)
+```
 
-Erstellung: Einträge werden mit Kommas getrennt, üblicherweise mit runden Klammern umschlossen
+- Anwendungsbereich: ähnlich wie Dicts
+- Verhalten: ähnlich wie Listen
 
-Tupel sind nach der Erstellung unveränderlich
+## Tupel
+
+Anwendungsbereich: ähnlich wie dict:
+
+```py
+point_dict = {"x": 2, "y": 4}
+point_tuple = (2, 4)
+
+date_dict = {
+  "year": 1973,
+  "month": 10,
+  "day": 23
+}
+date_tuple = (1973, 10, 23)
+```
+
+Jeder Eintrag in einem Tupel hat eine bestimmte Bedeutung
 
 ## Tupel
 
-Bei Tupeln hat jeder Eintrag eine bestimmte Bedeutung
+Verhalten: ähnlich wie Listen:
 
-Alternative Datenstrukturen mit benannten Einträgen:
+```py
+date_tuple[0] # 1973
+len(date_tuple) # 3
+```
 
-- `dict`
-- `NamedTuple`
+Im Gegensatz zu Listen sind Tupel unveränderlich (kein `.append` / `.pop` / ...)
 
 ## Tupel
+
+Erstellung: Einträge werden mit Kommas getrennt, üblicherweise mit runden Klammern umschlossen.
 
 ```py
 empty_tuple = ()
 single_value = ('Thomas', )
-two_values = ('Thomas', 'Bauer')
-two_values = 'Thomas', 'Bauer'
+two_values = ('Thomas', 'Smith')
+two_values = 'Thomas', 'Smith'
 ```
 
 ## Unpacking (von Tupeln)
 
-Tauschen von Variablennamen
+```py
+time = (23, 45, 0)
+
+hour, minute, second = time
+```
+
+Tauschen von Variablennamen:
 
 ```py
 a, b = b, a
-```
-
-## Unpacking (von Tupeln)
-
-Aufzählen von Listenelementen:
-
-```py
-l = ['Alice', 'Bob', 'Charlie']
-
-for i, name in enumerate(l):
-    print(f'{i}: {name}')
-```
-
-Enumerate gibt die folgende Datenstruktur zurück:
-
-```py
-[(0, 'Alice'), (1, 'Bob'), (2, 'Charlie')]
 ```

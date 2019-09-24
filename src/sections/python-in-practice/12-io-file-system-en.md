@@ -8,25 +8,49 @@ important packages:
 - _os.path_
 - _shutil_
 
-## os
+## os and shutil (1)
 
-- `os.getcwd()` (current directory)
+- `os.getcwd()` (current path)
 - `os.chdir()`
-- `os.chmod()`
 - `os.listdir()`
-- `os.mkdir('foo')`
-- `os.rename('foo', 'bar')`
-- `os.mkdir('foo/bar/baz')`
-- `os.remove('foo/bar/baz/qux.txt')`
-- `os.rmdir('foo/bar/baz')`
+
+<!-- list separator -->
+
 - `os.walk()`
 
-## shutil
+## os und shutil (2)
 
-- `shutil.copy('origin', 'destination')` (copy file)
-- `shutil.copytree()` (copy folder)
+- `os.mkdir("foo")`
+- `os.mkdir("foo/bar/baz")`
+
+<!-- list separator -->
+
+- `os.remove("foo.txt")` (delete file)
+- `os.rmdir("foo/bar/baz")` (delete empty folder)
 - `shutil.rmtree()` (delete folder)
+
+<!-- list separator -->
+
+- `os.rename("foo.txt", "bar.txt")`
 - `shutil.move()` (move file or folder)
+- `shutil.copy("foo.txt", "bar")` (copy file)
+- `shutil.copytree()` (copy folder)
+
+## Extra: general terminal commands
+
+Direct output via `os.system`:
+
+```py
+os.system("ls .")
+os.system("mkdir foo")
+```
+
+Read results in Python via `os.popen`:
+
+```py
+a = os.popen("ls .").read()
+print(a)
+```
 
 ## Exercise
 

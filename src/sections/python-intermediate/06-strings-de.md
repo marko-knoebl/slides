@@ -101,5 +101,6 @@ Die früh sich einst dem trüben Blick gezeigt.              2
 
 Weitere Aufgaben:
 
+- Ausrichtung der Zeilennummern basierend auf der Länge der längsten Zeile
 - Zeilennummern nur alle 5 Zeilen
 - Zeilennummern alle 5 Zeilen, wenn die Zeile Text enthält - ansonsten in der nächsten Zeile

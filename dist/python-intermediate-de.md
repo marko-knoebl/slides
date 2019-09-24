@@ -156,8 +156,6 @@ a = int('10010', 2)
 
 64-bit Gleitkommazahlen
 
-## float
-
 ```py
 a = 2.3
 b = .2
@@ -165,6 +163,18 @@ c = 6e23
 d = float('nan')
 e = float('inf')
 ```
+
+## float
+
+Achtung Rundungsfehler: Einige Zahlen können nicht genau als Kommazahlen repräseniert werden, sie werden immer gerundet
+
+Beispiel: `1/3`
+
+Der Computer kann auch Zahlen wie `0.1` oder `0.2` nicht genau repräsentieren
+
+Beispiel: `0.3 - 0.2` ergibt `0.09999999999999998`
+
+Im Allgemeinen sind 64-bit floats auf ca 15 Dezimalstellen genau.
 
 ## float
 
@@ -249,15 +259,6 @@ Beispiele in UTF-8:
 
 - `Ä` ↔ `11000011 10100100`
 - `🙂` ↔ `11110000 10011111 10011001 10000010`
-
-## Zeichenkodierung
-
-| Zeichen | Unicode | ASCII | Latin-1 |    UTF-8 |   UTF-16 |
-| ------- | ------: | ----: | ------: | -------: | -------: |
-| K       |  U+004B |    4B |      4B |       4B |     4B00 |
-| ä       |  U+00E4 |       |      E4 |     C3A4 |     E400 |
-| €       |  U+20AC |       |         |   E282AC |     AC20 |
-| 🙂      | U+1F642 |       |         | F09F9982 | 3DD842DE |
 
 ## UTF-8
 
@@ -387,6 +388,7 @@ Die früh sich einst dem trüben Blick gezeigt.              2
 
 Weitere Aufgaben:
 
+- Ausrichtung der Zeilennummern basierend auf der Länge der längsten Zeile
 - Zeilennummern nur alle 5 Zeilen
 - Zeilennummern alle 5 Zeilen, wenn die Zeile Text enthält - ansonsten in der nächsten Zeile
 
@@ -482,53 +484,65 @@ l.sort(key=...)
 
 ## Tupel
 
-Repräsentieren üblicherweise inhomogene Daten vorgegebener Länge - jeder Eintrag hat eine besondere Bedeutung
+```py
+date = (1973, 10, 23)
+```
 
-Erstellung: Einträge werden mit Kommas getrennt, üblicherweise mit runden Klammern umschlossen
+- Anwendungsbereich: ähnlich wie Dicts
+- Verhalten: ähnlich wie Listen
 
-Tupel sind nach der Erstellung unveränderlich
+## Tupel
+
+Anwendungsbereich: ähnlich wie dict:
+
+```py
+point_dict = {"x": 2, "y": 4}
+point_tuple = (2, 4)
+
+date_dict = {
+  "year": 1973,
+  "month": 10,
+  "day": 23
+}
+date_tuple = (1973, 10, 23)
+```
+
+Jeder Eintrag in einem Tupel hat eine bestimmte Bedeutung
 
 ## Tupel
 
-Bei Tupeln hat jeder Eintrag eine bestimmte Bedeutung
+Verhalten: ähnlich wie Listen:
 
-Alternative Datenstrukturen mit benannten Einträgen:
+```py
+date_tuple[0] # 1973
+len(date_tuple) # 3
+```
 
-- `dict`
-- `NamedTuple`
+Im Gegensatz zu Listen sind Tupel unveränderlich (kein `.append` / `.pop` / ...)
 
 ## Tupel
+
+Erstellung: Einträge werden mit Kommas getrennt, üblicherweise mit runden Klammern umschlossen.
 
 ```py
 empty_tuple = ()
 single_value = ('Thomas', )
-two_values = ('Thomas', 'Bauer')
-two_values = 'Thomas', 'Bauer'
+two_values = ('Thomas', 'Smith')
+two_values = 'Thomas', 'Smith'
 ```
 
 ## Unpacking (von Tupeln)
 
-Tauschen von Variablennamen
+```py
+time = (23, 45, 0)
+
+hour, minute, second = time
+```
+
+Tauschen von Variablennamen:
 
 ```py
 a, b = b, a
-```
-
-## Unpacking (von Tupeln)
-
-Aufzählen von Listenelementen:
-
-```py
-l = ['Alice', 'Bob', 'Charlie']
-
-for i, name in enumerate(l):
-    print(f'{i}: {name}')
-```
-
-Enumerate gibt die folgende Datenstruktur zurück:
-
-```py
-[(0, 'Alice'), (1, 'Bob'), (2, 'Charlie')]
 ```
 
 # Bytes
@@ -992,6 +1006,69 @@ In anderen Sprachen:
 size = length < 110 ? 'small' : 'big';
 ```
 
+# For-Schleifen
+
+## Itertools
+
+Itertools: Modul zum Erzeugen von iterierbaren Elementen
+
+Beispiel:
+
+```py
+for i in count():
+    print(i)
+    if i >= 5:
+        break
+
+# 0 1 2 3 4 5
+```
+
+## For-Schleifen mit Entpacken von Tupeln
+
+Wiederholung: Entpacken von Tupeln
+
+```py
+time = (23, 45, 0)
+
+hour, minute, second = time
+```
+
+## For-Schleifen mit Entpacken von Tupeln
+
+Aufzählen von Listenelementen:
+
+```py
+l = ['Alice', 'Bob', 'Charlie']
+
+for i, name in enumerate(l):
+    print(f'{i}: {name}')
+```
+
+Enumerate gibt eine Datenstruktur zurück, die sich wie die folgende Liste verhält:
+
+```py
+[(0, 'Alice'), (1, 'Bob'), (2, 'Charlie')]
+```
+
+## For-Schleifen mit Entpacken von Tupeln
+
+Auflisten von Ordnerinhalten (inklusive Unterodner) mittels `os.walk`:
+
+```py
+import os
+
+for directory, dirs, files in os.walk("C:\\"):
+    print(f"{directory} {files}")
+```
+
+```
+C:\ []
+C:\PerfLogs []
+C:\Program Files []
+C:\ProgramData []
+...
+```
+
 # Exceptions (Ausnahmen)
 
 ## Arten von Exceptions
@@ -1030,6 +1107,21 @@ except ValueError as e:
 
 ## Exceptions abfangen
 
+Mehrere Arten von Exceptions abfangen:
+
+```py
+try:
+    file = open("log.txt", encoding="utf-8")
+except FileNotFoundError:
+    print("could not find log file")
+except PermissionError:
+    print("reading of file is not permitted")
+except Exception:
+    print("error when reading file")
+```
+
+## Exceptions abfangen
+
 Einsatz von `finally`:
 
 ```py
@@ -1038,7 +1130,7 @@ try:
     file.write("abc")
     file.write("def")
 except IOError:
-    print("could not open file")
+    print("Error when writing to file")
 finally:
     file.close()
 ```
@@ -1053,10 +1145,10 @@ try:
 except IOError:
     print("could not open file")
 else:
+    # no errors expected here
     file.write("abc")
     file.write("def")
-finally:
-    file.close()
+file.close()
 ```
 
 ## Exceptions erneut raisen

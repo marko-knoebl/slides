@@ -146,7 +146,7 @@ e = int('101010', 2)
 
 ## float
 
-64 bit integer
+64 bit float
 
 ```py
 a = 2.3
@@ -155,6 +155,18 @@ c = 6e23
 d = float('nan')
 e = float('inf')
 ```
+
+## float
+
+Be cautious of rounding errors: Some numbers cannot be represented as floating point numbers, they will always be rounded
+
+e.g.: `1/3`
+
+A computer is also unable to represent numbers like `0.1` or `0.2` exactly
+
+example: `0.3 - 0.2` evaluates to `0.09999999999999998`
+
+In general a 64-bit float will be exact for about 15 decimal places.
 
 ## float
 
@@ -237,15 +249,6 @@ Examples in UTF-8:
 
 - `Ä` ↔ `11000011 10100100`
 - `🙂` ↔ `11110000 10011111 10011001 10000010`
-
-## Character encodings
-
-| Character | Unicode | ASCII | Latin-1 |    UTF-8 |   UTF-16 |
-| --------- | ------: | ----: | ------: | -------: | -------: |
-| K         |  U+004B |    4B |      4B |       4B |     4B00 |
-| ä         |  U+00E4 |       |      E4 |     C3A4 |     E400 |
-| €         |  U+20AC |       |         |   E282AC |     AC20 |
-| 🙂        | U+1F642 |       |         | F09F9982 | 3DD842DE |
 
 ## UTF-8
 
@@ -360,6 +363,7 @@ tasks:
 - remove leading whitespace of each line
 - add a line number to the end of each line and place the line number right-aligned at character 70
 - (place line numbers only in every 5th line)
+- (instead of placing line numbers at character 70, use the longest line as a reference)
 
 # String formatting
 
@@ -455,23 +459,44 @@ l.sort(key=...)
 ## Tuples
 
 ```py
-person = ("Thomas", "Smith", "1972-03-15")
+date = (1973, 10, 23)
 ```
 
-- similar to lists
-- used to represent inhomogenous data of a predefined structure - each entry has a specific meaning
-- immutable (unchangeable)
+- area of application: similar to dicts
+- behavior: similar to lists
 
 ## Tuples
 
+Area of application: similar to dicts:
+
+```py
+point_dict = {"x": 2, "y": 4}
+point_tuple = (2, 4)
+
+date_dict = {
+  "year": 1973,
+  "month": 10,
+  "day": 23
+}
+date_tuple = (1973, 10, 23)
+```
+
 Each entry in a tuple has a specific meaning
 
-Alternative data structures with named entries:
+## Tuples
 
-- `dict`
-- `NamedTuple`
+Behavior: similar to lists:
+
+```py
+date_tuple[0] # 1973
+len(date_tuple) # 3
+```
+
+Unlike lists, tuples are immutable (no `.append` / `.pop` / ...)
 
 ## Creating tuples
+
+Entries are separated by commas, usually surrounded by round brackets.
 
 ```py
 empty_tuple = ()
@@ -482,27 +507,16 @@ two_values = 'Thomas', 'Smith'
 
 ## Unpacking (of tuples)
 
+```py
+time = (23, 45, 0)
+
+hour, minute, second = time
+```
+
 swapping variables:
 
 ```py
 a, b = b, a
-```
-
-## Unpacking (of tuples)
-
-enumerating list items:
-
-```py
-l = ['Alice', 'Bob', 'Charlie']
-
-for i, name in enumerate(l):
-    print(f'{i}: {name}')
-```
-
-Enumerate returns the following data structure:
-
-```py
-[(0, 'Alice'), (1, 'Bob'), (2, 'Charlie')]
 ```
 
 # Bytes
@@ -979,6 +993,69 @@ in other languages this could be written as:
 size = length < 110 ? 'small' : 'big';
 ```
 
+# For loops
+
+## Itertools
+
+Itertools: Module for creating iterable elements
+
+Example:
+
+```py
+for i in count():
+    print(i)
+    if i >= 5:
+        break
+
+# 0 1 2 3 4 5
+```
+
+## For loops with tuple unpacking
+
+Recap: tuple unpacking
+
+```py
+time = (23, 45, 0)
+
+hour, minute, second = time
+```
+
+## For loops with tuple unpacking
+
+Enumerating list items:
+
+```py
+l = ['Alice', 'Bob', 'Charlie']
+
+for i, name in enumerate(l):
+    print(f'{i}: {name}')
+```
+
+Enumerate returns a data structure that behaves like this list:
+
+```py
+[(0, 'Alice'), (1, 'Bob'), (2, 'Charlie')]
+```
+
+## For loops with tuple unpacking
+
+Listing directory contents (including subfolders) via `os.walk`:
+
+```py
+import os
+
+for directory, dirs, files in os.walk("C:\\"):
+    print(f"{directory} {files}")
+```
+
+```
+C:\ []
+C:\PerfLogs []
+C:\Program Files []
+C:\ProgramData []
+...
+```
+
 # Exceptions
 
 ## Types of exceptions
@@ -1017,6 +1094,21 @@ except ValueError as e:
 
 ## Catching exceptions
 
+Catching multiple types of exceptions:
+
+```py
+try:
+    file = open("log.txt", encoding="utf-8")
+except FileNotFoundError:
+    print("could not find log file")
+except PermissionError:
+    print("reading of file is not permitted")
+except Exception:
+    print("error when reading file")
+```
+
+## Catching exceptions
+
 Using `finally`:
 
 ```py
@@ -1025,7 +1117,7 @@ try:
     file.write("abc")
     file.write("def")
 except IOError:
-    print("could not open file")
+    print("Error when writing to file")
 finally:
     file.close()
 ```
@@ -1040,10 +1132,20 @@ try:
 except IOError:
     print("could not open file")
 else:
+    # no errors expected here
     file.write("abc")
     file.write("def")
-finally:
-    file.close()
+file.close()
+```
+
+## Re-raising exceptions
+
+```py
+try:
+    ...
+except ClientError as e
+    if "DryRunOperation" not in str(e):
+        raise
 ```
 
 ## Python philosophy: EAFP

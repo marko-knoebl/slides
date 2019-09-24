@@ -22,8 +22,6 @@ a = int('10010', 2)
 
 64-bit Gleitkommazahlen
 
-## float
-
 ```py
 a = 2.3
 b = .2
@@ -31,6 +29,18 @@ c = 6e23
 d = float('nan')
 e = float('inf')
 ```
+
+## float
+
+Achtung Rundungsfehler: Einige Zahlen können nicht genau als Kommazahlen repräseniert werden, sie werden immer gerundet
+
+Beispiel: `1/3`
+
+Der Computer kann auch Zahlen wie `0.1` oder `0.2` nicht genau repräsentieren
+
+Beispiel: `0.3 - 0.2` ergibt `0.09999999999999998`
+
+Im Allgemeinen sind 64-bit floats auf ca 15 Dezimalstellen genau.
 
 ## float
 

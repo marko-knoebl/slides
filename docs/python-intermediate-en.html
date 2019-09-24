@@ -261,7 +261,7 @@ d = <span class="hljs-number">0b101010</span></code></pre>
 
       </section><section class="slide" id="slide-5-4">
         <h2 id="float">float</h2>
-<p>64 bit integer</p>
+<p>64 bit float</p>
 <pre><code class="language-py">a = <span class="hljs-number">2.3</span>
 b = <span class="hljs-number">.2</span>
 c = <span class="hljs-number">6e23</span>
@@ -269,6 +269,14 @@ d = float(<span class="hljs-string">'nan'</span>)
 e = float(<span class="hljs-string">'inf'</span>)</code></pre>
 
       </section><section class="slide" id="slide-5-5">
+        <h2 id="float">float</h2>
+<p>Be cautious of rounding errors: Some numbers cannot be represented as floating point numbers, they will always be rounded</p>
+<p>e.g.: <code>1/3</code></p>
+<p>A computer is also unable to represent numbers like <code>0.1</code> or <code>0.2</code> exactly</p>
+<p>example: <code>0.3 - 0.2</code> evaluates to <code>0.09999999999999998</code></p>
+<p>In general a 64-bit float will be exact for about 15 decimal places.</p>
+
+      </section><section class="slide" id="slide-5-6">
         <h2 id="float">float</h2>
 <p><em>IEEE 754</em>: standardized floating point arithmetic</p>
 <p>Python mostly acts as defined in the standard</p>
@@ -279,18 +287,18 @@ e = float(<span class="hljs-string">'inf'</span>)</code></pre>
 <li><code>nan</code> (not-a-number: undefined / unknown value)</li>
 </ul>
 
-      </section><section class="slide" id="slide-5-6">
+      </section><section class="slide" id="slide-5-7">
         <h2 id="complex">complex</h2>
 <pre><code class="language-py">a = <span class="hljs-number">2</span> + <span class="hljs-number">3j</span></code></pre>
 
-      </section><section class="slide" id="slide-5-7">
+      </section><section class="slide" id="slide-5-8">
         <h2 id="augmented-assignment">Augmented assignment</h2>
 <p>For binary operators there are so-called <em>augmented assignments</em>:</p>
 <pre><code class="language-py">a = a + <span class="hljs-number">1</span></code></pre>
 <p>short form (augmented assignment):</p>
 <pre><code class="language-py">a += <span class="hljs-number">1</span></code></pre>
 
-      </section><section class="slide" id="slide-5-8">
+      </section><section class="slide" id="slide-5-9">
         <h2 id="operations-with-numbers">Operations with numbers</h2>
 <ul>
 <li>Integer division: <code>10 // 3</code></li>
@@ -343,66 +351,19 @@ e = float(<span class="hljs-string">'inf'</span>)</code></pre>
 </ul>
 
       </section><section class="slide" id="slide-6-5">
-        <h2 id="character-encodings">Character encodings</h2>
-<table>
-<thead>
-<tr>
-<th>Character</th>
-<th align="right">Unicode</th>
-<th align="right">ASCII</th>
-<th align="right">Latin-1</th>
-<th align="right">UTF-8</th>
-<th align="right">UTF-16</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>K</td>
-<td align="right">U+004B</td>
-<td align="right">4B</td>
-<td align="right">4B</td>
-<td align="right">4B</td>
-<td align="right">4B00</td>
-</tr>
-<tr>
-<td>ä</td>
-<td align="right">U+00E4</td>
-<td align="right"></td>
-<td align="right">E4</td>
-<td align="right">C3A4</td>
-<td align="right">E400</td>
-</tr>
-<tr>
-<td>€</td>
-<td align="right">U+20AC</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">E282AC</td>
-<td align="right">AC20</td>
-</tr>
-<tr>
-<td>🙂</td>
-<td align="right">U+1F642</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">F09F9982</td>
-<td align="right">3DD842DE</td>
-</tr>
-</tbody></table>
-
-      </section><section class="slide" id="slide-6-6">
         <h2 id="utf-8">UTF-8</h2>
 <p>In many areas (in particular on the web) <em>UTF-8</em> has become the standard text encoding</p>
 <p>In UTF-8 the first 128 Unicode characters can be encoded in just 8 bit</p>
 <p>All other characters need either 16, 24 or 32 bit</p>
 
-      </section><section class="slide" id="slide-6-7">
+      </section><section class="slide" id="slide-6-6">
         <h2 id="utf-32">UTF-32</h2>
 <p>UTF-32 encodes the Unicode code points directly</p>
 <p>Depending on the area of application the byte order may differ (big endian or little endian)</p>
 <p>example:</p>
 <p>🙂 (U+1F642) ↔ <code>00 01 F6 42</code> (big endian) or <code>42 F6 01 00</code> (little endian)</p>
 
-      </section><section class="slide" id="slide-6-8">
+      </section><section class="slide" id="slide-6-7">
         <h2 id="line-breaks">Line breaks</h2>
 <p>Line breaks can be represented by the characters <code>LF</code> (line feed, <code>U+000A</code>) and / or <code>CR</code> (carriage return, <code>U+000D</code>)</p>
 <ul>
@@ -494,6 +455,7 @@ string literal.
 <li>remove leading whitespace of each line</li>
 <li>add a line number to the end of each line and place the line number right-aligned at character 70</li>
 <li>(place line numbers only in every 5th line)</li>
+<li>(instead of placing line numbers at character 70, use the longest line as a reference)</li>
 </ul>
 
       </section></section><section class="section" id="section-8"><section class="slide" id="slide-8-1">
@@ -576,43 +538,48 @@ users = [<span class="hljs-string">"Alice"</span>, <span class="hljs-string">"Bo
 
       </section><section class="slide" id="slide-10-2">
         <h2 id="tuples">Tuples</h2>
-<pre><code class="language-py">person = (<span class="hljs-string">"Thomas"</span>, <span class="hljs-string">"Smith"</span>, <span class="hljs-string">"1972-03-15"</span>)</code></pre>
+<pre><code class="language-py">date = (<span class="hljs-number">1973</span>, <span class="hljs-number">10</span>, <span class="hljs-number">23</span>)</code></pre>
 <ul>
-<li>similar to lists</li>
-<li>used to represent inhomogenous data of a predefined structure - each entry has a specific meaning</li>
-<li>immutable (unchangeable)</li>
+<li>area of application: similar to dicts</li>
+<li>behavior: similar to lists</li>
 </ul>
 
       </section><section class="slide" id="slide-10-3">
         <h2 id="tuples">Tuples</h2>
+<p>Area of application: similar to dicts:</p>
+<pre><code class="language-py">point_dict = {<span class="hljs-string">"x"</span>: <span class="hljs-number">2</span>, <span class="hljs-string">"y"</span>: <span class="hljs-number">4</span>}
+point_tuple = (<span class="hljs-number">2</span>, <span class="hljs-number">4</span>)
+
+date_dict = {
+  <span class="hljs-string">"year"</span>: <span class="hljs-number">1973</span>,
+  <span class="hljs-string">"month"</span>: <span class="hljs-number">10</span>,
+  <span class="hljs-string">"day"</span>: <span class="hljs-number">23</span>
+}
+date_tuple = (<span class="hljs-number">1973</span>, <span class="hljs-number">10</span>, <span class="hljs-number">23</span>)</code></pre>
 <p>Each entry in a tuple has a specific meaning</p>
-<p>Alternative data structures with named entries:</p>
-<ul>
-<li><code>dict</code></li>
-<li><code>NamedTuple</code></li>
-</ul>
 
       </section><section class="slide" id="slide-10-4">
+        <h2 id="tuples">Tuples</h2>
+<p>Behavior: similar to lists:</p>
+<pre><code class="language-py">date_tuple[<span class="hljs-number">0</span>] <span class="hljs-comment"># 1973</span>
+len(date_tuple) <span class="hljs-comment"># 3</span></code></pre>
+<p>Unlike lists, tuples are immutable (no <code>.append</code> / <code>.pop</code> / ...)</p>
+
+      </section><section class="slide" id="slide-10-5">
         <h2 id="creating-tuples">Creating tuples</h2>
+<p>Entries are separated by commas, usually surrounded by round brackets.</p>
 <pre><code class="language-py">empty_tuple = ()
 single_value = (<span class="hljs-string">'Thomas'</span>, )
 two_values = (<span class="hljs-string">'Thomas'</span>, <span class="hljs-string">'Smith'</span>)
 two_values = <span class="hljs-string">'Thomas'</span>, <span class="hljs-string">'Smith'</span></code></pre>
 
-      </section><section class="slide" id="slide-10-5">
-        <h2 id="unpacking-of-tuples">Unpacking (of tuples)</h2>
-<p>swapping variables:</p>
-<pre><code class="language-py">a, b = b, a</code></pre>
-
       </section><section class="slide" id="slide-10-6">
         <h2 id="unpacking-of-tuples">Unpacking (of tuples)</h2>
-<p>enumerating list items:</p>
-<pre><code class="language-py">l = [<span class="hljs-string">'Alice'</span>, <span class="hljs-string">'Bob'</span>, <span class="hljs-string">'Charlie'</span>]
+<pre><code class="language-py">time = (<span class="hljs-number">23</span>, <span class="hljs-number">45</span>, <span class="hljs-number">0</span>)
 
-<span class="hljs-keyword">for</span> i, name <span class="hljs-keyword">in</span> enumerate(l):
-    print(<span class="hljs-string">f'<span class="hljs-subst">{i}</span>: <span class="hljs-subst">{name}</span>'</span>)</code></pre>
-<p>Enumerate returns the following data structure:</p>
-<pre><code class="language-py">[(<span class="hljs-number">0</span>, <span class="hljs-string">'Alice'</span>), (<span class="hljs-number">1</span>, <span class="hljs-string">'Bob'</span>), (<span class="hljs-number">2</span>, <span class="hljs-string">'Charlie'</span>)]</code></pre>
+hour, minute, second = time</code></pre>
+<p>swapping variables:</p>
+<pre><code class="language-py">a, b = b, a</code></pre>
 
       </section></section><section class="section" id="section-11"><section class="slide" id="slide-11-1">
         <h1 id="bytes">Bytes</h1>
@@ -996,9 +963,52 @@ products = []
 size = length &lt; <span class="hljs-number">110</span> ? <span class="hljs-string">'small'</span> : <span class="hljs-string">'big'</span>;</code></pre>
 
       </section></section><section class="section" id="section-18"><section class="slide" id="slide-18-1">
-        <h1 id="exceptions">Exceptions</h1>
+        <h1 id="for-loops">For loops</h1>
 
       </section><section class="slide" id="slide-18-2">
+        <h2 id="itertools">Itertools</h2>
+<p>Itertools: Module for creating iterable elements</p>
+<p>Example:</p>
+<pre><code class="language-py"><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> count():
+    print(i)
+    <span class="hljs-keyword">if</span> i &gt;= <span class="hljs-number">5</span>:
+        <span class="hljs-keyword">break</span>
+
+<span class="hljs-comment"># 0 1 2 3 4 5</span></code></pre>
+
+      </section><section class="slide" id="slide-18-3">
+        <h2 id="for-loops-with-tuple-unpacking">For loops with tuple unpacking</h2>
+<p>Recap: tuple unpacking</p>
+<pre><code class="language-py">time = (<span class="hljs-number">23</span>, <span class="hljs-number">45</span>, <span class="hljs-number">0</span>)
+
+hour, minute, second = time</code></pre>
+
+      </section><section class="slide" id="slide-18-4">
+        <h2 id="for-loops-with-tuple-unpacking">For loops with tuple unpacking</h2>
+<p>Enumerating list items:</p>
+<pre><code class="language-py">l = [<span class="hljs-string">'Alice'</span>, <span class="hljs-string">'Bob'</span>, <span class="hljs-string">'Charlie'</span>]
+
+<span class="hljs-keyword">for</span> i, name <span class="hljs-keyword">in</span> enumerate(l):
+    print(<span class="hljs-string">f'<span class="hljs-subst">{i}</span>: <span class="hljs-subst">{name}</span>'</span>)</code></pre>
+<p>Enumerate returns a data structure that behaves like this list:</p>
+<pre><code class="language-py">[(<span class="hljs-number">0</span>, <span class="hljs-string">'Alice'</span>), (<span class="hljs-number">1</span>, <span class="hljs-string">'Bob'</span>), (<span class="hljs-number">2</span>, <span class="hljs-string">'Charlie'</span>)]</code></pre>
+
+      </section><section class="slide" id="slide-18-5">
+        <h2 id="for-loops-with-tuple-unpacking">For loops with tuple unpacking</h2>
+<p>Listing directory contents (including subfolders) via <code>os.walk</code>:</p>
+<pre><code class="language-py"><span class="hljs-keyword">import</span> os
+
+<span class="hljs-keyword">for</span> directory, dirs, files <span class="hljs-keyword">in</span> os.walk(<span class="hljs-string">"C:\\"</span>):
+    print(<span class="hljs-string">f"<span class="hljs-subst">{directory}</span> <span class="hljs-subst">{files}</span>"</span>)</code></pre>
+<pre><code>C:\ []
+C:\PerfLogs []
+C:\Program Files []
+C:\ProgramData []
+...</code></pre>
+      </section></section><section class="section" id="section-19"><section class="slide" id="slide-19-1">
+        <h1 id="exceptions">Exceptions</h1>
+
+      </section><section class="slide" id="slide-19-2">
         <h2 id="types-of-exceptions">Types of exceptions</h2>
 <ul>
 <li>AttributeError, IndexError, KeyError</li>
@@ -1011,7 +1021,7 @@ size = length &lt; <span class="hljs-number">110</span> ? <span class="hljs-stri
 </ul>
 <p>Exercise: try and trigger all of the above exceptions</p>
 
-      </section><section class="slide" id="slide-18-3">
+      </section><section class="slide" id="slide-19-3">
         <h2 id="catching-exceptions">Catching exceptions</h2>
 <pre><code class="language-py">age_str = input(<span class="hljs-string">"Enter your age"</span>)
 <span class="hljs-keyword">try</span>:
@@ -1019,7 +1029,7 @@ size = length &lt; <span class="hljs-number">110</span> ? <span class="hljs-stri
 <span class="hljs-keyword">except</span> ValueError:
     print(<span class="hljs-string">"Could not parse input as number"</span>)</code></pre>
 
-      </section><section class="slide" id="slide-18-4">
+      </section><section class="slide" id="slide-19-4">
         <h2 id="catching-exceptions">Catching exceptions</h2>
 <pre><code class="language-py">age_str = input(<span class="hljs-string">"Enter your age"</span>)
 <span class="hljs-keyword">try</span>:
@@ -1029,7 +1039,19 @@ size = length &lt; <span class="hljs-number">110</span> ? <span class="hljs-stri
     print(e)
     print(e.args)</code></pre>
 
-      </section><section class="slide" id="slide-18-5">
+      </section><section class="slide" id="slide-19-5">
+        <h2 id="catching-exceptions">Catching exceptions</h2>
+<p>Catching multiple types of exceptions:</p>
+<pre><code class="language-py"><span class="hljs-keyword">try</span>:
+    file = open(<span class="hljs-string">"log.txt"</span>, encoding=<span class="hljs-string">"utf-8"</span>)
+<span class="hljs-keyword">except</span> FileNotFoundError:
+    print(<span class="hljs-string">"could not find log file"</span>)
+<span class="hljs-keyword">except</span> PermissionError:
+    print(<span class="hljs-string">"reading of file is not permitted"</span>)
+<span class="hljs-keyword">except</span> Exception:
+    print(<span class="hljs-string">"error when reading file"</span>)</code></pre>
+
+      </section><section class="slide" id="slide-19-6">
         <h2 id="catching-exceptions">Catching exceptions</h2>
 <p>Using <code>finally</code>:</p>
 <pre><code class="language-py"><span class="hljs-keyword">try</span>:
@@ -1037,11 +1059,11 @@ size = length &lt; <span class="hljs-number">110</span> ? <span class="hljs-stri
     file.write(<span class="hljs-string">"abc"</span>)
     file.write(<span class="hljs-string">"def"</span>)
 <span class="hljs-keyword">except</span> IOError:
-    print(<span class="hljs-string">"could not open file"</span>)
+    print(<span class="hljs-string">"Error when writing to file"</span>)
 <span class="hljs-keyword">finally</span>:
     file.close()</code></pre>
 
-      </section><section class="slide" id="slide-18-6">
+      </section><section class="slide" id="slide-19-7">
         <h2 id="catching-exceptions">Catching exceptions</h2>
 <p>Using <code>else</code>:</p>
 <pre><code class="language-py"><span class="hljs-keyword">try</span>:
@@ -1049,25 +1071,33 @@ size = length &lt; <span class="hljs-number">110</span> ? <span class="hljs-stri
 <span class="hljs-keyword">except</span> IOError:
     print(<span class="hljs-string">"could not open file"</span>)
 <span class="hljs-keyword">else</span>:
+    <span class="hljs-comment"># no errors expected here</span>
     file.write(<span class="hljs-string">"abc"</span>)
     file.write(<span class="hljs-string">"def"</span>)
-<span class="hljs-keyword">finally</span>:
-    file.close()</code></pre>
+file.close()</code></pre>
 
-      </section><section class="slide" id="slide-18-7">
+      </section><section class="slide" id="slide-19-8">
+        <h2 id="re-raising-exceptions">Re-raising exceptions</h2>
+<pre><code class="language-py"><span class="hljs-keyword">try</span>:
+    ...
+<span class="hljs-keyword">except</span> ClientError <span class="hljs-keyword">as</span> e
+    <span class="hljs-keyword">if</span> <span class="hljs-string">"DryRunOperation"</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> str(e):
+        <span class="hljs-keyword">raise</span></code></pre>
+
+      </section><section class="slide" id="slide-19-9">
         <h2 id="python-philosophy-eafp">Python philosophy: EAFP</h2>
 <p>LBYL: <em>Look before you leap</em></p>
 <p>EAFP: <em>It&#39;s easier to ask for forgiveness than permission</em></p>
 <p>(example: parsing numbers)</p>
 
-      </section></section><section class="section" id="section-19"><section class="slide" id="slide-19-1">
+      </section></section><section class="section" id="section-20"><section class="slide" id="slide-20-1">
         <h1 id="raising-exceptions">Raising exceptions</h1>
 
-      </section><section class="slide" id="slide-19-2">
+      </section><section class="slide" id="slide-20-2">
         <h2 id="raising-exceptions">Raising exceptions</h2>
 <pre><code class="language-py"><span class="hljs-keyword">raise</span> ValueError(<span class="hljs-string">'test'</span>)</code></pre>
 
-      </section><section class="slide" id="slide-19-3">
+      </section><section class="slide" id="slide-20-3">
         <h2 id="re-raising-caught-exceptions">Re-raising caught exceptions</h2>
 <pre><code class="language-py"><span class="hljs-keyword">try</span>:
     ...
@@ -1075,7 +1105,7 @@ size = length &lt; <span class="hljs-number">110</span> ? <span class="hljs-stri
     <span class="hljs-keyword">if</span> <span class="hljs-string">"DryRunOperation"</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> str(e):
         <span class="hljs-keyword">raise</span></code></pre>
 
-      </section><section class="slide" id="slide-19-4">
+      </section><section class="slide" id="slide-20-4">
         <h2 id="custom-exceptions">Custom exceptions</h2>
 <p>We can define custom exceptions as subclasses of other exception classes:</p>
 <pre><code class="language-py"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MoneyParseException</span><span class="hljs-params">(Exception)</span>:</span>
@@ -1083,10 +1113,10 @@ size = length &lt; <span class="hljs-number">110</span> ? <span class="hljs-stri
 
 <span class="hljs-keyword">raise</span> MoneyParseException()</code></pre>
 
-      </section></section><section class="section" id="section-20"><section class="slide" id="slide-20-1">
+      </section></section><section class="section" id="section-21"><section class="slide" id="slide-21-1">
         <h1 id="modules-and-packages">Modules and packages</h1>
 
-      </section><section class="slide" id="slide-20-2">
+      </section><section class="slide" id="slide-21-2">
         <h2 id="modules-and-packages">Modules and packages</h2>
 <ul>
 <li>Module = collection of Python objects that can be imported</li>
@@ -1094,7 +1124,7 @@ size = length &lt; <span class="hljs-number">110</span> ? <span class="hljs-stri
 </ul>
 <p>(packages are actually a special type of modules)</p>
 
-      </section><section class="slide" id="slide-20-3">
+      </section><section class="slide" id="slide-21-3">
         <h2 id="example-imports">Example imports</h2>
 <ul>
 <li><code>urllib</code> = package</li>
@@ -1108,7 +1138,7 @@ size = length &lt; <span class="hljs-number">110</span> ? <span class="hljs-stri
 <li><code>sys.path</code> = object</li>
 </ul>
 
-      </section><section class="slide" id="slide-20-4">
+      </section><section class="slide" id="slide-21-4">
         <h2 id="example-imports">Example imports</h2>
 <p>Typical imports:</p>
 <pre><code class="language-py"><span class="hljs-keyword">import</span> module1
@@ -1123,7 +1153,7 @@ size = length &lt; <span class="hljs-number">110</span> ? <span class="hljs-stri
 <span class="hljs-keyword">from</span> math <span class="hljs-keyword">import</span> sqrt, pi
 <span class="hljs-keyword">from</span> http.client <span class="hljs-keyword">import</span> HTTPConnection, HTTPSConnection</code></pre>
 
-      </section><section class="slide" id="slide-20-5">
+      </section><section class="slide" id="slide-21-5">
         <h2 id="shorter-names-for-imports">Shorter names for imports</h2>
 <p>Typically used in an interactive console to save keystrokes:</p>
 <p>Short names:</p>
@@ -1133,7 +1163,7 @@ size = length &lt; <span class="hljs-number">110</span> ? <span class="hljs-stri
 <p>Importing everything from a module (usually not recommended):</p>
 <pre><code class="language-py"><span class="hljs-keyword">from</span> math <span class="hljs-keyword">import</span> *</code></pre>
 
-      </section><section class="slide" id="slide-20-6">
+      </section><section class="slide" id="slide-21-6">
         <h2 id="automatic-import-of-submodules">Automatic import of submodules</h2>
 <p>When importing <em>some</em> packages, submodules will be imported automatically.</p>
 <p>Examples:</p>
@@ -1147,7 +1177,7 @@ np.random.randint(<span class="hljs-number">10</span>)</code></pre>
 
 urllib.request.urlopen(...)</code></pre>
 
-      </section><section class="slide" id="slide-20-7">
+      </section><section class="slide" id="slide-21-7">
         <h2 id="conventions-for-imports">Conventions for imports</h2>
 <ul>
 <li>all imports in a Python file <em>should</em> be at the start of the file</li>
@@ -1159,22 +1189,22 @@ urllib.request.urlopen(...)</code></pre>
 </li>
 </ul>
 
-      </section></section><section class="section" id="section-21"><section class="slide" id="slide-21-1">
+      </section></section><section class="section" id="section-22"><section class="slide" id="slide-22-1">
         <h1 id="custom-modules">Custom modules</h1>
 
-      </section><section class="slide" id="slide-21-2">
+      </section><section class="slide" id="slide-22-2">
         <h2 id="custom-modules">Custom modules</h2>
 <p>Goal: creating a custom module that can be used like this:</p>
 <pre><code class="language-py"><span class="hljs-keyword">from</span> foo <span class="hljs-keyword">import</span> a, b</code></pre>
 
-      </section><section class="slide" id="slide-21-3">
+      </section><section class="slide" id="slide-22-3">
         <h2 id="custom-modules">Custom modules</h2>
 <p>Simple module as a Python file:</p>
 <pre><code class="language-py"><span class="hljs-comment"># foo.py</span>
 a = <span class="hljs-number">1</span>
 b = <span class="hljs-number">2</span></code></pre>
 
-      </section><section class="slide" id="slide-21-4">
+      </section><section class="slide" id="slide-22-4">
         <h2 id="custom-modules">Custom modules</h2>
 <p>Module as a directory:</p>
 <pre><code>- foo/
@@ -1182,7 +1212,7 @@ b = <span class="hljs-number">2</span></code></pre>
 a = <span class="hljs-number">1</span>
 b = <span class="hljs-number">2</span></code></pre>
 
-      </section><section class="slide" id="slide-21-5">
+      </section><section class="slide" id="slide-22-5">
         <h2 id="custom-modules">Custom modules</h2>
 <p>Module as a directory with separated defintions:</p>
 <pre><code>- foo/
@@ -1192,7 +1222,7 @@ b = <span class="hljs-number">2</span></code></pre>
 <span class="hljs-keyword">from</span> _a_mod <span class="hljs-keyword">import</span> a
 <span class="hljs-keyword">from</span> _b_mod <span class="hljs-keyword">import</span> b</code></pre>
 
-      </section><section class="slide" id="slide-21-6">
+      </section><section class="slide" id="slide-22-6">
         <h2 id="custom-packages">Custom packages</h2>
 <p>Goal: creating a custom package that can be used like this:</p>
 <pre><code class="language-py"><span class="hljs-keyword">from</span> foo <span class="hljs-keyword">import</span> bar
@@ -1200,11 +1230,11 @@ b = <span class="hljs-number">2</span></code></pre>
 print(bar.a)
 print(bar.b)</code></pre>
 
-      </section><section class="slide" id="slide-21-7">
+      </section><section class="slide" id="slide-22-7">
         <h2 id="custom-packages">Custom packages</h2>
 <pre><code>- foo/
   - bar.py</code></pre>
-      </section><section class="slide" id="slide-21-8">
+      </section><section class="slide" id="slide-22-8">
         <h2 id="resolving-imports">Resolving imports</h2>
 <p>Search order:</p>
 <ul>
@@ -1214,48 +1244,48 @@ print(bar.b)</code></pre>
 </ul>
 <p>Avoid name clashes with existing modules / packages!</p>
 
-      </section><section class="slide" id="slide-21-9">
+      </section><section class="slide" id="slide-22-9">
         <h2 id="resolving-imports">Resolving imports</h2>
 <p>To see all search paths for imports:</p>
 <pre><code class="language-py"><span class="hljs-keyword">import</span> sys
 print(sys.path)</code></pre>
 
-      </section><section class="slide" id="slide-21-10">
+      </section><section class="slide" id="slide-22-10">
         <h2 id="compilation-of-modules">Compilation of modules</h2>
 <p>Imported modules will be saved in a compiled form, making subsequent loading of the modules faster.</p>
 <p>Compiled versions will be saved in the folder <code>__pycache__</code></p>
 
-      </section></section><section class="section" id="section-22"><section class="slide" id="slide-22-1">
+      </section></section><section class="section" id="section-23"><section class="slide" id="slide-23-1">
         <h1 id="pip--pipenv">PIP &amp; pipenv</h1>
 
-      </section><section class="slide" id="slide-22-2">
+      </section><section class="slide" id="slide-23-2">
         <h2 id="pip">PIP</h2>
 <p><em>PIP</em> = Package manager for Python</p>
 <p>Simple usage:</p>
 <pre><code class="language-bash">pip install requests numpy</code></pre>
 <p>Packages and their dependencies are looked up in the Python Package Index: <a href="https://pypi.org/">https://pypi.org/</a></p>
 
-      </section><section class="slide" id="slide-22-3">
+      </section><section class="slide" id="slide-23-3">
         <h2 id="pip">PIP</h2>
 <p>Installing specific Versions:</p>
 <pre><code>pip install requests==1.1
 pip install numpy&gt;=1.16</code></pre>
-      </section><section class="slide" id="slide-22-4">
+      </section><section class="slide" id="slide-23-4">
         <h2 id="pip">PIP</h2>
 <p>dependency list ina requirements file that can be shared with others:</p>
 <p>requirements.txt:</p>
 <pre><code>requests==1.1
 numpy&gt;=1.16</code></pre><pre><code class="language-bash">pip install -r requirements.txt</code></pre>
 
-      </section><section class="slide" id="slide-22-5">
+      </section><section class="slide" id="slide-23-5">
         <h2 id="pipenv">Pipenv</h2>
 <p><em>Pipenv</em>: virtual environments that enable installation of different package versions per project</p>
 
-      </section><section class="slide" id="slide-22-6">
+      </section><section class="slide" id="slide-23-6">
         <h2 id="pipenv">Pipenv</h2>
 <pre><code class="language-bash">pip install pipenv</code></pre>
 
-      </section><section class="slide" id="slide-22-7">
+      </section><section class="slide" id="slide-23-7">
         <h2 id="pipenv">Pipenv</h2>
 <p>Using pipenv:</p>
 <pre><code class="language-bash">pipenv install requests
@@ -1266,15 +1296,15 @@ pipenv install numpy</code></pre>
 <li><em>Pipfile.lock</em>: exact version numbers</li>
 </ul>
 
-      </section><section class="slide" id="slide-22-8">
+      </section><section class="slide" id="slide-23-8">
         <h2 id="pipenv">Pipenv</h2>
 <p>Executing Python scripts in a PIP environment:</p>
 <pre><code class="language-bash">pipenv run python foo.py</code></pre>
 
-      </section></section><section class="section" id="section-23"><section class="slide" id="slide-23-1">
+      </section></section><section class="section" id="section-24"><section class="slide" id="slide-24-1">
         <h1 id="functions">Functions</h1>
 
-      </section><section class="slide" id="slide-23-2">
+      </section><section class="slide" id="slide-24-2">
         <h2 id="arbitrary-number-of-arguments-args--kwargs">Arbitrary number of Arguments (args / kwargs)</h2>
 <pre><code class="language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">foo</span><span class="hljs-params">(*args, **kwargs)</span>:</span>
     print(args)
@@ -1285,11 +1315,11 @@ foo(<span class="hljs-string">"one"</span>, <span class="hljs-string">"two"</spa
 <span class="hljs-comment"># kwargs: {"x": "hello"}</span></code></pre>
 <p><code>args</code> will be a tuple, <code>kwargs</code> will be a dictionary</p>
 
-      </section><section class="slide" id="slide-23-3">
+      </section><section class="slide" id="slide-24-3">
         <h2 id="arbitrary-number-of-arguments-args--kwargs">Arbitrary number of Arguments (args / kwargs)</h2>
 <p>Task: recreate <code>range()</code> by using a while loop</p>
 
-      </section><section class="slide" id="slide-23-4">
+      </section><section class="slide" id="slide-24-4">
         <h2 id="unpacking-of-parameter-lists">Unpacking of parameter lists</h2>
 <pre><code class="language-py">numbers = [<span class="hljs-string">"one"</span>, <span class="hljs-string">"two"</span>, <span class="hljs-string">"three"</span>]
 
@@ -1298,17 +1328,17 @@ print(numbers[<span class="hljs-number">0</span>], numbers[<span class="hljs-num
 
 print(*numbers)</code></pre>
 
-      </section><section class="slide" id="slide-23-5">
+      </section><section class="slide" id="slide-24-5">
         <h2 id="global-and-local-scope">Global and local scope</h2>
 <p><code>global</code> / <code>nonlocal</code></p>
 <p>change the behavior of <em>assignments</em></p>
 
-      </section><section class="slide" id="slide-23-6">
+      </section><section class="slide" id="slide-24-6">
         <h2 id="call-by-sharing">Call by sharing</h2>
 <p>In Python values are passed to functions via <em>call by sharing</em> (similar to <em>call by reference</em> in other languages)</p>
 <p>This means: A function <em>may</em> mutate parameters that are passed in - and we should usually make sure not to do so</p>
 
-      </section><section class="slide" id="slide-23-7">
+      </section><section class="slide" id="slide-24-7">
         <h2 id="call-by-sharing">Call by sharing</h2>
 <p>Example:</p>
 <pre><code class="language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">modify_a</span><span class="hljs-params">(mylist)</span>:</span>
@@ -1324,17 +1354,17 @@ list_b = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>
 list_b_mod = modify_b(list_b)</code></pre>
 <p>(results on next slide)</p>
 
-      </section><section class="slide" id="slide-23-8">
+      </section><section class="slide" id="slide-24-8">
         <h2 id="call-by-sharing">Call by sharing</h2>
 <pre><code class="language-py">list_a_mod <span class="hljs-comment"># [1, 2, 1]</span>
 list_b_mod <span class="hljs-comment"># [1, 2, 1]</span>
 list_a <span class="hljs-comment"># [1, 2, 1]</span>
 list_b <span class="hljs-comment"># [1, 2]</span></code></pre>
 
-      </section></section><section class="section" id="section-24"><section class="slide" id="slide-24-1">
+      </section></section><section class="section" id="section-25"><section class="slide" id="slide-25-1">
         <h1 id="pure-functions">Pure functions</h1>
 
-      </section><section class="slide" id="slide-24-2">
+      </section><section class="slide" id="slide-25-2">
         <h2 id="pure-functions">Pure functions</h2>
 <p>Pure functions are functions which only interact with their environment via input parameters and return values</p>
 <p>in particular, this means:</p>
@@ -1344,7 +1374,7 @@ list_b <span class="hljs-comment"># [1, 2]</span></code></pre>
 <li>no mutating of objects that are passed in</li>
 </ul>
 
-      </section><section class="slide" id="slide-24-3">
+      </section><section class="slide" id="slide-25-3">
         <h2 id="pure-functions">Pure functions</h2>
 <p>Advantages of pure functions</p>
 <ul>
@@ -1352,7 +1382,7 @@ list_b <span class="hljs-comment"># [1, 2]</span></code></pre>
 <li>easy to test</li>
 </ul>
 
-      </section><section class="slide" id="slide-24-4">
+      </section><section class="slide" id="slide-25-4">
         <h2 id="pure-functions">Pure functions</h2>
 <p>Example of a function which isn&#39;t pure:</p>
 <pre><code class="language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">remove_negatives</span><span class="hljs-params">(numbers)</span>:</span>
@@ -1365,7 +1395,7 @@ list_b <span class="hljs-comment"># [1, 2]</span></code></pre>
 a = [<span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">-1</span>, <span class="hljs-number">-2</span>, <span class="hljs-number">0</span>]
 b = remove_negatives(a)</code></pre>
 
-      </section><section class="slide" id="slide-24-5">
+      </section><section class="slide" id="slide-25-5">
         <h2 id="pure-functions">Pure functions</h2>
 <p>A pure function as an alternative:</p>
 <pre><code class="language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">remove_negatives</span><span class="hljs-params">(numbers)</span>:</span>
@@ -1376,14 +1406,14 @@ b = remove_negatives(a)</code></pre>
     <span class="hljs-keyword">return</span> nonnegatives</code></pre>
 <p>Note: in Python the ideal solution would be using list comprehensions</p>
 
-      </section></section><section class="section" id="section-25"><section class="slide" id="slide-25-1">
+      </section></section><section class="section" id="section-26"><section class="slide" id="slide-26-1">
         <h1 id="recursive-functions">Recursive functions</h1>
 
-      </section><section class="slide" id="slide-25-2">
+      </section><section class="slide" id="slide-26-2">
         <h2 id="recursive-functions">Recursive functions</h2>
 <p>Functions that call themselves</p>
 
-      </section><section class="slide" id="slide-25-3">
+      </section><section class="slide" id="slide-26-3">
         <h2 id="recursive-function">Recursive function</h2>
 <p>Task: fibonacci sequence</p>
 <pre><code class="language-py"><span class="hljs-comment"># 0 1 1 2 3 5 8 13 21 34 55 89 ...</span>
@@ -1392,59 +1422,59 @@ fib(<span class="hljs-number">3</span>)
 
 fib(<span class="hljs-number">25</span>)</code></pre>
 
-      </section><section class="slide" id="slide-25-4">
+      </section><section class="slide" id="slide-26-4">
         <h2 id="recursion-with-turtle-graphics">Recursion with Turtle graphics</h2>
 
-      </section><section class="slide" id="slide-25-5">
+      </section><section class="slide" id="slide-26-5">
         <h2 id="exercises">Exercises</h2>
 <ul>
 <li>babylonian method for finding square roots</li>
 <li>trees with turtle graphics</li>
 </ul>
 
-      </section></section><section class="section" id="section-26"><section class="slide" id="slide-26-1">
+      </section></section><section class="section" id="section-27"><section class="slide" id="slide-27-1">
         <h1 id="python-versions">Python versions</h1>
 
-      </section><section class="slide" id="slide-26-2">
+      </section><section class="slide" id="slide-27-2">
         <h2 id="python-versions">Python versions</h2>
 <p>Python 2 vs Python 3</p>
 
-      </section><section class="slide" id="slide-26-3">
+      </section><section class="slide" id="slide-27-3">
         <h2 id="strings-and-bytes">Strings and Bytes</h2>
 <p>major change in Python 3:</p>
 <p>strict separation of text (strings) and binary data (bytes)</p>
 <p>in Python 2: data types <code>bytes</code>, <code>str</code> and <code>unicode</code></p>
 
-      </section><section class="slide" id="slide-26-4">
+      </section><section class="slide" id="slide-27-4">
         <h2 id="print">Print</h2>
 <p>Python 2:</p>
 <pre><code class="language-py"><span class="hljs-keyword">print</span> <span class="hljs-string">"a"</span>,</code></pre>
 <p>Python 3:</p>
 <pre><code class="language-py">print(<span class="hljs-string">"a"</span>, end=<span class="hljs-string">""</span>)</code></pre>
 
-      </section><section class="slide" id="slide-26-5">
+      </section><section class="slide" id="slide-27-5">
         <h2 id="division">Division</h2>
 <p>Python 2:</p>
 <pre><code class="language-py"><span class="hljs-number">10</span> / <span class="hljs-number">3</span>    <span class="hljs-comment"># 3</span></code></pre>
 
-      </section><section class="slide" id="slide-26-6">
+      </section><section class="slide" id="slide-27-6">
         <h2 id="range">range</h2>
 <p>in Python 2: <code>range()</code> returns a list, <code>xrange()</code> returns an object that saves on memory</p>
 <p>in Python 3: <code>range()</code> returns an object that saves on memory</p>
 
-      </section><section class="slide" id="slide-26-7">
+      </section><section class="slide" id="slide-27-7">
         <h2 id="input">input</h2>
 <p>in Python 2: <code>input()</code> will evaluate / execute the input, <code>raw_input()</code> returns a string</p>
 <p>in Python 3: <code>input()</code> returns a string</p>
 
-      </section><section class="slide" id="slide-26-8">
+      </section><section class="slide" id="slide-27-8">
         <h2 id="__future__-imports">__future__ imports</h2>
 <p>Getting some of the behavior of Python 3 in Python 2:</p>
 <pre><code class="language-py"><span class="hljs-keyword">from</span> __future__ <span class="hljs-keyword">import</span> print_function
 <span class="hljs-keyword">from</span> __future__ <span class="hljs-keyword">import</span> unicode_literals
 <span class="hljs-keyword">from</span> __future__ <span class="hljs-keyword">import</span> division</code></pre>
 
-      </section><section class="slide" id="slide-26-9">
+      </section><section class="slide" id="slide-27-9">
         <h2 id="python-future">Python-Future</h2>
 <p>Compatibility layer between Python 2 and Python 3</p>
 <p>Enables supporting both Python 2 and Python 3 from the same codebase</p>

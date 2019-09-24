@@ -440,30 +440,50 @@ earlier = pickle.loads(serialized)</code></pre>
 </ul>
 
       </section><section class="slide" id="slide-5-3">
-        <h2 id="os">os</h2>
+        <h2 id="os-and-shutil-1">os and shutil (1)</h2>
 <ul>
-<li><code>os.getcwd()</code> (current directory)</li>
+<li><code>os.getcwd()</code> (current path)</li>
 <li><code>os.chdir()</code></li>
-<li><code>os.chmod()</code></li>
 <li><code>os.listdir()</code></li>
-<li><code>os.mkdir(&#39;foo&#39;)</code></li>
-<li><code>os.rename(&#39;foo&#39;, &#39;bar&#39;)</code></li>
-<li><code>os.mkdir(&#39;foo/bar/baz&#39;)</code></li>
-<li><code>os.remove(&#39;foo/bar/baz/qux.txt&#39;)</code></li>
-<li><code>os.rmdir(&#39;foo/bar/baz&#39;)</code></li>
+</ul>
+<!-- list separator -->
+
+<ul>
 <li><code>os.walk()</code></li>
 </ul>
 
       </section><section class="slide" id="slide-5-4">
-        <h2 id="shutil">shutil</h2>
+        <h2 id="os-und-shutil-2">os und shutil (2)</h2>
 <ul>
-<li><code>shutil.copy(&#39;origin&#39;, &#39;destination&#39;)</code> (copy file)</li>
-<li><code>shutil.copytree()</code> (copy folder)</li>
+<li><code>os.mkdir(&quot;foo&quot;)</code></li>
+<li><code>os.mkdir(&quot;foo/bar/baz&quot;)</code></li>
+</ul>
+<!-- list separator -->
+
+<ul>
+<li><code>os.remove(&quot;foo.txt&quot;)</code> (delete file)</li>
+<li><code>os.rmdir(&quot;foo/bar/baz&quot;)</code> (delete empty folder)</li>
 <li><code>shutil.rmtree()</code> (delete folder)</li>
+</ul>
+<!-- list separator -->
+
+<ul>
+<li><code>os.rename(&quot;foo.txt&quot;, &quot;bar.txt&quot;)</code></li>
 <li><code>shutil.move()</code> (move file or folder)</li>
+<li><code>shutil.copy(&quot;foo.txt&quot;, &quot;bar&quot;)</code> (copy file)</li>
+<li><code>shutil.copytree()</code> (copy folder)</li>
 </ul>
 
       </section><section class="slide" id="slide-5-5">
+        <h2 id="extra-general-terminal-commands">Extra: general terminal commands</h2>
+<p>Direct output via <code>os.system</code>:</p>
+<pre><code class="language-py">os.system(<span class="hljs-string">"ls ."</span>)
+os.system(<span class="hljs-string">"mkdir foo"</span>)</code></pre>
+<p>Read results in Python via <code>os.popen</code>:</p>
+<pre><code class="language-py">a = os.popen(<span class="hljs-string">"ls ."</span>).read()
+print(a)</code></pre>
+
+      </section><section class="slide" id="slide-5-6">
         <h2 id="exercise">Exercise</h2>
 <p>create a program that searches for occurrences of a term in all files from a folder and prints their number</p>
 
@@ -1304,23 +1324,41 @@ res = cursor.execute(
         <h1 id="sqlite-with-python">SQLite with Python</h1>
 
       </section><section class="slide" id="slide-15-2">
-        <h2 id="detecting-advanced-types">Detecting advanced types</h2>
-<p>SQLite only supports a limited set of types. It does not natively support types like <code>DATE</code> or <code>TIMESTAMP</code> - those would have to be stored as strings.</p>
-<p>We can make Python automatically convert these to and from a string representation by passing <code>detect_types=sqlite3.PARSE_DECLTYPES</code> to <code>sqlite3.connect</code>.</p>
+        <h2 id="data-types">Data types</h2>
+<p>SQLite data types and corresponding Python types:</p>
+<ul>
+<li><code>NULL</code> - <code>None</code></li>
+<li><code>INT</code> / <code>INTEGER</code> - <code>int</code></li>
+<li><code>REAL</code> - <code>float</code></li>
+<li><code>TEXT</code> - <code>str</code></li>
+<li><code>BLOB</code> - <code>bytes</code></li>
+</ul>
 
       </section><section class="slide" id="slide-15-3">
-        <h2 id="detecting-advanced-types">Detecting advanced types</h2>
-<p>Task: Create a contacts database that automatically converts SQL strings that represent the date of birth into Python <code>date</code> objects.</p>
+        <h2 id="supporting-dates-and-timestamps">Supporting dates and timestamps</h2>
+<p>Two types that are usually not supported by SQLite:</p>
+<ul>
+<li><code>TIMESTAMP</code> - <code>datetime</code></li>
+<li><code>DATE</code> - <code>date</code></li>
+</ul>
+<p>Storing them as SQL <em>DECIMAL</em> values with automatic conversion to / from Python types:</p>
+<pre><code class="language-py">connection = sqlite3.connect(
+    <span class="hljs-string">'contacts.db'</span>
+    detect_types=sqlite3.PARSE_DECLTYPES)</code></pre>
 
       </section><section class="slide" id="slide-15-4">
+        <h2 id="supporting-dates-and-timestamps">Supporting dates and timestamps</h2>
+<p>Task: Create a contacts database that automatically converts SQL strings that represent the date of birth into Python <code>date</code> objects.</p>
+
+      </section><section class="slide" id="slide-15-5">
         <h2 id="adapters-and-converters">Adapters and converters</h2>
 <p>We can add support for more types by writing so-called <em>adapter</em> and <em>converter</em> functions. These custom types will usually be stored as byte sequences in the database.</p>
-<p>An <em>adapter</em> is a custom function that converts a Python object into an SQL value.
-A <em>converter</em> is a custom function that converts an SQL value into a Python object.</p>
+<p>An <em>adapter</em> is a custom function that converts a Python object into an SQL value.</p>
+<p>A <em>converter</em> is a custom function that converts an SQL value into a Python object.</p>
 <p>see:</p>
 <p><a href="https://docs.python.org/3/library/sqlite3.html#using-adapters-to-store-additional-python-types-in-sqlite-databases">https://docs.python.org/3/library/sqlite3.html#using-adapters-to-store-additional-python-types-in-sqlite-databases</a></p>
 
-      </section><section class="slide" id="slide-15-5">
+      </section><section class="slide" id="slide-15-6">
         <h2 id="adapters-and-converters">Adapters and converters</h2>
 <p>Tasks:</p>
 <ul>

@@ -3,23 +3,44 @@
 ## Tuples
 
 ```py
-person = ("Thomas", "Smith", "1972-03-15")
+date = (1973, 10, 23)
 ```
 
-- similar to lists
-- used to represent inhomogenous data of a predefined structure - each entry has a specific meaning
-- immutable (unchangeable)
+- area of application: similar to dicts
+- behavior: similar to lists
 
 ## Tuples
 
+Area of application: similar to dicts:
+
+```py
+point_dict = {"x": 2, "y": 4}
+point_tuple = (2, 4)
+
+date_dict = {
+  "year": 1973,
+  "month": 10,
+  "day": 23
+}
+date_tuple = (1973, 10, 23)
+```
+
 Each entry in a tuple has a specific meaning
 
-Alternative data structures with named entries:
+## Tuples
 
-- `dict`
-- `NamedTuple`
+Behavior: similar to lists:
+
+```py
+date_tuple[0] # 1973
+len(date_tuple) # 3
+```
+
+Unlike lists, tuples are immutable (no `.append` / `.pop` / ...)
 
 ## Creating tuples
+
+Entries are separated by commas, usually surrounded by round brackets.
 
 ```py
 empty_tuple = ()
@@ -30,25 +51,14 @@ two_values = 'Thomas', 'Smith'
 
 ## Unpacking (of tuples)
 
+```py
+time = (23, 45, 0)
+
+hour, minute, second = time
+```
+
 swapping variables:
 
 ```py
 a, b = b, a
-```
-
-## Unpacking (of tuples)
-
-enumerating list items:
-
-```py
-l = ['Alice', 'Bob', 'Charlie']
-
-for i, name in enumerate(l):
-    print(f'{i}: {name}')
-```
-
-Enumerate returns the following data structure:
-
-```py
-[(0, 'Alice'), (1, 'Bob'), (2, 'Charlie')]
 ```

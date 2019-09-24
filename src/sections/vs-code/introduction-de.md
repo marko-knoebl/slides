@@ -4,8 +4,9 @@
 
 https://code.visualstudio.com
 
-- Open-Source-Entwicklungsumgebung
-- Unabhängig vom eigentlichen Visual Studio
+Open-Source-Entwicklungsumgebung
+
+Unabhängig vom eigentlichen Visual Studio
 
 ## VS Code: Ordner öffnen
 

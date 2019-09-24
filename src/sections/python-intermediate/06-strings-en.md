@@ -84,3 +84,4 @@ tasks:
 - remove leading whitespace of each line
 - add a line number to the end of each line and place the line number right-aligned at character 70
 - (place line numbers only in every 5th line)
+- (instead of placing line numbers at character 70, use the longest line as a reference)
