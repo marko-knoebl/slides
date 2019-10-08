@@ -510,20 +510,24 @@ print(a)</code></pre>
       </section><section class="slide" id="slide-11-4">
         <h2 id="vs-code-einrichtung-für-python">VS Code: Einrichtung für Python</h2>
 <ul>
-<li><p>Python-Erweiterung für VS Code installieren</p>
-</li>
-<li><p>Zuvor installiertes Python finden:</p>
-<ul>
+<li>Öffnen eines Ordners, Anlegen und Öffnen einer Datei mit der Dateiendung <code>.py</code>, z.B. <code>demo.py</code></li>
+<li>VS Code Erweiterung namens <em>Python</em> installieren (via Popup rechts unten)</li>
+<li>Python-Paket <em>pylint</em> installieren (via Popup rechts unten)</li>
+<li><em>Python</em>-Erweiterung konfigurieren:<ul>
 <li>Taste <code>F1</code> drücken</li>
-<li>Suche nach: &quot;Python: choose interpreter&quot;</li>
+<li>Suche nach: &quot;Python: select interpreter&quot;</li>
 <li>Enter</li>
 <li>warten...</li>
 <li>Python 3.7 auswählen</li>
 </ul>
 </li>
-<li><p>Pylint installieren</p>
-</li>
 </ul>
+
+      </section><section class="slide" id="slide-11-5">
+        <h2 id="vs-code-ausführen-von-python-programmen">VS Code: Ausführen von Python-Programmen</h2>
+<p>grünes Play-Symbol zur Editoransicht</p>
+<p>oder</p>
+<p><em>Debug</em> - <em>Start Without Debugging (Ctrl + F5)</em></p>
 
       </section></section><section class="section" id="section-12"><section class="slide" id="slide-12-1">
         <h1 id="vs-code">VS Code</h1>
@@ -667,10 +671,10 @@ name_length = len(name)</code></pre>
 <pre><code class="language-py"><span class="hljs-keyword">import</span> math
 
 print(math.floor(<span class="hljs-number">3.6</span>))</code></pre>
-<p>oder </p>
+<p>oder</p>
 <pre><code class="language-py"><span class="hljs-keyword">from</span> math <span class="hljs-keyword">import</span> floor
 
-print(flor(<span class="hljs-number">3.6</span>))</code></pre>
+print(floor(<span class="hljs-number">3.6</span>))</code></pre>
 
       </section><section class="slide" id="slide-14-5">
         <h2 id="standard-library">Standard Library</h2>
@@ -911,11 +915,11 @@ your shopping list is:
 
       </section><section class="slide" id="slide-19-4">
         <h2 id="beispiel-login-system">Beispiel: Login-System</h2>
-<pre><code class="language-py"><span class="hljs-comment"># Benutzer mit Passwörtern</span>
-users = [
-  [<span class="hljs-string">"Alice"</span>, <span class="hljs-string">"1234"</span>],
-  [<span class="hljs-string">"Bob"</span>, <span class="hljs-string">"password"</span>],
-  [<span class="hljs-string">"Charlie"</span>, <span class="hljs-string">"paris41"</span>]]</code></pre>
+<pre><code class="language-py">users = [
+    {<span class="hljs-string">"name"</span>: <span class="hljs-string">"Alice"</span>, <span class="hljs-string">"password"</span>: <span class="hljs-string">"1234"</span>},
+    {<span class="hljs-string">"name"</span>: <span class="hljs-string">"Bob"</span>, <span class="hljs-string">"password"</span>, <span class="hljs-string">"password"</span>},
+    {<span class="hljs-string">"name"</span>: <span class="hljs-string">"Charlie"</span>, <span class="hljs-string">"password"</span>: <span class="hljs-string">"paris41"</span>}
+]</code></pre>
 
       </section><section class="slide" id="slide-19-5">
         <h2 id="beispiel-login-system">Beispiel: Login-System</h2>
@@ -1188,41 +1192,9 @@ print(check_isbn(isbn, expected))</code></pre>
         <h2 id="iban">IBAN</h2>
 
       </section></section><section class="section" id="section-26"><section class="slide" id="slide-26-1">
-        <h1 id="textdateien-lesen-und-schreiben">Textdateien lesen und schreiben</h1>
-
-      </section><section class="slide" id="slide-26-2">
-        <h2 id="textdateien-lesen-und-schreiben">Textdateien lesen und schreiben</h2>
-<p>Viele Dateiformate am PC sind nichts anderes als eine Folge von Textzeichen - z.B. die Formate <code>.txt</code>, <code>.html</code>, <code>.csv</code> oder <code>.py</code>.</p>
-<p>Diese können wir in Python einfach als Strings repräsentieren und leicht lesen und schreiben.</p>
-
-      </section><section class="slide" id="slide-26-3">
-        <h2 id="textdatei-schreiben">Textdatei schreiben</h2>
-<pre><code class="language-py"><span class="hljs-comment"># zum schreiben öffnen (w = write)</span>
-<span class="hljs-comment"># als utf-8-Datei öffnen</span>
-file = open(<span class="hljs-string">"message.txt"</span>, <span class="hljs-string">"w"</span>, encoding=<span class="hljs-string">"utf-8"</span>)
-file.write(<span class="hljs-string">"hello world"</span>)
-file.close()</code></pre>
-
-      </section><section class="slide" id="slide-26-4">
-        <h2 id="textdatei-lesen">Textdatei lesen</h2>
-<pre><code class="language-py"><span class="hljs-comment"># standardmodus = zum lesen öffnen</span>
-file = open(<span class="hljs-string">"message.txt"</span>, encoding=<span class="hljs-string">"utf-8"</span>)
-content = file.read()
-file.close()
-print(content)</code></pre>
-
-      </section><section class="slide" id="slide-26-5">
-        <h2 id="encoding">Encoding</h2>
-<p>Empfehlung: Textdateien <em>immer</em> im utf-8 encoding lesen oder schreiben (beste Unterstützung für Sonderzeichen)</p>
-
-      </section><section class="slide" id="slide-26-6">
-        <h2 id="beispiel">Beispiel</h2>
-<p>Programm, das Todos vom Benutzer abfragt und in einer Datei abspeichert</p>
-
-      </section></section><section class="section" id="section-27"><section class="slide" id="slide-27-1">
         <h1 id="codequalität-und-linting">Codequalität und Linting</h1>
 
-      </section><section class="slide" id="slide-27-2">
+      </section><section class="slide" id="slide-26-2">
         <h2 id="codequalität-und-linting">Codequalität und Linting</h2>
 <p>Aspekte:</p>
 <ul>
@@ -1231,18 +1203,18 @@ print(content)</code></pre>
 <li>Docstrings</li>
 </ul>
 
-      </section><section class="slide" id="slide-27-3">
+      </section><section class="slide" id="slide-26-3">
         <h2 id="allgemeines-linting-pylint">Allgemeines Linting: Pylint</h2>
 <p>Finden allgemeiner Fehler</p>
 <p>VS Code Konfiguration via <code>python.linting.pylintEnabled</code> und <code>python.linting.pylintUseMinimalCheckers</code></p>
 
-      </section><section class="slide" id="slide-27-4">
+      </section><section class="slide" id="slide-26-4">
         <h2 id="pep8">PEP8</h2>
 <p>Standard-Stil für Python-Code</p>
 <p>offizielles Dokument: <a href="https://www.python.org/dev/peps/pep-0008/">https://www.python.org/dev/peps/pep-0008/</a></p>
 <p>cheatsheet: <a href="https://gist.github.com/RichardBronosky/454964087739a449da04">https://gist.github.com/RichardBronosky/454964087739a449da04</a></p>
 
-      </section><section class="slide" id="slide-27-5">
+      </section><section class="slide" id="slide-26-5">
         <h2 id="pep8--code-formatierungs-tools">PEP8 &amp; Code-Formatierungs-Tools</h2>
 <ul>
 <li>autopep8</li>
@@ -1251,7 +1223,7 @@ print(content)</code></pre>
 </ul>
 <p>In VS Code-Config: <code>&quot;python.formatting.provider&quot;: &quot;black&quot;</code></p>
 
-      </section><section class="slide" id="slide-27-6">
+      </section><section class="slide" id="slide-26-6">
         <h2 id="pep8-und-code-formatierungs-tools">PEP8 und Code-Formatierungs-Tools</h2>
 <pre><code class="language-py"><span class="hljs-comment"># Eingabecode:</span>
 a=<span class="hljs-string">'hello'</span>; b=<span class="hljs-string">"bye"</span>;
@@ -1268,7 +1240,7 @@ b = <span class="hljs-string">"bye"</span>
 a = <span class="hljs-string">"hello"</span>
 b = <span class="hljs-string">"bye"</span></code></pre>
 
-      </section><section class="slide" id="slide-27-7">
+      </section><section class="slide" id="slide-26-7">
         <h2 id="pep8-und-code-formatierungs-tools">PEP8 und Code-Formatierungs-Tools</h2>
 <pre><code class="language-py">Eingabecode:
 
@@ -1283,7 +1255,7 @@ a[<span class="hljs-number">0</span> + <span class="hljs-number">3</span>:<span 
 <span class="hljs-comment"># black:</span>
 a[<span class="hljs-number">0</span> + <span class="hljs-number">3</span> : <span class="hljs-number">1</span>]</code></pre>
 
-      </section><section class="slide" id="slide-27-8">
+      </section><section class="slide" id="slide-26-8">
         <h2 id="python-philosophie-zen-of-python">Python-Philosophie, Zen of Python</h2>
 <p>Auszüge aus dem <em>Zen of Python</em> (anzeigbar via <code>import this</code>):</p>
 <ul>
@@ -1293,10 +1265,10 @@ a[<span class="hljs-number">0</span> + <span class="hljs-number">3</span> : <spa
 <li><em>There should be one-- and preferably only one --obvious way to do it.</em></li>
 </ul>
 
-      </section></section><section class="section" id="section-28"><section class="slide" id="slide-28-1">
+      </section></section><section class="section" id="section-27"><section class="slide" id="slide-27-1">
         <h1 id="debuggen">Debuggen</h1>
 
-      </section><section class="slide" id="slide-28-2">
+      </section><section class="slide" id="slide-27-2">
         <h2 id="debuggen">Debuggen</h2>
 <p>Breakpoints (Haltepunkte) können gesetzt werden, um die Ausführung des Codes an diesem Punkt zu pausieren.</p>
 <p>Möglichkeiten, um Breakpoints zu setzen:</p>
@@ -1305,7 +1277,7 @@ a[<span class="hljs-number">0</span> + <span class="hljs-number">3</span> : <spa
 <li>in VS Code links neben die Zeilennummer klicken</li>
 </ul>
 
-      </section><section class="slide" id="slide-28-3">
+      </section><section class="slide" id="slide-27-3">
         <h2 id="debuggen">Debuggen</h2>
 <p>Manuell weiterspringen:</p>
 <ul>
@@ -1321,7 +1293,7 @@ a[<span class="hljs-number">0</span> + <span class="hljs-number">3</span> : <spa
 </li>
 </ul>
 
-      </section><section class="slide" id="slide-28-4">
+      </section><section class="slide" id="slide-27-4">
         <h2 id="debuggen">Debuggen</h2>
 <p>Manuell weiterspringen:</p>
 <ul>
@@ -1342,7 +1314,7 @@ a[<span class="hljs-number">0</span> + <span class="hljs-number">3</span> : <spa
 </li>
 </ul>
 
-      </section><section class="slide" id="slide-28-5">
+      </section><section class="slide" id="slide-27-5">
         <h2 id="debuggen">Debuggen</h2>
 <p>Ausgabe von Werten im Python Debugger mittels <code>p</code> für <em>print</em>:</p>
 <pre><code class="language-py">p mylist
@@ -1353,7 +1325,7 @@ p mylist[<span class="hljs-number">0</span>]</code></pre>
 <li>eigene Ausdrücke angeben unter <em>watch</em></li>
 </ul>
 
-      </section></section><section class="section" id="section-29"><section class="slide" id="slide-29-1">
+      </section></section><section class="section" id="section-28"><section class="slide" id="slide-28-1">
         <h1 id="cheatsheet">Cheatsheet</h1>
 <p><a href="https://ehmatthes.github.io/pcc/cheatsheets/README.html">https://ehmatthes.github.io/pcc/cheatsheets/README.html</a></p>
 <p>(fehlende Inhalte: break, None, Kommentare)</p>

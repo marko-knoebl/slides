@@ -179,21 +179,31 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
       </section><section class="slide" id="slide-3-2">
         <h2 id="arbeiten-mit-dateien">Arbeiten mit Dateien</h2>
 <p>Datei = Abfolge von Bytes auf einem Speichermedium</p>
+<p>Oft ist eine Datei eine Folge von Textzeichen - z.B. die Formate <em>.txt</em>, <em>.html</em>, <em>.csv</em> oder <em>.py</em>.</p>
+<p>Der Inhalt von Textdateien kann als <em>Strings</em> geschrieben und gelesen werden, andere Dateien können als Bytefolge repräsentiert werden.</p>
 
       </section><section class="slide" id="slide-3-3">
-        <h2 id="die-funktion-open">Die Funktion &quot;open&quot;</h2>
-<pre><code class="language-py">file_obj = open(<span class="hljs-string">"todos.txt"</span>)
-content = file_obj.read()
-file_obj.close()
-print(content)</code></pre>
-<p>Open erstellt eine Instanz einer Unterklasse von IOBase</p>
+        <h2 id="textdatei-schreiben">Textdatei schreiben</h2>
+<pre><code class="language-py">file = open(<span class="hljs-string">"message.txt"</span>, <span class="hljs-string">"w"</span>, encoding=<span class="hljs-string">"utf-8"</span>)
+file.write(<span class="hljs-string">"hello world"</span>)
+file.close()</code></pre>
+<p>Die Datei wird zum Schreiben geöffnet (<em>w</em> = <em>write</em>).</p>
+<p>Als Zeichencodierung wird <em>UTF-8</em> verwendet.</p>
 
       </section><section class="slide" id="slide-3-4">
+        <h2 id="textdatei-lesen">Textdatei lesen</h2>
+<pre><code class="language-py">file = open(<span class="hljs-string">"message.txt"</span>, encoding=<span class="hljs-string">"utf-8"</span>)
+content = file.read()
+file.close()
+print(content)</code></pre>
+<p>Standardmodus: Lesen (<em>r</em> = <em>read</em>)</p>
+
+      </section><section class="slide" id="slide-3-5">
         <h2 id="dateimodi">Dateimodi</h2>
 <pre><code class="language-py"><span class="hljs-comment"># mode: text, append</span>
 open(<span class="hljs-string">"todos.txt"</span>, mode=<span class="hljs-string">"ta"</span>)</code></pre>
 
-      </section><section class="slide" id="slide-3-5">
+      </section><section class="slide" id="slide-3-6">
         <h2 id="dateimodi">Dateimodi</h2>
 <ul>
 <li><code>t</code>: Textmodus (standard)</li>
@@ -207,26 +217,23 @@ open(<span class="hljs-string">"todos.txt"</span>, mode=<span class="hljs-string
 <li><code>a</code>: Anhängen</li>
 </ul>
 
-      </section><section class="slide" id="slide-3-6">
-        <h2 id="lesen-und-schreiben">Lesen und Schreiben</h2>
-<pre><code class="language-py">t = open(<span class="hljs-string">"loremipsum.txt"</span>)
-print(t.read())
-t.close()</code></pre>
-
       </section><section class="slide" id="slide-3-7">
-        <h2 id="lesen-und-schreiben">Lesen und Schreiben</h2>
-<pre><code class="language-py">t = open(<span class="hljs-string">"todos.txt"</span>, mode=<span class="hljs-string">"a"</span>, encoding=<span class="hljs-string">"utf-8"</span>)
-t.write(<span class="hljs-string">"Learn Python"</span>)
-t.close()</code></pre>
-<pre><code class="language-py">coins = open(<span class="hljs-string">"coins.b"</span>, mode=<span class="hljs-string">"ba"</span>)
-coins.write(bytes([<span class="hljs-number">0b01001110</span>, <span class="hljs-number">0b11100100</span>]))
-coins.close()</code></pre>
+        <h2 id="binärdateien">Binärdateien</h2>
+<pre><code class="language-py">wasm_content = bytes([
+    <span class="hljs-number">0</span>, <span class="hljs-number">97</span>, <span class="hljs-number">115</span>, <span class="hljs-number">109</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">5</span>, <span class="hljs-number">1</span>, <span class="hljs-number">96</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">127</span>,
+    <span class="hljs-number">3</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">7</span>, <span class="hljs-number">10</span>, <span class="hljs-number">1</span>, <span class="hljs-number">6</span>, <span class="hljs-number">97</span>, <span class="hljs-number">110</span>, <span class="hljs-number">115</span>, <span class="hljs-number">119</span>, <span class="hljs-number">101</span>, <span class="hljs-number">114</span>,
+    <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">10</span>, <span class="hljs-number">6</span>, <span class="hljs-number">1</span>, <span class="hljs-number">4</span>, <span class="hljs-number">0</span>, <span class="hljs-number">65</span>, <span class="hljs-number">42</span>, <span class="hljs-number">11</span>
+])
+
+file = open(<span class="hljs-string">"answer.wasm"</span>, mode=<span class="hljs-string">"wb"</span>)
+file.write(wasm_content)
+file.close()</code></pre>
 
       </section><section class="slide" id="slide-3-8">
         <h2 id="open-und-das-with-statement">Open und das with-Statement</h2>
 <pre><code class="language-py"><span class="hljs-keyword">with</span> open(<span class="hljs-string">"todos.txt"</span>, encoding=<span class="hljs-string">"utf-8"</span>) <span class="hljs-keyword">as</span> file_obj:
     content = file_obj.read()</code></pre>
-<p>Kein explizites Schließen des Dateiobjekts mehr notwendig. Datei wird automatisch geschlossen, wenn der eingerückte Abschnitt verlassen wird.</p>
+<p>Datei wird automatisch geschlossen, wenn der eingerückte Codeblock verlassen wird.</p>
 
       </section><section class="slide" id="slide-3-9">
         <h2 id="zeichencodierung">Zeichencodierung</h2>
@@ -236,7 +243,7 @@ coins.close()</code></pre>
 <li>CP-1252 / western european / latin1</li>
 <li>UTF-8</li>
 </ul>
-<p>Praxistipp: Immer UTF-8 verwenden</p>
+<p>Praxistipp: Wenn möglich UTF-8 verwenden (beste Unterstützung für Sonderzeichen)</p>
 
       </section><section class="slide" id="slide-3-10">
         <h2 id="zeichencodierung">Zeichencodierung</h2>
@@ -245,11 +252,6 @@ coins.close()</code></pre>
 locale.getpreferredencoding()</code></pre>
 
       </section><section class="slide" id="slide-3-11">
-        <h2 id="zeichencodierung">Zeichencodierung</h2>
-<p>Explizites angeben der Textcodierung:</p>
-<pre><code class="language-py">open(<span class="hljs-string">"file.txt"</span>, encoding=<span class="hljs-string">"utf-8"</span>)</code></pre>
-
-      </section><section class="slide" id="slide-3-12">
         <h2 id="file-like-objects">File-like objects</h2>
 <p>Objekte, die z.B. <code>.read()</code> oder <code>.write()</code> unterstützen:</p>
 <ul>
@@ -261,14 +263,14 @@ locale.getpreferredencoding()</code></pre>
 <li>Antworten aus dem Netzwerk, z.B. via <code>urllib.request.urlopen(&#39;https://google.com&#39;)</code></li>
 </ul>
 
-      </section><section class="slide" id="slide-3-13">
+      </section><section class="slide" id="slide-3-12">
         <h2 id="file-like-objects">File-like objects</h2>
 <p>Zeile für Zeile einlesen (geringer Speicherbedarf):</p>
 <pre><code class="language-py"><span class="hljs-keyword">with</span> open(<span class="hljs-string">"myfile.txt"</span>, encoding=<span class="hljs-string">"utf-8"</span>) <span class="hljs-keyword">as</span> file:
     <span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> file:
         print(line)</code></pre>
 
-      </section><section class="slide" id="slide-3-14">
+      </section><section class="slide" id="slide-3-13">
         <h2 id="file-like-objects">File-like objects</h2>
 <p>Methoden / Attribute:</p>
 <ul>
@@ -279,19 +281,23 @@ locale.getpreferredencoding()</code></pre>
 <li><code>.readline()</code> (lies die nächste Zeile)</li>
 </ul>
 
+      </section><section class="slide" id="slide-3-14">
+        <h2 id="beispiel">Beispiel</h2>
+<p>Programm, das Einträge einer Einkaufsliste vom Benutzer abfragt und in einer Textdatei abspeichert</p>
+
       </section></section><section class="section" id="section-4"><section class="slide" id="slide-4-1">
-        <h1 id="speichern-verschiedener-dateiformate">Speichern verschiedener Dateiformate</h1>
+        <h1 id="dateiformate">Dateiformate</h1>
 
       </section><section class="slide" id="slide-4-2">
-        <h2 id="speichern-verschiedener-dateiformate">Speichern verschiedener Dateiformate</h2>
-<p>Möglichkeiten:</p>
+        <h2 id="dateiformate">Dateiformate</h2>
+<p>Möglichkeiten zum Speichern / Lesen:</p>
 <ul>
-<li>Speichern in Text-Datei</li>
-<li>Speichern als JSON</li>
-<li>Speichern als CSV</li>
-<li>Speichern von Python-Objekten mittels pickle (und shelve)</li>
-<li>Speichern als XML</li>
-<li>Speichern von Binärdaten in eigenem Format</li>
+<li>Text-Dateien</li>
+<li>JSON</li>
+<li>CSV</li>
+<li>XML</li>
+<li>Python-Objektdateien (mittels pickle und shelve)</li>
+<li>Binärdateien</li>
 </ul>
 
       </section><section class="slide" id="slide-4-3">

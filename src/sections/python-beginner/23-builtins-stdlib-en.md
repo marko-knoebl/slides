@@ -47,12 +47,13 @@ print(floor(3.6))
 
 modules of interest:
 
+- `pprint` (pretty printing)
 - `random`
 - `math`
 - `datetime`
 - `os` (operating system, file system)
 - `sys` (python environment)
-- `pprint` (pretty printing)
+- `urllib.request` (HTTP queries)
 
 ## print and pprint
 
@@ -87,6 +88,15 @@ pprint.pprint(['Mercuy', 'Venus', 'Earth', 'Mars', 'Jupiter',
  'Uranus',
  'Neptune',
  'Pluto']
+```
+
+## random
+
+```py
+import random
+
+print(random.randint(1, 6))
+print(random.choice(["heads", "tails"]))
 ```
 
 ## sys

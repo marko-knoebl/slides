@@ -429,16 +429,23 @@ https://code.visualstudio.com/
 
 ## VS Code: Setup for Python
 
-- Installing the Python extension for VS Code
-
-- finding previously installed Python:
+- Open a folder, create and open a file with the filename extension `.py`, e.g. `demo.py`
+- Install the VS Code extension named _Python_ (via the popup at the bottom right)
+- Install the Python Package named _pylint_ (via the popup at the bottom right)
+- Configure the _Python_ extension:
   - press `F1`
-  - Search for "Python: choose interpreter"
+  - Search for "Python: select interpreter"
   - Enter
   - wait...
   - choose Python 3.7
 
-- Installing Pylint
+## VS Code: Running Python programs
+
+green "Play" button in the editor view
+
+or
+
+_Debug_ - _Start Without Debugging (Ctrl + F5)_
 
 # VS Code
 
@@ -612,12 +619,13 @@ print(floor(3.6))
 
 modules of interest:
 
+- `pprint` (pretty printing)
 - `random`
 - `math`
 - `datetime`
 - `os` (operating system, file system)
 - `sys` (python environment)
-- `pprint` (pretty printing)
+- `urllib.request` (HTTP queries)
 
 ## print and pprint
 
@@ -652,6 +660,15 @@ pprint.pprint(['Mercuy', 'Venus', 'Earth', 'Mars', 'Jupiter',
  'Uranus',
  'Neptune',
  'Pluto']
+```
+
+## random
+
+```py
+import random
+
+print(random.randint(1, 6))
+print(random.choice(["heads", "tails"]))
 ```
 
 ## sys
@@ -875,11 +892,11 @@ for name in names:
 ## Example: login system
 
 ```py
-# users and passwords
 users = [
-  ["Alice", "1234"],
-  ["Bob", "password"],
-  ["Charlie", "paris41"]]
+    {"name": "Alice", "password": "1234"},
+    {"name": "Bob", "password", "password"},
+    {"name": "Charlie", "password": "paris41"}
+]
 ```
 
 ## Example: login system
@@ -1181,42 +1198,6 @@ print(check_isbn(isbn, expected))
 ```
 
 ## IBAN
-
-# Reading and writing text files
-
-## Reading and writing text files
-
-Many file formats are nothing but sequences of characters - e.g. the formats `.txt`, `.html`, `.csv` or `.py`.
-
-These can be represented as strings in Python and can be easily read and written.
-
-## Writing a text file
-
-```py
-# open for writing (w = write)
-# open as a utf-8 file
-file = open("message.txt", "w", encoding="utf-8")
-file.write("hello world")
-file.close()
-```
-
-## Reading a text file
-
-```py
-# default mode = open for reading
-file = open("message.txt", encoding="utf-8")
-content = file.read()
-file.close()
-print(content)
-```
-
-## Encoding
-
-Recommendation: _always_ use utf-8 as the encoding for text files (best support for special characters)
-
-## Exercise
-
-program that gets a list of todos from a user and saves them to a file
 
 # Code quality and linting
 

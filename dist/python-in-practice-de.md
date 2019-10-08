@@ -51,16 +51,32 @@ Marko Knöbl
 
 Datei = Abfolge von Bytes auf einem Speichermedium
 
-## Die Funktion "open"
+Oft ist eine Datei eine Folge von Textzeichen - z.B. die Formate _.txt_, _.html_, _.csv_ oder _.py_.
+
+Der Inhalt von Textdateien kann als _Strings_ geschrieben und gelesen werden, andere Dateien können als Bytefolge repräsentiert werden.
+
+## Textdatei schreiben
 
 ```py
-file_obj = open("todos.txt")
-content = file_obj.read()
-file_obj.close()
+file = open("message.txt", "w", encoding="utf-8")
+file.write("hello world")
+file.close()
+```
+
+Die Datei wird zum Schreiben geöffnet (_w_ = _write_).
+
+Als Zeichencodierung wird _UTF-8_ verwendet.
+
+## Textdatei lesen
+
+```py
+file = open("message.txt", encoding="utf-8")
+content = file.read()
+file.close()
 print(content)
 ```
 
-Open erstellt eine Instanz einer Unterklasse von IOBase
+Standardmodus: Lesen (_r_ = _read_)
 
 ## Dateimodi
 
@@ -80,26 +96,18 @@ open("todos.txt", mode="ta")
 - `w`: (Über)schreiben
 - `a`: Anhängen
 
-## Lesen und Schreiben
+## Binärdateien
 
 ```py
-t = open("loremipsum.txt")
-print(t.read())
-t.close()
-```
+wasm_content = bytes([
+    0, 97, 115, 109, 1, 0, 0, 0, 1, 5, 1, 96, 0, 1, 127,
+    3, 2, 1, 0, 7, 10, 1, 6, 97, 110, 115, 119, 101, 114,
+    0, 0, 10, 6, 1, 4, 0, 65, 42, 11
+])
 
-## Lesen und Schreiben
-
-```py
-t = open("todos.txt", mode="a", encoding="utf-8")
-t.write("Learn Python")
-t.close()
-```
-
-```py
-coins = open("coins.b", mode="ba")
-coins.write(bytes([0b01001110, 0b11100100]))
-coins.close()
+file = open("answer.wasm", mode="wb")
+file.write(wasm_content)
+file.close()
 ```
 
 ## Open und das with-Statement
@@ -109,7 +117,7 @@ with open("todos.txt", encoding="utf-8") as file_obj:
     content = file_obj.read()
 ```
 
-Kein explizites Schließen des Dateiobjekts mehr notwendig. Datei wird automatisch geschlossen, wenn der eingerückte Abschnitt verlassen wird.
+Datei wird automatisch geschlossen, wenn der eingerückte Codeblock verlassen wird.
 
 ## Zeichencodierung
 
@@ -119,7 +127,7 @@ Textdateien können unterschiedlich codiert sein:
 - CP-1252 / western european / latin1
 - UTF-8
 
-Praxistipp: Immer UTF-8 verwenden
+Praxistipp: Wenn möglich UTF-8 verwenden (beste Unterstützung für Sonderzeichen)
 
 ## Zeichencodierung
 
@@ -128,14 +136,6 @@ Die Standard-Zeichencodierung für Textdateien hängt vom Betriebssystem ab:
 ```py
 import locale
 locale.getpreferredencoding()
-```
-
-## Zeichencodierung
-
-Explizites angeben der Textcodierung:
-
-```py
-open("file.txt", encoding="utf-8")
 ```
 
 ## File-like objects
@@ -167,18 +167,22 @@ Methoden / Attribute:
 - `.read(10)` (lies die nächsten 10 Bytes)
 - `.readline()` (lies die nächste Zeile)
 
-# Speichern verschiedener Dateiformate
+## Beispiel
 
-## Speichern verschiedener Dateiformate
+Programm, das Einträge einer Einkaufsliste vom Benutzer abfragt und in einer Textdatei abspeichert
 
-Möglichkeiten:
+# Dateiformate
 
-- Speichern in Text-Datei
-- Speichern als JSON
-- Speichern als CSV
-- Speichern von Python-Objekten mittels pickle (und shelve)
-- Speichern als XML
-- Speichern von Binärdaten in eigenem Format
+## Dateiformate
+
+Möglichkeiten zum Speichern / Lesen:
+
+- Text-Dateien
+- JSON
+- CSV
+- XML
+- Python-Objektdateien (mittels pickle und shelve)
+- Binärdateien
 
 ## CSV
 

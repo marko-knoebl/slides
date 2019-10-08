@@ -35,12 +35,12 @@ import math
 print(math.floor(3.6))
 ```
 
-oder 
+oder
 
 ```py
 from math import floor
 
-print(flor(3.6))
+print(floor(3.6))
 ```
 
 ## Standard Library

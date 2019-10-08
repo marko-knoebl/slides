@@ -18,11 +18,11 @@ for name in names:
 ## Beispiel: Login-System
 
 ```py
-# Benutzer mit Passwörtern
 users = [
-  ["Alice", "1234"],
-  ["Bob", "password"],
-  ["Charlie", "paris41"]]
+    {"name": "Alice", "password": "1234"},
+    {"name": "Bob", "password", "password"},
+    {"name": "Charlie", "password": "paris41"}
+]
 ```
 
 ## Beispiel: Login-System

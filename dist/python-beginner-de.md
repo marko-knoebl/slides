@@ -471,16 +471,23 @@ https://code.visualstudio.com/
 
 ## VS Code: Einrichtung für Python
 
-- Python-Erweiterung für VS Code installieren
-
-- Zuvor installiertes Python finden:
+- Öffnen eines Ordners, Anlegen und Öffnen einer Datei mit der Dateiendung `.py`, z.B. `demo.py`
+- VS Code Erweiterung namens _Python_ installieren (via Popup rechts unten)
+- Python-Paket _pylint_ installieren (via Popup rechts unten)
+- _Python_-Erweiterung konfigurieren:
   - Taste `F1` drücken
-  - Suche nach: "Python: choose interpreter"
+  - Suche nach: "Python: select interpreter"
   - Enter
   - warten...
   - Python 3.7 auswählen
 
-- Pylint installieren
+## VS Code: Ausführen von Python-Programmen
+
+grünes Play-Symbol zur Editoransicht
+
+oder
+
+_Debug_ - _Start Without Debugging (Ctrl + F5)_
 
 # VS Code
 
@@ -643,12 +650,12 @@ import math
 print(math.floor(3.6))
 ```
 
-oder 
+oder
 
 ```py
 from math import floor
 
-print(flor(3.6))
+print(floor(3.6))
 ```
 
 ## Standard Library
@@ -936,11 +943,11 @@ for name in names:
 ## Beispiel: Login-System
 
 ```py
-# Benutzer mit Passwörtern
 users = [
-  ["Alice", "1234"],
-  ["Bob", "password"],
-  ["Charlie", "paris41"]]
+    {"name": "Alice", "password": "1234"},
+    {"name": "Bob", "password", "password"},
+    {"name": "Charlie", "password": "paris41"}
+]
 ```
 
 ## Beispiel: Login-System
@@ -1264,42 +1271,6 @@ print(check_isbn(isbn, expected))
 ```
 
 ## IBAN
-
-# Textdateien lesen und schreiben
-
-## Textdateien lesen und schreiben
-
-Viele Dateiformate am PC sind nichts anderes als eine Folge von Textzeichen - z.B. die Formate `.txt`, `.html`, `.csv` oder `.py`.
-
-Diese können wir in Python einfach als Strings repräsentieren und leicht lesen und schreiben.
-
-## Textdatei schreiben
-
-```py
-# zum schreiben öffnen (w = write)
-# als utf-8-Datei öffnen
-file = open("message.txt", "w", encoding="utf-8")
-file.write("hello world")
-file.close()
-```
-
-## Textdatei lesen
-
-```py
-# standardmodus = zum lesen öffnen
-file = open("message.txt", encoding="utf-8")
-content = file.read()
-file.close()
-print(content)
-```
-
-## Encoding
-
-Empfehlung: Textdateien _immer_ im utf-8 encoding lesen oder schreiben (beste Unterstützung für Sonderzeichen)
-
-## Beispiel
-
-Programm, das Todos vom Benutzer abfragt und in einer Datei abspeichert
 
 # Codequalität und Linting
 

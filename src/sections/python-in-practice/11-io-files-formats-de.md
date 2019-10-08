@@ -1,15 +1,15 @@
-# Speichern verschiedener Dateiformate
+# Dateiformate
 
-## Speichern verschiedener Dateiformate
+## Dateiformate
 
-Möglichkeiten:
+Möglichkeiten zum Speichern / Lesen:
 
-- Speichern in Text-Datei
-- Speichern als JSON
-- Speichern als CSV
-- Speichern von Python-Objekten mittels pickle (und shelve)
-- Speichern als XML
-- Speichern von Binärdaten in eigenem Format
+- Text-Dateien
+- JSON
+- CSV
+- XML
+- Python-Objektdateien (mittels pickle und shelve)
+- Binärdateien
 
 ## CSV
 
