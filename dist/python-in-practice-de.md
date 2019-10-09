@@ -1834,28 +1834,14 @@ hello_label.pack()
 window.mainloop()
 ```
 
-## Tkinter - pack und grid
-
-Mit `pack`: Einfache Zeilen- oder Spaltenlayouts
-
-```py
-hello_label.pack()
-```
-
-Mit `grid`: Komplexere Ausrichtungen an einem Raster sind möglich
-
-```py
-hello_label.grid(column=0, row=0)
-```
-
-## Tkinter - Elemente nachträglich ändern
+## Elemente nachträglich ändern
 
 ```py
 hello_label = tkinter.Label(master=window, text="Hello!")
 hello_label.config(text="Hi!")
 ```
 
-## Tkinter - Benutzerinteraktion
+## Benutzerinteraktion
 
 ```py
 ...
@@ -1874,9 +1860,56 @@ hello_button.pack()
 ...
 ```
 
-## Beispiel: Counter
+## Anwendungszustand und Benutzerinteraktionen
 
-Button, der bei 0 startet und die Klickanzahl mitzählt und anzeigt
+Der Anwendungszustand wird am besten in einer Klasse gespeichert und verwaltet.
+
+## Anwendungszustand und Benutzerinteraktionen
+
+```py
+import tkinter as tk
+
+class CounterApp:
+    def __init__(self):
+        self.count = 0
+
+        self.window = tk.Tk()
+        self.count_btn = tk.Button(
+            master=self.window,
+            text=str(self.count),
+            command=self.increment_count
+        )
+        self.count_btn.pack()
+
+    def increment_count(self):
+        self.count += 1
+        self.count_btn.config(text=str(self.count))
+
+    def run(self):
+        self.window.mainloop()
+
+counter = CounterApp()
+counter.run()
+```
+
+## Anwendungszustand und Benutzerinteraktionen
+
+Aufgabe: Einen _Reset_-Button zum demonstrierten Counter hinzufügen.
+
+## Layouts
+
+Mit `pack`: Einfache Zeilen- oder Spaltenlayouts
+
+```py
+label.pack()
+```
+
+Mit `grid`: Komplexere Ausrichtungen an einem Raster sind möglich
+
+```py
+label_a.grid(column=0, row=0)
+label_b.grid(column=0, row=1)
+```
 
 ## Tkinter - Widget-Konfiguration
 
@@ -1889,6 +1922,7 @@ Möglichkeiten:
 - `foreground` (Textfarbe)
 - `justify` (Textausrichtung, Werte: `tkinter.CENTER`, `tkinter.LEFT`, `tkinter.RIGHT`)
 - `padx`, `pady` (Abstand Rahmen zu Inhalt)
+- `font` (z.B.: `("Arial", 16)`)
 
 ## Tkinter - Widgets
 
@@ -1906,7 +1940,7 @@ Möglichkeiten:
 
 ## PyInstaller
 
-Ermöglicht das erstellen von _.exe_-Dateien aus Python-Projekten
+Ermöglicht das Erstellen von _.exe_-Dateien aus Python-Projekten
 
 Insbesondere für GUI-Anwendungen sinnvoll
 
@@ -1926,7 +1960,7 @@ Erstellen einer ausführbaren Anwendung:
 pyinstaller app.pyw --onefile --windowed
 ```
 
-Resultat: Datei _dist/app.exe_
+Resultat: _dist/app.exe_
 
 # SMTP / IMAP
 

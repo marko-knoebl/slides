@@ -1635,51 +1635,95 @@ a1.coordinate <span class="hljs-comment"># "A1"</span></code></pre>
         <h1 id="tkinter">Tkinter</h1>
 
       </section><section class="slide" id="slide-19-2">
-        <h2 id="example">Example</h2>
-<pre><code class="language-py"><span class="hljs-keyword">import</span> tkinter
-
-window = tkinter.Tk()
-
-window.mainloop()</code></pre>
+        <h2 id="tkinter">Tkinter</h2>
+<p><a href="https://tkdocs.com/">https://tkdocs.com/</a></p>
 
       </section><section class="slide" id="slide-19-3">
+        <h2 id="displaying-a-window">Displaying a window</h2>
+<pre><code class="language-py"><span class="hljs-keyword">import</span> tkinter <span class="hljs-keyword">as</span> tk
+
+window = tk.Tk()
+
+window.mainloop()</code></pre>
+<p>A window is created as a <code>Tk</code> object.</p>
+<p>The method <code>mainloop()</code> starts the program (and waits for user interaction)</p>
+
+      </section><section class="slide" id="slide-19-4">
         <h2 id="displaying-text">Displaying text</h2>
-<pre><code class="language-py"><span class="hljs-keyword">import</span> tkinter
+<pre><code class="language-py"><span class="hljs-keyword">import</span> tkinter <span class="hljs-keyword">as</span> tk
 
-window = tkinter.Tk()
+window = tk.Tk()
 
-hello_label = tkinter.Label(master=window, text=<span class="hljs-string">"Hello!"</span>)
+hello_label = tk.Label(master=window, text=<span class="hljs-string">"Hello!"</span>)
 hello_label.pack()
 
 window.mainloop()</code></pre>
 
-      </section><section class="slide" id="slide-19-4">
-        <h2 id="modifying-elements">Modifying elements</h2>
-<pre><code class="language-py">time_label = tkinter.Label(master=window, text=<span class="hljs-string">""</span>)
-time_label.config(text=<span class="hljs-string">"Hello!"</span>)</code></pre>
-
       </section><section class="slide" id="slide-19-5">
+        <h2 id="modifying-elements">Modifying elements</h2>
+<pre><code class="language-py">hello_label = tk.Label(master=window, text=<span class="hljs-string">"Hello!"</span>)
+hello_label.config(text=<span class="hljs-string">"Hi!"</span>)</code></pre>
+
+      </section><section class="slide" id="slide-19-6">
         <h2 id="user-interactions">User interactions</h2>
 <pre><code class="language-py">...
 
-message_label = tkinter.Label(master=window, text=<span class="hljs-string">""</span>)
+message_label = tk.Label(master=window, text=<span class="hljs-string">""</span>)
 message_label.pack()
 
 <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">display_message</span><span class="hljs-params">()</span>:</span>
     message_label.config(text=<span class="hljs-string">"Hello!"</span>)
 
-hello_button = tkinter.Button(master=window,
+hello_button = tk.Button(master=window,
                               text=<span class="hljs-string">"Say Hello!"</span>,
                               command=display_message)
 hello_button.pack()
 
 ...</code></pre>
 
-      </section><section class="slide" id="slide-19-6">
-        <h2 id="example-counter">Example: counter</h2>
-<p>Implement a button that starts at 0 and counts the number of clicks</p>
-
       </section><section class="slide" id="slide-19-7">
+        <h2 id="application-state-and-user-interactions">Application state and user interactions</h2>
+<p>Application state is best stored inside a class.</p>
+
+      </section><section class="slide" id="slide-19-8">
+        <h2 id="application-state-and-user-interactions">Application state and user interactions</h2>
+<pre><code class="language-py"><span class="hljs-keyword">import</span> tkinter <span class="hljs-keyword">as</span> tk
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CounterApp</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self)</span>:</span>
+        self.count = <span class="hljs-number">0</span>
+
+        self.window = tk.Tk()
+        self.count_btn = tk.Button(
+            master=self.window,
+            text=str(self.count),
+            command=self.increment_count
+        )
+        self.count_btn.pack()
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">increment_count</span><span class="hljs-params">(self)</span>:</span>
+        self.count += <span class="hljs-number">1</span>
+        self.count_btn.config(text=str(self.count))
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">run</span><span class="hljs-params">(self)</span>:</span>
+        self.window.mainloop()
+
+counter = CounterApp()
+counter.run()</code></pre>
+
+      </section><section class="slide" id="slide-19-9">
+        <h2 id="application-state-and-user-interactions">Application state and user interactions</h2>
+<p>Task: add a <em>reset</em> button to the counter</p>
+
+      </section><section class="slide" id="slide-19-10">
+        <h2 id="layouts">Layouts</h2>
+<p>Simple layouts in rows and columns via <code>.pack</code>:</p>
+<pre><code class="language-py">label.pack()</code></pre>
+<p>More complex layouts in grids:</p>
+<pre><code class="language-py">label_a.grid(column=<span class="hljs-number">0</span>, row=<span class="hljs-number">0</span>)
+label_b.grid(column=<span class="hljs-number">0</span>, row=<span class="hljs-number">1</span>)</code></pre>
+
+      </section><section class="slide" id="slide-19-11">
         <h2 id="widget-configuration">Widget configuration</h2>
 <p>config options:</p>
 <ul>
@@ -1690,32 +1734,54 @@ hello_button.pack()
 <li><code>foreground</code> (text color)</li>
 <li><code>justify</code> (text alignments, values: <code>CENTER</code>, <code>LEFT</code>, <code>RIGHT</code>)</li>
 <li><code>padx</code>, <code>pady</code> (distance between the border and the content)</li>
+<li><code>font</code> (e.g.: <code>(&quot;Arial&quot;, 16)</code>)</li>
 </ul>
 
-      </section><section class="slide" id="slide-19-8">
+      </section><section class="slide" id="slide-19-12">
         <h2 id="widgets">Widgets</h2>
 <ul>
 <li><code>Label</code></li>
 <li><code>Button</code></li>
 <li><code>Frame</code></li>
+<li><code>Entry</code></li>
 </ul>
 
-      </section><section class="slide" id="slide-19-9">
+      </section><section class="slide" id="slide-19-13">
         <h2 id="examples">Examples</h2>
 <ul>
 <li>Snellen chart</li>
+<li>Tic-Tac-Toe</li>
 </ul>
 
       </section></section><section class="section" id="section-20"><section class="slide" id="slide-20-1">
-        <h1 id="smtp--imap">SMTP / IMAP</h1>
+        <h1 id="pyinstaller">PyInstaller</h1>
 
       </section><section class="slide" id="slide-20-2">
+        <h2 id="pyinstaller">PyInstaller</h2>
+<p>Enables creating <em>.exe</em> files from Python projects</p>
+<p>Especially useful for GUI applications</p>
+
+      </section><section class="slide" id="slide-20-3">
+        <h2 id="pyinstaller---usage">PyInstaller - Usage</h2>
+<p>Installation:</p>
+<pre><code class="language-bash">pip install pyinstaller</code></pre>
+
+      </section><section class="slide" id="slide-20-4">
+        <h2 id="pyinstaller---usage">PyInstaller - Usage</h2>
+<p>Creating an executable application:</p>
+<pre><code class="language-bash">pyinstaller app.pyw --onefile --windowed</code></pre>
+<p>Result: <em>dist/app.exe</em></p>
+
+      </section></section><section class="section" id="section-21"><section class="slide" id="slide-21-1">
+        <h1 id="smtp--imap">SMTP / IMAP</h1>
+
+      </section><section class="slide" id="slide-21-2">
         <h2 id="smtp--imap">SMTP / IMAP</h2>
 <p><a href="https://automatetheboringstuff.com/chapter16/">https://automatetheboringstuff.com/chapter16/</a></p>
 <p>(for error corrections see next slide)</p>
 <p>for hidden password entry: use module <em>getpass</em></p>
 
-      </section><section class="slide" id="slide-20-3">
+      </section><section class="slide" id="slide-21-3">
         <h2 id="smtp--imap">SMTP / IMAP</h2>
 <p>Errors in the resource:</p>
 <p>provide the query as two entries:</p>

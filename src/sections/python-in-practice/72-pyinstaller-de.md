@@ -2,7 +2,7 @@
 
 ## PyInstaller
 
-Ermöglicht das erstellen von _.exe_-Dateien aus Python-Projekten
+Ermöglicht das Erstellen von _.exe_-Dateien aus Python-Projekten
 
 Insbesondere für GUI-Anwendungen sinnvoll
 
@@ -22,4 +22,4 @@ Erstellen einer ausführbaren Anwendung:
 pyinstaller app.pyw --onefile --windowed
 ```
 
-Resultat: Datei _dist/app.exe_
+Resultat: _dist/app.exe_

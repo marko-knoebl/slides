@@ -1751,19 +1751,12 @@ hello_label.pack()
 window.mainloop()</code></pre>
 
       </section><section class="slide" id="slide-20-5">
-        <h2 id="tkinter---pack-und-grid">Tkinter - pack und grid</h2>
-<p>Mit <code>pack</code>: Einfache Zeilen- oder Spaltenlayouts</p>
-<pre><code class="language-py">hello_label.pack()</code></pre>
-<p>Mit <code>grid</code>: Komplexere Ausrichtungen an einem Raster sind möglich</p>
-<pre><code class="language-py">hello_label.grid(column=<span class="hljs-number">0</span>, row=<span class="hljs-number">0</span>)</code></pre>
-
-      </section><section class="slide" id="slide-20-6">
-        <h2 id="tkinter---elemente-nachträglich-ändern">Tkinter - Elemente nachträglich ändern</h2>
+        <h2 id="elemente-nachträglich-ändern">Elemente nachträglich ändern</h2>
 <pre><code class="language-py">hello_label = tkinter.Label(master=window, text=<span class="hljs-string">"Hello!"</span>)
 hello_label.config(text=<span class="hljs-string">"Hi!"</span>)</code></pre>
 
-      </section><section class="slide" id="slide-20-7">
-        <h2 id="tkinter---benutzerinteraktion">Tkinter - Benutzerinteraktion</h2>
+      </section><section class="slide" id="slide-20-6">
+        <h2 id="benutzerinteraktion">Benutzerinteraktion</h2>
 <pre><code class="language-py">...
 
 message_label = tkinter.Label(master=window, text=<span class="hljs-string">""</span>)
@@ -1779,11 +1772,49 @@ hello_button.pack()
 
 ...</code></pre>
 
+      </section><section class="slide" id="slide-20-7">
+        <h2 id="anwendungszustand-und-benutzerinteraktionen">Anwendungszustand und Benutzerinteraktionen</h2>
+<p>Der Anwendungszustand wird am besten in einer Klasse gespeichert und verwaltet.</p>
+
       </section><section class="slide" id="slide-20-8">
-        <h2 id="beispiel-counter">Beispiel: Counter</h2>
-<p>Button, der bei 0 startet und die Klickanzahl mitzählt und anzeigt</p>
+        <h2 id="anwendungszustand-und-benutzerinteraktionen">Anwendungszustand und Benutzerinteraktionen</h2>
+<pre><code class="language-py"><span class="hljs-keyword">import</span> tkinter <span class="hljs-keyword">as</span> tk
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CounterApp</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self)</span>:</span>
+        self.count = <span class="hljs-number">0</span>
+
+        self.window = tk.Tk()
+        self.count_btn = tk.Button(
+            master=self.window,
+            text=str(self.count),
+            command=self.increment_count
+        )
+        self.count_btn.pack()
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">increment_count</span><span class="hljs-params">(self)</span>:</span>
+        self.count += <span class="hljs-number">1</span>
+        self.count_btn.config(text=str(self.count))
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">run</span><span class="hljs-params">(self)</span>:</span>
+        self.window.mainloop()
+
+counter = CounterApp()
+counter.run()</code></pre>
 
       </section><section class="slide" id="slide-20-9">
+        <h2 id="anwendungszustand-und-benutzerinteraktionen">Anwendungszustand und Benutzerinteraktionen</h2>
+<p>Aufgabe: Einen <em>Reset</em>-Button zum demonstrierten Counter hinzufügen.</p>
+
+      </section><section class="slide" id="slide-20-10">
+        <h2 id="layouts">Layouts</h2>
+<p>Mit <code>pack</code>: Einfache Zeilen- oder Spaltenlayouts</p>
+<pre><code class="language-py">label.pack()</code></pre>
+<p>Mit <code>grid</code>: Komplexere Ausrichtungen an einem Raster sind möglich</p>
+<pre><code class="language-py">label_a.grid(column=<span class="hljs-number">0</span>, row=<span class="hljs-number">0</span>)
+label_b.grid(column=<span class="hljs-number">0</span>, row=<span class="hljs-number">1</span>)</code></pre>
+
+      </section><section class="slide" id="slide-20-11">
         <h2 id="tkinter---widget-konfiguration">Tkinter - Widget-Konfiguration</h2>
 <p>Möglichkeiten:</p>
 <ul>
@@ -1794,9 +1825,10 @@ hello_button.pack()
 <li><code>foreground</code> (Textfarbe)</li>
 <li><code>justify</code> (Textausrichtung, Werte: <code>tkinter.CENTER</code>, <code>tkinter.LEFT</code>, <code>tkinter.RIGHT</code>)</li>
 <li><code>padx</code>, <code>pady</code> (Abstand Rahmen zu Inhalt)</li>
+<li><code>font</code> (z.B.: <code>(&quot;Arial&quot;, 16)</code>)</li>
 </ul>
 
-      </section><section class="slide" id="slide-20-10">
+      </section><section class="slide" id="slide-20-12">
         <h2 id="tkinter---widgets">Tkinter - Widgets</h2>
 <ul>
 <li><code>Label</code></li>
@@ -1805,7 +1837,7 @@ hello_button.pack()
 <li><code>Entry</code></li>
 </ul>
 
-      </section><section class="slide" id="slide-20-11">
+      </section><section class="slide" id="slide-20-13">
         <h2 id="tkinter---beispiele">Tkinter - Beispiele</h2>
 <ul>
 <li>zufälliger Sehtest (Snellen Chart)</li>
@@ -1817,7 +1849,7 @@ hello_button.pack()
 
       </section><section class="slide" id="slide-21-2">
         <h2 id="pyinstaller">PyInstaller</h2>
-<p>Ermöglicht das erstellen von <em>.exe</em>-Dateien aus Python-Projekten</p>
+<p>Ermöglicht das Erstellen von <em>.exe</em>-Dateien aus Python-Projekten</p>
 <p>Insbesondere für GUI-Anwendungen sinnvoll</p>
 
       </section><section class="slide" id="slide-21-3">
@@ -1829,7 +1861,7 @@ hello_button.pack()
         <h2 id="pyinstaller---verwendung">PyInstaller - Verwendung</h2>
 <p>Erstellen einer ausführbaren Anwendung:</p>
 <pre><code class="language-bash">pyinstaller app.pyw --onefile --windowed</code></pre>
-<p>Resultat: Datei <em>dist/app.exe</em></p>
+<p>Resultat: <em>dist/app.exe</em></p>
 
       </section></section><section class="section" id="section-22"><section class="slide" id="slide-22-1">
         <h1 id="smtp--imap">SMTP / IMAP</h1>
