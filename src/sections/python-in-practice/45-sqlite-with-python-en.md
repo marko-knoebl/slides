@@ -27,7 +27,7 @@ connection = sqlite3.connect(
 
 ## Supporting dates and timestamps
 
-Task: Create a contacts database that automatically converts SQL strings that represent the date of birth into Python `date` objects.
+Task: Create a contacts database that automatically converts SQL decimals that represent the date of birth into Python `date` objects.
 
 ## Adapters and converters
 

@@ -1375,7 +1375,7 @@ connection = sqlite3.connect(
 
 ## Supporting dates and timestamps
 
-Task: Create a contacts database that automatically converts SQL strings that represent the date of birth into Python `date` objects.
+Task: Create a contacts database that automatically converts SQL decimals that represent the date of birth into Python `date` objects.
 
 ## Adapters and converters
 
@@ -1815,12 +1815,12 @@ label_b.grid(column=0, row=1)
 
 config options:
 
-- `height`
+- `height` (in pixels or relative to the font size)
 - `width`
 - `borderwidth`
 - `background` (background color)
 - `foreground` (text color)
-- `justify` (text alignments, values: `CENTER`, `LEFT`, `RIGHT`)
+- `justify` (text alignment, e.g. `tk.CENTER`, `tk.LEFT`, `tk.RIGHT`)
 - `padx`, `pady` (distance between the border and the content)
 - `font` (e.g.: `("Arial", 16)`)
 

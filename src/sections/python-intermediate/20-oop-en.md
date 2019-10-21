@@ -70,15 +70,14 @@ class Admin(Person):
     ...
 ```
 
-## Example: class "Money"
+## Example: class "Length"
 
 ```py
-a = Money('EUR', 10)
-b = Money('USD', 10)
+a = Length(2.54, "cm")
+b = Length(3, "in")
 
-a.currency
-
-a.amount
+a.unit
+a.value
 ```
 
 ## Exercise: classes "TodoList" and "Todo"

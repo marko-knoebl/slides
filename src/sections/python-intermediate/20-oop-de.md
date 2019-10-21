@@ -68,15 +68,14 @@ We're all consenting adults here: https://mail.python.org/pipermail/tutor/2003-O
 
 Achtung: oft Fehlinformation bezüglich `__`! In der Praxis sollten doppelte Unterstriche kaum verwendet werden.
 
-## Beispiel: Umsetzung einer Money-Klasse
+## Beispiel: Umsetzung einer Length-Klasse
 
 ```py
-a = Money('EUR', 10)
-b = Money('USD', 10)
+a = Length(2.54, "cm")
+b = Length(3, "in")
 
-a.currency
-
-a.amount
+a.unit
+a.value
 ```
 
 ## Übung: TodoList- und Todo-Klassen

@@ -7,9 +7,9 @@ https://tkdocs.com/
 ## Tkinter - Ein Fenster anzeigen
 
 ```py
-import tkinter
+import tkinter as tk
 
-window = tkinter.Tk()
+window = tk.Tk()
 
 window.mainloop()
 ```
@@ -21,11 +21,11 @@ Mit `mainloop()` starten wir das Programm (und warten auf Benutzerinteraktion)
 ## Tkinter - Text anzeigen
 
 ```py
-import tkinter
+import tkinter as tk
 
-window = tkinter.Tk()
+window = tk.Tk()
 
-hello_label = tkinter.Label(master=window, text="Hello!")
+hello_label = tk.Label(master=window, text="Hello!")
 hello_label.pack()
 
 window.mainloop()
@@ -43,13 +43,13 @@ hello_label.config(text="Hi!")
 ```py
 ...
 
-message_label = tkinter.Label(master=window, text="")
+message_label = tk.Label(master=window, text="")
 message_label.pack()
 
 def display_message():
     message_label.config(text="Hello!")
 
-hello_button = tkinter.Button(master=window,
+hello_button = tk.Button(master=window,
                               text="Say Hello!",
                               command=display_message)
 hello_button.pack()
@@ -117,8 +117,8 @@ Möglichkeiten:
 - `borderwidth`
 - `background` (Hintergrundfarbe)
 - `foreground` (Textfarbe)
-- `justify` (Textausrichtung, Werte: `tkinter.CENTER`, `tkinter.LEFT`, `tkinter.RIGHT`)
-- `padx`, `pady` (Abstand Rahmen zu Inhalt)
+- `justify` (Textausrichtung, z.B.: `tk.CENTER`, `tk.LEFT`, `tk.RIGHT`)
+- `padx`, `pady` (Abstand zwischen Rahmen und Inhalt)
 - `font` (z.B.: `("Arial", 16)`)
 
 ## Tkinter - Widgets

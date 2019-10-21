@@ -27,7 +27,7 @@ connection = sqlite3.connect(
 
 ## Unterstützung für date und timestamp
 
-Übung: Erstelle eine Kontaktdatenbank die automatisch SQL Strings die das Geburtsdatum beschreiben als `date`-Objekte ausliest.
+Übung: Erstelle eine Kontaktdatenbank die automatisch SQL Dezimalzahlen, die das Geburtsdatum beschreiben, als `date`-Objekte ausliest.
 
 ## Adapter und Converter
 

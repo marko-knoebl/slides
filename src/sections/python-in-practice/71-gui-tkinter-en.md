@@ -112,12 +112,12 @@ label_b.grid(column=0, row=1)
 
 config options:
 
-- `height`
+- `height` (in pixels or relative to the font size)
 - `width`
 - `borderwidth`
 - `background` (background color)
 - `foreground` (text color)
-- `justify` (text alignments, values: `CENTER`, `LEFT`, `RIGHT`)
+- `justify` (text alignment, e.g. `tk.CENTER`, `tk.LEFT`, `tk.RIGHT`)
 - `padx`, `pady` (distance between the border and the content)
 - `font` (e.g.: `("Arial", 16)`)
 
