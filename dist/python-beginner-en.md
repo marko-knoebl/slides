@@ -359,11 +359,49 @@ create and modify data structures that represent the following:
 
 # Object references and mutations
 
+## Object references and mutations
+
+What will be the value of `a` at the end of this code?
+
+```py
+a = [1, 2, 3]
+b = a
+b.append(4)
+```
+
+## Object references and mutations
+
+An assignment (e.g. `b = a`) assigns a new (additional) name to an object.
+
+The object in the background is the same.
+
+## Object references and mutations
+
+If the original should remain intact it may be copied or a mutated version can be newly created based on it:
+
+```py
+a = [1, 2, 3]
+# creating a new copy
+b = a.copy()
+# modifying b
+b.append(4)
+```
+
+```py
+a = [1, 2, 3]
+# creating a new object b based on a
+b = a + [4]
+```
+
 ## Mutations
 
-Some objects can be mutated (changed) directly - e.g. we can add entries to lists and dicts.
+Some objects can be mutated (changed) directly - e.g. via `.append()`, `.push()`, ...
 
-Other objects cannot be mutated directly - however, we can create new, derived objects based on them.
+Examples: `list`, `dict`
+
+Many simple objects are immutable after they have been created. However, they can be replaced by other objects.
+
+Examples: `int`, `float`, `str`, `bool`, `tuple`
 
 ## Mutations
 
@@ -380,22 +418,6 @@ Creating a new string based on an existing string (but assigning it to the same 
 greeting = "Hello"
 greeting = greeting + "!"
 ```
-
-## Mutations and object references
-
-What will be the value of `a` at the end of this code?
-
-```py
-a = [1, 2, 3]
-b = a
-b.append(4)
-```
-
-## Mutations and object references
-
-An assignment (e.g. `b = a`) assigns a new (additional) name to an object.
-
-The object in the background is the same.
 
 # Help and documentation
 

@@ -412,11 +412,37 @@ users[<span class="hljs-number">2</span>]</code></pre>
         <h1 id="object-references-and-mutations">Object references and mutations</h1>
 
       </section><section class="slide" id="slide-9-2">
-        <h2 id="mutations">Mutations</h2>
-<p>Some objects can be mutated (changed) directly - e.g. we can add entries to lists and dicts.</p>
-<p>Other objects cannot be mutated directly - however, we can create new, derived objects based on them.</p>
+        <h2 id="object-references-and-mutations">Object references and mutations</h2>
+<p>What will be the value of <code>a</code> at the end of this code?</p>
+<pre><code class="language-py">a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]
+b = a
+b.append(<span class="hljs-number">4</span>)</code></pre>
 
       </section><section class="slide" id="slide-9-3">
+        <h2 id="object-references-and-mutations">Object references and mutations</h2>
+<p>An assignment (e.g. <code>b = a</code>) assigns a new (additional) name to an object.</p>
+<p>The object in the background is the same.</p>
+
+      </section><section class="slide" id="slide-9-4">
+        <h2 id="object-references-and-mutations">Object references and mutations</h2>
+<p>If the original should remain intact it may be copied or a mutated version can be newly created based on it:</p>
+<pre><code class="language-py">a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]
+<span class="hljs-comment"># creating a new copy</span>
+b = a.copy()
+<span class="hljs-comment"># modifying b</span>
+b.append(<span class="hljs-number">4</span>)</code></pre>
+<pre><code class="language-py">a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]
+<span class="hljs-comment"># creating a new object b based on a</span>
+b = a + [<span class="hljs-number">4</span>]</code></pre>
+
+      </section><section class="slide" id="slide-9-5">
+        <h2 id="mutations">Mutations</h2>
+<p>Some objects can be mutated (changed) directly - e.g. via <code>.append()</code>, <code>.push()</code>, ...</p>
+<p>Examples: <code>list</code>, <code>dict</code></p>
+<p>Many simple objects are immutable after they have been created. However, they can be replaced by other objects.</p>
+<p>Examples: <code>int</code>, <code>float</code>, <code>str</code>, <code>bool</code>, <code>tuple</code></p>
+
+      </section><section class="slide" id="slide-9-6">
         <h2 id="mutations">Mutations</h2>
 <p>Changing a list directly:</p>
 <pre><code class="language-py">primes = [<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">7</span>]
@@ -424,18 +450,6 @@ primes.append(<span class="hljs-number">11</span>)</code></pre>
 <p>Creating a new string based on an existing string (but assigning it to the same name as before):</p>
 <pre><code class="language-py">greeting = <span class="hljs-string">"Hello"</span>
 greeting = greeting + <span class="hljs-string">"!"</span></code></pre>
-
-      </section><section class="slide" id="slide-9-4">
-        <h2 id="mutations-and-object-references">Mutations and object references</h2>
-<p>What will be the value of <code>a</code> at the end of this code?</p>
-<pre><code class="language-py">a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]
-b = a
-b.append(<span class="hljs-number">4</span>)</code></pre>
-
-      </section><section class="slide" id="slide-9-5">
-        <h2 id="mutations-and-object-references">Mutations and object references</h2>
-<p>An assignment (e.g. <code>b = a</code>) assigns a new (additional) name to an object.</p>
-<p>The object in the background is the same.</p>
 
       </section></section><section class="section" id="section-10"><section class="slide" id="slide-10-1">
         <h1 id="help-and-documentation">Help and documentation</h1>

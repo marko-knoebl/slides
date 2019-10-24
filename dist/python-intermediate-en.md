@@ -1476,115 +1476,134 @@ print(*numbers)
 
 change the behavior of _assignments_
 
-## Call by sharing
+# Object references and mutations
 
-In Python values are passed to functions via _call by sharing_ (similar to _call by reference_ in other languages)
+## Object references and mutations
 
-This means: A function _may_ mutate parameters that are passed in - and we should usually make sure not to do so
-
-## Call by sharing
-
-Example:
+Recap: What does this program print?
 
 ```py
-def modify_a(mylist):
-    mylist.append(1)
-    return mylist
-
-def modify_b(mylist):
-    return mylist + [1]
-
-list_a = [1, 2]
-list_a_mod = modify_a(list_a)
-list_b = [1, 2]
-list_b_mod = modify_b(list_b)
+a = [1, 2, 3]
+b = a
+b.append(4)
+print(a)
 ```
 
-(results on next slide)
-
-## Call by sharing
+## Object references and mutations
 
 ```py
-list_a_mod # [1, 2, 1]
-list_b_mod # [1, 2, 1]
-list_a # [1, 2, 1]
-list_b # [1, 2]
+a = [1, 2, 3]
+b = a
+b.append(4)
+print(a)
 ```
 
-# Pure functions
+The Program prints `[1, 2, 3, 4]`. `a` and `b` refer to the same object.
 
-## Pure functions
+## Object references and mutations
 
-Pure functions are functions which only interact with their environment via input parameters and return values
+The statement `b = a` creates a new reference that refers to the same object.
 
-in particular, this means:
+Operations that create new references:
 
-- no reading / writing of variables outside of the function
-- no I/O (no access to disk / network)
-- no mutating of objects that are passed in
+- assignments (`b = a`)
+- function calls (`myfunc(a)` - a new internal variable will be created)
+- insertions into collections (e.g. `mylist.append(a)`)
+- ...
 
-## Pure functions
-
-Advantages of pure functions
-
-- easily reusable (as they are independent of their environment)
-- easy to test
-
-## Pure functions
-
-Example of a function which isn't pure:
+## Object references and functions
 
 ```py
-def remove_negatives(numbers):
-    i = 0
-    while i < len(numbers):
-        if numbers[i] < 0:
-            numbers.pop(i)
-    return numbers
+def remove_middle_element(list_in):
+    list_in.pop(len(list_in) // 2)
+    return list_in
 
-a = [2, 4, -1, -2, 0]
-b = remove_negatives(a)
+a = [1, 2, 3, 4, 5]
+b = remove_middle_element(a)
+print(b)
+print(a)
 ```
 
-## Pure functions
+What does the above example print?
 
-A pure function as an alternative:
+## Object references and functions
+
+Guiding principle for functions:
+
+**Functions should not mutate parameters**
+
+or more generally:
+
+**Functions should only interact with the Python environment by receiving parameters and returning values** (They should not have any _side effects_)
+
+## Object references and functions
+
+Passing an object into a function will create a new reference to that same object (_call by sharing_).
 
 ```py
-def remove_negatives(numbers):
-    nonnegatives = []
-    for n in numbers:
-        if n >= 0:
-            nonnegatives.append(n)
-    return nonnegatives
+def foo(a_inner):
+    print(id(a_inner))
+
+a_outer = []
+foo(a_outer)
+print(id(a_outer))
 ```
 
-Note: in Python the ideal solution would be using list comprehensions
+## Object references and functions
 
-# Recursive functions
+Possible implementations for `remove_middle_element`:
 
-## Recursive functions
+- as a function without side effects
+- as a method of `AdvancedList`
 
-Functions that call themselves
+Compare: `sorted()` and `list.sort()` in Python
 
-## Recursive function
+## Functions without side effects
 
-Task: fibonacci sequence
+The function does not mutate the list that was passed in - instead it returns a new list.
 
 ```py
-# 0 1 1 2 3 5 8 13 21 34 55 89 ...
+def remove_middle_element(list_in):
+    list_out = list_in.copy()
+    list_out.pop(len(list_out) // 2)
+    return list_out
 
-fib(3)
-
-fib(25)
+a = [1, 2, 3, 4, 5]
+b = remove_middle_element(a)
+print(b)
 ```
 
-## Recursion with Turtle graphics
+## Method in a custom class
 
-## Exercises
+Relaxation of the guiding principle for methods: Entries in `self` _may be mutated_.
 
-- babylonian method for finding square roots
-- trees with turtle graphics
+The following method will change the object internally and return nothing.
+
+```py
+class AdvancedList(list):
+    def remove_middle_element(self):
+        self.pop(len(self) // 2)
+
+a = AdvancedList([1, 2, 3, 4, 5])
+a.remove_middle_element()
+print(a)
+```
+
+## Object references and functions
+
+Common rules (no side effects):
+
+- Don't modify parameters that are passed in (exception: `self`)
+- Don't set global variables (Don't use the `global` statement)
+
+Strict rules (pure functions):
+
+- Don't read global variables
+- Don't do any I/O (interactions with disk / network / ...)
+
+Pure functions only interact with their environment by receiving parameters and returning values.
+
+The "purer" a function is the easier it is to reuse and test.
 
 # Python versions
 

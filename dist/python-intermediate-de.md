@@ -1491,113 +1491,134 @@ print(*numbers)
 
 Spielt beim _Zuweisen_ von Variablen eine Rolle
 
-## Call by sharing
+# Objektreferenzen und Mutationen
 
-In Python werden Werte mittels _call by sharing_ an Funktionen übergeben (ähnlich wie _call by reference_ in anderen Sprachen)
+## Objektreferenzen und Mutationen
 
-Dies bedeutet: Eine Funktion _kann_ übergebene Parameter abändern - und wir sollten darauf achten, das in der Praxis nicht zu tun
-
-## Call by sharing
-
-Beispiel:
+Wiederholung: Was wird das folgende Programm ausgeben?
 
 ```py
-def modify_a(mylist):
-    mylist.append(1)
-    return mylist
-
-def modify_b(mylist):
-    return mylist + [1]
-
-list_a = [1, 2]
-list_a_mod = modify_a(list_a)
-list_b = [1, 2]
-list_b_mod = modify_b(list_b)
+a = [1, 2, 3]
+b = a
+b.append(4)
+print(a)
 ```
 
-## Call by sharing
+## Objektreferenzen und Mutationen
 
 ```py
-list_a_mod # [1, 2, 1]
-list_b_mod # [1, 2, 1]
-list_a # [1, 2, 1]
-list_b # [1, 2]
+a = [1, 2, 3]
+b = a
+b.append(4)
+print(a)
 ```
 
-# Reine Funktionen
+Das obige Programm gibt `[1, 2, 3, 4]` aus. `a` und `b` beziehen sich auf das selbe Objekt.
 
-## Reine Funktionen
+## Objektreferenzen und Mutationen
 
-Reine Funktionen sind Funktionen, die mit ihrer Umgebung nur über Eingabeparameter und Rückgabewerte interagieren
+Durch das Ausführen von `b = a` entsteht einen zusätzliche Referenz, die sich auf das selbe Objekt bezieht.
 
-Das bedeutet insbesondere:
+Operationen, die zum Setzen zusätzlicher Referenzen führen:
 
-- alle Eingabewerte werden über Parameter übergeben (die Funktion liest keine weiteren Variablen ein und interagiert auch nicht mit der Umwelt, z.B. durch das Lesen von Daten auf der Festplatte)
-- die Funktion verändert ihre Umwelt nicht; wenn sie veränderliche Objekte übergeben bekommt, ändert sie diese nicht ab
-- das Resultat des Funktionsaufrufs ist der Rückgabewert; sonst wird von der Funktion nichts geändert
+- Zuweisungen (`b = a`)
+- Funktionsaufrufe (`myfunc(a)` - es entsteht eine neue funktionsinterne Referenz)
+- Eintragungen in Kollektionen (z.B. `mylist.append(a)`)
+- ...
 
-## Reine Funktionen
+## Objektreferenzen bei Funktionen
 
-Vorteile reiner Funktionen:
-
-- leicht wiederverwendbar (da sie nicht von ihrer Umgebung abhängen)
-- leicht zu testen
-
-## Reine Funktionen
-
-Beispiel für eine Funktion, die nicht rein ist:
+Der Aufruf einer Funktion mit einem Objekt als Parameter versieht dieses Objekt mit einer weiteren Referenz (_call by sharing_).
 
 ```py
-def remove_negatives(numbers):
-    i = 0
-    while i < len(numbers):
-        if numbers[i] < 0:
-            numbers.pop(i)
-    return numbers
+def foo(a_inner):
+    print(id(a_inner))
 
-a = [2, 4, -1, -2, 0]
-b = remove_negatives(a)
+a_outer = []
+foo(a_outer)
+print(id(a_outer))
 ```
 
-## Reine Funktionen
-
-Reine Funktion als Alternative:
+## Objektreferenzen und Mutationen bei Funktionen
 
 ```py
-def remove_negatives(numbers):
-    nonnegatives = []
-    for n in numbers:
-        if n >= 0:
-            nonnegatives.append(n)
-    return nonnegatives
+def remove_middle_element(list_in):
+    list_in.pop(len(list_in) // 2)
+    return list_in
+
+a = [1, 2, 3, 4, 5]
+b = remove_middle_element(a)
+print(b)
+print(a)
 ```
 
-Anmerkung: In Python wäre die Ideallösung hier das verwenden von List Comprehensions
+Was gibt das obige Beispiel aus?
 
-# Rekursive Funktionen
+## Objektreferenzen und Mutationen bei Funktionen
 
-## Rekursive Funktionen
+Leitprinzip für Funktionen:
 
-Funktionen, die sich selbst aufrufen
+**Funktionen sollten übergebene Parameter nicht abändern**
 
-## Rekursive Funktionen
+oder allgemeiner:
 
-Aufgabe: Fibonacci-Folge
+**Funktionen sollten mit der Python-Umgebung nur dadurch interagieren, dass sie Parameter entgegennehmen und Rückgabewerte zurückliefern** (Sie sollten keine Seiteneffekte / Nebeneffekte haben)
+
+## Objektreferenzen und Mutationen bei Funktionen
+
+Umsetzungsmöglichkeiten am Beispiel `remove_middle_element`:
+
+- als Funktion ohne Seiteneffekte
+- als Methode einer eigenen Klasse `AdvancedList`
+
+Vergleiche: `sorted()` und `list.sort()` in Python
+
+## Funktion ohne Seiteneffekte
+
+Die Funktion ändert die übergebene Liste nicht ab - stattdessen wird eine neue Liste zurückgegeben.
 
 ```py
-# 0 1 1 2 3 5 8 13 21 34 55 89 ...
+def remove_middle_element(list_in):
+    list_out = list_in.copy()
+    list_out.pop(len(list_out) // 2)
+    return list_out
 
-fib(3)
-
-fib(25)
+a = [1, 2, 3, 4, 5]
+b = remove_middle_element(a)
+print(b)
 ```
 
-## Rekursion mit Turtle
+## Methode einer eigenen Klasse
 
-## Aufgaben zu Rekursion
+Lockerung des Leitprinzips bei Methoden: Der Parameter `self` _darf abgeändert werden_.
 
-- Babylonisches Wurzelziehen
-- Bäume mit Turtle-Grafik
+Die folgende Methode ändert das Objekt intern ab und gibt nichts zurück.
+
+```py
+class AdvancedList(list):
+    def remove_middle_element(self):
+        self.pop(len(self) // 2)
+
+a = AdvancedList([1, 2, 3, 4, 5])
+a.remove_middle_element()
+print(a)
+```
+
+## Objektreferenzen und Mutationen bei Funktionen
+
+Übliche Regeln:
+
+- Übergebene Parameter nicht abändern (Ausnahme: `self` in Methoden)
+- Keine globalen Variablen setzen
+
+Strikte Regeln - für sogenannte _reine_ Funktionen:
+
+- Keine globalen Variablen lesen
+- Kein I/O (Interaktion mit Festplatte / Netzwerk)
+
+Reine Funktionen sind Funktionen, die mit ihrer Umgebung nur über Eingabeparameter und Rückgabewerte interagieren.
+
+Je "reiner" eine Funktion ist, umso einfacher ist sie wiederzuverwenden und zu testen.
 
 # Python Versionen
 

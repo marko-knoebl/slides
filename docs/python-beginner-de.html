@@ -451,35 +451,38 @@ users[<span class="hljs-number">-1</span>]</code></pre>
 </ul>
 
       </section></section><section class="section" id="section-9"><section class="slide" id="slide-9-1">
-        <h1 id="objekte-abändern">Objekte abändern</h1>
+        <h1 id="objektreferenzen-und-mutationen">Objektreferenzen und Mutationen</h1>
 
       </section><section class="slide" id="slide-9-2">
-        <h2 id="objekte-abändern">Objekte abändern</h2>
-<p>In Python können Listen und Dictionaries direkt verändert werden - z.B. durch das Ergänzen eines neuen Eintrags</p>
-<p>Viele andere Objekte - z.B. str, int, float - können nicht abgeändert werden. Jedoch ist es möglich, neue, veränderte Objekte basierend auf bereits vorhandenen Objekten zu erstellen.</p>
-
-      </section><section class="slide" id="slide-9-3">
-        <h2 id="objekte-abändern">Objekte abändern</h2>
-<pre><code class="language-py">a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]
-<span class="hljs-comment"># creating a new object</span>
-a = a + [<span class="hljs-number">4</span>]
-
-a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]
-<span class="hljs-comment"># a is modified directly</span>
-a.append(<span class="hljs-number">4</span>)</code></pre>
-
-      </section><section class="slide" id="slide-9-4">
-        <h2 id="objekte-abändern">Objekte abändern</h2>
-<p>Was wird das folgende Programm ausgeben?</p>
+        <h2 id="objektreferenzen-und-mutationen">Objektreferenzen und Mutationen</h2>
+<p>Was ist der Wert von <code>a</code> am Ende dieses Programms?</p>
 <pre><code class="language-py">a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]
 b = a
-b.append(<span class="hljs-number">4</span>)
-print(a)</code></pre>
+b.append(<span class="hljs-number">4</span>)</code></pre>
 
-      </section><section class="slide" id="slide-9-5">
-        <h2 id="objekte-abändern">Objekte abändern</h2>
+      </section><section class="slide" id="slide-9-3">
+        <h2 id="objektreferenzen-und-mutationen">Objektreferenzen und Mutationen</h2>
 <p>Eine Zuweisung (z.B. <code>b = a</code>) versieht ein existierendes Objekt mit einem neuen (zusätzlichen) Namen.</p>
 <p>Im Hintergrund steht nach wie vor nur ein einzelnes Objekt.</p>
+
+      </section><section class="slide" id="slide-9-4">
+        <h2 id="objektreferenzen-und-mutationen">Objektreferenzen und Mutationen</h2>
+<p>Falls das Original erhalten bleiben soll, kann es kopiert werden oder die abgeänderte Variante basierend auf dem alten Objekt erstellt werden:</p>
+<pre><code class="language-py">a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]
+<span class="hljs-comment"># creating a new copy</span>
+b = a.copy()
+<span class="hljs-comment"># modifying b</span>
+b.append(<span class="hljs-number">4</span>)</code></pre>
+<pre><code class="language-py">a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]
+<span class="hljs-comment"># creating a new object b based on a</span>
+b = a + [<span class="hljs-number">4</span>]</code></pre>
+
+      </section><section class="slide" id="slide-9-5">
+        <h2 id="objektreferenzen-und-mutationen">Objektreferenzen und Mutationen</h2>
+<p>Manche Objekte in Python können verändert (mutiert) werden - z.B. via <code>.append()</code>, <code>.push()</code>, ...</p>
+<p>Beispiele: <code>list</code>, <code>dict</code></p>
+<p>Viele einfache Objekte sind nach ihrer Erstellung unveränderlich.</p>
+<p>Beispiele: <code>int</code>, <code>float</code>, <code>str</code>, <code>bool</code>, <code>tuple</code></p>
 
       </section></section><section class="section" id="section-10"><section class="slide" id="slide-10-1">
         <h1 id="hilfe-und-dokumentation">Hilfe und Dokumentation</h1>

@@ -1345,147 +1345,156 @@ print(*numbers)</code></pre>
 <p><code>global</code> / <code>nonlocal</code></p>
 <p>Spielt beim <em>Zuweisen</em> von Variablen eine Rolle</p>
 
-      </section><section class="slide" id="slide-24-6">
-        <h2 id="call-by-sharing">Call by sharing</h2>
-<p>In Python werden Werte mittels <em>call by sharing</em> an Funktionen übergeben (ähnlich wie <em>call by reference</em> in anderen Sprachen)</p>
-<p>Dies bedeutet: Eine Funktion <em>kann</em> übergebene Parameter abändern - und wir sollten darauf achten, das in der Praxis nicht zu tun</p>
-
-      </section><section class="slide" id="slide-24-7">
-        <h2 id="call-by-sharing">Call by sharing</h2>
-<p>Beispiel:</p>
-<pre><code class="language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">modify_a</span><span class="hljs-params">(mylist)</span>:</span>
-    mylist.append(<span class="hljs-number">1</span>)
-    <span class="hljs-keyword">return</span> mylist
-
-<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">modify_b</span><span class="hljs-params">(mylist)</span>:</span>
-    <span class="hljs-keyword">return</span> mylist + [<span class="hljs-number">1</span>]
-
-list_a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>]
-list_a_mod = modify_a(list_a)
-list_b = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>]
-list_b_mod = modify_b(list_b)</code></pre>
-
-      </section><section class="slide" id="slide-24-8">
-        <h2 id="call-by-sharing">Call by sharing</h2>
-<pre><code class="language-py">list_a_mod <span class="hljs-comment"># [1, 2, 1]</span>
-list_b_mod <span class="hljs-comment"># [1, 2, 1]</span>
-list_a <span class="hljs-comment"># [1, 2, 1]</span>
-list_b <span class="hljs-comment"># [1, 2]</span></code></pre>
-
       </section></section><section class="section" id="section-25"><section class="slide" id="slide-25-1">
-        <h1 id="reine-funktionen">Reine Funktionen</h1>
+        <h1 id="objektreferenzen-und-mutationen">Objektreferenzen und Mutationen</h1>
 
       </section><section class="slide" id="slide-25-2">
-        <h2 id="reine-funktionen">Reine Funktionen</h2>
-<p>Reine Funktionen sind Funktionen, die mit ihrer Umgebung nur über Eingabeparameter und Rückgabewerte interagieren</p>
-<p>Das bedeutet insbesondere:</p>
-<ul>
-<li>alle Eingabewerte werden über Parameter übergeben (die Funktion liest keine weiteren Variablen ein und interagiert auch nicht mit der Umwelt, z.B. durch das Lesen von Daten auf der Festplatte)</li>
-<li>die Funktion verändert ihre Umwelt nicht; wenn sie veränderliche Objekte übergeben bekommt, ändert sie diese nicht ab</li>
-<li>das Resultat des Funktionsaufrufs ist der Rückgabewert; sonst wird von der Funktion nichts geändert</li>
-</ul>
+        <h2 id="objektreferenzen-und-mutationen">Objektreferenzen und Mutationen</h2>
+<p>Wiederholung: Was wird das folgende Programm ausgeben?</p>
+<pre><code class="language-py">a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]
+b = a
+b.append(<span class="hljs-number">4</span>)
+print(a)</code></pre>
 
       </section><section class="slide" id="slide-25-3">
-        <h2 id="reine-funktionen">Reine Funktionen</h2>
-<p>Vorteile reiner Funktionen:</p>
-<ul>
-<li>leicht wiederverwendbar (da sie nicht von ihrer Umgebung abhängen)</li>
-<li>leicht zu testen</li>
-</ul>
+        <h2 id="objektreferenzen-und-mutationen">Objektreferenzen und Mutationen</h2>
+<pre><code class="language-py">a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]
+b = a
+b.append(<span class="hljs-number">4</span>)
+print(a)</code></pre>
+<p>Das obige Programm gibt <code>[1, 2, 3, 4]</code> aus. <code>a</code> und <code>b</code> beziehen sich auf das selbe Objekt.</p>
 
       </section><section class="slide" id="slide-25-4">
-        <h2 id="reine-funktionen">Reine Funktionen</h2>
-<p>Beispiel für eine Funktion, die nicht rein ist:</p>
-<pre><code class="language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">remove_negatives</span><span class="hljs-params">(numbers)</span>:</span>
-    i = <span class="hljs-number">0</span>
-    <span class="hljs-keyword">while</span> i &lt; len(numbers):
-        <span class="hljs-keyword">if</span> numbers[i] &lt; <span class="hljs-number">0</span>:
-            numbers.pop(i)
-    <span class="hljs-keyword">return</span> numbers
-
-a = [<span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">-1</span>, <span class="hljs-number">-2</span>, <span class="hljs-number">0</span>]
-b = remove_negatives(a)</code></pre>
-
-      </section><section class="slide" id="slide-25-5">
-        <h2 id="reine-funktionen">Reine Funktionen</h2>
-<p>Reine Funktion als Alternative:</p>
-<pre><code class="language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">remove_negatives</span><span class="hljs-params">(numbers)</span>:</span>
-    nonnegatives = []
-    <span class="hljs-keyword">for</span> n <span class="hljs-keyword">in</span> numbers:
-        <span class="hljs-keyword">if</span> n &gt;= <span class="hljs-number">0</span>:
-            nonnegatives.append(n)
-    <span class="hljs-keyword">return</span> nonnegatives</code></pre>
-<p>Anmerkung: In Python wäre die Ideallösung hier das verwenden von List Comprehensions</p>
-
-      </section></section><section class="section" id="section-26"><section class="slide" id="slide-26-1">
-        <h1 id="rekursive-funktionen">Rekursive Funktionen</h1>
-
-      </section><section class="slide" id="slide-26-2">
-        <h2 id="rekursive-funktionen">Rekursive Funktionen</h2>
-<p>Funktionen, die sich selbst aufrufen</p>
-
-      </section><section class="slide" id="slide-26-3">
-        <h2 id="rekursive-funktionen">Rekursive Funktionen</h2>
-<p>Aufgabe: Fibonacci-Folge</p>
-<pre><code class="language-py"><span class="hljs-comment"># 0 1 1 2 3 5 8 13 21 34 55 89 ...</span>
-
-fib(<span class="hljs-number">3</span>)
-
-fib(<span class="hljs-number">25</span>)</code></pre>
-
-      </section><section class="slide" id="slide-26-4">
-        <h2 id="rekursion-mit-turtle">Rekursion mit Turtle</h2>
-
-      </section><section class="slide" id="slide-26-5">
-        <h2 id="aufgaben-zu-rekursion">Aufgaben zu Rekursion</h2>
+        <h2 id="objektreferenzen-und-mutationen">Objektreferenzen und Mutationen</h2>
+<p>Durch das Ausführen von <code>b = a</code> entsteht einen zusätzliche Referenz, die sich auf das selbe Objekt bezieht.</p>
+<p>Operationen, die zum Setzen zusätzlicher Referenzen führen:</p>
 <ul>
-<li>Babylonisches Wurzelziehen</li>
-<li>Bäume mit Turtle-Grafik</li>
+<li>Zuweisungen (<code>b = a</code>)</li>
+<li>Funktionsaufrufe (<code>myfunc(a)</code> - es entsteht eine neue funktionsinterne Referenz)</li>
+<li>Eintragungen in Kollektionen (z.B. <code>mylist.append(a)</code>)</li>
+<li>...</li>
 </ul>
 
-      </section></section><section class="section" id="section-27"><section class="slide" id="slide-27-1">
+      </section><section class="slide" id="slide-25-5">
+        <h2 id="objektreferenzen-bei-funktionen">Objektreferenzen bei Funktionen</h2>
+<p>Der Aufruf einer Funktion mit einem Objekt als Parameter versieht dieses Objekt mit einer weiteren Referenz (<em>call by sharing</em>).</p>
+<pre><code class="language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">foo</span><span class="hljs-params">(a_inner)</span>:</span>
+    print(id(a_inner))
+
+a_outer = []
+foo(a_outer)
+print(id(a_outer))</code></pre>
+
+      </section><section class="slide" id="slide-25-6">
+        <h2 id="objektreferenzen-und-mutationen-bei-funktionen">Objektreferenzen und Mutationen bei Funktionen</h2>
+<pre><code class="language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">remove_middle_element</span><span class="hljs-params">(list_in)</span>:</span>
+    list_in.pop(len(list_in) // <span class="hljs-number">2</span>)
+    <span class="hljs-keyword">return</span> list_in
+
+a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]
+b = remove_middle_element(a)
+print(b)
+print(a)</code></pre>
+<p>Was gibt das obige Beispiel aus?</p>
+
+      </section><section class="slide" id="slide-25-7">
+        <h2 id="objektreferenzen-und-mutationen-bei-funktionen">Objektreferenzen und Mutationen bei Funktionen</h2>
+<p>Leitprinzip für Funktionen:</p>
+<p><strong>Funktionen sollten übergebene Parameter nicht abändern</strong></p>
+<p>oder allgemeiner:</p>
+<p><strong>Funktionen sollten mit der Python-Umgebung nur dadurch interagieren, dass sie Parameter entgegennehmen und Rückgabewerte zurückliefern</strong> (Sie sollten keine Seiteneffekte / Nebeneffekte haben)</p>
+
+      </section><section class="slide" id="slide-25-8">
+        <h2 id="objektreferenzen-und-mutationen-bei-funktionen">Objektreferenzen und Mutationen bei Funktionen</h2>
+<p>Umsetzungsmöglichkeiten am Beispiel <code>remove_middle_element</code>:</p>
+<ul>
+<li>als Funktion ohne Seiteneffekte</li>
+<li>als Methode einer eigenen Klasse <code>AdvancedList</code></li>
+</ul>
+<p>Vergleiche: <code>sorted()</code> und <code>list.sort()</code> in Python</p>
+
+      </section><section class="slide" id="slide-25-9">
+        <h2 id="funktion-ohne-seiteneffekte">Funktion ohne Seiteneffekte</h2>
+<p>Die Funktion ändert die übergebene Liste nicht ab - stattdessen wird eine neue Liste zurückgegeben.</p>
+<pre><code class="language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">remove_middle_element</span><span class="hljs-params">(list_in)</span>:</span>
+    list_out = list_in.copy()
+    list_out.pop(len(list_out) // <span class="hljs-number">2</span>)
+    <span class="hljs-keyword">return</span> list_out
+
+a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]
+b = remove_middle_element(a)
+print(b)</code></pre>
+
+      </section><section class="slide" id="slide-25-10">
+        <h2 id="methode-einer-eigenen-klasse">Methode einer eigenen Klasse</h2>
+<p>Lockerung des Leitprinzips bei Methoden: Der Parameter <code>self</code> <em>darf abgeändert werden</em>.</p>
+<p>Die folgende Methode ändert das Objekt intern ab und gibt nichts zurück.</p>
+<pre><code class="language-py"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AdvancedList</span><span class="hljs-params">(list)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">remove_middle_element</span><span class="hljs-params">(self)</span>:</span>
+        self.pop(len(self) // <span class="hljs-number">2</span>)
+
+a = AdvancedList([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>])
+a.remove_middle_element()
+print(a)</code></pre>
+
+      </section><section class="slide" id="slide-25-11">
+        <h2 id="objektreferenzen-und-mutationen-bei-funktionen">Objektreferenzen und Mutationen bei Funktionen</h2>
+<p>Übliche Regeln:</p>
+<ul>
+<li>Übergebene Parameter nicht abändern (Ausnahme: <code>self</code> in Methoden)</li>
+<li>Keine globalen Variablen setzen</li>
+</ul>
+<p>Strikte Regeln - für sogenannte <em>reine</em> Funktionen:</p>
+<ul>
+<li>Keine globalen Variablen lesen</li>
+<li>Kein I/O (Interaktion mit Festplatte / Netzwerk)</li>
+</ul>
+<p>Reine Funktionen sind Funktionen, die mit ihrer Umgebung nur über Eingabeparameter und Rückgabewerte interagieren.</p>
+<p>Je &quot;reiner&quot; eine Funktion ist, umso einfacher ist sie wiederzuverwenden und zu testen.</p>
+
+      </section></section><section class="section" id="section-26"><section class="slide" id="slide-26-1">
         <h1 id="python-versionen">Python Versionen</h1>
 
-      </section><section class="slide" id="slide-27-2">
+      </section><section class="slide" id="slide-26-2">
         <h2 id="python-versionen">Python Versionen</h2>
 <p>Python 2 vs Python 3</p>
 
-      </section><section class="slide" id="slide-27-3">
+      </section><section class="slide" id="slide-26-3">
         <h2 id="strings-und-bytes">Strings und Bytes</h2>
 <p>Tiefgreifende Änderung in Python 3:</p>
 <p>Strikte Trennung von Text (strings) und Binärdaten (bytes)</p>
 <p>in Python 2: Datentypen <code>bytes</code>, <code>str</code> und <code>unicode</code></p>
 
-      </section><section class="slide" id="slide-27-4">
+      </section><section class="slide" id="slide-26-4">
         <h2 id="print">Print</h2>
 <p>Python 2:</p>
 <pre><code class="language-py"><span class="hljs-keyword">print</span> <span class="hljs-string">"a"</span>,</code></pre>
 <p>Python 3:</p>
 <pre><code class="language-py">print(<span class="hljs-string">"a"</span>, end=<span class="hljs-string">""</span>)</code></pre>
 
-      </section><section class="slide" id="slide-27-5">
+      </section><section class="slide" id="slide-26-5">
         <h2 id="division">Division</h2>
 <p>Python 2:</p>
 <pre><code class="language-py"><span class="hljs-number">10</span> / <span class="hljs-number">3</span>    <span class="hljs-comment"># 3</span></code></pre>
 
-      </section><section class="slide" id="slide-27-6">
+      </section><section class="slide" id="slide-26-6">
         <h2 id="range">range</h2>
 <p>in Python 2: <code>range()</code> liefert Liste zurück, <code>xrange()</code> liefert speicherschonendes Objekt</p>
 <p>in Python 3: <code>range()</code> liefert speicherschonendes Objekt</p>
 
-      </section><section class="slide" id="slide-27-7">
+      </section><section class="slide" id="slide-26-7">
         <h2 id="input">input</h2>
 <p>in Python 2: <code>input()</code> wertet die Eingabe aus, <code>raw_input()</code> gibt String zurück</p>
 <p>in Python 3: <code>input()</code> gibt String zurück</p>
 
-      </section><section class="slide" id="slide-27-8">
+      </section><section class="slide" id="slide-26-8">
         <h2 id="__future__-imports">__future__ imports</h2>
 <p>Verhalten von Python 3 in Python 2 übernehmen:</p>
 <pre><code class="language-py"><span class="hljs-keyword">from</span> __future__ <span class="hljs-keyword">import</span> print_function
 <span class="hljs-keyword">from</span> __future__ <span class="hljs-keyword">import</span> unicode_literals
 <span class="hljs-keyword">from</span> __future__ <span class="hljs-keyword">import</span> division</code></pre>
 
-      </section><section class="slide" id="slide-27-9">
+      </section><section class="slide" id="slide-26-9">
         <h2 id="python-future">Python-Future</h2>
 <p>Kompatibilitätsschicht zwischen Python 2 und Python 3</p>
 <p>Unterstützung von Python 2 und Python 3 aus der gleichen Codebase</p>

@@ -402,42 +402,51 @@ erstelle und ändere Datenstrukturen, die folgendes darstellen:
 - eine Liste von erledigten bzw nicht erledigten Todos
 - Transaktionen auf einem Bankkonto
 
-# Objekte abändern
+# Objektreferenzen und Mutationen
 
-## Objekte abändern
+## Objektreferenzen und Mutationen
 
-In Python können Listen und Dictionaries direkt verändert werden - z.B. durch das Ergänzen eines neuen Eintrags
-
-Viele andere Objekte - z.B. str, int, float - können nicht abgeändert werden. Jedoch ist es möglich, neue, veränderte Objekte basierend auf bereits vorhandenen Objekten zu erstellen.
-
-## Objekte abändern
-
-```py
-a = [1, 2, 3]
-# creating a new object
-a = a + [4]
-
-a = [1, 2, 3]
-# a is modified directly
-a.append(4)
-```
-
-## Objekte abändern
-
-Was wird das folgende Programm ausgeben?
+Was ist der Wert von `a` am Ende dieses Programms?
 
 ```py
 a = [1, 2, 3]
 b = a
 b.append(4)
-print(a)
 ```
 
-## Objekte abändern
+## Objektreferenzen und Mutationen
 
 Eine Zuweisung (z.B. `b = a`) versieht ein existierendes Objekt mit einem neuen (zusätzlichen) Namen.
 
 Im Hintergrund steht nach wie vor nur ein einzelnes Objekt.
+
+## Objektreferenzen und Mutationen
+
+Falls das Original erhalten bleiben soll, kann es kopiert werden oder die abgeänderte Variante basierend auf dem alten Objekt erstellt werden:
+
+```py
+a = [1, 2, 3]
+# creating a new copy
+b = a.copy()
+# modifying b
+b.append(4)
+```
+
+```py
+a = [1, 2, 3]
+# creating a new object b based on a
+b = a + [4]
+```
+
+## Objektreferenzen und Mutationen
+
+Manche Objekte in Python können verändert (mutiert) werden - z.B. via `.append()`, `.push()`, ...
+
+Beispiele: `list`, `dict`
+
+Viele einfache Objekte sind nach ihrer Erstellung unveränderlich.
+
+Beispiele: `int`, `float`, `str`, `bool`, `tuple`
 
 # Hilfe und Dokumentation
 

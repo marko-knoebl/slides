@@ -1332,148 +1332,156 @@ print(*numbers)</code></pre>
 <p><code>global</code> / <code>nonlocal</code></p>
 <p>change the behavior of <em>assignments</em></p>
 
-      </section><section class="slide" id="slide-24-6">
-        <h2 id="call-by-sharing">Call by sharing</h2>
-<p>In Python values are passed to functions via <em>call by sharing</em> (similar to <em>call by reference</em> in other languages)</p>
-<p>This means: A function <em>may</em> mutate parameters that are passed in - and we should usually make sure not to do so</p>
-
-      </section><section class="slide" id="slide-24-7">
-        <h2 id="call-by-sharing">Call by sharing</h2>
-<p>Example:</p>
-<pre><code class="language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">modify_a</span><span class="hljs-params">(mylist)</span>:</span>
-    mylist.append(<span class="hljs-number">1</span>)
-    <span class="hljs-keyword">return</span> mylist
-
-<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">modify_b</span><span class="hljs-params">(mylist)</span>:</span>
-    <span class="hljs-keyword">return</span> mylist + [<span class="hljs-number">1</span>]
-
-list_a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>]
-list_a_mod = modify_a(list_a)
-list_b = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>]
-list_b_mod = modify_b(list_b)</code></pre>
-<p>(results on next slide)</p>
-
-      </section><section class="slide" id="slide-24-8">
-        <h2 id="call-by-sharing">Call by sharing</h2>
-<pre><code class="language-py">list_a_mod <span class="hljs-comment"># [1, 2, 1]</span>
-list_b_mod <span class="hljs-comment"># [1, 2, 1]</span>
-list_a <span class="hljs-comment"># [1, 2, 1]</span>
-list_b <span class="hljs-comment"># [1, 2]</span></code></pre>
-
       </section></section><section class="section" id="section-25"><section class="slide" id="slide-25-1">
-        <h1 id="pure-functions">Pure functions</h1>
+        <h1 id="object-references-and-mutations">Object references and mutations</h1>
 
       </section><section class="slide" id="slide-25-2">
-        <h2 id="pure-functions">Pure functions</h2>
-<p>Pure functions are functions which only interact with their environment via input parameters and return values</p>
-<p>in particular, this means:</p>
-<ul>
-<li>no reading / writing of variables outside of the function</li>
-<li>no I/O (no access to disk / network)</li>
-<li>no mutating of objects that are passed in</li>
-</ul>
+        <h2 id="object-references-and-mutations">Object references and mutations</h2>
+<p>Recap: What does this program print?</p>
+<pre><code class="language-py">a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]
+b = a
+b.append(<span class="hljs-number">4</span>)
+print(a)</code></pre>
 
       </section><section class="slide" id="slide-25-3">
-        <h2 id="pure-functions">Pure functions</h2>
-<p>Advantages of pure functions</p>
-<ul>
-<li>easily reusable (as they are independent of their environment)</li>
-<li>easy to test</li>
-</ul>
+        <h2 id="object-references-and-mutations">Object references and mutations</h2>
+<pre><code class="language-py">a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]
+b = a
+b.append(<span class="hljs-number">4</span>)
+print(a)</code></pre>
+<p>The Program prints <code>[1, 2, 3, 4]</code>. <code>a</code> and <code>b</code> refer to the same object.</p>
 
       </section><section class="slide" id="slide-25-4">
-        <h2 id="pure-functions">Pure functions</h2>
-<p>Example of a function which isn&#39;t pure:</p>
-<pre><code class="language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">remove_negatives</span><span class="hljs-params">(numbers)</span>:</span>
-    i = <span class="hljs-number">0</span>
-    <span class="hljs-keyword">while</span> i &lt; len(numbers):
-        <span class="hljs-keyword">if</span> numbers[i] &lt; <span class="hljs-number">0</span>:
-            numbers.pop(i)
-    <span class="hljs-keyword">return</span> numbers
-
-a = [<span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">-1</span>, <span class="hljs-number">-2</span>, <span class="hljs-number">0</span>]
-b = remove_negatives(a)</code></pre>
-
-      </section><section class="slide" id="slide-25-5">
-        <h2 id="pure-functions">Pure functions</h2>
-<p>A pure function as an alternative:</p>
-<pre><code class="language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">remove_negatives</span><span class="hljs-params">(numbers)</span>:</span>
-    nonnegatives = []
-    <span class="hljs-keyword">for</span> n <span class="hljs-keyword">in</span> numbers:
-        <span class="hljs-keyword">if</span> n &gt;= <span class="hljs-number">0</span>:
-            nonnegatives.append(n)
-    <span class="hljs-keyword">return</span> nonnegatives</code></pre>
-<p>Note: in Python the ideal solution would be using list comprehensions</p>
-
-      </section></section><section class="section" id="section-26"><section class="slide" id="slide-26-1">
-        <h1 id="recursive-functions">Recursive functions</h1>
-
-      </section><section class="slide" id="slide-26-2">
-        <h2 id="recursive-functions">Recursive functions</h2>
-<p>Functions that call themselves</p>
-
-      </section><section class="slide" id="slide-26-3">
-        <h2 id="recursive-function">Recursive function</h2>
-<p>Task: fibonacci sequence</p>
-<pre><code class="language-py"><span class="hljs-comment"># 0 1 1 2 3 5 8 13 21 34 55 89 ...</span>
-
-fib(<span class="hljs-number">3</span>)
-
-fib(<span class="hljs-number">25</span>)</code></pre>
-
-      </section><section class="slide" id="slide-26-4">
-        <h2 id="recursion-with-turtle-graphics">Recursion with Turtle graphics</h2>
-
-      </section><section class="slide" id="slide-26-5">
-        <h2 id="exercises">Exercises</h2>
+        <h2 id="object-references-and-mutations">Object references and mutations</h2>
+<p>The statement <code>b = a</code> creates a new reference that refers to the same object.</p>
+<p>Operations that create new references:</p>
 <ul>
-<li>babylonian method for finding square roots</li>
-<li>trees with turtle graphics</li>
+<li>assignments (<code>b = a</code>)</li>
+<li>function calls (<code>myfunc(a)</code> - a new internal variable will be created)</li>
+<li>insertions into collections (e.g. <code>mylist.append(a)</code>)</li>
+<li>...</li>
 </ul>
 
-      </section></section><section class="section" id="section-27"><section class="slide" id="slide-27-1">
+      </section><section class="slide" id="slide-25-5">
+        <h2 id="object-references-and-functions">Object references and functions</h2>
+<pre><code class="language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">remove_middle_element</span><span class="hljs-params">(list_in)</span>:</span>
+    list_in.pop(len(list_in) // <span class="hljs-number">2</span>)
+    <span class="hljs-keyword">return</span> list_in
+
+a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]
+b = remove_middle_element(a)
+print(b)
+print(a)</code></pre>
+<p>What does the above example print?</p>
+
+      </section><section class="slide" id="slide-25-6">
+        <h2 id="object-references-and-functions">Object references and functions</h2>
+<p>Guiding principle for functions:</p>
+<p><strong>Functions should not mutate parameters</strong></p>
+<p>or more generally:</p>
+<p><strong>Functions should only interact with the Python environment by receiving parameters and returning values</strong> (They should not have any <em>side effects</em>)</p>
+
+      </section><section class="slide" id="slide-25-7">
+        <h2 id="object-references-and-functions">Object references and functions</h2>
+<p>Passing an object into a function will create a new reference to that same object (<em>call by sharing</em>).</p>
+<pre><code class="language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">foo</span><span class="hljs-params">(a_inner)</span>:</span>
+    print(id(a_inner))
+
+a_outer = []
+foo(a_outer)
+print(id(a_outer))</code></pre>
+
+      </section><section class="slide" id="slide-25-8">
+        <h2 id="object-references-and-functions">Object references and functions</h2>
+<p>Possible implementations for <code>remove_middle_element</code>:</p>
+<ul>
+<li>as a function without side effects</li>
+<li>as a method of <code>AdvancedList</code></li>
+</ul>
+<p>Compare: <code>sorted()</code> and <code>list.sort()</code> in Python</p>
+
+      </section><section class="slide" id="slide-25-9">
+        <h2 id="functions-without-side-effects">Functions without side effects</h2>
+<p>The function does not mutate the list that was passed in - instead it returns a new list.</p>
+<pre><code class="language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">remove_middle_element</span><span class="hljs-params">(list_in)</span>:</span>
+    list_out = list_in.copy()
+    list_out.pop(len(list_out) // <span class="hljs-number">2</span>)
+    <span class="hljs-keyword">return</span> list_out
+
+a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]
+b = remove_middle_element(a)
+print(b)</code></pre>
+
+      </section><section class="slide" id="slide-25-10">
+        <h2 id="method-in-a-custom-class">Method in a custom class</h2>
+<p>Relaxation of the guiding principle for methods: Entries in <code>self</code> <em>may be mutated</em>.</p>
+<p>The following method will change the object internally and return nothing.</p>
+<pre><code class="language-py"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AdvancedList</span><span class="hljs-params">(list)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">remove_middle_element</span><span class="hljs-params">(self)</span>:</span>
+        self.pop(len(self) // <span class="hljs-number">2</span>)
+
+a = AdvancedList([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>])
+a.remove_middle_element()
+print(a)</code></pre>
+
+      </section><section class="slide" id="slide-25-11">
+        <h2 id="object-references-and-functions">Object references and functions</h2>
+<p>Common rules (no side effects):</p>
+<ul>
+<li>Don&#39;t modify parameters that are passed in (exception: <code>self</code>)</li>
+<li>Don&#39;t set global variables (Don&#39;t use the <code>global</code> statement)</li>
+</ul>
+<p>Strict rules (pure functions):</p>
+<ul>
+<li>Don&#39;t read global variables</li>
+<li>Don&#39;t do any I/O (interactions with disk / network / ...)</li>
+</ul>
+<p>Pure functions only interact with their environment by receiving parameters and returning values.</p>
+<p>The &quot;purer&quot; a function is the easier it is to reuse and test.</p>
+
+      </section></section><section class="section" id="section-26"><section class="slide" id="slide-26-1">
         <h1 id="python-versions">Python versions</h1>
 
-      </section><section class="slide" id="slide-27-2">
+      </section><section class="slide" id="slide-26-2">
         <h2 id="python-versions">Python versions</h2>
 <p>Python 2 vs Python 3</p>
 
-      </section><section class="slide" id="slide-27-3">
+      </section><section class="slide" id="slide-26-3">
         <h2 id="strings-and-bytes">Strings and Bytes</h2>
 <p>major change in Python 3:</p>
 <p>strict separation of text (strings) and binary data (bytes)</p>
 <p>in Python 2: data types <code>bytes</code>, <code>str</code> and <code>unicode</code></p>
 
-      </section><section class="slide" id="slide-27-4">
+      </section><section class="slide" id="slide-26-4">
         <h2 id="print">Print</h2>
 <p>Python 2:</p>
 <pre><code class="language-py"><span class="hljs-keyword">print</span> <span class="hljs-string">"a"</span>,</code></pre>
 <p>Python 3:</p>
 <pre><code class="language-py">print(<span class="hljs-string">"a"</span>, end=<span class="hljs-string">""</span>)</code></pre>
 
-      </section><section class="slide" id="slide-27-5">
+      </section><section class="slide" id="slide-26-5">
         <h2 id="division">Division</h2>
 <p>Python 2:</p>
 <pre><code class="language-py"><span class="hljs-number">10</span> / <span class="hljs-number">3</span>    <span class="hljs-comment"># 3</span></code></pre>
 
-      </section><section class="slide" id="slide-27-6">
+      </section><section class="slide" id="slide-26-6">
         <h2 id="range">range</h2>
 <p>in Python 2: <code>range()</code> returns a list, <code>xrange()</code> returns an object that saves on memory</p>
 <p>in Python 3: <code>range()</code> returns an object that saves on memory</p>
 
-      </section><section class="slide" id="slide-27-7">
+      </section><section class="slide" id="slide-26-7">
         <h2 id="input">input</h2>
 <p>in Python 2: <code>input()</code> will evaluate / execute the input, <code>raw_input()</code> returns a string</p>
 <p>in Python 3: <code>input()</code> returns a string</p>
 
-      </section><section class="slide" id="slide-27-8">
+      </section><section class="slide" id="slide-26-8">
         <h2 id="__future__-imports">__future__ imports</h2>
 <p>Getting some of the behavior of Python 3 in Python 2:</p>
 <pre><code class="language-py"><span class="hljs-keyword">from</span> __future__ <span class="hljs-keyword">import</span> print_function
 <span class="hljs-keyword">from</span> __future__ <span class="hljs-keyword">import</span> unicode_literals
 <span class="hljs-keyword">from</span> __future__ <span class="hljs-keyword">import</span> division</code></pre>
 
-      </section><section class="slide" id="slide-27-9">
+      </section><section class="slide" id="slide-26-9">
         <h2 id="python-future">Python-Future</h2>
 <p>Compatibility layer between Python 2 and Python 3</p>
 <p>Enables supporting both Python 2 and Python 3 from the same codebase</p>
