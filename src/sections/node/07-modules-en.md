@@ -58,6 +58,4 @@ exports.message3 = 'hi';
 
 ## ES modules
 
-The standard ES syntax for importing and exporting is currently experimental in node.js
-
-There are plans to have it officially supported in Node 12 before it enters long-term-support mode in October 2019
+The standard ES syntax for importing and exporting is currently experimental in node.js. Official support is hindered by some implementation problems.

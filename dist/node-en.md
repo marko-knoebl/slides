@@ -96,7 +96,7 @@ we can add some dependencies via:
 npm install lodash bootstrap
 ```
 
-we can add dependencies that are only used for development (and not for building) via:
+if we develop a reusable library we can add dependencies that are only used for development via:
 
 ```bash
 npm install eslint --save-dev
@@ -124,13 +124,13 @@ possible configurations:
 
 ## Dependencies in package-lock.json
 
-The file `package-lock.json` lists _exact_ versions for all dependencies and their dependencies
+The file `package-lock.json` lists _exact_ versions for all dependencies and their recursive dependencies
 
 ## node_modules
 
 contains the actual packages
 
-this should not be put under version control - instead, this folder can be reacreated from `package.json` by running `npm install` (without any arguments)
+this should not be put under version control - instead, this folder can be recreated from `package.json` by running `npm install` (without any arguments)
 
 ## npm scripts
 
@@ -153,10 +153,6 @@ Npm scripts are configured in `package.json`:
 }
 ```
 
-## package.json contents (for public packages)
-
-See https://docs.npmjs.com/files/package.json
-
 ## Global installs and npx
 
 Node packages may be installed globally on a computer or may be executed directly from the npm registry
@@ -173,6 +169,45 @@ global installation of `cowsay`:
 npm install -g cowsay
 
 cowsay hello
+```
+
+# Publishing npm packages
+
+## Publishing npm packages
+
+- create an account on _npmjs.com_
+- create a package.json file
+- create a _.gitignore_ or _.npmignore_ file
+- run `npm publish --access public`
+
+## package.json - basic entries
+
+- _name_: either _mypackage_ (if still available) or _@myusername/mypackage_
+- _description_
+- _version_: e.g. _0.1.0_
+- _author_: author's name
+- _license_: e.g. _UNLICENSED_, _ISC_, _GPL-3.0_, ...
+
+## package.json - advanced entries
+
+- _main_: e.g. _index.js_ - the entry point when importing this package
+- _scripts_: commands that can be run via _npm run_ (e.g. _build_, _test_, _start_, ...)
+- _bin_: commands that can be run from the command line or via npx
+- _dependencies_: npm packages that are required to use this npm package
+- _devDependencies_: npm packages that are required to develop this npm package (e.g. test tools, build tools)
+
+## package.json entries
+
+See https://docs.npmjs.com/files/package.json
+
+## Ignoring files
+
+Create a `.gitignore` or `.npmignore` file that lists files that shouldn't be published (e.g. _node_modules_, _package-lock.json_)
+
+## Publishing
+
+```bash
+npm publish --access public
 ```
 
 # Running node programs
@@ -304,9 +339,7 @@ exports.message3 = 'hi';
 
 ## ES modules
 
-The standard ES syntax for importing and exporting is currently experimental in node.js
-
-There are plans to have it officially supported in Node 12 before it enters long-term-support mode in October 2019
+The standard ES syntax for importing and exporting is currently experimental in node.js. Official support is hindered by some implementation problems.
 
 # Reading and writing text files
 

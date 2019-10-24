@@ -39,7 +39,7 @@ we can add some dependencies via:
 npm install lodash bootstrap
 ```
 
-we can add dependencies that are only used for development (and not for building) via:
+if we develop a reusable library we can add dependencies that are only used for development via:
 
 ```bash
 npm install eslint --save-dev
@@ -67,13 +67,13 @@ possible configurations:
 
 ## Dependencies in package-lock.json
 
-The file `package-lock.json` lists _exact_ versions for all dependencies and their dependencies
+The file `package-lock.json` lists _exact_ versions for all dependencies and their recursive dependencies
 
 ## node_modules
 
 contains the actual packages
 
-this should not be put under version control - instead, this folder can be reacreated from `package.json` by running `npm install` (without any arguments)
+this should not be put under version control - instead, this folder can be recreated from `package.json` by running `npm install` (without any arguments)
 
 ## npm scripts
 
@@ -95,10 +95,6 @@ Npm scripts are configured in `package.json`:
   "scripts": { "start": "node run-server.js" }
 }
 ```
-
-## package.json contents (for public packages)
-
-See https://docs.npmjs.com/files/package.json
 
 ## Global installs and npx
 
