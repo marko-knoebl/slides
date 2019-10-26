@@ -1,5 +1,3 @@
-# {{title}}
-
 ## Präsentation und Code
 
 Präsentationen verfügbar unter: https://karuga.eu/courses-presentations
