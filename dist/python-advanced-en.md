@@ -1,4 +1,4 @@
-# {{title}}
+# Python Advanced
 
 ## Presentation and code
 

@@ -11,10 +11,10 @@ const rehypeHighlight = require("rehype-highlight");
 
 const { slides } = require("@karuga/slides");
 
-const sectionsBasePath = "./src/sections";
+const sectionsBasePath = "sections";
 
 const getPresentationMdContent = (name, lang) => {
-  const configPath = `./src/configs/${name}-${lang}.json`;
+  const configPath = `configs/${name}-${lang}.json`;
 
   // check if the configuration file exists
   if (!fs.existsSync(configPath)) {
@@ -47,7 +47,7 @@ const getPresentationMdContent = (name, lang) => {
  * else,
  *   throw an error
  *
- * example call: getPathContents('src/sections/angular', 'de')
+ * example call: getPathContents('sections/angular', 'de')
  */
 const getPathContents = (path, lang) => {
   if (new RegExp(`^.*-${lang}\\.md$`).test(path)) {
@@ -96,15 +96,22 @@ const pipeline = unified()
   .use(rehypeInline)
   .use(rehypeStringify, { closeSelfClosing: true });
 
-for (let potentialConfig of fs.readdirSync("./src/configs")) {
+let n = 0;
+
+for (let potentialConfig of fs.readdirSync("configs")) {
   const regExp = new RegExp(`(.*)-(.*)\\.json`);
   const matches = regExp.exec(potentialConfig);
   if (matches !== null) {
     const name = matches[1];
     const lang = matches[2];
     const presentationMdContent = getPresentationMdContent(name, lang);
+    const numSlides = presentationMdContent.match(new RegExp("\n## ", "g")).length;
+    console.log(`${name}-${lang}: ${numSlides} slides`)
+    n += numSlides;
+    fs.writeFileSync(`dist/${name}-${lang}.md`, presentationMdContent);
     pipeline.process(presentationMdContent).then(content => {
-      fs.writeFileSync(`dist_slides/${name}-${lang}.html`, content.toString());
+      fs.writeFileSync(`dist/${name}-${lang}.html`, content.toString());
+      fs.writeFileSync(`docs/${name}-${lang}.html`, content.toString());
     });
     presentations.push({
       name: matches[1],
@@ -112,3 +119,5 @@ for (let potentialConfig of fs.readdirSync("./src/configs")) {
     });
   }
 }
+
+console.log(n)

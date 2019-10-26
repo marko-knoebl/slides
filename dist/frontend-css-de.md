@@ -1,4 +1,4 @@
-# {{title}}
+# CSS
 
 ## Präsentation und Code
 

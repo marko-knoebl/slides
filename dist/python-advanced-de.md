@@ -1,4 +1,4 @@
-# {{title}}
+# Python Fortgeschritten
 
 ## Präsentation und Code
 

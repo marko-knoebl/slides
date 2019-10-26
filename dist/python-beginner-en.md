@@ -1,4 +1,4 @@
-# {{title}}
+# Python beginner
 
 ## Presentation and code
 
