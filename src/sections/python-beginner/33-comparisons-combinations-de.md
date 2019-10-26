@@ -2,7 +2,7 @@
 
 ## Verknüpfung von Vergleichen
 
-- Verknüpfung mit `and`, `or`, `not`
+- Verknüpfung mit den drei Schlüsselwörtern: `and`, `or`, `not`
 - Verkettung von Vergleichen
 
 ## Verknüpfung mit and, or, not

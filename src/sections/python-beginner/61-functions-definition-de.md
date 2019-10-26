@@ -47,7 +47,11 @@ In anderen Programmiersprachen: auch Konstrukte wie `if` oder `for` eröffnen ei
 
 ## Docstrings
 
-Dokumentationsstrings, die Funktionen / Klassen / Module genauer beschreiben
+Dokumentationsstrings, die z.B. Funktionen genauer beschreiben
+
+Kommentare in einer Funktion: helfen Programmierern, die an dieser Funktion arbeiten
+
+Docstring einer Funktion: hilft Programmierern, die diese Funktion verwenden
 
 ## Docstrings
 

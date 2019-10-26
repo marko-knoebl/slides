@@ -2,7 +2,7 @@
 
 ## dict
 
-Dicts (_dictionaries_) are mappings that contain "named" entries with associated values
+Dicts (_dictionaries_) are mappings that contain "named" entries with associated values.
 
 ```py
 person = {

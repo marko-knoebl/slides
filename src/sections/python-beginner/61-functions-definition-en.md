@@ -45,6 +45,34 @@ Inside a function, outer variables may be read but not overwritten
 
 In other programming languages constructs like `if` or `for` usually also open a new scope - this is not the case in Python
 
+## Docstrings
+
+Docstrings = Strings that describe functions / classes / modules in more detail
+
+comments in a function: help programmers who develop that function
+
+docstring of a function: help programmers who use that function
+
+## Docstrings
+
+Example:
+
+```py
+def fib(n):
+    """Compute the n-th fibonacci number.
+
+    n must be a nonnegative integer
+    """
+    ...
+```
+
+## Viewing docstrings
+
+```py
+help(fib)
+help(round)
+```
+
 ## Exercise: function lottery()
 
 Write a function named `lottery` which creates a list of lottery numbers
@@ -57,6 +85,6 @@ Write a function named `isprime` which tests whether a number is prime
 
 `isprime(59)` → `True`
 
-## Aufgabe: ask_yes_no()
+## Exercise: ask_yes_no()
 
 Write a function named `ask_yes_no`, which asks the user a yes/no question and returns either `True` or `False`

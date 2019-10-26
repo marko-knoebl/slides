@@ -44,9 +44,9 @@ Marko Knöbl
 
 ## Python Weiterentwicklung und Versionen
 
-- Python 3.7 (aktuell)
+- Python 3.8 (aktuell)
 - Python 3.2 (erste gut benutzbare Python 3 - Version): 2011
-- Python 2.7 (letze Python 2 - Version): 2010, Support bis 2020
+- Python 2.7 (letze Python 2 - Version): 2010, Support bis Ende 2019
 
 ## Codebeispiel
 
@@ -161,19 +161,13 @@ Variablennamen werden üblicherweise klein geschrieben; Wörter werden durch Unt
 - `bool` (boolean): Ja/Nein - Wert (Wahrheitswert)
 - none: fehlender / unbekannter Wert
 
-## int
+## int & float
 
-Beispiel: `3`
-
-Operationen:
+Beispiel:
 
 ```py
-5 - 3 * 4 / 2
+(7 - 3) * 0.5 / 3.5
 ```
-
-## float
-
-Beispiele: `3.3`, `3.0`
 
 ## str
 
@@ -186,32 +180,22 @@ greeting = "Hello"
 name = 'Tom'
 ```
 
-## str
-
-mehrzeilige Strings: in dreifachen Anführungszeichen
-
-```py
-"""Hello,
-my name is
-Andreas"""
-```
-
 ## Strings zusammensetzen
 
 ```py
 name = 'Tom'
 ```
 
-Option 1 (f-strings):
+Variablen einsetzen (f-Strings):
 
 ```py
-msg1 = f"Hello, {name}"
+message1 = f"Hello, {name}!"
 ```
 
-Option 2:
+Strings zusammensetzen:
 
 ```py
-msg2 = "Hello, " + name
+message2 = "Hello, " + name + "!"
 ```
 
 ## Strings - Escape-Sequenzen
@@ -292,7 +276,7 @@ message = "Pi is approximately " + str(pi_int)
 
 ## dict
 
-Dictionaries sind Zuordnungen, die bestimmten Einträgen zugehörige Werte zuweisen.
+Dicts (_dictionaries_) sind Zuordnungen, die bestimmten Einträgen zugehörige Werte zuweisen.
 
 ```py
 person = {
@@ -440,7 +424,7 @@ b = a + [4]
 
 ## Objektreferenzen und Mutationen
 
-Manche Objekte in Python können verändert (mutiert) werden - z.B. via `.append()`, `.push()`, ...
+Manche Objekte in Python können verändert (mutiert) werden - z.B. via `.append()`, `.pop()`, ...
 
 Beispiele: `list`, `dict`
 
@@ -595,9 +579,15 @@ print("Nice to meet you, " + name)
 
 ## Programme ausführen
 
-In der Kommandozeile via `python greeting.py`
+in der Kommandozeile via `python greeting.py`
 
-In VS Code via Taste _F5_
+in VS Code:
+
+grünes Play-Symbol zur Editoransicht
+
+oder
+
+_Debug_ - _Start Without Debugging (Ctrl + F5)_
 
 ## Übung: Alter anhand Geburtsjahr
 
@@ -649,7 +639,7 @@ unter anderem:
 
 ## Standard Library
 
-Die _Standard Library_ bietet zusätzliche Module, die importiert werden können
+Die _Standard Library_ bietet zusätzliche Module, die importiert werden können.
 
 Beispiel (abrunden):
 
@@ -716,8 +706,6 @@ pprint.pprint(['Mercuy', 'Venus', 'Earth', 'Mars', 'Jupiter',
 
 ## random
 
-Zufallsergebnisse
-
 ```py
 import random
 
@@ -760,6 +748,7 @@ print(len(content))
 ## Kontrollstrukturen
 
 Mit Kontrollstrukturen können wir bestimmten Code z.B. wiederholt ausführen lassen, oder Code nur in bestimmten Situationen ausführen lassen.
+
 ## Kontrollstrukturen
 
 Die zwei essenziellen Kontrollstrukturen in jeder Programmiersprache:
@@ -792,10 +781,6 @@ print(a > b)
 print(a <= b) # a kleiner oder gleich b
 print(a >= b)
 ```
-
-## If / else
-
-wenn, dann - sonst
 
 ## If / else
 
@@ -850,16 +835,17 @@ while a < 2000:
 
 ## While-Schleife
 
-Beispiele:
+Übungen:
 
 - Zahlenraten mit mehreren Versuchen
 - Schleife, die die Zahlen 1 bis 10 ausgibt
 - Schleife, die die Zahlen der 7er-Reihe des Einmaleins ausgibt
-- Zahlenraten mit echten Zufallszahlen
 - Rechentrainer mit Zufallsaufgaben
 - Einkaufsliste
 
-## Übung: Einkaufsliste
+## While-Schleife
+
+Beispiel: Einkaufsliste
 
 Beispielhafter Programmlauf:
 
@@ -900,7 +886,7 @@ while True:
 
 ## Verknüpfung von Vergleichen
 
-- Verknüpfung mit `and`, `or`, `not`
+- Verknüpfung mit den drei Schlüsselwörtern: `and`, `or`, `not`
 - Verkettung von Vergleichen
 
 ## Verknüpfung mit and, or, not
@@ -938,7 +924,7 @@ a == b == 0
 
 Mit for-Schleifen können wir die Inhalte einer Liste (oder ähnlicher Objekte) durchlaufen.
 
-Bezeichnung in anderen Programmiersprachen: _for-each_
+Bezeichnung in manchen anderen Programmiersprachen: _for-each_
 
 ## For-Schleifen
 
@@ -1027,9 +1013,9 @@ a = 2 + 3 + 4 + 5 + 6 + \
     7 + 8 + 9 + 10
 ```
 
-# Kontrollstrukturen - Beispiele
+# Kontrollstrukturen - Übungen
 
-## Kontrollstrukturen - Beispiele
+## Kontrollstrukturen - Übungen
 
 - Schaltjahr (if / elif / else)
 - Zahlenraten mit mehreren Versuchen
@@ -1039,7 +1025,7 @@ a = 2 + 3 + 4 + 5 + 6 + \
 - Rechentrainer mit Zufallsaufgaben
 - Babylonisches Wurzelziehen
 
-## Beispiel: Schaltjahr
+## Übung: Schaltjahr
 
 - Jahr ist Schaltjahr: wenn durch 4 teilbar
 - Ausnahme: wenn auch durch 100 teilbar
@@ -1047,11 +1033,11 @@ a = 2 + 3 + 4 + 5 + 6 + \
 
 Hinweis: "x ist teilbar durch y" in Python: `x % y == 0`
 
-## Beispiel: Babylonisches Wurzelziehen
+## Übung: Babylonisches Wurzelziehen
 
 Berechnungsverfahren für die Quadratwurzel, das schon vor fast 4000 Jahren in Mesopotamien verwendet wurde
 
-## Beispiel: Babylonisches Wurzelziehen
+## Übung: Babylonisches Wurzelziehen
 
 ```pseudocode
 gesucht: Quadratwurzel aus 12345
@@ -1067,7 +1053,7 @@ neues b = n / a
 => a und b nähern sich (schnell) der Quadratwurzel an
 ```
 
-## Babylonisches Wurzelziehen: Lösung
+## Übung: Babylonisches Wurzelziehen: Lösung
 
 ```py
 n = 12345
@@ -1170,7 +1156,11 @@ In anderen Programmiersprachen: auch Konstrukte wie `if` oder `for` eröffnen ei
 
 ## Docstrings
 
-Dokumentationsstrings, die Funktionen / Klassen / Module genauer beschreiben
+Dokumentationsstrings, die z.B. Funktionen genauer beschreiben
+
+Kommentare in einer Funktion: helfen Programmierern, die an dieser Funktion arbeiten
+
+Docstring einer Funktion: hilft Programmierern, die diese Funktion verwenden
 
 ## Docstrings
 
@@ -1311,7 +1301,7 @@ cheatsheet: https://gist.github.com/RichardBronosky/454964087739a449da04
 - yapf
 - _black_
 
-In VS Code-Config: `"python.formatting.provider": "black"`
+In VS Code-Einstellungen: `"python.formatting.provider": "black"`
 
 ## PEP8 und Code-Formatierungs-Tools
 
@@ -1368,6 +1358,8 @@ Möglichkeiten, um Breakpoints zu setzen:
 
 - direkt in Python mittels `breakpoint()` (seit Python 3.7)
 - in VS Code links neben die Zeilennummer klicken
+
+Ausführung in VS Code via _Debug - Start Debugging_ oder _F5_.
 
 ## Debuggen
 

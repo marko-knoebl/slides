@@ -25,7 +25,7 @@ unter anderem:
 
 ## Standard Library
 
-Die _Standard Library_ bietet zusätzliche Module, die importiert werden können
+Die _Standard Library_ bietet zusätzliche Module, die importiert werden können.
 
 Beispiel (abrunden):
 
@@ -91,8 +91,6 @@ pprint.pprint(['Mercuy', 'Venus', 'Earth', 'Mars', 'Jupiter',
 ```
 
 ## random
-
-Zufallsergebnisse
 
 ```py
 import random

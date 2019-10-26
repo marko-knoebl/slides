@@ -2,8 +2,8 @@
 
 ## Builtins, Standard library
 
-- _Builtins_: functions and objects that are used frequently and available at all times
-- _Standard library_: collections of more functions etc that can be imported
+- _Builtins_: functions and objects that are used frequently and are available at all times
+- _Standard library_: collections of additional modules and packages that can be imported
 
 documentation: https://docs.python.org/3/library/index.html
 
@@ -25,9 +25,9 @@ amongst others:
 
 ## Standard library
 
-Modules contain additional objects that can be imported
+The _standard library_ contains additional modules that can be imported.
 
-e.g.:
+example:
 
 ```py
 import math

@@ -2,7 +2,7 @@
 
 ## Object references and mutations
 
-What will be the value of `a` at the end of this code?
+What will be the value of `a` after this code has run?
 
 ```py
 a = [1, 2, 3]
@@ -18,7 +18,7 @@ The object in the background is the same.
 
 ## Object references and mutations
 
-If the original should remain intact it may be copied or a mutated version can be newly created based on it:
+If the original should remain intact it may be copied or a derived version can be newly created based on it:
 
 ```py
 a = [1, 2, 3]
@@ -36,7 +36,7 @@ b = a + [4]
 
 ## Mutations
 
-Some objects can be mutated (changed) directly - e.g. via `.append()`, `.push()`, ...
+Some objects can be mutated (changed) directly - e.g. via `.append()`, `.pop()`, ...
 
 Examples: `list`, `dict`
 

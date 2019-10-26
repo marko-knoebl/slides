@@ -42,9 +42,9 @@ Marko Knöbl
 
 ## Python development and versions
 
-- Python 3.7 (current)
+- Python 3.8 (current)
 - Python 3.2 (first useful version of Python 3): 2011
-- Python 2.7 (last version of Python 2): 2010, supported until 2020
+- Python 2.7 (last version of Python 2): 2010, supported until the end of 2019
 
 ## Code examples
 
@@ -56,7 +56,7 @@ b = 4
 print(a * b)
 
 if a * b > 10:
-    print('hello')
+    print('greater')
 ```
 
 # Python Installation
@@ -92,10 +92,23 @@ installation includes:
 
 ## The interactive Python console
 
+options:
+
+- local installation
+- online notebooks (Jupyter)
+
+## Local Python console
+
 launching the Python console / shell:
 
 - command `python` in the command prompt
 - from the start menu (e.g. _Python 3.7 (64-bit)_)
+
+quitting:
+
+```py
+exit()
+```
 
 # Variables
 
@@ -135,6 +148,8 @@ a = a + 1
 - none: missing / unknown value
 
 ## int & float
+
+example:
 
 ```py
 (7 - 3) * 0.5 / 3.5
@@ -235,7 +250,7 @@ type(a)
 
 ## Type conversions
 
-Objects may be converted to other types `int()`, `float()`, `str()`, `bool()`, ...
+Objects may be converted to other types via `int()`, `float()`, `str()`, `bool()`, ...
 
 ```py
 pi = 3.1415
@@ -247,7 +262,7 @@ message = "Pi is approximately " + str(pi_int)
 
 ## dict
 
-Dicts (_dictionaries_) are mappings that contain "named" entries with associated values
+Dicts (_dictionaries_) are mappings that contain "named" entries with associated values.
 
 ```py
 person = {
@@ -361,7 +376,7 @@ create and modify data structures that represent the following:
 
 ## Object references and mutations
 
-What will be the value of `a` at the end of this code?
+What will be the value of `a` after this code has run?
 
 ```py
 a = [1, 2, 3]
@@ -377,7 +392,7 @@ The object in the background is the same.
 
 ## Object references and mutations
 
-If the original should remain intact it may be copied or a mutated version can be newly created based on it:
+If the original should remain intact it may be copied or a derived version can be newly created based on it:
 
 ```py
 a = [1, 2, 3]
@@ -395,7 +410,7 @@ b = a + [4]
 
 ## Mutations
 
-Some objects can be mutated (changed) directly - e.g. via `.append()`, `.push()`, ...
+Some objects can be mutated (changed) directly - e.g. via `.append()`, `.pop()`, ...
 
 Examples: `list`, `dict`
 
@@ -437,7 +452,7 @@ Documentation on built-ins and the standard library:
 
 https://docs.python.org/3/library/index.html
 
-Similar to the `help` Function, but often with more detailed descriptions
+Similar to the `help` function, but often has slightly more detailed descriptions
 
 # Python programs
 
@@ -567,7 +582,13 @@ print("Nice to meet you, " + name)
 
 on the command line via `python greeting.py`
 
-In VS Code via _F5_
+in VS Code:
+
+green _play_ button in the editor view
+
+or
+
+_Debug_ - _Start Without Debugging_ (Ctrl + F5)
 
 ## Exercise: age from birth year
 
@@ -596,8 +617,8 @@ name_length = len(name)
 
 ## Builtins, Standard library
 
-- _Builtins_: functions and objects that are used frequently and available at all times
-- _Standard library_: collections of more functions etc that can be imported
+- _Builtins_: functions and objects that are used frequently and are available at all times
+- _Standard library_: collections of additional modules and packages that can be imported
 
 documentation: https://docs.python.org/3/library/index.html
 
@@ -619,9 +640,9 @@ amongst others:
 
 ## Standard library
 
-Modules contain additional objects that can be imported
+The _standard library_ contains additional modules that can be imported.
 
-e.g.:
+example:
 
 ```py
 import math
@@ -736,9 +757,13 @@ The two most essential control structures in every programming language are:
 - if/else
 - loops
 
-## if / elif / else
+## Control structures in Python
 
-example: guess the number
+- `if`
+- loops:
+  - `while`
+  - `for ... in ...`
+  - `for ... in range(...)`
 
 # If
 
@@ -771,7 +796,6 @@ if age_seconds < 1000000000:
 else:
     print("You are older than 1 billion seconds")
 ```
-
 
 ## If / elif / else
 
@@ -812,12 +836,13 @@ while a < 2000:
 
 ## While loops
 
-examples:
+exercises:
 
 - guess the number with multiple attempts
 - a loop that prints the numbers 1 to 10
 - a loop that prints the numbers 7, 14, 21, ..., 70
 - exercise program for simple calculations
+- shopping list
 
 ## While loops
 
@@ -862,7 +887,7 @@ while True:
 
 ## Combining comparisons
 
-- combining with `and`, `or`, `not`
+- combining with the three keywords: `and`, `or`, `not`
 - chaining comparisons
 
 ## Combining with and, or, not
@@ -888,7 +913,7 @@ if not value > 10:
 a == b == 0
 ```
 
-`b` is between 4 and 10
+`b` lies between 4 and 10
 
 ```py
 4 < b < 10
@@ -900,7 +925,7 @@ a == b == 0
 
 With for loops we can iterate over the contents of lists (and similar objects).
 
-In other programming languages this construct is called _for-each_
+In some other programming languages this construct would be called _for-each_
 
 ## For loops
 
@@ -950,7 +975,7 @@ for i in range(10):
     print(i)
 ```
 
-The function call `range(10)` creates an Object that behaves like the list `[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]`.
+The function call `range(10)` creates an object that behaves like the list `[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]`.
 
 ## Counting loops
 
@@ -989,9 +1014,9 @@ a = 2 + 3 + 4 + 5 + 6 + \
     7 + 8 + 9 + 10
 ```
 
-# control structures - examples
+# Control structures - exercises
 
-## control structures - examples
+## Control structures - exercises
 
 - leap year
 - guess the number with multiple tries
@@ -1001,9 +1026,7 @@ a = 2 + 3 + 4 + 5 + 6 + \
 - math trainer with random tasks
 - babylonian method (for finding the square root)
 
-## leap year
-
-example: leap year
+## Exercise: leap year
 
 - a year is a leap year if it's divisible by for
 - exception: it's _not_ a leap year if it's also divisible by 100
@@ -1011,11 +1034,11 @@ example: leap year
 
 Hint: "x is divisible by y" in Python: `x % y == 0`
 
-## example: babylonian method
+## Exercise: babylonian method
 
 method for computing the square root of a number which was already in use 4000 years ago in mesopotamia
 
-## example: babylonian method
+## Exercise: babylonian method
 
 ```pseudocode
 wanted: square root of 12345
@@ -1031,7 +1054,7 @@ new b = n / a
 => a and b will approach the square root
 ```
 
-## babylonian method: solution
+## Exercise: babylonian method: solution
 
 ```py
 n = 12345
@@ -1132,6 +1155,34 @@ Inside a function, outer variables may be read but not overwritten
 
 In other programming languages constructs like `if` or `for` usually also open a new scope - this is not the case in Python
 
+## Docstrings
+
+Docstrings = Strings that describe functions / classes / modules in more detail
+
+comments in a function: help programmers who develop that function
+
+docstring of a function: help programmers who use that function
+
+## Docstrings
+
+Example:
+
+```py
+def fib(n):
+    """Compute the n-th fibonacci number.
+
+    n must be a nonnegative integer
+    """
+    ...
+```
+
+## Viewing docstrings
+
+```py
+help(fib)
+help(round)
+```
+
 ## Exercise: function lottery()
 
 Write a function named `lottery` which creates a list of lottery numbers
@@ -1144,7 +1195,7 @@ Write a function named `isprime` which tests whether a number is prime
 
 `isprime(59)` → `True`
 
-## Aufgabe: ask_yes_no()
+## Exercise: ask_yes_no()
 
 Write a function named `ask_yes_no`, which asks the user a yes/no question and returns either `True` or `False`
 
@@ -1231,7 +1282,7 @@ aspects:
 - style conventions (PEP8)
 - docstrings
 
-## general linting: Pylint
+## General linting: Pylint
 
 Finding and displaying general errors
 
@@ -1292,42 +1343,6 @@ a[0 + 3 : 1]
 
 Documentation that describes a function / class / module in more detail
 
-## Docstrings
-
-example:
-
-```py
-def fib(n):
-    """Compute the n-th fibonacci number.
-
-    n must be a nonnegative integer
-    """
-    ...
-```
-
-## displaying docstrings
-
-```bash
-python -m pydoc math
-python -m pydoc math.floor
-```
-
-## Docstring structure
-
-PEP 257: https://www.python.org/dev/peps/pep-0257/
-
-## Docstrig structure
-
-docstring of a module: description, list of exported functions with single-line summaries
-
-docstring of a class: description, ist of its methods
-
-docstring of a function: description, list of its parameters
-
-## Pydocstyle
-
-linter for validating docstrings
-
 ## Python philosophy, Zen of Python
 
 Quotes from the _zen of Python_ (full text via `import this`):
@@ -1348,6 +1363,8 @@ Possibilities to set breakpoints:
 - directly in Python Code via `breakpoint()` (since Python 3.7)
 - in VS Code: click next to the line number
 
+Executing in VS Code via _Debug - Start Debugging_ or _F5_.
+
 ## Debugging
 
 Continuing manually:
@@ -1366,7 +1383,7 @@ Continuing manually:
 - proceed to the next line:
   - `n` for _next_ in the Python debugger
   - _Step Over_ in VS Code
-- proceed to the next line - following function calls
+- proceed to the next line - potentially following function calls
   - `s` for _step_ in the Python debugger
   - _Step Into_ in VS Code
 - run the current function to its end:

@@ -18,10 +18,6 @@ print(a >= b)
 
 ## If / else
 
-wenn, dann - sonst
-
-## If / else
-
 Beispiel:
 
 ```py

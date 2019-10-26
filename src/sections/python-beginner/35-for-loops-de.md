@@ -4,7 +4,7 @@
 
 Mit for-Schleifen können wir die Inhalte einer Liste (oder ähnlicher Objekte) durchlaufen.
 
-Bezeichnung in anderen Programmiersprachen: _for-each_
+Bezeichnung in manchen anderen Programmiersprachen: _for-each_
 
 ## For-Schleifen
 

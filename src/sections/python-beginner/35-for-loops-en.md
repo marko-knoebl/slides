@@ -4,7 +4,7 @@
 
 With for loops we can iterate over the contents of lists (and similar objects).
 
-In other programming languages this construct is called _for-each_
+In some other programming languages this construct would be called _for-each_
 
 ## For loops
 

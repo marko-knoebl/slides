@@ -8,19 +8,13 @@
 - `bool` (boolean): Ja/Nein - Wert (Wahrheitswert)
 - none: fehlender / unbekannter Wert
 
-## int
+## int & float
 
-Beispiel: `3`
-
-Operationen:
+Beispiel:
 
 ```py
-5 - 3 * 4 / 2
+(7 - 3) * 0.5 / 3.5
 ```
-
-## float
-
-Beispiele: `3.3`, `3.0`
 
 ## str
 
@@ -33,32 +27,22 @@ greeting = "Hello"
 name = 'Tom'
 ```
 
-## str
-
-mehrzeilige Strings: in dreifachen Anführungszeichen
-
-```py
-"""Hello,
-my name is
-Andreas"""
-```
-
 ## Strings zusammensetzen
 
 ```py
 name = 'Tom'
 ```
 
-Option 1 (f-strings):
+Variablen einsetzen (f-Strings):
 
 ```py
-msg1 = f"Hello, {name}"
+message1 = f"Hello, {name}!"
 ```
 
-Option 2:
+Strings zusammensetzen:
 
 ```py
-msg2 = "Hello, " + name
+message2 = "Hello, " + name + "!"
 ```
 
 ## Strings - Escape-Sequenzen

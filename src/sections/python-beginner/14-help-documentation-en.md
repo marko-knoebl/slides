@@ -16,4 +16,4 @@ Documentation on built-ins and the standard library:
 
 https://docs.python.org/3/library/index.html
 
-Similar to the `help` Function, but often with more detailed descriptions
+Similar to the `help` function, but often has slightly more detailed descriptions

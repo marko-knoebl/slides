@@ -2,7 +2,7 @@
 
 ## Combining comparisons
 
-- combining with `and`, `or`, `not`
+- combining with the three keywords: `and`, `or`, `not`
 - chaining comparisons
 
 ## Combining with and, or, not
@@ -28,7 +28,7 @@ if not value > 10:
 a == b == 0
 ```
 
-`b` is between 4 and 10
+`b` lies between 4 and 10
 
 ```py
 4 < b < 10

@@ -1,6 +1,6 @@
-# control structures - examples
+# Control structures - exercises
 
-## control structures - examples
+## Control structures - exercises
 
 - leap year
 - guess the number with multiple tries
@@ -10,9 +10,7 @@
 - math trainer with random tasks
 - babylonian method (for finding the square root)
 
-## leap year
-
-example: leap year
+## Exercise: leap year
 
 - a year is a leap year if it's divisible by for
 - exception: it's _not_ a leap year if it's also divisible by 100
@@ -20,11 +18,11 @@ example: leap year
 
 Hint: "x is divisible by y" in Python: `x % y == 0`
 
-## example: babylonian method
+## Exercise: babylonian method
 
 method for computing the square root of a number which was already in use 4000 years ago in mesopotamia
 
-## example: babylonian method
+## Exercise: babylonian method
 
 ```pseudocode
 wanted: square root of 12345
@@ -40,7 +38,7 @@ new b = n / a
 => a and b will approach the square root
 ```
 
-## babylonian method: solution
+## Exercise: babylonian method: solution
 
 ```py
 n = 12345

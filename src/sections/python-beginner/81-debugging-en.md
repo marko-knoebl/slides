@@ -9,6 +9,8 @@ Possibilities to set breakpoints:
 - directly in Python Code via `breakpoint()` (since Python 3.7)
 - in VS Code: click next to the line number
 
+Executing in VS Code via _Debug - Start Debugging_ or _F5_.
+
 ## Debugging
 
 Continuing manually:
@@ -27,7 +29,7 @@ Continuing manually:
 - proceed to the next line:
   - `n` for _next_ in the Python debugger
   - _Step Over_ in VS Code
-- proceed to the next line - following function calls
+- proceed to the next line - potentially following function calls
   - `s` for _step_ in the Python debugger
   - _Step Into_ in VS Code
 - run the current function to its end:

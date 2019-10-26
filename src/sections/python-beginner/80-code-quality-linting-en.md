@@ -8,7 +8,7 @@ aspects:
 - style conventions (PEP8)
 - docstrings
 
-## general linting: Pylint
+## General linting: Pylint
 
 Finding and displaying general errors
 
@@ -68,42 +68,6 @@ a[0 + 3 : 1]
 ## Docstrings
 
 Documentation that describes a function / class / module in more detail
-
-## Docstrings
-
-example:
-
-```py
-def fib(n):
-    """Compute the n-th fibonacci number.
-
-    n must be a nonnegative integer
-    """
-    ...
-```
-
-## displaying docstrings
-
-```bash
-python -m pydoc math
-python -m pydoc math.floor
-```
-
-## Docstring structure
-
-PEP 257: https://www.python.org/dev/peps/pep-0257/
-
-## Docstrig structure
-
-docstring of a module: description, list of exported functions with single-line summaries
-
-docstring of a class: description, ist of its methods
-
-docstring of a function: description, list of its parameters
-
-## Pydocstyle
-
-linter for validating docstrings
 
 ## Python philosophy, Zen of Python
 

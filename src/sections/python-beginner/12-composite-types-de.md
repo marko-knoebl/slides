@@ -2,7 +2,7 @@
 
 ## dict
 
-Dictionaries sind Zuordnungen, die bestimmten Einträgen zugehörige Werte zuweisen.
+Dicts (_dictionaries_) sind Zuordnungen, die bestimmten Einträgen zugehörige Werte zuweisen.
 
 ```py
 person = {

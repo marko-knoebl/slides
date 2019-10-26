@@ -38,7 +38,13 @@ print("Nice to meet you, " + name)
 
 on the command line via `python greeting.py`
 
-In VS Code via _F5_
+in VS Code:
+
+green _play_ button in the editor view
+
+or
+
+_Debug_ - _Start Without Debugging_ (Ctrl + F5)
 
 ## Exercise: age from birth year
 

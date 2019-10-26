@@ -28,7 +28,7 @@ cheatsheet: https://gist.github.com/RichardBronosky/454964087739a449da04
 - yapf
 - _black_
 
-In VS Code-Config: `"python.formatting.provider": "black"`
+In VS Code-Einstellungen: `"python.formatting.provider": "black"`
 
 ## PEP8 und Code-Formatierungs-Tools
 

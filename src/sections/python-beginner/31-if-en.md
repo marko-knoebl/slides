@@ -30,7 +30,6 @@ else:
     print("You are older than 1 billion seconds")
 ```
 
-
 ## If / elif / else
 
 ```py

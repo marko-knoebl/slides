@@ -3,6 +3,7 @@
 ## Kontrollstrukturen
 
 Mit Kontrollstrukturen können wir bestimmten Code z.B. wiederholt ausführen lassen, oder Code nur in bestimmten Situationen ausführen lassen.
+
 ## Kontrollstrukturen
 
 Die zwei essenziellen Kontrollstrukturen in jeder Programmiersprache:

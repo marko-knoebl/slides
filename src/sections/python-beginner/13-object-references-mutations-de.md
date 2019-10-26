@@ -36,7 +36,7 @@ b = a + [4]
 
 ## Objektreferenzen und Mutationen
 
-Manche Objekte in Python können verändert (mutiert) werden - z.B. via `.append()`, `.push()`, ...
+Manche Objekte in Python können verändert (mutiert) werden - z.B. via `.append()`, `.pop()`, ...
 
 Beispiele: `list`, `dict`
 

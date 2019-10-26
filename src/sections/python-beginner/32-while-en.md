@@ -18,12 +18,13 @@ while a < 2000:
 
 ## While loops
 
-examples:
+exercises:
 
 - guess the number with multiple attempts
 - a loop that prints the numbers 1 to 10
 - a loop that prints the numbers 7, 14, 21, ..., 70
 - exercise program for simple calculations
+- shopping list
 
 ## While loops
 

@@ -11,6 +11,10 @@ The two most essential control structures in every programming language are:
 - if/else
 - loops
 
-## if / elif / else
+## Control structures in Python
 
-example: guess the number
+- `if`
+- loops:
+  - `while`
+  - `for ... in ...`
+  - `for ... in range(...)`

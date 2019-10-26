@@ -18,16 +18,17 @@ while a < 2000:
 
 ## While-Schleife
 
-Beispiele:
+Übungen:
 
 - Zahlenraten mit mehreren Versuchen
 - Schleife, die die Zahlen 1 bis 10 ausgibt
 - Schleife, die die Zahlen der 7er-Reihe des Einmaleins ausgibt
-- Zahlenraten mit echten Zufallszahlen
 - Rechentrainer mit Zufallsaufgaben
 - Einkaufsliste
 
-## Übung: Einkaufsliste
+## While-Schleife
+
+Beispiel: Einkaufsliste
 
 Beispielhafter Programmlauf:
 

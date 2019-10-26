@@ -12,7 +12,7 @@ type(a)
 
 ## Type conversions
 
-Objects may be converted to other types `int()`, `float()`, `str()`, `bool()`, ...
+Objects may be converted to other types via `int()`, `float()`, `str()`, `bool()`, ...
 
 ```py
 pi = 3.1415
