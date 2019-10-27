@@ -1914,6 +1914,18 @@ body {
 .reveal .slides h5,
 .reveal .slides h6 {
   margin-bottom: 1em; }
+
+.reveal ul ul,
+.reveal ul ol,
+.reveal ol ol,
+.reveal ol ul {
+  margin: 0; }
+
+.reveal ol,
+.reveal dl,
+.reveal ul {
+  display: block;
+  margin: 0 0 1em 0; }
 </style>
     <style>/*
 
@@ -2209,7 +2221,59 @@ useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =></sp
 <p>Technique that is used in <em>Redux</em> and in React's <em>reducer hook</em></p>
 <p>A state change is applied via a <em>reducer</em> function, which transforms the previous state into the new state based on an <em>action</em></p>
 </section><section class="slide"><h2>Reducer diagram</h2>
-<img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZwogIGlkPSJyZWR1eC1mbG93LXN2ZyIKICB2ZXJzaW9uPSIxLjEiCiAgd2lkdGg9IjEwMDAiCiAgaGVpZ2h0PSI1MDAiCiAgdmlld0JveD0iMCAwIDEwMDAgNTAwIgogIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKPgogIDxkZWZzPgogICAgPGcgaWQ9InN0YXRlIj4KICAgICAgPGNpcmNsZSByPSI2MHB4IiBzdHJva2U9IiMwMDAiIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0iIzIxOTZmMyIvPgogICAgICA8dGV4dCB4PSItMTUiPgogICAgICAgIHN0YXRlCiAgICAgIDwvdGV4dD4KICAgIDwvZz4KICAgIDxnIGlkPSJhY3Rpb24iPgogICAgICA8Y2lyY2xlIHI9IjQwcHgiIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLXdpZHRoPSIyIiBmaWxsPSIjZjQ0MzM2Ii8+CiAgICAgIDx0ZXh0IHg9Ii0xNSI+CiAgICAgICAgYWN0aW9uCiAgICAgIDwvdGV4dD4KICAgIDwvZz4KICAgIDxnIGlkPSJyZWR1Y2VyIj4KICAgICAgPHJlY3QKICAgICAgICB3aWR0aD0iNjAiCiAgICAgICAgaGVpZ2h0PSIxNTAiCiAgICAgICAgc3Ryb2tlPSIjMDAwIgogICAgICAgIHN0cm9rZS13aWR0aD0iMiIKICAgICAgICBmaWxsPSIjOWMyN2IwIgogICAgICAvPgogICAgICA8dGV4dAogICAgICAgIHg9IjUiCiAgICAgICAgeT0iNjUiCiAgICAgID4KICAgICAgICByZWR1Y2VyCiAgICAgIDwvdGV4dD4KICAgIDwvZz4KICAgIDxtYXJrZXIgaWQ9ImFycm93LWVuZCIgcmVmWD0iMC4wIiByZWZZPSIwLjAiIG9yaWVudD0iYXV0byIgc3R5bGU9Im92ZXJmbG93OiB2aXNpYmxlOyI+CiAgICAgIDxwYXRoCiAgICAgICAgdHJhbnNmb3JtPSJyb3RhdGUoMTgwKSIKICAgICAgICBkPSJNIDguNyA0IEwgLTIuMiAwIEwgOC43IC00IEMgNyAtMS42IDcgMS42IDguNyA0IHoiCiAgICAgICAgY2xhc3M9ImFycm93aGVhZCIKICAgICAgICBpZD0icGF0aDQ4NzciCiAgICAgIC8+CiAgICA8L21hcmtlcj4KICAgIDxwYXRoCiAgICAgIGlkPSJhcnJvdy1yaWdodC0xIgogICAgICBzdHJva2U9IiMwMDAiCiAgICAgIHN0cm9rZS13aWR0aD0iMiIKICAgICAgZmlsbD0ibm9uZSIKICAgICAgY2xhc3M9ImFycm93IgogICAgICBkPSJNMCAwIEwgMTQ1IDAiCiAgICAgIG1hcmtlci1lbmQ9InVybCgjYXJyb3ctZW5kKSIKICAgIC8+CiAgICA8cGF0aAogICAgICBpZD0iYXJyb3ctcmlnaHQtMiIKICAgICAgc3Ryb2tlPSIjMDAwIgogICAgICBzdHJva2Utd2lkdGg9IjIiCiAgICAgIGZpbGw9Im5vbmUiCiAgICAgIGNsYXNzPSJhcnJvdyIKICAgICAgZD0iTSAwIDAgTCA2NSAwIgogICAgICBtYXJrZXItZW5kPSJ1cmwoI2Fycm93LWVuZCkiCiAgICAvPgogICAgPHBhdGgKICAgICAgaWQ9ImFycm93LXJpZ2h0LXVwIgogICAgICBzdHJva2U9IiMwMDAiCiAgICAgIHN0cm9rZS13aWR0aD0iMiIKICAgICAgZmlsbD0ibm9uZSIKICAgICAgY2xhc3M9ImFycm93IgogICAgICBkPSJNMCAxNDAgUSAwIDAsIDk1IDAiCiAgICAgIG1hcmtlci1lbmQ9InVybCgjYXJyb3ctZW5kKSIKICAgIC8+CiAgPC9kZWZzPgogIDxzdHlsZT4KICAgICNyZWR1eC1mbG93LXN2ZyBwYXRoLmFycm93IHsKICAgICAgc3Ryb2tlOiAjMDAwOwogICAgICBzdHJva2Utd2lkdGg6IDI7CiAgICAgIG1hcmtlci1lbmQ6IHVybCgjYXJyb3ctZW5kKTsKICAgICAgZmlsbDogbm9uZTsKICAgIH0KICAgICNyZWR1eC1mbG93LXN2ZyB7CiAgICAgIGZvbnQtc2l6ZTogMTZweDsKICAgICAgZm9udC1mYW1pbHk6IHNhbnMtc2VyaWY7CiAgICB9CiAgPC9zdHlsZT4KICA8dXNlIGhyZWY9IiNzdGF0ZSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTAwIDEwMCkiLz4KICA8dXNlIGhyZWY9IiNzdGF0ZSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNTAwIDEwMCkiLz4KICA8dXNlIGhyZWY9IiNzdGF0ZSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoOTAwIDEwMCkiLz4KICA8dXNlIGhyZWY9IiNhY3Rpb24iIHRyYW5zZm9ybT0idHJhbnNsYXRlKDIxMCAzMDApIi8+CiAgPHVzZSBocmVmPSIjYWN0aW9uIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg2MTAgMzAwKSIvPgogIDx1c2UgaHJlZj0iI3JlZHVjZXIiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDMxMCA0MCkiLz4KICA8dXNlIGhyZWY9IiNyZWR1Y2VyIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg3MTAgNDApIi8+CiAgPHVzZSBocmVmPSIjYXJyb3ctcmlnaHQtMSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTYwIDEwMCkiLz4KICA8dXNlIGhyZWY9IiNhcnJvdy1yaWdodC0xIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg1NjAgMTAwKSIvPgogIDx1c2UgaHJlZj0iI2Fycm93LXJpZ2h0LTIiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDM3MCAxMDApIi8+CiAgPHVzZSBocmVmPSIjYXJyb3ctcmlnaHQtMiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNzcwIDEwMCkiLz4KICA8dXNlIGhyZWY9IiNhcnJvdy1yaWdodC11cCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjEwIDEyMCkiLz4KICA8dXNlIGhyZWY9IiNhcnJvdy1yaWdodC11cCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNjEwIDEyMCkiLz4KPC9zdmc+" type="text/svg" style="width: 100%" />
+<svg id="redux-flow-svg" version="1.1" width="1000" height="500" viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <g id="state">
+      <circle r="60px" stroke="#000" stroke-width="2" fill="#2196f3"></circle>
+      <text x="-15">
+        state
+      </text>
+    </g>
+    <g id="action">
+      <circle r="40px" stroke="#000" stroke-width="2" fill="#f44336"></circle>
+      <text x="-15">
+        action
+      </text>
+    </g>
+    <g id="reducer">
+      <rect width="60" height="150" stroke="#000" stroke-width="2" fill="#9c27b0"></rect>
+      <text x="5" y="65">
+        reducer
+      </text>
+    </g>
+    <marker id="arrow-end" refX="0.0" refY="0.0" orient="auto" style="overflow: visible;">
+      <path transform="rotate(180)" d="M 8.7 4 L -2.2 0 L 8.7 -4 C 7 -1.6 7 1.6 8.7 4 z" class="arrowhead" id="path4877"></path>
+    </marker>
+    <path id="arrow-right-1" stroke="#000" stroke-width="2" fill="none" class="arrow" d="M0 0 L 145 0" marker-end="url(#arrow-end)"></path>
+    <path id="arrow-right-2" stroke="#000" stroke-width="2" fill="none" class="arrow" d="M 0 0 L 65 0" marker-end="url(#arrow-end)"></path>
+    <path id="arrow-right-up" stroke="#000" stroke-width="2" fill="none" class="arrow" d="M0 140 Q 0 0, 95 0" marker-end="url(#arrow-end)"></path>
+  </defs>
+  <style>
+    #redux-flow-svg path.arrow {
+      stroke: #000;
+      stroke-width: 2;
+      marker-end: url(#arrow-end);
+      fill: none;
+    }
+    #redux-flow-svg {
+      font-size: 16px;
+      font-family: sans-serif;
+    }
+  </style>
+  <use href="#state" transform="translate(100 100)"></use>
+  <use href="#state" transform="translate(500 100)"></use>
+  <use href="#state" transform="translate(900 100)"></use>
+  <use href="#action" transform="translate(210 300)"></use>
+  <use href="#action" transform="translate(610 300)"></use>
+  <use href="#reducer" transform="translate(310 40)"></use>
+  <use href="#reducer" transform="translate(710 40)"></use>
+  <use href="#arrow-right-1" transform="translate(160 100)"></use>
+  <use href="#arrow-right-1" transform="translate(560 100)"></use>
+  <use href="#arrow-right-2" transform="translate(370 100)"></use>
+  <use href="#arrow-right-2" transform="translate(770 100)"></use>
+  <use href="#arrow-right-up" transform="translate(210 120)"></use>
+  <use href="#arrow-right-up" transform="translate(610 120)"></use>
+</svg>
 </section><section class="slide"><h2>Example: todos state management</h2>
 <p>We manage an array of todos via a reducer. We start with two possible actions:</p>
 <ul>

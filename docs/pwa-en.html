@@ -1914,6 +1914,18 @@ body {
 .reveal .slides h5,
 .reveal .slides h6 {
   margin-bottom: 1em; }
+
+.reveal ul ul,
+.reveal ul ol,
+.reveal ol ol,
+.reveal ol ul {
+  margin: 0; }
+
+.reveal ol,
+.reveal dl,
+.reveal ul {
+  display: block;
+  margin: 0 0 1em 0; }
 </style>
     <style>/*
 
@@ -3092,7 +3104,62 @@ navigator.serviceWorker
 <p>Displaying notifications is common but not required by the spec</p>
 <p>Chrome currently <em>requires</em> displaying a notification; Firefox has a limit on how many messages can be received without showing notifications</p>
 </section><section class="slide"><h2>Push Notifications - basics</h2>
-<img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZwogIGlkPSJwdXNoLW1lc3NhZ2Utc3ZnIgogIHZlcnNpb249IjEuMSIKICB3aWR0aD0iMTAwMCIKICBoZWlnaHQ9IjUwMCIKICB2aWV3Qm94PSItNTAwIDAgMTAwMCA1MDAiCiAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIgo+CiAgPGRlZnM+CiAgICA8bWFya2VyIGlkPSJhcnJvdy1lbmQiIHJlZlg9IjAuMCIgcmVmWT0iMC4wIiBvcmllbnQ9ImF1dG8iIHN0eWxlPSJvdmVyZmxvdzogdmlzaWJsZTsiPgogICAgICA8cGF0aAogICAgICAgIHRyYW5zZm9ybT0icm90YXRlKDE4MCkiCiAgICAgICAgZD0iTSA4LjcgNCBMIC0yLjIgMCBMIDguNyAtNCBDIDcgLTEuNiA3IDEuNiA4LjcgNCB6IgogICAgICAgIGNsYXNzPSJhcnJvd2hlYWQiCiAgICAgICAgaWQ9InBhdGg0ODc3IgogICAgICAvPgogICAgPC9tYXJrZXI+CiAgPC9kZWZzPgogIDxzdHlsZT4KICAgICNwdXNoLW1lc3NhZ2Utc3ZnIHsKICAgICAgZm9udC1mYW1pbHk6IHNhbnMtc2VyaWY7CiAgICB9CiAgICAjcHVzaC1tZXNzYWdlLXN2ZyBwYXRoLmFycm93IHsKICAgICAgc3Ryb2tlOiAjMDAwOwogICAgICBzdHJva2Utd2lkdGg6IDI7CiAgICAgIG1hcmtlci1lbmQ6IHVybCgjYXJyb3ctZW5kKTsKICAgIH0KICAgICNwdXNoLW1lc3NhZ2Utc3ZnIHBhdGguYXJyb3doZWFkIHsKICAgICAgZmlsbDogIzAwMDsKICAgIH0KICAgICNwdXNoLW1lc3NhZ2Utc3ZnIHRleHQubGFiZWwgewogICAgICBmb250LXNpemU6IDMycHg7CiAgICAgIGZvbnQtZmFtaWx5OiBzYW5zLXNlcmlmOwogICAgICB0ZXh0LWFuY2hvcjogbWlkZGxlOwogICAgfQogICAgIyBwdXNoLW1lc3NhZ2Utc3ZnIHRleHQubGFiZWw+dHNwYW4gewogICAgICB0ZXh0LWFuY2hvcjogbWlkZGxlOwogICAgfQogICAgIyBwdXNoLW1lc3NhZ2Utc3ZnIHRleHQuYXJyb3d0ZXh0IHsKICAgIGZvbnQtc2l6ZTogMjRweDsKICA8L3N0eWxlPgogIDx0ZXh0CiAgICBjbGFzcz0ibGFiZWwiCiAgICB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwIDUwKSI+CiAgICA8dHNwYW4geD0iMCI+CiAgICAgIHB1c2gKICAgIDwvdHNwYW4+CiAgICA8dHNwYW4geD0iMCIgZHk9IjEuNGVtIj4KICAgICAgc2VydmljZQogICAgPC90c3Bhbj4KICA8L3RleHQ+CiAgPHRleHQKICAgIGNsYXNzPSJsYWJlbCIKICAgIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0zMDAgNDMwKSI+CiAgICBicm93c2VyCiAgPC90ZXh0PgogIDx0ZXh0CiAgICBjbGFzcz0ibGFiZWwiCiAgICB0cmFuc2Zvcm09InRyYW5zbGF0ZSgzMDAgNDMwKSIKICA+CiAgICBhcHBsaWNhdGlvbiBzZXJ2ZXIKICA8L3RleHQ+CiAgPHBhdGgKICAgIGNsYXNzPSJhcnJvdyIKICAgIGQ9Ik0gMzAwIDQwMCBMIDIwIDEyMCIKICAgIGlkPSJwYXRoMSIKICAvPgogIDx0ZXh0IGNsYXNzPSJhcnJvd3RleHQiPgogICAgPHRleHRQYXRoIGhyZWY9IiNwYXRoMSIgc2lkZT0icmlnaHQiIHN0YXJ0T2Zmc2V0PSIxNSUiPgogICAgICA8dHNwYW4geT0iLTgiPm1lc3NhZ2UgJmFtcDsgYXV0aGVudGljYXRpb248L3RzcGFuPgogICAgPC90ZXh0UGF0aD4KICA8L3RleHQ+CiAgPHBhdGgKICAgIGlkPSJwYXRoMiIKICAgIGNsYXNzPSJhcnJvdyIKICAgIGQ9Ik0gLTIwIDEyMCBMIC0zMDAgNDAwIgogIC8+CiAgPHRleHQgY2xhc3M9ImFycm93dGV4dCI+CiAgICA8dGV4dFBhdGggaHJlZj0iI3BhdGgyIiBzaWRlPSJyaWdodCIgc3RhcnRPZmZzZXQ9IjQwJSI+CiAgICAgIDx0c3BhbiB5PSItOCI+bWVzc2FnZTwvdHNwYW4+CiAgICA8L3RleHRQYXRoPgogIDwvdGV4dD4KPC9zdmc+" type="text/svg" style="width: 500px" />
+<svg id="push-message-svg" version="1.1" width="1000" height="500" viewBox="-500 0 1000 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrow-end" refX="0.0" refY="0.0" orient="auto" style="overflow: visible;">
+      <path transform="rotate(180)" d="M 8.7 4 L -2.2 0 L 8.7 -4 C 7 -1.6 7 1.6 8.7 4 z" class="arrowhead" id="path4877"></path>
+    </marker>
+  </defs>
+  <style>
+    #push-message-svg {
+      font-family: sans-serif;
+    }
+    #push-message-svg path.arrow {
+      stroke: #000;
+      stroke-width: 2;
+      marker-end: url(#arrow-end);
+    }
+    #push-message-svg path.arrowhead {
+      fill: #000;
+    }
+    #push-message-svg text.label {
+      font-size: 32px;
+      font-family: sans-serif;
+      text-anchor: middle;
+    }
+    # push-message-svg text.label>tspan {
+      text-anchor: middle;
+    }
+    # push-message-svg text.arrowtext {
+    font-size: 24px;
+  </style>
+  <text class="label" transform="translate(0 50)">
+    <tspan x="0">
+      push
+    </tspan>
+    <tspan x="0" dy="1.4em">
+      service
+    </tspan>
+  </text>
+  <text class="label" transform="translate(-300 430)">
+    browser
+  </text>
+  <text class="label" transform="translate(300 430)">
+    application server
+  </text>
+  <path class="arrow" d="M 300 400 L 20 120" id="path1"></path>
+  <text class="arrowtext">
+    <textPath href="#path1" side="right" startOffset="15%">
+      <tspan y="-8">message &#x26; authentication</tspan>
+    </textPath>
+  </text>
+  <path id="path2" class="arrow" d="M -20 120 L -300 400"></path>
+  <text class="arrowtext">
+    <textPath href="#path2" side="right" startOffset="40%">
+      <tspan y="-8">message</tspan>
+    </textPath>
+  </text>
+</svg>
 </section><section class="slide"><h2>Push Notifications - basics</h2>
 <p>Push notifications can be sent to a user via the browser vendor (Google, Mozilla, ...). It works via endpoint URLs like these:</p>
 <ul>
@@ -3100,7 +3167,71 @@ navigator.serviceWorker
 <li><code>https://updates.push.services.mozilla.com/wpush/v1/IDENTIFIER</code></li>
 </ul>
 </section><section class="slide"><h2>Push Notification - process</h2>
-<img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZwogIGlkPSJwdXNoLW1lc3NhZ2UtYXV0aC1zdmciCiAgdmVyc2lvbj0iMS4xIgogIHdpZHRoPSIxMDAwIgogIGhlaWdodD0iNTAwIgogIHZpZXdCb3g9Ii01MDAgMCAxMDAwIDUwMCIKICB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCj4KICA8ZGVmcz4KICAgIDxtYXJrZXIgaWQ9ImFycm93LWVuZC0xIiByZWZYPSIwLjAiIHJlZlk9IjAuMCIgb3JpZW50PSJhdXRvIiBzdHlsZT0ib3ZlcmZsb3c6IHZpc2libGU7Ij4KICAgICAgPHBhdGgKICAgICAgICB0cmFuc2Zvcm09InJvdGF0ZSgxODApIgogICAgICAgIGQ9Ik0gOC43IDQgTCAtMi4yIDAgTCA4LjcgLTQgQyA3IC0xLjYgNyAxLjYgOC43IDQgeiIKICAgICAgICBjbGFzcz0iYXJyb3doZWFkIgogICAgICAgIGlkPSJwYXRoNDg3NyIKICAgICAgLz4KICAgIDwvbWFya2VyPgogIDwvZGVmcz4KICA8c3R5bGU+CiAgICAjcHVzaC1tZXNzYWdlLWF1dGgtc3ZnIHsKICAgICAgZm9udC1mYW1pbHk6IHNhbnMtc2VyaWY7CiAgICB9CiAgICAjcHVzaC1tZXNzYWdlLWF1dGgtc3ZnIHBhdGguYXJyb3cgewogICAgICBzdHJva2U6ICMwMDA7CiAgICAgIHN0cm9rZS13aWR0aDogMjsKICAgICAgbWFya2VyLWVuZDogdXJsKCNhcnJvdy1lbmQtMSk7CiAgICB9CiAgICAjcHVzaC1tZXNzYWdlLWF1dGgtc3ZnIHBhdGguYXJyb3doZWFkIHsKICAgICAgZmlsbDogIzAwMDsKICAgIH0KICAgICNwdXNoLW1lc3NhZ2UtYXV0aC1zdmcgdGV4dC5sYWJlbCB7CiAgICAgIGZvbnQtc2l6ZTogMzJweDsKICAgICAgZm9udC1mYW1pbHk6IHNhbnMtc2VyaWY7CiAgICAgIHRleHQtYW5jaG9yOiBtaWRkbGU7CiAgICB9CiAgICAjcHVzaC1tZXNzYWdlLWF1dGgtc3ZnIHRleHQubGFiZWw+dHNwYW4gewogICAgICB0ZXh0LWFuY2hvcjogbWlkZGxlOwogICAgfQogICAgI3B1c2gtbWVzc2FnZS1hdXRoLXN2ZyB0ZXh0LmFycm93dGV4dCB7CiAgICBmb250LXNpemU6IDI0cHg7CiAgPC9zdHlsZT4KICA8dGV4dAogICAgY2xhc3M9ImxhYmVsIgogICAgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCA1MCkiPgogICAgPHRzcGFuIHg9IjAiPgogICAgICBwdXNoCiAgICA8L3RzcGFuPgogICAgPHRzcGFuIHg9IjAiIGR5PSIxLjRlbSI+CiAgICAgIHNlcnZpY2UKICAgIDwvdHNwYW4+CiAgPC90ZXh0PgogIDx0ZXh0CiAgICBjbGFzcz0ibGFiZWwiCiAgICB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMzAwIDQzMCkiPgogICAgYnJvd3NlcgogIDwvdGV4dD4KICA8dGV4dAogICAgY2xhc3M9ImxhYmVsIgogICAgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzAwIDQzMCkiCiAgPgogICAgYXBwbGljYXRpb24gc2VydmVyCiAgPC90ZXh0PgoKICA8cGF0aAogICAgaWQ9InBhdGgxLTIiCiAgICBjbGFzcz0iYXJyb3ciCiAgICBkPSJNIC0zNDAgNDAwIEwgLTQwIDEyMCIvPgogIDx0ZXh0IGNsYXNzPSJhcnJvd3RleHQiPgogICAgPHRleHRQYXRoIGhyZWY9IiNwYXRoMS0yIiBzaWRlPSJsZWZ0IiBzdGFydE9mZnNldD0iMTUlIj4KICAgICAgPHRzcGFuIHk9Ii04Ij4oMSkgYXV0aCByZXF1ZXN0PC90c3Bhbj4KICAgIDwvdGV4dFBhdGg+CiAgPC90ZXh0PgoKICA8cGF0aAogICAgaWQ9InBhdGgyLTIiCiAgICBjbGFzcz0iYXJyb3ciCiAgICBkPSJNIDAgMTIwIEwgLTMwMCA0MDAgIgogIC8+CiAgPHRleHQgY2xhc3M9ImFycm93dGV4dCI+CiAgICA8dGV4dFBhdGggaHJlZj0iI3BhdGgyLTIiIHNpZGU9InJpZ2h0IiBzdGFydE9mZnNldD0iNTAlIj4KICAgICAgPHRzcGFuIHk9Ii04Ij4oMikgYXV0aCBkYXRhPC90c3Bhbj4KICAgIDwvdGV4dFBhdGg+CiAgPC90ZXh0PgoKICA8cGF0aAogICAgaWQ9InBhdGgzLTIiCiAgICBjbGFzcz0iYXJyb3ciCiAgICBkPSJNIC0yMjAgNDIwIEwgMTYwIDQyMCIKICAvPgogIDx0ZXh0IGNsYXNzPSJhcnJvd3RleHQiPgogICAgPHRleHRQYXRoIGhyZWY9IiNwYXRoMy0yIiBzaWRlPSJsZWZ0IiBzdGFydE9mZnNldD0iNDAlIj4KICAgICAgPHRzcGFuIHk9Ii04Ij4oMykgYXV0aCBkYXRhPC90c3Bhbj4KICAgIDwvdGV4dFBhdGg+CiAgPC90ZXh0Pgo8L3N2Zz4=" type="text/svg" style="width: 100%" />
+<svg id="push-message-auth-svg" version="1.1" width="1000" height="500" viewBox="-500 0 1000 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrow-end-1" refX="0.0" refY="0.0" orient="auto" style="overflow: visible;">
+      <path transform="rotate(180)" d="M 8.7 4 L -2.2 0 L 8.7 -4 C 7 -1.6 7 1.6 8.7 4 z" class="arrowhead" id="path4877"></path>
+    </marker>
+  </defs>
+  <style>
+    #push-message-auth-svg {
+      font-family: sans-serif;
+    }
+    #push-message-auth-svg path.arrow {
+      stroke: #000;
+      stroke-width: 2;
+      marker-end: url(#arrow-end-1);
+    }
+    #push-message-auth-svg path.arrowhead {
+      fill: #000;
+    }
+    #push-message-auth-svg text.label {
+      font-size: 32px;
+      font-family: sans-serif;
+      text-anchor: middle;
+    }
+    #push-message-auth-svg text.label>tspan {
+      text-anchor: middle;
+    }
+    #push-message-auth-svg text.arrowtext {
+    font-size: 24px;
+  </style>
+  <text class="label" transform="translate(0 50)">
+    <tspan x="0">
+      push
+    </tspan>
+    <tspan x="0" dy="1.4em">
+      service
+    </tspan>
+  </text>
+  <text class="label" transform="translate(-300 430)">
+    browser
+  </text>
+  <text class="label" transform="translate(300 430)">
+    application server
+  </text>
+
+  <path id="path1-2" class="arrow" d="M -340 400 L -40 120"></path>
+  <text class="arrowtext">
+    <textPath href="#path1-2" side="left" startOffset="15%">
+      <tspan y="-8">(1) auth request</tspan>
+    </textPath>
+  </text>
+
+  <path id="path2-2" class="arrow" d="M 0 120 L -300 400 "></path>
+  <text class="arrowtext">
+    <textPath href="#path2-2" side="right" startOffset="50%">
+      <tspan y="-8">(2) auth data</tspan>
+    </textPath>
+  </text>
+
+  <path id="path3-2" class="arrow" d="M -220 420 L 160 420"></path>
+  <text class="arrowtext">
+    <textPath href="#path3-2" side="left" startOffset="40%">
+      <tspan y="-8">(3) auth data</tspan>
+    </textPath>
+  </text>
+</svg>
 </section><section class="slide"><h2>Push Notifications - process</h2>
 <ul>
 <li>user visits a web app, enables notifications</li>

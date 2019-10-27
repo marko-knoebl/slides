@@ -105,8 +105,9 @@ for (let potentialConfig of fs.readdirSync("configs")) {
     const name = matches[1];
     const lang = matches[2];
     const presentationMdContent = getPresentationMdContent(name, lang);
-    const numSlides = presentationMdContent.match(new RegExp("\n## ", "g")).length;
-    console.log(`${name}-${lang}: ${numSlides} slides`)
+    const numSlides = presentationMdContent.match(new RegExp("\n## ", "g"))
+      .length;
+    console.log(`${name}-${lang}: ${numSlides} slides`);
     n += numSlides;
     fs.writeFileSync(`dist/${name}-${lang}.md`, presentationMdContent);
     pipeline.process(presentationMdContent).then(content => {
@@ -120,4 +121,6 @@ for (let potentialConfig of fs.readdirSync("configs")) {
   }
 }
 
-console.log(n)
+fs.copyFileSync("assets/presentation-index.html", "docs/index.html");
+
+console.log(n);

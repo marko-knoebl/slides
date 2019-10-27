@@ -1914,6 +1914,18 @@ body {
 .reveal .slides h5,
 .reveal .slides h6 {
   margin-bottom: 1em; }
+
+.reveal ul ul,
+.reveal ul ol,
+.reveal ol ol,
+.reveal ol ul {
+  margin: 0; }
+
+.reveal ol,
+.reveal dl,
+.reveal ul {
+  display: block;
+  margin: 0 0 1em 0; }
 </style>
     <style>/*
 
@@ -2445,7 +2457,39 @@ z.B. beim iPhone 4: 1px = zwei Pixel am Bildschirm (device pixel ratio = 2)</p>
 </code></pre>
 </section><section class="slide"><h2>Aufgabe: Overlay bei Hover</h2>
 </section><section class="slide"><h2>Aufgabe: Animation von Löffel und Gabel</h2>
-<img src="data:image/svg+xml;base64,PHN2ZwogIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICB2ZXJzaW9uPSIxLjEiIHdpZHRoPSI1MDAiIGhlaWdodD0iNTAwIiB2aWV3Qm94PSIwIDAgNTAwIDUwMCI+CiAgPHN0eWxlPgogICAgI3Nwb29uIHsKICAgICAgdHJhbnNmb3JtLW9yaWdpbjogMHB4IDMwMHB4OwogICAgICB0cmFuc2Zvcm06IHRyYW5zbGF0ZSgzNTBweCwgMCkgcm90YXRlKC00NWRlZyk7CiAgICAgIHRyYW5zaXRpb246IHRyYW5zZm9ybSAwLjVzOwogICAgfQogICAgI2ZvcmsgewogICAgICB0cmFuc2Zvcm0tb3JpZ2luOiAwcHggMzAwcHg7CiAgICAgIHRyYW5zZm9ybTogdHJhbnNsYXRlKDE1MHB4LCAwKSByb3RhdGUoNDVkZWcpOwogICAgICB0cmFuc2l0aW9uOiB0cmFuc2Zvcm0gMC41czsKICAgIH0KICAgIHN2Zzpob3Zlcj4jc3Bvb24gewogICAgICB0cmFuc2Zvcm06IHRyYW5zbGF0ZSgzNTBweCwgMCkgcm90YXRlKDBkZWcpOwogICAgfQogICAgc3ZnOmhvdmVyPiNmb3JrIHsKICAgICAgdHJhbnNmb3JtOiB0cmFuc2xhdGUoMTUwcHgsIDApIHJvdGF0ZSgwZGVnKTsKICAgIH0KICA8L3N0eWxlPgogIDxnCiAgICBpZD0ic3Bvb24iCiAgICBmaWxsPSJncmV5Ij4KICAgIDxyZWN0IHk9IjEwMCIgeD0iLTEwIiB3aWR0aD0iMjAiIGhlaWdodD0iMTkwIi8+CiAgICA8Y2lyY2xlIHI9IjEwIiBjeT0iMjkwIi8+CiAgICA8ZWxsaXBzZSBjeT0iNjAiIHJ4PSIzNSIgcnk9IjU1Ii8+CiAgPC9nPgogIDxnCiAgICBpZD0iZm9yayIKICAgIGZpbGw9ImRhcmtncmV5Ij4KICAgIDxwYXRoIGQ9IgogICAgICBNIC0xMCwzMTAgTCAxMCwzMTAgTDEwLDEwMAogICAgICBDIDEwLDkwIDIwLDgwIDIwLDcwCiAgICAgIEwgMTksMCBMMTMsMCBMMTEsNzAgTDUsNzAgTDMsMAogICAgICBMLTMsMCBMLTUsNzAgTC0xMSw3MCBMLTEzLDAgTC0xOSwwIEwtMjAsNzAKICAgICAgQy0yMCw4MCAtMTAsOTAgLTEwLDEwMCBaIi8+CiAgPC9nPgo8L3N2Zz4K" type="text/svg" style="width: 100%" />
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="500" height="500" viewBox="0 0 500 500">
+  <style>
+    #spoon {
+      transform-origin: 0px 300px;
+      transform: translate(350px, 0) rotate(-45deg);
+      transition: transform 0.5s;
+    }
+    #fork {
+      transform-origin: 0px 300px;
+      transform: translate(150px, 0) rotate(45deg);
+      transition: transform 0.5s;
+    }
+    svg:hover>#spoon {
+      transform: translate(350px, 0) rotate(0deg);
+    }
+    svg:hover>#fork {
+      transform: translate(150px, 0) rotate(0deg);
+    }
+  </style>
+  <g id="spoon" fill="grey">
+    <rect y="100" x="-10" width="20" height="190"></rect>
+    <circle r="10" cy="290"></circle>
+    <ellipse cy="60" rx="35" ry="55"></ellipse>
+  </g>
+  <g id="fork" fill="darkgrey">
+    <path d="
+      M -10,310 L 10,310 L10,100
+      C 10,90 20,80 20,70
+      L 19,0 L13,0 L11,70 L5,70 L3,0
+      L-3,0 L-5,70 L-11,70 L-13,0 L-19,0 L-20,70
+      C-20,80 -10,90 -10,100 Z"></path>
+  </g>
+</svg>
 <p>Achtung: Wir verwenden nun CSS-Transformationen, nicht SVG-Transformationen; wir müssen nun beispielsweise <code>transform-origin</code> separat setzen</p></section></section></div>
     </div>
     <script>/*!
