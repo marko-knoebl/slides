@@ -1,4 +1,4 @@
-# {{title}}
+# React Fortgeschritten
 
 ## Präsentation und Code
 

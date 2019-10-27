@@ -1,4 +1,4 @@
-# {{title}}
+# React
 
 ## Präsentation und Code
 

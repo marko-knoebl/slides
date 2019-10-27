@@ -1,4 +1,4 @@
-# {{title}}
+# Python & Data Science
 
 ## Präsentation und Code
 

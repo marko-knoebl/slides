@@ -1,4 +1,4 @@
-# {{title}}
+# Databases and data store
 
 ## Presentation and code
 

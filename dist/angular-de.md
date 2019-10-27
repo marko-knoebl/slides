@@ -1,4 +1,4 @@
-# {{title}}
+# Angular
 
 ## Präsentation und Code
 

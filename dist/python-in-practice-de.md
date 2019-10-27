@@ -1,4 +1,4 @@
-# {{title}}
+# Python in der Praxis
 
 ## Präsentation und Code
 

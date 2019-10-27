@@ -1,4 +1,4 @@
-# {{title}}
+# Python Intermediate
 
 ## Präsentation und Code
 

@@ -1,4 +1,4 @@
-# {{title}}
+# JavaScript im Frontend
 
 ## Präsentation und Code
 

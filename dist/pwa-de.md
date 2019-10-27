@@ -1,4 +1,4 @@
-# {{title}}
+# Progressive Web Apps
 
 ## Präsentation und Code
 
