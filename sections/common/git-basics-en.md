@@ -1,6 +1,6 @@
-# git
+# Git basics
 
-## git
+## Git
 
 Git is a version control system
 

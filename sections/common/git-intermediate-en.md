@@ -1,6 +1,6 @@
-# git intermediate
+# Git intermediate
 
-## git checkout
+## Git checkout
 
 The `checkout` command allows us to view the code from earlier versions or other "branches"
 
@@ -18,13 +18,13 @@ checking out the most recent commit of the "master" branch:
 git checkout master
 ```
 
-## git branches
+## Git branches
 
 Git branches allow development to happen on different tasks in parallel via multiple "branches"
 
 The default branch is usually called _master_.
 
-## git branches
+## Git branches
 
 creating a new branch:
 
@@ -41,10 +41,21 @@ git checkout master
 
 before switching it can be useful to make sure there are no active changes
 
-## git branches
+## Git branches
 
 listing all local branches:
 
 ```bash
 git branch
+```
+
+## Git branches
+
+_merging_ the updates of one branch into another branch:
+
+(merging from _python-3-port_ to _master_)
+
+```
+git checkout master
+git merge python-3-port
 ```
