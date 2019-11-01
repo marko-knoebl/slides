@@ -1,6 +1,9 @@
-# database connection
+# Database connection
 
-- direct connection, e.g. via postgraphlite
+## Database connection
+
+- direct manual connection
+- direct connection, e.g. via postgraphile
 - connection via an intermediate GraphQL layer, e.g. via prisma
 
 ## Prisma and OpenCRUD

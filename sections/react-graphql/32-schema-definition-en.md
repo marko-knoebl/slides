@@ -1,7 +1,5 @@
 # GraphQL schema definition
 
----
-
 ## GraphQL schema definition
 
 GraphQL _always_ requires us to explicitly declare the query schema for our API.
@@ -9,8 +7,6 @@ GraphQL _always_ requires us to explicitly declare the query schema for our API.
 This enables GraphQL to easily generate documentation for it (see the _schema_ sidebar in the browser interface)
 
 The language to express the schema definition is called the _GraphQL Schema Definition Language (SDL)_.
-
----
 
 ## GraphQL types
 
@@ -24,9 +20,7 @@ GraphQL responses are composed of the following types:
 - Object: object with predefined entries
 - List: list composed of specific other types
 
----
-
-## schema definition examples
+## Schema definition examples
 
 An API that returns a string under the keyword `hello`:
 
@@ -37,9 +31,7 @@ type Query {
 }
 ```
 
----
-
-## schema definition examples
+## Schema definition examples
 
 An API that returns various object types - depending on the query:
 
@@ -47,27 +39,23 @@ An API that returns various object types - depending on the query:
 type Query {
   currentTime: String!
   currentDate: String!
-  randomInt: Integer!
+  randomInt: Int!
   randomFloat: Float!
 }
 ```
 
----
-
-## schema definition examples
+## Schema definition examples
 
 An API that accepts parameters:
 
 ```graphql
 type Query {
   currentTime(timezone: String): String!
-  randomInt(min: Integer, max: Integer!): Integer!
+  randomInt(min: Int, max: Int!): Int!
 }
 ```
 
----
-
-## schema definition examples
+## Schema definition examples
 
 queries, mutations and subscriptions
 
@@ -86,17 +74,13 @@ type Subscription {
 }
 ```
 
----
-
-## schema definition examples
+## Schema definition examples
 
 queries, mutations and subscriptions
 
 These three entries contain the endpoints that form the API
 
----
-
-## types
+## Types
 
 example schema definition:
 
@@ -111,9 +95,7 @@ type query {
 }
 ```
 
----
-
-## types
+## Types
 
 schema that contains objects:
 
@@ -128,5 +110,3 @@ type Todo {
   completed: Boolean!
 }
 ```
-
----

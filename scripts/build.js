@@ -85,7 +85,16 @@ const pipeline = unified()
   .use(remarkRehype, { allowDangerousHTML: true })
   .use(rehypeRaw)
   .use(rehypeHighlight, {
-    plainText: ["txt", "pseudocode", "rst", "rest", "tsx", "csv", "tsv"],
+    plainText: [
+      "txt",
+      "pseudocode",
+      "rst",
+      "rest",
+      "tsx",
+      "csv",
+      "tsv",
+      "graphql"
+    ],
     aliases: { js: ["tsx"] }
   })
   .use(slides, {

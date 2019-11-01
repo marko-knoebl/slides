@@ -56,10 +56,8 @@ const resolvers = {
   Mutation: {
     setMessage: (root, args, context) => {
       message = args.message;
-      return args.message;
+      return message;
     },
   },
 };
 ```
-
----
