@@ -9,7 +9,7 @@ const rehypeStringify = require("rehype-stringify");
 const rehypeInline = require("@karuga/rehype-inline");
 const rehypeHighlight = require("rehype-highlight");
 
-const { slides } = require("@karuga/slides");
+const slides = require("@karuga/slides");
 
 const sectionsBasePath = "sections";
 
