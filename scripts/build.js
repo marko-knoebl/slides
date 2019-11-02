@@ -105,7 +105,10 @@ const pipeline = unified()
   .use(rehypeInline)
   .use(rehypeStringify, { closeSelfClosing: true });
 
-let n = 0;
+const numSlidesTotal = {
+  en: 0,
+  de: 0
+};
 
 for (let potentialConfig of fs.readdirSync("configs")) {
   const regExp = new RegExp(`(.*)-(.*)\\.json`);
@@ -117,7 +120,7 @@ for (let potentialConfig of fs.readdirSync("configs")) {
     const numSlides = presentationMdContent.match(new RegExp("\n## ", "g"))
       .length;
     console.log(`${name}-${lang}: ${numSlides} slides`);
-    n += numSlides;
+    numSlidesTotal[lang] += numSlides;
     fs.writeFileSync(`dist/${name}-${lang}.md`, presentationMdContent);
     pipeline.process(presentationMdContent).then(content => {
       fs.writeFileSync(`dist/${name}-${lang}.html`, content.toString());
@@ -130,6 +133,15 @@ for (let potentialConfig of fs.readdirSync("configs")) {
   }
 }
 
-fs.copyFileSync("assets/presentation-index.html", "docs/index.html");
+const indexPageTemplate = fs.readFileSync("assets/presentation-index.html", {
+  encoding: "utf-8"
+});
+const indexPage = indexPageTemplate
+  .replace("{{count_en}}", numSlidesTotal.en)
+  .replace("{{count_de}}", numSlidesTotal.de);
+fs.writeFileSync("docs/index.html", indexPage);
 
-console.log(n);
+console.log(
+  `total: ${numSlidesTotal.en} slides in English,` +
+    `${numSlidesTotal.de} slides in German`
+);
