@@ -10,11 +10,6 @@ variants:
 - powershell (Windows)
 - bash (Unix, Linux, MacOS)
 
-## Starting a terminal on Windows
-
-- search for _cmd_ or _PowerShell_ in the start menu
-- in VS Code: Via _View_ - _Terminal_
-
 ## Basic commands
 
 - get the current directory: `pwd` (print working directory)
@@ -41,4 +36,24 @@ ls .
 
 Programs may be run by typing their name, e.g. `explorer`, `git`, `node`, ...
 
-After the program name / command name we can add some arguments, e.g. `git --version`
+## Arguments
+
+After the program name / command name we can add some arguments:
+
+positional arguments:
+
+- `ls .`
+- `mv a.txt archive/a.txt`
+
+options:
+
+- `ls . -l`
+- `ls . -t`
+- `node -h` (short option name with single dash)
+- `node --help` (long option name with double dash)
+
+named arguments via options (separated via a space or equal sign):
+
+- `node --title=playground`
+- `node --eval "console.log(1);"`
+- `git commit -m "test_message"`
