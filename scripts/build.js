@@ -102,7 +102,7 @@ const pipeline = unified()
     sectionSeparators: ["h1"],
     slideSeparators: ["h2"]
   })
-  .use(rehypeInline)
+  .use(rehypeInline, { svgElements: true })
   .use(rehypeStringify, { closeSelfClosing: true });
 
 const numSlidesTotal = {
