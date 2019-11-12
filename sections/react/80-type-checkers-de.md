@@ -4,9 +4,10 @@
 
 Insbesondere was das Interface von Komponenten angeht, ist es sehr sinvoll, vorhandene Properties und Events anzugeben
 
-Dies kann mit Hilfe der Library `prop-types` geschehen
+Möglichkeiten:
 
-Eine noch viel weitreichendere Unterstützung liefert die Verwendung von TypeScript als Programmiersprache
+- Library `prop-types`
+- Verwendung von `TypeScript` als Sprache
 
 ## prop-types
 

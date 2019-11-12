@@ -2151,7 +2151,7 @@ GraphQL: one endpoint that can be used for any operation - all requests are <cod
 </section><section class="slide"><h2>GraphQL vs REST</h2>
 <p>Scenario:</p>
 <p>A social media app in which we can view a list of our friends. Clicking on a friend takes us to their most recent posts</p>
-</section><section class="slide"><h2>API in REST:</h2>
+</section><section class="slide"><h2>API in REST</h2>
 <pre><code class="hljs language-http"><span class="hljs-attribute">GET /users/$myuserid/friends
 </span></code></pre>
 <pre><code class="hljs language-http"><span class="hljs-attribute">GET /users/$otheruserid/posts
@@ -2183,7 +2183,7 @@ GraphQL: one endpoint that can be used for any operation - all requests are <cod
 <p>In REST we would either have to send multiple requests to retrieve all posts of friends - or we would have to implement a new endpoint in the API:</p>
 <pre><code class="hljs language-http"><span class="hljs-attribute">GET /postsoffriends/$myuserid
 </span></code></pre>
-</section><section class="slide"><h2>new functionality: new post feed</h2>
+</section><section class="slide"><h2>Adding functionality: new post feed</h2>
 <p>In GraphQL we can implement this with just one request and without creating new endpoints:</p>
 <pre><code class="language-graphql">{
   users(id: "$myuserid") {
@@ -2208,7 +2208,7 @@ GraphQL: one endpoint that can be used for any operation - all requests are <cod
 </code></pre>
 <pre><code class="hljs language-sql"><span class="hljs-keyword">SELECT</span> login, <span class="hljs-keyword">name</span>
   <span class="hljs-keyword">FROM</span> <span class="hljs-keyword">user</span>
-  <span class="hljs-keyword">WHERE</span> login=<span class="hljs-string">"my-username"</span>
+  <span class="hljs-keyword">WHERE</span> login=<span class="hljs-string">"my-username"</span>;
 </code></pre>
 </section><section class="slide"><h2>GraphQL vs SQL</h2>
 <p>In GraphQL parameters don't have a predefined meaning.</p>
@@ -3067,60 +3067,7 @@ courses-tutorials/graphql-server-todo
     <span class="hljs-attr">"start"</span>: <span class="hljs-string">"micro"</span>
   }
 }
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Exercise: adding a GraphQL API to our TODO app</h1>
-<p>We will use a shared GraphQL API at</p>
-<p><a href="https://5qn401kkl9.lp.gql.zone/graphql">https://5qn401kkl9.lp.gql.zone/graphql</a></p>
-<p>(it should return "GET query missing." in the browser)</p>
-</section><section class="slide"><h2>Exercise: adding a GraphQL API to our TODO app</h2>
-<ul>
-<li>query todos from the API when the page loads</li>
-<li>query again when the user clicks a refresh button</li>
-<li>send a mutation when the user adds a todo</li>
-<li>send a mutation when the user toggles a todo</li>
-</ul>
-</section><section class="slide"><h2>Exercise: adding a GraphQL API to our TODO app</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> graphqlQuery = <span class="hljs-string">`query getTodos { todos { id title completed } }`</span>;
-<span class="hljs-keyword">const</span> requestBody = <span class="hljs-built_in">JSON</span>.stringify({ <span class="hljs-attr">query</span>: graphqlQuery });
-fetch(<span class="hljs-string">'https://5qn401kkl9.lp.gql.zone/graphql'</span>, {
-  <span class="hljs-attr">method</span>: <span class="hljs-string">'POST'</span>,
-  <span class="hljs-attr">headers</span>: {
-    <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json; charset=utf-8'</span>,
-  },
-  <span class="hljs-attr">body</span>: requestBody,
-})
-  .then(<span class="hljs-function"><span class="hljs-params">response</span> =></span> response.json())
-  .then(<span class="hljs-function"><span class="hljs-params">responseData</span> =></span> {
-    <span class="hljs-built_in">console</span>.log(responseData);
-    dispatch(receiveTodos(responseData.data.todos));
-  });
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Database connection</h1>
-</section><section class="slide"><h2>Database connection</h2>
-<ul>
-<li>direct manual connection</li>
-<li>direct connection, e.g. via postgraphile</li>
-<li>connection via an intermediate GraphQL layer, e.g. via prisma</li>
-</ul>
-</section><section class="slide"><h2>Prisma and OpenCRUD</h2>
-<p><strong>OpenCRUD</strong> is a more specific version of GraphQL which maps to SQL commands</p>
-<p>examples:</p>
-<pre><code class="language-graphql">query getUser4 {
-  user(where: { id: 4 }) {
-    name
-  }
-}
-</code></pre>
-<pre><code class="language-graphql">query getTopRatedMovies {
-  movie(where: { rating_gte: 4 }, orderBy: ...) {
-    name
-  }
-}
-</code></pre>
-</section><section class="slide"><h2>Prisma and OpenCRUD</h2>
-<p>Prisma will automatically create an <em>OpenCRUD</em> API for a database (MySQL, Postgres or MongoDB)</p>
-</section><section class="slide"><h2>database connection with Prisma</h2>
-<p>tutorial: <a href="https://www.howtographql.com/graphql-js/4-adding-a-database/">https://www.howtographql.com/graphql-js/4-adding-a-database/</a></p></section></section></div>
+</code></pre></section></section></div>
     </div>
     <script>/*!
  * reveal.js

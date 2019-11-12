@@ -14,7 +14,7 @@ query {
 ```sql
 SELECT login, name
   FROM user
-  WHERE login="my-username"
+  WHERE login="my-username";
 ```
 
 ## GraphQL vs SQL

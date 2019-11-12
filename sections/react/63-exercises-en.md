@@ -1,14 +1,14 @@
 # Exercises
 
-Liste an verfügbaren React-Komponenten:
+## Exercises
 
-[awesome-react-components](https://github.com/brillout/awesome-react-components)
+List of React components: [awesome-react-components](https://github.com/brillout/awesome-react-components)
 
-Aufgabe: "Nachbau" einer der Komponenten
+Task: "recreate" one of the components
 
-Beispiele:
+examples:
 
-- table / data grid
-- tabs
 - bar chart
 - color picker
+- table / data grid
+- tabs

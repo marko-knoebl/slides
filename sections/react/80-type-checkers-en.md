@@ -2,11 +2,12 @@
 
 ## Type checkers for React
 
-Declaring the component interface made up by props and events can be very useful
+Declaring types can be useful, especially when it comes to component props and events
 
-This can be done via the library `prop-types`
+possibilities:
 
-An alternative is using TypeScript as a programming language, which offers type checking throughout a program
+- library `prop-types`
+- using `TypeScript` as a language
 
 ## prop-types
 

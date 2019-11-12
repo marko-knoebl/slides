@@ -178,7 +178,7 @@ Scenario:
 
 A social media app in which we can view a list of our friends. Clicking on a friend takes us to their most recent posts
 
-## API in REST:
+## API in REST
 
 ```http
 GET /users/$myuserid/friends
@@ -227,7 +227,7 @@ In REST we would either have to send multiple requests to retrieve all posts of 
 GET /postsoffriends/$myuserid
 ```
 
-## new functionality: new post feed
+## Adding functionality: new post feed
 
 In GraphQL we can implement this with just one request and without creating new endpoints:
 
@@ -261,7 +261,7 @@ query {
 ```sql
 SELECT login, name
   FROM user
-  WHERE login="my-username"
+  WHERE login="my-username";
 ```
 
 ## GraphQL vs SQL
@@ -1403,76 +1403,4 @@ edit package.json:
   }
 }
 ```
-
-# Exercise: adding a GraphQL API to our TODO app
-
-We will use a shared GraphQL API at
-
-https://5qn401kkl9.lp.gql.zone/graphql
-
-(it should return "GET query missing." in the browser)
-
-## Exercise: adding a GraphQL API to our TODO app
-
-- query todos from the API when the page loads
-- query again when the user clicks a refresh button
-- send a mutation when the user adds a todo
-- send a mutation when the user toggles a todo
-
-## Exercise: adding a GraphQL API to our TODO app
-
-```js
-const graphqlQuery = `query getTodos { todos { id title completed } }`;
-const requestBody = JSON.stringify({ query: graphqlQuery });
-fetch('https://5qn401kkl9.lp.gql.zone/graphql', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json; charset=utf-8',
-  },
-  body: requestBody,
-})
-  .then(response => response.json())
-  .then(responseData => {
-    console.log(responseData);
-    dispatch(receiveTodos(responseData.data.todos));
-  });
-```
-
-# Database connection
-
-## Database connection
-
-- direct manual connection
-- direct connection, e.g. via postgraphile
-- connection via an intermediate GraphQL layer, e.g. via prisma
-
-## Prisma and OpenCRUD
-
-**OpenCRUD** is a more specific version of GraphQL which maps to SQL commands
-
-examples:
-
-```graphql
-query getUser4 {
-  user(where: { id: 4 }) {
-    name
-  }
-}
-```
-
-```graphql
-query getTopRatedMovies {
-  movie(where: { rating_gte: 4 }, orderBy: ...) {
-    name
-  }
-}
-```
-
-## Prisma and OpenCRUD
-
-Prisma will automatically create an _OpenCRUD_ API for a database (MySQL, Postgres or MongoDB)
-
-## database connection with Prisma
-
-tutorial: https://www.howtographql.com/graphql-js/4-adding-a-database/
 

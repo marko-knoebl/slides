@@ -901,9 +901,71 @@ return <div>{face}</div>;
 <div>{state.hasError && state.errorMessage}</div>
 ```
 
+## Whitespace
+
+in HTML sind die folgenden Beispiele äquivalent (und enthalten je ein Leerzeichen zwischen den Bildern):
+
+<!-- prettier-ignore-start -->
+
+```html
+<img src="foo.png"> <img src="bar.png">
+```
+
+```html
+<img src="foo.png">    <img src="bar.png">
+```
+
+```html
+<img src="foo.png">
+<img src="bar.png">
+```
+
+<!-- prettier-ignore-end -->
+
+## Whitespace
+
+in JSX gilt:
+
+- Whitespace zwischen Elementen innerhalb einer Zeile wird als einzelnes Leerzeichen interpretiert
+- Whitespace zwischen Elementen, der über mehrere Zeilen geht, wird ignoriert
+
+<!-- prettier-ignore-start -->
+
+Einzelnes Leerzeichen:
+
+```xml
+<img src="foo.png" />     <img src="bar.png" />
+```
+
+Kein Leerzeichen:
+
+```xml
+<img src="foo.png" />
+<img src="bar.png" />
+```
+
+<!-- prettier-ignore-end -->
+
+## Whitespace
+
+"Erzwungenes" Einfügen eines Leerzeichens in JSX:
+
+```xml
+<img src="foo.png" />{" "}
+<img src="bar.png" />
+```
+
+## Kommentare
+
+Kommentare können als JavaScript-Kommentare geschrieben werden:
+
+```jsx
+a = <div>Hello World!{/*this is a comment*/}</div>;
+```
+
 ## Fragmente
 
-Erlauben es einer Komponente, mehrere Elemente zurückzugeben (anstatt eines einzenen Elements)
+Erlauben es einer Komponente, mehrere Elemente zurückzugeben (anstatt eines einzelnen Elements)
 
 ```jsx
 return (
@@ -1006,13 +1068,17 @@ Beispiel:
 Beispiel:
 
 ```jsx
-import React from 'react';
-
 const Rating = props => (
   <div className="rating">{'*'.repeat(props.stars)}</div>
 );
+```
 
-export default Rating;
+oder
+
+```jsx
+const Rating = {stars} => {
+  <div className="rating">{'*'.repeat(stars)}</div>
+}
 ```
 
 ## Props in Klassenkomponenten
@@ -1119,18 +1185,18 @@ siehe Info-Boxen zu _Installation_ und _Usage_
 
 # Übungen
 
-Liste an verfügbaren React-Komponenten:
+## Übungen
 
-[awesome-react-components](https://github.com/brillout/awesome-react-components)
+Liste an verfügbaren React-Komponenten: [awesome-react-components](https://github.com/brillout/awesome-react-components)
 
 Aufgabe: "Nachbau" einer der Komponenten
 
 Beispiele:
 
-- table / data grid
-- tabs
 - bar chart
 - color picker
+- table / data grid
+- tabs
 
 # Typechecker für React
 
@@ -1138,9 +1204,10 @@ Beispiele:
 
 Insbesondere was das Interface von Komponenten angeht, ist es sehr sinvoll, vorhandene Properties und Events anzugeben
 
-Dies kann mit Hilfe der Library `prop-types` geschehen
+Möglichkeiten:
 
-Eine noch viel weitreichendere Unterstützung liefert die Verwendung von TypeScript als Programmiersprache
+- Library `prop-types`
+- Verwendung von `TypeScript` als Sprache
 
 ## prop-types
 
@@ -1301,7 +1368,7 @@ console.log(myInput.value);
 Interfaces: beschreiben die Struktur eines Objekts / einer Klasse genauer  
 z.B.: `TodoInterface`, `PersonInterface`
 
-Types: Ähnlich wie Interfaces, nur auch auf Strings, Arrays, ... anwendbar
+Types: Ähnlich wie Interfaces, aber auch auf Strings, Arrays, ... anwendbar
 
 Types bieten im wesentlichen mehr Funktionalität als Interfaces
 

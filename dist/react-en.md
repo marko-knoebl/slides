@@ -812,6 +812,68 @@ return <div>{face}</div>;
 <div>{state.hasError && state.errorMessage}</div>
 ```
 
+## Whitespace
+
+In HTML the following examples are equivalent (displaying a single space between the images):
+
+<!-- prettier-ignore-start -->
+
+```html
+<img src="foo.png"> <img src="bar.png">
+```
+
+```html
+<img src="foo.png">    <img src="bar.png">
+```
+
+```html
+<img src="foo.png">
+<img src="bar.png">
+```
+
+<!-- prettier-ignore-end -->
+
+## Whitespace
+
+rules in JSX:
+
+- whitespace between two elements in one line is interpreted as a single space
+- whitespace between two elements on different lines is ignored
+
+<!-- prettier-ignore-start -->
+
+Single space:
+
+```xml
+<img src="foo.png" />     <img src="bar.png" />
+```
+
+no space:
+
+```xml
+<img src="foo.png" />
+<img src="bar.png" />
+```
+
+<!-- prettier-ignore-end -->
+
+## Whitespace
+
+"force" a space in JSX:
+
+```xml
+<img src="foo.png" />{" "}
+<img src="bar.png" />
+```
+
+## Comments
+
+Comments can be written as JavaScript comments:
+
+```jsx
+a = <div>Hello World!{/*this is a comment*/}</div>;
+```
+
 ## Fragments
 
 Fragments enable returning multiple elements from a component / function:
@@ -917,13 +979,17 @@ Example:
 example:
 
 ```jsx
-import React from 'react';
-
 const Rating = props => (
   <div className="rating">{'*'.repeat(props.stars)}</div>
 );
+```
 
-export default Rating;
+or
+
+```jsx
+const Rating = {stars} => {
+  <div className="rating">{'*'.repeat(stars)}</div>
+}
 ```
 
 ## Props in class components
@@ -1030,28 +1096,29 @@ see info boxes on _Installation_ und _Usage_
 
 # Exercises
 
-Liste an verfügbaren React-Komponenten:
+## Exercises
 
-[awesome-react-components](https://github.com/brillout/awesome-react-components)
+List of React components: [awesome-react-components](https://github.com/brillout/awesome-react-components)
 
-Aufgabe: "Nachbau" einer der Komponenten
+Task: "recreate" one of the components
 
-Beispiele:
+examples:
 
-- table / data grid
-- tabs
 - bar chart
 - color picker
+- table / data grid
+- tabs
 
 # Type checkers for React
 
 ## Type checkers for React
 
-Declaring the component interface made up by props and events can be very useful
+Declaring types can be useful, especially when it comes to component props and events
 
-This can be done via the library `prop-types`
+possibilities:
 
-An alternative is using TypeScript as a programming language, which offers type checking throughout a program
+- library `prop-types`
+- using `TypeScript` as a language
 
 ## prop-types
 

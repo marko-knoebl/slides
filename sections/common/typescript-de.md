@@ -89,7 +89,7 @@ console.log(myInput.value);
 Interfaces: beschreiben die Struktur eines Objekts / einer Klasse genauer  
 z.B.: `TodoInterface`, `PersonInterface`
 
-Types: Ähnlich wie Interfaces, nur auch auf Strings, Arrays, ... anwendbar
+Types: Ähnlich wie Interfaces, aber auch auf Strings, Arrays, ... anwendbar
 
 Types bieten im wesentlichen mehr Funktionalität als Interfaces
 

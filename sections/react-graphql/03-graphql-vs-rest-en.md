@@ -15,7 +15,7 @@ Scenario:
 
 A social media app in which we can view a list of our friends. Clicking on a friend takes us to their most recent posts
 
-## API in REST:
+## API in REST
 
 ```http
 GET /users/$myuserid/friends
@@ -64,7 +64,7 @@ In REST we would either have to send multiple requests to retrieve all posts of 
 GET /postsoffriends/$myuserid
 ```
 
-## new functionality: new post feed
+## Adding functionality: new post feed
 
 In GraphQL we can implement this with just one request and without creating new endpoints:
 

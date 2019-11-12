@@ -20,13 +20,17 @@ Beispiel:
 Beispiel:
 
 ```jsx
-import React from 'react';
-
 const Rating = props => (
   <div className="rating">{'*'.repeat(props.stars)}</div>
 );
+```
 
-export default Rating;
+oder
+
+```jsx
+const Rating = {stars} => {
+  <div className="rating">{'*'.repeat(stars)}</div>
+}
 ```
 
 ## Props in Klassenkomponenten
