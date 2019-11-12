@@ -1,10 +1,10 @@
-# State management with reducers
+# State management with actions and reducers
 
-## State management with reducers
+## State management with actions and reducers
 
-Technique that is used in _Redux_ and in React's _reducer hook_
+Technique that is used in _Redux_ and in React's _reducer hook_:
 
-A state change is applied via a _reducer_ function, which transforms the previous state into the new state based on an _action_
+An event inside an application triggers a so-called _action_. Based on that _action_ the current _state_ will be transformed into a new _state_ via a _reducer_ function.
 
 ## Reducer diagram
 

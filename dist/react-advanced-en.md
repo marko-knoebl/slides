@@ -239,13 +239,13 @@ Often the entire application state is represented by a data model and every chan
 - ngrx (used with Angular)
 - vuex (used with vue)
 
-# State management with reducers
+# State management with actions and reducers
 
-## State management with reducers
+## State management with actions and reducers
 
-Technique that is used in _Redux_ and in React's _reducer hook_
+Technique that is used in _Redux_ and in React's _reducer hook_:
 
-A state change is applied via a _reducer_ function, which transforms the previous state into the new state based on an _action_
+An event inside an application triggers a so-called _action_. Based on that _action_ the current _state_ will be transformed into a new _state_ via a _reducer_ function.
 
 ## Reducer diagram
 
@@ -876,45 +876,6 @@ npm run storybook
 
 configuration: via `.storybook/config.js`
 
-# Development tools for React
-
-## React Developer Tools
-
-https://github.com/facebook/react-devtools
-
-- display component tags in an inspector
-- show state and props
-- change state and props
-- analyse render performance of components
-
-## Debugging in VS Code
-
-Extensions:
-
-- **Debugger for Chrome**
-- Debugger for Firefox
-
-## Debugging in VS Code: configuration
-
-creating config file: in the debugger sidebar, click on the gear symbol (_Configure or fix 'launch.json'_)
-
-in _launch.json_:
-
-```json
-{
-  "type": "chrome",
-  "request": "launch",
-  "name": "Launch Chrome for React",
-  "url": "http://localhost:3000"
-}
-```
-
-## Debugging in VS Code: starting
-
-The development server has to be running in the background
-
-Start debugging in VS Code via _F5_
-
 # React Router
 
 ## React Router
@@ -1204,6 +1165,8 @@ class TodoStats extends React.Component {
 ```
 
 # File Structure
+
+## File Structure
 
 https://reactjs.org/docs/faq-structure.html
 

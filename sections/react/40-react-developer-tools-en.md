@@ -1,12 +1,15 @@
-# Development tools for React
+# Developer tools for React
 
 ## React Developer Tools
 
-https://github.com/facebook/react-devtools
+- [Chrome Plugin](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi)
+- [Firefox Plugin](https://addons.mozilla.org/de/firefox/addon/react-devtools/)
 
-- display component tags in an inspector
+Features:
+
+- display component structure
 - show state and props
-- change state and props
+- change state
 - analyse render performance of components
 
 ## Debugging in VS Code

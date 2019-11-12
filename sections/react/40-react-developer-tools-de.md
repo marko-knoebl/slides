@@ -2,9 +2,12 @@
 
 ## React Developer Tools
 
-https://github.com/facebook/react-devtools
+- [Chrome Plugin](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi)
+- [Firefox Plugin](https://addons.mozilla.org/de/firefox/addon/react-devtools/)
 
-- Anzeige der Komponententags im Inspektor
+Features:
+
+- Anzeige der Komponentenstruktur
 - Anzeige von State und Props
 - Ändern von State und Props
 - Performanceanalyse des Renderings von Komponenten

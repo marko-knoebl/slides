@@ -1,5 +1,7 @@
 # File Structure
 
+## File Structure
+
 https://reactjs.org/docs/faq-structure.html
 
 common approaches:

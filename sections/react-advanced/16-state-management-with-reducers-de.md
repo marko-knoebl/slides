@@ -1,18 +1,18 @@
-# State Management mit Reducern
+# State Management mit Actions und Reducern
 
-## State Management mit Reducern
+## State Management mit Actions und Reducern
 
-In _Redux_ und bei Reacts _reducer Hook_ werden sogenannte _Reducer_ zum State Management verwendet
+Konzept von _Redux_ und Reacts _Reducer Hook_:
 
-Eine Änderung am State wird durch eine _reducer_-Funktion angewendet, welche einen Zustand basierend auf einer _action_ in den nächsten überführt
+Ein Event in der Anwendung löst eine sogenannte _Action_ aus. Basierend auf dieser Action wird ein aktueller _State_ mittels einer _Reducer_-Funktion in einen geänderten _State_ übergeführt.
 
-## Redux Diagramm
+## Reducer Diagramm
 
 <img src="assets/redux-flow.svg" type="text/svg" style="width: 100%">
 
 ## Beispiel: Todos State Management
 
-Wir verwalten ein Array von Todos mit Hilfe eines Reducers. ZU Beginn setzen wir zwei mögliche Actions um:
+Wir verwalten ein Array von Todos mit Hilfe eines Reducers. Zu Beginn setzen wir zwei mögliche Actions um:
 
 - Hinzufügen eines Todos
 - Entfernen eines Todos
@@ -20,7 +20,6 @@ Wir verwalten ein Array von Todos mit Hilfe eines Reducers. ZU Beginn setzen wir
 ## Beispiel: Todos State Management
 
 Der State könnte folgendermaßen aussehen:
-
 
 ```json
 [
@@ -57,9 +56,9 @@ _Actions_ werden von JavaScript Objekten repräsentiert; Actions haben immer ein
 
 ## Beispiel: Todos State Management
 
-Ein _Reducer_ ist eine Funktion die das zentrale Element in Redux darstellt
+Ein _Reducer_ ist eine Funktion die das zentrale Element in Redux darstellt.
 
-Der Reducer ehält den alten State und eine Action, die eine Änderung am State beschreibt
+Der Reducer erhält den alten State und eine Action, die eine Änderung am State beschreibt.
 
 Der Reducer gibt den neuen Zustand zurück. Wichtig: Reducer ändern das alte state-Objekt nicht ab, sondern erstellen ein neues (Sie sind reine Funktionen)
 
