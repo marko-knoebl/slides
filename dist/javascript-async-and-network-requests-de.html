@@ -2114,6 +2114,53 @@ fetchAsync();
 <li><a href="https://developers.google.com/web/ilt/pwa/lab-fetch-api">https://developers.google.com/web/ilt/pwa/lab-fetch-api</a></li>
 <li><a href="https://developers.google.com/web/ilt/pwa/lab-promises">https://developers.google.com/web/ilt/pwa/lab-promises</a></li>
 </ul>
+</section></section><section class="slides-section"><section class="slide"><h1>Async &#x26; await</h1>
+</section><section class="slide"><h2>Async &#x26; await</h2>
+<p>Einfachere Erstellung / Verwendung von Promises - seit ES2017</p>
+<p>Anstatt von <code>.then</code> können wir <code>await</code> verwenden</p>
+<p>Anstatt von <code>new Promise(...)</code> können wir <code>async</code> verwenden</p>
+</section><section class="slide"><h2>Await</h2>
+<p>Promises &#x26; then</p>
+<pre><code class="hljs language-js">fetch(<span class="hljs-string">'https://en.wikipedia.org'</span>)
+  .then(<span class="hljs-function"><span class="hljs-params">response</span> =></span> response.text())
+  .then(<span class="hljs-built_in">console</span>.log);
+</code></pre>
+<p>Promises &#x26; await (siehe nächste Slide bezüglich Browserkompatibilität)</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> fetch(<span class="hljs-string">'https://en.wikipedia.org'</span>);
+<span class="hljs-keyword">const</span> content = <span class="hljs-keyword">await</span> response.text();
+<span class="hljs-built_in">console</span>.log(content);
+</code></pre>
+</section><section class="slide"><h2>Await</h2>
+<p>Im offiziellen ES Standard sind top-level <code>await</code> Statements noch nicht enthalten - sie sind aber in Chrome verfügbar.</p>
+<p>Gültiges ES 2019:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetchWikipedia</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> fetch(<span class="hljs-string">'https://en.wikipedia.org'</span>);
+  <span class="hljs-keyword">const</span> content = <span class="hljs-keyword">await</span> response.text();
+  <span class="hljs-built_in">console</span>.log(content);
+}
+
+fetchWikipedia();
+</code></pre>
+</section><section class="slide"><h2>Async &#x26; await</h2>
+<p>Beispiel: fetchen des ersten nicht erledigten Todos:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">logFirstIncompleteTodo</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">let</span> i = <span class="hljs-number">1</span>;
+  <span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>) {
+    <span class="hljs-keyword">const</span> reply = <span class="hljs-keyword">await</span> fetch(
+      <span class="hljs-string">`https://jsonplaceholder.typicode.com/todos/<span class="hljs-subst">${i}</span>`</span>
+    );
+    <span class="hljs-keyword">const</span> todoData = <span class="hljs-keyword">await</span> reply.json();
+    <span class="hljs-keyword">if</span> (todoData.completed) {
+      i++;
+    } <span class="hljs-keyword">else</span> {
+      <span class="hljs-built_in">console</span>.log(todoData);
+      <span class="hljs-keyword">break</span>;
+    }
+  }
+}
+
+logFirstIncompleteTodo();
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Fetch - Fehlerbehandlung</h1>
 </section><section class="slide"><h2>Fehlerbehandlung</h2>
 <pre><code class="hljs language-js">fetch(<span class="hljs-string">'/'</span>)
