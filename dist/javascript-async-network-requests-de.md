@@ -1,3 +1,5 @@
+# JavaScript: Async und Netzwerkanfragen
+
 # Promises & Fetch
 
 <!-- https://developers.google.com/web/fundamentals/primers/promises -->
@@ -127,3 +129,123 @@ fetch(url, {
 - Wetter-API (https://openweathermap.org)
 - https://developers.google.com/web/ilt/pwa/lab-fetch-api
 - https://developers.google.com/web/ilt/pwa/lab-promises
+
+# Fetch - Fehlerbehandlung
+
+## Fehlerbehandlung
+
+```js
+fetch('/')
+  .then(response => response.text())
+  .then(console.log);
+```
+
+Verschiedene Fehler können hier auftreten:
+
+- Browser ist offline (keine Antwort)
+- Server antwortet mit 404 oder ähnlicher Meldung
+- Antwort ist leer oder beinhaltet etwas anderes als text
+
+## Fehlerbehandlung: grundlegende Version
+
+```js
+fetch('/')
+  .then(response => response.text())
+  .catch(() => console.log('some error occured'))
+  .then(console.log);
+```
+
+## Fehlerbehandlung: Überprüfen des Status
+
+Standardmäßig wird eine Antwort mit einem Fehlercode (z.B. 404 oder 500) auch als Erfolg angesehen.
+
+```js
+fetch('/')
+  .then(response => {
+    if (response.ok) {
+      handleReply(response);
+    } else {
+      console.log('Network response was not ok');
+    }
+  })
+  .catch(() => {
+    console.log('Network error');
+  });
+```
+
+## Fehlerbehandlung: Überprüfen des Status
+
+```js
+const handleReply = response => {
+  response
+    .json()
+    .then(data => {
+      console.log(data);
+    })
+    .catch(error => {
+      console.log('Could not parse answer as json');
+    });
+};
+```
+
+## Beispiel: Todos - grundlegend
+
+```js
+fetch('https://jsonplaceholder.typicode.com/todos')
+  .then(response => response.json())
+  .catch(error => {
+    console.log('error when getting todos');
+  })
+  .then(updatePageWithNewTodos);
+```
+
+## Beispiel: Todos - fortgeschritten
+
+```js
+fetch('https://jsonplaceholder.typicode.com/todos')
+  .then(response => {
+    if (!response.ok) {
+      throw response.statusText;
+    } else {
+      jesponse.json().then(updatePageWithNewTodos);
+    }
+  })
+  .catch(error => console.log('unable to parse data'))
+  .then(updatePageWithNewTodos);
+```
+
+# Promises fortgeschritten
+
+## Eigene Promises
+
+Promise, die nach 1 Sekunde entweder mit hello antwortet oder nicht erfolgreich ist
+
+```js
+const getReply = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    if (Math.random() > 0.5) {
+      resolve('hello');
+    } else {
+      reject('no access');
+    }
+  }, 1000);
+});
+```
+
+## Promise.all
+
+```js
+const promise1 = fetch('/users.json');
+const promise2 = fetch('/articles.json');
+Promise.all([promise1, promise2])
+  .then(results => {
+    console.log('all data has loaded');
+  })
+  .catch(error => {
+    console.log(`one or more requests failed: ${error}`);
+  });
+```
+
+## Promise.race
+
+Das erste erfolgreiche Promise als Resultat verwenden

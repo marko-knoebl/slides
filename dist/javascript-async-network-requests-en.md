@@ -1,3 +1,5 @@
+# JavaScript: Async and network requests
+
 # Promises & Fetch
 
 <!-- https://developers.google.com/web/fundamentals/primers/promises -->
@@ -127,3 +129,123 @@ fetch(url, {
 - weather API (https://openweathermap.org)
 - https://developers.google.com/web/ilt/pwa/lab-fetch-api
 - https://developers.google.com/web/ilt/pwa/lab-promises
+
+# Fetch - Error handling
+
+## Error handling
+
+```js
+fetch('/')
+  .then(response => response.text())
+  .then(console.log);
+```
+
+Various errors may occur here:
+
+- browser is offline (no reply)
+- server responds with a 404 or similar
+- received non-text or empty reply
+
+## Error handling: basic version
+
+```js
+fetch('/')
+  .then(response => response.text())
+  .catch(() => console.log('some error occured'))
+  .then(console.log);
+```
+
+## Error handling: checking status
+
+By default a reply with an error code (e.g. 404 or 500) is considered a success.
+
+```js
+fetch('/')
+  .then(response => {
+    if (response.ok) {
+      handleReply(response);
+    } else {
+      console.log('Network response was not ok');
+    }
+  })
+  .catch(() => {
+    console.log('Network error');
+  });
+```
+
+## Error handling: checking status
+
+```js
+const handleReply = response => {
+  response
+    .json()
+    .then(data => {
+      console.log(data);
+    })
+    .catch(error => {
+      console.log('Could not parse answer as json');
+    });
+};
+```
+
+## Example: fetching todos - basic
+
+```js
+fetch('https://jsonplaceholder.typicode.com/todos')
+  .then(response => response.json())
+  .catch(error => {
+    console.log('error when getting todos');
+  })
+  .then(updatePageWithNewTodos);
+```
+
+## Example: fetching todos - advanced
+
+```js
+fetch('https://jsonplaceholder.typicode.com/todos')
+  .then(response => {
+    if (!response.ok) {
+      throw response.statusText;
+    } else {
+      jesponse.json().then(updatePageWithNewTodos);
+    }
+  })
+  .catch(error => console.log('unable to parse data'))
+  .then(updatePageWithNewTodos);
+```
+
+# Promises advanced
+
+## Creating custom promises
+
+A promise that, after 1 second, either results in the string `'hello'` or fails
+
+```js
+const getReply = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    if (Math.random() > 0.5) {
+      resolve('hello');
+    } else {
+      reject('no access');
+    }
+  }, 1000);
+});
+```
+
+## Promise.all
+
+```js
+const promise1 = fetch('/users.json');
+const promise2 = fetch('/articles.json');
+Promise.all([promise1, promise2])
+  .then(results => {
+    console.log('all data has loaded');
+  })
+  .catch(error => {
+    console.log(`one or more requests failed: ${error}`);
+  });
+```
+
+## Promise.race
+
+Use the first successful promise as the result
