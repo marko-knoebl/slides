@@ -29,7 +29,13 @@ See https://docs.npmjs.com/files/package.json
 
 ## Ignoring files
 
-Create a `.gitignore` or `.npmignore` file that lists files that shouldn't be published (e.g. _node_modules_, _package-lock.json_)
+Create a `.gitignore` or `.npmignore` file that lists files that shouldn't be published:
+
+```
+.git
+node_modules
+package-lock.json
+```
 
 ## Publishing
 

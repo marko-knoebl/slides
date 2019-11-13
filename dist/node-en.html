@@ -2078,7 +2078,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </section></section><section class="slides-section"><section class="slide"><h1>npm</h1>
 </section><section class="slide"><h2>npm registry</h2>
 <p>The npm registry is an online registry consisting primarily of open source JavaScript packages</p>
-<p>With <a href="http://www.modulecounts.com/">over 800,000 packages</a> it is by far the largest software registry in existence</p>
+<p>With <a href="http://www.modulecounts.com/">over 1 million packages</a> it is by far the largest software registry in existence</p>
 <p>examples: <a href="https://www.npmjs.com/browse/depended">most depended upon packages</a></p>
 </section><section class="slide"><h2>Package managers</h2>
 <p>two major package managers for the npm registry:</p>
@@ -2087,7 +2087,6 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li><em>yarn</em>: may be installed separately</li>
 </ul>
 </section><section class="slide"><h2>Package configuration</h2>
-<p>All the packages we find on <a href="https://www.npmjs.com">https://www.npmjs.com</a> are public packages that we can install.</p>
 <p>Both public packages and our private projects will be managed via a configuration file named <em>package.json</em>.</p>
 </section><section class="slide"><h2>Package configuration</h2>
 <p>In order to add dependencies to our project we can start out with an empty <em>package.json</em> configuration:</p>
@@ -2095,14 +2094,16 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </code></pre>
 <p>We could also create such a file with some content via <code>npm init</code> (or <code>npm init -y</code> for default options)</p>
 </section><section class="slide"><h2>Adding dependencies</h2>
-<p>we can add some dependencies via:</p>
+<p>We can add some dependencies via:</p>
 <pre><code class="hljs language-bash">npm install lodash bootstrap
 </code></pre>
-<p>if we develop a reusable library we can add dependencies that are only used for development via:</p>
+</section><section class="slide"><h2>Adding dependencies</h2>
+<p>If we are developing a reusable library that we want to publish to the npm package registry:</p>
+<p>Install dependencies that are only needed for development as <em>dev-dependencies</em>:</p>
 <pre><code class="hljs language-bash">npm install eslint --save-dev
 </code></pre>
 </section><section class="slide"><h2>Adding dependencies</h2>
-<p>What did the previous commands do? We can see the consequences in three locations:</p>
+<p>Effects of the previous <code>npm install</code> commands:</p>
 <ul>
 <li><code>package.json</code> - lists minimum versions of the packages we just installed</li>
 <li><code>node_modules</code> - folder that contains all installed packages</li>
@@ -2119,7 +2120,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </ul>
 </section><section class="slide"><h2>Dependencies in package-lock.json</h2>
 <p>The file <code>package-lock.json</code> lists <em>exact</em> versions for all dependencies and their recursive dependencies</p>
-</section><section class="slide"><h2>node_modules</h2>
+</section><section class="slide"><h2>node_modules folder</h2>
 <p>contains the actual packages</p>
 <p>this should not be put under version control - instead, this folder can be recreated from <code>package.json</code> by running <code>npm install</code> (without any arguments)</p>
 </section><section class="slide"><h2>npm scripts</h2>
@@ -2174,7 +2175,11 @@ cowsay hello
 </section><section class="slide"><h2>package.json entries</h2>
 <p>See <a href="https://docs.npmjs.com/files/package.json">https://docs.npmjs.com/files/package.json</a></p>
 </section><section class="slide"><h2>Ignoring files</h2>
-<p>Create a <code>.gitignore</code> or <code>.npmignore</code> file that lists files that shouldn't be published (e.g. <em>node_modules</em>, <em>package-lock.json</em>)</p>
+<p>Create a <code>.gitignore</code> or <code>.npmignore</code> file that lists files that shouldn't be published:</p>
+<pre><code class="hljs language-stylus"><span class="hljs-selector-class">.git</span>
+node_modules
+package-lock<span class="hljs-selector-class">.json</span>
+</code></pre>
 </section><section class="slide"><h2>Publishing</h2>
 <pre><code class="hljs language-bash">npm publish --access public
 </code></pre>

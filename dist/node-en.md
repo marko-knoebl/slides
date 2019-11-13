@@ -61,7 +61,7 @@ Major releases are made available every 6 months. Major releases with even versi
 
 The npm registry is an online registry consisting primarily of open source JavaScript packages
 
-With [over 800,000 packages](http://www.modulecounts.com/) it is by far the largest software registry in existence
+With [over 1 million packages](http://www.modulecounts.com/) it is by far the largest software registry in existence
 
 examples: [most depended upon packages](https://www.npmjs.com/browse/depended)
 
@@ -73,8 +73,6 @@ two major package managers for the npm registry:
 - _yarn_: may be installed separately
 
 ## Package configuration
-
-All the packages we find on https://www.npmjs.com are public packages that we can install.
 
 Both public packages and our private projects will be managed via a configuration file named _package.json_.
 
@@ -90,13 +88,17 @@ We could also create such a file with some content via `npm init` (or `npm init 
 
 ## Adding dependencies
 
-we can add some dependencies via:
+We can add some dependencies via:
 
 ```bash
 npm install lodash bootstrap
 ```
 
-if we develop a reusable library we can add dependencies that are only used for development via:
+## Adding dependencies
+
+If we are developing a reusable library that we want to publish to the npm package registry:
+
+Install dependencies that are only needed for development as _dev-dependencies_:
 
 ```bash
 npm install eslint --save-dev
@@ -104,7 +106,7 @@ npm install eslint --save-dev
 
 ## Adding dependencies
 
-What did the previous commands do? We can see the consequences in three locations:
+Effects of the previous `npm install` commands:
 
 - `package.json` - lists minimum versions of the packages we just installed
 - `node_modules` - folder that contains all installed packages
@@ -126,7 +128,7 @@ possible configurations:
 
 The file `package-lock.json` lists _exact_ versions for all dependencies and their recursive dependencies
 
-## node_modules
+## node_modules folder
 
 contains the actual packages
 
@@ -202,7 +204,13 @@ See https://docs.npmjs.com/files/package.json
 
 ## Ignoring files
 
-Create a `.gitignore` or `.npmignore` file that lists files that shouldn't be published (e.g. _node_modules_, _package-lock.json_)
+Create a `.gitignore` or `.npmignore` file that lists files that shouldn't be published:
+
+```
+.git
+node_modules
+package-lock.json
+```
 
 ## Publishing
 
