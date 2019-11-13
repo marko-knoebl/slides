@@ -2204,22 +2204,22 @@ useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =></sp
   ...
 };
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>State management</h1>
+</section></section><section class="slides-section"><section class="slide"><h1>State management with reducers</h1>
 </section><section class="slide"><h2>State management</h2>
 <p>In more complex fontend-applications it makes sense to manage the state (model) separately from the view.</p>
 <p>Often the entire application state is represented by a data model and every change to the state will be done by triggering a change to the data model.</p>
 </section><section class="slide"><h2>State management tools</h2>
 <ul>
 <li>reducer hook (included in React, conceptually similar to Redux)</li>
-<li>Redux (commonly used with React)</li>
+<li>Redux (based on reducers, commonly used with React)</li>
 <li>MobX (commonly used with React)</li>
 <li>ngrx (used with Angular)</li>
 <li>vuex (used with vue)</li>
 </ul>
-</section></section><section class="slides-section"><section class="slide"><h1>State management with actions and reducers</h1>
 </section><section class="slide"><h2>State management with actions and reducers</h2>
 <p>Technique that is used in <em>Redux</em> and in React's <em>reducer hook</em>:</p>
-<p>An event inside an application triggers a so-called <em>action</em>. Based on that <em>action</em> the current <em>state</em> will be transformed into a new <em>state</em> via a <em>reducer</em> function.</p>
+<p>An event inside an application triggers a so-called <em>action</em>.</p>
+<p>Based on that <em>action</em> the current <em>state</em> will be transformed into a new <em>state</em> via a <em>reducer</em> function.</p>
 </section><section class="slide"><h2>Reducer diagram</h2>
 <svg id="redux-flow-svg" version="1.1" width="1000" height="500" viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg">
   <defs>
@@ -2315,47 +2315,60 @@ useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =></sp
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> todosReducer = <span class="hljs-function">(<span class="hljs-params">oldState, action</span>) =></span> {
   <span class="hljs-keyword">switch</span> (action.type) {
     <span class="hljs-keyword">case</span> <span class="hljs-string">'ADD_TODO'</span>:
-      <span class="hljs-keyword">return</span> [...oldState, {
-        <span class="hljs-attr">title</span>: action.title,
-        <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span>,
-        <span class="hljs-attr">id</span>: generateId() <span class="hljs-comment">// dummy function</span>
-      }]
+      <span class="hljs-keyword">return</span> [
+        ...oldState,
+        {
+          <span class="hljs-attr">title</span>: action.title,
+          <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span>,
+          <span class="hljs-attr">id</span>: generateId(), <span class="hljs-comment">// dummy function</span>
+        },
+      ];
     <span class="hljs-keyword">case</span> <span class="hljs-string">'DELETE_TODO'</span>:
-      <span class="hljs-keyword">return</span> oldState.filter(<span class="hljs-function"><span class="hljs-params">todo</span> =></span> todo.id !== action.id)
+      <span class="hljs-keyword">return</span> oldState.filter(<span class="hljs-function"><span class="hljs-params">todo</span> =></span> todo.id !== action.id);
     <span class="hljs-keyword">default</span>:
       <span class="hljs-comment">// unknown action - change nothing</span>
       <span class="hljs-keyword">return</span> oldState;
   }
-}
+};
 </code></pre>
 </section><section class="slide"><h2>Example: todos state management</h2>
 <p>Usage of the reducer (remember: it takes the old state and an action and returns the new state)</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> state1 = [
-  {<span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">"groceries"</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span>}
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'groceries'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
 ];
-<span class="hljs-keyword">const</span> state2 = todosReducer(
-  state1,
-  {<span class="hljs-attr">type</span>: <span class="hljs-string">"ADD_TODO"</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">"gardening"</span>}
-);
-<span class="hljs-keyword">const</span> state3 = todosReducer(
-  state2,
-  {<span class="hljs-attr">type</span>: <span class="hljs-string">"DELETE_TODO"</span>, <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>}
-)
-<span class="hljs-comment">// state3: [{id: 2, title: "gardening", completed: false}]</span>
+<span class="hljs-keyword">const</span> state2 = todosReducer(state1, {
+  <span class="hljs-attr">type</span>: <span class="hljs-string">'ADD_TODO'</span>,
+  <span class="hljs-attr">title</span>: <span class="hljs-string">'gardening'</span>,
+});
+<span class="hljs-keyword">const</span> state3 = todosReducer(state2, {
+  <span class="hljs-attr">type</span>: <span class="hljs-string">'DELETE_TODO'</span>,
+  <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>,
+});
+<span class="hljs-built_in">console</span>.log(state3);
+<span class="hljs-comment">// [{id: 2, title: "gardening", completed: false}]</span>
 </code></pre>
-</section><section class="slide"><h2>Example: todos state management</h2>
-<p>Example usage with the reducer hook:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> todosReducer <span class="hljs-keyword">from</span> <span class="hljs-string">'../reducers/todos'</span>;
+</section></section><section class="slides-section"><section class="slide"><h1>Reducer Hook</h1>
+</section><section class="slide"><h2>Reducer Hook</h2>
+<p>For managing state we can now also utilize <code>useReducer</code> in addition to <code>useState</code>:</p>
+<pre><code class="hljs language-js">useState(reducer, initialState);
+</code></pre>
+</section><section class="slide"><h2>Reducer Hook</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> TodoApp = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  <span class="hljs-keyword">const</span> [todos, dispatch] = useReducer(
+    todosReducer,
+    initialTodos
+  );
 
-<span class="hljs-keyword">const</span> initialState = [];
-
-<span class="hljs-keyword">const</span> MyComponent = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  <span class="hljs-keyword">const</span> [todos, dispatch] = useReducer(todosReducer, initialState);
-
-  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> {
-    dispatch({type: "DELETE_TODO", id: 2})
-  }}>delete (demo)<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span>;
-}
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+      ...
+      </span>&#x3C;button
+        onClick={() => dispatch({ type: 'DELETE_ALL' })}>
+        delete all todos
+      &#x3C;/button><span class="xml">
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+  );
+};
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Automated testing</h1>
 </section><section class="slide"><h2>Automated testing</h2>

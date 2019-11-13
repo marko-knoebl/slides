@@ -223,7 +223,7 @@ const Clock = () => {
 };
 ```
 
-# State management
+# State management with reducers
 
 ## State management
 
@@ -234,18 +234,18 @@ Often the entire application state is represented by a data model and every chan
 ## State management tools
 
 - reducer hook (included in React, conceptually similar to Redux)
-- Redux (commonly used with React)
+- Redux (based on reducers, commonly used with React)
 - MobX (commonly used with React)
 - ngrx (used with Angular)
 - vuex (used with vue)
-
-# State management with actions and reducers
 
 ## State management with actions and reducers
 
 Technique that is used in _Redux_ and in React's _reducer hook_:
 
-An event inside an application triggers a so-called _action_. Based on that _action_ the current _state_ will be transformed into a new _state_ via a _reducer_ function.
+An event inside an application triggers a so-called _action_.
+
+Based on that _action_ the current _state_ will be transformed into a new _state_ via a _reducer_ function.
 
 ## Reducer diagram
 
@@ -309,18 +309,21 @@ The reducer function returns the new state. Importantly, the reducer function do
 const todosReducer = (oldState, action) => {
   switch (action.type) {
     case 'ADD_TODO':
-      return [...oldState, {
-        title: action.title,
-        completed: false,
-        id: generateId() // dummy function
-      }]
+      return [
+        ...oldState,
+        {
+          title: action.title,
+          completed: false,
+          id: generateId(), // dummy function
+        },
+      ];
     case 'DELETE_TODO':
-      return oldState.filter(todo => todo.id !== action.id)
+      return oldState.filter(todo => todo.id !== action.id);
     default:
       // unknown action - change nothing
       return oldState;
   }
-}
+};
 ```
 
 ## Example: todos state management
@@ -329,35 +332,49 @@ Usage of the reducer (remember: it takes the old state and an action and returns
 
 ```js
 const state1 = [
-  {id: 1, title: "groceries", completed: false}
+  { id: 1, title: 'groceries', completed: false },
 ];
-const state2 = todosReducer(
-  state1,
-  {type: "ADD_TODO", title: "gardening"}
-);
-const state3 = todosReducer(
-  state2,
-  {type: "DELETE_TODO", id: 1}
-)
-// state3: [{id: 2, title: "gardening", completed: false}]
+const state2 = todosReducer(state1, {
+  type: 'ADD_TODO',
+  title: 'gardening',
+});
+const state3 = todosReducer(state2, {
+  type: 'DELETE_TODO',
+  id: 1,
+});
+console.log(state3);
+// [{id: 2, title: "gardening", completed: false}]
 ```
 
-## Example: todos state management
+# Reducer Hook
 
-Example usage with the reducer hook:
+## Reducer Hook
+
+For managing state we can now also utilize `useReducer` in addition to `useState`:
 
 ```js
-import todosReducer from '../reducers/todos';
+useState(reducer, initialState);
+```
 
-const initialState = [];
+## Reducer Hook
 
-const MyComponent = () => {
-  const [todos, dispatch] = useReducer(todosReducer, initialState);
+```js
+const TodoApp = () => {
+  const [todos, dispatch] = useReducer(
+    todosReducer,
+    initialTodos
+  );
 
-  return <button onClick={() => {
-    dispatch({type: "DELETE_TODO", id: 2})
-  }}>delete (demo)</button>;
-}
+  return (
+    <div>
+      ...
+      <button
+        onClick={() => dispatch({ type: 'DELETE_ALL' })}>
+        delete all todos
+      </button>
+    </div>
+  );
+};
 ```
 
 # Automated testing
