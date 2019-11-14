@@ -1161,7 +1161,7 @@ const Bordered = props => (
 );
 ```
 
-# Eigne Events
+# Eigene Events
 
 ## Datenfluss
 
@@ -1212,7 +1212,17 @@ Beispiele:
   - Bonus: Umsetzung des APIs, sodass es kompatibel zu normalen input-Elementen ist und input-Elemente leicht durch NumberInput-Komponeneten ersetzt werden können
   - Bonus: zusätzliche min / max - Property bei der Komponente
 
-# Komponenten-Library: Material-UI
+# Komponentenlibraries
+
+## Komponentenlibraries
+
+- Material UI: React-Komponenten im _Material Design_
+- React Native & React Native Web: React components & framework for mobile & web apps
+- React Bootstrap
+- Blueprint
+- ...
+
+## Material-UI
 
 Vorgefertigte React-Komponenten im Material-Design-Stil (Stil von Google/Android)
 
@@ -1222,7 +1232,7 @@ https://material-ui.com
 
 siehe Info-Boxen zu _Installation_ und _Usage_
 
-## Übungen
+## Material-UI: Übungen
 
 - Button
 - Todo App im Material Style

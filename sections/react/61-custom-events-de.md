@@ -1,4 +1,4 @@
-# Eigne Events
+# Eigene Events
 
 ## Datenfluss
 
