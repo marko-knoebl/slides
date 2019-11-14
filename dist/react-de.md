@@ -18,10 +18,7 @@ Marko Knöbl
 
 ## Vorstellung der Teilnehmer
 
-- Name
-- Firma
 - Aktuelle Projekte
-- Grund der Schulung
 - Vorkenntnisse
 - Erwartungen / Wünsche
 
@@ -94,8 +91,6 @@ Marko Knöbl
 - Februar 2019: Einführung von Hooks
 
 # Create-React-App
-
-eine neue React-Anwendung erstellen
 
 ## Entwicklung mit node.js und npm
 
@@ -279,27 +274,34 @@ Eingeteilt in _User Settings_ und _Workspace Settings_
 Empfehlungen:
 
 - Accept Suggestion on Commit Character (Autovervollständigung ohne _Enter_): _deaktivieren_
-- Auto Save: _afterDelay_
 - Tab Size: _2_ oder _4_
 
 Weitere Möglichkeiten:
 
+- Auto Save
+- Format on Save
 - Word Wrap
 - EOL
 - Workbench: Color Theme
 
-## VS Code - Kurzbefehle
+## VS Code - Befehle
 
-- _F1_ oder _Ctrl_ + _Shift_ + _P_: Kommandopalette
+_F1_ oder _Ctrl_ + _Shift_ + _P_: Befehlspalette
 
-<!-- list separator -->
+- durchsuchbar
+- zeigt Kurzbefehle an
 
-- _Strg_ + _F_: Suchen in Datei
-- _Alt_ + _Shift_ + _F_: Formatieren der Datei
-- _Ctrl_ + _#_: aus- / einkommentieren
-- _F12_: Zur Definition springen
-- _Shift_ + _F12_: Definition anzeigen
-- _F2_: Umbenennen von Variablen
+Beispiele für Befehle:
+
+- _Search a string in the file_
+- _Search: Find in Files_
+- _Format Document_
+- _Toggle line comment_ / _Toggle block comment_
+- _Go to definition_ / _Peek definition_ (nur für bestimmte Dateitypen)
+- _Rename symbol_ (nur für bestimmte Dateitypen)
+
+## VS Code - Tastenkürzel
+
 - _Ctrl_ + _F2_: Mehrere Textcursor setzen
 - _Alt_ + Mausklick: Mehrere Textcursor setzen
 
@@ -547,10 +549,12 @@ let join = (strings, separator='') => {
 
 ## this - quirks
 
-- _this_ bezieht sich in Objektmethoden üblicherweise auf das aktuelle Objekt
-- **allerdings**:
-  - jeder Funktionsaufruf setzt _this_ neu (nicht nur Methodenaufrufe)
-  - _this_ wird nur richtig gesetzt, wenn die Methode mit der Syntax `object.method()` aufgerufen wird
+In Objektmethoden bezieht sich `this` üblicherweise auf das aktuelle Objekt
+
+**allerdings**:
+
+- jeder Funktionsaufruf setzt _this_ neu (nicht nur Methodenaufrufe)
+- _this_ wird nur richtig gesetzt, wenn die Methode mit der Syntax `object.method()` aufgerufen wird
 
 ## Problem: _this_ in anonymen Funktionen
 
@@ -737,10 +741,8 @@ Rat: in einem Event-Handler nur 1x `setState` aufrufen.
 Wenn doch mehrere Aufrufe von `setState` erfolgen und ein Aufruf auf der vorhergehenden Zustandsänderung basiert:
 
 ```js
-// löschen eines Todos
-this.setState(oldState => ({
-  todos: oldState.todos.slice(0, oldState.todos.length - 1),
-}));
+this.setState(oldState => ({ count: oldState.count + 1 }));
+this.setState(oldState => ({ count: oldState.count + 1 }));
 ```
 
 Wir übergeben setState eine Funktion, die den alten in den neuen Zustand überführt.
@@ -1107,7 +1109,7 @@ Beispiel:
 
 ## Props in Funktionskomponenten
 
-Beispiel:
+Beispiel (einfach):
 
 ```jsx
 const Rating = props => (
@@ -1118,9 +1120,9 @@ const Rating = props => (
 oder
 
 ```jsx
-const Rating = {stars} => {
+const Rating = ({ stars }) => (
   <div className="rating">{'*'.repeat(stars)}</div>
-}
+);
 ```
 
 ## Props in Klassenkomponenten
@@ -1159,7 +1161,7 @@ const Bordered = props => (
 );
 ```
 
-# Events
+# Eigne Events
 
 ## Datenfluss
 

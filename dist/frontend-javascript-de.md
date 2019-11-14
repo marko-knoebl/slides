@@ -18,10 +18,7 @@ Marko Knöbl
 
 ## Vorstellung der Teilnehmer
 
-- Name
-- Firma
 - Aktuelle Projekte
-- Grund der Schulung
 - Vorkenntnisse
 - Erwartungen / Wünsche
 
@@ -456,10 +453,12 @@ let currentBalance = transactions.reduce(
 
 ## this - quirks
 
-- _this_ bezieht sich in Objektmethoden üblicherweise auf das aktuelle Objekt
-- **allerdings**:
-  - jeder Funktionsaufruf setzt _this_ neu (nicht nur Methodenaufrufe)
-  - _this_ wird nur richtig gesetzt, wenn die Methode mit der Syntax `object.method()` aufgerufen wird
+In Objektmethoden bezieht sich `this` üblicherweise auf das aktuelle Objekt
+
+**allerdings**:
+
+- jeder Funktionsaufruf setzt _this_ neu (nicht nur Methodenaufrufe)
+- _this_ wird nur richtig gesetzt, wenn die Methode mit der Syntax `object.method()` aufgerufen wird
 
 ## Problem: _this_ in anonymen Funktionen
 

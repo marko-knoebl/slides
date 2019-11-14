@@ -1,4 +1,4 @@
-# Events
+# Custom events
 
 ## Data/event flow
 

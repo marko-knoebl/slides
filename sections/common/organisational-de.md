@@ -16,10 +16,7 @@ Marko Knöbl
 
 ## Vorstellung der Teilnehmer
 
-- Name
-- Firma
 - Aktuelle Projekte
-- Grund der Schulung
 - Vorkenntnisse
 - Erwartungen / Wünsche
 

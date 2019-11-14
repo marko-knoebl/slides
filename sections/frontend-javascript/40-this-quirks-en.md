@@ -9,7 +9,7 @@ in object methods, `this` usually refers to the current object
 - each function call sets `this` (not just method calls)
 - `this` will only be set correctly if the method is called via the syntax `object.method()`
 
-## problem: _this_ in anonymous functions
+## Problem: _this_ in anonymous functions
 
 ```js
 class myComponent {
@@ -24,7 +24,7 @@ class myComponent {
 }
 ```
 
-## solution: _arrow functions_
+## Solution: _arrow functions_
 
 ```js
 class myComponent {
@@ -56,7 +56,7 @@ let fg = foo.greet;
 fg(); // doesn't work (this is undefined)
 ```
 
-## solution: arrow methods
+## Solution: arrow methods
 
 Available since ES2018:
 
@@ -71,7 +71,7 @@ class Foo {
 }
 ```
 
-## solution: binding the method
+## Solution: binding the method
 
 ```js
 let f = new Foo();

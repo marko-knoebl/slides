@@ -18,18 +18,17 @@ Marko Knöbl
 
 ## Introduction of Participants
 
-- Name
-- Company
-- Current Projects
-- Prior Knowledge
-- Expectations
+- current projects
+- prior knowledge
+- expectations
 
 ## Organizational
 
-- Duration
-- Breaks
-- Materials
-- Questions, Feedback?
+- duration
+- breaks
+- lunch
+- materials
+- questions, feedback?
 
 # Topics
 

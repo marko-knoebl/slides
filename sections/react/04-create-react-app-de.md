@@ -1,7 +1,5 @@
 # Create-React-App
 
-eine neue React-Anwendung erstellen
-
 ## Entwicklung mit node.js und npm
 
 - node.js: JS-Runtime

@@ -33,26 +33,33 @@ Eingeteilt in _User Settings_ und _Workspace Settings_
 Empfehlungen:
 
 - Accept Suggestion on Commit Character (Autovervollständigung ohne _Enter_): _deaktivieren_
-- Auto Save: _afterDelay_
 - Tab Size: _2_ oder _4_
 
 Weitere Möglichkeiten:
 
+- Auto Save
+- Format on Save
 - Word Wrap
 - EOL
 - Workbench: Color Theme
 
-## VS Code - Kurzbefehle
+## VS Code - Befehle
 
-- _F1_ oder _Ctrl_ + _Shift_ + _P_: Kommandopalette
+_F1_ oder _Ctrl_ + _Shift_ + _P_: Befehlspalette
 
-<!-- list separator -->
+- durchsuchbar
+- zeigt Kurzbefehle an
 
-- _Strg_ + _F_: Suchen in Datei
-- _Alt_ + _Shift_ + _F_: Formatieren der Datei
-- _Ctrl_ + _#_: aus- / einkommentieren
-- _F12_: Zur Definition springen
-- _Shift_ + _F12_: Definition anzeigen
-- _F2_: Umbenennen von Variablen
+Beispiele für Befehle:
+
+- _Search a string in the file_
+- _Search: Find in Files_
+- _Format Document_
+- _Toggle line comment_ / _Toggle block comment_
+- _Go to definition_ / _Peek definition_ (nur für bestimmte Dateitypen)
+- _Rename symbol_ (nur für bestimmte Dateitypen)
+
+## VS Code - Tastenkürzel
+
 - _Ctrl_ + _F2_: Mehrere Textcursor setzen
 - _Alt_ + Mausklick: Mehrere Textcursor setzen

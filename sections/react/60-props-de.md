@@ -17,7 +17,7 @@ Beispiel:
 
 ## Props in Funktionskomponenten
 
-Beispiel:
+Beispiel (einfach):
 
 ```jsx
 const Rating = props => (
@@ -28,9 +28,9 @@ const Rating = props => (
 oder
 
 ```jsx
-const Rating = {stars} => {
+const Rating = ({ stars }) => (
   <div className="rating">{'*'.repeat(stars)}</div>
-}
+);
 ```
 
 ## Props in Klassenkomponenten

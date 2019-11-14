@@ -18,18 +18,17 @@ Marko Knöbl
 
 ## Introduction of Participants
 
-- Name
-- Company
-- Current Projects
-- Prior Knowledge
-- Expectations
+- current projects
+- prior knowledge
+- expectations
 
 ## Organizational
 
-- Duration
-- Breaks
-- Materials
-- Questions, Feedback?
+- duration
+- breaks
+- lunch
+- materials
+- questions, feedback?
 
 # Agenda
 
@@ -199,6 +198,8 @@ we can also change from XML to JS in properties:
 </a>
 ```
 
+Note there are no quote characters around the value of _href_
+
 ## JSX Properties: task
 
 Show a picture based on an id; make use of this function:
@@ -266,35 +267,43 @@ Terminals will run in the currently open folder
 
 Via _File - Preferences - Settings_
 
-Is split in _User Settings_ and _Workspace Settings_
+Is split into _User Settings_ and _Workspace Settings_
 
 ## VS Code: Configuration options
 
 Recommendations:
 
 - Accept Suggestions on Commit Character (Autocomplete on other keys than _Enter_): _deactivate_
-- Auto Save: _afterDelay_
 - Tab Size: _2_ or _4_
 
-Further Options:
+Further options:
 
+- Auto Save
+- Format on Save
 - Word Wrap
 - EOL
 - Workbench: Color Theme
 
-## VS Code: Shortcuts
+## VS Code - Commands
 
-- _F1_ or _Ctrl_ + _Shift_ + _P_: command palette
+_F1_ or _Ctrl_ + _Shift_ + _P_: display command palette
 
-<!-- list separator -->
+- searchable
+- shows shortcuts
 
-- _Ctrl_ + _F_: Search in File
-- _Alt_ + _Shift_ + _F_: Auto-format file contents
-- _Ctrl_ + _#_: comment / uncomment
-- _F12_: Go to definition
-- _Shift_ + _F12_: Peek definition
-- _F2_: rename variables
-- _Alt_ + mouse click: Activate multiple text cursors
+Example commands:
+
+- _Search a string in the file_
+- _Search: Find in Files_
+- _Format Document_
+- _Toggle line comment_ / _Toggle block comment_
+- _Go to definition_ / _Peek definition_ (only for certain file types)
+- _Rename symbol_ (only for certain file types)
+
+## VS Code - keyboard shortcuts
+
+- _Ctrl_ + _F2_: set multiple text cursors
+- _Alt_ + click: set multiple text cursors
 
 # Prettier
 
@@ -349,7 +358,7 @@ JavaScript is standardised under the name _ECMAScript_ (ES)
 
 ## Important changes in ES2015
 
-## modules & imports
+## Modules & imports
 
 - It's possible to import objects from other js-files - no more global namespace
 - Is handled by webpack in most cases
@@ -366,7 +375,7 @@ export class User {
 import { User } from 'user.js';
 ```
 
-## modules & imports
+## Modules & imports
 
 ```js
 // user.js
@@ -381,7 +390,7 @@ export default class User {
 import User from 'user.js';
 ```
 
-## imports in webpack
+## Imports in webpack
 
 Bundlers like webpack can deviate from standard JavaScript import behavior:
 
@@ -411,7 +420,7 @@ names = ['Andrew', 'Bob', 'Claire']; // invalid!
 names[0] = 'Andrew'; // valid
 ```
 
-## destructuring assignment
+## Destructuring assignment
 
 ```js
 let a = 1;
@@ -421,7 +430,7 @@ let b = 2;
 const [result, errors] = someComputation();
 ```
 
-## destructuring assignment
+## Destructuring assignment
 
 ```js
 const person = { name: 'John', age: 48 };
@@ -429,7 +438,7 @@ const person = { name: 'John', age: 48 };
 const { name, age } = person;
 ```
 
-## arrow functions
+## Arrow functions
 
 - short notation for anonymous functions
 - leaves _this_ unchanged (does not reassign)
@@ -438,10 +447,11 @@ const { name, age } = person;
 let multiply = (a, b) => {
   return a * b;
 };
+
 let multiply = (a, b) => a * b;
 ```
 
-## arrow functions
+## Arrow functions
 
 if there's exactly one parameter: parentheses are optional
 
@@ -458,11 +468,11 @@ const getState = () => ({
 });
 ```
 
-## classes
+## Classes
 
 Class syntax replaces the old constructor functions and prototypes
 
-## classes
+## Classes
 
 ```js
 class Person {
@@ -476,7 +486,7 @@ class Person {
 }
 ```
 
-## inheritance
+## Inheritance
 
 ```js
 class User extends Person {
@@ -499,7 +509,7 @@ for (let name of names) {
 }
 ```
 
-## spread syntax (arrays)
+## Spread syntax (arrays and objects)
 
 ```js
 let squares = [1, 4, 9];
@@ -507,23 +517,13 @@ let moreSquares = [...squares, 16, 25];
 // moreSquares: [1, 4, 9, 16, 25]
 ```
 
-## spread syntax (objects)
-
 ```js
-let person = {
-  fName: 'John',
-  lName: 'Doe',
-  age: 31,
-};
-let updatedPerson = {
-  ...person,
-  email: 'j@d.com',
-  age: 32,
-};
-// {fName: 'John', lName: 'Doe', email: 'j@d.com', age: 32}
+let person = { firstName: 'Joe', lastName: 'Doe', age: 31 };
+let newPerson = { ...person, email: 'j@d.com', age: 32 };
+// {firstName: 'Joe', lastName: 'Doe', email: 'j@d.com', age: 32}
 ```
 
-## template strings
+## Template strings
 
 - new syntax for _creating_ strings
 - delimited via backticks
@@ -535,7 +535,7 @@ let greeting = `Hello, ${name}!
                 This is ES2015!`;
 ```
 
-## default arguments
+## Default arguments
 
 Functions may now have default arguments
 
@@ -543,6 +543,96 @@ Functions may now have default arguments
 let join = (strings, separator='') => {
   ...
 }
+```
+
+# this - quirks
+
+## this - quirks
+
+in object methods, `this` usually refers to the current object
+
+**however**, keep in mind:
+
+- each function call sets `this` (not just method calls)
+- `this` will only be set correctly if the method is called via the syntax `object.method()`
+
+## Problem: _this_ in anonymous functions
+
+```js
+class myComponent {
+  constructor() {
+    // this ist set correctly here
+    this.foo = true;
+    setTimeout(function() {
+      // this will be overwritten here (to 'window')
+      console.log(this.foo);
+    }, 1000);
+  }
+}
+```
+
+## Solution: _arrow functions_
+
+```js
+class myComponent {
+  constructor() {
+    // this ist set correctly here
+    this.foo = true;
+    setTimeout(() => {
+      // this will *not* be overwritten here
+      console.log(this.foo);
+    }, 1000);
+  }
+}
+```
+
+## Problem: method calls without method syntax
+
+```js
+class Foo {
+  constructor() {
+    this.message = 'hello';
+  }
+  greet() {
+    console.log(this.message);
+  }
+}
+let foo = new Foo();
+foo.greet(); // works
+let fg = foo.greet;
+fg(); // doesn't work (this is undefined)
+```
+
+## Solution: arrow methods
+
+Available since ES2018:
+
+```js
+class Foo {
+  constructor() {
+    this.message = 'hello';
+  }
+  greet = () => {
+    console.log(this.message);
+  };
+}
+```
+
+## Solution: binding the method
+
+```js
+let f = new Foo();
+f.greet(); // works
+let fg = f.greet.bind(f);
+fg(); // works as well now
+```
+
+Methods are usually bound in the constructor:
+
+```js
+  constructor() {
+    this.greet = this.greet.bind(this);
+  }
 ```
 
 # State
@@ -663,7 +753,8 @@ Pass a function to `setState`. This function will transform the old state into t
 
 In the context of React, input elements are special:
 
-Their properties (especially `.value`) can be directly modified by the user  
+Their properties (especially `.value`) can be directly modified by the user
+
 Therefore there are aspects of the UI state which would not be captured in the state.
 
 ## Inputs
@@ -1018,7 +1109,7 @@ Example:
 
 ## Props in function components
 
-example:
+example (simple):
 
 ```jsx
 const Rating = props => (
@@ -1029,9 +1120,9 @@ const Rating = props => (
 or
 
 ```jsx
-const Rating = {stars} => {
+const Rating = ({ stars }) => (
   <div className="rating">{'*'.repeat(stars)}</div>
-}
+);
 ```
 
 ## Props in class components
@@ -1070,7 +1161,7 @@ const Bordered = props => (
 );
 ```
 
-# Events
+# Custom events
 
 ## Data/event flow
 

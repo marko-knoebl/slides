@@ -18,18 +18,17 @@ Marko Knöbl
 
 ## Introduction of Participants
 
-- Name
-- Company
-- Current Projects
-- Prior Knowledge
-- Expectations
+- current projects
+- prior knowledge
+- expectations
 
 ## Organizational
 
-- Duration
-- Breaks
-- Materials
-- Questions, Feedback?
+- duration
+- breaks
+- lunch
+- materials
+- questions, feedback?
 
 # Python: Overview
 
@@ -512,35 +511,43 @@ Terminals will run in the currently open folder
 
 Via _File - Preferences - Settings_
 
-Is split in _User Settings_ and _Workspace Settings_
+Is split into _User Settings_ and _Workspace Settings_
 
 ## VS Code: Configuration options
 
 Recommendations:
 
 - Accept Suggestions on Commit Character (Autocomplete on other keys than _Enter_): _deactivate_
-- Auto Save: _afterDelay_
 - Tab Size: _2_ or _4_
 
-Further Options:
+Further options:
 
+- Auto Save
+- Format on Save
 - Word Wrap
 - EOL
 - Workbench: Color Theme
 
-## VS Code: Shortcuts
+## VS Code - Commands
 
-- _F1_ or _Ctrl_ + _Shift_ + _P_: command palette
+_F1_ or _Ctrl_ + _Shift_ + _P_: display command palette
 
-<!-- list separator -->
+- searchable
+- shows shortcuts
 
-- _Ctrl_ + _F_: Search in File
-- _Alt_ + _Shift_ + _F_: Auto-format file contents
-- _Ctrl_ + _#_: comment / uncomment
-- _F12_: Go to definition
-- _Shift_ + _F12_: Peek definition
-- _F2_: rename variables
-- _Alt_ + mouse click: Activate multiple text cursors
+Example commands:
+
+- _Search a string in the file_
+- _Search: Find in Files_
+- _Format Document_
+- _Toggle line comment_ / _Toggle block comment_
+- _Go to definition_ / _Peek definition_ (only for certain file types)
+- _Rename symbol_ (only for certain file types)
+
+## VS Code - keyboard shortcuts
+
+- _Ctrl_ + _F2_: set multiple text cursors
+- _Alt_ + click: set multiple text cursors
 
 # Our first Python program
 

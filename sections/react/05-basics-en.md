@@ -58,6 +58,8 @@ we can also change from XML to JS in properties:
 </a>
 ```
 
+Note there are no quote characters around the value of _href_
+
 ## JSX Properties: task
 
 Show a picture based on an id; make use of this function:
