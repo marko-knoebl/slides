@@ -65,13 +65,8 @@ const getPathContents = (path, lang) => {
   } else if (fs.lstatSync(path).isDirectory()) {
     return fs
       .readdirSync(path)
-      .map(subPath => {
-        const pathContents = getPathContents(`${path}/${subPath}`, lang);
-        if (pathContents === "") {
-          return pathContents;
-        }
-        return pathContents + "\n";
-      })
+      .filter(subPath => new RegExp(`^.*-${lang}\\.(md|tlink)$`).test(subPath))
+      .map(subPath => getPathContents(`${path}/${subPath}`, lang) + "\n")
       .join("");
   } else {
     throw new Error(`could not get content of ${path} in ${lang}`);
