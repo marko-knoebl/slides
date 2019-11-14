@@ -901,7 +901,7 @@ let join = (strings, separator='') => {
 
 ## JSDoc
 
-Markup language for annotating functions / classes / ...
+Markup language for annotating functions / classes / ... in their comments
 
 example:
 
