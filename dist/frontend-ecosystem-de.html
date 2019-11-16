@@ -2030,25 +2030,16 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   </head>
   <body>
     <div class="reveal">
-      <div class="slides slides"><section class="slides-section"><section class="slide"><h1>npm</h1>
-</section><section class="slide"><h2>npm</h2>
-<p><em>npm</em> (<em>Node Package Manager</em>) bezeichnet einen Paketmanager und eine Sammlung unzähliger JavaScript-Libraries</p>
-</section><section class="slide"><h2>npm-Befehle</h2>
-<ul>
-<li><code>npm init</code>: neues npm-Projekt initialisieren (generiert <code>package.json</code>)</li>
-<li><code>npm install jquery</code>: bestimmtes Paket im Projekt installieren</li>
-<li><code>npm run ...</code>: ein npm-Skript ausführen (in <code>package.json</code> definiert)</li>
-</ul>
-</section></section><section class="slides-section"><section class="slide"><h1>Bundler</h1>
+      <div class="slides slides"><section class="slides-section"><section class="slide"><h1>Bundler</h1>
 </section><section class="slide"><h2>Bundler</h2>
-<p>Bundler wie <em>webpack</em> oder <em>parcel</em> sind im wesentlichen Compiler für web-resourcen.</p>
-<p>Sie haben zwei Hauptaufgaben:</p>
+<p>Bundler wie <em>webpack</em> oder <em>parcel</em> erstellen aus vorhandenen Quelldateien sogenannte <em>Bundles</em>, die meist mehrere Dateien in einer vereinen.</p>
+<p>Über Bundler werden zwei Aufgaben ausgeführt:</p>
 <ul>
-<li>Zusammenführen mehrer Dateien in eine - dies ist insbesondere beim Verwenden von JavaScript-Modulen relevant</li>
-<li>Übersetzen von Code in von Browser unterstützten Code, z.B.:<ul>
-<li>Übersetzen von modernem JS in älteres JS (via Babel)</li>
-<li>Übersetzen von modernem CSS in älteres CSS (via PostCSS)</li>
-<li>Einbinden zusätzlicher Sprachen (z.B. SCSS, TypeScript, Rust)</li>
+<li>Zusammenführen mehrer Dateien in eine (u.a. um diese schneller laden zu können)</li>
+<li>Übersetzen / transformieren von Code via Plugins, z.B.:<ul>
+<li>Übersetzen von modernem JS / JSX / TypeScript in kompatibles JS (via Babel)</li>
+<li>Übersetzen von modernem CSS / SCSS in kompatibles CSS (via PostCSS)</li>
+<li>Verkleinern der Dateien (minification)</li>
 </ul></li>
 </ul>
 </section><section class="slide"><h2>Bundler im Vergleich</h2>
@@ -2058,9 +2049,10 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li><em>rollup</em>: insbesondere zum Erstellen von JS-Libraries</li>
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Parcel</h1>
+</section><section class="slide"><h2>Parcel</h2>
 <p><a href="https://parceljs.org">https://parceljs.org</a></p>
 </section><section class="slide"><h2>Parcel</h2>
-<p>Parcel: einfacher zu nutzender Bundler mit Unterstützung für:</p>
+<p>Einfach zu nutzender Bundler mit Unterstützung für:</p>
 <ul>
 <li>modernes CSS</li>
 <li>CSS Module (scoping)</li>
@@ -2071,30 +2063,56 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li>WebAssembly</li>
 <li>Rust</li>
 </ul>
-</section><section class="slide"><h2>Parcel - Setup</h2>
-<p>Installation:</p>
-<pre><code class="hljs language-bash">npm install -g parcel-bundler
-</code></pre>
-</section><section class="slide"><h2>Parcel - neues Projekt</h2>
-<pre><code class="hljs language-bash">npm init -y
-</code></pre>
+</section><section class="slide"><h2>Parcel - Beispielprojekt</h2>
+<p>Kleines Projekt aus drei Dateien - beim Ausführen von Parcel werden die beiden JavaScript-Dateien zu einer zusammengefasst</p>
 <p>in <code>src/index.html</code>:</p>
-<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"main.js"</span>></span><span class="hljs-tag">&#x3C;/<span class="hljs-name">script</span>></span>
+<pre><code class="hljs language-html">...
+<span class="hljs-tag">&#x3C;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"main.js"</span>></span><span class="hljs-tag">&#x3C;/<span class="hljs-name">script</span>></span>
+...
 </code></pre>
 <p>in <code>src/main.js</code>:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { add } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mymath.js'</span>;
+<span class="hljs-built_in">document</span>.title = add(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>);
 </code></pre>
 <p>in <code>src/mymath.js</code>:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> add = <span class="hljs-function">(<span class="hljs-params">a, b</span>) =></span> a + b;
 </code></pre>
 </section><section class="slide"><h2>Parcel ausführen</h2>
+<p>Parcel sollte lokal oder global als npm-Paket installiert sein.</p>
 <p>Lokalen Entwicklungsserver mit automatischem Build starten:</p>
-<pre><code class="hljs language-bash">parcel src/*.html
+<pre><code class="hljs language-bash">npx parcel src/index.html
 </code></pre>
-<p>Build für Produktivumgebung:</p>
-<pre><code class="hljs language-bash">parcel build src/*.html
+<p>Einzelner Build zum Deployen:</p>
+<pre><code class="hljs language-bash">npx parcel build src/index.html
 </code></pre>
 <p>Erstellte Dateien erscheinen unter <code>/dist</code>.</p>
+</section></section><section class="slides-section"><section class="slide"><h1>Webpack</h1>
+</section><section class="slide"><h2>Webpack</h2>
+<p><a href="https://webpack.js.org">https://webpack.js.org</a></p>
+</section><section class="slide"><h2>Webpack</h2>
+<p>Webpack: weit verbreiteter Bundler mit sehr vielen Plugins</p>
+</section><section class="slide"><h2>Webpack - Beispielprojekt</h2>
+<p>Einstiegspunkt in webpack muss immer eine JavaScript-Datei sein - daher liegt <code>index.html</code> zu Beginn schon im dist-Ordner:</p>
+<p>in <code>dist/index.html</code>:</p>
+<pre><code class="hljs language-html">...
+<span class="hljs-tag">&#x3C;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"main.js"</span>></span><span class="hljs-tag">&#x3C;/<span class="hljs-name">script</span>></span>
+...
+</code></pre>
+<p>in <code>src/index.js</code>:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { add } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mymath.js'</span>;
+<span class="hljs-built_in">document</span>.title = add(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>);
+</code></pre>
+<p>in <code>src/mymath.js</code>:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> add = <span class="hljs-function">(<span class="hljs-params">a, b</span>) =></span> a + b;
+</code></pre>
+</section><section class="slide"><h2>Webpack - Beispielprojekt</h2>
+<p>Standard-Einstiegspunkt ist eine Datei namens <code>src/index.js</code>.</p>
+<p>Standard-Ausgabe liegt in <code>dist/main.js</code></p>
+</section><section class="slide"><h2>Webpack - Beispielprojekt</h2>
+<p>Webpack sollte lokal oder global als npm-Paket installiert sein.</p>
+<p>Build mittels:</p>
+<pre><code class="hljs language-bash">npx webpack
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Stylesheet-Sprachen</h1>
 </section><section class="slide"><h2>Stylesheet-Sprachen</h2>
 <ul>
@@ -2194,14 +2212,15 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   <span class="hljs-attribute">color</span>: <span class="hljs-built_in">rgb</span>(10, 10, 10);
 }
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>WebAssembly und Rust</h1>
+</section></section><section class="slides-section"><section class="slide"><h1>WebAssembly</h1>
 </section><section class="slide"><h2>WebAssembly</h2>
-<p>neues Format für Programme, das effizient im Browser ausgeführt werden kann</p>
+<p>neue Low-level-Sprache, die effizient im Browser ausgeführt werden kann</p>
 <p>Sprachen, die zu WebAssembly kompiliert werden können:</p>
 <ul>
 <li>C</li>
 <li>C++</li>
 <li>Rust</li>
+<li>Go</li>
 </ul>
 </section><section class="slide"><h2>Rust</h2>
 <p>Moderne Systemprogrammiersprache - Alternative zu C / C++</p>

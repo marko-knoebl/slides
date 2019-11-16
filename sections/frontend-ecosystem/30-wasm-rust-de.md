@@ -1,14 +1,15 @@
-# WebAssembly und Rust
+# WebAssembly
 
 ## WebAssembly
 
-neues Format für Programme, das effizient im Browser ausgeführt werden kann
+neue Low-level-Sprache, die effizient im Browser ausgeführt werden kann
 
 Sprachen, die zu WebAssembly kompiliert werden können:
 
 - C
 - C++
 - Rust
+- Go
 
 ## Rust
 

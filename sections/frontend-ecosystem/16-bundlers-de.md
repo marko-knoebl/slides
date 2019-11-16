@@ -2,15 +2,15 @@
 
 ## Bundler
 
-Bundler wie _webpack_ oder _parcel_ sind im wesentlichen Compiler für web-resourcen.
+Bundler wie _webpack_ oder _parcel_ erstellen aus vorhandenen Quelldateien sogenannte _Bundles_, die meist mehrere Dateien in einer vereinen.
 
-Sie haben zwei Hauptaufgaben:
+Über Bundler werden zwei Aufgaben ausgeführt:
 
-- Zusammenführen mehrer Dateien in eine - dies ist insbesondere beim Verwenden von JavaScript-Modulen relevant
-- Übersetzen von Code in von Browser unterstützten Code, z.B.:
-  - Übersetzen von modernem JS in älteres JS (via Babel)
-  - Übersetzen von modernem CSS in älteres CSS (via PostCSS)
-  - Einbinden zusätzlicher Sprachen (z.B. SCSS, TypeScript, Rust)
+- Zusammenführen mehrer Dateien in eine (u.a. um diese schneller laden zu können)
+- Übersetzen / transformieren von Code via Plugins, z.B.:
+  - Übersetzen von modernem JS / JSX / TypeScript in kompatibles JS (via Babel)
+  - Übersetzen von modernem CSS / SCSS in kompatibles CSS (via PostCSS)
+  - Verkleinern der Dateien (minification)
 
 ## Bundler im Vergleich
 

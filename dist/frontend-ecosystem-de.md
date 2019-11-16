@@ -1,28 +1,16 @@
-# npm
-
-## npm
-
-_npm_ (_Node Package Manager_) bezeichnet einen Paketmanager und eine Sammlung unzähliger JavaScript-Libraries
-
-## npm-Befehle
-
-- `npm init`: neues npm-Projekt initialisieren (generiert `package.json`)
-- `npm install jquery`: bestimmtes Paket im Projekt installieren
-- `npm run ...`: ein npm-Skript ausführen (in `package.json` definiert)
-
 # Bundler
 
 ## Bundler
 
-Bundler wie _webpack_ oder _parcel_ sind im wesentlichen Compiler für web-resourcen.
+Bundler wie _webpack_ oder _parcel_ erstellen aus vorhandenen Quelldateien sogenannte _Bundles_, die meist mehrere Dateien in einer vereinen.
 
-Sie haben zwei Hauptaufgaben:
+Über Bundler werden zwei Aufgaben ausgeführt:
 
-- Zusammenführen mehrer Dateien in eine - dies ist insbesondere beim Verwenden von JavaScript-Modulen relevant
-- Übersetzen von Code in von Browser unterstützten Code, z.B.:
-  - Übersetzen von modernem JS in älteres JS (via Babel)
-  - Übersetzen von modernem CSS in älteres CSS (via PostCSS)
-  - Einbinden zusätzlicher Sprachen (z.B. SCSS, TypeScript, Rust)
+- Zusammenführen mehrer Dateien in eine (u.a. um diese schneller laden zu können)
+- Übersetzen / transformieren von Code via Plugins, z.B.:
+  - Übersetzen von modernem JS / JSX / TypeScript in kompatibles JS (via Babel)
+  - Übersetzen von modernem CSS / SCSS in kompatibles CSS (via PostCSS)
+  - Verkleinern der Dateien (minification)
 
 ## Bundler im Vergleich
 
@@ -32,11 +20,13 @@ Sie haben zwei Hauptaufgaben:
 
 # Parcel
 
+## Parcel
+
 https://parceljs.org
 
 ## Parcel
 
-Parcel: einfacher zu nutzender Bundler mit Unterstützung für:
+Einfach zu nutzender Bundler mit Unterstützung für:
 
 - modernes CSS
 - CSS Module (scoping)
@@ -47,30 +37,23 @@ Parcel: einfacher zu nutzender Bundler mit Unterstützung für:
 - WebAssembly
 - Rust
 
-## Parcel - Setup
+## Parcel - Beispielprojekt
 
-Installation:
-
-```bash
-npm install -g parcel-bundler
-```
-
-## Parcel - neues Projekt
-
-```bash
-npm init -y
-```
+Kleines Projekt aus drei Dateien - beim Ausführen von Parcel werden die beiden JavaScript-Dateien zu einer zusammengefasst
 
 in `src/index.html`:
 
 ```html
+...
 <script src="main.js"></script>
+...
 ```
 
 in `src/main.js`:
 
 ```js
 import { add } from './mymath.js';
+document.title = add(2, 3);
 ```
 
 in `src/mymath.js`:
@@ -81,19 +64,72 @@ export const add = (a, b) => a + b;
 
 ## Parcel ausführen
 
+Parcel sollte lokal oder global als npm-Paket installiert sein.
+
 Lokalen Entwicklungsserver mit automatischem Build starten:
 
 ```bash
-parcel src/*.html
+npx parcel src/index.html
 ```
 
-Build für Produktivumgebung:
+Einzelner Build zum Deployen:
 
 ```bash
-parcel build src/*.html
+npx parcel build src/index.html
 ```
 
 Erstellte Dateien erscheinen unter `/dist`.
+
+# Webpack
+
+## Webpack
+
+https://webpack.js.org
+
+## Webpack
+
+Webpack: weit verbreiteter Bundler mit sehr vielen Plugins
+
+## Webpack - Beispielprojekt
+
+Einstiegspunkt in webpack muss immer eine JavaScript-Datei sein - daher liegt `index.html` zu Beginn schon im dist-Ordner:
+
+in `dist/index.html`:
+
+```html
+...
+<script src="main.js"></script>
+...
+```
+
+in `src/index.js`:
+
+```js
+import { add } from './mymath.js';
+document.title = add(2, 3);
+```
+
+in `src/mymath.js`:
+
+```js
+export const add = (a, b) => a + b;
+```
+
+## Webpack - Beispielprojekt
+
+Standard-Einstiegspunkt ist eine Datei namens `src/index.js`.
+
+Standard-Ausgabe liegt in `dist/main.js`
+
+## Webpack - Beispielprojekt
+
+Webpack sollte lokal oder global als npm-Paket installiert sein.
+
+Build mittels:
+
+```bash
+npx webpack
+```
 
 # Stylesheet-Sprachen
 
@@ -239,17 +275,18 @@ Beispiel:
 }
 ```
 
-# WebAssembly und Rust
+# WebAssembly
 
 ## WebAssembly
 
-neues Format für Programme, das effizient im Browser ausgeführt werden kann
+neue Low-level-Sprache, die effizient im Browser ausgeführt werden kann
 
 Sprachen, die zu WebAssembly kompiliert werden können:
 
 - C
 - C++
 - Rust
+- Go
 
 ## Rust
 
