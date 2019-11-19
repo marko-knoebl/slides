@@ -53,7 +53,7 @@ assert.throws(() => 1 / 0);
 
 ## Testen: assertions
 
-jest:
+expect (jest):
 
 ```js
 expect(a).toEqual(4);
@@ -63,7 +63,7 @@ expect(a).toBeInstanceOf(Number);
 expect(() => 1 / 0).toThrow();
 ```
 
-chai:
+expect (chai):
 
 ```js
 expect(a).to.equal(4);

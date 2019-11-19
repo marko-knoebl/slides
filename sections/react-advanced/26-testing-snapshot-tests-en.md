@@ -15,7 +15,7 @@ npm install --save-dev react-test-renderer
 for TypeScript:
 
 ```bash
-npm install --save-dev @types/react-test-renderer
+npm install --save-dev react-test-renderer @types/react-test-renderer
 ```
 
 ## Snapshot tests in React - creating tests

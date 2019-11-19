@@ -19,14 +19,14 @@ https://2018.stateofjs.com/testing/overview/
 
 ## Beispiel: shorten
 
-Wir werden eine Funktion schreiben und testen, die einen String auf eine vorgegebene Länge verkürzt
+Wir werden eine Funktion schreiben und testen, die einen String auf eine vorgegebene Länge verkürzt:
 
 ```js
 shorten('loremipsum', 6);
 // should return 'lor...'
 ```
 
-Mögliche Zugänge
+Mögliche Zugänge:
 
 - mit Implementierung beginnen
 - mit Tests beginnen (test-driven development)

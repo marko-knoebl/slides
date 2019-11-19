@@ -19,7 +19,7 @@ https://2018.stateofjs.com/testing/overview/
 
 ## Example: shorten
 
-We are going to write and test a function that will shorten a string to a specified length
+We are going to write and test a function that will shorten a string to a specified length:
 
 ```js
 shorten('loremipsum', 6);
@@ -55,7 +55,7 @@ npm test
 
 Note: running tests should always be cancelled bevor running `npm install ...` - otherwise the Installation may fail
 
-## finding tests
+## Finding tests
 
 In general testing libraries look for files ending in `.test.js` or `.spec.js` inside the `test` directory.
 
@@ -65,7 +65,7 @@ We can also pass a custom pattern, e.g.:
 mocha "src/**/*.{test,spec}.{js,jsx}"
 ```
 
-## test coverage
+## Test coverage
 
 Some testing libraries can report on how much of the code is covered by tests:
 

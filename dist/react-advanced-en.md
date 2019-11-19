@@ -397,7 +397,7 @@ https://2018.stateofjs.com/testing/overview/
 
 ## Example: shorten
 
-We are going to write and test a function that will shorten a string to a specified length
+We are going to write and test a function that will shorten a string to a specified length:
 
 ```js
 shorten('loremipsum', 6);
@@ -433,7 +433,7 @@ npm test
 
 Note: running tests should always be cancelled bevor running `npm install ...` - otherwise the Installation may fail
 
-## finding tests
+## Finding tests
 
 In general testing libraries look for files ending in `.test.js` or `.spec.js` inside the `test` directory.
 
@@ -443,7 +443,7 @@ We can also pass a custom pattern, e.g.:
 mocha "src/**/*.{test,spec}.{js,jsx}"
 ```
 
-## test coverage
+## Test coverage
 
 Some testing libraries can report on how much of the code is covered by tests:
 
@@ -516,7 +516,7 @@ expect (behaviour-driven)
 
 ## Testing: assertions
 
-node:
+assert (node):
 
 ```js
 assert.equal(a, b);
@@ -525,7 +525,7 @@ assert.throws(() => 1 / 0);
 // ...
 ```
 
-chai:
+assert (chai):
 
 ```js
 assert.equal(a, b);
@@ -537,7 +537,7 @@ assert.throws(() => 1 / 0);
 
 ## Testing: assertions
 
-jest:
+expect (jest):
 
 ```js
 expect(a).toEqual(4);
@@ -547,7 +547,7 @@ expect(a).toBeInstanceOf(Number);
 expect(() => 1 / 0).toThrow();
 ```
 
-chai:
+expect (chai):
 
 ```js
 expect(a).to.equal(4);
@@ -836,7 +836,7 @@ npm install --save-dev react-test-renderer
 for TypeScript:
 
 ```bash
-npm install --save-dev @types/react-test-renderer
+npm install --save-dev react-test-renderer @types/react-test-renderer
 ```
 
 ## Snapshot tests in React - creating tests
@@ -928,9 +928,9 @@ import { BrowserRouter } from 'react-router-dom';
 ```js
 import { Route } from 'react-router-dom';
 
-<Route path="/" exact component={TodoList} />
-<Route path="/about" exact component={About} />
-<Route path="/add" exact component={AddTodo} />
+<Route path="/" exact={true} component={TodoList} />
+<Route path="/about" exact={true} component={About} />
+<Route path="/add" exact={true} component={AddTodo} />
 ```
 
 ## React Router - defining routes
@@ -942,7 +942,7 @@ import { Route } from 'react-router-dom';
 
 <Route
   path="/add"
-  exact
+  exact={true}
   render={props => (
     <AddTodo onSubmit={this.handleAddTodo} />
   )}

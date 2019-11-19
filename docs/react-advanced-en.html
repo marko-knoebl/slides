@@ -2385,7 +2385,7 @@ useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =></sp
 </ul>
 <p><a href="https://2018.stateofjs.com/testing/overview/">https://2018.stateofjs.com/testing/overview/</a></p>
 </section><section class="slide"><h2>Example: shorten</h2>
-<p>We are going to write and test a function that will shorten a string to a specified length</p>
+<p>We are going to write and test a function that will shorten a string to a specified length:</p>
 <pre><code class="hljs language-js">shorten(<span class="hljs-string">'loremipsum'</span>, <span class="hljs-number">6</span>);
 <span class="hljs-comment">// should return 'lor...'</span>
 </code></pre>
@@ -2407,12 +2407,12 @@ useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =></sp
 <pre><code class="hljs language-bash">npm <span class="hljs-built_in">test</span>
 </code></pre>
 <p>Note: running tests should always be cancelled bevor running <code>npm install ...</code> - otherwise the Installation may fail</p>
-</section><section class="slide"><h2>finding tests</h2>
+</section><section class="slide"><h2>Finding tests</h2>
 <p>In general testing libraries look for files ending in <code>.test.js</code> or <code>.spec.js</code> inside the <code>test</code> directory.</p>
 <p>We can also pass a custom pattern, e.g.:</p>
 <pre><code class="hljs language-bash">mocha <span class="hljs-string">"src/**/*.{test,spec}.{js,jsx}"</span>
 </code></pre>
-</section><section class="slide"><h2>test coverage</h2>
+</section><section class="slide"><h2>Test coverage</h2>
 <p>Some testing libraries can report on how much of the code is covered by tests:</p>
 <p>example: in a create-react-app project:</p>
 <pre><code class="hljs language-bash">npm <span class="hljs-built_in">test</span> -- --coverage
@@ -2463,13 +2463,13 @@ it(<span class="hljs-string">'shortens "loremipsum" to "lor..."'</span>, () => {
 <li>enzyme</li>
 </ul>
 </section><section class="slide"><h2>Testing: assertions</h2>
-<p>node:</p>
+<p>assert (node):</p>
 <pre><code class="hljs language-js">assert.equal(a, b);
 assert.deepEqual(a, b);
 assert.throws(<span class="hljs-function"><span class="hljs-params">()</span> =></span> <span class="hljs-number">1</span> / <span class="hljs-number">0</span>);
 <span class="hljs-comment">// ...</span>
 </code></pre>
-<p>chai:</p>
+<p>assert (chai):</p>
 <pre><code class="hljs language-js">assert.equal(a, b);
 assert.deepEqual(a, b);
 assert.typeOf(foo, <span class="hljs-string">'string'</span>);
@@ -2477,14 +2477,14 @@ assert.lengthOf(foo, <span class="hljs-number">3</span>);
 assert.throws(<span class="hljs-function"><span class="hljs-params">()</span> =></span> <span class="hljs-number">1</span> / <span class="hljs-number">0</span>);
 </code></pre>
 </section><section class="slide"><h2>Testing: assertions</h2>
-<p>jest:</p>
+<p>expect (jest):</p>
 <pre><code class="hljs language-js">expect(a).toEqual(<span class="hljs-number">4</span>);
 expect(a).not.toEqual(<span class="hljs-number">2</span>);
 expect(a).toBeGreaterThan(<span class="hljs-number">3</span>);
 expect(a).toBeInstanceOf(<span class="hljs-built_in">Number</span>);
 expect(<span class="hljs-function"><span class="hljs-params">()</span> =></span> <span class="hljs-number">1</span> / <span class="hljs-number">0</span>).toThrow();
 </code></pre>
-<p>chai:</p>
+<p>expect (chai):</p>
 <pre><code class="hljs language-js">expect(a).to.equal(<span class="hljs-number">4</span>);
 expect(a).not.to.equal(<span class="hljs-number">2</span>);
 expect(a).to.be.greaterThan(<span class="hljs-number">3</span>);
@@ -2698,7 +2698,7 @@ import Rating from './Rating';
 <pre><code class="hljs language-bash">npm install --save-dev react-test-renderer
 </code></pre>
 <p>for TypeScript:</p>
-<pre><code class="hljs language-bash">npm install --save-dev @types/react-test-renderer
+<pre><code class="hljs language-bash">npm install --save-dev react-test-renderer @types/react-test-renderer
 </code></pre>
 </section><section class="slide"><h2>Snapshot tests in React - creating tests</h2>
 <pre><code class="hljs language-jsx"><span class="hljs-comment">// Rating.test.js</span>
@@ -2754,9 +2754,9 @@ The entire Application is enclosed in a <code>BrowserRouter</code> - Element</p>
 </section><section class="slide"><h2>React Router - defining routes</h2>
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { Route } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router-dom'</span>;
 
-<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"/"</span> <span class="hljs-attr">exact</span> <span class="hljs-attr">component</span>=<span class="hljs-string">{TodoList}</span> /></span>
-</span>&#x3C;Route path="/about" exact component={About} />
-&#x3C;Route path="/add" exact component={AddTodo} />
+<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"/"</span> <span class="hljs-attr">exact</span>=<span class="hljs-string">{true}</span> <span class="hljs-attr">component</span>=<span class="hljs-string">{TodoList}</span> /></span>
+</span>&#x3C;Route path="/about" exact={true} component={About} />
+&#x3C;Route path="/add" exact={true} component={AddTodo} />
 </code></pre>
 </section><section class="slide"><h2>React Router - defining routes</h2>
 <p>If props need to be passed:</p>
@@ -2764,7 +2764,7 @@ The entire Application is enclosed in a <code>BrowserRouter</code> - Element</p>
 
 <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Route</span>
   <span class="hljs-attr">path</span>=<span class="hljs-string">"/add"</span>
-  <span class="hljs-attr">exact</span>
+  <span class="hljs-attr">exact</span>=<span class="hljs-string">{true}</span>
   <span class="hljs-attr">render</span>=<span class="hljs-string">{props</span> =></span> (
     </span>&#x3C;AddTodo onSubmit={this.handleAddTodo} />
   )}

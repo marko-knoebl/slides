@@ -39,13 +39,15 @@ npx create-react-app my-app --typescript
 ## Components with TypeScript (functions)
 
 ```tsx
+import React, { FC } from 'react';
+
 type TodoListProps = {
   todos: Array<TodoType>;
   onToggle: (id: number) => void;
   onDelete: (id: number) => void;
 };
 
-const TodoList = (props: TodoListProps) => {
+const TodoList: FC<TodoListProps> = props => {
   const [filterText, setFilterText] = useState<string>('');
 
   return <div>...</div>;
@@ -55,7 +57,6 @@ const TodoList = (props: TodoListProps) => {
 ## Components with TypeScript (Classes)
 
 ```tsx
-// TodoList.tsx
 type TodoItemProps = {
   todo: TodoType;
   onToggle: (id: int) => void;

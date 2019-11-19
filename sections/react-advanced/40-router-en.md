@@ -34,9 +34,9 @@ import { BrowserRouter } from 'react-router-dom';
 ```js
 import { Route } from 'react-router-dom';
 
-<Route path="/" exact component={TodoList} />
-<Route path="/about" exact component={About} />
-<Route path="/add" exact component={AddTodo} />
+<Route path="/" exact={true} component={TodoList} />
+<Route path="/about" exact={true} component={About} />
+<Route path="/add" exact={true} component={AddTodo} />
 ```
 
 ## React Router - defining routes
@@ -48,7 +48,7 @@ import { Route } from 'react-router-dom';
 
 <Route
   path="/add"
-  exact
+  exact={true}
   render={props => (
     <AddTodo onSubmit={this.handleAddTodo} />
   )}

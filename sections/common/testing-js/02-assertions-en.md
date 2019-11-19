@@ -32,7 +32,7 @@ expect (behaviour-driven)
 
 ## Testing: assertions
 
-node:
+assert (node):
 
 ```js
 assert.equal(a, b);
@@ -41,7 +41,7 @@ assert.throws(() => 1 / 0);
 // ...
 ```
 
-chai:
+assert (chai):
 
 ```js
 assert.equal(a, b);
@@ -53,7 +53,7 @@ assert.throws(() => 1 / 0);
 
 ## Testing: assertions
 
-jest:
+expect (jest):
 
 ```js
 expect(a).toEqual(4);
@@ -63,7 +63,7 @@ expect(a).toBeInstanceOf(Number);
 expect(() => 1 / 0).toThrow();
 ```
 
-chai:
+expect (chai):
 
 ```js
 expect(a).to.equal(4);

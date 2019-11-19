@@ -403,14 +403,14 @@ https://2018.stateofjs.com/testing/overview/
 
 ## Beispiel: shorten
 
-Wir werden eine Funktion schreiben und testen, die einen String auf eine vorgegebene Länge verkürzt
+Wir werden eine Funktion schreiben und testen, die einen String auf eine vorgegebene Länge verkürzt:
 
 ```js
 shorten('loremipsum', 6);
 // should return 'lor...'
 ```
 
-Mögliche Zugänge
+Mögliche Zugänge:
 
 - mit Implementierung beginnen
 - mit Tests beginnen (test-driven development)
@@ -543,7 +543,7 @@ assert.throws(() => 1 / 0);
 
 ## Testen: assertions
 
-jest:
+expect (jest):
 
 ```js
 expect(a).toEqual(4);
@@ -553,7 +553,7 @@ expect(a).toBeInstanceOf(Number);
 expect(() => 1 / 0).toThrow();
 ```
 
-chai:
+expect (chai):
 
 ```js
 expect(a).to.equal(4);
@@ -842,7 +842,7 @@ npm install --save-dev react-test-renderer
 für TypeScript:
 
 ```bash
-npm install --save-dev @types/react-test-renderer
+npm install --save-dev react-test-renderer @types/react-test-renderer
 ```
 
 ## Snapshot Tests in React - Tests erstellen
@@ -918,7 +918,7 @@ npm install react-router-dom @types/react-router-dom
 ## React Router - BrowserRouter
 
 Um React Router verwenden zu können:  
-Ganze Anwendung von einem `BrowserRouter` - Tag umschlossen
+Ganze Anwendung wird in ein `BrowserRouter` - Element eingebettet
 
 ```js
 import { BrowserRouter } from 'react-router-dom';
@@ -934,9 +934,9 @@ import { BrowserRouter } from 'react-router-dom';
 ```js
 import { Route } from 'react-router-dom';
 
-<Route path="/" exact component={TodoList} />
-<Route path="/about" exact component={About} />
-<Route path="/add" exact component={AddTodo} />
+<Route path="/" exact={true} component={TodoList} />
+<Route path="/about" exact={true} component={About} />
+<Route path="/add" exact={true} component={AddTodo} />
 ```
 
 ## React Router - Routen definieren
@@ -948,7 +948,7 @@ import { Route } from 'react-router-dom';
 
 <Route
   path="/add"
-  exact
+  exact={true}
   render={props => (
     <AddTodo onSubmit={this.handleAddTodo} />
   )}
@@ -1168,7 +1168,7 @@ const TodoStats = () => {
 
 ## Context - Beispiel: Consumer
 
-Klassenkomponente
+Klassenkomponente:
 
 ```jsx
 class TodoStats extends React.Component {

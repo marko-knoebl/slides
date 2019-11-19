@@ -2391,11 +2391,11 @@ useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =></sp
 </ul>
 <p><a href="https://2018.stateofjs.com/testing/overview/">https://2018.stateofjs.com/testing/overview/</a></p>
 </section><section class="slide"><h2>Beispiel: shorten</h2>
-<p>Wir werden eine Funktion schreiben und testen, die einen String auf eine vorgegebene Länge verkürzt</p>
+<p>Wir werden eine Funktion schreiben und testen, die einen String auf eine vorgegebene Länge verkürzt:</p>
 <pre><code class="hljs language-js">shorten(<span class="hljs-string">'loremipsum'</span>, <span class="hljs-number">6</span>);
 <span class="hljs-comment">// should return 'lor...'</span>
 </code></pre>
-<p>Mögliche Zugänge</p>
+<p>Mögliche Zugänge:</p>
 <ul>
 <li>mit Implementierung beginnen</li>
 <li>mit Tests beginnen (test-driven development)</li>
@@ -2483,14 +2483,14 @@ assert.lengthOf(foo, <span class="hljs-number">3</span>);
 assert.throws(<span class="hljs-function"><span class="hljs-params">()</span> =></span> <span class="hljs-number">1</span> / <span class="hljs-number">0</span>);
 </code></pre>
 </section><section class="slide"><h2>Testen: assertions</h2>
-<p>jest:</p>
+<p>expect (jest):</p>
 <pre><code class="hljs language-js">expect(a).toEqual(<span class="hljs-number">4</span>);
 expect(a).not.toEqual(<span class="hljs-number">2</span>);
 expect(a).toBeGreaterThan(<span class="hljs-number">3</span>);
 expect(a).toBeInstanceOf(<span class="hljs-built_in">Number</span>);
 expect(<span class="hljs-function"><span class="hljs-params">()</span> =></span> <span class="hljs-number">1</span> / <span class="hljs-number">0</span>).toThrow();
 </code></pre>
-<p>chai:</p>
+<p>expect (chai):</p>
 <pre><code class="hljs language-js">expect(a).to.equal(<span class="hljs-number">4</span>);
 expect(a).not.to.equal(<span class="hljs-number">2</span>);
 expect(a).to.be.greaterThan(<span class="hljs-number">3</span>);
@@ -2704,7 +2704,7 @@ import Rating from './Rating';
 <pre><code class="hljs language-bash">npm install --save-dev react-test-renderer
 </code></pre>
 <p>für TypeScript:</p>
-<pre><code class="hljs language-bash">npm install --save-dev @types/react-test-renderer
+<pre><code class="hljs language-bash">npm install --save-dev react-test-renderer @types/react-test-renderer
 </code></pre>
 </section><section class="slide"><h2>Snapshot Tests in React - Tests erstellen</h2>
 <pre><code class="hljs language-jsx"><span class="hljs-comment">// Rating.test.js</span>
@@ -2749,7 +2749,7 @@ npm install react-router-dom @types/react-router-dom
 </code></pre>
 </section><section class="slide"><h2>React Router - BrowserRouter</h2>
 <p>Um React Router verwenden zu können:<br />
-Ganze Anwendung von einem <code>BrowserRouter</code> - Tag umschlossen</p>
+Ganze Anwendung wird in ein <code>BrowserRouter</code> - Element eingebettet</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { BrowserRouter } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router-dom'</span>;
 [...]
 
@@ -2760,9 +2760,9 @@ Ganze Anwendung von einem <code>BrowserRouter</code> - Tag umschlossen</p>
 </section><section class="slide"><h2>React Router - Routen definieren</h2>
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { Route } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router-dom'</span>;
 
-<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"/"</span> <span class="hljs-attr">exact</span> <span class="hljs-attr">component</span>=<span class="hljs-string">{TodoList}</span> /></span>
-</span>&#x3C;Route path="/about" exact component={About} />
-&#x3C;Route path="/add" exact component={AddTodo} />
+<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"/"</span> <span class="hljs-attr">exact</span>=<span class="hljs-string">{true}</span> <span class="hljs-attr">component</span>=<span class="hljs-string">{TodoList}</span> /></span>
+</span>&#x3C;Route path="/about" exact={true} component={About} />
+&#x3C;Route path="/add" exact={true} component={AddTodo} />
 </code></pre>
 </section><section class="slide"><h2>React Router - Routen definieren</h2>
 <p>Wenn props übergeben werden müssen:</p>
@@ -2770,7 +2770,7 @@ Ganze Anwendung von einem <code>BrowserRouter</code> - Tag umschlossen</p>
 
 <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Route</span>
   <span class="hljs-attr">path</span>=<span class="hljs-string">"/add"</span>
-  <span class="hljs-attr">exact</span>
+  <span class="hljs-attr">exact</span>=<span class="hljs-string">{true}</span>
   <span class="hljs-attr">render</span>=<span class="hljs-string">{props</span> =></span> (
     </span>&#x3C;AddTodo onSubmit={this.handleAddTodo} />
   )}
@@ -2930,7 +2930,7 @@ useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =></sp
 };
 </code></pre>
 </section><section class="slide"><h2>Context - Beispiel: Consumer</h2>
-<p>Klassenkomponente</p>
+<p>Klassenkomponente:</p>
 <pre><code class="hljs language-jsx"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TodoStats</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
   render() {
     <span class="hljs-keyword">return</span> (

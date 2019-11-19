@@ -1293,13 +1293,15 @@ npx create-react-app my-app --typescript
 ## Komponenten mit TypeScript (Funktionen)
 
 ```tsx
+import React, { FC } from 'react';
+
 type TodoListProps = {
   todos: Array<TodoType>;
   onToggle: (id: number) => void;
   onDelete: (id: number) => void;
 };
 
-const TodoList = (props: TodoListProps) => {
+const TodoList: FC<TodoListProps> = props => {
   const [filterText, setFilterText] = useState<string>('');
 
   return <div>...</div>;
@@ -1309,7 +1311,6 @@ const TodoList = (props: TodoListProps) => {
 ## Komponenten mit TypeScript (Klassen)
 
 ```tsx
-// TodoList.tsx
 type TodoItemProps = {
   todo: TodoType;
   onToggle: (id: int) => void;
@@ -1394,12 +1395,12 @@ const repeatString = (
 
 ## Typsystem: void
 
-Void: umfasst _undefined_ und _null_ - hauptsächlich genutzt für Funktionen, die nichts zurückgeben
+Void: hauptsächlich genutzt für Funktionen, die nichts zurückgeben - umfasst _undefined_ und _null_
 
 ```ts
-const warnUser = (): void => {
+function warnUser(): void {
   alert('warning!');
-};
+}
 ```
 
 ## Typsystem: any

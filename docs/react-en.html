@@ -3015,21 +3015,22 @@ Rating.propTypes = {
 <pre><code class="hljs language-bash">npx create-react-app my-app --typescript
 </code></pre>
 </section><section class="slide"><h2>Components with TypeScript (functions)</h2>
-<pre><code class="language-tsx">type TodoListProps = {
+<pre><code class="language-tsx">import React, { FC } from 'react';
+
+type TodoListProps = {
   todos: Array&#x3C;TodoType>;
   onToggle: (id: number) => void;
   onDelete: (id: number) => void;
 };
 
-const TodoList = (props: TodoListProps) => {
+const TodoList: FC&#x3C;TodoListProps> = props => {
   const [filterText, setFilterText] = useState&#x3C;string>('');
 
   return &#x3C;div>...&#x3C;/div>;
 };
 </code></pre>
 </section><section class="slide"><h2>Components with TypeScript (Classes)</h2>
-<pre><code class="language-tsx">// TodoList.tsx
-type TodoItemProps = {
+<pre><code class="language-tsx">type TodoItemProps = {
   todo: TodoType;
   onToggle: (id: int) => void;
 };
@@ -3090,7 +3091,7 @@ type TodoItemState = {};
 };
 </code></pre>
 </section><section class="slide"><h2>Type system: void</h2>
-<p>Void: can either be <em>undefined</em> or <em>null</em> - is mostly used with functions that don't return anything</p>
+<p>Void: is mostly used with functions that don't return anything - can either be <em>undefined</em> or <em>null</em></p>
 <pre><code class="hljs language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">warnUser</span>(<span class="hljs-params"></span>): <span class="hljs-title">void</span> </span>{
   alert(<span class="hljs-string">'warning!'</span>);
 }

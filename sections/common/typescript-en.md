@@ -61,7 +61,7 @@ const repeatString = (
 
 ## Type system: void
 
-Void: can either be _undefined_ or _null_ - is mostly used with functions that don't return anything
+Void: is mostly used with functions that don't return anything - can either be _undefined_ or _null_
 
 ```ts
 function warnUser(): void {
