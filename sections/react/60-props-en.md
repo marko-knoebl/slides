@@ -1,4 +1,4 @@
-# Props
+# Component props
 
 ## State & props
 

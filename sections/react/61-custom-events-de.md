@@ -1,4 +1,4 @@
-# Eigene Events
+# Komponenten-Events
 
 ## Datenfluss
 

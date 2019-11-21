@@ -605,6 +605,12 @@ Enzyme does not yet support React hooks
 npm install --save-dev react-test-renderer
 ```
 
+with TypeScript:
+
+```bash
+npm install --save-dev react-test-renderer @types/react-test-renderer
+```
+
 ## React-Test-Renderer - Example
 
 ```js
@@ -623,6 +629,7 @@ it('renders a component without crashing', () => {
 - `instance.find(All)ByProps`
 - `instance.props`
 - `instance.children`
+- `instance.type`
 
 ## Enzyme - Installation & Setup
 
@@ -656,6 +663,72 @@ it('renders a component tree without crashing', () => {
 ## Enzyme - Cheatsheet
 
 https://devhints.io/enzyme
+
+# Example: Testing with Jest and React Test Renderer
+
+Testing a Rating component
+
+## Test setup
+
+```tsx
+import React from 'react';
+import TestRenderer from 'react-test-renderer';
+
+import Rating from './Rating';
+```
+
+## Testing the rendering
+
+```tsx
+describe('rendering', () => {
+  it('renders 5 spans', () => {
+    const instance = TestRenderer.create(
+      <Rating stars={3} />
+    ).root;
+    expect(instance.findAllByType('span')).toHaveLength(5);
+  });
+
+  it('renders 3 active stars', () => {
+    const instance = TestRenderer.create(
+      <Rating stars={3} />
+    ).root;
+    expect(
+      instance.findAllByProps({ className: 'star active' })
+    ).toHaveLength(3);
+  });
+});
+```
+
+## Testing events
+
+```jsx
+describe('events', () => {
+  it('reacts to click on the fourth star', () => {
+    const mockFn = jest.fn();
+    const instance = TestRenderer.create(
+      <Rating stars={3} onStarsChange={mockFn} />
+    ).root;
+    const fourthStar = instance.findAllByType('span')[3];
+    fourthStar.props.onClick();
+    expect(mockFn).toBeCalledWith(4);
+  });
+});
+```
+
+## Testing exceptions
+
+```jsx
+describe('errors', () => {
+  it('throws an error if the number of stars is 0', () => {
+    const testFn = () => {
+      TestRenderer.create(<Rating stars={0} />);
+    };
+    expect(testFn).toThrow(
+      'number of stars must be 1-5'
+    );
+  });
+});
+```
 
 # Example: testing a rating component
 
@@ -753,91 +826,15 @@ describe('errors', () => {
 });
 ```
 
-# Example: Testing with Jest and React Test Renderer
-
-Testing a Rating component
-
-## Test setup
-
-```tsx
-import React from 'react';
-import TestRenderer from 'react-test-renderer';
-
-import Rating from './Rating';
-```
-
-## Testing the rendering
-
-```tsx
-describe('rendering', () => {
-  it('renders 5 spans', () => {
-    const instance = TestRenderer.create(
-      <Rating stars={3} />
-    ).root;
-    expect(instance.findAllByType('span')).toHaveLength(5);
-  });
-
-  it('renders 3 active stars', () => {
-    const instance = TestRenderer.create(
-      <Rating stars={3} />
-    ).root;
-    expect(
-      instance.findAllByProps({ className: 'star active' })
-    ).toHaveLength(3);
-  });
-});
-```
-
-## Testing events
-
-```jsx
-describe('events', () => {
-  it('reacts to click on the fourth star', () => {
-    const mockFn = jest.fn();
-    const instance = TestRenderer.create(
-      <Rating stars={3} onStarsChange={mockFn} />
-    ).root;
-    const fourthStar = instance.findAllByType('span')[3];
-    fourthStar.props.onClick();
-    expect(mockFn).toBeCalledWith(4);
-  });
-});
-```
-
-## Testing exceptions
-
-```jsx
-describe('errors', () => {
-  it('throws an error if the number of stars is 0', () => {
-    const testFn = () => {
-      TestRenderer.create(<Rating stars={0} />);
-    };
-    expect(testFn).toThrow(
-      'number of stars must be 1-5'
-    );
-  });
-});
-```
-
 # Snapshot tests
+
+### with react-test-renderer
 
 ## Snapshot tests
 
 Components are rendered and compared to earlier versions (snapshots)
 
 Snapshot tests are a kind of regression tests
-
-## Snapshot tests - setup
-
-```bash
-npm install --save-dev react-test-renderer
-```
-
-for TypeScript:
-
-```bash
-npm install --save-dev react-test-renderer @types/react-test-renderer
-```
 
 ## Snapshot tests in React - creating tests
 
@@ -900,14 +897,10 @@ https://reacttraining.com/react-router/
 
 ## React Router - Setup
 
-```bash
-npm install react-router-dom
-```
+npm packages:
 
-```bash
-// TypeScript:
-npm install react-router-dom @types/react-router-dom
-```
+- `react-router-dom`
+- (`@types/react-router-dom`)
 
 ## React Router - BrowserRouter
 
@@ -1162,7 +1155,7 @@ const TodoStats = () => {
 
 ## Context - example: Consumer
 
-class component
+class component:
 
 ```jsx
 class TodoStats extends React.Component {

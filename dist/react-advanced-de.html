@@ -2531,6 +2531,9 @@ afterEach(<span class="hljs-function"><span class="hljs-params">()</span> =></sp
 </section><section class="slide"><h2>React-Test-Renderer - Installation</h2>
 <pre><code class="hljs language-bash">npm install --save-dev react-test-renderer
 </code></pre>
+<p>für TypeScript:</p>
+<pre><code class="hljs language-bash">npm install --save-dev react-test-renderer @types/react-test-renderer
+</code></pre>
 </section><section class="slide"><h2>React-Test-Renderer - Beispiel</h2>
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> TestRenderer <span class="hljs-keyword">from</span> <span class="hljs-string">'react-test-renderer'</span>;
 
@@ -2546,6 +2549,7 @@ it(<span class="hljs-string">'renders a component without crashing'</span>, () =
 <li><code>instance.find(All)ByProps</code></li>
 <li><code>instance.props</code></li>
 <li><code>instance.children</code></li>
+<li><code>instance.type</code></li>
 </ul>
 </section><section class="slide"><h2>Enzyme - Installation &#x26; Einrichtung</h2>
 <pre><code class="hljs language-bash">npm install --save-dev enzyme enzyme-adapter-react-16
@@ -2569,6 +2573,58 @@ it('renders a component tree without crashing', () => {
 </span></code></pre>
 </section><section class="slide"><h2>Enzyme - Cheatsheet</h2>
 <p><a href="https://devhints.io/enzyme">https://devhints.io/enzyme</a></p>
+</section></section><section class="slides-section"><section class="slide"><h1>Beispiel: Testen mit Jest und React Test Renderer</h1>
+<p>Testen einer Rating Komponente</p>
+</section><section class="slide"><h2>Test-Setup</h2>
+<pre><code class="language-tsx">import React from 'react';
+import TestRenderer from 'react-test-renderer';
+
+import Rating from './Rating';
+</code></pre>
+</section><section class="slide"><h2>Testen des Renderings</h2>
+<pre><code class="language-tsx">describe('rendering', () => {
+  it('renders 5 spans', () => {
+    const instance = TestRenderer.create(
+      &#x3C;Rating stars={3} />
+    ).root;
+    expect(instance.findAllByType('span')).toHaveLength(5);
+  });
+
+  it('renders 3 active stars', () => {
+    const instance = TestRenderer.create(
+      &#x3C;Rating stars={3} />
+    ).root;
+    expect(
+      instance.findAllByProps({ className: 'star active' })
+    ).toHaveLength(3);
+  });
+});
+</code></pre>
+</section><section class="slide"><h2>Testen von Events</h2>
+<pre><code class="hljs language-jsx">describe(<span class="hljs-string">'events'</span>, () => {
+  it(<span class="hljs-string">'reacts to click on the fourth star'</span>, () => {
+    <span class="hljs-keyword">const</span> mockFn = jest.fn();
+    <span class="hljs-keyword">const</span> instance = TestRenderer.create(
+      <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Rating</span> <span class="hljs-attr">stars</span>=<span class="hljs-string">{3}</span> <span class="hljs-attr">onStarsChange</span>=<span class="hljs-string">{mockFn}</span> /></span>
+    ).root;
+    const fourthStar = instance.findAllByType('span')[3];
+    fourthStar.props.onClick();
+    expect(mockFn).toBeCalledWith(4);
+  });
+});
+</span></code></pre>
+</section><section class="slide"><h2>Testen von Fehlern</h2>
+<pre><code class="hljs language-jsx">describe(<span class="hljs-string">'errors'</span>, () => {
+  it(<span class="hljs-string">'throws an error if the number of stars is 0'</span>, () => {
+    <span class="hljs-keyword">const</span> testFn = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+      TestRenderer.create(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Rating</span> <span class="hljs-attr">stars</span>=<span class="hljs-string">{0}</span> /></span>);
+    };
+    expect(testFn).toThrow(
+      'number of stars must be 1-5'
+    );
+  });
+});
+</span></code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Beispiel: Testen mit Jest und Enzyme</h1>
 <p>Testen einer Rating-Komponente</p>
 </section><section class="slide"><h2>Beispiel: Testen einer Rating-Komponente</h2>
@@ -2644,68 +2700,11 @@ import Rating from './Rating';
   });
 });
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Beispiel: Testen mit Jest und React Test Renderer</h1>
-<p>Testen einer Rating Komponente</p>
-</section><section class="slide"><h2>Test-Setup</h2>
-<pre><code class="language-tsx">import React from 'react';
-import TestRenderer from 'react-test-renderer';
-
-import Rating from './Rating';
-</code></pre>
-</section><section class="slide"><h2>Testen des Renderings</h2>
-<pre><code class="language-tsx">describe('rendering', () => {
-  it('renders 5 spans', () => {
-    const instance = TestRenderer.create(
-      &#x3C;Rating stars={3} />
-    ).root;
-    expect(instance.findAllByType('span')).toHaveLength(5);
-  });
-
-  it('renders 3 active stars', () => {
-    const instance = TestRenderer.create(
-      &#x3C;Rating stars={3} />
-    ).root;
-    expect(
-      instance.findAllByProps({ className: 'star active' })
-    ).toHaveLength(3);
-  });
-});
-</code></pre>
-</section><section class="slide"><h2>Testen von Events</h2>
-<pre><code class="hljs language-jsx">describe(<span class="hljs-string">'events'</span>, () => {
-  it(<span class="hljs-string">'reacts to click on the fourth star'</span>, () => {
-    <span class="hljs-keyword">const</span> mockFn = jest.fn();
-    <span class="hljs-keyword">const</span> instance = TestRenderer.create(
-      <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Rating</span> <span class="hljs-attr">stars</span>=<span class="hljs-string">{3}</span> <span class="hljs-attr">onStarsChange</span>=<span class="hljs-string">{mockFn}</span> /></span>
-    ).root;
-    const fourthStar = instance.findAllByType('span')[3];
-    fourthStar.props.onClick();
-    expect(mockFn).toBeCalledWith(4);
-  });
-});
-</span></code></pre>
-</section><section class="slide"><h2>Testen von Fehlern</h2>
-<pre><code class="hljs language-jsx">describe(<span class="hljs-string">'errors'</span>, () => {
-  it(<span class="hljs-string">'throws an error if the number of stars is 0'</span>, () => {
-    <span class="hljs-keyword">const</span> testFn = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-      TestRenderer.create(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Rating</span> <span class="hljs-attr">stars</span>=<span class="hljs-string">{0}</span> /></span>);
-    };
-    expect(testFn).toThrow(
-      'number of stars must be 1-5'
-    );
-  });
-});
-</span></code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Snapshot Tests</h1>
+<h3>mit react-test-renderer</h3>
 </section><section class="slide"><h2>Snapshot Tests</h2>
 <p>Komponenten werden gerendert und mit früheren Versionen (Snapshots) verglichen</p>
 <p>Snapshot Tests fallen unter Regressionstests.</p>
-</section><section class="slide"><h2>Snapshot Tests - Setup</h2>
-<pre><code class="hljs language-bash">npm install --save-dev react-test-renderer
-</code></pre>
-<p>für TypeScript:</p>
-<pre><code class="hljs language-bash">npm install --save-dev react-test-renderer @types/react-test-renderer
-</code></pre>
 </section><section class="slide"><h2>Snapshot Tests in React - Tests erstellen</h2>
 <pre><code class="hljs language-jsx"><span class="hljs-comment">// Rating.test.js</span>
 <span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
@@ -2742,11 +2741,11 @@ Inspect your code changes or press `u` to update them.
 </section><section class="slide"><h2>React Router</h2>
 <p><a href="https://reacttraining.com/react-router/">https://reacttraining.com/react-router/</a></p>
 </section><section class="slide"><h2>React Router - Setup</h2>
-<pre><code class="hljs language-bash">npm install react-router-dom
-</code></pre>
-<pre><code class="hljs language-bash">// TypeScript:
-npm install react-router-dom @types/react-router-dom
-</code></pre>
+<p>npm Pakete:</p>
+<ul>
+<li><code>react-router-dom</code></li>
+<li>(<code>@types/react-router-dom</code>)</li>
+</ul>
 </section><section class="slide"><h2>React Router - BrowserRouter</h2>
 <p>Um React Router verwenden zu können:<br />
 Ganze Anwendung wird in ein <code>BrowserRouter</code> - Element eingebettet</p>
@@ -2792,7 +2791,7 @@ Ganze Anwendung wird in ein <code>BrowserRouter</code> - Element eingebettet</p>
 &#x3C;/Switch>;
 </code></pre>
 </section><section class="slide"><h2>React Router - Redirects</h2>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> { Redirect } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router'</span>;
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> { Redirect } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router-dom'</span>;
 
 <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Route</span>
   <span class="hljs-attr">path</span>=<span class="hljs-string">"/home"</span>

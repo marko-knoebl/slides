@@ -293,14 +293,14 @@ _F1_ oder _Ctrl_ + _Shift_ + _P_: Befehlspalette
 
 Beispiele für Befehle:
 
-- _Search a string in the file_
+- _Find_
 - _Search: Find in Files_
 - _Format Document_
 - _Toggle line comment_ / _Toggle block comment_
 - _Go to definition_ / _Peek definition_ (nur für bestimmte Dateitypen)
 - _Rename symbol_ (nur für bestimmte Dateitypen)
 
-## VS Code - Tastenkürzel
+## VS Code - Mehrere Textcursor
 
 - _Ctrl_ + _F2_: Mehrere Textcursor setzen
 - _Alt_ + Mausklick: Mehrere Textcursor setzen
@@ -1115,7 +1115,7 @@ siehe Info-Boxen zu _Installation_ und _Usage_
 - Button
 - Todo App im Material Style
 
-# Props
+# Komponenten-Props
 
 ## State & Props
 
@@ -1186,7 +1186,7 @@ const Bordered = props => (
 );
 ```
 
-# Eigene Events
+# Komponenten-Events
 
 ## Datenfluss
 

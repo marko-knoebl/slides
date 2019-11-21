@@ -611,6 +611,12 @@ Enzyme bietet noch keine Unterstützung für Hooks
 npm install --save-dev react-test-renderer
 ```
 
+für TypeScript:
+
+```bash
+npm install --save-dev react-test-renderer @types/react-test-renderer
+```
+
 ## React-Test-Renderer - Beispiel
 
 ```js
@@ -629,6 +635,7 @@ it('renders a component without crashing', () => {
 - `instance.find(All)ByProps`
 - `instance.props`
 - `instance.children`
+- `instance.type`
 
 ## Enzyme - Installation & Einrichtung
 
@@ -662,6 +669,72 @@ it('renders a component tree without crashing', () => {
 ## Enzyme - Cheatsheet
 
 https://devhints.io/enzyme
+
+# Beispiel: Testen mit Jest und React Test Renderer
+
+Testen einer Rating Komponente
+
+## Test-Setup
+
+```tsx
+import React from 'react';
+import TestRenderer from 'react-test-renderer';
+
+import Rating from './Rating';
+```
+
+## Testen des Renderings
+
+```tsx
+describe('rendering', () => {
+  it('renders 5 spans', () => {
+    const instance = TestRenderer.create(
+      <Rating stars={3} />
+    ).root;
+    expect(instance.findAllByType('span')).toHaveLength(5);
+  });
+
+  it('renders 3 active stars', () => {
+    const instance = TestRenderer.create(
+      <Rating stars={3} />
+    ).root;
+    expect(
+      instance.findAllByProps({ className: 'star active' })
+    ).toHaveLength(3);
+  });
+});
+```
+
+## Testen von Events
+
+```jsx
+describe('events', () => {
+  it('reacts to click on the fourth star', () => {
+    const mockFn = jest.fn();
+    const instance = TestRenderer.create(
+      <Rating stars={3} onStarsChange={mockFn} />
+    ).root;
+    const fourthStar = instance.findAllByType('span')[3];
+    fourthStar.props.onClick();
+    expect(mockFn).toBeCalledWith(4);
+  });
+});
+```
+
+## Testen von Fehlern
+
+```jsx
+describe('errors', () => {
+  it('throws an error if the number of stars is 0', () => {
+    const testFn = () => {
+      TestRenderer.create(<Rating stars={0} />);
+    };
+    expect(testFn).toThrow(
+      'number of stars must be 1-5'
+    );
+  });
+});
+```
 
 # Beispiel: Testen mit Jest und Enzyme
 
@@ -759,91 +832,15 @@ describe('errors', () => {
 });
 ```
 
-# Beispiel: Testen mit Jest und React Test Renderer
-
-Testen einer Rating Komponente
-
-## Test-Setup
-
-```tsx
-import React from 'react';
-import TestRenderer from 'react-test-renderer';
-
-import Rating from './Rating';
-```
-
-## Testen des Renderings
-
-```tsx
-describe('rendering', () => {
-  it('renders 5 spans', () => {
-    const instance = TestRenderer.create(
-      <Rating stars={3} />
-    ).root;
-    expect(instance.findAllByType('span')).toHaveLength(5);
-  });
-
-  it('renders 3 active stars', () => {
-    const instance = TestRenderer.create(
-      <Rating stars={3} />
-    ).root;
-    expect(
-      instance.findAllByProps({ className: 'star active' })
-    ).toHaveLength(3);
-  });
-});
-```
-
-## Testen von Events
-
-```jsx
-describe('events', () => {
-  it('reacts to click on the fourth star', () => {
-    const mockFn = jest.fn();
-    const instance = TestRenderer.create(
-      <Rating stars={3} onStarsChange={mockFn} />
-    ).root;
-    const fourthStar = instance.findAllByType('span')[3];
-    fourthStar.props.onClick();
-    expect(mockFn).toBeCalledWith(4);
-  });
-});
-```
-
-## Testen von Fehlern
-
-```jsx
-describe('errors', () => {
-  it('throws an error if the number of stars is 0', () => {
-    const testFn = () => {
-      TestRenderer.create(<Rating stars={0} />);
-    };
-    expect(testFn).toThrow(
-      'number of stars must be 1-5'
-    );
-  });
-});
-```
-
 # Snapshot Tests
+
+### mit react-test-renderer
 
 ## Snapshot Tests
 
 Komponenten werden gerendert und mit früheren Versionen (Snapshots) verglichen
 
 Snapshot Tests fallen unter Regressionstests.
-
-## Snapshot Tests - Setup
-
-```bash
-npm install --save-dev react-test-renderer
-```
-
-für TypeScript:
-
-```bash
-npm install --save-dev react-test-renderer @types/react-test-renderer
-```
 
 ## Snapshot Tests in React - Tests erstellen
 
@@ -906,14 +903,10 @@ https://reacttraining.com/react-router/
 
 ## React Router - Setup
 
-```bash
-npm install react-router-dom
-```
+npm Pakete:
 
-```bash
-// TypeScript:
-npm install react-router-dom @types/react-router-dom
-```
+- `react-router-dom`
+- (`@types/react-router-dom`)
 
 ## React Router - BrowserRouter
 
@@ -980,7 +973,7 @@ import { Switch } from 'react-router-dom';
 ## React Router - Redirects
 
 ```jsx
-import { Redirect } from 'react-router';
+import { Redirect } from 'react-router-dom';
 
 <Route
   path="/home"

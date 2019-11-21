@@ -1,4 +1,4 @@
-# Props
+# Komponenten-Props
 
 ## State & Props
 

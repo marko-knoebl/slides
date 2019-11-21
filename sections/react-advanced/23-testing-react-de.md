@@ -13,6 +13,12 @@ Enzyme bietet noch keine Unterstützung für Hooks
 npm install --save-dev react-test-renderer
 ```
 
+für TypeScript:
+
+```bash
+npm install --save-dev react-test-renderer @types/react-test-renderer
+```
+
 ## React-Test-Renderer - Beispiel
 
 ```js
@@ -31,6 +37,7 @@ it('renders a component without crashing', () => {
 - `instance.find(All)ByProps`
 - `instance.props`
 - `instance.children`
+- `instance.type`
 
 ## Enzyme - Installation & Einrichtung
 

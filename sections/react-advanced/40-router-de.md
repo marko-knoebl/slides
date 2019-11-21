@@ -6,14 +6,10 @@ https://reacttraining.com/react-router/
 
 ## React Router - Setup
 
-```bash
-npm install react-router-dom
-```
+npm Pakete:
 
-```bash
-// TypeScript:
-npm install react-router-dom @types/react-router-dom
-```
+- `react-router-dom`
+- (`@types/react-router-dom`)
 
 ## React Router - BrowserRouter
 
@@ -80,7 +76,7 @@ import { Switch } from 'react-router-dom';
 ## React Router - Redirects
 
 ```jsx
-import { Redirect } from 'react-router';
+import { Redirect } from 'react-router-dom';
 
 <Route
   path="/home"

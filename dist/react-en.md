@@ -293,14 +293,14 @@ _F1_ or _Ctrl_ + _Shift_ + _P_: display command palette
 
 Example commands:
 
-- _Search a string in the file_
+- _Find_
 - _Search: Find in Files_
 - _Format Document_
 - _Toggle line comment_ / _Toggle block comment_
 - _Go to definition_ / _Peek definition_ (only for certain file types)
 - _Rename symbol_ (only for certain file types)
 
-## VS Code - keyboard shortcuts
+## VS Code - multiple text cursors
 
 - _Ctrl_ + _F2_: set multiple text cursors
 - _Alt_ + click: set multiple text cursors
@@ -1115,7 +1115,7 @@ see info boxes on _Installation_ und _Usage_
 - Button
 - Todo-App in Material Style
 
-# Props
+# Component props
 
 ## State & props
 
@@ -1186,7 +1186,7 @@ const Bordered = props => (
 );
 ```
 
-# Custom events
+# Component events
 
 ## Data/event flow
 

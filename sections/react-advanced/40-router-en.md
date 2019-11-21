@@ -6,14 +6,10 @@ https://reacttraining.com/react-router/
 
 ## React Router - Setup
 
-```bash
-npm install react-router-dom
-```
+npm packages:
 
-```bash
-// TypeScript:
-npm install react-router-dom @types/react-router-dom
-```
+- `react-router-dom`
+- (`@types/react-router-dom`)
 
 ## React Router - BrowserRouter
 

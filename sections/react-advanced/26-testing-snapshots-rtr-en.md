@@ -1,22 +1,12 @@
 # Snapshot tests
 
+### with react-test-renderer
+
 ## Snapshot tests
 
 Components are rendered and compared to earlier versions (snapshots)
 
 Snapshot tests are a kind of regression tests
-
-## Snapshot tests - setup
-
-```bash
-npm install --save-dev react-test-renderer
-```
-
-for TypeScript:
-
-```bash
-npm install --save-dev react-test-renderer @types/react-test-renderer
-```
 
 ## Snapshot tests in React - creating tests
 

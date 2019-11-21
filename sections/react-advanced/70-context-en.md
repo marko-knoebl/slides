@@ -69,7 +69,7 @@ const TodoStats = () => {
 
 ## Context - example: Consumer
 
-class component
+class component:
 
 ```jsx
 class TodoStats extends React.Component {

@@ -1,22 +1,12 @@
 # Snapshot Tests
 
+### mit react-test-renderer
+
 ## Snapshot Tests
 
 Komponenten werden gerendert und mit früheren Versionen (Snapshots) verglichen
 
 Snapshot Tests fallen unter Regressionstests.
-
-## Snapshot Tests - Setup
-
-```bash
-npm install --save-dev react-test-renderer
-```
-
-für TypeScript:
-
-```bash
-npm install --save-dev react-test-renderer @types/react-test-renderer
-```
 
 ## Snapshot Tests in React - Tests erstellen
 
