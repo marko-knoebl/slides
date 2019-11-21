@@ -5,8 +5,10 @@
 const fs = require("fs");
 
 const unified = require("unified");
+const rehypeParse = require("rehype-parse");
 const remarkParse = require("remark-parse");
 const remarkRehype = require("remark-rehype");
+const remarkSectionize = require("remark-sectionize");
 const rehypeRaw = require("rehype-raw");
 const rehypeStringify = require("rehype-stringify");
 const rehypeInline = require("rehype-inline");
@@ -14,22 +16,23 @@ const rehypeInline = require("rehype-inline");
 const slides = require("@karuga/slides");
 
 // duplicate the rehypeInline plugin so it can be used twice
-const rehypeInline1 = () => rehypeInline();
-const rehypeInline2 = () => rehypeInline();
+const rehypeInline1 = options => rehypeInline(options);
+const rehypeInline2 = options => rehypeInline(options);
 
 class Build {
   constructor() {
     this.processor = unified()
-      .use(remarkParse)
-      .use(remarkRehype, { allowDangerousHTML: true })
-      .use(rehypeRaw)
+      .use(rehypeParse, { fragment: true })
       .use(rehypeInline1)
-      .use(slides, {
-        format: "revealjs_karuga",
-        sectionSeparators: ["h1"],
-        slideSeparators: ["h2"]
-      })
-      .use(rehypeInline2)
+      //.use(rehypeInline1, {
+      //  importProcessors: { "text/markdown": [[remarkSectionize]] }
+      //})
+      .use(rehypeRaw)
+      //.use(slides, {
+      //  format: "revealjs_karuga",
+      //  sectionSeparators: ["h1"],
+      //  slideSeparators: ["h2"]
+      //})
       .use(rehypeStringify, { closeSelfClosing: true });
   }
 
