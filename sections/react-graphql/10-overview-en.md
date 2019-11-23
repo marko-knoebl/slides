@@ -41,7 +41,7 @@ OpenCRUD: GraphQL dialect that maps to standard SQL
 
 ## Example: random number service
 
-query:
+query (GraphQL):
 
 ```graphql
 query {
@@ -49,7 +49,7 @@ query {
 }
 ```
 
-answer:
+answer (JSON):
 
 ```json
 {

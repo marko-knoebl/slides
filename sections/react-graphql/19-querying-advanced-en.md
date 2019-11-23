@@ -1,5 +1,18 @@
 # Querying - Advanced
 
+## Default variable valuess
+
+query:
+
+```graphql
+query getPokemonByName($name: String = "Pikachu") {
+  pokemon(name: $name) {
+    number
+    image
+  }
+}
+```
+
 ## Aliases
 
 Task: number of Pikachu and Raichu

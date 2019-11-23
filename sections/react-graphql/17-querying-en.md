@@ -2,7 +2,7 @@
 
 ## GraphQL examples
 
-from https://github.com/APIs-guru/graphql-apis
+from https://github.com/APIs-guru/graphql-apis:
 
 - GitHub (login required)
 - Reddit (GraphQL Hub)
@@ -126,19 +126,6 @@ variables:
 }
 ```
 
-## Default variable valuess
-
-query:
-
-```graphql
-query getPokemonByName($name: String = "Pikachu") {
-  pokemon(name: $name) {
-    number
-    image
-  }
-}
-```
-
 ## Modifying data
 
 https://todo-mongo-graphql-server.herokuapp.com/
@@ -159,7 +146,7 @@ mutation addTodo($title: String!) {
 
 ```json
 {
-  "title": "count to 42"
+  "title": "shopping"
 }
 ```
 
@@ -212,9 +199,8 @@ mutation reset {
 
 ## More exercises - optional
 
-Get all "followers of followers" for a specific GitHub account
-
-Get the name of a project and number of stars for all GitHub projects of a specific user
+- Get all "followers of followers" for a specific GitHub account
+- Get the name of a project and number of stars for all GitHub projects of a specific user
 
 ## More exercises - solutions
 

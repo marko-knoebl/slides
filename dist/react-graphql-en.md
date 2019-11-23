@@ -1,3 +1,35 @@
+# React & GraphQL
+
+## Presentation and code
+
+Presentations available at: https://karuga.eu/courses-presentations
+
+Code available at: https://github.com/marko-knoebl/courses-code
+
+## Your Trainer
+
+Marko Knöbl
+
+- Frontend Web-Development
+  - JavaScript
+  - React, Angular
+- Programming
+  - Python, JavaScript
+
+## Introduction of Participants
+
+- current projects
+- prior knowledge
+- expectations
+
+## Organizational
+
+- duration
+- breaks
+- lunch
+- materials
+- questions, feedback?
+
 # GraphQL
 
 ## GraphQL
@@ -41,7 +73,7 @@ OpenCRUD: GraphQL dialect that maps to standard SQL
 
 ## Example: random number service
 
-query:
+query (GraphQL):
 
 ```graphql
 query {
@@ -49,7 +81,7 @@ query {
 }
 ```
 
-answer:
+answer (JSON):
 
 ```json
 {
@@ -324,7 +356,7 @@ servers (JS-based):
 
 ## GraphQL examples
 
-from https://github.com/APIs-guru/graphql-apis
+from https://github.com/APIs-guru/graphql-apis:
 
 - GitHub (login required)
 - Reddit (GraphQL Hub)
@@ -448,19 +480,6 @@ variables:
 }
 ```
 
-## Default variable valuess
-
-query:
-
-```graphql
-query getPokemonByName($name: String = "Pikachu") {
-  pokemon(name: $name) {
-    number
-    image
-  }
-}
-```
-
 ## Modifying data
 
 https://todo-mongo-graphql-server.herokuapp.com/
@@ -481,7 +500,7 @@ mutation addTodo($title: String!) {
 
 ```json
 {
-  "title": "count to 42"
+  "title": "shopping"
 }
 ```
 
@@ -534,9 +553,8 @@ mutation reset {
 
 ## More exercises - optional
 
-Get all "followers of followers" for a specific GitHub account
-
-Get the name of a project and number of stars for all GitHub projects of a specific user
+- Get all "followers of followers" for a specific GitHub account
+- Get the name of a project and number of stars for all GitHub projects of a specific user
 
 ## More exercises - solutions
 
@@ -583,6 +601,19 @@ Load todos from `https://5qn401kkl9.lp.gql.zone/graphql`
 (admin: https://launchpad.graphql.com/5qn401kkl9)
 
 # Querying - Advanced
+
+## Default variable valuess
+
+query:
+
+```graphql
+query getPokemonByName($name: String = "Pikachu") {
+  pokemon(name: $name) {
+    number
+    image
+  }
+}
+```
 
 ## Aliases
 
@@ -691,6 +722,24 @@ fragment essentialData on Pokemon {
 }
 ```
 
+# Data types
+
+## Data types
+
+With GraphQL the returned data types are always known to the client.
+
+## Data types
+
+available types:
+
+- Boolean
+- Int: 32-bit int (signed)
+- Float: 64-bit float
+- String: UTF-8 character sequence
+- ID: unique id serialized as a string
+- Object: object with predefined entries
+- List: list composed of specific other types
+
 # GraphQL from JavaScript
 
 ## Sending queries to the server
@@ -758,6 +807,268 @@ fetch('https://www.graphqlhub.com/graphql', {
 })
   .then(r => r.json())
   .then(data => console.log('data returned:', data));
+```
+
+# Apollo client
+
+## Apollo client
+
+advantages over "plain" frontent code:
+
+- automatic networking
+- automatic caching
+
+## Apollo client: installation
+
+Inside an existing React project install these packages:
+
+- `apollo-client`
+- `apollo-cache-inmemory`
+- `apollo-link-http`
+- `graphl`
+- `graphql-tag`
+- `react-apollo` (for later use)
+
+You can also install `apollo-boost` to install `apollo-client`, `apollo-cache-inmemory` and `apollo-link-http` (and more)
+
+## Apollo client: setup
+
+```js
+import { ApolloClient } from 'apollo-client';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { HttpLink } from 'apollo-link-http';
+import gql from 'graphql-tag';
+
+const cache = new InMemoryCache();
+const link = new HttpLink({
+  uri: 'https://api.spacex.land/graphql/',
+});
+
+const client = new ApolloClient({
+  cache,
+  link,
+});
+```
+
+## Apollo client: example query
+
+```js
+// via a tagged template string
+const LAUNCHES_QUERY = gql`
+  query recentLaunches {
+    launchesPast(limit: 10) {
+      mission_name
+    }
+  }
+`;
+
+client
+  .query({
+    query: LAUNCHES_QUERY,
+  })
+  .then(result => console.log(result));
+```
+
+# Apollo client with React
+
+## Apollo client with React
+
+## Connecting React to an Apollo client
+
+```jsx
+ReactDOM.render(
+  <ApolloProvider client={client}>
+    <App />
+  </ApolloProvider>,
+  document.getElementById('root')
+);
+```
+
+## The useQuery hook
+
+```js
+const LAUNCHES_QUERY = gql`
+  query recentLaunches {
+    launchesPast(limit: 10) {
+      mission_name
+    }
+  }
+`;
+```
+
+## The useQuery hook
+
+```js
+function RecentLaunches() {
+  const { data, loading, error } = useQuery(LAUNCHES_QUERY);
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error!</div>;
+
+  return (
+    <div>
+      <h1>Launches</h1>
+      {data.launchesPast.map(launch => (
+        <div>{launch.mission_name}</div>
+      ))}
+    </div>
+  );
+}
+```
+
+# Apollo client
+
+## Writing the render function
+
+The Query component's child element _is a function_. This function will receive the queried data and return a React component tree. In that way this function is similar to the _render_ method we're familiar with.
+
+## Writing the render function
+
+The render function receives an object that can have a number of properties, including:
+
+- `data`: the response body
+- `loading`: a boolean indicating whether the request is ongoing
+- `error`: indicates network errors or GraphQL errors
+
+full API: https://www.apollographql.com/docs/react/essentials/queries.html#render-prop
+
+## Writing the render function
+
+```jsx
+({ data, loading, error }) => {
+  if (loading) return <div>Fetching...</div>;
+  if (error) return <div>Error</div>;
+
+  return (
+    <div>
+      {data.allPosts.map(post => (
+        <div>{post.title}</div>
+      ))}
+    </div>
+  );
+};
+```
+
+## Mutations
+
+Apollo Client also provides a `Mutation` component that works similar to the `Query` component.
+
+```jsx
+<Mutation
+  mutation={gql`mutation createPost($authorId: ID! ...`}
+  variables={{ authorId: '123' }}
+  refetchQueries={['getPosts']}>
+  {customRenderFunction}
+</Mutation>
+```
+
+## Mutations
+
+Inside a mutation the `customRenderFunction` will receive _two_ arguments:
+
+- the _second_ argument (which is not always needed) is the same as the first argument for a query. So it contain properties like `data`, `loading`, ...
+- the _first_ argument is a function that, when called, will send the specified mutation to the server
+
+So one important distinction between queries and mutations in Apollo client is: Queries get sent to the server automatically when the component is mounted. Mutations must be sent manually (e.g. when the user clicks a button).
+
+## Subscriptions
+
+Subscriptions can be handled via websockets
+
+```bash
+npm install apollo-link-ws subscriptions-transport-ws
+```
+
+## Subscriptions
+
+```js
+// Create an http link:
+const httpLink = new HttpLink({
+  uri:
+    'https://api.graph.cool/simple/v1/cjmj9v4mk1zs00182rnrzdrai',
+});
+
+// Create a WebSocket link:
+const wsLink = new WebSocketLink({
+  uri: `ws://subscriptions.graph.cool/v1/cjmj9v4mk1zs00182rnrzdrai`,
+  options: {
+    reconnect: true,
+  },
+});
+```
+
+## Subscriptions
+
+```js
+// using the ability to split links, you can send data to each link
+// depending on what kind of operation is being sent
+const link = split(
+  // split based on operation type
+  ({ query }) => {
+    const { kind, operation } = getMainDefinition(query);
+    console.log(kind, operation);
+    return (
+      kind === 'OperationDefinition' &&
+      operation === 'subscription'
+    );
+  },
+  wsLink,
+  httpLink
+);
+```
+
+## Subscriptions
+
+```jsx
+<Subscription subscription={SUBSCRIBE_POSTS_TEMPLATE}>
+  {this.subscriptionRenderer}
+</Subscription>
+```
+
+## Subscriptions
+
+```js
+const SUBSCRIBE_POST_CHANGE_TEMPLATE = gql`
+  subscription {
+    Post {
+      node {
+        author {
+          id
+        }
+        title
+      }
+    }
+  }
+`;
+```
+
+## Subscriptions
+
+```js
+subscriptionRenderer = ({ data }) => {
+  return (
+    <div>modified post: {data && data.Post.node.title}</div>
+  );
+};
+```
+
+## Exercise: Hackernews clone
+
+Do the React-Apollo tutorial at https://howtographql.com
+
+## Authentication, setting headers
+
+Middleware allows us to modify requests before they are sent to the server, e.g. by adding authentication headers:
+
+```js
+const authLink = setContext((_, { headers }) => {
+  const token = localStorage.getItem(AUTH_TOKEN);
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : '',
+    },
+  };
+});
 ```
 
 # GraphQL on the server
@@ -934,268 +1245,6 @@ type Todo {
   id: ID!
   text: String!
   completed: Boolean!
-}
-```
-
-# Apollo client
-
-## Apollo client
-
-advantages over "plain" frontent code:
-
-- automatic networking
-- automatic caching
-
-## Apollo client: installation
-
-Inside an existing React project install these packages:
-
-- `apollo-client`
-- `apollo-cache-inmemory`
-- `apollo-link-http`
-- `graphl`
-- `graphql-tag`
-- `react-apollo` (for later use)
-
-You can also install `apollo-boost` to install `apollo-client`, `apollo-cache-inmemory` and `apollo-link-http` (and more)
-
-## Apollo client: setup
-
-```js
-import { ApolloClient } from 'apollo-client';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { HttpLink } from 'apollo-link-http';
-import gql from 'graphql-tag';
-
-const cache = new InMemoryCache();
-const link = new HttpLink({
-  uri: 'https://api.spacex.land/graphql/',
-});
-
-const client = new ApolloClient({
-  cache,
-  link,
-});
-```
-
-## Apollo client: example query
-
-```js
-// via a tagged template string
-const LAUNCHES_QUERY = gql`
-  query recentLaunches {
-    launchesPast(limit: 10) {
-      mission_name
-    }
-  }
-`;
-
-client
-  .query({
-    query: LAUNCHES_QUERY,
-  })
-  .then(result => console.log(result));
-```
-
-# Apollo client
-
-## Writing the render function
-
-The Query component's child element _is a function_. This function will receive the queried data and return a React component tree. In that way this function is similar to the _render_ method we're familiar with.
-
-## Writing the render function
-
-The render function receives an object that can have a number of properties, including:
-
-- `data`: the response body
-- `loading`: a boolean indicating whether the request is ongoing
-- `error`: indicates network errors or GraphQL errors
-
-full API: https://www.apollographql.com/docs/react/essentials/queries.html#render-prop
-
-## Writing the render function
-
-```jsx
-({ data, loading, error }) => {
-  if (loading) return <div>Fetching...</div>;
-  if (error) return <div>Error</div>;
-
-  return (
-    <div>
-      {data.allPosts.map(post => (
-        <div>{post.title}</div>
-      ))}
-    </div>
-  );
-};
-```
-
-## Mutations
-
-Apollo Client also provides a `Mutation` component that works similar to the `Query` component.
-
-```jsx
-<Mutation
-  mutation={gql`mutation createPost($authorId: ID! ...`}
-  variables={{ authorId: '123' }}
-  refetchQueries={['getPosts']}>
-  {customRenderFunction}
-</Mutation>
-```
-
-## Mutations
-
-Inside a mutation the `customRenderFunction` will receive _two_ arguments:
-
-- the _second_ argument (which is not always needed) is the same as the first argument for a query. So it contain properties like `data`, `loading`, ...
-- the _first_ argument is a function that, when called, will send the specified mutation to the server
-
-So one important distinction between queries and mutations in Apollo client is: Queries get sent to the server automatically when the component is mounted. Mutations must be sent manually (e.g. when the user clicks a button).
-
-## Subscriptions
-
-Subscriptions can be handled via websockets
-
-```bash
-npm install apollo-link-ws subscriptions-transport-ws
-```
-
-## Subscriptions
-
-```js
-// Create an http link:
-const httpLink = new HttpLink({
-  uri:
-    'https://api.graph.cool/simple/v1/cjmj9v4mk1zs00182rnrzdrai',
-});
-
-// Create a WebSocket link:
-const wsLink = new WebSocketLink({
-  uri: `ws://subscriptions.graph.cool/v1/cjmj9v4mk1zs00182rnrzdrai`,
-  options: {
-    reconnect: true,
-  },
-});
-```
-
-## Subscriptions
-
-```js
-// using the ability to split links, you can send data to each link
-// depending on what kind of operation is being sent
-const link = split(
-  // split based on operation type
-  ({ query }) => {
-    const { kind, operation } = getMainDefinition(query);
-    console.log(kind, operation);
-    return (
-      kind === 'OperationDefinition' &&
-      operation === 'subscription'
-    );
-  },
-  wsLink,
-  httpLink
-);
-```
-
-## Subscriptions
-
-```jsx
-<Subscription subscription={SUBSCRIBE_POSTS_TEMPLATE}>
-  {this.subscriptionRenderer}
-</Subscription>
-```
-
-## Subscriptions
-
-```js
-const SUBSCRIBE_POST_CHANGE_TEMPLATE = gql`
-  subscription {
-    Post {
-      node {
-        author {
-          id
-        }
-        title
-      }
-    }
-  }
-`;
-```
-
-## Subscriptions
-
-```js
-subscriptionRenderer = ({ data }) => {
-  return (
-    <div>modified post: {data && data.Post.node.title}</div>
-  );
-};
-```
-
-## Exercise: Hackernews clone
-
-Do the React-Apollo tutorial at https://howtographql.com
-
-## Authentication, setting headers
-
-Middleware allows us to modify requests before they are sent to the server, e.g. by adding authentication headers:
-
-```js
-const authLink = setContext((_, { headers }) => {
-  const token = localStorage.getItem(AUTH_TOKEN);
-  return {
-    headers: {
-      ...headers,
-      authorization: token ? `Bearer ${token}` : '',
-    },
-  };
-});
-```
-
-# Apollo client with React
-
-## Apollo client with React
-
-## Connecting React to an Apollo client
-
-```jsx
-ReactDOM.render(
-  <ApolloProvider client={client}>
-    <App />
-  </ApolloProvider>,
-  document.getElementById('root')
-);
-```
-
-## The useQuery hook
-
-```js
-const LAUNCHES_QUERY = gql`
-  query recentLaunches {
-    launchesPast(limit: 10) {
-      mission_name
-    }
-  }
-`;
-```
-
-## The useQuery hook
-
-```js
-function RecentLaunches() {
-  const { data, loading, error } = useQuery(LAUNCHES_QUERY);
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error!</div>;
-
-  return (
-    <div>
-      <h1>Launches</h1>
-      {data.launchesPast.map(launch => (
-        <div>{launch.mission_name}</div>
-      ))}
-    </div>
-  );
 }
 ```
 
