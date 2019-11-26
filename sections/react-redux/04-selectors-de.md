@@ -20,7 +20,7 @@ Negativbeispiele:
 }
 ```
 
-## Sepeicherung des minimalen States
+## Speicherung des minimalen States
 
 Daten wie `maxTodoId` und `totalPrice` können aus den anderen Daten abgeleitet werden und sollten keinen separaten Eintrag im State haben.
 

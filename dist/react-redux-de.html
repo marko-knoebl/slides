@@ -2031,209 +2031,167 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   <body>
     <div class="reveal">
       <div class="slides slides"><section class="slides-section"><section class="slide"><h1>React &#x26; Redux</h1>
-</section></section><section class="slides-section"><section class="slide"><h1>Redux</h1>
-<h3>State management mit Redux</h3>
-</section><section class="slide"><h2>State management</h2>
-<p>In komplexeren Anwendungen macht es Sinn, den Anwendungszustand (model) von der Ansicht (view) zu trennen.</p>
-<p>Oft wird der gesamte Anwendungszustand durch ein Datenmodell repräsentiert. Jede Änderung am Anwendungszustand läuft über das Datenmodell.</p>
-</section><section class="slide"><h2>State management Tools</h2>
-<ul>
-<li>Redux (oft mit React verwendet)</li>
-<li>reducer Hook (in React beinhaltet, ähnlich zu Redux)</li>
-<li>MobX (oft mit React verwendet)</li>
-<li>ngrx (mit Angular verwendet)</li>
-<li>vuex (mit Vue.js verwendet)</li>
-</ul>
-</section><section class="slide"><h2>Besonderheit von Redux</h2>
-<p>In Redux geschieht jede Zustandsänderung mittels eines <em>Reducers</em> - einer Funktion, die einen Zustand basierend auf einer <em>action</em> in den nächsten überführt</p>
-</section><section class="slide"><h2>Redux Diagramm</h2>
-<svg id="redux-flow-svg" version="1.1" width="1000" height="500" viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <g id="state">
-      <circle r="60px" stroke="#000" stroke-width="2" fill="#eeeeee"></circle>
-      <text text-anchor="middle" alignment-baseline="central">
-        state
-      </text>
-    </g>
-    <g id="action">
-      <circle r="40px" stroke="#000" stroke-width="2" fill="#eeeeee"></circle>
-      <text text-anchor="middle" alignment-baseline="central">
-        action
-      </text>
-    </g>
-    <g id="reducer">
-      <rect width="70" height="150" stroke="#000" stroke-width="2" fill="#eeeeee"></rect>
-      <text text-anchor="middle" alignment-baseline="central" x="35" y="75">
-        reducer
-      </text>
-    </g>
-    <marker id="arrow-end" refX="0.0" refY="0.0" orient="auto" style="overflow: visible;">
-      <path transform="rotate(180)" d="M 8.7 4 L -2.2 0 L 8.7 -4 C 7 -1.6 7 1.6 8.7 4 z" class="arrowhead" id="path4877"></path>
-    </marker>
-    <path id="arrow-right-1" stroke="#000" stroke-width="2" fill="none" class="arrow" d="M0 0 L 145 0" marker-end="url(#arrow-end)"></path>
-    <path id="arrow-right-2" stroke="#000" stroke-width="2" fill="none" class="arrow" d="M 0 0 L 55 0" marker-end="url(#arrow-end)"></path>
-    <path id="arrow-right-up" stroke="#000" stroke-width="2" fill="none" class="arrow" d="M0 140 Q 0 0, 95 0" marker-end="url(#arrow-end)"></path>
-  </defs>
-  <style>
-    #redux-flow-svg path.arrow {
-      stroke: #000;
-      stroke-width: 2;
-      marker-end: url(#arrow-end);
-      fill: none;
-    }
-    #redux-flow-svg {
-      font-size: 16px;
-      font-family: sans-serif;
-    }
-  </style>
-  <use href="#state" transform="translate(100 100)"></use>
-  <use href="#state" transform="translate(500 100)"></use>
-  <use href="#state" transform="translate(900 100)"></use>
-  <use href="#action" transform="translate(210 300)"></use>
-  <use href="#action" transform="translate(610 300)"></use>
-  <use href="#reducer" transform="translate(310 40)"></use>
-  <use href="#reducer" transform="translate(710 40)"></use>
-  <use href="#arrow-right-1" transform="translate(160 100)"></use>
-  <use href="#arrow-right-1" transform="translate(560 100)"></use>
-  <use href="#arrow-right-2" transform="translate(380 100)"></use>
-  <use href="#arrow-right-2" transform="translate(780 100)"></use>
-  <use href="#arrow-right-up" transform="translate(210 120)"></use>
-  <use href="#arrow-right-up" transform="translate(610 120)"></use>
-</svg>
+</section></section><section class="slides-section"><section class="slide"><h1>State Management mit Reducern</h1>
+</section><section class="slide"><h2>State Managemenet mit Reducern</h2>
+<p>Siehe Präsentation zu <a href="/react-advanced-de.html">React advanced</a></p>
+</section></section><section class="slides-section"><section class="slide"><h1>State Management in Redux</h1>
+</section><section class="slide"><h2>State Management in Redux</h2>
+<p>Bei Redux: Anwendungszustand wird <em>global</em> gespeichert.</p>
+<p>Es gibt <em>einen</em> Store, in dem alle Daten gesammelt sind.</p>
+<p>Ein Store kann in verschiedene Teile aufgeteilt sein.</p>
 </section><section class="slide"><h2>Installation</h2>
 <pre><code class="hljs language-bash">npm install redux
 </code></pre>
-</section><section class="slide"><h2>Einfaches Redux-Beispiel: Counter</h2>
-<p>Wir erstellen einen Counter, der eine Zahl als Zustand hat und für den die zwei Actions <em>increment</em> und <em>decrement</em> definiert sind.</p>
-<p>Diese werden durch JavaScript Objekte repräsentiert:</p>
-<pre><code class="hljs language-json">{ <span class="hljs-attr">"type"</span>: <span class="hljs-string">"INCREMENT"</span> }
+</section><section class="slide"><h2>Beispiel: Todos</h2>
+<p>Unterschiede zwischen Redux und dem Reducer Hook:</p>
+<p>Der Anfangszustand wird bei Redux dem Reducer als Standardparameter übergeben</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> initialState = []
+<span class="hljs-keyword">const</span> todosReducer = <span class="hljs-function">(<span class="hljs-params">oldState = initialState, action</span>) =></span> {
+    ...
+}
 </code></pre>
-<pre><code class="hljs language-json">{ <span class="hljs-attr">"type"</span>: <span class="hljs-string">"DECREMENT"</span> }
+<p>Bei unbekannten Actions soll der Zustand in Redux unverändert bleiben:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">default</span>:
+  <span class="hljs-keyword">return</span> oldState;
 </code></pre>
-</section><section class="slide"><h2>Einfaches Redux-Beispiel: Counter</h2>
-<p>Zentrales Element ist die <em>Reducer</em>-Funktion:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> initialState = { <span class="hljs-attr">count</span>: <span class="hljs-number">0</span> };
-
-<span class="hljs-keyword">const</span> counterReducer = <span class="hljs-function">(<span class="hljs-params">state = initialState, action</span>) =></span> {
+</section><section class="slide"><h2>Beispiel: Todos</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> initialState = [];
+<span class="hljs-keyword">const</span> todosReducer = <span class="hljs-function">(<span class="hljs-params">oldState = initialState, action</span>) =></span> {
   <span class="hljs-keyword">switch</span> (action.type) {
-    <span class="hljs-keyword">case</span> <span class="hljs-string">'INCREMENT'</span>:
-      <span class="hljs-keyword">return</span> { ...state, <span class="hljs-attr">count</span>: state.count + <span class="hljs-number">1</span> };
-    <span class="hljs-keyword">case</span> <span class="hljs-string">'DECREMENT'</span>:
-      <span class="hljs-keyword">return</span> { ...state, <span class="hljs-attr">count</span>: state.count - <span class="hljs-number">1</span> };
+    <span class="hljs-keyword">case</span> <span class="hljs-string">'ADD_TODO'</span>:
+      <span class="hljs-keyword">return</span> [
+        ...oldState,
+        {
+          <span class="hljs-attr">title</span>: action.title,
+          <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span>,
+          <span class="hljs-attr">id</span>: generateId(), <span class="hljs-comment">// dummy function</span>
+        },
+      ];
+    <span class="hljs-keyword">case</span> <span class="hljs-string">'DELETE_TODO'</span>:
+      <span class="hljs-keyword">return</span> oldState.filter(<span class="hljs-function"><span class="hljs-params">todo</span> =></span> todo.id !== action.id);
     <span class="hljs-keyword">default</span>:
-      <span class="hljs-keyword">return</span> state;
+      <span class="hljs-keyword">return</span> oldState;
   }
 };
 </code></pre>
-</section><section class="slide"><h2>Einfaches Redux-Beispiel: Counter</h2>
-<p>Die Reducer-Funktion erhält als Funktionsparameter den alten Zustand (State) und eine Action, die eine Zustandsänderung beschreibt.</p>
-<p>Die Reducer-Funktion gibt den neuen Zustand zurück. Wichtig: Reducer-Funktionen ändern das alte state-Objekt nicht ab, sondern erstellen ein neues (reine Funktion)</p>
-</section><section class="slide"><h2>Einfaches Redux-Beispiel: Counter</h2>
-<p>Store = Datenspeicher, der von einem Reducer verwaltet wird</p>
-<pre><code class="hljs language-js"><span class="hljs-comment">// stores.js</span>
+</section><section class="slide"><h2>Beispiel: Todos Store</h2>
+<pre><code class="hljs language-js"><span class="hljs-comment">// store.js</span>
 <span class="hljs-keyword">import</span> { createStore } <span class="hljs-keyword">from</span> <span class="hljs-string">'redux'</span>;
-<span class="hljs-keyword">import</span> counterReducer <span class="hljs-keyword">from</span> <span class="hljs-string">'counterReducer'</span>;
+<span class="hljs-keyword">import</span> todosReducer <span class="hljs-keyword">from</span> <span class="hljs-string">'todosReducer'</span>;
 
-<span class="hljs-comment">// counter = reducer</span>
-<span class="hljs-keyword">const</span> counterStore = createStore(counterReducer);
+<span class="hljs-keyword">const</span> todosStore = createStore(todosReducer);
 </code></pre>
-</section><section class="slide"><h2>Einfaches Redux-Beispiel: Counter</h2>
-<p>Store verwenden</p>
-<pre><code class="hljs language-js">counterStore.getState(); <span class="hljs-comment">// {count: 0}</span>
-counterStore.dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">'INCREMENT'</span> });
-counterStore.getState(); <span class="hljs-comment">// {count: 1}</span>
-</code></pre>
-</section><section class="slide"><h2>Übung</h2>
-<p>Erstelle einen neuen mathadorStore mit dem Ausgangszustand <code>{number: 1}</code> und Actions für "Mal 3" und "Minus 7"</p>
-<p>Zusatzaufgabe: Erreiche den Zustand 4 (oder 10) durch das dispatchen passender Actions</p>
-</section><section class="slide"><h2>Reducer kombinieren</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> rootReducer = combineReducers({
-  <span class="hljs-attr">counter</span>: counterReducer,
-  <span class="hljs-attr">mathador</span>: mathadorReducer,
+</section><section class="slide"><h2>Beispiel: Todos Store</h2>
+<p>Direkte Verwendung:</p>
+<pre><code class="hljs language-js">todosStore.getState();
+todosStore.dispatch({
+  <span class="hljs-attr">type</span>: <span class="hljs-string">'ADD_TODO'</span>,
+  <span class="hljs-attr">title</span>: <span class="hljs-string">'learn Redux'</span>,
 });
-
-<span class="hljs-keyword">const</span> rootStore = createStore(rootReducer);
-
-rootStore.getState();
-<span class="hljs-comment">// {counter: {count: 0}, mathador: {number: 1}}</span>
-
-rootStore.dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">'INCREMENT'</span> });
-<span class="hljs-comment">// {counter: {count: 1}, mathador: {number: 1}}</span>
+todosStore.getState();
 </code></pre>
-</section><section class="slide"><h2>Redux devtools</h2>
-<p>Browser-plugin:</p>
+</section><section class="slide"><h2>Redux Devtools</h2>
+<p>Browser-plugn:</p>
 <p><a href="https://github.com/zalmoxisus/redux-devtools-extension">https://github.com/zalmoxisus/redux-devtools-extension</a></p>
-</section><section class="slide"><h2>Redux devtools</h2>
+</section><section class="slide"><h2>Redux Devtools</h2>
 <p>einbinden:</p>
-<pre><code class="hljs language-bash">npm install --save-dev redux-devtools-extension
+<pre><code class="hljs language-bash">npm install redux-devtools-extension
 </code></pre>
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { createStore, applyMiddleware } <span class="hljs-keyword">from</span> <span class="hljs-string">'redux'</span>;
 <span class="hljs-keyword">import</span> { composeWithDevTools } <span class="hljs-keyword">from</span> <span class="hljs-string">'redux-devtools-extension'</span>;
 
 <span class="hljs-keyword">const</span> store = createStore(
-  rootReducer,
+  reducer,
   composeWithDevTools(applyMiddleware())
 );
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Immutability</h1>
-</section><section class="slide"><h2>Immutability</h2>
-<p>(Unveränderlichkeit)</p>
-<p>Wichtiges Konzept in der funktionalen Programmierung und bei React / Redux</p>
-</section><section class="slide"><h2>Immutability</h2>
-<p>Bei der Verwendung von Redux bzw von Reacts PureComponent:</p>
-<p>Objekte, die den Anwendungszustand (state) beschreiben, sollten nicht direkt abgeändert werden</p>
-<p>Stattdessen sollten sie durch neue Objekte ersetzt werden</p>
-<p>Vorteile: Bessere Performance, mehr Möglichkeiten beim debugging</p>
-</section><section class="slide"><h2>PureComponent</h2>
-<p>Statt von <code>React.Component</code> ist es möglich, von <code>React.PureComponent</code> zu erben:</p>
-<p>Die Entsprechende Komponente wird nur neu gerendert, wenn sich entweder state oder props geändert haben.</p>
-<p>In einer PureComponent gelten Einträge in state bzw props dann als geändert, wenn sie sich auf ein anderes Objekt als zuvor beziehen</p>
-</section><section class="slide"><h2>Verwaltung von Daten ohne Mutationen</h2>
-</section><section class="slide"><h2>Datenverwaltung ohne Mutationen: Arrays</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> names = [<span class="hljs-string">'Alice'</span>, <span class="hljs-string">'Bob'</span>, <span class="hljs-string">'Charlie'</span>];
-<span class="hljs-comment">// nicht zulässig: verändert das ursprüngliche array</span>
-names.push(<span class="hljs-string">'Dan'</span>);
-
-<span class="hljs-comment">// stattdessen: neues Array;</span>
-<span class="hljs-keyword">let</span> newNames = names.slice();
-newNames.push(<span class="hljs-string">'Dan'</span>);
-<span class="hljs-comment">// überschreiben des ursprünglichen Arrays</span>
-names = newNames;
-
-<span class="hljs-comment">// oder:</span>
-names = [...names, <span class="hljs-string">'Dan'</span>];
-</code></pre>
-</section><section class="slide"><h2>Datenverwaltung ohne Mutationen: Objekt</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> user = {
-  <span class="hljs-attr">name</span>: <span class="hljs-string">'john'</span>
-  email: <span class="hljs-string">'john@doe.com'</span>
+</section><section class="slide"><h2>Redux Devtools</h2>
+<p>Funktionalitäten:</p>
+<ul>
+<li>State inspizieren</li>
+<li>Änderungen am State anzeigen</li>
+<li>Actions auslösen (dispatchen)</li>
+<li>Früheren State wiederherstellen (Time Traveling)</li>
+<li>State als JSON speichern / wiederherstellen</li>
+</ul>
+</section><section class="slide"><h2>Beispiel: Shopping cart</h2>
+<p>State des Beispiels besteht aus zwei wichtigen Teilen:</p>
+<ul>
+<li>Produktsortiment</li>
+<li>Anzahl der Produkte im Warenkorb</li>
+</ul>
+</section><section class="slide"><h2>Beispiel: Shopping cart - State</h2>
+<pre><code class="hljs language-json">{
+  <span class="hljs-attr">"cart"</span>: {
+    <span class="hljs-attr">"addedIds"</span>: [<span class="hljs-number">2</span>],
+    <span class="hljs-attr">"quantityById"</span>: { 2: <span class="hljs-number">2</span> }
+  },
+  <span class="hljs-attr">"products"</span>: [
+    {
+      <span class="hljs-attr">"id"</span>: <span class="hljs-number">1</span>,
+      <span class="hljs-attr">"title"</span>: <span class="hljs-string">"iPad 4 Mini"</span>,
+      <span class="hljs-attr">"price"</span>: <span class="hljs-number">500.01</span>,
+      <span class="hljs-attr">"inventory"</span>: <span class="hljs-number">2</span>
+    },
+    {
+      <span class="hljs-attr">"id"</span>: <span class="hljs-number">2</span>,
+      <span class="hljs-attr">"title"</span>: <span class="hljs-string">"H&#x26;M T-Shirt White"</span>,
+      <span class="hljs-attr">"price"</span>: <span class="hljs-number">10.99</span>,
+      <span class="hljs-attr">"inventory"</span>: <span class="hljs-number">10</span>
+    },
+    {
+      <span class="hljs-attr">"id"</span>: <span class="hljs-number">3</span>,
+      <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Charli XCX - Sucker CD"</span>,
+      <span class="hljs-attr">"price"</span>: <span class="hljs-number">19.99</span>,
+      <span class="hljs-attr">"inventory"</span>: <span class="hljs-number">5</span>
+    }
+  ]
 }
-<span class="hljs-comment">// nicht zulässig: verändert das Objekt</span>
-user.email = <span class="hljs-string">'johndoe@gmail.com'</span>;
-
-<span class="hljs-comment">// stattedessen: Erzeugen eines neuen Objekts:</span>
-<span class="hljs-keyword">let</span> newUser = { ...user, <span class="hljs-attr">email</span>: <span class="hljs-string">'johndoe@gmail.com'</span> };
 </code></pre>
-</section><section class="slide"><h2>immutable.js</h2>
-<p><strong>immutable.js</strong> ist eine Library, die das Arbeiten ohne Mutationen noch erleichtert</p>
-<p>Immutable.js bietet insbesondere die Datenstrukturen <em>List</em> und <em>Map</em>, die als unveränderliche Alternativen zu <em>Array</em> und <em>Object</em> dienen können.</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { List, <span class="hljs-built_in">Map</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'immutable'</span>;
+</section><section class="slide"><h2>Beispiel: Shopping cart</h2>
+<p>Die zwei Teile - <code>cart</code> und <code>products</code> - können von zwei verschiedenen Reducern verwaltet werden.</p>
+<p>Zusammenführen zu einem Reducer mittels der vordefinierten Funktion <code>combineReducers</code>:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { combineReducers } <span class="hljs-keyword">from</span> <span class="hljs-string">'redux'</span>;
 
-<span class="hljs-keyword">const</span> a1 = List([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]);
-<span class="hljs-keyword">const</span> a2 = a1.push(<span class="hljs-number">4</span>);
+<span class="hljs-keyword">const</span> shopReducer = combineReducers({
+  <span class="hljs-attr">cart</span>: cartReducer,
+  <span class="hljs-attr">products</span>: productsReducer,
+});
 
-<span class="hljs-keyword">const</span> b1 = <span class="hljs-built_in">Map</span>({ <span class="hljs-attr">a</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">b</span>: <span class="hljs-number">2</span> });
-<span class="hljs-keyword">const</span> b2 = b1.set(<span class="hljs-string">'b'</span>, <span class="hljs-literal">null</span>);
+<span class="hljs-keyword">const</span> store = createStore(
+  shopReducer,
+  composeWithDevTools(applyMiddleware())
+);
 </code></pre>
-</section><section class="slide"><h2>immutable.js</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { fromJS, setIn } <span class="hljs-keyword">from</span> <span class="hljs-string">'immutable'</span>;
-
-<span class="hljs-keyword">const</span> todos = fromJS([
-  { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'groceries'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
-  { <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'gardening'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
-]);
-
-<span class="hljs-keyword">const</span> newTodos = todos.setIn([<span class="hljs-number">1</span>, <span class="hljs-string">'completed'</span>], <span class="hljs-literal">true</span>);
+</section><section class="slide"><h2>Beispiel: Shopping cart</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> cartReducer = <span class="hljs-function">(<span class="hljs-params">state = {}, action</span>) =></span> {
+  <span class="hljs-keyword">switch</span> (action.type) {
+    <span class="hljs-keyword">case</span> <span class="hljs-string">'ADD_TO_CART'</span>:
+      <span class="hljs-keyword">return</span> {
+        ...state,
+        [action.id]: (state[action.id] || <span class="hljs-number">0</span>) + <span class="hljs-number">1</span>,
+      };
+    <span class="hljs-keyword">default</span>:
+      <span class="hljs-keyword">return</span> state;
+  }
+};
+</code></pre>
+</section><section class="slide"><h2>Beispiel: Shopping cart</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> products = [];
+<span class="hljs-keyword">const</span> productsReducer = <span class="hljs-function">(<span class="hljs-params">state = products, action</span>) =></span> {
+  <span class="hljs-keyword">switch</span> (action.type) {
+    <span class="hljs-keyword">case</span> <span class="hljs-string">'SET_PRODUCTS'</span>:
+      <span class="hljs-keyword">return</span> action.products;
+    <span class="hljs-keyword">case</span> <span class="hljs-string">'ADD_TO_CART'</span>:
+      <span class="hljs-keyword">return</span> state.map(<span class="hljs-function"><span class="hljs-params">product</span> =></span>
+        product.id === action.id
+          ? { ...product, <span class="hljs-attr">inventory</span>: product.inventory - <span class="hljs-number">1</span> }
+          : product
+      );
+    <span class="hljs-keyword">default</span>:
+      <span class="hljs-keyword">return</span> state;
+  }
+};
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Aufgabe: Todolist</h1>
 <p>Umsetzung eines Modells für eine Todoliste in Redux</p>
@@ -2272,7 +2230,7 @@ user.email = <span class="hljs-string">'johndoe@gmail.com'</span>;
   <span class="hljs-attr">totalPrice</span>: ...
 }
 </code></pre>
-</section><section class="slide"><h2>Sepeicherung des minimalen States</h2>
+</section><section class="slide"><h2>Speicherung des minimalen States</h2>
 <p>Daten wie <code>maxTodoId</code> und <code>totalPrice</code> können aus den anderen Daten abgeleitet werden und sollten keinen separaten Eintrag im State haben.</p>
 </section><section class="slide"><h2>Selektoren</h2>
 <p>Selektor = Funktion, die abgeleitete Daten aus einem minimalen State errechnet</p>
@@ -2672,6 +2630,45 @@ sagaMiddleware.run(todoSaga);
 </code></pre>
 </section><section class="slide"><h2>Präsentation: Taming Large React Applications w/ Redux</h2>
 <p><a href="https://slides.com/joelkanzelmeyer/taming-large-redux-apps">https://slides.com/joelkanzelmeyer/taming-large-redux-apps</a></p>
+</section></section><section class="slides-section"><section class="slide"><h1>React mit Redux (mit Hooks)</h1>
+</section><section class="slide"><h2>React mit Redux (mit Hooks)</h2>
+<p><a href="https://redux.js.org/basics/usage-with-react">https://redux.js.org/basics/usage-with-react</a></p>
+<p>Setup: <code>npm install redux react-redux</code></p>
+<p>Typescript: <code>npm install @types/react-redux</code></p>
+</section><section class="slide"><h2>React-Redux: &#x3C; Provider ></h2>
+<p>Provider: Hinzufügen von Redux-Store zu einer React-App</p>
+</section><section class="slide"><h2>React-Redux: &#x3C; Provider ></h2>
+<pre><code class="hljs language-js"><span class="hljs-comment">// index.js</span>
+<span class="hljs-keyword">import</span> { Provider } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-redux'</span>;
+
+[...]
+
+ReactDOM.render(
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Provider</span> <span class="hljs-attr">store</span>=<span class="hljs-string">{myStore}</span>></span>
+    </span>&#x3C;App/><span class="xml">
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">Provider</span>></span></span>
+  ...
+);
+</code></pre>
+</section><section class="slide"><h2>useSelector</h2>
+<p>Mit <code>useSelector</code> können wir in einer React-Komponente die Inhalte des Redux-Stores abfragen.</p>
+<p>Wir übergeben eine sogenannte <em>Selektorfunktion</em> an <code>useSelektor</code>. Die Selektorfunktion erhält den gesamten Redux-State und gibt einen daraus abgeleiteten Wert zurück.</p>
+<p>Beispiel:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> numTodos = useSelector(<span class="hljs-function"><span class="hljs-params">state</span> =></span> state.todos.length);
+</code></pre>
+</section><section class="slide"><h2>useDispatch</h2>
+<p>Mit <code>useDispatch</code> können wir aus React auf die <code>dispatch</code>-Funktion des Redux-Stores zugreifen und damit Actions dispatchen.</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> dispatch = useDispatch();
+
+dispatch({
+  <span class="hljs-attr">type</span>: <span class="hljs-string">'REMOVE_COMPLETED_TODOS'</span>,
+});
+</code></pre>
+</section><section class="slide"><h2>useDispatch mit TypeScript</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { Dispatch } <span class="hljs-keyword">from</span> <span class="hljs-string">'redux'</span>;
+
+<span class="hljs-keyword">const</span> dispatch: Dispatch&#x3C;TodolistAction> = useDispatch();
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>React mit Redux (mit Klassen)</h1>
 </section><section class="slide"><h2>React mit Redux (mit Klassen)</h2>
 <p><a href="https://redux.js.org/basics/usage-with-react">https://redux.js.org/basics/usage-with-react</a></p>
@@ -2756,46 +2753,7 @@ export default connect(mapStateToProps)(App);
 <li><a href="https://github.com/piotrwitek/react-redux-typescript-guide">https://github.com/piotrwitek/react-redux-typescript-guide</a></li>
 <li><a href="https://medium.com/@resir014/a-type-safe-approach-to-redux-stores-in-typescript-6474e012b81e">https://medium.com/@resir014/a-type-safe-approach-to-redux-stores-in-typescript-6474e012b81e</a></li>
 <li><a href="https://www.carlrippon.com/strongly-typed-react-redux-code-with-typescript/">https://www.carlrippon.com/strongly-typed-react-redux-code-with-typescript/</a></li>
-</ul>
-</section></section><section class="slides-section"><section class="slide"><h1>React mit Redux (mit Hooks)</h1>
-</section><section class="slide"><h2>React mit Redux (mit Hooks)</h2>
-<p><a href="https://redux.js.org/basics/usage-with-react">https://redux.js.org/basics/usage-with-react</a></p>
-<p>Setup: <code>npm install redux react-redux</code></p>
-<p>Typescript: <code>npm install @types/react-redux</code></p>
-</section><section class="slide"><h2>React-Redux: &#x3C; Provider ></h2>
-<p>Provider: Hinzufügen von Redux-Store zu einer React-App</p>
-</section><section class="slide"><h2>React-Redux: &#x3C; Provider ></h2>
-<pre><code class="hljs language-js"><span class="hljs-comment">// index.js</span>
-<span class="hljs-keyword">import</span> { Provider } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-redux'</span>;
-
-[...]
-
-ReactDOM.render(
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Provider</span> <span class="hljs-attr">store</span>=<span class="hljs-string">{myStore}</span>></span>
-    </span>&#x3C;App/><span class="xml">
-  <span class="hljs-tag">&#x3C;/<span class="hljs-name">Provider</span>></span></span>
-  ...
-);
-</code></pre>
-</section><section class="slide"><h2>useSelector</h2>
-<p>Mit <code>useSelector</code> können wir in einer React-Komponente die Inhalte des Redux-Stores abfragen.</p>
-<p>Wir übergeben eine sogenannte <em>Selektorfunktion</em> an <code>useSelektor</code>. Die Selektorfunktion erhält den gesamten Redux-State und gibt einen daraus abgeleiteten Wert zurück.</p>
-<p>Beispiel:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> numTodos = useSelector(<span class="hljs-function"><span class="hljs-params">state</span> =></span> state.todos.length);
-</code></pre>
-</section><section class="slide"><h2>useDispatch</h2>
-<p>Mit <code>useDispatch</code> können wir aus React auf die <code>dispatch</code>-Funktion des Redux-Stores zugreifen und damit Actions dispatchen.</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> dispatch = useDispatch();
-
-dispatch({
-  <span class="hljs-attr">type</span>: <span class="hljs-string">'REMOVE_COMPLETED_TODOS'</span>,
-});
-</code></pre>
-</section><section class="slide"><h2>useDispatch mit TypeScript</h2>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { Dispatch } <span class="hljs-keyword">from</span> <span class="hljs-string">'redux'</span>;
-
-<span class="hljs-keyword">const</span> dispatch: Dispatch&#x3C;TodolistAction> = useDispatch();
-</code></pre></section></section></div>
+</ul></section></section></div>
     </div>
     <script>/*!
  * reveal.js

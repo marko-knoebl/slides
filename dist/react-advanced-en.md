@@ -222,6 +222,188 @@ const Clock = () => {
 };
 ```
 
+# Immutability
+
+## Immutability
+
+important concept in functional programing and with React / Redux
+
+Data is not modified directly - instead, new data is derived from existing data (and may replace the existing data)
+
+## Data management without mutations: Arrays
+
+```js
+let names = ['Alice', 'Bob', 'Charlie'];
+// invalid: modifies the original array
+names.push('Dan');
+
+// instead: new array
+let newNames = names.slice();
+newNames.push('Dan');
+// overwrite the original
+names = newNames;
+
+// or:
+names = [...names, 'Dan'];
+```
+
+## Data management without mutations: Objects
+
+```js
+let user = {
+  name: 'john'
+  email: 'john@doe.com'
+}
+// invalid: modifies the object
+user.email = 'johndoe@gmail.com';
+
+// instead: create a new object
+let newUser = { ...user, email: 'johndoe@gmail.com' };
+```
+
+## immutable.js and immer.js
+
+libraries that simplify working without mutations
+
+## immutable.js
+
+In particular, offers the data types _List_ and _Map_ as immutable alternatives for _Array_ and _Object_.
+
+```js
+import { List, Map } from 'immutable';
+
+const a1 = List([1, 2, 3]);
+const a2 = a1.push(4);
+
+const b1 = Map({ a: 1, b: 2 });
+const b2 = b1.set('b', null);
+```
+
+## immutable.js
+
+```js
+import { fromJS, setIn } from 'immutable';
+
+const todos = fromJS([
+  { id: 1, title: 'groceries', completed: false },
+  { id: 2, title: 'gardening', completed: false },
+]);
+
+const newTodos = todos.setIn([1, 'completed'], true);
+```
+
+## immer.js
+
+is recommended by the Redux team
+
+```js
+import produce from 'immer';
+
+const todos = [
+  { id: 1, title: 'groceries', completed: false },
+  { id: 2, title: 'gardening', completed: false },
+];
+
+const newTodos = produce(todos, draftTodos => {
+  draftTodos[1].completed = true;
+});
+```
+
+# Memoization
+
+## Memoization
+
+Memoization = technique to speed up function calls etc.: Previous results are cached and don't have to be recomputed
+
+Can be applied in React: If a component's props or state don't change the component doesn't have to be rerendered.
+
+## Memoization in React
+
+Triggers for rerendering a component:
+
+- **Parent component is (re)rendered**
+- component state has changed
+- triggered via a hook (e.g. `useContext`, `useReducer`, `useSelector`, ...)
+
+Visualizing rerendering the React devtools: _Settings_ - _General_ - _Highlight updates when components render._
+
+## Memoization in React
+
+Preventing rerendering when parent component rerenders:
+
+For performance optimization it can be desirable to not rerender a component every time its parent rerenders.
+
+Instead, it should only rerender when its props (or state) changes.
+
+If props (or state) haven't changed the previous (memoized) rendering is used.
+
+## Memoization in React
+
+Creating memoized components in React:
+
+in function components: using the `memo` function (memoizes _props_)
+
+in class components: inheriting from `PureComponent` instead of `Component` (memoizes _props_ and _state_)
+
+## Memoization in React: function components
+
+```js
+import React, { memo } from 'react';
+
+function Rating(...) ...
+
+export default memo(Rating);
+```
+
+## Memoization in React: class components
+
+```js
+import { PureComponent } from 'react';
+
+class Rating extends PureComponent {...}
+
+export default Rating;
+```
+
+## Data management without mutations
+
+In React, non-primitive entries in state or props are considered to have changed if they refer to a different object than before.
+
+## Data management without mutations
+
+Memoization in React: Data are checked for equality via `===`
+
+What is the output of the following script?
+
+```js
+const state1 = [1, 2, 3];
+const state2 = state1;
+state2.push(4);
+
+console.log(state1 === state2);
+```
+
+## Data management without mutations
+
+```js
+const state1 = [1, 2, 3];
+const state2 = state1;
+state2.push(4);
+
+console.log(state1 === state2);
+```
+
+The above script will output `true`. `state1` and `state2` refer to the same object. The change would not trigger a rerendering of memoized components.
+
+## Data management without mutations
+
+correct process:
+
+```js
+const state1 = [1, 2, 3];
+const state2 = [...state1, 4];
+```
+
 # State management with reducers
 
 ## State management
@@ -1188,4 +1370,84 @@ keep in mind:
 
 - Avoid too much nesting
 - Don't overthink it
+
+# Manual setup and configuration of React
+
+## Manual setup and configuration
+
+Setting up React without _create-react-app_
+
+Here we will use the _parcel_ bundler - an alternative to webpack
+
+## package.json and dependencies
+
+Start out with a `package.json` file that contains an empty object : `{}`
+
+Install the required packages:
+
+```bash
+npm install react react-dom
+```
+
+```bash
+npm install --save-dev parcel-bundler babel-preset-react babel-preset-env
+```
+
+## Configuring babel
+
+via `.babelrc` file:
+
+```json
+{
+  "presets": ["env", "react"]
+}
+```
+
+## npm scripts
+
+add script to `package.json`:
+
+```json
+"scripts": {
+  "build": "parcel build src/index.html",
+  "start": "parcel src/index.html"
+},
+```
+
+## HTML entry point
+
+Create `src/index.html`:
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>React starter app</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script src="index.js"></script>
+  </body>
+</html>
+```
+
+## Rendering an App component
+
+Create `index.js`:
+
+```js
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+function App() {
+  return <div>Hello World!</div>;
+}
+
+const mountNode = document.getElementById('app');
+ReactDOM.render(<App />, mountNode);
+```
+
+## Running
+
+Run `npm start` for a development server or `npm run build` for a build.
 

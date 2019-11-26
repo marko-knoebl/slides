@@ -64,6 +64,10 @@ query getTwo {
 }
 ```
 
+## Aliases
+
+Antwort:
+
 ```json
 {
   "data": {

@@ -1,8 +1,6 @@
-# Querying - Advanced
+# Queries - Advanced
 
 ## Default variable valuess
-
-query:
 
 ```graphql
 query getPokemonByName($name: String = "Pikachu") {
@@ -66,6 +64,10 @@ query getTwo {
 }
 ```
 
+## Aliases
+
+response:
+
 ```json
 {
   "data": {
@@ -83,24 +85,7 @@ query getTwo {
 
 Task: get the number, maxHP and image of Pikachu and Raichu
 
-## Fragments - why?
-
-```graphql
-query getTwo {
-  pokemon1: pokemon(name: "Pikachu") {
-    number
-    maxHP
-    image
-  }
-  pokemon2: pokemon(name: "Raichu") {
-    number
-    maxHP
-    image
-  }
-}
-```
-
-## Fragments: don't repeat yourself!
+## Fragments
 
 ```graphql
 query getTwo {

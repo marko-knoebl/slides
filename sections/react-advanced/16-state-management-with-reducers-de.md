@@ -95,8 +95,7 @@ const todosReducer = (oldState, action) => {
     case 'DELETE_TODO':
       return oldState.filter(todo => todo.id !== action.id);
     default:
-      // unknown action - change nothing
-      return oldState;
+      throw new Error('unknown action type');
   }
 };
 ```

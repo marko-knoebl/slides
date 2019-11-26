@@ -51,3 +51,7 @@ SELECT name
 ```
 
 (extra Code: `INNER JOIN post ON user.id = post.userId`)
+
+## GraphQL verglichen mit SQL
+
+**OpenCRUD**: spezifischerer Standard, der auf GraphQL basiert - er kann anstelle von SQL verwendet werden

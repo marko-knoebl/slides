@@ -2203,6 +2203,129 @@ useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =></sp
   ...
 };
 </code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Immutability</h1>
+</section><section class="slide"><h2>Immutability</h2>
+<p>important concept in functional programing and with React / Redux</p>
+<p>Data is not modified directly - instead, new data is derived from existing data (and may replace the existing data)</p>
+</section><section class="slide"><h2>Data management without mutations: Arrays</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> names = [<span class="hljs-string">'Alice'</span>, <span class="hljs-string">'Bob'</span>, <span class="hljs-string">'Charlie'</span>];
+<span class="hljs-comment">// invalid: modifies the original array</span>
+names.push(<span class="hljs-string">'Dan'</span>);
+
+<span class="hljs-comment">// instead: new array</span>
+<span class="hljs-keyword">let</span> newNames = names.slice();
+newNames.push(<span class="hljs-string">'Dan'</span>);
+<span class="hljs-comment">// overwrite the original</span>
+names = newNames;
+
+<span class="hljs-comment">// or:</span>
+names = [...names, <span class="hljs-string">'Dan'</span>];
+</code></pre>
+</section><section class="slide"><h2>Data management without mutations: Objects</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> user = {
+  <span class="hljs-attr">name</span>: <span class="hljs-string">'john'</span>
+  email: <span class="hljs-string">'john@doe.com'</span>
+}
+<span class="hljs-comment">// invalid: modifies the object</span>
+user.email = <span class="hljs-string">'johndoe@gmail.com'</span>;
+
+<span class="hljs-comment">// instead: create a new object</span>
+<span class="hljs-keyword">let</span> newUser = { ...user, <span class="hljs-attr">email</span>: <span class="hljs-string">'johndoe@gmail.com'</span> };
+</code></pre>
+</section><section class="slide"><h2>immutable.js and immer.js</h2>
+<p>libraries that simplify working without mutations</p>
+</section><section class="slide"><h2>immutable.js</h2>
+<p>In particular, offers the data types <em>List</em> and <em>Map</em> as immutable alternatives for <em>Array</em> and <em>Object</em>.</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { List, <span class="hljs-built_in">Map</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'immutable'</span>;
+
+<span class="hljs-keyword">const</span> a1 = List([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]);
+<span class="hljs-keyword">const</span> a2 = a1.push(<span class="hljs-number">4</span>);
+
+<span class="hljs-keyword">const</span> b1 = <span class="hljs-built_in">Map</span>({ <span class="hljs-attr">a</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">b</span>: <span class="hljs-number">2</span> });
+<span class="hljs-keyword">const</span> b2 = b1.set(<span class="hljs-string">'b'</span>, <span class="hljs-literal">null</span>);
+</code></pre>
+</section><section class="slide"><h2>immutable.js</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { fromJS, setIn } <span class="hljs-keyword">from</span> <span class="hljs-string">'immutable'</span>;
+
+<span class="hljs-keyword">const</span> todos = fromJS([
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'groceries'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'gardening'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
+]);
+
+<span class="hljs-keyword">const</span> newTodos = todos.setIn([<span class="hljs-number">1</span>, <span class="hljs-string">'completed'</span>], <span class="hljs-literal">true</span>);
+</code></pre>
+</section><section class="slide"><h2>immer.js</h2>
+<p>is recommended by the Redux team</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> produce <span class="hljs-keyword">from</span> <span class="hljs-string">'immer'</span>;
+
+<span class="hljs-keyword">const</span> todos = [
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'groceries'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'gardening'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
+];
+
+<span class="hljs-keyword">const</span> newTodos = produce(todos, draftTodos => {
+  draftTodos[<span class="hljs-number">1</span>].completed = <span class="hljs-literal">true</span>;
+});
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Memoization</h1>
+</section><section class="slide"><h2>Memoization</h2>
+<p>Memoization = technique to speed up function calls etc.: Previous results are cached and don't have to be recomputed</p>
+<p>Can be applied in React: If a component's props or state don't change the component doesn't have to be rerendered.</p>
+</section><section class="slide"><h2>Memoization in React</h2>
+<p>Triggers for rerendering a component:</p>
+<ul>
+<li><strong>Parent component is (re)rendered</strong></li>
+<li>component state has changed</li>
+<li>triggered via a hook (e.g. <code>useContext</code>, <code>useReducer</code>, <code>useSelector</code>, ...)</li>
+</ul>
+<p>Visualizing rerendering the React devtools: <em>Settings</em> - <em>General</em> - <em>Highlight updates when components render.</em></p>
+</section><section class="slide"><h2>Memoization in React</h2>
+<p>Preventing rerendering when parent component rerenders:</p>
+<p>For performance optimization it can be desirable to not rerender a component every time its parent rerenders.</p>
+<p>Instead, it should only rerender when its props (or state) changes.</p>
+<p>If props (or state) haven't changed the previous (memoized) rendering is used.</p>
+</section><section class="slide"><h2>Memoization in React</h2>
+<p>Creating memoized components in React:</p>
+<p>in function components: using the <code>memo</code> function (memoizes <em>props</em>)</p>
+<p>in class components: inheriting from <code>PureComponent</code> instead of <code>Component</code> (memoizes <em>props</em> and <em>state</em>)</p>
+</section><section class="slide"><h2>Memoization in React: function components</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> React, { memo } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Rating</span>(<span class="hljs-params">...</span>) ...
+
+<span class="hljs-title">export</span> <span class="hljs-title">default</span> <span class="hljs-title">memo</span>(<span class="hljs-params">Rating</span>);
+</span></code></pre>
+</section><section class="slide"><h2>Memoization in React: class components</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { PureComponent } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Rating</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">PureComponent</span> </span>{...}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Rating;
+</code></pre>
+</section><section class="slide"><h2>Data management without mutations</h2>
+<p>In React, non-primitive entries in state or props are considered to have changed if they refer to a different object than before.</p>
+</section><section class="slide"><h2>Data management without mutations</h2>
+<p>Memoization in React: Data are checked for equality via <code>===</code></p>
+<p>What is the output of the following script?</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> state1 = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
+<span class="hljs-keyword">const</span> state2 = state1;
+state2.push(<span class="hljs-number">4</span>);
+
+<span class="hljs-built_in">console</span>.log(state1 === state2);
+</code></pre>
+</section><section class="slide"><h2>Data management without mutations</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> state1 = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
+<span class="hljs-keyword">const</span> state2 = state1;
+state2.push(<span class="hljs-number">4</span>);
+
+<span class="hljs-built_in">console</span>.log(state1 === state2);
+</code></pre>
+<p>The above script will output <code>true</code>. <code>state1</code> and <code>state2</code> refer to the same object. The change would not trigger a rerendering of memoized components.</p>
+</section><section class="slide"><h2>Data management without mutations</h2>
+<p>correct process:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> state1 = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
+<span class="hljs-keyword">const</span> state2 = [...state1, <span class="hljs-number">4</span>];
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>State management with reducers</h1>
 </section><section class="slide"><h2>State management</h2>
 <p>In more complex fontend-applications it makes sense to manage the state (model) separately from the view.</p>
@@ -2950,7 +3073,58 @@ useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =></sp
 <ul>
 <li>Avoid too much nesting</li>
 <li>Don't overthink it</li>
-</ul></section></section></div>
+</ul>
+</section></section><section class="slides-section"><section class="slide"><h1>Manual setup and configuration of React</h1>
+</section><section class="slide"><h2>Manual setup and configuration</h2>
+<p>Setting up React without <em>create-react-app</em></p>
+<p>Here we will use the <em>parcel</em> bundler - an alternative to webpack</p>
+</section><section class="slide"><h2>package.json and dependencies</h2>
+<p>Start out with a <code>package.json</code> file that contains an empty object : <code>{}</code></p>
+<p>Install the required packages:</p>
+<pre><code class="hljs language-bash">npm install react react-dom
+</code></pre>
+<pre><code class="hljs language-bash">npm install --save-dev parcel-bundler babel-preset-react babel-preset-env
+</code></pre>
+</section><section class="slide"><h2>Configuring babel</h2>
+<p>via <code>.babelrc</code> file:</p>
+<pre><code class="hljs language-json">{
+  <span class="hljs-attr">"presets"</span>: [<span class="hljs-string">"env"</span>, <span class="hljs-string">"react"</span>]
+}
+</code></pre>
+</section><section class="slide"><h2>npm scripts</h2>
+<p>add script to <code>package.json</code>:</p>
+<pre><code class="hljs language-json"><span class="hljs-string">"scripts"</span>: {
+  <span class="hljs-attr">"build"</span>: <span class="hljs-string">"parcel build src/index.html"</span>,
+  <span class="hljs-attr">"start"</span>: <span class="hljs-string">"parcel src/index.html"</span>
+},
+</code></pre>
+</section><section class="slide"><h2>HTML entry point</h2>
+<p>Create <code>src/index.html</code>:</p>
+<pre><code class="hljs language-html"><span class="hljs-meta">&#x3C;!DOCTYPE html></span>
+<span class="hljs-tag">&#x3C;<span class="hljs-name">html</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">head</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">title</span>></span>React starter app<span class="hljs-tag">&#x3C;/<span class="hljs-name">title</span>></span>
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">head</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">body</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"app"</span>></span><span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"index.js"</span>></span><span class="hljs-tag">&#x3C;/<span class="hljs-name">script</span>></span>
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">body</span>></span>
+<span class="hljs-tag">&#x3C;/<span class="hljs-name">html</span>></span>
+</code></pre>
+</section><section class="slide"><h2>Rendering an App component</h2>
+<p>Create <code>index.js</code>:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+<span class="hljs-keyword">import</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">App</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>Hello World!<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+}
+
+<span class="hljs-keyword">const</span> mountNode = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'app'</span>);
+ReactDOM.render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">App</span> /></span>, mountNode);
+</span></code></pre>
+</section><section class="slide"><h2>Running</h2>
+<p>Run <code>npm start</code> for a development server or <code>npm run build</code> for a build.</p></section></section></div>
     </div>
     <script>/*!
  * reveal.js

@@ -2030,7 +2030,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   </head>
   <body>
     <div class="reveal">
-      <div class="slides slides"><section class="slides-section"><section class="slide"><h1>React Fortgeschritten</h1>
+      <div class="slides slides"><section class="slides-section"><section class="slide"><h1>React &#x26; GraphQL</h1>
 </section><section class="slide"><h2>Präsentation und Code</h2>
 <p>Präsentationen verfügbar unter: <a href="https://karuga.eu/courses-presentations">https://karuga.eu/courses-presentations</a></p>
 <p>Code verfügbar unter: <a href="https://github.com/marko-knoebl/courses-code">https://github.com/marko-knoebl/courses-code</a></p>
@@ -2059,1077 +2059,673 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li>Unterlagen</li>
 <li>Fragen, Feedback? - Jederzeit erwünscht</li>
 </ul>
-</section></section><section class="slides-section"><section class="slide"><h1>Hooks</h1>
-</section><section class="slide"><h2>Hooks</h2>
-<p>Hooks: Erweiterung von funktionalen Komponenten; erlauben die Verwendung von state und anderen Features ohne Klassen</p>
-</section><section class="slide"><h2>Hooks</h2>
-<blockquote>
-<p>"In the longer term, we expect Hooks to be the primary way people write React components."</p>
-</blockquote>
-<p>- <a href="https://reactjs.org/docs/hooks-faq.html#should-i-use-hooks-classes-or-a-mix-of-both">React FAQ</a></p>
-</section><section class="slide"><h2>Hooks: derzeitiger Stand</h2>
+</section></section><section class="slides-section"><section class="slide"><h1>GraphQL</h1>
+</section><section class="slide"><h2>GraphQL</h2>
+<p>"A query language for your API"</p>
+</section><section class="slide"><h2>GraphQL</h2>
+<p>Verwendung für ein einzelnen APIs, das wiederum mit folgenden Datenquellen kommunizieren kann:</p>
 <ul>
-<li>Dokumentation für Einsteiger noch sehr Klassen-orientiert</li>
-<li>Keine Unterstützung durch die Test Library <em>enzyme</em> (<a href="https://github.com/airbnb/enzyme/issues/2011">https://github.com/airbnb/enzyme/issues/2011</a>)</li>
+<li>andere APIs</li>
+<li>Datenbanken</li>
 </ul>
-</section><section class="slide"><h2>Wichtige Hooks</h2>
+</section><section class="slide"><h2>GraphQL vs REST</h2>
+<h3>Vorteile von REST</h3>
 <ul>
-<li>state Hook</li>
-<li>effect Hook</li>
-<li>context Hook</li>
-<li>reducer Hook</li>
+<li><em>etabliert</em></li>
+<li><em>einfacher</em></li>
 </ul>
-</section></section><section class="slides-section"><section class="slide"><h1>Komponenten-Lebenszyklus</h1>
-</section><section class="slide"><h2>Komponenten-Lebenszyklus</h2>
-<p>In React können bestimmte Ereignisse im Lebenszyklus einer Komponente abgefragt werden. Insbesondere sind folgende Ereignisse oft von Interesse:</p>
+<h3>Vorteile von GraphQL</h3>
 <ul>
-<li>die Komponente wurde neu eingebunden</li>
-<li>state oder props der Komponente haben sich geändert</li>
-<li>die Komponente wird entfernt</li>
+<li><em>flexibler</em></li>
+<li><em>effizienter</em></li>
 </ul>
-</section><section class="slide"><h2>Komponenten-Lebenszyklus</h2>
-<p>Einsatzgebiete der genannten Ereignisse:</p>
+</section><section class="slide"><h2>Vorteile von GraphQL</h2>
+<p><em>Flexibilität</em> von GraphQL:</p>
+<p>kann komplexe Abfragen beschreiben - serverseitiges API muss für neue Anwendungsfälle nicht angepasst werden</p>
+<p><em>Effizienz</em> von GraphQL:</p>
+<p>der Client kann mittels eines Requests genau die benötigten Objekte und Felder anfordern</p>
+<p><a href="https://www.howtographql.com/basics/1-graphql-is-the-better-rest/">Video: GraphQL is the better REST</a></p>
+</section><section class="slide"><h2>Unterschiede zwischen GraphQL und REST</h2>
+<p>REST: Endpunkt (z.B. <code>/todos</code>) und Methode (z.B. <code>PUT</code>) sind Teil des APIs; für jede Art von Anfrage muss ein eigener Endpunkt erstellt werden</p>
+<p>GraphQL: nur ein Endpunkt (z.B. <code>/api</code>), nur POST-Requests</p>
+</section><section class="slide"><h2>Unterschiede zwischen GraphQL und REST</h2>
+<p>REST: Für komplexere Fälle sind mehrere HTTP-Anfragen nötig</p>
+<p>GraphQL: Daten werden mit einer einzigen HTTP-Anfrage abgefragt</p>
+</section><section class="slide"><h2>Unterschiede zwischen GraphQL und REST</h2>
+<p>REST: Für jeden Endpunkt werden immer die gleichen Felder zurückgegeben</p>
+<p>GraphQL: Der Client kann genau die benötigten Objekte und Felder anfragen</p>
+</section><section class="slide"><h2>Anwendungsfälle</h2>
 <ul>
-<li>Abfragen von APIs</li>
-<li>manuelle Änderungen am DOM</li>
-<li>Aufräumen vor dem Entfernen einer Komponente</li>
+<li>API services: z.B. Generieren einer Zufallszahl zwischen 1 und 100</li>
+<li>Datenbankabfrage: z.B. Abfragen aller Login Namen von Freunden eines bestimmten Benutzers</li>
 </ul>
-</section><section class="slide"><h2>Komponenten-Lebenszyklus</h2>
-<p>Die Ereignisse können wie folgt abgefragt werden:</p>
-<p>In Klassenkomponenten mittels Lebenszyklus-Methoden:</p>
-<ul>
-<li><code>componentDidMount</code></li>
-<li><code>componentDidUpdate</code></li>
-<li><code>componentWillUnmount</code></li>
-</ul>
-<p>In funktionalen Komponenten mittels <code>useEffect</code></p>
-</section><section class="slide"><h2>Beispiel: DocumentTitle-Komponente</h2>
-<p>Wir erstellen eine Komponente, die den Dokumenttitel dynamisch setzen kann:</p>
-<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">DocumentTitle</span>></span>my custom title<span class="hljs-tag">&#x3C;/<span class="hljs-name">DocumentTitle</span>></span>
-</code></pre>
-<p>Diese Komponente kann irgendwo in der React-Anwendung vorkommen.</p>
-</section><section class="slide"><h2>Beispiel: DocumentTitle-Komponente</h2>
-<p>Als Klassenkomponente</p>
-<pre><code class="hljs language-jsx"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DocumentTitle</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
-  componentDidMount() {
-    <span class="hljs-built_in">document</span>.title = <span class="hljs-keyword">this</span>.props.children;
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    <span class="hljs-built_in">document</span>.title = <span class="hljs-keyword">this</span>.props.children;
-  }
-
-  render() {
-    <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
-  }
+</section><section class="slide"><h2>Beispiel: Service für Zufallszahlen</h2>
+<p>Anfrage (GraphQL):</p>
+<pre><code class="language-graphql">query {
+  random(min: 1, max: 100)
 }
 </code></pre>
-</section><section class="slide"><h2>Beispiel: DocumentTitle-Komponente</h2>
-<p>mit useEffect</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> DocumentTitle = <span class="hljs-function"><span class="hljs-params">props</span> =></span> {
-  useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-    <span class="hljs-built_in">document</span>.title = props.children;
-  });
-
-  <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
-};
-</code></pre>
-</section><section class="slide"><h2>Beispiel: Clock-Komponente</h2>
-</section><section class="slide"><h2>Beispiel: Clock-Komponente</h2>
-<p>Als Klassenkomponente:</p>
-<pre><code class="hljs language-jsx">  <span class="hljs-keyword">constructor</span>() {
-    <span class="hljs-keyword">super</span>();
-    <span class="hljs-keyword">this</span>.state = {
-      <span class="hljs-attr">time</span>: <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>().toLocaleTimeString()
-    };
-  }
-
-  render() {
-    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>{this.state.time}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
-  }
-</code></pre>
-</section><section class="slide"><h2>Beispiel: Clock-Komponente</h2>
-<pre><code class="hljs language-jsx">  componentDidMount() {
-    <span class="hljs-keyword">this</span>.intervalId = setInterval(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-      <span class="hljs-keyword">this</span>.setState({
-        <span class="hljs-attr">time</span>: <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>().toLocaleTimeString()
-      });
-    }, <span class="hljs-number">1000</span>);
-  }
-
-  componentWillUnmount() {
-    clearInterval(<span class="hljs-keyword">this</span>.intervalId);
-  }
-</code></pre>
-</section><section class="slide"><h2>useEffect im Detail</h2>
-<p><code>useEffect</code> bekommt zwei Parameter übergeben: Eine Funktion und ein Array von Werten.</p>
-<p>Die Funktion nach dem Rendering einer Komponente ausgeführt, wenn sich einer der Werte geändert hat.</p>
-<p>Die Funktion wird auch ausgeführt, wenn die Komponente neu eingebunden und zum ersten Mal gerendert wurde.</p>
-</section><section class="slide"><h2>useEffect im Detail</h2>
-<p>Wenn kein zweiter Parameter übergeben wird, wird die Funktion nach jedem Rendering ausgeführt.</p>
-<p>Wenn ein leeres Array als zweiter Parameter übergeben wird, wird die Funktion nur nach dem ersten Rendering ausgeführt.</p>
-<p>Es gibt auch die Möglichkeit, eine Funktion zu definieren, die vor dem <em>Entfernen</em> einer Komponente aufgerufen wird (mehr dazu später).</p>
-</section><section class="slide"><h2>useEffect: Beispiel: Weather</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [weatherData, setWeatherData] = useState(<span class="hljs-literal">null</span>);
-<span class="hljs-keyword">const</span> [stale, setStale] = useState(<span class="hljs-literal">true</span>);
-
-<span class="hljs-comment">// fetch data whenever data is stale</span>
-useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  <span class="hljs-keyword">if</span> (stale) {
-    refetch();
-  }
-}, [stale]);
-</code></pre>
-</section><section class="slide"><h2>useEffect: Beispiel: Weather</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> refetch = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  fetch(
-    <span class="hljs-string">'https://api.openweathermap.org/data/2.5/weather'</span> +
-      <span class="hljs-string">`?q=<span class="hljs-subst">${city}</span>&#x26;appid=<span class="hljs-subst">${API_KEY}</span>`</span>
-  )
-    .then(<span class="hljs-function"><span class="hljs-params">response</span> =></span> response.json())
-    .then(<span class="hljs-function"><span class="hljs-params">data</span> =></span> {
-      setWeatherData({ <span class="hljs-attr">temperature</span>: data.main.temp });
-      setStale(<span class="hljs-literal">false</span>);
-    });
-};
-</code></pre>
-</section><section class="slide"><h2>useEffect: Entfernen einer Komponente</h2>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> Clock = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  ...
-  <span class="hljs-comment">// wird aufgerufen, wenn die Komponente eingebunden wird</span>
-  useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-    <span class="hljs-keyword">const</span> intervalId = setInterval(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-      setTime(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>().toLocaleTimeString());
-    }, <span class="hljs-number">1000</span>);
-    <span class="hljs-comment">// wird aufgerufen, wenn die Komponente entfernt wird</span>
-    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-      clearInterval(intervalId);
-    };
-  }, []);
-  ...
-};
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Immutability</h1>
-</section><section class="slide"><h2>Immutability (Unveränderlichkeit)</h2>
-<p>Wichtiges Konzept in der funktionalen Programmierung und bei React / Redux</p>
-<p>Daten werden nicht direkt abgeändert - stattdessen werden neue Daten auf Basis der alten generiert</p>
-</section><section class="slide"><h2>Datenverwaltung ohne Mutationen: Arrays</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> names = [<span class="hljs-string">'Alice'</span>, <span class="hljs-string">'Bob'</span>, <span class="hljs-string">'Charlie'</span>];
-<span class="hljs-comment">// nicht zulässig: verändert das ursprüngliche array</span>
-names.push(<span class="hljs-string">'Dan'</span>);
-
-<span class="hljs-comment">// stattdessen: neues Array:</span>
-names = [...names, <span class="hljs-string">'Dan'</span>];
-
-<span class="hljs-comment">// Alternative:</span>
-<span class="hljs-keyword">let</span> newNames = names.slice();
-newNames.push(<span class="hljs-string">'Dan'</span>);
-<span class="hljs-comment">// überschreiben des ursprünglichen Arrays</span>
-names = newNames;
-</code></pre>
-</section><section class="slide"><h2>Datenverwaltung ohne Mutationen: Objekte</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> user = {
-  <span class="hljs-attr">name</span>: <span class="hljs-string">'john'</span>
-  email: <span class="hljs-string">'john@doe.com'</span>
-}
-<span class="hljs-comment">// nicht zulässig: verändert das Objekt</span>
-user.email = <span class="hljs-string">'johndoe@gmail.com'</span>;
-
-<span class="hljs-comment">// stattedessen: Erzeugen eines neuen Objekts:</span>
-<span class="hljs-keyword">let</span> newUser = { ...user, <span class="hljs-attr">email</span>: <span class="hljs-string">'johndoe@gmail.com'</span> };
-</code></pre>
-</section><section class="slide"><h2>immutable.js und immer.js</h2>
-<p>Libraries, die das Arbeiten ohne Mutationen erleichtern</p>
-</section><section class="slide"><h2>immutable.js</h2>
-<p>Bietet insbesondere die Datenstrukturen <em>List</em> und <em>Map</em> als unveränderliche Alternativen zu <em>Array</em> und <em>Object</em>.</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { List, <span class="hljs-built_in">Map</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'immutable'</span>;
-
-<span class="hljs-keyword">const</span> a1 = List([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]);
-<span class="hljs-keyword">const</span> a2 = a1.push(<span class="hljs-number">4</span>);
-
-<span class="hljs-keyword">const</span> b1 = <span class="hljs-built_in">Map</span>({ <span class="hljs-attr">a</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">b</span>: <span class="hljs-number">2</span> });
-<span class="hljs-keyword">const</span> b2 = b1.set(<span class="hljs-string">'b'</span>, <span class="hljs-literal">null</span>);
-</code></pre>
-</section><section class="slide"><h2>immutable.js</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { fromJS, setIn } <span class="hljs-keyword">from</span> <span class="hljs-string">'immutable'</span>;
-
-<span class="hljs-keyword">const</span> todos = fromJS([
-  { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'groceries'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
-  { <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'gardening'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
-]);
-
-<span class="hljs-keyword">const</span> newTodos = todos.setIn([<span class="hljs-number">1</span>, <span class="hljs-string">'completed'</span>], <span class="hljs-literal">true</span>);
-</code></pre>
-</section><section class="slide"><h2>immer.js</h2>
-<p>wird insbesondere vom Redux-Team empfohlen</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> produce <span class="hljs-keyword">from</span> <span class="hljs-string">'immer'</span>;
-
-<span class="hljs-keyword">const</span> todos = [
-  { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'groceries'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
-  { <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'gardening'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
-];
-
-<span class="hljs-keyword">const</span> newTodos = produce(todos, draftTodos => {
-  draftTodos[<span class="hljs-number">1</span>].completed = <span class="hljs-literal">true</span>;
-});
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Memoisation</h1>
-</section><section class="slide"><h2>Memoisation</h2>
-<p>Memoisation = Technik, um z.B. Funktionsaufrufe zu beschleunigen: frühere Resultate werden gespeichert und müssen nicht neu berechnet werden</p>
-<p>Kann in React verwendet werden: Wenn sich bei einer Komponente props bzw state nicht ändern, muss sie meist nicht neu gerendert werden.</p>
-</section><section class="slide"><h2>Memoisation in React</h2>
-<p>Auslöser für das neue Rendering einer Komponente:</p>
-<ul>
-<li><strong>(Re)rendering der Elternkomponente</strong></li>
-<li>Änderung des States der Komponente</li>
-<li>Anstoß durch einen verwendeten Hook (z.B. <code>useContext</code>, <code>useReducer</code>, <code>useSelector</code>, ...)</li>
-</ul>
-<p>Visualisierung des Renderings in den React Devtools: <em>Settings</em> - <em>General</em> - <em>Highlight updates when components render.</em></p>
-</section><section class="slide"><h2>Memoisation in React</h2>
-<p>Verhinderung des (Re)Renderings beim (Re)rendering der Elternkomponente:</p>
-<p>Zur Performanceoptimierung ist es oft wünschenswert, dass eine Kindkomponente nicht jedes Mal gerendert wird, wenn deren Elternkomponente neu gerendert wird</p>
-<p>Stattdessen soll sie nur dann neu gerender werden, wenn sich ihre Props (bzw ihr State) ändern</p>
-<p>Wenn Props (oder State) sich nicht geänder haben, wird das vorherige Resultat (memoisiert) zurückgegeben.</p>
-</section><section class="slide"><h2>Memoisation in React</h2>
-<p>Memoisierte Komponenten in React:</p>
-<p>Bei Funktionskomponenten: Verwenden der <code>memo</code>-Funktion (memoisierte <em>props</em>)</p>
-<p>Bei Klassenkomponenten: Erben von <code>PureComponent</code> statt <code>Component</code> (memoisierte <em>props</em> und <em>state</em>)</p>
-</section><section class="slide"><h2>Memoisation in React: Funktionskomponenten</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> React, { memo } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
-
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Rating</span>(<span class="hljs-params">...</span>) ...
-
-<span class="hljs-title">export</span> <span class="hljs-title">default</span> <span class="hljs-title">memo</span>(<span class="hljs-params">Rating</span>);
-</span></code></pre>
-</section><section class="slide"><h2>Memoisation in React: Klassenkomponenten</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { PureComponent } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
-
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Rating</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">PureComponent</span> </span>{...}
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Rating;
-</code></pre>
-</section><section class="slide"><h2>Verwaltung von Daten ohne Mutationen</h2>
-<p>In React werden (nicht-primitive) Einträge in State und Props dann als geändert angesehen, wenn sie sich auf ein anderes Objekt als zuvor beziehen.</p>
-</section><section class="slide"><h2>Verwaltung von Daten ohne Mutationen</h2>
-<p>Bei Memoisation in React: Daten werden mit <code>===</code> auf Gleichheit überprüft</p>
-<p>Was gibt das folgende Programm aus?</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> state1 = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
-<span class="hljs-keyword">const</span> state2 = state1;
-state2.push(<span class="hljs-number">4</span>);
-
-<span class="hljs-built_in">console</span>.log(state1 === state2);
-</code></pre>
-</section><section class="slide"><h2>Verwaltung von Daten ohne Mutationen</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> state1 = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
-<span class="hljs-keyword">const</span> state2 = state1;
-state2.push(<span class="hljs-number">4</span>);
-
-<span class="hljs-built_in">console</span>.log(state1 === state2);
-</code></pre>
-<p>Obiges Programm gibt <code>true</code> aus. <code>state1</code> und <code>state2</code> beziehen sich auf das selbe Objekt. Die Änderung würde bei memoisierten Komponenten kein neues Rendering auslösen.</p>
-</section><section class="slide"><h2>Verwalten von Daten ohne Mutationen</h2>
-<p>Korrekte Verwendung:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> state1 = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
-<span class="hljs-keyword">const</span> state2 = [...state1, <span class="hljs-number">4</span>];
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>State Management mit Reducern</h1>
-</section><section class="slide"><h2>State Management</h2>
-<p>In komplexeren (React-)Anwendungen macht es Sinn, den Anwendungszustand (model) von der Ansicht (view) zu trennen.</p>
-<p>Oft wird der gesamte Anwendungszustand durch ein Datenmodell repräsentiert. Jede Änderung am Anwendungszustand läuft über das Datenmodell.</p>
-</section><section class="slide"><h2>State Management Tools</h2>
-<ul>
-<li>reducer Hook (in React beinhaltet, sehr ähnlich zu Redux)</li>
-<li>Redux (basiert auf Reducern, oft mit React verwendet)</li>
-<li>MobX (oft mit React verwendet, einfacher als Reducer)</li>
-<li>ngrx (mit Angular verwendet)</li>
-<li>vuex (mit Vue.js verwendet)</li>
-</ul>
-</section><section class="slide"><h2>State Management mit Actions und Reducern</h2>
-<p>Konzept von <em>Redux</em> und Reacts <em>Reducer Hook</em>:</p>
-<p>Ein Ereignis in der Anwendung löst eine sogenannte <em>Action</em> aus.</p>
-<p>Basierend auf dieser Action wird ein aktueller <em>State</em> mittels einer <em>Reducer</em>-Funktion in einen geänderten neuen <em>State</em> übergeführt.</p>
-</section><section class="slide"><h2>Reducer Diagramm</h2>
-<svg id="redux-flow-svg" version="1.1" width="1000" height="500" viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <g id="state">
-      <circle r="60px" stroke="#000" stroke-width="2" fill="#eeeeee"></circle>
-      <text text-anchor="middle" alignment-baseline="central">
-        state
-      </text>
-    </g>
-    <g id="action">
-      <circle r="40px" stroke="#000" stroke-width="2" fill="#eeeeee"></circle>
-      <text text-anchor="middle" alignment-baseline="central">
-        action
-      </text>
-    </g>
-    <g id="reducer">
-      <rect width="70" height="150" stroke="#000" stroke-width="2" fill="#eeeeee"></rect>
-      <text text-anchor="middle" alignment-baseline="central" x="35" y="75">
-        reducer
-      </text>
-    </g>
-    <marker id="arrow-end" refX="0.0" refY="0.0" orient="auto" style="overflow: visible;">
-      <path transform="rotate(180)" d="M 8.7 4 L -2.2 0 L 8.7 -4 C 7 -1.6 7 1.6 8.7 4 z" class="arrowhead" id="path4877"></path>
-    </marker>
-    <path id="arrow-right-1" stroke="#000" stroke-width="2" fill="none" class="arrow" d="M0 0 L 145 0" marker-end="url(#arrow-end)"></path>
-    <path id="arrow-right-2" stroke="#000" stroke-width="2" fill="none" class="arrow" d="M 0 0 L 55 0" marker-end="url(#arrow-end)"></path>
-    <path id="arrow-right-up" stroke="#000" stroke-width="2" fill="none" class="arrow" d="M0 140 Q 0 0, 95 0" marker-end="url(#arrow-end)"></path>
-  </defs>
-  <style>
-    #redux-flow-svg path.arrow {
-      stroke: #000;
-      stroke-width: 2;
-      marker-end: url(#arrow-end);
-      fill: none;
-    }
-    #redux-flow-svg {
-      font-size: 16px;
-      font-family: sans-serif;
-    }
-  </style>
-  <use href="#state" transform="translate(100 100)"></use>
-  <use href="#state" transform="translate(500 100)"></use>
-  <use href="#state" transform="translate(900 100)"></use>
-  <use href="#action" transform="translate(210 300)"></use>
-  <use href="#action" transform="translate(610 300)"></use>
-  <use href="#reducer" transform="translate(310 40)"></use>
-  <use href="#reducer" transform="translate(710 40)"></use>
-  <use href="#arrow-right-1" transform="translate(160 100)"></use>
-  <use href="#arrow-right-1" transform="translate(560 100)"></use>
-  <use href="#arrow-right-2" transform="translate(380 100)"></use>
-  <use href="#arrow-right-2" transform="translate(780 100)"></use>
-  <use href="#arrow-right-up" transform="translate(210 120)"></use>
-  <use href="#arrow-right-up" transform="translate(610 120)"></use>
-</svg>
-</section><section class="slide"><h2>Beispiel: Todos State Management</h2>
-<p>Wir verwalten ein Array von Todos mit Hilfe eines Reducers. Zu Beginn setzen wir zwei mögliche Actions um:</p>
-<ul>
-<li>Hinzufügen eines Todos</li>
-<li>Entfernen eines Todos</li>
-</ul>
-</section><section class="slide"><h2>Beispiel: Todos State Management</h2>
-<p>Der State könnte folgendermaßen aussehen:</p>
-<pre><code class="hljs language-json">[
-  {
-    <span class="hljs-attr">"id"</span>: <span class="hljs-number">1</span>,
-    <span class="hljs-attr">"title"</span>: <span class="hljs-string">"groceries"</span>,
-    <span class="hljs-attr">"completed"</span>: <span class="hljs-literal">false</span>
-  },
-  {
-    <span class="hljs-attr">"id"</span>: <span class="hljs-number">2</span>,
-    <span class="hljs-attr">"title"</span>: <span class="hljs-string">"gardening"</span>,
-    <span class="hljs-attr">"completed"</span>: <span class="hljs-literal">false</span>
-  }
-]
-</code></pre>
-</section><section class="slide"><h2>Beispiel: Todos State Management</h2>
-<p><em>Actions</em> werden von JavaScript Objekten repräsentiert; Actions haben immer eine <em>type</em> Property</p>
+<p>Antwort (JSON):</p>
 <pre><code class="hljs language-json">{
-  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"ADD_TODO"</span>,
-  <span class="hljs-attr">"title"</span>: <span class="hljs-string">"learn React"</span>
+  <span class="hljs-attr">"random"</span>: <span class="hljs-number">23</span>
+}
+</code></pre>
+</section><section class="slide"><h2>Beispiel: Freunde eines Benutzers</h2>
+<pre><code class="language-graphql">query {
+  user(login: "john") {
+    friends {
+      login
+    }
+  }
 }
 </code></pre>
 <pre><code class="hljs language-json">{
-  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"DELETE_TODO"</span>,
-  <span class="hljs-attr">"id"</span>: <span class="hljs-number">1</span>
+  <span class="hljs-attr">"user"</span>: {
+    <span class="hljs-attr">"friends"</span>: [
+      { <span class="hljs-attr">"login"</span>: <span class="hljs-string">"mike"</span> },
+      { <span class="hljs-attr">"login"</span>: <span class="hljs-string">"stephanie"</span> }
+    ]
+  }
 }
 </code></pre>
-</section><section class="slide"><h2>Beispiel: Todos State Management</h2>
-<p>Ein <em>Reducer</em> ist eine Funktion.</p>
-<p>Der Reducer erhält den alten State und eine Action, die eine Änderung am State beschreibt.</p>
-<p>Der Reducer gibt den neuen Zustand zurück. Wichtig: Reducer ändern das alte state-Objekt nicht ab, sondern erstellen ein neues (Sie sind reine Funktionen)</p>
-</section><section class="slide"><h2>Beispiel: Todos State Management</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> todosReducer = <span class="hljs-function">(<span class="hljs-params">oldState, action</span>) =></span> {
-  <span class="hljs-keyword">switch</span> (action.type) {
-    <span class="hljs-keyword">case</span> <span class="hljs-string">'ADD_TODO'</span>:
-      <span class="hljs-keyword">return</span> [
-        ...oldState,
-        {
-          <span class="hljs-attr">title</span>: action.title,
-          <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span>,
-          <span class="hljs-attr">id</span>: generateId(), <span class="hljs-comment">// dummy function</span>
-        },
-      ];
-    <span class="hljs-keyword">case</span> <span class="hljs-string">'DELETE_TODO'</span>:
-      <span class="hljs-keyword">return</span> oldState.filter(<span class="hljs-function"><span class="hljs-params">todo</span> =></span> todo.id !== action.id);
-    <span class="hljs-keyword">default</span>:
-      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'unknown action type'</span>);
-  }
-};
+</section><section class="slide"><h2>Definieren und Abfragen eines GraphQL APIs</h2>
+<p>Abfragen:</p>
+<ul>
+<li>Query (ausgedrückt in GraphQL)</li>
+<li>evtl Abfrageparameter (in JSON)</li>
+</ul>
+<p>Definieren:</p>
+<ul>
+<li>GraphQL Schema</li>
+<li>Resolver-Funktionen</li>
+</ul>
+</section><section class="slide"><h2>Beispiel Zufallszahlen</h2>
+<p>Beispiel zeigt Implementierung und Verwendung eines API für Zufallszahlen - mit Parametern für die Anzahl und den Höchstwert</p>
+</section><section class="slide"><h2>Beispiel Zufallszahlen: Definition</h2>
+<p>Schemadefinition:</p>
+<pre><code class="language-graphql">type Query {
+  rand(max: Int!, quantity: Int!): [Int]!
+}
 </code></pre>
-</section><section class="slide"><h2>Beispiel: Todos State Management</h2>
-<p>Verwendung des Reducers (Wir erinnern uns: Der Reducer bekommt den alten State und eine Action übergeben; er gibt den neuen State zurück)</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> state1 = [
-  { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'groceries'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
-];
-<span class="hljs-keyword">const</span> state2 = todosReducer(state1, {
-  <span class="hljs-attr">type</span>: <span class="hljs-string">'ADD_TODO'</span>,
-  <span class="hljs-attr">title</span>: <span class="hljs-string">'gardening'</span>,
-});
-<span class="hljs-keyword">const</span> state3 = todosReducer(state2, {
-  <span class="hljs-attr">type</span>: <span class="hljs-string">'DELETE_TODO'</span>,
-  <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>,
-});
-<span class="hljs-built_in">console</span>.log(state3);
-<span class="hljs-comment">// [{id: 2, title: "gardening", completed: false}]</span>
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Reducer Hook</h1>
-</section><section class="slide"><h2>Reducer Hook</h2>
-<p>Zum State Management mit Hooks können wir das bekannte <code>useState</code> oder nun auch <code>useReducer</code> verwenden:</p>
-<pre><code class="hljs language-js">useState(reducer, initialState);
-</code></pre>
-</section><section class="slide"><h2>Reducer Hook</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> TodoApp = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  <span class="hljs-keyword">const</span> [todos, dispatch] = useReducer(
-    todosReducer,
-    initialTodos
+<p>Resolver-Funktion (abhängig von der verwendeten Library):</p>
+<pre><code class="hljs language-js">(root, args, context) =>
+  <span class="hljs-built_in">Array</span>.from({ <span class="hljs-attr">length</span>: args.quantity }, () =>
+    <span class="hljs-built_in">Math</span>.floor(<span class="hljs-built_in">Math</span>.random() * args.max)
   );
+</code></pre>
+</section><section class="slide"><h2>Beispiel Zufallszahlen: Feste Abfrage</h2>
+<pre><code class="language-graphql">query random {
+  rand(max: 10, quantity: 3)
+}
+</code></pre>
+</section><section class="slide"><h2>Beispiel Zufallszahlen: Parametrische Abfrage</h2>
+<p>Abfrage:</p>
+<pre><code class="language-graphql">query random($max: Int!, $quantity: Int!) {
+  rand(max: $max, quantity: $quantity)
+}
+</code></pre>
+<p>Abfrageparameter:</p>
+<pre><code class="hljs language-json">{
+  <span class="hljs-attr">"max"</span>: <span class="hljs-number">10</span>,
+  <span class="hljs-attr">"quantity"</span>: <span class="hljs-number">3</span>
+}
+</code></pre>
+</section><section class="slide"><h2>Ausprobieren</h2>
+<p>Vordefiniertes API mit Posts und Benutzern:</p>
+<p><a href="https://api.graph.cool/simple/v1/cjmj9v4mk1zs00182rnrzdrai">https://api.graph.cool/simple/v1/cjmj9v4mk1zs00182rnrzdrai</a></p>
+<!--
+source of the predefined API:
+
+howtographql.com - Core Concepts - last "Play" button
+
+try Subscriptions
+-->
+</section><section class="slide"><h2>Resourcen</h2>
+<ul>
+<li><a href="https://graphql.org/learn/">https://graphql.org/learn/</a></li>
+<li><a href="https://www.howtographql.com/">https://www.howtographql.com/</a></li>
+</ul>
+</section></section><section class="slides-section"><section class="slide"><h1>GraphQL vs REST: Beispiel</h1>
+</section><section class="slide"><h2>GraphQL vs REST</h2>
+<p>Szenario:</p>
+<p>Social media App, in der wir eine Liste von Freunden anzeigen können. Ein Klick auf einen Freund zeigt dessen letzte Posts.</p>
+</section><section class="slide"><h2>API in REST</h2>
+<pre><code class="hljs language-http"><span class="hljs-attribute">GET /users/$myuserid/friends
+</span></code></pre>
+<pre><code class="hljs language-http"><span class="hljs-attribute">GET /users/$otheruserid/posts
+</span></code></pre>
+</section><section class="slide"><h2>API in GraphQL</h2>
+<pre><code class="language-graphql">{
+  users(id: "myuserid") {
+    friends {
+      userid
+      name
+    }
+  }
+}
+</code></pre>
+</section><section class="slide"><h2>API in GraphQL</h2>
+<pre><code class="language-graphql">{
+  users(id: "otheruserid") {
+    posts {
+      date
+      title
+      body
+    }
+  }
+}
+</code></pre>
+</section><section class="slide"><h2>Funktionalität hinzufügen: Feed neuer Posts</h2>
+<p>Anzeigen neuer Posts aller Freunde</p>
+</section><section class="slide"><h2>Funktionalität hinzufügen: Feed neuer Posts</h2>
+<p>Umsetzung in REST:</p>
+<ul>
+<li>Möglichkeit 1: mehrere Requests senden</li>
+<li>Möglichkeit 2: neuer Endpunkt in der API, z.B. <code>/postsoffriends/$userid</code></li>
+</ul>
+</section><section class="slide"><h2>Funktionalität hinzufügen: Feed neuer Posts</h2>
+<p>Umsetzung in GraphQL:</p>
+<pre><code class="language-graphql">{
+  users(id: "$myuserid") {
+    friends {
+      posts {
+        date
+        title
+        body
+      }
+    }
+  }
+}
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>GraphQL verglichen mit SQL</h1>
+</section><section class="slide"><h2>GraphQL verglichen mit SQL</h2>
+<pre><code class="language-graphql">query {
+  user(login: "my-username") {
+    login
+    name
+  }
+}
+</code></pre>
+<pre><code class="hljs language-sql"><span class="hljs-keyword">SELECT</span> login, <span class="hljs-keyword">name</span>
+  <span class="hljs-keyword">FROM</span> <span class="hljs-keyword">user</span>
+  <span class="hljs-keyword">WHERE</span> login=<span class="hljs-string">"my-username"</span>;
+</code></pre>
+</section><section class="slide"><h2>GraphQL verglichen mit SQL</h2>
+<p>GraphQL: Parameter haben keine vordefinierte Bedeutung</p>
+<p>In SQL: <code>WHERE login='my-username'</code> hat klare Bedeutung</p>
+<p>GraphQL: Bedeutung von <code>login: "my-username"</code> ist der Implementierung überlassen</p>
+</section><section class="slide"><h2>GraphQL verglichen mit SQL</h2>
+<p>SQL: Beziehungen zwischen Tabellen (Joins) werden in der Query definiert</p>
+<p>GraphQL: kennt die Beziehungen bereits → einfachere Queries</p>
+</section><section class="slide"><h2>GraphQL verglichen mit SQL</h2>
+<pre><code class="language-graphql">query {
+  user(id: "my-username") {
+    posts {
+      name
+    }
+  }
+}
+</code></pre>
+<pre><code class="hljs language-sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">name</span>
+  <span class="hljs-keyword">FROM</span> <span class="hljs-keyword">user</span>
+  <span class="hljs-keyword">INNER</span> <span class="hljs-keyword">JOIN</span> post <span class="hljs-keyword">ON</span> user.id = post.userId
+  <span class="hljs-keyword">WHERE</span> user.id = <span class="hljs-string">"my-username"</span>
+</code></pre>
+<p>(extra Code: <code>INNER JOIN post ON user.id = post.userId</code>)</p>
+</section><section class="slide"><h2>GraphQL verglichen mit SQL</h2>
+<p><strong>OpenCRUD</strong>: spezifischerer Standard, der auf GraphQL basiert - er kann anstelle von SQL verwendet werden</p>
+</section></section><section class="slides-section"><section class="slide"><h1>GraphQL Clients</h1>
+</section><section class="slide"><h2>GraphQL Clients</h2>
+<ul>
+<li><em>graphql.js</em>: Referenzimplementierung</li>
+<li><em>Apollo Client</em>: einfache Integration mit React sowie mit Vue, Angular, ...</li>
+<li><em>Relay</em>: fortgeschrittene Integration mit React</li>
+</ul>
+</section></section><section class="slides-section"><section class="slide"><h1>Queries</h1>
+</section><section class="slide"><h2>Beispiele für GraphQL-APIs</h2>
+<p>from <a href="https://github.com/APIs-guru/graphql-apis">https://github.com/APIs-guru/graphql-apis</a>:</p>
+<ul>
+<li>GitHub (login benötigt)</li>
+<li>Reddit (GraphQL Hub)</li>
+<li>GraphQL Pokémon (zweiter Eintrag!)</li>
+<li>Star Wars</li>
+<li>SpaceX Land</li>
+<li>FakeQL: Mock APIs</li>
+</ul>
+</section><section class="slide"><h2>GraphiQL Explorer</h2>
+<p>Graph<em>i</em>QL: browserbasierter Explorer für GraphQL APIs</p>
+<ul>
+<li>Abfragestruktur / Datenstruktur ansehen (<em>Docs</em> oben rechts in der Ansicht)</li>
+<li>Abfragen senden</li>
+</ul>
+</section><section class="slide"><h2>Einfache Übungen</h2>
+<ul>
+<li>Liste von Titeln aller Star Wars Filme</li>
+<li>Liste von Planeten und Einwohnerzahl aus Star Wars</li>
+<li>Liste von Schiffen, gruppiert nach Filmen, in denen sie vorkommen</li>
+</ul>
+</section><section class="slide"><h2>Übung: Liste von Titeln</h2>
+<pre><code class="language-graphql">query getTitles {
+  allFilms {
+    films {
+      title
+    }
+  }
+}
+</code></pre>
+</section><section class="slide"><h2>Übung: Liste von Planeten und Einwohnerzahlen</h2>
+<pre><code class="language-graphql">query getPlanetsWithPopulations {
+  allPlanets {
+    planets {
+      name
+      population
+    }
+  }
+}
+</code></pre>
+</section><section class="slide"><h2>Übung: Liste von Schiffen gruppiert nach Filmen</h2>
+<pre><code class="language-graphql">query getStarshipsByFilm {
+  allFilms {
+    films {
+      title
+      starshipConnection {
+        starships {
+          name
+        }
+      }
+    }
+  }
+}
+</code></pre>
+</section><section class="slide"><h2>Abfrageparameter</h2>
+<p>Abfrage eines Pokémons mit angegebenem Namen:</p>
+<pre><code class="language-graphql">query getCharmander {
+  pokemon(name: "Charmander") {
+    name
+    weight {
+      minimum
+      maximum
+    }
+  }
+}
+</code></pre>
+</section><section class="slide"><h2>Abfrageparameter</h2>
+<p>Abfragen der ersten drei Pokémon in der Datenbank</p>
+<pre><code class="language-graphql">query getFirstThree {
+  pokemons(first: 3) {
+    name
+  }
+}
+</code></pre>
+<p>Anmerkung: Die server-seitige Implementierung entscheidet über die unterstützten Parameter (z.B. <em>first</em>, <em>orderBy</em>, ...)</p>
+</section><section class="slide"><h2>Abfrageparameter: Übungen</h2>
+<ul>
+<li>Name, Gewicht und Klassifizierung von Pikachu</li>
+<li>Name und Gewicht der ersten drei Pokémon</li>
+</ul>
+</section><section class="slide"><h2>Verpflichtende und optionale Parameter</h2>
+<p>Verpflichtende Parameter sind mit <code>!</code> gekennzeichnet - ebenso wie zurückgegebene Attribute, die immer vorhanden sind.</p>
+</section><section class="slide"><h2>Variablen</h2>
+<p>Abfrage:</p>
+<pre><code class="language-graphql">query getPokemonByName($name: String) {
+  pokemon(name: $name) {
+    name
+    number
+    image
+  }
+}
+</code></pre>
+<p>Variablen:</p>
+<pre><code class="hljs language-json">{
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Pikachu"</span>
+}
+</code></pre>
+</section><section class="slide"><h2>Modifizieren von Daten</h2>
+<p><a href="https://todo-mongo-graphql-server.herokuapp.com/">https://todo-mongo-graphql-server.herokuapp.com/</a></p>
+<p>(nur Definition einer Query möglich)</p>
+</section><section class="slide"><h2>Modifizieren von Daten</h2>
+<p>Befehl, der die <code>add</code>-Aktion am Server triggert und die id des neuen Todos zurückliefert:</p>
+<pre><code class="language-graphql">mutation addTodo($title: String!) {
+  add(title: $title) {
+    id
+  }
+}
+</code></pre>
+<pre><code class="hljs language-json">{
+  <span class="hljs-attr">"title"</span>: <span class="hljs-string">"shopping"</span>
+}
+</code></pre>
+</section><section class="slide"><h2>Modifizieren von Daten</h2>
+<pre><code class="language-graphql">mutation toggleTodo($id: String!) {
+  toggle(id: $id) {
+    id
+    completed
+  }
+}
+</code></pre>
+</section><section class="slide"><h2>Modifizieren von Daten</h2>
+<pre><code class="language-graphql">mutation addOneAndClearCompleted($title: String!) {
+  add(title: $title) {
+    id
+  }
+  clearCompleted {
+    id
+  }
+}
+</code></pre>
+</section><section class="slide"><h2>Modifizieren von Daten</h2>
+<p>Aufgabe: Schreibe eine Query, die alle bisherigen Einträge löscht und zwei neue erstellt</p>
+</section><section class="slide"><h2>Modifizieren von Daten</h2>
+<pre><code class="language-graphql">mutation reset {
+  toggleAll(checked: true) {
+    id
+  }
+  clearCompleted {
+    id
+  }
+  firstAddition: add(title: "Count to 34") {
+    id
+  }
+  secondAddition: add(title: "Count to 45") {
+    id
+  }
+}
+</code></pre>
+</section><section class="slide"><h2>Mehr Übungen - optional</h2>
+<ul>
+<li>Frage alle "follower von followern" für einen bestimmten GitHub-Account ab</li>
+<li>Frage für einen bestimmten GitHub-Account alle Projekte mit Namen und Sternenanzahl ab</li>
+</ul>
+</section><section class="slide"><h2>Mehr Übungen - Lösungen</h2>
+<pre><code class="hljs language-routeros">query {
+ <span class="hljs-built_in"> user </span>(login: <span class="hljs-string">"marko-knoebl"</span>) {
+    followers (first: 10) {
+      nodes {
+        login,
+        followers (first: 10) {
+          nodes {
+            login
+          }
+        }
+      }
+    }
+  }
+}
+</code></pre>
+</section><section class="slide"><h2>Mehr Übungen - Lösungen</h2>
+<pre><code class="hljs language-routeros">query {
+ <span class="hljs-built_in"> user </span>(login: <span class="hljs-string">"marko-knoebl"</span>) {
+    id,
+    email,
+    repositories (first: 100, orderBy: {field: STARGAZERS, direction: DESC}) {
+      nodes {
+        name,
+        stargazers {
+          totalCount
+        }
+      }
+    }
+  }
+}
+</code></pre>
+</section><section class="slide"><h2>Übung: Laden von Todos von einer GraphQL API</h2>
+<p>Lade Todos von <a href="https://5qn401kkl9.lp.gql.zone/graphql">https://5qn401kkl9.lp.gql.zone/graphql</a></p>
+<p>(admin: <a href="https://launchpad.graphql.com/5qn401kkl9">https://launchpad.graphql.com/5qn401kkl9</a>)</p>
+</section></section><section class="slides-section"><section class="slide"><h1>Queries - Fortgeschritten</h1>
+</section><section class="slide"><h2>Standardwerte für Variablen</h2>
+<pre><code class="language-graphql">query getPokemonByName($name: String = "Pikachu") {
+  pokemon(name: $name) {
+    number
+    image
+  }
+}
+</code></pre>
+</section><section class="slide"><h2>Aliases</h2>
+<p>Aufgabe: Nummer von Pikachu und Raichu (Pokémon API)</p>
+</section><section class="slide"><h2>Aliases</h2>
+<p>Die bekannte Art klappt nicht:</p>
+<pre><code class="language-graphql">query getTwo {
+  pokemon(name: "Pikachu") {
+    number
+  }
+  pokemon(name: "Raichu") {
+    number
+  }
+}
+</code></pre>
+</section><section class="slide"><h2>Aliases</h2>
+<p>Die Antwort hätte die folgende Struktur:</p>
+<pre><code class="hljs language-json">{
+  <span class="hljs-attr">"data"</span>: {
+    <span class="hljs-attr">"pokemon"</span>: {
+      <span class="hljs-attr">"number"</span>: <span class="hljs-string">"025"</span>
+    },
+    <span class="hljs-attr">"pokemon"</span>: {
+      <span class="hljs-attr">"number"</span>: <span class="hljs-string">"026"</span>
+    }
+  }
+}
+</code></pre>
+<p>Der Key <code>pokemon</code> wäre doppelt.</p>
+</section><section class="slide"><h2>Aliases</h2>
+<p>Ausweg aus dem Problem:</p>
+<pre><code class="language-graphql">query getTwo {
+  pokemon1: pokemon(name: "Pikachu") {
+    number
+  }
+  pokemon2: pokemon(name: "Raichu") {
+    number
+  }
+}
+</code></pre>
+</section><section class="slide"><h2>Aliases</h2>
+<p>Antwort:</p>
+<pre><code class="hljs language-json">{
+  <span class="hljs-attr">"data"</span>: {
+    <span class="hljs-attr">"pokemon1"</span>: {
+      <span class="hljs-attr">"number"</span>: <span class="hljs-string">"025"</span>
+    },
+    <span class="hljs-attr">"pokemon2"</span>: {
+      <span class="hljs-attr">"number"</span>: <span class="hljs-string">"026"</span>
+    }
+  }
+}
+</code></pre>
+</section><section class="slide"><h2>Fragmente</h2>
+<p>Fragmente bieten "Vorlagen" für Queries - weniger Wiederholung</p>
+</section><section class="slide"><h2>Fragmente</h2>
+<pre><code class="language-graphql">query getTwo {
+  pokemon1: pokemon(name: "Pikachu") {
+    ...essentialData
+  }
+  pokemon2: pokemon(name: "Raichu") {
+    ...essentialData
+    id
+  }
+}
+
+fragment essentialData on Pokemon {
+  number
+  maxHP
+  image
+}
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Datentypen</h1>
+</section><section class="slide"><h2>Datentypen</h2>
+<p>Bei GraphQL sind die zurückgegebenen Datentypen immer bekannt.</p>
+</section><section class="slide"><h2>Datentypen</h2>
+<p>verfügbare Typen:</p>
+<ul>
+<li>Boolean</li>
+<li>Int: 32-bit int (signed)</li>
+<li>Float: 64-bit Gleitkommazahl</li>
+<li>String: UTF-8 Zeichenkette</li>
+<li>ID: Eindeutige ID als String</li>
+<li>Object: Objekt mit vordefinierten Einträgen</li>
+<li>List: Liste, die bestimmte andere Typen beinhaltet</li>
+</ul>
+</section></section><section class="slides-section"><section class="slide"><h1>GraphQL mit reinem JavaScript</h1>
+</section><section class="slide"><h2>Senden von Queries an den Server</h2>
+<p>Queries werden mittesl POST-Requests gesendet</p>
+<p>Payload ist ein JSON-Objekt mit einer <code>query</code> string property (auch bei Mutationen) und optional einer <code>variables</code> property.</p>
+</section><section class="slide"><h2>Senden von Queries an den Server</h2>
+<p>Testen aus der Browserkonsole (wir müssen uns auf der gleichen Seite befinden):</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> requestBody = {
+  <span class="hljs-attr">query</span>:
+    <span class="hljs-string">'mutation addTodo($title: String!) { add(title: $title) { id } }'</span>,
+  <span class="hljs-attr">variables</span>: <span class="hljs-string">'{"title": "test"}'</span>,
+};
+
+<span class="hljs-keyword">const</span> requestBodyStr = <span class="hljs-built_in">JSON</span>.stringify(requestBody);
+
+fetch(<span class="hljs-string">'https://todo-mongo-graphql-server.herokuapp.com'</span>, {
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'POST'</span>,
+  <span class="hljs-attr">headers</span>: { <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span> },
+  <span class="hljs-attr">body</span>: requestBodyStr,
+}).then(<span class="hljs-built_in">console</span>.log);
+</code></pre>
+</section><section class="slide"><h2>Beispiel: reddit API</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> queryTemplate = <span class="hljs-string">`
+{
+  reddit {
+    subreddit(name: "javascript") {
+      newListings(limit: 2) {
+        title
+      }
+    }
+  }
+}`</span>;
+</code></pre>
+</section><section class="slide"><h2>Beispiel: reddit API</h2>
+<pre><code class="hljs language-js">fetch(<span class="hljs-string">'https://www.graphqlhub.com/graphql'</span>, {
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'POST'</span>,
+  <span class="hljs-attr">headers</span>: {
+    <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span>,
+    <span class="hljs-attr">Accept</span>: <span class="hljs-string">'application/json'</span>,
+  },
+  <span class="hljs-attr">body</span>: <span class="hljs-built_in">JSON</span>.stringify({ <span class="hljs-attr">query</span>: queryTemplate }),
+})
+  .then(<span class="hljs-function"><span class="hljs-params">r</span> =></span> r.json())
+  .then(<span class="hljs-function"><span class="hljs-params">data</span> =></span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'data returned:'</span>, data));
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Apollo Client</h1>
+</section><section class="slide"><h2>Apollo Client</h2>
+<p><a href="https://www.apollographql.com/docs/react/">https://www.apollographql.com/docs/react/</a></p>
+</section><section class="slide"><h2>Apollo Client</h2>
+<p>Gründe für die Verwendung:</p>
+<ul>
+<li>Automatisches senden von Queries über das Netzwerk</li>
+<li>Automatisches caching</li>
+<li>Automatische Einbindung in das (Re)rendering von React</li>
+</ul>
+</section><section class="slide"><h2>Installation</h2>
+<p>Benötigte npm-Pakete:</p>
+<ul>
+<li><code>graphl</code></li>
+<li><code>graphql-tag</code></li>
+<li><code>apollo-client</code></li>
+<li><code>apollo-cache-inmemory</code></li>
+<li><code>apollo-link-http</code></li>
+<li><code>react-apollo</code> (für Verwendung mit React)</li>
+</ul>
+<p>Das Paket <code>apollo-boost</code> beinhaltet <code>apollo-client</code>, <code>apollo-cache-inmemory</code>, <code>apollo-link-http</code> (und mehr)</p>
+</section><section class="slide"><h2>Setup</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { ApolloClient } <span class="hljs-keyword">from</span> <span class="hljs-string">'apollo-client'</span>;
+<span class="hljs-keyword">import</span> { InMemoryCache } <span class="hljs-keyword">from</span> <span class="hljs-string">'apollo-cache-inmemory'</span>;
+<span class="hljs-keyword">import</span> { HttpLink } <span class="hljs-keyword">from</span> <span class="hljs-string">'apollo-link-http'</span>;
+<span class="hljs-keyword">import</span> gql <span class="hljs-keyword">from</span> <span class="hljs-string">'graphql-tag'</span>;
+
+<span class="hljs-keyword">const</span> cache = <span class="hljs-keyword">new</span> InMemoryCache();
+<span class="hljs-keyword">const</span> link = <span class="hljs-keyword">new</span> HttpLink({
+  <span class="hljs-attr">uri</span>: <span class="hljs-string">'https://api.spacex.land/graphql/'</span>,
+});
+
+<span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> ApolloClient({
+  cache,
+  link,
+});
+</code></pre>
+</section><section class="slide"><h2>Beispiel für eine Abfrage</h2>
+<pre><code class="hljs language-js"><span class="hljs-comment">// via a tagged template string</span>
+<span class="hljs-keyword">const</span> LAUNCHES_QUERY = gql<span class="hljs-string">`
+  query recentLaunches {
+    launchesPast(limit: 10) {
+      mission_name
+    }
+  }
+`</span>;
+
+client
+  .query({
+    <span class="hljs-attr">query</span>: LAUNCHES_QUERY,
+  })
+  .then(<span class="hljs-function"><span class="hljs-params">result</span> =></span> <span class="hljs-built_in">console</span>.log(result));
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Apollo client mit React</h1>
+</section><section class="slide"><h2>React mit einem Apollo Client verbinden</h2>
+<p>Eine Anwendung kommuniziert meist mit einem einzigen API</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { ApolloProvider } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-apollo'</span>;
+</code></pre>
+<pre><code class="hljs language-jsx">&#x3C;ApolloProvider client={client}>
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">App</span> /></span>
+<span class="hljs-tag">&#x3C;/<span class="hljs-name">ApolloProvider</span>></span></span>
+</code></pre>
+</section><section class="slide"><h2>Definition einer Query</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> LAUNCHES_QUERY = gql<span class="hljs-string">`
+  query recentLaunches {
+    launchesPast(limit: 10) {
+      mission_name
+    }
+  }
+`</span>;
+</code></pre>
+</section><section class="slide"><h2>useQuery</h2>
+<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">RecentLaunches</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> { data, loading, error } = useQuery(LAUNCHES_QUERY);
+  <span class="hljs-keyword">if</span> (loading) <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>Loading...<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+  <span class="hljs-keyword">if</span> (error) <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>Error!<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
 
   <span class="hljs-keyword">return</span> (
     <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
-      ...
-      </span>&#x3C;button
-        onClick={() => dispatch({ type: 'DELETE_ALL' })}>
-        delete all todos
-      &#x3C;/button><span class="xml">
+      </span>&#x3C;h1>Launches&#x3C;/h1><span class="xml">
+      {data.launchesPast.map(launch => (
+        </span>&#x3C;div>{launch.mission_name}&#x3C;/div><span class="xml">
+      ))}
     <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
   );
-};
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Automatisiertes Testen</h1>
-</section><section class="slide"><h2>Automatisiertes Testen</h2>
-<p>Programme / Funktionen / Klassen können automatisiert getestet werden um sicherzustellen, dass sie wie erwartet funktionieren.</p>
-</section><section class="slide"><h2>Tools für das Testen</h2>
-<ul>
-<li><em>node</em> wird als Runtime benötigt</li>
-<li><em>assert</em>: einfache assertions, in node beinhaltet</li>
-<li><em>Jest</em>: test runner &#x26; assertion library</li>
-<li><em>Jasmine</em>: test runner &#x26; assertion library</li>
-<li><em>Mocha</em>: test runner</li>
-<li><em>Chai</em>: assertion library</li>
-<li><em>Karma</em>: test runner</li>
-<li><em>Enzyme</em>: test utilities &#x26; assertions für React</li>
-</ul>
-<p><a href="https://2018.stateofjs.com/testing/overview/">https://2018.stateofjs.com/testing/overview/</a></p>
-</section><section class="slide"><h2>Beispiel: shorten</h2>
-<p>Wir werden eine Funktion schreiben und testen, die einen String auf eine vorgegebene Länge verkürzt:</p>
-<pre><code class="hljs language-js">shorten(<span class="hljs-string">'loremipsum'</span>, <span class="hljs-number">6</span>);
-<span class="hljs-comment">// should return 'lor...'</span>
-</code></pre>
-<p>Mögliche Zugänge:</p>
-<ul>
-<li>mit Implementierung beginnen</li>
-<li>mit Tests beginnen (test-driven development)</li>
-</ul>
-</section><section class="slide"><h2>Einrichten des Test Runners</h2>
-<p>in einem vorhandenen npm Projekt:</p>
-<pre><code class="hljs language-bash">npm install --save-dev jest
-</code></pre>
-<p>in <em>package.json</em>:</p>
-<pre><code class="hljs language-json"><span class="hljs-string">"scripts"</span>: {
-  <span class="hljs-attr">"test"</span>: <span class="hljs-string">"jest"</span>
 }
 </code></pre>
-</section><section class="slide"><h2>Tests ausführen</h2>
-<pre><code class="hljs language-bash">npm <span class="hljs-built_in">test</span>
-</code></pre>
-<p>Achtung: laufende Tests sollten immer abgebrochen werden, bevor <code>npm install ...</code> ausgeführt wird - sonst kann die Installation fehlschlagen</p>
-</section><section class="slide"><h2>Finden von Tests</h2>
-<p>Im allgemeinen suchen Test Libraries nach Dateien mit der Endung <code>.test.js</code> oder <code>.spec.js</code> in dem Ordner <code>test</code>.</p>
-<p>Wir können auch ein eigenes Muster übergeben, z.B.:</p>
-<pre><code class="hljs language-bash">mocha <span class="hljs-string">"src/**/*.{test,spec}.{js,jsx}"</span>
-</code></pre>
-</section><section class="slide"><h2>test coverage</h2>
-<p>Manche Testlibraries können berichten, wie viel des Codes von Tests abgedeckt ist:</p>
-<p>Beispiel - in einem create-react-app Projekt:</p>
-<pre><code class="hljs language-bash">npm <span class="hljs-built_in">test</span> -- --coverage
-</code></pre>
-</section><section class="slide"><h2>Beispiel: shorten</h2>
-<pre><code class="hljs language-js"><span class="hljs-comment">// shorten.js</span>
-<span class="hljs-keyword">const</span> shorten = <span class="hljs-function">(<span class="hljs-params">s, maxlength</span>) =></span> {
-  <span class="hljs-keyword">if</span> (s.length > maxlength) {
-    s = s.slice(<span class="hljs-number">0</span>, maxlength - <span class="hljs-number">3</span>) + <span class="hljs-string">'...'</span>;
-  }
-  <span class="hljs-keyword">return</span> s;
-};
-
-<span class="hljs-built_in">module</span>.exports.shorten = shorten;
-</code></pre>
-</section><section class="slide"><h2>Beispiel: shorten</h2>
-<pre><code class="hljs language-js"><span class="hljs-comment">// shorten.test.js</span>
-<span class="hljs-keyword">const</span> shorten = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./shorten.js'</span>).shorten;
-<span class="hljs-comment">// use node's built-in assert module</span>
-<span class="hljs-keyword">const</span> assert = <span class="hljs-built_in">require</span>(<span class="hljs-string">'assert'</span>);
-
-it(<span class="hljs-string">'shortens "loremipsum" to "lor..."'</span>, () => {
-  <span class="hljs-keyword">const</span> expected = <span class="hljs-string">'lor...'</span>;
-  <span class="hljs-keyword">const</span> actual = shorten(<span class="hljs-string">'loremipsum'</span>, <span class="hljs-number">6</span>);
-  assert.equal(actual, expected);
-});
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Testen: assertions</h1>
-</section><section class="slide"><h2>Testen: assertions</h2>
-<p>Assertions können auf zwei Arten geschrieben werden:</p>
-<p>assert:</p>
-<pre><code class="hljs language-js">assert.equal(a, b);
-</code></pre>
-<p>expect (behaviour-driven):</p>
-<pre><code class="hljs language-js">expect(a).toEqual(b);
-</code></pre>
-</section><section class="slide"><h2>Testen: assertions</h2>
-<p>assert:</p>
-<ul>
-<li>assert-modul in node</li>
-<li>chai</li>
-</ul>
-<p>expect (behaviour-driven)</p>
-<ul>
-<li>jest</li>
-<li>jasmine</li>
-<li>chai</li>
-<li>enzyme</li>
-</ul>
-</section><section class="slide"><h2>Testen: assertions</h2>
-<p>assert (node):</p>
-<pre><code class="hljs language-js">assert.equal(a, b);
-assert.deepEqual(a, b);
-assert.throws(<span class="hljs-function"><span class="hljs-params">()</span> =></span> <span class="hljs-number">1</span> / <span class="hljs-number">0</span>);
-<span class="hljs-comment">// ...</span>
-</code></pre>
-<p>assert (chai):</p>
-<pre><code class="hljs language-js">assert.equal(a, b);
-assert.deepEqual(a, b);
-assert.typeOf(foo, <span class="hljs-string">'string'</span>);
-assert.lengthOf(foo, <span class="hljs-number">3</span>);
-assert.throws(<span class="hljs-function"><span class="hljs-params">()</span> =></span> <span class="hljs-number">1</span> / <span class="hljs-number">0</span>);
-</code></pre>
-</section><section class="slide"><h2>Testen: assertions</h2>
-<p>expect (jest):</p>
-<pre><code class="hljs language-js">expect(a).toEqual(<span class="hljs-number">4</span>);
-expect(a).not.toEqual(<span class="hljs-number">2</span>);
-expect(a).toBeGreaterThan(<span class="hljs-number">3</span>);
-expect(a).toBeInstanceOf(<span class="hljs-built_in">Number</span>);
-expect(<span class="hljs-function"><span class="hljs-params">()</span> =></span> <span class="hljs-number">1</span> / <span class="hljs-number">0</span>).toThrow();
-</code></pre>
-<p>expect (chai):</p>
-<pre><code class="hljs language-js">expect(a).to.equal(<span class="hljs-number">4</span>);
-expect(a).not.to.equal(<span class="hljs-number">2</span>);
-expect(a).to.be.greaterThan(<span class="hljs-number">3</span>);
-expect(a).to.be.a(<span class="hljs-string">'number'</span>);
-expect(<span class="hljs-function"><span class="hljs-params">()</span> =></span> <span class="hljs-number">1</span> / <span class="hljs-number">0</span>).to.throw();
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Strukturierung von Tests</h1>
-</section><section class="slide"><h2>Gruppieren</h2>
-<p>mit <code>describe()</code>:</p>
-<pre><code class="hljs language-js"><span class="hljs-comment">// jest</span>
-describe(<span class="hljs-string">'strings that are short enough'</span>, () => {
-  it(<span class="hljs-string">'leaves "abc" unchanged with limit 5'</span>, () => {
-    expect(shorten(<span class="hljs-string">'abc'</span>, <span class="hljs-number">5</span>)).toEqual(<span class="hljs-string">'abc'</span>);
-  });
-  it(<span class="hljs-string">'leaves "loremipsum" unchanged with limit 10'</span>, () => {
-    expect(shorten(<span class="hljs-string">'loremipsum'</span>, <span class="hljs-number">10</span>)).toEqual(<span class="hljs-string">'loremipsum'</span>);
-  });
-});
-</code></pre>
-</section><section class="slide"><h2>Setup und teardown</h2>
-<p>Für Code, der vor und jedem Test in einer Gruppe ausgeführt werden soll:</p>
-<pre><code class="hljs language-js"><span class="hljs-comment">// jest or mocha</span>
-beforeEach(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  createTestDB();
-});
-
-afterEach(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  clearTestDB();
-});
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Testen von React-Anwendungen</h1>
-</section><section class="slide"><h2>Test Renderer für React</h2>
-<ul>
-<li><code>react-test-renderer</code> (vom React Team entwickelt)</li>
-<li><code>Enzyme</code> (von Airbnb entwickelt)</li>
-</ul>
-<p>Enzyme bietet noch keine Unterstützung für Hooks</p>
-</section><section class="slide"><h2>React-Test-Renderer - Installation</h2>
-<pre><code class="hljs language-bash">npm install --save-dev react-test-renderer
-</code></pre>
-<p>für TypeScript:</p>
-<pre><code class="hljs language-bash">npm install --save-dev react-test-renderer @types/react-test-renderer
-</code></pre>
-</section><section class="slide"><h2>React-Test-Renderer - Beispiel</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> TestRenderer <span class="hljs-keyword">from</span> <span class="hljs-string">'react-test-renderer'</span>;
-
-it(<span class="hljs-string">'renders a component without crashing'</span>, () => {
-  <span class="hljs-keyword">const</span> instance = TestRenderer.create(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">MyComponent</span> /></span>)
-    .root;
-});
-</span></code></pre>
-</section><section class="slide"><h2>React-Test-Renderer - mit Instanzen arbeiten</h2>
-<ul>
-<li><code>instance.find(All)</code></li>
-<li><code>instance.find(All)ByType</code></li>
-<li><code>instance.find(All)ByProps</code></li>
-<li><code>instance.props</code></li>
-<li><code>instance.children</code></li>
-<li><code>instance.type</code></li>
-</ul>
-</section><section class="slide"><h2>Enzyme - Installation &#x26; Einrichtung</h2>
-<pre><code class="hljs language-bash">npm install --save-dev enzyme enzyme-adapter-react-16
-</code></pre>
-<p>neue Datei <code>src/setupTests.js</code>:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { configure } <span class="hljs-keyword">from</span> <span class="hljs-string">'enzyme'</span>;
-<span class="hljs-keyword">import</span> Adapter <span class="hljs-keyword">from</span> <span class="hljs-string">'enzyme-adapter-react-16'</span>;
-
-configure({ <span class="hljs-attr">adapter</span>: <span class="hljs-keyword">new</span> Adapter() });
-</code></pre>
-</section><section class="slide"><h2>Enzyme - Beispiele</h2>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> { shallow, mount } <span class="hljs-keyword">from</span> <span class="hljs-string">'enzyme'</span>;
-
-it(<span class="hljs-string">'renders a component without crashing'</span>, () => {
-  <span class="hljs-keyword">const</span> wrapper = shallow(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">MyComponent</span> /></span>);
-});
-
-it('renders a component tree without crashing', () => {
-  const wrapper = mount(</span>&#x3C;MyComponent /><span class="xml">);
-});
-</span></code></pre>
-</section><section class="slide"><h2>Enzyme - Cheatsheet</h2>
-<p><a href="https://devhints.io/enzyme">https://devhints.io/enzyme</a></p>
-</section></section><section class="slides-section"><section class="slide"><h1>Beispiel: Testen mit Jest und React Test Renderer</h1>
-<p>Testen einer Rating Komponente</p>
-</section><section class="slide"><h2>Test-Setup</h2>
-<pre><code class="language-tsx">import React from 'react';
-import TestRenderer from 'react-test-renderer';
-
-import Rating from './Rating';
-</code></pre>
-</section><section class="slide"><h2>Testen des Renderings</h2>
-<pre><code class="language-tsx">describe('rendering', () => {
-  it('renders 5 spans', () => {
-    const instance = TestRenderer.create(
-      &#x3C;Rating stars={3} />
-    ).root;
-    expect(instance.findAllByType('span')).toHaveLength(5);
-  });
-
-  it('renders 3 active stars', () => {
-    const instance = TestRenderer.create(
-      &#x3C;Rating stars={3} />
-    ).root;
-    expect(
-      instance.findAllByProps({ className: 'star active' })
-    ).toHaveLength(3);
-  });
-});
-</code></pre>
-</section><section class="slide"><h2>Testen von Events</h2>
-<pre><code class="hljs language-jsx">describe(<span class="hljs-string">'events'</span>, () => {
-  it(<span class="hljs-string">'reacts to click on the fourth star'</span>, () => {
-    <span class="hljs-keyword">const</span> mockFn = jest.fn();
-    <span class="hljs-keyword">const</span> instance = TestRenderer.create(
-      <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Rating</span> <span class="hljs-attr">stars</span>=<span class="hljs-string">{3}</span> <span class="hljs-attr">onStarsChange</span>=<span class="hljs-string">{mockFn}</span> /></span>
-    ).root;
-    const fourthStar = instance.findAllByType('span')[3];
-    fourthStar.props.onClick();
-    expect(mockFn).toBeCalledWith(4);
-  });
-});
-</span></code></pre>
-</section><section class="slide"><h2>Testen von Fehlern</h2>
-<pre><code class="hljs language-jsx">describe(<span class="hljs-string">'errors'</span>, () => {
-  it(<span class="hljs-string">'throws an error if the number of stars is 0'</span>, () => {
-    <span class="hljs-keyword">const</span> testFn = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-      TestRenderer.create(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Rating</span> <span class="hljs-attr">stars</span>=<span class="hljs-string">{0}</span> /></span>);
-    };
-    expect(testFn).toThrow(
-      'number of stars must be 1-5'
-    );
-  });
-});
-</span></code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Beispiel: Testen mit Jest und Enzyme</h1>
-<p>Testen einer Rating-Komponente</p>
-</section><section class="slide"><h2>Beispiel: Testen einer Rating-Komponente</h2>
-<pre><code class="language-tsx">import React from 'react';
-import { shallow, mount } from 'enzyme';
-
-import Rating from './Rating';
-</code></pre>
-</section><section class="slide"><h2>Beispiel: Testen einer Rating-Komponente</h2>
-<pre><code class="language-tsx">describe('rendering', () => {
-  it('renders 5 Star components', () => {
-    const wrapper = shallow(&#x3C;Rating stars={5} />);
-    expect(wrapper.find('Star')).toHaveLength(5);
-  });
-
-  it('renders 5 stars', () => {
-    const wrapper = mount(&#x3C;Rating stars={5} />);
-    expect(wrapper.find('.star')).toHaveLength(5);
-  });
-});
-</code></pre>
-</section><section class="slide"><h2>Beispiel: Testen einer Rating-Komponente</h2>
-<pre><code class="language-tsx">describe('rendering', () => {
-  it('renders 3 active stars', () => {
-    const wrapper = mount(&#x3C;Rating stars={3} />);
-    expect(wrapper.find('.star')).toHaveLength(5);
-    expect(
-      wrapper.find('.star').get(2).props.className
-    ).toEqual('star active');
-    expect(
-      wrapper.find('.star').get(3).props.className
-    ).toEqual('star');
-  });
-});
-</code></pre>
-</section><section class="slide"><h2>Beispiel: Testen einer Rating-Komponente</h2>
-<pre><code class="language-tsx">describe('events', () => {
-  it('reacts to click on first star', () => {
-    const mockFn = jest.fn();
-    const wrapper = mount(
-      &#x3C;Rating stars={3} onStarsChange={mockFn} />
-    );
-    wrapper
-      .find('span')
-      .at(0)
-      .simulate('click');
-    expect(mockFn.mock.calls[0][0]).toEqual(1);
-  });
-});
-</code></pre>
-</section><section class="slide"><h2>Beispiel: Testen einer Rating-Komponente</h2>
-<p>Testen einer (hypothetischen) Rating-Komponente, die ihren eigenen internen State hat:</p>
-<pre><code class="language-tsx">describe('events', () => {
-  it('reacts to click on first star', () => {
-    const wrapper = mount(&#x3C;Rating />);
-    wrapper
-      .find('span')
-      .at(0)
-      .simulate('click');
-    expect(wrapper.instance.state.count).toEqual(1);
-  });
-});
-</code></pre>
-</section><section class="slide"><h2>Beispiel: Testen einer Rating-Komponente</h2>
-<pre><code class="language-tsx">describe('errors', () => {
-  it('throws an error if the number of stars is 0', () => {
-    const testFn = () => {
-      const wrapper = shallow(&#x3C;Rating stars={0} />);
-    };
-    expect(testFn).toThrow(
-      'number of stars must be positive'
-    );
-  });
-});
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Snapshot Tests</h1>
-<h3>mit react-test-renderer</h3>
-</section><section class="slide"><h2>Snapshot Tests</h2>
-<p>Komponenten werden gerendert und mit früheren Versionen (Snapshots) verglichen</p>
-<p>Snapshot Tests fallen unter Regressionstests.</p>
-</section><section class="slide"><h2>Snapshot Tests in React - Tests erstellen</h2>
-<pre><code class="hljs language-jsx"><span class="hljs-comment">// Rating.test.js</span>
-<span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
-<span class="hljs-keyword">import</span> Rating <span class="hljs-keyword">from</span> <span class="hljs-string">'./Rating.js'</span>;
-<span class="hljs-keyword">import</span> renderer <span class="hljs-keyword">from</span> <span class="hljs-string">'react-test-renderer'</span>;
-
-it(<span class="hljs-string">'renders correctly'</span>, () => {
-  <span class="hljs-keyword">const</span> tree = renderer
-    .create(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Rating</span> <span class="hljs-attr">stars</span>=<span class="hljs-string">{2}</span> /></span>)
-    .toJSON();
-  expect(tree).toMatchSnapshot();
-});
-</span></code></pre>
-</section><section class="slide"><h2>Snapshot Tests aktualisieren</h2>
-<p>Haben wir das Verhalten einer Komponente geändert und danach ihr Verhalten überprüft, können wir Snapshot-Tests entsprechend aktualisieren:</p>
-<pre><code class="language-txt">2 snapshot tests failed in 1 test suite.
-Inspect your code changes or press `u` to update them.
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Storybook</h1>
-</section><section class="slide"><h2>Storybook</h2>
-<p>Ermöglicht das Erstellen isolierter Komponentendemos</p>
-<p>Beispiel:</p>
-<p><a href="https://airbnb.io/react-dates/">https://airbnb.io/react-dates/</a></p>
-</section><section class="slide"><h2>Storybook - Setup</h2>
-<pre><code class="hljs language-bash">npx -p @storybook/cli sb init --<span class="hljs-built_in">type</span> react
-</code></pre>
-<p>Erstellt einen Konfigurationsordner unter <code>.storybook</code> und Beispielstories unter <code>stories</code>.</p>
-</section><section class="slide"><h2>Storybook</h2>
-<pre><code class="hljs language-bash">npm run storybook
-</code></pre>
-</section><section class="slide"><h2>Storybook</h2>
-<p>Konfiguration via <code>.storybook/config.js</code></p>
-</section></section><section class="slides-section"><section class="slide"><h1>React Router</h1>
-</section><section class="slide"><h2>React Router</h2>
-<p><a href="https://reacttraining.com/react-router/">https://reacttraining.com/react-router/</a></p>
-</section><section class="slide"><h2>React Router - Setup</h2>
-<p>npm Pakete:</p>
-<ul>
-<li><code>react-router-dom</code></li>
-<li>(<code>@types/react-router-dom</code>)</li>
-</ul>
-</section><section class="slide"><h2>React Router - BrowserRouter</h2>
-<p>Um React Router verwenden zu können:<br />
-Ganze Anwendung wird in ein <code>BrowserRouter</code> - Element eingebettet</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { BrowserRouter } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router-dom'</span>;
-[...]
-
-&#x3C;BrowserRouter>
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">App</span>/></span></span>
-<span class="xml"><span class="hljs-tag">&#x3C;/<span class="hljs-name">BrowserRouter</span>></span></span>
-</code></pre>
-</section><section class="slide"><h2>React Router - Routen definieren</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { Route } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router-dom'</span>;
-
-<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"/"</span> <span class="hljs-attr">exact</span>=<span class="hljs-string">{true}</span> <span class="hljs-attr">component</span>=<span class="hljs-string">{TodoList}</span> /></span>
-</span>&#x3C;Route path="/about" exact={true} component={About} />
-&#x3C;Route path="/add" exact={true} component={AddTodo} />
-</code></pre>
-</section><section class="slide"><h2>React Router - Routen definieren</h2>
-<p>Wenn props übergeben werden müssen:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> { Route } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router-dom'</span>;
-
-<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Route</span>
-  <span class="hljs-attr">path</span>=<span class="hljs-string">"/add"</span>
-  <span class="hljs-attr">exact</span>=<span class="hljs-string">{true}</span>
-  <span class="hljs-attr">render</span>=<span class="hljs-string">{props</span> =></span> (
-    </span>&#x3C;AddTodo onSubmit={this.handleAddTodo} />
-  )}
-/>;
-</code></pre>
-</section><section class="slide"><h2>React Router - Router-Links</h2>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> { NavLink } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router-dom'</span>;
-
-<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">NavLink</span> <span class="hljs-attr">to</span>=<span class="hljs-string">"/"</span> <span class="hljs-attr">activeClassName</span>=<span class="hljs-string">"active-link"</span>></span>Home<span class="hljs-tag">&#x3C;/<span class="hljs-name">NavLink</span>></span></span>
-<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">NavLink</span> <span class="hljs-attr">to</span>=<span class="hljs-string">"/add"</span> <span class="hljs-attr">activeClassName</span>=<span class="hljs-string">"active-link"</span>></span>Add<span class="hljs-tag">&#x3C;/<span class="hljs-name">NavLink</span>></span></span>
-</code></pre>
-</section><section class="slide"><h2>React Router - Switch</h2>
-<p>Nur die erste zutreffende Route wird angezeigt</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> { Switch } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router-dom'</span>;
-
-<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Switch</span>></span>
-  </span>&#x3C;Route path="/todos/:todoId" component={Todo} />
-  &#x3C;Route path="/" component={NotFound} />
-&#x3C;/Switch>;
-</code></pre>
-</section><section class="slide"><h2>React Router - Redirects</h2>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> { Redirect } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router-dom'</span>;
-
-<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Route</span>
-  <span class="hljs-attr">path</span>=<span class="hljs-string">"/home"</span>
-  <span class="hljs-attr">render</span>=<span class="hljs-string">{props</span> =></span> </span>&#x3C;Redirect to="/" />}
-/>;
-</code></pre>
-</section><section class="slide"><h2>React Router - Routenparameter</h2>
-<pre><code class="hljs language-jsx">&#x3C;Route
-  path=<span class="hljs-string">"/todos/:todoId"</span>
-  render={props => (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>Current todo: {props.match.params.todoId}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
-  )}
-/>
-</code></pre>
-<p>Routenparameter sind unter <em>props.match.params</em> abzurufen</p>
-</section></section><section class="slides-section"><section class="slide"><h1>PWAs</h1>
-<p>Progressive Web Apps mit React</p>
-</section><section class="slide"><h2>PWAs</h2>
-<p><strong>Progressive Web Apps</strong>: Möglichkeit, Anwendungen für Mobilgeräte und PCs mit HTML, CSS und JavaScript zu schreiben</p>
-<p>Mit <code>create-react-app</code> erstellte Anwendungen bieten dafür schon die Grundvoraussetzungen:</p>
-<ul>
-<li>Konfiguration in <code>public/manifest.json</code></li>
-<li>PWA-Boilerplate in <code>src/serviceWorker.js</code></li>
-</ul>
-</section><section class="slide"><h2>PWAs: Aktivierung</h2>
-<p>in <code>index.js</code> / <code>index.tsx</code>:</p>
-<pre><code class="hljs language-js">serviceWorker.register();
-</code></pre>
-</section><section class="slide"><h2>PWAs: Konfiguration</h2>
-<p>Via <code>public/manifest.json</code></p>
-</section><section class="slide"><h2>PWA: add to homescreen</h2>
-<p><a href="https://developers.google.com/web/fundamentals/app-install-banners/">https://developers.google.com/web/fundamentals/app-install-banners/</a></p>
-</section><section class="slide"><h2>PWA: add to homescreen</h2>
-<p>Prozess in Chrome:</p>
-<ul>
-<li>warten, bis eine Installationsdialog angezeigt werden darf</li>
-<li>anzeigen eines Buttons o.ä., der die Installation anbietet</li>
-<li>beim Anklicken des Buttons via Chrome den Installationsdialog anzeigen</li>
-</ul>
-</section><section class="slide"><h2>PWA: add to homescreen</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [installPrompt, setInstallPrompt] = useState(<span class="hljs-literal">null</span>);
-
-<span class="hljs-comment">// executed when the component has mounted</span>
-useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  <span class="hljs-built_in">window</span>.addEventListener(
-    <span class="hljs-string">'beforeinstallprompt'</span>,
-    ipEvent => {
-      ipEvent.preventDefault();
-      setInstallPrompt(ipEvent);
+</section><section class="slide"><h2>useQuery: Parameter</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> LAUNCHES_QUERY = gql<span class="hljs-string">`
+  query recentLaunches($numLaunches: ) {
+    launchesPast(limit: $numLaunches) {
+      mission_name
     }
-  );
-}, []);
-</code></pre>
-</section><section class="slide"><h2>PWA: add to homescreen</h2>
-<pre><code class="hljs language-jsx">&#x3C;div>
-  {installPrompt &#x26;&#x26; (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>
-      <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> {
-        installPrompt.prompt();
-      }}>
-      install
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span>
-  )}
-&#x3C;<span class="hljs-regexp">/div>
-</span></code></pre>
-</section><section class="slide"><h2>PWA: Deployment auf netlify</h2>
-<ul>
-<li><code>npm run build</code></li>
-<li>dist-Ornder via drag&#x26;drop auf app.netlify.com/drop</li>
-<li>Manuell auf HTTPS wechseln - in Chrome am Desktop und Mobilgerät ausprobieren</li>
-</ul>
-</section></section><section class="slides-section"><section class="slide"><h1>React Native</h1>
-</section><section class="slide"><h2>React Native</h2>
-<p>Mit React Native können React Anwendungen für iOS- und Android-Geräte erstellt werden</p>
-</section><section class="slide"><h2>Online Editor</h2>
-<p>Siehe <a href="https://snack.expo.io/">https://snack.expo.io/</a></p>
-</section><section class="slide"><h2>React Native Komponenten</h2>
-<ul>
-<li>View (=div)</li>
-<li>Text (=span)</li>
-<li>Image</li>
-<li>Button</li>
-<li>TextInput (=input)</li>
-<li>ScrollView</li>
-</ul>
-<p><a href="https://facebook.github.io/react-native/docs/components-and-apis#basic-components">ausführlichere Liste</a></p>
-</section></section><section class="slides-section"><section class="slide"><h1>Context</h1>
-</section><section class="slide"><h2>Context</h2>
-<p>Möglichkeit, Werte aus einer Komponente direkt allen weiter unten im Dokumentenbaum liegenden Komponenten zur Verfügung zu stellen - ohne den state über jede Ebene übergeben zu müssen</p>
-</section><section class="slide"><h2>Context</h2>
-<p>zwei Elemente:</p>
-<ul>
-<li><code>Provider</code>: stellt Werte zur Verfügung</li>
-<li><code>Consumer</code>: verwendet diese Werte (kann weit unten in der Komponentenhierarchie liegen)</li>
-</ul>
-</section><section class="slide"><h2>Context</h2>
-<p>Das Interface von Context kann sowohl Daten (aus dem State) als auch Eventhandler übergeben.</p>
-</section><section class="slide"><h2>Context - Beispiel</h2>
-<pre><code class="hljs language-js"><span class="hljs-comment">// TodosContext.js</span>
-
-<span class="hljs-keyword">const</span> TodosContext = React.createContext();
-</code></pre>
-</section><section class="slide"><h2>Context - Beispiel: TypeScript</h2>
-<pre><code class="hljs language-ts"><span class="hljs-comment">// TodosContext.ts</span>
-
-<span class="hljs-keyword">type</span> TodosContextType = {
-  todos: <span class="hljs-built_in">Array</span>&#x3C;Todo>;
-  onToggle: <span class="hljs-function">(<span class="hljs-params">id: <span class="hljs-built_in">number</span></span>) =></span> <span class="hljs-built_in">void</span>;
-  onClear: <span class="hljs-function"><span class="hljs-params">()</span> =></span> <span class="hljs-built_in">void</span>;
-};
-
-<span class="hljs-keyword">const</span> TodosContext = React.createContext(
-  {} <span class="hljs-keyword">as</span> TodosContextType
-);
-</code></pre>
-</section><section class="slide"><h2>Context - Beispiel: Provider</h2>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> App = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">MyContext.Provider</span>
-      <span class="hljs-attr">value</span>=<span class="hljs-string">{{</span>
-        <span class="hljs-attr">todos:</span> <span class="hljs-attr">this.state.todos</span>,
-        <span class="hljs-attr">onToggle:</span> <span class="hljs-attr">this.handleToggle</span>,
-        <span class="hljs-attr">onClear:</span> <span class="hljs-attr">this.handleClear</span>,
-      }}></span>
-      </span>&#x3C;TodoStats /><span class="xml">
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">MyContext.Provider</span>></span></span>
-  );
-};
-</code></pre>
-</section><section class="slide"><h2>Context - Beispiel: Consumer</h2>
-<p>funktionale Komponente:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> TodoStats = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  <span class="hljs-keyword">const</span> context = useContext(TodosContext);
-  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>There are {context.todos.length} todos<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
-};
-</code></pre>
-</section><section class="slide"><h2>Context - Beispiel: Consumer</h2>
-<p>Klassenkomponente:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TodoStats</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
-  render() {
-    <span class="hljs-keyword">return</span> (
-      <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">TodosContext.Consumer</span>></span>
-        {context => (
-          </span>&#x3C;div>
-            There are {context.todos.length} todos
-          &#x3C;/div><span class="xml">
-        )}
-      <span class="hljs-tag">&#x3C;/<span class="hljs-name">Todos.Consumer</span>></span></span>
-    );
   }
-}
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Dateistruktur</h1>
-</section><section class="slide"><h2>Dateistruktur</h2>
-<p><a href="https://reactjs.org/docs/faq-structure.html">https://reactjs.org/docs/faq-structure.html</a></p>
-<p>Verbreitete Zugänge:</p>
-<ul>
-<li>Gruppieren nach Feature / Route</li>
-<li>Gruppieren nach Typ (Komponente / Reducer / API interface)</li>
-</ul>
-<p>zu beachten:</p>
-<ul>
-<li>Zu viel Verschachtelung vermeiden</li>
-<li>Zu Beginn nicht zu viel Gedanken daran verschwenden</li>
-</ul>
-</section></section><section class="slides-section"><section class="slide"><h1>Manuelles Setup und Konfiguration von React</h1>
-</section><section class="slide"><h2>Manuelles Setup und Konfiguration</h2>
-<p>Setup von React ohne <em>create-react-app</em></p>
-<p>Hier verwenden wir den <em>parcel</em> bundler - eine Alternative zu webpack</p>
-</section><section class="slide"><h2>package.json und Abhängigkeiten</h2>
-<p>Wir beginnen mit einer <code>package.json</code>-Datei, die ein leeres Objekt enthält: <code>{}</code></p>
-<p>Installation der benötigten Pakete:</p>
-<pre><code class="hljs language-bash">npm install react react-dom
-</code></pre>
-<pre><code class="hljs language-bash">npm install --save-dev parcel-bundler babel-preset-react babel-preset-env
-</code></pre>
-</section><section class="slide"><h2>Konfiguration von Babel</h2>
-<p>via <code>.babelrc</code>-Datei:</p>
-<pre><code class="hljs language-json">{
-  <span class="hljs-attr">"presets"</span>: [<span class="hljs-string">"env"</span>, <span class="hljs-string">"react"</span>]
-}
-</code></pre>
-</section><section class="slide"><h2>npm Scripts</h2>
-<p>Hinzufügen zweier Scripts zu <code>package.json</code>:</p>
-<pre><code class="hljs language-json"><span class="hljs-string">"scripts"</span>: {
-  <span class="hljs-attr">"build"</span>: <span class="hljs-string">"parcel build src/index.html"</span>,
-  <span class="hljs-attr">"start"</span>: <span class="hljs-string">"parcel src/index.html"</span>
-},
-</code></pre>
-</section><section class="slide"><h2>HTML-Einstiegspunkt</h2>
-<p>Wir erstellen <code>src/index.html</code>:</p>
-<pre><code class="hljs language-html"><span class="hljs-meta">&#x3C;!DOCTYPE html></span>
-<span class="hljs-tag">&#x3C;<span class="hljs-name">html</span>></span>
-  <span class="hljs-tag">&#x3C;<span class="hljs-name">head</span>></span>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">title</span>></span>React starter app<span class="hljs-tag">&#x3C;/<span class="hljs-name">title</span>></span>
-  <span class="hljs-tag">&#x3C;/<span class="hljs-name">head</span>></span>
-  <span class="hljs-tag">&#x3C;<span class="hljs-name">body</span>></span>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"app"</span>></span><span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"index.js"</span>></span><span class="hljs-tag">&#x3C;/<span class="hljs-name">script</span>></span>
-  <span class="hljs-tag">&#x3C;/<span class="hljs-name">body</span>></span>
-<span class="hljs-tag">&#x3C;/<span class="hljs-name">html</span>></span>
-</code></pre>
-</section><section class="slide"><h2>Rendern einer App-Komponente</h2>
-<p>Wir erstelen <code>src/index.js</code>:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
-<span class="hljs-keyword">import</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>;
+`</span>;
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">App</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>Hello World!<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">RecentLaunches</span>(<span class="hljs-params">{ numLaunches }</span>) </span>{
+  <span class="hljs-keyword">const</span> { data, loading, error } = useQuery(
+    LAUNCHES_QUERY,
+    { <span class="hljs-attr">variables</span>: { numLaunches } }
+  );
+  ...
 }
-
-<span class="hljs-keyword">const</span> mountNode = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'app'</span>);
-ReactDOM.render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">App</span> /></span>, mountNode);
-</span></code></pre>
-</section><section class="slide"><h2>Ausführen</h2>
-<p>Wir führen <code>npm start</code> für einen Entwicklungsserver oder <code>npm run build</code> für einen Build aus.</p></section></section></div>
+</code></pre>
+</section><section class="slide"><h2>useQuery: Polling &#x26; Refetching</h2>
+<p>Daten alle 5 Sekunden aktualisieren:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> { data, loading, error } = useQuery(LAUNCHES_QUERY, {
+  <span class="hljs-attr">pollInterval</span>: <span class="hljs-number">5000</span>,
+});
+</code></pre>
+<p>Funktion, deren Aufruf ein neues Laden der Daten bewirkt:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> { data, loading, error, refetch } = useQuery(
+  LAUNCHES_QUERY
+);
+...
+refetch()
+</code></pre>
+</section><section class="slide"><h2>useMutation</h2></section></section></div>
     </div>
     <script>/*!
  * reveal.js

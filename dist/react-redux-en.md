@@ -1,119 +1,91 @@
 # React & Redux
 
-# Redux
+# State management with reducers
 
-### State management with Redux
+## State management with reducers
 
-## State management
+See presentation on [React advanced](/react-advanced-en.html)
 
-In more complex fontend-applications it makes sense to manage the state (model) separately from the view.
+# State management in Redux
 
-Often the entire application state is represented by a data model and every change to the state will be done by triggering a change to the data model.
+## State management in Redux
 
-## State management tools
+In Redux: application state is stored _globally_.
 
-- Redux (commonly used with React)
-- reducer hook (included in React, similar to Redux)
-- MobX (commonly used with React)
-- ngrx (used with Angular)
-- vuex (used with vue)
+There is _one_ store that contains all data.
 
-## What makes Redux special
+A store may be composed of different parts.
 
-In Redux a state change is applied via a _reducer_ function, wich transform the previous state into the new state based on an _action_
-
-## Redux diagram
-
-<img src="assets/redux-flow.svg" type="text/svg" style="width: 100%">
-
-## Installation
+## Installation of Redux
 
 ```bash
 npm install redux
 ```
 
-## Simple Redux example: counter
+## Example: Todos
 
-We create a counter which has two actions, _increment_ and _decrement_.
+Differences between Redux and the reducer hook:
 
-These will be represented by JavaScript objects:
-
-```json
-{ "type": "INCREMENT" }
-```
-
-```json
-{ "type": "DECREMENT" }
-```
-
-## Simple Redux example: counter
-
-The central element is the _reducer_ function:
+In Redux the initial state is passed to the reducer as a default parameter:
 
 ```js
-const initialState = { count: 0 };
+const initialState = []
+const todosReducer = (oldState = initialState, action) => {
+    ...
+}
+```
 
-const counter = (state = initialState, action) => {
+If a reducer does not recognize an action the Redux state should remain unchanged:
+
+```js
+default:
+  return oldState;
+```
+
+## Example: Todos
+
+```js
+const initialState = [];
+const todosReducer = (oldState = initialState, action) => {
   switch (action.type) {
-    case 'INCREMENT':
-      return { count: state.count + 1 };
-    case 'DECREMENT':
-      return { count: state.count - 1 };
+    case 'ADD_TODO':
+      return [
+        ...oldState,
+        {
+          title: action.title,
+          completed: false,
+          id: generateId(), // dummy function
+        },
+      ];
+    case 'DELETE_TODO':
+      return oldState.filter(todo => todo.id !== action.id);
     default:
-      return state;
+      return oldState;
   }
 };
 ```
 
-## Simple Redux example: counter
-
-The reducer function receives the old state and an action describing a state change
-
-The reducer function returns the new state. Importantly, reducer functions don't mutate the old state object (they are pure functions)
-
-## Simple Redux example: counter
-
-Store = object that stores the redux state; a store is managed by a reducer
+## Example: todos store
 
 ```js
-// stores.js
+// store.js
 import { createStore } from 'redux';
+import todosReducer from 'todosReducer';
 
-// counter = reducer
-const counterStore = createStore(counter);
+const todosStore = createStore(todosReducer);
 ```
 
-## Simple Redux example: counter
+## Example: todos store
 
-Using the store
-
-```js
-counterStore.getState(); // {count: 0}
-counterStore.dispatch({ type: 'INCREMENT' });
-counterStore.getState(); // {count: 1}
-```
-
-## Exercise
-
-Create a new `mathadorStore` with an initial state of `{number: 1}` and two actions corresponding to "\*3" and "-7"
-
-additinal tasks: reach the number 4 (or 10) by dispatching actions
-
-## combining reducers
+direct use:
 
 ```js
-const rootReducer = combineReducers({
-  a: counter,
-  b: mathador,
+todosStore.getState();
+todosStore.dispatch({
+  type: 'ADD_TODO',
+  title: 'learn Redux',
 });
-
-const rootStore = createStore(rootReducer);
-
-rootStore.getState();
-// {a: {count: 0}, b: {number: 1}}
-
-rootStore.dispatch({ type: 'INCREMENT' });
-// {a: {count: 1}, b: {number: 1}}
+todosStore.getState();
 ```
 
 ## Redux devtools
@@ -124,10 +96,10 @@ https://github.com/zalmoxisus/redux-devtools-extension
 
 ## Redux devtools
 
-include via:
+Including the devtools in an application:
 
 ```bash
-npm install --save-dev redux-devtools-extension
+npm install redux-devtools-extension
 ```
 
 ```js
@@ -135,66 +107,113 @@ import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 const store = createStore(
-  rootReducer,
+  reducer,
   composeWithDevTools(applyMiddleware())
 );
 ```
 
-# Immutability
+## Redux devtools
 
-## Immutability
+functionality:
 
-important concept in functional programing and with React / Redux
+- inspect state
+- display changes to the state
+- trigger (dispatch) actions
+- restore previous state (time traveling)
+- saving / restoring State from / to JSON
 
-## Immutability
+## Example: shopping cart
 
-When using Redux or React's PureComponent:
+State consists of two important parts:
 
-Objects that describe the application state must not be modified directly
+- product catalog
+- number of products in the shopping cart
 
-Instead, these objects should be replaced by new, derived objects
+## Example: shopping cart - state
 
-Advantages: increased performance, more possibilities when it comes to debugging
-
-## PureComponent
-
-Instead of `Component` we can inherit from `PureComponent`:
-
-The component will onl be rerendered if either state or props have changed
-
-Entries in state or props are considered to have changed only if they refer to a different object than before
-
-## Data management without mutations
-
-## Data management without mutations: Arrays
-
-```js
-let names = ['Alice', 'Bob', 'Charlie'];
-// invalid: modifies the original array
-names.push('Dan');
-
-// instead: new array
-let newNames = names.slice();
-newNames.push('Dan');
-// overwrite the original
-names = newNames;
-
-// or:
-names = [...names, 'Dan'];
+```json
+{
+  "cart": {
+    "addedIds": [2],
+    "quantityById": { 2: 2 }
+  },
+  "products": [
+    {
+      "id": 1,
+      "title": "iPad 4 Mini",
+      "price": 500.01,
+      "inventory": 2
+    },
+    {
+      "id": 2,
+      "title": "H&M T-Shirt White",
+      "price": 10.99,
+      "inventory": 10
+    },
+    {
+      "id": 3,
+      "title": "Charli XCX - Sucker CD",
+      "price": 19.99,
+      "inventory": 5
+    }
+  ]
+}
 ```
 
-## Data management without mutations: Objects
+## Example: shopping cart
+
+The two parts - `cart` and `products` - can be managed by two different reducers.
+
+Combining the reducers into one reducer via the function `combineReducers`:
 
 ```js
-let user = {
-  name: 'john'
-  email: 'john@doe.com'
-}
-// invalid: modifies the object
-user.email = 'johndoe@gmail.com';
+import { combineReducers } from 'redux';
 
-// instead: create a new object
-let newUser = { ...user, email: 'johndoe@gmail.com' };
+const shopReducer = combineReducers({
+  cart: cartReducer,
+  products: productsReducer,
+});
+
+const store = createStore(
+  shopReducer,
+  composeWithDevTools(applyMiddleware())
+);
+```
+
+## Example: shopping cart
+
+```js
+const cartReducer = (state = {}, action) => {
+  switch (action.type) {
+    case 'ADD_TO_CART':
+      return {
+        ...state,
+        [action.id]: (state[action.id] || 0) + 1,
+      };
+    default:
+      return state;
+  }
+};
+```
+
+## Example: shopping cart
+
+```js
+const products = [];
+const productsReducer = (state = products, action) => {
+  switch (action.type) {
+    case 'SET_PRODUCTS':
+      return action.products;
+    case 'ADD_TO_CART':
+      return state.map(product =>
+        product.id === action.id
+          ? { ...product, inventory: product.inventory - 1 }
+          : product
+      );
+    default:
+      return state;
+  }
+};
 ```
 
 # Exercise: todo list
@@ -793,6 +812,68 @@ const functionMiddleware = store => next => action => {
 
 https://slides.com/joelkanzelmeyer/taming-large-redux-apps
 
+# React with Redux (with Hooks)
+
+## React with Redux (with Hooks)
+
+https://redux.js.org/basics/usage-with-react
+
+Setup: `npm install redux react-redux`
+
+Typescript: `npm install @types/react-redux`
+
+## React-Redux: < Provider >
+
+Provider: Helps with adding a redux store to a React app
+
+## React-Redux: < Provider >
+
+```js
+// index.js
+import { Provider } from 'react-redux';
+
+[...]
+
+ReactDOM.render(
+  <Provider store={myStore}>
+    <App/>
+  </Provider>
+  ...
+);
+```
+
+## useSelector
+
+By using `useSelector` we can query the state of the Redux store.
+
+We pass a so-called _selector function_ to `useSelector`. The selector function receives the entire Redux state and returns a value that is derived from the state.
+
+example:
+
+```js
+const numTodos = useSelector(state => state.todos.length);
+```
+
+## useDispatch
+
+By using `useDispatch` we can access the `dispatch` function of the Redux store and use it to dispatch actions.
+
+```js
+const dispatch = useDispatch();
+
+dispatch({
+  type: 'REMOVE_COMPLETED_TODOS',
+});
+```
+
+## useDispatch with TypeScript
+
+```ts
+import { Dispatch } from 'redux';
+
+const dispatch: Dispatch<TodolistAction> = useDispatch();
+```
+
 # React with Redux (with classes)
 
 ## React with Redux (with classes)
@@ -900,66 +981,4 @@ const mapDispatchToProps = (
 ## Redux with TypeScript
 
 see https://github.com/piotrwitek/react-redux-typescript-guide
-
-# React with Redux (with Hooks)
-
-## React with Redux (with Hooks)
-
-https://redux.js.org/basics/usage-with-react
-
-Setup: `npm install redux react-redux`
-
-Typescript: `npm install @types/react-redux`
-
-## React-Redux: < Provider >
-
-Provider: Helps with adding a redux store to a React app
-
-## React-Redux: < Provider >
-
-```js
-// index.js
-import { Provider } from 'react-redux';
-
-[...]
-
-ReactDOM.render(
-  <Provider store={myStore}>
-    <App/>
-  </Provider>
-  ...
-);
-```
-
-## useSelector
-
-By using `useSelector` we can query the state of the Redux store.
-
-We pass a so-called _selector function_ to `useSelector`. The selector function receives the entire Redux state and returns a value that is derived from the state.
-
-example:
-
-```js
-const numTodos = useSelector(state => state.todos.length);
-```
-
-## useDispatch
-
-By using `useDispatch` we can access the `dispatch` function of the Redux store and use it to dispatch actions.
-
-```js
-const dispatch = useDispatch();
-
-dispatch({
-  type: 'REMOVE_COMPLETED_TODOS',
-});
-```
-
-## useDispatch with TypeScript
-
-```ts
-import { Dispatch } from 'redux';
-
-const dispatch: Dispatch<TodolistAction> = useDispatch();
-```
 

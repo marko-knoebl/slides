@@ -6,33 +6,52 @@
 
 ## GraphQL
 
-Can be used to talk to:
+Can be used for an API that can in turn talk to:
 
-- APIs
+- other APIs
 - databases
-
-Is often used as a common interface for multiple data sources
 
 ## GraphQL vs REST
 
-GraphQL aims to be more _flexible_ and _efficient_ than REST.
+### Advantages of REST
 
-GraphQL: one endpoint that can be used for any query  
-REST: multiple endpoints that must be created for each type of query
+- _widely used_
+- _simpler_
 
-GraphQL: the client can request exactly the objects and fields it needs
+### Advantages of GraphQL
 
-GraphQL: data is fetched within _one_ single HTTP request
+- _more flexible_
+- _more efficient_
+
+## Advantages of GraphQL
+
+_Flexibility_ of GraphQL:
+
+can describe complex tasks - the server-side API does not have to be adjusted for new use cases
+
+_Efficiency_ of GraphQL:
+
+client can request exactly the data it needs in a single request
 
 [Video: GraphQL is the better REST](https://www.howtographql.com/basics/1-graphql-is-the-better-rest/)
 
-## GraphQL vs SQL
+## Differences between GraphQL and REST
 
-SQL: relational database
+REST: endpoint (e.g. `/todos`) and method (e.g. `PUT`) are part of the API; a separate endpoint is needed for each type of query
 
-GraphQL: graph database (makes "joins" easier)
+GraphQL: single endpoint (e.g. `/api`), all requests are POST requests
 
-OpenCRUD: GraphQL dialect that maps to standard SQL
+## Differences between GraphQL and REST
+
+REST: complex cases require multiple HTTP requests
+
+GraphQL: data are fetched via a single HTTP request
+
+## Differences between GraphQL and REST
+
+REST: Each endpoint always returns the same set of object fields
+
+GraphQL: the client can request exactly the objects and fields it needs
 
 ## Use cases
 
@@ -85,7 +104,7 @@ query {
 consuming an API:
 
 - query (expressed in the GraphQL language)
-- query data (in JSON)
+- optional query data (in JSON)
 
 defining an API:
 
@@ -94,7 +113,7 @@ defining an API:
 
 ## Example: random numbers
 
-This example shows the implementation and use of a random number API which provides parameters to set the quantity and max value of the random numbers
+Example shows use of a random number API which provides parameters to set the quantity and max value of the random numbers
 
 ## Example: random numbers
 

@@ -1,13 +1,4 @@
-# GraphQL vs REST
-
-## GraphQL vs REST
-
-REST: The endpoint (e.g. `/todos`) and the method (e.g. `PUT`) are an essential part of the API and they indicate what will happen  
-GraphQL: one endpoint that can be used for any operation - all requests are `POST` requests
-
-GraphQL: the client can request exactly the objects and fields it needs
-
-GraphQL: data is fetched within _one_ single HTTP request
+# GraphQL vs REST: Example
 
 ## GraphQL vs REST
 

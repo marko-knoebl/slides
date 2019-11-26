@@ -4,6 +4,13 @@
 
 "A query language for your API"
 
+## GraphQL
+
+Verwendung für ein einzelnen APIs, das wiederum mit folgenden Datenquellen kommunizieren kann:
+
+- andere APIs
+- Datenbanken
+
 ## GraphQL vs REST
 
 ### Vorteile von REST
@@ -30,18 +37,26 @@ der Client kann mittels eines Requests genau die benötigten Objekte und Felder 
 
 ## Unterschiede zwischen GraphQL und REST
 
-REST: Endpunkt (z.B. `/todos`) und Methode (z.B. `PUT`) sind Teil des APIs
+REST: Endpunkt (z.B. `/todos`) und Methode (z.B. `PUT`) sind Teil des APIs; für jede Art von Anfrage muss ein eigener Endpunkt erstellt werden
 
 GraphQL: nur ein Endpunkt (z.B. `/api`), nur POST-Requests
 
+## Unterschiede zwischen GraphQL und REST
+
 REST: Für komplexere Fälle sind mehrere HTTP-Anfragen nötig
 
-GraphQL: Daten werden mit einem einzigen HTTP-Request abgefragt
+GraphQL: Daten werden mit einer einzigen HTTP-Anfrage abgefragt
+
+## Unterschiede zwischen GraphQL und REST
+
+REST: Für jeden Endpunkt werden immer die gleichen Felder zurückgegeben
+
+GraphQL: Der Client kann genau die benötigten Objekte und Felder anfragen
 
 ## Anwendungsfälle
 
-- API Services
-- Datenbankabfragen
+- API services: z.B. Generieren einer Zufallszahl zwischen 1 und 100
+- Datenbankabfrage: z.B. Abfragen aller Login Namen von Freunden eines bestimmten Benutzers
 
 ## Beispiel: Service für Zufallszahlen
 
@@ -96,6 +111,10 @@ Definieren:
 - GraphQL Schema
 - Resolver-Funktionen
 
+## Beispiel Zufallszahlen
+
+Beispiel zeigt Implementierung und Verwendung eines API für Zufallszahlen - mit Parametern für die Anzahl und den Höchstwert
+
 ## Beispiel Zufallszahlen: Definition
 
 Schemadefinition:
@@ -115,7 +134,7 @@ Resolver-Funktion (abhängig von der verwendeten Library):
   );
 ```
 
-## Beispiel Zufallszahlen: Fest Abfrage
+## Beispiel Zufallszahlen: Feste Abfrage
 
 ```graphql
 query random {

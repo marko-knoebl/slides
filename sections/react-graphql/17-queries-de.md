@@ -9,6 +9,7 @@ from https://github.com/APIs-guru/graphql-apis:
 - GraphQL Pokémon (zweiter Eintrag!)
 - Star Wars
 - SpaceX Land
+- FakeQL: Mock APIs
 
 ## GraphiQL Explorer
 

@@ -1,34 +1,34 @@
 # React & GraphQL
 
-## Presentation and code
+## Präsentation und Code
 
-Presentations available at: https://karuga.eu/courses-presentations
+Präsentationen verfügbar unter: https://karuga.eu/courses-presentations
 
-Code available at: https://github.com/marko-knoebl/courses-code
+Code verfügbar unter: https://github.com/marko-knoebl/courses-code
 
-## Your Trainer
+## Ihr Trainer
 
 Marko Knöbl
 
-- Frontend Web-Development
+- Frontend Web-Entwicklung
   - JavaScript
   - React, Angular
-- Programming
+- Programmierung
   - Python, JavaScript
 
-## Introduction of Participants
+## Vorstellung der Teilnehmer
 
-- current projects
-- prior knowledge
-- expectations
+- Aktuelle Projekte
+- Vorkenntnisse
+- Erwartungen / Wünsche
 
-## Organizational
+## Organisatorisches
 
-- duration
-- breaks
-- lunch
-- materials
-- questions, feedback?
+- Kursdauer
+- Pausen
+- Mittagessen
+- Unterlagen
+- Fragen, Feedback? - Jederzeit erwünscht
 
 # GraphQL
 
@@ -38,61 +38,61 @@ Marko Knöbl
 
 ## GraphQL
 
-Can be used for an API that can in turn talk to:
+Verwendung für ein einzelnen APIs, das wiederum mit folgenden Datenquellen kommunizieren kann:
 
-- other APIs
-- databases
+- andere APIs
+- Datenbanken
 
 ## GraphQL vs REST
 
-### Advantages of REST
+### Vorteile von REST
 
-- _widely used_
-- _simpler_
+- _etabliert_
+- _einfacher_
 
-### Advantages of GraphQL
+### Vorteile von GraphQL
 
-- _more flexible_
-- _more efficient_
+- _flexibler_
+- _effizienter_
 
-## Advantages of GraphQL
+## Vorteile von GraphQL
 
-_Flexibility_ of GraphQL:
+_Flexibilität_ von GraphQL:
 
-can describe complex tasks - the server-side API does not have to be adjusted for new use cases
+kann komplexe Abfragen beschreiben - serverseitiges API muss für neue Anwendungsfälle nicht angepasst werden
 
-_Efficiency_ of GraphQL:
+_Effizienz_ von GraphQL:
 
-client can request exactly the data it needs in a single request
+der Client kann mittels eines Requests genau die benötigten Objekte und Felder anfordern
 
 [Video: GraphQL is the better REST](https://www.howtographql.com/basics/1-graphql-is-the-better-rest/)
 
-## Differences between GraphQL and REST
+## Unterschiede zwischen GraphQL und REST
 
-REST: endpoint (e.g. `/todos`) and method (e.g. `PUT`) are part of the API; a separate endpoint is needed for each type of query
+REST: Endpunkt (z.B. `/todos`) und Methode (z.B. `PUT`) sind Teil des APIs; für jede Art von Anfrage muss ein eigener Endpunkt erstellt werden
 
-GraphQL: single endpoint (e.g. `/api`), all requests are POST requests
+GraphQL: nur ein Endpunkt (z.B. `/api`), nur POST-Requests
 
-## Differences between GraphQL and REST
+## Unterschiede zwischen GraphQL und REST
 
-REST: complex cases require multiple HTTP requests
+REST: Für komplexere Fälle sind mehrere HTTP-Anfragen nötig
 
-GraphQL: data are fetched via a single HTTP request
+GraphQL: Daten werden mit einer einzigen HTTP-Anfrage abgefragt
 
-## Differences between GraphQL and REST
+## Unterschiede zwischen GraphQL und REST
 
-REST: Each endpoint always returns the same set of object fields
+REST: Für jeden Endpunkt werden immer die gleichen Felder zurückgegeben
 
-GraphQL: the client can request exactly the objects and fields it needs
+GraphQL: Der Client kann genau die benötigten Objekte und Felder anfragen
 
-## Use cases
+## Anwendungsfälle
 
-- API service: e.g. get a random number between 1 and 100
-- database query: e.g. get all login names of friends of a specific user
+- API services: z.B. Generieren einer Zufallszahl zwischen 1 und 100
+- Datenbankabfrage: z.B. Abfragen aller Login Namen von Freunden eines bestimmten Benutzers
 
-## Example: random number service
+## Beispiel: Service für Zufallszahlen
 
-query (GraphQL):
+Anfrage (GraphQL):
 
 ```graphql
 query {
@@ -100,7 +100,7 @@ query {
 }
 ```
 
-answer (JSON):
+Antwort (JSON):
 
 ```json
 {
@@ -108,7 +108,7 @@ answer (JSON):
 }
 ```
 
-## Example: get friends of a user
+## Beispiel: Freunde eines Benutzers
 
 ```graphql
 query {
@@ -131,25 +131,25 @@ query {
 }
 ```
 
-## Definining and consuming a GraphQL API
+## Definieren und Abfragen eines GraphQL APIs
 
-consuming an API:
+Abfragen:
 
-- query (expressed in the GraphQL language)
-- optional query data (in JSON)
+- Query (ausgedrückt in GraphQL)
+- evtl Abfrageparameter (in JSON)
 
-defining an API:
+Definieren:
 
-- schema
-- resolver functions
+- GraphQL Schema
+- Resolver-Funktionen
 
-## Example: random numbers
+## Beispiel Zufallszahlen
 
-Example shows use of a random number API which provides parameters to set the quantity and max value of the random numbers
+Beispiel zeigt Implementierung und Verwendung eines API für Zufallszahlen - mit Parametern für die Anzahl und den Höchstwert
 
-## Example: random numbers
+## Beispiel Zufallszahlen: Definition
 
-schema definition:
+Schemadefinition:
 
 ```graphql
 type Query {
@@ -157,7 +157,7 @@ type Query {
 }
 ```
 
-resolver function (this depends on the library):
+Resolver-Funktion (abhängig von der verwendeten Library):
 
 ```js
 (root, args, context) =>
@@ -166,7 +166,7 @@ resolver function (this depends on the library):
   );
 ```
 
-## Example: random numbers: fixed query
+## Beispiel Zufallszahlen: Feste Abfrage
 
 ```graphql
 query random {
@@ -174,9 +174,9 @@ query random {
 }
 ```
 
-## Example: random numbers: parametric query
+## Beispiel Zufallszahlen: Parametrische Abfrage
 
-query:
+Abfrage:
 
 ```graphql
 query random($max: Int!, $quantity: Int!) {
@@ -184,7 +184,7 @@ query random($max: Int!, $quantity: Int!) {
 }
 ```
 
-query data:
+Abfrageparameter:
 
 ```json
 {
@@ -193,9 +193,9 @@ query data:
 }
 ```
 
-## Try it out
+## Ausprobieren
 
-predefined API with posts and users:
+Vordefiniertes API mit Posts und Benutzern:
 
 https://api.graph.cool/simple/v1/cjmj9v4mk1zs00182rnrzdrai
 
@@ -207,18 +207,18 @@ howtographql.com - Core Concepts - last "Play" button
 try Subscriptions
 -->
 
-## Resources
+## Resourcen
 
 - https://graphql.org/learn/
 - https://www.howtographql.com/
 
-# GraphQL vs REST: Example
+# GraphQL vs REST: Beispiel
 
 ## GraphQL vs REST
 
-Scenario:
+Szenario:
 
-A social media app in which we can view a list of our friends. Clicking on a friend takes us to their most recent posts
+Social media App, in der wir eine Liste von Freunden anzeigen können. Ein Klick auf einen Freund zeigt dessen letzte Posts.
 
 ## API in REST
 
@@ -257,21 +257,20 @@ GET /users/$otheruserid/posts
 }
 ```
 
-## Adding functionality: new post feed
+## Funktionalität hinzufügen: Feed neuer Posts
 
-Display new posts of all friends in a feed
+Anzeigen neuer Posts aller Freunde
 
-## Adding functionality: new post feed
+## Funktionalität hinzufügen: Feed neuer Posts
 
-In REST we would either have to send multiple requests to retrieve all posts of friends - or we would have to implement a new endpoint in the API:
+Umsetzung in REST:
 
-```http
-GET /postsoffriends/$myuserid
-```
+- Möglichkeit 1: mehrere Requests senden
+- Möglichkeit 2: neuer Endpunkt in der API, z.B. `/postsoffriends/$userid`
 
-## Adding functionality: new post feed
+## Funktionalität hinzufügen: Feed neuer Posts
 
-In GraphQL we can implement this with just one request and without creating new endpoints:
+Umsetzung in GraphQL:
 
 ```graphql
 {
@@ -287,9 +286,9 @@ In GraphQL we can implement this with just one request and without creating new 
 }
 ```
 
-# GraphQL compared to SQL
+# GraphQL verglichen mit SQL
 
-## GraphQL compared to SQL: examples
+## GraphQL verglichen mit SQL
 
 ```graphql
 query {
@@ -306,21 +305,21 @@ SELECT login, name
   WHERE login="my-username";
 ```
 
-## GraphQL compared to SQL
+## GraphQL verglichen mit SQL
 
-In GraphQL parameters don't have a predefined meaning.
+GraphQL: Parameter haben keine vordefinierte Bedeutung
 
-In SQL the clause `WHERE login="my-username` always has the same meaning
+In SQL: `WHERE login='my-username'` hat klare Bedeutung
 
-In GraphQL the meaning of `login: "my-username"` is up to the implementation on the server
+GraphQL: Bedeutung von `login: "my-username"` ist der Implementierung überlassen
 
-## GraphQL compared to SQL
+## GraphQL verglichen mit SQL
 
-SQL: relationships between tables (joins) are defined in the query
+SQL: Beziehungen zwischen Tabellen (Joins) werden in der Query definiert
 
-GraphQL: already knows about relationships when the query is issued → simpler queries
+GraphQL: kennt die Beziehungen bereits → einfachere Queries
 
-## GraphQL compared to SQL
+## GraphQL verglichen mit SQL
 
 ```graphql
 query {
@@ -339,47 +338,47 @@ SELECT name
   WHERE user.id = "my-username"
 ```
 
-(extra code: `INNER JOIN post ON user.id = post.userId`)
+(extra Code: `INNER JOIN post ON user.id = post.userId`)
 
-## GraphQL compared to SQL
+## GraphQL verglichen mit SQL
 
-**OpenCRUD** is a more specifc standard that is based on GraphQL. It maps directly to SQL and can be used in place of it.
+**OpenCRUD**: spezifischerer Standard, der auf GraphQL basiert - er kann anstelle von SQL verwendet werden
 
-# GraphQL clients
+# GraphQL Clients
 
-## GraphQL clients
+## GraphQL Clients
 
-- _graphql.js_: reference implementation
-- _Apollo Client_: easy integration with React, Vue, Angular, ...
-- _Relay_: advanced integration with React
+- _graphql.js_: Referenzimplementierung
+- _Apollo Client_: einfache Integration mit React sowie mit Vue, Angular, ...
+- _Relay_: fortgeschrittene Integration mit React
 
 # Queries
 
-## GraphQL API examples
+## Beispiele für GraphQL-APIs
 
 from https://github.com/APIs-guru/graphql-apis:
 
-- GitHub (login required)
+- GitHub (login benötigt)
 - Reddit (GraphQL Hub)
-- GraphQL Pokémon (second entry!)
+- GraphQL Pokémon (zweiter Eintrag!)
 - Star Wars
 - SpaceX Land
 - FakeQL: Mock APIs
 
-## GraphiQL explorer
+## GraphiQL Explorer
 
-Graph*i*QL: Browser-based explorer for GraphQL APIs
+Graph*i*QL: browserbasierter Explorer für GraphQL APIs
 
-- see query structure / data structure (click "Docs" in the top right)
-- send experimental queries
+- Abfragestruktur / Datenstruktur ansehen (_Docs_ oben rechts in der Ansicht)
+- Abfragen senden
 
-## Simple GraphQL exercises
+## Einfache Übungen
 
-- Get a list of titles of all Star Wars films in the database
-- Get a list of planets and planet populations from Star Wars
-- Get a list of starships grouped by films they appear in
+- Liste von Titeln aller Star Wars Filme
+- Liste von Planeten und Einwohnerzahl aus Star Wars
+- Liste von Schiffen, gruppiert nach Filmen, in denen sie vorkommen
 
-## List of titles of Star Wars films
+## Übung: Liste von Titeln
 
 ```graphql
 query getTitles {
@@ -391,7 +390,7 @@ query getTitles {
 }
 ```
 
-## List of planets and planet populations
+## Übung: Liste von Planeten und Einwohnerzahlen
 
 ```graphql
 query getPlanetsWithPopulations {
@@ -404,7 +403,7 @@ query getPlanetsWithPopulations {
 }
 ```
 
-## List of starships grouped by film
+## Übung: Liste von Schiffen gruppiert nach Filmen
 
 ```graphql
 query getStarshipsByFilm {
@@ -421,9 +420,9 @@ query getStarshipsByFilm {
 }
 ```
 
-## Query parameters
+## Abfrageparameter
 
-Only query the pokémon with the specified name
+Abfrage eines Pokémons mit angegebenem Namen:
 
 ```graphql
 query getCharmander {
@@ -437,9 +436,9 @@ query getCharmander {
 }
 ```
 
-## Query parameters
+## Abfrageparameter
 
-Query the first three pokémon in the database
+Abfragen der ersten drei Pokémon in der Datenbank
 
 ```graphql
 query getFirstThree {
@@ -449,20 +448,20 @@ query getFirstThree {
 }
 ```
 
-Note: specifying a _first_ parameter is possible because it's implemented on the server-side. It's not part of the GraphQL standard. GraphQL _may_ also implement other arbitrary parameters like _orderBy_ or _matchRegex_, but this is all up to the server.
+Anmerkung: Die server-seitige Implementierung entscheidet über die unterstützten Parameter (z.B. _first_, _orderBy_, ...)
 
-## Query parameters: exercises
+## Abfrageparameter: Übungen
 
-- get the name, weight and classification of Pikachu
-- get the name and weight of the first three pokémon
+- Name, Gewicht und Klassifizierung von Pikachu
+- Name und Gewicht der ersten drei Pokémon
 
-## Required and optional parameters
+## Verpflichtende und optionale Parameter
 
-Required parameters are marked with a `!`. These must always be included. Similarly, returned attributes that will always be present (like `id`) will be marked in the same way.
+Verpflichtende Parameter sind mit `!` gekennzeichnet - ebenso wie zurückgegebene Attribute, die immer vorhanden sind.
 
-## Variables
+## Variablen
 
-query:
+Abfrage:
 
 ```graphql
 query getPokemonByName($name: String) {
@@ -474,7 +473,7 @@ query getPokemonByName($name: String) {
 }
 ```
 
-variables:
+Variablen:
 
 ```json
 {
@@ -482,15 +481,15 @@ variables:
 }
 ```
 
-## Modifying data
+## Modifizieren von Daten
 
 https://todo-mongo-graphql-server.herokuapp.com/
 
-(only one query at a time)
+(nur Definition einer Query möglich)
 
-## Modifying data
+## Modifizieren von Daten
 
-Command that triggers the server's `add` action and returns the id of the new TODO
+Befehl, der die `add`-Aktion am Server triggert und die id des neuen Todos zurückliefert:
 
 ```graphql
 mutation addTodo($title: String!) {
@@ -506,7 +505,7 @@ mutation addTodo($title: String!) {
 }
 ```
 
-## Modifying data
+## Modifizieren von Daten
 
 ```graphql
 mutation toggleTodo($id: String!) {
@@ -517,7 +516,7 @@ mutation toggleTodo($id: String!) {
 }
 ```
 
-## Modifying data
+## Modifizieren von Daten
 
 ```graphql
 mutation addOneAndClearCompleted($title: String!) {
@@ -530,11 +529,11 @@ mutation addOneAndClearCompleted($title: String!) {
 }
 ```
 
-## Modifying data
+## Modifizieren von Daten
 
-Task: write a query that will delete all previous entries and add two new ones
+Aufgabe: Schreibe eine Query, die alle bisherigen Einträge löscht und zwei neue erstellt
 
-## Modifying data
+## Modifizieren von Daten
 
 ```graphql
 mutation reset {
@@ -553,12 +552,12 @@ mutation reset {
 }
 ```
 
-## More exercises - optional
+## Mehr Übungen - optional
 
-- Get all "followers of followers" for a specific GitHub account
-- Get the name of a project and number of stars for all GitHub projects of a specific user
+- Frage alle "follower von followern" für einen bestimmten GitHub-Account ab
+- Frage für einen bestimmten GitHub-Account alle Projekte mit Namen und Sternenanzahl ab
 
-## More exercises - solutions
+## Mehr Übungen - Lösungen
 
 ```
 query {
@@ -577,7 +576,7 @@ query {
 }
 ```
 
-## More exercises - solutions
+## Mehr Übungen - Lösungen
 
 ```
 query {
@@ -596,15 +595,15 @@ query {
 }
 ```
 
-## Task: loading Todos from a GraphQL API
+## Übung: Laden von Todos von einer GraphQL API
 
-Load todos from `https://5qn401kkl9.lp.gql.zone/graphql`
+Lade Todos von [https://5qn401kkl9.lp.gql.zone/graphql](https://5qn401kkl9.lp.gql.zone/graphql)
 
 (admin: https://launchpad.graphql.com/5qn401kkl9)
 
-# Queries - Advanced
+# Queries - Fortgeschritten
 
-## Default variable valuess
+## Standardwerte für Variablen
 
 ```graphql
 query getPokemonByName($name: String = "Pikachu") {
@@ -617,11 +616,11 @@ query getPokemonByName($name: String = "Pikachu") {
 
 ## Aliases
 
-Task: number of Pikachu and Raichu
+Aufgabe: Nummer von Pikachu und Raichu (Pokémon API)
 
 ## Aliases
 
-This cannot be done the way we know:
+Die bekannte Art klappt nicht:
 
 ```graphql
 query getTwo {
@@ -636,7 +635,7 @@ query getTwo {
 
 ## Aliases
 
-Why does this not work? The result would look like this:
+Die Antwort hätte die folgende Struktur:
 
 ```json
 {
@@ -651,11 +650,11 @@ Why does this not work? The result would look like this:
 }
 ```
 
-Note the duplicate key: `pokemon`!
+Der Key `pokemon` wäre doppelt.
 
 ## Aliases
 
-In order to avoid this problem we use aliases:
+Ausweg aus dem Problem:
 
 ```graphql
 query getTwo {
@@ -670,7 +669,7 @@ query getTwo {
 
 ## Aliases
 
-response:
+Antwort:
 
 ```json
 {
@@ -685,11 +684,11 @@ response:
 }
 ```
 
-## Fragments
+## Fragmente
 
-Task: get the number, maxHP and image of Pikachu and Raichu
+Fragmente bieten "Vorlagen" für Queries - weniger Wiederholung
 
-## Fragments
+## Fragmente
 
 ```graphql
 query getTwo {
@@ -709,35 +708,35 @@ fragment essentialData on Pokemon {
 }
 ```
 
-# Data types
+# Datentypen
 
-## Data types
+## Datentypen
 
-With GraphQL the returned data types are always known to the client.
+Bei GraphQL sind die zurückgegebenen Datentypen immer bekannt.
 
-## Data types
+## Datentypen
 
-available types:
+verfügbare Typen:
 
 - Boolean
 - Int: 32-bit int (signed)
-- Float: 64-bit float
-- String: UTF-8 character sequence
-- ID: unique id serialized as a string
-- Object: object with predefined entries
-- List: list composed of specific other types
+- Float: 64-bit Gleitkommazahl
+- String: UTF-8 Zeichenkette
+- ID: Eindeutige ID als String
+- Object: Objekt mit vordefinierten Einträgen
+- List: Liste, die bestimmte andere Typen beinhaltet
 
-# GraphQL from JavaScript
+# GraphQL mit reinem JavaScript
 
-## Sending queries to the server
+## Senden von Queries an den Server
 
-Queries are sent to the server via HTTP POST requests
+Queries werden mittesl POST-Requests gesendet
 
-The payload is a JSON object which has a `query` string property (this is also true when sending mutations) and optionally a `variables` property.
+Payload ist ein JSON-Objekt mit einer `query` string property (auch bei Mutationen) und optional einer `variables` property.
 
-## Sending queries to the server
+## Senden von Queries an den Server
 
-We can try this out from the browser console via fetch (we have to be on the same website):
+Testen aus der Browserkonsole (wir müssen uns auf der gleichen Seite befinden):
 
 ```js
 const requestBody = {
@@ -755,7 +754,7 @@ fetch('https://todo-mongo-graphql-server.herokuapp.com', {
 }).then(console.log);
 ```
 
-## Example: reddit API
+## Beispiel: reddit API
 
 ```js
 const queryTemplate = `
@@ -770,7 +769,7 @@ const queryTemplate = `
 }`;
 ```
 
-## Example: reddit API
+## Beispiel: reddit API
 
 ```js
 fetch('https://www.graphqlhub.com/graphql', {
@@ -785,34 +784,34 @@ fetch('https://www.graphqlhub.com/graphql', {
   .then(data => console.log('data returned:', data));
 ```
 
-# Apollo client
+# Apollo Client
 
 ## Apollo Client
 
 https://www.apollographql.com/docs/react/
 
-## Apollo client
+## Apollo Client
 
-advantages over "plain" frontend code:
+Gründe für die Verwendung:
 
-- automatic sending of queries over the network
-- automatic caching
-- automatic (re)rendering of React components
+- Automatisches senden von Queries über das Netzwerk
+- Automatisches caching
+- Automatische Einbindung in das (Re)rendering von React
 
 ## Installation
 
-required packages:
+Benötigte npm-Pakete:
 
+- `graphl`
+- `graphql-tag`
 - `apollo-client`
 - `apollo-cache-inmemory`
 - `apollo-link-http`
-- `graphl`
-- `graphql-tag`
-- `react-apollo` (for use with React)
+- `react-apollo` (für Verwendung mit React)
 
-You can also install `apollo-boost` to install `apollo-client`, `apollo-cache-inmemory` and `apollo-link-http` (and more)
+Das Paket `apollo-boost` beinhaltet `apollo-client`, `apollo-cache-inmemory`, `apollo-link-http` (und mehr)
 
-## Apollo client: setup
+## Setup
 
 ```js
 import { ApolloClient } from 'apollo-client';
@@ -831,7 +830,7 @@ const client = new ApolloClient({
 });
 ```
 
-## Apollo client: example query
+## Beispiel für eine Abfrage
 
 ```js
 // via a tagged template string
@@ -850,11 +849,11 @@ client
   .then(result => console.log(result));
 ```
 
-# Apollo client with React
+# Apollo client mit React
 
-## Connecting React to an Apollo client
+## React mit einem Apollo Client verbinden
 
-An application usually communicates with only one GraphQL API
+Eine Anwendung kommuniziert meist mit einem einzigen API
 
 ```js
 import { ApolloProvider } from 'react-apollo';
@@ -866,7 +865,7 @@ import { ApolloProvider } from 'react-apollo';
 </ApolloProvider>
 ```
 
-## Defining a Query
+## Definition einer Query
 
 ```js
 const LAUNCHES_QUERY = gql`
@@ -897,7 +896,7 @@ function RecentLaunches() {
 }
 ```
 
-## useQuery: Parameters
+## useQuery: Parameter
 
 ```js
 const LAUNCHES_QUERY = gql`
@@ -917,9 +916,9 @@ function RecentLaunches({ numLaunches }) {
 }
 ```
 
-## useQuery: polling & refetching
+## useQuery: Polling & Refetching
 
-Updating every 5 seconds:
+Daten alle 5 Sekunden aktualisieren:
 
 ```js
 const { data, loading, error } = useQuery(LAUNCHES_QUERY, {
@@ -927,7 +926,7 @@ const { data, loading, error } = useQuery(LAUNCHES_QUERY, {
 });
 ```
 
-Updating via `refetch()`:
+Funktion, deren Aufruf ein neues Laden der Daten bewirkt:
 
 ```js
 const { data, loading, error, refetch } = useQuery(

@@ -1,14 +1,14 @@
-# GraphQL from JavaScript
+# GraphQL mit reinem JavaScript
 
-## Sending queries to the server
+## Senden von Queries an den Server
 
-Queries are sent to the server via HTTP POST requests
+Queries werden mittesl POST-Requests gesendet
 
-The payload is a JSON object which has a `query` string property (this is also true when sending mutations) and optionally a `variables` property.
+Payload ist ein JSON-Objekt mit einer `query` string property (auch bei Mutationen) und optional einer `variables` property.
 
-## Sending queries to the server
+## Senden von Queries an den Server
 
-We can try this out from the browser console via fetch (we have to be on the same website):
+Testen aus der Browserkonsole (wir müssen uns auf der gleichen Seite befinden):
 
 ```js
 const requestBody = {
@@ -26,7 +26,7 @@ fetch('https://todo-mongo-graphql-server.herokuapp.com', {
 }).then(console.log);
 ```
 
-## Example: reddit API
+## Beispiel: reddit API
 
 ```js
 const queryTemplate = `
@@ -41,7 +41,7 @@ const queryTemplate = `
 }`;
 ```
 
-## Example: reddit API
+## Beispiel: reddit API
 
 ```js
 fetch('https://www.graphqlhub.com/graphql', {

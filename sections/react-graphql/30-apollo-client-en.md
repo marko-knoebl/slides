@@ -1,22 +1,27 @@
 # Apollo client
 
+## Apollo Client
+
+https://www.apollographql.com/docs/react/
+
 ## Apollo client
 
-advantages over "plain" frontent code:
+advantages over "plain" frontend code:
 
-- automatic networking
+- automatic sending of queries over the network
 - automatic caching
+- automatic (re)rendering of React components
 
-## Apollo client: installation
+## Installation
 
-Inside an existing React project install these packages:
+required packages:
 
 - `apollo-client`
 - `apollo-cache-inmemory`
 - `apollo-link-http`
 - `graphl`
 - `graphql-tag`
-- `react-apollo` (for later use)
+- `react-apollo` (for use with React)
 
 You can also install `apollo-boost` to install `apollo-client`, `apollo-cache-inmemory` and `apollo-link-http` (and more)
 

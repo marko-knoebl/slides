@@ -1,6 +1,6 @@
-# Querying
+# Queries
 
-## GraphQL examples
+## GraphQL API examples
 
 from https://github.com/APIs-guru/graphql-apis:
 
@@ -9,6 +9,7 @@ from https://github.com/APIs-guru/graphql-apis:
 - GraphQL Pokémon (second entry!)
 - Star Wars
 - SpaceX Land
+- FakeQL: Mock APIs
 
 ## GraphiQL explorer
 

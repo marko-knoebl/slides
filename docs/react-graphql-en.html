@@ -2063,23 +2063,37 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </section><section class="slide"><h2>GraphQL</h2>
 <p>"A query language for your API"</p>
 </section><section class="slide"><h2>GraphQL</h2>
-<p>Can be used to talk to:</p>
+<p>Can be used for an API that can in turn talk to:</p>
 <ul>
-<li>APIs</li>
+<li>other APIs</li>
 <li>databases</li>
 </ul>
-<p>Is often used as a common interface for multiple data sources</p>
 </section><section class="slide"><h2>GraphQL vs REST</h2>
-<p>GraphQL aims to be more <em>flexible</em> and <em>efficient</em> than REST.</p>
-<p>GraphQL: one endpoint that can be used for any query<br />
-REST: multiple endpoints that must be created for each type of query</p>
-<p>GraphQL: the client can request exactly the objects and fields it needs</p>
-<p>GraphQL: data is fetched within <em>one</em> single HTTP request</p>
+<h3>Advantages of REST</h3>
+<ul>
+<li><em>widely used</em></li>
+<li><em>simpler</em></li>
+</ul>
+<h3>Advantages of GraphQL</h3>
+<ul>
+<li><em>more flexible</em></li>
+<li><em>more efficient</em></li>
+</ul>
+</section><section class="slide"><h2>Advantages of GraphQL</h2>
+<p><em>Flexibility</em> of GraphQL:</p>
+<p>can describe complex tasks - the server-side API does not have to be adjusted for new use cases</p>
+<p><em>Efficiency</em> of GraphQL:</p>
+<p>client can request exactly the data it needs in a single request</p>
 <p><a href="https://www.howtographql.com/basics/1-graphql-is-the-better-rest/">Video: GraphQL is the better REST</a></p>
-</section><section class="slide"><h2>GraphQL vs SQL</h2>
-<p>SQL: relational database</p>
-<p>GraphQL: graph database (makes "joins" easier)</p>
-<p>OpenCRUD: GraphQL dialect that maps to standard SQL</p>
+</section><section class="slide"><h2>Differences between GraphQL and REST</h2>
+<p>REST: endpoint (e.g. <code>/todos</code>) and method (e.g. <code>PUT</code>) are part of the API; a separate endpoint is needed for each type of query</p>
+<p>GraphQL: single endpoint (e.g. <code>/api</code>), all requests are POST requests</p>
+</section><section class="slide"><h2>Differences between GraphQL and REST</h2>
+<p>REST: complex cases require multiple HTTP requests</p>
+<p>GraphQL: data are fetched via a single HTTP request</p>
+</section><section class="slide"><h2>Differences between GraphQL and REST</h2>
+<p>REST: Each endpoint always returns the same set of object fields</p>
+<p>GraphQL: the client can request exactly the objects and fields it needs</p>
 </section><section class="slide"><h2>Use cases</h2>
 <ul>
 <li>API service: e.g. get a random number between 1 and 100</li>
@@ -2118,7 +2132,7 @@ REST: multiple endpoints that must be created for each type of query</p>
 <p>consuming an API:</p>
 <ul>
 <li>query (expressed in the GraphQL language)</li>
-<li>query data (in JSON)</li>
+<li>optional query data (in JSON)</li>
 </ul>
 <p>defining an API:</p>
 <ul>
@@ -2126,7 +2140,7 @@ REST: multiple endpoints that must be created for each type of query</p>
 <li>resolver functions</li>
 </ul>
 </section><section class="slide"><h2>Example: random numbers</h2>
-<p>This example shows the implementation and use of a random number API which provides parameters to set the quantity and max value of the random numbers</p>
+<p>Example shows use of a random number API which provides parameters to set the quantity and max value of the random numbers</p>
 </section><section class="slide"><h2>Example: random numbers</h2>
 <p>schema definition:</p>
 <pre><code class="language-graphql">type Query {
@@ -2171,12 +2185,7 @@ try Subscriptions
 <li><a href="https://graphql.org/learn/">https://graphql.org/learn/</a></li>
 <li><a href="https://www.howtographql.com/">https://www.howtographql.com/</a></li>
 </ul>
-</section></section><section class="slides-section"><section class="slide"><h1>GraphQL vs REST</h1>
-</section><section class="slide"><h2>GraphQL vs REST</h2>
-<p>REST: The endpoint (e.g. <code>/todos</code>) and the method (e.g. <code>PUT</code>) are an essential part of the API and they indicate what will happen<br />
-GraphQL: one endpoint that can be used for any operation - all requests are <code>POST</code> requests</p>
-<p>GraphQL: the client can request exactly the objects and fields it needs</p>
-<p>GraphQL: data is fetched within <em>one</em> single HTTP request</p>
+</section></section><section class="slides-section"><section class="slide"><h1>GraphQL vs REST: Example</h1>
 </section><section class="slide"><h2>GraphQL vs REST</h2>
 <p>Scenario:</p>
 <p>A social media app in which we can view a list of our friends. Clicking on a friend takes us to their most recent posts</p>
@@ -2226,8 +2235,8 @@ GraphQL: one endpoint that can be used for any operation - all requests are <cod
   }
 }
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>GraphQL vs SQL</h1>
-</section><section class="slide"><h2>GraphQL vs SQL: examples</h2>
+</section></section><section class="slides-section"><section class="slide"><h1>GraphQL compared to SQL</h1>
+</section><section class="slide"><h2>GraphQL compared to SQL: examples</h2>
 <pre><code class="language-graphql">query {
   user(login: "my-username") {
     login
@@ -2239,14 +2248,14 @@ GraphQL: one endpoint that can be used for any operation - all requests are <cod
   <span class="hljs-keyword">FROM</span> <span class="hljs-keyword">user</span>
   <span class="hljs-keyword">WHERE</span> login=<span class="hljs-string">"my-username"</span>;
 </code></pre>
-</section><section class="slide"><h2>GraphQL vs SQL</h2>
+</section><section class="slide"><h2>GraphQL compared to SQL</h2>
 <p>In GraphQL parameters don't have a predefined meaning.</p>
 <p>In SQL the clause <code>WHERE login="my-username</code> always has the same meaning</p>
 <p>In GraphQL the meaning of <code>login: "my-username"</code> is up to the implementation on the server</p>
-</section><section class="slide"><h2>GraphQL vs SQL</h2>
+</section><section class="slide"><h2>GraphQL compared to SQL</h2>
 <p>SQL: relationships between tables (joins) are defined in the query</p>
 <p>GraphQL: already knows about relationships when the query is issued → simpler queries</p>
-</section><section class="slide"><h2>GraphQL vs SQL</h2>
+</section><section class="slide"><h2>GraphQL compared to SQL</h2>
 <pre><code class="language-graphql">query {
   user(id: "my-username") {
     posts {
@@ -2261,26 +2270,17 @@ GraphQL: one endpoint that can be used for any operation - all requests are <cod
   <span class="hljs-keyword">WHERE</span> user.id = <span class="hljs-string">"my-username"</span>
 </code></pre>
 <p>(extra code: <code>INNER JOIN post ON user.id = post.userId</code>)</p>
-</section><section class="slide"><h2>GraphQL vs SQL</h2>
+</section><section class="slide"><h2>GraphQL compared to SQL</h2>
 <p><strong>OpenCRUD</strong> is a more specifc standard that is based on GraphQL. It maps directly to SQL and can be used in place of it.</p>
-</section></section><section class="slides-section"><section class="slide"><h1>GraphQL ecosystem</h1>
-</section><section class="slide"><h2>GraphQL ecosystem</h2>
-<ul>
-<li><em>GraphQL</em>: standardized query language</li>
-</ul>
-<p>clients:</p>
+</section></section><section class="slides-section"><section class="slide"><h1>GraphQL clients</h1>
+</section><section class="slide"><h2>GraphQL clients</h2>
 <ul>
 <li><em>graphql.js</em>: reference implementation</li>
 <li><em>Apollo Client</em>: easy integration with React, Vue, Angular, ...</li>
 <li><em>Relay</em>: advanced integration with React</li>
 </ul>
-<p>servers (JS-based):</p>
-<ul>
-<li><em>Apollo Server</em></li>
-<li><em>Yoga</em>: Easy setup of Apollo Server and related tools</li>
-</ul>
-</section></section><section class="slides-section"><section class="slide"><h1>Querying</h1>
-</section><section class="slide"><h2>GraphQL examples</h2>
+</section></section><section class="slides-section"><section class="slide"><h1>Queries</h1>
+</section><section class="slide"><h2>GraphQL API examples</h2>
 <p>from <a href="https://github.com/APIs-guru/graphql-apis">https://github.com/APIs-guru/graphql-apis</a>:</p>
 <ul>
 <li>GitHub (login required)</li>
@@ -2288,6 +2288,7 @@ GraphQL: one endpoint that can be used for any operation - all requests are <cod
 <li>GraphQL Pokémon (second entry!)</li>
 <li>Star Wars</li>
 <li>SpaceX Land</li>
+<li>FakeQL: Mock APIs</li>
 </ul>
 </section><section class="slide"><h2>GraphiQL explorer</h2>
 <p>Graph<em>i</em>QL: Browser-based explorer for GraphQL APIs</p>
@@ -2468,9 +2469,8 @@ GraphQL: one endpoint that can be used for any operation - all requests are <cod
 </section><section class="slide"><h2>Task: loading Todos from a GraphQL API</h2>
 <p>Load todos from <code>https://5qn401kkl9.lp.gql.zone/graphql</code></p>
 <p>(admin: <a href="https://launchpad.graphql.com/5qn401kkl9">https://launchpad.graphql.com/5qn401kkl9</a>)</p>
-</section></section><section class="slides-section"><section class="slide"><h1>Querying - Advanced</h1>
+</section></section><section class="slides-section"><section class="slide"><h1>Queries - Advanced</h1>
 </section><section class="slide"><h2>Default variable valuess</h2>
-<p>query:</p>
 <pre><code class="language-graphql">query getPokemonByName($name: String = "Pikachu") {
   pokemon(name: $name) {
     number
@@ -2516,6 +2516,8 @@ GraphQL: one endpoint that can be used for any operation - all requests are <cod
   }
 }
 </code></pre>
+</section><section class="slide"><h2>Aliases</h2>
+<p>response:</p>
 <pre><code class="hljs language-json">{
   <span class="hljs-attr">"data"</span>: {
     <span class="hljs-attr">"pokemon1"</span>: {
@@ -2529,21 +2531,7 @@ GraphQL: one endpoint that can be used for any operation - all requests are <cod
 </code></pre>
 </section><section class="slide"><h2>Fragments</h2>
 <p>Task: get the number, maxHP and image of Pikachu and Raichu</p>
-</section><section class="slide"><h2>Fragments - why?</h2>
-<pre><code class="language-graphql">query getTwo {
-  pokemon1: pokemon(name: "Pikachu") {
-    number
-    maxHP
-    image
-  }
-  pokemon2: pokemon(name: "Raichu") {
-    number
-    maxHP
-    image
-  }
-}
-</code></pre>
-</section><section class="slide"><h2>Fragments: don't repeat yourself!</h2>
+</section><section class="slide"><h2>Fragments</h2>
 <pre><code class="language-graphql">query getTwo {
   pokemon1: pokemon(name: "Pikachu") {
     ...essentialData
@@ -2577,7 +2565,7 @@ fragment essentialData on Pokemon {
 </section></section><section class="slides-section"><section class="slide"><h1>GraphQL from JavaScript</h1>
 </section><section class="slide"><h2>Sending queries to the server</h2>
 <p>Queries are sent to the server via HTTP POST requests</p>
-<p>The payload is a JSON object which has a <code>query</code> string property (this is also true when sending mutations)</p>
+<p>The payload is a JSON object which has a <code>query</code> string property (this is also true when sending mutations) and optionally a <code>variables</code> property.</p>
 </section><section class="slide"><h2>Sending queries to the server</h2>
 <p>We can try this out from the browser console via fetch (we have to be on the same website):</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> requestBody = {
@@ -2593,13 +2581,6 @@ fetch(<span class="hljs-string">'https://todo-mongo-graphql-server.herokuapp.com
   <span class="hljs-attr">headers</span>: { <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span> },
   <span class="hljs-attr">body</span>: requestBodyStr,
 }).then(<span class="hljs-built_in">console</span>.log);
-</code></pre>
-</section><section class="slide"><h2>Sending queries to the server</h2>
-<p>Queries may optionally include variables in the <code>variables</code> property</p>
-<pre><code class="hljs language-json">{
-  <span class="hljs-attr">"query"</span>: <span class="hljs-string">"mutation addTodo($title: String!) { add(title: $title) { id } }"</span>,
-  <span class="hljs-attr">"variables"</span>: <span class="hljs-string">"{\"title\": \"test\"}"</span>
-}
 </code></pre>
 </section><section class="slide"><h2>Example: reddit API</h2>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> queryTemplate = <span class="hljs-string">`
@@ -2626,21 +2607,24 @@ fetch(<span class="hljs-string">'https://todo-mongo-graphql-server.herokuapp.com
   .then(<span class="hljs-function"><span class="hljs-params">data</span> =></span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'data returned:'</span>, data));
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Apollo client</h1>
+</section><section class="slide"><h2>Apollo Client</h2>
+<p><a href="https://www.apollographql.com/docs/react/">https://www.apollographql.com/docs/react/</a></p>
 </section><section class="slide"><h2>Apollo client</h2>
-<p>advantages over "plain" frontent code:</p>
+<p>advantages over "plain" frontend code:</p>
 <ul>
-<li>automatic networking</li>
+<li>automatic sending of queries over the network</li>
 <li>automatic caching</li>
+<li>automatic (re)rendering of React components</li>
 </ul>
-</section><section class="slide"><h2>Apollo client: installation</h2>
-<p>Inside an existing React project install these packages:</p>
+</section><section class="slide"><h2>Installation</h2>
+<p>required packages:</p>
 <ul>
 <li><code>apollo-client</code></li>
 <li><code>apollo-cache-inmemory</code></li>
 <li><code>apollo-link-http</code></li>
 <li><code>graphl</code></li>
 <li><code>graphql-tag</code></li>
-<li><code>react-apollo</code> (for later use)</li>
+<li><code>react-apollo</code> (for use with React)</li>
 </ul>
 <p>You can also install <code>apollo-boost</code> to install <code>apollo-client</code>, <code>apollo-cache-inmemory</code> and <code>apollo-link-http</code> (and more)</p>
 </section><section class="slide"><h2>Apollo client: setup</h2>
@@ -2676,16 +2660,15 @@ client
   .then(<span class="hljs-function"><span class="hljs-params">result</span> =></span> <span class="hljs-built_in">console</span>.log(result));
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Apollo client with React</h1>
-</section><section class="slide"><h2>Apollo client with React</h2>
 </section><section class="slide"><h2>Connecting React to an Apollo client</h2>
-<pre><code class="hljs language-jsx">ReactDOM.render(
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">ApolloProvider</span> <span class="hljs-attr">client</span>=<span class="hljs-string">{client}</span>></span>
-    </span>&#x3C;App /><span class="xml">
-  <span class="hljs-tag">&#x3C;/<span class="hljs-name">ApolloProvider</span>></span></span>,
-  <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'root'</span>)
-);
+<p>An application usually communicates with only one GraphQL API</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { ApolloProvider } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-apollo'</span>;
 </code></pre>
-</section><section class="slide"><h2>The useQuery hook</h2>
+<pre><code class="hljs language-jsx">&#x3C;ApolloProvider client={client}>
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">App</span> /></span>
+<span class="hljs-tag">&#x3C;/<span class="hljs-name">ApolloProvider</span>></span></span>
+</code></pre>
+</section><section class="slide"><h2>Defining a Query</h2>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> LAUNCHES_QUERY = gql<span class="hljs-string">`
   query recentLaunches {
     launchesPast(limit: 10) {
@@ -2694,7 +2677,7 @@ client
   }
 `</span>;
 </code></pre>
-</section><section class="slide"><h2>The useQuery hook</h2>
+</section><section class="slide"><h2>useQuery</h2>
 <pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">RecentLaunches</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">const</span> { data, loading, error } = useQuery(LAUNCHES_QUERY);
   <span class="hljs-keyword">if</span> (loading) <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>Loading...<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
@@ -2710,409 +2693,37 @@ client
   );
 }
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Apollo client</h1>
-</section><section class="slide"><h2>Writing the render function</h2>
-<p>The Query component's child element <em>is a function</em>. This function will receive the queried data and return a React component tree. In that way this function is similar to the <em>render</em> method we're familiar with.</p>
-</section><section class="slide"><h2>Writing the render function</h2>
-<p>The render function receives an object that can have a number of properties, including:</p>
-<ul>
-<li><code>data</code>: the response body</li>
-<li><code>loading</code>: a boolean indicating whether the request is ongoing</li>
-<li><code>error</code>: indicates network errors or GraphQL errors</li>
-</ul>
-<p>full API: <a href="https://www.apollographql.com/docs/react/essentials/queries.html#render-prop">https://www.apollographql.com/docs/react/essentials/queries.html#render-prop</a></p>
-</section><section class="slide"><h2>Writing the render function</h2>
-<pre><code class="hljs language-jsx">({ data, loading, error }) => {
-  <span class="hljs-keyword">if</span> (loading) <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>Fetching...<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
-  <span class="hljs-keyword">if</span> (error) <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>Error<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+</section><section class="slide"><h2>useQuery: Parameters</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> LAUNCHES_QUERY = gql<span class="hljs-string">`
+  query recentLaunches($numLaunches: ) {
+    launchesPast(limit: $numLaunches) {
+      mission_name
+    }
+  }
+`</span>;
 
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
-      {data.allPosts.map(post => (
-        </span>&#x3C;div>{post.title}&#x3C;/div><span class="xml">
-      ))}
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">RecentLaunches</span>(<span class="hljs-params">{ numLaunches }</span>) </span>{
+  <span class="hljs-keyword">const</span> { data, loading, error } = useQuery(
+    LAUNCHES_QUERY,
+    { <span class="hljs-attr">variables</span>: { numLaunches } }
   );
-};
+  ...
+}
 </code></pre>
-</section><section class="slide"><h2>Mutations</h2>
-<p>Apollo Client also provides a <code>Mutation</code> component that works similar to the <code>Query</code> component.</p>
-<pre><code class="hljs language-jsx">&#x3C;Mutation
-  mutation={gql<span class="hljs-string">`mutation createPost($authorId: ID! ...`</span>}
-  variables={{ <span class="hljs-attr">authorId</span>: <span class="hljs-string">'123'</span> }}
-  refetchQueries={[<span class="hljs-string">'getPosts'</span>]}>
-  {customRenderFunction}
-&#x3C;<span class="hljs-regexp">/Mutation>
-</span></code></pre>
-</section><section class="slide"><h2>Mutations</h2>
-<p>Inside a mutation the <code>customRenderFunction</code> will receive <em>two</em> arguments:</p>
-<ul>
-<li>the <em>second</em> argument (which is not always needed) is the same as the first argument for a query. So it contain properties like <code>data</code>, <code>loading</code>, ...</li>
-<li>the <em>first</em> argument is a function that, when called, will send the specified mutation to the server</li>
-</ul>
-<p>So one important distinction between queries and mutations in Apollo client is: Queries get sent to the server automatically when the component is mounted. Mutations must be sent manually (e.g. when the user clicks a button).</p>
-</section><section class="slide"><h2>Subscriptions</h2>
-<p>Subscriptions can be handled via websockets</p>
-<pre><code class="hljs language-bash">npm install apollo-link-ws subscriptions-transport-ws
-</code></pre>
-</section><section class="slide"><h2>Subscriptions</h2>
-<pre><code class="hljs language-js"><span class="hljs-comment">// Create an http link:</span>
-<span class="hljs-keyword">const</span> httpLink = <span class="hljs-keyword">new</span> HttpLink({
-  <span class="hljs-attr">uri</span>:
-    <span class="hljs-string">'https://api.graph.cool/simple/v1/cjmj9v4mk1zs00182rnrzdrai'</span>,
-});
-
-<span class="hljs-comment">// Create a WebSocket link:</span>
-<span class="hljs-keyword">const</span> wsLink = <span class="hljs-keyword">new</span> WebSocketLink({
-  <span class="hljs-attr">uri</span>: <span class="hljs-string">`ws://subscriptions.graph.cool/v1/cjmj9v4mk1zs00182rnrzdrai`</span>,
-  <span class="hljs-attr">options</span>: {
-    <span class="hljs-attr">reconnect</span>: <span class="hljs-literal">true</span>,
-  },
+</section><section class="slide"><h2>useQuery: polling &#x26; refetching</h2>
+<p>Updating every 5 seconds:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> { data, loading, error } = useQuery(LAUNCHES_QUERY, {
+  <span class="hljs-attr">pollInterval</span>: <span class="hljs-number">5000</span>,
 });
 </code></pre>
-</section><section class="slide"><h2>Subscriptions</h2>
-<pre><code class="hljs language-js"><span class="hljs-comment">// using the ability to split links, you can send data to each link</span>
-<span class="hljs-comment">// depending on what kind of operation is being sent</span>
-<span class="hljs-keyword">const</span> link = split(
-  <span class="hljs-comment">// split based on operation type</span>
-  <span class="hljs-function">(<span class="hljs-params">{ query }</span>) =></span> {
-    <span class="hljs-keyword">const</span> { kind, operation } = getMainDefinition(query);
-    <span class="hljs-built_in">console</span>.log(kind, operation);
-    <span class="hljs-keyword">return</span> (
-      kind === <span class="hljs-string">'OperationDefinition'</span> &#x26;&#x26;
-      operation === <span class="hljs-string">'subscription'</span>
-    );
-  },
-  wsLink,
-  httpLink
+<p>Updating via <code>refetch()</code>:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> { data, loading, error, refetch } = useQuery(
+  LAUNCHES_QUERY
 );
+...
+refetch()
 </code></pre>
-</section><section class="slide"><h2>Subscriptions</h2>
-<pre><code class="hljs language-jsx">&#x3C;Subscription subscription={SUBSCRIBE_POSTS_TEMPLATE}>
-  {<span class="hljs-keyword">this</span>.subscriptionRenderer}
-&#x3C;<span class="hljs-regexp">/Subscription>
-</span></code></pre>
-</section><section class="slide"><h2>Subscriptions</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> SUBSCRIBE_POST_CHANGE_TEMPLATE = gql<span class="hljs-string">`
-  subscription {
-    Post {
-      node {
-        author {
-          id
-        }
-        title
-      }
-    }
-  }
-`</span>;
-</code></pre>
-</section><section class="slide"><h2>Subscriptions</h2>
-<pre><code class="hljs language-js">subscriptionRenderer = <span class="hljs-function">(<span class="hljs-params">{ data }</span>) =></span> {
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>modified post: {data &#x26;&#x26; data.Post.node.title}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
-  );
-};
-</code></pre>
-</section><section class="slide"><h2>Exercise: Hackernews clone</h2>
-<p>Do the React-Apollo tutorial at <a href="https://howtographql.com">https://howtographql.com</a></p>
-</section><section class="slide"><h2>Authentication, setting headers</h2>
-<p>Middleware allows us to modify requests before they are sent to the server, e.g. by adding authentication headers:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> authLink = setContext(<span class="hljs-function">(<span class="hljs-params">_, { headers }</span>) =></span> {
-  <span class="hljs-keyword">const</span> token = localStorage.getItem(AUTH_TOKEN);
-  <span class="hljs-keyword">return</span> {
-    <span class="hljs-attr">headers</span>: {
-      ...headers,
-      <span class="hljs-attr">authorization</span>: token ? <span class="hljs-string">`Bearer <span class="hljs-subst">${token}</span>`</span> : <span class="hljs-string">''</span>,
-    },
-  };
-});
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>GraphQL on the server</h1>
-</section><section class="slide"><h2>GraphQL on the server: options</h2>
-<ul>
-<li><strong>GraphQL.js</strong> (reference implementation)</li>
-<li><strong>express-graphql</strong> (reference implementation for express)</li>
-<li><strong>apollo-server</strong></li>
-<li><strong>graphql-yoga</strong>: based on <em>GraphQL.js</em> and <em>apollo-server</em></li>
-<li>... (see <a href="http://graphql.github.io/code/">http://graphql.github.io/code/</a> for other options)</li>
-</ul>
-</section><section class="slide"><h2>GraphQL on the server: parts</h2>
-<ul>
-<li>GraphQL schema</li>
-<li>implementation (resolvers)</li>
-</ul>
-</section><section class="slide"><h2>Example: schema</h2>
-<pre><code class="language-graphql">type Query {
-  hello: String!
-}
-
-type Mutation {
-  setHelloMessage(String!): String!
-}
-
-type Subscription {
-  messageChange: String!
-}
-</code></pre>
-</section><section class="slide"><h2>Example: implementation</h2>
-<p>(this depends on the library)</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> typeDefs = <span class="hljs-string">`
-  type Query {
-    message: String!
-  }
-  type Mutation {
-    setMessage(message: String!): String!
-  }
-`</span>;
-</code></pre>
-</section><section class="slide"><h2>Example: implementation</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> message = <span class="hljs-string">'hello'</span>;
-
-<span class="hljs-keyword">const</span> resolvers = {
-  <span class="hljs-attr">Query</span>: {
-    <span class="hljs-attr">message</span>: <span class="hljs-function">(<span class="hljs-params">root, args, context</span>) =></span> message,
-  },
-  <span class="hljs-attr">Mutation</span>: {
-    <span class="hljs-attr">setMessage</span>: <span class="hljs-function">(<span class="hljs-params">root, args, context</span>) =></span> {
-      message = args.message;
-      <span class="hljs-keyword">return</span> message;
-    },
-  },
-};
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>GraphQL schema definition</h1>
-</section><section class="slide"><h2>GraphQL schema definition</h2>
-<p>GraphQL <em>always</em> requires us to explicitly declare the query schema for our API.</p>
-<p>This enables GraphQL to easily generate documentation for it (see the <em>schema</em> sidebar in the browser interface)</p>
-<p>The language to express the schema definition is called the <em>GraphQL Schema Definition Language (SDL)</em>.</p>
-</section><section class="slide"><h2>GraphQL types</h2>
-<p>GraphQL responses are composed of the following types:</p>
-<ul>
-<li>Boolean</li>
-<li>Int: signed 32-bit int</li>
-<li>Float: signed double-precision floating point number</li>
-<li>String: UTF-8 character sequence</li>
-<li>ID: unique id serialized as a string</li>
-<li>Object: object with predefined entries</li>
-<li>List: list composed of specific other types</li>
-</ul>
-</section><section class="slide"><h2>Schema definition examples</h2>
-<p>An API that returns a string under the keyword <code>hello</code>:</p>
-<pre><code class="language-graphql">type Query {
-  "a hello message" # &#x3C;- this is a description
-  hello: String!
-}
-</code></pre>
-</section><section class="slide"><h2>Schema definition examples</h2>
-<p>An API that returns various object types - depending on the query:</p>
-<pre><code class="language-graphql">type Query {
-  currentTime: String!
-  currentDate: String!
-  randomInt: Int!
-  randomFloat: Float!
-}
-</code></pre>
-</section><section class="slide"><h2>Schema definition examples</h2>
-<p>An API that accepts parameters:</p>
-<pre><code class="language-graphql">type Query {
-  currentTime(timezone: String): String!
-  randomInt(min: Int, max: Int!): Int!
-}
-</code></pre>
-</section><section class="slide"><h2>Schema definition examples</h2>
-<p>queries, mutations and subscriptions</p>
-<pre><code class="language-graphql">type Query {
-  currentTime(timezone: String): String!
-  message: String!
-}
-
-type Mutation {
-  newMessage(message: String!): String!
-}
-
-type Subscription {
-  messageChange: String!
-}
-</code></pre>
-</section><section class="slide"><h2>Schema definition examples</h2>
-<p>queries, mutations and subscriptions</p>
-<p>These three entries contain the endpoints that form the API</p>
-</section><section class="slide"><h2>Types</h2>
-<p>example schema definition:</p>
-<pre><code class="language-graphql">type query {
-  active: Boolean!
-  randInt: Int!
-  randFloat: Float!
-  message: String!
-  someId: ID!
-  lotteryNumbers: [Int!]!
-}
-</code></pre>
-</section><section class="slide"><h2>Types</h2>
-<p>schema that contains objects:</p>
-<pre><code class="language-graphql">type Query {
-  todos: [Todo!]!
-}
-
-type Todo {
-  id: ID!
-  text: String!
-  completed: Boolean!
-}
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>graphql-yoga</h1>
-</section><section class="slide"><h2>graphql-yoga</h2>
-<p>package that includes <em>GraphQL.js</em> and <em>apollo-server</em> to quickly and easily set up a GraphQL server</p>
-</section><section class="slide"><h2>Tutorial</h2>
-<p><a href="https://www.howtographql.com/graphql-js/0-introduction/">https://www.howtographql.com/graphql-js/0-introduction/</a></p>
-</section><section class="slide"><h2>Setting up graphql-yoga</h2>
-<p>Essential parts:</p>
-<ul>
-<li>schema: describes which resources are available</li>
-<li>resolvers: implementation which provides the resources</li>
-</ul>
-</section><section class="slide"><h2>Setting up graphql-yoga</h2>
-<p>create a new node project (inside an empty folder) and install graphql-yoga:</p>
-<pre><code class="hljs language-bash">npm init -y
-npm install graphql-yoga
-</code></pre>
-</section><section class="slide"><h2>Setting up graphql-yoga</h2>
-<p>implementing a simple graphql-yoga server with a <em>schema</em> and <em>resolvers</em></p>
-</section><section class="slide"><h2>Setting up graphql-yoga</h2>
-<p>src/index.js</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> { GraphQLServer } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'graphql-yoga'</span>);
-
-<span class="hljs-keyword">const</span> typeDefs = <span class="hljs-string">`
-type Query {
-  hello: String!
-}`</span>;
-
-<span class="hljs-keyword">const</span> resolvers = {
-  <span class="hljs-attr">Query</span>: {
-    <span class="hljs-attr">hello</span>: <span class="hljs-function"><span class="hljs-params">()</span> =></span> <span class="hljs-string">'hello world'</span>,
-  },
-};
-
-<span class="hljs-keyword">const</span> server = <span class="hljs-keyword">new</span> GraphQLServer({ typeDefs, resolvers });
-server.start();
-</code></pre>
-</section><section class="slide"><h2>Running graphql-yoga</h2>
-<pre><code class="hljs language-bash">node src/index.js
-</code></pre>
-<p>open <code>http://localhost:4000</code> in the browser</p>
-</section><section class="slide"><h2>Exercises: more resolvers</h2>
-<p>implement these resolvers on the server:</p>
-<ul>
-<li>random: random number from 1 - 100</li>
-<li>date: current date as a string</li>
-<li>coin: the string 'heads' or 'tails'</li>
-</ul>
-<p>use these resolvers in a single query to get:</p>
-<ul>
-<li>current date</li>
-<li>3 random numbers</li>
-<li>coin toss</li>
-</ul>
-</section><section class="slide"><h2>Exercise: more resolvers</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> typeDefs = <span class="hljs-string">`
-type Query {
-  hello: String!
-  random: Int!
-  date: String!
-  coin: String!
-}`</span>;
-
-<span class="hljs-keyword">const</span> resolvers = {
-  <span class="hljs-attr">Query</span>: {
-    <span class="hljs-attr">hello</span>: <span class="hljs-function"><span class="hljs-params">()</span> =></span> <span class="hljs-string">'hello world'</span>,
-    <span class="hljs-attr">random</span>: <span class="hljs-function"><span class="hljs-params">()</span> =></span> <span class="hljs-built_in">Math</span>.ceil(<span class="hljs-built_in">Math</span>.random() * <span class="hljs-number">100</span>),
-    <span class="hljs-attr">date</span>: <span class="hljs-function"><span class="hljs-params">()</span> =></span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>().toISOString().slice(<span class="hljs-number">0</span>, <span class="hljs-number">10</span>),
-    <span class="hljs-attr">coin</span>: <span class="hljs-function"><span class="hljs-params">()</span> =></span>
-      [<span class="hljs-string">'heads'</span>, <span class="hljs-string">'tails'</span>][<span class="hljs-built_in">Math</span>.round(<span class="hljs-built_in">Math</span>.random())],
-  },
-};
-</code></pre>
-</section><section class="slide"><h2>Exercise: more resolvers</h2>
-<pre><code class="language-graphql">{
-  hello
-  r1: random
-  r2: random
-  r3: random
-  date
-  coin
-}
-</code></pre>
-</section><section class="slide"><h2>Example: chatroom</h2>
-<p>We want to create an API for a chatroom</p>
-</section><section class="slide"><h2>Example: chatroom</h2>
-<p>We'll create these interactions with the server:</p>
-<ul>
-<li>getMessages</li>
-<li>postMessage</li>
-</ul>
-</section><section class="slide"><h2>Example: reddit clone</h2>
-<pre><code class="language-graphql">query {
-  currentUser {
-    id
-  }
-  subreddit(name="news") {
-    lastPosts {
-      title
-      url
-      id
-    }
-  }
-  post(id="abc") {
-    title
-    url
-    id
-    subreddit
-  }
-}
-
-mutation {
-  newPost(title="my new post", authToken="xxx") {
-    id
-  }
-  login(username="abc", password="xyz") {
-    authToken
-  }
-}
-</code></pre>
-</section><section class="slide"><h2>Example: message board</h2>
-<p>see example tutorial code</p>
-</section><section class="slide"><h2>Example: Todo list</h2>
-<p>We want to create an API for a todo list</p>
-<p>For now we will keep our data in memory on the server</p>
-</section><section class="slide"><h2>Example: Todo list</h2>
-<p>We'll create these query types:</p>
-<ul>
-<li><code>todo(id: ID!)</code></li>
-<li><code>todos()</code></li>
-<li><code>createTodo(...)</code></li>
-<li><code>modifyTodo(...)</code></li>
-<li><code>deleteTodo(...)</code></li>
-</ul>
-<!--
-see:
-courses-tutorials/graphql-server-todo
--->
-</section></section><section class="slides-section"><section class="slide"><h1>Example: a chatroom API</h1>
-<h3>build a chatroom API with GraphQL and yoga, hosted on zeit.co</h3>
-</section><section class="slide"><h2>start the project</h2>
-<p>create a new folder for the project and initialize an npm project:</p>
-<pre><code class="hljs language-bash">npm init
-</code></pre>
-</section><section class="slide"><h2>install &#x26; set up micro</h2>
-<pre><code class="hljs language-bash">npm install micro
-</code></pre>
-<p>edit package.json:</p>
-<pre><code class="hljs language-json">{
-  <span class="hljs-attr">"scripts"</span>: {
-    <span class="hljs-attr">"start"</span>: <span class="hljs-string">"micro"</span>
-  }
-}
-</code></pre></section></section></div>
+</section><section class="slide"><h2>useMutation</h2></section></section></div>
     </div>
     <script>/*!
  * reveal.js

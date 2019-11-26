@@ -1,8 +1,12 @@
 # Apollo client mit React
 
-## React mit einem Apollo client verbinden
+## React mit einem Apollo Client verbinden
 
-Eine Anwendung kommuniziert meist über ein einziges API
+Eine Anwendung kommuniziert meist mit einem einzigen API
+
+```js
+import { ApolloProvider } from 'react-apollo';
+```
 
 ```jsx
 <ApolloProvider client={client}>
@@ -22,7 +26,7 @@ const LAUNCHES_QUERY = gql`
 `;
 ```
 
-## Der useQuery Hook
+## useQuery
 
 ```js
 function RecentLaunches() {
@@ -40,3 +44,45 @@ function RecentLaunches() {
   );
 }
 ```
+
+## useQuery: Parameter
+
+```js
+const LAUNCHES_QUERY = gql`
+  query recentLaunches($numLaunches: ) {
+    launchesPast(limit: $numLaunches) {
+      mission_name
+    }
+  }
+`;
+
+function RecentLaunches({ numLaunches }) {
+  const { data, loading, error } = useQuery(
+    LAUNCHES_QUERY,
+    { variables: { numLaunches } }
+  );
+  ...
+}
+```
+
+## useQuery: Polling & Refetching
+
+Daten alle 5 Sekunden aktualisieren:
+
+```js
+const { data, loading, error } = useQuery(LAUNCHES_QUERY, {
+  pollInterval: 5000,
+});
+```
+
+Funktion, deren Aufruf ein neues Laden der Daten bewirkt:
+
+```js
+const { data, loading, error, refetch } = useQuery(
+  LAUNCHES_QUERY
+);
+...
+refetch()
+```
+
+## useMutation
