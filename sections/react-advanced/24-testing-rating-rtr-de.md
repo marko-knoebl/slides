@@ -13,7 +13,7 @@ import Rating from './Rating';
 
 ## Testen des Renderings
 
-```tsx
+```jsx
 describe('rendering', () => {
   it('renders 5 spans', () => {
     const instance = TestRenderer.create(

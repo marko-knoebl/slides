@@ -5,7 +5,7 @@
 Zum State Management mit Hooks können wir das bekannte `useState` oder nun auch `useReducer` verwenden:
 
 ```js
-useState(reducer, initialState);
+useReducer(reducer, initialState);
 ```
 
 ## Reducer Hook

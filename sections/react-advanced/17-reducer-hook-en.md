@@ -5,7 +5,7 @@
 For managing state we can now also utilize `useReducer` in addition to `useState`:
 
 ```js
-useState(reducer, initialState);
+useReducer(reducer, initialState);
 ```
 
 ## Reducer Hook

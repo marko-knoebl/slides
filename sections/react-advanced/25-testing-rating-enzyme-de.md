@@ -4,7 +4,7 @@ Testen einer Rating-Komponente
 
 ## Beispiel: Testen einer Rating-Komponente
 
-```tsx
+```jsx
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 
@@ -13,7 +13,7 @@ import Rating from './Rating';
 
 ## Beispiel: Testen einer Rating-Komponente
 
-```tsx
+```jsx
 describe('rendering', () => {
   it('renders 5 Star components', () => {
     const wrapper = shallow(<Rating stars={5} />);
@@ -29,7 +29,7 @@ describe('rendering', () => {
 
 ## Beispiel: Testen einer Rating-Komponente
 
-```tsx
+```jsx
 describe('rendering', () => {
   it('renders 3 active stars', () => {
     const wrapper = mount(<Rating stars={3} />);
@@ -46,7 +46,7 @@ describe('rendering', () => {
 
 ## Beispiel: Testen einer Rating-Komponente
 
-```tsx
+```jsx
 describe('events', () => {
   it('reacts to click on first star', () => {
     const mockFn = jest.fn();
@@ -66,7 +66,7 @@ describe('events', () => {
 
 Testen einer (hypothetischen) Rating-Komponente, die ihren eigenen internen State hat:
 
-```tsx
+```jsx
 describe('events', () => {
   it('reacts to click on first star', () => {
     const wrapper = mount(<Rating />);
@@ -81,7 +81,7 @@ describe('events', () => {
 
 ## Beispiel: Testen einer Rating-Komponente
 
-```tsx
+```jsx
 describe('errors', () => {
   it('throws an error if the number of stars is 0', () => {
     const testFn = () => {

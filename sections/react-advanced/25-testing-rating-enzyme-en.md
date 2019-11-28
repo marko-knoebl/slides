@@ -4,7 +4,7 @@ With jest and enzyme
 
 ## Example: testing a rating component
 
-```tsx
+```jsx
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 
@@ -13,7 +13,7 @@ import Rating from './Rating';
 
 ## Example: testing a rating component
 
-```tsx
+```jsx
 describe('rendering', () => {
   it('renders 5 Star components', () => {
     const wrapper = shallow(<Rating stars={5} />);
@@ -29,7 +29,7 @@ describe('rendering', () => {
 
 ## Example: testing a rating component
 
-```tsx
+```jsx
 describe('rendering', () => {
   it('renders 3 active stars', () => {
     const wrapper = mount(<Rating stars={3} />);
@@ -46,7 +46,7 @@ describe('rendering', () => {
 
 ## Example: testing a rating component
 
-```tsx
+```jsx
 describe('events', () => {
   it('reacts to click on first star', () => {
     const mockFn = fn();
@@ -66,7 +66,7 @@ describe('events', () => {
 
 Testing a (hypothetical) rating component that has its own internal state:
 
-```tsx
+```jsx
 describe('events', () => {
   it('reacts to click on first star', () => {
     const wrapper = mount(<Rating />);
@@ -81,7 +81,7 @@ describe('events', () => {
 
 ## Example: testing a rating component
 
-```tsx
+```jsx
 describe('errors', () => {
   it('throws an error if the number of stars is 0', () => {
     const testFn = () => {

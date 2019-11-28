@@ -2477,7 +2477,7 @@ state2.push(<span class="hljs-number">4</span>);
 </section></section><section class="slides-section"><section class="slide"><h1>Reducer Hook</h1>
 </section><section class="slide"><h2>Reducer Hook</h2>
 <p>Zum State Management mit Hooks können wir das bekannte <code>useState</code> oder nun auch <code>useReducer</code> verwenden:</p>
-<pre><code class="hljs language-js">useState(reducer, initialState);
+<pre><code class="hljs language-js">useReducer(reducer, initialState);
 </code></pre>
 </section><section class="slide"><h2>Reducer Hook</h2>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> TodoApp = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
@@ -2704,17 +2704,17 @@ import TestRenderer from 'react-test-renderer';
 import Rating from './Rating';
 </code></pre>
 </section><section class="slide"><h2>Testen des Renderings</h2>
-<pre><code class="language-tsx">describe('rendering', () => {
-  it('renders 5 spans', () => {
-    const instance = TestRenderer.create(
-      &#x3C;Rating stars={3} />
+<pre><code class="hljs language-jsx">describe(<span class="hljs-string">'rendering'</span>, () => {
+  it(<span class="hljs-string">'renders 5 spans'</span>, () => {
+    <span class="hljs-keyword">const</span> instance = TestRenderer.create(
+      <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Rating</span> <span class="hljs-attr">stars</span>=<span class="hljs-string">{3}</span> /></span>
     ).root;
     expect(instance.findAllByType('span')).toHaveLength(5);
   });
 
   it('renders 3 active stars', () => {
     const instance = TestRenderer.create(
-      &#x3C;Rating stars={3} />
+      </span>&#x3C;Rating stars={3} />
     ).root;
     expect(
       instance.findAllByProps({ className: 'star active' })
@@ -2750,28 +2750,28 @@ import Rating from './Rating';
 </section></section><section class="slides-section"><section class="slide"><h1>Beispiel: Testen mit Jest und Enzyme</h1>
 <p>Testen einer Rating-Komponente</p>
 </section><section class="slide"><h2>Beispiel: Testen einer Rating-Komponente</h2>
-<pre><code class="language-tsx">import React from 'react';
-import { shallow, mount } from 'enzyme';
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+<span class="hljs-keyword">import</span> { shallow, mount } <span class="hljs-keyword">from</span> <span class="hljs-string">'enzyme'</span>;
 
-import Rating from './Rating';
+<span class="hljs-keyword">import</span> Rating <span class="hljs-keyword">from</span> <span class="hljs-string">'./Rating'</span>;
 </code></pre>
 </section><section class="slide"><h2>Beispiel: Testen einer Rating-Komponente</h2>
-<pre><code class="language-tsx">describe('rendering', () => {
-  it('renders 5 Star components', () => {
-    const wrapper = shallow(&#x3C;Rating stars={5} />);
+<pre><code class="hljs language-jsx">describe(<span class="hljs-string">'rendering'</span>, () => {
+  it(<span class="hljs-string">'renders 5 Star components'</span>, () => {
+    <span class="hljs-keyword">const</span> wrapper = shallow(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Rating</span> <span class="hljs-attr">stars</span>=<span class="hljs-string">{5}</span> /></span>);
     expect(wrapper.find('Star')).toHaveLength(5);
   });
 
   it('renders 5 stars', () => {
-    const wrapper = mount(&#x3C;Rating stars={5} />);
+    const wrapper = mount(</span>&#x3C;Rating stars={5} />);
     expect(wrapper.find('.star')).toHaveLength(5);
   });
 });
 </code></pre>
 </section><section class="slide"><h2>Beispiel: Testen einer Rating-Komponente</h2>
-<pre><code class="language-tsx">describe('rendering', () => {
-  it('renders 3 active stars', () => {
-    const wrapper = mount(&#x3C;Rating stars={3} />);
+<pre><code class="hljs language-jsx">describe(<span class="hljs-string">'rendering'</span>, () => {
+  it(<span class="hljs-string">'renders 3 active stars'</span>, () => {
+    <span class="hljs-keyword">const</span> wrapper = mount(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Rating</span> <span class="hljs-attr">stars</span>=<span class="hljs-string">{3}</span> /></span>);
     expect(wrapper.find('.star')).toHaveLength(5);
     expect(
       wrapper.find('.star').get(2).props.className
@@ -2781,13 +2781,13 @@ import Rating from './Rating';
     ).toEqual('star');
   });
 });
-</code></pre>
+</span></code></pre>
 </section><section class="slide"><h2>Beispiel: Testen einer Rating-Komponente</h2>
-<pre><code class="language-tsx">describe('events', () => {
-  it('reacts to click on first star', () => {
-    const mockFn = jest.fn();
-    const wrapper = mount(
-      &#x3C;Rating stars={3} onStarsChange={mockFn} />
+<pre><code class="hljs language-jsx">describe(<span class="hljs-string">'events'</span>, () => {
+  it(<span class="hljs-string">'reacts to click on first star'</span>, () => {
+    <span class="hljs-keyword">const</span> mockFn = jest.fn();
+    <span class="hljs-keyword">const</span> wrapper = mount(
+      <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Rating</span> <span class="hljs-attr">stars</span>=<span class="hljs-string">{3}</span> <span class="hljs-attr">onStarsChange</span>=<span class="hljs-string">{mockFn}</span> /></span>
     );
     wrapper
       .find('span')
@@ -2796,12 +2796,12 @@ import Rating from './Rating';
     expect(mockFn.mock.calls[0][0]).toEqual(1);
   });
 });
-</code></pre>
+</span></code></pre>
 </section><section class="slide"><h2>Beispiel: Testen einer Rating-Komponente</h2>
 <p>Testen einer (hypothetischen) Rating-Komponente, die ihren eigenen internen State hat:</p>
-<pre><code class="language-tsx">describe('events', () => {
-  it('reacts to click on first star', () => {
-    const wrapper = mount(&#x3C;Rating />);
+<pre><code class="hljs language-jsx">describe(<span class="hljs-string">'events'</span>, () => {
+  it(<span class="hljs-string">'reacts to click on first star'</span>, () => {
+    <span class="hljs-keyword">const</span> wrapper = mount(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Rating</span> /></span>);
     wrapper
       .find('span')
       .at(0)
@@ -2809,19 +2809,19 @@ import Rating from './Rating';
     expect(wrapper.instance.state.count).toEqual(1);
   });
 });
-</code></pre>
+</span></code></pre>
 </section><section class="slide"><h2>Beispiel: Testen einer Rating-Komponente</h2>
-<pre><code class="language-tsx">describe('errors', () => {
-  it('throws an error if the number of stars is 0', () => {
-    const testFn = () => {
-      const wrapper = shallow(&#x3C;Rating stars={0} />);
+<pre><code class="hljs language-jsx">describe(<span class="hljs-string">'errors'</span>, () => {
+  it(<span class="hljs-string">'throws an error if the number of stars is 0'</span>, () => {
+    <span class="hljs-keyword">const</span> testFn = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+      <span class="hljs-keyword">const</span> wrapper = shallow(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Rating</span> <span class="hljs-attr">stars</span>=<span class="hljs-string">{0}</span> /></span>);
     };
     expect(testFn).toThrow(
       'number of stars must be positive'
     );
   });
 });
-</code></pre>
+</span></code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Snapshot Tests</h1>
 <h3>mit react-test-renderer</h3>
 </section><section class="slide"><h2>Snapshot Tests</h2>
