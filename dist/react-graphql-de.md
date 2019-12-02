@@ -325,14 +325,14 @@ GraphQL: kennt die Beziehungen bereits → einfachere Queries
 query {
   user(id: "my-username") {
     posts {
-      name
+      title
     }
   }
 }
 ```
 
 ```sql
-SELECT name
+SELECT post.title
   FROM user
   INNER JOIN post ON user.id = post.userId
   WHERE user.id = "my-username"
@@ -356,14 +356,30 @@ SELECT name
 
 ## Beispiele für GraphQL-APIs
 
-from https://github.com/APIs-guru/graphql-apis:
+from [https://github.com/APIs-guru/graphql-apis](https://github.com/APIs-guru/graphql-apis):
 
 - GitHub (login benötigt)
 - Reddit (GraphQL Hub)
 - GraphQL Pokémon (zweiter Eintrag!)
 - Star Wars
 - SpaceX Land
-- FakeQL: Mock APIs
+- FakeQL: Selbstdefinierte Mock APIs
+
+## FakeQL
+
+[https://fakeql.com/](https://fakeql.com/)
+
+template for simple todos on FakeQL:
+
+```json
+{
+  "todos": [
+    { "id": 1, "title": "Go shopping", "completed": true },
+    { "id": 49, "title": "Do taxes", "completed": false },
+    { "id": 50, "title": "Do dishes", "completed": false }
+  ]
+}
+```
 
 ## GraphiQL Explorer
 
@@ -601,6 +617,381 @@ Lade Todos von [https://5qn401kkl9.lp.gql.zone/graphql](https://5qn401kkl9.lp.gq
 
 (admin: https://launchpad.graphql.com/5qn401kkl9)
 
+# Datentypen
+
+## Datentypen
+
+Bei GraphQL sind die zurückgegebenen Datentypen immer bekannt.
+
+## Datentypen
+
+verfügbare Typen:
+
+- Boolean
+- Int: 32-bit int (signed)
+- Float: 64-bit Gleitkommazahl
+- String: UTF-8 Zeichenkette
+- ID: Eindeutige ID als String
+- Object: Objekt mit vordefinierten Einträgen
+- List: Liste, die bestimmte andere Typen beinhaltet
+
+# GraphQL mit reinem JavaScript
+
+## Senden von Queries an den Server
+
+Queries werden mittesl POST-Requests gesendet
+
+Payload ist ein JSON-Objekt mit einer `query` string property (auch bei Mutationen) und optional einer `variables` property.
+
+## Senden von Queries an den Server
+
+Testen aus der Browserkonsole (wir müssen uns auf der gleichen Seite befinden):
+
+```js
+const requestBody = {
+  query:
+    'mutation addTodo($title: String!) { add(title: $title) { id } }',
+  variables: '{"title": "test"}',
+};
+
+const requestBodyStr = JSON.stringify(requestBody);
+
+fetch('https://todo-mongo-graphql-server.herokuapp.com', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: requestBodyStr,
+}).then(console.log);
+```
+
+## Beispiel: reddit API
+
+```js
+const queryTemplate = `
+{
+  reddit {
+    subreddit(name: "javascript") {
+      newListings(limit: 2) {
+        title
+      }
+    }
+  }
+}`;
+```
+
+## Beispiel: reddit API
+
+```js
+fetch('https://www.graphqlhub.com/graphql', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    Accept: 'application/json',
+  },
+  body: JSON.stringify({ query: queryTemplate }),
+})
+  .then(r => r.json())
+  .then(data => console.log('data returned:', data));
+```
+
+# Apollo Client
+
+## Apollo Client
+
+https://www.apollographql.com/docs/react/
+
+## Apollo Client
+
+Gründe für die Verwendung:
+
+- Automatisches Senden von Queries über das Netzwerk
+- Automatisches Caching
+- Automatische Einbindung in das (Re)rendering von React
+
+## Installation
+
+Benötigte npm-Pakete:
+
+- `graphl`
+- `graphql-tag`
+- `apollo-client`
+- `apollo-cache-inmemory`
+- `apollo-link-http`
+- `react-apollo` (für Verwendung mit React)
+
+Das Paket `apollo-boost` beinhaltet `apollo-client`, `apollo-cache-inmemory`, `apollo-link-http` (und mehr)
+
+## Setup
+
+```js
+import { ApolloClient } from 'apollo-client';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { HttpLink } from 'apollo-link-http';
+import gql from 'graphql-tag';
+
+const cache = new InMemoryCache();
+const link = new HttpLink({
+  uri: 'https://api.spacex.land/graphql/',
+});
+
+const client = new ApolloClient({
+  cache,
+  link,
+});
+```
+
+## Beispiel für eine Abfrage
+
+```js
+// via a tagged template string
+const LAUNCHES_QUERY = gql`
+  query recentLaunches {
+    launchesPast(limit: 10) {
+      mission_name
+    }
+  }
+`;
+
+client
+  .query({ query: LAUNCHES_QUERY })
+  .then(result => console.log(result));
+```
+
+## Lokale Daten
+
+Apollo kann auch lokale Daten / lokalen State verwalten
+
+Auslesen von lokalem State:
+
+- mittels `@client`-Direktive in Queries
+
+Setzen von lokalem State:
+
+- via `client.writeData` für einfache Fälle
+- mittels `@client`-Direktive in Mutationen, und lokalen Resolvern
+
+## Lokale Daten
+
+Einfaches direktes Setzen von lokalem State (ähnlich wie Reacts `setState`):
+
+```js
+const client = useApolloClient();
+
+client.writeData({ data: { inputText: '' } });
+```
+
+## Lokale Daten
+
+lokale Resolver für Mutationen:
+
+[https://www.apollographql.com/docs/react/data/local-state/#local-resolvers](https://www.apollographql.com/docs/react/data/local-state/#local-resolvers)
+
+## Lokale Daten
+
+Auslesen von lokalem State (via `@client`):
+
+```js
+const INPUT_TEXT_QUERY = gql`
+  query {
+    inputText @client
+  }
+`;
+
+client
+  .query({ query: INPUT_TEXT_QUERY })
+  .then(result => console.log(result));
+```
+
+## Apollo Client Developer Tools
+
+Erweiterung für Chrome
+
+Laut Bewertungen unzuverlässig (3.2 / 5 Sternen)
+
+Funktionen:
+
+- Betrachten des aktuellen Caches
+- Inspizieren der Struktur von Queries / Mutationen
+- Ausführen von Queries (und Mutationen)
+
+# Apollo Client mit React
+
+## Apollo Client mit React
+
+[https://www.apollographql.com/docs/react/data/queries/](https://www.apollographql.com/docs/react/data/queries/)
+
+## React mit einem Apollo Client verbinden
+
+Eine Anwendung kommuniziert meist mit einem einzigen API
+
+```js
+import { ApolloProvider } from 'react-apollo';
+```
+
+```jsx
+<ApolloProvider client={client}>
+  <App />
+</ApolloProvider>
+```
+
+## Definition einer Query
+
+```js
+const LAUNCHES_QUERY = gql`
+  query recentLaunches {
+    launchesPast(limit: 10) {
+      mission_name
+    }
+  }
+`;
+```
+
+## useQuery
+
+```js
+function RecentLaunches() {
+  const { data, loading, error } = useQuery(LAUNCHES_QUERY);
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error!</div>;
+
+  return (
+    <div>
+      <h1>Launches</h1>
+      {data.launchesPast.map(launch => (
+        <div>{launch.mission_name}</div>
+      ))}
+    </div>
+  );
+}
+```
+
+## useQuery: Parameter
+
+```js
+const LAUNCHES_QUERY = gql`
+  query recentLaunches($numLaunches: ) {
+    launchesPast(limit: $numLaunches) {
+      mission_name
+    }
+  }
+`;
+
+function RecentLaunches({ numLaunches }) {
+  const { data, loading, error } = useQuery(
+    LAUNCHES_QUERY,
+    { variables: { numLaunches } }
+  );
+  ...
+}
+```
+
+## useQuery: Polling & Refetching
+
+Daten alle 5 Sekunden aktualisieren:
+
+```js
+const { data, loading, error } = useQuery(LAUNCHES_QUERY, {
+  pollInterval: 5000,
+});
+```
+
+Funktion, deren Aufruf ein neues Laden der Daten bewirkt:
+
+```js
+const { data, loading, error, refetch } = useQuery(
+  LAUNCHES_QUERY
+);
+...
+refetch()
+```
+
+## useMutation
+
+Beispielfall Todo:
+
+```js
+const SET_COMPLETED = gql`
+  mutation SetCompleted($id: ID!, $completed: Boolean!) {
+    updateTodo(id: $id, input: { completed: $completed }) {
+      id
+      completed
+    }
+  }
+`;
+```
+
+## useMutation
+
+Gundlegende Verwendung:
+
+```jsx
+const [setCompleted] = useMutation(SET_COMPLETED);
+```
+
+Ausführliche Form (vgl. `useState`):
+
+```jsx
+const [
+  setCompleted,
+  { data, loading, error },
+] = useMutation(SET_COMPLETED);
+```
+
+Der State wird am Server und danach auch lokal entsprechend abgeändert
+
+## useMutation
+
+Update des lokalen Caches:
+
+- **automatisch**, falls ein zuvor existierendes Objekt geändert wurde
+- **manuell**, falls Objekte in einem Array hinzugefügt / entfernt wurden
+
+## useMutation: manuelles Update des Caches
+
+Zugriff auf cache und API-Antwort in der `update`-Funktion:
+
+```js
+const [addTodo] = useMutation(ADD_TODO, {
+  update: (cache, reply) => {
+    // cache: local cache
+    // reply: reply from the API
+    console.log(cache);
+    console.log(reply);
+    // TODO: update the local cache based on the reply
+  },
+});
+```
+
+## useMutation: manuelles Update des Caches
+
+```js
+const [addTodo] = useMutation(ADD_TODO, {
+  update: (cache, reply) => {
+    // get old todos from cache
+    const oldTodos = cache.readQuery({ query: GET_TODOS })
+      .todos;
+    // build newTodos array based on the server response
+    const newTodos = [...oldTodos, reply.data.createTodo];
+    // TODO: update the local cache with the newTodos array
+  },
+});
+```
+
+## useMutation: manuelles Update des Caches
+
+```js
+const [addTodo] = useMutation(ADD_TODO, {
+  update: (cache, reply) => {
+    const oldTodos = cache.readQuery({ query: GET_TODOS })
+      .todos;
+    const newTodos = [...oldTodos, reply.data.createTodo];
+    cache.writeQuery({
+      query: GET_TODOS,
+      data: { todos: newTodos },
+    });
+  },
+});
+```
+
 # Queries - Fortgeschritten
 
 ## Standardwerte für Variablen
@@ -707,234 +1098,4 @@ fragment essentialData on Pokemon {
   image
 }
 ```
-
-# Datentypen
-
-## Datentypen
-
-Bei GraphQL sind die zurückgegebenen Datentypen immer bekannt.
-
-## Datentypen
-
-verfügbare Typen:
-
-- Boolean
-- Int: 32-bit int (signed)
-- Float: 64-bit Gleitkommazahl
-- String: UTF-8 Zeichenkette
-- ID: Eindeutige ID als String
-- Object: Objekt mit vordefinierten Einträgen
-- List: Liste, die bestimmte andere Typen beinhaltet
-
-# GraphQL mit reinem JavaScript
-
-## Senden von Queries an den Server
-
-Queries werden mittesl POST-Requests gesendet
-
-Payload ist ein JSON-Objekt mit einer `query` string property (auch bei Mutationen) und optional einer `variables` property.
-
-## Senden von Queries an den Server
-
-Testen aus der Browserkonsole (wir müssen uns auf der gleichen Seite befinden):
-
-```js
-const requestBody = {
-  query:
-    'mutation addTodo($title: String!) { add(title: $title) { id } }',
-  variables: '{"title": "test"}',
-};
-
-const requestBodyStr = JSON.stringify(requestBody);
-
-fetch('https://todo-mongo-graphql-server.herokuapp.com', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: requestBodyStr,
-}).then(console.log);
-```
-
-## Beispiel: reddit API
-
-```js
-const queryTemplate = `
-{
-  reddit {
-    subreddit(name: "javascript") {
-      newListings(limit: 2) {
-        title
-      }
-    }
-  }
-}`;
-```
-
-## Beispiel: reddit API
-
-```js
-fetch('https://www.graphqlhub.com/graphql', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-    Accept: 'application/json',
-  },
-  body: JSON.stringify({ query: queryTemplate }),
-})
-  .then(r => r.json())
-  .then(data => console.log('data returned:', data));
-```
-
-# Apollo Client
-
-## Apollo Client
-
-https://www.apollographql.com/docs/react/
-
-## Apollo Client
-
-Gründe für die Verwendung:
-
-- Automatisches senden von Queries über das Netzwerk
-- Automatisches caching
-- Automatische Einbindung in das (Re)rendering von React
-
-## Installation
-
-Benötigte npm-Pakete:
-
-- `graphl`
-- `graphql-tag`
-- `apollo-client`
-- `apollo-cache-inmemory`
-- `apollo-link-http`
-- `react-apollo` (für Verwendung mit React)
-
-Das Paket `apollo-boost` beinhaltet `apollo-client`, `apollo-cache-inmemory`, `apollo-link-http` (und mehr)
-
-## Setup
-
-```js
-import { ApolloClient } from 'apollo-client';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { HttpLink } from 'apollo-link-http';
-import gql from 'graphql-tag';
-
-const cache = new InMemoryCache();
-const link = new HttpLink({
-  uri: 'https://api.spacex.land/graphql/',
-});
-
-const client = new ApolloClient({
-  cache,
-  link,
-});
-```
-
-## Beispiel für eine Abfrage
-
-```js
-// via a tagged template string
-const LAUNCHES_QUERY = gql`
-  query recentLaunches {
-    launchesPast(limit: 10) {
-      mission_name
-    }
-  }
-`;
-
-client
-  .query({
-    query: LAUNCHES_QUERY,
-  })
-  .then(result => console.log(result));
-```
-
-# Apollo client mit React
-
-## React mit einem Apollo Client verbinden
-
-Eine Anwendung kommuniziert meist mit einem einzigen API
-
-```js
-import { ApolloProvider } from 'react-apollo';
-```
-
-```jsx
-<ApolloProvider client={client}>
-  <App />
-</ApolloProvider>
-```
-
-## Definition einer Query
-
-```js
-const LAUNCHES_QUERY = gql`
-  query recentLaunches {
-    launchesPast(limit: 10) {
-      mission_name
-    }
-  }
-`;
-```
-
-## useQuery
-
-```js
-function RecentLaunches() {
-  const { data, loading, error } = useQuery(LAUNCHES_QUERY);
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error!</div>;
-
-  return (
-    <div>
-      <h1>Launches</h1>
-      {data.launchesPast.map(launch => (
-        <div>{launch.mission_name}</div>
-      ))}
-    </div>
-  );
-}
-```
-
-## useQuery: Parameter
-
-```js
-const LAUNCHES_QUERY = gql`
-  query recentLaunches($numLaunches: ) {
-    launchesPast(limit: $numLaunches) {
-      mission_name
-    }
-  }
-`;
-
-function RecentLaunches({ numLaunches }) {
-  const { data, loading, error } = useQuery(
-    LAUNCHES_QUERY,
-    { variables: { numLaunches } }
-  );
-  ...
-}
-```
-
-## useQuery: Polling & Refetching
-
-Daten alle 5 Sekunden aktualisieren:
-
-```js
-const { data, loading, error } = useQuery(LAUNCHES_QUERY, {
-  pollInterval: 5000,
-});
-```
-
-Funktion, deren Aufruf ein neues Laden der Daten bewirkt:
-
-```js
-const { data, loading, error, refetch } = useQuery(
-  LAUNCHES_QUERY
-);
-...
-refetch()
-```
-
-## useMutation
 

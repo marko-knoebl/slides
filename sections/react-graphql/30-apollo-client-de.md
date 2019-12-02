@@ -8,8 +8,8 @@ https://www.apollographql.com/docs/react/
 
 Gründe für die Verwendung:
 
-- Automatisches senden von Queries über das Netzwerk
-- Automatisches caching
+- Automatisches Senden von Queries über das Netzwerk
+- Automatisches Caching
 - Automatische Einbindung in das (Re)rendering von React
 
 ## Installation
@@ -57,8 +57,63 @@ const LAUNCHES_QUERY = gql`
 `;
 
 client
-  .query({
-    query: LAUNCHES_QUERY,
-  })
+  .query({ query: LAUNCHES_QUERY })
   .then(result => console.log(result));
 ```
+
+## Lokale Daten
+
+Apollo kann auch lokale Daten / lokalen State verwalten
+
+Auslesen von lokalem State:
+
+- mittels `@client`-Direktive in Queries
+
+Setzen von lokalem State:
+
+- via `client.writeData` für einfache Fälle
+- mittels `@client`-Direktive in Mutationen, und lokalen Resolvern
+
+## Lokale Daten
+
+Einfaches direktes Setzen von lokalem State (ähnlich wie Reacts `setState`):
+
+```js
+const client = useApolloClient();
+
+client.writeData({ data: { inputText: '' } });
+```
+
+## Lokale Daten
+
+lokale Resolver für Mutationen:
+
+[https://www.apollographql.com/docs/react/data/local-state/#local-resolvers](https://www.apollographql.com/docs/react/data/local-state/#local-resolvers)
+
+## Lokale Daten
+
+Auslesen von lokalem State (via `@client`):
+
+```js
+const INPUT_TEXT_QUERY = gql`
+  query {
+    inputText @client
+  }
+`;
+
+client
+  .query({ query: INPUT_TEXT_QUERY })
+  .then(result => console.log(result));
+```
+
+## Apollo Client Developer Tools
+
+Erweiterung für Chrome
+
+Laut Bewertungen unzuverlässig (3.2 / 5 Sternen)
+
+Funktionen:
+
+- Betrachten des aktuellen Caches
+- Inspizieren der Struktur von Queries / Mutationen
+- Ausführen von Queries (und Mutationen)

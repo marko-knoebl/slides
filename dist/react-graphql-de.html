@@ -2261,12 +2261,12 @@ try Subscriptions
 <pre><code class="language-graphql">query {
   user(id: "my-username") {
     posts {
-      name
+      title
     }
   }
 }
 </code></pre>
-<pre><code class="hljs language-sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">name</span>
+<pre><code class="hljs language-sql"><span class="hljs-keyword">SELECT</span> post.title
   <span class="hljs-keyword">FROM</span> <span class="hljs-keyword">user</span>
   <span class="hljs-keyword">INNER</span> <span class="hljs-keyword">JOIN</span> post <span class="hljs-keyword">ON</span> user.id = post.userId
   <span class="hljs-keyword">WHERE</span> user.id = <span class="hljs-string">"my-username"</span>
@@ -2290,8 +2290,19 @@ try Subscriptions
 <li>GraphQL Pokémon (zweiter Eintrag!)</li>
 <li>Star Wars</li>
 <li>SpaceX Land</li>
-<li>FakeQL: Mock APIs</li>
+<li>FakeQL: Selbstdefinierte Mock APIs</li>
 </ul>
+</section><section class="slide"><h2>FakeQL</h2>
+<p><a href="https://fakeql.com/">https://fakeql.com/</a></p>
+<p>template for simple todos on FakeQL:</p>
+<pre><code class="hljs language-json">{
+  <span class="hljs-attr">"todos"</span>: [
+    { <span class="hljs-attr">"id"</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Go shopping"</span>, <span class="hljs-attr">"completed"</span>: <span class="hljs-literal">true</span> },
+    { <span class="hljs-attr">"id"</span>: <span class="hljs-number">49</span>, <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Do taxes"</span>, <span class="hljs-attr">"completed"</span>: <span class="hljs-literal">false</span> },
+    { <span class="hljs-attr">"id"</span>: <span class="hljs-number">50</span>, <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Do dishes"</span>, <span class="hljs-attr">"completed"</span>: <span class="hljs-literal">false</span> }
+  ]
+}
+</code></pre>
 </section><section class="slide"><h2>GraphiQL Explorer</h2>
 <p>Graph<em>i</em>QL: browserbasierter Explorer für GraphQL APIs</p>
 <ul>
@@ -2471,6 +2482,287 @@ try Subscriptions
 </section><section class="slide"><h2>Übung: Laden von Todos von einer GraphQL API</h2>
 <p>Lade Todos von <a href="https://5qn401kkl9.lp.gql.zone/graphql">https://5qn401kkl9.lp.gql.zone/graphql</a></p>
 <p>(admin: <a href="https://launchpad.graphql.com/5qn401kkl9">https://launchpad.graphql.com/5qn401kkl9</a>)</p>
+</section></section><section class="slides-section"><section class="slide"><h1>Datentypen</h1>
+</section><section class="slide"><h2>Datentypen</h2>
+<p>Bei GraphQL sind die zurückgegebenen Datentypen immer bekannt.</p>
+</section><section class="slide"><h2>Datentypen</h2>
+<p>verfügbare Typen:</p>
+<ul>
+<li>Boolean</li>
+<li>Int: 32-bit int (signed)</li>
+<li>Float: 64-bit Gleitkommazahl</li>
+<li>String: UTF-8 Zeichenkette</li>
+<li>ID: Eindeutige ID als String</li>
+<li>Object: Objekt mit vordefinierten Einträgen</li>
+<li>List: Liste, die bestimmte andere Typen beinhaltet</li>
+</ul>
+</section></section><section class="slides-section"><section class="slide"><h1>GraphQL mit reinem JavaScript</h1>
+</section><section class="slide"><h2>Senden von Queries an den Server</h2>
+<p>Queries werden mittesl POST-Requests gesendet</p>
+<p>Payload ist ein JSON-Objekt mit einer <code>query</code> string property (auch bei Mutationen) und optional einer <code>variables</code> property.</p>
+</section><section class="slide"><h2>Senden von Queries an den Server</h2>
+<p>Testen aus der Browserkonsole (wir müssen uns auf der gleichen Seite befinden):</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> requestBody = {
+  <span class="hljs-attr">query</span>:
+    <span class="hljs-string">'mutation addTodo($title: String!) { add(title: $title) { id } }'</span>,
+  <span class="hljs-attr">variables</span>: <span class="hljs-string">'{"title": "test"}'</span>,
+};
+
+<span class="hljs-keyword">const</span> requestBodyStr = <span class="hljs-built_in">JSON</span>.stringify(requestBody);
+
+fetch(<span class="hljs-string">'https://todo-mongo-graphql-server.herokuapp.com'</span>, {
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'POST'</span>,
+  <span class="hljs-attr">headers</span>: { <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span> },
+  <span class="hljs-attr">body</span>: requestBodyStr,
+}).then(<span class="hljs-built_in">console</span>.log);
+</code></pre>
+</section><section class="slide"><h2>Beispiel: reddit API</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> queryTemplate = <span class="hljs-string">`
+{
+  reddit {
+    subreddit(name: "javascript") {
+      newListings(limit: 2) {
+        title
+      }
+    }
+  }
+}`</span>;
+</code></pre>
+</section><section class="slide"><h2>Beispiel: reddit API</h2>
+<pre><code class="hljs language-js">fetch(<span class="hljs-string">'https://www.graphqlhub.com/graphql'</span>, {
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'POST'</span>,
+  <span class="hljs-attr">headers</span>: {
+    <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span>,
+    <span class="hljs-attr">Accept</span>: <span class="hljs-string">'application/json'</span>,
+  },
+  <span class="hljs-attr">body</span>: <span class="hljs-built_in">JSON</span>.stringify({ <span class="hljs-attr">query</span>: queryTemplate }),
+})
+  .then(<span class="hljs-function"><span class="hljs-params">r</span> =></span> r.json())
+  .then(<span class="hljs-function"><span class="hljs-params">data</span> =></span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'data returned:'</span>, data));
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Apollo Client</h1>
+</section><section class="slide"><h2>Apollo Client</h2>
+<p><a href="https://www.apollographql.com/docs/react/">https://www.apollographql.com/docs/react/</a></p>
+</section><section class="slide"><h2>Apollo Client</h2>
+<p>Gründe für die Verwendung:</p>
+<ul>
+<li>Automatisches Senden von Queries über das Netzwerk</li>
+<li>Automatisches Caching</li>
+<li>Automatische Einbindung in das (Re)rendering von React</li>
+</ul>
+</section><section class="slide"><h2>Installation</h2>
+<p>Benötigte npm-Pakete:</p>
+<ul>
+<li><code>graphl</code></li>
+<li><code>graphql-tag</code></li>
+<li><code>apollo-client</code></li>
+<li><code>apollo-cache-inmemory</code></li>
+<li><code>apollo-link-http</code></li>
+<li><code>react-apollo</code> (für Verwendung mit React)</li>
+</ul>
+<p>Das Paket <code>apollo-boost</code> beinhaltet <code>apollo-client</code>, <code>apollo-cache-inmemory</code>, <code>apollo-link-http</code> (und mehr)</p>
+</section><section class="slide"><h2>Setup</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { ApolloClient } <span class="hljs-keyword">from</span> <span class="hljs-string">'apollo-client'</span>;
+<span class="hljs-keyword">import</span> { InMemoryCache } <span class="hljs-keyword">from</span> <span class="hljs-string">'apollo-cache-inmemory'</span>;
+<span class="hljs-keyword">import</span> { HttpLink } <span class="hljs-keyword">from</span> <span class="hljs-string">'apollo-link-http'</span>;
+<span class="hljs-keyword">import</span> gql <span class="hljs-keyword">from</span> <span class="hljs-string">'graphql-tag'</span>;
+
+<span class="hljs-keyword">const</span> cache = <span class="hljs-keyword">new</span> InMemoryCache();
+<span class="hljs-keyword">const</span> link = <span class="hljs-keyword">new</span> HttpLink({
+  <span class="hljs-attr">uri</span>: <span class="hljs-string">'https://api.spacex.land/graphql/'</span>,
+});
+
+<span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> ApolloClient({
+  cache,
+  link,
+});
+</code></pre>
+</section><section class="slide"><h2>Beispiel für eine Abfrage</h2>
+<pre><code class="hljs language-js"><span class="hljs-comment">// via a tagged template string</span>
+<span class="hljs-keyword">const</span> LAUNCHES_QUERY = gql<span class="hljs-string">`
+  query recentLaunches {
+    launchesPast(limit: 10) {
+      mission_name
+    }
+  }
+`</span>;
+
+client
+  .query({ <span class="hljs-attr">query</span>: LAUNCHES_QUERY })
+  .then(<span class="hljs-function"><span class="hljs-params">result</span> =></span> <span class="hljs-built_in">console</span>.log(result));
+</code></pre>
+</section><section class="slide"><h2>Lokale Daten</h2>
+<p>Apollo kann auch lokale Daten / lokalen State verwalten</p>
+<p>Auslesen von lokalem State:</p>
+<ul>
+<li>mittels <code>@client</code>-Direktive in Queries</li>
+</ul>
+<p>Setzen von lokalem State:</p>
+<ul>
+<li>via <code>client.writeData</code> für einfache Fälle</li>
+<li>mittels <code>@client</code>-Direktive in Mutationen, und lokalen Resolvern</li>
+</ul>
+</section><section class="slide"><h2>Lokale Daten</h2>
+<p>Einfaches direktes Setzen von lokalem State (ähnlich wie Reacts <code>setState</code>):</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> client = useApolloClient();
+
+client.writeData({ <span class="hljs-attr">data</span>: { <span class="hljs-attr">inputText</span>: <span class="hljs-string">''</span> } });
+</code></pre>
+</section><section class="slide"><h2>Lokale Daten</h2>
+<p>lokale Resolver für Mutationen:</p>
+<p><a href="https://www.apollographql.com/docs/react/data/local-state/#local-resolvers">https://www.apollographql.com/docs/react/data/local-state/#local-resolvers</a></p>
+</section><section class="slide"><h2>Lokale Daten</h2>
+<p>Auslesen von lokalem State (via <code>@client</code>):</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> INPUT_TEXT_QUERY = gql<span class="hljs-string">`
+  query {
+    inputText @client
+  }
+`</span>;
+
+client
+  .query({ <span class="hljs-attr">query</span>: INPUT_TEXT_QUERY })
+  .then(<span class="hljs-function"><span class="hljs-params">result</span> =></span> <span class="hljs-built_in">console</span>.log(result));
+</code></pre>
+</section><section class="slide"><h2>Apollo Client Developer Tools</h2>
+<p>Erweiterung für Chrome</p>
+<p>Laut Bewertungen unzuverlässig (3.2 / 5 Sternen)</p>
+<p>Funktionen:</p>
+<ul>
+<li>Betrachten des aktuellen Caches</li>
+<li>Inspizieren der Struktur von Queries / Mutationen</li>
+<li>Ausführen von Queries (und Mutationen)</li>
+</ul>
+</section></section><section class="slides-section"><section class="slide"><h1>Apollo Client mit React</h1>
+</section><section class="slide"><h2>Apollo Client mit React</h2>
+<p><a href="https://www.apollographql.com/docs/react/data/queries/">https://www.apollographql.com/docs/react/data/queries/</a></p>
+</section><section class="slide"><h2>React mit einem Apollo Client verbinden</h2>
+<p>Eine Anwendung kommuniziert meist mit einem einzigen API</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { ApolloProvider } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-apollo'</span>;
+</code></pre>
+<pre><code class="hljs language-jsx">&#x3C;ApolloProvider client={client}>
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">App</span> /></span>
+<span class="hljs-tag">&#x3C;/<span class="hljs-name">ApolloProvider</span>></span></span>
+</code></pre>
+</section><section class="slide"><h2>Definition einer Query</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> LAUNCHES_QUERY = gql<span class="hljs-string">`
+  query recentLaunches {
+    launchesPast(limit: 10) {
+      mission_name
+    }
+  }
+`</span>;
+</code></pre>
+</section><section class="slide"><h2>useQuery</h2>
+<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">RecentLaunches</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> { data, loading, error } = useQuery(LAUNCHES_QUERY);
+  <span class="hljs-keyword">if</span> (loading) <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>Loading...<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+  <span class="hljs-keyword">if</span> (error) <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>Error!<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+      </span>&#x3C;h1>Launches&#x3C;/h1><span class="xml">
+      {data.launchesPast.map(launch => (
+        </span>&#x3C;div>{launch.mission_name}&#x3C;/div><span class="xml">
+      ))}
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+  );
+}
+</code></pre>
+</section><section class="slide"><h2>useQuery: Parameter</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> LAUNCHES_QUERY = gql<span class="hljs-string">`
+  query recentLaunches($numLaunches: ) {
+    launchesPast(limit: $numLaunches) {
+      mission_name
+    }
+  }
+`</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">RecentLaunches</span>(<span class="hljs-params">{ numLaunches }</span>) </span>{
+  <span class="hljs-keyword">const</span> { data, loading, error } = useQuery(
+    LAUNCHES_QUERY,
+    { <span class="hljs-attr">variables</span>: { numLaunches } }
+  );
+  ...
+}
+</code></pre>
+</section><section class="slide"><h2>useQuery: Polling &#x26; Refetching</h2>
+<p>Daten alle 5 Sekunden aktualisieren:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> { data, loading, error } = useQuery(LAUNCHES_QUERY, {
+  <span class="hljs-attr">pollInterval</span>: <span class="hljs-number">5000</span>,
+});
+</code></pre>
+<p>Funktion, deren Aufruf ein neues Laden der Daten bewirkt:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> { data, loading, error, refetch } = useQuery(
+  LAUNCHES_QUERY
+);
+...
+refetch()
+</code></pre>
+</section><section class="slide"><h2>useMutation</h2>
+<p>Beispielfall Todo:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> SET_COMPLETED = gql<span class="hljs-string">`
+  mutation SetCompleted($id: ID!, $completed: Boolean!) {
+    updateTodo(id: $id, input: { completed: $completed }) {
+      id
+      completed
+    }
+  }
+`</span>;
+</code></pre>
+</section><section class="slide"><h2>useMutation</h2>
+<p>Gundlegende Verwendung:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> [setCompleted] = useMutation(SET_COMPLETED);
+</code></pre>
+<p>Ausführliche Form (vgl. <code>useState</code>):</p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> [
+  setCompleted,
+  { data, loading, error },
+] = useMutation(SET_COMPLETED);
+</code></pre>
+<p>Der State wird am Server und danach auch lokal entsprechend abgeändert</p>
+</section><section class="slide"><h2>useMutation</h2>
+<p>Update des lokalen Caches:</p>
+<ul>
+<li><strong>automatisch</strong>, falls ein zuvor existierendes Objekt geändert wurde</li>
+<li><strong>manuell</strong>, falls Objekte in einem Array hinzugefügt / entfernt wurden</li>
+</ul>
+</section><section class="slide"><h2>useMutation: manuelles Update des Caches</h2>
+<p>Zugriff auf cache und API-Antwort in der <code>update</code>-Funktion:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [addTodo] = useMutation(ADD_TODO, {
+  <span class="hljs-attr">update</span>: <span class="hljs-function">(<span class="hljs-params">cache, reply</span>) =></span> {
+    <span class="hljs-comment">// cache: local cache</span>
+    <span class="hljs-comment">// reply: reply from the API</span>
+    <span class="hljs-built_in">console</span>.log(cache);
+    <span class="hljs-built_in">console</span>.log(reply);
+    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> update the local cache based on the reply</span>
+  },
+});
+</code></pre>
+</section><section class="slide"><h2>useMutation: manuelles Update des Caches</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [addTodo] = useMutation(ADD_TODO, {
+  <span class="hljs-attr">update</span>: <span class="hljs-function">(<span class="hljs-params">cache, reply</span>) =></span> {
+    <span class="hljs-comment">// get old todos from cache</span>
+    <span class="hljs-keyword">const</span> oldTodos = cache.readQuery({ <span class="hljs-attr">query</span>: GET_TODOS })
+      .todos;
+    <span class="hljs-comment">// build newTodos array based on the server response</span>
+    <span class="hljs-keyword">const</span> newTodos = [...oldTodos, reply.data.createTodo];
+    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> update the local cache with the newTodos array</span>
+  },
+});
+</code></pre>
+</section><section class="slide"><h2>useMutation: manuelles Update des Caches</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [addTodo] = useMutation(ADD_TODO, {
+  <span class="hljs-attr">update</span>: <span class="hljs-function">(<span class="hljs-params">cache, reply</span>) =></span> {
+    <span class="hljs-keyword">const</span> oldTodos = cache.readQuery({ <span class="hljs-attr">query</span>: GET_TODOS })
+      .todos;
+    <span class="hljs-keyword">const</span> newTodos = [...oldTodos, reply.data.createTodo];
+    cache.writeQuery({
+      <span class="hljs-attr">query</span>: GET_TODOS,
+      <span class="hljs-attr">data</span>: { <span class="hljs-attr">todos</span>: newTodos },
+    });
+  },
+});
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Queries - Fortgeschritten</h1>
 </section><section class="slide"><h2>Standardwerte für Variablen</h2>
 <pre><code class="language-graphql">query getPokemonByName($name: String = "Pikachu") {
@@ -2549,183 +2841,7 @@ fragment essentialData on Pokemon {
   maxHP
   image
 }
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Datentypen</h1>
-</section><section class="slide"><h2>Datentypen</h2>
-<p>Bei GraphQL sind die zurückgegebenen Datentypen immer bekannt.</p>
-</section><section class="slide"><h2>Datentypen</h2>
-<p>verfügbare Typen:</p>
-<ul>
-<li>Boolean</li>
-<li>Int: 32-bit int (signed)</li>
-<li>Float: 64-bit Gleitkommazahl</li>
-<li>String: UTF-8 Zeichenkette</li>
-<li>ID: Eindeutige ID als String</li>
-<li>Object: Objekt mit vordefinierten Einträgen</li>
-<li>List: Liste, die bestimmte andere Typen beinhaltet</li>
-</ul>
-</section></section><section class="slides-section"><section class="slide"><h1>GraphQL mit reinem JavaScript</h1>
-</section><section class="slide"><h2>Senden von Queries an den Server</h2>
-<p>Queries werden mittesl POST-Requests gesendet</p>
-<p>Payload ist ein JSON-Objekt mit einer <code>query</code> string property (auch bei Mutationen) und optional einer <code>variables</code> property.</p>
-</section><section class="slide"><h2>Senden von Queries an den Server</h2>
-<p>Testen aus der Browserkonsole (wir müssen uns auf der gleichen Seite befinden):</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> requestBody = {
-  <span class="hljs-attr">query</span>:
-    <span class="hljs-string">'mutation addTodo($title: String!) { add(title: $title) { id } }'</span>,
-  <span class="hljs-attr">variables</span>: <span class="hljs-string">'{"title": "test"}'</span>,
-};
-
-<span class="hljs-keyword">const</span> requestBodyStr = <span class="hljs-built_in">JSON</span>.stringify(requestBody);
-
-fetch(<span class="hljs-string">'https://todo-mongo-graphql-server.herokuapp.com'</span>, {
-  <span class="hljs-attr">method</span>: <span class="hljs-string">'POST'</span>,
-  <span class="hljs-attr">headers</span>: { <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span> },
-  <span class="hljs-attr">body</span>: requestBodyStr,
-}).then(<span class="hljs-built_in">console</span>.log);
-</code></pre>
-</section><section class="slide"><h2>Beispiel: reddit API</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> queryTemplate = <span class="hljs-string">`
-{
-  reddit {
-    subreddit(name: "javascript") {
-      newListings(limit: 2) {
-        title
-      }
-    }
-  }
-}`</span>;
-</code></pre>
-</section><section class="slide"><h2>Beispiel: reddit API</h2>
-<pre><code class="hljs language-js">fetch(<span class="hljs-string">'https://www.graphqlhub.com/graphql'</span>, {
-  <span class="hljs-attr">method</span>: <span class="hljs-string">'POST'</span>,
-  <span class="hljs-attr">headers</span>: {
-    <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span>,
-    <span class="hljs-attr">Accept</span>: <span class="hljs-string">'application/json'</span>,
-  },
-  <span class="hljs-attr">body</span>: <span class="hljs-built_in">JSON</span>.stringify({ <span class="hljs-attr">query</span>: queryTemplate }),
-})
-  .then(<span class="hljs-function"><span class="hljs-params">r</span> =></span> r.json())
-  .then(<span class="hljs-function"><span class="hljs-params">data</span> =></span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'data returned:'</span>, data));
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Apollo Client</h1>
-</section><section class="slide"><h2>Apollo Client</h2>
-<p><a href="https://www.apollographql.com/docs/react/">https://www.apollographql.com/docs/react/</a></p>
-</section><section class="slide"><h2>Apollo Client</h2>
-<p>Gründe für die Verwendung:</p>
-<ul>
-<li>Automatisches senden von Queries über das Netzwerk</li>
-<li>Automatisches caching</li>
-<li>Automatische Einbindung in das (Re)rendering von React</li>
-</ul>
-</section><section class="slide"><h2>Installation</h2>
-<p>Benötigte npm-Pakete:</p>
-<ul>
-<li><code>graphl</code></li>
-<li><code>graphql-tag</code></li>
-<li><code>apollo-client</code></li>
-<li><code>apollo-cache-inmemory</code></li>
-<li><code>apollo-link-http</code></li>
-<li><code>react-apollo</code> (für Verwendung mit React)</li>
-</ul>
-<p>Das Paket <code>apollo-boost</code> beinhaltet <code>apollo-client</code>, <code>apollo-cache-inmemory</code>, <code>apollo-link-http</code> (und mehr)</p>
-</section><section class="slide"><h2>Setup</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { ApolloClient } <span class="hljs-keyword">from</span> <span class="hljs-string">'apollo-client'</span>;
-<span class="hljs-keyword">import</span> { InMemoryCache } <span class="hljs-keyword">from</span> <span class="hljs-string">'apollo-cache-inmemory'</span>;
-<span class="hljs-keyword">import</span> { HttpLink } <span class="hljs-keyword">from</span> <span class="hljs-string">'apollo-link-http'</span>;
-<span class="hljs-keyword">import</span> gql <span class="hljs-keyword">from</span> <span class="hljs-string">'graphql-tag'</span>;
-
-<span class="hljs-keyword">const</span> cache = <span class="hljs-keyword">new</span> InMemoryCache();
-<span class="hljs-keyword">const</span> link = <span class="hljs-keyword">new</span> HttpLink({
-  <span class="hljs-attr">uri</span>: <span class="hljs-string">'https://api.spacex.land/graphql/'</span>,
-});
-
-<span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> ApolloClient({
-  cache,
-  link,
-});
-</code></pre>
-</section><section class="slide"><h2>Beispiel für eine Abfrage</h2>
-<pre><code class="hljs language-js"><span class="hljs-comment">// via a tagged template string</span>
-<span class="hljs-keyword">const</span> LAUNCHES_QUERY = gql<span class="hljs-string">`
-  query recentLaunches {
-    launchesPast(limit: 10) {
-      mission_name
-    }
-  }
-`</span>;
-
-client
-  .query({
-    <span class="hljs-attr">query</span>: LAUNCHES_QUERY,
-  })
-  .then(<span class="hljs-function"><span class="hljs-params">result</span> =></span> <span class="hljs-built_in">console</span>.log(result));
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Apollo client mit React</h1>
-</section><section class="slide"><h2>React mit einem Apollo Client verbinden</h2>
-<p>Eine Anwendung kommuniziert meist mit einem einzigen API</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { ApolloProvider } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-apollo'</span>;
-</code></pre>
-<pre><code class="hljs language-jsx">&#x3C;ApolloProvider client={client}>
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">App</span> /></span>
-<span class="hljs-tag">&#x3C;/<span class="hljs-name">ApolloProvider</span>></span></span>
-</code></pre>
-</section><section class="slide"><h2>Definition einer Query</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> LAUNCHES_QUERY = gql<span class="hljs-string">`
-  query recentLaunches {
-    launchesPast(limit: 10) {
-      mission_name
-    }
-  }
-`</span>;
-</code></pre>
-</section><section class="slide"><h2>useQuery</h2>
-<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">RecentLaunches</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">const</span> { data, loading, error } = useQuery(LAUNCHES_QUERY);
-  <span class="hljs-keyword">if</span> (loading) <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>Loading...<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
-  <span class="hljs-keyword">if</span> (error) <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>Error!<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
-
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
-      </span>&#x3C;h1>Launches&#x3C;/h1><span class="xml">
-      {data.launchesPast.map(launch => (
-        </span>&#x3C;div>{launch.mission_name}&#x3C;/div><span class="xml">
-      ))}
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
-  );
-}
-</code></pre>
-</section><section class="slide"><h2>useQuery: Parameter</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> LAUNCHES_QUERY = gql<span class="hljs-string">`
-  query recentLaunches($numLaunches: ) {
-    launchesPast(limit: $numLaunches) {
-      mission_name
-    }
-  }
-`</span>;
-
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">RecentLaunches</span>(<span class="hljs-params">{ numLaunches }</span>) </span>{
-  <span class="hljs-keyword">const</span> { data, loading, error } = useQuery(
-    LAUNCHES_QUERY,
-    { <span class="hljs-attr">variables</span>: { numLaunches } }
-  );
-  ...
-}
-</code></pre>
-</section><section class="slide"><h2>useQuery: Polling &#x26; Refetching</h2>
-<p>Daten alle 5 Sekunden aktualisieren:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> { data, loading, error } = useQuery(LAUNCHES_QUERY, {
-  <span class="hljs-attr">pollInterval</span>: <span class="hljs-number">5000</span>,
-});
-</code></pre>
-<p>Funktion, deren Aufruf ein neues Laden der Daten bewirkt:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> { data, loading, error, refetch } = useQuery(
-  LAUNCHES_QUERY
-);
-...
-refetch()
-</code></pre>
-</section><section class="slide"><h2>useMutation</h2></section></section></div>
+</code></pre></section></section></div>
     </div>
     <script>/*!
  * reveal.js

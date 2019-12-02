@@ -2,14 +2,30 @@
 
 ## GraphQL API examples
 
-from https://github.com/APIs-guru/graphql-apis:
+from [https://github.com/APIs-guru/graphql-apis](https://github.com/APIs-guru/graphql-apis):
 
 - GitHub (login required)
 - Reddit (GraphQL Hub)
 - GraphQL Pokémon (second entry!)
 - Star Wars
 - SpaceX Land
-- FakeQL: Mock APIs
+- FakeQL: customizable mock APIs
+
+## FakeQL
+
+[https://fakeql.com/](https://fakeql.com/)
+
+template for simple todos on FakeQL:
+
+```json
+{
+  "todos": [
+    { "id": 1, "title": "Go shopping", "completed": true },
+    { "id": 49, "title": "Do taxes", "completed": false },
+    { "id": 50, "title": "Do dishes", "completed": false }
+  ]
+}
+```
 
 ## GraphiQL explorer
 
@@ -94,7 +110,7 @@ query getFirstThree {
 }
 ```
 
-Note: specifying a _first_ parameter is possible because it's implemented on the server-side. It's not part of the GraphQL standard. GraphQL _may_ also implement other arbitrary parameters like _orderBy_ or _matchRegex_, but this is all up to the server.
+Note: The server-side implementation determines the set of supported parameters (e.g. _first_, _orderBy_, ...)
 
 ## Query parameters: exercises
 
@@ -103,7 +119,7 @@ Note: specifying a _first_ parameter is possible because it's implemented on the
 
 ## Required and optional parameters
 
-Required parameters are marked with a `!`. These must always be included. Similarly, returned attributes that will always be present (like `id`) will be marked in the same way.
+Required parameters are marked with a `!`. Returned attributes that will always be present (like `id`) are marked in the same way.
 
 ## Variables
 

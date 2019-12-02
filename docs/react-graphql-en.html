@@ -2259,12 +2259,12 @@ try Subscriptions
 <pre><code class="language-graphql">query {
   user(id: "my-username") {
     posts {
-      name
+      title
     }
   }
 }
 </code></pre>
-<pre><code class="hljs language-sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">name</span>
+<pre><code class="hljs language-sql"><span class="hljs-keyword">SELECT</span> post.title
   <span class="hljs-keyword">FROM</span> <span class="hljs-keyword">user</span>
   <span class="hljs-keyword">INNER</span> <span class="hljs-keyword">JOIN</span> post <span class="hljs-keyword">ON</span> user.id = post.userId
   <span class="hljs-keyword">WHERE</span> user.id = <span class="hljs-string">"my-username"</span>
@@ -2288,8 +2288,19 @@ try Subscriptions
 <li>GraphQL Pokémon (second entry!)</li>
 <li>Star Wars</li>
 <li>SpaceX Land</li>
-<li>FakeQL: Mock APIs</li>
+<li>FakeQL: customizable mock APIs</li>
 </ul>
+</section><section class="slide"><h2>FakeQL</h2>
+<p><a href="https://fakeql.com/">https://fakeql.com/</a></p>
+<p>template for simple todos on FakeQL:</p>
+<pre><code class="hljs language-json">{
+  <span class="hljs-attr">"todos"</span>: [
+    { <span class="hljs-attr">"id"</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Go shopping"</span>, <span class="hljs-attr">"completed"</span>: <span class="hljs-literal">true</span> },
+    { <span class="hljs-attr">"id"</span>: <span class="hljs-number">49</span>, <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Do taxes"</span>, <span class="hljs-attr">"completed"</span>: <span class="hljs-literal">false</span> },
+    { <span class="hljs-attr">"id"</span>: <span class="hljs-number">50</span>, <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Do dishes"</span>, <span class="hljs-attr">"completed"</span>: <span class="hljs-literal">false</span> }
+  ]
+}
+</code></pre>
 </section><section class="slide"><h2>GraphiQL explorer</h2>
 <p>Graph<em>i</em>QL: Browser-based explorer for GraphQL APIs</p>
 <ul>
@@ -2355,14 +2366,14 @@ try Subscriptions
   }
 }
 </code></pre>
-<p>Note: specifying a <em>first</em> parameter is possible because it's implemented on the server-side. It's not part of the GraphQL standard. GraphQL <em>may</em> also implement other arbitrary parameters like <em>orderBy</em> or <em>matchRegex</em>, but this is all up to the server.</p>
+<p>Note: The server-side implementation determines the set of supported parameters (e.g. <em>first</em>, <em>orderBy</em>, ...)</p>
 </section><section class="slide"><h2>Query parameters: exercises</h2>
 <ul>
 <li>get the name, weight and classification of Pikachu</li>
 <li>get the name and weight of the first three pokémon</li>
 </ul>
 </section><section class="slide"><h2>Required and optional parameters</h2>
-<p>Required parameters are marked with a <code>!</code>. These must always be included. Similarly, returned attributes that will always be present (like <code>id</code>) will be marked in the same way.</p>
+<p>Required parameters are marked with a <code>!</code>. Returned attributes that will always be present (like <code>id</code>) are marked in the same way.</p>
 </section><section class="slide"><h2>Variables</h2>
 <p>query:</p>
 <pre><code class="language-graphql">query getPokemonByName($name: String) {
@@ -2469,85 +2480,6 @@ try Subscriptions
 </section><section class="slide"><h2>Task: loading Todos from a GraphQL API</h2>
 <p>Load todos from <code>https://5qn401kkl9.lp.gql.zone/graphql</code></p>
 <p>(admin: <a href="https://launchpad.graphql.com/5qn401kkl9">https://launchpad.graphql.com/5qn401kkl9</a>)</p>
-</section></section><section class="slides-section"><section class="slide"><h1>Queries - Advanced</h1>
-</section><section class="slide"><h2>Default variable valuess</h2>
-<pre><code class="language-graphql">query getPokemonByName($name: String = "Pikachu") {
-  pokemon(name: $name) {
-    number
-    image
-  }
-}
-</code></pre>
-</section><section class="slide"><h2>Aliases</h2>
-<p>Task: number of Pikachu and Raichu</p>
-</section><section class="slide"><h2>Aliases</h2>
-<p>This cannot be done the way we know:</p>
-<pre><code class="language-graphql">query getTwo {
-  pokemon(name: "Pikachu") {
-    number
-  }
-  pokemon(name: "Raichu") {
-    number
-  }
-}
-</code></pre>
-</section><section class="slide"><h2>Aliases</h2>
-<p>Why does this not work? The result would look like this:</p>
-<pre><code class="hljs language-json">{
-  <span class="hljs-attr">"data"</span>: {
-    <span class="hljs-attr">"pokemon"</span>: {
-      <span class="hljs-attr">"number"</span>: <span class="hljs-string">"025"</span>
-    },
-    <span class="hljs-attr">"pokemon"</span>: {
-      <span class="hljs-attr">"number"</span>: <span class="hljs-string">"026"</span>
-    }
-  }
-}
-</code></pre>
-<p>Note the duplicate key: <code>pokemon</code>!</p>
-</section><section class="slide"><h2>Aliases</h2>
-<p>In order to avoid this problem we use aliases:</p>
-<pre><code class="language-graphql">query getTwo {
-  pokemon1: pokemon(name: "Pikachu") {
-    number
-  }
-  pokemon2: pokemon(name: "Raichu") {
-    number
-  }
-}
-</code></pre>
-</section><section class="slide"><h2>Aliases</h2>
-<p>response:</p>
-<pre><code class="hljs language-json">{
-  <span class="hljs-attr">"data"</span>: {
-    <span class="hljs-attr">"pokemon1"</span>: {
-      <span class="hljs-attr">"number"</span>: <span class="hljs-string">"025"</span>
-    },
-    <span class="hljs-attr">"pokemon2"</span>: {
-      <span class="hljs-attr">"number"</span>: <span class="hljs-string">"026"</span>
-    }
-  }
-}
-</code></pre>
-</section><section class="slide"><h2>Fragments</h2>
-<p>Task: get the number, maxHP and image of Pikachu and Raichu</p>
-</section><section class="slide"><h2>Fragments</h2>
-<pre><code class="language-graphql">query getTwo {
-  pokemon1: pokemon(name: "Pikachu") {
-    ...essentialData
-  }
-  pokemon2: pokemon(name: "Raichu") {
-    ...essentialData
-    id
-  }
-}
-
-fragment essentialData on Pokemon {
-  number
-  maxHP
-  image
-}
-</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Data types</h1>
 </section><section class="slide"><h2>Data types</h2>
 <p>With GraphQL the returned data types are always known to the client.</p>
@@ -2654,12 +2586,53 @@ fetch(<span class="hljs-string">'https://todo-mongo-graphql-server.herokuapp.com
 `</span>;
 
 client
-  .query({
-    <span class="hljs-attr">query</span>: LAUNCHES_QUERY,
-  })
+  .query({ <span class="hljs-attr">query</span>: LAUNCHES_QUERY })
   .then(<span class="hljs-function"><span class="hljs-params">result</span> =></span> <span class="hljs-built_in">console</span>.log(result));
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Apollo client with React</h1>
+</section><section class="slide"><h2>Local data</h2>
+<p>Apollo can also manage local data / local state</p>
+<p>Querying local state:</p>
+<ul>
+<li>via the <code>@client</code> directive in GraphQL queries</li>
+</ul>
+<p>Setting local state:</p>
+<ul>
+<li>via <code>client.writeData</code> for simple cases</li>
+<li>via the <code>@client</code> directive in GraphQL mutations; and local resolvers</li>
+</ul>
+</section><section class="slide"><h2>Local data</h2>
+<p>Simple version: setting local state directly (similar to React's <code>setState</code>):</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> client = useApolloClient();
+
+client.writeData({ <span class="hljs-attr">data</span>: { <span class="hljs-attr">inputText</span>: <span class="hljs-string">''</span> } });
+</code></pre>
+</section><section class="slide"><h2>Local data</h2>
+<p>local resolvers for mutations:</p>
+<p><a href="https://www.apollographql.com/docs/react/data/local-state/#local-resolvers">https://www.apollographql.com/docs/react/data/local-state/#local-resolvers</a></p>
+</section><section class="slide"><h2>Local data</h2>
+<p>Querying local state (via <code>@client</code>):</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> INPUT_TEXT_QUERY = gql<span class="hljs-string">`
+  query {
+    inputText @client
+  }
+`</span>;
+
+client
+  .query({ <span class="hljs-attr">query</span>: INPUT_TEXT_QUERY })
+  .then(<span class="hljs-function"><span class="hljs-params">result</span> =></span> <span class="hljs-built_in">console</span>.log(result));
+</code></pre>
+</section><section class="slide"><h2>Apollo Client Developer Tools</h2>
+<p>extension for Chrome</p>
+<p>unreliable according to reviews (3.2 / 5 stars)</p>
+<p>functionality:</p>
+<ul>
+<li>view the current cache</li>
+<li>inspect the structure of queries / mutations</li>
+<li>execute queries (and mutations)</li>
+</ul>
+</section></section><section class="slides-section"><section class="slide"><h1>Apollo client and React</h1>
+</section><section class="slide"><h2>Apollo client and React</h2>
+<p><a href="https://www.apollographql.com/docs/react/data/queries/">https://www.apollographql.com/docs/react/data/queries/</a></p>
 </section><section class="slide"><h2>Connecting React to an Apollo client</h2>
 <p>An application usually communicates with only one GraphQL API</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { ApolloProvider } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-apollo'</span>;
@@ -2723,7 +2696,150 @@ client
 ...
 refetch()
 </code></pre>
-</section><section class="slide"><h2>useMutation</h2></section></section></div>
+</section><section class="slide"><h2>useMutation</h2>
+<p>Example for todos:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> SET_COMPLETED = gql<span class="hljs-string">`
+  mutation SetCompleted($id: ID!, $completed: Boolean!) {
+    updateTodo(id: $id, input: { completed: $completed }) {
+      id
+      completed
+    }
+  }
+`</span>;
+</code></pre>
+</section><section class="slide"><h2>useMutation</h2>
+<p>basic usage:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> [setCompleted] = useMutation(SET_COMPLETED);
+</code></pre>
+<p>extended version (cf. <code>useState</code>):</p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> [
+  setCompleted,
+  { data, loading, error },
+] = useMutation(SET_COMPLETED);
+</code></pre>
+<p>state is changed first on the server and then locally</p>
+</section><section class="slide"><h2>useMutation</h2>
+<p>update of the local cache:</p>
+<ul>
+<li><strong>automatic</strong> if an existing object is updated</li>
+<li><strong>manual</strong> if entries are added to / removed from an array</li>
+</ul>
+</section><section class="slide"><h2>useMutation: manual cache updates</h2>
+<p>accessing the cache and the reply inside the <code>update</code> function:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [addTodo] = useMutation(ADD_TODO, {
+  <span class="hljs-attr">update</span>: <span class="hljs-function">(<span class="hljs-params">cache, reply</span>) =></span> {
+    <span class="hljs-comment">// cache: local cache</span>
+    <span class="hljs-comment">// reply: reply from the API</span>
+    <span class="hljs-built_in">console</span>.log(cache);
+    <span class="hljs-built_in">console</span>.log(reply);
+    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> update the local cache based on the reply</span>
+  },
+});
+</code></pre>
+</section><section class="slide"><h2>useMutation: manual cache updates</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [addTodo] = useMutation(ADD_TODO, {
+  <span class="hljs-attr">update</span>: <span class="hljs-function">(<span class="hljs-params">cache, reply</span>) =></span> {
+    <span class="hljs-comment">// get old todos from cache</span>
+    <span class="hljs-keyword">const</span> oldTodos = cache.readQuery({ <span class="hljs-attr">query</span>: GET_TODOS })
+      .todos;
+    <span class="hljs-comment">// build newTodos array based on the server response</span>
+    <span class="hljs-keyword">const</span> newTodos = [...oldTodos, reply.data.createTodo];
+    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> update the local cache with the newTodos array</span>
+  },
+});
+</code></pre>
+</section><section class="slide"><h2>useMutation: manual cache updates</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [addTodo] = useMutation(ADD_TODO, {
+  <span class="hljs-attr">update</span>: <span class="hljs-function">(<span class="hljs-params">cache, reply</span>) =></span> {
+    <span class="hljs-keyword">const</span> oldTodos = cache.readQuery({ <span class="hljs-attr">query</span>: GET_TODOS })
+      .todos;
+    <span class="hljs-keyword">const</span> newTodos = [...oldTodos, reply.data.createTodo];
+    cache.writeQuery({
+      <span class="hljs-attr">query</span>: GET_TODOS,
+      <span class="hljs-attr">data</span>: { <span class="hljs-attr">todos</span>: newTodos },
+    });
+  },
+});
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Queries - Advanced</h1>
+</section><section class="slide"><h2>Default variable valuess</h2>
+<pre><code class="language-graphql">query getPokemonByName($name: String = "Pikachu") {
+  pokemon(name: $name) {
+    number
+    image
+  }
+}
+</code></pre>
+</section><section class="slide"><h2>Aliases</h2>
+<p>Task: number of Pikachu and Raichu</p>
+</section><section class="slide"><h2>Aliases</h2>
+<p>This cannot be done the way we know:</p>
+<pre><code class="language-graphql">query getTwo {
+  pokemon(name: "Pikachu") {
+    number
+  }
+  pokemon(name: "Raichu") {
+    number
+  }
+}
+</code></pre>
+</section><section class="slide"><h2>Aliases</h2>
+<p>Why does this not work? The result would look like this:</p>
+<pre><code class="hljs language-json">{
+  <span class="hljs-attr">"data"</span>: {
+    <span class="hljs-attr">"pokemon"</span>: {
+      <span class="hljs-attr">"number"</span>: <span class="hljs-string">"025"</span>
+    },
+    <span class="hljs-attr">"pokemon"</span>: {
+      <span class="hljs-attr">"number"</span>: <span class="hljs-string">"026"</span>
+    }
+  }
+}
+</code></pre>
+<p>Note the duplicate key: <code>pokemon</code>!</p>
+</section><section class="slide"><h2>Aliases</h2>
+<p>In order to avoid this problem we use aliases:</p>
+<pre><code class="language-graphql">query getTwo {
+  pokemon1: pokemon(name: "Pikachu") {
+    number
+  }
+  pokemon2: pokemon(name: "Raichu") {
+    number
+  }
+}
+</code></pre>
+</section><section class="slide"><h2>Aliases</h2>
+<p>response:</p>
+<pre><code class="hljs language-json">{
+  <span class="hljs-attr">"data"</span>: {
+    <span class="hljs-attr">"pokemon1"</span>: {
+      <span class="hljs-attr">"number"</span>: <span class="hljs-string">"025"</span>
+    },
+    <span class="hljs-attr">"pokemon2"</span>: {
+      <span class="hljs-attr">"number"</span>: <span class="hljs-string">"026"</span>
+    }
+  }
+}
+</code></pre>
+</section><section class="slide"><h2>Fragments</h2>
+<p>Task: get the number, maxHP and image of Pikachu and Raichu</p>
+</section><section class="slide"><h2>Fragments</h2>
+<pre><code class="language-graphql">query getTwo {
+  pokemon1: pokemon(name: "Pikachu") {
+    ...essentialData
+  }
+  pokemon2: pokemon(name: "Raichu") {
+    ...essentialData
+    id
+  }
+}
+
+fragment essentialData on Pokemon {
+  number
+  maxHP
+  image
+}
+</code></pre></section></section></div>
     </div>
     <script>/*!
  * reveal.js

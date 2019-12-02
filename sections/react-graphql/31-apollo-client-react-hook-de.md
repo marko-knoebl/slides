@@ -1,4 +1,8 @@
-# Apollo client mit React
+# Apollo Client mit React
+
+## Apollo Client mit React
+
+[https://www.apollographql.com/docs/react/data/queries/](https://www.apollographql.com/docs/react/data/queries/)
 
 ## React mit einem Apollo Client verbinden
 
@@ -86,3 +90,89 @@ refetch()
 ```
 
 ## useMutation
+
+Beispielfall Todo:
+
+```js
+const SET_COMPLETED = gql`
+  mutation SetCompleted($id: ID!, $completed: Boolean!) {
+    updateTodo(id: $id, input: { completed: $completed }) {
+      id
+      completed
+    }
+  }
+`;
+```
+
+## useMutation
+
+Gundlegende Verwendung:
+
+```jsx
+const [setCompleted] = useMutation(SET_COMPLETED);
+```
+
+Ausführliche Form (vgl. `useState`):
+
+```jsx
+const [
+  setCompleted,
+  { data, loading, error },
+] = useMutation(SET_COMPLETED);
+```
+
+Der State wird am Server und danach auch lokal entsprechend abgeändert
+
+## useMutation
+
+Update des lokalen Caches:
+
+- **automatisch**, falls ein zuvor existierendes Objekt geändert wurde
+- **manuell**, falls Objekte in einem Array hinzugefügt / entfernt wurden
+
+## useMutation: manuelles Update des Caches
+
+Zugriff auf cache und API-Antwort in der `update`-Funktion:
+
+```js
+const [addTodo] = useMutation(ADD_TODO, {
+  update: (cache, reply) => {
+    // cache: local cache
+    // reply: reply from the API
+    console.log(cache);
+    console.log(reply);
+    // TODO: update the local cache based on the reply
+  },
+});
+```
+
+## useMutation: manuelles Update des Caches
+
+```js
+const [addTodo] = useMutation(ADD_TODO, {
+  update: (cache, reply) => {
+    // get old todos from cache
+    const oldTodos = cache.readQuery({ query: GET_TODOS })
+      .todos;
+    // build newTodos array based on the server response
+    const newTodos = [...oldTodos, reply.data.createTodo];
+    // TODO: update the local cache with the newTodos array
+  },
+});
+```
+
+## useMutation: manuelles Update des Caches
+
+```js
+const [addTodo] = useMutation(ADD_TODO, {
+  update: (cache, reply) => {
+    const oldTodos = cache.readQuery({ query: GET_TODOS })
+      .todos;
+    const newTodos = [...oldTodos, reply.data.createTodo];
+    cache.writeQuery({
+      query: GET_TODOS,
+      data: { todos: newTodos },
+    });
+  },
+});
+```

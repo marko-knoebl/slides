@@ -1,4 +1,8 @@
-# Apollo client with React
+# Apollo client and React
+
+## Apollo client and React
+
+[https://www.apollographql.com/docs/react/data/queries/](https://www.apollographql.com/docs/react/data/queries/)
 
 ## Connecting React to an Apollo client
 
@@ -86,3 +90,89 @@ refetch()
 ```
 
 ## useMutation
+
+Example for todos:
+
+```js
+const SET_COMPLETED = gql`
+  mutation SetCompleted($id: ID!, $completed: Boolean!) {
+    updateTodo(id: $id, input: { completed: $completed }) {
+      id
+      completed
+    }
+  }
+`;
+```
+
+## useMutation
+
+basic usage:
+
+```jsx
+const [setCompleted] = useMutation(SET_COMPLETED);
+```
+
+extended version (cf. `useState`):
+
+```jsx
+const [
+  setCompleted,
+  { data, loading, error },
+] = useMutation(SET_COMPLETED);
+```
+
+state is changed first on the server and then locally
+
+## useMutation
+
+update of the local cache:
+
+- **automatic** if an existing object is updated
+- **manual** if entries are added to / removed from an array
+
+## useMutation: manual cache updates
+
+accessing the cache and the reply inside the `update` function:
+
+```js
+const [addTodo] = useMutation(ADD_TODO, {
+  update: (cache, reply) => {
+    // cache: local cache
+    // reply: reply from the API
+    console.log(cache);
+    console.log(reply);
+    // TODO: update the local cache based on the reply
+  },
+});
+```
+
+## useMutation: manual cache updates
+
+```js
+const [addTodo] = useMutation(ADD_TODO, {
+  update: (cache, reply) => {
+    // get old todos from cache
+    const oldTodos = cache.readQuery({ query: GET_TODOS })
+      .todos;
+    // build newTodos array based on the server response
+    const newTodos = [...oldTodos, reply.data.createTodo];
+    // TODO: update the local cache with the newTodos array
+  },
+});
+```
+
+## useMutation: manual cache updates
+
+```js
+const [addTodo] = useMutation(ADD_TODO, {
+  update: (cache, reply) => {
+    const oldTodos = cache.readQuery({ query: GET_TODOS })
+      .todos;
+    const newTodos = [...oldTodos, reply.data.createTodo];
+    cache.writeQuery({
+      query: GET_TODOS,
+      data: { todos: newTodos },
+    });
+  },
+});
+```

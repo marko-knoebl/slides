@@ -326,14 +326,14 @@ GraphQL: already knows about relationships when the query is issued → simpler 
 query {
   user(id: "my-username") {
     posts {
-      name
+      title
     }
   }
 }
 ```
 
 ```sql
-SELECT name
+SELECT post.title
   FROM user
   INNER JOIN post ON user.id = post.userId
   WHERE user.id = "my-username"
@@ -357,14 +357,30 @@ SELECT name
 
 ## GraphQL API examples
 
-from https://github.com/APIs-guru/graphql-apis:
+from [https://github.com/APIs-guru/graphql-apis](https://github.com/APIs-guru/graphql-apis):
 
 - GitHub (login required)
 - Reddit (GraphQL Hub)
 - GraphQL Pokémon (second entry!)
 - Star Wars
 - SpaceX Land
-- FakeQL: Mock APIs
+- FakeQL: customizable mock APIs
+
+## FakeQL
+
+[https://fakeql.com/](https://fakeql.com/)
+
+template for simple todos on FakeQL:
+
+```json
+{
+  "todos": [
+    { "id": 1, "title": "Go shopping", "completed": true },
+    { "id": 49, "title": "Do taxes", "completed": false },
+    { "id": 50, "title": "Do dishes", "completed": false }
+  ]
+}
+```
 
 ## GraphiQL explorer
 
@@ -449,7 +465,7 @@ query getFirstThree {
 }
 ```
 
-Note: specifying a _first_ parameter is possible because it's implemented on the server-side. It's not part of the GraphQL standard. GraphQL _may_ also implement other arbitrary parameters like _orderBy_ or _matchRegex_, but this is all up to the server.
+Note: The server-side implementation determines the set of supported parameters (e.g. _first_, _orderBy_, ...)
 
 ## Query parameters: exercises
 
@@ -458,7 +474,7 @@ Note: specifying a _first_ parameter is possible because it's implemented on the
 
 ## Required and optional parameters
 
-Required parameters are marked with a `!`. These must always be included. Similarly, returned attributes that will always be present (like `id`) will be marked in the same way.
+Required parameters are marked with a `!`. Returned attributes that will always be present (like `id`) are marked in the same way.
 
 ## Variables
 
@@ -602,113 +618,6 @@ Load todos from `https://5qn401kkl9.lp.gql.zone/graphql`
 
 (admin: https://launchpad.graphql.com/5qn401kkl9)
 
-# Queries - Advanced
-
-## Default variable valuess
-
-```graphql
-query getPokemonByName($name: String = "Pikachu") {
-  pokemon(name: $name) {
-    number
-    image
-  }
-}
-```
-
-## Aliases
-
-Task: number of Pikachu and Raichu
-
-## Aliases
-
-This cannot be done the way we know:
-
-```graphql
-query getTwo {
-  pokemon(name: "Pikachu") {
-    number
-  }
-  pokemon(name: "Raichu") {
-    number
-  }
-}
-```
-
-## Aliases
-
-Why does this not work? The result would look like this:
-
-```json
-{
-  "data": {
-    "pokemon": {
-      "number": "025"
-    },
-    "pokemon": {
-      "number": "026"
-    }
-  }
-}
-```
-
-Note the duplicate key: `pokemon`!
-
-## Aliases
-
-In order to avoid this problem we use aliases:
-
-```graphql
-query getTwo {
-  pokemon1: pokemon(name: "Pikachu") {
-    number
-  }
-  pokemon2: pokemon(name: "Raichu") {
-    number
-  }
-}
-```
-
-## Aliases
-
-response:
-
-```json
-{
-  "data": {
-    "pokemon1": {
-      "number": "025"
-    },
-    "pokemon2": {
-      "number": "026"
-    }
-  }
-}
-```
-
-## Fragments
-
-Task: get the number, maxHP and image of Pikachu and Raichu
-
-## Fragments
-
-```graphql
-query getTwo {
-  pokemon1: pokemon(name: "Pikachu") {
-    ...essentialData
-  }
-  pokemon2: pokemon(name: "Raichu") {
-    ...essentialData
-    id
-  }
-}
-
-fragment essentialData on Pokemon {
-  number
-  maxHP
-  image
-}
-```
-
 # Data types
 
 ## Data types
@@ -844,13 +753,72 @@ const LAUNCHES_QUERY = gql`
 `;
 
 client
-  .query({
-    query: LAUNCHES_QUERY,
-  })
+  .query({ query: LAUNCHES_QUERY })
   .then(result => console.log(result));
 ```
 
-# Apollo client with React
+## Local data
+
+Apollo can also manage local data / local state
+
+Querying local state:
+
+- via the `@client` directive in GraphQL queries
+
+Setting local state:
+
+- via `client.writeData` for simple cases
+- via the `@client` directive in GraphQL mutations; and local resolvers
+
+## Local data
+
+Simple version: setting local state directly (similar to React's `setState`):
+
+```js
+const client = useApolloClient();
+
+client.writeData({ data: { inputText: '' } });
+```
+
+## Local data
+
+local resolvers for mutations:
+
+[https://www.apollographql.com/docs/react/data/local-state/#local-resolvers](https://www.apollographql.com/docs/react/data/local-state/#local-resolvers)
+
+## Local data
+
+Querying local state (via `@client`):
+
+```js
+const INPUT_TEXT_QUERY = gql`
+  query {
+    inputText @client
+  }
+`;
+
+client
+  .query({ query: INPUT_TEXT_QUERY })
+  .then(result => console.log(result));
+```
+
+## Apollo Client Developer Tools
+
+extension for Chrome
+
+unreliable according to reviews (3.2 / 5 stars)
+
+functionality:
+
+- view the current cache
+- inspect the structure of queries / mutations
+- execute queries (and mutations)
+
+# Apollo client and React
+
+## Apollo client and React
+
+[https://www.apollographql.com/docs/react/data/queries/](https://www.apollographql.com/docs/react/data/queries/)
 
 ## Connecting React to an Apollo client
 
@@ -938,4 +906,197 @@ refetch()
 ```
 
 ## useMutation
+
+Example for todos:
+
+```js
+const SET_COMPLETED = gql`
+  mutation SetCompleted($id: ID!, $completed: Boolean!) {
+    updateTodo(id: $id, input: { completed: $completed }) {
+      id
+      completed
+    }
+  }
+`;
+```
+
+## useMutation
+
+basic usage:
+
+```jsx
+const [setCompleted] = useMutation(SET_COMPLETED);
+```
+
+extended version (cf. `useState`):
+
+```jsx
+const [
+  setCompleted,
+  { data, loading, error },
+] = useMutation(SET_COMPLETED);
+```
+
+state is changed first on the server and then locally
+
+## useMutation
+
+update of the local cache:
+
+- **automatic** if an existing object is updated
+- **manual** if entries are added to / removed from an array
+
+## useMutation: manual cache updates
+
+accessing the cache and the reply inside the `update` function:
+
+```js
+const [addTodo] = useMutation(ADD_TODO, {
+  update: (cache, reply) => {
+    // cache: local cache
+    // reply: reply from the API
+    console.log(cache);
+    console.log(reply);
+    // TODO: update the local cache based on the reply
+  },
+});
+```
+
+## useMutation: manual cache updates
+
+```js
+const [addTodo] = useMutation(ADD_TODO, {
+  update: (cache, reply) => {
+    // get old todos from cache
+    const oldTodos = cache.readQuery({ query: GET_TODOS })
+      .todos;
+    // build newTodos array based on the server response
+    const newTodos = [...oldTodos, reply.data.createTodo];
+    // TODO: update the local cache with the newTodos array
+  },
+});
+```
+
+## useMutation: manual cache updates
+
+```js
+const [addTodo] = useMutation(ADD_TODO, {
+  update: (cache, reply) => {
+    const oldTodos = cache.readQuery({ query: GET_TODOS })
+      .todos;
+    const newTodos = [...oldTodos, reply.data.createTodo];
+    cache.writeQuery({
+      query: GET_TODOS,
+      data: { todos: newTodos },
+    });
+  },
+});
+```
+
+# Queries - Advanced
+
+## Default variable valuess
+
+```graphql
+query getPokemonByName($name: String = "Pikachu") {
+  pokemon(name: $name) {
+    number
+    image
+  }
+}
+```
+
+## Aliases
+
+Task: number of Pikachu and Raichu
+
+## Aliases
+
+This cannot be done the way we know:
+
+```graphql
+query getTwo {
+  pokemon(name: "Pikachu") {
+    number
+  }
+  pokemon(name: "Raichu") {
+    number
+  }
+}
+```
+
+## Aliases
+
+Why does this not work? The result would look like this:
+
+```json
+{
+  "data": {
+    "pokemon": {
+      "number": "025"
+    },
+    "pokemon": {
+      "number": "026"
+    }
+  }
+}
+```
+
+Note the duplicate key: `pokemon`!
+
+## Aliases
+
+In order to avoid this problem we use aliases:
+
+```graphql
+query getTwo {
+  pokemon1: pokemon(name: "Pikachu") {
+    number
+  }
+  pokemon2: pokemon(name: "Raichu") {
+    number
+  }
+}
+```
+
+## Aliases
+
+response:
+
+```json
+{
+  "data": {
+    "pokemon1": {
+      "number": "025"
+    },
+    "pokemon2": {
+      "number": "026"
+    }
+  }
+}
+```
+
+## Fragments
+
+Task: get the number, maxHP and image of Pikachu and Raichu
+
+## Fragments
+
+```graphql
+query getTwo {
+  pokemon1: pokemon(name: "Pikachu") {
+    ...essentialData
+  }
+  pokemon2: pokemon(name: "Raichu") {
+    ...essentialData
+    id
+  }
+}
+
+fragment essentialData on Pokemon {
+  number
+  maxHP
+  image
+}
+```
 

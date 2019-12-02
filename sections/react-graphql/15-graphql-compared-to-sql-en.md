@@ -37,14 +37,14 @@ GraphQL: already knows about relationships when the query is issued → simpler 
 query {
   user(id: "my-username") {
     posts {
-      name
+      title
     }
   }
 }
 ```
 
 ```sql
-SELECT name
+SELECT post.title
   FROM user
   INNER JOIN post ON user.id = post.userId
   WHERE user.id = "my-username"
