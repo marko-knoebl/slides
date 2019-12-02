@@ -2778,9 +2778,17 @@ it('renders a component tree without crashing', () => {
 </section><section class="slide"><h2>Test setup</h2>
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
 <span class="hljs-keyword">import</span> <span class="hljs-string">'@testing-library/jest-dom/extend-expect'</span>;
-<span class="hljs-keyword">import</span> { render, fireEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">'@testing-library/react'</span>;
+<span class="hljs-keyword">import</span> {
+  render,
+  fireEvent,
+  cleanup,
+} <span class="hljs-keyword">from</span> <span class="hljs-string">'@testing-library/react'</span>;
 
 <span class="hljs-keyword">import</span> Rating <span class="hljs-keyword">from</span> <span class="hljs-string">'./Rating'</span>;
+
+afterEach(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  cleanup();
+});
 </code></pre>
 </section><section class="slide"><h2>Testing the rendering</h2>
 <pre><code class="hljs language-jsx">it(<span class="hljs-string">'renders three full stars'</span>, () => {
