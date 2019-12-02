@@ -4,7 +4,7 @@ Testing a Rating component
 
 ## Test setup
 
-```tsx
+```jsx
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
 
@@ -57,9 +57,7 @@ describe('errors', () => {
     const testFn = () => {
       TestRenderer.create(<Rating stars={0} />);
     };
-    expect(testFn).toThrow(
-      'number of stars must be 1-5'
-    );
+    expect(testFn).toThrow('number of stars must be 1-5');
   });
 });
 ```

@@ -777,9 +777,8 @@ afterEach(() => {
 ## Test renderers for React
 
 - `react-test-renderer` (developed by the React team)
-- `Enzyme` (developed by Airbnb)
-
-Enzyme does not yet support React hooks
+- `react-testing-library` (subproject of _testing library_, first published in mid-2019)
+- `Enzyme` (no support for React hooks yet)
 
 ## React-Test-Renderer - installation
 
@@ -812,6 +811,53 @@ it('renders a component without crashing', () => {
 - `instance.props`
 - `instance.children`
 - `instance.type`
+
+## React-Testing-Library - Installation
+
+```bash
+npm install --save-dev @testing-library/react
+```
+
+recommended additional assertions for jest:
+
+```bash
+npm install --save-dev @testing-library/jest-dom
+```
+
+## React-Testing-Library - Example
+
+```js
+import { render } from '@testing-library/react';
+
+it('renders a component without crashing', () => {
+  const instance = render(<MyComponent />);
+});
+```
+
+## React-Testing-Library - Querying elements
+
+- `.getByText` (throws if there is not a unique match)
+- `.getAllByText` (throws if there are no matches)
+- `.queryByText`
+- `.queryAllByText`
+- ... (see [https://testing-library.com/docs/dom-testing-library/api-queries](https://testing-library.com/docs/dom-testing-library/api-queries))
+
+## React-Testing-Library - advanced asserts for Jest
+
+activate via:
+
+```js
+import '@testing-library/jest-dom/extend-expect';
+```
+
+examples:
+
+- `.toBeInTheDocument()`
+- `.toContainHTML()`
+- `.toHaveClass()`
+- ...
+
+see [https://github.com/testing-library/jest-dom](https://github.com/testing-library/jest-dom)
 
 ## Enzyme - Installation & Setup
 
@@ -852,7 +898,7 @@ Testing a Rating component
 
 ## Test setup
 
-```tsx
+```jsx
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
 
@@ -905,10 +951,60 @@ describe('errors', () => {
     const testFn = () => {
       TestRenderer.create(<Rating stars={0} />);
     };
-    expect(testFn).toThrow(
-      'number of stars must be 1-5'
-    );
+    expect(testFn).toThrow('number of stars must be 1-5');
   });
+});
+```
+
+# Example: Testing with Jest and React Testing Library
+
+Testing a rating component
+
+## Test setup
+
+```js
+import React from 'react';
+import '@testing-library/jest-dom/extend-expect';
+import { render, fireEvent } from '@testing-library/react';
+
+import Rating from './Rating';
+```
+
+## Testing the rendering
+
+```jsx
+it('renders three full stars', () => {
+  const instance = render(<Rating stars={3} />);
+  const fullStars = instance.getAllByText('★');
+  expect(fullStars).toHaveLength(3);
+  for (let fullStar of fullStars) {
+    expect(fullStar).toHaveClass('active');
+  }
+});
+```
+
+## Testing events
+
+```jsx
+it('reacts to click on the fourth star', () => {
+  const mockFn = jest.fn();
+  const instance = render(
+    <Rating stars={3} onStarsChange={mockFn} />
+  );
+  const firstEmptyStar = instance.getAllByText('☆')[0];
+  fireEvent.click(firstEmptyStar);
+  expect(mockFn).toHaveBeenCalledWith(4);
+});
+```
+
+## Testing errors
+
+```jsx
+it('throws an error if the number of stars is 0', () => {
+  const testFn = () => {
+    render(<Rating stars={0} />);
+  };
+  expect(testFn).toThrow('number of stars must be 1-5');
 });
 ```
 

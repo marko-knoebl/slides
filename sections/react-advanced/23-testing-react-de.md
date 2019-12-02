@@ -3,9 +3,8 @@
 ## Test Renderer für React
 
 - `react-test-renderer` (vom React Team entwickelt)
-- `Enzyme` (von Airbnb entwickelt)
-
-Enzyme bietet noch keine Unterstützung für Hooks
+- `react-testing-library` (Unterprojekt von _Testing Library_, Erstveröffentlichung Mitte 2019)
+- `Enzyme` (bietet noch keine Unterstützung für Hooks)
 
 ## React-Test-Renderer - Installation
 
@@ -38,6 +37,53 @@ it('renders a component without crashing', () => {
 - `instance.props`
 - `instance.children`
 - `instance.type`
+
+## React-Testing-Library - Installation
+
+```bash
+npm install --save-dev @testing-library/react
+```
+
+empfohlene zusätzliche Assertions für Jest:
+
+```bash
+npm install --save-dev @testing-library/jest-dom
+```
+
+## React-Testing-Library - Beispiel
+
+```js
+import { render } from '@testing-library/react';
+
+it('renders a component without crashing', () => {
+  const instance = render(<MyComponent />);
+});
+```
+
+## React-Testing-Library - Elemente abfragen
+
+- `.getByText` (wirft Exception, wenn es keinen eindeutigen Match gibt)
+- `.getAllByText` (wirft Exception, wenn es keine Matches gibt)
+- `.queryByText`
+- `.queryAllByText`
+- ... (siehe [https://testing-library.com/docs/dom-testing-library/api-queries](https://testing-library.com/docs/dom-testing-library/api-queries))
+
+## React-Testing-Library - erweiterte asserts für Jest
+
+einsetzbar mittels:
+
+```js
+import '@testing-library/jest-dom/extend-expect';
+```
+
+Beispiele:
+
+- `.toBeInTheDocument()`
+- `.toContainHTML()`
+- `.toHaveClass()`
+- ...
+
+siehe [https://github.com/testing-library/jest-dom](https://github.com/testing-library/jest-dom)
 
 ## Enzyme - Installation & Einrichtung
 
