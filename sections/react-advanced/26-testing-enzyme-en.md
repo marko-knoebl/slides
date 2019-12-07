@@ -1,8 +1,43 @@
-# Beispiel: Testen mit Jest und Enzyme
+# Enzyme
 
-Testen einer Rating-Komponente
+## Enzyme - Installation & Setup
 
-## Beispiel: Testen einer Rating-Komponente
+```
+npm install --save-dev enzyme enzyme-adapter-react-16
+```
+
+new file `src/setupTests.js`:
+
+```js
+import { configure } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+
+configure({ adapter: new Adapter() });
+```
+
+## Enzyme - Examples
+
+```jsx
+import { shallow, mount } from 'enzyme';
+
+it('renders a component without crashing', () => {
+  const wrapper = shallow(<MyComponent />);
+});
+
+it('renders a component tree without crashing', () => {
+  const wrapper = mount(<MyComponent />);
+});
+```
+
+## Enzyme - Cheatsheet
+
+https://devhints.io/enzyme
+
+## Example: testing a rating component
+
+With jest and enzyme
+
+## Example: testing a rating component
 
 ```jsx
 import React from 'react';
@@ -11,7 +46,7 @@ import { shallow, mount } from 'enzyme';
 import Rating from './Rating';
 ```
 
-## Beispiel: Testen einer Rating-Komponente
+## Example: testing a rating component
 
 ```jsx
 describe('rendering', () => {
@@ -27,7 +62,7 @@ describe('rendering', () => {
 });
 ```
 
-## Beispiel: Testen einer Rating-Komponente
+## Example: testing a rating component
 
 ```jsx
 describe('rendering', () => {
@@ -44,12 +79,12 @@ describe('rendering', () => {
 });
 ```
 
-## Beispiel: Testen einer Rating-Komponente
+## Example: testing a rating component
 
 ```jsx
 describe('events', () => {
   it('reacts to click on first star', () => {
-    const mockFn = jest.fn();
+    const mockFn = fn();
     const wrapper = mount(
       <Rating stars={3} onStarsChange={mockFn} />
     );
@@ -62,9 +97,9 @@ describe('events', () => {
 });
 ```
 
-## Beispiel: Testen einer Rating-Komponente
+## Example: testing a rating component
 
-Testen einer (hypothetischen) Rating-Komponente, die ihren eigenen internen State hat:
+Testing a (hypothetical) rating component that has its own internal state:
 
 ```jsx
 describe('events', () => {
@@ -79,7 +114,7 @@ describe('events', () => {
 });
 ```
 
-## Beispiel: Testen einer Rating-Komponente
+## Example: testing a rating component
 
 ```jsx
 describe('errors', () => {

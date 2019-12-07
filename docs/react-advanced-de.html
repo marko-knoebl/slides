@@ -2643,13 +2643,23 @@ afterEach(<span class="hljs-function"><span class="hljs-params">()</span> =></sp
   clearTestDB();
 });
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Testen von React-Anwendungen</h1>
+</section></section><section class="slides-section"><section class="slide"><h1>Testen von React-Komponenten</h1>
+</section><section class="slide"><h2>Testen von React-Komponenten</h2>
+<p>was kann getestet werden:</p>
+<ul>
+<li>Rendering</li>
+<li>Auslösen von Events</li>
+<li>Änderungen am State</li>
+</ul>
 </section><section class="slide"><h2>Test Renderer für React</h2>
 <ul>
 <li><code>react-test-renderer</code> (vom React Team entwickelt)</li>
 <li><code>react-testing-library</code> (Unterprojekt von <em>Testing Library</em>, Erstveröffentlichung Mitte 2019)</li>
 <li><code>Enzyme</code> (bietet noch keine Unterstützung für Hooks)</li>
 </ul>
+</section><section class="slide"><h2>Snapshot Tests</h2>
+<p>Komponenten werden gerendert und mit früheren Versionen (Snapshots) verglichen</p>
+</section></section><section class="slides-section"><section class="slide"><h1>React-Test-Renderer</h1>
 </section><section class="slide"><h2>React-Test-Renderer - Installation</h2>
 <pre><code class="hljs language-bash">npm install --save-dev react-test-renderer
 </code></pre>
@@ -2666,69 +2676,16 @@ it(<span class="hljs-string">'renders a component without crashing'</span>, () =
 </span></code></pre>
 </section><section class="slide"><h2>React-Test-Renderer - mit Instanzen arbeiten</h2>
 <ul>
-<li><code>instance.find(All)</code></li>
+<li><code>instance.find(All)</code> (erhält eine Testfunktion als Argument)</li>
 <li><code>instance.find(All)ByType</code></li>
 <li><code>instance.find(All)ByProps</code></li>
 <li><code>instance.props</code></li>
 <li><code>instance.children</code></li>
 <li><code>instance.type</code></li>
 </ul>
-</section><section class="slide"><h2>React-Testing-Library - Installation</h2>
-<pre><code class="hljs language-bash">npm install --save-dev @testing-library/react
-</code></pre>
-<p>empfohlene zusätzliche Assertions für Jest:</p>
-<pre><code class="hljs language-bash">npm install --save-dev @testing-library/jest-dom
-</code></pre>
-</section><section class="slide"><h2>React-Testing-Library - Beispiel</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { render } <span class="hljs-keyword">from</span> <span class="hljs-string">'@testing-library/react'</span>;
-
-it(<span class="hljs-string">'renders a component without crashing'</span>, () => {
-  <span class="hljs-keyword">const</span> instance = render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">MyComponent</span> /></span>);
-});
-</span></code></pre>
-</section><section class="slide"><h2>React-Testing-Library - Elemente abfragen</h2>
-<ul>
-<li><code>.getByText</code> (wirft Exception, wenn es keinen eindeutigen Match gibt)</li>
-<li><code>.getAllByText</code> (wirft Exception, wenn es keine Matches gibt)</li>
-<li><code>.queryByText</code></li>
-<li><code>.queryAllByText</code></li>
-<li>... (siehe <a href="https://testing-library.com/docs/dom-testing-library/api-queries">https://testing-library.com/docs/dom-testing-library/api-queries</a>)</li>
-</ul>
-</section><section class="slide"><h2>React-Testing-Library - erweiterte asserts für Jest</h2>
-<p>einsetzbar mittels:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> <span class="hljs-string">'@testing-library/jest-dom/extend-expect'</span>;
-</code></pre>
-<p>Beispiele:</p>
-<ul>
-<li><code>.toBeInTheDocument()</code></li>
-<li><code>.toContainHTML()</code></li>
-<li><code>.toHaveClass()</code></li>
-<li>...</li>
-</ul>
-<p>siehe <a href="https://github.com/testing-library/jest-dom">https://github.com/testing-library/jest-dom</a></p>
-</section><section class="slide"><h2>Enzyme - Installation &#x26; Einrichtung</h2>
-<pre><code class="hljs language-bash">npm install --save-dev enzyme enzyme-adapter-react-16
-</code></pre>
-<p>neue Datei <code>src/setupTests.js</code>:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { configure } <span class="hljs-keyword">from</span> <span class="hljs-string">'enzyme'</span>;
-<span class="hljs-keyword">import</span> Adapter <span class="hljs-keyword">from</span> <span class="hljs-string">'enzyme-adapter-react-16'</span>;
-
-configure({ <span class="hljs-attr">adapter</span>: <span class="hljs-keyword">new</span> Adapter() });
-</code></pre>
-</section><section class="slide"><h2>Enzyme - Beispiele</h2>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> { shallow, mount } <span class="hljs-keyword">from</span> <span class="hljs-string">'enzyme'</span>;
-
-it(<span class="hljs-string">'renders a component without crashing'</span>, () => {
-  <span class="hljs-keyword">const</span> wrapper = shallow(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">MyComponent</span> /></span>);
-});
-
-it('renders a component tree without crashing', () => {
-  const wrapper = mount(</span>&#x3C;MyComponent /><span class="xml">);
-});
-</span></code></pre>
-</section><section class="slide"><h2>Enzyme - Cheatsheet</h2>
-<p><a href="https://devhints.io/enzyme">https://devhints.io/enzyme</a></p>
-</section></section><section class="slides-section"><section class="slide"><h1>Beispiel: Testen mit Jest und React Test Renderer</h1>
+</section><section class="slide"><h2>React-Test-Renderer - API</h2>
+<p><a href="https://reactjs.org/docs/test-renderer.html">https://reactjs.org/docs/test-renderer.html</a></p>
+</section><section class="slide"><h2>Beispiel: Testen mit Jest und React-Test-Renderer</h2>
 <p>Testen einer Rating Komponente</p>
 </section><section class="slide"><h2>Test-Setup</h2>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
@@ -2778,7 +2735,44 @@ it('renders a component tree without crashing', () => {
   });
 });
 </span></code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Beispiel: Testen mit Jest und React Testing Library</h1>
+</section></section><section class="slides-section"><section class="slide"><h1>React-Testing-Library</h1>
+</section><section class="slide"><h2>Testing-Library</h2>
+<p><strong>Testing-Library</strong>: Projekt zum Testen von UI Komponenten (u.a. React)</p>
+<p>Fokus der Tests liegt auf Aspekten, die für den Endnutzer relevant sind (nicht so sehr auf der genauen DOM-Struktur)</p>
+</section><section class="slide"><h2>React-Testing-Library - Installation</h2>
+<pre><code class="hljs language-bash">npm install --save-dev @testing-library/react
+</code></pre>
+<p>empfohlene zusätzliche Assertions für Jest:</p>
+<pre><code class="hljs language-bash">npm install --save-dev @testing-library/jest-dom
+</code></pre>
+</section><section class="slide"><h2>React-Testing-Library - Beispiel</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { render } <span class="hljs-keyword">from</span> <span class="hljs-string">'@testing-library/react'</span>;
+
+it(<span class="hljs-string">'renders a component without crashing'</span>, () => {
+  <span class="hljs-keyword">const</span> instance = render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">MyComponent</span> /></span>);
+});
+</span></code></pre>
+</section><section class="slide"><h2>React-Testing-Library - Elemente abfragen</h2>
+<ul>
+<li><code>.getByText</code> (wirft Exception, wenn es keinen eindeutigen Match gibt)</li>
+<li><code>.getAllByText</code> (wirft Exception, wenn es keine Matches gibt)</li>
+<li><code>.queryByText</code></li>
+<li><code>.queryAllByText</code></li>
+<li>... (siehe <a href="https://testing-library.com/docs/dom-testing-library/api-queries">https://testing-library.com/docs/dom-testing-library/api-queries</a>)</li>
+</ul>
+</section><section class="slide"><h2>React-Testing-Library - erweiterte asserts für Jest</h2>
+<p>einsetzbar mittels:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> <span class="hljs-string">'@testing-library/jest-dom/extend-expect'</span>;
+</code></pre>
+<p>Beispiele:</p>
+<ul>
+<li><code>.toBeInTheDocument()</code></li>
+<li><code>.toContainHTML()</code></li>
+<li><code>.toHaveClass()</code></li>
+<li>...</li>
+</ul>
+<p>siehe <a href="https://github.com/testing-library/jest-dom">https://github.com/testing-library/jest-dom</a></p>
+</section><section class="slide"><h2>Beispiel: Testen mit Jest und React Testing Library</h2>
 <p>Testen einer Rating Komponente</p>
 </section><section class="slide"><h2>Test-Setup</h2>
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
@@ -2824,7 +2818,30 @@ afterEach(<span class="hljs-function"><span class="hljs-params">()</span> =></sp
   expect(testFn).toThrow('number of stars must be 1-5');
 });
 </span></code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Beispiel: Testen mit Jest und Enzyme</h1>
+</section></section><section class="slides-section"><section class="slide"><h1>Enzyme</h1>
+</section><section class="slide"><h2>Enzyme - Installation &#x26; Einrichtung</h2>
+<pre><code class="hljs language-bash">npm install --save-dev enzyme enzyme-adapter-react-16
+</code></pre>
+<p>neue Datei <code>src/setupTests.js</code>:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { configure } <span class="hljs-keyword">from</span> <span class="hljs-string">'enzyme'</span>;
+<span class="hljs-keyword">import</span> Adapter <span class="hljs-keyword">from</span> <span class="hljs-string">'enzyme-adapter-react-16'</span>;
+
+configure({ <span class="hljs-attr">adapter</span>: <span class="hljs-keyword">new</span> Adapter() });
+</code></pre>
+</section><section class="slide"><h2>Enzyme - Beispiele</h2>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> { shallow, mount } <span class="hljs-keyword">from</span> <span class="hljs-string">'enzyme'</span>;
+
+it(<span class="hljs-string">'renders a component without crashing'</span>, () => {
+  <span class="hljs-keyword">const</span> wrapper = shallow(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">MyComponent</span> /></span>);
+});
+
+it('renders a component tree without crashing', () => {
+  const wrapper = mount(</span>&#x3C;MyComponent /><span class="xml">);
+});
+</span></code></pre>
+</section><section class="slide"><h2>Enzyme - Cheatsheet</h2>
+<p><a href="https://devhints.io/enzyme">https://devhints.io/enzyme</a></p>
+</section><section class="slide"><h2>Beispiel: Testen mit Jest und Enzyme</h2>
 <p>Testen einer Rating-Komponente</p>
 </section><section class="slide"><h2>Beispiel: Testen einer Rating-Komponente</h2>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
@@ -2907,11 +2924,11 @@ afterEach(<span class="hljs-function"><span class="hljs-params">()</span> =></sp
 </section><section class="slide"><h2>Snapshot Tests in React - Tests erstellen</h2>
 <pre><code class="hljs language-jsx"><span class="hljs-comment">// Rating.test.js</span>
 <span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+<span class="hljs-keyword">import</span> TestRenderer <span class="hljs-keyword">from</span> <span class="hljs-string">'react-test-renderer'</span>;
 <span class="hljs-keyword">import</span> Rating <span class="hljs-keyword">from</span> <span class="hljs-string">'./Rating.js'</span>;
-<span class="hljs-keyword">import</span> renderer <span class="hljs-keyword">from</span> <span class="hljs-string">'react-test-renderer'</span>;
 
 it(<span class="hljs-string">'renders correctly'</span>, () => {
-  <span class="hljs-keyword">const</span> tree = renderer
+  <span class="hljs-keyword">const</span> tree = TestRenderer
     .create(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Rating</span> <span class="hljs-attr">stars</span>=<span class="hljs-string">{2}</span> /></span>)
     .toJSON();
   expect(tree).toMatchSnapshot();

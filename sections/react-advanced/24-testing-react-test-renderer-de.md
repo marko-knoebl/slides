@@ -1,8 +1,46 @@
-# Example: Testing with Jest and React Test Renderer
+# React-Test-Renderer
 
-Testing a Rating component
+## React-Test-Renderer - Installation
 
-## Test setup
+```bash
+npm install --save-dev react-test-renderer
+```
+
+für TypeScript:
+
+```bash
+npm install --save-dev react-test-renderer @types/react-test-renderer
+```
+
+## React-Test-Renderer - Beispiel
+
+```js
+import TestRenderer from 'react-test-renderer';
+
+it('renders a component without crashing', () => {
+  const instance = TestRenderer.create(<MyComponent />)
+    .root;
+});
+```
+
+## React-Test-Renderer - mit Instanzen arbeiten
+
+- `instance.find(All)` (erhält eine Testfunktion als Argument)
+- `instance.find(All)ByType`
+- `instance.find(All)ByProps`
+- `instance.props`
+- `instance.children`
+- `instance.type`
+
+## React-Test-Renderer - API
+
+[https://reactjs.org/docs/test-renderer.html](https://reactjs.org/docs/test-renderer.html)
+
+## Beispiel: Testen mit Jest und React-Test-Renderer
+
+Testen einer Rating Komponente
+
+## Test-Setup
 
 ```jsx
 import React from 'react';
@@ -11,7 +49,7 @@ import TestRenderer from 'react-test-renderer';
 import Rating from './Rating';
 ```
 
-## Testing the rendering
+## Testen des Renderings
 
 ```jsx
 describe('rendering', () => {
@@ -33,7 +71,7 @@ describe('rendering', () => {
 });
 ```
 
-## Testing events
+## Testen von Events
 
 ```jsx
 describe('events', () => {
@@ -49,7 +87,7 @@ describe('events', () => {
 });
 ```
 
-## Testing exceptions
+## Testen von Fehlern
 
 ```jsx
 describe('errors', () => {

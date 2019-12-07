@@ -13,18 +13,18 @@ Snapshot tests are a kind of regression tests
 ```jsx
 // Rating.test.js
 import React from 'react';
+import TestRenderer from 'react-test-renderer';
 import Rating from './Rating.js';
-import renderer from 'react-test-renderer';
 
 it('renders correctly', () => {
-  const tree = renderer
+  const tree = TestRenderer
     .create(<Rating stars={2} />)
     .toJSON();
   expect(tree).toMatchSnapshot();
 });
 ```
 
-## updating snapshot tests
+## Updating snapshot tests
 
 Once we have changed and and verified the behaviour of a component we can update the corresponding tests accordingly:
 

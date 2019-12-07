@@ -772,13 +772,27 @@ afterEach(() => {
 });
 ```
 
-# Testing React
+# Testing React components
+
+## Testing React components
+
+what to test:
+
+- rendering
+- triggering events
+- changing state
 
 ## Test renderers for React
 
 - `react-test-renderer` (developed by the React team)
 - `react-testing-library` (subproject of _testing library_, first published in mid-2019)
 - `Enzyme` (no support for React hooks yet)
+
+## Snapshot Tests
+
+Components are rendered and compared to earlier versions (snapshots)
+
+# React-Test-Renderer
 
 ## React-Test-Renderer - installation
 
@@ -805,94 +819,18 @@ it('renders a component without crashing', () => {
 
 ## React-Test-Renderer - working with instances
 
-- `instance.find(All)`
+- `instance.find(All)` (receives a test function as an argument)
 - `instance.find(All)ByType`
 - `instance.find(All)ByProps`
 - `instance.props`
 - `instance.children`
 - `instance.type`
 
-## React-Testing-Library - Installation
+## React-Test-Renderer - API reference
 
-```bash
-npm install --save-dev @testing-library/react
-```
+[https://reactjs.org/docs/test-renderer.html](https://reactjs.org/docs/test-renderer.html)
 
-recommended additional assertions for jest:
-
-```bash
-npm install --save-dev @testing-library/jest-dom
-```
-
-## React-Testing-Library - Example
-
-```js
-import { render } from '@testing-library/react';
-
-it('renders a component without crashing', () => {
-  const instance = render(<MyComponent />);
-});
-```
-
-## React-Testing-Library - Querying elements
-
-- `.getByText` (throws if there is not a unique match)
-- `.getAllByText` (throws if there are no matches)
-- `.queryByText`
-- `.queryAllByText`
-- ... (see [https://testing-library.com/docs/dom-testing-library/api-queries](https://testing-library.com/docs/dom-testing-library/api-queries))
-
-## React-Testing-Library - advanced asserts for Jest
-
-activate via:
-
-```js
-import '@testing-library/jest-dom/extend-expect';
-```
-
-examples:
-
-- `.toBeInTheDocument()`
-- `.toContainHTML()`
-- `.toHaveClass()`
-- ...
-
-see [https://github.com/testing-library/jest-dom](https://github.com/testing-library/jest-dom)
-
-## Enzyme - Installation & Setup
-
-```
-npm install --save-dev enzyme enzyme-adapter-react-16
-```
-
-new file `src/setupTests.js`:
-
-```js
-import { configure } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-
-configure({ adapter: new Adapter() });
-```
-
-## Enzyme - Examples
-
-```jsx
-import { shallow, mount } from 'enzyme';
-
-it('renders a component without crashing', () => {
-  const wrapper = shallow(<MyComponent />);
-});
-
-it('renders a component tree without crashing', () => {
-  const wrapper = mount(<MyComponent />);
-});
-```
-
-## Enzyme - Cheatsheet
-
-https://devhints.io/enzyme
-
-# Example: Testing with Jest and React Test Renderer
+## Example: Testing with Jest and React-Test-Renderer
 
 Testing a Rating component
 
@@ -956,7 +894,62 @@ describe('errors', () => {
 });
 ```
 
-# Example: Testing with Jest and React Testing Library
+# React-Testing-Library
+
+## Testing-Library
+
+**Testing-Library**: project for testing UI components
+
+tests focus on aspects that are relevant for the end user (an not on the exact DOM structure)
+
+## React-Testing-Library - Installation
+
+```bash
+npm install --save-dev @testing-library/react
+```
+
+recommended additional assertions for Jest:
+
+```bash
+npm install --save-dev @testing-library/jest-dom
+```
+
+## React-Testing-Library - Example
+
+```js
+import { render } from '@testing-library/react';
+
+it('renders a component without crashing', () => {
+  const instance = render(<MyComponent />);
+});
+```
+
+## React-Testing-Library - Querying elements
+
+- `.getByText` (throws if there is not a unique match)
+- `.getAllByText` (throws if there are no matches)
+- `.queryByText`
+- `.queryAllByText`
+- ... (see [https://testing-library.com/docs/dom-testing-library/api-queries](https://testing-library.com/docs/dom-testing-library/api-queries))
+
+## React-Testing-Library - advanced asserts for Jest
+
+activate via:
+
+```js
+import '@testing-library/jest-dom/extend-expect';
+```
+
+examples:
+
+- `.toBeInTheDocument()`
+- `.toContainHTML()`
+- `.toHaveClass()`
+- ...
+
+see [https://github.com/testing-library/jest-dom](https://github.com/testing-library/jest-dom)
+
+## Example: Testing with Jest and React Testing Library
 
 Testing a rating component
 
@@ -1016,7 +1009,42 @@ it('throws an error if the number of stars is 0', () => {
 });
 ```
 
-# Example: testing a rating component
+# Enzyme
+
+## Enzyme - Installation & Setup
+
+```
+npm install --save-dev enzyme enzyme-adapter-react-16
+```
+
+new file `src/setupTests.js`:
+
+```js
+import { configure } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+
+configure({ adapter: new Adapter() });
+```
+
+## Enzyme - Examples
+
+```jsx
+import { shallow, mount } from 'enzyme';
+
+it('renders a component without crashing', () => {
+  const wrapper = shallow(<MyComponent />);
+});
+
+it('renders a component tree without crashing', () => {
+  const wrapper = mount(<MyComponent />);
+});
+```
+
+## Enzyme - Cheatsheet
+
+https://devhints.io/enzyme
+
+## Example: testing a rating component
 
 With jest and enzyme
 
@@ -1127,18 +1155,18 @@ Snapshot tests are a kind of regression tests
 ```jsx
 // Rating.test.js
 import React from 'react';
+import TestRenderer from 'react-test-renderer';
 import Rating from './Rating.js';
-import renderer from 'react-test-renderer';
 
 it('renders correctly', () => {
-  const tree = renderer
+  const tree = TestRenderer
     .create(<Rating stars={2} />)
     .toJSON();
   expect(tree).toMatchSnapshot();
 });
 ```
 
-## updating snapshot tests
+## Updating snapshot tests
 
 Once we have changed and and verified the behaviour of a component we can update the corresponding tests accordingly:
 

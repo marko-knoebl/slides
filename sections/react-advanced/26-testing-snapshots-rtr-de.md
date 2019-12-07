@@ -13,11 +13,11 @@ Snapshot Tests fallen unter Regressionstests.
 ```jsx
 // Rating.test.js
 import React from 'react';
+import TestRenderer from 'react-test-renderer';
 import Rating from './Rating.js';
-import renderer from 'react-test-renderer';
 
 it('renders correctly', () => {
-  const tree = renderer
+  const tree = TestRenderer
     .create(<Rating stars={2} />)
     .toJSON();
   expect(tree).toMatchSnapshot();
