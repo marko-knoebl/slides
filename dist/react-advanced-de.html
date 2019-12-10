@@ -2064,7 +2064,18 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Hooks</h1>
 </section><section class="slide"><h2>Hooks</h2>
-<p>Hooks: Erweiterung von funktionalen Komponenten; erlauben die Verwendung von state und anderen Features ohne Klassen</p>
+<p>Hooks: Erweiterung von Funktionskomponenten</p>
+<p>Eine <em>einfache</em> Funktionskomponente kann Inhalte basierend auf ihren Props rendern und Events auslösen.</p>
+<p>Hooks erlauben erweiterte Funktionalität, z.B. internen State in einer Komponente oder das "Lauschen" auf Events aus dem Komponentenlebenszyklus</p>
+</section><section class="slide"><h2>Hooks</h2>
+<p>Hooks sind spezielle Funktionen, die am Beginn einer Komponentendefinition aufgerufen werden können</p>
+<p>Beispiele:</p>
+<ul>
+<li><code>useState(...)</code></li>
+<li><code>useEffect(...)</code></li>
+<li><code>useContext(...)</code></li>
+<li>...</li>
+</ul>
 </section><section class="slide"><h2>Hooks</h2>
 <blockquote>
 <p>"In the longer term, we expect Hooks to be the primary way people write React components."</p>
@@ -2956,6 +2967,97 @@ Inspect your code changes or press `u` to update them.
 </code></pre>
 </section><section class="slide"><h2>Storybook</h2>
 <p>Konfiguration via <code>.storybook/config.js</code></p>
+</section></section><section class="slides-section"><section class="slide"><h1>Externe Hooks</h1>
+</section><section class="slide"><h2>Externe Hooks</h2>
+<p>Viele zusätzliche Hooks werden von der React-Community entwickelt</p>
+<p>Einsatzgebiete z.B.:</p>
+<ul>
+<li>Abfragen von APIs</li>
+<li>Verwenden von globalem State</li>
+<li>Verwenden von <em>localStorage</em> für den state</li>
+<li>Media Queries</li>
+<li>Abfrage der Scrollposition</li>
+<li>... (siehe <a href="https://github.com/rehooks/awesome-react-hooks">awesome-react-hooks</a>)</li>
+</ul>
+</section><section class="slide"><h2>Beispiel: react-query</h2>
+<p><a href="https://github.com/tannerlinsley/react-query">https://github.com/tannerlinsley/react-query</a></p>
+<p>Viel genutzter Hook, der beim Abfragen von APIs hilfreich sein kann</p>
+</section><section class="slide"><h2>Beispiel: react-query</h2>
+<p>Einfache Verwendung:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> TodoDisplay = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  <span class="hljs-keyword">const</span> { todoData, isLoading } = useQuery(
+    <span class="hljs-string">'todo_1'</span>,
+    fetch(
+      <span class="hljs-string">'https://jsonplaceholder.typicode.com/todos/1'</span>
+    ).then(<span class="hljs-function"><span class="hljs-params">response</span> =></span> response.json())
+  );
+  <span class="hljs-keyword">if</span> (isLoading) {
+    <span class="hljs-keyword">return</span> <span class="hljs-string">'Loading...'</span>;
+  }
+  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>{todoData.title}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+};
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Eigene Hooks</h1>
+</section><section class="slide"><h2>Eigene Hooks</h2>
+<p>Eigene hooks können als Funktionen definiert werden; sie nutzen intern oft vorhandene Hooks, z.B. <code>useState</code> oder <code>useEffect</code></p>
+</section><section class="slide"><h2>Eigene Hooks - useDate</h2>
+<p>Beispiel: <code>useDate</code> - stellt hier die aktuelle Uhrzeit bereit und aktualisiert die Komponente alle 1000 Millisekunden</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> Clock = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  <span class="hljs-keyword">const</span> time = useDate(<span class="hljs-number">1000</span>);
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>The time is: {time.toLocaleTimeString()}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+  );
+};
+</code></pre>
+</section><section class="slide"><h2>Eigene Hooks - useDate</h2>
+<p>Einfache Implementierung von <code>useDate</code>:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> useDate = <span class="hljs-function"><span class="hljs-params">interval</span> =></span> {
+  <span class="hljs-keyword">const</span> [date, setDate] = useState(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>());
+  useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+    setInterval(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+      setDate(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>());
+    }, interval);
+  });
+  <span class="hljs-keyword">return</span> date;
+};
+</code></pre>
+</section><section class="slide"><h2>Eigene Hooks - useJsonQuery</h2>
+<p>Beispiel: <code>useJsonQuery</code> - ermöglicht das Abrufen von JSON-Daten</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> TodoDemo = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  <span class="hljs-keyword">const</span> { data, error, isFetching } = useJsonQuery(
+    <span class="hljs-string">'https://jsonplaceholder.typicode.com/todos'</span>
+  );
+  <span class="hljs-keyword">if</span> (error) <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>Could not fetch data<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+  <span class="hljs-keyword">if</span> (isFetching) <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>Fetching...<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+      {data.map(todo => (
+        </span>&#x3C;div>{todo.title}&#x3C;/div><span class="xml">
+      ))}
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+  );
+};
+</code></pre>
+</section><section class="slide"><h2>Eigene Hooks - useJsonQuery</h2>
+<p>einfache Implementierung:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> useJsonQuery = <span class="hljs-function"><span class="hljs-params">url</span> =></span> {
+  <span class="hljs-keyword">const</span> [isFetching, setIsFetching] = useState(<span class="hljs-literal">true</span>);
+  <span class="hljs-keyword">const</span> [data, setData] = useState(<span class="hljs-literal">null</span>);
+  <span class="hljs-keyword">const</span> [error, setError] = useState(<span class="hljs-literal">false</span>);
+  useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+    setIsFetching(<span class="hljs-literal">true</span>);
+    setError(<span class="hljs-literal">false</span>);
+    fetch(url)
+      .then(<span class="hljs-function"><span class="hljs-params">response</span> =></span> response.text())
+      .then(<span class="hljs-function"><span class="hljs-params">responseText</span> =></span> {
+        setData(responseText);
+        setIsFetching(<span class="hljs-literal">false</span>);
+      })
+      .catch(<span class="hljs-function"><span class="hljs-params">()</span> =></span> setError(<span class="hljs-literal">true</span>));
+  }, [url]);
+  <span class="hljs-keyword">return</span> { data, error, isFetching };
+};
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>React Router</h1>
 </section><section class="slide"><h2>React Router</h2>
 <p><a href="https://reacttraining.com/react-router/">https://reacttraining.com/react-router/</a></p>

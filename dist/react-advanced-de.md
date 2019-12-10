@@ -34,7 +34,22 @@ Marko Knöbl
 
 ## Hooks
 
-Hooks: Erweiterung von funktionalen Komponenten; erlauben die Verwendung von state und anderen Features ohne Klassen
+Hooks: Erweiterung von Funktionskomponenten
+
+Eine _einfache_ Funktionskomponente kann Inhalte basierend auf ihren Props rendern und Events auslösen.
+
+Hooks erlauben erweiterte Funktionalität, z.B. internen State in einer Komponente oder das "Lauschen" auf Events aus dem Komponentenlebenszyklus
+
+## Hooks
+
+Hooks sind spezielle Funktionen, die am Beginn einer Komponentendefinition aufgerufen werden können
+
+Beispiele:
+
+- `useState(...)`
+- `useEffect(...)`
+- `useContext(...)`
+- ...
 
 ## Hooks
 
@@ -1207,6 +1222,126 @@ npm run storybook
 ## Storybook
 
 Konfiguration via `.storybook/config.js`
+
+# Externe Hooks
+
+## Externe Hooks
+
+Viele zusätzliche Hooks werden von der React-Community entwickelt
+
+Einsatzgebiete z.B.:
+
+- Abfragen von APIs
+- Verwenden von globalem State
+- Verwenden von _localStorage_ für den state
+- Media Queries
+- Abfrage der Scrollposition
+- ... (siehe [awesome-react-hooks](https://github.com/rehooks/awesome-react-hooks))
+
+## Beispiel: react-query
+
+[https://github.com/tannerlinsley/react-query](https://github.com/tannerlinsley/react-query)
+
+Viel genutzter Hook, der beim Abfragen von APIs hilfreich sein kann
+
+## Beispiel: react-query
+
+Einfache Verwendung:
+
+```js
+const TodoDisplay = () => {
+  const { todoData, isLoading } = useQuery(
+    'todo_1',
+    fetch(
+      'https://jsonplaceholder.typicode.com/todos/1'
+    ).then(response => response.json())
+  );
+  if (isLoading) {
+    return 'Loading...';
+  }
+  return <div>{todoData.title}</div>;
+};
+```
+
+# Eigene Hooks
+
+## Eigene Hooks
+
+Eigene hooks können als Funktionen definiert werden; sie nutzen intern oft vorhandene Hooks, z.B. `useState` oder `useEffect`
+
+## Eigene Hooks - useDate
+
+Beispiel: `useDate` - stellt hier die aktuelle Uhrzeit bereit und aktualisiert die Komponente alle 1000 Millisekunden
+
+```js
+const Clock = () => {
+  const time = useDate(1000);
+  return (
+    <div>The time is: {time.toLocaleTimeString()}</div>
+  );
+};
+```
+
+## Eigene Hooks - useDate
+
+Einfache Implementierung von `useDate`:
+
+```js
+const useDate = interval => {
+  const [date, setDate] = useState(new Date());
+  useEffect(() => {
+    setInterval(() => {
+      setDate(new Date());
+    }, interval);
+  });
+  return date;
+};
+```
+
+## Eigene Hooks - useJsonQuery
+
+Beispiel: `useJsonQuery` - ermöglicht das Abrufen von JSON-Daten
+
+```js
+const TodoDemo = () => {
+  const { data, error, isFetching } = useJsonQuery(
+    'https://jsonplaceholder.typicode.com/todos'
+  );
+  if (error) return <div>Could not fetch data</div>;
+  if (isFetching) return <div>Fetching...</div>;
+  return (
+    <div>
+      {data.map(todo => (
+        <div>{todo.title}</div>
+      ))}
+    </div>
+  );
+};
+```
+
+## Eigene Hooks - useJsonQuery
+
+einfache Implementierung:
+
+```js
+const useJsonQuery = url => {
+  const [isFetching, setIsFetching] = useState(true);
+  const [data, setData] = useState(null);
+  const [error, setError] = useState(false);
+  useEffect(() => {
+    setIsFetching(true);
+    setError(false);
+    fetch(url)
+      .then(response => response.text())
+      .then(responseText => {
+        setData(responseText);
+        setIsFetching(false);
+      })
+      .catch(() => setError(true));
+  }, [url]);
+  return { data, error, isFetching };
+};
+```
 
 # React Router
 

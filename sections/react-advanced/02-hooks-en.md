@@ -2,7 +2,22 @@
 
 ## Hooks
 
-Hooks = extension of function components; enable the use of state and other features without classes
+Hooks = extension of function components
+
+A _basic_ function component can render contents based on props and it can trigger events.
+
+Hooks allow for advanced functionality, e.g. having internal component state or listening for lifecycle events.
+
+## Hooks
+
+Hooks are special functions that can be called at the start of a component definition.
+
+Examples:
+
+- `useState(...)`
+- `useEffect(...)`
+- `useContext(...)`
+- ...
 
 ## Hooks
 
