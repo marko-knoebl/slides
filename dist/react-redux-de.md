@@ -4,7 +4,7 @@
 
 ## State Managemenet mit Reducern
 
-Siehe Präsentation zu [React advanced](/react-advanced-de.html)
+Siehe Präsentation zu [React advanced](./react-advanced-de.html)
 
 # State Management in Redux
 
@@ -15,6 +15,29 @@ Bei Redux: Anwendungszustand wird _global_ gespeichert.
 Es gibt _einen_ Store, in dem alle Daten gesammelt sind.
 
 Ein Store kann in verschiedene Teile aufgeteilt sein.
+
+## Verwender von Redux
+
+- [airbnb](https://airbnb.com)
+- [reddit](https://reddit.com)
+- [dropbox](https://dropbox.com)
+
+## Redux Devtools
+
+<figure>
+  <img src="assets/redux-devtools-airbnb.png" type="image/png" style="width: 100%" alt="Redux Devtools, die den State der Airbnb-Website zeigen">
+  <figcaption>Redux Devtools, die den State der Airbnb-Website zeigen</figcaption>
+</figure>
+
+## Redux Devtools
+
+Browser-Plugin für Firefox / Chrome:
+
+https://github.com/zalmoxisus/redux-devtools-extension
+
+Begutachten des Redux States via:
+
+Browser-Entwicklerwerkzeuge → _Redux_ → _State_ → _Chart/Tree_
 
 ## Installation
 
@@ -87,12 +110,6 @@ todosStore.dispatch({
 });
 todosStore.getState();
 ```
-
-## Redux Devtools
-
-Browser-plugn:
-
-https://github.com/zalmoxisus/redux-devtools-extension
 
 ## Redux Devtools
 
@@ -241,6 +258,63 @@ Actions (Beispiel):
 - deleteTodo
 - loadTodosFromApi
 
+# Redux im Detail
+
+## Elemente von Redux
+
+- _state_: Anwendungszustand
+- _action_: Beschreibt eine Änderung am _state_
+- _action creator_: Erzeugt eine _action_
+- _reducer_: Führt einen _state_ basierend auf einer _action_ in einen nächsten _state_ über
+- _store_: Ort der Speicherung für _state_
+- _selector_: Funktion, die bestimmte (abgeleitete) Daten aus dem state ausliest
+
+# Actions
+
+## Actions
+
+- Beschreiben eine Zustandsänderung
+- Sind js-Objekte mit einer _type_-Property und _optional_ beliebigen anderen Properties
+- Die _type_-Property ist üblicherweise ein String, oft als Konstante in einem separaten Modul definiert
+- Actions werden oft nach dem _FSA_-Standard definiert, der eine `payload`-Property definiert, sowie `error` und `meta`
+
+## Actions - Beispiele
+
+```js
+import { ADD_TODO } from './constants';
+
+let a = {
+  type: ADD_TODO,
+  payload: {
+    title: 'Build my first redux app',
+  },
+};
+```
+
+## Actions - Beispiele
+
+```js
+let a = {
+  type: TOGGLE_TODO,
+  payload: {
+    id: 2,
+  },
+};
+```
+
+## Action creators
+
+Action creators: einfache Funktionen, die eine bestimmte Action erstellen
+
+```js
+const addTodo = title => ({
+  type: ADD_TODO,
+  payload: {
+    title: title,
+  },
+});
+```
+
 # Selektoren
 
 ## Speicherung des minimalen States
@@ -345,76 +419,6 @@ getRectAreaMemoized({ length: 2, width: 3, color: 'red' });
 ```bash
 npm install reselect
 ```
-
-# Redux im Detail
-
-## Elemente von Redux
-
-- _state_: Anwendungszustand
-- _action_: Beschreibt eine Änderung am _state_
-- _action creator_: Erzeugt eine _action_
-- _reducer_: Führt einen _state_ basierend auf einer _action_ in einen nächsten _state_ über
-- _store_: Ort der Speicherung für _state_
-
-## Beispiel: state
-
-```js
-{
-  todos: [
-    { id: 1, title: 'laundry', completed: false },
-    { id: 2, title: 'groceries', completed: true },
-    { id: 3, title: 'taxes', completed: false },
-  ],
-  filterText: '',
-}
-```
-
-## Actions
-
-- Beschreiben eine Zustandsänderung
-- Sind js-Objekte mit einer _type_-Property und _optional_ beliebigen anderen Properties
-- Die _type_-Property ist üblicherweise ein String, oft als Konstante in einem separaten Modul definiert
-- Actions werden oft nach dem _FSA_-Standard definiert, der eine `payload`-Property definiert, sowie `error` und `meta`
-
-## Actions - Beispiele
-
-```js
-import { ADD_TODO } from './constants';
-
-let a = {
-  type: ADD_TODO,
-  payload: {
-    title: 'Build my first redux app',
-  },
-};
-```
-
-## Actions - Beispiele
-
-```js
-let a = {
-  type: TOGGLE_TODO,
-  payload: {
-    id: 2,
-  },
-};
-```
-
-## Action Creators
-
-Action creators sind meist sehr einfache Funktionen, die eine bestimmte Action erstellen
-
-```js
-const addTodo = (title, completed = false) => ({
-  type: ADD_TODO,
-  payload: {
-    title: title,
-    completed: completed,
-  },
-});
-```
-
-## Beispiel: Todo-Verwaltung mit Redux
 
 # Asynchrone Actions
 

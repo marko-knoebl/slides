@@ -4,7 +4,7 @@
 
 ## State management with reducers
 
-See presentation on [React advanced](/react-advanced-en.html)
+See presentation on [React advanced](./react-advanced-en.html)
 
 # State management in Redux
 
@@ -15,6 +15,29 @@ In Redux: application state is stored _globally_.
 There is _one_ store that contains all data.
 
 A store may be composed of different parts.
+
+## Users of Redux
+
+- [airbnb](https://airbnb.com)
+- [reddit](https://reddit.com)
+- [dropbox](https://dropbox.com)
+
+## Redux devtools
+
+<figure>
+  <img src="assets/redux-devtools-airbnb.png" type="image/png" style="width: 100%" alt="Redux devtools showing the state of the airbnb website">
+  <figcaption>Redux devtools showing the state of the airbnb website</figcaption>
+</figure>
+
+## Redux devtools
+
+Browser plugin for Firefox / Chrome:
+
+https://github.com/zalmoxisus/redux-devtools-extension
+
+View Redux state via:
+
+browser-devtools → _Redux_ → _State_ → _Chart/Tree_
 
 ## Installation of Redux
 
@@ -87,12 +110,6 @@ todosStore.dispatch({
 });
 todosStore.getState();
 ```
-
-## Redux devtools
-
-Browser plugin:
-
-https://github.com/zalmoxisus/redux-devtools-extension
 
 ## Redux devtools
 
@@ -241,6 +258,63 @@ Actions (examples):
 - deleteTodo
 - loadTodosFromApi
 
+# Redux in detail
+
+## Basic elements of Redux
+
+- _state_
+- _action_: object that describes a change to the _state_
+- _action creator_: simple function that creates an _action_
+- _reducer_: based on an action, transforms the old _state_ into a new _state_
+- _store_: where the _state_ is stored
+- _selector_: function that reads some (derived) data from the state
+
+# Actions
+
+## Actions
+
+- actions describe a change to the state
+- actions are objects with a _type_ property and optionally other properties
+- the _type_ property is usually a string, often defined as a constant in a separate module
+- actions often adhere to the _FSA_ standard, meaning they may have a _payload_, an _error_ and a _meta_ property
+
+## Actions - examples
+
+```js
+import { ADD_TODO } from './constants';
+
+let a = {
+  type: ADD_TODO,
+  payload: {
+    title: 'Build my first redux app',
+  },
+};
+```
+
+## Actions - examples
+
+```js
+let a = {
+  type: TOGGLE_TODO,
+  payload: {
+    id: 2,
+  },
+};
+```
+
+## Action creators
+
+Action creators are usually very simple functions used to create a specific action
+
+```js
+const addTodo = title => ({
+  type: ADD_TODO,
+  payload: {
+    title,
+  },
+});
+```
+
 # Selectors
 
 ## Storing the minimal state
@@ -339,76 +413,6 @@ getRectAreaMemoized({ length: 2, width: 3, color: 'red' });
 ```bash
 npm install reselect
 ```
-
-# Redux in detail
-
-## Basic elements of Redux
-
-- _state_
-- _action_: object that describes a change to the _state_
-- _action creator_: simple function that creates an _action_
-- _reducer_: based on an action, transforms the old _state_ into a new _state_
-- _store_: where the _state_ is stored
-
-## example: state
-
-```js
-{
-  todos: [
-    { id: 1, title: 'laundry', completed: false },
-    { id: 2, title: 'groceries', completed: true },
-    { id: 3, title: 'taxes', completed: false },
-  ],
-  filterText: '',
-}
-```
-
-## actions
-
-- actions describe a change to the state
-- actions are objects with a _type_ property and optionally other properties
-- the _type_ property is usually a string, often defined as a constant in a separate module
-- actions often adhere to the _FSA_ standard, meaning they may have a _payload_, an _error_ and a _meta_ property
-
-## Actions - examples
-
-```js
-import { ADD_TODO } from './constants';
-
-let a = {
-  type: ADD_TODO,
-  payload: {
-    title: 'Build my first redux app',
-  },
-};
-```
-
-## Actions - examples
-
-```js
-let a = {
-  type: TOGGLE_TODO,
-  payload: {
-    id: 2,
-  },
-};
-```
-
-## Action creators
-
-Action creators are usually very simple functions used to create a specific action
-
-```js
-const addTodo = (title, completed = false) => ({
-  type: ADD_TODO,
-  payload: {
-    title,
-    completed,
-  },
-});
-```
-
-## Exercise: state managment in the todo app
 
 # Asynchronous actions
 

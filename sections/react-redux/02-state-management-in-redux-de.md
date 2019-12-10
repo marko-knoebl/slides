@@ -8,6 +8,29 @@ Es gibt _einen_ Store, in dem alle Daten gesammelt sind.
 
 Ein Store kann in verschiedene Teile aufgeteilt sein.
 
+## Verwender von Redux
+
+- [airbnb](https://airbnb.com)
+- [reddit](https://reddit.com)
+- [dropbox](https://dropbox.com)
+
+## Redux Devtools
+
+<figure>
+  <img src="assets/redux-devtools-airbnb.png" type="image/png" style="width: 100%" alt="Redux Devtools, die den State der Airbnb-Website zeigen">
+  <figcaption>Redux Devtools, die den State der Airbnb-Website zeigen</figcaption>
+</figure>
+
+## Redux Devtools
+
+Browser-Plugin für Firefox / Chrome:
+
+https://github.com/zalmoxisus/redux-devtools-extension
+
+Begutachten des Redux States via:
+
+Browser-Entwicklerwerkzeuge → _Redux_ → _State_ → _Chart/Tree_
+
 ## Installation
 
 ```bash
@@ -79,12 +102,6 @@ todosStore.dispatch({
 });
 todosStore.getState();
 ```
-
-## Redux Devtools
-
-Browser-plugn:
-
-https://github.com/zalmoxisus/redux-devtools-extension
 
 ## Redux Devtools
 

@@ -8,6 +8,29 @@ There is _one_ store that contains all data.
 
 A store may be composed of different parts.
 
+## Users of Redux
+
+- [airbnb](https://airbnb.com)
+- [reddit](https://reddit.com)
+- [dropbox](https://dropbox.com)
+
+## Redux devtools
+
+<figure>
+  <img src="assets/redux-devtools-airbnb.png" type="image/png" style="width: 100%" alt="Redux devtools showing the state of the airbnb website">
+  <figcaption>Redux devtools showing the state of the airbnb website</figcaption>
+</figure>
+
+## Redux devtools
+
+Browser plugin for Firefox / Chrome:
+
+https://github.com/zalmoxisus/redux-devtools-extension
+
+View Redux state via:
+
+browser-devtools → _Redux_ → _State_ → _Chart/Tree_
+
 ## Installation of Redux
 
 ```bash
@@ -79,12 +102,6 @@ todosStore.dispatch({
 });
 todosStore.getState();
 ```
-
-## Redux devtools
-
-Browser plugin:
-
-https://github.com/zalmoxisus/redux-devtools-extension
 
 ## Redux devtools
 
