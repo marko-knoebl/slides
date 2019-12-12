@@ -1,10 +1,51 @@
 # React & Redux
 
+# Themen
+
+## Themen (1/3)
+
+- State Management mit Reducern
+- Redux 1
+  - State Management mit Redux
+  - Redux Toolkit
+  - Redux Devtools
+  - Redux Store
+- React und Redux
+  - Grundlagen
+  - Redux mit Hooks
+  - Redux in Klassenkomponenten
+
+## Themen (2/3)
+
+- Redux 2
+  - Actions im Detail
+  - Asynchrome Actions mit Thunk
+  - Aufteilen / Kombinieren von Reducern
+  - Action Creators
+
+## Themen (3/3)
+
+- Redux 3
+  - createAction
+  - Selectors und Memoisation
+  - createReducer
+- Redux 4
+  - Redux Ecosystem
+  - Redux Middleware
+  - Asynchrone Actions mit Sagas
+
 # State Management mit Reducern
 
 ## State Managemenet mit Reducern
 
 Siehe Präsentation zu [React advanced](./react-advanced-de.html#/5)
+
+# Redux 1
+
+- State Management mit Redux
+- Redux Toolkit
+- Redux Devtools
+- Redux Store
 
 # State Management in Redux
 
@@ -12,63 +53,24 @@ Siehe Präsentation zu [React advanced](./react-advanced-de.html#/5)
 
 Bei Redux: Anwendungszustand wird _global_ gespeichert.
 
+Der Zustand wird unabhängig von den React Komponenten gespeichert.
+
 Es gibt _einen_ Store, in dem alle Daten gesammelt sind.
 
 Ein Store kann in verschiedene Teile aufgeteilt sein.
 
-## Verwender von Redux
+## Redux Reducer
 
-- Airbnb
-- Reddit
-- Dropbox
+Besonderheiten von Redux Reducern (verglichen mit dem Reducer Hook):
 
-## Redux Devtools
-
-<figure>
-  <img src="assets/redux-devtools-airbnb.png" type="image/png" style="width: 100%" alt="Redux Devtools, die den State der Airbnb-Website zeigen">
-  <figcaption>Redux Devtools, die den State der Airbnb-Website zeigen</figcaption>
-</figure>
-
-## Redux Devtools
-
-Browser-Plugin für Firefox / Chrome:
-
-https://github.com/zalmoxisus/redux-devtools-extension
-
-Begutachten des Redux States via:
-
-Browser-Entwicklerwerkzeuge → _Redux_ → _State_ → _Chart/Tree_
-
-## Redux Devtools
-
-Funktionalitäten:
-
-- State inspizieren
-- Änderungen am State anzeigen
-- Actions auslösen (dispatchen)
-- Früheren State wiederherstellen (Time Traveling)
-- State als JSON speichern / wiederherstellen
-
-## Installation
-
-```bash
-npm install redux
-```
-
-## Beispiel: Todos
-
-Unterschiede zwischen Redux und dem Reducer Hook:
-
-Der Anfangszustand wird bei Redux dem Reducer als Standardparameter übergeben
+der Anfangszustand wird als Standardparameter übergeben:
 
 ```js
 const initialState = []
-const todosReducer = (oldState = initialState, action) => {
-    ...
-}
+const todosReducer = (oldState = initialState, action) => {...}
 ```
 
-Bei unbekannten Actions soll der Zustand in Redux unverändert bleiben:
+unbekannte Actions sollten den Zustand unverändert lassen:
 
 ```js
 default:
@@ -98,48 +100,581 @@ const todosReducer = (oldState = initialState, action) => {
 };
 ```
 
-## Beispiel: Todos Store
+# Redux toolkit
 
-```js
-// store.js
-import { createStore } from 'redux';
-import todosReducer from 'todosReducer';
+## Redux toolkit
 
-const todosStore = createStore(todosReducer);
-```
+Mit **Redux toolkit** ist ein vereinfachtes Setup von Redux und verwandten Libraries möglich (ähnlich wie bei _create-react-app_)
 
-## Beispiel: Todos Store
+Wir werden es in dieser Präsentation durchgehend verwenden.
 
-Direkte Verwendung:
+npm-Paket: _@reduxjs/toolkit_
 
-```js
-todosStore.getState();
-todosStore.dispatch({
-  type: 'ADD_TODO',
-  title: 'learn Redux',
-});
-todosStore.getState();
-```
+## Redux toolkit
+
+Funktionalität (siehe [what's included](https://redux-toolkit.js.org/introduction/quick-start#whats-included)):
+
+- Debugging (via _redux devtools_)
+- asynchrone Actions (via _thunk_)
+- vereinfachtes Erstellen von Action Creators (via _createAction_)
+- vereinfachtes Erstellen von Reducern (via _createReducer_)
+- vereinfachtes Update des States durch direkte Änderungen (via _immer.js_)
+- ...
+
+# Redux Devtools
 
 ## Redux Devtools
 
-in eigenen Projekten einbinden:
+<figure>
+  <img src="assets/redux-devtools-airbnb.png" type="image/png" style="width: 100%" alt="Redux devtools showing the state of the airbnb website">
+  <figcaption>Redux devtools showing the state of the airbnb website</figcaption>
+</figure>
 
-```bash
-npm install redux-devtools-extension
-```
+## Redux Devtools
+
+Browser Plugin für Firefox / Chrome:
+
+https://github.com/zalmoxisus/redux-devtools-extension
+
+Anzeigen des Redux States via:
+
+Browser-Devtools (F12) → _Redux_ → _State_ → _Chart/Tree_
+
+## Redux Devtools
+
+Websites, die Redux verwenden (wir können den Redux State betrachten):
+
+- airbnb.com (nur Chrome)
+- reddit.com (State-Diagram wird nicht angezeigt)
+- dropbox.com (nur Chrome)
+- tesla.com (sehr einfacher State)
+
+## Redux Devtools
+
+Funktionalität:
+
+- State begutachten
+- Änderungen am State anzeigen
+- Actions auslösen (dispatchen)
+- Früheren State wiederherstellen (time traveling)
+- State als JSON speichern / laden
+
+# Redux Store
+
+## Redux Store
+
+Ertellen eines Redux Stores, der den State enthält; der Store wird von einem Reducer verwaltet
 
 ```js
-import { createStore, applyMiddleware } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
+// src/index.js
+import { configureStore } from '@reduxjs/toolkit';
+import todosReducer from './state/todos';
 
-const store = createStore(
-  reducer,
-  composeWithDevTools(applyMiddleware())
+const todosStore = configureStore({
+  reducer: todosReducer,
+});
+```
+
+## Redux Store
+
+Direkte Verwendung des Stores:
+
+```js
+console.log(todosStore.getState());
+todosStore.dispatch({
+  type: 'addTodo',
+  title: 'learn Redux',
+});
+console.log(todosStore.getState());
+```
+
+# React mit Redux
+
+- Grundlagen
+- Redux mit Hooks
+- Redux in Klassenkomponenten
+
+# React mit Redux
+
+## React mit Redux
+
+npm Pakete:
+
+- `react-redux`
+- `@types/react-redux`
+
+## React-Redux: &lt;Provider&gt;
+
+Provider: zum Hinzufügen eines Redux-Stores zu einer React-App
+
+## React-Redux: &lt;Provider&gt;
+
+```js
+// index.js
+import { Provider } from 'react-redux';
+
+[...]
+
+ReactDOM.render(
+  <Provider store={myStore}>
+    <App/>
+  </Provider>
+  ...
 );
 ```
 
-## Beispiel: Shopping cart
+## Presentational components / container components
+
+Oft sinnvolle Einteilung:
+
+**presentational components**:
+
+- "normale" React-Komponenten, die unabhängig von Redux funktionieren
+- interagieren nur mit ihrer Elternkomponente
+- einfach wiederzuverwenden
+
+**container components**:
+
+- Komponenten, die mit dem Redux Store interagieren
+- Hauptaufgabe ist das Rendern von Unterkomponenten
+
+## Presentational components / container components
+
+Beispiel:
+
+Allgemeine `TodoList`-Komponente, die beliebige über Props übergebene Todos rendern kann
+
+`TodoListContainer`-Komponente, die Daten aus dem Redux Store ausliest und eine `TodoList`-Komponente rendert
+
+# React mit Redux: Hooks
+
+## useSelector
+
+Mit `useSelector` können wir die Inhalte des Redux-Stores abfragen.
+
+Wir übergeben eine sogenannte _Selektorfunktion_ an `useSelektor`.
+
+Die Selektorfunktion erhält den gesamten Redux-State und gibt einen daraus abgeleiteten Wert zurück.
+
+## useSelector - Beispiel
+
+```js
+import { useSelector } from 'react-redux';
+
+...
+
+const todos = useSelector(state => state);
+const numTodos = useSelector(state => state.length);
+const numCompletedTodos = useSelector(
+  state => state.filter(todo => todo.completed).length
+);
+```
+
+## useDispatch
+
+Mit `useDispatch` können wir aus React auf die `dispatch`-Funktion des Redux-Stores zugreifen und damit Actions dispatchen.
+
+```js
+import { useDispatch } from 'react-redux';
+
+const dispatch = useDispatch();
+
+dispatch({ type: 'deleteCompletedTodos' });
+```
+
+## useDispatch mit TypeScript
+
+```ts
+const dispatch = useDispatch<TodoAppAction>();
+```
+
+# React mit Redux: Klassenkomponenten
+
+## Container-Komponenten
+
+`connect`-Funktion aus `react-redux`:
+
+- wird zum Erstellen einer Container-Komponente verwendet
+- die einzige Aufgabe der Container-Komponente ist es, ihre Unterkomponente mit dem Redux Store zu verbinden
+
+## Container-Komponenten
+
+`connect`: verbindet React-Komponenten mit dem Redux Store
+
+- `mapStateToProps`: verbindet React props mit dem Redux state
+- `mapDispatchToProps`: verbindet React props/events mit Redux actions
+
+Aufruf von `connect`:
+
+```js
+import { connect } from 'react-redux';
+
+const ComponentContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Component);
+```
+
+## Beispiel
+
+Wir verbinden eine einfache `NumberInput`-Komponente mit dem Redux Store
+
+```js
+const NumberInput = ({
+  value,
+  onIncrement,
+  onDecrement,
+}) => (
+  <div>
+    <button onClick={onDecrement}>-</button>
+    {value}
+    <button onClick={onIncrement}>+</button>
+  </div>
+);
+```
+
+## Beispiel
+
+Interface der `NumberInput`-Komponente:
+
+- property: `value`
+- event: `onIncrement`
+- event: `onDecrement`
+
+Redux Store:
+
+- state-Eintrag: `fontSize`
+- action: `increaseFontSize`
+- action: `reduceFontSize`
+
+## Beispiel
+
+mit dem Redux State verbinden:
+
+```jsx
+import { connect } from 'react-redux';
+
+const mapStateToProps = state => ({
+  value: state.fontSize,
+});
+
+const FontSizeInput = connect(mapStateToProps)(NumberInput);
+```
+
+## Beispiel
+
+mit Redux Actions verbinden:
+
+```js
+// dispatch refers to the dispatch function of the store;
+// it is provided to us via dependency injection
+const mapDispatchToProps = dispatch => ({
+  onIncrement: () => dispatch({ type: 'increaseFontSize' }),
+  onDecrement: () => dispatch({ type: 'reduceFontSize' }),
+});
+
+const FontSizeInput = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(NumberInput);
+```
+
+## Counter: Dispatch mit TypeScript
+
+```ts
+import { Action, Dispatch } from 'redux';
+
+const mapDispatchToProps = (
+  dispatch: Dispatch<MyAction>
+) => ({
+  onIncrement: () => dispatch({ type: 'increaseFontSize' }),
+  onDecrement: () => dispatch({ type: 'reduceFontSize' }),
+});
+```
+
+# Redux 2
+
+- Actions im Detail
+- Aufteilen / Kombinieren von Reducern
+- Asynchrome Actions mit Thunk
+- Action Creators
+
+# Actions im Detail
+
+## Actions
+
+- Beschreiben eine Zustandsänderung
+- Sind js-Objekte mit einer _type_-Property
+- Der _type_ wurde usrsprünglich meist groß geschrieben (z.B. `ADD_TODO`), heute sind auch andere Schreibweisen üblich (z.B. `addTodo`)
+- Actions werden oft nach dem _FSA_-Standard definiert, der eine `payload`-Property definiert, sowie `error` und `meta`
+
+## Actions - Beispiele
+
+```js
+const action = {
+  type: 'addTodo',
+  title: 'Build my first Redux app',
+};
+```
+
+```js
+const action = {
+  type: 'addTodo',
+  payload: {
+    title: 'Build my first Redux app',
+  },
+};
+```
+
+## Actions - Beispiele
+
+```js
+const action = {
+  type: 'toggleTodo',
+  id: 2,
+};
+```
+
+```js
+const action = {
+  type: 'toggleTodo',
+  payload: {
+    id: 2,
+  },
+};
+```
+
+# Reducer aufteilen / kombinieren
+
+## Reducer aufteilen / kombinieren
+
+Mehrere Reducer können einfach zusammengeführt / kombiniert werden, um einen zusammengesetzten Reducer zu erstellen
+
+## Reducer aufteilen / kombinieren
+
+Beispiel: Online Shop
+
+- _root_ Reducer: Enthält drei Einträge, die von separaten Reducern verwaltet werden:
+  - _user_ Reducer: Daten zum eingeloggten Benutzer
+  - _products_ Reducer: Daten zu verfügbaren Produkten (von API)
+  - _cart_ Reducer: Daten zum Aktuellen Inhalt des Einkaufswagens
+
+## Reducer aufteilen / kombinieren
+
+Könnte manuell erfolgen - oder durch Verwendung der Funktion `combineReducers` aus Redux
+
+## Reducer aufteilen / kombinieren
+
+manuell:
+
+```js
+const shopReducer = (state, action) => ({
+  user: userReducer(state.user, action),
+  products: productsReducer(state.products, action),
+  cart: cartReducer(state.cart, action),
+});
+```
+
+mittels `combineReducers`:
+
+```js
+import { combineReducers } from '@reduxjs/toolkit';
+const shopReducer = combineReducers({
+  user: userReducer,
+  products: productsReducer,
+  cart: cartReducer,
+});
+```
+
+# Asynchrone Actions
+
+## Asynchrone Actions
+
+Asynchrone Actions betreffen beispielsweise HTTP-Anfragen oder das Abfragen von Caches oder indexedDB-Einträgen.
+
+Asynchrone Actions können in Redux mit _middleware_ realisiert werden, z.B.:
+
+- _thunk_
+- _saga_
+
+# Thunk
+
+## Thunk
+
+**Thunk** ist Middleware, die asynchrones Verhalten in Redux - durch das Dispatchen von Funktionen - ermöglicht
+
+## Thunk
+
+Beispielhafter Aufruf:
+
+```js
+dispatch(getTodosFunction);
+```
+
+## Thunk
+
+Als asynchrone Funktion wird `loadTodosFunction` nicht direkt den Redux-Store verändern.
+
+Stattdessen werden zwei andere Actions den store erreichen:
+
+- `loadTodosRequest` wird sofort ausgelöst
+- `loadTodosSuccess` wird ausgelöst, sobald die Netzwerkanfrage erfolgreich war
+- `loadTodosError` würde einen Fehler anzeigen
+
+## Thunk
+
+In Thunk verbleibt die synchrone Logik im Reducer, die asynchrone Logik wird in die Action aufgenommen.
+
+## Beispiel: loadTodos
+
+```js
+const loadTodos = dispatch => {
+  // "dispatch" is the redux store's dispatch function
+  // it is passed in automatically (dependency injection)
+  dispatch({ type: 'loadTodosRequest' });
+  fetch('https://jsonplaceholder.typicode.com/todos')
+    .then(response => response.json())
+    .then(todos => {
+      dispatch({ type: 'loadTodosSuccess', todos: todos });
+    });
+};
+```
+
+Wir können `dispatch(loadTodos)` aufrufen
+
+## Thunk Sourcecode
+
+Der komplette Thunk Sourcecode sind nur 14 Zeilen:
+
+https://github.com/reduxjs/redux-thunk/blob/master/src/index.js
+
+## Thunk mit TypeScript
+
+Bei Thunk müssen wir immer die gesamte Signatur von dispatch angeben:
+
+```ts
+dispatch: ThunkDispatch<IState, void, IAction>
+```
+
+## Thunk: Zugriff auf den Redux store
+
+Ein zweites Argument kann optional übergeben werden: Es erhält die `getState`-Funktion als Wert.
+
+```ts
+const actionAsync = () => (dispatch, getState) => {
+  dispatch(started());
+  const s = getState();
+  ...
+};
+```
+
+# Action Creators
+
+## Action Creators
+
+Action Creators: einfache Funktionen, die eine bestimmte Action erstellen
+
+```js
+const addTodo = title => ({
+  type: ADD_TODO,
+  payload: {
+    title: title,
+  },
+});
+```
+
+Verwendung:
+
+```js
+dispatch(addTodo('groceries'));
+```
+
+## Action Creators vs. Actions
+
+Achtung doppelte Bedeutung: _Action Creators_ werden oft abgekürzt als _Actions_ bezeichnet (z.B. in Dokumentation).
+
+## Action Creators und Thunk
+
+Action Creators können notwendig sein, um parametrische Actions in Thunk zu benutzen
+
+Der folgende Aufruf würde eine Thunk Action erstellen und dispatchen, die ein bestimmtes Todo lädt:
+
+```js
+dispatch(loadTodoByIndex(3));
+```
+
+## Action Creators und Thunk
+
+```js
+// thunk action creator
+const loadTodoByIndex = id => {
+  function thunkAction(dispatch) {
+    dispatch({ type: 'loadTodoRequest', id: id });
+    fetch(
+      `https://jsonplaceholder.typicode.com/todos/${index}`
+    )
+      .then(response => response.json())
+      .then(todo => {
+        dispatch({ type: 'loadTodoSuccess', todo: todo });
+      });
+  }
+  return thunkAction;
+};
+```
+
+## Action Creators und Thunk
+
+kürzere Version mit verschachtelten Pfeilfunktionen:
+
+```js
+// thunk action creator
+const loadTodoByIndex = id => dispatch => {
+  dispatch({ type: 'loadTodoRequest', id: id });
+  fetch(
+    `https://jsonplaceholder.typicode.com/todos/${index}`
+  )
+    .then(response => response.json())
+    .then(todo => {
+      dispatch({ type: 'loadTodoSuccess', todo: todo });
+    });
+};
+```
+
+# Übungen
+
+- Todoliste (erweitert)
+- Shop
+- Finanztool
+
+# Aufgabe: Todolist (erweiterter State)
+
+Umsetzung eines Modells für eine Todoliste in Redux
+
+## Aufgabe: Todolist
+
+Datenstruktur (Beispiel):
+
+- root
+  - todoData
+    - todos
+    - isFetching
+    - hasError
+  - ui
+    - isAddTodoVisible
+    - themeColor
+
+## Aufgabe: Todolist
+
+Actions (Beispiel):
+
+- addTodo
+- toggleTodo
+- deleteTodo
+- loadTodosFromApi
+
+# Beispiel: Shop
+
+## Beispiel: Shop
 
 State des Beispiels besteht aus zwei wichtigen Teilen:
 
@@ -177,7 +712,7 @@ State des Beispiels besteht aus zwei wichtigen Teilen:
 }
 ```
 
-## Beispiel: Shopping cart
+## Beispiel: Shop
 
 Die zwei Teile - `cart` und `products` - können von zwei verschiedenen Reducern verwaltet werden.
 
@@ -197,7 +732,7 @@ const store = createStore(
 );
 ```
 
-## Beispiel: Shopping cart
+## Beispiel: Shop
 
 ```js
 const cartReducer = (state = {}, action) => {
@@ -213,7 +748,7 @@ const cartReducer = (state = {}, action) => {
 };
 ```
 
-## Beispiel: Shopping cart
+## Beispiel: Shop
 
 ```js
 const products = [];
@@ -233,87 +768,63 @@ const productsReducer = (state = products, action) => {
 };
 ```
 
-# Aufgabe: Todolist
+# Redux 3
 
-Umsetzung eines Modells für eine Todoliste in Redux
+- createAction
+- Selectors und Memoisation
+- createReducer
 
-## Aufgabe: Todolist
+# createAction
 
-Datenstruktur (Beispiel):
+## createAction
 
-- todoData
-  - todos
-  - isFetching
-  - hasError
-- ui
-  - newTodoTitle
-  - filterText
-
-## Aufgabe: Todolist
-
-Actions (Beispiel):
-
-- addTodo
-- toggleTodo
-- deleteTodo
-- loadTodosFromApi
-
-# Redux im Detail
-
-## Elemente von Redux
-
-- _state_: Anwendungszustand
-- _action_: Beschreibt eine Änderung am _state_
-- _action creator_: Erzeugt eine _action_
-- _reducer_: Führt einen _state_ basierend auf einer _action_ in einen nächsten _state_ über
-- _store_: Ort der Speicherung für _state_
-- _selector_: Funktion, die bestimmte (abgeleitete) Daten aus dem state ausliest
-
-# Actions
-
-## Actions
-
-- Beschreiben eine Zustandsänderung
-- Sind js-Objekte mit einer _type_-Property und _optional_ beliebigen anderen Properties
-- Die _type_-Property ist üblicherweise ein String, oft als Konstante in einem separaten Modul definiert
-- Actions werden oft nach dem _FSA_-Standard definiert, der eine `payload`-Property definiert, sowie `error` und `meta`
-
-## Actions - Beispiele
+Die Funtion `createAction` aus dem Redux toolkit kann hilfreich sein, um _action creators_ zu erstellen und String-konstanten für _action types_ bereit zu stellen:
 
 ```js
-import { ADD_TODO } from './constants';
+import { createAction } from '@reduxjs/toolkit';
 
-let a = {
-  type: ADD_TODO,
-  payload: {
-    title: 'Build my first redux app',
-  },
-};
+// create an action creator
+const addTodo = createAction('addTodo', title => ({
+  payload: { title: title },
+}));
+
+const action1 = addTodo('groceries');
 ```
 
-## Actions - Beispiele
+## createAction
+
+`createAction` versieht jeden Action Creator mit einer `type` property:
 
 ```js
-let a = {
-  type: TOGGLE_TODO,
-  payload: {
-    id: 2,
-  },
-};
+addTodo.type; // 'addTodo'
 ```
 
-## Action creators
+## createAction
 
-Action creators: einfache Funktionen, die eine bestimmte Action erstellen
+Verwendung der `type` Property in dem switch-Statement eines Reducers:
 
 ```js
-const addTodo = title => ({
-  type: ADD_TODO,
-  payload: {
-    title: title,
-  },
-});
+const todosReducer = (oldState = initialState, action) => {
+  switch (action.type) {
+    case addTodo.type:
+      ...
+    case deleteTodo.type:
+      ...
+    ...
+  }
+}
 ```
+
+## createAction
+
+`createAction` stellt eine eigene `.toString()`-Methode bei jedem Action Creator bereit:
+
+```js
+addTodo.toString(); // 'addTodo'
+String(addTodo); // 'addTodo'
+```
+
+Dies kann bei der Verwendung von `createReducer` hilfreich sein.
 
 # Selektoren
 
@@ -378,179 +889,377 @@ Memoisierung bezeichnet das Cachen von Rückgabewerten reiner Funktionen
 
 ## Memoisierung in reselect
 
-_Reselect_ = Library für Memoisierung.
-
-Einfaches Standardverhalten:
-
-Letzter Input und Output einer Berechnung werden gecacht; Wird die Berechnung erneut mit dem gleichen Input angefordert, wird das gecachte Resultat verwendet
+_Reselect_ = Library für Memoisierung von Selektoren.
 
 ## Memoisierung in reselect
+
+Reselect kann zum Memoisieren komplexerer Selektoren verwendet werden
 
 ```js
 import { createSelector } from 'reselect';
 
-// regular function that computes the area of a rectangle
-const getRectArea = rect => rect.length * rect.width;
+// normal selector
+const todosSelector = state => state.todoData.todos;
 
-// memoized function that computes the area of a rectangle
-const getRectAreaMemoized = createSelector(
-  // selector functions signify which input values to watch:
-  [rect => rect.length, rect => rect.width],
-  // this function will only be called if one of the
-  // input values changed:
+// memoized selector
+const numCompletedTodosSelector = createSelector(
+  todosSelector,
+  todos => todos.filter(todo => todo.completed).length
+);
+```
+
+Der `numCompletedTodosSelector` ist vom `todosSelector` abhängig und wird nur neu asgewertet, wenn dieser einen neuen Wert zurückgibt.
+
+## Memoisierung in reselect
+
+```js
+const lengthSelector = rect => rect.length;
+const widthSelector = rect => rect.width;
+
+const areaSelector = rect =>
+  lengthSelector(rect) * widthSelector(rect);
+
+const memoizedAreaSelector = createSelector(
+  lengthSelector,
+  widthSelector,
+  // will only be evaluated if one of the selectors
+  // returned a new value
   (length, width) => length * width
 );
 ```
 
 ## Memoisierung in reselect
 
-The last function call will not recompute the area
+Der letzte Funktionsaufruf wird die Fläche nicht neu berechnen:
 
 ```js
-getRectArea({ length: 2, width: 3, color: 'blue' });
-getRectArea({ length: 2, width: 3, color: 'red' });
+areaSelector({ length: 2, width: 3, col: 'red' });
+areaSelector({ length: 2, width: 3, col: 'blue' });
 
-getRectAreaMemoized({ length: 2, width: 3, color: 'blue' });
-getRectAreaMemoized({ length: 2, width: 3, color: 'red' });
+memoizedAreaSelector({ length: 2, width: 3, col: 'red' });
+memoizedAreaSelector({ length: 2, width: 3, col: 'blue' });
 ```
 
-## Reselect installieren
+# createReducer
 
-```bash
-npm install reselect
-```
+## createReducer
 
-# Asynchrone Actions
+`createReducer` kann das Schreiben von Reducern vereinfachen:
 
-## Asynchrone Actions
+- Vermeiden von Boilerplate
+- Erlauben von direkten Objektmutationen (via _immer.js_)
 
-Asynchrone Actions betreffen beispielsweise HTTP-Anfragen oder das Abfragen von Caches oder indexedDB-Einträgen.
+## createReducer
 
-Asynchrone Actions können in Redux mit _middleware_ realisiert werden, z.B.:
-
-- _thunk_
-- _saga_
-
-# Redux Thunk
-
-## Redux Thunk
-
-Thunk ist Middleware, die asynchrones Verhalten in Redux - durch das Dispatchen von Funktionen - ermöglicht
-
-## Thunk sourcecode
-
-kompletter sourcecode:
-
-https://github.com/reduxjs/redux-thunk/blob/master/src/index.js
-
-## Redux Thunk
-
-Beispielhafter Aufruf:
+Übliche Implementierung eines `counterReducer`s:
 
 ```js
-dispatch(getTodosFunction);
-```
-
-## Redux Thunk
-
-Als asynchrone Funktion würde `getTodosFunction` nicht direkt den Redux-Store verändern.
-
-Stattdessen würde zwei andere Actions den store erreichen:
-
-- Die Action `LOAD_TODOS_REQUEST` würde sofort dispatched werden
-- Die Action `LOAD_TODOS_SUCCESS` würde dispatched werden, sobald die Netzwerkanfrage erfolgreich war
-
-## Redux Thunk
-
-In Thunk verbleibt die synchrone Logik im Reducer.
-
-Die asynchrone Logik wird in den Action Creator aufgenommen.
-
-## Installation
-
-```bash
-npm install redux-thunk
-```
-
-## Thunk einbinden
-
-```ts
-import thunk from 'redux-thunk';
-
-const store = createStore(
-  rootReducer,
-  applyMiddleware(thunk)
-);
-```
-
-## Beispiel: timer
-
-```js
-// sync actions
-const started = () => ({ type: 'START' });
-const increment = () => ({ type: 'INCREMENT' });
-// async action
-const start = () => dispatch => {
-  dispatch(started());
-  setInterval(() => {
-    dispatch(increment());
-  }, 1000);
-};
-```
-
-## Beispiel: timer
-
-Der Reducer erhält nur die synchronen Actions.
-
-```js
-const timeReducer = (
-  state = { started: false, time: 0 },
-  action
-) => {
+const counterReducer = (state = 0, action) => {
   switch (action.type) {
-    case 'INCREMENT':
-      return { ...state, time: state.time + 1 };
-    case 'STARTED':
-      return { ...state, started: true };
+    case 'increment':
+      return state + (action.amount || 1);
+    case 'decrement':
+      return state - (action.amount || 1);
     default:
       return state;
   }
 };
 ```
 
-## Redux Thunk mit TypeScript
+## createReducer
 
-Bei Thunk müssen wir immer die gesamte Signatur von dispatch angeben
+Vereinfachte Implementierung mittels `createReducer`:
 
-```ts
-const mapDispatchToProps = (
-  dispatch: ThunkDispatch<IState, void, IAction>
-) => {...};
+```js
+import { createReducer } from '@reduxjs/toolkit';
+
+const counterReducer = createReducer(0, {
+  increment: (state, action) =>
+    state + (action.amount || 1),
+  decrement: (state, action) =>
+    state - (action.amount || 1),
+});
 ```
 
-```ts
-const myAction = () => (
-  dispatch: ThunkDispatch<IState, void, IAction>
-) => {...};
+## createReducer
+
+Implementierung für TypeScript - dies ermöglicht das feststellen von Typen:
+
+```js
+const counterReducer = createReducer(0, builder => {
+  builder.addCase(
+    'increment',
+    (state, action) => state + (action.amount || 1)
+  );
+  builder.addCase(
+    'decrement',
+    (state, action) => state - (action.amount || 1)
+  );
+});
 ```
 
-## Thunk: Zugriff auf den Redux store
+## createReducer
 
-Ein zweites Argument kann optional übergeben werden: Es erhält die `getState`-Funktion als Wert.
+Bei Verwendung von `createReducer` _dürfen_ wir den alten State abändern (siehe `logIn`) - dies ist durch die Verwendung von `immer.js` im Hintergrund möglich
 
-```ts
-const actionAsync = () => (dispatch, getState) => {
-  dispatch(started());
-  const s = getState();
-  ...
+Das Zurückgeben von abgeleitetem State ist ebenfalls möglich (siehe `logOut`)
+
+```js
+const initialState = { loggedIn: false, userId: null };
+
+const userReducer = createReducer(initialState, {
+  logIn: (state, action) => {
+    state.loggedIn = true;
+    state.userId = action.payload.userId;
+  },
+  logOut: (state, action) => {
+    return { loggedIn: false, userId: null };
+  },
+});
+```
+
+## createReducer und createAction
+
+Bei Verwendung von `createAction` können wir den Action Creator direkt als Key verwenden (wegen dessen `.toString()`-Methode):
+
+```js
+const increment = createAction('increment', amount => ({
+  amount: amount,
+}));
+const decrement = createAction('decrement', amount => ({
+  amount: amount,
+}));
+
+const counterReducer = createReducer(0, {
+  [increment]: (state, action) =>
+    state + (action.amount || 1),
+  [decrement]: (state, action) =>
+    state - (action.amount || 1),
+});
+```
+
+# Redux Ecosystem
+
+## Redux Ecosystem - Beispiele
+
+- redux-logger
+- redux-thunk: asynchrone Actions
+- redux-saga: asynchrone Actions
+- normalizr: normalisierte Struktur für state
+- reselect: Performanceverbesserung via Memoisation
+- redux-actions: Boilerplate-Reduktion (createAction, createReducer)
+- immutable.js
+
+## Redux Middleware
+
+kann zu einem Redux Store hinzugefügt werden
+
+Erweiterungspunkt / Eingriffspunkt zwischen dem Dispatchen einer Aktion und dem Zeitpunkt an dem sie beim Reducer eintrifft
+
+## Redux Middleware - Beispiele
+
+- Middleware, die eine Action loggt (z.B. redux-logger)
+- Middleware, die eine einzelne Action erhält und basierend darauf verschiedene andere Actions asynchron auslöst (z.B. redux-thunk)
+
+## Redux Middleware - Implementierung
+
+```js
+const myLogger = store => next => action => {
+  console.log(action);
+  next(action);
 };
 ```
 
-## Aufgabe: Todos von REST API laden
+## Redux Middleware - Einbindung
 
-Erstelle ein thunk, das Todos vom folgenden API lädt:
+```ts
+import {
+  getDefaultMiddleware,
+  configureStore,
+} from '@reduxjs/redux-toolkit';
 
-`https://jsonplaceholder.typicode.com/todos`
+const store = configureStore({
+  reducer: rootReducer,
+  middleware: [...getDefaultMiddleware(), myLogger],
+});
+```
+
+## Eigene Middleware - json fetcher
+
+Beispielhafte Nutzung:
+
+```js
+dispatch({
+  type: 'fetchJson',
+  url: 'https://jsonplaceholder.typicode.com/todos',
+});
+```
+
+## Eigene Middleware - json fetcher
+
+Die action `fetchJson` sollte im Hintergrund zwei einzelne actions dispatchen:
+
+- `fetchJsonStart`
+- `fetchJsonComplete` (diese enthält auch JSON-daten als payload)
+
+## Eigene Middleware - json fetcher
+
+```js
+const fetcher = store => next => action => {
+  if (action.type === 'fetchJson') {
+    store.dispatch({ type: 'fetchJsonStart' });
+    fetch(action.payload.url)
+      .then(response => response.json())
+      .then(parsedResponse => {
+        store.dispatch({
+          type: 'fetchJsonComplete',
+          requestedUrl: url,
+          response: parsedResponse,
+        });
+      });
+  } else {
+    next(action);
+  }
+};
+```
+
+## Eigene Middleware - Nachbau von Thunk
+
+```js
+const myThunk = store => next => action => {
+  if (typeof action === 'function') {
+    // we pass dispatch to the action function
+    // so the action can call it
+    return action(store.dispatch);
+  } else {
+    return next(action);
+  }
+};
+```
+
+# Redux Saga
+
+## Redux Saga
+
+Wie auch bei Thunk handelt es sich bei Saga um Middleware, die asynchrones Verhalten in Redux ermöglicht
+
+## Installation
+
+npm-Paket: `redux-saga`
+
+## Saga Middleware einbinden
+
+```js
+import {
+  getDefaultMiddleware,
+  configureStore,
+} from '@reduxjs/redux-toolkit';
+import createSagaMiddleWare from 'redux-saga';
+
+const sagaMiddleware = createSagaMiddleware();
+
+const store = configureStore({
+  reducer: rootReducer,
+  middleware: [...getDefaultMiddleware(), sagaMiddleware],
+});
+```
+
+## Ein Saga ausführen
+
+Ein Saga ist ähnlich einem separaten Thread in unserer Anwendung, der für side effects verantwortlich ist.
+
+```js
+import todoSaga from './todosaga';
+
+sagaMiddleware.run(todoSaga);
+```
+
+## Ein Saga definieren
+
+Sagas werden als Generators definiert
+
+Der folgende Code bewirkt, dass z.B. `todosFetchRequest` von `fetchTodos` behandelt wird (welches wir als Generator erstellen werden).
+
+```js
+import { takeEvery } from 'redux-saga/effects';
+
+function* todoSaga() {
+  yield takeEvery('todosFetchRequest', fetchTodos);
+  yield takeEvery('usersFetchRequest', fetchUsers);
+}
+
+export default todoSaga;
+```
+
+## Exkurs: asynchrone Logik mittels async und await
+
+Asynchrone Funktionen mittels `async` und `await` sind seit ES2017 im JavaScript Standard
+
+```js
+const url = 'https://jsonplaceholder.typicode.com/todos';
+
+async function fetchTodos() {
+  const response = await fetch(url);
+  const todoData = await response.json();
+  console.log(todoData);
+}
+```
+
+## Asynchrone Logik mittels Generators
+
+Redux-Saga setzt etwas ganz ähnliches mittels Generators um:
+
+```js
+const url = 'https://jsonplaceholder.typicode.com/todos';
+
+function* fetchTodos() {
+  const response = yield fetch(url);
+  const todoData = yield response.json();
+  console.log(todoData);
+}
+```
+
+([Benötigter Code zum Ausführen dieses Beispiels](https://gist.github.com/jakearchibald/31b89cba627924972ad6))
+
+für Details zu Generators siehe nächster Abschnitt
+
+## Redux Actions aus Saga dispatchen
+
+mittels `put`:
+
+```js
+import { put } from 'redux-saga/effects';
+
+function* fetchTodos() {
+  const response = yield fetch(url);
+  const todoData = yield response.json();
+  yield put({
+    type: 'todosFetchSuccess',
+    payload: todoData,
+  });
+}
+```
+
+## Saga mit Fehlerbehandlung
+
+```js
+import { put } from 'redux-saga/effects';
+
+function* fetchTodos() {
+  const response = yield fetch(url);
+  if (response.ok) {
+    const todoData = yield response.json();
+    yield put({
+      type: 'todosFetchSuccess',
+      payload: todoData,
+    });
+  } else {
+    yield put({
+      type: 'todosFetchError',
+    });
+  }
+}
+```
 
 # Iterables, Iterators und Generators
 
@@ -606,401 +1315,10 @@ const secondEntry = c.next();
 console.log(secondEntry.value);
 ```
 
-# Redux Saga
+# Ressourcen
 
-## Redux Saga
+## Ressourcen
 
-Wie auch bei Thunk handelt es sich bei Saga um Middleware, die asynchrones Verhalten in Redux ermöglicht
-
-## Installation
-
-```bash
-npm install redux-saga
-```
-
-## Saga Middleware einbinden
-
-```js
-import createSagaMiddleWare from 'redux-saga';
-
-const sagaMiddleware = createSagaMiddleware();
-
-const store = createStore(
-  rootReducer,
-  applyMiddleware(sagaMiddleWare)
-);
-```
-
-## Ein Saga ausführen
-
-Ein Saga ist ähnlich einem separaten Thread in unserer Anwendung, der für side effects verantwortlich ist.
-
-```js
-import todoSaga from './todosaga';
-
-sagaMiddleware.run(todoSaga);
-```
-
-## Ein Saga definieren
-
-Sagas werden als Generators definiert
-
-Der folgende Code bewirkt, dass z.B. `TODOS_FETCH_REQUEST` von `fetchTodos` behandelt wird.
-
-```js
-import { takeEvery } from 'redux-saga/effects';
-
-function* todoSaga() {
-  yield takeEvery('TODOS_FETCH_REQUEST', fetchTodos);
-  yield takeEvery('USERS_FETCH_REQUEST', fetchUsers);
-}
-
-export default todoSaga;
-```
-
-## Asynchrone Logik mittels async und await
-
-Asynchrone Funktionen mittels `async` und `await` sind seit ES2017 im JavaScript Standard
-
-```js
-const url = 'https://jsonplaceholder.typicode.com/todos';
-
-async function fetchTodos() {
-  const response = await fetch(url);
-  const todoData = await response.json();
-  console.log(todoData);
-}
-```
-
-## Asynchrone Logik mittels Generators
-
-Redux-Saga setzt etwas ganz ähnliches mittels Generators um:
-
-```js
-const url = 'https://jsonplaceholder.typicode.com/todos';
-
-function* fetchTodos() {
-  const response = yield fetch(url);
-  const todoData = yield response.json();
-  console.log(todoData);
-}
-```
-
-([Benötigter Code zum Ausführen dieses Beispiels](https://gist.github.com/jakearchibald/31b89cba627924972ad6))
-
-## Redux Actions aus Saga dispatchen
-
-mittels `put`:
-
-```js
-import { put } from 'redux-saga/effects';
-
-function* fetchTodos() {
-  const response = yield fetch(url);
-  const todoData = yield response.json();
-  yield put({
-    type: 'TODOS_FETCH_SUCCESS',
-    payload: todoData,
-  });
-}
-```
-
-## Saga mit Fehlerbehandlung
-
-```js
-import { put } from 'redux-saga/effects';
-
-function* fetchTodos() {
-  const response = yield fetch(url);
-  if (response.ok) {
-    const todoData = yield response.json();
-    yield put({
-      type: 'TODOS_FETCH_SUCCESS',
-      payload: todoData,
-    });
-  } else {
-    cield put({
-      type: 'TODOS_FETCH_ERROR'
-    })
-  }
-}
-```
-
-# Redux Ecosystem
-
-## Redux Ecosystem - Beispiele
-
-- redux-logger
-- redux-thunk: asynchrone Actions
-- redux-saga: asynchrone Actions
-- normalizr: normalisierte Struktur für state
-- reselect: Performanceverbesserung via Memoisation
-- redux-actions: Boilerplate-Reduktion (createAction, createReducer)
-- immutable.js
-
-## Redux Middleware
-
-- kann zu einem Redux Store hinzugefügt werden
-- Erweiterungspunkt / Eingriffspunkt zwischen dem Dispatchen einer Aktion und dem Zeitpunkt an dem sie beim Reducer eintrifft
-
-## Redux Middleware - Beispiele
-
-- Middleware, die eine action loggt (zB redux-logger)
-- Middleware, die eine einzelne action erhält und basierend darauf verschiedene andere actions asynchron auslöst (zB redux-thunk)
-
-## Redux Middleware - Implementierung
-
-```js
-const myLogger = store => next => action => {
-  console.log(action);
-  next(action);
-};
-```
-
-## Redux Middleware - Einbindung
-
-```ts
-const store = createStore(
-  rootReducer,
-  applyMiddleware(myLogger)
-);
-```
-
-## Eigene Middleware - json fetcher
-
-Beispielhafte Nutzung:
-
-```js
-dispatch({
-  type: 'FETCH_JSON',
-  payload: {
-    url: 'https://jsonplaceholder.typicode.com/todos',
-  },
-});
-```
-
-## Eigene Middleware - json fetcher
-
-Die action `FETCH_JSON` sollte im Hintergrund zwei einzelne actions dispatchen:
-
-- `FETCH_JSON_START`
-- `FETCH_JSON_COMPLETE` (diese enthält auch JSON-daten als payload)
-
-## Eigene Middleware - json fetcher
-
-```js
-const fetcher = store => next => action => {
-  if (action.type === 'FETCH_JSON') {
-    store.dispatch({ type: 'FETCH_JSON_START' });
-    fetch(action.payload.url)
-      .then(response => response.json())
-      .then(parsedResponse => {
-        store.dispatch({
-          type: 'FETCH_JSON_COMPLETE',
-          requestedUrl: url,
-          response: parsedResponse,
-        });
-      });
-  } else {
-    next(action);
-  }
-};
-```
-
-## Eigene Middleware - eine Funktion dispatchen
-
-Wir wollen noch flexibler sein und eine Funktion dispatchen.
-
-Diese Funktion soll asynchrone Anfragen durchführen und weitere Actions dispatchen können.
-
-## Eigene Middleware - eine Funktion dispatchen
-
-```js
-const functionMiddleware = store => next => action => {
-  if (typeof action === 'function') {
-    // we pass dispatch to the action function
-    // so the action can call it
-    return action(store.dispatch);
-  } else {
-    return next(action);
-  }
-};
-```
-
-## Präsentation: Taming Large React Applications w/ Redux
-
-https://slides.com/joelkanzelmeyer/taming-large-redux-apps
-
-# React mit Redux (mit Hooks)
-
-## React mit Redux (mit Hooks)
-
-https://redux.js.org/basics/usage-with-react
-
-Setup: `npm install redux react-redux`
-
-Typescript: `npm install @types/react-redux`
-
-## React-Redux: < Provider >
-
-Provider: Hinzufügen von Redux-Store zu einer React-App
-
-## React-Redux: < Provider >
-
-```js
-// index.js
-import { Provider } from 'react-redux';
-
-[...]
-
-ReactDOM.render(
-  <Provider store={myStore}>
-    <App/>
-  </Provider>
-  ...
-);
-```
-
-## useSelector
-
-Mit `useSelector` können wir in einer React-Komponente die Inhalte des Redux-Stores abfragen.
-
-Wir übergeben eine sogenannte _Selektorfunktion_ an `useSelektor`. Die Selektorfunktion erhält den gesamten Redux-State und gibt einen daraus abgeleiteten Wert zurück.
-
-Beispiel:
-
-```js
-const numTodos = useSelector(state => state.todos.length);
-```
-
-## useDispatch
-
-Mit `useDispatch` können wir aus React auf die `dispatch`-Funktion des Redux-Stores zugreifen und damit Actions dispatchen.
-
-```js
-const dispatch = useDispatch();
-
-dispatch({
-  type: 'REMOVE_COMPLETED_TODOS',
-});
-```
-
-## useDispatch mit TypeScript
-
-```ts
-import { Dispatch } from 'redux';
-
-const dispatch: Dispatch<TodolistAction> = useDispatch();
-```
-
-# React mit Redux (mit Klassen)
-
-## React mit Redux (mit Klassen)
-
-https://redux.js.org/basics/usage-with-react
-
-Setup: `npm install redux react-redux`
-
-Typescript: `npm install @types/react-redux`
-
-## Presentational und Container Components
-
-- presentational components: "Normale" React-Komponenten (wiederverwendbar)
-- container components: Zugriff auf Redux-Store / Mit dem Redux-Store verbunden
-
-## React-Redux: < Provider >
-
-Provider: Hinzufügen von Redux-Store zu einer React-App
-
-## React-Redux: < Provider >
-
-```js
-// index.js
-import { Provider } from 'react-redux';
-
-[...]
-
-ReactDOM.render(
-  <Provider store={myStore}>
-    <App/>
-  </Provider>
-  ...
-);
-```
-
-## Counter: Connect
-
-connect: verbindet React-Komponenten mit dem Redux store
-
-- `mapStateToProps`: verbindet React props mit Redux state
-- `mapDispatchToProps`: verbindet React props mit Redux actions
-
-Aufruf:
-
-```js
-const ConnectedComponent = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Component);
-```
-
-## Counter: Connect (state)
-
-```jsx
-import { connect } from 'react-redux';
-
-const mapStateToProps = (state) => ({ count: state });
-}
-
-[...]
-    <div className="App">
-      {JSON.stringify(this.props)}
-    </div>
-[...]
-
-export default connect(mapStateToProps)(App);
-```
-
-## Counter: Connect (actions)
-
-```jsx
-const mapDispatchToProps = dispatch => ({
-  // dispatch ist die dispatch-Funktion des Stores.
-  // sie wird uns hier mittels dependency injection
-  // zur Verfügung gestellt
-  increment: () => dispatch({ type: 'INCREMENT' }),
-  decrement: () => dispatch({ type: 'DECREMENT' }),
-});
-```
-
-```xml
-<button onClick={this.props.increment}>+</button>
-<button onClick={this.props.decrement}>-</button>
-```
-
-## Counter: Dispatch mit TypeScript
-
-```ts
-import { Action, Dispatch } from 'redux';
-
-interface MyAction extends Action {
-  payload: any;
-}
-
-const mapDispatchToProps = (
-  dispatch: Dispatch<MyAction>
-) => ({
-  increment: () => {
-    dispatch({ type: 'INCREMENT', payload: 1 });
-  },
-});
-```
-
-## Redux mit TypeScript
-
-siehe:
-
-- https://github.com/piotrwitek/react-redux-typescript-guide
-- https://medium.com/@resir014/a-type-safe-approach-to-redux-stores-in-typescript-6474e012b81e
-- https://www.carlrippon.com/strongly-typed-react-redux-code-with-typescript/
+- [Redux Style Guide (best practices)](https://redux.js.org/style-guide/style-guide)
+- [Slides: Taming large React Applications with Redux (2016)](https://slides.com/joelkanzelmeyer/taming-large-redux-apps)
 

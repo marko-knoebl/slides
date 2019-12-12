@@ -36,6 +36,20 @@ neues Projekt:
 npx create-react-app my-app --typescript
 ```
 
+## React mit TypeScript
+
+ausführliche Resource: https://github.com/piotrwitek/react-redux-typescript-guide
+
+<!--
+
+redux with typescript:
+
+- https://github.com/piotrwitek/react-redux-typescript-guide
+- https://medium.com/@resir014/a-type-safe-approach-to-redux-stores-in-typescript-6474e012b81e
+- https://www.carlrippon.com/strongly-typed-react-redux-code-with-typescript/
+
+-->
+
 ## Komponenten mit TypeScript (Funktionen)
 
 ```tsx
