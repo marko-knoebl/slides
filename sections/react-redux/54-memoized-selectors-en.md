@@ -37,9 +37,3 @@ getRectArea({ length: 2, width: 3, color: 'red' });
 getRectAreaMemoized({ length: 2, width: 3, color: 'blue' });
 getRectAreaMemoized({ length: 2, width: 3, color: 'red' });
 ```
-
-## Installing reselect
-
-```bash
-npm install reselect
-```

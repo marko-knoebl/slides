@@ -10,9 +10,9 @@ Ein Store kann in verschiedene Teile aufgeteilt sein.
 
 ## Verwender von Redux
 
-- [airbnb](https://airbnb.com)
-- [reddit](https://reddit.com)
-- [dropbox](https://dropbox.com)
+- Airbnb
+- Reddit
+- Dropbox
 
 ## Redux Devtools
 
@@ -30,6 +30,16 @@ https://github.com/zalmoxisus/redux-devtools-extension
 Begutachten des Redux States via:
 
 Browser-Entwicklerwerkzeuge → _Redux_ → _State_ → _Chart/Tree_
+
+## Redux Devtools
+
+Funktionalitäten:
+
+- State inspizieren
+- Änderungen am State anzeigen
+- Actions auslösen (dispatchen)
+- Früheren State wiederherstellen (Time Traveling)
+- State als JSON speichern / wiederherstellen
 
 ## Installation
 
@@ -105,7 +115,7 @@ todosStore.getState();
 
 ## Redux Devtools
 
-einbinden:
+in eigenen Projekten einbinden:
 
 ```bash
 npm install redux-devtools-extension
@@ -120,16 +130,6 @@ const store = createStore(
   composeWithDevTools(applyMiddleware())
 );
 ```
-
-## Redux Devtools
-
-Funktionalitäten:
-
-- State inspizieren
-- Änderungen am State anzeigen
-- Actions auslösen (dispatchen)
-- Früheren State wiederherstellen (Time Traveling)
-- State als JSON speichern / wiederherstellen
 
 ## Beispiel: Shopping cart
 

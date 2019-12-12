@@ -4,7 +4,7 @@
 
 ## State management with reducers
 
-See presentation on [React advanced](./react-advanced-en.html)
+See presentation on [React advanced](./react-advanced-en.html#/5)
 
 # State management in Redux
 
@@ -12,53 +12,24 @@ See presentation on [React advanced](./react-advanced-en.html)
 
 In Redux: application state is stored _globally_.
 
+The state is stored independent from React components.
+
 There is _one_ store that contains all data.
 
 A store may be composed of different parts.
 
-## Users of Redux
+## Redux reducers
 
-- [airbnb](https://airbnb.com)
-- [reddit](https://reddit.com)
-- [dropbox](https://dropbox.com)
+Characteristics of Redux reducers (compared to the reducer hook):
 
-## Redux devtools
-
-<figure>
-  <img src="assets/redux-devtools-airbnb.png" type="image/png" style="width: 100%" alt="Redux devtools showing the state of the airbnb website">
-  <figcaption>Redux devtools showing the state of the airbnb website</figcaption>
-</figure>
-
-## Redux devtools
-
-Browser plugin for Firefox / Chrome:
-
-https://github.com/zalmoxisus/redux-devtools-extension
-
-View Redux state via:
-
-browser-devtools → _Redux_ → _State_ → _Chart/Tree_
-
-## Installation of Redux
-
-```bash
-npm install redux
-```
-
-## Example: Todos
-
-Differences between Redux and the reducer hook:
-
-In Redux the initial state is passed to the reducer as a default parameter:
+the initial state is passed in as a default parameter:
 
 ```js
 const initialState = []
-const todosReducer = (oldState = initialState, action) => {
-    ...
-}
+const todosReducer = (oldState = initialState, action) => {...}
 ```
 
-If a reducer does not recognize an action the Redux state should remain unchanged:
+unknown actions should leave the state unchanged:
 
 ```js
 default:
@@ -88,46 +59,52 @@ const todosReducer = (oldState = initialState, action) => {
 };
 ```
 
-## Example: todos store
+## Redux toolkit
 
-```js
-// store.js
-import { createStore } from 'redux';
-import todosReducer from 'todosReducer';
+**Redux toolkit** enables a simplified setup of Redux and associated libraries (in the spirit of _create-react-app_)
 
-const todosStore = createStore(todosReducer);
+We will use it throughout this presentation
+
+```bash
+npm install @reduxjs/toolkit
 ```
 
-## Example: todos store
+## Redux toolkit
 
-direct use:
+functionality (see [what's included](https://redux-toolkit.js.org/introduction/quick-start#whats-included)):
 
-```js
-todosStore.getState();
-todosStore.dispatch({
-  type: 'ADD_TODO',
-  title: 'learn Redux',
-});
-todosStore.getState();
-```
+- debugging (via _redux devtools_)
+- simpler reducer creation (via _createReducer_)
+- simpler state updates by direct mutations (via _immer.js_)
+- asynchronous actions (via _thunk_)
+- ...
+
+# Redux devtools
 
 ## Redux devtools
 
-Including the devtools in an application:
+<figure>
+  <img src="assets/redux-devtools-airbnb.png" type="image/png" style="width: 100%" alt="Redux devtools showing the state of the airbnb website">
+  <figcaption>Redux devtools showing the state of the airbnb website</figcaption>
+</figure>
 
-```bash
-npm install redux-devtools-extension
-```
+## Redux devtools
 
-```js
-import { createStore, applyMiddleware } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
+Browser plugin for Firefox / Chrome:
 
-const store = createStore(
-  reducer,
-  composeWithDevTools(applyMiddleware())
-);
-```
+https://github.com/zalmoxisus/redux-devtools-extension
+
+View Redux state via:
+
+browser-devtools → _Redux_ → _State_ → _Chart/Tree_
+
+## Redux devtools
+
+users of Redux (we can inspect the Redux state on these sites):
+
+- Airbnb
+- Reddit
+- Dropbox
 
 ## Redux devtools
 
@@ -137,7 +114,478 @@ functionality:
 - display changes to the state
 - trigger (dispatch) actions
 - restore previous state (time traveling)
-- saving / restoring State from / to JSON
+- save / restore state from / to JSON
+
+# Redux store
+
+## Redux store
+
+creating a Redux store that will contain the state; the store is managed by a reducer
+
+```js
+// store.js
+
+import { configureStore } from '@reduxjs/toolkit';
+import todosReducer from './todosReducer';
+
+const todosStore = configureStore({
+  reducer: todosReducer,
+});
+```
+
+## Redux store
+
+directly using the store:
+
+```js
+console.log(todosStore.getState());
+todosStore.dispatch({
+  type: 'ADD_TODO',
+  title: 'learn Redux',
+});
+console.log(todosStore.getState());
+```
+
+# Exercise: todo list
+
+Implementing a model for a todo list in Redux
+
+# React with Redux (with Hooks)
+
+## React with Redux (with Hooks)
+
+https://redux.js.org/basics/usage-with-react
+
+npm packages:
+
+- `react-redux`
+- `@types/react-redux`
+
+## React-Redux: &lt;Provider&gt;
+
+Provider: Is used to add a Redux store to a React app
+
+## React-Redux: &lt;Provider&gt;
+
+```js
+// index.js
+import { Provider } from 'react-redux';
+
+[...]
+
+ReactDOM.render(
+  <Provider store={myStore}>
+    <App/>
+  </Provider>
+  ...
+);
+```
+
+## useSelector
+
+By using `useSelector` we can query the state of the Redux store.
+
+We pass a so-called _selector function_ to `useSelector`.
+
+The selector function receives the entire Redux state and returns a value that is derived from the state.
+
+example:
+
+```js
+const numTodos = useSelector(state => state.todos.length);
+```
+
+## useDispatch
+
+By using `useDispatch` we can access the `dispatch` function of the Redux store and use it to dispatch actions.
+
+```js
+const dispatch = useDispatch();
+
+dispatch({ type: 'deleteCompletedTodos' });
+```
+
+## useDispatch with TypeScript
+
+```ts
+import { Dispatch } from 'redux';
+
+const dispatch: Dispatch<TodolistAction> = useDispatch();
+```
+
+# React with Redux (with classes)
+
+## React with Redux (with classes)
+
+https://redux.js.org/basics/usage-with-react
+
+Setup: `npm install redux react-redux`
+
+TypeScript: `npm install @types/react-redux`
+
+## Presentational and Container Components
+
+- presentational components: "ordinary" React components (reusable)
+- container components: Have access to the redux store / are connected to the Redux store
+
+## React-Redux: < Provider >
+
+Provider: Helps with adding a redux store to a React app
+
+## React-Redux: < Provider >
+
+```js
+// index.js
+import { Provider } from 'react-redux';
+
+[...]
+
+ReactDOM.render(
+  <Provider store={myStore}>
+    <App/>
+  </Provider>
+);
+```
+
+## Counter: Connect
+
+connect: connects React components to the Redux store
+
+- `mapStateToProps`: connects React props to Redux state
+- `mapDispatchToProps`: connects React props to Redux actions
+
+calling connect:
+
+```js
+component = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(component);
+```
+
+## Counter: Connect (state)
+
+```jsx
+import { connect } from 'react-redux';
+
+const mapStateToProps = (state) => {
+  return { count: state.count };
+}
+
+[...]
+    <div className="App">
+      {JSON.stringify(this.props)}
+    </div>
+[...]
+
+export default connect(mapStateToProps)(App);
+```
+
+## Counter: Connect (actions)
+
+```jsx
+const mapDispatchToProps = dispatch => {
+  // dispatch refers to the dispatch function of the store;
+  // it is provided to us via dependency injection.
+  return {
+    increment: () => dispatch({ type: 'INCREMENT' }),
+    decrement: () => dispatch({ type: 'DECREMENT' }),
+  };
+};
+```
+
+```xml
+<button onClick={this.props.increment}>+</button>
+<button onClick={this.props.decrement}>-</button>
+```
+
+## Counter: Dispatch with TypeScript
+
+```ts
+import { Action, Dispatch } from 'redux';
+
+interface MyAction extends Action {
+  payload: any;
+}
+
+const mapDispatchToProps = (
+  dispatch: Dispatch<MyAction>
+) => ({
+  increment: () => {
+    dispatch({ type: 'INCREMENT', payload: 1 });
+  },
+});
+```
+
+## Redux with TypeScript
+
+see https://github.com/piotrwitek/react-redux-typescript-guide
+
+# Intermediate topics
+
+## Intermediate topics
+
+- actions
+- selectors
+- thunk
+- `createReducer`
+- `combineReducers`
+
+# Actions
+
+## Actions
+
+- actions describe a change to the state
+- actions always have a _type_ property with a string value
+- actions often adhere to the _FSA_ standard, meaning they may have a _payload_, an _error_ and a _meta_ property
+
+## Actions - examples
+
+```js
+const action = {
+  type: 'addTodo',
+  payload: {
+    title: 'Build my first redux app',
+  },
+};
+```
+
+## Actions - examples
+
+```js
+const action = {
+  type: 'toggleTodo',
+  payload: {
+    id: 2,
+  },
+};
+```
+
+# Action creators
+
+## Action creators
+
+Action creators are usually very simple functions used to create a specific action
+
+```js
+const addTodo = title => ({
+  type: 'addTodo',
+  payload: {
+    title: title,
+  },
+});
+```
+
+## Action creators vs. actions
+
+_Action creators_ are often called _actions_ for short. When documentation / functions mention _actions_ we need to be aware of this double meaning.
+
+# Selectors
+
+## Storing the minimal state
+
+Best practice in Redux: always store the _minimal_ state tree (i.e. no redundant data)
+
+Examples of non-conforming states:
+
+```js
+{
+  todos: [...],
+  maxTodoId: 3
+}
+```
+
+```js
+{
+  shoppingCartItems: [{itemid: ..., price: ...}, ...],
+  totalPrice: ...
+}
+```
+
+## Storing the minimal state
+
+Data like `maxTodoId` and `totalPrice` can be computed from the other data and shouldn't have an extra entry in the state.
+
+## Selectors
+
+Functions that compute derived data based on a minimal state are called selectors. They take in the complete state as an argument and return derived data.
+
+## Example Selectors
+
+- `getMaxTodoId`
+- `getFilteredTodos`
+
+## Example Selectors
+
+```js
+const getMaxTodoId = state =>
+  state.todos.reduce((aggregator, item) =>
+    Math.max(aggregator, item.id, 1)
+  );
+```
+
+```js
+const getFilteredTodos = state =>
+  state.todos.filter(todo =>
+    todo.title
+      .toLowerCase()
+      .includes(state.ui.filterText.toLowerCase())
+  );
+```
+
+# Memoized selectors
+
+## Memoization
+
+Memoization is the practice of caching return values of a pure function so they don't need to be recomputed every time
+
+## Memoization in reselect
+
+Reselect is a library that can help with memoization. Its default behavior is very simple: It remembers the last input for a function; if that function is called again with the same input the computation is skipped and it will directly output the previously stored resut
+
+## Memoization in reselect
+
+```js
+import { createSelector } from 'reselect';
+
+// regular function that computes the area of a rectangle
+const getRectArea = rect => rect.length * rect.width;
+
+// memoized function that computes the area of a rectangle
+const getRectAreaMemoized = createSelector(
+  // selector functions signify which input values to watch:
+  [rect => rect.length, rect => rect.width],
+  // this function will only be called if one of the
+  // input values changed:
+  (length, width) => length * width
+);
+```
+
+## Memoization in reselect
+
+The last function call will not recompute the area
+
+```js
+getRectArea({ length: 2, width: 3, color: 'blue' });
+getRectArea({ length: 2, width: 3, color: 'red' });
+
+getRectAreaMemoized({ length: 2, width: 3, color: 'blue' });
+getRectAreaMemoized({ length: 2, width: 3, color: 'red' });
+```
+
+# createReducer
+
+## createReducer
+
+`createReducer` can simplify writing reducers by:
+
+- removing boilerplate
+- allowing object mutations (through _immer.js_)
+
+## createReducer
+
+"traditional" implementation of a `counterReducer`:
+
+```js
+const counterReducer = (state = 0, action) => {
+  switch (action.type) {
+    case 'increment':
+      return state + 1;
+    case 'decrement':
+      return state - 1;
+    default:
+      return state;
+  }
+};
+```
+
+## createReducer
+
+simplified implementation via `createReducer`:
+
+```js
+import { createReducer } from '@redux/toolkit';
+
+const counterReducer = createReducer(0, {
+  increment: (state, action) => state + 1,
+  decrement: (state, action) => state - 1,
+});
+```
+
+## createReducer
+
+with `createReducer` we _can_ mutate existing state (see `logIn`) _or_ return a derived state (see `logOut`)
+
+```js
+const initialState = { loggedIn: false, userId: null };
+
+const userReducer = createReducer(initialState, {
+  logIn: (state, action) => {
+    state.loggedIn = true;
+    state.userId = action.payload.userId;
+  },
+  logOut: (state, action) => ({
+    loggedIn: false,
+    userId: null,
+  }),
+});
+```
+
+# Splitting / combining reducers
+
+## Splitting / combining reducers
+
+Reducers can be easily combined to form a "containing" reducer
+
+## Splitting / combining reducers
+
+example: online shop
+
+- _root_ reducer: contains three entries managed by separate reducers:
+  - _user_ reducer: data on the logged-in user
+  - _products_ reducer: data on available products (from API)
+  - _cart_ reducer: data on current contents of the cart
+
+## Splitting / combining reducers
+
+Redux has a function for building reducers from sub-reducers:
+
+```js
+import { combineReducers } from '@redux/toolkit';
+
+const shopReducer = combineReducers({
+  user: userReducer,
+  products: productsReducer,
+  cart: cartReducer,
+});
+```
+
+# Exercise: todo list
+
+Implementing a model for a todo list in Redux
+
+## Exercise: todo list
+
+data structure (example):
+
+- todoData
+  - todos
+  - isFetching
+  - hasError
+- ui
+  - newTodoTitle
+  - filterText
+
+## Exercise: todo list
+
+Actions (examples):
+
+- addTodo
+- toggleTodo
+- deleteTodo
+- loadTodosFromApi
+
+# Example: shopping cart
 
 ## Example: shopping cart
 
@@ -233,187 +681,6 @@ const productsReducer = (state = products, action) => {
 };
 ```
 
-# Exercise: todo list
-
-Implementing a model for a todo list in Redux
-
-## Exercise: todo list
-
-data structure (example):
-
-- todoData
-  - todos
-  - isFetching
-  - hasError
-- ui
-  - newTodoTitle
-  - filterText
-
-## Exercise: todo list
-
-Actions (examples):
-
-- addTodo
-- toggleTodo
-- deleteTodo
-- loadTodosFromApi
-
-# Redux in detail
-
-## Basic elements of Redux
-
-- _state_
-- _action_: object that describes a change to the _state_
-- _action creator_: simple function that creates an _action_
-- _reducer_: based on an action, transforms the old _state_ into a new _state_
-- _store_: where the _state_ is stored
-- _selector_: function that reads some (derived) data from the state
-
-# Actions
-
-## Actions
-
-- actions describe a change to the state
-- actions are objects with a _type_ property and optionally other properties
-- the _type_ property is usually a string, often defined as a constant in a separate module
-- actions often adhere to the _FSA_ standard, meaning they may have a _payload_, an _error_ and a _meta_ property
-
-## Actions - examples
-
-```js
-import { ADD_TODO } from './constants';
-
-let a = {
-  type: ADD_TODO,
-  payload: {
-    title: 'Build my first redux app',
-  },
-};
-```
-
-## Actions - examples
-
-```js
-let a = {
-  type: TOGGLE_TODO,
-  payload: {
-    id: 2,
-  },
-};
-```
-
-## Action creators
-
-Action creators are usually very simple functions used to create a specific action
-
-```js
-const addTodo = title => ({
-  type: ADD_TODO,
-  payload: {
-    title,
-  },
-});
-```
-
-# Selectors
-
-## Storing the minimal state
-
-Best practice in Redux: always store the _minimal_ state tree (i.e. no redundant data)
-
-Examples of non-conforming states:
-
-```js
-{
-  todos: [...],
-  maxTodoId: 3
-}
-```
-
-```js
-{
-  shoppingCartItems: [{itemid: ..., price: ...}, ...],
-  totalPrice: ...
-}
-```
-
-## Storing the minimal state
-
-Data like `maxTodoId` and `totalPrice` can be computed from the other data and shouldn't have an extra entry in the state.
-
-## Selectors
-
-Functions that compute derived data based on a minimal state are called selectors. They take in the complete state as an argument and return derived data.
-
-## Example Selectors
-
-- `getMaxTodoId`
-- `getFilteredTodos`
-
-## Example Selectors
-
-```js
-const getMaxTodoId = state =>
-  state.todos.reduce((aggregator, item) =>
-    Math.max(aggregator, item.id, 1)
-  );
-```
-
-```js
-const getFilteredTodos = state =>
-  state.todos.filter(todo =>
-    todo.title
-      .toLowerCase()
-      .includes(state.ui.filterText.toLowerCase())
-  );
-```
-
-# Memoized selectors
-
-## Memoization
-
-Memoization is the practice of caching return values of a pure function so they don't need to be recomputed every time
-
-## Memoization in reselect
-
-Reselect is a library that can help with memoization. Its default behavior is very simple: It remembers the last input for a function; if that function is called again with the same input the computation is skipped and it will directly output the previously stored resut
-
-## Memoization in reselect
-
-```js
-import { createSelector } from 'reselect';
-
-// regular function that computes the area of a rectangle
-const getRectArea = rect => rect.length * rect.width;
-
-// memoized function that computes the area of a rectangle
-const getRectAreaMemoized = createSelector(
-  // selector functions signify which input values to watch:
-  [rect => rect.length, rect => rect.width],
-  // this function will only be called if one of the
-  // input values changed:
-  (length, width) => length * width
-);
-```
-
-## Memoization in reselect
-
-The last function call will not recompute the area
-
-```js
-getRectArea({ length: 2, width: 3, color: 'blue' });
-getRectArea({ length: 2, width: 3, color: 'red' });
-
-getRectAreaMemoized({ length: 2, width: 3, color: 'blue' });
-getRectAreaMemoized({ length: 2, width: 3, color: 'red' });
-```
-
-## Installing reselect
-
-```bash
-npm install reselect
-```
-
 # Asynchronous actions
 
 ## Asynchronous actions
@@ -460,24 +727,7 @@ Instead, it would usually lead to two other actions reaching the redux store:
 
 In Thunk, the synchronous logic remains in the reducer while the asynchronous logic is included in the action creator.
 
-## Installation
-
-```bash
-npm install redux-thunk
-```
-
-## Including Thunk
-
-```ts
-import thunk from 'redux-thunk';
-
-const store = createStore(
-  rootReducer,
-  applyMiddleware(thunk)
-);
-```
-
-## example: timer
+## Example: timer
 
 ```js
 // sync actions
@@ -500,7 +750,7 @@ We have to give the complete signature of `dispatch`:
 dispatch: ThunkDispatch<IState, void, IAction>
 ```
 
-## example: timer
+## Example: timer
 
 The reducer only receives synchronous actions
 
@@ -535,11 +785,11 @@ const actionAsync = () => (
 };
 ```
 
-## task: loading Todos from a REST API
+## Task: loading Todos from a REST API
 
 create a thunk that will load example todos from `https://jsonplaceholder.typicode.com/todos`
 
-## task: loading Todos from a GraphQL API
+## Task: loading Todos from a GraphQL API
 
 create a thunk that will load example todos from `https://5qn401kkl9.lp.gql.zone/graphql`
 
@@ -762,7 +1012,7 @@ example usage:
 
 ```js
 dispatch({
-  type: 'FETCH_JSON',
+  type: 'fetchJson',
   payload: {
     url: 'https://jsonplaceholder.typicode.com/todos',
   },
@@ -771,19 +1021,19 @@ dispatch({
 
 ## Custom Middleware - json fetcher
 
-In the background the action `FETCH_JSON` should dispatch two separate actions: `FETCH_JSON_START` and `FETCH_JSON_COMPLETE`. The action `FETCH_JSON_COMPLETE` should carry the json content as its payload.
+In the background the action `fetchJson` should dispatch two separate actions: `fetchJsonStart` and `fetchJsonComplete`. The action `fetchJsonComplete` should carry the json content as its payload.
 
 ## Custom Middleware - json fetcher
 
 ```js
 const fetcher = store => next => action => {
-  if (action.type === 'FETCH_JSON') {
-    store.dispatch({ type: 'FETCH_JSON_START' });
+  if (action.type === 'fetchJson') {
+    store.dispatch({ type: 'fetchJsonStart' });
     fetch(action.payload.url)
       .then(response => response.json())
       .then(parsedResponse => {
         store.dispatch({
-          type: 'FETCH_JSON_COMPLETE',
+          type: 'fetchJsonComplete',
           requestedUrl: url,
           response: parsedResponse,
         });
@@ -794,17 +1044,19 @@ const fetcher = store => next => action => {
 };
 ```
 
-## Custom Middleware - dispatching a function
+## Custom middleware - recreating thunk
 
-We want to be even more flexible and be able to dispatch a function. This function should then be able to do asynchronous requests and dispatch more actions during that time.
+We will demonstrate how to recreate the thunk middleware:
 
-## Custom Middleware - dispatching a function
+We want to be able to dispatch a function. This function should then be able to do asynchronous requests and dispatch more actions during that time.
+
+## Custom middleware - recreating thunk
 
 ```js
 const functionMiddleware = store => next => action => {
   if (typeof action === 'function') {
     // we pass dispatch to the action function
-    // so the action can call it
+    // so the action can use it
     return action(store.dispatch);
   } else {
     return next(action);
@@ -812,177 +1064,18 @@ const functionMiddleware = store => next => action => {
 };
 ```
 
-## resource: Taming Large React Applications w/ Redux
+# Redux in detail
 
-https://slides.com/joelkanzelmeyer/taming-large-redux-apps
+## Redux elements
 
-# React with Redux (with Hooks)
+- _state_
+- _action_: object that describes a change to the _state_
+- _action creator_: simple function that creates an _action_
+- _reducer_: based on an action, transforms the old _state_ into a new _state_
+- _store_: where the _state_ is stored
+- _selector_: function that retrieves some (derived) data from the state
 
-## React with Redux (with Hooks)
+## Resource: Taming Large React Applications w/ Redux
 
-https://redux.js.org/basics/usage-with-react
-
-Setup: `npm install redux react-redux`
-
-Typescript: `npm install @types/react-redux`
-
-## React-Redux: < Provider >
-
-Provider: Helps with adding a redux store to a React app
-
-## React-Redux: < Provider >
-
-```js
-// index.js
-import { Provider } from 'react-redux';
-
-[...]
-
-ReactDOM.render(
-  <Provider store={myStore}>
-    <App/>
-  </Provider>
-  ...
-);
-```
-
-## useSelector
-
-By using `useSelector` we can query the state of the Redux store.
-
-We pass a so-called _selector function_ to `useSelector`. The selector function receives the entire Redux state and returns a value that is derived from the state.
-
-example:
-
-```js
-const numTodos = useSelector(state => state.todos.length);
-```
-
-## useDispatch
-
-By using `useDispatch` we can access the `dispatch` function of the Redux store and use it to dispatch actions.
-
-```js
-const dispatch = useDispatch();
-
-dispatch({
-  type: 'REMOVE_COMPLETED_TODOS',
-});
-```
-
-## useDispatch with TypeScript
-
-```ts
-import { Dispatch } from 'redux';
-
-const dispatch: Dispatch<TodolistAction> = useDispatch();
-```
-
-# React with Redux (with classes)
-
-## React with Redux (with classes)
-
-https://redux.js.org/basics/usage-with-react
-
-Setup: `npm install redux react-redux`
-
-TypeScript: `npm install @types/react-redux`
-
-## Presentational and Container Components
-
-- presentational components: "ordinary" React components (reusable)
-- container components: Have access to the redux store / are connected to the Redux store
-
-## React-Redux: < Provider >
-
-Provider: Helps with adding a redux store to a React app
-
-## React-Redux: < Provider >
-
-```js
-// index.js
-import { Provider } from 'react-redux';
-
-[...]
-
-ReactDOM.render(
-  <Provider store={myStore}>
-    <App/>
-  </Provider>
-);
-```
-
-## Counter: Connect
-
-connect: connects React components to the Redux store
-
-- `mapStateToProps`: connects React props to Redux state
-- `mapDispatchToProps`: connects React props to Redux actions
-
-calling connect:
-
-```js
-component = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(component);
-```
-
-## Counter: Connect (state)
-
-```jsx
-import { connect } from 'react-redux';
-
-const mapStateToProps = (state) => {
-  return { count: state.count };
-}
-
-[...]
-    <div className="App">
-      {JSON.stringify(this.props)}
-    </div>
-[...]
-
-export default connect(mapStateToProps)(App);
-```
-
-## Counter: Connect (actions)
-
-```jsx
-const mapDispatchToProps = dispatch => {
-  // dispatch refers to the dispatch function of the store;
-  // it is provided to us via dependency injection.
-  return {
-    increment: () => dispatch({ type: 'INCREMENT' }),
-    decrement: () => dispatch({ type: 'DECREMENT' }),
-  };
-};
-```
-
-```xml
-<button onClick={this.props.increment}>+</button>
-<button onClick={this.props.decrement}>-</button>
-```
-
-## Counter: Dispatch with TypeScript
-
-```ts
-import { Action, Dispatch } from 'redux';
-
-interface MyAction extends Action {
-  payload: any;
-}
-
-const mapDispatchToProps = (
-  dispatch: Dispatch<MyAction>
-) => ({
-  increment: () => {
-    dispatch({ type: 'INCREMENT', payload: 1 });
-  },
-});
-```
-
-## Redux with TypeScript
-
-see https://github.com/piotrwitek/react-redux-typescript-guide
+https://slides.com/joelkanzelmeyer/taming-large-redux-apps (2016)
 

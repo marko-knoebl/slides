@@ -33,24 +33,7 @@ Instead, it would usually lead to two other actions reaching the redux store:
 
 In Thunk, the synchronous logic remains in the reducer while the asynchronous logic is included in the action creator.
 
-## Installation
-
-```bash
-npm install redux-thunk
-```
-
-## Including Thunk
-
-```ts
-import thunk from 'redux-thunk';
-
-const store = createStore(
-  rootReducer,
-  applyMiddleware(thunk)
-);
-```
-
-## example: timer
+## Example: timer
 
 ```js
 // sync actions
@@ -73,7 +56,7 @@ We have to give the complete signature of `dispatch`:
 dispatch: ThunkDispatch<IState, void, IAction>
 ```
 
-## example: timer
+## Example: timer
 
 The reducer only receives synchronous actions
 
@@ -108,11 +91,11 @@ const actionAsync = () => (
 };
 ```
 
-## task: loading Todos from a REST API
+## Task: loading Todos from a REST API
 
 create a thunk that will load example todos from `https://jsonplaceholder.typicode.com/todos`
 
-## task: loading Todos from a GraphQL API
+## Task: loading Todos from a GraphQL API
 
 create a thunk that will load example todos from `https://5qn401kkl9.lp.gql.zone/graphql`
 

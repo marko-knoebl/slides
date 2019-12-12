@@ -4,15 +4,16 @@
 
 https://redux.js.org/basics/usage-with-react
 
-Setup: `npm install redux react-redux`
+npm packages:
 
-Typescript: `npm install @types/react-redux`
+- `react-redux`
+- `@types/react-redux`
 
-## React-Redux: < Provider >
+## React-Redux: &lt;Provider&gt;
 
-Provider: Helps with adding a redux store to a React app
+Provider: Is used to add a Redux store to a React app
 
-## React-Redux: < Provider >
+## React-Redux: &lt;Provider&gt;
 
 ```js
 // index.js
@@ -32,7 +33,9 @@ ReactDOM.render(
 
 By using `useSelector` we can query the state of the Redux store.
 
-We pass a so-called _selector function_ to `useSelector`. The selector function receives the entire Redux state and returns a value that is derived from the state.
+We pass a so-called _selector function_ to `useSelector`.
+
+The selector function receives the entire Redux state and returns a value that is derived from the state.
 
 example:
 
@@ -47,9 +50,7 @@ By using `useDispatch` we can access the `dispatch` function of the Redux store 
 ```js
 const dispatch = useDispatch();
 
-dispatch({
-  type: 'REMOVE_COMPLETED_TODOS',
-});
+dispatch({ type: 'deleteCompletedTodos' });
 ```
 
 ## useDispatch with TypeScript

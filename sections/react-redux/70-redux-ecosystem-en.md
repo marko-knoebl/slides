@@ -43,7 +43,7 @@ example usage:
 
 ```js
 dispatch({
-  type: 'FETCH_JSON',
+  type: 'fetchJson',
   payload: {
     url: 'https://jsonplaceholder.typicode.com/todos',
   },
@@ -52,19 +52,19 @@ dispatch({
 
 ## Custom Middleware - json fetcher
 
-In the background the action `FETCH_JSON` should dispatch two separate actions: `FETCH_JSON_START` and `FETCH_JSON_COMPLETE`. The action `FETCH_JSON_COMPLETE` should carry the json content as its payload.
+In the background the action `fetchJson` should dispatch two separate actions: `fetchJsonStart` and `fetchJsonComplete`. The action `fetchJsonComplete` should carry the json content as its payload.
 
 ## Custom Middleware - json fetcher
 
 ```js
 const fetcher = store => next => action => {
-  if (action.type === 'FETCH_JSON') {
-    store.dispatch({ type: 'FETCH_JSON_START' });
+  if (action.type === 'fetchJson') {
+    store.dispatch({ type: 'fetchJsonStart' });
     fetch(action.payload.url)
       .then(response => response.json())
       .then(parsedResponse => {
         store.dispatch({
-          type: 'FETCH_JSON_COMPLETE',
+          type: 'fetchJsonComplete',
           requestedUrl: url,
           response: parsedResponse,
         });
@@ -75,24 +75,22 @@ const fetcher = store => next => action => {
 };
 ```
 
-## Custom Middleware - dispatching a function
+## Custom middleware - recreating thunk
 
-We want to be even more flexible and be able to dispatch a function. This function should then be able to do asynchronous requests and dispatch more actions during that time.
+We will demonstrate how to recreate the thunk middleware:
 
-## Custom Middleware - dispatching a function
+We want to be able to dispatch a function. This function should then be able to do asynchronous requests and dispatch more actions during that time.
+
+## Custom middleware - recreating thunk
 
 ```js
 const functionMiddleware = store => next => action => {
   if (typeof action === 'function') {
     // we pass dispatch to the action function
-    // so the action can call it
+    // so the action can use it
     return action(store.dispatch);
   } else {
     return next(action);
   }
 };
 ```
-
-## resource: Taming Large React Applications w/ Redux
-
-https://slides.com/joelkanzelmeyer/taming-large-redux-apps
