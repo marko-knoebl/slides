@@ -129,8 +129,12 @@ The attributes `sqlite3.paramstyle`, `pymysql.paramstyle` etc. indicate the form
 - `cursor.fetchmany(10)`
 - `cursor.fetchall()`
 
-## Exercises
+## Exercise: Forum with database binding
 
-- Forum with database binding (and admin script)
-- Todo application (with web interface)
-  (see courses-tutorials/python-todolist-wsgi-sqlite)
+- authentication (MD5)
+- admin script
+
+## Exercise: odo app
+
+Todo application (with web interface)
+(see courses-tutorials/python-todolist-wsgi-sqlite)

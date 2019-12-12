@@ -33,12 +33,14 @@ Marko Knöbl
 # Themen
 
 - Arbeiten mit Dateien und Ordnern
+- Arbeiten mit verschiedenen Dateiformaten
 - Reguläre Ausdrücke
 - Zeit und Datum
 - sys
 - HTTP Client
 - Webentwicklung
 - Datenbanken
+- Excel files
 - GUI
 - e-mail
 
@@ -382,7 +384,6 @@ Direkte Ausgabe mittels `os.system`:
 ```py
 os.system("ls .")
 os.system("mkdir foo")
-os.system("ls .")
 ```
 
 Ergebnisse in Python einlesen mittels `os.popen`:
@@ -1080,8 +1081,6 @@ https://www.python.org/dev/peps/pep-0333/#environ-variables
 
 PATH_INFO im environ-dictionary: angefragter Pfad am Server
 
-## PATH_INFO
-
 Aufgabe: Anzeige verschiedener Seiten unter verschiedenen Adressen
 
 ## Redirects mit HTTP
@@ -1094,8 +1093,6 @@ response_headers = [
 start_response("307 Temporary Redirect", response_headers)
 return [b'']
 ```
-
-## Redirects mit HTTP
 
 Aufgabe: Weiterleitung einiger Seiten, z.B. `/now` leitet weiter auf `/time`
 
@@ -1205,97 +1202,6 @@ from app import application
 # Datenbanken
 
 Zu Grundlagen siehe Präsentation _Datenbanken und Datenspeicherung_
-
-# ZODB
-
-## ZODB
-
-Zope Object Database = Einfache Objektbank speziell für Python
-
-## ZODB
-
-Öffnen einer Datenbank:
-
-```py
-from ZODB import DB, FileStorage
-import transaction
-
-db = DB(FileStorage.FileStorage("dbfile.fs"))
-connection = db.open()
-root = connection.root()
-
-print(root) # {}
-```
-
-## ZODB
-
-Befüllen einer Datenbank:
-
-```py
-root["user"] = {"first_name": "Jane", "last_name": "Doe"}
-root["todos"] = ["laundry", "shopping"]
-transaction.commit()
-```
-
-## ZODB
-
-Abändern von Einträgen:
-
-Folgendes klappt nicht (ZODB bemerkt die Änderung der Elemente nicht):
-
-```py
-root["user"]["first_name"] = "John"
-root["todos"].append("learn zodb")
-transaction.commit()
-```
-
-## ZODB
-
-Möglichkeiten, um Änderungen an Elementen an ZODB signalisieren:
-
-- Eintrag neu setzen (z.B.: `root["user"] = root["user"]`)
-- Verwendung der Typen `PersistentList`, `PersistentMapping` und `BTree` anstelle von Listen und Dictionaries
-- Verwendung persistenter Klassen (z.B.: `class User(Persistent):`)
-
-## ZODB
-
-Eintrag neu setzen:
-
-```py
-root["user"]["first_name"] = "Jane"
-root["todos"] = root["user"]
-transaction.commit()
-```
-
-## ZODB
-
-Verwendung der Typen `PersistentList`, `PersistentMapping` und `BTree` anstelle von Listen und Dictionaries:
-
-```py
-from persistent.list import PersistentList
-from persistent.mapping import PersistentMapping
-from BTrees import IOBTree
-
-root["todos"] = PersistentList(["laundry", "shopping"])
-root["todos"].append("learn zodb")
-
-root["user"] = PersistentMapping({"first_name": "Jane", "last_name": "Doe"})
-root["user"]["first_name"] = "John"
-transaction.commit()
-```
-
-## ZODB
-
-Verwendung persistenter Klassen:
-
-```py
-from persistent import Persistent
-
-class User(Persistent):
-    def __init__(self, first_name, last_name):
-        self.first_name = first_name
-        self.last_name = last_name
-```
 
 # SQL mit Python
 
@@ -1432,8 +1338,6 @@ Die Attribute `sqlite3.paramstyle`, `pymysql.paramstyle` etc. geben das Format f
 
 - Authentifizierung (MD5)
 - Admin-Skript
-
-## Beispiel: Todo-Anwendung
 
 ## Beispiel: Todo-Anwendung
 
@@ -1773,9 +1677,7 @@ Beispiel: Erstellen der folgenden Tabelle:
 - [Automate the Boring Stuff with Python - Chapter 12](http://automatetheboringstuff.com/chapter12/)
 
 
-# GUI
-
-## Graphical User Interface
+# GUI (Graphical User Interface)
 
 ## GUI-Libraries für Python
 

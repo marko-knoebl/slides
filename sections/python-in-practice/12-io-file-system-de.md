@@ -43,7 +43,6 @@ Direkte Ausgabe mittels `os.system`:
 ```py
 os.system("ls .")
 os.system("mkdir foo")
-os.system("ls .")
 ```
 
 Ergebnisse in Python einlesen mittels `os.popen`:

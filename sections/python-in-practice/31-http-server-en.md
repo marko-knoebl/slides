@@ -144,9 +144,7 @@ Cookies may be used to recognize a previous visitor, e.g. for:
 - tracking user activities
 - displaying custom ads
 
-## Cookies
-
-setting cookies:
+## Setting cookies
 
 ```py
 response_headers.append((
@@ -154,9 +152,7 @@ response_headers.append((
 ))
 ```
 
-## Cookies
-
-reading cookies:
+## Reading cookies
 
 ```py
 try:
@@ -167,9 +163,7 @@ except KeyError:
 
 result may be: `"cookie1=one; cookie2=two"`
 
-## Cookies
-
-parsing cookies
+## Parsing cookies
 
 ```py
 from http import cookies
@@ -181,9 +175,9 @@ mycookies.load(current_cookies_str)
 mycookies["cookie1"].value
 ```
 
-## Cookies
+## Deleting cookies
 
-deleting cookies (by setting an expired cookie):
+by setting an expired cookie
 
 ```py
 response_headers.append((

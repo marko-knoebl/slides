@@ -2065,12 +2065,15 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </section></section><section class="slides-section"><section class="slide"><h1>Topics</h1>
 <ul>
 <li>working with files and folders</li>
+<li>working with various file formats</li>
 <li>regular expressions</li>
 <li>time and date</li>
 <li>sys</li>
 <li>HTTP client</li>
 <li>web development</li>
 <li>databases</li>
+<li>Excel files</li>
+<li>GUI</li>
 <li>e-mail</li>
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Working with files</h1>
@@ -2855,22 +2858,19 @@ start_response(<span class="hljs-string">"307 Temporary Redirect"</span>, respon
 <li>tracking user activities</li>
 <li>displaying custom ads</li>
 </ul>
-</section><section class="slide"><h2>Cookies</h2>
-<p>setting cookies:</p>
+</section><section class="slide"><h2>Setting cookies</h2>
 <pre><code class="hljs language-py">response_headers.append((
     <span class="hljs-string">"Set-Cookie"</span>, <span class="hljs-string">"mycookie123=abcd; Max-Age=30"</span>
 ))
 </code></pre>
-</section><section class="slide"><h2>Cookies</h2>
-<p>reading cookies:</p>
+</section><section class="slide"><h2>Reading cookies</h2>
 <pre><code class="hljs language-py"><span class="hljs-keyword">try</span>:
     current_cookies_str = environ[<span class="hljs-string">"HTTP_COOKIE"</span>]
 <span class="hljs-keyword">except</span> KeyError:
     ...
 </code></pre>
 <p>result may be: <code>"cookie1=one; cookie2=two"</code></p>
-</section><section class="slide"><h2>Cookies</h2>
-<p>parsing cookies</p>
+</section><section class="slide"><h2>Parsing cookies</h2>
 <pre><code class="hljs language-py"><span class="hljs-keyword">from</span> http <span class="hljs-keyword">import</span> cookies
 
 ...
@@ -2879,8 +2879,8 @@ mycookies = cookies.SimpleCookie()
 mycookies.load(current_cookies_str)
 mycookies[<span class="hljs-string">"cookie1"</span>].value
 </code></pre>
-</section><section class="slide"><h2>Cookies</h2>
-<p>deleting cookies (by setting an expired cookie):</p>
+</section><section class="slide"><h2>Deleting cookies</h2>
+<p>by setting an expired cookie</p>
 <pre><code class="hljs language-py">response_headers.append((
     <span class="hljs-string">"Set-Cookie"</span>,
     <span class="hljs-string">"mycookie123=; expires=Thu, 01 Jan 1970 00:00:00 GMT"</span>
@@ -3023,12 +3023,14 @@ res = cursor.execute(
 <li><code>cursor.fetchmany(10)</code></li>
 <li><code>cursor.fetchall()</code></li>
 </ul>
-</section><section class="slide"><h2>Exercises</h2>
+</section><section class="slide"><h2>Exercise: Forum with database binding</h2>
 <ul>
-<li>Forum with database binding (and admin script)</li>
-<li>Todo application (with web interface)
-(see courses-tutorials/python-todolist-wsgi-sqlite)</li>
+<li>authentication (MD5)</li>
+<li>admin script</li>
 </ul>
+</section><section class="slide"><h2>Exercise: odo app</h2>
+<p>Todo application (with web interface)
+(see courses-tutorials/python-todolist-wsgi-sqlite)</p>
 </section></section><section class="slides-section"><section class="slide"><h1>SQLite with Python</h1>
 </section><section class="slide"><h2>Data types</h2>
 <p>SQLite data types and corresponding Python types:</p>
@@ -3267,8 +3269,7 @@ a1.coordinate <span class="hljs-comment"># "A1"</span>
 <li><a href="https://openpyxl.readthedocs.io/en/stable/#key-classes">openpyxl documentation - Key Classes</a></li>
 <li><a href="http://automatetheboringstuff.com/chapter12/">Automate the Boring Stuff with Python - Chapter 12</a></li>
 </ul>
-</section></section><section class="slides-section"><section class="slide"><h1>GUI</h1>
-</section><section class="slide"><h2>Graphical User Interface</h2>
+</section></section><section class="slides-section"><section class="slide"><h1>GUI (Graphical User Interface)</h1>
 </section><section class="slide"><h2>GUI-Libraries for Python</h2>
 <ul>
 <li>tk</li>

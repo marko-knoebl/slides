@@ -33,14 +33,16 @@ Marko Knöbl
 # Topics
 
 - working with files and folders
+- working with various file formats
 - regular expressions
 - time and date
 - sys
 - HTTP client
 - web development
 - databases
+- Excel files
+- GUI
 - e-mail
-
 
 # Working with files
 
@@ -1105,9 +1107,7 @@ Cookies may be used to recognize a previous visitor, e.g. for:
 - tracking user activities
 - displaying custom ads
 
-## Cookies
-
-setting cookies:
+## Setting cookies
 
 ```py
 response_headers.append((
@@ -1115,9 +1115,7 @@ response_headers.append((
 ))
 ```
 
-## Cookies
-
-reading cookies:
+## Reading cookies
 
 ```py
 try:
@@ -1128,9 +1126,7 @@ except KeyError:
 
 result may be: `"cookie1=one; cookie2=two"`
 
-## Cookies
-
-parsing cookies
+## Parsing cookies
 
 ```py
 from http import cookies
@@ -1142,9 +1138,9 @@ mycookies.load(current_cookies_str)
 mycookies["cookie1"].value
 ```
 
-## Cookies
+## Deleting cookies
 
-deleting cookies (by setting an expired cookie):
+by setting an expired cookie
 
 ```py
 response_headers.append((
@@ -1339,11 +1335,15 @@ The attributes `sqlite3.paramstyle`, `pymysql.paramstyle` etc. indicate the form
 - `cursor.fetchmany(10)`
 - `cursor.fetchall()`
 
-## Exercises
+## Exercise: Forum with database binding
 
-- Forum with database binding (and admin script)
-- Todo application (with web interface)
-  (see courses-tutorials/python-todolist-wsgi-sqlite)
+- authentication (MD5)
+- admin script
+
+## Exercise: odo app
+
+Todo application (with web interface)
+(see courses-tutorials/python-todolist-wsgi-sqlite)
 
 # SQLite with Python
 
@@ -1675,9 +1675,7 @@ Exercise: Create the followng table:
 - [Automate the Boring Stuff with Python - Chapter 12](http://automatetheboringstuff.com/chapter12/)
 
 
-# GUI
-
-## Graphical User Interface
+# GUI (Graphical User Interface)
 
 ## GUI-Libraries for Python
 

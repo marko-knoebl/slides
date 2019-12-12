@@ -119,8 +119,6 @@ https://www.python.org/dev/peps/pep-0333/#environ-variables
 
 PATH_INFO im environ-dictionary: angefragter Pfad am Server
 
-## PATH_INFO
-
 Aufgabe: Anzeige verschiedener Seiten unter verschiedenen Adressen
 
 ## Redirects mit HTTP
@@ -133,8 +131,6 @@ response_headers = [
 start_response("307 Temporary Redirect", response_headers)
 return [b'']
 ```
-
-## Redirects mit HTTP
 
 Aufgabe: Weiterleitung einiger Seiten, z.B. `/now` leitet weiter auf `/time`
 

@@ -136,8 +136,6 @@ Die Attribute `sqlite3.paramstyle`, `pymysql.paramstyle` etc. geben das Format f
 
 ## Beispiel: Todo-Anwendung
 
-## Beispiel: Todo-Anwendung
-
 - run_server.py und (minimale) app.py
 - init_db.py
 - db_interface.get_all_todos

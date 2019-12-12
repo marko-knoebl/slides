@@ -2065,12 +2065,14 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </section></section><section class="slides-section"><section class="slide"><h1>Themen</h1>
 <ul>
 <li>Arbeiten mit Dateien und Ordnern</li>
+<li>Arbeiten mit verschiedenen Dateiformaten</li>
 <li>Reguläre Ausdrücke</li>
 <li>Zeit und Datum</li>
 <li>sys</li>
 <li>HTTP Client</li>
 <li>Webentwicklung</li>
 <li>Datenbanken</li>
+<li>Excel files</li>
 <li>GUI</li>
 <li>e-mail</li>
 </ul>
@@ -2332,7 +2334,6 @@ earlier = pickle.loads(serialized)
 <p>Direkte Ausgabe mittels <code>os.system</code>:</p>
 <pre><code class="hljs language-py">os.system(<span class="hljs-string">"ls ."</span>)
 os.system(<span class="hljs-string">"mkdir foo"</span>)
-os.system(<span class="hljs-string">"ls ."</span>)
 </code></pre>
 <p>Ergebnisse in Python einlesen mittels <code>os.popen</code>:</p>
 <pre><code class="hljs language-py">a = os.popen(<span class="hljs-string">"ls ."</span>).read()
@@ -2838,7 +2839,6 @@ server.serve_forever()
 <p><a href="https://www.python.org/dev/peps/pep-0333/#environ-variables">https://www.python.org/dev/peps/pep-0333/#environ-variables</a></p>
 </section><section class="slide"><h2>PATH_INFO</h2>
 <p>PATH_INFO im environ-dictionary: angefragter Pfad am Server</p>
-</section><section class="slide"><h2>PATH_INFO</h2>
 <p>Aufgabe: Anzeige verschiedener Seiten unter verschiedenen Adressen</p>
 </section><section class="slide"><h2>Redirects mit HTTP</h2>
 <pre><code class="hljs language-py">response_headers = [
@@ -2848,7 +2848,6 @@ server.serve_forever()
 start_response(<span class="hljs-string">"307 Temporary Redirect"</span>, response_headers)
 <span class="hljs-keyword">return</span> [<span class="hljs-string">b''</span>]
 </code></pre>
-</section><section class="slide"><h2>Redirects mit HTTP</h2>
 <p>Aufgabe: Weiterleitung einiger Seiten, z.B. <code>/now</code> leitet weiter auf <code>/time</code></p>
 </section><section class="slide"><h2>Cookies</h2>
 <p>Cookies = kleine Datenmengen, die von einer Website im Browser abgelegt werden können</p>
@@ -2928,68 +2927,6 @@ path = <span class="hljs-string">"/home/username/"</span>
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Datenbanken</h1>
 <p>Zu Grundlagen siehe Präsentation <em>Datenbanken und Datenspeicherung</em></p>
-</section></section><section class="slides-section"><section class="slide"><h1>ZODB</h1>
-</section><section class="slide"><h2>ZODB</h2>
-<p>Zope Object Database = Einfache Objektbank speziell für Python</p>
-</section><section class="slide"><h2>ZODB</h2>
-<p>Öffnen einer Datenbank:</p>
-<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> ZODB <span class="hljs-keyword">import</span> DB, FileStorage
-<span class="hljs-keyword">import</span> transaction
-
-db = DB(FileStorage.FileStorage(<span class="hljs-string">"dbfile.fs"</span>))
-connection = db.open()
-root = connection.root()
-
-print(root) <span class="hljs-comment"># {}</span>
-</code></pre>
-</section><section class="slide"><h2>ZODB</h2>
-<p>Befüllen einer Datenbank:</p>
-<pre><code class="hljs language-py">root[<span class="hljs-string">"user"</span>] = {<span class="hljs-string">"first_name"</span>: <span class="hljs-string">"Jane"</span>, <span class="hljs-string">"last_name"</span>: <span class="hljs-string">"Doe"</span>}
-root[<span class="hljs-string">"todos"</span>] = [<span class="hljs-string">"laundry"</span>, <span class="hljs-string">"shopping"</span>]
-transaction.commit()
-</code></pre>
-</section><section class="slide"><h2>ZODB</h2>
-<p>Abändern von Einträgen:</p>
-<p>Folgendes klappt nicht (ZODB bemerkt die Änderung der Elemente nicht):</p>
-<pre><code class="hljs language-py">root[<span class="hljs-string">"user"</span>][<span class="hljs-string">"first_name"</span>] = <span class="hljs-string">"John"</span>
-root[<span class="hljs-string">"todos"</span>].append(<span class="hljs-string">"learn zodb"</span>)
-transaction.commit()
-</code></pre>
-</section><section class="slide"><h2>ZODB</h2>
-<p>Möglichkeiten, um Änderungen an Elementen an ZODB signalisieren:</p>
-<ul>
-<li>Eintrag neu setzen (z.B.: <code>root["user"] = root["user"]</code>)</li>
-<li>Verwendung der Typen <code>PersistentList</code>, <code>PersistentMapping</code> und <code>BTree</code> anstelle von Listen und Dictionaries</li>
-<li>Verwendung persistenter Klassen (z.B.: <code>class User(Persistent):</code>)</li>
-</ul>
-</section><section class="slide"><h2>ZODB</h2>
-<p>Eintrag neu setzen:</p>
-<pre><code class="hljs language-py">root[<span class="hljs-string">"user"</span>][<span class="hljs-string">"first_name"</span>] = <span class="hljs-string">"Jane"</span>
-root[<span class="hljs-string">"todos"</span>] = root[<span class="hljs-string">"user"</span>]
-transaction.commit()
-</code></pre>
-</section><section class="slide"><h2>ZODB</h2>
-<p>Verwendung der Typen <code>PersistentList</code>, <code>PersistentMapping</code> und <code>BTree</code> anstelle von Listen und Dictionaries:</p>
-<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> persistent.list <span class="hljs-keyword">import</span> PersistentList
-<span class="hljs-keyword">from</span> persistent.mapping <span class="hljs-keyword">import</span> PersistentMapping
-<span class="hljs-keyword">from</span> BTrees <span class="hljs-keyword">import</span> IOBTree
-
-root[<span class="hljs-string">"todos"</span>] = PersistentList([<span class="hljs-string">"laundry"</span>, <span class="hljs-string">"shopping"</span>])
-root[<span class="hljs-string">"todos"</span>].append(<span class="hljs-string">"learn zodb"</span>)
-
-root[<span class="hljs-string">"user"</span>] = PersistentMapping({<span class="hljs-string">"first_name"</span>: <span class="hljs-string">"Jane"</span>, <span class="hljs-string">"last_name"</span>: <span class="hljs-string">"Doe"</span>})
-root[<span class="hljs-string">"user"</span>][<span class="hljs-string">"first_name"</span>] = <span class="hljs-string">"John"</span>
-transaction.commit()
-</code></pre>
-</section><section class="slide"><h2>ZODB</h2>
-<p>Verwendung persistenter Klassen:</p>
-<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> persistent <span class="hljs-keyword">import</span> Persistent
-
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span><span class="hljs-params">(Persistent)</span>:</span>
-    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self, first_name, last_name)</span>:</span>
-        self.first_name = first_name
-        self.last_name = last_name
-</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>SQL mit Python</h1>
 </section><section class="slide"><h2>Python-Anbindung von SQL-Datenbanken</h2>
 <p>Database API Specification: Standard, der von verschiedenen Python-Datenbankanbindungen umgesetzt wird; standardisiert in PEP 249</p>
@@ -3090,7 +3027,6 @@ res = cursor.execute(
 <li>Authentifizierung (MD5)</li>
 <li>Admin-Skript</li>
 </ul>
-</section><section class="slide"><h2>Beispiel: Todo-Anwendung</h2>
 </section><section class="slide"><h2>Beispiel: Todo-Anwendung</h2>
 <ul>
 <li>run_server.py und (minimale) app.py</li>
@@ -3336,8 +3272,7 @@ a1.coordinate <span class="hljs-comment"># "A1"</span>
 <li><a href="https://openpyxl.readthedocs.io/en/stable/#key-classes">openpyxl documentation - Key Classes</a></li>
 <li><a href="http://automatetheboringstuff.com/chapter12/">Automate the Boring Stuff with Python - Chapter 12</a></li>
 </ul>
-</section></section><section class="slides-section"><section class="slide"><h1>GUI</h1>
-</section><section class="slide"><h2>Graphical User Interface</h2>
+</section></section><section class="slides-section"><section class="slide"><h1>GUI (Graphical User Interface)</h1>
 </section><section class="slide"><h2>GUI-Libraries für Python</h2>
 <ul>
 <li>tk</li>
