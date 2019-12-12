@@ -46,12 +46,11 @@ Marko Knöbl
 - list
 - tuple
 - dict
-- set
 
 ## Weitere Datentypen
 
 - complex
-- frozenset
+- set, frozenset
 - bytearray
 - OrderedDict
 - NamedTuple
@@ -73,21 +72,14 @@ users = [
 
 ## None
 
-- Singleton
-- Vergleich üblicherweise mit `is`
+`None` ist ein Singleton:
 
-```py
-if a is None:
-    print("a is None")
-```
-
-`None` ist ein Singleton (es gibt nur ein einziges None-Objekt innerhalb eines laufenden Python-Programms, auf das aber viele Variablen verweisen können)
+- es gibt immer nur ein `None`-Objekt innerhalb eines laufenden Python-Programms
+- mehrere Variablen können auf dieses Objekt verweisen
 
 ## Vergleich mit "is"
 
 Das Schlüsselwort `is` vergleicht in Python, ob sich zwei Referenzen / Namen auf das gleiche Objekt beziehen.
-
-Beispiel:
 
 ```py
 a = [1, 2]
@@ -102,7 +94,7 @@ a is x # False
 
 ## Vergleich mit "is"
 
-Nachdem `None` ein Singleton ist und daher immer auf die gleiche Instanz verweist, kann darauf mit `is None` getestet werden.
+Nachdem `None` ein Singleton ist, kann darauf mit `is None` getestet werden.
 
 ```py
 if a is None:
@@ -357,13 +349,12 @@ path = r"C:\documents\foo\news.txt"
 - `.splitlines()`
 - `.join()`
 
-## Übung: Faust
+## Übung: Formatierung von Goethes Faust
 
-Formatierung von Goethes Faust
+Quellen:
 
-https://www.gutenberg.org/ebooks/2229
-
-(siehe auch: "Gutenberg Mirror")
+- http://www.gutenberg.org/cache/epub/2229/pg2229.txt
+- http://digital.library.upenn.edu/webbin/gutbook/lookup?num=2229
 
 ## Übung: Faust
 
@@ -383,7 +374,7 @@ Die früh sich einst dem trüben Blick gezeigt.              2
 
 ## Übung: Faust
 
-Weitere Aufgaben:
+Aufgaben:
 
 - Ausrichtung der Zeilennummern basierend auf der Länge der längsten Zeile
 - Zeilennummern nur alle 5 Zeilen
@@ -449,6 +440,7 @@ Die folgenden Operationen klappen auch bei anderen _Sequenzen_ - z.B. Tupeln, St
 
 - Elementzugriff (via index): `users[2]`
 - Zugriff auf mehrere Elemente (Unterliste): `users[2:4]`
+- Zusammensetzen: `users + users`
 - Wiederholung: `3 * users`
 - Länge: `len(users)`
 - for-Schleife: `for user in users:`
@@ -546,7 +538,7 @@ a, b = b, a
 
 ## Bytes
 
-= Sequenz von Zahlen zwischen 0 und 255
+= Sequenz von Zahlen im Bereich 0 bis 255
 
 ```py
 m = bytes([0, 0x40, 0x70, 0xa0])
@@ -606,8 +598,8 @@ Sequenzen sind Objekte, die aus einer Aufreihung anderer Objekte bestehen, z.B.:
 
 ## Operationen auf Sequenzen
 
-- Elementzugriff (via index): `s[i]`
-- Zugriff auf mehrere Elemente: `s[i:j]`
+- Elementzugriff (via index): `s[2]`
+- Zugriff auf mehrere Elemente: `s[2:4]`
 - Konkatenation: `s + t`
 - Wiederholung: `3 * s`
 - Länge: `len(s)`
@@ -716,9 +708,11 @@ Iteration über Dictionaries
 ```py
 for entry in person:
     print(entry)
-
-# liefert: first_name, last_name, nationality, birth_year
 ```
+
+Dies liefert die Schlüssel: `"first_name"`, `"last_name"`, `"nationality"`, `"birth_year"`
+
+Seit Python 3.7 bleiben die Schlüssel garantiert in der ursprünglichen Reihenfolge
 
 ## Dictionaries
 
@@ -735,7 +729,7 @@ for key, value in person.items():
 d = {0: 'zero', 1: 'one', 2: 'two'}
 
 d[2]
-d[2] = 'ZWEI'
+d[2] = 'TWO'
 d[3] # KeyError
 d.get(3) # None
 d.setdefault(2, 'n')
@@ -747,9 +741,9 @@ d.items()
 d1.update(d2)
 ```
 
-## Dictionaries
+## Gültige Keys
 
-Was kann als key verwendet werden?
+Jedes unveränderliche Objekt kann als Key verwendet werden - meistens sind es Strings
 
 ## Beispiel: Vokabelprogramm
 
@@ -769,19 +763,34 @@ In anderen Programmiersprachen oft umgesetzt mittels `map` und `filter` / `grep`
 
 ## List Comprehension
 
+_Umwandeln der Einträge_:
+
 ```py
 names = ["Alice", "Bob", "Charlie"]
 
 uppercase_names = [name.upper() for name in names]
+```
+
+Resultat:
+
+```py
 ["ALICE", "BOB", "CHARLIE"]
 ```
 
 ## List Comprehension
 
+_Filtern_:
+
 ```py
 amounts = [10, -7, 8, 19, -2]
 
-negative_amounts = [amount for amount in amounts if amount < 0]
+positive_amounts = [amount for amount in amounts if amount > 0]
+```
+
+result:
+
+```py
+[10, 8, 19]
 ```
 
 ## List Comprehension
@@ -794,10 +803,6 @@ new_list = [new_entry for entry in old_list]
 new_list = [new_entry for entry in old_list if condition]
 ```
 
-## List Comprehension
-
-Beispiel Todo-Liste: Entfernen erledigter Todos
-
 ## Dictionary Comprehension
 
 ```py
@@ -809,6 +814,10 @@ colors: {
 
 m_colors = { color: colors[color][1:] for color in colors}
 ```
+
+## Übung
+
+Beispiel Todo-Liste: Entfernen erledigter Todos
 
 # Objektorientierung und Klassen
 
@@ -880,6 +889,16 @@ We're all consenting adults here: https://mail.python.org/pipermail/tutor/2003-O
 
 Achtung: oft Fehlinformation bezüglich `__`! In der Praxis sollten doppelte Unterstriche kaum verwendet werden.
 
+## Vererbung
+
+```py
+class Person():
+    ...
+
+class Admin(Person):
+    ...
+```
+
 ## Beispiel: Umsetzung einer Length-Klasse
 
 ```py
@@ -902,16 +921,6 @@ print(tdl.todos)
 tdl.todos[0].toggle()
 
 tdl.stats() # {open: 1, completed: 1}
-```
-
-## Vererbung
-
-```py
-class Person():
-    ...
-
-class Admin(Person):
-    ...
 ```
 
 # Kontrollstrukturen

@@ -46,12 +46,11 @@ Marko Knöbl
 - list
 - tuple
 - dict
-- set
 
 ## Other data types
 
 - complex
-- frozenset
+- set, frozenset
 - bytearray
 - OrderedDict
 - NamedTuple
@@ -353,9 +352,30 @@ This can be useful when writing Windows paths and regular expressions
 
 ## Exercise: formatting Othello
 
-Source:
+sources:
 
-http://www.gutenberg.org/cache/epub/2267/pg2267.txt
+- http://www.gutenberg.org/cache/epub/2267/pg2267.txt
+- http://digital.library.upenn.edu/webbin/gutbook/lookup?num=2267
+
+## Exercise: formatting Othello
+
+input:
+
+```txt
+  Rodorigo. Neuer tell me, I take it much vnkindly
+That thou (Iago) who hast had my purse,
+As if y strings were thine, should'st know of this
+```
+
+target:
+
+```txt
+Rodorigo. Neuer tell me, I take it much vnkindly           1
+That thou (Iago) who hast had my purse,                    2
+As if y strings were thine, should'st know of this         3
+```
+
+## Exercise: formatting Othello
 
 tasks:
 
@@ -573,7 +593,7 @@ Storage media and networks will only handle bytes; in order to read a text file 
 
 ## Sequences
 
-Python Sequences consist of other Python objects
+Python sequences consist of other Python objects
 
 examples:
 
@@ -711,8 +731,6 @@ for key, value in person.items():
     print(f'{key}, {value}')
 ```
 
-see also: tuples
-
 ## Operations on dictionaries
 
 ```py
@@ -722,6 +740,8 @@ d[2]
 d[2] = 'TWO'
 d[3] # KeyError
 d.get(3) # None
+d.setdefault(2, 'n')
+d.setdefault(3, 'n')
 
 d.keys()
 d.items()
@@ -733,13 +753,13 @@ d1.update(d2)
 
 Any immutable object can act as a dictionary key. The most common types of keys are strings.
 
-## Exercises
+## Exercise: vocabulary trainer
 
-- vocabulary trainer
-  - read a (JSON) file
-  - create a data model with dictionaries
-  - randomly pick an entry
-- todo list
+- read a (JSON) file
+- create a data model with dictionaries
+- randomly pick an entry
+
+## Exercise: Todo list
 
 # Comprehensions
 
@@ -868,6 +888,12 @@ class MyClass():
 instance = MyClass()
 instance.message # "hello"
 ```
+
+## Private attributes and methods
+
+Attributes and methods that should not be used from the outside are prefixed with `_`
+
+We're all consenting adults here: https://mail.python.org/pipermail/tutor/2003-October/025932.html
 
 ## Inheritance
 

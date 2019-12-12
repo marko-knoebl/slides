@@ -73,13 +73,12 @@ path = r"C:\documents\foo\news.txt"
 - `.splitlines()`
 - `.join()`
 
-## Übung: Faust
+## Übung: Formatierung von Goethes Faust
 
-Formatierung von Goethes Faust
+Quellen:
 
-https://www.gutenberg.org/ebooks/2229
-
-(siehe auch: "Gutenberg Mirror")
+- http://www.gutenberg.org/cache/epub/2229/pg2229.txt
+- http://digital.library.upenn.edu/webbin/gutbook/lookup?num=2229
 
 ## Übung: Faust
 
@@ -99,7 +98,7 @@ Die früh sich einst dem trüben Blick gezeigt.              2
 
 ## Übung: Faust
 
-Weitere Aufgaben:
+Aufgaben:
 
 - Ausrichtung der Zeilennummern basierend auf der Länge der längsten Zeile
 - Zeilennummern nur alle 5 Zeilen

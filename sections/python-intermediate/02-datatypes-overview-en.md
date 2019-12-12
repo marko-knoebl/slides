@@ -14,12 +14,11 @@
 - list
 - tuple
 - dict
-- set
 
 ## Other data types
 
 - complex
-- frozenset
+- set, frozenset
 - bytearray
 - OrderedDict
 - NamedTuple

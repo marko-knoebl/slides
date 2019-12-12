@@ -16,6 +16,7 @@ Die folgenden Operationen klappen auch bei anderen _Sequenzen_ - z.B. Tupeln, St
 
 - Elementzugriff (via index): `users[2]`
 - Zugriff auf mehrere Elemente (Unterliste): `users[2:4]`
+- Zusammensetzen: `users + users`
 - Wiederholung: `3 * users`
 - Länge: `len(users)`
 - for-Schleife: `for user in users:`

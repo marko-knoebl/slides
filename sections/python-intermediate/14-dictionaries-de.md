@@ -28,9 +28,11 @@ Iteration über Dictionaries
 ```py
 for entry in person:
     print(entry)
-
-# liefert: first_name, last_name, nationality, birth_year
 ```
+
+Dies liefert die Schlüssel: `"first_name"`, `"last_name"`, `"nationality"`, `"birth_year"`
+
+Seit Python 3.7 bleiben die Schlüssel garantiert in der ursprünglichen Reihenfolge
 
 ## Dictionaries
 
@@ -47,7 +49,7 @@ for key, value in person.items():
 d = {0: 'zero', 1: 'one', 2: 'two'}
 
 d[2]
-d[2] = 'ZWEI'
+d[2] = 'TWO'
 d[3] # KeyError
 d.get(3) # None
 d.setdefault(2, 'n')
@@ -59,9 +61,9 @@ d.items()
 d1.update(d2)
 ```
 
-## Dictionaries
+## Gültige Keys
 
-Was kann als key verwendet werden?
+Jedes unveränderliche Objekt kann als Key verwendet werden - meistens sind es Strings
 
 ## Beispiel: Vokabelprogramm
 

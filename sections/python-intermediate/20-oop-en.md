@@ -60,6 +60,12 @@ instance = MyClass()
 instance.message # "hello"
 ```
 
+## Private attributes and methods
+
+Attributes and methods that should not be used from the outside are prefixed with `_`
+
+We're all consenting adults here: https://mail.python.org/pipermail/tutor/2003-October/025932.html
+
 ## Inheritance
 
 ```py

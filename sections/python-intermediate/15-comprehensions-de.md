@@ -8,19 +8,34 @@ In anderen Programmiersprachen oft umgesetzt mittels `map` und `filter` / `grep`
 
 ## List Comprehension
 
+_Umwandeln der Einträge_:
+
 ```py
 names = ["Alice", "Bob", "Charlie"]
 
 uppercase_names = [name.upper() for name in names]
+```
+
+Resultat:
+
+```py
 ["ALICE", "BOB", "CHARLIE"]
 ```
 
 ## List Comprehension
 
+_Filtern_:
+
 ```py
 amounts = [10, -7, 8, 19, -2]
 
-negative_amounts = [amount for amount in amounts if amount < 0]
+positive_amounts = [amount for amount in amounts if amount > 0]
+```
+
+result:
+
+```py
+[10, 8, 19]
 ```
 
 ## List Comprehension
@@ -33,10 +48,6 @@ new_list = [new_entry for entry in old_list]
 new_list = [new_entry for entry in old_list if condition]
 ```
 
-## List Comprehension
-
-Beispiel Todo-Liste: Entfernen erledigter Todos
-
 ## Dictionary Comprehension
 
 ```py
@@ -48,3 +59,7 @@ colors: {
 
 m_colors = { color: colors[color][1:] for color in colors}
 ```
+
+## Übung
+
+Beispiel Todo-Liste: Entfernen erledigter Todos

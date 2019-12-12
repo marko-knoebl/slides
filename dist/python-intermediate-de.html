@@ -2077,12 +2077,11 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li>list</li>
 <li>tuple</li>
 <li>dict</li>
-<li>set</li>
 </ul>
 </section><section class="slide"><h2>Weitere Datentypen</h2>
 <ul>
 <li>complex</li>
-<li>frozenset</li>
+<li>set, frozenset</li>
 <li>bytearray</li>
 <li>OrderedDict</li>
 <li>NamedTuple</li>
@@ -2097,17 +2096,13 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 ]
 </code></pre>
 </section><section class="slide"><h2>None</h2>
+<p><code>None</code> ist ein Singleton:</p>
 <ul>
-<li>Singleton</li>
-<li>Vergleich üblicherweise mit <code>is</code></li>
+<li>es gibt immer nur ein <code>None</code>-Objekt innerhalb eines laufenden Python-Programms</li>
+<li>mehrere Variablen können auf dieses Objekt verweisen</li>
 </ul>
-<pre><code class="hljs language-py"><span class="hljs-keyword">if</span> a <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:
-    print(<span class="hljs-string">"a is None"</span>)
-</code></pre>
-<p><code>None</code> ist ein Singleton (es gibt nur ein einziges None-Objekt innerhalb eines laufenden Python-Programms, auf das aber viele Variablen verweisen können)</p>
 </section><section class="slide"><h2>Vergleich mit "is"</h2>
 <p>Das Schlüsselwort <code>is</code> vergleicht in Python, ob sich zwei Referenzen / Namen auf das gleiche Objekt beziehen.</p>
-<p>Beispiel:</p>
 <pre><code class="hljs language-py">a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>]
 b = a
 x = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>]
@@ -2118,7 +2113,7 @@ a == x <span class="hljs-comment"># True</span>
 a <span class="hljs-keyword">is</span> x <span class="hljs-comment"># False</span>
 </code></pre>
 </section><section class="slide"><h2>Vergleich mit "is"</h2>
-<p>Nachdem <code>None</code> ein Singleton ist und daher immer auf die gleiche Instanz verweist, kann darauf mit <code>is None</code> getestet werden.</p>
+<p>Nachdem <code>None</code> ein Singleton ist, kann darauf mit <code>is None</code> getestet werden.</p>
 <pre><code class="hljs language-py"><span class="hljs-keyword">if</span> a <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:
     ...
 </code></pre>
@@ -2291,10 +2286,12 @@ string literal.
 <li><code>.splitlines()</code></li>
 <li><code>.join()</code></li>
 </ul>
-</section><section class="slide"><h2>Übung: Faust</h2>
-<p>Formatierung von Goethes Faust</p>
-<p><a href="https://www.gutenberg.org/ebooks/2229">https://www.gutenberg.org/ebooks/2229</a></p>
-<p>(siehe auch: "Gutenberg Mirror")</p>
+</section><section class="slide"><h2>Übung: Formatierung von Goethes Faust</h2>
+<p>Quellen:</p>
+<ul>
+<li><a href="http://www.gutenberg.org/cache/epub/2229/pg2229.txt">http://www.gutenberg.org/cache/epub/2229/pg2229.txt</a></li>
+<li><a href="http://digital.library.upenn.edu/webbin/gutbook/lookup?num=2229">http://digital.library.upenn.edu/webbin/gutbook/lookup?num=2229</a></li>
+</ul>
 </section><section class="slide"><h2>Übung: Faust</h2>
 <p>Original:</p>
 <pre><code class="language-txt">  Ihr naht euch wieder, schwankende Gestalten,
@@ -2305,7 +2302,7 @@ string literal.
 Die früh sich einst dem trüben Blick gezeigt.              2
 </code></pre>
 </section><section class="slide"><h2>Übung: Faust</h2>
-<p>Weitere Aufgaben:</p>
+<p>Aufgaben:</p>
 <ul>
 <li>Ausrichtung der Zeilennummern basierend auf der Länge der längsten Zeile</li>
 <li>Zeilennummern nur alle 5 Zeilen</li>
@@ -2350,6 +2347,7 @@ users = [<span class="hljs-string">"Alice"</span>, <span class="hljs-string">"Bo
 <ul>
 <li>Elementzugriff (via index): <code>users[2]</code></li>
 <li>Zugriff auf mehrere Elemente (Unterliste): <code>users[2:4]</code></li>
+<li>Zusammensetzen: <code>users + users</code></li>
 <li>Wiederholung: <code>3 * users</code></li>
 <li>Länge: <code>len(users)</code></li>
 <li>for-Schleife: <code>for user in users:</code></li>
@@ -2416,7 +2414,7 @@ hour, minute, second = time
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Bytes</h1>
 </section><section class="slide"><h2>Bytes</h2>
-<p>= Sequenz von Zahlen zwischen 0 und 255</p>
+<p>= Sequenz von Zahlen im Bereich 0 bis 255</p>
 <pre><code class="hljs language-py">m = bytes([<span class="hljs-number">0</span>, <span class="hljs-number">0x40</span>, <span class="hljs-number">0x70</span>, <span class="hljs-number">0xa0</span>])
 </code></pre>
 <pre><code class="hljs language-angelscript">m[<span class="hljs-number">1</span>] == <span class="hljs-number">64</span>
@@ -2452,8 +2450,8 @@ m[<span class="hljs-number">2</span>] == <span class="hljs-number">160</span>
 </ul>
 </section><section class="slide"><h2>Operationen auf Sequenzen</h2>
 <ul>
-<li>Elementzugriff (via index): <code>s[i]</code></li>
-<li>Zugriff auf mehrere Elemente: <code>s[i:j]</code></li>
+<li>Elementzugriff (via index): <code>s[2]</code></li>
+<li>Zugriff auf mehrere Elemente: <code>s[2:4]</code></li>
 <li>Konkatenation: <code>s + t</code></li>
 <li>Wiederholung: <code>3 * s</code></li>
 <li>Länge: <code>len(s)</code></li>
@@ -2522,9 +2520,9 @@ print(len(users))
 <p>Iteration über Dictionaries</p>
 <pre><code class="hljs language-py"><span class="hljs-keyword">for</span> entry <span class="hljs-keyword">in</span> person:
     print(entry)
-
-<span class="hljs-comment"># liefert: first_name, last_name, nationality, birth_year</span>
 </code></pre>
+<p>Dies liefert die Schlüssel: <code>"first_name"</code>, <code>"last_name"</code>, <code>"nationality"</code>, <code>"birth_year"</code></p>
+<p>Seit Python 3.7 bleiben die Schlüssel garantiert in der ursprünglichen Reihenfolge</p>
 </section><section class="slide"><h2>Dictionaries</h2>
 <p>Iteration über Schlüssel/Werte - Paare:</p>
 <pre><code class="hljs language-py"><span class="hljs-keyword">for</span> key, value <span class="hljs-keyword">in</span> person.items():
@@ -2534,7 +2532,7 @@ print(len(users))
 <pre><code class="hljs language-py">d = {<span class="hljs-number">0</span>: <span class="hljs-string">'zero'</span>, <span class="hljs-number">1</span>: <span class="hljs-string">'one'</span>, <span class="hljs-number">2</span>: <span class="hljs-string">'two'</span>}
 
 d[<span class="hljs-number">2</span>]
-d[<span class="hljs-number">2</span>] = <span class="hljs-string">'ZWEI'</span>
+d[<span class="hljs-number">2</span>] = <span class="hljs-string">'TWO'</span>
 d[<span class="hljs-number">3</span>] <span class="hljs-comment"># KeyError</span>
 d.get(<span class="hljs-number">3</span>) <span class="hljs-comment"># None</span>
 d.setdefault(<span class="hljs-number">2</span>, <span class="hljs-string">'n'</span>)
@@ -2545,8 +2543,8 @@ d.items()
 
 d1.update(d2)
 </code></pre>
-</section><section class="slide"><h2>Dictionaries</h2>
-<p>Was kann als key verwendet werden?</p>
+</section><section class="slide"><h2>Gültige Keys</h2>
+<p>Jedes unveränderliche Objekt kann als Key verwendet werden - meistens sind es Strings</p>
 </section><section class="slide"><h2>Beispiel: Vokabelprogramm</h2>
 <ul>
 <li>Einlesen von (JSON-)Datei</li>
@@ -2559,15 +2557,22 @@ d1.update(d2)
 <p>Wichtige Möglichkeit, um Listen basierend auf anderen Listen zu erstellen</p>
 <p>In anderen Programmiersprachen oft umgesetzt mittels <code>map</code> und <code>filter</code> / <code>grep</code></p>
 </section><section class="slide"><h2>List Comprehension</h2>
+<p><em>Umwandeln der Einträge</em>:</p>
 <pre><code class="hljs language-py">names = [<span class="hljs-string">"Alice"</span>, <span class="hljs-string">"Bob"</span>, <span class="hljs-string">"Charlie"</span>]
 
 uppercase_names = [name.upper() <span class="hljs-keyword">for</span> name <span class="hljs-keyword">in</span> names]
-[<span class="hljs-string">"ALICE"</span>, <span class="hljs-string">"BOB"</span>, <span class="hljs-string">"CHARLIE"</span>]
+</code></pre>
+<p>Resultat:</p>
+<pre><code class="hljs language-py">[<span class="hljs-string">"ALICE"</span>, <span class="hljs-string">"BOB"</span>, <span class="hljs-string">"CHARLIE"</span>]
 </code></pre>
 </section><section class="slide"><h2>List Comprehension</h2>
+<p><em>Filtern</em>:</p>
 <pre><code class="hljs language-py">amounts = [<span class="hljs-number">10</span>, <span class="hljs-number">-7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">19</span>, <span class="hljs-number">-2</span>]
 
-negative_amounts = [amount <span class="hljs-keyword">for</span> amount <span class="hljs-keyword">in</span> amounts <span class="hljs-keyword">if</span> amount &#x3C; <span class="hljs-number">0</span>]
+positive_amounts = [amount <span class="hljs-keyword">for</span> amount <span class="hljs-keyword">in</span> amounts <span class="hljs-keyword">if</span> amount > <span class="hljs-number">0</span>]
+</code></pre>
+<p>result:</p>
+<pre><code class="hljs language-py">[<span class="hljs-number">10</span>, <span class="hljs-number">8</span>, <span class="hljs-number">19</span>]
 </code></pre>
 </section><section class="slide"><h2>List Comprehension</h2>
 <p>Allgemeine Syntax:</p>
@@ -2575,8 +2580,6 @@ negative_amounts = [amount <span class="hljs-keyword">for</span> amount <span cl
 
 new_list = [new_entry <span class="hljs-keyword">for</span> entry <span class="hljs-keyword">in</span> old_list <span class="hljs-keyword">if</span> condition]
 </code></pre>
-</section><section class="slide"><h2>List Comprehension</h2>
-<p>Beispiel Todo-Liste: Entfernen erledigter Todos</p>
 </section><section class="slide"><h2>Dictionary Comprehension</h2>
 <pre><code class="hljs language-py">colors: {
   <span class="hljs-string">'red'</span>: <span class="hljs-string">'#ff0000'</span>,
@@ -2586,6 +2589,8 @@ new_list = [new_entry <span class="hljs-keyword">for</span> entry <span class="h
 
 m_colors = { color: colors[color][<span class="hljs-number">1</span>:] <span class="hljs-keyword">for</span> color <span class="hljs-keyword">in</span> colors}
 </code></pre>
+</section><section class="slide"><h2>Übung</h2>
+<p>Beispiel Todo-Liste: Entfernen erledigter Todos</p>
 </section></section><section class="slides-section"><section class="slide"><h1>Objektorientierung und Klassen</h1>
 </section><section class="slide"><h2>Objektorientierung in Python: "Alles ist ein Objekt"</h2>
 <pre><code class="hljs language-py">a = <span class="hljs-number">20</span>
@@ -2639,6 +2644,13 @@ instance.message <span class="hljs-comment"># "hello"</span>
 <p>Kennzeichnung von Attributen und Methoden, die von außen nicht verwendet werden sollten mit <code>_</code></p>
 <p>We're all consenting adults here: <a href="https://mail.python.org/pipermail/tutor/2003-October/025932.html">https://mail.python.org/pipermail/tutor/2003-October/025932.html</a></p>
 <p>Achtung: oft Fehlinformation bezüglich <code>__</code>! In der Praxis sollten doppelte Unterstriche kaum verwendet werden.</p>
+</section><section class="slide"><h2>Vererbung</h2>
+<pre><code class="hljs language-py"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span><span class="hljs-params">()</span>:</span>
+    ...
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Admin</span><span class="hljs-params">(Person)</span>:</span>
+    ...
+</code></pre>
 </section><section class="slide"><h2>Beispiel: Umsetzung einer Length-Klasse</h2>
 <pre><code class="hljs language-py">a = Length(<span class="hljs-number">2.54</span>, <span class="hljs-string">"cm"</span>)
 b = Length(<span class="hljs-number">3</span>, <span class="hljs-string">"in"</span>)
@@ -2656,13 +2668,6 @@ print(tdl.todos)
 tdl.todos[<span class="hljs-number">0</span>].toggle()
 
 tdl.stats() <span class="hljs-comment"># {open: 1, completed: 1}</span>
-</code></pre>
-</section><section class="slide"><h2>Vererbung</h2>
-<pre><code class="hljs language-py"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span><span class="hljs-params">()</span>:</span>
-    ...
-
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Admin</span><span class="hljs-params">(Person)</span>:</span>
-    ...
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Kontrollstrukturen</h1>
 </section><section class="slide"><h2>Kontrollstrukturen</h2>

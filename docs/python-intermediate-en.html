@@ -2077,12 +2077,11 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li>list</li>
 <li>tuple</li>
 <li>dict</li>
-<li>set</li>
 </ul>
 </section><section class="slide"><h2>Other data types</h2>
 <ul>
 <li>complex</li>
-<li>frozenset</li>
+<li>set, frozenset</li>
 <li>bytearray</li>
 <li>OrderedDict</li>
 <li>NamedTuple</li>
@@ -2289,8 +2288,23 @@ string literal.
 <li><code>.join()</code></li>
 </ul>
 </section><section class="slide"><h2>Exercise: formatting Othello</h2>
-<p>Source:</p>
-<p><a href="http://www.gutenberg.org/cache/epub/2267/pg2267.txt">http://www.gutenberg.org/cache/epub/2267/pg2267.txt</a></p>
+<p>sources:</p>
+<ul>
+<li><a href="http://www.gutenberg.org/cache/epub/2267/pg2267.txt">http://www.gutenberg.org/cache/epub/2267/pg2267.txt</a></li>
+<li><a href="http://digital.library.upenn.edu/webbin/gutbook/lookup?num=2267">http://digital.library.upenn.edu/webbin/gutbook/lookup?num=2267</a></li>
+</ul>
+</section><section class="slide"><h2>Exercise: formatting Othello</h2>
+<p>input:</p>
+<pre><code class="language-txt">  Rodorigo. Neuer tell me, I take it much vnkindly
+That thou (Iago) who hast had my purse,
+As if y strings were thine, should'st know of this
+</code></pre>
+<p>target:</p>
+<pre><code class="language-txt">Rodorigo. Neuer tell me, I take it much vnkindly           1
+That thou (Iago) who hast had my purse,                    2
+As if y strings were thine, should'st know of this         3
+</code></pre>
+</section><section class="slide"><h2>Exercise: formatting Othello</h2>
 <p>tasks:</p>
 <ul>
 <li>remove leading whitespace of each line</li>
@@ -2431,7 +2445,7 @@ m[<span class="hljs-number">2</span>] == <span class="hljs-number">160</span>
 <p>Storage media and networks will only handle bytes; in order to read a text file from disk or from the network we need to know / specify the encoding</p>
 </section></section><section class="slides-section"><section class="slide"><h1>Sequences</h1>
 </section><section class="slide"><h2>Sequences</h2>
-<p>Python Sequences consist of other Python objects</p>
+<p>Python sequences consist of other Python objects</p>
 <p>examples:</p>
 <ul>
 <li>lists</li>
@@ -2520,7 +2534,6 @@ print(len(users))
 <pre><code class="hljs language-py"><span class="hljs-keyword">for</span> key, value <span class="hljs-keyword">in</span> person.items():
     print(<span class="hljs-string">f'<span class="hljs-subst">{key}</span>, <span class="hljs-subst">{value}</span>'</span>)
 </code></pre>
-<p>see also: tuples</p>
 </section><section class="slide"><h2>Operations on dictionaries</h2>
 <pre><code class="hljs language-py">d = {<span class="hljs-number">0</span>: <span class="hljs-string">'zero'</span>, <span class="hljs-number">1</span>: <span class="hljs-string">'one'</span>, <span class="hljs-number">2</span>: <span class="hljs-string">'two'</span>}
 
@@ -2528,6 +2541,8 @@ d[<span class="hljs-number">2</span>]
 d[<span class="hljs-number">2</span>] = <span class="hljs-string">'TWO'</span>
 d[<span class="hljs-number">3</span>] <span class="hljs-comment"># KeyError</span>
 d.get(<span class="hljs-number">3</span>) <span class="hljs-comment"># None</span>
+d.setdefault(<span class="hljs-number">2</span>, <span class="hljs-string">'n'</span>)
+d.setdefault(<span class="hljs-number">3</span>, <span class="hljs-string">'n'</span>)
 
 d.keys()
 d.items()
@@ -2536,15 +2551,13 @@ d1.update(d2)
 </code></pre>
 </section><section class="slide"><h2>Valid keys</h2>
 <p>Any immutable object can act as a dictionary key. The most common types of keys are strings.</p>
-</section><section class="slide"><h2>Exercises</h2>
+</section><section class="slide"><h2>Exercise: vocabulary trainer</h2>
 <ul>
-<li>vocabulary trainer<ul>
 <li>read a (JSON) file</li>
 <li>create a data model with dictionaries</li>
 <li>randomly pick an entry</li>
-</ul></li>
-<li>todo list</li>
 </ul>
+</section><section class="slide"><h2>Exercise: Todo list</h2>
 </section></section><section class="slides-section"><section class="slide"><h1>Comprehensions</h1>
 </section><section class="slide"><h2>List comprehensions</h2>
 <p><em>List comprehensions</em> enable the creation of lists based on existing lists</p>
@@ -2635,6 +2648,9 @@ isinstance(message, str)
 instance = MyClass()
 instance.message <span class="hljs-comment"># "hello"</span>
 </code></pre>
+</section><section class="slide"><h2>Private attributes and methods</h2>
+<p>Attributes and methods that should not be used from the outside are prefixed with <code>_</code></p>
+<p>We're all consenting adults here: <a href="https://mail.python.org/pipermail/tutor/2003-October/025932.html">https://mail.python.org/pipermail/tutor/2003-October/025932.html</a></p>
 </section><section class="slide"><h2>Inheritance</h2>
 <pre><code class="hljs language-py"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span><span class="hljs-params">()</span>:</span>
     ...

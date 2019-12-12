@@ -75,9 +75,30 @@ This can be useful when writing Windows paths and regular expressions
 
 ## Exercise: formatting Othello
 
-Source:
+sources:
 
-http://www.gutenberg.org/cache/epub/2267/pg2267.txt
+- http://www.gutenberg.org/cache/epub/2267/pg2267.txt
+- http://digital.library.upenn.edu/webbin/gutbook/lookup?num=2267
+
+## Exercise: formatting Othello
+
+input:
+
+```txt
+  Rodorigo. Neuer tell me, I take it much vnkindly
+That thou (Iago) who hast had my purse,
+As if y strings were thine, should'st know of this
+```
+
+target:
+
+```txt
+Rodorigo. Neuer tell me, I take it much vnkindly           1
+That thou (Iago) who hast had my purse,                    2
+As if y strings were thine, should'st know of this         3
+```
+
+## Exercise: formatting Othello
 
 tasks:
 

@@ -68,6 +68,16 @@ We're all consenting adults here: https://mail.python.org/pipermail/tutor/2003-O
 
 Achtung: oft Fehlinformation bezüglich `__`! In der Praxis sollten doppelte Unterstriche kaum verwendet werden.
 
+## Vererbung
+
+```py
+class Person():
+    ...
+
+class Admin(Person):
+    ...
+```
+
 ## Beispiel: Umsetzung einer Length-Klasse
 
 ```py
@@ -90,14 +100,4 @@ print(tdl.todos)
 tdl.todos[0].toggle()
 
 tdl.stats() # {open: 1, completed: 1}
-```
-
-## Vererbung
-
-```py
-class Person():
-    ...
-
-class Admin(Person):
-    ...
 ```

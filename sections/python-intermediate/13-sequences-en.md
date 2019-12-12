@@ -2,7 +2,7 @@
 
 ## Sequences
 
-Python Sequences consist of other Python objects
+Python sequences consist of other Python objects
 
 examples:
 

@@ -15,21 +15,14 @@ users = [
 
 ## None
 
-- Singleton
-- Vergleich üblicherweise mit `is`
+`None` ist ein Singleton:
 
-```py
-if a is None:
-    print("a is None")
-```
-
-`None` ist ein Singleton (es gibt nur ein einziges None-Objekt innerhalb eines laufenden Python-Programms, auf das aber viele Variablen verweisen können)
+- es gibt immer nur ein `None`-Objekt innerhalb eines laufenden Python-Programms
+- mehrere Variablen können auf dieses Objekt verweisen
 
 ## Vergleich mit "is"
 
 Das Schlüsselwort `is` vergleicht in Python, ob sich zwei Referenzen / Namen auf das gleiche Objekt beziehen.
-
-Beispiel:
 
 ```py
 a = [1, 2]
@@ -44,7 +37,7 @@ a is x # False
 
 ## Vergleich mit "is"
 
-Nachdem `None` ein Singleton ist und daher immer auf die gleiche Instanz verweist, kann darauf mit `is None` getestet werden.
+Nachdem `None` ein Singleton ist, kann darauf mit `is None` getestet werden.
 
 ```py
 if a is None:

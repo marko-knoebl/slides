@@ -43,8 +43,6 @@ for key, value in person.items():
     print(f'{key}, {value}')
 ```
 
-see also: tuples
-
 ## Operations on dictionaries
 
 ```py
@@ -54,6 +52,8 @@ d[2]
 d[2] = 'TWO'
 d[3] # KeyError
 d.get(3) # None
+d.setdefault(2, 'n')
+d.setdefault(3, 'n')
 
 d.keys()
 d.items()
@@ -65,10 +65,10 @@ d1.update(d2)
 
 Any immutable object can act as a dictionary key. The most common types of keys are strings.
 
-## Exercises
+## Exercise: vocabulary trainer
 
-- vocabulary trainer
-  - read a (JSON) file
-  - create a data model with dictionaries
-  - randomly pick an entry
-- todo list
+- read a (JSON) file
+- create a data model with dictionaries
+- randomly pick an entry
+
+## Exercise: Todo list

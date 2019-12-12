@@ -11,8 +11,8 @@ Sequenzen sind Objekte, die aus einer Aufreihung anderer Objekte bestehen, z.B.:
 
 ## Operationen auf Sequenzen
 
-- Elementzugriff (via index): `s[i]`
-- Zugriff auf mehrere Elemente: `s[i:j]`
+- Elementzugriff (via index): `s[2]`
+- Zugriff auf mehrere Elemente: `s[2:4]`
 - Konkatenation: `s + t`
 - Wiederholung: `3 * s`
 - Länge: `len(s)`

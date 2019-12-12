@@ -2,7 +2,7 @@
 
 ## Bytes
 
-= Sequenz von Zahlen zwischen 0 und 255
+= Sequenz von Zahlen im Bereich 0 bis 255
 
 ```py
 m = bytes([0, 0x40, 0x70, 0xa0])
