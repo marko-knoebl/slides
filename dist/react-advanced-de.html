@@ -2062,6 +2062,26 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li>Unterlagen</li>
 <li>Fragen, Feedback? - Jederzeit erwünscht</li>
 </ul>
+</section></section><section class="slides-section"><section class="slide"><h1>Themen</h1>
+</section><section class="slide"><h2>Themen (1/2)</h2>
+<ul>
+<li>Hooks</li>
+<li>Komponentenlebenszyklus</li>
+<li>Immutability</li>
+<li>Memoisation</li>
+<li>State Management mit Reducern</li>
+<li>Testen in JavaScript</li>
+<li>Testen von React-Komponenten</li>
+<li>Context</li>
+</ul>
+</section><section class="slide"><h2>Themen (2/2)</h2>
+<ul>
+<li>Externe Hooks &#x26; eigene Hooks</li>
+<li>React Router</li>
+<li>App-Entwicklung mit React</li>
+<li>Dateistruktur</li>
+<li>Manuelles Setup</li>
+</ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Hooks</h1>
 </section><section class="slide"><h2>Hooks</h2>
 <p>Hooks: Erweiterung von Funktionskomponenten</p>
@@ -2967,6 +2987,72 @@ Inspect your code changes or press `u` to update them.
 </code></pre>
 </section><section class="slide"><h2>Storybook</h2>
 <p>Konfiguration via <code>.storybook/config.js</code></p>
+</section></section><section class="slides-section"><section class="slide"><h1>Context</h1>
+</section><section class="slide"><h2>Context</h2>
+<p>Möglichkeit, Werte aus einer Komponente direkt allen weiter unten im Dokumentenbaum liegenden Komponenten zur Verfügung zu stellen - ohne den state über jede Ebene übergeben zu müssen</p>
+</section><section class="slide"><h2>Context</h2>
+<p>zwei Elemente:</p>
+<ul>
+<li><code>Provider</code>: stellt Werte zur Verfügung</li>
+<li><code>Consumer</code>: verwendet diese Werte (kann weit unten in der Komponentenhierarchie liegen)</li>
+</ul>
+</section><section class="slide"><h2>Context</h2>
+<p>Das Interface von Context kann sowohl Daten (aus dem State) als auch Eventhandler übergeben.</p>
+</section><section class="slide"><h2>Context - Beispiel</h2>
+<pre><code class="hljs language-js"><span class="hljs-comment">// TodosContext.js</span>
+
+<span class="hljs-keyword">const</span> TodosContext = React.createContext();
+</code></pre>
+</section><section class="slide"><h2>Context - Beispiel: TypeScript</h2>
+<pre><code class="hljs language-ts"><span class="hljs-comment">// TodosContext.ts</span>
+
+<span class="hljs-keyword">type</span> TodosContextType = {
+  todos: <span class="hljs-built_in">Array</span>&#x3C;Todo>;
+  onToggle: <span class="hljs-function">(<span class="hljs-params">id: <span class="hljs-built_in">number</span></span>) =></span> <span class="hljs-built_in">void</span>;
+  onClear: <span class="hljs-function"><span class="hljs-params">()</span> =></span> <span class="hljs-built_in">void</span>;
+};
+
+<span class="hljs-keyword">const</span> TodosContext = React.createContext(
+  {} <span class="hljs-keyword">as</span> TodosContextType
+);
+</code></pre>
+</section><section class="slide"><h2>Context - Beispiel: Provider</h2>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> App = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">MyContext.Provider</span>
+      <span class="hljs-attr">value</span>=<span class="hljs-string">{{</span>
+        <span class="hljs-attr">todos:</span> <span class="hljs-attr">this.state.todos</span>,
+        <span class="hljs-attr">onToggle:</span> <span class="hljs-attr">this.handleToggle</span>,
+        <span class="hljs-attr">onClear:</span> <span class="hljs-attr">this.handleClear</span>,
+      }}></span>
+      </span>&#x3C;TodoStats /><span class="xml">
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">MyContext.Provider</span>></span></span>
+  );
+};
+</code></pre>
+</section><section class="slide"><h2>Context - Beispiel: Consumer</h2>
+<p>mit Hooks:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> TodoStats = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  <span class="hljs-keyword">const</span> context = useContext(TodosContext);
+  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>There are {context.todos.length} todos<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+};
+</code></pre>
+</section><section class="slide"><h2>Context - Beispiel: Consumer</h2>
+<p>Klassenkomponente:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TodoStats</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
+  render() {
+    <span class="hljs-keyword">return</span> (
+      <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">TodosContext.Consumer</span>></span>
+        {context => (
+          </span>&#x3C;div>
+            There are {context.todos.length} todos
+          &#x3C;/div><span class="xml">
+        )}
+      <span class="hljs-tag">&#x3C;/<span class="hljs-name">Todos.Consumer</span>></span></span>
+    );
+  }
+}
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Externe Hooks</h1>
 </section><section class="slide"><h2>Externe Hooks</h2>
 <p>Viele zusätzliche Hooks werden von der React-Community entwickelt</p>
@@ -3153,7 +3239,7 @@ Ganze Anwendung wird in ein <code>BrowserRouter</code> - Element eingebettet</p>
 <li>beim Anklicken des Buttons via Chrome den Installationsdialog anzeigen</li>
 </ul>
 </section><section class="slide"><h2>PWA: add to homescreen</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [installPrompt, setInstallPrompt] = useState(<span class="hljs-literal">null</span>);
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> installPromptRef = useRef();
 
 <span class="hljs-comment">// executed when the component has mounted</span>
 useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
@@ -3161,17 +3247,17 @@ useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =></sp
     <span class="hljs-string">'beforeinstallprompt'</span>,
     ipEvent => {
       ipEvent.preventDefault();
-      setInstallPrompt(ipEvent);
+      installPromptRef.value = ipEvent;
     }
   );
 }, []);
 </code></pre>
 </section><section class="slide"><h2>PWA: add to homescreen</h2>
 <pre><code class="hljs language-jsx">&#x3C;div>
-  {installPrompt &#x26;&#x26; (
+  {installPromptRef.value &#x26;&#x26; (
     <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>
       <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> {
-        installPrompt.prompt();
+        installPromptRef.value.prompt();
       }}>
       install
     <span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span>
@@ -3199,72 +3285,6 @@ useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =></sp
 <li>ScrollView</li>
 </ul>
 <p><a href="https://facebook.github.io/react-native/docs/components-and-apis#basic-components">ausführlichere Liste</a></p>
-</section></section><section class="slides-section"><section class="slide"><h1>Context</h1>
-</section><section class="slide"><h2>Context</h2>
-<p>Möglichkeit, Werte aus einer Komponente direkt allen weiter unten im Dokumentenbaum liegenden Komponenten zur Verfügung zu stellen - ohne den state über jede Ebene übergeben zu müssen</p>
-</section><section class="slide"><h2>Context</h2>
-<p>zwei Elemente:</p>
-<ul>
-<li><code>Provider</code>: stellt Werte zur Verfügung</li>
-<li><code>Consumer</code>: verwendet diese Werte (kann weit unten in der Komponentenhierarchie liegen)</li>
-</ul>
-</section><section class="slide"><h2>Context</h2>
-<p>Das Interface von Context kann sowohl Daten (aus dem State) als auch Eventhandler übergeben.</p>
-</section><section class="slide"><h2>Context - Beispiel</h2>
-<pre><code class="hljs language-js"><span class="hljs-comment">// TodosContext.js</span>
-
-<span class="hljs-keyword">const</span> TodosContext = React.createContext();
-</code></pre>
-</section><section class="slide"><h2>Context - Beispiel: TypeScript</h2>
-<pre><code class="hljs language-ts"><span class="hljs-comment">// TodosContext.ts</span>
-
-<span class="hljs-keyword">type</span> TodosContextType = {
-  todos: <span class="hljs-built_in">Array</span>&#x3C;Todo>;
-  onToggle: <span class="hljs-function">(<span class="hljs-params">id: <span class="hljs-built_in">number</span></span>) =></span> <span class="hljs-built_in">void</span>;
-  onClear: <span class="hljs-function"><span class="hljs-params">()</span> =></span> <span class="hljs-built_in">void</span>;
-};
-
-<span class="hljs-keyword">const</span> TodosContext = React.createContext(
-  {} <span class="hljs-keyword">as</span> TodosContextType
-);
-</code></pre>
-</section><section class="slide"><h2>Context - Beispiel: Provider</h2>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> App = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">MyContext.Provider</span>
-      <span class="hljs-attr">value</span>=<span class="hljs-string">{{</span>
-        <span class="hljs-attr">todos:</span> <span class="hljs-attr">this.state.todos</span>,
-        <span class="hljs-attr">onToggle:</span> <span class="hljs-attr">this.handleToggle</span>,
-        <span class="hljs-attr">onClear:</span> <span class="hljs-attr">this.handleClear</span>,
-      }}></span>
-      </span>&#x3C;TodoStats /><span class="xml">
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">MyContext.Provider</span>></span></span>
-  );
-};
-</code></pre>
-</section><section class="slide"><h2>Context - Beispiel: Consumer</h2>
-<p>funktionale Komponente:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> TodoStats = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  <span class="hljs-keyword">const</span> context = useContext(TodosContext);
-  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>There are {context.todos.length} todos<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
-};
-</code></pre>
-</section><section class="slide"><h2>Context - Beispiel: Consumer</h2>
-<p>Klassenkomponente:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TodoStats</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
-  render() {
-    <span class="hljs-keyword">return</span> (
-      <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">TodosContext.Consumer</span>></span>
-        {context => (
-          </span>&#x3C;div>
-            There are {context.todos.length} todos
-          &#x3C;/div><span class="xml">
-        )}
-      <span class="hljs-tag">&#x3C;/<span class="hljs-name">Todos.Consumer</span>></span></span>
-    );
-  }
-}
-</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Dateistruktur</h1>
 </section><section class="slide"><h2>Dateistruktur</h2>
 <p><a href="https://reactjs.org/docs/faq-structure.html">https://reactjs.org/docs/faq-structure.html</a></p>

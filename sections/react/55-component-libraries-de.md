@@ -3,7 +3,7 @@
 ## Komponentenlibraries
 
 - Material UI: React-Komponenten im _Material Design_
-- React Native & React Native Web: React components & framework for mobile & web apps
+- React Native & React Native Web: React Komponenten & Framework für mobile Apps & Web Apps
 - React Bootstrap
 - Blueprint
 - ...

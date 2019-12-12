@@ -38,7 +38,7 @@ Prozess in Chrome:
 ## PWA: add to homescreen
 
 ```js
-const [installPrompt, setInstallPrompt] = useState(null);
+const installPromptRef = useRef();
 
 // executed when the component has mounted
 useEffect(() => {
@@ -46,7 +46,7 @@ useEffect(() => {
     'beforeinstallprompt',
     ipEvent => {
       ipEvent.preventDefault();
-      setInstallPrompt(ipEvent);
+      installPromptRef.value = ipEvent;
     }
   );
 }, []);
@@ -56,10 +56,10 @@ useEffect(() => {
 
 ```jsx
 <div>
-  {installPrompt && (
+  {installPromptRef.value && (
     <button
       onClick={() => {
-        installPrompt.prompt();
+        installPromptRef.value.prompt();
       }}>
       install
     </button>

@@ -58,7 +58,7 @@ const App = () => {
 
 ## Context - Beispiel: Consumer
 
-funktionale Komponente:
+mit Hooks:
 
 ```jsx
 const TodoStats = () => {

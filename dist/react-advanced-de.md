@@ -30,6 +30,27 @@ Marko Knöbl
 - Unterlagen
 - Fragen, Feedback? - Jederzeit erwünscht
 
+# Themen
+
+## Themen (1/2)
+
+- Hooks
+- Komponentenlebenszyklus
+- Immutability
+- Memoisation
+- State Management mit Reducern
+- Testen in JavaScript
+- Testen von React-Komponenten
+- Context
+
+## Themen (2/2)
+
+- Externe Hooks & eigene Hooks
+- React Router
+- App-Entwicklung mit React
+- Dateistruktur
+- Manuelles Setup
+
 # Hooks
 
 ## Hooks
@@ -1223,6 +1244,95 @@ npm run storybook
 
 Konfiguration via `.storybook/config.js`
 
+# Context
+
+## Context
+
+Möglichkeit, Werte aus einer Komponente direkt allen weiter unten im Dokumentenbaum liegenden Komponenten zur Verfügung zu stellen - ohne den state über jede Ebene übergeben zu müssen
+
+## Context
+
+zwei Elemente:
+
+- `Provider`: stellt Werte zur Verfügung
+- `Consumer`: verwendet diese Werte (kann weit unten in der Komponentenhierarchie liegen)
+
+## Context
+
+Das Interface von Context kann sowohl Daten (aus dem State) als auch Eventhandler übergeben.
+
+## Context - Beispiel
+
+```js
+// TodosContext.js
+
+const TodosContext = React.createContext();
+```
+
+## Context - Beispiel: TypeScript
+
+```ts
+// TodosContext.ts
+
+type TodosContextType = {
+  todos: Array<Todo>;
+  onToggle: (id: number) => void;
+  onClear: () => void;
+};
+
+const TodosContext = React.createContext(
+  {} as TodosContextType
+);
+```
+
+## Context - Beispiel: Provider
+
+```jsx
+const App = () => {
+  return (
+    <MyContext.Provider
+      value={{
+        todos: this.state.todos,
+        onToggle: this.handleToggle,
+        onClear: this.handleClear,
+      }}>
+      <TodoStats />
+    </MyContext.Provider>
+  );
+};
+```
+
+## Context - Beispiel: Consumer
+
+mit Hooks:
+
+```jsx
+const TodoStats = () => {
+  const context = useContext(TodosContext);
+  return <div>There are {context.todos.length} todos</div>;
+};
+```
+
+## Context - Beispiel: Consumer
+
+Klassenkomponente:
+
+```jsx
+class TodoStats extends React.Component {
+  render() {
+    return (
+      <TodosContext.Consumer>
+        {context => (
+          <div>
+            There are {context.todos.length} todos
+          </div>
+        )}
+      </Todos.Consumer>
+    );
+  }
+}
+```
+
 # Externe Hooks
 
 ## Externe Hooks
@@ -1482,7 +1592,7 @@ Prozess in Chrome:
 ## PWA: add to homescreen
 
 ```js
-const [installPrompt, setInstallPrompt] = useState(null);
+const installPromptRef = useRef();
 
 // executed when the component has mounted
 useEffect(() => {
@@ -1490,7 +1600,7 @@ useEffect(() => {
     'beforeinstallprompt',
     ipEvent => {
       ipEvent.preventDefault();
-      setInstallPrompt(ipEvent);
+      installPromptRef.value = ipEvent;
     }
   );
 }, []);
@@ -1500,10 +1610,10 @@ useEffect(() => {
 
 ```jsx
 <div>
-  {installPrompt && (
+  {installPromptRef.value && (
     <button
       onClick={() => {
-        installPrompt.prompt();
+        installPromptRef.value.prompt();
       }}>
       install
     </button>
@@ -1537,95 +1647,6 @@ Siehe https://snack.expo.io/
 - ScrollView
 
 [ausführlichere Liste](https://facebook.github.io/react-native/docs/components-and-apis#basic-components)
-
-# Context
-
-## Context
-
-Möglichkeit, Werte aus einer Komponente direkt allen weiter unten im Dokumentenbaum liegenden Komponenten zur Verfügung zu stellen - ohne den state über jede Ebene übergeben zu müssen
-
-## Context
-
-zwei Elemente:
-
-- `Provider`: stellt Werte zur Verfügung
-- `Consumer`: verwendet diese Werte (kann weit unten in der Komponentenhierarchie liegen)
-
-## Context
-
-Das Interface von Context kann sowohl Daten (aus dem State) als auch Eventhandler übergeben.
-
-## Context - Beispiel
-
-```js
-// TodosContext.js
-
-const TodosContext = React.createContext();
-```
-
-## Context - Beispiel: TypeScript
-
-```ts
-// TodosContext.ts
-
-type TodosContextType = {
-  todos: Array<Todo>;
-  onToggle: (id: number) => void;
-  onClear: () => void;
-};
-
-const TodosContext = React.createContext(
-  {} as TodosContextType
-);
-```
-
-## Context - Beispiel: Provider
-
-```jsx
-const App = () => {
-  return (
-    <MyContext.Provider
-      value={{
-        todos: this.state.todos,
-        onToggle: this.handleToggle,
-        onClear: this.handleClear,
-      }}>
-      <TodoStats />
-    </MyContext.Provider>
-  );
-};
-```
-
-## Context - Beispiel: Consumer
-
-funktionale Komponente:
-
-```jsx
-const TodoStats = () => {
-  const context = useContext(TodosContext);
-  return <div>There are {context.todos.length} todos</div>;
-};
-```
-
-## Context - Beispiel: Consumer
-
-Klassenkomponente:
-
-```jsx
-class TodoStats extends React.Component {
-  render() {
-    return (
-      <TodosContext.Consumer>
-        {context => (
-          <div>
-            There are {context.todos.length} todos
-          </div>
-        )}
-      </Todos.Consumer>
-    );
-  }
-}
-```
 
 # Dateistruktur
 
