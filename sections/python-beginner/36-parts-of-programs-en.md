@@ -1,13 +1,13 @@
-# constituent parts of programs
+# Constituent parts of programs
 
-## constituent parts of programs
+## Constituent parts of programs
 
 - programs
   - code blocks
     - statements
       - expressions
 
-## statements across multiple lines
+## Statements across multiple lines
 
 If a statement should encompass multiple lines it is usually written in parentheses:
 

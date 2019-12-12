@@ -148,9 +148,22 @@ age = current_year - birth_year
 
 Variablennamen werden üblicherweise klein geschrieben; Wörter werden durch Unterstriche getrennt
 
-# Grundlegende Datentypen
+Variablennamen dürfen nur aus Buchstaben, Ziffern und Unterstrichen bestehen
 
-## Grundlegende Datentypen
+## Variablen
+
+Überschreiben (neu setzen) von Variablen:
+
+```py
+name = "John"
+name = "Jane"
+a = 3
+a = a + 1
+```
+
+# Grundlegende (primitive) Datentypen
+
+## Grundlegende (primitive) Datentypen
 
 - `int` (integer): Ganzzahl
 - `float`: Kommazahl
@@ -168,9 +181,9 @@ Beispiel:
 
 ## str
 
-Ein _String_ - auch _Zeichenkette_ genannt - repräsentiert Text
+Ein _String_ - auch _Zeichenkette_ - repräsentiert Text
 
-Strings werden entweder mit einfachen oder doppelten Anführungszeichen begrenzt
+Begrenzung durch einfache oder doppelte Anführungszeichen
 
 ```py
 greeting = "Hello"
@@ -421,13 +434,29 @@ b = a + [4]
 
 ## Objektreferenzen und Mutationen
 
-Manche Objekte in Python können verändert (mutiert) werden - z.B. via `.append()`, `.pop()`, ...
+Manche Objekte in Python können direkt verändert (mutiert) werden - z.B. via `.append()`, `.pop()`, ...
 
 Beispiele: `list`, `dict`
 
 Viele einfache Objekte sind nach ihrer Erstellung unveränderlich.
 
 Beispiele: `int`, `float`, `str`, `bool`, `tuple`
+
+## Objektreferenzen und Mutationen
+
+Direktes Abändern einer Liste:
+
+```py
+primes = [2, 3, 5, 7]
+primes.append(11)
+```
+
+Erstellen eines neuen Strings basierend auf einem vorhandenen String (jedoch Zuweisung zum gleichen Namen wie zuvor):
+
+```py
+greeting = "Hello"
+greeting = greeting + "!"
+```
 
 # Hilfe und Dokumentation
 
@@ -1329,8 +1358,7 @@ b = "bye"
 ## PEP8 und Code-Formatierungs-Tools
 
 ```py
-Eingabecode:
-
+# input:
 a[0+3:1]
 
 # autopep8:

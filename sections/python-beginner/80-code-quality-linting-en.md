@@ -65,10 +65,6 @@ a[0 + 3:1]
 a[0 + 3 : 1]
 ```
 
-## Docstrings
-
-Documentation that describes a function / class / module in more detail
-
 ## Python philosophy, Zen of Python
 
 Quotes from the _zen of Python_ (full text via `import this`):

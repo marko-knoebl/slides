@@ -1,6 +1,6 @@
-# Grundlegende Datentypen
+# Grundlegende (primitive) Datentypen
 
-## Grundlegende Datentypen
+## Grundlegende (primitive) Datentypen
 
 - `int` (integer): Ganzzahl
 - `float`: Kommazahl
@@ -18,9 +18,9 @@ Beispiel:
 
 ## str
 
-Ein _String_ - auch _Zeichenkette_ genannt - repräsentiert Text
+Ein _String_ - auch _Zeichenkette_ - repräsentiert Text
 
-Strings werden entweder mit einfachen oder doppelten Anführungszeichen begrenzt
+Begrenzung durch einfache oder doppelte Anführungszeichen
 
 ```py
 greeting = "Hello"

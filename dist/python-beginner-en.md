@@ -87,9 +87,9 @@ installation includes:
 - PIP: package manager for installing extensions
 - Python documentation
 
-# The interactive Python console
+# Interactive Python console
 
-## The interactive Python console
+## Interactive Python console
 
 options:
 
@@ -109,11 +109,36 @@ quitting:
 exit()
 ```
 
+## Online Python consoles
+
+Python online (simple):
+
+https://www.python.org/shell/
+
+Python online (_Jupyter Notebooks_):
+
+- Google Colab (Google account required)
+- Binder (limited sessions)
+- Microsoft Azure notebooks (account required)
+- ...
+
+## Online Python consoles
+
+Google Colab:
+
+- go to https://colab.research.google.com
+- choose _File_ - _New Python 3 Notebook_
+
+Binder:
+
+- go to https://jupyter.org/try
+- choose _Try Jupyter with Python_
+- wait ...
+- _File_ - _New Notebook_ - _Python 3_
+
 # Variables
 
 ## Variables
-
-Data can be labeled with a name in Python - this is called a _variable_
 
 ```py
 birth_year = 1970
@@ -136,9 +161,9 @@ a = 3
 a = a + 1
 ```
 
-# Basic data types
+# Basic (primitive) data types
 
-## Basic data types
+## Basic (primitive) data types
 
 - `int` (integer)
 - `float` (floating point number)
@@ -407,7 +432,7 @@ a = [1, 2, 3]
 b = a + [4]
 ```
 
-## Mutations
+## Object references and mutations
 
 Some objects can be mutated (changed) directly - e.g. via `.append()`, `.pop()`, ...
 
@@ -417,7 +442,7 @@ Many simple objects are immutable after they have been created. However, they ca
 
 Examples: `int`, `float`, `str`, `bool`, `tuple`
 
-## Mutations
+## Object references and mutations
 
 Changing a list directly:
 
@@ -620,9 +645,9 @@ Usually comments are placed _above_ the code they describe
 name_length = len(name)
 ```
 
-# Builtins, Standard library
+# Builtins, standard library
 
-## Builtins, Standard library
+## Builtins, standard library
 
 - _Builtins_: functions and objects that are used frequently and are available at all times
 - _Standard library_: collections of additional modules and packages that can be imported
@@ -741,7 +766,7 @@ python hello.py one two three
 
 ## urllib.request
 
-Qerying web contents
+Querying web contents
 
 ```py
 from urllib.request import urlopen
@@ -996,16 +1021,16 @@ exercise: creating a "multiplication table"
 ...
 ```
 
-# constituent parts of programs
+# Constituent parts of programs
 
-## constituent parts of programs
+## Constituent parts of programs
 
 - programs
   - code blocks
     - statements
       - expressions
 
-## statements across multiple lines
+## Statements across multiple lines
 
 If a statement should encompass multiple lines it is usually written in parentheses:
 
@@ -1345,10 +1370,6 @@ a[0 + 3:1]
 # black:
 a[0 + 3 : 1]
 ```
-
-## Docstrings
-
-Documentation that describes a function / class / module in more detail
 
 ## Python philosophy, Zen of Python
 

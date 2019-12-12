@@ -52,8 +52,7 @@ b = "bye"
 ## PEP8 und Code-Formatierungs-Tools
 
 ```py
-Eingabecode:
-
+# input:
 a[0+3:1]
 
 # autopep8:

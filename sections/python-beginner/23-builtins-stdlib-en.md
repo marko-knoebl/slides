@@ -1,6 +1,6 @@
-# Builtins, Standard library
+# Builtins, standard library
 
-## Builtins, Standard library
+## Builtins, standard library
 
 - _Builtins_: functions and objects that are used frequently and are available at all times
 - _Standard library_: collections of additional modules and packages that can be imported
@@ -119,7 +119,7 @@ python hello.py one two three
 
 ## urllib.request
 
-Qerying web contents
+Querying web contents
 
 ```py
 from urllib.request import urlopen

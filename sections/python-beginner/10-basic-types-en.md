@@ -1,6 +1,6 @@
-# Basic data types
+# Basic (primitive) data types
 
-## Basic data types
+## Basic (primitive) data types
 
 - `int` (integer)
 - `float` (floating point number)

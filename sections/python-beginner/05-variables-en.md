@@ -2,8 +2,6 @@
 
 ## Variables
 
-Data can be labeled with a name in Python - this is called a _variable_
-
 ```py
 birth_year = 1970
 current_year = 2019

@@ -36,10 +36,26 @@ b = a + [4]
 
 ## Objektreferenzen und Mutationen
 
-Manche Objekte in Python können verändert (mutiert) werden - z.B. via `.append()`, `.pop()`, ...
+Manche Objekte in Python können direkt verändert (mutiert) werden - z.B. via `.append()`, `.pop()`, ...
 
 Beispiele: `list`, `dict`
 
 Viele einfache Objekte sind nach ihrer Erstellung unveränderlich.
 
 Beispiele: `int`, `float`, `str`, `bool`, `tuple`
+
+## Objektreferenzen und Mutationen
+
+Direktes Abändern einer Liste:
+
+```py
+primes = [2, 3, 5, 7]
+primes.append(11)
+```
+
+Erstellen eines neuen Strings basierend auf einem vorhandenen String (jedoch Zuweisung zum gleichen Namen wie zuvor):
+
+```py
+greeting = "Hello"
+greeting = greeting + "!"
+```

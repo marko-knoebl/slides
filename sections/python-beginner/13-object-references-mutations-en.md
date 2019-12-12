@@ -34,7 +34,7 @@ a = [1, 2, 3]
 b = a + [4]
 ```
 
-## Mutations
+## Object references and mutations
 
 Some objects can be mutated (changed) directly - e.g. via `.append()`, `.pop()`, ...
 
@@ -44,7 +44,7 @@ Many simple objects are immutable after they have been created. However, they ca
 
 Examples: `int`, `float`, `str`, `bool`, `tuple`
 
-## Mutations
+## Object references and mutations
 
 Changing a list directly:
 
