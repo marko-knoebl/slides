@@ -34,8 +34,6 @@ Marko Knöbl
 
 ## Logging
 
-## Logging
-
 ```py
 import logging
 logging.basicConfig(
@@ -186,6 +184,25 @@ TOTAL                15      0   100%
 
 # Docstrings
 
+## Docstrings anzeigen
+
+aus der interaktiven Konsole:
+
+```py
+help(round)
+import math
+help(math)
+help(math.floor)
+```
+
+aus dem Terminal:
+
+```bash
+python -m pydoc round
+python -m pydoc math
+python -m pydoc math.floor
+```
+
 ## Docstring-Format
 
 PEP 257: https://www.python.org/dev/peps/pep-0257/
@@ -231,6 +248,8 @@ Link to `Wikipedia`_.
 # Typendeklarationen
 
 ## Typendeklarationen
+
+Neuere Versionen von Python unterstützen optionale Typenannotationen
 
 MyPy: Typechecker für Python, insbesondere sinnvoll für Python3
 
@@ -807,6 +826,8 @@ def count():
 ## for ... else
 
 Einer for-Schleife kann eine optionale else-Klausel hinzugefügt werden - diese wird ausgeführt, wenn die Schleife ganz durchläuft - wenn also Python während des Ausführens nicht auf ein `break` (oder `return` oder ähnliches) stößt.
+
+## for ... else
 
 Diese Funktionalität gibt es bei keiner anderen verbreiteten Programmiersprache; viele Python-Entwickler kennen sie auch nicht - Zitat vom Erfinder von Python:
 

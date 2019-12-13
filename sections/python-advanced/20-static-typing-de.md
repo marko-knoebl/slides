@@ -2,6 +2,8 @@
 
 ## Typendeklarationen
 
+Neuere Versionen von Python unterstützen optionale Typenannotationen
+
 MyPy: Typechecker für Python, insbesondere sinnvoll für Python3
 
 https://mypy-lang.org

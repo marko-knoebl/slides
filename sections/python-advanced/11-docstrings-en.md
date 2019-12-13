@@ -1,6 +1,6 @@
 # Docstrings
 
-## displaying docstrings
+## Displaying docstrings
 
 from the interactive Python console:
 

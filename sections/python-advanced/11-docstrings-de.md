@@ -1,5 +1,24 @@
 # Docstrings
 
+## Docstrings anzeigen
+
+aus der interaktiven Konsole:
+
+```py
+help(round)
+import math
+help(math)
+help(math.floor)
+```
+
+aus dem Terminal:
+
+```bash
+python -m pydoc round
+python -m pydoc math
+python -m pydoc math.floor
+```
+
 ## Docstring-Format
 
 PEP 257: https://www.python.org/dev/peps/pep-0257/

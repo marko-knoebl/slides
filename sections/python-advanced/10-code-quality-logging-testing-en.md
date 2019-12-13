@@ -2,8 +2,6 @@
 
 ## Logging
 
-## Logging
-
 ```py
 import logging
 logging.basicConfig(

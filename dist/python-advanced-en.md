@@ -34,8 +34,6 @@ Marko Knöbl
 
 ## Logging
 
-## Logging
-
 ```py
 import logging
 logging.basicConfig(
@@ -186,7 +184,7 @@ TOTAL                15      0   100%
 
 # Docstrings
 
-## displaying docstrings
+## Displaying docstrings
 
 from the interactive Python console:
 
