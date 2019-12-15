@@ -15,11 +15,13 @@ Beispiel: Online Shop
 
 ## Reducer aufteilen / kombinieren
 
-Könnte manuell erfolgen - oder durch Verwendung der Funktion `combineReducers` aus Redux
+Kombinieren könnte manuell erfolgen - oder durch Verwendung der Funktion `combineReducers` aus Redux
 
 ## Reducer aufteilen / kombinieren
 
-manuell:
+Reducer, die direkt Daten verwalten, werden wie bekannt meist mit `switch`-Statements implementiert.
+
+Reducer, die sich aus anderen Reducern zusammensetzen, können wie folgt implementiert werden:
 
 ```js
 const shopReducer = (state, action) => ({
@@ -29,10 +31,13 @@ const shopReducer = (state, action) => ({
 });
 ```
 
-mittels `combineReducers`:
+## Reducer aufteilen / kombinieren
+
+Zusammensetzen von Reducern mittels `combineReducers`:
 
 ```js
 import { combineReducers } from '@reduxjs/toolkit';
+
 const shopReducer = combineReducers({
   user: userReducer,
   products: productsReducer,

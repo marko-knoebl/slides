@@ -1,5 +1,5 @@
-# React mit Redux
+# React und Redux
 
-- Grundlagen
-- Redux mit Hooks
-- Redux in Klassenkomponenten
+- Einbinden von Redux in React
+- Redux Hooks
+- Container-Komponenten

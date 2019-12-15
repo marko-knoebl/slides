@@ -1,6 +1,6 @@
 # Redux 2
 
-- actions in more detail
 - splitting / combining reducers
+- actions in more detail
 - asynchronous actions with Thunk
 - action creators

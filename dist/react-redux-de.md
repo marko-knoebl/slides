@@ -11,21 +11,22 @@
   - Redux Devtools
   - Redux Store
 - React und Redux
-  - Grundlagen
-  - Redux mit Hooks
-  - Redux in Klassenkomponenten
+  - Einbinden von Redux in React
+  - Redux Hooks
+  - Container-Komponenten
 
 ## Themen (2/3)
 
 - Redux 2
+  - Aufteilen / Kombinieren von Reducern
   - Actions im Detail
   - Asynchrome Actions mit Thunk
-  - Aufteilen / Kombinieren von Reducern
   - Action Creators
 
 ## Themen (3/3)
 
 - Redux 3
+  - createSlice
   - createAction
   - Selectors und Memoisation
   - createReducer
@@ -83,16 +84,16 @@ default:
 const initialState = [];
 const todosReducer = (oldState = initialState, action) => {
   switch (action.type) {
-    case 'ADD_TODO':
+    case 'addTodo':
       return [
         ...oldState,
         {
           title: action.title,
           completed: false,
-          id: generateId(), // dummy function
+          id: uuidv1(),
         },
       ];
-    case 'DELETE_TODO':
+    case 'deleteTodo':
       return oldState.filter(todo => todo.id !== action.id);
     default:
       return oldState;
@@ -188,11 +189,11 @@ todosStore.dispatch({
 console.log(todosStore.getState());
 ```
 
-# React mit Redux
+# React und Redux
 
-- Grundlagen
-- Redux mit Hooks
-- Redux in Klassenkomponenten
+- Einbinden von Redux in React
+- Redux Hooks
+- Container-Komponenten
 
 # React mit Redux
 
@@ -206,6 +207,8 @@ npm Pakete:
 ## React-Redux: &lt;Provider&gt;
 
 Provider: zum Hinzufügen eines Redux-Stores zu einer React-App
+
+Alle Unterkomponenten des Providers haben Zugriff auf den Store
 
 ## React-Redux: &lt;Provider&gt;
 
@@ -223,29 +226,6 @@ ReactDOM.render(
 );
 ```
 
-## Presentational components / container components
-
-Oft sinnvolle Einteilung:
-
-**presentational components**:
-
-- "normale" React-Komponenten, die unabhängig von Redux funktionieren
-- interagieren nur mit ihrer Elternkomponente
-- einfach wiederzuverwenden
-
-**container components**:
-
-- Komponenten, die mit dem Redux Store interagieren
-- Hauptaufgabe ist das Rendern von Unterkomponenten
-
-## Presentational components / container components
-
-Beispiel:
-
-Allgemeine `TodoList`-Komponente, die beliebige über Props übergebene Todos rendern kann
-
-`TodoListContainer`-Komponente, die Daten aus dem Redux Store ausliest und eine `TodoList`-Komponente rendert
-
 # React mit Redux: Hooks
 
 ## useSelector
@@ -261,13 +241,15 @@ Die Selektorfunktion erhält den gesamten Redux-State und gibt einen daraus abge
 ```js
 import { useSelector } from 'react-redux';
 
-...
+const TodoList = () => {
+  const todos = useSelector(state => state);
+  const numTodos = useSelector(state => state.length);
+  const numCompletedTodos = useSelector(
+    state => state.filter(todo => todo.completed).length
+  );
 
-const todos = useSelector(state => state);
-const numTodos = useSelector(state => state.length);
-const numCompletedTodos = useSelector(
-  state => state.filter(todo => todo.completed).length
-);
+  ...
+};
 ```
 
 ## useDispatch
@@ -277,9 +259,11 @@ Mit `useDispatch` können wir aus React auf die `dispatch`-Funktion des Redux-St
 ```js
 import { useDispatch } from 'react-redux';
 
-const dispatch = useDispatch();
-
-dispatch({ type: 'deleteCompletedTodos' });
+const TodoList = () => {
+  const dispatch = useDispatch();
+  ...
+  dispatch({ type: 'deleteCompletedTodos' });
+};
 ```
 
 ## useDispatch mit TypeScript
@@ -288,23 +272,78 @@ dispatch({ type: 'deleteCompletedTodos' });
 const dispatch = useDispatch<TodoAppAction>();
 ```
 
-# React mit Redux: Klassenkomponenten
+# React mit Redux: Container-Komponenten
 
 ## Container-Komponenten
 
-`connect`-Funktion aus `react-redux`:
+Oft sinnvolle Einteilung:
 
-- wird zum Erstellen einer Container-Komponente verwendet
-- die einzige Aufgabe der Container-Komponente ist es, ihre Unterkomponente mit dem Redux Store zu verbinden
+**presentational components**:
+
+- "normale" React-Komponenten, die unabhängig von Redux funktionieren
+- interagieren nur mit ihrer Elternkomponente
+- einfach wiederzuverwenden
+
+**container components**:
+
+- Komponenten, die mit dem Redux Store interagieren
+- Aufgabe ist das Rendern von Unterkomponenten
 
 ## Container-Komponenten
 
-`connect`: verbindet React-Komponenten mit dem Redux Store
+Beispiel:
 
-- `mapStateToProps`: verbindet React props mit dem Redux state
-- `mapDispatchToProps`: verbindet React props/events mit Redux actions
+Allgemeine `TodoList`-Komponente mit folgenden Props/Events:
 
-Aufruf von `connect`:
+- `todos`
+- `onToggle`
+- `onDelete`
+
+`TodoListContainer`-Komponente, die die `TodoList`-Komponente mit dem Redux-Store verbindet:
+
+- Props von `TodoList` erhalten Werte aus dem State des Redux Stores
+- Events von `TodoList` lösen im Redux Store Actions aus
+
+## Container-Komponenten
+
+Manuelle Verbindung:
+
+```js
+const TodoListContainer = () => {
+  const todos = useSelector(state => state);
+  const dispatch = useDispatch();
+
+  return (
+    <TodoList
+      todos={todos}
+      onToggle={id => dispatch({ type: 'toggle', id: id })}
+      onDelete={id => dispatch({ type: 'delete', id: id })}
+    />
+  );
+};
+```
+
+## Container-Komponenten
+
+Verbindung mittels `connect`:
+
+```js
+import { connect } from 'react-redux';
+
+const TodoListContainer = connect(
+  state => ({ todos: state }),
+  dispatch => ({
+    onToggle: id => dispatch({ type: 'toggle', id: id }),
+    onDelete: id => dispatch({ type: 'delete', id: id }),
+  })
+)(TodoList);
+```
+
+## Container-Komponenten
+
+Verbindung mittels `connect`:
+
+`connect` erhält zwei Funktionen als Argumente; diese können auch separat definiert sein und tragen meist die Namen `mapStateToProps` und `mapDisptachToProps`:
 
 ```js
 import { connect } from 'react-redux';
@@ -317,7 +356,7 @@ const ComponentContainer = connect(
 
 ## Beispiel
 
-Wir verbinden eine einfache `NumberInput`-Komponente mit dem Redux Store
+Wir verbinden eine einfache `NumberInput`-Komponente mit dem Redux Store:
 
 ```js
 const NumberInput = ({
@@ -341,108 +380,52 @@ Interface der `NumberInput`-Komponente:
 - event: `onIncrement`
 - event: `onDecrement`
 
-Redux Store:
+Interface des Redux Stores:
 
 - state-Eintrag: `fontSize`
 - action: `increaseFontSize`
 - action: `reduceFontSize`
 
-## Beispiel
-
-mit dem Redux State verbinden:
-
-```jsx
-import { connect } from 'react-redux';
-
-const mapStateToProps = state => ({
-  value: state.fontSize,
-});
-
-const FontSizeInput = connect(mapStateToProps)(NumberInput);
-```
-
-## Beispiel
-
-mit Redux Actions verbinden:
+## Beispiel (manuell)
 
 ```js
-// dispatch refers to the dispatch function of the store;
-// it is provided to us via dependency injection
-const mapDispatchToProps = dispatch => ({
-  onIncrement: () => dispatch({ type: 'increaseFontSize' }),
-  onDecrement: () => dispatch({ type: 'reduceFontSize' }),
-});
+import { useSelector, useDispatch } from 'react-redux';
 
-const FontSizeInput = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(NumberInput);
+const FontSizeInput = () => {
+  const fontSize = useSelector(state => state.ui.fontSize);
+  const dispatch = useDispatch();
+
+  return (
+    <NumberInput
+      value={fontSize}
+      onIncrement={dispatch({ type: 'increaseFontSize' })}
+      onDecrement={dispatch({ type: 'reduceFontSize' })}
+    />
+  );
+};
 ```
 
-## Counter: Dispatch mit TypeScript
+## Beispiel (via connect)
 
-```ts
-import { Action, Dispatch } from 'redux';
-
-const mapDispatchToProps = (
-  dispatch: Dispatch<MyAction>
-) => ({
-  onIncrement: () => dispatch({ type: 'increaseFontSize' }),
-  onDecrement: () => dispatch({ type: 'reduceFontSize' }),
-});
+```js
+const FontSizeInput = connect(
+  state => ({
+    value: state.fontSize,
+  }),
+  dispatch => ({
+    onIncrement: () =>
+      dispatch({ type: 'increaseFontSize' }),
+    onDecrement: () => dispatch({ type: 'reduceFontSize' }),
+  })
+)(NumberInput);
 ```
 
 # Redux 2
 
-- Actions im Detail
 - Aufteilen / Kombinieren von Reducern
-- Asynchrome Actions mit Thunk
+- Actions im Detail
+- Asynchrone Actions mit Thunk
 - Action Creators
-
-# Actions im Detail
-
-## Actions
-
-- Beschreiben eine Zustandsänderung
-- Sind js-Objekte mit einer _type_-Property
-- Der _type_ wurde usrsprünglich meist groß geschrieben (z.B. `ADD_TODO`), heute sind auch andere Schreibweisen üblich (z.B. `addTodo`)
-- Actions werden oft nach dem _FSA_-Standard definiert, der eine `payload`-Property definiert, sowie `error` und `meta`
-
-## Actions - Beispiele
-
-```js
-const action = {
-  type: 'addTodo',
-  title: 'Build my first Redux app',
-};
-```
-
-```js
-const action = {
-  type: 'addTodo',
-  payload: {
-    title: 'Build my first Redux app',
-  },
-};
-```
-
-## Actions - Beispiele
-
-```js
-const action = {
-  type: 'toggleTodo',
-  id: 2,
-};
-```
-
-```js
-const action = {
-  type: 'toggleTodo',
-  payload: {
-    id: 2,
-  },
-};
-```
 
 # Reducer aufteilen / kombinieren
 
@@ -461,11 +444,13 @@ Beispiel: Online Shop
 
 ## Reducer aufteilen / kombinieren
 
-Könnte manuell erfolgen - oder durch Verwendung der Funktion `combineReducers` aus Redux
+Kombinieren könnte manuell erfolgen - oder durch Verwendung der Funktion `combineReducers` aus Redux
 
 ## Reducer aufteilen / kombinieren
 
-manuell:
+Reducer, die direkt Daten verwalten, werden wie bekannt meist mit `switch`-Statements implementiert.
+
+Reducer, die sich aus anderen Reducern zusammensetzen, können wie folgt implementiert werden:
 
 ```js
 const shopReducer = (state, action) => ({
@@ -475,15 +460,60 @@ const shopReducer = (state, action) => ({
 });
 ```
 
-mittels `combineReducers`:
+## Reducer aufteilen / kombinieren
+
+Zusammensetzen von Reducern mittels `combineReducers`:
 
 ```js
 import { combineReducers } from '@reduxjs/toolkit';
+
 const shopReducer = combineReducers({
   user: userReducer,
   products: productsReducer,
   cart: cartReducer,
 });
+```
+
+# Actions im Detail
+
+## Actions
+
+- Beschreiben eine Zustandsänderung
+- Sind js-Objekte mit einer _type_-Property
+- Der _type_ wurde usrsprünglich meist groß geschrieben (z.B. `ADD_TODO`), heute sind auch andere Schreibweisen üblich (z.B. `addTodo`)
+- Oft werden in den Typenbezeichnern Namespaces verwendet, z.B. `"todoData/addTodo"` oder `"ui/showAddTodoDialog"`
+- Actions werden oft nach dem _FSA_-Standard definiert, der eine `payload`-Property definiert, sowie `error` und `meta`
+
+## Actions - Beispiele
+
+```js
+const action = {
+  type: 'todoData/todos/addTodo',
+  title: 'Build my first Redux app',
+};
+```
+
+```js
+const action = {
+  type: 'addTodo',
+  payload: 'Build my first Redux app',
+};
+```
+
+## Actions - Beispiele
+
+```js
+const action = {
+  type: 'todoData/todos/toggleTodo',
+  id: 2,
+};
+```
+
+```js
+const action = {
+  type: 'todoData/todos/toggleTodo',
+  payload: 2,
+};
 ```
 
 # Asynchrone Actions
@@ -576,10 +606,8 @@ Action Creators: einfache Funktionen, die eine bestimmte Action erstellen
 
 ```js
 const addTodo = title => ({
-  type: ADD_TODO,
-  payload: {
-    title: title,
-  },
+  type: 'addTodo',
+  payload: title,
 });
 ```
 
@@ -609,7 +637,7 @@ dispatch(loadTodoByIndex(3));
 // thunk action creator
 const loadTodoByIndex = id => {
   function thunkAction(dispatch) {
-    dispatch({ type: 'loadTodoRequest', id: id });
+    dispatch({ type: 'loadTodoRequest', payload: id });
     fetch(
       `https://jsonplaceholder.typicode.com/todos/${index}`
     )
@@ -629,13 +657,13 @@ kürzere Version mit verschachtelten Pfeilfunktionen:
 ```js
 // thunk action creator
 const loadTodoByIndex = id => dispatch => {
-  dispatch({ type: 'loadTodoRequest', id: id });
+  dispatch({ type: 'loadTodoRequest', payload: id });
   fetch(
     `https://jsonplaceholder.typicode.com/todos/${index}`
   )
     .then(response => response.json())
     .then(todo => {
-      dispatch({ type: 'loadTodoSuccess', todo: todo });
+      dispatch({ type: 'loadTodoSuccess', payload: todo });
     });
 };
 ```
@@ -770,15 +798,16 @@ const productsReducer = (state = products, action) => {
 
 # Redux 3
 
+- createSlice
 - createAction
-- Selectors und Memoisation
 - createReducer
+- Selectors und Memoisation
 
 # createAction
 
 ## createAction
 
-Die Funtion `createAction` aus dem Redux toolkit kann hilfreich sein, um _action creators_ zu erstellen und String-konstanten für _action types_ bereit zu stellen:
+Die Funktion `createAction` aus dem Redux toolkit kann hilfreich sein, um _action creators_ zu erstellen und String-konstanten für _action types_ bereit zu stellen:
 
 ```js
 import { createAction } from '@reduxjs/toolkit';
@@ -825,6 +854,163 @@ String(addTodo); // 'addTodo'
 ```
 
 Dies kann bei der Verwendung von `createReducer` hilfreich sein.
+
+# createReducer
+
+## createReducer
+
+`createReducer` kann das Schreiben von Reducern vereinfachen:
+
+- Vermeiden von Boilerplate
+- Erlauben von direkten Objektmutationen (via _immer.js_)
+
+## createReducer
+
+Übliche Implementierung eines `counterReducer`s:
+
+```js
+const counterReducer = (state = 0, action) => {
+  switch (action.type) {
+    case 'increment':
+      return state + (action.amount || 1);
+    case 'decrement':
+      return state - (action.amount || 1);
+    default:
+      return state;
+  }
+};
+```
+
+## createReducer
+
+Vereinfachte Implementierung mittels `createReducer`:
+
+```js
+import { createReducer } from '@reduxjs/toolkit';
+
+const counterReducer = createReducer(0, {
+  increment: (state, action) =>
+    state + (action.amount || 1),
+  decrement: (state, action) =>
+    state - (action.amount || 1),
+});
+```
+
+## createReducer
+
+Implementierung für TypeScript - dies ermöglicht das feststellen von Typen:
+
+```js
+const counterReducer = createReducer(0, builder => {
+  builder.addCase(
+    'increment',
+    (state, action) => state + (action.amount || 1)
+  );
+  builder.addCase(
+    'decrement',
+    (state, action) => state - (action.amount || 1)
+  );
+});
+```
+
+## createReducer
+
+Bei Verwendung von `createReducer` _dürfen_ wir den alten State abändern (siehe `logIn`) - dies ist durch die Verwendung von `immer.js` im Hintergrund möglich
+
+Das Zurückgeben von abgeleitetem State ist ebenfalls möglich (siehe `logOut`)
+
+```js
+const initialState = { loggedIn: false, userId: null };
+
+const userReducer = createReducer(initialState, {
+  logIn: (state, action) => {
+    state.loggedIn = true;
+    state.userId = action.payload.userId;
+  },
+  logOut: (state, action) => {
+    return { loggedIn: false, userId: null };
+  },
+});
+```
+
+## createReducer und createAction
+
+Bei Verwendung von `createAction` können wir den Action Creator direkt als Key verwenden (wegen dessen `.toString()`-Methode):
+
+```js
+const increment = createAction('increment', amount => ({
+  amount: amount,
+}));
+const decrement = createAction('decrement', amount => ({
+  amount: amount,
+}));
+
+const counterReducer = createReducer(0, {
+  [increment]: (state, action) =>
+    state + (action.amount || 1),
+  [decrement]: (state, action) =>
+    state - (action.amount || 1),
+});
+```
+
+# createSlice
+
+## createSlice
+
+- Vereinfachte Erstellung eines Reducers und der zugehörigen Action Creators
+- kann verwendet werden, wenn die einem Reducer zugeordneten Actions in keinem anderen Reducer verwendet werden
+
+## createSlice
+
+verwendet im Hintergrund `createAction` und `createReducer`
+
+## createSlice
+
+```js
+import { createSlice } from '@reduxjs/toolkit';
+
+const todosSlice = createSlice({
+  name: 'todoData/todos',
+  initialState: [],
+  reducers: {
+    addTodo: (state, action) => {
+      state.push({
+        title: action.title,
+        completed: false,
+        id: uuidv1(),
+      });
+    },
+    deleteTodo: (state, action) =>
+      state.filter(todo => todo.id !== action.id),
+  },
+});
+```
+
+## createSlice
+
+der gezeigte Aufruf erstellt:
+
+einen Reducer (`todosSlice.reducer`)
+
+zwei Action Creators:
+
+- `todosSlice.actions.addTodo`
+- `todosSlice.actions.deleteTodo`
+
+## createSlice
+
+aufruf eines Action Creators:
+
+```js
+addTodo('groceries');
+```
+
+```json
+{
+  "type": "todoData/todos/addTodo",
+  "payload": "groceries"
+}
+```
 
 # Selektoren
 
@@ -940,103 +1126,11 @@ memoizedAreaSelector({ length: 2, width: 3, col: 'red' });
 memoizedAreaSelector({ length: 2, width: 3, col: 'blue' });
 ```
 
-# createReducer
+# Redux 4
 
-## createReducer
-
-`createReducer` kann das Schreiben von Reducern vereinfachen:
-
-- Vermeiden von Boilerplate
-- Erlauben von direkten Objektmutationen (via _immer.js_)
-
-## createReducer
-
-Übliche Implementierung eines `counterReducer`s:
-
-```js
-const counterReducer = (state = 0, action) => {
-  switch (action.type) {
-    case 'increment':
-      return state + (action.amount || 1);
-    case 'decrement':
-      return state - (action.amount || 1);
-    default:
-      return state;
-  }
-};
-```
-
-## createReducer
-
-Vereinfachte Implementierung mittels `createReducer`:
-
-```js
-import { createReducer } from '@reduxjs/toolkit';
-
-const counterReducer = createReducer(0, {
-  increment: (state, action) =>
-    state + (action.amount || 1),
-  decrement: (state, action) =>
-    state - (action.amount || 1),
-});
-```
-
-## createReducer
-
-Implementierung für TypeScript - dies ermöglicht das feststellen von Typen:
-
-```js
-const counterReducer = createReducer(0, builder => {
-  builder.addCase(
-    'increment',
-    (state, action) => state + (action.amount || 1)
-  );
-  builder.addCase(
-    'decrement',
-    (state, action) => state - (action.amount || 1)
-  );
-});
-```
-
-## createReducer
-
-Bei Verwendung von `createReducer` _dürfen_ wir den alten State abändern (siehe `logIn`) - dies ist durch die Verwendung von `immer.js` im Hintergrund möglich
-
-Das Zurückgeben von abgeleitetem State ist ebenfalls möglich (siehe `logOut`)
-
-```js
-const initialState = { loggedIn: false, userId: null };
-
-const userReducer = createReducer(initialState, {
-  logIn: (state, action) => {
-    state.loggedIn = true;
-    state.userId = action.payload.userId;
-  },
-  logOut: (state, action) => {
-    return { loggedIn: false, userId: null };
-  },
-});
-```
-
-## createReducer und createAction
-
-Bei Verwendung von `createAction` können wir den Action Creator direkt als Key verwenden (wegen dessen `.toString()`-Methode):
-
-```js
-const increment = createAction('increment', amount => ({
-  amount: amount,
-}));
-const decrement = createAction('decrement', amount => ({
-  amount: amount,
-}));
-
-const counterReducer = createReducer(0, {
-  [increment]: (state, action) =>
-    state + (action.amount || 1),
-  [decrement]: (state, action) =>
-    state - (action.amount || 1),
-});
-```
+- Redux Ecosystem
+- Redux Middleware
+- Asynchrone Actions mit Saga
 
 # Redux Ecosystem
 

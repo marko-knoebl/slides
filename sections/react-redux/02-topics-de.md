@@ -9,21 +9,22 @@
   - Redux Devtools
   - Redux Store
 - React und Redux
-  - Grundlagen
-  - Redux mit Hooks
-  - Redux in Klassenkomponenten
+  - Einbinden von Redux in React
+  - Redux Hooks
+  - Container-Komponenten
 
 ## Themen (2/3)
 
 - Redux 2
+  - Aufteilen / Kombinieren von Reducern
   - Actions im Detail
   - Asynchrome Actions mit Thunk
-  - Aufteilen / Kombinieren von Reducern
   - Action Creators
 
 ## Themen (3/3)
 
 - Redux 3
+  - createSlice
   - createAction
   - Selectors und Memoisation
   - createReducer

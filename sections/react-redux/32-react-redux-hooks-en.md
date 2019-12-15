@@ -13,13 +13,15 @@ The selector function receives the entire Redux state and returns a value that i
 ```js
 import { useSelector } from 'react-redux';
 
-...
+const TodoList = () => {
+  const todos = useSelector(state => state);
+  const numTodos = useSelector(state => state.length);
+  const numCompletedTodos = useSelector(
+    state => state.filter(todo => todo.completed).length
+  );
 
-const todos = useSelector(state => state);
-const numTodos = useSelector(state => state.length);
-const numCompletedTodos = useSelector(
-  state => state.filter(todo => todo.completed).length
-);
+  ...
+};
 ```
 
 ## useDispatch
@@ -29,9 +31,11 @@ By using `useDispatch` we can access the `dispatch` function of the Redux store 
 ```js
 import { useDispatch } from 'react-redux';
 
-const dispatch = useDispatch();
-
-dispatch({ type: 'deleteCompletedTodos' });
+const TodoList = () => {
+  const dispatch = useDispatch();
+  ...
+  dispatch({ type: 'deleteCompletedTodos' });
+};
 ```
 
 ## useDispatch with TypeScript

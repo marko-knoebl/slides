@@ -13,13 +13,15 @@ Die Selektorfunktion erhält den gesamten Redux-State und gibt einen daraus abge
 ```js
 import { useSelector } from 'react-redux';
 
-...
+const TodoList = () => {
+  const todos = useSelector(state => state);
+  const numTodos = useSelector(state => state.length);
+  const numCompletedTodos = useSelector(
+    state => state.filter(todo => todo.completed).length
+  );
 
-const todos = useSelector(state => state);
-const numTodos = useSelector(state => state.length);
-const numCompletedTodos = useSelector(
-  state => state.filter(todo => todo.completed).length
-);
+  ...
+};
 ```
 
 ## useDispatch
@@ -29,9 +31,11 @@ Mit `useDispatch` können wir aus React auf die `dispatch`-Funktion des Redux-St
 ```js
 import { useDispatch } from 'react-redux';
 
-const dispatch = useDispatch();
-
-dispatch({ type: 'deleteCompletedTodos' });
+const TodoList = () => {
+  const dispatch = useDispatch();
+  ...
+  dispatch({ type: 'deleteCompletedTodos' });
+};
 ```
 
 ## useDispatch mit TypeScript

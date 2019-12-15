@@ -2,7 +2,7 @@
 
 ## createAction
 
-Die Funtion `createAction` aus dem Redux toolkit kann hilfreich sein, um _action creators_ zu erstellen und String-konstanten für _action types_ bereit zu stellen:
+Die Funktion `createAction` aus dem Redux toolkit kann hilfreich sein, um _action creators_ zu erstellen und String-konstanten für _action types_ bereit zu stellen:
 
 ```js
 import { createAction } from '@reduxjs/toolkit';

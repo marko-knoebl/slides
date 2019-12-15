@@ -1,5 +1,5 @@
 # React and Redux
 
-- basics
+- integrating Redux with React
 - Redux hooks
-- Redux in class components
+- container components

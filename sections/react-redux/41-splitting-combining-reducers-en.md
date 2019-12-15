@@ -19,7 +19,9 @@ Combining reducers could be done manually - or via the function `combineReducers
 
 ## Splitting / combining reducers
 
-manual:
+Reducers that directly manage data are usually implemented by using a `switch` statement.
+
+Reducers that are composed of other reducers can be implemented like this:
 
 ```js
 const shopReducer = (state, action) => ({
@@ -29,10 +31,13 @@ const shopReducer = (state, action) => ({
 });
 ```
 
+## Splitting / combining reducers
+
 via `combineReducers`:
 
 ```js
 import { combineReducers } from '@reduxjs/toolkit';
+
 const shopReducer = combineReducers({
   user: userReducer,
   products: productsReducer,

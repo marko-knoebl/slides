@@ -1,6 +1,6 @@
 # Redux 2
 
-- Actions im Detail
 - Aufteilen / Kombinieren von Reducern
-- Asynchrome Actions mit Thunk
+- Actions im Detail
+- Asynchrone Actions mit Thunk
 - Action Creators

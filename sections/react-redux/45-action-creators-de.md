@@ -6,10 +6,8 @@ Action Creators: einfache Funktionen, die eine bestimmte Action erstellen
 
 ```js
 const addTodo = title => ({
-  type: ADD_TODO,
-  payload: {
-    title: title,
-  },
+  type: 'addTodo',
+  payload: title,
 });
 ```
 
@@ -39,7 +37,7 @@ dispatch(loadTodoByIndex(3));
 // thunk action creator
 const loadTodoByIndex = id => {
   function thunkAction(dispatch) {
-    dispatch({ type: 'loadTodoRequest', id: id });
+    dispatch({ type: 'loadTodoRequest', payload: id });
     fetch(
       `https://jsonplaceholder.typicode.com/todos/${index}`
     )
@@ -59,13 +57,13 @@ kürzere Version mit verschachtelten Pfeilfunktionen:
 ```js
 // thunk action creator
 const loadTodoByIndex = id => dispatch => {
-  dispatch({ type: 'loadTodoRequest', id: id });
+  dispatch({ type: 'loadTodoRequest', payload: id });
   fetch(
     `https://jsonplaceholder.typicode.com/todos/${index}`
   )
     .then(response => response.json())
     .then(todo => {
-      dispatch({ type: 'loadTodoSuccess', todo: todo });
+      dispatch({ type: 'loadTodoSuccess', payload: todo });
     });
 };
 ```

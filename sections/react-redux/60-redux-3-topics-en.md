@@ -1,5 +1,6 @@
 # Redux 3
 
+- createSlice
 - createAction
-- selectors and memoization
 - createReducer
+- selectors and memoization

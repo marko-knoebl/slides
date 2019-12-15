@@ -34,16 +34,16 @@ default:
 const initialState = [];
 const todosReducer = (oldState = initialState, action) => {
   switch (action.type) {
-    case 'ADD_TODO':
+    case 'addTodo':
       return [
         ...oldState,
         {
           title: action.title,
           completed: false,
-          id: generateId(), // dummy function
+          id: uuidv1(),
         },
       ];
-    case 'DELETE_TODO':
+    case 'deleteTodo':
       return oldState.filter(todo => todo.id !== action.id);
     default:
       return oldState;

@@ -11,6 +11,8 @@ npm packages:
 
 Provider: is used to add a Redux store to a React app
 
+All sub-components of the provider can access the store
+
 ## React-Redux: &lt;Provider&gt;
 
 ```js
@@ -26,26 +28,3 @@ ReactDOM.render(
   ...
 );
 ```
-
-## Presentational and container components
-
-distinction that can be useful:
-
-**presentational components**:
-
-- "regular" React components that are unaware of the Redux store
-- interact with their parent component normally
-- easily reusable
-
-**container components**:
-
-- components that interact with the Redux store
-- main role is to render subcomponents and connect them to the Redux store
-
-## Presentational and Container Components
-
-example:
-
-generic React `TodoList` component that can be used to render any list of todos
-
-`TodoListContainer` component which retrieves data from the Redux store and renders a `TodoList` component
