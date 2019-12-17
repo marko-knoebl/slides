@@ -3139,6 +3139,27 @@ Inspect your code changes or press `u` to update them.
   <span class="hljs-keyword">return</span> { data, error, isFetching };
 };
 </code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Routing and pre-rendering</h1>
+</section><section class="slide"><h2>Routing and pre-rendering</h2>
+<ul>
+<li><strong>client-side routing</strong>: navigating between different views without leaving the React app</li>
+<li><strong>pre-rendering</strong>: on first page load the browser receives pre-rendered HTML to speed up loading / displaying</li>
+</ul>
+</section><section class="slide"><h2>Routing</h2>
+<p>example: go to <a href="https://reactjs.org">reactjs.org</a> and navigate between pages</p>
+<p>navigation between pages is quick - only some parts of the page are replaced</p>
+</section><section class="slide"><h2>Pre-rendering</h2>
+<p>example 1:</p>
+<p>go to <a href="https://reactjs.org">reactjs.org</a> and wait for the browser's React devtools icon to activate - you will see content before React is ready</p>
+<p>example 2:</p>
+<p>Disable JavaScript in your browser's developer tools settings and visit <a href="https://reactjs.org">reactjs.org</a> - you will still see content, though some interactivity will not work (e.g. dropdowns)</p>
+</section><section class="slide"><h2>Routing and pre-rendering</h2>
+<p>tools:</p>
+<ul>
+<li><em>react-router</em>: <em>routing</em></li>
+<li><em>gatsby</em>: routing, <em>pre-rendering static content</em></li>
+<li><em>next.js</em>: routing, pre-rendering static content, <em>pre-rendering dynamic content</em></li>
+</ul>
 </section></section><section class="slides-section"><section class="slide"><h1>React Router</h1>
 </section><section class="slide"><h2>React Router</h2>
 <p><a href="https://reacttraining.com/react-router/">https://reacttraining.com/react-router/</a></p>
@@ -3209,6 +3230,138 @@ The entire Application is enclosed in a <code>BrowserRouter</code> - Element</p>
 />
 </code></pre>
 <p>Route parameters may be accessed via <em>props.match.params</em></p>
+</section></section><section class="slides-section"><section class="slide"><h1>Pre-rendering</h1>
+</section><section class="slide"><h2>Pre-rendering</h2>
+<p>Tools like <strong>next.js</strong> or <strong>gatsby.js</strong> can pre-render a React page before it reaches the client</p>
+<p>advantages:</p>
+<ul>
+<li>faster initial rendering</li>
+<li>reduces additional API calls on the client</li>
+<li>easier indexing by search engines</li>
+</ul>
+</section><section class="slide"><h2>Pre-rendering</h2>
+<p>approaches:</p>
+<ul>
+<li>static site generation</li>
+<li>server-side rendering</li>
+</ul>
+</section><section class="slide"><h2>Pre-rendering</h2>
+<p><strong>static site generation</strong></p>
+<ul>
+<li>makes sense for data that changes infrequently (e.g. blog posts)</li>
+<li>when data changes the site has to be regenerated statically</li>
+<li>data that changes frequently (e.g. comments on a blog post) would not be part of the pre-rendering</li>
+</ul>
+<p>supported by <strong>next.js</strong> and <strong>gatsby.js</strong></p>
+</section><section class="slide"><h2>Pre-rendering</h2>
+<p><strong>server-side rendering</strong></p>
+<ul>
+<li>when a React page is opened a prerendered version of it is created on the server and sent to the client</li>
+<li>requires <em>node.js</em> on the server</li>
+</ul>
+<p>supported by <strong>next.js</strong></p>
+</section></section><section class="slides-section"><section class="slide"><h1>Next.js</h1>
+</section><section class="slide"><h2>create-next-app</h2>
+<p>Create a new next.js app via:</p>
+<pre><code class="hljs language-bash">npx create-next-app my-app
+</code></pre>
+</section><section class="slide"><h2>Folder structure</h2>
+<ul>
+<li>pages under <em>./pages</em></li>
+<li>static assets under <em>./assets</em></li>
+<li>used React components usually under <em>./components</em></li>
+</ul>
+</section><section class="slide"><h2>npm scripts</h2>
+<ul>
+<li><code>npm run dev</code>: run the development server</li>
+<li><code>npm (run) start</code>: run the production server</li>
+<li><code>npm run build</code>: build a static version for deployment</li>
+</ul>
+</section><section class="slide"><h2>Development server</h2>
+<pre><code class="hljs language-bash">npm run dev
+</code></pre>
+<p>An auto-updating server will start at <em>localhost:3000</em></p>
+</section><section class="slide"><h2>Creating pages</h2>
+<p>Example page definition:</p>
+<pre><code class="hljs language-js"><span class="hljs-comment">// pages/index.js</span>
+<span class="hljs-keyword">import</span> Link <span class="hljs-keyword">from</span> <span class="hljs-string">'next/link'</span>;
+
+<span class="hljs-keyword">const</span> Index = <span class="hljs-function"><span class="hljs-params">()</span> =></span> (
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+    </span>&#x3C;Link href="/about">
+      &#x3C;a>About Page&#x3C;/a>
+    &#x3C;/Link><span class="xml">
+    </span>&#x3C;p>Hello Next.js&#x3C;/p><span class="xml">
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+);
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Index;
+</code></pre>
+</section><section class="slide"><h2>Creating pages</h2>
+<p>Task: create further pages</p>
+</section><section class="slide"><h2>Route parameters</h2>
+<p>we can query parameters from URLs like these:</p>
+<ul>
+<li><code>/posts/?postid=3</code></li>
+<li><code>/posts/3</code></li>
+</ul>
+</section><section class="slide"><h2>Route parameters</h2>
+<p>Route parameters are enclosed in square brackets in the file name, e.g. <code>pages/posts/[id].js</code></p>
+</section><section class="slide"><h2>Route parameters</h2>
+<p>Querying route parameters:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { useRouter } <span class="hljs-keyword">from</span> <span class="hljs-string">'next/router'</span>;
+
+<span class="hljs-keyword">const</span> Post = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  <span class="hljs-keyword">const</span> router = useRouter();
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+      </span>&#x3C;h1>detail view for post {router.query.id}&#x3C;/h1><span class="xml">
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+  );
+};
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Post;
+</code></pre>
+</section><section class="slide"><h2>Data fetching in next.js</h2>
+<p>usual process for fetching data in a React app:</p>
+<ul>
+<li>React app is sent to the client</li>
+<li>React app renders initially with no data</li>
+<li>client requests additional data</li>
+<li>data is sent to the client</li>
+</ul>
+<p>process with next.js:</p>
+<ul>
+<li>data is fetched on the server</li>
+<li>app is rendered on the server</li>
+<li>pre-rendered app and the corresponding data for making it dynamic are sent to the client</li>
+</ul>
+</section><section class="slide"><h2>Data fetching in next.js</h2>
+<p>If we want to fetch data on the server side before a component renders we implement the method <code>getInitialProps</code>:</p>
+<p>Um <code>fetch</code> in node.js zu verwenden, können wir das npm-Paket <code>isomorphic-fetch</code> verwenden.</p>
+</section><section class="slide"><h2>Data fetching in next.js</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> Post = <span class="hljs-function">(<span class="hljs-params">{ url, title, body }</span>) =></span> (
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+    </span>&#x3C;h2>
+      Post {url.query.id}: {title}
+    &#x3C;/h2><span class="xml">
+    </span>&#x3C;p>{body}&#x3C;/p><span class="xml">
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+);
+
+Post.getInitialProps = <span class="hljs-function"><span class="hljs-params">context</span> =></span>
+  fetch(
+    <span class="hljs-string">`https://jsonplaceholder.typicode.com/posts/<span class="hljs-subst">${context.query.id}</span>`</span>
+  )
+    .then(<span class="hljs-function"><span class="hljs-params">response</span> =></span> response.json())
+    .then(<span class="hljs-function"><span class="hljs-params">post</span> =></span> ({ <span class="hljs-attr">title</span>: post.title, <span class="hljs-attr">body</span>: post.body }));
+</code></pre>
+</section><section class="slide"><h2>Static site generation</h2>
+<p>By default <em>next.js</em> runs on a node server and dynamically renders content</p>
+<p>for static site generation see:</p>
+<p><a href="https://nextjs.org/learn/excel/static-html-export">https://nextjs.org/learn/excel/static-html-export</a></p>
+</section><section class="slide"><h2>Resources</h2>
+<p>The next.js website has great materials: <a href="https://nextjs.org">https://nextjs.org</a></p>
 </section></section><section class="slides-section"><section class="slide"><h1>PWAs</h1>
 <p>Progressive Web Apps with React</p>
 </section><section class="slide"><h2>PWAs</h2>

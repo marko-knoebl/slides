@@ -1448,6 +1448,37 @@ const useJsonQuery = url => {
 };
 ```
 
+# Routing and pre-rendering
+
+## Routing and pre-rendering
+
+- **client-side routing**: navigating between different views without leaving the React app
+- **pre-rendering**: on first page load the browser receives pre-rendered HTML to speed up loading / displaying
+
+## Routing
+
+example: go to [reactjs.org](https://reactjs.org) and navigate between pages
+
+navigation between pages is quick - only some parts of the page are replaced
+
+## Pre-rendering
+
+example 1:
+
+go to [reactjs.org](https://reactjs.org) and wait for the browser's React devtools icon to activate - you will see content before React is ready
+
+example 2:
+
+Disable JavaScript in your browser's developer tools settings and visit [reactjs.org](https://reactjs.org) - you will still see content, though some interactivity will not work (e.g. dropdowns)
+
+## Routing and pre-rendering
+
+tools:
+
+- _react-router_: _routing_
+- _gatsby_: routing, _pre-rendering static content_
+- _next.js_: routing, pre-rendering static content, _pre-rendering dynamic content_
+
 # React Router
 
 ## React Router
@@ -1546,6 +1577,181 @@ import { Redirect } from 'react-router-dom';
 ```
 
 Route parameters may be accessed via _props.match.params_
+
+# Pre-rendering
+
+## Pre-rendering
+
+Tools like **next.js** or **gatsby.js** can pre-render a React page before it reaches the client
+
+advantages:
+
+- faster initial rendering
+- reduces additional API calls on the client
+- easier indexing by search engines
+
+## Pre-rendering
+
+approaches:
+
+- static site generation
+- server-side rendering
+
+## Pre-rendering
+
+**static site generation**
+
+- makes sense for data that changes infrequently (e.g. blog posts)
+- when data changes the site has to be regenerated statically
+- data that changes frequently (e.g. comments on a blog post) would not be part of the pre-rendering
+
+supported by **next.js** and **gatsby.js**
+
+## Pre-rendering
+
+**server-side rendering**
+
+- when a React page is opened a prerendered version of it is created on the server and sent to the client
+- requires _node.js_ on the server
+
+supported by **next.js**
+
+# Next.js
+
+## create-next-app
+
+Create a new next.js app via:
+
+```bash
+npx create-next-app my-app
+```
+
+## Folder structure
+
+- pages under _./pages_
+- static assets under _./assets_
+- used React components usually under _./components_
+
+## npm scripts
+
+- `npm run dev`: run the development server
+- `npm (run) start`: run the production server
+- `npm run build`: build a static version for deployment
+
+## Development server
+
+```bash
+npm run dev
+```
+
+An auto-updating server will start at _localhost:3000_
+
+## Creating pages
+
+Example page definition:
+
+```js
+// pages/index.js
+import Link from 'next/link';
+
+const Index = () => (
+  <div>
+    <Link href="/about">
+      <a>About Page</a>
+    </Link>
+    <p>Hello Next.js</p>
+  </div>
+);
+
+export default Index;
+```
+
+## Creating pages
+
+Task: create further pages
+
+## Route parameters
+
+we can query parameters from URLs like these:
+
+- `/posts/?postid=3`
+- `/posts/3`
+
+## Route parameters
+
+Route parameters are enclosed in square brackets in the file name, e.g. `pages/posts/[id].js`
+
+## Route parameters
+
+Querying route parameters:
+
+```js
+import { useRouter } from 'next/router';
+
+const Post = () => {
+  const router = useRouter();
+  return (
+    <div>
+      <h1>detail view for post {router.query.id}</h1>
+    </div>
+  );
+};
+
+export default Post;
+```
+
+## Data fetching in next.js
+
+usual process for fetching data in a React app:
+
+- React app is sent to the client
+- React app renders initially with no data
+- client requests additional data
+- data is sent to the client
+
+process with next.js:
+
+- data is fetched on the server
+- app is rendered on the server
+- pre-rendered app and the corresponding data for making it dynamic are sent to the client
+
+## Data fetching in next.js
+
+If we want to fetch data on the server side before a component renders we implement the method `getInitialProps`:
+
+Um `fetch` in node.js zu verwenden, können wir das npm-Paket `isomorphic-fetch` verwenden.
+
+## Data fetching in next.js
+
+```js
+const Post = ({ url, title, body }) => (
+  <div>
+    <h2>
+      Post {url.query.id}: {title}
+    </h2>
+    <p>{body}</p>
+  </div>
+);
+
+Post.getInitialProps = context =>
+  fetch(
+    `https://jsonplaceholder.typicode.com/posts/${context.query.id}`
+  )
+    .then(response => response.json())
+    .then(post => ({ title: post.title, body: post.body }));
+```
+
+## Static site generation
+
+By default _next.js_ runs on a node server and dynamically renders content
+
+for static site generation see:
+
+https://nextjs.org/learn/excel/static-html-export
+
+## Resources
+
+The next.js website has great materials: https://nextjs.org
 
 # PWAs
 
