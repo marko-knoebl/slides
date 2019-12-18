@@ -372,6 +372,7 @@ from [https://github.com/APIs-guru/graphql-apis](https://github.com/APIs-guru/gr
 - GraphQL Pokémon (second entry!)
 - Star Wars
 - SpaceX Land
+- Todo list
 - FakeQL: customizable mock APIs
 
 ## FakeQL
