@@ -59,3 +59,11 @@ _merging_ the updates of one branch into another branch:
 git checkout master
 git merge python-3-port
 ```
+
+## Git branches
+
+_deleting_ a branch:
+
+```bash
+git branch -d python-3-port
+```
