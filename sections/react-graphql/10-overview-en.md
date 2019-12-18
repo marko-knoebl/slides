@@ -78,9 +78,12 @@ answer (JSON):
 
 ## Example: get friends of a user
 
+Query:
+
 ```graphql
 query {
   user(login: "john") {
+    login
     friends {
       login
     }
@@ -88,9 +91,14 @@ query {
 }
 ```
 
+## Example: get friends of a user
+
+Response:
+
 ```json
 {
   "user": {
+    "login": "john",
     "friends": [
       { "login": "mike" },
       { "login": "stephanie" }
@@ -152,7 +160,7 @@ query random($max: Int!, $quantity: Int!) {
 }
 ```
 
-query data:
+query data (JSON):
 
 ```json
 {

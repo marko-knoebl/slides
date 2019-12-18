@@ -53,7 +53,7 @@ function RecentLaunches() {
 
 ```js
 const LAUNCHES_QUERY = gql`
-  query recentLaunches($numLaunches: ) {
+  query recentLaunches($numLaunches: Int!) {
     launchesPast(limit: $numLaunches) {
       mission_name
     }

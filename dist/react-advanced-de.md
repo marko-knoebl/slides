@@ -1360,7 +1360,7 @@ Einfache Verwendung:
 
 ```js
 const TodoDisplay = () => {
-  const { todoData, isLoading } = useQuery(
+  const { data, isLoading } = useQuery(
     'todo_1',
     fetch(
       'https://jsonplaceholder.typicode.com/todos/1'
@@ -1369,7 +1369,7 @@ const TodoDisplay = () => {
   if (isLoading) {
     return 'Loading...';
   }
-  return <div>{todoData.title}</div>;
+  return <div>{data.title}</div>;
 };
 ```
 

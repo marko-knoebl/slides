@@ -256,9 +256,3 @@ query {
   }
 }
 ```
-
-## Task: loading Todos from a GraphQL API
-
-Load todos from `https://5qn401kkl9.lp.gql.zone/graphql`
-
-(admin: https://launchpad.graphql.com/5qn401kkl9)

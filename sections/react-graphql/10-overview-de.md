@@ -6,7 +6,7 @@
 
 ## GraphQL
 
-Verwendung für ein einzelnen APIs, das wiederum mit folgenden Datenquellen kommunizieren kann:
+Verwendung für ein einzelnes APIs, das wiederum mit folgenden Datenquellen kommunizieren kann:
 
 - andere APIs
 - Datenbanken
@@ -78,9 +78,12 @@ Antwort (JSON):
 
 ## Beispiel: Freunde eines Benutzers
 
+Anfrage:
+
 ```graphql
 query {
   user(login: "john") {
+    login
     friends {
       login
     }
@@ -88,9 +91,14 @@ query {
 }
 ```
 
+## Beispiel: Feunde eines Benutzers
+
+Antwort:
+
 ```json
 {
   "user": {
+    "login": "john",
     "friends": [
       { "login": "mike" },
       { "login": "stephanie" }
@@ -152,7 +160,7 @@ query random($max: Int!, $quantity: Int!) {
 }
 ```
 
-Abfrageparameter:
+Abfrageparameter (JSON):
 
 ```json
 {

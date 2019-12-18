@@ -38,7 +38,7 @@ Marko Knöbl
 
 ## GraphQL
 
-Verwendung für ein einzelnen APIs, das wiederum mit folgenden Datenquellen kommunizieren kann:
+Verwendung für ein einzelnes APIs, das wiederum mit folgenden Datenquellen kommunizieren kann:
 
 - andere APIs
 - Datenbanken
@@ -110,9 +110,12 @@ Antwort (JSON):
 
 ## Beispiel: Freunde eines Benutzers
 
+Anfrage:
+
 ```graphql
 query {
   user(login: "john") {
+    login
     friends {
       login
     }
@@ -120,9 +123,14 @@ query {
 }
 ```
 
+## Beispiel: Feunde eines Benutzers
+
+Antwort:
+
 ```json
 {
   "user": {
+    "login": "john",
     "friends": [
       { "login": "mike" },
       { "login": "stephanie" }
@@ -184,7 +192,7 @@ query random($max: Int!, $quantity: Int!) {
 }
 ```
 
-Abfrageparameter:
+Abfrageparameter (JSON):
 
 ```json
 {
@@ -334,11 +342,11 @@ query {
 ```sql
 SELECT post.title
   FROM user
-  INNER JOIN post ON user.id = post.userId
-  WHERE user.id = "my-username"
+  LEFT JOIN post ON user.id = post.userId
+  WHERE user.login = 'my-username';
 ```
 
-(extra Code: `INNER JOIN post ON user.id = post.userId`)
+(extra Code: `LEFT JOIN post ON user.id = post.userId`)
 
 ## GraphQL verglichen mit SQL
 
@@ -356,7 +364,7 @@ SELECT post.title
 
 ## Beispiele für GraphQL-APIs
 
-from [https://github.com/APIs-guru/graphql-apis](https://github.com/APIs-guru/graphql-apis):
+bon [https://github.com/APIs-guru/graphql-apis](https://github.com/APIs-guru/graphql-apis):
 
 - GitHub (login benötigt)
 - Reddit (GraphQL Hub)
@@ -369,7 +377,7 @@ from [https://github.com/APIs-guru/graphql-apis](https://github.com/APIs-guru/gr
 
 [https://fakeql.com/](https://fakeql.com/)
 
-template for simple todos on FakeQL:
+Template für einfache Todos bei FakeQL:
 
 ```json
 {
@@ -594,7 +602,7 @@ query {
 
 ## Mehr Übungen - Lösungen
 
-```
+```graphql
 query {
   user (login: "marko-knoebl") {
     id,
@@ -610,12 +618,6 @@ query {
   }
 }
 ```
-
-## Übung: Laden von Todos von einer GraphQL API
-
-Lade Todos von [https://5qn401kkl9.lp.gql.zone/graphql](https://5qn401kkl9.lp.gql.zone/graphql)
-
-(admin: https://launchpad.graphql.com/5qn401kkl9)
 
 # Datentypen
 
@@ -868,7 +870,7 @@ function RecentLaunches() {
 
 ```js
 const LAUNCHES_QUERY = gql`
-  query recentLaunches($numLaunches: ) {
+  query recentLaunches($numLaunches: Int!) {
     launchesPast(limit: $numLaunches) {
       mission_name
     }

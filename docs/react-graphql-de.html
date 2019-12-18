@@ -2066,7 +2066,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </section><section class="slide"><h2>GraphQL</h2>
 <p>"A query language for your API"</p>
 </section><section class="slide"><h2>GraphQL</h2>
-<p>Verwendung für ein einzelnen APIs, das wiederum mit folgenden Datenquellen kommunizieren kann:</p>
+<p>Verwendung für ein einzelnes APIs, das wiederum mit folgenden Datenquellen kommunizieren kann:</p>
 <ul>
 <li>andere APIs</li>
 <li>Datenbanken</li>
@@ -2114,16 +2114,21 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 }
 </code></pre>
 </section><section class="slide"><h2>Beispiel: Freunde eines Benutzers</h2>
+<p>Anfrage:</p>
 <pre><code class="language-graphql">query {
   user(login: "john") {
+    login
     friends {
       login
     }
   }
 }
 </code></pre>
+</section><section class="slide"><h2>Beispiel: Feunde eines Benutzers</h2>
+<p>Antwort:</p>
 <pre><code class="hljs language-json">{
   <span class="hljs-attr">"user"</span>: {
+    <span class="hljs-attr">"login"</span>: <span class="hljs-string">"john"</span>,
     <span class="hljs-attr">"friends"</span>: [
       { <span class="hljs-attr">"login"</span>: <span class="hljs-string">"mike"</span> },
       { <span class="hljs-attr">"login"</span>: <span class="hljs-string">"stephanie"</span> }
@@ -2167,7 +2172,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   rand(max: $max, quantity: $quantity)
 }
 </code></pre>
-<p>Abfrageparameter:</p>
+<p>Abfrageparameter (JSON):</p>
 <pre><code class="hljs language-json">{
   <span class="hljs-attr">"max"</span>: <span class="hljs-number">10</span>,
   <span class="hljs-attr">"quantity"</span>: <span class="hljs-number">3</span>
@@ -2271,10 +2276,10 @@ try Subscriptions
 </code></pre>
 <pre><code class="hljs language-sql"><span class="hljs-keyword">SELECT</span> post.title
   <span class="hljs-keyword">FROM</span> <span class="hljs-keyword">user</span>
-  <span class="hljs-keyword">INNER</span> <span class="hljs-keyword">JOIN</span> post <span class="hljs-keyword">ON</span> user.id = post.userId
-  <span class="hljs-keyword">WHERE</span> user.id = <span class="hljs-string">"my-username"</span>
+  <span class="hljs-keyword">LEFT</span> <span class="hljs-keyword">JOIN</span> post <span class="hljs-keyword">ON</span> user.id = post.userId
+  <span class="hljs-keyword">WHERE</span> user.login = <span class="hljs-string">'my-username'</span>;
 </code></pre>
-<p>(extra Code: <code>INNER JOIN post ON user.id = post.userId</code>)</p>
+<p>(extra Code: <code>LEFT JOIN post ON user.id = post.userId</code>)</p>
 </section><section class="slide"><h2>GraphQL verglichen mit SQL</h2>
 <p><strong>OpenCRUD</strong>: spezifischerer Standard, der auf GraphQL basiert - er kann anstelle von SQL verwendet werden</p>
 </section></section><section class="slides-section"><section class="slide"><h1>GraphQL Clients</h1>
@@ -2286,7 +2291,7 @@ try Subscriptions
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Queries</h1>
 </section><section class="slide"><h2>Beispiele für GraphQL-APIs</h2>
-<p>from <a href="https://github.com/APIs-guru/graphql-apis">https://github.com/APIs-guru/graphql-apis</a>:</p>
+<p>bon <a href="https://github.com/APIs-guru/graphql-apis">https://github.com/APIs-guru/graphql-apis</a>:</p>
 <ul>
 <li>GitHub (login benötigt)</li>
 <li>Reddit (GraphQL Hub)</li>
@@ -2297,7 +2302,7 @@ try Subscriptions
 </ul>
 </section><section class="slide"><h2>FakeQL</h2>
 <p><a href="https://fakeql.com/">https://fakeql.com/</a></p>
-<p>template for simple todos on FakeQL:</p>
+<p>Template für einfache Todos bei FakeQL:</p>
 <pre><code class="hljs language-json">{
   <span class="hljs-attr">"todos"</span>: [
     { <span class="hljs-attr">"id"</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Go shopping"</span>, <span class="hljs-attr">"completed"</span>: <span class="hljs-literal">true</span> },
@@ -2467,8 +2472,8 @@ try Subscriptions
 }
 </code></pre>
 </section><section class="slide"><h2>Mehr Übungen - Lösungen</h2>
-<pre><code class="hljs language-routeros">query {
- <span class="hljs-built_in"> user </span>(login: <span class="hljs-string">"marko-knoebl"</span>) {
+<pre><code class="language-graphql">query {
+  user (login: "marko-knoebl") {
     id,
     email,
     repositories (first: 100, orderBy: {field: STARGAZERS, direction: DESC}) {
@@ -2482,9 +2487,6 @@ try Subscriptions
   }
 }
 </code></pre>
-</section><section class="slide"><h2>Übung: Laden von Todos von einer GraphQL API</h2>
-<p>Lade Todos von <a href="https://5qn401kkl9.lp.gql.zone/graphql">https://5qn401kkl9.lp.gql.zone/graphql</a></p>
-<p>(admin: <a href="https://launchpad.graphql.com/5qn401kkl9">https://launchpad.graphql.com/5qn401kkl9</a>)</p>
 </section></section><section class="slides-section"><section class="slide"><h1>Datentypen</h1>
 </section><section class="slide"><h2>Datentypen</h2>
 <p>Bei GraphQL sind die zurückgegebenen Datentypen immer bekannt.</p>
@@ -2673,7 +2675,7 @@ client
 </code></pre>
 </section><section class="slide"><h2>useQuery: Parameter</h2>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> LAUNCHES_QUERY = gql<span class="hljs-string">`
-  query recentLaunches($numLaunches: ) {
+  query recentLaunches($numLaunches: Int!) {
     launchesPast(limit: $numLaunches) {
       mission_name
     }

@@ -2114,16 +2114,21 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 }
 </code></pre>
 </section><section class="slide"><h2>Example: get friends of a user</h2>
+<p>Query:</p>
 <pre><code class="language-graphql">query {
   user(login: "john") {
+    login
     friends {
       login
     }
   }
 }
 </code></pre>
+</section><section class="slide"><h2>Example: get friends of a user</h2>
+<p>Response:</p>
 <pre><code class="hljs language-json">{
   <span class="hljs-attr">"user"</span>: {
+    <span class="hljs-attr">"login"</span>: <span class="hljs-string">"john"</span>,
     <span class="hljs-attr">"friends"</span>: [
       { <span class="hljs-attr">"login"</span>: <span class="hljs-string">"mike"</span> },
       { <span class="hljs-attr">"login"</span>: <span class="hljs-string">"stephanie"</span> }
@@ -2167,7 +2172,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   rand(max: $max, quantity: $quantity)
 }
 </code></pre>
-<p>query data:</p>
+<p>query data (JSON):</p>
 <pre><code class="hljs language-json">{
   <span class="hljs-attr">"max"</span>: <span class="hljs-number">10</span>,
   <span class="hljs-attr">"quantity"</span>: <span class="hljs-number">3</span>
@@ -2269,10 +2274,10 @@ try Subscriptions
 </code></pre>
 <pre><code class="hljs language-sql"><span class="hljs-keyword">SELECT</span> post.title
   <span class="hljs-keyword">FROM</span> <span class="hljs-keyword">user</span>
-  <span class="hljs-keyword">INNER</span> <span class="hljs-keyword">JOIN</span> post <span class="hljs-keyword">ON</span> user.id = post.userId
-  <span class="hljs-keyword">WHERE</span> user.id = <span class="hljs-string">"my-username"</span>
+  <span class="hljs-keyword">LEFT</span> <span class="hljs-keyword">JOIN</span> post <span class="hljs-keyword">ON</span> user.id = post.userId
+  <span class="hljs-keyword">WHERE</span> user.login = <span class="hljs-string">'my-username'</span>;
 </code></pre>
-<p>(extra code: <code>INNER JOIN post ON user.id = post.userId</code>)</p>
+<p>(extra code: <code>LEFT JOIN post ON user.id = post.userId</code>)</p>
 </section><section class="slide"><h2>GraphQL compared to SQL</h2>
 <p><strong>OpenCRUD</strong> is a more specifc standard that is based on GraphQL. It maps directly to SQL and can be used in place of it.</p>
 </section></section><section class="slides-section"><section class="slide"><h1>GraphQL clients</h1>
@@ -2480,9 +2485,6 @@ try Subscriptions
   }
 }
 </code></pre>
-</section><section class="slide"><h2>Task: loading Todos from a GraphQL API</h2>
-<p>Load todos from <code>https://5qn401kkl9.lp.gql.zone/graphql</code></p>
-<p>(admin: <a href="https://launchpad.graphql.com/5qn401kkl9">https://launchpad.graphql.com/5qn401kkl9</a>)</p>
 </section></section><section class="slides-section"><section class="slide"><h1>Data types</h1>
 </section><section class="slide"><h2>Data types</h2>
 <p>With GraphQL the returned data types are always known to the client.</p>
@@ -2671,7 +2673,7 @@ client
 </code></pre>
 </section><section class="slide"><h2>useQuery: Parameters</h2>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> LAUNCHES_QUERY = gql<span class="hljs-string">`
-  query recentLaunches($numLaunches: ) {
+  query recentLaunches($numLaunches: Int!) {
     launchesPast(limit: $numLaunches) {
       mission_name
     }

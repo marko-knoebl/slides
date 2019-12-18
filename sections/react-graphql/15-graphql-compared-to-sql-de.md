@@ -46,11 +46,11 @@ query {
 ```sql
 SELECT post.title
   FROM user
-  INNER JOIN post ON user.id = post.userId
-  WHERE user.id = "my-username"
+  LEFT JOIN post ON user.id = post.userId
+  WHERE user.login = 'my-username';
 ```
 
-(extra Code: `INNER JOIN post ON user.id = post.userId`)
+(extra Code: `LEFT JOIN post ON user.id = post.userId`)
 
 ## GraphQL verglichen mit SQL
 

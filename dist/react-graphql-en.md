@@ -110,9 +110,12 @@ answer (JSON):
 
 ## Example: get friends of a user
 
+Query:
+
 ```graphql
 query {
   user(login: "john") {
+    login
     friends {
       login
     }
@@ -120,9 +123,14 @@ query {
 }
 ```
 
+## Example: get friends of a user
+
+Response:
+
 ```json
 {
   "user": {
+    "login": "john",
     "friends": [
       { "login": "mike" },
       { "login": "stephanie" }
@@ -184,7 +192,7 @@ query random($max: Int!, $quantity: Int!) {
 }
 ```
 
-query data:
+query data (JSON):
 
 ```json
 {
@@ -335,11 +343,11 @@ query {
 ```sql
 SELECT post.title
   FROM user
-  INNER JOIN post ON user.id = post.userId
-  WHERE user.id = "my-username"
+  LEFT JOIN post ON user.id = post.userId
+  WHERE user.login = 'my-username';
 ```
 
-(extra code: `INNER JOIN post ON user.id = post.userId`)
+(extra code: `LEFT JOIN post ON user.id = post.userId`)
 
 ## GraphQL compared to SQL
 
@@ -612,12 +620,6 @@ query {
 }
 ```
 
-## Task: loading Todos from a GraphQL API
-
-Load todos from `https://5qn401kkl9.lp.gql.zone/graphql`
-
-(admin: https://launchpad.graphql.com/5qn401kkl9)
-
 # Data types
 
 ## Data types
@@ -869,7 +871,7 @@ function RecentLaunches() {
 
 ```js
 const LAUNCHES_QUERY = gql`
-  query recentLaunches($numLaunches: ) {
+  query recentLaunches($numLaunches: Int!) {
     launchesPast(limit: $numLaunches) {
       mission_name
     }

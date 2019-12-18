@@ -2,7 +2,7 @@
 
 ## Beispiele für GraphQL-APIs
 
-from [https://github.com/APIs-guru/graphql-apis](https://github.com/APIs-guru/graphql-apis):
+bon [https://github.com/APIs-guru/graphql-apis](https://github.com/APIs-guru/graphql-apis):
 
 - GitHub (login benötigt)
 - Reddit (GraphQL Hub)
@@ -15,7 +15,7 @@ from [https://github.com/APIs-guru/graphql-apis](https://github.com/APIs-guru/gr
 
 [https://fakeql.com/](https://fakeql.com/)
 
-template for simple todos on FakeQL:
+Template für einfache Todos bei FakeQL:
 
 ```json
 {
@@ -240,7 +240,7 @@ query {
 
 ## Mehr Übungen - Lösungen
 
-```
+```graphql
 query {
   user (login: "marko-knoebl") {
     id,
@@ -256,9 +256,3 @@ query {
   }
 }
 ```
-
-## Übung: Laden von Todos von einer GraphQL API
-
-Lade Todos von [https://5qn401kkl9.lp.gql.zone/graphql](https://5qn401kkl9.lp.gql.zone/graphql)
-
-(admin: https://launchpad.graphql.com/5qn401kkl9)
