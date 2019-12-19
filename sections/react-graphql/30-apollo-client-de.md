@@ -16,14 +16,12 @@ Gründe für die Verwendung:
 
 Benötigte npm-Pakete:
 
-- `graphl`
+- `graphql`
 - `graphql-tag`
 - `apollo-client`
 - `apollo-cache-inmemory`
 - `apollo-link-http`
 - `react-apollo` (für Verwendung mit React)
-
-Das Paket `apollo-boost` beinhaltet `apollo-client`, `apollo-cache-inmemory`, `apollo-link-http` (und mehr)
 
 ## Setup
 
@@ -33,14 +31,11 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { HttpLink } from 'apollo-link-http';
 import gql from 'graphql-tag';
 
-const cache = new InMemoryCache();
-const link = new HttpLink({
-  uri: 'https://api.spacex.land/graphql/',
-});
-
 const client = new ApolloClient({
-  cache,
-  link,
+  cache: new InMemoryCache(),
+  link: new HttpLink({
+    uri: 'https://api.spacex.land/graphql/',
+  }),
 });
 ```
 
@@ -65,14 +60,14 @@ client
 
 Apollo kann auch lokale Daten / lokalen State verwalten
 
-Auslesen von lokalem State:
-
-- mittels `@client`-Direktive in Queries
-
 Setzen von lokalem State:
 
 - via `client.writeData` für einfache Fälle
 - mittels `@client`-Direktive in Mutationen, und lokalen Resolvern
+
+Auslesen von lokalem State:
+
+- mittels `@client`-Direktive in Queries
 
 ## Lokale Daten
 

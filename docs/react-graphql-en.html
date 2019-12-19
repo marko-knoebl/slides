@@ -2280,14 +2280,7 @@ try Subscriptions
 <p>(extra code: <code>LEFT JOIN post ON user.id = post.userId</code>)</p>
 </section><section class="slide"><h2>GraphQL compared to SQL</h2>
 <p><strong>OpenCRUD</strong> is a more specifc standard that is based on GraphQL. It maps directly to SQL and can be used in place of it.</p>
-</section></section><section class="slides-section"><section class="slide"><h1>GraphQL clients</h1>
-</section><section class="slide"><h2>GraphQL clients</h2>
-<ul>
-<li><em>graphql.js</em>: reference implementation</li>
-<li><em>Apollo Client</em>: easy integration with React, Vue, Angular, ...</li>
-<li><em>Relay</em>: advanced integration with React</li>
-</ul>
-</section></section><section class="slides-section"><section class="slide"><h1>Queries</h1>
+</section></section><section class="slides-section"><section class="slide"><h1>Example APIs</h1>
 </section><section class="slide"><h2>GraphQL API examples</h2>
 <p>from <a href="https://github.com/APIs-guru/graphql-apis">https://github.com/APIs-guru/graphql-apis</a>:</p>
 <ul>
@@ -2310,13 +2303,16 @@ try Subscriptions
   ]
 }
 </code></pre>
-</section><section class="slide"><h2>GraphiQL explorer</h2>
+</section></section><section class="slides-section"><section class="slide"><h1>GraphiQL Explorer</h1>
+</section><section class="slide"><h2>GraphiQL Explorer</h2>
 <p>Graph<em>i</em>QL: Browser-based explorer for GraphQL APIs</p>
 <ul>
-<li>see query structure / data structure (click "Docs" in the top right)</li>
+<li>inspect query structure / data structure (click "Docs" in the top right)</li>
 <li>send experimental queries</li>
 </ul>
-</section><section class="slide"><h2>Simple GraphQL exercises</h2>
+</section></section><section class="slides-section"><section class="slide"><h1>Simple examples</h1>
+</section><section class="slide"><h2>Simple examples</h2>
+<p><a href="https://graphql.org/swapi-graphql/">Star Wars API</a>:</p>
 <ul>
 <li>Get a list of titles of all Star Wars films in the database</li>
 <li>Get a list of planets and planet populations from Star Wars</li>
@@ -2355,53 +2351,62 @@ try Subscriptions
   }
 }
 </code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Parametric queries</h1>
 </section><section class="slide"><h2>Query parameters</h2>
-<p>Only query the pokémon with the specified name</p>
-<pre><code class="language-graphql">query getCharmander {
-  pokemon(name: "Charmander") {
-    name
-    weight {
-      minimum
-      maximum
+<p>Example on <a href="https://api.spacex.land/graphql/">https://api.spacex.land/graphql/</a>:</p>
+<pre><code class="language-graphql">{
+  launchesUpcoming(limit: 4) {
+    launch_date_utc
+    mission_name
+  }
+}
+</code></pre>
+<pre><code class="language-graphql">{
+  rocket(id: "falcon9") {
+    cost_per_launch
+    wikipedia
+  }
+}
+</code></pre>
+</section><section class="slide"><h2>Query parameters</h2>
+<p>Advanced query - all <em>Falcon 9</em> launches in 2019:</p>
+<pre><code class="language-graphql">{
+  launchesPast(
+    find: { launch_year: "2019", rocket_name: "Falcon 9" }
+  ) {
+    launch_date_utc
+    launch_site {
+      site_name
+      site_name_long
     }
   }
 }
 </code></pre>
-</section><section class="slide"><h2>Query parameters</h2>
-<p>Query the first three pokémon in the database</p>
-<pre><code class="language-graphql">query getFirstThree {
-  pokemons(first: 3) {
-    name
-  }
-}
-</code></pre>
-<p>Note: The server-side implementation determines the set of supported parameters (e.g. <em>first</em>, <em>orderBy</em>, ...)</p>
-</section><section class="slide"><h2>Query parameters: exercises</h2>
-<ul>
-<li>get the name, weight and classification of Pikachu</li>
-<li>get the name and weight of the first three pokémon</li>
-</ul>
+<p>Note: The server-side implementation determines the set of supported parameters (e.g. <em>find</em>, <em>id</em>, <em>limit</em> ...)</p>
 </section><section class="slide"><h2>Required and optional parameters</h2>
-<p>Required parameters are marked with a <code>!</code>. Returned attributes that will always be present (like <code>id</code>) are marked in the same way.</p>
+<p>Required parameters are (usually) marked with a <code>!</code>. Returned attributes that will always be present (like <code>id</code>) are marked in the same way.</p>
 </section><section class="slide"><h2>Variables</h2>
 <p>query:</p>
-<pre><code class="language-graphql">query getPokemonByName($name: String) {
-  pokemon(name: $name) {
-    name
-    number
-    image
+<pre><code class="language-graphql">query getLaunchesByYear($year: String!) {
+  launchesPast(find: { launch_year: $year }) {
+    launch_date_utc
+    launch_site {
+      site_name
+      site_name_long
+    }
   }
 }
 </code></pre>
 <p>variables:</p>
 <pre><code class="hljs language-json">{
-  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Pikachu"</span>
+  <span class="hljs-attr">"year"</span>: <span class="hljs-string">"2019"</span>
 }
 </code></pre>
-</section><section class="slide"><h2>Modifying data</h2>
+</section></section><section class="slides-section"><section class="slide"><h1>Mutations</h1>
+</section><section class="slide"><h2>Mutations</h2>
 <p><a href="https://todo-mongo-graphql-server.herokuapp.com/">https://todo-mongo-graphql-server.herokuapp.com/</a></p>
-<p>(only one query at a time)</p>
-</section><section class="slide"><h2>Modifying data</h2>
+<p>(supports only one query at a time)</p>
+</section><section class="slide"><h2>Mutations</h2>
 <p>Command that triggers the server's <code>add</code> action and returns the id of the new TODO</p>
 <pre><code class="language-graphql">mutation addTodo($title: String!) {
   add(title: $title) {
@@ -2413,7 +2418,7 @@ try Subscriptions
   <span class="hljs-attr">"title"</span>: <span class="hljs-string">"shopping"</span>
 }
 </code></pre>
-</section><section class="slide"><h2>Modifying data</h2>
+</section><section class="slide"><h2>Mutations</h2>
 <pre><code class="language-graphql">mutation toggleTodo($id: String!) {
   toggle(id: $id) {
     id
@@ -2421,7 +2426,7 @@ try Subscriptions
   }
 }
 </code></pre>
-</section><section class="slide"><h2>Modifying data</h2>
+</section><section class="slide"><h2>Mutations</h2>
 <pre><code class="language-graphql">mutation addOneAndClearCompleted($title: String!) {
   add(title: $title) {
     id
@@ -2431,9 +2436,9 @@ try Subscriptions
   }
 }
 </code></pre>
-</section><section class="slide"><h2>Modifying data</h2>
+</section><section class="slide"><h2>Mutations</h2>
 <p>Task: write a query that will delete all previous entries and add two new ones</p>
-</section><section class="slide"><h2>Modifying data</h2>
+</section><section class="slide"><h2>Mutations</h2>
 <pre><code class="language-graphql">mutation reset {
   toggleAll(checked: true) {
     id
@@ -2441,26 +2446,24 @@ try Subscriptions
   clearCompleted {
     id
   }
-  firstAddition: add(title: "Count to 34") {
-    id
-  }
-  secondAddition: add(title: "Count to 45") {
+  add(title: "get some rest") {
     id
   }
 }
 </code></pre>
-</section><section class="slide"><h2>More exercises - optional</h2>
+</section></section><section class="slides-section"><section class="slide"><h1>Exercises (GitHub)</h1>
+</section><section class="slide"><h2>Exercises</h2>
 <ul>
 <li>Get all "followers of followers" for a specific GitHub account</li>
 <li>Get the name of a project and number of stars for all GitHub projects of a specific user</li>
 </ul>
-</section><section class="slide"><h2>More exercises - solutions</h2>
-<pre><code class="hljs language-routeros">query {
- <span class="hljs-built_in"> user </span>(login: <span class="hljs-string">"marko-knoebl"</span>) {
-    followers (first: 10) {
+</section><section class="slide"><h2>Exercises - solutions</h2>
+<pre><code class="language-graphql">query {
+  user(login: "marko-knoebl") {
+    followers(first: 10) {
       nodes {
-        login,
-        followers (first: 10) {
+        login
+        followers(first: 10) {
           nodes {
             login
           }
@@ -2470,14 +2473,17 @@ try Subscriptions
   }
 }
 </code></pre>
-</section><section class="slide"><h2>More exercises - solutions</h2>
-<pre><code class="hljs language-routeros">query {
- <span class="hljs-built_in"> user </span>(login: <span class="hljs-string">"marko-knoebl"</span>) {
-    id,
-    email,
-    repositories (first: 100, orderBy: {field: STARGAZERS, direction: DESC}) {
+</section><section class="slide"><h2>Exercises - solutions</h2>
+<pre><code class="language-graphql">query {
+  user(login: "marko-knoebl") {
+    id
+    email
+    repositories(
+      first: 100
+      orderBy: { field: STARGAZERS, direction: DESC }
+    ) {
       nodes {
-        name,
+        name
         stargazers {
           totalCount
         }
@@ -2499,6 +2505,13 @@ try Subscriptions
 <li>ID: unique id serialized as a string</li>
 <li>Object: object with predefined entries</li>
 <li>List: list composed of specific other types</li>
+</ul>
+</section></section><section class="slides-section"><section class="slide"><h1>GraphQL clients</h1>
+</section><section class="slide"><h2>GraphQL clients</h2>
+<ul>
+<li><em>graphql.js</em>: reference implementation</li>
+<li><em>Apollo Client</em>: easy integration with React, Vue, Angular, ...</li>
+<li><em>Relay</em>: advanced integration with React</li>
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>GraphQL from JavaScript</h1>
 </section><section class="slide"><h2>Sending queries to the server</h2>
@@ -2557,28 +2570,24 @@ fetch(<span class="hljs-string">'https://todo-mongo-graphql-server.herokuapp.com
 </section><section class="slide"><h2>Installation</h2>
 <p>required packages:</p>
 <ul>
+<li><code>graphql</code></li>
+<li><code>graphql-tag</code></li>
 <li><code>apollo-client</code></li>
 <li><code>apollo-cache-inmemory</code></li>
 <li><code>apollo-link-http</code></li>
-<li><code>graphl</code></li>
-<li><code>graphql-tag</code></li>
 <li><code>react-apollo</code> (for use with React)</li>
 </ul>
-<p>You can also install <code>apollo-boost</code> to install <code>apollo-client</code>, <code>apollo-cache-inmemory</code> and <code>apollo-link-http</code> (and more)</p>
 </section><section class="slide"><h2>Apollo client: setup</h2>
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { ApolloClient } <span class="hljs-keyword">from</span> <span class="hljs-string">'apollo-client'</span>;
 <span class="hljs-keyword">import</span> { InMemoryCache } <span class="hljs-keyword">from</span> <span class="hljs-string">'apollo-cache-inmemory'</span>;
 <span class="hljs-keyword">import</span> { HttpLink } <span class="hljs-keyword">from</span> <span class="hljs-string">'apollo-link-http'</span>;
 <span class="hljs-keyword">import</span> gql <span class="hljs-keyword">from</span> <span class="hljs-string">'graphql-tag'</span>;
 
-<span class="hljs-keyword">const</span> cache = <span class="hljs-keyword">new</span> InMemoryCache();
-<span class="hljs-keyword">const</span> link = <span class="hljs-keyword">new</span> HttpLink({
-  <span class="hljs-attr">uri</span>: <span class="hljs-string">'https://api.spacex.land/graphql/'</span>,
-});
-
 <span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> ApolloClient({
-  cache,
-  link,
+  <span class="hljs-attr">cache</span>: <span class="hljs-keyword">new</span> InMemoryCache(),
+  <span class="hljs-attr">link</span>: <span class="hljs-keyword">new</span> HttpLink({
+    <span class="hljs-attr">uri</span>: <span class="hljs-string">'https://api.spacex.land/graphql/'</span>,
+  }),
 });
 </code></pre>
 </section><section class="slide"><h2>Apollo client: example query</h2>
@@ -2597,14 +2606,14 @@ client
 </code></pre>
 </section><section class="slide"><h2>Local data</h2>
 <p>Apollo can also manage local data / local state</p>
-<p>Querying local state:</p>
-<ul>
-<li>via the <code>@client</code> directive in GraphQL queries</li>
-</ul>
 <p>Setting local state:</p>
 <ul>
 <li>via <code>client.writeData</code> for simple cases</li>
 <li>via the <code>@client</code> directive in GraphQL mutations; and local resolvers</li>
+</ul>
+<p>Querying local state:</p>
+<ul>
+<li>via the <code>@client</code> directive in GraphQL queries</li>
 </ul>
 </section><section class="slide"><h2>Local data</h2>
 <p>Simple version: setting local state directly (similar to React's <code>setState</code>):</p>
@@ -2705,7 +2714,7 @@ refetch()
 </section><section class="slide"><h2>useMutation</h2>
 <p>Example for todos:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> SET_COMPLETED = gql<span class="hljs-string">`
-  mutation SetCompleted($id: ID!, $completed: Boolean!) {
+  mutation setCompleted($id: ID!, $completed: Boolean!) {
     updateTodo(id: $id, input: { completed: $completed }) {
       id
       completed

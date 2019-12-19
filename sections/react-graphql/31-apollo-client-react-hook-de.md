@@ -95,7 +95,7 @@ Beispielfall Todo:
 
 ```js
 const SET_COMPLETED = gql`
-  mutation SetCompleted($id: ID!, $completed: Boolean!) {
+  mutation setCompleted($id: ID!, $completed: Boolean!) {
     updateTodo(id: $id, input: { completed: $completed }) {
       id
       completed

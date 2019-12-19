@@ -16,14 +16,12 @@ advantages over "plain" frontend code:
 
 required packages:
 
+- `graphql`
+- `graphql-tag`
 - `apollo-client`
 - `apollo-cache-inmemory`
 - `apollo-link-http`
-- `graphl`
-- `graphql-tag`
 - `react-apollo` (for use with React)
-
-You can also install `apollo-boost` to install `apollo-client`, `apollo-cache-inmemory` and `apollo-link-http` (and more)
 
 ## Apollo client: setup
 
@@ -33,14 +31,11 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { HttpLink } from 'apollo-link-http';
 import gql from 'graphql-tag';
 
-const cache = new InMemoryCache();
-const link = new HttpLink({
-  uri: 'https://api.spacex.land/graphql/',
-});
-
 const client = new ApolloClient({
-  cache,
-  link,
+  cache: new InMemoryCache(),
+  link: new HttpLink({
+    uri: 'https://api.spacex.land/graphql/',
+  }),
 });
 ```
 
@@ -65,14 +60,14 @@ client
 
 Apollo can also manage local data / local state
 
-Querying local state:
-
-- via the `@client` directive in GraphQL queries
-
 Setting local state:
 
 - via `client.writeData` for simple cases
 - via the `@client` directive in GraphQL mutations; and local resolvers
+
+Querying local state:
+
+- via the `@client` directive in GraphQL queries
 
 ## Local data
 

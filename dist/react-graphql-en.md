@@ -353,15 +353,7 @@ SELECT post.title
 
 **OpenCRUD** is a more specifc standard that is based on GraphQL. It maps directly to SQL and can be used in place of it.
 
-# GraphQL clients
-
-## GraphQL clients
-
-- _graphql.js_: reference implementation
-- _Apollo Client_: easy integration with React, Vue, Angular, ...
-- _Relay_: advanced integration with React
-
-# Queries
+# Example APIs
 
 ## GraphQL API examples
 
@@ -391,14 +383,20 @@ template for simple todos on FakeQL:
 }
 ```
 
-## GraphiQL explorer
+# GraphiQL Explorer
+
+## GraphiQL Explorer
 
 Graph*i*QL: Browser-based explorer for GraphQL APIs
 
-- see query structure / data structure (click "Docs" in the top right)
+- inspect query structure / data structure (click "Docs" in the top right)
 - send experimental queries
 
-## Simple GraphQL exercises
+# Simple examples
+
+## Simple examples
+
+[Star Wars API](https://graphql.org/swapi-graphql/):
 
 - Get a list of titles of all Star Wars films in the database
 - Get a list of planets and planet populations from Star Wars
@@ -446,55 +444,66 @@ query getStarshipsByFilm {
 }
 ```
 
+# Parametric queries
+
 ## Query parameters
 
-Only query the pokémon with the specified name
+Example on [https://api.spacex.land/graphql/](https://api.spacex.land/graphql/):
 
 ```graphql
-query getCharmander {
-  pokemon(name: "Charmander") {
-    name
-    weight {
-      minimum
-      maximum
+{
+  launchesUpcoming(limit: 4) {
+    launch_date_utc
+    mission_name
+  }
+}
+```
+
+```graphql
+{
+  rocket(id: "falcon9") {
+    cost_per_launch
+    wikipedia
+  }
+}
+```
+
+## Query parameters
+
+Advanced query - all _Falcon 9_ launches in 2019:
+
+```graphql
+{
+  launchesPast(
+    find: { launch_year: "2019", rocket_name: "Falcon 9" }
+  ) {
+    launch_date_utc
+    launch_site {
+      site_name
+      site_name_long
     }
   }
 }
 ```
 
-## Query parameters
-
-Query the first three pokémon in the database
-
-```graphql
-query getFirstThree {
-  pokemons(first: 3) {
-    name
-  }
-}
-```
-
-Note: The server-side implementation determines the set of supported parameters (e.g. _first_, _orderBy_, ...)
-
-## Query parameters: exercises
-
-- get the name, weight and classification of Pikachu
-- get the name and weight of the first three pokémon
+Note: The server-side implementation determines the set of supported parameters (e.g. _find_, _id_, _limit_ ...)
 
 ## Required and optional parameters
 
-Required parameters are marked with a `!`. Returned attributes that will always be present (like `id`) are marked in the same way.
+Required parameters are (usually) marked with a `!`. Returned attributes that will always be present (like `id`) are marked in the same way.
 
 ## Variables
 
 query:
 
 ```graphql
-query getPokemonByName($name: String) {
-  pokemon(name: $name) {
-    name
-    number
-    image
+query getLaunchesByYear($year: String!) {
+  launchesPast(find: { launch_year: $year }) {
+    launch_date_utc
+    launch_site {
+      site_name
+      site_name_long
+    }
   }
 }
 ```
@@ -503,17 +512,19 @@ variables:
 
 ```json
 {
-  "name": "Pikachu"
+  "year": "2019"
 }
 ```
 
-## Modifying data
+# Mutations
+
+## Mutations
 
 https://todo-mongo-graphql-server.herokuapp.com/
 
-(only one query at a time)
+(supports only one query at a time)
 
-## Modifying data
+## Mutations
 
 Command that triggers the server's `add` action and returns the id of the new TODO
 
@@ -531,7 +542,7 @@ mutation addTodo($title: String!) {
 }
 ```
 
-## Modifying data
+## Mutations
 
 ```graphql
 mutation toggleTodo($id: String!) {
@@ -542,7 +553,7 @@ mutation toggleTodo($id: String!) {
 }
 ```
 
-## Modifying data
+## Mutations
 
 ```graphql
 mutation addOneAndClearCompleted($title: String!) {
@@ -555,11 +566,11 @@ mutation addOneAndClearCompleted($title: String!) {
 }
 ```
 
-## Modifying data
+## Mutations
 
 Task: write a query that will delete all previous entries and add two new ones
 
-## Modifying data
+## Mutations
 
 ```graphql
 mutation reset {
@@ -569,29 +580,28 @@ mutation reset {
   clearCompleted {
     id
   }
-  firstAddition: add(title: "Count to 34") {
-    id
-  }
-  secondAddition: add(title: "Count to 45") {
+  add(title: "get some rest") {
     id
   }
 }
 ```
 
-## More exercises - optional
+# Exercises (GitHub)
+
+## Exercises
 
 - Get all "followers of followers" for a specific GitHub account
 - Get the name of a project and number of stars for all GitHub projects of a specific user
 
-## More exercises - solutions
+## Exercises - solutions
 
-```
+```graphql
 query {
-  user (login: "marko-knoebl") {
-    followers (first: 10) {
+  user(login: "marko-knoebl") {
+    followers(first: 10) {
       nodes {
-        login,
-        followers (first: 10) {
+        login
+        followers(first: 10) {
           nodes {
             login
           }
@@ -602,16 +612,19 @@ query {
 }
 ```
 
-## More exercises - solutions
+## Exercises - solutions
 
-```
+```graphql
 query {
-  user (login: "marko-knoebl") {
-    id,
-    email,
-    repositories (first: 100, orderBy: {field: STARGAZERS, direction: DESC}) {
+  user(login: "marko-knoebl") {
+    id
+    email
+    repositories(
+      first: 100
+      orderBy: { field: STARGAZERS, direction: DESC }
+    ) {
       nodes {
-        name,
+        name
         stargazers {
           totalCount
         }
@@ -638,6 +651,14 @@ available types:
 - ID: unique id serialized as a string
 - Object: object with predefined entries
 - List: list composed of specific other types
+
+# GraphQL clients
+
+## GraphQL clients
+
+- _graphql.js_: reference implementation
+- _Apollo Client_: easy integration with React, Vue, Angular, ...
+- _Relay_: advanced integration with React
 
 # GraphQL from JavaScript
 
@@ -715,14 +736,12 @@ advantages over "plain" frontend code:
 
 required packages:
 
+- `graphql`
+- `graphql-tag`
 - `apollo-client`
 - `apollo-cache-inmemory`
 - `apollo-link-http`
-- `graphl`
-- `graphql-tag`
 - `react-apollo` (for use with React)
-
-You can also install `apollo-boost` to install `apollo-client`, `apollo-cache-inmemory` and `apollo-link-http` (and more)
 
 ## Apollo client: setup
 
@@ -732,14 +751,11 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { HttpLink } from 'apollo-link-http';
 import gql from 'graphql-tag';
 
-const cache = new InMemoryCache();
-const link = new HttpLink({
-  uri: 'https://api.spacex.land/graphql/',
-});
-
 const client = new ApolloClient({
-  cache,
-  link,
+  cache: new InMemoryCache(),
+  link: new HttpLink({
+    uri: 'https://api.spacex.land/graphql/',
+  }),
 });
 ```
 
@@ -764,14 +780,14 @@ client
 
 Apollo can also manage local data / local state
 
-Querying local state:
-
-- via the `@client` directive in GraphQL queries
-
 Setting local state:
 
 - via `client.writeData` for simple cases
 - via the `@client` directive in GraphQL mutations; and local resolvers
+
+Querying local state:
+
+- via the `@client` directive in GraphQL queries
 
 ## Local data
 
@@ -914,7 +930,7 @@ Example for todos:
 
 ```js
 const SET_COMPLETED = gql`
-  mutation SetCompleted($id: ID!, $completed: Boolean!) {
+  mutation setCompleted($id: ID!, $completed: Boolean!) {
     updateTodo(id: $id, input: { completed: $completed }) {
       id
       completed
