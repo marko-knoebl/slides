@@ -83,3 +83,36 @@ We can list files to ignore in a special text file called `.gitignore` (without 
 node_modules
 .vscode
 ```
+
+## Commit history
+
+list past commits:
+
+```bash
+git log
+```
+
+example output:
+
+```bash
+commit e84890f64f974b5f4b0ffa40afff34ecbb33e58c (HEAD -> master, origin/master, origin/HEAD)
+Author: ...
+Date: ...
+...
+commit 19e0e64e8f198bc8495c979fe586c47e6dedc06f
+....
+```
+
+## Commit history
+
+view changes between _19e0e64e8f198bc8495c979fe586c47e6dedc06f_ and its parent commit:
+
+```bash
+git show 19e0
+```
+
+view changes between _19e0e64e8f198bc8495c979fe586c47e6dedc06f_ and the current state:
+
+```bash
+git diff 19e0
+```

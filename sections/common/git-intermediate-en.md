@@ -67,3 +67,17 @@ _deleting_ a branch:
 ```bash
 git branch -d python-3-port
 ```
+
+## Git branches
+
+viewing a history tree / graph showing all branches:
+
+```bash
+git log --graph --all
+```
+
+compact version:
+
+```bash
+git log --graph --all --oneline
+```
