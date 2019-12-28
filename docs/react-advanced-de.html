@@ -3414,18 +3414,84 @@ useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =></sp
 </section></section><section class="slides-section"><section class="slide"><h1>React Native</h1>
 </section><section class="slide"><h2>React Native</h2>
 <p>Mit React Native können React Anwendungen für iOS- und Android-Geräte erstellt werden</p>
-</section><section class="slide"><h2>Online Editor</h2>
-<p>Siehe <a href="https://snack.expo.io/">https://snack.expo.io/</a></p>
+</section><section class="slide"><h2>Möglichkeiten zur Entwicklung</h2>
+<ul>
+<li><strong>Expo Snack</strong>: online Editor</li>
+<li><strong>Expo CLI</strong>: lokale Entwicklung mit wenig Setup</li>
+<li><strong>React Native CLI</strong>: Entwicklung mit Xcode oder Android Studio - wird zum Veröffentlichen von Apps benötigt</li>
+</ul>
+</section><section class="slide"><h2>Expo: online Editor</h2>
+<p><a href="https://snack.expo.io">snack.expo.io</a></p>
+</section><section class="slide"><h2>Expo: lokale Entwicklung</h2>
+<p>Installation von expo:</p>
+<pre><code class="hljs language-bash">npm install -g expo-cli
+</code></pre>
+<p>Erstellen eines neuen Projekts:</p>
+<pre><code class="hljs language-bash">expo init myproject
+</code></pre>
+</section><section class="slide"><h2>Expo App</h2>
+<p><strong>Expo App</strong>: zum Testen von Anwendungen während der Entwicklung, verfügbar in den Android und iOS app stores</p>
 </section><section class="slide"><h2>React Native Komponenten</h2>
 <ul>
 <li>View (=div)</li>
-<li>Text (=span)</li>
+<li>Text</li>
 <li>Image</li>
 <li>Button</li>
-<li>TextInput (=input)</li>
+<li>TextInput</li>
 <li>ScrollView</li>
 </ul>
 <p><a href="https://facebook.github.io/react-native/docs/components-and-apis#basic-components">ausführlichere Liste</a></p>
+</section><section class="slide"><h2>React Native Komponenten</h2>
+<p>Beispiel:</p>
+<pre><code class="hljs language-js">&#x3C;Button title=<span class="hljs-string">"click me"</span> onPress={handlePress} />
+</code></pre>
+</section><section class="slide"><h2>Styling</h2>
+<p>In React Native geschieht Styling über die <em>style</em>-Property:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> todoItemStyle = {
+  <span class="hljs-attr">margin</span>: <span class="hljs-number">5</span>,
+  <span class="hljs-attr">padding</span>: <span class="hljs-number">5</span>,
+};
+
+<span class="hljs-keyword">const</span> TodoItem = <span class="hljs-function">(<span class="hljs-params">{ title, completed }</span>) =></span> (
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{todoItemStyle}</span>></span>{title}<span class="hljs-tag">&#x3C;/<span class="hljs-name">View</span>></span></span>
+);
+</code></pre>
+</section><section class="slide"><h2>Styling</h2>
+<p>Die style-Property kann auch ein Array von Objekten erhalten.</p>
+<p>Einträge, die <em>falsy</em> sind, werden ignoriert - damit können bedingte Stile umgesetzt werden</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> TodoItem = <span class="hljs-function">(<span class="hljs-params">{ title, completed }</span>) =></span> (
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">View</span>
+    <span class="hljs-attr">style</span>=<span class="hljs-string">{[todoItemStyle,</span> <span class="hljs-attr">completed</span> &#x26;&#x26; <span class="hljs-attr">completedStyle</span>]}></span>
+    {title}
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">View</span>></span></span>
+);
+</code></pre>
+</section><section class="slide"><h2>Styling</h2>
+<p>Erstellen von <em>stylesheets</em>, die mehrere Gruppierte Stile definieren:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { StyleSheet } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-native'</span>;
+
+<span class="hljs-keyword">const</span> styles = StyleSheet.create({
+  <span class="hljs-attr">todoItem</span>: {
+    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">'lightred'</span>,
+  },
+  <span class="hljs-attr">completed</span>: {
+    <span class="hljs-attr">textDecoration</span>: <span class="hljs-string">'line-through'</span>,
+    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">'lightgrey'</span>,
+  },
+});
+</code></pre>
+</section><section class="slide"><h2>Styling</h2>
+<p>Verwendung von Stylesheets:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> TodoItem = <span class="hljs-function">(<span class="hljs-params">{ title, completed }</span>) =></span> (
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">View</span>
+    <span class="hljs-attr">style</span>=<span class="hljs-string">{[</span>
+      <span class="hljs-attr">styles.todoItem</span>,
+      <span class="hljs-attr">completed</span> &#x26;&#x26; <span class="hljs-attr">styles.completed</span>,
+    ]}></span>
+    title
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">View</span>></span></span>
+);
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Dateistruktur</h1>
 </section><section class="slide"><h2>Dateistruktur</h2>
 <p><a href="https://reactjs.org/docs/faq-structure.html">https://reactjs.org/docs/faq-structure.html</a></p>
@@ -3433,11 +3499,6 @@ useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =></sp
 <ul>
 <li>Gruppieren nach Feature / Route</li>
 <li>Gruppieren nach Typ (Komponente / Reducer / API interface)</li>
-</ul>
-<p>zu beachten:</p>
-<ul>
-<li>Zu viel Verschachtelung vermeiden</li>
-<li>Zu Beginn nicht zu viel Gedanken daran verschwenden</li>
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Manuelles Setup und Konfiguration von React</h1>
 </section><section class="slide"><h2>Manuelles Setup und Konfiguration</h2>

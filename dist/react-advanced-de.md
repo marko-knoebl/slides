@@ -1828,20 +1828,116 @@ useEffect(() => {
 
 Mit React Native können React Anwendungen für iOS- und Android-Geräte erstellt werden
 
-## Online Editor
+## Möglichkeiten zur Entwicklung
 
-Siehe https://snack.expo.io/
+- **Expo Snack**: online Editor
+- **Expo CLI**: lokale Entwicklung mit wenig Setup
+- **React Native CLI**: Entwicklung mit Xcode oder Android Studio - wird zum Veröffentlichen von Apps benötigt
+
+## Expo: online Editor
+
+[snack.expo.io](https://snack.expo.io)
+
+## Expo: lokale Entwicklung
+
+Installation von expo:
+
+```bash
+npm install -g expo-cli
+```
+
+Erstellen eines neuen Projekts:
+
+```bash
+expo init myproject
+```
+
+## Expo App
+
+**Expo App**: zum Testen von Anwendungen während der Entwicklung, verfügbar in den Android und iOS app stores
 
 ## React Native Komponenten
 
 - View (=div)
-- Text (=span)
+- Text
 - Image
 - Button
-- TextInput (=input)
+- TextInput
 - ScrollView
 
 [ausführlichere Liste](https://facebook.github.io/react-native/docs/components-and-apis#basic-components)
+
+## React Native Komponenten
+
+Beispiel:
+
+```js
+<Button title="click me" onPress={handlePress} />
+```
+
+## Styling
+
+In React Native geschieht Styling über die _style_-Property:
+
+```js
+const todoItemStyle = {
+  margin: 5,
+  padding: 5,
+};
+
+const TodoItem = ({ title, completed }) => (
+  <View style={todoItemStyle}>{title}</View>
+);
+```
+
+## Styling
+
+Die style-Property kann auch ein Array von Objekten erhalten.
+
+Einträge, die _falsy_ sind, werden ignoriert - damit können bedingte Stile umgesetzt werden
+
+```js
+const TodoItem = ({ title, completed }) => (
+  <View
+    style={[todoItemStyle, completed && completedStyle]}>
+    {title}
+  </View>
+);
+```
+
+## Styling
+
+Erstellen von _stylesheets_, die mehrere Gruppierte Stile definieren:
+
+```js
+import { StyleSheet } from 'react-native';
+
+const styles = StyleSheet.create({
+  todoItem: {
+    backgroundColor: 'lightred',
+  },
+  completed: {
+    textDecoration: 'line-through',
+    backgroundColor: 'lightgrey',
+  },
+});
+```
+
+## Styling
+
+Verwendung von Stylesheets:
+
+```js
+const TodoItem = ({ title, completed }) => (
+  <View
+    style={[
+      styles.todoItem,
+      completed && styles.completed,
+    ]}>
+    title
+  </View>
+);
+```
 
 # Dateistruktur
 
@@ -1853,11 +1949,6 @@ Verbreitete Zugänge:
 
 - Gruppieren nach Feature / Route
 - Gruppieren nach Typ (Komponente / Reducer / API interface)
-
-zu beachten:
-
-- Zu viel Verschachtelung vermeiden
-- Zu Beginn nicht zu viel Gedanken daran verschwenden
 
 # Manuelles Setup und Konfiguration von React
 
