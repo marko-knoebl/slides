@@ -1,8 +1,6 @@
-## Presentation and code
+## Slides
 
-Presentations available at: https://karuga.eu/courses-presentations
-
-Code available at: https://github.com/marko-knoebl/courses-code
+https://marko-knoebl.github.io/slides/
 
 ## Your Trainer
 
@@ -27,3 +25,7 @@ Marko Knöbl
 - lunch
 - materials
 - questions, feedback?
+
+## Code
+
+Code available at: https://github.com/marko-knoebl/courses-code
