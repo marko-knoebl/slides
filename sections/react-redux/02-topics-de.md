@@ -20,6 +20,7 @@
   - Actions im Detail
   - Asynchrome Actions mit Thunk
   - Action Creators
+  - Redux und TypeScript
 
 ## Themen (3/3)
 

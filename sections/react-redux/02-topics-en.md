@@ -20,6 +20,7 @@
   - actions in more detail
   - asynchronous actions via Thunk
   - action creators
+  - Redux and TypeScript
 
 ## Topics (3/3)
 

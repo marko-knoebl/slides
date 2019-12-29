@@ -49,14 +49,6 @@ The complete Thunk sourcecode is just 14 lines:
 
 https://github.com/reduxjs/redux-thunk/blob/master/src/index.js
 
-## Thunk with TypeScript
-
-We have to give the complete signature of `dispatch`:
-
-```ts
-dispatch: ThunkDispatch<IState, void, IAction>
-```
-
 ## Thunk: accessing the Redux state
 
 Supply a second argument - it will receive the `getState` function as its value

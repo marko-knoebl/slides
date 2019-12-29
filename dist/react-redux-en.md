@@ -22,6 +22,7 @@
   - actions in more detail
   - asynchronous actions via Thunk
   - action creators
+  - Redux and TypeScript
 
 ## Topics (3/3)
 
@@ -426,6 +427,7 @@ const FontSizeInput = connect(
 - actions in more detail
 - asynchronous actions with Thunk
 - action creators
+- Redux and TypeScript
 
 # Splitting / combining reducers
 
@@ -578,14 +580,6 @@ The complete Thunk sourcecode is just 14 lines:
 
 https://github.com/reduxjs/redux-thunk/blob/master/src/index.js
 
-## Thunk with TypeScript
-
-We have to give the complete signature of `dispatch`:
-
-```ts
-dispatch: ThunkDispatch<IState, void, IAction>
-```
-
 ## Thunk: accessing the Redux state
 
 Supply a second argument - it will receive the `getState` function as its value
@@ -665,6 +659,66 @@ const loadTodoByIndex = id => dispatch => {
     .then(todo => {
       dispatch({ type: 'loadTodoSuccess', payload: todo });
     });
+};
+```
+
+# Redux and TypeScript
+
+## Redux and TypeScript
+
+- defining action types
+- typing a reducer
+- getting state / action types from reducers
+- typing a thunk action
+
+## Defining action types
+
+```ts
+import { PayloadAction } from '@reduxjs/toolkit';
+
+type AddTodoAction = PayloadAction<string, 'todos/addTodo'>;
+type ToggleTodoAction = PayloadAction<
+  number,
+  'todos/toggleTodo'
+>;
+
+type TodosAction = AddTodoAction | ToggleTodoAction;
+```
+
+## Typing a reducer
+
+```ts
+type TodosState = Array<Todo>;
+
+const todosReducer = (
+  state: TodosState,
+  action: TodosAction
+): TodosState => {};
+```
+
+## Getting state type / action types from a reducer
+
+```ts
+import todosReducer from './todosReducer';
+
+type TodosAction = Parameters<typeof todosReducer>[1];
+type TodosState = ReturnType<typeof todosReducer>;
+```
+
+## Typing a Thunk action
+
+```ts
+import { Dispatch } from '@reduxjs/toolkit';
+
+const asyncAction = () => (
+  dispatch: Dispatch<TodosDataAction>
+) => {
+  dispatch({ type: 'todosData/loadTodosRequest' });
+  ...
+  dispatch({
+    type: 'todosData/loadTodosSuccess',
+    payload: data,
+  });
 };
 ```
 

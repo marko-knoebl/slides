@@ -2057,6 +2057,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li>actions in more detail</li>
 <li>asynchronous actions via Thunk</li>
 <li>action creators</li>
+<li>Redux and TypeScript</li>
 </ul></li>
 </ul>
 </section><section class="slide"><h2>Topics (3/3)</h2>
@@ -2367,6 +2368,7 @@ ReactDOM.render(
 <li>actions in more detail</li>
 <li>asynchronous actions with Thunk</li>
 <li>action creators</li>
+<li>Redux and TypeScript</li>
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Splitting / combining reducers</h1>
 </section><section class="slide"><h2>Splitting / combining reducers</h2>
@@ -2473,10 +2475,6 @@ ReactDOM.render(
 </section><section class="slide"><h2>Thunk sourcecode</h2>
 <p>The complete Thunk sourcecode is just 14 lines:</p>
 <p><a href="https://github.com/reduxjs/redux-thunk/blob/master/src/index.js">https://github.com/reduxjs/redux-thunk/blob/master/src/index.js</a></p>
-</section><section class="slide"><h2>Thunk with TypeScript</h2>
-<p>We have to give the complete signature of <code>dispatch</code>:</p>
-<pre><code class="hljs language-ts">dispatch: ThunkDispatch&#x3C;IState, <span class="hljs-built_in">void</span>, IAction>
-</code></pre>
 </section><section class="slide"><h2>Thunk: accessing the Redux state</h2>
 <p>Supply a second argument - it will receive the <code>getState</code> function as its value</p>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> actionAsync = <span class="hljs-function"><span class="hljs-params">()</span> =></span> (dispatch, getState) => {
@@ -2531,6 +2529,53 @@ ReactDOM.render(
     .then(<span class="hljs-function"><span class="hljs-params">todo</span> =></span> {
       dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">'loadTodoSuccess'</span>, <span class="hljs-attr">payload</span>: todo });
     });
+};
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Redux and TypeScript</h1>
+</section><section class="slide"><h2>Redux and TypeScript</h2>
+<ul>
+<li>defining action types</li>
+<li>typing a reducer</li>
+<li>getting state / action types from reducers</li>
+<li>typing a thunk action</li>
+</ul>
+</section><section class="slide"><h2>Defining action types</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { PayloadAction } <span class="hljs-keyword">from</span> <span class="hljs-string">'@reduxjs/toolkit'</span>;
+
+<span class="hljs-keyword">type</span> AddTodoAction = PayloadAction&#x3C;<span class="hljs-built_in">string</span>, <span class="hljs-string">'todos/addTodo'</span>>;
+<span class="hljs-keyword">type</span> ToggleTodoAction = PayloadAction&#x3C;
+  <span class="hljs-built_in">number</span>,
+  <span class="hljs-string">'todos/toggleTodo'</span>
+>;
+
+<span class="hljs-keyword">type</span> TodosAction = AddTodoAction | ToggleTodoAction;
+</code></pre>
+</section><section class="slide"><h2>Typing a reducer</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> TodosState = <span class="hljs-built_in">Array</span>&#x3C;Todo>;
+
+<span class="hljs-keyword">const</span> todosReducer = (
+  state: TodosState,
+  action: TodosAction
+): <span class="hljs-function"><span class="hljs-params">TodosState</span> =></span> {};
+</code></pre>
+</section><section class="slide"><h2>Getting state type / action types from a reducer</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> todosReducer <span class="hljs-keyword">from</span> <span class="hljs-string">'./todosReducer'</span>;
+
+<span class="hljs-keyword">type</span> TodosAction = Parameters&#x3C;<span class="hljs-keyword">typeof</span> todosReducer>[<span class="hljs-number">1</span>];
+<span class="hljs-keyword">type</span> TodosState = ReturnType&#x3C;<span class="hljs-keyword">typeof</span> todosReducer>;
+</code></pre>
+</section><section class="slide"><h2>Typing a Thunk action</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { Dispatch } <span class="hljs-keyword">from</span> <span class="hljs-string">'@reduxjs/toolkit'</span>;
+
+<span class="hljs-keyword">const</span> asyncAction = <span class="hljs-function"><span class="hljs-params">()</span> =></span> (
+  dispatch: Dispatch&#x3C;TodosDataAction>
+) => {
+  dispatch({ <span class="hljs-keyword">type</span>: <span class="hljs-string">'todosData/loadTodosRequest'</span> });
+  ...
+  dispatch({
+    <span class="hljs-keyword">type</span>: <span class="hljs-string">'todosData/loadTodosSuccess'</span>,
+    payload: data,
+  });
 };
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Exercises</h1>
