@@ -3450,8 +3450,10 @@ useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =></sp
 </ul>
 <p><a href="https://facebook.github.io/react-native/docs/components-and-apis#basic-components">detailed list</a></p>
 </section><section class="slide"><h2>React Native components</h2>
-<p>Example:</p>
-<pre><code class="hljs language-js">&#x3C;Button title=<span class="hljs-string">"click me"</span> onPress={handlePress} />
+<p>Examples:</p>
+<pre><code class="hljs language-js">&#x3C;Button title=<span class="hljs-string">"press me"</span> onPress={handlePress} />
+</code></pre>
+<pre><code class="hljs language-js">&#x3C;TextInput value={myText} onChangeText={setMyText} />
 </code></pre>
 </section><section class="slide"><h2>Styling</h2>
 <p>All React Native components accept a <em>style</em> prop that can take an object:</p>
@@ -3480,23 +3482,28 @@ useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =></sp
 
 <span class="hljs-keyword">const</span> styles = StyleSheet.create({
   <span class="hljs-attr">todoItem</span>: {
-    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">'lightred'</span>,
+    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">'salmon'</span>,
   },
-  <span class="hljs-attr">completed</span>: {
-    <span class="hljs-attr">textDecoration</span>: <span class="hljs-string">'line-through'</span>,
+  <span class="hljs-attr">completedView</span>: {
     <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">'lightgrey'</span>,
+  },
+  <span class="hljs-attr">completedText</span>: {
+    <span class="hljs-attr">textDecoration</span>: <span class="hljs-string">'line-through'</span>,
   },
 });
 </code></pre>
 </section><section class="slide"><h2>Styling</h2>
 <p>using stylesheets:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> TodoItem = <span class="hljs-function">(<span class="hljs-params">{ title, completed }</span>) =></span> (
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> TodoItem = <span class="hljs-function">(<span class="hljs-params">{ title, completed, onToggle }</span>) =></span> (
   <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">View</span>
     <span class="hljs-attr">style</span>=<span class="hljs-string">{[</span>
       <span class="hljs-attr">styles.todoItem</span>,
-      <span class="hljs-attr">completed</span> &#x26;&#x26; <span class="hljs-attr">styles.completed</span>,
+      <span class="hljs-attr">completed</span> &#x26;&#x26; <span class="hljs-attr">styles.completedView</span>,
     ]}></span>
-    title
+    </span>&#x3C;Text style={[completed &#x26;&#x26; styles.completedText]}>
+      {completed ? 'DONE: ' : 'TODO: '}
+      {title}
+    &#x3C;/Text><span class="xml">
   <span class="hljs-tag">&#x3C;/<span class="hljs-name">View</span>></span></span>
 );
 </code></pre>

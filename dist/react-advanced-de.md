@@ -1871,10 +1871,14 @@ expo init myproject
 
 ## React Native Komponenten
 
-Beispiel:
+Beispiele:
 
 ```js
-<Button title="click me" onPress={handlePress} />
+<Button title="press me" onPress={handlePress} />
+```
+
+```js
+<TextInput value={myText} onChangeText={setMyText} />
 ```
 
 ## Styling
@@ -1909,18 +1913,20 @@ const TodoItem = ({ title, completed }) => (
 
 ## Styling
 
-Erstellen von _stylesheets_, die mehrere Gruppierte Stile definieren:
+Erstellen von _stylesheets_, die mehrere gruppierte Stile definieren:
 
 ```js
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   todoItem: {
-    backgroundColor: 'lightred',
+    backgroundColor: 'salmon',
   },
-  completed: {
-    textDecoration: 'line-through',
+  completedView: {
     backgroundColor: 'lightgrey',
+  },
+  completedText: {
+    textDecoration: 'line-through',
   },
 });
 ```
@@ -1930,13 +1936,16 @@ const styles = StyleSheet.create({
 Verwendung von Stylesheets:
 
 ```js
-const TodoItem = ({ title, completed }) => (
+const TodoItem = ({ title, completed, onToggle }) => (
   <View
     style={[
       styles.todoItem,
-      completed && styles.completed,
+      completed && styles.completedView,
     ]}>
-    title
+    <Text style={[completed && styles.completedText]}>
+      {completed ? 'DONE: ' : 'TODO: '}
+      {title}
+    </Text>
   </View>
 );
 ```

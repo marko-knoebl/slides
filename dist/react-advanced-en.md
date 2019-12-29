@@ -1877,10 +1877,14 @@ expo init myproject
 
 ## React Native components
 
-Example:
+Examples:
 
 ```js
-<Button title="click me" onPress={handlePress} />
+<Button title="press me" onPress={handlePress} />
+```
+
+```js
+<TextInput value={myText} onChangeText={setMyText} />
 ```
 
 ## Styling
@@ -1922,11 +1926,13 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   todoItem: {
-    backgroundColor: 'lightred',
+    backgroundColor: 'salmon',
   },
-  completed: {
-    textDecoration: 'line-through',
+  completedView: {
     backgroundColor: 'lightgrey',
+  },
+  completedText: {
+    textDecoration: 'line-through',
   },
 });
 ```
@@ -1936,13 +1942,16 @@ const styles = StyleSheet.create({
 using stylesheets:
 
 ```js
-const TodoItem = ({ title, completed }) => (
+const TodoItem = ({ title, completed, onToggle }) => (
   <View
     style={[
       styles.todoItem,
-      completed && styles.completed,
+      completed && styles.completedView,
     ]}>
-    title
+    <Text style={[completed && styles.completedText]}>
+      {completed ? 'DONE: ' : 'TODO: '}
+      {title}
+    </Text>
   </View>
 );
 ```
