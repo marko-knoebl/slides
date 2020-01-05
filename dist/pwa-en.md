@@ -365,7 +365,7 @@ requirements to show the prompt:
   - _display_ must be one of _fullscreen_, _standalone_, _minimal-ui_
 - served via HTTPS
 - has a service worker (with a fetch event handler)
-- user has interacted with the domain for at least 30 seconds
+- user has interacted with the domain to some extent
 
 ## app install prompt
 
@@ -374,10 +374,10 @@ once all the requirements are met, a `beforeinstallprompt` event will fire; we c
 ```js
 let installPromptEvent;
 
-window.addEventListener('beforeinstallprompt', event => {
+window.addEventListener('beforeinstallprompt', ipEvent => {
   // the browser is ready to show the install prompt
-  event.preventDefault();
-  installPromptEvent = event;
+  ipEvent.preventDefault();
+  installPromptEvent = ipEvent;
   showInstallBtn();
 });
 ```
@@ -388,9 +388,9 @@ Once the user wants to install the app, we can use the stored event:
 
 ```js
 installBtn.addEventListener('click', () => {
-  hideInstallBtn();
   // Show the prompt
   installPromptEvent.prompt();
+  hideInstallBtn();
 });
 ```
 
@@ -408,11 +408,18 @@ Service workers are client-side proxies between the web browser and the server.
 
 Service workers can cache resources and retrieve them from either the network or the internal cache.
 
+## Service workers
+
+Service workers are special web workers:
+
+- no direct access to the DOM
+- communication with the main thread happens via `postMessage`
+
 ## Browser support
 
 [caniuse](https://caniuse.com/##feat=serviceworkers)
 
-support for service workers => support for ES2015
+support for service workers ⇒ support for ES2015
 
 ## Service workers - related technologies
 
@@ -459,9 +466,9 @@ asset retrieval:
 
 caching strategies:
 
+- cache when new data arrives
 - precache on install
 - precache on user interaction
-- cache when new data arrives
 
 (we can combine these strategies)
 
@@ -479,11 +486,11 @@ Workbox has built-in support for several service worker strategies
 
 asset retrieval:
 
-- always from the network: `NetworkOnly`
-- always from the cache: `CacheOnly`
-- network first: `NetworkFirst`
-- cache first: `CacheFirst`
-- cache, updating the cache in the background: `StaleWhileRevalidate`
+- `NetworkOnly`
+- `CacheOnly`
+- `NetowrkFirst` (cache as fallback)
+- `CacheFirst` (network as fallback)
+- `StaleWhileRevalidate` (load from cache, which is updated in the background)
 
 ## Service worker strategies
 
@@ -493,7 +500,7 @@ caching:
 - precache on user interaction: use `fetch` and the below
 - cache whenever data arrives: automatic with `NetworkFirst`, `CacheFirst`, `StaleWhileRevalidate`
 
-## routing
+## Routing
 
 ```js
 workbox.routing.registerRoute(
@@ -507,11 +514,11 @@ workbox.routing.registerRoute(
 );
 ```
 
-## plugins
+## Plugins
 
 - expiration plugin (maxEntries, maxAgeSeconds)
 
-## precaching
+## Precaching
 
 ```js
 workbox.precaching.precacheAndRoute([
@@ -531,13 +538,11 @@ workbox wizard --injectManifest
 
 ## code lab
 
+~45 min
+
 https://codelabs.developers.google.com/codelabs/workbox-lab/
 
 (update version of "workbox-cli" in package.json - older versions will fail on Windows)
-
-<!--
-~ 45mins
--->
 
 ## exercises
 
@@ -626,7 +631,9 @@ function fib(n) {
 
 ## Cache Types
 
-We can cache resources from both the current domain and other domains; we can distinguish between three types:
+We can cache resources from both the current domain and other domains;
+
+We can distinguish three types:
 
 - basic (current domain)
 - cors (other domain, CORS is enabled)
@@ -652,13 +659,13 @@ If the service worker file is new or has changed it will be installed.
 
 ```js
 window.addEventListener('load', () => {
-  // registration can be defered until
+  // registration can be deferred until
   // completion of page load
   if (navigator.serviceWorker) {
     navigator.serviceWorker
       .register('/serviceworker.js')
       .then(registration => {
-        // is executed if there's a *new* sw file
+        // is executed if there is a *new* sw file
         console.log(
           `SW registered for ${registration.scope}`
         );
@@ -968,7 +975,6 @@ https://developers.google.com/web/ilt/pwa/lab-scripting-the-service-worker
 
 https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/
 
-
 # Data storage
 
 ### localStorage and indexedDB
@@ -1066,7 +1072,7 @@ const dbPromise = idb.open('todo-db', 1, upgradeCallback);
 
 The last argument (`upgradeCallback`) can be used to migrate to a new database schema; it can be used to create, delete or change stores
 
-The callback is called any time the version increases
+The callback is called any time the version number increases
 
 ## idb basics: keys
 
@@ -1216,13 +1222,11 @@ nameIndex.get(['Andy', 'Jones']).then(...)
 
 # Notifications
 
-<!-- see also: https://developer.mozilla.org/en-US/docs/Web/API/Notifications_API/Using_the_Notifications_API -->
-
 ## Notifications
 
 Notification enable displaying messages outside of the app / browser (OS notifications)
 
-## requesting permission
+## Requesting permission
 
 ```js
 let notificationsAllowed;
@@ -1236,7 +1240,7 @@ Notification.requestPermission().then(result => {
 
 This can be tried in the browser console when any web page is open
 
-## showing notifications
+## Showing notifications
 
 ```js
 if (Notification.permission === 'granted') {
@@ -1244,7 +1248,7 @@ if (Notification.permission === 'granted') {
 }
 ```
 
-## notification options
+## Notification options
 
 ```js
 new Notification('cloudy', {
@@ -1253,6 +1257,10 @@ new Notification('cloudy', {
   vibrate: [100, 50, 100],
 });
 ```
+
+## Resources
+
+- [MDN: Using the Notifications API](https://developer.mozilla.org/en-US/docs/Web/API/Notifications_API/Using_the_Notifications_API)
 
 # Notifications from the service worker
 
@@ -1266,7 +1274,7 @@ The notifications we've seen so far originated from one particular browser windo
 ## Accessing the service worker registration
 
 ```js
-let serviceWorkerRegistration;
+let serviceWorkerRegistration = null;
 
 navigator.serviceWorker
   .getRegistration()
@@ -1292,41 +1300,42 @@ serviceWorkerRegistration.showNotification('cloudy', {
 
 ## listening for notification actions
 
+two events in the service worker:
+
 - `notificationclick`
 - `notificationclose`
 
-# Push Messages
+## Exercises (labs)
 
-## Push Messages
+https://developers.google.com/web/ilt/pwa/lab-integrating-web-push
 
-With push messages we can send messages to our PWA from a server.
+1-3
 
-This generally works even if our app is not currently running - though on the desktop at least one browser instance has to be running for push messages to be received
+Removing the service worker in Firefox: about:debugging -> worker
 
-## Push messages without notifications
+# Push notifications
 
-When a push notification arrives via the network the app can react in various ways
+## Push notifications
 
-Displaying notifications is common but not required by the spec
+- possibility to send messages to a PWA from a server
+- works even if the app is not currently running (on the desktop at least one browser instance has to be running)
 
-Chrome currently _requires_ displaying a notification; Firefox has a limit on how many messages can be received without showing notifications
-
-## Push Notifications - basics
+## Push notifications - basics
 
 <img src="assets/push-message.svg" type="text/svg" style="width: 500px">
 
-## Push Notifications - basics
+## Push notifications - basics
 
 Push notifications can be sent to a user via the browser vendor (Google, Mozilla, ...). It works via endpoint URLs like these:
 
 - `https://android.googleapis.com/gcm/send/IDENTIFIER`
 - `https://updates.push.services.mozilla.com/wpush/v1/IDENTIFIER`
 
-## Push Notification - process
+## Push notifications - process
 
 <img src="assets/push-message-authentication.svg" type="text/svg" style="width: 100%">
 
-## Push Notifications - process
+## Push notifications - process
 
 - user visits a web app, enables notifications
 - the web app communicates with the browser vendor (Google, Mozilla, ...); the vendor creates a unique enpoint URL and a public key for encryption and shares them with the browser  
@@ -1336,7 +1345,7 @@ Push notifications can be sent to a user via the browser vendor (Google, Mozilla
 - the web app shares the endpoint URL and public key with the backend
 - from the backend, we can now send data to the endpoint URL, encrypted withe the public key. It will be received by the user's service worker
 
-## Push Notifications - enabling on the client
+## Push notifications - enabling on the client
 
 ```js
 serviceWorkerRegistration.pushManager
@@ -1349,21 +1358,20 @@ serviceWorkerRegistration.pushManager
   });
 ```
 
-## Push Notifications - getting the current subscription
+## Push notifications - getting the current subscription
 
 ```js
 serviceWorkerRegistration.pushManager
   .getSubscription()
   .then(subsription => {
-    if (subscription === undefined) {
-    } else {
+    if (subscription !== undefined) {
       console.log(JSON.stringify(subscription.toJSON()));
       // send the subscription object to our server
     }
   });
 ```
 
-## Push Notifications - the subscription object
+## Push notifications - the subscription object
 
 Once we obtain this subscription object on the server we can send push messages to the client
 
@@ -1402,6 +1410,14 @@ webPush.sendNotification(subscription, 'Hello world!', {
 });
 ```
 
+## Push messages without notifications
+
+When a push notification arrives via the network the app can react in various ways
+
+Displaying notifications is common but not required by the spec
+
+Chrome currently _requires_ displaying a notification; Firefox has a limit on how many messages can be received without showing notifications
+
 ## Push Notifications Lab
 
 https://developers.google.com/web/ilt/pwa/lab-integrating-web-push
@@ -1424,9 +1440,11 @@ As of February 2019:
 
 TWA = Trusted Web Activity = method of publishing a PWA on the Play Store
 
+https://developers.google.com/web/updates/2019/02/using-twa
+
 https://www.youtube.com/watch?v=7JDFjeMvxos
 
-https://developers.google.com/web/updates/2019/02/using-twa
+https://www.youtube.com/watch?v=6lHBw3F4cWs
 
 ## PWAs in the Microsoft Store
 
@@ -1437,4 +1455,8 @@ see https://www.pwabuilder.com/
 PWAs (or HTML apps in general) can be packaged for various stores even if those stores don't natively support PWAs:
 
 https://www.pwabuilder.com/
+
+# Resources
+
+https://developers.google.com/web/ilt/pwa/
 

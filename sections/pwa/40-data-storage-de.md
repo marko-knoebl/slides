@@ -4,5 +4,5 @@
 
 ## Überblick
 
-- localStorage: einfacher key-value-Store mit Textwerten)
+- localStorage: einfacher key-value-Store mit Textwerten
 - indexedDB: "echte Datenbank"

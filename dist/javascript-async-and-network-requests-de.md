@@ -98,7 +98,7 @@ fetch('https://jsonplaceholder.typicode.com/todos')
 
 ## Nutzung mit async / await
 
-Jedes Promise kann mit asyn / await verwendet werden:
+Jedes Promise kann mit async / await verwendet werden:
 
 ```js
 const url = 'https://jsonplaceholder.typicode.com/todos';

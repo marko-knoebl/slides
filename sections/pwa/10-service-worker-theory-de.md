@@ -19,7 +19,7 @@ Service worker sind besondere Web-Worker, daher:
 
 [caniuse](https://caniuse.com/##feat=serviceworkers)
 
-Serviceworker werden unterstützt => ES2015 wird unterstützt
+Serviceworker werden unterstützt ⇒ ES2015 wird unterstützt
 
 ## Verwandthe Technologien
 

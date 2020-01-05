@@ -27,7 +27,7 @@ Voraussetzung, um den App-Installations-Dialog anzuzeigen:
   - _display_ ist entweder _fullscreen_, _standalone_ oder _minimal-ui_
 - HTTPS aktiv
 - es gibt einen aktiven Service Worker (mit einem fetch Event handler)
-- Benutzer hat mit der Domain zumindest 30 Sekunden interagiert
+- Benutzer hat mit der Anwendung in bestimmtem Maß interagiert
 
 ## App-Installation
 
@@ -36,10 +36,10 @@ Sobald alle Voraussetzungen erfüllt sind, wird das `beforeinstallprompt` Event 
 ```js
 let installPromptEvent;
 
-window.addEventListener('beforeinstallprompt', event => {
+window.addEventListener('beforeinstallprompt', ipEvent => {
   // the browser is ready to show the install prompt
-  event.preventDefault();
-  installPromptEvent = event;
+  ipEvent.preventDefault();
+  installPromptEvent = ipEvent;
   showInstallBtn();
 });
 ```
@@ -50,9 +50,9 @@ Sobald der Benutzer die Anwendung installieren möchte können wir das gespeiche
 
 ```js
 installBtn.addEventListener('click', () => {
-  hideInstallBtn();
   // Show the prompt
   installPromptEvent.prompt();
+  hideInstallBtn();
 });
 ```
 

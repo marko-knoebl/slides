@@ -2313,25 +2313,25 @@ workbox.routing.registerRoute(
 </ul></li>
 <li>HTTPS aktiv</li>
 <li>es gibt einen aktiven Service Worker (mit einem fetch Event handler)</li>
-<li>Benutzer hat mit der Domain zumindest 30 Sekunden interagiert</li>
+<li>Benutzer hat mit der Anwendung in bestimmtem Maß interagiert</li>
 </ul>
 </section><section class="slide"><h2>App-Installation</h2>
 <p>Sobald alle Voraussetzungen erfüllt sind, wird das <code>beforeinstallprompt</code> Event ausgelöst; Wir können dieses Event abfangen und für später speichern</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">let</span> installPromptEvent;
 
-<span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">'beforeinstallprompt'</span>, event => {
+<span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">'beforeinstallprompt'</span>, ipEvent => {
   <span class="hljs-comment">// the browser is ready to show the install prompt</span>
-  event.preventDefault();
-  installPromptEvent = event;
+  ipEvent.preventDefault();
+  installPromptEvent = ipEvent;
   showInstallBtn();
 });
 </code></pre>
 </section><section class="slide"><h2>App-Installation</h2>
 <p>Sobald der Benutzer die Anwendung installieren möchte können wir das gespeicherte Event verwenden:</p>
 <pre><code class="hljs language-js">installBtn.addEventListener(<span class="hljs-string">'click'</span>, () => {
-  hideInstallBtn();
   <span class="hljs-comment">// Show the prompt</span>
   installPromptEvent.prompt();
+  hideInstallBtn();
 });
 </code></pre>
 </section><section class="slide"><h2>Deployment</h2>
@@ -2350,12 +2350,112 @@ workbox.routing.registerRoute(
 </ul>
 </section><section class="slide"><h2>Browser Unterstützung</h2>
 <p><a href="https://caniuse.com/##feat=serviceworkers">caniuse</a></p>
-<p>Serviceworker werden unterstützt => ES2015 wird unterstützt</p>
+<p>Serviceworker werden unterstützt ⇒ ES2015 wird unterstützt</p>
 </section><section class="slide"><h2>Verwandthe Technologien</h2>
 <ul>
 <li>fetch (Netzwerkanfragen senden)</li>
 <li>cache (Netzwerkanfragen cachen)</li>
 </ul>
+</section></section><section class="slides-section"><section class="slide"><h1>Service Worker: Strategien</h1>
+</section><section class="slide"><h2>Service Worker: Strategien</h2>
+<p>Bei Entscheidung für eine Strategie sind verschiedene Ziele in Erwägung zu ziehen:</p>
+<ul>
+<li>Inhalte so schnell wie möglich liefern</li>
+<li>aktuelle Inhalte liefern</li>
+<li>Sparen bei Datenübertragung</li>
+<li>Sparen bei der Cachegröße</li>
+</ul>
+</section><section class="slide"><h2>Service Worker: Strategien</h2>
+<p>Aspekte zu Resourcen:</p>
+<ul>
+<li>sollte diese Resource beim ersten Besuch eines Benutzers automatisch heruntergeladen und gecached werden?</li>
+<li>wenn diese Resource angefragt wird, sollte sie aus dem <em>Cache</em> oder dem <em>Netzwerk</em> geladen werden?</li>
+<li>falls die erste Anfrage (von Cache oder Netzwerk) fehlschlägt, soll die andere Möglichkeit versucht werden?</li>
+<li>falls die Resource aus dem Cache geladen wird, sollen wir versuchen, sie im Hintergrund zu aktualisieren?</li>
+</ul>
+<p>Wichtige Fragen:</p>
+<ul>
+<li>laden wir eine angefragte Resource aus dem Cache, dem Netzwerk oder einer Kombination?</li>
+<li>welche Resourcen cachen wir und wann cachen wir sie?</li>
+</ul>
+</section><section class="slide"><h2>Service Worker: Strategien</h2>
+<p>laden von Resourcen - Strategien:</p>
+<ul>
+<li>immer aus dem Netzwerk</li>
+<li>immer aus dem Cache</li>
+<li>Netzwerk, mit Cache als Fallback</li>
+<li>Cache, mit Netzwerk als Fallback</li>
+<li>Cache, wobei der Cache im Hintergrund währenddessen aktualisiert wird</li>
+<li>Cache, wobei im Hintergrund die Resource heruntergeladen und die Anzeige unmittelbar aktualisiert wird</li>
+</ul>
+</section><section class="slide"><h2>Service Worker: Strategien</h2>
+<p>Caching - Strategien:</p>
+<ul>
+<li>Cachen, sobald neue Daten eintreffen</li>
+<li>bei Installation im Vorhinein cachen</li>
+<li>bei Useraktion im Vorhinein cachen</li>
+</ul>
+<p>(diese Strategien können kombiniert werden)</p>
+</section><section class="slide"><h2>Service Worker: Strategien</h2>
+<p>Siehe <a href="https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/#cache-then-network">Offline Cookbook</a></p>
+</section></section><section class="slides-section"><section class="slide"><h1>Workbox im Detail</h1>
+</section><section class="slide"><h2>Service Worker Strategien</h2>
+<p>Workbox bietet Unterstützung für verschiedene Service Worker Strategien</p>
+</section><section class="slide"><h2>Service Worker Strategien</h2>
+<p>Abruf von Resourcen:</p>
+<ul>
+<li><code>NetworkOnly</code></li>
+<li><code>CacheOnly</code></li>
+<li><code>NetworkFirst</code> (Cache, falls Netzwerk nicht verfügbar)</li>
+<li><code>CacheFirst</code> (Netzwerk, falls Eintrag nicht im Cache)</li>
+<li><code>StaleWhileRevalidate</code> (Laden aus dem Cache, welcher im Hintergrund aktualisiert wird)</li>
+</ul>
+</section><section class="slide"><h2>Service Worker Strategien</h2>
+<p>Cache:</p>
+<ul>
+<li>Caching bei Installation, immer diese Version liefern: <code>precacheAndRoute</code></li>
+<li>Caching bei Userinteraktion: Benutzen von <code>fetch</code> und Untenstehendem</li>
+<li>Caching wenn Daten ankommen: Automatisch bei <code>NetworkFirst</code>, <code>CacheFirst</code>, <code>StaleWhileRevalidate</code></li>
+</ul>
+</section><section class="slide"><h2>Routing</h2>
+<pre><code class="hljs language-js">workbox.routing.registerRoute(
+  <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">'/static/.*'</span>),
+  <span class="hljs-keyword">new</span> workbox.strategies.CacheFirst()
+);
+
+workbox.routing.registerRoute(
+  <span class="hljs-string">'/articles.json'</span>,
+  <span class="hljs-keyword">new</span> workbox.strategies.NetworkFirst()
+);
+</code></pre>
+</section><section class="slide"><h2>Plugins</h2>
+<ul>
+<li>Expiration Plugin (<code>maxEntries</code>, <code>maxAgeSeconds</code>)</li>
+</ul>
+</section><section class="slide"><h2>Precaching</h2>
+<pre><code class="hljs language-js">workbox.precaching.precacheAndRoute([
+  <span class="hljs-string">'/'</span>,
+  <span class="hljs-string">'/index.html'</span>,
+  <span class="hljs-string">'/logo.svg'</span>,
+]);
+</code></pre>
+</section><section class="slide"><h2>CLI</h2>
+<p>Workbox CLI: Werkzeug, um insbesondere Precaching zu vereinfachen</p>
+<pre><code class="hljs language-bash">workbox wizard --injectManifest
+</code></pre>
+</section><section class="slide"><h2>Code Lab</h2>
+<p>~45 min</p>
+<p><a href="https://codelabs.developers.google.com/codelabs/workbox-lab/">https://codelabs.developers.google.com/codelabs/workbox-lab/</a></p>
+<p>(aktualisiere die Version von <code>workbox-cli</code> in <em>package.json</em> - ältere Versionen schlagen unter Windows fehl)</p>
+</section><section class="slide"><h2>Übungen</h2>
+<p>Verwandle eine dieser Anwendungen in eine PWA und verwende verschiedene Caching-Strategien:</p>
+<ul>
+<li><a href="https://github.com/marko-knoebl/simple-todo-app">https://github.com/marko-knoebl/simple-todo-app</a></li>
+<li><a href="https://github.com/marko-knoebl/simple-weather-app">https://github.com/marko-knoebl/simple-weather-app</a></li>
+<li><a href="https://github.com/marko-knoebl/simple-stock-app">https://github.com/marko-knoebl/simple-stock-app</a></li>
+</ul>
+</section><section class="slide"><h2>Bonus (mit Build)</h2>
+<p><a href="https://developers.google.com/web/tools/workbox/guides/codelabs/npm-script">https://developers.google.com/web/tools/workbox/guides/codelabs/npm-script</a></p>
 </section></section><section class="slides-section"><section class="slide"><h1>Asynchrones JavaScript</h1>
 </section><section class="slide"><h2>Asynchrones JavaScript</h2>
 <p>Siehe Präsentation <a href="javascript-async-and-network-requests-de.html">Javascript: async and network requests</a></p>
@@ -2391,6 +2491,18 @@ workbox.routing.registerRoute(
   <span class="hljs-keyword">return</span> fib(n - <span class="hljs-number">1</span>) + fib(n - <span class="hljs-number">2</span>);
 }
 </code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Cache - Überblick</h1>
+</section><section class="slide"><h2>Cache - Überblick</h2>
+<p>= "a request to response map"</p>
+</section><section class="slide"><h2>Cache Typen</h2>
+<p>Resourcen können von der aktuellen Domain oder auch von fremden Domains gecached werden.</p>
+<p>Unterscheidung von drei Arten:</p>
+<ul>
+<li>basic (aktuelle Domain)</li>
+<li>cors (andere Domain, CORS ist aktiviert)</li>
+<li>opaque (andere Domain, CORS nicht aktiviert) - Daten sind aus JavaScript nicht auslesbar</li>
+</ul>
+<p>Beispiel: siehe die <em>stock app</em> Beispiele in den Chrome Devtools</p>
 </section></section><section class="slides-section"><section class="slide"><h1>Service Worker Setup</h1>
 </section><section class="slide"><h2>Service Worker Lebenszyklus</h2>
 <ul>
@@ -2403,13 +2515,13 @@ workbox.routing.registerRoute(
 <p>Jedes Mal wenn eine Seite geladen wird, rufen wir <code>navigator.serviceWorker.register</code> mit der URL des Service Workers als Parameter auf. Wenn eine neue oder geänderte Service Worker Datei gefunden wird, wird diese <em>installiert</em>.</p>
 </section><section class="slide"><h2>Einen Service Worker registrieren</h2>
 <pre><code class="hljs language-js"><span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">'load'</span>, () => {
-  <span class="hljs-comment">// registration can be defered until</span>
+  <span class="hljs-comment">// registration can be deferred until</span>
   <span class="hljs-comment">// completion of page load</span>
   <span class="hljs-keyword">if</span> (navigator.serviceWorker) {
     navigator.serviceWorker
       .register(<span class="hljs-string">'/serviceworker.js'</span>)
       .then(<span class="hljs-function"><span class="hljs-params">registration</span> =></span> {
-        <span class="hljs-comment">// is executed if there's a *new* sw file</span>
+        <span class="hljs-comment">// is executed if there is a *new* sw file</span>
         <span class="hljs-built_in">console</span>.log(
           <span class="hljs-string">`SW registered for <span class="hljs-subst">${registration.scope}</span>`</span>
         );
@@ -2465,8 +2577,7 @@ workbox.routing.registerRoute(
     }
   });
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Service Worker mit fetch und cache</h1>
-</section><section class="slide"><h2>Service Worker mit fetch und cache</h2>
+</section></section><section class="slides-section"><section class="slide"><h1>Service Worker: Verwendung von fetch</h1>
 </section><section class="slide"><h2>fetch - Beispiel</h2>
 <pre><code class="hljs language-js"><span class="hljs-comment">// this code can be executed in the</span>
 <span class="hljs-comment">// browser console for any website</span>
@@ -2621,37 +2732,13 @@ self.addEventListener(<span class="hljs-string">'fetch'</span>, event => {
 </section><section class="slide"><h2>Beispiel: Network - Falling back to Cache - Falling back to default asset (e.g. user avatar)</h2>
 </section><section class="slide"><h2>Übung: scripting the service worker</h2>
 <p><a href="https://developers.google.com/web/ilt/pwa/lab-scripting-the-service-worker">https://developers.google.com/web/ilt/pwa/lab-scripting-the-service-worker</a></p>
-</section></section><section class="slides-section"><section class="slide"><h1>Service Worker Beispiele</h1>
-</section><section class="slide"><h2>Offline App Installation</h2>
-<pre><code class="hljs language-js">self.addEventListener(<span class="hljs-string">'install'</span>, event => {
-  event.waitUntil(
-    caches.open(cacheName).then(<span class="hljs-function"><span class="hljs-params">cache</span> =></span> {
-      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'opened cache'</span>);
-      <span class="hljs-comment">// Resultat von addAll ist ein Promise</span>
-      <span class="hljs-keyword">return</span> cache.addAll(urlsToCache);
-    })
-  );
-});
-</code></pre>
-</section><section class="slide"><h2>Offline App Installation - workbox</h2>
-<pre><code class="hljs language-js">workbox.precaching.precache(urlsToCache);
-</code></pre>
-</section><section class="slide"><h2>Offline App fetch</h2>
-<pre><code class="hljs language-js">self.addEventListener(<span class="hljs-string">'fetch'</span>, event => {
-  event.respondWith(caches.match(event.request));
-});
-</code></pre>
-</section><section class="slide"><h2>Offline App fetch - workbox</h2>
-<pre><code class="hljs language-js">workbox.routing.registerRoute(
-  <span class="hljs-string">'.*'</span>,
-  workbox.strategies.cacheOnly
-);
-</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>The offline cookbook</h1>
+<p><a href="https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/">https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/</a></p>
 </section></section><section class="slides-section"><section class="slide"><h1>Datenspeicherung</h1>
 <h3>localStorage und indexedDB</h3>
 </section><section class="slide"><h2>Überblick</h2>
 <ul>
-<li>localStorage: einfacher key-value-Store mit Textwerten)</li>
+<li>localStorage: einfacher key-value-Store mit Textwerten</li>
 <li>indexedDB: "echte Datenbank"</li>
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>localStorage</h1>
@@ -2712,9 +2799,8 @@ todos = <span class="hljs-built_in">JSON</span>.parse(todoString);
 
 <span class="hljs-keyword">const</span> dbPromise = idb.open(<span class="hljs-string">'todo-db'</span>, <span class="hljs-number">1</span>, upgradeCallback);
 </code></pre>
-</section><section class="slide"><h2>Upgrade</h2>
-<p>upgrade = callback, das insbesondere genutzt werden kann, um auf ein neues Datenschema zu wechseln</p>
-<p>zb können darin Stores erstellt, gelöscht oder abgeändert werden</p>
+</section><section class="slide"><h2>idb Grundlagen: open &#x26; upgrade</h2>
+<p>Letztes Argument (<code>upgradeCallback</code>) kann zur Migration auf ein neues Datenbankschema genutzt werden; z.B. können darin Stores erstellt, gelöscht oder abgeändert werden</p>
 <p>Callbackfunktion wird immer aufgerufen, wenn sich die Versionsnummer der Datenbank erhöht</p>
 </section><section class="slide"><h2>Keys</h2>
 <p>Jedes Element im object store hat einen einzigartigen key (~id);</p>
@@ -2731,8 +2817,8 @@ todos = <span class="hljs-built_in">JSON</span>.parse(todoString);
 });
 </code></pre>
 </section><section class="slide"><h2>Keys: Eintrag im Objekt</h2>
-<pre><code class="hljs language-js"><span class="hljs-comment">// email als id</span>
-upgradeDb.createObjectStore(<span class="hljs-string">'users'</span>, {
+<p>Verwendung eines Eintrags im Objekt als Key</p>
+<pre><code class="hljs language-js">upgradeDb.createObjectStore(<span class="hljs-string">'users'</span>, {
   <span class="hljs-attr">keyPath</span>: <span class="hljs-string">'email'</span>,
 });
 </code></pre>
@@ -2800,7 +2886,6 @@ nameIndex.get([<span class="hljs-string">'Andy'</span>, <span class="hljs-string
 <li>Lab: <a href="https://developers.google.com/web/ilt/pwa/lab-indexeddb">https://developers.google.com/web/ilt/pwa/lab-indexeddb</a></li>
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Notifications</h1>
-<!-- siehe auch: https://developer.mozilla.org/en-US/docs/Web/API/Notifications_API/Using_the_Notifications_API -->
 </section><section class="slide"><h2>Notifications</h2>
 <p>Möglichkeit, für den Benutzer Benachrichtigungen außerhalb der Anwendung darzustellen (Betriebssystems-Benachrichtigungen)</p>
 </section><section class="slide"><h2>Erlaubnis einholen</h2>
@@ -2825,6 +2910,10 @@ Notification.requestPermission().then(<span class="hljs-function"><span class="h
   <span class="hljs-attr">vibrate</span>: [<span class="hljs-number">100</span>, <span class="hljs-number">50</span>, <span class="hljs-number">100</span>],
 });
 </code></pre>
+</section><section class="slide"><h2>Resourcen</h2>
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Notifications_API/Using_the_Notifications_API">MDN: Using the Notifications API</a></li>
+</ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Benachrichtigungen aus dem Service Worker</h1>
 </section><section class="slide"><h2>Benachrichtigungen aus dem Service Worker</h2>
 <p>Die bisherigen Benachrichtigungen stammten aus einem bestimmten Browser-Fenster. Benachrichtigungen können auch aus dem Service Worker dargestellt werden. Diese Benachrichtigungen bieten mehr Möglichkeiten, insbesondere:</p>
@@ -2833,7 +2922,7 @@ Notification.requestPermission().then(<span class="hljs-function"><span class="h
 <li>Benachrichtigungen können angezeigt werden, wenn die Website nicht geöffnet ist</li>
 </ul>
 </section><section class="slide"><h2>Zugriff auf die Service Worker Registrierung:</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> serviceWorkerRegistration;
+<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> serviceWorkerRegistration = <span class="hljs-literal">null</span>;
 
 navigator.serviceWorker
   .getRegistration()
@@ -3012,7 +3101,11 @@ Dauer: ca 50 min
 </section><section class="slide"><h2>Push-Benachrichtigungen - Ablauf</h2>
 <ul>
 <li>Benutzer besucht eine Web App, aktiviert Benachrichtigungen</li>
-<li>Web App kommuniziert mit dem Browserhersteller; der Browserhersteller generiert eine eindeutige URL und einen kryptographischen Schlüssel und übergibt diese an den Browser</li>
+<li>Web App kommuniziert mit dem Browserhersteller; der Browserhersteller generiert eine eindeutige URL und einen kryptographischen Schlüssel und übergibt diese an den Browser<br />
+Die URL könnte wie folgt aussehen:<ul>
+<li><code>https://android.googleapis.com/gcm/send/IDENTIFIER</code></li>
+<li><code>https://updates.push.services.mozilla.com/wpush/v1/IDENTIFIER</code></li>
+</ul></li>
 <li>Web App teilt diese URL mit dem Backend</li>
 <li>Aus dem Backend können wir mit Hilfe dieser Daten Nachrichten an den Service Worker schicken</li>
 </ul>
@@ -3032,8 +3125,7 @@ Dauer: ca 50 min
 <pre><code class="hljs language-js">serviceWorkerRegistration.pushManager
   .getSubscription()
   .then(<span class="hljs-function"><span class="hljs-params">subsription</span> =></span> {
-    <span class="hljs-keyword">if</span> (subscription === <span class="hljs-literal">undefined</span>) {
-    } <span class="hljs-keyword">else</span> {
+    <span class="hljs-keyword">if</span> (subscription !== <span class="hljs-literal">undefined</span>) {
       <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">JSON</span>.stringify(subscription.toJSON()));
       <span class="hljs-comment">// send the subscription object to our server</span>
     }
@@ -3067,8 +3159,27 @@ webPush.sendNotification(subscription, <span class="hljs-string">'Hello world!'<
   <span class="hljs-attr">gcmAPIKey</span>: <span class="hljs-string">'....'</span>,
 });
 </code></pre>
+</section><section class="slide"><h2>Push-Nachrichten ohne Benachrichtigunen</h2>
+<p>Eine Push-Nachricht muss nicht unbedingt zu einer Benachrichtigung für den Benutzer führen</p>
+<p>In Chrome <em>muss</em> aktuell das Empfangen einer Push-Nachricht zu einer Benachrichtigung führen; in Firefox ist die Anzahl der empfangenen Push-Nachrichten ohne Benachrichtigung beschränkt</p>
 </section><section class="slide"><h2>Push-Benachrichtigungen: Lab</h2>
 <p><a href="https://developers.google.com/web/ilt/pwa/lab-integrating-web-push">https://developers.google.com/web/ilt/pwa/lab-integrating-web-push</a></p>
+<!--
+duration: ca 50 min
+-->
+</section></section><section class="slides-section"><section class="slide"><h1>App Stores</h1>
+</section><section class="slide"><h2>App Stores</h2>
+<p>Publishing PWAs in App Stores</p>
+</section><section class="slide"><h2>PWAs in the Google Play Store</h2>
+<p>TWA = Trusted Web Activity = Möglichkeit, eine PWA im Play Store zu veröffentlichen</p>
+<p><a href="https://developers.google.com/web/updates/2019/02/using-twa">https://developers.google.com/web/updates/2019/02/using-twa</a></p>
+<p><a href="https://www.youtube.com/watch?v=7JDFjeMvxos">https://www.youtube.com/watch?v=7JDFjeMvxos</a></p>
+<p><a href="https://www.youtube.com/watch?v=6lHBw3F4cWs">https://www.youtube.com/watch?v=6lHBw3F4cWs</a></p>
+</section><section class="slide"><h2>PWAs im Microsoft Store</h2>
+<p>siehe <a href="https://www.pwabuilder.com/">https://www.pwabuilder.com/</a></p>
+</section><section class="slide"><h2>PWAs in anderen Stores</h2>
+<p>PWAs (bzw HTML-Anwendungen im Allgemeinen) können für veschiedene Stores veröffentlicht werden, selbst wenn diese keine direkte Unterstützung für PWAs bieten:</p>
+<p><a href="https://www.pwabuilder.com/">https://www.pwabuilder.com/</a></p>
 </section></section><section class="slides-section"><section class="slide"><h1>Resourcen</h1>
 <p><a href="https://developers.google.com/web/ilt/pwa/">https://developers.google.com/web/ilt/pwa/</a></p></section></section></div>
     </div>

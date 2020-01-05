@@ -8,11 +8,11 @@ Workbox has built-in support for several service worker strategies
 
 asset retrieval:
 
-- always from the network: `NetworkOnly`
-- always from the cache: `CacheOnly`
-- network first: `NetworkFirst`
-- cache first: `CacheFirst`
-- cache, updating the cache in the background: `StaleWhileRevalidate`
+- `NetworkOnly`
+- `CacheOnly`
+- `NetowrkFirst` (cache as fallback)
+- `CacheFirst` (network as fallback)
+- `StaleWhileRevalidate` (load from cache, which is updated in the background)
 
 ## Service worker strategies
 
@@ -22,7 +22,7 @@ caching:
 - precache on user interaction: use `fetch` and the below
 - cache whenever data arrives: automatic with `NetworkFirst`, `CacheFirst`, `StaleWhileRevalidate`
 
-## routing
+## Routing
 
 ```js
 workbox.routing.registerRoute(
@@ -36,11 +36,11 @@ workbox.routing.registerRoute(
 );
 ```
 
-## plugins
+## Plugins
 
 - expiration plugin (maxEntries, maxAgeSeconds)
 
-## precaching
+## Precaching
 
 ```js
 workbox.precaching.precacheAndRoute([
@@ -60,13 +60,11 @@ workbox wizard --injectManifest
 
 ## code lab
 
+~45 min
+
 https://codelabs.developers.google.com/codelabs/workbox-lab/
 
 (update version of "workbox-cli" in package.json - older versions will fail on Windows)
-
-<!--
-~ 45mins
--->
 
 ## exercises
 

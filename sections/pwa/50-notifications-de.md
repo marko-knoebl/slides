@@ -1,7 +1,5 @@
 # Notifications
 
-<!-- siehe auch: https://developer.mozilla.org/en-US/docs/Web/API/Notifications_API/Using_the_Notifications_API -->
-
 ## Notifications
 
 Möglichkeit, für den Benutzer Benachrichtigungen außerhalb der Anwendung darzustellen (Betriebssystems-Benachrichtigungen)
@@ -37,3 +35,7 @@ new Notification('cloudy', {
   vibrate: [100, 50, 100],
 });
 ```
+
+## Resourcen
+
+- [MDN: Using the Notifications API](https://developer.mozilla.org/en-US/docs/Web/API/Notifications_API/Using_the_Notifications_API)

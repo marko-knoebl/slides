@@ -54,11 +54,9 @@ const upgradeCallback = upgradeDb => {
 const dbPromise = idb.open('todo-db', 1, upgradeCallback);
 ```
 
-## Upgrade
+## idb Grundlagen: open & upgrade
 
-upgrade = callback, das insbesondere genutzt werden kann, um auf ein neues Datenschema zu wechseln
-
-zb können darin Stores erstellt, gelöscht oder abgeändert werden
+Letztes Argument (`upgradeCallback`) kann zur Migration auf ein neues Datenbankschema genutzt werden; z.B. können darin Stores erstellt, gelöscht oder abgeändert werden
 
 Callbackfunktion wird immer aufgerufen, wenn sich die Versionsnummer der Datenbank erhöht
 
@@ -87,8 +85,9 @@ upgradeDb.createObjectStore('todos', {
 
 ## Keys: Eintrag im Objekt
 
+Verwendung eines Eintrags im Objekt als Key
+
 ```js
-// email als id
 upgradeDb.createObjectStore('users', {
   keyPath: 'email',
 });

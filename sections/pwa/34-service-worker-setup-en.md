@@ -16,13 +16,13 @@ If the service worker file is new or has changed it will be installed.
 
 ```js
 window.addEventListener('load', () => {
-  // registration can be defered until
+  // registration can be deferred until
   // completion of page load
   if (navigator.serviceWorker) {
     navigator.serviceWorker
       .register('/serviceworker.js')
       .then(registration => {
-        // is executed if there's a *new* sw file
+        // is executed if there is a *new* sw file
         console.log(
           `SW registered for ${registration.scope}`
         );

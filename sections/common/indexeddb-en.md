@@ -56,7 +56,7 @@ const dbPromise = idb.open('todo-db', 1, upgradeCallback);
 
 The last argument (`upgradeCallback`) can be used to migrate to a new database schema; it can be used to create, delete or change stores
 
-The callback is called any time the version increases
+The callback is called any time the version number increases
 
 ## idb basics: keys
 

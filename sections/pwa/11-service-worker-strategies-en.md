@@ -38,9 +38,9 @@ asset retrieval:
 
 caching strategies:
 
+- cache when new data arrives
 - precache on install
 - precache on user interaction
-- cache when new data arrives
 
 (we can combine these strategies)
 

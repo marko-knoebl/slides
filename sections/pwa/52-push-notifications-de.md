@@ -23,7 +23,10 @@ Push-Benachrichtigungen werden über den Browserhersteller (Google, Mozilla, ...
 ## Push-Benachrichtigungen - Ablauf
 
 - Benutzer besucht eine Web App, aktiviert Benachrichtigungen
-- Web App kommuniziert mit dem Browserhersteller; der Browserhersteller generiert eine eindeutige URL und einen kryptographischen Schlüssel und übergibt diese an den Browser
+- Web App kommuniziert mit dem Browserhersteller; der Browserhersteller generiert eine eindeutige URL und einen kryptographischen Schlüssel und übergibt diese an den Browser  
+  Die URL könnte wie folgt aussehen:
+  - `https://android.googleapis.com/gcm/send/IDENTIFIER`
+  - `https://updates.push.services.mozilla.com/wpush/v1/IDENTIFIER`
 - Web App teilt diese URL mit dem Backend
 - Aus dem Backend können wir mit Hilfe dieser Daten Nachrichten an den Service Worker schicken
 
@@ -50,8 +53,7 @@ Aktuelle Subscription auslesen:
 serviceWorkerRegistration.pushManager
   .getSubscription()
   .then(subsription => {
-    if (subscription === undefined) {
-    } else {
+    if (subscription !== undefined) {
       console.log(JSON.stringify(subscription.toJSON()));
       // send the subscription object to our server
     }
@@ -99,6 +101,16 @@ webPush.sendNotification(subscription, 'Hello world!', {
 });
 ```
 
+## Push-Nachrichten ohne Benachrichtigunen
+
+Eine Push-Nachricht muss nicht unbedingt zu einer Benachrichtigung für den Benutzer führen
+
+In Chrome _muss_ aktuell das Empfangen einer Push-Nachricht zu einer Benachrichtigung führen; in Firefox ist die Anzahl der empfangenen Push-Nachrichten ohne Benachrichtigung beschränkt
+
 ## Push-Benachrichtigungen: Lab
 
 https://developers.google.com/web/ilt/pwa/lab-integrating-web-push
+
+<!--
+duration: ca 50 min
+-->

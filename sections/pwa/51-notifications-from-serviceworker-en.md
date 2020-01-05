@@ -10,7 +10,7 @@ The notifications we've seen so far originated from one particular browser windo
 ## Accessing the service worker registration
 
 ```js
-let serviceWorkerRegistration;
+let serviceWorkerRegistration = null;
 
 navigator.serviceWorker
   .getRegistration()
@@ -36,5 +36,15 @@ serviceWorkerRegistration.showNotification('cloudy', {
 
 ## listening for notification actions
 
+two events in the service worker:
+
 - `notificationclick`
 - `notificationclose`
+
+## Exercises (labs)
+
+https://developers.google.com/web/ilt/pwa/lab-integrating-web-push
+
+1-3
+
+Removing the service worker in Firefox: about:debugging -> worker

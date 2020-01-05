@@ -1,6 +1,4 @@
-# Service Worker mit fetch und cache
-
-## Service Worker mit fetch und cache
+# Service Worker: Verwendung von fetch
 
 ## fetch - Beispiel
 

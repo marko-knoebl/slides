@@ -27,7 +27,7 @@ requirements to show the prompt:
   - _display_ must be one of _fullscreen_, _standalone_, _minimal-ui_
 - served via HTTPS
 - has a service worker (with a fetch event handler)
-- user has interacted with the domain for at least 30 seconds
+- user has interacted with the domain to some extent
 
 ## app install prompt
 
@@ -36,10 +36,10 @@ once all the requirements are met, a `beforeinstallprompt` event will fire; we c
 ```js
 let installPromptEvent;
 
-window.addEventListener('beforeinstallprompt', event => {
+window.addEventListener('beforeinstallprompt', ipEvent => {
   // the browser is ready to show the install prompt
-  event.preventDefault();
-  installPromptEvent = event;
+  ipEvent.preventDefault();
+  installPromptEvent = ipEvent;
   showInstallBtn();
 });
 ```
@@ -50,9 +50,9 @@ Once the user wants to install the app, we can use the stored event:
 
 ```js
 installBtn.addEventListener('click', () => {
-  hideInstallBtn();
   // Show the prompt
   installPromptEvent.prompt();
+  hideInstallBtn();
 });
 ```
 

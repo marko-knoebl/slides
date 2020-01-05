@@ -10,9 +10,11 @@ As of February 2019:
 
 TWA = Trusted Web Activity = method of publishing a PWA on the Play Store
 
+https://developers.google.com/web/updates/2019/02/using-twa
+
 https://www.youtube.com/watch?v=7JDFjeMvxos
 
-https://developers.google.com/web/updates/2019/02/using-twa
+https://www.youtube.com/watch?v=6lHBw3F4cWs
 
 ## PWAs in the Microsoft Store
 

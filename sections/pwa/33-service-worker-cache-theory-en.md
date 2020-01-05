@@ -6,7 +6,9 @@
 
 ## Cache Types
 
-We can cache resources from both the current domain and other domains; we can distinguish between three types:
+We can cache resources from both the current domain and other domains;
+
+We can distinguish three types:
 
 - basic (current domain)
 - cors (other domain, CORS is enabled)

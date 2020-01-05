@@ -366,7 +366,7 @@ Voraussetzung, um den App-Installations-Dialog anzuzeigen:
   - _display_ ist entweder _fullscreen_, _standalone_ oder _minimal-ui_
 - HTTPS aktiv
 - es gibt einen aktiven Service Worker (mit einem fetch Event handler)
-- Benutzer hat mit der Domain zumindest 30 Sekunden interagiert
+- Benutzer hat mit der Anwendung in bestimmtem Maß interagiert
 
 ## App-Installation
 
@@ -375,10 +375,10 @@ Sobald alle Voraussetzungen erfüllt sind, wird das `beforeinstallprompt` Event 
 ```js
 let installPromptEvent;
 
-window.addEventListener('beforeinstallprompt', event => {
+window.addEventListener('beforeinstallprompt', ipEvent => {
   // the browser is ready to show the install prompt
-  event.preventDefault();
-  installPromptEvent = event;
+  ipEvent.preventDefault();
+  installPromptEvent = ipEvent;
   showInstallBtn();
 });
 ```
@@ -389,9 +389,9 @@ Sobald der Benutzer die Anwendung installieren möchte können wir das gespeiche
 
 ```js
 installBtn.addEventListener('click', () => {
-  hideInstallBtn();
   // Show the prompt
   installPromptEvent.prompt();
+  hideInstallBtn();
 });
 ```
 
@@ -422,12 +422,142 @@ Service worker sind besondere Web-Worker, daher:
 
 [caniuse](https://caniuse.com/##feat=serviceworkers)
 
-Serviceworker werden unterstützt => ES2015 wird unterstützt
+Serviceworker werden unterstützt ⇒ ES2015 wird unterstützt
 
 ## Verwandthe Technologien
 
 - fetch (Netzwerkanfragen senden)
 - cache (Netzwerkanfragen cachen)
+
+# Service Worker: Strategien
+
+## Service Worker: Strategien
+
+Bei Entscheidung für eine Strategie sind verschiedene Ziele in Erwägung zu ziehen:
+
+- Inhalte so schnell wie möglich liefern
+- aktuelle Inhalte liefern
+- Sparen bei Datenübertragung
+- Sparen bei der Cachegröße
+
+## Service Worker: Strategien
+
+Aspekte zu Resourcen:
+
+- sollte diese Resource beim ersten Besuch eines Benutzers automatisch heruntergeladen und gecached werden?
+- wenn diese Resource angefragt wird, sollte sie aus dem _Cache_ oder dem _Netzwerk_ geladen werden?
+- falls die erste Anfrage (von Cache oder Netzwerk) fehlschlägt, soll die andere Möglichkeit versucht werden?
+- falls die Resource aus dem Cache geladen wird, sollen wir versuchen, sie im Hintergrund zu aktualisieren?
+
+Wichtige Fragen:
+
+- laden wir eine angefragte Resource aus dem Cache, dem Netzwerk oder einer Kombination?
+- welche Resourcen cachen wir und wann cachen wir sie?
+
+## Service Worker: Strategien
+
+laden von Resourcen - Strategien:
+
+- immer aus dem Netzwerk
+- immer aus dem Cache
+- Netzwerk, mit Cache als Fallback
+- Cache, mit Netzwerk als Fallback
+- Cache, wobei der Cache im Hintergrund währenddessen aktualisiert wird
+- Cache, wobei im Hintergrund die Resource heruntergeladen und die Anzeige unmittelbar aktualisiert wird
+
+## Service Worker: Strategien
+
+Caching - Strategien:
+
+- Cachen, sobald neue Daten eintreffen
+- bei Installation im Vorhinein cachen
+- bei Useraktion im Vorhinein cachen
+
+(diese Strategien können kombiniert werden)
+
+## Service Worker: Strategien
+
+Siehe [Offline Cookbook](https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/#cache-then-network)
+
+# Workbox im Detail
+
+## Service Worker Strategien
+
+Workbox bietet Unterstützung für verschiedene Service Worker Strategien
+
+## Service Worker Strategien
+
+Abruf von Resourcen:
+
+- `NetworkOnly`
+- `CacheOnly`
+- `NetworkFirst` (Cache, falls Netzwerk nicht verfügbar)
+- `CacheFirst` (Netzwerk, falls Eintrag nicht im Cache)
+- `StaleWhileRevalidate` (Laden aus dem Cache, welcher im Hintergrund aktualisiert wird)
+
+## Service Worker Strategien
+
+Cache:
+
+- Caching bei Installation, immer diese Version liefern: `precacheAndRoute`
+- Caching bei Userinteraktion: Benutzen von `fetch` und Untenstehendem
+- Caching wenn Daten ankommen: Automatisch bei `NetworkFirst`, `CacheFirst`, `StaleWhileRevalidate`
+
+## Routing
+
+```js
+workbox.routing.registerRoute(
+  new RegExp('/static/.*'),
+  new workbox.strategies.CacheFirst()
+);
+
+workbox.routing.registerRoute(
+  '/articles.json',
+  new workbox.strategies.NetworkFirst()
+);
+```
+
+## Plugins
+
+- Expiration Plugin (`maxEntries`, `maxAgeSeconds`)
+
+## Precaching
+
+```js
+workbox.precaching.precacheAndRoute([
+  '/',
+  '/index.html',
+  '/logo.svg',
+]);
+```
+
+## CLI
+
+Workbox CLI: Werkzeug, um insbesondere Precaching zu vereinfachen
+
+```bash
+workbox wizard --injectManifest
+```
+
+## Code Lab
+
+~45 min
+
+https://codelabs.developers.google.com/codelabs/workbox-lab/
+
+(aktualisiere die Version von `workbox-cli` in _package.json_ - ältere Versionen schlagen unter Windows fehl)
+
+## Übungen
+
+Verwandle eine dieser Anwendungen in eine PWA und verwende verschiedene Caching-Strategien:
+
+- https://github.com/marko-knoebl/simple-todo-app
+- https://github.com/marko-knoebl/simple-weather-app
+- https://github.com/marko-knoebl/simple-stock-app
+
+## Bonus (mit Build)
+
+https://developers.google.com/web/tools/workbox/guides/codelabs/npm-script
 
 # Asynchrones JavaScript
 
@@ -489,6 +619,24 @@ function fib(n) {
 }
 ```
 
+# Cache - Überblick
+
+## Cache - Überblick
+
+= "a request to response map"
+
+## Cache Typen
+
+Resourcen können von der aktuellen Domain oder auch von fremden Domains gecached werden.
+
+Unterscheidung von drei Arten:
+
+- basic (aktuelle Domain)
+- cors (andere Domain, CORS ist aktiviert)
+- opaque (andere Domain, CORS nicht aktiviert) - Daten sind aus JavaScript nicht auslesbar
+
+Beispiel: siehe die _stock app_ Beispiele in den Chrome Devtools
+
 # Service Worker Setup
 
 ## Service Worker Lebenszyklus
@@ -506,13 +654,13 @@ Jedes Mal wenn eine Seite geladen wird, rufen wir `navigator.serviceWorker.regis
 
 ```js
 window.addEventListener('load', () => {
-  // registration can be defered until
+  // registration can be deferred until
   // completion of page load
   if (navigator.serviceWorker) {
     navigator.serviceWorker
       .register('/serviceworker.js')
       .then(registration => {
-        // is executed if there's a *new* sw file
+        // is executed if there is a *new* sw file
         console.log(
           `SW registered for ${registration.scope}`
         );
@@ -597,9 +745,7 @@ navigator.serviceWorker
   });
 ```
 
-# Service Worker mit fetch und cache
-
-## Service Worker mit fetch und cache
+# Service Worker: Verwendung von fetch
 
 ## fetch - Beispiel
 
@@ -820,44 +966,9 @@ self.addEventListener('fetch', event => {
 
 https://developers.google.com/web/ilt/pwa/lab-scripting-the-service-worker
 
-# Service Worker Beispiele
+# The offline cookbook
 
-## Offline App Installation
-
-```js
-self.addEventListener('install', event => {
-  event.waitUntil(
-    caches.open(cacheName).then(cache => {
-      console.log('opened cache');
-      // Resultat von addAll ist ein Promise
-      return cache.addAll(urlsToCache);
-    })
-  );
-});
-```
-
-## Offline App Installation - workbox
-
-```js
-workbox.precaching.precache(urlsToCache);
-```
-
-## Offline App fetch
-
-```js
-self.addEventListener('fetch', event => {
-  event.respondWith(caches.match(event.request));
-});
-```
-
-## Offline App fetch - workbox
-
-```js
-workbox.routing.registerRoute(
-  '.*',
-  workbox.strategies.cacheOnly
-);
-```
+https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/
 
 # Datenspeicherung
 
@@ -865,7 +976,7 @@ workbox.routing.registerRoute(
 
 ## Überblick
 
-- localStorage: einfacher key-value-Store mit Textwerten)
+- localStorage: einfacher key-value-Store mit Textwerten
 - indexedDB: "echte Datenbank"
 
 # localStorage
@@ -953,11 +1064,9 @@ const upgradeCallback = upgradeDb => {
 const dbPromise = idb.open('todo-db', 1, upgradeCallback);
 ```
 
-## Upgrade
+## idb Grundlagen: open & upgrade
 
-upgrade = callback, das insbesondere genutzt werden kann, um auf ein neues Datenschema zu wechseln
-
-zb können darin Stores erstellt, gelöscht oder abgeändert werden
+Letztes Argument (`upgradeCallback`) kann zur Migration auf ein neues Datenbankschema genutzt werden; z.B. können darin Stores erstellt, gelöscht oder abgeändert werden
 
 Callbackfunktion wird immer aufgerufen, wenn sich die Versionsnummer der Datenbank erhöht
 
@@ -986,8 +1095,9 @@ upgradeDb.createObjectStore('todos', {
 
 ## Keys: Eintrag im Objekt
 
+Verwendung eines Eintrags im Objekt als Key
+
 ```js
-// email als id
 upgradeDb.createObjectStore('users', {
   keyPath: 'email',
 });
@@ -1090,8 +1200,6 @@ nameIndex.get(['Andy', 'Jones']).then(...)
 
 # Notifications
 
-<!-- siehe auch: https://developer.mozilla.org/en-US/docs/Web/API/Notifications_API/Using_the_Notifications_API -->
-
 ## Notifications
 
 Möglichkeit, für den Benutzer Benachrichtigungen außerhalb der Anwendung darzustellen (Betriebssystems-Benachrichtigungen)
@@ -1128,6 +1236,10 @@ new Notification('cloudy', {
 });
 ```
 
+## Resourcen
+
+- [MDN: Using the Notifications API](https://developer.mozilla.org/en-US/docs/Web/API/Notifications_API/Using_the_Notifications_API)
+
 # Benachrichtigungen aus dem Service Worker
 
 ## Benachrichtigungen aus dem Service Worker
@@ -1140,7 +1252,7 @@ Die bisherigen Benachrichtigungen stammten aus einem bestimmten Browser-Fenster.
 ## Zugriff auf die Service Worker Registrierung:
 
 ```js
-let serviceWorkerRegistration;
+let serviceWorkerRegistration = null;
 
 navigator.serviceWorker
   .getRegistration()
@@ -1218,7 +1330,10 @@ Push-Benachrichtigungen werden über den Browserhersteller (Google, Mozilla, ...
 ## Push-Benachrichtigungen - Ablauf
 
 - Benutzer besucht eine Web App, aktiviert Benachrichtigungen
-- Web App kommuniziert mit dem Browserhersteller; der Browserhersteller generiert eine eindeutige URL und einen kryptographischen Schlüssel und übergibt diese an den Browser
+- Web App kommuniziert mit dem Browserhersteller; der Browserhersteller generiert eine eindeutige URL und einen kryptographischen Schlüssel und übergibt diese an den Browser  
+  Die URL könnte wie folgt aussehen:
+  - `https://android.googleapis.com/gcm/send/IDENTIFIER`
+  - `https://updates.push.services.mozilla.com/wpush/v1/IDENTIFIER`
 - Web App teilt diese URL mit dem Backend
 - Aus dem Backend können wir mit Hilfe dieser Daten Nachrichten an den Service Worker schicken
 
@@ -1245,8 +1360,7 @@ Aktuelle Subscription auslesen:
 serviceWorkerRegistration.pushManager
   .getSubscription()
   .then(subsription => {
-    if (subscription === undefined) {
-    } else {
+    if (subscription !== undefined) {
       console.log(JSON.stringify(subscription.toJSON()));
       // send the subscription object to our server
     }
@@ -1294,9 +1408,45 @@ webPush.sendNotification(subscription, 'Hello world!', {
 });
 ```
 
+## Push-Nachrichten ohne Benachrichtigunen
+
+Eine Push-Nachricht muss nicht unbedingt zu einer Benachrichtigung für den Benutzer führen
+
+In Chrome _muss_ aktuell das Empfangen einer Push-Nachricht zu einer Benachrichtigung führen; in Firefox ist die Anzahl der empfangenen Push-Nachrichten ohne Benachrichtigung beschränkt
+
 ## Push-Benachrichtigungen: Lab
 
 https://developers.google.com/web/ilt/pwa/lab-integrating-web-push
+
+<!--
+duration: ca 50 min
+-->
+
+# App Stores
+
+## App Stores
+
+Publishing PWAs in App Stores
+
+## PWAs in the Google Play Store
+
+TWA = Trusted Web Activity = Möglichkeit, eine PWA im Play Store zu veröffentlichen
+
+https://developers.google.com/web/updates/2019/02/using-twa
+
+https://www.youtube.com/watch?v=7JDFjeMvxos
+
+https://www.youtube.com/watch?v=6lHBw3F4cWs
+
+## PWAs im Microsoft Store
+
+siehe https://www.pwabuilder.com/
+
+## PWAs in anderen Stores
+
+PWAs (bzw HTML-Anwendungen im Allgemeinen) können für veschiedene Stores veröffentlicht werden, selbst wenn diese keine direkte Unterstützung für PWAs bieten:
+
+https://www.pwabuilder.com/
 
 # Resourcen
 

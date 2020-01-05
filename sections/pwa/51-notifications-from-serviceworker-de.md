@@ -10,7 +10,7 @@ Die bisherigen Benachrichtigungen stammten aus einem bestimmten Browser-Fenster.
 ## Zugriff auf die Service Worker Registrierung:
 
 ```js
-let serviceWorkerRegistration;
+let serviceWorkerRegistration = null;
 
 navigator.serviceWorker
   .getRegistration()

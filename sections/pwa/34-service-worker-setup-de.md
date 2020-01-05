@@ -15,13 +15,13 @@ Jedes Mal wenn eine Seite geladen wird, rufen wir `navigator.serviceWorker.regis
 
 ```js
 window.addEventListener('load', () => {
-  // registration can be defered until
+  // registration can be deferred until
   // completion of page load
   if (navigator.serviceWorker) {
     navigator.serviceWorker
       .register('/serviceworker.js')
       .then(registration => {
-        // is executed if there's a *new* sw file
+        // is executed if there is a *new* sw file
         console.log(
           `SW registered for ${registration.scope}`
         );

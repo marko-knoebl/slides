@@ -2311,25 +2311,25 @@ workbox.routing.registerRoute(
 </ul></li>
 <li>served via HTTPS</li>
 <li>has a service worker (with a fetch event handler)</li>
-<li>user has interacted with the domain for at least 30 seconds</li>
+<li>user has interacted with the domain to some extent</li>
 </ul>
 </section><section class="slide"><h2>app install prompt</h2>
 <p>once all the requirements are met, a <code>beforeinstallprompt</code> event will fire; we can listen for this event and store it for later use</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">let</span> installPromptEvent;
 
-<span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">'beforeinstallprompt'</span>, event => {
+<span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">'beforeinstallprompt'</span>, ipEvent => {
   <span class="hljs-comment">// the browser is ready to show the install prompt</span>
-  event.preventDefault();
-  installPromptEvent = event;
+  ipEvent.preventDefault();
+  installPromptEvent = ipEvent;
   showInstallBtn();
 });
 </code></pre>
 </section><section class="slide"><h2>app install prompt</h2>
 <p>Once the user wants to install the app, we can use the stored event:</p>
 <pre><code class="hljs language-js">installBtn.addEventListener(<span class="hljs-string">'click'</span>, () => {
-  hideInstallBtn();
   <span class="hljs-comment">// Show the prompt</span>
   installPromptEvent.prompt();
+  hideInstallBtn();
 });
 </code></pre>
 </section><section class="slide"><h2>deployment</h2>
@@ -2339,9 +2339,15 @@ workbox.routing.registerRoute(
 </section><section class="slide"><h2>Service workers</h2>
 <p>Service workers are client-side proxies between the web browser and the server.</p>
 <p>Service workers can cache resources and retrieve them from either the network or the internal cache.</p>
+</section><section class="slide"><h2>Service workers</h2>
+<p>Service workers are special web workers:</p>
+<ul>
+<li>no direct access to the DOM</li>
+<li>communication with the main thread happens via <code>postMessage</code></li>
+</ul>
 </section><section class="slide"><h2>Browser support</h2>
 <p><a href="https://caniuse.com/##feat=serviceworkers">caniuse</a></p>
-<p>support for service workers => support for ES2015</p>
+<p>support for service workers ⇒ support for ES2015</p>
 </section><section class="slide"><h2>Service workers - related technologies</h2>
 <ul>
 <li>fetch (Sending network requests)</li>
@@ -2382,9 +2388,9 @@ workbox.routing.registerRoute(
 </section><section class="slide"><h2>Service workers - strategies</h2>
 <p>caching strategies:</p>
 <ul>
+<li>cache when new data arrives</li>
 <li>precache on install</li>
 <li>precache on user interaction</li>
-<li>cache when new data arrives</li>
 </ul>
 <p>(we can combine these strategies)</p>
 </section><section class="slide"><h2>Service workers - strategies</h2>
@@ -2395,11 +2401,11 @@ workbox.routing.registerRoute(
 </section><section class="slide"><h2>Service worker strategies</h2>
 <p>asset retrieval:</p>
 <ul>
-<li>always from the network: <code>NetworkOnly</code></li>
-<li>always from the cache: <code>CacheOnly</code></li>
-<li>network first: <code>NetworkFirst</code></li>
-<li>cache first: <code>CacheFirst</code></li>
-<li>cache, updating the cache in the background: <code>StaleWhileRevalidate</code></li>
+<li><code>NetworkOnly</code></li>
+<li><code>CacheOnly</code></li>
+<li><code>NetowrkFirst</code> (cache as fallback)</li>
+<li><code>CacheFirst</code> (network as fallback)</li>
+<li><code>StaleWhileRevalidate</code> (load from cache, which is updated in the background)</li>
 </ul>
 </section><section class="slide"><h2>Service worker strategies</h2>
 <p>caching:</p>
@@ -2408,7 +2414,7 @@ workbox.routing.registerRoute(
 <li>precache on user interaction: use <code>fetch</code> and the below</li>
 <li>cache whenever data arrives: automatic with <code>NetworkFirst</code>, <code>CacheFirst</code>, <code>StaleWhileRevalidate</code></li>
 </ul>
-</section><section class="slide"><h2>routing</h2>
+</section><section class="slide"><h2>Routing</h2>
 <pre><code class="hljs language-js">workbox.routing.registerRoute(
   <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">'/static/.*'</span>),
   <span class="hljs-keyword">new</span> workbox.strategies.CacheFirst()
@@ -2419,11 +2425,11 @@ workbox.routing.registerRoute(
   <span class="hljs-keyword">new</span> workbox.strategies.NetworkFirst()
 );
 </code></pre>
-</section><section class="slide"><h2>plugins</h2>
+</section><section class="slide"><h2>Plugins</h2>
 <ul>
 <li>expiration plugin (maxEntries, maxAgeSeconds)</li>
 </ul>
-</section><section class="slide"><h2>precaching</h2>
+</section><section class="slide"><h2>Precaching</h2>
 <pre><code class="hljs language-js">workbox.precaching.precacheAndRoute([
   <span class="hljs-string">'/'</span>,
   <span class="hljs-string">'/index.html'</span>,
@@ -2435,11 +2441,9 @@ workbox.routing.registerRoute(
 <pre><code class="hljs language-bash">workbox wizard --injectManifest
 </code></pre>
 </section><section class="slide"><h2>code lab</h2>
+<p>~45 min</p>
 <p><a href="https://codelabs.developers.google.com/codelabs/workbox-lab/">https://codelabs.developers.google.com/codelabs/workbox-lab/</a></p>
 <p>(update version of "workbox-cli" in package.json - older versions will fail on Windows)</p>
-<!--
-~ 45mins
--->
 </section><section class="slide"><h2>exercises</h2>
 <p>Turn one of these apps into a PWA and use various caching strategies:</p>
 <ul>
@@ -2494,7 +2498,8 @@ workbox.routing.registerRoute(
 </section><section class="slide"><h2>Cache overview</h2>
 <p>= "a request to response map"</p>
 </section><section class="slide"><h2>Cache Types</h2>
-<p>We can cache resources from both the current domain and other domains; we can distinguish between three types:</p>
+<p>We can cache resources from both the current domain and other domains;</p>
+<p>We can distinguish three types:</p>
 <ul>
 <li>basic (current domain)</li>
 <li>cors (other domain, CORS is enabled)</li>
@@ -2514,13 +2519,13 @@ workbox.routing.registerRoute(
 If the service worker file is new or has changed it will be installed.</p>
 </section><section class="slide"><h2>Registering a service worker</h2>
 <pre><code class="hljs language-js"><span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">'load'</span>, () => {
-  <span class="hljs-comment">// registration can be defered until</span>
+  <span class="hljs-comment">// registration can be deferred until</span>
   <span class="hljs-comment">// completion of page load</span>
   <span class="hljs-keyword">if</span> (navigator.serviceWorker) {
     navigator.serviceWorker
       .register(<span class="hljs-string">'/serviceworker.js'</span>)
       .then(<span class="hljs-function"><span class="hljs-params">registration</span> =></span> {
-        <span class="hljs-comment">// is executed if there's a *new* sw file</span>
+        <span class="hljs-comment">// is executed if there is a *new* sw file</span>
         <span class="hljs-built_in">console</span>.log(
           <span class="hljs-string">`SW registered for <span class="hljs-subst">${registration.scope}</span>`</span>
         );
@@ -2799,7 +2804,7 @@ todos = <span class="hljs-built_in">JSON</span>.parse(todoString);
 </code></pre>
 </section><section class="slide"><h2>idb basics: open &#x26; upgrade</h2>
 <p>The last argument (<code>upgradeCallback</code>) can be used to migrate to a new database schema; it can be used to create, delete or change stores</p>
-<p>The callback is called any time the version increases</p>
+<p>The callback is called any time the version number increases</p>
 </section><section class="slide"><h2>idb basics: keys</h2>
 <p>Each element in the object store has a unique key (~id)</p>
 <p>The key can be an entry in the element or a separate value</p>
@@ -2893,10 +2898,9 @@ nameIndex.get([<span class="hljs-string">'Andy'</span>, <span class="hljs-string
 <li>Lab: <a href="https://developers.google.com/web/ilt/pwa/lab-indexeddb">https://developers.google.com/web/ilt/pwa/lab-indexeddb</a></li>
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Notifications</h1>
-<!-- see also: https://developer.mozilla.org/en-US/docs/Web/API/Notifications_API/Using_the_Notifications_API -->
 </section><section class="slide"><h2>Notifications</h2>
 <p>Notification enable displaying messages outside of the app / browser (OS notifications)</p>
-</section><section class="slide"><h2>requesting permission</h2>
+</section><section class="slide"><h2>Requesting permission</h2>
 <pre><code class="hljs language-js"><span class="hljs-keyword">let</span> notificationsAllowed;
 
 Notification.requestPermission().then(<span class="hljs-function"><span class="hljs-params">result</span> =></span> {
@@ -2906,18 +2910,22 @@ Notification.requestPermission().then(<span class="hljs-function"><span class="h
 });
 </code></pre>
 <p>This can be tried in the browser console when any web page is open</p>
-</section><section class="slide"><h2>showing notifications</h2>
+</section><section class="slide"><h2>Showing notifications</h2>
 <pre><code class="hljs language-js"><span class="hljs-keyword">if</span> (Notification.permission === <span class="hljs-string">'granted'</span>) {
   <span class="hljs-keyword">new</span> Notification(<span class="hljs-string">'Hello world'</span>);
 }
 </code></pre>
-</section><section class="slide"><h2>notification options</h2>
+</section><section class="slide"><h2>Notification options</h2>
 <pre><code class="hljs language-js"><span class="hljs-keyword">new</span> Notification(<span class="hljs-string">'cloudy'</span>, {
   <span class="hljs-attr">body</span>: <span class="hljs-string">'The weather in Vienna is cloudy'</span>,
   <span class="hljs-attr">icon</span>: <span class="hljs-string">'static/images/cloudy.png'</span>,
   <span class="hljs-attr">vibrate</span>: [<span class="hljs-number">100</span>, <span class="hljs-number">50</span>, <span class="hljs-number">100</span>],
 });
 </code></pre>
+</section><section class="slide"><h2>Resources</h2>
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Notifications_API/Using_the_Notifications_API">MDN: Using the Notifications API</a></li>
+</ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Notifications from the service worker</h1>
 </section><section class="slide"><h2>Notifications from the service worker</h2>
 <p>The notifications we've seen so far originated from one particular browser window. Notifications can also be displayed from the service worker. These notifications will be more capable than the ones we've encountered so far. In particular:</p>
@@ -2926,7 +2934,7 @@ Notification.requestPermission().then(<span class="hljs-function"><span class="h
 <li>Notifications from service workers can be shown when the app / website isn't open</li>
 </ul>
 </section><section class="slide"><h2>Accessing the service worker registration</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> serviceWorkerRegistration;
+<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> serviceWorkerRegistration = <span class="hljs-literal">null</span>;
 
 navigator.serviceWorker
   .getRegistration()
@@ -2947,19 +2955,22 @@ navigator.serviceWorker
 });
 </code></pre>
 </section><section class="slide"><h2>listening for notification actions</h2>
+<p>two events in the service worker:</p>
 <ul>
 <li><code>notificationclick</code></li>
 <li><code>notificationclose</code></li>
 </ul>
-</section></section><section class="slides-section"><section class="slide"><h1>Push Messages</h1>
-</section><section class="slide"><h2>Push Messages</h2>
-<p>With push messages we can send messages to our PWA from a server.</p>
-<p>This generally works even if our app is not currently running - though on the desktop at least one browser instance has to be running for push messages to be received</p>
-</section><section class="slide"><h2>Push messages without notifications</h2>
-<p>When a push notification arrives via the network the app can react in various ways</p>
-<p>Displaying notifications is common but not required by the spec</p>
-<p>Chrome currently <em>requires</em> displaying a notification; Firefox has a limit on how many messages can be received without showing notifications</p>
-</section><section class="slide"><h2>Push Notifications - basics</h2>
+</section><section class="slide"><h2>Exercises (labs)</h2>
+<p><a href="https://developers.google.com/web/ilt/pwa/lab-integrating-web-push">https://developers.google.com/web/ilt/pwa/lab-integrating-web-push</a></p>
+<p>1-3</p>
+<p>Removing the service worker in Firefox: about:debugging -> worker</p>
+</section></section><section class="slides-section"><section class="slide"><h1>Push notifications</h1>
+</section><section class="slide"><h2>Push notifications</h2>
+<ul>
+<li>possibility to send messages to a PWA from a server</li>
+<li>works even if the app is not currently running (on the desktop at least one browser instance has to be running)</li>
+</ul>
+</section><section class="slide"><h2>Push notifications - basics</h2>
 <svg id="push-message-svg" version="1.1" width="1000" height="500" viewBox="-500 0 1000 500" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <marker id="arrow-end" refX="0.0" refY="0.0" orient="auto" style="overflow: visible;">
@@ -3016,13 +3027,13 @@ navigator.serviceWorker
     </textPath>
   </text>
 </svg>
-</section><section class="slide"><h2>Push Notifications - basics</h2>
+</section><section class="slide"><h2>Push notifications - basics</h2>
 <p>Push notifications can be sent to a user via the browser vendor (Google, Mozilla, ...). It works via endpoint URLs like these:</p>
 <ul>
 <li><code>https://android.googleapis.com/gcm/send/IDENTIFIER</code></li>
 <li><code>https://updates.push.services.mozilla.com/wpush/v1/IDENTIFIER</code></li>
 </ul>
-</section><section class="slide"><h2>Push Notification - process</h2>
+</section><section class="slide"><h2>Push notifications - process</h2>
 <svg id="push-message-auth-svg" version="1.1" width="1000" height="500" viewBox="-500 0 1000 500" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <marker id="arrow-end-1" refX="0.0" refY="0.0" orient="auto" style="overflow: visible;">
@@ -3088,7 +3099,7 @@ navigator.serviceWorker
     </textPath>
   </text>
 </svg>
-</section><section class="slide"><h2>Push Notifications - process</h2>
+</section><section class="slide"><h2>Push notifications - process</h2>
 <ul>
 <li>user visits a web app, enables notifications</li>
 <li>the web app communicates with the browser vendor (Google, Mozilla, ...); the vendor creates a unique enpoint URL and a public key for encryption and shares them with the browser<br />
@@ -3099,7 +3110,7 @@ The endpoint URL could look like this:<ul>
 <li>the web app shares the endpoint URL and public key with the backend</li>
 <li>from the backend, we can now send data to the endpoint URL, encrypted withe the public key. It will be received by the user's service worker</li>
 </ul>
-</section><section class="slide"><h2>Push Notifications - enabling on the client</h2>
+</section><section class="slide"><h2>Push notifications - enabling on the client</h2>
 <pre><code class="hljs language-js">serviceWorkerRegistration.pushManager
   .subscribe({
     <span class="hljs-attr">userVisibleOnly</span>: <span class="hljs-literal">true</span>,
@@ -3109,18 +3120,17 @@ The endpoint URL could look like this:<ul>
     <span class="hljs-comment">// could be: https://android.googleapis.com/gcm/send/..</span>
   });
 </code></pre>
-</section><section class="slide"><h2>Push Notifications - getting the current subscription</h2>
+</section><section class="slide"><h2>Push notifications - getting the current subscription</h2>
 <pre><code class="hljs language-js">serviceWorkerRegistration.pushManager
   .getSubscription()
   .then(<span class="hljs-function"><span class="hljs-params">subsription</span> =></span> {
-    <span class="hljs-keyword">if</span> (subscription === <span class="hljs-literal">undefined</span>) {
-    } <span class="hljs-keyword">else</span> {
+    <span class="hljs-keyword">if</span> (subscription !== <span class="hljs-literal">undefined</span>) {
       <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">JSON</span>.stringify(subscription.toJSON()));
       <span class="hljs-comment">// send the subscription object to our server</span>
     }
   });
 </code></pre>
-</section><section class="slide"><h2>Push Notifications - the subscription object</h2>
+</section><section class="slide"><h2>Push notifications - the subscription object</h2>
 <p>Once we obtain this subscription object on the server we can send push messages to the client</p>
 <pre><code class="hljs language-json">{
   <span class="hljs-attr">"endpoint"</span>: <span class="hljs-string">"https://android.googleapis.com/gcm/send/f2L..."</span>,
@@ -3147,6 +3157,10 @@ webPush.sendNotification(subscription, <span class="hljs-string">'Hello world!'<
   <span class="hljs-attr">gcmAPIKey</span>: <span class="hljs-string">'....'</span>,
 });
 </code></pre>
+</section><section class="slide"><h2>Push messages without notifications</h2>
+<p>When a push notification arrives via the network the app can react in various ways</p>
+<p>Displaying notifications is common but not required by the spec</p>
+<p>Chrome currently <em>requires</em> displaying a notification; Firefox has a limit on how many messages can be received without showing notifications</p>
 </section><section class="slide"><h2>Push Notifications Lab</h2>
 <p><a href="https://developers.google.com/web/ilt/pwa/lab-integrating-web-push">https://developers.google.com/web/ilt/pwa/lab-integrating-web-push</a></p>
 <p>1-3</p>
@@ -3159,13 +3173,16 @@ duration: ca 50 min
 </section><section class="slide"><h2>PWAs in the Google Play Store</h2>
 <p>As of February 2019:</p>
 <p>TWA = Trusted Web Activity = method of publishing a PWA on the Play Store</p>
-<p><a href="https://www.youtube.com/watch?v=7JDFjeMvxos">https://www.youtube.com/watch?v=7JDFjeMvxos</a></p>
 <p><a href="https://developers.google.com/web/updates/2019/02/using-twa">https://developers.google.com/web/updates/2019/02/using-twa</a></p>
+<p><a href="https://www.youtube.com/watch?v=7JDFjeMvxos">https://www.youtube.com/watch?v=7JDFjeMvxos</a></p>
+<p><a href="https://www.youtube.com/watch?v=6lHBw3F4cWs">https://www.youtube.com/watch?v=6lHBw3F4cWs</a></p>
 </section><section class="slide"><h2>PWAs in the Microsoft Store</h2>
 <p>see <a href="https://www.pwabuilder.com/">https://www.pwabuilder.com/</a></p>
 </section><section class="slide"><h2>PWAs in other stores</h2>
 <p>PWAs (or HTML apps in general) can be packaged for various stores even if those stores don't natively support PWAs:</p>
-<p><a href="https://www.pwabuilder.com/">https://www.pwabuilder.com/</a></p></section></section></div>
+<p><a href="https://www.pwabuilder.com/">https://www.pwabuilder.com/</a></p>
+</section></section><section class="slides-section"><section class="slide"><h1>Resources</h1>
+<p><a href="https://developers.google.com/web/ilt/pwa/">https://developers.google.com/web/ilt/pwa/</a></p></section></section></div>
     </div>
     <script>/*!
  * reveal.js
