@@ -401,7 +401,7 @@ let join = (strings, separator='') => {
 }
 ```
 
-# TypeScript
+# TypeScript Grundlagen
 
 ## TypeScript
 
@@ -415,6 +415,7 @@ let join = (strings, separator='') => {
 
 Datentypen können angegeben werden und unterstützen insbesondere die Entwicklungsumgebung:
 
+- Anzeigen von Funktionssignaturen
 - Autovervollständigung
 - Fehlermeldungen bei nicht passenden Datentypen
 
@@ -422,83 +423,75 @@ Datentypen können angegeben werden und unterstützen insbesondere die Entwicklu
 
 Beim build: TypeScript wird in JavaScript übersetzt, alle Typeninformationen gehen dabei verloren
 
-## Typsystem: Variablen
+## Typing von Variablen
+
+Variablentypen werden üblicherweise ohne Hilfe erkannt
+
+_Explizites_ Angeben von Variablentypen:
 
 ```ts
 let age: number = 32;
-let name: string = 'Andreas';
+let name: string = 'Samuel';
+let loggedIn: boolean = true;
 ```
 
-## Typsystem: Arrays
-
-```js
-let names: Array<string> = ['Anna', 'Bernhard'];
-```
-
-alternative Schreibweise:
+## Typing von Funktionen
 
 ```ts
-let names: string[] = ['Anna', 'Bernhard'];
-```
-
-## Typsystem: Funktionen
-
-<!-- prettier-ignore -->
-```ts
-function repeatString(
+function shorten(
   text: string,
-  times: number
+  maxLength: number
 ): string {
   return ...
 }
 ```
 
 ```ts
-const repeatString = (
+const shorten = (
   text: string,
-  times: number
+  maxLength: number
 ): string => {
   return ...;
 };
 ```
 
-## Typsystem: void
+## Typing von Funktionen
 
-Void: hauptsächlich genutzt für Funktionen, die nichts zurückgeben - umfasst _undefined_ und _null_
-
-```ts
-function warnUser(): void {
-  alert('warning!');
-}
-```
-
-## Typsystem: any
-
-Any: lässt alle Typen zu
+Funktionen ohne Rückgabewert: `void`
 
 ```ts
-let myInput: any = document.getElementById('myinput');
-console.log(myInput.value);
+const logMessage = (message: string): void => {
+  console.log(message);
+};
 ```
 
-## Typsystem: Type assertions
+## Typing von Arrays
+
+```js
+let names: Array<string> = [];
+names.push('Anna');
+```
+
+alternative Schreibweise:
 
 ```ts
-(window as any).myGlobalVariable = 'foo';
+let names: string[] = [];
+names.push('Anna');
 ```
 
-## Typsystem: Types & Interfaces
+## Types & Interfaces
 
-Interfaces: beschreiben die Struktur eines Objekts / einer Klasse genauer  
-z.B.: `TodoInterface`, `PersonInterface`
+**Interfaces**: beschreiben die Struktur eines Objektes / einer Klasse genauer (z.B. `Todo`, `Person`)
 
-Types: Ähnlich wie Interfaces, aber auch auf Strings, Arrays, ... anwendbar
+**Types**: ähnlich wie Interfaces; auch auf Strings, Arrays, ... anwendbar
+
+## Types & Interfaces
 
 Types bieten im wesentlichen mehr Funktionalität als Interfaces
 
 https://stackoverflow.com/a/52682220/
 
-## Typsystem: Types
+## Types
 
 ```ts
 type TodoType = {
@@ -519,16 +512,71 @@ type TodoType = {
   completed: boolean;
   // optional
   description?: string;
-  // Methode
+  // method
   toggle: (id: number) => void;
 };
 ```
 
-## Types bei Objekten
+## Generics
+
+Allgemeine Typendeklaration, zu der bei der Anwendung nähere Informationen spezifiziert werden können (via `<...>`)
+
+## Generics
+
+Beispiel: `Array` ist ein Generic
+
+```ts
+let a: Array<number> = [1, 2, 3];
+let b: Array<string> = ['one', 'two', 'three'];
+```
+
+Beispiel: Reacts `Component` ist ein Generic
+
+```ts
+class MyComp extends Component<MyProps, MyState> {
+  ...
+}
+```
+
+## Typendeklarationen für Libraries
+
+Einige JavaScript Libraries beinhalten auch Typendeklarationen für TypeScript - z.B. _react_, _redux_.
+
+Für andere Libraries gibt es meist externe Deklarationen mit dem Präfix _@types/_, z.B. für _react-redux_ existiert das Paket _@types/react-redux_.
+
+# TypeScript intermediate
+
+## Any
+
+Any: lässt alle Typen zu
+
+```ts
+let myInput: any = document.getElementById('myinput');
+
+console.log(myInput.value);
+```
+
+## Type Assertions
+
+ermöglichen das Behandeln eines vorhandenen Objekts als bestimmter Typ
+
+```ts
+let myInput = document.getElementById(
+  'first-name'
+) as HTMLInputElement;
+
+console.log(myInput.value);
+```
+
+## Typen / Interfaces und Klassen
 
 ```ts
 class AdvancedTodo implements TodoType {
-  ...
+  /* ... */
+}
+
+class AdvancedTodo implements TodoInterface {
+  /* ... */
 }
 ```
 
@@ -547,17 +595,17 @@ Der Intersection Typ `x` kann gegenüber `a`:
 
 ## Intersection Types: Konkretisierung von Typen
 
+Beispiel aus Redux:
+
 ```ts
 type Action = {
   type: string;
-  payload?: object;
+  payload?: any;
 };
 
 type AddTodoAction = Action & {
   type: 'ADD_TODO';
-  payload: {
-    title: string;
-  };
+  payload: string;
 };
 ```
 
@@ -589,27 +637,6 @@ type TodoActionType =
   | ToggleTodoActionType;
 ```
 
-## Generics
-
-Allgemeine Typendeklaration, zu der bei der Anwendung nähere Informationen spezifiziert werden können (via `<...>`)
-
-## Generics
-
-Beispiel: `Array` ist ein Generic
-
-```ts
-let a: Array<number> = [1, 2, 3];
-let b: Array<string> = ['one', 'two', 'three'];
-```
-
-Beispiel: Reacts `Component` ist ein Generic
-
-```ts
-class MyComp extends Component<MyProps, MyState> {
-  ...
-}
-```
-
 ## Private & Public Properties
 
 ```ts
@@ -622,12 +649,6 @@ class Clock {
   }
 }
 ```
-
-## Typendeklarationen für Libraries
-
-Einige JavaScript Libraries beinhalten auch Typendeklarationen für TypeScript - z.B. _react_, _redux_.
-
-Für andere Libraries gibt es meist externe Deklarationen mit dem Präfix _@types/_, z.B. für _react-redux_ existiert das Paket _@types/react-redux_.
 
 # TypeScript für Angular
 

@@ -36,9 +36,13 @@ neues Projekt:
 npx create-react-app my-app --typescript
 ```
 
+## TypeScript
+
+TypeScript Basics: siehe Präsentation [TypeScript](./typescript-de.html)
+
 ## React mit TypeScript
 
-ausführliche Resource: https://github.com/piotrwitek/react-redux-typescript-guide
+ausführliche Resource: https://github.com/typescript-cheatsheets/react-typescript-cheatsheet
 
 <!--
 
@@ -50,7 +54,7 @@ redux with typescript:
 
 -->
 
-## Komponenten mit TypeScript (Funktionen)
+## Props mit TypeScript (Funktionskomponenten)
 
 ```tsx
 import React, { FC } from 'react';
@@ -62,13 +66,47 @@ type TodoListProps = {
 };
 
 const TodoList: FC<TodoListProps> = props => {
-  const [filterText, setFilterText] = useState<string>('');
-
-  return <div>...</div>;
+  // ....
 };
 ```
 
-## Komponenten mit TypeScript (Klassen)
+## useState mit TypeScript
+
+oft keine Annotation notwendig:
+
+```ts
+const [filterText, setFilterText] = useState('');
+```
+
+mit Annotation:
+
+```ts
+const [todos, setTodos] = useState<Array<TodoType>>([]);
+```
+
+## Eventtypen in TypeScript
+
+Bei inline Eventhandlern muss kein Typ angegeben werden:
+
+```jsx
+<button
+  onClick={event => {
+    event.stopPropagation();
+  }}>
+  test
+</button>
+```
+
+## Eventtypen in TypeScript
+
+Eventtypen für separat definierte Eventhandler:
+
+- `React.FormEvent`
+- `React.FormEvent<HTMLFormElement>`
+- `React.ChangeEvent<HTMLInputElement>`
+- `React.MouseEvent<HTMLDivElement>`
+
+## Klassenkomponenten mit TypeScript
 
 ```tsx
 type TodoItemProps = {
@@ -82,12 +120,7 @@ type TodoItemState = {};
 class TodoItem extends React.PureComponent<
   TodoItemProps,
   TodoItemState
-> {}
+> {
+  // ...
+}
 ```
-
-## Eventtypen
-
-- `React.FormEvent`
-- `React.FormEvent<HTMLFormElement>`
-- `React.ChangeEvent<HTMLInputElement>`
-- `React.MouseEvent<HTMLDivElement>`
