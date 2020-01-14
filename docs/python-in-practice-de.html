@@ -2926,6 +2926,122 @@ path = <span class="hljs-string">"/home/username/"</span>
 
 <span class="hljs-keyword">from</span> app <span class="hljs-keyword">import</span> application
 </code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Web APIs</h1>
+</section><section class="slide"><h2>Web APIs</h2>
+<p>Web API = Möglichkeit, Datensätze zwischen Browser und Server auszutauschen</p>
+</section><section class="slide"><h2>Web APIs</h2>
+<p>Standards:</p>
+<ul>
+<li>SOAP (nicht mehr weit verbreitet)</li>
+<li>REST</li>
+<li>GraphQL</li>
+</ul>
+</section><section class="slide"><h2>Web APIs</h2>
+<p>Abfrageformat:</p>
+<ul>
+<li>SOAP: XML</li>
+<li>REST: HTTP Methode + URL (+ URL Parameter) (+ Request Body)</li>
+<li>GraphQL: GraphQL Abfragesprache</li>
+</ul>
+<p>Antwortformat:</p>
+<ul>
+<li>SOAP: XML</li>
+<li>REST: oft JSON (oder XML, ...)</li>
+<li>GraphQL: JSON</li>
+</ul>
+</section><section class="slide"><h2>REST</h2>
+<p>REST = Representational State Transfer</p>
+<p>Hauptsächlich via HTTP requests mit diesen Methoden:</p>
+<ul>
+<li>Abfragen von Elementen via <code>GET</code></li>
+<li>Hinzufügen eines Elements via <code>POST</code></li>
+<li>Hinzufügen eines Elements unter einer bestimmten URL via <code>PUT</code></li>
+<li>Ändern von Elementen via <code>PATCH</code></li>
+<li>Ersetzen von Elementen via <code>PUT</code></li>
+<li>Löschen von Elementen via <code>DELETE</code></li>
+<li>alle anderen Änderungen via <code>POST</code></li>
+</ul>
+</section><section class="slide"><h2>REST Beispiele</h2>
+<p><em>get</em>: Abfrage mehrerer Elemente:</p>
+<pre><code class="hljs language-http"><span class="hljs-keyword">GET</span> <span class="hljs-string">/todos</span> HTTP/2.0
+<span class="hljs-attribute">Host</span>: jsonplaceholder.typicode.com
+</code></pre>
+<p><em>get</em>: Abfrage eines einzelnen Elements:</p>
+<pre><code class="hljs language-http"><span class="hljs-keyword">GET</span> <span class="hljs-string">/todos/2</span> HTTP/2.0
+<span class="hljs-attribute">Host</span>: jsonplaceholder.typicode.com
+</code></pre>
+<p><em>get</em>: Abfrage von drei Elementen via Identifier:</p>
+<pre><code class="hljs language-http"><span class="hljs-keyword">GET</span> <span class="hljs-string">/rest/v2/alpha?codes=de;fr;it</span> HTTP/2.0
+<span class="hljs-attribute">Host</span>: restcountries.eu
+</code></pre>
+</section><section class="slide"><h2>REST Beispiele</h2>
+<p><em>post</em>: Hinzufügen eines Eintrags:</p>
+<pre><code class="hljs language-http"><span class="hljs-keyword">POST</span> <span class="hljs-string">/todos</span> HTTP/2.0
+<span class="hljs-attribute">Host</span>: jsonplaceholder.typicode.com
+<span class="hljs-attribute">Content-Type</span>: application/json
+<span class="hljs-attribute">Content-Length</span>: 27
+
+<span class="json">{
+  <span class="hljs-attr">"title"</span>: <span class="hljs-string">"learn REST"</span>,
+  <span class="hljs-attr">"completed"</span>: <span class="hljs-literal">false</span>
+}
+</span></code></pre>
+</section><section class="slide"><h2>REST Beispiele</h2>
+<p><em>patch</em>: Ändern eines Eintrags:</p>
+<pre><code class="hljs language-http"><span class="hljs-keyword">PATCH</span> <span class="hljs-string">/todos/6</span> HTTP/2.0
+<span class="hljs-attribute">Host</span>: jsonplaceholder.typicode.com
+<span class="hljs-attribute">Content-Type</span>: application/json
+<span class="hljs-attribute">Content-Length</span>: 23
+
+<span class="json">{
+  <span class="hljs-attr">"completed"</span>: <span class="hljs-literal">true</span>
+}
+</span></code></pre>
+</section><section class="slide"><h2>REST Beispiele</h2>
+<p><em>delete</em>: Löschen eines Eintrags:</p>
+<pre><code class="hljs language-http"><span class="hljs-keyword">DELETE</span> <span class="hljs-string">/todos/6</span> HTTP/2.0
+<span class="hljs-attribute">Host</span>: jsonplaceholder.typicode.com
+</code></pre>
+</section><section class="slide"><h2>REST Beispiele</h2>
+<p><em>post</em>: Andere Anfragen (Löschen aller erledigter Todos):</p>
+<pre><code class="hljs language-http"><span class="hljs-keyword">POST</span> <span class="hljs-string">/todos/delete_completed</span> HTTP/2.0
+<span class="hljs-attribute">Host</span>: ...
+</code></pre>
+</section><section class="slide"><h2>Resourcen</h2>
+<p>Beispiele für REST APIs:</p>
+<ul>
+<li><a href="https://jsonplaceholder.typicode.com">jsonplaceholder.typicode.com</a></li>
+<li><a href="https://restcountries.eu">restcountries.eu</a></li>
+</ul>
+</section></section><section class="slides-section"><section class="slide"><h1>Web API Entwicklung</h1>
+</section><section class="slide"><h2>Web API Entwicklung</h2>
+<p>Libraries für die API Entwicklung in Python:</p>
+<ul>
+<li>FastAPI</li>
+<li>Django REST framework</li>
+<li>flask-restful</li>
+<li>graphene (GraphQL APIs)</li>
+</ul>
+</section><section class="slide"><h2>Web API Entwicklung</h2>
+<p>Aufgabe: Entwickle ein einfaches API mit FastAPI, das folgende Resourcen bietet:</p>
+<ul>
+<li><code>/time</code></li>
+<li><code>/date</code></li>
+<li><code>/randnr</code> (Zufallszahl)</li>
+</ul>
+</section><section class="slide"><h2>Web API Entwicklung</h2>
+<p>Aufgabe:</p>
+<p>Entwickle ein API mit FastAPI, das eine Liste von Todos verwalten kann</p>
+<p>setze folgende Endpunkte um:</p>
+<ul>
+<li><code>GET /todos</code> (JSON array aller Todos)</li>
+<li><code>GET /todos/$id</code> (einzelnes Todo anhand id)</li>
+<li><code>POST /todos</code> (Hinzufügen eines Todos)</li>
+<li><code>DELETE /todos/$id</code> (Löschen eines einzelnen Todos)</li>
+<li><code>PATCH /todos/$id</code> (Ändern eines Todos)</li>
+<li><code>POST /delete_completed_todos</code></li>
+</ul>
+<p>Die Todos können in einer einfachen JSON-Datei gespeichert werden - oder auch in einer tatsächlichen Datenbank</p>
 </section></section><section class="slides-section"><section class="slide"><h1>Datenbanken</h1>
 <p>Zu Grundlagen siehe Präsentation <em>Datenbanken und Datenspeicherung</em></p>
 </section></section><section class="slides-section"><section class="slide"><h1>SQL mit Python</h1>
