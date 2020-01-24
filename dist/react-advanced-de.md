@@ -37,20 +37,19 @@ Code verfügbar unter: https://github.com/marko-knoebl/courses-code
 ## Themen (1/2)
 
 - Hooks
-- Komponentenlebenszyklus
 - Immutability
 - Memoisation
 - State Management mit Reducern
 - Testen in JavaScript
 - Testen von React-Komponenten
 - Context
+- Komponentenlebenszyklus
 
 ## Themen (2/2)
 
 - Externe Hooks & eigene Hooks
-- React Router
+- Routing & Prerendering
 - App-Entwicklung mit React
-- Dateistruktur
 - Manuelles Setup
 
 # Hooks
@@ -91,180 +90,6 @@ Beispiele:
 - effect Hook
 - context Hook
 - reducer Hook
-
-# Komponenten-Lebenszyklus
-
-## Komponenten-Lebenszyklus
-
-In React können bestimmte Ereignisse im Lebenszyklus einer Komponente abgefragt werden. Insbesondere sind folgende Ereignisse oft von Interesse:
-
-- die Komponente wurde neu eingebunden
-- state oder props der Komponente haben sich geändert
-- die Komponente wird entfernt
-
-## Komponenten-Lebenszyklus
-
-Einsatzgebiete der genannten Ereignisse:
-
-- Abfragen von APIs
-- manuelle Änderungen am DOM
-- Aufräumen vor dem Entfernen einer Komponente
-
-## Komponenten-Lebenszyklus
-
-Die Ereignisse können wie folgt abgefragt werden:
-
-In Klassenkomponenten mittels Lebenszyklus-Methoden:
-
-- `componentDidMount`
-- `componentDidUpdate`
-- `componentWillUnmount`
-
-In funktionalen Komponenten mittels `useEffect`
-
-## Beispiel: DocumentTitle-Komponente
-
-Wir erstellen eine Komponente, die den Dokumenttitel dynamisch setzen kann:
-
-```xml
-<DocumentTitle>my custom title</DocumentTitle>
-```
-
-Diese Komponente kann irgendwo in der React-Anwendung vorkommen.
-
-## Beispiel: DocumentTitle-Komponente
-
-Als Klassenkomponente
-
-```jsx
-class DocumentTitle extends Component {
-  componentDidMount() {
-    document.title = this.props.children;
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    document.title = this.props.children;
-  }
-
-  render() {
-    return null;
-  }
-}
-```
-
-## Beispiel: DocumentTitle-Komponente
-
-mit useEffect
-
-```jsx
-const DocumentTitle = props => {
-  useEffect(() => {
-    document.title = props.children;
-  });
-
-  return null;
-};
-```
-
-## Beispiel: Clock-Komponente
-
-## Beispiel: Clock-Komponente
-
-Als Klassenkomponente:
-
-```jsx
-  constructor() {
-    super();
-    this.state = {
-      time: new Date().toLocaleTimeString()
-    };
-  }
-
-  render() {
-    return <div>{this.state.time}</div>;
-  }
-```
-
-## Beispiel: Clock-Komponente
-
-```jsx
-  componentDidMount() {
-    this.intervalId = setInterval(() => {
-      this.setState({
-        time: new Date().toLocaleTimeString()
-      });
-    }, 1000);
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.intervalId);
-  }
-```
-
-## useEffect im Detail
-
-`useEffect` bekommt zwei Parameter übergeben: Eine Funktion und ein Array von Werten.
-
-Die Funktion nach dem Rendering einer Komponente ausgeführt, wenn sich einer der Werte geändert hat.
-
-Die Funktion wird auch ausgeführt, wenn die Komponente neu eingebunden und zum ersten Mal gerendert wurde.
-
-## useEffect im Detail
-
-Wenn kein zweiter Parameter übergeben wird, wird die Funktion nach jedem Rendering ausgeführt.
-
-Wenn ein leeres Array als zweiter Parameter übergeben wird, wird die Funktion nur nach dem ersten Rendering ausgeführt.
-
-Es gibt auch die Möglichkeit, eine Funktion zu definieren, die vor dem _Entfernen_ einer Komponente aufgerufen wird (mehr dazu später).
-
-## useEffect: Beispiel: Weather
-
-```js
-const [weatherData, setWeatherData] = useState(null);
-const [stale, setStale] = useState(true);
-
-// fetch data whenever data is stale
-useEffect(() => {
-  if (stale) {
-    refetch();
-  }
-}, [stale]);
-```
-
-## useEffect: Beispiel: Weather
-
-```js
-const refetch = () => {
-  fetch(
-    'https://api.openweathermap.org/data/2.5/weather' +
-      `?q=${city}&appid=${API_KEY}`
-  )
-    .then(response => response.json())
-    .then(data => {
-      setWeatherData({ temperature: data.main.temp });
-      setStale(false);
-    });
-};
-```
-
-## useEffect: Entfernen einer Komponente
-
-```jsx
-const Clock = () => {
-  ...
-  // wird aufgerufen, wenn die Komponente eingebunden wird
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setTime(new Date().toLocaleTimeString());
-    }, 1000);
-    // wird aufgerufen, wenn die Komponente entfernt wird
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, []);
-  ...
-};
-```
 
 # Immutability
 
@@ -452,7 +277,7 @@ const state2 = [...state1, 4];
 
 ## State Management
 
-In komplexeren (React-)Anwendungen macht es Sinn, den Anwendungszustand (model) von der Ansicht (view) zu trennen.
+In komplexeren Anwendungen oder Komponenten macht es Sinn, den Anwendungszustand (model) von der Ansicht (view) zu trennen.
 
 Oft wird der gesamte Anwendungszustand durch ein Datenmodell repräsentiert. Jede Änderung am Anwendungszustand läuft über das Datenmodell.
 
@@ -526,7 +351,7 @@ Ein _Reducer_ ist eine Funktion.
 
 Der Reducer erhält den alten State und eine Action, die eine Änderung am State beschreibt.
 
-Der Reducer gibt den neuen Zustand zurück. Wichtig: Reducer ändern das alte state-Objekt nicht ab, sondern erstellen ein neues (Sie sind reine Funktionen)
+Der Reducer gibt den neuen Zustand zurück. Wichtig: Ein Reducer ändert das alte state-Objekt nicht ab, sondern erstellt ein neues (Reducer sind reine Funktionen)
 
 ## Beispiel: Todos State Management
 
@@ -577,8 +402,21 @@ console.log(state3);
 Zum State Management mit Hooks können wir das bekannte `useState` oder nun auch `useReducer` verwenden:
 
 ```js
-useReducer(reducer, initialState);
+const [state, dispatch] = useReducer(reducer, initialState);
 ```
+
+Konkretes Beispiel count:
+
+```js
+const [count, countDispatch] = useReducer(countReducer, 0);
+```
+
+## Reducer Hook
+
+Aufruf von `useReducer` gibt ein Array mit zwei Einträgen zurück:
+
+- aktueller State
+- eine dispatch-Funktion, mit der Actions ausgelöst werden können
 
 ## Reducer Hook
 
@@ -1333,6 +1171,265 @@ class TodoStats extends React.Component {
     );
   }
 }
+```
+
+# Komponenten-Lebenszyklus
+
+## Komponenten-Lebenszyklus
+
+In React können bestimmte Ereignisse im Lebenszyklus einer Komponente abgefragt werden. Insbesondere sind folgende Ereignisse oft von Interesse:
+
+- die Komponente wurde neu eingebunden
+- state oder props der Komponente haben sich geändert
+- die Komponente wird entfernt
+
+## Komponenten-Lebenszyklus
+
+Einsatzgebiete der genannten Ereignisse:
+
+- Abfragen von APIs
+- manuelle Änderungen am DOM
+- Aufräumen vor dem Entfernen einer Komponente
+
+## Komponenten-Lebenszyklus
+
+Die Ereignisse können wie folgt abgefragt werden:
+
+In Klassenkomponenten mittels Lebenszyklus-Methoden:
+
+- `componentDidMount`
+- `componentDidUpdate`
+- `componentWillUnmount`
+
+In funktionalen Komponenten mittels `useEffect`
+
+## Beispiel: DocumentTitle-Komponente
+
+Wir erstellen eine Komponente, die den Dokumenttitel dynamisch setzen kann:
+
+```xml
+<DocumentTitle>my custom title</DocumentTitle>
+```
+
+Diese Komponente kann irgendwo in der React-Anwendung vorkommen.
+
+## Beispiel: DocumentTitle-Komponente
+
+Als Klassenkomponente
+
+```jsx
+class DocumentTitle extends Component {
+  componentDidMount() {
+    document.title = this.props.children;
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    document.title = this.props.children;
+  }
+
+  render() {
+    return null;
+  }
+}
+```
+
+## Beispiel: DocumentTitle-Komponente
+
+mit useEffect
+
+```jsx
+const DocumentTitle = props => {
+  useEffect(() => {
+    document.title = props.children;
+  });
+
+  return null;
+};
+```
+
+## Beispiel: Clock-Komponente
+
+## Beispiel: Clock-Komponente
+
+Als Klassenkomponente:
+
+```jsx
+  constructor() {
+    super();
+    this.state = {
+      time: new Date().toLocaleTimeString()
+    };
+  }
+
+  render() {
+    return <div>{this.state.time}</div>;
+  }
+```
+
+## Beispiel: Clock-Komponente
+
+```jsx
+  componentDidMount() {
+    this.intervalId = setInterval(() => {
+      this.setState({
+        time: new Date().toLocaleTimeString()
+      });
+    }, 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.intervalId);
+  }
+```
+
+## useEffect im Detail
+
+`useEffect` bekommt zwei Parameter übergeben: Eine Funktion und ein Array von Werten.
+
+Die Funktion nach dem Rendering einer Komponente ausgeführt, wenn sich einer der Werte geändert hat.
+
+Die Funktion wird auch ausgeführt, wenn die Komponente neu eingebunden und zum ersten Mal gerendert wurde.
+
+## useEffect im Detail
+
+Wenn kein zweiter Parameter übergeben wird, wird die Funktion nach jedem Rendering ausgeführt.
+
+Wenn ein leeres Array als zweiter Parameter übergeben wird, wird die Funktion nur nach dem ersten Rendering ausgeführt.
+
+Es gibt auch die Möglichkeit, eine Funktion zu definieren, die vor dem _Entfernen_ einer Komponente aufgerufen wird (mehr dazu später).
+
+## useEffect: Beispiel: Weather
+
+```js
+const [weatherData, setWeatherData] = useState(null);
+const [stale, setStale] = useState(true);
+
+// fetch data whenever data is stale
+useEffect(() => {
+  if (stale) {
+    refetch();
+  }
+}, [stale]);
+```
+
+## useEffect: Beispiel: Weather
+
+```js
+const refetch = () => {
+  fetch(
+    'https://api.openweathermap.org/data/2.5/weather' +
+      `?q=${city}&appid=${API_KEY}`
+  )
+    .then(response => response.json())
+    .then(data => {
+      setWeatherData({ temperature: data.main.temp });
+      setStale(false);
+    });
+};
+```
+
+## useEffect: Entfernen einer Komponente
+
+```jsx
+const Clock = () => {
+  ...
+  // wird aufgerufen, wenn die Komponente eingebunden wird
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setTime(new Date().toLocaleTimeString());
+    }, 1000);
+    // wird aufgerufen, wenn die Komponente entfernt wird
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, []);
+  ...
+};
+```
+
+# Refs
+
+### Zugriff auf DOM-Elemente
+
+## Refs
+
+Mittels Refs kann direkt auf DOM-Elemente zugegriffen werden
+
+Anwendungsgebiete:
+
+- Verwalten von Fokus, Textauswahl oder Medienwiedergabe
+- Alternative Möglichkeit zum Verwalten von Inputs
+- Integration von anderen DOM-Libraries
+
+## Refs
+
+**Verwalten von Fokus, Textauswahl oder Medienwiedergabe**
+
+manche Änderungen können nicht deklarativ (via State) ausgedrückt werden - sie benötigen Zugriff zu einem bestimmten DOM-Element
+
+Beispiel: es gibt Properties wie `.value` zum Ändern des Werts eines Inputs oder `.className` zum Ändern von Klassennamen, aber keine Property zum Verwalten des Fokus
+
+## Refs
+
+**Alternative Möglichkeit zum Verwalten von Inputs**
+
+Verwendung von `ref` Anstelle von `value` und `onChange` kann zu etwas kürzerem Code führen (wird aber in der Dokumentation nicht empfohlen)
+
+## Refs
+
+**Integration von anderen DOM-Libraries**
+
+Andere Libraries können expliziten Zugriff auf DOM-Elemente benötigen
+
+Beispiel: Die Google Maps Library nimmt ein DOM-Element entgegen, in dem die Karte gezeichnet wird
+
+Für viele Libraries (so auch Google Maps) existieren Wrapper für React, sodass refs nicht benötigt werden
+
+## Refs
+
+Verwalten des Fokus mittels einer Ref:
+
+```js
+const App = () => {
+  const inputEl = useRef(null);
+  return (
+    <div>
+      <input ref={inputEl} />
+      <button onClick={() => inputEl.current.focus()}>
+        focus
+      </button>
+    </div>
+  );
+};
+```
+
+## Refs
+
+Verwalten von Inputs: Vergleich von `useState` und `useRef`:
+
+```js
+const App = () => {
+  const [firstName, setFirstName] = useState('');
+  const lastNameInput = useRef(null);
+
+  return (
+    <div>
+      <input
+        value={firstName}
+        onChange={event => setFirstName(event.target.value)}
+      />
+      <input ref={lastNameInput} />
+
+      <button
+        onClick={() => {
+          console.log(firstName);
+          console.log(lastNameInput.current.value);
+        }}>
+        log values
+      </button>
+    </div>
+  );
+};
 ```
 
 # Externe Hooks

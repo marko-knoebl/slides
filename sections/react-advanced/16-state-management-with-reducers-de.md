@@ -2,7 +2,7 @@
 
 ## State Management
 
-In komplexeren (React-)Anwendungen macht es Sinn, den Anwendungszustand (model) von der Ansicht (view) zu trennen.
+In komplexeren Anwendungen oder Komponenten macht es Sinn, den Anwendungszustand (model) von der Ansicht (view) zu trennen.
 
 Oft wird der gesamte Anwendungszustand durch ein Datenmodell repräsentiert. Jede Änderung am Anwendungszustand läuft über das Datenmodell.
 
@@ -76,7 +76,7 @@ Ein _Reducer_ ist eine Funktion.
 
 Der Reducer erhält den alten State und eine Action, die eine Änderung am State beschreibt.
 
-Der Reducer gibt den neuen Zustand zurück. Wichtig: Reducer ändern das alte state-Objekt nicht ab, sondern erstellen ein neues (Sie sind reine Funktionen)
+Der Reducer gibt den neuen Zustand zurück. Wichtig: Ein Reducer ändert das alte state-Objekt nicht ab, sondern erstellt ein neues (Reducer sind reine Funktionen)
 
 ## Beispiel: Todos State Management
 

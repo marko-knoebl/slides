@@ -2067,20 +2067,19 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </section><section class="slide"><h2>Topics (1/2)</h2>
 <ul>
 <li>hooks</li>
-<li>component lifecycle</li>
 <li>immutable data</li>
 <li>memoization</li>
 <li>state management with reducers</li>
 <li>testing in JavaScript</li>
 <li>testing React components</li>
 <li>context</li>
+<li>component lifecycle</li>
 </ul>
 </section><section class="slide"><h2>Topics (2/2)</h2>
 <ul>
 <li>external hooks &#x26; custom hooks</li>
-<li>react router</li>
+<li>routing and pre-rendering</li>
 <li>app development with React</li>
-<li>file structure</li>
 <li>manual setup</li>
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Hooks</h1>
@@ -2114,130 +2113,6 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li>context hook</li>
 <li>reducer hook</li>
 </ul>
-</section></section><section class="slides-section"><section class="slide"><h1>Component lifecycle</h1>
-</section><section class="slide"><h2>Component lifecycle</h2>
-<p>We can listen for certain events in the lifecycle of a component:</p>
-<ul>
-<li>the component is included (mounted)</li>
-<li>component state or props have changed</li>
-<li>the component is removed</li>
-</ul>
-</section><section class="slide"><h2>Component lifecycle</h2>
-<p>We can use these events for:</p>
-<ul>
-<li>querying APIs</li>
-<li>explicitly manipulating the DOM</li>
-<li>cleaning up after a component was removed</li>
-</ul>
-</section><section class="slide"><h2>Component lifecycle</h2>
-<p>We can listen for lifecycle events via the following means:</p>
-<p>In class components we use lifecycle methods like <code>componentDidMount</code>, <code>componentDidUpdate</code> and <code>componentWillUnmount</code></p>
-<p>In functional components we use the effect hook</p>
-</section><section class="slide"><h2>Example: DocumentTitle component</h2>
-<p>We will create a component that can set the document title dynamically:</p>
-<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">DocumentTitle</span>></span>my custom title<span class="hljs-tag">&#x3C;/<span class="hljs-name">DocumentTitle</span>></span>
-</code></pre>
-<p>This component may appear anywhere in the React application.</p>
-</section><section class="slide"><h2>Example: DocumentTitle component</h2>
-<p>as a class component:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DocumentTitle</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
-  componentDidMount() {
-    <span class="hljs-built_in">document</span>.title = <span class="hljs-keyword">this</span>.props.children;
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    <span class="hljs-built_in">document</span>.title = <span class="hljs-keyword">this</span>.props.children;
-  }
-
-  render() {
-    <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
-  }
-}
-</code></pre>
-</section><section class="slide"><h2>Example: DocumentTitle component</h2>
-<p>with <code>useEffect</code></p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> DocumentTitle = <span class="hljs-function"><span class="hljs-params">props</span> =></span> {
-  useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-    <span class="hljs-built_in">document</span>.title = props.children;
-  });
-
-  <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
-};
-</code></pre>
-</section><section class="slide"><h2>Example: Clock component</h2>
-</section><section class="slide"><h2>Example: Clock component</h2>
-<p>as a class component:</p>
-<pre><code class="hljs language-jsx">  <span class="hljs-keyword">constructor</span>() {
-    <span class="hljs-keyword">super</span>();
-    <span class="hljs-keyword">this</span>.state = {
-      <span class="hljs-attr">time</span>: <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>().toLocaleTimeString()
-    };
-  }
-
-  render() {
-    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>{this.state.time}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
-  }
-</code></pre>
-</section><section class="slide"><h2>Example: Clock component</h2>
-<pre><code class="hljs language-jsx">  componentDidMount() {
-    <span class="hljs-keyword">this</span>.intervalId = setInterval(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-      <span class="hljs-keyword">this</span>.setState({
-        <span class="hljs-attr">time</span>: <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>().toLocaleTimeString()
-      });
-    }, <span class="hljs-number">1000</span>);
-  }
-
-  componentWillUnmount() {
-    clearInterval(<span class="hljs-keyword">this</span>.intervalId);
-  }
-</code></pre>
-</section><section class="slide"><h2>useEffect in detail</h2>
-<p><code>useEffect</code> will receive two parameters: A function and (optionally) an array of values.</p>
-<p>The function is executed after the component renders if one of the values in the array has changed.</p>
-<p>The function is also executed when the component is included and rendered for the first time.</p>
-</section><section class="slide"><h2>useEffect in detail</h2>
-<p>If no second parameter is passed the function will be called after each render.</p>
-<p>If an empty array is passed as the second parameter the function will only be called after the first render.</p>
-</section><section class="slide"><h2>useEffect: example: weather</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [weatherData, setWeatherData] = useState(<span class="hljs-literal">null</span>);
-<span class="hljs-keyword">const</span> [stale, setStale] = useState(<span class="hljs-literal">true</span>);
-
-<span class="hljs-comment">// fetch data whenever data is stale</span>
-useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  <span class="hljs-keyword">if</span> (stale) {
-    refetch();
-  }
-}, [stale]);
-</code></pre>
-</section><section class="slide"><h2>useEffect: example: weather</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> refetch = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  fetch(
-    <span class="hljs-string">'https://api.openweathermap.org/data/2.5/weather'</span> +
-      <span class="hljs-string">`?q=<span class="hljs-subst">${city}</span>&#x26;appid=<span class="hljs-subst">${API_KEY}</span>`</span>
-  )
-    .then(<span class="hljs-function"><span class="hljs-params">response</span> =></span> response.json())
-    .then(<span class="hljs-function"><span class="hljs-params">data</span> =></span> {
-      setWeatherData({ <span class="hljs-attr">temperature</span>: data.main.temp });
-      setStale(<span class="hljs-literal">false</span>);
-    });
-};
-</code></pre>
-</section><section class="slide"><h2>useEffect: component removal</h2>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> Clock = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  ...
-  <span class="hljs-comment">// will be called when the component has mounted</span>
-  useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-    <span class="hljs-keyword">const</span> intervalId = setInterval(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-      setTime(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>().toLocaleTimeString());
-    }, <span class="hljs-number">1000</span>);
-    <span class="hljs-comment">// will be called when the component will be removed</span>
-    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-      clearInterval(intervalId);
-    };
-  }, []);
-  ...
-};
-</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Immutability</h1>
 </section><section class="slide"><h2>Immutability</h2>
 <p>important concept in functional programing and with React / Redux</p>
@@ -2363,7 +2238,7 @@ state2.push(<span class="hljs-number">4</span>);
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>State management with reducers</h1>
 </section><section class="slide"><h2>State management</h2>
-<p>In more complex fontend-applications it makes sense to manage the state (model) separately from the view.</p>
+<p>In more complex applications or components it makes sense to manage the state (model) separately from the view.</p>
 <p>Often the entire application state is represented by a data model and every change to the state will be done by triggering a change to the data model.</p>
 </section><section class="slide"><h2>State management tools</h2>
 <ul>
@@ -2507,8 +2382,17 @@ state2.push(<span class="hljs-number">4</span>);
 </section></section><section class="slides-section"><section class="slide"><h1>Reducer Hook</h1>
 </section><section class="slide"><h2>Reducer Hook</h2>
 <p>For managing state we can now also utilize <code>useReducer</code> in addition to <code>useState</code>:</p>
-<pre><code class="hljs language-js">useReducer(reducer, initialState);
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [state, dispatch] = useReducer(reducer, initialState);
 </code></pre>
+<p>specific example:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [count, countDispatch] = useReducer(countReducer, <span class="hljs-number">0</span>);
+</code></pre>
+</section><section class="slide"><h2>Reducer Hook</h2>
+<p>Calling <code>useReducer</code> returns an array with two entries:</p>
+<ul>
+<li>current state</li>
+<li>a dispatch function that can be used to trigger actions</li>
+</ul>
 </section><section class="slide"><h2>Reducer Hook</h2>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> TodoApp = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
   <span class="hljs-keyword">const</span> [todos, dispatch] = useReducer(
@@ -3048,6 +2932,191 @@ Inspect your code changes or press `u` to update them.
     );
   }
 }
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Component lifecycle</h1>
+</section><section class="slide"><h2>Component lifecycle</h2>
+<p>We can listen for certain events in the lifecycle of a component:</p>
+<ul>
+<li>the component is included (mounted)</li>
+<li>component state or props have changed</li>
+<li>the component is removed</li>
+</ul>
+</section><section class="slide"><h2>Component lifecycle</h2>
+<p>We can use these events for:</p>
+<ul>
+<li>querying APIs</li>
+<li>explicitly manipulating the DOM</li>
+<li>cleaning up after a component was removed</li>
+</ul>
+</section><section class="slide"><h2>Component lifecycle</h2>
+<p>We can listen for lifecycle events via the following means:</p>
+<p>In class components we use lifecycle methods like <code>componentDidMount</code>, <code>componentDidUpdate</code> and <code>componentWillUnmount</code></p>
+<p>In functional components we use the effect hook</p>
+</section><section class="slide"><h2>Example: DocumentTitle component</h2>
+<p>We will create a component that can set the document title dynamically:</p>
+<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">DocumentTitle</span>></span>my custom title<span class="hljs-tag">&#x3C;/<span class="hljs-name">DocumentTitle</span>></span>
+</code></pre>
+<p>This component may appear anywhere in the React application.</p>
+</section><section class="slide"><h2>Example: DocumentTitle component</h2>
+<p>as a class component:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DocumentTitle</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
+  componentDidMount() {
+    <span class="hljs-built_in">document</span>.title = <span class="hljs-keyword">this</span>.props.children;
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    <span class="hljs-built_in">document</span>.title = <span class="hljs-keyword">this</span>.props.children;
+  }
+
+  render() {
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+  }
+}
+</code></pre>
+</section><section class="slide"><h2>Example: DocumentTitle component</h2>
+<p>with <code>useEffect</code></p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> DocumentTitle = <span class="hljs-function"><span class="hljs-params">props</span> =></span> {
+  useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+    <span class="hljs-built_in">document</span>.title = props.children;
+  });
+
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+};
+</code></pre>
+</section><section class="slide"><h2>Example: Clock component</h2>
+</section><section class="slide"><h2>Example: Clock component</h2>
+<p>as a class component:</p>
+<pre><code class="hljs language-jsx">  <span class="hljs-keyword">constructor</span>() {
+    <span class="hljs-keyword">super</span>();
+    <span class="hljs-keyword">this</span>.state = {
+      <span class="hljs-attr">time</span>: <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>().toLocaleTimeString()
+    };
+  }
+
+  render() {
+    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>{this.state.time}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+  }
+</code></pre>
+</section><section class="slide"><h2>Example: Clock component</h2>
+<pre><code class="hljs language-jsx">  componentDidMount() {
+    <span class="hljs-keyword">this</span>.intervalId = setInterval(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+      <span class="hljs-keyword">this</span>.setState({
+        <span class="hljs-attr">time</span>: <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>().toLocaleTimeString()
+      });
+    }, <span class="hljs-number">1000</span>);
+  }
+
+  componentWillUnmount() {
+    clearInterval(<span class="hljs-keyword">this</span>.intervalId);
+  }
+</code></pre>
+</section><section class="slide"><h2>useEffect in detail</h2>
+<p><code>useEffect</code> will receive two parameters: A function and (optionally) an array of values.</p>
+<p>The function is executed after the component renders if one of the values in the array has changed.</p>
+<p>The function is also executed when the component is included and rendered for the first time.</p>
+</section><section class="slide"><h2>useEffect in detail</h2>
+<p>If no second parameter is passed the function will be called after each render.</p>
+<p>If an empty array is passed as the second parameter the function will only be called after the first render.</p>
+</section><section class="slide"><h2>useEffect: example: weather</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [weatherData, setWeatherData] = useState(<span class="hljs-literal">null</span>);
+<span class="hljs-keyword">const</span> [stale, setStale] = useState(<span class="hljs-literal">true</span>);
+
+<span class="hljs-comment">// fetch data whenever data is stale</span>
+useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  <span class="hljs-keyword">if</span> (stale) {
+    refetch();
+  }
+}, [stale]);
+</code></pre>
+</section><section class="slide"><h2>useEffect: example: weather</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> refetch = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  fetch(
+    <span class="hljs-string">'https://api.openweathermap.org/data/2.5/weather'</span> +
+      <span class="hljs-string">`?q=<span class="hljs-subst">${city}</span>&#x26;appid=<span class="hljs-subst">${API_KEY}</span>`</span>
+  )
+    .then(<span class="hljs-function"><span class="hljs-params">response</span> =></span> response.json())
+    .then(<span class="hljs-function"><span class="hljs-params">data</span> =></span> {
+      setWeatherData({ <span class="hljs-attr">temperature</span>: data.main.temp });
+      setStale(<span class="hljs-literal">false</span>);
+    });
+};
+</code></pre>
+</section><section class="slide"><h2>useEffect: component removal</h2>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> Clock = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  ...
+  <span class="hljs-comment">// will be called when the component has mounted</span>
+  useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+    <span class="hljs-keyword">const</span> intervalId = setInterval(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+      setTime(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>().toLocaleTimeString());
+    }, <span class="hljs-number">1000</span>);
+    <span class="hljs-comment">// will be called when the component will be removed</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+      clearInterval(intervalId);
+    };
+  }, []);
+  ...
+};
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Refs</h1>
+<h3>accessing DOM elements</h3>
+</section><section class="slide"><h2>Refs</h2>
+<p>Refs enable direct access to DOM elements</p>
+<p>use cases:</p>
+<ul>
+<li>managing focus, text selection, or media playback</li>
+<li>alternative way of managing inputs (uncontrolled components)</li>
+<li>integrating with third-party DOM libraries</li>
+</ul>
+</section><section class="slide"><h2>Refs</h2>
+<p><strong>managing focus, text selection, or media playback</strong></p>
+<p>some changes cannot be expressed declaratively (via state); they require direct access to a DOM element</p>
+<p>example: there are properties like <code>.value</code> for changing a value or <code>.className</code> for changing classes, but there is no property for managing focus</p>
+</section><section class="slide"><h2>Refs</h2>
+<p><strong>alternative way of managing inputs</strong></p>
+<p>using <code>ref</code> instead of <code>value</code> and <code>onChange</code> can be less code (but is discouraged by the React documentation)</p>
+</section><section class="slide"><h2>Refs</h2>
+<p><strong>integrating with third-party DOM libraries</strong></p>
+<p>Third-party libraries may require a DOM element being passed in</p>
+<p>Example: Google Maps takes an element where it will paint the map</p>
+<p>Many third-party libraries have wrappers for React where refs are not needed</p>
+</section><section class="slide"><h2>Refs</h2>
+<p>Managing focus with a ref:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> App = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  <span class="hljs-keyword">const</span> inputEl = useRef(<span class="hljs-literal">null</span>);
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+      </span>&#x3C;input ref={inputEl} />
+      &#x3C;button onClick={() => inputEl.current.focus()}>
+        focus
+      &#x3C;/button>
+    &#x3C;/div><span class="xml">
+  );
+};
+</span></code></pre>
+</section><section class="slide"><h2>Refs</h2>
+<p>Managing inputs: comparing <code>useState</code> and <code>useRef</code>:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> App = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  <span class="hljs-keyword">const</span> [firstName, setFirstName] = useState(<span class="hljs-string">''</span>);
+  <span class="hljs-keyword">const</span> lastNameInput = useRef(<span class="hljs-literal">null</span>);
+
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+      </span>&#x3C;input
+        value={firstName}
+        onChange={event => setFirstName(event.target.value)}
+      />
+      &#x3C;input ref={lastNameInput} />
+
+      &#x3C;button
+        onClick={() => {
+          console.log(firstName);
+          console.log(lastNameInput.current.value);
+        }}>
+        log values
+      &#x3C;/button>
+    &#x3C;/div>
+  );
+};
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>External hooks</h1>
 </section><section class="slide"><h2>External hooks</h2>

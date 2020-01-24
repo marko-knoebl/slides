@@ -2063,24 +2063,16 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </ul>
 </section><section class="slide"><h2>Code</h2>
 <p>Code verfügbar unter: <a href="https://github.com/marko-knoebl/courses-code">https://github.com/marko-knoebl/courses-code</a></p>
-</section></section><section class="slides-section"><section class="slide"><h1>Agenda</h1>
-</section><section class="slide"><h2>Agenda</h2>
-<h3>Einstieg</h3>
+</section></section><section class="slides-section"><section class="slide"><h1>Themen</h1>
+</section><section class="slide"><h2>Themen</h2>
 <ul>
 <li>Kurzüberblick über React</li>
 <li>Modernes JS / JS-Grundlagen für React</li>
 <li>Deklaratives Rendering / Arbeiten mit application-state</li>
+<li>JSX als Templatesprache</li>
 <li>Komponenten</li>
 <li>Einbinden vordefinierter Komponenten</li>
-</ul>
-</section><section class="slide"><h2>Agenda</h2>
-<h3>Vertiefung</h3>
-<ul>
-<li>Lifecycle</li>
-<li>Routing</li>
-<li>Testen von Komponenten</li>
-<li>Redux</li>
-<li>Progressive Web Apps mit React</li>
+<li>Abfragen von Web-APIs aus Komponenten</li>
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>React.js</h1>
 </section><section class="slide"><h2>Was ist React?</h2>
@@ -3077,7 +3069,94 @@ type TodoItemState = {};
 > {
   // ...
 }
-</code></pre></section></section></div>
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>APIs abfragen (Effect Hook)</h1>
+</section><section class="slide"><h2>APIs abfragen (Effect Hook)</h2>
+<p>Oft müssen API Daten abgefragt werden, wenn eine Komponente zum ersten Mal eingebunden wird, oder wenn sich props bzw state ändern</p>
+</section><section class="slide"><h2>APIs abfragen (Effect Hook)</h2>
+<p>Beispiele:</p>
+<ul>
+<li><code>TodoApp</code>, die anfänglich Todos von einem API lädt</li>
+<li><code>SpaceXLaunch</code>-Komponente, die Daten für einen SpaceX-Start von einem API anzeigt</li>
+<li><code>Pokemon</code>-Komponente, die Daten für ein bestimmtes Pokémon anzeigt</li>
+</ul>
+</section><section class="slide"><h2>APIs abfragen (Effect Hook)</h2>
+<p>Der <em>Effect Hook</em> kann verwendet werden, um bestimmte Aktionen zu setzen, wenn eine Komponente neu eingebunden wird oder wenn ihre Props / State sich ändern</p>
+<pre><code class="hljs language-js">useEffect(
+  effect, <span class="hljs-comment">// what should happen</span>
+  dependencies <span class="hljs-comment">// array of values to watch</span>
+);
+</code></pre>
+</section><section class="slide"><h2>APIs abfragen (Effect Hook)</h2>
+<p>Beispiel: Laden von Todos, wenn die Komponente eingebunden wird</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> TodoApp = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  <span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
+  <span class="hljs-keyword">const</span> loadTodos = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+    fetch(<span class="hljs-string">'https://jsonplaceholder.typicode.com/todos'</span>)
+      .then(<span class="hljs-function"><span class="hljs-params">res</span> =></span> res.json())
+      .then(<span class="hljs-function"><span class="hljs-params">todos</span> =></span> setTodos(todos));
+  };
+  useEffect(loadTodos, []);
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">ul</span>></span>
+      {todos.map(todo => (
+        </span>&#x3C;li key={todo.id}>{todo.title}&#x3C;/li><span class="xml">
+      ))}
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">ul</span>></span></span>
+  );
+};
+</code></pre>
+</section><section class="slide"><h2>APIs abfragen (Effect Hook)</h2>
+<p>Beispiel: Laden von SpaceX Startdaten, wenn sich <code>launchNr</code> ändert</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> SpaceXLaunch = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  <span class="hljs-keyword">const</span> [launchNr, setLaunchNr] = useState(<span class="hljs-number">1</span>);
+  <span class="hljs-keyword">const</span> [launchData, setLaunchData] = useState({});
+  <span class="hljs-keyword">const</span> fetchLaunch = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+    fetch(
+      <span class="hljs-string">`https://api.spacexdata.com/v3/launches/<span class="hljs-subst">${launchNr}</span>`</span>
+    )
+      .then(<span class="hljs-function"><span class="hljs-params">res</span> =></span> res.json())
+      .then(<span class="hljs-function"><span class="hljs-params">data</span> =></span> setLaunchData(data));
+  };
+  useEffect(fetchLaunch, [launchNr]);
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+      </span>&#x3C;h1>{launchData.mission_name}&#x3C;/h1><span class="xml">
+      </span>&#x3C;div>date: {launchData.launch_date_utc}&#x3C;/div><span class="xml">
+      </span>&#x3C;button onClick={() => setLaunchNr(launchNr + 1)}>
+        next
+      &#x3C;/button><span class="xml">
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+  );
+};
+</code></pre>
+</section><section class="slide"><h2>APIs abfragen (Effect Hook)</h2>
+<p>Beispiel: Pokémon-Daten laden, wenn sich <code>id</code> ändert</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> Pokemon = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  <span class="hljs-keyword">const</span> [id, setItd] = useState(<span class="hljs-number">1</span>);
+  <span class="hljs-keyword">const</span> [data, setData] = useState({});
+  <span class="hljs-keyword">const</span> fetchPokemon = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+    fetch(<span class="hljs-string">`https://pokeapi.co/api/v2/pokemon/<span class="hljs-subst">${id}</span>`</span>)
+      .then(<span class="hljs-function"><span class="hljs-params">res</span> =></span> res.json())
+      .then(<span class="hljs-function"><span class="hljs-params">data</span> =></span> setData(data));
+  };
+  useEffect(fetchPokemon, [id]);
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+      </span>&#x3C;h1>{data.name}&#x3C;/h1><span class="xml">
+      </span>&#x3C;p>id: {id}&#x3C;/p><span class="xml">
+      </span>&#x3C;p>height: {data.height}&#x3C;/p><span class="xml">
+      </span>&#x3C;button onClick={() => setItd(id + 1)}>next&#x3C;/button><span class="xml">
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+  );
+};
+</code></pre>
+</section><section class="slide"><h2>APIs abfragen (Effect Hook)</h2>
+<p>Aufgaben:</p>
+<ul>
+<li>Laden und Anzeigen von mehr Daten</li>
+<li>Indikator, dass geladen wird</li>
+</ul></section></section></div>
     </div>
     <script>/*!
  * reveal.js

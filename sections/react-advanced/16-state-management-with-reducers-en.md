@@ -2,7 +2,7 @@
 
 ## State management
 
-In more complex fontend-applications it makes sense to manage the state (model) separately from the view.
+In more complex applications or components it makes sense to manage the state (model) separately from the view.
 
 Often the entire application state is represented by a data model and every change to the state will be done by triggering a change to the data model.
 

@@ -37,20 +37,19 @@ Code available at: https://github.com/marko-knoebl/courses-code
 ## Topics (1/2)
 
 - hooks
-- component lifecycle
 - immutable data
 - memoization
 - state management with reducers
 - testing in JavaScript
 - testing React components
 - context
+- component lifecycle
 
 ## Topics (2/2)
 
 - external hooks & custom hooks
-- react router
+- routing and pre-rendering
 - app development with React
-- file structure
 - manual setup
 
 # Hooks
@@ -91,174 +90,6 @@ Examples:
 - effect hook
 - context hook
 - reducer hook
-
-# Component lifecycle
-
-## Component lifecycle
-
-We can listen for certain events in the lifecycle of a component:
-
-- the component is included (mounted)
-- component state or props have changed
-- the component is removed
-
-## Component lifecycle
-
-We can use these events for:
-
-- querying APIs
-- explicitly manipulating the DOM
-- cleaning up after a component was removed
-
-## Component lifecycle
-
-We can listen for lifecycle events via the following means:
-
-In class components we use lifecycle methods like `componentDidMount`, `componentDidUpdate` and `componentWillUnmount`
-
-In functional components we use the effect hook
-
-## Example: DocumentTitle component
-
-We will create a component that can set the document title dynamically:
-
-```xml
-<DocumentTitle>my custom title</DocumentTitle>
-```
-
-This component may appear anywhere in the React application.
-
-## Example: DocumentTitle component
-
-as a class component:
-
-```jsx
-class DocumentTitle extends Component {
-  componentDidMount() {
-    document.title = this.props.children;
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    document.title = this.props.children;
-  }
-
-  render() {
-    return null;
-  }
-}
-```
-
-## Example: DocumentTitle component
-
-with `useEffect`
-
-```jsx
-const DocumentTitle = props => {
-  useEffect(() => {
-    document.title = props.children;
-  });
-
-  return null;
-};
-```
-
-## Example: Clock component
-
-## Example: Clock component
-
-as a class component:
-
-```jsx
-  constructor() {
-    super();
-    this.state = {
-      time: new Date().toLocaleTimeString()
-    };
-  }
-
-  render() {
-    return <div>{this.state.time}</div>;
-  }
-```
-
-## Example: Clock component
-
-```jsx
-  componentDidMount() {
-    this.intervalId = setInterval(() => {
-      this.setState({
-        time: new Date().toLocaleTimeString()
-      });
-    }, 1000);
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.intervalId);
-  }
-```
-
-## useEffect in detail
-
-`useEffect` will receive two parameters: A function and (optionally) an array of values.
-
-The function is executed after the component renders if one of the values in the array has changed.
-
-The function is also executed when the component is included and rendered for the first time.
-
-## useEffect in detail
-
-If no second parameter is passed the function will be called after each render.
-
-If an empty array is passed as the second parameter the function will only be called after the first render.
-
-## useEffect: example: weather
-
-```js
-const [weatherData, setWeatherData] = useState(null);
-const [stale, setStale] = useState(true);
-
-// fetch data whenever data is stale
-useEffect(() => {
-  if (stale) {
-    refetch();
-  }
-}, [stale]);
-```
-
-## useEffect: example: weather
-
-```js
-const refetch = () => {
-  fetch(
-    'https://api.openweathermap.org/data/2.5/weather' +
-      `?q=${city}&appid=${API_KEY}`
-  )
-    .then(response => response.json())
-    .then(data => {
-      setWeatherData({ temperature: data.main.temp });
-      setStale(false);
-    });
-};
-```
-
-## useEffect: component removal
-
-```jsx
-const Clock = () => {
-  ...
-  // will be called when the component has mounted
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setTime(new Date().toLocaleTimeString());
-    }, 1000);
-    // will be called when the component will be removed
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, []);
-  ...
-};
-```
 
 # Immutability
 
@@ -446,7 +277,7 @@ const state2 = [...state1, 4];
 
 ## State management
 
-In more complex fontend-applications it makes sense to manage the state (model) separately from the view.
+In more complex applications or components it makes sense to manage the state (model) separately from the view.
 
 Often the entire application state is represented by a data model and every change to the state will be done by triggering a change to the data model.
 
@@ -572,8 +403,21 @@ console.log(state3);
 For managing state we can now also utilize `useReducer` in addition to `useState`:
 
 ```js
-useReducer(reducer, initialState);
+const [state, dispatch] = useReducer(reducer, initialState);
 ```
+
+specific example:
+
+```js
+const [count, countDispatch] = useReducer(countReducer, 0);
+```
+
+## Reducer Hook
+
+Calling `useReducer` returns an array with two entries:
+
+- current state
+- a dispatch function that can be used to trigger actions
 
 ## Reducer Hook
 
@@ -1328,6 +1172,259 @@ class TodoStats extends React.Component {
     );
   }
 }
+```
+
+# Component lifecycle
+
+## Component lifecycle
+
+We can listen for certain events in the lifecycle of a component:
+
+- the component is included (mounted)
+- component state or props have changed
+- the component is removed
+
+## Component lifecycle
+
+We can use these events for:
+
+- querying APIs
+- explicitly manipulating the DOM
+- cleaning up after a component was removed
+
+## Component lifecycle
+
+We can listen for lifecycle events via the following means:
+
+In class components we use lifecycle methods like `componentDidMount`, `componentDidUpdate` and `componentWillUnmount`
+
+In functional components we use the effect hook
+
+## Example: DocumentTitle component
+
+We will create a component that can set the document title dynamically:
+
+```xml
+<DocumentTitle>my custom title</DocumentTitle>
+```
+
+This component may appear anywhere in the React application.
+
+## Example: DocumentTitle component
+
+as a class component:
+
+```jsx
+class DocumentTitle extends Component {
+  componentDidMount() {
+    document.title = this.props.children;
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    document.title = this.props.children;
+  }
+
+  render() {
+    return null;
+  }
+}
+```
+
+## Example: DocumentTitle component
+
+with `useEffect`
+
+```jsx
+const DocumentTitle = props => {
+  useEffect(() => {
+    document.title = props.children;
+  });
+
+  return null;
+};
+```
+
+## Example: Clock component
+
+## Example: Clock component
+
+as a class component:
+
+```jsx
+  constructor() {
+    super();
+    this.state = {
+      time: new Date().toLocaleTimeString()
+    };
+  }
+
+  render() {
+    return <div>{this.state.time}</div>;
+  }
+```
+
+## Example: Clock component
+
+```jsx
+  componentDidMount() {
+    this.intervalId = setInterval(() => {
+      this.setState({
+        time: new Date().toLocaleTimeString()
+      });
+    }, 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.intervalId);
+  }
+```
+
+## useEffect in detail
+
+`useEffect` will receive two parameters: A function and (optionally) an array of values.
+
+The function is executed after the component renders if one of the values in the array has changed.
+
+The function is also executed when the component is included and rendered for the first time.
+
+## useEffect in detail
+
+If no second parameter is passed the function will be called after each render.
+
+If an empty array is passed as the second parameter the function will only be called after the first render.
+
+## useEffect: example: weather
+
+```js
+const [weatherData, setWeatherData] = useState(null);
+const [stale, setStale] = useState(true);
+
+// fetch data whenever data is stale
+useEffect(() => {
+  if (stale) {
+    refetch();
+  }
+}, [stale]);
+```
+
+## useEffect: example: weather
+
+```js
+const refetch = () => {
+  fetch(
+    'https://api.openweathermap.org/data/2.5/weather' +
+      `?q=${city}&appid=${API_KEY}`
+  )
+    .then(response => response.json())
+    .then(data => {
+      setWeatherData({ temperature: data.main.temp });
+      setStale(false);
+    });
+};
+```
+
+## useEffect: component removal
+
+```jsx
+const Clock = () => {
+  ...
+  // will be called when the component has mounted
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setTime(new Date().toLocaleTimeString());
+    }, 1000);
+    // will be called when the component will be removed
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, []);
+  ...
+};
+```
+
+# Refs
+
+### accessing DOM elements
+
+## Refs
+
+Refs enable direct access to DOM elements
+
+use cases:
+
+- managing focus, text selection, or media playback
+- alternative way of managing inputs (uncontrolled components)
+- integrating with third-party DOM libraries
+
+## Refs
+
+**managing focus, text selection, or media playback**
+
+some changes cannot be expressed declaratively (via state); they require direct access to a DOM element
+
+example: there are properties like `.value` for changing a value or `.className` for changing classes, but there is no property for managing focus
+
+## Refs
+
+**alternative way of managing inputs**
+
+using `ref` instead of `value` and `onChange` can be less code (but is discouraged by the React documentation)
+
+## Refs
+
+**integrating with third-party DOM libraries**
+
+Third-party libraries may require a DOM element being passed in
+
+Example: Google Maps takes an element where it will paint the map
+
+Many third-party libraries have wrappers for React where refs are not needed
+
+## Refs
+
+Managing focus with a ref:
+
+```js
+const App = () => {
+  const inputEl = useRef(null);
+  return (
+    <div>
+      <input ref={inputEl} />
+      <button onClick={() => inputEl.current.focus()}>
+        focus
+      </button>
+    </div>
+  );
+};
+```
+
+## Refs
+
+Managing inputs: comparing `useState` and `useRef`:
+
+```js
+const App = () => {
+  const [firstName, setFirstName] = useState('');
+  const lastNameInput = useRef(null);
+
+  return (
+    <div>
+      <input
+        value={firstName}
+        onChange={event => setFirstName(event.target.value)}
+      />
+      <input ref={lastNameInput} />
+
+      <button
+        onClick={() => {
+          console.log(firstName);
+          console.log(lastNameInput.current.value);
+        }}>
+        log values
+      </button>
+    </div>
+  );
+};
 ```
 
 # External hooks

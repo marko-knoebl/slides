@@ -38,7 +38,7 @@ npx create-react-app my-app --typescript
 
 ## TypeScript
 
-TypeScript Basics: siehe Präsentation [TypeScript](./typescript-en.html)
+TypeScript Basics: see presentation on [TypeScript](./typescript-en.html)
 
 ## React with TypeScript
 
