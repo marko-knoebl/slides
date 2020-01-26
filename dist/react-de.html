@@ -2489,74 +2489,6 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
   ...
 }
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>this - quirks</h1>
-</section><section class="slide"><h2>this - quirks</h2>
-<p>In Objektmethoden bezieht sich <code>this</code> üblicherweise auf das aktuelle Objekt</p>
-<p><strong>allerdings</strong>:</p>
-<ul>
-<li>jeder Funktionsaufruf setzt <em>this</em> neu (nicht nur Methodenaufrufe)</li>
-<li><em>this</em> wird nur richtig gesetzt, wenn die Methode mit der Syntax <code>object.method()</code> aufgerufen wird</li>
-</ul>
-</section><section class="slide"><h2>Problem: <em>this</em> in anonymen Funktionen</h2>
-<pre><code class="hljs language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">myComponent</span> </span>{
-  <span class="hljs-keyword">constructor</span>() {
-    <span class="hljs-comment">// this ist hier richtig gesetzt</span>
-    <span class="hljs-keyword">this</span>.foo = <span class="hljs-literal">true</span>;
-    setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-      <span class="hljs-comment">//this wird hier überschrieben (auf window)</span>
-      <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.foo);
-    }, <span class="hljs-number">1000</span>);
-  }
-}
-</code></pre>
-</section><section class="slide"><h2>Lösung: <em>Pfeilfunktionen</em></h2>
-<pre><code class="hljs language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">myComponent</span> </span>{
-  <span class="hljs-keyword">constructor</span>() {
-    <span class="hljs-comment">// this ist hier richtig gesetzt</span>
-    <span class="hljs-keyword">this</span>.foo = <span class="hljs-literal">true</span>;
-    setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-      <span class="hljs-comment">// this wird hier *nicht* überschrieben</span>
-      <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.foo);
-    }, <span class="hljs-number">1000</span>);
-  }
-}
-</code></pre>
-</section><section class="slide"><h2>Problem: Methodenaufrufe ohne Methodensyntax</h2>
-<pre><code class="hljs language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span> </span>{
-  <span class="hljs-keyword">constructor</span>() {
-    <span class="hljs-keyword">this</span>.message = <span class="hljs-string">'hello'</span>;
-  }
-  greet() {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.message);
-  }
-}
-<span class="hljs-keyword">let</span> foo = <span class="hljs-keyword">new</span> Foo();
-foo.greet(); <span class="hljs-comment">// klappt</span>
-<span class="hljs-keyword">let</span> fg = foo.greet;
-fg(); <span class="hljs-comment">// klappt nicht (this ist undefined)</span>
-</code></pre>
-</section><section class="slide"><h2>Lösung: Pfeil-Methoden</h2>
-<p>Seit ES2018 einsetzbar:</p>
-<pre><code class="hljs language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span> </span>{
-  <span class="hljs-keyword">constructor</span>() {
-    <span class="hljs-keyword">this</span>.message = <span class="hljs-string">'hello'</span>;
-  }
-  greet = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.message);
-  };
-}
-</code></pre>
-</section><section class="slide"><h2>Lösung: Binden von Methoden</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> f = <span class="hljs-keyword">new</span> Foo();
-f.greet(); <span class="hljs-comment">// klappt</span>
-<span class="hljs-keyword">let</span> fg = f.greet.bind(f);
-fg(); <span class="hljs-comment">// klappt jetzt auch</span>
-</code></pre>
-<p>Üblicherweise Zuweisung im constructor:</p>
-<pre><code class="hljs language-js">  <span class="hljs-keyword">constructor</span>() {
-    <span class="hljs-keyword">this</span>.greet = <span class="hljs-keyword">this</span>.greet.bind(<span class="hljs-keyword">this</span>);
-  }
-</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>State (Komponentenzustand)</h1>
 </section><section class="slide"><h2>State</h2>
 <p>React Komponenten können einen internen Zustand (<em>state</em>) haben</p>
@@ -2604,32 +2536,6 @@ fg(); <span class="hljs-comment">// klappt jetzt auch</span>
 <li>Button für <em>zurück zum Start</em></li>
 <li>Verhindern, dass ins negative gezählt wird</li>
 </ul>
-</section><section class="slide"><h2>State in Klassenkomponenten</h2>
-<p>In Klassenkomponenten repräsentiert <code>this.state</code> den Zustand.</p>
-<p><code>this.state</code> ist immer ein JavaScript-Objekt mit verschiedenen Einträgen (Properties)</p>
-<p>Zustandsänderungen erfolgen über <code>this.setState()</code></p>
-</section><section class="slide"><h2>Struktur von this.state</h2>
-<p><em>this.state</em> ist ein JavaScript-Objekt:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">constructor</span>() {
-  [...]
-  <span class="hljs-keyword">this</span>.state = {
-    <span class="hljs-attr">loggedIn</span>: <span class="hljs-literal">true</span>,
-    <span class="hljs-attr">todos</span>: [<span class="hljs-string">'laundry'</span>, <span class="hljs-string">'groceries'</span>, <span class="hljs-string">'taxes'</span>],
-  }
-}
-</code></pre>
-</section><section class="slide"><h2>Änderung von this.state</h2>
-<p>via <code>this.setState()</code></p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">this</span>.setState({ <span class="hljs-attr">loggedIn</span>: <span class="hljs-literal">false</span> });
-</code></pre>
-<p>setState überschreibt alle angegebenen Einträge im state-Objekt</p>
-</section><section class="slide"><h2>Wiederholtes Aufrufen von this.setState</h2>
-<p>Rat: in einem Event-Handler nur 1x <code>setState</code> aufrufen.</p>
-<p>Wenn doch mehrere Aufrufe von <code>setState</code> erfolgen und ein Aufruf auf der vorhergehenden Zustandsänderung basiert:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">this</span>.setState(<span class="hljs-function"><span class="hljs-params">oldState</span> =></span> ({ <span class="hljs-attr">count</span>: oldState.count + <span class="hljs-number">1</span> }));
-<span class="hljs-keyword">this</span>.setState(<span class="hljs-function"><span class="hljs-params">oldState</span> =></span> ({ <span class="hljs-attr">count</span>: oldState.count + <span class="hljs-number">1</span> }));
-</code></pre>
-<p>Wir übergeben setState eine Funktion, die den alten in den neuen Zustand überführt.</p>
 </section></section><section class="slides-section"><section class="slide"><h1>Inputs</h1>
 </section><section class="slide"><h2>Inputs</h2>
 <p>Besonderheit von input-Elementen:</p>
@@ -2907,20 +2813,6 @@ Lösung: <strong>key</strong>:</p>
   <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"rating"</span>></span>{'*'.repeat(stars)}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
 );
 </code></pre>
-</section><section class="slide"><h2>Props in Klassenkomponenten</h2>
-<p>example:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> React, { Component } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
-
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Rating</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
-  render() {
-    <span class="hljs-keyword">return</span> (
-      <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"rating"</span>></span>
-        {'*'.repeat(this.props.stars)}
-      <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
-    );
-  }
-}
-</code></pre>
 </section><section class="slide"><h2>props.children</h2>
 <p>Über <code>props.children</code> können Inhalte an eine Komponente übergeben werden</p>
 <p>Beispiel: <code>Bordered</code>-Komponente:</p>
@@ -3056,20 +2948,6 @@ const TodoList: FC&#x3C;TodoListProps> = props => {
 <li><code>React.ChangeEvent&#x3C;HTMLInputElement></code></li>
 <li><code>React.MouseEvent&#x3C;HTMLDivElement></code></li>
 </ul>
-</section><section class="slide"><h2>Klassenkomponenten mit TypeScript</h2>
-<pre><code class="language-tsx">type TodoItemProps = {
-  todo: TodoType;
-  onToggle: (id: int) => void;
-};
-type TodoItemState = {};
-</code></pre>
-<pre><code class="language-tsx">class TodoItem extends React.PureComponent&#x3C;
-  TodoItemProps,
-  TodoItemState
-> {
-  // ...
-}
-</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>APIs abfragen (Effect Hook)</h1>
 </section><section class="slide"><h2>APIs abfragen (Effect Hook)</h2>
 <p>Oft müssen API Daten abgefragt werden, wenn eine Komponente zum ersten Mal eingebunden wird, oder wenn sich props bzw state ändern</p>

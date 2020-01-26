@@ -12,10 +12,8 @@ Programme / Funktionen / Klassen können automatisiert getestet werden um sicher
 - _Jasmine_: test runner & assertion library
 - _Mocha_: test runner
 - _Chai_: assertion library
-- _Karma_: test runner
-- _Enzyme_: test utilities & assertions für React
 
-https://2018.stateofjs.com/testing/overview/
+[State of JS 2019: Umfrage zu Test-Tools](https://2019.stateofjs.com/testing/)
 
 ## Beispiel: shorten
 

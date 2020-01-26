@@ -33,24 +33,6 @@ const Rating = ({ stars }) => (
 );
 ```
 
-## Props in Klassenkomponenten
-
-example:
-
-```jsx
-import React, { Component } from 'react';
-
-export class Rating extends Component {
-  render() {
-    return (
-      <div className="rating">
-        {'*'.repeat(this.props.stars)}
-      </div>
-    );
-  }
-}
-```
-
 ## props.children
 
 Über `props.children` können Inhalte an eine Komponente übergeben werden

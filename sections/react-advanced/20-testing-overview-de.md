@@ -1,4 +1,10 @@
-# Testen von React-Komponenten
+# Testen
+
+## Automatisiertes Testen in JavaScript
+
+Manche Funktionen in React - z.B. Reducer - sind ganz "normale" JavaScript-Funktionen und können mit standard-Testwerkzeugen getestet werden
+
+Siehe die Präsentation [JavaScript Testing](./javascript-testing-de.html) für einen Einstieg
 
 ## Testen von React-Komponenten
 

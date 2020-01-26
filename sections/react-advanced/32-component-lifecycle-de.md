@@ -40,26 +40,6 @@ Diese Komponente kann irgendwo in der React-Anwendung vorkommen.
 
 ## Beispiel: DocumentTitle-Komponente
 
-Als Klassenkomponente
-
-```jsx
-class DocumentTitle extends Component {
-  componentDidMount() {
-    document.title = this.props.children;
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    document.title = this.props.children;
-  }
-
-  render() {
-    return null;
-  }
-}
-```
-
-## Beispiel: DocumentTitle-Komponente
-
 mit useEffect
 
 ```jsx
@@ -70,41 +50,6 @@ const DocumentTitle = props => {
 
   return null;
 };
-```
-
-## Beispiel: Clock-Komponente
-
-## Beispiel: Clock-Komponente
-
-Als Klassenkomponente:
-
-```jsx
-  constructor() {
-    super();
-    this.state = {
-      time: new Date().toLocaleTimeString()
-    };
-  }
-
-  render() {
-    return <div>{this.state.time}</div>;
-  }
-```
-
-## Beispiel: Clock-Komponente
-
-```jsx
-  componentDidMount() {
-    this.intervalId = setInterval(() => {
-      this.setState({
-        time: new Date().toLocaleTimeString()
-      });
-    }, 1000);
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.intervalId);
-  }
 ```
 
 ## useEffect im Detail

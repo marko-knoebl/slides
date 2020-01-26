@@ -33,24 +33,6 @@ const Rating = ({ stars }) => (
 );
 ```
 
-## Props in class components
-
-example:
-
-```jsx
-import React, { Component } from 'react';
-
-export class Rating extends Component {
-  render() {
-    return (
-      <div className="rating">
-        {'*'.repeat(this.props.stars)}
-      </div>
-    );
-  }
-}
-```
-
 ## props.children
 
 A component may receive content to be displayed via `props.children`

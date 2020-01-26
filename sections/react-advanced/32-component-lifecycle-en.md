@@ -36,26 +36,6 @@ This component may appear anywhere in the React application.
 
 ## Example: DocumentTitle component
 
-as a class component:
-
-```jsx
-class DocumentTitle extends Component {
-  componentDidMount() {
-    document.title = this.props.children;
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    document.title = this.props.children;
-  }
-
-  render() {
-    return null;
-  }
-}
-```
-
-## Example: DocumentTitle component
-
 with `useEffect`
 
 ```jsx
@@ -66,41 +46,6 @@ const DocumentTitle = props => {
 
   return null;
 };
-```
-
-## Example: Clock component
-
-## Example: Clock component
-
-as a class component:
-
-```jsx
-  constructor() {
-    super();
-    this.state = {
-      time: new Date().toLocaleTimeString()
-    };
-  }
-
-  render() {
-    return <div>{this.state.time}</div>;
-  }
-```
-
-## Example: Clock component
-
-```jsx
-  componentDidMount() {
-    this.intervalId = setInterval(() => {
-      this.setState({
-        time: new Date().toLocaleTimeString()
-      });
-    }, 1000);
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.intervalId);
-  }
 ```
 
 ## useEffect in detail

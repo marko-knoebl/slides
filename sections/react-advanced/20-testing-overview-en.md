@@ -1,4 +1,10 @@
-# Testing React components
+# Testing
+
+## Automated testing in JavaScript
+
+Some functions in React - including Reducers - are just plain JavaScript functions and can be tested like any other function.
+
+See the presentation [JavaScript Testing](./javascript-testing-en.html) for an overview
 
 ## Testing React components
 

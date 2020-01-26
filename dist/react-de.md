@@ -537,96 +537,6 @@ let join = (strings, separator='') => {
 }
 ```
 
-# this - quirks
-
-## this - quirks
-
-In Objektmethoden bezieht sich `this` üblicherweise auf das aktuelle Objekt
-
-**allerdings**:
-
-- jeder Funktionsaufruf setzt _this_ neu (nicht nur Methodenaufrufe)
-- _this_ wird nur richtig gesetzt, wenn die Methode mit der Syntax `object.method()` aufgerufen wird
-
-## Problem: _this_ in anonymen Funktionen
-
-```js
-class myComponent {
-  constructor() {
-    // this ist hier richtig gesetzt
-    this.foo = true;
-    setTimeout(function() {
-      //this wird hier überschrieben (auf window)
-      console.log(this.foo);
-    }, 1000);
-  }
-}
-```
-
-## Lösung: _Pfeilfunktionen_
-
-```js
-class myComponent {
-  constructor() {
-    // this ist hier richtig gesetzt
-    this.foo = true;
-    setTimeout(() => {
-      // this wird hier *nicht* überschrieben
-      console.log(this.foo);
-    }, 1000);
-  }
-}
-```
-
-## Problem: Methodenaufrufe ohne Methodensyntax
-
-```js
-class Foo {
-  constructor() {
-    this.message = 'hello';
-  }
-  greet() {
-    console.log(this.message);
-  }
-}
-let foo = new Foo();
-foo.greet(); // klappt
-let fg = foo.greet;
-fg(); // klappt nicht (this ist undefined)
-```
-
-## Lösung: Pfeil-Methoden
-
-Seit ES2018 einsetzbar:
-
-```js
-class Foo {
-  constructor() {
-    this.message = 'hello';
-  }
-  greet = () => {
-    console.log(this.message);
-  };
-}
-```
-
-## Lösung: Binden von Methoden
-
-```js
-let f = new Foo();
-f.greet(); // klappt
-let fg = f.greet.bind(f);
-fg(); // klappt jetzt auch
-```
-
-Üblicherweise Zuweisung im constructor:
-
-```js
-  constructor() {
-    this.greet = this.greet.bind(this);
-  }
-```
-
 # State (Komponentenzustand)
 
 ## State
@@ -693,51 +603,6 @@ Slideshow, die Bilder wie das folgende anzeigt:
 - Buttons für _vorwärts_ und _zurück_
 - Button für _zurück zum Start_
 - Verhindern, dass ins negative gezählt wird
-
-## State in Klassenkomponenten
-
-In Klassenkomponenten repräsentiert `this.state` den Zustand.
-
-`this.state` ist immer ein JavaScript-Objekt mit verschiedenen Einträgen (Properties)
-
-Zustandsänderungen erfolgen über `this.setState()`
-
-## Struktur von this.state
-
-_this.state_ ist ein JavaScript-Objekt:
-
-```js
-constructor() {
-  [...]
-  this.state = {
-    loggedIn: true,
-    todos: ['laundry', 'groceries', 'taxes'],
-  }
-}
-```
-
-## Änderung von this.state
-
-via `this.setState()`
-
-```js
-this.setState({ loggedIn: false });
-```
-
-setState überschreibt alle angegebenen Einträge im state-Objekt
-
-## Wiederholtes Aufrufen von this.setState
-
-Rat: in einem Event-Handler nur 1x `setState` aufrufen.
-
-Wenn doch mehrere Aufrufe von `setState` erfolgen und ein Aufruf auf der vorhergehenden Zustandsänderung basiert:
-
-```js
-this.setState(oldState => ({ count: oldState.count + 1 }));
-this.setState(oldState => ({ count: oldState.count + 1 }));
-```
-
-Wir übergeben setState eine Funktion, die den alten in den neuen Zustand überführt.
 
 # Inputs
 
@@ -1142,24 +1007,6 @@ const Rating = ({ stars }) => (
 );
 ```
 
-## Props in Klassenkomponenten
-
-example:
-
-```jsx
-import React, { Component } from 'react';
-
-export class Rating extends Component {
-  render() {
-    return (
-      <div className="rating">
-        {'*'.repeat(this.props.stars)}
-      </div>
-    );
-  }
-}
-```
-
 ## props.children
 
 Über `props.children` können Inhalte an eine Komponente übergeben werden
@@ -1351,25 +1198,6 @@ Eventtypen für separat definierte Eventhandler:
 - `React.FormEvent<HTMLFormElement>`
 - `React.ChangeEvent<HTMLInputElement>`
 - `React.MouseEvent<HTMLDivElement>`
-
-## Klassenkomponenten mit TypeScript
-
-```tsx
-type TodoItemProps = {
-  todo: TodoType;
-  onToggle: (id: int) => void;
-};
-type TodoItemState = {};
-```
-
-```tsx
-class TodoItem extends React.PureComponent<
-  TodoItemProps,
-  TodoItemState
-> {
-  // ...
-}
-```
 
 # APIs abfragen (Effect Hook)
 

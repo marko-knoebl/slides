@@ -2410,153 +2410,10 @@ state2.push(<span class="hljs-number">4</span>);
   );
 };
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Automatisiertes Testen</h1>
-</section><section class="slide"><h2>Automatisiertes Testen</h2>
-<p>Programme / Funktionen / Klassen können automatisiert getestet werden um sicherzustellen, dass sie wie erwartet funktionieren.</p>
-</section><section class="slide"><h2>Tools für das Testen</h2>
-<ul>
-<li><em>node</em> wird als Runtime benötigt</li>
-<li><em>assert</em>: einfache assertions, in node beinhaltet</li>
-<li><em>Jest</em>: test runner &#x26; assertion library</li>
-<li><em>Jasmine</em>: test runner &#x26; assertion library</li>
-<li><em>Mocha</em>: test runner</li>
-<li><em>Chai</em>: assertion library</li>
-<li><em>Karma</em>: test runner</li>
-<li><em>Enzyme</em>: test utilities &#x26; assertions für React</li>
-</ul>
-<p><a href="https://2018.stateofjs.com/testing/overview/">https://2018.stateofjs.com/testing/overview/</a></p>
-</section><section class="slide"><h2>Beispiel: shorten</h2>
-<p>Wir werden eine Funktion schreiben und testen, die einen String auf eine vorgegebene Länge verkürzt:</p>
-<pre><code class="hljs language-js">shorten(<span class="hljs-string">'loremipsum'</span>, <span class="hljs-number">6</span>);
-<span class="hljs-comment">// should return 'lor...'</span>
-</code></pre>
-<p>Mögliche Zugänge:</p>
-<ul>
-<li>mit Implementierung beginnen</li>
-<li>mit Tests beginnen (test-driven development)</li>
-</ul>
-</section><section class="slide"><h2>Einrichten des Test Runners</h2>
-<p>in einem vorhandenen npm Projekt:</p>
-<pre><code class="hljs language-bash">npm install --save-dev jest
-</code></pre>
-<p>in <em>package.json</em>:</p>
-<pre><code class="hljs language-json"><span class="hljs-string">"scripts"</span>: {
-  <span class="hljs-attr">"test"</span>: <span class="hljs-string">"jest"</span>
-}
-</code></pre>
-</section><section class="slide"><h2>Tests ausführen</h2>
-<pre><code class="hljs language-bash">npm <span class="hljs-built_in">test</span>
-</code></pre>
-<p>Achtung: laufende Tests sollten immer abgebrochen werden, bevor <code>npm install ...</code> ausgeführt wird - sonst kann die Installation fehlschlagen</p>
-</section><section class="slide"><h2>Finden von Tests</h2>
-<p>Im allgemeinen suchen Test Libraries nach Dateien mit der Endung <code>.test.js</code> oder <code>.spec.js</code> in dem Ordner <code>test</code>.</p>
-<p>Wir können auch ein eigenes Muster übergeben, z.B.:</p>
-<pre><code class="hljs language-bash">mocha <span class="hljs-string">"src/**/*.{test,spec}.{js,jsx}"</span>
-</code></pre>
-</section><section class="slide"><h2>test coverage</h2>
-<p>Manche Testlibraries können berichten, wie viel des Codes von Tests abgedeckt ist:</p>
-<p>Beispiel - in einem create-react-app Projekt:</p>
-<pre><code class="hljs language-bash">npm <span class="hljs-built_in">test</span> -- --coverage
-</code></pre>
-</section><section class="slide"><h2>Beispiel: shorten</h2>
-<pre><code class="hljs language-js"><span class="hljs-comment">// shorten.js</span>
-<span class="hljs-keyword">const</span> shorten = <span class="hljs-function">(<span class="hljs-params">s, maxlength</span>) =></span> {
-  <span class="hljs-keyword">if</span> (s.length > maxlength) {
-    s = s.slice(<span class="hljs-number">0</span>, maxlength - <span class="hljs-number">3</span>) + <span class="hljs-string">'...'</span>;
-  }
-  <span class="hljs-keyword">return</span> s;
-};
-
-<span class="hljs-built_in">module</span>.exports.shorten = shorten;
-</code></pre>
-</section><section class="slide"><h2>Beispiel: shorten</h2>
-<pre><code class="hljs language-js"><span class="hljs-comment">// shorten.test.js</span>
-<span class="hljs-keyword">const</span> shorten = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./shorten.js'</span>).shorten;
-<span class="hljs-comment">// use node's built-in assert module</span>
-<span class="hljs-keyword">const</span> assert = <span class="hljs-built_in">require</span>(<span class="hljs-string">'assert'</span>);
-
-it(<span class="hljs-string">'shortens "loremipsum" to "lor..."'</span>, () => {
-  <span class="hljs-keyword">const</span> expected = <span class="hljs-string">'lor...'</span>;
-  <span class="hljs-keyword">const</span> actual = shorten(<span class="hljs-string">'loremipsum'</span>, <span class="hljs-number">6</span>);
-  assert.equal(actual, expected);
-});
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Testen: assertions</h1>
-</section><section class="slide"><h2>Testen: assertions</h2>
-<p>Assertions können auf zwei Arten geschrieben werden:</p>
-<p>assert:</p>
-<pre><code class="hljs language-js">assert.equal(a, b);
-</code></pre>
-<p>expect (behaviour-driven):</p>
-<pre><code class="hljs language-js">expect(a).toEqual(b);
-</code></pre>
-</section><section class="slide"><h2>Testen: assertions</h2>
-<p>assert:</p>
-<ul>
-<li>assert-modul in node</li>
-<li>chai</li>
-</ul>
-<p>expect (behaviour-driven)</p>
-<ul>
-<li>jest</li>
-<li>jasmine</li>
-<li>chai</li>
-<li>enzyme</li>
-</ul>
-</section><section class="slide"><h2>Testen: assertions</h2>
-<p>assert (node):</p>
-<pre><code class="hljs language-js">assert.equal(a, b);
-assert.deepEqual(a, b);
-assert.throws(<span class="hljs-function"><span class="hljs-params">()</span> =></span> <span class="hljs-number">1</span> / <span class="hljs-number">0</span>);
-<span class="hljs-comment">// ...</span>
-</code></pre>
-<p>assert (chai):</p>
-<pre><code class="hljs language-js">assert.equal(a, b);
-assert.deepEqual(a, b);
-assert.typeOf(foo, <span class="hljs-string">'string'</span>);
-assert.lengthOf(foo, <span class="hljs-number">3</span>);
-assert.throws(<span class="hljs-function"><span class="hljs-params">()</span> =></span> <span class="hljs-number">1</span> / <span class="hljs-number">0</span>);
-</code></pre>
-</section><section class="slide"><h2>Testen: assertions</h2>
-<p>expect (jest):</p>
-<pre><code class="hljs language-js">expect(a).toEqual(<span class="hljs-number">4</span>);
-expect(a).not.toEqual(<span class="hljs-number">2</span>);
-expect(a).toBeGreaterThan(<span class="hljs-number">3</span>);
-expect(a).toBeInstanceOf(<span class="hljs-built_in">Number</span>);
-expect(<span class="hljs-function"><span class="hljs-params">()</span> =></span> <span class="hljs-number">1</span> / <span class="hljs-number">0</span>).toThrow();
-</code></pre>
-<p>expect (chai):</p>
-<pre><code class="hljs language-js">expect(a).to.equal(<span class="hljs-number">4</span>);
-expect(a).not.to.equal(<span class="hljs-number">2</span>);
-expect(a).to.be.greaterThan(<span class="hljs-number">3</span>);
-expect(a).to.be.a(<span class="hljs-string">'number'</span>);
-expect(<span class="hljs-function"><span class="hljs-params">()</span> =></span> <span class="hljs-number">1</span> / <span class="hljs-number">0</span>).to.throw();
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Strukturierung von Tests</h1>
-</section><section class="slide"><h2>Gruppieren</h2>
-<p>mit <code>describe()</code>:</p>
-<pre><code class="hljs language-js"><span class="hljs-comment">// jest</span>
-describe(<span class="hljs-string">'strings that are short enough'</span>, () => {
-  it(<span class="hljs-string">'leaves "abc" unchanged with limit 5'</span>, () => {
-    expect(shorten(<span class="hljs-string">'abc'</span>, <span class="hljs-number">5</span>)).toEqual(<span class="hljs-string">'abc'</span>);
-  });
-  it(<span class="hljs-string">'leaves "loremipsum" unchanged with limit 10'</span>, () => {
-    expect(shorten(<span class="hljs-string">'loremipsum'</span>, <span class="hljs-number">10</span>)).toEqual(<span class="hljs-string">'loremipsum'</span>);
-  });
-});
-</code></pre>
-</section><section class="slide"><h2>Setup und teardown</h2>
-<p>Für Code, der vor und jedem Test in einer Gruppe ausgeführt werden soll:</p>
-<pre><code class="hljs language-js"><span class="hljs-comment">// jest or mocha</span>
-beforeEach(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  createTestDB();
-});
-
-afterEach(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  clearTestDB();
-});
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Testen von React-Komponenten</h1>
+</section></section><section class="slides-section"><section class="slide"><h1>Testen</h1>
+</section><section class="slide"><h2>Automatisiertes Testen in JavaScript</h2>
+<p>Manche Funktionen in React - z.B. Reducer - sind ganz "normale" JavaScript-Funktionen und können mit standard-Testwerkzeugen getestet werden</p>
+<p>Siehe die Präsentation <a href="./javascript-testing-de.html">JavaScript Testing</a> für einen Einstieg</p>
 </section><section class="slide"><h2>Testen von React-Komponenten</h2>
 <p>was kann getestet werden:</p>
 <ul>
@@ -2962,22 +2819,6 @@ Inspect your code changes or press `u` to update them.
 </code></pre>
 <p>Diese Komponente kann irgendwo in der React-Anwendung vorkommen.</p>
 </section><section class="slide"><h2>Beispiel: DocumentTitle-Komponente</h2>
-<p>Als Klassenkomponente</p>
-<pre><code class="hljs language-jsx"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DocumentTitle</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
-  componentDidMount() {
-    <span class="hljs-built_in">document</span>.title = <span class="hljs-keyword">this</span>.props.children;
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    <span class="hljs-built_in">document</span>.title = <span class="hljs-keyword">this</span>.props.children;
-  }
-
-  render() {
-    <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
-  }
-}
-</code></pre>
-</section><section class="slide"><h2>Beispiel: DocumentTitle-Komponente</h2>
 <p>mit useEffect</p>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> DocumentTitle = <span class="hljs-function"><span class="hljs-params">props</span> =></span> {
   useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
@@ -2986,33 +2827,6 @@ Inspect your code changes or press `u` to update them.
 
   <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
 };
-</code></pre>
-</section><section class="slide"><h2>Beispiel: Clock-Komponente</h2>
-</section><section class="slide"><h2>Beispiel: Clock-Komponente</h2>
-<p>Als Klassenkomponente:</p>
-<pre><code class="hljs language-jsx">  <span class="hljs-keyword">constructor</span>() {
-    <span class="hljs-keyword">super</span>();
-    <span class="hljs-keyword">this</span>.state = {
-      <span class="hljs-attr">time</span>: <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>().toLocaleTimeString()
-    };
-  }
-
-  render() {
-    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>{this.state.time}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
-  }
-</code></pre>
-</section><section class="slide"><h2>Beispiel: Clock-Komponente</h2>
-<pre><code class="hljs language-jsx">  componentDidMount() {
-    <span class="hljs-keyword">this</span>.intervalId = setInterval(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-      <span class="hljs-keyword">this</span>.setState({
-        <span class="hljs-attr">time</span>: <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>().toLocaleTimeString()
-      });
-    }, <span class="hljs-number">1000</span>);
-  }
-
-  componentWillUnmount() {
-    clearInterval(<span class="hljs-keyword">this</span>.intervalId);
-  }
 </code></pre>
 </section><section class="slide"><h2>useEffect im Detail</h2>
 <p><code>useEffect</code> bekommt zwei Parameter übergeben: Eine Funktion und ein Array von Werten.</p>

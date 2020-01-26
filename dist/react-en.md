@@ -537,96 +537,6 @@ let join = (strings, separator='') => {
 }
 ```
 
-# this - quirks
-
-## this - quirks
-
-in object methods, `this` usually refers to the current object
-
-**however**, keep in mind:
-
-- each function call sets `this` (not just method calls)
-- `this` will only be set correctly if the method is called via the syntax `object.method()`
-
-## Problem: _this_ in anonymous functions
-
-```js
-class myComponent {
-  constructor() {
-    // this ist set correctly here
-    this.foo = true;
-    setTimeout(function() {
-      // this will be overwritten here (to 'window')
-      console.log(this.foo);
-    }, 1000);
-  }
-}
-```
-
-## Solution: _arrow functions_
-
-```js
-class myComponent {
-  constructor() {
-    // this ist set correctly here
-    this.foo = true;
-    setTimeout(() => {
-      // this will *not* be overwritten here
-      console.log(this.foo);
-    }, 1000);
-  }
-}
-```
-
-## Problem: method calls without method syntax
-
-```js
-class Foo {
-  constructor() {
-    this.message = 'hello';
-  }
-  greet() {
-    console.log(this.message);
-  }
-}
-let foo = new Foo();
-foo.greet(); // works
-let fg = foo.greet;
-fg(); // doesn't work (this is undefined)
-```
-
-## Solution: arrow methods
-
-Available since ES2018:
-
-```js
-class Foo {
-  constructor() {
-    this.message = 'hello';
-  }
-  greet = () => {
-    console.log(this.message);
-  };
-}
-```
-
-## Solution: binding the method
-
-```js
-let f = new Foo();
-f.greet(); // works
-let fg = f.greet.bind(f);
-fg(); // works as well now
-```
-
-Methods are usually bound in the constructor:
-
-```js
-  constructor() {
-    this.greet = this.greet.bind(this);
-  }
-```
-
 # State
 
 ## State
@@ -693,51 +603,6 @@ implement a slideshow that shows images like the following:
 - buttons for _previous_ and _next_
 - button for _back to start_
 - prevent the index becoming negative
-
-## State in class components
-
-In class components, `this.state` represents the state.
-
-`this.state` is always a JavaScript object which can have varois entries (properties)
-
-State changes happen via `this.setState()`
-
-## structure of this.state
-
-_this.state_ is always an object:
-
-```js
-constructor() {
-  [...]
-  this.state = {
-    loggedIn: true,
-    todos: ['laundry', 'groceries', 'taxes'],
-  }
-}
-```
-
-## modifying this.state
-
-only via `setState()`:
-
-```js
-this.setState({ loggedIn: false });
-```
-
-`setState` will change all specified entries
-
-## Repeated calls to this.setState
-
-Advice: In an event handler `setState` should only be called once.
-
-If you do want to call `setState` multiple times and one call depends on the modifications of the previous call:
-
-```js
-this.setState(oldState => ({ count: oldState.count + 1 }));
-this.setState(oldState => ({ count: oldState.count + 1 }));
-```
-
-Pass a function to `setState`. This function will transform the old state into the new state.
 
 # Inputs
 
@@ -1142,24 +1007,6 @@ const Rating = ({ stars }) => (
 );
 ```
 
-## Props in class components
-
-example:
-
-```jsx
-import React, { Component } from 'react';
-
-export class Rating extends Component {
-  render() {
-    return (
-      <div className="rating">
-        {'*'.repeat(this.props.stars)}
-      </div>
-    );
-  }
-}
-```
-
 ## props.children
 
 A component may receive content to be displayed via `props.children`
@@ -1351,25 +1198,6 @@ Event types for event handlers that are defined separately:
 - `React.FormEvent<HTMLFormElement>`
 - `React.ChangeEvent<HTMLInputElement>`
 - `React.MouseEvent<HTMLDivElement>`
-
-## Class Components with TypeScript
-
-```tsx
-type TodoItemProps = {
-  todo: TodoType;
-  onToggle: (id: int) => void;
-};
-type TodoItemState = {};
-```
-
-```tsx
-class TodoItem extends React.PureComponent<
-  TodoItemProps,
-  TodoItemState
-> {
-  // ...
-}
-```
 
 # Querying APIs (effect hook)
 
