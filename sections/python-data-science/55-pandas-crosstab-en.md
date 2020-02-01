@@ -1,12 +1,12 @@
-# Kontingenztabelle
+# Cross tabulation
 
-## Kontingenztabelle
+## Cross tabulation
 
-Eine _Kontingenztabelle_ oder _Kreuztabelle_ gibt Anzahlen über mehrere Merkmale hinweg an.
+A _cross tabulation_ shows the number of corresponding entries across multiple properties
 
-## Kontingenztabelle
+## Cross tabulation
 
-Beispiel:
+example:
 
 ```py
 import seaborn as sns
@@ -15,7 +15,7 @@ titanic = sns.load_dataset("titanic")
 pd.crosstab(titanic.survived, titanic.sex)
 ```
 
-Ausgabe:
+output:
 
 ```
 sex       female  male

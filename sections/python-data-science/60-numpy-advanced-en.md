@@ -52,3 +52,45 @@ concatenating vertically:
 ```py
 np.concatenate([a2d, a2d], axis=1)
 ```
+
+## Matrix multiplication
+
+via the binary Operator `@`
+
+```py
+a = np.array([1, 1])
+
+M = np.array([[0.707, 0.707],
+              [-0.707, 0.707]])
+
+print(a @ M)
+# array([0.   , 1.414])
+```
+
+## Matrix multiplication
+
+example: rotating several points by 45° (counterclockwise):
+
+```py
+points = np.array([[0, 0], [0, 1], [1, 0], [1, 1]])
+
+M = np.array([[0.707, 0.707],
+              [-0.707, 0.707]])
+
+print(points @ M)
+```
+
+## Matrix multiplication
+
+example:
+
+known data: prices of various products, number of items in stock for different stores
+
+```py
+prices = np.array([3.99, 12.99, 5.90, 15])
+quantities = np.array([[0, 80, 80, 100],
+                       [100, 0, 0, 0],
+                       [50, 0, 0, 50]])
+```
+
+wanted: total value for each of the three stores

@@ -82,15 +82,12 @@ print(points @ M)
 
 ## Matrix-Multiplikation
 
-Preise verschiedener Produkte:
+Beispiel:
+
+bekannt: Preise verschiedener Produkte, derent Bestände in verschiedenen Lagern
 
 ```py
 prices = np.array([3.99, 12.99, 5.90, 15])
-```
-
-Bestände in verschiedenen Lagern:
-
-```py
 quantities = np.array([[0, 80, 80, 100],
                        [100, 0, 0, 0],
                        [50, 0, 0, 50]])

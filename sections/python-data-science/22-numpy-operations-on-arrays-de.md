@@ -73,8 +73,10 @@ Filtern von Arrays (z.B. beschränken auf positive Einträge):
 
 ```py
 a = np.array([[-1, 3], [-2, 1]])
-a_is_pos = a > 0 # array([[False, True], [False, True]])
-a_pos = a[a_is_pos] # array[3, 1]
+a_is_pos = a > 0
+# array([[False, True], [False, True]])
+a_pos = a[a_is_pos]
+# array([3, 1])
 ```
 
 Kurzform:
@@ -90,8 +92,10 @@ NumPy bietet spezielle Funktionen, die elementweise angewendet werden:
 ```py
 a = np.array([0, 1, 2, 3])
 
-print(np.sin(a)) # [0.0, 0.84147098, 0.9... ]
-print(np.sqrt(a)) # [0.0, 1.0, 1.414... ]
+print(np.sin(a))
+# [0.0, 0.84147098, 0.9... ]
+print(np.sqrt(a))
+# [0.0, 1.0, 1.414... ]
 ```
 
 ## Operationen auf Arrays
@@ -111,9 +115,23 @@ Elementweise Funktionen:
 
 _Aggregationen_ berechnen beispielsweise Werte zu jeder Zeile / jeder Spalte oder zu einem ganzen Array
 
-- Gesamtsumme: `np.sum(a2d)`
-- Summe in Richtung der Spalten: `np.sum(a2d, axis=0)`
-- Summe in Richtung der Zeilen: `np.sum(a2d, axis=1)`
+Gesamtsumme:
+
+```py
+np.sum(a2d)
+```
+
+Summe über alle Zeilen:
+
+```py
+np.sum(a2d, axis=0)
+```
+
+Summe über alle Spalten:
+
+```py
+np.sum(a2d, axis=1)
+```
 
 ## Operationen auf Arrays
 
@@ -159,7 +177,7 @@ c = np.array([1, 3])
 
 ## Übungen
 
-Erstelle eine Wertetabelle für Sinus- und Kosinusfunktion im Intervall von 0 bis 2*pi.
+Erstelle eine Wertetabelle für Sinus- und Kosinusfunktion im Intervall von 0 bis 2\*pi.
 
 Resultat:
 
@@ -170,4 +188,4 @@ np.array([[0.0, 0.01, 0.02, ...],
           [1.0, 0.99995, 0.99980, ...]])
 ```
 
-Überprüfe anhand der Daten, ob näherungsweise gilt: _sin(x)^2 + cos(x)^2 == 1_
+Überprüfe anhand der Daten, ob näherungsweise gilt: _sin(x)^2 + cos(x)^2 = 1_

@@ -35,6 +35,14 @@
 - `df.sample(5)` - five entries
 - `df.sample(frac=0.1)` - 10% of all entries
 
+## Filtering entries
+
+All values that don't fulfill the criterion are set to _NaN_ or _NA_.
+
+```py
+iris[iris > 0]
+```
+
 ## Filtering rows
 
 via _boolean indexing_ - which is applied by rows:

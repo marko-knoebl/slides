@@ -5,7 +5,14 @@
 In den Wechselkursdaten fehlen manche Einträge:
 
 - manche Tage sind nicht eingetragen (Wochenenden)
-- manche Tage sind als `NaN`s eingetragen
+- zu manchen Tage sind Werte als `NaN`s eingetragen
+
+## Fehlende Daten
+
+Werte, die fehlende Daten symbolisieren (ab pandas 1.0):
+
+- für floats: `NaN` (wie allgemein in Python üblich)
+- für andere Datentypen: `NA` (aus dem Pandas-Paket)
 
 ## Fehlende Daten
 

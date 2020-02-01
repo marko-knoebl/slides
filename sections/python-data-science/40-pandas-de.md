@@ -41,6 +41,21 @@ area[0] # 9.6
 area['CN'] # 9.6
 ```
 
+## Datentypen
+
+Jede series hat einen bestimmten Datentyp
+
+```py
+area.dtype # float64
+```
+
+manuelles Setzen des Datentyps:
+
+```py
+area = pd.Series({"CN": 9.6, "RU": 17, "US": 9.8},
+                 dtype="float32")
+```
+
 ## DataFrame
 
 ```py

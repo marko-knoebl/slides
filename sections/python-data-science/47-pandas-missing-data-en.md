@@ -5,7 +5,14 @@
 In the exchange rate data there are some missing entries:
 
 - some days are not present (weekends)
-- some days are stored as `NaN`s
+- for some days the values are `NaN`s
+
+## Missing data
+
+Values that represent missing data (since pandas 1.0):
+
+- for floats: `NaN` (as usual in Python)
+- for other data types: `NA` (from the pands package)
 
 ## Missing data
 
@@ -46,3 +53,7 @@ ir_uk = pd.read_csv(url, index_col="date",
 
 ir_uk_weekly = ir_uk.resample('7d').interpolate()
 ```
+
+## Exercise
+
+Use the data from _sp500_ and euribor to compare the development of american and european interest rates

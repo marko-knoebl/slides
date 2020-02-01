@@ -37,7 +37,7 @@
 
 ## Einträge filtern
 
-Analog zur Funktionsweise von _NumPy_: alle Werte, die das Kriterium nicht erfüllen werden zu _NaN_.
+Alle Werte, die das Kriterium nicht erfüllen werden zu _NaN_ bzw _NA_.
 
 ```py
 iris[iris > 0]
@@ -80,6 +80,7 @@ df.query("a < b < c")
 - letzte 10 Einträge
 - Eintrag vom 2.1.2009
 - Einträge aus dem Jahr 2009
+- ...
 
 ## Lösungen (Euribor)
 
