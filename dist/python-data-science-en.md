@@ -189,7 +189,10 @@ We can execute any terminal command by prefixing it with `!`
 
 Library for efficient data processing
 
-Data are stored in multidimensional arrays of numeric values which are implemented in an efficient way
+Data are stored in multidimensional arrays of numeric values which are implemented in an efficient way:
+
+- smaller memory use than e.g. lists of numbers in Python
+- much faster execution of operations like element-wise addition of arrays
 
 Data can represent images, sound, measurements and much more
 
@@ -201,11 +204,45 @@ common import convention:
 import numpy as np
 ```
 
-## NumPy
+## Arrays
 
-NumPy Arrays vs Python lists:
+creating a 2-dimensional array:
 
-Arrays are implemented in C; the entries (e.g. integers) are not Python Objects and are therefore lighter on resources
+```py
+a2d = np.array([[1, 2, 3], [2, 4, 6], [3, 6, 9]])
+```
+
+output:
+
+```py
+array([[1, 2, 3],
+       [2, 4, 6],
+       [3, 6, 9]])
+```
+
+## Arrays
+
+creating a 3-dimensional array:
+
+```py
+a3d = np.array([[[1, 2], [3, 4]], [[5, 6], [7,8]]])
+```
+
+output:
+
+```py
+array([[[1, 2],
+        [3, 4]],
+
+       [[5, 6],
+        [7, 8]]])
+```
+
+## Arrays
+
+NumPy arrays vs Python lists:
+
+Arrays are implemented in C, the numeric entries are not full Python Objects and require less resources
 
 ## NumPy
 
@@ -226,43 +263,244 @@ array_b = numpy.array(list_b)
 array_a * array_b
 ```
 
-## Arrays
+## Array shape
+
+We can query these attributes:
+
+- `a3d.ndim`: 3
+- `a3d.shape`: (2, 2, 2)
+- `a3d.size`: 8
+
+# Creating arrays
+
+## Creating arrays
+
+creating a 2x6 array filled with 0:
+
+```py
+np.zeros((2, 6))
+```
+
+or
+
+```py
+np.full((2, 6), 0)
+```
+
+creating a 3x3 array of random values:
+
+```py
+np.random.random(3, 3)
+```
+
+## Creating arrays
+
+creating the sequence _0.0, 0.5, 1.0, 1.5_:
+
+```py
+# fixed step width (0.5)
+a = np.arange(0, 2, 0.5)
+# fixed number of entries (4)
+b = np.linspace(0, 1.5, 4)
+```
+
+# Operations on arrays
+
+## Operations on arrays
+
+Selecting entries:
+
+```py
+a2d[0] # [1, 2, 3]
+a2d[0, 1] # 2
+a2d[0, :] # [1, 2, 3]
+a2d[:, 0] # [1, 2, 3]
+```
+
+## Operations on arrays
+
+Selecting entries:
+
+```py
+a2d[1:, 1:] # [[4, 6], [6, 9]]
+a2d[1, ::-1] # [3, 2, 1]
+```
+
+## Operations on arrays
+
+Operators are applied element-wise:
+
+```py
+a = np.array([1, 2, 3])
+b = np.array([2, 2, 2])
+
+print(-a)
+# np.array([-1, -2, -3])
+print(a + b)
+# np.array([3, 4, 5])
+print(a * b)
+# np.array([2, 4, 6])
+```
+
+## Operations on arrays
+
+operations with single numbers (broadcasting):
+
+```py
+a = np.array([1, 2, 3])
+
+print(a + 1)
+# np.array([2, 3, 4])
+```
+
+Some constants are available directly in NumPy:
+
+```py
+print(a + np.pi)
+print(a + np.e)
+```
+
+## Operations on arrays
+
+element-wise comparison of arrays:
+
+```py
+a < b
+# np.array([True, False, False])
+a == b
+# np.array([False, True, False])
+```
+
+Warning: `a == b` cannot be used reasonably in if statements - use `np.array_equal(a, b)`
+
+## Operations on arrays
+
+Filtering arrays (e.g. for restricting to positive entries):
+
+```py
+a = np.array([[-1, 3], [-2, 1]])
+a_is_pos = a > 0
+# array([[False, True], [False, True]])
+a_pos = a[a_is_pos]
+# array([3, 1])
+```
+
+short form:
+
+```py
+a_pos = a[a > 0]
+```
+
+## Operations on arrays
+
+NumPy provides some mathematical functions that are applied element-wise:
+
+```py
+a = np.array([0, 1, 2, 3])
+
+print(np.sin(a))
+# [0.0, 0.84147098, 0.9... ]
+print(np.sqrt(a))
+# [0.0, 1.0, 1.414... ]
+```
+
+## Operations on arrays
+
+element-wise functions:
+
+- `abs`
+- `sin`
+- `cos`
+- `sqrt`
+- `exp`
+- `log`
+- `log10`
+- ...
+
+## Operations on arrays
+
+_Aggregations_ compute scalar values for an entire array or for each of its rows / columns / ...
+
+sum over all entries:
+
+```py
+np.sum(a2d)
+```
+
+sum over all rows:
+
+```py
+np.sum(a2d, axis=0)
+```
+
+sum over all columns:
+
+```py
+np.sum(a2d, axis=1)
+```
+
+## Operationen auf Arrays
+
+Aggregationen:
+
+- `sum`
+- `min`
+- `max`
+- `std`
+- `percentile`
+
+## Exercises
+
+(see next slides)
+
+- prices and amounts -> total price
+- centroid of a triangle
+- sine and cosine - value table
+
+## Exercises
+
+given an array of prices and an array of quantities, determine the total price:
+
+```py
+prices = np.array([3.99, 4.99, 3.99, 12.99])
+# buying the first item 3 times and the last item 2 times
+quantities = np.array([3, 0, 0, 2])
+
+# solution: 37.95
+```
+
+## Exercises
+
+given the coordinates of the vertices of a triangle (in 2D or 3D), determine its centroid
+
+```py
+a = np.array([5, 1])
+b = np.array([6, 8])
+c = np.array([1, 3])
+
+# solution: [4, 4]
+```
+
+## Exercises
+
+create a "value table" for the sine and cosine functions in the interval between 0 and 2\*pi.
+
+result:
+
+```py
+# x, sin(x), cos(x)
+np.array([[0.0, 0.01, 0.02, ...],
+          [0.0, 0.0099998, 0.99995, ...],
+          [1.0, 0.99995, 0.99980, ...]])
+```
+
+using this data, verify the following equation: _sin(x)^2 + cos(x)^2 = 1_
+
+# Array types
+
+## Array types
 
 Each array can only hold data of one type (e.g. only 64 bit floats or only bytes)
-
-## Arrays
-
-Creating a 2-dimensional array:
-
-```py
-a2d = np.array([[1, 2, 3], [2, 4, 6], [3, 6, 9]])
-```
-
-output:
-
-```py
-array([[1, 2, 3],
-       [2, 4, 6],
-       [3, 6, 9]])
-```
-
-## Arrays
-
-Creating a 3-dimensional array:
-
-```py
-a3d = np.array([[[1, 2], [3, 4]], [[5, 6], [7,8]]])
-```
-
-output:
-
-```py
-array([[[1, 2],
-        [3, 4]],
-
-       [[5, 6],
-        [7, 8]]])
-```
 
 ## Array types
 
@@ -319,111 +557,6 @@ Output:
 ```py
 array([127, -128, -127])
 ```
-
-## Array shapes
-
-We can query:
-
-- `a3d.ndim`: 3
-- `a3d.shape`: (2, 2, 2)
-- `a3d.size`: 8
-
-## Operations on arrays
-
-Selecting entries:
-
-```py
-a3d[0, 1, 0] # 3
-
-a3d[0, :, 0] # [1, 3]
-```
-
-## Operations on arrays
-
-Operators are applied element-wise:
-
-```py
-a = np.array([1, 2, 3])
-b = np.array([2, 2, 2])
-
-print(a + b)
-# np.array([3, 4, 5])
-print(a * b)
-# np.array([2, 4, 6])
-```
-
-## Operations on arrays
-
-NumPy has special functions that are applied to arrays element-wise
-
-```py
-a = np.array([0, 1, 2, 3])
-
-print(np.sin(a)) # [0.0, 0.84147098, 0.9... ]
-print(np.sqrt(a)) # [0.0, 1.0, 1.414... ]
-```
-
-## Creating arrays
-
-creating a 2x6 array filled with 0:
-
-```py
-np.zeros((2, 6))
-np.full((2, 6), 0)
-```
-
-creating a 3x3 array of random values:
-
-```py
-np.random.random(3, 3)
-```
-
-## Creating arrays
-
-creating the sequence _0.0, 0.5, 1.0, 1.5_:
-
-```py
-# fixed step width (0.5)
-a = np.arange(0, 2, 0.5)
-# fixed number of entries (4)
-b = np.linspace(0, 1.5, 4)
-```
-## Exercises
-
-given an array of prices and an array of quantities, determine the total price:
-
-```py
-prices = np.array([3.99, 4.99, 3.99, 12.99])
-# buying the first item 3 times and the last item 2 times
-quantities = np.array([3, 0, 0, 2])
-
-# solution: 37.95
-```
-
-given the coordinates of the vertices of a triangle (in 2D or 3D), determine its centroid
-
-```py
-a = np.array([5, 1])
-b = np.array([6, 8])
-c = np.array([1, 3])
-
-# solution: [4, 4]
-```
-
-## Slicing arrays
-
-```py
-a2d = np.array([[1, 2, 3], [2, 4, 6], [3, 6, 9]])
-
-a2d[0] # [1, 2, 3]
-a2d[0, :] # [1, 2, 3]
-a2d[1:, 1:] # [[4, 6], [6, 9]]
-a2d[1, ::-1] # [3, 2, 1]
-```
-
-## Exercises
-
-advanced: solving linear equations
 
 # Plotting
 
@@ -651,6 +784,14 @@ euribor = read_hdf("data.hdf5", "euribor")
 - `df.sample(5)` - five entries
 - `df.sample(frac=0.1)` - 10% of all entries
 
+## Filtering entries
+
+All values that don't fulfill the criterion are set to _NaN_ or _NA_.
+
+```py
+iris[iris > 0]
+```
+
 ## Filtering rows
 
 via _boolean indexing_ - which is applied by rows:
@@ -863,7 +1004,14 @@ iris.loc[:, "sepal_ratio"] = float('nan')
 In the exchange rate data there are some missing entries:
 
 - some days are not present (weekends)
-- some days are stored as `NaN`s
+- for some days the values are `NaN`s
+
+## Missing data
+
+Values that represent missing data (since pandas 1.0):
+
+- for floats: `NaN` (as usual in Python)
+- for other data types: `NA` (from the pands package)
 
 ## Missing data
 
@@ -904,6 +1052,10 @@ ir_uk = pd.read_csv(url, index_col="date",
 
 ir_uk_weekly = ir_uk.resample('7d').interpolate()
 ```
+
+## Exercise
+
+Use the data from _sp500_ and euribor to compare the development of american and european interest rates
 
 # Plotting
 
@@ -1017,6 +1169,89 @@ from pandas.plotting import scatter_matrix
 scatter_matrix(iris)
 ```
 
+# Cross tabulation
+
+## Cross tabulation
+
+A _cross tabulation_ shows the number of corresponding entries across multiple properties
+
+## Cross tabulation
+
+example:
+
+```py
+import seaborn as sns
+import pandas as pd
+titanic = sns.load_dataset("titanic")
+pd.crosstab(titanic.survived, titanic.sex)
+```
+
+output:
+
+```
+sex       female  male
+survived
+0             81   468
+1            233   109
+```
+
+# Grouping
+
+## Grouping
+
+splitting data into groups / categories and computing values based on these groups
+
+## Grouping
+
+example: average of the iris data
+
+```py
+iris.groupby(iris.name).mean()
+```
+
+```
+                 sepal_length  sepal_width  petal_length  petal_width
+name
+Iris-setosa             5.006        3.418         1.464        0.244
+Iris-versicolor         5.936        2.770         4.260        1.326
+Iris-virginica          6.588        2.974         5.552        2.026
+```
+
+## Grouping
+
+Exercise: average USD exchange rates for each currency in the 90s
+
+# Multi index
+
+## Multi index
+
+**index column**: column that uniquely identifies a row in a DataFrame
+
+**multi index**: combination of multiple columns for unique identification
+
+## Multi index
+
+example: exchange rates
+
+| Date       | Country   | Exchange rate |
+| ---------- | --------- | ------------- |
+| 1971-01-01 | Australia | 0.894         |
+| 1971-02-01 | Australia | 0.890         |
+| 1971-03-01 | Australia | 0.890         |
+
+A row can be uniquely identified by a combination of _date_ and _country_
+
+## Multi index
+
+Importing with a multi-index:
+
+```py
+exchange_rates = pd.read_csv(
+    "https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv",
+    index_col=["Country", "Date"]
+    parse_dates=["Date"])
+```
+
 # NumPy advanced
 
 ## Reshaping arrays
@@ -1071,4 +1306,46 @@ concatenating vertically:
 ```py
 np.concatenate([a2d, a2d], axis=1)
 ```
+
+## Matrix multiplication
+
+via the binary Operator `@`
+
+```py
+a = np.array([1, 1])
+
+M = np.array([[0.707, 0.707],
+              [-0.707, 0.707]])
+
+print(a @ M)
+# array([0.   , 1.414])
+```
+
+## Matrix multiplication
+
+example: rotating several points by 45° (counterclockwise):
+
+```py
+points = np.array([[0, 0], [0, 1], [1, 0], [1, 1]])
+
+M = np.array([[0.707, 0.707],
+              [-0.707, 0.707]])
+
+print(points @ M)
+```
+
+## Matrix multiplication
+
+example:
+
+known data: prices of various products, number of items in stock for different stores
+
+```py
+prices = np.array([3.99, 12.99, 5.90, 15])
+quantities = np.array([[0, 80, 80, 100],
+                       [100, 0, 0, 0],
+                       [50, 0, 0, 50]])
+```
+
+wanted: total value for each of the three stores
 

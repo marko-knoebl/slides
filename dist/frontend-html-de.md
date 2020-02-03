@@ -176,17 +176,28 @@ Beispiele für Befehle:
 - _Ctrl_ + _F2_: Mehrere Textcursor setzen
 - _Alt_ + Mausklick: Mehrere Textcursor setzen
 
-# VS Code - Extensions
+# VS Code für JavaScript
 
-In der Sidebar öffnen: fünftes Symbol auf der linken Seite
+## VS Code - Extensions für JavaScript
 
-## VS Code - Extensions
+Extensions-Sidebar öffnen: fünftes Symbol auf der linken Seite
 
-- Prettier - Automatische Code-Formatierung nach strikten Regeln - für HTML, JS, CSS
+mögliche Extensions:
 
-## Prettier - Konfiguration
+- Prettier (Code-Formatierung)
+- ESLint (Linter)
 
-z.B. über _prettierrc.json_:
+## Prettier
+
+- automatische Code-Formatierung nach strikten Regeln
+- für JavaScript, HTML, CSS
+- Tastenkürzel: _Alt_ + _Shift_ + _F_
+
+## Prettier
+
+Konfiguration:
+
+z.B. über _.prettierrc.json_:
 
 ```json
 {
@@ -194,6 +205,10 @@ z.B. über _prettierrc.json_:
   "trailingComma": "all"
 }
 ```
+
+## ESLint
+
+Linter mit mehr Funktionalität als der Standard-Linter von VS Code
 
 # Struktur eines HTML-Dokuments
 

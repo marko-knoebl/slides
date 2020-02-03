@@ -3390,6 +3390,30 @@ useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =></sp
   <span class="hljs-tag">&#x3C;/<span class="hljs-name">View</span>></span></span>
 );
 </code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Higher-order components</h1>
+<h3>functions that modify component definitions</h3>
+</section><section class="slide"><h2>Higher-order components</h2>
+<p>confusing terminology:</p>
+<p>Higher-order components are <strong>not</strong> components 😲</p>
+<p>Higher-order components are functions that can change/enhance a component definition</p>
+</section><section class="slide"><h2>Higher-order components</h2>
+<p>Example:</p>
+<p><em>React</em>'s <code>memo</code> is a higher-order component</p>
+<p>It receives a component and returns a memoized component:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> MemoizedRating = memo(Rating);
+</code></pre>
+</section><section class="slide"><h2>Higher-order components</h2>
+<p>Example:</p>
+<p><code>connect</code> from <em>react-redux</em> returns a HOC:</p>
+<pre><code class="hljs language-js"><span class="hljs-comment">// connector is a HOC</span>
+<span class="hljs-keyword">const</span> connector = connect(
+  mapStateToProps,
+  mapDispatchToProps
+);
+</code></pre>
+<p>The resulting HOC receives a regular component and returns a component that is connected to the Redux store:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> RatingContainer = connector(Rating);
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>File Structure</h1>
 </section><section class="slide"><h2>File Structure</h2>
 <p><a href="https://reactjs.org/docs/faq-structure.html">https://reactjs.org/docs/faq-structure.html</a></p>

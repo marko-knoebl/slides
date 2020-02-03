@@ -2274,8 +2274,10 @@ a == b
 </section><section class="slide"><h2>Operationen auf Arrays</h2>
 <p>Filtern von Arrays (z.B. beschränken auf positive Einträge):</p>
 <pre><code class="hljs language-py">a = np.array([[<span class="hljs-number">-1</span>, <span class="hljs-number">3</span>], [<span class="hljs-number">-2</span>, <span class="hljs-number">1</span>]])
-a_is_pos = a > <span class="hljs-number">0</span> <span class="hljs-comment"># array([[False, True], [False, True]])</span>
-a_pos = a[a_is_pos] <span class="hljs-comment"># array[3, 1]</span>
+a_is_pos = a > <span class="hljs-number">0</span>
+<span class="hljs-comment"># array([[False, True], [False, True]])</span>
+a_pos = a[a_is_pos]
+<span class="hljs-comment"># array([3, 1])</span>
 </code></pre>
 <p>Kurzform:</p>
 <pre><code class="hljs language-py">a_pos = a[a > <span class="hljs-number">0</span>]
@@ -2284,8 +2286,10 @@ a_pos = a[a_is_pos] <span class="hljs-comment"># array[3, 1]</span>
 <p>NumPy bietet spezielle Funktionen, die elementweise angewendet werden:</p>
 <pre><code class="hljs language-py">a = np.array([<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])
 
-print(np.sin(a)) <span class="hljs-comment"># [0.0, 0.84147098, 0.9... ]</span>
-print(np.sqrt(a)) <span class="hljs-comment"># [0.0, 1.0, 1.414... ]</span>
+print(np.sin(a))
+<span class="hljs-comment"># [0.0, 0.84147098, 0.9... ]</span>
+print(np.sqrt(a))
+<span class="hljs-comment"># [0.0, 1.0, 1.414... ]</span>
 </code></pre>
 </section><section class="slide"><h2>Operationen auf Arrays</h2>
 <p>Elementweise Funktionen:</p>
@@ -2301,11 +2305,15 @@ print(np.sqrt(a)) <span class="hljs-comment"># [0.0, 1.0, 1.414... ]</span>
 </ul>
 </section><section class="slide"><h2>Operationen auf Arrays</h2>
 <p><em>Aggregationen</em> berechnen beispielsweise Werte zu jeder Zeile / jeder Spalte oder zu einem ganzen Array</p>
-<ul>
-<li>Gesamtsumme: <code>np.sum(a2d)</code></li>
-<li>Summe in Richtung der Spalten: <code>np.sum(a2d, axis=0)</code></li>
-<li>Summe in Richtung der Zeilen: <code>np.sum(a2d, axis=1)</code></li>
-</ul>
+<p>Gesamtsumme:</p>
+<pre><code class="hljs language-py">np.sum(a2d)
+</code></pre>
+<p>Summe über alle Zeilen:</p>
+<pre><code class="hljs language-py">np.sum(a2d, axis=<span class="hljs-number">0</span>)
+</code></pre>
+<p>Summe über alle Spalten:</p>
+<pre><code class="hljs language-py">np.sum(a2d, axis=<span class="hljs-number">1</span>)
+</code></pre>
 </section><section class="slide"><h2>Operationen auf Arrays</h2>
 <p>Aggregationen:</p>
 <ul>
@@ -2346,7 +2354,7 @@ np.array([[<span class="hljs-number">0.0</span>, <span class="hljs-number">0.01<
           [<span class="hljs-number">0.0</span>, <span class="hljs-number">0.0099998</span>, <span class="hljs-number">0.99995</span>, ...],
           [<span class="hljs-number">1.0</span>, <span class="hljs-number">0.99995</span>, <span class="hljs-number">0.99980</span>, ...]])
 </code></pre>
-<p>Überprüfe anhand der Daten, ob näherungsweise gilt: <em>sin(x)^2 + cos(x)^2 == 1</em></p>
+<p>Überprüfe anhand der Daten, ob näherungsweise gilt: <em>sin(x)^2 + cos(x)^2 = 1</em></p>
 </section></section><section class="slides-section"><section class="slide"><h1>Array Typen</h1>
 </section><section class="slide"><h2>Array Typen</h2>
 <p>Jedes Array kann nur Daten eines Typs enthalten (z.B. nur 64-bit floats oder nur bytes)</p>
@@ -2743,6 +2751,14 @@ population = pd.Series([<span class="hljs-number">1386</span>, <span class="hljs
 
 area[<span class="hljs-string">'CN'</span>] <span class="hljs-comment"># 9.6</span>
 </code></pre>
+</section><section class="slide"><h2>Datentypen</h2>
+<p>Jede series hat einen bestimmten Datentyp</p>
+<pre><code class="hljs language-py">area.dtype <span class="hljs-comment"># float64</span>
+</code></pre>
+<p>manuelles Setzen des Datentyps:</p>
+<pre><code class="hljs language-py">area = pd.Series({<span class="hljs-string">"CN"</span>: <span class="hljs-number">9.6</span>, <span class="hljs-string">"RU"</span>: <span class="hljs-number">17</span>, <span class="hljs-string">"US"</span>: <span class="hljs-number">9.8</span>},
+                 dtype=<span class="hljs-string">"float32"</span>)
+</code></pre>
 </section><section class="slide"><h2>DataFrame</h2>
 <pre><code class="hljs language-py">countries = pd.DataFrame({
     <span class="hljs-string">'area'</span>: area,
@@ -2863,7 +2879,7 @@ euribor = read_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class="hl
 <li><code>df.sample(frac=0.1)</code> - 10% aller Einträge</li>
 </ul>
 </section><section class="slide"><h2>Einträge filtern</h2>
-<p>Analog zur Funktionsweise von <em>NumPy</em>: alle Werte, die das Kriterium nicht erfüllen werden zu <em>NaN</em>.</p>
+<p>Alle Werte, die das Kriterium nicht erfüllen werden zu <em>NaN</em> bzw <em>NA</em>.</p>
 <pre><code class="hljs language-py">iris[iris > <span class="hljs-number">0</span>]
 </code></pre>
 </section><section class="slide"><h2>Zeilen filtern</h2>
@@ -2892,6 +2908,7 @@ euribor = read_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class="hl
 <li>letzte 10 Einträge</li>
 <li>Eintrag vom 2.1.2009</li>
 <li>Einträge aus dem Jahr 2009</li>
+<li>...</li>
 </ul>
 </section><section class="slide"><h2>Lösungen (Euribor)</h2>
 <ul>
@@ -3009,7 +3026,13 @@ iris.loc[:, <span class="hljs-string">"sepal_ratio"</span>] = float(<span class=
 <p>In den Wechselkursdaten fehlen manche Einträge:</p>
 <ul>
 <li>manche Tage sind nicht eingetragen (Wochenenden)</li>
-<li>manche Tage sind als <code>NaN</code>s eingetragen</li>
+<li>zu manchen Tage sind Werte als <code>NaN</code>s eingetragen</li>
+</ul>
+</section><section class="slide"><h2>Fehlende Daten</h2>
+<p>Werte, die fehlende Daten symbolisieren (ab pandas 1.0):</p>
+<ul>
+<li>für floats: <code>NaN</code> (wie allgemein in Python üblich)</li>
+<li>für andere Datentypen: <code>NA</code> (aus dem Pandas-Paket)</li>
 </ul>
 </section><section class="slide"><h2>Fehlende Daten</h2>
 <p>Entfernen aller Zeilen mit fehlenden Daten:</p>
@@ -3039,7 +3062,6 @@ ir_uk_weekly = ir_uk.resample(<span class="hljs-string">'7d'</span>).interpolate
 </section></section><section class="slides-section"><section class="slide"><h1>Kontingenztabelle</h1>
 </section><section class="slide"><h2>Kontingenztabelle</h2>
 <p>Eine <em>Kontingenztabelle</em> oder <em>Kreuztabelle</em> gibt Anzahlen über mehrere Merkmale hinweg an.</p>
-<p>Sie kann mittels <code>pd.crosstab</code> erstellt werden.</p>
 </section><section class="slide"><h2>Kontingenztabelle</h2>
 <p>Beispiel:</p>
 <pre><code class="hljs language-py"><span class="hljs-keyword">import</span> seaborn <span class="hljs-keyword">as</span> sns
@@ -3049,18 +3071,19 @@ pd.crosstab(titanic.survived, titanic.sex)
 </code></pre>
 <p>Ausgabe:</p>
 <pre><code class="hljs language-angelscript">sex       female  male
-survived              
+survived
 <span class="hljs-number">0</span>             <span class="hljs-number">81</span>   <span class="hljs-number">468</span>
 <span class="hljs-number">1</span>            <span class="hljs-number">233</span>   <span class="hljs-number">109</span>
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Gruppierung</h1>
 </section><section class="slide"><h2>Gruppierung</h2>
 <p>Einteilung der Daten in Gruppen / Kategorien und berechnen von Werten auf deren Basis</p>
+</section><section class="slide"><h2>Gruppierung</h2>
 <p>Beispiel: Durchschnittswerte der Iris-Daten basierend auf dem Namen der Art</p>
 <pre><code class="hljs language-py">iris.groupby(iris.name).mean()
 </code></pre>
 <pre><code class="hljs language-angelscript">                 sepal_length  sepal_width  petal_length  petal_width
-name                                                                 
+name
 Iris-setosa             <span class="hljs-number">5.006</span>        <span class="hljs-number">3.418</span>         <span class="hljs-number">1.464</span>        <span class="hljs-number">0.244</span>
 Iris-versicolor         <span class="hljs-number">5.936</span>        <span class="hljs-number">2.770</span>         <span class="hljs-number">4.260</span>        <span class="hljs-number">1.326</span>
 Iris-virginica          <span class="hljs-number">6.588</span>        <span class="hljs-number">2.974</span>         <span class="hljs-number">5.552</span>        <span class="hljs-number">2.026</span>
@@ -3161,11 +3184,10 @@ M = np.array([[<span class="hljs-number">0.707</span>, <span class="hljs-number"
 print(points @ M)
 </code></pre>
 </section><section class="slide"><h2>Matrix-Multiplikation</h2>
-<p>Preise verschiedener Produkte:</p>
+<p>Beispiel:</p>
+<p>bekannt: Preise verschiedener Produkte, derent Bestände in verschiedenen Lagern</p>
 <pre><code class="hljs language-py">prices = np.array([<span class="hljs-number">3.99</span>, <span class="hljs-number">12.99</span>, <span class="hljs-number">5.90</span>, <span class="hljs-number">15</span>])
-</code></pre>
-<p>Bestände in verschiedenen Lagern:</p>
-<pre><code class="hljs language-py">quantities = np.array([[<span class="hljs-number">0</span>, <span class="hljs-number">80</span>, <span class="hljs-number">80</span>, <span class="hljs-number">100</span>],
+quantities = np.array([[<span class="hljs-number">0</span>, <span class="hljs-number">80</span>, <span class="hljs-number">80</span>, <span class="hljs-number">100</span>],
                        [<span class="hljs-number">100</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>],
                        [<span class="hljs-number">50</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">50</span>]])
 </code></pre>

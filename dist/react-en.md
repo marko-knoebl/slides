@@ -82,6 +82,13 @@ Code available at: https://github.com/marko-knoebl/courses-code
 - current major version: React 16 (September 2017)
 - February 2019: introction of hooks
 
+# Basics for the course
+
+## Basics for the course
+
+- [VS Code basics and plugins](./vs-code-en.html)
+- [Modern JavaScript (ES2015+)](./javascript-es-2015-en.html)
+
 # Create-React-App
 
 ## Developing with node.js and npm
@@ -102,6 +109,12 @@ run it via:
 
 ```bash
 npx create-react-app playground
+```
+
+or
+
+```bash
+npx create-react-app playground --template typescript
 ```
 
 see also: https://reactjs.org/docs/add-react-to-a-new-app.html
@@ -192,15 +205,6 @@ we can also change from XML to JS in properties:
 
 Note there are no quote characters around the value of _href_
 
-## JSX Properties: task
-
-Show a picture based on an id; make use of this function:
-
-```js
-const getImgUrl = id =>
-  'https://picsum.photos/200?image=' + id.toString();
-```
-
 ## JSX: events
 
 ```jsx
@@ -211,331 +215,6 @@ const hello = () => {...}
 
 list of browser events:
 https://www.w3schools.com/jsref/dom_obj_event.asp
-
-## State example
-
-(we will look into the topic of state in detail later)
-
-```jsx
-const Counter = () => {
-  const [count, setCount] = useState(0);
-
-  return (
-    <button
-      onClick={() => {
-        setCount(count + 1);
-      }}>
-      {count}
-    </button>
-  );
-};
-```
-
-# VS Code
-
-## VS Code
-
-https://code.visualstudio.com
-
-open source IDE
-
-independent of _Visual Studio_ itself
-
-## VS Code: open folder
-
-via _File_ - _Open Folder_
-
-## VS Code: File explorer, split editor
-
-## VS Code: Terminal
-
-Open / close the terminal view via _ctrl_ + _`_
-
-Open an additional terminal via the _+_ Symbol
-
-Terminals will run in the currently open folder
-
-## VS Code: Configuration
-
-Via _File - Preferences - Settings_
-
-Is split into _User Settings_ and _Workspace Settings_
-
-## VS Code: Configuration options
-
-Recommendations:
-
-- Accept Suggestions on Commit Character (Autocomplete on other keys than _Enter_): _deactivate_
-- Tab Size: _2_ or _4_
-
-Further options:
-
-- Auto Save
-- Format on Save
-- Word Wrap
-- EOL
-- Workbench: Color Theme
-
-## VS Code - Commands
-
-_F1_ or _Ctrl_ + _Shift_ + _P_: display command palette
-
-- searchable
-- shows shortcuts
-
-Example commands:
-
-- _Find_
-- _Search: Find in Files_
-- _Format Document_
-- _Toggle line comment_ / _Toggle block comment_
-- _Go to definition_ / _Peek definition_ (only for certain file types)
-- _Rename symbol_ (only for certain file types)
-
-## VS Code - multiple text cursors
-
-- _Ctrl_ + _F2_: set multiple text cursors
-- _Alt_ + click: set multiple text cursors
-
-# Prettier
-
-## Prettier
-
-https://prettier.io/
-
-- Code formatting according to strict rules
-- VS Code plugin (via Alt + Shift + F)
-
-## Prettier configuration
-
-in VS Code: via File - Preferences - Settings
-
-or via `.prettierrc.json`:
-
-```json
-{
-  "bracketSpacing": false,
-  "singleQuote": true,
-  "trailingComma": true,
-  "jsxBracketSameLine": true
-}
-```
-
-# ESLint
-
-## ESLint
-
-Linter for JavaScript (and TypeScript)
-
-VS Code Plugin is available
-
-# ES2015+
-
-## Modern JavaScript
-
-## JavaScript standardisation
-
-JavaScript is standardised under the name _ECMAScript_ (ES)
-
-## JavaScript: versions
-
-- Supported by all Browsers: ES5 (standardised in 2009)
-- Next big version: _ES2015_ (or ES6)
-- Since then: yearly updates in June of each year (ES2016, ES2017, ...)
-
-## JavaScript: version support
-
-- Overview: see http://kangax.github.io/compat-table/es6/
-- In practice: Modern JavaScript is transpiled to ES5 (via Babel, webpack)
-
-## Important changes in ES2015
-
-## Modules & imports
-
-- It's possible to import objects from other js-files - no more global namespace
-- Is handled by webpack in most cases
-
-```js
-// user.js
-export class User {
-  ...
-}
-```
-
-```js
-// main.js
-import { User } from 'user.js';
-```
-
-## Modules & imports
-
-```js
-// user.js
-// there may be 1 default export
-export default class User {
-   ...
-}
-```
-
-```js
-// main.js
-import User from 'user.js';
-```
-
-## Imports in webpack
-
-Bundlers like webpack can deviate from standard JavaScript import behavior:
-
-- the import doesn't require a file name extension like `.js`
-- if the import leads to a folder webpack will look for an `index.js` file in the folder
-
-## let
-
-- New alternative to `var` - with different scoping
-- variables scope: surrounding curly braces (instead of surrounding function)
-
-```js
-if (true) {
-  let a = 3;
-}
-console.log(a); // ReferenceError
-```
-
-## const
-
-Declares a variable that cannot be reassigned.
-However, the named object itself may be modified.
-
-```js
-const names = ['Alice', 'Bob', 'Claire'];
-names = ['Andrew', 'Bob', 'Claire']; // invalid!
-names[0] = 'Andrew'; // valid
-```
-
-## Destructuring assignment
-
-```js
-let a = 1;
-let b = 2;
-[a, b] = [b, a];
-
-const [result, errors] = someComputation();
-```
-
-## Destructuring assignment
-
-```js
-const person = { name: 'John', age: 48 };
-
-const { name, age } = person;
-```
-
-## Arrow functions
-
-- short notation for anonymous functions
-- leaves _this_ unchanged (does not reassign)
-
-```js
-let multiply = (a, b) => {
-  return a * b;
-};
-
-let multiply = (a, b) => a * b;
-```
-
-## Arrow functions
-
-if there's exactly one parameter: parentheses are optional
-
-```js
-const square = a => a * a;
-```
-
-if we want to return an object directly: wrap it in parentheses
-
-```js
-const getState = () => ({
-  loggedIn: true,
-  userName: 'mike',
-});
-```
-
-## Classes
-
-Class syntax replaces the old constructor functions and prototypes
-
-## Classes
-
-```js
-class Person {
-  constructor(firstName, lastName) {
-    this.firstName = firstName;
-    this.lastName = lastName;
-  }
-  hello() {
-    return `My name is ${this.firstName}`;
-  }
-}
-```
-
-## Inheritance
-
-```js
-class User extends Person {
-  constructor(firstName, lastName, userName) {
-    // calls Person.constructor
-    super(firstName, lastName);
-    this.userName = userName;
-  }
-}
-```
-
-## Array iteration (for ... of)
-
-Iterating over entries of an array:
-
-```js
-let names = ['Anna', 'Bernhard', 'Caro'];
-for (let name of names) {
-  console.log(name);
-}
-```
-
-## Spread syntax (arrays and objects)
-
-```js
-let squares = [1, 4, 9];
-let moreSquares = [...squares, 16, 25];
-// moreSquares: [1, 4, 9, 16, 25]
-```
-
-```js
-let person = { firstName: 'Joe', lastName: 'Doe', age: 31 };
-let newPerson = { ...person, email: 'j@d.com', age: 32 };
-// {firstName: 'Joe', lastName: 'Doe', email: 'j@d.com', age: 32}
-```
-
-## Template strings
-
-- new syntax for _creating_ strings
-- delimited via backticks
-- enables multiline string literals and interpolation
-
-```js
-let name = 'Anton';
-let greeting = `Hello, ${name}!
-                This is ES2015!`;
-```
-
-## Default arguments
-
-Functions may now have default arguments
-
-```js
-let join = (strings, separator='') => {
-  ...
-}
-```
 
 # State
 
@@ -604,7 +283,7 @@ implement a slideshow that shows images like the following:
 - button for _back to start_
 - prevent the index becoming negative
 
-# Inputs
+# Inputs & forms
 
 ## Inputs
 
@@ -625,6 +304,22 @@ This is how we can capture changes and track them in the state:
     setInputText(event.target.value);
   }}
 />
+```
+
+## Forms
+
+Default behaviour of a form when submitted: directly send data to the server
+
+Replacing the default behaviour:
+
+```jsx
+<form
+  onSubmit={event => {
+    event.preventDefault();
+    // handle submit
+  }}>
+  <input />
+</form>
 ```
 
 # Developer tools for React
@@ -895,10 +590,29 @@ const element = React.createElement(
 
 # Styling in JSX
 
-## JSX: CSS classes
+## CSS classes
 
 ```jsx
-<div className={getClassName()}>[...]</div>
+<div
+  className={'todoitem' + isCompleted ? ' completed' : ''}>
+  [...]
+</div>
+```
+
+## CSS classes
+
+helper utility: npm package _classnames_:
+
+```jsx
+import classNames from 'classnames';
+
+<div
+  className={classNames({
+    todoitem: true,
+    completed: isCompleted,
+  })}>
+  [...]
+</div>;
 ```
 
 ## CSS modules
@@ -1126,7 +840,7 @@ Plugin: _React PropTypes IntelliSense_
 new Project:
 
 ```bash
-npx create-react-app my-app --typescript
+npx create-react-app my-app --template typescript
 ```
 
 ## TypeScript

@@ -480,101 +480,13 @@ https://docs.python.org/3/library/index.html
 
 Similar to the `help` function, but often has slightly more detailed descriptions
 
-# Python programs
-
-## Python programs
-
-For writing entire Python programs we'll use an editor or development environment
-
-## Installing VS Code
-
-https://code.visualstudio.com/
-
-## VS Code: Setup for Python
-
-- Open a folder, create and open a file with the filename extension `.py`, e.g. `demo.py`
-- Install the VS Code extension named _Python_ (via the popup at the bottom right)
-- Install the Python Package named _pylint_ (via the popup at the bottom right)
-- Configure the _Python_ extension:
-  - press `F1`
-  - Search for "Python: select interpreter"
-  - Enter
-  - wait...
-  - choose Python 3.7
-
-## VS Code: Running Python programs
-
-green "Play" button in the editor view
-
-or
-
-_Debug_ - _Start Without Debugging (Ctrl + F5)_
-
 # VS Code
 
 ## VS Code
 
-https://code.visualstudio.com
+For writing entire programs we use _VS Code_
 
-open source IDE
-
-independent of _Visual Studio_ itself
-
-## VS Code: open folder
-
-via _File_ - _Open Folder_
-
-## VS Code: File explorer, split editor
-
-## VS Code: Terminal
-
-Open / close the terminal view via _ctrl_ + _`_
-
-Open an additional terminal via the _+_ Symbol
-
-Terminals will run in the currently open folder
-
-## VS Code: Configuration
-
-Via _File - Preferences - Settings_
-
-Is split into _User Settings_ and _Workspace Settings_
-
-## VS Code: Configuration options
-
-Recommendations:
-
-- Accept Suggestions on Commit Character (Autocomplete on other keys than _Enter_): _deactivate_
-- Tab Size: _2_ or _4_
-
-Further options:
-
-- Auto Save
-- Format on Save
-- Word Wrap
-- EOL
-- Workbench: Color Theme
-
-## VS Code - Commands
-
-_F1_ or _Ctrl_ + _Shift_ + _P_: display command palette
-
-- searchable
-- shows shortcuts
-
-Example commands:
-
-- _Find_
-- _Search: Find in Files_
-- _Format Document_
-- _Toggle line comment_ / _Toggle block comment_
-- _Go to definition_ / _Peek definition_ (only for certain file types)
-- _Rename symbol_ (only for certain file types)
-
-## VS Code - multiple text cursors
-
-- _Ctrl_ + _F2_: set multiple text cursors
-- _Alt_ + click: set multiple text cursors
+See the presentation [VS Code](./vs-code-en.html)
 
 # Our first Python program
 

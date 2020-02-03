@@ -379,8 +379,10 @@ Filtern von Arrays (z.B. beschränken auf positive Einträge):
 
 ```py
 a = np.array([[-1, 3], [-2, 1]])
-a_is_pos = a > 0 # array([[False, True], [False, True]])
-a_pos = a[a_is_pos] # array[3, 1]
+a_is_pos = a > 0
+# array([[False, True], [False, True]])
+a_pos = a[a_is_pos]
+# array([3, 1])
 ```
 
 Kurzform:
@@ -396,8 +398,10 @@ NumPy bietet spezielle Funktionen, die elementweise angewendet werden:
 ```py
 a = np.array([0, 1, 2, 3])
 
-print(np.sin(a)) # [0.0, 0.84147098, 0.9... ]
-print(np.sqrt(a)) # [0.0, 1.0, 1.414... ]
+print(np.sin(a))
+# [0.0, 0.84147098, 0.9... ]
+print(np.sqrt(a))
+# [0.0, 1.0, 1.414... ]
 ```
 
 ## Operationen auf Arrays
@@ -417,9 +421,23 @@ Elementweise Funktionen:
 
 _Aggregationen_ berechnen beispielsweise Werte zu jeder Zeile / jeder Spalte oder zu einem ganzen Array
 
-- Gesamtsumme: `np.sum(a2d)`
-- Summe in Richtung der Spalten: `np.sum(a2d, axis=0)`
-- Summe in Richtung der Zeilen: `np.sum(a2d, axis=1)`
+Gesamtsumme:
+
+```py
+np.sum(a2d)
+```
+
+Summe über alle Zeilen:
+
+```py
+np.sum(a2d, axis=0)
+```
+
+Summe über alle Spalten:
+
+```py
+np.sum(a2d, axis=1)
+```
 
 ## Operationen auf Arrays
 
@@ -465,7 +483,7 @@ c = np.array([1, 3])
 
 ## Übungen
 
-Erstelle eine Wertetabelle für Sinus- und Kosinusfunktion im Intervall von 0 bis 2*pi.
+Erstelle eine Wertetabelle für Sinus- und Kosinusfunktion im Intervall von 0 bis 2\*pi.
 
 Resultat:
 
@@ -476,7 +494,7 @@ np.array([[0.0, 0.01, 0.02, ...],
           [1.0, 0.99995, 0.99980, ...]])
 ```
 
-Überprüfe anhand der Daten, ob näherungsweise gilt: _sin(x)^2 + cos(x)^2 == 1_
+Überprüfe anhand der Daten, ob näherungsweise gilt: _sin(x)^2 + cos(x)^2 = 1_
 
 # Array Typen
 
@@ -1036,6 +1054,21 @@ area[0] # 9.6
 area['CN'] # 9.6
 ```
 
+## Datentypen
+
+Jede series hat einen bestimmten Datentyp
+
+```py
+area.dtype # float64
+```
+
+manuelles Setzen des Datentyps:
+
+```py
+area = pd.Series({"CN": 9.6, "RU": 17, "US": 9.8},
+                 dtype="float32")
+```
+
 ## DataFrame
 
 ```py
@@ -1188,7 +1221,7 @@ euribor = read_hdf("data.hdf5", "euribor")
 
 ## Einträge filtern
 
-Analog zur Funktionsweise von _NumPy_: alle Werte, die das Kriterium nicht erfüllen werden zu _NaN_.
+Alle Werte, die das Kriterium nicht erfüllen werden zu _NaN_ bzw _NA_.
 
 ```py
 iris[iris > 0]
@@ -1231,6 +1264,7 @@ df.query("a < b < c")
 - letzte 10 Einträge
 - Eintrag vom 2.1.2009
 - Einträge aus dem Jahr 2009
+- ...
 
 ## Lösungen (Euribor)
 
@@ -1392,7 +1426,14 @@ iris.loc[:, "sepal_ratio"] = float('nan')
 In den Wechselkursdaten fehlen manche Einträge:
 
 - manche Tage sind nicht eingetragen (Wochenenden)
-- manche Tage sind als `NaN`s eingetragen
+- zu manchen Tage sind Werte als `NaN`s eingetragen
+
+## Fehlende Daten
+
+Werte, die fehlende Daten symbolisieren (ab pandas 1.0):
+
+- für floats: `NaN` (wie allgemein in Python üblich)
+- für andere Datentypen: `NA` (aus dem Pandas-Paket)
 
 ## Fehlende Daten
 
@@ -1444,8 +1485,6 @@ Nutze die Daten aus _sp500_ und _euribor_, um die Entwicklungen der europäische
 
 Eine _Kontingenztabelle_ oder _Kreuztabelle_ gibt Anzahlen über mehrere Merkmale hinweg an.
 
-Sie kann mittels `pd.crosstab` erstellt werden.
-
 ## Kontingenztabelle
 
 Beispiel:
@@ -1461,7 +1500,7 @@ Ausgabe:
 
 ```
 sex       female  male
-survived              
+survived
 0             81   468
 1            233   109
 ```
@@ -1472,6 +1511,8 @@ survived
 
 Einteilung der Daten in Gruppen / Kategorien und berechnen von Werten auf deren Basis
 
+## Gruppierung
+
 Beispiel: Durchschnittswerte der Iris-Daten basierend auf dem Namen der Art
 
 ```py
@@ -1480,7 +1521,7 @@ iris.groupby(iris.name).mean()
 
 ```
                  sepal_length  sepal_width  petal_length  petal_width
-name                                                                 
+name
 Iris-setosa             5.006        3.418         1.464        0.244
 Iris-versicolor         5.936        2.770         4.260        1.326
 Iris-virginica          6.588        2.974         5.552        2.026
@@ -1605,15 +1646,12 @@ print(points @ M)
 
 ## Matrix-Multiplikation
 
-Preise verschiedener Produkte:
+Beispiel:
+
+bekannt: Preise verschiedener Produkte, derent Bestände in verschiedenen Lagern
 
 ```py
 prices = np.array([3.99, 12.99, 5.90, 15])
-```
-
-Bestände in verschiedenen Lagern:
-
-```py
 quantities = np.array([[0, 80, 80, 100],
                        [100, 0, 0, 0],
                        [50, 0, 0, 50]])

@@ -82,6 +82,13 @@ Code verfügbar unter: https://github.com/marko-knoebl/courses-code
 - Aktuelle Major Version: React 16 (September 2017)
 - Februar 2019: Einführung von Hooks
 
+# Grundlagen für die Schulung
+
+## Grundlagen für die Schulung
+
+- [VS Code Grundlagen und Plugins](./vs-code-de.html)
+- [Modernes JavaScript (ES2015+)](./javascript-es-2015-de.html)
+
 # Create-React-App
 
 ## Entwicklung mit node.js und npm
@@ -102,6 +109,12 @@ ausführen via:
 
 ```bash
 npx create-react-app playground
+```
+
+oder
+
+```bash
+npx create-react-app playground --template typescript
 ```
 
 siehe auch: https://reactjs.org/docs/add-react-to-a-new-app.html
@@ -192,15 +205,6 @@ Der Wechsel von XML auf JS klappt auch bei Properties:
 
 Beachte die fehlenden Anführungszeichen bei href
 
-## JSX Properties: Aufgabe
-
-Zeige ein Bild basierend auf einer ID an. Verwende dazu:
-
-```js
-const getImgUrl = id =>
-  'https://picsum.photos/200?image=' + id.toString();
-```
-
 ## JSX: events
 
 ```jsx
@@ -212,331 +216,6 @@ const hello = () => {...}
 Liste von Browser-Events:  
 https://www.w3schools.com/jsref/dom_obj_event.asp
 
-## State Beispiel
-
-(wir widmen uns dem Thema _State_ später im Detail)
-
-```jsx
-const Counter = () => {
-  const [count, setCount] = useState(0);
-
-  return (
-    <button
-      onClick={() => {
-        setCount(count + 1);
-      }}>
-      {count}
-    </button>
-  );
-};
-```
-
-# VS Code
-
-## VS Code
-
-https://code.visualstudio.com
-
-Open-Source-Entwicklungsumgebung
-
-Unabhängig vom eigentlichen Visual Studio
-
-## VS Code: Ordner öffnen
-
-ganzen Ordner öffnen mit _File_ - _Open Folder_
-
-## VS Code: Datei-Explorer, Split Editor
-
-## VS Code: Terminal
-
-Öffnen und Schließen der Ansicht via _Strg_ + _Ö_
-
-zusätzliches Terminal via Symbol _+_
-
-übernimmt das aktuell geöffnete Verzeichnis
-
-## VS Code - Konfiguration
-
-Via _File - Preferences - Settings_
-
-Eingeteilt in _User Settings_ und _Workspace Settings_
-
-## VS Code - Konfigurationsmöglichkeiten
-
-Empfehlungen:
-
-- Accept Suggestion on Commit Character (Autovervollständigung ohne _Enter_): _deaktivieren_
-- Tab Size: _2_ oder _4_
-
-Weitere Möglichkeiten:
-
-- Auto Save
-- Format on Save
-- Word Wrap
-- EOL
-- Workbench: Color Theme
-
-## VS Code - Befehle
-
-_F1_ oder _Ctrl_ + _Shift_ + _P_: Befehlspalette
-
-- durchsuchbar
-- zeigt Kurzbefehle an
-
-Beispiele für Befehle:
-
-- _Find_
-- _Search: Find in Files_
-- _Format Document_
-- _Toggle line comment_ / _Toggle block comment_
-- _Go to definition_ / _Peek definition_ (nur für bestimmte Dateitypen)
-- _Rename symbol_ (nur für bestimmte Dateitypen)
-
-## VS Code - Mehrere Textcursor
-
-- _Ctrl_ + _F2_: Mehrere Textcursor setzen
-- _Alt_ + Mausklick: Mehrere Textcursor setzen
-
-# Prettier
-
-## Prettier
-
-https://prettier.io/
-
-- Code-Formatierung nach strikten Regeln
-- VS-Code-Plugin (via Alt + Shift + F)
-
-## Prettier-Konfiguration
-
-in VS Code: über Datei - Einstellungen - Einstellungen
-
-oder über `.prettierrc.json`:
-
-```json
-{
-  "bracketSpacing": false,
-  "singleQuote": true,
-  "trailingComma": true,
-  "jsxBracketSameLine": true
-}
-```
-
-# ESLint
-
-## ESLint
-
-Linter für JavaScript (und TypeScript)
-
-VS Code Plugin verfügbar
-
-# ES2015+
-
-## Modernes JavaScript
-
-## JavaScript-Standardisierung
-
-JavaScript wird unter dem Namen _ECMAScript_ (kurz ES) standardisiert
-
-## JavaScript: Versionen
-
-- Von allen Browsern unterstützt: ES5 (2009 veröffentlicht)
-- Nächste große Version: _ES2015_ (oder ES6)
-- Seither: jährlich neue Versionen im Juni jeden Jahres (ES2016, ES2017, ...)
-
-## JavaScript: Versionsunterstützung
-
-- Übersicht: siehe http://kangax.github.io/compat-table/es6/
-- In der Praxis: Modernes JavaScript wird in ES5 transpiliert (mittels Babel, webpack)
-
-## Wichtige Neuerungen in ES2015
-
-## Module & Imports
-
-- Möglichkeit, Funktionalität aus anderen js-Dateien zu importieren – kein globaler Namespace mehr
-- Benötigt einen Bundler, z.B. webpack
-
-```js
-// user.js
-export class User {
-  ...
-}
-```
-
-```js
-// main.js
-import { User } from 'user.js';
-```
-
-## Module & Imports
-
-```js
-// User.js
-// es kann 1 default export geben
-export default class User {
-   ...
-}
-```
-
-```js
-// main.js
-import User from 'User.js';
-```
-
-## Imports in webpack
-
-Bundler wie webpack können beim Importieren vom JavaScript Standard abweichen:
-
-- Dateiendungen wie `.js` können optional sein
-- wenn der Import auf einen Ordner verweist, sucht webpack nach einer `index.js` Datei in diesem Ordner
-
-## let
-
-- Neue Alternative zu var – mit leicht anderem Scoping
-- Scope: umgebende geschweifte Klammern (statt umgebender Funktion)
-
-```js
-if (true) {
-  let a = 3;
-}
-console.log(a); // ReferenceError
-```
-
-## const
-
-Deklariert eine Variable, die nicht mehr neu zugewiesen werden kann.  
-Das bezeichnete Objekt selbst kann allerdings modifiziert werden
-
-```js
-const names = ['Alice', 'Bob', 'Claire'];
-names = ['Andrew', 'Bob', 'Claire']; // ungültig!
-names[0] = 'Andrew'; // gültig
-```
-
-## Destrukturierende Zuweisung
-
-```js
-let a = 1;
-let b = 2;
-[a, b] = [b, a];
-
-const [result, errors] = someComputation();
-```
-
-## Destrukturierende Zuweisung
-
-```js
-const person = { name: 'John', age: 48 };
-
-const { name, age } = person;
-```
-
-## Pfeilfunktionen
-
-- Kurzschreibweise für anonyme Funktionen
-- Lässt _this_ unverändert (überschreibt es nicht)
-
-```js
-let multiply = (a, b) => {
-  return a * b;
-};
-
-let multiply = (a, b) => a * b;
-```
-
-## Pfeilfunktionen
-
-wenn es genau einen Parameter gibt: Parameterklammern optional
-
-```js
-const square = a => a * a;
-```
-
-wenn direkt ein Objekt zurückgegeben werden soll: mit runden Klammern umschießen
-
-```js
-const getState = () => ({
-  loggedIn: true,
-  userName: 'mike',
-});
-```
-
-## Klassen
-
-Ersetzen die alten Konstruktorfunktionen und Prototypen
-
-## Klassen
-
-```js
-class Person {
-  constructor(firstName, lastName) {
-    this.firstName = firstName;
-    this.lastName = lastName;
-  }
-  hello() {
-    return `My name is ${this.firstName}`;
-  }
-}
-```
-
-## Klassen und Vererbung
-
-```js
-class User extends Person {
-  constructor(firstName, lastName, userName) {
-    // ruft Person.constructor auf
-    super(firstName, lastName);
-    this.userName = userName;
-  }
-}
-```
-
-## Array-Iteration (for ... of)
-
-Über die Einträge in einem Array iterieren:
-
-```js
-let names = ['Anna', 'Bernhard', 'Caro'];
-for (let name of names) {
-  console.log(name);
-}
-```
-
-## Spread Syntax (Arrays und Objekte)
-
-```js
-let squares = [1, 4, 9];
-let moreSquares = [...squares, 16, 25];
-// moreSquares: [1, 4, 9, 16, 25]
-```
-
-```js
-let person = { firstName: 'Joe', lastName: 'Doe', age: 31 };
-let newPerson = { ...person, email: 'j@d.com', age: 32 };
-// {firstName: 'Joe', lastName: 'Doe', email: 'j@d.com', age: 32}
-```
-
-## Template-Strings
-
-- Neue Syntax zum _Erstellen_ von Strings
-- Werden mit Backticks begrenzt
-- Erlauben mehrzeilige Strings und Interpolation:
-
-```js
-let name = 'Anton';
-let greeting = `Hallo, ${name}!
-                Das ist ES2015!`;
-```
-
-## Standardparameter in Funktionen
-
-In Funktionen können nun Standardparameter definiert werden:
-
-```js
-let join = (strings, separator='') => {
-  ...
-}
-```
-
 # State (Komponentenzustand)
 
 ## State
@@ -545,15 +224,15 @@ React Komponenten können einen internen Zustand (_state_) haben
 
 Auf den state kann im Template verwiesen werden. Damit ändert sich die Anzeige automatisch, wenn Teile des States neu gesetzt werden.
 
-## State in funktionalen Komponenten
+## State in Funktionskomponenten
 
-In funktionalen Komponenten verwenden wir den Hook `useState`:
+In Funktionskomponenten verwenden wir den Hook `useState`:
 
 ```js
 import { useState } from 'react';
 ```
 
-## State in funktionalen Komponenten
+## State in Funktionskomponenten
 
 Die Funktion `useState` kann zu Beginn der Komponentenfunktion (wiederholt) aufgerufen werden. Sie hat die folgende Signatur:
 
@@ -604,7 +283,7 @@ Slideshow, die Bilder wie das folgende anzeigt:
 - Button für _zurück zum Start_
 - Verhindern, dass ins negative gezählt wird
 
-# Inputs
+# Inputs & Formulare
 
 ## Inputs
 
@@ -625,6 +304,22 @@ So können wir den Value eines Inputs im State erfassen:
     setInputText(event.target.value);
   }}
 />
+```
+
+## Formulare
+
+Standardverhalten eines Formulars beim Submit: Direktes Senden der Daten an den Server
+
+Ersetzen des Standardverhaltens:
+
+```jsx
+<form
+  onSubmit={event => {
+    event.preventDefault();
+    // handle submit
+  }}>
+  <input />
+</form>
 ```
 
 # Entwicklerwerkzeuge für React
@@ -895,10 +590,29 @@ const element = React.createElement(
 
 # Styling in JSX
 
-## JSX: CSS-Klassen
+## CSS-Klassen
 
 ```jsx
-<div className={getClassName()}>[...]</div>
+<div
+  className={'todoitem' + isCompleted ? ' completed' : ''}>
+  [...]
+</div>
+```
+
+## CSS-Klassen
+
+Hilfs-Utility: npm-Paket _classnames_:
+
+```jsx
+import classNames from 'classnames';
+
+<div
+  className={classNames({
+    todoitem: true,
+    completed: isCompleted,
+  })}>
+  [...]
+</div>;
 ```
 
 ## CSS-Module
@@ -1126,7 +840,7 @@ Plugin: _React PropTypes IntelliSense_
 neues Projekt:
 
 ```bash
-npx create-react-app my-app --typescript
+npx create-react-app my-app --template typescript
 ```
 
 ## TypeScript
