@@ -1,4 +1,4 @@
-# Inputs
+# Inputs & forms
 
 ## Inputs
 
@@ -19,4 +19,20 @@ This is how we can capture changes and track them in the state:
     setInputText(event.target.value);
   }}
 />
+```
+
+## Forms
+
+Default behaviour of a form when submitted: directly send data to the server
+
+Replacing the default behaviour:
+
+```jsx
+<form
+  onSubmit={event => {
+    event.preventDefault();
+    // handle submit
+  }}>
+  <input />
+</form>
 ```

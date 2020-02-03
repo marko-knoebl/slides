@@ -1,4 +1,4 @@
-# Inputs
+# Inputs & Formulare
 
 ## Inputs
 
@@ -19,4 +19,20 @@ So können wir den Value eines Inputs im State erfassen:
     setInputText(event.target.value);
   }}
 />
+```
+
+## Formulare
+
+Standardverhalten eines Formulars beim Submit: Direktes Senden der Daten an den Server
+
+Ersetzen des Standardverhaltens:
+
+```jsx
+<form
+  onSubmit={event => {
+    event.preventDefault();
+    // handle submit
+  }}>
+  <input />
+</form>
 ```

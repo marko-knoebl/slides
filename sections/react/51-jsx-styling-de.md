@@ -1,9 +1,28 @@
 # Styling in JSX
 
-## JSX: CSS-Klassen
+## CSS-Klassen
 
 ```jsx
-<div className={getClassName()}>[...]</div>
+<div
+  className={'todoitem' + isCompleted ? ' completed' : ''}>
+  [...]
+</div>
+```
+
+## CSS-Klassen
+
+Hilfs-Utility: npm-Paket _classnames_:
+
+```jsx
+import classNames from 'classnames';
+
+<div
+  className={classNames({
+    todoitem: true,
+    completed: isCompleted,
+  })}>
+  [...]
+</div>;
 ```
 
 ## CSS-Module

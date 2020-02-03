@@ -20,6 +20,12 @@ run it via:
 npx create-react-app playground
 ```
 
+or
+
+```bash
+npx create-react-app playground --template typescript
+```
+
 see also: https://reactjs.org/docs/add-react-to-a-new-app.html
 
 ## create-react-app

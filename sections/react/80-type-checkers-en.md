@@ -33,7 +33,7 @@ Plugin: _React PropTypes IntelliSense_
 new Project:
 
 ```bash
-npx create-react-app my-app --typescript
+npx create-react-app my-app --template typescript
 ```
 
 ## TypeScript

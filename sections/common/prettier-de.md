@@ -9,15 +9,11 @@ https://prettier.io/
 
 ## Prettier-Konfiguration
 
-in VS Code: über Datei - Einstellungen - Einstellungen
-
-oder über `.prettierrc.json`:
+z.B. über _.prettierrc.json_:
 
 ```json
 {
-  "bracketSpacing": false,
   "singleQuote": true,
-  "trailingComma": true,
-  "jsxBracketSameLine": true
+  "trailingComma": "all"
 }
 ```

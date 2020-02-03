@@ -60,15 +60,6 @@ Der Wechsel von XML auf JS klappt auch bei Properties:
 
 Beachte die fehlenden Anführungszeichen bei href
 
-## JSX Properties: Aufgabe
-
-Zeige ein Bild basierend auf einer ID an. Verwende dazu:
-
-```js
-const getImgUrl = id =>
-  'https://picsum.photos/200?image=' + id.toString();
-```
-
 ## JSX: events
 
 ```jsx
@@ -79,22 +70,3 @@ const hello = () => {...}
 
 Liste von Browser-Events:  
 https://www.w3schools.com/jsref/dom_obj_event.asp
-
-## State Beispiel
-
-(wir widmen uns dem Thema _State_ später im Detail)
-
-```jsx
-const Counter = () => {
-  const [count, setCount] = useState(0);
-
-  return (
-    <button
-      onClick={() => {
-        setCount(count + 1);
-      }}>
-      {count}
-    </button>
-  );
-};
-```

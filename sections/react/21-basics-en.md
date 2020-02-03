@@ -60,15 +60,6 @@ we can also change from XML to JS in properties:
 
 Note there are no quote characters around the value of _href_
 
-## JSX Properties: task
-
-Show a picture based on an id; make use of this function:
-
-```js
-const getImgUrl = id =>
-  'https://picsum.photos/200?image=' + id.toString();
-```
-
 ## JSX: events
 
 ```jsx
@@ -79,22 +70,3 @@ const hello = () => {...}
 
 list of browser events:
 https://www.w3schools.com/jsref/dom_obj_event.asp
-
-## State example
-
-(we will look into the topic of state in detail later)
-
-```jsx
-const Counter = () => {
-  const [count, setCount] = useState(0);
-
-  return (
-    <button
-      onClick={() => {
-        setCount(count + 1);
-      }}>
-      {count}
-    </button>
-  );
-};
-```

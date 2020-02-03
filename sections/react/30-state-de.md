@@ -6,15 +6,15 @@ React Komponenten können einen internen Zustand (_state_) haben
 
 Auf den state kann im Template verwiesen werden. Damit ändert sich die Anzeige automatisch, wenn Teile des States neu gesetzt werden.
 
-## State in funktionalen Komponenten
+## State in Funktionskomponenten
 
-In funktionalen Komponenten verwenden wir den Hook `useState`:
+In Funktionskomponenten verwenden wir den Hook `useState`:
 
 ```js
 import { useState } from 'react';
 ```
 
-## State in funktionalen Komponenten
+## State in Funktionskomponenten
 
 Die Funktion `useState` kann zu Beginn der Komponentenfunktion (wiederholt) aufgerufen werden. Sie hat die folgende Signatur:
 
