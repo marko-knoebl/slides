@@ -2067,8 +2067,6 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </section><section class="slide"><h2>Themen (1/2)</h2>
 <ul>
 <li>Hooks</li>
-<li>Immutability</li>
-<li>Memoisation</li>
 <li>State Management mit Reducern</li>
 <li>Testen in JavaScript</li>
 <li>Testen von React-Komponenten</li>
@@ -2080,6 +2078,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li>Externe Hooks &#x26; eigene Hooks</li>
 <li>Routing &#x26; Prerendering</li>
 <li>App-Entwicklung mit React</li>
+<li>Memoisation</li>
 <li>Manuelles Setup</li>
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Hooks</h1>
@@ -2113,129 +2112,6 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li>context Hook</li>
 <li>reducer Hook</li>
 </ul>
-</section></section><section class="slides-section"><section class="slide"><h1>Immutability</h1>
-</section><section class="slide"><h2>Immutability (Unveränderlichkeit)</h2>
-<p>Wichtiges Konzept in der funktionalen Programmierung und bei React / Redux</p>
-<p>Daten werden nicht direkt abgeändert - stattdessen werden neue Daten auf Basis der alten generiert</p>
-</section><section class="slide"><h2>Datenverwaltung ohne Mutationen: Arrays</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> names = [<span class="hljs-string">'Alice'</span>, <span class="hljs-string">'Bob'</span>, <span class="hljs-string">'Charlie'</span>];
-<span class="hljs-comment">// nicht zulässig: verändert das ursprüngliche array</span>
-names.push(<span class="hljs-string">'Dan'</span>);
-
-<span class="hljs-comment">// stattdessen: neues Array:</span>
-names = [...names, <span class="hljs-string">'Dan'</span>];
-
-<span class="hljs-comment">// Alternative:</span>
-<span class="hljs-keyword">let</span> newNames = names.slice();
-newNames.push(<span class="hljs-string">'Dan'</span>);
-<span class="hljs-comment">// überschreiben des ursprünglichen Arrays</span>
-names = newNames;
-</code></pre>
-</section><section class="slide"><h2>Datenverwaltung ohne Mutationen: Objekte</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> user = {
-  <span class="hljs-attr">name</span>: <span class="hljs-string">'john'</span>
-  email: <span class="hljs-string">'john@doe.com'</span>
-}
-<span class="hljs-comment">// nicht zulässig: verändert das Objekt</span>
-user.email = <span class="hljs-string">'johndoe@gmail.com'</span>;
-
-<span class="hljs-comment">// stattedessen: Erzeugen eines neuen Objekts:</span>
-<span class="hljs-keyword">let</span> newUser = { ...user, <span class="hljs-attr">email</span>: <span class="hljs-string">'johndoe@gmail.com'</span> };
-</code></pre>
-</section><section class="slide"><h2>immutable.js und immer.js</h2>
-<p>Libraries, die das Arbeiten ohne Mutationen erleichtern</p>
-</section><section class="slide"><h2>immutable.js</h2>
-<p>Bietet insbesondere die Datenstrukturen <em>List</em> und <em>Map</em> als unveränderliche Alternativen zu <em>Array</em> und <em>Object</em>.</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { List, <span class="hljs-built_in">Map</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'immutable'</span>;
-
-<span class="hljs-keyword">const</span> a1 = List([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]);
-<span class="hljs-keyword">const</span> a2 = a1.push(<span class="hljs-number">4</span>);
-
-<span class="hljs-keyword">const</span> b1 = <span class="hljs-built_in">Map</span>({ <span class="hljs-attr">a</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">b</span>: <span class="hljs-number">2</span> });
-<span class="hljs-keyword">const</span> b2 = b1.set(<span class="hljs-string">'b'</span>, <span class="hljs-literal">null</span>);
-</code></pre>
-</section><section class="slide"><h2>immutable.js</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { fromJS, setIn } <span class="hljs-keyword">from</span> <span class="hljs-string">'immutable'</span>;
-
-<span class="hljs-keyword">const</span> todos = fromJS([
-  { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'groceries'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
-  { <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'gardening'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
-]);
-
-<span class="hljs-keyword">const</span> newTodos = todos.setIn([<span class="hljs-number">1</span>, <span class="hljs-string">'completed'</span>], <span class="hljs-literal">true</span>);
-</code></pre>
-</section><section class="slide"><h2>immer.js</h2>
-<p>wird insbesondere vom Redux-Team empfohlen</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> produce <span class="hljs-keyword">from</span> <span class="hljs-string">'immer'</span>;
-
-<span class="hljs-keyword">const</span> todos = [
-  { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'groceries'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
-  { <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'gardening'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
-];
-
-<span class="hljs-keyword">const</span> newTodos = produce(todos, draftTodos => {
-  draftTodos[<span class="hljs-number">1</span>].completed = <span class="hljs-literal">true</span>;
-});
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Memoisation</h1>
-</section><section class="slide"><h2>Memoisation</h2>
-<p>Memoisation = Technik, um z.B. Funktionsaufrufe zu beschleunigen: frühere Resultate werden gespeichert und müssen nicht neu berechnet werden</p>
-<p>Kann in React verwendet werden: Wenn sich bei einer Komponente props bzw state nicht ändern, muss sie meist nicht neu gerendert werden.</p>
-</section><section class="slide"><h2>Memoisation in React</h2>
-<p>Auslöser für das neue Rendering einer Komponente:</p>
-<ul>
-<li><strong>(Re)rendering der Elternkomponente</strong></li>
-<li>Änderung des States der Komponente</li>
-<li>Anstoß durch einen verwendeten Hook (z.B. <code>useContext</code>, <code>useReducer</code>, <code>useSelector</code>, ...)</li>
-</ul>
-<p>Visualisierung des Renderings in den React Devtools: <em>Settings</em> - <em>General</em> - <em>Highlight updates when components render.</em></p>
-</section><section class="slide"><h2>Memoisation in React</h2>
-<p>Verhinderung des (Re)Renderings beim (Re)rendering der Elternkomponente:</p>
-<p>Zur Performanceoptimierung ist es oft wünschenswert, dass eine Kindkomponente nicht jedes Mal gerendert wird, wenn deren Elternkomponente neu gerendert wird</p>
-<p>Stattdessen soll sie nur dann neu gerender werden, wenn sich ihre Props (bzw ihr State) ändern</p>
-<p>Wenn Props (oder State) sich nicht geänder haben, wird das vorherige Resultat (memoisiert) zurückgegeben.</p>
-</section><section class="slide"><h2>Memoisation in React</h2>
-<p>Memoisierte Komponenten in React:</p>
-<p>Bei Funktionskomponenten: Verwenden der <code>memo</code>-Funktion (memoisierte <em>props</em>)</p>
-<p>Bei Klassenkomponenten: Erben von <code>PureComponent</code> statt <code>Component</code> (memoisierte <em>props</em> und <em>state</em>)</p>
-</section><section class="slide"><h2>Memoisation in React: Funktionskomponenten</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> React, { memo } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
-
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Rating</span>(<span class="hljs-params">...</span>) ...
-
-<span class="hljs-title">export</span> <span class="hljs-title">default</span> <span class="hljs-title">memo</span>(<span class="hljs-params">Rating</span>);
-</span></code></pre>
-</section><section class="slide"><h2>Memoisation in React: Klassenkomponenten</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { PureComponent } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
-
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Rating</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">PureComponent</span> </span>{...}
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Rating;
-</code></pre>
-</section><section class="slide"><h2>Verwaltung von Daten ohne Mutationen</h2>
-<p>In React werden (nicht-primitive) Einträge in State und Props dann als geändert angesehen, wenn sie sich auf ein anderes Objekt als zuvor beziehen.</p>
-</section><section class="slide"><h2>Verwaltung von Daten ohne Mutationen</h2>
-<p>Bei Memoisation in React: Daten werden mit <code>===</code> auf Gleichheit überprüft</p>
-<p>Was gibt das folgende Programm aus?</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> state1 = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
-<span class="hljs-keyword">const</span> state2 = state1;
-state2.push(<span class="hljs-number">4</span>);
-
-<span class="hljs-built_in">console</span>.log(state1 === state2);
-</code></pre>
-</section><section class="slide"><h2>Verwaltung von Daten ohne Mutationen</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> state1 = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
-<span class="hljs-keyword">const</span> state2 = state1;
-state2.push(<span class="hljs-number">4</span>);
-
-<span class="hljs-built_in">console</span>.log(state1 === state2);
-</code></pre>
-<p>Obiges Programm gibt <code>true</code> aus. <code>state1</code> und <code>state2</code> beziehen sich auf das selbe Objekt. Die Änderung würde bei memoisierten Komponenten kein neues Rendering auslösen.</p>
-</section><section class="slide"><h2>Verwalten von Daten ohne Mutationen</h2>
-<p>Korrekte Verwendung:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> state1 = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
-<span class="hljs-keyword">const</span> state2 = [...state1, <span class="hljs-number">4</span>];
-</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>State Management mit Reducern</h1>
 </section><section class="slide"><h2>State Management</h2>
 <p>In komplexeren Anwendungen oder Komponenten macht es Sinn, den Anwendungszustand (model) von der Ansicht (view) zu trennen.</p>
@@ -2987,7 +2863,7 @@ useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =></sp
     setInterval(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
       setDate(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>());
     }, interval);
-  });
+  }, []);
   <span class="hljs-keyword">return</span> date;
 };
 </code></pre>
@@ -3406,6 +3282,65 @@ useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =></sp
 </code></pre>
 <p>Die entstehende HOC rehält eine normale Komponente und gibt eine Komponente zurück, die mit dem Redux Store verbunden ist:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> RatingContainer = connector(Rating);
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Memoisation</h1>
+</section><section class="slide"><h2>Memoisation</h2>
+<p>Memoisation = Technik, um z.B. Funktionsaufrufe zu beschleunigen: frühere Resultate werden gespeichert und müssen nicht neu berechnet werden</p>
+<p>Kann in React verwendet werden: Wenn sich bei einer Komponente props bzw state nicht ändern, muss sie meist nicht neu gerendert werden.</p>
+</section><section class="slide"><h2>Memoisation in React</h2>
+<p>Auslöser für das neue Rendering einer Komponente:</p>
+<ul>
+<li><strong>(Re)rendering der Elternkomponente</strong></li>
+<li>Änderung des States der Komponente</li>
+<li>Anstoß durch einen verwendeten Hook (z.B. <code>useContext</code>, <code>useReducer</code>, <code>useSelector</code>, ...)</li>
+</ul>
+<p>Visualisierung des Renderings in den React Devtools: <em>Settings</em> - <em>General</em> - <em>Highlight updates when components render.</em></p>
+</section><section class="slide"><h2>Memoisation in React</h2>
+<p>Verhinderung des (Re)Renderings beim (Re)rendering der Elternkomponente:</p>
+<p>Zur Performanceoptimierung ist es oft wünschenswert, dass eine Kindkomponente nicht jedes Mal gerendert wird, wenn deren Elternkomponente neu gerendert wird</p>
+<p>Stattdessen soll sie nur dann neu gerender werden, wenn sich ihre Props (bzw ihr State) ändern</p>
+<p>Wenn Props (oder State) sich nicht geänder haben, wird das vorherige Resultat (memoisiert) zurückgegeben.</p>
+</section><section class="slide"><h2>Memoisation in React</h2>
+<p>Memoisierte Komponenten in React:</p>
+<p>Bei Funktionskomponenten: Verwenden der <code>memo</code>-Funktion (memoisierte <em>props</em>)</p>
+<p>Bei Klassenkomponenten: Erben von <code>PureComponent</code> statt <code>Component</code> (memoisierte <em>props</em> und <em>state</em>)</p>
+</section><section class="slide"><h2>Memoisation in React: Funktionskomponenten</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> React, { memo } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Rating</span>(<span class="hljs-params">...</span>) ...
+
+<span class="hljs-title">export</span> <span class="hljs-title">default</span> <span class="hljs-title">memo</span>(<span class="hljs-params">Rating</span>);
+</span></code></pre>
+</section><section class="slide"><h2>Memoisation in React: Klassenkomponenten</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { PureComponent } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Rating</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">PureComponent</span> </span>{...}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Rating;
+</code></pre>
+</section><section class="slide"><h2>Verwaltung von Daten ohne Mutationen</h2>
+<p>In React werden (nicht-primitive) Einträge in State und Props dann als geändert angesehen, wenn sie sich auf ein anderes Objekt als zuvor beziehen.</p>
+</section><section class="slide"><h2>Verwaltung von Daten ohne Mutationen</h2>
+<p>Bei Memoisation in React: Daten werden mit <code>===</code> auf Gleichheit überprüft</p>
+<p>Was gibt das folgende Programm aus?</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> state1 = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
+<span class="hljs-keyword">const</span> state2 = state1;
+state2.push(<span class="hljs-number">4</span>);
+
+<span class="hljs-built_in">console</span>.log(state1 === state2);
+</code></pre>
+</section><section class="slide"><h2>Verwaltung von Daten ohne Mutationen</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> state1 = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
+<span class="hljs-keyword">const</span> state2 = state1;
+state2.push(<span class="hljs-number">4</span>);
+
+<span class="hljs-built_in">console</span>.log(state1 === state2);
+</code></pre>
+<p>Obiges Programm gibt <code>true</code> aus. <code>state1</code> und <code>state2</code> beziehen sich auf das selbe Objekt. Die Änderung würde bei memoisierten Komponenten kein neues Rendering auslösen.</p>
+</section><section class="slide"><h2>Verwalten von Daten ohne Mutationen</h2>
+<p>Korrekte Verwendung:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> state1 = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
+<span class="hljs-keyword">const</span> state2 = [...state1, <span class="hljs-number">4</span>];
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Dateistruktur</h1>
 </section><section class="slide"><h2>Dateistruktur</h2>

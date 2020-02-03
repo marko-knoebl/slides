@@ -37,8 +37,6 @@ Code verfügbar unter: https://github.com/marko-knoebl/courses-code
 ## Themen (1/2)
 
 - Hooks
-- Immutability
-- Memoisation
 - State Management mit Reducern
 - Testen in JavaScript
 - Testen von React-Komponenten
@@ -50,6 +48,7 @@ Code verfügbar unter: https://github.com/marko-knoebl/courses-code
 - Externe Hooks & eigene Hooks
 - Routing & Prerendering
 - App-Entwicklung mit React
+- Memoisation
 - Manuelles Setup
 
 # Hooks
@@ -90,188 +89,6 @@ Beispiele:
 - effect Hook
 - context Hook
 - reducer Hook
-
-# Immutability
-
-## Immutability (Unveränderlichkeit)
-
-Wichtiges Konzept in der funktionalen Programmierung und bei React / Redux
-
-Daten werden nicht direkt abgeändert - stattdessen werden neue Daten auf Basis der alten generiert
-
-## Datenverwaltung ohne Mutationen: Arrays
-
-```js
-let names = ['Alice', 'Bob', 'Charlie'];
-// nicht zulässig: verändert das ursprüngliche array
-names.push('Dan');
-
-// stattdessen: neues Array:
-names = [...names, 'Dan'];
-
-// Alternative:
-let newNames = names.slice();
-newNames.push('Dan');
-// überschreiben des ursprünglichen Arrays
-names = newNames;
-```
-
-## Datenverwaltung ohne Mutationen: Objekte
-
-```js
-let user = {
-  name: 'john'
-  email: 'john@doe.com'
-}
-// nicht zulässig: verändert das Objekt
-user.email = 'johndoe@gmail.com';
-
-// stattedessen: Erzeugen eines neuen Objekts:
-let newUser = { ...user, email: 'johndoe@gmail.com' };
-```
-
-## immutable.js und immer.js
-
-Libraries, die das Arbeiten ohne Mutationen erleichtern
-
-## immutable.js
-
-Bietet insbesondere die Datenstrukturen _List_ und _Map_ als unveränderliche Alternativen zu _Array_ und _Object_.
-
-```js
-import { List, Map } from 'immutable';
-
-const a1 = List([1, 2, 3]);
-const a2 = a1.push(4);
-
-const b1 = Map({ a: 1, b: 2 });
-const b2 = b1.set('b', null);
-```
-
-## immutable.js
-
-```js
-import { fromJS, setIn } from 'immutable';
-
-const todos = fromJS([
-  { id: 1, title: 'groceries', completed: false },
-  { id: 2, title: 'gardening', completed: false },
-]);
-
-const newTodos = todos.setIn([1, 'completed'], true);
-```
-
-## immer.js
-
-wird insbesondere vom Redux-Team empfohlen
-
-```js
-import produce from 'immer';
-
-const todos = [
-  { id: 1, title: 'groceries', completed: false },
-  { id: 2, title: 'gardening', completed: false },
-];
-
-const newTodos = produce(todos, draftTodos => {
-  draftTodos[1].completed = true;
-});
-```
-
-# Memoisation
-
-## Memoisation
-
-Memoisation = Technik, um z.B. Funktionsaufrufe zu beschleunigen: frühere Resultate werden gespeichert und müssen nicht neu berechnet werden
-
-Kann in React verwendet werden: Wenn sich bei einer Komponente props bzw state nicht ändern, muss sie meist nicht neu gerendert werden.
-
-## Memoisation in React
-
-Auslöser für das neue Rendering einer Komponente:
-
-- **(Re)rendering der Elternkomponente**
-- Änderung des States der Komponente
-- Anstoß durch einen verwendeten Hook (z.B. `useContext`, `useReducer`, `useSelector`, ...)
-
-Visualisierung des Renderings in den React Devtools: _Settings_ - _General_ - _Highlight updates when components render._
-
-## Memoisation in React
-
-Verhinderung des (Re)Renderings beim (Re)rendering der Elternkomponente:
-
-Zur Performanceoptimierung ist es oft wünschenswert, dass eine Kindkomponente nicht jedes Mal gerendert wird, wenn deren Elternkomponente neu gerendert wird
-
-Stattdessen soll sie nur dann neu gerender werden, wenn sich ihre Props (bzw ihr State) ändern
-
-Wenn Props (oder State) sich nicht geänder haben, wird das vorherige Resultat (memoisiert) zurückgegeben.
-
-## Memoisation in React
-
-Memoisierte Komponenten in React:
-
-Bei Funktionskomponenten: Verwenden der `memo`-Funktion (memoisierte _props_)
-
-Bei Klassenkomponenten: Erben von `PureComponent` statt `Component` (memoisierte _props_ und _state_)
-
-## Memoisation in React: Funktionskomponenten
-
-```js
-import React, { memo } from 'react';
-
-function Rating(...) ...
-
-export default memo(Rating);
-```
-
-## Memoisation in React: Klassenkomponenten
-
-```js
-import { PureComponent } from 'react';
-
-class Rating extends PureComponent {...}
-
-export default Rating;
-```
-
-## Verwaltung von Daten ohne Mutationen
-
-In React werden (nicht-primitive) Einträge in State und Props dann als geändert angesehen, wenn sie sich auf ein anderes Objekt als zuvor beziehen.
-
-## Verwaltung von Daten ohne Mutationen
-
-Bei Memoisation in React: Daten werden mit `===` auf Gleichheit überprüft
-
-Was gibt das folgende Programm aus?
-
-```js
-const state1 = [1, 2, 3];
-const state2 = state1;
-state2.push(4);
-
-console.log(state1 === state2);
-```
-
-## Verwaltung von Daten ohne Mutationen
-
-```js
-const state1 = [1, 2, 3];
-const state2 = state1;
-state2.push(4);
-
-console.log(state1 === state2);
-```
-
-Obiges Programm gibt `true` aus. `state1` und `state2` beziehen sich auf das selbe Objekt. Die Änderung würde bei memoisierten Komponenten kein neues Rendering auslösen.
-
-## Verwalten von Daten ohne Mutationen
-
-Korrekte Verwendung:
-
-```js
-const state1 = [1, 2, 3];
-const state2 = [...state1, 4];
-```
 
 # State Management mit Reducern
 
@@ -1239,7 +1056,7 @@ const useDate = interval => {
     setInterval(() => {
       setDate(new Date());
     }, interval);
-  });
+  }, []);
   return date;
 };
 ```
@@ -1826,6 +1643,101 @@ Die entstehende HOC rehält eine normale Komponente und gibt eine Komponente zur
 
 ```js
 const RatingContainer = connector(Rating);
+```
+
+# Memoisation
+
+## Memoisation
+
+Memoisation = Technik, um z.B. Funktionsaufrufe zu beschleunigen: frühere Resultate werden gespeichert und müssen nicht neu berechnet werden
+
+Kann in React verwendet werden: Wenn sich bei einer Komponente props bzw state nicht ändern, muss sie meist nicht neu gerendert werden.
+
+## Memoisation in React
+
+Auslöser für das neue Rendering einer Komponente:
+
+- **(Re)rendering der Elternkomponente**
+- Änderung des States der Komponente
+- Anstoß durch einen verwendeten Hook (z.B. `useContext`, `useReducer`, `useSelector`, ...)
+
+Visualisierung des Renderings in den React Devtools: _Settings_ - _General_ - _Highlight updates when components render._
+
+## Memoisation in React
+
+Verhinderung des (Re)Renderings beim (Re)rendering der Elternkomponente:
+
+Zur Performanceoptimierung ist es oft wünschenswert, dass eine Kindkomponente nicht jedes Mal gerendert wird, wenn deren Elternkomponente neu gerendert wird
+
+Stattdessen soll sie nur dann neu gerender werden, wenn sich ihre Props (bzw ihr State) ändern
+
+Wenn Props (oder State) sich nicht geänder haben, wird das vorherige Resultat (memoisiert) zurückgegeben.
+
+## Memoisation in React
+
+Memoisierte Komponenten in React:
+
+Bei Funktionskomponenten: Verwenden der `memo`-Funktion (memoisierte _props_)
+
+Bei Klassenkomponenten: Erben von `PureComponent` statt `Component` (memoisierte _props_ und _state_)
+
+## Memoisation in React: Funktionskomponenten
+
+```js
+import React, { memo } from 'react';
+
+function Rating(...) ...
+
+export default memo(Rating);
+```
+
+## Memoisation in React: Klassenkomponenten
+
+```js
+import { PureComponent } from 'react';
+
+class Rating extends PureComponent {...}
+
+export default Rating;
+```
+
+## Verwaltung von Daten ohne Mutationen
+
+In React werden (nicht-primitive) Einträge in State und Props dann als geändert angesehen, wenn sie sich auf ein anderes Objekt als zuvor beziehen.
+
+## Verwaltung von Daten ohne Mutationen
+
+Bei Memoisation in React: Daten werden mit `===` auf Gleichheit überprüft
+
+Was gibt das folgende Programm aus?
+
+```js
+const state1 = [1, 2, 3];
+const state2 = state1;
+state2.push(4);
+
+console.log(state1 === state2);
+```
+
+## Verwaltung von Daten ohne Mutationen
+
+```js
+const state1 = [1, 2, 3];
+const state2 = state1;
+state2.push(4);
+
+console.log(state1 === state2);
+```
+
+Obiges Programm gibt `true` aus. `state1` und `state2` beziehen sich auf das selbe Objekt. Die Änderung würde bei memoisierten Komponenten kein neues Rendering auslösen.
+
+## Verwalten von Daten ohne Mutationen
+
+Korrekte Verwendung:
+
+```js
+const state1 = [1, 2, 3];
+const state2 = [...state1, 4];
 ```
 
 # Dateistruktur

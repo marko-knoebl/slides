@@ -3,8 +3,6 @@
 ## Topics (1/2)
 
 - hooks
-- immutable data
-- memoization
 - state management with reducers
 - testing in JavaScript
 - testing React components
@@ -16,4 +14,5 @@
 - external hooks & custom hooks
 - routing and pre-rendering
 - app development with React
+- memoization
 - manual setup

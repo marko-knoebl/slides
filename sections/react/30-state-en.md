@@ -64,3 +64,30 @@ implement a slideshow that shows images like the following:
 - buttons for _previous_ and _next_
 - button for _back to start_
 - prevent the index becoming negative
+
+## Don't mutate state directly
+
+if there are arrays or objects in the state we _could_ try and mutate them directly
+
+don't do this - React will usually not notice the changes and will not rerender the view
+
+## Don't mutate state directly
+
+initial situation:
+
+```js
+const [todos, setTodos] = useState(['groceries', 'bills']);
+```
+
+**correctly** updating the state:
+
+```js
+setTodos([...todos, 'learn React']);
+```
+
+**incorrect** attempt at updating the state:
+
+```js
+todos.push('learn React');
+setTodos(todos);
+```

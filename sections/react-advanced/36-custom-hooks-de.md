@@ -28,7 +28,7 @@ const useDate = interval => {
     setInterval(() => {
       setDate(new Date());
     }, interval);
-  });
+  }, []);
   return date;
 };
 ```

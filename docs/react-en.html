@@ -2306,6 +2306,93 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li>button for <em>back to start</em></li>
 <li>prevent the index becoming negative</li>
 </ul>
+</section><section class="slide"><h2>Don't mutate state directly</h2>
+<p>if there are arrays or objects in the state we <em>could</em> try and mutate them directly</p>
+<p>don't do this - React will usually not notice the changes and will not rerender the view</p>
+</section><section class="slide"><h2>Don't mutate state directly</h2>
+<p>initial situation:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [todos, setTodos] = useState([<span class="hljs-string">'groceries'</span>, <span class="hljs-string">'bills'</span>]);
+</code></pre>
+<p><strong>correctly</strong> updating the state:</p>
+<pre><code class="hljs language-js">setTodos([...todos, <span class="hljs-string">'learn React'</span>]);
+</code></pre>
+<p><strong>incorrect</strong> attempt at updating the state:</p>
+<pre><code class="hljs language-js">todos.push(<span class="hljs-string">'learn React'</span>);
+setTodos(todos);
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Immutable state</h1>
+</section><section class="slide"><h2>Immutability</h2>
+<p><strong>Immutability</strong>: important concept in functional programing and with React / Redux</p>
+<p>Data is not modified directly - instead, new data is derived from existing data (and may replace the existing data)</p>
+</section><section class="slide"><h2>Immutable state</h2>
+<p>if there are arrays or objects in the state we <em>could</em> try and mutate them directly</p>
+<p>don't do this - React will usually not notice the changes and will not rerender the view</p>
+<p>state should be viewed as <em>immutabe</em> (unchangeable)</p>
+</section><section class="slide"><h2>Data management without mutations: Arrays</h2>
+<p>initial data:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> names = [<span class="hljs-string">'Alice'</span>, <span class="hljs-string">'Bob'</span>, <span class="hljs-string">'Charlie'</span>];
+</code></pre>
+<p><strong>mutation</strong>: this modifies the original array</p>
+<pre><code class="hljs language-js">names.push(<span class="hljs-string">'Dan'</span>);
+</code></pre>
+<p><strong>no mutation</strong>: create a new array</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> newNames = [...names, <span class="hljs-string">'Dan'</span>];
+</code></pre>
+</section><section class="slide"><h2>Data management without mutations: Objects</h2>
+<p>initial data:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> user = {
+  <span class="hljs-attr">name</span>: <span class="hljs-string">'john'</span>
+  email: <span class="hljs-string">'john@doe.com'</span>
+}
+</code></pre>
+<p><strong>mutation</strong>: this modifies the object</p>
+<pre><code class="hljs language-js">user.email = <span class="hljs-string">'johndoe@gmail.com'</span>;
+</code></pre>
+<p><strong>no mutation</strong>: create a new object</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> newUser = { ...user, <span class="hljs-attr">email</span>: <span class="hljs-string">'johndoe@gmail.com'</span> };
+</code></pre>
+</section><section class="slide"><h2>immer.js and immutable.js</h2>
+<p>libraries that simplify working without mutations</p>
+</section><section class="slide"><h2>immer.js</h2>
+<p>is recommended by the Redux team</p>
+<p>changes are specified via a <em>draft</em> object</p>
+</section><section class="slide"><h2>immer.js</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> produce <span class="hljs-keyword">from</span> <span class="hljs-string">'immer'</span>;
+
+<span class="hljs-keyword">const</span> todos = [
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'groceries'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'gardening'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
+];
+
+<span class="hljs-keyword">const</span> newTodos = produce(todos, todosDraft => {
+  todosDraft[<span class="hljs-number">1</span>].completed = <span class="hljs-literal">true</span>;
+  todosDraft.push({
+    <span class="hljs-attr">id</span>: <span class="hljs-number">3</span>,
+    <span class="hljs-attr">title</span>: <span class="hljs-string">'relax'</span>,
+    <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span>,
+  });
+});
+</code></pre>
+</section><section class="slide"><h2>immutable.js</h2>
+<p>In particular, offers the data types <em>List</em> and <em>Map</em> as immutable alternatives for <em>Array</em> and <em>Object</em>.</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { List, <span class="hljs-built_in">Map</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'immutable'</span>;
+
+<span class="hljs-keyword">const</span> a1 = List([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]);
+<span class="hljs-keyword">const</span> a2 = a1.push(<span class="hljs-number">4</span>);
+
+<span class="hljs-keyword">const</span> b1 = <span class="hljs-built_in">Map</span>({ <span class="hljs-attr">a</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">b</span>: <span class="hljs-number">2</span> });
+<span class="hljs-keyword">const</span> b2 = b1.set(<span class="hljs-string">'b'</span>, <span class="hljs-literal">null</span>);
+</code></pre>
+</section><section class="slide"><h2>immutable.js</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { fromJS, setIn } <span class="hljs-keyword">from</span> <span class="hljs-string">'immutable'</span>;
+
+<span class="hljs-keyword">const</span> todos = fromJS([
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'groceries'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'gardening'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
+]);
+
+<span class="hljs-keyword">const</span> newTodos = todos.setIn([<span class="hljs-number">1</span>, <span class="hljs-string">'completed'</span>], <span class="hljs-literal">true</span>);
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Inputs &#x26; forms</h1>
 </section><section class="slide"><h2>Inputs</h2>
 <p>In the context of React, input elements are special:</p>

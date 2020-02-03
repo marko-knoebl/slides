@@ -64,3 +64,24 @@ Slideshow, die Bilder wie das folgende anzeigt:
 - Buttons für _vorwärts_ und _zurück_
 - Button für _zurück zum Start_
 - Verhindern, dass ins negative gezählt wird
+
+## State nicht direkt abändern
+
+Ausgangslage:
+
+```js
+const [todos, setTodos] = useState(['groceries', 'bills']);
+```
+
+**korrekte** Änderung am State:
+
+```js
+setTodos([...todos, 'learn React']);
+```
+
+**inkorrekter** Versuch, den State zu ändern:
+
+```js
+todos.push('learn React');
+setTodos(todos);
+```
