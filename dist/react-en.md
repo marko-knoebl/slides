@@ -1064,14 +1064,6 @@ Often API data needs to be queried when a component is first mounted or when its
 
 ## Querying APIs (effect hook)
 
-Examples:
-
-- `TodoApp` that loads initial todos from an API
-- `SpaceXLaunch` component that displays data for a SpaceX launch from an API
-- `Pokemon` component that displays data for a specific pokémon
-
-## Querying APIs (effect hook)
-
 The _effect hook_ can be used to perform some actions when a component is first mounted or when its props / state change
 
 ```js
@@ -1106,7 +1098,7 @@ const TodoApp = () => {
 
 ## Querying APIs (effect hook)
 
-Example: load SpaceX launch data when `launchNr` changes
+Example: load SpaceX launch data when component mounted or when `launchNr` changed
 
 ```js
 const SpaceXLaunch = () => {
@@ -1134,7 +1126,7 @@ const SpaceXLaunch = () => {
 
 ## Querying APIs (effect hook)
 
-Example: load pokémon data when `id` changes
+Example: load pokémon data when component mounted or when `id` changed
 
 ```js
 const Pokemon = () => {

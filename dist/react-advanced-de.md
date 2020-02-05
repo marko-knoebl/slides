@@ -70,25 +70,13 @@ Beispiele:
 - `useState(...)`
 - `useEffect(...)`
 - `useContext(...)`
-- ...
+- `useReducer(...)`
 
 ## Hooks
 
 > "In the longer term, we expect Hooks to be the primary way people write React components."
 
 \- [React FAQ](https://reactjs.org/docs/hooks-faq.html#should-i-use-hooks-classes-or-a-mix-of-both)
-
-## Hooks: derzeitiger Stand
-
-- Dokumentation für Einsteiger noch sehr Klassen-orientiert
-- Keine Unterstützung durch die Test Library _enzyme_ (https://github.com/airbnb/enzyme/issues/2011)
-
-## Wichtige Hooks
-
-- state Hook
-- effect Hook
-- context Hook
-- reducer Hook
 
 # State Management mit Reducern
 
@@ -256,448 +244,11 @@ const TodoApp = () => {
 };
 ```
 
-# Testen
-
-## Automatisiertes Testen in JavaScript
-
-Manche Funktionen in React - z.B. Reducer - sind ganz "normale" JavaScript-Funktionen und können mit standard-Testwerkzeugen getestet werden
-
-Siehe die Präsentation [JavaScript Testing](./javascript-testing-de.html) für einen Einstieg
-
-## Testen von React-Komponenten
-
-was kann getestet werden:
-
-- Rendering
-- Auslösen von Events
-- Änderungen am State
-
-## Test Renderer für React
-
-- `react-test-renderer` (vom React Team entwickelt)
-- `react-testing-library` (Unterprojekt von _Testing Library_, Erstveröffentlichung Mitte 2019)
-- `Enzyme` (bietet noch keine Unterstützung für Hooks)
-
-## Snapshot Tests
-
-Komponenten werden gerendert und mit früheren Versionen (Snapshots) verglichen
-
-# React-Test-Renderer
-
-## React-Test-Renderer - Installation
-
-```bash
-npm install --save-dev react-test-renderer
-```
-
-für TypeScript:
-
-```bash
-npm install --save-dev react-test-renderer @types/react-test-renderer
-```
-
-## React-Test-Renderer - Beispiel
-
-```js
-import TestRenderer from 'react-test-renderer';
-
-it('renders a component without crashing', () => {
-  const instance = TestRenderer.create(<MyComponent />)
-    .root;
-});
-```
-
-## React-Test-Renderer - mit Instanzen arbeiten
-
-- `instance.find(All)` (erhält eine Testfunktion als Argument)
-- `instance.find(All)ByType`
-- `instance.find(All)ByProps`
-- `instance.props`
-- `instance.children`
-- `instance.type`
-
-## React-Test-Renderer - API
-
-[https://reactjs.org/docs/test-renderer.html](https://reactjs.org/docs/test-renderer.html)
-
-## Beispiel: Testen mit Jest und React-Test-Renderer
-
-Testen einer Rating Komponente
-
-## Test-Setup
-
-```jsx
-import React from 'react';
-import TestRenderer from 'react-test-renderer';
-
-import Rating from './Rating';
-```
-
-## Testen des Renderings
-
-```jsx
-describe('rendering', () => {
-  it('renders 5 spans', () => {
-    const instance = TestRenderer.create(
-      <Rating stars={3} />
-    ).root;
-    expect(instance.findAllByType('span')).toHaveLength(5);
-  });
-
-  it('renders 3 active stars', () => {
-    const instance = TestRenderer.create(
-      <Rating stars={3} />
-    ).root;
-    expect(
-      instance.findAllByProps({ className: 'star active' })
-    ).toHaveLength(3);
-  });
-});
-```
-
-## Testen von Events
-
-```jsx
-describe('events', () => {
-  it('reacts to click on the fourth star', () => {
-    const mockFn = jest.fn();
-    const instance = TestRenderer.create(
-      <Rating stars={3} onStarsChange={mockFn} />
-    ).root;
-    const fourthStar = instance.findAllByType('span')[3];
-    fourthStar.props.onClick();
-    expect(mockFn).toBeCalledWith(4);
-  });
-});
-```
-
-## Testen von Fehlern
-
-```jsx
-describe('errors', () => {
-  it('throws an error if the number of stars is 0', () => {
-    const testFn = () => {
-      TestRenderer.create(<Rating stars={0} />);
-    };
-    expect(testFn).toThrow('number of stars must be 1-5');
-  });
-});
-```
-
-# React-Testing-Library
-
-## Testing-Library
-
-**Testing-Library**: Projekt zum Testen von UI Komponenten (u.a. React)
-
-Fokus der Tests liegt auf Aspekten, die für den Endnutzer relevant sind (nicht so sehr auf der genauen DOM-Struktur)
-
-## React-Testing-Library - Installation
-
-```bash
-npm install --save-dev @testing-library/react
-```
-
-empfohlene zusätzliche Assertions für Jest:
-
-```bash
-npm install --save-dev @testing-library/jest-dom
-```
-
-## React-Testing-Library - Beispiel
-
-```js
-import { render } from '@testing-library/react';
-
-it('renders a component without crashing', () => {
-  const instance = render(<MyComponent />);
-});
-```
-
-## React-Testing-Library - Elemente abfragen
-
-- `.getByText` (wirft Exception, wenn es keinen eindeutigen Match gibt)
-- `.getAllByText` (wirft Exception, wenn es keine Matches gibt)
-- `.queryByText`
-- `.queryAllByText`
-- ... (siehe [https://testing-library.com/docs/dom-testing-library/api-queries](https://testing-library.com/docs/dom-testing-library/api-queries))
-
-## React-Testing-Library - erweiterte asserts für Jest
-
-einsetzbar mittels:
-
-```js
-import '@testing-library/jest-dom/extend-expect';
-```
-
-Beispiele:
-
-- `.toBeInTheDocument()`
-- `.toContainHTML()`
-- `.toHaveClass()`
-- ...
-
-siehe [https://github.com/testing-library/jest-dom](https://github.com/testing-library/jest-dom)
-
-## Beispiel: Testen mit Jest und React Testing Library
-
-Testen einer Rating Komponente
-
-## Test-Setup
-
-```js
-import React from 'react';
-import '@testing-library/jest-dom/extend-expect';
-import {
-  render,
-  fireEvent,
-  cleanup,
-} from '@testing-library/react';
-
-import Rating from './Rating';
-
-afterEach(() => {
-  cleanup();
-});
-```
-
-## Testen des Renderings
-
-```jsx
-it('renders three full stars', () => {
-  const instance = render(<Rating stars={3} />);
-  const fullStars = instance.getAllByText('★');
-  expect(fullStars).toHaveLength(3);
-  for (let fullStar of fullStars) {
-    expect(fullStar).toHaveClass('active');
-  }
-});
-```
-
-## Testen von Events
-
-```jsx
-it('reacts to click on the fourth star', () => {
-  const mockFn = jest.fn();
-  const instance = render(
-    <Rating stars={3} onStarsChange={mockFn} />
-  );
-  const firstEmptyStar = instance.getAllByText('☆')[0];
-  fireEvent.click(firstEmptyStar);
-  expect(mockFn).toHaveBeenCalledWith(4);
-});
-```
-
-## Testen von Fehlern
-
-```jsx
-it('throws an error if the number of stars is 0', () => {
-  const testFn = () => {
-    render(<Rating stars={0} />);
-  };
-  expect(testFn).toThrow('number of stars must be 1-5');
-});
-```
-
-# Enzyme
-
-## Enzyme - Installation & Einrichtung
-
-```bash
-npm install --save-dev enzyme enzyme-adapter-react-16
-```
-
-neue Datei `src/setupTests.js`:
-
-```js
-import { configure } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-
-configure({ adapter: new Adapter() });
-```
-
-## Enzyme - Beispiele
-
-```jsx
-import { shallow, mount } from 'enzyme';
-
-it('renders a component without crashing', () => {
-  const wrapper = shallow(<MyComponent />);
-});
-
-it('renders a component tree without crashing', () => {
-  const wrapper = mount(<MyComponent />);
-});
-```
-
-## Enzyme - Cheatsheet
-
-https://devhints.io/enzyme
-
-## Beispiel: Testen mit Jest und Enzyme
-
-Testen einer Rating-Komponente
-
-## Beispiel: Testen einer Rating-Komponente
-
-```jsx
-import React from 'react';
-import { shallow, mount } from 'enzyme';
-
-import Rating from './Rating';
-```
-
-## Beispiel: Testen einer Rating-Komponente
-
-```jsx
-describe('rendering', () => {
-  it('renders 5 Star components', () => {
-    const wrapper = shallow(<Rating stars={5} />);
-    expect(wrapper.find('Star')).toHaveLength(5);
-  });
-
-  it('renders 5 stars', () => {
-    const wrapper = mount(<Rating stars={5} />);
-    expect(wrapper.find('.star')).toHaveLength(5);
-  });
-});
-```
-
-## Beispiel: Testen einer Rating-Komponente
-
-```jsx
-describe('rendering', () => {
-  it('renders 3 active stars', () => {
-    const wrapper = mount(<Rating stars={3} />);
-    expect(wrapper.find('.star')).toHaveLength(5);
-    expect(
-      wrapper.find('.star').get(2).props.className
-    ).toEqual('star active');
-    expect(
-      wrapper.find('.star').get(3).props.className
-    ).toEqual('star');
-  });
-});
-```
-
-## Beispiel: Testen einer Rating-Komponente
-
-```jsx
-describe('events', () => {
-  it('reacts to click on first star', () => {
-    const mockFn = jest.fn();
-    const wrapper = mount(
-      <Rating stars={3} onStarsChange={mockFn} />
-    );
-    wrapper
-      .find('span')
-      .at(0)
-      .simulate('click');
-    expect(mockFn.mock.calls[0][0]).toEqual(1);
-  });
-});
-```
-
-## Beispiel: Testen einer Rating-Komponente
-
-Testen einer (hypothetischen) Rating-Komponente, die ihren eigenen internen State hat:
-
-```jsx
-describe('events', () => {
-  it('reacts to click on first star', () => {
-    const wrapper = mount(<Rating />);
-    wrapper
-      .find('span')
-      .at(0)
-      .simulate('click');
-    expect(wrapper.instance.state.count).toEqual(1);
-  });
-});
-```
-
-## Beispiel: Testen einer Rating-Komponente
-
-```jsx
-describe('errors', () => {
-  it('throws an error if the number of stars is 0', () => {
-    const testFn = () => {
-      const wrapper = shallow(<Rating stars={0} />);
-    };
-    expect(testFn).toThrow(
-      'number of stars must be positive'
-    );
-  });
-});
-```
-
-# Snapshot Tests
-
-### mit react-test-renderer
-
-## Snapshot Tests
-
-Komponenten werden gerendert und mit früheren Versionen (Snapshots) verglichen
-
-Snapshot Tests fallen unter Regressionstests.
-
-## Snapshot Tests in React - Tests erstellen
-
-```jsx
-// Rating.test.js
-import React from 'react';
-import TestRenderer from 'react-test-renderer';
-import Rating from './Rating.js';
-
-it('renders correctly', () => {
-  const tree = TestRenderer
-    .create(<Rating stars={2} />)
-    .toJSON();
-  expect(tree).toMatchSnapshot();
-});
-```
-
-## Snapshot Tests aktualisieren
-
-Haben wir das Verhalten einer Komponente geändert und danach ihr Verhalten überprüft, können wir Snapshot-Tests entsprechend aktualisieren:
-
-```txt
-2 snapshot tests failed in 1 test suite.
-Inspect your code changes or press `u` to update them.
-```
-
-# Storybook
-
-## Storybook
-
-Ermöglicht das Erstellen isolierter Komponentendemos
-
-Beispiel:
-
-https://airbnb.io/react-dates/
-
-## Storybook - Setup
-
-```bash
-npx -p @storybook/cli sb init --type react
-```
-
-Erstellt einen Konfigurationsordner unter `.storybook` und Beispielstories unter `stories`.
-
-## Storybook
-
-```bash
-npm run storybook
-```
-
-## Storybook
-
-Konfiguration via `.storybook/config.js`
-
 # Context
 
 ## Context
 
-Möglichkeit, Werte aus einer Komponente direkt allen weiter unten im Dokumentenbaum liegenden Komponenten zur Verfügung zu stellen - ohne den state über jede Ebene übergeben zu müssen
+Möglichkeit, Werte aus einer Komponente direkt allen weiter unten im Dokumentenbaum liegenden Komponenten zur Verfügung zu stellen - ohne diese über jede Ebene übergeben zu müssen
 
 ## Context
 
@@ -712,21 +263,18 @@ Das Interface von Context kann sowohl Daten (aus dem State) als auch Eventhandle
 
 ## Context - Beispiel
 
-```js
-// TodosContext.js
+mit JavaScript (_TodosContext.js_):
 
+```js
 const TodosContext = React.createContext();
 ```
 
-## Context - Beispiel: TypeScript
+mit TypeScript (_TodosContext.ts_):
 
 ```ts
-// TodosContext.ts
-
 type TodosContextType = {
   todos: Array<Todo>;
   onToggle: (id: number) => void;
-  onClear: () => void;
 };
 
 const TodosContext = React.createContext(
@@ -739,250 +287,27 @@ const TodosContext = React.createContext(
 ```jsx
 const App = () => {
   return (
-    <MyContext.Provider
+    <TodosContext.Provider
       value={{
-        todos: this.state.todos,
-        onToggle: this.handleToggle,
-        onClear: this.handleClear,
+        todos: todos,
+        onToggle: () => {
+          // ...
+        },
       }}>
+      <TodoList />
+      <AddTodo />
       <TodoStats />
-    </MyContext.Provider>
+    </TodosContext.Provider>
   );
 };
 ```
 
 ## Context - Beispiel: Consumer
-
-mit Hooks:
 
 ```jsx
 const TodoStats = () => {
   const context = useContext(TodosContext);
   return <div>There are {context.todos.length} todos</div>;
-};
-```
-
-## Context - Beispiel: Consumer
-
-Klassenkomponente:
-
-```jsx
-class TodoStats extends React.Component {
-  render() {
-    return (
-      <TodosContext.Consumer>
-        {context => (
-          <div>
-            There are {context.todos.length} todos
-          </div>
-        )}
-      </Todos.Consumer>
-    );
-  }
-}
-```
-
-# Komponenten-Lebenszyklus
-
-## Komponenten-Lebenszyklus
-
-In React können bestimmte Ereignisse im Lebenszyklus einer Komponente abgefragt werden. Insbesondere sind folgende Ereignisse oft von Interesse:
-
-- die Komponente wurde neu eingebunden
-- state oder props der Komponente haben sich geändert
-- die Komponente wird entfernt
-
-## Komponenten-Lebenszyklus
-
-Einsatzgebiete der genannten Ereignisse:
-
-- Abfragen von APIs
-- manuelle Änderungen am DOM
-- Aufräumen vor dem Entfernen einer Komponente
-
-## Komponenten-Lebenszyklus
-
-Die Ereignisse können wie folgt abgefragt werden:
-
-In Klassenkomponenten mittels Lebenszyklus-Methoden:
-
-- `componentDidMount`
-- `componentDidUpdate`
-- `componentWillUnmount`
-
-In funktionalen Komponenten mittels `useEffect`
-
-## Beispiel: DocumentTitle-Komponente
-
-Wir erstellen eine Komponente, die den Dokumenttitel dynamisch setzen kann:
-
-```xml
-<DocumentTitle>my custom title</DocumentTitle>
-```
-
-Diese Komponente kann irgendwo in der React-Anwendung vorkommen.
-
-## Beispiel: DocumentTitle-Komponente
-
-mit useEffect
-
-```jsx
-const DocumentTitle = props => {
-  useEffect(() => {
-    document.title = props.children;
-  });
-
-  return null;
-};
-```
-
-## useEffect im Detail
-
-`useEffect` bekommt zwei Parameter übergeben: Eine Funktion und ein Array von Werten.
-
-Die Funktion nach dem Rendering einer Komponente ausgeführt, wenn sich einer der Werte geändert hat.
-
-Die Funktion wird auch ausgeführt, wenn die Komponente neu eingebunden und zum ersten Mal gerendert wurde.
-
-## useEffect im Detail
-
-Wenn kein zweiter Parameter übergeben wird, wird die Funktion nach jedem Rendering ausgeführt.
-
-Wenn ein leeres Array als zweiter Parameter übergeben wird, wird die Funktion nur nach dem ersten Rendering ausgeführt.
-
-Es gibt auch die Möglichkeit, eine Funktion zu definieren, die vor dem _Entfernen_ einer Komponente aufgerufen wird (mehr dazu später).
-
-## useEffect: Beispiel: Weather
-
-```js
-const [weatherData, setWeatherData] = useState(null);
-const [stale, setStale] = useState(true);
-
-// fetch data whenever data is stale
-useEffect(() => {
-  if (stale) {
-    refetch();
-  }
-}, [stale]);
-```
-
-## useEffect: Beispiel: Weather
-
-```js
-const refetch = () => {
-  fetch(
-    'https://api.openweathermap.org/data/2.5/weather' +
-      `?q=${city}&appid=${API_KEY}`
-  )
-    .then(response => response.json())
-    .then(data => {
-      setWeatherData({ temperature: data.main.temp });
-      setStale(false);
-    });
-};
-```
-
-## useEffect: Entfernen einer Komponente
-
-```jsx
-const Clock = () => {
-  ...
-  // wird aufgerufen, wenn die Komponente eingebunden wird
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setTime(new Date().toLocaleTimeString());
-    }, 1000);
-    // wird aufgerufen, wenn die Komponente entfernt wird
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, []);
-  ...
-};
-```
-
-# Refs
-
-### Zugriff auf DOM-Elemente
-
-## Refs
-
-Mittels Refs kann direkt auf DOM-Elemente zugegriffen werden
-
-Anwendungsgebiete:
-
-- Verwalten von Fokus, Textauswahl oder Medienwiedergabe
-- Alternative Möglichkeit zum Verwalten von Inputs
-- Integration von anderen DOM-Libraries
-
-## Refs
-
-**Verwalten von Fokus, Textauswahl oder Medienwiedergabe**
-
-manche Änderungen können nicht deklarativ (via State) ausgedrückt werden - sie benötigen Zugriff zu einem bestimmten DOM-Element
-
-Beispiel: es gibt Properties wie `.value` zum Ändern des Werts eines Inputs oder `.className` zum Ändern von Klassennamen, aber keine Property zum Verwalten des Fokus
-
-## Refs
-
-**Alternative Möglichkeit zum Verwalten von Inputs**
-
-Verwendung von `ref` Anstelle von `value` und `onChange` kann zu etwas kürzerem Code führen (wird aber in der Dokumentation nicht empfohlen)
-
-## Refs
-
-**Integration von anderen DOM-Libraries**
-
-Andere Libraries können expliziten Zugriff auf DOM-Elemente benötigen
-
-Beispiel: Die Google Maps Library nimmt ein DOM-Element entgegen, in dem die Karte gezeichnet wird
-
-Für viele Libraries (so auch Google Maps) existieren Wrapper für React, sodass refs nicht benötigt werden
-
-## Refs
-
-Verwalten des Fokus mittels einer Ref:
-
-```js
-const App = () => {
-  const inputEl = useRef(null);
-  return (
-    <div>
-      <input ref={inputEl} />
-      <button onClick={() => inputEl.current.focus()}>
-        focus
-      </button>
-    </div>
-  );
-};
-```
-
-## Refs
-
-Verwalten von Inputs: Vergleich von `useState` und `useRef`:
-
-```js
-const App = () => {
-  const [firstName, setFirstName] = useState('');
-  const lastNameInput = useRef(null);
-
-  return (
-    <div>
-      <input
-        value={firstName}
-        onChange={event => setFirstName(event.target.value)}
-      />
-      <input ref={lastNameInput} />
-
-      <button
-        onClick={() => {
-          console.log(firstName);
-          console.log(lastNameInput.current.value);
-        }}>
-        log values
-      </button>
-    </div>
-  );
 };
 ```
 
@@ -1400,6 +725,443 @@ https://nextjs.org/learn/excel/static-html-export
 
 Die next.js website hat sehr gute Materialien: https://nextjs.org
 
+# Testen
+
+## Automatisiertes Testen in JavaScript
+
+Manche Funktionen in React - z.B. Reducer - sind ganz "normale" JavaScript-Funktionen und können mit standard-Testwerkzeugen getestet werden
+
+Siehe die Präsentation [JavaScript Testing](./javascript-testing-de.html) für einen Einstieg
+
+## Testen von React-Komponenten
+
+was kann getestet werden:
+
+- Rendering
+- Auslösen von Events
+- Änderungen am State
+
+## Test Renderer für React
+
+- `react-test-renderer` (vom React Team entwickelt)
+- `react-testing-library` (Unterprojekt von _Testing Library_, Erstveröffentlichung Mitte 2019)
+- `Enzyme`
+
+## Snapshot Tests
+
+Komponenten werden gerendert und mit früheren Versionen (Snapshots) verglichen
+
+# React-Test-Renderer
+
+## React-Test-Renderer - Installation
+
+```bash
+npm install --save-dev react-test-renderer
+```
+
+für TypeScript:
+
+```bash
+npm install --save-dev react-test-renderer @types/react-test-renderer
+```
+
+## React-Test-Renderer - Beispiel
+
+```js
+import TestRenderer from 'react-test-renderer';
+
+it('renders a component without crashing', () => {
+  const instance = TestRenderer.create(<MyComponent />)
+    .root;
+});
+```
+
+## React-Test-Renderer - mit Instanzen arbeiten
+
+- `instance.find(All)` (erhält eine Testfunktion als Argument)
+- `instance.find(All)ByType`
+- `instance.find(All)ByProps`
+- `instance.props`
+- `instance.children`
+- `instance.type`
+
+## React-Test-Renderer - API
+
+[https://reactjs.org/docs/test-renderer.html](https://reactjs.org/docs/test-renderer.html)
+
+## Beispiel: Testen mit Jest und React-Test-Renderer
+
+Testen einer Rating Komponente
+
+## Test-Setup
+
+```jsx
+import React from 'react';
+import TestRenderer from 'react-test-renderer';
+
+import Rating from './Rating';
+```
+
+## Testen des Renderings
+
+```jsx
+describe('rendering', () => {
+  it('renders 5 spans', () => {
+    const instance = TestRenderer.create(
+      <Rating stars={3} />
+    ).root;
+    expect(instance.findAllByType('span')).toHaveLength(5);
+  });
+
+  it('renders 3 active stars', () => {
+    const instance = TestRenderer.create(
+      <Rating stars={3} />
+    ).root;
+    expect(
+      instance.findAllByProps({ className: 'star active' })
+    ).toHaveLength(3);
+  });
+});
+```
+
+## Testen von Events
+
+```jsx
+describe('events', () => {
+  it('reacts to click on the fourth star', () => {
+    const mockFn = jest.fn();
+    const instance = TestRenderer.create(
+      <Rating stars={3} onStarsChange={mockFn} />
+    ).root;
+    const fourthStar = instance.findAllByType('span')[3];
+    fourthStar.props.onClick();
+    expect(mockFn).toBeCalledWith(4);
+  });
+});
+```
+
+## Testen von Fehlern
+
+```jsx
+describe('errors', () => {
+  it('throws an error if the number of stars is 0', () => {
+    const testFn = () => {
+      TestRenderer.create(<Rating stars={0} />);
+    };
+    expect(testFn).toThrow('number of stars must be 1-5');
+  });
+});
+```
+
+# React-Testing-Library
+
+## Testing-Library
+
+**Testing-Library**: Projekt zum Testen von UI Komponenten (u.a. React)
+
+Fokus der Tests liegt auf Aspekten, die für den Endnutzer relevant sind (nicht so sehr auf der genauen DOM-Struktur)
+
+## React-Testing-Library - Installation
+
+```bash
+npm install --save-dev @testing-library/react
+```
+
+empfohlene zusätzliche Assertions für Jest:
+
+```bash
+npm install --save-dev @testing-library/jest-dom
+```
+
+## React-Testing-Library - Beispiel
+
+```js
+import { render } from '@testing-library/react';
+
+it('renders a component without crashing', () => {
+  const instance = render(<MyComponent />);
+});
+```
+
+## React-Testing-Library - Elemente abfragen
+
+- `.getByText` (wirft Exception, wenn es keinen eindeutigen Match gibt)
+- `.getAllByText` (wirft Exception, wenn es keine Matches gibt)
+- `.queryByText`
+- `.queryAllByText`
+- ... (siehe [https://testing-library.com/docs/dom-testing-library/api-queries](https://testing-library.com/docs/dom-testing-library/api-queries))
+
+## React-Testing-Library - erweiterte asserts für Jest
+
+einsetzbar mittels:
+
+```js
+import '@testing-library/jest-dom/extend-expect';
+```
+
+Beispiele:
+
+- `.toBeInTheDocument()`
+- `.toContainHTML()`
+- `.toHaveClass()`
+- ...
+
+siehe [https://github.com/testing-library/jest-dom](https://github.com/testing-library/jest-dom)
+
+## Beispiel: Testen mit Jest und React Testing Library
+
+Testen einer Rating Komponente
+
+## Test-Setup
+
+```js
+import React from 'react';
+import '@testing-library/jest-dom/extend-expect';
+import {
+  render,
+  fireEvent,
+  cleanup,
+} from '@testing-library/react';
+
+import Rating from './Rating';
+
+afterEach(() => {
+  cleanup();
+});
+```
+
+## Testen des Renderings
+
+```jsx
+it('renders three full stars', () => {
+  const instance = render(<Rating stars={3} />);
+  const fullStars = instance.getAllByText('★');
+  expect(fullStars).toHaveLength(3);
+  for (let fullStar of fullStars) {
+    expect(fullStar).toHaveClass('active');
+  }
+});
+```
+
+## Testen von Events
+
+```jsx
+it('reacts to click on the fourth star', () => {
+  const mockFn = jest.fn();
+  const instance = render(
+    <Rating stars={3} onStarsChange={mockFn} />
+  );
+  const firstEmptyStar = instance.getAllByText('☆')[0];
+  fireEvent.click(firstEmptyStar);
+  expect(mockFn).toHaveBeenCalledWith(4);
+});
+```
+
+## Testen von Fehlern
+
+```jsx
+it('throws an error if the number of stars is 0', () => {
+  const testFn = () => {
+    render(<Rating stars={0} />);
+  };
+  expect(testFn).toThrow('number of stars must be 1-5');
+});
+```
+
+# Enzyme
+
+## Enzyme - Installation & Einrichtung
+
+```bash
+npm install --save-dev enzyme enzyme-adapter-react-16
+```
+
+neue Datei `src/setupTests.js`:
+
+```js
+import { configure } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+
+configure({ adapter: new Adapter() });
+```
+
+## Enzyme - Beispiele
+
+```jsx
+import { shallow, mount } from 'enzyme';
+
+it('renders a component without crashing', () => {
+  const wrapper = shallow(<MyComponent />);
+});
+
+it('renders a component tree without crashing', () => {
+  const wrapper = mount(<MyComponent />);
+});
+```
+
+## Enzyme - Cheatsheet
+
+https://devhints.io/enzyme
+
+## Beispiel: Testen mit Jest und Enzyme
+
+Testen einer Rating-Komponente
+
+## Beispiel: Testen einer Rating-Komponente
+
+```jsx
+import React from 'react';
+import { shallow, mount } from 'enzyme';
+
+import Rating from './Rating';
+```
+
+## Beispiel: Testen einer Rating-Komponente
+
+```jsx
+describe('rendering', () => {
+  it('renders 5 Star components', () => {
+    const wrapper = shallow(<Rating stars={5} />);
+    expect(wrapper.find('Star')).toHaveLength(5);
+  });
+
+  it('renders 5 stars', () => {
+    const wrapper = mount(<Rating stars={5} />);
+    expect(wrapper.find('.star')).toHaveLength(5);
+  });
+});
+```
+
+## Beispiel: Testen einer Rating-Komponente
+
+```jsx
+describe('rendering', () => {
+  it('renders 3 active stars', () => {
+    const wrapper = mount(<Rating stars={3} />);
+    expect(wrapper.find('.star')).toHaveLength(5);
+    expect(
+      wrapper.find('.star').get(2).props.className
+    ).toEqual('star active');
+    expect(
+      wrapper.find('.star').get(3).props.className
+    ).toEqual('star');
+  });
+});
+```
+
+## Beispiel: Testen einer Rating-Komponente
+
+```jsx
+describe('events', () => {
+  it('reacts to click on first star', () => {
+    const mockFn = jest.fn();
+    const wrapper = mount(
+      <Rating stars={3} onStarsChange={mockFn} />
+    );
+    wrapper
+      .find('span')
+      .at(0)
+      .simulate('click');
+    expect(mockFn.mock.calls[0][0]).toEqual(1);
+  });
+});
+```
+
+## Beispiel: Testen einer Rating-Komponente
+
+Testen einer (hypothetischen) Rating-Komponente, die ihren eigenen internen State hat:
+
+```jsx
+describe('events', () => {
+  it('reacts to click on first star', () => {
+    const wrapper = mount(<Rating />);
+    wrapper
+      .find('span')
+      .at(0)
+      .simulate('click');
+    expect(wrapper.instance.state.count).toEqual(1);
+  });
+});
+```
+
+## Beispiel: Testen einer Rating-Komponente
+
+```jsx
+describe('errors', () => {
+  it('throws an error if the number of stars is 0', () => {
+    const testFn = () => {
+      const wrapper = shallow(<Rating stars={0} />);
+    };
+    expect(testFn).toThrow(
+      'number of stars must be positive'
+    );
+  });
+});
+```
+
+# Snapshot Tests
+
+### mit react-test-renderer
+
+## Snapshot Tests
+
+Komponenten werden gerendert und mit früheren Versionen (Snapshots) verglichen
+
+Snapshot Tests fallen unter Regressionstests.
+
+## Snapshot Tests in React - Tests erstellen
+
+```jsx
+// Rating.test.js
+import React from 'react';
+import TestRenderer from 'react-test-renderer';
+import Rating from './Rating.js';
+
+it('renders correctly', () => {
+  const tree = TestRenderer
+    .create(<Rating stars={2} />)
+    .toJSON();
+  expect(tree).toMatchSnapshot();
+});
+```
+
+## Snapshot Tests aktualisieren
+
+Haben wir das Verhalten einer Komponente geändert und danach ihr Verhalten überprüft, können wir Snapshot-Tests entsprechend aktualisieren:
+
+```txt
+2 snapshot tests failed in 1 test suite.
+Inspect your code changes or press `u` to update them.
+```
+
+# Storybook
+
+## Storybook
+
+Ermöglicht das Erstellen isolierter Komponentendemos
+
+Beispiel:
+
+https://airbnb.io/react-dates/
+
+## Storybook - Setup
+
+```bash
+npx -p @storybook/cli sb init --type react
+```
+
+Erstellt einen Konfigurationsordner unter `.storybook` und Beispielstories unter `stories`.
+
+## Storybook
+
+```bash
+npm run storybook
+```
+
+## Storybook
+
+Konfiguration via `.storybook/config.js`
+
 # PWAs
 
 Progressive Web Apps mit React
@@ -1439,41 +1201,45 @@ Prozess in Chrome:
 
 ## PWA: add to homescreen
 
-```js
-const installPromptRef = useRef();
+TypeScript Implementierung
 
-// executed when the component has mounted
-useEffect(() => {
+```ts
+const [canInstall, setCanInstall] = useState(false);
+const installPromptEventRef = useRef<Event>();
+
+const getInstallPermission = () => {
   window.addEventListener(
     'beforeinstallprompt',
     ipEvent => {
       ipEvent.preventDefault();
-      installPromptRef.value = ipEvent;
+      installPromptEventRef.current = ipEvent;
+      setCanInstall(true);
     }
   );
-}, []);
+};
+useEffect(getInstallPermission, []);
 ```
 
 ## PWA: add to homescreen
 
-```jsx
-<div>
-  {installPromptRef.value && (
-    <button
-      onClick={() => {
-        installPromptRef.value.prompt();
-      }}>
-      install
-    </button>
-  )}
-</div>
+TypeScript Impementierung:
+
+```tsx
+<button
+  disabled={!canInstall}
+  onClick={() => {
+    (installPromptEventRef.current as any).prompt();
+  }}>
+  install
+</button>
 ```
 
 ## PWA: Deployment auf netlify
 
 - `npm run build`
-- dist-Ornder via drag&drop auf app.netlify.com/drop
-- Manuell auf HTTPS wechseln - in Chrome am Desktop und Mobilgerät ausprobieren
+- build-Ornder via drag&drop auf netlify.com/drop
+- bei der URL von _http://_ auf _https://_ wechseln
+- in Chrome am Desktop und Mobilgerät ausprobieren
 
 # React Native
 
@@ -1601,6 +1367,258 @@ const TodoItem = ({ title, completed, onToggle }) => (
 );
 ```
 
+# Memoisation
+
+## Memoisation
+
+Memoisation = Technik, um z.B. Funktionsaufrufe zu beschleunigen: frühere Resultate werden gespeichert und müssen nicht neu berechnet werden
+
+## Memoisation in React
+
+Verwendung von Memoisation in React:
+
+Wenn sich bei einer Komponente props bzw state nicht ändern, kann das alte Rendering oft beibehalten werden
+
+## Memoisation in React
+
+in Funktionskomponenten gilt:
+
+- Ein Setzen eines geänderten States bewirkt ein neues Rendering
+- Ein erneutes Setzen des gleichen States bewirkt kein neues Rendering
+- Ein neues Rendering einer Komponente bewirkt üblicherweise das neue Rendering _aller Unterkomponenten_
+- Durch den Einsatz von `React.memo` kann erreich werden, dass sich nur jene Unterkomponenten neu rendern, deren props sich geändert haben
+
+## Memoisation in React
+
+Anmerkung: Auch Hooks wie `useContext`, `useReducer`, ... können ähnlich wie `useState` ein Rerendering anstoßen
+
+## Memoisation in React
+
+Visualisierung des Renderings in den React Devtools: _Settings_ - _General_ - _Highlight updates when components render._
+
+## Memoisation in React
+
+Memoisation von Funktionskomponenten:
+
+```js
+import React, { memo } from 'react';
+
+const Rating = props => {
+  /*...*/
+};
+const RatingMemoized = memo(Rating);
+```
+
+## Verwaltung von Daten ohne Mutationen
+
+In React werden (nicht-primitive) Einträge in State und Props dann als geändert angesehen, wenn sie sich auf ein anderes Objekt als zuvor beziehen.
+
+## Verwaltung von Daten ohne Mutationen
+
+Bei Memoisation in React: Daten werden mit `===` auf Gleichheit überprüft
+
+Was gibt das folgende Programm aus?
+
+```js
+const state1 = [1, 2, 3];
+const state2 = state1;
+state2.push(4);
+
+console.log(state1 === state2);
+```
+
+## Verwaltung von Daten ohne Mutationen
+
+```js
+const state1 = [1, 2, 3];
+const state2 = state1;
+state2.push(4);
+
+console.log(state1 === state2);
+```
+
+Obiges Programm gibt `true` aus. `state1` und `state2` beziehen sich auf das selbe Objekt. Die Änderung würde bei memoisierten Komponenten kein neues Rendering auslösen.
+
+## Verwalten von Daten ohne Mutationen
+
+Korrekte Verwendung:
+
+```js
+const state1 = [1, 2, 3];
+const state2 = [...state1, 4];
+```
+
+# Komponenten-Lebenszyklus
+
+## Komponenten-Lebenszyklus
+
+In React können bestimmte Ereignisse im Lebenszyklus einer Komponente abgefragt werden. Insbesondere sind folgende Ereignisse oft von Interesse:
+
+- die Komponente wurde neu eingebunden
+- state oder props der Komponente haben sich geändert
+- die Komponente wird entfernt
+
+## Komponenten-Lebenszyklus
+
+Die Ereignisse können wie folgt abgefragt werden:
+
+In funktionalen Komponenten mittels `useEffect`
+
+In Klassenkomponenten mittels Lebenszyklus-Methoden, wie `componentDidMount`, `componentDidUpdate` oder `componentWillUnmount`
+
+## Komponenten-Lebenszyklus
+
+Einsatzgebiete der genannten Ereignisse:
+
+- Abfragen von APIs
+- manuelle Änderungen am DOM
+- Aufräumen vor dem Entfernen einer Komponente
+
+## Beispiel: DocumentTitle-Komponente
+
+Wir erstellen eine Komponente, die den Dokumenttitel dynamisch setzen kann:
+
+```xml
+<DocumentTitle value="my custom title" />
+```
+
+Diese Komponente kann irgendwo in der React-Anwendung vorkommen.
+
+## Beispiel: DocumentTitle-Komponente
+
+mit useEffect
+
+```jsx
+const DocumentTitle = props => {
+  useEffect(() => {
+    document.title = props.value;
+  }, [props.value]);
+  return null;
+};
+```
+
+## useEffect im Detail
+
+`useEffect` bekommt zwei Parameter übergeben: Eine Funktion und ein Array von Werten.
+
+Die Funktion nach dem Rendering einer Komponente ausgeführt, wenn sich einer der Werte geändert hat.
+
+Die Funktion wird auch ausgeführt, wenn die Komponente neu eingebunden und zum ersten Mal gerendert wurde.
+
+## useEffect im Detail
+
+Wenn kein zweiter Parameter übergeben wird, wird die Funktion nach jedem Rendering ausgeführt.
+
+## useEffect im Detail
+
+Ein Effect kann eine "Aufräumfunktion" zurückgeben
+
+Diese wird z.B. vor dem Entfernen einer Komponente aufgerufen
+
+## useEffect: Entfernen einer Komponente
+
+```jsx
+const Clock = () => {
+  const [time, setTime] = useState('');
+  // will be called when the component was mounted
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setTime(new Date().toLocaleTimeString());
+    }, 1000);
+    // will be called when the component will be removed
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, []);
+  return <div>{time}</div>;
+};
+```
+
+# Refs
+
+### Zugriff auf DOM-Elemente
+
+## Refs
+
+Mittels Refs kann direkt auf DOM-Elemente zugegriffen werden
+
+Anwendungsgebiete:
+
+- Verwalten von Fokus, Textauswahl oder Medienwiedergabe
+- Alternative Möglichkeit zum Verwalten von Inputs
+- Integration von anderen DOM-Libraries
+
+## Refs
+
+**Verwalten von Fokus, Textauswahl oder Medienwiedergabe**
+
+manche Änderungen können nicht deklarativ (via State) ausgedrückt werden - sie benötigen Zugriff zu einem bestimmten DOM-Element
+
+Beispiel: es gibt Properties wie `.value` zum Ändern des Werts eines Inputs oder `.className` zum Ändern von Klassennamen, aber keine Property zum Verwalten des Fokus
+
+## Refs
+
+**Alternative Möglichkeit zum Verwalten von Inputs**
+
+Verwendung von `ref` Anstelle von `value` und `onChange` kann zu etwas kürzerem Code führen (wird aber in der Dokumentation nicht empfohlen)
+
+## Refs
+
+**Integration von anderen DOM-Libraries**
+
+Andere Libraries können expliziten Zugriff auf DOM-Elemente benötigen
+
+Beispiel: Die Google Maps Library nimmt ein DOM-Element entgegen, in dem die Karte gezeichnet wird
+
+Für viele Libraries (so auch Google Maps) existieren Wrapper für React, sodass refs nicht benötigt werden
+
+## Refs
+
+Verwalten des Fokus mittels einer Ref:
+
+```js
+const App = () => {
+  const inputEl = useRef(null);
+  return (
+    <div>
+      <input ref={inputEl} />
+      <button onClick={() => inputEl.current.focus()}>
+        focus
+      </button>
+    </div>
+  );
+};
+```
+
+## Refs
+
+Verwalten von Inputs: Vergleich von `useState` und `useRef`:
+
+```js
+const App = () => {
+  const [firstName, setFirstName] = useState('');
+  const lastNameInput = useRef(null);
+
+  return (
+    <div>
+      <input
+        value={firstName}
+        onChange={event => setFirstName(event.target.value)}
+      />
+      <input ref={lastNameInput} />
+
+      <button
+        onClick={() => {
+          console.log(firstName);
+          console.log(lastNameInput.current.value);
+        }}>
+        log values
+      </button>
+    </div>
+  );
+};
+```
+
 # Higher-order components
 
 ### Funktionen, die eine Komponentendefinition verändern
@@ -1643,101 +1661,6 @@ Die entstehende HOC rehält eine normale Komponente und gibt eine Komponente zur
 
 ```js
 const RatingContainer = connector(Rating);
-```
-
-# Memoisation
-
-## Memoisation
-
-Memoisation = Technik, um z.B. Funktionsaufrufe zu beschleunigen: frühere Resultate werden gespeichert und müssen nicht neu berechnet werden
-
-Kann in React verwendet werden: Wenn sich bei einer Komponente props bzw state nicht ändern, muss sie meist nicht neu gerendert werden.
-
-## Memoisation in React
-
-Auslöser für das neue Rendering einer Komponente:
-
-- **(Re)rendering der Elternkomponente**
-- Änderung des States der Komponente
-- Anstoß durch einen verwendeten Hook (z.B. `useContext`, `useReducer`, `useSelector`, ...)
-
-Visualisierung des Renderings in den React Devtools: _Settings_ - _General_ - _Highlight updates when components render._
-
-## Memoisation in React
-
-Verhinderung des (Re)Renderings beim (Re)rendering der Elternkomponente:
-
-Zur Performanceoptimierung ist es oft wünschenswert, dass eine Kindkomponente nicht jedes Mal gerendert wird, wenn deren Elternkomponente neu gerendert wird
-
-Stattdessen soll sie nur dann neu gerender werden, wenn sich ihre Props (bzw ihr State) ändern
-
-Wenn Props (oder State) sich nicht geänder haben, wird das vorherige Resultat (memoisiert) zurückgegeben.
-
-## Memoisation in React
-
-Memoisierte Komponenten in React:
-
-Bei Funktionskomponenten: Verwenden der `memo`-Funktion (memoisierte _props_)
-
-Bei Klassenkomponenten: Erben von `PureComponent` statt `Component` (memoisierte _props_ und _state_)
-
-## Memoisation in React: Funktionskomponenten
-
-```js
-import React, { memo } from 'react';
-
-function Rating(...) ...
-
-export default memo(Rating);
-```
-
-## Memoisation in React: Klassenkomponenten
-
-```js
-import { PureComponent } from 'react';
-
-class Rating extends PureComponent {...}
-
-export default Rating;
-```
-
-## Verwaltung von Daten ohne Mutationen
-
-In React werden (nicht-primitive) Einträge in State und Props dann als geändert angesehen, wenn sie sich auf ein anderes Objekt als zuvor beziehen.
-
-## Verwaltung von Daten ohne Mutationen
-
-Bei Memoisation in React: Daten werden mit `===` auf Gleichheit überprüft
-
-Was gibt das folgende Programm aus?
-
-```js
-const state1 = [1, 2, 3];
-const state2 = state1;
-state2.push(4);
-
-console.log(state1 === state2);
-```
-
-## Verwaltung von Daten ohne Mutationen
-
-```js
-const state1 = [1, 2, 3];
-const state2 = state1;
-state2.push(4);
-
-console.log(state1 === state2);
-```
-
-Obiges Programm gibt `true` aus. `state1` und `state2` beziehen sich auf das selbe Objekt. Die Änderung würde bei memoisierten Komponenten kein neues Rendering auslösen.
-
-## Verwalten von Daten ohne Mutationen
-
-Korrekte Verwendung:
-
-```js
-const state1 = [1, 2, 3];
-const state2 = [...state1, 4];
 ```
 
 # Dateistruktur

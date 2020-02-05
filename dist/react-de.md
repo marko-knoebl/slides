@@ -285,6 +285,12 @@ Slideshow, die Bilder wie das folgende anzeigt:
 
 ## State nicht direkt abändern
 
+Wenn unser State Arrays oder Objekte enthält, _könnten_ wir versuchen, diese direkt abzuändern
+
+Dies _darf nicht gemacht werden_ - React bemerkt üblicherweise die Änderungen nicht und aktualisiert die Ansicht nicht
+
+## State nicht direkt abändern
+
 Ausgangslage:
 
 ```js
@@ -1058,14 +1064,6 @@ Oft müssen API Daten abgefragt werden, wenn eine Komponente zum ersten Mal eing
 
 ## APIs abfragen (Effect Hook)
 
-Beispiele:
-
-- `TodoApp`, die anfänglich Todos von einem API lädt
-- `SpaceXLaunch`-Komponente, die Daten für einen SpaceX-Start von einem API anzeigt
-- `Pokemon`-Komponente, die Daten für ein bestimmtes Pokémon anzeigt
-
-## APIs abfragen (Effect Hook)
-
 Der _Effect Hook_ kann verwendet werden, um bestimmte Aktionen zu setzen, wenn eine Komponente neu eingebunden wird oder wenn ihre Props / State sich ändern
 
 ```js
@@ -1100,7 +1098,7 @@ const TodoApp = () => {
 
 ## APIs abfragen (Effect Hook)
 
-Beispiel: Laden von SpaceX Startdaten, wenn sich `launchNr` ändert
+Beispiel: Laden von SpaceX Startdaten, wenn die Komponente eingebunden wurde oder wenn sich `launchNr` geändert hat
 
 ```js
 const SpaceXLaunch = () => {
@@ -1128,7 +1126,7 @@ const SpaceXLaunch = () => {
 
 ## APIs abfragen (Effect Hook)
 
-Beispiel: Pokémon-Daten laden, wenn sich `id` ändert
+Beispiel: Pokémon-Daten laden, wenn die Komponente eingebunden wurde oder wenn sich `id` geändert hat
 
 ```js
 const Pokemon = () => {
