@@ -102,17 +102,17 @@ const refetch = () => {
 
 ```jsx
 const Clock = () => {
-  ...
-  // wird aufgerufen, wenn die Komponente eingebunden wird
+  const [time, setTime] = useState('');
+  // will be called when the component was mounted
   useEffect(() => {
     const intervalId = setInterval(() => {
       setTime(new Date().toLocaleTimeString());
     }, 1000);
-    // wird aufgerufen, wenn die Komponente entfernt wird
+    // will be called when the component will be removed
     return () => {
       clearInterval(intervalId);
     };
   }, []);
-  ...
+  return <div>{time}</div>;
 };
 ```

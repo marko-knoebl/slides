@@ -96,8 +96,8 @@ const refetch = () => {
 
 ```jsx
 const Clock = () => {
-  ...
-  // will be called when the component has mounted
+  const [time, setTime] = useState('');
+  // will be called when the component was mounted
   useEffect(() => {
     const intervalId = setInterval(() => {
       setTime(new Date().toLocaleTimeString());
@@ -107,6 +107,6 @@ const Clock = () => {
       clearInterval(intervalId);
     };
   }, []);
-  ...
+  return <div>{time}</div>;
 };
 ```

@@ -2,7 +2,7 @@
 
 ## Context
 
-Möglichkeit, Werte aus einer Komponente direkt allen weiter unten im Dokumentenbaum liegenden Komponenten zur Verfügung zu stellen - ohne den state über jede Ebene übergeben zu müssen
+Möglichkeit, Werte aus einer Komponente direkt allen weiter unten im Dokumentenbaum liegenden Komponenten zur Verfügung zu stellen - ohne diese über jede Ebene übergeben zu müssen
 
 ## Context
 
@@ -17,21 +17,18 @@ Das Interface von Context kann sowohl Daten (aus dem State) als auch Eventhandle
 
 ## Context - Beispiel
 
-```js
-// TodosContext.js
+mit JavaScript (_TodosContext.js_):
 
+```js
 const TodosContext = React.createContext();
 ```
 
-## Context - Beispiel: TypeScript
+mit TypeScript (_TodosContext.ts_):
 
 ```ts
-// TodosContext.ts
-
 type TodosContextType = {
   todos: Array<Todo>;
   onToggle: (id: number) => void;
-  onClear: () => void;
 };
 
 const TodosContext = React.createContext(
@@ -44,45 +41,26 @@ const TodosContext = React.createContext(
 ```jsx
 const App = () => {
   return (
-    <MyContext.Provider
+    <TodosContext.Provider
       value={{
-        todos: this.state.todos,
-        onToggle: this.handleToggle,
-        onClear: this.handleClear,
+        todos: todos,
+        onToggle: () => {
+          // ...
+        },
       }}>
+      <TodoList />
+      <AddTodo />
       <TodoStats />
-    </MyContext.Provider>
+    </TodosContext.Provider>
   );
 };
 ```
 
 ## Context - Beispiel: Consumer
 
-mit Hooks:
-
 ```jsx
 const TodoStats = () => {
   const context = useContext(TodosContext);
   return <div>There are {context.todos.length} todos</div>;
 };
-```
-
-## Context - Beispiel: Consumer
-
-Klassenkomponente:
-
-```jsx
-class TodoStats extends React.Component {
-  render() {
-    return (
-      <TodosContext.Consumer>
-        {context => (
-          <div>
-            There are {context.todos.length} todos
-          </div>
-        )}
-      </Todos.Consumer>
-    );
-  }
-}
 ```

@@ -17,21 +17,18 @@ The interface of context can pass both data and event handlers
 
 ## Context - example
 
-```js
-// TodosContext.js
+with JavaScript (_TodosContext.js_):
 
+```js
 const TodosContext = React.createContext();
 ```
 
-## Context - example: TypeScript
+with TypeScript (_TodosContext.ts_):
 
 ```ts
-// TodosContext.ts
-
 type TodosContextType = {
   todos: Array<Todo>;
   onToggle: (id: number) => void;
-  onClear: () => void;
 };
 
 const TodosContext = React.createContext(
@@ -44,45 +41,26 @@ const TodosContext = React.createContext(
 ```jsx
 const App = () => {
   return (
-    <MyContext.Provider
+    <TodosContext.Provider
       value={{
-        todos: this.state.todos,
-        onToggle: this.handleToggle,
-        onClear: this.handleClear,
+        todos: todos,
+        onToggle: () => {
+          // ...
+        },
       }}>
+      <TodoList />
+      <AddTodo />
       <TodoStats />
-    </MyContext.Provider>
+    </TodosContext.Provider>
   );
 };
 ```
 
-## Context - example: Consumer
-
-with hooks:
+## Context - example: consumer
 
 ```jsx
 const TodoStats = () => {
   const context = useContext(TodosContext);
   return <div>There are {context.todos.length} todos</div>;
 };
-```
-
-## Context - example: Consumer
-
-class component:
-
-```jsx
-class TodoStats extends React.Component {
-  render() {
-    return (
-      <TodosContext.Consumer>
-        {context => (
-          <div>
-            There are {context.todos.length} todos
-          </div>
-        )}
-      </Todos.Consumer>
-    );
-  }
-}
 ```
