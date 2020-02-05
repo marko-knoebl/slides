@@ -10,30 +10,26 @@ In React können bestimmte Ereignisse im Lebenszyklus einer Komponente abgefragt
 
 ## Komponenten-Lebenszyklus
 
+Die Ereignisse können wie folgt abgefragt werden:
+
+In funktionalen Komponenten mittels `useEffect`
+
+In Klassenkomponenten mittels Lebenszyklus-Methoden, wie `componentDidMount`, `componentDidUpdate` oder `componentWillUnmount`
+
+## Komponenten-Lebenszyklus
+
 Einsatzgebiete der genannten Ereignisse:
 
 - Abfragen von APIs
 - manuelle Änderungen am DOM
 - Aufräumen vor dem Entfernen einer Komponente
 
-## Komponenten-Lebenszyklus
-
-Die Ereignisse können wie folgt abgefragt werden:
-
-In Klassenkomponenten mittels Lebenszyklus-Methoden:
-
-- `componentDidMount`
-- `componentDidUpdate`
-- `componentWillUnmount`
-
-In funktionalen Komponenten mittels `useEffect`
-
 ## Beispiel: DocumentTitle-Komponente
 
 Wir erstellen eine Komponente, die den Dokumenttitel dynamisch setzen kann:
 
 ```xml
-<DocumentTitle>my custom title</DocumentTitle>
+<DocumentTitle value="my custom title" />
 ```
 
 Diese Komponente kann irgendwo in der React-Anwendung vorkommen.
@@ -45,9 +41,8 @@ mit useEffect
 ```jsx
 const DocumentTitle = props => {
   useEffect(() => {
-    document.title = props.children;
-  });
-
+    document.title = props.value;
+  }, [props.value]);
   return null;
 };
 ```
@@ -64,39 +59,11 @@ Die Funktion wird auch ausgeführt, wenn die Komponente neu eingebunden und zum 
 
 Wenn kein zweiter Parameter übergeben wird, wird die Funktion nach jedem Rendering ausgeführt.
 
-Wenn ein leeres Array als zweiter Parameter übergeben wird, wird die Funktion nur nach dem ersten Rendering ausgeführt.
+## useEffect im Detail
 
-Es gibt auch die Möglichkeit, eine Funktion zu definieren, die vor dem _Entfernen_ einer Komponente aufgerufen wird (mehr dazu später).
+Ein Effect kann eine "Aufräumfunktion" zurückgeben
 
-## useEffect: Beispiel: Weather
-
-```js
-const [weatherData, setWeatherData] = useState(null);
-const [stale, setStale] = useState(true);
-
-// fetch data whenever data is stale
-useEffect(() => {
-  if (stale) {
-    refetch();
-  }
-}, [stale]);
-```
-
-## useEffect: Beispiel: Weather
-
-```js
-const refetch = () => {
-  fetch(
-    'https://api.openweathermap.org/data/2.5/weather' +
-      `?q=${city}&appid=${API_KEY}`
-  )
-    .then(response => response.json())
-    .then(data => {
-      setWeatherData({ temperature: data.main.temp });
-      setStale(false);
-    });
-};
-```
+Diese wird z.B. vor dem Entfernen einer Komponente aufgerufen
 
 ## useEffect: Entfernen einer Komponente
 

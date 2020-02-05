@@ -18,7 +18,7 @@ what to test:
 
 - `react-test-renderer` (developed by the React team)
 - `react-testing-library` (subproject of _testing library_, first published in mid-2019)
-- `Enzyme` (no support for React hooks yet)
+- `Enzyme`
 
 ## Snapshot Tests
 

@@ -1,20 +1,12 @@
-# Querying APIs (effect hook)
+# APIs abfragen (Effect Hook)
 
-## Querying APIs (effect hook)
+## APIs abfragen (Effect Hook)
 
-Often API data needs to be queried when a component is first mounted or when its props / state change
+Oft müssen API Daten abgefragt werden, wenn eine Komponente zum ersten Mal eingebunden wird, oder wenn sich props bzw state ändern
 
-## Querying APIs (effect hook)
+## APIs abfragen (Effect Hook)
 
-Examples:
-
-- `TodoApp` that loads initial todos from an API
-- `SpaceXLaunch` component that displays data for a SpaceX launch from an API
-- `Pokemon` component that displays data for a specific pokémon
-
-## Querying APIs (effect hook)
-
-The _effect hook_ can be used to perform some actions when a component is first mounted or when its props / state change
+Der _Effect Hook_ kann verwendet werden, um bestimmte Aktionen zu setzen, wenn eine Komponente neu eingebunden wird oder wenn ihre Props / State sich ändern
 
 ```js
 useEffect(
@@ -23,9 +15,9 @@ useEffect(
 );
 ```
 
-## Querying APIs (effect hook)
+## APIs abfragen (Effect Hook)
 
-Example: load todos when component is mounted
+Beispiel: Laden von Todos, wenn die Komponente eingebunden wird
 
 ```js
 const TodoApp = () => {
@@ -46,9 +38,9 @@ const TodoApp = () => {
 };
 ```
 
-## Querying APIs (effect hook)
+## APIs abfragen (Effect Hook)
 
-Example: load SpaceX launch data when `launchNr` changes
+Beispiel: Laden von SpaceX Startdaten, wenn die Komponente eingebunden wurde oder wenn sich `launchNr` geändert hat
 
 ```js
 const SpaceXLaunch = () => {
@@ -74,9 +66,9 @@ const SpaceXLaunch = () => {
 };
 ```
 
-## Querying APIs (effect hook)
+## APIs abfragen (Effect Hook)
 
-Example: load pokémon data when `id` changes
+Beispiel: Pokémon-Daten laden, wenn die Komponente eingebunden wurde oder wenn sich `id` geändert hat
 
 ```js
 const Pokemon = () => {
@@ -99,9 +91,9 @@ const Pokemon = () => {
 };
 ```
 
-## Querying APIs (effect hook)
+## APIs abfragen (Effect Hook)
 
-Tasks:
+Aufgaben:
 
-- load and display more data
-- add a loading indicator
+- Laden und Anzeigen von mehr Daten
+- Indikator, dass geladen wird

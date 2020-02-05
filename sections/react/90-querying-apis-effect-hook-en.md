@@ -1,20 +1,12 @@
-# APIs abfragen (Effect Hook)
+# Querying APIs (effect hook)
 
-## APIs abfragen (Effect Hook)
+## Querying APIs (effect hook)
 
-Oft müssen API Daten abgefragt werden, wenn eine Komponente zum ersten Mal eingebunden wird, oder wenn sich props bzw state ändern
+Often API data needs to be queried when a component is first mounted or when its props / state change
 
-## APIs abfragen (Effect Hook)
+## Querying APIs (effect hook)
 
-Beispiele:
-
-- `TodoApp`, die anfänglich Todos von einem API lädt
-- `SpaceXLaunch`-Komponente, die Daten für einen SpaceX-Start von einem API anzeigt
-- `Pokemon`-Komponente, die Daten für ein bestimmtes Pokémon anzeigt
-
-## APIs abfragen (Effect Hook)
-
-Der _Effect Hook_ kann verwendet werden, um bestimmte Aktionen zu setzen, wenn eine Komponente neu eingebunden wird oder wenn ihre Props / State sich ändern
+The _effect hook_ can be used to perform some actions when a component is first mounted or when its props / state change
 
 ```js
 useEffect(
@@ -23,9 +15,9 @@ useEffect(
 );
 ```
 
-## APIs abfragen (Effect Hook)
+## Querying APIs (effect hook)
 
-Beispiel: Laden von Todos, wenn die Komponente eingebunden wird
+Example: load todos when component is mounted
 
 ```js
 const TodoApp = () => {
@@ -46,9 +38,9 @@ const TodoApp = () => {
 };
 ```
 
-## APIs abfragen (Effect Hook)
+## Querying APIs (effect hook)
 
-Beispiel: Laden von SpaceX Startdaten, wenn sich `launchNr` ändert
+Example: load SpaceX launch data when component mounted or when `launchNr` changed
 
 ```js
 const SpaceXLaunch = () => {
@@ -74,9 +66,9 @@ const SpaceXLaunch = () => {
 };
 ```
 
-## APIs abfragen (Effect Hook)
+## Querying APIs (effect hook)
 
-Beispiel: Pokémon-Daten laden, wenn sich `id` ändert
+Example: load pokémon data when component mounted or when `id` changed
 
 ```js
 const Pokemon = () => {
@@ -99,9 +91,9 @@ const Pokemon = () => {
 };
 ```
 
-## APIs abfragen (Effect Hook)
+## Querying APIs (effect hook)
 
-Aufgaben:
+Tasks:
 
-- Laden und Anzeigen von mehr Daten
-- Indikator, dass geladen wird
+- load and display more data
+- add a loading indicator

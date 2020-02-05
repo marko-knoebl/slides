@@ -37,38 +37,42 @@ Prozess in Chrome:
 
 ## PWA: add to homescreen
 
-```js
-const installPromptRef = useRef();
+TypeScript Implementierung
 
-// executed when the component has mounted
-useEffect(() => {
+```ts
+const [canInstall, setCanInstall] = useState(false);
+const installPromptEventRef = useRef<Event>();
+
+const getInstallPermission = () => {
   window.addEventListener(
     'beforeinstallprompt',
     ipEvent => {
       ipEvent.preventDefault();
-      installPromptRef.value = ipEvent;
+      installPromptEventRef.current = ipEvent;
+      setCanInstall(true);
     }
   );
-}, []);
+};
+useEffect(getInstallPermission, []);
 ```
 
 ## PWA: add to homescreen
 
-```jsx
-<div>
-  {installPromptRef.value && (
-    <button
-      onClick={() => {
-        installPromptRef.value.prompt();
-      }}>
-      install
-    </button>
-  )}
-</div>
+TypeScript Impementierung:
+
+```tsx
+<button
+  disabled={!canInstall}
+  onClick={() => {
+    (installPromptEventRef.current as any).prompt();
+  }}>
+  install
+</button>
 ```
 
 ## PWA: Deployment auf netlify
 
 - `npm run build`
-- dist-Ornder via drag&drop auf app.netlify.com/drop
-- Manuell auf HTTPS wechseln - in Chrome am Desktop und Mobilgerät ausprobieren
+- build-Ornder via drag&drop auf netlify.com/drop
+- bei der URL von _http://_ auf _https://_ wechseln
+- in Chrome am Desktop und Mobilgerät ausprobieren

@@ -67,6 +67,12 @@ Slideshow, die Bilder wie das folgende anzeigt:
 
 ## State nicht direkt abändern
 
+Wenn unser State Arrays oder Objekte enthält, _könnten_ wir versuchen, diese direkt abzuändern
+
+Dies _darf nicht gemacht werden_ - React bemerkt üblicherweise die Änderungen nicht und aktualisiert die Ansicht nicht
+
+## State nicht direkt abändern
+
 Ausgangslage:
 
 ```js

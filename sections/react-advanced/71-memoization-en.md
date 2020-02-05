@@ -4,54 +4,40 @@
 
 Memoization = technique to speed up function calls etc.: Previous results are cached and don't have to be recomputed
 
-Can be applied in React: If a component's props or state don't change the component doesn't have to be rerendered.
+## Memoization in React
+
+Can be applied in React:
+
+If a component's props or state don't change the component doesn't have to be rerendered.
 
 ## Memoization in React
 
-Triggers for rerendering a component:
+rules for rerendering in function components:
 
-- **Parent component is (re)rendered**
-- component state has changed
-- triggered via a hook (e.g. `useContext`, `useReducer`, `useSelector`, ...)
+- setting a changed state will cause rerendering
+- setting the same state as before will not cause rerendering
+- the rerendering of a component will usually cause the rerendering of _all subcomponents_
+- using `React.memo` can make only those subcomponents rerender whose props have changed
+
+## Memoization in React
+
+Note: Hooks like `useContext`or `useReducer` may also cause a rerendering like `useState` does
+
+## Memoization in React
 
 Visualizing rerendering the React devtools: _Settings_ - _General_ - _Highlight updates when components render._
 
 ## Memoization in React
 
-Preventing rerendering when parent component rerenders:
-
-For performance optimization it can be desirable to not rerender a component every time its parent rerenders.
-
-Instead, it should only rerender when its props (or state) changes.
-
-If props (or state) haven't changed the previous (memoized) rendering is used.
-
-## Memoization in React
-
-Creating memoized components in React:
-
-in function components: using the `memo` function (memoizes _props_)
-
-in class components: inheriting from `PureComponent` instead of `Component` (memoizes _props_ and _state_)
-
-## Memoization in React: function components
+Memoization of function components:
 
 ```js
 import React, { memo } from 'react';
 
-function Rating(...) ...
-
-export default memo(Rating);
-```
-
-## Memoization in React: class components
-
-```js
-import { PureComponent } from 'react';
-
-class Rating extends PureComponent {...}
-
-export default Rating;
+const Rating = props => {
+  /*...*/
+};
+const RatingMemoized = memo(Rating);
 ```
 
 ## Data management without mutations
