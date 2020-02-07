@@ -4,15 +4,13 @@
 
 - Hooks
 - State Management mit Reducern
-- Testen in JavaScript
-- Testen von React-Komponenten
 - Context
-- Komponentenlebenszyklus
+- Externe Hooks & eigene Hooks
+- Routing & Prerendering
 
 ## Themen (2/2)
 
-- Externe Hooks & eigene Hooks
-- Routing & Prerendering
+- Testen von React-Komponenten
 - App-Entwicklung mit React
-- Memoisation
+- Memoisation, Refs, HOCs
 - Manuelles Setup

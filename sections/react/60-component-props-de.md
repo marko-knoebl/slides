@@ -17,21 +17,17 @@ Beispiel:
 
 ## Props in Funktionskomponenten
 
-Beispiel (einfach):
+Einfaches Beispiel:
 
 ```jsx
 const Rating = props => (
-  <div className="rating">{'*'.repeat(props.stars)}</div>
+  <div className="rating">
+    {'★'.repeat(props.stars) + '☆'.repeat(5 - props.stars)}
+  </div>
 );
 ```
 
-oder
-
-```jsx
-const Rating = ({ stars }) => (
-  <div className="rating">{'*'.repeat(stars)}</div>
-);
-```
+Aufgabe: `Rating`-Komponente, deren Sterne in eigenen `span`-Elementen stehen und einen eigenen Stil haben
 
 ## props.children
 
@@ -47,6 +43,6 @@ Definition der Komponente:
 
 ```jsx
 const Bordered = props => (
-  <div class="bordered">{props.children}</div>
+  <div className="bordered">{props.children}</div>
 );
 ```

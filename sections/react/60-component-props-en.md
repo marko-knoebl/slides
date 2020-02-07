@@ -21,15 +21,9 @@ example (simple):
 
 ```jsx
 const Rating = props => (
-  <div className="rating">{'*'.repeat(props.stars)}</div>
-);
-```
-
-or
-
-```jsx
-const Rating = ({ stars }) => (
-  <div className="rating">{'*'.repeat(stars)}</div>
+  <div className="rating">
+    {'★'.repeat(props.stars) + '☆'.repeat(5 - props.stars)}
+  </div>
 );
 ```
 
@@ -47,6 +41,6 @@ Defining the component:
 
 ```jsx
 const Bordered = props => (
-  <div class="bordered">{props.children}</div>
+  <div className="bordered">{props.children}</div>
 );
 ```

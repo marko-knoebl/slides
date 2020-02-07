@@ -90,7 +90,7 @@ In next.js kann der rendernde Server bereits APIs abfragen und die Daten zum Ren
 
 Wenn wir am Server API-Daten abfragen möchten, bevor die Komponente gerendert wird, implementieren wir die next-spezifische Methode `getInitialProps`
 
-For using `fetch` in node.js we can use the npm Package `isomorphic-fetch`
+Um `fetch` in node.js zu verwenden, können wir das npm-Paket `isomorphic-fetch` verwenden.
 
 ## API-Abfragen mit next.js
 

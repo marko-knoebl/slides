@@ -4,15 +4,14 @@
 
 - hooks
 - state management with reducers
-- testing in JavaScript
-- testing React components
 - context
+- external hooks & custom hooks
+- routing and pre-rendering
 - component lifecycle
 
 ## Topics (2/2)
 
-- external hooks & custom hooks
-- routing and pre-rendering
+- testing React components
 - app development with React
-- memoization
+- memoization, refs, HOCs
 - manual setup

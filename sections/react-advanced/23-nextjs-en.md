@@ -101,7 +101,7 @@ process with next.js:
 
 If we want to fetch data on the server side before a component renders we implement the method `getInitialProps`:
 
-Um `fetch` in node.js zu verwenden, können wir das npm-Paket `isomorphic-fetch` verwenden.
+For using `fetch` in node.js we can use the npm Package `isomorphic-fetch`
 
 ## Data fetching in next.js
 
