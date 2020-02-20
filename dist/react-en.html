@@ -2280,7 +2280,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   <span class="hljs-keyword">return</span> ...
 };
 </code></pre>
-</section><section class="slide"><h2>Example: counter</h2>
+</section><section class="slide"><h2>Example: Counter</h2>
 <p>We will add a button to our application. At the start this button will display the value 0. On each click the value will increment by 1.</p>
 </section><section class="slide"><h2>Example: Counter</h2>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> App = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
@@ -2306,22 +2306,8 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li>button for <em>back to start</em></li>
 <li>prevent the index becoming negative</li>
 </ul>
-</section><section class="slide"><h2>Don't mutate state directly</h2>
-<p>if there are arrays or objects in the state we <em>could</em> try and mutate them directly</p>
-<p>don't do this - React will usually not notice the changes and will not rerender the view</p>
-</section><section class="slide"><h2>Don't mutate state directly</h2>
-<p>initial situation:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [todos, setTodos] = useState([<span class="hljs-string">'groceries'</span>, <span class="hljs-string">'bills'</span>]);
-</code></pre>
-<p><strong>correctly</strong> updating the state:</p>
-<pre><code class="hljs language-js">setTodos([...todos, <span class="hljs-string">'learn React'</span>]);
-</code></pre>
-<p><strong>incorrect</strong> attempt at updating the state:</p>
-<pre><code class="hljs language-js">todos.push(<span class="hljs-string">'learn React'</span>);
-setTodos(todos);
-</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Immutable state</h1>
-</section><section class="slide"><h2>Immutability</h2>
+</section><section class="slide"><h2>Immutable state</h2>
 <p><strong>Immutability</strong>: important concept in functional programing and with React / Redux</p>
 <p>Data is not modified directly - instead, new data is derived from existing data (and may replace the existing data)</p>
 </section><section class="slide"><h2>Immutable state</h2>
@@ -2330,17 +2316,17 @@ setTodos(todos);
 <p>state should be viewed as <em>immutabe</em> (unchangeable)</p>
 </section><section class="slide"><h2>Data management without mutations: Arrays</h2>
 <p>initial data:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> names = [<span class="hljs-string">'Alice'</span>, <span class="hljs-string">'Bob'</span>, <span class="hljs-string">'Charlie'</span>];
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> names = [<span class="hljs-string">'Alice'</span>, <span class="hljs-string">'Bob'</span>, <span class="hljs-string">'Charlie'</span>];
 </code></pre>
 <p><strong>mutation</strong>: this modifies the original array</p>
 <pre><code class="hljs language-js">names.push(<span class="hljs-string">'Dan'</span>);
 </code></pre>
-<p><strong>no mutation</strong>: create a new array</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> newNames = [...names, <span class="hljs-string">'Dan'</span>];
+<p><strong>no mutation</strong>: creates a new array</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> newNames = [...names, <span class="hljs-string">'Dan'</span>];
 </code></pre>
 </section><section class="slide"><h2>Data management without mutations: Objects</h2>
 <p>initial data:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> user = {
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> user = {
   <span class="hljs-attr">name</span>: <span class="hljs-string">'john'</span>
   email: <span class="hljs-string">'john@doe.com'</span>
 }
@@ -2348,8 +2334,8 @@ setTodos(todos);
 <p><strong>mutation</strong>: this modifies the object</p>
 <pre><code class="hljs language-js">user.email = <span class="hljs-string">'johndoe@gmail.com'</span>;
 </code></pre>
-<p><strong>no mutation</strong>: create a new object</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> newUser = { ...user, <span class="hljs-attr">email</span>: <span class="hljs-string">'johndoe@gmail.com'</span> };
+<p><strong>no mutation</strong>: creates a new object</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> newUser = { ...user, <span class="hljs-attr">email</span>: <span class="hljs-string">'johndoe@gmail.com'</span> };
 </code></pre>
 </section><section class="slide"><h2>immer.js and immutable.js</h2>
 <p>libraries that simplify working without mutations</p>
@@ -2418,38 +2404,19 @@ setTodos(todos);
   <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">input</span> /></span>
 <span class="hljs-tag">&#x3C;/<span class="hljs-name">form</span>></span></span>
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Developer tools for React</h1>
-</section><section class="slide"><h2>React Developer Tools</h2>
+</section></section><section class="slides-section"><section class="slide"><h1>React developer tools</h1>
+</section><section class="slide"><h2>React developer tools</h2>
 <ul>
 <li><a href="https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi">Chrome Plugin</a></li>
 <li><a href="https://addons.mozilla.org/de/firefox/addon/react-devtools/">Firefox Plugin</a></li>
 </ul>
-<p>Features:</p>
+<p>features:</p>
 <ul>
 <li>display component structure</li>
-<li>show state and props</li>
+<li>show component state and props</li>
 <li>change state</li>
 <li>analyse render performance of components</li>
 </ul>
-</section><section class="slide"><h2>Debugging in VS Code</h2>
-<p>Extensions:</p>
-<ul>
-<li><strong>Debugger for Chrome</strong></li>
-<li>Debugger for Firefox</li>
-</ul>
-</section><section class="slide"><h2>Debugging in VS Code: configuration</h2>
-<p>creating config file: in the debugger sidebar, click on the gear symbol (<em>Configure or fix 'launch.json'</em>)</p>
-<p>in <em>launch.json</em>:</p>
-<pre><code class="hljs language-json">{
-  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"chrome"</span>,
-  <span class="hljs-attr">"request"</span>: <span class="hljs-string">"launch"</span>,
-  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Launch Chrome for React"</span>,
-  <span class="hljs-attr">"url"</span>: <span class="hljs-string">"http://localhost:3000"</span>
-}
-</code></pre>
-</section><section class="slide"><h2>Debugging in VS Code: starting</h2>
-<p>The development server has to be running in the background</p>
-<p>Start debugging in VS Code via <em>F5</em></p>
 </section></section><section class="slides-section"><section class="slide"><h1>map, filter, reduce</h1>
 <h3>Array methods for functional programming</h3>
 </section><section class="slide"><h2>map</h2>
@@ -2503,28 +2470,36 @@ setTodos(todos);
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>JSX in detail</h1>
 </section><section class="slide"><h2>JSX: repeating elements</h2>
-<p>Multiple Elements may be added via arrays:</p>
-<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">ul</span>></span>
-  { [
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">li</span>></span>1<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span>,
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">li</span>></span>2<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span>
-  ] }
-<span class="hljs-tag">&#x3C;/<span class="hljs-name">ul</span>></span>
-</code></pre>
-</section><section class="slide"><h2>JSX: repeating elements</h2>
-<p>In practice this is mostly done via <code>.map()</code>:</p>
-<!-- prettier-ignore -->
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> todos = [
+<p>Task: building an HTML list (ul) from this data:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> initialTodos = [
   { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'groceries'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
   { <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'cooking'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">true</span> },
   { <span class="hljs-attr">id</span>: <span class="hljs-number">3</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'gardening'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
 ];
-
-<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">ul</span>></span>
-  {todos.map(todo => (
-    </span>&#x3C;li>{todo.title}&#x3C;/li><span class="xml">
-  ))}
-<span class="hljs-tag">&#x3C;/<span class="hljs-name">ul</span>></span></span>
+</code></pre>
+</section><section class="slide"><h2>JSX: repeating elements</h2>
+<p>Multiple Elements may be added via arrays:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> TodoApp = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  <span class="hljs-keyword">const</span> [todos, setTodos] = useState(initialTodos);
+  <span class="hljs-keyword">const</span> todoElements = [];
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> todo <span class="hljs-keyword">of</span> todos) {
+    todoElements.push(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">li</span>></span>{todo.title}<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span></span>);
+  }
+  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">ul</span>></span>{todoElements}<span class="hljs-tag">&#x3C;/<span class="hljs-name">ul</span>></span></span>;
+};
+</code></pre>
+</section><section class="slide"><h2>JSX: repeating elements</h2>
+<p>In practice this is mostly done via <code>.map()</code>:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> TodoApp = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  <span class="hljs-keyword">const</span> [todos, setTodos] = useState(initialTodos);
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">ul</span>></span>
+      {todos.map(todo => (
+        </span>&#x3C;li>{todo.title}&#x3C;/li><span class="xml">
+      ))}
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">ul</span>></span></span>
+  );
+};
 </code></pre>
 </section><section class="slide"><h2>JSX: repeating elements</h2>
 <p>With the above code:<br />
@@ -2688,12 +2663,9 @@ solution: <strong>key</strong>:</p>
 </section><section class="slide"><h2>Props in function components</h2>
 <p>example (simple):</p>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> Rating = <span class="hljs-function"><span class="hljs-params">props</span> =></span> (
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"rating"</span>></span>{'*'.repeat(props.stars)}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
-);
-</code></pre>
-<p>or</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> Rating = <span class="hljs-function">(<span class="hljs-params">{ stars }</span>) =></span> (
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"rating"</span>></span>{'*'.repeat(stars)}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"rating"</span>></span>
+    {'★'.repeat(props.stars) + '☆'.repeat(5 - props.stars)}
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
 );
 </code></pre>
 </section><section class="slide"><h2>props.children</h2>
@@ -2703,7 +2675,7 @@ solution: <strong>key</strong>:</p>
 </span></code></pre>
 <p>Defining the component:</p>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> Bordered = <span class="hljs-function"><span class="hljs-params">props</span> =></span> (
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"bordered"</span>></span>{props.children}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"bordered"</span>></span>{props.children}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
 );
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Component events</h1>
@@ -2714,6 +2686,34 @@ solution: <strong>key</strong>:</p>
 </ul>
 </section><section class="slide"><h2>Custom events</h2>
 <p>Event handlers are defined as functions and passed down via props.</p>
+</section><section class="slide"><h2>Custom events</h2>
+<p>Example: Event <code>onChange</code> in the <code>Rating</code> component (each star is a <code>span</code> element)</p>
+</section><section class="slide"><h2>Custom events</h2>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> Rating = <span class="hljs-function"><span class="hljs-params">props</span> =></span> {
+  <span class="hljs-keyword">const</span> starIds = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>];
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+      {starIds.map(id => (
+        </span>&#x3C;span onClick={() => props.onChange(id)} key={id}>
+          {id &#x3C;= props.stars ? '★' : '☆'}
+        &#x3C;/span><span class="xml">
+      ))}
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+  );
+};
+</code></pre>
+</section><section class="slide"><h2>Custom events</h2>
+<p>Using the Rating component:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> [prodRating, setProdRating] = useState(<span class="hljs-number">3</span>);
+</code></pre>
+<pre><code class="hljs language-jsx">&#x3C;Rating
+  stars={prodRating}
+  onChange={newRating => setProdRating(newRating)}
+/>
+</code></pre>
+<p>shorter notation:</p>
+<pre><code class="hljs language-jsx">&#x3C;Rating stars={prodRating} onChange={setProdRating} />
+</code></pre>
 </section><section class="slide"><h2>Custom events</h2>
 <p>Example <code>ToggleButton</code>: Button which displays either "off" or "on":</p>
 <p>Prop: <code>active</code> - may be set to <code>true</code> or <code>false</code><br />
@@ -2739,7 +2739,6 @@ Event: <code>onToggle</code> - function which is called with the new state</p>
 </section><section class="slide"><h2>Custom events</h2>
 <p>examples:</p>
 <ul>
-<li>Rating component with clickable stars</li>
 <li>NumberInput component that lets the user specify an integer with + and - buttons<ul>
 <li>bonus: make the API compatible with that of ordinary input elements so input elements may be easily replaced by NumberInput-components</li>
 <li>bonus: add a min / max property that can be specified</li>

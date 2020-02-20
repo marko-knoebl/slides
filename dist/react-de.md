@@ -283,36 +283,9 @@ Slideshow, die Bilder wie das folgende anzeigt:
 - Button für _zurück zum Start_
 - Verhindern, dass ins negative gezählt wird
 
-## State nicht direkt abändern
-
-Wenn unser State Arrays oder Objekte enthält, _könnten_ wir versuchen, diese direkt abzuändern
-
-Dies _darf nicht gemacht werden_ - React bemerkt üblicherweise die Änderungen nicht und aktualisiert die Ansicht nicht
-
-## State nicht direkt abändern
-
-Ausgangslage:
-
-```js
-const [todos, setTodos] = useState(['groceries', 'bills']);
-```
-
-**korrekte** Änderung am State:
-
-```js
-setTodos([...todos, 'learn React']);
-```
-
-**inkorrekter** Versuch, den State zu ändern:
-
-```js
-todos.push('learn React');
-setTodos(todos);
-```
-
 # Immutable state
 
-## Immutability (Unveränderlichkeit)
+## Immutable state
 
 **Immutability**: Wichtiges Konzept in der funktionalen Programmierung und bei React / Redux
 
@@ -320,9 +293,9 @@ Daten werden nicht direkt abgeändert - stattdessen werden neue Daten auf Basis 
 
 ## Immutable state
 
-Wenn im State Arrays oder Objekte stehen, _könnten_ wir versuchen, diese direkt abzuändern
+Wenn unser State Arrays oder Objekte enthält, _könnten_ wir versuchen, diese direkt abzuändern
 
-Das sollten wir _nicht_ tun - React bemerkt üblicherweise diese Änderungen nicht und wird die Ansicht nicht aktualisieren
+Das sollten wir _nicht_ tun - React bemerkt üblicherweise diese Änderungen nicht und aktualisiert die Ansicht nicht
 
 Objekte im State sollten als _unveränderlich_ erachtet werden
 
@@ -334,7 +307,7 @@ Ausgangsdaten:
 let names = ['Alice', 'Bob', 'Charlie'];
 ```
 
-**Mutation**: dies ändert das ursprüngliche Array
+**Mutation**: Abändern des ursprünglichen Arrays
 
 ```js
 names.push('Dan');
@@ -357,7 +330,7 @@ let user = {
 }
 ```
 
-**Mutation**: dies ändert das ursprüngliche Objekt
+**Mutation**: Abändern des ursprünglichen Objekts
 
 ```js
 user.email = 'johndoe@gmail.com';
@@ -465,7 +438,7 @@ Ersetzen des Standardverhaltens:
 </form>
 ```
 
-# Entwicklerwerkzeuge für React
+# React Developer Tools
 
 ## React Developer Tools
 
@@ -478,34 +451,6 @@ Features:
 - Anzeige von State und Props
 - Ändern von State und Props
 - Performanceanalyse des Renderings von Komponenten
-
-## Debugging in VS Code
-
-Extensions:
-
-- **Debugger for Chrome**
-- Debugger for Firefox
-
-## Debugging in VS Code: Konfiguration
-
-Konfigurationsdatei erstellen: In der Debugger-Sidebar auf das Zahnradsymbol (_Configure or fix 'launch.json'_)
-
-in _launch.json_:
-
-```json
-{
-  "type": "chrome",
-  "request": "launch",
-  "name": "Launch Chrome for React",
-  "url": "http://localhost:3000"
-}
-```
-
-## Debugging in VS Code: starten
-
-Testserver muss im Hintergrund schon laufen
-
-Debugging in VS Code starten: mittels _F5_
 
 # map, filter, reduce
 
@@ -571,34 +516,46 @@ let currentBalance = transactions.reduce(
 
 ## JSX: Elemente wiederholen
 
-Grundsätzlich können wir über Arrays mehrere Elemente einbinden:
+Aufgabe: Erstellen einer HTML-Liste (ul) aus diesen Daten:
 
-```xml
-<ul>
-  { [
-    <li>1</li>,
-    <li>2</li>
-  ] }
-</ul>
+```js
+const initialTodos = [
+  { id: 1, title: 'groceries', completed: false },
+  { id: 2, title: 'cooking', completed: true },
+  { id: 3, title: 'gardening', completed: false },
+];
+```
+
+## JSX: Elemente wiederholen
+
+Mehrere Elemente können als Arrays eingebunden werden:
+
+```jsx
+const TodoApp = () => {
+  const [todos, setTodos] = useState(initialTodos);
+  const todoElements = [];
+  for (let todo of todos) {
+    todoElements.push(<li>{todo.title}</li>);
+  }
+  return <ul>{todoElements}</ul>;
+};
 ```
 
 ## JSX: Elemente wiederholen
 
 Meist verwenden wir zum wiederholen die `.map()` - Methode
 
-<!-- prettier-ignore -->
 ```jsx
-const todos = [
-  { id: 1, title: 'groceries', completed: false },
-  { id: 2, title: 'cooking', completed: true },
-  { id: 3, title: 'gardening', completed: false },
-];
-
-<ul>
-  {todos.map(todo => (
-    <li>{todo.title}</li>
-  ))}
-</ul>
+const TodoApp = () => {
+  const [todos, setTodos] = useState(initialTodos);
+  return (
+    <ul>
+      {todos.map(todo => (
+        <li>{todo.title}</li>
+      ))}
+    </ul>
+  );
+};
 ```
 
 ## JSX: Elemente wiederholen
@@ -848,21 +805,17 @@ Beispiel:
 
 ## Props in Funktionskomponenten
 
-Beispiel (einfach):
+Einfaches Beispiel:
 
 ```jsx
 const Rating = props => (
-  <div className="rating">{'*'.repeat(props.stars)}</div>
+  <div className="rating">
+    {'★'.repeat(props.stars) + '☆'.repeat(5 - props.stars)}
+  </div>
 );
 ```
 
-oder
-
-```jsx
-const Rating = ({ stars }) => (
-  <div className="rating">{'*'.repeat(stars)}</div>
-);
-```
+Aufgabe: `Rating`-Komponente, deren Sterne in eigenen `span`-Elementen stehen und einen eigenen Stil haben
 
 ## props.children
 
@@ -878,7 +831,7 @@ Definition der Komponente:
 
 ```jsx
 const Bordered = props => (
-  <div class="bordered">{props.children}</div>
+  <div className="bordered">{props.children}</div>
 );
 ```
 
@@ -892,6 +845,48 @@ const Bordered = props => (
 ## Eigene Events
 
 Eventhandler werden als Funktionen definiert und via props übergeben / erhalten.
+
+## Eigene Events
+
+Beispiel: Event `onChange` der `Rating`-Komponente (jeder Stern ist ein `span`-Element)
+
+## Eigene Events
+
+```jsx
+const Rating = props => {
+  const starIds = [1, 2, 3, 4, 5];
+  return (
+    <div>
+      {starIds.map(id => (
+        <span onClick={() => props.onChange(id)} key={id}>
+          {id <= props.stars ? '★' : '☆'}
+        </span>
+      ))}
+    </div>
+  );
+};
+```
+
+## Eigene Events
+
+Verwendung einer Rating-Komponente:
+
+```jsx
+const [prodRating, setProdRating] = useState(3);
+```
+
+```jsx
+<Rating
+  stars={prodRating}
+  onChange={newRating => setProdRating(newRating)}
+/>
+```
+
+kürzere Schreibweise:
+
+```jsx
+<Rating stars={prodRating} onChange={setProdRating} />
+```
 
 ## Eigene Events
 
@@ -928,7 +923,6 @@ const [myOption, setMyOption] = useState(true);
 
 Beispiele:
 
-- Rating-Komponente mit anklickbaren Sternen
 - NumberInput-Komponente zum Angeben einer Ganzzahl mit +/- buttons
   - Bonus: Umsetzung des APIs, sodass es kompatibel zu normalen input-Elementen ist und input-Elemente leicht durch NumberInput-Komponeneten ersetzt werden können
   - Bonus: zusätzliche min / max - Property bei der Komponente

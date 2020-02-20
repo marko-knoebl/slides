@@ -2209,17 +2209,17 @@ type TodoItemState = {};
 </ul>
 </section><section class="slide"><h2>Example: DocumentTitle component</h2>
 <p>We will create a component that can set the document title dynamically:</p>
-<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">DocumentTitle</span>></span>my custom title<span class="hljs-tag">&#x3C;/<span class="hljs-name">DocumentTitle</span>></span>
+<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">DocumentTitle</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"my custom title"</span> /></span>
 </code></pre>
 <p>This component may appear anywhere in the React application.</p>
 </section><section class="slide"><h2>Example: DocumentTitle component</h2>
 <pre><code class="hljs language-jsx"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DocumentTitle</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
   componentDidMount() {
-    <span class="hljs-built_in">document</span>.title = <span class="hljs-keyword">this</span>.props.children;
+    <span class="hljs-built_in">document</span>.title = <span class="hljs-keyword">this</span>.props.value;
   }
 
   componentDidUpdate(prevProps, prevState) {
-    <span class="hljs-built_in">document</span>.title = <span class="hljs-keyword">this</span>.props.children;
+    <span class="hljs-built_in">document</span>.title = <span class="hljs-keyword">this</span>.props.value;
   }
 
   render() {

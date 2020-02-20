@@ -248,7 +248,7 @@ three main lifecycle methods that can be implemented in a component class:
 We will create a component that can set the document title dynamically:
 
 ```xml
-<DocumentTitle>my custom title</DocumentTitle>
+<DocumentTitle value="my custom title" />
 ```
 
 This component may appear anywhere in the React application.
@@ -258,11 +258,11 @@ This component may appear anywhere in the React application.
 ```jsx
 class DocumentTitle extends Component {
   componentDidMount() {
-    document.title = this.props.children;
+    document.title = this.props.value;
   }
 
   componentDidUpdate(prevProps, prevState) {
-    document.title = this.props.children;
+    document.title = this.props.value;
   }
 
   render() {

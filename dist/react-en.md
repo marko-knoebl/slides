@@ -248,7 +248,7 @@ const App = () => {
 };
 ```
 
-## Example: counter
+## Example: Counter
 
 We will add a button to our application. At the start this button will display the value 0. On each click the value will increment by 1.
 
@@ -283,36 +283,9 @@ implement a slideshow that shows images like the following:
 - button for _back to start_
 - prevent the index becoming negative
 
-## Don't mutate state directly
-
-if there are arrays or objects in the state we _could_ try and mutate them directly
-
-don't do this - React will usually not notice the changes and will not rerender the view
-
-## Don't mutate state directly
-
-initial situation:
-
-```js
-const [todos, setTodos] = useState(['groceries', 'bills']);
-```
-
-**correctly** updating the state:
-
-```js
-setTodos([...todos, 'learn React']);
-```
-
-**incorrect** attempt at updating the state:
-
-```js
-todos.push('learn React');
-setTodos(todos);
-```
-
 # Immutable state
 
-## Immutability
+## Immutable state
 
 **Immutability**: important concept in functional programing and with React / Redux
 
@@ -331,7 +304,7 @@ state should be viewed as _immutabe_ (unchangeable)
 initial data:
 
 ```js
-let names = ['Alice', 'Bob', 'Charlie'];
+const names = ['Alice', 'Bob', 'Charlie'];
 ```
 
 **mutation**: this modifies the original array
@@ -340,10 +313,10 @@ let names = ['Alice', 'Bob', 'Charlie'];
 names.push('Dan');
 ```
 
-**no mutation**: create a new array
+**no mutation**: creates a new array
 
 ```js
-let newNames = [...names, 'Dan'];
+const newNames = [...names, 'Dan'];
 ```
 
 ## Data management without mutations: Objects
@@ -351,7 +324,7 @@ let newNames = [...names, 'Dan'];
 initial data:
 
 ```js
-let user = {
+const user = {
   name: 'john'
   email: 'john@doe.com'
 }
@@ -363,10 +336,10 @@ let user = {
 user.email = 'johndoe@gmail.com';
 ```
 
-**no mutation**: create a new object
+**no mutation**: creates a new object
 
 ```js
-let newUser = { ...user, email: 'johndoe@gmail.com' };
+const newUser = { ...user, email: 'johndoe@gmail.com' };
 ```
 
 ## immer.js and immutable.js
@@ -465,47 +438,19 @@ Replacing the default behaviour:
 </form>
 ```
 
-# Developer tools for React
+# React developer tools
 
-## React Developer Tools
+## React developer tools
 
 - [Chrome Plugin](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi)
 - [Firefox Plugin](https://addons.mozilla.org/de/firefox/addon/react-devtools/)
 
-Features:
+features:
 
 - display component structure
-- show state and props
+- show component state and props
 - change state
 - analyse render performance of components
-
-## Debugging in VS Code
-
-Extensions:
-
-- **Debugger for Chrome**
-- Debugger for Firefox
-
-## Debugging in VS Code: configuration
-
-creating config file: in the debugger sidebar, click on the gear symbol (_Configure or fix 'launch.json'_)
-
-in _launch.json_:
-
-```json
-{
-  "type": "chrome",
-  "request": "launch",
-  "name": "Launch Chrome for React",
-  "url": "http://localhost:3000"
-}
-```
-
-## Debugging in VS Code: starting
-
-The development server has to be running in the background
-
-Start debugging in VS Code via _F5_
 
 # map, filter, reduce
 
@@ -571,34 +516,46 @@ let currentBalance = transactions.reduce(
 
 ## JSX: repeating elements
 
+Task: building an HTML list (ul) from this data:
+
+```js
+const initialTodos = [
+  { id: 1, title: 'groceries', completed: false },
+  { id: 2, title: 'cooking', completed: true },
+  { id: 3, title: 'gardening', completed: false },
+];
+```
+
+## JSX: repeating elements
+
 Multiple Elements may be added via arrays:
 
-```xml
-<ul>
-  { [
-    <li>1</li>,
-    <li>2</li>
-  ] }
-</ul>
+```jsx
+const TodoApp = () => {
+  const [todos, setTodos] = useState(initialTodos);
+  const todoElements = [];
+  for (let todo of todos) {
+    todoElements.push(<li>{todo.title}</li>);
+  }
+  return <ul>{todoElements}</ul>;
+};
 ```
 
 ## JSX: repeating elements
 
 In practice this is mostly done via `.map()`:
 
-<!-- prettier-ignore -->
 ```jsx
-const todos = [
-  { id: 1, title: 'groceries', completed: false },
-  { id: 2, title: 'cooking', completed: true },
-  { id: 3, title: 'gardening', completed: false },
-];
-
-<ul>
-  {todos.map(todo => (
-    <li>{todo.title}</li>
-  ))}
-</ul>
+const TodoApp = () => {
+  const [todos, setTodos] = useState(initialTodos);
+  return (
+    <ul>
+      {todos.map(todo => (
+        <li>{todo.title}</li>
+      ))}
+    </ul>
+  );
+};
 ```
 
 ## JSX: repeating elements
@@ -852,15 +809,9 @@ example (simple):
 
 ```jsx
 const Rating = props => (
-  <div className="rating">{'*'.repeat(props.stars)}</div>
-);
-```
-
-or
-
-```jsx
-const Rating = ({ stars }) => (
-  <div className="rating">{'*'.repeat(stars)}</div>
+  <div className="rating">
+    {'★'.repeat(props.stars) + '☆'.repeat(5 - props.stars)}
+  </div>
 );
 ```
 
@@ -878,7 +829,7 @@ Defining the component:
 
 ```jsx
 const Bordered = props => (
-  <div class="bordered">{props.children}</div>
+  <div className="bordered">{props.children}</div>
 );
 ```
 
@@ -892,6 +843,48 @@ const Bordered = props => (
 ## Custom events
 
 Event handlers are defined as functions and passed down via props.
+
+## Custom events
+
+Example: Event `onChange` in the `Rating` component (each star is a `span` element)
+
+## Custom events
+
+```jsx
+const Rating = props => {
+  const starIds = [1, 2, 3, 4, 5];
+  return (
+    <div>
+      {starIds.map(id => (
+        <span onClick={() => props.onChange(id)} key={id}>
+          {id <= props.stars ? '★' : '☆'}
+        </span>
+      ))}
+    </div>
+  );
+};
+```
+
+## Custom events
+
+Using the Rating component:
+
+```jsx
+const [prodRating, setProdRating] = useState(3);
+```
+
+```jsx
+<Rating
+  stars={prodRating}
+  onChange={newRating => setProdRating(newRating)}
+/>
+```
+
+shorter notation:
+
+```jsx
+<Rating stars={prodRating} onChange={setProdRating} />
+```
 
 ## Custom events
 
@@ -928,7 +921,6 @@ const [myOption, setMyOption] = useState(true);
 
 examples:
 
-- Rating component with clickable stars
 - NumberInput component that lets the user specify an integer with + and - buttons
   - bonus: make the API compatible with that of ordinary input elements so input elements may be easily replaced by NumberInput-components
   - bonus: add a min / max property that can be specified

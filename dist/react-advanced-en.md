@@ -38,17 +38,16 @@ Code available at: https://github.com/marko-knoebl/courses-code
 
 - hooks
 - state management with reducers
-- testing in JavaScript
-- testing React components
 - context
+- external hooks & custom hooks
+- routing and pre-rendering
 - component lifecycle
 
 ## Topics (2/2)
 
-- external hooks & custom hooks
-- routing and pre-rendering
+- testing React components
 - app development with React
-- memoization
+- memoization, refs, HOCs
 - manual setup
 
 # Hooks
@@ -387,6 +386,68 @@ const useDate = interval => {
 };
 ```
 
+## Custom hooks - useTodos
+
+Example: `useTodos` - can be used to extract data handling from the component definition
+
+```js
+const TodoApp = () => {
+  const {
+    todos,
+    reload,
+    isLoading,
+    addTodo,
+    toggleTodo,
+    deleteTodo,
+  } = useTodos();
+  return (
+    <div>
+      <h1>Todo</h1>
+      <TodoList
+        todos={todos}
+        isLoading={isLoading}
+        onReload={reload}
+        onToggle={toggleTodo}
+        onDelete={deleteTodo}
+      />
+      <AddTodo onAdd={addTodo} />
+    </div>
+  );
+};
+```
+
+## Custom hooks - useTodos
+
+implementation of `useTodos`:
+
+```js
+const useTodos = () => {
+  const [todos, dispatch] = useReducer(todosReducer, []);
+  const [isLoading, setIsLoading] = useState(false);
+  useEffect(() => {
+    if (isLoading) {
+      fetch('https://jsonplaceholder.typicode.com/todos')
+        .then(res => res.json())
+        .then(apiTodos => {
+          dispatch({ type: 'setTodos', payload: apiTodos });
+          setIsLoading(false);
+        });
+    }
+  }, [isLoading]);
+  return {
+    todos: todos,
+    isLoading: isLoading,
+    reload: () => setIsLoading(true),
+    addTodo: title =>
+      dispatch({ type: 'addTodo', payload: title }),
+    deleteTodo: id =>
+      dispatch({ type: 'deleteTodo', payload: id }),
+    toggleTodo: id =>
+      dispatch({ type: 'toggleTodo', payload: id }),
+  };
+};
+```
+
 ## Custom hooks - useJsonQuery
 
 Example: `useJsonQuery` - enables querying for JSON data
@@ -703,7 +764,7 @@ process with next.js:
 
 If we want to fetch data on the server side before a component renders we implement the method `getInitialProps`:
 
-Um `fetch` in node.js zu verwenden, können wir das npm-Paket `isomorphic-fetch` verwenden.
+For using `fetch` in node.js we can use the npm Package `isomorphic-fetch`
 
 ## Data fetching in next.js
 
@@ -871,19 +932,7 @@ describe('errors', () => {
 
 **Testing-Library**: project for testing UI components
 
-tests focus on aspects that are relevant for the end user (an not on the exact DOM structure)
-
-## React-Testing-Library - Installation
-
-```bash
-npm install --save-dev @testing-library/react
-```
-
-recommended additional assertions for Jest:
-
-```bash
-npm install --save-dev @testing-library/jest-dom
-```
+tests focus on aspects that are relevant for the end user (and not on the exact DOM structure)
 
 ## React-Testing-Library - Example
 
@@ -903,9 +952,9 @@ it('renders a component without crashing', () => {
 - `.queryAllByText`
 - ... (see [https://testing-library.com/docs/dom-testing-library/api-queries](https://testing-library.com/docs/dom-testing-library/api-queries))
 
-## React-Testing-Library - advanced asserts for Jest
+## React-Testing-Library
 
-activate via:
+advanced assertions available via:
 
 ```js
 import '@testing-library/jest-dom/extend-expect';
@@ -913,16 +962,12 @@ import '@testing-library/jest-dom/extend-expect';
 
 examples:
 
-- `.toBeInTheDocument()`
 - `.toContainHTML()`
 - `.toHaveClass()`
+- `.toBeInTheDocument()`
 - ...
 
 see [https://github.com/testing-library/jest-dom](https://github.com/testing-library/jest-dom)
-
-## Example: Testing with Jest and React Testing Library
-
-Testing a rating component
 
 ## Test setup
 
@@ -935,14 +980,14 @@ import {
   cleanup,
 } from '@testing-library/react';
 
-import Rating from './Rating';
-
 afterEach(() => {
   cleanup();
 });
 ```
 
 ## Testing the rendering
+
+rating component:
 
 ```jsx
 it('renders three full stars', () => {
@@ -955,10 +1000,43 @@ it('renders three full stars', () => {
 });
 ```
 
-## Testing events
+## Testing the rendering
+
+slideshow component:
 
 ```jsx
-it('reacts to click on the fourth star', () => {
+it('renders a slideshow starting at image 0', () => {
+  const instance = render(<Slideshow />);
+  const slide = instance.getByAltText('slide');
+  expect(slide).toHaveAttribute(
+    'src',
+    'https://picsum.photos/200?image=0'
+  );
+});
+```
+
+## Testing state changes
+
+slideshow component:
+
+```jsx
+it('switches to the next slide', () => {
+  const instance = render(<Slideshow />);
+  const slide = instance.getByAltText('slide');
+  fireEvent.click(instance.getByText('next'));
+  expect(slide).toHaveAttribute(
+    'src',
+    'https://picsum.photos/200?image=1'
+  );
+});
+```
+
+## Testing events
+
+rating component:
+
+```jsx
+it('triggers an event when the fourth star is clicked', () => {
   const mockFn = jest.fn();
   const instance = render(
     <Rating stars={3} onStarsChange={mockFn} />
@@ -970,6 +1048,8 @@ it('reacts to click on the fourth star', () => {
 ```
 
 ## Testing errors
+
+rating component:
 
 ```jsx
 it('throws an error if the number of stars is 0', () => {
@@ -1113,27 +1193,22 @@ describe('errors', () => {
 
 # Snapshot tests
 
-### with react-test-renderer
-
 ## Snapshot tests
 
 Components are rendered and compared to earlier versions (snapshots)
 
 Snapshot tests are a kind of regression tests
 
-## Snapshot tests in React - creating tests
+## Snapshot tests - creating tests
+
+with react-testing-library
 
 ```jsx
-// Rating.test.js
-import React from 'react';
-import TestRenderer from 'react-test-renderer';
-import Rating from './Rating.js';
-
-it('renders correctly', () => {
-  const tree = TestRenderer
-    .create(<Rating stars={2} />)
-    .toJSON();
-  expect(tree).toMatchSnapshot();
+it('matches the snapshot', () => {
+  const instance = render(<Slideshow />);
+  expect(instance).toMatchSnapshot();
+  const slide = instance.getByAltText('slide');
+  expect(slide).toMatchSnapshot();
 });
 ```
 
@@ -1460,31 +1535,27 @@ const state1 = [1, 2, 3];
 const state2 = [...state1, 4];
 ```
 
-# Component lifecycle
+# Effect hook
 
-## Component lifecycle
+## Effect hook
 
-We can listen for certain events in the lifecycle of a component:
+can be used to perform actions when a component is first mounted or when its props / state change
 
-- the component is included (mounted)
-- component state or props have changed
-- the component is removed
+```js
+useEffect(
+  effect, // what should happen
+  dependencies // array of values to watch
+);
+```
 
-## Component lifecycle
+## Effect hook
 
-We can listen for lifecycle events via the following means:
+may be used to perform _side effects_ in components:
 
-In function components we use the effect hook
-
-In class components we use lifecycle methods like `componentDidMount`, `componentDidUpdate` and `componentWillUnmount`
-
-## Component lifecycle
-
-We can use these events for:
-
-- querying APIs
+- fetching data from APIs
 - explicitly manipulating the DOM
-- cleaning up after a component was removed
+- starting timers
+- ...
 
 ## Example: DocumentTitle component
 
@@ -1498,36 +1569,23 @@ This component may appear anywhere in the React application.
 
 ## Example: DocumentTitle component
 
-with `useEffect`
-
 ```jsx
 const DocumentTitle = props => {
-  useEffect(() => {
+  const updateTitle = () => {
     document.title = props.value;
-  } [props.value]);
+  };
+  useEffect(updateTitle, [props.value]);
   return null;
 };
 ```
 
-## useEffect in detail
-
-`useEffect` will receive two parameters: A function and (optionally) an array of values.
-
-The function is executed after the component renders if one of the values in the array has changed.
-
-The function is also executed when the component is included and rendered for the first time.
-
-## useEffect in detail
-
-If no second parameter is passed the function will be called after each render.
-
-## useEffect in detail
+## Effect hook: cleanup
 
 An effect may return a "cleanup function"
 
 This function will run e.g. before the component is removed
 
-## useEffect: component removal
+## Effect hook: cleanup
 
 ```jsx
 const Clock = () => {
@@ -1543,6 +1601,19 @@ const Clock = () => {
     };
   }, []);
   return <div>{time}</div>;
+};
+```
+
+## Effect hook: after every render
+
+If no second parameter is passed the function will be called after each render.
+
+```jsx
+const RenderLogger = () => {
+  useEffect(() => {
+    console.log('logger was rendered');
+  });
+  return <div>Render logger</div>;
 };
 ```
 

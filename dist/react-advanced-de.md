@@ -38,17 +38,15 @@ Code verfügbar unter: https://github.com/marko-knoebl/courses-code
 
 - Hooks
 - State Management mit Reducern
-- Testen in JavaScript
-- Testen von React-Komponenten
 - Context
-- Komponentenlebenszyklus
+- Externe Hooks & eigene Hooks
+- Routing & Prerendering
 
 ## Themen (2/2)
 
-- Externe Hooks & eigene Hooks
-- Routing & Prerendering
+- Testen von React-Komponenten
 - App-Entwicklung mit React
-- Memoisation
+- Memoisation, Refs, HOCs
 - Manuelles Setup
 
 # Hooks
@@ -386,6 +384,68 @@ const useDate = interval => {
 };
 ```
 
+## Eigene Hooks - useTodos
+
+Beispiel: `useTodos` - kann verwendet werden, um die Datenverwaltung von der Komponentendefinition loszulösen
+
+```js
+const TodoApp = () => {
+  const {
+    todos,
+    reload,
+    isLoading,
+    addTodo,
+    toggleTodo,
+    deleteTodo,
+  } = useTodos();
+  return (
+    <div>
+      <h1>Todo</h1>
+      <TodoList
+        todos={todos}
+        isLoading={isLoading}
+        onReload={reload}
+        onToggle={toggleTodo}
+        onDelete={deleteTodo}
+      />
+      <AddTodo onAdd={addTodo} />
+    </div>
+  );
+};
+```
+
+## Eigene Hooks - useTodos
+
+Implementierung von `useTodos`:
+
+```js
+const useTodos = () => {
+  const [todos, dispatch] = useReducer(todosReducer, []);
+  const [isLoading, setIsLoading] = useState(false);
+  useEffect(() => {
+    if (isLoading) {
+      fetch('https://jsonplaceholder.typicode.com/todos')
+        .then(res => res.json())
+        .then(apiTodos => {
+          dispatch({ type: 'setTodos', payload: apiTodos });
+          setIsLoading(false);
+        });
+    }
+  }, [isLoading]);
+  return {
+    todos: todos,
+    isLoading: isLoading,
+    reload: () => setIsLoading(true),
+    addTodo: title =>
+      dispatch({ type: 'addTodo', payload: title }),
+    deleteTodo: id =>
+      dispatch({ type: 'deleteTodo', payload: id }),
+    toggleTodo: id =>
+      dispatch({ type: 'toggleTodo', payload: id }),
+  };
+};
+```
+
 ## Eigene Hooks - useJsonQuery
 
 Beispiel: `useJsonQuery` - ermöglicht das Abrufen von JSON-Daten
@@ -691,7 +751,7 @@ In next.js kann der rendernde Server bereits APIs abfragen und die Daten zum Ren
 
 Wenn wir am Server API-Daten abfragen möchten, bevor die Komponente gerendert wird, implementieren wir die next-spezifische Methode `getInitialProps`
 
-For using `fetch` in node.js we can use the npm Package `isomorphic-fetch`
+Um `fetch` in node.js zu verwenden, können wir das npm-Paket `isomorphic-fetch` verwenden.
 
 ## API-Abfragen mit next.js
 
@@ -861,18 +921,6 @@ describe('errors', () => {
 
 Fokus der Tests liegt auf Aspekten, die für den Endnutzer relevant sind (nicht so sehr auf der genauen DOM-Struktur)
 
-## React-Testing-Library - Installation
-
-```bash
-npm install --save-dev @testing-library/react
-```
-
-empfohlene zusätzliche Assertions für Jest:
-
-```bash
-npm install --save-dev @testing-library/jest-dom
-```
-
 ## React-Testing-Library - Beispiel
 
 ```js
@@ -891,9 +939,9 @@ it('renders a component without crashing', () => {
 - `.queryAllByText`
 - ... (siehe [https://testing-library.com/docs/dom-testing-library/api-queries](https://testing-library.com/docs/dom-testing-library/api-queries))
 
-## React-Testing-Library - erweiterte asserts für Jest
+## React-Testing-Library
 
-einsetzbar mittels:
+erweiterte Assertions einsetzbar mittels:
 
 ```js
 import '@testing-library/jest-dom/extend-expect';
@@ -901,16 +949,12 @@ import '@testing-library/jest-dom/extend-expect';
 
 Beispiele:
 
-- `.toBeInTheDocument()`
 - `.toContainHTML()`
 - `.toHaveClass()`
+- `.toBeInTheDocument()`
 - ...
 
 siehe [https://github.com/testing-library/jest-dom](https://github.com/testing-library/jest-dom)
-
-## Beispiel: Testen mit Jest und React Testing Library
-
-Testen einer Rating Komponente
 
 ## Test-Setup
 
@@ -923,14 +967,14 @@ import {
   cleanup,
 } from '@testing-library/react';
 
-import Rating from './Rating';
-
 afterEach(() => {
   cleanup();
 });
 ```
 
 ## Testen des Renderings
+
+Rating-Komponente:
 
 ```jsx
 it('renders three full stars', () => {
@@ -943,10 +987,43 @@ it('renders three full stars', () => {
 });
 ```
 
-## Testen von Events
+## Testen des Renderings
+
+Slideshow-Komponente:
 
 ```jsx
-it('reacts to click on the fourth star', () => {
+it('renders a slideshow starting at image 0', () => {
+  const instance = render(<Slideshow />);
+  const slide = instance.getByAltText('slide');
+  expect(slide).toHaveAttribute(
+    'src',
+    'https://picsum.photos/200?image=0'
+  );
+});
+```
+
+## Testen von State-Änderungen
+
+Slideshow-Komponente:
+
+```jsx
+it('switches to the next slide', () => {
+  const instance = render(<Slideshow />);
+  const slide = instance.getByAltText('slide');
+  fireEvent.click(instance.getByText('next'));
+  expect(slide).toHaveAttribute(
+    'src',
+    'https://picsum.photos/200?image=1'
+  );
+});
+```
+
+## Testen von Events
+
+Rating-Komponente:
+
+```jsx
+it('triggers an event when the fourth star is clicked', () => {
   const mockFn = jest.fn();
   const instance = render(
     <Rating stars={3} onStarsChange={mockFn} />
@@ -958,6 +1035,8 @@ it('reacts to click on the fourth star', () => {
 ```
 
 ## Testen von Fehlern
+
+Rating-Komponente:
 
 ```jsx
 it('throws an error if the number of stars is 0', () => {
@@ -1101,27 +1180,22 @@ describe('errors', () => {
 
 # Snapshot Tests
 
-### mit react-test-renderer
-
 ## Snapshot Tests
 
 Komponenten werden gerendert und mit früheren Versionen (Snapshots) verglichen
 
 Snapshot Tests fallen unter Regressionstests.
 
-## Snapshot Tests in React - Tests erstellen
+## Snapshot Tests - Tests erstellen
+
+mit react-testing-library
 
 ```jsx
-// Rating.test.js
-import React from 'react';
-import TestRenderer from 'react-test-renderer';
-import Rating from './Rating.js';
-
-it('renders correctly', () => {
-  const tree = TestRenderer
-    .create(<Rating stars={2} />)
-    .toJSON();
-  expect(tree).toMatchSnapshot();
+it('matches the snapshot', () => {
+  const instance = render(<Slideshow />);
+  expect(instance).toMatchSnapshot();
+  const slide = instance.getByAltText('slide');
+  expect(slide).toMatchSnapshot();
 });
 ```
 
@@ -1448,31 +1522,27 @@ const state1 = [1, 2, 3];
 const state2 = [...state1, 4];
 ```
 
-# Komponenten-Lebenszyklus
+# Effect Hook
 
-## Komponenten-Lebenszyklus
+## Effect Hook
 
-In React können bestimmte Ereignisse im Lebenszyklus einer Komponente abgefragt werden. Insbesondere sind folgende Ereignisse oft von Interesse:
+kann verwendet werden, um Aktionen zu setzen, wenn eine Komponente zum ersten mal eingebunden wird oder wenn ihre Props / State sich ändern
 
-- die Komponente wurde neu eingebunden
-- state oder props der Komponente haben sich geändert
-- die Komponente wird entfernt
+```js
+useEffect(
+  effect, // what should happen
+  dependencies // array of values to watch
+);
+```
 
-## Komponenten-Lebenszyklus
+## Effect Hook
 
-Die Ereignisse können wie folgt abgefragt werden:
-
-In funktionalen Komponenten mittels `useEffect`
-
-In Klassenkomponenten mittels Lebenszyklus-Methoden, wie `componentDidMount`, `componentDidUpdate` oder `componentWillUnmount`
-
-## Komponenten-Lebenszyklus
-
-Einsatzgebiete der genannten Ereignisse:
+Kann verwendet werden, um Nebeneffekte (side effects) auszulösen:
 
 - Abfragen von APIs
 - manuelle Änderungen am DOM
-- Aufräumen vor dem Entfernen einer Komponente
+- Timer starten
+- ...
 
 ## Beispiel: DocumentTitle-Komponente
 
@@ -1486,36 +1556,23 @@ Diese Komponente kann irgendwo in der React-Anwendung vorkommen.
 
 ## Beispiel: DocumentTitle-Komponente
 
-mit useEffect
-
 ```jsx
 const DocumentTitle = props => {
-  useEffect(() => {
+  const updateTitle = () => {
     document.title = props.value;
-  }, [props.value]);
+  };
+  useEffect(updateTitle, [props.value]);
   return null;
 };
 ```
 
-## useEffect im Detail
-
-`useEffect` bekommt zwei Parameter übergeben: Eine Funktion und ein Array von Werten.
-
-Die Funktion nach dem Rendering einer Komponente ausgeführt, wenn sich einer der Werte geändert hat.
-
-Die Funktion wird auch ausgeführt, wenn die Komponente neu eingebunden und zum ersten Mal gerendert wurde.
-
-## useEffect im Detail
-
-Wenn kein zweiter Parameter übergeben wird, wird die Funktion nach jedem Rendering ausgeführt.
-
-## useEffect im Detail
+## Effect Hook: Cleanup
 
 Ein Effect kann eine "Aufräumfunktion" zurückgeben
 
-Diese wird z.B. vor dem Entfernen einer Komponente aufgerufen
+Diese Funktion wird aufgerufen, wenn z.B. die Komponente entfernt wird
 
-## useEffect: Entfernen einer Komponente
+## Effect Hook: Cleanup
 
 ```jsx
 const Clock = () => {
@@ -1531,6 +1588,19 @@ const Clock = () => {
     };
   }, []);
   return <div>{time}</div>;
+};
+```
+
+## Effect hook: nach jedem Rendering
+
+Wenn kein zweiter Parameter übergeben wird, wird die Funktion nach jedem Rendering ausgeführt.
+
+```jsx
+const RenderLogger = () => {
+  useEffect(() => {
+    console.log('logger was rendered');
+  });
+  return <div>Render logger</div>;
 };
 ```
 
