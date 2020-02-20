@@ -128,13 +128,17 @@ for (let potentialConfig of fs.readdirSync("configs")) {
   }
 }
 
-const indexPageTemplate = fs.readFileSync("assets/presentation-index.html", {
+const indexPageTemplate = fs.readFileSync("pages/index.html", {
   encoding: "utf-8"
 });
 const indexPage = indexPageTemplate
   .replace("{{count_en}}", numSlidesTotal.en)
   .replace("{{count_de}}", numSlidesTotal.de);
 fs.writeFileSync("docs/index.html", indexPage);
+fs.copyFileSync(
+  "pages/overview-react-topics.html",
+  "docs/overview-react-topics.html"
+);
 
 console.log(
   `total: ${numSlidesTotal.en} slides in English,` +
