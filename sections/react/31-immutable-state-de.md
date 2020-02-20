@@ -1,6 +1,6 @@
 # Immutable state
 
-## Immutability (Unveränderlichkeit)
+## Immutable state
 
 **Immutability**: Wichtiges Konzept in der funktionalen Programmierung und bei React / Redux
 
@@ -8,9 +8,9 @@ Daten werden nicht direkt abgeändert - stattdessen werden neue Daten auf Basis 
 
 ## Immutable state
 
-Wenn im State Arrays oder Objekte stehen, _könnten_ wir versuchen, diese direkt abzuändern
+Wenn unser State Arrays oder Objekte enthält, _könnten_ wir versuchen, diese direkt abzuändern
 
-Das sollten wir _nicht_ tun - React bemerkt üblicherweise diese Änderungen nicht und wird die Ansicht nicht aktualisieren
+Das sollten wir _nicht_ tun - React bemerkt üblicherweise diese Änderungen nicht und aktualisiert die Ansicht nicht
 
 Objekte im State sollten als _unveränderlich_ erachtet werden
 
@@ -22,7 +22,7 @@ Ausgangsdaten:
 let names = ['Alice', 'Bob', 'Charlie'];
 ```
 
-**Mutation**: dies ändert das ursprüngliche Array
+**Mutation**: Abändern des ursprünglichen Arrays
 
 ```js
 names.push('Dan');
@@ -45,7 +45,7 @@ let user = {
 }
 ```
 
-**Mutation**: dies ändert das ursprüngliche Objekt
+**Mutation**: Abändern des ursprünglichen Objekts
 
 ```js
 user.email = 'johndoe@gmail.com';

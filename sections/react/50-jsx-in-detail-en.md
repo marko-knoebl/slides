@@ -2,34 +2,46 @@
 
 ## JSX: repeating elements
 
+Task: building an HTML list (ul) from this data:
+
+```js
+const initialTodos = [
+  { id: 1, title: 'groceries', completed: false },
+  { id: 2, title: 'cooking', completed: true },
+  { id: 3, title: 'gardening', completed: false },
+];
+```
+
+## JSX: repeating elements
+
 Multiple Elements may be added via arrays:
 
-```xml
-<ul>
-  { [
-    <li>1</li>,
-    <li>2</li>
-  ] }
-</ul>
+```jsx
+const TodoApp = () => {
+  const [todos, setTodos] = useState(initialTodos);
+  const todoElements = [];
+  for (let todo of todos) {
+    todoElements.push(<li>{todo.title}</li>);
+  }
+  return <ul>{todoElements}</ul>;
+};
 ```
 
 ## JSX: repeating elements
 
 In practice this is mostly done via `.map()`:
 
-<!-- prettier-ignore -->
 ```jsx
-const todos = [
-  { id: 1, title: 'groceries', completed: false },
-  { id: 2, title: 'cooking', completed: true },
-  { id: 3, title: 'gardening', completed: false },
-];
-
-<ul>
-  {todos.map(todo => (
-    <li>{todo.title}</li>
-  ))}
-</ul>
+const TodoApp = () => {
+  const [todos, setTodos] = useState(initialTodos);
+  return (
+    <ul>
+      {todos.map(todo => (
+        <li>{todo.title}</li>
+      ))}
+    </ul>
+  );
+};
 ```
 
 ## JSX: repeating elements

@@ -4,19 +4,7 @@
 
 **Testing-Library**: project for testing UI components
 
-tests focus on aspects that are relevant for the end user (an not on the exact DOM structure)
-
-## React-Testing-Library - Installation
-
-```bash
-npm install --save-dev @testing-library/react
-```
-
-recommended additional assertions for Jest:
-
-```bash
-npm install --save-dev @testing-library/jest-dom
-```
+tests focus on aspects that are relevant for the end user (and not on the exact DOM structure)
 
 ## React-Testing-Library - Example
 
@@ -36,9 +24,9 @@ it('renders a component without crashing', () => {
 - `.queryAllByText`
 - ... (see [https://testing-library.com/docs/dom-testing-library/api-queries](https://testing-library.com/docs/dom-testing-library/api-queries))
 
-## React-Testing-Library - advanced asserts for Jest
+## React-Testing-Library
 
-activate via:
+advanced assertions available via:
 
 ```js
 import '@testing-library/jest-dom/extend-expect';
@@ -46,16 +34,12 @@ import '@testing-library/jest-dom/extend-expect';
 
 examples:
 
-- `.toBeInTheDocument()`
 - `.toContainHTML()`
 - `.toHaveClass()`
+- `.toBeInTheDocument()`
 - ...
 
 see [https://github.com/testing-library/jest-dom](https://github.com/testing-library/jest-dom)
-
-## Example: Testing with Jest and React Testing Library
-
-Testing a rating component
 
 ## Test setup
 
@@ -68,14 +52,14 @@ import {
   cleanup,
 } from '@testing-library/react';
 
-import Rating from './Rating';
-
 afterEach(() => {
   cleanup();
 });
 ```
 
 ## Testing the rendering
+
+rating component:
 
 ```jsx
 it('renders three full stars', () => {
@@ -88,10 +72,43 @@ it('renders three full stars', () => {
 });
 ```
 
-## Testing events
+## Testing the rendering
+
+slideshow component:
 
 ```jsx
-it('reacts to click on the fourth star', () => {
+it('renders a slideshow starting at image 0', () => {
+  const instance = render(<Slideshow />);
+  const slide = instance.getByAltText('slide');
+  expect(slide).toHaveAttribute(
+    'src',
+    'https://picsum.photos/200?image=0'
+  );
+});
+```
+
+## Testing state changes
+
+slideshow component:
+
+```jsx
+it('switches to the next slide', () => {
+  const instance = render(<Slideshow />);
+  const slide = instance.getByAltText('slide');
+  fireEvent.click(instance.getByText('next'));
+  expect(slide).toHaveAttribute(
+    'src',
+    'https://picsum.photos/200?image=1'
+  );
+});
+```
+
+## Testing events
+
+rating component:
+
+```jsx
+it('triggers an event when the fourth star is clicked', () => {
   const mockFn = jest.fn();
   const instance = render(
     <Rating stars={3} onStarsChange={mockFn} />
@@ -103,6 +120,8 @@ it('reacts to click on the fourth star', () => {
 ```
 
 ## Testing errors
+
+rating component:
 
 ```jsx
 it('throws an error if the number of stars is 0', () => {

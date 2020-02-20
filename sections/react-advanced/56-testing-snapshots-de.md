@@ -1,26 +1,21 @@
 # Snapshot Tests
 
-### mit react-test-renderer
-
 ## Snapshot Tests
 
 Komponenten werden gerendert und mit früheren Versionen (Snapshots) verglichen
 
 Snapshot Tests fallen unter Regressionstests.
 
-## Snapshot Tests in React - Tests erstellen
+## Snapshot Tests - Tests erstellen
+
+mit react-testing-library
 
 ```jsx
-// Rating.test.js
-import React from 'react';
-import TestRenderer from 'react-test-renderer';
-import Rating from './Rating.js';
-
-it('renders correctly', () => {
-  const tree = TestRenderer
-    .create(<Rating stars={2} />)
-    .toJSON();
-  expect(tree).toMatchSnapshot();
+it('matches the snapshot', () => {
+  const instance = render(<Slideshow />);
+  expect(instance).toMatchSnapshot();
+  const slide = instance.getByAltText('slide');
+  expect(slide).toMatchSnapshot();
 });
 ```
 

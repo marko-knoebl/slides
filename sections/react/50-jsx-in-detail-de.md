@@ -2,34 +2,46 @@
 
 ## JSX: Elemente wiederholen
 
-Grundsätzlich können wir über Arrays mehrere Elemente einbinden:
+Aufgabe: Erstellen einer HTML-Liste (ul) aus diesen Daten:
 
-```xml
-<ul>
-  { [
-    <li>1</li>,
-    <li>2</li>
-  ] }
-</ul>
+```js
+const initialTodos = [
+  { id: 1, title: 'groceries', completed: false },
+  { id: 2, title: 'cooking', completed: true },
+  { id: 3, title: 'gardening', completed: false },
+];
+```
+
+## JSX: Elemente wiederholen
+
+Mehrere Elemente können als Arrays eingebunden werden:
+
+```jsx
+const TodoApp = () => {
+  const [todos, setTodos] = useState(initialTodos);
+  const todoElements = [];
+  for (let todo of todos) {
+    todoElements.push(<li>{todo.title}</li>);
+  }
+  return <ul>{todoElements}</ul>;
+};
 ```
 
 ## JSX: Elemente wiederholen
 
 Meist verwenden wir zum wiederholen die `.map()` - Methode
 
-<!-- prettier-ignore -->
 ```jsx
-const todos = [
-  { id: 1, title: 'groceries', completed: false },
-  { id: 2, title: 'cooking', completed: true },
-  { id: 3, title: 'gardening', completed: false },
-];
-
-<ul>
-  {todos.map(todo => (
-    <li>{todo.title}</li>
-  ))}
-</ul>
+const TodoApp = () => {
+  const [todos, setTodos] = useState(initialTodos);
+  return (
+    <ul>
+      {todos.map(todo => (
+        <li>{todo.title}</li>
+      ))}
+    </ul>
+  );
+};
 ```
 
 ## JSX: Elemente wiederholen

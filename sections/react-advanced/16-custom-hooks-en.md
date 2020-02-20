@@ -33,6 +33,68 @@ const useDate = interval => {
 };
 ```
 
+## Custom hooks - useTodos
+
+Example: `useTodos` - can be used to extract data handling from the component definition
+
+```js
+const TodoApp = () => {
+  const {
+    todos,
+    reload,
+    isLoading,
+    addTodo,
+    toggleTodo,
+    deleteTodo,
+  } = useTodos();
+  return (
+    <div>
+      <h1>Todo</h1>
+      <TodoList
+        todos={todos}
+        isLoading={isLoading}
+        onReload={reload}
+        onToggle={toggleTodo}
+        onDelete={deleteTodo}
+      />
+      <AddTodo onAdd={addTodo} />
+    </div>
+  );
+};
+```
+
+## Custom hooks - useTodos
+
+implementation of `useTodos`:
+
+```js
+const useTodos = () => {
+  const [todos, dispatch] = useReducer(todosReducer, []);
+  const [isLoading, setIsLoading] = useState(false);
+  useEffect(() => {
+    if (isLoading) {
+      fetch('https://jsonplaceholder.typicode.com/todos')
+        .then(res => res.json())
+        .then(apiTodos => {
+          dispatch({ type: 'setTodos', payload: apiTodos });
+          setIsLoading(false);
+        });
+    }
+  }, [isLoading]);
+  return {
+    todos: todos,
+    isLoading: isLoading,
+    reload: () => setIsLoading(true),
+    addTodo: title =>
+      dispatch({ type: 'addTodo', payload: title }),
+    deleteTodo: id =>
+      dispatch({ type: 'deleteTodo', payload: id }),
+    toggleTodo: id =>
+      dispatch({ type: 'toggleTodo', payload: id }),
+  };
+};
+```
+
 ## Custom hooks - useJsonQuery
 
 Example: `useJsonQuery` - enables querying for JSON data

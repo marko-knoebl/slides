@@ -13,7 +13,7 @@ Drei wichtige Methoden zum Abfragen von Ereignissen im Lebenszyklus einer Kompon
 Wir erstellen eine Komponente, die den Dokumenttitel dynamisch setzen kann:
 
 ```xml
-<DocumentTitle>my custom title</DocumentTitle>
+<DocumentTitle value="my custom title" />
 ```
 
 Diese Komponente kann irgendwo in der React-Anwendung vorkommen.
@@ -23,11 +23,11 @@ Diese Komponente kann irgendwo in der React-Anwendung vorkommen.
 ```jsx
 class DocumentTitle extends Component {
   componentDidMount() {
-    document.title = this.props.children;
+    document.title = this.props.value;
   }
 
   componentDidUpdate(prevProps, prevState) {
-    document.title = this.props.children;
+    document.title = this.props.value;
   }
 
   render() {

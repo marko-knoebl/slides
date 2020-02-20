@@ -1,6 +1,6 @@
 # Immutable state
 
-## Immutability
+## Immutable state
 
 **Immutability**: important concept in functional programing and with React / Redux
 
@@ -19,7 +19,7 @@ state should be viewed as _immutabe_ (unchangeable)
 initial data:
 
 ```js
-let names = ['Alice', 'Bob', 'Charlie'];
+const names = ['Alice', 'Bob', 'Charlie'];
 ```
 
 **mutation**: this modifies the original array
@@ -28,10 +28,10 @@ let names = ['Alice', 'Bob', 'Charlie'];
 names.push('Dan');
 ```
 
-**no mutation**: create a new array
+**no mutation**: creates a new array
 
 ```js
-let newNames = [...names, 'Dan'];
+const newNames = [...names, 'Dan'];
 ```
 
 ## Data management without mutations: Objects
@@ -39,7 +39,7 @@ let newNames = [...names, 'Dan'];
 initial data:
 
 ```js
-let user = {
+const user = {
   name: 'john'
   email: 'john@doe.com'
 }
@@ -51,10 +51,10 @@ let user = {
 user.email = 'johndoe@gmail.com';
 ```
 
-**no mutation**: create a new object
+**no mutation**: creates a new object
 
 ```js
-let newUser = { ...user, email: 'johndoe@gmail.com' };
+const newUser = { ...user, email: 'johndoe@gmail.com' };
 ```
 
 ## immer.js and immutable.js
