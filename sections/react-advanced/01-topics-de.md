@@ -1,16 +1,15 @@
 # Themen
 
-## Themen (1/2)
+## Themen
 
-- Hooks
-- State Management mit Reducern
-- Context
-- Externe Hooks & eigene Hooks
-- Routing & Prerendering
-
-## Themen (2/2)
-
+- weitere Hooks
+  - context Hook
+  - reducer Hook und State Management mit Reducern
+  - effect Hook im Detail
+  - externe Hooks und eigene Hooks
+- Routing und Prerendering
+- Performanceoptimierung
 - Testen von React-Komponenten
 - App-Entwicklung mit React
-- Memoisation, Refs, HOCs
+- Refs, HOCs
 - Manuelles Setup

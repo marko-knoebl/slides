@@ -34,7 +34,7 @@ const TodoApp = () => {
     <div>
       ...
       <button
-        onClick={() => dispatch({ type: 'DELETE_ALL' })}>
+        onClick={() => dispatch({ type: 'deleteAll' })}>
         delete all todos
       </button>
     </div>

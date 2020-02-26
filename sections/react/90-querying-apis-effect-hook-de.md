@@ -2,11 +2,11 @@
 
 ## APIs abfragen (Effect Hook)
 
-Oft müssen API Daten abgefragt werden, wenn eine Komponente zum ersten Mal eingebunden wird, oder wenn sich props bzw state ändern
+Oft müssen API Daten abgefragt werden, wenn eine Komponente zum ersten Mal eingebunden wurde, oder wenn sich props bzw state geändert haben
 
 ## APIs abfragen (Effect Hook)
 
-Der _Effect Hook_ kann verwendet werden, um bestimmte Aktionen zu setzen, wenn eine Komponente neu eingebunden wird oder wenn ihre Props / State sich ändern
+Der _Effect Hook_ kann verwendet werden, um bestimmte Aktionen zu setzen, wenn eine Komponente neu eingebunden wurde oder wenn ihre Props / State sich geändert haben
 
 ```js
 useEffect(
@@ -17,7 +17,7 @@ useEffect(
 
 ## APIs abfragen (Effect Hook)
 
-Beispiel: Laden von Todos, wenn die Komponente eingebunden wird
+Beispiel: Laden von Todos, wenn die Komponente eingebunden wurde
 
 ```js
 const TodoApp = () => {

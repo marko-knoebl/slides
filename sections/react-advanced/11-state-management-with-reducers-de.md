@@ -1,5 +1,7 @@
 # State Management mit Reducern
 
+<!-- NOTE: other sections link to this section - take care when reordering -->
+
 ## State Management
 
 In komplexeren Anwendungen oder Komponenten macht es Sinn, den Anwendungszustand (model) von der Ansicht (view) zu trennen.
@@ -28,6 +30,24 @@ Basierend auf dieser Action wird ein aktueller _State_ mittels einer _Reducer_-F
 
 ## Beispiel: Todos State Management
 
+Manuelle Verwendung eines Reducers:
+
+```js
+const state1 = [
+  { id: 1, title: 'groceries', completed: false },
+  { id: 2, title: 'taxes', completed: true },
+];
+const actionA = { type: 'addTodo', title: 'gardening' };
+const state2 = todosReducer(state1, actionA);
+const actionB = { type: 'deleteTodo', id: 1 };
+const state3 = todosReducer(state2, actionB);
+console.log(state3);
+/* [{ id: 2, title: 'taxes', completed: true },
+    { id: 3, title: 'gardening', completed: false },] */
+```
+
+## Beispiel: Todos State Management
+
 Wir verwalten ein Array von Todos mit Hilfe eines Reducers. Zu Beginn setzen wir zwei mögliche Actions um:
 
 - Hinzufügen eines Todos
@@ -35,37 +55,18 @@ Wir verwalten ein Array von Todos mit Hilfe eines Reducers. Zu Beginn setzen wir
 
 ## Beispiel: Todos State Management
 
-Der State könnte folgendermaßen aussehen:
-
-```json
-[
-  {
-    "id": 1,
-    "title": "groceries",
-    "completed": false
-  },
-  {
-    "id": 2,
-    "title": "gardening",
-    "completed": false
-  }
-]
-```
-
-## Beispiel: Todos State Management
-
 _Actions_ werden von JavaScript Objekten repräsentiert; Actions haben immer eine _type_ Property
 
 ```json
 {
-  "type": "ADD_TODO",
+  "type": "addTodo",
   "title": "learn React"
 }
 ```
 
 ```json
 {
-  "type": "DELETE_TODO",
+  "type": "deleteTodo",
   "id": 1
 }
 ```
@@ -76,14 +77,14 @@ Ein _Reducer_ ist eine Funktion.
 
 Der Reducer erhält den alten State und eine Action, die eine Änderung am State beschreibt.
 
-Der Reducer gibt den neuen Zustand zurück. Wichtig: Ein Reducer ändert das alte state-Objekt nicht ab, sondern erstellt ein neues (Reducer sind reine Funktionen)
+Der Reducer gibt den neuen State zurück. Wichtig: Ein Reducer ändert das alte State-Objekt nicht ab, sondern erstellt ein neues (Reducer sind reine Funktionen)
 
 ## Beispiel: Todos State Management
 
 ```js
 const todosReducer = (oldState, action) => {
   switch (action.type) {
-    case 'ADD_TODO':
+    case 'addTodo':
       return [
         ...oldState,
         {
@@ -92,30 +93,10 @@ const todosReducer = (oldState, action) => {
           id: generateId(), // dummy function
         },
       ];
-    case 'DELETE_TODO':
+    case 'deleteTodo':
       return oldState.filter(todo => todo.id !== action.id);
     default:
       throw new Error('unknown action type');
   }
 };
-```
-
-## Beispiel: Todos State Management
-
-Verwendung des Reducers (Wir erinnern uns: Der Reducer bekommt den alten State und eine Action übergeben; er gibt den neuen State zurück)
-
-```js
-const state1 = [
-  { id: 1, title: 'groceries', completed: false },
-];
-const state2 = todosReducer(state1, {
-  type: 'ADD_TODO',
-  title: 'gardening',
-});
-const state3 = todosReducer(state2, {
-  type: 'DELETE_TODO',
-  id: 1,
-});
-console.log(state3);
-// [{id: 2, title: "gardening", completed: false}]
 ```

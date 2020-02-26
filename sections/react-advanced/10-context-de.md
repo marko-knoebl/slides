@@ -4,15 +4,6 @@
 
 Möglichkeit, Werte aus einer Komponente direkt allen weiter unten im Dokumentenbaum liegenden Komponenten zur Verfügung zu stellen - ohne diese über jede Ebene übergeben zu müssen
 
-## Context
-
-zwei Elemente:
-
-- `Provider`: stellt Werte zur Verfügung
-- `Consumer`: verwendet diese Werte (kann weit unten in der Komponentenhierarchie liegen)
-
-## Context
-
 Das Interface von Context kann sowohl Daten (aus dem State) als auch Eventhandler übergeben.
 
 ## Context - Beispiel
@@ -36,27 +27,27 @@ const TodosContext = React.createContext(
 );
 ```
 
-## Context - Beispiel: Provider
+## Context - Beispiel
+
+Der _Provider_ stellt Werte allen Unterkomponenten zur Verfügung
 
 ```jsx
-const App = () => {
-  return (
-    <TodosContext.Provider
-      value={{
-        todos: todos,
-        onToggle: () => {
-          // ...
-        },
-      }}>
-      <TodoList />
-      <AddTodo />
-      <TodoStats />
-    </TodosContext.Provider>
-  );
-};
+<TodosContext.Provider
+  value={{
+    todos: todos,
+    onToggle: () => {
+      // ...
+    },
+  }}>
+  <TodoList />
+  <AddTodo />
+  <TodoStats />
+</TodosContext.Provider>
 ```
 
-## Context - Beispiel: Consumer
+## Context - Beispiel
+
+Verwendung des _Context Hooks_, um Werte eines bestimmten Contexts abzufragen:
 
 ```jsx
 const TodoStats = () => {

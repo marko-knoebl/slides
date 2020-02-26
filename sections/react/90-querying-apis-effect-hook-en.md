@@ -2,11 +2,11 @@
 
 ## Querying APIs (effect hook)
 
-Often API data needs to be queried when a component is first mounted or when its props / state change
+Often API data needs to be queried when a component was mounted for the first time or when its props / state have changed
 
 ## Querying APIs (effect hook)
 
-The _effect hook_ can be used to perform some actions when a component is first mounted or when its props / state change
+The _effect hook_ can be used to perform actions when a component was mounted for the first time or whent its props / state have changed
 
 ```js
 useEffect(
@@ -17,7 +17,7 @@ useEffect(
 
 ## Querying APIs (effect hook)
 
-Example: load todos when component is mounted
+Example: load todos when component has mounted
 
 ```js
 const TodoApp = () => {

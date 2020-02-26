@@ -1,8 +1,8 @@
-# Effect Hook
+# Effect hook
 
-## Effect Hook
+## Effect hook
 
-kann verwendet werden, um Aktionen zu setzen, wenn eine Komponente zum ersten mal eingebunden wird oder wenn ihre Props / State sich ändern
+can be used to perform actions when a component was mounted for the first time or whent its props / state have changed
 
 ```js
 useEffect(
@@ -11,26 +11,26 @@ useEffect(
 );
 ```
 
-## Effect Hook
+## Effect hook
 
-Kann verwendet werden, um Nebeneffekte (side effects) auszulösen:
+may be used to perform _side effects_ in components:
 
-- Abfragen von APIs
-- manuelle Änderungen am DOM
-- Timer starten
+- fetching data from APIs
+- explicitly manipulating the DOM
+- starting timers
 - ...
 
-## Beispiel: DocumentTitle-Komponente
+## Example: DocumentTitle component
 
-Wir erstellen eine Komponente, die den Dokumenttitel dynamisch setzen kann:
+We will create a component that can set the document title dynamically:
 
 ```xml
 <DocumentTitle value="my custom title" />
 ```
 
-Diese Komponente kann irgendwo in der React-Anwendung vorkommen.
+This component may appear anywhere in the React application.
 
-## Beispiel: DocumentTitle-Komponente
+## Example: DocumentTitle component
 
 ```jsx
 const DocumentTitle = props => {
@@ -42,13 +42,13 @@ const DocumentTitle = props => {
 };
 ```
 
-## Effect Hook: Cleanup
+## Effect hook: cleanup
 
-Ein Effect kann eine "Aufräumfunktion" zurückgeben
+An effect may return a "cleanup function"
 
-Diese Funktion wird aufgerufen, wenn z.B. die Komponente entfernt wird
+This function will run e.g. before the component is removed
 
-## Effect Hook: Cleanup
+## Effect hook: cleanup
 
 ```jsx
 const Clock = () => {
@@ -67,9 +67,9 @@ const Clock = () => {
 };
 ```
 
-## Effect hook: nach jedem Rendering
+## Effect hook: after every rendering
 
-Wenn kein zweiter Parameter übergeben wird, wird die Funktion nach jedem Rendering ausgeführt.
+If no second parameter is passed the function will be called after each rendering.
 
 ```jsx
 const RenderLogger = () => {

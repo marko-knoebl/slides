@@ -14,6 +14,21 @@ don't do this - React will usually not notice the changes and will not rerender 
 
 state should be viewed as _immutabe_ (unchangeable)
 
+## Immutable state
+
+When `setState` is called, React will compare the object the old state points to with the object the new state points to
+
+If the old state and the new state reference the same object (even if it has changed), the component will not be rerendered.
+
+## Immutable state
+
+code like this is **not** allowed for changing state as React will not "see" the mutation:
+
+```js
+todos[0].completed = true;
+todos.push({ title: 'study', completed: false });
+```
+
 ## Data management without mutations: Arrays
 
 initial data:
@@ -57,59 +72,28 @@ user.email = 'johndoe@gmail.com';
 const newUser = { ...user, email: 'johndoe@gmail.com' };
 ```
 
-## immer.js and immutable.js
-
-libraries that simplify working without mutations
-
 ## immer.js
+
+**immer.js** is a library that helps with immutable data
 
 is recommended by the Redux team
 
-changes are specified via a _draft_ object
-
 ## immer.js
+
+this code would mutate the todos array:
+
+```js
+todos[0].completed = true;
+todos.push({ title: 'study', completed: false });
+```
+
+avoiding mutations by using immer:
 
 ```js
 import produce from 'immer';
 
-const todos = [
-  { id: 1, title: 'groceries', completed: false },
-  { id: 2, title: 'gardening', completed: false },
-];
-
 const newTodos = produce(todos, todosDraft => {
-  todosDraft[1].completed = true;
-  todosDraft.push({
-    id: 3,
-    title: 'relax',
-    completed: false,
-  });
+  todosDraft[0].completed = true;
+  todosDraft.push({ title: 'study', completed: false });
 });
-```
-
-## immutable.js
-
-In particular, offers the data types _List_ and _Map_ as immutable alternatives for _Array_ and _Object_.
-
-```js
-import { List, Map } from 'immutable';
-
-const a1 = List([1, 2, 3]);
-const a2 = a1.push(4);
-
-const b1 = Map({ a: 1, b: 2 });
-const b2 = b1.set('b', null);
-```
-
-## immutable.js
-
-```js
-import { fromJS, setIn } from 'immutable';
-
-const todos = fromJS([
-  { id: 1, title: 'groceries', completed: false },
-  { id: 2, title: 'gardening', completed: false },
-]);
-
-const newTodos = todos.setIn([1, 'completed'], true);
 ```

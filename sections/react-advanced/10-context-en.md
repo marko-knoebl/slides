@@ -4,15 +4,6 @@
 
 Context is a means to provide values from a component to all components that are contained within it - without explicitly passing it through all intermediate levels.
 
-## Context
-
-two main elements:
-
-- `Provider`: provides values
-- `Consumer`: uses these values (the consumer may be deep down in the component hierarchy)
-
-## Context
-
 The interface of context can pass both data and event handlers
 
 ## Context - example
@@ -36,27 +27,27 @@ const TodosContext = React.createContext(
 );
 ```
 
-## Context - example: Provider
+## Context - example
+
+The _provider_ makes values available to all its subcomponents
 
 ```jsx
-const App = () => {
-  return (
-    <TodosContext.Provider
-      value={{
-        todos: todos,
-        onToggle: () => {
-          // ...
-        },
-      }}>
-      <TodoList />
-      <AddTodo />
-      <TodoStats />
-    </TodosContext.Provider>
-  );
-};
+<TodosContext.Provider
+  value={{
+    todos: todos,
+    onToggle: () => {
+      // ...
+    },
+  }}>
+  <TodoList />
+  <AddTodo />
+  <TodoStats />
+</TodosContext.Provider>
 ```
 
-## Context - example: consumer
+## Context - example
+
+using the _context hook_ to query values of a specific context:
 
 ```jsx
 const TodoStats = () => {

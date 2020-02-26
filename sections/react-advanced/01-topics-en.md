@@ -1,17 +1,15 @@
 # Topics
 
-## Topics (1/2)
+## Topics
 
-- hooks
-- state management with reducers
-- context
-- external hooks & custom hooks
+- more hooks
+  - context hook
+  - reducer hook and state management with reducers
+  - effect hook in detail
+  - external and custom hooks
 - routing and pre-rendering
-- component lifecycle
-
-## Topics (2/2)
-
+- optimizing performance
 - testing React components
-- app development with React
-- memoization, refs, HOCs
+- app development
+- refs, HOCs
 - manual setup

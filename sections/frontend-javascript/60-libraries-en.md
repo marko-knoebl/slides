@@ -2,18 +2,18 @@
 
 ## Libraries
 
-verbreitete Libraries:
+commonly used libraries:
 
-- _lodash_ (Sammlung nützlicher Funktionen)
-- _jQuery_ (Erleichtert das Arbeiten mit dem DOM)
-- _immer.js_ / _immutable.js_ (Arbeiten mit unveränderlichen Objekten)
-- _moment.js_ (Arbeiten mit Zeitangaben)
+- _lodash_ (collection of utility functions)
+- _jQuery_ (simplifies working with the DOM)
+- _immer.js_, _immutable.js_ (libraries for immutable/unchangeable data)
+- _moment.js_ (working with time data)
 
 ## jQuery
 
-Ändern von Elementen
+modifying elements:
 
-- `$('#myelement')`
+- `const el = $('#myelement')`
 - `el.html('content')`
 - `el.css('color', 'blue')`
 - `el.addClass('abc')`
@@ -21,22 +21,22 @@ verbreitete Libraries:
 
 ## jQuery
 
-Erstellen / hinzufügen / entfernen von Elementen
+creating / adding / removing elements:
 
-- `$('<div>')`
+- `const newEl = $('<div>')`
 - `parent.append(child)`
 - `child.remove()`
 
 ## jQuery
 
-Abfragen von Events
+listening for events:
 
 - `$(element).on('click', ...)`
 - `$(element).click(...)`
 
 ## immutable.js
 
-Bietet insbesondere die Datenstrukturen _List_ und _Map_ als unveränderliche Alternativen zu _Array_ und _Object_.
+In particular, offers the data types _List_ and _Map_ as immutable alternatives for _Array_ and _Object_.
 
 ```js
 import { List, Map } from 'immutable';
