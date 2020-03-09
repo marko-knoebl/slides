@@ -540,9 +540,9 @@ class MyComp extends Component<MyProps, MyState> {
 
 ## Typendeklarationen für Libraries
 
-Einige JavaScript Libraries beinhalten auch Typendeklarationen für TypeScript - z.B. _react_, _redux_.
+Manche JavaScript Libraries beinhalten auch Typendeklarationen für TypeScript - z.B. _redux_.
 
-Für andere Libraries gibt es meist externe Deklarationen mit dem Präfix _@types/_, z.B. für _react-redux_ existiert das Paket _@types/react-redux_.
+Für andere Libraries gibt es meist externe Deklarationen mit dem Präfix _@types/_, z.B. für _react_ existiert das Paket _@types/react_.
 
 # TypeScript intermediate
 
@@ -551,7 +551,7 @@ Für andere Libraries gibt es meist externe Deklarationen mit dem Präfix _@type
 Any: lässt alle Typen zu
 
 ```ts
-let myInput: any = document.getElementById('myinput');
+const myInput: any = document.getElementById('myinput');
 
 console.log(myInput.value);
 ```
@@ -561,7 +561,7 @@ console.log(myInput.value);
 ermöglichen das Behandeln eines vorhandenen Objekts als bestimmter Typ
 
 ```ts
-let myInput = document.getElementById(
+const myInput = document.getElementById(
   'first-name'
 ) as HTMLInputElement;
 
@@ -604,7 +604,7 @@ type Action = {
 };
 
 type AddTodoAction = Action & {
-  type: 'ADD_TODO';
+  type: 'addTodo';
   payload: string;
 };
 ```

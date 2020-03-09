@@ -203,7 +203,7 @@ z.B. über _.prettierrc.json_:
 ```json
 {
   "singleQuote": true,
-  "trailingComma": "all"
+  "arrowParens": "always"
 }
 ```
 

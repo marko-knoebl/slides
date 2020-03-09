@@ -34,19 +34,18 @@ Code verfügbar unter: https://github.com/marko-knoebl/courses-code
 
 # Themen
 
-## Themen (1/2)
+## Themen
 
-- Hooks
-- State Management mit Reducern
-- Context
-- Externe Hooks & eigene Hooks
-- Routing & Prerendering
-
-## Themen (2/2)
-
+- weitere Hooks
+  - context Hook
+  - reducer Hook und State Management mit Reducern
+  - effect Hook im Detail
+  - externe Hooks und eigene Hooks
+- Routing und Prerendering
+- Performanceoptimierung
 - Testen von React-Komponenten
 - App-Entwicklung mit React
-- Memoisation, Refs, HOCs
+- Refs, HOCs
 - Manuelles Setup
 
 # Hooks
@@ -76,7 +75,67 @@ Beispiele:
 
 \- [React FAQ](https://reactjs.org/docs/hooks-faq.html#should-i-use-hooks-classes-or-a-mix-of-both)
 
+# Context
+
+## Context
+
+Möglichkeit, Werte aus einer Komponente direkt allen weiter unten im Dokumentenbaum liegenden Komponenten zur Verfügung zu stellen - ohne diese über jede Ebene übergeben zu müssen
+
+Das Interface von Context kann sowohl Daten (aus dem State) als auch Eventhandler übergeben.
+
+## Context - Beispiel
+
+mit JavaScript (_TodosContext.js_):
+
+```js
+const TodosContext = React.createContext();
+```
+
+mit TypeScript (_TodosContext.ts_):
+
+```ts
+type TodosContextType = {
+  todos: Array<Todo>;
+  onToggle: (id: number) => void;
+};
+
+const TodosContext = React.createContext(
+  {} as TodosContextType
+);
+```
+
+## Context - Beispiel
+
+Der _Provider_ stellt Werte allen Unterkomponenten zur Verfügung
+
+```jsx
+<TodosContext.Provider
+  value={{
+    todos: todos,
+    onToggle: () => {
+      // ...
+    },
+  }}>
+  <TodoList />
+  <AddTodo />
+  <TodoStats />
+</TodosContext.Provider>
+```
+
+## Context - Beispiel
+
+Verwendung des _Context Hooks_, um Werte eines bestimmten Contexts abzufragen:
+
+```jsx
+const TodoStats = () => {
+  const context = useContext(TodosContext);
+  return <div>There are {context.todos.length} todos</div>;
+};
+```
+
 # State Management mit Reducern
+
+<!-- NOTE: other sections link to this section - take care when reordering -->
 
 ## State Management
 
@@ -106,6 +165,24 @@ Basierend auf dieser Action wird ein aktueller _State_ mittels einer _Reducer_-F
 
 ## Beispiel: Todos State Management
 
+Manuelle Verwendung eines Reducers:
+
+```js
+const state1 = [
+  { id: 1, title: 'groceries', completed: false },
+  { id: 2, title: 'taxes', completed: true },
+];
+const actionA = { type: 'addTodo', title: 'gardening' };
+const state2 = todosReducer(state1, actionA);
+const actionB = { type: 'deleteTodo', id: 1 };
+const state3 = todosReducer(state2, actionB);
+console.log(state3);
+/* [{ id: 2, title: 'taxes', completed: true },
+    { id: 3, title: 'gardening', completed: false },] */
+```
+
+## Beispiel: Todos State Management
+
 Wir verwalten ein Array von Todos mit Hilfe eines Reducers. Zu Beginn setzen wir zwei mögliche Actions um:
 
 - Hinzufügen eines Todos
@@ -113,37 +190,18 @@ Wir verwalten ein Array von Todos mit Hilfe eines Reducers. Zu Beginn setzen wir
 
 ## Beispiel: Todos State Management
 
-Der State könnte folgendermaßen aussehen:
-
-```json
-[
-  {
-    "id": 1,
-    "title": "groceries",
-    "completed": false
-  },
-  {
-    "id": 2,
-    "title": "gardening",
-    "completed": false
-  }
-]
-```
-
-## Beispiel: Todos State Management
-
 _Actions_ werden von JavaScript Objekten repräsentiert; Actions haben immer eine _type_ Property
 
 ```json
 {
-  "type": "ADD_TODO",
+  "type": "addTodo",
   "title": "learn React"
 }
 ```
 
 ```json
 {
-  "type": "DELETE_TODO",
+  "type": "deleteTodo",
   "id": 1
 }
 ```
@@ -154,14 +212,14 @@ Ein _Reducer_ ist eine Funktion.
 
 Der Reducer erhält den alten State und eine Action, die eine Änderung am State beschreibt.
 
-Der Reducer gibt den neuen Zustand zurück. Wichtig: Ein Reducer ändert das alte state-Objekt nicht ab, sondern erstellt ein neues (Reducer sind reine Funktionen)
+Der Reducer gibt den neuen State zurück. Wichtig: Ein Reducer ändert das alte State-Objekt nicht ab, sondern erstellt ein neues (Reducer sind reine Funktionen)
 
 ## Beispiel: Todos State Management
 
 ```js
 const todosReducer = (oldState, action) => {
   switch (action.type) {
-    case 'ADD_TODO':
+    case 'addTodo':
       return [
         ...oldState,
         {
@@ -170,32 +228,12 @@ const todosReducer = (oldState, action) => {
           id: generateId(), // dummy function
         },
       ];
-    case 'DELETE_TODO':
+    case 'deleteTodo':
       return oldState.filter(todo => todo.id !== action.id);
     default:
       throw new Error('unknown action type');
   }
 };
-```
-
-## Beispiel: Todos State Management
-
-Verwendung des Reducers (Wir erinnern uns: Der Reducer bekommt den alten State und eine Action übergeben; er gibt den neuen State zurück)
-
-```js
-const state1 = [
-  { id: 1, title: 'groceries', completed: false },
-];
-const state2 = todosReducer(state1, {
-  type: 'ADD_TODO',
-  title: 'gardening',
-});
-const state3 = todosReducer(state2, {
-  type: 'DELETE_TODO',
-  id: 1,
-});
-console.log(state3);
-// [{id: 2, title: "gardening", completed: false}]
 ```
 
 # Reducer Hook
@@ -234,7 +272,7 @@ const TodoApp = () => {
     <div>
       ...
       <button
-        onClick={() => dispatch({ type: 'DELETE_ALL' })}>
+        onClick={() => dispatch({ type: 'deleteAll' })}>
         delete all todos
       </button>
     </div>
@@ -242,70 +280,85 @@ const TodoApp = () => {
 };
 ```
 
-# Context
+# Effect Hook
 
-## Context
+## Effect Hook
 
-Möglichkeit, Werte aus einer Komponente direkt allen weiter unten im Dokumentenbaum liegenden Komponenten zur Verfügung zu stellen - ohne diese über jede Ebene übergeben zu müssen
-
-## Context
-
-zwei Elemente:
-
-- `Provider`: stellt Werte zur Verfügung
-- `Consumer`: verwendet diese Werte (kann weit unten in der Komponentenhierarchie liegen)
-
-## Context
-
-Das Interface von Context kann sowohl Daten (aus dem State) als auch Eventhandler übergeben.
-
-## Context - Beispiel
-
-mit JavaScript (_TodosContext.js_):
+kann verwendet werden, um bestimmte Aktionen zu setzen, wenn eine Komponente neu eingebunden wurde oder wenn ihre Props / State sich geändert haben
 
 ```js
-const TodosContext = React.createContext();
-```
-
-mit TypeScript (_TodosContext.ts_):
-
-```ts
-type TodosContextType = {
-  todos: Array<Todo>;
-  onToggle: (id: number) => void;
-};
-
-const TodosContext = React.createContext(
-  {} as TodosContextType
+useEffect(
+  effect, // what should happen
+  dependencies // array of values to watch
 );
 ```
 
-## Context - Beispiel: Provider
+## Effect Hook
+
+Kann verwendet werden, um Nebeneffekte (side effects) auszulösen:
+
+- Abfragen von APIs
+- manuelle Änderungen am DOM
+- Timer starten
+- ...
+
+## Beispiel: DocumentTitle-Komponente
+
+Wir erstellen eine Komponente, die den Dokumenttitel dynamisch setzen kann:
+
+```xml
+<DocumentTitle value="my custom title" />
+```
+
+Diese Komponente kann irgendwo in der React-Anwendung vorkommen.
+
+## Beispiel: DocumentTitle-Komponente
 
 ```jsx
-const App = () => {
-  return (
-    <TodosContext.Provider
-      value={{
-        todos: todos,
-        onToggle: () => {
-          // ...
-        },
-      }}>
-      <TodoList />
-      <AddTodo />
-      <TodoStats />
-    </TodosContext.Provider>
-  );
+const DocumentTitle = props => {
+  const updateTitle = () => {
+    document.title = props.value;
+  };
+  useEffect(updateTitle, [props.value]);
+  return null;
 };
 ```
 
-## Context - Beispiel: Consumer
+## Effect Hook: Cleanup
+
+Ein Effect kann eine "Aufräumfunktion" zurückgeben
+
+Diese Funktion wird aufgerufen, wenn z.B. die Komponente entfernt wird
+
+## Effect Hook: Cleanup
 
 ```jsx
-const TodoStats = () => {
-  const context = useContext(TodosContext);
-  return <div>There are {context.todos.length} todos</div>;
+const Clock = () => {
+  const [time, setTime] = useState('');
+  // will be called when the component was mounted
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setTime(new Date().toLocaleTimeString());
+    }, 1000);
+    // will be called when the component will be removed
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, []);
+  return <div>{time}</div>;
+};
+```
+
+## Effect hook: nach jedem Rendering
+
+Wenn kein zweiter Parameter übergeben wird, wird die Funktion nach jedem Rendering ausgeführt.
+
+```jsx
+const RenderLogger = () => {
+  useEffect(() => {
+    console.log('logger was rendered');
+  });
+  return <div>Render logger</div>;
 };
 ```
 
@@ -390,25 +443,18 @@ Beispiel: `useTodos` - kann verwendet werden, um die Datenverwaltung von der Kom
 
 ```js
 const TodoApp = () => {
-  const {
-    todos,
-    reload,
-    isLoading,
-    addTodo,
-    toggleTodo,
-    deleteTodo,
-  } = useTodos();
+  const todoCtrl = useTodos();
   return (
     <div>
       <h1>Todo</h1>
       <TodoList
-        todos={todos}
-        isLoading={isLoading}
-        onReload={reload}
-        onToggle={toggleTodo}
-        onDelete={deleteTodo}
+        todos={todoCtrl.todos}
+        isLoading={todoCtrl.isLoading}
+        onReload={todoCtrl.reload}
+        onToggle={todoCtrl.toggleTodo}
+        onDelete={todoCtrl.deleteTodo}
       />
-      <AddTodo onAdd={addTodo} />
+      <AddTodo onAdd={todoCtrl.addTodo} />
     </div>
   );
 };
@@ -445,6 +491,13 @@ const useTodos = () => {
   };
 };
 ```
+
+## Eigene Hooks - useAuth
+
+Beispiele für Hooks, die Authentifizierung behandeln:
+
+- https://usehooks.com/useAuth/
+- https://medium.com/hackernoon/learn-react-hooks-by-building-an-auth-based-to-do-app-c2d143928b0b
 
 ## Eigene Hooks - useJsonQuery
 
@@ -542,11 +595,12 @@ Ganze Anwendung wird in ein `BrowserRouter` - Element eingebettet
 
 ```js
 import { BrowserRouter } from 'react-router-dom';
-[...]
+
+// ...
 
 <BrowserRouter>
-  <App/>
-</BrowserRouter>
+  <App />
+</BrowserRouter>;
 ```
 
 ## React Router - Routen definieren
@@ -569,9 +623,7 @@ import { Route } from 'react-router-dom';
 <Route
   path="/add"
   exact={true}
-  render={props => (
-    <AddTodo onSubmit={this.handleAddTodo} />
-  )}
+  render={() => <AddTodo onSubmit={this.handleAddTodo} />}
 />;
 ```
 
@@ -597,29 +649,116 @@ import { Switch } from 'react-router-dom';
 </Switch>;
 ```
 
-## React Router - Redirects
+## React Router - Hooks
 
-```jsx
-import { Redirect } from 'react-router-dom';
-
-<Route
-  path="/home"
-  render={props => <Redirect to="/" />}
-/>;
-```
+- `useParams`
+- `useHistory`
 
 ## React Router - Routenparameter
 
 ```jsx
+<Route path="/todos/:todoId" component={TodoDetailView} />
+```
+
+```jsx
+import { useParams } from 'react-router-dom';
+
+const TodoDetailView = () => {
+  const routeParams = useParams();
+  return (
+    <div>
+      Details of todo: {routeParams.todoId}
+      <div>...</div>
+    </div>
+  );
+};
+```
+
+## React Router - Navigation aus React
+
+Möglichkeiten:
+
+- Rendern einer `<Redirect>`-Komponente
+- Verwendung des history Hooks
+
+## React Router - Navigation aus React
+
+```jsx
+import { Redirect } from 'react-router-dom';
+```
+
+```jsx
 <Route
-  path="/todos/:todoId"
-  render={props => (
-    <div>Current todo: {props.match.params.todoId}</div>
-  )}
+  path="/member"
+  render={() =>
+    username ? <MemberArea /> : <Redirect to="/login" />
+  }
 />
 ```
 
-Routenparameter sind unter _props.match.params_ abzurufen
+## React Router - Navigation aus React
+
+```jsx
+import { useHistory } from 'react-router-dom';
+
+const AddTodoView = () => {
+  const history = useHistory();
+  const handleSubmit = event => {
+    event.preventDefault();
+    // ...
+    // go back to home view
+    history.push('/');
+  };
+  return <form>...</form>;
+};
+```
+
+# Lazy-Loading von Komponenten
+
+## Lazy-Loading von Komponenten
+
+um Bundle-Größen von React-Apps zu reduzieren: Komponenten erst importieren, wenn sie benötigt werden
+
+häufige Verwendung: importieren von einer Route erst, wenn sie aufgerufen wird
+
+## Lazy-Loading von Komponenten
+
+Imports in JavaScript:
+
+- `import` als Statement: synchroner Import bevor der Rest der Datei ausgeführt wird (in webpack: automatisches Integrieren in das Bundle)
+- `import` als Funktion: asynchroner Import, wenn benötigt
+
+## Lazy-Loading von Komponenten
+
+React-Imports für das Lazy-Loading:
+
+- `lazy`-Funktion
+- `Suspense`-Komponente
+
+## Lazy-Loading von Komponenten
+
+```jsx
+import React, { Suspense, lazy } from 'react';
+import { Route } from 'react-router-dom';
+
+const Home = lazy(() => import('./routes/Home'));
+const About = lazy(() => import('./routes/About'));
+
+const App = () => (
+  <Suspense fallback={<div>Loading...</div>}>
+    <Route exact path="/" component={Home} />
+    <Route path="/about" component={About} />
+  </Suspense>
+);
+```
+
+<small>
+  Quelle: <a
+    href="https://reactjs.org/docs/code-splitting.html#route-based-code-splitting"
+  >
+    Route-based code splitting on reactjs.org
+  </a>
+</small>
 
 # Pre-Rendering
 
@@ -678,7 +817,7 @@ npx create-next-app my-app
 ## npm Scripts
 
 - `npm run dev`: ausführen des Entwicklungsservers
-- `npm (run) start`: ausführen des Produktionsservers
+- `npm run start` (oder `npm start`): ausführen des Produktionsservers
 - `npm run build`: erstellen einer statischen Version für das Deployment
 
 ## Entwicklungsserver
@@ -745,7 +884,18 @@ export default Post;
 
 ## API-Abfragen mit next.js
 
-In next.js kann der rendernde Server bereits APIs abfragen und die Daten zum Rendering verwenden und an den Client weitergeben
+Üblicher Prozess zum Laden von Daten in einer React-Anwendung:
+
+- React-Anwendung wird zum Client gesendet
+- React-Anwendung wird zunächst ohne Daten gerendert
+- Client fragt vom Server Daten an
+- Daten werden zum Client gesendet
+
+Prozess mit next.js:
+
+- Daten werden am Server geladen
+- Anwendung wird am Server gerendert
+- Vorgerenderte Anwendung und zugehörige Daten um sie dynamisch zu machen werden zum Client gesendet
 
 ## API-Abfragen mit next.js
 
@@ -785,6 +935,261 @@ https://nextjs.org/learn/excel/static-html-export
 
 Die next.js website hat sehr gute Materialien: https://nextjs.org
 
+# Performance<wbr/>optimierung
+
+## Performanceoptimierung
+
+Themen:
+
+- Visualisierung von Updates in den React Devtools
+- Messen von Render-Zeiten in den React Devtools
+- Memoisation von Komponenten basierend auf Props
+- Memoisation aufwändiger Berechnungen für das Rendering
+- _Virtual DOM_ und die _key_-Property
+
+## Memoisation
+
+Memoisation = Technik, um Funktionsaufrufe zu optimieren: Bisherige Resultate werden gecached und müssen nicht neu berechnet werden
+
+## Performanceoptimierung
+
+was React schon für uns erledigt:
+
+- Hooks (state, reducer, context) lösen _kein_ Re-Rendering aus, wenn sich deren Wert nicht geändert hat
+
+was wir beitragen können:
+
+- Memoisation von Komponentenrenderings basierend auf deren Props
+- Memoisation aufwändiger Berechnungen
+- Bereitstellen eines _key_-Props für wiederholte Elemente
+
+# React Devtools und Performance
+
+## React Devtools und Performance
+
+Funktionalität der Devtools:
+
+- hervorheben von Komponenten, wenn diese neu gerendert werden
+- Profiler, der das Aufzeichnen und Analysieren einer Session erlaubt
+
+## React Devtools und Performance
+
+Hervorheben von Komponenten, wenn diese neu gerendert werden:
+
+In den Einstellungen der React Devtools: wähle _Highlight updates when components render._
+
+Komponenten erhalten beim Rendering einen färbigen Rahmen (Farbe ändert sich abhängig von der Reder-Frequenz)
+
+## React Devtools und Performance
+
+Auzeichnen und Analysieren einer Session:
+
+In dem "Profiler"-Tab der Browser Tools:
+
+- Klicke auf den Aufnahmebutton
+- Interagiere mit der React-Anwendung (jede User-Aktion wird als ein "_Commit_" aufgezeichnet)
+- Klicke auf den Aufnahmebutton zum Stoppen
+
+## React Devtools und Performance
+
+Begutachten der Profiling-Daten:
+
+Jede User-Aktion (z.B. Klick, Texteingabe) wird als ein sogenannter _Commit_ aufgezeichnet
+
+Commits werden im rechten oberen Eck angezeigt
+
+Details werden durch Anklicken sichtbar
+
+## React Devtools und Performance
+
+Zahlen in einem Commit-Detail:
+
+```
+TodoApp (3ms of 109ms)
+```
+
+bedeutet:
+
+- Das Rendering der ganzen Anwendung dauerte 109 Millisekunden (Bemerkung: läuft bei einem Production-Build und ohne Devtools schneller)
+- Die meiste Zeit (106 Millisekunden) wurde mit dem Rendering von Unterkomponenten verbracht
+- Die Inhalte, die nur zu _TodoApp_ gehören, dauerten 3 ms
+
+## React Devtools und Performance
+
+Farben in einem Commit-Detail:
+
+Farbskala von _grün_ bis _gelb_ zeigt an, wie viel Zeit für einzelne Komponenten aufgewendet wurde - verglichen mit Geschwisterkomponenten
+
+Grau gestreifte Komponenten wurden nicht neu gerendert
+
+# Vermeiden unnötiger Rerenderings
+
+## Vermeiden unnötiger Rerenderings
+
+Im Allgemeinen muss eine Komponente nur neu gerendert werden, wenn sich entweder props oder state tatsächlich ändern
+
+## Vermeiden unnötiger Rerenderings
+
+in Funktionskomponenten gilt:
+
+- Ein Setzen eines geänderten States bewirkt ein neues Rendering
+- Ein erneutes Setzen des gleichen States bewirkt kein neues Rendering
+- Ein neues Rendering einer Komponente bewirkt üblicherweise das neue Rendering _aller Unterkomponenten_
+
+## Vermeiden unnötiger Rerenderings
+
+Demo: Komponente rendert sich nur, wenn ihr State sich ändert
+
+```jsx
+function Coin() {
+  const [coin, setCoin] = useState('heads');
+  const throwCoin = () => {
+    setCoin(Math.random() > 0.5 ? 'heads' : 'tails');
+  };
+  return (
+    <div>
+      {coin}
+      <button onClick={throwCoin}>throw</button>
+      <div>last rendering: {new Date().toISOString()}</div>
+    </div>
+  );
+}
+```
+
+## Vermeiden unnötiger Rerenderings
+
+Das Rerendering einer Komponente löst üblicherweise das Rerendering _aller Unterkomponenten_ aus
+
+\- dies kann optimiert werden!
+
+## Vermeiden unnötiger Rerenderings
+
+Wenn nur jene Unterkomponenten neu gerendert werden sollen, deren props sich geändert haben:
+
+Verwenden von Reacts `memo`-Funktion und des callback Hooks
+
+## Vermeiden unnötiger Rerenderings
+
+Die `memo`-Funktion aus React:
+
+```jsx
+import React, { memo } from 'react';
+
+function Rating(props) {
+  // ...
+}
+
+export default memo(Rating);
+```
+
+## Vermeiden unnötiger Rerenderings
+
+Die `Rating`-Komponente wird nicht neu gerendert, wenn ihre Props die gleichen sind wie zuvor:
+
+```jsx
+<Rating stars={4} />
+<Rating stars={4} onChange={setRating1} />
+```
+
+## Vermeiden unnötiger Rerenderings
+
+Wie ist es mit diesem Event-Listener?
+
+```jsx
+<Rating
+  stars={4}
+  onChange={newRating => setRating1(newRating)}
+/>
+```
+
+Die Pfeilfunktion wäre bei jedem angeforderten Rendering ein anderes Objekt
+
+## Vermeiden unnötiger Rerenderings
+
+Ermöglichen von Memoisation in komplexeren Event Handlern / Callbacks:
+
+```jsx
+function TodoApp() {
+  const [todos, setTodos] = useState([]);
+  const handleAddTodo = newTitle =>
+    setTodos([
+      ...todos,
+      { title: newTitle, completed: false },
+    ]);
+  // useCallback will return the same reference
+  // - unless an entry in the passed-in array changes
+  const memoizedHandleAddTodo = useCallback(handleAddTodo, [
+    todos,
+  ]);
+  return (
+    <div>
+      <TodoList todos={todos} />
+      <AddTodo onAdd={memoizedHandleAddTodo} />
+    </div>
+  );
+}
+```
+
+# Memoisation aufwändiger Berechnungen
+
+## Memoisation aufwändiger Berechnungen
+
+Manche Renderings beruhen auf aufwändigen Berechnungen, die durch Memoisation optimiert werden können
+
+## Memoisation aufwändiger Berechnungen
+
+Beispiel ohne Memoisation:
+
+```jsx
+const TodoApp = () => {
+  const [todos, setTodos] = useState([]);
+  const [newTitle, setNewtitle] = useState('');
+  const numActiveTodos = todos.filter(
+    todo => !todo.completed
+  ).length;
+
+  return (
+    <div>
+      ...
+      <div>there are {numActiveTodos} active todos</div>
+    </div>
+  );
+};
+```
+
+## Memoisation aufwändiger Berechnungen
+
+mit Memoisation:
+
+```js
+const numActiveTodos = useMemo(
+  // function to recompute value
+  () => todos.filter(todo => !todo.completed).length,
+  // array of dependencies
+  [todos]
+);
+```
+
+Die Berechnung wird nur dann erneut ausgeführt, wenn sich eine Abhängigkeit in dem Array ändert
+
+# Virtuelles DOM
+
+## Virtuelles DOM
+
+Beim erneuten Rendern einer React-Komponente: Resultate werden nicht direkt and den Browser übergeben.
+
+Stattdessen: Ein _virtuelles DOM_ wird erstellt und mit dem vorherigen virtuellen DOM verglichen. Nur die Unterschiede werden zur Verarbeitung an den Browser übergeben.
+
+## Virtuelles DOM und Wiederholen von Elementen
+
+Üblicherweise ist React sehr effizient dabei, Änderungen herauszufinden - doch es benötigt Hilfe, wenn Elemente in einem Array Wiederholt werden
+
+Faustregel: Wenn wir in unserem JSX-Template `.map` verwenden, sollten innere Elemente eine eindeutige key-Property haben, um React zu unterstützen
+
+## Virtuelles DOM
+
+siehe auch: https://reactjs.org/docs/reconciliation.html
+
 # Testen
 
 ## Automatisiertes Testen in JavaScript
@@ -803,115 +1208,13 @@ was kann getestet werden:
 
 ## Test Renderer für React
 
+- `react-testing-library` (Unterprojekt von _Testing Library_)
 - `react-test-renderer` (vom React Team entwickelt)
-- `react-testing-library` (Unterprojekt von _Testing Library_, Erstveröffentlichung Mitte 2019)
 - `Enzyme`
 
 ## Snapshot Tests
 
 Komponenten werden gerendert und mit früheren Versionen (Snapshots) verglichen
-
-# React-Test-Renderer
-
-## React-Test-Renderer - Installation
-
-```bash
-npm install --save-dev react-test-renderer
-```
-
-für TypeScript:
-
-```bash
-npm install --save-dev react-test-renderer @types/react-test-renderer
-```
-
-## React-Test-Renderer - Beispiel
-
-```js
-import TestRenderer from 'react-test-renderer';
-
-it('renders a component without crashing', () => {
-  const instance = TestRenderer.create(<MyComponent />)
-    .root;
-});
-```
-
-## React-Test-Renderer - mit Instanzen arbeiten
-
-- `instance.find(All)` (erhält eine Testfunktion als Argument)
-- `instance.find(All)ByType`
-- `instance.find(All)ByProps`
-- `instance.props`
-- `instance.children`
-- `instance.type`
-
-## React-Test-Renderer - API
-
-[https://reactjs.org/docs/test-renderer.html](https://reactjs.org/docs/test-renderer.html)
-
-## Beispiel: Testen mit Jest und React-Test-Renderer
-
-Testen einer Rating Komponente
-
-## Test-Setup
-
-```jsx
-import React from 'react';
-import TestRenderer from 'react-test-renderer';
-
-import Rating from './Rating';
-```
-
-## Testen des Renderings
-
-```jsx
-describe('rendering', () => {
-  it('renders 5 spans', () => {
-    const instance = TestRenderer.create(
-      <Rating stars={3} />
-    ).root;
-    expect(instance.findAllByType('span')).toHaveLength(5);
-  });
-
-  it('renders 3 active stars', () => {
-    const instance = TestRenderer.create(
-      <Rating stars={3} />
-    ).root;
-    expect(
-      instance.findAllByProps({ className: 'star active' })
-    ).toHaveLength(3);
-  });
-});
-```
-
-## Testen von Events
-
-```jsx
-describe('events', () => {
-  it('reacts to click on the fourth star', () => {
-    const mockFn = jest.fn();
-    const instance = TestRenderer.create(
-      <Rating stars={3} onStarsChange={mockFn} />
-    ).root;
-    const fourthStar = instance.findAllByType('span')[3];
-    fourthStar.props.onClick();
-    expect(mockFn).toBeCalledWith(4);
-  });
-});
-```
-
-## Testen von Fehlern
-
-```jsx
-describe('errors', () => {
-  it('throws an error if the number of stars is 0', () => {
-    const testFn = () => {
-      TestRenderer.create(<Rating stars={0} />);
-    };
-    expect(testFn).toThrow('number of stars must be 1-5');
-  });
-});
-```
 
 # React-Testing-Library
 
@@ -1044,6 +1347,108 @@ it('throws an error if the number of stars is 0', () => {
     render(<Rating stars={0} />);
   };
   expect(testFn).toThrow('number of stars must be 1-5');
+});
+```
+
+# React-Test-Renderer
+
+## React-Test-Renderer - Installation
+
+```bash
+npm install --save-dev react-test-renderer
+```
+
+für TypeScript:
+
+```bash
+npm install --save-dev react-test-renderer @types/react-test-renderer
+```
+
+## React-Test-Renderer - Beispiel
+
+```js
+import TestRenderer from 'react-test-renderer';
+
+it('renders a component without crashing', () => {
+  const instance = TestRenderer.create(<MyComponent />)
+    .root;
+});
+```
+
+## React-Test-Renderer - mit Instanzen arbeiten
+
+- `instance.find(All)` (erhält eine Testfunktion als Argument)
+- `instance.find(All)ByType`
+- `instance.find(All)ByProps`
+- `instance.props`
+- `instance.children`
+- `instance.type`
+
+## React-Test-Renderer - API
+
+[https://reactjs.org/docs/test-renderer.html](https://reactjs.org/docs/test-renderer.html)
+
+## Beispiel: Testen mit Jest und React-Test-Renderer
+
+Testen einer Rating Komponente
+
+## Test-Setup
+
+```jsx
+import React from 'react';
+import TestRenderer from 'react-test-renderer';
+
+import Rating from './Rating';
+```
+
+## Testen des Renderings
+
+```jsx
+describe('rendering', () => {
+  it('renders 5 spans', () => {
+    const instance = TestRenderer.create(
+      <Rating stars={3} />
+    ).root;
+    expect(instance.findAllByType('span')).toHaveLength(5);
+  });
+
+  it('renders 3 active stars', () => {
+    const instance = TestRenderer.create(
+      <Rating stars={3} />
+    ).root;
+    expect(
+      instance.findAllByProps({ className: 'star active' })
+    ).toHaveLength(3);
+  });
+});
+```
+
+## Testen von Events
+
+```jsx
+describe('events', () => {
+  it('reacts to click on the fourth star', () => {
+    const mockFn = jest.fn();
+    const instance = TestRenderer.create(
+      <Rating stars={3} onStarsChange={mockFn} />
+    ).root;
+    const fourthStar = instance.findAllByType('span')[3];
+    fourthStar.props.onClick();
+    expect(mockFn).toBeCalledWith(4);
+  });
+});
+```
+
+## Testen von Fehlern
+
+```jsx
+describe('errors', () => {
+  it('throws an error if the number of stars is 0', () => {
+    const testFn = () => {
+      TestRenderer.create(<Rating stars={0} />);
+    };
+    expect(testFn).toThrow('number of stars must be 1-5');
+  });
 });
 ```
 
@@ -1441,168 +1846,22 @@ const TodoItem = ({ title, completed, onToggle }) => (
 );
 ```
 
-# Memoisation
+## Plattformspezifischer Code
 
-## Memoisation
-
-Memoisation = Technik, um z.B. Funktionsaufrufe zu beschleunigen: frühere Resultate werden gespeichert und müssen nicht neu berechnet werden
-
-## Memoisation in React
-
-Verwendung von Memoisation in React:
-
-Wenn sich bei einer Komponente props bzw state nicht ändern, kann das alte Rendering oft beibehalten werden
-
-## Memoisation in React
-
-in Funktionskomponenten gilt:
-
-- Ein Setzen eines geänderten States bewirkt ein neues Rendering
-- Ein erneutes Setzen des gleichen States bewirkt kein neues Rendering
-- Ein neues Rendering einer Komponente bewirkt üblicherweise das neue Rendering _aller Unterkomponenten_
-- Durch den Einsatz von `React.memo` kann erreich werden, dass sich nur jene Unterkomponenten neu rendern, deren props sich geändert haben
-
-## Memoisation in React
-
-Anmerkung: Auch Hooks wie `useContext`, `useReducer`, ... können ähnlich wie `useState` ein Rerendering anstoßen
-
-## Memoisation in React
-
-Visualisierung des Renderings in den React Devtools: _Settings_ - _General_ - _Highlight updates when components render._
-
-## Memoisation in React
-
-Memoisation von Funktionskomponenten:
+Möglichkeit 1 (einfache Fälle):
 
 ```js
-import React, { memo } from 'react';
-
-const Rating = props => {
-  /*...*/
-};
-const RatingMemoized = memo(Rating);
+import { Platform } from 'react-native';
+if (Platform.OS === 'web') {
+  // 'web' / 'ios' / 'android'
+}
 ```
 
-## Verwaltung von Daten ohne Mutationen
+Möglichkeit 2 (Plattform-spezifische Komponenten):
 
-In React werden (nicht-primitive) Einträge in State und Props dann als geändert angesehen, wenn sie sich auf ein anderes Objekt als zuvor beziehen.
-
-## Verwaltung von Daten ohne Mutationen
-
-Bei Memoisation in React: Daten werden mit `===` auf Gleichheit überprüft
-
-Was gibt das folgende Programm aus?
-
-```js
-const state1 = [1, 2, 3];
-const state2 = state1;
-state2.push(4);
-
-console.log(state1 === state2);
-```
-
-## Verwaltung von Daten ohne Mutationen
-
-```js
-const state1 = [1, 2, 3];
-const state2 = state1;
-state2.push(4);
-
-console.log(state1 === state2);
-```
-
-Obiges Programm gibt `true` aus. `state1` und `state2` beziehen sich auf das selbe Objekt. Die Änderung würde bei memoisierten Komponenten kein neues Rendering auslösen.
-
-## Verwalten von Daten ohne Mutationen
-
-Korrekte Verwendung:
-
-```js
-const state1 = [1, 2, 3];
-const state2 = [...state1, 4];
-```
-
-# Effect Hook
-
-## Effect Hook
-
-kann verwendet werden, um Aktionen zu setzen, wenn eine Komponente zum ersten mal eingebunden wird oder wenn ihre Props / State sich ändern
-
-```js
-useEffect(
-  effect, // what should happen
-  dependencies // array of values to watch
-);
-```
-
-## Effect Hook
-
-Kann verwendet werden, um Nebeneffekte (side effects) auszulösen:
-
-- Abfragen von APIs
-- manuelle Änderungen am DOM
-- Timer starten
-- ...
-
-## Beispiel: DocumentTitle-Komponente
-
-Wir erstellen eine Komponente, die den Dokumenttitel dynamisch setzen kann:
-
-```xml
-<DocumentTitle value="my custom title" />
-```
-
-Diese Komponente kann irgendwo in der React-Anwendung vorkommen.
-
-## Beispiel: DocumentTitle-Komponente
-
-```jsx
-const DocumentTitle = props => {
-  const updateTitle = () => {
-    document.title = props.value;
-  };
-  useEffect(updateTitle, [props.value]);
-  return null;
-};
-```
-
-## Effect Hook: Cleanup
-
-Ein Effect kann eine "Aufräumfunktion" zurückgeben
-
-Diese Funktion wird aufgerufen, wenn z.B. die Komponente entfernt wird
-
-## Effect Hook: Cleanup
-
-```jsx
-const Clock = () => {
-  const [time, setTime] = useState('');
-  // will be called when the component was mounted
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setTime(new Date().toLocaleTimeString());
-    }, 1000);
-    // will be called when the component will be removed
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, []);
-  return <div>{time}</div>;
-};
-```
-
-## Effect hook: nach jedem Rendering
-
-Wenn kein zweiter Parameter übergeben wird, wird die Funktion nach jedem Rendering ausgeführt.
-
-```jsx
-const RenderLogger = () => {
-  useEffect(() => {
-    console.log('logger was rendered');
-  });
-  return <div>Render logger</div>;
-};
-```
+- `AddTodo.web.js`
+- `AddTodo.ios.js`
+- `AddTodo.android.js`
 
 # Refs
 
@@ -1822,5 +2081,5 @@ ReactDOM.render(<App />, mountNode);
 
 ## Ausführen
 
-Wir führen `npm start` für einen Entwicklungsserver oder `npm run build` für einen Build aus.
+Wir führen `npm run start` für einen Entwicklungsserver oder `npm run build` für einen Build aus.
 

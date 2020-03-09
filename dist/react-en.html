@@ -2159,6 +2159,114 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li>current major version: React 16 (September 2017)</li>
 <li>February 2019: introction of hooks</li>
 </ul>
+</section></section><section class="slides-section"><section class="slide"><h1>React &#x26; JSX Basics</h1>
+</section><section class="slide"><h2>Online editors</h2>
+<p>recommendation: <a href="https://codesandbox.io/s">https://codesandbox.io/s</a></p>
+<p>others:</p>
+<ul>
+<li>Glitch: <a href="https://glitch.com/edit/#!/remix/starter-react-template">https://glitch.com/edit/#!/remix/starter-react-template</a></li>
+<li>CodePen: <a href="https://reactjs.org/redirect-to-codepen/hello-world">https://reactjs.org/redirect-to-codepen/hello-world</a></li>
+</ul>
+</section><section class="slide"><h2>Defining a component as a function</h2>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+
+<span class="hljs-keyword">const</span> App = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>Hello, World!<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+};
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> App;
+</code></pre>
+</section><section class="slide"><h2>Defining a component as a class</h2>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> React, { Component } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">App</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
+  render() {
+    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>Hello, World!<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+  }
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> App;
+</code></pre>
+</section><section class="slide"><h2>Component definition</h2>
+<p>In order to distinguish them from ordinary tags, components start with a capital letter</p>
+</section><section class="slide"><h2>JSX: JS + XML</h2>
+<p>JSX = Template language of React</p>
+<ul>
+<li><strong>&#x3C;</strong> switches from JS to XML/HTML</li>
+<li><strong>{</strong> switches back to JS</li>
+</ul>
+</section><section class="slide"><h2>JSX: JS + XML</h2>
+<pre><code class="hljs language-jsx">&#x3C;div>A year has {<span class="hljs-number">365</span> * <span class="hljs-number">24</span>} hours&#x3C;<span class="hljs-regexp">/div>
+</span></code></pre>
+</section><section class="slide"><h2>JSX: Simple tasks</h2>
+<ul>
+<li>Show the current date</li>
+<li>Show either "heads" or "tails" inside a div</li>
+</ul>
+</section><section class="slide"><h2>JSX: Properties</h2>
+<p>we can also change from XML to JS in properties:</p>
+<pre><code class="hljs language-jsx">&#x3C;a href={<span class="hljs-string">'https://en.wikipedia.org/wiki/'</span> + articleName}>
+  some article
+&#x3C;<span class="hljs-regexp">/a>
+</span></code></pre>
+<p>Note there are no quote characters around the value of <em>href</em></p>
+</section><section class="slide"><h2>JSX: events</h2>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> hello = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'hello world'</span>);
+  <span class="hljs-comment">// ...</span>
+};
+</code></pre>
+<pre><code class="hljs language-jsx">&#x3C;button onClick={hello}>Say Hello&#x3C;<span class="hljs-regexp">/button>
+</span></code></pre>
+<p>list of browser events:
+<a href="https://www.w3schools.com/jsref/dom_obj_event.asp">https://www.w3schools.com/jsref/dom_obj_event.asp</a></p>
+</section></section><section class="slides-section"><section class="slide"><h1>State</h1>
+</section><section class="slide"><h2>State</h2>
+<p>React components may have an internal <em>state</em></p>
+<p>The state can be referenced in the template. The view will automatically update if parts of the state are changed.</p>
+</section><section class="slide"><h2>state in function components</h2>
+<p>In function components we make use of the <em>state hook</em>:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { useState } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+</code></pre>
+</section><section class="slide"><h2>state in function components</h2>
+<p>The function <code>useState</code> may be called (repeatedly) at the beginning of the component function.</p>
+<ul>
+<li><code>useState</code> takes one parameter - the initial state value</li>
+<li>on each call <code>useState</code> returns an array with two entries: the current state and a function which can be used to set the state to a different value</li>
+</ul>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> App = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  <span class="hljs-keyword">const</span> [count, setCount] = useState(<span class="hljs-number">0</span>);
+  <span class="hljs-keyword">const</span> [title, setTitle] = useState(<span class="hljs-string">'React app'</span>);
+
+  <span class="hljs-keyword">return</span> ...
+};
+</code></pre>
+</section><section class="slide"><h2>Example: Counter</h2>
+<p>We will add a button to our application. At the start this button will display the value 0. On each click the value will increment by 1.</p>
+</section><section class="slide"><h2>Example: Counter</h2>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> Counter = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  <span class="hljs-keyword">const</span> [count, setCount] = useState(<span class="hljs-number">0</span>);
+
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>
+      <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> {
+        setCount(count + 1);
+      }}>
+      {count}
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span>
+  );
+};
+</code></pre>
+</section><section class="slide"><h2>Example: Counter</h2>
+<p>Task: Add a <em>reset</em> button to the application</p>
+</section><section class="slide"><h2>Example: Slideshow</h2>
+<p>implement a slideshow that shows images like the following:</p>
+<p><code>https://picsum.photos/200?image=10</code></p>
+<ul>
+<li>buttons for <em>previous</em> and <em>next</em></li>
+<li>button for <em>back to start</em></li>
+<li>prevent the index becoming negative</li>
+</ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Basics for the course</h1>
 </section><section class="slide"><h2>Basics for the course</h2>
 <ul>
@@ -2205,106 +2313,8 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </section><section class="slide"><h2>development server and build</h2>
 <p>inside the project directory:</p>
 <ul>
-<li><code>npm start</code>: starts the local development server</li>
+<li><code>npm run start</code> (or <code>npm start</code>): starts the local development server</li>
 <li><code>npm run build</code>: creates a build (for deployment)</li>
-</ul>
-</section></section><section class="slides-section"><section class="slide"><h1>React &#x26; JSX Basics</h1>
-</section><section class="slide"><h2>Defining a component as a function</h2>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
-
-<span class="hljs-keyword">const</span> App = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>Hello, World!<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
-};
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> App;
-</code></pre>
-</section><section class="slide"><h2>Defining a component as a class</h2>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> React, { Component } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
-
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">App</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
-  render() {
-    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>Hello, World!<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
-  }
-}
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> App;
-</code></pre>
-</section><section class="slide"><h2>Component definition</h2>
-<p>In order to distinguish them from ordinary tags, components start with a capital letter</p>
-</section><section class="slide"><h2>JSX: JS + XML</h2>
-<p>JSX = Template language of React</p>
-<ul>
-<li><strong>&#x3C;</strong> switches from JS to XML/HTML</li>
-<li><strong>{</strong> switches back to JS</li>
-</ul>
-</section><section class="slide"><h2>JSX: JS + XML</h2>
-<pre><code class="hljs language-jsx">&#x3C;div>A year has {<span class="hljs-number">365</span> * <span class="hljs-number">24</span>} hours&#x3C;<span class="hljs-regexp">/div>
-</span></code></pre>
-</section><section class="slide"><h2>JSX: Simple tasks</h2>
-<ul>
-<li>Show the current date</li>
-<li>Show either "heads" or "tails" inside a div</li>
-</ul>
-</section><section class="slide"><h2>JSX: Properties</h2>
-<p>we can also change from XML to JS in properties:</p>
-<pre><code class="hljs language-jsx">&#x3C;a href={<span class="hljs-string">'https://en.wikipedia.org/wiki/'</span> + articleName}>
-  some article
-&#x3C;<span class="hljs-regexp">/a>
-</span></code></pre>
-<p>Note there are no quote characters around the value of <em>href</em></p>
-</section><section class="slide"><h2>JSX: events</h2>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> hello = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {...}
-
-&#x3C;button onClick={hello}>Say Hello&#x3C;<span class="hljs-regexp">/button>
-</span></code></pre>
-<p>list of browser events:
-<a href="https://www.w3schools.com/jsref/dom_obj_event.asp">https://www.w3schools.com/jsref/dom_obj_event.asp</a></p>
-</section></section><section class="slides-section"><section class="slide"><h1>State</h1>
-</section><section class="slide"><h2>State</h2>
-<p>React components may have an internal <em>state</em></p>
-<p>The state can be referenced in the template. The view will automatically update if parts of the state are changed.</p>
-</section><section class="slide"><h2>state in function components</h2>
-<p>In function components we make use of <code>useState</code>:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { useState } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
-</code></pre>
-</section><section class="slide"><h2>state in function components</h2>
-<p>The function <code>useState</code> may be called (repeatedly) at the beginning of the component function.</p>
-<ul>
-<li><code>useState</code> takes one parameter - the initial state value</li>
-<li>on each call <code>useState</code> returns an array with two entries: the current state and a function which can be used to set the state to a different value</li>
-</ul>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> App = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  <span class="hljs-keyword">const</span> [count, setCount] = useState(<span class="hljs-number">0</span>);
-  <span class="hljs-keyword">const</span> [title, setTitle] = useState(<span class="hljs-string">'React app'</span>);
-
-  <span class="hljs-keyword">return</span> ...
-};
-</code></pre>
-</section><section class="slide"><h2>Example: Counter</h2>
-<p>We will add a button to our application. At the start this button will display the value 0. On each click the value will increment by 1.</p>
-</section><section class="slide"><h2>Example: Counter</h2>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> App = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  <span class="hljs-keyword">const</span> [count, setCount] = useState(<span class="hljs-number">0</span>);
-
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>
-      <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> {
-        setCount(count + 1);
-      }}>
-      {count}
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span>
-  );
-};
-</code></pre>
-</section><section class="slide"><h2>Example: Counter</h2>
-<p>Task: Add a <em>reset</em> button to the application</p>
-</section><section class="slide"><h2>Example: Slideshow</h2>
-<p>implement a slideshow that shows images like the following:</p>
-<p><code>https://picsum.photos/200?image=10</code></p>
-<ul>
-<li>buttons for <em>previous</em> and <em>next</em></li>
-<li>button for <em>back to start</em></li>
-<li>prevent the index becoming negative</li>
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Immutable state</h1>
 </section><section class="slide"><h2>Immutable state</h2>
@@ -2314,6 +2324,18 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <p>if there are arrays or objects in the state we <em>could</em> try and mutate them directly</p>
 <p>don't do this - React will usually not notice the changes and will not rerender the view</p>
 <p>state should be viewed as <em>immutabe</em> (unchangeable)</p>
+</section><section class="slide"><h2>Immutable state</h2>
+<p>When <code>setState</code> is called, React will compare:</p>
+<ul>
+<li>the object the old state points to</li>
+<li>the object the new state points to</li>
+</ul>
+<p>If the old state and the new state reference the same object (even if it has changed), the component will not be rerendered.</p>
+</section><section class="slide"><h2>Immutable state</h2>
+<p>code like this is <strong>not</strong> allowed for changing state as React will not "see" the mutation:</p>
+<pre><code class="hljs language-js">todos[<span class="hljs-number">0</span>].completed = <span class="hljs-literal">true</span>;
+todos.push({ <span class="hljs-attr">title</span>: <span class="hljs-string">'study'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> });
+</code></pre>
 </section><section class="slide"><h2>Data management without mutations: Arrays</h2>
 <p>initial data:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> names = [<span class="hljs-string">'Alice'</span>, <span class="hljs-string">'Bob'</span>, <span class="hljs-string">'Charlie'</span>];
@@ -2337,47 +2359,21 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <p><strong>no mutation</strong>: creates a new object</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> newUser = { ...user, <span class="hljs-attr">email</span>: <span class="hljs-string">'johndoe@gmail.com'</span> };
 </code></pre>
-</section><section class="slide"><h2>immer.js and immutable.js</h2>
-<p>libraries that simplify working without mutations</p>
 </section><section class="slide"><h2>immer.js</h2>
+<p><strong>immer.js</strong> is a library that helps with immutable data</p>
 <p>is recommended by the Redux team</p>
-<p>changes are specified via a <em>draft</em> object</p>
 </section><section class="slide"><h2>immer.js</h2>
+<p>this code would mutate the todos array:</p>
+<pre><code class="hljs language-js">todos[<span class="hljs-number">0</span>].completed = <span class="hljs-literal">true</span>;
+todos.push({ <span class="hljs-attr">title</span>: <span class="hljs-string">'study'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> });
+</code></pre>
+<p>avoiding mutations by using immer:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> produce <span class="hljs-keyword">from</span> <span class="hljs-string">'immer'</span>;
 
-<span class="hljs-keyword">const</span> todos = [
-  { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'groceries'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
-  { <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'gardening'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
-];
-
 <span class="hljs-keyword">const</span> newTodos = produce(todos, todosDraft => {
-  todosDraft[<span class="hljs-number">1</span>].completed = <span class="hljs-literal">true</span>;
-  todosDraft.push({
-    <span class="hljs-attr">id</span>: <span class="hljs-number">3</span>,
-    <span class="hljs-attr">title</span>: <span class="hljs-string">'relax'</span>,
-    <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span>,
-  });
+  todosDraft[<span class="hljs-number">0</span>].completed = <span class="hljs-literal">true</span>;
+  todosDraft.push({ <span class="hljs-attr">title</span>: <span class="hljs-string">'study'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> });
 });
-</code></pre>
-</section><section class="slide"><h2>immutable.js</h2>
-<p>In particular, offers the data types <em>List</em> and <em>Map</em> as immutable alternatives for <em>Array</em> and <em>Object</em>.</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { List, <span class="hljs-built_in">Map</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'immutable'</span>;
-
-<span class="hljs-keyword">const</span> a1 = List([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]);
-<span class="hljs-keyword">const</span> a2 = a1.push(<span class="hljs-number">4</span>);
-
-<span class="hljs-keyword">const</span> b1 = <span class="hljs-built_in">Map</span>({ <span class="hljs-attr">a</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">b</span>: <span class="hljs-number">2</span> });
-<span class="hljs-keyword">const</span> b2 = b1.set(<span class="hljs-string">'b'</span>, <span class="hljs-literal">null</span>);
-</code></pre>
-</section><section class="slide"><h2>immutable.js</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { fromJS, setIn } <span class="hljs-keyword">from</span> <span class="hljs-string">'immutable'</span>;
-
-<span class="hljs-keyword">const</span> todos = fromJS([
-  { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'groceries'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
-  { <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'gardening'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
-]);
-
-<span class="hljs-keyword">const</span> newTodos = todos.setIn([<span class="hljs-number">1</span>, <span class="hljs-string">'completed'</span>], <span class="hljs-literal">true</span>);
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Inputs &#x26; forms</h1>
 </section><section class="slide"><h2>Inputs</h2>
@@ -2393,7 +2389,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   }}
 />
 </code></pre>
-</section><section class="slide"><h2>Forms</h2>
+</section><section class="slide"><h2>Form actions</h2>
 <p>Default behaviour of a form when submitted: directly send data to the server</p>
 <p>Replacing the default behaviour:</p>
 <pre><code class="hljs language-jsx">&#x3C;form
@@ -2403,6 +2399,67 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   }}>
   <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">input</span> /></span>
 <span class="hljs-tag">&#x3C;/<span class="hljs-name">form</span>></span></span>
+</code></pre>
+</section><section class="slide"><h2>Form validation</h2>
+<p>Form validation "by hand":</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> NewsletterRegistration = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  <span class="hljs-keyword">const</span> [email, setEmail] = useState(<span class="hljs-string">''</span>);
+  <span class="hljs-keyword">const</span> [emailEdited, setEmailEdited] = useState(<span class="hljs-literal">false</span>);
+
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">form</span>
+      <span class="hljs-attr">onSubmit</span>=<span class="hljs-string">{e</span> =></span> {
+        e.preventDefault();
+        console.log(email);
+      }}>
+      </span>&#x3C;input
+        type="email"
+        name="email"
+        value={email}
+        onChange={event => setEmail(event.target.value)}
+        onBlur={() => setEmailEdited(true)}
+      />
+      &#x3C;button disabled={!isEmail(email)}>subscribe&#x3C;/button>
+      {emailEdited &#x26;&#x26; !isEmail ? (
+        &#x3C;div>invalid email&#x3C;/div>
+      ) : null}
+    &#x3C;/form><span class="xml">
+  );
+};
+
+const isEmail = email =>
+  email.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i);
+</span></code></pre>
+</section><section class="slide"><h2>Forms with "Formik"</h2>
+<p>npm package: <em>formik</em></p>
+<p>provides components (<em>Form</em>, <em>Field</em>, ...) that can reduce code</p>
+<p>can be useful for more complex forms</p>
+</section><section class="slide"><h2>Forms with "Formik"</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { Formik, Form, Field, ErrorMessage } <span class="hljs-keyword">from</span> <span class="hljs-string">'formik'</span>;
+
+<span class="hljs-keyword">const</span> NewsletterRegistration = <span class="hljs-function"><span class="hljs-params">()</span> =></span> (
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Formik</span>
+    <span class="hljs-attr">initialValues</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">email:</span> '' }}
+    <span class="hljs-attr">onSubmit</span>=<span class="hljs-string">{values</span> =></span> console.log(values)}
+    validate={values => {
+      const errors = {};
+      if (!isEmail(values.email)) {
+        errors.email = 'invalid email';
+      }
+      return errors;
+    }}>
+    {props => (
+      </span>&#x3C;Form>
+        &#x3C;Field type="email" name="email" />
+        &#x3C;button disabled={!props.isValid}>subscribe&#x3C;/button>
+        &#x3C;ErrorMessage name="email" component="div" />
+      &#x3C;/Form>
+    )}
+  &#x3C;/Formik>
+);
+
+const isEmail = email =>
+  email.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i);
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>React developer tools</h1>
 </section><section class="slide"><h2>React developer tools</h2>
@@ -2630,6 +2687,79 @@ solution: <strong>key</strong>:</p>
   }}
 />
 </code></pre>
+</section><section class="slide"><h2>React styling libraries</h2>
+<p>examples:</p>
+<ul>
+<li>styled-components</li>
+<li>jss</li>
+<li>emotion</li>
+<li>radium</li>
+<li>...</li>
+</ul>
+</section><section class="slide"><h2>styled-components</h2>
+<p>library that enables creating styled versions of existing HTML elements</p>
+<p>npm package: <code>styled-components</code></p>
+</section><section class="slide"><h2>styled-components</h2>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> styled <span class="hljs-keyword">from</span> <span class="hljs-string">'styled-components'</span>;
+
+<span class="hljs-keyword">const</span> BlockImg = styled.img<span class="hljs-string">`
+  display: block;
+`</span>;
+
+<span class="hljs-keyword">const</span> Container = styled.div<span class="hljs-string">`
+  display: flex;
+  justify-content: center;
+`</span>;
+
+<span class="hljs-keyword">const</span> Slideshow = <span class="hljs-function"><span class="hljs-params">props</span> =></span> (
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Container</span>></span>
+    </span>&#x3C;button>prev&#x3C;/button><span class="xml">
+    </span>&#x3C;BlockImg src="..." alt="..." />
+    &#x3C;button>next&#x3C;/button>
+  &#x3C;/Container><span class="xml">
+);
+</span></code></pre>
+</section><section class="slide"><h2>styled-components</h2>
+<p>dynamic styles via props:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> styled <span class="hljs-keyword">from</span> <span class="hljs-string">'styled-components'</span>;
+
+<span class="hljs-keyword">const</span> Button = styled.button<span class="hljs-string">`
+  color: <span class="hljs-subst">${props => (props.primary ? <span class="hljs-string">'black'</span> : <span class="hljs-string">'white'</span>)}</span>;
+  background-color: <span class="hljs-subst">${props =>
+    props.primary ? <span class="hljs-string">'white'</span> : <span class="hljs-string">'navy'</span>}</span>;
+`</span>;
+
+<span class="hljs-keyword">const</span> Slideshow = <span class="hljs-function"><span class="hljs-params">props</span> =></span> (
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Container</span>></span>
+    </span>&#x3C;Button primary={true}>prev&#x3C;/Button><span class="xml">
+    </span>&#x3C;BlockImg src="..." alt="..." />
+    &#x3C;Button primary={true}>next&#x3C;/Button>
+  &#x3C;/Container><span class="xml">
+);
+</span></code></pre>
+</section><section class="slide"><h2>radium</h2>
+<p>library that extends the <code>style</code> property syntax of HTML elements in a component</p>
+<p>npm package: <code>radium</code></p>
+</section><section class="slide"><h2>radium</h2>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> styles = {
+  <span class="hljs-attr">base</span>: {
+    <span class="hljs-attr">padding</span>: <span class="hljs-string">'8px'</span>,
+  },
+  <span class="hljs-attr">primary</span>: {
+    <span class="hljs-attr">color</span>: <span class="hljs-string">'white'</span>,
+    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">'navy'</span>,
+  },
+};
+
+<span class="hljs-keyword">const</span> TestButton = <span class="hljs-function"><span class="hljs-params">props</span> =></span> (
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>
+    <span class="hljs-attr">style</span>=<span class="hljs-string">{[styles.base,</span> <span class="hljs-attr">props.primary</span> &#x26;&#x26; <span class="hljs-attr">styles.primary</span>]}></span>
+    test
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span>
+);
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> radium(TestButton);
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Component libraries</h1>
 </section><section class="slide"><h2>Component libraries</h2>
 <ul>
@@ -2832,16 +2962,16 @@ const TodoList: FC&#x3C;TodoListProps> = props => {
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Querying APIs (effect hook)</h1>
 </section><section class="slide"><h2>Querying APIs (effect hook)</h2>
-<p>Often API data needs to be queried when a component is first mounted or when its props / state change</p>
+<p>Often API data needs to be queried when a component was mounted for the first time or when its props / state have changed</p>
 </section><section class="slide"><h2>Querying APIs (effect hook)</h2>
-<p>The <em>effect hook</em> can be used to perform some actions when a component is first mounted or when its props / state change</p>
+<p>The <em>effect hook</em> can be used to perform actions when a component was mounted for the first time or whent its props / state have changed</p>
 <pre><code class="hljs language-js">useEffect(
   effect, <span class="hljs-comment">// what should happen</span>
   dependencies <span class="hljs-comment">// array of values to watch</span>
 );
 </code></pre>
 </section><section class="slide"><h2>Querying APIs (effect hook)</h2>
-<p>Example: load todos when component is mounted</p>
+<p>Example: load todos when component has mounted</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> TodoApp = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
   <span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
   <span class="hljs-keyword">const</span> loadTodos = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {

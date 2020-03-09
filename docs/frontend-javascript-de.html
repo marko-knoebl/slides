@@ -2509,7 +2509,7 @@ myCar.accelerate();
 <ul>
 <li><em>lodash</em> (Sammlung nützlicher Funktionen)</li>
 <li><em>jQuery</em> (Erleichtert das Arbeiten mit dem DOM)</li>
-<li><em>immutable.js</em> (Arbeiten mit unveränderlichen Objekten)</li>
+<li><em>immer.js</em> / <em>immutable.js</em> (Arbeiten mit unveränderlichen Objekten)</li>
 <li><em>moment.js</em> (Arbeiten mit Zeitangaben)</li>
 </ul>
 </section><section class="slide"><h2>jQuery</h2>
@@ -2534,6 +2534,26 @@ myCar.accelerate();
 <li><code>$(element).on('click', ...)</code></li>
 <li><code>$(element).click(...)</code></li>
 </ul>
+</section><section class="slide"><h2>immutable.js</h2>
+<p>Bietet insbesondere die Datenstrukturen <em>List</em> und <em>Map</em> als unveränderliche Alternativen zu <em>Array</em> und <em>Object</em>.</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { List, <span class="hljs-built_in">Map</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'immutable'</span>;
+
+<span class="hljs-keyword">const</span> a1 = List([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]);
+<span class="hljs-keyword">const</span> a2 = a1.push(<span class="hljs-number">4</span>);
+
+<span class="hljs-keyword">const</span> b1 = <span class="hljs-built_in">Map</span>({ <span class="hljs-attr">a</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">b</span>: <span class="hljs-number">2</span> });
+<span class="hljs-keyword">const</span> b2 = b1.set(<span class="hljs-string">'b'</span>, <span class="hljs-literal">null</span>);
+</code></pre>
+</section><section class="slide"><h2>immutable.js</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { fromJS, setIn } <span class="hljs-keyword">from</span> <span class="hljs-string">'immutable'</span>;
+
+<span class="hljs-keyword">const</span> todos = fromJS([
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'groceries'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'gardening'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
+]);
+
+<span class="hljs-keyword">const</span> newTodos = todos.setIn([<span class="hljs-number">1</span>, <span class="hljs-string">'completed'</span>], <span class="hljs-literal">true</span>);
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Übungen</h1>
 <ul>
 <li>Lotto - Generator</li>

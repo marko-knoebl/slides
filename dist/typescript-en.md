@@ -137,9 +137,9 @@ class MyComp extends Component<MyProps, MyState> {
 
 ## Type declarations for libraries
 
-Several JavaScript Libraries come with type declarations for TypeScript - e.g. _react_, _redux_.
+Several JavaScript Libraries come with type declarations for TypeScript - e.g. _redux_.
 
-For other libraries there are usually external declaration packages that are prefixed with _@types/_; e.g. for _react-redux_ there's the package _@types/react-redux_.
+For other libraries there are usually external declaration packages that are prefixed with _@types/_; e.g. for _react_ there's the package _@types/react_.
 
 # TypeScript Intermediate
 
@@ -148,7 +148,7 @@ For other libraries there are usually external declaration packages that are pre
 Any: variable can be of any type - disables the typechecker for this variable
 
 ```ts
-let myInput: any = document.getElementById('myinput');
+const myInput: any = document.getElementById('myinput');
 
 console.log(myInput.value);
 ```
@@ -158,7 +158,7 @@ console.log(myInput.value);
 Enable treating an existing object as a specific type
 
 ```ts
-let myInput = document.getElementById(
+const myInput = document.getElementById(
   'first-name'
 ) as HTMLInputElement;
 
@@ -201,7 +201,7 @@ type Action = {
 };
 
 type AddTodoAction = Action & {
-  type: 'ADD_TODO';
+  type: 'addTodo';
   payload: string;
 };
 ```

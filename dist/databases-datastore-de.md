@@ -997,3 +997,7 @@ MongoDB basiert auf dem BSON Dateiformat. Dieses √§hnelt JSON, ist aber ein bin√
 
 Der Export bzw Import geschieht mittels der Programme `mongodump` und `mongorestore`
 
+## NeDB
+
+NeDB: einfache JavaScript-Library, die das MongoDB Interface implementiert
+

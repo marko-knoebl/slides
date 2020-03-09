@@ -2253,7 +2253,112 @@ logFirstIncompleteTodo();
   });
 </code></pre>
 </section><section class="slide"><h2>Promise.race</h2>
-<p>Use the first successful promise as the result</p></section></section></div>
+<p>Use the first successful promise as the result</p>
+</section></section><section class="slides-section"><section class="slide"><h1>Axios</h1>
+</section><section class="slide"><h2>Axios</h2>
+<p>widely used library that provides more functionality / a simpler interface than <code>fetch</code></p>
+</section><section class="slide"><h2>Axios</h2>
+<p>Fetching JSON data:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> axios <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>;
+
+axios(
+  <span class="hljs-string">'https://jsonplaceholder.typicode.com/todos'</span>
+).then(<span class="hljs-function"><span class="hljs-params">res</span> =></span> <span class="hljs-built_in">console</span>.log(res.data));
+</code></pre>
+</section><section class="slide"><h2>Status codes in Axios</h2>
+<p>default behavior:</p>
+<ul>
+<li>status codes in the 200 range: successful promise resolution</li>
+<li>status codes in 400 and 500 ranges: promise rejection</li>
+</ul>
+</section></section><section class="slides-section"><section class="slide"><h1>Fetch &#x26; axios: examples</h1>
+</section><section class="slide"><h2>Fetching JSON data</h2>
+<pre><code class="hljs language-js">fetch(<span class="hljs-string">'https://jsonplaceholder.typicode.com/todos'</span>)
+  .then(<span class="hljs-function"><span class="hljs-params">res</span> =></span> res.json())
+  .then(<span class="hljs-function"><span class="hljs-params">data</span> =></span> <span class="hljs-built_in">console</span>.log(data));
+</code></pre>
+<!-- prettier-ignore -->
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> axios <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>;
+
+axios(<span class="hljs-string">'https://jsonplaceholder.typice.com/todos'</span>)
+  .then(<span class="hljs-function"><span class="hljs-params">res</span> =></span> <span class="hljs-built_in">console</span>.log(res.data));
+</code></pre>
+</section><section class="slide"><h2>Fetching text content</h2>
+<pre><code class="hljs language-js">fetch(<span class="hljs-string">'https://www.w3.org'</span>)
+  .then(<span class="hljs-function"><span class="hljs-params">res</span> =></span> res.text())
+  .then(<span class="hljs-function"><span class="hljs-params">content</span> =></span> <span class="hljs-built_in">console</span>.log(content));
+</code></pre>
+<!-- prettier-ignore -->
+<pre><code class="hljs language-js">axios(<span class="hljs-string">'https://www.w3.org'</span>, { <span class="hljs-attr">responseType</span>: <span class="hljs-string">'text'</span> })
+  .then(<span class="hljs-function"><span class="hljs-params">content</span> =></span> <span class="hljs-built_in">console</span>.log(content));
+</code></pre>
+<p>Warning: By default axios will at least <em>try</em> to parse as JSON</p>
+</section><section class="slide"><h2>Posting data</h2>
+<pre><code class="hljs language-js">fetch(<span class="hljs-string">'https://jsonplaceholder.typicode.com/todos'</span>, {
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'post'</span>,
+  <span class="hljs-attr">body</span>: <span class="hljs-string">'{"title": "xyz"}'</span>,
+  <span class="hljs-attr">headers</span>: { <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span> },
+});
+</code></pre>
+<pre><code class="hljs language-js">axios.post(
+  <span class="hljs-string">'https://jsonplaceholder.typicode.com/todos'</span>,
+  <span class="hljs-string">'{"title": "xyz"}'</span>,
+  { <span class="hljs-attr">headers</span>: { <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span> } }
+);
+</code></pre>
+</section><section class="slide"><h2>Querying a GraphQL API</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> query = <span class="hljs-string">'{pokemon(name: "Pikachu") {number name}}'</span>;
+<span class="hljs-keyword">const</span> body = <span class="hljs-built_in">JSON</span>.stringify({ <span class="hljs-attr">query</span>: query });
+
+fetch(<span class="hljs-string">'https://graphql-pokemon.now.sh'</span>, {
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'post'</span>,
+  <span class="hljs-attr">body</span>: body,
+  <span class="hljs-attr">headers</span>: { <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span> },
+})
+  .then(<span class="hljs-function"><span class="hljs-params">res</span> =></span> res.json())
+  .then(<span class="hljs-function"><span class="hljs-params">data</span> =></span> <span class="hljs-built_in">console</span>.log(data.data));
+</code></pre>
+</section><section class="slide"><h2>Querying a GraphQL API</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> query = <span class="hljs-string">'{pokemon(name: "Pikachu") {number name}}'</span>;
+<span class="hljs-keyword">const</span> body = <span class="hljs-built_in">JSON</span>.stringify({ <span class="hljs-attr">query</span>: query });
+
+axios
+  .post(<span class="hljs-string">'https://graphql-pokemon.now.sh'</span>, body, {
+    <span class="hljs-attr">headers</span>: { <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span> },
+  })
+  .then(<span class="hljs-function"><span class="hljs-params">res</span> =></span> <span class="hljs-built_in">console</span>.log(res.data.data));
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Axios advanced</h1>
+</section><section class="slide"><h2>Global defaults</h2>
+<p>examples:</p>
+<pre><code class="hljs language-js">axios.defaults.baseURL = <span class="hljs-string">'https://api.example.com'</span>;
+axios.defaults.headers.common[<span class="hljs-string">'Authorization'</span>] = AUTH_TOKEN;
+axios.defaults.headers.post[<span class="hljs-string">'Content-Type'</span>] =
+  <span class="hljs-string">'application/x-www-form-urlencoded'</span>;
+</code></pre>
+</section><section class="slide"><h2>Custom instances &#x26; defaults</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> todosAxios = axios.create({
+  <span class="hljs-attr">baseURL</span>: <span class="hljs-string">'https://jsonplaceholder.typicode.com/todos'</span>,
+  <span class="hljs-attr">timeout</span>: <span class="hljs-number">2000</span>,
+});
+
+todosAxios.get(<span class="hljs-string">'/'</span>).then(<span class="hljs-built_in">console</span>.log);
+todosAxios.get(<span class="hljs-string">'/1'</span>).then(<span class="hljs-built_in">console</span>.log);
+</code></pre>
+</section><section class="slide"><h2>Interceptors</h2>
+<p><strong>Interceptors</strong> may be added to the configuration; they are called automatically on either requests or responses and can contain additional logic to modify them</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> requestLogger = <span class="hljs-function"><span class="hljs-params">requestConfig</span> =></span> {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'sending request'</span>, requestConfig);
+  <span class="hljs-keyword">return</span> requestConfig;
+};
+todosAxios.interceptors.request.use(requestLogger);
+</code></pre>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> responseLogger = <span class="hljs-function"><span class="hljs-params">response</span> =></span> {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'received response'</span>, response);
+  <span class="hljs-keyword">return</span> response;
+};
+todosAxios.interceptors.request.use(responseLogger);
+</code></pre></section></section></div>
     </div>
     <script>/*!
  * reveal.js

@@ -318,3 +318,153 @@ Promise.all([promise1, promise2])
 
 Use the first successful promise as the result
 
+# Axios
+
+## Axios
+
+widely used library that provides more functionality / a simpler interface than `fetch`
+
+## Axios
+
+Fetching JSON data:
+
+```js
+import axios from 'axios';
+
+axios(
+  'https://jsonplaceholder.typicode.com/todos'
+).then(res => console.log(res.data));
+```
+
+## Status codes in Axios
+
+default behavior:
+
+- status codes in the 200 range: successful promise resolution
+- status codes in 400 and 500 ranges: promise rejection
+
+# Fetch & axios: examples
+
+## Fetching JSON data
+
+```js
+fetch('https://jsonplaceholder.typicode.com/todos')
+  .then(res => res.json())
+  .then(data => console.log(data));
+```
+
+<!-- prettier-ignore -->
+```js
+import axios from 'axios';
+
+axios('https://jsonplaceholder.typice.com/todos')
+  .then(res => console.log(res.data));
+```
+
+## Fetching text content
+
+```js
+fetch('https://www.w3.org')
+  .then(res => res.text())
+  .then(content => console.log(content));
+```
+
+<!-- prettier-ignore -->
+```js
+axios('https://www.w3.org', { responseType: 'text' })
+  .then(content => console.log(content));
+```
+
+Warning: By default axios will at least _try_ to parse as JSON
+
+## Posting data
+
+```js
+fetch('https://jsonplaceholder.typicode.com/todos', {
+  method: 'post',
+  body: '{"title": "xyz"}',
+  headers: { 'Content-Type': 'application/json' },
+});
+```
+
+```js
+axios.post(
+  'https://jsonplaceholder.typicode.com/todos',
+  '{"title": "xyz"}',
+  { headers: { 'Content-Type': 'application/json' } }
+);
+```
+
+## Querying a GraphQL API
+
+```js
+const query = '{pokemon(name: "Pikachu") {number name}}';
+const body = JSON.stringify({ query: query });
+
+fetch('https://graphql-pokemon.now.sh', {
+  method: 'post',
+  body: body,
+  headers: { 'Content-Type': 'application/json' },
+})
+  .then(res => res.json())
+  .then(data => console.log(data.data));
+```
+
+## Querying a GraphQL API
+
+```js
+const query = '{pokemon(name: "Pikachu") {number name}}';
+const body = JSON.stringify({ query: query });
+
+axios
+  .post('https://graphql-pokemon.now.sh', body, {
+    headers: { 'Content-Type': 'application/json' },
+  })
+  .then(res => console.log(res.data.data));
+```
+
+# Axios advanced
+
+## Global defaults
+
+examples:
+
+```js
+axios.defaults.baseURL = 'https://api.example.com';
+axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
+axios.defaults.headers.post['Content-Type'] =
+  'application/x-www-form-urlencoded';
+```
+
+## Custom instances & defaults
+
+```js
+const todosAxios = axios.create({
+  baseURL: 'https://jsonplaceholder.typicode.com/todos',
+  timeout: 2000,
+});
+
+todosAxios.get('/').then(console.log);
+todosAxios.get('/1').then(console.log);
+```
+
+## Interceptors
+
+**Interceptors** may be added to the configuration; they are called automatically on either requests or responses and can contain additional logic to modify them
+
+```js
+const requestLogger = requestConfig => {
+  console.log('sending request', requestConfig);
+  return requestConfig;
+};
+todosAxios.interceptors.request.use(requestLogger);
+```
+
+```js
+const responseLogger = response => {
+  console.log('received response', response);
+  return response;
+};
+todosAxios.interceptors.request.use(responseLogger);
+```
+

@@ -82,68 +82,16 @@ Code verfügbar unter: https://github.com/marko-knoebl/courses-code
 - Aktuelle Major Version: React 16 (September 2017)
 - Februar 2019: Einführung von Hooks
 
-# Grundlagen für die Schulung
-
-## Grundlagen für die Schulung
-
-- [VS Code Grundlagen und Plugins](./vs-code-de.html)
-- [Modernes JavaScript (ES2015+)](./javascript-es-2015-de.html)
-
-# Create-React-App
-
-## Entwicklung mit node.js und npm
-
-- node.js: JS-Runtime
-  - Ausführen des lokalen Enwicklungsservers
-  - Unit-Tests
-- npm: Paketmanager
-  - zum Verwalten von Abhängigkeiten
-  - Pakete im _node_modules_-Ordner
-  - Konfiguration in _package.json_
-
-## create-react-app
-
-Meistgenutzte Methode zum Erstellen von React-Anwendungen
-
-ausführen via:
-
-```bash
-npx create-react-app playground
-```
-
-oder
-
-```bash
-npx create-react-app playground --template typescript
-```
-
-siehe auch: https://reactjs.org/docs/add-react-to-a-new-app.html
-
-## create-react-app
-
-Erstellt eine einfache React-Anwendung, auf deren Basis weiter gearbeitet werden kann
-
-Viele Aspekte sind vorkonfiguriert:
-
-- lokaler Entwicklungsserver
-- Unittest-Framework jest
-- Webpack und Babel
-- SCSS und CSS Module
-
-## Standard Projektstruktur
-
-- `public/index.html`, `src/index.js`: Einstiegspunkte
-- `App.js`, `App.css`: Definieren App-Komponente
-- `node_modules`: Abhängigkeiten
-
-## Entwicklungsserver und Build
-
-Im Projektordner:
-
-- `npm start`: Startet den lokalen Entwicklungsserver
-- `npm run build`: Erstellt einen Build (zum Deployen auf einem Webserver)
-
 # React & JSX Grundlagen
+
+## Online Editoren
+
+Empfehlung: https://codesandbox.io/s
+
+andere:
+
+- Glitch: https://glitch.com/edit/#!/remix/starter-react-template
+- CodePen: https://reactjs.org/redirect-to-codepen/hello-world
 
 ## Definieren einer Komponente als Funktion
 
@@ -208,8 +156,13 @@ Beachte die fehlenden Anführungszeichen bei href
 ## JSX: events
 
 ```jsx
-const hello = () => {...}
+const hello = () => {
+  console.log('hello world');
+  // ...
+};
+```
 
+```jsx
 <button onClick={hello}>Say Hello</button>
 ```
 
@@ -226,7 +179,7 @@ Auf den state kann im Template verwiesen werden. Damit ändert sich die Anzeige 
 
 ## State in Funktionskomponenten
 
-In Funktionskomponenten verwenden wir den Hook `useState`:
+In Funktionskomponenten verwenden wir den _State Hook_:
 
 ```js
 import { useState } from 'react';
@@ -255,7 +208,7 @@ Wir fügen unserer Anwendung einen Button hinzu. Zu Beginn zeigt dieser den Wert
 ## Beispiel: Counter
 
 ```jsx
-const App = () => {
+const Counter = () => {
   const [count, setCount] = useState(0);
 
   return (
@@ -283,21 +236,100 @@ Slideshow, die Bilder wie das folgende anzeigt:
 - Button für _zurück zum Start_
 - Verhindern, dass ins negative gezählt wird
 
-# Immutable state
+# Grundlagen für die Schulung
 
-## Immutable state
+## Grundlagen für die Schulung
+
+- [VS Code Grundlagen und Plugins](./vs-code-de.html)
+- [Modernes JavaScript (ES2015+)](./javascript-es-2015-de.html)
+
+# Create-React-App
+
+## Entwicklung mit node.js und npm
+
+- node.js: JS-Runtime
+  - Ausführen des lokalen Enwicklungsservers
+  - Unit-Tests
+- npm: Paketmanager
+  - zum Verwalten von Abhängigkeiten
+  - Pakete im _node_modules_-Ordner
+  - Konfiguration in _package.json_
+
+## create-react-app
+
+Meistgenutzte Methode zum Erstellen von React-Anwendungen
+
+ausführen via:
+
+```bash
+npx create-react-app playground
+```
+
+oder
+
+```bash
+npx create-react-app playground --template typescript
+```
+
+siehe auch: https://reactjs.org/docs/add-react-to-a-new-app.html
+
+## create-react-app
+
+Erstellt eine einfache React-Anwendung, auf deren Basis weiter gearbeitet werden kann
+
+Viele Aspekte sind vorkonfiguriert:
+
+- lokaler Entwicklungsserver
+- Unittest-Framework jest
+- Webpack und Babel
+- SCSS und CSS Module
+
+## Standard Projektstruktur
+
+- `public/index.html`, `src/index.js`: Einstiegspunkte
+- `App.js`, `App.css`: Definieren App-Komponente
+- `node_modules`: Abhängigkeiten
+
+## Entwicklungsserver und Build
+
+Im Projektordner:
+
+- `npm run start` (oder `npm start`): Startet den lokalen Entwicklungsserver
+- `npm run build`: Erstellt einen Build (zum Deployen auf einem Webserver)
+
+# Immutable State
+
+## Immutable State
 
 **Immutability**: Wichtiges Konzept in der funktionalen Programmierung und bei React / Redux
 
 Daten werden nicht direkt abgeändert - stattdessen werden neue Daten auf Basis der alten generiert
 
-## Immutable state
+## Immutable State
 
 Wenn unser State Arrays oder Objekte enthält, _könnten_ wir versuchen, diese direkt abzuändern
 
 Das sollten wir _nicht_ tun - React bemerkt üblicherweise diese Änderungen nicht und aktualisiert die Ansicht nicht
 
 Objekte im State sollten als _unveränderlich_ erachtet werden
+
+## Immutable State
+
+Wenn `setState` aufgerufen wird, vergleicht React:
+
+- das Objekt, das der alte State referenziert
+- das Objekt, das der neue State referenzeirt
+
+Wenn der alte und neue State das gleiche Objekt referenzieren (auch wenn dieses verändert wurde), wird die Komponente nicht neu gerendert
+
+## Immutable State
+
+Code wie der folgende ist **nicht** erlaubt, um State abzuändern, da React die Mutation nicht "sieht":
+
+```js
+todos[0].completed = true;
+todos.push({ title: 'study', completed: false });
+```
 
 ## Datenverwaltung ohne Mutationen: Arrays
 
@@ -342,61 +374,30 @@ user.email = 'johndoe@gmail.com';
 let newUser = { ...user, email: 'johndoe@gmail.com' };
 ```
 
-## immer.js und immutable.js
-
-Libraries, die das Arbeiten ohne Mutationen erleichtern
-
 ## immer.js
+
+Library, die das Arbeiten ohne Mutationen erleichtert
 
 wird insbesondere vom Redux-Team empfohlen
 
-Änderungen werden über ein _draft_-Objekt angegeben
-
 ## immer.js
+
+this code would mutate the todos array:
+
+```js
+todos[0].completed = true;
+todos.push({ title: 'study', completed: false });
+```
+
+avoiding mutations by using immer:
 
 ```js
 import produce from 'immer';
 
-const todos = [
-  { id: 1, title: 'groceries', completed: false },
-  { id: 2, title: 'gardening', completed: false },
-];
-
 const newTodos = produce(todos, todosDraft => {
-  todosDraft[1].completed = true;
-  todosDraft.push({
-    id: 3,
-    title: 'relax',
-    completed: false,
-  });
+  todosDraft[0].completed = true;
+  todosDraft.push({ title: 'study', completed: false });
 });
-```
-
-## immutable.js
-
-Bietet insbesondere die Datenstrukturen _List_ und _Map_ als unveränderliche Alternativen zu _Array_ und _Object_.
-
-```js
-import { List, Map } from 'immutable';
-
-const a1 = List([1, 2, 3]);
-const a2 = a1.push(4);
-
-const b1 = Map({ a: 1, b: 2 });
-const b2 = b1.set('b', null);
-```
-
-## immutable.js
-
-```js
-import { fromJS, setIn } from 'immutable';
-
-const todos = fromJS([
-  { id: 1, title: 'groceries', completed: false },
-  { id: 2, title: 'gardening', completed: false },
-]);
-
-const newTodos = todos.setIn([1, 'completed'], true);
 ```
 
 # Inputs & Formulare
@@ -422,7 +423,7 @@ So können wir den Value eines Inputs im State erfassen:
 />
 ```
 
-## Formulare
+## Formular-Aktionen
 
 Standardverhalten eines Formulars beim Submit: Direktes Senden der Daten an den Server
 
@@ -436,6 +437,78 @@ Ersetzen des Standardverhaltens:
   }}>
   <input />
 </form>
+```
+
+## Formular-Validierung
+
+"manuelle" Validierung:
+
+```js
+const NewsletterRegistration = () => {
+  const [email, setEmail] = useState('');
+  const [emailEdited, setEmailEdited] = useState(false);
+
+  return (
+    <form
+      onSubmit={e => {
+        e.preventDefault();
+        console.log(email);
+      }}>
+      <input
+        type="email"
+        name="email"
+        value={email}
+        onChange={event => setEmail(event.target.value)}
+        onBlur={() => setEmailEdited(true)}
+      />
+      <button disabled={!emailValid}>subscribe</button>
+      {emailEdited && !isEmail ? (
+        <div>invalid email</div>
+      ) : null}
+    </form>
+  );
+};
+
+const isEmail = email =>
+  email.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i);
+```
+
+## Formulare mit "Formik"
+
+npm-Paket: _formik_
+
+stellt Komponenten (_Form_, _Field_, ...) bereit, die Code verinfachen können
+
+kann besonders für komplexere Formulare nützlich sein
+
+## Formulare mit "Formik"
+
+```js
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+
+const NewsletterRegistration = () => (
+  <Formik
+    initialValues={{ email: '' }}
+    onSubmit={values => console.log(values)}
+    validate={values => {
+      const errors = {};
+      if (!isEmail(values.email)) {
+        errors.email = 'invalid email';
+      }
+      return errors;
+    }}>
+    {props => (
+      <Form>
+        <Field type="email" name="email" />
+        <button disabled={!props.isValid}>subscribe</button>
+        <ErrorMessage name="email" component="div" />
+      </Form>
+    )}
+  </Formik>
+);
+
+const isEmail = email =>
+  email.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i);
 ```
 
 # React Developer Tools
@@ -761,6 +834,96 @@ $primary: lightblue;
 />
 ```
 
+## React Styling Libraries
+
+Beispiele:
+
+- styled-components
+- jss
+- emotion
+- radium
+- ...
+
+## styled-components
+
+Library, die es ermöglicht, bestehende HTML-Elemente mit eigenen Stilen zu versehen
+
+npm-Paket: `styled-components`
+
+## styled-components
+
+```jsx
+import styled from 'styled-components';
+
+const BlockImg = styled.img`
+  display: block;
+`;
+
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+const Slideshow = props => (
+  <Container>
+    <button>prev</button>
+    <BlockImg src="..." alt="..." />
+    <button>next</button>
+  </Container>
+);
+```
+
+## styled-components
+
+dynamic styles via props:
+
+```jsx
+import styled from 'styled-components';
+
+const Button = styled.button`
+  color: ${props => (props.primary ? 'black' : 'white')};
+  background-color: ${props =>
+    props.primary ? 'white' : 'navy'};
+`;
+
+const Slideshow = props => (
+  <Container>
+    <Button primary={true}>prev</Button>
+    <BlockImg src="..." alt="..." />
+    <Button primary={true}>next</Button>
+  </Container>
+);
+```
+
+## radium
+
+Library, die die Syntax der `style`-Property von HTML-Elementen in Komponenten erweitert
+
+npm-Paket: `radium`
+
+## radium
+
+```jsx
+const styles = {
+  base: {
+    padding: '8px',
+  },
+  primary: {
+    color: 'white',
+    backgroundColor: 'navy',
+  },
+};
+
+const TestButton = props => (
+  <button
+    style={[styles.base, props.primary && styles.primary]}>
+    test
+  </button>
+);
+
+export default radium(TestButton);
+```
+
 # Komponentenlibraries
 
 ## Komponentenlibraries
@@ -1054,11 +1217,11 @@ Eventtypen für separat definierte Eventhandler:
 
 ## APIs abfragen (Effect Hook)
 
-Oft müssen API Daten abgefragt werden, wenn eine Komponente zum ersten Mal eingebunden wird, oder wenn sich props bzw state ändern
+Oft müssen API Daten abgefragt werden, wenn eine Komponente zum ersten Mal eingebunden wurde, oder wenn sich props bzw state geändert haben
 
 ## APIs abfragen (Effect Hook)
 
-Der _Effect Hook_ kann verwendet werden, um bestimmte Aktionen zu setzen, wenn eine Komponente neu eingebunden wird oder wenn ihre Props / State sich ändern
+Der _Effect Hook_ kann verwendet werden, um bestimmte Aktionen zu setzen, wenn eine Komponente neu eingebunden wurde oder wenn ihre Props / State sich geändert haben
 
 ```js
 useEffect(
@@ -1069,7 +1232,7 @@ useEffect(
 
 ## APIs abfragen (Effect Hook)
 
-Beispiel: Laden von Todos, wenn die Komponente eingebunden wird
+Beispiel: Laden von Todos, wenn die Komponente eingebunden wurde
 
 ```js
 const TodoApp = () => {

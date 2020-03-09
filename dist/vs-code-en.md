@@ -91,7 +91,7 @@ e.g. via _.prettierrc.json_:
 ```json
 {
   "singleQuote": true,
-  "trailingComma": "all"
+  "arrowParens": "always"
 }
 ```
 
