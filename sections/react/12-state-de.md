@@ -8,7 +8,7 @@ Auf den state kann im Template verwiesen werden. Damit ändert sich die Anzeige 
 
 ## State in Funktionskomponenten
 
-In Funktionskomponenten verwenden wir den Hook `useState`:
+In Funktionskomponenten verwenden wir den _State Hook_:
 
 ```js
 import { useState } from 'react';
@@ -37,7 +37,7 @@ Wir fügen unserer Anwendung einen Button hinzu. Zu Beginn zeigt dieser den Wert
 ## Beispiel: Counter
 
 ```jsx
-const App = () => {
+const Counter = () => {
   const [count, setCount] = useState(0);
 
   return (

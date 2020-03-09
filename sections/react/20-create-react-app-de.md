@@ -49,5 +49,5 @@ Viele Aspekte sind vorkonfiguriert:
 
 Im Projektordner:
 
-- `npm start`: Startet den lokalen Entwicklungsserver
+- `npm run start` (oder `npm start`): Startet den lokalen Entwicklungsserver
 - `npm run build`: Erstellt einen Build (zum Deployen auf einem Webserver)

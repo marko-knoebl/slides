@@ -70,3 +70,93 @@ $primary: lightblue;
   }}
 />
 ```
+
+## React styling libraries
+
+examples:
+
+- styled-components
+- jss
+- emotion
+- radium
+- ...
+
+## styled-components
+
+library that enables creating styled versions of existing HTML elements
+
+npm package: `styled-components`
+
+## styled-components
+
+```jsx
+import styled from 'styled-components';
+
+const BlockImg = styled.img`
+  display: block;
+`;
+
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+const Slideshow = props => (
+  <Container>
+    <button>prev</button>
+    <BlockImg src="..." alt="..." />
+    <button>next</button>
+  </Container>
+);
+```
+
+## styled-components
+
+dynamic styles via props:
+
+```jsx
+import styled from 'styled-components';
+
+const Button = styled.button`
+  color: ${props => (props.primary ? 'black' : 'white')};
+  background-color: ${props =>
+    props.primary ? 'white' : 'navy'};
+`;
+
+const Slideshow = props => (
+  <Container>
+    <Button primary={true}>prev</Button>
+    <BlockImg src="..." alt="..." />
+    <Button primary={true}>next</Button>
+  </Container>
+);
+```
+
+## radium
+
+library that extends the `style` property syntax of HTML elements in a component
+
+npm package: `radium`
+
+## radium
+
+```jsx
+const styles = {
+  base: {
+    padding: '8px',
+  },
+  primary: {
+    color: 'white',
+    backgroundColor: 'navy',
+  },
+};
+
+const TestButton = props => (
+  <button
+    style={[styles.base, props.primary && styles.primary]}>
+    test
+  </button>
+);
+
+export default radium(TestButton);
+```

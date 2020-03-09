@@ -5,7 +5,6 @@
 - **GraphQL.js** (reference implementation)
 - **express-graphql** (reference implementation for express)
 - **apollo-server**
-- **graphql-yoga**: based on _GraphQL.js_ and _apollo-server_
 - ... (see http://graphql.github.io/code/ for other options)
 
 ## GraphQL on the server: parts

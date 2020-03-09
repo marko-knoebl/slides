@@ -5,7 +5,7 @@
 Any: lässt alle Typen zu
 
 ```ts
-let myInput: any = document.getElementById('myinput');
+const myInput: any = document.getElementById('myinput');
 
 console.log(myInput.value);
 ```
@@ -15,7 +15,7 @@ console.log(myInput.value);
 ermöglichen das Behandeln eines vorhandenen Objekts als bestimmter Typ
 
 ```ts
-let myInput = document.getElementById(
+const myInput = document.getElementById(
   'first-name'
 ) as HTMLInputElement;
 
@@ -58,7 +58,7 @@ type Action = {
 };
 
 type AddTodoAction = Action & {
-  type: 'ADD_TODO';
+  type: 'addTodo';
   payload: string;
 };
 ```

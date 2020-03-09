@@ -5,7 +5,7 @@
 Any: variable can be of any type - disables the typechecker for this variable
 
 ```ts
-let myInput: any = document.getElementById('myinput');
+const myInput: any = document.getElementById('myinput');
 
 console.log(myInput.value);
 ```
@@ -15,7 +15,7 @@ console.log(myInput.value);
 Enable treating an existing object as a specific type
 
 ```ts
-let myInput = document.getElementById(
+const myInput = document.getElementById(
   'first-name'
 ) as HTMLInputElement;
 
@@ -58,7 +58,7 @@ type Action = {
 };
 
 type AddTodoAction = Action & {
-  type: 'ADD_TODO';
+  type: 'addTodo';
   payload: string;
 };
 ```

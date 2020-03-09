@@ -17,7 +17,7 @@ npx create-next-app my-app
 ## npm Scripts
 
 - `npm run dev`: ausführen des Entwicklungsservers
-- `npm (run) start`: ausführen des Produktionsservers
+- `npm run start` (oder `npm start`): ausführen des Produktionsservers
 - `npm run build`: erstellen einer statischen Version für das Deployment
 
 ## Entwicklungsserver
@@ -84,7 +84,18 @@ export default Post;
 
 ## API-Abfragen mit next.js
 
-In next.js kann der rendernde Server bereits APIs abfragen und die Daten zum Rendering verwenden und an den Client weitergeben
+Üblicher Prozess zum Laden von Daten in einer React-Anwendung:
+
+- React-Anwendung wird zum Client gesendet
+- React-Anwendung wird zunächst ohne Daten gerendert
+- Client fragt vom Server Daten an
+- Daten werden zum Client gesendet
+
+Prozess mit next.js:
+
+- Daten werden am Server geladen
+- Anwendung wird am Server gerendert
+- Vorgerenderte Anwendung und zugehörige Daten um sie dynamisch zu machen werden zum Client gesendet
 
 ## API-Abfragen mit next.js
 

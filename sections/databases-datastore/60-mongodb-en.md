@@ -61,3 +61,7 @@ Its structure may look similar to that of a JSON document
 MongoDB is based on the BSON file format. It resembles JSON, but it is a binary format and can be read and written more efficiently
 
 Importing and exporting can be done via the programs `mongodump` und `mongorestore`
+
+## NeDB
+
+NeDB: simple JavaScript library that implements the MongoDB interface

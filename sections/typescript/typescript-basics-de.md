@@ -137,6 +137,6 @@ class MyComp extends Component<MyProps, MyState> {
 
 ## Typendeklarationen für Libraries
 
-Einige JavaScript Libraries beinhalten auch Typendeklarationen für TypeScript - z.B. _react_, _redux_.
+Manche JavaScript Libraries beinhalten auch Typendeklarationen für TypeScript - z.B. _redux_.
 
-Für andere Libraries gibt es meist externe Deklarationen mit dem Präfix _@types/_, z.B. für _react-redux_ existiert das Paket _@types/react-redux_.
+Für andere Libraries gibt es meist externe Deklarationen mit dem Präfix _@types/_, z.B. für _react_ existiert das Paket _@types/react_.

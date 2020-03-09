@@ -8,7 +8,7 @@ The state can be referenced in the template. The view will automatically update 
 
 ## state in function components
 
-In function components we make use of `useState`:
+In function components we make use of the _state hook_:
 
 ```js
 import { useState } from 'react';
@@ -37,7 +37,7 @@ We will add a button to our application. At the start this button will display t
 ## Example: Counter
 
 ```jsx
-const App = () => {
+const Counter = () => {
   const [count, setCount] = useState(0);
 
   return (

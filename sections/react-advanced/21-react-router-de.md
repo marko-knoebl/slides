@@ -18,11 +18,12 @@ Ganze Anwendung wird in ein `BrowserRouter` - Element eingebettet
 
 ```js
 import { BrowserRouter } from 'react-router-dom';
-[...]
+
+// ...
 
 <BrowserRouter>
-  <App/>
-</BrowserRouter>
+  <App />
+</BrowserRouter>;
 ```
 
 ## React Router - Routen definieren
@@ -45,9 +46,7 @@ import { Route } from 'react-router-dom';
 <Route
   path="/add"
   exact={true}
-  render={props => (
-    <AddTodo onSubmit={this.handleAddTodo} />
-  )}
+  render={() => <AddTodo onSubmit={this.handleAddTodo} />}
 />;
 ```
 
@@ -73,26 +72,66 @@ import { Switch } from 'react-router-dom';
 </Switch>;
 ```
 
-## React Router - Redirects
+## React Router - Hooks
 
-```jsx
-import { Redirect } from 'react-router-dom';
-
-<Route
-  path="/home"
-  render={props => <Redirect to="/" />}
-/>;
-```
+- `useParams`
+- `useHistory`
 
 ## React Router - Routenparameter
 
 ```jsx
+<Route path="/todos/:todoId" component={TodoDetailView} />
+```
+
+```jsx
+import { useParams } from 'react-router-dom';
+
+const TodoDetailView = () => {
+  const routeParams = useParams();
+  return (
+    <div>
+      Details of todo: {routeParams.todoId}
+      <div>...</div>
+    </div>
+  );
+};
+```
+
+## React Router - Navigation aus React
+
+Möglichkeiten:
+
+- Rendern einer `<Redirect>`-Komponente
+- Verwendung des history Hooks
+
+## React Router - Navigation aus React
+
+```jsx
+import { Redirect } from 'react-router-dom';
+```
+
+```jsx
 <Route
-  path="/todos/:todoId"
-  render={props => (
-    <div>Current todo: {props.match.params.todoId}</div>
-  )}
+  path="/member"
+  render={() =>
+    username ? <MemberArea /> : <Redirect to="/login" />
+  }
 />
 ```
 
-Routenparameter sind unter _props.match.params_ abzurufen
+## React Router - Navigation aus React
+
+```jsx
+import { useHistory } from 'react-router-dom';
+
+const AddTodoView = () => {
+  const history = useHistory();
+  const handleSubmit = event => {
+    event.preventDefault();
+    // ...
+    // go back to home view
+    history.push('/');
+  };
+  return <form>...</form>;
+};
+```

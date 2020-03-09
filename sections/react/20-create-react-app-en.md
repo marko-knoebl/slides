@@ -49,5 +49,5 @@ many aspects are preconfigured:
 
 inside the project directory:
 
-- `npm start`: starts the local development server
+- `npm run start` (or `npm start`): starts the local development server
 - `npm run build`: creates a build (for deployment)

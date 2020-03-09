@@ -2,7 +2,7 @@
 
 ## External hooks
 
-Many additional hook are provided by the React community
+Many additional hooks are provided by the React community
 
 example use cases:
 

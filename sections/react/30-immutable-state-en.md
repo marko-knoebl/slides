@@ -16,7 +16,10 @@ state should be viewed as _immutabe_ (unchangeable)
 
 ## Immutable state
 
-When `setState` is called, React will compare the object the old state points to with the object the new state points to
+When `setState` is called, React will compare:
+
+- the object the old state points to
+- the object the new state points to
 
 If the old state and the new state reference the same object (even if it has changed), the component will not be rerendered.
 

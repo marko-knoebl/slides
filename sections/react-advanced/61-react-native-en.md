@@ -123,3 +123,20 @@ const TodoItem = ({ title, completed, onToggle }) => (
   </View>
 );
 ```
+
+## Platform-specific code
+
+option 1 (simple cases):
+
+```js
+import { Platform } from 'react-native';
+if (Platform.OS === 'web') {
+  // 'web' / 'ios' / 'android'
+}
+```
+
+option 2 (platform-specific components):
+
+- `AddTodo.web.js`
+- `AddTodo.ios.js`
+- `AddTodo.android.js`

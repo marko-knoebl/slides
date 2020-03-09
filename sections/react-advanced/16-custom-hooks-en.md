@@ -39,25 +39,18 @@ Example: `useTodos` - can be used to extract data handling from the component de
 
 ```js
 const TodoApp = () => {
-  const {
-    todos,
-    reload,
-    isLoading,
-    addTodo,
-    toggleTodo,
-    deleteTodo,
-  } = useTodos();
+  const todoCtrl = useTodos();
   return (
     <div>
       <h1>Todo</h1>
       <TodoList
-        todos={todos}
-        isLoading={isLoading}
-        onReload={reload}
-        onToggle={toggleTodo}
-        onDelete={deleteTodo}
+        todos={todoCtrl.todos}
+        isLoading={todoCtrl.isLoading}
+        onReload={todoCtrl.reload}
+        onToggle={todoCtrl.toggleTodo}
+        onDelete={todoCtrl.deleteTodo}
       />
-      <AddTodo onAdd={addTodo} />
+      <AddTodo onAdd={todoCtrl.addTodo} />
     </div>
   );
 };
@@ -94,6 +87,13 @@ const useTodos = () => {
   };
 };
 ```
+
+## Custom hooks - useAuth
+
+examples for hooks that handle authentication:
+
+- https://usehooks.com/useAuth/
+- https://medium.com/hackernoon/learn-react-hooks-by-building-an-auth-based-to-do-app-c2d143928b0b
 
 ## Custom hooks - useJsonQuery
 

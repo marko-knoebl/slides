@@ -16,8 +16,8 @@ what to test:
 
 ## Test renderers for React
 
+- `react-testing-library` (subproject of _testing library_)
 - `react-test-renderer` (developed by the React team)
-- `react-testing-library` (subproject of _testing library_, first published in mid-2019)
 - `Enzyme`
 
 ## Snapshot Tests

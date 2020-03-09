@@ -1,5 +1,14 @@
 # React & JSX Basics
 
+## Online editors
+
+recommendation: https://codesandbox.io/s
+
+others:
+
+- Glitch: https://glitch.com/edit/#!/remix/starter-react-template
+- CodePen: https://reactjs.org/redirect-to-codepen/hello-world
+
 ## Defining a component as a function
 
 ```jsx
@@ -63,8 +72,13 @@ Note there are no quote characters around the value of _href_
 ## JSX: events
 
 ```jsx
-const hello = () => {...}
+const hello = () => {
+  console.log('hello world');
+  // ...
+};
+```
 
+```jsx
 <button onClick={hello}>Say Hello</button>
 ```
 

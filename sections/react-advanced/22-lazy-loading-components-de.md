@@ -1,0 +1,46 @@
+# Lazy-Loading von Komponenten
+
+## Lazy-Loading von Komponenten
+
+um Bundle-Größen von React-Apps zu reduzieren: Komponenten erst importieren, wenn sie benötigt werden
+
+häufige Verwendung: importieren von einer Route erst, wenn sie aufgerufen wird
+
+## Lazy-Loading von Komponenten
+
+Imports in JavaScript:
+
+- `import` als Statement: synchroner Import bevor der Rest der Datei ausgeführt wird (in webpack: automatisches Integrieren in das Bundle)
+- `import` als Funktion: asynchroner Import, wenn benötigt
+
+## Lazy-Loading von Komponenten
+
+React-Imports für das Lazy-Loading:
+
+- `lazy`-Funktion
+- `Suspense`-Komponente
+
+## Lazy-Loading von Komponenten
+
+```jsx
+import React, { Suspense, lazy } from 'react';
+import { Route } from 'react-router-dom';
+
+const Home = lazy(() => import('./routes/Home'));
+const About = lazy(() => import('./routes/About'));
+
+const App = () => (
+  <Suspense fallback={<div>Loading...</div>}>
+    <Route exact path="/" component={Home} />
+    <Route path="/about" component={About} />
+  </Suspense>
+);
+```
+
+<small>
+  Quelle: <a
+    href="https://reactjs.org/docs/code-splitting.html#route-based-code-splitting"
+  >
+    Route-based code splitting on reactjs.org
+  </a>
+</small>

@@ -17,7 +17,7 @@ npx create-next-app my-app
 ## npm scripts
 
 - `npm run dev`: run the development server
-- `npm (run) start`: run the production server
+- `npm run start` (or `npm start`): run the production server
 - `npm run build`: build a static version for deployment
 
 ## Development server

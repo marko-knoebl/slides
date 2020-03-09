@@ -1,5 +1,14 @@
 # React & JSX Grundlagen
 
+## Online Editoren
+
+Empfehlung: https://codesandbox.io/s
+
+andere:
+
+- Glitch: https://glitch.com/edit/#!/remix/starter-react-template
+- CodePen: https://reactjs.org/redirect-to-codepen/hello-world
+
 ## Definieren einer Komponente als Funktion
 
 ```jsx
@@ -63,8 +72,13 @@ Beachte die fehlenden Anführungszeichen bei href
 ## JSX: events
 
 ```jsx
-const hello = () => {...}
+const hello = () => {
+  console.log('hello world');
+  // ...
+};
+```
 
+```jsx
 <button onClick={hello}>Say Hello</button>
 ```
 

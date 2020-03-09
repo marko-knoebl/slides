@@ -18,11 +18,12 @@ The entire Application is enclosed in a `BrowserRouter` - Element
 
 ```js
 import { BrowserRouter } from 'react-router-dom';
-[...]
+
+// ...
 
 <BrowserRouter>
-  <App/>
-</BrowserRouter>
+  <App />
+</BrowserRouter>;
 ```
 
 ## React Router - defining routes
@@ -45,9 +46,7 @@ import { Route } from 'react-router-dom';
 <Route
   path="/add"
   exact={true}
-  render={props => (
-    <AddTodo onSubmit={this.handleAddTodo} />
-  )}
+  render={() => <AddTodo onSubmit={this.handleAddTodo} />}
 />;
 ```
 
@@ -73,26 +72,66 @@ import { Switch } from 'react-router-dom';
 </Switch>;
 ```
 
-## React Router - Redirects
+## React Router - Hooks
 
-```jsx
-import { Redirect } from 'react-router-dom';
-
-<Route
-  path="/home"
-  render={props => <Redirect to="/" />}
-/>;
-```
+- `useParams`
+- `useHistory`
 
 ## React Router - route parameters
 
 ```jsx
+<Route path="/todos/:todoId" component={TodoDetailView} />
+```
+
+```jsx
+import { useParams } from 'react-router-dom';
+
+const TodoDetailView = () => {
+  const routeParams = useParams();
+  return (
+    <div>
+      Details of todo: {routeParams.todoId}
+      <div>...</div>
+    </div>
+  );
+};
+```
+
+## React Router - navigation from React
+
+possibilities:
+
+- render a `<Redirect >` component
+- use the history hook
+
+## React Router - navigation from React
+
+```jsx
+import { Redirect } from 'react-router-dom';
+```
+
+```jsx
 <Route
-  path="/todos/:todoId"
-  render={props => (
-    <div>Current todo: {props.match.params.todoId}</div>
-  )}
+  path="/main"
+  render={() =>
+    username ? <MemberArea /> : <Redirect to="/login" />
+  }
 />
 ```
 
-Route parameters may be accessed via _props.match.params_
+## React Router - navigation from React
+
+```jsx
+import { useHistory } from 'react-router-dom';
+
+const AddTodoView = () => {
+  const history = useHistory();
+  const handleSubmit = event => {
+    event.preventDefault();
+    // ...
+    // go back to home view
+    history.push('/');
+  };
+  return <form>...</form>;
+};
+```

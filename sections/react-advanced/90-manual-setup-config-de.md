@@ -76,4 +76,4 @@ ReactDOM.render(<App />, mountNode);
 
 ## Ausführen
 
-Wir führen `npm start` für einen Entwicklungsserver oder `npm run build` für einen Build aus.
+Wir führen `npm run start` für einen Entwicklungsserver oder `npm run build` für einen Build aus.
