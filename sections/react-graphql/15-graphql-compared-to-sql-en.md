@@ -1,6 +1,6 @@
 # GraphQL compared to SQL
 
-## GraphQL compared to SQL: examples
+## GraphQL compared to SQL
 
 ```graphql
 query {
@@ -14,7 +14,7 @@ query {
 ```sql
 SELECT login, name
   FROM user
-  WHERE login="my-username";
+  WHERE login='my-username';
 ```
 
 ## GraphQL compared to SQL
@@ -35,7 +35,7 @@ GraphQL: already knows about relationships when the query is issued → simpler 
 
 ```graphql
 query {
-  user(id: "my-username") {
+  user(login: "my-username") {
     posts {
       title
     }

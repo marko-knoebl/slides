@@ -22,7 +22,15 @@ Konzept von _Redux_ und Reacts _Reducer Hook_:
 
 Ein Ereignis in der Anwendung löst eine sogenannte _Action_ aus.
 
-Basierend auf dieser Action wird ein aktueller _State_ mittels einer _Reducer_-Funktion in einen geänderten neuen _State_ übergeführt.
+Basierend auf dieser Action wird ein aktueller _State_ mittels einer _Reducer_-Funktion in einen abgeleiteten neuen _State_ übergeführt.
+
+## State Management mit Actions und Reducern
+
+Ein _Reducer_ ist eine Funktion.
+
+Der Reducer erhält den alten State und eine Action, die eine Änderung am State beschreibt.
+
+Der Reducer gibt den neuen State zurück. Ein Reducer **ändert das alte State-Objekt nicht ab**, sondern erstellt ein neues (Reducer sind reine Funktionen)
 
 ## Reducer Diagramm
 
@@ -37,9 +45,9 @@ const state1 = [
   { id: 1, title: 'groceries', completed: false },
   { id: 2, title: 'taxes', completed: true },
 ];
-const actionA = { type: 'addTodo', title: 'gardening' };
+const actionA = { type: 'addTodo', payload: 'gardening' };
 const state2 = todosReducer(state1, actionA);
-const actionB = { type: 'deleteTodo', id: 1 };
+const actionB = { type: 'deleteTodo', payload: 1 };
 const state3 = todosReducer(state2, actionB);
 console.log(state3);
 /* [{ id: 2, title: 'taxes', completed: true },
@@ -48,36 +56,23 @@ console.log(state3);
 
 ## Beispiel: Todos State Management
 
-Wir verwalten ein Array von Todos mit Hilfe eines Reducers. Zu Beginn setzen wir zwei mögliche Actions um:
-
-- Hinzufügen eines Todos
-- Entfernen eines Todos
-
-## Beispiel: Todos State Management
-
-_Actions_ werden von JavaScript Objekten repräsentiert; Actions haben immer eine _type_ Property
+- Actions werden von JavaScript Objekten repräsentiert
+- Actions haben immer eine _type_-Property
+- Actions haben oft auch eine _payload_-Property
 
 ```json
 {
   "type": "addTodo",
-  "title": "learn React"
+  "payload": "learn React"
 }
 ```
 
 ```json
 {
   "type": "deleteTodo",
-  "id": 1
+  "payload": 1
 }
 ```
-
-## Beispiel: Todos State Management
-
-Ein _Reducer_ ist eine Funktion.
-
-Der Reducer erhält den alten State und eine Action, die eine Änderung am State beschreibt.
-
-Der Reducer gibt den neuen State zurück. Wichtig: Ein Reducer ändert das alte State-Objekt nicht ab, sondern erstellt ein neues (Reducer sind reine Funktionen)
 
 ## Beispiel: Todos State Management
 
@@ -98,5 +93,24 @@ const todosReducer = (oldState, action) => {
     default:
       throw new Error('unknown action type');
   }
+};
+```
+
+## Beispiel: Todos State Management
+
+Verwendung mit TypeScript:
+
+```ts
+type TodosState = Array<Todo>;
+
+type TodosAction =
+  | { type: 'addTodo'; payload: string }
+  | { type: 'deleteTodo'; payload: number };
+
+const todosReducer = (
+  state: TodosState,
+  action: TodosAction
+): TodosState => {
+  // ...
 };
 ```

@@ -63,10 +63,10 @@ const store = createStore(
 ```js
 const cartReducer = (state = {}, action) => {
   switch (action.type) {
-    case 'ADD_TO_CART':
+    case 'addToCart':
       return {
         ...state,
-        [action.id]: (state[action.id] || 0) + 1,
+        [action.payload]: (state[action.payload] || 0) + 1,
       };
     default:
       return state;
@@ -80,11 +80,11 @@ const cartReducer = (state = {}, action) => {
 const products = [];
 const productsReducer = (state = products, action) => {
   switch (action.type) {
-    case 'SET_PRODUCTS':
-      return action.products;
-    case 'ADD_TO_CART':
+    case 'setProducts':
+      return action.payload;
+    case 'addToCart':
       return state.map(product =>
-        product.id === action.id
+        product.id === action.payload
           ? { ...product, inventory: product.inventory - 1 }
           : product
       );

@@ -13,7 +13,7 @@ with react-testing-library
 ```jsx
 it('matches the snapshot', () => {
   const instance = render(<Slideshow />);
-  expect(instance).toMatchSnapshot();
+  expect(instance.baseElement).toMatchSnapshot();
   const slide = instance.getByAltText('slide');
   expect(slide).toMatchSnapshot();
 });

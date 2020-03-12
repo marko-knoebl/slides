@@ -10,15 +10,12 @@
 ## Definieren von Action Types
 
 ```ts
-import { PayloadAction } from '@reduxjs/toolkit';
+import { Action, PayloadAction } from '@reduxjs/toolkit';
 
-type AddTodoAction = PayloadAction<string, 'todos/addTodo'>;
-type ToggleTodoAction = PayloadAction<
-  number,
-  'todos/toggleTodo'
->;
-
-type TodosAction = AddTodoAction | ToggleTodoAction;
+type TodosAction =
+  | PayloadAction<string, 'todos/addTodo'>
+  | PayloadAction<number, 'todos/toggleTodo'>
+  | Action<'todos/deleteCompletedTodos'>;
 ```
 
 ## Typing eines Reducers

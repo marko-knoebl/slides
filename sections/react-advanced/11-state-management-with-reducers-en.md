@@ -24,6 +24,14 @@ An event inside an application triggers a so-called _action_.
 
 Based on that _action_ the current _state_ will be transformed into a new _state_ via a _reducer_ function.
 
+## State management with actions and reducers
+
+A _reducer_ is a function that acts as the central element in Redux
+
+The reducer receives the old state and an action describing a state change
+
+The reducer function returns the new state. The reducer function **does not mutate the old state object** (it is a pure function)
+
 ## Reducer diagram
 
 <img src="assets/redux-flow.svg" type="text/svg" style="width: 100%">
@@ -37,9 +45,9 @@ const state1 = [
   { id: 1, title: 'groceries', completed: false },
   { id: 2, title: 'taxes', completed: true },
 ];
-const actionA = { type: 'addTodo', title: 'gardening' };
+const actionA = { type: 'addTodo', payload: 'gardening' };
 const state2 = todosReducer(state1, actionA);
-const actionB = { type: 'deleteTodo', id: 1 };
+const actionB = { type: 'deleteTodo', payload: 1 };
 const state3 = todosReducer(state2, actionB);
 console.log(state3);
 /* [{ id: 2, title: 'taxes', completed: true },
@@ -48,36 +56,23 @@ console.log(state3);
 
 ## Example: todos state management
 
-We manage an array of todos via a reducer. We start with two possible actions:
-
-- adding a todo
-- deleting a todo
-
-## Example: todos state management
-
-_Actions_ will be represented by JavaScript objects; actions always have a _type_ property
+- actions are represented by JavaScript objects
+- actions always have a _type_ property
+- actions commonly also have a _payload_ property
 
 ```json
 {
   "type": "addTodo",
-  "title": "learn React"
+  "payload": "learn React"
 }
 ```
 
 ```json
 {
   "type": "deleteTodo",
-  "id": 1
+  "payload": 1
 }
 ```
-
-## Example: todos state management
-
-A _reducer_ is a function that acts as the central element in Redux
-
-The reducer receives the old state and an action describing a state change
-
-The reducer function returns the new state. Importantly, the reducer function does not mutate the old state object (it is a pure function)
 
 ## Example: todos state management
 
@@ -98,5 +93,24 @@ const todosReducer = (oldState, action) => {
     default:
       throw new Error('unknown action type');
   }
+};
+```
+
+## Example: todos state management
+
+usage with TypeScript:
+
+```ts
+type TodosState = Array<Todo>;
+
+type TodosAction =
+  | { type: 'addTodo'; payload: string }
+  | { type: 'deleteTodo'; payload: number };
+
+const todosReducer = (
+  state: TodosState,
+  action: TodosAction
+): TodosState => {
+  // ...
 };
 ```
