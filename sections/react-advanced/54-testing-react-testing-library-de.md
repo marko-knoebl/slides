@@ -11,57 +11,36 @@ Fokus der Tests liegt auf Aspekten, die für den Endnutzer relevant sind (nicht 
 ```js
 import { render } from '@testing-library/react';
 
-it('renders a component without crashing', () => {
-  const instance = render(<MyComponent />);
+it('renders learn react link', () => {
+  const instance = render(<App />);
+  const linkElement = instance.getByText(/learn react/i);
+  expect(linkElement).toBeInTheDocument();
 });
 ```
 
-## React-Testing-Library - Elemente abfragen
+## Elemente abfragen
 
 - `.getByText` (wirft Exception, wenn es keinen eindeutigen Match gibt)
 - `.getAllByText` (wirft Exception, wenn es keine Matches gibt)
-- `.queryByText`
-- `.queryAllByText`
+- `.getByTitle`
+- `.getByLabelText`
 - ... (siehe [https://testing-library.com/docs/dom-testing-library/api-queries](https://testing-library.com/docs/dom-testing-library/api-queries))
 
-## React-Testing-Library
+## Assertions
 
-erweiterte Assertions einsetzbar mittels:
+extra Assertions:
 
-```js
-import '@testing-library/jest-dom/extend-expect';
-```
-
-Beispiele:
-
-- `.toContainHTML()`
-- `.toHaveClass()`
+- `.toHaveTextContent()`
 - `.toBeInTheDocument()`
-- ...
-
-siehe [https://github.com/testing-library/jest-dom](https://github.com/testing-library/jest-dom)
-
-## Test-Setup
-
-```js
-import React from 'react';
-import '@testing-library/jest-dom/extend-expect';
-import {
-  render,
-  fireEvent,
-  cleanup,
-} from '@testing-library/react';
-
-afterEach(() => {
-  cleanup();
-});
-```
+- ... siehe [https://github.com/testing-library/jest-dom](https://github.com/testing-library/jest-dom)
 
 ## Testen des Renderings
 
 Rating-Komponente:
 
 ```jsx
+import { render } from '@testing-library/react';
+
 it('renders three full stars', () => {
   const instance = render(<Rating stars={3} />);
   const fullStars = instance.getAllByText('★');
@@ -92,6 +71,8 @@ it('renders a slideshow starting at image 0', () => {
 Slideshow-Komponente:
 
 ```jsx
+import { fireEvent } from 'react-testing-library';
+
 it('switches to the next slide', () => {
   const instance = render(<Slideshow />);
   const slide = instance.getByAltText('slide');
@@ -119,6 +100,65 @@ it('triggers an event when the fourth star is clicked', () => {
 });
 ```
 
+## Testen von asynchronem Code
+
+`ChuckNorrisJoke`-Komponente, die ein API abfragt:
+
+```js
+const ChuckNorrisJoke = () => {
+  const [joke, setJoke] = useState(null);
+  useEffect(() => {
+    axios
+      .get('https://api.chucknorris.io/jokes/random')
+      .then(res => setJoke(res.data.value));
+  }, []);
+  if (!joke) {
+    return <div>loading...</div>;
+  }
+  return <h1 title="joke">{joke}</h1>;
+};
+```
+
+## Testen von asynchronem Code
+
+Testen mit echtem API:
+
+```js
+import { waitForElement } from '@testing-library/react';
+
+it('loads Chuck Norris joke from API', async () => {
+  const instance = render(<ChuckNorrisJoke />);
+  const jokeElement = await waitForElement(() =>
+    instance.getByTitle('joke')
+  );
+  // joke should have at least 3 characters
+  expect(jokeElement).toHaveTextContent(/.../);
+});
+```
+
+`waitForElement` versucht wiederholt, ein Element abzufragen, bis es existiert
+
+## Mocking von Objekten
+
+Mocking von API-Abrufen:
+
+ersetzen von `axios` durch einen Mock:
+
+```js
+import axios from 'axios';
+jest.mock('axios');
+```
+
+Mocking von `axios.get` als erfolgreiche Promise:
+
+```js
+axios.get.mockResolvedValueOnce({
+  data: {
+    value: 'Chuck Norris counted to infinity. Twice.',
+  },
+});
+```
+
 ## Testen von Fehlern
 
 Rating-Komponente:
@@ -131,3 +171,25 @@ it('throws an error if the number of stars is 0', () => {
   expect(testFn).toThrow('number of stars must be 1-5');
 });
 ```
+
+## Manuelle Einrichtung
+
+diese Schritte sind bei der Verwendung von `create-react-app` schon eingerichtet
+
+Aktivieren erweiterter Assertions (siehe [https://github.com/testing-library/jest-dom](https://github.com/testing-library/jest-dom)):
+
+```js
+import '@testing-library/jest-dom/extend-expect';
+```
+
+Aufräumen nach einem Test (Unmounting):
+
+```js
+import { cleanup } from '@testing-library/react';
+
+afterEach(cleanup);
+```
+
+## Ressource
+
+https://react-testing-examples.com/
