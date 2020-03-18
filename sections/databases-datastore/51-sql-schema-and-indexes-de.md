@@ -1,4 +1,4 @@
-# SQL Intermediate
+# SQL Schema und Indizes
 
 ## Online Tutorial
 

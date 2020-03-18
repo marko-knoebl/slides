@@ -1,6 +1,6 @@
-# Querying data - examples
+# Datenabfrage - Beispiele
 
-## Getting all data
+## Alle Daten abfragen
 
 SQL:
 
@@ -22,7 +22,7 @@ db.iris.find({});
 
 Pandas (Python): N/A
 
-## Selecting only some columns / fields
+## Bestimmte Spalten / Felder abfragen
 
 SQL:
 
@@ -36,7 +36,7 @@ SQLAlchemy (Python):
 session.query(Iris.sepal_length, Iris.sepal_width)
 ```
 
-## Selecting only some columns / fields
+## Bestimmte Spalten / Felder abfragen
 
 Mongo shell:
 
@@ -50,7 +50,7 @@ Pandas:
 iris_data.loc[:,["sepal_length", "sepal_width"]]
 ```
 
-## Finding specific entries
+## Bestimmte Einträge finden
 
 SQL:
 
@@ -64,7 +64,7 @@ SQLAlchemy (Python):
 session.query(Iris).filter(Iris.name="Iris-setosa")
 ```
 
-## Finding specific entries
+## Bestimmte Einträge finden
 
 mongo shell:
 
@@ -80,13 +80,13 @@ iris_setosa_data = iris_data.loc[
 ]
 ```
 
-pandas (Python): selecting a range of rows:
+pandas (Python): Eine Reihe von Einträgen auswählen:
 
 ```py
 iris_data.iloc[10:20]
 ```
 
-## Combination: rows and columns
+## Einträge und Felder auswählen
 
 SQL:
 
@@ -96,7 +96,7 @@ FROM iris
 WHERE name='Iris-setosa';
 ```
 
-## Combination: rows and columns
+## Einträge und Felder auswählen
 
 SQLAlchemy (Python):
 
@@ -106,7 +106,7 @@ session.query(
 ).filter(Iris.name="Iris-setosa")
 ```
 
-## Combination: rows and columns
+## Einträge und Felder auswählen
 
 mongo shell:
 
@@ -117,7 +117,7 @@ db.iris.find(
 );
 ```
 
-## Combination: rows and columns
+## Einträge und Felder auswählen
 
 pandas (Python):
 
@@ -128,7 +128,7 @@ iris_data.loc[
 ]
 ```
 
-## Sorting data
+## Einträge sortieren
 
 SQL:
 
@@ -138,7 +138,7 @@ FROM iris
 ORDER BY sepal_length;
 ```
 
-## Sorting data
+## Einträge sortieren
 
 SQLAlchemy:
 
@@ -148,7 +148,7 @@ session.query(
 ).order_by(Iris.sepal_length)
 ```
 
-## Sorting data
+## Einträge sortieren
 
 mongo shell:
 
@@ -158,7 +158,7 @@ db.iris
   .sort({ sepal_length: 1 });
 ```
 
-## Sorting data
+## Einträge sortieren
 
 pandas (Python):
 

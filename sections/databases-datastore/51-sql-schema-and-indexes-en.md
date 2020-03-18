@@ -1,4 +1,4 @@
-# SQL Intermediate
+# SQL schema and indexes
 
 ## Online Tutorial
 
@@ -18,8 +18,6 @@ ISO / ANSI SQL Standard (selection):
 ## Boolean
 
 Represented by the expressions `TRUE` and `FALSE`
-
-Deviations from
 
 Deviations from the standard:
 

@@ -4,34 +4,108 @@
 
 Verwendung: Verwaltung großer Datenmengen
 
-## Tabellen und Datenschemata
+## Datenbanken
 
-Die meisten Datenbanken verwalten ihre Daten in Tabellen
+Beispiele:
 
-## Relationen zwischen Tabellen
+- SQL databases
+  - MySQL
+  - PostgreSQL
+  - Microsoft SQL Server
+  - SQLite
+  - Oracle
+- MongoDB
+- Redis
 
-- `1 : 1`
-- `1 : n`
-- `m : n`
+[Verbreitung laut Stack Overflow Developer Survey 2019](https://insights.stackoverflow.com/survey/2019#technology-_-databases)
 
-## Relationen zwischen Tabellen: Beispiele
+## Terminologie
 
-- `0..1 : 1..1`  
-  department ←manages→ person
-- `0..1 : 0..n`  
-  department ←works in→ person
-- `0..m : 0..n`  
-  project ←works on→ person
+- **Tabelle / Collection**: Ansammlung ähnlicher Datenobjekte (z.B. eine für Produkte)
+- **Zeile / Eintrag / Dokument**: Einzelner Eintrag in einer Tabelle (z.B. für ein einzelnes Produkt)
+- **Feld**: Ein Wert in einem Eintrag (z.B. _Preis_)
 
-## Entity-Relationship-Model
+## CRUD-Operationen
 
-https://en.wikipedia.org/wiki/Entity%E2%80%93relationship_model
+Grundlegende Operationen für Datenbankeinträge:
 
-## ACID
+- **c**reate
+- **r**ead / **r**etrieve
+- **u**pdate
+- **d**elete
 
-Qualitätsmerkmale einer Datenbank (Sicherheit gegenüber Fehlern):
+## Create
 
-- _Atomicity_: Daten werden mittels Transaktionen abgeändert, die entweder erfolgreich sind oder als ganzes Fehlschlagen - es wird nie eine Transaktion nur teilweise angewendet
-- _Consistency_: Für Inhalte können bestimmte Gültigkeitskriterien festgelegt sein - diese können nicht durch Operationen auf den Daten verletzt werden
-- _Isolation_: Parallel laufende Transaktionen beeinflussen einander nicht
-- _Durability_: Wenn eine Transaktion vom Datenbanksystem als erfolgreich ausgewiesen wird, muss deren Resultat garantiert dauerhaft vorhanden sein
+SQL:
+
+```sql
+INSERT INTO product (name, category)
+VALUES ('IPhone', 'electronics')
+```
+
+MongoDB shell:
+
+```js
+db.products.insertOne({
+  name: 'IPhone',
+  category: 'electronics',
+});
+```
+
+## Read
+
+SQL:
+
+```sql
+SELECT name, category FROM product
+WHERE category = 'electronics';
+```
+
+MongoDB shell:
+
+```js
+db.products.find({ category: 'electronics' });
+```
+
+## Update
+
+SQL:
+
+```sql
+UPDATE product
+SET category = 'phones'
+WHERE name = 'IPhone';
+```
+
+MongoDB shell:
+
+```js
+db.products.updateOne(
+  { name: 'IPhone' },
+  { $set: { category: 'phones' } }
+);
+```
+
+## Delete
+
+SQL:
+
+```sql
+DELETE FROM product
+WHERE name = 'IPhone';
+```
+
+MongoDB shell:
+
+```js
+db.products.deleteOne({ name: 'IPhone' });
+```
+
+## Online Playgrounds
+
+- [SQL Editor von W3Schools](https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all) (enthält bereits Daten, verwendbar mit Chrome und Safari)
+- [MongoDB Web Shell](https://docs.mongodb.com/manual/tutorial/getting-started/)
+
+## Übung
+
+Erstellen / Ändern / Abfragen von Daten in einem Online Playground

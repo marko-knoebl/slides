@@ -21,7 +21,7 @@ SELECT login, name
 
 In GraphQL parameters don't have a predefined meaning.
 
-In SQL the clause `WHERE login="my-username` always has the same meaning
+In SQL the clause `WHERE login='my-username'` always has the same meaning
 
 In GraphQL the meaning of `login: "my-username"` is up to the implementation on the server
 
