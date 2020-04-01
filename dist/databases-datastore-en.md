@@ -353,37 +353,264 @@ example:
 
 use: managing big amounts of data
 
-## Tables and schemas
+## Databases
 
-most databases store their data in tables
+examples:
 
-## Relations between tables
+- SQL databases
+  - MySQL
+  - PostgreSQL
+  - Microsoft SQL Server
+  - SQLite
+  - Oracle
+- MongoDB
+- Redis
 
-- `1 : 1`
-- `1 : n`
-- `m : n`
+[Popularity according to Stack Overflow Developer Survey 2019](https://insights.stackoverflow.com/survey/2019#technology-_-databases)
 
-## Relations between tables: examples
+## Terminology
 
-- `0..1 : 1..1`  
-  department ←manages→ person
-- `0..1 : 0..n`  
-  department ←works in→ person
-- `0..m : 0..n`  
-  project ←works on→ person
+- **table / collection**: a set of similar data objects (e.g. one for products)
+- **row / record / document**: an entry in a table (e.g. a single product)
+- **field**: a property of a record (e.g. _price_)
 
-## Entity-relationship model
+## CRUD operations
 
-https://en.wikipedia.org/wiki/Entity%E2%80%93relationship_model
+basic operations for database records:
 
-## ACID
+- **c**reate
+- **r**ead / **r**etrieve
+- **u**pdate
+- **d**elete
 
-Properties of a database that guarantee its validity (protecting against errors):
+## Create
 
-- _Atomicity_: Data are modified via transactions which either succeed or fail as a whole - a transaction is never applied only partially.
-- _Consistency_: There may be constraints that are defined for datasets. A transaction that would violate such a constraint will fail and will not be applied.
-- _Isolation_: Transactions that run in parallel will not influence each other.
-- _Durability_: If a transaction is reported to have succeeded its result must be available permanently (i.e. not just in RAM).
+SQL:
+
+```sql
+INSERT INTO product (name, category)
+VALUES ('IPhone', 'electronics');
+```
+
+MongoDB shell:
+
+```js
+db.products.insertOne({
+  name: 'IPhone',
+  category: 'electronics',
+});
+```
+
+## Read
+
+SQL:
+
+```sql
+SELECT name, category FROM product
+WHERE category = 'electronics';
+```
+
+MongoDB shell:
+
+```js
+db.products.find({ category: 'electronics' });
+```
+
+## Update
+
+SQL:
+
+```sql
+UPDATE product
+SET category = 'phones'
+WHERE name = 'IPhone';
+```
+
+MongoDB shell:
+
+```js
+db.products.updateOne(
+  { name: 'IPhone' },
+  { $set: { category: 'phones' } }
+);
+```
+
+## Delete
+
+SQL:
+
+```sql
+DELETE FROM product
+WHERE name = 'IPhone';
+```
+
+MongoDB shell:
+
+```js
+db.products.deleteOne({ name: 'IPhone' });
+```
+
+## Online playgrounds
+
+- [SQL Editor from W3Schools](https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all) (contains predefined data, usable on Chrome and Safari)
+- [MongoDB Web Shell](https://docs.mongodb.com/manual/tutorial/getting-started/)
+
+## Exercise
+
+Create / change / query data in an online playground
+
+# SQL vs MongoDB
+
+## SQL vs MongoDB
+
+SQL (Structured Query Language): developed in the 1970s, many variants
+
+MongoDB: released in 2009
+
+## SQL vs MongoDB
+
+SQL: entries are stored in tables with predefined field names and field types (database schema)
+
+MongoDB: entries (documents) in a collection may generally have arbitrary fields; a schema _may_ be defined
+
+## SQL vs MongoDB
+
+SQL: standardized language (in theory), independent of any programming language
+
+MongoDB: direct bindings for programming languages
+
+# MongoDB basics
+
+## MongoDB shell
+
+**MongoDB shell** = simple command line interface for MongoDB that comes with MongoDB
+
+try it online:
+
+https://docs.mongodb.com/manual/tutorial/getting-started/
+
+use a subset of MongoDB shell in pure JavaScript (without installing MongoDB):
+
+https://github.com/marko-knoebl/mingodb
+
+## data types
+
+- numbers
+  - int (32 bit) / long (64 bit)
+  - double (64 bit floating point)
+  - decimal (128 bit)
+- bool
+- string
+- binData
+- date (date + time)
+- array
+- object
+- null
+- objectId
+
+see: https://docs.mongodb.com/manual/reference/bson-types/
+
+## ids
+
+entries automatically get a unique `_id` field:
+
+```js
+entry = {
+  _id: ObjectId('5e715e1b31315b0be066db84'),
+  name: 'Argentina',
+  continent: 'South America',
+};
+```
+
+## Create
+
+creating entries in a collection:
+
+```js
+db.countries.insertOne({
+  name: 'Argentina',
+  continent: 'South America',
+});
+```
+
+## Create
+
+creating multiple entries at once:
+
+```js
+db.countries.insertMany([
+  { name: 'Finland', continent: 'Europe' },
+  { name: 'Greece', continent: 'Europe' },
+]);
+```
+
+## Read
+
+reading an array of all entries:
+
+```js
+db.countries.find();
+```
+
+only query for some specific entries:
+
+```js
+db.countries.find({ continent: 'Europe' });
+```
+
+## Read
+
+reading a single entry via `findOne`:
+
+```js
+db.countries.findOne({ name: 'Greece' });
+```
+
+## Update
+
+changing an entry by setting its population:
+
+```js
+db.countries.updateOne(
+  { name: 'Argentina' },
+  { $set: { population: 44 } }
+);
+```
+
+## Update
+
+replacing an entry:
+
+```js
+db.countries.replaceOne(
+  { name: 'Brazil' },
+  { name: 'Brazil', population: 210 }
+);
+```
+
+## Delete
+
+deleting an entry:
+
+```js
+db.countries.deleteOne({ name: 'Finland' });
+```
+
+deleting all entries:
+
+```js
+db.countries.deleteMany({});
+```
+
+## BSON file format
+
+MongoDB is based on the BSON file format. It resembles JSON, but it is a binary format and can be read and written more efficiently
+
+Importing and exporting can be done via the programs `mongodump` and `mongorestore`
+
+## Exercise
+
+Create and modify a contact database
 
 # SQL Basics
 
@@ -562,7 +789,48 @@ WHERE name = 'John Miller';
 
 Create and modify a contact database
 
-# SQL Intermediate
+# MongoDB schema
+
+## MongoDB schema
+
+validation via JSON schema, e.g.:
+
+```js
+const elementSchema = {
+  bsonType: 'object',
+  required: [
+    'atomic_number',
+    'symbol',
+    'name',
+    'atomic_mass',
+  ],
+  properties: {
+    atomic_number: {
+      bsonType: 'int',
+      minimum: 1,
+    },
+    symbol: {
+      bsonType: 'string',
+    },
+    name: {
+      bsonType: 'string',
+    },
+    atomic_mass: {
+      bsonType: 'double',
+    },
+  },
+};
+```
+
+## MongoDB schema
+
+```js
+db.createCollection('elements', {
+  validator: { $jsonSchema: elementSchema },
+});
+```
+
+# SQL schema and indexes
 
 ## Online Tutorial
 
@@ -582,8 +850,6 @@ ISO / ANSI SQL Standard (selection):
 ## Boolean
 
 Represented by the expressions `TRUE` and `FALSE`
-
-Deviations from
 
 Deviations from the standard:
 
@@ -840,6 +1106,60 @@ FROM element
 WHERE name='Hydrogen';
 ```
 
+# SQL vs MongoDB 2
+
+## SQL vs MongoDB
+
+SQL: mostly scales vertically: adding resources to an existing server
+
+MongoDB: mostly scales horizontally: adding additional servers (via sharding)
+
+## SQL vs MongoDB
+
+SQL: mostly uses _atomic_ entries (and first normal form)
+
+MongoDB: often includes composite entries (arrays, objects):
+
+```json
+{
+  "name": "sue",
+  "groups": ["news", "sports"]
+}
+```
+
+# Databases - intermediate
+
+## Relations between tables
+
+- `1 : 1`
+- `1 : n`
+- `m : n`
+
+## Relations between tables: examples
+
+- `0..1 : 1..1`  
+  department ←manages→ employee  
+  A department has 1 manager; each employee manages either 0 or 1 departments
+- `0..1 : 0..n`  
+  department ←works in→ employee  
+  A department can have many employees; an employee can be assigned to 0 or 1 departments;
+- `0..m : 0..n`  
+  project ←works on→ employee  
+  A project can have multiple employees working on it; an employee can work on multiple projects
+
+## Entity-relationship model
+
+https://en.wikipedia.org/wiki/Entity%E2%80%93relationship_model
+
+## ACID
+
+Properties of a database that guarantee its validity (protecting against errors):
+
+- _Atomicity_: Data are modified via transactions which either succeed or fail as a whole - a transaction is never applied only partially.
+- _Consistency_: There may be constraints that are defined for datasets. A transaction that would violate such a constraint will fail and will not be applied.
+- _Isolation_: Transactions that run in parallel will not influence each other.
+- _Durability_: If a transaction is reported to have succeeded its result must be available permanently (i.e. not just in RAM).
+
 # SQL Joins
 
 ## Example: music database
@@ -926,75 +1246,7 @@ ON artist.id=song.artist_id;
 
 The above code lists all combinations and also includes songs that don't have an artist defined
 
-# MongoDB
-
-## MongoDB vs SQL
-
-SQL:
-
-- standardized language, independent of the programming language
-- often used via _ORMs_ (_object relational mappings_)
-
-MongoDB:
-
-- _one_ query syntax per programming language
-
-## MongoDB vs SQL
-
-SQL:
-
-- schema is predefined when creating tables
-- changing the schema (migration) may be complex
-
-MongoDB:
-
-- a _document_ may have an arbitrary structure
-- a validator _may_ be specified for a collection
-
-## MongoDB vs SQL
-
-SQL:
-
-- mostly scales vertically: adding resources to an existing server
-
-MongoDB:
-
-- mostly scales horizontally: adding additional servers (via sharding)
-
-## MongoDB vs SQL
-
-SQL:
-
-- mostly uses _atomic_ entries (and first normal form)
-
-MongoDB:
-
-- often includes composite entries (arrays, objects):
-
-```json
-{
-  "name": "sue",
-  "groups": ["news", "sports"]
-}
-```
-
-## MongoDB
-
-_MongoDB_ is a so-called _document oriented_ database
-
-Its structure may look similar to that of a JSON document
-
-## BSON file format
-
-MongoDB is based on the BSON file format. It resembles JSON, but it is a binary format and can be read and written more efficiently
-
-Importing and exporting can be done via the programs `mongodump` und `mongorestore`
-
-## NeDB
-
-NeDB: simple JavaScript library that implements the MongoDB interface
-
-# Querying data
+# Querying data - examples
 
 ## Getting all data
 
@@ -1013,7 +1265,7 @@ session.query(Iris)
 mongo shell (JS):
 
 ```js
-db.collection('iris').find({});
+db.iris.find({});
 ```
 
 Pandas (Python): N/A
@@ -1037,10 +1289,7 @@ session.query(Iris.sepal_length, Iris.sepal_width)
 Mongo shell:
 
 ```js
-db.collection('iris').find(
-  {},
-  { sepal_length: 1, sepal_width: 1 }
-);
+db.iris.find({}, { sepal_length: 1, sepal_width: 1 });
 ```
 
 Pandas:
@@ -1049,7 +1298,7 @@ Pandas:
 iris_data.loc[:,["sepal_length", "sepal_width"]]
 ```
 
-## Finding specific rows
+## Finding specific entries
 
 SQL:
 
@@ -1063,12 +1312,12 @@ SQLAlchemy (Python):
 session.query(Iris).filter(Iris.name="Iris-setosa")
 ```
 
-## Finding specific rows
+## Finding specific entries
 
 mongo shell:
 
 ```js
-db.collection('iris').find({ name: 'Iris-setosa' });
+db.iris.find({ name: 'Iris-setosa' });
 ```
 
 pandas (Python):
@@ -1110,7 +1359,7 @@ session.query(
 mongo shell:
 
 ```js
-db.collection('iris').find(
+db.iris.find(
   { name: 'Iris-setosa' },
   { sepal_length: 1, sepal_width: 1 }
 );
@@ -1152,7 +1401,7 @@ session.query(
 mongo shell:
 
 ```js
-db.collection('iris')
+db.iris
   .find({}, { sepal_length: 1, sepal_width: 1 })
   .sort({ sepal_length: 1 });
 ```

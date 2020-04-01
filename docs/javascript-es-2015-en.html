@@ -2037,13 +2037,13 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </section><section class="slide"><h2>Modern JavaScript</h2>
 </section><section class="slide"><h2>JavaScript standardisation</h2>
 <p>JavaScript is standardised under the name <em>ECMAScript</em> (ES)</p>
-</section><section class="slide"><h2>JavaScript: versions</h2>
+</section><section class="slide"><h2>JavaScript versions</h2>
 <ul>
 <li>Supported by all Browsers: ES5 (standardised in 2009)</li>
 <li>Next big version: <em>ES2015</em> (or ES6)</li>
 <li>Since then: yearly updates in June of each year (ES2016, ES2017, ...)</li>
 </ul>
-</section><section class="slide"><h2>JavaScript: version support</h2>
+</section><section class="slide"><h2>JavaScript version support</h2>
 <ul>
 <li>Overview: see <a href="http://kangax.github.io/compat-table/es6/">http://kangax.github.io/compat-table/es6/</a></li>
 <li>In practice: Modern JavaScript is transpiled to ES5 (via Babel, webpack)</li>
@@ -2054,28 +2054,36 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li>It's possible to import objects from other js-files - no more global namespace</li>
 <li>Is handled by webpack in most cases</li>
 </ul>
-<pre><code class="hljs language-js"><span class="hljs-comment">// user.js</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span> </span>{
-  ...
-}
+<pre><code class="hljs language-js"><span class="hljs-comment">// foo.js</span>
+<span class="hljs-keyword">const</span> foo = <span class="hljs-number">1</span>;
+<span class="hljs-keyword">const</span> bar = <span class="hljs-number">2</span>;
+<span class="hljs-keyword">const</span> baz = <span class="hljs-number">3</span>;
+
+<span class="hljs-keyword">export</span> { foo, bar, baz };
 </code></pre>
-<pre><code class="hljs language-js"><span class="hljs-comment">// main.js</span>
-<span class="hljs-keyword">import</span> { User } <span class="hljs-keyword">from</span> <span class="hljs-string">'user.js'</span>;
+<pre><code class="hljs language-js"><span class="hljs-comment">// index.js</span>
+<span class="hljs-keyword">import</span> { foo, bar } <span class="hljs-keyword">from</span> <span class="hljs-string">'foo.js'</span>;
 </code></pre>
 </section><section class="slide"><h2>Modules &#x26; imports</h2>
-<pre><code class="hljs language-js"><span class="hljs-comment">// user.js</span>
-<span class="hljs-comment">// there may be 1 default export</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span> </span>{
-   ...
-}
+<p>there may be one default export</p>
+<pre><code class="hljs language-js"><span class="hljs-comment">// foo.js</span>
+<span class="hljs-keyword">const</span> foo = <span class="hljs-number">1</span>;
+<span class="hljs-keyword">const</span> bar = <span class="hljs-number">2</span>;
+<span class="hljs-keyword">const</span> baz = <span class="hljs-number">3</span>;
+
+<span class="hljs-keyword">export</span> { foo, bar, baz };
+
+<span class="hljs-keyword">const</span> main = <span class="hljs-number">0</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> main;
 </code></pre>
-<pre><code class="hljs language-js"><span class="hljs-comment">// main.js</span>
-<span class="hljs-keyword">import</span> User <span class="hljs-keyword">from</span> <span class="hljs-string">'user.js'</span>;
+<pre><code class="hljs language-js"><span class="hljs-comment">// index.js</span>
+<span class="hljs-keyword">import</span> main, { foo, bar } <span class="hljs-keyword">from</span> <span class="hljs-string">'foo.js'</span>;
 </code></pre>
 </section><section class="slide"><h2>Imports in webpack</h2>
 <p>Bundlers like webpack can deviate from standard JavaScript import behavior:</p>
 <ul>
-<li>the import doesn't require a file name extension like <code>.js</code></li>
+<li>the import does not require a file name extension like <code>.js</code></li>
 <li>if the import leads to a folder webpack will look for an <code>index.js</code> file in the folder</li>
 </ul>
 </section><section class="slide"><h2>let</h2>
@@ -2112,16 +2120,13 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
 <li>short notation for anonymous functions</li>
 <li>leaves <em>this</em> unchanged (does not reassign)</li>
 </ul>
-<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> multiply = <span class="hljs-function">(<span class="hljs-params">a, b</span>) =></span> {
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> multiply = <span class="hljs-function">(<span class="hljs-params">a, b</span>) =></span> {
   <span class="hljs-keyword">return</span> a * b;
 };
 
-<span class="hljs-keyword">let</span> multiply = <span class="hljs-function">(<span class="hljs-params">a, b</span>) =></span> a * b;
+<span class="hljs-keyword">const</span> multiply = <span class="hljs-function">(<span class="hljs-params">a, b</span>) =></span> a * b;
 </code></pre>
 </section><section class="slide"><h2>Arrow functions</h2>
-<p>if there's exactly one parameter: parentheses are optional</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> square = <span class="hljs-function"><span class="hljs-params">a</span> =></span> a * a;
-</code></pre>
 <p>if we want to return an object directly: wrap it in parentheses</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> getState = <span class="hljs-function"><span class="hljs-params">()</span> =></span> ({
   <span class="hljs-attr">loggedIn</span>: <span class="hljs-literal">true</span>,
@@ -2152,18 +2157,22 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
 </code></pre>
 </section><section class="slide"><h2>Array iteration (for ... of)</h2>
 <p>Iterating over entries of an array:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> names = [<span class="hljs-string">'Anna'</span>, <span class="hljs-string">'Bernhard'</span>, <span class="hljs-string">'Caro'</span>];
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> names = [<span class="hljs-string">'Anna'</span>, <span class="hljs-string">'Bernhard'</span>, <span class="hljs-string">'Caro'</span>];
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> name <span class="hljs-keyword">of</span> names) {
   <span class="hljs-built_in">console</span>.log(name);
 }
 </code></pre>
 </section><section class="slide"><h2>Spread syntax (arrays and objects)</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> squares = [<span class="hljs-number">1</span>, <span class="hljs-number">4</span>, <span class="hljs-number">9</span>];
-<span class="hljs-keyword">let</span> moreSquares = [...squares, <span class="hljs-number">16</span>, <span class="hljs-number">25</span>];
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> squares = [<span class="hljs-number">1</span>, <span class="hljs-number">4</span>, <span class="hljs-number">9</span>];
+<span class="hljs-keyword">const</span> moreSquares = [...squares, <span class="hljs-number">16</span>, <span class="hljs-number">25</span>];
 <span class="hljs-comment">// moreSquares: [1, 4, 9, 16, 25]</span>
 </code></pre>
-<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> person = { <span class="hljs-attr">firstName</span>: <span class="hljs-string">'Joe'</span>, <span class="hljs-attr">lastName</span>: <span class="hljs-string">'Doe'</span>, <span class="hljs-attr">age</span>: <span class="hljs-number">31</span> };
-<span class="hljs-keyword">let</span> newPerson = { ...person, <span class="hljs-attr">email</span>: <span class="hljs-string">'j@d.com'</span>, <span class="hljs-attr">age</span>: <span class="hljs-number">32</span> };
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> person = {
+  <span class="hljs-attr">firstName</span>: <span class="hljs-string">'Joe'</span>,
+  <span class="hljs-attr">lastName</span>: <span class="hljs-string">'Doe'</span>,
+  <span class="hljs-attr">age</span>: <span class="hljs-number">31</span>,
+};
+<span class="hljs-keyword">const</span> newPerson = { ...person, <span class="hljs-attr">email</span>: <span class="hljs-string">'j@d.com'</span>, <span class="hljs-attr">age</span>: <span class="hljs-number">32</span> };
 <span class="hljs-comment">// {firstName: 'Joe', lastName: 'Doe', email: 'j@d.com', age: 32}</span>
 </code></pre>
 </section><section class="slide"><h2>Template strings</h2>
@@ -2172,15 +2181,9 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
 <li>delimited via backticks</li>
 <li>enables multiline string literals and interpolation</li>
 </ul>
-<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> name = <span class="hljs-string">'Anton'</span>;
-<span class="hljs-keyword">let</span> greeting = <span class="hljs-string">`Hello, <span class="hljs-subst">${name}</span>!
-                This is ES2015!`</span>;
-</code></pre>
-</section><section class="slide"><h2>Default arguments</h2>
-<p>Functions may now have default arguments</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> join = <span class="hljs-function">(<span class="hljs-params">strings, separator=<span class="hljs-string">''</span></span>) =></span> {
-  ...
-}
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> name = <span class="hljs-string">'Mike'</span>;
+<span class="hljs-keyword">const</span> greeting = <span class="hljs-string">`Hello, <span class="hljs-subst">${name}</span>!
+                  This is ES2015!`</span>;
 </code></pre></section></section></div>
     </div>
     <script>/*!

@@ -312,7 +312,7 @@ query {
 ```sql
 SELECT login, name
   FROM user
-  WHERE login="my-username";
+  WHERE login='my-username';
 ```
 
 ## GraphQL verglichen mit SQL
@@ -321,7 +321,7 @@ GraphQL: Parameter haben keine vordefinierte Bedeutung
 
 In SQL: `WHERE login='my-username'` hat klare Bedeutung
 
-GraphQL: Bedeutung von `login: "my-username"` ist der Implementierung überlassen
+GraphQL: Bedeutung von `login: "my-username"` ist der Implementierung am Server überlassen
 
 ## GraphQL verglichen mit SQL
 
@@ -333,7 +333,7 @@ GraphQL: kennt die Beziehungen bereits → einfachere Queries
 
 ```graphql
 query {
-  user(id: "my-username") {
+  user(login: "my-username") {
     posts {
       title
     }

@@ -2269,33 +2269,173 @@ AF  Afghanistan Kabul   AF,tk
 </section></section><section class="slides-section"><section class="slide"><h1>Datenbanken</h1>
 </section><section class="slide"><h2>Datenbanken</h2>
 <p>Verwendung: Verwaltung großer Datenmengen</p>
-</section><section class="slide"><h2>Tabellen und Datenschemata</h2>
-<p>Die meisten Datenbanken verwalten ihre Daten in Tabellen</p>
-</section><section class="slide"><h2>Relationen zwischen Tabellen</h2>
+</section><section class="slide"><h2>Datenbanken</h2>
+<p>Beispiele:</p>
 <ul>
-<li><code>1 : 1</code></li>
-<li><code>1 : n</code></li>
-<li><code>m : n</code></li>
+<li>SQL databases<ul>
+<li>MySQL</li>
+<li>PostgreSQL</li>
+<li>Microsoft SQL Server</li>
+<li>SQLite</li>
+<li>Oracle</li>
+</ul></li>
+<li>MongoDB</li>
+<li>Redis</li>
 </ul>
-</section><section class="slide"><h2>Relationen zwischen Tabellen: Beispiele</h2>
+<p><a href="https://insights.stackoverflow.com/survey/2019#technology-_-databases">Verbreitung laut Stack Overflow Developer Survey 2019</a></p>
+</section><section class="slide"><h2>Terminologie</h2>
 <ul>
-<li><code>0..1 : 1..1</code><br />
-department ←manages→ person</li>
-<li><code>0..1 : 0..n</code><br />
-department ←works in→ person</li>
-<li><code>0..m : 0..n</code><br />
-project ←works on→ person</li>
+<li><strong>Tabelle / Collection</strong>: Ansammlung ähnlicher Datenobjekte (z.B. eine für Produkte)</li>
+<li><strong>Zeile / Eintrag / Dokument</strong>: Einzelner Eintrag in einer Tabelle (z.B. für ein einzelnes Produkt)</li>
+<li><strong>Feld</strong>: Ein Wert in einem Eintrag (z.B. <em>Preis</em>)</li>
 </ul>
-</section><section class="slide"><h2>Entity-Relationship-Model</h2>
-<p><a href="https://en.wikipedia.org/wiki/Entity%E2%80%93relationship_model">https://en.wikipedia.org/wiki/Entity%E2%80%93relationship_model</a></p>
-</section><section class="slide"><h2>ACID</h2>
-<p>Qualitätsmerkmale einer Datenbank (Sicherheit gegenüber Fehlern):</p>
+</section><section class="slide"><h2>CRUD-Operationen</h2>
+<p>Grundlegende Operationen für Datenbankeinträge:</p>
 <ul>
-<li><em>Atomicity</em>: Daten werden mittels Transaktionen abgeändert, die entweder erfolgreich sind oder als ganzes Fehlschlagen - es wird nie eine Transaktion nur teilweise angewendet</li>
-<li><em>Consistency</em>: Für Inhalte können bestimmte Gültigkeitskriterien festgelegt sein - diese können nicht durch Operationen auf den Daten verletzt werden</li>
-<li><em>Isolation</em>: Parallel laufende Transaktionen beeinflussen einander nicht</li>
-<li><em>Durability</em>: Wenn eine Transaktion vom Datenbanksystem als erfolgreich ausgewiesen wird, muss deren Resultat garantiert dauerhaft vorhanden sein</li>
+<li><strong>c</strong>reate</li>
+<li><strong>r</strong>ead / <strong>r</strong>etrieve</li>
+<li><strong>u</strong>pdate</li>
+<li><strong>d</strong>elete</li>
 </ul>
+</section><section class="slide"><h2>Create</h2>
+<p>SQL:</p>
+<pre><code class="hljs language-sql"><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> product (<span class="hljs-keyword">name</span>, <span class="hljs-keyword">category</span>)
+<span class="hljs-keyword">VALUES</span> (<span class="hljs-string">'IPhone'</span>, <span class="hljs-string">'electronics'</span>)
+</code></pre>
+<p>MongoDB shell:</p>
+<pre><code class="hljs language-js">db.products.insertOne({
+  <span class="hljs-attr">name</span>: <span class="hljs-string">'IPhone'</span>,
+  <span class="hljs-attr">category</span>: <span class="hljs-string">'electronics'</span>,
+});
+</code></pre>
+</section><section class="slide"><h2>Read</h2>
+<p>SQL:</p>
+<pre><code class="hljs language-sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">name</span>, <span class="hljs-keyword">category</span> <span class="hljs-keyword">FROM</span> product
+<span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">category</span> = <span class="hljs-string">'electronics'</span>;
+</code></pre>
+<p>MongoDB shell:</p>
+<pre><code class="hljs language-js">db.products.find({ <span class="hljs-attr">category</span>: <span class="hljs-string">'electronics'</span> });
+</code></pre>
+</section><section class="slide"><h2>Update</h2>
+<p>SQL:</p>
+<pre><code class="hljs language-sql"><span class="hljs-keyword">UPDATE</span> product
+<span class="hljs-keyword">SET</span> <span class="hljs-keyword">category</span> = <span class="hljs-string">'phones'</span>
+<span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">name</span> = <span class="hljs-string">'IPhone'</span>;
+</code></pre>
+<p>MongoDB shell:</p>
+<pre><code class="hljs language-js">db.products.updateOne(
+  { <span class="hljs-attr">name</span>: <span class="hljs-string">'IPhone'</span> },
+  { <span class="hljs-attr">$set</span>: { <span class="hljs-attr">category</span>: <span class="hljs-string">'phones'</span> } }
+);
+</code></pre>
+</section><section class="slide"><h2>Delete</h2>
+<p>SQL:</p>
+<pre><code class="hljs language-sql"><span class="hljs-keyword">DELETE</span> <span class="hljs-keyword">FROM</span> product
+<span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">name</span> = <span class="hljs-string">'IPhone'</span>;
+</code></pre>
+<p>MongoDB shell:</p>
+<pre><code class="hljs language-js">db.products.deleteOne({ <span class="hljs-attr">name</span>: <span class="hljs-string">'IPhone'</span> });
+</code></pre>
+</section><section class="slide"><h2>Online Playgrounds</h2>
+<ul>
+<li><a href="https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all">SQL Editor von W3Schools</a> (enthält bereits Daten, verwendbar mit Chrome und Safari)</li>
+<li><a href="https://docs.mongodb.com/manual/tutorial/getting-started/">MongoDB Web Shell</a></li>
+</ul>
+</section><section class="slide"><h2>Übung</h2>
+<p>Erstellen / Ändern / Abfragen von Daten in einem Online Playground</p>
+</section></section><section class="slides-section"><section class="slide"><h1>SQL vs MongoDB</h1>
+</section><section class="slide"><h2>SQL vs MongoDB</h2>
+<p>SQL (Structured Query Language): entwickelt in den 1970ern, viele verschiedene Varianten</p>
+<p>MongoDB: 2009 veröffentlicht</p>
+</section><section class="slide"><h2>SQL vs MongoDB</h2>
+<p>SQL: Einträge werden in Tabellen mit vordefinierten Feldnamen und Feldtypen gespeichert (Datenbankschema)</p>
+<p>MongoDB: Einträge (Dokumente) in einer Collection können beliebige Felder haben; optional mit einem <em>Schema</em> validierbar</p>
+</section><section class="slide"><h2>SQL vs MongoDB</h2>
+<p>SQL: standardisierte Sprache (theoretisch), unabhängig von der verwendeten Programmiersprache</p>
+<p>MongoDB: direkte Bindings für Programmiersprachen</p>
+</section></section><section class="slides-section"><section class="slide"><h1>MongoDB Grundlagen</h1>
+</section><section class="slide"><h2>MongoDB Shell</h2>
+<p><strong>MongoDB Shell</strong> = einfaches Befehlszeileninterface für MongoDB</p>
+<p>online ausprobieren:</p>
+<p><a href="https://docs.mongodb.com/manual/tutorial/getting-started/">https://docs.mongodb.com/manual/tutorial/getting-started/</a></p>
+<p>eine Untermenge der MongoDB shell in reinem JavaScript verwenden (ohne Installation von MongoDB):</p>
+<p><a href="https://github.com/marko-knoebl/mingodb">https://github.com/marko-knoebl/mingodb</a></p>
+</section><section class="slide"><h2>Datentypen</h2>
+<ul>
+<li>Zahlen<ul>
+<li>int (32 bit) / long (64 bit)</li>
+<li>double (64 bit floating point)</li>
+<li>decimal (128 bit)</li>
+</ul></li>
+<li>bool</li>
+<li>string</li>
+<li>binData</li>
+<li>date (Datum + Uhrzeit)</li>
+<li>array</li>
+<li>object</li>
+<li>null</li>
+<li>objectId</li>
+</ul>
+<p>siehe: <a href="https://docs.mongodb.com/manual/reference/bson-types/">https://docs.mongodb.com/manual/reference/bson-types/</a></p>
+</section><section class="slide"><h2>ids</h2>
+<p>Dokumente bekommen automatisch ein eindeutiges <code>_id</code>-Feld:</p>
+<pre><code class="hljs language-js">entry = {
+  <span class="hljs-attr">_id</span>: ObjectId(<span class="hljs-string">'5e715e1b31315b0be066db84'</span>),
+  <span class="hljs-attr">name</span>: <span class="hljs-string">'Argentina'</span>,
+  <span class="hljs-attr">continent</span>: <span class="hljs-string">'South America'</span>,
+};
+</code></pre>
+</section><section class="slide"><h2>Create</h2>
+<p>Erstellen eines Eintrags:</p>
+<pre><code class="hljs language-js">db.countries.insertOne({
+  <span class="hljs-attr">name</span>: <span class="hljs-string">'Argentina'</span>,
+  <span class="hljs-attr">continent</span>: <span class="hljs-string">'South America'</span>,
+});
+</code></pre>
+</section><section class="slide"><h2>Create</h2>
+<p>Erstellen mehrerer Einträge:</p>
+<pre><code class="hljs language-js">db.countries.insertMany([
+  { <span class="hljs-attr">name</span>: <span class="hljs-string">'Finland'</span>, <span class="hljs-attr">continent</span>: <span class="hljs-string">'Europe'</span> },
+  { <span class="hljs-attr">name</span>: <span class="hljs-string">'Greece'</span>, <span class="hljs-attr">continent</span>: <span class="hljs-string">'Europe'</span> },
+]);
+</code></pre>
+</section><section class="slide"><h2>Read</h2>
+<p>Auslesen aller Elemente:</p>
+<pre><code class="hljs language-js">db.countries.find();
+</code></pre>
+<p>Auslesen bestimmter Elemente:</p>
+<pre><code class="hljs language-js">db.countries.find({ <span class="hljs-attr">continent</span>: <span class="hljs-string">'Europe'</span> });
+</code></pre>
+</section><section class="slide"><h2>Read</h2>
+<p>Auslesen eines einzelnen Eintrags mittels <code>findOne</code>:</p>
+<pre><code class="hljs language-js">db.countries.findOne({ <span class="hljs-attr">name</span>: <span class="hljs-string">'Greece'</span> });
+</code></pre>
+</section><section class="slide"><h2>Update</h2>
+<p>Abändern eines Dokuments - Setzen des Eintrags "population":</p>
+<pre><code class="hljs language-js">db.countries.updateOne(
+  { <span class="hljs-attr">name</span>: <span class="hljs-string">'Argentina'</span> },
+  { <span class="hljs-attr">$set</span>: { <span class="hljs-attr">population</span>: <span class="hljs-number">44</span> } }
+);
+</code></pre>
+</section><section class="slide"><h2>Update</h2>
+<p>Ersetzen eines Dokuments:</p>
+<pre><code class="hljs language-js">db.countries.replaceOne(
+  { <span class="hljs-attr">name</span>: <span class="hljs-string">'Brazil'</span> },
+  { <span class="hljs-attr">name</span>: <span class="hljs-string">'Brazil'</span>, <span class="hljs-attr">population</span>: <span class="hljs-number">210</span> }
+);
+</code></pre>
+</section><section class="slide"><h2>Delete</h2>
+<p>Löschen eines Dokuments:</p>
+<pre><code class="hljs language-js">db.countries.deleteOne({ <span class="hljs-attr">name</span>: <span class="hljs-string">'Finland'</span> });
+</code></pre>
+<p>Löschen aller Einträge:</p>
+<pre><code class="hljs language-js">db.countries.deleteMany({});
+</code></pre>
+</section><section class="slide"><h2>BSON Dateiformat</h2>
+<p>MongoDB basiert auf dem BSON Dateiformat. Dieses ähnelt JSON, ist aber ein binäres Format und lässt sich effizienter lesen und schreiben.</p>
+<p>Der Export bzw Import geschieht mittels der Programme <code>mongodump</code> und <code>mongorestore</code></p>
+</section><section class="slide"><h2>Übung</h2>
+<p>Erstellen und Ändern einer Kontaktdatenbank</p>
 </section></section><section class="slides-section"><section class="slide"><h1>SQL Grundlagen</h1>
 </section><section class="slide"><h2>SQL</h2>
 <p>SQL = Structured Query Language</p>
@@ -2405,7 +2545,40 @@ Kommentar */</span>
 </code></pre>
 </section><section class="slide"><h2>Übung</h2>
 <p>Erstellen und Abändern einer Kontaktdatenbank</p>
-</section></section><section class="slides-section"><section class="slide"><h1>SQL Intermediate</h1>
+</section></section><section class="slides-section"><section class="slide"><h1>MongoDB Schema</h1>
+</section><section class="slide"><h2>MongoDB Schema</h2>
+<p>Validierung mittels JSON schema, z.B.:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> elementSchema = {
+  <span class="hljs-attr">bsonType</span>: <span class="hljs-string">'object'</span>,
+  <span class="hljs-attr">required</span>: [
+    <span class="hljs-string">'atomic_number'</span>,
+    <span class="hljs-string">'symbol'</span>,
+    <span class="hljs-string">'name'</span>,
+    <span class="hljs-string">'atomic_mass'</span>,
+  ],
+  <span class="hljs-attr">properties</span>: {
+    <span class="hljs-attr">atomic_number</span>: {
+      <span class="hljs-attr">bsonType</span>: <span class="hljs-string">'int'</span>,
+      <span class="hljs-attr">minimum</span>: <span class="hljs-number">1</span>,
+    },
+    <span class="hljs-attr">symbol</span>: {
+      <span class="hljs-attr">bsonType</span>: <span class="hljs-string">'string'</span>,
+    },
+    <span class="hljs-attr">name</span>: {
+      <span class="hljs-attr">bsonType</span>: <span class="hljs-string">'string'</span>,
+    },
+    <span class="hljs-attr">atomic_mass</span>: {
+      <span class="hljs-attr">bsonType</span>: <span class="hljs-string">'double'</span>,
+    },
+  },
+};
+</code></pre>
+</section><section class="slide"><h2>MongoDB Schema</h2>
+<pre><code class="hljs language-js">db.createCollection(<span class="hljs-string">'elements'</span>, {
+  <span class="hljs-attr">validator</span>: { <span class="hljs-attr">$jsonSchema</span>: elementSchema },
+});
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>SQL Schema und Indizes</h1>
 </section><section class="slide"><h2>Online Tutorial</h2>
 <p><a href="https://www.w3schools.com/sql/default.asp">https://www.w3schools.com/sql/default.asp</a></p>
 </section><section class="slide"><h2>Wiederholung: SQL Datentypen</h2>
@@ -2616,6 +2789,47 @@ Kommentar */</span>
 <span class="hljs-keyword">FROM</span> <span class="hljs-keyword">element</span>
 <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">name</span>=<span class="hljs-string">'Hydrogen'</span>;
 </code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>SQL vs MongoDB 2</h1>
+</section><section class="slide"><h2>SQL vs MongoDB 2</h2>
+<p>SQL: Skalierung hauptsächlich vertikal: Hinzufügen von zusätzlichen Resourcen zu einem vorhandenen Server</p>
+<p>MongoDB: Skalierung hauptsächlich horizontal: Hinzufügen zusätzlicher Server (via Sharding)</p>
+</section><section class="slide"><h2>SQL vs MongoDB 2</h2>
+<p>SQL: Verwendet <em>atomare</em> Einträge (und erste Normalform)</p>
+<p>MongoDB: Enthält oft zusammengesetzte Einträge (Arrays, Objekte):</p>
+<pre><code class="hljs language-json">{
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"sue"</span>,
+  <span class="hljs-attr">"groups"</span>: [<span class="hljs-string">"news"</span>, <span class="hljs-string">"sports"</span>]
+}
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Datenbanken - intermediate</h1>
+</section><section class="slide"><h2>Relationen zwischen Tabellen</h2>
+<ul>
+<li><code>1 : 1</code></li>
+<li><code>1 : n</code></li>
+<li><code>m : n</code></li>
+</ul>
+</section><section class="slide"><h2>Relationen zwischen Tabellen: Beispiele</h2>
+<ul>
+<li><code>0..1 : 1..1</code><br />
+department ←manages→ employee<br />
+Ein Department hat einen Manager; jeder Angestellte managed entweder 0 oder 1 Department</li>
+<li><code>0..1 : 0..n</code><br />
+department ←works in→ person<br />
+Ein Department kann viele Angestellte haben; ein Angestellter kann 0 oder 1 Department zugeteilt sein</li>
+<li><code>0..m : 0..n</code><br />
+project ←works on→ person<br />
+An einem Projekt können mehrere Angestellte arbeiten; ein Angestellter kann an mehreren Projekten arbeiten</li>
+</ul>
+</section><section class="slide"><h2>Entity-Relationship-Model</h2>
+<p><a href="https://en.wikipedia.org/wiki/Entity%E2%80%93relationship_model">https://en.wikipedia.org/wiki/Entity%E2%80%93relationship_model</a></p>
+</section><section class="slide"><h2>ACID</h2>
+<p>Qualitätsmerkmale einer Datenbank (Sicherheit gegenüber Fehlern):</p>
+<ul>
+<li><em>Atomicity</em>: Daten werden mittels Transaktionen abgeändert, die entweder erfolgreich sind oder als ganzes Fehlschlagen - es wird nie eine Transaktion nur teilweise angewendet</li>
+<li><em>Consistency</em>: Für Inhalte können bestimmte Gültigkeitskriterien festgelegt sein - diese können nicht durch Operationen auf den Daten verletzt werden</li>
+<li><em>Isolation</em>: Parallel laufende Transaktionen beeinflussen einander nicht</li>
+<li><em>Durability</em>: Wenn eine Transaktion vom Datenbanksystem als erfolgreich ausgewiesen wird, muss deren Resultat garantiert dauerhaft vorhanden sein</li>
+</ul>
 </section></section><section class="slides-section"><section class="slide"><h1>SQL Joins</h1>
 </section><section class="slide"><h2>Beispiel: Musikdatenbank</h2>
 <p>Tabellen:</p>
@@ -2676,59 +2890,101 @@ Kommentar */</span>
 <span class="hljs-keyword">ON</span> artist.id=song.artist_id;
 </code></pre>
 <p>Der obige Code listet alle Kombinationen auf und beinhaltet auch Lieder, für die kein Künstler definiert ist</p>
-</section></section><section class="slides-section"><section class="slide"><h1>MongoDB</h1>
-</section><section class="slide"><h2>MongoDB vs SQL</h2>
+</section></section><section class="slides-section"><section class="slide"><h1>Datenabfrage - Beispiele</h1>
+</section><section class="slide"><h2>Alle Daten abfragen</h2>
 <p>SQL:</p>
-<ul>
-<li>standardisierte Sprache, unabhängig von der verwendeten Programmiersprache</li>
-<li>Verwendung aus Programmiersprachen oft über viele verschiedene <em>ORMs</em> (<em>object realtional mappings</em>)</li>
-</ul>
-<p>MongoDB:</p>
-<ul>
-<li><em>ein</em> Abfrageschema pro Programmiersprache</li>
-</ul>
-</section><section class="slide"><h2>MongoDB vs SQL</h2>
-<p>SQL:</p>
-<ul>
-<li>vordefiniertes Schema bei der Erstellung von Tabellen</li>
-<li>Änderung eines Tabellenschemas (Migration) kann aufwändig sein</li>
-</ul>
-<p>MongoDB:</p>
-<ul>
-<li>Ein <em>Dokument</em> kann grundsätzlich Einträge beliebiger Struktur enthalten</li>
-<li>Optional können Validatoren spezifiziert werden</li>
-</ul>
-</section><section class="slide"><h2>MongoDB vs SQL</h2>
-<p>SQL:</p>
-<ul>
-<li>Skalierung hauptsächlich vertikal: Ergänzen von Resourcen bei einem bestehenden Server</li>
-</ul>
-<p>MongoDB:</p>
-<ul>
-<li>Skalierung hauptsächlich horizontal: Ergänzen zusätzlicher Server (via Sharding)</li>
-</ul>
-</section><section class="slide"><h2>MongoDB vs SQL</h2>
-<p>SQL:</p>
-<ul>
-<li>verwendet meist <em>atomare</em> Einträge (und erste Normalform)</li>
-</ul>
-<p>MongoDB:</p>
-<ul>
-<li>beinhaltet oft zusammengesetzte Einträge (Arrays, Objekte):</li>
-</ul>
-<pre><code class="hljs language-json">{
-  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"sue"</span>,
-  <span class="hljs-attr">"groups"</span>: [<span class="hljs-string">"news"</span>, <span class="hljs-string">"sports"</span>]
-}
+<pre><code class="hljs language-sql"><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> iris;
 </code></pre>
-</section><section class="slide"><h2>MongoDB</h2>
-<p><em>MongoDB</em> ist eine sogenannte <em>dokumentorientierte</em> Datenbank</p>
-<p>Ihre Struktur kann ähnlich aussehen wie die eines JSON-Dokuments</p>
-</section><section class="slide"><h2>BSON Dateiformat</h2>
-<p>MongoDB basiert auf dem BSON Dateiformat. Dieses ähnelt JSON, ist aber ein binäres Format und lässt sich effizienter lesen und schreiben.</p>
-<p>Der Export bzw Import geschieht mittels der Programme <code>mongodump</code> und <code>mongorestore</code></p>
-</section><section class="slide"><h2>NeDB</h2>
-<p>NeDB: einfache JavaScript-Library, die das MongoDB Interface implementiert</p></section></section></div>
+<p>SQLAlchemy (Python):</p>
+<pre><code class="hljs language-sql">session.query(Iris)
+</code></pre>
+<p>mongo shell (JS):</p>
+<pre><code class="hljs language-js">db.iris.find({});
+</code></pre>
+<p>Pandas (Python): N/A</p>
+</section><section class="slide"><h2>Bestimmte Spalten / Felder abfragen</h2>
+<p>SQL:</p>
+<pre><code class="hljs language-sql"><span class="hljs-keyword">SELECT</span> sepal_length, sepal_width <span class="hljs-keyword">FROM</span> iris;
+</code></pre>
+<p>SQLAlchemy (Python):</p>
+<pre><code class="hljs language-sql">session.query(Iris.sepal_length, Iris.sepal_width)
+</code></pre>
+</section><section class="slide"><h2>Bestimmte Spalten / Felder abfragen</h2>
+<p>Mongo shell:</p>
+<pre><code class="hljs language-js">db.iris.find({}, { <span class="hljs-attr">sepal_length</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">sepal_width</span>: <span class="hljs-number">1</span> });
+</code></pre>
+<p>Pandas:</p>
+<pre><code class="hljs language-py">iris_data.loc[:,[<span class="hljs-string">"sepal_length"</span>, <span class="hljs-string">"sepal_width"</span>]]
+</code></pre>
+</section><section class="slide"><h2>Bestimmte Einträge finden</h2>
+<p>SQL:</p>
+<pre><code class="hljs language-sql"><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> iris <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">name</span>=<span class="hljs-string">'Iris-setosa'</span>;
+</code></pre>
+<p>SQLAlchemy (Python):</p>
+<pre><code class="hljs language-py">session.query(Iris).filter(Iris.name=<span class="hljs-string">"Iris-setosa"</span>)
+</code></pre>
+</section><section class="slide"><h2>Bestimmte Einträge finden</h2>
+<p>mongo shell:</p>
+<pre><code class="hljs language-js">db.iris.find({ <span class="hljs-attr">name</span>: <span class="hljs-string">'Iris-setosa'</span> });
+</code></pre>
+<p>pandas (Python):</p>
+<pre><code class="hljs language-py">iris_setosa_data = iris_data.loc[
+    iris_data[<span class="hljs-string">"name"</span>] == <span class="hljs-string">"Iris-setosa"</span>
+]
+</code></pre>
+<p>pandas (Python): Eine Reihe von Einträgen auswählen:</p>
+<pre><code class="hljs language-py">iris_data.iloc[<span class="hljs-number">10</span>:<span class="hljs-number">20</span>]
+</code></pre>
+</section><section class="slide"><h2>Einträge und Felder auswählen</h2>
+<p>SQL:</p>
+<pre><code class="hljs language-sql"><span class="hljs-keyword">SELECT</span> sepal_length, sepal_width
+<span class="hljs-keyword">FROM</span> iris
+<span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">name</span>=<span class="hljs-string">'Iris-setosa'</span>;
+</code></pre>
+</section><section class="slide"><h2>Einträge und Felder auswählen</h2>
+<p>SQLAlchemy (Python):</p>
+<pre><code class="hljs language-py">session.query(
+    Iris.sepal_length, Iris.sepal_width
+).filter(Iris.name=<span class="hljs-string">"Iris-setosa"</span>)
+</code></pre>
+</section><section class="slide"><h2>Einträge und Felder auswählen</h2>
+<p>mongo shell:</p>
+<pre><code class="hljs language-js">db.iris.find(
+  { <span class="hljs-attr">name</span>: <span class="hljs-string">'Iris-setosa'</span> },
+  { <span class="hljs-attr">sepal_length</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">sepal_width</span>: <span class="hljs-number">1</span> }
+);
+</code></pre>
+</section><section class="slide"><h2>Einträge und Felder auswählen</h2>
+<p>pandas (Python):</p>
+<pre><code class="hljs language-py">iris_data.loc[
+    [iris_data[<span class="hljs-string">"name"</span>] == <span class="hljs-string">"Iris-setosa"</span>],
+    [<span class="hljs-string">"sepal_length"</span>, <span class="hljs-string">"sepal_width"</span>],
+]
+</code></pre>
+</section><section class="slide"><h2>Einträge sortieren</h2>
+<p>SQL:</p>
+<pre><code class="hljs language-sql"><span class="hljs-keyword">SELECT</span> sepal_length, sepal_width
+<span class="hljs-keyword">FROM</span> iris
+<span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> sepal_length;
+</code></pre>
+</section><section class="slide"><h2>Einträge sortieren</h2>
+<p>SQLAlchemy:</p>
+<pre><code class="hljs language-py">session.query(
+    Iris.sepal_length, Iris.sepal_width
+).order_by(Iris.sepal_length)
+</code></pre>
+</section><section class="slide"><h2>Einträge sortieren</h2>
+<p>mongo shell:</p>
+<pre><code class="hljs language-js">db.iris
+  .find({}, { <span class="hljs-attr">sepal_length</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">sepal_width</span>: <span class="hljs-number">1</span> })
+  .sort({ <span class="hljs-attr">sepal_length</span>: <span class="hljs-number">1</span> });
+</code></pre>
+</section><section class="slide"><h2>Einträge sortieren</h2>
+<p>pandas (Python):</p>
+<pre><code class="hljs language-py">iris_data.loc[[<span class="hljs-string">"sepal_length"</span>, <span class="hljs-string">"sepal_width"</span>]].sort_values(
+    by=<span class="hljs-string">"sepal_length"</span>
+)
+</code></pre></section></section></div>
     </div>
     <script>/*!
  * reveal.js

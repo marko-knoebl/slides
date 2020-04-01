@@ -6,13 +6,13 @@
 
 JavaScript is standardised under the name _ECMAScript_ (ES)
 
-## JavaScript: versions
+## JavaScript versions
 
 - Supported by all Browsers: ES5 (standardised in 2009)
 - Next big version: _ES2015_ (or ES6)
 - Since then: yearly updates in June of each year (ES2016, ES2017, ...)
 
-## JavaScript: version support
+## JavaScript version support
 
 - Overview: see http://kangax.github.io/compat-table/es6/
 - In practice: Modern JavaScript is transpiled to ES5 (via Babel, webpack)
@@ -25,37 +25,46 @@ JavaScript is standardised under the name _ECMAScript_ (ES)
 - Is handled by webpack in most cases
 
 ```js
-// user.js
-export class User {
-  ...
-}
+// foo.js
+const foo = 1;
+const bar = 2;
+const baz = 3;
+
+export { foo, bar, baz };
 ```
 
 ```js
-// main.js
-import { User } from 'user.js';
+// index.js
+import { foo, bar } from 'foo.js';
 ```
 
 ## Modules & imports
 
+there may be one default export
+
 ```js
-// user.js
-// there may be 1 default export
-export default class User {
-   ...
-}
+// foo.js
+const foo = 1;
+const bar = 2;
+const baz = 3;
+
+export { foo, bar, baz };
+
+const main = 0;
+
+export default main;
 ```
 
 ```js
-// main.js
-import User from 'user.js';
+// index.js
+import main, { foo, bar } from 'foo.js';
 ```
 
 ## Imports in webpack
 
 Bundlers like webpack can deviate from standard JavaScript import behavior:
 
-- the import doesn't require a file name extension like `.js`
+- the import does not require a file name extension like `.js`
 - if the import leads to a folder webpack will look for an `index.js` file in the folder
 
 ## let
@@ -105,20 +114,14 @@ const { name, age } = person;
 - leaves _this_ unchanged (does not reassign)
 
 ```js
-let multiply = (a, b) => {
+const multiply = (a, b) => {
   return a * b;
 };
 
-let multiply = (a, b) => a * b;
+const multiply = (a, b) => a * b;
 ```
 
 ## Arrow functions
-
-if there's exactly one parameter: parentheses are optional
-
-```js
-const square = a => a * a;
-```
 
 if we want to return an object directly: wrap it in parentheses
 
@@ -164,7 +167,7 @@ class User extends Person {
 Iterating over entries of an array:
 
 ```js
-let names = ['Anna', 'Bernhard', 'Caro'];
+const names = ['Anna', 'Bernhard', 'Caro'];
 for (let name of names) {
   console.log(name);
 }
@@ -173,14 +176,18 @@ for (let name of names) {
 ## Spread syntax (arrays and objects)
 
 ```js
-let squares = [1, 4, 9];
-let moreSquares = [...squares, 16, 25];
+const squares = [1, 4, 9];
+const moreSquares = [...squares, 16, 25];
 // moreSquares: [1, 4, 9, 16, 25]
 ```
 
 ```js
-let person = { firstName: 'Joe', lastName: 'Doe', age: 31 };
-let newPerson = { ...person, email: 'j@d.com', age: 32 };
+const person = {
+  firstName: 'Joe',
+  lastName: 'Doe',
+  age: 31,
+};
+const newPerson = { ...person, email: 'j@d.com', age: 32 };
 // {firstName: 'Joe', lastName: 'Doe', email: 'j@d.com', age: 32}
 ```
 
@@ -191,17 +198,7 @@ let newPerson = { ...person, email: 'j@d.com', age: 32 };
 - enables multiline string literals and interpolation
 
 ```js
-let name = 'Anton';
-let greeting = `Hello, ${name}!
-                This is ES2015!`;
-```
-
-## Default arguments
-
-Functions may now have default arguments
-
-```js
-let join = (strings, separator='') => {
-  ...
-}
+const name = 'Mike';
+const greeting = `Hello, ${name}!
+                  This is ES2015!`;
 ```

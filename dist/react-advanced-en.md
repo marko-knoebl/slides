@@ -159,6 +159,14 @@ An event inside an application triggers a so-called _action_.
 
 Based on that _action_ the current _state_ will be transformed into a new _state_ via a _reducer_ function.
 
+## State management with actions and reducers
+
+A _reducer_ is a function that acts as the central element in Redux
+
+The reducer receives the old state and an action describing a state change
+
+The reducer function returns the new state. The reducer function **does not mutate the old state object** (it is a pure function)
+
 ## Reducer diagram
 
 <img src="assets/redux-flow.svg" type="text/svg" style="width: 100%">
@@ -172,9 +180,9 @@ const state1 = [
   { id: 1, title: 'groceries', completed: false },
   { id: 2, title: 'taxes', completed: true },
 ];
-const actionA = { type: 'addTodo', title: 'gardening' };
+const actionA = { type: 'addTodo', payload: 'gardening' };
 const state2 = todosReducer(state1, actionA);
-const actionB = { type: 'deleteTodo', id: 1 };
+const actionB = { type: 'deleteTodo', payload: 1 };
 const state3 = todosReducer(state2, actionB);
 console.log(state3);
 /* [{ id: 2, title: 'taxes', completed: true },
@@ -183,36 +191,23 @@ console.log(state3);
 
 ## Example: todos state management
 
-We manage an array of todos via a reducer. We start with two possible actions:
-
-- adding a todo
-- deleting a todo
-
-## Example: todos state management
-
-_Actions_ will be represented by JavaScript objects; actions always have a _type_ property
+- actions are represented by JavaScript objects
+- actions always have a _type_ property
+- actions commonly also have a _payload_ property
 
 ```json
 {
   "type": "addTodo",
-  "title": "learn React"
+  "payload": "learn React"
 }
 ```
 
 ```json
 {
   "type": "deleteTodo",
-  "id": 1
+  "payload": 1
 }
 ```
-
-## Example: todos state management
-
-A _reducer_ is a function that acts as the central element in Redux
-
-The reducer receives the old state and an action describing a state change
-
-The reducer function returns the new state. Importantly, the reducer function does not mutate the old state object (it is a pure function)
 
 ## Example: todos state management
 
@@ -233,6 +228,25 @@ const todosReducer = (oldState, action) => {
     default:
       throw new Error('unknown action type');
   }
+};
+```
+
+## Example: todos state management
+
+usage with TypeScript:
+
+```ts
+type TodosState = Array<Todo>;
+
+type TodosAction =
+  | { type: 'addTodo'; payload: string }
+  | { type: 'deleteTodo'; payload: number };
+
+const todosReducer = (
+  state: TodosState,
+  action: TodosAction
+): TodosState => {
+  // ...
 };
 ```
 
@@ -1224,62 +1238,41 @@ Components are rendered and compared to earlier versions (snapshots)
 
 tests focus on aspects that are relevant for the end user (and not on the exact DOM structure)
 
-## React-Testing-Library - Example
+## React-Testing-Library
 
 ```js
 import { render } from '@testing-library/react';
 
-it('renders a component without crashing', () => {
-  const instance = render(<MyComponent />);
+it('renders learn react link', () => {
+  const instance = render(<App />);
+  const linkElement = instance.getByText(/learn react/i);
+  expect(linkElement).toBeInTheDocument();
 });
 ```
 
-## React-Testing-Library - Querying elements
+## Querying elements
 
 - `.getByText` (throws if there is not a unique match)
 - `.getAllByText` (throws if there are no matches)
-- `.queryByText`
-- `.queryAllByText`
+- `.getByTitle`
+- `.getByLabelText`
 - ... (see [https://testing-library.com/docs/dom-testing-library/api-queries](https://testing-library.com/docs/dom-testing-library/api-queries))
 
-## React-Testing-Library
+## Assertions
 
-advanced assertions available via:
+extra assertions:
 
-```js
-import '@testing-library/jest-dom/extend-expect';
-```
-
-examples:
-
-- `.toContainHTML()`
-- `.toHaveClass()`
+- `.toHaveTextContent()`
 - `.toBeInTheDocument()`
-- ...
-
-see [https://github.com/testing-library/jest-dom](https://github.com/testing-library/jest-dom)
-
-## Test setup
-
-```js
-import React from 'react';
-import '@testing-library/jest-dom/extend-expect';
-import {
-  render,
-  fireEvent,
-  cleanup,
-} from '@testing-library/react';
-
-afterEach(() => {
-  cleanup();
-});
-```
+- ... see [https://github.com/testing-library/jest-dom](https://github.com/testing-library/jest-dom)
 
 ## Testing the rendering
 
 rating component:
 
 ```jsx
+import { render } from '@testing-library/react';
+
 it('renders three full stars', () => {
   const instance = render(<Rating stars={3} />);
   const fullStars = instance.getAllByText('★');
@@ -1310,6 +1303,8 @@ it('renders a slideshow starting at image 0', () => {
 slideshow component:
 
 ```jsx
+import { fireEvent } from 'react-testing-library';
+
 it('switches to the next slide', () => {
   const instance = render(<Slideshow />);
   const slide = instance.getByAltText('slide');
@@ -1337,6 +1332,65 @@ it('triggers an event when the fourth star is clicked', () => {
 });
 ```
 
+## Testing asynchronous code
+
+`ChuckNorrisJoke` component which queries an API:
+
+```js
+const ChuckNorrisJoke = () => {
+  const [joke, setJoke] = useState(null);
+  useEffect(() => {
+    axios
+      .get('https://api.chucknorris.io/jokes/random')
+      .then(res => setJoke(res.data.value));
+  }, []);
+  if (!joke) {
+    return <div>loading...</div>;
+  }
+  return <h1 title="joke">{joke}</h1>;
+};
+```
+
+## Testing asynchronous code
+
+testing with an actual API:
+
+```js
+import { waitForElement } from '@testing-library/react';
+
+it('loads Chuck Norris joke from API', async () => {
+  const instance = render(<ChuckNorrisJoke />);
+  const jokeElement = await waitForElement(() =>
+    instance.getByTitle('joke')
+  );
+  // joke should have at least 3 characters
+  expect(jokeElement).toHaveTextContent(/.../);
+});
+```
+
+`waitForElement` will repeatedly query for an element until it exists
+
+## Mocking objects
+
+mocking API calls:
+
+replacing `axios` with a mocked module:
+
+```js
+import axios from 'axios';
+jest.mock('axios');
+```
+
+mocking `axios.get` as a successful promise:
+
+```js
+axios.get.mockResolvedValueOnce({
+  data: {
+    value: 'Chuck Norris counted to infinity. Twice.',
+  },
+});
+```
+
 ## Testing errors
 
 rating component:
@@ -1349,6 +1403,28 @@ it('throws an error if the number of stars is 0', () => {
   expect(testFn).toThrow('number of stars must be 1-5');
 });
 ```
+
+## Manual setup
+
+these steps are already set up when using `create-react-app`
+
+enable advanced assertions (see [https://github.com/testing-library/jest-dom](https://github.com/testing-library/jest-dom)):
+
+```js
+import '@testing-library/jest-dom/extend-expect';
+```
+
+test case cleanup (unmounting):
+
+```js
+import { cleanup } from '@testing-library/react';
+
+afterEach(cleanup);
+```
+
+## Resource
+
+https://react-testing-examples.com/
 
 # React-Test-Renderer
 
@@ -1598,7 +1674,7 @@ with react-testing-library
 ```jsx
 it('matches the snapshot', () => {
   const instance = render(<Slideshow />);
-  expect(instance).toMatchSnapshot();
+  expect(instance.baseElement).toMatchSnapshot();
   const slide = instance.getByAltText('slide');
   expect(slide).toMatchSnapshot();
 });

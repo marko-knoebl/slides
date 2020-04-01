@@ -356,37 +356,264 @@ Beispiel
 
 Verwendung: Verwaltung großer Datenmengen
 
-## Tabellen und Datenschemata
+## Datenbanken
 
-Die meisten Datenbanken verwalten ihre Daten in Tabellen
+Beispiele:
 
-## Relationen zwischen Tabellen
+- SQL databases
+  - MySQL
+  - PostgreSQL
+  - Microsoft SQL Server
+  - SQLite
+  - Oracle
+- MongoDB
+- Redis
 
-- `1 : 1`
-- `1 : n`
-- `m : n`
+[Verbreitung laut Stack Overflow Developer Survey 2019](https://insights.stackoverflow.com/survey/2019#technology-_-databases)
 
-## Relationen zwischen Tabellen: Beispiele
+## Terminologie
 
-- `0..1 : 1..1`  
-  department ←manages→ person
-- `0..1 : 0..n`  
-  department ←works in→ person
-- `0..m : 0..n`  
-  project ←works on→ person
+- **Tabelle / Collection**: Ansammlung ähnlicher Datenobjekte (z.B. eine für Produkte)
+- **Zeile / Eintrag / Dokument**: Einzelner Eintrag in einer Tabelle (z.B. für ein einzelnes Produkt)
+- **Feld**: Ein Wert in einem Eintrag (z.B. _Preis_)
 
-## Entity-Relationship-Model
+## CRUD-Operationen
 
-https://en.wikipedia.org/wiki/Entity%E2%80%93relationship_model
+Grundlegende Operationen für Datenbankeinträge:
 
-## ACID
+- **c**reate
+- **r**ead / **r**etrieve
+- **u**pdate
+- **d**elete
 
-Qualitätsmerkmale einer Datenbank (Sicherheit gegenüber Fehlern):
+## Create
 
-- _Atomicity_: Daten werden mittels Transaktionen abgeändert, die entweder erfolgreich sind oder als ganzes Fehlschlagen - es wird nie eine Transaktion nur teilweise angewendet
-- _Consistency_: Für Inhalte können bestimmte Gültigkeitskriterien festgelegt sein - diese können nicht durch Operationen auf den Daten verletzt werden
-- _Isolation_: Parallel laufende Transaktionen beeinflussen einander nicht
-- _Durability_: Wenn eine Transaktion vom Datenbanksystem als erfolgreich ausgewiesen wird, muss deren Resultat garantiert dauerhaft vorhanden sein
+SQL:
+
+```sql
+INSERT INTO product (name, category)
+VALUES ('IPhone', 'electronics')
+```
+
+MongoDB shell:
+
+```js
+db.products.insertOne({
+  name: 'IPhone',
+  category: 'electronics',
+});
+```
+
+## Read
+
+SQL:
+
+```sql
+SELECT name, category FROM product
+WHERE category = 'electronics';
+```
+
+MongoDB shell:
+
+```js
+db.products.find({ category: 'electronics' });
+```
+
+## Update
+
+SQL:
+
+```sql
+UPDATE product
+SET category = 'phones'
+WHERE name = 'IPhone';
+```
+
+MongoDB shell:
+
+```js
+db.products.updateOne(
+  { name: 'IPhone' },
+  { $set: { category: 'phones' } }
+);
+```
+
+## Delete
+
+SQL:
+
+```sql
+DELETE FROM product
+WHERE name = 'IPhone';
+```
+
+MongoDB shell:
+
+```js
+db.products.deleteOne({ name: 'IPhone' });
+```
+
+## Online Playgrounds
+
+- [SQL Editor von W3Schools](https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all) (enthält bereits Daten, verwendbar mit Chrome und Safari)
+- [MongoDB Web Shell](https://docs.mongodb.com/manual/tutorial/getting-started/)
+
+## Übung
+
+Erstellen / Ändern / Abfragen von Daten in einem Online Playground
+
+# SQL vs MongoDB
+
+## SQL vs MongoDB
+
+SQL (Structured Query Language): entwickelt in den 1970ern, viele verschiedene Varianten
+
+MongoDB: 2009 veröffentlicht
+
+## SQL vs MongoDB
+
+SQL: Einträge werden in Tabellen mit vordefinierten Feldnamen und Feldtypen gespeichert (Datenbankschema)
+
+MongoDB: Einträge (Dokumente) in einer Collection können beliebige Felder haben; optional mit einem _Schema_ validierbar
+
+## SQL vs MongoDB
+
+SQL: standardisierte Sprache (theoretisch), unabhängig von der verwendeten Programmiersprache
+
+MongoDB: direkte Bindings für Programmiersprachen
+
+# MongoDB Grundlagen
+
+## MongoDB Shell
+
+**MongoDB Shell** = einfaches Befehlszeileninterface für MongoDB
+
+online ausprobieren:
+
+https://docs.mongodb.com/manual/tutorial/getting-started/
+
+eine Untermenge der MongoDB shell in reinem JavaScript verwenden (ohne Installation von MongoDB):
+
+https://github.com/marko-knoebl/mingodb
+
+## Datentypen
+
+- Zahlen
+  - int (32 bit) / long (64 bit)
+  - double (64 bit floating point)
+  - decimal (128 bit)
+- bool
+- string
+- binData
+- date (Datum + Uhrzeit)
+- array
+- object
+- null
+- objectId
+
+siehe: https://docs.mongodb.com/manual/reference/bson-types/
+
+## ids
+
+Dokumente bekommen automatisch ein eindeutiges `_id`-Feld:
+
+```js
+entry = {
+  _id: ObjectId('5e715e1b31315b0be066db84'),
+  name: 'Argentina',
+  continent: 'South America',
+};
+```
+
+## Create
+
+Erstellen eines Eintrags:
+
+```js
+db.countries.insertOne({
+  name: 'Argentina',
+  continent: 'South America',
+});
+```
+
+## Create
+
+Erstellen mehrerer Einträge:
+
+```js
+db.countries.insertMany([
+  { name: 'Finland', continent: 'Europe' },
+  { name: 'Greece', continent: 'Europe' },
+]);
+```
+
+## Read
+
+Auslesen aller Elemente:
+
+```js
+db.countries.find();
+```
+
+Auslesen bestimmter Elemente:
+
+```js
+db.countries.find({ continent: 'Europe' });
+```
+
+## Read
+
+Auslesen eines einzelnen Eintrags mittels `findOne`:
+
+```js
+db.countries.findOne({ name: 'Greece' });
+```
+
+## Update
+
+Abändern eines Dokuments - Setzen des Eintrags "population":
+
+```js
+db.countries.updateOne(
+  { name: 'Argentina' },
+  { $set: { population: 44 } }
+);
+```
+
+## Update
+
+Ersetzen eines Dokuments:
+
+```js
+db.countries.replaceOne(
+  { name: 'Brazil' },
+  { name: 'Brazil', population: 210 }
+);
+```
+
+## Delete
+
+Löschen eines Dokuments:
+
+```js
+db.countries.deleteOne({ name: 'Finland' });
+```
+
+Löschen aller Einträge:
+
+```js
+db.countries.deleteMany({});
+```
+
+## BSON Dateiformat
+
+MongoDB basiert auf dem BSON Dateiformat. Dieses ähnelt JSON, ist aber ein binäres Format und lässt sich effizienter lesen und schreiben.
+
+Der Export bzw Import geschieht mittels der Programme `mongodump` und `mongorestore`
+
+## Übung
+
+Erstellen und Ändern einer Kontaktdatenbank
 
 # SQL Grundlagen
 
@@ -565,7 +792,48 @@ WHERE name = 'John Miller';
 
 Erstellen und Abändern einer Kontaktdatenbank
 
-# SQL Intermediate
+# MongoDB Schema
+
+## MongoDB Schema
+
+Validierung mittels JSON schema, z.B.:
+
+```js
+const elementSchema = {
+  bsonType: 'object',
+  required: [
+    'atomic_number',
+    'symbol',
+    'name',
+    'atomic_mass',
+  ],
+  properties: {
+    atomic_number: {
+      bsonType: 'int',
+      minimum: 1,
+    },
+    symbol: {
+      bsonType: 'string',
+    },
+    name: {
+      bsonType: 'string',
+    },
+    atomic_mass: {
+      bsonType: 'double',
+    },
+  },
+};
+```
+
+## MongoDB Schema
+
+```js
+db.createCollection('elements', {
+  validator: { $jsonSchema: elementSchema },
+});
+```
+
+# SQL Schema und Indizes
 
 ## Online Tutorial
 
@@ -845,6 +1113,60 @@ FROM element
 WHERE name='Hydrogen';
 ```
 
+# SQL vs MongoDB 2
+
+## SQL vs MongoDB 2
+
+SQL: Skalierung hauptsächlich vertikal: Hinzufügen von zusätzlichen Resourcen zu einem vorhandenen Server
+
+MongoDB: Skalierung hauptsächlich horizontal: Hinzufügen zusätzlicher Server (via Sharding)
+
+## SQL vs MongoDB 2
+
+SQL: Verwendet _atomare_ Einträge (und erste Normalform)
+
+MongoDB: Enthält oft zusammengesetzte Einträge (Arrays, Objekte):
+
+```json
+{
+  "name": "sue",
+  "groups": ["news", "sports"]
+}
+```
+
+# Datenbanken - intermediate
+
+## Relationen zwischen Tabellen
+
+- `1 : 1`
+- `1 : n`
+- `m : n`
+
+## Relationen zwischen Tabellen: Beispiele
+
+- `0..1 : 1..1`  
+  department ←manages→ employee  
+  Ein Department hat einen Manager; jeder Angestellte managed entweder 0 oder 1 Department
+- `0..1 : 0..n`  
+  department ←works in→ person  
+  Ein Department kann viele Angestellte haben; ein Angestellter kann 0 oder 1 Department zugeteilt sein
+- `0..m : 0..n`  
+  project ←works on→ person  
+  An einem Projekt können mehrere Angestellte arbeiten; ein Angestellter kann an mehreren Projekten arbeiten
+
+## Entity-Relationship-Model
+
+https://en.wikipedia.org/wiki/Entity%E2%80%93relationship_model
+
+## ACID
+
+Qualitätsmerkmale einer Datenbank (Sicherheit gegenüber Fehlern):
+
+- _Atomicity_: Daten werden mittels Transaktionen abgeändert, die entweder erfolgreich sind oder als ganzes Fehlschlagen - es wird nie eine Transaktion nur teilweise angewendet
+- _Consistency_: Für Inhalte können bestimmte Gültigkeitskriterien festgelegt sein - diese können nicht durch Operationen auf den Daten verletzt werden
+- _Isolation_: Parallel laufende Transaktionen beeinflussen einander nicht
+- _Durability_: Wenn eine Transaktion vom Datenbanksystem als erfolgreich ausgewiesen wird, muss deren Resultat garantiert dauerhaft vorhanden sein
+
 # SQL Joins
 
 ## Beispiel: Musikdatenbank
@@ -933,71 +1255,173 @@ ON artist.id=song.artist_id;
 
 Der obige Code listet alle Kombinationen auf und beinhaltet auch Lieder, für die kein Künstler definiert ist
 
-# MongoDB
+# Datenabfrage - Beispiele
 
-## MongoDB vs SQL
-
-SQL:
-
-- standardisierte Sprache, unabhängig von der verwendeten Programmiersprache
-- Verwendung aus Programmiersprachen oft über viele verschiedene _ORMs_ (_object realtional mappings_)
-
-MongoDB:
-
-- _ein_ Abfrageschema pro Programmiersprache
-
-## MongoDB vs SQL
+## Alle Daten abfragen
 
 SQL:
 
-- vordefiniertes Schema bei der Erstellung von Tabellen
-- Änderung eines Tabellenschemas (Migration) kann aufwändig sein
-
-MongoDB:
-
-- Ein _Dokument_ kann grundsätzlich Einträge beliebiger Struktur enthalten
-- Optional können Validatoren spezifiziert werden
-
-## MongoDB vs SQL
-
-SQL:
-
-- Skalierung hauptsächlich vertikal: Ergänzen von Resourcen bei einem bestehenden Server
-
-MongoDB:
-
-- Skalierung hauptsächlich horizontal: Ergänzen zusätzlicher Server (via Sharding)
-
-## MongoDB vs SQL
-
-SQL:
-
-- verwendet meist _atomare_ Einträge (und erste Normalform)
-
-MongoDB:
-
-- beinhaltet oft zusammengesetzte Einträge (Arrays, Objekte):
-
-```json
-{
-  "name": "sue",
-  "groups": ["news", "sports"]
-}
+```sql
+SELECT * FROM iris;
 ```
 
-## MongoDB
+SQLAlchemy (Python):
 
-_MongoDB_ ist eine sogenannte _dokumentorientierte_ Datenbank
+```sql
+session.query(Iris)
+```
 
-Ihre Struktur kann ähnlich aussehen wie die eines JSON-Dokuments
+mongo shell (JS):
 
-## BSON Dateiformat
+```js
+db.iris.find({});
+```
 
-MongoDB basiert auf dem BSON Dateiformat. Dieses ähnelt JSON, ist aber ein binäres Format und lässt sich effizienter lesen und schreiben.
+Pandas (Python): N/A
 
-Der Export bzw Import geschieht mittels der Programme `mongodump` und `mongorestore`
+## Bestimmte Spalten / Felder abfragen
 
-## NeDB
+SQL:
 
-NeDB: einfache JavaScript-Library, die das MongoDB Interface implementiert
+```sql
+SELECT sepal_length, sepal_width FROM iris;
+```
+
+SQLAlchemy (Python):
+
+```sql
+session.query(Iris.sepal_length, Iris.sepal_width)
+```
+
+## Bestimmte Spalten / Felder abfragen
+
+Mongo shell:
+
+```js
+db.iris.find({}, { sepal_length: 1, sepal_width: 1 });
+```
+
+Pandas:
+
+```py
+iris_data.loc[:,["sepal_length", "sepal_width"]]
+```
+
+## Bestimmte Einträge finden
+
+SQL:
+
+```sql
+SELECT * FROM iris WHERE name='Iris-setosa';
+```
+
+SQLAlchemy (Python):
+
+```py
+session.query(Iris).filter(Iris.name="Iris-setosa")
+```
+
+## Bestimmte Einträge finden
+
+mongo shell:
+
+```js
+db.iris.find({ name: 'Iris-setosa' });
+```
+
+pandas (Python):
+
+```py
+iris_setosa_data = iris_data.loc[
+    iris_data["name"] == "Iris-setosa"
+]
+```
+
+pandas (Python): Eine Reihe von Einträgen auswählen:
+
+```py
+iris_data.iloc[10:20]
+```
+
+## Einträge und Felder auswählen
+
+SQL:
+
+```sql
+SELECT sepal_length, sepal_width
+FROM iris
+WHERE name='Iris-setosa';
+```
+
+## Einträge und Felder auswählen
+
+SQLAlchemy (Python):
+
+```py
+session.query(
+    Iris.sepal_length, Iris.sepal_width
+).filter(Iris.name="Iris-setosa")
+```
+
+## Einträge und Felder auswählen
+
+mongo shell:
+
+```js
+db.iris.find(
+  { name: 'Iris-setosa' },
+  { sepal_length: 1, sepal_width: 1 }
+);
+```
+
+## Einträge und Felder auswählen
+
+pandas (Python):
+
+```py
+iris_data.loc[
+    [iris_data["name"] == "Iris-setosa"],
+    ["sepal_length", "sepal_width"],
+]
+```
+
+## Einträge sortieren
+
+SQL:
+
+```sql
+SELECT sepal_length, sepal_width
+FROM iris
+ORDER BY sepal_length;
+```
+
+## Einträge sortieren
+
+SQLAlchemy:
+
+```py
+session.query(
+    Iris.sepal_length, Iris.sepal_width
+).order_by(Iris.sepal_length)
+```
+
+## Einträge sortieren
+
+mongo shell:
+
+```js
+db.iris
+  .find({}, { sepal_length: 1, sepal_width: 1 })
+  .sort({ sepal_length: 1 });
+```
+
+## Einträge sortieren
+
+pandas (Python):
+
+```py
+iris_data.loc[["sepal_length", "sepal_width"]].sort_values(
+    by="sepal_length"
+)
+```
 

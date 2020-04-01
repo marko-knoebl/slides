@@ -2154,6 +2154,10 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <p>Technique that is used in <em>Redux</em> and in React's <em>reducer hook</em>:</p>
 <p>An event inside an application triggers a so-called <em>action</em>.</p>
 <p>Based on that <em>action</em> the current <em>state</em> will be transformed into a new <em>state</em> via a <em>reducer</em> function.</p>
+</section><section class="slide"><h2>State management with actions and reducers</h2>
+<p>A <em>reducer</em> is a function that acts as the central element in Redux</p>
+<p>The reducer receives the old state and an action describing a state change</p>
+<p>The reducer function returns the new state. The reducer function <strong>does not mutate the old state object</strong> (it is a pure function)</p>
 </section><section class="slide"><h2>Reducer diagram</h2>
 <svg id="redux-flow-svg" version="1.1" width="1000" height="500" viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg">
   <defs>
@@ -2214,36 +2218,30 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'groceries'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
   { <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'taxes'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">true</span> },
 ];
-<span class="hljs-keyword">const</span> actionA = { <span class="hljs-attr">type</span>: <span class="hljs-string">'addTodo'</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'gardening'</span> };
+<span class="hljs-keyword">const</span> actionA = { <span class="hljs-attr">type</span>: <span class="hljs-string">'addTodo'</span>, <span class="hljs-attr">payload</span>: <span class="hljs-string">'gardening'</span> };
 <span class="hljs-keyword">const</span> state2 = todosReducer(state1, actionA);
-<span class="hljs-keyword">const</span> actionB = { <span class="hljs-attr">type</span>: <span class="hljs-string">'deleteTodo'</span>, <span class="hljs-attr">id</span>: <span class="hljs-number">1</span> };
+<span class="hljs-keyword">const</span> actionB = { <span class="hljs-attr">type</span>: <span class="hljs-string">'deleteTodo'</span>, <span class="hljs-attr">payload</span>: <span class="hljs-number">1</span> };
 <span class="hljs-keyword">const</span> state3 = todosReducer(state2, actionB);
 <span class="hljs-built_in">console</span>.log(state3);
 <span class="hljs-comment">/* [{ id: 2, title: 'taxes', completed: true },
     { id: 3, title: 'gardening', completed: false },] */</span>
 </code></pre>
 </section><section class="slide"><h2>Example: todos state management</h2>
-<p>We manage an array of todos via a reducer. We start with two possible actions:</p>
 <ul>
-<li>adding a todo</li>
-<li>deleting a todo</li>
+<li>actions are represented by JavaScript objects</li>
+<li>actions always have a <em>type</em> property</li>
+<li>actions commonly also have a <em>payload</em> property</li>
 </ul>
-</section><section class="slide"><h2>Example: todos state management</h2>
-<p><em>Actions</em> will be represented by JavaScript objects; actions always have a <em>type</em> property</p>
 <pre><code class="hljs language-json">{
   <span class="hljs-attr">"type"</span>: <span class="hljs-string">"addTodo"</span>,
-  <span class="hljs-attr">"title"</span>: <span class="hljs-string">"learn React"</span>
+  <span class="hljs-attr">"payload"</span>: <span class="hljs-string">"learn React"</span>
 }
 </code></pre>
 <pre><code class="hljs language-json">{
   <span class="hljs-attr">"type"</span>: <span class="hljs-string">"deleteTodo"</span>,
-  <span class="hljs-attr">"id"</span>: <span class="hljs-number">1</span>
+  <span class="hljs-attr">"payload"</span>: <span class="hljs-number">1</span>
 }
 </code></pre>
-</section><section class="slide"><h2>Example: todos state management</h2>
-<p>A <em>reducer</em> is a function that acts as the central element in Redux</p>
-<p>The reducer receives the old state and an action describing a state change</p>
-<p>The reducer function returns the new state. Importantly, the reducer function does not mutate the old state object (it is a pure function)</p>
 </section><section class="slide"><h2>Example: todos state management</h2>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> todosReducer = <span class="hljs-function">(<span class="hljs-params">oldState, action</span>) =></span> {
   <span class="hljs-keyword">switch</span> (action.type) {
@@ -2261,6 +2259,21 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
     <span class="hljs-keyword">default</span>:
       <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'unknown action type'</span>);
   }
+};
+</code></pre>
+</section><section class="slide"><h2>Example: todos state management</h2>
+<p>usage with TypeScript:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> TodosState = <span class="hljs-built_in">Array</span>&#x3C;Todo>;
+
+<span class="hljs-keyword">type</span> TodosAction =
+  | { <span class="hljs-keyword">type</span>: <span class="hljs-string">'addTodo'</span>; payload: <span class="hljs-built_in">string</span> }
+  | { <span class="hljs-keyword">type</span>: <span class="hljs-string">'deleteTodo'</span>; payload: <span class="hljs-built_in">number</span> };
+
+<span class="hljs-keyword">const</span> todosReducer = (
+  state: TodosState,
+  action: TodosAction
+): <span class="hljs-function"><span class="hljs-params">TodosState</span> =></span> {
+  <span class="hljs-comment">// ...</span>
 };
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Reducer Hook</h1>
@@ -2987,49 +3000,35 @@ Post.getInitialProps = <span class="hljs-function"><span class="hljs-params">con
 </section><section class="slide"><h2>Testing-Library</h2>
 <p><strong>Testing-Library</strong>: project for testing UI components</p>
 <p>tests focus on aspects that are relevant for the end user (and not on the exact DOM structure)</p>
-</section><section class="slide"><h2>React-Testing-Library - Example</h2>
+</section><section class="slide"><h2>React-Testing-Library</h2>
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { render } <span class="hljs-keyword">from</span> <span class="hljs-string">'@testing-library/react'</span>;
 
-it(<span class="hljs-string">'renders a component without crashing'</span>, () => {
-  <span class="hljs-keyword">const</span> instance = render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">MyComponent</span> /></span>);
+it(<span class="hljs-string">'renders learn react link'</span>, () => {
+  <span class="hljs-keyword">const</span> instance = render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">App</span> /></span>);
+  const linkElement = instance.getByText(/learn react/i);
+  expect(linkElement).toBeInTheDocument();
 });
 </span></code></pre>
-</section><section class="slide"><h2>React-Testing-Library - Querying elements</h2>
+</section><section class="slide"><h2>Querying elements</h2>
 <ul>
 <li><code>.getByText</code> (throws if there is not a unique match)</li>
 <li><code>.getAllByText</code> (throws if there are no matches)</li>
-<li><code>.queryByText</code></li>
-<li><code>.queryAllByText</code></li>
+<li><code>.getByTitle</code></li>
+<li><code>.getByLabelText</code></li>
 <li>... (see <a href="https://testing-library.com/docs/dom-testing-library/api-queries">https://testing-library.com/docs/dom-testing-library/api-queries</a>)</li>
 </ul>
-</section><section class="slide"><h2>React-Testing-Library</h2>
-<p>advanced assertions available via:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> <span class="hljs-string">'@testing-library/jest-dom/extend-expect'</span>;
-</code></pre>
-<p>examples:</p>
+</section><section class="slide"><h2>Assertions</h2>
+<p>extra assertions:</p>
 <ul>
-<li><code>.toContainHTML()</code></li>
-<li><code>.toHaveClass()</code></li>
+<li><code>.toHaveTextContent()</code></li>
 <li><code>.toBeInTheDocument()</code></li>
-<li>...</li>
+<li>... see <a href="https://github.com/testing-library/jest-dom">https://github.com/testing-library/jest-dom</a></li>
 </ul>
-<p>see <a href="https://github.com/testing-library/jest-dom">https://github.com/testing-library/jest-dom</a></p>
-</section><section class="slide"><h2>Test setup</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
-<span class="hljs-keyword">import</span> <span class="hljs-string">'@testing-library/jest-dom/extend-expect'</span>;
-<span class="hljs-keyword">import</span> {
-  render,
-  fireEvent,
-  cleanup,
-} <span class="hljs-keyword">from</span> <span class="hljs-string">'@testing-library/react'</span>;
-
-afterEach(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  cleanup();
-});
-</code></pre>
 </section><section class="slide"><h2>Testing the rendering</h2>
 <p>rating component:</p>
-<pre><code class="hljs language-jsx">it(<span class="hljs-string">'renders three full stars'</span>, () => {
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> { render } <span class="hljs-keyword">from</span> <span class="hljs-string">'@testing-library/react'</span>;
+
+it(<span class="hljs-string">'renders three full stars'</span>, () => {
   <span class="hljs-keyword">const</span> instance = render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Rating</span> <span class="hljs-attr">stars</span>=<span class="hljs-string">{3}</span> /></span>);
   const fullStars = instance.getAllByText('★');
   expect(fullStars).toHaveLength(3);
@@ -3051,7 +3050,9 @@ afterEach(<span class="hljs-function"><span class="hljs-params">()</span> =></sp
 </span></code></pre>
 </section><section class="slide"><h2>Testing state changes</h2>
 <p>slideshow component:</p>
-<pre><code class="hljs language-jsx">it(<span class="hljs-string">'switches to the next slide'</span>, () => {
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> { fireEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-testing-library'</span>;
+
+it(<span class="hljs-string">'switches to the next slide'</span>, () => {
   <span class="hljs-keyword">const</span> instance = render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Slideshow</span> /></span>);
   const slide = instance.getByAltText('slide');
   fireEvent.click(instance.getByText('next'));
@@ -3073,6 +3074,48 @@ afterEach(<span class="hljs-function"><span class="hljs-params">()</span> =></sp
   expect(mockFn).toHaveBeenCalledWith(4);
 });
 </span></code></pre>
+</section><section class="slide"><h2>Testing asynchronous code</h2>
+<p><code>ChuckNorrisJoke</code> component which queries an API:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> ChuckNorrisJoke = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  <span class="hljs-keyword">const</span> [joke, setJoke] = useState(<span class="hljs-literal">null</span>);
+  useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+    axios
+      .get(<span class="hljs-string">'https://api.chucknorris.io/jokes/random'</span>)
+      .then(<span class="hljs-function"><span class="hljs-params">res</span> =></span> setJoke(res.data.value));
+  }, []);
+  <span class="hljs-keyword">if</span> (!joke) {
+    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>loading...<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+  }
+  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span> <span class="hljs-attr">title</span>=<span class="hljs-string">"joke"</span>></span>{joke}<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span></span>;
+};
+</code></pre>
+</section><section class="slide"><h2>Testing asynchronous code</h2>
+<p>testing with an actual API:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { waitForElement } <span class="hljs-keyword">from</span> <span class="hljs-string">'@testing-library/react'</span>;
+
+it(<span class="hljs-string">'loads Chuck Norris joke from API'</span>, <span class="hljs-keyword">async</span> () => {
+  <span class="hljs-keyword">const</span> instance = render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">ChuckNorrisJoke</span> /></span>);
+  const jokeElement = await waitForElement(() =>
+    instance.getByTitle('joke')
+  );
+  // joke should have at least 3 characters
+  expect(jokeElement).toHaveTextContent(/.../);
+});
+</span></code></pre>
+<p><code>waitForElement</code> will repeatedly query for an element until it exists</p>
+</section><section class="slide"><h2>Mocking objects</h2>
+<p>mocking API calls:</p>
+<p>replacing <code>axios</code> with a mocked module:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> axios <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>;
+jest.mock(<span class="hljs-string">'axios'</span>);
+</code></pre>
+<p>mocking <code>axios.get</code> as a successful promise:</p>
+<pre><code class="hljs language-js">axios.get.mockResolvedValueOnce({
+  <span class="hljs-attr">data</span>: {
+    <span class="hljs-attr">value</span>: <span class="hljs-string">'Chuck Norris counted to infinity. Twice.'</span>,
+  },
+});
+</code></pre>
 </section><section class="slide"><h2>Testing errors</h2>
 <p>rating component:</p>
 <pre><code class="hljs language-jsx">it(<span class="hljs-string">'throws an error if the number of stars is 0'</span>, () => {
@@ -3082,6 +3125,18 @@ afterEach(<span class="hljs-function"><span class="hljs-params">()</span> =></sp
   expect(testFn).toThrow('number of stars must be 1-5');
 });
 </span></code></pre>
+</section><section class="slide"><h2>Manual setup</h2>
+<p>these steps are already set up when using <code>create-react-app</code></p>
+<p>enable advanced assertions (see <a href="https://github.com/testing-library/jest-dom">https://github.com/testing-library/jest-dom</a>):</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> <span class="hljs-string">'@testing-library/jest-dom/extend-expect'</span>;
+</code></pre>
+<p>test case cleanup (unmounting):</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { cleanup } <span class="hljs-keyword">from</span> <span class="hljs-string">'@testing-library/react'</span>;
+
+afterEach(cleanup);
+</code></pre>
+</section><section class="slide"><h2>Resource</h2>
+<p><a href="https://react-testing-examples.com/">https://react-testing-examples.com/</a></p>
 </section></section><section class="slides-section"><section class="slide"><h1>React-Test-Renderer</h1>
 </section><section class="slide"><h2>React-Test-Renderer - installation</h2>
 <pre><code class="hljs language-bash">npm install --save-dev react-test-renderer
@@ -3264,7 +3319,7 @@ it('renders a component tree without crashing', () => {
 <p>with react-testing-library</p>
 <pre><code class="hljs language-jsx">it(<span class="hljs-string">'matches the snapshot'</span>, () => {
   <span class="hljs-keyword">const</span> instance = render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Slideshow</span> /></span>);
-  expect(instance).toMatchSnapshot();
+  expect(instance.baseElement).toMatchSnapshot();
   const slide = instance.getByAltText('slide');
   expect(slide).toMatchSnapshot();
 });

@@ -2257,18 +2257,18 @@ try Subscriptions
 </code></pre>
 <pre><code class="hljs language-sql"><span class="hljs-keyword">SELECT</span> login, <span class="hljs-keyword">name</span>
   <span class="hljs-keyword">FROM</span> <span class="hljs-keyword">user</span>
-  <span class="hljs-keyword">WHERE</span> login=<span class="hljs-string">"my-username"</span>;
+  <span class="hljs-keyword">WHERE</span> login=<span class="hljs-string">'my-username'</span>;
 </code></pre>
 </section><section class="slide"><h2>GraphQL verglichen mit SQL</h2>
 <p>GraphQL: Parameter haben keine vordefinierte Bedeutung</p>
 <p>In SQL: <code>WHERE login='my-username'</code> hat klare Bedeutung</p>
-<p>GraphQL: Bedeutung von <code>login: "my-username"</code> ist der Implementierung überlassen</p>
+<p>GraphQL: Bedeutung von <code>login: "my-username"</code> ist der Implementierung am Server überlassen</p>
 </section><section class="slide"><h2>GraphQL verglichen mit SQL</h2>
 <p>SQL: Beziehungen zwischen Tabellen (Joins) werden in der Query definiert</p>
 <p>GraphQL: kennt die Beziehungen bereits → einfachere Queries</p>
 </section><section class="slide"><h2>GraphQL verglichen mit SQL</h2>
 <pre><code class="language-graphql">query {
-  user(id: "my-username") {
+  user(login: "my-username") {
     posts {
       title
     }

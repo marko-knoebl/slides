@@ -2033,829 +2033,493 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   </head>
   <body>
     <div class="reveal">
-      <div class="slides slides"><section class="slides-section"><section class="slide"><h1>React &#x26; GraphQL</h1>
-</section><section class="slide"><h2>Slides</h2>
-<p><a href="https://marko-knoebl.github.io/slides/">https://marko-knoebl.github.io/slides/</a></p>
-</section><section class="slide"><h2>Your Trainer</h2>
-<p>Marko Knöbl</p>
+      <div class="slides slides"><section class="slides-section"><section class="slide"><h1>Authentifizierung mit node.js</h1>
+</section><section class="slide"><h2>Themen</h2>
 <ul>
-<li>Frontend Web-Development<ul>
-<li>JavaScript</li>
-<li>React, Angular</li>
+<li>Logins, Passwörter und Hashes</li>
+<li>Public-Key-Kryptographie</li>
+<li>Sessions und Tokens</li>
+<li>Authorisierung</li>
+</ul>
+</section></section><section class="slides-section"><section class="slide"><h1>Logins, Passwörter und Hashes</h1>
+</section><section class="slide"><h2>Logins, Passwörter und Hashes</h2>
+<p>Facebook kennt dein Facebook-Passwort <em>nicht</em>!</p>
+</section><section class="slide"><h2>Logins, Passwörter und Hashes</h2>
+<p>Eine Website sollte nie direkt Passwörter abspeichern</p>
+<p>Stattdessen: Eine Variante des Passworts speichern, die <em>hashed</em> und <em>salted</em> ist</p>
+</section><section class="slide"><h2>Logins, Passwörter und Hashes</h2>
+<p>Daten in Klartext:</p>
+<pre><code class="hljs language-asciidoc"><span class="hljs-section">name    | password
+--------+--------------------</span>
+Alice   | 123456
+Bob     | 123456
+Charlie | abc123
+Dave    | correcthorsebattery
+</code></pre>
+</section><section class="slide"><h2>Logins, Passwörter und Hashes</h2>
+<p>Daten mit Passwort-Hashes:</p>
+<pre><code class="hljs language-asciidoc"><span class="hljs-section">name    | password hash
+--------+---------------------------------</span>
+Alice   | e10adc3949ba59abbe56e057f20f883e
+Bob     | e10adc3949ba59abbe56e057f20f883e
+Charlie | e99a18c428cb38d5f260853678922e03
+Dave    | 3c077829151f03a4101bf36510d551b1
+</code></pre>
+</section><section class="slide"><h2>Logins, Passwörter und Hashes</h2>
+<p>Daten mit Hashes und Salts</p>
+<pre><code class="hljs language-asciidoc"><span class="hljs-section">name    | salt     | hash
+--------+----------+---------------------------------</span>
+Alice   | BzrYZGvv | c17dff0de6bbdfd0c8e7c2f35f2f74b0
+Bob     | w6hxMeFz | 107b7047ae12bd19ca64f34b49fa1c98
+Charlie | uOqA9bpX | c087747abdda0dc67ae9f31871692453
+Dave    | nf7ExQnd | cd6bc62d87ad35d6ea4cbe83e89536f7
+</code></pre>
+<p>Für Alice werden der <em>Salt</em> ("BzrYZGvv") und der Hash von "123456-BzrYZGvv" gespeichert</p>
+</section><section class="slide"><h2>Algorithmen</h2>
+<p>Sortiert von <em>am sichersten</em> zu <em>nicht sicher</em>:</p>
+<ul>
+<li>Argon2</li>
+<li>scrypt</li>
+<li>bcrypt</li>
+<li>PBKDF2</li>
+<li>MD5</li>
+</ul>
+<p>MD5 ist <em>nicht sicher</em>, wird aber der Einfachheit halber in diesen Beispielen verwendet</p>
+</section><section class="slide"><h2>Passwort-Hashes</h2>
+<p>Hash = Abgeleiteter Wert, der anstatt eines Passworts gespeichert werden kann</p>
+<p>Beispiele für MD5-Hashes (unsicher) in Hex-Notation:</p>
+<ul>
+<li><code>123456</code> → <code>e10adc3949ba59abbe56e057f20f883e</code></li>
+<li><code>abc123</code> → <code>e99a18c428cb38d5f260853678922e03</code></li>
+</ul>
+</section><section class="slide"><h2>Passwort-Hashes</h2>
+<p>Registrierung von Benutzern:</p>
+<p>Benutzer sendet Passwort (z.B. <code>123456</code>), Server speichert den Passwort-Hash (z.B. <code>e10adc3949ba59abbe56e057f20f883e</code>)</p>
+<p>Login von Benutzern:</p>
+<p>Benutzer sendet Passwort, Server berechnet dessen Hash und vergleicht diesen zum gespeicherten Passwort-Hash</p>
+</section><section class="slide"><h2>Salts</h2>
+<p>Zusätzliche Sicherheit: Passwörter werden nicht direkt gehashed, sondern zuvor mit zusätzlichen Zufallsdaten ergänzt</p>
+<p>Würden Passwörter ohne Salt gehashed werden, wäre es z.B. einfach, Hashes von viel verwendeten oder einfachen Passwörtern zu erkennen</p>
+</section><section class="slide"><h2>Beispielhafter Prozess</h2>
+<p>basierend auf MD5 (unsicher):</p>
+<p>Account-Erstellung:</p>
+<ul>
+<li>Registrierungs-Request mit Daten: Benutzername <code>alice</code>, Passwort <code>123456</code></li>
+<li>Passwort mit zufälligem Suffix (Salt): <code>123456-BzrYZGvv</code></li>
+<li>Hash dieses Strings: <code>c17dff0de6bbdfd0c8e7c2f35f2f74b0</code></li>
+<li>Neuer Datenbankeintrag mit drei Feldern:<ul>
+<li><code>alice</code></li>
+<li><code>BzrYZGvv</code></li>
+<li><code>c17dff0de6bbdfd0c8e7c2f35f2f74b0</code></li>
 </ul></li>
-<li>Programming<ul>
-<li>Python, JavaScript</li>
+</ul>
+</section><section class="slide"><h2>Beispielhafter Prozess</h2>
+<p>basierend auf MD5 (unsicher):</p>
+<p>Login-Versuch (nicht erfolgreich):</p>
+<ul>
+<li>Login-Request: Benutzername <code>alice</code>, Passwort <code>111111</code></li>
+<li>Lesen des Salts von <code>alice</code> aus der Datenbank: <code>BzrYZGvv</code></li>
+<li>Passwort-String mit Salt: <code>111111-BzrYZGvv</code></li>
+<li>Hash dieses Strings: <code>c42f4b80513e7aee0ff1c5b7ebe339e0</code></li>
+<li>Vergleich mit dem gespeicherten Hash (<code>c17dff0de6bbdfd0c8e7c2f35f2f74b0</code>)</li>
+<li>Hashes passen nicht - Loginversuch abgelehnt</li>
+</ul>
+</section></section><section class="slides-section"><section class="slide"><h1>Logins, Passwörter und Hashes mit node.js</h1>
+</section><section class="slide"><h2>Logins, Passwörter und Hashes mit node.js</h2>
+<p>Node-Pakete für Hashing-Algorithmen:</p>
+<ul>
+<li>via Argon2:<ul>
+<li><code>argon2</code> (schnelle, native Implementierung)</li>
+<li><code>argon2-wasm-pro</code> (kompiliert zu WebAssembly)</li>
+</ul></li>
+<li>via scrypt:<ul>
+<li><code>scrypt</code> (schnelle, native Implementierung)</li>
+<li><code>scrypt-js</code> (reines JavaScript)</li>
 </ul></li>
 </ul>
-</section><section class="slide"><h2>Introduction of Participants</h2>
-<ul>
-<li>current projects</li>
-<li>prior knowledge</li>
-<li>expectations</li>
-</ul>
-</section><section class="slide"><h2>Organizational</h2>
-<ul>
-<li>duration</li>
-<li>breaks</li>
-<li>lunch</li>
-<li>materials</li>
-<li>questions, feedback?</li>
-</ul>
-</section><section class="slide"><h2>Code</h2>
-<p>Code available at: <a href="https://github.com/marko-knoebl/courses-code">https://github.com/marko-knoebl/courses-code</a></p>
-</section></section><section class="slides-section"><section class="slide"><h1>GraphQL</h1>
-</section><section class="slide"><h2>GraphQL</h2>
-<p>"A query language for your API"</p>
-</section><section class="slide"><h2>GraphQL</h2>
-<p>Can be used for an API that can in turn talk to:</p>
-<ul>
-<li>other APIs</li>
-<li>databases</li>
-</ul>
-</section><section class="slide"><h2>GraphQL vs REST</h2>
-<h3>Advantages of REST</h3>
-<ul>
-<li><em>widely used</em></li>
-<li><em>simpler</em></li>
-</ul>
-<h3>Advantages of GraphQL</h3>
-<ul>
-<li><em>more flexible</em></li>
-<li><em>more efficient</em></li>
-</ul>
-</section><section class="slide"><h2>Advantages of GraphQL</h2>
-<p><em>Flexibility</em> of GraphQL:</p>
-<p>can describe complex tasks - the server-side API does not have to be adjusted for new use cases</p>
-<p><em>Efficiency</em> of GraphQL:</p>
-<p>client can request exactly the data it needs in a single request</p>
-<p><a href="https://www.howtographql.com/basics/1-graphql-is-the-better-rest/">Video: GraphQL is the better REST</a></p>
-</section><section class="slide"><h2>Differences between GraphQL and REST</h2>
-<p>REST: endpoint (e.g. <code>/todos</code>) and method (e.g. <code>PUT</code>) are part of the API; a separate endpoint is needed for each type of query</p>
-<p>GraphQL: single endpoint (e.g. <code>/api</code>), all requests are POST requests</p>
-</section><section class="slide"><h2>Differences between GraphQL and REST</h2>
-<p>REST: complex cases require multiple HTTP requests</p>
-<p>GraphQL: data are fetched via a single HTTP request</p>
-</section><section class="slide"><h2>Differences between GraphQL and REST</h2>
-<p>REST: Each endpoint always returns the same set of object fields</p>
-<p>GraphQL: the client can request exactly the objects and fields it needs</p>
-</section><section class="slide"><h2>Use cases</h2>
-<ul>
-<li>API service: e.g. get a random number between 1 and 100</li>
-<li>database query: e.g. get all login names of friends of a specific user</li>
-</ul>
-</section><section class="slide"><h2>Example: random number service</h2>
-<p>query (GraphQL):</p>
-<pre><code class="language-graphql">query {
-  random(min: 1, max: 100)
-}
-</code></pre>
-<p>answer (JSON):</p>
-<pre><code class="hljs language-json">{
-  <span class="hljs-attr">"random"</span>: <span class="hljs-number">23</span>
-}
-</code></pre>
-</section><section class="slide"><h2>Example: get friends of a user</h2>
-<p>Query:</p>
-<pre><code class="language-graphql">query {
-  user(login: "john") {
-    login
-    friends {
-      login
-    }
-  }
-}
-</code></pre>
-</section><section class="slide"><h2>Example: get friends of a user</h2>
-<p>Response:</p>
-<pre><code class="hljs language-json">{
-  <span class="hljs-attr">"user"</span>: {
-    <span class="hljs-attr">"login"</span>: <span class="hljs-string">"john"</span>,
-    <span class="hljs-attr">"friends"</span>: [
-      { <span class="hljs-attr">"login"</span>: <span class="hljs-string">"mike"</span> },
-      { <span class="hljs-attr">"login"</span>: <span class="hljs-string">"stephanie"</span> }
-    ]
-  }
-}
-</code></pre>
-</section><section class="slide"><h2>Definining and consuming a GraphQL API</h2>
-<p>consuming an API:</p>
-<ul>
-<li>query (expressed in the GraphQL language)</li>
-<li>optional query data (in JSON)</li>
-</ul>
-<p>defining an API:</p>
-<ul>
-<li>schema</li>
-<li>resolver functions</li>
-</ul>
-</section><section class="slide"><h2>Example: random numbers</h2>
-<p>Example shows use of a random number API which provides parameters to set the quantity and max value of the random numbers</p>
-</section><section class="slide"><h2>Example: random numbers</h2>
-<p>schema definition:</p>
-<pre><code class="language-graphql">type Query {
-  rand(max: Int!, quantity: Int!): [Int]!
-}
-</code></pre>
-<p>resolver function (this depends on the library):</p>
-<pre><code class="hljs language-js">(root, args, context) =>
-  <span class="hljs-built_in">Array</span>.from({ <span class="hljs-attr">length</span>: args.quantity }, () =>
-    <span class="hljs-built_in">Math</span>.floor(<span class="hljs-built_in">Math</span>.random() * args.max)
+</section><section class="slide"><h2>Beispiel</h2>
+<p>Implementierung mit <code>argon2-wasm-pro</code> und <code>mingodb</code> (reines JavaScript)</p>
+<p>Pakete für echte Zwecke: <code>argon2</code> und <code>mongodb</code></p>
+</section><section class="slide"><h2>Imports und Setup</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
+<span class="hljs-keyword">const</span> argon2 = <span class="hljs-built_in">require</span>(<span class="hljs-string">'argon2-wasm-pro'</span>);
+<span class="hljs-keyword">const</span> crypto = <span class="hljs-built_in">require</span>(<span class="hljs-string">'crypto'</span>);
+<span class="hljs-keyword">const</span> mingodb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@karuga/mingodb'</span>);
+
+<span class="hljs-keyword">const</span> db = mingodb(<span class="hljs-string">'data.json'</span>); <span class="hljs-comment">// simple db</span>
+
+<span class="hljs-keyword">const</span> app = express();
+app.use(express.json());
+app.get(<span class="hljs-string">'/'</span>, (req, res) => {
+  res.end(
+    <span class="hljs-string">'welcome to the auth service\n\n'</span> +
+      <span class="hljs-string">'resources:\n/register\n/login'</span>
   );
-</code></pre>
-</section><section class="slide"><h2>Example: random numbers: fixed query</h2>
-<pre><code class="language-graphql">query random {
-  rand(max: 10, quantity: 3)
-}
-</code></pre>
-</section><section class="slide"><h2>Example: random numbers: parametric query</h2>
-<p>query:</p>
-<pre><code class="language-graphql">query random($max: Int!, $quantity: Int!) {
-  rand(max: $max, quantity: $quantity)
-}
-</code></pre>
-<p>query data (JSON):</p>
-<pre><code class="hljs language-json">{
-  <span class="hljs-attr">"max"</span>: <span class="hljs-number">10</span>,
-  <span class="hljs-attr">"quantity"</span>: <span class="hljs-number">3</span>
-}
-</code></pre>
-</section><section class="slide"><h2>Try it out</h2>
-<p>predefined API with posts and users:</p>
-<p><a href="https://api.graph.cool/simple/v1/cjmj9v4mk1zs00182rnrzdrai">https://api.graph.cool/simple/v1/cjmj9v4mk1zs00182rnrzdrai</a></p>
-<!--
-source of the predefined API:
-
-howtographql.com - Core Concepts - last "Play" button
-
-try Subscriptions
--->
-</section><section class="slide"><h2>Resources</h2>
-<ul>
-<li><a href="https://graphql.org/learn/">https://graphql.org/learn/</a></li>
-<li><a href="https://www.howtographql.com/">https://www.howtographql.com/</a></li>
-</ul>
-</section></section><section class="slides-section"><section class="slide"><h1>GraphQL vs REST: Example</h1>
-</section><section class="slide"><h2>GraphQL vs REST</h2>
-<p>Scenario:</p>
-<p>A social media app in which we can view a list of our friends. Clicking on a friend takes us to their most recent posts</p>
-</section><section class="slide"><h2>API in REST</h2>
-<pre><code class="hljs language-http"><span class="hljs-attribute">GET /users/$myuserid/friends
-</span></code></pre>
-<pre><code class="hljs language-http"><span class="hljs-attribute">GET /users/$otheruserid/posts
-</span></code></pre>
-</section><section class="slide"><h2>API in GraphQL</h2>
-<pre><code class="language-graphql">{
-  users(id: "myuserid") {
-    friends {
-      userid
-      name
-    }
-  }
-}
-</code></pre>
-</section><section class="slide"><h2>API in GraphQL</h2>
-<pre><code class="language-graphql">{
-  users(id: "otheruserid") {
-    posts {
-      date
-      title
-      body
-    }
-  }
-}
-</code></pre>
-</section><section class="slide"><h2>Adding functionality: new post feed</h2>
-<p>Display new posts of all friends in a feed</p>
-</section><section class="slide"><h2>Adding functionality: new post feed</h2>
-<p>In REST we would either have to send multiple requests to retrieve all posts of friends - or we would have to implement a new endpoint in the API:</p>
-<pre><code class="hljs language-http"><span class="hljs-attribute">GET /postsoffriends/$myuserid
-</span></code></pre>
-</section><section class="slide"><h2>Adding functionality: new post feed</h2>
-<p>In GraphQL we can implement this with just one request and without creating new endpoints:</p>
-<pre><code class="language-graphql">{
-  users(id: "$myuserid") {
-    friends {
-      posts {
-        date
-        title
-        body
-      }
-    }
-  }
-}
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>GraphQL compared to SQL</h1>
-</section><section class="slide"><h2>GraphQL compared to SQL</h2>
-<pre><code class="language-graphql">query {
-  user(login: "my-username") {
-    login
-    name
-  }
-}
-</code></pre>
-<pre><code class="hljs language-sql"><span class="hljs-keyword">SELECT</span> login, <span class="hljs-keyword">name</span>
-  <span class="hljs-keyword">FROM</span> <span class="hljs-keyword">user</span>
-  <span class="hljs-keyword">WHERE</span> login=<span class="hljs-string">'my-username'</span>;
-</code></pre>
-</section><section class="slide"><h2>GraphQL compared to SQL</h2>
-<p>In GraphQL parameters don't have a predefined meaning.</p>
-<p>In SQL the clause <code>WHERE login='my-username'</code> always has the same meaning</p>
-<p>In GraphQL the meaning of <code>login: "my-username"</code> is up to the implementation on the server</p>
-</section><section class="slide"><h2>GraphQL compared to SQL</h2>
-<p>SQL: relationships between tables (joins) are defined in the query</p>
-<p>GraphQL: already knows about relationships when the query is issued → simpler queries</p>
-</section><section class="slide"><h2>GraphQL compared to SQL</h2>
-<pre><code class="language-graphql">query {
-  user(login: "my-username") {
-    posts {
-      title
-    }
-  }
-}
-</code></pre>
-<pre><code class="hljs language-sql"><span class="hljs-keyword">SELECT</span> post.title
-  <span class="hljs-keyword">FROM</span> <span class="hljs-keyword">user</span>
-  <span class="hljs-keyword">LEFT</span> <span class="hljs-keyword">JOIN</span> post <span class="hljs-keyword">ON</span> user.id = post.userId
-  <span class="hljs-keyword">WHERE</span> user.login = <span class="hljs-string">'my-username'</span>;
-</code></pre>
-<p>(extra code: <code>LEFT JOIN post ON user.id = post.userId</code>)</p>
-</section><section class="slide"><h2>GraphQL compared to SQL</h2>
-<p><strong>OpenCRUD</strong> is a more specifc standard that is based on GraphQL. It maps directly to SQL and can be used in place of it.</p>
-</section></section><section class="slides-section"><section class="slide"><h1>Example APIs</h1>
-</section><section class="slide"><h2>GraphQL API examples</h2>
-<p>from <a href="https://github.com/APIs-guru/graphql-apis">https://github.com/APIs-guru/graphql-apis</a>:</p>
-<ul>
-<li>GitHub (login required)</li>
-<li>Reddit (GraphQL Hub)</li>
-<li>GraphQL Pokémon (second entry!)</li>
-<li>Star Wars</li>
-<li>SpaceX Land</li>
-<li>Todo list</li>
-<li>FakeQL: customizable mock APIs</li>
-</ul>
-</section><section class="slide"><h2>FakeQL</h2>
-<p><a href="https://fakeql.com/">https://fakeql.com/</a></p>
-<p>template for simple todos on FakeQL:</p>
-<pre><code class="hljs language-json">{
-  <span class="hljs-attr">"todos"</span>: [
-    { <span class="hljs-attr">"id"</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Go shopping"</span>, <span class="hljs-attr">"completed"</span>: <span class="hljs-literal">true</span> },
-    { <span class="hljs-attr">"id"</span>: <span class="hljs-number">49</span>, <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Do taxes"</span>, <span class="hljs-attr">"completed"</span>: <span class="hljs-literal">false</span> },
-    { <span class="hljs-attr">"id"</span>: <span class="hljs-number">50</span>, <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Do dishes"</span>, <span class="hljs-attr">"completed"</span>: <span class="hljs-literal">false</span> }
-  ]
-}
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>GraphiQL Explorer</h1>
-</section><section class="slide"><h2>GraphiQL Explorer</h2>
-<p>Graph<em>i</em>QL: Browser-based explorer for GraphQL APIs</p>
-<ul>
-<li>inspect query structure / data structure (click "Docs" in the top right)</li>
-<li>send experimental queries</li>
-</ul>
-</section></section><section class="slides-section"><section class="slide"><h1>Simple examples</h1>
-</section><section class="slide"><h2>Simple examples</h2>
-<p><a href="https://graphql.org/swapi-graphql/">Star Wars API</a>:</p>
-<ul>
-<li>Get a list of titles of all Star Wars films in the database</li>
-<li>Get a list of planets and planet populations from Star Wars</li>
-<li>Get a list of starships grouped by films they appear in</li>
-</ul>
-</section><section class="slide"><h2>List of titles of Star Wars films</h2>
-<pre><code class="language-graphql">query getTitles {
-  allFilms {
-    films {
-      title
-    }
-  }
-}
-</code></pre>
-</section><section class="slide"><h2>List of planets and planet populations</h2>
-<pre><code class="language-graphql">query getPlanetsWithPopulations {
-  allPlanets {
-    planets {
-      name
-      population
-    }
-  }
-}
-</code></pre>
-</section><section class="slide"><h2>List of starships grouped by film</h2>
-<pre><code class="language-graphql">query getStarshipsByFilm {
-  allFilms {
-    films {
-      title
-      starshipConnection {
-        starships {
-          name
-        }
-      }
-    }
-  }
-}
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Parametric queries</h1>
-</section><section class="slide"><h2>Query parameters</h2>
-<p>Example on <a href="https://api.spacex.land/graphql/">https://api.spacex.land/graphql/</a>:</p>
-<pre><code class="language-graphql">{
-  launchesUpcoming(limit: 4) {
-    launch_date_utc
-    mission_name
-  }
-}
-</code></pre>
-<pre><code class="language-graphql">{
-  rocket(id: "falcon9") {
-    cost_per_launch
-    wikipedia
-  }
-}
-</code></pre>
-</section><section class="slide"><h2>Query parameters</h2>
-<p>Advanced query - all <em>Falcon 9</em> launches in 2019:</p>
-<pre><code class="language-graphql">{
-  launchesPast(
-    find: { launch_year: "2019", rocket_name: "Falcon 9" }
-  ) {
-    launch_date_utc
-    launch_site {
-      site_name
-      site_name_long
-    }
-  }
-}
-</code></pre>
-<p>Note: The server-side implementation determines the set of supported parameters (e.g. <em>find</em>, <em>id</em>, <em>limit</em> ...)</p>
-</section><section class="slide"><h2>Required and optional parameters</h2>
-<p>Required parameters are (usually) marked with a <code>!</code>. Returned attributes that will always be present (like <code>id</code>) are marked in the same way.</p>
-</section><section class="slide"><h2>Variables</h2>
-<p>query:</p>
-<pre><code class="language-graphql">query getLaunchesByYear($year: String!) {
-  launchesPast(find: { launch_year: $year }) {
-    launch_date_utc
-    launch_site {
-      site_name
-      site_name_long
-    }
-  }
-}
-</code></pre>
-<p>variables:</p>
-<pre><code class="hljs language-json">{
-  <span class="hljs-attr">"year"</span>: <span class="hljs-string">"2019"</span>
-}
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Mutations</h1>
-</section><section class="slide"><h2>Mutations</h2>
-<p><a href="https://todo-mongo-graphql-server.herokuapp.com/">https://todo-mongo-graphql-server.herokuapp.com/</a></p>
-<p>(supports only one query at a time)</p>
-</section><section class="slide"><h2>Mutations</h2>
-<p>Command that triggers the server's <code>add</code> action and returns the id of the new TODO</p>
-<pre><code class="language-graphql">mutation addTodo($title: String!) {
-  add(title: $title) {
-    id
-  }
-}
-</code></pre>
-<pre><code class="hljs language-json">{
-  <span class="hljs-attr">"title"</span>: <span class="hljs-string">"shopping"</span>
-}
-</code></pre>
-</section><section class="slide"><h2>Mutations</h2>
-<pre><code class="language-graphql">mutation toggleTodo($id: String!) {
-  toggle(id: $id) {
-    id
-    completed
-  }
-}
-</code></pre>
-</section><section class="slide"><h2>Mutations</h2>
-<pre><code class="language-graphql">mutation addOneAndClearCompleted($title: String!) {
-  add(title: $title) {
-    id
-  }
-  clearCompleted {
-    id
-  }
-}
-</code></pre>
-</section><section class="slide"><h2>Mutations</h2>
-<p>Task: write a query that will delete all previous entries and add two new ones</p>
-</section><section class="slide"><h2>Mutations</h2>
-<pre><code class="language-graphql">mutation reset {
-  toggleAll(checked: true) {
-    id
-  }
-  clearCompleted {
-    id
-  }
-  add(title: "get some rest") {
-    id
-  }
-}
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Exercises (GitHub)</h1>
-</section><section class="slide"><h2>Exercises</h2>
-<ul>
-<li>Get all "followers of followers" for a specific GitHub account</li>
-<li>Get the name of a project and number of stars for all GitHub projects of a specific user</li>
-</ul>
-</section><section class="slide"><h2>Exercises - solutions</h2>
-<pre><code class="language-graphql">query {
-  user(login: "marko-knoebl") {
-    followers(first: 10) {
-      nodes {
-        login
-        followers(first: 10) {
-          nodes {
-            login
-          }
-        }
-      }
-    }
-  }
-}
-</code></pre>
-</section><section class="slide"><h2>Exercises - solutions</h2>
-<pre><code class="language-graphql">query {
-  user(login: "marko-knoebl") {
-    id
-    email
-    repositories(
-      first: 100
-      orderBy: { field: STARGAZERS, direction: DESC }
-    ) {
-      nodes {
-        name
-        stargazers {
-          totalCount
-        }
-      }
-    }
-  }
-}
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Data types</h1>
-</section><section class="slide"><h2>Data types</h2>
-<p>With GraphQL the returned data types are always known to the client.</p>
-</section><section class="slide"><h2>Data types</h2>
-<p>available types:</p>
-<ul>
-<li>Boolean</li>
-<li>Int: 32-bit int (signed)</li>
-<li>Float: 64-bit float</li>
-<li>String: UTF-8 character sequence</li>
-<li>ID: unique id serialized as a string</li>
-<li>Object: object with predefined entries</li>
-<li>List: list composed of specific other types</li>
-</ul>
-</section></section><section class="slides-section"><section class="slide"><h1>GraphQL clients</h1>
-</section><section class="slide"><h2>GraphQL clients</h2>
-<ul>
-<li><em>graphql.js</em>: reference implementation</li>
-<li><em>Apollo Client</em>: easy integration with React, Vue, Angular, ...</li>
-<li><em>Relay</em>: advanced integration with React</li>
-</ul>
-</section></section><section class="slides-section"><section class="slide"><h1>GraphQL from JavaScript</h1>
-</section><section class="slide"><h2>Sending queries to the server</h2>
-<p>Queries are sent to the server via HTTP POST requests</p>
-<p>The payload is a JSON object which has a <code>query</code> string property (this is also true when sending mutations) and optionally a <code>variables</code> property.</p>
-</section><section class="slide"><h2>Sending queries to the server</h2>
-<p>We can try this out from the browser console via fetch (we have to be on the same website):</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> requestBody = {
-  <span class="hljs-attr">query</span>:
-    <span class="hljs-string">'mutation addTodo($title: String!) { add(title: $title) { id } }'</span>,
-  <span class="hljs-attr">variables</span>: <span class="hljs-string">'{"title": "test"}'</span>,
-};
-
-<span class="hljs-keyword">const</span> requestBodyStr = <span class="hljs-built_in">JSON</span>.stringify(requestBody);
-
-fetch(<span class="hljs-string">'https://todo-mongo-graphql-server.herokuapp.com'</span>, {
-  <span class="hljs-attr">method</span>: <span class="hljs-string">'POST'</span>,
-  <span class="hljs-attr">headers</span>: { <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span> },
-  <span class="hljs-attr">body</span>: requestBodyStr,
-}).then(<span class="hljs-built_in">console</span>.log);
-</code></pre>
-</section><section class="slide"><h2>Example: reddit API</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> queryTemplate = <span class="hljs-string">`
-{
-  reddit {
-    subreddit(name: "javascript") {
-      newListings(limit: 2) {
-        title
-      }
-    }
-  }
-}`</span>;
-</code></pre>
-</section><section class="slide"><h2>Example: reddit API</h2>
-<pre><code class="hljs language-js">fetch(<span class="hljs-string">'https://www.graphqlhub.com/graphql'</span>, {
-  <span class="hljs-attr">method</span>: <span class="hljs-string">'POST'</span>,
-  <span class="hljs-attr">headers</span>: {
-    <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span>,
-    <span class="hljs-attr">Accept</span>: <span class="hljs-string">'application/json'</span>,
-  },
-  <span class="hljs-attr">body</span>: <span class="hljs-built_in">JSON</span>.stringify({ <span class="hljs-attr">query</span>: queryTemplate }),
-})
-  .then(<span class="hljs-function"><span class="hljs-params">r</span> =></span> r.json())
-  .then(<span class="hljs-function"><span class="hljs-params">data</span> =></span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'data returned:'</span>, data));
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Apollo client</h1>
-</section><section class="slide"><h2>Apollo Client</h2>
-<p><a href="https://www.apollographql.com/docs/react/">https://www.apollographql.com/docs/react/</a></p>
-</section><section class="slide"><h2>Apollo client</h2>
-<p>advantages over "plain" frontend code:</p>
-<ul>
-<li>automatic sending of queries over the network</li>
-<li>automatic caching</li>
-<li>automatic (re)rendering of React components</li>
-</ul>
-</section><section class="slide"><h2>Installation</h2>
-<p>required packages:</p>
-<ul>
-<li><code>graphql</code></li>
-<li><code>graphql-tag</code></li>
-<li><code>apollo-client</code></li>
-<li><code>apollo-cache-inmemory</code></li>
-<li><code>apollo-link-http</code></li>
-<li><code>react-apollo</code> (for use with React)</li>
-</ul>
-</section><section class="slide"><h2>Apollo client: setup</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { ApolloClient } <span class="hljs-keyword">from</span> <span class="hljs-string">'apollo-client'</span>;
-<span class="hljs-keyword">import</span> { InMemoryCache } <span class="hljs-keyword">from</span> <span class="hljs-string">'apollo-cache-inmemory'</span>;
-<span class="hljs-keyword">import</span> { HttpLink } <span class="hljs-keyword">from</span> <span class="hljs-string">'apollo-link-http'</span>;
-<span class="hljs-keyword">import</span> gql <span class="hljs-keyword">from</span> <span class="hljs-string">'graphql-tag'</span>;
-
-<span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> ApolloClient({
-  <span class="hljs-attr">cache</span>: <span class="hljs-keyword">new</span> InMemoryCache(),
-  <span class="hljs-attr">link</span>: <span class="hljs-keyword">new</span> HttpLink({
-    <span class="hljs-attr">uri</span>: <span class="hljs-string">'https://api.spacex.land/graphql/'</span>,
-  }),
 });
 </code></pre>
-</section><section class="slide"><h2>Apollo client: example query</h2>
-<pre><code class="hljs language-js"><span class="hljs-comment">// via a tagged template string</span>
-<span class="hljs-keyword">const</span> LAUNCHES_QUERY = gql<span class="hljs-string">`
-  query recentLaunches {
-    launchesPast(limit: 10) {
-      mission_name
-    }
-  }
-`</span>;
-
-client
-  .query({ <span class="hljs-attr">query</span>: LAUNCHES_QUERY })
-  .then(<span class="hljs-function"><span class="hljs-params">result</span> =></span> <span class="hljs-built_in">console</span>.log(result));
-</code></pre>
-</section><section class="slide"><h2>Local data</h2>
-<p>Apollo can also manage local data / local state</p>
-<p>Setting local state:</p>
-<ul>
-<li>via <code>client.writeData</code> for simple cases</li>
-<li>via the <code>@client</code> directive in GraphQL mutations; and local resolvers</li>
-</ul>
-<p>Querying local state:</p>
-<ul>
-<li>via the <code>@client</code> directive in GraphQL queries</li>
-</ul>
-</section><section class="slide"><h2>Local data</h2>
-<p>Simple version: setting local state directly (similar to React's <code>setState</code>):</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> client = useApolloClient();
-
-client.writeData({ <span class="hljs-attr">data</span>: { <span class="hljs-attr">inputText</span>: <span class="hljs-string">''</span> } });
-</code></pre>
-</section><section class="slide"><h2>Local data</h2>
-<p>local resolvers for mutations:</p>
-<p><a href="https://www.apollographql.com/docs/react/data/local-state/#local-resolvers">https://www.apollographql.com/docs/react/data/local-state/#local-resolvers</a></p>
-</section><section class="slide"><h2>Local data</h2>
-<p>Querying local state (via <code>@client</code>):</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> INPUT_TEXT_QUERY = gql<span class="hljs-string">`
-  query {
-    inputText @client
-  }
-`</span>;
-
-client
-  .query({ <span class="hljs-attr">query</span>: INPUT_TEXT_QUERY })
-  .then(<span class="hljs-function"><span class="hljs-params">result</span> =></span> <span class="hljs-built_in">console</span>.log(result));
-</code></pre>
-</section><section class="slide"><h2>Apollo Client Developer Tools</h2>
-<p>extension for Chrome</p>
-<p>unreliable according to reviews (3.2 / 5 stars)</p>
-<p>functionality:</p>
-<ul>
-<li>view the current cache</li>
-<li>inspect the structure of queries / mutations</li>
-<li>execute queries (and mutations)</li>
-</ul>
-</section></section><section class="slides-section"><section class="slide"><h1>Apollo client and React</h1>
-</section><section class="slide"><h2>Apollo client and React</h2>
-<p><a href="https://www.apollographql.com/docs/react/data/queries/">https://www.apollographql.com/docs/react/data/queries/</a></p>
-</section><section class="slide"><h2>Connecting React to an Apollo client</h2>
-<p>An application usually communicates with only one GraphQL API</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { ApolloProvider } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-apollo'</span>;
-</code></pre>
-<pre><code class="hljs language-jsx">&#x3C;ApolloProvider client={client}>
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">App</span> /></span>
-<span class="hljs-tag">&#x3C;/<span class="hljs-name">ApolloProvider</span>></span></span>
-</code></pre>
-</section><section class="slide"><h2>Defining a Query</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> LAUNCHES_QUERY = gql<span class="hljs-string">`
-  query recentLaunches {
-    launchesPast(limit: 10) {
-      mission_name
-    }
-  }
-`</span>;
-</code></pre>
-</section><section class="slide"><h2>useQuery</h2>
-<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">RecentLaunches</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">const</span> { data, loading, error } = useQuery(LAUNCHES_QUERY);
-  <span class="hljs-keyword">if</span> (loading) <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>Loading...<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
-  <span class="hljs-keyword">if</span> (error) <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>Error!<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
-
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
-      </span>&#x3C;h1>Launches&#x3C;/h1><span class="xml">
-      {data.launchesPast.map(launch => (
-        </span>&#x3C;div>{launch.mission_name}&#x3C;/div><span class="xml">
-      ))}
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
-  );
-}
-</code></pre>
-</section><section class="slide"><h2>useQuery: Parameters</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> LAUNCHES_QUERY = gql<span class="hljs-string">`
-  query recentLaunches($numLaunches: Int!) {
-    launchesPast(limit: $numLaunches) {
-      mission_name
-    }
-  }
-`</span>;
-
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">RecentLaunches</span>(<span class="hljs-params">{ numLaunches }</span>) </span>{
-  <span class="hljs-keyword">const</span> { data, loading, error } = useQuery(
-    LAUNCHES_QUERY,
-    { <span class="hljs-attr">variables</span>: { numLaunches } }
-  );
-  ...
-}
-</code></pre>
-</section><section class="slide"><h2>useQuery: polling &#x26; refetching</h2>
-<p>Updating every 5 seconds:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> { data, loading, error } = useQuery(LAUNCHES_QUERY, {
-  <span class="hljs-attr">pollInterval</span>: <span class="hljs-number">5000</span>,
-});
-</code></pre>
-<p>Updating via <code>refetch()</code>:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> { data, loading, error, refetch } = useQuery(
-  LAUNCHES_QUERY
-);
-...
-refetch()
-</code></pre>
-</section><section class="slide"><h2>useMutation</h2>
-<p>Example for todos:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> SET_COMPLETED = gql<span class="hljs-string">`
-  mutation setCompleted($id: ID!, $completed: Boolean!) {
-    updateTodo(id: $id, input: { completed: $completed }) {
-      id
-      completed
-    }
-  }
-`</span>;
-</code></pre>
-</section><section class="slide"><h2>useMutation</h2>
-<p>basic usage:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> [setCompleted] = useMutation(SET_COMPLETED);
-</code></pre>
-<p>extended version (cf. <code>useState</code>):</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> [
-  setCompleted,
-  { data, loading, error },
-] = useMutation(SET_COMPLETED);
-</code></pre>
-<p>state is changed first on the server and then locally</p>
-</section><section class="slide"><h2>useMutation</h2>
-<p>update of the local cache:</p>
-<ul>
-<li><strong>automatic</strong> if an existing object is updated</li>
-<li><strong>manual</strong> if entries are added to / removed from an array</li>
-</ul>
-</section><section class="slide"><h2>useMutation: manual cache updates</h2>
-<p>accessing the cache and the reply inside the <code>update</code> function:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [addTodo] = useMutation(ADD_TODO, {
-  <span class="hljs-attr">update</span>: <span class="hljs-function">(<span class="hljs-params">cache, reply</span>) =></span> {
-    <span class="hljs-comment">// cache: local cache</span>
-    <span class="hljs-comment">// reply: reply from the API</span>
-    <span class="hljs-built_in">console</span>.log(cache);
-    <span class="hljs-built_in">console</span>.log(reply);
-    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> update the local cache based on the reply</span>
-  },
-});
-</code></pre>
-</section><section class="slide"><h2>useMutation: manual cache updates</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [addTodo] = useMutation(ADD_TODO, {
-  <span class="hljs-attr">update</span>: <span class="hljs-function">(<span class="hljs-params">cache, reply</span>) =></span> {
-    <span class="hljs-comment">// get old todos from cache</span>
-    <span class="hljs-keyword">const</span> oldTodos = cache.readQuery({ <span class="hljs-attr">query</span>: GET_TODOS })
-      .todos;
-    <span class="hljs-comment">// build newTodos array based on the server response</span>
-    <span class="hljs-keyword">const</span> newTodos = [...oldTodos, reply.data.createTodo];
-    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> update the local cache with the newTodos array</span>
-  },
-});
-</code></pre>
-</section><section class="slide"><h2>useMutation: manual cache updates</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [addTodo] = useMutation(ADD_TODO, {
-  <span class="hljs-attr">update</span>: <span class="hljs-function">(<span class="hljs-params">cache, reply</span>) =></span> {
-    <span class="hljs-keyword">const</span> oldTodos = cache.readQuery({ <span class="hljs-attr">query</span>: GET_TODOS })
-      .todos;
-    <span class="hljs-keyword">const</span> newTodos = [...oldTodos, reply.data.createTodo];
-    cache.writeQuery({
-      <span class="hljs-attr">query</span>: GET_TODOS,
-      <span class="hljs-attr">data</span>: { <span class="hljs-attr">todos</span>: newTodos },
+</section><section class="slide"><h2>Registrierung (express)</h2>
+<pre><code class="hljs language-js">app.post(<span class="hljs-string">'/register'</span>, <span class="hljs-keyword">async</span> (req, res) => {
+  <span class="hljs-keyword">const</span> username = req.body.username;
+  <span class="hljs-keyword">const</span> password = req.body.password;
+  <span class="hljs-keyword">const</span> user = db.users.findOne({ <span class="hljs-attr">username</span>: username });
+  <span class="hljs-keyword">if</span> (user !== <span class="hljs-literal">undefined</span>) {
+    <span class="hljs-keyword">return</span> res.json({
+      <span class="hljs-attr">status</span>: <span class="hljs-string">'error'</span>,
+      <span class="hljs-attr">message</span>: <span class="hljs-string">'user exists'</span>,
     });
-  },
+  }
+  <span class="hljs-keyword">const</span> hash = <span class="hljs-keyword">await</span> argon2.hash({
+    <span class="hljs-attr">pass</span>: password,
+    <span class="hljs-attr">salt</span>: crypto.randomBytes(<span class="hljs-number">16</span>),
+  });
+  <span class="hljs-keyword">const</span> data = { <span class="hljs-attr">username</span>: username, <span class="hljs-attr">hash</span>: hash.encoded };
+  db.users.insertOne(data);
+  res.json({ <span class="hljs-attr">status</span>: <span class="hljs-string">'success'</span> });
 });
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Queries - Advanced</h1>
-</section><section class="slide"><h2>Default variable valuess</h2>
-<pre><code class="language-graphql">query getPokemonByName($name: String = "Pikachu") {
-  pokemon(name: $name) {
-    number
-    image
-  }
-}
+</section><section class="slide"><h2>Registrierung (express)</h2>
+<p>Verwendung von <code>/register</code> aus der Browserkonsole:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> res = <span class="hljs-keyword">await</span> fetch(<span class="hljs-string">'/register'</span>, {
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'post'</span>,
+  <span class="hljs-attr">body</span>: <span class="hljs-built_in">JSON</span>.stringify({
+    <span class="hljs-attr">username</span>: <span class="hljs-string">'alice'</span>,
+    <span class="hljs-attr">password</span>: <span class="hljs-string">'ecila'</span>,
+  }),
+  <span class="hljs-attr">headers</span>: { <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span> },
+});
+<span class="hljs-keyword">let</span> data = <span class="hljs-keyword">await</span> res.json();
+<span class="hljs-built_in">console</span>.log(data);
 </code></pre>
-</section><section class="slide"><h2>Aliases</h2>
-<p>Task: number of Pikachu and Raichu</p>
-</section><section class="slide"><h2>Aliases</h2>
-<p>This cannot be done the way we know:</p>
-<pre><code class="language-graphql">query getTwo {
-  pokemon(name: "Pikachu") {
-    number
+</section><section class="slide"><h2>Login (express)</h2>
+<pre><code class="hljs language-js">app.post(<span class="hljs-string">'/login'</span>, <span class="hljs-keyword">async</span> (req, res) => {
+  <span class="hljs-keyword">const</span> verified = <span class="hljs-keyword">await</span> verifyCredentials(
+    req.body.username,
+    req.body.password
+  );
+  <span class="hljs-keyword">if</span> (!verified) {
+    <span class="hljs-keyword">return</span> res.json({ <span class="hljs-attr">status</span>: <span class="hljs-string">'error'</span> });
   }
-  pokemon(name: "Raichu") {
-    number
-  }
-}
+  res.json({ <span class="hljs-attr">status</span>: <span class="hljs-string">'success'</span> });
+});
 </code></pre>
-</section><section class="slide"><h2>Aliases</h2>
-<p>Why does this not work? The result would look like this:</p>
-<pre><code class="hljs language-json">{
-  <span class="hljs-attr">"data"</span>: {
-    <span class="hljs-attr">"pokemon"</span>: {
-      <span class="hljs-attr">"number"</span>: <span class="hljs-string">"025"</span>
-    },
-    <span class="hljs-attr">"pokemon"</span>: {
-      <span class="hljs-attr">"number"</span>: <span class="hljs-string">"026"</span>
-    }
+</section><section class="slide"><h2>Login (express)</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> verifyCredentials = <span class="hljs-keyword">async</span> (username, password) => {
+  <span class="hljs-keyword">const</span> user = db.users.findOne({ <span class="hljs-attr">username</span>: username });
+  <span class="hljs-keyword">if</span> (user === <span class="hljs-literal">undefined</span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>; <span class="hljs-comment">// user does not exist</span>
   }
-}
+  <span class="hljs-keyword">try</span> {
+    <span class="hljs-keyword">await</span> argon2.verify({
+      <span class="hljs-attr">pass</span>: password,
+      <span class="hljs-attr">encoded</span>: user.hash,
+    });
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+  } <span class="hljs-keyword">catch</span> {
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>; <span class="hljs-comment">// wrong password</span>
+  }
+};
 </code></pre>
-<p>Note the duplicate key: <code>pokemon</code>!</p>
-</section><section class="slide"><h2>Aliases</h2>
-<p>In order to avoid this problem we use aliases:</p>
-<pre><code class="language-graphql">query getTwo {
-  pokemon1: pokemon(name: "Pikachu") {
-    number
-  }
-  pokemon2: pokemon(name: "Raichu") {
-    number
-  }
-}
+</section><section class="slide"><h2>Login (express)</h2>
+<p>Verwendung von <code>/login</code> aus der Browserkonsole:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> res = <span class="hljs-keyword">await</span> fetch(<span class="hljs-string">'/login'</span>, {
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'post'</span>,
+  <span class="hljs-attr">body</span>: <span class="hljs-built_in">JSON</span>.stringify({
+    <span class="hljs-attr">username</span>: <span class="hljs-string">'alice'</span>,
+    <span class="hljs-attr">password</span>: <span class="hljs-string">'ecila'</span>,
+  }),
+  <span class="hljs-attr">headers</span>: { <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span> },
+});
+<span class="hljs-keyword">let</span> data = <span class="hljs-keyword">await</span> res.json();
+<span class="hljs-built_in">console</span>.log(data);
 </code></pre>
-</section><section class="slide"><h2>Aliases</h2>
-<p>response:</p>
-<pre><code class="hljs language-json">{
-  <span class="hljs-attr">"data"</span>: {
-    <span class="hljs-attr">"pokemon1"</span>: {
-      <span class="hljs-attr">"number"</span>: <span class="hljs-string">"025"</span>
-    },
-    <span class="hljs-attr">"pokemon2"</span>: {
-      <span class="hljs-attr">"number"</span>: <span class="hljs-string">"026"</span>
-    }
-  }
-}
+</section></section><section class="slides-section"><section class="slide"><h1>Public-Key-Kryptographie</h1>
+</section><section class="slide"><h2>Public-Key-Kryptographie</h2>
+<p>Anwendungsfälle:</p>
+<ul>
+<li>digitales Signieren von Daten</li>
+<li>Versenden von Verschlüsselten Daten</li>
+</ul>
+</section><section class="slide"><h2>Public-Key-Kryptographie</h2>
+<p>Alice verfügt über einen geheimen privaten Schlüssel und veröffentlicht einen zugehörigen öffentlichen Schlüssel</p>
+<p>Alice kann Daten mit ihrem privaten Schlüssel "signieren" - Empfänger dieser Daten können mittels des öffentlichen Schlüssels sicherstellen, dass die Daten von Alice stammen</p>
+<p>Andere können Daten mittels Alices öffentlichem Schlüssel verschlüsseln und an Alice senden - nur Alice kann sie mittels des privaten Schlüssel entschlüsseln</p>
+</section><section class="slide"><h2>Schlüsselpaare</h2>
+<p>Weit verbreiteter kryptographischer Algorithmus: RSA</p>
+<p>Schlüssel werden oft im <code>.pem</code>-Format gespeichert</p>
+</section><section class="slide"><h2>Schlüsselpaare</h2>
+<p><code>alice_private.pem</code>:</p>
+<pre><code class="language-txt">-----BEGIN RSA PRIVATE KEY-----
+MIIBOgIBAAJBAMUKUlOcPJ4E0T1/9qirGZ+1udvYF9Bqvrc2zuoplenl8S0bdXGG
+vm1SlCUX6UMKC/YkB77BjFaRIvhceCrTriUCAwEAAQJBAIn2KySNrUe6+cKE2XDJ
+tDxGImdSy4HLa9OelYwRJ/1HHclYgACwzigWT6U+Xaej95lzKrWV+Gwlw/q10dWA
+ZrUCIQD4xrKnJtGgU/HI7piVGNvYl7jP3zQJMMagq+iYKSi0/wIhAMrDCkwEcSld
+E2HVyWUln+XTNwEVg484QZiPvE2aRyjbAiB5YjH/XvB/gxYBTXHDpfp3ByiUvLqe
+FV+FO/vkaojDLwIgBpVusCk0w3MSPgsDDxW5q2zATHi2XOAmwR1pr9tilCECICRO
+Lj9zPl9v6NhpmAXFPffzH7SJ5eIoF6bxu0j8l3GL
+-----END RSA PRIVATE KEY-----
 </code></pre>
-</section><section class="slide"><h2>Fragments</h2>
-<p>Task: get the number, maxHP and image of Pikachu and Raichu</p>
-</section><section class="slide"><h2>Fragments</h2>
-<pre><code class="language-graphql">query getTwo {
-  pokemon1: pokemon(name: "Pikachu") {
-    ...essentialData
-  }
-  pokemon2: pokemon(name: "Raichu") {
-    ...essentialData
-    id
-  }
-}
+<p><code>alice_public.pem</code>:</p>
+<pre><code class="language-txt">-----BEGIN RSA PUBLIC KEY-----
+MEgCQQDFClJTnDyeBNE9f/aoqxmftbnb2BfQar63Ns7qKZXp5fEtG3Vxhr5tUpQl
+F+lDCgv2JAe+wYxWkSL4XHgq064lAgMBAAE=
+-----END RSA PUBLIC KEY-----
+</code></pre>
+</section><section class="slide"><h2>Schlüsselpaare</h2>
+<p>Erstellen eines RSA-Schlüsselpaares im Browser:</p>
+<p><a href="https://www.csfieldguide.org.nz/en/interactives/rsa-key-generator/">https://www.csfieldguide.org.nz/en/interactives/rsa-key-generator/</a></p>
+<ul>
+<li>Key Size: beliebig (längere Schlüssel sind sicherer, aber langsamer)</li>
+<li>Format Scheme: PKCS #1</li>
+</ul>
+</section></section><section class="slides-section"><section class="slide"><h1>Public-Key-Kryptographie mit node.js</h1>
+</section><section class="slide"><h2>Erstellen eines RSA-Schlüsselpaares mittels crypto</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> crypto = <span class="hljs-built_in">require</span>(<span class="hljs-string">'crypto'</span>);
 
-fragment essentialData on Pokemon {
-  number
-  maxHP
-  image
+<span class="hljs-keyword">let</span> { privateKey, publicKey } = crypto.generateKeyPairSync(
+  <span class="hljs-string">'rsa'</span>,
+  {
+    <span class="hljs-attr">modulusLength</span>: <span class="hljs-number">512</span>,
+  }
+);
+</code></pre>
+</section><section class="slide"><h2>Exportieren eines Schlüssels</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> privateKeyPemString = privateKey.export({
+  <span class="hljs-attr">type</span>: <span class="hljs-string">'pkcs1'</span>,
+  <span class="hljs-attr">format</span>: <span class="hljs-string">'pem'</span>,
+});
+
+fs.writeFileSync(<span class="hljs-string">'alice_private.pem'</span>, privateKeyPemString);
+</code></pre>
+</section><section class="slide"><h2>Importieren eines Schlüssels</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> privateKeyPemString = fs.readFileSync(
+  <span class="hljs-string">'alice_private.pem'</span>,
+  { <span class="hljs-attr">encoding</span>: <span class="hljs-string">'ascii'</span> }
+);
+
+<span class="hljs-keyword">let</span> privateKey = crypto.createPrivateKey(
+  privateKeyPemString
+);
+</code></pre>
+</section><section class="slide"><h2>Signieren von Daten mittels RSA</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> message =
+  <span class="hljs-string">'the holder of this token is logged in as user1'</span>;
+
+<span class="hljs-keyword">let</span> signature = crypto.sign(
+  <span class="hljs-string">'SHA256'</span>,
+  Buffer.from(message, <span class="hljs-string">'utf-8'</span>),
+  privateKey
+);
+</code></pre>
+</section><section class="slide"><h2>Verifizieren einer Signatur mit RSA</h2>
+<p>Verifizieren einer authentischen Nachricht:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> message =
+  <span class="hljs-string">'the holder of this token is logged in as user1'</span>;
+
+<span class="hljs-keyword">let</span> verifiedA = crypto.verify(
+  <span class="hljs-string">'SHA256'</span>,
+  Buffer.from(message, <span class="hljs-string">'utf-8'</span>),
+  publicKey,
+  signature
+);
+<span class="hljs-comment">// true</span>
+</code></pre>
+</section><section class="slide"><h2>Verifizieren einer Signatur mit RSA</h2>
+<p>Verifizierungsversuch einer gefälschten Nachricht schlägt fehl:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> fakeMessage =
+  <span class="hljs-string">'the holder of this token is logged in as admin'</span>;
+
+<span class="hljs-keyword">let</span> verifiedB = crypto.verify(
+  <span class="hljs-string">'SHA256'</span>,
+  Buffer.from(fakeMessage, <span class="hljs-string">'utf-8'</span>),
+  publicKey,
+  signature
+);
+<span class="hljs-comment">// false</span>
+</code></pre>
+</section><section class="slide"><h2>Verschlüsselung von Daten via RSA</h2>
+<p>Daten Verschlüsseln, um sie an Alice zu senden:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> message = <span class="hljs-string">'Hello, Alice!'</span>;
+
+<span class="hljs-keyword">let</span> encryptedMessage = crypto.publicEncrypt(
+  publicKey,
+  Buffer.from(message, <span class="hljs-string">'utf-8'</span>)
+);
+</code></pre>
+</section><section class="slide"><h2>Entschlüsseln von Daten via RSA</h2>
+<p>Entschlüsselung durch Alice:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> decryptedMessage = crypto
+  .privateDecrypt(privateKey, encryptedMessage)
+  .toString(<span class="hljs-string">'utf-8'</span>);
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Sessions und Tokens</h1>
+</section><section class="slide"><h2>Sessions und Tokens</h2>
+<p>Üblicher Prozess:</p>
+<p>Wenn ein Benutzer sich erfolgreich eingeloggt hat erhält dieser ein geheimes Token, dass ihn für eine gewisse Zeit identifiziert (z.B. für 30 Minuten oder für 1 Tag)</p>
+</section><section class="slide"><h2>Sessions und Tokens</h2>
+<p>Inhalte von Tokens:</p>
+<p>Variante A: Token enthält eine eindeutige Session-ID; zugehörige Session-Daten werden auf dem Server gespeichert</p>
+<p>Variante B: Token enthält alle Session-Daten, signiert durch ein Authorisierungs-Service</p>
+</section><section class="slide"><h2>JSON Web Tokens</h2>
+<p>JSON Web Tokens (JWT) ermöglichen es einem Benutzer, sich gegenüber einer Website zu identifizieren</p>
+</section><section class="slide"><h2>JSON Web Tokens</h2>
+<p>Beispiel für Inhalte eines JWTs (3 Teile: Algorithmus, Daten, Signatur):</p>
+<pre><code class="hljs language-json">{ <span class="hljs-attr">"alg"</span>: <span class="hljs-string">"RS256"</span> }
+</code></pre>
+<pre><code class="hljs language-json">{
+  <span class="hljs-attr">"iss"</span>: <span class="hljs-string">"google.com"</span>,
+  <span class="hljs-attr">"sub"</span>: <span class="hljs-string">"alice@gmail.com"</span>,
+  <span class="hljs-attr">"aud"</span>: <span class="hljs-string">"medium.com"</span>,
+  <span class="hljs-attr">"exp"</span>: <span class="hljs-number">1577836800</span>
 }
-</code></pre></section></section></div>
+</code></pre>
+<pre><code class="language-txt">eyJzdWIiOiJhbGljZSIsImlzcyI6ImF1dGguZ...
+</code></pre>
+</section><section class="slide"><h2>JSON Web Tokens</h2>
+<p>Übersetzung:</p>
+<pre><code class="language-txt">Dies ist eine JSON Web Token, signiert mit RS256
+(RSA Signatur mit SHA-256)
+
+Wir (google.com) bestätigen, dass der Besitzer dieses
+Tokens als "alice@gmail.com" bei uns eingeloggt ist.
+Diese Bestätigung ist für Nutzung auf medium.com gedacht.
+Diese Bestätigung ist gültig bis 2020-01-01 00:00.
+
+Signatur: ...
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Sessions und Tokens in node.js</h1>
+</section><section class="slide"><h2>JWT-basiertes Authentifizierungsservice</h2>
+<p>Szenario:</p>
+<ul>
+<li>Authentifizierungsservice: <code>auth.foo-systems.com</code></li>
+<li>Gewünschte Resource: <code>forum.foo-systems.com</code></li>
+</ul>
+</section><section class="slide"><h2>JWT-basiertes Authentifizierungsservice</h2>
+<p>Erweiterung des Codes aus dem letzen Abschnitt:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
+<span class="hljs-keyword">const</span> jsonwebtoken = <span class="hljs-built_in">require</span>(<span class="hljs-string">'jsonwebtoken'</span>);
+</code></pre>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> publicKey = fs.readFileSync(<span class="hljs-string">'./public.pem'</span>);
+<span class="hljs-keyword">const</span> privateKey = fs.readFileSync(<span class="hljs-string">'./private.pem'</span>);
+</code></pre>
+</section><section class="slide"><h2>JWT-basiertes Authentifizierungsservice</h2>
+<p>Geänderter Handler für die Startseite:</p>
+<pre><code class="hljs language-js">app.get(<span class="hljs-string">'/'</span>, (req, res) => {
+  res.end(
+    <span class="hljs-string">'welcome to the auth service\n\n'</span> +
+      <span class="hljs-string">'resources:\n/register\n/login\n/public-key'</span>
+  );
+});
+</code></pre>
+<p>Öffentlichen Schlüssel zugänglich machen:</p>
+<pre><code class="hljs language-js">app.get(<span class="hljs-string">'/public-key'</span>, (req, res) => {
+  res.end(publicKey);
+});
+</code></pre>
+</section><section class="slide"><h2>JWT-basiertes Authentifizierungsservice</h2>
+<pre><code class="hljs language-js">app.post(<span class="hljs-string">'/login'</span>, <span class="hljs-keyword">async</span> (req, res) => {
+  <span class="hljs-keyword">const</span> verified = <span class="hljs-keyword">await</span> verifyCredentials(
+    req.body.username,
+    req.body.password
+  );
+  <span class="hljs-keyword">if</span> (!verified) {
+    <span class="hljs-keyword">return</span> res.json({ <span class="hljs-attr">status</span>: <span class="hljs-string">'error'</span> });
+  }
+  <span class="hljs-keyword">const</span> token = createToken(req.body.username);
+  res.json({ <span class="hljs-attr">status</span>: <span class="hljs-string">'success'</span>, <span class="hljs-attr">token</span>: token });
+});
+</code></pre>
+</section><section class="slide"><h2>JWT-basiertes Authentifizierungsservice</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> createToken = <span class="hljs-function"><span class="hljs-params">username</span> =></span> {
+  <span class="hljs-keyword">return</span> jsonwebtoken.sign(
+    {
+      <span class="hljs-attr">sub</span>: username,
+      <span class="hljs-attr">iss</span>: <span class="hljs-string">'auth.foo-systems.com'</span>,
+      <span class="hljs-attr">aud</span>: <span class="hljs-string">'forum.foo-systems.com'</span>,
+      <span class="hljs-comment">// expires in 1 h</span>
+      exp: <span class="hljs-built_in">Math</span>.floor(<span class="hljs-built_in">Date</span>.now() / <span class="hljs-number">1000</span>) + <span class="hljs-number">60</span> * <span class="hljs-number">60</span>,
+    },
+    privateKey,
+    { <span class="hljs-attr">algorithm</span>: <span class="hljs-string">'RS256'</span> }
+  );
+};
+</code></pre>
+</section><section class="slide"><h2>JWT-basiertes Authentifizierungsservice</h2>
+<p>Verwendung des <code>/login</code>-Endpunkts aus der Browserkonsole:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> res = <span class="hljs-keyword">await</span> fetch(<span class="hljs-string">'/login'</span>, {
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'post'</span>,
+  <span class="hljs-attr">body</span>: <span class="hljs-built_in">JSON</span>.stringify({
+    <span class="hljs-attr">username</span>: <span class="hljs-string">'alice'</span>,
+    <span class="hljs-attr">password</span>: <span class="hljs-string">'ecila'</span>,
+  }),
+  <span class="hljs-attr">headers</span>: { <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span> },
+});
+<span class="hljs-keyword">let</span> data = <span class="hljs-keyword">await</span> res.json();
+<span class="hljs-built_in">console</span>.log(data);
+</code></pre>
+</section><section class="slide"><h2>Online Playground</h2>
+<p>Online-Version:</p>
+<ul>
+<li>code: <a href="https://glitch.com/edit/#!/karuga-auth-service">https://glitch.com/edit/#!/karuga-auth-service</a></li>
+<li>app: <a href="https://karuga-auth-service.glitch.me/">https://karuga-auth-service.glitch.me/</a></li>
+</ul>
+</section></section><section class="slides-section"><section class="slide"><h1>Authorisierung</h1>
+</section><section class="slide"><h2>HTTP bearer token</h2>
+<p>Ein JWT can im HTTP-Authrization-Header als sogenanntes Bearer Token übermittelt werden, um die Identität des Benutzers zu bestätigen:</p>
+<pre><code class="hljs language-http"><span class="hljs-attribute">Authorization</span>: Bearer eyJhbGciOiJSUzI...
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Authorisierung in node.js</h1>
+</section><section class="slide"><h2>Authorisierung in node.js</h2>
+<p>Middleware, die Zugriff zu bestimmten Ressourcen auf Clients beschränkt, die beim Authentifizierungsservice eingeloggt sind:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> restrictToLoggedin = expressJwt({
+  <span class="hljs-attr">secret</span>: publicKey,
+});
+
+app.get(<span class="hljs-string">'/public'</span>, (req, res) => {
+  res.json(publicData);
+});
+app.get(<span class="hljs-string">'/private'</span>, restrictToLoggedin, (req, res) => {
+  <span class="hljs-keyword">if</span> (req.user) {
+    res.json(privateData);
+  } <span class="hljs-keyword">else</span> {
+    res.json({ <span class="hljs-attr">status</span>: <span class="hljs-string">'auth error'</span> });
+  }
+});
+</code></pre>
+</section><section class="slide"><h2>Authorisierung in node.js</h2>
+<p>kompletter Code:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
+<span class="hljs-keyword">const</span> cors = <span class="hljs-built_in">require</span>(<span class="hljs-string">'cors'</span>);
+<span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
+<span class="hljs-keyword">const</span> expressJwt = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express-jwt'</span>);
+
+<span class="hljs-keyword">const</span> publicKey = fs.readFileSync(<span class="hljs-string">'./public.pem'</span>, {
+  <span class="hljs-attr">encoding</span>: <span class="hljs-string">'utf-8'</span>,
+});
+
+<span class="hljs-keyword">const</span> secretData = [<span class="hljs-string">'foo'</span>, <span class="hljs-string">'bar'</span>, <span class="hljs-string">'baz'</span>];
+
+<span class="hljs-keyword">const</span> app = express();
+
+app.use(express.json());
+app.use(cors());
+
+<span class="hljs-keyword">const</span> restrictToLoggedin = expressJwt({
+  <span class="hljs-attr">secret</span>: publicKey,
+});
+
+app.get(<span class="hljs-string">'/'</span>, (request, response) => {
+  response.json({ <span class="hljs-attr">page</span>: <span class="hljs-string">'public start page'</span> });
+});
+app.get(<span class="hljs-string">'/items'</span>, restrictToLoggedin, (req, res) => {
+  res.json(secretData);
+});
+</code></pre>
+<p><a href="https://glitch.com/~karuga-secret">glitch Projekt</a></p>
+</section></section><section class="slides-section"><section class="slide"><h1>Ressourcen</h1>
+</section><section class="slide"><h2>Ressourcen</h2>
+<ul>
+<li><a href="https://medium.com/@siddharthac6/json-web-token-jwt-the-right-way-of-implementing-with-node-js-65b8915d550e">JSON Web Token (JWT) — The right way of implementing, with Node.js, Siddhartha Chowdhury</a></li>
+</ul></section></section></div>
     </div>
     <script>/*!
  * reveal.js

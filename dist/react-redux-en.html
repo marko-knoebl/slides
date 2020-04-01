@@ -2540,15 +2540,12 @@ ReactDOM.render(
 <li>typing a thunk action</li>
 </ul>
 </section><section class="slide"><h2>Defining action types</h2>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { PayloadAction } <span class="hljs-keyword">from</span> <span class="hljs-string">'@reduxjs/toolkit'</span>;
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { Action, PayloadAction } <span class="hljs-keyword">from</span> <span class="hljs-string">'@reduxjs/toolkit'</span>;
 
-<span class="hljs-keyword">type</span> AddTodoAction = PayloadAction&#x3C;<span class="hljs-built_in">string</span>, <span class="hljs-string">'todos/addTodo'</span>>;
-<span class="hljs-keyword">type</span> ToggleTodoAction = PayloadAction&#x3C;
-  <span class="hljs-built_in">number</span>,
-  <span class="hljs-string">'todos/toggleTodo'</span>
->;
-
-<span class="hljs-keyword">type</span> TodosAction = AddTodoAction | ToggleTodoAction;
+<span class="hljs-keyword">type</span> TodosAction =
+  | PayloadAction&#x3C;<span class="hljs-built_in">string</span>, <span class="hljs-string">'todos/addTodo'</span>>
+  | PayloadAction&#x3C;<span class="hljs-built_in">number</span>, <span class="hljs-string">'todos/toggleTodo'</span>>
+  | Action&#x3C;<span class="hljs-string">'todos/deleteCompletedTodos'</span>>;
 </code></pre>
 </section><section class="slide"><h2>Typing a reducer</h2>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> TodosState = <span class="hljs-built_in">Array</span>&#x3C;Todo>;
@@ -2662,10 +2659,10 @@ ReactDOM.render(
 </section><section class="slide"><h2>Exercise: shop</h2>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> cartReducer = <span class="hljs-function">(<span class="hljs-params">state = {}, action</span>) =></span> {
   <span class="hljs-keyword">switch</span> (action.type) {
-    <span class="hljs-keyword">case</span> <span class="hljs-string">'ADD_TO_CART'</span>:
+    <span class="hljs-keyword">case</span> <span class="hljs-string">'addToCart'</span>:
       <span class="hljs-keyword">return</span> {
         ...state,
-        [action.id]: (state[action.id] || <span class="hljs-number">0</span>) + <span class="hljs-number">1</span>,
+        [action.payload]: (state[action.payload] || <span class="hljs-number">0</span>) + <span class="hljs-number">1</span>,
       };
     <span class="hljs-keyword">default</span>:
       <span class="hljs-keyword">return</span> state;
@@ -2676,11 +2673,11 @@ ReactDOM.render(
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> products = [];
 <span class="hljs-keyword">const</span> productsReducer = <span class="hljs-function">(<span class="hljs-params">state = products, action</span>) =></span> {
   <span class="hljs-keyword">switch</span> (action.type) {
-    <span class="hljs-keyword">case</span> <span class="hljs-string">'SET_PRODUCTS'</span>:
-      <span class="hljs-keyword">return</span> action.products;
-    <span class="hljs-keyword">case</span> <span class="hljs-string">'ADD_TO_CART'</span>:
+    <span class="hljs-keyword">case</span> <span class="hljs-string">'setProducts'</span>:
+      <span class="hljs-keyword">return</span> action.payload;
+    <span class="hljs-keyword">case</span> <span class="hljs-string">'addToCart'</span>:
       <span class="hljs-keyword">return</span> state.map(<span class="hljs-function"><span class="hljs-params">product</span> =></span>
-        product.id === action.id
+        product.id === action.payload
           ? { ...product, <span class="hljs-attr">inventory</span>: product.inventory - <span class="hljs-number">1</span> }
           : product
       );

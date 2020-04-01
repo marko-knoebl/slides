@@ -299,7 +299,7 @@ In GraphQL we can implement this with just one request and without creating new 
 
 # GraphQL compared to SQL
 
-## GraphQL compared to SQL: examples
+## GraphQL compared to SQL
 
 ```graphql
 query {
@@ -313,14 +313,14 @@ query {
 ```sql
 SELECT login, name
   FROM user
-  WHERE login="my-username";
+  WHERE login='my-username';
 ```
 
 ## GraphQL compared to SQL
 
 In GraphQL parameters don't have a predefined meaning.
 
-In SQL the clause `WHERE login="my-username` always has the same meaning
+In SQL the clause `WHERE login='my-username'` always has the same meaning
 
 In GraphQL the meaning of `login: "my-username"` is up to the implementation on the server
 
@@ -334,7 +334,7 @@ GraphQL: already knows about relationships when the query is issued → simpler 
 
 ```graphql
 query {
-  user(id: "my-username") {
+  user(login: "my-username") {
     posts {
       title
     }

@@ -201,13 +201,13 @@ führen wir einen Production-Build aus
 
 JavaScript wird unter dem Namen _ECMAScript_ (kurz ES) standardisiert
 
-## JavaScript: Versionen
+## JavaScript Versionen
 
 - Von allen Browsern unterstützt: ES5 (2009 veröffentlicht)
 - Nächste große Version: _ES2015_ (oder ES6)
 - Seither: jährlich neue Versionen im Juni jeden Jahres (ES2016, ES2017, ...)
 
-## JavaScript: Versionsunterstützung
+## JavaScript Versionsunterstützung
 
 - Übersicht: siehe http://kangax.github.io/compat-table/es6/
 - In der Praxis: Modernes JavaScript wird in ES5 transpiliert (mittels Babel, webpack)
@@ -220,30 +220,39 @@ JavaScript wird unter dem Namen _ECMAScript_ (kurz ES) standardisiert
 - Benötigt einen Bundler, z.B. webpack
 
 ```js
-// user.js
-export class User {
-  ...
-}
+// foo.js
+const foo = 1;
+const bar = 2;
+const baz = 3;
+
+export { foo, bar, baz };
 ```
 
 ```js
-// main.js
-import { User } from 'user.js';
+// index.js
+import { foo, bar } from 'foo.js';
 ```
 
 ## Module & Imports
 
+Es kann einen default Export geben:
+
 ```js
-// User.js
-// es kann 1 default export geben
-export default class User {
-   ...
-}
+// foo.js
+const foo = 1;
+const bar = 2;
+const baz = 3;
+
+export { foo, bar, baz };
+
+const main = 0;
+
+export default main;
 ```
 
 ```js
-// main.js
-import User from 'User.js';
+// index.js
+import main, { foo, bar } from 'foo.js';
 ```
 
 ## Imports in webpack
@@ -300,20 +309,14 @@ const { name, age } = person;
 - Lässt _this_ unverändert (überschreibt es nicht)
 
 ```js
-let multiply = (a, b) => {
+const multiply = (a, b) => {
   return a * b;
 };
 
-let multiply = (a, b) => a * b;
+const multiply = (a, b) => a * b;
 ```
 
 ## Pfeilfunktionen
-
-wenn es genau einen Parameter gibt: Parameterklammern optional
-
-```js
-const square = a => a * a;
-```
 
 wenn direkt ein Objekt zurückgegeben werden soll: mit runden Klammern umschießen
 
@@ -359,7 +362,7 @@ class User extends Person {
 Über die Einträge in einem Array iterieren:
 
 ```js
-let names = ['Anna', 'Bernhard', 'Caro'];
+const names = ['Anna', 'Bernhard', 'Caro'];
 for (let name of names) {
   console.log(name);
 }
@@ -368,14 +371,18 @@ for (let name of names) {
 ## Spread Syntax (Arrays und Objekte)
 
 ```js
-let squares = [1, 4, 9];
-let moreSquares = [...squares, 16, 25];
+const squares = [1, 4, 9];
+const moreSquares = [...squares, 16, 25];
 // moreSquares: [1, 4, 9, 16, 25]
 ```
 
 ```js
-let person = { firstName: 'Joe', lastName: 'Doe', age: 31 };
-let newPerson = { ...person, email: 'j@d.com', age: 32 };
+const person = {
+  firstName: 'Joe',
+  lastName: 'Doe',
+  age: 31,
+};
+const newPerson = { ...person, email: 'j@d.com', age: 32 };
 // {firstName: 'Joe', lastName: 'Doe', email: 'j@d.com', age: 32}
 ```
 
@@ -386,19 +393,9 @@ let newPerson = { ...person, email: 'j@d.com', age: 32 };
 - Erlauben mehrzeilige Strings und Interpolation:
 
 ```js
-let name = 'Anton';
-let greeting = `Hallo, ${name}!
-                Das ist ES2015!`;
-```
-
-## Standardparameter in Funktionen
-
-In Funktionen können nun Standardparameter definiert werden:
-
-```js
-let join = (strings, separator='') => {
-  ...
-}
+const name = 'Mike';
+const greeting = `Hello, ${name}!
+                  This is ES2015!`;
 ```
 
 # TypeScript Grundlagen

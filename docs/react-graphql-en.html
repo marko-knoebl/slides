@@ -2245,7 +2245,7 @@ try Subscriptions
 }
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>GraphQL compared to SQL</h1>
-</section><section class="slide"><h2>GraphQL compared to SQL: examples</h2>
+</section><section class="slide"><h2>GraphQL compared to SQL</h2>
 <pre><code class="language-graphql">query {
   user(login: "my-username") {
     login
@@ -2255,18 +2255,18 @@ try Subscriptions
 </code></pre>
 <pre><code class="hljs language-sql"><span class="hljs-keyword">SELECT</span> login, <span class="hljs-keyword">name</span>
   <span class="hljs-keyword">FROM</span> <span class="hljs-keyword">user</span>
-  <span class="hljs-keyword">WHERE</span> login=<span class="hljs-string">"my-username"</span>;
+  <span class="hljs-keyword">WHERE</span> login=<span class="hljs-string">'my-username'</span>;
 </code></pre>
 </section><section class="slide"><h2>GraphQL compared to SQL</h2>
 <p>In GraphQL parameters don't have a predefined meaning.</p>
-<p>In SQL the clause <code>WHERE login="my-username</code> always has the same meaning</p>
+<p>In SQL the clause <code>WHERE login='my-username'</code> always has the same meaning</p>
 <p>In GraphQL the meaning of <code>login: "my-username"</code> is up to the implementation on the server</p>
 </section><section class="slide"><h2>GraphQL compared to SQL</h2>
 <p>SQL: relationships between tables (joins) are defined in the query</p>
 <p>GraphQL: already knows about relationships when the query is issued → simpler queries</p>
 </section><section class="slide"><h2>GraphQL compared to SQL</h2>
 <pre><code class="language-graphql">query {
-  user(id: "my-username") {
+  user(login: "my-username") {
     posts {
       title
     }
