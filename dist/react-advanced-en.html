@@ -8,7 +8,7 @@
  * http://revealjs.com
  * MIT licensed
  *
- * Copyright (C) 2019 Hakim El Hattab, http://hakim.se
+ * Copyright (C) 2020 Hakim El Hattab, http://hakim.se
  */
 /*********************************************
  * GLOBAL STYLES
@@ -82,29 +82,29 @@ body {
     text-decoration: line-through; }
 
 .reveal .slides section .fragment.fade-up {
-  -webkit-transform: translate(0, 20%);
-          transform: translate(0, 20%); }
+  -webkit-transform: translate(0, 40px);
+          transform: translate(0, 40px); }
   .reveal .slides section .fragment.fade-up.visible {
     -webkit-transform: translate(0, 0);
             transform: translate(0, 0); }
 
 .reveal .slides section .fragment.fade-down {
-  -webkit-transform: translate(0, -20%);
-          transform: translate(0, -20%); }
+  -webkit-transform: translate(0, -40px);
+          transform: translate(0, -40px); }
   .reveal .slides section .fragment.fade-down.visible {
     -webkit-transform: translate(0, 0);
             transform: translate(0, 0); }
 
 .reveal .slides section .fragment.fade-right {
-  -webkit-transform: translate(-20%, 0);
-          transform: translate(-20%, 0); }
+  -webkit-transform: translate(-40px, 0);
+          transform: translate(-40px, 0); }
   .reveal .slides section .fragment.fade-right.visible {
     -webkit-transform: translate(0, 0);
             transform: translate(0, 0); }
 
 .reveal .slides section .fragment.fade-left {
-  -webkit-transform: translate(20%, 0);
-          transform: translate(20%, 0); }
+  -webkit-transform: translate(40px, 0);
+          transform: translate(40px, 0); }
   .reveal .slides section .fragment.fade-left.visible {
     -webkit-transform: translate(0, 0);
             transform: translate(0, 0); }
@@ -232,7 +232,7 @@ body {
   bottom: 12px;
   right: 12px;
   left: auto;
-  z-index: 1;
+  z-index: 11;
   color: #000;
   pointer-events: none;
   font-size: 10px; }
@@ -317,7 +317,8 @@ body {
               transform: rotate(90deg); }
   .reveal .controls .navigate-down {
     right: 3.2em;
-    bottom: 0;
+    bottom: -1.4em;
+    padding-bottom: 1.4em;
     -webkit-transform: translateY(10px);
             transform: translateY(10px); }
     .reveal .controls .navigate-down .controls-arrow {
@@ -400,18 +401,18 @@ body {
     right: auto; }
   .reveal .controls[data-controls-layout="edges"] .navigate-left {
     top: 50%;
-    left: 8px;
+    left: 0.8em;
     margin-top: -1.8em; }
   .reveal .controls[data-controls-layout="edges"] .navigate-right {
     top: 50%;
-    right: 8px;
+    right: 0.8em;
     margin-top: -1.8em; }
   .reveal .controls[data-controls-layout="edges"] .navigate-up {
-    top: 8px;
+    top: 0.8em;
     left: 50%;
     margin-left: -1.8em; }
   .reveal .controls[data-controls-layout="edges"] .navigate-down {
-    bottom: 8px;
+    bottom: -0.3em;
     left: 50%;
     margin-left: -1.8em; } }
 
@@ -1458,8 +1459,15 @@ body {
   text-align: right;
   vertical-align: top; }
 
-.reveal .hljs[data-line-numbers]:not([data-line-numbers=""]) tr:not(.highlight-line) {
+.reveal .hljs.has-highlights tr:not(.highlight-line) {
   opacity: 0.4; }
+
+.reveal .hljs:not(:first-child).fragment {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  box-sizing: border-box; }
 
 /*********************************************
  * ROLLING LINKS
@@ -2126,8 +2134,8 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
     },
   }}>
   <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">TodoList</span> /></span>
-  </span>&#x3C;AddTodo /><span class="xml">
-  </span>&#x3C;TodoStats /><span class="xml">
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">AddTodo</span> /></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">TodoStats</span> /></span>
 <span class="hljs-tag">&#x3C;/<span class="hljs-name">TodosContext.Provider</span>></span></span>
 </code></pre>
 </section><section class="slide"><h2>Context - example</h2>
@@ -2300,10 +2308,10 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   <span class="hljs-keyword">return</span> (
     <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
       ...
-      </span>&#x3C;button
-        onClick={() => dispatch({ type: 'deleteAll' })}>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>
+        <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> dispatch({ type: 'deleteAll' })}>
         delete all todos
-      &#x3C;/button><span class="xml">
+      <span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
     <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
   );
 };
@@ -2425,9 +2433,9 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> TodoApp = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
   <span class="hljs-keyword">const</span> todoCtrl = useTodos();
   <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
-      </span>&#x3C;h1>Todo&#x3C;/h1><span class="xml">
-      </span>&#x3C;TodoList
+    &#x3C;div>
+      &#x3C;h1>Todo&#x3C;/h1>
+      &#x3C;TodoList
         todos={todoCtrl.todos}
         isLoading={todoCtrl.isLoading}
         onReload={todoCtrl.reload}
@@ -2484,7 +2492,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   <span class="hljs-keyword">return</span> (
     <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
       {data.map(todo => (
-        </span>&#x3C;div>{todo.title}&#x3C;/div><span class="xml">
+        <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>{todo.title}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
       ))}
     <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
   );
@@ -2548,24 +2556,24 @@ The entire Application is enclosed in a <code>BrowserRouter</code> - Element</p>
 <span class="hljs-comment">// ...</span>
 
 <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">BrowserRouter</span>></span>
-  </span>&#x3C;App /><span class="xml">
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">App</span> /></span>
 <span class="hljs-tag">&#x3C;/<span class="hljs-name">BrowserRouter</span>></span></span>;
 </code></pre>
 </section><section class="slide"><h2>React Router - defining routes</h2>
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { Route } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router-dom'</span>;
 
-<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"/"</span> <span class="hljs-attr">exact</span>=<span class="hljs-string">{true}</span> <span class="hljs-attr">component</span>=<span class="hljs-string">{TodoList}</span> /></span>
-</span>&#x3C;Route path="/about" exact={true} component={About} />
+&#x3C;Route path="/" exact={true} component={TodoList} />
+&#x3C;Route path="/about" exact={true} component={About} />
 &#x3C;Route path="/add" exact={true} component={AddTodo} />
 </code></pre>
 </section><section class="slide"><h2>React Router - defining routes</h2>
 <p>If props need to be passed:</p>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> { Route } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router-dom'</span>;
 
-<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Route</span>
-  <span class="hljs-attr">path</span>=<span class="hljs-string">"/add"</span>
-  <span class="hljs-attr">exact</span>=<span class="hljs-string">{true}</span>
-  <span class="hljs-attr">render</span>=<span class="hljs-string">{()</span> =></span> </span>&#x3C;AddTodo onSubmit={this.handleAddTodo} />}
+&#x3C;Route
+  path="/add"
+  exact={true}
+  render={() => &#x3C;AddTodo onSubmit={this.handleAddTodo} />}
 />;
 </code></pre>
 </section><section class="slide"><h2>React Router - Router links</h2>
@@ -2578,8 +2586,8 @@ The entire Application is enclosed in a <code>BrowserRouter</code> - Element</p>
 <p>Only the first matching route will be displayed</p>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> { Switch } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router-dom'</span>;
 
-<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Switch</span>></span>
-  </span>&#x3C;Route path="/todos/:todoId" component={Todo} />
+&#x3C;Switch>
+  &#x3C;Route path="/todos/:todoId" component={Todo} />
   &#x3C;Route path="/" component={NotFound} />
 &#x3C;/Switch>;
 </code></pre>
@@ -2598,7 +2606,7 @@ The entire Application is enclosed in a <code>BrowserRouter</code> - Element</p>
   <span class="hljs-keyword">return</span> (
     <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
       Details of todo: {routeParams.todoId}
-      </span>&#x3C;div>...&#x3C;/div><span class="xml">
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>...<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
     <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
   );
 };
@@ -2615,7 +2623,7 @@ The entire Application is enclosed in a <code>BrowserRouter</code> - Element</p>
 <pre><code class="hljs language-jsx">&#x3C;Route
   path=<span class="hljs-string">"/main"</span>
   render={() =>
-    username ? <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">MemberArea</span> /></span> : </span>&#x3C;Redirect to="/login" />
+    username ? &#x3C;MemberArea /> : &#x3C;Redirect to="/login" />
   }
 />
 </code></pre>
@@ -2657,8 +2665,8 @@ The entire Application is enclosed in a <code>BrowserRouter</code> - Element</p>
 <span class="hljs-keyword">const</span> About = lazy(<span class="hljs-function"><span class="hljs-params">()</span> =></span> <span class="hljs-keyword">import</span>(<span class="hljs-string">'./routes/About'</span>));
 
 <span class="hljs-keyword">const</span> App = <span class="hljs-function"><span class="hljs-params">()</span> =></span> (
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Suspense</span> <span class="hljs-attr">fallback</span>=<span class="hljs-string">{</span></span></span>&#x3C;div>Loading...&#x3C;/div><span class="xml">}>
-    </span>&#x3C;Route exact path="/" component={Home} />
+  &#x3C;Suspense fallback={&#x3C;div>Loading...&#x3C;/div>}>
+    &#x3C;Route exact path="/" component={Home} />
     &#x3C;Route path="/about" component={About} />
   &#x3C;/Suspense>
 );
@@ -2726,10 +2734,10 @@ The entire Application is enclosed in a <code>BrowserRouter</code> - Element</p>
 
 <span class="hljs-keyword">const</span> Index = <span class="hljs-function"><span class="hljs-params">()</span> =></span> (
   <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
-    </span>&#x3C;Link href="/about">
-      &#x3C;a>About Page&#x3C;/a>
-    &#x3C;/Link><span class="xml">
-    </span>&#x3C;p>Hello Next.js&#x3C;/p><span class="xml">
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">Link</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/about"</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">a</span>></span>About Page<span class="hljs-tag">&#x3C;/<span class="hljs-name">a</span>></span>
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">Link</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">p</span>></span>Hello Next.js<span class="hljs-tag">&#x3C;/<span class="hljs-name">p</span>></span>
   <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
 );
 
@@ -2753,7 +2761,7 @@ The entire Application is enclosed in a <code>BrowserRouter</code> - Element</p>
   <span class="hljs-keyword">const</span> router = useRouter();
   <span class="hljs-keyword">return</span> (
     <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
-      </span>&#x3C;h1>detail view for post {router.query.id}&#x3C;/h1><span class="xml">
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>detail view for post {router.query.id}<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
     <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
   );
 };
@@ -2780,10 +2788,10 @@ The entire Application is enclosed in a <code>BrowserRouter</code> - Element</p>
 </section><section class="slide"><h2>Data fetching in next.js</h2>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> Post = <span class="hljs-function">(<span class="hljs-params">{ url, title, body }</span>) =></span> (
   <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
-    </span>&#x3C;h2>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">h2</span>></span>
       Post {url.query.id}: {title}
-    &#x3C;/h2><span class="xml">
-    </span>&#x3C;p>{body}&#x3C;/p><span class="xml">
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">h2</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">p</span>></span>{body}<span class="hljs-tag">&#x3C;/<span class="hljs-name">p</span>></span>
   <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
 );
 
@@ -2881,8 +2889,8 @@ Post.getInitialProps = <span class="hljs-function"><span class="hljs-params">con
   <span class="hljs-keyword">return</span> (
     <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
       {coin}
-      </span>&#x3C;button onClick={throwCoin}>throw&#x3C;/button><span class="xml">
-      </span>&#x3C;div>last rendering: {new Date().toISOString()}&#x3C;/div><span class="xml">
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{throwCoin}</span>></span>throw<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>last rendering: {new Date().toISOString()}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
     <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
   );
 }
@@ -2931,8 +2939,8 @@ Post.getInitialProps = <span class="hljs-function"><span class="hljs-params">con
     todos,
   ]);
   <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
-      </span>&#x3C;TodoList todos={todos} />
+    &#x3C;div>
+      &#x3C;TodoList todos={todos} />
       &#x3C;AddTodo onAdd={memoizedHandleAddTodo} />
     &#x3C;/div>
   );
@@ -2953,7 +2961,7 @@ Post.getInitialProps = <span class="hljs-function"><span class="hljs-params">con
   <span class="hljs-keyword">return</span> (
     <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
       ...
-      </span>&#x3C;div>there are {numActiveTodos} active todos&#x3C;/div><span class="xml">
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>there are {numActiveTodos} active todos<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
     <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
   );
 };
@@ -3175,14 +3183,14 @@ it(<span class="hljs-string">'renders a component without crashing'</span>, () =
 <pre><code class="hljs language-jsx">describe(<span class="hljs-string">'rendering'</span>, () => {
   it(<span class="hljs-string">'renders 5 spans'</span>, () => {
     <span class="hljs-keyword">const</span> instance = TestRenderer.create(
-      <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Rating</span> <span class="hljs-attr">stars</span>=<span class="hljs-string">{3}</span> /></span>
+      &#x3C;Rating stars={3} />
     ).root;
     expect(instance.findAllByType('span')).toHaveLength(5);
   });
 
   it('renders 3 active stars', () => {
     const instance = TestRenderer.create(
-      </span>&#x3C;Rating stars={3} />
+      &#x3C;Rating stars={3} />
     ).root;
     expect(
       instance.findAllByProps({ className: 'star active' })
@@ -3231,7 +3239,7 @@ it(<span class="hljs-string">'renders a component without crashing'</span>, () =
 });
 
 it('renders a component tree without crashing', () => {
-  const wrapper = mount(</span>&#x3C;MyComponent /><span class="xml">);
+  const wrapper = mount(<span class="hljs-tag">&#x3C;<span class="hljs-name">MyComponent</span> /></span>);
 });
 </span></code></pre>
 </section><section class="slide"><h2>Enzyme - Cheatsheet</h2>
@@ -3247,12 +3255,12 @@ it('renders a component tree without crashing', () => {
 </section><section class="slide"><h2>Example: testing a rating component</h2>
 <pre><code class="hljs language-jsx">describe(<span class="hljs-string">'rendering'</span>, () => {
   it(<span class="hljs-string">'renders 5 Star components'</span>, () => {
-    <span class="hljs-keyword">const</span> wrapper = shallow(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Rating</span> <span class="hljs-attr">stars</span>=<span class="hljs-string">{5}</span> /></span>);
+    <span class="hljs-keyword">const</span> wrapper = shallow(&#x3C;Rating stars={5} />);
     expect(wrapper.find('Star')).toHaveLength(5);
   });
 
   it('renders 5 stars', () => {
-    const wrapper = mount(</span>&#x3C;Rating stars={5} />);
+    const wrapper = mount(&#x3C;Rating stars={5} />);
     expect(wrapper.find('.star')).toHaveLength(5);
   });
 });
@@ -3482,10 +3490,10 @@ useEffect(getInstallPermission, []);
       <span class="hljs-attr">styles.todoItem</span>,
       <span class="hljs-attr">completed</span> &#x26;&#x26; <span class="hljs-attr">styles.completedView</span>,
     ]}></span>
-    </span>&#x3C;Text style={[completed &#x26;&#x26; styles.completedText]}>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">Text</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{[completed</span> &#x26;&#x26; <span class="hljs-attr">styles.completedText</span>]}></span>
       {completed ? 'DONE: ' : 'TODO: '}
       {title}
-    &#x3C;/Text><span class="xml">
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">Text</span>></span>
   <span class="hljs-tag">&#x3C;/<span class="hljs-name">View</span>></span></span>
 );
 </code></pre>
@@ -3530,11 +3538,11 @@ useEffect(getInstallPermission, []);
   <span class="hljs-keyword">const</span> inputEl = useRef(<span class="hljs-literal">null</span>);
   <span class="hljs-keyword">return</span> (
     <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
-      </span>&#x3C;input ref={inputEl} />
-      &#x3C;button onClick={() => inputEl.current.focus()}>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">input</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">{inputEl}</span> /></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> inputEl.current.focus()}>
         focus
-      &#x3C;/button>
-    &#x3C;/div><span class="xml">
+      <span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
   );
 };
 </span></code></pre>
@@ -3545,8 +3553,8 @@ useEffect(getInstallPermission, []);
   <span class="hljs-keyword">const</span> lastNameInput = useRef(<span class="hljs-literal">null</span>);
 
   <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
-      </span>&#x3C;input
+    &#x3C;div>
+      &#x3C;input
         value={firstName}
         onChange={event => setFirstName(event.target.value)}
       />
@@ -3652,7 +3660,7 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs
  * http://revealjs.com
  * MIT licensed
  *
- * Copyright (C) 2019 Hakim El Hattab, http://hakim.se
+ * Copyright (C) 2020 Hakim El Hattab, http://hakim.se
  */
 (function( root, factory ) {
 	if( typeof define === 'function' && define.amd ) {
@@ -3675,13 +3683,17 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs
 	var Reveal;
 
 	// The reveal.js version
-	var VERSION = '3.8.0';
+	var VERSION = '3.9.2';
 
 	var SLIDES_SELECTOR = '.slides section',
 		HORIZONTAL_SLIDES_SELECTOR = '.slides>section',
 		VERTICAL_SLIDES_SELECTOR = '.slides>section.present>section',
 		HOME_SLIDE_SELECTOR = '.slides>section:first-of-type',
+
 		UA = navigator.userAgent,
+
+		// Methods that may not be invoked via the postMessage API
+		POST_MESSAGE_METHOD_BLACKLIST = /registerPlugin|registerKeyboardShortcut|addKeyBinding|addEventListener/,
 
 		// Configuration defaults, can be overridden at initialization time
 		config = {
@@ -3726,9 +3738,9 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs
 			// - "c/t":	  Flattened slide number / total slides
 			//
 			// Alternatively, you can provide a function that returns the slide
-			// number for the current slide. The function needs to return an array
-			// with one string [slideNumber] or three strings [n1,delimiter,n2].
-			// See #formatSlideNumber().
+			// number for the current slide. The function should take in a slide
+			// object and return an array with one string [slideNumber] or
+			// three strings [n1,delimiter,n2]. See #formatSlideNumber().
 			slideNumber: false,
 
 			// Can be used to limit the contexts in which the slide number appears
@@ -3919,6 +3931,11 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs
 			// Number of slides away from the current that are visible
 			viewDistance: 3,
 
+			// Number of slides away from the current that are visible on mobile
+			// devices. It is advisable to set this to a lower number than
+			// viewDistance in order to save resources.
+			mobileViewDistance: 2,
+
 			// The display mode that will be used to show slides
 			display: 'block',
 
@@ -4096,7 +4113,8 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs
 	 */
 	function checkCapabilities() {
 
-		isMobileDevice = /(iphone|ipod|ipad|android)/gi.test( UA );
+		isMobileDevice = /(iphone|ipod|ipad|android)/gi.test( UA ) ||
+							( navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1 ); // iPadOS
 		isChrome = /chrome/i.test( UA ) && !/edge/i.test( UA );
 
 		var testElement = document.createElement( 'div' );
@@ -4498,17 +4516,10 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs
 		// Make sure stretch elements fit on slide
 		layoutSlideContents( slideWidth, slideHeight );
 
-		// Add each slide's index as attributes on itself, we need these
-		// indices to generate slide numbers below
-		toArray( dom.wrapper.querySelectorAll( HORIZONTAL_SLIDES_SELECTOR ) ).forEach( function( hslide, h ) {
-			hslide.setAttribute( 'data-index-h', h );
-
-			if( hslide.classList.contains( 'stack' ) ) {
-				toArray( hslide.querySelectorAll( 'section' ) ).forEach( function( vslide, v ) {
-					vslide.setAttribute( 'data-index-h', h );
-					vslide.setAttribute( 'data-index-v', v );
-				} );
-			}
+		// Compute slide numbers now, before we start duplicating slides
+		var doingSlideNumbers = config.slideNumber && /all|print/i.test( config.showSlideNumber );
+		toArray( dom.wrapper.querySelectorAll( SLIDES_SELECTOR ) ).forEach( function( slide ) {
+			slide.setAttribute( 'data-slide-number', getSlideNumber( slide ) );
 		} );
 
 		// Slide and slide background layout
@@ -4579,14 +4590,11 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs
 				}
 
 				// Inject slide numbers if `slideNumbers` are enabled
-				if( config.slideNumber && /all|print/i.test( config.showSlideNumber ) ) {
-					var slideNumberH = parseInt( slide.getAttribute( 'data-index-h' ), 10 ) + 1,
-						slideNumberV = parseInt( slide.getAttribute( 'data-index-v' ), 10 ) + 1;
-
+				if( doingSlideNumbers ) {
 					var numberElement = document.createElement( 'div' );
 					numberElement.classList.add( 'slide-number' );
 					numberElement.classList.add( 'slide-number-pdf' );
-					numberElement.innerHTML = formatSlideNumber( slideNumberH, '.', slideNumberV );
+					numberElement.innerHTML = slide.getAttribute( 'data-slide-number' );
 					page.appendChild( numberElement );
 				}
 
@@ -4866,6 +4874,8 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs
 		if( data.backgroundColor ) element.style.backgroundColor = data.backgroundColor;
 		if( data.backgroundTransition ) element.setAttribute( 'data-background-transition', data.backgroundTransition );
 
+		if( slide.hasAttribute( 'data-preload' ) ) element.setAttribute( 'data-preload', '' );
+
 		// Background image options are set on the content wrapper
 		if( data.backgroundSize ) contentElement.style.backgroundSize = data.backgroundSize;
 		if( data.backgroundRepeat ) contentElement.style.backgroundRepeat = data.backgroundRepeat;
@@ -4925,7 +4935,20 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs
 
 					// Check if the requested method can be found
 					if( data.method && typeof Reveal[data.method] === 'function' ) {
-						Reveal[data.method].apply( Reveal, data.args );
+
+						if( POST_MESSAGE_METHOD_BLACKLIST.test( data.method ) === false ) {
+
+							var result = Reveal[data.method].apply( Reveal, data.args );
+
+							// Dispatch a postMessage event with the returned value from
+							// our method invocation for getter functions
+							dispatchPostMessage( 'callback', { method: data.method, result: result } );
+
+						}
+						else {
+							console.warn( 'reveal.js: "'+ data.method +'" is is blacklisted from the postMessage API' );
+						}
+
 					}
 				}
 			}, false );
@@ -5096,8 +5119,8 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs
 			keyboardShortcuts['&#8595;  ,  J'] = 'Navigate down';
 		}
 
-		keyboardShortcuts['Home  ,  &#8984;/CTRL &#8592;'] = 'First slide';
-		keyboardShortcuts['End  ,  &#8984;/CTRL &#8594;']  = 'Last slide';
+		keyboardShortcuts['Home  ,  Shift &#8592;']        = 'First slide';
+		keyboardShortcuts['End  ,  Shift &#8594;']         = 'Last slide';
 		keyboardShortcuts['B  ,  .']                       = 'Pause';
 		keyboardShortcuts['F']                             = 'Fullscreen';
 		keyboardShortcuts['ESC, O']                        = 'Slide overview';
@@ -5630,8 +5653,25 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs
 
 		// If we're in an iframe, post each reveal.js event to the
 		// parent window. Used by the notes plugin
+		dispatchPostMessage( type );
+
+	}
+
+	/**
+	 * Dispatched a postMessage of the given type from our window.
+	 */
+	function dispatchPostMessage( type, data ) {
+
 		if( config.postMessageEvents && window.parent !== window.self ) {
-			window.parent.postMessage( JSON.stringify({ namespace: 'reveal', eventName: type, state: getState() }), '*' );
+			var message = {
+				namespace: 'reveal',
+				eventName: type,
+				state: getState()
+			};
+
+			extend( message, data );
+
+			window.parent.postMessage( JSON.stringify( message ), '*' );
 		}
 
 	}
@@ -5892,10 +5932,12 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs
 					transformSlides( { layout: '' } );
 				}
 				else {
-					// Prefer zoom for scaling up so that content remains crisp.
-					// Don't use zoom to scale down since that can lead to shifts
-					// in text layout/line breaks.
-					if( scale > 1 && features.zoom ) {
+					// Zoom Scaling
+					// Content remains crisp no matter how much we scale. Side
+					// effects are minor differences in text layout and iframe
+					// viewports changing size. A 200x200 iframe viewport in a
+					// 2x zoomed presentation ends up having a 400x400 viewport.
+					if( scale > 1 && features.zoom && window.devicePixelRatio < 2 ) {
 						dom.slides.style.zoom = scale;
 						dom.slides.style.left = '';
 						dom.slides.style.top = '';
@@ -5903,7 +5945,10 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs
 						dom.slides.style.right = '';
 						transformSlides( { layout: '' } );
 					}
-					// Apply scale transform as a fallback
+					// Transform Scaling
+					// Content layout remains the exact same when scaled up.
+					// Side effect is content becoming blurred, especially with
+					// high scale values on ldpi screens.
 					else {
 						dom.slides.style.zoom = '';
 						dom.slides.style.left = '50%';
@@ -6272,34 +6317,37 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs
 	}
 
 	/**
-	 * Return a hash URL that will resolve to the current slide location.
+	 * Return a hash URL that will resolve to the given slide location.
+	 *
+	 * @param {HTMLElement} [slide=currentSlide] The slide to link to
 	 */
-	function locationHash() {
+	function locationHash( slide ) {
 
 		var url = '/';
 
 		// Attempt to create a named link based on the slide's ID
-		var id = currentSlide ? currentSlide.getAttribute( 'id' ) : null;
+		var s = slide || currentSlide;
+		var id = s ? s.getAttribute( 'id' ) : null;
 		if( id ) {
 			id = encodeURIComponent( id );
 		}
 
-		var indexf;
-		if( config.fragmentInURL ) {
-			indexf = getIndices().f;
+		var index = getIndices( slide );
+		if( !config.fragmentInURL ) {
+			index.f = undefined;
 		}
 
 		// If the current slide has an ID, use that as a named link,
 		// but we don't support named links with a fragment index
-		if( typeof id === 'string' && id.length && indexf === undefined ) {
+		if( typeof id === 'string' && id.length && index.f === undefined ) {
 			url = '/' + id;
 		}
 		// Otherwise use the /h/v index
 		else {
 			var hashIndexBase = config.hashOneBasedIndex ? 1 : 0;
-			if( indexh > 0 || indexv > 0 || indexf !== undefined ) url += indexh + hashIndexBase;
-			if( indexv > 0 || indexf !== undefined ) url += '/' + (indexv + hashIndexBase );
-			if( indexf !== undefined ) url += '/' + indexf;
+			if( index.h > 0 || index.v > 0 || index.f !== undefined ) url += index.h + hashIndexBase;
+			if( index.v > 0 || index.f !== undefined ) url += '/' + (index.v + hashIndexBase );
+			if( index.f !== undefined ) url += '/' + index.f;
 		}
 
 		return url;
@@ -6688,10 +6736,10 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs
 		syncBackground( slide );
 		syncFragments( slide );
 
+		loadSlide( slide );
+
 		updateBackground();
 		updateNotes();
-
-		loadSlide( slide );
 
 	}
 
@@ -6904,9 +6952,10 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs
 			// be visible
 			var viewDistance = isOverview() ? 10 : config.viewDistance;
 
-			// Limit view distance on weaker devices
+			// Shorten the view distance on devices that typically have
+			// less resources
 			if( isMobileDevice ) {
-				viewDistance = isOverview() ? 6 : 2;
+				viewDistance = isOverview() ? 6 : config.mobileViewDistance;
 			}
 
 			// All slides need to be visible when exporting to PDF
@@ -6958,7 +7007,7 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs
 			}
 
 			// Flag if there are ANY vertical slides, anywhere in the deck
-			if( dom.wrapper.querySelectorAll( '.slides>section>section' ).length ) {
+			if( hasVerticalSlides() ) {
 				dom.wrapper.classList.add( 'has-vertical-slides' );
 			}
 			else {
@@ -6966,7 +7015,7 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs
 			}
 
 			// Flag if there are ANY horizontal slides, anywhere in the deck
-			if( dom.wrapper.querySelectorAll( '.slides>section' ).length > 1 ) {
+			if( hasHorizontalSlides() ) {
 				dom.wrapper.classList.add( 'has-horizontal-slides' );
 			}
 			else {
@@ -7042,45 +7091,55 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs
 
 		// Update slide number if enabled
 		if( config.slideNumber && dom.slideNumber ) {
-
-			var value;
-			var format = 'h.v';
-
-			if( typeof config.slideNumber === 'function' ) {
-				value = config.slideNumber();
-			}
-			else {
-				// Check if a custom number format is available
-				if( typeof config.slideNumber === 'string' ) {
-					format = config.slideNumber;
-				}
-
-				// If there are ONLY vertical slides in this deck, always use
-				// a flattened slide number
-				if( !/c/.test( format ) && dom.wrapper.querySelectorAll( HORIZONTAL_SLIDES_SELECTOR ).length === 1 ) {
-					format = 'c';
-				}
-
-				value = [];
-				switch( format ) {
-					case 'c':
-						value.push( getSlidePastCount() + 1 );
-						break;
-					case 'c/t':
-						value.push( getSlidePastCount() + 1, '/', getTotalSlides() );
-						break;
-					case 'h/v':
-						value.push( indexh + 1 );
-						if( isVerticalSlide() ) value.push( '/', indexv + 1 );
-						break;
-					default:
-						value.push( indexh + 1 );
-						if( isVerticalSlide() ) value.push( '.', indexv + 1 );
-				}
-			}
-
-			dom.slideNumber.innerHTML = formatSlideNumber( value[0], value[1], value[2] );
+			dom.slideNumber.innerHTML = getSlideNumber();
 		}
+
+	}
+
+	/**
+	 * Returns the HTML string corresponding to the current slide number,
+	 * including formatting.
+	 */
+	function getSlideNumber( slide ) {
+
+		var value;
+		var format = 'h.v';
+		if( slide === undefined ) {
+			slide = currentSlide;
+		}
+
+		if ( typeof config.slideNumber === 'function' ) {
+			value = config.slideNumber( slide );
+		} else {
+			// Check if a custom number format is available
+			if( typeof config.slideNumber === 'string' ) {
+				format = config.slideNumber;
+			}
+
+			// If there are ONLY vertical slides in this deck, always use
+			// a flattened slide number
+			if( !/c/.test( format ) && dom.wrapper.querySelectorAll( HORIZONTAL_SLIDES_SELECTOR ).length === 1 ) {
+				format = 'c';
+			}
+
+			value = [];
+			switch( format ) {
+				case 'c':
+					value.push( getSlidePastCount( slide ) + 1 );
+					break;
+				case 'c/t':
+					value.push( getSlidePastCount( slide ) + 1, '/', getTotalSlides() );
+					break;
+				default:
+					var indices = getIndices( slide );
+					value.push( indices.h + 1 );
+					var sep = format === 'h/v' ? '/' : '.';
+					if( isVerticalSlide( slide ) ) value.push( sep, indices.v + 1 );
+			}
+		}
+
+		var url = '#' + locationHash( slide );
+		return formatSlideNumber( value[0], value[1], value[2], url );
 
 	}
 
@@ -7091,11 +7150,14 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs
 	 * @param {number} a Current slide
 	 * @param {string} delimiter Character to separate slide numbers
 	 * @param {(number|*)} b Total slides
+	 * @param {HTMLElement} [url='#'+locationHash()] The url to link to
 	 * @return {string} HTML string fragment
 	 */
-	function formatSlideNumber( a, delimiter, b ) {
+	function formatSlideNumber( a, delimiter, b, url ) {
 
-		var url = '#' + locationHash();
+		if( url === undefined ) {
+			url = '#' + locationHash();
+		}
 		if( typeof b === 'number' && !isNaN( b ) ) {
 			return  '<a href="' + url + '">' +
 					'<span class="slide-number-a">'+ a +'</span>' +
@@ -7248,7 +7310,7 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs
 		// Stop content inside of previous backgrounds
 		if( previousBackground ) {
 
-			stopEmbeddedContent( previousBackground );
+			stopEmbeddedContent( previousBackground, { unloadIframes: !shouldPreload( previousBackground ) } );
 
 		}
 
@@ -7427,6 +7489,7 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs
 			background.style.display = 'block';
 
 			var backgroundContent = slide.slideBackgroundContentElement;
+			var backgroundIframe = slide.getAttribute( 'data-background-iframe' );
 
 			// If the background contains media, load it
 			if( background.hasAttribute( 'data-loaded' ) === false ) {
@@ -7435,8 +7498,7 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs
 				var backgroundImage = slide.getAttribute( 'data-background-image' ),
 					backgroundVideo = slide.getAttribute( 'data-background-video' ),
 					backgroundVideoLoop = slide.hasAttribute( 'data-background-video-loop' ),
-					backgroundVideoMuted = slide.hasAttribute( 'data-background-video-muted' ),
-					backgroundIframe = slide.getAttribute( 'data-background-iframe' );
+					backgroundVideoMuted = slide.hasAttribute( 'data-background-video-muted' );
 
 				// Images
 				if( backgroundImage ) {
@@ -7476,15 +7538,9 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs
 					iframe.setAttribute( 'allowfullscreen', '' );
 					iframe.setAttribute( 'mozallowfullscreen', '' );
 					iframe.setAttribute( 'webkitallowfullscreen', '' );
+					iframe.setAttribute( 'allow', 'autoplay' );
 
-					// Only load autoplaying content when the slide is shown to
-					// avoid having it play in the background
-					if( /autoplay=(1|true|yes)/gi.test( backgroundIframe ) ) {
-						iframe.setAttribute( 'data-src', backgroundIframe );
-					}
-					else {
-						iframe.setAttribute( 'src', backgroundIframe );
-					}
+					iframe.setAttribute( 'data-src', backgroundIframe );
 
 					iframe.style.width  = '100%';
 					iframe.style.height = '100%';
@@ -7493,6 +7549,19 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs
 
 					backgroundContent.appendChild( iframe );
 				}
+			}
+
+			// Start loading preloadable iframes
+			var backgroundIframeElement = backgroundContent.querySelector( 'iframe[data-src]' );
+			if( backgroundIframeElement ) {
+
+				// Check if this iframe is eligible to be preloaded
+				if( shouldPreload( background ) && !/autoplay=(1|true|yes)/gi.test( backgroundIframe ) ) {
+					if( backgroundIframeElement.getAttribute( 'src' ) !== backgroundIframe ) {
+						backgroundIframeElement.setAttribute( 'src', backgroundIframe );
+					}
+				}
+
 			}
 
 		}
@@ -7514,6 +7583,11 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs
 		var background = getSlideBackground( slide );
 		if( background ) {
 			background.style.display = 'none';
+
+			// Unload any background iframes
+			toArray( background.querySelectorAll( 'iframe[src]' ) ).forEach( function( element ) {
+				element.removeAttribute( 'src' );
+			} );
 		}
 
 		// Reset lazy-loaded media elements with src attributes
@@ -7834,9 +7908,15 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs
 	 * Returns the number of past slides. This can be used as a global
 	 * flattened index for slides.
 	 *
+	 * @param {HTMLElement} [slide=currentSlide] The slide we're counting before
+	 *
 	 * @return {number} Past slide count
 	 */
-	function getSlidePastCount() {
+	function getSlidePastCount( slide ) {
+
+		if( slide === undefined ) {
+			slide = currentSlide;
+		}
 
 		var horizontalSlides = toArray( dom.wrapper.querySelectorAll( HORIZONTAL_SLIDES_SELECTOR ) );
 
@@ -7852,7 +7932,7 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs
 			for( var j = 0; j < verticalSlides.length; j++ ) {
 
 				// Stop as soon as we arrive at the present
-				if( verticalSlides[j].classList.contains( 'present' ) ) {
+				if( verticalSlides[j] === slide ) {
 					break mainLoop;
 				}
 
@@ -7861,7 +7941,7 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs
 			}
 
 			// Stop as soon as we arrive at the present
-			if( horizontalSlide.classList.contains( 'present' ) ) {
+			if( horizontalSlide === slide ) {
 				break;
 			}
 
@@ -8078,7 +8158,44 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs
 	 */
 	function getSlides() {
 
-		return toArray( dom.wrapper.querySelectorAll( SLIDES_SELECTOR + ':not(.stack)' ));
+		return toArray( dom.wrapper.querySelectorAll( SLIDES_SELECTOR + ':not(.stack)' ) );
+
+	}
+
+	/**
+	 * Returns a list of all horizontal slides in the deck. Each
+	 * vertical stack is included as one horizontal slide in the
+	 * resulting array.
+	 */
+	function getHorizontalSlides() {
+
+		return toArray( dom.wrapper.querySelectorAll( HORIZONTAL_SLIDES_SELECTOR ) );
+
+	}
+
+	/**
+	 * Returns all vertical slides that exist within this deck.
+	 */
+	function getVerticalSlides() {
+
+		return toArray( dom.wrapper.querySelectorAll( '.slides>section>section' ) );
+
+	}
+
+	/**
+	 * Returns true if there are at least two horizontal slides.
+	 */
+	function hasHorizontalSlides() {
+
+		return getHorizontalSlides().length > 1;
+	}
+
+	/**
+	 * Returns true if there are at least two vertical slides.
+	 */
+	function hasVerticalSlides() {
+
+		return getVerticalSlides().length > 1;
 
 	}
 
@@ -8316,6 +8433,8 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs
 
 			if( fragments.length ) {
 
+				var maxIndex = 0;
+
 				if( typeof index !== 'number' ) {
 					var currentFragment = sortFragments( currentSlide.querySelectorAll( '.fragment.visible' ) ).pop();
 					if( currentFragment ) {
@@ -8328,6 +8447,8 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs
 					if( el.hasAttribute( 'data-fragment-index' ) ) {
 						i = parseInt( el.getAttribute( 'data-fragment-index' ), 10 );
 					}
+
+					maxIndex = Math.max( maxIndex, i );
 
 					// Visible fragments
 					if( i <= index ) {
@@ -8351,6 +8472,13 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs
 					}
 
 				} );
+
+				// Write the current fragment index to the slide <section>.
+				// This can be used by end users to apply styles based on
+				// the current fragment index.
+				index = typeof index === 'number' ? index : -1;
+				index = Math.max( Math.min( index, maxIndex ), -1 );
+				currentSlide.setAttribute( 'data-fragment', index );
 
 			}
 
@@ -8765,8 +8893,8 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs
 
 		// Whitelist specific modified + keycode combinations
 		var prevSlideShortcut = event.shiftKey && event.keyCode === 32;
-		var firstSlideShortcut = ( event.metaKey || event.ctrlKey ) && keyCode === 37;
-		var lastSlideShortcut = ( event.metaKey || event.ctrlKey ) && keyCode === 39;
+		var firstSlideShortcut = event.shiftKey && keyCode === 37;
+		var lastSlideShortcut = event.shiftKey && keyCode === 39;
 
 		// Prevent all other events when a modifier is pressed
 		var unusedModifier = 	!prevSlideShortcut && !firstSlideShortcut && !lastSlideShortcut &&
@@ -8792,6 +8920,10 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs
 		if( isPaused() && resumeKeyCodes.indexOf( keyCode ) === -1 ) {
 			return false;
 		}
+
+		// Use linear navigation if we're configured to OR if
+		// the presentation is one-dimensional
+		var useLinearMode = config.navigationMode === 'linear' || !hasHorizontalSlides() || !hasVerticalSlides();
 
 		var triggered = false;
 
@@ -8865,7 +8997,7 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs
 				if( firstSlideShortcut ) {
 					slide( 0 );
 				}
-				else if( !isOverview() && config.navigationMode === 'linear' ) {
+				else if( !isOverview() && useLinearMode ) {
 					navigatePrev();
 				}
 				else {
@@ -8877,7 +9009,7 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs
 				if( lastSlideShortcut ) {
 					slide( Number.MAX_VALUE );
 				}
-				else if( !isOverview() && config.navigationMode === 'linear' ) {
+				else if( !isOverview() && useLinearMode ) {
 					navigateNext();
 				}
 				else {
@@ -8886,7 +9018,7 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs
 			}
 			// K, UP
 			else if( keyCode === 75 || keyCode === 38 ) {
-				if( !isOverview() && config.navigationMode === 'linear' ) {
+				if( !isOverview() && useLinearMode ) {
 					navigatePrev();
 				}
 				else {
@@ -8895,7 +9027,7 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs
 			}
 			// J, DOWN
 			else if( keyCode === 74 || keyCode === 40 ) {
-				if( !isOverview() && config.navigationMode === 'linear' ) {
+				if( !isOverview() && useLinearMode ) {
 					navigateNext();
 				}
 				else {
@@ -9005,19 +9137,49 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs
 
 				if( deltaX > touch.threshold && Math.abs( deltaX ) > Math.abs( deltaY ) ) {
 					touch.captured = true;
-					navigateLeft();
+					if( config.navigationMode === 'linear' ) {
+						if( config.rtl ) {
+							navigateNext();
+						}
+						else {
+							navigatePrev();
+						}
+					}
+					else {
+						navigateLeft();
+					}
 				}
 				else if( deltaX < -touch.threshold && Math.abs( deltaX ) > Math.abs( deltaY ) ) {
 					touch.captured = true;
-					navigateRight();
+					if( config.navigationMode === 'linear' ) {
+						if( config.rtl ) {
+							navigatePrev();
+						}
+						else {
+							navigateNext();
+						}
+					}
+					else {
+						navigateRight();
+					}
 				}
 				else if( deltaY > touch.threshold ) {
 					touch.captured = true;
-					navigateUp();
+					if( config.navigationMode === 'linear' ) {
+						navigatePrev();
+					}
+					else {
+						navigateUp();
+					}
 				}
 				else if( deltaY < -touch.threshold ) {
 					touch.captured = true;
-					navigateDown();
+					if( config.navigationMode === 'linear' ) {
+						navigateNext();
+					}
+					else {
+						navigateDown();
+					}
 				}
 
 				// If we're embedded, only block touch events if they have
@@ -9553,6 +9715,15 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs
 
 		// Returns the speaker notes string for a slide, or null
 		getSlideNotes: getSlideNotes,
+
+		// Returns an array with all horizontal/vertical slides in the deck
+		getHorizontalSlides: getHorizontalSlides,
+		getVerticalSlides: getVerticalSlides,
+
+		// Checks if the presentation contains two or more
+		// horizontal/vertical slides
+		hasHorizontalSlides: hasHorizontalSlides,
+		hasVerticalSlides: hasVerticalSlides,
 
 		// Returns the previous slide element, may be null
 		getPreviousSlide: function() {

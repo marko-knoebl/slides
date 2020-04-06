@@ -219,6 +219,27 @@ package-lock.json
 npm publish --access public
 ```
 
+## npx scripts
+
+entry "bin" in `package.json` (should match package name without username):
+
+```json
+{
+  "name": "@user/foo-package",
+  "bin": {
+    "foo-package": "./foo-bin.js"
+  }
+}
+```
+
+contents of `foo-bin.js`:
+
+```js
+#! /usr/bin/env node
+
+console.log('this is the npx script of foo-package');
+```
+
 # Running node programs
 
 ## Running programs on the command line
