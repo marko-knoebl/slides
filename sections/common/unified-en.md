@@ -43,23 +43,22 @@ const processor = unified()
 const output = processor.processSync(input).toString();
 ```
 
-## unified.js - terminology
+## terminology
 
 - parser: turns a string into a syntax tree (parse phase)
 - transformer: modifies a syntax tree (run phase)
 - compiler: turns a syntax tree into a string (stringify phase)
+- plugin: parser / transformer / compiler
 
 A _processor_ usually includes a parser, possibly multiple transformers and a compiler.
 
-<!-- list-separator -->
-
-## unified.js - ecosystem
+## ecosystem
 
 - _rehype_: tools for handling HTML
 - _remark_: tools for handling Markdown
 - _retext_: tools for handling natural languages
 
-## unified.js - ecosystem
+## ecosystem
 
 parsers:
 
@@ -71,14 +70,54 @@ compilers:
 - _remark-stringify_
 - _rehype-stringify_
 
+## ecosystem
+
 transformers:
 
-- _remark-toc_ (table of contents)
+- _remark-toc_ (add table of contents)
 - _remark-math_
 - _remark-rehype_ (transform to rehype)
-- _rehype-remark_
+- _rehype-remark_ (transform to remark)
 - _rehype-minify_
 - _rehype-format_
 - _rehype-document_ (wrap a fragment in a document)
 - _rehype-highight_ (highlight code blocks)
 - ... (see list of [rehype plugins](https://github.com/rehypejs/rehype/blob/master/doc/plugins.md#list-of-plugins) and [remark plugins](https://github.com/remarkjs/remark/blob/master/doc/plugins.md#list-of-plugins))
+
+## passing options
+
+options can be passed when adding plugins:
+
+```js
+const input = `
+# hello
+
+hello world
+`;
+
+const processor = unified()
+  .use(remarkParse, { position: false, gfm: true })
+  .use(remarkRehype, { allowDangerousHtml: true })
+  .use(rehypeStringify, { closeSelfClosing: true });
+
+const output = processor.processSync(input).toString();
+```
+
+## vfiles
+
+in addition to strings, unified processors can process _vfiles_: these objects represent file contens (as string) with added additional information (e.g. file path)
+
+processors always return _vfiles_ - to get string contents, we have to call `.toString()`
+
+## vfiles
+
+working with vfiles
+
+```js
+const input = vfile({
+  contents: fs.readFileSync('readme.md'),
+  path: 'readme.md',
+});
+
+const output = processor.processSync(input).toString();
+```

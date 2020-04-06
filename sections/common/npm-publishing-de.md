@@ -42,3 +42,24 @@ package-lock.json
 ```bash
 npm publish --access public
 ```
+
+## npx Scripts
+
+Eintrag "bin" in `package.json` (sollte mit Paketnamen - ohne eventuellen Benutzernamen - übereinstimmen):
+
+```json
+{
+  "name": "@user/foo-package",
+  "bin": {
+    "foo-package": "./foo-bin.js"
+  }
+}
+```
+
+Inhalte von `foo-bin.js`:
+
+```js
+#! /usr/bin/env node
+
+console.log('this is the npx script of foo-package');
+```
