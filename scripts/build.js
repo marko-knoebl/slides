@@ -9,7 +9,7 @@ const rehypeStringify = require("rehype-stringify");
 const rehypeInline = require("rehype-inline");
 const rehypeHighlight = require("rehype-highlight");
 
-const slides = require("@karuga/slides");
+const rehypeSlides = require("@karuga/rehype-slides");
 
 const sectionsBasePath = "sections";
 
@@ -77,7 +77,7 @@ const presentations = [];
 
 const pipeline = unified()
   .use(remarkParse)
-  .use(remarkRehype, { allowDangerousHTML: true })
+  .use(remarkRehype, { allowDangerousHtml: true })
   .use(rehypeRaw)
   .use(rehypeHighlight, {
     plainText: [
@@ -92,7 +92,7 @@ const pipeline = unified()
     ],
     aliases: { js: ["tsx"] }
   })
-  .use(slides, {
+  .use(rehypeSlides, {
     format: "revealjs_karuga",
     sectionSeparators: ["h1"],
     slideSeparators: ["h2"]
