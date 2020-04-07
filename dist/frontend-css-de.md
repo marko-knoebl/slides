@@ -2,7 +2,7 @@
 
 ## Präsentationen
 
-https://marko-knoebl.github.io/slides/
+<https://marko-knoebl.github.io/slides/>
 
 ## Ihr Trainer
 
@@ -30,7 +30,7 @@ Marko Knöbl
 
 ## Code
 
-Code verfügbar unter: https://github.com/marko-knoebl/courses-code
+Code verfügbar unter: <https://github.com/marko-knoebl/courses-code>
 
 # CSS
 
@@ -345,7 +345,7 @@ Er vereinheitlicht Browserverhalten und bietet einen ansprechenderen Standardsti
 
 Sourcecode:
 
-https://github.com/twbs/bootstrap/blob/master/dist/css/bootstrap-reboot.css
+<https://github.com/twbs/bootstrap/blob/master/dist/css/bootstrap-reboot.css>
 
 # Flexbox
 
@@ -587,4 +587,3 @@ HTML-Vorlage:
 <img src="assets/spoon-fork-animated.svg" type="text/svg" style="width: 100%"/>
 
 Achtung: Wir verwenden nun CSS-Transformationen, nicht SVG-Transformationen; wir müssen nun beispielsweise `transform-origin` separat setzen
-

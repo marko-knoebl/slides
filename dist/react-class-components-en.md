@@ -319,4 +319,3 @@ class Rating extends PureComponent {...}
 
 export default Rating;
 ```
-

@@ -2,7 +2,7 @@
 
 ## Präsentationen
 
-https://marko-knoebl.github.io/slides/
+<https://marko-knoebl.github.io/slides/>
 
 ## Ihr Trainer
 
@@ -30,7 +30,7 @@ Marko Knöbl
 
 ## Code
 
-Code verfügbar unter: https://github.com/marko-knoebl/courses-code
+Code verfügbar unter: <https://github.com/marko-knoebl/courses-code>
 
 # Agenda
 
@@ -65,6 +65,10 @@ Code verfügbar unter: https://github.com/marko-knoebl/courses-code
   - const & let
 - einen lokalen Entwicklungsserver starten
 
+## Arbeiten mit VS Code
+
+[VS Code Grundlagen und Plugins](./vs-code-de.html)
+
 ## lokaler Entwicklungsserver
 
 npm-Paket `http-server`
@@ -74,79 +78,13 @@ npm install -g http-server
 http-server
 ```
 
-# VS Code
-
-## VS Code
-
-https://code.visualstudio.com
-
-Open-Source-Entwicklungsumgebung
-
-Unabhängig vom eigentlichen Visual Studio
-
-## VS Code: Ordner öffnen
-
-ganzen Ordner öffnen mit _File_ - _Open Folder_
-
-## VS Code: Datei-Explorer, Split Editor
-
-## VS Code: Terminal
-
-Öffnen und Schließen der Ansicht via _Strg_ + _Ö_
-
-zusätzliches Terminal via Symbol _+_
-
-übernimmt das aktuell geöffnete Verzeichnis
-
-## VS Code - Konfiguration
-
-Via _File - Preferences - Settings_
-
-Eingeteilt in _User Settings_ und _Workspace Settings_
-
-## VS Code - Konfigurationsmöglichkeiten
-
-Empfehlungen:
-
-- Accept Suggestion on Commit Character (Autovervollständigung ohne _Enter_): _deaktivieren_
-- Tab Size: _2_ oder _4_
-
-Weitere Möglichkeiten:
-
-- Auto Save
-- Format on Save
-- Word Wrap
-- EOL
-- Workbench: Color Theme
-
-## VS Code - Befehle
-
-_F1_ oder _Ctrl_ + _Shift_ + _P_: Befehlspalette
-
-- durchsuchbar
-- zeigt Kurzbefehle an
-
-Beispiele für Befehle:
-
-- _Find_
-- _Search: Find in Files_
-- _Format Document_
-- _Toggle line comment_ / _Toggle block comment_
-- _Go to definition_ / _Peek definition_ (nur für bestimmte Dateitypen)
-- _Rename symbol_ (nur für bestimmte Dateitypen)
-
-## VS Code - Mehrere Textcursor
-
-- _Ctrl_ + _F2_: Mehrere Textcursor setzen
-- _Alt_ + Mausklick: Mehrere Textcursor setzen
-
 # PWA Grundlagen
 
 <!-- https://developers.google.com/web/ilt/pwa/ -->
 
 ## PWA Grundlagen
 
-https://developers.google.com/web/ilt/pwa/why-build-pwa
+<https://developers.google.com/web/ilt/pwa/why-build-pwa>
 
 - Brücke zwischen Web und Apps
 - Im Browser, am Desktop und Mobil
@@ -162,19 +100,19 @@ https://developers.google.com/web/ilt/pwa/why-build-pwa
 
 Service worker:
 
-https://caniuse.com/#search=service%20workers
+<https://caniuse.com/#search=service%20workers>
 
 Web app manifest:
 
-https://caniuse.com/#search=manifest
+<https://caniuse.com/#search=manifest>
 
 indexedDB:
 
-https://caniuse.com/#search=indexeddb
+<https://caniuse.com/#search=indexeddb>
 
 ## Beispiele
 
-- https://pwa.rocks
+- <https://pwa.rocks>
   - wiki offline
   - telegram
   - paper planes
@@ -246,7 +184,7 @@ in Firefox: unter `about:debugging#workers`
 
 **Workbox** = Library, die das Schreiben von Serviceworkern erleichtert
 
-https://developers.google.com/web/tools/workbox/
+<https://developers.google.com/web/tools/workbox/>
 
 ## Workbox Beispiel
 
@@ -306,7 +244,7 @@ einbinden via:
 
 ## Manifest-Datei: Einträge
 
-https://developer.mozilla.org/en-US/docs/Web/Manifest
+<https://developer.mozilla.org/en-US/docs/Web/Manifest>
 
 ## Manifest-Datei: Einräge
 
@@ -353,7 +291,7 @@ Bei Chrome können PWAs den Benutzer zur Installation auffordern. Installierte P
 
 für Chrome:
 
-https://developers.google.com/web/fundamentals/app-install-banners/
+<https://developers.google.com/web/fundamentals/app-install-banners/>
 
 ## App-Installation
 
@@ -397,7 +335,7 @@ installBtn.addEventListener('click', () => {
 
 ## Deployment
 
-Deployment z.B. auf https://app.netlify.com/drop
+Deployment z.B. auf <https://app.netlify.com/drop>
 
 Wichtig: Aufrufen über HTTPS
 
@@ -543,7 +481,7 @@ workbox wizard --injectManifest
 
 ~45 min
 
-https://codelabs.developers.google.com/codelabs/workbox-lab/
+<https://codelabs.developers.google.com/codelabs/workbox-lab/>
 
 (aktualisiere die Version von `workbox-cli` in _package.json_ - ältere Versionen schlagen unter Windows fehl)
 
@@ -551,13 +489,13 @@ https://codelabs.developers.google.com/codelabs/workbox-lab/
 
 Verwandle eine dieser Anwendungen in eine PWA und verwende verschiedene Caching-Strategien:
 
-- https://github.com/marko-knoebl/simple-todo-app
-- https://github.com/marko-knoebl/simple-weather-app
-- https://github.com/marko-knoebl/simple-stock-app
+- <https://github.com/marko-knoebl/simple-todo-app>
+- <https://github.com/marko-knoebl/simple-weather-app>
+- <https://github.com/marko-knoebl/simple-stock-app>
 
 ## Bonus (mit Build)
 
-https://developers.google.com/web/tools/workbox/guides/codelabs/npm-script
+<https://developers.google.com/web/tools/workbox/guides/codelabs/npm-script>
 
 # Asynchrones JavaScript
 
@@ -964,11 +902,11 @@ self.addEventListener('fetch', event => {
 
 ## Übung: scripting the service worker
 
-https://developers.google.com/web/ilt/pwa/lab-scripting-the-service-worker
+<https://developers.google.com/web/ilt/pwa/lab-scripting-the-service-worker>
 
 # The offline cookbook
 
-https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/
+<https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/>
 
 # Datenspeicherung
 
@@ -1008,6 +946,7 @@ localStorage.setItem('todos', todoString);
 const todoString = localStorage.getItem('todos');
 todos = JSON.parse(todoString);
 ```
+
 # indexedDB
 
 ## indexedDB
@@ -1033,9 +972,9 @@ Nachteil: Komplexeres Interface
 
 library, die es erlaubt, bei indexedDB mit Promises zu arbeiten
 
-https://github.com/jakearchibald/idb
+<https://github.com/jakearchibald/idb>
 
-Einbinden über CDN: https://cdn.jsdelivr.net/npm/idb@2.1.2/lib/idb.min.js
+Einbinden über CDN: <https://cdn.jsdelivr.net/npm/idb@2.1.2/lib/idb.min.js>
 
 ## idb Grundlagen
 
@@ -1109,10 +1048,10 @@ Transaktion = Gruppe von Operationen auf der Datenbank (auslesen / hinzufügen /
 
 ## Transaktionen - Schritte
 
-1.  Datenbankobjekt holen (idb.open)
-2.  Eine Transaktion auf einem oder mehreren Stores beginnen (zwei Modi: 'readonly' (Standard) oder 'readwrite')
-3.  Object Store öffnen
-4.  Operation auf Object Store ausführen
+1. Datenbankobjekt holen (idb.open)
+2. Eine Transaktion auf einem oder mehreren Stores beginnen (zwei Modi: 'readonly' (Standard) oder 'readwrite')
+3. Object Store öffnen
+4. Operation auf Object Store ausführen
 
 ## Datenbankobjekt holen
 
@@ -1195,8 +1134,8 @@ nameIndex.get(['Andy', 'Jones']).then(...)
 
 ## Übungen
 
-- Slides: https://developers.google.com/web/ilt/pwa/working-with-indexeddb-slides
-- Lab: https://developers.google.com/web/ilt/pwa/lab-indexeddb
+- Slides: <https://developers.google.com/web/ilt/pwa/working-with-indexeddb-slides>
+- Lab: <https://developers.google.com/web/ilt/pwa/lab-indexeddb>
 
 # Notifications
 
@@ -1295,7 +1234,7 @@ eher komplex, da es verschiedene Fenster zu einem Service-Worker geben kann
 
 ## Übungen (Labs)
 
-https://developers.google.com/web/ilt/pwa/lab-integrating-web-push
+<https://developers.google.com/web/ilt/pwa/lab-integrating-web-push>
 
 1-3
 
@@ -1416,7 +1355,7 @@ In Chrome _muss_ aktuell das Empfangen einer Push-Nachricht zu einer Benachricht
 
 ## Push-Benachrichtigungen: Lab
 
-https://developers.google.com/web/ilt/pwa/lab-integrating-web-push
+<https://developers.google.com/web/ilt/pwa/lab-integrating-web-push>
 
 <!--
 duration: ca 50 min
@@ -1432,23 +1371,22 @@ Publishing PWAs in App Stores
 
 TWA = Trusted Web Activity = Möglichkeit, eine PWA im Play Store zu veröffentlichen
 
-https://developers.google.com/web/updates/2019/02/using-twa
+<https://developers.google.com/web/updates/2019/02/using-twa>
 
-https://www.youtube.com/watch?v=7JDFjeMvxos
+<https://www.youtube.com/watch?v=7JDFjeMvxos>
 
-https://www.youtube.com/watch?v=6lHBw3F4cWs
+<https://www.youtube.com/watch?v=6lHBw3F4cWs>
 
 ## PWAs im Microsoft Store
 
-siehe https://www.pwabuilder.com/
+siehe <https://www.pwabuilder.com/>
 
 ## PWAs in anderen Stores
 
 PWAs (bzw HTML-Anwendungen im Allgemeinen) können für veschiedene Stores veröffentlicht werden, selbst wenn diese keine direkte Unterstützung für PWAs bieten:
 
-https://www.pwabuilder.com/
+<https://www.pwabuilder.com/>
 
 # Resourcen
 
-https://developers.google.com/web/ilt/pwa/
-
+<https://developers.google.com/web/ilt/pwa/>

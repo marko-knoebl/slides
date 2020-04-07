@@ -11,6 +11,10 @@
   - const & let
 - einen lokalen Entwicklungsserver starten
 
+## Arbeiten mit VS Code
+
+[VS Code Grundlagen und Plugins](./vs-code-de.html)
+
 ## lokaler Entwicklungsserver
 
 npm-Paket `http-server`

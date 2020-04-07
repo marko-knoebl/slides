@@ -125,10 +125,10 @@ fetch(url, {
 
 ## Übungen
 
-- Todo-API (https://jsonplaceholder.typicode.com)
-- Wetter-API (https://openweathermap.org)
-- https://developers.google.com/web/ilt/pwa/lab-fetch-api
-- https://developers.google.com/web/ilt/pwa/lab-promises
+- Todo-API (<https://jsonplaceholder.typicode.com>)
+- Wetter-API (<https://openweathermap.org>)
+- <https://developers.google.com/web/ilt/pwa/lab-fetch-api>
+- <https://developers.google.com/web/ilt/pwa/lab-promises>
 
 # Async & await
 
@@ -354,6 +354,7 @@ fetch('https://jsonplaceholder.typicode.com/todos')
 ```
 
 <!-- prettier-ignore -->
+
 ```js
 import axios from 'axios';
 
@@ -370,6 +371,7 @@ fetch('https://www.w3.org')
 ```
 
 <!-- prettier-ignore -->
+
 ```js
 axios('https://www.w3.org', { responseType: 'text' })
   .then(content => console.log(content));
@@ -467,4 +469,3 @@ const responseLogger = response => {
 };
 todosAxios.interceptors.request.use(responseLogger);
 ```
-

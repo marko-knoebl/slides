@@ -2,7 +2,7 @@
 
 ## Slides
 
-https://marko-knoebl.github.io/slides/
+<https://marko-knoebl.github.io/slides/>
 
 ## Your Trainer
 
@@ -30,7 +30,7 @@ Marko Knöbl
 
 ## Code
 
-Code available at: https://github.com/marko-knoebl/courses-code
+Code available at: <https://github.com/marko-knoebl/courses-code>
 
 # QA & Testing
 
@@ -130,7 +130,7 @@ Search for a different pattern:
 python -m unittest discover -p "*_test.py"
 ```
 
-Note: in order to be discovered all packages must contain a file named _\_\_init\_\_.py_ (siehe https://bugs.python.org/issue35617)
+Note: in order to be discovered all packages must contain a file named _\_\_init\_\_.py_ (siehe <https://bugs.python.org/issue35617>)
 
 ## unittest - Assertions
 
@@ -207,7 +207,7 @@ python -m pydoc math.floor
 
 ## Docstring format
 
-PEP 257: https://www.python.org/dev/peps/pep-0257/
+PEP 257: <https://www.python.org/dev/peps/pep-0257/>
 
 ## Docstrig format
 
@@ -255,7 +255,7 @@ Newer Python versions support optional type annotations
 
 MyPy: type checker for Python that makes use of type annotations
 
-https://mypy-lang.org
+<https://mypy-lang.org>
 
 ## Type declarations
 
@@ -298,7 +298,7 @@ roman: Dict[int, str] = {1: 'I', 2: 'II', 3: 'III', 4: 'IV'}
 
 ## Mypy documentation
 
-https://mypy.readthedocs.io
+<https://mypy.readthedocs.io>
 
 # Functions - advanced
 
@@ -550,7 +550,7 @@ Magic methods are special methods that influence the behavior of a class.
 
 They begin and end with two underscores, e.g. `__init__`
 
-List of magic methods: https://docs.python.org/3/reference/datamodel.html#special-method-names
+List of magic methods: <https://docs.python.org/3/reference/datamodel.html#special-method-names>
 
 ## Magic Methods
 
@@ -731,7 +731,7 @@ Module for creating iterators
 - `itertools.repeat`
 - `itertools.product`
 
-https://docs.python.org/3/library/itertools.html
+<https://docs.python.org/3/library/itertools.html>
 
 ## Itertools - example: count
 
@@ -1151,4 +1151,3 @@ p.start()
 _Pipe_: Messaging between processes in two directions - e.g. 1 background process which receives tasks from time to time and idles in the meantime
 
 _Queue_: Messaging in one direction from various producers to various consumers (slower than pipes)
-

@@ -2,7 +2,7 @@
 
 ## Präsentationen
 
-https://marko-knoebl.github.io/slides/
+<https://marko-knoebl.github.io/slides/>
 
 ## Ihr Trainer
 
@@ -30,7 +30,7 @@ Marko Knöbl
 
 ## Code
 
-Code verfügbar unter: https://github.com/marko-knoebl/courses-code
+Code verfügbar unter: <https://github.com/marko-knoebl/courses-code>
 
 # Datentypen in Python
 
@@ -228,7 +228,7 @@ Beispiele:
 
 Zeichenkodierung = Zuordnung von Zeichen zu Bitsequenzen
 
-- _ASCII_: Kodiert die ersten 128 Unicodezeichen, u.a. _A_, _!_, _\$_, _Leerzeichen_, _Zeilenumbruch_
+- _ASCII_: Kodiert die ersten 128 Unicodezeichen, u.a. _A_, _!_, _\\$_, _Leerzeichen_, _Zeilenumbruch_
 - _Latin1_: Kodiert die ersten 256 Unicodezeichen, u.a. _ä_, _á_, _ß_, _§_
 - _UTF-8_, _UTF-16_, _UTF-32_: Kodieren alle Unicodezeichen
 
@@ -355,8 +355,8 @@ path = r"C:\documents\foo\news.txt"
 
 Quellen:
 
-- http://www.gutenberg.org/cache/epub/2229/pg2229.txt
-- http://digital.library.upenn.edu/webbin/gutbook/lookup?num=2229
+- <http://www.gutenberg.org/cache/epub/2229/pg2229.txt>
+- <http://digital.library.upenn.edu/webbin/gutbook/lookup?num=2229>
 
 ## Übung: Faust
 
@@ -422,7 +422,7 @@ f'{t:.4f}°K' # 333.3330°K
 f'{t:.4g}°K' # 333.3°K
 ```
 
-https://mkaz.blog/code/python-string-format-cookbook/
+<https://mkaz.blog/code/python-string-format-cookbook/>
 
 # Listen
 
@@ -887,7 +887,7 @@ instance.message # "hello"
 
 Kennzeichnung von Attributen und Methoden, die von außen nicht verwendet werden sollten mit `_`
 
-We're all consenting adults here: https://mail.python.org/pipermail/tutor/2003-October/025932.html
+We're all consenting adults here: <https://mail.python.org/pipermail/tutor/2003-October/025932.html>
 
 Achtung: oft Fehlinformation bezüglich `__`! In der Praxis sollten doppelte Unterstriche kaum verwendet werden.
 
@@ -1402,7 +1402,7 @@ Einfache Verwendung:
 pip install requests numpy
 ```
 
-Pakete und deren Abhängigkeiten werden im Python Package Index gesucht: https://pypi.org/
+Pakete und deren Abhängigkeiten werden im Python Package Index gesucht: <https://pypi.org/>
 
 ## PIP
 
@@ -1691,4 +1691,3 @@ from __future__ import division
 Kompatibilitätsschicht zwischen Python 2 und Python 3
 
 Unterstützung von Python 2 und Python 3 aus der gleichen Codebase
-

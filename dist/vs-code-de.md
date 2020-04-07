@@ -2,7 +2,7 @@
 
 ## VS Code
 
-https://code.visualstudio.com
+<https://code.visualstudio.com>
 
 Open-Source-Entwicklungsumgebung
 
@@ -161,4 +161,3 @@ um Fehler in VS Code angezeigt zu bekommen: Installation des Python-Pakets _pyli
 ```bash
 pip install pylint
 ```
-

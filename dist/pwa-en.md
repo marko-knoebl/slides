@@ -2,7 +2,7 @@
 
 ## Slides
 
-https://marko-knoebl.github.io/slides/
+<https://marko-knoebl.github.io/slides/>
 
 ## Your Trainer
 
@@ -30,7 +30,7 @@ Marko Knöbl
 
 ## Code
 
-Code available at: https://github.com/marko-knoebl/courses-code
+Code available at: <https://github.com/marko-knoebl/courses-code>
 
 # Topics
 
@@ -65,6 +65,10 @@ Code available at: https://github.com/marko-knoebl/courses-code
   - const & let
 - running a local dev server
 
+## Arbeiten mit VS Code
+
+[VS Code Basics and Plugins](./vs-code-en.html)
+
 ## local HTTP server
 
 npm package `http-server`
@@ -74,77 +78,11 @@ npm install -g http-server
 http-server
 ```
 
-# VS Code
-
-## VS Code
-
-https://code.visualstudio.com
-
-open source IDE
-
-independent of _Visual Studio_ itself
-
-## VS Code: open folder
-
-via _File_ - _Open Folder_
-
-## VS Code: File explorer, split editor
-
-## VS Code: Terminal
-
-Open / close the terminal view via _ctrl_ + _`_
-
-Open an additional terminal via the _+_ Symbol
-
-Terminals will run in the currently open folder
-
-## VS Code: Configuration
-
-Via _File - Preferences - Settings_
-
-Is split into _User Settings_ and _Workspace Settings_
-
-## VS Code: Configuration options
-
-Recommendations:
-
-- Accept Suggestions on Commit Character (Autocomplete on other keys than _Enter_): _deactivate_
-- Tab Size: _2_ or _4_
-
-Further options:
-
-- Auto Save
-- Format on Save
-- Word Wrap
-- EOL
-- Workbench: Color Theme
-
-## VS Code - Commands
-
-_F1_ or _Ctrl_ + _Shift_ + _P_: display command palette
-
-- searchable
-- shows shortcuts
-
-Example commands:
-
-- _Find_
-- _Search: Find in Files_
-- _Format Document_
-- _Toggle line comment_ / _Toggle block comment_
-- _Go to definition_ / _Peek definition_ (only for certain file types)
-- _Rename symbol_ (only for certain file types)
-
-## VS Code - multiple text cursors
-
-- _Ctrl_ + _F2_: set multiple text cursors
-- _Alt_ + click: set multiple text cursors
-
 # PWA Basics
 
 ## PWA Basics
 
-https://developers.google.com/web/ilt/pwa/why-build-pwa
+<https://developers.google.com/web/ilt/pwa/why-build-pwa>
 
 - bridge between web and apps
 - work in the browser, on mobile and on the desktop
@@ -160,19 +98,19 @@ https://developers.google.com/web/ilt/pwa/why-build-pwa
 
 Service workers:
 
-https://caniuse.com/#search=service%20workers
+<https://caniuse.com/#search=service%20workers>
 
 Web app manifest:
 
-https://caniuse.com/#search=manifest
+<https://caniuse.com/#search=manifest>
 
 indexedDB:
 
-https://caniuse.com/#search=indexeddb
+<https://caniuse.com/#search=indexeddb>
 
 ## examples
 
-https://pwa.rocks
+<https://pwa.rocks>
 
 - wiki offline
 - telegram
@@ -243,7 +181,7 @@ For Firefox, go to: `about:debugging#workers`
 
 **Workbox** = Library which simplifies writing service workers
 
-https://developers.google.com/web/tools/workbox/
+<https://developers.google.com/web/tools/workbox/>
 
 ## Workbox example
 
@@ -305,7 +243,7 @@ include it via:
 
 ## Manifest file - entries
 
-https://developer.mozilla.org/en-US/docs/Web/Manifest
+<https://developer.mozilla.org/en-US/docs/Web/Manifest>
 
 ## Manifest file - entries
 
@@ -352,7 +290,7 @@ On Chrome PWAs may prompt the user to be installed. Installed PWAs will behave d
 
 App install prompt on Chrome:
 
-https://developers.google.com/web/fundamentals/app-install-banners/
+<https://developers.google.com/web/fundamentals/app-install-banners/>
 
 ## app install prompt
 
@@ -396,7 +334,7 @@ installBtn.addEventListener('click', () => {
 
 ## deployment
 
-We can test a deployment on https://app.netlify.com/drop
+We can test a deployment on <https://app.netlify.com/drop>
 
 important: Switch to HTTPS in the Browser
 
@@ -540,7 +478,7 @@ workbox wizard --injectManifest
 
 ~45 min
 
-https://codelabs.developers.google.com/codelabs/workbox-lab/
+<https://codelabs.developers.google.com/codelabs/workbox-lab/>
 
 (update version of "workbox-cli" in package.json - older versions will fail on Windows)
 
@@ -548,13 +486,13 @@ https://codelabs.developers.google.com/codelabs/workbox-lab/
 
 Turn one of these apps into a PWA and use various caching strategies:
 
-- https://github.com/marko-knoebl/simple-todo-app
-- https://github.com/marko-knoebl/simple-weather-app
-- https://github.com/marko-knoebl/simple-stock-app
+- <https://github.com/marko-knoebl/simple-todo-app>
+- <https://github.com/marko-knoebl/simple-weather-app>
+- <https://github.com/marko-knoebl/simple-stock-app>
 
 ## bonus (with build)
 
-https://developers.google.com/web/tools/workbox/guides/codelabs/npm-script
+<https://developers.google.com/web/tools/workbox/guides/codelabs/npm-script>
 
 # Asynchronous JavaScript
 
@@ -969,11 +907,11 @@ self.addEventListener('fetch', event => {
 
 ## exercise: scripting the service worker
 
-https://developers.google.com/web/ilt/pwa/lab-scripting-the-service-worker
+<https://developers.google.com/web/ilt/pwa/lab-scripting-the-service-worker>
 
 # The offline cookbook
 
-https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/
+<https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/>
 
 # Data storage
 
@@ -1039,9 +977,9 @@ disadvantage: more complicated interface
 
 library that enables using indexedDB with Promises
 
-https://github.com/jakearchibald/idb
+<https://github.com/jakearchibald/idb>
 
-CDN link: https://cdn.jsdelivr.net/npm/idb@2.1.2/lib/idb.min.js
+CDN link: <https://cdn.jsdelivr.net/npm/idb@2.1.2/lib/idb.min.js>
 
 ## idb basics
 
@@ -1217,8 +1155,8 @@ nameIndex.get(['Andy', 'Jones']).then(...)
 
 ## exercises
 
-- Slides: https://developers.google.com/web/ilt/pwa/working-with-indexeddb-slides
-- Lab: https://developers.google.com/web/ilt/pwa/lab-indexeddb
+- Slides: <https://developers.google.com/web/ilt/pwa/working-with-indexeddb-slides>
+- Lab: <https://developers.google.com/web/ilt/pwa/lab-indexeddb>
 
 # Notifications
 
@@ -1307,7 +1245,7 @@ two events in the service worker:
 
 ## Exercises (labs)
 
-https://developers.google.com/web/ilt/pwa/lab-integrating-web-push
+<https://developers.google.com/web/ilt/pwa/lab-integrating-web-push>
 
 1-3
 
@@ -1420,7 +1358,7 @@ Chrome currently _requires_ displaying a notification; Firefox has a limit on ho
 
 ## Push Notifications Lab
 
-https://developers.google.com/web/ilt/pwa/lab-integrating-web-push
+<https://developers.google.com/web/ilt/pwa/lab-integrating-web-push>
 
 1-3
 
@@ -1440,23 +1378,22 @@ As of February 2019:
 
 TWA = Trusted Web Activity = method of publishing a PWA on the Play Store
 
-https://developers.google.com/web/updates/2019/02/using-twa
+<https://developers.google.com/web/updates/2019/02/using-twa>
 
-https://www.youtube.com/watch?v=7JDFjeMvxos
+<https://www.youtube.com/watch?v=7JDFjeMvxos>
 
-https://www.youtube.com/watch?v=6lHBw3F4cWs
+<https://www.youtube.com/watch?v=6lHBw3F4cWs>
 
 ## PWAs in the Microsoft Store
 
-see https://www.pwabuilder.com/
+see <https://www.pwabuilder.com/>
 
 ## PWAs in other stores
 
 PWAs (or HTML apps in general) can be packaged for various stores even if those stores don't natively support PWAs:
 
-https://www.pwabuilder.com/
+<https://www.pwabuilder.com/>
 
 # Resources
 
-https://developers.google.com/web/ilt/pwa/
-
+<https://developers.google.com/web/ilt/pwa/>

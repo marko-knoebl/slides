@@ -2,7 +2,7 @@
 
 ## Präsentationen
 
-https://marko-knoebl.github.io/slides/
+<https://marko-knoebl.github.io/slides/>
 
 ## Ihr Trainer
 
@@ -30,7 +30,7 @@ Marko Knöbl
 
 ## Code
 
-Code verfügbar unter: https://github.com/marko-knoebl/courses-code
+Code verfügbar unter: <https://github.com/marko-knoebl/courses-code>
 
 # GraphQL
 
@@ -207,7 +207,7 @@ Abfrageparameter (JSON):
 
 Vordefiniertes API mit Posts und Benutzern:
 
-https://api.graph.cool/simple/v1/cjmj9v4mk1zs00182rnrzdrai
+<https://api.graph.cool/simple/v1/cjmj9v4mk1zs00182rnrzdrai>
 
 <!--
 source of the predefined API:
@@ -219,8 +219,8 @@ try Subscriptions
 
 ## Resourcen
 
-- https://graphql.org/learn/
-- https://www.howtographql.com/
+- <https://graphql.org/learn/>
+- <https://www.howtographql.com/>
 
 # GraphQL vs REST: Beispiel
 
@@ -358,7 +358,7 @@ SELECT post.title
 
 ## Beispiele für GraphQL-APIs
 
-von [https://github.com/APIs-guru/graphql-apis](https://github.com/APIs-guru/graphql-apis):
+von <https://github.com/APIs-guru/graphql-apis>:
 
 - GitHub (login benötigt)
 - Reddit (GraphQL Hub)
@@ -370,7 +370,7 @@ von [https://github.com/APIs-guru/graphql-apis](https://github.com/APIs-guru/gra
 
 ## FakeQL
 
-[https://fakeql.com/](https://fakeql.com/)
+<https://fakeql.com/>
 
 Template für einfache Todos bei FakeQL:
 
@@ -388,7 +388,7 @@ Template für einfache Todos bei FakeQL:
 
 ## GraphiQL Explorer
 
-Graph*i*QL: browserbasierter Explorer für GraphQL APIs
+Graph<em>i</em>QL: browserbasierter Explorer für GraphQL APIs
 
 - Abfragestruktur / Datenstruktur ansehen (_Docs_ oben rechts in der Ansicht)
 - Abfragen senden
@@ -449,7 +449,7 @@ query getStarshipsByFilm {
 
 ## Abfrageparameter
 
-Beispiel unter [https://api.spacex.land/graphql/](https://api.spacex.land/graphql/):
+Beispiel unter <https://api.spacex.land/graphql/>:
 
 ```graphql
 {
@@ -521,7 +521,7 @@ Variablen:
 
 ## Mutationen
 
-https://todo-mongo-graphql-server.herokuapp.com/
+<https://todo-mongo-graphql-server.herokuapp.com/>
 
 (nur Definition _einzelner_ Queries möglich)
 
@@ -723,7 +723,7 @@ fetch('https://www.graphqlhub.com/graphql', {
 
 ## Apollo Client
 
-https://www.apollographql.com/docs/react/
+<https://www.apollographql.com/docs/react/>
 
 ## Apollo Client
 
@@ -804,7 +804,7 @@ client.writeData({ data: { inputText: '' } });
 
 lokale Resolver für Mutationen:
 
-[https://www.apollographql.com/docs/react/data/local-state/#local-resolvers](https://www.apollographql.com/docs/react/data/local-state/#local-resolvers)
+<https://www.apollographql.com/docs/react/data/local-state/#local-resolvers>
 
 ## Lokale Daten
 
@@ -838,7 +838,7 @@ Funktionen:
 
 ## Apollo Client mit React
 
-[https://www.apollographql.com/docs/react/data/queries/](https://www.apollographql.com/docs/react/data/queries/)
+<https://www.apollographql.com/docs/react/data/queries/>
 
 ## React mit einem Apollo Client verbinden
 
@@ -1119,4 +1119,3 @@ fragment essentialData on Pokemon {
   image
 }
 ```
-

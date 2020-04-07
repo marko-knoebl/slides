@@ -2,7 +2,7 @@
 
 ## Slides
 
-https://marko-knoebl.github.io/slides/
+<https://marko-knoebl.github.io/slides/>
 
 ## Your Trainer
 
@@ -30,7 +30,7 @@ Marko Knöbl
 
 ## Code
 
-Code available at: https://github.com/marko-knoebl/courses-code
+Code available at: <https://github.com/marko-knoebl/courses-code>
 
 # Data types in Python
 
@@ -227,7 +227,7 @@ examples:
 
 _Character encoding_ = mapping of characters to bit sequences
 
-- _ASCII_: encodes the first 128 Unicode characters, can represent characters like _A_, _!_, _\$_, _space_, _line break_
+- _ASCII_: encodes the first 128 Unicode characters, can represent characters like _A_, _!_, _\\$_, _space_, _line break_
 - _Latin1_: encodes the first 256 Unicode characters, can represent ASCII characters and characters like _ä_, _á_, _ß_, _§_
 - _UTF-8_, _UTF-16_, _UTF-32_: encode all Unicode characters
 
@@ -356,8 +356,8 @@ This can be useful when writing Windows paths and regular expressions
 
 sources:
 
-- http://www.gutenberg.org/cache/epub/2267/pg2267.txt
-- http://digital.library.upenn.edu/webbin/gutbook/lookup?num=2267
+- <http://www.gutenberg.org/cache/epub/2267/pg2267.txt>
+- <http://digital.library.upenn.edu/webbin/gutbook/lookup?num=2267>
 
 ## Exercise: formatting Othello
 
@@ -426,7 +426,7 @@ f'{t:.4f}°K' # 333.3330°K
 f'{t:.4g}°K' # 333.3°K
 ```
 
-https://mkaz.blog/code/python-string-format-cookbook/
+<https://mkaz.blog/code/python-string-format-cookbook/>
 
 # Lists
 
@@ -895,7 +895,7 @@ instance.message # "hello"
 
 Attributes and methods that should not be used from the outside are prefixed with `_`
 
-We're all consenting adults here: https://mail.python.org/pipermail/tutor/2003-October/025932.html
+We're all consenting adults here: <https://mail.python.org/pipermail/tutor/2003-October/025932.html>
 
 ## Inheritance
 
@@ -1408,7 +1408,7 @@ Simple usage:
 pip install requests numpy
 ```
 
-Packages and their dependencies are looked up in the Python Package Index: https://pypi.org/
+Packages and their dependencies are looked up in the Python Package Index: <https://pypi.org/>
 
 ## PIP
 
@@ -1695,4 +1695,3 @@ from __future__ import division
 Compatibility layer between Python 2 and Python 3
 
 Enables supporting both Python 2 and Python 3 from the same codebase
-

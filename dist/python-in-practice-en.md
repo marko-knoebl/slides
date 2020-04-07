@@ -2,7 +2,7 @@
 
 ## Slides
 
-https://marko-knoebl.github.io/slides/
+<https://marko-knoebl.github.io/slides/>
 
 ## Your Trainer
 
@@ -30,7 +30,7 @@ Marko Knöbl
 
 ## Code
 
-Code available at: https://github.com/marko-knoebl/courses-code
+Code available at: <https://github.com/marko-knoebl/courses-code>
 
 # Topics
 
@@ -413,7 +413,7 @@ Examples of simple search patterns:
 
 ## Try it out
 
-Online: https://regexr.com/
+Online: <https://regexr.com/>
 
 In VS Code: Ctrl+F and click the button labeled _.\*_
 
@@ -421,16 +421,16 @@ In VS Code: Ctrl+F and click the button labeled _.\*_
 
 The following characters have special meanings:
 
-- \
+- \\
 - ^
-- \$
+- \\$
 - .
-- |
+- \|
 - ?
 - \*
 - \+
 - ()
-- []
+- \[]
 - {}
 
 ## Special characters and escapes
@@ -546,7 +546,7 @@ for match in match_iter:
 
 Exercise: find all URLs in a HTML document on the drive
 
-For an example, save the page https://news.ycombinator.com to disk
+For an example, save the page <https://news.ycombinator.com> to disk
 
 ## Finding an expression and sub expressions
 
@@ -590,7 +590,7 @@ my_re_obj.finditer(...)
 
 ## Resources
 
-- http://automatetheboringstuff.com/chapter7/
+- <http://automatetheboringstuff.com/chapter7/>
 
 # Date and time
 
@@ -746,9 +746,9 @@ content: str = requests.get("https://www.google.com").text
 - web scraping: number of Google search results
 - web scraping: headings in a Wikipedia article
 - APIs: weather data
-  https://automatetheboringstuff.com/chapter14/
+  <https://automatetheboringstuff.com/chapter14/>
 - web scraping: xkcd downloader
-  https://automatetheboringstuff.com/chapter11/
+  <https://automatetheboringstuff.com/chapter11/>
 
 ## Selenium
 
@@ -762,7 +762,7 @@ geckodriver / chromedriver / ...
 
 download geckodriver from:
 
-https://github.com/mozilla/geckodriver/releases/tag/v0.23.0
+<https://github.com/mozilla/geckodriver/releases/tag/v0.23.0>
 
 Download and save in a folder in Python's `sys.path` - or in the project directory
 
@@ -928,7 +928,7 @@ Etag: W/"5c-cn8o...
 
 - `500 Internal Server Error`
 
-see also: https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+see also: <https://en.wikipedia.org/wiki/List_of_HTTP_status_codes>
 
 ## Important response header fields
 
@@ -973,7 +973,7 @@ python -m http.server
 
 ## Overview
 
-https://docs.python.org/2/howto/webservers.html
+<https://docs.python.org/2/howto/webservers.html>
 
 (info is somewhat dated)
 
@@ -1078,7 +1078,7 @@ We can view it in the debugger, e.g.:
 }
 ```
 
-https://www.python.org/dev/peps/pep-0333/#environ-variables
+<https://www.python.org/dev/peps/pep-0333/#environ-variables>
 
 ## PATH_INFO
 
@@ -1183,7 +1183,7 @@ first_name = parameters.get("first-name")[0]
 
 ## Deployment on pythonanywhere.com
 
-- new user account on https://pythonanywhere.com
+- new user account on <https://pythonanywhere.com>
 - add new web app
 - manual configuration
 
@@ -1450,7 +1450,7 @@ connection.close()
 
 ## PEP 249
 
-https://www.python.org/dev/peps/pep-0249
+<https://www.python.org/dev/peps/pep-0249>
 
 ## SQL statements with parameters
 
@@ -1477,7 +1477,7 @@ res = cursor.execute(
 
 ## SQL statements with parameters
 
-https://www.python.org/dev/peps/pep-0249/#paramstyle
+<https://www.python.org/dev/peps/pep-0249/#paramstyle>
 
 The attributes `sqlite3.paramstyle`, `pymysql.paramstyle` etc. indicate the format for queries with parameters
 
@@ -1545,7 +1545,7 @@ A _converter_ is a custom function that converts an SQL value into a Python obje
 
 see:
 
-https://docs.python.org/3/library/sqlite3.html#using-adapters-to-store-additional-python-types-in-sqlite-databases
+<https://docs.python.org/3/library/sqlite3.html#using-adapters-to-store-additional-python-types-in-sqlite-databases>
 
 ## Adapters and converters
 
@@ -1833,7 +1833,6 @@ Exercise: Create the followng table:
 - [openpyxl documentation - Key Classes](https://openpyxl.readthedocs.io/en/stable/#key-classes)
 - [Automate the Boring Stuff with Python - Chapter 12](http://automatetheboringstuff.com/chapter12/)
 
-
 # GUI (Graphical User Interface)
 
 ## GUI-Libraries for Python
@@ -1861,7 +1860,7 @@ Exercise: Create the followng table:
 
 ## Tkinter
 
-https://tkdocs.com/
+<https://tkdocs.com/>
 
 ## Displaying a window
 
@@ -2022,7 +2021,7 @@ Result: _dist/app.exe_
 
 ## SMTP / IMAP
 
-https://automatetheboringstuff.com/chapter16/
+<https://automatetheboringstuff.com/chapter16/>
 
 (for error corrections see next slide)
 
@@ -2045,4 +2044,3 @@ use newer version of _pyzmail_:
 use bytes instead of a string:
 
 ~~`'BODY[]'`~~ → `b'BODY[]`
-

@@ -2,7 +2,7 @@
 
 ## Slides
 
-https://marko-knoebl.github.io/slides/
+<https://marko-knoebl.github.io/slides/>
 
 ## Your Trainer
 
@@ -30,7 +30,7 @@ Marko Knöbl
 
 ## Code
 
-Code available at: https://github.com/marko-knoebl/courses-code
+Code available at: <https://github.com/marko-knoebl/courses-code>
 
 # Packages
 
@@ -50,11 +50,11 @@ Takes ~ 3 GB of disk space
 
 ## Anaconda installation
 
-download from https://www.anaconda.com/distribution/
+download from <https://www.anaconda.com/distribution/>
 
 (make sure to download for the correct OS)
 
-On Windows, the installation path should not contain spaces or underscores (recommendation: `C:/anaconda`) - see https://docs.anaconda.com/anaconda/user-guide/faq/#distribution-faq-windows-folder
+On Windows, the installation path should not contain spaces or underscores (recommendation: `C:/anaconda`) - see <https://docs.anaconda.com/anaconda/user-guide/faq/#distribution-faq-windows-folder>
 
 ## Conda
 
@@ -86,12 +86,12 @@ Try Jupyter online:
 
 ### Google Colab (Google account needed)
 
-- Go to https://colab.research.google.com
+- Go to <https://colab.research.google.com>
 - Select _File_ - _New Python 3 Notebook_
 
 ### Binder (limited sessions)
 
-- Go to https://jupyter.org/try
+- Go to <https://jupyter.org/try>
 - Select _Try Classic Notebook_
 - wait ...
 - Select _File_ - _New Notebook_ - _Python 3_
@@ -100,7 +100,7 @@ Try Jupyter online:
 
 Launching Jupyter: Entry _Jupyter Notebook_ in the start menu / terminal command `jupyter notebook`
 
-Stopping Jupyter: Press _Quit_ in the top right corner of the directory tree view (usually under http://localhost:8888/tree)
+Stopping Jupyter: Press _Quit_ in the top right corner of the directory tree view (usually under http&#x3A;//localhost:8888/tree)
 
 ## Notebook files
 
@@ -594,11 +594,11 @@ import pandas as pd
 
 Example:
 
-|     | Area | Population | Capital          |
-| --- | ---: | ---------: | ---------------- |
-| CN  |  9.6 |       1386 | Beijing          |
-| RU  |   17 |        144 | Moscow           |
-| US  |  9.8 |        327 | Washington, D.C. |
+|    | Area | Population | Capital          |
+| -- | ---: | ---------: | ---------------- |
+| CN |  9.6 |       1386 | Beijing          |
+| RU |   17 |        144 | Moscow           |
+| US |  9.8 |        327 | Washington, D.C. |
 
 ## Creating a Series
 
@@ -685,7 +685,7 @@ Possible keyword arguments for `read_csv`:
 - `parse_dates`: expects a list of column names
 - ...
 
-See also: https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html
+See also: <https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html>
 
 ## Importing CSV
 
@@ -708,9 +708,9 @@ euribor = pd.read_csv(
 
 Task: Import the following data sources, ensuring the data is formatted nicely:
 
-- S&P 500 monthly prices (US stock index): https://datahub.io/core/s-and-p-500/r/data.csv
-- Exchange rates: https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv
-- Iris dataset (statistics of leaf sizes for iris flowers): http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data (look up appropriate column names on the web)
+- S&P 500 monthly prices (US stock index): <https://datahub.io/core/s-and-p-500/r/data.csv>
+- Exchange rates: <https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv>
+- Iris dataset (statistics of leaf sizes for iris flowers): <http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data> (look up appropriate column names on the web)
 
 ## Importing CSV
 
@@ -899,7 +899,7 @@ The above computes the following data:
 
 ## Exchange rates
 
-https://datahub.io/core/exchange-rates/r/daily.csv
+<https://datahub.io/core/exchange-rates/r/daily.csv>
 
 Daily Exchange rates between USD and other countries
 
@@ -1348,4 +1348,3 @@ quantities = np.array([[0, 80, 80, 100],
 ```
 
 wanted: total value for each of the three stores
-

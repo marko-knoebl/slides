@@ -86,7 +86,7 @@ names.push('Anna');
 
 Types bieten im wesentlichen mehr Funktionalität als Interfaces
 
-https://stackoverflow.com/a/52682220/
+<https://stackoverflow.com/a/52682220/>
 
 ## Types
 

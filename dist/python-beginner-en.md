@@ -2,7 +2,7 @@
 
 ## Slides
 
-https://marko-knoebl.github.io/slides/
+<https://marko-knoebl.github.io/slides/>
 
 ## Your Trainer
 
@@ -30,7 +30,7 @@ Marko Knöbl
 
 ## Code
 
-Code available at: https://github.com/marko-knoebl/courses-code
+Code available at: <https://github.com/marko-knoebl/courses-code>
 
 # Python: Overview
 
@@ -64,7 +64,7 @@ if a * b > 10:
 
 ## Python Installation
 
-on Windows: Download from https://python.org (Windows x86-64 web-based installer)
+on Windows: Download from <https://python.org> (Windows x86-64 web-based installer)
 
 check the option "Add Python 3.7 to PATH"
 
@@ -115,7 +115,7 @@ exit()
 
 Python online (simple):
 
-https://www.python.org/shell/
+<https://www.python.org/shell/>
 
 Python online (_Jupyter Notebooks_):
 
@@ -128,12 +128,12 @@ Python online (_Jupyter Notebooks_):
 
 Google Colab:
 
-- go to https://colab.research.google.com
+- go to <https://colab.research.google.com>
 - choose _File_ - _New Python 3 Notebook_
 
 Binder:
 
-- go to https://jupyter.org/try
+- go to <https://jupyter.org/try>
 - choose _Try Jupyter with Python_
 - wait ...
 - _File_ - _New Notebook_ - _Python 3_
@@ -476,7 +476,7 @@ help(list)
 
 Documentation on built-ins and the standard library:
 
-https://docs.python.org/3/library/index.html
+<https://docs.python.org/3/library/index.html>
 
 Similar to the `help` function, but often has slightly more detailed descriptions
 
@@ -566,7 +566,7 @@ name_length = len(name)
 - _Builtins_: functions and objects that are used frequently and are available at all times
 - _Standard library_: collections of additional modules and packages that can be imported
 
-documentation: https://docs.python.org/3/library/index.html
+documentation: <https://docs.python.org/3/library/index.html>
 
 ## Builtins
 
@@ -1238,9 +1238,9 @@ VS Code configuration via `python.linting.pylintEnabled` and `python.linting.pyl
 
 standard styleguide for Python code
 
-official document: https://www.python.org/dev/peps/pep-0008/
+official document: <https://www.python.org/dev/peps/pep-0008/>
 
-cheatsheet: https://gist.github.com/RichardBronosky/454964087739a449da04
+cheatsheet: <https://gist.github.com/RichardBronosky/454964087739a449da04>
 
 ## PEP8 & code formatting tools
 
@@ -1348,7 +1348,6 @@ Examining values in VS Code:
 
 # Cheatsheet
 
-https://ehmatthes.github.io/pcc/cheatsheets/README.html
+<https://ehmatthes.github.io/pcc/cheatsheets/README.html>
 
 (missing topics: break, None, comments)
-

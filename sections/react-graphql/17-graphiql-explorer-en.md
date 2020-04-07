@@ -2,7 +2,7 @@
 
 ## GraphiQL Explorer
 
-Graph*i*QL: Browser-based explorer for GraphQL APIs
+Graph<em>i</em>QL: Browser-based explorer for GraphQL APIs
 
 - inspect query structure / data structure (click "Docs" in the top right)
 - send experimental queries

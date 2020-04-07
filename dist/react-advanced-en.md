@@ -2,7 +2,7 @@
 
 ## Slides
 
-https://marko-knoebl.github.io/slides/
+<https://marko-knoebl.github.io/slides/>
 
 ## Your Trainer
 
@@ -30,7 +30,7 @@ Marko Knöbl
 
 ## Code
 
-Code available at: https://github.com/marko-knoebl/courses-code
+Code available at: <https://github.com/marko-knoebl/courses-code>
 
 # Topics
 
@@ -393,7 +393,7 @@ example use cases:
 
 ## Example: react-query
 
-[https://github.com/tannerlinsley/react-query](https://github.com/tannerlinsley/react-query)
+<https://github.com/tannerlinsley/react-query>
 
 Popular hook that can help with retrieving APIs
 
@@ -510,8 +510,8 @@ const useTodos = () => {
 
 examples for hooks that handle authentication:
 
-- https://usehooks.com/useAuth/
-- https://medium.com/hackernoon/learn-react-hooks-by-building-an-auth-based-to-do-app-c2d143928b0b
+- <https://usehooks.com/useAuth/>
+- <https://medium.com/hackernoon/learn-react-hooks-by-building-an-auth-based-to-do-app-c2d143928b0b>
 
 ## Custom hooks - useJsonQuery
 
@@ -593,7 +593,7 @@ tools:
 
 ## React Router
 
-https://reacttraining.com/react-router/
+<https://reacttraining.com/react-router/>
 
 ## React Router - Setup
 
@@ -943,11 +943,11 @@ By default _next.js_ runs on a node server and dynamically renders content
 
 for static site generation see:
 
-https://nextjs.org/learn/excel/static-html-export
+<https://nextjs.org/learn/excel/static-html-export>
 
 ## Resources
 
-The next.js website has great materials: https://nextjs.org
+The next.js website has great materials: <https://nextjs.org>
 
 # Optimizing performance
 
@@ -1202,7 +1202,7 @@ Rule of thumb: Any time we use `.map` in our JSX templates the inner elements sh
 
 ## Virtual DOM
 
-see also: https://reactjs.org/docs/reconciliation.html
+see also: <https://reactjs.org/docs/reconciliation.html>
 
 # Testing
 
@@ -1256,7 +1256,7 @@ it('renders learn react link', () => {
 - `.getAllByText` (throws if there are no matches)
 - `.getByTitle`
 - `.getByLabelText`
-- ... (see [https://testing-library.com/docs/dom-testing-library/api-queries](https://testing-library.com/docs/dom-testing-library/api-queries))
+- ... (see <https://testing-library.com/docs/dom-testing-library/api-queries>)
 
 ## Assertions
 
@@ -1264,7 +1264,7 @@ extra assertions:
 
 - `.toHaveTextContent()`
 - `.toBeInTheDocument()`
-- ... see [https://github.com/testing-library/jest-dom](https://github.com/testing-library/jest-dom)
+- ... see <https://github.com/testing-library/jest-dom>
 
 ## Testing the rendering
 
@@ -1408,7 +1408,7 @@ it('throws an error if the number of stars is 0', () => {
 
 these steps are already set up when using `create-react-app`
 
-enable advanced assertions (see [https://github.com/testing-library/jest-dom](https://github.com/testing-library/jest-dom)):
+enable advanced assertions (see <https://github.com/testing-library/jest-dom>):
 
 ```js
 import '@testing-library/jest-dom/extend-expect';
@@ -1424,7 +1424,7 @@ afterEach(cleanup);
 
 ## Resource
 
-https://react-testing-examples.com/
+<https://react-testing-examples.com/>
 
 # React-Test-Renderer
 
@@ -1462,7 +1462,7 @@ it('renders a component without crashing', () => {
 
 ## React-Test-Renderer - API reference
 
-[https://reactjs.org/docs/test-renderer.html](https://reactjs.org/docs/test-renderer.html)
+<https://reactjs.org/docs/test-renderer.html>
 
 ## Example: Testing with Jest and React-Test-Renderer
 
@@ -1561,7 +1561,7 @@ it('renders a component tree without crashing', () => {
 
 ## Enzyme - Cheatsheet
 
-https://devhints.io/enzyme
+<https://devhints.io/enzyme>
 
 ## Example: testing a rating component
 
@@ -1697,7 +1697,7 @@ Enables creation of isolated component demos
 
 example:
 
-https://airbnb.io/react-dates/
+<https://airbnb.io/react-dates/>
 
 ## Storybook - Setup
 
@@ -1744,7 +1744,7 @@ Via `public/manifest.json`
 
 ## PWA: add to homescreen
 
-https://developers.google.com/web/fundamentals/app-install-banners/
+<https://developers.google.com/web/fundamentals/app-install-banners/>
 
 ## PWA: add to homescreen
 
@@ -1793,7 +1793,7 @@ TypeScript implementation:
 
 - `npm run build`
 - drag & drop the build folder to netlify.com/drop
-- switch the URL from _http://_ to _https://_
+- switch the URL from _http&#x3A;//_ to _https&#x3A;//_
 - try it out in Chrome on desktop and mobile
 
 # React Native
@@ -2072,7 +2072,7 @@ const RatingContainer = connector(Rating);
 
 ## File Structure
 
-https://reactjs.org/docs/faq-structure.html
+<https://reactjs.org/docs/faq-structure.html>
 
 common approaches:
 
@@ -2158,4 +2158,3 @@ ReactDOM.render(<App />, mountNode);
 ## Running
 
 Execute `npm run start` for a development server or `npm run build` for a build.
-

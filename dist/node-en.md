@@ -2,7 +2,7 @@
 
 ## Slides
 
-https://marko-knoebl.github.io/slides/
+<https://marko-knoebl.github.io/slides/>
 
 ## Your Trainer
 
@@ -30,7 +30,7 @@ Marko Knöbl
 
 ## Code
 
-Code available at: https://github.com/marko-knoebl/courses-code
+Code available at: <https://github.com/marko-knoebl/courses-code>
 
 # Node.js and npm
 
@@ -52,7 +52,7 @@ npm comes bundled with node.js; another alternative would be _yarn_
 
 ## Node.js installation
 
-Node can be downloaded from https://nodejs.org
+Node can be downloaded from <https://nodejs.org>
 
 Major releases are made available every 6 months. Major releases with even version numbers (e.g. 10) are long-term-support releases.
 
@@ -201,7 +201,7 @@ cowsay hello
 
 ## package.json entries
 
-See https://docs.npmjs.com/files/package.json
+See <https://docs.npmjs.com/files/package.json>
 
 ## Ignoring files
 
@@ -525,7 +525,7 @@ see learnyounode: juggling async
 
 ## Running an HTTP server with node
 
-see https://nodejs.org/en/docs/guides/getting-started-guide/
+see <https://nodejs.org/en/docs/guides/getting-started-guide/>
 
 ## Running an HTTP server with node
 
@@ -552,4 +552,3 @@ server.listen(port, hostname);
 
 - [The definitive Node.js handbook by Flavio Copes](https://medium.freecodecamp.org/the-definitive-node-js-handbook-6912378afc6e)
 - [Node.js web playground on glitch.com](https://glitch.com)
-

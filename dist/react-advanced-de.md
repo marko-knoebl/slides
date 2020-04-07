@@ -2,7 +2,7 @@
 
 ## Präsentationen
 
-https://marko-knoebl.github.io/slides/
+<https://marko-knoebl.github.io/slides/>
 
 ## Ihr Trainer
 
@@ -30,7 +30,7 @@ Marko Knöbl
 
 ## Code
 
-Code verfügbar unter: https://github.com/marko-knoebl/courses-code
+Code verfügbar unter: <https://github.com/marko-knoebl/courses-code>
 
 # Themen
 
@@ -393,7 +393,7 @@ Einsatzgebiete z.B.:
 
 ## Beispiel: react-query
 
-[https://github.com/tannerlinsley/react-query](https://github.com/tannerlinsley/react-query)
+<https://github.com/tannerlinsley/react-query>
 
 Viel genutzter Hook, der beim Abfragen von APIs hilfreich sein kann
 
@@ -510,8 +510,8 @@ const useTodos = () => {
 
 Beispiele für Hooks, die Authentifizierung behandeln:
 
-- https://usehooks.com/useAuth/
-- https://medium.com/hackernoon/learn-react-hooks-by-building-an-auth-based-to-do-app-c2d143928b0b
+- <https://usehooks.com/useAuth/>
+- <https://medium.com/hackernoon/learn-react-hooks-by-building-an-auth-based-to-do-app-c2d143928b0b>
 
 ## Eigene Hooks - useJsonQuery
 
@@ -593,7 +593,7 @@ Tools:
 
 ## React Router
 
-https://reacttraining.com/react-router/
+<https://reacttraining.com/react-router/>
 
 ## React Router - Setup
 
@@ -943,11 +943,11 @@ Standardmäßig läuft _next.js_ auf einem node Server und rendert Inhalte dynam
 
 Für das statische Rendern siehe:
 
-https://nextjs.org/learn/excel/static-html-export
+<https://nextjs.org/learn/excel/static-html-export>
 
 ## Resourcen
 
-Die next.js website hat sehr gute Materialien: https://nextjs.org
+Die next.js website hat sehr gute Materialien: <https://nextjs.org>
 
 # Performance<wbr/>optimierung
 
@@ -1202,7 +1202,7 @@ Faustregel: Wenn wir in unserem JSX-Template `.map` verwenden, sollten innere El
 
 ## Virtuelles DOM
 
-siehe auch: https://reactjs.org/docs/reconciliation.html
+siehe auch: <https://reactjs.org/docs/reconciliation.html>
 
 # Testen
 
@@ -1256,7 +1256,7 @@ it('renders learn react link', () => {
 - `.getAllByText` (wirft Exception, wenn es keine Matches gibt)
 - `.getByTitle`
 - `.getByLabelText`
-- ... (siehe [https://testing-library.com/docs/dom-testing-library/api-queries](https://testing-library.com/docs/dom-testing-library/api-queries))
+- ... (siehe <https://testing-library.com/docs/dom-testing-library/api-queries>)
 
 ## Assertions
 
@@ -1264,7 +1264,7 @@ extra Assertions:
 
 - `.toHaveTextContent()`
 - `.toBeInTheDocument()`
-- ... siehe [https://github.com/testing-library/jest-dom](https://github.com/testing-library/jest-dom)
+- ... siehe <https://github.com/testing-library/jest-dom>
 
 ## Testen des Renderings
 
@@ -1408,7 +1408,7 @@ it('throws an error if the number of stars is 0', () => {
 
 diese Schritte sind bei der Verwendung von `create-react-app` schon eingerichtet
 
-Aktivieren erweiterter Assertions (siehe [https://github.com/testing-library/jest-dom](https://github.com/testing-library/jest-dom)):
+Aktivieren erweiterter Assertions (siehe <https://github.com/testing-library/jest-dom>):
 
 ```js
 import '@testing-library/jest-dom/extend-expect';
@@ -1424,7 +1424,7 @@ afterEach(cleanup);
 
 ## Ressource
 
-https://react-testing-examples.com/
+<https://react-testing-examples.com/>
 
 # React-Test-Renderer
 
@@ -1462,7 +1462,7 @@ it('renders a component without crashing', () => {
 
 ## React-Test-Renderer - API
 
-[https://reactjs.org/docs/test-renderer.html](https://reactjs.org/docs/test-renderer.html)
+<https://reactjs.org/docs/test-renderer.html>
 
 ## Beispiel: Testen mit Jest und React-Test-Renderer
 
@@ -1561,7 +1561,7 @@ it('renders a component tree without crashing', () => {
 
 ## Enzyme - Cheatsheet
 
-https://devhints.io/enzyme
+<https://devhints.io/enzyme>
 
 ## Beispiel: Testen mit Jest und Enzyme
 
@@ -1697,7 +1697,7 @@ Ermöglicht das Erstellen isolierter Komponentendemos
 
 Beispiel:
 
-https://airbnb.io/react-dates/
+<https://airbnb.io/react-dates/>
 
 ## Storybook - Setup
 
@@ -1744,7 +1744,7 @@ Via `public/manifest.json`
 
 ## PWA: add to homescreen
 
-https://developers.google.com/web/fundamentals/app-install-banners/
+<https://developers.google.com/web/fundamentals/app-install-banners/>
 
 ## PWA: add to homescreen
 
@@ -1793,7 +1793,7 @@ TypeScript Impementierung:
 
 - `npm run build`
 - build-Ornder via drag&drop auf netlify.com/drop
-- bei der URL von _http://_ auf _https://_ wechseln
+- bei der URL von _http&#x3A;//_ auf _https&#x3A;//_ wechseln
 - in Chrome am Desktop und Mobilgerät ausprobieren
 
 # React Native
@@ -2072,7 +2072,7 @@ const RatingContainer = connector(Rating);
 
 ## Dateistruktur
 
-https://reactjs.org/docs/faq-structure.html
+<https://reactjs.org/docs/faq-structure.html>
 
 Verbreitete Zugänge:
 
@@ -2158,4 +2158,3 @@ ReactDOM.render(<App />, mountNode);
 ## Ausführen
 
 Wir führen `npm run start` für einen Entwicklungsserver oder `npm run build` für einen Build aus.
-

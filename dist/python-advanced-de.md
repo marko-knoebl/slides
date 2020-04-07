@@ -2,7 +2,7 @@
 
 ## Präsentationen
 
-https://marko-knoebl.github.io/slides/
+<https://marko-knoebl.github.io/slides/>
 
 ## Ihr Trainer
 
@@ -30,7 +30,7 @@ Marko Knöbl
 
 ## Code
 
-Code verfügbar unter: https://github.com/marko-knoebl/courses-code
+Code verfügbar unter: <https://github.com/marko-knoebl/courses-code>
 
 # QA & Testen
 
@@ -130,7 +130,7 @@ Tests mit anderem Muster:
 python -m unittest discover -p "*_test.py"
 ```
 
-Achtung: um erkannt zu werden, müssen Pakete eine _\_\_init\_\_.py_ Datei enthalten (siehe https://bugs.python.org/issue35617)
+Achtung: um erkannt zu werden, müssen Pakete eine _\_\_init\_\_.py_ Datei enthalten (siehe <https://bugs.python.org/issue35617>)
 
 ## unittest - Assertions
 
@@ -207,7 +207,7 @@ python -m pydoc math.floor
 
 ## Docstring-Format
 
-PEP 257: https://www.python.org/dev/peps/pep-0257/
+PEP 257: <https://www.python.org/dev/peps/pep-0257/>
 
 ## Docstrig-Format
 
@@ -255,7 +255,7 @@ Neuere Versionen von Python unterstützen optionale Typenannotationen
 
 MyPy: Typechecker für Python, insbesondere sinnvoll für Python3
 
-https://mypy-lang.org
+<https://mypy-lang.org>
 
 ## Typendeklarationen
 
@@ -294,7 +294,7 @@ roman: Dict[int, str] = {1: 'I', 2: 'II', 3: 'III', 4: 'IV'}
 
 ## Mypy - Dokumentation
 
-https://mypy.readthedocs.io
+<https://mypy.readthedocs.io>
 
 (auch für Python 2)
 
@@ -548,7 +548,7 @@ Besondere Methoden, die das Verhalten einer Klasse beeinflussen
 
 Beginnen und enden mit zwei Unterstrichen, z.B. `__init__`
 
-Liste von magic Methods: https://docs.python.org/3/reference/datamodel.html#special-method-names
+Liste von magic Methods: <https://docs.python.org/3/reference/datamodel.html#special-method-names>
 
 ## Magic Methods
 
@@ -729,7 +729,7 @@ Modul zum Erzeugen von Iteratoren
 - `itertools.repeat`
 - `itertools.product`
 
-https://docs.python.org/3/library/itertools.html
+<https://docs.python.org/3/library/itertools.html>
 
 ## Itertools - Beispiel count
 
@@ -1137,4 +1137,3 @@ p.start()
 Pipe: Messaging zwischen Prozessen in zwei Richtungen - zB Hintergrundprozess, der immer wieder etwas zu tun bekommen und dazwischen im Ruhezustand ist
 
 Queue: Messaging in eine Richtung von verschiedenen Producern zu verschiedenen Consumern (langsamer als Pipes)
-

@@ -2,7 +2,7 @@
 
 ## VS Code
 
-https://code.visualstudio.com
+<https://code.visualstudio.com>
 
 open source IDE
 
@@ -16,7 +16,7 @@ via _File_ - _Open Folder_
 
 ## VS Code: Terminal
 
-Open / close the terminal view via _ctrl_ + _`_
+Open / close the terminal view via _ctrl_ + _\`_
 
 Open an additional terminal via the _+_ Symbol
 
@@ -161,4 +161,3 @@ in order to see errors in VS Code: install the Python package _pylint_
 ```bash
 pip install pylint
 ```
-

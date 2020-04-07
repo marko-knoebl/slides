@@ -22,7 +22,7 @@ Bundler wie _webpack_ oder _parcel_ erstellen aus vorhandenen Quelldateien sogen
 
 ## Parcel
 
-https://parceljs.org
+<https://parceljs.org>
 
 ## Parcel
 
@@ -84,7 +84,7 @@ Erstellte Dateien erscheinen unter `/dist`.
 
 ## Webpack
 
-https://webpack.js.org
+<https://webpack.js.org>
 
 ## Webpack
 
@@ -295,4 +295,3 @@ Moderne Systemprogrammiersprache - Alternative zu C / C++
 ## Rust - Setup
 
 - evtl im "Windows Defender Security Center" den Viren-Echtzeitschutz deaktivieren - dadurch wird rust-docs schneller installiert
-

@@ -2,7 +2,7 @@
 
 ## Präsentationen
 
-https://marko-knoebl.github.io/slides/
+<https://marko-knoebl.github.io/slides/>
 
 ## Ihr Trainer
 
@@ -30,7 +30,7 @@ Marko Knöbl
 
 ## Code
 
-Code verfügbar unter: https://github.com/marko-knoebl/courses-code
+Code verfügbar unter: <https://github.com/marko-knoebl/courses-code>
 
 # Pakete
 
@@ -50,11 +50,11 @@ Benötigt ~3GB Platz auf der Festplatte
 
 ## Installation von Anaconda
 
-Download von https://www.anaconda.com/distribution/
+Download von <https://www.anaconda.com/distribution/>
 
 (Achte auf die Wahl des richtigen Betriebssystems)
 
-Unter Windows sollte der Installationspfad keine Leerzeichen enthalten (Empfehlung: `C:/anaconda`) - siehe https://docs.anaconda.com/anaconda/user-guide/faq/#distribution-faq-windows-folder
+Unter Windows sollte der Installationspfad keine Leerzeichen enthalten (Empfehlung: `C:/anaconda`) - siehe <https://docs.anaconda.com/anaconda/user-guide/faq/#distribution-faq-windows-folder>
 
 ## Conda
 
@@ -84,12 +84,12 @@ Jupyter online ausprobieren:
 
 ### Google Colab (Google Account benötigt)
 
-- Gehe zu https://colab.research.google.com
+- Gehe zu <https://colab.research.google.com>
 - Wähle _File_ - _New Python 3 Notebook_
 
 ### Binder (begrenzte Sessions)
 
-- Gehe zu https://jupyter.org/try
+- Gehe zu <https://jupyter.org/try>
 - _Try Classic Notebook_ auswählen
 - warten ...
 - _File_ - _New Notebook_ - _Python 3_
@@ -98,7 +98,7 @@ Jupyter online ausprobieren:
 
 Starten: Eintrag _Jupyter Notebook_ im Startmenü / Befeh `jupyter notebook` im Terminal
 
-Stoppen: _Quit_ im rechten oberen Eck der Ordneransicht (üblicherweise unter http://localhost:8888/tree)
+Stoppen: _Quit_ im rechten oberen Eck der Ordneransicht (üblicherweise unter http&#x3A;//localhost:8888/tree)
 
 ## Notebook Dateien
 
@@ -647,7 +647,7 @@ plt.style.use("stylename")
 
 Für Demos verfügbarer Stile siehe:
 
-https://matplotlib.org/3.1.0/gallery/style_sheets/style_sheets_reference.html
+<https://matplotlib.org/3.1.0/gallery/style_sheets/style_sheets_reference.html>
 
 ## Stile von Graphen
 
@@ -782,7 +782,7 @@ plt.xticks(np.linspace(0, 2*np.pi, 5))
 ## Übungen
 
 - Sinus und Kosinus mit erweiterten Optionen
-- n-te Primzahl und Approximation via _n * ln(n)_
+- n-te Primzahl und Approximation via _n \* ln(n)_
 - Schätzung von Pi durch zufällige Punkte
 
 # Grundlegende Plots
@@ -1028,11 +1028,11 @@ import pandas as pd
 
 Beispiel:
 
-|     | Area | Population | Capital          |
-| --- | ---: | ---------: | ---------------- |
-| CN  |  9.6 |       1386 | Beijing          |
-| RU  |   17 |        144 | Moscow           |
-| US  |  9.8 |        327 | Washington, D.C. |
+|    | Area | Population | Capital          |
+| -- | ---: | ---------: | ---------------- |
+| CN |  9.6 |       1386 | Beijing          |
+| RU |   17 |        144 | Moscow           |
+| US |  9.8 |        327 | Washington, D.C. |
 
 ## Series erstellen
 
@@ -1120,7 +1120,7 @@ Mögliche Schlüsselwortargumente für `read_csv`:
 - `parse_dates`: erwartet eine Liste von Spaltennamen
 - ...
 
-Siehe auch: https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html
+Siehe auch: <https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html>
 
 ## CSV importieren
 
@@ -1143,9 +1143,9 @@ euribor = pd.read_csv(
 
 Aufgabe: Importiere die folgenden Datenquellen und achte dabei auf passendes Format:
 
-- Monatliche Preise des US-Aktienindex _S&P 500_: https://datahub.io/core/s-and-p-500/r/data.csv
-- Wechselkurse: https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv
-- Iris Dataset (Statistiken zu Blütengrößen von Iris-Blumen): http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data (recherchiere passende Spaltennamen im Internet)
+- Monatliche Preise des US-Aktienindex _S&P 500_: <https://datahub.io/core/s-and-p-500/r/data.csv>
+- Wechselkurse: <https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv>
+- Iris Dataset (Statistiken zu Blütengrößen von Iris-Blumen): <http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data> (recherchiere passende Spaltennamen im Internet)
 
 ## CSV importieren
 
@@ -1334,7 +1334,7 @@ berechnet die folgenden Daten:
 
 ## Wechselkurse
 
-https://datahub.io/core/exchange-rates/r/daily.csv
+<https://datahub.io/core/exchange-rates/r/daily.csv>
 
 Tägliche Wechselkurse zwischen USD und anderen Währungen
 
@@ -1871,7 +1871,7 @@ Klassifizierung:
 - `metrics.confusion_matrix(y_true, y_pred)` (Anteil an richtig / falsch klassifizierten Einträgen für jede Klasse)
 - `metrics.precision_recall_fscore_support(y_true, y_pred)` (Zusammenfassung wichtiger Metriken)
 
-Siehe auch https://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics
+Siehe auch <https://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics>
 
 ## Validierungsmetriken: Bestimmtheitsmaß
 
@@ -1879,7 +1879,7 @@ Das Bestimmtheitsmaß (R²) gibt an, wie nahe die Interpolation an den Testdaten
 
 - R²=1 - perfekte Interpolation
 - R²=0 - Interpolation nicht besser als der einfache Durchschnitt
-- R²<0 - schlechter als der einfache Durchschnitt 
+- R²&lt;0 - schlechter als der einfache Durchschnitt 
 
 ## Validierung
 
@@ -2138,7 +2138,7 @@ Ein neuer Datenpunkt wird klassifiziert, indem seine nächsten Nachbarn betracht
 
 Die Anzahl `k` der betrachteten Nachbarn kann festgesetzt werden (Standardwert = 5)
 
-Siehe auch: https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html#sklearn.neighbors.KNeighborsClassifier
+Siehe auch: <https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html#sklearn.neighbors.KNeighborsClassifier>
 
 ## Logistische Regression
 
@@ -2146,7 +2146,7 @@ An einer Grenze zwischen zwei Klassen wird mit Hilfe einer _logistischen Funktio
 
 Die logistische Funktion selbst wird intern mittels Regression bestimmt (daher der Name).
 
-Beispiel: https://scikit-learn.org/stable/auto_examples/linear_model/plot_logistic.html#sphx-glr-auto-examples-linear-model-plot-logistic-py
+Beispiel: <https://scikit-learn.org/stable/auto_examples/linear_model/plot_logistic.html#sphx-glr-auto-examples-linear-model-plot-logistic-py>
 
 ## Naive Bayes
 
@@ -2164,7 +2164,7 @@ Einfachster Fall: Trennung von Klassen durch Geraden / Ebenen / Hyperebenen - di
 
 Durch Kernelfunktionen können die Grenzen auch andere Formen annehmen, z.B. die von Kegelschnitten für polynomiale Kernel vom Grad 2 oder anderen Kurven.
 
-Siehe auch: https://scikit-learn.org/stable/modules/svm.html
+Siehe auch: <https://scikit-learn.org/stable/modules/svm.html>
 
 [Python Data Science Handbook - Support Vector Machines](https://jakevdp.github.io/PythonDataScienceHandbook/05.07-support-vector-machines.html)
 
@@ -2285,9 +2285,8 @@ Beispiele:
 
 # Resources
 
-Pandas website: https://pandas.pydata.org/
+Pandas website: <https://pandas.pydata.org/>
 
-Python Data Science Handbook: https://jakevdp.github.io/PythonDataScienceHandbook/
+Python Data Science Handbook: <https://jakevdp.github.io/PythonDataScienceHandbook/>
 
 <!-- https://github.com/jakevdp/PythonDataScienceHandbook -->
-

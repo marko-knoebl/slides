@@ -2,7 +2,7 @@
 
 ## Präsentationen
 
-https://marko-knoebl.github.io/slides/
+<https://marko-knoebl.github.io/slides/>
 
 ## Ihr Trainer
 
@@ -30,7 +30,7 @@ Marko Knöbl
 
 ## Code
 
-Code verfügbar unter: https://github.com/marko-knoebl/courses-code
+Code verfügbar unter: <https://github.com/marko-knoebl/courses-code>
 
 # Themen
 
@@ -413,7 +413,7 @@ Beispiele einfacher Suchmuster:
 
 ## Ausprobieren
 
-Online: https://regexr.com/
+Online: <https://regexr.com/>
 
 In VS Code: Ctrl+F und Klick auf den Button _.\*_
 
@@ -421,16 +421,16 @@ In VS Code: Ctrl+F und Klick auf den Button _.\*_
 
 Die folgenden Zeichen haben besondere Bedeutungen:
 
-- \
+- \\
 - ^
-- \$
+- \\$
 - .
-- |
+- \|
 - ?
 - \*
 - \+
 - ()
-- []
+- \[]
 - {}
 
 ## Sonderzeichen und Escapes
@@ -545,7 +545,7 @@ for match in match_iter:
 
 Aufgabe: finde alle URLs in einem HTML-Dokument auf der Festplatte
 
-(Beispieldokument: z.B. Seite https://news.ycombinator.com auf Festplatte speichern)
+(Beispieldokument: z.B. Seite <https://news.ycombinator.com> auf Festplatte speichern)
 
 ## Einen Ausdruck und Unterausdrücke finden
 
@@ -589,7 +589,7 @@ my_re_obj.finditer(...)
 
 ## Resourcen
 
-- http://automatetheboringstuff.com/chapter7/
+- <http://automatetheboringstuff.com/chapter7/>
 
 # Datum und Zeit
 
@@ -745,9 +745,9 @@ content: str = requests.get("https://www.google.com").text
 - web scraping: Anzahl der Google-Suchergebnisse
 - web scraping: Überschriften (Headings) in einem Wikipedia Artikel
 - APIs: Wetterdaten
-  https://automatetheboringstuff.com/chapter14/
+  <https://automatetheboringstuff.com/chapter14/>
 - Web Scraping: xkcd Downloader
-  https://automatetheboringstuff.com/chapter11/
+  <https://automatetheboringstuff.com/chapter11/>
 
 ## Selenium
 
@@ -761,7 +761,7 @@ geckodriver / chromedriver / ...
 
 geckodriver Download von:
 
-https://github.com/mozilla/geckodriver/releases/tag/v0.23.0
+<https://github.com/mozilla/geckodriver/releases/tag/v0.23.0>
 
 Herunterladen und in einem Pfad in Pythons `sys.path` ablegen - oder im Projektverzeichnis
 
@@ -790,7 +790,7 @@ Möglichkeiten:
 - Browser-Tools unter "Netzwerkanalyse"
 - VS Code Plugin _HTTP Client_
 
-## HTTP: Beispiel Wikipedia
+## HTTP&#x3A; Beispiel Wikipedia
 
 Anfrage:
 
@@ -811,7 +811,7 @@ Content-Type: text/html; charset=UTF-8
 <html ...
 ```
 
-## HTTP: Beispiel Wikipedia Suche (1)
+## HTTP&#x3A; Beispiel Wikipedia Suche (1)
 
 Anfrage:
 
@@ -829,7 +829,7 @@ Location: https://en.wikipedia.org/wiki/Test
 Content-Length: 0
 ```
 
-## HTTP: Beispiel Wikipedia Suche (2)
+## HTTP&#x3A; Beispiel Wikipedia Suche (2)
 
 Anfrage:
 
@@ -849,7 +849,7 @@ Content-Type: text/html; charset=UTF-8
 <html ...
 ```
 
-## HTTP: Beispiel POST-Request
+## HTTP&#x3A; Beispiel POST-Request
 
 Anfrage:
 
@@ -872,7 +872,7 @@ Content-Type: text/html; charset=UTF-8
 ...
 ```
 
-## HTTP: Beispiel API
+## HTTP&#x3A; Beispiel API
 
 ```http
 GET /todos/12
@@ -927,7 +927,7 @@ Etag: W/"5c-cn8o...
 
 - `500 Internal Server Error`
 
-siehe auch: https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+siehe auch: <https://en.wikipedia.org/wiki/List_of_HTTP_status_codes>
 
 ## wichtige Antwort-Headerfelder
 
@@ -972,7 +972,7 @@ python -m http.server
 
 ## Python am Server - Überblick
 
-https://docs.python.org/2/howto/webservers.html
+<https://docs.python.org/2/howto/webservers.html>
 
 (etwas veraltet)
 
@@ -1077,7 +1077,7 @@ Wir können es im debugger begutachten, z.B.:
 }
 ```
 
-https://www.python.org/dev/peps/pep-0333/#environ-variables
+<https://www.python.org/dev/peps/pep-0333/#environ-variables>
 
 ## PATH_INFO
 
@@ -1182,7 +1182,7 @@ first_name = parameters.get("first-name")[0]
 
 ## Deployment auf pythonanywhere.com
 
-- neues Benutzerkonto auf https://pythonanywhere.com
+- neues Benutzerkonto auf <https://pythonanywhere.com>
 - add new web app
 - manual configuration
 
@@ -1449,7 +1449,7 @@ connection.close()
 
 ## PEP 249
 
-https://www.python.org/dev/peps/pep-0249
+<https://www.python.org/dev/peps/pep-0249>
 
 ## SQL Statements mit Parametern
 
@@ -1476,7 +1476,7 @@ res = cursor.execute(
 
 ## SQL Statements mit Parametern
 
-https://www.python.org/dev/peps/pep-0249/#paramstyle
+<https://www.python.org/dev/peps/pep-0249/#paramstyle>
 
 Die Attribute `sqlite3.paramstyle`, `pymysql.paramstyle` etc. geben das Format für Abfragen mit Parametern an
 
@@ -1547,7 +1547,7 @@ Ein _Converter_ ist eine Funktion, dien einen SQL Wert in ein Python Objekt umwa
 
 Siehe:
 
-https://docs.python.org/3/library/sqlite3.html#using-adapters-to-store-additional-python-types-in-sqlite-databases
+<https://docs.python.org/3/library/sqlite3.html#using-adapters-to-store-additional-python-types-in-sqlite-databases>
 
 ## Adapter und Converter
 
@@ -1835,7 +1835,6 @@ Beispiel: Erstellen der folgenden Tabelle:
 - [openpyxl documentation - Key Classes](https://openpyxl.readthedocs.io/en/stable/#key-classes)
 - [Automate the Boring Stuff with Python - Chapter 12](http://automatetheboringstuff.com/chapter12/)
 
-
 # GUI (Graphical User Interface)
 
 ## GUI-Libraries für Python
@@ -1863,7 +1862,7 @@ Beispiel: Erstellen der folgenden Tabelle:
 
 ## Tkinter
 
-https://tkdocs.com/
+<https://tkdocs.com/>
 
 ## Tkinter - Ein Fenster anzeigen
 
@@ -2024,7 +2023,7 @@ Resultat: _dist/app.exe_
 
 ## SMTP / IMAP
 
-https://automatetheboringstuff.com/chapter16/
+<https://automatetheboringstuff.com/chapter16/>
 
 (für Fehler und Korrekturen siehe nächste Folie)
 
@@ -2047,4 +2046,3 @@ Neuere Version von _pyzmail_ verwenden:
 _bytes_ statt _string_ verwenden:
 
 ~~`'BODY[]'`~~ → `b'BODY[]`
-

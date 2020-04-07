@@ -11,6 +11,10 @@
   - const & let
 - running a local dev server
 
+## Arbeiten mit VS Code
+
+[VS Code Basics and Plugins](./vs-code-en.html)
+
 ## local HTTP server
 
 npm package `http-server`

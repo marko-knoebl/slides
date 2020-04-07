@@ -2,7 +2,7 @@
 
 ## Slides
 
-https://marko-knoebl.github.io/slides/
+<https://marko-knoebl.github.io/slides/>
 
 ## Your Trainer
 
@@ -30,7 +30,7 @@ Marko Knöbl
 
 ## Code
 
-Code available at: https://github.com/marko-knoebl/courses-code
+Code available at: <https://github.com/marko-knoebl/courses-code>
 
 # GraphQL
 
@@ -207,7 +207,7 @@ query data (JSON):
 
 predefined API with posts and users:
 
-https://api.graph.cool/simple/v1/cjmj9v4mk1zs00182rnrzdrai
+<https://api.graph.cool/simple/v1/cjmj9v4mk1zs00182rnrzdrai>
 
 <!--
 source of the predefined API:
@@ -219,8 +219,8 @@ try Subscriptions
 
 ## Resources
 
-- https://graphql.org/learn/
-- https://www.howtographql.com/
+- <https://graphql.org/learn/>
+- <https://www.howtographql.com/>
 
 # GraphQL vs REST: Example
 
@@ -359,7 +359,7 @@ SELECT post.title
 
 ## GraphQL API examples
 
-from [https://github.com/APIs-guru/graphql-apis](https://github.com/APIs-guru/graphql-apis):
+from <https://github.com/APIs-guru/graphql-apis>:
 
 - GitHub (login required)
 - Reddit (GraphQL Hub)
@@ -371,7 +371,7 @@ from [https://github.com/APIs-guru/graphql-apis](https://github.com/APIs-guru/gr
 
 ## FakeQL
 
-[https://fakeql.com/](https://fakeql.com/)
+<https://fakeql.com/>
 
 template for simple todos on FakeQL:
 
@@ -389,7 +389,7 @@ template for simple todos on FakeQL:
 
 ## GraphiQL Explorer
 
-Graph*i*QL: Browser-based explorer for GraphQL APIs
+Graph<em>i</em>QL: Browser-based explorer for GraphQL APIs
 
 - inspect query structure / data structure (click "Docs" in the top right)
 - send experimental queries
@@ -450,7 +450,7 @@ query getStarshipsByFilm {
 
 ## Query parameters
 
-Example on [https://api.spacex.land/graphql/](https://api.spacex.land/graphql/):
+Example on <https://api.spacex.land/graphql/>:
 
 ```graphql
 {
@@ -522,7 +522,7 @@ variables:
 
 ## Mutations
 
-https://todo-mongo-graphql-server.herokuapp.com/
+<https://todo-mongo-graphql-server.herokuapp.com/>
 
 (supports only one query at a time)
 
@@ -724,7 +724,7 @@ fetch('https://www.graphqlhub.com/graphql', {
 
 ## Apollo Client
 
-https://www.apollographql.com/docs/react/
+<https://www.apollographql.com/docs/react/>
 
 ## Apollo client
 
@@ -805,7 +805,7 @@ client.writeData({ data: { inputText: '' } });
 
 local resolvers for mutations:
 
-[https://www.apollographql.com/docs/react/data/local-state/#local-resolvers](https://www.apollographql.com/docs/react/data/local-state/#local-resolvers)
+<https://www.apollographql.com/docs/react/data/local-state/#local-resolvers>
 
 ## Local data
 
@@ -839,7 +839,7 @@ functionality:
 
 ## Apollo client and React
 
-[https://www.apollographql.com/docs/react/data/queries/](https://www.apollographql.com/docs/react/data/queries/)
+<https://www.apollographql.com/docs/react/data/queries/>
 
 ## Connecting React to an Apollo client
 
@@ -1120,4 +1120,3 @@ fragment essentialData on Pokemon {
   image
 }
 ```
-

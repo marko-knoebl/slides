@@ -14,7 +14,7 @@ JavaScript wird unter dem Namen _ECMAScript_ (kurz ES) standardisiert
 
 ## JavaScript Versionsunterstützung
 
-- Übersicht: siehe http://kangax.github.io/compat-table/es6/
+- Übersicht: siehe <http://kangax.github.io/compat-table/es6/>
 - In der Praxis: Modernes JavaScript wird in ES5 transpiliert (mittels Babel, webpack)
 
 ## Wichtige Neuerungen in ES2015

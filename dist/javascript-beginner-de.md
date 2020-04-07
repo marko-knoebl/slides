@@ -26,7 +26,7 @@ JavaScript wird unter dem Namen _ECMAScript_ (kurz ES) standardisiert
 
 im Browser:
 
-- Übersicht: siehe http://kangax.github.io/compat-table/es6/
+- Übersicht: siehe <http://kangax.github.io/compat-table/es6/>
 - In der Praxis: Modernes JavaScript wird in ES5 transpiliert (mittels Babel, webpack)
 
 in node.js:
@@ -134,6 +134,7 @@ Ein _String_ - auch _Zeichenkette_ genannt - repräsentiert Text
 Strings werden entweder mit einfachen oder doppelten Anführungszeichen begrenzt
 
 <!-- prettier-ignore -->
+
 ```js
 'Hallo';
 "Hallo";
@@ -153,7 +154,7 @@ let greeting = `Hallo, ${name}!
 
 ## Template-Strings
 
-Wie schreiben wir dieses Zeichen: ` ?
+Wie schreiben wir dieses Zeichen: \` ?
 
 `Shift` + Taste neben der Löschtaste, dann Leertaste
 
@@ -168,6 +169,7 @@ Problem: Wie setzen wir Zeichen wie z.B. `'` innerhalb eines gewöhnlichen Strin
 Ungültig:
 
 <!-- prettier-ignore -->
+
 ```js
 let text = 'I'm ready.'
 ```
@@ -177,6 +179,7 @@ let text = 'I'm ready.'
 Lösung:
 
 <!-- prettier-ignore -->
+
 ```js
 let text = 'I\'m ready';
 ```
@@ -391,6 +394,7 @@ In JavaScript sind Semikolons in den meisten Fällen optional; sie werden bei de
 Das automatische Hinzufügen von Semikolons kann zu Problemen führen:
 
 <!-- prettier-ignore -->
+
 ```js
 function foo() {
   return
@@ -401,6 +405,7 @@ function foo() {
 wird interpretiert als:
 
 <!-- prettier-ignore -->
+
 ```js
 function foo() {
   return;
@@ -826,6 +831,7 @@ Rückgabewert: 9
 ### Function Statement
 
 <!-- prettier-ignore -->
+
 ```js
 function double1(value) {
   return 2 * value;
@@ -847,6 +853,7 @@ const double2 = function(value) {
 Seit ES2015 Teil des Standards
 
 <!-- prettier-ignore -->
+
 ```js
 const double3 = (value) => {
   return 2 * value;
@@ -858,6 +865,7 @@ const double3 = (value) => {
 Wenn der Funktionskörper nur aus einem einzelnen Return-Statement besteht: Kurzschreibweise:
 
 <!-- prettier-ignore -->
+
 ```js
 const double4 = (value) => value * 2;
 ```
@@ -916,4 +924,3 @@ function fibonacci(n) {
   ...
 }
 ```
-

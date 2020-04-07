@@ -86,7 +86,7 @@ e.g.: `Todo`, `Person`
 
 Essentialy types offer more functionality than interfaces
 
-https://stackoverflow.com/a/52682220/
+<https://stackoverflow.com/a/52682220/>
 
 ## Types
 

@@ -136,7 +136,7 @@ Funktionalität (siehe [what's included](https://redux-toolkit.js.org/introducti
 
 Browser Plugin für Firefox / Chrome:
 
-https://github.com/zalmoxisus/redux-devtools-extension
+<https://github.com/zalmoxisus/redux-devtools-extension>
 
 Anzeigen des Redux States via:
 
@@ -205,13 +205,13 @@ npm Pakete:
 - `react-redux`
 - `@types/react-redux`
 
-## React-Redux: &lt;Provider&gt;
+## React-Redux: &lt;Provider>
 
 Provider: zum Hinzufügen eines Redux-Stores zu einer React-App
 
 Alle Unterkomponenten des Providers haben Zugriff auf den Store
 
-## React-Redux: &lt;Provider&gt;
+## React-Redux: &lt;Provider>
 
 ```js
 // index.js
@@ -578,7 +578,7 @@ Wir können `dispatch(loadTodos)` aufrufen
 
 Der komplette Thunk Sourcecode sind nur 14 Zeilen:
 
-https://github.com/reduxjs/redux-thunk/blob/master/src/index.js
+<https://github.com/reduxjs/redux-thunk/blob/master/src/index.js>
 
 ## Thunk: Zugriff auf den Redux store
 
@@ -1466,4 +1466,3 @@ console.log(secondEntry.value);
 
 - [Redux Style Guide (best practices)](https://redux.js.org/style-guide/style-guide)
 - [Slides: Taming large React Applications with Redux (2016)](https://slides.com/joelkanzelmeyer/taming-large-redux-apps)
-

@@ -2,7 +2,7 @@
 
 ## Präsentationen
 
-https://marko-knoebl.github.io/slides/
+<https://marko-knoebl.github.io/slides/>
 
 ## Ihr Trainer
 
@@ -30,7 +30,7 @@ Marko Knöbl
 
 ## Code
 
-Code verfügbar unter: https://github.com/marko-knoebl/courses-code
+Code verfügbar unter: <https://github.com/marko-knoebl/courses-code>
 
 # JavaScript im Browser
 
@@ -143,7 +143,7 @@ Möglichkeiten:
 - Browser-Tools unter "Netzwerkanalyse"
 - VS Code Plugin _HTTP Client_
 
-## HTTP: Beispiel Wikipedia
+## HTTP&#x3A; Beispiel Wikipedia
 
 Anfrage:
 
@@ -164,7 +164,7 @@ Content-Type: text/html; charset=UTF-8
 <html ...
 ```
 
-## HTTP: Beispiel Wikipedia Suche (1)
+## HTTP&#x3A; Beispiel Wikipedia Suche (1)
 
 Anfrage:
 
@@ -182,7 +182,7 @@ Location: https://en.wikipedia.org/wiki/Test
 Content-Length: 0
 ```
 
-## HTTP: Beispiel Wikipedia Suche (2)
+## HTTP&#x3A; Beispiel Wikipedia Suche (2)
 
 Anfrage:
 
@@ -202,7 +202,7 @@ Content-Type: text/html; charset=UTF-8
 <html ...
 ```
 
-## HTTP: Beispiel POST-Request
+## HTTP&#x3A; Beispiel POST-Request
 
 Anfrage:
 
@@ -225,7 +225,7 @@ Content-Type: text/html; charset=UTF-8
 ...
 ```
 
-## HTTP: Beispiel API
+## HTTP&#x3A; Beispiel API
 
 ```http
 GET /todos/12
@@ -280,7 +280,7 @@ Etag: W/"5c-cn8o...
 
 - `500 Internal Server Error`
 
-siehe auch: https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+siehe auch: <https://en.wikipedia.org/wiki/List_of_HTTP_status_codes>
 
 ## wichtige Antwort-Headerfelder
 
@@ -684,4 +684,3 @@ const newTodos = todos.setIn([1, 'completed'], true);
 - chessboard
 - facebook
 - es6
-

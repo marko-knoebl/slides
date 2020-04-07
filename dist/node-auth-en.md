@@ -307,7 +307,7 @@ F+lDCgv2JAe+wYxWkSL4XHgq064lAgMBAAE=
 
 generating a pair of RSA keys in the browser:
 
-https://www.csfieldguide.org.nz/en/interactives/rsa-key-generator/
+<https://www.csfieldguide.org.nz/en/interactives/rsa-key-generator/>
 
 - key size: choose any (larger keys are more secure but slower)
 - format scheme: PKCS #1
@@ -577,8 +577,8 @@ console.log(data);
 
 online version:
 
-- code: https://glitch.com/edit/#!/karuga-auth-service
-- app: https://karuga-auth-service.glitch.me/
+- code: <https://glitch.com/edit/#!/karuga-auth-service>
+- app: <https://karuga-auth-service.glitch.me/>
 
 # Authorization
 
@@ -653,4 +653,3 @@ app.get('/items', restrictToLoggedin, (req, res) => {
 ## Resources
 
 - [JSON Web Token (JWT) — The right way of implementing, with Node.js, Siddhartha Chowdhury](https://medium.com/@siddharthac6/json-web-token-jwt-the-right-way-of-implementing-with-node-js-65b8915d550e)
-
