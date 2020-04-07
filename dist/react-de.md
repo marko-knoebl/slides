@@ -2,7 +2,7 @@
 
 ## Präsentationen
 
-https://marko-knoebl.github.io/slides/
+<https://marko-knoebl.github.io/slides/>
 
 ## Ihr Trainer
 
@@ -30,7 +30,7 @@ Marko Knöbl
 
 ## Code
 
-Code verfügbar unter: https://github.com/marko-knoebl/courses-code
+Code verfügbar unter: <https://github.com/marko-knoebl/courses-code>
 
 # Themen
 
@@ -86,12 +86,12 @@ Code verfügbar unter: https://github.com/marko-knoebl/courses-code
 
 ## Online Editoren
 
-Empfehlung: https://codesandbox.io/s
+Empfehlung: <https://codesandbox.io/s>
 
 andere:
 
-- Glitch: https://glitch.com/edit/#!/remix/starter-react-template
-- CodePen: https://reactjs.org/redirect-to-codepen/hello-world
+- Glitch: <https://glitch.com/edit/#!/remix/starter-react-template>
+- CodePen: <https://reactjs.org/redirect-to-codepen/hello-world>
 
 ## Definieren einer Komponente als Funktion
 
@@ -127,7 +127,7 @@ Um sie von normalen Tags zu unterscheiden, beginnen Komponentennamen immer mit e
 
 JSX = Templatesprache von React
 
-- **<** wechselt von JS zu XML/HTML
+- **&lt;** wechselt von JS zu XML/HTML
 - **{** wechselt zurück zu JS
 
 ## JSX: JS + XML
@@ -167,7 +167,7 @@ const hello = () => {
 ```
 
 Liste von Browser-Events:  
-https://www.w3schools.com/jsref/dom_obj_event.asp
+<https://www.w3schools.com/jsref/dom_obj_event.asp>
 
 # State (Komponentenzustand)
 
@@ -271,7 +271,7 @@ oder
 npx create-react-app playground --template typescript
 ```
 
-siehe auch: https://reactjs.org/docs/add-react-to-a-new-app.html
+siehe auch: <https://reactjs.org/docs/add-react-to-a-new-app.html>
 
 ## create-react-app
 
@@ -940,7 +940,7 @@ Vorgefertigte React-Komponenten im Material-Design-Stil (Stil von Google/Android
 
 ## Material-UI: Installation und Verwendung
 
-https://material-ui.com
+<https://material-ui.com>
 
 siehe Info-Boxen zu _Installation_ und _Usage_
 
@@ -1149,7 +1149,7 @@ TypeScript Basics: siehe Präsentation [TypeScript](./typescript-de.html)
 
 ## React mit TypeScript
 
-ausführliche Resource: https://github.com/typescript-cheatsheets/react-typescript-cheatsheet
+ausführliche Resource: <https://github.com/typescript-cheatsheets/react-typescript-cheatsheet>
 
 <!--
 
@@ -1312,4 +1312,3 @@ Aufgaben:
 
 - Laden und Anzeigen von mehr Daten
 - Indikator, dass geladen wird
-

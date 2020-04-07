@@ -2,7 +2,7 @@
 
 ## Präsentationen
 
-https://marko-knoebl.github.io/slides/
+<https://marko-knoebl.github.io/slides/>
 
 ## Ihr Trainer
 
@@ -30,7 +30,7 @@ Marko Knöbl
 
 ## Code
 
-Code verfügbar unter: https://github.com/marko-knoebl/courses-code
+Code verfügbar unter: <https://github.com/marko-knoebl/courses-code>
 
 # Agenda
 
@@ -241,8 +241,8 @@ Varianten des CSV Formats können sich durch die folgenden Aspekte unterscheiden
 
 Das Format ist älter als die Standards - in der Praxis gibt es viele Variationen
 
-- RFC 4180: https://tools.ietf.org/html/rfc4180
-- W3C: https://www.w3.org/TR/2015/REC-tabular-data-model-20151217/
+- RFC 4180: <https://tools.ietf.org/html/rfc4180>
+- W3C: <https://www.w3.org/TR/2015/REC-tabular-data-model-20151217/>
 
 ## Standardisierung
 
@@ -490,11 +490,11 @@ MongoDB: direkte Bindings für Programmiersprachen
 
 online ausprobieren:
 
-https://docs.mongodb.com/manual/tutorial/getting-started/
+<https://docs.mongodb.com/manual/tutorial/getting-started/>
 
 eine Untermenge der MongoDB shell in reinem JavaScript verwenden (ohne Installation von MongoDB):
 
-https://github.com/marko-knoebl/mingodb
+<https://github.com/marko-knoebl/mingodb>
 
 ## Datentypen
 
@@ -511,7 +511,7 @@ https://github.com/marko-knoebl/mingodb
 - null
 - objectId
 
-siehe: https://docs.mongodb.com/manual/reference/bson-types/
+siehe: <https://docs.mongodb.com/manual/reference/bson-types/>
 
 ## ids
 
@@ -652,13 +652,13 @@ proprietär:
 
 ## SQL ausprobieren
 
-https://db-fiddle.com (PostgreSQL, MySQL, SQLite)
+<https://db-fiddle.com> (PostgreSQL, MySQL, SQLite)
 
-https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all (SQLite)
+<https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all> (SQLite)
 
 Desktop-Anwendung:
 
-https://sqlitebrowser.org/ (SQLite)
+<https://sqlitebrowser.org/> (SQLite)
 
 ## Allgemeine SQL Syntax
 
@@ -705,7 +705,7 @@ Ausnahme: In _MySQL_ würden hier Backticks (\`) statt Anführungszeichen verwen
 
 ## Übungsdaten
 
-https://github.com/datasets
+<https://github.com/datasets>
 
 ## Tabellen erstellen
 
@@ -837,7 +837,7 @@ db.createCollection('elements', {
 
 ## Online Tutorial
 
-https://www.w3schools.com/sql/default.asp
+<https://www.w3schools.com/sql/default.asp>
 
 ## Wiederholung: SQL Datentypen
 
@@ -1156,7 +1156,7 @@ MongoDB: Enthält oft zusammengesetzte Einträge (Arrays, Objekte):
 
 ## Entity-Relationship-Model
 
-https://en.wikipedia.org/wiki/Entity%E2%80%93relationship_model
+<https://en.wikipedia.org/wiki/Entity%E2%80%93relationship_model>
 
 ## ACID
 
@@ -1424,4 +1424,3 @@ iris_data.loc[["sepal_length", "sepal_width"]].sort_values(
     by="sepal_length"
 )
 ```
-

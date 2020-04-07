@@ -2,7 +2,7 @@
 
 ## Slides
 
-https://marko-knoebl.github.io/slides/
+<https://marko-knoebl.github.io/slides/>
 
 ## Your Trainer
 
@@ -30,7 +30,7 @@ Marko Knöbl
 
 ## Code
 
-Code available at: https://github.com/marko-knoebl/courses-code
+Code available at: <https://github.com/marko-knoebl/courses-code>
 
 # Agenda
 
@@ -211,6 +211,7 @@ Including a single backslash:
 ## null
 
 The special value `null` commonly represents missing / unknown data
+
 # CSV
 
 ## CSV
@@ -240,8 +241,8 @@ CSV formats can vary based on:
 
 The format is older than the standards - in practice the format varies widely
 
-- RFC 4180: https://tools.ietf.org/html/rfc4180
-- W3C: https://www.w3.org/TR/2015/REC-tabular-data-model-20151217/
+- RFC 4180: <https://tools.ietf.org/html/rfc4180>
+- W3C: <https://www.w3.org/TR/2015/REC-tabular-data-model-20151217/>
   - includes _Best Practice CSV_
 
 ## Standardization
@@ -487,11 +488,11 @@ MongoDB: direct bindings for programming languages
 
 try it online:
 
-https://docs.mongodb.com/manual/tutorial/getting-started/
+<https://docs.mongodb.com/manual/tutorial/getting-started/>
 
 use a subset of MongoDB shell in pure JavaScript (without installing MongoDB):
 
-https://github.com/marko-knoebl/mingodb
+<https://github.com/marko-knoebl/mingodb>
 
 ## data types
 
@@ -508,7 +509,7 @@ https://github.com/marko-knoebl/mingodb
 - null
 - objectId
 
-see: https://docs.mongodb.com/manual/reference/bson-types/
+see: <https://docs.mongodb.com/manual/reference/bson-types/>
 
 ## ids
 
@@ -649,13 +650,13 @@ proprietary:
 
 ## Trying SQL
 
-https://db-fiddle.com (PostgreSQL, MySQL, SQLite)
+<https://db-fiddle.com> (PostgreSQL, MySQL, SQLite)
 
-https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all (SQLite)
+<https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all> (SQLite)
 
 Desktop application:
 
-https://sqlitebrowser.org/ (SQLite)
+<https://sqlitebrowser.org/> (SQLite)
 
 ## General SQL syntax
 
@@ -702,7 +703,7 @@ Exception: In _MySQL_ would use backticks (\`) in place of quotes; the mode `ANS
 
 ## Exercise data
 
-https://github.com/datasets
+<https://github.com/datasets>
 
 ## Creating tables
 
@@ -834,7 +835,7 @@ db.createCollection('elements', {
 
 ## Online Tutorial
 
-https://www.w3schools.com/sql/default.asp
+<https://www.w3schools.com/sql/default.asp>
 
 ## Recap: SQL data types
 
@@ -1149,7 +1150,7 @@ MongoDB: often includes composite entries (arrays, objects):
 
 ## Entity-relationship model
 
-https://en.wikipedia.org/wiki/Entity%E2%80%93relationship_model
+<https://en.wikipedia.org/wiki/Entity%E2%80%93relationship_model>
 
 ## ACID
 
@@ -1415,4 +1416,3 @@ iris_data.loc[["sepal_length", "sepal_width"]].sort_values(
     by="sepal_length"
 )
 ```
-

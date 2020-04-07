@@ -2,7 +2,7 @@
 
 ## Slides
 
-https://marko-knoebl.github.io/slides/
+<https://marko-knoebl.github.io/slides/>
 
 ## Your Trainer
 
@@ -30,7 +30,7 @@ Marko Knöbl
 
 ## Code
 
-Code available at: https://github.com/marko-knoebl/courses-code
+Code available at: <https://github.com/marko-knoebl/courses-code>
 
 # Topics
 
@@ -86,12 +86,12 @@ Code available at: https://github.com/marko-knoebl/courses-code
 
 ## Online editors
 
-recommendation: https://codesandbox.io/s
+recommendation: <https://codesandbox.io/s>
 
 others:
 
-- Glitch: https://glitch.com/edit/#!/remix/starter-react-template
-- CodePen: https://reactjs.org/redirect-to-codepen/hello-world
+- Glitch: <https://glitch.com/edit/#!/remix/starter-react-template>
+- CodePen: <https://reactjs.org/redirect-to-codepen/hello-world>
 
 ## Defining a component as a function
 
@@ -127,7 +127,7 @@ In order to distinguish them from ordinary tags, components start with a capital
 
 JSX = Template language of React
 
-- **<** switches from JS to XML/HTML
+- **&lt;** switches from JS to XML/HTML
 - **{** switches back to JS
 
 ## JSX: JS + XML
@@ -167,7 +167,7 @@ const hello = () => {
 ```
 
 list of browser events:
-https://www.w3schools.com/jsref/dom_obj_event.asp
+<https://www.w3schools.com/jsref/dom_obj_event.asp>
 
 # State
 
@@ -271,7 +271,7 @@ or
 npx create-react-app playground --template typescript
 ```
 
-see also: https://reactjs.org/docs/add-react-to-a-new-app.html
+see also: <https://reactjs.org/docs/add-react-to-a-new-app.html>
 
 ## create-react-app
 
@@ -940,7 +940,7 @@ Predefined React components conforming to material design style (style of Google
 
 ## Material-UI: installation and usage
 
-https://material-ui.com
+<https://material-ui.com>
 
 see info boxes on _Installation_ und _Usage_
 
@@ -1147,7 +1147,7 @@ TypeScript Basics: see presentation on [TypeScript](./typescript-en.html)
 
 ## React with TypeScript
 
-extensive resource: https://github.com/typescript-cheatsheets/react-typescript-cheatsheet
+extensive resource: <https://github.com/typescript-cheatsheets/react-typescript-cheatsheet>
 
 <!--
 
@@ -1310,4 +1310,3 @@ Tasks:
 
 - load and display more data
 - add a loading indicator
-

@@ -2,7 +2,7 @@
 
 ## Präsentationen
 
-https://marko-knoebl.github.io/slides/
+<https://marko-knoebl.github.io/slides/>
 
 ## Ihr Trainer
 
@@ -30,7 +30,7 @@ Marko Knöbl
 
 ## Code
 
-Code verfügbar unter: https://github.com/marko-knoebl/courses-code
+Code verfügbar unter: <https://github.com/marko-knoebl/courses-code>
 
 # Agenda
 
@@ -112,7 +112,7 @@ setup:
 npm install -g @angular/cli
 ```
 
-siehe auch: https://github.com/angular/angular-cli/wiki
+siehe auch: <https://github.com/angular/angular-cli/wiki>
 
 ## Angular CLI: neues Projekt
 
@@ -162,7 +162,7 @@ Uns interessiert hauptsächlich der Ordner _src/app_
 
 - Wird für Unterstützung älterer Browser benötigt (zB IE9-IE11)
 - Zum testen auf / deployen für ältere Browser: entsprechende Zeilen „einkommentieren“ und entsprechende Abhängigkeiten mittels npm installieren
-- Details: https://angular.io/guide/browser-support
+- Details: <https://angular.io/guide/browser-support>
 
 ## Komponentenstruktur
 
@@ -193,459 +193,13 @@ ng build --prod
 
 führen wir einen Production-Build aus
 
-# ES2015+
+# Grundlagen für die Schulung
 
-## Modernes JavaScript
+## Grundlagen für die Schulung
 
-## JavaScript-Standardisierung
-
-JavaScript wird unter dem Namen _ECMAScript_ (kurz ES) standardisiert
-
-## JavaScript Versionen
-
-- Von allen Browsern unterstützt: ES5 (2009 veröffentlicht)
-- Nächste große Version: _ES2015_ (oder ES6)
-- Seither: jährlich neue Versionen im Juni jeden Jahres (ES2016, ES2017, ...)
-
-## JavaScript Versionsunterstützung
-
-- Übersicht: siehe http://kangax.github.io/compat-table/es6/
-- In der Praxis: Modernes JavaScript wird in ES5 transpiliert (mittels Babel, webpack)
-
-## Wichtige Neuerungen in ES2015
-
-## Module & Imports
-
-- Möglichkeit, Funktionalität aus anderen js-Dateien zu importieren – kein globaler Namespace mehr
-- Benötigt einen Bundler, z.B. webpack
-
-```js
-// foo.js
-const foo = 1;
-const bar = 2;
-const baz = 3;
-
-export { foo, bar, baz };
-```
-
-```js
-// index.js
-import { foo, bar } from 'foo.js';
-```
-
-## Module & Imports
-
-Es kann einen default Export geben:
-
-```js
-// foo.js
-const foo = 1;
-const bar = 2;
-const baz = 3;
-
-export { foo, bar, baz };
-
-const main = 0;
-
-export default main;
-```
-
-```js
-// index.js
-import main, { foo, bar } from 'foo.js';
-```
-
-## Imports in webpack
-
-Bundler wie webpack können beim Importieren vom JavaScript Standard abweichen:
-
-- Dateiendungen wie `.js` können optional sein
-- wenn der Import auf einen Ordner verweist, sucht webpack nach einer `index.js` Datei in diesem Ordner
-
-## let
-
-- Neue Alternative zu var – mit leicht anderem Scoping
-- Scope: umgebende geschweifte Klammern (statt umgebender Funktion)
-
-```js
-if (true) {
-  let a = 3;
-}
-console.log(a); // ReferenceError
-```
-
-## const
-
-Deklariert eine Variable, die nicht mehr neu zugewiesen werden kann.  
-Das bezeichnete Objekt selbst kann allerdings modifiziert werden
-
-```js
-const names = ['Alice', 'Bob', 'Claire'];
-names = ['Andrew', 'Bob', 'Claire']; // ungültig!
-names[0] = 'Andrew'; // gültig
-```
-
-## Destrukturierende Zuweisung
-
-```js
-let a = 1;
-let b = 2;
-[a, b] = [b, a];
-
-const [result, errors] = someComputation();
-```
-
-## Destrukturierende Zuweisung
-
-```js
-const person = { name: 'John', age: 48 };
-
-const { name, age } = person;
-```
-
-## Pfeilfunktionen
-
-- Kurzschreibweise für anonyme Funktionen
-- Lässt _this_ unverändert (überschreibt es nicht)
-
-```js
-const multiply = (a, b) => {
-  return a * b;
-};
-
-const multiply = (a, b) => a * b;
-```
-
-## Pfeilfunktionen
-
-wenn direkt ein Objekt zurückgegeben werden soll: mit runden Klammern umschießen
-
-```js
-const getState = () => ({
-  loggedIn: true,
-  userName: 'mike',
-});
-```
-
-## Klassen
-
-Ersetzen die alten Konstruktorfunktionen und Prototypen
-
-## Klassen
-
-```js
-class Person {
-  constructor(firstName, lastName) {
-    this.firstName = firstName;
-    this.lastName = lastName;
-  }
-  hello() {
-    return `My name is ${this.firstName}`;
-  }
-}
-```
-
-## Klassen und Vererbung
-
-```js
-class User extends Person {
-  constructor(firstName, lastName, userName) {
-    // ruft Person.constructor auf
-    super(firstName, lastName);
-    this.userName = userName;
-  }
-}
-```
-
-## Array-Iteration (for ... of)
-
-Über die Einträge in einem Array iterieren:
-
-```js
-const names = ['Anna', 'Bernhard', 'Caro'];
-for (let name of names) {
-  console.log(name);
-}
-```
-
-## Spread Syntax (Arrays und Objekte)
-
-```js
-const squares = [1, 4, 9];
-const moreSquares = [...squares, 16, 25];
-// moreSquares: [1, 4, 9, 16, 25]
-```
-
-```js
-const person = {
-  firstName: 'Joe',
-  lastName: 'Doe',
-  age: 31,
-};
-const newPerson = { ...person, email: 'j@d.com', age: 32 };
-// {firstName: 'Joe', lastName: 'Doe', email: 'j@d.com', age: 32}
-```
-
-## Template-Strings
-
-- Neue Syntax zum _Erstellen_ von Strings
-- Werden mit Backticks begrenzt
-- Erlauben mehrzeilige Strings und Interpolation:
-
-```js
-const name = 'Mike';
-const greeting = `Hello, ${name}!
-                  This is ES2015!`;
-```
-
-# TypeScript Grundlagen
-
-## TypeScript
-
-= Obermenge von JavaScript mit Erweiterungen:
-
-- **Statische Typisierung**
-- Public / Private Properties
-- Decorators
-
-## Statische Typisierung
-
-Datentypen können angegeben werden und unterstützen insbesondere die Entwicklungsumgebung:
-
-- Anzeigen von Funktionssignaturen
-- Autovervollständigung
-- Fehlermeldungen bei nicht passenden Datentypen
-
-## Statische Typisierung
-
-Beim build: TypeScript wird in JavaScript übersetzt, alle Typeninformationen gehen dabei verloren
-
-## Typing von Variablen
-
-Variablentypen werden üblicherweise ohne Hilfe erkannt
-
-_Explizites_ Angeben von Variablentypen:
-
-```ts
-let age: number = 32;
-let name: string = 'Samuel';
-let loggedIn: boolean = true;
-```
-
-## Typing von Funktionen
-
-```ts
-function shorten(
-  text: string,
-  maxLength: number
-): string {
-  return ...
-}
-```
-
-```ts
-const shorten = (
-  text: string,
-  maxLength: number
-): string => {
-  return ...;
-};
-```
-
-## Typing von Funktionen
-
-Funktionen ohne Rückgabewert: `void`
-
-```ts
-const logMessage = (message: string): void => {
-  console.log(message);
-};
-```
-
-## Typing von Arrays
-
-```js
-let names: Array<string> = [];
-names.push('Anna');
-```
-
-alternative Schreibweise:
-
-```ts
-let names: string[] = [];
-names.push('Anna');
-```
-
-## Types & Interfaces
-
-**Interfaces**: beschreiben die Struktur eines Objektes / einer Klasse genauer (z.B. `Todo`, `Person`)
-
-**Types**: ähnlich wie Interfaces; auch auf Strings, Arrays, ... anwendbar
-
-## Types & Interfaces
-
-Types bieten im wesentlichen mehr Funktionalität als Interfaces
-
-https://stackoverflow.com/a/52682220/
-
-## Types
-
-```ts
-type TodoType = {
-  id: number;
-  title: string;
-  completed: boolean;
-};
-
-type TodoCollection = Array<TodoType>;
-```
-
-## Types bei Objekten
-
-```ts
-type TodoType = {
-  id: number;
-  title: string;
-  completed: boolean;
-  // optional
-  description?: string;
-  // method
-  toggle: (id: number) => void;
-};
-```
-
-## Generics
-
-Allgemeine Typendeklaration, zu der bei der Anwendung nähere Informationen spezifiziert werden können (via `<...>`)
-
-## Generics
-
-Beispiel: `Array` ist ein Generic
-
-```ts
-let a: Array<number> = [1, 2, 3];
-let b: Array<string> = ['one', 'two', 'three'];
-```
-
-Beispiel: Reacts `Component` ist ein Generic
-
-```ts
-class MyComp extends Component<MyProps, MyState> {
-  ...
-}
-```
-
-## Typendeklarationen für Libraries
-
-Manche JavaScript Libraries beinhalten auch Typendeklarationen für TypeScript - z.B. _redux_.
-
-Für andere Libraries gibt es meist externe Deklarationen mit dem Präfix _@types/_, z.B. für _react_ existiert das Paket _@types/react_.
-
-# TypeScript intermediate
-
-## Any
-
-Any: lässt alle Typen zu
-
-```ts
-const myInput: any = document.getElementById('myinput');
-
-console.log(myInput.value);
-```
-
-## Type Assertions
-
-ermöglichen das Behandeln eines vorhandenen Objekts als bestimmter Typ
-
-```ts
-const myInput = document.getElementById(
-  'first-name'
-) as HTMLInputElement;
-
-console.log(myInput.value);
-```
-
-## Typen / Interfaces und Klassen
-
-```ts
-class AdvancedTodo implements TodoType {
-  /* ... */
-}
-
-class AdvancedTodo implements TodoInterface {
-  /* ... */
-}
-```
-
-## Intersection Types
-
-Mittels `&`:
-
-```ts
-type x = a & b;
-```
-
-Der Intersection Typ `x` kann gegenüber `a`:
-
-- Werte von existierenden Properties weiter einschränken
-- zusätzliche verpflichtende Properties hinzufügen
-
-## Intersection Types: Konkretisierung von Typen
-
-Beispiel aus Redux:
-
-```ts
-type Action = {
-  type: string;
-  payload?: any;
-};
-
-type AddTodoAction = Action & {
-  type: 'addTodo';
-  payload: string;
-};
-```
-
-## Intersection Types: Kombinieren von Typen
-
-```ts
-type Serializable = {
-  serialize: () => string;
-};
-
-type SerializableAction = Action & Serializable;
-```
-
-Objekte, die den Typ `SerializableAction` implementieren, müssen sowohl alle Einträge aus `Serializable` als auch aus `Action` implementieren.
-
-## Union Types
-
-Der Typ `x` muss entweder alle Kriterien von `a` erfüllen oder alle Kriterien von `b` erfüllen.
-
-```ts
-type x = a | b;
-```
-
-Alternative Schreibweise über mehrere Zeilen:
-
-```ts
-type TodoActionType =
-  | AddTodoActionType
-  | ToggleTodoActionType;
-```
-
-## Private & Public Properties
-
-```ts
-class Clock {
-  private formatTime(time) {
-    return ...
-  }
-  public start() {
-    ...
-  }
-}
-```
+- [VS Code Grundlagen und Plugins](./vs-code-de.html)
+- [Modernes JavaScript (ES2015+)](./javascript-es-2015-de.html)
+- [TypeScript](./typescript-de.html)
 
 # TypeScript für Angular
 
@@ -865,7 +419,7 @@ Wir können alle Standard-DOM-Events über die folgende Syntax überwachen:
 ```
 
 Liste von Standard-DOM-Events:
-https://www.w3schools.com/jsref/dom_obj_event.asp
+<https://www.w3schools.com/jsref/dom_obj_event.asp>
 
 ## Templatesprache: Events
 
@@ -1263,17 +817,17 @@ import { HttpClient } from '@angular/common/http';
 
 ## Beispiel: TODO-Daten vom Server
 
-Wir wollen Daten von https://jsonplaceholder.typicode.com/todos erhalten.
+Wir wollen Daten von <https://jsonplaceholder.typicode.com/todos> erhalten.
 
 # Routing
 
 ## Routing
 
 Nutzung von HTML5-Routen (client-seitig):
-https://mywebsite.com/items/28
+<https://mywebsite.com/items/28>
 
 Früher / für ältere Browser:
-https://mywebsite.com/#/items/28
+<https://mywebsite.com/#/items/28>
 
 Achtung: Server muss entsprechend konfiguriert sein und für /items/28 das gleiche zurückliefern wie für /
 
@@ -1381,7 +935,7 @@ export class TodoDetailsComponent {
 
 ## Routing - mehr zum Thema
 
-https://angular.io/guide/router
+<https://angular.io/guide/router>
 
 # Material Design - Komponenten
 
@@ -1391,7 +945,7 @@ Nutzung vorgefertigter Komponenten
 
 Von Google bereitgestellte Angular-Komponenten im Material design – Stil
 
-Einstieg / Setup: https://material.angular.io – Schritte 1, 2, 4
+Einstieg / Setup: <https://material.angular.io> – Schritte 1, 2, 4
 
 Einbinden konkreter Komponenten - Schritt 3
 
@@ -1400,4 +954,3 @@ Einbinden konkreter Komponenten - Schritt 3
 Wir stellen die Todo-App auf Material Design um
 
 <img src="assets/todolist.png" style="height: 16em">
-
