@@ -2113,7 +2113,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </ul>
 </section><section class="slide"><h2>Beispiel: Service für Zufallszahlen</h2>
 <p>Anfrage (GraphQL):</p>
-<pre><code class="language-graphql">query {
+<pre><code class="hljs language-graphql">query {
   random(min: 1, max: 100)
 }
 </code></pre>
@@ -2124,7 +2124,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </code></pre>
 </section><section class="slide"><h2>Beispiel: Freunde eines Benutzers</h2>
 <p>Anfrage:</p>
-<pre><code class="language-graphql">query {
+<pre><code class="hljs language-graphql">query {
   user(login: "john") {
     login
     friends {
@@ -2160,7 +2160,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <p>Beispiel zeigt Implementierung und Verwendung eines API für Zufallszahlen - mit Parametern für die Anzahl und den Höchstwert</p>
 </section><section class="slide"><h2>Beispiel Zufallszahlen: Definition</h2>
 <p>Schemadefinition:</p>
-<pre><code class="language-graphql">type Query {
+<pre><code class="hljs language-graphql">type Query {
   rand(max: Int!, quantity: Int!): [Int]!
 }
 </code></pre>
@@ -2171,13 +2171,13 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   );
 </code></pre>
 </section><section class="slide"><h2>Beispiel Zufallszahlen: Feste Abfrage</h2>
-<pre><code class="language-graphql">query random {
+<pre><code class="hljs language-graphql">query random {
   rand(max: 10, quantity: 3)
 }
 </code></pre>
 </section><section class="slide"><h2>Beispiel Zufallszahlen: Parametrische Abfrage</h2>
 <p>Abfrage:</p>
-<pre><code class="language-graphql">query random($max: Int!, $quantity: Int!) {
+<pre><code class="hljs language-graphql">query random($max: Int!, $quantity: Int!) {
   rand(max: $max, quantity: $quantity)
 }
 </code></pre>
@@ -2212,7 +2212,7 @@ try Subscriptions
 <pre><code class="hljs language-http"><span class="hljs-attribute">GET /users/$otheruserid/posts
 </span></code></pre>
 </section><section class="slide"><h2>API in GraphQL</h2>
-<pre><code class="language-graphql">{
+<pre><code class="hljs language-graphql">{
   users(id: "myuserid") {
     friends {
       userid
@@ -2222,7 +2222,7 @@ try Subscriptions
 }
 </code></pre>
 </section><section class="slide"><h2>API in GraphQL</h2>
-<pre><code class="language-graphql">{
+<pre><code class="hljs language-graphql">{
   users(id: "otheruserid") {
     posts {
       date
@@ -2242,7 +2242,7 @@ try Subscriptions
 </ul>
 </section><section class="slide"><h2>Funktionalität hinzufügen: Feed neuer Posts</h2>
 <p>Umsetzung in GraphQL:</p>
-<pre><code class="language-graphql">{
+<pre><code class="hljs language-graphql">{
   users(id: "$myuserid") {
     friends {
       posts {
@@ -2256,7 +2256,7 @@ try Subscriptions
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>GraphQL verglichen mit SQL</h1>
 </section><section class="slide"><h2>GraphQL verglichen mit SQL</h2>
-<pre><code class="language-graphql">query {
+<pre><code class="hljs language-graphql">query {
   user(login: "my-username") {
     login
     name
@@ -2275,7 +2275,7 @@ try Subscriptions
 <p>SQL: Beziehungen zwischen Tabellen (Joins) werden in der Query definiert</p>
 <p>GraphQL: kennt die Beziehungen bereits → einfachere Queries</p>
 </section><section class="slide"><h2>GraphQL verglichen mit SQL</h2>
-<pre><code class="language-graphql">query {
+<pre><code class="hljs language-graphql">query {
   user(login: "my-username") {
     posts {
       title
@@ -2330,7 +2330,7 @@ try Subscriptions
 <li>Liste von Schiffen, gruppiert nach Filmen, in denen sie vorkommen</li>
 </ul>
 </section><section class="slide"><h2>Übung: Liste von Titeln</h2>
-<pre><code class="language-graphql">query getTitles {
+<pre><code class="hljs language-graphql">query getTitles {
   allFilms {
     films {
       title
@@ -2339,7 +2339,7 @@ try Subscriptions
 }
 </code></pre>
 </section><section class="slide"><h2>Übung: Liste von Planeten und Einwohnerzahlen</h2>
-<pre><code class="language-graphql">query getPlanetsWithPopulations {
+<pre><code class="hljs language-graphql">query getPlanetsWithPopulations {
   allPlanets {
     planets {
       name
@@ -2349,7 +2349,7 @@ try Subscriptions
 }
 </code></pre>
 </section><section class="slide"><h2>Übung: Liste von Schiffen gruppiert nach Filmen</h2>
-<pre><code class="language-graphql">query getStarshipsByFilm {
+<pre><code class="hljs language-graphql">query getStarshipsByFilm {
   allFilms {
     films {
       title
@@ -2365,14 +2365,14 @@ try Subscriptions
 </section></section><section class="slides-section"><section class="slide"><h1>Parametrische Abfragen</h1>
 </section><section class="slide"><h2>Abfrageparameter</h2>
 <p>Beispiel unter <a href="https://api.spacex.land/graphql/">https://api.spacex.land/graphql/</a>:</p>
-<pre><code class="language-graphql">{
+<pre><code class="hljs language-graphql">{
   launchesUpcoming(limit: 4) {
     launch_date_utc
     mission_name
   }
 }
 </code></pre>
-<pre><code class="language-graphql">{
+<pre><code class="hljs language-graphql">{
   rocket(id: "falcon9") {
     cost_per_launch
     wikipedia
@@ -2381,7 +2381,7 @@ try Subscriptions
 </code></pre>
 </section><section class="slide"><h2>Abfrageparameter</h2>
 <p>Alle <em>Falcon 9</em>-Starts im Jahr 2019:</p>
-<pre><code class="language-graphql">{
+<pre><code class="hljs language-graphql">{
   launchesPast(
     find: { launch_year: "2019", rocket_name: "Falcon 9" }
   ) {
@@ -2398,7 +2398,7 @@ try Subscriptions
 <p>Verpflichtende Parameter sind (üblicherweise) mit <code>!</code> gekennzeichnet - ebenso wie zurückgegebene Attribute, die immer vorhanden sind.</p>
 </section><section class="slide"><h2>Variablen</h2>
 <p>Abfrage:</p>
-<pre><code class="language-graphql">query getLaunchesByYear($year: String!) {
+<pre><code class="hljs language-graphql">query getLaunchesByYear($year: String!) {
   launchesPast(find: { launch_year: $year }) {
     launch_date_utc
     launch_site {
@@ -2419,7 +2419,7 @@ try Subscriptions
 <p>(nur Definition <em>einzelner</em> Queries möglich)</p>
 </section><section class="slide"><h2>Mutationen</h2>
 <p>Befehl, der die <code>add</code>-Aktion am Server triggert und die id des neuen Todos zurückliefert:</p>
-<pre><code class="language-graphql">mutation addTodo($title: String!) {
+<pre><code class="hljs language-graphql">mutation addTodo($title: String!) {
   add(title: $title) {
     id
   }
@@ -2430,7 +2430,7 @@ try Subscriptions
 }
 </code></pre>
 </section><section class="slide"><h2>Mutationen</h2>
-<pre><code class="language-graphql">mutation toggleTodo($id: String!) {
+<pre><code class="hljs language-graphql">mutation toggleTodo($id: String!) {
   toggle(id: $id) {
     id
     completed
@@ -2438,7 +2438,7 @@ try Subscriptions
 }
 </code></pre>
 </section><section class="slide"><h2>Mutationen</h2>
-<pre><code class="language-graphql">mutation addOneAndClearCompleted($title: String!) {
+<pre><code class="hljs language-graphql">mutation addOneAndClearCompleted($title: String!) {
   add(title: $title) {
     id
   }
@@ -2450,7 +2450,7 @@ try Subscriptions
 </section><section class="slide"><h2>Mutationen</h2>
 <p>Aufgabe: Schreibe eine Query, die alle bisherigen Einträge löscht und zwei neue erstellt</p>
 </section><section class="slide"><h2>Mutationen</h2>
-<pre><code class="language-graphql">mutation reset {
+<pre><code class="hljs language-graphql">mutation reset {
   toggleAll(checked: true) {
     id
   }
@@ -2485,7 +2485,7 @@ try Subscriptions
 }
 </code></pre>
 </section><section class="slide"><h2>Übungen - Lösungen</h2>
-<pre><code class="language-graphql">query {
+<pre><code class="hljs language-graphql">query {
   user(login: "marko-knoebl") {
     id
     email
@@ -2789,7 +2789,7 @@ refetch()
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Queries - Fortgeschritten</h1>
 </section><section class="slide"><h2>Standardwerte für Variablen</h2>
-<pre><code class="language-graphql">query getPokemonByName($name: String = "Pikachu") {
+<pre><code class="hljs language-graphql">query getPokemonByName($name: String = "Pikachu") {
   pokemon(name: $name) {
     number
     image
@@ -2800,7 +2800,7 @@ refetch()
 <p>Aufgabe: Nummer von Pikachu und Raichu (Pokémon API)</p>
 </section><section class="slide"><h2>Aliases</h2>
 <p>Die bekannte Art klappt nicht:</p>
-<pre><code class="language-graphql">query getTwo {
+<pre><code class="hljs language-graphql">query getTwo {
   pokemon(name: "Pikachu") {
     number
   }
@@ -2825,7 +2825,7 @@ refetch()
 <p>Der Key <code>pokemon</code> wäre doppelt.</p>
 </section><section class="slide"><h2>Aliases</h2>
 <p>Ausweg aus dem Problem:</p>
-<pre><code class="language-graphql">query getTwo {
+<pre><code class="hljs language-graphql">query getTwo {
   pokemon1: pokemon(name: "Pikachu") {
     number
   }
@@ -2850,7 +2850,7 @@ refetch()
 </section><section class="slide"><h2>Fragmente</h2>
 <p>Fragmente bieten "Vorlagen" für Queries - weniger Wiederholung</p>
 </section><section class="slide"><h2>Fragmente</h2>
-<pre><code class="language-graphql">query getTwo {
+<pre><code class="hljs language-graphql">query getTwo {
   pokemon1: pokemon(name: "Pikachu") {
     ...essentialData
   }

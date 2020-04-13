@@ -2113,7 +2113,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </ul>
 </section><section class="slide"><h2>Example: random number service</h2>
 <p>query (GraphQL):</p>
-<pre><code class="language-graphql">query {
+<pre><code class="hljs language-graphql">query {
   random(min: 1, max: 100)
 }
 </code></pre>
@@ -2124,7 +2124,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </code></pre>
 </section><section class="slide"><h2>Example: get friends of a user</h2>
 <p>Query:</p>
-<pre><code class="language-graphql">query {
+<pre><code class="hljs language-graphql">query {
   user(login: "john") {
     login
     friends {
@@ -2160,7 +2160,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <p>Example shows use of a random number API which provides parameters to set the quantity and max value of the random numbers</p>
 </section><section class="slide"><h2>Example: random numbers</h2>
 <p>schema definition:</p>
-<pre><code class="language-graphql">type Query {
+<pre><code class="hljs language-graphql">type Query {
   rand(max: Int!, quantity: Int!): [Int]!
 }
 </code></pre>
@@ -2171,13 +2171,13 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   );
 </code></pre>
 </section><section class="slide"><h2>Example: random numbers: fixed query</h2>
-<pre><code class="language-graphql">query random {
+<pre><code class="hljs language-graphql">query random {
   rand(max: 10, quantity: 3)
 }
 </code></pre>
 </section><section class="slide"><h2>Example: random numbers: parametric query</h2>
 <p>query:</p>
-<pre><code class="language-graphql">query random($max: Int!, $quantity: Int!) {
+<pre><code class="hljs language-graphql">query random($max: Int!, $quantity: Int!) {
   rand(max: $max, quantity: $quantity)
 }
 </code></pre>
@@ -2212,7 +2212,7 @@ try Subscriptions
 <pre><code class="hljs language-http"><span class="hljs-attribute">GET /users/$otheruserid/posts
 </span></code></pre>
 </section><section class="slide"><h2>API in GraphQL</h2>
-<pre><code class="language-graphql">{
+<pre><code class="hljs language-graphql">{
   users(id: "myuserid") {
     friends {
       userid
@@ -2222,7 +2222,7 @@ try Subscriptions
 }
 </code></pre>
 </section><section class="slide"><h2>API in GraphQL</h2>
-<pre><code class="language-graphql">{
+<pre><code class="hljs language-graphql">{
   users(id: "otheruserid") {
     posts {
       date
@@ -2240,7 +2240,7 @@ try Subscriptions
 </span></code></pre>
 </section><section class="slide"><h2>Adding functionality: new post feed</h2>
 <p>In GraphQL we can implement this with just one request and without creating new endpoints:</p>
-<pre><code class="language-graphql">{
+<pre><code class="hljs language-graphql">{
   users(id: "$myuserid") {
     friends {
       posts {
@@ -2254,7 +2254,7 @@ try Subscriptions
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>GraphQL compared to SQL</h1>
 </section><section class="slide"><h2>GraphQL compared to SQL</h2>
-<pre><code class="language-graphql">query {
+<pre><code class="hljs language-graphql">query {
   user(login: "my-username") {
     login
     name
@@ -2273,7 +2273,7 @@ try Subscriptions
 <p>SQL: relationships between tables (joins) are defined in the query</p>
 <p>GraphQL: already knows about relationships when the query is issued → simpler queries</p>
 </section><section class="slide"><h2>GraphQL compared to SQL</h2>
-<pre><code class="language-graphql">query {
+<pre><code class="hljs language-graphql">query {
   user(login: "my-username") {
     posts {
       title
@@ -2328,7 +2328,7 @@ try Subscriptions
 <li>Get a list of starships grouped by films they appear in</li>
 </ul>
 </section><section class="slide"><h2>List of titles of Star Wars films</h2>
-<pre><code class="language-graphql">query getTitles {
+<pre><code class="hljs language-graphql">query getTitles {
   allFilms {
     films {
       title
@@ -2337,7 +2337,7 @@ try Subscriptions
 }
 </code></pre>
 </section><section class="slide"><h2>List of planets and planet populations</h2>
-<pre><code class="language-graphql">query getPlanetsWithPopulations {
+<pre><code class="hljs language-graphql">query getPlanetsWithPopulations {
   allPlanets {
     planets {
       name
@@ -2347,7 +2347,7 @@ try Subscriptions
 }
 </code></pre>
 </section><section class="slide"><h2>List of starships grouped by film</h2>
-<pre><code class="language-graphql">query getStarshipsByFilm {
+<pre><code class="hljs language-graphql">query getStarshipsByFilm {
   allFilms {
     films {
       title
@@ -2363,14 +2363,14 @@ try Subscriptions
 </section></section><section class="slides-section"><section class="slide"><h1>Parametric queries</h1>
 </section><section class="slide"><h2>Query parameters</h2>
 <p>Example on <a href="https://api.spacex.land/graphql/">https://api.spacex.land/graphql/</a>:</p>
-<pre><code class="language-graphql">{
+<pre><code class="hljs language-graphql">{
   launchesUpcoming(limit: 4) {
     launch_date_utc
     mission_name
   }
 }
 </code></pre>
-<pre><code class="language-graphql">{
+<pre><code class="hljs language-graphql">{
   rocket(id: "falcon9") {
     cost_per_launch
     wikipedia
@@ -2379,7 +2379,7 @@ try Subscriptions
 </code></pre>
 </section><section class="slide"><h2>Query parameters</h2>
 <p>Advanced query - all <em>Falcon 9</em> launches in 2019:</p>
-<pre><code class="language-graphql">{
+<pre><code class="hljs language-graphql">{
   launchesPast(
     find: { launch_year: "2019", rocket_name: "Falcon 9" }
   ) {
@@ -2396,7 +2396,7 @@ try Subscriptions
 <p>Required parameters are (usually) marked with a <code>!</code>. Returned attributes that will always be present (like <code>id</code>) are marked in the same way.</p>
 </section><section class="slide"><h2>Variables</h2>
 <p>query:</p>
-<pre><code class="language-graphql">query getLaunchesByYear($year: String!) {
+<pre><code class="hljs language-graphql">query getLaunchesByYear($year: String!) {
   launchesPast(find: { launch_year: $year }) {
     launch_date_utc
     launch_site {
@@ -2417,7 +2417,7 @@ try Subscriptions
 <p>(supports only one query at a time)</p>
 </section><section class="slide"><h2>Mutations</h2>
 <p>Command that triggers the server's <code>add</code> action and returns the id of the new TODO</p>
-<pre><code class="language-graphql">mutation addTodo($title: String!) {
+<pre><code class="hljs language-graphql">mutation addTodo($title: String!) {
   add(title: $title) {
     id
   }
@@ -2428,7 +2428,7 @@ try Subscriptions
 }
 </code></pre>
 </section><section class="slide"><h2>Mutations</h2>
-<pre><code class="language-graphql">mutation toggleTodo($id: String!) {
+<pre><code class="hljs language-graphql">mutation toggleTodo($id: String!) {
   toggle(id: $id) {
     id
     completed
@@ -2436,7 +2436,7 @@ try Subscriptions
 }
 </code></pre>
 </section><section class="slide"><h2>Mutations</h2>
-<pre><code class="language-graphql">mutation addOneAndClearCompleted($title: String!) {
+<pre><code class="hljs language-graphql">mutation addOneAndClearCompleted($title: String!) {
   add(title: $title) {
     id
   }
@@ -2448,7 +2448,7 @@ try Subscriptions
 </section><section class="slide"><h2>Mutations</h2>
 <p>Task: write a query that will delete all previous entries and add two new ones</p>
 </section><section class="slide"><h2>Mutations</h2>
-<pre><code class="language-graphql">mutation reset {
+<pre><code class="hljs language-graphql">mutation reset {
   toggleAll(checked: true) {
     id
   }
@@ -2467,7 +2467,7 @@ try Subscriptions
 <li>Get the name of a project and number of stars for all GitHub projects of a specific user</li>
 </ul>
 </section><section class="slide"><h2>Exercises - solutions</h2>
-<pre><code class="language-graphql">query {
+<pre><code class="hljs language-graphql">query {
   user(login: "marko-knoebl") {
     followers(first: 10) {
       nodes {
@@ -2483,7 +2483,7 @@ try Subscriptions
 }
 </code></pre>
 </section><section class="slide"><h2>Exercises - solutions</h2>
-<pre><code class="language-graphql">query {
+<pre><code class="hljs language-graphql">query {
   user(login: "marko-knoebl") {
     id
     email
@@ -2787,7 +2787,7 @@ refetch()
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Queries - Advanced</h1>
 </section><section class="slide"><h2>Default variable valuess</h2>
-<pre><code class="language-graphql">query getPokemonByName($name: String = "Pikachu") {
+<pre><code class="hljs language-graphql">query getPokemonByName($name: String = "Pikachu") {
   pokemon(name: $name) {
     number
     image
@@ -2798,7 +2798,7 @@ refetch()
 <p>Task: number of Pikachu and Raichu</p>
 </section><section class="slide"><h2>Aliases</h2>
 <p>This cannot be done the way we know:</p>
-<pre><code class="language-graphql">query getTwo {
+<pre><code class="hljs language-graphql">query getTwo {
   pokemon(name: "Pikachu") {
     number
   }
@@ -2823,7 +2823,7 @@ refetch()
 <p>Note the duplicate key: <code>pokemon</code>!</p>
 </section><section class="slide"><h2>Aliases</h2>
 <p>In order to avoid this problem we use aliases:</p>
-<pre><code class="language-graphql">query getTwo {
+<pre><code class="hljs language-graphql">query getTwo {
   pokemon1: pokemon(name: "Pikachu") {
     number
   }
@@ -2848,7 +2848,7 @@ refetch()
 </section><section class="slide"><h2>Fragments</h2>
 <p>Task: get the number, maxHP and image of Pikachu and Raichu</p>
 </section><section class="slide"><h2>Fragments</h2>
-<pre><code class="language-graphql">query getTwo {
+<pre><code class="hljs language-graphql">query getTwo {
   pokemon1: pokemon(name: "Pikachu") {
     ...essentialData
   }
