@@ -1,13 +1,21 @@
-# Presentations for programming courses
+# Slides for programming courses
 
-This is a collection of presentations for programming courses.
+This is a collection of slides for programming courses.
+
+See <http://marko-knoebl.github.io/slides> for the slides.
 
 The presentations are standalone HTML files that can be downloaded and viewed offline.
 
+## Building
+
+To build from the sources:
+
+- clone this repository
+- run `npm install`
+- run `npm run build`
+
 ## Technical details, writing your own
 
-You can clone this repo, run `npm install` and create new / modified presentations.
+The slides in this repository are created from markdown sources via [rehype-slides](https://github.com/marko-knoebl/rehype-slides)
 
-The starting point for each presentation is a JSON file in _src/configs_. It will list sections and assets to be included in a presentation. The sections are created as Markodown files.
-
-Presentations can be built by running `npm run build` - they will end up in the _dist_ folder.
+If you want to create your own presentations, see [rehype-slides-starter](https://github.com/marko-knoebl/rehype-slides-starter)
