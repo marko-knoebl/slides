@@ -121,3 +121,9 @@ const input = vfile({
 
 const output = processor.processSync(input).toString();
 ```
+
+## asynchronous plugins
+
+Some unified plugins may be asynchronous - in particular if they need to read/write files
+
+If the processor includes an asynchronous plugin it must be run via `.process()` instead of `.processSync()`. (this will return a promise)

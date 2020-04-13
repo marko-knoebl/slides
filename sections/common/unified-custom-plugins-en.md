@@ -88,4 +88,14 @@ common types for mdast:
 
 ## syntax trees
 
-common types for hast:
+hast element properties:
+
+- _type_ = "element"
+- _tagName_
+- _properties_
+- _children_
+
+hast text node properties:
+
+- _type_ = "text"
+- _value_
