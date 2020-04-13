@@ -15,17 +15,28 @@ const rehypeStringify = require("rehype-stringify");
 
 const numSlidesTotal = { en: 0, de: 0 };
 
+const filenameRegex = /^(.*)-(.*).md$/;
+
+const presentationDataFromFilename = filename => {
+  const match = filenameRegex.exec(filename);
+  const topic = match[1];
+  const lang = match[2];
+  return { filename, topic, lang };
+};
+
+const readLogger = (tree, vfile) => {
+  const filename = vfile.history[0];
+  const { lang } = presentationDataFromFilename(filename);
+  const numSlides = tree.children.filter(child => child.type === "heading")
+    .length;
+  console.log(`read contents of ${filename}: ${numSlides} slides`);
+  numSlidesTotal[lang] += numSlides;
+};
+
 const processorToMd = unified()
   .use(remarkParse)
   .use(remarkInclude)
-  .use(options => (tree, vfile) => {
-    const filename = vfile.history[0];
-    const lang = filename.slice(filename.length - 5, filename.length - 3);
-    const numSlides = tree.children.filter(child => child.type === "heading")
-      .length;
-    console.log(`read contents of ${filename}: ${numSlides} slides`);
-    numSlidesTotal[lang] += numSlides;
-  })
+  .use(options => readLogger)
   .use(remarkStringify, {
     listItemIndent: "1",
     fences: true
@@ -36,37 +47,16 @@ const processorToSlides = unified()
   .use(remarkInclude)
   .use(remarkRehype, { allowDangerousHtml: true })
   .use(rehypeRaw)
-  .use(rehypeHighlight, {
-    plainText: [
-      "txt",
-      "pseudocode",
-      "rst",
-      "rest",
-      "tsx",
-      "csv",
-      "tsv",
-      "graphql"
-    ],
-    aliases: { js: ["tsx"] }
-  })
-  .use(slides, {
-    format: "revealjs_karuga",
-    sectionSeparators: ["h1"],
-    slideSeparators: ["h2"]
-  })
+  .use(rehypeHighlight, { ignoreMissing: true, aliases: { js: ["tsx"] } })
+  .use(slides, { preset: "headings_compact" })
   .use(rehypeInline, { svgElements: true })
   .use(rehypeStringify, { closeSelfClosing: true });
 
 const main = async () => {
   const entrypointFilenames = await fs.promises.readdir("entrypoints");
   const presentationData = entrypointFilenames
-    .filter(filename => /^(.*)-(.*).md/.exec(filename))
-    .map(filename => {
-      const match = /^(.*)-(.*).md/.exec(filename);
-      const topic = match[1];
-      const lang = match[2];
-      return { topic: topic, lang: lang, filename: filename };
-    });
+    .filter(filename => filenameRegex.exec(filename))
+    .map(presentationDataFromFilename);
   const processPromises = presentationData.map(async presentation => {
     const entryPath = `entrypoints/${presentation.filename}`;
     const entryFile = vfile({
@@ -82,10 +72,6 @@ const main = async () => {
     );
     await fs.promises.writeFile(
       `docs/${presentation.topic}-${presentation.lang}.html`,
-      result
-    );
-    await fs.promises.writeFile(
-      `dist/${presentation.topic}-${presentation.lang}.html`,
       result
     );
   });
