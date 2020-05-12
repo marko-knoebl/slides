@@ -55,7 +55,25 @@ JSX = Templatesprache von React
 ## JSX: Aufgaben
 
 - Zeige das aktuelle Datum an
-- Zeige zufällig entweder den Text "Kopf" oder "Zahl" in einem div an
+- Münzwurf: zeige zufällig entweder den Text "heads" oder "tails" in einem div an
+
+## JSX: Aufgaben
+
+Datum:
+
+```jsx
+const dateString = new Date().toLocaleDateString();
+```
+
+```jsx
+<div>curent date: {dateString}</div>
+```
+
+Münzwurf:
+
+```jsx
+<div>{Math.random() > 0.5 ? 'heads' : 'tails'}</div>
+```
 
 ## JSX: Properties
 
@@ -68,6 +86,41 @@ Der Wechsel von XML auf JS klappt auch bei Properties:
 ```
 
 Beachte die fehlenden Anführungszeichen bei href
+
+## JSX: Elemente wiederholen
+
+Mehrere Elemente können via Arrays eingebunden werden:
+
+```jsx
+const elements = [
+  <div>alpha</div>,
+  <div>bravo</div>,
+  <div>charlie</div>,
+];
+```
+
+```xml
+<h1>three elements</h1>
+{ elements }
+```
+
+## JSX: Elemente wiederholen
+
+Aufgabe: Anzeigen aller Methoden des _React_-Objekts in einem _ul_-Element
+
+```jsx
+const reactMethods = [];
+for (let method in React) {
+  reactMethods.push(<li>{method}</li>);
+}
+```
+
+```jsx
+<div>
+  React Methods:
+  <ul>{reactMethods}</ul>
+</div>
+```
 
 ## JSX: events
 
@@ -84,3 +137,25 @@ const hello = () => {
 
 Liste von Browser-Events:  
 https://www.w3schools.com/jsref/dom_obj_event.asp
+
+## JSX: events
+
+Achtung: Ein Event Handler muss eine **Funktion** sein, und nicht ein Funktionsaufruf
+
+OK:
+
+```js
+<button onClick={alert}>Say Hello</button>
+```
+
+nicht OK:
+
+```js
+<button onClick={alert('hello')}>Say Hello</button>
+```
+
+OK:
+
+```js
+<button onClick={() => alert('hello')}>Say Hello</button>
+```

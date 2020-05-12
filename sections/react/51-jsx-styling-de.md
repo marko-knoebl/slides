@@ -1,13 +1,16 @@
 # Styling in JSX
 
-## CSS-Klassen
+## Tools
 
-```jsx
-<div
-  className={'todoitem' + isCompleted ? ' completed' : ''}>
-  [...]
-</div>
-```
+- externe Stylesheets
+  - Paket _classnames_
+  - CSS-Module
+  - SCSS
+- _style_-Property
+- Libraries
+  - styled-components
+  - radium
+  - JSS
 
 ## CSS-Klassen
 
@@ -20,7 +23,8 @@ import classNames from 'classnames';
   className={classNames({
     todoitem: true,
     completed: isCompleted,
-  })}>
+  })}
+>
   [...]
 </div>;
 ```
@@ -101,7 +105,7 @@ const Container = styled.div`
   justify-content: center;
 `;
 
-const Slideshow = props => (
+const Slideshow = (props) => (
   <Container>
     <button>prev</button>
     <BlockImg src="..." alt="..." />
@@ -118,12 +122,12 @@ dynamic styles via props:
 import styled from 'styled-components';
 
 const Button = styled.button`
-  color: ${props => (props.primary ? 'black' : 'white')};
-  background-color: ${props =>
+  color: ${(props) => (props.primary ? 'black' : 'white')};
+  background-color: ${(props) =>
     props.primary ? 'white' : 'navy'};
 `;
 
-const Slideshow = props => (
+const Slideshow = (props) => (
   <Container>
     <Button primary={true}>prev</Button>
     <BlockImg src="..." alt="..." />
@@ -151,9 +155,10 @@ const styles = {
   },
 };
 
-const TestButton = props => (
+const TestButton = (props) => (
   <button
-    style={[styles.base, props.primary && styles.primary]}>
+    style={[styles.base, props.primary && styles.primary]}
+  >
     test
   </button>
 );

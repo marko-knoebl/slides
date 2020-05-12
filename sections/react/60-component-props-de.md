@@ -20,7 +20,7 @@ Beispiel:
 Einfaches Beispiel:
 
 ```jsx
-const Rating = props => (
+const Rating = (props) => (
   <div className="rating">
     {'★'.repeat(props.stars) + '☆'.repeat(5 - props.stars)}
   </div>
@@ -42,7 +42,7 @@ Beispiel: `Bordered`-Komponente:
 Definition der Komponente:
 
 ```jsx
-const Bordered = props => (
+const Bordered = (props) => (
   <div className="bordered">{props.children}</div>
 );
 ```

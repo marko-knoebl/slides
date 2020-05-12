@@ -65,7 +65,7 @@ type TodoListProps = {
   onDelete: (id: number) => void;
 };
 
-const TodoList: FC<TodoListProps> = props => {
+const TodoList: FC<TodoListProps> = (props) => {
   // ....
 };
 ```
@@ -90,9 +90,10 @@ With inline event handlers no event type must be declared:
 
 ```jsx
 <button
-  onClick={event => {
+  onClick={(event) => {
     event.stopPropagation();
-  }}>
+  }}
+>
   test
 </button>
 ```

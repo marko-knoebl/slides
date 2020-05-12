@@ -1,5 +1,41 @@
 # JSX in detail
 
+## JSX in detail
+
+topics:
+
+- attribute names
+- repeating elements
+- if / else
+- if
+- whitespace
+- comments
+- fragments
+- valid elements
+- compilation
+
+## attribute names
+
+Some Element attributes have different names than in HTML (reflecting standard DOM attributes)
+
+- `className` (instead of `class`)
+- `onClick` (instead of `onclick`)
+- `htmlFor` (instead of `for`)
+
+## attribute names
+
+example: CSS classes
+
+```jsx
+<li
+  className={
+    isCompleted ? 'todoitem completed' : 'todoitem'
+  }
+>
+  [...]
+</li>
+```
+
 ## JSX: repeating elements
 
 Task: building an HTML list (ul) from this data:
@@ -29,14 +65,31 @@ const TodoApp = () => {
 
 ## JSX: repeating elements
 
-In practice this is mostly done via `.map()`:
+In practice this is mostly done via `.map()`
+
+## JSX: repeating elements
+
+The `.map` method creates a new array by transforming each element in an existing array
+
+example:
+
+```js
+const originalNumbers = [2, 3, 4];
+
+const triple = (n) => 3 * n;
+
+const newNumbers = originalNumbers.map(triple);
+// [6, 9, 12]
+```
+
+## JSX: repeating elements
 
 ```jsx
 const TodoApp = () => {
   const [todos, setTodos] = useState(initialTodos);
   return (
     <ul>
-      {todos.map(todo => (
+      {todos.map((todo) => (
         <li>{todo.title}</li>
       ))}
     </ul>
@@ -52,7 +105,7 @@ solution: **key**:
 
 ```jsx
 <ul>
-  {todos.map(todo => (
+  {todos.map((todo) => (
     <li key={todo.id}>{todo.title}</li>
   ))}
 </ul>
@@ -157,6 +210,14 @@ return (
   </>
 );
 ```
+
+## valid elements in JSX
+
+- string
+- number
+- components (e.g. `<div>`, `<img>`, `<MyComponent>`)
+- Arrays of other elements
+- null, undefined, true, false (these are not rendered)
 
 ## JSX compilation
 

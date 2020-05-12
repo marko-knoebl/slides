@@ -24,13 +24,13 @@ const TodoApp = () => {
   const [todos, setTodos] = useState([]);
   const loadTodos = () => {
     fetch('https://jsonplaceholder.typicode.com/todos')
-      .then(res => res.json())
-      .then(todos => setTodos(todos));
+      .then((res) => res.json())
+      .then((todos) => setTodos(todos));
   };
   useEffect(loadTodos, []);
   return (
     <ul>
-      {todos.map(todo => (
+      {todos.map((todo) => (
         <li key={todo.id}>{todo.title}</li>
       ))}
     </ul>
@@ -50,8 +50,8 @@ const SpaceXLaunch = () => {
     fetch(
       `https://api.spacexdata.com/v3/launches/${launchNr}`
     )
-      .then(res => res.json())
-      .then(data => setLaunchData(data));
+      .then((res) => res.json())
+      .then((data) => setLaunchData(data));
   };
   useEffect(fetchLaunch, [launchNr]);
   return (
@@ -76,8 +76,8 @@ const Pokemon = () => {
   const [data, setData] = useState({});
   const fetchPokemon = () => {
     fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
-      .then(res => res.json())
-      .then(data => setData(data));
+      .then((res) => res.json())
+      .then((data) => setData(data));
   };
   useEffect(fetchPokemon, [id]);
   return (

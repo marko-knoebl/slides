@@ -16,10 +16,10 @@ import { useState } from 'react';
 
 ## state in function components
 
-The function `useState` may be called (repeatedly) at the beginning of the component function.
+`useState` may be called (repeatedly) at the beginning of the component function
 
 - `useState` takes one parameter - the initial state value
-- on each call `useState` returns an array with two entries: the current state and a function which can be used to set the state to a different value
+- on each call `useState` returns an array with two entries: the current state and a function to set the state to a new value
 
 ```js
 const App = () => {
@@ -44,16 +44,13 @@ const Counter = () => {
     <button
       onClick={() => {
         setCount(count + 1);
-      }}>
+      }}
+    >
       {count}
     </button>
   );
 };
 ```
-
-## Example: Counter
-
-Task: Add a _reset_ button to the application
 
 ## Example: Slideshow
 

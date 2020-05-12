@@ -95,7 +95,7 @@ avoiding mutations by using immer:
 ```js
 import produce from 'immer';
 
-const newTodos = produce(todos, todosDraft => {
+const newTodos = produce(todos, (todosDraft) => {
   todosDraft[0].completed = true;
   todosDraft.push({ title: 'study', completed: false });
 });

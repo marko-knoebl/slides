@@ -16,7 +16,7 @@ import { useState } from 'react';
 
 ## State in Funktionskomponenten
 
-Die Funktion `useState` kann zu Beginn der Komponentenfunktion (wiederholt) aufgerufen werden. Sie hat die folgende Signatur:
+`useState` kann zu Beginn der Komponentenfunktion (wiederholt) aufgerufen werden; es hat die folgende Signatur:
 
 - sie nimmt einen Parameter entgegen - den initialen Zustand
 - sie gibt bei jedem Aufruf ein Array mit zwei Einträgen zurück: Den aktuellen Zustand sowie eine Funktion, mit der der Zustand neu gesetzt werden kann
@@ -44,16 +44,13 @@ const Counter = () => {
     <button
       onClick={() => {
         setCount(count + 1);
-      }}>
+      }}
+    >
       {count}
     </button>
   );
 };
 ```
-
-## Beispiel: Counter
-
-Aufgabe: füge zur Anwendung von eben einen _Reset_-Knopf hinzu
 
 ## Beispiel: Slideshow
 

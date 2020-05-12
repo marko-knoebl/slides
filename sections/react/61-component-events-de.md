@@ -16,11 +16,11 @@ Beispiel: Event `onChange` der `Rating`-Komponente (jeder Stern ist ein `span`-E
 ## Eigene Events
 
 ```jsx
-const Rating = props => {
+const Rating = (props) => {
   const starIds = [1, 2, 3, 4, 5];
   return (
     <div>
-      {starIds.map(id => (
+      {starIds.map((id) => (
         <span onClick={() => props.onChange(id)} key={id}>
           {id <= props.stars ? '★' : '☆'}
         </span>
@@ -41,7 +41,7 @@ const [prodRating, setProdRating] = useState(3);
 ```jsx
 <Rating
   stars={prodRating}
-  onChange={newRating => setProdRating(newRating)}
+  onChange={(newRating) => setProdRating(newRating)}
 />
 ```
 
@@ -62,7 +62,8 @@ Event: `onToggle` - Funktion, die mit dem neuen Zustand aufgerufen wird
 <button
   onClick={() => {
     props.onToggle(!props.active);
-  }}>
+  }}
+>
   {props.active ? 'on' : 'off'}
 </button>
 ```
@@ -76,7 +77,7 @@ const [myOption, setMyOption] = useState(true);
 
 <ToggleButton
   active={myOption}
-  onToggle={newIsActive => {
+  onToggle={(newIsActive) => {
     setMyOption(newIsActive);
   }}
 />;

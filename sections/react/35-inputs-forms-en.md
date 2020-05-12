@@ -6,7 +6,7 @@ In the context of React, input elements are special:
 
 Their properties (especially `.value`) can be directly modified by the user
 
-Therefore there are aspects of the UI state which would not be captured in the state.
+Therefore there would be aspects of the UI state which would not be captured in the React state.
 
 ## Inputs
 
@@ -15,7 +15,7 @@ This is how we can capture changes and track them in the state:
 ```jsx
 <input
   value={inputText}
-  onChange={event => {
+  onChange={(event) => {
     setInputText(event.target.value);
   }}
 />
@@ -29,10 +29,11 @@ Replacing the default behaviour:
 
 ```jsx
 <form
-  onSubmit={event => {
+  onSubmit={(event) => {
     event.preventDefault();
     // handle submit
-  }}>
+  }}
+>
   <input />
 </form>
 ```
@@ -48,15 +49,16 @@ const NewsletterRegistration = () => {
 
   return (
     <form
-      onSubmit={e => {
+      onSubmit={(e) => {
         e.preventDefault();
         console.log(email);
-      }}>
+      }}
+    >
       <input
         type="email"
         name="email"
         value={email}
-        onChange={event => setEmail(event.target.value)}
+        onChange={(event) => setEmail(event.target.value)}
         onBlur={() => setEmailEdited(true)}
       />
       <button disabled={!isEmail(email)}>subscribe</button>
@@ -67,7 +69,7 @@ const NewsletterRegistration = () => {
   );
 };
 
-const isEmail = email =>
+const isEmail = (email) =>
   email.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i);
 ```
 
@@ -87,15 +89,16 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 const NewsletterRegistration = () => (
   <Formik
     initialValues={{ email: '' }}
-    onSubmit={values => console.log(values)}
-    validate={values => {
+    onSubmit={(values) => console.log(values)}
+    validate={(values) => {
       const errors = {};
       if (!isEmail(values.email)) {
         errors.email = 'invalid email';
       }
       return errors;
-    }}>
-    {props => (
+    }}
+  >
+    {(props) => (
       <Form>
         <Field type="email" name="email" />
         <button disabled={!props.isValid}>subscribe</button>
@@ -105,6 +108,6 @@ const NewsletterRegistration = () => (
   </Formik>
 );
 
-const isEmail = email =>
+const isEmail = (email) =>
   email.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i);
 ```

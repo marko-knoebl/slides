@@ -1,1 +1,0 @@
-@include ../frontend-javascript/30-map-filter-reduce-de.md

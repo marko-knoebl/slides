@@ -1,5 +1,41 @@
 # JSX im Detail
 
+## JSX im Detail
+
+Themen:
+
+- Attribute
+- Elemente wiederholen
+- if / elese
+- if
+- Whitespace
+- Kommentare
+- Fragmente
+- gültige Elemente
+- Kompilierung
+
+## Attribute
+
+Manche Attribute von Eleenten haben andere Namen als in standard HTML (spiegeln die standard DOM-Attribute wider)
+
+- `className` (anstatt `class`)
+- `onClick` (anstatt `onclick`)
+- `htmlFor` (anstatt `for`)
+
+## Attribute
+
+Beispiel: CSS-Klassen
+
+```jsx
+<li
+  className={
+    isCompleted ? 'todoitem completed' : 'todoitem'
+  }
+>
+  [...]
+</li>
+```
+
 ## JSX: Elemente wiederholen
 
 Aufgabe: Erstellen einer HTML-Liste (ul) aus diesen Daten:
@@ -29,14 +65,31 @@ const TodoApp = () => {
 
 ## JSX: Elemente wiederholen
 
-Meist verwenden wir zum wiederholen die `.map()` - Methode
+Elemente werden meist mittels `.map()` wiederholt
+
+## JSX: Elemente wiederholen
+
+Die `.map()` Methode erstellt ein neues Array, indem jedes Element eines bestehenden Arrays transformiert wird
+
+Beispiel:
+
+```js
+const originalNumbers = [2, 3, 4];
+
+const triple = (n) => 3 * n;
+
+const newNumbers = originalNumbers.map(triple);
+// [6, 9, 12]
+```
+
+## JSX: Elemente wiederholen
 
 ```jsx
 const TodoApp = () => {
   const [todos, setTodos] = useState(initialTodos);
   return (
     <ul>
-      {todos.map(todo => (
+      {todos.map((todo) => (
         <li>{todo.title}</li>
       ))}
     </ul>
@@ -52,7 +105,7 @@ Lösung: **key**:
 
 ```jsx
 <ul>
-  {todos.map(todo => (
+  {todos.map((todo) => (
     <li key={todo.id}>{todo.title}</li>
   ))}
 </ul>
@@ -157,6 +210,14 @@ return (
   </>
 );
 ```
+
+## gültige Elemente in JSX
+
+- string
+- number
+- Komponenten (z.B. `<div>`, `<img>`, `<MyComponent>`)
+- Arrays anderer Elemente
+- null, undefined, true, false (werden nicht gerendert)
 
 ## JSX Kompilierung
 
