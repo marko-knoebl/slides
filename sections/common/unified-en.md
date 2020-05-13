@@ -6,7 +6,7 @@ Parser / processor / converter for HTML, Markdown, ...
 
 ## unified.js
 
-example - create simple HTML document:
+example - create a simple HTML document:
 
 The `rehypeDocument` processor will add `<html>`, `<head>`, ...
 
@@ -48,17 +48,23 @@ const output = processor.processSync(input).toString();
 - parser: turns a string into a syntax tree (parse phase)
 - transformer: modifies a syntax tree (run phase)
 - compiler: turns a syntax tree into a string (stringify phase)
-- plugin: parser / transformer / compiler
 
-A _processor_ usually includes a parser, possibly multiple transformers and a compiler.
+Parsers, transformers and compilers are distributed in _plugins_
+
+A _processor_ includes a parser, possibly multiple transformers and a compiler.
 
 ## ecosystem
 
 - _rehype_: tools for handling HTML
 - _remark_: tools for handling Markdown
 - _retext_: tools for handling natural languages
+- ...
 
-## ecosystem
+## ecosystem / npm packages
+
+base:
+
+- _unified_
 
 parsers:
 
@@ -70,19 +76,33 @@ compilers:
 - _remark-stringify_
 - _rehype-stringify_
 
-## ecosystem
+## ecosystem / npm packages
 
-transformers:
+transformer plugins (that transform the syntax tree):
 
 - _remark-toc_ (add table of contents)
-- _remark-math_
 - _remark-rehype_ (transform to rehype)
 - _rehype-remark_ (transform to remark)
 - _rehype-minify_
 - _rehype-format_
 - _rehype-document_ (wrap a fragment in a document)
 - _rehype-highight_ (highlight code blocks)
-- ... (see list of [rehype plugins](https://github.com/rehypejs/rehype/blob/master/doc/plugins.md#list-of-plugins) and [remark plugins](https://github.com/remarkjs/remark/blob/master/doc/plugins.md#list-of-plugins))
+- ...
+
+## ecosystem / npm packages
+
+other plugins (that modify an existing parser / compiler):
+
+- _remark-frontmatter_
+- _remark-math_
+- ...
+
+## ecosystem / npm packages
+
+full lists of plugins:
+
+- [rehype plugins](https://github.com/rehypejs/rehype/blob/master/doc/plugins.md#list-of-plugins)
+- [remark plugins](https://github.com/remarkjs/remark/blob/master/doc/plugins.md#list-of-plugins)
 
 ## passing options
 
@@ -105,9 +125,9 @@ const output = processor.processSync(input).toString();
 
 ## vfiles
 
-in addition to strings, unified processors can process _vfiles_: these objects represent file contens (as string) with added additional information (e.g. file path)
+in addition to strings, unified processors can process _vfiles_: these objects represent file content (as string) with added additional information (e.g. file path)
 
-processors always return _vfiles_ - to get string contents, we have to call `.toString()`
+a processor always returns a _vfile_ - to get the string content, call `.toString()`
 
 ## vfiles
 
@@ -126,4 +146,4 @@ const output = processor.processSync(input).toString();
 
 Some unified plugins may be asynchronous - in particular if they need to read/write files
 
-If the processor includes an asynchronous plugin it must be run via `.process()` instead of `.processSync()`. (this will return a promise)
+a processor that includes an asynchronous plugin must be run via `.process()` instead of `.processSync()` (this will return a promise)

@@ -1,11 +1,5 @@
 # unified.js - custom plugins
 
-## unified.js - custom plugins
-
-a plugin can be a _parser_, _transformer_ or _compiler_
-
-most plugins are transformers
-
 ## custom plugins
 
 plugins handle _strings_ and _syntax trees_
@@ -14,88 +8,51 @@ plugins handle _strings_ and _syntax trees_
 - transformer: syntax tree → modified syntax tree
 - compiler: syntax tree → string
 
-## syntax trees
+## custom plugins
 
-syntax trees are represented in unist format, e.g.:
+most plugins add a _transformer_ to the processor
 
-```json
-{
-  "type": "root",
-  "children": [
-    {
-      "type": "paragraph",
-      "children": [{ "type": "text", "value": "lorem" }]
-    },
-    {
-      "type": "paragraph",
-      "children": [{ "type": "text", "value": "ipsum" }]
-    }
-  ]
+some plugins may also modify the _parser_ or _compiler_
+
+## custom plugins
+
+general structure of a plugin:
+
+```js
+function plugin(options) {
+  // get the parser and compiler references
+  const parser = this.Parser;
+  const compiler = this.Compiler;
+  // modify parser and compiler here
+
+  const transformer = (tree, vfile) => {
+    // transformer function that modifies
+    // the syntax tree
+  };
+  return transformer;
 }
 ```
 
-## syntax trees
+## transformer plugins
 
-example: visit https://astexplorer.net/ - choose "Markdown"
+example: plugin that turns `i` elements into other elements (`em` by default):
 
-## syntax trees
+```js
+const visit = require('unist-util-visit');
 
-specifications:
-
-- generic specification: [unist](https://github.com/syntax-tree/unist)
-- markdown documents: [mdast](https://github.com/syntax-tree/mdast)
-- HTML documents: [hast](https://github.com/syntax-tree/hast)
-- XML documents: [xast](https://github.com/syntax-tree/xast)
-- Natural languages: [nlcst](https://github.com/syntax-tree/nlcst)
-
-## syntax trees
-
-typical node properties:
-
-```json
-{
-  "type": "...",
-  "position": ...,
-  "value": "..."
+function rehypeReplaceItalic(options) {
+  const newTag = options.newTag || 'em';
+  const transformer = (tree, vfile) => {
+    visit(tree, (node) => {
+      if (node.tagName === 'i') {
+        node.tagName = newTag;
+      }
+    });
+  };
+  return transformer;
 }
 ```
 
-```json
-{
-  "type": "...",
-  "position": ...,
-  "children": []
-}
-```
+## parser / compiler plugins
 
-## syntax trees
-
-position information is added automatically when parsing
-
-this can be disabled by passing `{ position: false }` to a parser
-
-## syntax trees
-
-common types for mdast:
-
-- _root_
-- _text_
-- _paragraph_
-- _heading_
-- _list_
-- _listItem_
-- ...
-
-## syntax trees
-
-hast element properties:
-
-- _type_ = "element"
-- _tagName_
-- _properties_
-- _children_
-
-hast text node properties:
-
-- _type_ = "text"
-- _value_
+for an example, see: <https://unifiedjs.com/explore/package/remark-parse/#extending-the-parser>
