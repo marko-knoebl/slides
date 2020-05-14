@@ -14,9 +14,9 @@ HOCs sind Funktionen, die eine Komponentendefinition verändern / erweitern
 
 Beispiel:
 
-_React_'s `memo` ist eine HOC
+Reacts `memo` ist eine HOC
 
-Es rehält eine Komponente und gibt eine memoisierte Komponente zurück:
+Es erhält eine Komponente und gibt eine memoisierte Komponente zurück:
 
 ```js
 const MemoizedRating = memo(Rating);
@@ -36,7 +36,7 @@ const connector = connect(
 );
 ```
 
-Die entstehende HOC rehält eine normale Komponente und gibt eine Komponente zurück, die mit dem Redux Store verbunden ist:
+Die entstehende HOC erhält eine normale Komponente und gibt eine Komponente zurück, die mit dem Redux Store verbunden ist:
 
 ```js
 const RatingContainer = connector(Rating);

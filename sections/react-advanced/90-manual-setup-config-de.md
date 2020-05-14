@@ -17,16 +17,16 @@ npm install react react-dom
 ```
 
 ```bash
-npm install --save-dev parcel-bundler babel-preset-react babel-preset-env
+npm install --save-dev parcel-bundler @babel/preset-react @babel/preset-env
 ```
 
 ## Konfiguration von Babel
 
-via `.babelrc`-Datei:
+via `babel.config.json`:
 
 ```json
 {
-  "presets": ["env", "react"]
+  "presets": ["@babel/preset-env", "@babel/react"]
 }
 ```
 
@@ -60,7 +60,7 @@ Wir erstellen `src/index.html`:
 
 ## Rendern einer App-Komponente
 
-Wir erstelen `src/index.js`:
+Wir erstellen `src/index.js`:
 
 ```js
 import React from 'react';

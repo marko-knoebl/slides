@@ -17,22 +17,22 @@ npm install react react-dom
 ```
 
 ```bash
-npm install --save-dev parcel-bundler babel-preset-react babel-preset-env
+npm install --save-dev parcel-bundler @babel/preset-react @babel/preset-env
 ```
 
 ## Configuring babel
 
-via `.babelrc` file:
+via `babel.config.json` file:
 
 ```json
 {
-  "presets": ["env", "react"]
+  "presets": ["@babel/preset-env", "@babel/react"]
 }
 ```
 
 ## npm scripts
 
-add script to `package.json`:
+add scripts to `package.json`:
 
 ```json
 "scripts": {
@@ -43,7 +43,7 @@ add script to `package.json`:
 
 ## HTML entry point
 
-Create `src/index.html`:
+Create _src/index.html_:
 
 ```html
 <!DOCTYPE html>
@@ -60,7 +60,7 @@ Create `src/index.html`:
 
 ## Rendering an App component
 
-Create `index.js`:
+Create _src/index.js_:
 
 ```js
 import React from 'react';
