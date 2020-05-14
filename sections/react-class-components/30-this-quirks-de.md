@@ -1,1 +1,1 @@
-@include ../frontend-javascript/40-this-quirks-de.md
+@include ../javascript-intermediate/70-this-quirks-de.md
