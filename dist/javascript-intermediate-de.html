@@ -2041,309 +2041,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   </head>
   <body>
     <div class="reveal">
-      <div class="slides slides"><section class="slides-section"><section class="slide"><h1>JavaScript im Frontend</h1>
-</section><section class="slide"><h2>Präsentationen</h2>
-<p><a href="https://marko-knoebl.github.io/slides/">https://marko-knoebl.github.io/slides/</a></p>
-</section><section class="slide"><h2>Ihr Trainer</h2>
-<p>Marko Knöbl</p>
-<ul>
-<li>Frontend Web-Entwicklung<ul>
-<li>JavaScript</li>
-<li>React, Angular</li>
-</ul></li>
-<li>Programmierung<ul>
-<li>Python, JavaScript</li>
-</ul></li>
-</ul>
-</section><section class="slide"><h2>Vorstellung der Teilnehmer</h2>
-<ul>
-<li>Aktuelle Projekte</li>
-<li>Vorkenntnisse</li>
-<li>Erwartungen / Wünsche</li>
-</ul>
-</section><section class="slide"><h2>Organisatorisches</h2>
-<ul>
-<li>Kursdauer</li>
-<li>Pausen</li>
-<li>Mittagessen</li>
-<li>Unterlagen</li>
-<li>Fragen, Feedback? - Jederzeit erwünscht</li>
-</ul>
-</section><section class="slide"><h2>Code</h2>
-<p>Code verfügbar unter: <a href="https://github.com/marko-knoebl/courses-code">https://github.com/marko-knoebl/courses-code</a></p>
-</section></section><section class="slides-section"><section class="slide"><h1>JavaScript im Browser</h1>
-</section><section class="slide"><h2>Beispiele in der Browser-Konsole</h2>
-<pre><code class="hljs language-js">alert();
-open(<span class="hljs-string">'https://google.com'</span>, <span class="hljs-string">'_self'</span>);
-prompt(<span class="hljs-string">"What's your name?"</span>);
-<span class="hljs-built_in">Math</span>.random();
-</code></pre>
-</section><section class="slide"><h2>Document Object Model</h2>
-<p><strong>DOM (Document Object Model)</strong> = JavaScript-API für Interaktion mit dem HTML-Inhalt</p>
-</section><section class="slide"><h2>DOM Grundlagen</h2>
-<ul>
-<li><code>document.getElementById()</code></li>
-<li><code>document.querySelector()</code></li>
-<li><code>element.innerHTML =</code></li>
-</ul>
-</section><section class="slide"><h2>DOM Grundlagen - Beispiele</h2>
-<ul>
-<li>Zufallszahl</li>
-<li>Aktuelles Datum</li>
-</ul>
-</section><section class="slide"><h2>DOM: Stile und Attribute (href, ...)</h2>
-<ul>
-<li><code>element.style</code></li>
-<li><code>element.className</code></li>
-<li><code>element.classList</code> (<code>.add</code>, <code>.remove</code>, <code>.toggle</code>, <code>.contains</code>)</li>
-</ul>
-</section><section class="slide"><h2>DOM: createElement, appendChild</h2>
-<ul>
-<li><code>document.createElement()</code></li>
-<li><code>element1.appendChild(element2)</code></li>
-<li><code>element1.removeChild(element2)</code></li>
-<li><code>element2.remove() // not IE</code></li>
-</ul>
-</section><section class="slide"><h2>DOM: createElement, appendChild - Beispiele</h2>
-<ul>
-<li>Schachbrett</li>
-<li>Todo-Liste (nicht interaktiv)</li>
-</ul>
-</section><section class="slide"><h2>Events</h2>
-<ul>
-<li><code>setTimeout()</code></li>
-<li><code>setInterval()</code></li>
-<li><code>element.addEventListener('click', ...)</code></li>
-</ul>
-</section><section class="slide"><h2>Events - Beispiele</h2>
-<ul>
-<li>Uhr</li>
-<li>Countdown</li>
-<li>Spiel: click the box</li>
-</ul>
-</section><section class="slide"><h2>Formulare und Formular-Events</h2>
-<p>Beispiel: Todo-Liste</p>
-</section></section><section class="slides-section"><section class="slide"><h1>Debuggen im Browser</h1>
-</section><section class="slide"><h2>Debuggen im Browser</h2>
-<p><code>debugger</code> Statement</p>
-</section><section class="slide"><h2>Debuggen im Browser</h2>
-<p>Breakpoints:</p>
-<ul>
-<li>setzen von Breakpoints</li>
-<li>Aktivieren / Deaktivieren von Breakpoints</li>
-</ul>
-</section><section class="slide"><h2>Debugger im Browser</h2>
-<p>Manuell weiterspringen:</p>
-<ul>
-<li>play / pause</li>
-<li><em>step over / Schritt darüber</em>: in die nächste Zeile</li>
-<li><em>step into / Schritt hinein</em>: einem Funktionsaufruf folgen</li>
-<li><em>step out / Schritt heraus</em>: aktuellen Funktionsaufruf verlassen</li>
-</ul>
-</section><section class="slide"><h2>Debugger im Browser</h2>
-<p>Beobachten von Variablen</p>
-</section></section><section class="slides-section"><section class="slide"><h1>HTTP</h1>
-</section><section class="slide"><h2>HTTP</h2>
-<p>Hypertext Transfer Protocol</p>
-<p>= Protokoll, auf dessen Basis Resourcen über das Netzwerk angefragt und übertragen werden können</p>
-</section><section class="slide"><h2>HTTP</h2>
-<p>Paar: Anfrage - Antwort</p>
-<p>Anfrage: meist aus dem Browser</p>
-<p>Antwort: kommt vom Server</p>
-<p>HTTP Anfragen und Antworten werden wiederum über ein "niedrigeres" Protokoll übertragen, üblicherweise <em>TCP</em>.</p>
-</section><section class="slide"><h2>Experimentieren mit HTTP</h2>
-<p>Möglichkeiten:</p>
-<ul>
-<li>Browser-Tools unter "Netzwerkanalyse"</li>
-<li>VS Code Plugin <em>HTTP Client</em></li>
-</ul>
-</section><section class="slide"><h2>HTTP: Beispiel Wikipedia</h2>
-<p>Anfrage:</p>
-<pre><code class="hljs language-http"><span class="hljs-keyword">GET</span> <span class="hljs-string">/wiki/Main_Page</span> HTTP/2.0
-<span class="hljs-attribute">Host</span>: en.wikipedia.org
-<span class="hljs-attribute">Connection</span>: keep-alive
-</code></pre>
-<p>Antwort:</p>
-<pre><code class="hljs language-http">HTTP/2.0 <span class="hljs-number">200</span> OK
-<span class="hljs-attribute">Date</span>: Wed, 24 Apr 2019 07:50:41 GMT
-<span class="hljs-attribute">Content-Type</span>: text/html; charset=UTF-8
-
-<span class="xml"><span class="hljs-meta">&#x3C;!DOCTYPE html></span>
-<span class="hljs-tag">&#x3C;<span class="hljs-name">html</span> <span class="hljs-attr">...</span>
-</span></span></code></pre>
-</section><section class="slide"><h2>HTTP: Beispiel Wikipedia Suche (1)</h2>
-<p>Anfrage:</p>
-<pre><code class="hljs language-http"><span class="hljs-keyword">GET</span> <span class="hljs-string">/w/index.php?search=test&#x26;title=Special:Search&#x26;go=Go</span> HTTP/2.0
-<span class="hljs-attribute">Host</span>: en.wikipedia.org
-<span class="hljs-attribute">Connection</span>: keep-alive
-</code></pre>
-<p>Antwort:</p>
-<pre><code class="hljs language-http">HTTP/2.0 <span class="hljs-number">302</span> Found
-<span class="hljs-attribute">Location</span>: https://en.wikipedia.org/wiki/Test
-<span class="hljs-attribute">Content-Length</span>: 0
-</code></pre>
-</section><section class="slide"><h2>HTTP: Beispiel Wikipedia Suche (2)</h2>
-<p>Anfrage:</p>
-<pre><code class="hljs language-http"><span class="hljs-keyword">GET</span> <span class="hljs-string">/wiki/Test</span> HTTP/2.0
-<span class="hljs-attribute">Host</span>: en.wikipedia.org
-<span class="hljs-attribute">Connection</span>: keep-alive
-</code></pre>
-<p>Antwort:</p>
-<pre><code class="hljs language-http">HTTP/2.0 <span class="hljs-number">200</span> OK
-<span class="hljs-attribute">Content-Type</span>: text/html; charset=UTF-8
-
-<span class="xml"><span class="hljs-meta">&#x3C;!DOCTYPE html></span>
-<span class="hljs-tag">&#x3C;<span class="hljs-name">html</span> <span class="hljs-attr">...</span>
-</span></span></code></pre>
-</section><section class="slide"><h2>HTTP: Beispiel POST-Request</h2>
-<p>Anfrage:</p>
-<pre><code class="hljs language-http"><span class="hljs-keyword">POST</span> <span class="hljs-string">/submit-posting</span> HTTP/2.0
-<span class="hljs-attribute">Host</span>: example.com
-<span class="hljs-attribute">Connection</span>: keep-alive
-<span class="hljs-attribute">Content-Type</span>: text/plain; encoding=UTF-8
-<span class="hljs-attribute">Content-Length</span>: 33
-
-<span class="ada">This <span class="hljs-keyword">is</span> the post content (<span class="hljs-keyword">body</span>)
-</span></code></pre>
-<p>Antwort:</p>
-<pre><code class="hljs language-http">HTTP/2.0 <span class="hljs-number">200</span> OK
-<span class="hljs-attribute">Content-Type</span>: text/html; charset=UTF-8
-
-<span class="asciidoc"><span class="hljs-bullet">...
-</span></span></code></pre>
-</section><section class="slide"><h2>HTTP: Beispiel API</h2>
-<pre><code class="hljs language-http"><span class="hljs-attribute">GET /todos/12
-Host</span>: jsonplaceholder.typicode.com
-<span class="hljs-attribute">Connection</span>: keep-alive
-</code></pre>
-<pre><code class="hljs language-http">HTTP/2.0 <span class="hljs-number">200</span> OK
-<span class="hljs-attribute">Content-Type</span>: application/json; charset=utf-8
-<span class="hljs-attribute">Etag</span>: W/"5c-cn8o...
-
-<span class="json">{
-  <span class="hljs-attr">"userId"</span>: <span class="hljs-number">1</span>,
-  <span class="hljs-attr">"id"</span>: <span class="hljs-number">12</span>,
-  <span class="hljs-attr">"title"</span>: <span class="hljs-string">"ipsa repellendus fugit nisi"</span>,
-  <span class="hljs-attr">"completed"</span>: <span class="hljs-literal">true</span>
-}
-</span></code></pre>
-</section><section class="slide"><h2>wichtige Anfrage-Headerfelder</h2>
-<ul>
-<li><em><code>Host</code></em></li>
-<li><em><code>Connection</code></em></li>
-<li><code>Origin</code></li>
-<li><code>Accept</code></li>
-<li><code>Accept-Encoding</code></li>
-<li><code>Cookie</code></li>
-<li><code>Cache-Control</code></li>
-<li><code>Dnt</code></li>
-</ul>
-</section><section class="slide"><h2>Wichtige HTTP-Statuscodes</h2>
-<ul>
-<li><code>200 OK</code></li>
-</ul>
-<!-- list separator -->
-<ul>
-<li><code>301 Moved Permanently</code></li>
-<li><code>307 Temporary Redirect</code> (Weiterleitung auf eine andere Adresse)</li>
-<li><code>303 See Other</code> (Weiterleitung auf eine andere Adresse, Methode ändert sich zu <code>GET</code>)</li>
-<li><code>308 Permanent Redirect</code></li>
-<li><code>304 Not Modified</code> (Resource hat sich seit letzter Anfrage nicht geändert)</li>
-</ul>
-</section><section class="slide"><h2>Wichtige HTTP-Statuscodes</h2>
-<ul>
-<li><code>400 Bad Request</code></li>
-<li><code>401 Unauthorized</code></li>
-<li><code>403 Forbidden</code></li>
-<li><code>404 Not Found</code></li>
-</ul>
-<!-- list separator -->
-<ul>
-<li><code>500 Internal Server Error</code></li>
-</ul>
-<p>siehe auch: <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">https://en.wikipedia.org/wiki/List_of_HTTP_status_codes</a></p>
-</section><section class="slide"><h2>wichtige Antwort-Headerfelder</h2>
-<ul>
-<li><code>Content-Length</code></li>
-<li><code>Content-Type</code></li>
-<li><code>Set-Cookie</code></li>
-<li><code>Location</code></li>
-<li><code>Cache-Control</code></li>
-</ul>
-</section><section class="slide"><h2>Content-Type-Headerfeld</h2>
-<p>Mögliche Werte:</p>
-<ul>
-<li><code>text/plain; charset=utf-8</code></li>
-<li><code>text/html; charset=utf-8</code></li>
-<li><code>application/json</code></li>
-<li><code>application/javascript</code></li>
-<li><code>application/ecmascript</code></li>
-<li><code>image/jpeg</code></li>
-<li><code>image/png</code></li>
-<li>...</li>
-</ul>
-</section><section class="slide"><h2>Set-Cookie-Headerfeld</h2>
-<p>Beispiel:</p>
-<pre><code class="hljs language-http"><span class="hljs-attribute">GET /
-Host</span>: www.google.com
-
-<span class="routeros">Set-Cookie: <span class="hljs-attribute">1P_JAR</span>=2019-04-24-08; <span class="hljs-attribute">expires</span>=...; <span class="hljs-attribute">path</span>=/; <span class="hljs-attribute">domain</span>=.google.com
-Set-Cookie: <span class="hljs-attribute">IDCC</span>=AN0-TYtU7...fo; <span class="hljs-attribute">expires</span>=...; <span class="hljs-attribute">path</span>=/; <span class="hljs-attribute">domain</span>=.google.com
-</span></code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>HTTP in JavaScript</h1>
-<p>Möglichkeiten:</p>
-<ul>
-<li>XMLHttpRequest</li>
-<li>fetch</li>
-<li>jQuery</li>
-<li>axios</li>
-</ul>
-</section></section><section class="slides-section"><section class="slide"><h1>Asynchrones JavaScript</h1>
-</section><section class="slide"><h2>Asynchrones JavaScript</h2>
-<p>Siehe Präsentation <a href="javascript-async-and-network-requests-de.html">Javascript: async and network requests</a></p>
-</section></section><section class="slides-section"><section class="slide"><h1>JavaScript Fortgeschritten</h1>
-</section><section class="slide"><h2>Module &#x26; Imports</h2>
-<ul>
-<li>Möglichkeit, Funktionalität aus anderen js-Dateien zu importieren – kein globaler Namespace mehr</li>
-<li>Benötigt einen Bundler, z.B. webpack</li>
-</ul>
-<pre><code class="hljs language-js"><span class="hljs-comment">// user.js</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span> </span>{
-  ...
-}
-</code></pre>
-<pre><code class="hljs language-js"><span class="hljs-comment">// main.js</span>
-<span class="hljs-keyword">import</span> { User } <span class="hljs-keyword">from</span> <span class="hljs-string">'user.js'</span>;
-</code></pre>
-</section><section class="slide"><h2>Module &#x26; Imports</h2>
-<pre><code class="hljs language-js"><span class="hljs-comment">// user.js</span>
-<span class="hljs-comment">// es kann 1 default export geben</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span> </span>{
-   ...
-}
-</code></pre>
-<pre><code class="hljs language-js"><span class="hljs-comment">// main.js</span>
-<span class="hljs-keyword">import</span> User <span class="hljs-keyword">from</span> <span class="hljs-string">'user.js'</span>;
-</code></pre>
-</section><section class="slide"><h2>Klassen und Vererbung</h2>
-<pre><code class="hljs language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Person</span> </span>{
-  <span class="hljs-keyword">constructor</span>(firstName, lastName, userName) {
-    <span class="hljs-comment">// ruft Person.constructor auf</span>
-    <span class="hljs-keyword">super</span>(firstName, lastName);
-    <span class="hljs-keyword">this</span>.userName = userName;
-  }
-}
-</code></pre>
-</section><section class="slide"><h2>Spread Syntax (Arrays und Objekte)</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> squares = [<span class="hljs-number">1</span>, <span class="hljs-number">4</span>, <span class="hljs-number">9</span>];
-<span class="hljs-keyword">let</span> moreSquares = [...squares, <span class="hljs-number">16</span>, <span class="hljs-number">25</span>];
-<span class="hljs-comment">// moreSquares: [1, 4, 9, 16, 25]</span>
-</code></pre>
-<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> pers = { <span class="hljs-attr">firstName</span>: <span class="hljs-string">'John'</span>, <span class="hljs-attr">lastName</span>: <span class="hljs-string">'Doe'</span>, <span class="hljs-attr">age</span>: <span class="hljs-number">31</span> };
-<span class="hljs-keyword">let</span> updatedPers = { ...person, <span class="hljs-attr">email</span>: <span class="hljs-string">'j@d.com'</span>, <span class="hljs-attr">age</span>: <span class="hljs-number">32</span> };
-<span class="hljs-comment">// {firstName: 'John', lastName: 'Doe',</span>
-<span class="hljs-comment">// email: 'j@d.com', age: 32}</span>
-</code></pre>
+      <div class="slides slides"><section class="slides-section"><section class="slide"><h1>JavaScript Intermediate</h1>
 </section></section><section class="slides-section"><section class="slide"><h1>map, filter, reduce</h1>
 <h3>Array-Methoden für die funktionale Programmierung</h3>
 </section><section class="slide"><h2>map</h2>
@@ -2394,6 +2092,54 @@ Set-Cookie: <span class="hljs-attribute">IDCC</span>=AN0-TYtU7...fo; <span class
 );
 
 <span class="hljs-comment">// 317 -> 261 -> 1281 -> 1268 -> 1172</span>
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Objektorientierte Programmierung (alt)</h1>
+</section><section class="slide"><h2>Prototypen und Konstruktorfunktionen</h2>
+<p>OOP in JavaScript basiert nicht auf Klassen, sondern auf sogenannten <em>Prototypen</em></p>
+<p>Vergleich aus dem echten Leben: Auto-Objekte</p>
+<p>Eine Auto-Klasse wäre ein Bauplan für ein Auto</p>
+<p>Ein Auto-Prototyp wäre ein bestehendes Auto auf dessen Vorlage weitere Autos gebaut werden können</p>
+</section><section class="slide"><h2>Prototypen und Konstruktorfunktionen</h2>
+<p>Bei OOP in JavaScript beginnen wir damit, die Konstruktorfunktion zu schreiben, die ein Objekt initialisiert:</p>
+<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Car</span>(<span class="hljs-params">brand, model</span>) </span>{
+  <span class="hljs-keyword">this</span>.brand = brand;
+  <span class="hljs-keyword">this</span>.model = model;
+}
+</code></pre>
+</section><section class="slide"><h2>Prototypen und Methodendefinition</h2>
+<pre><code class="hljs language-js">Car.prototype.accelerate = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'wrooom!'</span>);
+};
+
+Car.prototype.getDescription = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.make + <span class="hljs-string">' '</span> + <span class="hljs-keyword">this</span>.model;
+};
+</code></pre>
+</section><section class="slide"><h2>Verwendung von Objekten</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">var</span> myCar = <span class="hljs-keyword">new</span> Car(<span class="hljs-string">'VW'</span>, <span class="hljs-string">'Golf'</span>);
+
+<span class="hljs-built_in">console</span>.log(myCar);
+<span class="hljs-built_in">console</span>.log(myCar.getDescription());
+myCar.accelerate();
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Objektorientierte Programmierung (ab ES2015)</h1>
+</section><section class="slide"><h2>OOP (neu)</h2>
+<pre><code class="hljs language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Car</span> </span>{
+  <span class="hljs-keyword">constructor</span>(brand, model) {
+    <span class="hljs-keyword">this</span>.brand = brand;
+    <span class="hljs-keyword">this</span>.model = model;
+  }
+
+  accelerate() {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'wroom!'</span>);
+  }
+}
+</code></pre>
+</section><section class="slide"><h2>OOP (neu)</h2>
+<p>Vererbung</p>
+<pre><code class="hljs language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LuxuryCar</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Car</span> </span>{
+  openRoof() {}
+}
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>this - quirks</h1>
 </section><section class="slide"><h2>this - quirks</h2>
@@ -2463,54 +2209,6 @@ fg(); <span class="hljs-comment">// klappt jetzt auch</span>
     <span class="hljs-keyword">this</span>.greet = <span class="hljs-keyword">this</span>.greet.bind(<span class="hljs-keyword">this</span>);
   }
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Objektorientierte Programmierung (alt)</h1>
-</section><section class="slide"><h2>Prototypen und Konstruktorfunktionen</h2>
-<p>OOP in JavaScript basiert nicht auf Klassen, sondern auf sogenannten <em>Prototypen</em></p>
-<p>Vergleich aus dem echten Leben: Auto-Objekte</p>
-<p>Eine Auto-Klasse wäre ein Bauplan für ein Auto</p>
-<p>Ein Auto-Prototyp wäre ein bestehendes Auto auf dessen Vorlage weitere Autos gebaut werden können</p>
-</section><section class="slide"><h2>Prototypen und Konstruktorfunktionen</h2>
-<p>Bei OOP in JavaScript beginnen wir damit, die Konstruktorfunktion zu schreiben, die ein Objekt initialisiert:</p>
-<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Car</span>(<span class="hljs-params">brand, model</span>) </span>{
-  <span class="hljs-keyword">this</span>.brand = brand;
-  <span class="hljs-keyword">this</span>.model = model;
-}
-</code></pre>
-</section><section class="slide"><h2>Prototypen und Methodendefinition</h2>
-<pre><code class="hljs language-js">Car.prototype.accelerate = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'wrooom!'</span>);
-};
-
-Car.prototype.getDescription = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.make + <span class="hljs-string">' '</span> + <span class="hljs-keyword">this</span>.model;
-};
-</code></pre>
-</section><section class="slide"><h2>Verwendung von Objekten</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">var</span> myCar = <span class="hljs-keyword">new</span> Car(<span class="hljs-string">'VW'</span>, <span class="hljs-string">'Golf'</span>);
-
-<span class="hljs-built_in">console</span>.log(myCar);
-<span class="hljs-built_in">console</span>.log(myCar.getDescription());
-myCar.accelerate();
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Objektorientierte Programmierung (ab ES2015)</h1>
-</section><section class="slide"><h2>OOP (neu)</h2>
-<pre><code class="hljs language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Car</span> </span>{
-  <span class="hljs-keyword">constructor</span>(brand, model) {
-    <span class="hljs-keyword">this</span>.brand = brand;
-    <span class="hljs-keyword">this</span>.model = model;
-  }
-
-  accelerate() {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'wroom!'</span>);
-  }
-}
-</code></pre>
-</section><section class="slide"><h2>OOP (neu)</h2>
-<p>Vererbung</p>
-<pre><code class="hljs language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LuxuryCar</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Car</span> </span>{
-  openRoof() {}
-}
-</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Libraries</h1>
 </section><section class="slide"><h2>Libraries</h2>
 <p>verbreitete Libraries:</p>
@@ -2561,16 +2259,7 @@ myCar.accelerate();
 ]);
 
 <span class="hljs-keyword">const</span> newTodos = todos.setIn([<span class="hljs-number">1</span>, <span class="hljs-string">'completed'</span>], <span class="hljs-literal">true</span>);
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Übungen</h1>
-<ul>
-<li>Lotto - Generator</li>
-<li>uhr</li>
-<li>Todo-Liste</li>
-<li>chessboard</li>
-<li>facebook</li>
-<li>es6</li>
-</ul></section></section></div>
+</code></pre></section></section></div>
     </div>
     <script>/*!
  * reveal.js

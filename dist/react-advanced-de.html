@@ -2782,25 +2782,32 @@ Ganze Anwendung wird in ein <code>BrowserRouter</code> - Element eingebettet</p>
 <li>Anwendung wird am Server gerendert</li>
 <li>Vorgerenderte Anwendung und zugehörige Daten um sie dynamisch zu machen werden zum Client gesendet</li>
 </ul>
-</section><section class="slide"><h2>API-Abfragen mit next.js</h2>
-<p>Wenn wir am Server API-Daten abfragen möchten, bevor die Komponente gerendert wird, implementieren wir die next-spezifische Methode <code>getInitialProps</code></p>
+</section><section class="slide"><h2>Anbindung von Datenquellen</h2>
+<p>Abfragen von Daten zum Rendern einer Seite:</p>
+<ul>
+<li>Abfrage für statische Daten (während des Builds) mittels <code>getStaticProps</code></li>
+<li>Abfrage zum server-seitigen Rendering mittels <code>getServerSideProps</code></li>
+</ul>
 <p>Um <code>fetch</code> in node.js zu verwenden, können wir das npm-Paket <code>isomorphic-fetch</code> verwenden.</p>
-</section><section class="slide"><h2>API-Abfragen mit next.js</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> Post = <span class="hljs-function">(<span class="hljs-params">{ url, title, body }</span>) =></span> (
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">h2</span>></span>
-      Post {url.query.id}: {title}
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">h2</span>></span>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">p</span>></span>{body}<span class="hljs-tag">&#x3C;/<span class="hljs-name">p</span>></span>
-  <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
-);
+</section><section class="slide"><h2>Anbindung von Datenquellen</h2>
+<pre><code class="hljs language-js"><span class="hljs-comment">// pages/pokemon.js</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> ({ pokemon }) => {
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">ul</span>></span>
+      {pokemon.map((pokemon) => (
+        <span class="hljs-tag">&#x3C;<span class="hljs-name">li</span> <span class="hljs-attr">key</span>=<span class="hljs-string">{pokemon.name}</span>></span>{pokemon.name}<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span>
+      ))}
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">ul</span>></span></span>
+  );
+};
 
-Post.getInitialProps = <span class="hljs-function"><span class="hljs-params">context</span> =></span>
-  fetch(
-    <span class="hljs-string">`https://jsonplaceholder.typicode.com/posts/<span class="hljs-subst">${context.query.id}</span>`</span>
-  )
-    .then(<span class="hljs-function"><span class="hljs-params">response</span> =></span> response.json())
-    .then(<span class="hljs-function"><span class="hljs-params">post</span> =></span> ({ <span class="hljs-attr">title</span>: post.title, <span class="hljs-attr">body</span>: post.body }));
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> getStaticProps = <span class="hljs-keyword">async</span> () => {
+  <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> fetch(
+    <span class="hljs-string">'https://pokeapi.co/api/v2/pokemon'</span>
+  );
+  <span class="hljs-keyword">const</span> pokemon = (<span class="hljs-keyword">await</span> res.json()).results;
+  <span class="hljs-keyword">return</span> { <span class="hljs-attr">props</span>: { <span class="hljs-attr">pokemon</span>: pokemon } };
+};
 </code></pre>
 </section><section class="slide"><h2>Static Site Generator</h2>
 <p>Standardmäßig läuft <em>next.js</em> auf einem node Server und rendert Inhalte dynamisch</p>
@@ -3579,8 +3586,8 @@ useEffect(getInstallPermission, []);
 <p>HOCs sind Funktionen, die eine Komponentendefinition verändern / erweitern</p>
 </section><section class="slide"><h2>Higher-order components</h2>
 <p>Beispiel:</p>
-<p><em>React</em>'s <code>memo</code> ist eine HOC</p>
-<p>Es rehält eine Komponente und gibt eine memoisierte Komponente zurück:</p>
+<p>Reacts <code>memo</code> ist eine HOC</p>
+<p>Es erhält eine Komponente und gibt eine memoisierte Komponente zurück:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> MemoizedRating = memo(Rating);
 </code></pre>
 </section><section class="slide"><h2>Higher-order components</h2>
@@ -3592,7 +3599,7 @@ useEffect(getInstallPermission, []);
   mapDispatchToProps
 );
 </code></pre>
-<p>Die entstehende HOC rehält eine normale Komponente und gibt eine Komponente zurück, die mit dem Redux Store verbunden ist:</p>
+<p>Die entstehende HOC erhält eine normale Komponente und gibt eine Komponente zurück, die mit dem Redux Store verbunden ist:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> RatingContainer = connector(Rating);
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Dateistruktur</h1>
@@ -3612,12 +3619,12 @@ useEffect(getInstallPermission, []);
 <p>Installation der benötigten Pakete:</p>
 <pre><code class="hljs language-bash">npm install react react-dom
 </code></pre>
-<pre><code class="hljs language-bash">npm install --save-dev parcel-bundler babel-preset-react babel-preset-env
+<pre><code class="hljs language-bash">npm install --save-dev parcel-bundler @babel/preset-react @babel/preset-env
 </code></pre>
 </section><section class="slide"><h2>Konfiguration von Babel</h2>
-<p>via <code>.babelrc</code>-Datei:</p>
+<p>via <code>babel.config.json</code>:</p>
 <pre><code class="hljs language-json">{
-  <span class="hljs-attr">"presets"</span>: [<span class="hljs-string">"env"</span>, <span class="hljs-string">"react"</span>]
+  <span class="hljs-attr">"presets"</span>: [<span class="hljs-string">"@babel/preset-env"</span>, <span class="hljs-string">"@babel/react"</span>]
 }
 </code></pre>
 </section><section class="slide"><h2>npm Scripts</h2>
@@ -3641,7 +3648,7 @@ useEffect(getInstallPermission, []);
 <span class="hljs-tag">&#x3C;/<span class="hljs-name">html</span>></span>
 </code></pre>
 </section><section class="slide"><h2>Rendern einer App-Komponente</h2>
-<p>Wir erstelen <code>src/index.js</code>:</p>
+<p>Wir erstellen <code>src/index.js</code>:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
 <span class="hljs-keyword">import</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>;
 

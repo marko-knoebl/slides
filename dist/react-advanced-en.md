@@ -913,28 +913,34 @@ process with next.js:
 
 ## Data fetching in next.js
 
-If we want to fetch data on the server side before a component renders we implement the method `getInitialProps`:
+Fetching data for rendering a page:
+
+- fetch static data via `getStaticProps` (during the build)
+- fetch server-side dynamic data for pre-rendering via `getServerSideProps`
 
 For using `fetch` in node.js we can use the npm Package `isomorphic-fetch`
 
 ## Data fetching in next.js
 
 ```js
-const Post = ({ url, title, body }) => (
-  <div>
-    <h2>
-      Post {url.query.id}: {title}
-    </h2>
-    <p>{body}</p>
-  </div>
-);
+// pages/pokemon.js
+export default ({ pokemon }) => {
+  return (
+    <ul>
+      {pokemon.map((pokemon) => (
+        <li key={pokemon.name}>{pokemon.name}</li>
+      ))}
+    </ul>
+  );
+};
 
-Post.getInitialProps = context =>
-  fetch(
-    `https://jsonplaceholder.typicode.com/posts/${context.query.id}`
-  )
-    .then(response => response.json())
-    .then(post => ({ title: post.title, body: post.body }));
+export const getStaticProps = async () => {
+  const res = await fetch(
+    'https://pokeapi.co/api/v2/pokemon'
+  );
+  const pokemon = (await res.json()).results;
+  return { props: { pokemon: pokemon } };
+};
 ```
 
 ## Static site generation
@@ -2098,22 +2104,22 @@ npm install react react-dom
 ```
 
 ```bash
-npm install --save-dev parcel-bundler babel-preset-react babel-preset-env
+npm install --save-dev parcel-bundler @babel/preset-react @babel/preset-env
 ```
 
 ## Configuring babel
 
-via `.babelrc` file:
+via `babel.config.json` file:
 
 ```json
 {
-  "presets": ["env", "react"]
+  "presets": ["@babel/preset-env", "@babel/react"]
 }
 ```
 
 ## npm scripts
 
-add script to `package.json`:
+add scripts to `package.json`:
 
 ```json
 "scripts": {
@@ -2124,7 +2130,7 @@ add script to `package.json`:
 
 ## HTML entry point
 
-Create `src/index.html`:
+Create _src/index.html_:
 
 ```html
 <!DOCTYPE html>
@@ -2141,7 +2147,7 @@ Create `src/index.html`:
 
 ## Rendering an App component
 
-Create `index.js`:
+Create _src/index.js_:
 
 ```js
 import React from 'react';

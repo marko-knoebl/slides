@@ -141,6 +141,24 @@ JSX = Template language of React
 - Show the current date
 - Show either "heads" or "tails" inside a div
 
+## JSX: Simple tasks
+
+date:
+
+```jsx
+const dateString = new Date().toLocaleDateString();
+```
+
+```jsx
+<div>curent date: {dateString}</div>
+```
+
+heads or tails:
+
+```jsx
+<div>{Math.random() > 0.5 ? 'heads' : 'tails'}</div>
+```
+
 ## JSX: Properties
 
 we can also change from XML to JS in properties:
@@ -151,7 +169,42 @@ we can also change from XML to JS in properties:
 </a>
 ```
 
-Note there are no quote characters around the value of _href_
+Note: no quote characters around the value of _href_
+
+## JSX: repeating elements
+
+multiple elements may be added via arrays:
+
+```jsx
+const elements = [
+  <div>alpha</div>,
+  <div>bravo</div>,
+  <div>charlie</div>,
+];
+```
+
+```xml
+<h1>three elements</h1>
+{ elements }
+```
+
+## JSX: repeating elements
+
+example: displaying all method names of the _React_ object inside a _ul_ element
+
+```jsx
+const reactMethods = [];
+for (let method in React) {
+  reactMethods.push(<li>{method}</li>);
+}
+```
+
+```jsx
+<div>
+  React Methods:
+  <ul>{reactMethods}</ul>
+</div>
+```
 
 ## JSX: events
 
@@ -168,6 +221,28 @@ const hello = () => {
 
 list of browser events:
 <https://www.w3schools.com/jsref/dom_obj_event.asp>
+
+## JSX: events
+
+note: an event handler must be a **function**, not a function call
+
+OK:
+
+```js
+<button onClick={alert}>Say Hello</button>
+```
+
+not OK:
+
+```js
+<button onClick={alert('hello')}>Say Hello</button>
+```
+
+OK:
+
+```js
+<button onClick={() => alert('hello')}>Say Hello</button>
+```
 
 # State
 
@@ -187,10 +262,10 @@ import { useState } from 'react';
 
 ## state in function components
 
-The function `useState` may be called (repeatedly) at the beginning of the component function.
+`useState` may be called (repeatedly) at the beginning of the component function
 
 - `useState` takes one parameter - the initial state value
-- on each call `useState` returns an array with two entries: the current state and a function which can be used to set the state to a different value
+- on each call `useState` returns an array with two entries: the current state and a function to set the state to a new value
 
 ```js
 const App = () => {
@@ -215,16 +290,13 @@ const Counter = () => {
     <button
       onClick={() => {
         setCount(count + 1);
-      }}>
+      }}
+    >
       {count}
     </button>
   );
 };
 ```
-
-## Example: Counter
-
-Task: Add a _reset_ button to the application
 
 ## Example: Slideshow
 
@@ -394,7 +466,7 @@ avoiding mutations by using immer:
 ```js
 import produce from 'immer';
 
-const newTodos = produce(todos, todosDraft => {
+const newTodos = produce(todos, (todosDraft) => {
   todosDraft[0].completed = true;
   todosDraft.push({ title: 'study', completed: false });
 });
@@ -408,7 +480,7 @@ In the context of React, input elements are special:
 
 Their properties (especially `.value`) can be directly modified by the user
 
-Therefore there are aspects of the UI state which would not be captured in the state.
+Therefore there would be aspects of the UI state which would not be captured in the React state.
 
 ## Inputs
 
@@ -417,7 +489,7 @@ This is how we can capture changes and track them in the state:
 ```jsx
 <input
   value={inputText}
-  onChange={event => {
+  onChange={(event) => {
     setInputText(event.target.value);
   }}
 />
@@ -431,10 +503,11 @@ Replacing the default behaviour:
 
 ```jsx
 <form
-  onSubmit={event => {
+  onSubmit={(event) => {
     event.preventDefault();
     // handle submit
-  }}>
+  }}
+>
   <input />
 </form>
 ```
@@ -450,15 +523,16 @@ const NewsletterRegistration = () => {
 
   return (
     <form
-      onSubmit={e => {
+      onSubmit={(e) => {
         e.preventDefault();
         console.log(email);
-      }}>
+      }}
+    >
       <input
         type="email"
         name="email"
         value={email}
-        onChange={event => setEmail(event.target.value)}
+        onChange={(event) => setEmail(event.target.value)}
         onBlur={() => setEmailEdited(true)}
       />
       <button disabled={!isEmail(email)}>subscribe</button>
@@ -469,7 +543,7 @@ const NewsletterRegistration = () => {
   );
 };
 
-const isEmail = email =>
+const isEmail = (email) =>
   email.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i);
 ```
 
@@ -489,15 +563,16 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 const NewsletterRegistration = () => (
   <Formik
     initialValues={{ email: '' }}
-    onSubmit={values => console.log(values)}
-    validate={values => {
+    onSubmit={(values) => console.log(values)}
+    validate={(values) => {
       const errors = {};
       if (!isEmail(values.email)) {
         errors.email = 'invalid email';
       }
       return errors;
-    }}>
-    {props => (
+    }}
+  >
+    {(props) => (
       <Form>
         <Field type="email" name="email" />
         <button disabled={!props.isValid}>subscribe</button>
@@ -507,7 +582,7 @@ const NewsletterRegistration = () => (
   </Formik>
 );
 
-const isEmail = email =>
+const isEmail = (email) =>
   email.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i);
 ```
 
@@ -525,67 +600,43 @@ features:
 - change state
 - analyse render performance of components
 
-# map, filter, reduce
-
-### Array methods for functional programming
-
-## map
-
-- modifies each entry in an array via a function
-- returns a new array
-
-```js
-let myNumbers = [2, 10, 23];
-
-let triple = n => 3 * n;
-
-let newNumbers = myNumbers.map(triple);
-// [6, 30, 69]
-```
-
-## filter
-
-- only keeps specific entries in an array
-- uses a function to check entries for a specific criterion
-- returns a new array
-
-```js
-let myNumbers = [2, 10, 23];
-
-let isEven = n => n % 2 === 0;
-
-let newNumbers = myNumbers.filter(isEven);
-// [2, 10]
-```
-
-## reduce
-
-- computes one value based on a start value and all entries in an array
-- uses a function that computes a resulting value from two given values - this function will be called repeatedly
-
-## reduce - example
-
-```js
-let transactions = [
-  { amount: -56, title: 'groceries' },
-  { amount: +1020, title: 'salary' },
-  { amount: -13, title: 'dinner' },
-  { amount: -96, title: 'electricity' },
-];
-let initialBalance = 317;
-
-let reducer = (aggregator, transaction) =>
-  aggregator + transaction.amount;
-
-let currentBalance = transactions.reduce(
-  reducer,
-  initialBalance
-);
-
-// 317 -> 261 -> 1281 -> 1268 -> 1172
-```
-
 # JSX in detail
+
+## JSX in detail
+
+topics:
+
+- attribute names
+- repeating elements
+- if / else
+- if
+- whitespace
+- comments
+- fragments
+- valid elements
+- compilation
+
+## attribute names
+
+Some Element attributes have different names than in HTML (reflecting standard DOM attributes)
+
+- `className` (instead of `class`)
+- `onClick` (instead of `onclick`)
+- `htmlFor` (instead of `for`)
+
+## attribute names
+
+example: CSS classes
+
+```jsx
+<li
+  className={
+    isCompleted ? 'todoitem completed' : 'todoitem'
+  }
+>
+  [...]
+</li>
+```
 
 ## JSX: repeating elements
 
@@ -616,14 +667,31 @@ const TodoApp = () => {
 
 ## JSX: repeating elements
 
-In practice this is mostly done via `.map()`:
+In practice this is mostly done via `.map()`
+
+## JSX: repeating elements
+
+The `.map` method creates a new array by transforming each element in an existing array
+
+example:
+
+```js
+const originalNumbers = [2, 3, 4];
+
+const triple = (n) => 3 * n;
+
+const newNumbers = originalNumbers.map(triple);
+// [6, 9, 12]
+```
+
+## JSX: repeating elements
 
 ```jsx
 const TodoApp = () => {
   const [todos, setTodos] = useState(initialTodos);
   return (
     <ul>
-      {todos.map(todo => (
+      {todos.map((todo) => (
         <li>{todo.title}</li>
       ))}
     </ul>
@@ -639,7 +707,7 @@ solution: **key**:
 
 ```jsx
 <ul>
-  {todos.map(todo => (
+  {todos.map((todo) => (
     <li key={todo.id}>{todo.title}</li>
   ))}
 </ul>
@@ -745,6 +813,14 @@ return (
 );
 ```
 
+## valid elements in JSX
+
+- string
+- number
+- components (e.g. `<div>`, `<img>`, `<MyComponent>`)
+- Arrays of other elements
+- null, undefined, true, false (these are not rendered)
+
 ## JSX compilation
 
 ```jsx
@@ -763,14 +839,17 @@ const element = React.createElement(
 
 # Styling in JSX
 
-## CSS classes
+## Tools
 
-```jsx
-<div
-  className={'todoitem' + isCompleted ? ' completed' : ''}>
-  [...]
-</div>
-```
+- external stylesheets
+  - _classnames_ package
+  - CSS modules
+  - SCSS
+- _style_ property
+- libraries
+  - styled-components
+  - radium
+  - JSS
 
 ## CSS classes
 
@@ -783,7 +862,8 @@ import classNames from 'classnames';
   className={classNames({
     todoitem: true,
     completed: isCompleted,
-  })}>
+  })}
+>
   [...]
 </div>;
 ```
@@ -864,7 +944,7 @@ const Container = styled.div`
   justify-content: center;
 `;
 
-const Slideshow = props => (
+const Slideshow = (props) => (
   <Container>
     <button>prev</button>
     <BlockImg src="..." alt="..." />
@@ -881,12 +961,12 @@ dynamic styles via props:
 import styled from 'styled-components';
 
 const Button = styled.button`
-  color: ${props => (props.primary ? 'black' : 'white')};
-  background-color: ${props =>
+  color: ${(props) => (props.primary ? 'black' : 'white')};
+  background-color: ${(props) =>
     props.primary ? 'white' : 'navy'};
 `;
 
-const Slideshow = props => (
+const Slideshow = (props) => (
   <Container>
     <Button primary={true}>prev</Button>
     <BlockImg src="..." alt="..." />
@@ -914,9 +994,10 @@ const styles = {
   },
 };
 
-const TestButton = props => (
+const TestButton = (props) => (
   <button
-    style={[styles.base, props.primary && styles.primary]}>
+    style={[styles.base, props.primary && styles.primary]}
+  >
     test
   </button>
 );
@@ -971,7 +1052,7 @@ Example:
 example (simple):
 
 ```jsx
-const Rating = props => (
+const Rating = (props) => (
   <div className="rating">
     {'★'.repeat(props.stars) + '☆'.repeat(5 - props.stars)}
   </div>
@@ -991,7 +1072,7 @@ Example: a `Bordered` component:
 Defining the component:
 
 ```jsx
-const Bordered = props => (
+const Bordered = (props) => (
   <div className="bordered">{props.children}</div>
 );
 ```
@@ -1014,11 +1095,11 @@ Example: Event `onChange` in the `Rating` component (each star is a `span` eleme
 ## Custom events
 
 ```jsx
-const Rating = props => {
+const Rating = (props) => {
   const starIds = [1, 2, 3, 4, 5];
   return (
     <div>
-      {starIds.map(id => (
+      {starIds.map((id) => (
         <span onClick={() => props.onChange(id)} key={id}>
           {id <= props.stars ? '★' : '☆'}
         </span>
@@ -1039,7 +1120,7 @@ const [prodRating, setProdRating] = useState(3);
 ```jsx
 <Rating
   stars={prodRating}
-  onChange={newRating => setProdRating(newRating)}
+  onChange={(newRating) => setProdRating(newRating)}
 />
 ```
 
@@ -1060,7 +1141,8 @@ Event: `onToggle` - function which is called with the new state
 <button
   onClick={() => {
     props.onToggle(!props.active);
-  }}>
+  }}
+>
   {props.active ? 'on' : 'off'}
 </button>
 ```
@@ -1074,7 +1156,7 @@ const [myOption, setMyOption] = useState(true);
 
 <ToggleButton
   active={myOption}
-  onToggle={newIsActive => {
+  onToggle={(newIsActive) => {
     setMyOption(newIsActive);
   }}
 />;
@@ -1170,7 +1252,7 @@ type TodoListProps = {
   onDelete: (id: number) => void;
 };
 
-const TodoList: FC<TodoListProps> = props => {
+const TodoList: FC<TodoListProps> = (props) => {
   // ....
 };
 ```
@@ -1195,9 +1277,10 @@ With inline event handlers no event type must be declared:
 
 ```jsx
 <button
-  onClick={event => {
+  onClick={(event) => {
     event.stopPropagation();
-  }}>
+  }}
+>
   test
 </button>
 ```
@@ -1237,13 +1320,13 @@ const TodoApp = () => {
   const [todos, setTodos] = useState([]);
   const loadTodos = () => {
     fetch('https://jsonplaceholder.typicode.com/todos')
-      .then(res => res.json())
-      .then(todos => setTodos(todos));
+      .then((res) => res.json())
+      .then((todos) => setTodos(todos));
   };
   useEffect(loadTodos, []);
   return (
     <ul>
-      {todos.map(todo => (
+      {todos.map((todo) => (
         <li key={todo.id}>{todo.title}</li>
       ))}
     </ul>
@@ -1263,8 +1346,8 @@ const SpaceXLaunch = () => {
     fetch(
       `https://api.spacexdata.com/v3/launches/${launchNr}`
     )
-      .then(res => res.json())
-      .then(data => setLaunchData(data));
+      .then((res) => res.json())
+      .then((data) => setLaunchData(data));
   };
   useEffect(fetchLaunch, [launchNr]);
   return (
@@ -1289,8 +1372,8 @@ const Pokemon = () => {
   const [data, setData] = useState({});
   const fetchPokemon = () => {
     fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
-      .then(res => res.json())
-      .then(data => setData(data));
+      .then((res) => res.json())
+      .then((data) => setData(data));
   };
   useEffect(fetchPokemon, [id]);
   return (

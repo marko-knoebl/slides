@@ -911,30 +911,36 @@ Prozess mit next.js:
 - Anwendung wird am Server gerendert
 - Vorgerenderte Anwendung und zugehörige Daten um sie dynamisch zu machen werden zum Client gesendet
 
-## API-Abfragen mit next.js
+## Anbindung von Datenquellen
 
-Wenn wir am Server API-Daten abfragen möchten, bevor die Komponente gerendert wird, implementieren wir die next-spezifische Methode `getInitialProps`
+Abfragen von Daten zum Rendern einer Seite:
+
+- Abfrage für statische Daten (während des Builds) mittels `getStaticProps`
+- Abfrage zum server-seitigen Rendering mittels `getServerSideProps`
 
 Um `fetch` in node.js zu verwenden, können wir das npm-Paket `isomorphic-fetch` verwenden.
 
-## API-Abfragen mit next.js
+## Anbindung von Datenquellen
 
 ```js
-const Post = ({ url, title, body }) => (
-  <div>
-    <h2>
-      Post {url.query.id}: {title}
-    </h2>
-    <p>{body}</p>
-  </div>
-);
+// pages/pokemon.js
+export default ({ pokemon }) => {
+  return (
+    <ul>
+      {pokemon.map((pokemon) => (
+        <li key={pokemon.name}>{pokemon.name}</li>
+      ))}
+    </ul>
+  );
+};
 
-Post.getInitialProps = context =>
-  fetch(
-    `https://jsonplaceholder.typicode.com/posts/${context.query.id}`
-  )
-    .then(response => response.json())
-    .then(post => ({ title: post.title, body: post.body }));
+export const getStaticProps = async () => {
+  const res = await fetch(
+    'https://pokeapi.co/api/v2/pokemon'
+  );
+  const pokemon = (await res.json()).results;
+  return { props: { pokemon: pokemon } };
+};
 ```
 
 ## Static Site Generator
@@ -2040,9 +2046,9 @@ HOCs sind Funktionen, die eine Komponentendefinition verändern / erweitern
 
 Beispiel:
 
-_React_'s `memo` ist eine HOC
+Reacts `memo` ist eine HOC
 
-Es rehält eine Komponente und gibt eine memoisierte Komponente zurück:
+Es erhält eine Komponente und gibt eine memoisierte Komponente zurück:
 
 ```js
 const MemoizedRating = memo(Rating);
@@ -2062,7 +2068,7 @@ const connector = connect(
 );
 ```
 
-Die entstehende HOC rehält eine normale Komponente und gibt eine Komponente zurück, die mit dem Redux Store verbunden ist:
+Die entstehende HOC erhält eine normale Komponente und gibt eine Komponente zurück, die mit dem Redux Store verbunden ist:
 
 ```js
 const RatingContainer = connector(Rating);
@@ -2098,16 +2104,16 @@ npm install react react-dom
 ```
 
 ```bash
-npm install --save-dev parcel-bundler babel-preset-react babel-preset-env
+npm install --save-dev parcel-bundler @babel/preset-react @babel/preset-env
 ```
 
 ## Konfiguration von Babel
 
-via `.babelrc`-Datei:
+via `babel.config.json`:
 
 ```json
 {
-  "presets": ["env", "react"]
+  "presets": ["@babel/preset-env", "@babel/react"]
 }
 ```
 
@@ -2141,7 +2147,7 @@ Wir erstellen `src/index.html`:
 
 ## Rendern einer App-Komponente
 
-Wir erstelen `src/index.js`:
+Wir erstellen `src/index.js`:
 
 ```js
 import React from 'react';

@@ -139,7 +139,25 @@ JSX = Templatesprache von React
 ## JSX: Aufgaben
 
 - Zeige das aktuelle Datum an
-- Zeige zufällig entweder den Text "Kopf" oder "Zahl" in einem div an
+- Münzwurf: zeige zufällig entweder den Text "heads" oder "tails" in einem div an
+
+## JSX: Aufgaben
+
+Datum:
+
+```jsx
+const dateString = new Date().toLocaleDateString();
+```
+
+```jsx
+<div>curent date: {dateString}</div>
+```
+
+Münzwurf:
+
+```jsx
+<div>{Math.random() > 0.5 ? 'heads' : 'tails'}</div>
+```
 
 ## JSX: Properties
 
@@ -152,6 +170,41 @@ Der Wechsel von XML auf JS klappt auch bei Properties:
 ```
 
 Beachte die fehlenden Anführungszeichen bei href
+
+## JSX: Elemente wiederholen
+
+Mehrere Elemente können via Arrays eingebunden werden:
+
+```jsx
+const elements = [
+  <div>alpha</div>,
+  <div>bravo</div>,
+  <div>charlie</div>,
+];
+```
+
+```xml
+<h1>three elements</h1>
+{ elements }
+```
+
+## JSX: Elemente wiederholen
+
+Aufgabe: Anzeigen aller Methoden des _React_-Objekts in einem _ul_-Element
+
+```jsx
+const reactMethods = [];
+for (let method in React) {
+  reactMethods.push(<li>{method}</li>);
+}
+```
+
+```jsx
+<div>
+  React Methods:
+  <ul>{reactMethods}</ul>
+</div>
+```
 
 ## JSX: events
 
@@ -168,6 +221,28 @@ const hello = () => {
 
 Liste von Browser-Events:  
 <https://www.w3schools.com/jsref/dom_obj_event.asp>
+
+## JSX: events
+
+Achtung: Ein Event Handler muss eine **Funktion** sein, und nicht ein Funktionsaufruf
+
+OK:
+
+```js
+<button onClick={alert}>Say Hello</button>
+```
+
+nicht OK:
+
+```js
+<button onClick={alert('hello')}>Say Hello</button>
+```
+
+OK:
+
+```js
+<button onClick={() => alert('hello')}>Say Hello</button>
+```
 
 # State (Komponentenzustand)
 
@@ -187,7 +262,7 @@ import { useState } from 'react';
 
 ## State in Funktionskomponenten
 
-Die Funktion `useState` kann zu Beginn der Komponentenfunktion (wiederholt) aufgerufen werden. Sie hat die folgende Signatur:
+`useState` kann zu Beginn der Komponentenfunktion (wiederholt) aufgerufen werden; es hat die folgende Signatur:
 
 - sie nimmt einen Parameter entgegen - den initialen Zustand
 - sie gibt bei jedem Aufruf ein Array mit zwei Einträgen zurück: Den aktuellen Zustand sowie eine Funktion, mit der der Zustand neu gesetzt werden kann
@@ -215,16 +290,13 @@ const Counter = () => {
     <button
       onClick={() => {
         setCount(count + 1);
-      }}>
+      }}
+    >
       {count}
     </button>
   );
 };
 ```
-
-## Beispiel: Counter
-
-Aufgabe: füge zur Anwendung von eben einen _Reset_-Knopf hinzu
 
 ## Beispiel: Slideshow
 
@@ -394,7 +466,7 @@ avoiding mutations by using immer:
 ```js
 import produce from 'immer';
 
-const newTodos = produce(todos, todosDraft => {
+const newTodos = produce(todos, (todosDraft) => {
   todosDraft[0].completed = true;
   todosDraft.push({ title: 'study', completed: false });
 });
@@ -408,7 +480,7 @@ Besonderheit von input-Elementen:
 
 Ihre Properties (insbesondere `.value`) können durch User-Interaktionen direkt geändert werden
 
-Es gibt damit Aspekte des UI-Zustands, die nicht im state erfasst sind.
+Es gäbe damit Aspekte des UI-Zustands, die von Haus aus nicht im state erfasst wären
 
 ## Inputs
 
@@ -417,7 +489,7 @@ So können wir den Value eines Inputs im State erfassen:
 ```jsx
 <input
   value={inputText}
-  onChange={event => {
+  onChange={(event) => {
     setInputText(event.target.value);
   }}
 />
@@ -431,10 +503,11 @@ Ersetzen des Standardverhaltens:
 
 ```jsx
 <form
-  onSubmit={event => {
+  onSubmit={(event) => {
     event.preventDefault();
     // handle submit
-  }}>
+  }}
+>
   <input />
 </form>
 ```
@@ -450,15 +523,16 @@ const NewsletterRegistration = () => {
 
   return (
     <form
-      onSubmit={e => {
+      onSubmit={(e) => {
         e.preventDefault();
         console.log(email);
-      }}>
+      }}
+    >
       <input
         type="email"
         name="email"
         value={email}
-        onChange={event => setEmail(event.target.value)}
+        onChange={(event) => setEmail(event.target.value)}
         onBlur={() => setEmailEdited(true)}
       />
       <button disabled={!emailValid}>subscribe</button>
@@ -469,7 +543,7 @@ const NewsletterRegistration = () => {
   );
 };
 
-const isEmail = email =>
+const isEmail = (email) =>
   email.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i);
 ```
 
@@ -489,15 +563,16 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 const NewsletterRegistration = () => (
   <Formik
     initialValues={{ email: '' }}
-    onSubmit={values => console.log(values)}
-    validate={values => {
+    onSubmit={(values) => console.log(values)}
+    validate={(values) => {
       const errors = {};
       if (!isEmail(values.email)) {
         errors.email = 'invalid email';
       }
       return errors;
-    }}>
-    {props => (
+    }}
+  >
+    {(props) => (
       <Form>
         <Field type="email" name="email" />
         <button disabled={!props.isValid}>subscribe</button>
@@ -507,7 +582,7 @@ const NewsletterRegistration = () => (
   </Formik>
 );
 
-const isEmail = email =>
+const isEmail = (email) =>
   email.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i);
 ```
 
@@ -525,67 +600,43 @@ Features:
 - Ändern von State und Props
 - Performanceanalyse des Renderings von Komponenten
 
-# map, filter, reduce
-
-### Array-Methoden für die funktionale Programmierung
-
-## map
-
-- Ändert jeden Eintrag eines Arrays mit Hilfe einer Funktion ab
-- Rückgabewert: neues Array
-
-```js
-let myNumbers = [2, 10, 23];
-
-let triple = n => 3 * n;
-
-let newNumbers = myNumbers.map(triple);
-// [6, 30, 69]
-```
-
-## filter
-
-- Behält nur gewisse Einträge in einem Array
-- Nutzt eine Funktion, um Einträge auf ein bestimmtes Kriterium zu testen
-- Rückgabewert: neues Array
-
-```js
-let myNumbers = [2, 10, 23];
-
-let isEven = n => n % 2 === 0;
-
-let newNumbers = myNumbers.filter(isEven);
-// [2, 10]
-```
-
-## reduce
-
-- Verarbeitet die Einträge in einem Array zu einem einzelnen Wert
-- Verwendet eine Funktion, die aus zwei bestehenden Werten einen resultierenden Wert erstellt - diese Funktion wird wiederholt aufgerufen
-
-## reduce - Beispiel
-
-```js
-let transactions = [
-  { amount: -56, title: 'groceries' },
-  { amount: +1020, title: 'salary' },
-  { amount: -13, title: 'dinner' },
-  { amount: -96, title: 'electricity' },
-];
-let initialBalance = 317;
-
-let reducer = (aggregator, transaction) =>
-  aggregator + transaction.amount;
-
-let currentBalance = transactions.reduce(
-  reducer,
-  initialBalance
-);
-
-// 317 -> 261 -> 1281 -> 1268 -> 1172
-```
-
 # JSX im Detail
+
+## JSX im Detail
+
+Themen:
+
+- Attribute
+- Elemente wiederholen
+- if / elese
+- if
+- Whitespace
+- Kommentare
+- Fragmente
+- gültige Elemente
+- Kompilierung
+
+## Attribute
+
+Manche Attribute von Eleenten haben andere Namen als in standard HTML (spiegeln die standard DOM-Attribute wider)
+
+- `className` (anstatt `class`)
+- `onClick` (anstatt `onclick`)
+- `htmlFor` (anstatt `for`)
+
+## Attribute
+
+Beispiel: CSS-Klassen
+
+```jsx
+<li
+  className={
+    isCompleted ? 'todoitem completed' : 'todoitem'
+  }
+>
+  [...]
+</li>
+```
 
 ## JSX: Elemente wiederholen
 
@@ -616,14 +667,31 @@ const TodoApp = () => {
 
 ## JSX: Elemente wiederholen
 
-Meist verwenden wir zum wiederholen die `.map()` - Methode
+Elemente werden meist mittels `.map()` wiederholt
+
+## JSX: Elemente wiederholen
+
+Die `.map()` Methode erstellt ein neues Array, indem jedes Element eines bestehenden Arrays transformiert wird
+
+Beispiel:
+
+```js
+const originalNumbers = [2, 3, 4];
+
+const triple = (n) => 3 * n;
+
+const newNumbers = originalNumbers.map(triple);
+// [6, 9, 12]
+```
+
+## JSX: Elemente wiederholen
 
 ```jsx
 const TodoApp = () => {
   const [todos, setTodos] = useState(initialTodos);
   return (
     <ul>
-      {todos.map(todo => (
+      {todos.map((todo) => (
         <li>{todo.title}</li>
       ))}
     </ul>
@@ -639,7 +707,7 @@ Lösung: **key**:
 
 ```jsx
 <ul>
-  {todos.map(todo => (
+  {todos.map((todo) => (
     <li key={todo.id}>{todo.title}</li>
   ))}
 </ul>
@@ -745,6 +813,14 @@ return (
 );
 ```
 
+## gültige Elemente in JSX
+
+- string
+- number
+- Komponenten (z.B. `<div>`, `<img>`, `<MyComponent>`)
+- Arrays anderer Elemente
+- null, undefined, true, false (werden nicht gerendert)
+
 ## JSX Kompilierung
 
 ```jsx
@@ -763,14 +839,17 @@ const element = React.createElement(
 
 # Styling in JSX
 
-## CSS-Klassen
+## Tools
 
-```jsx
-<div
-  className={'todoitem' + isCompleted ? ' completed' : ''}>
-  [...]
-</div>
-```
+- externe Stylesheets
+  - Paket _classnames_
+  - CSS-Module
+  - SCSS
+- _style_-Property
+- Libraries
+  - styled-components
+  - radium
+  - JSS
 
 ## CSS-Klassen
 
@@ -783,7 +862,8 @@ import classNames from 'classnames';
   className={classNames({
     todoitem: true,
     completed: isCompleted,
-  })}>
+  })}
+>
   [...]
 </div>;
 ```
@@ -864,7 +944,7 @@ const Container = styled.div`
   justify-content: center;
 `;
 
-const Slideshow = props => (
+const Slideshow = (props) => (
   <Container>
     <button>prev</button>
     <BlockImg src="..." alt="..." />
@@ -881,12 +961,12 @@ dynamic styles via props:
 import styled from 'styled-components';
 
 const Button = styled.button`
-  color: ${props => (props.primary ? 'black' : 'white')};
-  background-color: ${props =>
+  color: ${(props) => (props.primary ? 'black' : 'white')};
+  background-color: ${(props) =>
     props.primary ? 'white' : 'navy'};
 `;
 
-const Slideshow = props => (
+const Slideshow = (props) => (
   <Container>
     <Button primary={true}>prev</Button>
     <BlockImg src="..." alt="..." />
@@ -914,9 +994,10 @@ const styles = {
   },
 };
 
-const TestButton = props => (
+const TestButton = (props) => (
   <button
-    style={[styles.base, props.primary && styles.primary]}>
+    style={[styles.base, props.primary && styles.primary]}
+  >
     test
   </button>
 );
@@ -971,7 +1052,7 @@ Beispiel:
 Einfaches Beispiel:
 
 ```jsx
-const Rating = props => (
+const Rating = (props) => (
   <div className="rating">
     {'★'.repeat(props.stars) + '☆'.repeat(5 - props.stars)}
   </div>
@@ -993,7 +1074,7 @@ Beispiel: `Bordered`-Komponente:
 Definition der Komponente:
 
 ```jsx
-const Bordered = props => (
+const Bordered = (props) => (
   <div className="bordered">{props.children}</div>
 );
 ```
@@ -1016,11 +1097,11 @@ Beispiel: Event `onChange` der `Rating`-Komponente (jeder Stern ist ein `span`-E
 ## Eigene Events
 
 ```jsx
-const Rating = props => {
+const Rating = (props) => {
   const starIds = [1, 2, 3, 4, 5];
   return (
     <div>
-      {starIds.map(id => (
+      {starIds.map((id) => (
         <span onClick={() => props.onChange(id)} key={id}>
           {id <= props.stars ? '★' : '☆'}
         </span>
@@ -1041,7 +1122,7 @@ const [prodRating, setProdRating] = useState(3);
 ```jsx
 <Rating
   stars={prodRating}
-  onChange={newRating => setProdRating(newRating)}
+  onChange={(newRating) => setProdRating(newRating)}
 />
 ```
 
@@ -1062,7 +1143,8 @@ Event: `onToggle` - Funktion, die mit dem neuen Zustand aufgerufen wird
 <button
   onClick={() => {
     props.onToggle(!props.active);
-  }}>
+  }}
+>
   {props.active ? 'on' : 'off'}
 </button>
 ```
@@ -1076,7 +1158,7 @@ const [myOption, setMyOption] = useState(true);
 
 <ToggleButton
   active={myOption}
-  onToggle={newIsActive => {
+  onToggle={(newIsActive) => {
     setMyOption(newIsActive);
   }}
 />;
@@ -1172,7 +1254,7 @@ type TodoListProps = {
   onDelete: (id: number) => void;
 };
 
-const TodoList: FC<TodoListProps> = props => {
+const TodoList: FC<TodoListProps> = (props) => {
   // ....
 };
 ```
@@ -1197,9 +1279,10 @@ Bei inline Eventhandlern muss kein Typ angegeben werden:
 
 ```jsx
 <button
-  onClick={event => {
+  onClick={(event) => {
     event.stopPropagation();
-  }}>
+  }}
+>
   test
 </button>
 ```
@@ -1239,13 +1322,13 @@ const TodoApp = () => {
   const [todos, setTodos] = useState([]);
   const loadTodos = () => {
     fetch('https://jsonplaceholder.typicode.com/todos')
-      .then(res => res.json())
-      .then(todos => setTodos(todos));
+      .then((res) => res.json())
+      .then((todos) => setTodos(todos));
   };
   useEffect(loadTodos, []);
   return (
     <ul>
-      {todos.map(todo => (
+      {todos.map((todo) => (
         <li key={todo.id}>{todo.title}</li>
       ))}
     </ul>
@@ -1265,8 +1348,8 @@ const SpaceXLaunch = () => {
     fetch(
       `https://api.spacexdata.com/v3/launches/${launchNr}`
     )
-      .then(res => res.json())
-      .then(data => setLaunchData(data));
+      .then((res) => res.json())
+      .then((data) => setLaunchData(data));
   };
   useEffect(fetchLaunch, [launchNr]);
   return (
@@ -1291,8 +1374,8 @@ const Pokemon = () => {
   const [data, setData] = useState({});
   const fetchPokemon = () => {
     fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
-      .then(res => res.json())
-      .then(data => setData(data));
+      .then((res) => res.json())
+      .then((data) => setData(data));
   };
   useEffect(fetchPokemon, [id]);
   return (

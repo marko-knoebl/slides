@@ -2783,24 +2783,31 @@ The entire Application is enclosed in a <code>BrowserRouter</code> - Element</p>
 <li>pre-rendered app and the corresponding data for making it dynamic are sent to the client</li>
 </ul>
 </section><section class="slide"><h2>Data fetching in next.js</h2>
-<p>If we want to fetch data on the server side before a component renders we implement the method <code>getInitialProps</code>:</p>
+<p>Fetching data for rendering a page:</p>
+<ul>
+<li>fetch static data via <code>getStaticProps</code> (during the build)</li>
+<li>fetch server-side dynamic data for pre-rendering via <code>getServerSideProps</code></li>
+</ul>
 <p>For using <code>fetch</code> in node.js we can use the npm Package <code>isomorphic-fetch</code></p>
 </section><section class="slide"><h2>Data fetching in next.js</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> Post = <span class="hljs-function">(<span class="hljs-params">{ url, title, body }</span>) =></span> (
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">h2</span>></span>
-      Post {url.query.id}: {title}
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">h2</span>></span>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">p</span>></span>{body}<span class="hljs-tag">&#x3C;/<span class="hljs-name">p</span>></span>
-  <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
-);
+<pre><code class="hljs language-js"><span class="hljs-comment">// pages/pokemon.js</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> ({ pokemon }) => {
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">ul</span>></span>
+      {pokemon.map((pokemon) => (
+        <span class="hljs-tag">&#x3C;<span class="hljs-name">li</span> <span class="hljs-attr">key</span>=<span class="hljs-string">{pokemon.name}</span>></span>{pokemon.name}<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span>
+      ))}
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">ul</span>></span></span>
+  );
+};
 
-Post.getInitialProps = <span class="hljs-function"><span class="hljs-params">context</span> =></span>
-  fetch(
-    <span class="hljs-string">`https://jsonplaceholder.typicode.com/posts/<span class="hljs-subst">${context.query.id}</span>`</span>
-  )
-    .then(<span class="hljs-function"><span class="hljs-params">response</span> =></span> response.json())
-    .then(<span class="hljs-function"><span class="hljs-params">post</span> =></span> ({ <span class="hljs-attr">title</span>: post.title, <span class="hljs-attr">body</span>: post.body }));
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> getStaticProps = <span class="hljs-keyword">async</span> () => {
+  <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> fetch(
+    <span class="hljs-string">'https://pokeapi.co/api/v2/pokemon'</span>
+  );
+  <span class="hljs-keyword">const</span> pokemon = (<span class="hljs-keyword">await</span> res.json()).results;
+  <span class="hljs-keyword">return</span> { <span class="hljs-attr">props</span>: { <span class="hljs-attr">pokemon</span>: pokemon } };
+};
 </code></pre>
 </section><section class="slide"><h2>Static site generation</h2>
 <p>By default <em>next.js</em> runs on a node server and dynamically renders content</p>
@@ -3612,23 +3619,23 @@ useEffect(getInstallPermission, []);
 <p>Install the required packages:</p>
 <pre><code class="hljs language-bash">npm install react react-dom
 </code></pre>
-<pre><code class="hljs language-bash">npm install --save-dev parcel-bundler babel-preset-react babel-preset-env
+<pre><code class="hljs language-bash">npm install --save-dev parcel-bundler @babel/preset-react @babel/preset-env
 </code></pre>
 </section><section class="slide"><h2>Configuring babel</h2>
-<p>via <code>.babelrc</code> file:</p>
+<p>via <code>babel.config.json</code> file:</p>
 <pre><code class="hljs language-json">{
-  <span class="hljs-attr">"presets"</span>: [<span class="hljs-string">"env"</span>, <span class="hljs-string">"react"</span>]
+  <span class="hljs-attr">"presets"</span>: [<span class="hljs-string">"@babel/preset-env"</span>, <span class="hljs-string">"@babel/react"</span>]
 }
 </code></pre>
 </section><section class="slide"><h2>npm scripts</h2>
-<p>add script to <code>package.json</code>:</p>
+<p>add scripts to <code>package.json</code>:</p>
 <pre><code class="hljs language-json"><span class="hljs-string">"scripts"</span>: {
   <span class="hljs-attr">"build"</span>: <span class="hljs-string">"parcel build src/index.html"</span>,
   <span class="hljs-attr">"start"</span>: <span class="hljs-string">"parcel src/index.html"</span>
 },
 </code></pre>
 </section><section class="slide"><h2>HTML entry point</h2>
-<p>Create <code>src/index.html</code>:</p>
+<p>Create <em>src/index.html</em>:</p>
 <pre><code class="hljs language-html"><span class="hljs-meta">&#x3C;!DOCTYPE html></span>
 <span class="hljs-tag">&#x3C;<span class="hljs-name">html</span>></span>
   <span class="hljs-tag">&#x3C;<span class="hljs-name">head</span>></span>
@@ -3641,7 +3648,7 @@ useEffect(getInstallPermission, []);
 <span class="hljs-tag">&#x3C;/<span class="hljs-name">html</span>></span>
 </code></pre>
 </section><section class="slide"><h2>Rendering an App component</h2>
-<p>Create <code>index.js</code>:</p>
+<p>Create <em>src/index.js</em>:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
 <span class="hljs-keyword">import</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>;
 
