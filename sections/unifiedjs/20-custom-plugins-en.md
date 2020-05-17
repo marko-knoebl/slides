@@ -2,7 +2,7 @@
 
 ## custom plugins
 
-plugins handle _strings_ and _syntax trees_
+plugins handle _strings_/_vfiles_ and _syntax trees_
 
 - parser: string → syntax tree
 - transformer: syntax tree → modified syntax tree
@@ -35,12 +35,12 @@ function plugin(options) {
 
 ## transformer plugins
 
-example: plugin that turns `i` elements into other elements (`em` by default):
+example: plugin that turns `<i>` elements into other elements (`<em>` by default):
 
 ```js
 const visit = require('unist-util-visit');
 
-function rehypeReplaceItalic(options) {
+function rehypeReplaceItalic(options = {}) {
   const newTag = options.newTag || 'em';
   const transformer = (tree, vfile) => {
     visit(tree, (node) => {

@@ -36,7 +36,7 @@ specifications:
 
 ## syntax trees
 
-a text node in markdown / HTML:
+a text node in markdown or HTML:
 
 ```json
 {

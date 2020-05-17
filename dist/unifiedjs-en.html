@@ -2046,7 +2046,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <p>Parser / processor / converter for HTML, Markdown, ...</p>
 </section><section class="slide"><h2>unified.js</h2>
 <p>example - creating a simple HTML document:</p>
-<p>The <code>rehypeDocument</code> processor will add <code>&#x3C;html></code>, <code>&#x3C;head></code>, ...</p>
+<p>The <code>rehypeDocument</code> plugin will add <code>&#x3C;html></code>, <code>&#x3C;head></code>, ...</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> input = <span class="hljs-string">`
 &#x3C;h1>Hello&#x3C;/h1>
 &#x3C;p>hello world&#x3C;/p>
@@ -2107,13 +2107,13 @@ hello world
 </section><section class="slide"><h2>ecosystem / npm packages</h2>
 <p>transformer plugins (that transform the syntax tree):</p>
 <ul>
-<li><em>remark-toc</em> (add table of contents)</li>
-<li><em>remark-rehype</em> (transform to rehype)</li>
-<li><em>rehype-remark</em> (transform to remark)</li>
+<li><em>remark-toc</em> (adds table of contents)</li>
+<li><em>remark-rehype</em> (transforms to rehype)</li>
+<li><em>rehype-remark</em> (transforms to remark)</li>
 <li><em>rehype-minify</em></li>
 <li><em>rehype-format</em></li>
-<li><em>rehype-document</em> (wrap a fragment in a document)</li>
-<li><em>rehype-highlight</em> (highlight code blocks)</li>
+<li><em>rehype-document</em> (wraps a fragment in a document)</li>
+<li><em>rehype-highlight</em> (highlights code blocks)</li>
 <li>...</li>
 </ul>
 </section><section class="slide"><h2>ecosystem / npm packages</h2>
@@ -2161,7 +2161,7 @@ hello world
 <p>a processor that includes an asynchronous plugin must be run via <code>.process()</code> instead of <code>.processSync()</code> (this will return a promise)</p>
 </section></section><section class="slides-section"><section class="slide"><h1>custom plugins</h1>
 </section><section class="slide"><h2>custom plugins</h2>
-<p>plugins handle <em>strings</em> and <em>syntax trees</em></p>
+<p>plugins handle <em>strings</em>/<em>vfiles</em> and <em>syntax trees</em></p>
 <ul>
 <li>parser: string → syntax tree</li>
 <li>transformer: syntax tree → modified syntax tree</li>
@@ -2186,10 +2186,10 @@ hello world
 }
 </code></pre>
 </section><section class="slide"><h2>transformer plugins</h2>
-<p>example: plugin that turns <code>i</code> elements into other elements (<code>em</code> by default):</p>
+<p>example: plugin that turns <code>&#x3C;i></code> elements into other elements (<code>&#x3C;em></code> by default):</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> visit = <span class="hljs-built_in">require</span>(<span class="hljs-string">'unist-util-visit'</span>);
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">rehypeReplaceItalic</span>(<span class="hljs-params">options</span>) </span>{
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">rehypeReplaceItalic</span>(<span class="hljs-params">options = {}</span>) </span>{
   <span class="hljs-keyword">const</span> newTag = options.newTag || <span class="hljs-string">'em'</span>;
   <span class="hljs-keyword">const</span> transformer = <span class="hljs-function">(<span class="hljs-params">tree, vfile</span>) =></span> {
     visit(tree, (node) => {
@@ -2232,7 +2232,7 @@ hello world
 <li>Natural languages: <a href="https://github.com/syntax-tree/nlcst">nlcst</a></li>
 </ul>
 </section><section class="slide"><h2>syntax trees</h2>
-<p>a text node in markdown / HTML:</p>
+<p>a text node in markdown or HTML:</p>
 <pre><code class="hljs language-json">{
   <span class="hljs-attr">"type"</span>: <span class="hljs-string">"text"</span>,
   <span class="hljs-attr">"value"</span>: <span class="hljs-string">"hello world"</span>,

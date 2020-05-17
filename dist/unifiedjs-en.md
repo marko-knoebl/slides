@@ -8,7 +8,7 @@ Parser / processor / converter for HTML, Markdown, ...
 
 example - creating a simple HTML document:
 
-The `rehypeDocument` processor will add `<html>`, `<head>`, ...
+The `rehypeDocument` plugin will add `<html>`, `<head>`, ...
 
 ```js
 const input = `
@@ -80,13 +80,13 @@ compilers:
 
 transformer plugins (that transform the syntax tree):
 
-- _remark-toc_ (add table of contents)
-- _remark-rehype_ (transform to rehype)
-- _rehype-remark_ (transform to remark)
+- _remark-toc_ (adds table of contents)
+- _remark-rehype_ (transforms to rehype)
+- _rehype-remark_ (transforms to remark)
 - _rehype-minify_
 - _rehype-format_
-- _rehype-document_ (wrap a fragment in a document)
-- _rehype-highlight_ (highlight code blocks)
+- _rehype-document_ (wraps a fragment in a document)
+- _rehype-highlight_ (highlights code blocks)
 - ...
 
 ## ecosystem / npm packages
@@ -152,7 +152,7 @@ a processor that includes an asynchronous plugin must be run via `.process()` in
 
 ## custom plugins
 
-plugins handle _strings_ and _syntax trees_
+plugins handle _strings_/_vfiles_ and _syntax trees_
 
 - parser: string → syntax tree
 - transformer: syntax tree → modified syntax tree
@@ -185,12 +185,12 @@ function plugin(options) {
 
 ## transformer plugins
 
-example: plugin that turns `i` elements into other elements (`em` by default):
+example: plugin that turns `<i>` elements into other elements (`<em>` by default):
 
 ```js
 const visit = require('unist-util-visit');
 
-function rehypeReplaceItalic(options) {
+function rehypeReplaceItalic(options = {}) {
   const newTag = options.newTag || 'em';
   const transformer = (tree, vfile) => {
     visit(tree, (node) => {
@@ -245,7 +245,7 @@ specifications:
 
 ## syntax trees
 
-a text node in markdown / HTML:
+a text node in markdown or HTML:
 
 ```json
 {

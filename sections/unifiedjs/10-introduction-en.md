@@ -8,7 +8,7 @@ Parser / processor / converter for HTML, Markdown, ...
 
 example - creating a simple HTML document:
 
-The `rehypeDocument` processor will add `<html>`, `<head>`, ...
+The `rehypeDocument` plugin will add `<html>`, `<head>`, ...
 
 ```js
 const input = `
@@ -80,13 +80,13 @@ compilers:
 
 transformer plugins (that transform the syntax tree):
 
-- _remark-toc_ (add table of contents)
-- _remark-rehype_ (transform to rehype)
-- _rehype-remark_ (transform to remark)
+- _remark-toc_ (adds table of contents)
+- _remark-rehype_ (transforms to rehype)
+- _rehype-remark_ (transforms to remark)
 - _rehype-minify_
 - _rehype-format_
-- _rehype-document_ (wrap a fragment in a document)
-- _rehype-highlight_ (highlight code blocks)
+- _rehype-document_ (wraps a fragment in a document)
+- _rehype-highlight_ (highlights code blocks)
 - ...
 
 ## ecosystem / npm packages
