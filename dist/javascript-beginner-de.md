@@ -909,9 +909,9 @@ let join = (strings, separator='') => {
 
 ## JSDoc
 
-Markup language for annotating functions / classes / ... in their comments
+Markup-Sprache zum für Dokumentation zu Funktionen / Klassen / ... in entsprechenden Kommentaren
 
-example:
+Beispiel:
 
 ```js
 /**

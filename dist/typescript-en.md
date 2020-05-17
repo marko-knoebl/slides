@@ -26,28 +26,22 @@ Variable types are usually detected automatically
 _explicitly_ declaring variable types:
 
 ```ts
-let age: number = 32;
-let name: string = 'Samuel';
-let loggedIn: boolean = true;
+const age: number = 32;
+const name: string = 'Samuel';
+const loggedIn: boolean = true;
 ```
 
 ## Typing functions
 
 ```ts
-function shorten(
-  text: string,
-  maxLength: number
-): string {
-  return ...
+function shorten(text: string, maxLen: number): string {
+  // ...
 }
 ```
 
 ```ts
-const shorten = (
-  text: string,
-  maxLength: number
-): string => {
-  return ...;
+const shorten = (text: string, maxLen: number): string => {
+  // ...
 };
 ```
 
@@ -123,8 +117,8 @@ Generic type declarations that can receive more specific type information when a
 example: `Array` is a generic
 
 ```ts
-let a: Array<number> = [1, 2, 3];
-let b: Array<string> = ['one', 'two', 'three'];
+const a: Array<number> = [1, 2, 3];
+const b: Array<string> = ['one', 'two', 'three'];
 ```
 
 example: React's `Component` is a generic

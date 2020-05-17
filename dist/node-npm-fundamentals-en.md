@@ -1,10 +1,34 @@
+# Node.js and npm
+
+## Node.js and npm
+
+Node.js is a JavaScript runtime
+
+It may be used to:
+
+- run scripts locally
+- provide development tools (e.g. for build process, unit tests, ...)
+- run a backend
+
+## Node.js and npm
+
+_npm_ = _Node package manager_
+
+is included in the node.js installation
+
+## Node.js installation
+
+Download from <https://nodejs.org>
+
+Major releases every 6 months; long-term-support releases every 12 months
+
 # npm
 
 ## npm registry
 
 The npm registry is an online registry consisting primarily of open source JavaScript packages
 
-With [over 1 million packages](http://www.modulecounts.com/) it is by far the largest software registry in existence
+by far the largest software registry ([over 1 million packages](http://www.modulecounts.com/))
 
 examples: [most depended upon packages](https://www.npmjs.com/browse/depended)
 
@@ -17,21 +41,21 @@ two major package managers for the npm registry:
 
 ## Package configuration
 
-Both public packages and our private projects will be managed via a configuration file named _package.json_.
+Both public packages and private projects are managed via a configuration file named _package.json_
 
 ## Package configuration
 
-In order to add dependencies to our project we can start out with an empty _package.json_ configuration:
+In order to add dependencies - start out with an empty _package.json_ configuration:
 
 ```json
 {}
 ```
 
-We could also create such a file with some content via `npm init` (or `npm init -y` for default options)
+Alternative: create a _package.json_ with some content via via `npm init` (or `npm init -y` for default options)
 
 ## Adding dependencies
 
-We can add some dependencies via:
+Add dependencies via e.g.:
 
 ```bash
 npm install lodash bootstrap
@@ -39,7 +63,7 @@ npm install lodash bootstrap
 
 ## Adding dependencies
 
-If we are developing a reusable library that we want to publish to the npm package registry:
+When developing a reusable library to be published on the npm package registry:
 
 Install dependencies that are only needed for development as _dev-dependencies_:
 
@@ -69,13 +93,13 @@ possible configurations:
 
 ## Dependencies in package-lock.json
 
-The file `package-lock.json` lists _exact_ versions for all dependencies and their recursive dependencies
+`package-lock.json` lists _exact_ versions for all dependencies and their recursive dependencies
 
 ## node_modules folder
 
 contains the actual packages
 
-this should not be put under version control - instead, this folder can be recreated from `package.json` by running `npm install` (without any arguments)
+this should not be put under version control - can be recreated from `package.json` by running `npm install` (without any arguments)
 
 ## npm scripts
 

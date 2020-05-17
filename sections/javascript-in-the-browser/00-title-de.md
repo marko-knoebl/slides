@@ -1,1 +1,1 @@
-# JavaScript im Frontend
+# JavaScript im Browser

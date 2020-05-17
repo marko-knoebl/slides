@@ -1,4 +1,4 @@
-# unified.js - syntax trees
+# syntax trees
 
 ## syntax trees
 

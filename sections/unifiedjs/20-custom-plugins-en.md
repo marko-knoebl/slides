@@ -1,4 +1,4 @@
-# unified.js - custom plugins
+# custom plugins
 
 ## custom plugins
 

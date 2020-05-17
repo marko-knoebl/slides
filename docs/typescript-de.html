@@ -2061,23 +2061,17 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </section><section class="slide"><h2>Typing von Variablen</h2>
 <p>Variablentypen werden üblicherweise ohne Hilfe erkannt</p>
 <p><em>Explizites</em> Angeben von Variablentypen:</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">let</span> age: <span class="hljs-built_in">number</span> = <span class="hljs-number">32</span>;
-<span class="hljs-keyword">let</span> name: <span class="hljs-built_in">string</span> = <span class="hljs-string">'Samuel'</span>;
-<span class="hljs-keyword">let</span> loggedIn: <span class="hljs-built_in">boolean</span> = <span class="hljs-literal">true</span>;
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> age: <span class="hljs-built_in">number</span> = <span class="hljs-number">32</span>;
+<span class="hljs-keyword">const</span> name: <span class="hljs-built_in">string</span> = <span class="hljs-string">'Samuel'</span>;
+<span class="hljs-keyword">const</span> loggedIn: <span class="hljs-built_in">boolean</span> = <span class="hljs-literal">true</span>;
 </code></pre>
 </section><section class="slide"><h2>Typing von Funktionen</h2>
-<pre><code class="hljs language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">shorten</span>(<span class="hljs-params">
-  text: <span class="hljs-built_in">string</span>,
-  maxLength: <span class="hljs-built_in">number</span>
-</span>): <span class="hljs-title">string</span> </span>{
-  <span class="hljs-keyword">return</span> ...
+<pre><code class="hljs language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">shorten</span>(<span class="hljs-params">text: <span class="hljs-built_in">string</span>, maxLen: <span class="hljs-built_in">number</span></span>): <span class="hljs-title">string</span> </span>{
+  <span class="hljs-comment">// ...</span>
 }
 </code></pre>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> shorten = (
-  text: <span class="hljs-built_in">string</span>,
-  maxLength: <span class="hljs-built_in">number</span>
-): <span class="hljs-function"><span class="hljs-params">string</span> =></span> {
-  <span class="hljs-keyword">return</span> ...;
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> shorten = (text: <span class="hljs-built_in">string</span>, maxLen: <span class="hljs-built_in">number</span>): <span class="hljs-function"><span class="hljs-params">string</span> =></span> {
+  <span class="hljs-comment">// ...</span>
 };
 </code></pre>
 </section><section class="slide"><h2>Typing von Funktionen</h2>
@@ -2124,8 +2118,8 @@ names.push(<span class="hljs-string">'Anna'</span>);
 <p>Allgemeine Typendeklaration, zu der bei der Anwendung nähere Informationen spezifiziert werden können (via <code>&#x3C;...></code>)</p>
 </section><section class="slide"><h2>Generics</h2>
 <p>Beispiel: <code>Array</code> ist ein Generic</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">let</span> a: <span class="hljs-built_in">Array</span>&#x3C;<span class="hljs-built_in">number</span>> = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
-<span class="hljs-keyword">let</span> b: <span class="hljs-built_in">Array</span>&#x3C;<span class="hljs-built_in">string</span>> = [<span class="hljs-string">'one'</span>, <span class="hljs-string">'two'</span>, <span class="hljs-string">'three'</span>];
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> a: <span class="hljs-built_in">Array</span>&#x3C;<span class="hljs-built_in">number</span>> = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
+<span class="hljs-keyword">const</span> b: <span class="hljs-built_in">Array</span>&#x3C;<span class="hljs-built_in">string</span>> = [<span class="hljs-string">'one'</span>, <span class="hljs-string">'two'</span>, <span class="hljs-string">'three'</span>];
 </code></pre>
 <p>Beispiel: Reacts <code>Component</code> ist ein Generic</p>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">class</span> MyComp <span class="hljs-keyword">extends</span> Component&#x3C;MyProps, MyState> {

@@ -1,1 +1,5 @@
-@include ../common/http-en.md
+# HTTP
+
+## HTTP
+
+See [presentation on HTTP](./http-en.html)

@@ -6,7 +6,7 @@ Parser / processor / converter for HTML, Markdown, ...
 
 ## unified.js
 
-example - create a simple HTML document:
+example - creating a simple HTML document:
 
 The `rehypeDocument` processor will add `<html>`, `<head>`, ...
 
@@ -26,7 +26,7 @@ const output = processor.processSync(input).toString();
 
 ## unified.js
 
-example - convert Markdown to HTML
+example - converting Markdown to HTML
 
 ```js
 const input = `
@@ -86,7 +86,7 @@ transformer plugins (that transform the syntax tree):
 - _rehype-minify_
 - _rehype-format_
 - _rehype-document_ (wrap a fragment in a document)
-- _rehype-highight_ (highlight code blocks)
+- _rehype-highlight_ (highlight code blocks)
 - ...
 
 ## ecosystem / npm packages

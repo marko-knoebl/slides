@@ -4,7 +4,7 @@
 
 Git is a version control system
 
-it helps with two categories of tasks:
+it mainly helps with two categories of tasks:
 
 - keeping track of changes to a codebase
 - collaborating with other developers
@@ -13,7 +13,9 @@ it helps with two categories of tasks:
 
 Install from [git-scm.com](https://git-scm.com)
 
-### Recommendations:
+## Setting up git on Windows
+
+recommendations:
 
 - **Select Components**:
   - uncheck _Git GUI Here_
@@ -76,10 +78,9 @@ git commit -m "changing some HTML files"
 
 ## Ignoring files
 
-We can list files to ignore in a special text file called `.gitignore` (without a file extension):
+We can list files to ignore in a special text file called `.gitignore` (without a filename extension):
 
 ```txt
-.gitignore
 node_modules
 .vscode
 ```

@@ -1,6 +1,10 @@
-# Web API development
+# HTTP API development
 
-## Web API development
+## HTTP API development
+
+For basics see the [presentation on HTTP](./http-en.html#/1)
+
+## HTTP API development
 
 tools for API development with Python:
 
@@ -9,7 +13,7 @@ tools for API development with Python:
 - flask-restful
 - graphene (GraphQL APIs)
 
-## Web API development
+## HTTP API development
 
 Task: develop a simple API with FastAPI that has these resouces:
 
@@ -17,7 +21,7 @@ Task: develop a simple API with FastAPI that has these resouces:
 - `/date`
 - `/randnr` (random number)
 
-## Web API development
+## HTTP API development
 
 Task:
 

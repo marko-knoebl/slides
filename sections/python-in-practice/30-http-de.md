@@ -1,1 +1,5 @@
-@include ../common/http-de.md
+# HTTP
+
+## HTTP
+
+Siehe [Präsentation zu HTTP](./http-de.html)

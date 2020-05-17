@@ -27,11 +27,11 @@ Um Abhängigkeiten zu installieren können wir mit einer leeren _package.json_ b
 {}
 ```
 
-Wir könnten eine solche Datei auch mittels `npm init` (oder `npm init -y` für Standardoptionen) erstellen.
+Alternative: _package.json_ mit Inhalten mittels `npm init` (oder `npm init -y` für Standardoptionen) erstellen
 
 ## Abhängigkeiten hinzufügen
 
-Wir können benötigte Pakete folgendermaßen installieren:
+Beispiel zur Installation von Abhängigkeiten:
 
 ```bash
 npm install lodash bootstrap
@@ -69,7 +69,7 @@ Mögliche Konfigurationen:
 
 ## Abhängigkeiten in package-lock.json
 
-Die Datei `package-lock.json` listet _exakte_ versionen aller Abhängigkeiten (und derer Abhängigkeiten ...)
+`package-lock.json` listet _exakte_ Versionen aller Abhängigkeiten (und derer Abhängigkeiten ...)
 
 ## node_modules Ordner
 

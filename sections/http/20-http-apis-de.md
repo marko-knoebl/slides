@@ -1,10 +1,10 @@
-# Web APIs
+# HTTP APIs
 
-## Web APIs
+## HTTP APIs
 
-Web API = Möglichkeit, Datensätze zwischen Browser und Server auszutauschen
+HTTP API / Web API = Möglichkeit, Datensätze zwischen Browser und Server auszutauschen
 
-## Web APIs
+## HTTP APIs
 
 Standards:
 
@@ -12,7 +12,7 @@ Standards:
 - REST
 - GraphQL
 
-## Web APIs
+## HTTP APIs
 
 Abfrageformat:
 

@@ -1,10 +1,10 @@
-# Web APIs
+# HTTP APIs
 
-## Web APIs
+## HTTP APIs
 
-Web API = means of transmitting data sets between a web browser and a web server
+HTTP API / web API = means of transmitting data sets between a web browser and a web server
 
-## Web APIs
+## HTTP APIs
 
 standards:
 
@@ -12,7 +12,7 @@ standards:
 - REST
 - GraphQL
 
-## Web APIs
+## HTTP APIs
 
 query format:
 

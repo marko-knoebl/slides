@@ -1,6 +1,6 @@
-# Collaboration via GitHub
+# Git remote
 
-## Collaboration via GitHub
+## Git remote
 
 Hosts for Git:
 

@@ -59,9 +59,9 @@ Exercise: find all digits in a document
 
 Exercises:
 
-- find all numbers, e.g. _12_ or _0.99_ 
+- find all numbers, e.g. _12_ or _0.99_
 - find all text within quotation marks in a document
-- find all "words" that end in `.jpeg` or `jpg`
+- find all "words" that end in `.jpeg` or `.jpg`
 
 ## Groups
 

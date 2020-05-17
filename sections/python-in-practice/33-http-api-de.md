@@ -1,6 +1,10 @@
-# Web API Entwicklung
+# HTTP API Entwicklung
 
-## Web API Entwicklung
+## HTTP API Entwicklung
+
+Für Grundlagen siehe [Präsentation zu HTTP](./http-de.html#/1)
+
+## HTTP API Entwicklung
 
 Libraries für die API Entwicklung in Python:
 
@@ -9,7 +13,7 @@ Libraries für die API Entwicklung in Python:
 - flask-restful
 - graphene (GraphQL APIs)
 
-## Web API Entwicklung
+## HTTP API Entwicklung
 
 Aufgabe: Entwickle ein einfaches API mit FastAPI, das folgende Resourcen bietet:
 
@@ -17,7 +21,7 @@ Aufgabe: Entwickle ein einfaches API mit FastAPI, das folgende Resourcen bietet:
 - `/date`
 - `/randnr` (Zufallszahl)
 
-## Web API Entwicklung
+## HTTP API Entwicklung
 
 Aufgabe:
 

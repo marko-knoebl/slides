@@ -1,245 +1,5 @@
 # Node.js
 
-## Slides
-
-<https://marko-knoebl.github.io/slides/>
-
-## Your Trainer
-
-Marko Knöbl
-
-- Frontend Web-Development
-  - JavaScript
-  - React, Angular
-- Programming
-  - Python, JavaScript
-
-## Introduction of Participants
-
-- current projects
-- prior knowledge
-- expectations
-
-## Organizational
-
-- duration
-- breaks
-- lunch
-- materials
-- questions, feedback?
-
-## Code
-
-Code available at: <https://github.com/marko-knoebl/courses-code>
-
-# Node.js and npm
-
-## Node.js and npm
-
-Node.js is a JavaScript runtime
-
-It may be used to:
-
-- run scripts locally
-- provide development tools (e.g. for build process, unit tests, ...)
-- run a backend
-
-## Node.js and npm
-
-_npm_ is short for _Node package manager_; it is used to access the npm package registry which provides a huge collection of libraries to download
-
-npm comes bundled with node.js; another alternative would be _yarn_
-
-## Node.js installation
-
-Node can be downloaded from <https://nodejs.org>
-
-Major releases are made available every 6 months. Major releases with even version numbers (e.g. 10) are long-term-support releases.
-
-# npm
-
-## npm registry
-
-The npm registry is an online registry consisting primarily of open source JavaScript packages
-
-With [over 1 million packages](http://www.modulecounts.com/) it is by far the largest software registry in existence
-
-examples: [most depended upon packages](https://www.npmjs.com/browse/depended)
-
-## Package managers
-
-two major package managers for the npm registry:
-
-- _npm_: Node package manager, comes with node.js
-- _yarn_: may be installed separately
-
-## Package configuration
-
-Both public packages and our private projects will be managed via a configuration file named _package.json_.
-
-## Package configuration
-
-In order to add dependencies to our project we can start out with an empty _package.json_ configuration:
-
-```json
-{}
-```
-
-We could also create such a file with some content via `npm init` (or `npm init -y` for default options)
-
-## Adding dependencies
-
-We can add some dependencies via:
-
-```bash
-npm install lodash bootstrap
-```
-
-## Adding dependencies
-
-If we are developing a reusable library that we want to publish to the npm package registry:
-
-Install dependencies that are only needed for development as _dev-dependencies_:
-
-```bash
-npm install eslint --save-dev
-```
-
-## Adding dependencies
-
-Effects of the previous `npm install` commands:
-
-- `package.json` - lists minimum versions of the packages we just installed
-- `node_modules` - folder that contains all installed packages
-- `package-lock.json` - lists exact versions of all packages in `node_modules`
-
-## Dependencies in package.json
-
-The file `package.json` now lists dependencies together with a version specifier
-
-The version specifier uses _semantic versioning_: `major.minor.patch`
-
-possible configurations:
-
-- `"bootstrap": "4.3.1"` - exactly this version
-- `"bootstrap": "~4.3.1"` - patch version updates allowed - for example to `4.3.2`
-- `"bootstrap": "^4.3.1"` - minor version updates allowed - for example to `4.4.0`
-
-## Dependencies in package-lock.json
-
-The file `package-lock.json` lists _exact_ versions for all dependencies and their recursive dependencies
-
-## node_modules folder
-
-contains the actual packages
-
-this should not be put under version control - instead, this folder can be recreated from `package.json` by running `npm install` (without any arguments)
-
-## npm scripts
-
-Npm can be used to execute scripts / commands that are needed for development, for example:
-
-- `npm run test` - would run unit tests
-- `npm run build` - would create a build
-- `npm run start`
-- `npm run deploy`
-
-Some npm scripts have shorthands, notably `npm test` and `npm start`
-
-## npm scripts
-
-Npm scripts are configured in `package.json`:
-
-```json
-{
-  "scripts": { "start": "node run-server.js" }
-}
-```
-
-## Global installs and npx
-
-Node packages may be installed globally on a computer or may be executed directly from the npm registry
-
-direct execution (without installation):
-
-```bash
-npx cowsay hello
-```
-
-global installation of `cowsay`:
-
-```bash
-npm install -g cowsay
-
-cowsay hello
-```
-
-# Publishing npm packages
-
-## Publishing npm packages
-
-- create an account on _npmjs.com_
-- create a package.json file
-- create a _.gitignore_ or _.npmignore_ file
-- run `npm publish --access public`
-
-## package.json - basic entries
-
-- _name_: either _mypackage_ (if still available) or _@myusername/mypackage_
-- _description_
-- _version_: e.g. _0.1.0_
-- _author_: author's name
-- _license_: e.g. _UNLICENSED_, _ISC_, _GPL-3.0_, ...
-
-## package.json - advanced entries
-
-- _main_: e.g. _index.js_ - the entry point when importing this package
-- _scripts_: commands that can be run via _npm run_ (e.g. _build_, _test_, _start_, ...)
-- _bin_: commands that can be run from the command line or via npx
-- _dependencies_: npm packages that are required to use this npm package
-- _devDependencies_: npm packages that are required to develop this npm package (e.g. test tools, build tools)
-
-## package.json entries
-
-See <https://docs.npmjs.com/files/package.json>
-
-## Ignoring files
-
-Create a `.gitignore` or `.npmignore` file that lists files that shouldn't be published:
-
-```
-.git
-node_modules
-package-lock.json
-```
-
-## Publishing
-
-```bash
-npm publish --access public
-```
-
-## npx scripts
-
-entry "bin" in `package.json` (should match package name without username):
-
-```json
-{
-  "name": "@user/foo-package",
-  "bin": {
-    "foo-package": "./foo-bin.js"
-  }
-}
-```
-
-contents of `foo-bin.js`:
-
-```js
-#! /usr/bin/env node
-
-console.log('this is the npx script of foo-package');
-```
-
 # Running node programs
 
 ## Running programs on the command line
@@ -369,7 +129,12 @@ exports.message3 = 'hi';
 
 ## ES modules
 
-The standard ES syntax for importing and exporting is currently experimental in node.js. Official support is hindered by some implementation problems.
+Standard ES syntax for importing and exporting can be used without a flag since node 13.2 (released November 2019)
+
+**opt-in** via:
+
+- specifyling `"type": "module"` in _package.json_
+- filename ending _.mjs_
 
 # Reading and writing text files
 
@@ -544,6 +309,72 @@ const requestHandler = (req, res) => {
 server = http.createServer(requestHandler);
 
 server.listen(port, hostname);
+```
+
+# Publishing npm packages
+
+## Publishing npm packages
+
+- create an account on _npmjs.com_
+- create a package.json file
+- create a _.gitignore_ or _.npmignore_ file
+- run `npm publish --access public`
+
+## package.json - basic entries
+
+- _name_: either _mypackage_ (if still available) or _@myusername/mypackage_
+- _description_
+- _version_: e.g. _0.1.0_
+- _author_: author's name
+- _license_: e.g. _UNLICENSED_, _ISC_, _GPL-3.0_, ...
+
+## package.json - advanced entries
+
+- _main_: e.g. _index.js_ - the entry point when importing this package
+- _scripts_: commands that can be run via _npm run_ (e.g. _build_, _test_, _start_, ...)
+- _bin_: commands that can be run from the command line or via npx
+- _dependencies_: npm packages that are required to use this npm package
+- _devDependencies_: npm packages that are required to develop this npm package (e.g. test tools, build tools)
+
+## package.json entries
+
+See <https://docs.npmjs.com/files/package.json>
+
+## Ignoring files
+
+Create a `.gitignore` or `.npmignore` file that lists files that shouldn't be published:
+
+```
+.git
+node_modules
+package-lock.json
+```
+
+## Publishing
+
+```bash
+npm publish --access public
+```
+
+## npx scripts
+
+entry "bin" in `package.json` (should match package name without username):
+
+```json
+{
+  "name": "@user/foo-package",
+  "bin": {
+    "foo-package": "./foo-bin.js"
+  }
+}
+```
+
+contents of `foo-bin.js`:
+
+```js
+#! /usr/bin/env node
+
+console.log('this is the npx script of foo-package');
 ```
 
 # Resources
