@@ -283,3 +283,11 @@ deleting the _remote_ branch as well:
 ```bash
 git push origin :python-3-port
 ```
+
+## Remembering credentials
+
+```bash
+git config credential.helper cache
+```
+
+Git will now remember passwords for 15 minutes
