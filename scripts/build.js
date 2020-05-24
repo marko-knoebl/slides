@@ -13,6 +13,8 @@ const slides = require("@karuga/rehype-slides");
 const rehypeInline = require("rehype-inline");
 const rehypeStringify = require("rehype-stringify");
 
+const buildPresentationList = require("../build/buildPresentationList");
+
 const numSlidesTotal = { en: 0, de: 0 };
 
 const filenameRegex = /^(.*)-(.*).md$/;
@@ -53,6 +55,7 @@ const processorToSlides = unified()
 
 const main = async () => {
   const entrypointFilenames = fs.readdirSync("entrypoints");
+  buildPresentationList(entrypointFilenames);
   const presentationData = entrypointFilenames
     .filter(filename => filenameRegex.exec(filename))
     .map(presentationDataFromFilename);
