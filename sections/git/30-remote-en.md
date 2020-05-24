@@ -50,7 +50,7 @@ Whenever we want to publish a branch the remote doesn't know about:
 git push -u origin master
 ```
 
-The above command copies the the changes in the local _master_ branch to a newly created remote _master_ branch.
+The above command copies the the commits in the local _master_ branch to a newly created remote _master_ branch.
 
 ## Publishing commits to a known branch
 
@@ -66,4 +66,18 @@ Fetch and merge commits from the remote branch corresponding to the active branc
 
 ```bash
 git pull
+```
+
+## Deleting a remote branch
+
+deleting a _local_ branch:
+
+```bash
+git branch -d python-3-port
+```
+
+deleting the _remote_ branch as well:
+
+```bash
+git push origin :python-3-port
 ```
