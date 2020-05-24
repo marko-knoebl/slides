@@ -137,10 +137,10 @@ export default SlideshowApp;
 
 ## Funktionskomponenten und Klassenkomponenten
 
-Optionen:
+Möglichkeiten:
 
-- Komponentendefinition als Funktion
-- Komponentendefinition als Klasse (war insbesondere vor der Einführung von Hooks verbreitet / notwendig)
+- Definition einer Komponente als Funktion
+- Definition einer Komponente als Klasse (war insbesondere vor der Einführung von Hooks verbreitet / notwendig)
 
 ## Komponentendefinition
 

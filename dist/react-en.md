@@ -142,20 +142,6 @@ options:
 - defining a component as a function
 - defining a component as a class (was especially common / necessary before the introduction of hooks)
 
-example class component:
-
-```jsx
-import React, { Component } from 'react';
-
-class App extends Component {
-  render() {
-    return <div>Hello, World!</div>;
-  }
-}
-
-export default App;
-```
-
 ## Component definition
 
 In order to distinguish them from ordinary tags, components start with a capital letter
