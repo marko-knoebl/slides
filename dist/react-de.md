@@ -74,11 +74,11 @@ Code verfügbar unter: <https://github.com/marko-knoebl/courses-code>
 
 - JavaScript-basierte Template-Syntax
 - Explizite Änderung des Anwendungszustands mittels Settern
+- State-Objekte sind unveränderlich (immutable)
 
 ## Geschichte von React
 
-- Ab 2011 intern bei Facebook in Verwendung
-- Open Source seit 2013
+- 2013 von Facebook als open source veröffentlicht
 - Aktuelle Major Version: React 16 (September 2017)
 - Februar 2019: Einführung von Hooks
 
@@ -93,31 +93,54 @@ andere:
 - Glitch: <https://glitch.com/edit/#!/remix/starter-react-template>
 - CodePen: <https://reactjs.org/redirect-to-codepen/hello-world>
 
-## Definieren einer Komponente als Funktion
+## Komponentendefinition: Beispiel
 
 ```jsx
-import React from 'react';
+import React, { useState } from 'react';
 
-const App = () => {
-  return <div>Hello, World!</div>;
-};
+function CounterApp() {
+  const [count, setCount] = useState(0);
 
-export default App;
-```
-
-## Definieren einer Komponente als Klasse
-
-```jsx
-import React, { Component } from 'react';
-
-class App extends Component {
-  render() {
-    return <div>Hello, World!</div>;
-  }
+  return (
+    <div>
+      count: {count}
+      <button onClick={() => setCount(count + 1)}>+</button>
+    </div>
+  );
 }
 
-export default App;
+export default CounterApp;
 ```
+
+## Komponentendefinition: Beispiel
+
+```jsx
+import React, { useState } from 'react';
+
+function SlideshowApp() {
+  const [img, setImg] = useState(0);
+  return (
+    <div>
+      <button onClick={() => setImg(0)}>start</button>
+      <button onClick={() => setImg(img - 1)}>prev</button>
+      <img
+        src={`https://picsum.photos/200?image=${img}`}
+        alt="slideshow"
+      />
+      <button onClick={() => setImg(img + 1)}>next</button>
+    </div>
+  );
+}
+
+export default SlideshowApp;
+```
+
+## Funktionskomponenten und Klassenkomponenten
+
+Optionen:
+
+- Komponentendefinition als Funktion
+- Komponentendefinition als Klasse (war insbesondere vor der Einführung von Hooks verbreitet / notwendig)
 
 ## Komponentendefinition
 
@@ -252,7 +275,7 @@ React Komponenten können einen internen Zustand (_state_) haben
 
 Auf den state kann im Template verwiesen werden. Damit ändert sich die Anzeige automatisch, wenn Teile des States neu gesetzt werden.
 
-## State in Funktionskomponenten
+## State Hook
 
 In Funktionskomponenten verwenden wir den _State Hook_:
 
@@ -260,12 +283,12 @@ In Funktionskomponenten verwenden wir den _State Hook_:
 import { useState } from 'react';
 ```
 
-## State in Funktionskomponenten
+## State Hook
 
 `useState` kann zu Beginn der Komponentenfunktion (wiederholt) aufgerufen werden; es hat die folgende Signatur:
 
-- sie nimmt einen Parameter entgegen - den initialen Zustand
-- sie gibt bei jedem Aufruf ein Array mit zwei Einträgen zurück: Den aktuellen Zustand sowie eine Funktion, mit der der Zustand neu gesetzt werden kann
+- `useState` nimmt einen Parameter entgegen - den initialen Zustand
+- `useState` gibt bei jedem Aufruf ein Array mit zwei Einträgen zurück: Den aktuellen Zustand sowie eine Funktion, mit der der Zustand neu gesetzt werden kann
 
 ```js
 const App = () => {

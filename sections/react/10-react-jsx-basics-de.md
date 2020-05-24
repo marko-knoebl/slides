@@ -9,31 +9,54 @@ andere:
 - Glitch: https://glitch.com/edit/#!/remix/starter-react-template
 - CodePen: https://reactjs.org/redirect-to-codepen/hello-world
 
-## Definieren einer Komponente als Funktion
+## Komponentendefinition: Beispiel
 
 ```jsx
-import React from 'react';
+import React, { useState } from 'react';
 
-const App = () => {
-  return <div>Hello, World!</div>;
-};
+function CounterApp() {
+  const [count, setCount] = useState(0);
 
-export default App;
-```
-
-## Definieren einer Komponente als Klasse
-
-```jsx
-import React, { Component } from 'react';
-
-class App extends Component {
-  render() {
-    return <div>Hello, World!</div>;
-  }
+  return (
+    <div>
+      count: {count}
+      <button onClick={() => setCount(count + 1)}>+</button>
+    </div>
+  );
 }
 
-export default App;
+export default CounterApp;
 ```
+
+## Komponentendefinition: Beispiel
+
+```jsx
+import React, { useState } from 'react';
+
+function SlideshowApp() {
+  const [img, setImg] = useState(0);
+  return (
+    <div>
+      <button onClick={() => setImg(0)}>start</button>
+      <button onClick={() => setImg(img - 1)}>prev</button>
+      <img
+        src={`https://picsum.photos/200?image=${img}`}
+        alt="slideshow"
+      />
+      <button onClick={() => setImg(img + 1)}>next</button>
+    </div>
+  );
+}
+
+export default SlideshowApp;
+```
+
+## Funktionskomponenten und Klassenkomponenten
+
+Möglichkeiten:
+
+- Definition einer Komponente als Funktion
+- Definition einer Komponente als Klasse (war insbesondere vor der Einführung von Hooks verbreitet / notwendig)
 
 ## Komponentendefinition
 

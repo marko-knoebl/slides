@@ -2159,11 +2159,11 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <ul>
 <li>JavaScript-basierte Template-Syntax</li>
 <li>Explizite Änderung des Anwendungszustands mittels Settern</li>
+<li>State-Objekte sind unveränderlich (immutable)</li>
 </ul>
 </section><section class="slide"><h2>Geschichte von React</h2>
 <ul>
-<li>Ab 2011 intern bei Facebook in Verwendung</li>
-<li>Open Source seit 2013</li>
+<li>2013 von Facebook als open source veröffentlicht</li>
 <li>Aktuelle Major Version: React 16 (September 2017)</li>
 <li>Februar 2019: Einführung von Hooks</li>
 </ul>
@@ -2175,26 +2175,48 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li>Glitch: <a href="https://glitch.com/edit/#!/remix/starter-react-template">https://glitch.com/edit/#!/remix/starter-react-template</a></li>
 <li>CodePen: <a href="https://reactjs.org/redirect-to-codepen/hello-world">https://reactjs.org/redirect-to-codepen/hello-world</a></li>
 </ul>
-</section><section class="slide"><h2>Definieren einer Komponente als Funktion</h2>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+</section><section class="slide"><h2>Komponentendefinition: Beispiel</h2>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> React, { useState } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
 
-<span class="hljs-keyword">const</span> App = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>Hello, World!<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
-};
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">CounterApp</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> [count, setCount] = useState(<span class="hljs-number">0</span>);
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> App;
-</code></pre>
-</section><section class="slide"><h2>Definieren einer Komponente als Klasse</h2>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> React, { Component } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
-
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">App</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
-  render() {
-    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>Hello, World!<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
-  }
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+      count: {count}
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setCount(count + 1)}>+<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+  );
 }
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> App;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> CounterApp;
 </code></pre>
+</section><section class="slide"><h2>Komponentendefinition: Beispiel</h2>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> React, { useState } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">SlideshowApp</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> [img, setImg] = useState(<span class="hljs-number">0</span>);
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setImg(0)}>start<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setImg(img - 1)}>prev<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">img</span>
+        <span class="hljs-attr">src</span>=<span class="hljs-string">{</span>`<span class="hljs-attr">https:</span>//<span class="hljs-attr">picsum.photos</span>/<span class="hljs-attr">200</span>?<span class="hljs-attr">image</span>=<span class="hljs-string">${img}</span>`}
+        <span class="hljs-attr">alt</span>=<span class="hljs-string">"slideshow"</span>
+      /></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setImg(img + 1)}>next<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
+  );
+}
+
+export default SlideshowApp;
+</span></code></pre>
+</section><section class="slide"><h2>Funktionskomponenten und Klassenkomponenten</h2>
+<p>Optionen:</p>
+<ul>
+<li>Komponentendefinition als Funktion</li>
+<li>Komponentendefinition als Klasse (war insbesondere vor der Einführung von Hooks verbreitet / notwendig)</li>
+</ul>
 </section><section class="slide"><h2>Komponentendefinition</h2>
 <p>Um sie von normalen Tags zu unterscheiden, beginnen Komponentennamen immer mit einem Großbuchstaben</p>
 </section><section class="slide"><h2>JSX: JS + XML</h2>
@@ -2275,15 +2297,15 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </section><section class="slide"><h2>State</h2>
 <p>React Komponenten können einen internen Zustand (<em>state</em>) haben</p>
 <p>Auf den state kann im Template verwiesen werden. Damit ändert sich die Anzeige automatisch, wenn Teile des States neu gesetzt werden.</p>
-</section><section class="slide"><h2>State in Funktionskomponenten</h2>
+</section><section class="slide"><h2>State Hook</h2>
 <p>In Funktionskomponenten verwenden wir den <em>State Hook</em>:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { useState } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
 </code></pre>
-</section><section class="slide"><h2>State in Funktionskomponenten</h2>
+</section><section class="slide"><h2>State Hook</h2>
 <p><code>useState</code> kann zu Beginn der Komponentenfunktion (wiederholt) aufgerufen werden; es hat die folgende Signatur:</p>
 <ul>
-<li>sie nimmt einen Parameter entgegen - den initialen Zustand</li>
-<li>sie gibt bei jedem Aufruf ein Array mit zwei Einträgen zurück: Den aktuellen Zustand sowie eine Funktion, mit der der Zustand neu gesetzt werden kann</li>
+<li><code>useState</code> nimmt einen Parameter entgegen - den initialen Zustand</li>
+<li><code>useState</code> gibt bei jedem Aufruf ein Array mit zwei Einträgen zurück: Den aktuellen Zustand sowie eine Funktion, mit der der Zustand neu gesetzt werden kann</li>
 </ul>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> App = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
   <span class="hljs-keyword">const</span> [count, setCount] = useState(<span class="hljs-number">0</span>);

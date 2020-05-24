@@ -591,87 +591,67 @@ Tools:
 
 # React Router
 
-## React Router
+## Setup
 
-<https://reacttraining.com/react-router/>
-
-## React Router - Setup
-
-npm Pakete:
+npm-Pakete:
 
 - `react-router-dom`
 - (`@types/react-router-dom`)
 
-## React Router - BrowserRouter
+## Setup
 
-Um React Router verwenden zu können:  
-Ganze Anwendung wird in ein `BrowserRouter` - Element eingebettet
+Die ganze Anwendung wird in ein `BrowserRouter`-Element eingebettet:
 
 ```js
+// index.js
+
 import { BrowserRouter } from 'react-router-dom';
 
-// ...
-
-<BrowserRouter>
-  <App />
-</BrowserRouter>;
+ReactDOM.render(
+  <React.StrictMode>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </React.StrictMode>,
+  rootElement
+);
 ```
 
-## React Router - Routen definieren
+## Grundlegende Router-Komponenten
+
+- `<Route>` - rendert ihre Inhalte, wenn sie aktiv ist
+- `<Switch>` - Container für `<Route>`-Elemente
+- `<Link>` / `<NavLink>` - werden anstatt von `<a>`-Elementen verwendet
+
+## Einfaches Beispiel
 
 ```js
-import { Route } from 'react-router-dom';
-
-<Route path="/" exact={true} component={TodoList} />
-<Route path="/about" exact={true} component={About} />
-<Route path="/add" exact={true} component={AddTodo} />
+const App = () => {
+  return (
+    <div>
+      <NavLink to="/slideshow">slideshow</NavLink>|
+      <NavLink to="/counter">counter</NavLink>
+      <Switch>
+        <Route path="/slideshow">
+          <Slideshow />
+        </Route>
+        <Route path="/counter">
+          <Counter />
+        </Route>
+      </Switch>
+    </div>
+  );
+};
 ```
 
-## React Router - Routen definieren
+(Syntax von React Router 5.1)
 
-Wenn props übergeben werden müssen:
-
-```jsx
-import { Route } from 'react-router-dom';
-
-<Route
-  path="/add"
-  exact={true}
-  render={() => <AddTodo onSubmit={this.handleAddTodo} />}
-/>;
-```
-
-## React Router - Router-Links
+## Routenparameter
 
 ```jsx
-import { NavLink } from 'react-router-dom';
-
-<NavLink to="/" activeClassName="active-link">Home</NavLink>
-<NavLink to="/add" activeClassName="active-link">Add</NavLink>
-```
-
-## React Router - Switch
-
-Nur die erste zutreffende Route wird angezeigt
-
-```jsx
-import { Switch } from 'react-router-dom';
-
-<Switch>
-  <Route path="/todos/:todoId" component={Todo} />
-  <Route path="/" component={NotFound} />
-</Switch>;
-```
-
-## React Router - Hooks
-
-- `useParams`
-- `useHistory`
-
-## React Router - Routenparameter
-
-```jsx
-<Route path="/todos/:todoId" component={TodoDetailView} />
+<Route path="/todos/:todoId">
+  <TodoDetailView />
+</Route>
 ```
 
 ```jsx
@@ -688,42 +668,44 @@ const TodoDetailView = () => {
 };
 ```
 
-## React Router - Navigation aus React
+## Styling von Links
+
+Übergeben eines Klassennamens, der auf aktive Links angewendet wird:
+
+```xml
+<NavLink to="/" activeClassName="active-link">Home</NavLink>
+<NavLink to="/add" activeClassName="active-link">Add</NavLink>
+```
+
+## Navigation aus React
 
 Möglichkeiten:
 
 - Rendern einer `<Redirect>`-Komponente
 - Verwendung des history Hooks
 
-## React Router - Navigation aus React
+## Navigation aus React
 
 ```jsx
-import { Redirect } from 'react-router-dom';
+<Route path="/member-area">
+  {username ? <MemberArea /> : <Redirect to="/login" />}
+</Route>
 ```
 
-```jsx
-<Route
-  path="/member"
-  render={() =>
-    username ? <MemberArea /> : <Redirect to="/login" />
-  }
-/>
-```
-
-## React Router - Navigation aus React
+## Navigation aus React
 
 ```jsx
 import { useHistory } from 'react-router-dom';
 
 const AddTodoView = () => {
   const history = useHistory();
-  const handleSubmit = event => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     // ...
     // go back to home view
     history.push('/');
   };
-  return <form>...</form>;
+  return <form onSubmit={handleSubmit}>...</form>;
 };
 ```
 

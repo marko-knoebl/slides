@@ -6,7 +6,7 @@ React components may have an internal _state_
 
 The state can be referenced in the template. The view will automatically update if parts of the state are changed.
 
-## state in function components
+## State hook
 
 In function components we make use of the _state hook_:
 
@@ -14,7 +14,7 @@ In function components we make use of the _state hook_:
 import { useState } from 'react';
 ```
 
-## state in function components
+## State hook
 
 `useState` may be called (repeatedly) at the beginning of the component function
 

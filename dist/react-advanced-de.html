@@ -2540,64 +2540,56 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li><em>next.js</em>: routing, Pre-Rendering statischer und <em>dynamischer</em> Inhalte</li>
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>React Router</h1>
-</section><section class="slide"><h2>React Router</h2>
-<p><a href="https://reacttraining.com/react-router/">https://reacttraining.com/react-router/</a></p>
-</section><section class="slide"><h2>React Router - Setup</h2>
-<p>npm Pakete:</p>
+</section><section class="slide"><h2>Setup</h2>
+<p>npm-Pakete:</p>
 <ul>
 <li><code>react-router-dom</code></li>
 <li>(<code>@types/react-router-dom</code>)</li>
 </ul>
-</section><section class="slide"><h2>React Router - BrowserRouter</h2>
-<p>Um React Router verwenden zu können:<br />
-Ganze Anwendung wird in ein <code>BrowserRouter</code> - Element eingebettet</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { BrowserRouter } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router-dom'</span>;
+</section><section class="slide"><h2>Setup</h2>
+<p>Die ganze Anwendung wird in ein <code>BrowserRouter</code>-Element eingebettet:</p>
+<pre><code class="hljs language-js"><span class="hljs-comment">// index.js</span>
 
-<span class="hljs-comment">// ...</span>
+<span class="hljs-keyword">import</span> { BrowserRouter } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router-dom'</span>;
 
-<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">BrowserRouter</span>></span>
-  <span class="hljs-tag">&#x3C;<span class="hljs-name">App</span> /></span>
-<span class="hljs-tag">&#x3C;/<span class="hljs-name">BrowserRouter</span>></span></span>;
+ReactDOM.render(
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">React.StrictMode</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">BrowserRouter</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">App</span> /></span>
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">BrowserRouter</span>></span>
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">React.StrictMode</span>></span></span>,
+  rootElement
+);
 </code></pre>
-</section><section class="slide"><h2>React Router - Routen definieren</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { Route } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router-dom'</span>;
-
-&#x3C;Route path="/" exact={true} component={TodoList} />
-&#x3C;Route path="/about" exact={true} component={About} />
-&#x3C;Route path="/add" exact={true} component={AddTodo} />
-</code></pre>
-</section><section class="slide"><h2>React Router - Routen definieren</h2>
-<p>Wenn props übergeben werden müssen:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> { Route } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router-dom'</span>;
-
-&#x3C;Route
-  path="/add"
-  exact={true}
-  render={() => &#x3C;AddTodo onSubmit={this.handleAddTodo} />}
-/>;
-</code></pre>
-</section><section class="slide"><h2>React Router - Router-Links</h2>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> { NavLink } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router-dom'</span>;
-
-<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">NavLink</span> <span class="hljs-attr">to</span>=<span class="hljs-string">"/"</span> <span class="hljs-attr">activeClassName</span>=<span class="hljs-string">"active-link"</span>></span>Home<span class="hljs-tag">&#x3C;/<span class="hljs-name">NavLink</span>></span></span>
-<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">NavLink</span> <span class="hljs-attr">to</span>=<span class="hljs-string">"/add"</span> <span class="hljs-attr">activeClassName</span>=<span class="hljs-string">"active-link"</span>></span>Add<span class="hljs-tag">&#x3C;/<span class="hljs-name">NavLink</span>></span></span>
-</code></pre>
-</section><section class="slide"><h2>React Router - Switch</h2>
-<p>Nur die erste zutreffende Route wird angezeigt</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> { Switch } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router-dom'</span>;
-
-&#x3C;Switch>
-  &#x3C;Route path="/todos/:todoId" component={Todo} />
-  &#x3C;Route path="/" component={NotFound} />
-&#x3C;/Switch>;
-</code></pre>
-</section><section class="slide"><h2>React Router - Hooks</h2>
+</section><section class="slide"><h2>Grundlegende Router-Komponenten</h2>
 <ul>
-<li><code>useParams</code></li>
-<li><code>useHistory</code></li>
+<li><code>&#x3C;Route></code> - rendert ihre Inhalte, wenn sie aktiv ist</li>
+<li><code>&#x3C;Switch></code> - Container für <code>&#x3C;Route></code>-Elemente</li>
+<li><code>&#x3C;Link></code> / <code>&#x3C;NavLink></code> - werden anstatt von <code>&#x3C;a></code>-Elementen verwendet</li>
 </ul>
-</section><section class="slide"><h2>React Router - Routenparameter</h2>
-<pre><code class="hljs language-jsx">&#x3C;Route path=<span class="hljs-string">"/todos/:todoId"</span> component={TodoDetailView} />
+</section><section class="slide"><h2>Einfaches Beispiel</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> App = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">NavLink</span> <span class="hljs-attr">to</span>=<span class="hljs-string">"/slideshow"</span>></span>slideshow<span class="hljs-tag">&#x3C;/<span class="hljs-name">NavLink</span>></span>|
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">NavLink</span> <span class="hljs-attr">to</span>=<span class="hljs-string">"/counter"</span>></span>counter<span class="hljs-tag">&#x3C;/<span class="hljs-name">NavLink</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">Switch</span>></span>
+        <span class="hljs-tag">&#x3C;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"/slideshow"</span>></span>
+          <span class="hljs-tag">&#x3C;<span class="hljs-name">Slideshow</span> /></span>
+        <span class="hljs-tag">&#x3C;/<span class="hljs-name">Route</span>></span>
+        <span class="hljs-tag">&#x3C;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"/counter"</span>></span>
+          <span class="hljs-tag">&#x3C;<span class="hljs-name">Counter</span> /></span>
+        <span class="hljs-tag">&#x3C;/<span class="hljs-name">Route</span>></span>
+      <span class="hljs-tag">&#x3C;/<span class="hljs-name">Switch</span>></span>
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+  );
+};
+</code></pre>
+<p>(Syntax von React Router 5.1)</p>
+</section><section class="slide"><h2>Routenparameter</h2>
+<pre><code class="hljs language-jsx">&#x3C;Route path=<span class="hljs-string">"/todos/:todoId"</span>>
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">TodoDetailView</span> /></span>
+<span class="hljs-tag">&#x3C;/<span class="hljs-name">Route</span>></span></span>
 </code></pre>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> { useParams } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router-dom'</span>;
 
@@ -2611,34 +2603,34 @@ Ganze Anwendung wird in ein <code>BrowserRouter</code> - Element eingebettet</p>
   );
 };
 </code></pre>
-</section><section class="slide"><h2>React Router - Navigation aus React</h2>
+</section><section class="slide"><h2>Styling von Links</h2>
+<p>Übergeben eines Klassennamens, der auf aktive Links angewendet wird:</p>
+<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">NavLink</span> <span class="hljs-attr">to</span>=<span class="hljs-string">"/"</span> <span class="hljs-attr">activeClassName</span>=<span class="hljs-string">"active-link"</span>></span>Home<span class="hljs-tag">&#x3C;/<span class="hljs-name">NavLink</span>></span>
+<span class="hljs-tag">&#x3C;<span class="hljs-name">NavLink</span> <span class="hljs-attr">to</span>=<span class="hljs-string">"/add"</span> <span class="hljs-attr">activeClassName</span>=<span class="hljs-string">"active-link"</span>></span>Add<span class="hljs-tag">&#x3C;/<span class="hljs-name">NavLink</span>></span>
+</code></pre>
+</section><section class="slide"><h2>Navigation aus React</h2>
 <p>Möglichkeiten:</p>
 <ul>
 <li>Rendern einer <code>&#x3C;Redirect></code>-Komponente</li>
 <li>Verwendung des history Hooks</li>
 </ul>
-</section><section class="slide"><h2>React Router - Navigation aus React</h2>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> { Redirect } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router-dom'</span>;
-</code></pre>
-<pre><code class="hljs language-jsx">&#x3C;Route
-  path=<span class="hljs-string">"/member"</span>
-  render={() =>
-    username ? &#x3C;MemberArea /> : &#x3C;Redirect to="/login" />
-  }
-/>
-</code></pre>
-</section><section class="slide"><h2>React Router - Navigation aus React</h2>
+</section><section class="slide"><h2>Navigation aus React</h2>
+<pre><code class="hljs language-jsx">&#x3C;Route path=<span class="hljs-string">"/member-area"</span>>
+  {username ? <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">MemberArea</span> /></span> : <span class="hljs-tag">&#x3C;<span class="hljs-name">Redirect</span> <span class="hljs-attr">to</span>=<span class="hljs-string">"/login"</span> /></span>}
+<span class="hljs-tag">&#x3C;/<span class="hljs-name">Route</span>></span>
+</span></code></pre>
+</section><section class="slide"><h2>Navigation aus React</h2>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> { useHistory } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router-dom'</span>;
 
 <span class="hljs-keyword">const</span> AddTodoView = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
   <span class="hljs-keyword">const</span> history = useHistory();
-  <span class="hljs-keyword">const</span> handleSubmit = <span class="hljs-function"><span class="hljs-params">event</span> =></span> {
+  <span class="hljs-keyword">const</span> handleSubmit = <span class="hljs-function">(<span class="hljs-params">event</span>) =></span> {
     event.preventDefault();
     <span class="hljs-comment">// ...</span>
     <span class="hljs-comment">// go back to home view</span>
     history.push(<span class="hljs-string">'/'</span>);
   };
-  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">form</span>></span>...<span class="hljs-tag">&#x3C;/<span class="hljs-name">form</span>></span></span>;
+  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">form</span> <span class="hljs-attr">onSubmit</span>=<span class="hljs-string">{handleSubmit}</span>></span>...<span class="hljs-tag">&#x3C;/<span class="hljs-name">form</span>></span></span>;
 };
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Lazy-Loading von Komponenten</h1>

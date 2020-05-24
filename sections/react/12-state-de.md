@@ -6,7 +6,7 @@ React Komponenten können einen internen Zustand (_state_) haben
 
 Auf den state kann im Template verwiesen werden. Damit ändert sich die Anzeige automatisch, wenn Teile des States neu gesetzt werden.
 
-## State in Funktionskomponenten
+## State Hook
 
 In Funktionskomponenten verwenden wir den _State Hook_:
 
@@ -14,12 +14,12 @@ In Funktionskomponenten verwenden wir den _State Hook_:
 import { useState } from 'react';
 ```
 
-## State in Funktionskomponenten
+## State Hook
 
 `useState` kann zu Beginn der Komponentenfunktion (wiederholt) aufgerufen werden; es hat die folgende Signatur:
 
-- sie nimmt einen Parameter entgegen - den initialen Zustand
-- sie gibt bei jedem Aufruf ein Array mit zwei Einträgen zurück: Den aktuellen Zustand sowie eine Funktion, mit der der Zustand neu gesetzt werden kann
+- `useState` nimmt einen Parameter entgegen - den initialen Zustand
+- `useState` gibt bei jedem Aufruf ein Array mit zwei Einträgen zurück: Den aktuellen Zustand sowie eine Funktion, mit der der Zustand neu gesetzt werden kann
 
 ```js
 const App = () => {

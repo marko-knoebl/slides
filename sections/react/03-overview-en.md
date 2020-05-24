@@ -27,11 +27,11 @@
 ## What makes React special?
 
 - JavaScript-based template syntax
-- explicit state mutations via setters
+- explicit state changes via setters
+- immutable state objects
 
 ## History of React
 
-- used internally at Facebook from 2011
-- open source since 2013
+- open-sourced by Facebook in 2013
 - current major version: React 16 (September 2017)
 - February 2019: introction of hooks

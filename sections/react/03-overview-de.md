@@ -28,10 +28,10 @@
 
 - JavaScript-basierte Template-Syntax
 - Explizite Änderung des Anwendungszustands mittels Settern
+- State-Objekte sind unveränderlich (immutable)
 
 ## Geschichte von React
 
-- Ab 2011 intern bei Facebook in Verwendung
-- Open Source seit 2013
+- 2013 von Facebook als open source veröffentlicht
 - Aktuelle Major Version: React 16 (September 2017)
 - Februar 2019: Einführung von Hooks

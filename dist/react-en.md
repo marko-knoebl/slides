@@ -73,12 +73,12 @@ Code available at: <https://github.com/marko-knoebl/courses-code>
 ## What makes React special?
 
 - JavaScript-based template syntax
-- explicit state mutations via setters
+- explicit state changes via setters
+- immutable state objects
 
 ## History of React
 
-- used internally at Facebook from 2011
-- open source since 2013
+- open-sourced by Facebook in 2013
 - current major version: React 16 (September 2017)
 - February 2019: introction of hooks
 
@@ -93,19 +93,56 @@ others:
 - Glitch: <https://glitch.com/edit/#!/remix/starter-react-template>
 - CodePen: <https://reactjs.org/redirect-to-codepen/hello-world>
 
-## Defining a component as a function
+## Example component definition
 
 ```jsx
-import React from 'react';
+import React, { useState } from 'react';
 
-const App = () => {
-  return <div>Hello, World!</div>;
-};
+function CounterApp() {
+  const [count, setCount] = useState(0);
 
-export default App;
+  return (
+    <div>
+      count: {count}
+      <button onClick={() => setCount(count + 1)}>+</button>
+    </div>
+  );
+}
+
+export default CounterApp;
 ```
 
-## Defining a component as a class
+## Example component definition
+
+```jsx
+import React, { useState } from 'react';
+
+function SlideshowApp() {
+  const [img, setImg] = useState(0);
+  return (
+    <div>
+      <button onClick={() => setImg(0)}>start</button>
+      <button onClick={() => setImg(img - 1)}>prev</button>
+      <img
+        src={`https://picsum.photos/200?image=${img}`}
+        alt="slideshow"
+      />
+      <button onClick={() => setImg(img + 1)}>next</button>
+    </div>
+  );
+}
+
+export default SlideshowApp;
+```
+
+## Function components and class components
+
+options:
+
+- defining a component as a function
+- defining a component as a class (was especially common / necessary before the introduction of hooks)
+
+example class component:
 
 ```jsx
 import React, { Component } from 'react';
@@ -252,7 +289,7 @@ React components may have an internal _state_
 
 The state can be referenced in the template. The view will automatically update if parts of the state are changed.
 
-## state in function components
+## State hook
 
 In function components we make use of the _state hook_:
 
@@ -260,7 +297,7 @@ In function components we make use of the _state hook_:
 import { useState } from 'react';
 ```
 
-## state in function components
+## State hook
 
 `useState` may be called (repeatedly) at the beginning of the component function
 
