@@ -32,11 +32,9 @@ _Don't_ select "Initialize this repository with a README".
 
 ## Publishing a new Git repository
 
-Once you have an empty repository on GitHub, follow the instructions for an _existing respository_:
+Once you have an empty repository on GitHub, follow the instructions for an _existing respository_ displayed on GitHub
 
-Connect the local repository with the remote repository.
-
-Usually there's only one remote repository and it's conventionally named _origin_.
+Usually you will connect a local repository to a single remote repository - the remote repository is conventionally named _origin_
 
 ```bash
 git remote add origin https://github.com/...
@@ -62,7 +60,7 @@ git push
 
 ## Getting new commits from a remote branch
 
-Fetch and merge commits from the remote branch corresponding to the active branch
+Fetch and merge commits from the remote branch corresponding to the active branch:
 
 ```bash
 git pull

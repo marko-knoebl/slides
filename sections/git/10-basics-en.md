@@ -11,7 +11,7 @@ it mainly helps with two categories of tasks:
 
 ## Setting up git on Windows
 
-Install from [git-scm.com](https://git-scm.com)
+Install from <https://git-scm.com>
 
 ## Setting up git on Windows
 
@@ -42,11 +42,11 @@ initializing a repository in a local folder
 git init
 ```
 
-## View commit history
+## Commits
 
-```bash
-git log
-```
+In git a _commit_ is a snapshot of a codebase
+
+The evolution of a codebase is represented by a sequence of commits
 
 ## Review changes to files since last commit
 
@@ -76,21 +76,13 @@ making a commit with a commit message
 git commit -m "changing some HTML files"
 ```
 
-## Ignoring files
-
-We can list files to ignore in a special text file called `.gitignore` (without a filename extension):
-
-```txt
-node_modules
-.vscode
-```
-
 ## Commit history
 
 list past commits:
 
 ```bash
 git log
+git log --oneline
 ```
 
 example output:
@@ -116,4 +108,13 @@ view changes between _19e0e64e8f198bc8495c979fe586c47e6dedc06f_ and the current 
 
 ```bash
 git diff 19e0
+```
+
+## Ignoring files
+
+We can list files to ignore in a special text file called `.gitignore` (without a filename extension):
+
+```txt
+node_modules
+.vscode
 ```
