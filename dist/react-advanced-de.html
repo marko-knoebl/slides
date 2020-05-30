@@ -2081,6 +2081,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li>externe Hooks und eigene Hooks</li>
 </ul></li>
 <li>Styling-Libraries</li>
+<li>Formular-Libraries</li>
 <li>Routing und Prerendering</li>
 <li>Performanceoptimierung</li>
 <li>Testen von React-Komponenten</li>
@@ -2636,6 +2637,79 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 );
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> radium(TestButton);
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Formular-Libraries</h1>
+</section><section class="slide"><h2>Formular-Libraries</h2>
+<p>Beispiele:</p>
+<ul>
+<li>formik (basiert auf React-Komponenten)</li>
+<li>react-hook-form (basiert auf einem React Hook)</li>
+</ul>
+<p>Funktionalität:</p>
+<ul>
+<li><strong>Validierung</strong></li>
+<li>Vereinfachung des Submit-Handlers</li>
+<li>Verwalten von Formulardaten</li>
+</ul>
+</section><section class="slide"><h2>react-hook-form</h2>
+<p><em>react-hook-form</em> behält Inputdaten nicht im React State</p>
+<p>Vorteile: schneller, einfacher</p>
+<p>Nachteile: weicht von üblichen React-Konzepten ab</p>
+</section><section class="slide"><h2>react-hook-form</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { useForm } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-hook-form'</span>;
+
+<span class="hljs-keyword">const</span> NewsletterRegistration = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  <span class="hljs-keyword">const</span> { register, handleSubmit, errors } = useForm();
+
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">form</span>
+      <span class="hljs-attr">onSubmit</span>=<span class="hljs-string">{handleSubmit((values)</span> =></span> {
+        console.log(values);
+      })}
+    >
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">input</span>
+        <span class="hljs-attr">type</span>=<span class="hljs-string">"email"</span>
+        <span class="hljs-attr">name</span>=<span class="hljs-string">"email"</span>
+        <span class="hljs-attr">ref</span>=<span class="hljs-string">{register({</span>
+          <span class="hljs-attr">pattern:</span> {
+            <span class="hljs-attr">value:</span> /^[<span class="hljs-attr">A-Z0-9._</span>%+<span class="hljs-attr">-</span>]+@[<span class="hljs-attr">A-Z0-9.-</span>]+\<span class="hljs-attr">.</span>[<span class="hljs-attr">A-Z</span>]{<span class="hljs-attr">2</span>,}$/<span class="hljs-attr">i</span>,
+            <span class="hljs-attr">message:</span> '<span class="hljs-attr">invalid</span> <span class="hljs-attr">email</span>',
+          },
+        })}
+      /></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">disabled</span>=<span class="hljs-string">{errors}</span>></span>subscribe<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
+      {errors.email &#x26;&#x26; errors.email.message}
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">form</span>></span>
+  );
+};
+</span></code></pre>
+</section><section class="slide"><h2>formik</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { Formik, Form, Field, ErrorMessage } <span class="hljs-keyword">from</span> <span class="hljs-string">'formik'</span>;
+
+<span class="hljs-keyword">const</span> NewsletterRegistration = <span class="hljs-function"><span class="hljs-params">()</span> =></span> (
+  &#x3C;Formik
+    initialValues={{ email: '' }}
+    onSubmit={(values) => console.log(values)}
+    validate={(values) => {
+      const errors = {};
+      if (!isEmail(values.email)) {
+        errors.email = 'invalid email';
+      }
+      return errors;
+    }}
+  >
+    {(props) => (
+      &#x3C;Form>
+        &#x3C;Field type="email" name="email" />
+        &#x3C;button disabled={!props.isValid}>subscribe&#x3C;/button>
+        &#x3C;ErrorMessage name="email" component="div" />
+      &#x3C;/Form>
+    )}
+  &#x3C;/Formik>
+);
+
+const isEmail = (email) =>
+  email.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i);
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Routing und Pre-Rendering</h1>
 </section><section class="slide"><h2>Routing und Pre-Rendering</h2>

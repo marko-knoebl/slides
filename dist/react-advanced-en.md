@@ -42,6 +42,7 @@ Code available at: <https://github.com/marko-knoebl/courses-code>
   - effect hook in detail
   - external and custom hooks
 - styling libraries
+- form libraries
 - routing and pre-rendering
 - optimizing performance
 - testing React components
@@ -710,6 +711,91 @@ const TestButton = (props) => (
 );
 
 export default radium(TestButton);
+```
+
+# Form libraries
+
+## Form libraries
+
+examples:
+
+- formik (based on custom components)
+- react-hook-form (based on a custom hook)
+
+functionality:
+
+- **validation**
+- simplifying submit handler
+- managing form data
+
+## react-hook-form
+
+_react-hook-form_ does not keep input contents in React state
+
+advantages: faster, simpler
+
+disadvantages: deviates from standard React concepts
+
+## react-hook-form
+
+```js
+import { useForm } from 'react-hook-form';
+
+const NewsletterRegistration = () => {
+  const { register, handleSubmit, errors } = useForm();
+
+  return (
+    <form
+      onSubmit={handleSubmit((values) => {
+        console.log(values);
+      })}
+    >
+      <input
+        type="email"
+        name="email"
+        ref={register({
+          pattern: {
+            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+            message: 'invalid email',
+          },
+        })}
+      />
+      <button disabled={errors}>subscribe</button>
+      {errors.email && errors.email.message}
+    </form>
+  );
+};
+```
+
+## formik
+
+```js
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+
+const NewsletterRegistration = () => (
+  <Formik
+    initialValues={{ email: '' }}
+    onSubmit={(values) => console.log(values)}
+    validate={(values) => {
+      const errors = {};
+      if (!isEmail(values.email)) {
+        errors.email = 'invalid email';
+      }
+      return errors;
+    }}
+  >
+    {(props) => (
+      <Form>
+        <Field type="email" name="email" />
+        <button disabled={!props.isValid}>subscribe</button>
+        <ErrorMessage name="email" component="div" />
+      </Form>
+    )}
+  </Formik>
+);
+
+const isEmail = (email) =>
+  email.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i);
 ```
 
 # Routing and pre-rendering

@@ -2504,38 +2504,6 @@ todos.push({ <span class="hljs-attr">title</span>: <span class="hljs-string">'st
 const isEmail = (email) =>
   email.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i);
 </span></code></pre>
-</section><section class="slide"><h2>Forms with "Formik"</h2>
-<p>npm package: <em>formik</em></p>
-<p>provides components (<em>Form</em>, <em>Field</em>, ...) that can reduce code</p>
-<p>can be useful for more complex forms</p>
-</section><section class="slide"><h2>Forms with "Formik"</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { Formik, Form, Field, ErrorMessage } <span class="hljs-keyword">from</span> <span class="hljs-string">'formik'</span>;
-
-<span class="hljs-keyword">const</span> NewsletterRegistration = <span class="hljs-function"><span class="hljs-params">()</span> =></span> (
-  &#x3C;Formik
-    initialValues={{ email: '' }}
-    onSubmit={(values) => console.log(values)}
-    validate={(values) => {
-      const errors = {};
-      if (!isEmail(values.email)) {
-        errors.email = 'invalid email';
-      }
-      return errors;
-    }}
-  >
-    {(props) => (
-      &#x3C;Form>
-        &#x3C;Field type="email" name="email" />
-        &#x3C;button disabled={!props.isValid}>subscribe&#x3C;/button>
-        &#x3C;ErrorMessage name="email" component="div" />
-      &#x3C;/Form>
-    )}
-  &#x3C;/Formik>
-);
-
-const isEmail = (email) =>
-  email.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i);
-</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>React developer tools</h1>
 </section><section class="slide"><h2>React developer tools</h2>
 <ul>

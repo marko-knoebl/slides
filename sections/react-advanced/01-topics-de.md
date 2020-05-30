@@ -8,6 +8,7 @@
   - effect Hook im Detail
   - externe Hooks und eigene Hooks
 - Styling-Libraries
+- Formular-Libraries
 - Routing und Prerendering
 - Performanceoptimierung
 - Testen von React-Komponenten

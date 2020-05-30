@@ -570,45 +570,6 @@ const isEmail = (email) =>
   email.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i);
 ```
 
-## Formulare mit "Formik"
-
-npm-Paket: _formik_
-
-stellt Komponenten (_Form_, _Field_, ...) bereit, die Code verinfachen können
-
-kann besonders für komplexere Formulare nützlich sein
-
-## Formulare mit "Formik"
-
-```js
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-
-const NewsletterRegistration = () => (
-  <Formik
-    initialValues={{ email: '' }}
-    onSubmit={(values) => console.log(values)}
-    validate={(values) => {
-      const errors = {};
-      if (!isEmail(values.email)) {
-        errors.email = 'invalid email';
-      }
-      return errors;
-    }}
-  >
-    {(props) => (
-      <Form>
-        <Field type="email" name="email" />
-        <button disabled={!props.isValid}>subscribe</button>
-        <ErrorMessage name="email" component="div" />
-      </Form>
-    )}
-  </Formik>
-);
-
-const isEmail = (email) =>
-  email.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i);
-```
-
 # React Developer Tools
 
 ## React Developer Tools
