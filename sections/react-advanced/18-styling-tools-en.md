@@ -1,20 +1,22 @@
-# Styling in JSX
+# Styling tools
 
-## Tools
+## Styling tools
 
-- external stylesheets
-  - _classnames_ package
-  - CSS modules
-  - SCSS
-- _style_ property
-- libraries
-  - styled-components
-  - radium
-  - JSS
+tools for external stylesheets:
 
-## CSS classes
+- _classnames_ package
+- CSS modules
+- SCSS
 
-helper utility: npm package _classnames_:
+CSS-in-JS libraries:
+
+- styled-components
+- JSS
+- radium
+
+## classnames
+
+utility: npm package _classnames_:
 
 ```jsx
 import classNames from 'classnames';
@@ -31,7 +33,7 @@ import classNames from 'classnames';
 
 ## CSS modules
 
-When using create-react-app CSS modules are preconfigured. They allow using CSS class names that are guaranteed to be unique across CSS files.
+CSS modules are preconfigured in create-react-app; they enable using CSS class names that are guaranteed to be unique across CSS files
 
 ```js
 import styles from './TodoItem.module.css';
@@ -43,47 +45,30 @@ import styles from './TodoItem.module.css';
 </div>;
 ```
 
-## using SCSS
+## SCSS
+
+enabling SCSS in a create-react-app project:
 
 ```bash
 npm install node-sass
 ```
 
+then we can use:
+
 ```js
-import styles from './TodoItem.module.scss';
+import './TodoItem.scss';
 ```
 
-```scss
-/* TodoItem.module.scss */
-@import '../colors';
-...
-```
+## CSS-in-JS
 
-```scss
-/* colors.scss */
-$primary: lightblue;
-```
+**CSS-in-JS**: JavaScript is used to generate and attach stylesheets
 
-## JSX: dynamic styles
-
-```jsx
-<div
-  style={{
-    color: '#333',
-    fontSize: getFontSize(),
-  }}
-/>
-```
-
-## React styling libraries
-
-examples:
+libraries:
 
 - styled-components
-- jss
-- emotion
+- JSS
 - radium
-- ...
+- emotion
 
 ## styled-components
 

@@ -2563,14 +2563,14 @@ const isEmail = (email) =>
 <li>gültige Elemente</li>
 <li>Kompilierung</li>
 </ul>
-</section><section class="slide"><h2>Attribute</h2>
-<p>Manche Attribute von Eleenten haben andere Namen als in standard HTML (spiegeln die standard DOM-Attribute wider)</p>
+</section><section class="slide"><h2>Property-Namen</h2>
+<p>Manche Properties von Eleenten haben andere Namen als in standard HTML (spiegeln die standard DOM-Properties wider)</p>
 <ul>
 <li><code>className</code> (anstatt <code>class</code>)</li>
 <li><code>onClick</code> (anstatt <code>onclick</code>)</li>
 <li><code>htmlFor</code> (anstatt <code>for</code>)</li>
 </ul>
-</section><section class="slide"><h2>Attribute</h2>
+</section><section class="slide"><h2>Property-Namen</h2>
 <p>Beispiel: CSS-Klassen</p>
 <pre><code class="hljs language-jsx">&#x3C;li
   className={
@@ -2580,6 +2580,16 @@ const isEmail = (email) =>
   [...]
 &#x3C;<span class="hljs-regexp">/li>
 </span></code></pre>
+<p>es gibt viele Hilfslibraries, die die <em>className</em>-Property dynamisch generieren</p>
+</section><section class="slide"><h2>Style Property</h2>
+<p>In JSX weisen wir der <em>style</em>-Property ein Objekt zu:</p>
+<pre><code class="hljs language-jsx">&#x3C;div
+  style={{
+    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">'#333'</span>,
+    <span class="hljs-attr">fontSize</span>: getFontSize(),
+  }}
+/>
+</code></pre>
 </section><section class="slide"><h2>JSX: Elemente wiederholen</h2>
 <p>Aufgabe: Erstellen einer HTML-Liste (ul) aus diesen Daten:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> initialTodos = [
@@ -2710,138 +2720,6 @@ Lösung: <strong>key</strong>:</p>
   { <span class="hljs-attr">href</span>: <span class="hljs-string">'https://google.com'</span> },
   <span class="hljs-string">'Google'</span>
 );
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Styling in JSX</h1>
-</section><section class="slide"><h2>Tools</h2>
-<ul>
-<li>externe Stylesheets<ul>
-<li>Paket <em>classnames</em></li>
-<li>CSS-Module</li>
-<li>SCSS</li>
-</ul></li>
-<li><em>style</em>-Property</li>
-<li>Libraries<ul>
-<li>styled-components</li>
-<li>radium</li>
-<li>JSS</li>
-</ul></li>
-</ul>
-</section><section class="slide"><h2>CSS-Klassen</h2>
-<p>Hilfs-Utility: npm-Paket <em>classnames</em>:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> classNames <span class="hljs-keyword">from</span> <span class="hljs-string">'classnames'</span>;
-
-<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>
-  <span class="hljs-attr">className</span>=<span class="hljs-string">{classNames({</span>
-    <span class="hljs-attr">todoitem:</span> <span class="hljs-attr">true</span>,
-    <span class="hljs-attr">completed:</span> <span class="hljs-attr">isCompleted</span>,
-  })}
-></span>
-  [...]
-<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
-</code></pre>
-</section><section class="slide"><h2>CSS-Module</h2>
-<p>Bei create-react-app sind CSS-Module vorkonfiguriert. Diese erlauben das Verwenden von CSS-Klassennamen, die garantiert über CSS-Dateien hinweg eindeutig sind.</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> styles <span class="hljs-keyword">from</span> <span class="hljs-string">'./TodoItem.module.css'</span>;
-
-<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">{styles.todoItem}</span>></span>...<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
-
-<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">{</span>`${<span class="hljs-attr">styles.todoItem</span>} ${<span class="hljs-attr">styles.completed</span>}`}></span>
-  ...
-<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
-</code></pre>
-</section><section class="slide"><h2>SCSS einbinden</h2>
-<pre><code class="hljs language-bash">npm install node-sass
-</code></pre>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> styles <span class="hljs-keyword">from</span> <span class="hljs-string">'./TodoItem.module.scss'</span>;
-</code></pre>
-<pre><code class="hljs language-scss"><span class="hljs-comment">/* TodoItem.module.scss */</span>
-@<span class="hljs-keyword">import</span> <span class="hljs-string">'../colors'</span>;
-...
-</code></pre>
-<pre><code class="hljs language-scss"><span class="hljs-comment">/* colors.scss */</span>
-<span class="hljs-variable">$primary</span>: lightblue;
-</code></pre>
-</section><section class="slide"><h2>JSX: Dynamische Stile</h2>
-<pre><code class="hljs language-jsx">&#x3C;div
-  style={{
-    <span class="hljs-attr">color</span>: <span class="hljs-string">'#333'</span>,
-    <span class="hljs-attr">fontSize</span>: getFontSize(),
-  }}
-/>
-</code></pre>
-</section><section class="slide"><h2>React Styling Libraries</h2>
-<p>Beispiele:</p>
-<ul>
-<li>styled-components</li>
-<li>jss</li>
-<li>emotion</li>
-<li>radium</li>
-<li>...</li>
-</ul>
-</section><section class="slide"><h2>styled-components</h2>
-<p>Library, die es ermöglicht, bestehende HTML-Elemente mit eigenen Stilen zu versehen</p>
-<p>npm-Paket: <code>styled-components</code></p>
-</section><section class="slide"><h2>styled-components</h2>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> styled <span class="hljs-keyword">from</span> <span class="hljs-string">'styled-components'</span>;
-
-<span class="hljs-keyword">const</span> BlockImg = styled.img<span class="hljs-string">`
-  display: block;
-`</span>;
-
-<span class="hljs-keyword">const</span> Container = styled.div<span class="hljs-string">`
-  display: flex;
-  justify-content: center;
-`</span>;
-
-<span class="hljs-keyword">const</span> Slideshow = <span class="hljs-function">(<span class="hljs-params">props</span>) =></span> (
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Container</span>></span>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>></span>prev<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">BlockImg</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"..."</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">"..."</span> /></span>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>></span>next<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
-  <span class="hljs-tag">&#x3C;/<span class="hljs-name">Container</span>></span>
-);
-</span></code></pre>
-</section><section class="slide"><h2>styled-components</h2>
-<p>dynamic styles via props:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> styled <span class="hljs-keyword">from</span> <span class="hljs-string">'styled-components'</span>;
-
-<span class="hljs-keyword">const</span> Button = styled.button<span class="hljs-string">`
-  color: <span class="hljs-subst">${(props) => (props.primary ? <span class="hljs-string">'black'</span> : <span class="hljs-string">'white'</span>)}</span>;
-  background-color: <span class="hljs-subst">${(props) =>
-    props.primary ? <span class="hljs-string">'white'</span> : <span class="hljs-string">'navy'</span>}</span>;
-`</span>;
-
-<span class="hljs-keyword">const</span> Slideshow = <span class="hljs-function">(<span class="hljs-params">props</span>) =></span> (
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Container</span>></span>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">Button</span> <span class="hljs-attr">primary</span>=<span class="hljs-string">{true}</span>></span>prev<span class="hljs-tag">&#x3C;/<span class="hljs-name">Button</span>></span>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">BlockImg</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"..."</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">"..."</span> /></span>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">Button</span> <span class="hljs-attr">primary</span>=<span class="hljs-string">{true}</span>></span>next<span class="hljs-tag">&#x3C;/<span class="hljs-name">Button</span>></span>
-  <span class="hljs-tag">&#x3C;/<span class="hljs-name">Container</span>></span>
-);
-</span></code></pre>
-</section><section class="slide"><h2>radium</h2>
-<p>Library, die die Syntax der <code>style</code>-Property von HTML-Elementen in Komponenten erweitert</p>
-<p>npm-Paket: <code>radium</code></p>
-</section><section class="slide"><h2>radium</h2>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> styles = {
-  <span class="hljs-attr">base</span>: {
-    <span class="hljs-attr">padding</span>: <span class="hljs-string">'8px'</span>,
-  },
-  <span class="hljs-attr">primary</span>: {
-    <span class="hljs-attr">color</span>: <span class="hljs-string">'white'</span>,
-    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">'navy'</span>,
-  },
-};
-
-<span class="hljs-keyword">const</span> TestButton = <span class="hljs-function">(<span class="hljs-params">props</span>) =></span> (
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>
-    <span class="hljs-attr">style</span>=<span class="hljs-string">{[styles.base,</span> <span class="hljs-attr">props.primary</span> &#x26;&#x26; <span class="hljs-attr">styles.primary</span>]}
-  ></span>
-    test
-  <span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span>
-);
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> radium(TestButton);
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Komponentenlibraries</h1>
 </section><section class="slide"><h2>Komponentenlibraries</h2>

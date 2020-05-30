@@ -7,6 +7,7 @@
   - reducer Hook und State Management mit Reducern
   - effect Hook im Detail
   - externe Hooks und eigene Hooks
+- Styling-Libraries
 - Routing und Prerendering
 - Performanceoptimierung
 - Testen von React-Komponenten

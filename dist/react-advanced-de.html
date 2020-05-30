@@ -2080,6 +2080,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li>effect Hook im Detail</li>
 <li>externe Hooks und eigene Hooks</li>
 </ul></li>
+<li>Styling-Libraries</li>
 <li>Routing und Prerendering</li>
 <li>Performanceoptimierung</li>
 <li>Testen von React-Komponenten</li>
@@ -2517,6 +2518,124 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   }, [url]);
   <span class="hljs-keyword">return</span> { data, error, isFetching };
 };
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Styling Tools</h1>
+</section><section class="slide"><h2>Styling Tools</h2>
+<p>Tools für externe Stylesheets:</p>
+<ul>
+<li>Paket <em>classnames</em></li>
+<li>CSS-Module</li>
+<li>SCSS</li>
+</ul>
+<p>CSS-in-JS libraries:</p>
+<ul>
+<li>styled-components</li>
+<li>JSS</li>
+<li>radium</li>
+</ul>
+</section><section class="slide"><h2>classnames</h2>
+<p>Hilfs-Utility: npm-Paket <em>classnames</em>:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> classNames <span class="hljs-keyword">from</span> <span class="hljs-string">'classnames'</span>;
+
+<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>
+  <span class="hljs-attr">className</span>=<span class="hljs-string">{classNames({</span>
+    <span class="hljs-attr">todoitem:</span> <span class="hljs-attr">true</span>,
+    <span class="hljs-attr">completed:</span> <span class="hljs-attr">isCompleted</span>,
+  })}
+></span>
+  [...]
+<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+</code></pre>
+</section><section class="slide"><h2>CSS-Module</h2>
+<p>Bei create-react-app sind CSS-Module vorkonfiguriert; Diese erlauben das Verwenden von CSS-Klassennamen, die garantiert über CSS-Dateien hinweg eindeutig sind.</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> styles <span class="hljs-keyword">from</span> <span class="hljs-string">'./TodoItem.module.css'</span>;
+
+<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">{styles.todoItem}</span>></span>...<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+
+<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">{</span>`${<span class="hljs-attr">styles.todoItem</span>} ${<span class="hljs-attr">styles.completed</span>}`}></span>
+  ...
+<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+</code></pre>
+</section><section class="slide"><h2>SCSS</h2>
+<p>SCSS in einem create-react-app Projekt einbinden:</p>
+<pre><code class="hljs language-bash">npm install node-sass
+</code></pre>
+<p>Verwendung:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> <span class="hljs-string">'./TodoItem.scss'</span>;
+</code></pre>
+</section><section class="slide"><h2>CSS-in-JS</h2>
+<p><strong>CSS-in-JS</strong>: JavaScript wird verwendet, um Stylesheets zu erzeugen und anzufügen</p>
+<p>Libraries:</p>
+<ul>
+<li>styled-components</li>
+<li>JSS</li>
+<li>radium</li>
+<li>emotion</li>
+</ul>
+</section><section class="slide"><h2>styled-components</h2>
+<p>Library, die es ermöglicht, bestehende HTML-Elemente mit eigenen Stilen zu versehen</p>
+<p>npm-Paket: <code>styled-components</code></p>
+</section><section class="slide"><h2>styled-components</h2>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> styled <span class="hljs-keyword">from</span> <span class="hljs-string">'styled-components'</span>;
+
+<span class="hljs-keyword">const</span> BlockImg = styled.img<span class="hljs-string">`
+  display: block;
+`</span>;
+
+<span class="hljs-keyword">const</span> Container = styled.div<span class="hljs-string">`
+  display: flex;
+  justify-content: center;
+`</span>;
+
+<span class="hljs-keyword">const</span> Slideshow = <span class="hljs-function">(<span class="hljs-params">props</span>) =></span> (
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Container</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>></span>prev<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">BlockImg</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"..."</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">"..."</span> /></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>></span>next<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">Container</span>></span>
+);
+</span></code></pre>
+</section><section class="slide"><h2>styled-components</h2>
+<p>dynamische Stile via props:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> styled <span class="hljs-keyword">from</span> <span class="hljs-string">'styled-components'</span>;
+
+<span class="hljs-keyword">const</span> Button = styled.button<span class="hljs-string">`
+  color: <span class="hljs-subst">${(props) => (props.primary ? <span class="hljs-string">'black'</span> : <span class="hljs-string">'white'</span>)}</span>;
+  background-color: <span class="hljs-subst">${(props) =>
+    props.primary ? <span class="hljs-string">'white'</span> : <span class="hljs-string">'navy'</span>}</span>;
+`</span>;
+
+<span class="hljs-keyword">const</span> Slideshow = <span class="hljs-function">(<span class="hljs-params">props</span>) =></span> (
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Container</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">Button</span> <span class="hljs-attr">primary</span>=<span class="hljs-string">{true}</span>></span>prev<span class="hljs-tag">&#x3C;/<span class="hljs-name">Button</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">BlockImg</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"..."</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">"..."</span> /></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">Button</span> <span class="hljs-attr">primary</span>=<span class="hljs-string">{true}</span>></span>next<span class="hljs-tag">&#x3C;/<span class="hljs-name">Button</span>></span>
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">Container</span>></span>
+);
+</span></code></pre>
+</section><section class="slide"><h2>radium</h2>
+<p>Library, die die Syntax der <code>style</code>-Property von HTML-Elementen in Komponenten erweitert</p>
+<p>npm-Paket: <code>radium</code></p>
+</section><section class="slide"><h2>radium</h2>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> styles = {
+  <span class="hljs-attr">base</span>: {
+    <span class="hljs-attr">padding</span>: <span class="hljs-string">'8px'</span>,
+  },
+  <span class="hljs-attr">primary</span>: {
+    <span class="hljs-attr">color</span>: <span class="hljs-string">'white'</span>,
+    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">'navy'</span>,
+  },
+};
+
+<span class="hljs-keyword">const</span> TestButton = <span class="hljs-function">(<span class="hljs-params">props</span>) =></span> (
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>
+    <span class="hljs-attr">style</span>=<span class="hljs-string">{[styles.base,</span> <span class="hljs-attr">props.primary</span> &#x26;&#x26; <span class="hljs-attr">styles.primary</span>]}
+  ></span>
+    test
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span>
+);
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> radium(TestButton);
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Routing und Pre-Rendering</h1>
 </section><section class="slide"><h2>Routing und Pre-Rendering</h2>

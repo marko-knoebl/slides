@@ -14,15 +14,15 @@ Themen:
 - gültige Elemente
 - Kompilierung
 
-## Attribute
+## Property-Namen
 
-Manche Attribute von Eleenten haben andere Namen als in standard HTML (spiegeln die standard DOM-Attribute wider)
+Manche Properties von Eleenten haben andere Namen als in standard HTML (spiegeln die standard DOM-Properties wider)
 
 - `className` (anstatt `class`)
 - `onClick` (anstatt `onclick`)
 - `htmlFor` (anstatt `for`)
 
-## Attribute
+## Property-Namen
 
 Beispiel: CSS-Klassen
 
@@ -34,6 +34,21 @@ Beispiel: CSS-Klassen
 >
   [...]
 </li>
+```
+
+es gibt viele Hilfslibraries, die die _className_-Property dynamisch generieren
+
+## Style Property
+
+In JSX weisen wir der _style_-Property ein Objekt zu:
+
+```jsx
+<div
+  style={{
+    backgroundColor: '#333',
+    fontSize: getFontSize(),
+  }}
+/>
 ```
 
 ## JSX: Elemente wiederholen

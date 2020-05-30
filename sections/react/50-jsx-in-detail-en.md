@@ -14,15 +14,15 @@ topics:
 - valid elements
 - compilation
 
-## attribute names
+## property names
 
-Some Element attributes have different names than in HTML (reflecting standard DOM attributes)
+Some element properties have different names than in HTML (reflecting standard DOM properties)
 
 - `className` (instead of `class`)
 - `onClick` (instead of `onclick`)
 - `htmlFor` (instead of `for`)
 
-## attribute names
+## property names
 
 example: CSS classes
 
@@ -34,6 +34,21 @@ example: CSS classes
 >
   [...]
 </li>
+```
+
+there are many helper libraries that will generate the _className_ property dynamically
+
+## style property
+
+In JSX the _style_ property takes an object:
+
+```jsx
+<div
+  style={{
+    backgroundColor: '#333',
+    fontSize: getFontSize(),
+  }}
+/>
 ```
 
 ## JSX: repeating elements
