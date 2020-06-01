@@ -7,10 +7,9 @@
   - reducer hook and state management with reducers
   - effect hook in detail
   - external and custom hooks
+- routing
 - styling libraries
 - form libraries
-- routing and pre-rendering
-- optimizing performance
 - testing React components
 - app development
 - refs, HOCs

@@ -1,37 +1,5 @@
 # React Fortgeschritten
 
-## Präsentationen
-
-<https://marko-knoebl.github.io/slides/>
-
-## Ihr Trainer
-
-Marko Knöbl
-
-- Frontend Web-Entwicklung
-  - JavaScript
-  - React, Angular
-- Programmierung
-  - Python, JavaScript
-
-## Vorstellung der Teilnehmer
-
-- Aktuelle Projekte
-- Vorkenntnisse
-- Erwartungen / Wünsche
-
-## Organisatorisches
-
-- Kursdauer
-- Pausen
-- Mittagessen
-- Unterlagen
-- Fragen, Feedback? - Jederzeit erwünscht
-
-## Code
-
-Code verfügbar unter: <https://github.com/marko-knoebl/courses-code>
-
 # Themen
 
 ## Themen
@@ -41,10 +9,9 @@ Code verfügbar unter: <https://github.com/marko-knoebl/courses-code>
   - reducer Hook und State Management mit Reducern
   - effect Hook im Detail
   - externe Hooks und eigene Hooks
+- Routing
 - Styling-Libraries
 - Formular-Libraries
-- Routing und Prerendering
-- Performanceoptimierung
 - Testen von React-Komponenten
 - App-Entwicklung mit React
 - Refs, HOCs
