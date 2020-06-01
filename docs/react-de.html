@@ -2404,23 +2404,51 @@ export default SlideshowApp;
 </ul>
 <p>Wenn der alte und neue State das gleiche Objekt referenzieren (auch wenn dieses verändert wurde), wird die Komponente nicht neu gerendert</p>
 </section><section class="slide"><h2>Immutable State</h2>
+<p>Demo (siehe <a href="https://codesandbox.io/s/exciting-dust-w7hni">https://codesandbox.io/s/exciting-dust-w7hni</a>):</p>
+<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">App</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> [numbers, setNumbers] = useState([<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>]);
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>{JSON.stringify(numbers)}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>
+        <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> {
+          // invalid - modifies state
+          numbers.push(numbers.length);
+          setNumbers(numbers);
+        }}
+      >
+        add (mutate)
+      <span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>
+        <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> {
+          // valid - replaces state
+          setNumbers([...numbers, numbers.length]);
+        }}
+      >
+        add (replace)
+      <span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+  );
+}
+</code></pre>
+</section><section class="slide"><h2>Immutable State</h2>
 <p>Code wie der folgende ist <strong>nicht</strong> erlaubt, um State abzuändern, da React die Mutation nicht "sieht":</p>
 <pre><code class="hljs language-js">todos[<span class="hljs-number">0</span>].completed = <span class="hljs-literal">true</span>;
 todos.push({ <span class="hljs-attr">title</span>: <span class="hljs-string">'study'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> });
 </code></pre>
 </section><section class="slide"><h2>Datenverwaltung ohne Mutationen: Arrays</h2>
 <p>Ausgangsdaten:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> names = [<span class="hljs-string">'Alice'</span>, <span class="hljs-string">'Bob'</span>, <span class="hljs-string">'Charlie'</span>];
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> names = [<span class="hljs-string">'Alice'</span>, <span class="hljs-string">'Bob'</span>, <span class="hljs-string">'Charlie'</span>];
 </code></pre>
 <p><strong>Mutation</strong>: Abändern des ursprünglichen Arrays</p>
 <pre><code class="hljs language-js">names.push(<span class="hljs-string">'Dan'</span>);
 </code></pre>
 <p><strong>keine Mutation</strong>: Erstellen eines neuen Arrays</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> newNames = [...names, <span class="hljs-string">'Dan'</span>];
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> newNames = [...names, <span class="hljs-string">'Dan'</span>];
 </code></pre>
 </section><section class="slide"><h2>Datenverwaltung ohne Mutationen: Objekte</h2>
 <p>Ausgangsdaten:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> user = {
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> user = {
   <span class="hljs-attr">name</span>: <span class="hljs-string">'john'</span>
   <span class="hljs-attr">email</span>: <span class="hljs-string">'john@doe.com'</span>
 }
@@ -2429,7 +2457,7 @@ todos.push({ <span class="hljs-attr">title</span>: <span class="hljs-string">'st
 <pre><code class="hljs language-js">user.email = <span class="hljs-string">'johndoe@gmail.com'</span>;
 </code></pre>
 <p><strong>keine Mutation</strong>: Erstellen eines neuen Objekts</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> newUser = { ...user, <span class="hljs-attr">email</span>: <span class="hljs-string">'johndoe@gmail.com'</span> };
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> newUser = { ...user, <span class="hljs-attr">email</span>: <span class="hljs-string">'johndoe@gmail.com'</span> };
 </code></pre>
 </section><section class="slide"><h2>immer.js</h2>
 <p>Library, die das Arbeiten ohne Mutationen erleichtert</p>
@@ -2521,7 +2549,7 @@ const isEmail = (email) =>
 </section><section class="slide"><h2>JSX im Detail</h2>
 <p>Themen:</p>
 <ul>
-<li>Attribute</li>
+<li>Properties</li>
 <li>Elemente wiederholen</li>
 <li>if / elese</li>
 <li>if</li>
@@ -2687,6 +2715,22 @@ Lösung: <strong>key</strong>:</p>
   <span class="hljs-string">'a'</span>,
   { <span class="hljs-attr">href</span>: <span class="hljs-string">'https://google.com'</span> },
   <span class="hljs-string">'Google'</span>
+);
+</code></pre>
+</section><section class="slide"><h2>JSX Kompilierung</h2>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> element = (
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">MyComponent</span> <span class="hljs-attr">prop1</span>=<span class="hljs-string">{1}</span> <span class="hljs-attr">prop2</span>=<span class="hljs-string">{2}</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>test 1<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>test 2<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">MyComponent</span>></span></span>
+);
+</code></pre>
+<p>wird kompiliert zu:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> element = React.createElement(
+  MyComponent,
+  { <span class="hljs-attr">prop1</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">prop2</span>: <span class="hljs-number">2</span> },
+  React.createElement(<span class="hljs-string">'div'</span>, <span class="hljs-literal">null</span>, <span class="hljs-string">'test 1'</span>),
+  React.createElement(<span class="hljs-string">'div'</span>, <span class="hljs-literal">null</span>, <span class="hljs-string">'test 2'</span>)
 );
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Komponentenlibraries</h1>
@@ -2971,6 +3015,7 @@ const TodoList: FC&#x3C;TodoListProps> = (props) => {
 <ul>
 <li>Laden und Anzeigen von mehr Daten</li>
 <li>Indikator, dass geladen wird</li>
+<li>Automatisches Aktualisieren alle 10 Sekunden</li>
 </ul></section></section></div>
     </div>
     <script>/*!

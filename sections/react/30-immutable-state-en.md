@@ -25,6 +25,38 @@ If the old state and the new state reference the same object (even if it has cha
 
 ## Immutable state
 
+demo (see <https://codesandbox.io/s/exciting-dust-w7hni>):
+
+```js
+function App() {
+  const [numbers, setNumbers] = useState([0, 1, 2]);
+  return (
+    <div>
+      <div>{JSON.stringify(numbers)}</div>
+      <button
+        onClick={() => {
+          // invalid - modifies state
+          numbers.push(numbers.length);
+          setNumbers(numbers);
+        }}
+      >
+        add (mutate)
+      </button>
+      <button
+        onClick={() => {
+          // valid - replaces state
+          setNumbers([...numbers, numbers.length]);
+        }}
+      >
+        add (replace)
+      </button>
+    </div>
+  );
+}
+```
+
+## Immutable state
+
 code like this is **not** allowed for changing state as React will not "see" the mutation:
 
 ```js

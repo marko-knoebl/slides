@@ -4,7 +4,7 @@
 
 topics:
 
-- attribute names
+- properties
 - repeating elements
 - if / else
 - if
@@ -247,5 +247,27 @@ const element = React.createElement(
   'a',
   { href: 'https://google.com' },
   'Google'
+);
+```
+
+## JSX compilation
+
+```jsx
+const element = (
+  <MyComponent prop1={1} prop2={2}>
+    <div>test 1</div>
+    <div>test 2</div>
+  </MyComponent>
+);
+```
+
+compiles to:
+
+```js
+const element = React.createElement(
+  MyComponent,
+  { prop1: 1, prop2: 2 },
+  React.createElement('div', null, 'test 1'),
+  React.createElement('div', null, 'test 2')
 );
 ```

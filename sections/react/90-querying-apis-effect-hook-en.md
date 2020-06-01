@@ -97,3 +97,4 @@ Tasks:
 
 - load and display more data
 - add a loading indicator
+- add automatic refresh every 10 seconds

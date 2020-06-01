@@ -419,6 +419,38 @@ Wenn der alte und neue State das gleiche Objekt referenzieren (auch wenn dieses 
 
 ## Immutable State
 
+Demo (siehe <https://codesandbox.io/s/exciting-dust-w7hni>):
+
+```js
+function App() {
+  const [numbers, setNumbers] = useState([0, 1, 2]);
+  return (
+    <div>
+      <div>{JSON.stringify(numbers)}</div>
+      <button
+        onClick={() => {
+          // invalid - modifies state
+          numbers.push(numbers.length);
+          setNumbers(numbers);
+        }}
+      >
+        add (mutate)
+      </button>
+      <button
+        onClick={() => {
+          // valid - replaces state
+          setNumbers([...numbers, numbers.length]);
+        }}
+      >
+        add (replace)
+      </button>
+    </div>
+  );
+}
+```
+
+## Immutable State
+
 Code wie der folgende ist **nicht** erlaubt, um State abzuändern, da React die Mutation nicht "sieht":
 
 ```js
@@ -431,7 +463,7 @@ todos.push({ title: 'study', completed: false });
 Ausgangsdaten:
 
 ```js
-let names = ['Alice', 'Bob', 'Charlie'];
+const names = ['Alice', 'Bob', 'Charlie'];
 ```
 
 **Mutation**: Abändern des ursprünglichen Arrays
@@ -443,7 +475,7 @@ names.push('Dan');
 **keine Mutation**: Erstellen eines neuen Arrays
 
 ```js
-let newNames = [...names, 'Dan'];
+const newNames = [...names, 'Dan'];
 ```
 
 ## Datenverwaltung ohne Mutationen: Objekte
@@ -451,7 +483,7 @@ let newNames = [...names, 'Dan'];
 Ausgangsdaten:
 
 ```js
-let user = {
+const user = {
   name: 'john'
   email: 'john@doe.com'
 }
@@ -466,7 +498,7 @@ user.email = 'johndoe@gmail.com';
 **keine Mutation**: Erstellen eines neuen Objekts
 
 ```js
-let newUser = { ...user, email: 'johndoe@gmail.com' };
+const newUser = { ...user, email: 'johndoe@gmail.com' };
 ```
 
 ## immer.js
@@ -590,7 +622,7 @@ Features:
 
 Themen:
 
-- Attribute
+- Properties
 - Elemente wiederholen
 - if / elese
 - if
@@ -833,6 +865,28 @@ const element = React.createElement(
   'a',
   { href: 'https://google.com' },
   'Google'
+);
+```
+
+## JSX Kompilierung
+
+```jsx
+const element = (
+  <MyComponent prop1={1} prop2={2}>
+    <div>test 1</div>
+    <div>test 2</div>
+  </MyComponent>
+);
+```
+
+wird kompiliert zu:
+
+```js
+const element = React.createElement(
+  MyComponent,
+  { prop1: 1, prop2: 2 },
+  React.createElement('div', null, 'test 1'),
+  React.createElement('div', null, 'test 2')
 );
 ```
 
@@ -1226,3 +1280,4 @@ Aufgaben:
 
 - Laden und Anzeigen von mehr Daten
 - Indikator, dass geladen wird
+- Automatisches Aktualisieren alle 10 Sekunden

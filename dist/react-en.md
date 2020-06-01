@@ -419,6 +419,38 @@ If the old state and the new state reference the same object (even if it has cha
 
 ## Immutable state
 
+demo (see <https://codesandbox.io/s/exciting-dust-w7hni>):
+
+```js
+function App() {
+  const [numbers, setNumbers] = useState([0, 1, 2]);
+  return (
+    <div>
+      <div>{JSON.stringify(numbers)}</div>
+      <button
+        onClick={() => {
+          // invalid - modifies state
+          numbers.push(numbers.length);
+          setNumbers(numbers);
+        }}
+      >
+        add (mutate)
+      </button>
+      <button
+        onClick={() => {
+          // valid - replaces state
+          setNumbers([...numbers, numbers.length]);
+        }}
+      >
+        add (replace)
+      </button>
+    </div>
+  );
+}
+```
+
+## Immutable state
+
 code like this is **not** allowed for changing state as React will not "see" the mutation:
 
 ```js
@@ -590,7 +622,7 @@ features:
 
 topics:
 
-- attribute names
+- properties
 - repeating elements
 - if / else
 - if
@@ -833,6 +865,28 @@ const element = React.createElement(
   'a',
   { href: 'https://google.com' },
   'Google'
+);
+```
+
+## JSX compilation
+
+```jsx
+const element = (
+  <MyComponent prop1={1} prop2={2}>
+    <div>test 1</div>
+    <div>test 2</div>
+  </MyComponent>
+);
+```
+
+compiles to:
+
+```js
+const element = React.createElement(
+  MyComponent,
+  { prop1: 1, prop2: 2 },
+  React.createElement('div', null, 'test 1'),
+  React.createElement('div', null, 'test 2')
 );
 ```
 
@@ -1224,3 +1278,4 @@ Tasks:
 
 - load and display more data
 - add a loading indicator
+- add automatic refresh every 10 seconds

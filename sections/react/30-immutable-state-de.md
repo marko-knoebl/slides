@@ -25,6 +25,38 @@ Wenn der alte und neue State das gleiche Objekt referenzieren (auch wenn dieses 
 
 ## Immutable State
 
+Demo (siehe <https://codesandbox.io/s/exciting-dust-w7hni>):
+
+```js
+function App() {
+  const [numbers, setNumbers] = useState([0, 1, 2]);
+  return (
+    <div>
+      <div>{JSON.stringify(numbers)}</div>
+      <button
+        onClick={() => {
+          // invalid - modifies state
+          numbers.push(numbers.length);
+          setNumbers(numbers);
+        }}
+      >
+        add (mutate)
+      </button>
+      <button
+        onClick={() => {
+          // valid - replaces state
+          setNumbers([...numbers, numbers.length]);
+        }}
+      >
+        add (replace)
+      </button>
+    </div>
+  );
+}
+```
+
+## Immutable State
+
 Code wie der folgende ist **nicht** erlaubt, um State abzuändern, da React die Mutation nicht "sieht":
 
 ```js
@@ -37,7 +69,7 @@ todos.push({ title: 'study', completed: false });
 Ausgangsdaten:
 
 ```js
-let names = ['Alice', 'Bob', 'Charlie'];
+const names = ['Alice', 'Bob', 'Charlie'];
 ```
 
 **Mutation**: Abändern des ursprünglichen Arrays
@@ -49,7 +81,7 @@ names.push('Dan');
 **keine Mutation**: Erstellen eines neuen Arrays
 
 ```js
-let newNames = [...names, 'Dan'];
+const newNames = [...names, 'Dan'];
 ```
 
 ## Datenverwaltung ohne Mutationen: Objekte
@@ -57,7 +89,7 @@ let newNames = [...names, 'Dan'];
 Ausgangsdaten:
 
 ```js
-let user = {
+const user = {
   name: 'john'
   email: 'john@doe.com'
 }
@@ -72,7 +104,7 @@ user.email = 'johndoe@gmail.com';
 **keine Mutation**: Erstellen eines neuen Objekts
 
 ```js
-let newUser = { ...user, email: 'johndoe@gmail.com' };
+const newUser = { ...user, email: 'johndoe@gmail.com' };
 ```
 
 ## immer.js

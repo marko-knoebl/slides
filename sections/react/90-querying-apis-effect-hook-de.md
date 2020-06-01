@@ -97,3 +97,4 @@ Aufgaben:
 
 - Laden und Anzeigen von mehr Daten
 - Indikator, dass geladen wird
+- Automatisches Aktualisieren alle 10 Sekunden
