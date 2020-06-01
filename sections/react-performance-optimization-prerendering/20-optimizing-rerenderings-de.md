@@ -1,6 +1,6 @@
-# Performance<wbr/>optimierung
+# Re-Renderings optimieren
 
-## Performanceoptimierung
+## Re-Renderings optimieren
 
 Themen:
 
@@ -14,7 +14,7 @@ Themen:
 
 Memoisation = Technik, um Funktionsaufrufe zu optimieren: Bisherige Resultate werden gecached und müssen nicht neu berechnet werden
 
-## Performanceoptimierung
+## Re-Renderings optimieren
 
 was React schon für uns erledigt:
 

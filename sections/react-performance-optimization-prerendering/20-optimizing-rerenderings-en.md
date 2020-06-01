@@ -1,6 +1,6 @@
-# Optimizing performance
+# Optimizing rerenderings
 
-## Optimizing performance
+## Optimizing rerenderings
 
 topics:
 
@@ -14,7 +14,7 @@ topics:
 
 Memoization = technique to speed up function calls etc.: Previous results are cached and don't have to be recomputed
 
-## Optimizing performance
+## Optimizing rerenderings
 
 what React already does for us:
 

@@ -1,15 +1,19 @@
 # React Router
 
+## React Router
+
+**client-side routing**: navigating between views without leaving the React app
+
 ## Setup
 
-npm-Pakete:
+npm packages:
 
 - `react-router-dom`
 - (`@types/react-router-dom`)
 
 ## Setup
 
-Die ganze Anwendung wird in ein `BrowserRouter`-Element eingebettet:
+the entire application is enclosed in a `BrowserRouter` element:
 
 ```js
 // index.js
@@ -26,13 +30,13 @@ ReactDOM.render(
 );
 ```
 
-## Grundlegende Router-Komponenten
+## Basic router components
 
-- `<Route>` - rendert ihre Inhalte, wenn sie aktiv ist
-- `<Switch>` - Container für `<Route>`-Elemente
-- `<Link>` / `<NavLink>` - werden anstatt von `<a>`-Elementen verwendet
+- `<Route>` - a component that renders its content when active
+- `<Switch>` - a container for `<Route>` elements
+- `<Link>` / `<NavLink>` - are used in place of `<a>` elements
 
-## Einfaches Beispiel
+## Basic example
 
 ```js
 const App = () => {
@@ -53,9 +57,9 @@ const App = () => {
 };
 ```
 
-(Syntax von React Router 5.1)
+(syntax of React Router 5.1)
 
-## Routenparameter
+## Route parameters
 
 ```jsx
 <Route path="/todos/:todoId">
@@ -77,23 +81,23 @@ const TodoDetailView = () => {
 };
 ```
 
-## Styling von Links
+## Styling links
 
-Übergeben eines Klassennamens, der auf aktive Links angewendet wird:
+supplying a class name that will be applied to any active link:
 
 ```xml
 <NavLink to="/" activeClassName="active-link">Home</NavLink>
 <NavLink to="/add" activeClassName="active-link">Add</NavLink>
 ```
 
-## Navigation aus React
+## Navigation from React
 
-Möglichkeiten:
+possibilities:
 
-- Rendern einer `<Redirect>`-Komponente
-- Verwendung des history Hooks
+- render a `<Redirect >` component
+- use the history hook
 
-## Navigation aus React
+## Navigation from React
 
 ```jsx
 <Route path="/member-area">
@@ -101,7 +105,7 @@ Möglichkeiten:
 </Route>
 ```
 
-## Navigation aus React
+## Navigation from React
 
 ```jsx
 import { useHistory } from 'react-router-dom';
