@@ -25,15 +25,20 @@ simple use:
 
 ```js
 const TodoDisplay = () => {
-  const { data, isLoading } = useQuery(
-    'todo_1',
-    fetch(
-      'https://jsonplaceholder.typicode.com/todos/1'
-    ).then(response => response.json())
+  const [id, setId] = useState(0);
+  const { status, data } = useQuery(`todo_${id}`, () =>
+    fetchTodo(id)
   );
-  if (isLoading) {
-    return 'Loading...';
-  }
-  return <div>{data.title}</div>;
+  return (
+    <div>
+      {status === 'success' ? data.title : status}
+      <button onClick={() => setId(id + 1)}>next</button>
+    </div>
+  );
 };
+
+const fetchTodo = (id) =>
+  fetch(
+    `https://jsonplaceholder.typicode.com/${id}`
+  ).then((response) => response.json());
 ```

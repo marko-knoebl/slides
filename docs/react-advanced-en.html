@@ -2378,7 +2378,80 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Custom hooks</h1>
 </section><section class="slide"><h2>Custom hooks</h2>
-<p>Custom hooks can be defined as functions; they often use existing hooks, e.g. <code>useState</code> or <code>useEffect</code></p>
+<p>Custom hooks can be used to extract logic from function components</p>
+<p>They are functions which in turn use existing hooks like <code>useState</code> or <code>useEffect</code></p>
+</section><section class="slide"><h2>Custom hooks - useTodos</h2>
+<p>Example: <code>useTodos</code> - can be used to extract data handling from the component definition</p>
+<pre><code class="hljs language-jsx"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">TodoApp</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> {
+    todos,
+    toggleTodo,
+    deleteTodo,
+    addTodo,
+  } = useTodos();
+  <span class="hljs-keyword">return</span> (
+    &#x3C;div>
+      &#x3C;h1>Todos&#x3C;/h1>
+      &#x3C;TodoList
+        todos={todos}
+        onToggle={toggleTodo}
+        onDelete={deleteTodo}
+      />
+      &#x3C;AddTodo onAdd={addTodo} />
+    &#x3C;/div>
+  );
+}
+</code></pre>
+</section><section class="slide"><h2>Custom hooks - useTodos</h2>
+<p>definition of <code>useTodos</code>:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">useTodos</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addTodo</span>(<span class="hljs-params">title</span>) </span>{
+    <span class="hljs-keyword">const</span> nId = <span class="hljs-built_in">Math</span>.max(<span class="hljs-number">0</span>, ...todos.map(<span class="hljs-function">(<span class="hljs-params">t</span>) =></span> t.id + <span class="hljs-number">1</span>));
+    setTodos([
+      ...todos,
+      { <span class="hljs-attr">id</span>: nId, <span class="hljs-attr">title</span>: title, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
+    ]);
+  }
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">deleteTodo</span>(<span class="hljs-params">id</span>) </span>{
+    setTodos(todos.filter(<span class="hljs-function">(<span class="hljs-params">t</span>) =></span> t.id !== id));
+  }
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">toggleTodo</span>(<span class="hljs-params">id</span>) </span>{
+    setTodos(
+      todos.map(<span class="hljs-function">(<span class="hljs-params">t</span>) =></span>
+        t.id === id ? { ...t, <span class="hljs-attr">completed</span>: !t.completed } : t
+      )
+    );
+  }
+  <span class="hljs-keyword">return</span> { todos, addTodo, deleteTodo, toggleTodo };
+}
+</code></pre>
+</section><section class="slide"><h2>Custom hooks - useTodos</h2>
+<p><code>useTodos</code> with API access:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> useTodos = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  <span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
+  <span class="hljs-keyword">const</span> [isLoading, setIsLoading] = useState(<span class="hljs-literal">false</span>);
+  <span class="hljs-comment">// ... (addTodo, deleteTodo, toggleTodo)</span>
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">reload</span>(<span class="hljs-params"></span>) </span>{
+    setIsLoading(<span class="hljs-literal">true</span>);
+    fetch(<span class="hljs-string">'https://jsonplaceholder.typicode.com/todos'</span>)
+      .then(<span class="hljs-function">(<span class="hljs-params">res</span>) =></span> res.json())
+      .then(<span class="hljs-function">(<span class="hljs-params">apiTodos</span>) =></span> {
+        setTodos(apiTodos);
+        setIsLoading(<span class="hljs-literal">false</span>);
+      });
+  }
+  useEffect(reload, []);
+  <span class="hljs-keyword">return</span> {
+    todos,
+    isLoading,
+    reload,
+    addTodo,
+    deleteTodo,
+    toggleTodo,
+  };
+};
+</code></pre>
 </section><section class="slide"><h2>Custom hooks - useDate</h2>
 <p>Example: <code>useDate</code> - provides the current time and updates the component every 1000 milliseconds</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> Clock = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
@@ -2390,7 +2463,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </code></pre>
 </section><section class="slide"><h2>Custom hooks - useDate</h2>
 <p>basic implementation of <code>useDate</code>:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> useDate = <span class="hljs-function"><span class="hljs-params">interval</span> =></span> {
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> useDate = <span class="hljs-function">(<span class="hljs-params">interval</span>) =></span> {
   <span class="hljs-keyword">const</span> [date, setDate] = useState(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>());
   useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
     setInterval(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
@@ -2398,53 +2471,6 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
     }, interval);
   }, []);
   <span class="hljs-keyword">return</span> date;
-};
-</code></pre>
-</section><section class="slide"><h2>Custom hooks - useTodos</h2>
-<p>Example: <code>useTodos</code> - can be used to extract data handling from the component definition</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> TodoApp = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  <span class="hljs-keyword">const</span> todoCtrl = useTodos();
-  <span class="hljs-keyword">return</span> (
-    &#x3C;div>
-      &#x3C;h1>Todo&#x3C;/h1>
-      &#x3C;TodoList
-        todos={todoCtrl.todos}
-        isLoading={todoCtrl.isLoading}
-        onReload={todoCtrl.reload}
-        onToggle={todoCtrl.toggleTodo}
-        onDelete={todoCtrl.deleteTodo}
-      />
-      &#x3C;AddTodo onAdd={todoCtrl.addTodo} />
-    &#x3C;/div>
-  );
-};
-</code></pre>
-</section><section class="slide"><h2>Custom hooks - useTodos</h2>
-<p>implementation of <code>useTodos</code>:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> useTodos = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  <span class="hljs-keyword">const</span> [todos, dispatch] = useReducer(todosReducer, []);
-  <span class="hljs-keyword">const</span> [isLoading, setIsLoading] = useState(<span class="hljs-literal">false</span>);
-  useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-    <span class="hljs-keyword">if</span> (isLoading) {
-      fetch(<span class="hljs-string">'https://jsonplaceholder.typicode.com/todos'</span>)
-        .then(<span class="hljs-function"><span class="hljs-params">res</span> =></span> res.json())
-        .then(<span class="hljs-function"><span class="hljs-params">apiTodos</span> =></span> {
-          dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">'setTodos'</span>, <span class="hljs-attr">payload</span>: apiTodos });
-          setIsLoading(<span class="hljs-literal">false</span>);
-        });
-    }
-  }, [isLoading]);
-  <span class="hljs-keyword">return</span> {
-    <span class="hljs-attr">todos</span>: todos,
-    <span class="hljs-attr">isLoading</span>: isLoading,
-    <span class="hljs-attr">reload</span>: <span class="hljs-function"><span class="hljs-params">()</span> =></span> setIsLoading(<span class="hljs-literal">true</span>),
-    <span class="hljs-attr">addTodo</span>: <span class="hljs-function"><span class="hljs-params">title</span> =></span>
-      dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">'addTodo'</span>, <span class="hljs-attr">payload</span>: title }),
-    <span class="hljs-attr">deleteTodo</span>: <span class="hljs-function"><span class="hljs-params">id</span> =></span>
-      dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">'deleteTodo'</span>, <span class="hljs-attr">payload</span>: id }),
-    <span class="hljs-attr">toggleTodo</span>: <span class="hljs-function"><span class="hljs-params">id</span> =></span>
-      dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">'toggleTodo'</span>, <span class="hljs-attr">payload</span>: id }),
-  };
 };
 </code></pre>
 </section><section class="slide"><h2>Custom hooks - useAuth</h2>
@@ -2463,7 +2489,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   <span class="hljs-keyword">if</span> (isFetching) <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>Fetching...<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
   <span class="hljs-keyword">return</span> (
     <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
-      {data.map(todo => (
+      {data.map((todo) => (
         <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>{todo.title}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
       ))}
     <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
@@ -2472,7 +2498,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </code></pre>
 </section><section class="slide"><h2>Custom hooks - useJsonQuery</h2>
 <p>simple implementation:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> useJsonQuery = <span class="hljs-function"><span class="hljs-params">url</span> =></span> {
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> useJsonQuery = <span class="hljs-function">(<span class="hljs-params">url</span>) =></span> {
   <span class="hljs-keyword">const</span> [isFetching, setIsFetching] = useState(<span class="hljs-literal">true</span>);
   <span class="hljs-keyword">const</span> [data, setData] = useState(<span class="hljs-literal">null</span>);
   <span class="hljs-keyword">const</span> [error, setError] = useState(<span class="hljs-literal">false</span>);
@@ -2480,8 +2506,8 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
     setIsFetching(<span class="hljs-literal">true</span>);
     setError(<span class="hljs-literal">false</span>);
     fetch(url)
-      .then(<span class="hljs-function"><span class="hljs-params">response</span> =></span> response.text())
-      .then(<span class="hljs-function"><span class="hljs-params">responseText</span> =></span> {
+      .then(<span class="hljs-function">(<span class="hljs-params">response</span>) =></span> response.text())
+      .then(<span class="hljs-function">(<span class="hljs-params">responseText</span>) =></span> {
         setData(responseText);
         setIsFetching(<span class="hljs-literal">false</span>);
       })

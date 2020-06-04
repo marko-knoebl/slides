@@ -389,7 +389,9 @@ const TodoDisplay = () => {
 
 ## Eigene Hooks
 
-Eigene hooks können als Funktionen definiert werden; sie nutzen intern oft vorhandene Hooks, z.B. `useState` oder `useEffect`
+können verwendet werden, um bestimmte Aspekte aus der Komponentendefinition zu extrahieren
+
+werden als Funktion definiert, die wiederum auf bestehende Hooks, wie `useState` oder `useEffect` zurückgreift
 
 ## Eigene Hooks - useDate
 

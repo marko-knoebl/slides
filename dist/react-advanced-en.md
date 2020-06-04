@@ -389,7 +389,93 @@ const TodoDisplay = () => {
 
 ## Custom hooks
 
-Custom hooks can be defined as functions; they often use existing hooks, e.g. `useState` or `useEffect`
+Custom hooks can be used to extract logic from function components
+
+They are functions which in turn use existing hooks like `useState` or `useEffect`
+
+## Custom hooks - useTodos
+
+Example: `useTodos` - can be used to extract data handling from the component definition
+
+```jsx
+function TodoApp() {
+  const {
+    todos,
+    toggleTodo,
+    deleteTodo,
+    addTodo,
+  } = useTodos();
+  return (
+    <div>
+      <h1>Todos</h1>
+      <TodoList
+        todos={todos}
+        onToggle={toggleTodo}
+        onDelete={deleteTodo}
+      />
+      <AddTodo onAdd={addTodo} />
+    </div>
+  );
+}
+```
+
+## Custom hooks - useTodos
+
+definition of `useTodos`:
+
+```jsx
+function useTodos() {
+  const [todos, setTodos] = useState([]);
+  function addTodo(title) {
+    const nId = Math.max(0, ...todos.map((t) => t.id + 1));
+    setTodos([
+      ...todos,
+      { id: nId, title: title, completed: false },
+    ]);
+  }
+  function deleteTodo(id) {
+    setTodos(todos.filter((t) => t.id !== id));
+  }
+  function toggleTodo(id) {
+    setTodos(
+      todos.map((t) =>
+        t.id === id ? { ...t, completed: !t.completed } : t
+      )
+    );
+  }
+  return { todos, addTodo, deleteTodo, toggleTodo };
+}
+```
+
+## Custom hooks - useTodos
+
+`useTodos` with API access:
+
+```js
+const useTodos = () => {
+  const [todos, setTodos] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  // ... (addTodo, deleteTodo, toggleTodo)
+  function reload() {
+    setIsLoading(true);
+    fetch('https://jsonplaceholder.typicode.com/todos')
+      .then((res) => res.json())
+      .then((apiTodos) => {
+        setTodos(apiTodos);
+        setIsLoading(false);
+      });
+  }
+  useEffect(reload, []);
+  return {
+    todos,
+    isLoading,
+    reload,
+    addTodo,
+    deleteTodo,
+    toggleTodo,
+  };
+};
+```
 
 ## Custom hooks - useDate
 
@@ -409,7 +495,7 @@ const Clock = () => {
 basic implementation of `useDate`:
 
 ```js
-const useDate = interval => {
+const useDate = (interval) => {
   const [date, setDate] = useState(new Date());
   useEffect(() => {
     setInterval(() => {
@@ -417,61 +503,6 @@ const useDate = interval => {
     }, interval);
   }, []);
   return date;
-};
-```
-
-## Custom hooks - useTodos
-
-Example: `useTodos` - can be used to extract data handling from the component definition
-
-```js
-const TodoApp = () => {
-  const todoCtrl = useTodos();
-  return (
-    <div>
-      <h1>Todo</h1>
-      <TodoList
-        todos={todoCtrl.todos}
-        isLoading={todoCtrl.isLoading}
-        onReload={todoCtrl.reload}
-        onToggle={todoCtrl.toggleTodo}
-        onDelete={todoCtrl.deleteTodo}
-      />
-      <AddTodo onAdd={todoCtrl.addTodo} />
-    </div>
-  );
-};
-```
-
-## Custom hooks - useTodos
-
-implementation of `useTodos`:
-
-```js
-const useTodos = () => {
-  const [todos, dispatch] = useReducer(todosReducer, []);
-  const [isLoading, setIsLoading] = useState(false);
-  useEffect(() => {
-    if (isLoading) {
-      fetch('https://jsonplaceholder.typicode.com/todos')
-        .then(res => res.json())
-        .then(apiTodos => {
-          dispatch({ type: 'setTodos', payload: apiTodos });
-          setIsLoading(false);
-        });
-    }
-  }, [isLoading]);
-  return {
-    todos: todos,
-    isLoading: isLoading,
-    reload: () => setIsLoading(true),
-    addTodo: title =>
-      dispatch({ type: 'addTodo', payload: title }),
-    deleteTodo: id =>
-      dispatch({ type: 'deleteTodo', payload: id }),
-    toggleTodo: id =>
-      dispatch({ type: 'toggleTodo', payload: id }),
-  };
 };
 ```
 
@@ -495,7 +526,7 @@ const TodoDemo = () => {
   if (isFetching) return <div>Fetching...</div>;
   return (
     <div>
-      {data.map(todo => (
+      {data.map((todo) => (
         <div>{todo.title}</div>
       ))}
     </div>
@@ -508,7 +539,7 @@ const TodoDemo = () => {
 simple implementation:
 
 ```js
-const useJsonQuery = url => {
+const useJsonQuery = (url) => {
   const [isFetching, setIsFetching] = useState(true);
   const [data, setData] = useState(null);
   const [error, setError] = useState(false);
@@ -516,8 +547,8 @@ const useJsonQuery = url => {
     setIsFetching(true);
     setError(false);
     fetch(url)
-      .then(response => response.text())
-      .then(responseText => {
+      .then((response) => response.text())
+      .then((responseText) => {
         setData(responseText);
         setIsFetching(false);
       })
