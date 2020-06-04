@@ -19,7 +19,6 @@ Gründe für die Verwendung von Hooks:
 Gründe für die Verwendung von Klassenkomponenten:
 
 - Konzepte sind zu Beginn wohl vertrauter
-- Lifecycle Events können in Klassenkomponenten klarer sein
 
 ## Einfaches Beispiel
 

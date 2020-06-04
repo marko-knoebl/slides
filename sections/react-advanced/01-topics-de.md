@@ -2,12 +2,11 @@
 
 ## Themen
 
-- weitere Hooks
-  - context Hook
-  - reducer Hook und State Management mit Reducern
-  - effect Hook im Detail
-  - externe Hooks und eigene Hooks
 - Routing
+- Context
+- effect Hook im Detail
+- externe Hooks und eigene Hooks
+- reducer Hook und State Management mit Reducern
 - Styling-Libraries
 - Formular-Libraries
 - Testen von React-Komponenten

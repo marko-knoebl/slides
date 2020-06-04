@@ -2,12 +2,11 @@
 
 ## Topics
 
-- more hooks
-  - context hook
-  - reducer hook and state management with reducers
-  - effect hook in detail
-  - external and custom hooks
-- routing
+- React Router
+- context
+- effect hook in detail
+- external and custom hooks
+- reducer hook and state management with reducers
 - styling libraries
 - form libraries
 - testing React components

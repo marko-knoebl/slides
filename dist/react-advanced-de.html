@@ -2045,13 +2045,11 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </section></section><section class="slides-section"><section class="slide"><h1>Themen</h1>
 </section><section class="slide"><h2>Themen</h2>
 <ul>
-<li>weitere Hooks<ul>
-<li>context Hook</li>
-<li>reducer Hook und State Management mit Reducern</li>
+<li>Routing</li>
+<li>Context</li>
 <li>effect Hook im Detail</li>
 <li>externe Hooks und eigene Hooks</li>
-</ul></li>
-<li>Routing</li>
+<li>reducer Hook und State Management mit Reducern</li>
 <li>Styling-Libraries</li>
 <li>Formular-Libraries</li>
 <li>Testen von React-Komponenten</li>
@@ -2059,25 +2057,102 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li>Refs, HOCs</li>
 <li>Manuelles Setup</li>
 </ul>
-</section></section><section class="slides-section"><section class="slide"><h1>Hooks</h1>
-</section><section class="slide"><h2>Hooks</h2>
-<p>Hooks: Erweiterung von Funktionskomponenten</p>
-<p>Eine <em>einfache</em> Funktionskomponente kann Inhalte basierend auf ihren Props rendern und Events auslösen.</p>
-<p>Hooks erlauben erweiterte Funktionalität, z.B. internen State in einer Komponente oder das "Lauschen" auf Events aus dem Komponentenlebenszyklus</p>
-</section><section class="slide"><h2>Hooks</h2>
-<p>Hooks sind spezielle Funktionen, die am Beginn einer Komponentendefinition aufgerufen werden können</p>
-<p>Beispiele:</p>
+</section></section><section class="slides-section"><section class="slide"><h1>React Router</h1>
+</section><section class="slide"><h2>React Router</h2>
+<p><strong>client-seitiges Routing</strong>: Navigieren zwischen verschiedenen Ansichten, ohne die React-Anwendung zu verlassen</p>
+</section><section class="slide"><h2>Setup</h2>
+<p>npm-Pakete:</p>
 <ul>
-<li><code>useState(...)</code></li>
-<li><code>useEffect(...)</code></li>
-<li><code>useContext(...)</code></li>
-<li><code>useReducer(...)</code></li>
+<li><code>react-router-dom</code></li>
+<li>(<code>@types/react-router-dom</code>)</li>
 </ul>
-</section><section class="slide"><h2>Hooks</h2>
-<blockquote>
-<p>"In the longer term, we expect Hooks to be the primary way people write React components."</p>
-</blockquote>
-<p>- <a href="https://reactjs.org/docs/hooks-faq.html#should-i-use-hooks-classes-or-a-mix-of-both">React FAQ</a></p>
+</section><section class="slide"><h2>Setup</h2>
+<p>Die ganze Anwendung wird in ein <code>BrowserRouter</code>-Element eingebettet:</p>
+<pre><code class="hljs language-js"><span class="hljs-comment">// index.js</span>
+
+<span class="hljs-keyword">import</span> { BrowserRouter } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router-dom'</span>;
+
+ReactDOM.render(
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">React.StrictMode</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">BrowserRouter</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">App</span> /></span>
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">BrowserRouter</span>></span>
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">React.StrictMode</span>></span></span>,
+  rootElement
+);
+</code></pre>
+</section><section class="slide"><h2>Grundlegende Router-Komponenten</h2>
+<ul>
+<li><code>&#x3C;Route></code> - rendert ihre Inhalte, wenn sie aktiv ist</li>
+<li><code>&#x3C;Switch></code> - Container für <code>&#x3C;Route></code>-Elemente</li>
+<li><code>&#x3C;Link></code> / <code>&#x3C;NavLink></code> - werden anstatt von <code>&#x3C;a></code>-Elementen verwendet</li>
+</ul>
+</section><section class="slide"><h2>Einfaches Beispiel</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> App = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">NavLink</span> <span class="hljs-attr">to</span>=<span class="hljs-string">"/slideshow"</span>></span>slideshow<span class="hljs-tag">&#x3C;/<span class="hljs-name">NavLink</span>></span>{' '}
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">NavLink</span> <span class="hljs-attr">to</span>=<span class="hljs-string">"/counter"</span>></span>counter<span class="hljs-tag">&#x3C;/<span class="hljs-name">NavLink</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">Switch</span>></span>
+        <span class="hljs-tag">&#x3C;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"/slideshow"</span>></span>
+          <span class="hljs-tag">&#x3C;<span class="hljs-name">Slideshow</span> /></span>
+        <span class="hljs-tag">&#x3C;/<span class="hljs-name">Route</span>></span>
+        <span class="hljs-tag">&#x3C;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"/counter"</span>></span>
+          <span class="hljs-tag">&#x3C;<span class="hljs-name">Counter</span> /></span>
+        <span class="hljs-tag">&#x3C;/<span class="hljs-name">Route</span>></span>
+      <span class="hljs-tag">&#x3C;/<span class="hljs-name">Switch</span>></span>
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+  );
+};
+</code></pre>
+<p>(Syntax von React Router 5.1)</p>
+</section><section class="slide"><h2>Routenparameter</h2>
+<pre><code class="hljs language-jsx">&#x3C;Route path=<span class="hljs-string">"/todos/:todoId"</span>>
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">TodoDetailView</span> /></span>
+<span class="hljs-tag">&#x3C;/<span class="hljs-name">Route</span>></span></span>
+</code></pre>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> { useParams } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router-dom'</span>;
+
+<span class="hljs-keyword">const</span> TodoDetailView = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  <span class="hljs-keyword">const</span> routeParams = useParams();
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+      Details of todo: {routeParams.todoId}
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>...<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+  );
+};
+</code></pre>
+</section><section class="slide"><h2>Styling von Links</h2>
+<p>Übergeben eines Klassennamens, der auf aktive Links angewendet wird:</p>
+<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">NavLink</span> <span class="hljs-attr">to</span>=<span class="hljs-string">"/"</span> <span class="hljs-attr">activeClassName</span>=<span class="hljs-string">"active-link"</span>></span>Home<span class="hljs-tag">&#x3C;/<span class="hljs-name">NavLink</span>></span>
+<span class="hljs-tag">&#x3C;<span class="hljs-name">NavLink</span> <span class="hljs-attr">to</span>=<span class="hljs-string">"/add"</span> <span class="hljs-attr">activeClassName</span>=<span class="hljs-string">"active-link"</span>></span>Add<span class="hljs-tag">&#x3C;/<span class="hljs-name">NavLink</span>></span>
+</code></pre>
+</section><section class="slide"><h2>Navigation aus React</h2>
+<p>Möglichkeiten:</p>
+<ul>
+<li>Rendern einer <code>&#x3C;Redirect></code>-Komponente</li>
+<li>Verwendung des history Hooks</li>
+</ul>
+</section><section class="slide"><h2>Navigation aus React</h2>
+<pre><code class="hljs language-jsx">&#x3C;Route path=<span class="hljs-string">"/member-area"</span>>
+  {username ? <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">MemberArea</span> /></span> : <span class="hljs-tag">&#x3C;<span class="hljs-name">Redirect</span> <span class="hljs-attr">to</span>=<span class="hljs-string">"/login"</span> /></span>}
+<span class="hljs-tag">&#x3C;/<span class="hljs-name">Route</span>></span>
+</span></code></pre>
+</section><section class="slide"><h2>Navigation aus React</h2>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> { useHistory } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router-dom'</span>;
+
+<span class="hljs-keyword">const</span> AddTodoView = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  <span class="hljs-keyword">const</span> history = useHistory();
+  <span class="hljs-keyword">const</span> handleSubmit = <span class="hljs-function">(<span class="hljs-params">event</span>) =></span> {
+    event.preventDefault();
+    <span class="hljs-comment">// ...</span>
+    <span class="hljs-comment">// go back to home view</span>
+    history.push(<span class="hljs-string">'/'</span>);
+  };
+  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">form</span> <span class="hljs-attr">onSubmit</span>=<span class="hljs-string">{handleSubmit}</span>></span>...<span class="hljs-tag">&#x3C;/<span class="hljs-name">form</span>></span></span>;
+};
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Context</h1>
 </section><section class="slide"><h2>Context</h2>
 <p>Möglichkeit, Werte aus einer Komponente direkt allen weiter unten im Dokumentenbaum liegenden Komponenten zur Verfügung zu stellen - ohne diese über jede Ebene übergeben zu müssen</p>
@@ -2117,6 +2192,248 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>There are {context.todos.length} todos<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
 };
 </code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Effect Hook</h1>
+</section><section class="slide"><h2>Effect Hook</h2>
+<p>kann verwendet werden, um bestimmte Aktionen zu setzen, wenn eine Komponente neu eingebunden wurde oder wenn ihre Props / State sich geändert haben</p>
+<pre><code class="hljs language-js">useEffect(
+  effect, <span class="hljs-comment">// what should happen</span>
+  dependencies <span class="hljs-comment">// array of values to watch</span>
+);
+</code></pre>
+</section><section class="slide"><h2>Effect Hook</h2>
+<p>Kann verwendet werden, um Nebeneffekte (side effects) auszulösen:</p>
+<ul>
+<li>Abfragen von APIs</li>
+<li>manuelle Änderungen am DOM</li>
+<li>Timer starten</li>
+<li>...</li>
+</ul>
+</section><section class="slide"><h2>Beispiel: DocumentTitle-Komponente</h2>
+<p>Wir erstellen eine Komponente, die den Dokumenttitel dynamisch setzen kann:</p>
+<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">DocumentTitle</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"my custom title"</span> /></span>
+</code></pre>
+<p>Diese Komponente kann irgendwo in der React-Anwendung vorkommen.</p>
+</section><section class="slide"><h2>Beispiel: DocumentTitle-Komponente</h2>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> DocumentTitle = <span class="hljs-function"><span class="hljs-params">props</span> =></span> {
+  <span class="hljs-keyword">const</span> updateTitle = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+    <span class="hljs-built_in">document</span>.title = props.value;
+  };
+  useEffect(updateTitle, [props.value]);
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+};
+</code></pre>
+</section><section class="slide"><h2>Effect Hook: Cleanup</h2>
+<p>Ein Effect kann eine "Aufräumfunktion" zurückgeben</p>
+<p>Diese Funktion wird aufgerufen, wenn z.B. die Komponente entfernt wird</p>
+</section><section class="slide"><h2>Effect Hook: Cleanup</h2>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> Clock = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  <span class="hljs-keyword">const</span> [time, setTime] = useState(<span class="hljs-string">''</span>);
+  <span class="hljs-comment">// will be called when the component was mounted</span>
+  useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+    <span class="hljs-keyword">const</span> intervalId = setInterval(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+      setTime(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>().toLocaleTimeString());
+    }, <span class="hljs-number">1000</span>);
+    <span class="hljs-comment">// will be called when the component will be removed</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+      clearInterval(intervalId);
+    };
+  }, []);
+  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>{time}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+};
+</code></pre>
+</section><section class="slide"><h2>Effect hook: nach jedem Rendering</h2>
+<p>Wenn kein zweiter Parameter übergeben wird, wird die Funktion nach jedem Rendering ausgeführt.</p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> RenderLogger = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'logger was rendered'</span>);
+  });
+  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>Render logger<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+};
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Hooks</h1>
+</section><section class="slide"><h2>Hooks</h2>
+<p>Hooks: Erweiterung von Funktionskomponenten</p>
+<p>Eine <em>einfache</em> Funktionskomponente kann Inhalte basierend auf ihren Props rendern und Events auslösen.</p>
+<p>Hooks erlauben erweiterte Funktionalität, z.B. internen State in einer Komponente oder das "Lauschen" auf Events aus dem Komponentenlebenszyklus</p>
+</section><section class="slide"><h2>Hooks</h2>
+<p>Hooks sind spezielle Funktionen, die am Beginn einer Komponentendefinition aufgerufen werden können</p>
+<p>Beispiele:</p>
+<ul>
+<li><code>useState(...)</code></li>
+<li><code>useEffect(...)</code></li>
+<li><code>useContext(...)</code></li>
+<li><code>useReducer(...)</code></li>
+</ul>
+</section><section class="slide"><h2>Hooks</h2>
+<blockquote>
+<p>"In the longer term, we expect Hooks to be the primary way people write React components."</p>
+</blockquote>
+<p>- <a href="https://reactjs.org/docs/hooks-faq.html#should-i-use-hooks-classes-or-a-mix-of-both">React FAQ</a></p>
+</section></section><section class="slides-section"><section class="slide"><h1>Externe Hooks</h1>
+</section><section class="slide"><h2>Externe Hooks</h2>
+<p>Viele zusätzliche Hooks werden von der React-Community entwickelt</p>
+<p>Einsatzgebiete z.B.:</p>
+<ul>
+<li>Abfragen von APIs</li>
+<li>Verwenden von globalem State</li>
+<li>Verwenden von <em>localStorage</em> für den state</li>
+<li>Media Queries</li>
+<li>Abfrage der Scrollposition</li>
+<li>... (siehe <a href="https://github.com/rehooks/awesome-react-hooks">awesome-react-hooks</a>)</li>
+</ul>
+</section><section class="slide"><h2>Beispiel: react-query</h2>
+<p><a href="https://github.com/tannerlinsley/react-query">https://github.com/tannerlinsley/react-query</a></p>
+<p>Viel genutzter Hook, der beim Abfragen von APIs hilfreich sein kann</p>
+</section><section class="slide"><h2>Beispiel: react-query</h2>
+<p>Einfache Verwendung:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> TodoDisplay = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  <span class="hljs-keyword">const</span> [id, setId] = useState(<span class="hljs-number">0</span>);
+  <span class="hljs-keyword">const</span> { status, data } = useQuery(<span class="hljs-string">`todo_<span class="hljs-subst">${id}</span>`</span>, () =>
+    fetchTodo(id)
+  );
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+      {status === 'success' ? data.title : status}
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setId(id + 1)}>next<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+  );
+};
+
+<span class="hljs-keyword">const</span> fetchTodo = <span class="hljs-function">(<span class="hljs-params">id</span>) =></span>
+  fetch(
+    <span class="hljs-string">`https://jsonplaceholder.typicode.com/<span class="hljs-subst">${id}</span>`</span>
+  ).then(<span class="hljs-function">(<span class="hljs-params">response</span>) =></span> response.json());
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Eigene Hooks</h1>
+</section><section class="slide"><h2>Eigene Hooks</h2>
+<p>können verwendet werden, um bestimmte Aspekte aus der Komponentendefinition zu extrahieren</p>
+<p>werden als Funktion definiert, die wiederum auf bestehende Hooks, wie <code>useState</code> oder <code>useEffect</code> zurückgreift</p>
+</section><section class="slide"><h2>Eigene Hooks - useTodos</h2>
+<p>Beispiel: <code>useTodos</code> - kann verwendet werden, um die Datenverwaltung von der Komponentendefinition loszulösen</p>
+<pre><code class="hljs language-jsx"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">TodoApp</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> {
+    todos,
+    toggleTodo,
+    deleteTodo,
+    addTodo,
+  } = useTodos();
+  <span class="hljs-keyword">return</span> (
+    &#x3C;div>
+      &#x3C;h1>Todos&#x3C;/h1>
+      &#x3C;TodoList
+        todos={todos}
+        onToggle={toggleTodo}
+        onDelete={deleteTodo}
+      />
+      &#x3C;AddTodo onAdd={addTodo} />
+    &#x3C;/div>
+  );
+}
+</code></pre>
+</section><section class="slide"><h2>Eigene Hooks - useTodos</h2>
+<p>Definition von <code>useTodos</code>:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">useTodos</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addTodo</span>(<span class="hljs-params">title</span>) </span>{
+    <span class="hljs-keyword">const</span> nId = <span class="hljs-built_in">Math</span>.max(<span class="hljs-number">0</span>, ...todos.map(<span class="hljs-function">(<span class="hljs-params">t</span>) =></span> t.id + <span class="hljs-number">1</span>));
+    setTodos([
+      ...todos,
+      { <span class="hljs-attr">id</span>: nId, <span class="hljs-attr">title</span>: title, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
+    ]);
+  }
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">deleteTodo</span>(<span class="hljs-params">id</span>) </span>{
+    setTodos(todos.filter(<span class="hljs-function">(<span class="hljs-params">t</span>) =></span> t.id !== id));
+  }
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">toggleTodo</span>(<span class="hljs-params">id</span>) </span>{
+    setTodos(
+      todos.map(<span class="hljs-function">(<span class="hljs-params">t</span>) =></span>
+        t.id === id ? { ...t, <span class="hljs-attr">completed</span>: !t.completed } : t
+      )
+    );
+  }
+  <span class="hljs-keyword">return</span> { todos, addTodo, deleteTodo, toggleTodo };
+}
+</code></pre>
+</section><section class="slide"><h2>Eigene Hooks - useTodos</h2>
+<p><code>useTodos</code> mit API-Abfrage:</p>
+<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">useTodos</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
+  <span class="hljs-keyword">const</span> [isLoading, setIsLoading] = useState(<span class="hljs-literal">false</span>);
+  <span class="hljs-comment">// ... (addTodo, deleteTodo, toggleTodo)</span>
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">reload</span>(<span class="hljs-params"></span>) </span>{
+    setIsLoading(<span class="hljs-literal">true</span>);
+    fetch(<span class="hljs-string">'https://jsonplaceholder.typicode.com/todos'</span>)
+      .then(<span class="hljs-function">(<span class="hljs-params">res</span>) =></span> res.json())
+      .then(<span class="hljs-function">(<span class="hljs-params">apiTodos</span>) =></span> {
+        setTodos(apiTodos);
+        setIsLoading(<span class="hljs-literal">false</span>);
+      });
+  }
+  useEffect(reload, []);
+  <span class="hljs-keyword">return</span> {
+    todos,
+    isLoading,
+    reload,
+    addTodo,
+    deleteTodo,
+    toggleTodo,
+  };
+}
+</code></pre>
+</section><section class="slide"><h2>Eigene Hooks - useDate</h2>
+<p>Beispiel: <code>useDate</code> - stellt hier die aktuelle Uhrzeit bereit und aktualisiert die Komponente alle 1000 Millisekunden</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> Clock = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  <span class="hljs-keyword">const</span> time = useDate(<span class="hljs-number">1000</span>);
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>The time is: {time.toLocaleTimeString()}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+  );
+};
+</code></pre>
+</section><section class="slide"><h2>Eigene Hooks - useDate</h2>
+<p>Einfache Implementierung von <code>useDate</code>:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> useDate = <span class="hljs-function">(<span class="hljs-params">interval</span>) =></span> {
+  <span class="hljs-keyword">const</span> [date, setDate] = useState(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>());
+  useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+    setInterval(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+      setDate(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>());
+    }, interval);
+  }, []);
+  <span class="hljs-keyword">return</span> date;
+};
+</code></pre>
+</section><section class="slide"><h2>Eigene Hooks - useExchangerate</h2>
+<p>hook that provides the exchange rate for selected currencies</p>
+<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">useExchangerate</span>(<span class="hljs-params">from, to</span>) </span>{
+  <span class="hljs-keyword">const</span> [rate, setRate] = useState(<span class="hljs-literal">null</span>);
+  <span class="hljs-keyword">const</span> [status, setStatus] = useState(<span class="hljs-string">'loading'</span>);
+  useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+    setRate(<span class="hljs-literal">null</span>);
+    setStatus(<span class="hljs-string">'loading'</span>);
+    fetch(
+      <span class="hljs-string">'https://api.exchangeratesapi.io/latest?base='</span> +
+        <span class="hljs-keyword">from</span>.toUpperCase() +
+        <span class="hljs-string">'&#x26;symbols='</span> +
+        to.toUpperCase()
+    )
+      .then(<span class="hljs-function">(<span class="hljs-params">res</span>) =></span> res.json())
+      .then(<span class="hljs-function">(<span class="hljs-params">data</span>) =></span> {
+        setRate(data.rates[to.toUpperCase()]);
+        setStatus(<span class="hljs-string">'success'</span>);
+      })
+      .catch(<span class="hljs-function">(<span class="hljs-params">error</span>) =></span> {
+        setRate(<span class="hljs-literal">null</span>);
+        setStatus(<span class="hljs-string">'error'</span>);
+      });
+  }, [<span class="hljs-keyword">from</span>, to]);
+  <span class="hljs-keyword">return</span> { status, rate };
+}
+</code></pre>
+</section><section class="slide"><h2>Eigene Hooks - useAuth</h2>
+<p>Beispiele für Hooks, die Authentifizierung behandeln:</p>
+<ul>
+<li><a href="https://usehooks.com/useAuth/">https://usehooks.com/useAuth/</a></li>
+<li><a href="https://medium.com/hackernoon/learn-react-hooks-by-building-an-auth-based-to-do-app-c2d143928b0b">https://medium.com/hackernoon/learn-react-hooks-by-building-an-auth-based-to-do-app-c2d143928b0b</a></li>
+</ul>
 </section></section><section class="slides-section"><section class="slide"><h1>State Management mit Reducern</h1>
 <!-- NOTE: other sections link to this section - take care when reordering -->
 </section><section class="slide"><h2>State Management</h2>
@@ -2286,209 +2603,6 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
       <span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
     <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
   );
-};
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Effect Hook</h1>
-</section><section class="slide"><h2>Effect Hook</h2>
-<p>kann verwendet werden, um bestimmte Aktionen zu setzen, wenn eine Komponente neu eingebunden wurde oder wenn ihre Props / State sich geändert haben</p>
-<pre><code class="hljs language-js">useEffect(
-  effect, <span class="hljs-comment">// what should happen</span>
-  dependencies <span class="hljs-comment">// array of values to watch</span>
-);
-</code></pre>
-</section><section class="slide"><h2>Effect Hook</h2>
-<p>Kann verwendet werden, um Nebeneffekte (side effects) auszulösen:</p>
-<ul>
-<li>Abfragen von APIs</li>
-<li>manuelle Änderungen am DOM</li>
-<li>Timer starten</li>
-<li>...</li>
-</ul>
-</section><section class="slide"><h2>Beispiel: DocumentTitle-Komponente</h2>
-<p>Wir erstellen eine Komponente, die den Dokumenttitel dynamisch setzen kann:</p>
-<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">DocumentTitle</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"my custom title"</span> /></span>
-</code></pre>
-<p>Diese Komponente kann irgendwo in der React-Anwendung vorkommen.</p>
-</section><section class="slide"><h2>Beispiel: DocumentTitle-Komponente</h2>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> DocumentTitle = <span class="hljs-function"><span class="hljs-params">props</span> =></span> {
-  <span class="hljs-keyword">const</span> updateTitle = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-    <span class="hljs-built_in">document</span>.title = props.value;
-  };
-  useEffect(updateTitle, [props.value]);
-  <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
-};
-</code></pre>
-</section><section class="slide"><h2>Effect Hook: Cleanup</h2>
-<p>Ein Effect kann eine "Aufräumfunktion" zurückgeben</p>
-<p>Diese Funktion wird aufgerufen, wenn z.B. die Komponente entfernt wird</p>
-</section><section class="slide"><h2>Effect Hook: Cleanup</h2>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> Clock = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  <span class="hljs-keyword">const</span> [time, setTime] = useState(<span class="hljs-string">''</span>);
-  <span class="hljs-comment">// will be called when the component was mounted</span>
-  useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-    <span class="hljs-keyword">const</span> intervalId = setInterval(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-      setTime(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>().toLocaleTimeString());
-    }, <span class="hljs-number">1000</span>);
-    <span class="hljs-comment">// will be called when the component will be removed</span>
-    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-      clearInterval(intervalId);
-    };
-  }, []);
-  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>{time}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
-};
-</code></pre>
-</section><section class="slide"><h2>Effect hook: nach jedem Rendering</h2>
-<p>Wenn kein zweiter Parameter übergeben wird, wird die Funktion nach jedem Rendering ausgeführt.</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> RenderLogger = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'logger was rendered'</span>);
-  });
-  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>Render logger<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
-};
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Externe Hooks</h1>
-</section><section class="slide"><h2>Externe Hooks</h2>
-<p>Viele zusätzliche Hooks werden von der React-Community entwickelt</p>
-<p>Einsatzgebiete z.B.:</p>
-<ul>
-<li>Abfragen von APIs</li>
-<li>Verwenden von globalem State</li>
-<li>Verwenden von <em>localStorage</em> für den state</li>
-<li>Media Queries</li>
-<li>Abfrage der Scrollposition</li>
-<li>... (siehe <a href="https://github.com/rehooks/awesome-react-hooks">awesome-react-hooks</a>)</li>
-</ul>
-</section><section class="slide"><h2>Beispiel: react-query</h2>
-<p><a href="https://github.com/tannerlinsley/react-query">https://github.com/tannerlinsley/react-query</a></p>
-<p>Viel genutzter Hook, der beim Abfragen von APIs hilfreich sein kann</p>
-</section><section class="slide"><h2>Beispiel: react-query</h2>
-<p>Einfache Verwendung:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> TodoDisplay = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  <span class="hljs-keyword">const</span> { data, isLoading } = useQuery(
-    <span class="hljs-string">'todo_1'</span>,
-    fetch(
-      <span class="hljs-string">'https://jsonplaceholder.typicode.com/todos/1'</span>
-    ).then(<span class="hljs-function"><span class="hljs-params">response</span> =></span> response.json())
-  );
-  <span class="hljs-keyword">if</span> (isLoading) {
-    <span class="hljs-keyword">return</span> <span class="hljs-string">'Loading...'</span>;
-  }
-  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>{data.title}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
-};
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Eigene Hooks</h1>
-</section><section class="slide"><h2>Eigene Hooks</h2>
-<p>können verwendet werden, um bestimmte Aspekte aus der Komponentendefinition zu extrahieren</p>
-<p>werden als Funktion definiert, die wiederum auf bestehende Hooks, wie <code>useState</code> oder <code>useEffect</code> zurückgreift</p>
-</section><section class="slide"><h2>Eigene Hooks - useDate</h2>
-<p>Beispiel: <code>useDate</code> - stellt hier die aktuelle Uhrzeit bereit und aktualisiert die Komponente alle 1000 Millisekunden</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> Clock = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  <span class="hljs-keyword">const</span> time = useDate(<span class="hljs-number">1000</span>);
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>The time is: {time.toLocaleTimeString()}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
-  );
-};
-</code></pre>
-</section><section class="slide"><h2>Eigene Hooks - useDate</h2>
-<p>Einfache Implementierung von <code>useDate</code>:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> useDate = <span class="hljs-function"><span class="hljs-params">interval</span> =></span> {
-  <span class="hljs-keyword">const</span> [date, setDate] = useState(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>());
-  useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-    setInterval(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-      setDate(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>());
-    }, interval);
-  }, []);
-  <span class="hljs-keyword">return</span> date;
-};
-</code></pre>
-</section><section class="slide"><h2>Eigene Hooks - useTodos</h2>
-<p>Beispiel: <code>useTodos</code> - kann verwendet werden, um die Datenverwaltung von der Komponentendefinition loszulösen</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> TodoApp = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  <span class="hljs-keyword">const</span> todoCtrl = useTodos();
-  <span class="hljs-keyword">return</span> (
-    &#x3C;div>
-      &#x3C;h1>Todo&#x3C;/h1>
-      &#x3C;TodoList
-        todos={todoCtrl.todos}
-        isLoading={todoCtrl.isLoading}
-        onReload={todoCtrl.reload}
-        onToggle={todoCtrl.toggleTodo}
-        onDelete={todoCtrl.deleteTodo}
-      />
-      &#x3C;AddTodo onAdd={todoCtrl.addTodo} />
-    &#x3C;/div>
-  );
-};
-</code></pre>
-</section><section class="slide"><h2>Eigene Hooks - useTodos</h2>
-<p>Implementierung von <code>useTodos</code>:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> useTodos = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  <span class="hljs-keyword">const</span> [todos, dispatch] = useReducer(todosReducer, []);
-  <span class="hljs-keyword">const</span> [isLoading, setIsLoading] = useState(<span class="hljs-literal">false</span>);
-  useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-    <span class="hljs-keyword">if</span> (isLoading) {
-      fetch(<span class="hljs-string">'https://jsonplaceholder.typicode.com/todos'</span>)
-        .then(<span class="hljs-function"><span class="hljs-params">res</span> =></span> res.json())
-        .then(<span class="hljs-function"><span class="hljs-params">apiTodos</span> =></span> {
-          dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">'setTodos'</span>, <span class="hljs-attr">payload</span>: apiTodos });
-          setIsLoading(<span class="hljs-literal">false</span>);
-        });
-    }
-  }, [isLoading]);
-  <span class="hljs-keyword">return</span> {
-    <span class="hljs-attr">todos</span>: todos,
-    <span class="hljs-attr">isLoading</span>: isLoading,
-    <span class="hljs-attr">reload</span>: <span class="hljs-function"><span class="hljs-params">()</span> =></span> setIsLoading(<span class="hljs-literal">true</span>),
-    <span class="hljs-attr">addTodo</span>: <span class="hljs-function"><span class="hljs-params">title</span> =></span>
-      dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">'addTodo'</span>, <span class="hljs-attr">payload</span>: title }),
-    <span class="hljs-attr">deleteTodo</span>: <span class="hljs-function"><span class="hljs-params">id</span> =></span>
-      dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">'deleteTodo'</span>, <span class="hljs-attr">payload</span>: id }),
-    <span class="hljs-attr">toggleTodo</span>: <span class="hljs-function"><span class="hljs-params">id</span> =></span>
-      dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">'toggleTodo'</span>, <span class="hljs-attr">payload</span>: id }),
-  };
-};
-</code></pre>
-</section><section class="slide"><h2>Eigene Hooks - useAuth</h2>
-<p>Beispiele für Hooks, die Authentifizierung behandeln:</p>
-<ul>
-<li><a href="https://usehooks.com/useAuth/">https://usehooks.com/useAuth/</a></li>
-<li><a href="https://medium.com/hackernoon/learn-react-hooks-by-building-an-auth-based-to-do-app-c2d143928b0b">https://medium.com/hackernoon/learn-react-hooks-by-building-an-auth-based-to-do-app-c2d143928b0b</a></li>
-</ul>
-</section><section class="slide"><h2>Eigene Hooks - useJsonQuery</h2>
-<p>Beispiel: <code>useJsonQuery</code> - ermöglicht das Abrufen von JSON-Daten</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> TodoDemo = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  <span class="hljs-keyword">const</span> { data, error, isFetching } = useJsonQuery(
-    <span class="hljs-string">'https://jsonplaceholder.typicode.com/todos'</span>
-  );
-  <span class="hljs-keyword">if</span> (error) <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>Could not fetch data<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
-  <span class="hljs-keyword">if</span> (isFetching) <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>Fetching...<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
-      {data.map(todo => (
-        <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>{todo.title}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
-      ))}
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
-  );
-};
-</code></pre>
-</section><section class="slide"><h2>Eigene Hooks - useJsonQuery</h2>
-<p>einfache Implementierung:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> useJsonQuery = <span class="hljs-function"><span class="hljs-params">url</span> =></span> {
-  <span class="hljs-keyword">const</span> [isFetching, setIsFetching] = useState(<span class="hljs-literal">true</span>);
-  <span class="hljs-keyword">const</span> [data, setData] = useState(<span class="hljs-literal">null</span>);
-  <span class="hljs-keyword">const</span> [error, setError] = useState(<span class="hljs-literal">false</span>);
-  useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-    setIsFetching(<span class="hljs-literal">true</span>);
-    setError(<span class="hljs-literal">false</span>);
-    fetch(url)
-      .then(<span class="hljs-function"><span class="hljs-params">response</span> =></span> response.text())
-      .then(<span class="hljs-function"><span class="hljs-params">responseText</span> =></span> {
-        setData(responseText);
-        setIsFetching(<span class="hljs-literal">false</span>);
-      })
-      .catch(<span class="hljs-function"><span class="hljs-params">()</span> =></span> setError(<span class="hljs-literal">true</span>));
-  }, [url]);
-  <span class="hljs-keyword">return</span> { data, error, isFetching };
 };
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Styling Tools</h1>
@@ -2681,102 +2795,6 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 
 const isEmail = (email) =>
   email.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i);
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>React Router</h1>
-</section><section class="slide"><h2>React Router</h2>
-<p><strong>client-seitiges Routing</strong>: Navigieren zwischen verschiedenen Ansichten, ohne die React-Anwendung zu verlassen</p>
-</section><section class="slide"><h2>Setup</h2>
-<p>npm-Pakete:</p>
-<ul>
-<li><code>react-router-dom</code></li>
-<li>(<code>@types/react-router-dom</code>)</li>
-</ul>
-</section><section class="slide"><h2>Setup</h2>
-<p>Die ganze Anwendung wird in ein <code>BrowserRouter</code>-Element eingebettet:</p>
-<pre><code class="hljs language-js"><span class="hljs-comment">// index.js</span>
-
-<span class="hljs-keyword">import</span> { BrowserRouter } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router-dom'</span>;
-
-ReactDOM.render(
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">React.StrictMode</span>></span>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">BrowserRouter</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">App</span> /></span>
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">BrowserRouter</span>></span>
-  <span class="hljs-tag">&#x3C;/<span class="hljs-name">React.StrictMode</span>></span></span>,
-  rootElement
-);
-</code></pre>
-</section><section class="slide"><h2>Grundlegende Router-Komponenten</h2>
-<ul>
-<li><code>&#x3C;Route></code> - rendert ihre Inhalte, wenn sie aktiv ist</li>
-<li><code>&#x3C;Switch></code> - Container für <code>&#x3C;Route></code>-Elemente</li>
-<li><code>&#x3C;Link></code> / <code>&#x3C;NavLink></code> - werden anstatt von <code>&#x3C;a></code>-Elementen verwendet</li>
-</ul>
-</section><section class="slide"><h2>Einfaches Beispiel</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> App = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">NavLink</span> <span class="hljs-attr">to</span>=<span class="hljs-string">"/slideshow"</span>></span>slideshow<span class="hljs-tag">&#x3C;/<span class="hljs-name">NavLink</span>></span>|
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">NavLink</span> <span class="hljs-attr">to</span>=<span class="hljs-string">"/counter"</span>></span>counter<span class="hljs-tag">&#x3C;/<span class="hljs-name">NavLink</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">Switch</span>></span>
-        <span class="hljs-tag">&#x3C;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"/slideshow"</span>></span>
-          <span class="hljs-tag">&#x3C;<span class="hljs-name">Slideshow</span> /></span>
-        <span class="hljs-tag">&#x3C;/<span class="hljs-name">Route</span>></span>
-        <span class="hljs-tag">&#x3C;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"/counter"</span>></span>
-          <span class="hljs-tag">&#x3C;<span class="hljs-name">Counter</span> /></span>
-        <span class="hljs-tag">&#x3C;/<span class="hljs-name">Route</span>></span>
-      <span class="hljs-tag">&#x3C;/<span class="hljs-name">Switch</span>></span>
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
-  );
-};
-</code></pre>
-<p>(Syntax von React Router 5.1)</p>
-</section><section class="slide"><h2>Routenparameter</h2>
-<pre><code class="hljs language-jsx">&#x3C;Route path=<span class="hljs-string">"/todos/:todoId"</span>>
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">TodoDetailView</span> /></span>
-<span class="hljs-tag">&#x3C;/<span class="hljs-name">Route</span>></span></span>
-</code></pre>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> { useParams } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router-dom'</span>;
-
-<span class="hljs-keyword">const</span> TodoDetailView = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  <span class="hljs-keyword">const</span> routeParams = useParams();
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
-      Details of todo: {routeParams.todoId}
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>...<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
-  );
-};
-</code></pre>
-</section><section class="slide"><h2>Styling von Links</h2>
-<p>Übergeben eines Klassennamens, der auf aktive Links angewendet wird:</p>
-<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">NavLink</span> <span class="hljs-attr">to</span>=<span class="hljs-string">"/"</span> <span class="hljs-attr">activeClassName</span>=<span class="hljs-string">"active-link"</span>></span>Home<span class="hljs-tag">&#x3C;/<span class="hljs-name">NavLink</span>></span>
-<span class="hljs-tag">&#x3C;<span class="hljs-name">NavLink</span> <span class="hljs-attr">to</span>=<span class="hljs-string">"/add"</span> <span class="hljs-attr">activeClassName</span>=<span class="hljs-string">"active-link"</span>></span>Add<span class="hljs-tag">&#x3C;/<span class="hljs-name">NavLink</span>></span>
-</code></pre>
-</section><section class="slide"><h2>Navigation aus React</h2>
-<p>Möglichkeiten:</p>
-<ul>
-<li>Rendern einer <code>&#x3C;Redirect></code>-Komponente</li>
-<li>Verwendung des history Hooks</li>
-</ul>
-</section><section class="slide"><h2>Navigation aus React</h2>
-<pre><code class="hljs language-jsx">&#x3C;Route path=<span class="hljs-string">"/member-area"</span>>
-  {username ? <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">MemberArea</span> /></span> : <span class="hljs-tag">&#x3C;<span class="hljs-name">Redirect</span> <span class="hljs-attr">to</span>=<span class="hljs-string">"/login"</span> /></span>}
-<span class="hljs-tag">&#x3C;/<span class="hljs-name">Route</span>></span>
-</span></code></pre>
-</section><section class="slide"><h2>Navigation aus React</h2>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> { useHistory } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router-dom'</span>;
-
-<span class="hljs-keyword">const</span> AddTodoView = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  <span class="hljs-keyword">const</span> history = useHistory();
-  <span class="hljs-keyword">const</span> handleSubmit = <span class="hljs-function">(<span class="hljs-params">event</span>) =></span> {
-    event.preventDefault();
-    <span class="hljs-comment">// ...</span>
-    <span class="hljs-comment">// go back to home view</span>
-    history.push(<span class="hljs-string">'/'</span>);
-  };
-  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">form</span> <span class="hljs-attr">onSubmit</span>=<span class="hljs-string">{handleSubmit}</span>></span>...<span class="hljs-tag">&#x3C;/<span class="hljs-name">form</span>></span></span>;
-};
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Testen</h1>
 </section><section class="slide"><h2>Automatisiertes Testen in JavaScript</h2>

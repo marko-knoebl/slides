@@ -42,7 +42,7 @@ ReactDOM.render(
 const App = () => {
   return (
     <div>
-      <NavLink to="/slideshow">slideshow</NavLink>|
+      <NavLink to="/slideshow">slideshow</NavLink>{' '}
       <NavLink to="/counter">counter</NavLink>
       <Switch>
         <Route path="/slideshow">

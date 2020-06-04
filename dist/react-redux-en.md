@@ -40,7 +40,7 @@
 
 ## State management with reducers
 
-See presentation on [React advanced](./react-advanced-en.html#/4)
+See presentation on [React advanced](./react-advanced-en.html#/8)
 
 # Redux 1
 

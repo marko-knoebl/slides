@@ -17,7 +17,6 @@ reasons for using hooks:
 reasons for using class components:
 
 - concepts are probably more familiar in the beginning
-- lifecycle events may be clearer in class components
 
 ## Class component example
 

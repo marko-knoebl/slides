@@ -4,12 +4,11 @@
 
 ## Themen
 
-- weitere Hooks
-  - context Hook
-  - reducer Hook und State Management mit Reducern
-  - effect Hook im Detail
-  - externe Hooks und eigene Hooks
 - Routing
+- Context
+- effect Hook im Detail
+- externe Hooks und eigene Hooks
+- reducer Hook und State Management mit Reducern
 - Styling-Libraries
 - Formular-Libraries
 - Testen von React-Komponenten
@@ -17,32 +16,129 @@
 - Refs, HOCs
 - Manuelles Setup
 
-# Hooks
+# React Router
 
-## Hooks
+## React Router
 
-Hooks: Erweiterung von Funktionskomponenten
+**client-seitiges Routing**: Navigieren zwischen verschiedenen Ansichten, ohne die React-Anwendung zu verlassen
 
-Eine _einfache_ Funktionskomponente kann Inhalte basierend auf ihren Props rendern und Events auslösen.
+## Setup
 
-Hooks erlauben erweiterte Funktionalität, z.B. internen State in einer Komponente oder das "Lauschen" auf Events aus dem Komponentenlebenszyklus
+npm-Pakete:
 
-## Hooks
+- `react-router-dom`
+- (`@types/react-router-dom`)
 
-Hooks sind spezielle Funktionen, die am Beginn einer Komponentendefinition aufgerufen werden können
+## Setup
 
-Beispiele:
+Die ganze Anwendung wird in ein `BrowserRouter`-Element eingebettet:
 
-- `useState(...)`
-- `useEffect(...)`
-- `useContext(...)`
-- `useReducer(...)`
+```js
+// index.js
 
-## Hooks
+import { BrowserRouter } from 'react-router-dom';
 
-> "In the longer term, we expect Hooks to be the primary way people write React components."
+ReactDOM.render(
+  <React.StrictMode>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </React.StrictMode>,
+  rootElement
+);
+```
 
-\- [React FAQ](https://reactjs.org/docs/hooks-faq.html#should-i-use-hooks-classes-or-a-mix-of-both)
+## Grundlegende Router-Komponenten
+
+- `<Route>` - rendert ihre Inhalte, wenn sie aktiv ist
+- `<Switch>` - Container für `<Route>`-Elemente
+- `<Link>` / `<NavLink>` - werden anstatt von `<a>`-Elementen verwendet
+
+## Einfaches Beispiel
+
+```js
+const App = () => {
+  return (
+    <div>
+      <NavLink to="/slideshow">slideshow</NavLink>{' '}
+      <NavLink to="/counter">counter</NavLink>
+      <Switch>
+        <Route path="/slideshow">
+          <Slideshow />
+        </Route>
+        <Route path="/counter">
+          <Counter />
+        </Route>
+      </Switch>
+    </div>
+  );
+};
+```
+
+(Syntax von React Router 5.1)
+
+## Routenparameter
+
+```jsx
+<Route path="/todos/:todoId">
+  <TodoDetailView />
+</Route>
+```
+
+```jsx
+import { useParams } from 'react-router-dom';
+
+const TodoDetailView = () => {
+  const routeParams = useParams();
+  return (
+    <div>
+      Details of todo: {routeParams.todoId}
+      <div>...</div>
+    </div>
+  );
+};
+```
+
+## Styling von Links
+
+Übergeben eines Klassennamens, der auf aktive Links angewendet wird:
+
+```xml
+<NavLink to="/" activeClassName="active-link">Home</NavLink>
+<NavLink to="/add" activeClassName="active-link">Add</NavLink>
+```
+
+## Navigation aus React
+
+Möglichkeiten:
+
+- Rendern einer `<Redirect>`-Komponente
+- Verwendung des history Hooks
+
+## Navigation aus React
+
+```jsx
+<Route path="/member-area">
+  {username ? <MemberArea /> : <Redirect to="/login" />}
+</Route>
+```
+
+## Navigation aus React
+
+```jsx
+import { useHistory } from 'react-router-dom';
+
+const AddTodoView = () => {
+  const history = useHistory();
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // ...
+    // go back to home view
+    history.push('/');
+  };
+  return <form onSubmit={handleSubmit}>...</form>;
+};
+```
 
 # Context
 
@@ -101,6 +197,319 @@ const TodoStats = () => {
   return <div>There are {context.todos.length} todos</div>;
 };
 ```
+
+# Effect Hook
+
+## Effect Hook
+
+kann verwendet werden, um bestimmte Aktionen zu setzen, wenn eine Komponente neu eingebunden wurde oder wenn ihre Props / State sich geändert haben
+
+```js
+useEffect(
+  effect, // what should happen
+  dependencies // array of values to watch
+);
+```
+
+## Effect Hook
+
+Kann verwendet werden, um Nebeneffekte (side effects) auszulösen:
+
+- Abfragen von APIs
+- manuelle Änderungen am DOM
+- Timer starten
+- ...
+
+## Beispiel: DocumentTitle-Komponente
+
+Wir erstellen eine Komponente, die den Dokumenttitel dynamisch setzen kann:
+
+```xml
+<DocumentTitle value="my custom title" />
+```
+
+Diese Komponente kann irgendwo in der React-Anwendung vorkommen.
+
+## Beispiel: DocumentTitle-Komponente
+
+```jsx
+const DocumentTitle = props => {
+  const updateTitle = () => {
+    document.title = props.value;
+  };
+  useEffect(updateTitle, [props.value]);
+  return null;
+};
+```
+
+## Effect Hook: Cleanup
+
+Ein Effect kann eine "Aufräumfunktion" zurückgeben
+
+Diese Funktion wird aufgerufen, wenn z.B. die Komponente entfernt wird
+
+## Effect Hook: Cleanup
+
+```jsx
+const Clock = () => {
+  const [time, setTime] = useState('');
+  // will be called when the component was mounted
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setTime(new Date().toLocaleTimeString());
+    }, 1000);
+    // will be called when the component will be removed
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, []);
+  return <div>{time}</div>;
+};
+```
+
+## Effect hook: nach jedem Rendering
+
+Wenn kein zweiter Parameter übergeben wird, wird die Funktion nach jedem Rendering ausgeführt.
+
+```jsx
+const RenderLogger = () => {
+  useEffect(() => {
+    console.log('logger was rendered');
+  });
+  return <div>Render logger</div>;
+};
+```
+
+# Hooks
+
+## Hooks
+
+Hooks: Erweiterung von Funktionskomponenten
+
+Eine _einfache_ Funktionskomponente kann Inhalte basierend auf ihren Props rendern und Events auslösen.
+
+Hooks erlauben erweiterte Funktionalität, z.B. internen State in einer Komponente oder das "Lauschen" auf Events aus dem Komponentenlebenszyklus
+
+## Hooks
+
+Hooks sind spezielle Funktionen, die am Beginn einer Komponentendefinition aufgerufen werden können
+
+Beispiele:
+
+- `useState(...)`
+- `useEffect(...)`
+- `useContext(...)`
+- `useReducer(...)`
+
+## Hooks
+
+> "In the longer term, we expect Hooks to be the primary way people write React components."
+
+\- [React FAQ](https://reactjs.org/docs/hooks-faq.html#should-i-use-hooks-classes-or-a-mix-of-both)
+
+# Externe Hooks
+
+## Externe Hooks
+
+Viele zusätzliche Hooks werden von der React-Community entwickelt
+
+Einsatzgebiete z.B.:
+
+- Abfragen von APIs
+- Verwenden von globalem State
+- Verwenden von _localStorage_ für den state
+- Media Queries
+- Abfrage der Scrollposition
+- ... (siehe [awesome-react-hooks](https://github.com/rehooks/awesome-react-hooks))
+
+## Beispiel: react-query
+
+<https://github.com/tannerlinsley/react-query>
+
+Viel genutzter Hook, der beim Abfragen von APIs hilfreich sein kann
+
+## Beispiel: react-query
+
+Einfache Verwendung:
+
+```js
+const TodoDisplay = () => {
+  const [id, setId] = useState(0);
+  const { status, data } = useQuery(`todo_${id}`, () =>
+    fetchTodo(id)
+  );
+  return (
+    <div>
+      {status === 'success' ? data.title : status}
+      <button onClick={() => setId(id + 1)}>next</button>
+    </div>
+  );
+};
+
+const fetchTodo = (id) =>
+  fetch(
+    `https://jsonplaceholder.typicode.com/${id}`
+  ).then((response) => response.json());
+```
+
+# Eigene Hooks
+
+## Eigene Hooks
+
+können verwendet werden, um bestimmte Aspekte aus der Komponentendefinition zu extrahieren
+
+werden als Funktion definiert, die wiederum auf bestehende Hooks, wie `useState` oder `useEffect` zurückgreift
+
+## Eigene Hooks - useTodos
+
+Beispiel: `useTodos` - kann verwendet werden, um die Datenverwaltung von der Komponentendefinition loszulösen
+
+```jsx
+function TodoApp() {
+  const {
+    todos,
+    toggleTodo,
+    deleteTodo,
+    addTodo,
+  } = useTodos();
+  return (
+    <div>
+      <h1>Todos</h1>
+      <TodoList
+        todos={todos}
+        onToggle={toggleTodo}
+        onDelete={deleteTodo}
+      />
+      <AddTodo onAdd={addTodo} />
+    </div>
+  );
+}
+```
+
+## Eigene Hooks - useTodos
+
+Definition von `useTodos`:
+
+```jsx
+function useTodos() {
+  const [todos, setTodos] = useState([]);
+  function addTodo(title) {
+    const nId = Math.max(0, ...todos.map((t) => t.id + 1));
+    setTodos([
+      ...todos,
+      { id: nId, title: title, completed: false },
+    ]);
+  }
+  function deleteTodo(id) {
+    setTodos(todos.filter((t) => t.id !== id));
+  }
+  function toggleTodo(id) {
+    setTodos(
+      todos.map((t) =>
+        t.id === id ? { ...t, completed: !t.completed } : t
+      )
+    );
+  }
+  return { todos, addTodo, deleteTodo, toggleTodo };
+}
+```
+
+## Eigene Hooks - useTodos
+
+`useTodos` mit API-Abfrage:
+
+```js
+function useTodos() {
+  const [todos, setTodos] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  // ... (addTodo, deleteTodo, toggleTodo)
+  function reload() {
+    setIsLoading(true);
+    fetch('https://jsonplaceholder.typicode.com/todos')
+      .then((res) => res.json())
+      .then((apiTodos) => {
+        setTodos(apiTodos);
+        setIsLoading(false);
+      });
+  }
+  useEffect(reload, []);
+  return {
+    todos,
+    isLoading,
+    reload,
+    addTodo,
+    deleteTodo,
+    toggleTodo,
+  };
+}
+```
+
+## Eigene Hooks - useDate
+
+Beispiel: `useDate` - stellt hier die aktuelle Uhrzeit bereit und aktualisiert die Komponente alle 1000 Millisekunden
+
+```js
+const Clock = () => {
+  const time = useDate(1000);
+  return (
+    <div>The time is: {time.toLocaleTimeString()}</div>
+  );
+};
+```
+
+## Eigene Hooks - useDate
+
+Einfache Implementierung von `useDate`:
+
+```js
+const useDate = (interval) => {
+  const [date, setDate] = useState(new Date());
+  useEffect(() => {
+    setInterval(() => {
+      setDate(new Date());
+    }, interval);
+  }, []);
+  return date;
+};
+```
+
+## Eigene Hooks - useExchangerate
+
+hook that provides the exchange rate for selected currencies
+
+```js
+function useExchangerate(from, to) {
+  const [rate, setRate] = useState(null);
+  const [status, setStatus] = useState('loading');
+  useEffect(() => {
+    setRate(null);
+    setStatus('loading');
+    fetch(
+      'https://api.exchangeratesapi.io/latest?base=' +
+        from.toUpperCase() +
+        '&symbols=' +
+        to.toUpperCase()
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setRate(data.rates[to.toUpperCase()]);
+        setStatus('success');
+      })
+      .catch((error) => {
+        setRate(null);
+        setStatus('error');
+      });
+  }, [from, to]);
+  return { status, rate };
+}
+```
+
+## Eigene Hooks - useAuth
+
+Beispiele für Hooks, die Authentifizierung behandeln:
+
+- <https://usehooks.com/useAuth/>
+- <https://medium.com/hackernoon/learn-react-hooks-by-building-an-auth-based-to-do-app-c2d143928b0b>
 
 # State Management mit Reducern
 
@@ -260,272 +669,6 @@ const TodoApp = () => {
       </button>
     </div>
   );
-};
-```
-
-# Effect Hook
-
-## Effect Hook
-
-kann verwendet werden, um bestimmte Aktionen zu setzen, wenn eine Komponente neu eingebunden wurde oder wenn ihre Props / State sich geändert haben
-
-```js
-useEffect(
-  effect, // what should happen
-  dependencies // array of values to watch
-);
-```
-
-## Effect Hook
-
-Kann verwendet werden, um Nebeneffekte (side effects) auszulösen:
-
-- Abfragen von APIs
-- manuelle Änderungen am DOM
-- Timer starten
-- ...
-
-## Beispiel: DocumentTitle-Komponente
-
-Wir erstellen eine Komponente, die den Dokumenttitel dynamisch setzen kann:
-
-```xml
-<DocumentTitle value="my custom title" />
-```
-
-Diese Komponente kann irgendwo in der React-Anwendung vorkommen.
-
-## Beispiel: DocumentTitle-Komponente
-
-```jsx
-const DocumentTitle = props => {
-  const updateTitle = () => {
-    document.title = props.value;
-  };
-  useEffect(updateTitle, [props.value]);
-  return null;
-};
-```
-
-## Effect Hook: Cleanup
-
-Ein Effect kann eine "Aufräumfunktion" zurückgeben
-
-Diese Funktion wird aufgerufen, wenn z.B. die Komponente entfernt wird
-
-## Effect Hook: Cleanup
-
-```jsx
-const Clock = () => {
-  const [time, setTime] = useState('');
-  // will be called when the component was mounted
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setTime(new Date().toLocaleTimeString());
-    }, 1000);
-    // will be called when the component will be removed
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, []);
-  return <div>{time}</div>;
-};
-```
-
-## Effect hook: nach jedem Rendering
-
-Wenn kein zweiter Parameter übergeben wird, wird die Funktion nach jedem Rendering ausgeführt.
-
-```jsx
-const RenderLogger = () => {
-  useEffect(() => {
-    console.log('logger was rendered');
-  });
-  return <div>Render logger</div>;
-};
-```
-
-# Externe Hooks
-
-## Externe Hooks
-
-Viele zusätzliche Hooks werden von der React-Community entwickelt
-
-Einsatzgebiete z.B.:
-
-- Abfragen von APIs
-- Verwenden von globalem State
-- Verwenden von _localStorage_ für den state
-- Media Queries
-- Abfrage der Scrollposition
-- ... (siehe [awesome-react-hooks](https://github.com/rehooks/awesome-react-hooks))
-
-## Beispiel: react-query
-
-<https://github.com/tannerlinsley/react-query>
-
-Viel genutzter Hook, der beim Abfragen von APIs hilfreich sein kann
-
-## Beispiel: react-query
-
-Einfache Verwendung:
-
-```js
-const TodoDisplay = () => {
-  const { data, isLoading } = useQuery(
-    'todo_1',
-    fetch(
-      'https://jsonplaceholder.typicode.com/todos/1'
-    ).then(response => response.json())
-  );
-  if (isLoading) {
-    return 'Loading...';
-  }
-  return <div>{data.title}</div>;
-};
-```
-
-# Eigene Hooks
-
-## Eigene Hooks
-
-können verwendet werden, um bestimmte Aspekte aus der Komponentendefinition zu extrahieren
-
-werden als Funktion definiert, die wiederum auf bestehende Hooks, wie `useState` oder `useEffect` zurückgreift
-
-## Eigene Hooks - useDate
-
-Beispiel: `useDate` - stellt hier die aktuelle Uhrzeit bereit und aktualisiert die Komponente alle 1000 Millisekunden
-
-```js
-const Clock = () => {
-  const time = useDate(1000);
-  return (
-    <div>The time is: {time.toLocaleTimeString()}</div>
-  );
-};
-```
-
-## Eigene Hooks - useDate
-
-Einfache Implementierung von `useDate`:
-
-```js
-const useDate = interval => {
-  const [date, setDate] = useState(new Date());
-  useEffect(() => {
-    setInterval(() => {
-      setDate(new Date());
-    }, interval);
-  }, []);
-  return date;
-};
-```
-
-## Eigene Hooks - useTodos
-
-Beispiel: `useTodos` - kann verwendet werden, um die Datenverwaltung von der Komponentendefinition loszulösen
-
-```js
-const TodoApp = () => {
-  const todoCtrl = useTodos();
-  return (
-    <div>
-      <h1>Todo</h1>
-      <TodoList
-        todos={todoCtrl.todos}
-        isLoading={todoCtrl.isLoading}
-        onReload={todoCtrl.reload}
-        onToggle={todoCtrl.toggleTodo}
-        onDelete={todoCtrl.deleteTodo}
-      />
-      <AddTodo onAdd={todoCtrl.addTodo} />
-    </div>
-  );
-};
-```
-
-## Eigene Hooks - useTodos
-
-Implementierung von `useTodos`:
-
-```js
-const useTodos = () => {
-  const [todos, dispatch] = useReducer(todosReducer, []);
-  const [isLoading, setIsLoading] = useState(false);
-  useEffect(() => {
-    if (isLoading) {
-      fetch('https://jsonplaceholder.typicode.com/todos')
-        .then(res => res.json())
-        .then(apiTodos => {
-          dispatch({ type: 'setTodos', payload: apiTodos });
-          setIsLoading(false);
-        });
-    }
-  }, [isLoading]);
-  return {
-    todos: todos,
-    isLoading: isLoading,
-    reload: () => setIsLoading(true),
-    addTodo: title =>
-      dispatch({ type: 'addTodo', payload: title }),
-    deleteTodo: id =>
-      dispatch({ type: 'deleteTodo', payload: id }),
-    toggleTodo: id =>
-      dispatch({ type: 'toggleTodo', payload: id }),
-  };
-};
-```
-
-## Eigene Hooks - useAuth
-
-Beispiele für Hooks, die Authentifizierung behandeln:
-
-- <https://usehooks.com/useAuth/>
-- <https://medium.com/hackernoon/learn-react-hooks-by-building-an-auth-based-to-do-app-c2d143928b0b>
-
-## Eigene Hooks - useJsonQuery
-
-Beispiel: `useJsonQuery` - ermöglicht das Abrufen von JSON-Daten
-
-```js
-const TodoDemo = () => {
-  const { data, error, isFetching } = useJsonQuery(
-    'https://jsonplaceholder.typicode.com/todos'
-  );
-  if (error) return <div>Could not fetch data</div>;
-  if (isFetching) return <div>Fetching...</div>;
-  return (
-    <div>
-      {data.map(todo => (
-        <div>{todo.title}</div>
-      ))}
-    </div>
-  );
-};
-```
-
-## Eigene Hooks - useJsonQuery
-
-einfache Implementierung:
-
-```js
-const useJsonQuery = url => {
-  const [isFetching, setIsFetching] = useState(true);
-  const [data, setData] = useState(null);
-  const [error, setError] = useState(false);
-  useEffect(() => {
-    setIsFetching(true);
-    setError(false);
-    fetch(url)
-      .then(response => response.text())
-      .then(responseText => {
-        setData(responseText);
-        setIsFetching(false);
-      })
-      .catch(() => setError(true));
-  }, [url]);
-  return { data, error, isFetching };
 };
 ```
 
@@ -765,130 +908,6 @@ const NewsletterRegistration = () => (
 
 const isEmail = (email) =>
   email.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i);
-```
-
-# React Router
-
-## React Router
-
-**client-seitiges Routing**: Navigieren zwischen verschiedenen Ansichten, ohne die React-Anwendung zu verlassen
-
-## Setup
-
-npm-Pakete:
-
-- `react-router-dom`
-- (`@types/react-router-dom`)
-
-## Setup
-
-Die ganze Anwendung wird in ein `BrowserRouter`-Element eingebettet:
-
-```js
-// index.js
-
-import { BrowserRouter } from 'react-router-dom';
-
-ReactDOM.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </React.StrictMode>,
-  rootElement
-);
-```
-
-## Grundlegende Router-Komponenten
-
-- `<Route>` - rendert ihre Inhalte, wenn sie aktiv ist
-- `<Switch>` - Container für `<Route>`-Elemente
-- `<Link>` / `<NavLink>` - werden anstatt von `<a>`-Elementen verwendet
-
-## Einfaches Beispiel
-
-```js
-const App = () => {
-  return (
-    <div>
-      <NavLink to="/slideshow">slideshow</NavLink>|
-      <NavLink to="/counter">counter</NavLink>
-      <Switch>
-        <Route path="/slideshow">
-          <Slideshow />
-        </Route>
-        <Route path="/counter">
-          <Counter />
-        </Route>
-      </Switch>
-    </div>
-  );
-};
-```
-
-(Syntax von React Router 5.1)
-
-## Routenparameter
-
-```jsx
-<Route path="/todos/:todoId">
-  <TodoDetailView />
-</Route>
-```
-
-```jsx
-import { useParams } from 'react-router-dom';
-
-const TodoDetailView = () => {
-  const routeParams = useParams();
-  return (
-    <div>
-      Details of todo: {routeParams.todoId}
-      <div>...</div>
-    </div>
-  );
-};
-```
-
-## Styling von Links
-
-Übergeben eines Klassennamens, der auf aktive Links angewendet wird:
-
-```xml
-<NavLink to="/" activeClassName="active-link">Home</NavLink>
-<NavLink to="/add" activeClassName="active-link">Add</NavLink>
-```
-
-## Navigation aus React
-
-Möglichkeiten:
-
-- Rendern einer `<Redirect>`-Komponente
-- Verwendung des history Hooks
-
-## Navigation aus React
-
-```jsx
-<Route path="/member-area">
-  {username ? <MemberArea /> : <Redirect to="/login" />}
-</Route>
-```
-
-## Navigation aus React
-
-```jsx
-import { useHistory } from 'react-router-dom';
-
-const AddTodoView = () => {
-  const history = useHistory();
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // ...
-    // go back to home view
-    history.push('/');
-  };
-  return <form onSubmit={handleSubmit}>...</form>;
-};
 ```
 
 # Testen
