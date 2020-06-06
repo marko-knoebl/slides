@@ -8,7 +8,7 @@ They are functions which in turn use existing hooks like `useState` or `useEffec
 
 ## Custom hooks - useTodos
 
-Example: `useTodos` - can be used to extract data handling from the component definition
+Example: `useTodos` - can be used to extract data handling from the component definition (separating the _model_ from the _view_)
 
 ```jsx
 function TodoApp() {
@@ -40,10 +40,10 @@ definition of `useTodos`:
 function useTodos() {
   const [todos, setTodos] = useState([]);
   function addTodo(title) {
-    const nId = Math.max(0, ...todos.map((t) => t.id + 1));
+    const id = Math.max(0, ...todos.map((t) => t.id + 1));
     setTodos([
       ...todos,
-      { id: nId, title: title, completed: false },
+      { id: id, title: title, completed: false },
     ]);
   }
   function deleteTodo(id) {
@@ -156,3 +156,30 @@ examples for hooks that handle authentication:
 
 - https://usehooks.com/useAuth/
 - https://medium.com/hackernoon/learn-react-hooks-by-building-an-auth-based-to-do-app-c2d143928b0b
+
+## Custom hooks - exercise
+
+Create a hook named `useWeather` that can be used to query Weather data - together with an associated context that enables application-wide caching of the data
+
+```js
+const { weather, status, reload } = useWeather('vienna', {
+  autoReloadInterval: 60,
+});
+```
+
+For the data source (API) see the next slide
+
+## Custom hooks - exercise
+
+OpenWeatherMap-API
+
+example URL: <http://api.openweathermap.org/data/2.5/weather?appid=66445a4269dd911a5bbe214fadb768d6&units=metric&q=vienna>
+
+(please only use this appid / API key for simple exercises)
+
+entries in the API data:
+
+- `.weather[0].main` (e.g. _Rain_)
+- `.main.temp` (e.g. 24.5)
+- `.wind.speed` (e.g. 2.5)
+- `.name` (e.g. _Vienna_)

@@ -16,6 +16,13 @@ Oft wird der gesamte Anwendungszustand durch ein Datenmodell repräsentiert. Jed
 - ngrx (mit Angular verwendet)
 - vuex (mit Vue.js verwendet)
 
+## State Management Tools
+
+<figure>
+  <img src="assets/redux-devtools-airbnb.png" type="image/png" style="width: 100%" alt="Redux devtools showing the state of the airbnb website">
+  <figcaption>Redux Devtools, die den komplexen State der airbnb-Website anzeigen</figcaption>
+</figure>
+
 ## State Management mit Actions und Reducern
 
 Konzept von _Redux_ und Reacts _Reducer Hook_:
@@ -30,7 +37,7 @@ Ein _Reducer_ ist eine Funktion.
 
 Der Reducer erhält den alten State und eine Action, die eine Änderung am State beschreibt.
 
-Der Reducer gibt den neuen State zurück. Ein Reducer **ändert das alte State-Objekt nicht ab**, sondern erstellt ein neues (Reducer sind reine Funktionen)
+Der Reducer gibt den neuen State zurück. Er ändert das alte State-Objekt nicht ab (der Reducer ist eine _reine Funktion_).
 
 ## Reducer Diagramm
 
@@ -83,13 +90,15 @@ const todosReducer = (oldState, action) => {
       return [
         ...oldState,
         {
-          title: action.title,
+          title: action.payload,
           completed: false,
-          id: generateId(), // dummy function
+          id: Math.max(0, ...oldState.map((t) => t.id)) + 1,
         },
       ];
     case 'deleteTodo':
-      return oldState.filter(todo => todo.id !== action.id);
+      return oldState.filter(
+        (todo) => todo.id !== action.payload
+      );
     default:
       throw new Error('unknown action type');
   }

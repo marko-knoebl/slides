@@ -2116,13 +2116,15 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
       <span class="hljs-keyword">return</span> [
         ...oldState,
         {
-          <span class="hljs-attr">title</span>: action.title,
+          <span class="hljs-attr">title</span>: action.payload,
           <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span>,
-          <span class="hljs-attr">id</span>: generateId(), <span class="hljs-comment">// dummy function</span>
+          <span class="hljs-attr">id</span>: <span class="hljs-built_in">Math</span>.max(<span class="hljs-number">0</span>, ...oldState.map(<span class="hljs-function">(<span class="hljs-params">t</span>) =></span> t.id)) + <span class="hljs-number">1</span>,
         },
       ];
     <span class="hljs-keyword">case</span> <span class="hljs-string">'deleteTodo'</span>:
-      <span class="hljs-keyword">return</span> oldState.filter(<span class="hljs-function"><span class="hljs-params">todo</span> =></span> todo.id !== action.id);
+      <span class="hljs-keyword">return</span> oldState.filter(
+        <span class="hljs-function">(<span class="hljs-params">todo</span>) =></span> todo.id !== action.payload
+      );
     <span class="hljs-keyword">default</span>:
       <span class="hljs-keyword">return</span> oldState;
   }

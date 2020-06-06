@@ -38,13 +38,15 @@ const todosReducer = (oldState = initialState, action) => {
       return [
         ...oldState,
         {
-          title: action.title,
+          title: action.payload,
           completed: false,
-          id: generateId(), // dummy function
+          id: Math.max(0, ...oldState.map((t) => t.id)) + 1,
         },
       ];
     case 'deleteTodo':
-      return oldState.filter(todo => todo.id !== action.id);
+      return oldState.filter(
+        (todo) => todo.id !== action.payload
+      );
     default:
       return oldState;
   }

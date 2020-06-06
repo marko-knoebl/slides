@@ -4,7 +4,7 @@
 
 <figure>
   <img src="assets/redux-devtools-airbnb.png" type="image/png" style="width: 100%" alt="Redux devtools showing the state of the airbnb website">
-  <figcaption>Redux devtools showing the state of the airbnb website</figcaption>
+  <figcaption>Redux Devtools, die den komplexen State der airbnb-Website anzeigen</figcaption>
 </figure>
 
 ## Redux Devtools

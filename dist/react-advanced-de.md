@@ -358,11 +358,11 @@ const fetchTodo = (id) =>
 
 können verwendet werden, um bestimmte Aspekte aus der Komponentendefinition zu extrahieren
 
-werden als Funktion definiert, die wiederum auf bestehende Hooks, wie `useState` oder `useEffect` zurückgreift
+werden als Funktionen definiert, die wiederum auf bestehende Hooks, wie `useState` oder `useEffect` zurückgreifen
 
 ## Eigene Hooks - useTodos
 
-Beispiel: `useTodos` - kann verwendet werden, um die Datenverwaltung von der Komponentendefinition loszulösen
+Beispiel: `useTodos` - kann verwendet werden, um die Datenverwaltung von der Komponentendefinition loszulösen (Trennung von _model_ und _view_)
 
 ```jsx
 function TodoApp() {
@@ -394,10 +394,10 @@ Definition von `useTodos`:
 function useTodos() {
   const [todos, setTodos] = useState([]);
   function addTodo(title) {
-    const nId = Math.max(0, ...todos.map((t) => t.id + 1));
+    const id = Math.max(0, ...todos.map((t) => t.id + 1));
     setTodos([
       ...todos,
-      { id: nId, title: title, completed: false },
+      { id: id, title: title, completed: false },
     ]);
   }
   function deleteTodo(id) {
@@ -511,6 +511,33 @@ Beispiele für Hooks, die Authentifizierung behandeln:
 - <https://usehooks.com/useAuth/>
 - <https://medium.com/hackernoon/learn-react-hooks-by-building-an-auth-based-to-do-app-c2d143928b0b>
 
+## Eigene Hooks - Übung
+
+Erstellen eines `useWeather`-Hooks zum Abfragen von Wetterdaten - zusammen mit einem zugehörigen Context, der die Daten Anwendungsweit cached
+
+```js
+const { weather, status, reload } = useWeather('vienna', {
+  autoReloadInterval: 60,
+});
+```
+
+Für die Datenquelle siehe nächste Slide
+
+## Eigene Hooks - Beispiel
+
+OpenWeatherMap-API
+
+Beispiel-URL: <http://api.openweathermap.org/data/2.5/weather?appid=66445a4269dd911a5bbe214fadb768d6&units=metric&q=vienna>
+
+(bitte diese appid / API-Key nur für einfache Übungen verwenden)
+
+Einträge in den API-Daten:
+
+- `.weather[0].main` (z.B. _Rain_)
+- `.main.temp` (z.B. 24.5)
+- `.wind.speed` (z.B. 2.5)
+- `.name` (z.B. _Vienna_)
+
 # State Management mit Reducern
 
 <!-- NOTE: other sections link to this section - take care when reordering -->
@@ -529,6 +556,13 @@ Oft wird der gesamte Anwendungszustand durch ein Datenmodell repräsentiert. Jed
 - ngrx (mit Angular verwendet)
 - vuex (mit Vue.js verwendet)
 
+## State Management Tools
+
+<figure>
+  <img src="assets/redux-devtools-airbnb.png" type="image/png" style="width: 100%" alt="Redux devtools showing the state of the airbnb website">
+  <figcaption>Redux Devtools, die den komplexen State der airbnb-Website anzeigen</figcaption>
+</figure>
+
 ## State Management mit Actions und Reducern
 
 Konzept von _Redux_ und Reacts _Reducer Hook_:
@@ -543,7 +577,7 @@ Ein _Reducer_ ist eine Funktion.
 
 Der Reducer erhält den alten State und eine Action, die eine Änderung am State beschreibt.
 
-Der Reducer gibt den neuen State zurück. Ein Reducer **ändert das alte State-Objekt nicht ab**, sondern erstellt ein neues (Reducer sind reine Funktionen)
+Der Reducer gibt den neuen State zurück. Er ändert das alte State-Objekt nicht ab (der Reducer ist eine _reine Funktion_).
 
 ## Reducer Diagramm
 
@@ -596,13 +630,15 @@ const todosReducer = (oldState, action) => {
       return [
         ...oldState,
         {
-          title: action.title,
+          title: action.payload,
           completed: false,
-          id: generateId(), // dummy function
+          id: Math.max(0, ...oldState.map((t) => t.id)) + 1,
         },
       ];
     case 'deleteTodo':
-      return oldState.filter(todo => todo.id !== action.id);
+      return oldState.filter(
+        (todo) => todo.id !== action.payload
+      );
     default:
       throw new Error('unknown action type');
   }

@@ -89,13 +89,15 @@ const todosReducer = (oldState = initialState, action) => {
       return [
         ...oldState,
         {
-          title: action.title,
+          title: action.payload,
           completed: false,
-          id: uuidv1(),
+          id: Math.max(0, ...oldState.map((t) => t.id)) + 1,
         },
       ];
     case 'deleteTodo':
-      return oldState.filter(todo => todo.id !== action.id);
+      return oldState.filter(
+        (todo) => todo.id !== action.payload
+      );
     default:
       return oldState;
   }
@@ -129,7 +131,7 @@ Funktionalität (siehe [what's included](https://redux-toolkit.js.org/introducti
 
 <figure>
   <img src="assets/redux-devtools-airbnb.png" type="image/png" style="width: 100%" alt="Redux devtools showing the state of the airbnb website">
-  <figcaption>Redux devtools showing the state of the airbnb website</figcaption>
+  <figcaption>Redux Devtools, die den komplexen State der airbnb-Website anzeigen</figcaption>
 </figure>
 
 ## Redux Devtools

@@ -16,6 +16,13 @@ Often the entire application state is represented by a data model and every chan
 - ngrx (used with Angular)
 - vuex (used with vue)
 
+## State management tools
+
+<figure>
+  <img src="assets/redux-devtools-airbnb.png" type="image/png" style="width: 100%" alt="Redux devtools showing the state of the airbnb website">
+  <figcaption>example: Redux devtools showing the complex state tree of the airbnb website</figcaption>
+</figure>
+
 ## State management with actions and reducers
 
 Technique that is used in _Redux_ and in React's _reducer hook_:
@@ -30,7 +37,7 @@ A _reducer_ is a function that acts as the central element in Redux
 
 The reducer receives the old state and an action describing a state change
 
-The reducer function returns the new state. The reducer function **does not mutate the old state object** (it is a pure function)
+The reducer function returns the new state. The reducer function does not mutate the old state object (it is a _pure_ function)
 
 ## Reducer diagram
 
@@ -83,13 +90,15 @@ const todosReducer = (oldState, action) => {
       return [
         ...oldState,
         {
-          title: action.title,
+          title: action.payload,
           completed: false,
-          id: generateId(), // dummy function
+          id: Math.max(0, ...oldState.map((t) => t.id)) + 1,
         },
       ];
     case 'deleteTodo':
-      return oldState.filter(todo => todo.id !== action.id);
+      return oldState.filter(
+        (todo) => todo.id !== action.payload
+      );
     default:
       throw new Error('unknown action type');
   }
