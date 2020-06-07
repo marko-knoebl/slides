@@ -4,14 +4,14 @@
 
 examples:
 
-- formik (based on custom components)
 - react-hook-form (based on a custom hook)
+- formik (based on custom components)
 
 functionality:
 
 - **validation**
-- simplifying submit handler
 - managing form data
+- simplifying submit handler
 
 ## react-hook-form
 
@@ -27,8 +27,9 @@ disadvantages: deviates from standard React concepts
 import { useForm } from 'react-hook-form';
 
 const NewsletterRegistration = () => {
-  const { register, handleSubmit, errors } = useForm();
-
+  const { register, handleSubmit, errors } = useForm({
+    mode: 'onBlur',
+  });
   return (
     <form
       onSubmit={handleSubmit((values) => {
@@ -45,7 +46,7 @@ const NewsletterRegistration = () => {
           },
         })}
       />
-      <button disabled={errors}>subscribe</button>
+      <button disabled={errors.email}>subscribe</button>
       {errors.email && errors.email.message}
     </form>
   );

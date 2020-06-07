@@ -867,14 +867,14 @@ export default radium(TestButton);
 
 Beispiele:
 
-- formik (basiert auf React-Komponenten)
 - react-hook-form (basiert auf einem React Hook)
+- formik (basiert auf React-Komponenten)
 
 Funktionalität:
 
 - **Validierung**
-- Vereinfachung des Submit-Handlers
 - Verwalten von Formulardaten
+- Vereinfachung des Submit-Handlers
 
 ## react-hook-form
 
@@ -890,8 +890,9 @@ Nachteile: weicht von üblichen React-Konzepten ab
 import { useForm } from 'react-hook-form';
 
 const NewsletterRegistration = () => {
-  const { register, handleSubmit, errors } = useForm();
-
+  const { register, handleSubmit, errors } = useForm({
+    mode: 'onBlur',
+  });
   return (
     <form
       onSubmit={handleSubmit((values) => {
@@ -908,7 +909,7 @@ const NewsletterRegistration = () => {
           },
         })}
       />
-      <button disabled={errors}>subscribe</button>
+      <button disabled={errors.email}>subscribe</button>
       {errors.email && errors.email.message}
     </form>
   );

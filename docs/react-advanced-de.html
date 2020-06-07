@@ -2752,14 +2752,14 @@ ReactDOM.render(
 </section><section class="slide"><h2>Formular-Libraries</h2>
 <p>Beispiele:</p>
 <ul>
-<li>formik (basiert auf React-Komponenten)</li>
 <li>react-hook-form (basiert auf einem React Hook)</li>
+<li>formik (basiert auf React-Komponenten)</li>
 </ul>
 <p>Funktionalität:</p>
 <ul>
 <li><strong>Validierung</strong></li>
-<li>Vereinfachung des Submit-Handlers</li>
 <li>Verwalten von Formulardaten</li>
+<li>Vereinfachung des Submit-Handlers</li>
 </ul>
 </section><section class="slide"><h2>react-hook-form</h2>
 <p><em>react-hook-form</em> behält Inputdaten nicht im React State</p>
@@ -2769,8 +2769,9 @@ ReactDOM.render(
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { useForm } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-hook-form'</span>;
 
 <span class="hljs-keyword">const</span> NewsletterRegistration = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  <span class="hljs-keyword">const</span> { register, handleSubmit, errors } = useForm();
-
+  <span class="hljs-keyword">const</span> { register, handleSubmit, errors } = useForm({
+    <span class="hljs-attr">mode</span>: <span class="hljs-string">'onBlur'</span>,
+  });
   <span class="hljs-keyword">return</span> (
     <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">form</span>
       <span class="hljs-attr">onSubmit</span>=<span class="hljs-string">{handleSubmit((values)</span> =></span> {
@@ -2787,7 +2788,7 @@ ReactDOM.render(
           },
         })}
       /></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">disabled</span>=<span class="hljs-string">{errors}</span>></span>subscribe<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">disabled</span>=<span class="hljs-string">{errors.email}</span>></span>subscribe<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
       {errors.email &#x26;&#x26; errors.email.message}
     <span class="hljs-tag">&#x3C;/<span class="hljs-name">form</span>></span>
   );
