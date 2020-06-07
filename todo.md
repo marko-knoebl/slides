@@ -1,0 +1,10 @@
+- Python
+  - catching exceptions earlier
+  - ? recursive drawings with matplotlib
+  - `__name__ == "__main__"`
+  - csv import of iris data
+  - include link to aicheatsheets.com
+  - free book: think python
+- react
+  - predefined redux project that can be used to create a react application
+- update prettier configuration / format everything according to new prettier defaults
