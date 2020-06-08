@@ -2194,7 +2194,7 @@ ReactDOM.render(
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Effect hook</h1>
 </section><section class="slide"><h2>Effect hook</h2>
-<p>can be used to perform actions when a component was mounted for the first time or whent its props / state have changed</p>
+<p>can be used to perform actions when a component was mounted for the first time or when its props / state have changed</p>
 <pre><code class="hljs language-js">useEffect(
   effect, <span class="hljs-comment">// what should happen</span>
   dependencies <span class="hljs-comment">// array of values to watch</span>
@@ -2214,7 +2214,7 @@ ReactDOM.render(
 </code></pre>
 <p>This component may appear anywhere in the React application.</p>
 </section><section class="slide"><h2>Example: DocumentTitle component</h2>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> DocumentTitle = <span class="hljs-function"><span class="hljs-params">props</span> =></span> {
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> DocumentTitle = <span class="hljs-function">(<span class="hljs-params">props</span>) =></span> {
   <span class="hljs-keyword">const</span> updateTitle = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
     <span class="hljs-built_in">document</span>.title = props.value;
   };
@@ -2224,21 +2224,27 @@ ReactDOM.render(
 </code></pre>
 </section><section class="slide"><h2>Effect hook: cleanup</h2>
 <p>An effect may return a "cleanup function"</p>
-<p>This function will run e.g. before the component is removed</p>
+<p>This function will be executed before the next run of the effect or before the component is unmounted</p>
 </section><section class="slide"><h2>Effect hook: cleanup</h2>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> Clock = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  <span class="hljs-keyword">const</span> [time, setTime] = useState(<span class="hljs-string">''</span>);
-  <span class="hljs-comment">// will be called when the component was mounted</span>
+<p>example: user will be logged out after 10 seconds of inactivity</p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> App = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  <span class="hljs-keyword">const</span> [loggedIn, setLoggedIn] = useState(<span class="hljs-literal">true</span>);
+  <span class="hljs-keyword">const</span> [lastInteraction, setLastInteraction] = useState(
+    <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>()
+  );
+  <span class="hljs-comment">// restart the logout timer on user interaction</span>
   useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-    <span class="hljs-keyword">const</span> intervalId = setInterval(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-      setTime(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>().toLocaleTimeString());
-    }, <span class="hljs-number">1000</span>);
-    <span class="hljs-comment">// will be called when the component will be removed</span>
-    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-      clearInterval(intervalId);
-    };
-  }, []);
-  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>{time}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+    <span class="hljs-keyword">const</span> logout = <span class="hljs-function"><span class="hljs-params">()</span> =></span> setLoggedIn(<span class="hljs-literal">false</span>);
+    <span class="hljs-keyword">const</span> timeoutId = setTimeout(logout, <span class="hljs-number">10000</span>);
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-params">()</span> =></span> clearTimeout(timeoutId);
+  }, [lastInteraction]);
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setLastInteraction(new Date())}>
+      {loggedIn
+        ? 'click to stay logged in'
+        : 'logged out automatically'}
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span>
+  );
 };
 </code></pre>
 </section><section class="slide"><h2>Effect hook: after every rendering</h2>

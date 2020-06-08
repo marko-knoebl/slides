@@ -33,7 +33,7 @@ Diese Komponente kann irgendwo in der React-Anwendung vorkommen.
 ## Beispiel: DocumentTitle-Komponente
 
 ```jsx
-const DocumentTitle = props => {
+const DocumentTitle = (props) => {
   const updateTitle = () => {
     document.title = props.value;
   };
@@ -46,24 +46,31 @@ const DocumentTitle = props => {
 
 Ein Effect kann eine "Aufräumfunktion" zurückgeben
 
-Diese Funktion wird aufgerufen, wenn z.B. die Komponente entfernt wird
+Diese Funktion wird vor der nächsten Ausführung des Effekts bzw vor dem Unmounting der Komponente ausgeführt
 
 ## Effect Hook: Cleanup
 
+Beispiel: Benutzer wird nach 10 Sekunden Inaktivität automatisch ausgeloggt
+
 ```jsx
-const Clock = () => {
-  const [time, setTime] = useState('');
-  // will be called when the component was mounted
+const App = () => {
+  const [loggedIn, setLoggedIn] = useState(true);
+  const [lastInteraction, setLastInteraction] = useState(
+    new Date()
+  );
+  // restart the logout timer on user interaction
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      setTime(new Date().toLocaleTimeString());
-    }, 1000);
-    // will be called when the component will be removed
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, []);
-  return <div>{time}</div>;
+    const logout = () => setLoggedIn(false);
+    const timeoutId = setTimeout(logout, 10000);
+    return () => clearTimeout(timeoutId);
+  }, [lastInteraction]);
+  return (
+    <button onClick={() => setLastInteraction(new Date())}>
+      {loggedIn
+        ? 'click to stay logged in'
+        : 'logged out automatically'}
+    </button>
+  );
 };
 ```
 

@@ -86,7 +86,7 @@ Code verfügbar unter: <https://github.com/marko-knoebl/courses-code>
 
 ## Online Editoren
 
-Empfehlung: <https://codesandbox.io/s>
+Empfehlung: <https://codesandbox.io>
 
 andere:
 

@@ -2,7 +2,7 @@
 
 ## Online editors
 
-recommendation: https://codesandbox.io/s
+recommendation: https://codesandbox.io
 
 others:
 
