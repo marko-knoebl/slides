@@ -33,7 +33,7 @@ Based on that _action_ the current _state_ will be transformed into a new _state
 
 ## State management with actions and reducers
 
-A _reducer_ is a function that acts as the central element in Redux
+A _reducer_ is a function
 
 The reducer receives the old state and an action describing a state change
 
@@ -123,3 +123,52 @@ const todosReducer = (
   // ...
 };
 ```
+
+## Combining reducers
+
+reducers can be easily combined / split to manage complex / nested state
+
+state example:
+
+```json
+{
+  "todoData": {
+    "status": "loading",
+    "todos": []
+  },
+  "uiData": {
+    "newTitle": "re",
+    "filterText": ""
+  }
+}
+```
+
+## Combining reducers
+
+reducer implementation:
+
+```js
+const rootReducer = (rootState, action) => ({
+  todoData: todoDataReducer(rootState.todoData, action),
+  uiData: uiDataReducer(rootState.uiData, action),
+});
+
+const uiDataReducer = (uiData, action) => ({
+  newTitle: newTitleReducer(uiData.newTitle, action),
+  filterText: filterTextReducer(uiData.filterText, action),
+});
+
+const newTitleReducer = (newTitle, action) => {
+  if (action.type === 'setNewTitle') {
+    return newTitle;
+  } else if (action.type === 'addTodo') {
+    return '';
+  } else {
+    return newTitle;
+  }
+};
+```
+
+## Combining reducers
+
+When combining reducers, a single reducer only manages part of the state; but every reducer receives any action and may react to it

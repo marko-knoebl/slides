@@ -2598,6 +2598,44 @@ ReactDOM.render(
   <span class="hljs-comment">// ...</span>
 };
 </code></pre>
+</section><section class="slide"><h2>Reducer kombinieren</h2>
+<p>Reducer können einfach kombiniert / aufgesplittet werden um komplexen / verschachtelten State zu verwalten</p>
+<p>Beispiel für State:</p>
+<pre><code class="hljs language-json">{
+  <span class="hljs-attr">"todoData"</span>: {
+    <span class="hljs-attr">"status"</span>: <span class="hljs-string">"loading"</span>,
+    <span class="hljs-attr">"todos"</span>: []
+  },
+  <span class="hljs-attr">"uiData"</span>: {
+    <span class="hljs-attr">"newTitle"</span>: <span class="hljs-string">"re"</span>,
+    <span class="hljs-attr">"filterText"</span>: <span class="hljs-string">""</span>
+  }
+}
+</code></pre>
+</section><section class="slide"><h2>Reducer kombinieren</h2>
+<p>Reducer-Implementierung:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> rootReducer = <span class="hljs-function">(<span class="hljs-params">rootState, action</span>) =></span> ({
+  <span class="hljs-attr">todoData</span>: todoDataReducer(rootState.todoData, action),
+  <span class="hljs-attr">uiData</span>: uiDataReducer(rootState.uiData, action),
+});
+
+<span class="hljs-keyword">const</span> uiDataReducer = <span class="hljs-function">(<span class="hljs-params">uiData, action</span>) =></span> ({
+  <span class="hljs-attr">newTitle</span>: newTitleReducer(uiData.newTitle, action),
+  <span class="hljs-attr">filterText</span>: filterTextReducer(uiData.filterText, action),
+});
+
+<span class="hljs-keyword">const</span> newTitleReducer = <span class="hljs-function">(<span class="hljs-params">newTitle, action</span>) =></span> {
+  <span class="hljs-keyword">if</span> (action.type === <span class="hljs-string">'setNewTitle'</span>) {
+    <span class="hljs-keyword">return</span> newTitle;
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (action.type === <span class="hljs-string">'addTodo'</span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-string">''</span>;
+  } <span class="hljs-keyword">else</span> {
+    <span class="hljs-keyword">return</span> newTitle;
+  }
+};
+</code></pre>
+</section><section class="slide"><h2>Reducer kombinieren</h2>
+<p>Bei kombinierten Reducern verwaltet ein einzelner Reducer nur einen Teil des States; aber jeder Reducer erhält jede Action und kann darauf reagieren</p>
 </section></section><section class="slides-section"><section class="slide"><h1>Reducer Hook</h1>
 </section><section class="slide"><h2>Reducer Hook</h2>
 <p>Zum State Management mit Hooks können wir das bekannte <code>useState</code> oder nun auch <code>useReducer</code> verwenden:</p>
@@ -3364,6 +3402,7 @@ useEffect(getInstallPermission, []);
 </section><section class="slide"><h2>Refs</h2>
 <p><strong>Alternative Möglichkeit zum Verwalten von Inputs</strong></p>
 <p>Verwendung von <code>ref</code> Anstelle von <code>value</code> und <code>onChange</code> kann zu etwas kürzerem Code führen (wird aber in der Dokumentation nicht empfohlen)</p>
+<p>Refs werden von <em>react-hook-form</em> verwendet, um Formularverwaltung einfacher und schneller zu machen</p>
 </section><section class="slide"><h2>Refs</h2>
 <p><strong>Integration von anderen DOM-Libraries</strong></p>
 <p>Andere Libraries können expliziten Zugriff auf DOM-Elemente benötigen</p>

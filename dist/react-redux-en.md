@@ -1030,11 +1030,11 @@ const todosSlice = createSlice({
       state.push({
         title: action.title,
         completed: false,
-        id: uuidv1(),
+        id: Math.max(0, ...state.map((t) => t.id)) + 1,
       });
     },
     deleteTodo: (state, action) =>
-      state.filter(todo => todo.id !== action.id),
+      state.filter((todo) => todo.id !== action.id),
   },
 });
 ```

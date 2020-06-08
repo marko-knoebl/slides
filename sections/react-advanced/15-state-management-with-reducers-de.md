@@ -123,3 +123,52 @@ const todosReducer = (
   // ...
 };
 ```
+
+## Reducer kombinieren
+
+Reducer können einfach kombiniert / aufgesplittet werden um komplexen / verschachtelten State zu verwalten
+
+Beispiel für State:
+
+```json
+{
+  "todoData": {
+    "status": "loading",
+    "todos": []
+  },
+  "uiData": {
+    "newTitle": "re",
+    "filterText": ""
+  }
+}
+```
+
+## Reducer kombinieren
+
+Reducer-Implementierung:
+
+```js
+const rootReducer = (rootState, action) => ({
+  todoData: todoDataReducer(rootState.todoData, action),
+  uiData: uiDataReducer(rootState.uiData, action),
+});
+
+const uiDataReducer = (uiData, action) => ({
+  newTitle: newTitleReducer(uiData.newTitle, action),
+  filterText: filterTextReducer(uiData.filterText, action),
+});
+
+const newTitleReducer = (newTitle, action) => {
+  if (action.type === 'setNewTitle') {
+    return newTitle;
+  } else if (action.type === 'addTodo') {
+    return '';
+  } else {
+    return newTitle;
+  }
+};
+```
+
+## Reducer kombinieren
+
+Bei kombinierten Reducern verwaltet ein einzelner Reducer nur einen Teil des States; aber jeder Reducer erhält jede Action und kann darauf reagieren

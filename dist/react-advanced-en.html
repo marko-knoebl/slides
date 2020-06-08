@@ -2475,7 +2475,7 @@ ReactDOM.render(
 <p>An event inside an application triggers a so-called <em>action</em>.</p>
 <p>Based on that <em>action</em> the current <em>state</em> will be transformed into a new <em>state</em> via a <em>reducer</em> function.</p>
 </section><section class="slide"><h2>State management with actions and reducers</h2>
-<p>A <em>reducer</em> is a function that acts as the central element in Redux</p>
+<p>A <em>reducer</em> is a function</p>
 <p>The reducer receives the old state and an action describing a state change</p>
 <p>The reducer function returns the new state. The reducer function does not mutate the old state object (it is a <em>pure</em> function)</p>
 </section><section class="slide"><h2>Reducer diagram</h2>
@@ -2598,6 +2598,44 @@ ReactDOM.render(
   <span class="hljs-comment">// ...</span>
 };
 </code></pre>
+</section><section class="slide"><h2>Combining reducers</h2>
+<p>reducers can be easily combined / split to manage complex / nested state</p>
+<p>state example:</p>
+<pre><code class="hljs language-json">{
+  <span class="hljs-attr">"todoData"</span>: {
+    <span class="hljs-attr">"status"</span>: <span class="hljs-string">"loading"</span>,
+    <span class="hljs-attr">"todos"</span>: []
+  },
+  <span class="hljs-attr">"uiData"</span>: {
+    <span class="hljs-attr">"newTitle"</span>: <span class="hljs-string">"re"</span>,
+    <span class="hljs-attr">"filterText"</span>: <span class="hljs-string">""</span>
+  }
+}
+</code></pre>
+</section><section class="slide"><h2>Combining reducers</h2>
+<p>reducer implementation:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> rootReducer = <span class="hljs-function">(<span class="hljs-params">rootState, action</span>) =></span> ({
+  <span class="hljs-attr">todoData</span>: todoDataReducer(rootState.todoData, action),
+  <span class="hljs-attr">uiData</span>: uiDataReducer(rootState.uiData, action),
+});
+
+<span class="hljs-keyword">const</span> uiDataReducer = <span class="hljs-function">(<span class="hljs-params">uiData, action</span>) =></span> ({
+  <span class="hljs-attr">newTitle</span>: newTitleReducer(uiData.newTitle, action),
+  <span class="hljs-attr">filterText</span>: filterTextReducer(uiData.filterText, action),
+});
+
+<span class="hljs-keyword">const</span> newTitleReducer = <span class="hljs-function">(<span class="hljs-params">newTitle, action</span>) =></span> {
+  <span class="hljs-keyword">if</span> (action.type === <span class="hljs-string">'setNewTitle'</span>) {
+    <span class="hljs-keyword">return</span> newTitle;
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (action.type === <span class="hljs-string">'addTodo'</span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-string">''</span>;
+  } <span class="hljs-keyword">else</span> {
+    <span class="hljs-keyword">return</span> newTitle;
+  }
+};
+</code></pre>
+</section><section class="slide"><h2>Combining reducers</h2>
+<p>When combining reducers, a single reducer only manages part of the state; but every reducer receives any action and may react to it</p>
 </section></section><section class="slides-section"><section class="slide"><h1>Reducer Hook</h1>
 </section><section class="slide"><h2>Reducer Hook</h2>
 <p>For managing state we can now also utilize <code>useReducer</code> in addition to <code>useState</code>:</p>
@@ -3363,7 +3401,8 @@ useEffect(getInstallPermission, []);
 <p>example: there are properties like <code>.value</code> for changing a value or <code>.className</code> for changing classes, but there is no property for managing focus</p>
 </section><section class="slide"><h2>Refs</h2>
 <p><strong>alternative way of managing inputs</strong></p>
-<p>using <code>ref</code> instead of <code>value</code> and <code>onChange</code> can be less code (but is discouraged by the React documentation)</p>
+<p>using <code>ref</code> instead of <code>value</code> and <code>onChange</code> can mean less code (but is discouraged by the React documentation)</p>
+<p>Refs are used by <em>react-hook-form</em> to make form handling simpler and faster</p>
 </section><section class="slide"><h2>Refs</h2>
 <p><strong>integrating with third-party DOM libraries</strong></p>
 <p>Third-party libraries may require a DOM element being passed in</p>

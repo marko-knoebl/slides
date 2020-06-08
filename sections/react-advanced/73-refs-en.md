@@ -24,7 +24,9 @@ example: there are properties like `.value` for changing a value or `.className`
 
 **alternative way of managing inputs**
 
-using `ref` instead of `value` and `onChange` can be less code (but is discouraged by the React documentation)
+using `ref` instead of `value` and `onChange` can mean less code (but is discouraged by the React documentation)
+
+Refs are used by _react-hook-form_ to make form handling simpler and faster
 
 ## Refs
 

@@ -2831,11 +2831,11 @@ ReactDOM.render(
       state.push({
         <span class="hljs-attr">title</span>: action.title,
         <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span>,
-        <span class="hljs-attr">id</span>: uuidv1(),
+        <span class="hljs-attr">id</span>: <span class="hljs-built_in">Math</span>.max(<span class="hljs-number">0</span>, ...state.map(<span class="hljs-function">(<span class="hljs-params">t</span>) =></span> t.id)) + <span class="hljs-number">1</span>,
       });
     },
     <span class="hljs-attr">deleteTodo</span>: <span class="hljs-function">(<span class="hljs-params">state, action</span>) =></span>
-      state.filter(<span class="hljs-function"><span class="hljs-params">todo</span> =></span> todo.id !== action.id),
+      state.filter(<span class="hljs-function">(<span class="hljs-params">todo</span>) =></span> todo.id !== action.id),
   },
 });
 </code></pre>

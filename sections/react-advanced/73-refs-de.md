@@ -26,6 +26,8 @@ Beispiel: es gibt Properties wie `.value` zum Ändern des Werts eines Inputs ode
 
 Verwendung von `ref` Anstelle von `value` und `onChange` kann zu etwas kürzerem Code führen (wird aber in der Dokumentation nicht empfohlen)
 
+Refs werden von _react-hook-form_ verwendet, um Formularverwaltung einfacher und schneller zu machen
+
 ## Refs
 
 **Integration von anderen DOM-Libraries**
