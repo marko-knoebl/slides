@@ -36,7 +36,7 @@ function Coin() {
 
 the rerendering of a component will usually cause the rerendering of _all subcomponents_
 
-\- let's optimize this!
+\- this can be optimized!
 
 ## Preventing unneeded component rerenderings
 

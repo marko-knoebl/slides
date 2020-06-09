@@ -2141,8 +2141,8 @@ myCar.accelerate();
   openRoof() {}
 }
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>this - quirks</h1>
-</section><section class="slide"><h2>this - quirks</h2>
+</section></section><section class="slides-section"><section class="slide"><h1>"this" und seine Quirks in JavaScript</h1>
+</section><section class="slide"><h2>"this" und seine Quirks</h2>
 <p>In Objektmethoden bezieht sich <code>this</code> üblicherweise auf das aktuelle Objekt</p>
 <p><strong>allerdings</strong>:</p>
 <ul>
@@ -2154,7 +2154,7 @@ myCar.accelerate();
   <span class="hljs-keyword">constructor</span>() {
     <span class="hljs-comment">// this ist hier richtig gesetzt</span>
     <span class="hljs-keyword">this</span>.foo = <span class="hljs-literal">true</span>;
-    setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
       <span class="hljs-comment">//this wird hier überschrieben (auf window)</span>
       <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.foo);
     }, <span class="hljs-number">1000</span>);
@@ -2182,10 +2182,10 @@ myCar.accelerate();
     <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.message);
   }
 }
-<span class="hljs-keyword">let</span> foo = <span class="hljs-keyword">new</span> Foo();
-foo.greet(); <span class="hljs-comment">// klappt</span>
-<span class="hljs-keyword">let</span> fg = foo.greet;
-fg(); <span class="hljs-comment">// klappt nicht (this ist undefined)</span>
+<span class="hljs-keyword">const</span> foo = <span class="hljs-keyword">new</span> Foo();
+foo.greet(); <span class="hljs-comment">// ok</span>
+<span class="hljs-keyword">const</span> greet = foo.greet;
+greet(); <span class="hljs-comment">// not ok ("this" is undefined)</span>
 </code></pre>
 </section><section class="slide"><h2>Lösung: Pfeil-Methoden</h2>
 <p>Seit ES2018 einsetzbar:</p>
@@ -2199,12 +2199,12 @@ fg(); <span class="hljs-comment">// klappt nicht (this ist undefined)</span>
 }
 </code></pre>
 </section><section class="slide"><h2>Lösung: Binden von Methoden</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> f = <span class="hljs-keyword">new</span> Foo();
-f.greet(); <span class="hljs-comment">// klappt</span>
-<span class="hljs-keyword">let</span> fg = f.greet.bind(f);
-fg(); <span class="hljs-comment">// klappt jetzt auch</span>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> foo = <span class="hljs-keyword">new</span> Foo();
+foo.greet(); <span class="hljs-comment">// ok</span>
+<span class="hljs-keyword">const</span> greet = foo.greet.bind(foo);
+greet(); <span class="hljs-comment">// ok</span>
 </code></pre>
-<p>Üblicherweise Zuweisung im constructor:</p>
+<p>Üblicherweise Zuweisung im Konstruktor:</p>
 <pre><code class="hljs language-js">  <span class="hljs-keyword">constructor</span>() {
     <span class="hljs-keyword">this</span>.greet = <span class="hljs-keyword">this</span>.greet.bind(<span class="hljs-keyword">this</span>);
   }

@@ -1,6 +1,6 @@
-# this - quirks
+# "this" and its quirks in JavaScript
 
-## this - quirks
+## "this" and its quirks
 
 in object methods, `this` usually refers to the current object
 
@@ -16,7 +16,7 @@ class myComponent {
   constructor() {
     // this ist set correctly here
     this.foo = true;
-    setTimeout(function() {
+    setTimeout(function () {
       // this will be overwritten here (to 'window')
       console.log(this.foo);
     }, 1000);
@@ -50,10 +50,10 @@ class Foo {
     console.log(this.message);
   }
 }
-let foo = new Foo();
-foo.greet(); // works
-let fg = foo.greet;
-fg(); // doesn't work (this is undefined)
+const foo = new Foo();
+foo.greet(); // ok
+const greet = foo.greet;
+greet(); // not ok ("this" is undefined)
 ```
 
 ## Solution: arrow methods
@@ -74,10 +74,10 @@ class Foo {
 ## Solution: binding the method
 
 ```js
-let f = new Foo();
-f.greet(); // works
-let fg = f.greet.bind(f);
-fg(); // works as well now
+const foo = new Foo();
+foo.greet(); // ok
+const greet = foo.greet.bind(foo);
+greet(); // ok
 ```
 
 Methods are usually bound in the constructor:

@@ -19,6 +19,7 @@ Gründe für die Verwendung von Hooks:
 Gründe für die Verwendung von Klassenkomponenten:
 
 - Konzepte sind zu Beginn wohl vertrauter
+- einfachere Memoisation
 
 ## Einfaches Beispiel
 
@@ -34,9 +35,9 @@ class App extends Component {
 export default App;
 ```
 
-# this - quirks
+# "this" und seine Quirks in JavaScript
 
-## this - quirks
+## "this" und seine Quirks
 
 In Objektmethoden bezieht sich `this` üblicherweise auf das aktuelle Objekt
 
@@ -52,7 +53,7 @@ class myComponent {
   constructor() {
     // this ist hier richtig gesetzt
     this.foo = true;
-    setTimeout(function() {
+    setTimeout(function () {
       //this wird hier überschrieben (auf window)
       console.log(this.foo);
     }, 1000);
@@ -86,10 +87,10 @@ class Foo {
     console.log(this.message);
   }
 }
-let foo = new Foo();
-foo.greet(); // klappt
-let fg = foo.greet;
-fg(); // klappt nicht (this ist undefined)
+const foo = new Foo();
+foo.greet(); // ok
+const greet = foo.greet;
+greet(); // not ok ("this" is undefined)
 ```
 
 ## Lösung: Pfeil-Methoden
@@ -110,13 +111,13 @@ class Foo {
 ## Lösung: Binden von Methoden
 
 ```js
-let f = new Foo();
-f.greet(); // klappt
-let fg = f.greet.bind(f);
-fg(); // klappt jetzt auch
+const foo = new Foo();
+foo.greet(); // ok
+const greet = foo.greet.bind(foo);
+greet(); // ok
 ```
 
-Üblicherweise Zuweisung im constructor:
+Üblicherweise Zuweisung im Konstruktor:
 
 ```js
   constructor() {
@@ -305,16 +306,24 @@ class DocumentTitle extends Component {
 
 ## Memoisation
 
-Memoisierte Klassenkomponenten:
+Das Rerendering einer Komponente löst üblicherweise das Rerendering _aller Unterkomponenten_ aus
 
-Durch Erben von `PureComponent` statt `Component` (memoisierte _props_ und _state_)
+\- dies kann optimiert werden!
+
+## Memoisation
+
+Wenn nur jene Unterkomponenten neu gerendert werden sollen, deren Props oder State sich geändert haben:
+
+Unterkomponenten erben von `PureComponent` statt `Component`
 
 ## Memoisation
 
 ```js
 import { PureComponent } from 'react';
 
-class Rating extends PureComponent {...}
+class Rating extends PureComponent {
+  //...
+}
 
 export default Rating;
 ```

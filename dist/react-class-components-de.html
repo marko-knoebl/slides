@@ -2056,6 +2056,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <p>Gründe für die Verwendung von Klassenkomponenten:</p>
 <ul>
 <li>Konzepte sind zu Beginn wohl vertrauter</li>
+<li>einfachere Memoisation</li>
 </ul>
 </section><section class="slide"><h2>Einfaches Beispiel</h2>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> React, { Component } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
@@ -2068,8 +2069,8 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> App;
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>this - quirks</h1>
-</section><section class="slide"><h2>this - quirks</h2>
+</section></section><section class="slides-section"><section class="slide"><h1>"this" und seine Quirks in JavaScript</h1>
+</section><section class="slide"><h2>"this" und seine Quirks</h2>
 <p>In Objektmethoden bezieht sich <code>this</code> üblicherweise auf das aktuelle Objekt</p>
 <p><strong>allerdings</strong>:</p>
 <ul>
@@ -2081,7 +2082,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   <span class="hljs-keyword">constructor</span>() {
     <span class="hljs-comment">// this ist hier richtig gesetzt</span>
     <span class="hljs-keyword">this</span>.foo = <span class="hljs-literal">true</span>;
-    setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
       <span class="hljs-comment">//this wird hier überschrieben (auf window)</span>
       <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.foo);
     }, <span class="hljs-number">1000</span>);
@@ -2109,10 +2110,10 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
     <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.message);
   }
 }
-<span class="hljs-keyword">let</span> foo = <span class="hljs-keyword">new</span> Foo();
-foo.greet(); <span class="hljs-comment">// klappt</span>
-<span class="hljs-keyword">let</span> fg = foo.greet;
-fg(); <span class="hljs-comment">// klappt nicht (this ist undefined)</span>
+<span class="hljs-keyword">const</span> foo = <span class="hljs-keyword">new</span> Foo();
+foo.greet(); <span class="hljs-comment">// ok</span>
+<span class="hljs-keyword">const</span> greet = foo.greet;
+greet(); <span class="hljs-comment">// not ok ("this" is undefined)</span>
 </code></pre>
 </section><section class="slide"><h2>Lösung: Pfeil-Methoden</h2>
 <p>Seit ES2018 einsetzbar:</p>
@@ -2126,12 +2127,12 @@ fg(); <span class="hljs-comment">// klappt nicht (this ist undefined)</span>
 }
 </code></pre>
 </section><section class="slide"><h2>Lösung: Binden von Methoden</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> f = <span class="hljs-keyword">new</span> Foo();
-f.greet(); <span class="hljs-comment">// klappt</span>
-<span class="hljs-keyword">let</span> fg = f.greet.bind(f);
-fg(); <span class="hljs-comment">// klappt jetzt auch</span>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> foo = <span class="hljs-keyword">new</span> Foo();
+foo.greet(); <span class="hljs-comment">// ok</span>
+<span class="hljs-keyword">const</span> greet = foo.greet.bind(foo);
+greet(); <span class="hljs-comment">// ok</span>
 </code></pre>
-<p>Üblicherweise Zuweisung im constructor:</p>
+<p>Üblicherweise Zuweisung im Konstruktor:</p>
 <pre><code class="hljs language-js">  <span class="hljs-keyword">constructor</span>() {
     <span class="hljs-keyword">this</span>.greet = <span class="hljs-keyword">this</span>.greet.bind(<span class="hljs-keyword">this</span>);
   }
@@ -2261,12 +2262,17 @@ type TodoItemState = {};
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Memoisation</h1>
 </section><section class="slide"><h2>Memoisation</h2>
-<p>Memoisierte Klassenkomponenten:</p>
-<p>Durch Erben von <code>PureComponent</code> statt <code>Component</code> (memoisierte <em>props</em> und <em>state</em>)</p>
+<p>Das Rerendering einer Komponente löst üblicherweise das Rerendering <em>aller Unterkomponenten</em> aus</p>
+<p>- dies kann optimiert werden!</p>
+</section><section class="slide"><h2>Memoisation</h2>
+<p>Wenn nur jene Unterkomponenten neu gerendert werden sollen, deren Props oder State sich geändert haben:</p>
+<p>Unterkomponenten erben von <code>PureComponent</code> statt <code>Component</code></p>
 </section><section class="slide"><h2>Memoisation</h2>
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { PureComponent } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Rating</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">PureComponent</span> </span>{...}
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Rating</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">PureComponent</span> </span>{
+  <span class="hljs-comment">//...</span>
+}
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Rating;
 </code></pre></section></section></div>

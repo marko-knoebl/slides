@@ -2056,6 +2056,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <p>reasons for using class components:</p>
 <ul>
 <li>concepts are probably more familiar in the beginning</li>
+<li>simpler memoization</li>
 </ul>
 </section><section class="slide"><h2>Class component example</h2>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> React, { Component } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
@@ -2068,8 +2069,8 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> App;
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>this - quirks</h1>
-</section><section class="slide"><h2>this - quirks</h2>
+</section></section><section class="slides-section"><section class="slide"><h1>"this" and its quirks in JavaScript</h1>
+</section><section class="slide"><h2>"this" and its quirks</h2>
 <p>in object methods, <code>this</code> usually refers to the current object</p>
 <p><strong>however</strong>, keep in mind:</p>
 <ul>
@@ -2081,7 +2082,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   <span class="hljs-keyword">constructor</span>() {
     <span class="hljs-comment">// this ist set correctly here</span>
     <span class="hljs-keyword">this</span>.foo = <span class="hljs-literal">true</span>;
-    setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
       <span class="hljs-comment">// this will be overwritten here (to 'window')</span>
       <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.foo);
     }, <span class="hljs-number">1000</span>);
@@ -2109,10 +2110,10 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
     <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.message);
   }
 }
-<span class="hljs-keyword">let</span> foo = <span class="hljs-keyword">new</span> Foo();
-foo.greet(); <span class="hljs-comment">// works</span>
-<span class="hljs-keyword">let</span> fg = foo.greet;
-fg(); <span class="hljs-comment">// doesn't work (this is undefined)</span>
+<span class="hljs-keyword">const</span> foo = <span class="hljs-keyword">new</span> Foo();
+foo.greet(); <span class="hljs-comment">// ok</span>
+<span class="hljs-keyword">const</span> greet = foo.greet;
+greet(); <span class="hljs-comment">// not ok ("this" is undefined)</span>
 </code></pre>
 </section><section class="slide"><h2>Solution: arrow methods</h2>
 <p>Available since ES2018:</p>
@@ -2126,10 +2127,10 @@ fg(); <span class="hljs-comment">// doesn't work (this is undefined)</span>
 }
 </code></pre>
 </section><section class="slide"><h2>Solution: binding the method</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> f = <span class="hljs-keyword">new</span> Foo();
-f.greet(); <span class="hljs-comment">// works</span>
-<span class="hljs-keyword">let</span> fg = f.greet.bind(f);
-fg(); <span class="hljs-comment">// works as well now</span>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> foo = <span class="hljs-keyword">new</span> Foo();
+foo.greet(); <span class="hljs-comment">// ok</span>
+<span class="hljs-keyword">const</span> greet = foo.greet.bind(foo);
+greet(); <span class="hljs-comment">// ok</span>
 </code></pre>
 <p>Methods are usually bound in the constructor:</p>
 <pre><code class="hljs language-js">  <span class="hljs-keyword">constructor</span>() {
@@ -2261,12 +2262,17 @@ type TodoItemState = {};
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Memoization</h1>
 </section><section class="slide"><h2>Memoization</h2>
-<p>memoized class components:</p>
-<p>by inheriting from <code>PureComponent</code> instead of <code>Component</code> (memoized <em>props</em> and <em>state</em>)</p>
+<p>the rerendering of a component will usually cause the rerendering of <em>all subcomponents</em></p>
+<p>- this can be optimized!</p>
+</section><section class="slide"><h2>Memoization</h2>
+<p>If only those subcomponents whose props or state have changed should rerender:</p>
+<p>Subcomponents should inherit from <code>PureComponent</code> instead of <code>Component</code></p>
 </section><section class="slide"><h2>Memoization</h2>
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { PureComponent } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Rating</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">PureComponent</span> </span>{...}
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Rating</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">PureComponent</span> </span>{
+  <span class="hljs-comment">//...</span>
+}
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Rating;
 </code></pre></section></section></div>

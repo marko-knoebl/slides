@@ -19,6 +19,7 @@ reasons for using hooks:
 reasons for using class components:
 
 - concepts are probably more familiar in the beginning
+- simpler memoization
 
 ## Class component example
 
@@ -34,9 +35,9 @@ class App extends Component {
 export default App;
 ```
 
-# this - quirks
+# "this" and its quirks in JavaScript
 
-## this - quirks
+## "this" and its quirks
 
 in object methods, `this` usually refers to the current object
 
@@ -52,7 +53,7 @@ class myComponent {
   constructor() {
     // this ist set correctly here
     this.foo = true;
-    setTimeout(function() {
+    setTimeout(function () {
       // this will be overwritten here (to 'window')
       console.log(this.foo);
     }, 1000);
@@ -86,10 +87,10 @@ class Foo {
     console.log(this.message);
   }
 }
-let foo = new Foo();
-foo.greet(); // works
-let fg = foo.greet;
-fg(); // doesn't work (this is undefined)
+const foo = new Foo();
+foo.greet(); // ok
+const greet = foo.greet;
+greet(); // not ok ("this" is undefined)
 ```
 
 ## Solution: arrow methods
@@ -110,10 +111,10 @@ class Foo {
 ## Solution: binding the method
 
 ```js
-let f = new Foo();
-f.greet(); // works
-let fg = f.greet.bind(f);
-fg(); // works as well now
+const foo = new Foo();
+foo.greet(); // ok
+const greet = foo.greet.bind(foo);
+greet(); // ok
 ```
 
 Methods are usually bound in the constructor:
@@ -305,16 +306,24 @@ class DocumentTitle extends Component {
 
 ## Memoization
 
-memoized class components:
+the rerendering of a component will usually cause the rerendering of _all subcomponents_
 
-by inheriting from `PureComponent` instead of `Component` (memoized _props_ and _state_)
+\- this can be optimized!
+
+## Memoization
+
+If only those subcomponents whose props or state have changed should rerender:
+
+Subcomponents should inherit from `PureComponent` instead of `Component`
 
 ## Memoization
 
 ```js
 import { PureComponent } from 'react';
 
-class Rating extends PureComponent {...}
+class Rating extends PureComponent {
+  //...
+}
 
 export default Rating;
 ```

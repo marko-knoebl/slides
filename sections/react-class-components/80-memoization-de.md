@@ -2,16 +2,24 @@
 
 ## Memoisation
 
-Memoisierte Klassenkomponenten:
+Das Rerendering einer Komponente löst üblicherweise das Rerendering _aller Unterkomponenten_ aus
 
-Durch Erben von `PureComponent` statt `Component` (memoisierte _props_ und _state_)
+\- dies kann optimiert werden!
+
+## Memoisation
+
+Wenn nur jene Unterkomponenten neu gerendert werden sollen, deren Props oder State sich geändert haben:
+
+Unterkomponenten erben von `PureComponent` statt `Component`
 
 ## Memoisation
 
 ```js
 import { PureComponent } from 'react';
 
-class Rating extends PureComponent {...}
+class Rating extends PureComponent {
+  //...
+}
 
 export default Rating;
 ```
