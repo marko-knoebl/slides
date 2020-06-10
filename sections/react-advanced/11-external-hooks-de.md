@@ -15,7 +15,7 @@ Einsatzgebiete z.B.:
 
 ## Beispiel: react-query
 
-[https://github.com/tannerlinsley/react-query](https://github.com/tannerlinsley/react-query)
+<https://github.com/tannerlinsley/react-query>
 
 Viel genutzter Hook, der beim Abfragen von APIs hilfreich sein kann
 

@@ -15,7 +15,7 @@ example use cases:
 
 ## Example: react-query
 
-[https://github.com/tannerlinsley/react-query](https://github.com/tannerlinsley/react-query)
+<https://github.com/tannerlinsley/react-query>
 
 Popular hook that can help with retrieving APIs
 
