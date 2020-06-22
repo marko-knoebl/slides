@@ -568,6 +568,7 @@ Oft wird der gesamte Anwendungszustand durch ein Datenmodell repräsentiert. Jed
 - reducer Hook (in React beinhaltet, sehr ähnlich zu Redux)
 - Redux (basiert auf Reducern, oft mit React verwendet)
 - MobX (oft mit React verwendet, einfacher als Reducer)
+- recoil (basiert auf React Hooks, 2020 von facebook veröffentlicht)
 - ngrx (mit Angular verwendet)
 - vuex (mit Vue.js verwendet)
 

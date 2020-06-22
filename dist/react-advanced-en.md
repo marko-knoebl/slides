@@ -567,6 +567,7 @@ Often the entire application state is represented by a data model and every chan
 
 - reducer hook (included in React, conceptually similar to Redux)
 - Redux (based on reducers, commonly used with React)
+- recoil (based on React hooks, released by facebook in 2020)
 - MobX (commonly used with React)
 - ngrx (used with Angular)
 - vuex (used with vue)
