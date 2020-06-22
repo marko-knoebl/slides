@@ -1,0 +1,160 @@
+<h1>TypeScript Basics</h1>
+<h2>TypeScript</h2>
+<p>= superset of JavaScript with extensions:</p>
+<ul>
+<li><strong>static typing</strong></li>
+<li>public / private properties</li>
+<li>decorators</li>
+</ul>
+<h2>Static typing</h2>
+<p>data types may be specified in order to support the development environment:</p>
+<ul>
+<li>auto completion</li>
+<li>errors when types mismatch</li>
+</ul>
+<h2>Static typing</h2>
+<p>when building: TypeScript is translated to JavaScript, all type information is discarded</p>
+<h2>Typing variables</h2>
+<p>Variable types are usually detected automatically</p>
+<p><em>explicitly</em> declaring variable types:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> age: <span class="hljs-built_in">number</span> = <span class="hljs-number">32</span>;
+<span class="hljs-keyword">const</span> name: <span class="hljs-built_in">string</span> = <span class="hljs-string">'Samuel'</span>;
+<span class="hljs-keyword">const</span> loggedIn: <span class="hljs-built_in">boolean</span> = <span class="hljs-literal">true</span>;
+</code></pre>
+<h2>Typing functions</h2>
+<pre><code class="hljs language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">shorten</span>(<span class="hljs-params">text: <span class="hljs-built_in">string</span>, maxLen: <span class="hljs-built_in">number</span></span>): <span class="hljs-title">string</span> </span>{
+  <span class="hljs-comment">// ...</span>
+}
+</code></pre>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> shorten = (text: <span class="hljs-built_in">string</span>, maxLen: <span class="hljs-built_in">number</span>): <span class="hljs-function"><span class="hljs-params">string</span> =></span> {
+  <span class="hljs-comment">// ...</span>
+};
+</code></pre>
+<h2>Typing functions</h2>
+<p>Functions without a return value: <code>void</code></p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> logMessage = (message: <span class="hljs-built_in">string</span>): <span class="hljs-function"><span class="hljs-params">void</span> =></span> {
+  <span class="hljs-built_in">console</span>.log(message);
+};
+</code></pre>
+<h2>Typing arrays</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> names: <span class="hljs-built_in">Array</span>&#x3C;string> = [];
+names.push(<span class="hljs-string">'Anna'</span>);
+</code></pre>
+<p>alternative syntax:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">let</span> names: <span class="hljs-built_in">string</span>[] = [];
+names.push(<span class="hljs-string">'Anna'</span>);
+</code></pre>
+<h2>Types &#x26; interfaces</h2>
+<p><strong>Interfaces</strong> describe the structure of an object / of a class in detail<br />
+e.g.: <code>Todo</code>, <code>Person</code></p>
+<p><strong>Types</strong>: similar to interfaces, but are also applicable to strings, arrays, ...</p>
+<h2>Types &#x26; interfaces</h2>
+<p>Essentialy types offer more functionality than interfaces</p>
+<p><a href="https://stackoverflow.com/a/52682220/">https://stackoverflow.com/a/52682220/</a></p>
+<h2>Types</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> TodoType = {
+  id: <span class="hljs-built_in">number</span>;
+  title: <span class="hljs-built_in">string</span>;
+  completed: <span class="hljs-built_in">boolean</span>;
+};
+
+<span class="hljs-keyword">type</span> TodoCollection = <span class="hljs-built_in">Array</span>&#x3C;TodoType>;
+</code></pre>
+<h2>Types and objects</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> TodoType = {
+  id: <span class="hljs-built_in">number</span>;
+  title: <span class="hljs-built_in">string</span>;
+  completed: <span class="hljs-built_in">boolean</span>;
+  <span class="hljs-comment">// optional</span>
+  description?: <span class="hljs-built_in">string</span>;
+  <span class="hljs-comment">// method</span>
+  toggle: <span class="hljs-function">(<span class="hljs-params">id: <span class="hljs-built_in">number</span></span>) =></span> <span class="hljs-built_in">void</span>;
+};
+</code></pre>
+<h2>Generics</h2>
+<p>Generic type declarations that can receive more specific type information when applied (via <code>&#x3C;...></code>)</p>
+<h2>Generics</h2>
+<p>example: <code>Array</code> is a generic</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> a: <span class="hljs-built_in">Array</span>&#x3C;<span class="hljs-built_in">number</span>> = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
+<span class="hljs-keyword">const</span> b: <span class="hljs-built_in">Array</span>&#x3C;<span class="hljs-built_in">string</span>> = [<span class="hljs-string">'one'</span>, <span class="hljs-string">'two'</span>, <span class="hljs-string">'three'</span>];
+</code></pre>
+<p>example: React's <code>Component</code> is a generic</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">class</span> MyComp <span class="hljs-keyword">extends</span> Component&#x3C;MyProps, MyState> {
+  ...
+}
+</code></pre>
+<h2>Type declarations for libraries</h2>
+<p>Several JavaScript Libraries come with type declarations for TypeScript - e.g. <em>redux</em>.</p>
+<p>For other libraries there are usually external declaration packages that are prefixed with <em>@types/</em>; e.g. for <em>react</em> there's the package <em>@types/react</em>.</p>
+<h1>TypeScript Intermediate</h1>
+<h2>Any</h2>
+<p>Any: variable can be of any type - disables the typechecker for this variable</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> myInput: <span class="hljs-built_in">any</span> = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'myinput'</span>);
+
+<span class="hljs-built_in">console</span>.log(myInput.value);
+</code></pre>
+<h2>Type assertions</h2>
+<p>Enable treating an existing object as a specific type</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> myInput = <span class="hljs-built_in">document</span>.getElementById(
+  <span class="hljs-string">'first-name'</span>
+) <span class="hljs-keyword">as</span> HTMLInputElement;
+
+<span class="hljs-built_in">console</span>.log(myInput.value);
+</code></pre>
+<h2>Types / interfaces and classes</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">class</span> AdvancedTodo <span class="hljs-keyword">implements</span> TodoType {
+  <span class="hljs-comment">/* ... */</span>
+}
+
+<span class="hljs-keyword">class</span> AdvancedTodo <span class="hljs-keyword">implements</span> TodoInterface {
+  <span class="hljs-comment">/* ... */</span>
+}
+</code></pre>
+<h2>Intersection Types</h2>
+<p>Via <code>&#x26;</code>:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> x = a &#x26; b;
+</code></pre>
+<p>With regards to <code>a</code> the intersection type <code>x</code> may:</p>
+<ul>
+<li>restrict the values of existing properties</li>
+<li>add additional required properties</li>
+</ul>
+<h2>Intersection Types: Restricting values</h2>
+<p>example from Redux:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> Action = {
+  <span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span>;
+  payload?: <span class="hljs-built_in">any</span>;
+};
+
+<span class="hljs-keyword">type</span> AddTodoAction = Action &#x26; {
+  <span class="hljs-keyword">type</span>: <span class="hljs-string">'addTodo'</span>;
+  payload: <span class="hljs-built_in">string</span>;
+};
+</code></pre>
+<h2>Intersection Types: Combining Types</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> Serializable = {
+  serialize: <span class="hljs-function"><span class="hljs-params">()</span> =></span> <span class="hljs-built_in">string</span>;
+};
+
+<span class="hljs-keyword">type</span> SerializableAction = Action &#x26; Serializable;
+</code></pre>
+<p>Objects that implement the Type <code>SerializableAction</code> must implement all entries from both <code>Serializable</code> and <code>Action</code>.</p>
+<h2>Union Types</h2>
+<p>The type <code>x</code> must either fulfil all criteria of <code>a</code> or all criteria of <code>b</code>.</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> x = a | b;
+</code></pre>
+<p>Alternative notation across multiple lines:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> TodoActionType =
+  | AddTodoActionType
+  | ToggleTodoActionType;
+</code></pre>
+<h2>Private &#x26; public properties</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">class</span> Clock {
+  <span class="hljs-keyword">private</span> formatTime(time) {
+    <span class="hljs-keyword">return</span> ...
+  }
+  <span class="hljs-keyword">public</span> start() {
+    ...
+  }
+}
+</code></pre>

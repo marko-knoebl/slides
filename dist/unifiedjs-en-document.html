@@ -1,0 +1,238 @@
+<h1>unified.js</h1>
+<h2>unified.js</h2>
+<p>Parser / processor / converter for HTML, Markdown, ...</p>
+<h2>unified.js</h2>
+<p>example - creating a simple HTML document:</p>
+<p>The <code>rehypeDocument</code> plugin will add <code>&#x3C;html></code>, <code>&#x3C;head></code>, ...</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> input = <span class="hljs-string">`
+&#x3C;h1>Hello&#x3C;/h1>
+&#x3C;p>hello world&#x3C;/p>
+`</span>;
+
+<span class="hljs-keyword">const</span> processor = unified()
+  .use(rehypeParse)
+  .use(rehypeDocument)
+  .use(rehypeStringify);
+
+<span class="hljs-keyword">const</span> output = processor.processSync(input).toString();
+</code></pre>
+<h2>unified.js</h2>
+<p>example - converting Markdown to HTML</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> input = <span class="hljs-string">`
+# hello
+
+hello world
+`</span>;
+
+<span class="hljs-keyword">const</span> processor = unified()
+  .use(remarkParse)
+  .use(remarkRehype)
+  .use(rehypeStringify);
+
+<span class="hljs-keyword">const</span> output = processor.processSync(input).toString();
+</code></pre>
+<h2>terminology</h2>
+<ul>
+<li>parser: turns a string into a syntax tree (parse phase)</li>
+<li>transformer: modifies a syntax tree (run phase)</li>
+<li>compiler: turns a syntax tree into a string (stringify phase)</li>
+</ul>
+<p>Parsers, transformers and compilers are distributed in <em>plugins</em></p>
+<p>A <em>processor</em> includes a parser, possibly multiple transformers and a compiler.</p>
+<h2>ecosystem</h2>
+<ul>
+<li><em>rehype</em>: tools for handling HTML</li>
+<li><em>remark</em>: tools for handling Markdown</li>
+<li><em>retext</em>: tools for handling natural languages</li>
+<li>...</li>
+</ul>
+<h2>ecosystem / npm packages</h2>
+<p>base:</p>
+<ul>
+<li><em>unified</em></li>
+</ul>
+<p>parsers:</p>
+<ul>
+<li><em>remark-parse</em></li>
+<li><em>rehype-parse</em></li>
+</ul>
+<p>compilers:</p>
+<ul>
+<li><em>remark-stringify</em></li>
+<li><em>rehype-stringify</em></li>
+</ul>
+<h2>ecosystem / npm packages</h2>
+<p>transformer plugins (that transform the syntax tree):</p>
+<ul>
+<li><em>remark-toc</em> (adds table of contents)</li>
+<li><em>remark-rehype</em> (transforms to rehype)</li>
+<li><em>rehype-remark</em> (transforms to remark)</li>
+<li><em>rehype-minify</em></li>
+<li><em>rehype-format</em></li>
+<li><em>rehype-document</em> (wraps a fragment in a document)</li>
+<li><em>rehype-highlight</em> (highlights code blocks)</li>
+<li>...</li>
+</ul>
+<h2>ecosystem / npm packages</h2>
+<p>other plugins (that modify an existing parser / compiler):</p>
+<ul>
+<li><em>remark-frontmatter</em></li>
+<li><em>remark-math</em></li>
+<li>...</li>
+</ul>
+<h2>ecosystem / npm packages</h2>
+<p>full lists of plugins:</p>
+<ul>
+<li><a href="https://github.com/rehypejs/rehype/blob/master/doc/plugins.md#list-of-plugins">rehype plugins</a></li>
+<li><a href="https://github.com/remarkjs/remark/blob/master/doc/plugins.md#list-of-plugins">remark plugins</a></li>
+</ul>
+<h2>passing options</h2>
+<p>options can be passed when adding plugins:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> input = <span class="hljs-string">`
+# hello
+
+hello world
+`</span>;
+
+<span class="hljs-keyword">const</span> processor = unified()
+  .use(remarkParse, { <span class="hljs-attr">position</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">gfm</span>: <span class="hljs-literal">true</span> })
+  .use(remarkRehype, { <span class="hljs-attr">allowDangerousHtml</span>: <span class="hljs-literal">true</span> })
+  .use(rehypeStringify, { <span class="hljs-attr">closeSelfClosing</span>: <span class="hljs-literal">true</span> });
+
+<span class="hljs-keyword">const</span> output = processor.processSync(input).toString();
+</code></pre>
+<h2>vfiles</h2>
+<p>in addition to strings, unified processors can process <em>vfiles</em>: these objects represent file content (as string) with added additional information (e.g. file path)</p>
+<p>a processor always returns a <em>vfile</em> - to get the string content, call <code>.toString()</code></p>
+<h2>vfiles</h2>
+<p>working with vfiles</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> input = vfile({
+  <span class="hljs-attr">contents</span>: fs.readFileSync(<span class="hljs-string">'readme.md'</span>),
+  <span class="hljs-attr">path</span>: <span class="hljs-string">'readme.md'</span>,
+});
+
+<span class="hljs-keyword">const</span> output = processor.processSync(input).toString();
+</code></pre>
+<h2>asynchronous plugins</h2>
+<p>Some unified plugins may be asynchronous - in particular if they need to read/write files</p>
+<p>a processor that includes an asynchronous plugin must be run via <code>.process()</code> instead of <code>.processSync()</code> (this will return a promise)</p>
+<h1>custom plugins</h1>
+<h2>custom plugins</h2>
+<p>plugins handle <em>strings</em>/<em>vfiles</em> and <em>syntax trees</em></p>
+<ul>
+<li>parser: string → syntax tree</li>
+<li>transformer: syntax tree → modified syntax tree</li>
+<li>compiler: syntax tree → string</li>
+</ul>
+<h2>custom plugins</h2>
+<p>most plugins add a <em>transformer</em> to the processor</p>
+<p>some plugins may also modify the <em>parser</em> or <em>compiler</em></p>
+<h2>custom plugins</h2>
+<p>general structure of a plugin:</p>
+<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">plugin</span>(<span class="hljs-params">options</span>) </span>{
+  <span class="hljs-comment">// get the parser and compiler references</span>
+  <span class="hljs-keyword">const</span> parser = <span class="hljs-keyword">this</span>.Parser;
+  <span class="hljs-keyword">const</span> compiler = <span class="hljs-keyword">this</span>.Compiler;
+  <span class="hljs-comment">// modify parser and compiler here</span>
+
+  <span class="hljs-keyword">const</span> transformer = <span class="hljs-function">(<span class="hljs-params">tree, vfile</span>) =></span> {
+    <span class="hljs-comment">// transformer function that modifies</span>
+    <span class="hljs-comment">// the syntax tree</span>
+  };
+  <span class="hljs-keyword">return</span> transformer;
+}
+</code></pre>
+<h2>transformer plugins</h2>
+<p>example: plugin that turns <code>&#x3C;i></code> elements into other elements (<code>&#x3C;em></code> by default):</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> visit = <span class="hljs-built_in">require</span>(<span class="hljs-string">'unist-util-visit'</span>);
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">rehypeReplaceItalic</span>(<span class="hljs-params">options = {}</span>) </span>{
+  <span class="hljs-keyword">const</span> newTag = options.newTag || <span class="hljs-string">'em'</span>;
+  <span class="hljs-keyword">const</span> transformer = <span class="hljs-function">(<span class="hljs-params">tree, vfile</span>) =></span> {
+    visit(tree, (node) => {
+      <span class="hljs-keyword">if</span> (node.tagName === <span class="hljs-string">'i'</span>) {
+        node.tagName = newTag;
+      }
+    });
+  };
+  <span class="hljs-keyword">return</span> transformer;
+}
+</code></pre>
+<h2>parser / compiler plugins</h2>
+<p>for an example, see: <a href="https://unifiedjs.com/explore/package/remark-parse/#extending-the-parser">https://unifiedjs.com/explore/package/remark-parse/#extending-the-parser</a></p>
+<h1>syntax trees</h1>
+<h2>syntax trees</h2>
+<p>syntax trees are represented in unist format, e.g.:</p>
+<pre><code class="hljs language-json">{
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"root"</span>,
+  <span class="hljs-attr">"children"</span>: [
+    {
+      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"paragraph"</span>,
+      <span class="hljs-attr">"children"</span>: [{ <span class="hljs-attr">"type"</span>: <span class="hljs-string">"text"</span>, <span class="hljs-attr">"value"</span>: <span class="hljs-string">"lorem"</span> }]
+    },
+    {
+      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"paragraph"</span>,
+      <span class="hljs-attr">"children"</span>: [{ <span class="hljs-attr">"type"</span>: <span class="hljs-string">"text"</span>, <span class="hljs-attr">"value"</span>: <span class="hljs-string">"ipsum"</span> }]
+    }
+  ]
+}
+</code></pre>
+<h2>syntax trees</h2>
+<p>example: visit <a href="https://astexplorer.net/">https://astexplorer.net/</a> - choose "Markdown"</p>
+<h2>syntax trees</h2>
+<p>specifications:</p>
+<ul>
+<li>generic specification: <a href="https://github.com/syntax-tree/unist">unist</a></li>
+<li>markdown documents: <a href="https://github.com/syntax-tree/mdast">mdast</a></li>
+<li>HTML documents: <a href="https://github.com/syntax-tree/hast">hast</a></li>
+<li>XML documents: <a href="https://github.com/syntax-tree/xast">xast</a></li>
+<li>Natural languages: <a href="https://github.com/syntax-tree/nlcst">nlcst</a></li>
+</ul>
+<h2>syntax trees</h2>
+<p>a text node in markdown or HTML:</p>
+<pre><code class="hljs language-json">{
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"text"</span>,
+  <span class="hljs-attr">"value"</span>: <span class="hljs-string">"hello world"</span>,
+  <span class="hljs-attr">"position"</span>: <span class="hljs-string">"..."</span>
+}
+</code></pre>
+<h2>syntax trees</h2>
+<p>a paragraph node in markdown:</p>
+<pre><code class="hljs language-json">{
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"paragraph"</span>,
+  <span class="hljs-attr">"children"</span>: [{ <span class="hljs-attr">"type"</span>: <span class="hljs-string">"text"</span>, <span class="hljs-attr">"value"</span>: <span class="hljs-string">"hello"</span> }],
+  <span class="hljs-attr">"position"</span>: <span class="hljs-string">"..."</span>
+}
+</code></pre>
+<h2>syntax trees</h2>
+<p>a hyperlink node in HTML:</p>
+<pre><code class="hljs language-json">{
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"element"</span>,
+  <span class="hljs-attr">"tagName"</span>: <span class="hljs-string">"a"</span>,
+  <span class="hljs-attr">"properties"</span>: { <span class="hljs-attr">"href"</span>: <span class="hljs-string">"https://unifiedjs.com"</span> },
+  <span class="hljs-attr">"children"</span>: [{ <span class="hljs-attr">"type"</span>: <span class="hljs-string">"text"</span>, <span class="hljs-attr">"value"</span>: <span class="hljs-string">"unified.js"</span> }],
+  <span class="hljs-attr">"position"</span>: <span class="hljs-string">"..."</span>
+}
+</code></pre>
+<h2>syntax trees</h2>
+<p>position information is added automatically when parsing</p>
+<p>this can be disabled by passing <code>{ position: false }</code> to a parser</p>
+<h2>syntax trees</h2>
+<p>common types for mdast:</p>
+<ul>
+<li><em>root</em></li>
+<li><em>text</em></li>
+<li><em>paragraph</em></li>
+<li><em>heading</em></li>
+<li><em>list</em></li>
+<li><em>listItem</em></li>
+<li>...</li>
+</ul>
+<h2>syntax trees</h2>
+<p>hast element properties:</p>
+<ul>
+<li><em>type</em> = "element"</li>
+<li><em>tagName</em></li>
+<li><em>properties</em></li>
+<li><em>children</em></li>
+</ul>

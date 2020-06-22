@@ -1,0 +1,825 @@
+<h1>React &#x26; GraphQL</h1>
+<h2>Präsentationen</h2>
+<p><a href="https://marko-knoebl.github.io/slides/">https://marko-knoebl.github.io/slides/</a></p>
+<h2>Ihr Trainer</h2>
+<p>Marko Knöbl</p>
+<ul>
+<li>Frontend Web-Entwicklung<ul>
+<li>JavaScript</li>
+<li>React, Angular</li>
+</ul></li>
+<li>Programmierung<ul>
+<li>Python, JavaScript</li>
+</ul></li>
+</ul>
+<h2>Vorstellung der Teilnehmer</h2>
+<ul>
+<li>Aktuelle Projekte</li>
+<li>Vorkenntnisse</li>
+<li>Erwartungen / Wünsche</li>
+</ul>
+<h2>Organisatorisches</h2>
+<ul>
+<li>Kursdauer</li>
+<li>Pausen</li>
+<li>Mittagessen</li>
+<li>Unterlagen</li>
+<li>Fragen, Feedback? - Jederzeit erwünscht</li>
+</ul>
+<h2>Code</h2>
+<p>Code verfügbar unter: <a href="https://github.com/marko-knoebl/courses-code">https://github.com/marko-knoebl/courses-code</a></p>
+<h1>GraphQL</h1>
+<h2>GraphQL</h2>
+<p>"A query language for your API"</p>
+<h2>GraphQL</h2>
+<p>Verwendung für ein einzelnes APIs, das wiederum mit folgenden Datenquellen kommunizieren kann:</p>
+<ul>
+<li>andere APIs</li>
+<li>Datenbanken</li>
+</ul>
+<h2>GraphQL vs REST</h2>
+<h3>Vorteile von REST</h3>
+<ul>
+<li><em>etabliert</em></li>
+<li><em>einfacher</em></li>
+</ul>
+<h3>Vorteile von GraphQL</h3>
+<ul>
+<li><em>flexibler</em></li>
+<li><em>effizienter</em></li>
+</ul>
+<h2>Vorteile von GraphQL</h2>
+<p><em>Flexibilität</em> von GraphQL:</p>
+<p>kann komplexe Abfragen beschreiben - serverseitiges API muss für neue Anwendungsfälle nicht angepasst werden</p>
+<p><em>Effizienz</em> von GraphQL:</p>
+<p>der Client kann mittels eines Requests genau die benötigten Objekte und Felder anfordern</p>
+<p><a href="https://www.howtographql.com/basics/1-graphql-is-the-better-rest/">Video: GraphQL is the better REST</a></p>
+<h2>Unterschiede zwischen GraphQL und REST</h2>
+<p>REST: Endpunkt (z.B. <code>/todos</code>) und Methode (z.B. <code>PUT</code>) sind Teil des APIs; für jede Art von Anfrage muss ein eigener Endpunkt erstellt werden</p>
+<p>GraphQL: nur ein Endpunkt (z.B. <code>/api</code>), nur POST-Requests</p>
+<h2>Unterschiede zwischen GraphQL und REST</h2>
+<p>REST: Für komplexere Fälle sind mehrere HTTP-Anfragen nötig</p>
+<p>GraphQL: Daten werden mit einer einzigen HTTP-Anfrage abgefragt</p>
+<h2>Unterschiede zwischen GraphQL und REST</h2>
+<p>REST: Für jeden Endpunkt werden immer die gleichen Felder zurückgegeben</p>
+<p>GraphQL: Der Client kann genau die benötigten Objekte und Felder anfragen</p>
+<h2>Anwendungsfälle</h2>
+<ul>
+<li>API services: z.B. Generieren einer Zufallszahl zwischen 1 und 100</li>
+<li>Datenbankabfrage: z.B. Abfragen aller Login Namen von Freunden eines bestimmten Benutzers</li>
+</ul>
+<h2>Beispiel: Service für Zufallszahlen</h2>
+<p>Anfrage (GraphQL):</p>
+<pre><code class="hljs language-graphql">query {
+  random(min: 1, max: 100)
+}
+</code></pre>
+<p>Antwort (JSON):</p>
+<pre><code class="hljs language-json">{
+  <span class="hljs-attr">"random"</span>: <span class="hljs-number">23</span>
+}
+</code></pre>
+<h2>Beispiel: Freunde eines Benutzers</h2>
+<p>Anfrage:</p>
+<pre><code class="hljs language-graphql">query {
+  user(login: "john") {
+    login
+    friends {
+      login
+    }
+  }
+}
+</code></pre>
+<h2>Beispiel: Feunde eines Benutzers</h2>
+<p>Antwort:</p>
+<pre><code class="hljs language-json">{
+  <span class="hljs-attr">"user"</span>: {
+    <span class="hljs-attr">"login"</span>: <span class="hljs-string">"john"</span>,
+    <span class="hljs-attr">"friends"</span>: [
+      { <span class="hljs-attr">"login"</span>: <span class="hljs-string">"mike"</span> },
+      { <span class="hljs-attr">"login"</span>: <span class="hljs-string">"stephanie"</span> }
+    ]
+  }
+}
+</code></pre>
+<h2>Definieren und Abfragen eines GraphQL APIs</h2>
+<p>Abfragen:</p>
+<ul>
+<li>Query (ausgedrückt in GraphQL)</li>
+<li>evtl Abfrageparameter (in JSON)</li>
+</ul>
+<p>Definieren:</p>
+<ul>
+<li>GraphQL Schema</li>
+<li>Resolver-Funktionen</li>
+</ul>
+<h2>Beispiel Zufallszahlen</h2>
+<p>Beispiel zeigt Implementierung und Verwendung eines API für Zufallszahlen - mit Parametern für die Anzahl und den Höchstwert</p>
+<h2>Beispiel Zufallszahlen: Definition</h2>
+<p>Schemadefinition:</p>
+<pre><code class="hljs language-graphql">type Query {
+  rand(max: Int!, quantity: Int!): [Int]!
+}
+</code></pre>
+<p>Resolver-Funktion (abhängig von der verwendeten Library):</p>
+<pre><code class="hljs language-js">(root, args, context) =>
+  <span class="hljs-built_in">Array</span>.from({ <span class="hljs-attr">length</span>: args.quantity }, () =>
+    <span class="hljs-built_in">Math</span>.floor(<span class="hljs-built_in">Math</span>.random() * args.max)
+  );
+</code></pre>
+<h2>Beispiel Zufallszahlen: Feste Abfrage</h2>
+<pre><code class="hljs language-graphql">query random {
+  rand(max: 10, quantity: 3)
+}
+</code></pre>
+<h2>Beispiel Zufallszahlen: Parametrische Abfrage</h2>
+<p>Abfrage:</p>
+<pre><code class="hljs language-graphql">query random($max: Int!, $quantity: Int!) {
+  rand(max: $max, quantity: $quantity)
+}
+</code></pre>
+<p>Abfrageparameter (JSON):</p>
+<pre><code class="hljs language-json">{
+  <span class="hljs-attr">"max"</span>: <span class="hljs-number">10</span>,
+  <span class="hljs-attr">"quantity"</span>: <span class="hljs-number">3</span>
+}
+</code></pre>
+<h2>Ausprobieren</h2>
+<p>Vordefiniertes API mit Posts und Benutzern:</p>
+<p><a href="https://api.graph.cool/simple/v1/cjmj9v4mk1zs00182rnrzdrai">https://api.graph.cool/simple/v1/cjmj9v4mk1zs00182rnrzdrai</a></p>
+<!--
+source of the predefined API:
+
+howtographql.com - Core Concepts - last "Play" button
+
+try Subscriptions
+-->
+<h2>Resourcen</h2>
+<ul>
+<li><a href="https://graphql.org/learn/">https://graphql.org/learn/</a></li>
+<li><a href="https://www.howtographql.com/">https://www.howtographql.com/</a></li>
+</ul>
+<h1>GraphQL vs REST: Beispiel</h1>
+<h2>GraphQL vs REST</h2>
+<p>Szenario:</p>
+<p>Social media App, in der wir eine Liste von Freunden anzeigen können. Ein Klick auf einen Freund zeigt dessen letzte Posts.</p>
+<h2>API in REST</h2>
+<pre><code class="hljs language-http"><span class="hljs-attribute">GET /users/$myuserid/friends
+</span></code></pre>
+<pre><code class="hljs language-http"><span class="hljs-attribute">GET /users/$otheruserid/posts
+</span></code></pre>
+<h2>API in GraphQL</h2>
+<pre><code class="hljs language-graphql">{
+  users(id: "myuserid") {
+    friends {
+      userid
+      name
+    }
+  }
+}
+</code></pre>
+<h2>API in GraphQL</h2>
+<pre><code class="hljs language-graphql">{
+  users(id: "otheruserid") {
+    posts {
+      date
+      title
+      body
+    }
+  }
+}
+</code></pre>
+<h2>Funktionalität hinzufügen: Feed neuer Posts</h2>
+<p>Anzeigen neuer Posts aller Freunde</p>
+<h2>Funktionalität hinzufügen: Feed neuer Posts</h2>
+<p>Umsetzung in REST:</p>
+<ul>
+<li>Möglichkeit 1: mehrere Requests senden</li>
+<li>Möglichkeit 2: neuer Endpunkt in der API, z.B. <code>/postsoffriends/$userid</code></li>
+</ul>
+<h2>Funktionalität hinzufügen: Feed neuer Posts</h2>
+<p>Umsetzung in GraphQL:</p>
+<pre><code class="hljs language-graphql">{
+  users(id: "$myuserid") {
+    friends {
+      posts {
+        date
+        title
+        body
+      }
+    }
+  }
+}
+</code></pre>
+<h1>GraphQL verglichen mit SQL</h1>
+<h2>GraphQL verglichen mit SQL</h2>
+<pre><code class="hljs language-graphql">query {
+  user(login: "my-username") {
+    login
+    name
+  }
+}
+</code></pre>
+<pre><code class="hljs language-sql"><span class="hljs-keyword">SELECT</span> login, <span class="hljs-keyword">name</span>
+  <span class="hljs-keyword">FROM</span> <span class="hljs-keyword">user</span>
+  <span class="hljs-keyword">WHERE</span> login=<span class="hljs-string">'my-username'</span>;
+</code></pre>
+<h2>GraphQL verglichen mit SQL</h2>
+<p>GraphQL: Parameter haben keine vordefinierte Bedeutung</p>
+<p>In SQL: <code>WHERE login='my-username'</code> hat klare Bedeutung</p>
+<p>GraphQL: Bedeutung von <code>login: "my-username"</code> ist der Implementierung am Server überlassen</p>
+<h2>GraphQL verglichen mit SQL</h2>
+<p>SQL: Beziehungen zwischen Tabellen (Joins) werden in der Query definiert</p>
+<p>GraphQL: kennt die Beziehungen bereits → einfachere Queries</p>
+<h2>GraphQL verglichen mit SQL</h2>
+<pre><code class="hljs language-graphql">query {
+  user(login: "my-username") {
+    posts {
+      title
+    }
+  }
+}
+</code></pre>
+<pre><code class="hljs language-sql"><span class="hljs-keyword">SELECT</span> post.title
+  <span class="hljs-keyword">FROM</span> <span class="hljs-keyword">user</span>
+  <span class="hljs-keyword">LEFT</span> <span class="hljs-keyword">JOIN</span> post <span class="hljs-keyword">ON</span> user.id = post.userId
+  <span class="hljs-keyword">WHERE</span> user.login = <span class="hljs-string">'my-username'</span>;
+</code></pre>
+<p>(extra Code: <code>LEFT JOIN post ON user.id = post.userId</code>)</p>
+<h2>GraphQL verglichen mit SQL</h2>
+<p><strong>OpenCRUD</strong>: spezifischerer Standard, der auf GraphQL basiert - er kann anstelle von SQL verwendet werden</p>
+<h1>Beispiel-APIs</h1>
+<h2>Beispiele für GraphQL-APIs</h2>
+<p>von <a href="https://github.com/APIs-guru/graphql-apis">https://github.com/APIs-guru/graphql-apis</a>:</p>
+<ul>
+<li>GitHub (login benötigt)</li>
+<li>Reddit (GraphQL Hub)</li>
+<li>GraphQL Pokémon (zweiter Eintrag!)</li>
+<li>Star Wars</li>
+<li>SpaceX Land</li>
+<li>Todo list</li>
+<li>FakeQL: Selbstdefinierte Mock APIs</li>
+</ul>
+<h2>FakeQL</h2>
+<p><a href="https://fakeql.com/">https://fakeql.com/</a></p>
+<p>Template für einfache Todos bei FakeQL:</p>
+<pre><code class="hljs language-json">{
+  <span class="hljs-attr">"todos"</span>: [
+    { <span class="hljs-attr">"id"</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Go shopping"</span>, <span class="hljs-attr">"completed"</span>: <span class="hljs-literal">true</span> },
+    { <span class="hljs-attr">"id"</span>: <span class="hljs-number">49</span>, <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Do taxes"</span>, <span class="hljs-attr">"completed"</span>: <span class="hljs-literal">false</span> },
+    { <span class="hljs-attr">"id"</span>: <span class="hljs-number">50</span>, <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Do dishes"</span>, <span class="hljs-attr">"completed"</span>: <span class="hljs-literal">false</span> }
+  ]
+}
+</code></pre>
+<h1>GraphiQL Explorer</h1>
+<h2>GraphiQL Explorer</h2>
+<p>Graph<em>i</em>QL: browserbasierter Explorer für GraphQL APIs</p>
+<ul>
+<li>Abfragestruktur / Datenstruktur ansehen (<em>Docs</em> oben rechts in der Ansicht)</li>
+<li>Abfragen senden</li>
+</ul>
+<h1>Einfache Beispiele</h1>
+<h2>Einfache Beispiele</h2>
+<p><a href="https://graphql.org/swapi-graphql/">Star Wars API</a>:</p>
+<ul>
+<li>Liste von Titeln aller Star Wars Filme</li>
+<li>Liste von Planeten und Einwohnerzahl aus Star Wars</li>
+<li>Liste von Schiffen, gruppiert nach Filmen, in denen sie vorkommen</li>
+</ul>
+<h2>Übung: Liste von Titeln</h2>
+<pre><code class="hljs language-graphql">query getTitles {
+  allFilms {
+    films {
+      title
+    }
+  }
+}
+</code></pre>
+<h2>Übung: Liste von Planeten und Einwohnerzahlen</h2>
+<pre><code class="hljs language-graphql">query getPlanetsWithPopulations {
+  allPlanets {
+    planets {
+      name
+      population
+    }
+  }
+}
+</code></pre>
+<h2>Übung: Liste von Schiffen gruppiert nach Filmen</h2>
+<pre><code class="hljs language-graphql">query getStarshipsByFilm {
+  allFilms {
+    films {
+      title
+      starshipConnection {
+        starships {
+          name
+        }
+      }
+    }
+  }
+}
+</code></pre>
+<h1>Parametrische Abfragen</h1>
+<h2>Abfrageparameter</h2>
+<p>Beispiel unter <a href="https://api.spacex.land/graphql/">https://api.spacex.land/graphql/</a>:</p>
+<pre><code class="hljs language-graphql">{
+  launchesUpcoming(limit: 4) {
+    launch_date_utc
+    mission_name
+  }
+}
+</code></pre>
+<pre><code class="hljs language-graphql">{
+  rocket(id: "falcon9") {
+    cost_per_launch
+    wikipedia
+  }
+}
+</code></pre>
+<h2>Abfrageparameter</h2>
+<p>Alle <em>Falcon 9</em>-Starts im Jahr 2019:</p>
+<pre><code class="hljs language-graphql">{
+  launchesPast(
+    find: { launch_year: "2019", rocket_name: "Falcon 9" }
+  ) {
+    launch_date_utc
+    launch_site {
+      site_name
+      site_name_long
+    }
+  }
+}
+</code></pre>
+<p>Anmerkung: Die server-seitige Implementierung entscheidet über die unterstützten Parameter (z.B. <em>find</em>, <em>id</em>, <em>limit</em>, ...)</p>
+<h2>Verpflichtende und optionale Parameter</h2>
+<p>Verpflichtende Parameter sind (üblicherweise) mit <code>!</code> gekennzeichnet - ebenso wie zurückgegebene Attribute, die immer vorhanden sind.</p>
+<h2>Variablen</h2>
+<p>Abfrage:</p>
+<pre><code class="hljs language-graphql">query getLaunchesByYear($year: String!) {
+  launchesPast(find: { launch_year: $year }) {
+    launch_date_utc
+    launch_site {
+      site_name
+      site_name_long
+    }
+  }
+}
+</code></pre>
+<p>Variablen:</p>
+<pre><code class="hljs language-json">{
+  <span class="hljs-attr">"year"</span>: <span class="hljs-string">"2019"</span>
+}
+</code></pre>
+<h1>Mutationen</h1>
+<h2>Mutationen</h2>
+<p><a href="https://todo-mongo-graphql-server.herokuapp.com/">https://todo-mongo-graphql-server.herokuapp.com/</a></p>
+<p>(nur Definition <em>einzelner</em> Queries möglich)</p>
+<h2>Mutationen</h2>
+<p>Befehl, der die <code>add</code>-Aktion am Server triggert und die id des neuen Todos zurückliefert:</p>
+<pre><code class="hljs language-graphql">mutation addTodo($title: String!) {
+  add(title: $title) {
+    id
+  }
+}
+</code></pre>
+<pre><code class="hljs language-json">{
+  <span class="hljs-attr">"title"</span>: <span class="hljs-string">"shopping"</span>
+}
+</code></pre>
+<h2>Mutationen</h2>
+<pre><code class="hljs language-graphql">mutation toggleTodo($id: String!) {
+  toggle(id: $id) {
+    id
+    completed
+  }
+}
+</code></pre>
+<h2>Mutationen</h2>
+<pre><code class="hljs language-graphql">mutation addOneAndClearCompleted($title: String!) {
+  add(title: $title) {
+    id
+  }
+  clearCompleted {
+    id
+  }
+}
+</code></pre>
+<h2>Mutationen</h2>
+<p>Aufgabe: Schreibe eine Query, die alle bisherigen Einträge löscht und zwei neue erstellt</p>
+<h2>Mutationen</h2>
+<pre><code class="hljs language-graphql">mutation reset {
+  toggleAll(checked: true) {
+    id
+  }
+  clearCompleted {
+    id
+  }
+  add(title: "get some rest") {
+    id
+  }
+}
+</code></pre>
+<h1>Übungen (GitHub)</h1>
+<h2>Übungen</h2>
+<ul>
+<li>Frage alle "follower von followern" für einen bestimmten GitHub-Account ab</li>
+<li>Frage für einen bestimmten GitHub-Account alle Projekte mit Namen und Sternenanzahl ab</li>
+</ul>
+<h2>Übungen - Lösungen</h2>
+<pre><code class="hljs language-routeros">query {
+ <span class="hljs-built_in"> user </span>(login: <span class="hljs-string">"marko-knoebl"</span>) {
+    followers (first: 10) {
+      nodes {
+        login,
+        followers (first: 10) {
+          nodes {
+            login
+          }
+        }
+      }
+    }
+  }
+}
+</code></pre>
+<h2>Übungen - Lösungen</h2>
+<pre><code class="hljs language-graphql">query {
+  user(login: "marko-knoebl") {
+    id
+    email
+    repositories(
+      first: 100
+      orderBy: { field: STARGAZERS, direction: DESC }
+    ) {
+      nodes {
+        name
+        stargazers {
+          totalCount
+        }
+      }
+    }
+  }
+}
+</code></pre>
+<h1>Datentypen</h1>
+<h2>Datentypen</h2>
+<p>Bei GraphQL sind die zurückgegebenen Datentypen immer bekannt.</p>
+<h2>Datentypen</h2>
+<p>verfügbare Typen:</p>
+<ul>
+<li>Boolean</li>
+<li>Int: 32-bit int (signed)</li>
+<li>Float: 64-bit Gleitkommazahl</li>
+<li>String: UTF-8 Zeichenkette</li>
+<li>ID: Eindeutige ID als String</li>
+<li>Object: Objekt mit vordefinierten Einträgen</li>
+<li>List: Liste, die bestimmte andere Typen beinhaltet</li>
+</ul>
+<h1>GraphQL Clients</h1>
+<h2>GraphQL Clients</h2>
+<ul>
+<li><em>graphql.js</em>: Referenzimplementierung</li>
+<li><em>Apollo Client</em>: einfache Integration mit React sowie mit Vue, Angular, ...</li>
+<li><em>Relay</em>: fortgeschrittene Integration mit React</li>
+</ul>
+<h1>GraphQL mit reinem JavaScript</h1>
+<h2>Senden von Queries an den Server</h2>
+<p>Queries werden mittesl POST-Requests gesendet</p>
+<p>Payload ist ein JSON-Objekt mit einer <code>query</code> string property (auch bei Mutationen) und optional einer <code>variables</code> property.</p>
+<h2>Senden von Queries an den Server</h2>
+<p>Testen aus der Browserkonsole (wir müssen uns auf der gleichen Seite befinden):</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> requestBody = {
+  <span class="hljs-attr">query</span>:
+    <span class="hljs-string">'mutation addTodo($title: String!) { add(title: $title) { id } }'</span>,
+  <span class="hljs-attr">variables</span>: <span class="hljs-string">'{"title": "test"}'</span>,
+};
+
+<span class="hljs-keyword">const</span> requestBodyStr = <span class="hljs-built_in">JSON</span>.stringify(requestBody);
+
+fetch(<span class="hljs-string">'https://todo-mongo-graphql-server.herokuapp.com'</span>, {
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'POST'</span>,
+  <span class="hljs-attr">headers</span>: { <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span> },
+  <span class="hljs-attr">body</span>: requestBodyStr,
+}).then(<span class="hljs-built_in">console</span>.log);
+</code></pre>
+<h2>Beispiel: reddit API</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> queryTemplate = <span class="hljs-string">`
+{
+  reddit {
+    subreddit(name: "javascript") {
+      newListings(limit: 2) {
+        title
+      }
+    }
+  }
+}`</span>;
+</code></pre>
+<h2>Beispiel: reddit API</h2>
+<pre><code class="hljs language-js">fetch(<span class="hljs-string">'https://www.graphqlhub.com/graphql'</span>, {
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'POST'</span>,
+  <span class="hljs-attr">headers</span>: {
+    <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span>,
+    <span class="hljs-attr">Accept</span>: <span class="hljs-string">'application/json'</span>,
+  },
+  <span class="hljs-attr">body</span>: <span class="hljs-built_in">JSON</span>.stringify({ <span class="hljs-attr">query</span>: queryTemplate }),
+})
+  .then(<span class="hljs-function"><span class="hljs-params">r</span> =></span> r.json())
+  .then(<span class="hljs-function"><span class="hljs-params">data</span> =></span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'data returned:'</span>, data));
+</code></pre>
+<h1>Apollo Client</h1>
+<h2>Apollo Client</h2>
+<p><a href="https://www.apollographql.com/docs/react/">https://www.apollographql.com/docs/react/</a></p>
+<h2>Apollo Client</h2>
+<p>Gründe für die Verwendung:</p>
+<ul>
+<li>Automatisches Senden von Queries über das Netzwerk</li>
+<li>Automatisches Caching</li>
+<li>Automatische Einbindung in das (Re)rendering von React</li>
+</ul>
+<h2>Installation</h2>
+<p>Benötigte npm-Pakete:</p>
+<ul>
+<li><code>graphql</code></li>
+<li><code>graphql-tag</code></li>
+<li><code>apollo-client</code></li>
+<li><code>apollo-cache-inmemory</code></li>
+<li><code>apollo-link-http</code></li>
+<li><code>react-apollo</code> (für Verwendung mit React)</li>
+</ul>
+<h2>Setup</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { ApolloClient } <span class="hljs-keyword">from</span> <span class="hljs-string">'apollo-client'</span>;
+<span class="hljs-keyword">import</span> { InMemoryCache } <span class="hljs-keyword">from</span> <span class="hljs-string">'apollo-cache-inmemory'</span>;
+<span class="hljs-keyword">import</span> { HttpLink } <span class="hljs-keyword">from</span> <span class="hljs-string">'apollo-link-http'</span>;
+<span class="hljs-keyword">import</span> gql <span class="hljs-keyword">from</span> <span class="hljs-string">'graphql-tag'</span>;
+
+<span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> ApolloClient({
+  <span class="hljs-attr">cache</span>: <span class="hljs-keyword">new</span> InMemoryCache(),
+  <span class="hljs-attr">link</span>: <span class="hljs-keyword">new</span> HttpLink({
+    <span class="hljs-attr">uri</span>: <span class="hljs-string">'https://api.spacex.land/graphql/'</span>,
+  }),
+});
+</code></pre>
+<h2>Beispiel für eine Abfrage</h2>
+<pre><code class="hljs language-js"><span class="hljs-comment">// via a tagged template string</span>
+<span class="hljs-keyword">const</span> LAUNCHES_QUERY = gql<span class="hljs-string">`
+  query recentLaunches {
+    launchesPast(limit: 10) {
+      mission_name
+    }
+  }
+`</span>;
+
+client
+  .query({ <span class="hljs-attr">query</span>: LAUNCHES_QUERY })
+  .then(<span class="hljs-function"><span class="hljs-params">result</span> =></span> <span class="hljs-built_in">console</span>.log(result));
+</code></pre>
+<h2>Lokale Daten</h2>
+<p>Apollo kann auch lokale Daten / lokalen State verwalten</p>
+<p>Setzen von lokalem State:</p>
+<ul>
+<li>via <code>client.writeData</code> für einfache Fälle</li>
+<li>mittels <code>@client</code>-Direktive in Mutationen, und lokalen Resolvern</li>
+</ul>
+<p>Auslesen von lokalem State:</p>
+<ul>
+<li>mittels <code>@client</code>-Direktive in Queries</li>
+</ul>
+<h2>Lokale Daten</h2>
+<p>Einfaches direktes Setzen von lokalem State (ähnlich wie Reacts <code>setState</code>):</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> client = useApolloClient();
+
+client.writeData({ <span class="hljs-attr">data</span>: { <span class="hljs-attr">inputText</span>: <span class="hljs-string">''</span> } });
+</code></pre>
+<h2>Lokale Daten</h2>
+<p>lokale Resolver für Mutationen:</p>
+<p><a href="https://www.apollographql.com/docs/react/data/local-state/#local-resolvers">https://www.apollographql.com/docs/react/data/local-state/#local-resolvers</a></p>
+<h2>Lokale Daten</h2>
+<p>Auslesen von lokalem State (via <code>@client</code>):</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> INPUT_TEXT_QUERY = gql<span class="hljs-string">`
+  query {
+    inputText @client
+  }
+`</span>;
+
+client
+  .query({ <span class="hljs-attr">query</span>: INPUT_TEXT_QUERY })
+  .then(<span class="hljs-function"><span class="hljs-params">result</span> =></span> <span class="hljs-built_in">console</span>.log(result));
+</code></pre>
+<h2>Apollo Client Developer Tools</h2>
+<p>Erweiterung für Chrome</p>
+<p>Laut Bewertungen unzuverlässig (3.2 / 5 Sternen)</p>
+<p>Funktionen:</p>
+<ul>
+<li>Betrachten des aktuellen Caches</li>
+<li>Inspizieren der Struktur von Queries / Mutationen</li>
+<li>Ausführen von Queries (und Mutationen)</li>
+</ul>
+<h1>Apollo Client mit React</h1>
+<h2>Apollo Client mit React</h2>
+<p><a href="https://www.apollographql.com/docs/react/data/queries/">https://www.apollographql.com/docs/react/data/queries/</a></p>
+<h2>React mit einem Apollo Client verbinden</h2>
+<p>Eine Anwendung kommuniziert meist mit einem einzigen API</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { ApolloProvider } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-apollo'</span>;
+</code></pre>
+<pre><code class="hljs language-jsx">&#x3C;ApolloProvider client={client}>
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">App</span> /></span>
+<span class="hljs-tag">&#x3C;/<span class="hljs-name">ApolloProvider</span>></span></span>
+</code></pre>
+<h2>Definition einer Query</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> LAUNCHES_QUERY = gql<span class="hljs-string">`
+  query recentLaunches {
+    launchesPast(limit: 10) {
+      mission_name
+    }
+  }
+`</span>;
+</code></pre>
+<h2>useQuery</h2>
+<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">RecentLaunches</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> { data, loading, error } = useQuery(LAUNCHES_QUERY);
+  <span class="hljs-keyword">if</span> (loading) <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>Loading...<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+  <span class="hljs-keyword">if</span> (error) <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>Error!<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>Launches<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
+      {data.launchesPast.map(launch => (
+        <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>{launch.mission_name}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
+      ))}
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+  );
+}
+</code></pre>
+<h2>useQuery: Parameter</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> LAUNCHES_QUERY = gql<span class="hljs-string">`
+  query recentLaunches($numLaunches: Int!) {
+    launchesPast(limit: $numLaunches) {
+      mission_name
+    }
+  }
+`</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">RecentLaunches</span>(<span class="hljs-params">{ numLaunches }</span>) </span>{
+  <span class="hljs-keyword">const</span> { data, loading, error } = useQuery(
+    LAUNCHES_QUERY,
+    { <span class="hljs-attr">variables</span>: { numLaunches } }
+  );
+  ...
+}
+</code></pre>
+<h2>useQuery: Polling &#x26; Refetching</h2>
+<p>Daten alle 5 Sekunden aktualisieren:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> { data, loading, error } = useQuery(LAUNCHES_QUERY, {
+  <span class="hljs-attr">pollInterval</span>: <span class="hljs-number">5000</span>,
+});
+</code></pre>
+<p>Funktion, deren Aufruf ein neues Laden der Daten bewirkt:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> { data, loading, error, refetch } = useQuery(
+  LAUNCHES_QUERY
+);
+...
+refetch()
+</code></pre>
+<h2>useMutation</h2>
+<p>Beispielfall Todo:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> SET_COMPLETED = gql<span class="hljs-string">`
+  mutation setCompleted($id: ID!, $completed: Boolean!) {
+    updateTodo(id: $id, input: { completed: $completed }) {
+      id
+      completed
+    }
+  }
+`</span>;
+</code></pre>
+<h2>useMutation</h2>
+<p>Gundlegende Verwendung:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> [setCompleted] = useMutation(SET_COMPLETED);
+</code></pre>
+<p>Ausführliche Form (vgl. <code>useState</code>):</p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> [
+  setCompleted,
+  { data, loading, error },
+] = useMutation(SET_COMPLETED);
+</code></pre>
+<p>Der State wird am Server und danach auch lokal entsprechend abgeändert</p>
+<h2>useMutation</h2>
+<p>Update des lokalen Caches:</p>
+<ul>
+<li><strong>automatisch</strong>, falls ein zuvor existierendes Objekt geändert wurde</li>
+<li><strong>manuell</strong>, falls Objekte in einem Array hinzugefügt / entfernt wurden</li>
+</ul>
+<h2>useMutation: manuelles Update des Caches</h2>
+<p>Zugriff auf cache und API-Antwort in der <code>update</code>-Funktion:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [addTodo] = useMutation(ADD_TODO, {
+  <span class="hljs-attr">update</span>: <span class="hljs-function">(<span class="hljs-params">cache, reply</span>) =></span> {
+    <span class="hljs-comment">// cache: local cache</span>
+    <span class="hljs-comment">// reply: reply from the API</span>
+    <span class="hljs-built_in">console</span>.log(cache);
+    <span class="hljs-built_in">console</span>.log(reply);
+    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> update the local cache based on the reply</span>
+  },
+});
+</code></pre>
+<h2>useMutation: manuelles Update des Caches</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [addTodo] = useMutation(ADD_TODO, {
+  <span class="hljs-attr">update</span>: <span class="hljs-function">(<span class="hljs-params">cache, reply</span>) =></span> {
+    <span class="hljs-comment">// get old todos from cache</span>
+    <span class="hljs-keyword">const</span> oldTodos = cache.readQuery({ <span class="hljs-attr">query</span>: GET_TODOS })
+      .todos;
+    <span class="hljs-comment">// build newTodos array based on the server response</span>
+    <span class="hljs-keyword">const</span> newTodos = [...oldTodos, reply.data.createTodo];
+    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> update the local cache with the newTodos array</span>
+  },
+});
+</code></pre>
+<h2>useMutation: manuelles Update des Caches</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [addTodo] = useMutation(ADD_TODO, {
+  <span class="hljs-attr">update</span>: <span class="hljs-function">(<span class="hljs-params">cache, reply</span>) =></span> {
+    <span class="hljs-keyword">const</span> oldTodos = cache.readQuery({ <span class="hljs-attr">query</span>: GET_TODOS })
+      .todos;
+    <span class="hljs-keyword">const</span> newTodos = [...oldTodos, reply.data.createTodo];
+    cache.writeQuery({
+      <span class="hljs-attr">query</span>: GET_TODOS,
+      <span class="hljs-attr">data</span>: { <span class="hljs-attr">todos</span>: newTodos },
+    });
+  },
+});
+</code></pre>
+<h1>Queries - Fortgeschritten</h1>
+<h2>Standardwerte für Variablen</h2>
+<pre><code class="hljs language-graphql">query getPokemonByName($name: String = "Pikachu") {
+  pokemon(name: $name) {
+    number
+    image
+  }
+}
+</code></pre>
+<h2>Aliases</h2>
+<p>Aufgabe: Nummer von Pikachu und Raichu (Pokémon API)</p>
+<h2>Aliases</h2>
+<p>Die bekannte Art klappt nicht:</p>
+<pre><code class="hljs language-graphql">query getTwo {
+  pokemon(name: "Pikachu") {
+    number
+  }
+  pokemon(name: "Raichu") {
+    number
+  }
+}
+</code></pre>
+<h2>Aliases</h2>
+<p>Die Antwort hätte die folgende Struktur:</p>
+<pre><code class="hljs language-json">{
+  <span class="hljs-attr">"data"</span>: {
+    <span class="hljs-attr">"pokemon"</span>: {
+      <span class="hljs-attr">"number"</span>: <span class="hljs-string">"025"</span>
+    },
+    <span class="hljs-attr">"pokemon"</span>: {
+      <span class="hljs-attr">"number"</span>: <span class="hljs-string">"026"</span>
+    }
+  }
+}
+</code></pre>
+<p>Der Key <code>pokemon</code> wäre doppelt.</p>
+<h2>Aliases</h2>
+<p>Ausweg aus dem Problem:</p>
+<pre><code class="hljs language-graphql">query getTwo {
+  pokemon1: pokemon(name: "Pikachu") {
+    number
+  }
+  pokemon2: pokemon(name: "Raichu") {
+    number
+  }
+}
+</code></pre>
+<h2>Aliases</h2>
+<p>Antwort:</p>
+<pre><code class="hljs language-json">{
+  <span class="hljs-attr">"data"</span>: {
+    <span class="hljs-attr">"pokemon1"</span>: {
+      <span class="hljs-attr">"number"</span>: <span class="hljs-string">"025"</span>
+    },
+    <span class="hljs-attr">"pokemon2"</span>: {
+      <span class="hljs-attr">"number"</span>: <span class="hljs-string">"026"</span>
+    }
+  }
+}
+</code></pre>
+<h2>Fragmente</h2>
+<p>Fragmente bieten "Vorlagen" für Queries - weniger Wiederholung</p>
+<h2>Fragmente</h2>
+<pre><code class="hljs language-graphql">query getTwo {
+  pokemon1: pokemon(name: "Pikachu") {
+    ...essentialData
+  }
+  pokemon2: pokemon(name: "Raichu") {
+    ...essentialData
+    id
+  }
+}
+
+fragment essentialData on Pokemon {
+  number
+  maxHP
+  image
+}
+</code></pre>

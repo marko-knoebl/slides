@@ -1,0 +1,1147 @@
+<h1>Python Intermediate</h1>
+<h2>Slides</h2>
+<p><a href="https://marko-knoebl.github.io/slides/">https://marko-knoebl.github.io/slides/</a></p>
+<h2>Your Trainer</h2>
+<p>Marko Knöbl</p>
+<ul>
+<li>Frontend Web-Development<ul>
+<li>JavaScript</li>
+<li>React, Angular</li>
+</ul></li>
+<li>Programming<ul>
+<li>Python, JavaScript</li>
+</ul></li>
+</ul>
+<h2>Introduction of Participants</h2>
+<ul>
+<li>current projects</li>
+<li>prior knowledge</li>
+<li>expectations</li>
+</ul>
+<h2>Organizational</h2>
+<ul>
+<li>duration</li>
+<li>breaks</li>
+<li>lunch</li>
+<li>materials</li>
+<li>questions, feedback?</li>
+</ul>
+<h2>Code</h2>
+<p>Code available at: <a href="https://github.com/marko-knoebl/courses-code">https://github.com/marko-knoebl/courses-code</a></p>
+<h1>Data types in Python</h1>
+<h2>Basic data types</h2>
+<ul>
+<li>int</li>
+<li>float</li>
+<li>bool</li>
+<li>NoneType</li>
+<li>string</li>
+<li>bytes</li>
+</ul>
+<h2>Collections</h2>
+<ul>
+<li>list</li>
+<li>tuple</li>
+<li>dict</li>
+</ul>
+<h2>Other data types</h2>
+<ul>
+<li>complex</li>
+<li>set, frozenset</li>
+<li>bytearray</li>
+<li>OrderedDict</li>
+<li>NamedTuple</li>
+</ul>
+<h1>None</h1>
+<h2>None</h2>
+<p>The expression <code>None</code> is for "nothing" - analogous to <code>null</code> or <code>undefined</code> in other languages.</p>
+<p>It may be used if a certain value is unknown</p>
+<pre><code class="hljs language-py">users = [
+  [<span class="hljs-string">"John"</span>, <span class="hljs-string">"Doe"</span>, <span class="hljs-string">"1976-10-23"</span>],
+  [<span class="hljs-string">"Jane"</span>, <span class="hljs-string">"Doe"</span>, <span class="hljs-literal">None</span>]
+]
+</code></pre>
+<h2>None</h2>
+<p><code>None</code> is a Singleton:</p>
+<ul>
+<li>there is only ever a single instance of it inside a running Python program</li>
+<li>multiple variables may refer to that same instance</li>
+</ul>
+<h2>Comparisons via "is"</h2>
+<p>The keyword <code>is</code> checks whether two references / names refer to the same object.</p>
+<pre><code class="hljs language-py">a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>]
+b = a
+x = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>]
+
+a == b <span class="hljs-comment"># True</span>
+a <span class="hljs-keyword">is</span> b <span class="hljs-comment"># True</span>
+a == x <span class="hljs-comment"># True</span>
+a <span class="hljs-keyword">is</span> x <span class="hljs-comment"># False</span>
+</code></pre>
+<h2>None and "is"</h2>
+<p>As <code>None</code> is a singleton we can check for it via <code>is None</code>:</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">if</span> a <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:
+    print(<span class="hljs-string">"a is None"</span>)
+</code></pre>
+<h1>bool</h1>
+<h2>bool</h2>
+<p><code>True</code> or <code>False</code></p>
+<pre><code class="hljs language-py">a = <span class="hljs-literal">True</span>
+<span class="hljs-keyword">if</span> a:
+    print(<span class="hljs-string">'hello'</span>)
+</code></pre>
+<h2>bool</h2>
+<p>Internally <code>False</code> behaves almost like <code>0</code> and <code>True</code> behaves almost like <code>1</code></p>
+<pre><code class="hljs language-py"><span class="hljs-literal">False</span> + <span class="hljs-literal">True</span> <span class="hljs-comment"># 1</span>
+</code></pre>
+<h1>Numbers</h1>
+<h2>int</h2>
+<p>integers of arbitrary size</p>
+<h2>int</h2>
+<p>Other numeral systems:</p>
+<pre><code class="hljs language-py">a = <span class="hljs-number">42</span>
+b = <span class="hljs-number">0o52</span>
+c = <span class="hljs-number">0x2a</span>
+d = <span class="hljs-number">0b101010</span>
+</code></pre>
+<pre><code class="hljs language-py">e = int(<span class="hljs-string">'101010'</span>, <span class="hljs-number">2</span>)
+</code></pre>
+<h2>float</h2>
+<p>64 bit float</p>
+<pre><code class="hljs language-py">a = <span class="hljs-number">2.3</span>
+b = <span class="hljs-number">.2</span>
+c = <span class="hljs-number">6e23</span>
+d = float(<span class="hljs-string">'nan'</span>)
+e = float(<span class="hljs-string">'inf'</span>)
+</code></pre>
+<h2>float</h2>
+<p>Be cautious of rounding errors: Some numbers cannot be represented as floating point numbers, they will always be rounded</p>
+<p>e.g.: <code>1/3</code></p>
+<p>A computer is also unable to represent numbers like <code>0.1</code> or <code>0.2</code> exactly</p>
+<p>example: <code>0.3 - 0.2</code> evaluates to <code>0.09999999999999998</code></p>
+<p>In general a 64-bit float will be exact for about 15 decimal places.</p>
+<h2>float</h2>
+<p><em>IEEE 754</em>: standardized floating point arithmetic</p>
+<p>Python mostly acts as defined in the standard</p>
+<p>deviation from the standard: in some cases Python will throw exceptions where the standard produces a result - e.g. <code>1.0/0.0</code></p>
+<p>Special numbers in IEEE 754:</p>
+<ul>
+<li><code>inf</code> and <code>-inf</code> (infinite values)</li>
+<li><code>nan</code> (not-a-number: undefined / unknown value)</li>
+</ul>
+<h2>complex</h2>
+<pre><code class="hljs language-py">a = <span class="hljs-number">2</span> + <span class="hljs-number">3j</span>
+</code></pre>
+<h2>Augmented assignment</h2>
+<p>For binary operators there are so-called <em>augmented assignments</em>:</p>
+<pre><code class="hljs language-py">a = a + <span class="hljs-number">1</span>
+</code></pre>
+<p>short form (augmented assignment):</p>
+<pre><code class="hljs language-py">a += <span class="hljs-number">1</span>
+</code></pre>
+<h2>Operations with numbers</h2>
+<ul>
+<li>Integer division: <code>10 // 3</code></li>
+<li>Remainder: <code>10 % 3</code></li>
+<li>Power: <code>2 ** 3</code></li>
+</ul>
+<h1>Character encodings</h1>
+<h2>Unicode characters</h2>
+<p><em>Unicode</em>: catalog of over 100,000 international characters, each with a unique identifying name and number (usually written in hexadecimal)</p>
+<p>examples:</p>
+<ul>
+<li><em>K</em>: U+004B (<em>Latin capital letter K</em>)</li>
+<li><em>?</em>: U+003F (<em>Question mark</em>)</li>
+<li><em>ä</em>: U+00E4 (<em>Latin small letter a with a diaeresis</em>)</li>
+<li><em>€</em>: U+20AC (<em>Euro sign</em>)</li>
+<li>🙂: U+1F642 (<em>Slightly smiling face</em>)</li>
+</ul>
+<p><a href="https://en.wikibooks.org/wiki/Unicode/Character_reference">tables of all Unicode characters</a></p>
+<h2>Character encodings</h2>
+<p><em>Character encoding</em> = mapping of characters to bit sequences</p>
+<ul>
+<li><em>ASCII</em>: encodes the first 128 Unicode characters, can represent characters like <em>A</em>, <em>!</em>, <em>\$</em>, <em>space</em>, <em>line break</em></li>
+<li><em>Latin1</em>: encodes the first 256 Unicode characters, can represent ASCII characters and characters like <em>ä</em>, <em>á</em>, <em>ß</em>, <em>§</em></li>
+<li><em>UTF-8</em>, <em>UTF-16</em>, <em>UTF-32</em>: encode all Unicode characters</li>
+</ul>
+<p>A character encoding is necessary in order to write text to disk or transfer it over the network</p>
+<h2>Character encodings</h2>
+<p>Examples in ASCII / Latin1 / UTF-8:</p>
+<ul>
+<li><code>!</code> ↔ <code>00100001</code></li>
+<li><code>A</code> ↔ <code>01000001</code></li>
+<li><code>a</code> ↔ <code>01100001</code></li>
+</ul>
+<p>Examples in Latin1:</p>
+<ul>
+<li><code>Ä</code> ↔ <code>11000100</code></li>
+</ul>
+<p>Examples in UTF-8:</p>
+<ul>
+<li><code>Ä</code> ↔ <code>11000011 10100100</code></li>
+<li><code>🙂</code> ↔ <code>11110000 10011111 10011001 10000010</code></li>
+</ul>
+<h2>UTF-8</h2>
+<p>In many areas (in particular on the web) <em>UTF-8</em> has become the standard text encoding</p>
+<p>In UTF-8 the first 128 Unicode characters can be encoded in just 8 bit</p>
+<p>All other characters need either 16, 24 or 32 bit</p>
+<h2>UTF-32</h2>
+<p>UTF-32 encodes the Unicode code points directly</p>
+<p>Depending on the area of application the byte order may differ (big endian or little endian)</p>
+<p>example:</p>
+<p>🙂 (U+1F642) ↔ <code>00 01 F6 42</code> (big endian) or <code>42 F6 01 00</code> (little endian)</p>
+<h2>Line breaks</h2>
+<p>Line breaks can be represented by the characters <code>LF</code> (line feed, <code>U+000A</code>) and / or <code>CR</code> (carriage return, <code>U+000D</code>)</p>
+<ul>
+<li><code>LF</code>: Standard on Linux, MacOS</li>
+<li><code>CRLF</code>: Standard on Windows, in network protocols like HTTP</li>
+</ul>
+<p>In string literals <code>LF</code> is often represented by <code>\n</code> and <code>CR</code> is represented by <code>\r</code></p>
+<h1>Strings</h1>
+<h2>Strings</h2>
+<p>In Python 3 strings are sequences of Unicode characters</p>
+<h2>String literals</h2>
+<p>Examples:</p>
+<pre><code class="hljs language-py">a = <span class="hljs-string">"test"</span>
+b = <span class="hljs-string">'test'</span>
+</code></pre>
+<h2>Multi-line string literals</h2>
+<pre><code class="hljs language-py">a = <span class="hljs-string">"""this
+is a multi-line
+string literal.
+"""</span>
+</code></pre>
+<h2>Escape sequences</h2>
+<p>Some characters may be entered via so-called <em>escape sequences</em>:</p>
+<pre><code class="hljs language-py">a = <span class="hljs-string">"He said:\n\"Hi!\""</span>
+</code></pre>
+<h2>Escape sequences</h2>
+<ul>
+<li><code>\'</code> → <code>'</code></li>
+<li><code>\"</code> → <code>"</code></li>
+<li><code>\\</code> → <code>\</code></li>
+<li><code>\n</code> → Line Feed (line separator on Unix)</li>
+<li><code>\r\n</code> → Carriage Return + Line Feed (line separator on Windows)</li>
+<li><code>\t</code> → Tab</li>
+<li><code>\xHH</code> or <code>\uHHHH</code> or <code>\UHHHHHHHH</code> → Unicode-Codepoint (hexadecimal)</li>
+</ul>
+<h2>Raw Strings</h2>
+<p>If we don't need to use any escape sequences in a string:</p>
+<pre><code class="hljs language-py">path = <span class="hljs-string">r"C:\documents\foo\news.txt"</span>
+</code></pre>
+<p>This can be useful when writing Windows paths and regular expressions</p>
+<h2>String methods</h2>
+<ul>
+<li><code>.lower()</code></li>
+<li><code>.upper()</code></li>
+</ul>
+<h2>String methods</h2>
+<ul>
+<li><code>.startswith(...)</code></li>
+<li><code>.endswith(".txt")</code></li>
+</ul>
+<h2>String methods</h2>
+<ul>
+<li><code>.center(10)</code></li>
+<li><code>.ljust(10)</code></li>
+<li><code>.rjust(10)</code></li>
+</ul>
+<h2>String methods</h2>
+<ul>
+<li><code>.strip()</code></li>
+<li><code>.split(' ')</code></li>
+<li><code>.splitlines()</code></li>
+<li><code>.join()</code></li>
+</ul>
+<h2>Exercise: formatting Othello</h2>
+<p>sources:</p>
+<ul>
+<li><a href="http://www.gutenberg.org/cache/epub/2267/pg2267.txt">http://www.gutenberg.org/cache/epub/2267/pg2267.txt</a></li>
+<li><a href="http://digital.library.upenn.edu/webbin/gutbook/lookup?num=2267">http://digital.library.upenn.edu/webbin/gutbook/lookup?num=2267</a></li>
+</ul>
+<h2>Exercise: formatting Othello</h2>
+<p>input:</p>
+<pre><code class="hljs language-txt">  Rodorigo. Neuer tell me, I take it much vnkindly
+That thou (Iago) who hast had my purse,
+As if y strings were thine, should'st know of this
+</code></pre>
+<p>target:</p>
+<pre><code class="hljs language-txt">Rodorigo. Neuer tell me, I take it much vnkindly           1
+That thou (Iago) who hast had my purse,                    2
+As if y strings were thine, should'st know of this         3
+</code></pre>
+<h2>Exercise: formatting Othello</h2>
+<p>tasks:</p>
+<ul>
+<li>remove leading whitespace of each line</li>
+<li>add a line number to the end of each line and place the line number right-aligned at character 70</li>
+<li>(place line numbers only in every 5th line)</li>
+<li>(instead of placing line numbers at character 70, use the longest line as a reference)</li>
+</ul>
+<h1>String formatting</h1>
+<h2>String formatting</h2>
+<p>String formatting = placing values in strings</p>
+<p>Methods:</p>
+<pre><code class="hljs language-py">greeting = <span class="hljs-string">"Hello, "</span> + name + <span class="hljs-string">"!"</span>
+</code></pre>
+<pre><code class="hljs language-py">greeting = <span class="hljs-string">f"Hello, <span class="hljs-subst">{name}</span>!"</span>
+</code></pre>
+<h2>String formatting: methods</h2>
+<pre><code class="hljs language-py">city = <span class="hljs-string">'Vienna'</span>
+temperature = <span class="hljs-number">23.7</span>
+
+<span class="hljs-comment"># rather obsolete</span>
+<span class="hljs-string">'weather in %s: %f°C'</span> % (city, temperature)
+
+<span class="hljs-string">'weather in {0}: {1}°C'</span>.format(city, temperature)
+<span class="hljs-string">'weather in {}: {}°C'</span>.format(city, temperature)
+<span class="hljs-string">'weather in {c}: {t}°C'</span>.format(c=city, t=temperature)
+
+<span class="hljs-string">f'weather in <span class="hljs-subst">{city}</span>: <span class="hljs-subst">{temperature}</span>°C'</span>
+</code></pre>
+<h2>Format specification</h2>
+<pre><code class="hljs language-py">t = <span class="hljs-number">333.333</span>
+<span class="hljs-string">f'<span class="hljs-subst">{t:<span class="hljs-number">.4</span>f}</span>°K'</span> <span class="hljs-comment"># 333.3330°K</span>
+<span class="hljs-string">f'<span class="hljs-subst">{t:<span class="hljs-number">.4</span>g}</span>°K'</span> <span class="hljs-comment"># 333.3°K</span>
+</code></pre>
+<p><a href="https://mkaz.blog/code/python-string-format-cookbook/">https://mkaz.blog/code/python-string-format-cookbook/</a></p>
+<h1>Lists</h1>
+<h2>Lists</h2>
+<p>Lists are mutable sequences of objects; they are usually used to store homogenous entries of the same type and structure</p>
+<pre><code class="hljs language-py">primes = [<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">7</span>, <span class="hljs-number">11</span>]
+
+users = [<span class="hljs-string">"Alice"</span>, <span class="hljs-string">"Bob"</span>, <span class="hljs-string">"Charlie"</span>]
+</code></pre>
+<h2>Operations on lists</h2>
+<p>The following operations will also work on other <em>sequences</em> - e.g. tuples, strings or bytes</p>
+<ul>
+<li>accessing elements (via index): <code>users[2]</code></li>
+<li>accessing multiple elements (sublist): <code>users[2:4]</code></li>
+<li>concatenation: <code>users + users</code></li>
+<li>repetition: <code>3 * users</code></li>
+<li>length: <code>len(users)</code></li>
+<li>for loop: <code>for user in users:</code></li>
+<li>if clause : <code>if 'Tim' in users:</code></li>
+</ul>
+<h2>Operations on lists - mutations</h2>
+<p>Lists are the only sequences that can be mutated:</p>
+<ul>
+<li>appending: <code>users.append("Dan")</code></li>
+<li>removing the last element: <code>users.pop()</code></li>
+<li>removing an element by index: <code>users.pop(2)</code></li>
+</ul>
+<h2>Sorting lists</h2>
+<pre><code class="hljs language-py">l.sort()
+</code></pre>
+<pre><code class="hljs language-py">l.sort(key=...)
+</code></pre>
+<h2>Exercises</h2>
+<ul>
+<li>shuffling cards</li>
+<li>list of prime numbers</li>
+</ul>
+<h1>Tuples</h1>
+<h2>Tuples</h2>
+<pre><code class="hljs language-py">date = (<span class="hljs-number">1973</span>, <span class="hljs-number">10</span>, <span class="hljs-number">23</span>)
+</code></pre>
+<ul>
+<li>area of application: similar to dicts</li>
+<li>behavior: similar to lists</li>
+</ul>
+<h2>Tuples</h2>
+<p>Area of application: similar to dicts:</p>
+<pre><code class="hljs language-py">point_dict = {<span class="hljs-string">"x"</span>: <span class="hljs-number">2</span>, <span class="hljs-string">"y"</span>: <span class="hljs-number">4</span>}
+point_tuple = (<span class="hljs-number">2</span>, <span class="hljs-number">4</span>)
+
+date_dict = {
+  <span class="hljs-string">"year"</span>: <span class="hljs-number">1973</span>,
+  <span class="hljs-string">"month"</span>: <span class="hljs-number">10</span>,
+  <span class="hljs-string">"day"</span>: <span class="hljs-number">23</span>
+}
+date_tuple = (<span class="hljs-number">1973</span>, <span class="hljs-number">10</span>, <span class="hljs-number">23</span>)
+</code></pre>
+<p>Each entry in a tuple has a specific meaning</p>
+<h2>Tuples</h2>
+<p>Behavior: similar to lists:</p>
+<pre><code class="hljs language-py">date_tuple[<span class="hljs-number">0</span>] <span class="hljs-comment"># 1973</span>
+len(date_tuple) <span class="hljs-comment"># 3</span>
+</code></pre>
+<p>Unlike lists, tuples are immutable (no <code>.append</code> / <code>.pop</code> / ...)</p>
+<h2>Creating tuples</h2>
+<p>Entries are separated by commas, usually surrounded by round brackets.</p>
+<pre><code class="hljs language-py">empty_tuple = ()
+single_value = (<span class="hljs-string">'Thomas'</span>, )
+two_values = (<span class="hljs-string">'Thomas'</span>, <span class="hljs-string">'Smith'</span>)
+two_values = <span class="hljs-string">'Thomas'</span>, <span class="hljs-string">'Smith'</span>
+</code></pre>
+<h2>Unpacking (of tuples)</h2>
+<pre><code class="hljs language-py">time = (<span class="hljs-number">23</span>, <span class="hljs-number">45</span>, <span class="hljs-number">0</span>)
+
+hour, minute, second = time
+</code></pre>
+<p>swapping variables:</p>
+<pre><code class="hljs language-py">a, b = b, a
+</code></pre>
+<h1>Bytes</h1>
+<h2>Bytes</h2>
+<p>= Sequence of numbers in the range of 0 to 255</p>
+<pre><code class="hljs language-py">m = bytes([<span class="hljs-number">0</span>, <span class="hljs-number">0x40</span>, <span class="hljs-number">0x70</span>, <span class="hljs-number">0xa0</span>])
+</code></pre>
+<pre><code class="hljs language-angelscript">m[<span class="hljs-number">1</span>] == <span class="hljs-number">64</span>
+m[<span class="hljs-number">2</span>] == <span class="hljs-number">160</span>
+</code></pre>
+<h2>Bytes</h2>
+<p>Standard representation in Python:</p>
+<pre><code class="hljs language-py">print(bytes([<span class="hljs-number">0x00</span>, <span class="hljs-number">0x40</span>, <span class="hljs-number">0x70</span>, <span class="hljs-number">0xa0</span>]))
+</code></pre>
+<pre><code class="hljs language-py"><span class="hljs-string">b'\x00@p\xa0'</span>
+</code></pre>
+<p>Where possible, bytes will be represented by ASCII characters; otherwise their hex code will be shown</p>
+<p>The <code>b</code> signifies a byte string literal</p>
+<h2>Bytes and Strings</h2>
+<p>Bytes can hold arbitrary data, but often they will hold encoded text</p>
+<p>If we know the encoding we can convert between bytes and strings:</p>
+<pre><code class="hljs language-py"><span class="hljs-string">'ä'</span>.encode(<span class="hljs-string">'utf-8'</span>)
+<span class="hljs-comment"># b'\xc3\xa4'</span>
+</code></pre>
+<pre><code class="hljs language-py"><span class="hljs-string">b'\xc3\xa4'</span>.decode(<span class="hljs-string">'utf-8'</span>)
+<span class="hljs-comment"># 'ä'</span>
+</code></pre>
+<h2>Bytes and Strings</h2>
+<p>Storage media and networks will only handle bytes; in order to read a text file from disk or from the network we need to know / specify the encoding</p>
+<h1>Sequences</h1>
+<h2>Sequences</h2>
+<p>Python sequences consist of other Python objects</p>
+<p>examples:</p>
+<ul>
+<li>lists</li>
+<li>tuples</li>
+<li>strings</li>
+<li>bytes</li>
+</ul>
+<h2>Operations on sequences</h2>
+<ul>
+<li>accessing elements (via index): <code>s[2]</code></li>
+<li>accessing multiple elements: <code>s[2:4]</code></li>
+<li>concatenation: <code>s + t</code></li>
+<li>repetition: <code>3 * s</code></li>
+<li>length: <code>len(s)</code></li>
+<li>for loop: <code>for el in s:</code></li>
+<li>if clause : <code>if el in s:</code></li>
+</ul>
+<h2>Operations</h2>
+<p>Accessing elements</p>
+<pre><code class="hljs language-py">users = [<span class="hljs-string">'mike'</span>, <span class="hljs-string">'tim'</span>, <span class="hljs-string">'theresa'</span>]
+
+users[<span class="hljs-number">0</span>] <span class="hljs-comment"># 'mike'</span>
+users[<span class="hljs-number">-1</span>] <span class="hljs-comment"># 'theresa'</span>
+</code></pre>
+<h2>Operations</h2>
+<p>Changing elements</p>
+<p>(if the sequence is mutable)</p>
+<pre><code class="hljs language-py">users = [<span class="hljs-string">'mike'</span>, <span class="hljs-string">'tim'</span>, <span class="hljs-string">'theresa'</span>]
+
+users[<span class="hljs-number">0</span>] = <span class="hljs-string">'molly'</span>
+</code></pre>
+<h2>Operations</h2>
+<p>Accessing multiple elements</p>
+<pre><code class="hljs language-py">users = [<span class="hljs-string">'mike'</span>, <span class="hljs-string">'tim'</span>, <span class="hljs-string">'theresa'</span>]
+
+users[<span class="hljs-number">0</span>:<span class="hljs-number">2</span>] <span class="hljs-comment"># ['mike', 'tim']</span>
+</code></pre>
+<h2>Operations</h2>
+<p>Concatenation</p>
+<pre><code class="hljs language-py">users = [<span class="hljs-string">'mike'</span>, <span class="hljs-string">'tim'</span>, <span class="hljs-string">'theresa'</span>]
+
+new_users = users + [<span class="hljs-string">'tina'</span>, <span class="hljs-string">'michelle'</span>]
+</code></pre>
+<h2>Operations</h2>
+<p>Repetition</p>
+<pre><code class="hljs language-py">users = [<span class="hljs-string">'mike'</span>, <span class="hljs-string">'tim'</span>, <span class="hljs-string">'theresa'</span>]
+
+new_users = users * <span class="hljs-number">3</span>
+</code></pre>
+<h2>Operations</h2>
+<p>Length</p>
+<pre><code class="hljs language-py">users = [<span class="hljs-string">'mike'</span>, <span class="hljs-string">'tim'</span>, <span class="hljs-string">'theresa'</span>]
+
+print(len(users))
+</code></pre>
+<h2>Operations</h2>
+<p>for loop</p>
+<pre><code class="hljs language-py">users = [<span class="hljs-string">'mike'</span>, <span class="hljs-string">'tim'</span>, <span class="hljs-string">'theresa'</span>]
+
+<span class="hljs-keyword">for</span> user <span class="hljs-keyword">in</span> users:
+    print(user.upper())
+</code></pre>
+<h1>Dictionaries</h1>
+<h2>Dictionaries</h2>
+<p>Dictionaries are mappings of keys to values</p>
+<pre><code class="hljs language-py">person = {
+    <span class="hljs-string">"first_name"</span>: <span class="hljs-string">"John"</span>,
+    <span class="hljs-string">"last_name"</span>: <span class="hljs-string">"Doe"</span>,
+    <span class="hljs-string">"nationality"</span>: <span class="hljs-string">"Canada"</span>,
+    <span class="hljs-string">"birth_year"</span>: <span class="hljs-number">1980</span>
+}
+</code></pre>
+<h2>Dictionaries</h2>
+<p>Accessing entries</p>
+<pre><code class="hljs language-py">person[<span class="hljs-string">"first_name"</span>] <span class="hljs-comment"># "John"</span>
+</code></pre>
+<h2>Dictionaries</h2>
+<p>Iterating over dictionaries</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">for</span> entry <span class="hljs-keyword">in</span> person:
+    print(entry)
+</code></pre>
+<p>This will yield the keys: <code>"first_name"</code>, <code>"last_name"</code>, <code>"nationality"</code>, <code>"birth_year"</code></p>
+<p>Since Python 3.7 the keys will always remain in insertion order</p>
+<h2>Dictionaries</h2>
+<p>Iterating over key-value-pairs:</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">for</span> key, value <span class="hljs-keyword">in</span> person.items():
+    print(<span class="hljs-string">f'<span class="hljs-subst">{key}</span>, <span class="hljs-subst">{value}</span>'</span>)
+</code></pre>
+<h2>Operations on dictionaries</h2>
+<pre><code class="hljs language-py">d = {<span class="hljs-number">0</span>: <span class="hljs-string">'zero'</span>, <span class="hljs-number">1</span>: <span class="hljs-string">'one'</span>, <span class="hljs-number">2</span>: <span class="hljs-string">'two'</span>}
+
+d[<span class="hljs-number">2</span>]
+d[<span class="hljs-number">2</span>] = <span class="hljs-string">'TWO'</span>
+d[<span class="hljs-number">3</span>] <span class="hljs-comment"># KeyError</span>
+d.get(<span class="hljs-number">3</span>) <span class="hljs-comment"># None</span>
+d.setdefault(<span class="hljs-number">2</span>, <span class="hljs-string">'n'</span>)
+d.setdefault(<span class="hljs-number">3</span>, <span class="hljs-string">'n'</span>)
+
+d.keys()
+d.items()
+
+d1.update(d2)
+</code></pre>
+<h2>Valid keys</h2>
+<p>Any immutable object can act as a dictionary key. The most common types of keys are strings.</p>
+<h2>Exercise: vocabulary trainer</h2>
+<ul>
+<li>read a (JSON) file</li>
+<li>create a data model with dictionaries</li>
+<li>randomly pick an entry</li>
+</ul>
+<h2>Exercise: Todo list</h2>
+<h1>Comprehensions</h1>
+<h2>List comprehensions</h2>
+<p><em>List comprehensions</em> enable the creation of lists based on existing lists</p>
+<p>In other programming languages this is often done via <code>map</code> and <code>filter</code></p>
+<h2>List comprehensions</h2>
+<p><em>Transforming each entry</em>:</p>
+<pre><code class="hljs language-py">names = [<span class="hljs-string">"Alice"</span>, <span class="hljs-string">"Bob"</span>, <span class="hljs-string">"Charlie"</span>]
+
+uppercase_names = [name.upper() <span class="hljs-keyword">for</span> name <span class="hljs-keyword">in</span> names]
+</code></pre>
+<p>result:</p>
+<pre><code class="hljs language-py">[<span class="hljs-string">"ALICE"</span>, <span class="hljs-string">"BOB"</span>, <span class="hljs-string">"CHARLIE"</span>]
+</code></pre>
+<h2>List comprehensions</h2>
+<p><em>Filtering</em>:</p>
+<pre><code class="hljs language-py">amounts = [<span class="hljs-number">10</span>, <span class="hljs-number">-7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">19</span>, <span class="hljs-number">-2</span>]
+
+positive_amounts = [amount <span class="hljs-keyword">for</span> amount <span class="hljs-keyword">in</span> amounts <span class="hljs-keyword">if</span> amount > <span class="hljs-number">0</span>]
+</code></pre>
+<p>result:</p>
+<pre><code class="hljs language-py">[<span class="hljs-number">10</span>, <span class="hljs-number">8</span>, <span class="hljs-number">19</span>]
+</code></pre>
+<h2>List comprehensions</h2>
+<p>Generic syntax:</p>
+<pre><code class="hljs language-py">new_list = [new_entry <span class="hljs-keyword">for</span> entry <span class="hljs-keyword">in</span> old_list]
+
+new_list = [new_entry <span class="hljs-keyword">for</span> entry <span class="hljs-keyword">in</span> old_list <span class="hljs-keyword">if</span> condition]
+</code></pre>
+<h2>Dictionary comprehensions</h2>
+<pre><code class="hljs language-py">colors: {
+  <span class="hljs-string">'red'</span>: <span class="hljs-string">'#ff0000'</span>,
+  <span class="hljs-string">'blue'</span>: <span class="hljs-string">'#0000ff'</span>,
+  <span class="hljs-string">'green'</span>: <span class="hljs-string">'#008000'</span>
+}
+
+m_colors = { color: colors[color][<span class="hljs-number">1</span>:] <span class="hljs-keyword">for</span> color <span class="hljs-keyword">in</span> colors}
+</code></pre>
+<h2>Exercises</h2>
+<ul>
+<li>todo list: add functionality to remove completed entries</li>
+</ul>
+<h1>Object-oriented programming and classes</h1>
+<h2>Object orientation in Python: "Everything is an object"</h2>
+<pre><code class="hljs language-py">a = <span class="hljs-number">20</span>
+
+a.to_bytes(<span class="hljs-number">1</span>, <span class="hljs-string">"big"</span>)
+
+<span class="hljs-string">"hello"</span>.upper()
+</code></pre>
+<h2>Types and instances</h2>
+<pre><code class="hljs language-py">message = <span class="hljs-string">"hello"</span>
+
+type(message)
+
+isinstance(message, str)
+</code></pre>
+<h2>Classes</h2>
+<p>Classes may represent <em>various</em> things, e.g.:</p>
+<ul>
+<li>a Message inside an e-mail program</li>
+<li>a user of a website</li>
+<li>a car in a racing game</li>
+<li>a shopping basket in an online shop</li>
+<li>a bank account</li>
+<li>...</li>
+</ul>
+<h2>Classes</h2>
+<p>The definition of a class usually encompasses:</p>
+<ul>
+<li>a "data structure" (attributes)</li>
+<li>a "behavior" (methods)</li>
+</ul>
+<h2>Classes</h2>
+<p>example: class <code>BankAccount</code></p>
+<ul>
+<li>"data structure" (attributes)</li>
+<li>"behavior" (methods)</li>
+</ul>
+<h2>Defining classes</h2>
+<pre><code class="hljs language-py"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span><span class="hljs-params">()</span>:</span>
+
+    <span class="hljs-comment"># the method __init__ initializes the object</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self)</span>:</span>
+        <span class="hljs-comment"># inside any method, self will refer</span>
+        <span class="hljs-comment"># to the current instance of the class</span>
+        self.message = <span class="hljs-string">"hello"</span>
+
+instance = MyClass()
+instance.message <span class="hljs-comment"># "hello"</span>
+</code></pre>
+<h2>Private attributes and methods</h2>
+<p>Attributes and methods that should not be used from the outside are prefixed with <code>_</code></p>
+<p>We're all consenting adults here: <a href="https://mail.python.org/pipermail/tutor/2003-October/025932.html">https://mail.python.org/pipermail/tutor/2003-October/025932.html</a></p>
+<h2>Inheritance</h2>
+<pre><code class="hljs language-py"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span><span class="hljs-params">()</span>:</span>
+    ...
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Admin</span><span class="hljs-params">(Person)</span>:</span>
+    ...
+</code></pre>
+<h2>Example: class "Length"</h2>
+<pre><code class="hljs language-py">a = Length(<span class="hljs-number">2.54</span>, <span class="hljs-string">"cm"</span>)
+b = Length(<span class="hljs-number">3</span>, <span class="hljs-string">"in"</span>)
+
+a.unit
+a.value
+</code></pre>
+<h2>Exercise: classes "TodoList" and "Todo"</h2>
+<pre><code class="hljs language-py">tdl = TodoList(<span class="hljs-string">"groceries"</span>)
+
+tdl.add(<span class="hljs-string">"milk"</span>)
+tdl.add(<span class="hljs-string">"bread"</span>)
+
+print(tdl.todos)
+tdl.todos[<span class="hljs-number">0</span>].toggle()
+
+tdl.stats() <span class="hljs-comment"># {open: 1, completed: 1}</span>
+</code></pre>
+<h1>Control structures</h1>
+<h2>Control structures</h2>
+<ul>
+<li><code>if</code></li>
+<li>loops<ul>
+<li><code>while</code></li>
+<li><code>for ... in ...</code></li>
+<li><code>for ... in range()</code></li>
+</ul></li>
+<li><code>try ... except ...</code></li>
+</ul>
+<h1>if</h1>
+<h2>if</h2>
+<p>From a previous example:</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">if</span> age_seconds &#x3C; <span class="hljs-number">1000000000</span>:
+    print(<span class="hljs-string">"You are less than 1 billion seconds old"</span>)
+<span class="hljs-keyword">else</span>:
+    print(<span class="hljs-string">"You are older than 1 billion seconds"</span>)
+</code></pre>
+<h2>Conditions</h2>
+<p>When using conditions for <code>if</code> / <code>while</code> we usually use expressions that evaluate to boolean values.</p>
+<p>However, we can also use other types:</p>
+<pre><code class="hljs language-py">a = <span class="hljs-number">0</span>
+<span class="hljs-keyword">if</span> a: ...
+
+name = input(<span class="hljs-string">"enter your name"</span>)
+<span class="hljs-keyword">if</span> name: ...
+
+products = []
+<span class="hljs-keyword">if</span> products: ...
+</code></pre>
+<p>These types are converted to boolean values before being used as criteria for the if condition.</p>
+<h2>Conditions</h2>
+<p>Any value may be used as a condition in Python. Most values will be "truthy".</p>
+<p>Only these values are considered "falsy" - calling <code>bool(...)</code> will return <code>False</code>:</p>
+<ul>
+<li><code>False</code></li>
+<li><code>0</code>, <code>0.0</code></li>
+<li><code>None</code></li>
+<li>empty collections / sequences (<code>""</code>, <code>[]</code>, <code>()</code>, <code>{}</code>)</li>
+<li>(before Python 3.5: <code>datetime.time(0, 0, 0)</code>)</li>
+</ul>
+<h2>Conditions</h2>
+<p>Not "pythonic":</p>
+<pre><code class="hljs language-py">name = input(<span class="hljs-string">"Enter your name:"</span>)
+<span class="hljs-keyword">if</span> name != <span class="hljs-string">""</span>:
+    ...
+</code></pre>
+<p>"pythonic" version:</p>
+<pre><code class="hljs language-py">name = input(<span class="hljs-string">"Enter your name:"</span>)
+<span class="hljs-keyword">if</span> name:
+    ...
+</code></pre>
+<h2>if expressions</h2>
+<p>An expression that evaluates to one of two possibilities based on a boolean criterion</p>
+<pre><code class="hljs language-py">size = <span class="hljs-string">'small'</span> <span class="hljs-keyword">if</span> length &#x3C; <span class="hljs-number">110</span> <span class="hljs-keyword">else</span> <span class="hljs-string">'big'</span>
+</code></pre>
+<p>in other languages this could be written as:</p>
+<pre><code class="hljs language-js"><span class="hljs-comment">// JavaScript</span>
+size = length &#x3C; <span class="hljs-number">110</span> ? <span class="hljs-string">'small'</span> : <span class="hljs-string">'big'</span>;
+</code></pre>
+<h1>For loops</h1>
+<h2>Itertools</h2>
+<p>Itertools: Module for creating iterable elements</p>
+<p>Example:</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> count():
+    print(i)
+    <span class="hljs-keyword">if</span> i >= <span class="hljs-number">5</span>:
+        <span class="hljs-keyword">break</span>
+
+<span class="hljs-comment"># 0 1 2 3 4 5</span>
+</code></pre>
+<h2>For loops with tuple unpacking</h2>
+<p>Recap: tuple unpacking</p>
+<pre><code class="hljs language-py">time = (<span class="hljs-number">23</span>, <span class="hljs-number">45</span>, <span class="hljs-number">0</span>)
+
+hour, minute, second = time
+</code></pre>
+<h2>For loops with tuple unpacking</h2>
+<p>Enumerating list items:</p>
+<pre><code class="hljs language-py">l = [<span class="hljs-string">'Alice'</span>, <span class="hljs-string">'Bob'</span>, <span class="hljs-string">'Charlie'</span>]
+
+<span class="hljs-keyword">for</span> i, name <span class="hljs-keyword">in</span> enumerate(l):
+    print(<span class="hljs-string">f'<span class="hljs-subst">{i}</span>: <span class="hljs-subst">{name}</span>'</span>)
+</code></pre>
+<p>Enumerate returns a data structure that behaves like this list:</p>
+<pre><code class="hljs language-py">[(<span class="hljs-number">0</span>, <span class="hljs-string">'Alice'</span>), (<span class="hljs-number">1</span>, <span class="hljs-string">'Bob'</span>), (<span class="hljs-number">2</span>, <span class="hljs-string">'Charlie'</span>)]
+</code></pre>
+<h2>For loops with tuple unpacking</h2>
+<p>Listing directory contents (including subfolders) via <code>os.walk</code>:</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> os
+
+<span class="hljs-keyword">for</span> directory, dirs, files <span class="hljs-keyword">in</span> os.walk(<span class="hljs-string">"C:\\"</span>):
+    print(<span class="hljs-string">f"<span class="hljs-subst">{directory}</span> <span class="hljs-subst">{files}</span>"</span>)
+</code></pre>
+<pre><code class="hljs language-prolog"><span class="hljs-symbol">C</span>:\ []
+<span class="hljs-symbol">C</span>:\<span class="hljs-symbol">PerfLogs</span> []
+<span class="hljs-symbol">C</span>:\<span class="hljs-symbol">Program</span> <span class="hljs-symbol">Files</span> []
+<span class="hljs-symbol">C</span>:\<span class="hljs-symbol">ProgramData</span> []
+...
+</code></pre>
+<h1>Exceptions</h1>
+<h2>Types of exceptions</h2>
+<ul>
+<li>AttributeError, IndexError, KeyError</li>
+<li>NameError</li>
+<li>TypeError</li>
+<li>ValueError</li>
+<li>IOError</li>
+<li>ZeroDivisionError</li>
+<li>...</li>
+</ul>
+<p>Exercise: try and trigger all of the above exceptions</p>
+<h2>Catching exceptions</h2>
+<pre><code class="hljs language-py">age_str = input(<span class="hljs-string">"Enter your age"</span>)
+<span class="hljs-keyword">try</span>:
+    age = int(age_str)
+<span class="hljs-keyword">except</span> ValueError:
+    print(<span class="hljs-string">"Could not parse input as number"</span>)
+</code></pre>
+<h2>Catching exceptions</h2>
+<pre><code class="hljs language-py">age_str = input(<span class="hljs-string">"Enter your age"</span>)
+<span class="hljs-keyword">try</span>:
+    age = int(age_str)
+<span class="hljs-keyword">except</span> ValueError <span class="hljs-keyword">as</span> e:
+    print(<span class="hljs-string">"Could not parse input as number"</span>)
+    print(e)
+    print(e.args)
+</code></pre>
+<h2>Catching exceptions</h2>
+<p>Catching multiple types of exceptions:</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">try</span>:
+    file = open(<span class="hljs-string">"log.txt"</span>, encoding=<span class="hljs-string">"utf-8"</span>)
+<span class="hljs-keyword">except</span> FileNotFoundError:
+    print(<span class="hljs-string">"could not find log file"</span>)
+<span class="hljs-keyword">except</span> PermissionError:
+    print(<span class="hljs-string">"reading of file is not permitted"</span>)
+<span class="hljs-keyword">except</span> Exception:
+    print(<span class="hljs-string">"error when reading file"</span>)
+</code></pre>
+<h2>Catching exceptions</h2>
+<p>Using <code>finally</code>:</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">try</span>:
+    file = open(<span class="hljs-string">"log.txt"</span>, <span class="hljs-string">"w"</span>, encoding=<span class="hljs-string">"utf-8"</span>)
+    file.write(<span class="hljs-string">"abc"</span>)
+    file.write(<span class="hljs-string">"def"</span>)
+<span class="hljs-keyword">except</span> IOError:
+    print(<span class="hljs-string">"Error when writing to file"</span>)
+<span class="hljs-keyword">finally</span>:
+    file.close()
+</code></pre>
+<h2>Catching exceptions</h2>
+<p>Using <code>else</code>:</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">try</span>:
+    file = open(<span class="hljs-string">"log.txt"</span>, <span class="hljs-string">"w"</span>, encoding=<span class="hljs-string">"utf-8"</span>)
+<span class="hljs-keyword">except</span> IOError:
+    print(<span class="hljs-string">"could not open file"</span>)
+<span class="hljs-keyword">else</span>:
+    <span class="hljs-comment"># no errors expected here</span>
+    file.write(<span class="hljs-string">"abc"</span>)
+    file.write(<span class="hljs-string">"def"</span>)
+file.close()
+</code></pre>
+<h2>Re-raising exceptions</h2>
+<pre><code class="hljs language-py"><span class="hljs-keyword">try</span>:
+    ...
+<span class="hljs-keyword">except</span> ClientError <span class="hljs-keyword">as</span> e
+    <span class="hljs-keyword">if</span> <span class="hljs-string">"DryRunOperation"</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> str(e):
+        <span class="hljs-keyword">raise</span>
+</code></pre>
+<h2>Python philosophy: EAFP</h2>
+<p>LBYL: <em>Look before you leap</em></p>
+<p>EAFP: <em>It's easier to ask for forgiveness than permission</em></p>
+<p>(example: parsing numbers)</p>
+<h1>Raising exceptions</h1>
+<h2>Raising exceptions</h2>
+<pre><code class="hljs language-py"><span class="hljs-keyword">raise</span> ValueError(<span class="hljs-string">'test'</span>)
+</code></pre>
+<h2>Re-raising caught exceptions</h2>
+<pre><code class="hljs language-py"><span class="hljs-keyword">try</span>:
+    ...
+<span class="hljs-keyword">except</span> ClientError <span class="hljs-keyword">as</span> e
+    <span class="hljs-keyword">if</span> <span class="hljs-string">"DryRunOperation"</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> str(e):
+        <span class="hljs-keyword">raise</span>
+</code></pre>
+<h2>Custom exceptions</h2>
+<p>We can define custom exceptions as subclasses of other exception classes:</p>
+<pre><code class="hljs language-py"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MoneyParseException</span><span class="hljs-params">(Exception)</span>:</span>
+    <span class="hljs-keyword">pass</span>
+
+<span class="hljs-keyword">raise</span> MoneyParseException()
+</code></pre>
+<h1>Modules and packages</h1>
+<h2>Modules and packages</h2>
+<ul>
+<li>Module = collection of Python objects that can be imported</li>
+<li>Package = collection of modules</li>
+</ul>
+<p>(packages are actually a special type of modules)</p>
+<h2>Example imports</h2>
+<ul>
+<li><code>urllib</code> = package</li>
+<li><code>urllib.request</code> = module</li>
+<li><code>urllib.request.urlopen</code> = function</li>
+</ul>
+<!-- list separator -->
+<ul>
+<li><code>sys</code> = module</li>
+<li><code>sys.path</code> = object</li>
+</ul>
+<h2>Example imports</h2>
+<p>Typical imports:</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> module1
+<span class="hljs-keyword">import</span> module2
+<span class="hljs-keyword">from</span> package3 <span class="hljs-keyword">import</span> module3a, module3b
+<span class="hljs-keyword">from</span> module4 <span class="hljs-keyword">import</span> object4a, object4b
+<span class="hljs-keyword">from</span> package5.module5 <span class="hljs-keyword">import</span> object5a, object5b
+</code></pre>
+<p>Specific examples:</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> os
+<span class="hljs-keyword">import</span> sys
+<span class="hljs-keyword">from</span> urllib <span class="hljs-keyword">import</span> request, response
+<span class="hljs-keyword">from</span> math <span class="hljs-keyword">import</span> sqrt, pi
+<span class="hljs-keyword">from</span> http.client <span class="hljs-keyword">import</span> HTTPConnection, HTTPSConnection
+</code></pre>
+<h2>Shorter names for imports</h2>
+<p>Typically used in an interactive console to save keystrokes:</p>
+<p>Short names:</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+<span class="hljs-keyword">import</span> tkinter <span class="hljs-keyword">as</span> tk
+</code></pre>
+<p>Importing everything from a module (usually not recommended):</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> math <span class="hljs-keyword">import</span> *
+</code></pre>
+<h2>Automatic import of submodules</h2>
+<p>When importing <em>some</em> packages, submodules will be imported automatically.</p>
+<p>Examples:</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> os
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+
+os.path.join(...)
+np.random.randint(<span class="hljs-number">10</span>)
+</code></pre>
+<p>Counterexample - this will fail:</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> urllib
+
+urllib.request.urlopen(...)
+</code></pre>
+<h2>Conventions for imports</h2>
+<ul>
+<li>all imports in a Python file <em>should</em> be at the start of the file</li>
+<li>imports <em>should</em> be split into three groups:<ul>
+<li>imports from the standard library</li>
+<li>imports from other libraries</li>
+<li>imports within the project</li>
+</ul></li>
+</ul>
+<h1>Custom modules</h1>
+<h2>Custom modules</h2>
+<p>Goal: creating a custom module that can be used like this:</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> foo <span class="hljs-keyword">import</span> a, b
+</code></pre>
+<h2>Custom modules</h2>
+<p>Simple module as a Python file:</p>
+<pre><code class="hljs language-py"><span class="hljs-comment"># foo.py</span>
+a = <span class="hljs-number">1</span>
+b = <span class="hljs-number">2</span>
+</code></pre>
+<h2>Custom modules</h2>
+<p>Module as a directory:</p>
+<pre><code class="hljs language-markdown"><span class="hljs-bullet">- </span>foo/
+<span class="hljs-bullet">  - </span><span class="hljs-strong">__init__</span>.py
+</code></pre>
+<pre><code class="hljs language-py"><span class="hljs-comment"># __init__.py</span>
+a = <span class="hljs-number">1</span>
+b = <span class="hljs-number">2</span>
+</code></pre>
+<h2>Custom modules</h2>
+<p>Module as a directory with separated defintions:</p>
+<pre><code class="hljs language-reasonml">- foo/
+  - <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">__init__</span>.</span></span>py
+  - <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">_a_mod</span>.</span></span>py
+  - <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">_b_mod</span>.</span></span>py
+</code></pre>
+<pre><code class="hljs language-py"><span class="hljs-comment"># __init__.py</span>
+<span class="hljs-keyword">from</span> _a_mod <span class="hljs-keyword">import</span> a
+<span class="hljs-keyword">from</span> _b_mod <span class="hljs-keyword">import</span> b
+</code></pre>
+<h2>Custom packages</h2>
+<p>Goal: creating a custom package that can be used like this:</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> foo <span class="hljs-keyword">import</span> bar
+
+print(bar.a)
+print(bar.b)
+</code></pre>
+<h2>Custom packages</h2>
+<pre><code class="hljs language-markdown"><span class="hljs-bullet">- </span>foo/
+<span class="hljs-bullet">  - </span>bar.py
+</code></pre>
+<h2>Resolving imports</h2>
+<p>Search order:</p>
+<ul>
+<li>directory of the Python script that was executed</li>
+<li>standard library</li>
+<li>external libraries</li>
+</ul>
+<p>Avoid name clashes with existing modules / packages!</p>
+<h2>Resolving imports</h2>
+<p>To see all search paths for imports:</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> sys
+print(sys.path)
+</code></pre>
+<h2>Compilation of modules</h2>
+<p>Imported modules will be saved in a compiled form, making subsequent loading of the modules faster.</p>
+<p>Compiled versions will be saved in the folder <code>__pycache__</code></p>
+<h1>PIP &#x26; pipenv</h1>
+<h2>PIP</h2>
+<p><em>PIP</em> = Package manager for Python</p>
+<p>Simple usage:</p>
+<pre><code class="hljs language-bash">pip install requests numpy
+</code></pre>
+<p>Packages and their dependencies are looked up in the Python Package Index: <a href="https://pypi.org/">https://pypi.org/</a></p>
+<h2>PIP</h2>
+<p>Installing specific Versions:</p>
+<pre><code class="hljs language-angelscript">pip install requests==<span class="hljs-number">1.1</span>
+pip install numpy>=<span class="hljs-number">1.16</span>
+</code></pre>
+<h2>PIP</h2>
+<p>dependency list ina requirements file that can be shared with others:</p>
+<p>requirements.txt:</p>
+<pre><code class="hljs language-angelscript">requests==<span class="hljs-number">1.1</span>
+numpy>=<span class="hljs-number">1.16</span>
+</code></pre>
+<pre><code class="hljs language-bash">pip install -r requirements.txt
+</code></pre>
+<h2>Pipenv</h2>
+<p><em>Pipenv</em>: virtual environments that enable installation of different package versions per project</p>
+<h2>Pipenv</h2>
+<pre><code class="hljs language-bash">pip install pipenv
+</code></pre>
+<h2>Pipenv</h2>
+<p>Using pipenv:</p>
+<pre><code class="hljs language-bash">pipenv install requests
+pipenv install numpy
+</code></pre>
+<p>This creates two files:</p>
+<ul>
+<li><em>Pipfile</em>: general dependency information</li>
+<li><em>Pipfile.lock</em>: exact version numbers</li>
+</ul>
+<h2>Pipenv</h2>
+<p>Executing Python scripts in a PIP environment:</p>
+<pre><code class="hljs language-bash">pipenv run python foo.py
+</code></pre>
+<h1>Functions</h1>
+<h2>Arbitrary number of Arguments (args / kwargs)</h2>
+<pre><code class="hljs language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">foo</span><span class="hljs-params">(*args, **kwargs)</span>:</span>
+    print(args)
+    print(kwargs)
+
+foo(<span class="hljs-string">"one"</span>, <span class="hljs-string">"two"</span>, x=<span class="hljs-string">"hello"</span>)
+<span class="hljs-comment"># args: ("one", "two")</span>
+<span class="hljs-comment"># kwargs: {"x": "hello"}</span>
+</code></pre>
+<p><code>args</code> will be a tuple, <code>kwargs</code> will be a dictionary</p>
+<h2>Arbitrary number of Arguments (args / kwargs)</h2>
+<p>Task: recreate <code>range()</code> by using a while loop</p>
+<h2>Unpacking of parameter lists</h2>
+<pre><code class="hljs language-py">numbers = [<span class="hljs-string">"one"</span>, <span class="hljs-string">"two"</span>, <span class="hljs-string">"three"</span>]
+
+<span class="hljs-comment"># equivalent:</span>
+print(numbers[<span class="hljs-number">0</span>], numbers[<span class="hljs-number">1</span>], numbers[<span class="hljs-number">2</span>])
+
+print(*numbers)
+</code></pre>
+<h2>Global and local scope</h2>
+<p><code>global</code> / <code>nonlocal</code></p>
+<p>change the behavior of <em>assignments</em></p>
+<h1>Object references and mutations</h1>
+<h2>Object references and mutations</h2>
+<p>Recap: What does this program print?</p>
+<pre><code class="hljs language-py">a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]
+b = a
+b.append(<span class="hljs-number">4</span>)
+print(a)
+</code></pre>
+<h2>Object references and mutations</h2>
+<pre><code class="hljs language-py">a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]
+b = a
+b.append(<span class="hljs-number">4</span>)
+print(a)
+</code></pre>
+<p>The Program prints <code>[1, 2, 3, 4]</code>. <code>a</code> and <code>b</code> refer to the same object.</p>
+<h2>Object references and mutations</h2>
+<p>The statement <code>b = a</code> creates a new reference that refers to the same object.</p>
+<p>Operations that create new references:</p>
+<ul>
+<li>assignments (<code>b = a</code>)</li>
+<li>function calls (<code>myfunc(a)</code> - a new internal variable will be created)</li>
+<li>insertions into collections (e.g. <code>mylist.append(a)</code>)</li>
+<li>...</li>
+</ul>
+<h2>Object references and functions</h2>
+<pre><code class="hljs language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">remove_middle_element</span><span class="hljs-params">(list_in)</span>:</span>
+    list_in.pop(len(list_in) // <span class="hljs-number">2</span>)
+    <span class="hljs-keyword">return</span> list_in
+
+a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]
+b = remove_middle_element(a)
+print(b)
+print(a)
+</code></pre>
+<p>What does the above example print?</p>
+<h2>Object references and functions</h2>
+<p>Guiding principle for functions:</p>
+<p><strong>Functions should not mutate parameters</strong></p>
+<p>or more generally:</p>
+<p><strong>Functions should only interact with the Python environment by receiving parameters and returning values</strong> (They should not have any <em>side effects</em>)</p>
+<h2>Object references and functions</h2>
+<p>Passing an object into a function will create a new reference to that same object (<em>call by sharing</em>).</p>
+<pre><code class="hljs language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">foo</span><span class="hljs-params">(a_inner)</span>:</span>
+    print(id(a_inner))
+
+a_outer = []
+foo(a_outer)
+print(id(a_outer))
+</code></pre>
+<h2>Object references and functions</h2>
+<p>Possible implementations for <code>remove_middle_element</code>:</p>
+<ul>
+<li>as a function without side effects</li>
+<li>as a method of <code>AdvancedList</code></li>
+</ul>
+<p>Compare: <code>sorted()</code> and <code>list.sort()</code> in Python</p>
+<h2>Functions without side effects</h2>
+<p>The function does not mutate the list that was passed in - instead it returns a new list.</p>
+<pre><code class="hljs language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">remove_middle_element</span><span class="hljs-params">(list_in)</span>:</span>
+    list_out = list_in.copy()
+    list_out.pop(len(list_out) // <span class="hljs-number">2</span>)
+    <span class="hljs-keyword">return</span> list_out
+
+a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]
+b = remove_middle_element(a)
+print(b)
+</code></pre>
+<h2>Method in a custom class</h2>
+<p>Relaxation of the guiding principle for methods: Entries in <code>self</code> <em>may be mutated</em>.</p>
+<p>The following method will change the object internally and return nothing.</p>
+<pre><code class="hljs language-py"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AdvancedList</span><span class="hljs-params">(list)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">remove_middle_element</span><span class="hljs-params">(self)</span>:</span>
+        self.pop(len(self) // <span class="hljs-number">2</span>)
+
+a = AdvancedList([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>])
+a.remove_middle_element()
+print(a)
+</code></pre>
+<h2>Object references and functions</h2>
+<p>Common rules (no side effects):</p>
+<ul>
+<li>Don't modify parameters that are passed in (exception: <code>self</code>)</li>
+<li>Don't set global variables (Don't use the <code>global</code> statement)</li>
+</ul>
+<p>Strict rules (pure functions):</p>
+<ul>
+<li>Don't read global variables</li>
+<li>Don't do any I/O (interactions with disk / network / ...)</li>
+</ul>
+<p>Pure functions only interact with their environment by receiving parameters and returning values.</p>
+<p>The "purer" a function is the easier it is to reuse and test.</p>
+<h1>Python versions</h1>
+<h2>Python versions</h2>
+<p>Python 2 vs Python 3</p>
+<h2>Strings and Bytes</h2>
+<p>major change in Python 3:</p>
+<p>strict separation of text (strings) and binary data (bytes)</p>
+<p>in Python 2: data types <code>bytes</code>, <code>str</code> and <code>unicode</code></p>
+<h2>Print</h2>
+<p>Python 2:</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">print</span> <span class="hljs-string">"a"</span>,
+</code></pre>
+<p>Python 3:</p>
+<pre><code class="hljs language-py">print(<span class="hljs-string">"a"</span>, end=<span class="hljs-string">""</span>)
+</code></pre>
+<h2>Division</h2>
+<p>Python 2:</p>
+<pre><code class="hljs language-py"><span class="hljs-number">10</span> / <span class="hljs-number">3</span>    <span class="hljs-comment"># 3</span>
+</code></pre>
+<h2>range</h2>
+<p>in Python 2: <code>range()</code> returns a list, <code>xrange()</code> returns an object that saves on memory</p>
+<p>in Python 3: <code>range()</code> returns an object that saves on memory</p>
+<h2>input</h2>
+<p>in Python 2: <code>input()</code> will evaluate / execute the input, <code>raw_input()</code> returns a string</p>
+<p>in Python 3: <code>input()</code> returns a string</p>
+<h2>__future__ imports</h2>
+<p>Getting some of the behavior of Python 3 in Python 2:</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> __future__ <span class="hljs-keyword">import</span> print_function
+<span class="hljs-keyword">from</span> __future__ <span class="hljs-keyword">import</span> unicode_literals
+<span class="hljs-keyword">from</span> __future__ <span class="hljs-keyword">import</span> division
+</code></pre>
+<h2>Python-Future</h2>
+<p>Compatibility layer between Python 2 and Python 3</p>
+<p>Enables supporting both Python 2 and Python 3 from the same codebase</p>

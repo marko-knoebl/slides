@@ -1,0 +1,1102 @@
+<h1>Progressive Web Apps</h1>
+<h2>Präsentationen</h2>
+<p><a href="https://marko-knoebl.github.io/slides/">https://marko-knoebl.github.io/slides/</a></p>
+<h2>Ihr Trainer</h2>
+<p>Marko Knöbl</p>
+<ul>
+<li>Frontend Web-Entwicklung<ul>
+<li>JavaScript</li>
+<li>React, Angular</li>
+</ul></li>
+<li>Programmierung<ul>
+<li>Python, JavaScript</li>
+</ul></li>
+</ul>
+<h2>Vorstellung der Teilnehmer</h2>
+<ul>
+<li>Aktuelle Projekte</li>
+<li>Vorkenntnisse</li>
+<li>Erwartungen / Wünsche</li>
+</ul>
+<h2>Organisatorisches</h2>
+<ul>
+<li>Kursdauer</li>
+<li>Pausen</li>
+<li>Mittagessen</li>
+<li>Unterlagen</li>
+<li>Fragen, Feedback? - Jederzeit erwünscht</li>
+</ul>
+<h2>Code</h2>
+<p>Code verfügbar unter: <a href="https://github.com/marko-knoebl/courses-code">https://github.com/marko-knoebl/courses-code</a></p>
+<h1>Agenda</h1>
+<h2>Agenda - Grundlagen</h2>
+<ul>
+<li>VS Code, Chrome Developer Tools</li>
+<li>modern JavaScript</li>
+<li>Promises</li>
+<li>Web Worker</li>
+</ul>
+<h2>Agenda</h2>
+<ul>
+<li>Webmanifest-Datei</li>
+<li>Service Worker<ul>
+<li>Workbox</li>
+<li>Service Worker schreiben</li>
+</ul></li>
+<li>Datenspeicher<ul>
+<li>localStorage</li>
+<li>indexedDB</li>
+</ul></li>
+<li>Benachrichtigungen und Push-Benachrichtigungen</li>
+</ul>
+<h1>Grundlagen zum Kurs</h1>
+<h2>Grundlagen zum Kurs (am Beispiel einer Todo-App)</h2>
+<ul>
+<li>Arbeiten mit VS Code &#x26; Chrome<ul>
+<li>Prettier</li>
+<li>Chrome Dev Tools</li>
+</ul></li>
+<li>ES2015+<ul>
+<li>Module</li>
+<li>Pfeilfunktionen</li>
+<li>const &#x26; let</li>
+</ul></li>
+<li>einen lokalen Entwicklungsserver starten</li>
+</ul>
+<h2>Arbeiten mit VS Code</h2>
+<p><a href="./vs-code-de.html">VS Code Grundlagen und Plugins</a></p>
+<h2>lokaler Entwicklungsserver</h2>
+<p>npm-Paket <code>http-server</code></p>
+<pre><code class="hljs language-bash">npm install -g http-server
+http-server
+</code></pre>
+<h1>PWA Grundlagen</h1>
+<!-- https://developers.google.com/web/ilt/pwa/ -->
+<h2>PWA Grundlagen</h2>
+<p><a href="https://developers.google.com/web/ilt/pwa/why-build-pwa">https://developers.google.com/web/ilt/pwa/why-build-pwa</a></p>
+<ul>
+<li>Brücke zwischen Web und Apps</li>
+<li>Im Browser, am Desktop und Mobil</li>
+<li>Web-Apps, die sich ganz wie native Apps anfühlen:<ul>
+<li>Dauerhafte Installation und Offline-Nutzung (service workers)</li>
+<li>Lokale Speicherung von Anwendungsdaten (localstorage, indexedDB)</li>
+<li>Scheint wie andere Apps im Menü auf (web-manifest)</li>
+<li>Benachrichtigungen am Gerät darstellen (service workers)</li>
+</ul></li>
+</ul>
+<!-- google-präsentation bis S. 23 -->
+<h2>Browser-Unterstützung</h2>
+<p>Service worker:</p>
+<p><a href="https://caniuse.com/#search=service%20workers">https://caniuse.com/#search=service%20workers</a></p>
+<p>Web app manifest:</p>
+<p><a href="https://caniuse.com/#search=manifest">https://caniuse.com/#search=manifest</a></p>
+<p>indexedDB:</p>
+<p><a href="https://caniuse.com/#search=indexeddb">https://caniuse.com/#search=indexeddb</a></p>
+<h2>Beispiele</h2>
+<ul>
+<li><a href="https://pwa.rocks">https://pwa.rocks</a><ul>
+<li>wiki offline</li>
+<li>telegram</li>
+<li>paper planes</li>
+</ul></li>
+</ul>
+<h2>Chrome audit</h2>
+<p>Entwicklerwerkzeuge - audits</p>
+<h1>Service Worker Gundlagen</h1>
+<h2>Service Worker - Motivation</h2>
+<p>Service Worker sind ein Kernelement von PWAs. Sie dienen als lokaler Proxy zwischen dem Web Browser und dem Server.</p>
+<p>Haupteinsatzgebiet: Offlinenutzung / schnellere Nutzung von Web Apps (Ersatz für die veraltete AppCache-Funktion)</p>
+<h2>Service Worker - Nutzungsbeispiele</h2>
+<ul>
+<li><em>Spiel</em>: Beim ersten Laden werden alle benötigten Resourcen heruntergeladen und stehen forthin offline zur Verfügung</li>
+<li><em>Chat-Anwendung</em>: Die Avatare aller Freunde werden in einem Cache abgelegt; sie werden täglich aktualisiert</li>
+<li><em>Wikipedia-Anwendung</em>: Die letzten 30 besuchten Artikel werden gecacht</li>
+<li><em>Nachrichten-Anwendung</em>: Die Startseite mit Artikeln soll gecacht werden und beim Öffnen sofort verfügbar sein; Danach wird sie sofern möglich aktualisiert</li>
+</ul>
+<h2>Service Worker</h2>
+<h3>Traditionelle Web-App:</h3>
+<p>Endgerät ⟺ Web Server</p>
+<h3>PWA:</h3>
+<p>Endgerät ⟺ Service Worker ⟺ Web Server</p>
+<h2>Service Worker - Grundlagen</h2>
+<p>service worker = Skript, das im Hintergrund läuft</p>
+<p>Funktionen:</p>
+<ul>
+<li>Caching von Resourcen</li>
+<li>Sync im Hintergrund</li>
+<li>Push-Benachrichtigungen (auch wenn Browser / Anwendung geschlossen)</li>
+</ul>
+<h2>Service Worker - Registrierung</h2>
+<p>Wir rufen <code>.register()</code> auf und übergeben den Pfad des Service Worker Skripts</p>
+<pre><code class="hljs language-js"><span class="hljs-comment">// main.js</span>
+navigator.serviceWorker.register(<span class="hljs-string">'./serviceWorker.js'</span>);
+</code></pre>
+<pre><code class="hljs language-js"><span class="hljs-comment">// serviceWorker.js</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'this is the service worker'</span>);
+</code></pre>
+<h2>Service Worker</h2>
+<p>Service worker in den Browser Tools betrachten:</p>
+<p>in Chrome: Dev Tools unter <em>Application</em> - <em>Service Workers</em></p>
+<p>in Firefox: unter <code>about:debugging#workers</code></p>
+<h1>Service Worker mit Workbox</h1>
+<h2>Service Worker mit Workbox</h2>
+<p><strong>Workbox</strong> = Library, die das Schreiben von Serviceworkern erleichtert</p>
+<p><a href="https://developers.google.com/web/tools/workbox/">https://developers.google.com/web/tools/workbox/</a></p>
+<h2>Workbox Beispiel</h2>
+<p>Einbinden eines Service Workers der Antworten cacht und sie als Fallback verwendet, falls Resourcen nicht verfügbar sind:</p>
+<pre><code class="hljs language-js"><span class="hljs-comment">// service-worker.js</span>
+importScripts(
+  <span class="hljs-string">'https://storage.googleapis.com/'</span> +
+    <span class="hljs-string">'workbox-cdn/releases/4.1.1/workbox-sw.js'</span>
+);
+
+workbox.routing.registerRoute(
+  <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">'.*'</span>),
+  <span class="hljs-keyword">new</span> workbox.strategies.NetworkFirst()
+);
+</code></pre>
+<h2>Workbox Beispiel</h2>
+<p>Wir können die Auswirkungen der Verwendung von Service Workern in den Chrome Developer Tools unter <em>Application/Service Workers</em> und <em>Application/Cache Storage</em> begutachten</p>
+<h1>Web App Manifest</h1>
+<h2>Web App Manifest</h2>
+<p>Das web app manifest ist eine json Datei, die Informationen zu einer Webanwendung beinhaltet.</p>
+<p>Durch Bereitstellung einer manifest Datei kann die Installation einer PWA ermöglicht werden.</p>
+<h2>Manifest-Datei</h2>
+<p>einbinden via:</p>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"manifest"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"manifest.json"</span> /></span>
+</code></pre>
+<h2>Manifest-Datei</h2>
+<pre><code class="hljs language-json">{
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Todo"</span>,
+  <span class="hljs-attr">"short_name"</span>: <span class="hljs-string">"Todo"</span>,
+  <span class="hljs-attr">"start_url"</span>: <span class="hljs-string">"."</span>,
+  <span class="hljs-attr">"display"</span>: <span class="hljs-string">"standalone"</span>,
+  <span class="hljs-attr">"icons"</span>: [
+    {
+      <span class="hljs-attr">"src"</span>: <span class="hljs-string">"images/icon-32.png"</span>,
+      <span class="hljs-attr">"sizes"</span>: <span class="hljs-string">"32x32"</span>,
+      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"image/png"</span>
+    },
+    ...
+  ]
+}
+</code></pre>
+<h2>Manifest-Datei: Einträge</h2>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/Manifest">https://developer.mozilla.org/en-US/docs/Web/Manifest</a></p>
+<h2>Manifest-Datei: Einräge</h2>
+<p>essentielle Einträge in Chrome:</p>
+<ul>
+<li><code>name</code></li>
+<li><code>short_name</code></li>
+<li><code>start_url</code></li>
+<li><code>icons</code> - verwendet im Menü, im Splash Screen; für Chrome sollten icons der folgenden Größen bereitgestellt werden: <code>144</code>, <code>192</code>, <code>512</code></li>
+<li><code>display</code>: <code>fullscreen</code> / <code>standalone</code> / <code>minimal-ui</code> / <code>browser</code></li>
+</ul>
+<h2>Manifest-Datei: Einträge</h2>
+<ul>
+<li><code>background_color</code> - sollte die gleiche Farbe sein wie die CSS-Hintergrundfarbe der Anwendung</li>
+<li><code>description</code></li>
+<li><code>orientation</code>:<ul>
+<li><code>any</code></li>
+<li><code>natural</code></li>
+<li><code>landscape</code> (<code>landscape-primary</code>, <code>landscape-secondary</code>)</li>
+<li><code>portrait</code> (<code>portrait-primary</code>,
+<code>portrait-secondary</code>)</li>
+</ul></li>
+<li><code>theme_color</code></li>
+</ul>
+<h2>Meta tags in HTML</h2>
+<p>Diese Mata Tags sind hilfreich:</p>
+<ul>
+<li>in Chrome: Android Fensterfarbe: <code>&#x3C;meta name="theme-color" content="..." /></code> - das sollte das gleiche sein wie <code>theme_color</code> in der Manifest-Datei</li>
+<li>in iOS: <code>&#x3C;meta name="apple-mobile-web-app-capable" content="yes"></code> - versteckt das Browser UI</li>
+</ul>
+<h1>App-Installation</h1>
+<h2>App-Installation</h2>
+<p>Browser können die Möglichkeit bieten, für PWAs Einträge zum Startmenü / zum Homescreen hinzuzufügen</p>
+<h2>App-Installation unter Chrome und iOS</h2>
+<p>Unter iOS können Benutzer einen Shortcut zu jeder Website zum Menü hinzufügen. Für PWAs funktioniert das auf die gleiche Art.</p>
+<p>Bei Chrome können PWAs den Benutzer zur Installation auffordern. Installierte PWAs verhalten sich anders als Webseiten - z.B. erscheinen sie in einem seperaten Fenster.</p>
+<h2>App-Installation</h2>
+<p>für Chrome:</p>
+<p><a href="https://developers.google.com/web/fundamentals/app-install-banners/">https://developers.google.com/web/fundamentals/app-install-banners/</a></p>
+<h2>App-Installation</h2>
+<p>Voraussetzung, um den App-Installations-Dialog anzuzeigen:</p>
+<ul>
+<li>Manifest-Datei beinhaltet:<ul>
+<li><em>short_name</em> oder <em>name</em></li>
+<li>Icons der Größen 192px und 512px</li>
+<li><em>start_url</em></li>
+<li><em>display</em> ist entweder <em>fullscreen</em>, <em>standalone</em> oder <em>minimal-ui</em></li>
+</ul></li>
+<li>HTTPS aktiv</li>
+<li>es gibt einen aktiven Service Worker (mit einem fetch Event handler)</li>
+<li>Benutzer hat mit der Anwendung in bestimmtem Maß interagiert</li>
+</ul>
+<h2>App-Installation</h2>
+<p>Sobald alle Voraussetzungen erfüllt sind, wird das <code>beforeinstallprompt</code> Event ausgelöst; Wir können dieses Event abfangen und für später speichern</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> installPromptEvent;
+
+<span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">'beforeinstallprompt'</span>, ipEvent => {
+  <span class="hljs-comment">// the browser is ready to show the install prompt</span>
+  ipEvent.preventDefault();
+  installPromptEvent = ipEvent;
+  showInstallBtn();
+});
+</code></pre>
+<h2>App-Installation</h2>
+<p>Sobald der Benutzer die Anwendung installieren möchte können wir das gespeicherte Event verwenden:</p>
+<pre><code class="hljs language-js">installBtn.addEventListener(<span class="hljs-string">'click'</span>, () => {
+  <span class="hljs-comment">// Show the prompt</span>
+  installPromptEvent.prompt();
+  hideInstallBtn();
+});
+</code></pre>
+<h2>Deployment</h2>
+<p>Deployment z.B. auf <a href="https://app.netlify.com/drop">https://app.netlify.com/drop</a></p>
+<p>Wichtig: Aufrufen über HTTPS</p>
+<h1>Service worker</h1>
+<h2>Service worker</h2>
+<p>Service worker sind client-seitige Proxies zwischen Webbrowser und Server.</p>
+<p>Service worker können Resourcen cachen und sie entweder aus dem Netzwerk oder dem internen Cache abrufen.</p>
+<h2>Service worker</h2>
+<p>Es läuft zu jeder Domain / registrierten URL genau ein ServiceWorker</p>
+<p>Service worker sind besondere Web-Worker, daher:</p>
+<ul>
+<li>kein direkter Zugriff auf das DOM</li>
+<li>Kommunikation mit Hauptthread mittels postMessage</li>
+</ul>
+<h2>Browser Unterstützung</h2>
+<p><a href="https://caniuse.com/##feat=serviceworkers">caniuse</a></p>
+<p>Serviceworker werden unterstützt ⇒ ES2015 wird unterstützt</p>
+<h2>Verwandthe Technologien</h2>
+<ul>
+<li>fetch (Netzwerkanfragen senden)</li>
+<li>cache (Netzwerkanfragen cachen)</li>
+</ul>
+<h1>Service Worker: Strategien</h1>
+<h2>Service Worker: Strategien</h2>
+<p>Bei Entscheidung für eine Strategie sind verschiedene Ziele in Erwägung zu ziehen:</p>
+<ul>
+<li>Inhalte so schnell wie möglich liefern</li>
+<li>aktuelle Inhalte liefern</li>
+<li>Sparen bei Datenübertragung</li>
+<li>Sparen bei der Cachegröße</li>
+</ul>
+<h2>Service Worker: Strategien</h2>
+<p>Aspekte zu Resourcen:</p>
+<ul>
+<li>sollte diese Resource beim ersten Besuch eines Benutzers automatisch heruntergeladen und gecached werden?</li>
+<li>wenn diese Resource angefragt wird, sollte sie aus dem <em>Cache</em> oder dem <em>Netzwerk</em> geladen werden?</li>
+<li>falls die erste Anfrage (von Cache oder Netzwerk) fehlschlägt, soll die andere Möglichkeit versucht werden?</li>
+<li>falls die Resource aus dem Cache geladen wird, sollen wir versuchen, sie im Hintergrund zu aktualisieren?</li>
+</ul>
+<p>Wichtige Fragen:</p>
+<ul>
+<li>laden wir eine angefragte Resource aus dem Cache, dem Netzwerk oder einer Kombination?</li>
+<li>welche Resourcen cachen wir und wann cachen wir sie?</li>
+</ul>
+<h2>Service Worker: Strategien</h2>
+<p>laden von Resourcen - Strategien:</p>
+<ul>
+<li>immer aus dem Netzwerk</li>
+<li>immer aus dem Cache</li>
+<li>Netzwerk, mit Cache als Fallback</li>
+<li>Cache, mit Netzwerk als Fallback</li>
+<li>Cache, wobei der Cache im Hintergrund währenddessen aktualisiert wird</li>
+<li>Cache, wobei im Hintergrund die Resource heruntergeladen und die Anzeige unmittelbar aktualisiert wird</li>
+</ul>
+<h2>Service Worker: Strategien</h2>
+<p>Caching - Strategien:</p>
+<ul>
+<li>Cachen, sobald neue Daten eintreffen</li>
+<li>bei Installation im Vorhinein cachen</li>
+<li>bei Useraktion im Vorhinein cachen</li>
+</ul>
+<p>(diese Strategien können kombiniert werden)</p>
+<h2>Service Worker: Strategien</h2>
+<p>Siehe <a href="https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/#cache-then-network">Offline Cookbook</a></p>
+<h1>Workbox im Detail</h1>
+<h2>Service Worker Strategien</h2>
+<p>Workbox bietet Unterstützung für verschiedene Service Worker Strategien</p>
+<h2>Service Worker Strategien</h2>
+<p>Abruf von Resourcen:</p>
+<ul>
+<li><code>NetworkOnly</code></li>
+<li><code>CacheOnly</code></li>
+<li><code>NetworkFirst</code> (Cache, falls Netzwerk nicht verfügbar)</li>
+<li><code>CacheFirst</code> (Netzwerk, falls Eintrag nicht im Cache)</li>
+<li><code>StaleWhileRevalidate</code> (Laden aus dem Cache, welcher im Hintergrund aktualisiert wird)</li>
+</ul>
+<h2>Service Worker Strategien</h2>
+<p>Cache:</p>
+<ul>
+<li>Caching bei Installation, immer diese Version liefern: <code>precacheAndRoute</code></li>
+<li>Caching bei Userinteraktion: Benutzen von <code>fetch</code> und Untenstehendem</li>
+<li>Caching wenn Daten ankommen: Automatisch bei <code>NetworkFirst</code>, <code>CacheFirst</code>, <code>StaleWhileRevalidate</code></li>
+</ul>
+<h2>Routing</h2>
+<pre><code class="hljs language-js">workbox.routing.registerRoute(
+  <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">'/static/.*'</span>),
+  <span class="hljs-keyword">new</span> workbox.strategies.CacheFirst()
+);
+
+workbox.routing.registerRoute(
+  <span class="hljs-string">'/articles.json'</span>,
+  <span class="hljs-keyword">new</span> workbox.strategies.NetworkFirst()
+);
+</code></pre>
+<h2>Plugins</h2>
+<ul>
+<li>Expiration Plugin (<code>maxEntries</code>, <code>maxAgeSeconds</code>)</li>
+</ul>
+<h2>Precaching</h2>
+<pre><code class="hljs language-js">workbox.precaching.precacheAndRoute([
+  <span class="hljs-string">'/'</span>,
+  <span class="hljs-string">'/index.html'</span>,
+  <span class="hljs-string">'/logo.svg'</span>,
+]);
+</code></pre>
+<h2>CLI</h2>
+<p>Workbox CLI: Werkzeug, um insbesondere Precaching zu vereinfachen</p>
+<pre><code class="hljs language-bash">workbox wizard --injectManifest
+</code></pre>
+<h2>Code Lab</h2>
+<p>~45 min</p>
+<p><a href="https://codelabs.developers.google.com/codelabs/workbox-lab/">https://codelabs.developers.google.com/codelabs/workbox-lab/</a></p>
+<p>(aktualisiere die Version von <code>workbox-cli</code> in <em>package.json</em> - ältere Versionen schlagen unter Windows fehl)</p>
+<h2>Übungen</h2>
+<p>Verwandle eine dieser Anwendungen in eine PWA und verwende verschiedene Caching-Strategien:</p>
+<ul>
+<li><a href="https://github.com/marko-knoebl/simple-todo-app">https://github.com/marko-knoebl/simple-todo-app</a></li>
+<li><a href="https://github.com/marko-knoebl/simple-weather-app">https://github.com/marko-knoebl/simple-weather-app</a></li>
+<li><a href="https://github.com/marko-knoebl/simple-stock-app">https://github.com/marko-knoebl/simple-stock-app</a></li>
+</ul>
+<h2>Bonus (mit Build)</h2>
+<p><a href="https://developers.google.com/web/tools/workbox/guides/codelabs/npm-script">https://developers.google.com/web/tools/workbox/guides/codelabs/npm-script</a></p>
+<h1>Asynchrones JavaScript</h1>
+<h2>Asynchrones JavaScript</h2>
+<p>Siehe Präsentation <a href="javascript-async-and-network-requests-de.html">Javascript: async and network requests</a></p>
+<h1>Web worker</h1>
+<h2>Web worker</h2>
+<p>Möglichkeit, Scripts im Hintergrund (in einem eigenen Thread) laufen zu lassen</p>
+<p>Können genutzt werden, um intensive Berechnungen durchzuführen - blockieren die User-Interaktion mit der Website nicht.</p>
+<h2>Worker erstellen</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> worker = <span class="hljs-keyword">new</span> Worker(<span class="hljs-string">'worker.js'</span>);
+</code></pre>
+<h2>Auf Antwort des Workers lauschen</h2>
+<pre><code class="hljs language-js">worker.onmessage = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">message</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(message.data);
+};
+</code></pre>
+<h2>Dem Worker zu arbeiten geben</h2>
+<pre><code class="hljs language-js">worker.postMessage(<span class="hljs-number">42</span>);
+</code></pre>
+<h2>Im Worker selbst</h2>
+<pre><code class="hljs language-js">onmessage = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">message</span>) </span>{
+  <span class="hljs-keyword">const</span> result = longComputation();
+  postMessage(result);
+};
+</code></pre>
+<h2>Daten übergeben</h2>
+<p>Beim hin-und-her-Übergeben von Daten: Daten werden kopiert und als 'plain' JS-Objekte verwertet</p>
+<h2>Übung: Fibonacci</h2>
+<p>Im WebWorker laufen lassen:</p>
+<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fib</span>(<span class="hljs-params">n</span>) </span>{
+  <span class="hljs-keyword">if</span> (n &#x3C;= <span class="hljs-number">2</span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+  }
+  <span class="hljs-keyword">return</span> fib(n - <span class="hljs-number">1</span>) + fib(n - <span class="hljs-number">2</span>);
+}
+</code></pre>
+<h1>Cache - Überblick</h1>
+<h2>Cache - Überblick</h2>
+<p>= "a request to response map"</p>
+<h2>Cache Typen</h2>
+<p>Resourcen können von der aktuellen Domain oder auch von fremden Domains gecached werden.</p>
+<p>Unterscheidung von drei Arten:</p>
+<ul>
+<li>basic (aktuelle Domain)</li>
+<li>cors (andere Domain, CORS ist aktiviert)</li>
+<li>opaque (andere Domain, CORS nicht aktiviert) - Daten sind aus JavaScript nicht auslesbar</li>
+</ul>
+<p>Beispiel: siehe die <em>stock app</em> Beispiele in den Chrome Devtools</p>
+<h1>Service Worker Setup</h1>
+<h2>Service Worker Lebenszyklus</h2>
+<ul>
+<li>register</li>
+<li>install</li>
+<li>activate</li>
+<li>(unregister)</li>
+</ul>
+<h2>Einen Service Worker registrieren</h2>
+<p>Jedes Mal wenn eine Seite geladen wird, rufen wir <code>navigator.serviceWorker.register</code> mit der URL des Service Workers als Parameter auf. Wenn eine neue oder geänderte Service Worker Datei gefunden wird, wird diese <em>installiert</em>.</p>
+<h2>Einen Service Worker registrieren</h2>
+<pre><code class="hljs language-js"><span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">'load'</span>, () => {
+  <span class="hljs-comment">// registration can be deferred until</span>
+  <span class="hljs-comment">// completion of page load</span>
+  <span class="hljs-keyword">if</span> (navigator.serviceWorker) {
+    navigator.serviceWorker
+      .register(<span class="hljs-string">'/serviceworker.js'</span>)
+      .then(<span class="hljs-function"><span class="hljs-params">registration</span> =></span> {
+        <span class="hljs-comment">// is executed if there is a *new* sw file</span>
+        <span class="hljs-built_in">console</span>.log(
+          <span class="hljs-string">`SW registered for <span class="hljs-subst">${registration.scope}</span>`</span>
+        );
+      })
+      .catch(<span class="hljs-comment">/* reg failed */</span>);
+  }
+});
+</code></pre>
+<h2>Service Worker Scope</h2>
+<p>Üblicherweise behandelt ein Service Worker alle Anfragen, die auf dem Server in seinem "Ordner" liegen.</p>
+<pre><code class="hljs language-js">navigator.serviceWorker.register(<span class="hljs-string">'/css/serviceworker.js'</span>);
+</code></pre>
+<p>Der Service Worker behandelt Anfragen an <em> /css/default.css</em>, aber nicht an <em>/index.html</em>.</p>
+<p>Wir können einen Service Worker auch weiter einschränken:</p>
+<pre><code class="hljs language-js">navigator.serviceWorker.register(<span class="hljs-string">'/css/serviceworker.js'</span>, {
+  <span class="hljs-attr">scope</span>: <span class="hljs-string">'/css/xyz/
+})
+</span></code></pre>
+<h2>Service Worker Installation</h2>
+<p>Das <code>install</code> Event wird ausgelöst, wenn es eine neue Service Worker Datei gibt:</p>
+<ul>
+<li>beim ersten Besuch der Seite</li>
+<li>wenn sich die Service Worker Datei geändert hat</li>
+</ul>
+<p>Guter Zeitpunkt, um Resourcen für die spätere Verwendung herunterzuladen und dem Cache hinzuzufügen</p>
+<h2>Service Worker Installation</h2>
+<pre><code class="hljs language-js">self.addEventListener(<span class="hljs-string">'install'</span>, event => {
+  <span class="hljs-built_in">console</span>.log(event);
+});
+</code></pre>
+<h2>Service Worker Aktivierung</h2>
+<p>Wenn zuvor kein Service Worker vorhanden war, wird der Service Worker sofort nach der Installation aktiv</p>
+<p>Wenn zuvor ein anderer Service Worker vorhanden war, wird dieser nach einem "Neustart" der Anwendung aktiv (wenn alle entsprechenden Tabs geschlossen wurden)</p>
+<p>Event <code>activate</code>: gute Gelegenheit, um alte Caches zu bereinigen</p>
+<h2>Service Worker Aktivierung</h2>
+<pre><code class="hljs language-js">self.addEventListener(<span class="hljs-string">'activate'</span>, event => {
+  <span class="hljs-built_in">console</span>.log(event);
+});
+</code></pre>
+<h2>Service Worker Aktivierung</h2>
+<p>Wir können eine sofortige Aktivierung eines neuen Service Workers aus dem <code>install</code>-Event veranlassen:</p>
+<pre><code class="hljs language-js">self.addEventListener(<span class="hljs-string">'install'</span>, event => {
+  self.skipWaiting();
+});
+</code></pre>
+<h2>Service Worker Deinstallieren</h2>
+<p>Deinstallation aller Service Worker für diese Domain:</p>
+<pre><code class="hljs language-js">navigator.serviceWorker
+  .getRegistrations()
+  .then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">registrations</span>) </span>{
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> registration <span class="hljs-keyword">of</span> registrations) {
+      registration.unregister();
+    }
+  });
+</code></pre>
+<h1>Service Worker: Verwendung von fetch</h1>
+<h2>fetch - Beispiel</h2>
+<pre><code class="hljs language-js"><span class="hljs-comment">// this code can be executed in the</span>
+<span class="hljs-comment">// browser console for any website</span>
+<span class="hljs-keyword">const</span> url = <span class="hljs-string">'/'</span>;
+
+fetch(url)
+  .then(<span class="hljs-function"><span class="hljs-params">response</span> =></span> response.text())
+  .then(<span class="hljs-built_in">console</span>.log);
+</code></pre>
+<h2>Service Worker Events: Fetch</h2>
+<pre><code class="hljs language-js">self.addEventListener(<span class="hljs-string">'fetch'</span>, event => {
+  event.respondWith(
+    <span class="hljs-keyword">new</span> Response(<span class="hljs-string">'All pages look like this'</span>)
+  );
+});
+</code></pre>
+<h2>Service Worker Events: Fetch</h2>
+<p>Übung: wir erstellen eine kleine lokale Website mit Seiten wie <em>/home</em>, <em>/about</em>, ...</p>
+<h2>Service Worker Events: fetch</h2>
+<!--
+there are two $ signs in regexes in this code
+if they are at the very end of the string
+they will mess up the result
+-->
+<pre><code class="hljs language-js">self.addEventListener(<span class="hljs-string">'fetch'</span>, event => {
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">'/about/$ '</span>).test(event.request.url)) {
+    event.respondWith(<span class="hljs-keyword">new</span> Response(<span class="hljs-string">'About'</span>));
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">'/a$ '</span>).test(event.request.url)) {
+    event.respondWith(<span class="hljs-keyword">new</span> Response(<span class="hljs-string">'Home'</span>));
+  } <span class="hljs-keyword">else</span> {
+    event.respondWith(<span class="hljs-keyword">new</span> Response(<span class="hljs-string">'404'</span>));
+  }
+});
+</code></pre>
+<h2>Service Worker Events: fetch</h2>
+<p>Übung: Loggen aller Netzwerkanfragen, die Netzwerkanfragen dann mittels <code>fetch</code> beantworkten lassen</p>
+<h2>Service Worker Events: fetch</h2>
+<pre><code class="hljs language-js">self.addEventListener(<span class="hljs-string">'fetch'</span>, event => {
+  <span class="hljs-built_in">console</span>.log(event);
+  <span class="hljs-keyword">return</span> fetch(event.request);
+});
+</code></pre>
+<h1>Service Worker mit fetch und cache</h1>
+<h2>Service Worker mit fetch und cache</h2>
+<p>Wichtige verwandte Technologien:</p>
+<ul>
+<li>fetch (Netzwerkanfragen senden)</li>
+<li>cache (Resultate cachen)</li>
+</ul>
+<h2>Cache</h2>
+<p>= "a request to response map"</p>
+<h2>Auf Caches zugreifen</h2>
+<p>Durch die globale Variable <code>caches.open</code> oder <code>self.caches.open</code> im Service Worker</p>
+<p>Promise:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> myCache;
+caches.open(<span class="hljs-string">'test'</span>, mc => {
+  myCache = mc;
+});
+</code></pre>
+<h2>Methoden</h2>
+<p>Cache-Methoden:</p>
+<ul>
+<li><code>myCache.add(request)</code></li>
+<li><code>myCache.addAll(requests)</code></li>
+<li><code>myCache.put(request, response)</code></li>
+<li><code>myCache.delete(request)</code></li>
+<li><code>myCache.match(request)</code></li>
+<li><code>myCache.matchAll(requests)</code></li>
+</ul>
+<p>Die Variable <code>request</code> kann entweder ein String sein, oder ein <code>Request</code> objekt.</p>
+<h2>Cache - add(All)</h2>
+<p>Wir übergeben eine URL; die Resource wird automatisch angefragt und gespeichert</p>
+<pre><code class="hljs language-js">cache.add(<span class="hljs-string">'/main.js'</span>);
+
+cache.addAll([<span class="hljs-string">'/'</span>, <span class="hljs-string">'/index.html'</span>, <span class="hljs-string">'/main.js'</span>]);
+</code></pre>
+<h2>Cache - put</h2>
+<p>Kann verwendet werden, wenn wir schon über die Antwort verfügen</p>
+<pre><code class="hljs language-js">fetch(<span class="hljs-string">'myurl'</span>).then(<span class="hljs-function"><span class="hljs-params">response</span> =></span> {
+  <span class="hljs-built_in">console</span>.log(response.clone());
+  cache.put(<span class="hljs-string">'myurl'</span>, response.clone());
+  cache.put(<span class="hljs-string">'otherurl'</span>, response);
+});
+</code></pre>
+<h2>Cache - delete</h2>
+<pre><code class="hljs language-js">cache.delete(<span class="hljs-string">'myurl'</span>);
+</code></pre>
+<h2>Cache - match</h2>
+<p>Einen Eintrag aus dem Cache holen, der auf einen bestimmten Request passt</p>
+<pre><code class="hljs language-js"><span class="hljs-comment">// returns a response or undefined</span>
+<span class="hljs-keyword">const</span> content = cache.match(<span class="hljs-string">'myurl'</span>);
+</code></pre>
+<h2>Beispiel: cache only (kurz)</h2>
+<p>Eine Anwendung, die Resourcen bei der Installation cacht und sie dauerhaft aus dem Cache zur Verfügung stellt</p>
+<pre><code class="hljs language-js">self.addEventListener(<span class="hljs-string">'install'</span>, () => {
+  cache.addAll([<span class="hljs-string">'/'</span>, <span class="hljs-string">'/index.html'</span>, <span class="hljs-string">'/about'</span>])
+})
+
+self.addEventListener(<span class="hljs-string">'fetch'</span>, event => {
+  event.respondWith(
+    caches.match(event.request);
+  )
+})
+</code></pre>
+<h2>Beispiel: cache only (ganzer Code)</h2>
+<pre><code class="hljs language-js">self.addEventListener(<span class="hljs-string">'install'</span>, installEvent => {
+  <span class="hljs-comment">// wait for the cache to be populated;</span>
+  <span class="hljs-comment">// abort install on error</span>
+  installEvent.waitUntil(
+    caches.open(<span class="hljs-string">'app-shell-cache-v3'</span>).then(<span class="hljs-function"><span class="hljs-params">cache</span> =></span> {
+      <span class="hljs-keyword">return</span> cache.addAll([<span class="hljs-string">'/'</span>, <span class="hljs-string">'/index.html'</span>, <span class="hljs-string">'/about'</span>]);
+    })
+  );
+  <span class="hljs-comment">// optional - don't abort install on error</span>
+  caches.open(<span class="hljs-string">'app-shell-cache-v3'</span>).then(<span class="hljs-function"><span class="hljs-params">cache</span> =></span> {
+    cache.addAll[<span class="hljs-string">'/icon1.png'</span>];
+  });
+});
+</code></pre>
+<h2>Beispiel: cache only - waitUntil</h2>
+<p>Ein Aufruf von <code>waitUntil</code> kann verwendet werden, um anzuzeigen, ob die Installation erfolgreich war - dier Service Worker wird nur bei Erfolg aktiviert</p>
+<h2>Beispiel: den Cache aktualisieren</h2>
+<p>alte Einträge löschen:</p>
+<pre><code class="hljs language-js">self.addEventListener(<span class="hljs-string">'activate'</span>, activateEvent => {
+  activateEvent.waitUntil(
+    <span class="hljs-built_in">Promise</span>.all([
+      caches.delete(<span class="hljs-string">'app-shell-cache-v2'</span>),
+      caches.delete(<span class="hljs-string">'app-shell-cache-v1'</span>),
+    ])
+  );
+});
+</code></pre>
+<h2>Beispiel: Aus dem Cache laden - mit Netzwerk-Fallback</h2>
+<pre><code class="hljs language-js">self.addEventListener(<span class="hljs-string">'fetch'</span>, event => {
+  event.respondWith(
+    caches
+      .match(event.request)
+      .then(<span class="hljs-function"><span class="hljs-params">response</span> =></span> response || fetch(event.request))
+  );
+});
+</code></pre>
+<h2>Beispiel: Den Cache bei jedem Request aktualisieren</h2>
+<pre><code class="hljs language-js">self.addEventListener(<span class="hljs-string">'fetch'</span>, event => {
+  event.respondWith(
+    fetch(event.request).then(<span class="hljs-function"><span class="hljs-params">response</span> =></span> {
+      cache.put(event.request, response.clone());
+      <span class="hljs-keyword">return</span> response;
+    })
+  );
+});
+</code></pre>
+<h2>Beispiel: Network - Falling back to Cache - Falling back to default asset (e.g. user avatar)</h2>
+<h2>Übung: scripting the service worker</h2>
+<p><a href="https://developers.google.com/web/ilt/pwa/lab-scripting-the-service-worker">https://developers.google.com/web/ilt/pwa/lab-scripting-the-service-worker</a></p>
+<h1>The offline cookbook</h1>
+<p><a href="https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/">https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/</a></p>
+<h1>Datenspeicherung</h1>
+<h3>localStorage und indexedDB</h3>
+<h2>Überblick</h2>
+<ul>
+<li>localStorage: einfacher key-value-Store mit Textwerten</li>
+<li>indexedDB: "echte Datenbank"</li>
+</ul>
+<h1>localStorage</h1>
+<h2>localStorage</h2>
+<p><em>localStorage</em> ist ein einfacher key-value-Store im Browser; Sowohl <em>keys</em> als auch <em>values</em> sind strings</p>
+<p>Der Browser speichert Daten seperat für jede Domain</p>
+<h2>localStorage</h2>
+<p>wichtige Methoden:</p>
+<ul>
+<li><code>localStorage.setItem('name', 'John')</code></li>
+<li><code>localStorage.getItem('name')</code></li>
+<li><code>localStorage.removeItem('name')</code></li>
+</ul>
+<h2>localStorage</h2>
+<p>Speichern und Laden von Daten:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> todoString = <span class="hljs-built_in">JSON</span>.stringify(todos);
+localStorage.setItem(<span class="hljs-string">'todos'</span>, todoString);
+</code></pre>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> todoString = localStorage.getItem(<span class="hljs-string">'todos'</span>);
+todos = <span class="hljs-built_in">JSON</span>.parse(todoString);
+</code></pre>
+<h1>indexedDB</h1>
+<h2>indexedDB</h2>
+<p>Vollwertige Datenbank</p>
+<p>Vorteile gegenüber localStorage:</p>
+<ul>
+<li>non-blocking</li>
+<li>schneller (Abfrage mit Indizes)</li>
+<li>Aufteilung in "Tabellen" (stores)</li>
+<li>verschiedene Datentypen</li>
+</ul>
+<p>Nachteil: Komplexeres Interface</p>
+<h2>indexedDB Interfaces</h2>
+<ul>
+<li>idb</li>
+<li>dexie</li>
+<li>localForage</li>
+</ul>
+<h2>indexedDB promised (idb)</h2>
+<p>library, die es erlaubt, bei indexedDB mit Promises zu arbeiten</p>
+<p><a href="https://github.com/jakearchibald/idb">https://github.com/jakearchibald/idb</a></p>
+<p>Einbinden über CDN: <a href="https://cdn.jsdelivr.net/npm/idb@2.1.2/lib/idb.min.js">https://cdn.jsdelivr.net/npm/idb@2.1.2/lib/idb.min.js</a></p>
+<h2>idb Grundlagen</h2>
+<h2>idb Grundlagen: open &#x26; upgrade</h2>
+<p>Erstellen / Öffnen einer DB; gibt ein Promise zurück</p>
+<pre><code class="hljs language-js">idb.open(name, version, upgradeCallback);
+</code></pre>
+<h2>idb Grundlagen: open &#x26; upgrade</h2>
+<p>Beispiel</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> upgradeCallback = <span class="hljs-function"><span class="hljs-params">upgradeDb</span> =></span> {
+  <span class="hljs-keyword">if</span> (!upgradeDb.objectStoreNames.contains(<span class="hljs-string">'todos'</span>)) {
+    upgradeDb.createObjectStore(<span class="hljs-string">'todos'</span>, {
+      <span class="hljs-attr">autoIncrement</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">keyPath</span>: <span class="hljs-string">'key'</span>,
+    });
+  }
+};
+
+<span class="hljs-keyword">const</span> dbPromise = idb.open(<span class="hljs-string">'todo-db'</span>, <span class="hljs-number">1</span>, upgradeCallback);
+</code></pre>
+<h2>idb Grundlagen: open &#x26; upgrade</h2>
+<p>Letztes Argument (<code>upgradeCallback</code>) kann zur Migration auf ein neues Datenbankschema genutzt werden; z.B. können darin Stores erstellt, gelöscht oder abgeändert werden</p>
+<p>Callbackfunktion wird immer aufgerufen, wenn sich die Versionsnummer der Datenbank erhöht</p>
+<h2>Keys</h2>
+<p>Jedes Element im object store hat einen einzigartigen key (~id);</p>
+<p>Der key kann ein Eintrag im Objekt sein oder ein unabhängiger Wert</p>
+<h2>Keys: numerische id</h2>
+<pre><code class="hljs language-js">upgradeDb.createObjectStore(<span class="hljs-string">'todos'</span>, {
+  <span class="hljs-attr">autoIncrement</span>: <span class="hljs-literal">true</span>,
+});
+</code></pre>
+<h2>Keys: numerische id, die im Objekt abgespeichert wird</h2>
+<pre><code class="hljs language-js">upgradeDb.createObjectStore(<span class="hljs-string">'todos'</span>, {
+  <span class="hljs-attr">autoIncrement</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">keyPath</span>: <span class="hljs-string">'key'</span>,
+});
+</code></pre>
+<h2>Keys: Eintrag im Objekt</h2>
+<p>Verwendung eines Eintrags im Objekt als Key</p>
+<pre><code class="hljs language-js">upgradeDb.createObjectStore(<span class="hljs-string">'users'</span>, {
+  <span class="hljs-attr">keyPath</span>: <span class="hljs-string">'email'</span>,
+});
+</code></pre>
+<h2>Transaktionen</h2>
+<p>Transaktion = Gruppe von Operationen auf der Datenbank (auslesen / hinzufügen / überschreiben ...)</p>
+<h2>Transaktionen - Schritte</h2>
+<ol>
+<li>Datenbankobjekt holen (idb.open)</li>
+<li>Eine Transaktion auf einem oder mehreren Stores beginnen (zwei Modi: 'readonly' (Standard) oder 'readwrite')</li>
+<li>Object Store öffnen</li>
+<li>Operation auf Object Store ausführen</li>
+</ol>
+<h2>Datenbankobjekt holen</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> db;
+
+idb.open(<span class="hljs-string">'todo-db'</span>, <span class="hljs-number">1</span>).then(<span class="hljs-function"><span class="hljs-params">openedDb</span> =></span> {
+  db = openedDb;
+});
+</code></pre>
+<h2>Daten hinzufügen (add)</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> transaction = db.transaction([<span class="hljs-string">'todos'</span>], <span class="hljs-string">'readwrite'</span>);
+<span class="hljs-keyword">const</span> todoStore = transaction.objectStore(<span class="hljs-string">'todos'</span>);
+todoStore.add({ <span class="hljs-attr">text</span>: <span class="hljs-string">'groceries'</span>, <span class="hljs-attr">done</span>: <span class="hljs-literal">false</span> });
+</code></pre>
+<h2>Daten überschreiben (put)</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> transaction = db.transaction([<span class="hljs-string">'todos'</span>], <span class="hljs-string">'readwrite'</span>);
+<span class="hljs-keyword">const</span> todoStore = transaction.objectStore(<span class="hljs-string">'todos'</span>);
+<span class="hljs-comment">// ersetze den Eintrag mit index 1</span>
+todoStore.put({ <span class="hljs-attr">text</span>: <span class="hljs-string">'groceris'</span>, <span class="hljs-attr">done</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">key</span>: <span class="hljs-number">1</span> });
+</code></pre>
+<h2>Daten löschen</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> transaction = db.transaction([<span class="hljs-string">'todos'</span>], <span class="hljs-string">'readwrite'</span>);
+<span class="hljs-keyword">const</span> todoStore = transaction.objectStore(<span class="hljs-string">'todos'</span>);
+todoStore.delete(<span class="hljs-number">1</span>);
+</code></pre>
+<h2>Daten auslesen (getAll)</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> transaction = db.transaction([<span class="hljs-string">'artists'</span>], <span class="hljs-string">'readonly'</span>);
+<span class="hljs-keyword">const</span> artistsStore = transaction.objectStore(<span class="hljs-string">'artists'</span>);
+artistsStore.getAll().then(<span class="hljs-built_in">console</span>.log);
+</code></pre>
+<h2>Daten auslesen (get)</h2>
+<p>Auslesen anhand des keys:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> transaction = db.transaction([<span class="hljs-string">'artists'</span>], <span class="hljs-string">'readonly'</span>);
+<span class="hljs-keyword">const</span> artistsStore = transaction.objectStore(<span class="hljs-string">'artists'</span>);
+artistsStore.get(<span class="hljs-number">1</span>).then(<span class="hljs-built_in">console</span>.log);
+</code></pre>
+<h2>Daten auslesen - via indizes</h2>
+<p>Die Einträge werden in der Datenbank im wesentlichen nach dem key sortiert abgelegt.</p>
+<p>Dadurch kann von der Datenbank schnell nach dem key gesucht werden.</p>
+<p>Beispiel: In einem Telefonbuch kann man schnell nach einem Nachnamen suchen, jedoch nicht nach einem Vornamen oder einer Telefonnummer</p>
+<h2>Indizes</h2>
+<p>Um schnell nach etwas anderem als dem primary key zu suchen: zusätzlicher Index (aber: größerer Datenverbrauch)</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> store = upgradeDb.createObjectStore(<span class="hljs-string">'contacts'</span>);
+store.createIndex(<span class="hljs-string">'email'</span>, <span class="hljs-string">'email'</span>, { <span class="hljs-attr">unique</span>: <span class="hljs-literal">true</span> });
+store.createIndex(<span class="hljs-string">'firstName'</span>, <span class="hljs-string">'firstName'</span>);
+store.createIndex(<span class="hljs-string">'name'</span>, [<span class="hljs-string">'lastName'</span>, <span class="hljs-string">'firstName'</span>]);
+</code></pre>
+<h2>Indizes</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> nameIndex = objectStore.index(<span class="hljs-string">'name'</span>);
+nameIndex.get([<span class="hljs-string">'Andy'</span>, <span class="hljs-string">'Jones'</span>]).then(...)
+</code></pre>
+<h2>Übungen</h2>
+<ul>
+<li>Slides: <a href="https://developers.google.com/web/ilt/pwa/working-with-indexeddb-slides">https://developers.google.com/web/ilt/pwa/working-with-indexeddb-slides</a></li>
+<li>Lab: <a href="https://developers.google.com/web/ilt/pwa/lab-indexeddb">https://developers.google.com/web/ilt/pwa/lab-indexeddb</a></li>
+</ul>
+<h1>Notifications</h1>
+<h2>Notifications</h2>
+<p>Möglichkeit, für den Benutzer Benachrichtigungen außerhalb der Anwendung darzustellen (Betriebssystems-Benachrichtigungen)</p>
+<h2>Erlaubnis einholen</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> notificationsAllowed;
+
+Notification.requestPermission().then(<span class="hljs-function"><span class="hljs-params">result</span> =></span> {
+  <span class="hljs-keyword">if</span> (result === <span class="hljs-string">'granted'</span>) {
+    notificationsAllowed = <span class="hljs-literal">true</span>;
+  }
+});
+</code></pre>
+<p>Kann zu jeder Seite in der Browser-Konsole ausprobiert werden</p>
+<h2>Nachricht darstellen</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">if</span> (Notification.permission === <span class="hljs-string">'granted'</span>) {
+  <span class="hljs-keyword">new</span> Notification(<span class="hljs-string">'Hello world'</span>);
+}
+</code></pre>
+<h2>Nachricht-Optionen</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">new</span> Notification(<span class="hljs-string">'cloudy'</span>, {
+  <span class="hljs-attr">body</span>: <span class="hljs-string">'The weather in Vienna is cloudy'</span>,
+  <span class="hljs-attr">icon</span>: <span class="hljs-string">'static/images/cloudy.png'</span>,
+  <span class="hljs-attr">vibrate</span>: [<span class="hljs-number">100</span>, <span class="hljs-number">50</span>, <span class="hljs-number">100</span>],
+});
+</code></pre>
+<h2>Resourcen</h2>
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Notifications_API/Using_the_Notifications_API">MDN: Using the Notifications API</a></li>
+</ul>
+<h1>Benachrichtigungen aus dem Service Worker</h1>
+<h2>Benachrichtigungen aus dem Service Worker</h2>
+<p>Die bisherigen Benachrichtigungen stammten aus einem bestimmten Browser-Fenster. Benachrichtigungen können auch aus dem Service Worker dargestellt werden. Diese Benachrichtigungen bieten mehr Möglichkeiten, insbesondere:</p>
+<ul>
+<li>Mit den Benachrichtigungen kann über Buttons interagiert werden</li>
+<li>Benachrichtigungen können angezeigt werden, wenn die Website nicht geöffnet ist</li>
+</ul>
+<h2>Zugriff auf die Service Worker Registrierung:</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> serviceWorkerRegistration = <span class="hljs-literal">null</span>;
+
+navigator.serviceWorker
+  .getRegistration()
+  .then(<span class="hljs-function"><span class="hljs-params">registration</span> =></span> {
+    serviceWorkerRegistration = registration;
+  });
+</code></pre>
+<h2>Benachrichtigungen aus dem Service Worker</h2>
+<pre><code class="hljs language-js">serviceWorkerRegistration.showNotification(<span class="hljs-string">'cloudy'</span>, {
+  <span class="hljs-attr">body</span>: <span class="hljs-string">'The weather in Vienna is cloudy'</span>,
+  <span class="hljs-attr">icon</span>: <span class="hljs-string">'static/images/cloudy.png'</span>,
+  <span class="hljs-attr">vibrate</span>: [<span class="hljs-number">100</span>, <span class="hljs-number">50</span>, <span class="hljs-number">100</span>],
+  <span class="hljs-comment">// new option available:</span>
+  <span class="hljs-attr">actions</span>: [
+    { <span class="hljs-attr">action</span>: <span class="hljs-string">'close'</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'Close'</span> },
+    { <span class="hljs-attr">action</span>: <span class="hljs-string">'details'</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'Details'</span> },
+  ],
+});
+</code></pre>
+<h2>Auf Benachrichtigungsaktionen reagieren</h2>
+<p>Zwei Events im ServiceWorker:</p>
+<ul>
+<li><code>notificationclick</code></li>
+<li><code>notificationclose</code></li>
+</ul>
+<!--
+evtl in Firefox testen, da Probleme mit Chrome
+-->
+<!--
+# Kommunikation zurück zum Browser-Fenster
+
+eher komplex, da es verschiedene Fenster zu einem Service-Worker geben kann
+-->
+<h2>Übungen (Labs)</h2>
+<p><a href="https://developers.google.com/web/ilt/pwa/lab-integrating-web-push">https://developers.google.com/web/ilt/pwa/lab-integrating-web-push</a></p>
+<p>1-3</p>
+<p>Entfernen der service-worker in FF: about:debugging -> worker</p>
+<!--
+Dauer: ca 50 min
+-->
+<h1>Push-Benachrichtigungen</h1>
+<h2>Push-Benachrichtigungen</h2>
+<ul>
+<li>Möglichkeit, Benachrichtigungen von einem Server zu unserer PWA senden</li>
+<li>funktioniert auch, wenn die Anwendung nicht läuft (Am Desktop muss allerdings zumindest eine Instanz des Browsers geöffnet sein)</li>
+</ul>
+<h2>Push-Benachrichtigungen - Grundlagen</h2>
+<svg id="push-message-svg" version="1.1" width="1000" height="500" viewBox="-500 0 1000 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrow-end" refX="0.0" refY="0.0" orient="auto" style="overflow: visible;">
+      <path transform="rotate(180)" d="M 8.7 4 L -2.2 0 L 8.7 -4 C 7 -1.6 7 1.6 8.7 4 z" class="arrowhead" id="path4877"></path>
+    </marker>
+  </defs>
+  <style>
+    #push-message-svg {
+      font-family: sans-serif;
+    }
+    #push-message-svg path.arrow {
+      stroke: #000;
+      stroke-width: 2;
+      marker-end: url(#arrow-end);
+    }
+    #push-message-svg path.arrowhead {
+      fill: #000;
+    }
+    #push-message-svg text.label {
+      font-size: 32px;
+      font-family: sans-serif;
+      text-anchor: middle;
+    }
+    # push-message-svg text.label>tspan {
+      text-anchor: middle;
+    }
+    # push-message-svg text.arrowtext {
+    font-size: 24px;
+  </style>
+  <text class="label" transform="translate(0 50)">
+    <tspan x="0">
+      push
+    </tspan>
+    <tspan x="0" dy="1.4em">
+      service
+    </tspan>
+  </text>
+  <text class="label" transform="translate(-300 430)">
+    browser
+  </text>
+  <text class="label" transform="translate(300 430)">
+    application server
+  </text>
+  <path class="arrow" d="M 300 400 L 20 120" id="path1"></path>
+  <text class="arrowtext">
+    <textPath href="#path1" side="right" startOffset="15%">
+      <tspan y="-8">message &#x26; authentication</tspan>
+    </textPath>
+  </text>
+  <path id="path2" class="arrow" d="M -20 120 L -300 400"></path>
+  <text class="arrowtext">
+    <textPath href="#path2" side="right" startOffset="40%">
+      <tspan y="-8">message</tspan>
+    </textPath>
+  </text>
+</svg>
+<h2>Push-Benachrichtigungen - Grundlagen</h2>
+<p>Push-Benachrichtigungen werden über den Browserhersteller (Google, Mozilla, ...) gesendet. Dies geschieht über URLs wie diese:</p>
+<ul>
+<li><code>https://android.googleapis.com/gcm/send/IDENTIFIER</code></li>
+<li><code>https://updates.push.services.mozilla.com/wpush/v1/IDENTIFIER</code></li>
+</ul>
+<h2>Push-Benachrichtigungen - Ablauf</h2>
+<svg id="push-message-auth-svg" version="1.1" width="1000" height="500" viewBox="-500 0 1000 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrow-end-1" refX="0.0" refY="0.0" orient="auto" style="overflow: visible;">
+      <path transform="rotate(180)" d="M 8.7 4 L -2.2 0 L 8.7 -4 C 7 -1.6 7 1.6 8.7 4 z" class="arrowhead" id="path4877"></path>
+    </marker>
+  </defs>
+  <style>
+    #push-message-auth-svg {
+      font-family: sans-serif;
+    }
+    #push-message-auth-svg path.arrow {
+      stroke: #000;
+      stroke-width: 2;
+      marker-end: url(#arrow-end-1);
+    }
+    #push-message-auth-svg path.arrowhead {
+      fill: #000;
+    }
+    #push-message-auth-svg text.label {
+      font-size: 32px;
+      font-family: sans-serif;
+      text-anchor: middle;
+    }
+    #push-message-auth-svg text.label>tspan {
+      text-anchor: middle;
+    }
+    #push-message-auth-svg text.arrowtext {
+    font-size: 24px;
+  </style>
+  <text class="label" transform="translate(0 50)">
+    <tspan x="0">
+      push
+    </tspan>
+    <tspan x="0" dy="1.4em">
+      service
+    </tspan>
+  </text>
+  <text class="label" transform="translate(-300 430)">
+    browser
+  </text>
+  <text class="label" transform="translate(300 430)">
+    application server
+  </text>
+
+  <path id="path1-2" class="arrow" d="M -340 400 L -40 120"></path>
+  <text class="arrowtext">
+    <textPath href="#path1-2" side="left" startOffset="15%">
+      <tspan y="-8">(1) auth request</tspan>
+    </textPath>
+  </text>
+
+  <path id="path2-2" class="arrow" d="M 0 120 L -300 400 "></path>
+  <text class="arrowtext">
+    <textPath href="#path2-2" side="right" startOffset="50%">
+      <tspan y="-8">(2) auth data</tspan>
+    </textPath>
+  </text>
+
+  <path id="path3-2" class="arrow" d="M -220 420 L 160 420"></path>
+  <text class="arrowtext">
+    <textPath href="#path3-2" side="left" startOffset="40%">
+      <tspan y="-8">(3) auth data</tspan>
+    </textPath>
+  </text>
+</svg>
+<h2>Push-Benachrichtigungen - Ablauf</h2>
+<ul>
+<li>Benutzer besucht eine Web App, aktiviert Benachrichtigungen</li>
+<li>Web App kommuniziert mit dem Browserhersteller; der Browserhersteller generiert eine eindeutige URL und einen kryptographischen Schlüssel und übergibt diese an den Browser<br />
+Die URL könnte wie folgt aussehen:<ul>
+<li><code>https://android.googleapis.com/gcm/send/IDENTIFIER</code></li>
+<li><code>https://updates.push.services.mozilla.com/wpush/v1/IDENTIFIER</code></li>
+</ul></li>
+<li>Web App teilt diese URL mit dem Backend</li>
+<li>Aus dem Backend können wir mit Hilfe dieser Daten Nachrichten an den Service Worker schicken</li>
+</ul>
+<h2>Push-Benachrichtigungen</h2>
+<p>Aktivierung im Browser:</p>
+<pre><code class="hljs language-js">serviceWorkerRegistration.pushManager
+  .subscribe({
+    <span class="hljs-attr">userVisibleOnly</span>: <span class="hljs-literal">true</span>,
+  })
+  .then(<span class="hljs-function"><span class="hljs-params">subscription</span> =></span> {
+    <span class="hljs-built_in">console</span>.log(subscription.endpoint);
+    <span class="hljs-comment">// could be: https://android.googleapis.com/gcm/send/..</span>
+  });
+</code></pre>
+<h2>Push-Benachrichtigunen</h2>
+<p>Aktuelle Subscription auslesen:</p>
+<pre><code class="hljs language-js">serviceWorkerRegistration.pushManager
+  .getSubscription()
+  .then(<span class="hljs-function"><span class="hljs-params">subsription</span> =></span> {
+    <span class="hljs-keyword">if</span> (subscription !== <span class="hljs-literal">undefined</span>) {
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">JSON</span>.stringify(subscription.toJSON()));
+      <span class="hljs-comment">// send the subscription object to our server</span>
+    }
+  });
+</code></pre>
+<h2>Push-Benachrichtigungen - Das Subscription-Objekt</h2>
+<p>Sobald wir diese Daten am Server haben, können wir Benachrichtigungen an den Client senden</p>
+<pre><code class="hljs language-json">{
+  <span class="hljs-attr">"endpoint"</span>: <span class="hljs-string">"https://android.googleapis.com/gcm/send/f2L..."</span>,
+  <span class="hljs-attr">"keys"</span>: {
+    <span class="hljs-attr">"auth"</span>: <span class="hljs-string">"5I2BuN..."</span>,
+    <span class="hljs-attr">"p256dh"</span>: <span class="hljs-string">"BLc45n..."</span>
+  }
+}
+</code></pre>
+<h2>Push-Benachrichtigungen - serverseitig</h2>
+<p>in node.js:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> webPush = <span class="hljs-built_in">require</span>(<span class="hljs-string">'web-push'</span>);
+
+<span class="hljs-keyword">const</span> subscripton = {
+  <span class="hljs-attr">endpoint</span>: <span class="hljs-string">'...'</span>,
+  <span class="hljs-attr">keys</span>: { <span class="hljs-attr">auth</span>: <span class="hljs-string">'...'</span>, <span class="hljs-attr">p256dh</span>: <span class="hljs-string">'...'</span> },
+};
+
+webPush.sendNotification(subscription, <span class="hljs-string">'Hello world!'</span>);
+</code></pre>
+<h2>Push-Benachrichtigungen in Chrome</h2>
+<p>In Chrome werden Push-Benachrichtigungen via <em>Firebase Cloud Messaging</em> (früher: <em>Google Cloud Messaging</em>) gesendet</p>
+<p>Für die Entwicklung benötigen wir einen Firebase Account und API key</p>
+<pre><code class="hljs language-js">webPush.sendNotification(subscription, <span class="hljs-string">'Hello world!'</span>, {
+  <span class="hljs-attr">gcmAPIKey</span>: <span class="hljs-string">'....'</span>,
+});
+</code></pre>
+<h2>Push-Nachrichten ohne Benachrichtigunen</h2>
+<p>Eine Push-Nachricht muss nicht unbedingt zu einer Benachrichtigung für den Benutzer führen</p>
+<p>In Chrome <em>muss</em> aktuell das Empfangen einer Push-Nachricht zu einer Benachrichtigung führen; in Firefox ist die Anzahl der empfangenen Push-Nachrichten ohne Benachrichtigung beschränkt</p>
+<h2>Push-Benachrichtigungen: Lab</h2>
+<p><a href="https://developers.google.com/web/ilt/pwa/lab-integrating-web-push">https://developers.google.com/web/ilt/pwa/lab-integrating-web-push</a></p>
+<!--
+duration: ca 50 min
+-->
+<h1>App Stores</h1>
+<h2>App Stores</h2>
+<p>Publishing PWAs in App Stores</p>
+<h2>PWAs in the Google Play Store</h2>
+<p>TWA = Trusted Web Activity = Möglichkeit, eine PWA im Play Store zu veröffentlichen</p>
+<p><a href="https://developers.google.com/web/updates/2019/02/using-twa">https://developers.google.com/web/updates/2019/02/using-twa</a></p>
+<p><a href="https://www.youtube.com/watch?v=7JDFjeMvxos">https://www.youtube.com/watch?v=7JDFjeMvxos</a></p>
+<p><a href="https://www.youtube.com/watch?v=6lHBw3F4cWs">https://www.youtube.com/watch?v=6lHBw3F4cWs</a></p>
+<h2>PWAs im Microsoft Store</h2>
+<p>siehe <a href="https://www.pwabuilder.com/">https://www.pwabuilder.com/</a></p>
+<h2>PWAs in anderen Stores</h2>
+<p>PWAs (bzw HTML-Anwendungen im Allgemeinen) können für veschiedene Stores veröffentlicht werden, selbst wenn diese keine direkte Unterstützung für PWAs bieten:</p>
+<p><a href="https://www.pwabuilder.com/">https://www.pwabuilder.com/</a></p>
+<h1>Resourcen</h1>
+<p><a href="https://developers.google.com/web/ilt/pwa/">https://developers.google.com/web/ilt/pwa/</a></p>

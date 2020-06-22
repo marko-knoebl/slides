@@ -1,0 +1,487 @@
+<h1>Authentifizierung mit node.js</h1>
+<h2>Themen</h2>
+<ul>
+<li>Logins, Passwörter und Hashes</li>
+<li>Public-Key-Kryptographie</li>
+<li>Sessions und Tokens</li>
+<li>Authorisierung</li>
+</ul>
+<h1>Logins, Passwörter und Hashes</h1>
+<h2>Logins, Passwörter und Hashes</h2>
+<p>Facebook kennt dein Facebook-Passwort <em>nicht</em>!</p>
+<h2>Logins, Passwörter und Hashes</h2>
+<p>Eine Website sollte nie direkt Passwörter abspeichern</p>
+<p>Stattdessen: Eine Variante des Passworts speichern, die <em>hashed</em> und <em>salted</em> ist</p>
+<h2>Logins, Passwörter und Hashes</h2>
+<p>Daten in Klartext:</p>
+<pre><code class="hljs language-asciidoc"><span class="hljs-section">name    | password
+--------+--------------------</span>
+Alice   | 123456
+Bob     | 123456
+Charlie | abc123
+Dave    | correcthorsebattery
+</code></pre>
+<h2>Logins, Passwörter und Hashes</h2>
+<p>Daten mit Passwort-Hashes:</p>
+<pre><code class="hljs language-asciidoc"><span class="hljs-section">name    | password hash
+--------+---------------------------------</span>
+Alice   | e10adc3949ba59abbe56e057f20f883e
+Bob     | e10adc3949ba59abbe56e057f20f883e
+Charlie | e99a18c428cb38d5f260853678922e03
+Dave    | 3c077829151f03a4101bf36510d551b1
+</code></pre>
+<h2>Logins, Passwörter und Hashes</h2>
+<p>Daten mit Hashes und Salts</p>
+<pre><code class="hljs language-asciidoc"><span class="hljs-section">name    | salt     | hash
+--------+----------+---------------------------------</span>
+Alice   | BzrYZGvv | c17dff0de6bbdfd0c8e7c2f35f2f74b0
+Bob     | w6hxMeFz | 107b7047ae12bd19ca64f34b49fa1c98
+Charlie | uOqA9bpX | c087747abdda0dc67ae9f31871692453
+Dave    | nf7ExQnd | cd6bc62d87ad35d6ea4cbe83e89536f7
+</code></pre>
+<p>Für Alice werden der <em>Salt</em> ("BzrYZGvv") und der Hash von "123456-BzrYZGvv" gespeichert</p>
+<h2>Algorithmen</h2>
+<p>Sortiert von <em>am sichersten</em> zu <em>nicht sicher</em>:</p>
+<ul>
+<li>Argon2</li>
+<li>scrypt</li>
+<li>bcrypt</li>
+<li>PBKDF2</li>
+<li>MD5</li>
+</ul>
+<p>MD5 ist <em>nicht sicher</em>, wird aber der Einfachheit halber in diesen Beispielen verwendet</p>
+<h2>Passwort-Hashes</h2>
+<p>Hash = Abgeleiteter Wert, der anstatt eines Passworts gespeichert werden kann</p>
+<p>Beispiele für MD5-Hashes (unsicher) in Hex-Notation:</p>
+<ul>
+<li><code>123456</code> → <code>e10adc3949ba59abbe56e057f20f883e</code></li>
+<li><code>abc123</code> → <code>e99a18c428cb38d5f260853678922e03</code></li>
+</ul>
+<h2>Passwort-Hashes</h2>
+<p>Registrierung von Benutzern:</p>
+<p>Benutzer sendet Passwort (z.B. <code>123456</code>), Server speichert den Passwort-Hash (z.B. <code>e10adc3949ba59abbe56e057f20f883e</code>)</p>
+<p>Login von Benutzern:</p>
+<p>Benutzer sendet Passwort, Server berechnet dessen Hash und vergleicht diesen zum gespeicherten Passwort-Hash</p>
+<h2>Salts</h2>
+<p>Zusätzliche Sicherheit: Passwörter werden nicht direkt gehashed, sondern zuvor mit zusätzlichen Zufallsdaten ergänzt</p>
+<p>Würden Passwörter ohne Salt gehashed werden, wäre es z.B. einfach, Hashes von viel verwendeten oder einfachen Passwörtern zu erkennen</p>
+<h2>Beispielhafter Prozess</h2>
+<p>basierend auf MD5 (unsicher):</p>
+<p>Account-Erstellung:</p>
+<ul>
+<li>Registrierungs-Request mit Daten: Benutzername <code>alice</code>, Passwort <code>123456</code></li>
+<li>Passwort mit zufälligem Suffix (Salt): <code>123456-BzrYZGvv</code></li>
+<li>Hash dieses Strings: <code>c17dff0de6bbdfd0c8e7c2f35f2f74b0</code></li>
+<li>Neuer Datenbankeintrag mit drei Feldern:<ul>
+<li><code>alice</code></li>
+<li><code>BzrYZGvv</code></li>
+<li><code>c17dff0de6bbdfd0c8e7c2f35f2f74b0</code></li>
+</ul></li>
+</ul>
+<h2>Beispielhafter Prozess</h2>
+<p>basierend auf MD5 (unsicher):</p>
+<p>Login-Versuch (nicht erfolgreich):</p>
+<ul>
+<li>Login-Request: Benutzername <code>alice</code>, Passwort <code>111111</code></li>
+<li>Lesen des Salts von <code>alice</code> aus der Datenbank: <code>BzrYZGvv</code></li>
+<li>Passwort-String mit Salt: <code>111111-BzrYZGvv</code></li>
+<li>Hash dieses Strings: <code>c42f4b80513e7aee0ff1c5b7ebe339e0</code></li>
+<li>Vergleich mit dem gespeicherten Hash (<code>c17dff0de6bbdfd0c8e7c2f35f2f74b0</code>)</li>
+<li>Hashes passen nicht - Loginversuch abgelehnt</li>
+</ul>
+<h1>Logins, Passwörter und Hashes mit node.js</h1>
+<h2>Logins, Passwörter und Hashes mit node.js</h2>
+<p>Node-Pakete für Hashing-Algorithmen:</p>
+<ul>
+<li>via Argon2:<ul>
+<li><code>argon2</code> (schnelle, native Implementierung)</li>
+<li><code>argon2-wasm-pro</code> (kompiliert zu WebAssembly)</li>
+</ul></li>
+<li>via scrypt:<ul>
+<li><code>scrypt</code> (schnelle, native Implementierung)</li>
+<li><code>scrypt-js</code> (reines JavaScript)</li>
+</ul></li>
+</ul>
+<h2>Beispiel</h2>
+<p>Implementierung mit <code>argon2-wasm-pro</code> und <code>mingodb</code> (reines JavaScript)</p>
+<p>Pakete für echte Zwecke: <code>argon2</code> und <code>mongodb</code></p>
+<h2>Imports und Setup</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
+<span class="hljs-keyword">const</span> argon2 = <span class="hljs-built_in">require</span>(<span class="hljs-string">'argon2-wasm-pro'</span>);
+<span class="hljs-keyword">const</span> crypto = <span class="hljs-built_in">require</span>(<span class="hljs-string">'crypto'</span>);
+<span class="hljs-keyword">const</span> mingodb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@karuga/mingodb'</span>);
+
+<span class="hljs-keyword">const</span> db = mingodb(<span class="hljs-string">'data.json'</span>); <span class="hljs-comment">// simple db</span>
+
+<span class="hljs-keyword">const</span> app = express();
+app.use(express.json());
+app.get(<span class="hljs-string">'/'</span>, (req, res) => {
+  res.end(
+    <span class="hljs-string">'welcome to the auth service\n\n'</span> +
+      <span class="hljs-string">'resources:\n/register\n/login'</span>
+  );
+});
+</code></pre>
+<h2>Registrierung (express)</h2>
+<pre><code class="hljs language-js">app.post(<span class="hljs-string">'/register'</span>, <span class="hljs-keyword">async</span> (req, res) => {
+  <span class="hljs-keyword">const</span> username = req.body.username;
+  <span class="hljs-keyword">const</span> password = req.body.password;
+  <span class="hljs-keyword">const</span> user = db.users.findOne({ <span class="hljs-attr">username</span>: username });
+  <span class="hljs-keyword">if</span> (user !== <span class="hljs-literal">undefined</span>) {
+    <span class="hljs-keyword">return</span> res.json({
+      <span class="hljs-attr">status</span>: <span class="hljs-string">'error'</span>,
+      <span class="hljs-attr">message</span>: <span class="hljs-string">'user exists'</span>,
+    });
+  }
+  <span class="hljs-keyword">const</span> hash = <span class="hljs-keyword">await</span> argon2.hash({
+    <span class="hljs-attr">pass</span>: password,
+    <span class="hljs-attr">salt</span>: crypto.randomBytes(<span class="hljs-number">16</span>),
+  });
+  <span class="hljs-keyword">const</span> data = { <span class="hljs-attr">username</span>: username, <span class="hljs-attr">hash</span>: hash.encoded };
+  db.users.insertOne(data);
+  res.json({ <span class="hljs-attr">status</span>: <span class="hljs-string">'success'</span> });
+});
+</code></pre>
+<h2>Registrierung (express)</h2>
+<p>Verwendung von <code>/register</code> aus der Browserkonsole:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> res = <span class="hljs-keyword">await</span> fetch(<span class="hljs-string">'/register'</span>, {
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'post'</span>,
+  <span class="hljs-attr">body</span>: <span class="hljs-built_in">JSON</span>.stringify({
+    <span class="hljs-attr">username</span>: <span class="hljs-string">'alice'</span>,
+    <span class="hljs-attr">password</span>: <span class="hljs-string">'ecila'</span>,
+  }),
+  <span class="hljs-attr">headers</span>: { <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span> },
+});
+<span class="hljs-keyword">let</span> data = <span class="hljs-keyword">await</span> res.json();
+<span class="hljs-built_in">console</span>.log(data);
+</code></pre>
+<h2>Login (express)</h2>
+<pre><code class="hljs language-js">app.post(<span class="hljs-string">'/login'</span>, <span class="hljs-keyword">async</span> (req, res) => {
+  <span class="hljs-keyword">const</span> verified = <span class="hljs-keyword">await</span> verifyCredentials(
+    req.body.username,
+    req.body.password
+  );
+  <span class="hljs-keyword">if</span> (!verified) {
+    <span class="hljs-keyword">return</span> res.json({ <span class="hljs-attr">status</span>: <span class="hljs-string">'error'</span> });
+  }
+  res.json({ <span class="hljs-attr">status</span>: <span class="hljs-string">'success'</span> });
+});
+</code></pre>
+<h2>Login (express)</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> verifyCredentials = <span class="hljs-keyword">async</span> (username, password) => {
+  <span class="hljs-keyword">const</span> user = db.users.findOne({ <span class="hljs-attr">username</span>: username });
+  <span class="hljs-keyword">if</span> (user === <span class="hljs-literal">undefined</span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>; <span class="hljs-comment">// user does not exist</span>
+  }
+  <span class="hljs-keyword">try</span> {
+    <span class="hljs-keyword">await</span> argon2.verify({
+      <span class="hljs-attr">pass</span>: password,
+      <span class="hljs-attr">encoded</span>: user.hash,
+    });
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+  } <span class="hljs-keyword">catch</span> {
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>; <span class="hljs-comment">// wrong password</span>
+  }
+};
+</code></pre>
+<h2>Login (express)</h2>
+<p>Verwendung von <code>/login</code> aus der Browserkonsole:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> res = <span class="hljs-keyword">await</span> fetch(<span class="hljs-string">'/login'</span>, {
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'post'</span>,
+  <span class="hljs-attr">body</span>: <span class="hljs-built_in">JSON</span>.stringify({
+    <span class="hljs-attr">username</span>: <span class="hljs-string">'alice'</span>,
+    <span class="hljs-attr">password</span>: <span class="hljs-string">'ecila'</span>,
+  }),
+  <span class="hljs-attr">headers</span>: { <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span> },
+});
+<span class="hljs-keyword">let</span> data = <span class="hljs-keyword">await</span> res.json();
+<span class="hljs-built_in">console</span>.log(data);
+</code></pre>
+<h1>Public-Key-Kryptographie</h1>
+<h2>Public-Key-Kryptographie</h2>
+<p>Anwendungsfälle:</p>
+<ul>
+<li>digitales Signieren von Daten</li>
+<li>Versenden von Verschlüsselten Daten</li>
+</ul>
+<h2>Public-Key-Kryptographie</h2>
+<p>Alice verfügt über einen geheimen privaten Schlüssel und veröffentlicht einen zugehörigen öffentlichen Schlüssel</p>
+<p>Alice kann Daten mit ihrem privaten Schlüssel "signieren" - Empfänger dieser Daten können mittels des öffentlichen Schlüssels sicherstellen, dass die Daten von Alice stammen</p>
+<p>Andere können Daten mittels Alices öffentlichem Schlüssel verschlüsseln und an Alice senden - nur Alice kann sie mittels des privaten Schlüssel entschlüsseln</p>
+<h2>Schlüsselpaare</h2>
+<p>Weit verbreiteter kryptographischer Algorithmus: RSA</p>
+<p>Schlüssel werden oft im <code>.pem</code>-Format gespeichert</p>
+<h2>Schlüsselpaare</h2>
+<p><code>alice_private.pem</code>:</p>
+<pre><code class="hljs language-txt">-----BEGIN RSA PRIVATE KEY-----
+MIIBOgIBAAJBAMUKUlOcPJ4E0T1/9qirGZ+1udvYF9Bqvrc2zuoplenl8S0bdXGG
+vm1SlCUX6UMKC/YkB77BjFaRIvhceCrTriUCAwEAAQJBAIn2KySNrUe6+cKE2XDJ
+tDxGImdSy4HLa9OelYwRJ/1HHclYgACwzigWT6U+Xaej95lzKrWV+Gwlw/q10dWA
+ZrUCIQD4xrKnJtGgU/HI7piVGNvYl7jP3zQJMMagq+iYKSi0/wIhAMrDCkwEcSld
+E2HVyWUln+XTNwEVg484QZiPvE2aRyjbAiB5YjH/XvB/gxYBTXHDpfp3ByiUvLqe
+FV+FO/vkaojDLwIgBpVusCk0w3MSPgsDDxW5q2zATHi2XOAmwR1pr9tilCECICRO
+Lj9zPl9v6NhpmAXFPffzH7SJ5eIoF6bxu0j8l3GL
+-----END RSA PRIVATE KEY-----
+</code></pre>
+<p><code>alice_public.pem</code>:</p>
+<pre><code class="hljs language-txt">-----BEGIN RSA PUBLIC KEY-----
+MEgCQQDFClJTnDyeBNE9f/aoqxmftbnb2BfQar63Ns7qKZXp5fEtG3Vxhr5tUpQl
+F+lDCgv2JAe+wYxWkSL4XHgq064lAgMBAAE=
+-----END RSA PUBLIC KEY-----
+</code></pre>
+<h2>Schlüsselpaare</h2>
+<p>Erstellen eines RSA-Schlüsselpaares im Browser:</p>
+<p><a href="https://www.csfieldguide.org.nz/en/interactives/rsa-key-generator/">https://www.csfieldguide.org.nz/en/interactives/rsa-key-generator/</a></p>
+<ul>
+<li>Key Size: beliebig (längere Schlüssel sind sicherer, aber langsamer)</li>
+<li>Format Scheme: PKCS #1</li>
+</ul>
+<h1>Public-Key-Kryptographie mit node.js</h1>
+<h2>Erstellen eines RSA-Schlüsselpaares mittels crypto</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> crypto = <span class="hljs-built_in">require</span>(<span class="hljs-string">'crypto'</span>);
+
+<span class="hljs-keyword">let</span> { privateKey, publicKey } = crypto.generateKeyPairSync(
+  <span class="hljs-string">'rsa'</span>,
+  {
+    <span class="hljs-attr">modulusLength</span>: <span class="hljs-number">512</span>,
+  }
+);
+</code></pre>
+<h2>Exportieren eines Schlüssels</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> privateKeyPemString = privateKey.export({
+  <span class="hljs-attr">type</span>: <span class="hljs-string">'pkcs1'</span>,
+  <span class="hljs-attr">format</span>: <span class="hljs-string">'pem'</span>,
+});
+
+fs.writeFileSync(<span class="hljs-string">'alice_private.pem'</span>, privateKeyPemString);
+</code></pre>
+<h2>Importieren eines Schlüssels</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> privateKeyPemString = fs.readFileSync(
+  <span class="hljs-string">'alice_private.pem'</span>,
+  { <span class="hljs-attr">encoding</span>: <span class="hljs-string">'ascii'</span> }
+);
+
+<span class="hljs-keyword">let</span> privateKey = crypto.createPrivateKey(
+  privateKeyPemString
+);
+</code></pre>
+<h2>Signieren von Daten mittels RSA</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> message =
+  <span class="hljs-string">'the holder of this token is logged in as user1'</span>;
+
+<span class="hljs-keyword">let</span> signature = crypto.sign(
+  <span class="hljs-string">'SHA256'</span>,
+  Buffer.from(message, <span class="hljs-string">'utf-8'</span>),
+  privateKey
+);
+</code></pre>
+<h2>Verifizieren einer Signatur mit RSA</h2>
+<p>Verifizieren einer authentischen Nachricht:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> message =
+  <span class="hljs-string">'the holder of this token is logged in as user1'</span>;
+
+<span class="hljs-keyword">let</span> verifiedA = crypto.verify(
+  <span class="hljs-string">'SHA256'</span>,
+  Buffer.from(message, <span class="hljs-string">'utf-8'</span>),
+  publicKey,
+  signature
+);
+<span class="hljs-comment">// true</span>
+</code></pre>
+<h2>Verifizieren einer Signatur mit RSA</h2>
+<p>Verifizierungsversuch einer gefälschten Nachricht schlägt fehl:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> fakeMessage =
+  <span class="hljs-string">'the holder of this token is logged in as admin'</span>;
+
+<span class="hljs-keyword">let</span> verifiedB = crypto.verify(
+  <span class="hljs-string">'SHA256'</span>,
+  Buffer.from(fakeMessage, <span class="hljs-string">'utf-8'</span>),
+  publicKey,
+  signature
+);
+<span class="hljs-comment">// false</span>
+</code></pre>
+<h2>Verschlüsselung von Daten via RSA</h2>
+<p>Daten Verschlüsseln, um sie an Alice zu senden:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> message = <span class="hljs-string">'Hello, Alice!'</span>;
+
+<span class="hljs-keyword">let</span> encryptedMessage = crypto.publicEncrypt(
+  publicKey,
+  Buffer.from(message, <span class="hljs-string">'utf-8'</span>)
+);
+</code></pre>
+<h2>Entschlüsseln von Daten via RSA</h2>
+<p>Entschlüsselung durch Alice:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> decryptedMessage = crypto
+  .privateDecrypt(privateKey, encryptedMessage)
+  .toString(<span class="hljs-string">'utf-8'</span>);
+</code></pre>
+<h1>Sessions und Tokens</h1>
+<h2>Sessions und Tokens</h2>
+<p>Üblicher Prozess:</p>
+<p>Wenn ein Benutzer sich erfolgreich eingeloggt hat erhält dieser ein geheimes Token, dass ihn für eine gewisse Zeit identifiziert (z.B. für 30 Minuten oder für 1 Tag)</p>
+<h2>Sessions und Tokens</h2>
+<p>Inhalte von Tokens:</p>
+<p>Variante A: Token enthält eine eindeutige Session-ID; zugehörige Session-Daten werden auf dem Server gespeichert</p>
+<p>Variante B: Token enthält alle Session-Daten, signiert durch ein Authorisierungs-Service</p>
+<h2>JSON Web Tokens</h2>
+<p>JSON Web Tokens (JWT) ermöglichen es einem Benutzer, sich gegenüber einer Website zu identifizieren</p>
+<h2>JSON Web Tokens</h2>
+<p>Beispiel für Inhalte eines JWTs (3 Teile: Algorithmus, Daten, Signatur):</p>
+<pre><code class="hljs language-json">{ <span class="hljs-attr">"alg"</span>: <span class="hljs-string">"RS256"</span> }
+</code></pre>
+<pre><code class="hljs language-json">{
+  <span class="hljs-attr">"iss"</span>: <span class="hljs-string">"google.com"</span>,
+  <span class="hljs-attr">"sub"</span>: <span class="hljs-string">"alice@gmail.com"</span>,
+  <span class="hljs-attr">"aud"</span>: <span class="hljs-string">"medium.com"</span>,
+  <span class="hljs-attr">"exp"</span>: <span class="hljs-number">1577836800</span>
+}
+</code></pre>
+<pre><code class="hljs language-txt">eyJzdWIiOiJhbGljZSIsImlzcyI6ImF1dGguZ...
+</code></pre>
+<h2>JSON Web Tokens</h2>
+<p>Übersetzung:</p>
+<pre><code class="hljs language-txt">Dies ist eine JSON Web Token, signiert mit RS256
+(RSA Signatur mit SHA-256)
+
+Wir (google.com) bestätigen, dass der Besitzer dieses
+Tokens als "alice@gmail.com" bei uns eingeloggt ist.
+Diese Bestätigung ist für Nutzung auf medium.com gedacht.
+Diese Bestätigung ist gültig bis 2020-01-01 00:00.
+
+Signatur: ...
+</code></pre>
+<h1>Sessions und Tokens in node.js</h1>
+<h2>JWT-basiertes Authentifizierungsservice</h2>
+<p>Szenario:</p>
+<ul>
+<li>Authentifizierungsservice: <code>auth.foo-systems.com</code></li>
+<li>Gewünschte Resource: <code>forum.foo-systems.com</code></li>
+</ul>
+<h2>JWT-basiertes Authentifizierungsservice</h2>
+<p>Erweiterung des Codes aus dem letzen Abschnitt:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
+<span class="hljs-keyword">const</span> jsonwebtoken = <span class="hljs-built_in">require</span>(<span class="hljs-string">'jsonwebtoken'</span>);
+</code></pre>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> publicKey = fs.readFileSync(<span class="hljs-string">'./public.pem'</span>);
+<span class="hljs-keyword">const</span> privateKey = fs.readFileSync(<span class="hljs-string">'./private.pem'</span>);
+</code></pre>
+<h2>JWT-basiertes Authentifizierungsservice</h2>
+<p>Geänderter Handler für die Startseite:</p>
+<pre><code class="hljs language-js">app.get(<span class="hljs-string">'/'</span>, (req, res) => {
+  res.end(
+    <span class="hljs-string">'welcome to the auth service\n\n'</span> +
+      <span class="hljs-string">'resources:\n/register\n/login\n/public-key'</span>
+  );
+});
+</code></pre>
+<p>Öffentlichen Schlüssel zugänglich machen:</p>
+<pre><code class="hljs language-js">app.get(<span class="hljs-string">'/public-key'</span>, (req, res) => {
+  res.end(publicKey);
+});
+</code></pre>
+<h2>JWT-basiertes Authentifizierungsservice</h2>
+<pre><code class="hljs language-js">app.post(<span class="hljs-string">'/login'</span>, <span class="hljs-keyword">async</span> (req, res) => {
+  <span class="hljs-keyword">const</span> verified = <span class="hljs-keyword">await</span> verifyCredentials(
+    req.body.username,
+    req.body.password
+  );
+  <span class="hljs-keyword">if</span> (!verified) {
+    <span class="hljs-keyword">return</span> res.json({ <span class="hljs-attr">status</span>: <span class="hljs-string">'error'</span> });
+  }
+  <span class="hljs-keyword">const</span> token = createToken(req.body.username);
+  res.json({ <span class="hljs-attr">status</span>: <span class="hljs-string">'success'</span>, <span class="hljs-attr">token</span>: token });
+});
+</code></pre>
+<h2>JWT-basiertes Authentifizierungsservice</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> createToken = <span class="hljs-function"><span class="hljs-params">username</span> =></span> {
+  <span class="hljs-keyword">return</span> jsonwebtoken.sign(
+    {
+      <span class="hljs-attr">sub</span>: username,
+      <span class="hljs-attr">iss</span>: <span class="hljs-string">'auth.foo-systems.com'</span>,
+      <span class="hljs-attr">aud</span>: <span class="hljs-string">'forum.foo-systems.com'</span>,
+      <span class="hljs-comment">// expires in 1 h</span>
+      <span class="hljs-attr">exp</span>: <span class="hljs-built_in">Math</span>.floor(<span class="hljs-built_in">Date</span>.now() / <span class="hljs-number">1000</span>) + <span class="hljs-number">60</span> * <span class="hljs-number">60</span>,
+    },
+    privateKey,
+    { <span class="hljs-attr">algorithm</span>: <span class="hljs-string">'RS256'</span> }
+  );
+};
+</code></pre>
+<h2>JWT-basiertes Authentifizierungsservice</h2>
+<p>Verwendung des <code>/login</code>-Endpunkts aus der Browserkonsole:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> res = <span class="hljs-keyword">await</span> fetch(<span class="hljs-string">'/login'</span>, {
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'post'</span>,
+  <span class="hljs-attr">body</span>: <span class="hljs-built_in">JSON</span>.stringify({
+    <span class="hljs-attr">username</span>: <span class="hljs-string">'alice'</span>,
+    <span class="hljs-attr">password</span>: <span class="hljs-string">'ecila'</span>,
+  }),
+  <span class="hljs-attr">headers</span>: { <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span> },
+});
+<span class="hljs-keyword">let</span> data = <span class="hljs-keyword">await</span> res.json();
+<span class="hljs-built_in">console</span>.log(data);
+</code></pre>
+<h2>Online Playground</h2>
+<p>Online-Version:</p>
+<ul>
+<li>code: <a href="https://glitch.com/edit/#!/karuga-auth-service">https://glitch.com/edit/#!/karuga-auth-service</a></li>
+<li>app: <a href="https://karuga-auth-service.glitch.me/">https://karuga-auth-service.glitch.me/</a></li>
+</ul>
+<h1>Authorisierung</h1>
+<h2>HTTP bearer token</h2>
+<p>Ein JWT can im HTTP-Authrization-Header als sogenanntes Bearer Token übermittelt werden, um die Identität des Benutzers zu bestätigen:</p>
+<pre><code class="hljs language-http"><span class="hljs-attribute">Authorization</span>: Bearer eyJhbGciOiJSUzI...
+</code></pre>
+<h1>Authorisierung in node.js</h1>
+<h2>Authorisierung in node.js</h2>
+<p>Middleware, die Zugriff zu bestimmten Ressourcen auf Clients beschränkt, die beim Authentifizierungsservice eingeloggt sind:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> restrictToLoggedin = expressJwt({
+  <span class="hljs-attr">secret</span>: publicKey,
+});
+
+app.get(<span class="hljs-string">'/public'</span>, (req, res) => {
+  res.json(publicData);
+});
+app.get(<span class="hljs-string">'/private'</span>, restrictToLoggedin, (req, res) => {
+  <span class="hljs-keyword">if</span> (req.user) {
+    res.json(privateData);
+  } <span class="hljs-keyword">else</span> {
+    res.json({ <span class="hljs-attr">status</span>: <span class="hljs-string">'auth error'</span> });
+  }
+});
+</code></pre>
+<h2>Authorisierung in node.js</h2>
+<p>kompletter Code:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
+<span class="hljs-keyword">const</span> cors = <span class="hljs-built_in">require</span>(<span class="hljs-string">'cors'</span>);
+<span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
+<span class="hljs-keyword">const</span> expressJwt = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express-jwt'</span>);
+
+<span class="hljs-keyword">const</span> publicKey = fs.readFileSync(<span class="hljs-string">'./public.pem'</span>, {
+  <span class="hljs-attr">encoding</span>: <span class="hljs-string">'utf-8'</span>,
+});
+
+<span class="hljs-keyword">const</span> secretData = [<span class="hljs-string">'foo'</span>, <span class="hljs-string">'bar'</span>, <span class="hljs-string">'baz'</span>];
+
+<span class="hljs-keyword">const</span> app = express();
+
+app.use(express.json());
+app.use(cors());
+
+<span class="hljs-keyword">const</span> restrictToLoggedin = expressJwt({
+  <span class="hljs-attr">secret</span>: publicKey,
+});
+
+app.get(<span class="hljs-string">'/'</span>, (request, response) => {
+  response.json({ <span class="hljs-attr">page</span>: <span class="hljs-string">'public start page'</span> });
+});
+app.get(<span class="hljs-string">'/items'</span>, restrictToLoggedin, (req, res) => {
+  res.json(secretData);
+});
+</code></pre>
+<p><a href="https://glitch.com/~karuga-secret">glitch Projekt</a></p>
+<h1>Ressourcen</h1>
+<h2>Ressourcen</h2>
+<ul>
+<li><a href="https://medium.com/@siddharthac6/json-web-token-jwt-the-right-way-of-implementing-with-node-js-65b8915d550e">JSON Web Token (JWT) — The right way of implementing, with Node.js, Siddhartha Chowdhury</a></li>
+</ul>

@@ -1,0 +1,88 @@
+<h1>Node.js und npm</h1>
+<h2>Node.js</h2>
+<p>Node.js ist eine JavaScript Runtime</p>
+<p>Verwendung für:</p>
+<ul>
+<li>lokales ausführen von Scripts</li>
+<li>Entwicklerwerkzeuge (z.B. Build-Prozess, Unittests, ...)</li>
+<li>Backend ausführen</li>
+</ul>
+<h2>npm</h2>
+<p><em>npm</em> = <em>Node package manager</em></p>
+<p>ist in der node.js-Installation beinhaltet</p>
+<h2>Node.js Installation</h2>
+<p>Download von <a href="https://nodejs.org">https://nodejs.org</a></p>
+<p>Major Releases alle 6 Monate; Long-Term-Support Releases alle 12 Monate</p>
+<h1>npm</h1>
+<h2>npm Registry</h2>
+<p>Die npm Registry enthält hauptsächlich open source JavaScript Pakete</p>
+<p>Mit <a href="http://www.modulecounts.com/">über 1 Million Pakete</a> die bei weitem größte Software Registry</p>
+<p>Beispiele <a href="https://www.npmjs.com/browse/depended">most depended upon packages</a></p>
+<h2>Package Manager</h2>
+<p>zwei wichtige Package Manager für die npm Registry:</p>
+<ul>
+<li><em>npm</em>: Node package manager, in <em>node.js</em> beinhaltet</li>
+<li><em>yarn</em>: Kann zusätzlich installiert werden</li>
+</ul>
+<h2>Paketkonfiguration</h2>
+<p>Sowohl öffentliche Pakete als auch private Projekte werden über die Konfigurationsdatei <em>package.json</em> konfiguriert</p>
+<h2>Paketkonfiguration</h2>
+<p>Um Abhängigkeiten zu installieren können wir mit einer leeren <em>package.json</em> beginnen:</p>
+<pre><code class="hljs language-json">{}
+</code></pre>
+<p>Alternative: <em>package.json</em> mit Inhalten mittels <code>npm init</code> (oder <code>npm init -y</code> für Standardoptionen) erstellen</p>
+<h2>Abhängigkeiten hinzufügen</h2>
+<p>Beispiel zur Installation von Abhängigkeiten:</p>
+<pre><code class="hljs language-bash">npm install lodash bootstrap
+</code></pre>
+<h2>Abhängigkeiten hinzufügen</h2>
+<p>Wenn wir eine Library entwickeln, die wir in der npm Registry veröffentlichen wollen:</p>
+<p>Abhängigkeiten, die nur für die Entwicklung, nicht für die Verwendung von Bedeutung sind werden als <em>dev-dependencies</em> installiert:</p>
+<pre><code class="hljs language-bash">npm install eslint --save-dev
+</code></pre>
+<h2>Abhängigkeiten hinzufügen</h2>
+<p>Auswirkungen der bisherigen <code>npm install</code> Befehle:</p>
+<ul>
+<li><code>package.json</code> - listet Minimalversionen der gerade installierten Pakete</li>
+<li><code>node_modules</code> - Ordner, der alle installierten Pakete enthält</li>
+<li><code>package-lock.json</code> - listet exakte Versionen aller Pakete in <code>node_modules</code> auf</li>
+</ul>
+<h2>Abhängigkeiten in package.json</h2>
+<p>Die Datei <code>package.json</code> listet nun Abhängigkeiten gemeinsam mit deren Version auf.</p>
+<p>Die Version verwendet <em>semantic versioning</em>: <code>major.minor.patch</code></p>
+<p>Mögliche Konfigurationen:</p>
+<ul>
+<li><code>"bootstrap": "4.3.1"</code> - genau diese Version</li>
+<li><code>"bootstrap": "~4.3.1"</code> - Updates der Patch-Version sind erlaubt - z.B. auf <code>4.3.2</code></li>
+<li><code>"bootstrap": "^4.3.1"</code> - Updates der Minor-Version sind erlaubt - z.B. auf <code>4.4.0</code></li>
+</ul>
+<h2>Abhängigkeiten in package-lock.json</h2>
+<p><code>package-lock.json</code> listet <em>exakte</em> Versionen aller Abhängigkeiten (und derer Abhängigkeiten ...)</p>
+<h2>node_modules Ordner</h2>
+<p>enthält die tatsächlichen Pakete</p>
+<p>sollte nicht unter Versionskontrolle stehen - kann stattdessen aus <code>package.json</code> neu generiert werden - durch ausführen von <code>npm install</code> ohne Argumente</p>
+<h2>npm Scripts</h2>
+<p>Npm kann verwendet werden, um Scripts / Befehle auszuführen, z.B.:</p>
+<ul>
+<li><code>npm run test</code> - würde Unit Tests ausführen</li>
+<li><code>npm run build</code> - würde einen Build erstellen</li>
+<li><code>npm run start</code></li>
+<li><code>npm run deploy</code></li>
+</ul>
+<p>Manche npm Scripts haben Abkürzungen, insbesondere <code>npm test</code> und <code>npm start</code></p>
+<h2>npm scripts</h2>
+<p>Npm Scripts werden <code>package.json</code> konfiguriert:</p>
+<pre><code class="hljs language-json">{
+  <span class="hljs-attr">"scripts"</span>: { <span class="hljs-attr">"start"</span>: <span class="hljs-string">"node run-server.js"</span> }
+}
+</code></pre>
+<h2>Globale Installation und npx</h2>
+<p>Node Pakete können global auf einem Computer installiert werden oder direkt aus der npm Registry ausgeführt werden</p>
+<p>direkte Ausführung (ohne Installation):</p>
+<pre><code class="hljs language-bash">npx cowsay hello
+</code></pre>
+<p>globale Installation von <code>cowsay</code>:</p>
+<pre><code class="hljs language-bash">npm install -g cowsay
+
+cowsay hello
+</code></pre>

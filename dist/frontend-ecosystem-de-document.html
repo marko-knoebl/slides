@@ -1,0 +1,198 @@
+<h1>Bundler</h1>
+<h2>Bundler</h2>
+<p>Bundler wie <em>webpack</em> oder <em>parcel</em> erstellen aus vorhandenen Quelldateien sogenannte <em>Bundles</em>, die meist mehrere Dateien in einer vereinen.</p>
+<p>Über Bundler werden zwei Aufgaben ausgeführt:</p>
+<ul>
+<li>Zusammenführen mehrer Dateien in eine (u.a. um diese schneller laden zu können)</li>
+<li>Übersetzen / transformieren von Code via Plugins, z.B.:<ul>
+<li>Übersetzen von modernem JS / JSX / TypeScript in kompatibles JS (via Babel)</li>
+<li>Übersetzen von modernem CSS / SCSS in kompatibles CSS (via PostCSS)</li>
+<li>Verkleinern der Dateien (minification)</li>
+</ul></li>
+</ul>
+<h2>Bundler im Vergleich</h2>
+<ul>
+<li><em>webpack</em>: weit verbreitet, viele Plugins</li>
+<li><em>parcel</em>: sehr einfach zu verwenden</li>
+<li><em>rollup</em>: insbesondere zum Erstellen von JS-Libraries</li>
+</ul>
+<h1>Parcel</h1>
+<h2>Parcel</h2>
+<p><a href="https://parceljs.org">https://parceljs.org</a></p>
+<h2>Parcel</h2>
+<p>Einfach zu nutzender Bundler mit Unterstützung für:</p>
+<ul>
+<li>modernes CSS</li>
+<li>CSS Module (scoping)</li>
+<li>SCSS</li>
+<li>modernes JS</li>
+<li>TypeScript</li>
+<li>JSON</li>
+<li>WebAssembly</li>
+<li>Rust</li>
+</ul>
+<h2>Parcel - Beispielprojekt</h2>
+<p>Kleines Projekt aus drei Dateien - beim Ausführen von Parcel werden die beiden JavaScript-Dateien zu einer zusammengefasst</p>
+<p>in <code>src/index.html</code>:</p>
+<pre><code class="hljs language-html">...
+<span class="hljs-tag">&#x3C;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"main.js"</span>></span><span class="hljs-tag">&#x3C;/<span class="hljs-name">script</span>></span>
+...
+</code></pre>
+<p>in <code>src/main.js</code>:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { add } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mymath.js'</span>;
+<span class="hljs-built_in">document</span>.title = add(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>);
+</code></pre>
+<p>in <code>src/mymath.js</code>:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> add = <span class="hljs-function">(<span class="hljs-params">a, b</span>) =></span> a + b;
+</code></pre>
+<h2>Parcel ausführen</h2>
+<p>Parcel sollte lokal oder global als npm-Paket installiert sein.</p>
+<p>Lokalen Entwicklungsserver mit automatischem Build starten:</p>
+<pre><code class="hljs language-bash">npx parcel src/index.html
+</code></pre>
+<p>Einzelner Build zum Deployen:</p>
+<pre><code class="hljs language-bash">npx parcel build src/index.html
+</code></pre>
+<p>Erstellte Dateien erscheinen unter <code>/dist</code>.</p>
+<h1>Webpack</h1>
+<h2>Webpack</h2>
+<p><a href="https://webpack.js.org">https://webpack.js.org</a></p>
+<h2>Webpack</h2>
+<p>Webpack: weit verbreiteter Bundler mit sehr vielen Plugins</p>
+<h2>Webpack - Beispielprojekt</h2>
+<p>Einstiegspunkt in webpack muss immer eine JavaScript-Datei sein - daher liegt <code>index.html</code> zu Beginn schon im dist-Ordner:</p>
+<p>in <code>dist/index.html</code>:</p>
+<pre><code class="hljs language-html">...
+<span class="hljs-tag">&#x3C;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"main.js"</span>></span><span class="hljs-tag">&#x3C;/<span class="hljs-name">script</span>></span>
+...
+</code></pre>
+<p>in <code>src/index.js</code>:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { add } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mymath.js'</span>;
+<span class="hljs-built_in">document</span>.title = add(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>);
+</code></pre>
+<p>in <code>src/mymath.js</code>:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> add = <span class="hljs-function">(<span class="hljs-params">a, b</span>) =></span> a + b;
+</code></pre>
+<h2>Webpack - Beispielprojekt</h2>
+<p>Standard-Einstiegspunkt ist eine Datei namens <code>src/index.js</code>.</p>
+<p>Standard-Ausgabe liegt in <code>dist/main.js</code></p>
+<h2>Webpack - Beispielprojekt</h2>
+<p>Webpack sollte lokal oder global als npm-Paket installiert sein.</p>
+<p>Build mittels:</p>
+<pre><code class="hljs language-bash">npx webpack
+</code></pre>
+<h1>Stylesheet-Sprachen</h1>
+<h2>Stylesheet-Sprachen</h2>
+<ul>
+<li><em>CSS</em></li>
+<li>SASS / <em>SCSS</em></li>
+<li>LESS</li>
+</ul>
+<h2>Variablen</h2>
+<p>modernes CSS:</p>
+<pre><code class="hljs language-css"><span class="hljs-selector-pseudo">:root</span> {
+  <span class="hljs-attribute">--theme-color</span>: blue;
+}
+
+<span class="hljs-selector-tag">body</span> {
+  <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--theme-color);
+}
+</code></pre>
+<h2>Variablen</h2>
+<p>SCSS:</p>
+<pre><code class="hljs language-scss"><span class="hljs-variable">$theme-color</span>: blue;
+
+<span class="hljs-selector-tag">body</span> {
+  <span class="hljs-attribute">color</span>: <span class="hljs-variable">$theme-color</span>;
+}
+</code></pre>
+<p>LESS:</p>
+<pre><code class="hljs language-less"><span class="hljs-variable">@theme-color:</span> blue;
+
+<span class="hljs-selector-tag">body</span> {
+  <span class="hljs-attribute">color</span>: <span class="hljs-variable">@theme-color</span>;
+}
+</code></pre>
+<h2>Vererbung</h2>
+<p>in CSS4: apply</p>
+<p>in SCSS: extend / inheritance</p>
+<p>in LESS: mixins</p>
+<h2>Vererbung</h2>
+<p>CSS:</p>
+<pre><code class="hljs language-css"><span class="hljs-selector-pseudo">:root</span> {
+  <span class="hljs-attribute">--theme-color-combination</span>: {
+    color: blue;
+    <span class="hljs-attribute">background-color</span>: lightblue;
+  }
+}
+
+<span class="hljs-selector-tag">body</span> {
+  @apply --theme-color-combination;
+}
+</code></pre>
+<h2>Vererbung</h2>
+<p>SCSS:</p>
+<pre><code class="hljs language-scss">%theme-<span class="hljs-attribute">color</span>-combination {
+  <span class="hljs-attribute">color</span>: blue;
+  <span class="hljs-attribute">background-color</span>: lightblue;
+}
+
+<span class="hljs-selector-tag">body</span> {
+  @<span class="hljs-keyword">extend</span> %theme-color-combination;
+}
+</code></pre>
+<h2>Vererbung</h2>
+<p>LESS:</p>
+<pre><code class="hljs language-less"><span class="hljs-selector-class">.theme-color-combination</span> {
+  <span class="hljs-attribute">color</span>: blue;
+  <span class="hljs-attribute">background-color</span>: lightblue;
+}
+
+<span class="hljs-selector-tag">body</span> {
+  <span class="hljs-selector-class">.theme-color-combination</span>();
+}
+</code></pre>
+<h2>Verschachtelung</h2>
+<p>SASS / LESS:</p>
+<pre><code class="hljs language-css"><span class="hljs-selector-tag">nav</span> {
+  <span class="hljs-attribute">color</span>: black;
+  &#x26;:hover {
+    <span class="hljs-attribute">color</span>: blue;
+  }
+}
+</code></pre>
+<h2>Berechnungen</h2>
+<p>CSS:</p>
+<pre><code class="hljs language-css"><span class="hljs-selector-tag">div</span> {
+  <span class="hljs-attribute">width</span>: <span class="hljs-built_in">calc</span>(50% - 80px);
+}
+</code></pre>
+<p>SCSS / LESS:</p>
+<pre><code class="hljs language-scss"><span class="hljs-selector-tag">div</span> {
+  <span class="hljs-attribute">width</span>: <span class="hljs-number">50%</span> - <span class="hljs-number">80px</span>;
+}
+</code></pre>
+<h2>Funktionen</h2>
+<p>CSS: <code>min()</code>, <code>max()</code>, <code>rgb()</code>, ...</p>
+<p>SCSS / LESS: <code>lighten()</code>, <code>darken()</code>, <code>saturate()</code>, ...</p>
+<p>Beispiel:</p>
+<pre><code class="hljs language-css">* {
+  <span class="hljs-attribute">color</span>: <span class="hljs-built_in">rgb</span>(10, 10, 10);
+}
+</code></pre>
+<h1>WebAssembly</h1>
+<h2>WebAssembly</h2>
+<p>neue Low-level-Sprache, die effizient im Browser ausgeführt werden kann</p>
+<p>Sprachen, die zu WebAssembly kompiliert werden können:</p>
+<ul>
+<li>C</li>
+<li>C++</li>
+<li>Rust</li>
+<li>Go</li>
+</ul>
+<h2>Rust</h2>
+<p>Moderne Systemprogrammiersprache - Alternative zu C / C++</p>
+<h2>Rust - Setup</h2>
+<ul>
+<li>evtl im "Windows Defender Security Center" den Viren-Echtzeitschutz deaktivieren - dadurch wird rust-docs schneller installiert</li>
+</ul>

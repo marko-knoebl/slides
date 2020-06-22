@@ -21,10 +21,10 @@ const main = () => {
   console.log(numSlidesTotal);
   for (let result of results) {
     fs.writeFileSync(`dist/${result.topic}-${result.lang}.md`, result.mdString);
-    // fs.writeFileSync(
-    //   `dist/${result.topic}-${result.lang}-document.html`,
-    //   result.htmlDocumentString
-    // );
+    fs.writeFileSync(
+      `dist/${result.topic}-${result.lang}-document.html`,
+      result.htmlDocumentString
+    );
     fs.writeFileSync(
       `dist/${result.topic}-${result.lang}.html`,
       result.presentationString

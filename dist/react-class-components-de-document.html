@@ -1,0 +1,235 @@
+<h1>React mit Klassenkomponenten</h1>
+<h1>Überblick</h1>
+<h2>Geschichte</h2>
+<p>Klassenkomponenten waren vor der Einführung von Hooks (mit React 16.8, Februar 2019) weit verbreitet</p>
+<p>Heute verlagert sich der Fokus hin zu Hooks</p>
+<h2>Klassenkomponenten vs Hooks</h2>
+<p>Gründe für die Verwendung von Hooks:</p>
+<ul>
+<li>verringern oft Komplexität</li>
+<li>einfachere Modularität</li>
+<li>vermeiden Probleme mit <code>this</code></li>
+</ul>
+<p>Gründe für die Verwendung von Klassenkomponenten:</p>
+<ul>
+<li>Konzepte sind zu Beginn wohl vertrauter</li>
+<li>einfachere Memoisation</li>
+</ul>
+<h2>Einfaches Beispiel</h2>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> React, { Component } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">App</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
+  render() {
+    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>Hello, World!<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+  }
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> App;
+</code></pre>
+<h1>"this" und seine Quirks in JavaScript</h1>
+<h2>"this" und seine Quirks</h2>
+<p>In Objektmethoden bezieht sich <code>this</code> üblicherweise auf das aktuelle Objekt</p>
+<p><strong>allerdings</strong>:</p>
+<ul>
+<li>jeder Funktionsaufruf setzt <em>this</em> neu (nicht nur Methodenaufrufe)</li>
+<li><em>this</em> wird nur richtig gesetzt, wenn die Methode mit der Syntax <code>object.method()</code> aufgerufen wird</li>
+</ul>
+<h2>Problem: <em>this</em> in anonymen Funktionen</h2>
+<pre><code class="hljs language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">myComponent</span> </span>{
+  <span class="hljs-keyword">constructor</span>() {
+    <span class="hljs-comment">// this ist hier richtig gesetzt</span>
+    <span class="hljs-keyword">this</span>.foo = <span class="hljs-literal">true</span>;
+    setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+      <span class="hljs-comment">//this wird hier überschrieben (auf window)</span>
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.foo);
+    }, <span class="hljs-number">1000</span>);
+  }
+}
+</code></pre>
+<h2>Lösung: <em>Pfeilfunktionen</em></h2>
+<pre><code class="hljs language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">myComponent</span> </span>{
+  <span class="hljs-keyword">constructor</span>() {
+    <span class="hljs-comment">// this ist hier richtig gesetzt</span>
+    <span class="hljs-keyword">this</span>.foo = <span class="hljs-literal">true</span>;
+    setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+      <span class="hljs-comment">// this wird hier *nicht* überschrieben</span>
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.foo);
+    }, <span class="hljs-number">1000</span>);
+  }
+}
+</code></pre>
+<h2>Problem: Methodenaufrufe ohne Methodensyntax</h2>
+<pre><code class="hljs language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span> </span>{
+  <span class="hljs-keyword">constructor</span>() {
+    <span class="hljs-keyword">this</span>.message = <span class="hljs-string">'hello'</span>;
+  }
+  greet() {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.message);
+  }
+}
+<span class="hljs-keyword">const</span> foo = <span class="hljs-keyword">new</span> Foo();
+foo.greet(); <span class="hljs-comment">// ok</span>
+<span class="hljs-keyword">const</span> greet = foo.greet;
+greet(); <span class="hljs-comment">// not ok ("this" is undefined)</span>
+</code></pre>
+<h2>Lösung: Pfeil-Methoden</h2>
+<p>Seit ES2018 einsetzbar:</p>
+<pre><code class="hljs language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span> </span>{
+  <span class="hljs-keyword">constructor</span>() {
+    <span class="hljs-keyword">this</span>.message = <span class="hljs-string">'hello'</span>;
+  }
+  greet = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.message);
+  };
+}
+</code></pre>
+<h2>Lösung: Binden von Methoden</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> foo = <span class="hljs-keyword">new</span> Foo();
+foo.greet(); <span class="hljs-comment">// ok</span>
+<span class="hljs-keyword">const</span> greet = foo.greet.bind(foo);
+greet(); <span class="hljs-comment">// ok</span>
+</code></pre>
+<p>Üblicherweise Zuweisung im Konstruktor:</p>
+<pre><code class="hljs language-js">  <span class="hljs-keyword">constructor</span>() {
+    <span class="hljs-keyword">this</span>.greet = <span class="hljs-keyword">this</span>.greet.bind(<span class="hljs-keyword">this</span>);
+  }
+</code></pre>
+<h1>Props</h1>
+<h2>Props</h2>
+<p>Props können via <code>this.props</code> ausgelesen werden:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TodoItem</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
+  render() {
+    <span class="hljs-keyword">return</span> (
+      <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+        {this.props.completed ? 'DONE: ' : 'TODO: '}
+        {this.props.title}
+      <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+    );
+  }
+}
+</code></pre>
+<h1>State</h1>
+<h2>State in Klassenkomponenten</h2>
+<p>In Klassenkomponenten repräsentiert <code>this.state</code> den aktuellen state</p>
+<p><code>this.state</code> ist immer ein JavaScript-Objekt mit verschiedenen Einträgen (Properties)</p>
+<p>Zustandsänderungen erfolgen über <code>this.setState()</code></p>
+<h2>Struktur von this.state</h2>
+<p><em>this.state</em> ist ein JavaScript-Objekt:</p>
+<pre><code class="hljs language-json">{
+  <span class="hljs-attr">"loggedIn"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"todos"</span>: [
+    { <span class="hljs-attr">"id"</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">"title"</span>: <span class="hljs-string">"laundry"</span>, <span class="hljs-attr">"completed"</span>: <span class="hljs-literal">false</span> },
+    { <span class="hljs-attr">"id"</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">"title"</span>: <span class="hljs-string">"groceries"</span>, <span class="hljs-attr">"completed"</span>: <span class="hljs-literal">true</span> },
+    { <span class="hljs-attr">"id"</span>: <span class="hljs-number">5</span>, <span class="hljs-attr">"title"</span>: <span class="hljs-string">"taxes"</span>, <span class="hljs-attr">"completed"</span>: <span class="hljs-literal">false</span> }
+  ]
+}
+</code></pre>
+<h2>Initialisierung des States</h2>
+<p>Der State muss im Konstruktor initialisiert werden</p>
+<p>Der Konstruktor erhält auch die Props der Komponente als Argument</p>
+<h2>Initialisierung des States</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">constructor</span>(props) {
+  <span class="hljs-keyword">super</span>(props);
+  <span class="hljs-keyword">this</span>.state = {
+    <span class="hljs-attr">loggedIn</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">todos</span>: [<span class="hljs-string">'laundry'</span>, <span class="hljs-string">'groceries'</span>, <span class="hljs-string">'taxes'</span>],
+  }
+}
+</code></pre>
+<p>In JavaScript <em>muss</em> der Konstruktor der Elternklasse (<code>Component</code>) im Konstruktor aufgerufen werden (geschieht via <code>super()</code>)</p>
+<h2>Änderung von this.state</h2>
+<p>via <code>this.setState()</code></p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">this</span>.setState({ <span class="hljs-attr">loggedIn</span>: <span class="hljs-literal">false</span> });
+</code></pre>
+<p>setState überschreibt alle angegebenen Einträge im state-Objekt und lässt den Rest unverändert</p>
+<h2>Wiederholtes Aufrufen von this.setState</h2>
+<p>Rat: in einem Event-Handler nur 1x <code>setState</code> aufrufen.</p>
+<p>Wenn doch mehrere Aufrufe von <code>setState</code> erfolgen und ein Aufruf auf der vorhergehenden Zustandsänderung basiert:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">this</span>.setState(<span class="hljs-function"><span class="hljs-params">oldState</span> =></span> ({ <span class="hljs-attr">count</span>: oldState.count + <span class="hljs-number">1</span> }));
+<span class="hljs-keyword">this</span>.setState(<span class="hljs-function"><span class="hljs-params">oldState</span> =></span> ({ <span class="hljs-attr">count</span>: oldState.count + <span class="hljs-number">1</span> }));
+</code></pre>
+<p>Wir übergeben setState eine Funktion, die den alten in den neuen Zustand überführt.</p>
+<h1>Klassenkomponenten mit TypeScript</h1>
+<h2>Klassenkomponenten mit TypeScript</h2>
+<pre><code class="hljs language-tsx">type TodoItemProps = {
+  todo: TodoType;
+  onToggle: (id: int) => void;
+};
+type TodoItemState = {};
+</code></pre>
+<pre><code class="hljs language-tsx">class TodoItem extends React.PureComponent&#x3C;
+  TodoItemProps,
+  TodoItemState
+> {
+  // ...
+}
+</code></pre>
+<h1>Komponenten-Lebenszyklus</h1>
+<h2>Komponenten-Lebenszyklus</h2>
+<p>Drei wichtige Methoden zum Abfragen von Ereignissen im Lebenszyklus einer Komponente:</p>
+<ul>
+<li><code>componentDidMount</code></li>
+<li><code>componentDidUpdate</code></li>
+<li><code>componentWillUnmount</code></li>
+</ul>
+<h2>Beispiel: DocumentTitle-Komponente</h2>
+<p>Wir erstellen eine Komponente, die den Dokumenttitel dynamisch setzen kann:</p>
+<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">DocumentTitle</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"my custom title"</span> /></span>
+</code></pre>
+<p>Diese Komponente kann irgendwo in der React-Anwendung vorkommen.</p>
+<h2>Beispiel: DocumentTitle-Komponente</h2>
+<pre><code class="hljs language-jsx"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DocumentTitle</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
+  componentDidMount() {
+    <span class="hljs-built_in">document</span>.title = <span class="hljs-keyword">this</span>.props.value;
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    <span class="hljs-built_in">document</span>.title = <span class="hljs-keyword">this</span>.props.value;
+  }
+
+  render() {
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+  }
+}
+</code></pre>
+<h2>Beispiel: Clock-Komponente</h2>
+<pre><code class="hljs language-jsx">  <span class="hljs-keyword">constructor</span>() {
+    <span class="hljs-keyword">super</span>();
+    <span class="hljs-keyword">this</span>.state = {
+      <span class="hljs-attr">time</span>: <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>().toLocaleTimeString()
+    };
+  }
+
+  render() {
+    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>{this.state.time}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+  }
+</code></pre>
+<h2>Beispiel: Clock-Komponente</h2>
+<pre><code class="hljs language-jsx">  componentDidMount() {
+    <span class="hljs-keyword">this</span>.intervalId = setInterval(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+      <span class="hljs-keyword">this</span>.setState({
+        <span class="hljs-attr">time</span>: <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>().toLocaleTimeString()
+      });
+    }, <span class="hljs-number">1000</span>);
+  }
+
+  componentWillUnmount() {
+    clearInterval(<span class="hljs-keyword">this</span>.intervalId);
+  }
+</code></pre>
+<h1>Memoisation</h1>
+<h2>Memoisation</h2>
+<p>Das Rerendering einer Komponente löst üblicherweise das Rerendering <em>aller Unterkomponenten</em> aus</p>
+<p>- dies kann optimiert werden!</p>
+<h2>Memoisation</h2>
+<p>Wenn nur jene Unterkomponenten neu gerendert werden sollen, deren Props oder State sich geändert haben:</p>
+<p>Unterkomponenten erben von <code>PureComponent</code> statt <code>Component</code></p>
+<h2>Memoisation</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { PureComponent } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Rating</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">PureComponent</span> </span>{
+  <span class="hljs-comment">//...</span>
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Rating;
+</code></pre>

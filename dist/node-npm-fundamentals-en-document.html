@@ -1,0 +1,88 @@
+<h1>Node.js and npm</h1>
+<h2>Node.js and npm</h2>
+<p>Node.js is a JavaScript runtime</p>
+<p>It may be used to:</p>
+<ul>
+<li>run scripts locally</li>
+<li>provide development tools (e.g. for build process, unit tests, ...)</li>
+<li>run a backend</li>
+</ul>
+<h2>Node.js and npm</h2>
+<p><em>npm</em> = <em>Node package manager</em></p>
+<p>is included in the node.js installation</p>
+<h2>Node.js installation</h2>
+<p>Download from <a href="https://nodejs.org">https://nodejs.org</a></p>
+<p>Major releases every 6 months; long-term-support releases every 12 months</p>
+<h1>npm</h1>
+<h2>npm registry</h2>
+<p>The npm registry is an online registry consisting primarily of open source JavaScript packages</p>
+<p>by far the largest software registry (<a href="http://www.modulecounts.com/">over 1 million packages</a>)</p>
+<p>examples: <a href="https://www.npmjs.com/browse/depended">most depended upon packages</a></p>
+<h2>Package managers</h2>
+<p>two major package managers for the npm registry:</p>
+<ul>
+<li><em>npm</em>: Node package manager, comes with node.js</li>
+<li><em>yarn</em>: may be installed separately</li>
+</ul>
+<h2>Package configuration</h2>
+<p>Both public packages and private projects are managed via a configuration file named <em>package.json</em></p>
+<h2>Package configuration</h2>
+<p>In order to add dependencies - start out with an empty <em>package.json</em> configuration:</p>
+<pre><code class="hljs language-json">{}
+</code></pre>
+<p>Alternative: create a <em>package.json</em> with some content via via <code>npm init</code> (or <code>npm init -y</code> for default options)</p>
+<h2>Adding dependencies</h2>
+<p>Add dependencies via e.g.:</p>
+<pre><code class="hljs language-bash">npm install lodash bootstrap
+</code></pre>
+<h2>Adding dependencies</h2>
+<p>When developing a reusable library to be published on the npm package registry:</p>
+<p>Install dependencies that are only needed for development as <em>dev-dependencies</em>:</p>
+<pre><code class="hljs language-bash">npm install eslint --save-dev
+</code></pre>
+<h2>Adding dependencies</h2>
+<p>Effects of the previous <code>npm install</code> commands:</p>
+<ul>
+<li><code>package.json</code> - lists minimum versions of the packages we just installed</li>
+<li><code>node_modules</code> - folder that contains all installed packages</li>
+<li><code>package-lock.json</code> - lists exact versions of all packages in <code>node_modules</code></li>
+</ul>
+<h2>Dependencies in package.json</h2>
+<p>The file <code>package.json</code> now lists dependencies together with a version specifier</p>
+<p>The version specifier uses <em>semantic versioning</em>: <code>major.minor.patch</code></p>
+<p>possible configurations:</p>
+<ul>
+<li><code>"bootstrap": "4.3.1"</code> - exactly this version</li>
+<li><code>"bootstrap": "~4.3.1"</code> - patch version updates allowed - for example to <code>4.3.2</code></li>
+<li><code>"bootstrap": "^4.3.1"</code> - minor version updates allowed - for example to <code>4.4.0</code></li>
+</ul>
+<h2>Dependencies in package-lock.json</h2>
+<p><code>package-lock.json</code> lists <em>exact</em> versions for all dependencies and their recursive dependencies</p>
+<h2>node_modules folder</h2>
+<p>contains the actual packages</p>
+<p>this should not be put under version control - can be recreated from <code>package.json</code> by running <code>npm install</code> (without any arguments)</p>
+<h2>npm scripts</h2>
+<p>Npm can be used to execute scripts / commands that are needed for development, for example:</p>
+<ul>
+<li><code>npm run test</code> - would run unit tests</li>
+<li><code>npm run build</code> - would create a build</li>
+<li><code>npm run start</code></li>
+<li><code>npm run deploy</code></li>
+</ul>
+<p>Some npm scripts have shorthands, notably <code>npm test</code> and <code>npm start</code></p>
+<h2>npm scripts</h2>
+<p>Npm scripts are configured in <code>package.json</code>:</p>
+<pre><code class="hljs language-json">{
+  <span class="hljs-attr">"scripts"</span>: { <span class="hljs-attr">"start"</span>: <span class="hljs-string">"node run-server.js"</span> }
+}
+</code></pre>
+<h2>Global installs and npx</h2>
+<p>Node packages may be installed globally on a computer or may be executed directly from the npm registry</p>
+<p>direct execution (without installation):</p>
+<pre><code class="hljs language-bash">npx cowsay hello
+</code></pre>
+<p>global installation of <code>cowsay</code>:</p>
+<pre><code class="hljs language-bash">npm install -g cowsay
+
+cowsay hello
+</code></pre>

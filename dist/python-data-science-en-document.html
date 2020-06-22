@@ -1,0 +1,950 @@
+<h1>Python &#x26; Data Science</h1>
+<h2>Slides</h2>
+<p><a href="https://marko-knoebl.github.io/slides/">https://marko-knoebl.github.io/slides/</a></p>
+<h2>Your Trainer</h2>
+<p>Marko Knöbl</p>
+<ul>
+<li>Frontend Web-Development<ul>
+<li>JavaScript</li>
+<li>React, Angular</li>
+</ul></li>
+<li>Programming<ul>
+<li>Python, JavaScript</li>
+</ul></li>
+</ul>
+<h2>Introduction of Participants</h2>
+<ul>
+<li>current projects</li>
+<li>prior knowledge</li>
+<li>expectations</li>
+</ul>
+<h2>Organizational</h2>
+<ul>
+<li>duration</li>
+<li>breaks</li>
+<li>lunch</li>
+<li>materials</li>
+<li>questions, feedback?</li>
+</ul>
+<h2>Code</h2>
+<p>Code available at: <a href="https://github.com/marko-knoebl/courses-code">https://github.com/marko-knoebl/courses-code</a></p>
+<h1>Packages</h1>
+<h2>Python packages for data science</h2>
+<ul>
+<li><em>Jupyter</em> &#x26; <em>IPython</em>: interactive Python environments</li>
+<li><em>NumPy</em>: library for efficient processing of numerical data</li>
+<li><em>Pandas</em>: library for data analysis, based on NumPy</li>
+<li><em>Matplotlib</em>: library for data visualization</li>
+<li><em>Scikit-Learn</em>: library for machine learning, based on NumPy</li>
+</ul>
+<h2>Anaconda</h2>
+<p><em>Anaconda</em> = Python distribution that includes many pre-installed packages and developer tools</p>
+<p>Takes ~ 3 GB of disk space</p>
+<h2>Anaconda installation</h2>
+<p>download from <a href="https://www.anaconda.com/distribution/">https://www.anaconda.com/distribution/</a></p>
+<p>(make sure to download for the correct OS)</p>
+<p>On Windows, the installation path should not contain spaces or underscores (recommendation: <code>C:/anaconda</code>) - see <a href="https://docs.anaconda.com/anaconda/user-guide/faq/#distribution-faq-windows-folder">https://docs.anaconda.com/anaconda/user-guide/faq/#distribution-faq-windows-folder</a></p>
+<h2>Conda</h2>
+<p><em>Conda</em> = management tool for Python packages and environments, used by Anaconda</p>
+<p>Enables installation of multiple versions of Python and Python packages</p>
+<p>Particularly useful for external libraries that are written in a compiled language</p>
+<h2>Pyodide</h2>
+<p><em>Pyodide</em> = Python distribution that can be run directly in the Browser (via <em>WebAssembly</em>)</p>
+<h1>Jupyter &#x26; IPython</h1>
+<h2>IPython</h2>
+<p>IPython = advanced interactive Python console, supports features like autocompletion</p>
+<h2>Jupyter notebooks</h2>
+<p>Jupyter notebook = interactive graphical Python environment, includes IPython functionalities</p>
+<p>Jupyter is browser-based; the backend can be run on the local machine or can be hosted on a server</p>
+<h2>Jupyter notebooks - online</h2>
+<p>Try Jupyter online:</p>
+<h3>Google Colab (Google account needed)</h3>
+<ul>
+<li>Go to <a href="https://colab.research.google.com">https://colab.research.google.com</a></li>
+<li>Select <em>File</em> - <em>New Python 3 Notebook</em></li>
+</ul>
+<h3>Binder (limited sessions)</h3>
+<ul>
+<li>Go to <a href="https://jupyter.org/try">https://jupyter.org/try</a></li>
+<li>Select <em>Try Classic Notebook</em></li>
+<li>wait ...</li>
+<li>Select <em>File</em> - <em>New Notebook</em> - <em>Python 3</em></li>
+</ul>
+<h2>Jupyter notebooks - locally</h2>
+<p>Launching Jupyter: Entry <em>Jupyter Notebook</em> in the start menu / terminal command <code>jupyter notebook</code></p>
+<p>Stopping Jupyter: Press <em>Quit</em> in the top right corner of the directory tree view (usually under http://localhost:8888/tree)</p>
+<h2>Notebook files</h2>
+<p>Jupyter notebook files can be created via <em>new</em> - <em>Notebook: Python 3</em></p>
+<p>Will be saved under <em>notebook.ipynb</em></p>
+<p><em>Ipynb</em>: File format that can contain Python code, outputs, text documentation</p>
+<h2>Writing and evaluating code</h2>
+<p>Write code into a cell, e.g.</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> time
+time.sleep(<span class="hljs-number">3</span>)
+<span class="hljs-string">"hello"</span>
+</code></pre>
+<p>and press <em>Shift</em> + <em>Enter</em></p>
+<h2>Writing and evaluating code</h2>
+<p>IPython has numbered inputs, e.g. <code>In [1]</code></p>
+<p>When a computation is ongoing it will display <code>In [*]</code></p>
+<p>If the last statement in a cell evaluates to something it will be considered the output and displayed</p>
+<p>In order to restart the notebook and re-evaluate all cells, press ⏩</p>
+<h2>Accessing the last output</h2>
+<pre><code class="hljs language-py">print(_ * <span class="hljs-number">3</span>)
+</code></pre>
+<h2>Writing documentation via markdown</h2>
+<p>We can add documentation via the standardized <em>markdown</em> language:</p>
+<p>Change the dropdown from <em>Code</em> to <em>Markdown</em> and try the following code:</p>
+<pre><code class="hljs language-md"><span class="hljs-section"># Heading</span>
+<span class="hljs-bullet">
+- </span>item 1
+<span class="hljs-bullet">- </span>item 2
+</code></pre>
+<p>Run the cell to display the result, double click to edit again</p>
+<p><a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">markdown cheatsheet</a></p>
+<h2>Documentation</h2>
+<p>displaying documentation in any Python console:</p>
+<pre><code class="hljs language-py">help(str)
+</code></pre>
+<p>(navigate through long outputs via <em>Enter</em>, exit via <em>Q</em>)</p>
+<p>shortcut for IPython / Jupyter:</p>
+<pre><code class="hljs language-ipython">str?
+</code></pre>
+<h2>Tab completion and wildcard expressions</h2>
+<pre><code class="hljs language-ipython">*Error?
+</code></pre>
+<h2>Running terminal commands</h2>
+<p>IPython includes direct access to many terminal commands, e.g. <code>ls</code>, <code>cd</code>, ...</p>
+<p>We can execute any terminal command by prefixing it with <code>!</code></p>
+<h1>NumPy</h1>
+<h2>NumPy</h2>
+<p>Library for efficient data processing</p>
+<p>Data are stored in multidimensional arrays of numeric values which are implemented in an efficient way:</p>
+<ul>
+<li>smaller memory use than e.g. lists of numbers in Python</li>
+<li>much faster execution of operations like element-wise addition of arrays</li>
+</ul>
+<p>Data can represent images, sound, measurements and much more</p>
+<h2>NumPy</h2>
+<p>common import convention:</p>
+<pre><code class="hljs language-python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+</code></pre>
+<h2>Arrays</h2>
+<p>creating a 2-dimensional array:</p>
+<pre><code class="hljs language-py">a2d = np.array([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], [<span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">6</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">6</span>, <span class="hljs-number">9</span>]])
+</code></pre>
+<p>output:</p>
+<pre><code class="hljs language-py">array([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>],
+       [<span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">6</span>],
+       [<span class="hljs-number">3</span>, <span class="hljs-number">6</span>, <span class="hljs-number">9</span>]])
+</code></pre>
+<h2>Arrays</h2>
+<p>creating a 3-dimensional array:</p>
+<pre><code class="hljs language-py">a3d = np.array([[[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]], [[<span class="hljs-number">5</span>, <span class="hljs-number">6</span>], [<span class="hljs-number">7</span>,<span class="hljs-number">8</span>]]])
+</code></pre>
+<p>output:</p>
+<pre><code class="hljs language-py">array([[[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>],
+        [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]],
+
+       [[<span class="hljs-number">5</span>, <span class="hljs-number">6</span>],
+        [<span class="hljs-number">7</span>, <span class="hljs-number">8</span>]]])
+</code></pre>
+<h2>Arrays</h2>
+<p>NumPy arrays vs Python lists:</p>
+<p>Arrays are implemented in C, the numeric entries are not full Python Objects and require less resources</p>
+<h2>NumPy</h2>
+<p>NumPy Arrays vs Python lists:</p>
+<pre><code class="hljs language-py"><span class="hljs-comment"># Python lists (with references to Python integer objects)</span>
+list_a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>]
+list_b = [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]
+
+<span class="hljs-comment"># NumPy array</span>
+<span class="hljs-comment"># data are contained within the array without referencing</span>
+<span class="hljs-comment"># Python integers</span>
+array_a = numpy.array(list_a)
+array_b = numpy.array(list_b)
+
+<span class="hljs-comment"># fast multiplication (implemented in C)</span>
+array_a * array_b
+</code></pre>
+<h2>Array shape</h2>
+<p>We can query these attributes:</p>
+<ul>
+<li><code>a3d.ndim</code>: 3</li>
+<li><code>a3d.shape</code>: (2, 2, 2)</li>
+<li><code>a3d.size</code>: 8</li>
+</ul>
+<h1>Creating arrays</h1>
+<h2>Creating arrays</h2>
+<p>creating a 2x6 array filled with 0:</p>
+<pre><code class="hljs language-py">np.zeros((<span class="hljs-number">2</span>, <span class="hljs-number">6</span>))
+</code></pre>
+<p>or</p>
+<pre><code class="hljs language-py">np.full((<span class="hljs-number">2</span>, <span class="hljs-number">6</span>), <span class="hljs-number">0</span>)
+</code></pre>
+<p>creating a 3x3 array of random values:</p>
+<pre><code class="hljs language-py">np.random.random(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>)
+</code></pre>
+<h2>Creating arrays</h2>
+<p>creating the sequence <em>0.0, 0.5, 1.0, 1.5</em>:</p>
+<pre><code class="hljs language-py"><span class="hljs-comment"># fixed step width (0.5)</span>
+a = np.arange(<span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">0.5</span>)
+<span class="hljs-comment"># fixed number of entries (4)</span>
+b = np.linspace(<span class="hljs-number">0</span>, <span class="hljs-number">1.5</span>, <span class="hljs-number">4</span>)
+</code></pre>
+<h1>Operations on arrays</h1>
+<h2>Operations on arrays</h2>
+<p>Selecting entries:</p>
+<pre><code class="hljs language-py">a2d[<span class="hljs-number">0</span>] <span class="hljs-comment"># [1, 2, 3]</span>
+a2d[<span class="hljs-number">0</span>, <span class="hljs-number">1</span>] <span class="hljs-comment"># 2</span>
+a2d[<span class="hljs-number">0</span>, :] <span class="hljs-comment"># [1, 2, 3]</span>
+a2d[:, <span class="hljs-number">0</span>] <span class="hljs-comment"># [1, 2, 3]</span>
+</code></pre>
+<h2>Operations on arrays</h2>
+<p>Selecting entries:</p>
+<pre><code class="hljs language-py">a2d[<span class="hljs-number">1</span>:, <span class="hljs-number">1</span>:] <span class="hljs-comment"># [[4, 6], [6, 9]]</span>
+a2d[<span class="hljs-number">1</span>, ::<span class="hljs-number">-1</span>] <span class="hljs-comment"># [3, 2, 1]</span>
+</code></pre>
+<h2>Operations on arrays</h2>
+<p>Operators are applied element-wise:</p>
+<pre><code class="hljs language-py">a = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])
+b = np.array([<span class="hljs-number">2</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>])
+
+print(-a)
+<span class="hljs-comment"># np.array([-1, -2, -3])</span>
+print(a + b)
+<span class="hljs-comment"># np.array([3, 4, 5])</span>
+print(a * b)
+<span class="hljs-comment"># np.array([2, 4, 6])</span>
+</code></pre>
+<h2>Operations on arrays</h2>
+<p>operations with single numbers (broadcasting):</p>
+<pre><code class="hljs language-py">a = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])
+
+print(a + <span class="hljs-number">1</span>)
+<span class="hljs-comment"># np.array([2, 3, 4])</span>
+</code></pre>
+<p>Some constants are available directly in NumPy:</p>
+<pre><code class="hljs language-py">print(a + np.pi)
+print(a + np.e)
+</code></pre>
+<h2>Operations on arrays</h2>
+<p>element-wise comparison of arrays:</p>
+<pre><code class="hljs language-py">a &#x3C; b
+<span class="hljs-comment"># np.array([True, False, False])</span>
+a == b
+<span class="hljs-comment"># np.array([False, True, False])</span>
+</code></pre>
+<p>Warning: <code>a == b</code> cannot be used reasonably in if statements - use <code>np.array_equal(a, b)</code></p>
+<h2>Operations on arrays</h2>
+<p>Filtering arrays (e.g. for restricting to positive entries):</p>
+<pre><code class="hljs language-py">a = np.array([[<span class="hljs-number">-1</span>, <span class="hljs-number">3</span>], [<span class="hljs-number">-2</span>, <span class="hljs-number">1</span>]])
+a_is_pos = a > <span class="hljs-number">0</span>
+<span class="hljs-comment"># array([[False, True], [False, True]])</span>
+a_pos = a[a_is_pos]
+<span class="hljs-comment"># array([3, 1])</span>
+</code></pre>
+<p>short form:</p>
+<pre><code class="hljs language-py">a_pos = a[a > <span class="hljs-number">0</span>]
+</code></pre>
+<h2>Operations on arrays</h2>
+<p>NumPy provides some mathematical functions that are applied element-wise:</p>
+<pre><code class="hljs language-py">a = np.array([<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])
+
+print(np.sin(a))
+<span class="hljs-comment"># [0.0, 0.84147098, 0.9... ]</span>
+print(np.sqrt(a))
+<span class="hljs-comment"># [0.0, 1.0, 1.414... ]</span>
+</code></pre>
+<h2>Operations on arrays</h2>
+<p>element-wise functions:</p>
+<ul>
+<li><code>abs</code></li>
+<li><code>sin</code></li>
+<li><code>cos</code></li>
+<li><code>sqrt</code></li>
+<li><code>exp</code></li>
+<li><code>log</code></li>
+<li><code>log10</code></li>
+<li>...</li>
+</ul>
+<h2>Operations on arrays</h2>
+<p><em>Aggregations</em> compute scalar values for an entire array or for each of its rows / columns / ...</p>
+<p>sum over all entries:</p>
+<pre><code class="hljs language-py">np.sum(a2d)
+</code></pre>
+<p>sum over all rows:</p>
+<pre><code class="hljs language-py">np.sum(a2d, axis=<span class="hljs-number">0</span>)
+</code></pre>
+<p>sum over all columns:</p>
+<pre><code class="hljs language-py">np.sum(a2d, axis=<span class="hljs-number">1</span>)
+</code></pre>
+<h2>Operationen auf Arrays</h2>
+<p>Aggregationen:</p>
+<ul>
+<li><code>sum</code></li>
+<li><code>min</code></li>
+<li><code>max</code></li>
+<li><code>std</code></li>
+<li><code>percentile</code></li>
+</ul>
+<h2>Exercises</h2>
+<p>(see next slides)</p>
+<ul>
+<li>prices and amounts -> total price</li>
+<li>centroid of a triangle</li>
+<li>sine and cosine - value table</li>
+</ul>
+<h2>Exercises</h2>
+<p>given an array of prices and an array of quantities, determine the total price:</p>
+<pre><code class="hljs language-py">prices = np.array([<span class="hljs-number">3.99</span>, <span class="hljs-number">4.99</span>, <span class="hljs-number">3.99</span>, <span class="hljs-number">12.99</span>])
+<span class="hljs-comment"># buying the first item 3 times and the last item 2 times</span>
+quantities = np.array([<span class="hljs-number">3</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">2</span>])
+
+<span class="hljs-comment"># solution: 37.95</span>
+</code></pre>
+<h2>Exercises</h2>
+<p>given the coordinates of the vertices of a triangle (in 2D or 3D), determine its centroid</p>
+<pre><code class="hljs language-py">a = np.array([<span class="hljs-number">5</span>, <span class="hljs-number">1</span>])
+b = np.array([<span class="hljs-number">6</span>, <span class="hljs-number">8</span>])
+c = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">3</span>])
+
+<span class="hljs-comment"># solution: [4, 4]</span>
+</code></pre>
+<h2>Exercises</h2>
+<p>create a "value table" for the sine and cosine functions in the interval between 0 and 2*pi.</p>
+<p>result:</p>
+<pre><code class="hljs language-py"><span class="hljs-comment"># x, sin(x), cos(x)</span>
+np.array([[<span class="hljs-number">0.0</span>, <span class="hljs-number">0.01</span>, <span class="hljs-number">0.02</span>, ...],
+          [<span class="hljs-number">0.0</span>, <span class="hljs-number">0.0099998</span>, <span class="hljs-number">0.99995</span>, ...],
+          [<span class="hljs-number">1.0</span>, <span class="hljs-number">0.99995</span>, <span class="hljs-number">0.99980</span>, ...]])
+</code></pre>
+<p>using this data, verify the following equation: <em>sin(x)^2 + cos(x)^2 = 1</em></p>
+<h1>Array types</h1>
+<h2>Array types</h2>
+<p>Each array can only hold data of one type (e.g. only 64 bit floats or only bytes)</p>
+<h2>Array types</h2>
+<p>Each array has a predefined data type for all entries</p>
+<pre><code class="hljs language-py">a = np.array([<span class="hljs-number">1</span>])
+a.dtype <span class="hljs-comment"># int32</span>
+b = np.array([<span class="hljs-number">1.0</span>])
+b.dtype <span class="hljs-comment"># float64</span>
+c = np.array([<span class="hljs-string">'abc'</span>])
+c.dtype <span class="hljs-comment"># &#x3C;U3</span>
+d = np.array([<span class="hljs-string">b'abc'</span>])
+d.dtype <span class="hljs-comment"># |S3</span>
+</code></pre>
+<h2>Array types</h2>
+<p>Types may be stated explicitly:</p>
+<pre><code class="hljs language-py">a = np.array([<span class="hljs-number">1</span>], dtype=<span class="hljs-string">'int64'</span>)
+b = np.array([<span class="hljs-number">1</span>], dtype=<span class="hljs-string">'uint8'</span>)
+</code></pre>
+<p>If possible, types are converted automatically:</p>
+<pre><code class="hljs language-py">c = a + b
+c.dtype <span class="hljs-comment"># int64</span>
+</code></pre>
+<h2>Array types</h2>
+<p>common types:</p>
+<ul>
+<li><em>bool</em> / <em>bool_</em> (stored as 8 bits)</li>
+<li><em>int8</em>, <em>int16</em>, <em>int32</em>, <em>int64</em></li>
+<li><em>uint8</em>, <em>uint16</em>, <em>uint32</em>, <em>uint64</em></li>
+<li><em>float16</em>, <em>float32</em>, <em>float64</em></li>
+</ul>
+<h2>Overflow</h2>
+<p>Be careful with values that are too big or too small</p>
+<p>The type <code>int8</code> is only suitable for values in the range from <code>-128</code> to <code>+127</code></p>
+<pre><code class="hljs language-py">np.array([<span class="hljs-number">127</span>, <span class="hljs-number">128</span>, <span class="hljs-number">129</span>], dtype=<span class="hljs-string">"int8"</span>)
+</code></pre>
+<p>Output:</p>
+<pre><code class="hljs language-py">array([<span class="hljs-number">127</span>, <span class="hljs-number">-128</span>, <span class="hljs-number">-127</span>])
+</code></pre>
+<h1>Plotting</h1>
+<h2>Plotting - advanced plots</h2>
+<ul>
+<li>plotting data points with more than 2 features<ul>
+<li>advanced scatter plot (size, color)</li>
+<li>scatter matrix</li>
+</ul></li>
+<li>plotting z = f(x, y)<ul>
+<li>contour plots</li>
+<li>3d plots</li>
+</ul></li>
+<li>plotting density of some distribution (advanced)<ul>
+<li>histogram</li>
+<li>box plot</li>
+<li>kde</li>
+<li>violin plot</li>
+</ul></li>
+<li>plotting density (2d)<ul>
+<li>2d histogram (hist2d, hexbin)</li>
+<li>kde</li>
+</ul></li>
+</ul>
+<h1>Pandas</h1>
+<h2>Pandas</h2>
+<p><em>Pandas</em> is a data analysis library; it is based on <em>NumPy</em></p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+</code></pre>
+<h2>Series and DataFrame</h2>
+<ul>
+<li><strong>Series</strong>: Collection of values for some keys (table column)</li>
+<li><strong>DataFrame</strong>: Collection of associated series (table)</li>
+</ul>
+<p>Example:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th></th><th align="right">Area</th><th align="right">Population</th><th>Capital</th></tr></thead><tbody><tr><td>CN</td><td align="right">9.6</td><td align="right">1386</td><td>Beijing</td></tr><tr><td>RU</td><td align="right">17</td><td align="right">144</td><td>Moscow</td></tr><tr><td>US</td><td align="right">9.8</td><td align="right">327</td><td>Washington, D.C.</td></tr></tbody></table>
+<h2>Creating a Series</h2>
+<pre><code class="hljs language-py">area = pd.Series({<span class="hljs-string">'CN'</span>: <span class="hljs-number">9.6</span>, <span class="hljs-string">'RU'</span>: <span class="hljs-number">17</span>, <span class="hljs-string">'US'</span>: <span class="hljs-number">9.8</span>})
+population = pd.Series({<span class="hljs-string">'CN'</span>: <span class="hljs-number">1386</span>, <span class="hljs-string">'RU'</span>: <span class="hljs-number">144</span>, <span class="hljs-string">'US'</span>: <span class="hljs-number">327</span>})
+</code></pre>
+<pre><code class="hljs language-py">area = pd.Series([<span class="hljs-number">9.6</span>, <span class="hljs-number">17</span>, <span class="hljs-number">9.8</span>], [<span class="hljs-string">"CN"</span>, <span class="hljs-string">"RU"</span>, <span class="hljs-string">"US"</span>])
+population = pd.Series([<span class="hljs-number">1386</span>, <span class="hljs-number">144</span>, <span class="hljs-number">327</span>], [<span class="hljs-string">"CN"</span>, <span class="hljs-string">"RU"</span>, <span class="hljs-string">"US"</span>])
+</code></pre>
+<h2>Reading values</h2>
+<pre><code class="hljs language-py">area[<span class="hljs-number">0</span>] <span class="hljs-comment"># 9.6</span>
+
+area[<span class="hljs-string">'CN'</span>] <span class="hljs-comment"># 9.6</span>
+</code></pre>
+<h2>Series</h2>
+<p>Each series has a specific data type</p>
+<pre><code class="hljs language-py">area.dtype <span class="hljs-comment"># float64</span>
+</code></pre>
+<p>Manually setting the datatype:</p>
+<pre><code class="hljs language-py">area = pd.Series({<span class="hljs-string">"CN"</span>: <span class="hljs-number">9.6</span>, <span class="hljs-string">"RU"</span>: <span class="hljs-number">17</span>, <span class="hljs-string">"US"</span>: <span class="hljs-number">9.8</span>},
+                 dtype=<span class="hljs-string">"float32"</span>)
+</code></pre>
+<h2>DataFrame</h2>
+<pre><code class="hljs language-py">countries = pd.DataFrame({
+    <span class="hljs-string">'area'</span>: area,
+    <span class="hljs-string">'population'</span>: population})
+</code></pre>
+<h1>Importing and exporting data</h1>
+<h2>Importing and exporting data</h2>
+<p>data formats:</p>
+<ul>
+<li>CSV</li>
+<li>Excel</li>
+<li>JSON</li>
+<li>HDF5 (efficient binary format)</li>
+<li>SQL tables (via <em>SQLAlchemy</em>)</li>
+</ul>
+<h2>Importing and exporting data</h2>
+<p>The following functions can import / export data from files. Imports may read files from online sources.</p>
+<p>import: <code>pd.read_csv</code>, <code>pd.read_excel</code>, ...</p>
+<p>export: <code>df.to_csv</code>, <code>df.to_excel</code>, ...</p>
+<h2>Importing CSV</h2>
+<p>Example: Euribor (interest rates of European bonds)</p>
+<pre><code class="hljs language-py">euribor = pd.read_csv(
+    <span class="hljs-string">"https://datahub.io/core/euribor/r/euribor-12m-monthly.csv"</span>
+)
+</code></pre>
+<h2>Importing CSV</h2>
+<p>Possible keyword arguments for <code>read_csv</code>:</p>
+<ul>
+<li><code>index_col</code>: identifies a column to be used as an index instead of a numerical index</li>
+<li><code>header</code>: passing a value of <code>None</code> signifies that there is no header row</li>
+<li><code>names</code>: column names to be used in the resulting <code>DataFrame</code></li>
+<li><code>sep</code>: for specifying other separators than a comma</li>
+<li><code>usecols</code>: for importing only specific columns</li>
+<li><code>parse_dates</code>: expects a list of column names</li>
+<li>...</li>
+</ul>
+<p>See also: <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html">https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html</a></p>
+<h2>Importing CSV</h2>
+<p>Advanced Euribor example:</p>
+<ul>
+<li>parse the date</li>
+<li>use the date as the index</li>
+<li>only import the columns <em>date</em> and <em>rate</em></li>
+</ul>
+<pre><code class="hljs language-py">euribor = pd.read_csv(
+    <span class="hljs-string">"https://datahub.io/core/euribor/r/euribor-12m-monthly.csv"</span>,
+    parse_dates=[<span class="hljs-string">"date"</span>],
+    index_col=<span class="hljs-string">"date"</span>,
+    usecols=[<span class="hljs-string">"date"</span>, <span class="hljs-string">"rate"</span>]
+)
+</code></pre>
+<h2>Importing CSV</h2>
+<p>Task: Import the following data sources, ensuring the data is formatted nicely:</p>
+<ul>
+<li>S&#x26;P 500 monthly prices (US stock index): <a href="https://datahub.io/core/s-and-p-500/r/data.csv">https://datahub.io/core/s-and-p-500/r/data.csv</a></li>
+<li>Exchange rates: <a href="https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv">https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv</a></li>
+<li>Iris dataset (statistics of leaf sizes for iris flowers): <a href="http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data">http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data</a> (look up appropriate column names on the web)</li>
+</ul>
+<h2>Importing CSV</h2>
+<p>possible solutions:</p>
+<pre><code class="hljs language-py">iris = pd.read_csv(
+    <span class="hljs-string">"http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data"</span>,
+    header=<span class="hljs-literal">None</span>,
+    names=[<span class="hljs-string">"sepal_length"</span>, <span class="hljs-string">"sepal_width"</span>, <span class="hljs-string">"petal_length"</span>,
+           <span class="hljs-string">"petal_width"</span>, <span class="hljs-string">"name"</span>])
+sp500 = pd.read_csv(
+    <span class="hljs-string">"https://datahub.io/core/s-and-p-500/r/data.csv"</span>,
+    index_col=<span class="hljs-string">"Date"</span>,
+    parse_dates=[<span class="hljs-string">"Date"</span>])
+exchange_rates = pd.read_csv(
+    <span class="hljs-string">"https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv"</span>,
+    parse_dates=[<span class="hljs-string">"Date"</span>])
+</code></pre>
+<h2>Importing and exporting data</h2>
+<p>Excel:</p>
+<pre><code class="hljs language-py">euribor.to_excel(<span class="hljs-string">'euribor.xlsx'</span>)
+euribor = pd.read_excel(<span class="hljs-string">'euribor.xlsx'</span>, index_col=<span class="hljs-number">0</span>)
+</code></pre>
+<p>HDF5 (<em>pytables</em> must be installed):</p>
+<pre><code class="hljs language-py">euribor.to_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class="hljs-string">"euribor"</span>)
+euribor = read_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class="hljs-string">"euribor"</span>)
+</code></pre>
+<h1>Pandas: Querying data</h1>
+<h2>Querying data (by row numbers / column numbers)</h2>
+<ul>
+<li><code>df.iloc[5]</code>: row 5 (returns a <code>Series</code> object)</li>
+<li><code>df.iloc[:5]</code>: first 5 rows (returns a <code>DataFrame</code> object)</li>
+<li><code>df.iloc[10:20]</code>: rows 10-19</li>
+<li><code>df.iloc[5, 1]</code>: row 5, column 1</li>
+<li><code>df.iloc[5, [0, 2]]</code>: row 5, column 0 and 2</li>
+</ul>
+<h2>Querying data (by row names / column names)</h2>
+<ul>
+<li><code>df.index</code>: row names</li>
+<li><code>df.columns</code>: column names</li>
+</ul>
+<!-- -->
+<ul>
+<li><code>df.loc["2009-01-02"]</code>: Row by index value</li>
+<li><code>df.loc["2009-01-01":"2009-01-31"]</code>: Row in a specified range (both values included)</li>
+<li><code>df.loc[:, "rate"]</code>: column <code>"rate"</code></li>
+<li><code>df["rate"]</code>: column <code>"rate"</code> (short version)</li>
+<li><code>df.rate</code>: column <code>"rate"</code> (extra short version - only works with no special characters)</li>
+<li><code>df.loc[:, ["rate", "maturity_level"]]</code>: two columns</li>
+<li><code>df.loc["2009-01-02", "rate"]</code>: specific row and column</li>
+</ul>
+<h2>Sorting rows</h2>
+<ul>
+<li><code>df.sort_values(by="rate")</code></li>
+<li><code>df.loc["2009-01-02" : "2009-12-31"].sort_values(by="rate")</code></li>
+<li><code>df.sort_index(ascending=False)</code></li>
+</ul>
+<h2>Sampling data</h2>
+<ul>
+<li><code>df.sample()</code> - random entry</li>
+<li><code>df.sample(5)</code> - five entries</li>
+<li><code>df.sample(frac=0.1)</code> - 10% of all entries</li>
+</ul>
+<h2>Filtering entries</h2>
+<p>All values that don't fulfill the criterion are set to <em>NaN</em> or <em>NA</em>.</p>
+<pre><code class="hljs language-py">iris[iris > <span class="hljs-number">0</span>]
+</code></pre>
+<h2>Filtering rows</h2>
+<p>via <em>boolean indexing</em> - which is applied by rows:</p>
+<ul>
+<li><code>df[df.rate &#x3C; 0]</code></li>
+<li><code>df[df.length &#x3C; 0] = np.nan</code></li>
+<li><code>df[df.name == "Iris-setosa"]</code></li>
+<li><code>df[df.name.isin(["Iris-setosa", "Iris-virginica"])])]</code></li>
+</ul>
+<h2>Filtering rows</h2>
+<p>SQL template:</p>
+<pre><code class="hljs language-sql"><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> df
+<span class="hljs-keyword">WHERE</span> a &#x3C; b <span class="hljs-keyword">AND</span> b &#x3C; c
+</code></pre>
+<p>Pandas:</p>
+<pre><code class="hljs language-py">df[(df.a &#x3C; df.b) &#x26; (df.b &#x3C; df.c)]
+</code></pre>
+<p>or</p>
+<pre><code class="hljs language-py">df.query(<span class="hljs-string">"a &#x3C; b &#x3C; c"</span>)
+</code></pre>
+<h2>Exercises (Euribor)</h2>
+<ul>
+<li>first entry</li>
+<li>last entry</li>
+<li>last 10 entries</li>
+<li>entry from 2009-01-02</li>
+<li>entries from the year 2009</li>
+<li>...</li>
+</ul>
+<h2>Solutions (Euribor)</h2>
+<ul>
+<li>first entry: <code>euribor.iloc[0]</code></li>
+<li>last entry: <code>euribor.iloc[-1]</code></li>
+<li>last 10 entries: <code>euribor.iloc[-10:]</code></li>
+<li>entry from 2009-01-02: <code>euribor.loc["2009-01-02"]</code></li>
+<li>entries from the year 2009: <code>euribor.loc["2009-01-01": "2009-12-31"]</code></li>
+</ul>
+<h2>Exercises (Iris)</h2>
+<ul>
+<li>maximum <em>petal length</em> of <em>iris setosa</em> (without using <code>.max</code>)</li>
+</ul>
+<h1>Data statistics</h1>
+<h2>Data statistics</h2>
+<pre><code class="hljs language-py">df.describe()
+</code></pre>
+<h2>Statistics on a data frames / series</h2>
+<pre><code class="hljs language-py">countries.area.describe()
+</code></pre>
+<pre><code class="hljs language-txt">count     3.000000
+mean     12.133333
+std       4.215843
+min       9.600000
+25%       9.700000
+50%       9.800000
+75%      13.400000
+max      17.000000
+dtype: float64
+</code></pre>
+<p>(see next slide for explanations)</p>
+<h2>Statistics on series</h2>
+<pre><code class="hljs language-py">countries.area.describe()
+</code></pre>
+<p>The above computes the following data:</p>
+<ul>
+<li><code>area.count()</code></li>
+<li><code>area.mean()</code></li>
+<li><code>area.std()</code></li>
+<li><code>area.quantile(0)</code> / <code>area.min()</code></li>
+<li><code>area.quantile(0.25)</code></li>
+<li><code>area.quantile(0.5)</code> / <code>area.median()</code></li>
+<li><code>area.quantile(0.75)</code></li>
+<li><code>area.quantile(1)</code> / <code>ara.max()</code></li>
+</ul>
+<h2>Statistical quantities</h2>
+<ul>
+<li><em>std</em>: <em>Standard deviation</em></li>
+<li><em>median</em>: half of the values are less and half are greater than the median</li>
+<li><em>min</em>: all values are greater than the minimum</li>
+<li><em>25%-quantile</em>: 25% of all values are less</li>
+</ul>
+<h1>Example: exchange rates</h1>
+<h2>Exchange rates</h2>
+<p><a href="https://datahub.io/core/exchange-rates/r/daily.csv">https://datahub.io/core/exchange-rates/r/daily.csv</a></p>
+<p>Daily Exchange rates between USD and other countries</p>
+<p>We will read exchange data - transform it so it only contains data for EUR-USD exchange rates and turn the dates into the index</p>
+<h2>Exchange rates</h2>
+<p>Solution:</p>
+<pre><code class="hljs language-py">er = pd.read_csv(
+    <span class="hljs-string">"https://datahub.io/core/exchange-rates/r/daily.csv"</span>,
+    parse_dates=[<span class="hljs-number">1</span>])
+
+<span class="hljs-comment"># only select euro</span>
+er_eur_full = er.loc[er.Country==<span class="hljs-string">"Euro"</span>]
+
+<span class="hljs-comment"># now we can set the date as the index</span>
+er_eur_dateindex = er_eur_full.set_index(<span class="hljs-string">'Date'</span>)
+
+<span class="hljs-comment"># we can drop the country information</span>
+er_eur = er_eur_dateindex.loc[:, <span class="hljs-string">'Value'</span>]
+</code></pre>
+<h1>Pandas: changing data</h1>
+<h2>Dropping data</h2>
+<p>dropping rows:</p>
+<pre><code class="hljs language-py">df2 = df1.drop([<span class="hljs-string">"CN"</span>, <span class="hljs-string">"US"</span>])
+</code></pre>
+<p>dropping columns:</p>
+<pre><code class="hljs language-py">df2 = df1.drop(columns=[<span class="hljs-string">"pop"</span>])
+</code></pre>
+<h2>Computing derived data</h2>
+<p>Adding a new column:</p>
+<pre><code class="hljs language-py">iris[<span class="hljs-string">"sepal_ratio"</span>] = iris[<span class="hljs-string">"sepal_length"</span>] / iris[<span class="hljs-string">"sepal_width"</span>]
+
+iris[<span class="hljs-string">"sepal_ratio"</span>].mean()
+iris[<span class="hljs-string">"sepal_ratio"</span>].std()
+
+iris_setosa = iris.loc[
+    iris[<span class="hljs-string">"name"</span>] == <span class="hljs-string">"Iris-setosa"</span>
+]
+
+iris_setosa[<span class="hljs-string">"sepal_ratio"</span>].mean()
+iris_setosa[<span class="hljs-string">"sepal_ratio"</span>].std()
+</code></pre>
+<h2>Computing derived data via NumPy</h2>
+<p>Task:</p>
+<ul>
+<li>Analyze the S&#x26;P 500 monthly data and determine the monthly gain / loss in percent for each month</li>
+<li>What was the biggest loss / gain in a month?</li>
+</ul>
+<h2>Computing derived data via NumPy</h2>
+<p>converting to NumPy array:</p>
+<pre><code class="hljs language-py">values_np = sp500[<span class="hljs-string">"SP500"</span>].to_numpy()
+</code></pre>
+<p>differences of sequential months:</p>
+<pre><code class="hljs language-py">diffs = values_np[<span class="hljs-number">1</span>:] - values_np[:<span class="hljs-number">-1</span>]
+<span class="hljs-comment"># add a single NaN to the front</span>
+diffs = np.concatenate([
+    np.array([float(<span class="hljs-string">'nan'</span>)]), diffs])
+</code></pre>
+<p>adding to pandas data:</p>
+<pre><code class="hljs language-py">sp500[<span class="hljs-string">"Diff"</span>] = diffs
+sp500[<span class="hljs-string">"Gain"</span>] = sp500[<span class="hljs-string">"Diff"</span>] / sp500[<span class="hljs-string">"SP500"</span>]
+</code></pre>
+<h2>Setting data</h2>
+<pre><code class="hljs language-py">iris.iloc[<span class="hljs-number">0</span>, <span class="hljs-number">0</span>] = <span class="hljs-number">6</span>
+
+iris.loc[:, <span class="hljs-string">"sepal_ratio"</span>] = float(<span class="hljs-string">'nan'</span>)
+</code></pre>
+<h1>Missing data</h1>
+<h2>Missing data</h2>
+<p>In the exchange rate data there are some missing entries:</p>
+<ul>
+<li>some days are not present (weekends)</li>
+<li>for some days the values are <code>NaN</code>s</li>
+</ul>
+<h2>Missing data</h2>
+<p>Values that represent missing data (since pandas 1.0):</p>
+<ul>
+<li>for floats: <code>NaN</code> (as usual in Python)</li>
+<li>for other data types: <code>NA</code> (from the pands package)</li>
+</ul>
+<h2>Missing data</h2>
+<p>removing any rows with missing data:</p>
+<pre><code class="hljs language-py">er = er.dropna()
+</code></pre>
+<p>filling any rows with missing data with zeros:</p>
+<pre><code class="hljs language-py">er = er.fillna(<span class="hljs-number">0</span>)
+</code></pre>
+<p>filling any missing data with the value from the previous row:</p>
+<pre><code class="hljs language-py">er = er.fillna(method=<span class="hljs-string">"backfill"</span>)
+</code></pre>
+<h2>Missing data</h2>
+<p>interpolating data:</p>
+<pre><code class="hljs language-py">er = er.intepolate()
+er = er.interpolate(method=<span class="hljs-string">"spline"</span>)
+</code></pre>
+<p>interpolating example:</p>
+<pre><code class="hljs language-py">url = <span class="hljs-string">'https://datahub.io/core/interest-rates-gb/r/data.csv'</span>
+
+ir_uk = pd.read_csv(url, index_col=<span class="hljs-string">"date"</span>,
+                    parse_dates=<span class="hljs-literal">True</span>)
+
+ir_uk_weekly = ir_uk.resample(<span class="hljs-string">'7d'</span>).interpolate()
+</code></pre>
+<h2>Exercise</h2>
+<p>Use the data from <em>sp500</em> and euribor to compare the development of american and european interest rates</p>
+<h1>Plotting</h1>
+<h2>Plotting</h2>
+<p>general procedure:</p>
+<p>In Jupyter:</p>
+<pre><code class="hljs language-py">data_frame.plot()
+</code></pre>
+<p>In the terminal:</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+
+data_frame.plot()
+
+<span class="hljs-comment"># show all figures that were created since the last</span>
+<span class="hljs-comment"># call to .show()</span>
+plt.show()
+</code></pre>
+<h2>Plotting functions</h2>
+<pre><code class="hljs language-py"><span class="hljs-comment"># graph</span>
+data.plot.line()
+data.plot()
+<span class="hljs-comment"># bar chart</span>
+data.plot.bar()
+<span class="hljs-comment"># box plot</span>
+data.plot.box()
+<span class="hljs-comment"># histogram</span>
+data.plot.hist()
+<span class="hljs-comment"># scatter plot</span>
+data.plot.scatter(x=<span class="hljs-string">"colname_1"</span>, y=<span class="hljs-string">"colname_2"</span>)
+<span class="hljs-comment"># scatter matrix</span>
+<span class="hljs-keyword">from</span> pandas.plotting <span class="hljs-keyword">import</span> scatter_matrix
+scatter_matrix(data)
+</code></pre>
+<h2>Graphs</h2>
+<p>example:</p>
+<pre><code class="hljs language-py">euribor.plot.line()
+sp500[<span class="hljs-string">"SP500"</span>].plot.line(figsize=(<span class="hljs-number">9</span>, <span class="hljs-number">6</span>))
+</code></pre>
+<h2>Bar charts</h2>
+<p>example:</p>
+<pre><code class="hljs language-py">euribor.iloc[<span class="hljs-number">-36</span>:].plot.bar()
+</code></pre>
+<p>exercise:</p>
+<p>plot median <em>sepal-width</em> and <em>sepal-length</em> for all three types of flowers</p>
+<h2>Box plots</h2>
+<p>Display statistical data in a diagram (min, median, max, ...)</p>
+<pre><code class="hljs language-py">iris.plot.box()
+</code></pre>
+<h2>Histograms</h2>
+<p>counts occurrences of certain values / value ranges</p>
+<p>examples:</p>
+<pre><code class="hljs language-py">iris.sepal_lenght.plot.hist()
+</code></pre>
+<pre><code class="hljs language-py">iris.sepal_length.plot.hist(bins=<span class="hljs-number">30</span>)
+</code></pre>
+<h2>Histograms</h2>
+<p>exercise:</p>
+<p>simulate 10 million rolls of dice - each using 10 dice; plot the distribution of the sums as a histogram</p>
+<h2>Scatter plots</h2>
+<p>creates data points with two values - one on the x-axis and the other on the y-axis</p>
+<pre><code class="hljs language-py">iris.plot.scatter(x=<span class="hljs-string">"sepal_length"</span>, y=<span class="hljs-string">"sepal_width"</span>)
+</code></pre>
+<p>task: scatter plot of just <em>Iris-setosa</em></p>
+<h2>Scatter matrix</h2>
+<p>creates several scatter plots - if there are 4 data series it will create 4x4 plots (scatter plots and histograms)</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> pandas.plotting <span class="hljs-keyword">import</span> scatter_matrix
+
+scatter_matrix(iris)
+</code></pre>
+<h1>Cross tabulation</h1>
+<h2>Cross tabulation</h2>
+<p>A <em>cross tabulation</em> shows the number of corresponding entries across multiple properties</p>
+<h2>Cross tabulation</h2>
+<p>example:</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> seaborn <span class="hljs-keyword">as</span> sns
+<span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+titanic = sns.load_dataset(<span class="hljs-string">"titanic"</span>)
+pd.crosstab(titanic.survived, titanic.sex)
+</code></pre>
+<p>output:</p>
+<pre><code class="hljs language-angelscript">sex       female  male
+survived
+<span class="hljs-number">0</span>             <span class="hljs-number">81</span>   <span class="hljs-number">468</span>
+<span class="hljs-number">1</span>            <span class="hljs-number">233</span>   <span class="hljs-number">109</span>
+</code></pre>
+<h1>Grouping</h1>
+<h2>Grouping</h2>
+<p>splitting data into groups / categories and computing values based on these groups</p>
+<h2>Grouping</h2>
+<p>example: average of the iris data</p>
+<pre><code class="hljs language-py">iris.groupby(iris.name).mean()
+</code></pre>
+<pre><code class="hljs language-angelscript">                 sepal_length  sepal_width  petal_length  petal_width
+name
+Iris-setosa             <span class="hljs-number">5.006</span>        <span class="hljs-number">3.418</span>         <span class="hljs-number">1.464</span>        <span class="hljs-number">0.244</span>
+Iris-versicolor         <span class="hljs-number">5.936</span>        <span class="hljs-number">2.770</span>         <span class="hljs-number">4.260</span>        <span class="hljs-number">1.326</span>
+Iris-virginica          <span class="hljs-number">6.588</span>        <span class="hljs-number">2.974</span>         <span class="hljs-number">5.552</span>        <span class="hljs-number">2.026</span>
+</code></pre>
+<h2>Grouping</h2>
+<p>Exercise: average USD exchange rates for each currency in the 90s</p>
+<h1>Multi index</h1>
+<h2>Multi index</h2>
+<p><strong>index column</strong>: column that uniquely identifies a row in a DataFrame</p>
+<p><strong>multi index</strong>: combination of multiple columns for unique identification</p>
+<h2>Multi index</h2>
+<p>example: exchange rates</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Date</th><th>Country</th><th>Exchange rate</th></tr></thead><tbody><tr><td>1971-01-01</td><td>Australia</td><td>0.894</td></tr><tr><td>1971-02-01</td><td>Australia</td><td>0.890</td></tr><tr><td>1971-03-01</td><td>Australia</td><td>0.890</td></tr></tbody></table>
+<p>A row can be uniquely identified by a combination of <em>date</em> and <em>country</em></p>
+<h2>Multi index</h2>
+<p>Importing with a multi-index:</p>
+<pre><code class="hljs language-py">exchange_rates = pd.read_csv(
+    <span class="hljs-string">"https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv"</span>,
+    index_col=[<span class="hljs-string">"Country"</span>, <span class="hljs-string">"Date"</span>]
+    parse_dates=[<span class="hljs-string">"Date"</span>])
+</code></pre>
+<h1>NumPy advanced</h1>
+<h2>Reshaping arrays</h2>
+<pre><code class="hljs language-py">array_1d = array_3d.ravel()
+array_1d = array_3d.reshape(<span class="hljs-number">8</span>)
+array_2d = array_3d.reshape(<span class="hljs-number">2</span>, <span class="hljs-number">4</span>)
+array_2d = array_3d.reshape(<span class="hljs-number">2</span>, <span class="hljs-number">-1</span>) <span class="hljs-comment"># automatic second dimension</span>
+array_2d_transposed = array_2d.T
+</code></pre>
+<h2>Adding an extra dimension</h2>
+<p>Adding an extra dimension of length 1 via <code>newaxis</code> - turning a 2 x 2 array into a 2 x 2 x 1 array:</p>
+<pre><code class="hljs language-py">array_2d = np.array([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]])
+array_3d = array_2d[:, :, np.newaxis]
+<span class="hljs-comment"># [[[1], [2]], [[3], [4]]]</span>
+</code></pre>
+<h2>Slices as views</h2>
+<p>In ordinary Python we can make a shallow copy of a list by slicing it - this works differently in NumPy (in order to improve efficiency):</p>
+<pre><code class="hljs language-py">list = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]
+list_copy = list[:]
+list_copy[<span class="hljs-number">0</span>] = <span class="hljs-number">10</span> <span class="hljs-comment"># does NOT change list</span>
+
+array = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])
+array_view = array[:]
+array_view[<span class="hljs-number">0</span>] = <span class="hljs-number">10</span> <span class="hljs-comment"># DOES change array</span>
+</code></pre>
+<h2>Copying arrays</h2>
+<p>Arrays can be copied via <code>array.copy()</code></p>
+<h2>Concatenating arrays</h2>
+<p>concatenating horizontally:</p>
+<pre><code class="hljs language-py">np.concatenate([a1d, a1d])
+np.concatenate([a2d, a2d])
+</code></pre>
+<p>concatenating vertically:</p>
+<pre><code class="hljs language-py">np.concatenate([a2d, a2d], axis=<span class="hljs-number">1</span>)
+</code></pre>
+<h2>Matrix multiplication</h2>
+<p>via the binary Operator <code>@</code></p>
+<pre><code class="hljs language-py">a = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">1</span>])
+
+M = np.array([[<span class="hljs-number">0.707</span>, <span class="hljs-number">0.707</span>],
+              [<span class="hljs-number">-0.707</span>, <span class="hljs-number">0.707</span>]])
+
+print(a @ M)
+<span class="hljs-comment"># array([0.   , 1.414])</span>
+</code></pre>
+<h2>Matrix multiplication</h2>
+<p>example: rotating several points by 45° (counterclockwise):</p>
+<pre><code class="hljs language-py">points = np.array([[<span class="hljs-number">0</span>, <span class="hljs-number">0</span>], [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>], [<span class="hljs-number">1</span>, <span class="hljs-number">0</span>], [<span class="hljs-number">1</span>, <span class="hljs-number">1</span>]])
+
+M = np.array([[<span class="hljs-number">0.707</span>, <span class="hljs-number">0.707</span>],
+              [<span class="hljs-number">-0.707</span>, <span class="hljs-number">0.707</span>]])
+
+print(points @ M)
+</code></pre>
+<h2>Matrix multiplication</h2>
+<p>example:</p>
+<p>known data: prices of various products, number of items in stock for different stores</p>
+<pre><code class="hljs language-py">prices = np.array([<span class="hljs-number">3.99</span>, <span class="hljs-number">12.99</span>, <span class="hljs-number">5.90</span>, <span class="hljs-number">15</span>])
+quantities = np.array([[<span class="hljs-number">0</span>, <span class="hljs-number">80</span>, <span class="hljs-number">80</span>, <span class="hljs-number">100</span>],
+                       [<span class="hljs-number">100</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>],
+                       [<span class="hljs-number">50</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">50</span>]])
+</code></pre>
+<p>wanted: total value for each of the three stores</p>

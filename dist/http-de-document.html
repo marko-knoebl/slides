@@ -1,0 +1,235 @@
+<h1>HTTP</h1>
+<h2>HTTP</h2>
+<p>Hypertext Transfer Protocol</p>
+<p>= Protokoll, auf dessen Basis Resourcen über das Netzwerk angefragt und übertragen werden können</p>
+<h2>HTTP</h2>
+<p>Paar: Anfrage - Antwort</p>
+<p>Anfrage: meist aus dem Browser</p>
+<p>Antwort: kommt vom Server</p>
+<p>HTTP Anfragen und Antworten werden wiederum über ein "niedrigeres" Protokoll übertragen, üblicherweise <em>TCP</em>.</p>
+<h2>Experimentieren mit HTTP</h2>
+<p>Möglichkeiten:</p>
+<ul>
+<li>Browser-Tools unter "Netzwerkanalyse"</li>
+<li>VS Code Plugin <em>HTTP Client</em></li>
+</ul>
+<h2>HTTP: Beispiel Wikipedia</h2>
+<p>Anfrage:</p>
+<pre><code class="hljs language-http"><span class="hljs-keyword">GET</span> <span class="hljs-string">/wiki/Main_Page</span> HTTP/2.0
+<span class="hljs-attribute">Host</span>: en.wikipedia.org
+<span class="hljs-attribute">Connection</span>: keep-alive
+</code></pre>
+<p>Antwort:</p>
+<pre><code class="hljs language-http">HTTP/2.0 <span class="hljs-number">200</span> OK
+<span class="hljs-attribute">Date</span>: Wed, 24 Apr 2019 07:50:41 GMT
+<span class="hljs-attribute">Content-Type</span>: text/html; charset=UTF-8
+
+<span class="xml"><span class="hljs-meta">&#x3C;!DOCTYPE html></span>
+<span class="hljs-tag">&#x3C;<span class="hljs-name">html</span> <span class="hljs-attr">...</span>
+</span></span></code></pre>
+<h2>HTTP: Beispiel Wikipedia Suche (1)</h2>
+<p>Anfrage:</p>
+<pre><code class="hljs language-http"><span class="hljs-keyword">GET</span> <span class="hljs-string">/w/index.php?search=test&#x26;title=Special:Search&#x26;go=Go</span> HTTP/2.0
+<span class="hljs-attribute">Host</span>: en.wikipedia.org
+<span class="hljs-attribute">Connection</span>: keep-alive
+</code></pre>
+<p>Antwort:</p>
+<pre><code class="hljs language-http">HTTP/2.0 <span class="hljs-number">302</span> Found
+<span class="hljs-attribute">Location</span>: https://en.wikipedia.org/wiki/Test
+<span class="hljs-attribute">Content-Length</span>: 0
+</code></pre>
+<h2>HTTP: Beispiel Wikipedia Suche (2)</h2>
+<p>Anfrage:</p>
+<pre><code class="hljs language-http"><span class="hljs-keyword">GET</span> <span class="hljs-string">/wiki/Test</span> HTTP/2.0
+<span class="hljs-attribute">Host</span>: en.wikipedia.org
+<span class="hljs-attribute">Connection</span>: keep-alive
+</code></pre>
+<p>Antwort:</p>
+<pre><code class="hljs language-http">HTTP/2.0 <span class="hljs-number">200</span> OK
+<span class="hljs-attribute">Content-Type</span>: text/html; charset=UTF-8
+
+<span class="xml"><span class="hljs-meta">&#x3C;!DOCTYPE html></span>
+<span class="hljs-tag">&#x3C;<span class="hljs-name">html</span> <span class="hljs-attr">...</span>
+</span></span></code></pre>
+<h2>HTTP: Beispiel POST-Request</h2>
+<p>Anfrage:</p>
+<pre><code class="hljs language-http"><span class="hljs-keyword">POST</span> <span class="hljs-string">/submit-posting</span> HTTP/2.0
+<span class="hljs-attribute">Host</span>: example.com
+<span class="hljs-attribute">Connection</span>: keep-alive
+<span class="hljs-attribute">Content-Type</span>: text/plain; encoding=UTF-8
+<span class="hljs-attribute">Content-Length</span>: 33
+
+<span class="ada">This <span class="hljs-keyword">is</span> the post content (<span class="hljs-keyword">body</span>)
+</span></code></pre>
+<p>Antwort:</p>
+<pre><code class="hljs language-http">HTTP/2.0 <span class="hljs-number">200</span> OK
+<span class="hljs-attribute">Content-Type</span>: text/html; charset=UTF-8
+
+<span class="asciidoc"><span class="hljs-bullet">...
+</span></span></code></pre>
+<h2>HTTP: Beispiel API</h2>
+<pre><code class="hljs language-http"><span class="hljs-attribute">GET /todos/12
+Host</span>: jsonplaceholder.typicode.com
+<span class="hljs-attribute">Connection</span>: keep-alive
+</code></pre>
+<pre><code class="hljs language-http">HTTP/2.0 <span class="hljs-number">200</span> OK
+<span class="hljs-attribute">Content-Type</span>: application/json; charset=utf-8
+<span class="hljs-attribute">Etag</span>: W/"5c-cn8o...
+
+<span class="json">{
+  <span class="hljs-attr">"userId"</span>: <span class="hljs-number">1</span>,
+  <span class="hljs-attr">"id"</span>: <span class="hljs-number">12</span>,
+  <span class="hljs-attr">"title"</span>: <span class="hljs-string">"ipsa repellendus fugit nisi"</span>,
+  <span class="hljs-attr">"completed"</span>: <span class="hljs-literal">true</span>
+}
+</span></code></pre>
+<h2>wichtige Anfrage-Headerfelder</h2>
+<ul>
+<li><em><code>Host</code></em></li>
+<li><em><code>Connection</code></em></li>
+<li><code>Origin</code></li>
+<li><code>Accept</code></li>
+<li><code>Accept-Encoding</code></li>
+<li><code>Cookie</code></li>
+<li><code>Cache-Control</code></li>
+<li><code>Dnt</code></li>
+</ul>
+<h2>Wichtige HTTP-Statuscodes</h2>
+<ul>
+<li><code>200 OK</code></li>
+</ul>
+<!-- list separator -->
+<ul>
+<li><code>301 Moved Permanently</code></li>
+<li><code>307 Temporary Redirect</code> (Weiterleitung auf eine andere Adresse)</li>
+<li><code>303 See Other</code> (Weiterleitung auf eine andere Adresse, Methode ändert sich zu <code>GET</code>)</li>
+<li><code>308 Permanent Redirect</code></li>
+<li><code>304 Not Modified</code> (Resource hat sich seit letzter Anfrage nicht geändert)</li>
+</ul>
+<h2>Wichtige HTTP-Statuscodes</h2>
+<ul>
+<li><code>400 Bad Request</code></li>
+<li><code>401 Unauthorized</code></li>
+<li><code>403 Forbidden</code></li>
+<li><code>404 Not Found</code></li>
+</ul>
+<!-- list separator -->
+<ul>
+<li><code>500 Internal Server Error</code></li>
+</ul>
+<p>siehe auch: <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">https://en.wikipedia.org/wiki/List_of_HTTP_status_codes</a></p>
+<h2>wichtige Antwort-Headerfelder</h2>
+<ul>
+<li><code>Content-Length</code></li>
+<li><code>Content-Type</code></li>
+<li><code>Set-Cookie</code></li>
+<li><code>Location</code></li>
+<li><code>Cache-Control</code></li>
+</ul>
+<h2>Content-Type-Headerfeld</h2>
+<p>Mögliche Werte:</p>
+<ul>
+<li><code>text/plain; charset=utf-8</code></li>
+<li><code>text/html; charset=utf-8</code></li>
+<li><code>application/json</code></li>
+<li><code>application/javascript</code></li>
+<li><code>application/ecmascript</code></li>
+<li><code>image/jpeg</code></li>
+<li><code>image/png</code></li>
+<li>...</li>
+</ul>
+<h2>Set-Cookie-Headerfeld</h2>
+<p>Beispiel:</p>
+<pre><code class="hljs language-http"><span class="hljs-attribute">GET /
+Host</span>: www.google.com
+
+<span class="routeros">Set-Cookie: <span class="hljs-attribute">1P_JAR</span>=2019-04-24-08; <span class="hljs-attribute">expires</span>=...; <span class="hljs-attribute">path</span>=/; <span class="hljs-attribute">domain</span>=.google.com
+Set-Cookie: <span class="hljs-attribute">IDCC</span>=AN0-TYtU7...fo; <span class="hljs-attribute">expires</span>=...; <span class="hljs-attribute">path</span>=/; <span class="hljs-attribute">domain</span>=.google.com
+</span></code></pre>
+<h1>HTTP APIs</h1>
+<h2>HTTP APIs</h2>
+<p>HTTP API / Web API = Möglichkeit, Datensätze zwischen Browser und Server auszutauschen</p>
+<h2>HTTP APIs</h2>
+<p>Standards:</p>
+<ul>
+<li>SOAP (nicht mehr weit verbreitet)</li>
+<li>REST</li>
+<li>GraphQL</li>
+</ul>
+<h2>HTTP APIs</h2>
+<p>Abfrageformat:</p>
+<ul>
+<li>SOAP: XML</li>
+<li>REST: HTTP Methode + URL (+ URL Parameter) (+ Request Body)</li>
+<li>GraphQL: GraphQL Abfragesprache</li>
+</ul>
+<p>Antwortformat:</p>
+<ul>
+<li>SOAP: XML</li>
+<li>REST: oft JSON (oder XML, ...)</li>
+<li>GraphQL: JSON</li>
+</ul>
+<h2>REST</h2>
+<p>REST = Representational State Transfer</p>
+<p>Hauptsächlich via HTTP requests mit diesen Methoden:</p>
+<ul>
+<li>Abfragen von Elementen via <code>GET</code></li>
+<li>Hinzufügen eines Elements via <code>POST</code></li>
+<li>Hinzufügen eines Elements unter einer bestimmten URL via <code>PUT</code></li>
+<li>Ändern von Elementen via <code>PATCH</code></li>
+<li>Ersetzen von Elementen via <code>PUT</code></li>
+<li>Löschen von Elementen via <code>DELETE</code></li>
+<li>alle anderen Änderungen via <code>POST</code></li>
+</ul>
+<h2>REST Beispiele</h2>
+<p><em>get</em>: Abfrage mehrerer Elemente:</p>
+<pre><code class="hljs language-http"><span class="hljs-keyword">GET</span> <span class="hljs-string">/todos</span> HTTP/2.0
+<span class="hljs-attribute">Host</span>: jsonplaceholder.typicode.com
+</code></pre>
+<p><em>get</em>: Abfrage eines einzelnen Elements:</p>
+<pre><code class="hljs language-http"><span class="hljs-keyword">GET</span> <span class="hljs-string">/todos/2</span> HTTP/2.0
+<span class="hljs-attribute">Host</span>: jsonplaceholder.typicode.com
+</code></pre>
+<p><em>get</em>: Abfrage von drei Elementen via Identifier:</p>
+<pre><code class="hljs language-http"><span class="hljs-keyword">GET</span> <span class="hljs-string">/rest/v2/alpha?codes=de;fr;it</span> HTTP/2.0
+<span class="hljs-attribute">Host</span>: restcountries.eu
+</code></pre>
+<h2>REST Beispiele</h2>
+<p><em>post</em>: Hinzufügen eines Eintrags:</p>
+<pre><code class="hljs language-http"><span class="hljs-keyword">POST</span> <span class="hljs-string">/todos</span> HTTP/2.0
+<span class="hljs-attribute">Host</span>: jsonplaceholder.typicode.com
+<span class="hljs-attribute">Content-Type</span>: application/json
+<span class="hljs-attribute">Content-Length</span>: 27
+
+<span class="json">{
+  <span class="hljs-attr">"title"</span>: <span class="hljs-string">"learn REST"</span>,
+  <span class="hljs-attr">"completed"</span>: <span class="hljs-literal">false</span>
+}
+</span></code></pre>
+<h2>REST Beispiele</h2>
+<p><em>patch</em>: Ändern eines Eintrags:</p>
+<pre><code class="hljs language-http"><span class="hljs-keyword">PATCH</span> <span class="hljs-string">/todos/6</span> HTTP/2.0
+<span class="hljs-attribute">Host</span>: jsonplaceholder.typicode.com
+<span class="hljs-attribute">Content-Type</span>: application/json
+<span class="hljs-attribute">Content-Length</span>: 23
+
+<span class="json">{
+  <span class="hljs-attr">"completed"</span>: <span class="hljs-literal">true</span>
+}
+</span></code></pre>
+<h2>REST Beispiele</h2>
+<p><em>delete</em>: Löschen eines Eintrags:</p>
+<pre><code class="hljs language-http"><span class="hljs-keyword">DELETE</span> <span class="hljs-string">/todos/6</span> HTTP/2.0
+<span class="hljs-attribute">Host</span>: jsonplaceholder.typicode.com
+</code></pre>
+<h2>REST Beispiele</h2>
+<p><em>post</em>: Andere Anfragen (Löschen aller erledigter Todos):</p>
+<pre><code class="hljs language-http"><span class="hljs-keyword">POST</span> <span class="hljs-string">/todos/delete_completed</span> HTTP/2.0
+<span class="hljs-attribute">Host</span>: ...
+</code></pre>
+<h2>Resourcen</h2>
+<p>Beispiele für REST APIs:</p>
+<ul>
+<li><a href="https://jsonplaceholder.typicode.com">jsonplaceholder.typicode.com</a></li>
+<li><a href="https://restcountries.eu">restcountries.eu</a></li>
+</ul>
