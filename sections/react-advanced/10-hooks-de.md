@@ -27,7 +27,7 @@ Beispiele:
 
 ## Regeln für Hooks
 
-Hooks in einer Komponentendefinition müssen bei jedem Rendering in der gleichen Reiehnfolge aufgerufen werden - React unterscheidet z.B. mehrere `useState`-Aufrufe anhand ihrer Reihenfolge
+Hooks in einer Komponentendefinition müssen bei jedem Rendering in der gleichen Reihenfolge aufgerufen werden - React unterscheidet z.B. mehrere `useState`-Aufrufe anhand ihrer Reihenfolge
 
 Die gleichen Regeln wie in einer Komponente gelten auch für Hook-Aufrufe in einem selbst definierten Hook
 

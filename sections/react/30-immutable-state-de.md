@@ -115,14 +115,14 @@ wird insbesondere vom Redux-Team empfohlen
 
 ## immer.js
 
-this code would mutate the todos array:
+Code, der das todos-Array abändern würde:
 
 ```js
 todos[0].completed = true;
 todos.push({ title: 'study', completed: false });
 ```
 
-avoiding mutations by using immer:
+Mutation durch die Verwendung von _immer.js_ vermeiden:
 
 ```js
 import produce from 'immer';

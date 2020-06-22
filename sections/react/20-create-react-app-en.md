@@ -17,13 +17,13 @@ most-used method for generating React projects
 run it via:
 
 ```bash
-npx create-react-app playground
+npx create-react-app todolist
 ```
 
 or
 
 ```bash
-npx create-react-app playground --template typescript
+npx create-react-app todolist --template typescript
 ```
 
 see also: https://reactjs.org/docs/add-react-to-a-new-app.html

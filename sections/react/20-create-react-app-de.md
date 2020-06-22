@@ -17,13 +17,13 @@ Meistgenutzte Methode zum Erstellen von React-Anwendungen
 ausführen via:
 
 ```bash
-npx create-react-app playground
+npx create-react-app todolist
 ```
 
 oder
 
 ```bash
-npx create-react-app playground --template typescript
+npx create-react-app todolist --template typescript
 ```
 
 siehe auch: https://reactjs.org/docs/add-react-to-a-new-app.html

@@ -122,7 +122,7 @@ todos[0].completed = true;
 todos.push({ title: 'study', completed: false });
 ```
 
-avoiding mutations by using immer:
+avoiding mutations by using _immer.js_:
 
 ```js
 import produce from 'immer';

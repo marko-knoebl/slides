@@ -357,13 +357,13 @@ most-used method for generating React projects
 run it via:
 
 ```bash
-npx create-react-app playground
+npx create-react-app todolist
 ```
 
 or
 
 ```bash
-npx create-react-app playground --template typescript
+npx create-react-app todolist --template typescript
 ```
 
 see also: <https://reactjs.org/docs/add-react-to-a-new-app.html>
@@ -516,7 +516,7 @@ todos[0].completed = true;
 todos.push({ title: 'study', completed: false });
 ```
 
-avoiding mutations by using immer:
+avoiding mutations by using _immer.js_:
 
 ```js
 import produce from 'immer';
