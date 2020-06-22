@@ -64,7 +64,7 @@ Beispiel eines _launch.json_-Eintrages für node.js:
 
 ## Debugging im Browser
 
-Beispiel für _launch.json_-Einträge zum Debugging in Chrome / Edge:
+Beispiele für _launch.json_-Einträge zum Debugging in Browsern:
 
 ```json
 {
