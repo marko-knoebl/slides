@@ -578,21 +578,51 @@ Oft wird der gesamte Anwendungszustand durch ein Datenmodell repräsentiert. Jed
   <figcaption>Redux Devtools, die den komplexen State der airbnb-Website anzeigen</figcaption>
 </figure>
 
-## State Management mit Actions und Reducern
+## State Management mit Actions
+
+Beim Reducer Hook, Redux, ngrx und vuex wird jede State-Änderung durch eine _Action_ ausgelöst, die durch ein JavaScript-Objekt repräsentiert wird
+
+<small>Anmerkung: vuex verwendet den Begriff _Mutation_</small>
+
+## State Management mit Actions
+
+In Redux / Reducer Hook:
+
+- Actions werden durch JavaScript-Objekte repräsentiert
+- Actions haben immer eine _type_-Property
+- Actions haben meist auch eine _payload_-Property
+
+## State Management mit Actions
+
+Beispiele für Actions:
+
+```json
+{
+  "type": "addTodo",
+  "payload": "learn React"
+}
+```
+
+```json
+{
+  "type": "deleteTodo",
+  "payload": 1
+}
+```
+
+```json
+{
+  "type": "deleteCompletedTodos"
+}
+```
+
+## State Management mit Reducern
 
 Konzept von _Redux_ und Reacts _Reducer Hook_:
 
-Ein Ereignis in der Anwendung löst eine sogenannte _Action_ aus.
-
-Basierend auf dieser Action wird ein aktueller _State_ mittels einer _Reducer_-Funktion in einen abgeleiteten neuen _State_ übergeführt.
-
-## State Management mit Actions und Reducern
-
-Ein _Reducer_ ist eine Funktion.
-
-Der Reducer erhält den alten State und eine Action, die eine Änderung am State beschreibt.
-
-Der Reducer gibt den neuen State zurück. Er ändert das alte State-Objekt nicht ab (der Reducer ist eine _reine Funktion_).
+- eine Stateänderung erfolgt über eine Reducer-Funktion
+- die Reducer-Funktion erhält den aktuellen State und eine Action
+- die Reducer-Funktion gibt den neuen State zurück (ohne den alten State zu verändern)
 
 ## Reducer Diagramm
 
@@ -618,25 +648,7 @@ console.log(state3);
 
 ## Beispiel: Todos State Management
 
-- Actions werden von JavaScript Objekten repräsentiert
-- Actions haben immer eine _type_-Property
-- Actions haben oft auch eine _payload_-Property
-
-```json
-{
-  "type": "addTodo",
-  "payload": "learn React"
-}
-```
-
-```json
-{
-  "type": "deleteTodo",
-  "payload": 1
-}
-```
-
-## Beispiel: Todos State Management
+Implementierung eines Reducers:
 
 ```js
 const todosReducer = (oldState, action) => {
@@ -715,7 +727,7 @@ const uiDataReducer = (uiData, action) => ({
 
 const newTitleReducer = (newTitle, action) => {
   if (action.type === 'setNewTitle') {
-    return newTitle;
+    return action.payload;
   } else if (action.type === 'addTodo') {
     return '';
   } else {

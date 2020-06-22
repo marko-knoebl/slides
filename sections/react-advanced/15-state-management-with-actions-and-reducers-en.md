@@ -1,4 +1,4 @@
-# State management with reducers
+# State management with actions and reducers
 
 <!-- NOTE: other sections link to this section - take care when reordering -->
 
@@ -23,21 +23,51 @@ Often the entire application state is represented by a data model and every chan
   <figcaption>example: Redux devtools showing the complex state tree of the airbnb website</figcaption>
 </figure>
 
-## State management with actions and reducers
+## State management with actions
+
+In the reducer hook, Redux, ngrx and vuex, each state change is triggered by an _action_, which is represented as a JavaScript object
+
+<small>note: vuex uses the term _mutation_</small>
+
+## State management with actions
+
+In Redux / reducer hook:
+
+- actions are represented by JavaScript objects
+- actions always have a _type_ property
+- actions commonly also have a _payload_ property
+
+## State management with actions
+
+example actions:
+
+```json
+{
+  "type": "addTodo",
+  "payload": "learn React"
+}
+```
+
+```json
+{
+  "type": "deleteTodo",
+  "payload": 1
+}
+```
+
+```json
+{
+  "type": "deleteCompletedTodos"
+}
+```
+
+## State management with reducers
 
 Technique that is used in _Redux_ and in React's _reducer hook_:
 
-An event inside an application triggers a so-called _action_.
-
-Based on that _action_ the current _state_ will be transformed into a new _state_ via a _reducer_ function.
-
-## State management with actions and reducers
-
-A _reducer_ is a function
-
-The reducer receives the old state and an action describing a state change
-
-The reducer function returns the new state. The reducer function does not mutate the old state object (it is a _pure_ function)
+- a state transition happens through a reducer function
+- the reducer function receives the current state and an action
+- the reducer function returns the new state (without mutating the old state)
 
 ## Reducer diagram
 
@@ -63,25 +93,7 @@ console.log(state3);
 
 ## Example: todos state management
 
-- actions are represented by JavaScript objects
-- actions always have a _type_ property
-- actions commonly also have a _payload_ property
-
-```json
-{
-  "type": "addTodo",
-  "payload": "learn React"
-}
-```
-
-```json
-{
-  "type": "deleteTodo",
-  "payload": 1
-}
-```
-
-## Example: todos state management
+reducer implementation:
 
 ```js
 const todosReducer = (oldState, action) => {
@@ -160,7 +172,7 @@ const uiDataReducer = (uiData, action) => ({
 
 const newTitleReducer = (newTitle, action) => {
   if (action.type === 'setNewTitle') {
-    return newTitle;
+    return action.payload;
   } else if (action.type === 'addTodo') {
     return '';
   } else {
