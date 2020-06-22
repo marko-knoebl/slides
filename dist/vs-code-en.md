@@ -74,7 +74,6 @@ extensions for JavaScript:
 
 - Prettier (code formatter)
 - ESLint (linter)
-- (Debugger for Chrome / Debugger for Firefox)
 
 ## Prettier
 
@@ -99,33 +98,58 @@ e.g. via _.prettierrc.json_:
 
 Linter with more functionality than VS Code's default linter
 
-## Debugging client-side JavaScript
+## Debugging JavaScript
 
-extensions:
+possibilities:
 
-- **Debugger for Chrome**
-- Debugger for Firefox
+- start a node.js debug terminal; run JS code there
+- run a JavaScript file in the node.js debugger (configured via _.vscode/launch.json_)
+- connect to a browser's debugger (configured via _.vscode/launch.json_)
 
-these connect the browsers' built-in debuggers with VS Code's debugger UI
+accessible via the _Run_ tab in the sidebar
 
-## Debugging client-side JavaScript
+## Debugger configuration
 
-creating a config file: in the debugger sidebar, click on the gear symbol (_Configure or fix 'launch.json'_)
+debugger configuratiion via _.vscode/launch.json_
 
-in _launch.json_:
+To create a debugger configuration file: In the _Run_ sidebar, select _create a launch.json file_
+
+## Debugging with node.js
+
+example _launch.json_ configuration entries for node.js:
 
 ```json
 {
-  "type": "chrome",
+  "name": "Launch Node.js Program",
+  "type": "node",
   "request": "launch",
-  "name": "Launch Chrome for React",
-  "url": "http://localhost:3000"
+  "skipFiles": ["<node_internals>/**"],
+  "program": "${workspaceFolder}/index.js"
 }
 ```
 
-## Debugging client-side JavaScript
+## Debugging in the browser
 
-Start debugging via F5 (local development server must already be running)
+example _launch.json_ configuration entries for debugging in Chrome / Edge:
+
+```json
+{
+  "name": "Launch Chrome",
+  "type": "pwa-chrome",
+  "request": "launch",
+  "url": "http://localhost:8080",
+  "webRoot": "${workspaceFolder}"
+}
+```
+
+```json
+{
+  "name": "Launch Edge for React",
+  "type": "pwa-msedge",
+  "request": "launch",
+  "url": "http://localhost:3000"
+}
+```
 
 # VS Code for Python
 
