@@ -14,15 +14,18 @@ const rehypeStringify = require("rehype-stringify");
 const remarkStringify = require("remark-stringify");
 
 const processPresentation = (entrypointFilename) => {
+  // assign topic, lang, id
   const presentationData = extractPresentationDataFromFilename(
     entrypointFilename
   );
-  const entryPath = `entrypoints/${presentationData.filename}`;
+  const entryPath = `entrypoints/${entrypointFilename}`;
   const entryFile = vfile({
     contents: fs.readFileSync(entryPath),
     path: entryPath,
   });
   presentationData.mdTree = parseAndInclude(entryFile);
+  presentationData.title =
+    presentationData.mdTree.children[0].children[0].value;
   presentationData.slideCount = countSlides(presentationData.mdTree);
   presentationData.mdString = stringifyMd(presentationData.mdTree);
   presentationData.htmlTree = transformToHtml(presentationData.mdTree);
@@ -85,7 +88,8 @@ const extractPresentationDataFromFilename = (filename) => {
   const match = filenameRegex.exec(filename);
   const topic = match[1];
   const lang = match[2];
-  return { filename, topic, lang };
+  const id = `${topic}-${lang}`;
+  return { topic, lang, id };
 };
 
 module.exports = processPresentation;

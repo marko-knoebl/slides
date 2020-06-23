@@ -1,6 +1,7 @@
 const fs = require("fs");
 
 const processPresentation = require("./processPresentation");
+const createOverviewPage = require("./createOverviewPage");
 
 const main = () => {
   fs.rmdirSync("dist", { recursive: true });
@@ -8,32 +9,48 @@ const main = () => {
   fs.mkdirSync("dist");
   fs.mkdirSync("docs");
   const entrypointFilenames = fs.readdirSync("entrypoints");
-  const results = [];
+  const presentations = [];
   const numSlidesTotal = { en: 0, de: 0 };
   for (let entrypoint of entrypointFilenames) {
     const presentationData = processPresentation(entrypoint);
     console.log(
       `${presentationData.topic}-${presentationData.lang}: ${presentationData.slideCount}`
     );
-    results.push(presentationData);
+    presentations.push(presentationData);
     numSlidesTotal[presentationData.lang] += presentationData.slideCount;
   }
   console.log(numSlidesTotal);
-  for (let result of results) {
-    fs.writeFileSync(`dist/${result.topic}-${result.lang}.md`, result.mdString);
+  for (let pres of presentations) {
+    fs.writeFileSync(`dist/${pres.topic}-${pres.lang}.md`, pres.mdString);
     fs.writeFileSync(
-      `dist/${result.topic}-${result.lang}-document.html`,
-      result.htmlDocumentString
+      `dist/${pres.topic}-${pres.lang}-document.html`,
+      pres.htmlDocumentString
     );
     fs.writeFileSync(
-      `dist/${result.topic}-${result.lang}.html`,
-      result.presentationString
+      `dist/${pres.topic}-${pres.lang}.html`,
+      pres.presentationString
     );
     fs.copyFileSync(
-      `dist/${result.topic}-${result.lang}.html`,
-      `docs/${result.topic}-${result.lang}.html`
+      `dist/${pres.topic}-${pres.lang}.html`,
+      `docs/${pres.topic}-${pres.lang}.html`
     );
   }
+
+  const structureEn = JSON.parse(fs.readFileSync("topics/structure-en.json"));
+  const structureDe = JSON.parse(fs.readFileSync("topics/structure-de.json"));
+  const indexPageStringEn = createOverviewPage(
+    presentations,
+    structureEn,
+    "en"
+  );
+  const indexPageStringDe = createOverviewPage(
+    presentations,
+    structureDe,
+    "de"
+  );
+  fs.writeFileSync("docs/overview-en.html", indexPageStringEn);
+  fs.writeFileSync("docs/overview-de.html", indexPageStringDe);
+
   const indexPageTemplate = fs.readFileSync("pages/index.html", {
     encoding: "utf-8",
   });
