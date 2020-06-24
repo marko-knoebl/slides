@@ -6,27 +6,8 @@ Declaring types can be useful, especially when it comes to component props and e
 
 possibilities:
 
-- library `prop-types`
-- using `TypeScript` as a language
-
-## prop-types
-
-example:
-
-```js
-import PropTypes from 'prop-types';
-
-// definition of Rating component here
-
-Rating.propTypes = {
-  stars: PropTypes.number.isRequired,
-  onStarsChange: PropTypes.func,
-};
-```
-
-## prop-types in VS Code
-
-Plugin: _React PropTypes IntelliSense_
+- using TypeScript as a language
+- library _prop-types_
 
 ## React with TypeScript
 
@@ -57,16 +38,14 @@ redux with typescript:
 ## Props with TypeScript (function components)
 
 ```tsx
-import React, { FC } from 'react';
-
 type TodoListProps = {
   todos: Array<TodoType>;
   onToggle: (id: number) => void;
   onDelete: (id: number) => void;
 };
 
-const TodoList: FC<TodoListProps> = (props) => {
-  // ....
+const TodoList = (props: TodoListProps) => {
+  // ...
 };
 ```
 
@@ -106,3 +85,22 @@ Event types for event handlers that are defined separately:
 - `React.FormEvent<HTMLFormElement>`
 - `React.ChangeEvent<HTMLInputElement>`
 - `React.MouseEvent<HTMLDivElement>`
+
+## prop-types
+
+example:
+
+```js
+import PropTypes from 'prop-types';
+
+// definition of Rating component here
+
+Rating.propTypes = {
+  stars: PropTypes.number.isRequired,
+  onStarsChange: PropTypes.func,
+};
+```
+
+## prop-types in VS Code
+
+Plugin: _React PropTypes IntelliSense_

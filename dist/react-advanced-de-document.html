@@ -179,10 +179,33 @@ ReactDOM.render(
   <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
 };
 </code></pre>
-<h2>Effect Hook: Cleanup</h2>
+<h2>Cleanup</h2>
 <p>Ein Effect kann eine "Aufräumfunktion" zurückgeben</p>
 <p>Diese Funktion wird vor der nächsten Ausführung des Effekts bzw vor dem Unmounting der Komponente ausgeführt</p>
-<h2>Effect Hook: Cleanup</h2>
+<p>Beispiel für Verwendung: Abbrechen einer alten API-Suchanfrage, wenn sich der Suchbegriff geändert hat</p>
+<h2>Cleanup</h2>
+<p>Beispiel: Hook, der eine hackernews-API-Abfrage durchführt</p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> useHackernewsQuery = <span class="hljs-function">(<span class="hljs-params">query</span>) =></span> {
+  <span class="hljs-keyword">const</span> [articles, setArticles] = useState([]);
+  useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+    <span class="hljs-keyword">let</span> isLatestRequest = <span class="hljs-literal">true</span>;
+    fetch(
+      <span class="hljs-string">'https://hn.algolia.com/api/v1/search?query='</span> + query
+    )
+      .then(<span class="hljs-function">(<span class="hljs-params">res</span>) =></span> res.json())
+      .then(<span class="hljs-function">(<span class="hljs-params">data</span>) =></span> {
+        <span class="hljs-keyword">if</span> (isLatestRequest) {
+          setData(data);
+        }
+      });
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+      isLatestRequest = <span class="hljs-literal">false</span>;
+    };
+  }, [query]);
+  <span class="hljs-keyword">return</span> articles;
+};
+</code></pre>
+<h2>Cleanup</h2>
 <p>Beispiel: Benutzer wird nach 10 Sekunden Inaktivität automatisch ausgeloggt</p>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> App = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
   <span class="hljs-keyword">const</span> [loggedIn, setLoggedIn] = useState(<span class="hljs-literal">true</span>);
@@ -204,7 +227,7 @@ ReactDOM.render(
   );
 };
 </code></pre>
-<h2>Effect hook: nach jedem Rendering</h2>
+<h2>Effect nach jedem Rendering</h2>
 <p>Wenn kein zweiter Parameter übergeben wird, wird die Funktion nach jedem Rendering ausgeführt.</p>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> RenderLogger = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
   useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
@@ -810,6 +833,7 @@ ReactDOM.render(
   );
 };
 </span></code></pre>
+<p>Bemerkung: <code>register()</code> verwendet eine <a href="https://reactjs.org/docs/refs-and-the-dom.html#callback-refs">callback ref</a> um auf das input-Element zuzugreifen</p>
 <h2>formik</h2>
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { Formik, Form, Field, ErrorMessage } <span class="hljs-keyword">from</span> <span class="hljs-string">'formik'</span>;
 
@@ -1363,30 +1387,74 @@ useEffect(getInstallPermission, []);
 <li><code>AddTodo.ios.js</code></li>
 <li><code>AddTodo.android.js</code></li>
 </ul>
-<h1>Refs</h1>
-<h3>Zugriff auf DOM-Elemente</h3>
-<h2>Refs</h2>
-<p>Mittels Refs kann direkt auf DOM-Elemente zugegriffen werden</p>
+<h1>Refs zum Ablegen von Objektreferenzen</h1>
+<h2>Refs zum Ablegen von Objektreferenzen</h2>
+<p>In Funktionskomponenten können <em>Refs</em> verwendet werden, um Werte / Objektreferenzen abzulegen, die sich mit der Zeit ändern, aber das Rendering einer Komponente nicht beeinflussen (sie gehören nicht in den State)</p>
+<p>Beispiele dafür, was in Refs abgelegt wird:</p>
+<ul>
+<li>Timer IDs</li>
+<li>Request IDs</li>
+<li>WebSocket-Verbindungen</li>
+<li>ein PWA-Installationsdialog (siehe Abschnitt PWA)</li>
+<li>DOM-Elemente (siehe nächster Abschnitt "Ref Property zum Zugriff auf DOM-Elemente")</li>
+</ul>
+<h2>Refs zum Ablegen von Objektreferenzen</h2>
+<p>Auf eine Ref kann mittels <code>useRef</code> zugegriffen werden</p>
+<p>Objekte werden in der <code>.current</code>-Property der Ref abgelegt</p>
+<h2>Refs zum Ablegen von Objektreferenzen</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> StopWatch = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  <span class="hljs-keyword">const</span> [time, setTime] = useState(<span class="hljs-number">0</span>);
+  <span class="hljs-keyword">const</span> intervalRef = useRef();
+  <span class="hljs-keyword">const</span> start = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+    setTime(<span class="hljs-number">0</span>);
+    intervalRef.current = setInterval(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+      setTime(time + <span class="hljs-number">1</span>);
+    }, <span class="hljs-number">1000</span>);
+  };
+  <span class="hljs-keyword">const</span> stop = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+    clearInterval(intervalRef.current);
+  };
+  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>...<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+};
+</code></pre>
+<p>Bemerkung: dieses einfache Beispiel könnte auch ohne Refs mittels des Effect-Hooks umgesetzt werden</p>
+<h1>Ref-Property zum Zugriff auf DOM-Elemente</h1>
+<h2>Ref-Property zum Zugriff auf DOM-Elemente</h2>
+<p>Ähnlich wie <em>key</em> hat auch die <em>ref</em>-Property eine besondere Bedeutung in JSX - sie ermöglicht den Zugriff auf gerenderte DOM-Elemente</p>
 <p>Anwendungsgebiete:</p>
 <ul>
 <li>Verwalten von Fokus, Textauswahl oder Medienwiedergabe</li>
 <li>Alternative Möglichkeit zum Verwalten von Inputs</li>
 <li>Integration von anderen DOM-Libraries</li>
 </ul>
-<h2>Refs</h2>
+<h2>Ref-Property zum Zugriff auf DOM-Elemente</h2>
+<p>Verwendung der <em>ref</em>-Property zusammen mit dem <em>useRef</em>-Hook:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">RefDemo</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> myRef = useRef();
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">input</span>
+      <span class="hljs-attr">ref</span>=<span class="hljs-string">{myRef}</span>
+      <span class="hljs-attr">onChange</span>=<span class="hljs-string">{()</span> =></span> {
+        console.log(myRef.current.value);
+      }}
+    />
+  );
+}
+</span></code></pre>
+<h2>Ref-Property zum Zugriff auf DOM-Elemente</h2>
 <p><strong>Verwalten von Fokus, Textauswahl oder Medienwiedergabe</strong></p>
 <p>manche Änderungen können nicht deklarativ (via State) ausgedrückt werden - sie benötigen Zugriff zu einem bestimmten DOM-Element</p>
 <p>Beispiel: es gibt Properties wie <code>.value</code> zum Ändern des Werts eines Inputs oder <code>.className</code> zum Ändern von Klassennamen, aber keine Property zum Verwalten des Fokus</p>
-<h2>Refs</h2>
+<h2>Ref-Property zum Zugriff auf DOM-Elemente</h2>
 <p><strong>Alternative Möglichkeit zum Verwalten von Inputs</strong></p>
 <p>Verwendung von <code>ref</code> Anstelle von <code>value</code> und <code>onChange</code> kann zu etwas kürzerem Code führen (wird aber in der Dokumentation nicht empfohlen)</p>
 <p>Refs werden von <em>react-hook-form</em> verwendet, um Formularverwaltung einfacher und schneller zu machen</p>
-<h2>Refs</h2>
+<h2>Ref-Property zum Zugriff auf DOM-Elemente</h2>
 <p><strong>Integration von anderen DOM-Libraries</strong></p>
 <p>Andere Libraries können expliziten Zugriff auf DOM-Elemente benötigen</p>
 <p>Beispiel: Die Google Maps Library nimmt ein DOM-Element entgegen, in dem die Karte gezeichnet wird</p>
 <p>Für viele Libraries (so auch Google Maps) existieren Wrapper für React, sodass refs nicht benötigt werden</p>
-<h2>Refs</h2>
+<h2>Ref-Property zum Verwalten des Fokus</h2>
 <p>Verwalten des Fokus mittels einer Ref:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> App = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
   <span class="hljs-keyword">const</span> inputEl = useRef(<span class="hljs-literal">null</span>);
@@ -1400,7 +1468,7 @@ useEffect(getInstallPermission, []);
   );
 };
 </span></code></pre>
-<h2>Refs</h2>
+<h2>Ref-Property zum Verwalten von Inputs</h2>
 <p>Verwalten von Inputs: Vergleich von <code>useState</code> und <code>useRef</code>:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> App = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
   <span class="hljs-keyword">const</span> [firstName, setFirstName] = useState(<span class="hljs-string">''</span>);
@@ -1410,7 +1478,9 @@ useEffect(getInstallPermission, []);
     &#x3C;div>
       &#x3C;input
         value={firstName}
-        onChange={event => setFirstName(event.target.value)}
+        onChange={(event) =>
+          setFirstName(event.target.value)
+        }
       />
       &#x3C;input ref={lastNameInput} />
 
@@ -1418,12 +1488,25 @@ useEffect(getInstallPermission, []);
         onClick={() => {
           console.log(firstName);
           console.log(lastNameInput.current.value);
-        }}>
+        }}
+      >
         log values
       &#x3C;/button>
     &#x3C;/div>
   );
 };
+</code></pre>
+<h2>Callback Refs</h2>
+<p>Wie bisher gesehen: Wir können ein Ref-Objekt an die <em>ref</em>-Property übergeben</p>
+<p>Wir können auch eine <em>Callbackfunktion</em> übergeben, die nach dem Rendering mit dem Element als Parameter aufgerufen wird (<em>react-hook-form</em> verwendet dies)</p>
+<pre><code class="hljs language-jsx">&#x3C;input
+  ref={(element) => {
+    <span class="hljs-built_in">console</span>.log(element);
+    <span class="hljs-built_in">console</span>.log(element.value);
+    element.focus();
+  }}
+  type=<span class="hljs-string">"text"</span>
+/>
 </code></pre>
 <h1>Higher-order components</h1>
 <h3>Funktionen, die eine Komponentendefinition verändern</h3>

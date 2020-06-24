@@ -242,13 +242,41 @@ const DocumentTitle = (props) => {
 };
 ```
 
-## Effect Hook: Cleanup
+## Cleanup
 
 Ein Effect kann eine "Aufräumfunktion" zurückgeben
 
 Diese Funktion wird vor der nächsten Ausführung des Effekts bzw vor dem Unmounting der Komponente ausgeführt
 
-## Effect Hook: Cleanup
+Beispiel für Verwendung: Abbrechen einer alten API-Suchanfrage, wenn sich der Suchbegriff geändert hat
+
+## Cleanup
+
+Beispiel: Hook, der eine hackernews-API-Abfrage durchführt
+
+```jsx
+const useHackernewsQuery = (query) => {
+  const [articles, setArticles] = useState([]);
+  useEffect(() => {
+    let isLatestRequest = true;
+    fetch(
+      'https://hn.algolia.com/api/v1/search?query=' + query
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        if (isLatestRequest) {
+          setData(data);
+        }
+      });
+    return () => {
+      isLatestRequest = false;
+    };
+  }, [query]);
+  return articles;
+};
+```
+
+## Cleanup
 
 Beispiel: Benutzer wird nach 10 Sekunden Inaktivität automatisch ausgeloggt
 
@@ -274,7 +302,7 @@ const App = () => {
 };
 ```
 
-## Effect hook: nach jedem Rendering
+## Effect nach jedem Rendering
 
 Wenn kein zweiter Parameter übergeben wird, wird die Funktion nach jedem Rendering ausgeführt.
 
@@ -992,6 +1020,8 @@ const NewsletterRegistration = () => {
   );
 };
 ```
+
+Bemerkung: `register()` verwendet eine [callback ref](https://reactjs.org/docs/refs-and-the-dom.html#callback-refs) um auf das input-Element zuzugreifen
 
 ## formik
 
@@ -1759,13 +1789,52 @@ Möglichkeit 2 (Plattform-spezifische Komponenten):
 - `AddTodo.ios.js`
 - `AddTodo.android.js`
 
-# Refs
+# Refs zum Ablegen von Objektreferenzen
 
-### Zugriff auf DOM-Elemente
+## Refs zum Ablegen von Objektreferenzen
 
-## Refs
+In Funktionskomponenten können _Refs_ verwendet werden, um Werte / Objektreferenzen abzulegen, die sich mit der Zeit ändern, aber das Rendering einer Komponente nicht beeinflussen (sie gehören nicht in den State)
 
-Mittels Refs kann direkt auf DOM-Elemente zugegriffen werden
+Beispiele dafür, was in Refs abgelegt wird:
+
+- Timer IDs
+- Request IDs
+- WebSocket-Verbindungen
+- ein PWA-Installationsdialog (siehe Abschnitt PWA)
+- DOM-Elemente (siehe nächster Abschnitt "Ref Property zum Zugriff auf DOM-Elemente")
+
+## Refs zum Ablegen von Objektreferenzen
+
+Auf eine Ref kann mittels `useRef` zugegriffen werden
+
+Objekte werden in der `.current`-Property der Ref abgelegt
+
+## Refs zum Ablegen von Objektreferenzen
+
+```js
+const StopWatch = () => {
+  const [time, setTime] = useState(0);
+  const intervalRef = useRef();
+  const start = () => {
+    setTime(0);
+    intervalRef.current = setInterval(() => {
+      setTime(time + 1);
+    }, 1000);
+  };
+  const stop = () => {
+    clearInterval(intervalRef.current);
+  };
+  return <div>...</div>;
+};
+```
+
+Bemerkung: dieses einfache Beispiel könnte auch ohne Refs mittels des Effect-Hooks umgesetzt werden
+
+# Ref-Property zum Zugriff auf DOM-Elemente
+
+## Ref-Property zum Zugriff auf DOM-Elemente
+
+Ähnlich wie _key_ hat auch die _ref_-Property eine besondere Bedeutung in JSX - sie ermöglicht den Zugriff auf gerenderte DOM-Elemente
 
 Anwendungsgebiete:
 
@@ -1773,7 +1842,25 @@ Anwendungsgebiete:
 - Alternative Möglichkeit zum Verwalten von Inputs
 - Integration von anderen DOM-Libraries
 
-## Refs
+## Ref-Property zum Zugriff auf DOM-Elemente
+
+Verwendung der _ref_-Property zusammen mit dem _useRef_-Hook:
+
+```jsx
+function RefDemo() {
+  const myRef = useRef();
+  return (
+    <input
+      ref={myRef}
+      onChange={() => {
+        console.log(myRef.current.value);
+      }}
+    />
+  );
+}
+```
+
+## Ref-Property zum Zugriff auf DOM-Elemente
 
 **Verwalten von Fokus, Textauswahl oder Medienwiedergabe**
 
@@ -1781,7 +1868,7 @@ manche Änderungen können nicht deklarativ (via State) ausgedrückt werden - si
 
 Beispiel: es gibt Properties wie `.value` zum Ändern des Werts eines Inputs oder `.className` zum Ändern von Klassennamen, aber keine Property zum Verwalten des Fokus
 
-## Refs
+## Ref-Property zum Zugriff auf DOM-Elemente
 
 **Alternative Möglichkeit zum Verwalten von Inputs**
 
@@ -1789,7 +1876,7 @@ Verwendung von `ref` Anstelle von `value` und `onChange` kann zu etwas kürzerem
 
 Refs werden von _react-hook-form_ verwendet, um Formularverwaltung einfacher und schneller zu machen
 
-## Refs
+## Ref-Property zum Zugriff auf DOM-Elemente
 
 **Integration von anderen DOM-Libraries**
 
@@ -1799,7 +1886,7 @@ Beispiel: Die Google Maps Library nimmt ein DOM-Element entgegen, in dem die Kar
 
 Für viele Libraries (so auch Google Maps) existieren Wrapper für React, sodass refs nicht benötigt werden
 
-## Refs
+## Ref-Property zum Verwalten des Fokus
 
 Verwalten des Fokus mittels einer Ref:
 
@@ -1817,7 +1904,7 @@ const App = () => {
 };
 ```
 
-## Refs
+## Ref-Property zum Verwalten von Inputs
 
 Verwalten von Inputs: Vergleich von `useState` und `useRef`:
 
@@ -1830,7 +1917,9 @@ const App = () => {
     <div>
       <input
         value={firstName}
-        onChange={event => setFirstName(event.target.value)}
+        onChange={(event) =>
+          setFirstName(event.target.value)
+        }
       />
       <input ref={lastNameInput} />
 
@@ -1838,12 +1927,30 @@ const App = () => {
         onClick={() => {
           console.log(firstName);
           console.log(lastNameInput.current.value);
-        }}>
+        }}
+      >
         log values
       </button>
     </div>
   );
 };
+```
+
+## Callback Refs
+
+Wie bisher gesehen: Wir können ein Ref-Objekt an die _ref_-Property übergeben
+
+Wir können auch eine _Callbackfunktion_ übergeben, die nach dem Rendering mit dem Element als Parameter aufgerufen wird (_react-hook-form_ verwendet dies)
+
+```jsx
+<input
+  ref={(element) => {
+    console.log(element);
+    console.log(element.value);
+    element.focus();
+  }}
+  type="text"
+/>
 ```
 
 # Higher-order components

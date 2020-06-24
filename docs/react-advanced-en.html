@@ -2222,10 +2222,33 @@ ReactDOM.render(
   <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
 };
 </code></pre>
-</section><section class="slide"><h2>Effect hook: cleanup</h2>
+</section><section class="slide"><h2>Cleanup</h2>
 <p>An effect may return a "cleanup function"</p>
 <p>This function will be executed before the next run of the effect or before the component is unmounted</p>
-</section><section class="slide"><h2>Effect hook: cleanup</h2>
+<p>Example use case: cancel an old API search request if the search term changed</p>
+</section><section class="slide"><h2>Cleanup</h2>
+<p>example: hook that queries a hackernews API</p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> useHackernewsQuery = <span class="hljs-function">(<span class="hljs-params">query</span>) =></span> {
+  <span class="hljs-keyword">const</span> [articles, setArticles] = useState([]);
+  useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+    <span class="hljs-keyword">let</span> isLatestRequest = <span class="hljs-literal">true</span>;
+    fetch(
+      <span class="hljs-string">'https://hn.algolia.com/api/v1/search?query='</span> + query
+    )
+      .then(<span class="hljs-function">(<span class="hljs-params">res</span>) =></span> res.json())
+      .then(<span class="hljs-function">(<span class="hljs-params">data</span>) =></span> {
+        <span class="hljs-keyword">if</span> (isLatestRequest) {
+          setData(data);
+        }
+      });
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+      isLatestRequest = <span class="hljs-literal">false</span>;
+    };
+  }, [query]);
+  <span class="hljs-keyword">return</span> articles;
+};
+</code></pre>
+</section><section class="slide"><h2>Cleanup</h2>
 <p>example: user will be logged out after 10 seconds of inactivity</p>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> App = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
   <span class="hljs-keyword">const</span> [loggedIn, setLoggedIn] = useState(<span class="hljs-literal">true</span>);
@@ -2247,8 +2270,8 @@ ReactDOM.render(
   );
 };
 </code></pre>
-</section><section class="slide"><h2>Effect hook: after every rendering</h2>
-<p>If no second parameter is passed the function will be called after each rendering.</p>
+</section><section class="slide"><h2>Effect after every rendering</h2>
+<p>If no second parameter is passed the effect will run after each rendering.</p>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> RenderLogger = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
   useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'logger was rendered'</span>);
@@ -2853,6 +2876,7 @@ ReactDOM.render(
   );
 };
 </span></code></pre>
+<p>Note: <code>register()</code> uses a <a href="https://reactjs.org/docs/refs-and-the-dom.html#callback-refs">callback ref</a> to access the input</p>
 </section><section class="slide"><h2>formik</h2>
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { Formik, Form, Field, ErrorMessage } <span class="hljs-keyword">from</span> <span class="hljs-string">'formik'</span>;
 
@@ -3406,30 +3430,74 @@ useEffect(getInstallPermission, []);
 <li><code>AddTodo.ios.js</code></li>
 <li><code>AddTodo.android.js</code></li>
 </ul>
-</section></section><section class="slides-section"><section class="slide"><h1>Refs</h1>
-<h3>accessing DOM elements</h3>
-</section><section class="slide"><h2>Refs</h2>
-<p>Refs enable direct access to DOM elements</p>
+</section></section><section class="slides-section"><section class="slide"><h1>Refs for storing object references</h1>
+</section><section class="slide"><h2>Refs for storing object references</h2>
+<p>In function components, <em>refs</em> can be used to store values / object references that change over time but that don't influence the rendering of a component (they don't belong in the state)</p>
+<p>examples of what may be stored in refs:</p>
+<ul>
+<li>timer ids</li>
+<li>request ids</li>
+<li>WebSocket connections</li>
+<li>a PWA install prompt (see section PWA)</li>
+<li>DOM Elements (see next section "Ref property for accessing DOM elements")</li>
+</ul>
+</section><section class="slide"><h2>Refs for storing object references</h2>
+<p>In function components, <em>refs</em> can be created / accessed via <code>useRef</code></p>
+<p>Values are stored in the reference's <code>.current</code> property</p>
+</section><section class="slide"><h2>Refs for storing object references</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> StopWatch = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  <span class="hljs-keyword">const</span> [time, setTime] = useState(<span class="hljs-number">0</span>);
+  <span class="hljs-keyword">const</span> intervalRef = useRef();
+  <span class="hljs-keyword">const</span> start = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+    setTime(<span class="hljs-number">0</span>);
+    intervalRef.current = setInterval(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+      setTime(time + <span class="hljs-number">1</span>);
+    }, <span class="hljs-number">1000</span>);
+  };
+  <span class="hljs-keyword">const</span> stop = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+    clearInterval(intervalRef.current);
+  };
+  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>...<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+};
+</code></pre>
+<p>Note: this simple example could also be implemented without refs by using the effect hook</p>
+</section></section><section class="slides-section"><section class="slide"><h1>Ref property for accessing DOM elements</h1>
+</section><section class="slide"><h2>Ref property for accessing DOM elements</h2>
+<p>Just like <em>key</em>, the <em>ref</em> property has a special meaning in JSX - enabling direct access to rendered DOM elements</p>
 <p>use cases:</p>
 <ul>
 <li>managing focus, text selection, or media playback</li>
 <li>alternative way of managing inputs (uncontrolled components)</li>
 <li>integrating with third-party DOM libraries</li>
 </ul>
-</section><section class="slide"><h2>Refs</h2>
+</section><section class="slide"><h2>Ref property for accessing DOM elements</h2>
+<p>Using the <em>ref</em> property together with the <em>useRef</em> hook:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">RefDemo</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> myRef = useRef();
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">input</span>
+      <span class="hljs-attr">ref</span>=<span class="hljs-string">{myRef}</span>
+      <span class="hljs-attr">onChange</span>=<span class="hljs-string">{()</span> =></span> {
+        console.log(myRef.current.value);
+      }}
+    />
+  );
+}
+</span></code></pre>
+</section><section class="slide"><h2>Ref property for accessing DOM elements</h2>
 <p><strong>managing focus, text selection, or media playback</strong></p>
 <p>some changes cannot be expressed declaratively (via state); they require direct access to a DOM element</p>
 <p>example: there are properties like <code>.value</code> for changing a value or <code>.className</code> for changing classes, but there is no property for managing focus</p>
-</section><section class="slide"><h2>Refs</h2>
+</section><section class="slide"><h2>Ref property for accessing DOM elements</h2>
 <p><strong>alternative way of managing inputs</strong></p>
 <p>using <code>ref</code> instead of <code>value</code> and <code>onChange</code> can mean less code (but is discouraged by the React documentation)</p>
 <p>Refs are used by <em>react-hook-form</em> to make form handling simpler and faster</p>
-</section><section class="slide"><h2>Refs</h2>
+</section><section class="slide"><h2>Ref property for accessing DOM elements</h2>
 <p><strong>integrating with third-party DOM libraries</strong></p>
 <p>Third-party libraries may require a DOM element being passed in</p>
 <p>Example: Google Maps takes an element where it will paint the map</p>
 <p>Many third-party libraries have wrappers for React where refs are not needed</p>
-</section><section class="slide"><h2>Refs</h2>
+</section><section class="slide"><h2>Ref property for managing focus</h2>
 <p>Managing focus with a ref:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> App = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
   <span class="hljs-keyword">const</span> inputEl = useRef(<span class="hljs-literal">null</span>);
@@ -3443,7 +3511,7 @@ useEffect(getInstallPermission, []);
   );
 };
 </span></code></pre>
-</section><section class="slide"><h2>Refs</h2>
+</section><section class="slide"><h2>Ref property for managing inputs</h2>
 <p>Managing inputs: comparing <code>useState</code> and <code>useRef</code>:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> App = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
   <span class="hljs-keyword">const</span> [firstName, setFirstName] = useState(<span class="hljs-string">''</span>);
@@ -3453,7 +3521,9 @@ useEffect(getInstallPermission, []);
     &#x3C;div>
       &#x3C;input
         value={firstName}
-        onChange={event => setFirstName(event.target.value)}
+        onChange={(event) =>
+          setFirstName(event.target.value)
+        }
       />
       &#x3C;input ref={lastNameInput} />
 
@@ -3461,12 +3531,25 @@ useEffect(getInstallPermission, []);
         onClick={() => {
           console.log(firstName);
           console.log(lastNameInput.current.value);
-        }}>
+        }}
+      >
         log values
       &#x3C;/button>
     &#x3C;/div>
   );
 };
+</code></pre>
+</section><section class="slide"><h2>Callback refs</h2>
+<p>As we've seen we can pass a Ref object into the <em>ref</em> property</p>
+<p>We can also pass in a <em>callback</em> function which will be called with the element as its parameter (<em>react-hook-form</em> uses this)</p>
+<pre><code class="hljs language-jsx">&#x3C;input
+  ref={(element) => {
+    <span class="hljs-built_in">console</span>.log(element);
+    <span class="hljs-built_in">console</span>.log(element.value);
+    element.focus();
+  }}
+  type=<span class="hljs-string">"text"</span>
+/>
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Higher-order components</h1>
 <h3>functions that modify component definitions</h3>

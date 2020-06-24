@@ -42,13 +42,41 @@ const DocumentTitle = (props) => {
 };
 ```
 
-## Effect Hook: Cleanup
+## Cleanup
 
 Ein Effect kann eine "Aufräumfunktion" zurückgeben
 
 Diese Funktion wird vor der nächsten Ausführung des Effekts bzw vor dem Unmounting der Komponente ausgeführt
 
-## Effect Hook: Cleanup
+Beispiel für Verwendung: Abbrechen einer alten API-Suchanfrage, wenn sich der Suchbegriff geändert hat
+
+## Cleanup
+
+Beispiel: Hook, der eine hackernews-API-Abfrage durchführt
+
+```jsx
+const useHackernewsQuery = (query) => {
+  const [articles, setArticles] = useState([]);
+  useEffect(() => {
+    let isLatestRequest = true;
+    fetch(
+      'https://hn.algolia.com/api/v1/search?query=' + query
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        if (isLatestRequest) {
+          setData(data);
+        }
+      });
+    return () => {
+      isLatestRequest = false;
+    };
+  }, [query]);
+  return articles;
+};
+```
+
+## Cleanup
 
 Beispiel: Benutzer wird nach 10 Sekunden Inaktivität automatisch ausgeloggt
 
@@ -74,7 +102,7 @@ const App = () => {
 };
 ```
 
-## Effect hook: nach jedem Rendering
+## Effect nach jedem Rendering
 
 Wenn kein zweiter Parameter übergeben wird, wird die Funktion nach jedem Rendering ausgeführt.
 

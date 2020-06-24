@@ -1,10 +1,8 @@
-# Refs
+# Ref property for accessing DOM elements
 
-### accessing DOM elements
+## Ref property for accessing DOM elements
 
-## Refs
-
-Refs enable direct access to DOM elements
+Just like _key_, the _ref_ property has a special meaning in JSX - enabling direct access to rendered DOM elements
 
 use cases:
 
@@ -12,7 +10,25 @@ use cases:
 - alternative way of managing inputs (uncontrolled components)
 - integrating with third-party DOM libraries
 
-## Refs
+## Ref property for accessing DOM elements
+
+Using the _ref_ property together with the _useRef_ hook:
+
+```jsx
+function RefDemo() {
+  const myRef = useRef();
+  return (
+    <input
+      ref={myRef}
+      onChange={() => {
+        console.log(myRef.current.value);
+      }}
+    />
+  );
+}
+```
+
+## Ref property for accessing DOM elements
 
 **managing focus, text selection, or media playback**
 
@@ -20,7 +36,7 @@ some changes cannot be expressed declaratively (via state); they require direct 
 
 example: there are properties like `.value` for changing a value or `.className` for changing classes, but there is no property for managing focus
 
-## Refs
+## Ref property for accessing DOM elements
 
 **alternative way of managing inputs**
 
@@ -28,7 +44,7 @@ using `ref` instead of `value` and `onChange` can mean less code (but is discour
 
 Refs are used by _react-hook-form_ to make form handling simpler and faster
 
-## Refs
+## Ref property for accessing DOM elements
 
 **integrating with third-party DOM libraries**
 
@@ -38,7 +54,7 @@ Example: Google Maps takes an element where it will paint the map
 
 Many third-party libraries have wrappers for React where refs are not needed
 
-## Refs
+## Ref property for managing focus
 
 Managing focus with a ref:
 
@@ -56,7 +72,7 @@ const App = () => {
 };
 ```
 
-## Refs
+## Ref property for managing inputs
 
 Managing inputs: comparing `useState` and `useRef`:
 
@@ -69,7 +85,9 @@ const App = () => {
     <div>
       <input
         value={firstName}
-        onChange={event => setFirstName(event.target.value)}
+        onChange={(event) =>
+          setFirstName(event.target.value)
+        }
       />
       <input ref={lastNameInput} />
 
@@ -77,10 +95,28 @@ const App = () => {
         onClick={() => {
           console.log(firstName);
           console.log(lastNameInput.current.value);
-        }}>
+        }}
+      >
         log values
       </button>
     </div>
   );
 };
+```
+
+## Callback refs
+
+As we've seen we can pass a Ref object into the _ref_ property
+
+We can also pass in a _callback_ function which will be called with the element as its parameter (_react-hook-form_ uses this)
+
+```jsx
+<input
+  ref={(element) => {
+    console.log(element);
+    console.log(element.value);
+    element.focus();
+  }}
+  type="text"
+/>
 ```

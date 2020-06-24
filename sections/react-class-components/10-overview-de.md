@@ -18,6 +18,7 @@ Gründe für die Verwendung von Klassenkomponenten:
 
 - Konzepte sind zu Beginn wohl vertrauter
 - einfachere Memoisation
+- Instanzvariablen (in Klassenkomponenten) sind einfacher als Refs (in Funktionskomponenten)
 
 ## Einfaches Beispiel
 

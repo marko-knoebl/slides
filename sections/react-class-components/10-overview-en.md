@@ -18,6 +18,7 @@ reasons for using class components:
 
 - concepts are probably more familiar in the beginning
 - simpler memoization
+- instance variables (in class components) are simpler than refs (in function components)
 
 ## Class component example
 

@@ -242,13 +242,41 @@ const DocumentTitle = (props) => {
 };
 ```
 
-## Effect hook: cleanup
+## Cleanup
 
 An effect may return a "cleanup function"
 
 This function will be executed before the next run of the effect or before the component is unmounted
 
-## Effect hook: cleanup
+Example use case: cancel an old API search request if the search term changed
+
+## Cleanup
+
+example: hook that queries a hackernews API
+
+```jsx
+const useHackernewsQuery = (query) => {
+  const [articles, setArticles] = useState([]);
+  useEffect(() => {
+    let isLatestRequest = true;
+    fetch(
+      'https://hn.algolia.com/api/v1/search?query=' + query
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        if (isLatestRequest) {
+          setData(data);
+        }
+      });
+    return () => {
+      isLatestRequest = false;
+    };
+  }, [query]);
+  return articles;
+};
+```
+
+## Cleanup
 
 example: user will be logged out after 10 seconds of inactivity
 
@@ -274,9 +302,9 @@ const App = () => {
 };
 ```
 
-## Effect hook: after every rendering
+## Effect after every rendering
 
-If no second parameter is passed the function will be called after each rendering.
+If no second parameter is passed the effect will run after each rendering.
 
 ```jsx
 const RenderLogger = () => {
@@ -992,6 +1020,8 @@ const NewsletterRegistration = () => {
   );
 };
 ```
+
+Note: `register()` uses a [callback ref](https://reactjs.org/docs/refs-and-the-dom.html#callback-refs) to access the input
 
 ## formik
 
@@ -1759,13 +1789,52 @@ option 2 (platform-specific components):
 - `AddTodo.ios.js`
 - `AddTodo.android.js`
 
-# Refs
+# Refs for storing object references
 
-### accessing DOM elements
+## Refs for storing object references
 
-## Refs
+In function components, _refs_ can be used to store values / object references that change over time but that don't influence the rendering of a component (they don't belong in the state)
 
-Refs enable direct access to DOM elements
+examples of what may be stored in refs:
+
+- timer ids
+- request ids
+- WebSocket connections
+- a PWA install prompt (see section PWA)
+- DOM Elements (see next section "Ref property for accessing DOM elements")
+
+## Refs for storing object references
+
+In function components, _refs_ can be created / accessed via `useRef`
+
+Values are stored in the reference's `.current` property
+
+## Refs for storing object references
+
+```js
+const StopWatch = () => {
+  const [time, setTime] = useState(0);
+  const intervalRef = useRef();
+  const start = () => {
+    setTime(0);
+    intervalRef.current = setInterval(() => {
+      setTime(time + 1);
+    }, 1000);
+  };
+  const stop = () => {
+    clearInterval(intervalRef.current);
+  };
+  return <div>...</div>;
+};
+```
+
+Note: this simple example could also be implemented without refs by using the effect hook
+
+# Ref property for accessing DOM elements
+
+## Ref property for accessing DOM elements
+
+Just like _key_, the _ref_ property has a special meaning in JSX - enabling direct access to rendered DOM elements
 
 use cases:
 
@@ -1773,7 +1842,25 @@ use cases:
 - alternative way of managing inputs (uncontrolled components)
 - integrating with third-party DOM libraries
 
-## Refs
+## Ref property for accessing DOM elements
+
+Using the _ref_ property together with the _useRef_ hook:
+
+```jsx
+function RefDemo() {
+  const myRef = useRef();
+  return (
+    <input
+      ref={myRef}
+      onChange={() => {
+        console.log(myRef.current.value);
+      }}
+    />
+  );
+}
+```
+
+## Ref property for accessing DOM elements
 
 **managing focus, text selection, or media playback**
 
@@ -1781,7 +1868,7 @@ some changes cannot be expressed declaratively (via state); they require direct 
 
 example: there are properties like `.value` for changing a value or `.className` for changing classes, but there is no property for managing focus
 
-## Refs
+## Ref property for accessing DOM elements
 
 **alternative way of managing inputs**
 
@@ -1789,7 +1876,7 @@ using `ref` instead of `value` and `onChange` can mean less code (but is discour
 
 Refs are used by _react-hook-form_ to make form handling simpler and faster
 
-## Refs
+## Ref property for accessing DOM elements
 
 **integrating with third-party DOM libraries**
 
@@ -1799,7 +1886,7 @@ Example: Google Maps takes an element where it will paint the map
 
 Many third-party libraries have wrappers for React where refs are not needed
 
-## Refs
+## Ref property for managing focus
 
 Managing focus with a ref:
 
@@ -1817,7 +1904,7 @@ const App = () => {
 };
 ```
 
-## Refs
+## Ref property for managing inputs
 
 Managing inputs: comparing `useState` and `useRef`:
 
@@ -1830,7 +1917,9 @@ const App = () => {
     <div>
       <input
         value={firstName}
-        onChange={event => setFirstName(event.target.value)}
+        onChange={(event) =>
+          setFirstName(event.target.value)
+        }
       />
       <input ref={lastNameInput} />
 
@@ -1838,12 +1927,30 @@ const App = () => {
         onClick={() => {
           console.log(firstName);
           console.log(lastNameInput.current.value);
-        }}>
+        }}
+      >
         log values
       </button>
     </div>
   );
 };
+```
+
+## Callback refs
+
+As we've seen we can pass a Ref object into the _ref_ property
+
+We can also pass in a _callback_ function which will be called with the element as its parameter (_react-hook-form_ uses this)
+
+```jsx
+<input
+  ref={(element) => {
+    console.log(element);
+    console.log(element.value);
+    element.focus();
+  }}
+  type="text"
+/>
 ```
 
 # Higher-order components

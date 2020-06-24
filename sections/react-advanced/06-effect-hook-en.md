@@ -42,13 +42,41 @@ const DocumentTitle = (props) => {
 };
 ```
 
-## Effect hook: cleanup
+## Cleanup
 
 An effect may return a "cleanup function"
 
 This function will be executed before the next run of the effect or before the component is unmounted
 
-## Effect hook: cleanup
+Example use case: cancel an old API search request if the search term changed
+
+## Cleanup
+
+example: hook that queries a hackernews API
+
+```jsx
+const useHackernewsQuery = (query) => {
+  const [articles, setArticles] = useState([]);
+  useEffect(() => {
+    let isLatestRequest = true;
+    fetch(
+      'https://hn.algolia.com/api/v1/search?query=' + query
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        if (isLatestRequest) {
+          setData(data);
+        }
+      });
+    return () => {
+      isLatestRequest = false;
+    };
+  }, [query]);
+  return articles;
+};
+```
+
+## Cleanup
 
 example: user will be logged out after 10 seconds of inactivity
 
@@ -74,9 +102,9 @@ const App = () => {
 };
 ```
 
-## Effect hook: after every rendering
+## Effect after every rendering
 
-If no second parameter is passed the function will be called after each rendering.
+If no second parameter is passed the effect will run after each rendering.
 
 ```jsx
 const RenderLogger = () => {

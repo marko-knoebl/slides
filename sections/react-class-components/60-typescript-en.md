@@ -11,7 +11,7 @@ type TodoItemState = {};
 ```
 
 ```tsx
-class TodoItem extends React.PureComponent<
+class TodoItem extends React.Component<
   TodoItemProps,
   TodoItemState
 > {

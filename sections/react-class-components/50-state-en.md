@@ -4,7 +4,7 @@
 
 In class components, `this.state` represents the state.
 
-`this.state` is always a JavaScript object which can have varois entries (properties)
+`this.state` is always a JavaScript object which can have various entries (properties)
 
 State changes happen via `this.setState()`
 

@@ -1070,16 +1070,9 @@ examples:
 
 ## Exercises
 
-List of React components: [awesome-react-components](https://github.com/brillout/awesome-react-components)
+Task: "recreate" one of the components listed at [awesome-react-components](https://github.com/brillout/awesome-react-components) (e.g. bar chart, color picker, table / data grid, tabs)
 
-Task: "recreate" one of the components
-
-examples:
-
-- bar chart
-- color picker
-- table / data grid
-- tabs
+Task: split the todo app into smaller components (e.g. _TodoList_, _TodoItem_, _AddTodo_)
 
 # Type checkers for React
 
@@ -1089,27 +1082,8 @@ Declaring types can be useful, especially when it comes to component props and e
 
 possibilities:
 
-- library `prop-types`
-- using `TypeScript` as a language
-
-## prop-types
-
-example:
-
-```js
-import PropTypes from 'prop-types';
-
-// definition of Rating component here
-
-Rating.propTypes = {
-  stars: PropTypes.number.isRequired,
-  onStarsChange: PropTypes.func,
-};
-```
-
-## prop-types in VS Code
-
-Plugin: _React PropTypes IntelliSense_
+- using TypeScript as a language
+- library _prop-types_
 
 ## React with TypeScript
 
@@ -1140,16 +1114,14 @@ redux with typescript:
 ## Props with TypeScript (function components)
 
 ```tsx
-import React, { FC } from 'react';
-
 type TodoListProps = {
   todos: Array<TodoType>;
   onToggle: (id: number) => void;
   onDelete: (id: number) => void;
 };
 
-const TodoList: FC<TodoListProps> = (props) => {
-  // ....
+const TodoList = (props: TodoListProps) => {
+  // ...
 };
 ```
 
@@ -1189,6 +1161,25 @@ Event types for event handlers that are defined separately:
 - `React.FormEvent<HTMLFormElement>`
 - `React.ChangeEvent<HTMLInputElement>`
 - `React.MouseEvent<HTMLDivElement>`
+
+## prop-types
+
+example:
+
+```js
+import PropTypes from 'prop-types';
+
+// definition of Rating component here
+
+Rating.propTypes = {
+  stars: PropTypes.number.isRequired,
+  onStarsChange: PropTypes.func,
+};
+```
+
+## prop-types in VS Code
+
+Plugin: _React PropTypes IntelliSense_
 
 # Querying APIs (effect hook)
 

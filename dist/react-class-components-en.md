@@ -20,6 +20,7 @@ reasons for using class components:
 
 - concepts are probably more familiar in the beginning
 - simpler memoization
+- instance variables (in class components) are simpler than refs (in function components)
 
 ## Class component example
 
@@ -150,7 +151,7 @@ class TodoItem extends Component {
 
 In class components, `this.state` represents the state.
 
-`this.state` is always a JavaScript object which can have varois entries (properties)
+`this.state` is always a JavaScript object which can have various entries (properties)
 
 State changes happen via `this.setState()`
 
@@ -225,7 +226,7 @@ type TodoItemState = {};
 ```
 
 ```tsx
-class TodoItem extends React.PureComponent<
+class TodoItem extends React.Component<
   TodoItemProps,
   TodoItemState
 > {

@@ -6,27 +6,8 @@ Insbesondere was das Interface von Komponenten angeht, ist es sehr sinvoll, vorh
 
 Möglichkeiten:
 
-- Library `prop-types`
-- Verwendung von `TypeScript` als Sprache
-
-## prop-types
-
-Beispiel:
-
-```js
-import PropTypes from 'prop-types';
-
-// definition of Rating component here
-
-Rating.propTypes = {
-  stars: PropTypes.number.isRequired,
-  onStarsChange: PropTypes.func,
-};
-```
-
-## prop-types in VS Code
-
-Plugin: _React PropTypes IntelliSense_
+- Verwendung von TypeScript als Sprache
+- Library _prop-types_
 
 ## React mit TypeScript
 
@@ -106,3 +87,22 @@ Eventtypen für separat definierte Eventhandler:
 - `React.FormEvent<HTMLFormElement>`
 - `React.ChangeEvent<HTMLInputElement>`
 - `React.MouseEvent<HTMLDivElement>`
+
+## prop-types
+
+Beispiel:
+
+```js
+import PropTypes from 'prop-types';
+
+// definition of Rating component here
+
+Rating.propTypes = {
+  stars: PropTypes.number.isRequired,
+  onStarsChange: PropTypes.func,
+};
+```
+
+## prop-types in VS Code
+
+Plugin: _React PropTypes IntelliSense_

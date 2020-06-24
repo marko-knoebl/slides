@@ -20,6 +20,7 @@ Gründe für die Verwendung von Klassenkomponenten:
 
 - Konzepte sind zu Beginn wohl vertrauter
 - einfachere Memoisation
+- Instanzvariablen (in Klassenkomponenten) sind einfacher als Refs (in Funktionskomponenten)
 
 ## Einfaches Beispiel
 
@@ -225,7 +226,7 @@ type TodoItemState = {};
 ```
 
 ```tsx
-class TodoItem extends React.PureComponent<
+class TodoItem extends React.Component<
   TodoItemProps,
   TodoItemState
 > {

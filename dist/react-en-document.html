@@ -816,36 +816,16 @@ Event: <code>onToggle</code> - function which is called with the new state</p>
 </ul>
 <h1>Exercises</h1>
 <h2>Exercises</h2>
-<p>List of React components: <a href="https://github.com/brillout/awesome-react-components">awesome-react-components</a></p>
-<p>Task: "recreate" one of the components</p>
-<p>examples:</p>
-<ul>
-<li>bar chart</li>
-<li>color picker</li>
-<li>table / data grid</li>
-<li>tabs</li>
-</ul>
+<p>Task: "recreate" one of the components listed at <a href="https://github.com/brillout/awesome-react-components">awesome-react-components</a> (e.g. bar chart, color picker, table / data grid, tabs)</p>
+<p>Task: split the todo app into smaller components (e.g. <em>TodoList</em>, <em>TodoItem</em>, <em>AddTodo</em>)</p>
 <h1>Type checkers for React</h1>
 <h2>Type checkers for React</h2>
 <p>Declaring types can be useful, especially when it comes to component props and events</p>
 <p>possibilities:</p>
 <ul>
-<li>library <code>prop-types</code></li>
-<li>using <code>TypeScript</code> as a language</li>
+<li>using TypeScript as a language</li>
+<li>library <em>prop-types</em></li>
 </ul>
-<h2>prop-types</h2>
-<p>example:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> PropTypes <span class="hljs-keyword">from</span> <span class="hljs-string">'prop-types'</span>;
-
-<span class="hljs-comment">// definition of Rating component here</span>
-
-Rating.propTypes = {
-  <span class="hljs-attr">stars</span>: PropTypes.number.isRequired,
-  <span class="hljs-attr">onStarsChange</span>: PropTypes.func,
-};
-</code></pre>
-<h2>prop-types in VS Code</h2>
-<p>Plugin: <em>React PropTypes IntelliSense</em></p>
 <h2>React with TypeScript</h2>
 <p>new Project:</p>
 <pre><code class="hljs language-bash">npx create-react-app my-app --template typescript
@@ -864,16 +844,14 @@ redux with typescript:
 
 -->
 <h2>Props with TypeScript (function components)</h2>
-<pre><code class="hljs language-tsx">import React, { FC } from 'react';
-
-type TodoListProps = {
+<pre><code class="hljs language-tsx">type TodoListProps = {
   todos: Array&#x3C;TodoType>;
   onToggle: (id: number) => void;
   onDelete: (id: number) => void;
 };
 
-const TodoList: FC&#x3C;TodoListProps> = (props) => {
-  // ....
+const TodoList = (props: TodoListProps) => {
+  // ...
 };
 </code></pre>
 <h2>useState with TypeScript</h2>
@@ -901,6 +879,19 @@ const TodoList: FC&#x3C;TodoListProps> = (props) => {
 <li><code>React.ChangeEvent&#x3C;HTMLInputElement></code></li>
 <li><code>React.MouseEvent&#x3C;HTMLDivElement></code></li>
 </ul>
+<h2>prop-types</h2>
+<p>example:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> PropTypes <span class="hljs-keyword">from</span> <span class="hljs-string">'prop-types'</span>;
+
+<span class="hljs-comment">// definition of Rating component here</span>
+
+Rating.propTypes = {
+  <span class="hljs-attr">stars</span>: PropTypes.number.isRequired,
+  <span class="hljs-attr">onStarsChange</span>: PropTypes.func,
+};
+</code></pre>
+<h2>prop-types in VS Code</h2>
+<p>Plugin: <em>React PropTypes IntelliSense</em></p>
 <h1>Querying APIs (effect hook)</h1>
 <h2>Querying APIs (effect hook)</h2>
 <p>Often API data needs to be queried when a component was mounted for the first time or when its props / state have changed</p>

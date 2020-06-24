@@ -53,6 +53,8 @@ const NewsletterRegistration = () => {
 };
 ```
 
+Bemerkung: `register()` verwendet eine [callback ref](https://reactjs.org/docs/refs-and-the-dom.html#callback-refs) um auf das input-Element zuzugreifen
+
 ## formik
 
 ```js
