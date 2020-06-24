@@ -1818,7 +1818,7 @@ const StopWatch = () => {
   const start = () => {
     setTime(0);
     intervalRef.current = setInterval(() => {
-      setTime(time + 1);
+      setTime(t => t + 1);
     }, 1000);
   };
   const stop = () => {
