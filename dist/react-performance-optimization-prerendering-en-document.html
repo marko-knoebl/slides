@@ -229,16 +229,24 @@
 <li>static assets under <em>./assets</em></li>
 <li>used React components usually under <em>./components</em></li>
 </ul>
-<h2>npm scripts</h2>
-<ul>
-<li><code>npm run dev</code>: run the development server</li>
-<li><code>npm run start</code> (or <code>npm start</code>): run the production server</li>
-<li><code>npm run build</code>: build a static version for deployment</li>
-</ul>
 <h2>Development server</h2>
 <pre><code class="hljs language-bash">npm run dev
 </code></pre>
 <p>An auto-updating server will start at <em>localhost:3000</em></p>
+<h2>Deployment with node.js</h2>
+<p>to build a production version:</p>
+<pre><code class="hljs language-bash">npm run build
+</code></pre>
+<p>to run it:</p>
+<pre><code class="hljs language-bash">npm run start
+</code></pre>
+<p>(requires node.js on the server)</p>
+<h2>Deployment to a static server</h2>
+<p>change the <em>build</em> script in <em>package.json</em> to: <code>next build &#x26;&#x26; next export</code></p>
+<p>then build the static version (to the <em>out</em> folder) via:</p>
+<pre><code class="hljs language-bash">npm run build
+</code></pre>
+<p>(see <a href="https://nextjs.org/learn/excel/static-html-export">https://nextjs.org/learn/excel/static-html-export</a>)</p>
 <h2>Creating pages</h2>
 <p>Example page definition:</p>
 <pre><code class="hljs language-js"><span class="hljs-comment">// pages/index.js</span>
@@ -321,10 +329,6 @@
   <span class="hljs-keyword">return</span> { <span class="hljs-attr">props</span>: { <span class="hljs-attr">pokemon</span>: pokemon } };
 };
 </code></pre>
-<h2>Static site generation</h2>
-<p>By default <em>next.js</em> runs on a node server and dynamically renders content</p>
-<p>for static site generation see:</p>
-<p><a href="https://nextjs.org/learn/excel/static-html-export">https://nextjs.org/learn/excel/static-html-export</a></p>
 <h2>Resources</h2>
 <p>The next.js website has great materials: <a href="https://nextjs.org">https://nextjs.org</a></p>
 <h1>Lazy-loading components</h1>

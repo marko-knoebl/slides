@@ -322,12 +322,6 @@ npx create-next-app my-app
 - static assets under _./assets_
 - used React components usually under _./components_
 
-## npm scripts
-
-- `npm run dev`: run the development server
-- `npm run start` (or `npm start`): run the production server
-- `npm run build`: build a static version for deployment
-
 ## Development server
 
 ```bash
@@ -335,6 +329,34 @@ npm run dev
 ```
 
 An auto-updating server will start at _localhost:3000_
+
+## Deployment with node.js
+
+to build a production version:
+
+```bash
+npm run build
+```
+
+to run it:
+
+```bash
+npm run start
+```
+
+(requires node.js on the server)
+
+## Deployment to a static server
+
+change the _build_ script in _package.json_ to: `next build && next export`
+
+then build the static version (to the _out_ folder) via:
+
+```bash
+npm run build
+```
+
+(see <https://nextjs.org/learn/excel/static-html-export>)
 
 ## Creating pages
 
@@ -436,14 +458,6 @@ export const getStaticProps = async () => {
   return { props: { pokemon: pokemon } };
 };
 ```
-
-## Static site generation
-
-By default _next.js_ runs on a node server and dynamically renders content
-
-for static site generation see:
-
-<https://nextjs.org/learn/excel/static-html-export>
 
 ## Resources
 

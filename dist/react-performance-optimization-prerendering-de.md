@@ -322,19 +322,41 @@ npx create-next-app my-app
 - statische Assets unter _assets_
 - verwendete React-Komponenten üblicherweise unter _components_
 
-## npm Scripts
-
-- `npm run dev`: ausführen des Entwicklungsservers
-- `npm run start` (oder `npm start`): ausführen des Produktionsservers
-- `npm run build`: erstellen einer statischen Version für das Deployment
-
 ## Entwicklungsserver
 
 ```bash
 npm run dev
 ```
 
-Ein automatisch neu ladender Server startet unter _localhost:3000_
+Ein Entwicklungsserver startet auf _localhost:3000_
+
+## Deployment mit node.js
+
+um einen Produktionsbuild zu erstellen:
+
+```bash
+npm run build
+```
+
+um ihn zu starten:
+
+```bash
+npm run start
+```
+
+(benötigt node.js am Server)
+
+## Deployment an einen statischen Server
+
+Ändernd des _build_-Scripts in _package.json_ auf: `next build && next export`
+
+Ein statischer Build (im Ordner _out_) wird dann ausgeführt via:
+
+```bash
+npm run build
+```
+
+(siehe <https://nextjs.org/learn/excel/static-html-export>)
 
 ## Erstellen von Seiten
 
@@ -436,14 +458,6 @@ export const getStaticProps = async () => {
   return { props: { pokemon: pokemon } };
 };
 ```
-
-## Static Site Generator
-
-Standardmäßig läuft _next.js_ auf einem node Server und rendert Inhalte dynamisch
-
-Für das statische Rendern siehe:
-
-<https://nextjs.org/learn/excel/static-html-export>
 
 ## Resourcen
 

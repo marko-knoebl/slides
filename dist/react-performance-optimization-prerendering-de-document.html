@@ -229,16 +229,24 @@
 <li>statische Assets unter <em>assets</em></li>
 <li>verwendete React-Komponenten üblicherweise unter <em>components</em></li>
 </ul>
-<h2>npm Scripts</h2>
-<ul>
-<li><code>npm run dev</code>: ausführen des Entwicklungsservers</li>
-<li><code>npm run start</code> (oder <code>npm start</code>): ausführen des Produktionsservers</li>
-<li><code>npm run build</code>: erstellen einer statischen Version für das Deployment</li>
-</ul>
 <h2>Entwicklungsserver</h2>
 <pre><code class="hljs language-bash">npm run dev
 </code></pre>
-<p>Ein automatisch neu ladender Server startet unter <em>localhost:3000</em></p>
+<p>Ein Entwicklungsserver startet auf <em>localhost:3000</em></p>
+<h2>Deployment mit node.js</h2>
+<p>um einen Produktionsbuild zu erstellen:</p>
+<pre><code class="hljs language-bash">npm run build
+</code></pre>
+<p>um ihn zu starten:</p>
+<pre><code class="hljs language-bash">npm run start
+</code></pre>
+<p>(benötigt node.js am Server)</p>
+<h2>Deployment an einen statischen Server</h2>
+<p>Ändernd des <em>build</em>-Scripts in <em>package.json</em> auf: <code>next build &#x26;&#x26; next export</code></p>
+<p>Ein statischer Build (im Ordner <em>out</em>) wird dann ausgeführt via:</p>
+<pre><code class="hljs language-bash">npm run build
+</code></pre>
+<p>(siehe <a href="https://nextjs.org/learn/excel/static-html-export">https://nextjs.org/learn/excel/static-html-export</a>)</p>
 <h2>Erstellen von Seiten</h2>
 <p>Beispiel einer Seitendefinition:</p>
 <pre><code class="hljs language-js"><span class="hljs-comment">// pages/index.js</span>
@@ -321,10 +329,6 @@
   <span class="hljs-keyword">return</span> { <span class="hljs-attr">props</span>: { <span class="hljs-attr">pokemon</span>: pokemon } };
 };
 </code></pre>
-<h2>Static Site Generator</h2>
-<p>Standardmäßig läuft <em>next.js</em> auf einem node Server und rendert Inhalte dynamisch</p>
-<p>Für das statische Rendern siehe:</p>
-<p><a href="https://nextjs.org/learn/excel/static-html-export">https://nextjs.org/learn/excel/static-html-export</a></p>
 <h2>Resourcen</h2>
 <p>Die next.js website hat sehr gute Materialien: <a href="https://nextjs.org">https://nextjs.org</a></p>
 <h1>Lazy-Loading von Komponenten</h1>
