@@ -1543,29 +1543,93 @@ Inspect your code changes or press `u` to update them.
 
 ## Storybook
 
-Enables creation of isolated component demos
+Enables the creation of isolated component demos
 
-example:
+examples:
 
-<https://airbnb.io/react-dates/>
+- <https://storybookjs.netlify.com/official-storybook/>
+- <https://airbnb.io/react-dates/>
 
-## Storybook - Setup
+## Setup
+
+in a Create-React-App project:
+
+```bash
+npx -p @storybook/cli sb init --type react_scripts
+```
+
+in a regular React project:
 
 ```bash
 npx -p @storybook/cli sb init --type react
 ```
 
-Will create a config folder under `.storybook` and a demo stories under `stories`.
-
-## Storybook
+## Running
 
 ```bash
 npm run storybook
 ```
 
-## Storybook
+## Stories
 
-configuration: via `.storybook/config.js`
+basic example: _Rating.stories.js_
+
+```jsx
+import React from 'react';
+import Rating from './Rating';
+
+export default {
+  title: 'Rating',
+  component: Rating,
+};
+
+export const oneStar = () => <Rating stars={1} />;
+export const fiveStars = () => <Rating stars={5} />;
+```
+
+## Addons
+
+see <https://storybook.js.org/addons/>:
+
+- _@storybook/knobs_ (component props)
+- _@storybook/actions_ (component events)
+- ...
+
+Addons are configured via _.storybook/main.js_
+
+## Knobs addon
+
+for component props:
+
+```jsx
+import { withKnobs, number } from '@storybook/addon-knobs';
+
+export default {
+  title: 'Rating',
+  component: Rating,
+  decorators: [withKnobs],
+};
+
+export const variableStars = () => {
+  const rating = number('rating', 1);
+  return <Rating stars={rating} />;
+};
+```
+
+## Actions addon
+
+for component events:
+
+```jsx
+import { action } from '@storybook/addon-actions';
+
+export const oneStarInteraction = () => (
+  <Rating
+    stars={1}
+    onChange={action('rating change triggered')}
+  />
+);
+```
 
 # PWAs
 

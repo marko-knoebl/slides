@@ -3260,17 +3260,68 @@ Inspect your code changes or press `u` to update them.
 </section></section><section class="slides-section"><section class="slide"><h1>Storybook</h1>
 </section><section class="slide"><h2>Storybook</h2>
 <p>Ermöglicht das Erstellen isolierter Komponentendemos</p>
-<p>Beispiel:</p>
-<p><a href="https://airbnb.io/react-dates/">https://airbnb.io/react-dates/</a></p>
-</section><section class="slide"><h2>Storybook - Setup</h2>
+<p>Beispiele:</p>
+<ul>
+<li><a href="https://storybookjs.netlify.com/official-storybook/">https://storybookjs.netlify.com/official-storybook/</a></li>
+<li><a href="https://airbnb.io/react-dates/">https://airbnb.io/react-dates/</a></li>
+</ul>
+</section><section class="slide"><h2>Setup</h2>
+<p>in einem Create-React-App Projekt:</p>
+<pre><code class="hljs language-bash">npx -p @storybook/cli sb init --<span class="hljs-built_in">type</span> react_scripts
+</code></pre>
+<p>in einem regulären React Projekt:</p>
 <pre><code class="hljs language-bash">npx -p @storybook/cli sb init --<span class="hljs-built_in">type</span> react
 </code></pre>
-<p>Erstellt einen Konfigurationsordner unter <code>.storybook</code> und Beispielstories unter <code>stories</code>.</p>
-</section><section class="slide"><h2>Storybook</h2>
+</section><section class="slide"><h2>Ausführen</h2>
 <pre><code class="hljs language-bash">npm run storybook
 </code></pre>
-</section><section class="slide"><h2>Storybook</h2>
-<p>Konfiguration via <code>.storybook/config.js</code></p>
+</section><section class="slide"><h2>Stories schreiben</h2>
+<p>Beispiel: <em>Rating.stories.js</em></p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+<span class="hljs-keyword">import</span> Rating <span class="hljs-keyword">from</span> <span class="hljs-string">'./Rating'</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
+  <span class="hljs-attr">title</span>: <span class="hljs-string">'Rating'</span>,
+  <span class="hljs-attr">component</span>: Rating,
+};
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> oneStar = <span class="hljs-function"><span class="hljs-params">()</span> =></span> &#x3C;Rating stars={1} />;
+export const fiveStars = () => &#x3C;Rating stars={5} />;
+</code></pre>
+</section><section class="slide"><h2>Addons</h2>
+<p>siehe <a href="https://storybook.js.org/addons/">https://storybook.js.org/addons/</a>:</p>
+<ul>
+<li><em>@storybook/knobs</em> (Komponentenprops)</li>
+<li><em>@storybook/actions</em> (Komponentenevents)</li>
+<li>...</li>
+</ul>
+<p>Addons werden in <em>.storybook/main.js</em> konfiguriert</p>
+</section><section class="slide"><h2>Knobs Addon</h2>
+<p>für Komponentenprops:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> { withKnobs, number } <span class="hljs-keyword">from</span> <span class="hljs-string">'@storybook/addon-knobs'</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
+  <span class="hljs-attr">title</span>: <span class="hljs-string">'Rating'</span>,
+  <span class="hljs-attr">component</span>: Rating,
+  <span class="hljs-attr">decorators</span>: [withKnobs],
+};
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> variableStars = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  <span class="hljs-keyword">const</span> rating = number(<span class="hljs-string">'rating'</span>, <span class="hljs-number">1</span>);
+  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Rating</span> <span class="hljs-attr">stars</span>=<span class="hljs-string">{rating}</span> /></span>;
+};
+</span></code></pre>
+</section><section class="slide"><h2>Actions Addon</h2>
+<p>für Komponentenevents:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> { action } <span class="hljs-keyword">from</span> <span class="hljs-string">'@storybook/addon-actions'</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> oneStarInteraction = <span class="hljs-function"><span class="hljs-params">()</span> =></span> (
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Rating</span>
+    <span class="hljs-attr">stars</span>=<span class="hljs-string">{1}</span>
+    <span class="hljs-attr">onChange</span>=<span class="hljs-string">{action(</span>'<span class="hljs-attr">rating</span> <span class="hljs-attr">change</span> <span class="hljs-attr">triggered</span>')}
+  /></span>
+);
+</span></code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>PWAs</h1>
 <p>Progressive Web Apps mit React</p>
 </section><section class="slide"><h2>PWAs</h2>
