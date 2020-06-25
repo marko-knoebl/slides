@@ -1,18 +1,20 @@
 # Slides for programming courses
 
-This is a collection of slides for programming courses.
+This is a collection of slides for programming courses, created from markdown sources.
 
 See <http://marko-knoebl.github.io/slides> for the slides.
 
 The presentations are standalone HTML files that can be downloaded and viewed offline.
 
-## Building
+## Building process
 
 To build from the sources:
 
 - clone this repository
 - run `npm install`
 - run `npm run build`
+
+The build process looks for files in the _entrypoints_ folder which in turn include files from the _sections_ folder.
 
 ## Technical details, writing your own
 
