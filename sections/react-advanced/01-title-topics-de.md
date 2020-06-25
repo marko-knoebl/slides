@@ -1,4 +1,4 @@
-# Themen
+# React Fortgeschritten
 
 ## Themen
 
@@ -9,7 +9,7 @@
 - reducer Hook und State Management mit Reducern
 - Styling-Libraries
 - Formular-Libraries
-- Testen von React-Komponenten
 - App-Entwicklung mit React
-- Refs, HOCs
+- Refs
+- HOCs
 - Manuelles Setup
