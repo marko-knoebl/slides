@@ -168,7 +168,7 @@ Achtung: Ein Event Handler muss eine **Funktion** sein, und nicht ein Funktionsa
 OK:
 
 ```js
-<button onClick={alert}>Say Hello</button>
+<button onClick={alert}>Say something</button>
 ```
 
 nicht OK:

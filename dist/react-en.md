@@ -252,7 +252,7 @@ note: an event handler must be a **function**, not a function call
 OK:
 
 ```js
-<button onClick={alert}>Say Hello</button>
+<button onClick={alert}>Say something</button>
 ```
 
 not OK:
@@ -945,12 +945,22 @@ Example:
 
 ## Props in function components
 
-example (simple):
+example (simple Rating component):
 
 ```jsx
 const Rating = (props) => (
   <div className="rating">
     {'★'.repeat(props.stars) + '☆'.repeat(5 - props.stars)}
+  </div>
+);
+```
+
+with object destructuring for props:
+
+```jsx
+const Rating = ({ stars }) => (
+  <div className="rating">
+    {'★'.repeat(stars) + '☆'.repeat(5 - stars)}
   </div>
 );
 ```
