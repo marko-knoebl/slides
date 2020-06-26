@@ -40,7 +40,7 @@
 
 ## State Managemenet mit Actions und Reducern
 
-Siehe Präsentation zu [React advanced](./react-advanced-de.html#/8)
+Siehe Präsentation zu [React advanced](./react-advanced-de.html#/7)
 
 # Redux 1
 

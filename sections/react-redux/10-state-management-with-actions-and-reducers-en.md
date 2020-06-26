@@ -2,4 +2,4 @@
 
 ## State management with actions and reducers
 
-See presentation on [React advanced](./react-advanced-en.html#/8)
+See presentation on [React advanced](./react-advanced-en.html#/7)
