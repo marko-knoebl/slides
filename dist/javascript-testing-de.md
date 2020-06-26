@@ -84,16 +84,16 @@ const shorten = (s, maxlength) => {
   return s;
 };
 
-module.exports.shorten = shorten;
+export default shorten;
 ```
 
 ## Beispiel: shorten
 
 ```js
 // shorten.test.js
-const shorten = require('./shorten.js').shorten;
+import shorten from './shorten.js';
 // use node's built-in assert module
-const assert = require('assert');
+import assert from 'assert';
 
 it('shortens "loremipsum" to "lor..."', () => {
   const expected = 'lor...';

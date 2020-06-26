@@ -4,7 +4,7 @@
 
 Manche Funktionen in React - z.B. Reducer - sind ganz "normale" JavaScript-Funktionen und können mit standard-Testwerkzeugen getestet werden
 
-Siehe die Präsentation [JavaScript Testing](./javascript-testing-de.html) für einen Einstieg
+Siehe die Präsentation [JavaScript Testing](./javascript-testing-de.html) für einen Einstieg (Bemerkung: Die Library Jest ist in einem create-react-app Projekt schon eingerichtet)
 
 ## Testen von React-Komponenten
 

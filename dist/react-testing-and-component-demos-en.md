@@ -110,7 +110,7 @@ export const oneStarInteraction = () => (
 
 Some functions in React - including Reducers - are just plain JavaScript functions and can be tested like any other function.
 
-See the presentation [JavaScript Testing](./javascript-testing-en.html) for an overview
+See the presentation [JavaScript Testing](./javascript-testing-en.html) for an overview (note: the library Jest is already set up in a create-react-app project)
 
 ## Testing React components
 
