@@ -80,7 +80,7 @@ Code available at: <https://github.com/marko-knoebl/courses-code>
 
 - open-sourced by Facebook in 2013
 - current major version: React 16 (September 2017)
-- February 2019: introction of hooks
+- February 2019: introduction of hooks
 
 # React & JSX Basics
 
