@@ -160,8 +160,8 @@ export default memo(Rating);
 the `Rating` component will not be rerendered if its props are the same as before:
 
 ```jsx
-<Rating stars={4} />
-<Rating stars={4} onChange={setRating1} />
+<Rating stars={prodRating} />
+<Rating stars={prodRating} onChange={setProdRating} />
 ```
 
 ## Preventing unneeded component rerenderings
@@ -170,8 +170,8 @@ what about this event listener?
 
 ```jsx
 <Rating
-  stars={4}
-  onChange={newRating => setRating1(newRating)}
+  stars={prodRating}
+  onChange={(newRating) => setProdRating(newRating)}
 />
 ```
 
@@ -184,7 +184,7 @@ making memoization work for more complex event handlers / callback functions:
 ```jsx
 function TodoApp() {
   const [todos, setTodos] = useState([]);
-  const handleAddTodo = newTitle =>
+  const handleAddTodo = (newTitle) =>
     setTodos([
       ...todos,
       { title: newTitle, completed: false },
@@ -497,8 +497,12 @@ const About = lazy(() => import('./routes/About'));
 const App = () => (
   <Suspense fallback={<div>Loading...</div>}>
     <Switch>
-      <Route exact path="/" component={Home} />
-      <Route path="/about" component={About} />
+      <Route path="/about">
+        <About />
+      </Route>
+      <Route path="/">
+        <Home />
+      </Route>
     </Switch>
   </Suspense>
 );

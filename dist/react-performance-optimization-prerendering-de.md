@@ -160,8 +160,8 @@ export default memo(Rating);
 Die `Rating`-Komponente wird nicht neu gerendert, wenn ihre Props die gleichen sind wie zuvor:
 
 ```jsx
-<Rating stars={4} />
-<Rating stars={4} onChange={setRating1} />
+<Rating stars={prodRating} />
+<Rating stars={prodRating} onChange={setProdRating} />
 ```
 
 ## Vermeiden unnötiger Rerenderings
@@ -170,8 +170,8 @@ Wie ist es mit diesem Event-Listener?
 
 ```jsx
 <Rating
-  stars={4}
-  onChange={newRating => setRating1(newRating)}
+  stars={prodRating}
+  onChange={(newRating) => setProdRating(newRating)}
 />
 ```
 
@@ -184,7 +184,7 @@ Ermöglichen von Memoisation in komplexeren Event Handlern / Callbacks:
 ```jsx
 function TodoApp() {
   const [todos, setTodos] = useState([]);
-  const handleAddTodo = newTitle =>
+  const handleAddTodo = (newTitle) =>
     setTodos([
       ...todos,
       { title: newTitle, completed: false },
@@ -497,8 +497,12 @@ const About = lazy(() => import('./routes/About'));
 const App = () => (
   <Suspense fallback={<div>Loading...</div>}>
     <Switch>
-      <Route exact path="/" component={Home} />
-      <Route path="/about" component={About} />
+      <Route path="/about">
+        <About />
+      </Route>
+      <Route path="/">
+        <Home />
+      </Route>
     </Switch>
   </Suspense>
 );

@@ -32,8 +32,12 @@ const About = lazy(() => import('./routes/About'));
 const App = () => (
   <Suspense fallback={<div>Loading...</div>}>
     <Switch>
-      <Route exact path="/" component={Home} />
-      <Route path="/about" component={About} />
+      <Route path="/about">
+        <About />
+      </Route>
+      <Route path="/">
+        <Home />
+      </Route>
     </Switch>
   </Suspense>
 );
