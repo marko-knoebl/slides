@@ -1,5 +1,7 @@
 # map, filter, reduce
 
+<!-- note: this is partially duplicated in javascript-basics-for-react -->
+
 ### Array methods for functional programming
 
 ## map
@@ -8,27 +10,25 @@
 - returns a new array
 
 ```js
-let myNumbers = [2, 10, 23];
+const myNumbers = [1, 2, 3];
 
-let triple = n => 3 * n;
-
-let newNumbers = myNumbers.map(triple);
-// [6, 30, 69]
+const newNumbers = myNumbers.map((n) => 3 * n);
+// [3, 6, 9]
 ```
 
 ## filter
 
 - only keeps specific entries in an array
-- uses a function to check entries for a specific criterion
+- uses a function to check entries for a specific condition
 - returns a new array
 
 ```js
-let myNumbers = [2, 10, 23];
+const myNumbers = [1, 2, 3, 4];
 
-let isEven = n => n % 2 === 0;
+const isEven = (n) => n % 2 === 0;
 
-let newNumbers = myNumbers.filter(isEven);
-// [2, 10]
+const evenNumbers = myNumbers.filter(isEven);
+// [2, 4]
 ```
 
 ## reduce
@@ -39,21 +39,21 @@ let newNumbers = myNumbers.filter(isEven);
 ## reduce - example
 
 ```js
-let transactions = [
-  { amount: -56, title: 'groceries' },
-  { amount: +1020, title: 'salary' },
-  { amount: -13, title: 'dinner' },
-  { amount: -96, title: 'electricity' },
+const initialBalance = 300;
+const transactions = [
+  { amount: -50, title: 'groceries' },
+  { amount: +1000, title: 'salary' },
+  { amount: -10, title: 'dinner' },
+  { amount: -100, title: 'electricity' },
 ];
-let initialBalance = 317;
 
-let reducer = (aggregator, transaction) =>
+const reducer = (aggregator, transaction) =>
   aggregator + transaction.amount;
 
-let currentBalance = transactions.reduce(
+const currentBalance = transactions.reduce(
   reducer,
   initialBalance
 );
 
-// 317 -> 261 -> 1281 -> 1268 -> 1172
+// 300 -> 250 -> 1250 -> 1240 -> 1140
 ```

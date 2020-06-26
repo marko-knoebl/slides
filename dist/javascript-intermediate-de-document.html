@@ -1,17 +1,16 @@
 <h1>JavaScript Intermediate</h1>
 <h1>map, filter, reduce</h1>
+<!-- note: this is partially duplicated in javascript-basics-for-react -->
 <h3>Array-Methoden für die funktionale Programmierung</h3>
 <h2>map</h2>
 <ul>
 <li>Ändert jeden Eintrag eines Arrays mit Hilfe einer Funktion ab</li>
 <li>Rückgabewert: neues Array</li>
 </ul>
-<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> myNumbers = [<span class="hljs-number">2</span>, <span class="hljs-number">10</span>, <span class="hljs-number">23</span>];
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> myNumbers = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
 
-<span class="hljs-keyword">let</span> triple = <span class="hljs-function"><span class="hljs-params">n</span> =></span> <span class="hljs-number">3</span> * n;
-
-<span class="hljs-keyword">let</span> newNumbers = myNumbers.map(triple);
-<span class="hljs-comment">// [6, 30, 69]</span>
+<span class="hljs-keyword">const</span> newNumbers = myNumbers.map(<span class="hljs-function">(<span class="hljs-params">n</span>) =></span> <span class="hljs-number">3</span> * n);
+<span class="hljs-comment">// [3, 6, 9]</span>
 </code></pre>
 <h2>filter</h2>
 <ul>
@@ -19,12 +18,12 @@
 <li>Nutzt eine Funktion, um Einträge auf ein bestimmtes Kriterium zu testen</li>
 <li>Rückgabewert: neues Array</li>
 </ul>
-<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> myNumbers = [<span class="hljs-number">2</span>, <span class="hljs-number">10</span>, <span class="hljs-number">23</span>];
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> myNumbers = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>];
 
-<span class="hljs-keyword">let</span> isEven = <span class="hljs-function"><span class="hljs-params">n</span> =></span> n % <span class="hljs-number">2</span> === <span class="hljs-number">0</span>;
+<span class="hljs-keyword">const</span> isEven = <span class="hljs-function">(<span class="hljs-params">n</span>) =></span> n % <span class="hljs-number">2</span> === <span class="hljs-number">0</span>;
 
-<span class="hljs-keyword">let</span> newNumbers = myNumbers.filter(isEven);
-<span class="hljs-comment">// [2, 10]</span>
+<span class="hljs-keyword">const</span> evenNumbers = myNumbers.filter(isEven);
+<span class="hljs-comment">// [2, 4]</span>
 </code></pre>
 <h2>reduce</h2>
 <ul>
@@ -32,23 +31,23 @@
 <li>Verwendet eine Funktion, die aus zwei bestehenden Werten einen resultierenden Wert erstellt - diese Funktion wird wiederholt aufgerufen</li>
 </ul>
 <h2>reduce - Beispiel</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> transactions = [
-  { <span class="hljs-attr">amount</span>: <span class="hljs-number">-56</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'groceries'</span> },
-  { <span class="hljs-attr">amount</span>: +<span class="hljs-number">1020</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'salary'</span> },
-  { <span class="hljs-attr">amount</span>: <span class="hljs-number">-13</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'dinner'</span> },
-  { <span class="hljs-attr">amount</span>: <span class="hljs-number">-96</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'electricity'</span> },
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> initialBalance = <span class="hljs-number">300</span>;
+<span class="hljs-keyword">const</span> transactions = [
+  { <span class="hljs-attr">amount</span>: <span class="hljs-number">-50</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'groceries'</span> },
+  { <span class="hljs-attr">amount</span>: +<span class="hljs-number">1000</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'salary'</span> },
+  { <span class="hljs-attr">amount</span>: <span class="hljs-number">-10</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'dinner'</span> },
+  { <span class="hljs-attr">amount</span>: <span class="hljs-number">-100</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'electricity'</span> },
 ];
-<span class="hljs-keyword">let</span> initialBalance = <span class="hljs-number">317</span>;
 
-<span class="hljs-keyword">let</span> reducer = <span class="hljs-function">(<span class="hljs-params">aggregator, transaction</span>) =></span>
+<span class="hljs-keyword">const</span> reducer = <span class="hljs-function">(<span class="hljs-params">aggregator, transaction</span>) =></span>
   aggregator + transaction.amount;
 
-<span class="hljs-keyword">let</span> currentBalance = transactions.reduce(
+<span class="hljs-keyword">const</span> currentBalance = transactions.reduce(
   reducer,
   initialBalance
 );
 
-<span class="hljs-comment">// 317 -> 261 -> 1281 -> 1268 -> 1172</span>
+<span class="hljs-comment">// 300 -> 250 -> 1250 -> 1240 -> 1140</span>
 </code></pre>
 <h1>Objektorientierte Programmierung (alt)</h1>
 <h2>Prototypen und Konstruktorfunktionen</h2>

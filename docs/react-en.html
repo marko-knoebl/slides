@@ -2339,12 +2339,163 @@ export default SlideshowApp;
 <li>button for <em>back to start</em></li>
 <li>prevent the index becoming negative</li>
 </ul>
-</section></section><section class="slides-section"><section class="slide"><h1>Basics for the course</h1>
-</section><section class="slide"><h2>Basics for the course</h2>
+</section></section><section class="slides-section"><section class="slide"><h1>JavaScript basics for React</h1>
+</section><section class="slide"><h2>JavaScript standardization</h2>
+<p>JavaScript is standardized under the name <a href="https://www.ecma-international.org/ecma-262/"><em>ECMAScript</em> (ES)</a></p>
+</section><section class="slide"><h2>JavaScript versions</h2>
+<p>Supported by all browsers, including Internet Explorer: <em>ES5</em> (standardized in 2009)</p>
+<p>Since 2015: yearly updates in June of each year (ES2015, ES2016, ...)</p>
+<p>Common practice: Modern JavaScript is transpiled to ES5 (via Babel, webpack)</p>
+</section><section class="slide"><h2>Imports and exports</h2>
+<p>named imports / exports:</p>
+<pre><code class="hljs language-js"><span class="hljs-comment">// mymodule.js</span>
+<span class="hljs-keyword">const</span> foo = <span class="hljs-number">1</span>;
+<span class="hljs-keyword">const</span> bar = <span class="hljs-number">2</span>;
+<span class="hljs-keyword">const</span> baz = <span class="hljs-number">3</span>;
+
+<span class="hljs-keyword">export</span> { foo, bar, baz };
+</code></pre>
+<pre><code class="hljs language-js"><span class="hljs-comment">// index.js</span>
+<span class="hljs-keyword">import</span> { foo, bar } <span class="hljs-keyword">from</span> <span class="hljs-string">'mymodule.js'</span>;
+</code></pre>
+</section><section class="slide"><h2>Imports and exports</h2>
+<p>there may be one default export</p>
+<pre><code class="hljs language-js"><span class="hljs-comment">// mymodule.js</span>
+<span class="hljs-keyword">const</span> foo = <span class="hljs-number">1</span>;
+<span class="hljs-keyword">const</span> bar = <span class="hljs-number">2</span>;
+<span class="hljs-keyword">const</span> baz = <span class="hljs-number">3</span>;
+
+<span class="hljs-keyword">export</span> { foo, bar, baz };
+
+<span class="hljs-keyword">const</span> main = <span class="hljs-number">0</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> main;
+</code></pre>
+<pre><code class="hljs language-js"><span class="hljs-comment">// index.js</span>
+<span class="hljs-keyword">import</span> main, { foo, bar } <span class="hljs-keyword">from</span> <span class="hljs-string">'mymodule.js'</span>;
+</code></pre>
+</section><section class="slide"><h2>Imports in webpack</h2>
+<p>Bundlers like webpack can deviate from standard JavaScript import behavior:</p>
 <ul>
-<li><a href="./vs-code-en.html">VS Code basics and plugins</a></li>
-<li><a href="./javascript-es-2015-en.html">Modern JavaScript (ES2015+)</a></li>
+<li>the import does not require a file name extension like <code>.js</code></li>
+<li>if the import leads to a folder webpack will look for an <code>index.js</code> file in the folder</li>
 </ul>
+</section><section class="slide"><h2>Arrow functions</h2>
+<ul>
+<li>short notation for anonymous functions</li>
+<li>leaves <em>this</em> unchanged (does not reassign)</li>
+</ul>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> multiply = <span class="hljs-function">(<span class="hljs-params">a, b</span>) =></span> {
+  <span class="hljs-keyword">return</span> a * b;
+};
+
+<span class="hljs-keyword">const</span> multiply = <span class="hljs-function">(<span class="hljs-params">a, b</span>) =></span> a * b;
+</code></pre>
+</section><section class="slide"><h2>Arrow functions</h2>
+<p>if we want to return an object directly: wrap it in parentheses</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> getState = <span class="hljs-function"><span class="hljs-params">()</span> =></span> ({
+  <span class="hljs-attr">loggedIn</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">userName</span>: <span class="hljs-string">'mike'</span>,
+});
+</code></pre>
+</section><section class="slide"><h2>Template strings</h2>
+<ul>
+<li>new syntax for <em>creating</em> strings</li>
+<li>delimited via backticks</li>
+<li>enables multiline string literals and interpolation</li>
+</ul>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> name = <span class="hljs-string">'Mike'</span>;
+<span class="hljs-keyword">const</span> greeting = <span class="hljs-string">`Hello, <span class="hljs-subst">${name}</span>!
+                  This is ES2015!`</span>;
+</code></pre>
+</section><section class="slide"><h2>The semicolon in JavaScript</h2>
+<p>The semicolon for ending statements is mostly optional in JavaScript (JavaScript "features" automatic semicolon insertion)</p>
+<!-- prettier-ignore -->
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> a = <span class="hljs-number">3</span>
+<span class="hljs-built_in">console</span>.log(a)
+</code></pre>
+<p>is treated as:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> a = <span class="hljs-number">3</span>;
+<span class="hljs-built_in">console</span>.log(a);
+</code></pre>
+</section><section class="slide"><h2>The semicolon in JavaScript</h2>
+<p>Sometimes the behavior is not as intended:</p>
+<!-- prettier-ignore -->
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> Foo = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  <span class="hljs-keyword">return</span>
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>some content<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+};
+</code></pre>
+<p>would be treated as:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> Foo = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  <span class="hljs-keyword">return</span>;
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>some content<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+};
+</code></pre>
+</section><section class="slide"><h2>Destructuring</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [result, errors] = someComputation();
+
+<span class="hljs-comment">// swapping values</span>
+<span class="hljs-keyword">let</span> a = <span class="hljs-number">1</span>;
+<span class="hljs-keyword">let</span> b = <span class="hljs-number">2</span>;
+[a, b] = [b, a];
+</code></pre>
+</section><section class="slide"><h2>Destructuring</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> person = { <span class="hljs-attr">name</span>: <span class="hljs-string">'John'</span>, <span class="hljs-attr">age</span>: <span class="hljs-number">48</span> };
+<span class="hljs-keyword">const</span> { name, age } = person;
+
+<span class="hljs-keyword">const</span> TodoItem = <span class="hljs-function">(<span class="hljs-params">{ title, completed }</span>) =></span> (
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+    {completed ? 'DONE: ' : 'TODO: '}
+    {title}
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+);
+</code></pre>
+</section><section class="slide"><h2>Spread syntax (arrays and objects)</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> squares = [<span class="hljs-number">1</span>, <span class="hljs-number">4</span>, <span class="hljs-number">9</span>];
+<span class="hljs-keyword">const</span> moreSquares = [...squares, <span class="hljs-number">16</span>, <span class="hljs-number">25</span>];
+<span class="hljs-comment">// moreSquares: [1, 4, 9, 16, 25]</span>
+</code></pre>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> person = {
+  <span class="hljs-attr">firstName</span>: <span class="hljs-string">'Joe'</span>,
+  <span class="hljs-attr">lastName</span>: <span class="hljs-string">'Doe'</span>,
+  <span class="hljs-attr">age</span>: <span class="hljs-number">31</span>,
+};
+<span class="hljs-keyword">const</span> newPerson = { ...person, <span class="hljs-attr">email</span>: <span class="hljs-string">'j@d.com'</span>, <span class="hljs-attr">age</span>: <span class="hljs-number">32</span> };
+<span class="hljs-comment">// {firstName: 'Joe', lastName: 'Doe', email: 'j@d.com', age: 32}</span>
+</code></pre>
+</section><section class="slide"><h2>Map and filter</h2>
+<p>array methods for functional programming</p>
+</section><section class="slide"><h2>Map</h2>
+<ul>
+<li>modifies each entry in an array via a function</li>
+<li>returns a new array</li>
+</ul>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> myNumbers = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>];
+
+<span class="hljs-keyword">const</span> tripledNumbers = myNumbers.map(<span class="hljs-function">(<span class="hljs-params">n</span>) =></span> <span class="hljs-number">3</span> * n);
+<span class="hljs-comment">// [3, 6, 9, 12]</span>
+</code></pre>
+</section><section class="slide"><h2>Filter</h2>
+<ul>
+<li>only keeps specific entries in an array</li>
+<li>uses a function to check entries for a specific condition</li>
+<li>returns a new array</li>
+</ul>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> myNumbers = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>];
+
+<span class="hljs-keyword">const</span> isEven = <span class="hljs-function">(<span class="hljs-params">n</span>) =></span> n % <span class="hljs-number">2</span> === <span class="hljs-number">0</span>;
+
+<span class="hljs-keyword">const</span> evenNumbers = myNumbers.filter(isEven);
+<span class="hljs-comment">// [2, 4]</span>
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>VS Code basics and plugins</h1>
+</section><section class="slide"><h2>VS Code basics and plugins</h2>
+<p>see presentation <a href="./vs-code-en.html">VS Code</a></p>
 </section></section><section class="slides-section"><section class="slide"><h1>Create-React-App</h1>
 </section><section class="slide"><h2>Developing with node.js and npm</h2>
 <ul>
@@ -2443,7 +2594,7 @@ todos.push({ <span class="hljs-attr">title</span>: <span class="hljs-string">'st
 <p><strong>mutation</strong>: this modifies the original array</p>
 <pre><code class="hljs language-js">names.push(<span class="hljs-string">'Dan'</span>);
 </code></pre>
-<p><strong>no mutation</strong>: creates a new array</p>
+<p><strong>no mutation</strong>: creates a new array (spread syntax)</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> newNames = [...names, <span class="hljs-string">'Dan'</span>];
 </code></pre>
 </section><section class="slide"><h2>Data management without mutations: Objects</h2>
@@ -2456,7 +2607,7 @@ todos.push({ <span class="hljs-attr">title</span>: <span class="hljs-string">'st
 <p><strong>mutation</strong>: this modifies the object</p>
 <pre><code class="hljs language-js">user.email = <span class="hljs-string">'johndoe@gmail.com'</span>;
 </code></pre>
-<p><strong>no mutation</strong>: creates a new object</p>
+<p><strong>no mutation</strong>: creates a new object (spread syntax)</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> newUser = { ...user, <span class="hljs-attr">email</span>: <span class="hljs-string">'johndoe@gmail.com'</span> };
 </code></pre>
 </section><section class="slide"><h2>immer.js</h2>

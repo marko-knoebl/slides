@@ -78,7 +78,7 @@ const names = ['Alice', 'Bob', 'Charlie'];
 names.push('Dan');
 ```
 
-**keine Mutation**: Erstellen eines neuen Arrays
+**keine Mutation**: Erstellen eines neuen Arrays (spread Syntax)
 
 ```js
 const newNames = [...names, 'Dan'];
@@ -101,7 +101,7 @@ const user = {
 user.email = 'johndoe@gmail.com';
 ```
 
-**keine Mutation**: Erstellen eines neuen Objekts
+**keine Mutation**: Erstellen eines neuen Objekts (Spread Syntax)
 
 ```js
 const newUser = { ...user, email: 'johndoe@gmail.com' };

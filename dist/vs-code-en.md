@@ -110,7 +110,7 @@ accessible via the _Run_ tab in the sidebar
 
 ## Debugger configuration
 
-debugger configuratiion via _.vscode/launch.json_
+debugger configuration via _.vscode/launch.json_
 
 To create a debugger configuration file: In the _Run_ sidebar, select _create a launch.json file_
 
