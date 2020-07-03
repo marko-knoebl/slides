@@ -7,3 +7,7 @@ will catch errors in:
 will not catch errors in:
 
 - event handlers, e.g. onClick={...}
+
+hook:
+
+https://github.com/JoschuaSchneider/use-error-boundary

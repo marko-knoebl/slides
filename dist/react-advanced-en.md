@@ -151,20 +151,22 @@ The interface of context can pass both data and event handlers
 with JavaScript (_TodosContext.js_):
 
 ```js
-const TodosContext = React.createContext();
+import { createContext } from 'react';
+
+const TodosContext = createContext();
 ```
 
 with TypeScript (_TodosContext.ts_):
 
 ```ts
+import { createContext } from 'react';
+
 type TodosContextType = {
   todos: Array<Todo>;
   onToggle: (id: number) => void;
 };
 
-const TodosContext = React.createContext(
-  {} as TodosContextType
-);
+const TodosContext = createContext({} as TodosContextType);
 ```
 
 ## Context - example
@@ -178,7 +180,8 @@ The _provider_ makes values available to all its subcomponents
     onToggle: () => {
       // ...
     },
-  }}>
+  }}
+>
   <TodoList />
   <AddTodo />
   <TodoStats />
@@ -1448,7 +1451,7 @@ confusing terminology:
 
 Higher-order components are **not** components 😲
 
-Higher-order components are functions that can change/enhance a component definition
+Higher-order components are functions that modify / enhance a component definition (they are "component decorators")
 
 ## Higher-order components
 

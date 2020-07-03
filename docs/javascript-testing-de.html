@@ -2184,7 +2184,78 @@ beforeEach(<span class="hljs-function"><span class="hljs-params">()</span> =></s
 afterEach(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
   clearTestDB();
 });
-</code></pre></section></section></div>
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Mocking (mit jest)</h1>
+</section><section class="slide"><h2>Mocking von built-ins</h2>
+<p>Mocking von <em>localStorage</em> (welches in node nicht verfügbar ist) mit Beispieldaten:</p>
+<pre><code class="hljs language-js">globalThis.localStorage = {
+  <span class="hljs-attr">getItem</span>: <span class="hljs-function">(<span class="hljs-params">anyKey</span>) =></span> <span class="hljs-string">'foo'</span>,
+};
+</code></pre>
+</section><section class="slide"><h2>Mocking von Modulen</h2>
+<p>Mocken eines Moduls mittels <code>jest.mock</code>:</p>
+<pre><code class="hljs language-js">jest.mock(<span class="hljs-string">'axios'</span>, () => ({
+  <span class="hljs-attr">get</span>: <span class="hljs-function"><span class="hljs-params">()</span> =></span> <span class="hljs-built_in">Promise</span>.resolve({ <span class="hljs-attr">data</span>: { <span class="hljs-attr">foo</span>: <span class="hljs-string">'bar'</span> } }),
+}));
+</code></pre>
+</section><section class="slide"><h2>Mocking von Modulen</h2>
+<p>Mocking von Modulen via __mocks__ folders:</p>
+<pre><code class="hljs language-txt">__mocks__/fs.js
+__mocks__/axios.js
+src/foo.js
+src/foo.test.js
+src/__mocks__/foo.js
+</code></pre>
+<pre><code class="hljs language-js"><span class="hljs-comment">// src/foo.test.js</span>
+jest.mock(<span class="hljs-string">'fs'</span>);
+jest.mock(<span class="hljs-string">'axios'</span>); <span class="hljs-comment">// optional for contents of node_modules</span>
+jest.mock(<span class="hljs-string">'./foo'</span>);
+</code></pre>
+<p>Bemerkung: in einem <em>create-react-app</em>-Projekt wäre dies z.B. <code>src/__mocks__/axios.js</code> anstatt <code>__mocks__/axios.js</code> (siehe <a href="https://github.com/facebook/create-react-app/issues/7539">issue</a>)</p>
+</section><section class="slide"><h2>Mocking von Modulen</h2>
+<pre><code class="hljs language-js"><span class="hljs-comment">// __mocks__/fs.js</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> readFileSync = <span class="hljs-function"><span class="hljs-params">()</span> =></span> <span class="hljs-string">'mock content'</span>;
+</code></pre>
+</section><section class="slide"><h2>Mocking von Promises</h2>
+<p>Manuelles Mocken eines <em>fetch</em>-Resultats mittels eines Promises:</p>
+<pre><code class="hljs language-js">globalThis.fetch = <span class="hljs-function"><span class="hljs-params">()</span> =></span>
+  <span class="hljs-built_in">Promise</span>.resolve({
+    <span class="hljs-attr">json</span>: <span class="hljs-function"><span class="hljs-params">()</span> =></span> <span class="hljs-built_in">Promise</span>.resolve({ <span class="hljs-attr">foo</span>: <span class="hljs-string">'bar'</span> }),
+  });
+</code></pre>
+</section><section class="slide"><h2>Mocking von Promises</h2>
+<p>Mocking von <em>axios</em>-Anfragen mit Promises:</p>
+<pre><code class="hljs language-js"><span class="hljs-comment">// __mocks__/axios.js</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
+  <span class="hljs-attr">get</span>: <span class="hljs-function">(<span class="hljs-params">path</span>) =></span> {
+    <span class="hljs-keyword">if</span> (path === <span class="hljs-string">'/'</span>) {
+      <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve({ <span class="hljs-attr">foo</span>: <span class="hljs-string">'bar'</span> });
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.reject({ <span class="hljs-attr">message</span>: <span class="hljs-string">'NetworkError ...'</span> });
+  },
+};
+</code></pre>
+</section><section class="slide"><h2>Auto Mocking</h2>
+<p>Mocking von <em>fetch</em> via <em>jest-fetch-mock</em>:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> fetchMock <span class="hljs-keyword">from</span> <span class="hljs-string">'jest-fetch-mock'</span>;
+
+fetchMock.enableMocks();
+
+fetchMock.mockResponseOnce(<span class="hljs-string">'{ "foo": "bar" }'</span>);
+</code></pre>
+</section><section class="slide"><h2>Mocken und Inspizieren von Funktionen</h2>
+<p>Mocken einer Funktion, die aufgerufen und später inspiziert werden kann:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> mockFn = jest.fn();
+mockFn(<span class="hljs-string">'foo'</span>);
+expect(mockFn).toHaveBeenCalledWith(<span class="hljs-string">'foo'</span>);
+</code></pre>
+</section><section class="slide"><h2>Ressourcen</h2>
+<ul>
+<li><a href="https://www.leighhalliday.com/mock-fetch-jest">How To Mock Fetch in Jest</a></li>
+<li><a href="https://www.leighhalliday.com/mocking-axios-in-jest-testing-async-functions">Mocking Axios in Jest + Testing Async Functions</a></li>
+</ul></section></section></div>
     </div>
     <script>/*!
  * reveal.js

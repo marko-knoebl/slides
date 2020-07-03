@@ -11,20 +11,22 @@ Das Interface von Context kann sowohl Daten (aus dem State) als auch Eventhandle
 mit JavaScript (_TodosContext.js_):
 
 ```js
-const TodosContext = React.createContext();
+import { createContext } from 'react';
+
+const TodosContext = createContext();
 ```
 
 mit TypeScript (_TodosContext.ts_):
 
 ```ts
+import { createContext } from 'react';
+
 type TodosContextType = {
   todos: Array<Todo>;
   onToggle: (id: number) => void;
 };
 
-const TodosContext = React.createContext(
-  {} as TodosContextType
-);
+const TodosContext = createContext({} as TodosContextType);
 ```
 
 ## Context - Beispiel
@@ -38,7 +40,8 @@ Der _Provider_ stellt Werte allen Unterkomponenten zur Verfügung
     onToggle: () => {
       // ...
     },
-  }}>
+  }}
+>
   <TodoList />
   <AddTodo />
   <TodoStats />

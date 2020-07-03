@@ -8,7 +8,7 @@ confusing terminology:
 
 Higher-order components are **not** components 😲
 
-Higher-order components are functions that can change/enhance a component definition
+Higher-order components are functions that modify / enhance a component definition (they are "component decorators")
 
 ## Higher-order components
 

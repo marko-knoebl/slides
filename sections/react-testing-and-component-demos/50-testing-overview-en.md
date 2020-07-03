@@ -14,6 +14,14 @@ what to test:
 - triggering events
 - changing state
 
+## Testing React components
+
+three general steps:
+
+- arrange
+- act
+- assert
+
 ## Test renderers for React
 
 - `react-testing-library` (subproject of _testing library_)

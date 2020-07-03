@@ -2158,17 +2158,19 @@ ReactDOM.render(
 <p>The interface of context can pass both data and event handlers</p>
 </section><section class="slide"><h2>Context - example</h2>
 <p>with JavaScript (<em>TodosContext.js</em>):</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> TodosContext = React.createContext();
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { createContext } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+
+<span class="hljs-keyword">const</span> TodosContext = createContext();
 </code></pre>
 <p>with TypeScript (<em>TodosContext.ts</em>):</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> TodosContextType = {
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { createContext } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+
+<span class="hljs-keyword">type</span> TodosContextType = {
   todos: <span class="hljs-built_in">Array</span>&#x3C;Todo>;
   onToggle: <span class="hljs-function">(<span class="hljs-params">id: <span class="hljs-built_in">number</span></span>) =></span> <span class="hljs-built_in">void</span>;
 };
 
-<span class="hljs-keyword">const</span> TodosContext = React.createContext(
-  {} <span class="hljs-keyword">as</span> TodosContextType
-);
+<span class="hljs-keyword">const</span> TodosContext = createContext({} <span class="hljs-keyword">as</span> TodosContextType);
 </code></pre>
 </section><section class="slide"><h2>Context - example</h2>
 <p>The <em>provider</em> makes values available to all its subcomponents</p>
@@ -2178,7 +2180,8 @@ ReactDOM.render(
     <span class="hljs-attr">onToggle</span>: <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
       <span class="hljs-comment">// ...</span>
     },
-  }}>
+  }}
+>
   <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">TodoList</span> /></span>
   <span class="hljs-tag">&#x3C;<span class="hljs-name">AddTodo</span> /></span>
   <span class="hljs-tag">&#x3C;<span class="hljs-name">TodoStats</span> /></span>
@@ -3189,7 +3192,7 @@ useEffect(getInstallPermission, []);
 </section><section class="slide"><h2>Higher-order components</h2>
 <p>confusing terminology:</p>
 <p>Higher-order components are <strong>not</strong> components 😲</p>
-<p>Higher-order components are functions that can change/enhance a component definition</p>
+<p>Higher-order components are functions that modify / enhance a component definition (they are "component decorators")</p>
 </section><section class="slide"><h2>Higher-order components</h2>
 <p>Example:</p>
 <p><em>React</em>'s <code>memo</code> is a higher-order component</p>

@@ -2585,6 +2585,34 @@ ReactDOM.render(
   });
 };
 </code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Testing</h1>
+</section><section class="slide"><h2>Testing</h2>
+<p>as they are pure functions, reducers and action creators are easy to test in isolation</p>
+<p>testing middleware like <em>thunk</em> is more complex</p>
+</section><section class="slide"><h2>Testing thunks - setup</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> configureMockStore <span class="hljs-keyword">from</span> <span class="hljs-string">'redux-mock-store'</span>;
+<span class="hljs-keyword">import</span> fetchMock <span class="hljs-keyword">from</span> <span class="hljs-string">'jest-fetch-mock'</span>;
+<span class="hljs-keyword">import</span> thunk <span class="hljs-keyword">from</span> <span class="hljs-string">'redux-thunk'</span>;
+<span class="hljs-keyword">import</span> { requestTodos } <span class="hljs-keyword">from</span> <span class="hljs-string">'./actions'</span>;
+
+fetchMock.enableMocks();
+<span class="hljs-keyword">const</span> mockStore = configureMockStore([thunk]);
+</code></pre>
+</section><section class="slide"><h2>Testing thunks</h2>
+<pre><code class="hljs language-js">it(<span class="hljs-string">'loadTodos() dispatches two actions'</span>, <span class="hljs-keyword">async</span> (done) => {
+  <span class="hljs-keyword">const</span> todoData = [
+    { <span class="hljs-attr">title</span>: <span class="hljs-string">'abc'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">id</span>: <span class="hljs-number">1</span> },
+  ];
+  fetchMock.mockResponseOnce(<span class="hljs-built_in">JSON</span>.stringify(todoData));
+  <span class="hljs-keyword">const</span> store = mockStore();
+  <span class="hljs-keyword">const</span> expectedActions = [
+    { <span class="hljs-attr">type</span>: <span class="hljs-string">'todoRequest'</span> },
+    { <span class="hljs-attr">type</span>: <span class="hljs-string">'todoResponse'</span>, <span class="hljs-attr">payload</span>: todoData },
+  ];
+  <span class="hljs-keyword">await</span> store.dispatch(requestTodos());
+  expect(store.getActions()).toEqual(expectedActions);
+});
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Exercises</h1>
 <ul>
 <li>Todo list (extended)</li>

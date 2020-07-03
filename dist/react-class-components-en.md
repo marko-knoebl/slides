@@ -226,7 +226,9 @@ type TodoItemState = {};
 ```
 
 ```tsx
-class TodoItem extends React.Component<
+import { Component } from 'react';
+
+class TodoItem extends Component<
   TodoItemProps,
   TodoItemState
 > {

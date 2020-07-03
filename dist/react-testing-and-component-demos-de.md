@@ -120,6 +120,14 @@ was kann getestet werden:
 - Auslösen von Events
 - Änderungen am State
 
+## Testen von React-Komponenten
+
+im allgemeinen drei Schritte:
+
+- arrange (vorbereiten)
+- act (Interaktion)
+- assert (Überprüfen von Konditionen)
+
 ## Test Renderer für React
 
 - `react-testing-library` (Unterprojekt von _Testing Library_)
@@ -136,9 +144,9 @@ Komponenten werden gerendert und mit früheren Versionen (Snapshots) verglichen
 
 **Testing-Library**: Projekt zum Testen von UI Komponenten (u.a. React)
 
-Fokus der Tests liegt auf Aspekten, die für den Endnutzer relevant sind (nicht so sehr auf der genauen DOM-Struktur)
+Fokus der Tests liegt auf Aspekten, die für den Endnutzer relevant sind (nicht so sehr auf der genauen DOM-Struktur oder Implementierungsdetails)
 
-## React-Testing-Library - Beispiel
+## Beispiel
 
 ```js
 import { render } from '@testing-library/react';
@@ -152,11 +160,22 @@ it('renders learn react link', () => {
 
 ## Elemente abfragen
 
-- `.getByText` (wirft Exception, wenn es keinen eindeutigen Match gibt)
-- `.getAllByText` (wirft Exception, wenn es keine Matches gibt)
-- `.getByTitle`
-- `.getByLabelText`
-- ... (siehe <https://testing-library.com/docs/dom-testing-library/api-queries>)
+Beispiele:
+
+- `.getByText(...)`
+- `.queryAllByText(...)`
+- `.findByLabelText(...)`
+
+## Elemente abfragen
+
+- `.getBy*`: wirft Exception, wenn es keinen eindeutigen Match gibt
+- `.getAllBy*`: wirft Exception, wenn es keine Matches gibt
+- `.queryBy*`: gibt _null_ zurück, wenn es keine Matches gibt; wirft Exception, wenn es mehr als einen Match gibt
+- `.queryAllBy*`: kann ein leeres Array zurückgeben
+- `.findBy*`: asynchrone Version von `.getBy*` (wartet standardmäßig 1 Sekunde)
+- `.findAllBy*`: asynchrone Version von `.getAllBy*`
+
+siehe <https://testing-library.com/docs/dom-testing-library/api-queries> für eine Liste von Queries
 
 ## Assertions
 
@@ -164,7 +183,7 @@ extra Assertions:
 
 - `.toHaveTextContent()`
 - `.toBeInTheDocument()`
-- ... siehe <https://github.com/testing-library/jest-dom>
+- ... (siehe <https://github.com/testing-library/jest-dom>)
 
 ## Testen des Renderings
 
@@ -240,9 +259,9 @@ it('triggers an event when the fourth star is clicked', () => {
 const ChuckNorrisJoke = () => {
   const [joke, setJoke] = useState(null);
   useEffect(() => {
-    axios
-      .get('https://api.chucknorris.io/jokes/random')
-      .then(res => setJoke(res.data.value));
+    fetch('https://api.chucknorris.io/jokes/random')
+      .then((res) => res.json())
+      .then((data) => setJoke(data.value));
   }, []);
   if (!joke) {
     return <div>loading...</div>;
@@ -256,39 +275,24 @@ const ChuckNorrisJoke = () => {
 Testen mit echtem API:
 
 ```js
-import { waitForElement } from '@testing-library/react';
-
 it('loads Chuck Norris joke from API', async () => {
   const instance = render(<ChuckNorrisJoke />);
-  const jokeElement = await waitForElement(() =>
-    instance.getByTitle('joke')
-  );
+  const jokeElement = await instance.findByTitle('joke');
   // joke should have at least 3 characters
   expect(jokeElement).toHaveTextContent(/.../);
 });
 ```
 
-`waitForElement` versucht wiederholt, ein Element abzufragen, bis es existiert
+`findByTitle` versucht wiederholt, ein Element abzufragen, bis es existiert
 
-## Mocking von Objekten
-
-Mocking von API-Abrufen:
-
-ersetzen von `axios` durch einen Mock:
+## Mocking des APIs mit Jest
 
 ```js
-import axios from 'axios';
-jest.mock('axios');
-```
-
-Mocking von `axios.get` als erfolgreiche Promise:
-
-```js
-axios.get.mockResolvedValueOnce({
-  data: {
-    value: 'Chuck Norris counted to infinity. Twice.',
-  },
-});
+const data = {
+  value: 'Chuck Norris counted to infinity. Twice.',
+};
+globalThis.fetch = () =>
+  Promise.resolve({ json: () => Promise.resolve(data) });
 ```
 
 ## Testen von Fehlern
@@ -308,7 +312,7 @@ it('throws an error if the number of stars is 0', () => {
 
 diese Schritte sind bei der Verwendung von `create-react-app` schon eingerichtet
 
-Aktivieren erweiterter Assertions (siehe <https://github.com/testing-library/jest-dom>):
+Aktivieren erweiterter Assertions (siehe <https://github.com/testing-library/jest-dom>:
 
 ```js
 import '@testing-library/jest-dom/extend-expect';
@@ -322,9 +326,10 @@ import { cleanup } from '@testing-library/react';
 afterEach(cleanup);
 ```
 
-## Ressource
+## Ressourcen
 
-<https://react-testing-examples.com/>
+- <https://react-testing-examples.com/>
+- <https://thomlom.dev/test-react-testing-library/>
 
 # React-Test-Renderer
 

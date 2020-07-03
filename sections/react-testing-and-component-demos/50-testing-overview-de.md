@@ -14,6 +14,14 @@ was kann getestet werden:
 - Auslösen von Events
 - Änderungen am State
 
+## Testen von React-Komponenten
+
+im allgemeinen drei Schritte:
+
+- arrange (vorbereiten)
+- act (Interaktion)
+- assert (Überprüfen von Konditionen)
+
 ## Test Renderer für React
 
 - `react-testing-library` (Unterprojekt von _Testing Library_)

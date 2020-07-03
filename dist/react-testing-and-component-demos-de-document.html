@@ -87,6 +87,13 @@ export const fiveStars = () => &#x3C;Rating stars={5} />;
 <li>Auslösen von Events</li>
 <li>Änderungen am State</li>
 </ul>
+<h2>Testen von React-Komponenten</h2>
+<p>im allgemeinen drei Schritte:</p>
+<ul>
+<li>arrange (vorbereiten)</li>
+<li>act (Interaktion)</li>
+<li>assert (Überprüfen von Konditionen)</li>
+</ul>
 <h2>Test Renderer für React</h2>
 <ul>
 <li><code>react-testing-library</code> (Unterprojekt von <em>Testing Library</em>)</li>
@@ -98,8 +105,8 @@ export const fiveStars = () => &#x3C;Rating stars={5} />;
 <h1>React-Testing-Library</h1>
 <h2>Testing-Library</h2>
 <p><strong>Testing-Library</strong>: Projekt zum Testen von UI Komponenten (u.a. React)</p>
-<p>Fokus der Tests liegt auf Aspekten, die für den Endnutzer relevant sind (nicht so sehr auf der genauen DOM-Struktur)</p>
-<h2>React-Testing-Library - Beispiel</h2>
+<p>Fokus der Tests liegt auf Aspekten, die für den Endnutzer relevant sind (nicht so sehr auf der genauen DOM-Struktur oder Implementierungsdetails)</p>
+<h2>Beispiel</h2>
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { render } <span class="hljs-keyword">from</span> <span class="hljs-string">'@testing-library/react'</span>;
 
 it(<span class="hljs-string">'renders learn react link'</span>, () => {
@@ -109,19 +116,28 @@ it(<span class="hljs-string">'renders learn react link'</span>, () => {
 });
 </span></code></pre>
 <h2>Elemente abfragen</h2>
+<p>Beispiele:</p>
 <ul>
-<li><code>.getByText</code> (wirft Exception, wenn es keinen eindeutigen Match gibt)</li>
-<li><code>.getAllByText</code> (wirft Exception, wenn es keine Matches gibt)</li>
-<li><code>.getByTitle</code></li>
-<li><code>.getByLabelText</code></li>
-<li>... (siehe <a href="https://testing-library.com/docs/dom-testing-library/api-queries">https://testing-library.com/docs/dom-testing-library/api-queries</a>)</li>
+<li><code>.getByText(...)</code></li>
+<li><code>.queryAllByText(...)</code></li>
+<li><code>.findByLabelText(...)</code></li>
 </ul>
+<h2>Elemente abfragen</h2>
+<ul>
+<li><code>.getBy*</code>: wirft Exception, wenn es keinen eindeutigen Match gibt</li>
+<li><code>.getAllBy*</code>: wirft Exception, wenn es keine Matches gibt</li>
+<li><code>.queryBy*</code>: gibt <em>null</em> zurück, wenn es keine Matches gibt; wirft Exception, wenn es mehr als einen Match gibt</li>
+<li><code>.queryAllBy*</code>: kann ein leeres Array zurückgeben</li>
+<li><code>.findBy*</code>: asynchrone Version von <code>.getBy*</code> (wartet standardmäßig 1 Sekunde)</li>
+<li><code>.findAllBy*</code>: asynchrone Version von <code>.getAllBy*</code></li>
+</ul>
+<p>siehe <a href="https://testing-library.com/docs/dom-testing-library/api-queries">https://testing-library.com/docs/dom-testing-library/api-queries</a> für eine Liste von Queries</p>
 <h2>Assertions</h2>
 <p>extra Assertions:</p>
 <ul>
 <li><code>.toHaveTextContent()</code></li>
 <li><code>.toBeInTheDocument()</code></li>
-<li>... siehe <a href="https://github.com/testing-library/jest-dom">https://github.com/testing-library/jest-dom</a></li>
+<li>... (siehe <a href="https://github.com/testing-library/jest-dom">https://github.com/testing-library/jest-dom</a>)</li>
 </ul>
 <h2>Testen des Renderings</h2>
 <p>Rating-Komponente:</p>
@@ -178,9 +194,9 @@ it(<span class="hljs-string">'switches to the next slide'</span>, () => {
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> ChuckNorrisJoke = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
   <span class="hljs-keyword">const</span> [joke, setJoke] = useState(<span class="hljs-literal">null</span>);
   useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-    axios
-      .get(<span class="hljs-string">'https://api.chucknorris.io/jokes/random'</span>)
-      .then(<span class="hljs-function"><span class="hljs-params">res</span> =></span> setJoke(res.data.value));
+    fetch(<span class="hljs-string">'https://api.chucknorris.io/jokes/random'</span>)
+      .then(<span class="hljs-function">(<span class="hljs-params">res</span>) =></span> res.json())
+      .then(<span class="hljs-function">(<span class="hljs-params">data</span>) =></span> setJoke(data.value));
   }, []);
   <span class="hljs-keyword">if</span> (!joke) {
     <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>loading...<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
@@ -190,30 +206,20 @@ it(<span class="hljs-string">'switches to the next slide'</span>, () => {
 </code></pre>
 <h2>Testen von asynchronem Code</h2>
 <p>Testen mit echtem API:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { waitForElement } <span class="hljs-keyword">from</span> <span class="hljs-string">'@testing-library/react'</span>;
-
-it(<span class="hljs-string">'loads Chuck Norris joke from API'</span>, <span class="hljs-keyword">async</span> () => {
+<pre><code class="hljs language-js">it(<span class="hljs-string">'loads Chuck Norris joke from API'</span>, <span class="hljs-keyword">async</span> () => {
   <span class="hljs-keyword">const</span> instance = render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">ChuckNorrisJoke</span> /></span>);
-  const jokeElement = await waitForElement(() =>
-    instance.getByTitle('joke')
-  );
+  const jokeElement = await instance.findByTitle('joke');
   // joke should have at least 3 characters
   expect(jokeElement).toHaveTextContent(/.../);
 });
 </span></code></pre>
-<p><code>waitForElement</code> versucht wiederholt, ein Element abzufragen, bis es existiert</p>
-<h2>Mocking von Objekten</h2>
-<p>Mocking von API-Abrufen:</p>
-<p>ersetzen von <code>axios</code> durch einen Mock:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> axios <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>;
-jest.mock(<span class="hljs-string">'axios'</span>);
-</code></pre>
-<p>Mocking von <code>axios.get</code> als erfolgreiche Promise:</p>
-<pre><code class="hljs language-js">axios.get.mockResolvedValueOnce({
-  <span class="hljs-attr">data</span>: {
-    <span class="hljs-attr">value</span>: <span class="hljs-string">'Chuck Norris counted to infinity. Twice.'</span>,
-  },
-});
+<p><code>findByTitle</code> versucht wiederholt, ein Element abzufragen, bis es existiert</p>
+<h2>Mocking des APIs mit Jest</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> data = {
+  <span class="hljs-attr">value</span>: <span class="hljs-string">'Chuck Norris counted to infinity. Twice.'</span>,
+};
+globalThis.fetch = <span class="hljs-function"><span class="hljs-params">()</span> =></span>
+  <span class="hljs-built_in">Promise</span>.resolve({ <span class="hljs-attr">json</span>: <span class="hljs-function"><span class="hljs-params">()</span> =></span> <span class="hljs-built_in">Promise</span>.resolve(data) });
 </code></pre>
 <h2>Testen von Fehlern</h2>
 <p>Rating-Komponente:</p>
@@ -226,7 +232,7 @@ jest.mock(<span class="hljs-string">'axios'</span>);
 </span></code></pre>
 <h2>Manuelle Einrichtung</h2>
 <p>diese Schritte sind bei der Verwendung von <code>create-react-app</code> schon eingerichtet</p>
-<p>Aktivieren erweiterter Assertions (siehe <a href="https://github.com/testing-library/jest-dom">https://github.com/testing-library/jest-dom</a>):</p>
+<p>Aktivieren erweiterter Assertions (siehe <a href="https://github.com/testing-library/jest-dom">https://github.com/testing-library/jest-dom</a>:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> <span class="hljs-string">'@testing-library/jest-dom/extend-expect'</span>;
 </code></pre>
 <p>Aufräumen nach einem Test (Unmounting):</p>
@@ -234,8 +240,11 @@ jest.mock(<span class="hljs-string">'axios'</span>);
 
 afterEach(cleanup);
 </code></pre>
-<h2>Ressource</h2>
-<p><a href="https://react-testing-examples.com/">https://react-testing-examples.com/</a></p>
+<h2>Ressourcen</h2>
+<ul>
+<li><a href="https://react-testing-examples.com/">https://react-testing-examples.com/</a></li>
+<li><a href="https://thomlom.dev/test-react-testing-library/">https://thomlom.dev/test-react-testing-library/</a></li>
+</ul>
 <h1>React-Test-Renderer</h1>
 <h2>React-Test-Renderer - Installation</h2>
 <pre><code class="hljs language-bash">npm install --save-dev react-test-renderer

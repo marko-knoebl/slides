@@ -8,7 +8,7 @@ verwirrende Terminologie:
 
 Eine _higher-order component_ (HOC) ist **keine** Komponente 😲
 
-HOCs sind Funktionen, die eine Komponentendefinition verändern / erweitern
+Eine HOC ist eine Funktion, die eine Komponentendefinition verändert / erweitert (ein "Komponenten-Decorator")
 
 ## Higher-order components
 
