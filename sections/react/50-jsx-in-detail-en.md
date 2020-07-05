@@ -14,15 +14,15 @@ topics:
 - valid elements
 - compilation
 
-## property names
+## Property names
 
-Some element properties have different names than in HTML (reflecting standard DOM properties)
+Some element properties have different names than in HTML (sometimes reflecting standard DOM properties)
 
 - `className` (instead of `class`)
 - `onClick` (instead of `onclick`)
 - `htmlFor` (instead of `for`)
 
-## property names
+## Property names
 
 example: CSS classes
 
@@ -38,7 +38,7 @@ example: CSS classes
 
 there are many helper libraries that will generate the _className_ property dynamically
 
-## style property
+## Style property
 
 In JSX the _style_ property takes an object:
 
@@ -51,7 +51,7 @@ In JSX the _style_ property takes an object:
 />
 ```
 
-## JSX: repeating elements
+## Repeating elements
 
 Task: building an HTML list (ul) from this data:
 
@@ -63,41 +63,9 @@ const initialTodos = [
 ];
 ```
 
-## JSX: repeating elements
+## Repeating elements
 
-Multiple Elements may be added via arrays:
-
-```jsx
-const TodoApp = () => {
-  const [todos, setTodos] = useState(initialTodos);
-  const todoElements = [];
-  for (let todo of todos) {
-    todoElements.push(<li>{todo.title}</li>);
-  }
-  return <ul>{todoElements}</ul>;
-};
-```
-
-## JSX: repeating elements
-
-In practice this is mostly done via `.map()`
-
-## JSX: repeating elements
-
-The `.map` method creates a new array by transforming each element in an existing array
-
-example:
-
-```js
-const originalNumbers = [2, 3, 4];
-
-const triple = (n) => 3 * n;
-
-const newNumbers = originalNumbers.map(triple);
-// [6, 9, 12]
-```
-
-## JSX: repeating elements
+Generating an array of JSX elements via `.map`:
 
 ```jsx
 const TodoApp = () => {
@@ -112,7 +80,7 @@ const TodoApp = () => {
 };
 ```
 
-## JSX: repeating elements
+## Repeating elements
 
 With the above code:  
 warning in the browser console (concerning efficiency)  
@@ -126,13 +94,13 @@ solution: **key**:
 </ul>
 ```
 
-## JSX: if / else
+## if / else
 
 ```jsx
 <div>{Math.random() > 0.5 ? 'heads' : 'tails'}</div>
 ```
 
-## JSX: if / else
+## if / else
 
 ```jsx
 let face;
@@ -145,10 +113,18 @@ if (Math.random() > 0.5) {
 return <div>{face}</div>;
 ```
 
-## JSX: if
+## if
 
 ```jsx
 <div>{state.hasError && state.errorMessage}</div>
+```
+
+The operator `&&` in JavaScript:
+
+```js
+true && 'my message'; // 'my message'
+
+false && 'my message'; // false
 ```
 
 ## Whitespace

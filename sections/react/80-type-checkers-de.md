@@ -11,7 +11,7 @@ Möglichkeiten:
 
 ## React mit TypeScript
 
-neues Projekt:
+Erstellen eines neuen Projekts:
 
 ```bash
 npx create-react-app my-app --template typescript
@@ -19,7 +19,7 @@ npx create-react-app my-app --template typescript
 
 ## TypeScript
 
-TypeScript Basics: siehe Präsentation [TypeScript](./typescript-de.html)
+TypeScript Grundlagen: siehe Präsentation [TypeScript](./typescript-de.html)
 
 ## React mit TypeScript
 
@@ -38,16 +38,14 @@ redux with typescript:
 ## Props mit TypeScript (Funktionskomponenten)
 
 ```tsx
-import React, { FC } from 'react';
-
 type TodoListProps = {
   todos: Array<TodoType>;
   onToggle: (id: number) => void;
   onDelete: (id: number) => void;
 };
 
-const TodoList: FC<TodoListProps> = (props) => {
-  // ....
+const TodoList = (props: TodoListProps) => {
+  // ...
 };
 ```
 
@@ -87,6 +85,10 @@ Eventtypen für separat definierte Eventhandler:
 - `React.FormEvent<HTMLFormElement>`
 - `React.ChangeEvent<HTMLInputElement>`
 - `React.MouseEvent<HTMLDivElement>`
+
+## prop-types
+
+Library, um React Komponenten - Properties in JavaScript mit Typeninformationen zu versehen
 
 ## prop-types
 

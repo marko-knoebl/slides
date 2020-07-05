@@ -3,8 +3,8 @@
 ## Themen
 
 - Kurzüberblick über React
-- Modernes JS / JS-Grundlagen für React
-- Deklaratives Rendering / Arbeiten mit application-state
+- JS-Grundlagen für React
+- Deklaratives Rendering / Arbeiten mit State
 - JSX als Templatesprache
 - Komponenten
 - Einbinden vordefinierter Komponenten

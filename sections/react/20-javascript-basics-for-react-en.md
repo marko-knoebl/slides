@@ -6,7 +6,7 @@ JavaScript is standardized under the name [_ECMAScript_ (ES)](https://www.ecma-i
 
 ## JavaScript versions
 
-Supported by all browsers, including Internet Explorer: _ES5_ (standardized in 2009)
+_ES5_ Supported by all browsers, including Internet Explorer (standardized in 2009)
 
 Since 2015: yearly updates in June of each year (ES2015, ES2016, ...)
 

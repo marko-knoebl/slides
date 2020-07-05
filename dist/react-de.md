@@ -37,8 +37,8 @@ Code verfügbar unter: <https://github.com/marko-knoebl/courses-code>
 ## Themen
 
 - Kurzüberblick über React
-- Modernes JS / JS-Grundlagen für React
-- Deklaratives Rendering / Arbeiten mit application-state
+- JS-Grundlagen für React
+- Deklaratives Rendering / Arbeiten mit State
 - JSX als Templatesprache
 - Komponenten
 - Einbinden vordefinierter Komponenten
@@ -48,17 +48,17 @@ Code verfügbar unter: <https://github.com/marko-knoebl/courses-code>
 
 ## Was ist React?
 
-- Eine der 3 großen JavaScript-UI-Libraries (neben Angular, vue.js)
+- Eines der 3 großen JavaScript UI Frameworks (neben Angular, Vue.js)
 
-## Grundlagen moderner JavaScript-UI-Libraries
+## Grundlagen moderner JavaScript UI Frameworks
 
-- Deklarativ
+- deklarativ
 - Komponenten-Struktur
 
 ## Deklarativ
 
-- Im Hintergrund steht ein Datenmodell, das den gesamten Anwendungszustand abbildet
-- Man ändert das Modell, das View wird von alleine (möglichst effizient) aktualisiert
+- Datenmodell, das den gesamten Anwendungszustand abbildet
+- User-Interaktionen ändern das Modell, das View wird automatisch aktualisiert
 
 ## Komponenten-Struktur
 
@@ -81,6 +81,7 @@ Code verfügbar unter: <https://github.com/marko-knoebl/courses-code>
 - 2013 von Facebook als open source veröffentlicht
 - Aktuelle Major Version: React 16 (September 2017)
 - Februar 2019: Einführung von Hooks
+- kommt 2020: [suspense for data fetching](https://reactjs.org/docs/concurrent-mode-suspense.html) und [concurrent mode](https://reactjs.org/docs/concurrent-mode-intro.html)
 
 # React & JSX Grundlagen
 
@@ -285,7 +286,7 @@ import { useState } from 'react';
 
 ## State Hook
 
-`useState` kann zu Beginn der Komponentenfunktion (wiederholt) aufgerufen werden; es hat die folgende Signatur:
+`useState` kann in der Komponentenfunktion (wiederholt) aufgerufen werden; es hat die folgende Signatur:
 
 - `useState` nimmt einen Parameter entgegen - den initialen Zustand
 - `useState` gibt bei jedem Aufruf ein Array mit zwei Einträgen zurück: Den aktuellen Zustand sowie eine Funktion, mit der der Zustand neu gesetzt werden kann
@@ -339,7 +340,7 @@ JavaScript wird unter dem Namen [_ECMAScript_ (ES)](https://www.ecma-internation
 
 ## JavaScript Versionen
 
-Von allen Browsern, inklusive Internet Explorer, unterstützt: _ES5_ (2009 standardisiert)
+_ES5_: Von allen Browsern, inklusive Internet Explorer, unterstützt (2009 standardisiert)
 
 Seit 2015: jährliche Updates im Juni jeden Jahres (ES2015, ES2016, ...)
 
@@ -848,7 +849,7 @@ Themen:
 
 ## Property-Namen
 
-Manche Properties von Eleenten haben andere Namen als in standard HTML (spiegeln die standard DOM-Properties wider)
+Manche Properties von Eleenten haben andere Namen als in standard HTML (spiegeln teilweise die standard DOM-Properties wider)
 
 - `className` (anstatt `class`)
 - `onClick` (anstatt `onclick`)
@@ -883,7 +884,7 @@ In JSX weisen wir der _style_-Property ein Objekt zu:
 />
 ```
 
-## JSX: Elemente wiederholen
+## Elemente wiederholen
 
 Aufgabe: Erstellen einer HTML-Liste (ul) aus diesen Daten:
 
@@ -897,39 +898,7 @@ const initialTodos = [
 
 ## JSX: Elemente wiederholen
 
-Mehrere Elemente können als Arrays eingebunden werden:
-
-```jsx
-const TodoApp = () => {
-  const [todos, setTodos] = useState(initialTodos);
-  const todoElements = [];
-  for (let todo of todos) {
-    todoElements.push(<li>{todo.title}</li>);
-  }
-  return <ul>{todoElements}</ul>;
-};
-```
-
-## JSX: Elemente wiederholen
-
-Elemente werden meist mittels `.map()` wiederholt
-
-## JSX: Elemente wiederholen
-
-Die `.map()` Methode erstellt ein neues Array, indem jedes Element eines bestehenden Arrays transformiert wird
-
-Beispiel:
-
-```js
-const originalNumbers = [2, 3, 4];
-
-const triple = (n) => 3 * n;
-
-const newNumbers = originalNumbers.map(triple);
-// [6, 9, 12]
-```
-
-## JSX: Elemente wiederholen
+Erstellen eines Arrays von JSX-Elementen via `.map`:
 
 ```jsx
 const TodoApp = () => {
@@ -944,7 +913,7 @@ const TodoApp = () => {
 };
 ```
 
-## JSX: Elemente wiederholen
+## Elemente wiederholen
 
 Bei obigem Code:  
 Warnung in der Browser-Konsole (Wegen Effizienz)  
@@ -958,13 +927,13 @@ Lösung: **key**:
 </ul>
 ```
 
-## JSX: if / else
+## if / else
 
 ```jsx
 <div>{Math.random() > 0.5 ? 'heads' : 'tails'}</div>
 ```
 
-## JSX: if / else
+## if / else
 
 ```jsx
 let face;
@@ -977,10 +946,18 @@ if (Math.random() > 0.5) {
 return <div>{face}</div>;
 ```
 
-## JSX: if
+## if
 
 ```jsx
 <div>{state.hasError && state.errorMessage}</div>
+```
+
+Der Operator `&&` in JavaScript:
+
+```js
+true && 'my message'; // 'my message'
+
+false && 'my message'; // false
 ```
 
 ## Whitespace
@@ -1282,14 +1259,6 @@ const [myOption, setMyOption] = useState(true);
 />;
 ```
 
-## Eigene Events
-
-Beispiele:
-
-- NumberInput-Komponente zum Angeben einer Ganzzahl mit +/- buttons
-  - Bonus: Umsetzung des APIs, sodass es kompatibel zu normalen input-Elementen ist und input-Elemente leicht durch NumberInput-Komponeneten ersetzt werden können
-  - Bonus: zusätzliche min / max - Property bei der Komponente
-
 # Übungen
 
 ## Übungen
@@ -1311,7 +1280,7 @@ Möglichkeiten:
 
 ## React mit TypeScript
 
-neues Projekt:
+Erstellen eines neuen Projekts:
 
 ```bash
 npx create-react-app my-app --template typescript
@@ -1319,7 +1288,7 @@ npx create-react-app my-app --template typescript
 
 ## TypeScript
 
-TypeScript Basics: siehe Präsentation [TypeScript](./typescript-de.html)
+TypeScript Grundlagen: siehe Präsentation [TypeScript](./typescript-de.html)
 
 ## React mit TypeScript
 
@@ -1338,16 +1307,14 @@ redux with typescript:
 ## Props mit TypeScript (Funktionskomponenten)
 
 ```tsx
-import React, { FC } from 'react';
-
 type TodoListProps = {
   todos: Array<TodoType>;
   onToggle: (id: number) => void;
   onDelete: (id: number) => void;
 };
 
-const TodoList: FC<TodoListProps> = (props) => {
-  // ....
+const TodoList = (props: TodoListProps) => {
+  // ...
 };
 ```
 
@@ -1387,6 +1354,10 @@ Eventtypen für separat definierte Eventhandler:
 - `React.FormEvent<HTMLFormElement>`
 - `React.ChangeEvent<HTMLInputElement>`
 - `React.MouseEvent<HTMLDivElement>`
+
+## prop-types
+
+Library, um React Komponenten - Properties in JavaScript mit Typeninformationen zu versehen
 
 ## prop-types
 

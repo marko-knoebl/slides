@@ -11,7 +11,7 @@ possibilities:
 
 ## React with TypeScript
 
-new Project:
+creating a new project:
 
 ```bash
 npx create-react-app my-app --template typescript
@@ -19,7 +19,7 @@ npx create-react-app my-app --template typescript
 
 ## TypeScript
 
-TypeScript Basics: see presentation on [TypeScript](./typescript-en.html)
+TypeScript basics: see presentation on [TypeScript](./typescript-en.html)
 
 ## React with TypeScript
 
@@ -85,6 +85,10 @@ Event types for event handlers that are defined separately:
 - `React.FormEvent<HTMLFormElement>`
 - `React.ChangeEvent<HTMLInputElement>`
 - `React.MouseEvent<HTMLDivElement>`
+
+## prop-types
+
+library for annotating React component properties in JavaScript
 
 ## prop-types
 

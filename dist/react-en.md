@@ -37,8 +37,8 @@ Code available at: <https://github.com/marko-knoebl/courses-code>
 ## Topics
 
 - overview of React
-- modern JS / JS basics for React
-- declarative rendering / working with application state
+- JS basics for React
+- declarative rendering / working with state
 - JSX template language
 - components
 - using predefined components
@@ -48,27 +48,27 @@ Code available at: <https://github.com/marko-knoebl/courses-code>
 
 ## What is React?
 
-- One of the 3 big JavaScript UI libraries (besides Angular, vue.js)
+one of the 3 big JavaScript UI frameworks (besides Angular, Vue.js)
 
-## Basics of modern JavaScript UI libraries
+## Basics of modern JavaScript UI frameworks
 
 - declarative
 - component-based
 
-## declarative
+## Declarative
 
-- In the background there is a data model which describes the entire application state
-- The data model changes in response to user interactions, causing the view to update automatically (and efficiently)
+- data model which describes the entire application state
+- user interactions change the data model, causing the view to update automatically
 
-## component-based
+## Component-based
 
 - "custom" HTML-Tags
 - data flow via props and events
 - usually unidirectional dataflow (from parent to child)
 
-## Example: data model and data flow in a Todo app
+## Example: data model and data flow in a todo app
 
-<img src="assets/todo-components-datamodel.svg" type="text/svg" style="width: 300px">
+<img src="assets/todo-components-datamodel.svg" type="text/svg" style="width: 300px"/>
 
 ## What makes React special?
 
@@ -81,6 +81,7 @@ Code available at: <https://github.com/marko-knoebl/courses-code>
 - open-sourced by Facebook in 2013
 - current major version: React 16 (September 2017)
 - February 2019: introduction of hooks
+- upcoming in 2020: [suspense for data fetching](https://reactjs.org/docs/concurrent-mode-suspense.html) and [concurrent mode](https://reactjs.org/docs/concurrent-mode-intro.html)
 
 # React & JSX Basics
 
@@ -285,7 +286,7 @@ import { useState } from 'react';
 
 ## State hook
 
-`useState` may be called (repeatedly) at the beginning of the component function
+`useState` may be called (repeatedly) inside the component function
 
 - `useState` takes one parameter - the initial state value
 - on each call `useState` returns an array with two entries: the current state and a function to set the state to a new value
@@ -339,7 +340,7 @@ JavaScript is standardized under the name [_ECMAScript_ (ES)](https://www.ecma-i
 
 ## JavaScript versions
 
-Supported by all browsers, including Internet Explorer: _ES5_ (standardized in 2009)
+_ES5_ Supported by all browsers, including Internet Explorer (standardized in 2009)
 
 Since 2015: yearly updates in June of each year (ES2015, ES2016, ...)
 
@@ -846,15 +847,15 @@ topics:
 - valid elements
 - compilation
 
-## property names
+## Property names
 
-Some element properties have different names than in HTML (reflecting standard DOM properties)
+Some element properties have different names than in HTML (sometimes reflecting standard DOM properties)
 
 - `className` (instead of `class`)
 - `onClick` (instead of `onclick`)
 - `htmlFor` (instead of `for`)
 
-## property names
+## Property names
 
 example: CSS classes
 
@@ -870,7 +871,7 @@ example: CSS classes
 
 there are many helper libraries that will generate the _className_ property dynamically
 
-## style property
+## Style property
 
 In JSX the _style_ property takes an object:
 
@@ -883,7 +884,7 @@ In JSX the _style_ property takes an object:
 />
 ```
 
-## JSX: repeating elements
+## Repeating elements
 
 Task: building an HTML list (ul) from this data:
 
@@ -895,41 +896,9 @@ const initialTodos = [
 ];
 ```
 
-## JSX: repeating elements
+## Repeating elements
 
-Multiple Elements may be added via arrays:
-
-```jsx
-const TodoApp = () => {
-  const [todos, setTodos] = useState(initialTodos);
-  const todoElements = [];
-  for (let todo of todos) {
-    todoElements.push(<li>{todo.title}</li>);
-  }
-  return <ul>{todoElements}</ul>;
-};
-```
-
-## JSX: repeating elements
-
-In practice this is mostly done via `.map()`
-
-## JSX: repeating elements
-
-The `.map` method creates a new array by transforming each element in an existing array
-
-example:
-
-```js
-const originalNumbers = [2, 3, 4];
-
-const triple = (n) => 3 * n;
-
-const newNumbers = originalNumbers.map(triple);
-// [6, 9, 12]
-```
-
-## JSX: repeating elements
+Generating an array of JSX elements via `.map`:
 
 ```jsx
 const TodoApp = () => {
@@ -944,7 +913,7 @@ const TodoApp = () => {
 };
 ```
 
-## JSX: repeating elements
+## Repeating elements
 
 With the above code:  
 warning in the browser console (concerning efficiency)  
@@ -958,13 +927,13 @@ solution: **key**:
 </ul>
 ```
 
-## JSX: if / else
+## if / else
 
 ```jsx
 <div>{Math.random() > 0.5 ? 'heads' : 'tails'}</div>
 ```
 
-## JSX: if / else
+## if / else
 
 ```jsx
 let face;
@@ -977,10 +946,18 @@ if (Math.random() > 0.5) {
 return <div>{face}</div>;
 ```
 
-## JSX: if
+## if
 
 ```jsx
 <div>{state.hasError && state.errorMessage}</div>
+```
+
+The operator `&&` in JavaScript:
+
+```js
+true && 'my message'; // 'my message'
+
+false && 'my message'; // false
 ```
 
 ## Whitespace
@@ -1282,14 +1259,6 @@ const [myOption, setMyOption] = useState(true);
 />;
 ```
 
-## Custom events
-
-examples:
-
-- NumberInput component that lets the user specify an integer with + and - buttons
-  - bonus: make the API compatible with that of ordinary input elements so input elements may be easily replaced by NumberInput-components
-  - bonus: add a min / max property that can be specified
-
 # Exercises
 
 ## Exercises
@@ -1311,7 +1280,7 @@ possibilities:
 
 ## React with TypeScript
 
-new Project:
+creating a new project:
 
 ```bash
 npx create-react-app my-app --template typescript
@@ -1319,7 +1288,7 @@ npx create-react-app my-app --template typescript
 
 ## TypeScript
 
-TypeScript Basics: see presentation on [TypeScript](./typescript-en.html)
+TypeScript basics: see presentation on [TypeScript](./typescript-en.html)
 
 ## React with TypeScript
 
@@ -1385,6 +1354,10 @@ Event types for event handlers that are defined separately:
 - `React.FormEvent<HTMLFormElement>`
 - `React.ChangeEvent<HTMLInputElement>`
 - `React.MouseEvent<HTMLDivElement>`
+
+## prop-types
+
+library for annotating React component properties in JavaScript
 
 ## prop-types
 

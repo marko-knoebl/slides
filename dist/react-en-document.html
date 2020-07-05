@@ -32,8 +32,8 @@
 <h2>Topics</h2>
 <ul>
 <li>overview of React</li>
-<li>modern JS / JS basics for React</li>
-<li>declarative rendering / working with application state</li>
+<li>JS basics for React</li>
+<li>declarative rendering / working with state</li>
 <li>JSX template language</li>
 <li>components</li>
 <li>using predefined components</li>
@@ -41,26 +41,24 @@
 </ul>
 <h1>React.js</h1>
 <h2>What is React?</h2>
-<ul>
-<li>One of the 3 big JavaScript UI libraries (besides Angular, vue.js)</li>
-</ul>
-<h2>Basics of modern JavaScript UI libraries</h2>
+<p>one of the 3 big JavaScript UI frameworks (besides Angular, Vue.js)</p>
+<h2>Basics of modern JavaScript UI frameworks</h2>
 <ul>
 <li>declarative</li>
 <li>component-based</li>
 </ul>
-<h2>declarative</h2>
+<h2>Declarative</h2>
 <ul>
-<li>In the background there is a data model which describes the entire application state</li>
-<li>The data model changes in response to user interactions, causing the view to update automatically (and efficiently)</li>
+<li>data model which describes the entire application state</li>
+<li>user interactions change the data model, causing the view to update automatically</li>
 </ul>
-<h2>component-based</h2>
+<h2>Component-based</h2>
 <ul>
 <li>"custom" HTML-Tags</li>
 <li>data flow via props and events</li>
 <li>usually unidirectional dataflow (from parent to child)</li>
 </ul>
-<h2>Example: data model and data flow in a Todo app</h2>
+<h2>Example: data model and data flow in a todo app</h2>
 <svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="200mm" height="100mm" viewBox="0 0 200 100" version="1.1" id="svg8" inkscape:version="0.92.4 (5da689c313, 2019-01-14)" sodipodi:docname="todo-components-datamodel.svg">
   <defs id="defs2"></defs>
   <sodipodi:namedview id="base" pagecolor="#ffffff" bordercolor="#666666" borderopacity="1.0" inkscape:pageopacity="0.0" inkscape:pageshadow="2" inkscape:zoom="0.9899495" inkscape:cx="530.34573" inkscape:cy="203.6552" inkscape:document-units="mm" inkscape:current-layer="layer1" showgrid="false" inkscape:window-width="1366" inkscape:window-height="704" inkscape:window-x="0" inkscape:window-y="27" inkscape:window-maximized="1" inkscape:snap-global="false"></sodipodi:namedview>
@@ -123,6 +121,7 @@
 <li>open-sourced by Facebook in 2013</li>
 <li>current major version: React 16 (September 2017)</li>
 <li>February 2019: introduction of hooks</li>
+<li>upcoming in 2020: <a href="https://reactjs.org/docs/concurrent-mode-suspense.html">suspense for data fetching</a> and <a href="https://reactjs.org/docs/concurrent-mode-intro.html">concurrent mode</a></li>
 </ul>
 <h1>React &#x26; JSX Basics</h1>
 <h2>Online editors</h2>
@@ -259,7 +258,7 @@ export default SlideshowApp;
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { useState } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
 </code></pre>
 <h2>State hook</h2>
-<p><code>useState</code> may be called (repeatedly) at the beginning of the component function</p>
+<p><code>useState</code> may be called (repeatedly) inside the component function</p>
 <ul>
 <li><code>useState</code> takes one parameter - the initial state value</li>
 <li>on each call <code>useState</code> returns an array with two entries: the current state and a function to set the state to a new value</li>
@@ -300,7 +299,7 @@ export default SlideshowApp;
 <h2>JavaScript standardization</h2>
 <p>JavaScript is standardized under the name <a href="https://www.ecma-international.org/ecma-262/"><em>ECMAScript</em> (ES)</a></p>
 <h2>JavaScript versions</h2>
-<p>Supported by all browsers, including Internet Explorer: <em>ES5</em> (standardized in 2009)</p>
+<p><em>ES5</em> Supported by all browsers, including Internet Explorer (standardized in 2009)</p>
 <p>Since 2015: yearly updates in June of each year (ES2015, ES2016, ...)</p>
 <p>Common practice: Modern JavaScript is transpiled to ES5 (via Babel, webpack)</p>
 <h2>Imports and exports</h2>
@@ -667,14 +666,14 @@ const isEmail = (email) =>
 <li>valid elements</li>
 <li>compilation</li>
 </ul>
-<h2>property names</h2>
-<p>Some element properties have different names than in HTML (reflecting standard DOM properties)</p>
+<h2>Property names</h2>
+<p>Some element properties have different names than in HTML (sometimes reflecting standard DOM properties)</p>
 <ul>
 <li><code>className</code> (instead of <code>class</code>)</li>
 <li><code>onClick</code> (instead of <code>onclick</code>)</li>
 <li><code>htmlFor</code> (instead of <code>for</code>)</li>
 </ul>
-<h2>property names</h2>
+<h2>Property names</h2>
 <p>example: CSS classes</p>
 <pre><code class="hljs language-jsx">&#x3C;li
   className={
@@ -685,7 +684,7 @@ const isEmail = (email) =>
 &#x3C;<span class="hljs-regexp">/li>
 </span></code></pre>
 <p>there are many helper libraries that will generate the <em>className</em> property dynamically</p>
-<h2>style property</h2>
+<h2>Style property</h2>
 <p>In JSX the <em>style</em> property takes an object:</p>
 <pre><code class="hljs language-jsx">&#x3C;div
   style={{
@@ -694,7 +693,7 @@ const isEmail = (email) =>
   }}
 />
 </code></pre>
-<h2>JSX: repeating elements</h2>
+<h2>Repeating elements</h2>
 <p>Task: building an HTML list (ul) from this data:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> initialTodos = [
   { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'groceries'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
@@ -702,30 +701,8 @@ const isEmail = (email) =>
   { <span class="hljs-attr">id</span>: <span class="hljs-number">3</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'gardening'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
 ];
 </code></pre>
-<h2>JSX: repeating elements</h2>
-<p>Multiple Elements may be added via arrays:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> TodoApp = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  <span class="hljs-keyword">const</span> [todos, setTodos] = useState(initialTodos);
-  <span class="hljs-keyword">const</span> todoElements = [];
-  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> todo <span class="hljs-keyword">of</span> todos) {
-    todoElements.push(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">li</span>></span>{todo.title}<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span></span>);
-  }
-  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">ul</span>></span>{todoElements}<span class="hljs-tag">&#x3C;/<span class="hljs-name">ul</span>></span></span>;
-};
-</code></pre>
-<h2>JSX: repeating elements</h2>
-<p>In practice this is mostly done via <code>.map()</code></p>
-<h2>JSX: repeating elements</h2>
-<p>The <code>.map</code> method creates a new array by transforming each element in an existing array</p>
-<p>example:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> originalNumbers = [<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>];
-
-<span class="hljs-keyword">const</span> triple = <span class="hljs-function">(<span class="hljs-params">n</span>) =></span> <span class="hljs-number">3</span> * n;
-
-<span class="hljs-keyword">const</span> newNumbers = originalNumbers.map(triple);
-<span class="hljs-comment">// [6, 9, 12]</span>
-</code></pre>
-<h2>JSX: repeating elements</h2>
+<h2>Repeating elements</h2>
+<p>Generating an array of JSX elements via <code>.map</code>:</p>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> TodoApp = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
   <span class="hljs-keyword">const</span> [todos, setTodos] = useState(initialTodos);
   <span class="hljs-keyword">return</span> (
@@ -737,7 +714,7 @@ const isEmail = (email) =>
   );
 };
 </code></pre>
-<h2>JSX: repeating elements</h2>
+<h2>Repeating elements</h2>
 <p>With the above code:<br />
 warning in the browser console (concerning efficiency)<br />
 solution: <strong>key</strong>:</p>
@@ -747,10 +724,10 @@ solution: <strong>key</strong>:</p>
   ))}
 &#x3C;<span class="hljs-regexp">/ul>
 </span></code></pre>
-<h2>JSX: if / else</h2>
+<h2>if / else</h2>
 <pre><code class="hljs language-jsx">&#x3C;div>{<span class="hljs-built_in">Math</span>.random() > <span class="hljs-number">0.5</span> ? <span class="hljs-string">'heads'</span> : <span class="hljs-string">'tails'</span>}&#x3C;<span class="hljs-regexp">/div>
 </span></code></pre>
-<h2>JSX: if / else</h2>
+<h2>if / else</h2>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">let</span> face;
 <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Math</span>.random() > <span class="hljs-number">0.5</span>) {
   face = <span class="hljs-string">'heads'</span>;
@@ -760,9 +737,14 @@ solution: <strong>key</strong>:</p>
 
 <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>{face}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
 </code></pre>
-<h2>JSX: if</h2>
+<h2>if</h2>
 <pre><code class="hljs language-jsx">&#x3C;div>{state.hasError &#x26;&#x26; state.errorMessage}&#x3C;<span class="hljs-regexp">/div>
 </span></code></pre>
+<p>The operator <code>&#x26;&#x26;</code> in JavaScript:</p>
+<pre><code class="hljs language-js"><span class="hljs-literal">true</span> &#x26;&#x26; <span class="hljs-string">'my message'</span>; <span class="hljs-comment">// 'my message'</span>
+
+<span class="hljs-literal">false</span> &#x26;&#x26; <span class="hljs-string">'my message'</span>; <span class="hljs-comment">// false</span>
+</code></pre>
 <h2>Whitespace</h2>
 <p>In HTML the following examples are equivalent (displaying a single space between the images):</p>
 <!-- prettier-ignore-start -->
@@ -964,14 +946,6 @@ Event: <code>onToggle</code> - function which is called with the new state</p>
   }}
 />;
 </span></code></pre>
-<h2>Custom events</h2>
-<p>examples:</p>
-<ul>
-<li>NumberInput component that lets the user specify an integer with + and - buttons<ul>
-<li>bonus: make the API compatible with that of ordinary input elements so input elements may be easily replaced by NumberInput-components</li>
-<li>bonus: add a min / max property that can be specified</li>
-</ul></li>
-</ul>
 <h1>Exercises</h1>
 <h2>Exercises</h2>
 <p>Task: "recreate" one of the components listed at <a href="https://github.com/brillout/awesome-react-components">awesome-react-components</a> (e.g. bar chart, color picker, table / data grid, tabs)</p>
@@ -985,11 +959,11 @@ Event: <code>onToggle</code> - function which is called with the new state</p>
 <li>library <em>prop-types</em></li>
 </ul>
 <h2>React with TypeScript</h2>
-<p>new Project:</p>
+<p>creating a new project:</p>
 <pre><code class="hljs language-bash">npx create-react-app my-app --template typescript
 </code></pre>
 <h2>TypeScript</h2>
-<p>TypeScript Basics: see presentation on <a href="./typescript-en.html">TypeScript</a></p>
+<p>TypeScript basics: see presentation on <a href="./typescript-en.html">TypeScript</a></p>
 <h2>React with TypeScript</h2>
 <p>extensive resource: <a href="https://github.com/typescript-cheatsheets/react-typescript-cheatsheet">https://github.com/typescript-cheatsheets/react-typescript-cheatsheet</a></p>
 <!--
@@ -1037,6 +1011,8 @@ const TodoList = (props: TodoListProps) => {
 <li><code>React.ChangeEvent&#x3C;HTMLInputElement></code></li>
 <li><code>React.MouseEvent&#x3C;HTMLDivElement></code></li>
 </ul>
+<h2>prop-types</h2>
+<p>library for annotating React component properties in JavaScript</p>
 <h2>prop-types</h2>
 <p>example:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> PropTypes <span class="hljs-keyword">from</span> <span class="hljs-string">'prop-types'</span>;

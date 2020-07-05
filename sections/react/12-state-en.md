@@ -16,7 +16,7 @@ import { useState } from 'react';
 
 ## State hook
 
-`useState` may be called (repeatedly) at the beginning of the component function
+`useState` may be called (repeatedly) inside the component function
 
 - `useState` takes one parameter - the initial state value
 - on each call `useState` returns an array with two entries: the current state and a function to set the state to a new value

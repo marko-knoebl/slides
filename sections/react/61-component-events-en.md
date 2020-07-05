@@ -82,11 +82,3 @@ const [myOption, setMyOption] = useState(true);
   }}
 />;
 ```
-
-## Custom events
-
-examples:
-
-- NumberInput component that lets the user specify an integer with + and - buttons
-  - bonus: make the API compatible with that of ordinary input elements so input elements may be easily replaced by NumberInput-components
-  - bonus: add a min / max property that can be specified

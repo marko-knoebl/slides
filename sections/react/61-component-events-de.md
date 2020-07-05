@@ -82,11 +82,3 @@ const [myOption, setMyOption] = useState(true);
   }}
 />;
 ```
-
-## Eigene Events
-
-Beispiele:
-
-- NumberInput-Komponente zum Angeben einer Ganzzahl mit +/- buttons
-  - Bonus: Umsetzung des APIs, sodass es kompatibel zu normalen input-Elementen ist und input-Elemente leicht durch NumberInput-Komponeneten ersetzt werden können
-  - Bonus: zusätzliche min / max - Property bei der Komponente

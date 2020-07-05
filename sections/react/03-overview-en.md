@@ -2,27 +2,27 @@
 
 ## What is React?
 
-- One of the 3 big JavaScript UI libraries (besides Angular, vue.js)
+one of the 3 big JavaScript UI frameworks (besides Angular, Vue.js)
 
-## Basics of modern JavaScript UI libraries
+## Basics of modern JavaScript UI frameworks
 
 - declarative
 - component-based
 
-## declarative
+## Declarative
 
-- In the background there is a data model which describes the entire application state
-- The data model changes in response to user interactions, causing the view to update automatically (and efficiently)
+- data model which describes the entire application state
+- user interactions change the data model, causing the view to update automatically
 
-## component-based
+## Component-based
 
 - "custom" HTML-Tags
 - data flow via props and events
 - usually unidirectional dataflow (from parent to child)
 
-## Example: data model and data flow in a Todo app
+## Example: data model and data flow in a todo app
 
-<img src="assets/todo-components-datamodel.svg" type="text/svg" style="width: 300px">
+<img src="assets/todo-components-datamodel.svg" type="text/svg" style="width: 300px"/>
 
 ## What makes React special?
 
@@ -35,3 +35,4 @@
 - open-sourced by Facebook in 2013
 - current major version: React 16 (September 2017)
 - February 2019: introduction of hooks
+- upcoming in 2020: [suspense for data fetching](https://reactjs.org/docs/concurrent-mode-suspense.html) and [concurrent mode](https://reactjs.org/docs/concurrent-mode-intro.html)

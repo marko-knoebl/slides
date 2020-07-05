@@ -16,7 +16,7 @@ Themen:
 
 ## Property-Namen
 
-Manche Properties von Eleenten haben andere Namen als in standard HTML (spiegeln die standard DOM-Properties wider)
+Manche Properties von Eleenten haben andere Namen als in standard HTML (spiegeln teilweise die standard DOM-Properties wider)
 
 - `className` (anstatt `class`)
 - `onClick` (anstatt `onclick`)
@@ -51,7 +51,7 @@ In JSX weisen wir der _style_-Property ein Objekt zu:
 />
 ```
 
-## JSX: Elemente wiederholen
+## Elemente wiederholen
 
 Aufgabe: Erstellen einer HTML-Liste (ul) aus diesen Daten:
 
@@ -65,39 +65,7 @@ const initialTodos = [
 
 ## JSX: Elemente wiederholen
 
-Mehrere Elemente können als Arrays eingebunden werden:
-
-```jsx
-const TodoApp = () => {
-  const [todos, setTodos] = useState(initialTodos);
-  const todoElements = [];
-  for (let todo of todos) {
-    todoElements.push(<li>{todo.title}</li>);
-  }
-  return <ul>{todoElements}</ul>;
-};
-```
-
-## JSX: Elemente wiederholen
-
-Elemente werden meist mittels `.map()` wiederholt
-
-## JSX: Elemente wiederholen
-
-Die `.map()` Methode erstellt ein neues Array, indem jedes Element eines bestehenden Arrays transformiert wird
-
-Beispiel:
-
-```js
-const originalNumbers = [2, 3, 4];
-
-const triple = (n) => 3 * n;
-
-const newNumbers = originalNumbers.map(triple);
-// [6, 9, 12]
-```
-
-## JSX: Elemente wiederholen
+Erstellen eines Arrays von JSX-Elementen via `.map`:
 
 ```jsx
 const TodoApp = () => {
@@ -112,7 +80,7 @@ const TodoApp = () => {
 };
 ```
 
-## JSX: Elemente wiederholen
+## Elemente wiederholen
 
 Bei obigem Code:  
 Warnung in der Browser-Konsole (Wegen Effizienz)  
@@ -126,13 +94,13 @@ Lösung: **key**:
 </ul>
 ```
 
-## JSX: if / else
+## if / else
 
 ```jsx
 <div>{Math.random() > 0.5 ? 'heads' : 'tails'}</div>
 ```
 
-## JSX: if / else
+## if / else
 
 ```jsx
 let face;
@@ -145,10 +113,18 @@ if (Math.random() > 0.5) {
 return <div>{face}</div>;
 ```
 
-## JSX: if
+## if
 
 ```jsx
 <div>{state.hasError && state.errorMessage}</div>
+```
+
+Der Operator `&&` in JavaScript:
+
+```js
+true && 'my message'; // 'my message'
+
+false && 'my message'; // false
 ```
 
 ## Whitespace

@@ -2075,8 +2075,8 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </section><section class="slide"><h2>Themen</h2>
 <ul>
 <li>Kurzüberblick über React</li>
-<li>Modernes JS / JS-Grundlagen für React</li>
-<li>Deklaratives Rendering / Arbeiten mit application-state</li>
+<li>JS-Grundlagen für React</li>
+<li>Deklaratives Rendering / Arbeiten mit State</li>
 <li>JSX als Templatesprache</li>
 <li>Komponenten</li>
 <li>Einbinden vordefinierter Komponenten</li>
@@ -2085,17 +2085,17 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </section></section><section class="slides-section"><section class="slide"><h1>React.js</h1>
 </section><section class="slide"><h2>Was ist React?</h2>
 <ul>
-<li>Eine der 3 großen JavaScript-UI-Libraries (neben Angular, vue.js)</li>
+<li>Eines der 3 großen JavaScript UI Frameworks (neben Angular, Vue.js)</li>
 </ul>
-</section><section class="slide"><h2>Grundlagen moderner JavaScript-UI-Libraries</h2>
+</section><section class="slide"><h2>Grundlagen moderner JavaScript UI Frameworks</h2>
 <ul>
-<li>Deklarativ</li>
+<li>deklarativ</li>
 <li>Komponenten-Struktur</li>
 </ul>
 </section><section class="slide"><h2>Deklarativ</h2>
 <ul>
-<li>Im Hintergrund steht ein Datenmodell, das den gesamten Anwendungszustand abbildet</li>
-<li>Man ändert das Modell, das View wird von alleine (möglichst effizient) aktualisiert</li>
+<li>Datenmodell, das den gesamten Anwendungszustand abbildet</li>
+<li>User-Interaktionen ändern das Modell, das View wird automatisch aktualisiert</li>
 </ul>
 </section><section class="slide"><h2>Komponenten-Struktur</h2>
 <ul>
@@ -2166,6 +2166,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li>2013 von Facebook als open source veröffentlicht</li>
 <li>Aktuelle Major Version: React 16 (September 2017)</li>
 <li>Februar 2019: Einführung von Hooks</li>
+<li>kommt 2020: <a href="https://reactjs.org/docs/concurrent-mode-suspense.html">suspense for data fetching</a> und <a href="https://reactjs.org/docs/concurrent-mode-intro.html">concurrent mode</a></li>
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>React &#x26; JSX Grundlagen</h1>
 </section><section class="slide"><h2>Online Editoren</h2>
@@ -2302,7 +2303,7 @@ export default SlideshowApp;
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { useState } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
 </code></pre>
 </section><section class="slide"><h2>State Hook</h2>
-<p><code>useState</code> kann zu Beginn der Komponentenfunktion (wiederholt) aufgerufen werden; es hat die folgende Signatur:</p>
+<p><code>useState</code> kann in der Komponentenfunktion (wiederholt) aufgerufen werden; es hat die folgende Signatur:</p>
 <ul>
 <li><code>useState</code> nimmt einen Parameter entgegen - den initialen Zustand</li>
 <li><code>useState</code> gibt bei jedem Aufruf ein Array mit zwei Einträgen zurück: Den aktuellen Zustand sowie eine Funktion, mit der der Zustand neu gesetzt werden kann</li>
@@ -2343,7 +2344,7 @@ export default SlideshowApp;
 </section><section class="slide"><h2>JavaScript Standardisierung</h2>
 <p>JavaScript wird unter dem Namen <a href="https://www.ecma-international.org/ecma-262/"><em>ECMAScript</em> (ES)</a> standardisiert</p>
 </section><section class="slide"><h2>JavaScript Versionen</h2>
-<p>Von allen Browsern, inklusive Internet Explorer, unterstützt: <em>ES5</em> (2009 standardisiert)</p>
+<p><em>ES5</em>: Von allen Browsern, inklusive Internet Explorer, unterstützt (2009 standardisiert)</p>
 <p>Seit 2015: jährliche Updates im Juni jeden Jahres (ES2015, ES2016, ...)</p>
 <p>In der Praxis: Modernes JavaScript wird in ES5 transpiliert (via Babel, webpack)</p>
 </section><section class="slide"><h2>Imports und Exports</h2>
@@ -2711,7 +2712,7 @@ const isEmail = (email) =>
 <li>Kompilierung</li>
 </ul>
 </section><section class="slide"><h2>Property-Namen</h2>
-<p>Manche Properties von Eleenten haben andere Namen als in standard HTML (spiegeln die standard DOM-Properties wider)</p>
+<p>Manche Properties von Eleenten haben andere Namen als in standard HTML (spiegeln teilweise die standard DOM-Properties wider)</p>
 <ul>
 <li><code>className</code> (anstatt <code>class</code>)</li>
 <li><code>onClick</code> (anstatt <code>onclick</code>)</li>
@@ -2737,7 +2738,7 @@ const isEmail = (email) =>
   }}
 />
 </code></pre>
-</section><section class="slide"><h2>JSX: Elemente wiederholen</h2>
+</section><section class="slide"><h2>Elemente wiederholen</h2>
 <p>Aufgabe: Erstellen einer HTML-Liste (ul) aus diesen Daten:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> initialTodos = [
   { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'groceries'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
@@ -2746,29 +2747,7 @@ const isEmail = (email) =>
 ];
 </code></pre>
 </section><section class="slide"><h2>JSX: Elemente wiederholen</h2>
-<p>Mehrere Elemente können als Arrays eingebunden werden:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> TodoApp = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  <span class="hljs-keyword">const</span> [todos, setTodos] = useState(initialTodos);
-  <span class="hljs-keyword">const</span> todoElements = [];
-  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> todo <span class="hljs-keyword">of</span> todos) {
-    todoElements.push(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">li</span>></span>{todo.title}<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span></span>);
-  }
-  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">ul</span>></span>{todoElements}<span class="hljs-tag">&#x3C;/<span class="hljs-name">ul</span>></span></span>;
-};
-</code></pre>
-</section><section class="slide"><h2>JSX: Elemente wiederholen</h2>
-<p>Elemente werden meist mittels <code>.map()</code> wiederholt</p>
-</section><section class="slide"><h2>JSX: Elemente wiederholen</h2>
-<p>Die <code>.map()</code> Methode erstellt ein neues Array, indem jedes Element eines bestehenden Arrays transformiert wird</p>
-<p>Beispiel:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> originalNumbers = [<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>];
-
-<span class="hljs-keyword">const</span> triple = <span class="hljs-function">(<span class="hljs-params">n</span>) =></span> <span class="hljs-number">3</span> * n;
-
-<span class="hljs-keyword">const</span> newNumbers = originalNumbers.map(triple);
-<span class="hljs-comment">// [6, 9, 12]</span>
-</code></pre>
-</section><section class="slide"><h2>JSX: Elemente wiederholen</h2>
+<p>Erstellen eines Arrays von JSX-Elementen via <code>.map</code>:</p>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> TodoApp = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
   <span class="hljs-keyword">const</span> [todos, setTodos] = useState(initialTodos);
   <span class="hljs-keyword">return</span> (
@@ -2780,7 +2759,7 @@ const isEmail = (email) =>
   );
 };
 </code></pre>
-</section><section class="slide"><h2>JSX: Elemente wiederholen</h2>
+</section><section class="slide"><h2>Elemente wiederholen</h2>
 <p>Bei obigem Code:<br />
 Warnung in der Browser-Konsole (Wegen Effizienz)<br />
 Lösung: <strong>key</strong>:</p>
@@ -2790,10 +2769,10 @@ Lösung: <strong>key</strong>:</p>
   ))}
 &#x3C;<span class="hljs-regexp">/ul>
 </span></code></pre>
-</section><section class="slide"><h2>JSX: if / else</h2>
+</section><section class="slide"><h2>if / else</h2>
 <pre><code class="hljs language-jsx">&#x3C;div>{<span class="hljs-built_in">Math</span>.random() > <span class="hljs-number">0.5</span> ? <span class="hljs-string">'heads'</span> : <span class="hljs-string">'tails'</span>}&#x3C;<span class="hljs-regexp">/div>
 </span></code></pre>
-</section><section class="slide"><h2>JSX: if / else</h2>
+</section><section class="slide"><h2>if / else</h2>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">let</span> face;
 <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Math</span>.random() > <span class="hljs-number">0.5</span>) {
   face = <span class="hljs-string">'heads'</span>;
@@ -2803,9 +2782,14 @@ Lösung: <strong>key</strong>:</p>
 
 <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>{face}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
 </code></pre>
-</section><section class="slide"><h2>JSX: if</h2>
+</section><section class="slide"><h2>if</h2>
 <pre><code class="hljs language-jsx">&#x3C;div>{state.hasError &#x26;&#x26; state.errorMessage}&#x3C;<span class="hljs-regexp">/div>
 </span></code></pre>
+<p>Der Operator <code>&#x26;&#x26;</code> in JavaScript:</p>
+<pre><code class="hljs language-js"><span class="hljs-literal">true</span> &#x26;&#x26; <span class="hljs-string">'my message'</span>; <span class="hljs-comment">// 'my message'</span>
+
+<span class="hljs-literal">false</span> &#x26;&#x26; <span class="hljs-string">'my message'</span>; <span class="hljs-comment">// false</span>
+</code></pre>
 </section><section class="slide"><h2>Whitespace</h2>
 <p>in HTML sind die folgenden Beispiele äquivalent (und enthalten je ein Leerzeichen zwischen den Bildern):</p>
 <!-- prettier-ignore-start -->
@@ -3007,14 +2991,6 @@ Event: <code>onToggle</code> - Funktion, die mit dem neuen Zustand aufgerufen wi
   }}
 />;
 </span></code></pre>
-</section><section class="slide"><h2>Eigene Events</h2>
-<p>Beispiele:</p>
-<ul>
-<li>NumberInput-Komponente zum Angeben einer Ganzzahl mit +/- buttons<ul>
-<li>Bonus: Umsetzung des APIs, sodass es kompatibel zu normalen input-Elementen ist und input-Elemente leicht durch NumberInput-Komponeneten ersetzt werden können</li>
-<li>Bonus: zusätzliche min / max - Property bei der Komponente</li>
-</ul></li>
-</ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Übungen</h1>
 </section><section class="slide"><h2>Übungen</h2>
 <p>Aufgabe: "Nachbau" einer der Komponenten auf <a href="https://github.com/brillout/awesome-react-components">awesome-react-components</a> (z.B. bar chart, color picker, table / data grid, tabs)</p>
@@ -3028,11 +3004,11 @@ Event: <code>onToggle</code> - Funktion, die mit dem neuen Zustand aufgerufen wi
 <li>Library <em>prop-types</em></li>
 </ul>
 </section><section class="slide"><h2>React mit TypeScript</h2>
-<p>neues Projekt:</p>
+<p>Erstellen eines neuen Projekts:</p>
 <pre><code class="hljs language-bash">npx create-react-app my-app --template typescript
 </code></pre>
 </section><section class="slide"><h2>TypeScript</h2>
-<p>TypeScript Basics: siehe Präsentation <a href="./typescript-de.html">TypeScript</a></p>
+<p>TypeScript Grundlagen: siehe Präsentation <a href="./typescript-de.html">TypeScript</a></p>
 </section><section class="slide"><h2>React mit TypeScript</h2>
 <p>ausführliche Resource: <a href="https://github.com/typescript-cheatsheets/react-typescript-cheatsheet">https://github.com/typescript-cheatsheets/react-typescript-cheatsheet</a></p>
 <!--
@@ -3045,16 +3021,14 @@ redux with typescript:
 
 -->
 </section><section class="slide"><h2>Props mit TypeScript (Funktionskomponenten)</h2>
-<pre><code class="hljs language-tsx">import React, { FC } from 'react';
-
-type TodoListProps = {
+<pre><code class="hljs language-tsx">type TodoListProps = {
   todos: Array&#x3C;TodoType>;
   onToggle: (id: number) => void;
   onDelete: (id: number) => void;
 };
 
-const TodoList: FC&#x3C;TodoListProps> = (props) => {
-  // ....
+const TodoList = (props: TodoListProps) => {
+  // ...
 };
 </code></pre>
 </section><section class="slide"><h2>useState mit TypeScript</h2>
@@ -3082,6 +3056,8 @@ const TodoList: FC&#x3C;TodoListProps> = (props) => {
 <li><code>React.ChangeEvent&#x3C;HTMLInputElement></code></li>
 <li><code>React.MouseEvent&#x3C;HTMLDivElement></code></li>
 </ul>
+</section><section class="slide"><h2>prop-types</h2>
+<p>Library, um React Komponenten - Properties in JavaScript mit Typeninformationen zu versehen</p>
 </section><section class="slide"><h2>prop-types</h2>
 <p>Beispiel:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> PropTypes <span class="hljs-keyword">from</span> <span class="hljs-string">'prop-types'</span>;

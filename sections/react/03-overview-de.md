@@ -2,17 +2,17 @@
 
 ## Was ist React?
 
-- Eine der 3 großen JavaScript-UI-Libraries (neben Angular, vue.js)
+- Eines der 3 großen JavaScript UI Frameworks (neben Angular, Vue.js)
 
-## Grundlagen moderner JavaScript-UI-Libraries
+## Grundlagen moderner JavaScript UI Frameworks
 
-- Deklarativ
+- deklarativ
 - Komponenten-Struktur
 
 ## Deklarativ
 
-- Im Hintergrund steht ein Datenmodell, das den gesamten Anwendungszustand abbildet
-- Man ändert das Modell, das View wird von alleine (möglichst effizient) aktualisiert
+- Datenmodell, das den gesamten Anwendungszustand abbildet
+- User-Interaktionen ändern das Modell, das View wird automatisch aktualisiert
 
 ## Komponenten-Struktur
 
@@ -35,3 +35,4 @@
 - 2013 von Facebook als open source veröffentlicht
 - Aktuelle Major Version: React 16 (September 2017)
 - Februar 2019: Einführung von Hooks
+- kommt 2020: [suspense for data fetching](https://reactjs.org/docs/concurrent-mode-suspense.html) und [concurrent mode](https://reactjs.org/docs/concurrent-mode-intro.html)
