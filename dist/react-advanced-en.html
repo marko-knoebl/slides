@@ -2970,21 +2970,40 @@ useEffect(getInstallPermission, []);
 <p>React Native can be used to write React applications for iOS and Android devices</p>
 </section><section class="slide"><h2>Options for development</h2>
 <ul>
-<li><strong>Expo Snack</strong>: online editor / playground</li>
-<li><strong>Expo CLI</strong>: develop locally with little setup</li>
-<li><strong>React Native CLI</strong>: develop with Xcode or Android Studio - is required when publishing</li>
+<li><strong>Expo</strong>: simple option, quick to get started</li>
+<li><strong>React Native CLI</strong>: enables integration of native modules (Java / Objective-C)</li>
 </ul>
-</section><section class="slide"><h2>Expo: online editor</h2>
-<p><a href="https://snack.expo.io">snack.expo.io</a></p>
-</section><section class="slide"><h2>Expo: local development</h2>
-<p>installing expo:</p>
+</section><section class="slide"><h2>Expo tools</h2>
+<ul>
+<li><strong>Expo Snack</strong>: online editor / playground</li>
+<li><strong>Expo CLI</strong>: local development</li>
+<li><strong>Expo App</strong>: emulator for live testing on Android / iOS (available on app stores)</li>
+</ul>
+</section><section class="slide"><h2>Expo Snack</h2>
+<p><a href="https://snack.expo.io">https://snack.expo.io</a></p>
+<p>options:</p>
+<ul>
+<li>run web version</li>
+<li>emulate Andoid / iOS online (limited capacity)</li>
+<li>run on local device (via Expo App)</li>
+</ul>
+</section><section class="slide"><h2>Expo CLI</h2>
+<p>installation:</p>
 <pre><code class="hljs language-bash">npm install -g expo-cli
 </code></pre>
 <p>creating a new expo project:</p>
 <pre><code class="hljs language-bash">expo init myproject
 </code></pre>
-</section><section class="slide"><h2>Expo app</h2>
-<p><strong>Expo app</strong>: for testing apps during development, available in the Android and iOS app stores</p>
+<p>running a project (will open a dashboard at <em>localhost:19002</em>):</p>
+<pre><code class="hljs language-bash">npm run start
+</code></pre>
+</section><section class="slide"><h2>Expo CLI</h2>
+<p>running on a device:</p>
+<ul>
+<li>select <em>tunnel</em></li>
+<li>wait</li>
+<li>scan QR code with Expo app</li>
+</ul>
 </section><section class="slide"><h2>React Native components</h2>
 <ul>
 <li>View (=div)</li>
@@ -3003,22 +3022,22 @@ useEffect(getInstallPermission, []);
 </code></pre>
 </section><section class="slide"><h2>Styling</h2>
 <p>All React Native components accept a <em>style</em> prop that can take an object:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> todoItemStyle = {
-  <span class="hljs-attr">margin</span>: <span class="hljs-number">5</span>,
-  <span class="hljs-attr">padding</span>: <span class="hljs-number">5</span>,
-};
-
-<span class="hljs-keyword">const</span> TodoItem = <span class="hljs-function">(<span class="hljs-params">{ title, completed }</span>) =></span> (
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{todoItemStyle}</span>></span>{title}<span class="hljs-tag">&#x3C;/<span class="hljs-name">View</span>></span></span>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> TodoItem = <span class="hljs-function">(<span class="hljs-params">{ title, completed }</span>) =></span> (
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">margin:</span> <span class="hljs-attr">5</span>, <span class="hljs-attr">padding:</span> <span class="hljs-attr">8</span> }}></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">Text</span>></span>{title}<span class="hljs-tag">&#x3C;/<span class="hljs-name">Text</span>></span>
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">View</span>></span></span>
 );
 </code></pre>
 </section><section class="slide"><h2>Styling</h2>
-<p>The style prop can also be an array of objects</p>
-<p>Entries that are <em>falsy</em> are ignored - this can be used for conditional styles</p>
+<p>The style prop can also receive an array of objects which are merged (<em>falsy</em> entries are ignored)</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> TodoItem = <span class="hljs-function">(<span class="hljs-params">{ title, completed }</span>) =></span> (
   <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">View</span>
-    <span class="hljs-attr">style</span>=<span class="hljs-string">{[todoItemStyle,</span> <span class="hljs-attr">completed</span> &#x26;&#x26; <span class="hljs-attr">completedStyle</span>]}></span>
-    {title}
+    <span class="hljs-attr">style</span>=<span class="hljs-string">{[</span>
+      { <span class="hljs-attr">padding:</span> <span class="hljs-attr">8</span>, <span class="hljs-attr">backgroundColor:</span> '<span class="hljs-attr">lightcoral</span>' },
+      <span class="hljs-attr">completed</span> &#x26;&#x26; { <span class="hljs-attr">backgroundColor:</span> '<span class="hljs-attr">lightgrey</span>' },
+    ]}
+  ></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">Text</span>></span>{title}<span class="hljs-tag">&#x3C;/<span class="hljs-name">Text</span>></span>
   <span class="hljs-tag">&#x3C;/<span class="hljs-name">View</span>></span></span>
 );
 </code></pre>
@@ -3028,7 +3047,8 @@ useEffect(getInstallPermission, []);
 
 <span class="hljs-keyword">const</span> styles = StyleSheet.create({
   <span class="hljs-attr">todoItem</span>: {
-    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">'salmon'</span>,
+    <span class="hljs-attr">padding</span>: <span class="hljs-number">8</span>,
+    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">'lightcoral'</span>,
   },
   <span class="hljs-attr">completedView</span>: {
     <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">'lightgrey'</span>,
@@ -3045,7 +3065,8 @@ useEffect(getInstallPermission, []);
     <span class="hljs-attr">style</span>=<span class="hljs-string">{[</span>
       <span class="hljs-attr">styles.todoItem</span>,
       <span class="hljs-attr">completed</span> &#x26;&#x26; <span class="hljs-attr">styles.completedView</span>,
-    ]}></span>
+    ]}
+  ></span>
     <span class="hljs-tag">&#x3C;<span class="hljs-name">Text</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{[completed</span> &#x26;&#x26; <span class="hljs-attr">styles.completedText</span>]}></span>
       {completed ? 'DONE: ' : 'TODO: '}
       {title}

@@ -6,17 +6,28 @@ React Native can be used to write React applications for iOS and Android devices
 
 ## Options for development
 
+- **Expo**: simple option, quick to get started
+- **React Native CLI**: enables integration of native modules (Java / Objective-C)
+
+## Expo tools
+
 - **Expo Snack**: online editor / playground
-- **Expo CLI**: develop locally with little setup
-- **React Native CLI**: develop with Xcode or Android Studio - is required when publishing
+- **Expo CLI**: local development
+- **Expo App**: emulator for live testing on Android / iOS (available on app stores)
 
-## Expo: online editor
+## Expo Snack
 
-[snack.expo.io](https://snack.expo.io)
+<https://snack.expo.io>
 
-## Expo: local development
+options:
 
-installing expo:
+- run web version
+- emulate Andoid / iOS online (limited capacity)
+- run on local device (via Expo App)
+
+## Expo CLI
+
+installation:
 
 ```bash
 npm install -g expo-cli
@@ -28,9 +39,19 @@ creating a new expo project:
 expo init myproject
 ```
 
-## Expo app
+running a project (will open a dashboard at _localhost:19002_):
 
-**Expo app**: for testing apps during development, available in the Android and iOS app stores
+```bash
+npm run start
+```
+
+## Expo CLI
+
+running on a device:
+
+- select _tunnel_
+- wait
+- scan QR code with Expo app
 
 ## React Native components
 
@@ -60,27 +81,26 @@ Examples:
 All React Native components accept a _style_ prop that can take an object:
 
 ```js
-const todoItemStyle = {
-  margin: 5,
-  padding: 5,
-};
-
 const TodoItem = ({ title, completed }) => (
-  <View style={todoItemStyle}>{title}</View>
+  <View style={{ margin: 5, padding: 8 }}>
+    <Text>{title}</Text>
+  </View>
 );
 ```
 
 ## Styling
 
-The style prop can also be an array of objects
-
-Entries that are _falsy_ are ignored - this can be used for conditional styles
+The style prop can also receive an array of objects which are merged (_falsy_ entries are ignored)
 
 ```js
 const TodoItem = ({ title, completed }) => (
   <View
-    style={[todoItemStyle, completed && completedStyle]}>
-    {title}
+    style={[
+      { padding: 8, backgroundColor: 'lightcoral' },
+      completed && { backgroundColor: 'lightgrey' },
+    ]}
+  >
+    <Text>{title}</Text>
   </View>
 );
 ```
@@ -94,7 +114,8 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   todoItem: {
-    backgroundColor: 'salmon',
+    padding: 8,
+    backgroundColor: 'lightcoral',
   },
   completedView: {
     backgroundColor: 'lightgrey',
@@ -115,7 +136,8 @@ const TodoItem = ({ title, completed, onToggle }) => (
     style={[
       styles.todoItem,
       completed && styles.completedView,
-    ]}>
+    ]}
+  >
     <Text style={[completed && styles.completedText]}>
       {completed ? 'DONE: ' : 'TODO: '}
       {title}

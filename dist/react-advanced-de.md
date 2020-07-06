@@ -1142,17 +1142,28 @@ Mit React Native können React Anwendungen für iOS- und Android-Geräte erstell
 
 ## Möglichkeiten zur Entwicklung
 
+- **Expo**: einfache Option, schneller Einstieg
+- **React Native CLI**: ermöglicht Integration nativer Module (Java / Objective-C)
+
+## Expo Tools
+
 - **Expo Snack**: online Editor
-- **Expo CLI**: lokale Entwicklung mit wenig Setup
-- **React Native CLI**: Entwicklung mit Xcode oder Android Studio - wird zum Veröffentlichen von Apps benötigt
+- **Expo CLI**: lokale Entwicklung
+- **Expo App**: Emulator für live-Testen auf Android / iOS (erhältlich in App Stores)
 
-## Expo: online Editor
+## Expo Snack
 
-[snack.expo.io](https://snack.expo.io)
+<https://snack.expo.io>
 
-## Expo: lokale Entwicklung
+Optionen:
 
-Installation von expo:
+- Web-Version ausführen
+- Android / iOS online emulieren (begrenzte Kapazität)
+- am lokalen Gerät ausführen (via Expo App)
+
+## Expo CLI
+
+Installation:
 
 ```bash
 npm install -g expo-cli
@@ -1164,9 +1175,19 @@ Erstellen eines neuen Projekts:
 expo init myproject
 ```
 
-## Expo App
+Ausführen eines Projektes (öffnet Dashboard auf _localhost:19002_):
 
-**Expo App**: zum Testen von Anwendungen während der Entwicklung, verfügbar in den Android und iOS app stores
+```bash
+npm run start
+```
+
+## Expo CLI
+
+Ausfürhen auf einem Gerät:
+
+- Auswählen von _tunnel_
+- warten
+- Scannen des QR Codes mit der Expo App
 
 ## React Native Komponenten
 
@@ -1196,27 +1217,26 @@ Beispiele:
 In React Native geschieht Styling über die _style_-Property:
 
 ```js
-const todoItemStyle = {
-  margin: 5,
-  padding: 5,
-};
-
 const TodoItem = ({ title, completed }) => (
-  <View style={todoItemStyle}>{title}</View>
+  <View style={{ margin: 5, padding: 8 }}>
+    <Text>{title}</Text>
+  </View>
 );
 ```
 
 ## Styling
 
-Die style-Property kann auch ein Array von Objekten erhalten.
-
-Einträge, die _falsy_ sind, werden ignoriert - damit können bedingte Stile umgesetzt werden
+Die style-Property kann auch ein Array von Objekten erhalten (Einträge, die _falsy_ sind, werden ignoriert)
 
 ```js
 const TodoItem = ({ title, completed }) => (
   <View
-    style={[todoItemStyle, completed && completedStyle]}>
-    {title}
+    style={[
+      { padding: 8, backgroundColor: 'lightcoral' },
+      completed && { backgroundColor: 'lightgrey' },
+    ]}
+  >
+    <Text>{title}</Text>
   </View>
 );
 ```
@@ -1230,7 +1250,8 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   todoItem: {
-    backgroundColor: 'salmon',
+    padding: 8,
+    backgroundColor: 'lightcoral',
   },
   completedView: {
     backgroundColor: 'lightgrey',
@@ -1251,7 +1272,8 @@ const TodoItem = ({ title, completed, onToggle }) => (
     style={[
       styles.todoItem,
       completed && styles.completedView,
-    ]}>
+    ]}
+  >
     <Text style={[completed && styles.completedText]}>
       {completed ? 'DONE: ' : 'TODO: '}
       {title}
