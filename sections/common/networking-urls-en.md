@@ -12,6 +12,7 @@ examples:
 Relative URLs (from `https://en.wikipedia.org/wiki/Main_Page`):
 
 - `/wiki/Hypertext_Transfer_Protocol`
+- `Hypertext_Transfer_Protocol`
 - `./Hypertext_Transfer_Protocol`
 - `../wiki/Hypertext_Transfer_Protocol`
 

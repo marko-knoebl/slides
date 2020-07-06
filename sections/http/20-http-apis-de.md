@@ -2,35 +2,69 @@
 
 ## HTTP APIs
 
-HTTP API / Web API = Möglichkeit, Datensätze zwischen Browser und Server auszutauschen
+HTTP API / Web API = Möglichkeit, Datensätze zwischen Client und Server auszutauschen
 
 ## HTTP APIs
 
 Standards:
 
-- SOAP (nicht mehr weit verbreitet)
-- REST
-- GraphQL
+- XML-RPC (1998)
+- SOAP (1999)
+- JSON-RPC (2005)
+- REST (2000)
+- GraphQL (2015)
 
 ## HTTP APIs
 
-Abfrageformat:
+Anfrageformat:
 
 - SOAP: XML
+- JSON-RPC: JSON
 - REST: HTTP Methode + URL (+ URL Parameter) (+ Request Body)
 - GraphQL: GraphQL Abfragesprache
 
 Antwortformat:
 
 - SOAP: XML
+- JSON-RPC: JSON
 - REST: oft JSON (oder XML, ...)
 - GraphQL: JSON
+
+## JSON-RPC
+
+RPC = remote procedure call
+
+## JSON-RPC
+
+Beispiel für Request-Body:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "get_todo_by_id",
+  "params": { "id": 1 },
+  "id": 1234
+}
+```
+
+Beispiel für Response-Body:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "error": null,
+  "result": [
+    { "id": 1, "title": "groceries", "completed": false }
+  ],
+  "id": 1234
+}
+```
 
 ## REST
 
 REST = Representational State Transfer
 
-Hauptsächlich via HTTP requests mit diesen Methoden:
+Hauptsächlich via HTTP Requests mit diesen Methoden:
 
 - Abfragen von Elementen via `GET`
 - Hinzufügen eines Elements via `POST`

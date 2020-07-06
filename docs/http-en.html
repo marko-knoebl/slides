@@ -2191,27 +2191,52 @@ Set-Cookie: <span class="hljs-attribute">IDCC</span>=AN0-TYtU7...fo; <span class
 </span></code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>HTTP APIs</h1>
 </section><section class="slide"><h2>HTTP APIs</h2>
-<p>HTTP API / web API = means of transmitting data sets between a web browser and a web server</p>
+<p>HTTP API / web API = means of transmitting data sets between a client and a web server</p>
 </section><section class="slide"><h2>HTTP APIs</h2>
 <p>standards:</p>
 <ul>
-<li>SOAP (not that popular anymore)</li>
-<li>REST</li>
-<li>GraphQL</li>
+<li>XML-RPC (1998)</li>
+<li>SOAP (1999)</li>
+<li>JSON-RPC (2005)</li>
+<li>REST (2000)</li>
+<li>GraphQL (2015)</li>
 </ul>
 </section><section class="slide"><h2>HTTP APIs</h2>
-<p>query format:</p>
+<p>request format:</p>
 <ul>
 <li>SOAP: XML</li>
+<li>JSON-RPC: JSON</li>
 <li>REST: URL + HTTP method (+ URL parameters) (+ request body)</li>
 <li>GraphQL: GraphQL query language</li>
 </ul>
 <p>response format:</p>
 <ul>
 <li>SOAP: XML</li>
+<li>JSON-RPC: JSON</li>
 <li>REST: commonly JSON (or XML, ...)</li>
 <li>GraphQL: JSON</li>
 </ul>
+</section><section class="slide"><h2>JSON-RPC</h2>
+<p>RPC = remote procedure call</p>
+</section><section class="slide"><h2>JSON-RPC</h2>
+<p>example request body:</p>
+<pre><code class="hljs language-json">{
+  <span class="hljs-attr">"jsonrpc"</span>: <span class="hljs-string">"2.0"</span>,
+  <span class="hljs-attr">"method"</span>: <span class="hljs-string">"get_todo_by_id"</span>,
+  <span class="hljs-attr">"params"</span>: { <span class="hljs-attr">"id"</span>: <span class="hljs-number">1</span> },
+  <span class="hljs-attr">"id"</span>: <span class="hljs-number">1234</span>
+}
+</code></pre>
+<p>example response body:</p>
+<pre><code class="hljs language-json">{
+  <span class="hljs-attr">"jsonrpc"</span>: <span class="hljs-string">"2.0"</span>,
+  <span class="hljs-attr">"error"</span>: <span class="hljs-literal">null</span>,
+  <span class="hljs-attr">"result"</span>: [
+    { <span class="hljs-attr">"id"</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">"title"</span>: <span class="hljs-string">"groceries"</span>, <span class="hljs-attr">"completed"</span>: <span class="hljs-literal">false</span> }
+  ],
+  <span class="hljs-attr">"id"</span>: <span class="hljs-number">1234</span>
+}
+</code></pre>
 </section><section class="slide"><h2>REST</h2>
 <p>REST = Representational State Transfer</p>
 <p>Mostly via HTTP requests with these methods:</p>

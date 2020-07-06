@@ -148,30 +148,55 @@ Set-Cookie: <span class="hljs-attribute">IDCC</span>=AN0-TYtU7...fo; <span class
 </span></code></pre>
 <h1>HTTP APIs</h1>
 <h2>HTTP APIs</h2>
-<p>HTTP API / Web API = Möglichkeit, Datensätze zwischen Browser und Server auszutauschen</p>
+<p>HTTP API / Web API = Möglichkeit, Datensätze zwischen Client und Server auszutauschen</p>
 <h2>HTTP APIs</h2>
 <p>Standards:</p>
 <ul>
-<li>SOAP (nicht mehr weit verbreitet)</li>
-<li>REST</li>
-<li>GraphQL</li>
+<li>XML-RPC (1998)</li>
+<li>SOAP (1999)</li>
+<li>JSON-RPC (2005)</li>
+<li>REST (2000)</li>
+<li>GraphQL (2015)</li>
 </ul>
 <h2>HTTP APIs</h2>
-<p>Abfrageformat:</p>
+<p>Anfrageformat:</p>
 <ul>
 <li>SOAP: XML</li>
+<li>JSON-RPC: JSON</li>
 <li>REST: HTTP Methode + URL (+ URL Parameter) (+ Request Body)</li>
 <li>GraphQL: GraphQL Abfragesprache</li>
 </ul>
 <p>Antwortformat:</p>
 <ul>
 <li>SOAP: XML</li>
+<li>JSON-RPC: JSON</li>
 <li>REST: oft JSON (oder XML, ...)</li>
 <li>GraphQL: JSON</li>
 </ul>
+<h2>JSON-RPC</h2>
+<p>RPC = remote procedure call</p>
+<h2>JSON-RPC</h2>
+<p>Beispiel für Request-Body:</p>
+<pre><code class="hljs language-json">{
+  <span class="hljs-attr">"jsonrpc"</span>: <span class="hljs-string">"2.0"</span>,
+  <span class="hljs-attr">"method"</span>: <span class="hljs-string">"get_todo_by_id"</span>,
+  <span class="hljs-attr">"params"</span>: { <span class="hljs-attr">"id"</span>: <span class="hljs-number">1</span> },
+  <span class="hljs-attr">"id"</span>: <span class="hljs-number">1234</span>
+}
+</code></pre>
+<p>Beispiel für Response-Body:</p>
+<pre><code class="hljs language-json">{
+  <span class="hljs-attr">"jsonrpc"</span>: <span class="hljs-string">"2.0"</span>,
+  <span class="hljs-attr">"error"</span>: <span class="hljs-literal">null</span>,
+  <span class="hljs-attr">"result"</span>: [
+    { <span class="hljs-attr">"id"</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">"title"</span>: <span class="hljs-string">"groceries"</span>, <span class="hljs-attr">"completed"</span>: <span class="hljs-literal">false</span> }
+  ],
+  <span class="hljs-attr">"id"</span>: <span class="hljs-number">1234</span>
+}
+</code></pre>
 <h2>REST</h2>
 <p>REST = Representational State Transfer</p>
-<p>Hauptsächlich via HTTP requests mit diesen Methoden:</p>
+<p>Hauptsächlich via HTTP Requests mit diesen Methoden:</p>
 <ul>
 <li>Abfragen von Elementen via <code>GET</code></li>
 <li>Hinzufügen eines Elements via <code>POST</code></li>
