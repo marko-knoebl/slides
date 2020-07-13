@@ -2,7 +2,7 @@
 
 ## State
 
-React components may have an internal _state_
+Components may have an internal _state_
 
 The state can be referenced in the template. The view will automatically update if parts of the state are changed.
 

@@ -2082,7 +2082,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li>using predefined components</li>
 <li>querying web APIs from components</li>
 </ul>
-</section></section><section class="slides-section"><section class="slide"><h1>React.js</h1>
+</section></section><section class="slides-section"><section class="slide"><h1>React.js overview</h1>
 </section><section class="slide"><h2>What is React?</h2>
 <p>one of the 3 big JavaScript UI frameworks (besides Angular, Vue.js)</p>
 </section><section class="slide"><h2>Basics of modern JavaScript UI frameworks</h2>
@@ -2166,7 +2166,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li>February 2019: introduction of hooks</li>
 <li>upcoming in 2020: <a href="https://reactjs.org/docs/concurrent-mode-suspense.html">suspense for data fetching</a> and <a href="https://reactjs.org/docs/concurrent-mode-intro.html">concurrent mode</a></li>
 </ul>
-</section></section><section class="slides-section"><section class="slide"><h1>React &#x26; JSX Basics</h1>
+</section></section><section class="slides-section"><section class="slide"><h1>React Basics</h1>
 </section><section class="slide"><h2>Online editors</h2>
 <p>recommendation: <a href="https://codesandbox.io">https://codesandbox.io</a></p>
 <p>others:</p>
@@ -2218,21 +2218,23 @@ export default SlideshowApp;
 </ul>
 </section><section class="slide"><h2>Component definition</h2>
 <p>In order to distinguish them from ordinary tags, components start with a capital letter</p>
+</section></section><section class="slides-section"><section class="slide"><h1>JSX Basics</h1>
 </section><section class="slide"><h2>JSX: JS + XML</h2>
 <p>JSX = Template language of React</p>
 <ul>
 <li><strong>&#x3C;</strong> switches from JS to XML/HTML</li>
 <li><strong>{</strong> switches back to JS</li>
 </ul>
-</section><section class="slide"><h2>JSX: JS + XML</h2>
+</section><section class="slide"><h2>Binding content</h2>
 <pre><code class="hljs language-jsx">&#x3C;div>A year has {<span class="hljs-number">365</span> * <span class="hljs-number">24</span>} hours&#x3C;<span class="hljs-regexp">/div>
 </span></code></pre>
-</section><section class="slide"><h2>JSX: Simple tasks</h2>
+</section><section class="slide"><h2>Binding content</h2>
+<p>Tasks:</p>
 <ul>
 <li>Show the current date</li>
 <li>Show either "heads" or "tails" inside a div</li>
 </ul>
-</section><section class="slide"><h2>JSX: Simple tasks</h2>
+</section><section class="slide"><h2>Binding content</h2>
 <p>date:</p>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> dateString = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>().toLocaleDateString();
 </code></pre>
@@ -2241,14 +2243,35 @@ export default SlideshowApp;
 <p>heads or tails:</p>
 <pre><code class="hljs language-jsx">&#x3C;div>{<span class="hljs-built_in">Math</span>.random() > <span class="hljs-number">0.5</span> ? <span class="hljs-string">'heads'</span> : <span class="hljs-string">'tails'</span>}&#x3C;<span class="hljs-regexp">/div>
 </span></code></pre>
-</section><section class="slide"><h2>JSX: Properties</h2>
+</section><section class="slide"><h2>Binding Properties</h2>
 <p>we can also change from XML to JS in properties:</p>
 <pre><code class="hljs language-jsx">&#x3C;a href={<span class="hljs-string">'https://en.wikipedia.org/wiki/'</span> + articleName}>
   some article
 &#x3C;<span class="hljs-regexp">/a>
 </span></code></pre>
 <p>Note: no quote characters around the value of <em>href</em></p>
-</section><section class="slide"><h2>JSX: repeating elements</h2>
+</section><section class="slide"><h2>Binding Events</h2>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> hello = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'hello world'</span>);
+  <span class="hljs-comment">// ...</span>
+};
+</code></pre>
+<pre><code class="hljs language-jsx">&#x3C;button onClick={hello}>Say Hello&#x3C;<span class="hljs-regexp">/button>
+</span></code></pre>
+<p>list of browser events:
+<a href="https://www.w3schools.com/jsref/dom_obj_event.asp">https://www.w3schools.com/jsref/dom_obj_event.asp</a></p>
+</section><section class="slide"><h2>Binding Events</h2>
+<p>note: an event handler must be a <strong>function</strong>, not a function call</p>
+<p>OK:</p>
+<pre><code class="hljs language-js">&#x3C;button onClick={alert}>Say something&#x3C;<span class="hljs-regexp">/button>
+</span></code></pre>
+<p>not OK:</p>
+<pre><code class="hljs language-js">&#x3C;button onClick={alert(<span class="hljs-string">'hello'</span>)}>Say Hello&#x3C;<span class="hljs-regexp">/button>
+</span></code></pre>
+<p>OK:</p>
+<pre><code class="hljs language-js">&#x3C;button onClick={() => alert(<span class="hljs-string">'hello'</span>)}>Say Hello&#x3C;<span class="hljs-regexp">/button>
+</span></code></pre>
+</section><section class="slide"><h2>Repeating elements</h2>
 <p>multiple elements may be added via arrays:</p>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> elements = [
   <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>alpha<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>,
@@ -2259,7 +2282,7 @@ export default SlideshowApp;
 <pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>three elements<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
 { elements }
 </code></pre>
-</section><section class="slide"><h2>JSX: repeating elements</h2>
+</section><section class="slide"><h2>Repeating elements</h2>
 <p>example: displaying all method names of the <em>React</em> object inside a <em>ul</em> element</p>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> reactMethods = [];
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> method <span class="hljs-keyword">in</span> React) {
@@ -2271,30 +2294,9 @@ export default SlideshowApp;
   <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">ul</span>></span>{reactMethods}<span class="hljs-tag">&#x3C;/<span class="hljs-name">ul</span>></span></span>
 <span class="xml"><span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
 </code></pre>
-</section><section class="slide"><h2>JSX: events</h2>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> hello = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'hello world'</span>);
-  <span class="hljs-comment">// ...</span>
-};
-</code></pre>
-<pre><code class="hljs language-jsx">&#x3C;button onClick={hello}>Say Hello&#x3C;<span class="hljs-regexp">/button>
-</span></code></pre>
-<p>list of browser events:
-<a href="https://www.w3schools.com/jsref/dom_obj_event.asp">https://www.w3schools.com/jsref/dom_obj_event.asp</a></p>
-</section><section class="slide"><h2>JSX: events</h2>
-<p>note: an event handler must be a <strong>function</strong>, not a function call</p>
-<p>OK:</p>
-<pre><code class="hljs language-js">&#x3C;button onClick={alert}>Say something&#x3C;<span class="hljs-regexp">/button>
-</span></code></pre>
-<p>not OK:</p>
-<pre><code class="hljs language-js">&#x3C;button onClick={alert(<span class="hljs-string">'hello'</span>)}>Say Hello&#x3C;<span class="hljs-regexp">/button>
-</span></code></pre>
-<p>OK:</p>
-<pre><code class="hljs language-js">&#x3C;button onClick={() => alert(<span class="hljs-string">'hello'</span>)}>Say Hello&#x3C;<span class="hljs-regexp">/button>
-</span></code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>State</h1>
 </section><section class="slide"><h2>State</h2>
-<p>React components may have an internal <em>state</em></p>
+<p>Components may have an internal <em>state</em></p>
 <p>The state can be referenced in the template. The view will automatically update if parts of the state are changed.</p>
 </section><section class="slide"><h2>State hook</h2>
 <p>In function components we make use of the <em>state hook</em>:</p>

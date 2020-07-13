@@ -1,8 +1,6 @@
 # React: Testen und Komponentendemos
 
-## React: Testen und Komponentendemos
-
-### Themen
+## Themen
 
 - Komponentendemos mit _Storybook_
 - Testen in JavaScript
@@ -11,6 +9,10 @@
   - react-test-renderer
   - enzyme
 - Snapshot-Tests
+
+## Ressource
+
+[Präsentation zum Thema Testen von React / JavaScript von Gabriel Vasile](https://docs.google.com/presentation/d/1ljMA8glel6hCopJ9Ib221A-pZ6brnibuwpzRLf1A3OM)
 
 # Storybook
 
@@ -117,8 +119,7 @@ Siehe die Präsentation [JavaScript Testing](./javascript-testing-de.html) für 
 was kann getestet werden:
 
 - Rendering
-- Auslösen von Events
-- Änderungen am State
+- Reaktion auf User-Aktionen
 
 ## Testen von React-Komponenten
 
@@ -130,15 +131,15 @@ im allgemeinen drei Schritte:
 
 ## Test Renderer für React
 
-- `react-testing-library` (Unterprojekt von _Testing Library_)
-- `react-test-renderer` (vom React Team entwickelt)
-- `Enzyme`
+- **react-testing-library** (Unterprojekt von _Testing Library_)
+- _react-test-renderer_ (vom React Team entwickelt)
+- _Enzyme_
 
 ## Snapshot Tests
 
 Komponenten werden gerendert und mit früheren Versionen (Snapshots) verglichen
 
-# React-Testing-Library
+# React-Testing-Library Grundlagen
 
 ## Testing-Library
 
@@ -149,71 +150,86 @@ Fokus der Tests liegt auf Aspekten, die für den Endnutzer relevant sind (nicht 
 ## Beispiel
 
 ```js
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 it('renders learn react link', () => {
-  const instance = render(<App />);
-  const linkElement = instance.getByText(/learn react/i);
+  render(<App />);
+  const linkElement = screen.getByRole('link', {
+    name: /learn react/i,
+  });
   expect(linkElement).toBeInTheDocument();
 });
 ```
 
 ## Elemente abfragen
 
-Beispiele:
+Abfrage nach _ARIA role_ und _accessible name_:
 
-- `.getByText(...)`
-- `.queryAllByText(...)`
-- `.findByLabelText(...)`
+```js
+screen.getByRole('button', { name: 'delete' });
+screen.getByRole('textbox', { name: /new title/i });
+screen.getAllByRole('listitem');
+```
+
+Möglichkeiten für den _accessible name_:
+
+- Textinhalt
+- Alt-Text eines Bildes
+- Titel eines Links / Bildes
+- Label-Text eines Inputs
 
 ## Elemente abfragen
 
-- `.getBy*`: wirft Exception, wenn es keinen eindeutigen Match gibt
-- `.getAllBy*`: wirft Exception, wenn es keine Matches gibt
-- `.queryBy*`: gibt _null_ zurück, wenn es keine Matches gibt; wirft Exception, wenn es mehr als einen Match gibt
-- `.queryAllBy*`: kann ein leeres Array zurückgeben
-- `.findBy*`: asynchrone Version von `.getBy*` (wartet standardmäßig 1 Sekunde)
-- `.findAllBy*`: asynchrone Version von `.getAllBy*`
+Beispiele für _Role_ (implizit oder explizit gesetzt):
 
-siehe <https://testing-library.com/docs/dom-testing-library/api-queries> für eine Liste von Queries
+- _article_
+- _button_
+- _checkbox_
+- _form_
+- _heading_
+- _img_
+- _link_
+- _list_
+- _listitem_
+- _menuitem_
+- _presentation_
+- _textbox_
+- ... (see [role definitions from W3C](https://www.w3.org/TR/2014/REC-wai-aria-20140320/roles#role_definitions))
 
 ## Assertions
 
-extra Assertions:
+erweiterte Assertions (bei _create-react-app_ vorkonfiguriert):
 
 - `.toHaveTextContent()`
+- `.toHaveAttribute()`
 - `.toBeInTheDocument()`
 - ... (siehe <https://github.com/testing-library/jest-dom>)
 
 ## Testen des Renderings
 
-Rating-Komponente:
+_Slideshow_-Komponente:
 
 ```jsx
-import { render } from '@testing-library/react';
-
-it('renders three full stars', () => {
-  const instance = render(<Rating stars={3} />);
-  const fullStars = instance.getAllByText('★');
-  expect(fullStars).toHaveLength(3);
-  for (let fullStar of fullStars) {
-    expect(fullStar).toHaveClass('active');
-  }
+it('renders a slideshow starting at image 0', () => {
+  render(<Slideshow />);
+  const slide = screen.getByRole('img');
+  expect(slide).toHaveAttribute(
+    'src',
+    'https://picsum.photos/200?image=0'
+  );
 });
 ```
 
 ## Testen des Renderings
 
-Slideshow-Komponente:
+_TodoItem_-Komponente:
 
 ```jsx
-it('renders a slideshow starting at image 0', () => {
-  const instance = render(<Slideshow />);
-  const slide = instance.getByAltText('slide');
-  expect(slide).toHaveAttribute(
-    'src',
-    'https://picsum.photos/200?image=0'
-  );
+it('renders a list item with a given title text', () => {
+  const title = 'title-text';
+  render(<TodoItem title={title} completed={false} />);
+  const todoElement = screen.getByRole('listitem');
+  expect(todoElement).toHaveTextContent(new RegExp(title));
 });
 ```
 
@@ -225,10 +241,11 @@ Slideshow-Komponente:
 import { fireEvent } from 'react-testing-library';
 
 it('switches to the next slide', () => {
-  const instance = render(<Slideshow />);
-  const slide = instance.getByAltText('slide');
-  fireEvent.click(instance.getByText('next'));
-  expect(slide).toHaveAttribute(
+  render(<Slideshow />);
+  fireEvent.click(
+    screen.getByRole('button', { name: 'next' })
+  );
+  expect(screen.getByRole('img')).toHaveAttribute(
     'src',
     'https://picsum.photos/200?image=1'
   );
@@ -237,23 +254,54 @@ it('switches to the next slide', () => {
 
 ## Testen von Events
 
-Rating-Komponente:
+_TodoItem_-Komponente:
 
 ```jsx
-it('triggers an event when the fourth star is clicked', () => {
+it('triggers an event when the todo is clicked', () => {
   const mockFn = jest.fn();
-  const instance = render(
-    <Rating stars={3} onStarsChange={mockFn} />
+  render(
+    <TodoItem
+      title="title-text"
+      completed={false}
+      onToggle={mockFn}
+    />
   );
-  const firstEmptyStar = instance.getAllByText('☆')[0];
-  fireEvent.click(firstEmptyStar);
-  expect(mockFn).toHaveBeenCalledWith(4);
+  fireEvent.click(screen.getByRole('listitem'));
+  expect(mockFn).toHaveBeenCalled();
 });
 ```
 
+## Ressourcen
+
+- [How to use React Testing Library Tutorial, Robin Wieruch](https://www.robinwieruch.de/react-testing-library)
+- [react-testing-examples.com](https://react-testing-examples.com/)
+- [JavaScript Testing Masterclass, Gabriel Vasile](https://docs.google.com/presentation/d/1ljMA8glel6hCopJ9Ib221A-pZ6brnibuwpzRLf1A3OM/)
+
+# React testing library - Intermediate
+
+## Andere Abfragen
+
+- `getByText`: z.B. für _divs_, _spans_
+- `getByLabelText`: findet Input nach Label
+- `getByAltText`: z.B. für Bilder
+- `getByTitle`: z.B. für Bilder / Links
+- ... (siehe <https://testing-library.com/docs/dom-testing-library/api-queries#queries>)
+
+## getByText
+
+sinnvoll für _divs_ / _spans_ (keine _role_ vordefiniert)
+
+Bemerkung: kann eventuell durch `getByRole` ersetzt werden, wenn die Rolle explizit vergeben wird (z.B. `role="presentation"`)
+
+## Testen von asynchronem Code und APIs
+
+Wir verwenden `findByRole` anstatt `getByRole`, um darauf zu warten, dass ein Element erscheint
+
+`findByRole` sucht wiederholt nach einem Element bis es existiert (standardmäßig alle 0.05 Sekunden für maximal 1 Sekunde)
+
 ## Testen von asynchronem Code
 
-`ChuckNorrisJoke`-Komponente, die ein API abfragt:
+Aufgabe: Testen einer `ChuckNorrisJoke`-Komponente, die ein API abfragt:
 
 ```js
 const ChuckNorrisJoke = () => {
@@ -264,9 +312,9 @@ const ChuckNorrisJoke = () => {
       .then((data) => setJoke(data.value));
   }, []);
   if (!joke) {
-    return <div>loading...</div>;
+    return <div role="status">loading...</div>;
   }
-  return <h1 title="joke">{joke}</h1>;
+  return <article>{joke}</article>;
 };
 ```
 
@@ -276,16 +324,16 @@ Testen mit echtem API:
 
 ```js
 it('loads Chuck Norris joke from API', async () => {
-  const instance = render(<ChuckNorrisJoke />);
-  const jokeElement = await instance.findByTitle('joke');
+  render(<ChuckNorrisJoke />);
+  const jokeElement = await screen.findByRole('article');
   // joke should have at least 3 characters
   expect(jokeElement).toHaveTextContent(/.../);
 });
 ```
 
-`findByTitle` versucht wiederholt, ein Element abzufragen, bis es existiert
+## Testen von asynchronem Code
 
-## Mocking des APIs mit Jest
+Testen mit einem Mock-API:
 
 ```js
 const data = {
@@ -297,39 +345,32 @@ globalThis.fetch = () =>
 
 ## Testen von Fehlern
 
-Rating-Komponente:
+_TodoItem_-Komponente:
 
 ```jsx
-it('throws an error if the number of stars is 0', () => {
+it('throws an error if the title is missing', () => {
   const testFn = () => {
-    render(<Rating stars={0} />);
+    render(<TodoItem />);
   };
-  expect(testFn).toThrow('number of stars must be 1-5');
+  expect(testFn).toThrow(
+    'property "title" must be present'
+  );
 });
 ```
 
-## Manuelle Einrichtung
-
-diese Schritte sind bei der Verwendung von `create-react-app` schon eingerichtet
-
-Aktivieren erweiterter Assertions (siehe <https://github.com/testing-library/jest-dom>:
+## Testen des Nicht-Vorhandenseiens eines Elements
 
 ```js
-import '@testing-library/jest-dom/extend-expect';
+expect(() => getByRole('listitem')).toThrow();
 ```
 
-Aufräumen nach einem Test (Unmounting):
+oder mittels _queryBy..._:
 
 ```js
-import { cleanup } from '@testing-library/react';
-
-afterEach(cleanup);
+expect(queryByRole('listitem')).toEqual(null);
 ```
 
-## Ressourcen
-
-- <https://react-testing-examples.com/>
-- <https://thomlom.dev/test-react-testing-library/>
+_queryBy..._ gibt _null_ zurück statt eine Exception auszulösen
 
 # React-Test-Renderer
 

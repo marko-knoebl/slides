@@ -1,6 +1,5 @@
 <h1>React: Testen und Komponentendemos</h1>
-<h2>React: Testen und Komponentendemos</h2>
-<h3>Themen</h3>
+<h2>Themen</h2>
 <ul>
 <li>Komponentendemos mit <em>Storybook</em></li>
 <li>Testen in JavaScript</li>
@@ -11,6 +10,8 @@
 </ul></li>
 <li>Snapshot-Tests</li>
 </ul>
+<h2>Ressource</h2>
+<p><a href="https://docs.google.com/presentation/d/1ljMA8glel6hCopJ9Ib221A-pZ6brnibuwpzRLf1A3OM">Präsentation zum Thema Testen von React / JavaScript von Gabriel Vasile</a></p>
 <h1>Storybook</h1>
 <h2>Storybook</h2>
 <p>Ermöglicht das Erstellen isolierter Komponentendemos</p>
@@ -84,8 +85,7 @@ export const fiveStars = () => &#x3C;Rating stars={5} />;
 <p>was kann getestet werden:</p>
 <ul>
 <li>Rendering</li>
-<li>Auslösen von Events</li>
-<li>Änderungen am State</li>
+<li>Reaktion auf User-Aktionen</li>
 </ul>
 <h2>Testen von React-Komponenten</h2>
 <p>im allgemeinen drei Schritte:</p>
@@ -96,71 +96,83 @@ export const fiveStars = () => &#x3C;Rating stars={5} />;
 </ul>
 <h2>Test Renderer für React</h2>
 <ul>
-<li><code>react-testing-library</code> (Unterprojekt von <em>Testing Library</em>)</li>
-<li><code>react-test-renderer</code> (vom React Team entwickelt)</li>
-<li><code>Enzyme</code></li>
+<li><strong>react-testing-library</strong> (Unterprojekt von <em>Testing Library</em>)</li>
+<li><em>react-test-renderer</em> (vom React Team entwickelt)</li>
+<li><em>Enzyme</em></li>
 </ul>
 <h2>Snapshot Tests</h2>
 <p>Komponenten werden gerendert und mit früheren Versionen (Snapshots) verglichen</p>
-<h1>React-Testing-Library</h1>
+<h1>React-Testing-Library Grundlagen</h1>
 <h2>Testing-Library</h2>
 <p><strong>Testing-Library</strong>: Projekt zum Testen von UI Komponenten (u.a. React)</p>
 <p>Fokus der Tests liegt auf Aspekten, die für den Endnutzer relevant sind (nicht so sehr auf der genauen DOM-Struktur oder Implementierungsdetails)</p>
 <h2>Beispiel</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { render } <span class="hljs-keyword">from</span> <span class="hljs-string">'@testing-library/react'</span>;
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { render, screen } <span class="hljs-keyword">from</span> <span class="hljs-string">'@testing-library/react'</span>;
 
 it(<span class="hljs-string">'renders learn react link'</span>, () => {
-  <span class="hljs-keyword">const</span> instance = render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">App</span> /></span>);
-  const linkElement = instance.getByText(/learn react/i);
+  render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">App</span> /></span>);
+  const linkElement = screen.getByRole('link', {
+    name: /learn react/i,
+  });
   expect(linkElement).toBeInTheDocument();
 });
 </span></code></pre>
 <h2>Elemente abfragen</h2>
-<p>Beispiele:</p>
+<p>Abfrage nach <em>ARIA role</em> und <em>accessible name</em>:</p>
+<pre><code class="hljs language-js">screen.getByRole(<span class="hljs-string">'button'</span>, { <span class="hljs-attr">name</span>: <span class="hljs-string">'delete'</span> });
+screen.getByRole(<span class="hljs-string">'textbox'</span>, { <span class="hljs-attr">name</span>: <span class="hljs-regexp">/new title/i</span> });
+screen.getAllByRole(<span class="hljs-string">'listitem'</span>);
+</code></pre>
+<p>Möglichkeiten für den <em>accessible name</em>:</p>
 <ul>
-<li><code>.getByText(...)</code></li>
-<li><code>.queryAllByText(...)</code></li>
-<li><code>.findByLabelText(...)</code></li>
+<li>Textinhalt</li>
+<li>Alt-Text eines Bildes</li>
+<li>Titel eines Links / Bildes</li>
+<li>Label-Text eines Inputs</li>
 </ul>
 <h2>Elemente abfragen</h2>
+<p>Beispiele für <em>Role</em> (implizit oder explizit gesetzt):</p>
 <ul>
-<li><code>.getBy*</code>: wirft Exception, wenn es keinen eindeutigen Match gibt</li>
-<li><code>.getAllBy*</code>: wirft Exception, wenn es keine Matches gibt</li>
-<li><code>.queryBy*</code>: gibt <em>null</em> zurück, wenn es keine Matches gibt; wirft Exception, wenn es mehr als einen Match gibt</li>
-<li><code>.queryAllBy*</code>: kann ein leeres Array zurückgeben</li>
-<li><code>.findBy*</code>: asynchrone Version von <code>.getBy*</code> (wartet standardmäßig 1 Sekunde)</li>
-<li><code>.findAllBy*</code>: asynchrone Version von <code>.getAllBy*</code></li>
+<li><em>article</em></li>
+<li><em>button</em></li>
+<li><em>checkbox</em></li>
+<li><em>form</em></li>
+<li><em>heading</em></li>
+<li><em>img</em></li>
+<li><em>link</em></li>
+<li><em>list</em></li>
+<li><em>listitem</em></li>
+<li><em>menuitem</em></li>
+<li><em>presentation</em></li>
+<li><em>textbox</em></li>
+<li>... (see <a href="https://www.w3.org/TR/2014/REC-wai-aria-20140320/roles#role_definitions">role definitions from W3C</a>)</li>
 </ul>
-<p>siehe <a href="https://testing-library.com/docs/dom-testing-library/api-queries">https://testing-library.com/docs/dom-testing-library/api-queries</a> für eine Liste von Queries</p>
 <h2>Assertions</h2>
-<p>extra Assertions:</p>
+<p>erweiterte Assertions (bei <em>create-react-app</em> vorkonfiguriert):</p>
 <ul>
 <li><code>.toHaveTextContent()</code></li>
+<li><code>.toHaveAttribute()</code></li>
 <li><code>.toBeInTheDocument()</code></li>
 <li>... (siehe <a href="https://github.com/testing-library/jest-dom">https://github.com/testing-library/jest-dom</a>)</li>
 </ul>
 <h2>Testen des Renderings</h2>
-<p>Rating-Komponente:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> { render } <span class="hljs-keyword">from</span> <span class="hljs-string">'@testing-library/react'</span>;
-
-it(<span class="hljs-string">'renders three full stars'</span>, () => {
-  <span class="hljs-keyword">const</span> instance = render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Rating</span> <span class="hljs-attr">stars</span>=<span class="hljs-string">{3}</span> /></span>);
-  const fullStars = instance.getAllByText('★');
-  expect(fullStars).toHaveLength(3);
-  for (let fullStar of fullStars) {
-    expect(fullStar).toHaveClass('active');
-  }
-});
-</span></code></pre>
-<h2>Testen des Renderings</h2>
-<p>Slideshow-Komponente:</p>
+<p><em>Slideshow</em>-Komponente:</p>
 <pre><code class="hljs language-jsx">it(<span class="hljs-string">'renders a slideshow starting at image 0'</span>, () => {
-  <span class="hljs-keyword">const</span> instance = render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Slideshow</span> /></span>);
-  const slide = instance.getByAltText('slide');
+  render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Slideshow</span> /></span>);
+  const slide = screen.getByRole('img');
   expect(slide).toHaveAttribute(
     'src',
     'https://picsum.photos/200?image=0'
   );
+});
+</span></code></pre>
+<h2>Testen des Renderings</h2>
+<p><em>TodoItem</em>-Komponente:</p>
+<pre><code class="hljs language-jsx">it(<span class="hljs-string">'renders a list item with a given title text'</span>, () => {
+  <span class="hljs-keyword">const</span> title = <span class="hljs-string">'title-text'</span>;
+  render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">TodoItem</span> <span class="hljs-attr">title</span>=<span class="hljs-string">{title}</span> <span class="hljs-attr">completed</span>=<span class="hljs-string">{false}</span> /></span>);
+  const todoElement = screen.getByRole('listitem');
+  expect(todoElement).toHaveTextContent(new RegExp(title));
 });
 </span></code></pre>
 <h2>Testen von State-Änderungen</h2>
@@ -168,29 +180,54 @@ it(<span class="hljs-string">'renders three full stars'</span>, () => {
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> { fireEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-testing-library'</span>;
 
 it(<span class="hljs-string">'switches to the next slide'</span>, () => {
-  <span class="hljs-keyword">const</span> instance = render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Slideshow</span> /></span>);
-  const slide = instance.getByAltText('slide');
-  fireEvent.click(instance.getByText('next'));
-  expect(slide).toHaveAttribute(
+  render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Slideshow</span> /></span>);
+  fireEvent.click(
+    screen.getByRole('button', { name: 'next' })
+  );
+  expect(screen.getByRole('img')).toHaveAttribute(
     'src',
     'https://picsum.photos/200?image=1'
   );
 });
 </span></code></pre>
 <h2>Testen von Events</h2>
-<p>Rating-Komponente:</p>
-<pre><code class="hljs language-jsx">it(<span class="hljs-string">'triggers an event when the fourth star is clicked'</span>, () => {
+<p><em>TodoItem</em>-Komponente:</p>
+<pre><code class="hljs language-jsx">it(<span class="hljs-string">'triggers an event when the todo is clicked'</span>, () => {
   <span class="hljs-keyword">const</span> mockFn = jest.fn();
-  <span class="hljs-keyword">const</span> instance = render(
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Rating</span> <span class="hljs-attr">stars</span>=<span class="hljs-string">{3}</span> <span class="hljs-attr">onStarsChange</span>=<span class="hljs-string">{mockFn}</span> /></span>
+  render(
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">TodoItem</span>
+      <span class="hljs-attr">title</span>=<span class="hljs-string">"title-text"</span>
+      <span class="hljs-attr">completed</span>=<span class="hljs-string">{false}</span>
+      <span class="hljs-attr">onToggle</span>=<span class="hljs-string">{mockFn}</span>
+    /></span>
   );
-  const firstEmptyStar = instance.getAllByText('☆')[0];
-  fireEvent.click(firstEmptyStar);
-  expect(mockFn).toHaveBeenCalledWith(4);
+  fireEvent.click(screen.getByRole('listitem'));
+  expect(mockFn).toHaveBeenCalled();
 });
 </span></code></pre>
+<h2>Ressourcen</h2>
+<ul>
+<li><a href="https://www.robinwieruch.de/react-testing-library">How to use React Testing Library Tutorial, Robin Wieruch</a></li>
+<li><a href="https://react-testing-examples.com/">react-testing-examples.com</a></li>
+<li><a href="https://docs.google.com/presentation/d/1ljMA8glel6hCopJ9Ib221A-pZ6brnibuwpzRLf1A3OM/">JavaScript Testing Masterclass, Gabriel Vasile</a></li>
+</ul>
+<h1>React testing library - Intermediate</h1>
+<h2>Andere Abfragen</h2>
+<ul>
+<li><code>getByText</code>: z.B. für <em>divs</em>, <em>spans</em></li>
+<li><code>getByLabelText</code>: findet Input nach Label</li>
+<li><code>getByAltText</code>: z.B. für Bilder</li>
+<li><code>getByTitle</code>: z.B. für Bilder / Links</li>
+<li>... (siehe <a href="https://testing-library.com/docs/dom-testing-library/api-queries#queries">https://testing-library.com/docs/dom-testing-library/api-queries#queries</a>)</li>
+</ul>
+<h2>getByText</h2>
+<p>sinnvoll für <em>divs</em> / <em>spans</em> (keine <em>role</em> vordefiniert)</p>
+<p>Bemerkung: kann eventuell durch <code>getByRole</code> ersetzt werden, wenn die Rolle explizit vergeben wird (z.B. <code>role="presentation"</code>)</p>
+<h2>Testen von asynchronem Code und APIs</h2>
+<p>Wir verwenden <code>findByRole</code> anstatt <code>getByRole</code>, um darauf zu warten, dass ein Element erscheint</p>
+<p><code>findByRole</code> sucht wiederholt nach einem Element bis es existiert (standardmäßig alle 0.05 Sekunden für maximal 1 Sekunde)</p>
 <h2>Testen von asynchronem Code</h2>
-<p><code>ChuckNorrisJoke</code>-Komponente, die ein API abfragt:</p>
+<p>Aufgabe: Testen einer <code>ChuckNorrisJoke</code>-Komponente, die ein API abfragt:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> ChuckNorrisJoke = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
   <span class="hljs-keyword">const</span> [joke, setJoke] = useState(<span class="hljs-literal">null</span>);
   useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
@@ -199,22 +236,22 @@ it(<span class="hljs-string">'switches to the next slide'</span>, () => {
       .then(<span class="hljs-function">(<span class="hljs-params">data</span>) =></span> setJoke(data.value));
   }, []);
   <span class="hljs-keyword">if</span> (!joke) {
-    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>loading...<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">role</span>=<span class="hljs-string">"status"</span>></span>loading...<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
   }
-  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span> <span class="hljs-attr">title</span>=<span class="hljs-string">"joke"</span>></span>{joke}<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span></span>;
+  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">article</span>></span>{joke}<span class="hljs-tag">&#x3C;/<span class="hljs-name">article</span>></span></span>;
 };
 </code></pre>
 <h2>Testen von asynchronem Code</h2>
 <p>Testen mit echtem API:</p>
 <pre><code class="hljs language-js">it(<span class="hljs-string">'loads Chuck Norris joke from API'</span>, <span class="hljs-keyword">async</span> () => {
-  <span class="hljs-keyword">const</span> instance = render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">ChuckNorrisJoke</span> /></span>);
-  const jokeElement = await instance.findByTitle('joke');
+  render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">ChuckNorrisJoke</span> /></span>);
+  const jokeElement = await screen.findByRole('article');
   // joke should have at least 3 characters
   expect(jokeElement).toHaveTextContent(/.../);
 });
 </span></code></pre>
-<p><code>findByTitle</code> versucht wiederholt, ein Element abzufragen, bis es existiert</p>
-<h2>Mocking des APIs mit Jest</h2>
+<h2>Testen von asynchronem Code</h2>
+<p>Testen mit einem Mock-API:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> data = {
   <span class="hljs-attr">value</span>: <span class="hljs-string">'Chuck Norris counted to infinity. Twice.'</span>,
 };
@@ -222,29 +259,23 @@ globalThis.fetch = <span class="hljs-function"><span class="hljs-params">()</spa
   <span class="hljs-built_in">Promise</span>.resolve({ <span class="hljs-attr">json</span>: <span class="hljs-function"><span class="hljs-params">()</span> =></span> <span class="hljs-built_in">Promise</span>.resolve(data) });
 </code></pre>
 <h2>Testen von Fehlern</h2>
-<p>Rating-Komponente:</p>
-<pre><code class="hljs language-jsx">it(<span class="hljs-string">'throws an error if the number of stars is 0'</span>, () => {
+<p><em>TodoItem</em>-Komponente:</p>
+<pre><code class="hljs language-jsx">it(<span class="hljs-string">'throws an error if the title is missing'</span>, () => {
   <span class="hljs-keyword">const</span> testFn = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-    render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Rating</span> <span class="hljs-attr">stars</span>=<span class="hljs-string">{0}</span> /></span>);
+    render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">TodoItem</span> /></span>);
   };
-  expect(testFn).toThrow('number of stars must be 1-5');
+  expect(testFn).toThrow(
+    'property "title" must be present'
+  );
 });
 </span></code></pre>
-<h2>Manuelle Einrichtung</h2>
-<p>diese Schritte sind bei der Verwendung von <code>create-react-app</code> schon eingerichtet</p>
-<p>Aktivieren erweiterter Assertions (siehe <a href="https://github.com/testing-library/jest-dom">https://github.com/testing-library/jest-dom</a>:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> <span class="hljs-string">'@testing-library/jest-dom/extend-expect'</span>;
+<h2>Testen des Nicht-Vorhandenseiens eines Elements</h2>
+<pre><code class="hljs language-js">expect(<span class="hljs-function"><span class="hljs-params">()</span> =></span> getByRole(<span class="hljs-string">'listitem'</span>)).toThrow();
 </code></pre>
-<p>Aufräumen nach einem Test (Unmounting):</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { cleanup } <span class="hljs-keyword">from</span> <span class="hljs-string">'@testing-library/react'</span>;
-
-afterEach(cleanup);
+<p>oder mittels <em>queryBy...</em>:</p>
+<pre><code class="hljs language-js">expect(queryByRole(<span class="hljs-string">'listitem'</span>)).toEqual(<span class="hljs-literal">null</span>);
 </code></pre>
-<h2>Ressourcen</h2>
-<ul>
-<li><a href="https://react-testing-examples.com/">https://react-testing-examples.com/</a></li>
-<li><a href="https://thomlom.dev/test-react-testing-library/">https://thomlom.dev/test-react-testing-library/</a></li>
-</ul>
+<p><em>queryBy...</em> gibt <em>null</em> zurück statt eine Exception auszulösen</p>
 <h1>React-Test-Renderer</h1>
 <h2>React-Test-Renderer - Installation</h2>
 <pre><code class="hljs language-bash">npm install --save-dev react-test-renderer

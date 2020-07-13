@@ -11,8 +11,7 @@ Siehe die Präsentation [JavaScript Testing](./javascript-testing-de.html) für 
 was kann getestet werden:
 
 - Rendering
-- Auslösen von Events
-- Änderungen am State
+- Reaktion auf User-Aktionen
 
 ## Testen von React-Komponenten
 
@@ -24,9 +23,9 @@ im allgemeinen drei Schritte:
 
 ## Test Renderer für React
 
-- `react-testing-library` (Unterprojekt von _Testing Library_)
-- `react-test-renderer` (vom React Team entwickelt)
-- `Enzyme`
+- **react-testing-library** (Unterprojekt von _Testing Library_)
+- _react-test-renderer_ (vom React Team entwickelt)
+- _Enzyme_
 
 ## Snapshot Tests
 

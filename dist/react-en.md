@@ -44,7 +44,7 @@ Code available at: <https://github.com/marko-knoebl/courses-code>
 - using predefined components
 - querying web APIs from components
 
-# React.js
+# React.js overview
 
 ## What is React?
 
@@ -83,7 +83,7 @@ one of the 3 big JavaScript UI frameworks (besides Angular, Vue.js)
 - February 2019: introduction of hooks
 - upcoming in 2020: [suspense for data fetching](https://reactjs.org/docs/concurrent-mode-suspense.html) and [concurrent mode](https://reactjs.org/docs/concurrent-mode-intro.html)
 
-# React & JSX Basics
+# React Basics
 
 ## Online editors
 
@@ -147,6 +147,8 @@ options:
 
 In order to distinguish them from ordinary tags, components start with a capital letter
 
+# JSX Basics
+
 ## JSX: JS + XML
 
 JSX = Template language of React
@@ -154,18 +156,20 @@ JSX = Template language of React
 - **&lt;** switches from JS to XML/HTML
 - **{** switches back to JS
 
-## JSX: JS + XML
+## Binding content
 
 ```jsx
 <div>A year has {365 * 24} hours</div>
 ```
 
-## JSX: Simple tasks
+## Binding content
+
+Tasks:
 
 - Show the current date
 - Show either "heads" or "tails" inside a div
 
-## JSX: Simple tasks
+## Binding content
 
 date:
 
@@ -183,7 +187,7 @@ heads or tails:
 <div>{Math.random() > 0.5 ? 'heads' : 'tails'}</div>
 ```
 
-## JSX: Properties
+## Binding Properties
 
 we can also change from XML to JS in properties:
 
@@ -195,42 +199,7 @@ we can also change from XML to JS in properties:
 
 Note: no quote characters around the value of _href_
 
-## JSX: repeating elements
-
-multiple elements may be added via arrays:
-
-```jsx
-const elements = [
-  <div>alpha</div>,
-  <div>bravo</div>,
-  <div>charlie</div>,
-];
-```
-
-```xml
-<h1>three elements</h1>
-{ elements }
-```
-
-## JSX: repeating elements
-
-example: displaying all method names of the _React_ object inside a _ul_ element
-
-```jsx
-const reactMethods = [];
-for (let method in React) {
-  reactMethods.push(<li>{method}</li>);
-}
-```
-
-```jsx
-<div>
-  React Methods:
-  <ul>{reactMethods}</ul>
-</div>
-```
-
-## JSX: events
+## Binding Events
 
 ```jsx
 const hello = () => {
@@ -246,7 +215,7 @@ const hello = () => {
 list of browser events:
 <https://www.w3schools.com/jsref/dom_obj_event.asp>
 
-## JSX: events
+## Binding Events
 
 note: an event handler must be a **function**, not a function call
 
@@ -268,11 +237,46 @@ OK:
 <button onClick={() => alert('hello')}>Say Hello</button>
 ```
 
+## Repeating elements
+
+multiple elements may be added via arrays:
+
+```jsx
+const elements = [
+  <div>alpha</div>,
+  <div>bravo</div>,
+  <div>charlie</div>,
+];
+```
+
+```xml
+<h1>three elements</h1>
+{ elements }
+```
+
+## Repeating elements
+
+example: displaying all method names of the _React_ object inside a _ul_ element
+
+```jsx
+const reactMethods = [];
+for (let method in React) {
+  reactMethods.push(<li>{method}</li>);
+}
+```
+
+```jsx
+<div>
+  React Methods:
+  <ul>{reactMethods}</ul>
+</div>
+```
+
 # State
 
 ## State
 
-React components may have an internal _state_
+Components may have an internal _state_
 
 The state can be referenced in the template. The view will automatically update if parts of the state are changed.
 
