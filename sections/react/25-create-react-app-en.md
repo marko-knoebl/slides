@@ -34,9 +34,9 @@ Creates a simple React app which can be used as a starting point
 
 many aspects are preconfigured:
 
+- webpack and babel for building
 - local development server
-- unittesting framework jest
-- webpack and babel
+- unit testing framework jest
 - SCSS and CSS modules
 
 ## default project structure

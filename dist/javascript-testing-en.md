@@ -1,19 +1,22 @@
-# Automated testing
+# Automated testing in JavaScript
 
 ## Automated testing
 
-Programs / functions / classes may be tested automatically to ensure they behave as expected
+code may be tested automatically to ensure it behaves as expected
 
 ## Tools for testing JavaScript
 
 - _node_ is needed to provide a runtime
 - _assert_: basic assertion package, built into node
 - _Jest_: test runner & assertion library
-- _Jasmine_: test runner & assertion library
 - _Mocha_: test runner
 - _Chai_: assertion library
+- _Jasmine_: test runner & assertion library
 
-[State of JS 2019: survey on test tools](https://2019.stateofjs.com/testing/)
+popularity:
+
+- [State of JS 2019: survey on test tools](https://2019.stateofjs.com/testing/)
+- [npmtrends](https://www.npmtrends.com/jest-vs-mocha-vs-chai-vs-jasmine)
 
 ## Example: shorten
 
@@ -29,162 +32,145 @@ Possible approaches:
 - write implementation first
 - write tests first (test-driven development)
 
-## setting up the test runner
-
-in an existing npm project:
-
-```bash
-npm install --save-dev jest
-```
-
-in _package.json_:
-
-```json
-"scripts": {
-  "test": "jest"
-}
-```
-
-## Running tests
-
-```bash
-npm test
-```
-
-Note: running tests should always be cancelled bevor running `npm install ...` - otherwise the Installation may fail
-
-## Finding tests
-
-In general testing libraries look for files ending in `.test.js` or `.spec.js` inside the `test` directory.
-
-We can also pass a custom pattern, e.g.:
-
-```bash
-mocha "src/**/*.{test,spec}.{js,jsx}"
-```
-
-## Test coverage
-
-Some testing libraries can report on how much of the code is covered by tests:
-
-example: in a create-react-app project:
-
-```bash
-npm test -- --coverage
-```
-
 ## Example: shorten
+
+Implementation that should be tested:
 
 ```js
 // shorten.js
-const shorten = (s, maxlength) => {
-  if (s.length > maxlength) {
-    s = s.slice(0, maxlength - 3) + '...';
-  }
-  return s;
-};
-
-export default shorten;
+/**
+ * shortens a given string to a specified length,
+ * adding "..." at the end if it was shortened
+ */
+export default shorten = (s, maxlength) =>
+  s.length > maxlength
+    ? s.slice(0, maxlength - 3) + '...'
+    : s;
 ```
 
 ## Example: shorten
 
+simple tests:
+
 ```js
 // shorten.test.js
-import shorten from './shorten.js';
-// use node's built-in assert module
 import assert from 'assert';
+import shorten from './shorten';
 
-it('shortens "loremipsum" to "lor..."', () => {
-  const expected = 'lor...';
-  const actual = shorten('loremipsum', 6);
-  assert.equal(actual, expected);
-});
+assert.equal(shorten('loremipsum', 4), 'l...');
+assert.equal(shorten('loremipsum', 8), 'loremi...');
+assert.equal(shorten('loremipsum', 9), 'loremipsum');
+assert.equal(shorten('loremipsum', 10), 'loremipsum');
 ```
 
-# Testing: assertions
+`assert.equal` throws an exception if the condition is not met
 
-## Testing: assertions
+# Assertions
+
+## Assertions
 
 Assertions can be written in two main styles:
 
-assert:
+**assert**:
 
 ```js
 assert.equal(a, b);
 ```
 
-expect (behaviour-driven):
+**expect** (sometimes called _behavior-driven_):
 
 ```js
 expect(a).toEqual(b);
 ```
 
-## Testing: assertions
-
-assert:
-
-- built into node
-- chai
-
-expect (behaviour-driven)
-
-- jest
-- jasmine
-- chai
-- enzyme
-
-## Testing: assertions
+## Assertions in node.js
 
 assert (node):
 
 ```js
 assert.equal(a, b);
 assert.deepEqual(a, b);
-assert.throws(() => 1 / 0);
+assert.throws(() => JSON.parse(''));
 // ...
 ```
 
-assert (chai):
-
-```js
-assert.equal(a, b);
-assert.deepEqual(a, b);
-assert.typeOf(foo, 'string');
-assert.lengthOf(foo, 3);
-assert.throws(() => 1 / 0);
-```
-
-## Testing: assertions
-
-expect (jest):
-
-```js
-expect(a).toEqual(4);
-expect(a).not.toEqual(2);
-expect(a).toBeGreaterThan(3);
-expect(a).toBeInstanceOf(Number);
-expect(() => 1 / 0).toThrow();
-```
-
-expect (chai):
+## Assertions with Chai
 
 ```js
 expect(a).to.equal(4);
 expect(a).not.to.equal(2);
 expect(a).to.be.greaterThan(3);
 expect(a).to.be.a('number');
-expect(() => 1 / 0).to.throw();
+expect(() => JSON.parse('')).to.throw();
 ```
 
-# Structuring tests
-
-## Grouping tests
-
-with `describe()`:
+## Assertions with Jest
 
 ```js
-// jest
+expect(a).toEqual(4);
+expect(a).not.toEqual(2);
+expect(a).toBe(4);
+expect(a).toBeGreaterThan(3);
+expect(a).toBeInstanceOf(Number);
+expect(() => JSON.parse('')).toThrow();
+```
+
+## Assertions with Jest
+
+`.toEqual`: may be used with both primitives and objects
+
+`.toBe`: behaves like `===` - may be used with primitives (or for asserting object identity)
+
+# Test runners
+
+## Test runners
+
+- find test files
+- run tests
+- generate reports on test results
+
+## Popular test runners
+
+- Jest (comes with assertion tools)
+- Mocha (commonly used with _chai_)
+- Jasmine (comes with assertion tools)
+
+## Running tests
+
+Tests are commonly run via an npm script - e.g. via `npm run test` (or `npm test` for short)
+
+Note: running tests should always be cancelled before installing new npm packages - otherwise the installation may fail
+
+## Finding test files
+
+Jest: by default looks for files inside of directories named `__tests__` and for files ending in `.test.js` or `.spec.js`
+
+Mocha: by default looks for files inside the directory `test` (custom pattern via e.g.: `mocha "src/**/*.{test,spec}.{js,jsx}"`)
+
+## Structuring tests
+
+A test is commonly defined via the `it` function, which takes two arguments:
+
+- a string describing the test
+- a function that executes test code
+
+## Structuring tests
+
+```js
+it('shortens "loremipsum" to "lor..." with limit 6', () => {
+  expect(shorten('loremipsum', 6)).toEqual('lor...');
+});
+```
+
+an `it`-block may contain multiple calls of `expect` (or none)
+
+In _Jest_, `test` is a more common alias for `it`
+
+## Structuring tests
+
+Tests can be structured into groups (and sub-groups ...) by using `describe`:
+
+```js
 describe('strings that are short enough', () => {
   it('leaves "abc" unchanged with limit 5', () => {
     expect(shorten('abc', 5)).toEqual('abc');
@@ -195,22 +181,39 @@ describe('strings that are short enough', () => {
 });
 ```
 
+## Test coverage
+
+Some testing libraries can report on how much of the code is covered by tests:
+
+```bash
+npx jest --coverage
+```
+
+in a create-react-app project:
+
+```bash
+npm test -- --coverage
+```
+
+# Test setup and mocking (with jest)
+
 ## Setup and teardown
 
 For code that should be executed before and after each test in a group:
 
 ```js
-// jest or mocha
-beforeEach(() => {
-  createTestDB();
-});
+describe('database', () => {
+  beforeEach(() => {
+    createTestDB();
+  });
+  afterEach(() => {
+    clearTestDB();
+  });
 
-afterEach(() => {
-  clearTestDB();
+  it(/*...*/);
+  it(/*...*/);
 });
 ```
-
-# Mocking (with jest)
 
 ## Mocking built-ins
 

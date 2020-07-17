@@ -23,7 +23,7 @@ three general steps:
 
 ## Test renderers for React
 
-- **react-testing-library** (subproject of _testing library_)
+- **react-testing-library**
 - _react-test-renderer_ (developed by the React team)
 - _Enzyme_
 

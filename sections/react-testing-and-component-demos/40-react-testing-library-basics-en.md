@@ -1,8 +1,8 @@
 # React-Testing-Library basics
 
-## Testing-Library
+## React-Testing-Library
 
-**Testing-Library**: project for testing UI components
+**React-Testing-Library**: project for testing UI components (most significant subproject of the _Testing-Library_)
 
 tests focus on aspects that are relevant for the end user (and not on the exact DOM structure or implementation details)
 

@@ -131,7 +131,7 @@ three general steps:
 
 ## Test renderers for React
 
-- **react-testing-library** (subproject of _testing library_)
+- **react-testing-library**
 - _react-test-renderer_ (developed by the React team)
 - _Enzyme_
 
@@ -141,9 +141,9 @@ Components are rendered and compared to earlier versions (snapshots)
 
 # React-Testing-Library basics
 
-## Testing-Library
+## React-Testing-Library
 
-**Testing-Library**: project for testing UI components
+**React-Testing-Library**: project for testing UI components (most significant subproject of the _Testing-Library_)
 
 tests focus on aspects that are relevant for the end user (and not on the exact DOM structure or implementation details)
 
@@ -611,24 +611,44 @@ describe('errors', () => {
 
 Components are rendered and compared to earlier versions (snapshots)
 
-Snapshot tests are a kind of regression tests
+Snapshots are simple text representations of rendered content
 
-## Snapshot tests - creating tests
+Snapshot tests are usually used for regression tests
 
-with react-testing-library
+## Snapshot tests
+
+snapshots are usually stored as text files in a location like `__snapshots__/Counter.test.js.snap`
+
+```
+exports[`matches the snapshot 1`] = `
+<div>
+  <div>
+    count:
+    0
+    <button>
+      +
+    </button>
+  </div>
+</div>
+`;
+```
+
+## Creating snapshot tests
+
+with react-testing-library:
 
 ```jsx
 it('matches the snapshot', () => {
-  const instance = render(<Slideshow />);
-  expect(instance.baseElement).toMatchSnapshot();
-  const slide = instance.getByAltText('slide');
-  expect(slide).toMatchSnapshot();
+  const instance = render(<Counter />);
+  expect(instance.container).toMatchSnapshot();
+  const button = instance.getByRole('button');
+  expect(button).toMatchSnapshot();
 });
 ```
 
 ## Updating snapshot tests
 
-Once we have changed and and verified the behaviour of a component we can update the corresponding tests accordingly:
+Once we have changed and and verified the behavior of a component we can update the corresponding tests accordingly:
 
 ```txt
 2 snapshot tests failed in 1 test suite.

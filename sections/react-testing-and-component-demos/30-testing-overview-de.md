@@ -23,7 +23,7 @@ im allgemeinen drei Schritte:
 
 ## Test Renderer für React
 
-- **react-testing-library** (Unterprojekt von _Testing Library_)
+- **react-testing-library**
 - _react-test-renderer_ (vom React Team entwickelt)
 - _Enzyme_
 

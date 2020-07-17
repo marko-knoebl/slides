@@ -2139,15 +2139,15 @@ export const fiveStars = () => &#x3C;Rating stars={5} />;
 </ul>
 </section><section class="slide"><h2>Test renderers for React</h2>
 <ul>
-<li><strong>react-testing-library</strong> (subproject of <em>testing library</em>)</li>
+<li><strong>react-testing-library</strong></li>
 <li><em>react-test-renderer</em> (developed by the React team)</li>
 <li><em>Enzyme</em></li>
 </ul>
 </section><section class="slide"><h2>Snapshot Tests</h2>
 <p>Components are rendered and compared to earlier versions (snapshots)</p>
 </section></section><section class="slides-section"><section class="slide"><h1>React-Testing-Library basics</h1>
-</section><section class="slide"><h2>Testing-Library</h2>
-<p><strong>Testing-Library</strong>: project for testing UI components</p>
+</section><section class="slide"><h2>React-Testing-Library</h2>
+<p><strong>React-Testing-Library</strong>: project for testing UI components (most significant subproject of the <em>Testing-Library</em>)</p>
 <p>tests focus on aspects that are relevant for the end user (and not on the exact DOM structure or implementation details)</p>
 </section><section class="slide"><h2>Example</h2>
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { render, screen } <span class="hljs-keyword">from</span> <span class="hljs-string">'@testing-library/react'</span>;
@@ -2496,18 +2496,33 @@ it('renders a component tree without crashing', () => {
 </section></section><section class="slides-section"><section class="slide"><h1>Snapshot tests</h1>
 </section><section class="slide"><h2>Snapshot tests</h2>
 <p>Components are rendered and compared to earlier versions (snapshots)</p>
-<p>Snapshot tests are a kind of regression tests</p>
-</section><section class="slide"><h2>Snapshot tests - creating tests</h2>
-<p>with react-testing-library</p>
+<p>Snapshots are simple text representations of rendered content</p>
+<p>Snapshot tests are usually used for regression tests</p>
+</section><section class="slide"><h2>Snapshot tests</h2>
+<p>snapshots are usually stored as text files in a location like <code>__snapshots__/Counter.test.js.snap</code></p>
+<pre><code class="hljs language-xquery">exports[<span class="hljs-built_in">`matches</span> the<span class="hljs-built_in"> snapshot</span> <span class="hljs-number">1</span>`] = `
+<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+  </span><span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+    count:
+    0
+    </span><span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>></span>
+      +
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span><span class="xml">
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span><span class="xml">
+<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+`;
+</code></pre>
+</section><section class="slide"><h2>Creating snapshot tests</h2>
+<p>with react-testing-library:</p>
 <pre><code class="hljs language-jsx">it(<span class="hljs-string">'matches the snapshot'</span>, () => {
-  <span class="hljs-keyword">const</span> instance = render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Slideshow</span> /></span>);
-  expect(instance.baseElement).toMatchSnapshot();
-  const slide = instance.getByAltText('slide');
-  expect(slide).toMatchSnapshot();
+  <span class="hljs-keyword">const</span> instance = render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Counter</span> /></span>);
+  expect(instance.container).toMatchSnapshot();
+  const button = instance.getByRole('button');
+  expect(button).toMatchSnapshot();
 });
 </span></code></pre>
 </section><section class="slide"><h2>Updating snapshot tests</h2>
-<p>Once we have changed and and verified the behaviour of a component we can update the corresponding tests accordingly:</p>
+<p>Once we have changed and and verified the behavior of a component we can update the corresponding tests accordingly:</p>
 <pre><code class="hljs language-txt">2 snapshot tests failed in 1 test suite.
 Inspect your code changes or press `u` to update them.
 </code></pre></section></section></div>

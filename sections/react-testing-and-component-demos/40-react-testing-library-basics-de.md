@@ -1,8 +1,8 @@
 # React-Testing-Library Grundlagen
 
-## Testing-Library
+## React-Testing-Library
 
-**Testing-Library**: Projekt zum Testen von UI Komponenten (u.a. React)
+**React-Testing-Library**: Tool zum Testen von UI Komponenten (bedeutsamstes Unterprojekt der _Testing-Library_)
 
 Fokus der Tests liegt auf Aspekten, die für den Endnutzer relevant sind (nicht so sehr auf der genauen DOM-Struktur oder Implementierungsdetails)
 

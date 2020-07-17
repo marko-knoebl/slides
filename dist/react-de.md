@@ -593,9 +593,9 @@ Erstellt eine einfache React-Anwendung, auf deren Basis weiter gearbeitet werden
 
 Viele Aspekte sind vorkonfiguriert:
 
+- Webpack und Babel für den Build
 - lokaler Entwicklungsserver
 - Unittest-Framework jest
-- Webpack und Babel
 - SCSS und CSS Module
 
 ## Standard Projektstruktur

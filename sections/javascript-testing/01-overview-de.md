@@ -1,21 +1,24 @@
-# Automatisiertes Testen
+# Automatisiertes Testen in JavaScript
 
 ## Automatisiertes Testen
 
-Programme / Funktionen / Klassen können automatisiert getestet werden um sicherzustellen, dass sie wie erwartet funktionieren.
+Code kann automatisch getestet werden, um sicherzustellen, dass er wie erwartet funktioniert
 
 ## Tools für das Testen
 
 - _node_ wird als Runtime benötigt
-- _assert_: einfache assertions, in node beinhaltet
+- _assert_: einfache Assertions, in node beinhaltet
 - _Jest_: test runner & assertion library
-- _Jasmine_: test runner & assertion library
 - _Mocha_: test runner
 - _Chai_: assertion library
+- _Jasmine_: test runner & assertion library
 
-[State of JS 2019: Umfrage zu Test-Tools](https://2019.stateofjs.com/testing/)
+Popularität:
 
-## Beispiel: shorten
+- [State of JS 2019: Umfrage zu Test-Tools](https://2019.stateofjs.com/testing/)
+- [npmtrends](https://www.npmtrends.com/jest-vs-mocha-vs-chai-vs-jasmine)
+
+## Einfaches Beispiel: shorten
 
 Wir werden eine Funktion schreiben und testen, die einen String auf eine vorgegebene Länge verkürzt:
 
@@ -29,75 +32,35 @@ Mögliche Zugänge:
 - mit Implementierung beginnen
 - mit Tests beginnen (test-driven development)
 
-## Einrichten des Test Runners
+## Einfaches Beispiel: shorten
 
-in einem vorhandenen npm Projekt:
-
-```bash
-npm install --save-dev jest
-```
-
-in _package.json_:
-
-```json
-"scripts": {
-  "test": "jest"
-}
-```
-
-## Tests ausführen
-
-```bash
-npm test
-```
-
-Achtung: laufende Tests sollten immer abgebrochen werden, bevor `npm install ...` ausgeführt wird - sonst kann die Installation fehlschlagen
-
-## Finden von Tests
-
-Im allgemeinen suchen Test Libraries nach Dateien mit der Endung `.test.js` oder `.spec.js` in dem Ordner `test`.
-
-Wir können auch ein eigenes Muster übergeben, z.B.:
-
-```bash
-mocha "src/**/*.{test,spec}.{js,jsx}"
-```
-
-## test coverage
-
-Manche Testlibraries können berichten, wie viel des Codes von Tests abgedeckt ist:
-
-Beispiel - in einem create-react-app Projekt:
-
-```bash
-npm test -- --coverage
-```
-
-## Beispiel: shorten
+Implementierung, die getestet werden soll:
 
 ```js
 // shorten.js
-const shorten = (s, maxlength) => {
-  if (s.length > maxlength) {
-    s = s.slice(0, maxlength - 3) + '...';
-  }
-  return s;
-};
-
-export default shorten;
+/**
+ * shortens a given string to a specified length,
+ * adding "..." at the end if it was shortened
+ */
+export default shorten = (s, maxlength) =>
+  s.length > maxlength
+    ? s.slice(0, maxlength - 3) + '...'
+    : s;
 ```
 
 ## Beispiel: shorten
 
+einfache Tests:
+
 ```js
 // shorten.test.js
-import shorten from './shorten.js';
-// use node's built-in assert module
 import assert from 'assert';
+import shorten from './shorten';
 
-it('shortens "loremipsum" to "lor..."', () => {
-  const expected = 'lor...';
-  const actual = shorten('loremipsum', 6);
-  assert.equal(actual, expected);
-});
+assert.equal(shorten('loremipsum', 4), 'l...');
+assert.equal(shorten('loremipsum', 8), 'loremi...');
+assert.equal(shorten('loremipsum', 9), 'loremipsum');
+assert.equal(shorten('loremipsum', 10), 'loremipsum');
 ```
+
+`assert.equal` wirf eine Exception, wenn die Bedingung nicht erfüllt wird

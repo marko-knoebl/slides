@@ -1,16 +1,20 @@
-<h1>Automated testing</h1>
+<h1>Automated testing in JavaScript</h1>
 <h2>Automated testing</h2>
-<p>Programs / functions / classes may be tested automatically to ensure they behave as expected</p>
+<p>code may be tested automatically to ensure it behaves as expected</p>
 <h2>Tools for testing JavaScript</h2>
 <ul>
 <li><em>node</em> is needed to provide a runtime</li>
 <li><em>assert</em>: basic assertion package, built into node</li>
 <li><em>Jest</em>: test runner &#x26; assertion library</li>
-<li><em>Jasmine</em>: test runner &#x26; assertion library</li>
 <li><em>Mocha</em>: test runner</li>
 <li><em>Chai</em>: assertion library</li>
+<li><em>Jasmine</em>: test runner &#x26; assertion library</li>
 </ul>
-<p><a href="https://2019.stateofjs.com/testing/">State of JS 2019: survey on test tools</a></p>
+<p>popularity:</p>
+<ul>
+<li><a href="https://2019.stateofjs.com/testing/">State of JS 2019: survey on test tools</a></li>
+<li><a href="https://www.npmtrends.com/jest-vs-mocha-vs-chai-vs-jasmine">npmtrends</a></li>
+</ul>
 <h2>Example: shorten</h2>
 <p>We are going to write and test a function that will shorten a string to a specified length:</p>
 <pre><code class="hljs language-js">shorten(<span class="hljs-string">'loremipsum'</span>, <span class="hljs-number">6</span>);
@@ -21,108 +25,99 @@
 <li>write implementation first</li>
 <li>write tests first (test-driven development)</li>
 </ul>
-<h2>setting up the test runner</h2>
-<p>in an existing npm project:</p>
-<pre><code class="hljs language-bash">npm install --save-dev jest
-</code></pre>
-<p>in <em>package.json</em>:</p>
-<pre><code class="hljs language-json"><span class="hljs-string">"scripts"</span>: {
-  <span class="hljs-attr">"test"</span>: <span class="hljs-string">"jest"</span>
-}
-</code></pre>
-<h2>Running tests</h2>
-<pre><code class="hljs language-bash">npm <span class="hljs-built_in">test</span>
-</code></pre>
-<p>Note: running tests should always be cancelled bevor running <code>npm install ...</code> - otherwise the Installation may fail</p>
-<h2>Finding tests</h2>
-<p>In general testing libraries look for files ending in <code>.test.js</code> or <code>.spec.js</code> inside the <code>test</code> directory.</p>
-<p>We can also pass a custom pattern, e.g.:</p>
-<pre><code class="hljs language-bash">mocha <span class="hljs-string">"src/**/*.{test,spec}.{js,jsx}"</span>
-</code></pre>
-<h2>Test coverage</h2>
-<p>Some testing libraries can report on how much of the code is covered by tests:</p>
-<p>example: in a create-react-app project:</p>
-<pre><code class="hljs language-bash">npm <span class="hljs-built_in">test</span> -- --coverage
-</code></pre>
 <h2>Example: shorten</h2>
+<p>Implementation that should be tested:</p>
 <pre><code class="hljs language-js"><span class="hljs-comment">// shorten.js</span>
-<span class="hljs-keyword">const</span> shorten = <span class="hljs-function">(<span class="hljs-params">s, maxlength</span>) =></span> {
-  <span class="hljs-keyword">if</span> (s.length > maxlength) {
-    s = s.slice(<span class="hljs-number">0</span>, maxlength - <span class="hljs-number">3</span>) + <span class="hljs-string">'...'</span>;
-  }
-  <span class="hljs-keyword">return</span> s;
-};
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> shorten;
+<span class="hljs-comment">/**
+ * shortens a given string to a specified length,
+ * adding "..." at the end if it was shortened
+ */</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> shorten = <span class="hljs-function">(<span class="hljs-params">s, maxlength</span>) =></span>
+  s.length > maxlength
+    ? s.slice(<span class="hljs-number">0</span>, maxlength - <span class="hljs-number">3</span>) + <span class="hljs-string">'...'</span>
+    : s;
 </code></pre>
 <h2>Example: shorten</h2>
+<p>simple tests:</p>
 <pre><code class="hljs language-js"><span class="hljs-comment">// shorten.test.js</span>
-<span class="hljs-keyword">import</span> shorten <span class="hljs-keyword">from</span> <span class="hljs-string">'./shorten.js'</span>;
-<span class="hljs-comment">// use node's built-in assert module</span>
 <span class="hljs-keyword">import</span> assert <span class="hljs-keyword">from</span> <span class="hljs-string">'assert'</span>;
+<span class="hljs-keyword">import</span> shorten <span class="hljs-keyword">from</span> <span class="hljs-string">'./shorten'</span>;
 
-it(<span class="hljs-string">'shortens "loremipsum" to "lor..."'</span>, () => {
-  <span class="hljs-keyword">const</span> expected = <span class="hljs-string">'lor...'</span>;
-  <span class="hljs-keyword">const</span> actual = shorten(<span class="hljs-string">'loremipsum'</span>, <span class="hljs-number">6</span>);
-  assert.equal(actual, expected);
-});
+assert.equal(shorten(<span class="hljs-string">'loremipsum'</span>, <span class="hljs-number">4</span>), <span class="hljs-string">'l...'</span>);
+assert.equal(shorten(<span class="hljs-string">'loremipsum'</span>, <span class="hljs-number">8</span>), <span class="hljs-string">'loremi...'</span>);
+assert.equal(shorten(<span class="hljs-string">'loremipsum'</span>, <span class="hljs-number">9</span>), <span class="hljs-string">'loremipsum'</span>);
+assert.equal(shorten(<span class="hljs-string">'loremipsum'</span>, <span class="hljs-number">10</span>), <span class="hljs-string">'loremipsum'</span>);
 </code></pre>
-<h1>Testing: assertions</h1>
-<h2>Testing: assertions</h2>
+<p><code>assert.equal</code> throws an exception if the condition is not met</p>
+<h1>Assertions</h1>
+<h2>Assertions</h2>
 <p>Assertions can be written in two main styles:</p>
-<p>assert:</p>
+<p><strong>assert</strong>:</p>
 <pre><code class="hljs language-js">assert.equal(a, b);
 </code></pre>
-<p>expect (behaviour-driven):</p>
+<p><strong>expect</strong> (sometimes called <em>behavior-driven</em>):</p>
 <pre><code class="hljs language-js">expect(a).toEqual(b);
 </code></pre>
-<h2>Testing: assertions</h2>
-<p>assert:</p>
-<ul>
-<li>built into node</li>
-<li>chai</li>
-</ul>
-<p>expect (behaviour-driven)</p>
-<ul>
-<li>jest</li>
-<li>jasmine</li>
-<li>chai</li>
-<li>enzyme</li>
-</ul>
-<h2>Testing: assertions</h2>
+<h2>Assertions in node.js</h2>
 <p>assert (node):</p>
 <pre><code class="hljs language-js">assert.equal(a, b);
 assert.deepEqual(a, b);
-assert.throws(<span class="hljs-function"><span class="hljs-params">()</span> =></span> <span class="hljs-number">1</span> / <span class="hljs-number">0</span>);
+assert.throws(<span class="hljs-function"><span class="hljs-params">()</span> =></span> <span class="hljs-built_in">JSON</span>.parse(<span class="hljs-string">''</span>));
 <span class="hljs-comment">// ...</span>
 </code></pre>
-<p>assert (chai):</p>
-<pre><code class="hljs language-js">assert.equal(a, b);
-assert.deepEqual(a, b);
-assert.typeOf(foo, <span class="hljs-string">'string'</span>);
-assert.lengthOf(foo, <span class="hljs-number">3</span>);
-assert.throws(<span class="hljs-function"><span class="hljs-params">()</span> =></span> <span class="hljs-number">1</span> / <span class="hljs-number">0</span>);
-</code></pre>
-<h2>Testing: assertions</h2>
-<p>expect (jest):</p>
-<pre><code class="hljs language-js">expect(a).toEqual(<span class="hljs-number">4</span>);
-expect(a).not.toEqual(<span class="hljs-number">2</span>);
-expect(a).toBeGreaterThan(<span class="hljs-number">3</span>);
-expect(a).toBeInstanceOf(<span class="hljs-built_in">Number</span>);
-expect(<span class="hljs-function"><span class="hljs-params">()</span> =></span> <span class="hljs-number">1</span> / <span class="hljs-number">0</span>).toThrow();
-</code></pre>
-<p>expect (chai):</p>
+<h2>Assertions with Chai</h2>
 <pre><code class="hljs language-js">expect(a).to.equal(<span class="hljs-number">4</span>);
 expect(a).not.to.equal(<span class="hljs-number">2</span>);
 expect(a).to.be.greaterThan(<span class="hljs-number">3</span>);
 expect(a).to.be.a(<span class="hljs-string">'number'</span>);
-expect(<span class="hljs-function"><span class="hljs-params">()</span> =></span> <span class="hljs-number">1</span> / <span class="hljs-number">0</span>).to.throw();
+expect(<span class="hljs-function"><span class="hljs-params">()</span> =></span> <span class="hljs-built_in">JSON</span>.parse(<span class="hljs-string">''</span>)).to.throw();
 </code></pre>
-<h1>Structuring tests</h1>
-<h2>Grouping tests</h2>
-<p>with <code>describe()</code>:</p>
-<pre><code class="hljs language-js"><span class="hljs-comment">// jest</span>
-describe(<span class="hljs-string">'strings that are short enough'</span>, () => {
+<h2>Assertions with Jest</h2>
+<pre><code class="hljs language-js">expect(a).toEqual(<span class="hljs-number">4</span>);
+expect(a).not.toEqual(<span class="hljs-number">2</span>);
+expect(a).toBe(<span class="hljs-number">4</span>);
+expect(a).toBeGreaterThan(<span class="hljs-number">3</span>);
+expect(a).toBeInstanceOf(<span class="hljs-built_in">Number</span>);
+expect(<span class="hljs-function"><span class="hljs-params">()</span> =></span> <span class="hljs-built_in">JSON</span>.parse(<span class="hljs-string">''</span>)).toThrow();
+</code></pre>
+<h2>Assertions with Jest</h2>
+<p><code>.toEqual</code>: may be used with both primitives and objects</p>
+<p><code>.toBe</code>: behaves like <code>===</code> - may be used with primitives (or for asserting object identity)</p>
+<h1>Test runners</h1>
+<h2>Test runners</h2>
+<ul>
+<li>find test files</li>
+<li>run tests</li>
+<li>generate reports on test results</li>
+</ul>
+<h2>Popular test runners</h2>
+<ul>
+<li>Jest (comes with assertion tools)</li>
+<li>Mocha (commonly used with <em>chai</em>)</li>
+<li>Jasmine (comes with assertion tools)</li>
+</ul>
+<h2>Running tests</h2>
+<p>Tests are commonly run via an npm script - e.g. via <code>npm run test</code> (or <code>npm test</code> for short)</p>
+<p>Note: running tests should always be cancelled before installing new npm packages - otherwise the installation may fail</p>
+<h2>Finding test files</h2>
+<p>Jest: by default looks for files inside of directories named <code>__tests__</code> and for files ending in <code>.test.js</code> or <code>.spec.js</code></p>
+<p>Mocha: by default looks for files inside the directory <code>test</code> (custom pattern via e.g.: <code>mocha "src/**/*.{test,spec}.{js,jsx}"</code>)</p>
+<h2>Structuring tests</h2>
+<p>A test is commonly defined via the <code>it</code> function, which takes two arguments:</p>
+<ul>
+<li>a string describing the test</li>
+<li>a function that executes test code</li>
+</ul>
+<h2>Structuring tests</h2>
+<pre><code class="hljs language-js">it(<span class="hljs-string">'shortens "loremipsum" to "lor..." with limit 6'</span>, () => {
+  expect(shorten(<span class="hljs-string">'loremipsum'</span>, <span class="hljs-number">6</span>)).toEqual(<span class="hljs-string">'lor...'</span>);
+});
+</code></pre>
+<p>an <code>it</code>-block may contain multiple calls of <code>expect</code> (or none)</p>
+<p>In <em>Jest</em>, <code>test</code> is a more common alias for <code>it</code></p>
+<h2>Structuring tests</h2>
+<p>Tests can be structured into groups (and sub-groups ...) by using <code>describe</code>:</p>
+<pre><code class="hljs language-js">describe(<span class="hljs-string">'strings that are short enough'</span>, () => {
   it(<span class="hljs-string">'leaves "abc" unchanged with limit 5'</span>, () => {
     expect(shorten(<span class="hljs-string">'abc'</span>, <span class="hljs-number">5</span>)).toEqual(<span class="hljs-string">'abc'</span>);
   });
@@ -131,18 +126,28 @@ describe(<span class="hljs-string">'strings that are short enough'</span>, () =>
   });
 });
 </code></pre>
+<h2>Test coverage</h2>
+<p>Some testing libraries can report on how much of the code is covered by tests:</p>
+<pre><code class="hljs language-bash">npx jest --coverage
+</code></pre>
+<p>in a create-react-app project:</p>
+<pre><code class="hljs language-bash">npm <span class="hljs-built_in">test</span> -- --coverage
+</code></pre>
+<h1>Test setup and mocking (with jest)</h1>
 <h2>Setup and teardown</h2>
 <p>For code that should be executed before and after each test in a group:</p>
-<pre><code class="hljs language-js"><span class="hljs-comment">// jest or mocha</span>
-beforeEach(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  createTestDB();
-});
+<pre><code class="hljs language-js">describe(<span class="hljs-string">'database'</span>, () => {
+  beforeEach(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+    createTestDB();
+  });
+  afterEach(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+    clearTestDB();
+  });
 
-afterEach(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  clearTestDB();
+  it(<span class="hljs-comment">/*...*/</span>);
+  it(<span class="hljs-comment">/*...*/</span>);
 });
 </code></pre>
-<h1>Mocking (with jest)</h1>
 <h2>Mocking built-ins</h2>
 <p>mocking <em>localStorage</em> (which is not available in node) with example content:</p>
 <pre><code class="hljs language-js">globalThis.localStorage = {

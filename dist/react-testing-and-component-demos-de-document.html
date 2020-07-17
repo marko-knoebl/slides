@@ -96,15 +96,15 @@ export const fiveStars = () => &#x3C;Rating stars={5} />;
 </ul>
 <h2>Test Renderer für React</h2>
 <ul>
-<li><strong>react-testing-library</strong> (Unterprojekt von <em>Testing Library</em>)</li>
+<li><strong>react-testing-library</strong></li>
 <li><em>react-test-renderer</em> (vom React Team entwickelt)</li>
 <li><em>Enzyme</em></li>
 </ul>
 <h2>Snapshot Tests</h2>
 <p>Komponenten werden gerendert und mit früheren Versionen (Snapshots) verglichen</p>
 <h1>React-Testing-Library Grundlagen</h1>
-<h2>Testing-Library</h2>
-<p><strong>Testing-Library</strong>: Projekt zum Testen von UI Komponenten (u.a. React)</p>
+<h2>React-Testing-Library</h2>
+<p><strong>React-Testing-Library</strong>: Tool zum Testen von UI Komponenten (bedeutsamstes Unterprojekt der <em>Testing-Library</em>)</p>
 <p>Fokus der Tests liegt auf Aspekten, die für den Endnutzer relevant sind (nicht so sehr auf der genauen DOM-Struktur oder Implementierungsdetails)</p>
 <h2>Beispiel</h2>
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { render, screen } <span class="hljs-keyword">from</span> <span class="hljs-string">'@testing-library/react'</span>;
@@ -453,14 +453,29 @@ it('renders a component tree without crashing', () => {
 <h1>Snapshot Tests</h1>
 <h2>Snapshot Tests</h2>
 <p>Komponenten werden gerendert und mit früheren Versionen (Snapshots) verglichen</p>
+<p>Snapshots sind einfache Textrepräsentationen von gerenderten Inhalten</p>
 <p>Snapshot Tests fallen unter Regressionstests.</p>
-<h2>Snapshot Tests - Tests erstellen</h2>
-<p>mit react-testing-library</p>
+<h2>Snapshot Tests</h2>
+<p>Snapshots werden üblicherweise als Textdateien z.B. unter <code>__snapshots__/Counter.test.js.snap</code> gespeichert</p>
+<pre><code class="hljs language-xquery">exports[<span class="hljs-built_in">`matches</span> the<span class="hljs-built_in"> snapshot</span> <span class="hljs-number">1</span>`] = `
+<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+  </span><span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+    count:
+    0
+    </span><span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>></span>
+      +
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span><span class="xml">
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span><span class="xml">
+<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+`;
+</code></pre>
+<h2>Snapshot Tests erstellen</h2>
+<p>mit react-testing-library:</p>
 <pre><code class="hljs language-jsx">it(<span class="hljs-string">'matches the snapshot'</span>, () => {
-  <span class="hljs-keyword">const</span> instance = render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Slideshow</span> /></span>);
-  expect(instance.baseElement).toMatchSnapshot();
-  const slide = instance.getByAltText('slide');
-  expect(slide).toMatchSnapshot();
+  <span class="hljs-keyword">const</span> instance = render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Counter</span> /></span>);
+  expect(instance.container).toMatchSnapshot();
+  const button = instance.getByRole('button');
+  expect(button).toMatchSnapshot();
 });
 </span></code></pre>
 <h2>Snapshot Tests aktualisieren</h2>

@@ -131,7 +131,7 @@ im allgemeinen drei Schritte:
 
 ## Test Renderer für React
 
-- **react-testing-library** (Unterprojekt von _Testing Library_)
+- **react-testing-library**
 - _react-test-renderer_ (vom React Team entwickelt)
 - _Enzyme_
 
@@ -141,9 +141,9 @@ Komponenten werden gerendert und mit früheren Versionen (Snapshots) verglichen
 
 # React-Testing-Library Grundlagen
 
-## Testing-Library
+## React-Testing-Library
 
-**Testing-Library**: Projekt zum Testen von UI Komponenten (u.a. React)
+**React-Testing-Library**: Tool zum Testen von UI Komponenten (bedeutsamstes Unterprojekt der _Testing-Library_)
 
 Fokus der Tests liegt auf Aspekten, die für den Endnutzer relevant sind (nicht so sehr auf der genauen DOM-Struktur oder Implementierungsdetails)
 
@@ -611,18 +611,38 @@ describe('errors', () => {
 
 Komponenten werden gerendert und mit früheren Versionen (Snapshots) verglichen
 
+Snapshots sind einfache Textrepräsentationen von gerenderten Inhalten
+
 Snapshot Tests fallen unter Regressionstests.
 
-## Snapshot Tests - Tests erstellen
+## Snapshot Tests
 
-mit react-testing-library
+Snapshots werden üblicherweise als Textdateien z.B. unter `__snapshots__/Counter.test.js.snap` gespeichert
+
+```
+exports[`matches the snapshot 1`] = `
+<div>
+  <div>
+    count:
+    0
+    <button>
+      +
+    </button>
+  </div>
+</div>
+`;
+```
+
+## Snapshot Tests erstellen
+
+mit react-testing-library:
 
 ```jsx
 it('matches the snapshot', () => {
-  const instance = render(<Slideshow />);
-  expect(instance.baseElement).toMatchSnapshot();
-  const slide = instance.getByAltText('slide');
-  expect(slide).toMatchSnapshot();
+  const instance = render(<Counter />);
+  expect(instance.container).toMatchSnapshot();
+  const button = instance.getByRole('button');
+  expect(button).toMatchSnapshot();
 });
 ```
 

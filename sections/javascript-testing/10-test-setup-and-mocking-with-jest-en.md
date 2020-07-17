@@ -1,8 +1,26 @@
-# Mocking (mit jest)
+# Test setup and mocking (with jest)
 
-## Mocking von built-ins
+## Setup and teardown
 
-Mocking von _localStorage_ (welches in node nicht verfügbar ist) mit Beispieldaten:
+For code that should be executed before and after each test in a group:
+
+```js
+describe('database', () => {
+  beforeEach(() => {
+    createTestDB();
+  });
+  afterEach(() => {
+    clearTestDB();
+  });
+
+  it(/*...*/);
+  it(/*...*/);
+});
+```
+
+## Mocking built-ins
+
+mocking _localStorage_ (which is not available in node) with example content:
 
 ```js
 globalThis.localStorage = {
@@ -10,9 +28,9 @@ globalThis.localStorage = {
 };
 ```
 
-## Mocking von Modulen
+## Mocking modules
 
-Mocken eines Moduls mittels `jest.mock`:
+mocking a module via `jest.mock`:
 
 ```js
 jest.mock('axios', () => ({
@@ -20,9 +38,9 @@ jest.mock('axios', () => ({
 }));
 ```
 
-## Mocking von Modulen
+## Mocking modules via \_\_mocks\_\_
 
-Mocking von Modulen via \_\_mocks\_\_ folders:
+mocking modules via \_\_mocks\_\_ folders:
 
 ```txt
 __mocks__/fs.js
@@ -39,9 +57,9 @@ jest.mock('axios'); // optional for contents of node_modules
 jest.mock('./foo');
 ```
 
-Bemerkung: in einem _create-react-app_-Projekt wäre dies z.B. `src/__mocks__/axios.js` anstatt `__mocks__/axios.js` (siehe [issue](https://github.com/facebook/create-react-app/issues/7539))
+Note: inside a create-react-app project this would be e.g. `src/__mocks__/axios.js` instead of `__mocks__/axios.js` (see [issue](https://github.com/facebook/create-react-app/issues/7539))
 
-## Mocking von Modulen
+## Mocking modules
 
 ```js
 // __mocks__/fs.js
@@ -49,9 +67,9 @@ Bemerkung: in einem _create-react-app_-Projekt wäre dies z.B. `src/__mocks__/ax
 export const readFileSync = () => 'mock content';
 ```
 
-## Mocking von Promises
+## Mocking promises
 
-Manuelles Mocken eines _fetch_-Resultats mittels eines Promises:
+manually mocking a _fetch_ result with a promise:
 
 ```js
 globalThis.fetch = () =>
@@ -60,9 +78,9 @@ globalThis.fetch = () =>
   });
 ```
 
-## Mocking von Promises
+## Mocking promises
 
-Mocking von _axios_-Anfragen mit Promises:
+Mocking _axios_ requests with promises:
 
 ```js
 // __mocks__/axios.js
@@ -77,9 +95,9 @@ export default {
 };
 ```
 
-## Auto Mocking
+## Auto mocking
 
-Mocking von _fetch_ via _jest-fetch-mock_:
+mocking _fetch_ via _jest-fetch-mock_:
 
 ```js
 import fetchMock from 'jest-fetch-mock';
@@ -89,9 +107,9 @@ fetchMock.enableMocks();
 fetchMock.mockResponseOnce('{ "foo": "bar" }');
 ```
 
-## Mocken und Inspizieren von Funktionen
+## Mocking and inspecting functions
 
-Mocken einer Funktion, die aufgerufen und später inspiziert werden kann:
+Mocking a function that can be called and inspected later:
 
 ```js
 const mockFn = jest.fn();
@@ -99,7 +117,7 @@ mockFn('foo');
 expect(mockFn).toHaveBeenCalledWith('foo');
 ```
 
-## Ressourcen
+## Resources
 
 - [How To Mock Fetch in Jest](https://www.leighhalliday.com/mock-fetch-jest)
 - [Mocking Axios in Jest + Testing Async Functions](https://www.leighhalliday.com/mocking-axios-in-jest-testing-async-functions)

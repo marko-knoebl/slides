@@ -344,7 +344,7 @@ JavaScript is standardized under the name [_ECMAScript_ (ES)](https://www.ecma-i
 
 ## JavaScript versions
 
-_ES5_ Supported by all browsers, including Internet Explorer (standardized in 2009)
+_ES5_: Supported by all browsers, including Internet Explorer (standardized in 2009)
 
 Since 2015: yearly updates in June of each year (ES2015, ES2016, ...)
 
@@ -593,9 +593,9 @@ Creates a simple React app which can be used as a starting point
 
 many aspects are preconfigured:
 
+- webpack and babel for building
 - local development server
-- unittesting framework jest
-- webpack and babel
+- unit testing framework jest
 - SCSS and CSS modules
 
 ## default project structure

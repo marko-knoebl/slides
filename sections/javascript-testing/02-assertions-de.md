@@ -1,74 +1,55 @@
-# Testen: assertions
+# Assertions
 
-## Testen: assertions
+## Assertions
 
 Assertions können auf zwei Arten geschrieben werden:
 
-assert:
+**assert**:
 
 ```js
 assert.equal(a, b);
 ```
 
-expect (behaviour-driven):
+**expect** (manchmals als _behavior-driven_ bezeichnet):
 
 ```js
 expect(a).toEqual(b);
 ```
 
-## Testen: assertions
-
-assert:
-
-- assert-modul in node
-- chai
-
-expect (behaviour-driven)
-
-- jest
-- jasmine
-- chai
-- enzyme
-
-## Testen: assertions
+## Assertions in node.js
 
 assert (node):
 
 ```js
 assert.equal(a, b);
 assert.deepEqual(a, b);
-assert.throws(() => 1 / 0);
+assert.throws(() => JSON.parse(''));
 // ...
 ```
 
-assert (chai):
-
-```js
-assert.equal(a, b);
-assert.deepEqual(a, b);
-assert.typeOf(foo, 'string');
-assert.lengthOf(foo, 3);
-assert.throws(() => 1 / 0);
-```
-
-## Testen: assertions
-
-expect (jest):
-
-```js
-expect(a).toEqual(4);
-expect(a).not.toEqual(2);
-expect(a).toBeGreaterThan(3);
-expect(a).toBeInstanceOf(Number);
-expect(() => 1 / 0).toThrow();
-```
-
-expect (chai):
+## Assertions mit Chai
 
 ```js
 expect(a).to.equal(4);
 expect(a).not.to.equal(2);
 expect(a).to.be.greaterThan(3);
 expect(a).to.be.a('number');
-expect(() => 1 / 0).to.throw();
+expect(() => JSON.parse('')).to.throw();
 ```
+
+## Assertions mit Jest
+
+```js
+expect(a).toEqual(4);
+expect(a).not.toEqual(2);
+expect(a).toBe(4);
+expect(a).toBeGreaterThan(3);
+expect(a).toBeInstanceOf(Number);
+expect(() => JSON.parse('')).toThrow();
+```
+
+## Assertions mit Jest
+
+`.toEqual`: für Primitive sowie für Objekte geeignet
+
+`.toBe`: verhält sich wie `===` - für Primitive geeignet (sowie zum Identitätsvergleich)
