@@ -163,6 +163,7 @@ ReactDOM.render(
 <p>Kann verwendet werden, um Nebeneffekte (side effects) auszulösen:</p>
 <ul>
 <li>Abfragen von APIs</li>
+<li>Lesen von / Speichern in <em>localStorage</em> / <em>indexeddb</em></li>
 <li>manuelle Änderungen am DOM</li>
 <li>Timer starten</li>
 <li>...</li>
@@ -179,6 +180,24 @@ ReactDOM.render(
   };
   useEffect(updateTitle, [props.value]);
   <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+};
+</code></pre>
+<h2>Beispiel: Speichern in localStorage / sessionStorage</h2>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> PersistentCounter = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  <span class="hljs-keyword">const</span> countInitializer = <span class="hljs-function"><span class="hljs-params">()</span> =></span>
+    <span class="hljs-built_in">Number</span>(localStorage.getItem(<span class="hljs-string">'count'</span>)) || <span class="hljs-number">0</span>;
+  <span class="hljs-comment">// useState can receive an initial value</span>
+  <span class="hljs-comment">// or an initializer function</span>
+  <span class="hljs-keyword">const</span> [count, setCount] = useState(countInitializer);
+  <span class="hljs-comment">// save the state whenever it changes</span>
+  useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+    localStorage.setItem(<span class="hljs-string">'count'</span>, count);
+  }, [count]);
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setCount(count + 1)}>
+      {count}
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span>
+  );
 };
 </code></pre>
 <h2>Cleanup</h2>

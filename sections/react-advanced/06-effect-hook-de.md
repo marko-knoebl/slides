@@ -16,6 +16,7 @@ useEffect(
 Kann verwendet werden, um Nebeneffekte (side effects) auszulösen:
 
 - Abfragen von APIs
+- Lesen von / Speichern in _localStorage_ / _indexeddb_
 - manuelle Änderungen am DOM
 - Timer starten
 - ...
@@ -39,6 +40,27 @@ const DocumentTitle = (props) => {
   };
   useEffect(updateTitle, [props.value]);
   return null;
+};
+```
+
+## Beispiel: Speichern in localStorage / sessionStorage
+
+```jsx
+const PersistentCounter = () => {
+  const countInitializer = () =>
+    Number(localStorage.getItem('count')) || 0;
+  // useState can receive an initial value
+  // or an initializer function
+  const [count, setCount] = useState(countInitializer);
+  // save the state whenever it changes
+  useEffect(() => {
+    localStorage.setItem('count', count);
+  }, [count]);
+  return (
+    <button onClick={() => setCount(count + 1)}>
+      {count}
+    </button>
+  );
 };
 ```
 

@@ -74,27 +74,24 @@ export default {
 
 ## Example component definition (simple todo app)
 
-```vue
-<template>
-  <div>
-    <h1>Todo</h1>
-    <form @submit.prevent="addTodo()">
-      <input v-model="newTitle" />
-      <button role="submit">add</button>
-    </form>
-    <ul>
-      <li v-for="todo in todos" v-bind:key="todo.id">
-        {{ todo.title }}
-      </li>
-    </ul>
-  </div>
-</template>
+```html
+<div>
+  <h1>Todo</h1>
+  <form @submit.prevent="addTodo()">
+    <input v-model="newTitle" />
+    <button role="submit">add</button>
+  </form>
+  <ul>
+    <li v-for="todo in todos" v-bind:key="todo.id">
+      {{ todo.title }}
+    </li>
+  </ul>
+</div>
 ```
 
 ## Example component definition (simple todo app)
 
-```vue
-<script>
+```js
 export default {
   data: () => ({
     newTitle: '',
@@ -114,7 +111,6 @@ export default {
     },
   },
 };
-</script>
 ```
 
 # Options API basics
@@ -134,7 +130,7 @@ a component definition object has several specific _props_ / _methods_:
 
 ```vue
 <template>
-  <div id="app">
+  <div>
     <button @click="imgId = 0">start</button>
     <button @click="prevImg()">prev</button>
     <img :src="imgUrl" alt="slideshow" />
@@ -165,9 +161,9 @@ export default {
 </script>
 ```
 
-## Data, methods, computed
+## Data, methods, computed, ...
 
-Entries in _data_, _methods_ and _computed_ are available via `this.entryname` in the script and via `entryname` in the template
+Entries in _data_, _methods_ and _computed_, ... are available via `this.entryname` in the script and via `entryname` in the template
 
 ## Data / state
 
@@ -416,38 +412,6 @@ this.$emit('eventname', payload);
 </template>
 ```
 
-# Lifecycle hooks
-
-## Lifecycle hooks
-
-Component methods that are called when certain lifecylce events occur:
-
-- `created`
-- `mounted`
-- `updated`
-- `destroyed`
-- ...
-
-## Lifecycle hooks
-
-alternatives:
-
-- **watchEffect** function (composition API)
-- _watch_ function
-
-## Fetching data on component mount
-
-```js
-export default {
-  // ...
-  created() {
-    fetch('https://jsonplaceholder.typicode.com/todos')
-      .then((res) => res.json())
-      .then((todos) => (this.todos = todos));
-  },
-};
-```
-
 # Vue CLI
 
 ## Vue CLI
@@ -505,3 +469,325 @@ inside the project directory:
 
 - `npm run serve`: starts the local development server
 - `npm run build`: creates a build (for deployment)
+
+# Composition API
+
+## Composition API vs options API
+
+Composition API: component logic is defined in a `setup` method
+
+Composition API compared to the traditional options API:
+
+- better TypeScript support
+- more composable (logic can be extracted from component defintion)
+- slightly more verbose
+
+## Composition API vs options API
+
+options API:
+
+```js
+export default {
+  data: () => ({
+    todos: [],
+    newTitle: '',
+  }),
+  methods: {
+    /*...*/
+  },
+  computed: {
+    /*...*/
+  },
+};
+```
+
+## Composition API vs options API
+
+composition API:
+
+```js
+import { ref, reactive, computed } from 'vue';
+export default {
+  setup() {
+    todos = reactive([]);
+    newTitle = ref('');
+    const addTodo = () => {
+      // ...
+    };
+    const numActive = computed(() =>
+      todos.filter((t) => !t.completed)
+    );
+    return { todos, newTitle, addTodo, numActive };
+  },
+};
+```
+
+## State in the composition API
+
+two mechanisms:
+
+- `ref` for primitive / immutable data (strings, numbers, ...)
+- `reactive` for objects, arrays, ...
+
+## refs
+
+initializing a ref:
+
+```js
+const newTitle = ref('');
+```
+
+reading / writing from script code:
+
+```js
+const a = newTitle.value;
+newTitle.value = 'foo';
+```
+
+reading / writing from the template:
+
+```vue
+<div>new title is {{newTitle}}</div>
+<button @click="newTitle = 'foo'">set to foo</button>
+```
+
+## Example component definition (simple todo app)
+
+```html
+<div>
+  <h1>Todo</h1>
+  <form @submit.prevent="addTodo()">
+    <input v-model="newTitle" />
+    <button role="submit">add</button>
+  </form>
+  <ul>
+    <li v-for="todo in todos" :key="todo.id">
+      {{ todo.title }}
+    </li>
+  </ul>
+</div>
+```
+
+## Example component definition (simple todo app)
+
+```js
+import { ref, reactive } from 'vue';
+export default {
+  setup() {
+    const newTitle = ref('');
+    const todos = reactive([
+      { id: 1, title: 'groceries', completed: false },
+      { id: 2, title: 'taxes', completed: true },
+    ]);
+    const addTodo = () => {
+      todos.push({
+        id: Math.max(0, ...todos.map((t) => t.id)) + 1,
+        title: newTitle.value,
+        completed: false,
+      });
+      newTitle.value = '';
+    };
+    return { newTitle, todos, addTodo };
+  },
+};
+```
+
+## Exercise
+
+Create a slideshow component / application that displays images like this:
+
+```
+https://picsum.photos/200?image=0
+```
+
+# Composition API: props and events
+
+## Props and events
+
+The `setup` method receives two arguments: `props` and `context`
+
+Example: rating component:
+
+```js
+export default {
+  props: ['stars'],
+  setup(props, context) {
+    const ariaLabel = computed(
+      () => `${props.stars} ot of 5 stars`
+    );
+    const onStarClick = (id) => {
+      context.emit('change', id);
+    };
+    return { label, onStarClick };
+  },
+};
+```
+
+# Side effects
+
+## Side effects
+
+use cases:
+
+- query an API when a component is first included
+- query an API when component state / props change
+- persist component state to _localStorage_ when it changes
+- start a timer when a component is included
+- ...
+
+## Side effects
+
+methods for implementing side effects:
+
+- watchEffect function (composition API only)
+- watch function
+- lifecycle events
+
+## watchEffect
+
+common practice in the composition API:
+
+- initialization code goes into the `setup` method
+- side effects are triggered via the `watchEffect` function
+
+## watchEffect
+
+The `watchEffect` function can be used to perform _side effects_ when a component is mounted for the first time or when its props / state have changed.
+
+It is useful for querying web APIs, setting up timers, persisting data to _localStorage_, ...
+
+## watchEffect
+
+Example: load SpaceX launch data when component mounted or when `launchNr` changed
+
+```js
+function setup() {
+  const launchNr = ref(1);
+  const launchData = reactive({ name: null, date: null });
+
+  watchEffect(() => {
+    fetch(
+      `https://api.spacexdata.com/v3/launches/${launchNr.value}`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        launchData.name = data.mission_name;
+        launchData.date = data.launch_date_utc;
+      });
+  });
+  return { name, date };
+}
+```
+
+## watchEffect
+
+Tasks:
+
+- load and display more data
+- add a loading indicator
+
+## watchEffect
+
+complete code for SpaceX launch component:
+
+```vue
+<template>
+  <article>
+    <button @click="launchNr--">prev</button>
+    <button @click="launchNr++">next</button>
+    <div v-if="loading">loading...</div>
+    <div v-else>
+      <h1>{{ launchData.name }}</h1>
+      <p>{{ launchData.date }}</p>
+      <img :src="launchData.patch" :key="Math.random()" />
+    </div>
+  </article>
+</template>
+
+<script>
+import { reactive, ref, watchEffect } from 'vue';
+export default {
+  setup() {
+    const launchNr = ref(1);
+    const loading = ref(true);
+    const launchData = reactive({
+      name: null,
+      date: null,
+      patch: '',
+    });
+
+    watchEffect(() => {
+      loading.value = true;
+      fetch(
+        `https://api.spacexdata.com/v3/launches/${launchNr.value}`
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          loading.value = false;
+          launchData.name = data.mission_name;
+          launchData.date = data.launch_date_utc;
+          launchData.patch = data.links.mission_patch_small;
+        });
+    });
+    return { launchNr, launchData, loading };
+  },
+};
+</script>
+```
+
+## watchEffect
+
+loading from / persisting to _localStorage_ (counter component):
+
+```js
+import { ref, watchEffect } from 'vue';
+export default {
+  setup() {
+    // try to load
+    const countStored = Number(
+      localStorage.getItem('count')
+    );
+    const count = ref(countStored || 0);
+    // persist to localStorage if count changes
+    watchEffect(() => {
+      localStorage.setItem('count', count.value);
+    });
+    return { count };
+  },
+};
+```
+
+## Lifecycle events
+
+Options API: Component methods that are called when certain lifecylce events occur:
+
+- `created`
+- `mounted`
+- `updated`
+- `destroyed`
+- ...
+
+## Lifecylcle events
+
+Composition API: equivalent functions
+
+- `created` → `setup`
+- `mounted` → `onMounted`
+- `updated` → `onUpdated`
+- `destroyed` → `onUnmounted`
+- ...
+
+## Lifecycle events
+
+Fetching data on component mount (options API):
+
+```js
+export default {
+  // ...
+  created() {
+    fetch('https://jsonplaceholder.typicode.com/todos')
+      .then((res) => res.json())
+      .then((todos) => (this.todos = todos));
+  },
+};
+```

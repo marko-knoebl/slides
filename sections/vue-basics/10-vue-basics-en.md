@@ -38,27 +38,24 @@ export default {
 
 ## Example component definition (simple todo app)
 
-```vue
-<template>
-  <div>
-    <h1>Todo</h1>
-    <form @submit.prevent="addTodo()">
-      <input v-model="newTitle" />
-      <button role="submit">add</button>
-    </form>
-    <ul>
-      <li v-for="todo in todos" v-bind:key="todo.id">
-        {{ todo.title }}
-      </li>
-    </ul>
-  </div>
-</template>
+```html
+<div>
+  <h1>Todo</h1>
+  <form @submit.prevent="addTodo()">
+    <input v-model="newTitle" />
+    <button role="submit">add</button>
+  </form>
+  <ul>
+    <li v-for="todo in todos" v-bind:key="todo.id">
+      {{ todo.title }}
+    </li>
+  </ul>
+</div>
 ```
 
 ## Example component definition (simple todo app)
 
-```vue
-<script>
+```js
 export default {
   data: () => ({
     newTitle: '',
@@ -78,5 +75,4 @@ export default {
     },
   },
 };
-</script>
 ```

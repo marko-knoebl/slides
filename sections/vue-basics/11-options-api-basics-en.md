@@ -15,7 +15,7 @@ a component definition object has several specific _props_ / _methods_:
 
 ```vue
 <template>
-  <div id="app">
+  <div>
     <button @click="imgId = 0">start</button>
     <button @click="prevImg()">prev</button>
     <img :src="imgUrl" alt="slideshow" />
@@ -46,9 +46,9 @@ export default {
 </script>
 ```
 
-## Data, methods, computed
+## Data, methods, computed, ...
 
-Entries in _data_, _methods_ and _computed_ are available via `this.entryname` in the script and via `entryname` in the template
+Entries in _data_, _methods_ and _computed_, ... are available via `this.entryname` in the script and via `entryname` in the template
 
 ## Data / state
 
