@@ -313,12 +313,15 @@ Sobald alle Voraussetzungen erfüllt sind, wird das `beforeinstallprompt` Event 
 ```js
 let installPromptEvent;
 
-window.addEventListener('beforeinstallprompt', ipEvent => {
-  // the browser is ready to show the install prompt
-  ipEvent.preventDefault();
-  installPromptEvent = ipEvent;
-  showInstallBtn();
-});
+window.addEventListener(
+  'beforeinstallprompt',
+  (ipEvent) => {
+    // the browser is ready to show the install prompt
+    ipEvent.preventDefault();
+    installPromptEvent = ipEvent;
+    showInstallBtn();
+  }
+);
 ```
 
 ## App-Installation
@@ -335,9 +338,7 @@ installBtn.addEventListener('click', () => {
 
 ## Deployment
 
-Deployment z.B. auf <https://app.netlify.com/drop>
-
-Wichtig: Aufrufen über HTTPS
+Deployment z.B. auf <https://tiiny.host/>
 
 # Service worker
 

@@ -46,7 +46,7 @@ const installPromptEventRef = useRef<Event>();
 const getInstallPermission = () => {
   window.addEventListener(
     'beforeinstallprompt',
-    ipEvent => {
+    (ipEvent) => {
       ipEvent.preventDefault();
       installPromptEventRef.current = ipEvent;
       setCanInstall(true);
@@ -65,14 +65,14 @@ TypeScript Impementierung:
   disabled={!canInstall}
   onClick={() => {
     (installPromptEventRef.current as any).prompt();
-  }}>
+  }}
+>
   install
 </button>
 ```
 
-## PWA: Deployment auf netlify
+## PWA: Deployment
 
 - `npm run build`
-- build-Ornder via drag&drop auf netlify.com/drop
-- bei der URL von _http://_ auf _https://_ wechseln
+- Zippen und Hochladen des _build_-Ordners auf <https://tiiny.host/>
 - in Chrome am Desktop und Mobilgerät ausprobieren

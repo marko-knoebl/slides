@@ -10,9 +10,9 @@ Tools für externe Stylesheets:
 
 CSS-in-JS libraries:
 
+- emotion
 - styled-components
-- JSS
-- radium
+- ...
 
 ## classnames
 
@@ -63,12 +63,22 @@ import './TodoItem.scss';
 
 **CSS-in-JS**: JavaScript wird verwendet, um Stylesheets zu erzeugen und anzufügen
 
+Heutzutage wird es als _ok_ angesehen, Styling-Informationen in der gleichen Datei abzulegen, wie JavaScript / HTML
+
+## CSS-in-JS
+
+Zugänge:
+
+- Erweiterung von Elemnten-Properties (z.B. `css=...` in _Emotion_)
+- Erstellen von React-Komponenten, die nur für das Styling zuständig sind (z.B. `PrimaryButton`)
+
+## CSS-in-JS
+
 Libraries:
 
 - styled-components
-- JSS
-- radium
 - emotion
+- ...
 
 ## styled-components
 
@@ -121,32 +131,38 @@ const Slideshow = (props) => (
 );
 ```
 
-## radium
+## Emotion
 
-Library, die die Syntax der `style`-Property von HTML-Elementen in Komponenten erweitert
+Emotion erweitert die jsx-Notation durch eine zusätzliche _css_-Property
 
-npm-Paket: `radium`
+Installation:
 
-## radium
+```bash
+npm install @emotion/core
+```
+
+## Emotion
 
 ```jsx
-const styles = {
-  base: {
-    padding: '8px',
-  },
-  primary: {
-    color: 'white',
-    backgroundColor: 'navy',
-  },
-};
+/** @jsx jsx */
+import { jsx, css } from '@emotion/core';
 
-const TestButton = (props) => (
-  <button
-    style={[styles.base, props.primary && styles.primary]}
+const Slideshow = (props) => (
+  <div
+    css={css`
+      display: flex;
+      justify-content: center;
+    `}
   >
-    test
-  </button>
+    <button>prev</button>
+    <img
+      css={css`
+        display: block;
+      `}
+      src="..."
+      alt="..."
+    />
+    <button>next</button>
+  </div>
 );
-
-export default radium(TestButton);
 ```

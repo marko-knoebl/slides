@@ -848,9 +848,9 @@ tools for external stylesheets:
 
 CSS-in-JS libraries:
 
+- emotion
 - styled-components
-- JSS
-- radium
+- ...
 
 ## classnames
 
@@ -901,12 +901,22 @@ import './TodoItem.scss';
 
 **CSS-in-JS**: JavaScript is used to generate and attach stylesheets
 
+Nowadays it's considered _ok_ to put styling in the same file as JavaScript / HTML
+
+## CSS-in-JS
+
+approaches:
+
+- extend HTML element props (e.g. `css=...` in _emotion_)
+- create React components that are only used for styling (e.g `PrimaryButton`)
+
+## CSS-in-JS
+
 libraries:
 
 - styled-components
-- JSS
-- radium
 - emotion
+- ...
 
 ## styled-components
 
@@ -959,34 +969,40 @@ const Slideshow = (props) => (
 );
 ```
 
-## radium
+## Emotion
 
-library that extends the `style` property syntax of HTML elements in a component
+Emotion extends jsx notation with an additional _css_ prop
 
-npm package: `radium`
+Installation:
 
-## radium
+```bash
+npm install @emotion/core
+```
+
+## Emotion
 
 ```jsx
-const styles = {
-  base: {
-    padding: '8px',
-  },
-  primary: {
-    color: 'white',
-    backgroundColor: 'navy',
-  },
-};
+/** @jsx jsx */
+import { jsx, css } from '@emotion/core';
 
-const TestButton = (props) => (
-  <button
-    style={[styles.base, props.primary && styles.primary]}
+const Slideshow = (props) => (
+  <div
+    css={css`
+      display: flex;
+      justify-content: center;
+    `}
   >
-    test
-  </button>
+    <button>prev</button>
+    <img
+      css={css`
+        display: block;
+      `}
+      src="..."
+      alt="..."
+    />
+    <button>next</button>
+  </div>
 );
-
-export default radium(TestButton);
 ```
 
 # Form libraries
@@ -1125,7 +1141,7 @@ const installPromptEventRef = useRef<Event>();
 const getInstallPermission = () => {
   window.addEventListener(
     'beforeinstallprompt',
-    ipEvent => {
+    (ipEvent) => {
       ipEvent.preventDefault();
       installPromptEventRef.current = ipEvent;
       setCanInstall(true);
@@ -1144,16 +1160,16 @@ TypeScript implementation:
   disabled={!canInstall}
   onClick={() => {
     (installPromptEventRef.current as any).prompt();
-  }}>
+  }}
+>
   install
 </button>
 ```
 
-## PWA: Deployment on netlify
+## PWA: Deployment
 
 - `npm run build`
-- drag & drop the build folder to netlify.com/drop
-- switch the URL from _http&#x3A;//_ to _https&#x3A;//_
+- zip and upload the _build_ folder to <https://tiiny.host/>
 - try it out in Chrome on desktop and mobile
 
 # React Native

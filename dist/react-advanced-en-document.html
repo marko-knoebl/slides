@@ -700,9 +700,9 @@ ReactDOM.render(
 </ul>
 <p>CSS-in-JS libraries:</p>
 <ul>
+<li>emotion</li>
 <li>styled-components</li>
-<li>JSS</li>
-<li>radium</li>
+<li>...</li>
 </ul>
 <h2>classnames</h2>
 <p>utility: npm package <em>classnames</em>:</p>
@@ -736,12 +736,19 @@ ReactDOM.render(
 </code></pre>
 <h2>CSS-in-JS</h2>
 <p><strong>CSS-in-JS</strong>: JavaScript is used to generate and attach stylesheets</p>
+<p>Nowadays it's considered <em>ok</em> to put styling in the same file as JavaScript / HTML</p>
+<h2>CSS-in-JS</h2>
+<p>approaches:</p>
+<ul>
+<li>extend HTML element props (e.g. <code>css=...</code> in <em>emotion</em>)</li>
+<li>create React components that are only used for styling (e.g <code>PrimaryButton</code>)</li>
+</ul>
+<h2>CSS-in-JS</h2>
 <p>libraries:</p>
 <ul>
 <li>styled-components</li>
-<li>JSS</li>
-<li>radium</li>
 <li>emotion</li>
+<li>...</li>
 </ul>
 <h2>styled-components</h2>
 <p>library that enables creating styled versions of existing HTML elements</p>
@@ -784,30 +791,34 @@ ReactDOM.render(
   <span class="hljs-tag">&#x3C;/<span class="hljs-name">Container</span>></span>
 );
 </span></code></pre>
-<h2>radium</h2>
-<p>library that extends the <code>style</code> property syntax of HTML elements in a component</p>
-<p>npm package: <code>radium</code></p>
-<h2>radium</h2>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> styles = {
-  <span class="hljs-attr">base</span>: {
-    <span class="hljs-attr">padding</span>: <span class="hljs-string">'8px'</span>,
-  },
-  <span class="hljs-attr">primary</span>: {
-    <span class="hljs-attr">color</span>: <span class="hljs-string">'white'</span>,
-    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">'navy'</span>,
-  },
-};
-
-<span class="hljs-keyword">const</span> TestButton = <span class="hljs-function">(<span class="hljs-params">props</span>) =></span> (
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>
-    <span class="hljs-attr">style</span>=<span class="hljs-string">{[styles.base,</span> <span class="hljs-attr">props.primary</span> &#x26;&#x26; <span class="hljs-attr">styles.primary</span>]}
-  ></span>
-    test
-  <span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span>
-);
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> radium(TestButton);
+<h2>Emotion</h2>
+<p>Emotion extends jsx notation with an additional <em>css</em> prop</p>
+<p>Installation:</p>
+<pre><code class="hljs language-bash">npm install @emotion/core
 </code></pre>
+<h2>Emotion</h2>
+<pre><code class="hljs language-jsx"><span class="hljs-comment">/** @jsx jsx */</span>
+<span class="hljs-keyword">import</span> { jsx, css } <span class="hljs-keyword">from</span> <span class="hljs-string">'@emotion/core'</span>;
+
+<span class="hljs-keyword">const</span> Slideshow = <span class="hljs-function">(<span class="hljs-params">props</span>) =></span> (
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>
+    <span class="hljs-attr">css</span>=<span class="hljs-string">{css</span>`
+      <span class="hljs-attr">display:</span> <span class="hljs-attr">flex</span>;
+      <span class="hljs-attr">justify-content:</span> <span class="hljs-attr">center</span>;
+    `}
+  ></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>></span>prev<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">img</span>
+      <span class="hljs-attr">css</span>=<span class="hljs-string">{css</span>`
+        <span class="hljs-attr">display:</span> <span class="hljs-attr">block</span>;
+      `}
+      <span class="hljs-attr">src</span>=<span class="hljs-string">"..."</span>
+      <span class="hljs-attr">alt</span>=<span class="hljs-string">"..."</span>
+    /></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>></span>next<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
+);
+</span></code></pre>
 <h1>Form libraries</h1>
 <h2>Form libraries</h2>
 <p>examples:</p>
@@ -915,7 +926,7 @@ const isEmail = (email) =>
 <span class="hljs-keyword">const</span> getInstallPermission = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
   <span class="hljs-built_in">window</span>.addEventListener(
     <span class="hljs-string">'beforeinstallprompt'</span>,
-    <span class="hljs-function"><span class="hljs-params">ipEvent</span> =></span> {
+    <span class="hljs-function">(<span class="hljs-params">ipEvent</span>) =></span> {
       ipEvent.preventDefault();
       installPromptEventRef.current = ipEvent;
       setCanInstall(<span class="hljs-literal">true</span>);
@@ -930,15 +941,15 @@ useEffect(getInstallPermission, []);
   disabled={!canInstall}
   onClick={() => {
     (installPromptEventRef.current as any).prompt();
-  }}>
+  }}
+>
   install
 &#x3C;/button>
 </code></pre>
-<h2>PWA: Deployment on netlify</h2>
+<h2>PWA: Deployment</h2>
 <ul>
 <li><code>npm run build</code></li>
-<li>drag &#x26; drop the build folder to netlify.com/drop</li>
-<li>switch the URL from <em>http://</em> to <em>https://</em></li>
+<li>zip and upload the <em>build</em> folder to <a href="https://tiiny.host/">https://tiiny.host/</a></li>
 <li>try it out in Chrome on desktop and mobile</li>
 </ul>
 <h1>React Native</h1>

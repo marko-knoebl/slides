@@ -58,6 +58,4 @@ installBtn.addEventListener('click', () => {
 
 ## deployment
 
-We can test a deployment on https://app.netlify.com/drop
-
-important: Switch to HTTPS in the Browser
+We can test a deployment on <https://tiiny.host/>

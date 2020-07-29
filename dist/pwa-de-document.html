@@ -237,12 +237,15 @@ workbox.routing.registerRoute(
 <p>Sobald alle Voraussetzungen erfüllt sind, wird das <code>beforeinstallprompt</code> Event ausgelöst; Wir können dieses Event abfangen und für später speichern</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">let</span> installPromptEvent;
 
-<span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">'beforeinstallprompt'</span>, ipEvent => {
-  <span class="hljs-comment">// the browser is ready to show the install prompt</span>
-  ipEvent.preventDefault();
-  installPromptEvent = ipEvent;
-  showInstallBtn();
-});
+<span class="hljs-built_in">window</span>.addEventListener(
+  <span class="hljs-string">'beforeinstallprompt'</span>,
+  (ipEvent) => {
+    <span class="hljs-comment">// the browser is ready to show the install prompt</span>
+    ipEvent.preventDefault();
+    installPromptEvent = ipEvent;
+    showInstallBtn();
+  }
+);
 </code></pre>
 <h2>App-Installation</h2>
 <p>Sobald der Benutzer die Anwendung installieren möchte können wir das gespeicherte Event verwenden:</p>
@@ -253,8 +256,7 @@ workbox.routing.registerRoute(
 });
 </code></pre>
 <h2>Deployment</h2>
-<p>Deployment z.B. auf <a href="https://app.netlify.com/drop">https://app.netlify.com/drop</a></p>
-<p>Wichtig: Aufrufen über HTTPS</p>
+<p>Deployment z.B. auf <a href="https://tiiny.host/">https://tiiny.host/</a></p>
 <h1>Service worker</h1>
 <h2>Service worker</h2>
 <p>Service worker sind client-seitige Proxies zwischen Webbrowser und Server.</p>
