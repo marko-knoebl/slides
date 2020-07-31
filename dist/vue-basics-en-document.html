@@ -79,11 +79,11 @@
 <li>initial release in 2014</li>
 <li>planned for 2020: Vue 3 (new composition API)</li>
 </ul>
-<h1>Vue basics</h1>
+<h1>Options API basics</h1>
 <h2>Options API and composition API</h2>
 <ul>
 <li>options API: traditional way to write Vue components</li>
-<li>composition API: new possibility introduced in 2020 with Vue 3.0 (inspired by React hooks)</li>
+<li>composition API: new possibility introduced in 2020 with Vue 3 (inspired by React hooks)</li>
 </ul>
 <h2>Online editor</h2>
 <ul>
@@ -91,59 +91,45 @@
 <li><a href="https://codesandbox.io/s/vue-3-ce53j">https://codesandbox.io/s/vue-3-ce53j</a> (Vue 3)</li>
 </ul>
 <h2>Example component definition (counter component)</h2>
-<p>template:</p>
 <pre><code class="hljs language-vue">&#x3C;template>
   &#x3C;div>
     count: {{ count }}
     &#x3C;button @click="count++">increment&#x3C;/button>
   &#x3C;/div>
 &#x3C;/template>
-</code></pre>
-<h2>Example component definition (counter component)</h2>
-<p>behavior (options API):</p>
-<pre><code class="hljs language-vue">&#x3C;script>
+
+&#x3C;script>
 export default {
-  // data / state initialization function
+  // state initialization function
   data: () => ({ count: 0 }),
 };
 &#x3C;/script>
 </code></pre>
-<h2>Example component definition (simple todo app)</h2>
+<h2>Example component definition (slideshow component)</h2>
 <pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
-  <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>Todo<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
-  <span class="hljs-tag">&#x3C;<span class="hljs-name">form</span> @<span class="hljs-attr">submit.prevent</span>=<span class="hljs-string">"addTodo()"</span>></span>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">input</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">"newTitle"</span> /></span>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">role</span>=<span class="hljs-string">"submit"</span>></span>add<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
-  <span class="hljs-tag">&#x3C;/<span class="hljs-name">form</span>></span>
-  <span class="hljs-tag">&#x3C;<span class="hljs-name">ul</span>></span>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">li</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">"todo in todos"</span> <span class="hljs-attr">v-bind:key</span>=<span class="hljs-string">"todo.id"</span>></span>
-      {{ todo.title }}
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span>
-  <span class="hljs-tag">&#x3C;/<span class="hljs-name">ul</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"imgId = 0"</span>></span>start<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"prevImg()"</span>></span>prev<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">:src</span>=<span class="hljs-string">"imgUrl"</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">"slideshow"</span> /></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"imgId++"</span>></span>next<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
 <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
 </code></pre>
-<h2>Example component definition (simple todo app)</h2>
+<h2>Example component definition (slideshow component)</h2>
 <pre><code class="hljs language-js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
-  <span class="hljs-attr">data</span>: <span class="hljs-function"><span class="hljs-params">()</span> =></span> ({
-    <span class="hljs-attr">newTitle</span>: <span class="hljs-string">''</span>,
-    <span class="hljs-attr">todos</span>: [
-      { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'groceries'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
-      { <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'taxes'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">true</span> },
-    ],
-  }),
+  <span class="hljs-attr">data</span>: <span class="hljs-function"><span class="hljs-params">()</span> =></span> ({ <span class="hljs-attr">imgId</span>: <span class="hljs-number">0</span> }),
+  <span class="hljs-attr">computed</span>: {
+    imgUrl() {
+      <span class="hljs-keyword">return</span> <span class="hljs-string">`https://picsum.photos/200?image=<span class="hljs-subst">${<span class="hljs-keyword">this</span>.imgId}</span>`</span>;
+    },
+  },
   <span class="hljs-attr">methods</span>: {
-    addTodo() {
-      <span class="hljs-keyword">this</span>.todos.push({
-        <span class="hljs-attr">id</span>: <span class="hljs-built_in">Math</span>.max(<span class="hljs-number">0</span>, ...this.todos.map(<span class="hljs-function">(<span class="hljs-params">t</span>) =></span> t.id)) + <span class="hljs-number">1</span>,
-        <span class="hljs-attr">title</span>: <span class="hljs-keyword">this</span>.newTitle,
-        <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span>,
-      });
-      <span class="hljs-keyword">this</span>.newTitle = <span class="hljs-string">''</span>;
+    prevImg() {
+      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.imgId > <span class="hljs-number">0</span>) {
+        <span class="hljs-keyword">this</span>.imgId--;
+      }
     },
   },
 };
 </code></pre>
-<h1>Options API basics</h1>
 <h2>Options API basics</h2>
 <p>a component definition object has several specific <em>props</em> / <em>methods</em>:</p>
 <ul>
@@ -154,39 +140,10 @@ export default {
 <li><em>watch</em></li>
 <li>...</li>
 </ul>
-<h2>Example component definition (slideshow component)</h2>
-<pre><code class="hljs language-vue">&#x3C;template>
-  &#x3C;div>
-    &#x3C;button @click="imgId = 0">start&#x3C;/button>
-    &#x3C;button @click="prevImg()">prev&#x3C;/button>
-    &#x3C;img :src="imgUrl" alt="slideshow" />
-    &#x3C;button @click="imgId++">next&#x3C;/button>
-  &#x3C;/div>
-&#x3C;/template>
-</code></pre>
-<h2>Example component definition (slideshow component)</h2>
-<pre><code class="hljs language-vue">&#x3C;script>
-export default {
-  data: () => ({ imgId: 0 }),
-  computed: {
-    imgUrl() {
-      return `https://picsum.photos/200?image=${this.imgId}`;
-    },
-  },
-  methods: {
-    prevImg() {
-      if (this.imgId > 0) {
-        this.imgId--;
-      }
-    },
-  },
-};
-&#x3C;/script>
-</code></pre>
 <h2>Data, methods, computed, ...</h2>
 <p>Entries in <em>data</em>, <em>methods</em> and <em>computed</em>, ... are available via <code>this.entryname</code> in the script and via <code>entryname</code> in the template</p>
-<h2>Data / state</h2>
-<p><em>Data</em> or <em>state</em> is initialized via the <code>data</code> method</p>
+<h2>State</h2>
+<p>Component <em>state</em> is initialized via the <code>data</code> method</p>
 <p><em>state</em> entries are reactive, meaning Vue can react if they change (and update the component rendering accordingly)</p>
 <h2>Methods</h2>
 <p><em>Methods</em> are functions associated with a component; they can be called from the template and they can access the state</p>
@@ -198,9 +155,9 @@ export default {
 </ul>
 <h2>Computed</h2>
 <p><em>How does Vue know when to re-evaluate a computed value?</em></p>
-<p>Everything inside <em>data</em> is reactive - Vue knows when it's accessed or changed<br />
-During the first creation of a computed value, Vue checks which <em>data</em> entries are accessed - the computed value will re-evaluate whenever on of these dependencies changes</p>
-<h1>Template language</h1>
+<p>Everything inside the state is reactive - Vue knows when it's accessed or changed<br />
+During the first creation of a computed value, Vue checks which state entries are accessed - the computed value will re-evaluate whenever one of these dependencies changes</p>
+<h1>Template language basics</h1>
 <h2>Template language basics</h2>
 <ul>
 <li>binding content</li>
@@ -269,7 +226,7 @@ During the first creation of a computed value, Vue checks which <em>data</em> en
 </code></pre>
 <p>Each repeated element should have a locally unique <em>key</em> property (for efficiency)</p>
 <h2>Two-way binding for inputs</h2>
-<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">input</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">"count"</span> /></span>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">input</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">"firstName"</span>></span>
 </code></pre>
 <h1>Exercise: todo list</h1>
 <h2>Exercise: todo list</h2>
@@ -281,6 +238,41 @@ During the first creation of a computed value, Vue checks which <em>data</em> en
 <li>adding a new todo from a form</li>
 <li>displaying the total number of completed and incomplete todos</li>
 </ul>
+<h2>Exercise: todo list - partial solution</h2>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>Todo<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">form</span> @<span class="hljs-attr">submit.prevent</span>=<span class="hljs-string">"addTodo()"</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">input</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">"newTitle"</span> /></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"submit"</span>></span>add<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">form</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">ul</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">li</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">"todo in todos"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"todo.id"</span>></span>
+      {{ todo.title }}
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span>
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">ul</span>></span>
+<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
+</code></pre>
+<h2>Exercise: todo list - partial solution</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
+  <span class="hljs-attr">data</span>: <span class="hljs-function"><span class="hljs-params">()</span> =></span> ({
+    <span class="hljs-attr">newTitle</span>: <span class="hljs-string">''</span>,
+    <span class="hljs-attr">todos</span>: [
+      { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'groceries'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
+      { <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'taxes'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">true</span> },
+    ],
+  }),
+  <span class="hljs-attr">methods</span>: {
+    addTodo() {
+      <span class="hljs-keyword">this</span>.todos.push({
+        <span class="hljs-attr">id</span>: <span class="hljs-built_in">Math</span>.max(<span class="hljs-number">0</span>, ...this.todos.map(<span class="hljs-function">(<span class="hljs-params">t</span>) =></span> t.id)) + <span class="hljs-number">1</span>,
+        <span class="hljs-attr">title</span>: <span class="hljs-keyword">this</span>.newTitle,
+        <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span>,
+      });
+      <span class="hljs-keyword">this</span>.newTitle = <span class="hljs-string">''</span>;
+    },
+  },
+};
+</code></pre>
 <h1>Using custom components</h1>
 <h2>Using custom components</h2>
 <p>Custom components must be listed in the <em>components</em> entry of the component they are used in</p>
@@ -335,15 +327,12 @@ During the first creation of a computed value, Vue checks which <em>data</em> en
 <p>Events are emitted via:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">this</span>.$emit(<span class="hljs-string">'eventname'</span>, payload);
 </code></pre>
-<pre><code class="hljs language-vue">&#x3C;template>
-  &#x3C;li @click="$emit('toggle')">
-    &#x3C;span :class="{ todoitem: true, completed: completed }"
-      >{{ completed ? 'DONE: ' : 'TODO: '
-      }}{{ title }}&#x3C;/span
-    >
-    &#x3C;button @click.stop="$emit('delete')">X&#x3C;/button>
-  &#x3C;/li>
-&#x3C;/template>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">li</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$emit('toggle')"</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">span</span> <span class="hljs-attr">:class</span>=<span class="hljs-string">"{ todoitem: true, completed: completed }"</span>
+    ></span>{{ completed ? 'DONE' : 'TODO' }}: {{ title }}<span class="hljs-tag">&#x3C;/<span class="hljs-name">span</span>
+  ></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> @<span class="hljs-attr">click.stop</span>=<span class="hljs-string">"$emit('delete')"</span>></span>X<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
+<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span>
 </code></pre>
 <h1>Vue CLI</h1>
 <h2>Vue CLI</h2>
@@ -421,8 +410,8 @@ vue create my-app
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { ref, reactive, computed } <span class="hljs-keyword">from</span> <span class="hljs-string">'vue'</span>;
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
   setup() {
-    todos = reactive([]);
-    newTitle = ref(<span class="hljs-string">''</span>);
+    <span class="hljs-keyword">const</span> todos = reactive([]);
+    <span class="hljs-keyword">const</span> newTitle = ref(<span class="hljs-string">''</span>);
     <span class="hljs-keyword">const</span> addTodo = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
       <span class="hljs-comment">// ...</span>
     };
@@ -456,7 +445,7 @@ newTitle.value = <span class="hljs-string">'foo'</span>;
   <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>Todo<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
   <span class="hljs-tag">&#x3C;<span class="hljs-name">form</span> @<span class="hljs-attr">submit.prevent</span>=<span class="hljs-string">"addTodo()"</span>></span>
     <span class="hljs-tag">&#x3C;<span class="hljs-name">input</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">"newTitle"</span> /></span>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">role</span>=<span class="hljs-string">"submit"</span>></span>add<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"submit"</span>></span>add<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
   <span class="hljs-tag">&#x3C;/<span class="hljs-name">form</span>></span>
   <span class="hljs-tag">&#x3C;<span class="hljs-name">ul</span>></span>
     <span class="hljs-tag">&#x3C;<span class="hljs-name">li</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">"todo in todos"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"todo.id"</span>></span>
@@ -498,12 +487,12 @@ newTitle.value = <span class="hljs-string">'foo'</span>;
   <span class="hljs-attr">props</span>: [<span class="hljs-string">'stars'</span>],
   setup(props, context) {
     <span class="hljs-keyword">const</span> ariaLabel = computed(
-      <span class="hljs-function"><span class="hljs-params">()</span> =></span> <span class="hljs-string">`<span class="hljs-subst">${props.stars}</span> ot of 5 stars`</span>
+      <span class="hljs-function"><span class="hljs-params">()</span> =></span> <span class="hljs-string">`<span class="hljs-subst">${props.stars}</span> out of 5 stars`</span>
     );
     <span class="hljs-keyword">const</span> onStarClick = <span class="hljs-function">(<span class="hljs-params">id</span>) =></span> {
       context.emit(<span class="hljs-string">'change'</span>, id);
     };
-    <span class="hljs-keyword">return</span> { label, onStarClick };
+    <span class="hljs-keyword">return</span> { ariaLabel, onStarClick };
   },
 };
 </code></pre>
@@ -549,7 +538,7 @@ newTitle.value = <span class="hljs-string">'foo'</span>;
         launchData.date = data.launch_date_utc;
       });
   });
-  <span class="hljs-keyword">return</span> { name, date };
+  <span class="hljs-keyword">return</span> { launchNr, launchData };
 }
 </code></pre>
 <h2>watchEffect</h2>

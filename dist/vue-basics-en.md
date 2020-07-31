@@ -34,12 +34,12 @@ one of the 3 big JavaScript UI frameworks (besides React, Angular)
 - initial release in 2014
 - planned for 2020: Vue 3 (new composition API)
 
-# Vue basics
+# Options API basics
 
 ## Options API and composition API
 
 - options API: traditional way to write Vue components
-- composition API: new possibility introduced in 2020 with Vue 3.0 (inspired by React hooks)
+- composition API: new possibility introduced in 2020 with Vue 3 (inspired by React hooks)
 
 ## Online editor
 
@@ -48,8 +48,6 @@ one of the 3 big JavaScript UI frameworks (besides React, Angular)
 
 ## Example component definition (counter component)
 
-template:
-
 ```vue
 <template>
   <div>
@@ -57,92 +55,29 @@ template:
     <button @click="count++">increment</button>
   </div>
 </template>
-```
 
-## Example component definition (counter component)
-
-behavior (options API):
-
-```vue
 <script>
 export default {
-  // data / state initialization function
+  // state initialization function
   data: () => ({ count: 0 }),
 };
 </script>
 ```
 
-## Example component definition (simple todo app)
+## Example component definition (slideshow component)
 
 ```html
 <div>
-  <h1>Todo</h1>
-  <form @submit.prevent="addTodo()">
-    <input v-model="newTitle" />
-    <button role="submit">add</button>
-  </form>
-  <ul>
-    <li v-for="todo in todos" v-bind:key="todo.id">
-      {{ todo.title }}
-    </li>
-  </ul>
+  <button @click="imgId = 0">start</button>
+  <button @click="prevImg()">prev</button>
+  <img :src="imgUrl" alt="slideshow" />
+  <button @click="imgId++">next</button>
 </div>
 ```
 
-## Example component definition (simple todo app)
+## Example component definition (slideshow component)
 
 ```js
-export default {
-  data: () => ({
-    newTitle: '',
-    todos: [
-      { id: 1, title: 'groceries', completed: false },
-      { id: 2, title: 'taxes', completed: true },
-    ],
-  }),
-  methods: {
-    addTodo() {
-      this.todos.push({
-        id: Math.max(0, ...this.todos.map((t) => t.id)) + 1,
-        title: this.newTitle,
-        completed: false,
-      });
-      this.newTitle = '';
-    },
-  },
-};
-```
-
-# Options API basics
-
-## Options API basics
-
-a component definition object has several specific _props_ / _methods_:
-
-- **data**: reactive component state
-- **computed**: derived data
-- **methods**: event handlers, ...
-- _created_, _mounted_, _updated_, _destroyed_, ...: component lifecycle
-- _watch_
-- ...
-
-## Example component definition (slideshow component)
-
-```vue
-<template>
-  <div>
-    <button @click="imgId = 0">start</button>
-    <button @click="prevImg()">prev</button>
-    <img :src="imgUrl" alt="slideshow" />
-    <button @click="imgId++">next</button>
-  </div>
-</template>
-```
-
-## Example component definition (slideshow component)
-
-```vue
-<script>
 export default {
   data: () => ({ imgId: 0 }),
   computed: {
@@ -158,16 +93,26 @@ export default {
     },
   },
 };
-</script>
 ```
+
+## Options API basics
+
+a component definition object has several specific _props_ / _methods_:
+
+- **data**: reactive component state
+- **computed**: derived data
+- **methods**: event handlers, ...
+- _created_, _mounted_, _updated_, _destroyed_, ...: component lifecycle
+- _watch_
+- ...
 
 ## Data, methods, computed, ...
 
 Entries in _data_, _methods_ and _computed_, ... are available via `this.entryname` in the script and via `entryname` in the template
 
-## Data / state
+## State
 
-_Data_ or _state_ is initialized via the `data` method
+Component _state_ is initialized via the `data` method
 
 _state_ entries are reactive, meaning Vue can react if they change (and update the component rendering accordingly)
 
@@ -185,10 +130,10 @@ _Methods_ are functions associated with a component; they can be called from the
 
 _How does Vue know when to re-evaluate a computed value?_
 
-Everything inside _data_ is reactive - Vue knows when it's accessed or changed  
-During the first creation of a computed value, Vue checks which _data_ entries are accessed - the computed value will re-evaluate whenever on of these dependencies changes
+Everything inside the state is reactive - Vue knows when it's accessed or changed  
+During the first creation of a computed value, Vue checks which state entries are accessed - the computed value will re-evaluate whenever one of these dependencies changes
 
-# Template language
+# Template language basics
 
 ## Template language basics
 
@@ -301,7 +246,7 @@ Each repeated element should have a locally unique _key_ property (for efficienc
 ## Two-way binding for inputs
 
 ```html
-<input v-model="count" />
+<input v-model="firstName">
 ```
 
 # Exercise: todo list
@@ -315,6 +260,47 @@ Create a todo list application with the following functionality:
 - deleting a todo
 - adding a new todo from a form
 - displaying the total number of completed and incomplete todos
+
+## Exercise: todo list - partial solution
+
+```html
+<div>
+  <h1>Todo</h1>
+  <form @submit.prevent="addTodo()">
+    <input v-model="newTitle" />
+    <button type="submit">add</button>
+  </form>
+  <ul>
+    <li v-for="todo in todos" :key="todo.id">
+      {{ todo.title }}
+    </li>
+  </ul>
+</div>
+```
+
+## Exercise: todo list - partial solution
+
+```js
+export default {
+  data: () => ({
+    newTitle: '',
+    todos: [
+      { id: 1, title: 'groceries', completed: false },
+      { id: 2, title: 'taxes', completed: true },
+    ],
+  }),
+  methods: {
+    addTodo() {
+      this.todos.push({
+        id: Math.max(0, ...this.todos.map((t) => t.id)) + 1,
+        title: this.newTitle,
+        completed: false,
+      });
+      this.newTitle = '';
+    },
+  },
+};
+```
 
 # Using custom components
 
@@ -400,16 +386,13 @@ Events are emitted via:
 this.$emit('eventname', payload);
 ```
 
-```vue
-<template>
-  <li @click="$emit('toggle')">
-    <span :class="{ todoitem: true, completed: completed }"
-      >{{ completed ? 'DONE: ' : 'TODO: '
-      }}{{ title }}</span
-    >
-    <button @click.stop="$emit('delete')">X</button>
-  </li>
-</template>
+```html
+<li @click="$emit('toggle')">
+  <span :class="{ todoitem: true, completed: completed }"
+    >{{ completed ? 'DONE' : 'TODO' }}: {{ title }}</span
+  >
+  <button @click.stop="$emit('delete')">X</button>
+</li>
 ```
 
 # Vue CLI
@@ -509,8 +492,8 @@ composition API:
 import { ref, reactive, computed } from 'vue';
 export default {
   setup() {
-    todos = reactive([]);
-    newTitle = ref('');
+    const todos = reactive([]);
+    const newTitle = ref('');
     const addTodo = () => {
       // ...
     };
@@ -558,7 +541,7 @@ reading / writing from the template:
   <h1>Todo</h1>
   <form @submit.prevent="addTodo()">
     <input v-model="newTitle" />
-    <button role="submit">add</button>
+    <button type="submit">add</button>
   </form>
   <ul>
     <li v-for="todo in todos" :key="todo.id">
@@ -613,12 +596,12 @@ export default {
   props: ['stars'],
   setup(props, context) {
     const ariaLabel = computed(
-      () => `${props.stars} ot of 5 stars`
+      () => `${props.stars} out of 5 stars`
     );
     const onStarClick = (id) => {
       context.emit('change', id);
     };
-    return { label, onStarClick };
+    return { ariaLabel, onStarClick };
   },
 };
 ```
@@ -675,7 +658,7 @@ function setup() {
         launchData.date = data.launch_date_utc;
       });
   });
-  return { name, date };
+  return { launchNr, launchData };
 }
 ```
 

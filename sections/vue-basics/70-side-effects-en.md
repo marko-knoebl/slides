@@ -50,7 +50,7 @@ function setup() {
         launchData.date = data.launch_date_utc;
       });
   });
-  return { name, date };
+  return { launchNr, launchData };
 }
 ```
 

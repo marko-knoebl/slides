@@ -37,8 +37,8 @@ composition API:
 import { ref, reactive, computed } from 'vue';
 export default {
   setup() {
-    todos = reactive([]);
-    newTitle = ref('');
+    const todos = reactive([]);
+    const newTitle = ref('');
     const addTodo = () => {
       // ...
     };
@@ -86,7 +86,7 @@ reading / writing from the template:
   <h1>Todo</h1>
   <form @submit.prevent="addTodo()">
     <input v-model="newTitle" />
-    <button role="submit">add</button>
+    <button type="submit">add</button>
   </form>
   <ul>
     <li v-for="todo in todos" :key="todo.id">

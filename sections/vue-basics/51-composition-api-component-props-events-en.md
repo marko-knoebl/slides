@@ -11,12 +11,12 @@ export default {
   props: ['stars'],
   setup(props, context) {
     const ariaLabel = computed(
-      () => `${props.stars} ot of 5 stars`
+      () => `${props.stars} out of 5 stars`
     );
     const onStarClick = (id) => {
       context.emit('change', id);
     };
-    return { label, onStarClick };
+    return { ariaLabel, onStarClick };
   },
 };
 ```

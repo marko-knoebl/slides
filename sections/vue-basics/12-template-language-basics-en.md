@@ -1,4 +1,4 @@
-# Template language
+# Template language basics
 
 ## Template language basics
 
@@ -111,5 +111,5 @@ Each repeated element should have a locally unique _key_ property (for efficienc
 ## Two-way binding for inputs
 
 ```html
-<input v-model="count" />
+<input v-model="firstName">
 ```

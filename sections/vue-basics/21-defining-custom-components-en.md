@@ -56,14 +56,11 @@ Events are emitted via:
 this.$emit('eventname', payload);
 ```
 
-```vue
-<template>
-  <li @click="$emit('toggle')">
-    <span :class="{ todoitem: true, completed: completed }"
-      >{{ completed ? 'DONE: ' : 'TODO: '
-      }}{{ title }}</span
-    >
-    <button @click.stop="$emit('delete')">X</button>
-  </li>
-</template>
+```html
+<li @click="$emit('toggle')">
+  <span :class="{ todoitem: true, completed: completed }"
+    >{{ completed ? 'DONE' : 'TODO' }}: {{ title }}</span
+  >
+  <button @click.stop="$emit('delete')">X</button>
+</li>
 ```
