@@ -28,7 +28,7 @@ Jupyter online ausprobieren:
 
 ## Jupyter Notebooks - lokal
 
-Starten: Eintrag _Jupyter Notebook_ im Startmenü / Befeh `jupyter notebook` im Terminal
+Starten: Eintrag _Jupyter Notebook_ im Startmenü / Befehl `jupyter notebook` im Terminal
 
 Stoppen: _Quit_ im rechten oberen Eck der Ordneransicht (üblicherweise unter http://localhost:8888/tree)
 

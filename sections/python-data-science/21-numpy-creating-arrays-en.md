@@ -24,9 +24,14 @@ np.random.random(3, 3)
 
 creating the sequence _0.0, 0.5, 1.0, 1.5_:
 
+fixed step width (0.5):
+
 ```py
-# fixed step width (0.5)
 a = np.arange(0, 2, 0.5)
-# fixed number of entries (4)
+```
+
+fixed number of entries (4):
+
+```py
 b = np.linspace(0, 1.5, 4)
 ```

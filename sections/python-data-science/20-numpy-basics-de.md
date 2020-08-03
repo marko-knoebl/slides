@@ -53,29 +53,28 @@ array([[[1, 2],
         [7, 8]]])
 ```
 
-## Arrays
-
-NumPy Arrays vs Python Listen:
+## NumPy Arrays vs Python Listen
 
 Arrays sind im Hintergrund in C implementiert, die numerischen Einträge (z.B. Integer) sind keine Python-Objekte und damit resourcenschonender.
 
-## Arrays
+## NumPy Arrays vs Python Listen
 
-NumPy Arrays vs Python Listen:
+Python-Liste (referenziert Integer-Objekte):
 
 ```py
-# Python - Listen (mit Verweisen auf andere Integer)
-list_a = [1, 2]
-list_b = [3, 4]
+list_a = [1, 2, 3, 4]
+```
 
-# NumPy - Array -
-# Daten sind hierin enthalten, ohne auf Python-Integer
-# zu verweisen
-array_a = numpy.array(list_a)
-array_b = numpy.array(list_b)
+NumPy Array (Daten sind im Array enthalten ohne auf externe Objekte zu verweisen):
 
-# sehr schnell (da in C implementiert)
-array_a + array_b
+```py
+array_a = np.array(list_a)
+```
+
+Schnelle elementweise Operation (in C implementiert):
+
+```py
+array_a * array_a
 ```
 
 ## Array Shape

@@ -41,6 +41,7 @@ Code verfügbar unter: <https://github.com/marko-knoebl/courses-code>
 - _Pandas_: Bibliothek zur Datenanalyse, basiert auf NumPy
 - _Matplotlib_: Bibliothek zur Datenvisualisierung
 - _Scikit-Learn_: Bibliothek für Machine Learning, basiert auf NumPy
+- _Keras_: Bibliothek für Deep Learning
 
 ## Anaconda
 
@@ -96,7 +97,7 @@ Jupyter online ausprobieren:
 
 ## Jupyter Notebooks - lokal
 
-Starten: Eintrag _Jupyter Notebook_ im Startmenü / Befeh `jupyter notebook` im Terminal
+Starten: Eintrag _Jupyter Notebook_ im Startmenü / Befehl `jupyter notebook` im Terminal
 
 Stoppen: _Quit_ im rechten oberen Eck der Ordneransicht (üblicherweise unter http&#x3A;//localhost:8888/tree)
 
@@ -238,29 +239,28 @@ array([[[1, 2],
         [7, 8]]])
 ```
 
-## Arrays
-
-NumPy Arrays vs Python Listen:
+## NumPy Arrays vs Python Listen
 
 Arrays sind im Hintergrund in C implementiert, die numerischen Einträge (z.B. Integer) sind keine Python-Objekte und damit resourcenschonender.
 
-## Arrays
+## NumPy Arrays vs Python Listen
 
-NumPy Arrays vs Python Listen:
+Python-Liste (referenziert Integer-Objekte):
 
 ```py
-# Python - Listen (mit Verweisen auf andere Integer)
-list_a = [1, 2]
-list_b = [3, 4]
+list_a = [1, 2, 3, 4]
+```
 
-# NumPy - Array -
-# Daten sind hierin enthalten, ohne auf Python-Integer
-# zu verweisen
-array_a = numpy.array(list_a)
-array_b = numpy.array(list_b)
+NumPy Array (Daten sind im Array enthalten ohne auf externe Objekte zu verweisen):
 
-# sehr schnell (da in C implementiert)
-array_a + array_b
+```py
+array_a = np.array(list_a)
+```
+
+Schnelle elementweise Operation (in C implementiert):
+
+```py
+array_a * array_a
 ```
 
 ## Array Shape
@@ -295,12 +295,17 @@ np.random.random(3, 3)
 
 ## Arrays erstellen
 
-Die Folge _0.0, 0.5, 1.0, 1.5_:
+Erstellen der Folge _0.0, 0.5, 1.0, 1.5_:
+
+fixe Schrittweite (0.5):
 
 ```py
-# fixed step width (0.5)
 a = np.arange(0, 2, 0.5)
-# fixed number of entries (4)
+```
+
+fixe Anzahl an Einträgen (4):
+
+```py
 b = np.linspace(0, 1.5, 4)
 ```
 
@@ -560,7 +565,7 @@ array([127, -128, -127])
 
 # Plotting
 
-### Grafische Darstellung von Daten
+### Datenvisualisierung
 
 ## Plotting
 
@@ -616,12 +621,16 @@ Erstelle einen Plot, der die Sinus- und Kosinusfunktion im Intervall von _0_ bis
 
 ## Übung
 
+Lösung mittels pyplot:
+
 ```py
 x = np.linspace(0, 2*3.1415, 200)
 
 plt.plot(x, np.sin(x))
 plt.plot(x, np.cos(x))
 ```
+
+Lösung mittels pandas:
 
 ```py
 x = np.linspace(0, 2*3.1415, 200)
@@ -635,7 +644,7 @@ df.plot.line()
 
 Zeichne eine Gauß'sche Glockenkurve
 
-# Konfiguration und Styling
+# Pyplot: Konfiguration und Styling
 
 ## Stile
 
@@ -645,9 +654,7 @@ Vorgefertigte Stylesheets verwendbar mittels:
 plt.style.use("stylename")
 ```
 
-Für Demos verfügbarer Stile siehe:
-
-<https://matplotlib.org/3.1.0/gallery/style_sheets/style_sheets_reference.html>
+[Referenz verfügbarer Stile](https://matplotlib.org/3.3.0/gallery/style_sheets/style_sheets_reference.html)
 
 ## Stile von Graphen
 
@@ -715,7 +722,7 @@ wichtige Parameter:
 
 ## Label
 
-Label für verschiedene Funktionen:
+Label für verschiedene Graphen:
 
 ```py
 plt.plot(x, np.sin(x), label='sin(x)')
@@ -785,56 +792,25 @@ plt.xticks(np.linspace(0, 2*np.pi, 5))
 - n-te Primzahl und Approximation via _n \* ln(n)_
 - Schätzung von Pi durch zufällige Punkte
 
-# Grundlegende Plots
+# Pyplot: Gundlegende Plots
 
 ## Grundlegende Plots
 
 - Graph
 - Säulendiagramm
 - Scatter Plot
-- Histogram
+- Histogramm
 - Box Plot
 - Tortendiagramm
 
-## Graph
+## Grundlegende Plots
 
-Pyplot: `plt.plot(x, y)` / `plt.plot(y)`
-
-Pandas: `df.plot.line()` / `df.plot()`
-
-## Säulendiagramm
-
-Pyplot: `plt.bar(x, y)`
-
-Pandas: `df.plot.bar()`
-
-## Scatter Plot
-
-Pyplot: `plt.plot(x, y, ".")`
-
-Pyplot (fortgeschritten): `plt.scatter(x, y, size, color)`
-
-Pandas: `df.plot.scatter(x="name1", y="name2")`
-
-## Histogramm
-
-Pyplot: `plt.hist(x)`
-
-Pandas: `df.plot.hist()`
-
-## Box Plot
-
-Pyplot: `plt.boxplot(data)`
-
-Pandas: `df.plot.box()`
-
-## Tortendiagramm
-
-Pyplot: `plt.pie(x, labels=[...])`
-
-Pandas: `df.pie()`
-
-# Grundlegende Plots mit pyplot
+- Graph: `plt.plot(x, y)` / `plt.plot(y)`
+- Säulen- und Balkendiagramm: `plt.bar(x, y)`
+- Scatter Plot: `plt.plot(x, y, ".")` / `plt.scatter(x, y, size, color)`
+- Histogramm: `plt.hist(x)`
+- Box Plot: `plt.boxplot(x)`
+- Tortendiagramm: `plt.pie(x, labels=...)`
 
 ## Graph
 
@@ -857,10 +833,10 @@ Mehrere Datensätze:
 ```py
 x = [1, 2, 3, 4]
 
-y = [[1, 2, 3, 4],
-     [3, 0, 1, 0]]
+y1 = [1, 2, 3, 4]
+y2 = [3, 0 , 1, 0]
 
-plt.plot(x, y)
+plt.plot(x, [y1, y2])
 ```
 
 ## Säulen- und Balkendiagramm
@@ -880,6 +856,8 @@ plt.barh([0, 1, 2], [9.6, 17, 9.8])
 
 ## Scatter Plot
 
+Erstellt Datenpunkte mit zwei (oder mehr) zugehörigen Werten - einer auf der x- und einer auf der y-Achse
+
 Einfach:
 
 ```py
@@ -894,14 +872,32 @@ plt.scatter(x, y, size, color)
 
 ## Histogramm
 
+Zählt die Häufigkeit von bestimmten Werten / Wertebereichen
+
 ```py
-plt.hist(iris[:, 2], bins=[1, 2, 4, 5, 6], density=True)
+plt.hist(
+    body_heights_men,
+    bins=[150, 160, 170, 180, 190, 200]
+)
+```
+
+```py
+plt.hist(
+    body_heights_men,
+    bins=[150, 170, 180, 200],
+    density=True
+)
 ```
 
 ## Box Plot
 
+Visualisierung von statistischen Daten in einem Diagramm (Minimum, Median, Maximum, ...)
+
 ```py
-plt.boxplot(iris[:, :4], labels=["a", "b", "c", "d"])
+plt.boxplot(
+    [body_heights_men, body_heights_women],
+    labels=["men", "women"]
+)
 ```
 
 ## Tortendiagramm
@@ -948,7 +944,7 @@ fig.savefig("myplot.svg")
 
 ## Figure Objekte
 
-Aufgabe: Skript, das eine PNG-Datei eines Graphen der aktuellen CPU-Last erstellt und jede Sekunde aktuelisiert. (verwende hierzu das PIP-Paket _psutil_)
+Aufgabe: Skript, das eine PNG-Datei eines Graphen der aktuellen CPU-Last erstellt und jede Sekunde aktualisiert. (verwende hierzu das PIP-Paket _psutil_)
 
 ## Axes Objekte
 
@@ -992,24 +988,6 @@ ax0 = ax[0, 0]
 ax1 = ax[0, 1]
 ax5 = ax[1, 2]
 ```
-
-# Erweiterte Arten von Plots
-
-## Erweiterte Arten von Plots
-
-- Datenpunkte mit mehr als 2 Features
-  - Erweiterter Scatter Plot (Größe, Farbe)
-  - Scatter Matrix
-- Plotten von z = f(x, y)
-  - Contour Plots
-  - 3D Plots
-- Dichte einer Verteilung
-  - (Histogramm)
-  - KDE
-  - Violin Plot
-- Dichte einer Verteilung (2D)
-  - 2D Histogramm (hist2d, hexbin)
-  - KDE
 
 # Pandas
 
@@ -1478,6 +1456,219 @@ ir_uk_weekly = ir_uk.resample('7d').interpolate()
 ## Übung
 
 Nutze die Daten aus _sp500_ und _euribor_, um die Entwicklungen der europäischen und amerikanischen Zinssätze einander gegenüberzustellen.
+
+# Grundlegende Plots in Pandas
+
+## Grundlegende Plots in Pandas
+
+allgemeines Plotten:
+
+In Jupyter:
+
+```py
+data_frame.plot()
+```
+
+Im Terminal:
+
+```py
+import matplotlib.pyplot as plt
+
+data_frame.plot()
+
+# show all figures that were created since the last
+# call of .show()
+plt.show()
+```
+
+## Grundlegende Plots in Pandas
+
+- Graph: `df.plot.line()` / `df.plot()`
+- Säulendiagramm: `df.plot.bar()`
+- Scatter Plot: `df.plot.scatter(x="name1", y="name2")`
+- Histogramm: `df.plot.hist()`
+- Box Plot: `df.plot.box()`
+- Tortendiagramm: `df.pie()`
+
+## Graph
+
+Mittels `df.plot.line()` oder `df.plot()`
+
+```py
+euribor.plot.line()
+```
+
+```py
+sp500["SP500"].plot.line(figsize=(9, 6))
+```
+
+## Säulendiagramm
+
+```py
+euribor.iloc[-36:].plot.bar()
+```
+
+Übung: Median der _sepal-width_ und _sepal-length_ für alle drei Arten von Blumen darstellen
+
+## Scatter Plot
+
+```py
+iris.plot.scatter(x="sepal_length", y="sepal_width")
+```
+
+Aufgabe: Scatter Plot von _Iris-setosa_
+
+## Histogramm
+
+```py
+iris.sepal_lenght.plot.hist()
+```
+
+```py
+iris.sepal_length.plot.hist(bins=30)
+```
+
+## Histogramm
+
+Übung:
+
+Wir simulieren 10 Millionen Würfe mit je 10 Würfeln und stellen die Verteilung der Augensumme als Histogramm dar
+
+## Box Plot
+
+```py
+iris.plot.box()
+```
+
+## Tortendiagramm
+
+```py
+df.pie()
+```
+
+# Grundlegende Plots in Pandas und Pyplot
+
+## Graph
+
+Pyplot:
+
+```py
+plt.plot(x, y)
+plt.plot(y)
+```
+
+Pandas:
+
+```py
+df.plot.line()
+df.plot()
+```
+
+## Säulendiagramm
+
+Pyplot:
+
+```py
+plt.bar(x, y)
+```
+
+Pandas:
+
+```py
+df.plot.bar()
+```
+
+## Scatter Plot
+
+Pyplot:
+
+```py
+plt.plot(x, y, ".")
+plt.scatter(x, y, 2, "red")
+```
+
+Pandas:
+
+```py
+df.plot.scatter(x="name1", y="name2")
+```
+
+## Histogramm
+
+Pyplot:
+
+```py
+plt.hist(x)
+```
+
+Pandas:
+
+```py
+df.plot.hist()
+```
+
+## Histogramm
+
+Pyplot:
+
+```py
+plt.hist(
+  iris[:, 2],
+  bins=[1, 2, 4, 5, 6],
+  density=True)
+```
+
+Pandas:
+
+```py
+iris.sepal_length.plot.hist(bins=5)
+```
+
+## Box Plot
+
+Pyplot:
+
+```py
+plt.boxplot(data)
+```
+
+Pandas:
+
+```py
+df.plot.box()
+```
+
+## Tortendiagramm
+
+Pyplot:
+
+```py
+plt.pie(x, labels=[...])
+```
+
+Pandas:
+
+```py
+df.plot.pie()
+```
+
+# Erweiterte Arten von Plots
+
+## Erweiterte Arten von Plots
+
+- Datenpunkte mit mehr als 2 Features
+  - Erweiterter Scatter Plot (Größe, Farbe)
+  - Scatter Matrix
+- Plotten von z = f(x, y)
+  - Contour Plots
+  - 3D Plots
+- Dichte einer Verteilung
+  - (Histogramm)
+  - KDE
+  - Violin Plot
+- Dichte einer Verteilung (2D)
+  - 2D Histogramm (hist2d, hexbin)
+  - KDE
 
 # Kontingenztabelle
 

@@ -7,6 +7,7 @@
 - _Pandas_: Bibliothek zur Datenanalyse, basiert auf NumPy
 - _Matplotlib_: Bibliothek zur Datenvisualisierung
 - _Scikit-Learn_: Bibliothek für Machine Learning, basiert auf NumPy
+- _Keras_: Bibliothek für Deep Learning
 
 ## Anaconda
 

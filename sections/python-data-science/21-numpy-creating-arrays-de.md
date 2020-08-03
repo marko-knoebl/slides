@@ -22,11 +22,16 @@ np.random.random(3, 3)
 
 ## Arrays erstellen
 
-Die Folge _0.0, 0.5, 1.0, 1.5_:
+Erstellen der Folge _0.0, 0.5, 1.0, 1.5_:
+
+fixe Schrittweite (0.5):
 
 ```py
-# fixed step width (0.5)
 a = np.arange(0, 2, 0.5)
-# fixed number of entries (4)
+```
+
+fixe Anzahl an Einträgen (4):
+
+```py
 b = np.linspace(0, 1.5, 4)
 ```

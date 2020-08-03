@@ -18,7 +18,7 @@ import matplotlib.pyplot as plt
 data_frame.plot()
 
 # show all figures that were created since the last
-# call to .show()
+# call of .show()
 plt.show()
 ```
 
@@ -91,8 +91,6 @@ exercise:
 simulate 10 million rolls of dice - each using 10 dice; plot the distribution of the sums as a histogram
 
 ## Scatter plots
-
-creates data points with two values - one on the x-axis and the other on the y-axis
 
 ```py
 iris.plot.scatter(x="sepal_length", y="sepal_width")

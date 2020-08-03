@@ -36,10 +36,11 @@
 <li><em>Pandas</em>: library for data analysis, based on NumPy</li>
 <li><em>Matplotlib</em>: library for data visualization</li>
 <li><em>Scikit-Learn</em>: library for machine learning, based on NumPy</li>
+<li><em>Keras</em>: library for deep learning</li>
 </ul>
 <h2>Anaconda</h2>
 <p><em>Anaconda</em> = Python distribution that includes many pre-installed packages and developer tools</p>
-<p>Takes ~ 3 GB of disk space</p>
+<p>Uses ~ 3 GB of disk space</p>
 <h2>Anaconda installation</h2>
 <p>download from <a href="https://www.anaconda.com/distribution/">https://www.anaconda.com/distribution/</a></p>
 <p>(make sure to download for the correct OS)</p>
@@ -149,23 +150,17 @@ time.sleep(<span class="hljs-number">3</span>)
        [[<span class="hljs-number">5</span>, <span class="hljs-number">6</span>],
         [<span class="hljs-number">7</span>, <span class="hljs-number">8</span>]]])
 </code></pre>
-<h2>Arrays</h2>
-<p>NumPy arrays vs Python lists:</p>
+<h2>NumPy arrays vs Python lists</h2>
 <p>Arrays are implemented in C, the numeric entries are not full Python Objects and require less resources</p>
-<h2>NumPy</h2>
-<p>NumPy Arrays vs Python lists:</p>
-<pre><code class="hljs language-py"><span class="hljs-comment"># Python lists (with references to Python integer objects)</span>
-list_a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>]
-list_b = [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]
-
-<span class="hljs-comment"># NumPy array</span>
-<span class="hljs-comment"># data are contained within the array without referencing</span>
-<span class="hljs-comment"># Python integers</span>
-array_a = numpy.array(list_a)
-array_b = numpy.array(list_b)
-
-<span class="hljs-comment"># fast multiplication (implemented in C)</span>
-array_a * array_b
+<h2>NumPy arrays vs Python lists</h2>
+<p>Python list (with references to Python integer objects):</p>
+<pre><code class="hljs language-py">list_a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>]
+</code></pre>
+<p>NumPy array (data are contained within the array without referencing Python integers):</p>
+<pre><code class="hljs language-py">array_a = np.array(list_a)
+</code></pre>
+<p>Fast element-wise operation (implemented in C):</p>
+<pre><code class="hljs language-py">array_a * array_a
 </code></pre>
 <h2>Array shape</h2>
 <p>We can query these attributes:</p>
@@ -187,10 +182,11 @@ array_a * array_b
 </code></pre>
 <h2>Creating arrays</h2>
 <p>creating the sequence <em>0.0, 0.5, 1.0, 1.5</em>:</p>
-<pre><code class="hljs language-py"><span class="hljs-comment"># fixed step width (0.5)</span>
-a = np.arange(<span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">0.5</span>)
-<span class="hljs-comment"># fixed number of entries (4)</span>
-b = np.linspace(<span class="hljs-number">0</span>, <span class="hljs-number">1.5</span>, <span class="hljs-number">4</span>)
+<p>fixed step width (0.5):</p>
+<pre><code class="hljs language-py">a = np.arange(<span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">0.5</span>)
+</code></pre>
+<p>fixed number of entries (4):</p>
+<pre><code class="hljs language-py">b = np.linspace(<span class="hljs-number">0</span>, <span class="hljs-number">1.5</span>, <span class="hljs-number">4</span>)
 </code></pre>
 <h1>Operations on arrays</h1>
 <h2>Operations on arrays</h2>
@@ -360,27 +356,293 @@ c.dtype <span class="hljs-comment"># int64</span>
 <pre><code class="hljs language-py">array([<span class="hljs-number">127</span>, <span class="hljs-number">-128</span>, <span class="hljs-number">-127</span>])
 </code></pre>
 <h1>Plotting</h1>
-<h2>Plotting - advanced plots</h2>
+<h3>Data visualization</h3>
+<h2>Plotting</h2>
+<p>Basic (low-level) library for plotting: <em>matplotlib</em></p>
+<p>Higher-level interfaces:</p>
 <ul>
-<li>plotting data points with more than 2 features<ul>
-<li>advanced scatter plot (size, color)</li>
-<li>scatter matrix</li>
-</ul></li>
-<li>plotting z = f(x, y)<ul>
-<li>contour plots</li>
-<li>3d plots</li>
-</ul></li>
-<li>plotting density of some distribution (advanced)<ul>
+<li><em>pyplot</em> (contained in matplotlib, similar to matlab's plotting interface)</li>
+<li><em>pandas</em> plotting functions</li>
+<li><em>seaborn</em></li>
+</ul>
+<h2>Simple plot with pyplot</h2>
+<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+
+x = np.array([<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])
+
+y1 = x*<span class="hljs-number">2</span>
+y2 = x**<span class="hljs-number">2</span>
+
+plt.plot(x, y1)
+plt.plot(x, y2)
+
+<span class="hljs-comment"># plt.show is not needed in Jupyter</span>
+plt.show()
+</code></pre>
+<h2>Simple plot with pandas</h2>
+<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+<span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+
+x = np.array([<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])
+
+data = pd.DataFrame({
+    <span class="hljs-string">"y1"</span>: x*<span class="hljs-number">2</span>,
+    <span class="hljs-string">"y2"</span>: x**<span class="hljs-number">2</span>
+})
+
+data.plot.line()
+
+<span class="hljs-comment"># plt.show is not needed in Jupyter</span>
+plt.show()
+</code></pre>
+<h2>Exercise</h2>
+<p>Create a plot that shows the sine and cosine functions in the interval from <em>0</em> to <em>2π</em></p>
+<h2>Exercise</h2>
+<p>solution via pyplot:</p>
+<pre><code class="hljs language-py">x = np.linspace(<span class="hljs-number">0</span>, <span class="hljs-number">2</span>*<span class="hljs-number">3.1415</span>, <span class="hljs-number">200</span>)
+
+plt.plot(x, np.sin(x))
+plt.plot(x, np.cos(x))
+</code></pre>
+<p>solution via pandas:</p>
+<pre><code class="hljs language-py">x = np.linspace(<span class="hljs-number">0</span>, <span class="hljs-number">2</span>*<span class="hljs-number">3.1415</span>, <span class="hljs-number">200</span>)
+
+df = pd.DataFrame({<span class="hljs-string">"sin"</span>: np.sin(x), <span class="hljs-string">"cos"</span>: np.cos(x)}, index=x)
+
+df.plot.line()
+</code></pre>
+<h2>Exercise</h2>
+<p>Draw a Gaussian function / Gaussian bell curve</p>
+<h1>Pyplot: Configuration and Styling</h1>
+<h2>Styling</h2>
+<p>Predefined Stylesheets are available via:</p>
+<pre><code class="hljs language-py">plt.style.use(<span class="hljs-string">"stylename"</span>)
+</code></pre>
+<p><a href="https://matplotlib.org/3.3.0/gallery/style_sheets/style_sheets_reference.html">Reference of available styles</a></p>
+<h2>Styling graphs</h2>
+<p>short form:</p>
+<pre><code class="hljs language-py">plt.plot(x, y, <span class="hljs-string">"gx--"</span>)
+</code></pre>
+<p>long form:</p>
+<pre><code class="hljs language-py">plt.plot(x, y, color=<span class="hljs-string">"green"</span>, linestyle=<span class="hljs-string">"dashed"</span>, marker=<span class="hljs-string">"x"</span>)
+</code></pre>
+<p>The long form enables more detailed specification of color and size</p>
+<h2>Styling graphs</h2>
+<p>specifying colors:</p>
+<ul>
+<li>color name (<em>green</em> / <em>lightblue</em> / ...)</li>
+<li>short name (<em>r</em> / <em>g</em> / <em>b</em> / <em>c</em> / <em>m</em> / <em>y</em> / <em>k</em>)</li>
+<li>hex code (e.g. <em>#FFAA00</em>)</li>
+<li>RGB tuple (e.g. <code>(1, 0.7, 0)</code>)</li>
+</ul>
+<h2>Styling graphs</h2>
+<p>line styles:</p>
+<ul>
+<li><code>""</code> (<em>none</em>)</li>
+<li><code>"-"</code> (<em>solid</em>)</li>
+<li><code>"--"</code> (<em>dashed</em>)</li>
+<li><code>":"</code> (<em>dotted</em>)</li>
+<li><code>"-."</code> (<em>dashdot</em>)</li>
+</ul>
+<h2>Styling graphs</h2>
+<p>markers:</p>
+<ul>
+<li><code>""</code> (none)</li>
+<li><code>","</code> (small dot)</li>
+<li><code>"."</code> (medium dot)</li>
+<li><code>"o"</code> (large dot)</li>
+<li><code>"s"</code> (square)</li>
+<li><code>"x"</code></li>
+<li><code>"+"</code></li>
+<li>...</li>
+</ul>
+<h2>Styling graphs</h2>
+<p>important parameters:</p>
+<ul>
+<li><code>color</code></li>
+<li><code>linestyle</code></li>
+<li><code>linewidth</code></li>
+<li><code>marker</code></li>
+<li><code>markersize</code></li>
+</ul>
+<h2>Labels</h2>
+<ul>
+<li><code>plt.title("Trigonometric functions")</code></li>
+<li><code>plt.xlabel("x (radians)")</code></li>
+<li><code>plt.ylabel("y")</code></li>
+</ul>
+<h2>Labels</h2>
+<p>labelling multiple graphs:</p>
+<pre><code class="hljs language-py">plt.plot(x, np.sin(x), label=<span class="hljs-string">'sin(x)'</span>)
+plt.plot(x, np.cos(x), label=<span class="hljs-string">'cos(x)'</span>)
+
+plt.legend()
+</code></pre>
+<h2>Axes</h2>
+<p>disabling axes:</p>
+<pre><code class="hljs language-py">plt.axis(<span class="hljs-string">"off"</span>)
+</code></pre>
+<h2>Axes limits</h2>
+<p>Fit axes (without gaps):</p>
+<pre><code class="hljs language-py">plt.axis(<span class="hljs-string">"tight"</span>)
+</code></pre>
+<p>Show a specific region:</p>
+<pre><code class="hljs language-py">plt.axis([<span class="hljs-number">-1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">-1</span>, <span class="hljs-number">1</span>])
+</code></pre>
+<p>Show a specific region of one axis:</p>
+<pre><code class="hljs language-py">plt.xlim(<span class="hljs-number">-1</span>, <span class="hljs-number">1</span>)
+</code></pre>
+<h2>Scaling</h2>
+<p>Equal distances on both axes:</p>
+<pre><code class="hljs language-py">plt.axis(<span class="hljs-string">"equal"</span>)
+</code></pre>
+<p>Equal distances on both axes, restricting axes markings to used data ranges:</p>
+<pre><code class="hljs language-py">plt.axis(<span class="hljs-string">"scaled"</span>)
+</code></pre>
+<h2>Grid</h2>
+<pre><code class="hljs language-py">plt.grid(<span class="hljs-literal">True</span>)
+</code></pre>
+<h2>Ticks</h2>
+<pre><code class="hljs language-py">plt.yticks([<span class="hljs-number">-1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>])
+plt.xticks(np.linspace(<span class="hljs-number">0</span>, <span class="hljs-number">2</span>*np.pi, <span class="hljs-number">5</span>))
+</code></pre>
+<h2>Exercises</h2>
+<ul>
+<li>sine and cosine with extended options</li>
+<li>n-th prime and approximation via <em>n * ln(n)</em></li>
+<li>estimating pi via random points</li>
+</ul>
+<h1>Pyplot: basic plot types</h1>
+<h2>Basic plot types</h2>
+<ul>
+<li>graph</li>
+<li>bar chart</li>
+<li>scatter plot</li>
 <li>histogram</li>
 <li>box plot</li>
-<li>kde</li>
-<li>violin plot</li>
-</ul></li>
-<li>plotting density (2d)<ul>
-<li>2d histogram (hist2d, hexbin)</li>
-<li>kde</li>
-</ul></li>
+<li>pie chart</li>
 </ul>
+<h2>Basic plot types</h2>
+<ul>
+<li>graph: <code>plt.plot(x, y)</code> / <code>plt.plot(y)</code></li>
+<li>bar chart: <code>plt.bar(x, y)</code></li>
+<li>scatter plot: <code>plt.plot(x, y, ".")</code> / <code>plt.scatter(x, y, size, color)</code></li>
+<li>histogram: <code>plt.hist(x)</code></li>
+<li>box plot: <code>plt.boxplot(x)</code></li>
+<li>pie chart: <code>plt.pie(x, labels=...)</code></li>
+</ul>
+<h2>Graph</h2>
+<p>Graph of associated values of x and y:</p>
+<pre><code class="hljs language-py">plt.plot(x, y)
+</code></pre>
+<p>Graph with automatic x (0, 1, ...):</p>
+<pre><code class="hljs language-py">plt.plot(y)
+</code></pre>
+<h2>Graph</h2>
+<p>multiple data sets:</p>
+<pre><code class="hljs language-py">x = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>]
+
+y1 = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>]
+y2 = [<span class="hljs-number">3</span>, <span class="hljs-number">0</span> , <span class="hljs-number">1</span>, <span class="hljs-number">0</span>]
+
+plt.plot(x, [y1, y2])
+</code></pre>
+<h2>Bar charts</h2>
+<pre><code class="hljs language-py">plt.bar(x, y, width=<span class="hljs-number">0.6</span>)
+plt.bar(x, y, width=<span class="hljs-number">1</span>, align=<span class="hljs-string">"edge"</span>)
+
+plt.bar(
+    [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>],
+    [<span class="hljs-number">9.6</span>, <span class="hljs-number">17</span>, <span class="hljs-number">9.8</span>],
+    tick_label=[<span class="hljs-string">"China"</span>, <span class="hljs-string">"Russia"</span>, <span class="hljs-string">"USA"</span>]
+)
+
+plt.barh([<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">9.6</span>, <span class="hljs-number">17</span>, <span class="hljs-number">9.8</span>])
+</code></pre>
+<h2>Scatter plot</h2>
+<p>creates data points with two (or more) values - one on the x-axis and the other on the y-axis</p>
+<p>simple:</p>
+<pre><code class="hljs language-py">plt.plot(x, y, <span class="hljs-string">"."</span>)
+</code></pre>
+<p>advanced:</p>
+<pre><code class="hljs language-py">plt.scatter(x, y, size, color)
+</code></pre>
+<h2>Histogram</h2>
+<p>Counts the occurence of certain values / ranges</p>
+<pre><code class="hljs language-py">plt.hist(
+    body_heights_men,
+    bins=[<span class="hljs-number">150</span>, <span class="hljs-number">160</span>, <span class="hljs-number">170</span>, <span class="hljs-number">180</span>, <span class="hljs-number">190</span>, <span class="hljs-number">200</span>]
+)
+</code></pre>
+<pre><code class="hljs language-py">plt.hist(
+    body_heights_men,
+    bins=[<span class="hljs-number">150</span>, <span class="hljs-number">170</span>, <span class="hljs-number">180</span>, <span class="hljs-number">200</span>],
+    density=<span class="hljs-literal">True</span>
+)
+</code></pre>
+<h2>Box plot</h2>
+<p>Visualization of statistic data in a diagram (minimum, median, maximum, ...)</p>
+<pre><code class="hljs language-py">plt.boxplot(
+    [body_heights_men, body_heights_women],
+    labels=[<span class="hljs-string">"men"</span>, <span class="hljs-string">"women"</span>]
+)
+</code></pre>
+<h2>Pie chart</h2>
+<pre><code class="hljs language-py">plt.pie([<span class="hljs-number">3</span>, <span class="hljs-number">10</span>, <span class="hljs-number">17</span>, <span class="hljs-number">9</span>], labels=[<span class="hljs-string">"a"</span>, <span class="hljs-string">"b"</span>, <span class="hljs-string">"c"</span>, <span class="hljs-string">"d"</span>])
+
+plt.pie([<span class="hljs-number">3</span>, <span class="hljs-number">10</span>, <span class="hljs-number">17</span>, <span class="hljs-number">9</span>], explode=[<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.1</span>])
+</code></pre>
+<h1>Pyplot: figure, axes &#x26; subplots</h1>
+<h2>Figure &#x26; axes</h2>
+<p>Figure = entire drawing</p>
+<p>Axes = coordinate system that can display data</p>
+<p>A figure can contain multiple axes objects next to one another</p>
+<h2>Figure</h2>
+<p>Every drawing in <em>pyplot</em> is created via a <em>figure</em> object (the figure is usually created automatically when plotting)</p>
+<p>Manually creating a figure of size 800 x 600 px (assuming 100 dpi):</p>
+<pre><code class="hljs language-py">fig = plt.figure(
+    figsize=(<span class="hljs-number">8</span>, <span class="hljs-number">6</span>),
+    facecolor=<span class="hljs-string">"#eeeeee"</span>
+)
+</code></pre>
+<p>This will automatically become the active figure.</p>
+<h2>Figure objects</h2>
+<p>exporting a figure:</p>
+<pre><code class="hljs language-py">fig.savefig(<span class="hljs-string">"myplot.png"</span>)
+fig.savefig(<span class="hljs-string">"myplot.svg"</span>)
+</code></pre>
+<h2>Figure objects</h2>
+<p>Task: Script that generates a graph of the current CPU load and updates it every second (use the PIP package <em>psutil</em>)</p>
+<h2>Axes objects</h2>
+<p>Getting the active <em>axes</em> object:</p>
+<pre><code class="hljs language-py">ax = plt.gca() <span class="hljs-comment"># get current axes</span>
+</code></pre>
+<p>The Methods of <code>plt</code> that we've previously seen call methods of the active <em>Axes</em> object in the background:</p>
+<pre><code class="hljs language-py">ax.plot(...)
+ax.set_title(...)
+ax.set_xlabel(...)
+ax.legend()
+ax.set_aspect(<span class="hljs-string">"equal"</span>)
+</code></pre>
+<h2>Axes objects</h2>
+<p>Task: Create a sine- and cosine- plot via <em>Axes</em></p>
+<h2>Axis and Axes</h2>
+<p>naming to keep in mind:</p>
+<ul>
+<li><code>plt.axis</code>: e.g. for setting scaling</li>
+<li><code>plt.axes</code>: for creating a nex coordinate system</li>
+</ul>
+<p>actual meaning (from Lating): <em>axis</em> = singular, <em>axes</em> = plural</p>
+<h2>Subplots</h2>
+<p>Creating multiple <em>Axes</em> objects in a grid (here: 2 rows, 3 columns):</p>
+<pre><code class="hljs language-py">fig, ax = plt.subplots(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>)
+
+ax0 = ax[<span class="hljs-number">0</span>, <span class="hljs-number">0</span>]
+ax1 = ax[<span class="hljs-number">0</span>, <span class="hljs-number">1</span>]
+ax5 = ax[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>]
+</code></pre>
 <h1>Pandas</h1>
 <h2>Pandas</h2>
 <p><em>Pandas</em> is a data analysis library; it is based on <em>NumPy</em></p>
@@ -760,7 +1022,7 @@ ir_uk_weekly = ir_uk.resample(<span class="hljs-string">'7d'</span>).interpolate
 data_frame.plot()
 
 <span class="hljs-comment"># show all figures that were created since the last</span>
-<span class="hljs-comment"># call to .show()</span>
+<span class="hljs-comment"># call of .show()</span>
 plt.show()
 </code></pre>
 <h2>Plotting functions</h2>
@@ -805,7 +1067,6 @@ sp500[<span class="hljs-string">"SP500"</span>].plot.line(figsize=(<span class="
 <p>exercise:</p>
 <p>simulate 10 million rolls of dice - each using 10 dice; plot the distribution of the sums as a histogram</p>
 <h2>Scatter plots</h2>
-<p>creates data points with two values - one on the x-axis and the other on the y-axis</p>
 <pre><code class="hljs language-py">iris.plot.scatter(x=<span class="hljs-string">"sepal_length"</span>, y=<span class="hljs-string">"sepal_width"</span>)
 </code></pre>
 <p>task: scatter plot of just <em>Iris-setosa</em></p>
@@ -815,6 +1076,28 @@ sp500[<span class="hljs-string">"SP500"</span>].plot.line(figsize=(<span class="
 
 scatter_matrix(iris)
 </code></pre>
+<h1>Plotting</h1>
+<h2>Plotting - advanced plots</h2>
+<ul>
+<li>plotting data points with more than 2 features<ul>
+<li>advanced scatter plot (size, color)</li>
+<li>scatter matrix</li>
+</ul></li>
+<li>plotting z = f(x, y)<ul>
+<li>contour plots</li>
+<li>3d plots</li>
+</ul></li>
+<li>plotting density of some distribution (advanced)<ul>
+<li>histogram</li>
+<li>box plot</li>
+<li>kde</li>
+<li>violin plot</li>
+</ul></li>
+<li>plotting density (2d)<ul>
+<li>2d histogram (hist2d, hexbin)</li>
+<li>kde</li>
+</ul></li>
+</ul>
 <h1>Cross tabulation</h1>
 <h2>Cross tabulation</h2>
 <p>A <em>cross tabulation</em> shows the number of corresponding entries across multiple properties</p>

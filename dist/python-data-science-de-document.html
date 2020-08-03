@@ -36,6 +36,7 @@
 <li><em>Pandas</em>: Bibliothek zur Datenanalyse, basiert auf NumPy</li>
 <li><em>Matplotlib</em>: Bibliothek zur Datenvisualisierung</li>
 <li><em>Scikit-Learn</em>: Bibliothek für Machine Learning, basiert auf NumPy</li>
+<li><em>Keras</em>: Bibliothek für Deep Learning</li>
 </ul>
 <h2>Anaconda</h2>
 <p><em>Anaconda</em> = Python Distribution, die viele vorinstallierte Pakete und Entwicklerwerkzeuge enthält</p>
@@ -70,7 +71,7 @@
 <li><em>File</em> - <em>New Notebook</em> - <em>Python 3</em></li>
 </ul>
 <h2>Jupyter Notebooks - lokal</h2>
-<p>Starten: Eintrag <em>Jupyter Notebook</em> im Startmenü / Befeh <code>jupyter notebook</code> im Terminal</p>
+<p>Starten: Eintrag <em>Jupyter Notebook</em> im Startmenü / Befehl <code>jupyter notebook</code> im Terminal</p>
 <p>Stoppen: <em>Quit</em> im rechten oberen Eck der Ordneransicht (üblicherweise unter http://localhost:8888/tree)</p>
 <h2>Notebook Dateien</h2>
 <p>Anlegen neuer Notebook Dateien via <em>new</em> - <em>Notebook: Python 3</em></p>
@@ -149,23 +150,17 @@ time.sleep(<span class="hljs-number">3</span>)
        [[<span class="hljs-number">5</span>, <span class="hljs-number">6</span>],
         [<span class="hljs-number">7</span>, <span class="hljs-number">8</span>]]])
 </code></pre>
-<h2>Arrays</h2>
-<p>NumPy Arrays vs Python Listen:</p>
+<h2>NumPy Arrays vs Python Listen</h2>
 <p>Arrays sind im Hintergrund in C implementiert, die numerischen Einträge (z.B. Integer) sind keine Python-Objekte und damit resourcenschonender.</p>
-<h2>Arrays</h2>
-<p>NumPy Arrays vs Python Listen:</p>
-<pre><code class="hljs language-py"><span class="hljs-comment"># Python - Listen (mit Verweisen auf andere Integer)</span>
-list_a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>]
-list_b = [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]
-
-<span class="hljs-comment"># NumPy - Array -</span>
-<span class="hljs-comment"># Daten sind hierin enthalten, ohne auf Python-Integer</span>
-<span class="hljs-comment"># zu verweisen</span>
-array_a = numpy.array(list_a)
-array_b = numpy.array(list_b)
-
-<span class="hljs-comment"># sehr schnell (da in C implementiert)</span>
-array_a + array_b
+<h2>NumPy Arrays vs Python Listen</h2>
+<p>Python-Liste (referenziert Integer-Objekte):</p>
+<pre><code class="hljs language-py">list_a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>]
+</code></pre>
+<p>NumPy Array (Daten sind im Array enthalten ohne auf externe Objekte zu verweisen):</p>
+<pre><code class="hljs language-py">array_a = np.array(list_a)
+</code></pre>
+<p>Schnelle elementweise Operation (in C implementiert):</p>
+<pre><code class="hljs language-py">array_a * array_a
 </code></pre>
 <h2>Array Shape</h2>
 <p>Wir können folgendes abfragen:</p>
@@ -186,11 +181,12 @@ array_a + array_b
 <pre><code class="hljs language-py">np.random.random(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>)
 </code></pre>
 <h2>Arrays erstellen</h2>
-<p>Die Folge <em>0.0, 0.5, 1.0, 1.5</em>:</p>
-<pre><code class="hljs language-py"><span class="hljs-comment"># fixed step width (0.5)</span>
-a = np.arange(<span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">0.5</span>)
-<span class="hljs-comment"># fixed number of entries (4)</span>
-b = np.linspace(<span class="hljs-number">0</span>, <span class="hljs-number">1.5</span>, <span class="hljs-number">4</span>)
+<p>Erstellen der Folge <em>0.0, 0.5, 1.0, 1.5</em>:</p>
+<p>fixe Schrittweite (0.5):</p>
+<pre><code class="hljs language-py">a = np.arange(<span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">0.5</span>)
+</code></pre>
+<p>fixe Anzahl an Einträgen (4):</p>
+<pre><code class="hljs language-py">b = np.linspace(<span class="hljs-number">0</span>, <span class="hljs-number">1.5</span>, <span class="hljs-number">4</span>)
 </code></pre>
 <h1>Operationen auf Arrays</h1>
 <h2>Operationen auf Arrays</h2>
@@ -360,7 +356,7 @@ c.dtype <span class="hljs-comment"># int64</span>
 <pre><code class="hljs language-py">array([<span class="hljs-number">127</span>, <span class="hljs-number">-128</span>, <span class="hljs-number">-127</span>])
 </code></pre>
 <h1>Plotting</h1>
-<h3>Grafische Darstellung von Daten</h3>
+<h3>Datenvisualisierung</h3>
 <h2>Plotting</h2>
 <p>Grundlegende (low-level) Library für Plotting: <em>matplotlib</em></p>
 <p>Abstrahierende Interfaces zu grundlegenden matplotlib Funktionen:</p>
@@ -404,11 +400,13 @@ plt.show()
 <h2>Übung</h2>
 <p>Erstelle einen Plot, der die Sinus- und Kosinusfunktion im Intervall von <em>0</em> bis <em>2π</em> zeigt.</p>
 <h2>Übung</h2>
+<p>Lösung mittels pyplot:</p>
 <pre><code class="hljs language-py">x = np.linspace(<span class="hljs-number">0</span>, <span class="hljs-number">2</span>*<span class="hljs-number">3.1415</span>, <span class="hljs-number">200</span>)
 
 plt.plot(x, np.sin(x))
 plt.plot(x, np.cos(x))
 </code></pre>
+<p>Lösung mittels pandas:</p>
 <pre><code class="hljs language-py">x = np.linspace(<span class="hljs-number">0</span>, <span class="hljs-number">2</span>*<span class="hljs-number">3.1415</span>, <span class="hljs-number">200</span>)
 
 df = pd.DataFrame({<span class="hljs-string">"sin"</span>: np.sin(x), <span class="hljs-string">"cos"</span>: np.cos(x)}, index=x)
@@ -417,13 +415,12 @@ df.plot.line()
 </code></pre>
 <h2>Übungen</h2>
 <p>Zeichne eine Gauß'sche Glockenkurve</p>
-<h1>Konfiguration und Styling</h1>
+<h1>Pyplot: Konfiguration und Styling</h1>
 <h2>Stile</h2>
 <p>Vorgefertigte Stylesheets verwendbar mittels:</p>
 <pre><code class="hljs language-py">plt.style.use(<span class="hljs-string">"stylename"</span>)
 </code></pre>
-<p>Für Demos verfügbarer Stile siehe:</p>
-<p><a href="https://matplotlib.org/3.1.0/gallery/style_sheets/style_sheets_reference.html">https://matplotlib.org/3.1.0/gallery/style_sheets/style_sheets_reference.html</a></p>
+<p><a href="https://matplotlib.org/3.3.0/gallery/style_sheets/style_sheets_reference.html">Referenz verfügbarer Stile</a></p>
 <h2>Stile von Graphen</h2>
 <p>Kurzformen:</p>
 <pre><code class="hljs language-py">plt.plot(x, y, <span class="hljs-string">"gx--"</span>)
@@ -477,7 +474,7 @@ df.plot.line()
 <li><code>plt.ylabel("y")</code></li>
 </ul>
 <h2>Label</h2>
-<p>Label für verschiedene Funktionen:</p>
+<p>Label für verschiedene Graphen:</p>
 <pre><code class="hljs language-py">plt.plot(x, np.sin(x), label=<span class="hljs-string">'sin(x)'</span>)
 plt.plot(x, np.cos(x), label=<span class="hljs-string">'cos(x)'</span>)
 
@@ -517,36 +514,25 @@ plt.xticks(np.linspace(<span class="hljs-number">0</span>, <span class="hljs-num
 <li>n-te Primzahl und Approximation via <em>n * ln(n)</em></li>
 <li>Schätzung von Pi durch zufällige Punkte</li>
 </ul>
-<h1>Grundlegende Plots</h1>
+<h1>Pyplot: Gundlegende Plots</h1>
 <h2>Grundlegende Plots</h2>
 <ul>
 <li>Graph</li>
 <li>Säulendiagramm</li>
 <li>Scatter Plot</li>
-<li>Histogram</li>
+<li>Histogramm</li>
 <li>Box Plot</li>
 <li>Tortendiagramm</li>
 </ul>
-<h2>Graph</h2>
-<p>Pyplot: <code>plt.plot(x, y)</code> / <code>plt.plot(y)</code></p>
-<p>Pandas: <code>df.plot.line()</code> / <code>df.plot()</code></p>
-<h2>Säulendiagramm</h2>
-<p>Pyplot: <code>plt.bar(x, y)</code></p>
-<p>Pandas: <code>df.plot.bar()</code></p>
-<h2>Scatter Plot</h2>
-<p>Pyplot: <code>plt.plot(x, y, ".")</code></p>
-<p>Pyplot (fortgeschritten): <code>plt.scatter(x, y, size, color)</code></p>
-<p>Pandas: <code>df.plot.scatter(x="name1", y="name2")</code></p>
-<h2>Histogramm</h2>
-<p>Pyplot: <code>plt.hist(x)</code></p>
-<p>Pandas: <code>df.plot.hist()</code></p>
-<h2>Box Plot</h2>
-<p>Pyplot: <code>plt.boxplot(data)</code></p>
-<p>Pandas: <code>df.plot.box()</code></p>
-<h2>Tortendiagramm</h2>
-<p>Pyplot: <code>plt.pie(x, labels=[...])</code></p>
-<p>Pandas: <code>df.pie()</code></p>
-<h1>Grundlegende Plots mit pyplot</h1>
+<h2>Grundlegende Plots</h2>
+<ul>
+<li>Graph: <code>plt.plot(x, y)</code> / <code>plt.plot(y)</code></li>
+<li>Säulen- und Balkendiagramm: <code>plt.bar(x, y)</code></li>
+<li>Scatter Plot: <code>plt.plot(x, y, ".")</code> / <code>plt.scatter(x, y, size, color)</code></li>
+<li>Histogramm: <code>plt.hist(x)</code></li>
+<li>Box Plot: <code>plt.boxplot(x)</code></li>
+<li>Tortendiagramm: <code>plt.pie(x, labels=...)</code></li>
+</ul>
 <h2>Graph</h2>
 <p>Graph zusammengehöriger x- und y-Werte:</p>
 <pre><code class="hljs language-py">plt.plot(x, y)
@@ -558,10 +544,10 @@ plt.xticks(np.linspace(<span class="hljs-number">0</span>, <span class="hljs-num
 <p>Mehrere Datensätze:</p>
 <pre><code class="hljs language-py">x = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>]
 
-y = [[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>],
-     [<span class="hljs-number">3</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>]]
+y1 = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>]
+y2 = [<span class="hljs-number">3</span>, <span class="hljs-number">0</span> , <span class="hljs-number">1</span>, <span class="hljs-number">0</span>]
 
-plt.plot(x, y)
+plt.plot(x, [y1, y2])
 </code></pre>
 <h2>Säulen- und Balkendiagramm</h2>
 <pre><code class="hljs language-py">plt.bar(x, y, width=<span class="hljs-number">0.6</span>)
@@ -576,6 +562,7 @@ plt.bar(
 plt.barh([<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">9.6</span>, <span class="hljs-number">17</span>, <span class="hljs-number">9.8</span>])
 </code></pre>
 <h2>Scatter Plot</h2>
+<p>Erstellt Datenpunkte mit zwei (oder mehr) zugehörigen Werten - einer auf der x- und einer auf der y-Achse</p>
 <p>Einfach:</p>
 <pre><code class="hljs language-py">plt.plot(x, y, <span class="hljs-string">"."</span>)
 </code></pre>
@@ -583,10 +570,24 @@ plt.barh([<span class="hljs-number">0</span>, <span class="hljs-number">1</span>
 <pre><code class="hljs language-py">plt.scatter(x, y, size, color)
 </code></pre>
 <h2>Histogramm</h2>
-<pre><code class="hljs language-py">plt.hist(iris[:, <span class="hljs-number">2</span>], bins=[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>], density=<span class="hljs-literal">True</span>)
+<p>Zählt die Häufigkeit von bestimmten Werten / Wertebereichen</p>
+<pre><code class="hljs language-py">plt.hist(
+    body_heights_men,
+    bins=[<span class="hljs-number">150</span>, <span class="hljs-number">160</span>, <span class="hljs-number">170</span>, <span class="hljs-number">180</span>, <span class="hljs-number">190</span>, <span class="hljs-number">200</span>]
+)
+</code></pre>
+<pre><code class="hljs language-py">plt.hist(
+    body_heights_men,
+    bins=[<span class="hljs-number">150</span>, <span class="hljs-number">170</span>, <span class="hljs-number">180</span>, <span class="hljs-number">200</span>],
+    density=<span class="hljs-literal">True</span>
+)
 </code></pre>
 <h2>Box Plot</h2>
-<pre><code class="hljs language-py">plt.boxplot(iris[:, :<span class="hljs-number">4</span>], labels=[<span class="hljs-string">"a"</span>, <span class="hljs-string">"b"</span>, <span class="hljs-string">"c"</span>, <span class="hljs-string">"d"</span>])
+<p>Visualisierung von statistischen Daten in einem Diagramm (Minimum, Median, Maximum, ...)</p>
+<pre><code class="hljs language-py">plt.boxplot(
+    [body_heights_men, body_heights_women],
+    labels=[<span class="hljs-string">"men"</span>, <span class="hljs-string">"women"</span>]
+)
 </code></pre>
 <h2>Tortendiagramm</h2>
 <pre><code class="hljs language-py">plt.pie([<span class="hljs-number">3</span>, <span class="hljs-number">10</span>, <span class="hljs-number">17</span>, <span class="hljs-number">9</span>], labels=[<span class="hljs-string">"a"</span>, <span class="hljs-string">"b"</span>, <span class="hljs-string">"c"</span>, <span class="hljs-string">"d"</span>])
@@ -613,7 +614,7 @@ plt.pie([<span class="hljs-number">3</span>, <span class="hljs-number">10</span>
 fig.savefig(<span class="hljs-string">"myplot.svg"</span>)
 </code></pre>
 <h2>Figure Objekte</h2>
-<p>Aufgabe: Skript, das eine PNG-Datei eines Graphen der aktuellen CPU-Last erstellt und jede Sekunde aktuelisiert. (verwende hierzu das PIP-Paket <em>psutil</em>)</p>
+<p>Aufgabe: Skript, das eine PNG-Datei eines Graphen der aktuellen CPU-Last erstellt und jede Sekunde aktualisiert. (verwende hierzu das PIP-Paket <em>psutil</em>)</p>
 <h2>Axes Objekte</h2>
 <p>Das aktive <em>Axes</em>-Objekt abfragen:</p>
 <pre><code class="hljs language-py">ax = plt.gca() <span class="hljs-comment"># get current axes</span>
@@ -642,27 +643,6 @@ ax0 = ax[<span class="hljs-number">0</span>, <span class="hljs-number">0</span>]
 ax1 = ax[<span class="hljs-number">0</span>, <span class="hljs-number">1</span>]
 ax5 = ax[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>]
 </code></pre>
-<h1>Erweiterte Arten von Plots</h1>
-<h2>Erweiterte Arten von Plots</h2>
-<ul>
-<li>Datenpunkte mit mehr als 2 Features<ul>
-<li>Erweiterter Scatter Plot (Größe, Farbe)</li>
-<li>Scatter Matrix</li>
-</ul></li>
-<li>Plotten von z = f(x, y)<ul>
-<li>Contour Plots</li>
-<li>3D Plots</li>
-</ul></li>
-<li>Dichte einer Verteilung<ul>
-<li>(Histogramm)</li>
-<li>KDE</li>
-<li>Violin Plot</li>
-</ul></li>
-<li>Dichte einer Verteilung (2D)<ul>
-<li>2D Histogramm (hist2d, hexbin)</li>
-<li>KDE</li>
-</ul></li>
-</ul>
 <h1>Pandas</h1>
 <h2>Pandas</h2>
 <p><em>Pandas</em> ist eine Datenanalysebibliothek; sie beruht auf <em>NumPy</em></p>
@@ -1024,6 +1004,135 @@ ir_uk_weekly = ir_uk.resample(<span class="hljs-string">'7d'</span>).interpolate
 </code></pre>
 <h2>Übung</h2>
 <p>Nutze die Daten aus <em>sp500</em> und <em>euribor</em>, um die Entwicklungen der europäischen und amerikanischen Zinssätze einander gegenüberzustellen.</p>
+<h1>Grundlegende Plots in Pandas</h1>
+<h2>Grundlegende Plots in Pandas</h2>
+<p>allgemeines Plotten:</p>
+<p>In Jupyter:</p>
+<pre><code class="hljs language-py">data_frame.plot()
+</code></pre>
+<p>Im Terminal:</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+
+data_frame.plot()
+
+<span class="hljs-comment"># show all figures that were created since the last</span>
+<span class="hljs-comment"># call of .show()</span>
+plt.show()
+</code></pre>
+<h2>Grundlegende Plots in Pandas</h2>
+<ul>
+<li>Graph: <code>df.plot.line()</code> / <code>df.plot()</code></li>
+<li>Säulendiagramm: <code>df.plot.bar()</code></li>
+<li>Scatter Plot: <code>df.plot.scatter(x="name1", y="name2")</code></li>
+<li>Histogramm: <code>df.plot.hist()</code></li>
+<li>Box Plot: <code>df.plot.box()</code></li>
+<li>Tortendiagramm: <code>df.pie()</code></li>
+</ul>
+<h2>Graph</h2>
+<p>Mittels <code>df.plot.line()</code> oder <code>df.plot()</code></p>
+<pre><code class="hljs language-py">euribor.plot.line()
+</code></pre>
+<pre><code class="hljs language-py">sp500[<span class="hljs-string">"SP500"</span>].plot.line(figsize=(<span class="hljs-number">9</span>, <span class="hljs-number">6</span>))
+</code></pre>
+<h2>Säulendiagramm</h2>
+<pre><code class="hljs language-py">euribor.iloc[<span class="hljs-number">-36</span>:].plot.bar()
+</code></pre>
+<p>Übung: Median der <em>sepal-width</em> und <em>sepal-length</em> für alle drei Arten von Blumen darstellen</p>
+<h2>Scatter Plot</h2>
+<pre><code class="hljs language-py">iris.plot.scatter(x=<span class="hljs-string">"sepal_length"</span>, y=<span class="hljs-string">"sepal_width"</span>)
+</code></pre>
+<p>Aufgabe: Scatter Plot von <em>Iris-setosa</em></p>
+<h2>Histogramm</h2>
+<pre><code class="hljs language-py">iris.sepal_lenght.plot.hist()
+</code></pre>
+<pre><code class="hljs language-py">iris.sepal_length.plot.hist(bins=<span class="hljs-number">30</span>)
+</code></pre>
+<h2>Histogramm</h2>
+<p>Übung:</p>
+<p>Wir simulieren 10 Millionen Würfe mit je 10 Würfeln und stellen die Verteilung der Augensumme als Histogramm dar</p>
+<h2>Box Plot</h2>
+<pre><code class="hljs language-py">iris.plot.box()
+</code></pre>
+<h2>Tortendiagramm</h2>
+<pre><code class="hljs language-py">df.pie()
+</code></pre>
+<h1>Grundlegende Plots in Pandas und Pyplot</h1>
+<h2>Graph</h2>
+<p>Pyplot:</p>
+<pre><code class="hljs language-py">plt.plot(x, y)
+plt.plot(y)
+</code></pre>
+<p>Pandas:</p>
+<pre><code class="hljs language-py">df.plot.line()
+df.plot()
+</code></pre>
+<h2>Säulendiagramm</h2>
+<p>Pyplot:</p>
+<pre><code class="hljs language-py">plt.bar(x, y)
+</code></pre>
+<p>Pandas:</p>
+<pre><code class="hljs language-py">df.plot.bar()
+</code></pre>
+<h2>Scatter Plot</h2>
+<p>Pyplot:</p>
+<pre><code class="hljs language-py">plt.plot(x, y, <span class="hljs-string">"."</span>)
+plt.scatter(x, y, <span class="hljs-number">2</span>, <span class="hljs-string">"red"</span>)
+</code></pre>
+<p>Pandas:</p>
+<pre><code class="hljs language-py">df.plot.scatter(x=<span class="hljs-string">"name1"</span>, y=<span class="hljs-string">"name2"</span>)
+</code></pre>
+<h2>Histogramm</h2>
+<p>Pyplot:</p>
+<pre><code class="hljs language-py">plt.hist(x)
+</code></pre>
+<p>Pandas:</p>
+<pre><code class="hljs language-py">df.plot.hist()
+</code></pre>
+<h2>Histogramm</h2>
+<p>Pyplot:</p>
+<pre><code class="hljs language-py">plt.hist(
+  iris[:, <span class="hljs-number">2</span>],
+  bins=[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>],
+  density=<span class="hljs-literal">True</span>)
+</code></pre>
+<p>Pandas:</p>
+<pre><code class="hljs language-py">iris.sepal_length.plot.hist(bins=<span class="hljs-number">5</span>)
+</code></pre>
+<h2>Box Plot</h2>
+<p>Pyplot:</p>
+<pre><code class="hljs language-py">plt.boxplot(data)
+</code></pre>
+<p>Pandas:</p>
+<pre><code class="hljs language-py">df.plot.box()
+</code></pre>
+<h2>Tortendiagramm</h2>
+<p>Pyplot:</p>
+<pre><code class="hljs language-py">plt.pie(x, labels=[...])
+</code></pre>
+<p>Pandas:</p>
+<pre><code class="hljs language-py">df.plot.pie()
+</code></pre>
+<h1>Erweiterte Arten von Plots</h1>
+<h2>Erweiterte Arten von Plots</h2>
+<ul>
+<li>Datenpunkte mit mehr als 2 Features<ul>
+<li>Erweiterter Scatter Plot (Größe, Farbe)</li>
+<li>Scatter Matrix</li>
+</ul></li>
+<li>Plotten von z = f(x, y)<ul>
+<li>Contour Plots</li>
+<li>3D Plots</li>
+</ul></li>
+<li>Dichte einer Verteilung<ul>
+<li>(Histogramm)</li>
+<li>KDE</li>
+<li>Violin Plot</li>
+</ul></li>
+<li>Dichte einer Verteilung (2D)<ul>
+<li>2D Histogramm (hist2d, hexbin)</li>
+<li>KDE</li>
+</ul></li>
+</ul>
 <h1>Kontingenztabelle</h1>
 <h2>Kontingenztabelle</h2>
 <p>Eine <em>Kontingenztabelle</em> oder <em>Kreuztabelle</em> gibt Anzahlen über mehrere Merkmale hinweg an.</p>

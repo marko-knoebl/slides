@@ -53,29 +53,28 @@ array([[[1, 2],
         [7, 8]]])
 ```
 
-## Arrays
-
-NumPy arrays vs Python lists:
+## NumPy arrays vs Python lists
 
 Arrays are implemented in C, the numeric entries are not full Python Objects and require less resources
 
-## NumPy
+## NumPy arrays vs Python lists
 
-NumPy Arrays vs Python lists:
+Python list (with references to Python integer objects):
 
 ```py
-# Python lists (with references to Python integer objects)
-list_a = [1, 2]
-list_b = [3, 4]
+list_a = [1, 2, 3, 4]
+```
 
-# NumPy array
-# data are contained within the array without referencing
-# Python integers
-array_a = numpy.array(list_a)
-array_b = numpy.array(list_b)
+NumPy array (data are contained within the array without referencing Python integers):
 
-# fast multiplication (implemented in C)
-array_a * array_b
+```py
+array_a = np.array(list_a)
+```
+
+Fast element-wise operation (implemented in C):
+
+```py
+array_a * array_a
 ```
 
 ## Array shape

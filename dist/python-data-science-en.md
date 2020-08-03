@@ -41,12 +41,13 @@ Code available at: <https://github.com/marko-knoebl/courses-code>
 - _Pandas_: library for data analysis, based on NumPy
 - _Matplotlib_: library for data visualization
 - _Scikit-Learn_: library for machine learning, based on NumPy
+- _Keras_: library for deep learning
 
 ## Anaconda
 
 _Anaconda_ = Python distribution that includes many pre-installed packages and developer tools
 
-Takes ~ 3 GB of disk space
+Uses ~ 3 GB of disk space
 
 ## Anaconda installation
 
@@ -238,29 +239,28 @@ array([[[1, 2],
         [7, 8]]])
 ```
 
-## Arrays
-
-NumPy arrays vs Python lists:
+## NumPy arrays vs Python lists
 
 Arrays are implemented in C, the numeric entries are not full Python Objects and require less resources
 
-## NumPy
+## NumPy arrays vs Python lists
 
-NumPy Arrays vs Python lists:
+Python list (with references to Python integer objects):
 
 ```py
-# Python lists (with references to Python integer objects)
-list_a = [1, 2]
-list_b = [3, 4]
+list_a = [1, 2, 3, 4]
+```
 
-# NumPy array
-# data are contained within the array without referencing
-# Python integers
-array_a = numpy.array(list_a)
-array_b = numpy.array(list_b)
+NumPy array (data are contained within the array without referencing Python integers):
 
-# fast multiplication (implemented in C)
-array_a * array_b
+```py
+array_a = np.array(list_a)
+```
+
+Fast element-wise operation (implemented in C):
+
+```py
+array_a * array_a
 ```
 
 ## Array shape
@@ -297,10 +297,15 @@ np.random.random(3, 3)
 
 creating the sequence _0.0, 0.5, 1.0, 1.5_:
 
+fixed step width (0.5):
+
 ```py
-# fixed step width (0.5)
 a = np.arange(0, 2, 0.5)
-# fixed number of entries (4)
+```
+
+fixed number of entries (4):
+
+```py
 b = np.linspace(0, 1.5, 4)
 ```
 
@@ -560,22 +565,429 @@ array([127, -128, -127])
 
 # Plotting
 
-## Plotting - advanced plots
+### Data visualization
 
-- plotting data points with more than 2 features
-  - advanced scatter plot (size, color)
-  - scatter matrix
-- plotting z = f(x, y)
-  - contour plots
-  - 3d plots
-- plotting density of some distribution (advanced)
-  - histogram
-  - box plot
-  - kde
-  - violin plot
-- plotting density (2d)
-  - 2d histogram (hist2d, hexbin)
-  - kde
+## Plotting
+
+Basic (low-level) library for plotting: _matplotlib_
+
+Higher-level interfaces:
+
+- _pyplot_ (contained in matplotlib, similar to matlab's plotting interface)
+- _pandas_ plotting functions
+- _seaborn_
+
+## Simple plot with pyplot
+
+```py
+import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.array([0, 1, 2, 3])
+
+y1 = x*2
+y2 = x**2
+
+plt.plot(x, y1)
+plt.plot(x, y2)
+
+# plt.show is not needed in Jupyter
+plt.show()
+```
+
+## Simple plot with pandas
+
+```py
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+
+x = np.array([0, 1, 2, 3])
+
+data = pd.DataFrame({
+    "y1": x*2,
+    "y2": x**2
+})
+
+data.plot.line()
+
+# plt.show is not needed in Jupyter
+plt.show()
+```
+
+## Exercise
+
+Create a plot that shows the sine and cosine functions in the interval from _0_ to _2π_
+
+## Exercise
+
+solution via pyplot:
+
+```py
+x = np.linspace(0, 2*3.1415, 200)
+
+plt.plot(x, np.sin(x))
+plt.plot(x, np.cos(x))
+```
+
+solution via pandas:
+
+```py
+x = np.linspace(0, 2*3.1415, 200)
+
+df = pd.DataFrame({"sin": np.sin(x), "cos": np.cos(x)}, index=x)
+
+df.plot.line()
+```
+
+## Exercise
+
+Draw a Gaussian function / Gaussian bell curve
+
+# Pyplot: Configuration and Styling
+
+## Styling
+
+Predefined Stylesheets are available via:
+
+```py
+plt.style.use("stylename")
+```
+
+[Reference of available styles](https://matplotlib.org/3.3.0/gallery/style_sheets/style_sheets_reference.html)
+
+## Styling graphs
+
+short form:
+
+```py
+plt.plot(x, y, "gx--")
+```
+
+long form:
+
+```py
+plt.plot(x, y, color="green", linestyle="dashed", marker="x")
+```
+
+The long form enables more detailed specification of color and size
+
+## Styling graphs
+
+specifying colors:
+
+- color name (_green_ / _lightblue_ / ...)
+- short name (_r_ / _g_ / _b_ / _c_ / _m_ / _y_ / _k_)
+- hex code (e.g. _#FFAA00_)
+- RGB tuple (e.g. `(1, 0.7, 0)`)
+
+## Styling graphs
+
+line styles:
+
+- `""` (_none_)
+- `"-"` (_solid_)
+- `"--"` (_dashed_)
+- `":"` (_dotted_)
+- `"-."` (_dashdot_)
+
+## Styling graphs
+
+markers:
+
+- `""` (none)
+- `","` (small dot)
+- `"."` (medium dot)
+- `"o"` (large dot)
+- `"s"` (square)
+- `"x"`
+- `"+"`
+- ...
+
+## Styling graphs
+
+important parameters:
+
+- `color`
+- `linestyle`
+- `linewidth`
+- `marker`
+- `markersize`
+
+## Labels
+
+- `plt.title("Trigonometric functions")`
+- `plt.xlabel("x (radians)")`
+- `plt.ylabel("y")`
+
+## Labels
+
+labelling multiple graphs:
+
+```py
+plt.plot(x, np.sin(x), label='sin(x)')
+plt.plot(x, np.cos(x), label='cos(x)')
+
+plt.legend()
+```
+
+## Axes
+
+disabling axes:
+
+```py
+plt.axis("off")
+```
+
+## Axes limits
+
+Fit axes (without gaps):
+
+```py
+plt.axis("tight")
+```
+
+Show a specific region:
+
+```py
+plt.axis([-1, 1, -1, 1])
+```
+
+Show a specific region of one axis:
+
+```py
+plt.xlim(-1, 1)
+```
+
+## Scaling
+
+Equal distances on both axes:
+
+```py
+plt.axis("equal")
+```
+
+Equal distances on both axes, restricting axes markings to used data ranges:
+
+```py
+plt.axis("scaled")
+```
+
+## Grid
+
+```py
+plt.grid(True)
+```
+
+## Ticks
+
+```py
+plt.yticks([-1, 0, 1])
+plt.xticks(np.linspace(0, 2*np.pi, 5))
+```
+
+## Exercises
+
+- sine and cosine with extended options
+- n-th prime and approximation via _n \* ln(n)_
+- estimating pi via random points
+
+# Pyplot: basic plot types
+
+## Basic plot types
+
+- graph
+- bar chart
+- scatter plot
+- histogram
+- box plot
+- pie chart
+
+## Basic plot types
+
+- graph: `plt.plot(x, y)` / `plt.plot(y)`
+- bar chart: `plt.bar(x, y)`
+- scatter plot: `plt.plot(x, y, ".")` / `plt.scatter(x, y, size, color)`
+- histogram: `plt.hist(x)`
+- box plot: `plt.boxplot(x)`
+- pie chart: `plt.pie(x, labels=...)`
+
+## Graph
+
+Graph of associated values of x and y:
+
+```py
+plt.plot(x, y)
+```
+
+Graph with automatic x (0, 1, ...):
+
+```py
+plt.plot(y)
+```
+
+## Graph
+
+multiple data sets:
+
+```py
+x = [1, 2, 3, 4]
+
+y1 = [1, 2, 3, 4]
+y2 = [3, 0 , 1, 0]
+
+plt.plot(x, [y1, y2])
+```
+
+## Bar charts
+
+```py
+plt.bar(x, y, width=0.6)
+plt.bar(x, y, width=1, align="edge")
+
+plt.bar(
+    [0, 1, 2],
+    [9.6, 17, 9.8],
+    tick_label=["China", "Russia", "USA"]
+)
+
+plt.barh([0, 1, 2], [9.6, 17, 9.8])
+```
+
+## Scatter plot
+
+creates data points with two (or more) values - one on the x-axis and the other on the y-axis
+
+simple:
+
+```py
+plt.plot(x, y, ".")
+```
+
+advanced:
+
+```py
+plt.scatter(x, y, size, color)
+```
+
+## Histogram
+
+Counts the occurence of certain values / ranges
+
+```py
+plt.hist(
+    body_heights_men,
+    bins=[150, 160, 170, 180, 190, 200]
+)
+```
+
+```py
+plt.hist(
+    body_heights_men,
+    bins=[150, 170, 180, 200],
+    density=True
+)
+```
+
+## Box plot
+
+Visualization of statistic data in a diagram (minimum, median, maximum, ...)
+
+```py
+plt.boxplot(
+    [body_heights_men, body_heights_women],
+    labels=["men", "women"]
+)
+```
+
+## Pie chart
+
+```py
+plt.pie([3, 10, 17, 9], labels=["a", "b", "c", "d"])
+
+plt.pie([3, 10, 17, 9], explode=[0, 0, 0, 0.1])
+```
+
+# Pyplot: figure, axes & subplots
+
+## Figure & axes
+
+Figure = entire drawing
+
+Axes = coordinate system that can display data
+
+A figure can contain multiple axes objects next to one another
+
+## Figure
+
+Every drawing in _pyplot_ is created via a _figure_ object (the figure is usually created automatically when plotting)
+
+Manually creating a figure of size 800 x 600 px (assuming 100 dpi):
+
+```py
+fig = plt.figure(
+    figsize=(8, 6),
+    facecolor="#eeeeee"
+)
+```
+
+This will automatically become the active figure.
+
+## Figure objects
+
+exporting a figure:
+
+```py
+fig.savefig("myplot.png")
+fig.savefig("myplot.svg")
+```
+
+## Figure objects
+
+Task: Script that generates a graph of the current CPU load and updates it every second (use the PIP package _psutil_)
+
+## Axes objects
+
+Getting the active _axes_ object:
+
+```py
+ax = plt.gca() # get current axes
+```
+
+The Methods of `plt` that we've previously seen call methods of the active _Axes_ object in the background:
+
+```py
+ax.plot(...)
+ax.set_title(...)
+ax.set_xlabel(...)
+ax.legend()
+ax.set_aspect("equal")
+```
+
+## Axes objects
+
+Task: Create a sine- and cosine- plot via _Axes_
+
+## Axis and Axes
+
+naming to keep in mind:
+
+- `plt.axis`: e.g. for setting scaling
+- `plt.axes`: for creating a nex coordinate system
+
+actual meaning (from Lating): _axis_ = singular, _axes_ = plural
+
+## Subplots
+
+Creating multiple _Axes_ objects in a grid (here: 2 rows, 3 columns):
+
+```py
+fig, ax = plt.subplots(2, 3)
+
+ax0 = ax[0, 0]
+ax1 = ax[0, 1]
+ax5 = ax[1, 2]
+```
 
 # Pandas
 
@@ -1077,7 +1489,7 @@ import matplotlib.pyplot as plt
 data_frame.plot()
 
 # show all figures that were created since the last
-# call to .show()
+# call of .show()
 plt.show()
 ```
 
@@ -1151,8 +1563,6 @@ simulate 10 million rolls of dice - each using 10 dice; plot the distribution of
 
 ## Scatter plots
 
-creates data points with two values - one on the x-axis and the other on the y-axis
-
 ```py
 iris.plot.scatter(x="sepal_length", y="sepal_width")
 ```
@@ -1168,6 +1578,25 @@ from pandas.plotting import scatter_matrix
 
 scatter_matrix(iris)
 ```
+
+# Plotting
+
+## Plotting - advanced plots
+
+- plotting data points with more than 2 features
+  - advanced scatter plot (size, color)
+  - scatter matrix
+- plotting z = f(x, y)
+  - contour plots
+  - 3d plots
+- plotting density of some distribution (advanced)
+  - histogram
+  - box plot
+  - kde
+  - violin plot
+- plotting density (2d)
+  - 2d histogram (hist2d, hexbin)
+  - kde
 
 # Cross tabulation
 

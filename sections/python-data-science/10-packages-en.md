@@ -7,12 +7,13 @@
 - _Pandas_: library for data analysis, based on NumPy
 - _Matplotlib_: library for data visualization
 - _Scikit-Learn_: library for machine learning, based on NumPy
+- _Keras_: library for deep learning
 
 ## Anaconda
 
 _Anaconda_ = Python distribution that includes many pre-installed packages and developer tools
 
-Takes ~ 3 GB of disk space
+Uses ~ 3 GB of disk space
 
 ## Anaconda installation
 

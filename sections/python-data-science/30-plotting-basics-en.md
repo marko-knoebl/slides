@@ -1,18 +1,18 @@
 # Plotting
 
-### Datenvisualisierung
+### Data visualization
 
 ## Plotting
 
-Grundlegende (low-level) Library für Plotting: _matplotlib_
+Basic (low-level) library for plotting: _matplotlib_
 
-Abstrahierende Interfaces zu grundlegenden matplotlib Funktionen:
+Higher-level interfaces:
 
-- _pyplot_ (enthalten in matplotlib, ähnlich zum matlab Plotinterface)
-- _pandas_ Plotfunktionen
+- _pyplot_ (contained in matplotlib, similar to matlab's plotting interface)
+- _pandas_ plotting functions
 - _seaborn_
 
-## Einfacher Plot mit pyplot
+## Simple plot with pyplot
 
 ```py
 import numpy as np
@@ -30,7 +30,7 @@ plt.plot(x, y2)
 plt.show()
 ```
 
-## Einfacher Plot mit pandas
+## Simple plot with pandas
 
 ```py
 import numpy as np
@@ -50,13 +50,13 @@ data.plot.line()
 plt.show()
 ```
 
-## Übung
+## Exercise
 
-Erstelle einen Plot, der die Sinus- und Kosinusfunktion im Intervall von _0_ bis _2π_ zeigt.
+Create a plot that shows the sine and cosine functions in the interval from _0_ to _2π_
 
-## Übung
+## Exercise
 
-Lösung mittels pyplot:
+solution via pyplot:
 
 ```py
 x = np.linspace(0, 2*3.1415, 200)
@@ -65,7 +65,7 @@ plt.plot(x, np.sin(x))
 plt.plot(x, np.cos(x))
 ```
 
-Lösung mittels pandas:
+solution via pandas:
 
 ```py
 x = np.linspace(0, 2*3.1415, 200)
@@ -75,6 +75,6 @@ df = pd.DataFrame({"sin": np.sin(x), "cos": np.cos(x)}, index=x)
 df.plot.line()
 ```
 
-## Übungen
+## Exercise
 
-Zeichne eine Gauß'sche Glockenkurve
+Draw a Gaussian function / Gaussian bell curve

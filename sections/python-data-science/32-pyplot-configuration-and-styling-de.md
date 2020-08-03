@@ -1,4 +1,4 @@
-# Konfiguration und Styling
+# Pyplot: Konfiguration und Styling
 
 ## Stile
 
@@ -8,9 +8,7 @@ Vorgefertigte Stylesheets verwendbar mittels:
 plt.style.use("stylename")
 ```
 
-Für Demos verfügbarer Stile siehe:
-
-https://matplotlib.org/3.1.0/gallery/style_sheets/style_sheets_reference.html
+[Referenz verfügbarer Stile](https://matplotlib.org/3.3.0/gallery/style_sheets/style_sheets_reference.html)
 
 ## Stile von Graphen
 
@@ -78,7 +76,7 @@ wichtige Parameter:
 
 ## Label
 
-Label für verschiedene Funktionen:
+Label für verschiedene Graphen:
 
 ```py
 plt.plot(x, np.sin(x), label='sin(x)')
@@ -145,5 +143,5 @@ plt.xticks(np.linspace(0, 2*np.pi, 5))
 ## Übungen
 
 - Sinus und Kosinus mit erweiterten Optionen
-- n-te Primzahl und Approximation via _n * ln(n)_
+- n-te Primzahl und Approximation via _n \* ln(n)_
 - Schätzung von Pi durch zufällige Punkte
