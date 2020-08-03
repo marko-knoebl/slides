@@ -30,6 +30,27 @@ Antwortformat:
 - REST: oft JSON (oder XML, ...)
 - GraphQL: JSON
 
+## Vergleich von REST, JSON-RPC und GraphQL
+
+- vorgegebene vs flexible Queries
+- protokollabhängig vs protokollunabhängig
+
+## Vorgegebene vs flexible Queries
+
+**REST**, **JSON-RPC**: _Endpunkte_ / _Methoden_ sind vorgegeben (z.B. _posts_of_friends_, _suggested_friends_, ...)
+
+**GraphQL**: Client kann eigene Query flexibel zusammenstellen
+
+Vorteil von GraphQL: Flexibler, neue Funktionalität benötigt oft keinen zusätzlichen Backend-Code
+
+Nachteil von GraphQL: Benötigt oft zusätzlichen Code um Zugriffe zu beschränken (z.B. Verhindern, auf Posts von vorgeschlagenen Freunden zuzugreifen)
+
+## Protokollabhängig vs protokollunabhängig
+
+**REST** wird üblicherweise mit HTTP verwendet, API-Aufrufe werden durch die HTTP-Methode unterschieden (_get_, _post_, ...)
+
+**JSON-RPC** und **GraphQL** können mit anderen Protokollen verwendet werden, z.B. WebSockets
+
 ## JSON-RPC
 
 RPC = remote procedure call
