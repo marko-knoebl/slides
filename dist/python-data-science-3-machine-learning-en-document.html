@@ -1,0 +1,62 @@
+<h1>NumPy advanced</h1>
+<h2>Reshaping arrays</h2>
+<pre><code class="hljs language-py">array_1d = array_3d.ravel()
+array_1d = array_3d.reshape(<span class="hljs-number">8</span>)
+array_2d = array_3d.reshape(<span class="hljs-number">2</span>, <span class="hljs-number">4</span>)
+array_2d = array_3d.reshape(<span class="hljs-number">2</span>, <span class="hljs-number">-1</span>) <span class="hljs-comment"># automatic second dimension</span>
+array_2d_transposed = array_2d.T
+</code></pre>
+<h2>Adding an extra dimension</h2>
+<p>Adding an extra dimension of length 1 via <code>newaxis</code> - turning a 2 x 2 array into a 2 x 2 x 1 array:</p>
+<pre><code class="hljs language-py">array_2d = np.array([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]])
+array_3d = array_2d[:, :, np.newaxis]
+<span class="hljs-comment"># [[[1], [2]], [[3], [4]]]</span>
+</code></pre>
+<h2>Slices as views</h2>
+<p>In ordinary Python we can make a shallow copy of a list by slicing it - this works differently in NumPy (in order to improve efficiency):</p>
+<pre><code class="hljs language-py">list = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]
+list_copy = list[:]
+list_copy[<span class="hljs-number">0</span>] = <span class="hljs-number">10</span> <span class="hljs-comment"># does NOT change list</span>
+
+array = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])
+array_view = array[:]
+array_view[<span class="hljs-number">0</span>] = <span class="hljs-number">10</span> <span class="hljs-comment"># DOES change array</span>
+</code></pre>
+<h2>Copying arrays</h2>
+<p>Arrays can be copied via <code>array.copy()</code></p>
+<h2>Concatenating arrays</h2>
+<p>concatenating horizontally:</p>
+<pre><code class="hljs language-py">np.concatenate([a1d, a1d])
+np.concatenate([a2d, a2d])
+</code></pre>
+<p>concatenating vertically:</p>
+<pre><code class="hljs language-py">np.concatenate([a2d, a2d], axis=<span class="hljs-number">1</span>)
+</code></pre>
+<h2>Matrix multiplication</h2>
+<p>via the binary Operator <code>@</code></p>
+<pre><code class="hljs language-py">a = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">1</span>])
+
+M = np.array([[<span class="hljs-number">0.707</span>, <span class="hljs-number">0.707</span>],
+              [<span class="hljs-number">-0.707</span>, <span class="hljs-number">0.707</span>]])
+
+print(a @ M)
+<span class="hljs-comment"># array([0.   , 1.414])</span>
+</code></pre>
+<h2>Matrix multiplication</h2>
+<p>example: rotating several points by 45° (counterclockwise):</p>
+<pre><code class="hljs language-py">points = np.array([[<span class="hljs-number">0</span>, <span class="hljs-number">0</span>], [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>], [<span class="hljs-number">1</span>, <span class="hljs-number">0</span>], [<span class="hljs-number">1</span>, <span class="hljs-number">1</span>]])
+
+M = np.array([[<span class="hljs-number">0.707</span>, <span class="hljs-number">0.707</span>],
+              [<span class="hljs-number">-0.707</span>, <span class="hljs-number">0.707</span>]])
+
+print(points @ M)
+</code></pre>
+<h2>Matrix multiplication</h2>
+<p>example:</p>
+<p>known data: prices of various products, number of items in stock for different stores</p>
+<pre><code class="hljs language-py">prices = np.array([<span class="hljs-number">3.99</span>, <span class="hljs-number">12.99</span>, <span class="hljs-number">5.90</span>, <span class="hljs-number">15</span>])
+quantities = np.array([[<span class="hljs-number">0</span>, <span class="hljs-number">80</span>, <span class="hljs-number">80</span>, <span class="hljs-number">100</span>],
+                       [<span class="hljs-number">100</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>],
+                       [<span class="hljs-number">50</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">50</span>]])
+</code></pre>
+<p>wanted: total value for each of the three stores</p>

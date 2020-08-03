@@ -62,7 +62,7 @@ Aufgabe: Scatter Plot von _Iris-setosa_
 ## Histogramm
 
 ```py
-iris.sepal_lenght.plot.hist()
+iris.sepal_length.plot.hist()
 ```
 
 ```py
