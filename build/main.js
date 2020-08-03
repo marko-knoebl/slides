@@ -45,6 +45,10 @@ const main = () => {
     "pages/overview-react-topics.html",
     "docs/overview-react-topics.html"
   );
+  fs.copyFileSync(
+    "pages/overview-vue-3-topics.html",
+    "docs/overview-vue-3-topics.html"
+  );
 };
 
 main();
