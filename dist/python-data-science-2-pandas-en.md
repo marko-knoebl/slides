@@ -432,7 +432,7 @@ In the exchange rate data there are some missing entries:
 Values that represent missing data (since pandas 1.0):
 
 - for floats: `NaN` (as usual in Python)
-- for other data types: `NA` (from the pands package)
+- for other data types: `NA` (from the pandas package)
 
 ## Missing data
 

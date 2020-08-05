@@ -406,7 +406,7 @@ star_a = [6.5e7, 3.0e30, 5.2e3]
 star_b = [7.0e8, 2.5e30, 8.1e3]
 ```
 
-Machine Learning Algorithmen wie z.B. k-Nearest-Neighbor betrachten Absolutwerte. Hier würde vom Algorithmus im wesentlichen nur die Masse herangezogen worden, da alle anderen Werte im Vergleich verschwindend gering sind.
+Machine Learning Algorithmen wie z.B. k-Nearest-Neighbor betrachten Absolutwerte. Hier würde vom Algorithmus im wesentlichen nur die Masse herangezogen werden, da alle anderen Werte im Vergleich verschwindend gering sind.
 
 ## Skalieren von Werten
 
@@ -420,8 +420,7 @@ X_train = np.array([[ 7.0e7, 2.0e30, 5.8e3],
                     [ 7.0e9, 2.5e30, 3.1e3]])
 
 scaler = preprocessing.StandardScaler()
-scaler.fit(X_train)
-X_train_scaled = scaler.transform(X_train)
+X_train_scaled = scaler.fit_transform(X_train)
 ```
 
 ## Skalieren von Werten
@@ -434,37 +433,58 @@ array([[-0.70634165, -1.22474487,  0.95025527],
        [ 1.41421329,  0.        , -1.38218948]])
 ```
 
-## Skalieren von Werten
+## Kategorien als Daten
 
-Aufgabe: Vergleich einer skalierten Version der Iris k-Nearest-Neighbor-Klassifizierung mit der nichtskalierten
+Manchmals: _Kategorien_ als Eingangs- oder Ausgangsdaten - z.B. Land, Berufsgruppe, Messverfahren, ...
 
-## Kategorien als Eingangsdaten
-
-Manchmal sind _Kategorien_ als Eingangsdaten angegeben - z.B. Land, Berufsgruppe, Messverfahren, ...
-
-Diese können in numerische Daten umgewandelt werden, indem jeder Kategorie eine Spalte mit booleschen Einträgen (0 / 1) zugeordnet wird.
-
-Dies geschieht z.B. mit `sklearn.preprocessing.LabelBinarizer`.
-
-## Kategorien als Eingangsdaten
+oftmals als Strings angegeben, Kodierung als Zahlen gewünscht, z.B.:
 
 ```py
-from sklearn.preprocessing import LabelBinarizer
-data = ['cold', 'cold', 'warm', 'cold', 'hot', 'hot']
-
-lb = LabelBinarizer()
-lb.fit(data)
-X = lb.transform(data)
-print(X)
+visitors = np.array([["fr", "chrome"], ["uk", "chrome"], ["us", "firefox"]])
 ```
 
+## Kategorien als Daten
+
+Eingangsdaten:
+
 ```py
-array([[1, 0, 0],
-       [1, 0, 0],
-       [0, 0, 1],
-       [1, 0, 0],
-       [0, 1, 0],
-       [0, 1, 0]])
+visitors = np.array([["fr", "chrome"], ["uk", "chrome"], ["us", "firefox"]])
+```
+
+Kodierung als Ordinale (nicht für alle Algorithmen geeignet, da implizit geordnet (fr=0, us=2)):
+
+```py
+np.array([[0., 0.], [1., 0.], [2., 1.]])
+```
+
+One-Hot-Kodierung:
+
+```py
+# fr?, uk?, us?, chrome?, firefox?
+np.array([[1., 0., 0., 1., 0.],
+          [0., 1., 0., 1., 0.],
+          [0., 0., 1., 0., 1.]])
+```
+
+## Kategorien als Daten
+
+Preprocessors:
+
+- `OrdinalEncoder` (Ordinale für Eingangskategorien)
+- `LabelEncoder` (Ordinale für Zielkategorien)
+- `OneHotEncoder` (One-Hot-Encoding für Eingangsdaten, standardmäßig sparse)
+- `LabelBinarizer` (One-Hot-Encoding für Zieldaten)
+
+## Kategorien als Daten
+
+Beispiele:
+
+```py
+X = preprocessing.OrdinalEncoder().fit_transform(visitors)
+y = preprocessing.LabelEncoder().fit_transform(iris_species)
+
+X = preprocessing.OneHotEncoder().fit_transform(visitors)
+Y = preprocessing.LabelBinarizer().fit_transform(iris_species)
 ```
 
 ## Textdaten
@@ -494,13 +514,31 @@ Pipelines können aus mehreren transformierenden Algorithmen und einem vorhersag
 from sklearn.pipeline import make_pipeline
 from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LinearRegression
 
 model = make_pipeline(
     SimpleImputer(strategy='mean'),
-    StandardScaler,
+    StandardScaler(),
     LinearRegression()
 )
 ```
+
+## Aufgabe: Vorbereiten von Iris-Rohdaten
+
+```py
+import pandas as pd
+iris = pd.read_csv(
+    "http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data",
+    header=None)
+```
+
+erste Zeile: `5.1,3.5,1.4,0.2,Iris-setosa`
+
+Aufgaben:
+
+- Zieldaten als ordinale Daten
+- Eingangsdaten skalieren
+- k-Nearest-Neighbor-Klassifizierung bei skalierten und nichtskalierten Daten vergleichen
 
 ## Beispiel: Preprocessing von Textdaten (Newsgroups)
 
