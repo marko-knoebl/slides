@@ -1254,7 +1254,10 @@ Dauer: ca 50 min
 
 ## Push-Benachrichtigungen - Grundlagen
 
-<img src="assets/push-message.svg" type="text/svg" style="width: 100%">
+<figure>
+  <img src="assets/push-message.svg" />
+  <small>beste Darstellung in Firefox</small>
+</figure>
 
 ## Push-Benachrichtigungen - Grundlagen
 
@@ -1265,7 +1268,10 @@ Push-Benachrichtigungen werden über den Browserhersteller (Google, Mozilla, ...
 
 ## Push-Benachrichtigungen - Ablauf
 
-<img src="assets/push-message-authentication.svg" type="text/svg" style="width: 100%">
+<figure>
+  <img src="assets/push-message-authentication.svg" />
+  <small>beste Darstellung in Firefox</small>
+</figure>
 
 ## Push-Benachrichtigungen - Ablauf
 

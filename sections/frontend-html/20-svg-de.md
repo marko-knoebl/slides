@@ -115,7 +115,9 @@ Via Attribut `transform`:
 
 ## Beispiel: Löffel und Gabel
 
-<img src="assets/spoon-fork.svg" type="text/svg" style="width: 100%"/>
+<figure style="width: 60%; margin: 0 auto">
+  <img src="assets/spoon-fork.svg" />
+</figure>
 
 ## Beispiel: Löffel und Gabel
 

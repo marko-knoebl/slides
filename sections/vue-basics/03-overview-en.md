@@ -22,7 +22,7 @@ one of the 3 big JavaScript UI frameworks (besides React, Angular)
 
 ## Example: data model and data flow in a todo app
 
-<img src="assets/todo-components-datamodel.svg" type="text/svg" style="width: 300px"/>
+<img src="assets/todo-components-datamodel.svg" />
 
 ## What makes Vue special?
 

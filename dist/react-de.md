@@ -68,7 +68,7 @@ Code verfügbar unter: <https://github.com/marko-knoebl/courses-code>
 
 ## Beispiel: Datenmodell und -fluss in einer Todo-App
 
-<img src="assets/todo-components-datamodel.svg" type="text/svg" style="width: 300px">
+<img src="assets/todo-components-datamodel.svg" />
 
 ## Was macht React besonders?
 
@@ -1136,7 +1136,7 @@ Beispiel:
 <Rating stars={3} />
 ```
 
-<img src="assets/rating.png" type="image/png" style="width: 16em">
+<img src="assets/rating.png" style="width: 16em" />
 
 ## Props in Funktionskomponenten
 

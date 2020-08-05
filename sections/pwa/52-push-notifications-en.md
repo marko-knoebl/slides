@@ -7,7 +7,10 @@
 
 ## Push notifications - basics
 
-<img src="assets/push-message.svg" type="text/svg" style="width: 500px">
+<figure>
+  <img src="assets/push-message.svg" />
+  <small>best viewed in Firefox</small>
+</figure>
 
 ## Push notifications - basics
 
@@ -18,7 +21,10 @@ Push notifications can be sent to a user via the browser vendor (Google, Mozilla
 
 ## Push notifications - process
 
-<img src="assets/push-message-authentication.svg" type="text/svg" style="width: 100%">
+<figure>
+  <img src="assets/push-message-authentication.svg" />
+  <small>best viewed in Firefox</small>
+</figure>
 
 ## Push notifications - process
 
@@ -37,7 +43,7 @@ serviceWorkerRegistration.pushManager
   .subscribe({
     userVisibleOnly: true,
   })
-  .then(subscription => {
+  .then((subscription) => {
     console.log(subscription.endpoint);
     // could be: https://android.googleapis.com/gcm/send/..
   });
@@ -48,7 +54,7 @@ serviceWorkerRegistration.pushManager
 ```js
 serviceWorkerRegistration.pushManager
   .getSubscription()
-  .then(subsription => {
+  .then((subsription) => {
     if (subscription !== undefined) {
       console.log(JSON.stringify(subscription.toJSON()));
       // send the subscription object to our server

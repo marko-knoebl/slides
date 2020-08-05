@@ -626,7 +626,7 @@ Oft wird der gesamte Anwendungszustand durch ein Datenmodell repräsentiert. Jed
 ## State Management Tools
 
 <figure>
-  <img src="assets/redux-devtools-airbnb.png" type="image/png" style="width: 100%" alt="Redux devtools showing the state of the airbnb website">
+  <img src="assets/redux-devtools-airbnb.png" style="width: 100%" alt="Redux devtools showing the state of the airbnb website">
   <figcaption>Redux Devtools, die den komplexen State der airbnb-Website anzeigen</figcaption>
 </figure>
 
@@ -678,7 +678,7 @@ Konzept von _Redux_ und Reacts _Reducer Hook_:
 
 ## Reducer Diagramm
 
-<img src="assets/redux-flow.svg" type="text/svg" style="width: 100%">
+<img src="assets/redux-flow.svg" />
 
 ## Beispiel: Todos State Management
 

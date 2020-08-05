@@ -888,7 +888,8 @@ navigator.serviceWorker
 <li>works even if the app is not currently running (on the desktop at least one browser instance has to be running)</li>
 </ul>
 <h2>Push notifications - basics</h2>
-<svg id="push-message-svg" version="1.1" width="1000" height="500" viewBox="-500 0 1000 500" xmlns="http://www.w3.org/2000/svg">
+<figure>
+  <svg id="push-message-svg" version="1.1" width="1000" height="500" viewBox="-500 0 1000 500" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <marker id="arrow-end" refX="0.0" refY="0.0" orient="auto" style="overflow: visible;">
       <path transform="rotate(180)" d="M 8.7 4 L -2.2 0 L 8.7 -4 C 7 -1.6 7 1.6 8.7 4 z" class="arrowhead" id="path4877"></path>
@@ -944,6 +945,8 @@ navigator.serviceWorker
     </textPath>
   </text>
 </svg>
+  <small>best viewed in Firefox</small>
+</figure>
 <h2>Push notifications - basics</h2>
 <p>Push notifications can be sent to a user via the browser vendor (Google, Mozilla, ...). It works via endpoint URLs like these:</p>
 <ul>
@@ -951,7 +954,8 @@ navigator.serviceWorker
 <li><code>https://updates.push.services.mozilla.com/wpush/v1/IDENTIFIER</code></li>
 </ul>
 <h2>Push notifications - process</h2>
-<svg id="push-message-auth-svg" version="1.1" width="1000" height="500" viewBox="-500 0 1000 500" xmlns="http://www.w3.org/2000/svg">
+<figure>
+  <svg id="push-message-auth-svg" version="1.1" width="1000" height="500" viewBox="-500 0 1000 500" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <marker id="arrow-end-1" refX="0.0" refY="0.0" orient="auto" style="overflow: visible;">
       <path transform="rotate(180)" d="M 8.7 4 L -2.2 0 L 8.7 -4 C 7 -1.6 7 1.6 8.7 4 z" class="arrowhead" id="path4877"></path>
@@ -1016,6 +1020,8 @@ navigator.serviceWorker
     </textPath>
   </text>
 </svg>
+  <small>best viewed in Firefox</small>
+</figure>
 <h2>Push notifications - process</h2>
 <ul>
 <li>user visits a web app, enables notifications</li>
@@ -1032,7 +1038,7 @@ The endpoint URL could look like this:<ul>
   .subscribe({
     <span class="hljs-attr">userVisibleOnly</span>: <span class="hljs-literal">true</span>,
   })
-  .then(<span class="hljs-function"><span class="hljs-params">subscription</span> =></span> {
+  .then(<span class="hljs-function">(<span class="hljs-params">subscription</span>) =></span> {
     <span class="hljs-built_in">console</span>.log(subscription.endpoint);
     <span class="hljs-comment">// could be: https://android.googleapis.com/gcm/send/..</span>
   });
@@ -1040,7 +1046,7 @@ The endpoint URL could look like this:<ul>
 <h2>Push notifications - getting the current subscription</h2>
 <pre><code class="hljs language-js">serviceWorkerRegistration.pushManager
   .getSubscription()
-  .then(<span class="hljs-function"><span class="hljs-params">subsription</span> =></span> {
+  .then(<span class="hljs-function">(<span class="hljs-params">subsription</span>) =></span> {
     <span class="hljs-keyword">if</span> (subscription !== <span class="hljs-literal">undefined</span>) {
       <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">JSON</span>.stringify(subscription.toJSON()));
       <span class="hljs-comment">// send the subscription object to our server</span>

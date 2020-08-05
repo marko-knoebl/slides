@@ -626,7 +626,7 @@ Often the entire application state is represented by a data model and every chan
 ## State management tools
 
 <figure>
-  <img src="assets/redux-devtools-airbnb.png" type="image/png" style="width: 100%" alt="Redux devtools showing the state of the airbnb website">
+  <img src="assets/redux-devtools-airbnb.png" style="width: 100%" alt="Redux devtools showing the state of the airbnb website">
   <figcaption>example: Redux devtools showing the complex state tree of the airbnb website</figcaption>
 </figure>
 
@@ -678,7 +678,7 @@ Technique that is used in _Redux_ and in React's _reducer hook_:
 
 ## Reducer diagram
 
-<img src="assets/redux-flow.svg" type="text/svg" style="width: 100%">
+<img src="assets/redux-flow.svg" />
 
 ## Example: todos state management
 

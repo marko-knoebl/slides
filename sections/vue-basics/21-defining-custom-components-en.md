@@ -26,7 +26,7 @@ Example:
 <Rating :stars="3" />
 ```
 
-<img src="assets/rating.png" type="image/png" style="width: 16em">
+<img src="assets/rating.png" style="width: 16em">
 
 Example:
 

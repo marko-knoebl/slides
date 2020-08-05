@@ -444,9 +444,9 @@ sum over all columns:
 np.sum(a2d, axis=1)
 ```
 
-## Operationen auf Arrays
+## Operations on arrays
 
-Aggregationen:
+aggregations:
 
 - `sum`
 - `min`

@@ -130,7 +130,7 @@ functionality (see [what's included](https://redux-toolkit.js.org/introduction/q
 ## Redux devtools
 
 <figure>
-  <img src="assets/redux-devtools-airbnb.png" type="image/png" style="width: 100%" alt="Redux devtools showing the state of the airbnb website">
+  <img src="assets/redux-devtools-airbnb.png" style="width: 100%" alt="Redux devtools showing the state of the airbnb website">
   <figcaption>Redux devtools showing the state of the airbnb website</figcaption>
 </figure>
 

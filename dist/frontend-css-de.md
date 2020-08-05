@@ -584,6 +584,8 @@ HTML-Vorlage:
 
 ## Aufgabe: Animation von Löffel und Gabel
 
-<img src="assets/spoon-fork-animated.svg" type="text/svg" style="width: 100%"/>
+<figure style="width: 50%; margin: 0 auto">
+  <img src="assets/spoon-fork-animated.svg" />
+</figure>
 
 Achtung: Wir verwenden nun CSS-Transformationen, nicht SVG-Transformationen; wir müssen nun beispielsweise `transform-origin` separat setzen

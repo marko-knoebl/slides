@@ -6,7 +6,7 @@ See <http://marko-knoebl.github.io/slides> for the slides.
 
 The presentations are standalone HTML files that can be downloaded and viewed offline.
 
-## Building process
+## Build process
 
 To build from the sources:
 

@@ -22,7 +22,7 @@
 
 ## Beispiel: Datenmodell und -fluss in einer Todo-App
 
-<img src="assets/todo-components-datamodel.svg" type="text/svg" style="width: 300px">
+<img src="assets/todo-components-datamodel.svg" />
 
 ## Was macht React besonders?
 
