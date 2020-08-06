@@ -617,7 +617,7 @@ todos.push({ <span class="hljs-attr">title</span>: <span class="hljs-string">'st
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> NewsletterRegistration = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
   <span class="hljs-keyword">const</span> [email, setEmail] = useState(<span class="hljs-string">''</span>);
   <span class="hljs-keyword">const</span> [emailEdited, setEmailEdited] = useState(<span class="hljs-literal">false</span>);
-
+  <span class="hljs-keyword">const</span> emailInvalid = !isEmail(email);
   <span class="hljs-keyword">return</span> (
     <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">form</span>
       <span class="hljs-attr">onSubmit</span>=<span class="hljs-string">{(e)</span> =></span> {
@@ -632,8 +632,8 @@ todos.push({ <span class="hljs-attr">title</span>: <span class="hljs-string">'st
         <span class="hljs-attr">onChange</span>=<span class="hljs-string">{(event)</span> =></span> setEmail(event.target.value)}
         onBlur={() => setEmailEdited(true)}
       />
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">disabled</span>=<span class="hljs-string">{!emailValid}</span>></span>subscribe<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
-      {emailEdited &#x26;&#x26; !isEmail ? (
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">disabled</span>=<span class="hljs-string">{emailInvalid}</span>></span>subscribe<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
+      {emailEdited &#x26;&#x26; emailInvalid ? (
         <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>invalid email<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
       ) : null}
     <span class="hljs-tag">&#x3C;/<span class="hljs-name">form</span>></span>

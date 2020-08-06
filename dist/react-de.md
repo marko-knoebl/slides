@@ -794,7 +794,7 @@ Ersetzen des Standardverhaltens:
 const NewsletterRegistration = () => {
   const [email, setEmail] = useState('');
   const [emailEdited, setEmailEdited] = useState(false);
-
+  const emailInvalid = !isEmail(email);
   return (
     <form
       onSubmit={(e) => {
@@ -809,8 +809,8 @@ const NewsletterRegistration = () => {
         onChange={(event) => setEmail(event.target.value)}
         onBlur={() => setEmailEdited(true)}
       />
-      <button disabled={!emailValid}>subscribe</button>
-      {emailEdited && !isEmail ? (
+      <button disabled={emailInvalid}>subscribe</button>
+      {emailEdited && emailInvalid ? (
         <div>invalid email</div>
       ) : null}
     </form>
