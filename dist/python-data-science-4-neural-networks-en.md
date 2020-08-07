@@ -18,6 +18,12 @@ Machine learning strategy that vaguely resembles how neurons in brains interact
   <figcaption>model of a single neuron with multiple inputs and one output</figcaption>
 </figure>
 
+## Activation functions
+
+- ReLU (Rectified Linear Unit)
+- Softmax - often used in the last layer for classification
+- Sigmoid - often used in the last layer for "tagging" (tags may overlap)
+
 # Example: iris classification
 
 load and prepare dataset:
