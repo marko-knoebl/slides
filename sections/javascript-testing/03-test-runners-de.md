@@ -14,7 +14,7 @@
 
 ## Ausführen von Tests
 
-Test werden meist mittels eines npm Scripts ausgeführt - z.B. vie `npm run test` (oder abgekürzt `npm test`)
+Tests werden meist mittels eines npm Scripts ausgeführt - z.B. via `npm run test` (oder abgekürzt `npm test`)
 
 Bemerkung: Laufende Tests sollten immer abgebrochen werden, bevor neue npm-Pakete installiert werden - ansonsten kann die Installation fehlschlagen
 
@@ -41,7 +41,7 @@ it('shortens "loremipsum" to "lor..." with limit 6', () => {
 
 Ein `it`-Block kann mehrere `expect`-Aufrufe enthalten (oder auch gar keine)
 
-In _Jest_ ist die auch Verwendung des Alias `test` anstatt von `it` möglich.
+In _Jest_ ist auch die Verwendung des Alias `test` anstatt von `it` möglich.
 
 ## Strukturierung von Tests
 

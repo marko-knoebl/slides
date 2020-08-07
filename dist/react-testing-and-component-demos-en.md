@@ -238,7 +238,7 @@ it('renders a list item with a given title text', () => {
 _Slideshow_ component:
 
 ```jsx
-import { fireEvent } from 'react-testing-library';
+import { fireEvent } from '@testing-library/react';
 
 it('switches to the next slide', () => {
   render(<Slideshow />);

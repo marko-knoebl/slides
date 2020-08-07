@@ -163,7 +163,7 @@ it('renders learn react link', () => {
 
 ## Elemente abfragen
 
-Abfrage nach _ARIA role_ und _accessible name_:
+Abfrage mittels _ARIA role_ und _accessible name_:
 
 ```js
 screen.getByRole('button', { name: 'delete' });
@@ -238,7 +238,7 @@ it('renders a list item with a given title text', () => {
 Slideshow-Komponente:
 
 ```jsx
-import { fireEvent } from 'react-testing-library';
+import { fireEvent } from '@testing-library/react';
 
 it('switches to the next slide', () => {
   render(<Slideshow />);

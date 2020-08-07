@@ -58,9 +58,9 @@ import assert from 'assert';
 import shorten from './shorten';
 
 assert.equal(shorten('loremipsum', 4), 'l...');
-assert.equal(shorten('loremipsum', 8), 'loremi...');
-assert.equal(shorten('loremipsum', 9), 'loremipsum');
+assert.equal(shorten('loremipsum', 9), 'loremi...');
 assert.equal(shorten('loremipsum', 10), 'loremipsum');
+assert.equal(shorten('loremipsum', 11), 'loremipsum');
 ```
 
 `assert.equal` throws an exception if the condition is not met

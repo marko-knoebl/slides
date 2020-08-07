@@ -58,9 +58,9 @@ import assert from 'assert';
 import shorten from './shorten';
 
 assert.equal(shorten('loremipsum', 4), 'l...');
-assert.equal(shorten('loremipsum', 8), 'loremi...');
-assert.equal(shorten('loremipsum', 9), 'loremipsum');
+assert.equal(shorten('loremipsum', 9), 'loremi...');
 assert.equal(shorten('loremipsum', 10), 'loremipsum');
+assert.equal(shorten('loremipsum', 11), 'loremipsum');
 ```
 
 `assert.equal` wirf eine Exception, wenn die Bedingung nicht erfüllt wird
@@ -137,7 +137,7 @@ expect(() => JSON.parse('')).toThrow();
 
 ## Ausführen von Tests
 
-Test werden meist mittels eines npm Scripts ausgeführt - z.B. vie `npm run test` (oder abgekürzt `npm test`)
+Tests werden meist mittels eines npm Scripts ausgeführt - z.B. via `npm run test` (oder abgekürzt `npm test`)
 
 Bemerkung: Laufende Tests sollten immer abgebrochen werden, bevor neue npm-Pakete installiert werden - ansonsten kann die Installation fehlschlagen
 
@@ -164,7 +164,7 @@ it('shortens "loremipsum" to "lor..." with limit 6', () => {
 
 Ein `it`-Block kann mehrere `expect`-Aufrufe enthalten (oder auch gar keine)
 
-In _Jest_ ist die auch Verwendung des Alias `test` anstatt von `it` möglich.
+In _Jest_ ist auch die Verwendung des Alias `test` anstatt von `it` möglich.
 
 ## Strukturierung von Tests
 
