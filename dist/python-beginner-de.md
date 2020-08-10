@@ -66,7 +66,7 @@ if a * b > 10:
 
 für Windows: Download von <https://python.org> (Windows x86-64 web-based installer)
 
-Häkchen bei "Add Python 3.7 to PATH" setzen
+Häkchen bei "Add Python 3.x to PATH" setzen
 
 <!--
 Python zu path hinzufügen
@@ -103,7 +103,7 @@ Möglichkeiten:
 Starten:
 
 - Terminal-Befehl `python`
-- aus dem Startmenü (z.B. _Python 3.7 (64-bit)_)
+- aus dem Startmenü (z.B. _Python 3.8 (64-bit)_)
 
 Beenden:
 
@@ -284,7 +284,7 @@ pi_int = int(pi)
 message = "Pi is approximately " + str(pi_int)
 ```
 
-# Weitere Datentypen: dict, list
+# Zusammengesetzte Datentypen: dict, list, tuple
 
 ## dict
 
@@ -370,6 +370,44 @@ Die Länge einer Liste bestimmen:
 ```py
 len(users)
 ```
+
+## Tupel
+
+```py
+date = (1973, 10, 23)
+```
+
+- Anwendungsbereich: ähnlich wie Dicts
+- Verhalten: ähnlich wie Listen
+
+## Tupel
+
+Anwendungsbereich: ähnlich wie dict:
+
+```py
+point_dict = {"x": 2, "y": 4}
+point_tuple = (2, 4)
+
+date_dict = {
+  "year": 1973,
+  "month": 10,
+  "day": 23
+}
+date_tuple = (1973, 10, 23)
+```
+
+Jeder Eintrag in einem Tupel hat eine bestimmte Bedeutung
+
+## Tupel
+
+Verhalten: ähnlich wie Listen:
+
+```py
+date_tuple[0] # 1973
+len(date_tuple) # 3
+```
+
+Im Gegensatz zu Listen sind Tupel unveränderlich (kein `.append` / `.pop` / ...)
 
 ## Datentypen - Aufgaben
 
@@ -528,7 +566,7 @@ print("Nice to meet you, " + name)
 
 in der Kommandozeile via `python greeting.py`
 
-in VS Code:
+in VS Code (Python-Erweiterung muss installiert sein):
 
 grünes Play-Symbol zur Editoransicht
 
@@ -1092,7 +1130,7 @@ def average(a, b):
     return m
 x = average(1, 2)
 
-print(m)
+print(m) # prints "Hello, world"
 ```
 
 ## Scope

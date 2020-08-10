@@ -65,12 +65,12 @@ if name:
 An expression that evaluates to one of two possibilities based on a boolean criterion
 
 ```py
-size = 'small' if length < 110 else 'big'
+size = 'small' if length < 100 else 'big'
 ```
 
 in other languages this could be written as:
 
 ```js
 // JavaScript
-size = length < 110 ? 'small' : 'big';
+size = length < 100 ? 'small' : 'big';
 ```

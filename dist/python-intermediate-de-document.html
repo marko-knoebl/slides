@@ -320,7 +320,7 @@ users = [<span class="hljs-string">"Alice"</span>, <span class="hljs-string">"Bo
 <li>if-Abfrage: <code>if 'Tim' in users:</code></li>
 </ul>
 <h2>Operationen auf Listen - Mutationen</h2>
-<p>Listen sind die einzigen veränderlichen Sequenzen</p>
+<p>Listen können direkt verändert werden (im Gegensatz zu Tupeln, Strings):</p>
 <ul>
 <li>Anhängen: <code>users.append("Dan")</code></li>
 <li>Letztes Element entfernen: <code>users.pop()</code></li>
@@ -338,39 +338,14 @@ users = [<span class="hljs-string">"Alice"</span>, <span class="hljs-string">"Bo
 </ul>
 <h1>Tupel</h1>
 <h2>Tupel</h2>
-<pre><code class="hljs language-py">date = (<span class="hljs-number">1973</span>, <span class="hljs-number">10</span>, <span class="hljs-number">23</span>)
-</code></pre>
-<ul>
-<li>Anwendungsbereich: ähnlich wie Dicts</li>
-<li>Verhalten: ähnlich wie Listen</li>
-</ul>
-<h2>Tupel</h2>
-<p>Anwendungsbereich: ähnlich wie dict:</p>
-<pre><code class="hljs language-py">point_dict = {<span class="hljs-string">"x"</span>: <span class="hljs-number">2</span>, <span class="hljs-string">"y"</span>: <span class="hljs-number">4</span>}
-point_tuple = (<span class="hljs-number">2</span>, <span class="hljs-number">4</span>)
-
-date_dict = {
-  <span class="hljs-string">"year"</span>: <span class="hljs-number">1973</span>,
-  <span class="hljs-string">"month"</span>: <span class="hljs-number">10</span>,
-  <span class="hljs-string">"day"</span>: <span class="hljs-number">23</span>
-}
-date_tuple = (<span class="hljs-number">1973</span>, <span class="hljs-number">10</span>, <span class="hljs-number">23</span>)
-</code></pre>
-<p>Jeder Eintrag in einem Tupel hat eine bestimmte Bedeutung</p>
-<h2>Tupel</h2>
-<p>Verhalten: ähnlich wie Listen:</p>
-<pre><code class="hljs language-py">date_tuple[<span class="hljs-number">0</span>] <span class="hljs-comment"># 1973</span>
-len(date_tuple) <span class="hljs-comment"># 3</span>
-</code></pre>
-<p>Im Gegensatz zu Listen sind Tupel unveränderlich (kein <code>.append</code> / <code>.pop</code> / ...)</p>
-<h2>Tupel</h2>
-<p>Erstellung: Einträge werden mit Kommas getrennt, üblicherweise mit runden Klammern umschlossen.</p>
+<p>Erstellung: Einträge werden mit Kommas getrennt, <em>üblicherweise</em> mit runden Klammern umschlossen.</p>
 <pre><code class="hljs language-py">empty_tuple = ()
 single_value = (<span class="hljs-string">'Thomas'</span>, )
+single_value = <span class="hljs-string">'Thomas'</span>,
 two_values = (<span class="hljs-string">'Thomas'</span>, <span class="hljs-string">'Smith'</span>)
 two_values = <span class="hljs-string">'Thomas'</span>, <span class="hljs-string">'Smith'</span>
 </code></pre>
-<h2>Unpacking (von Tupeln)</h2>
+<h2>Unpacking von Tupeln</h2>
 <pre><code class="hljs language-py">time = (<span class="hljs-number">23</span>, <span class="hljs-number">45</span>, <span class="hljs-number">0</span>)
 
 hour, minute, second = time
@@ -380,22 +355,52 @@ hour, minute, second = time
 </code></pre>
 <h1>Bytes</h1>
 <h2>Bytes</h2>
-<p>= Sequenz von Zahlen im Bereich 0 bis 255</p>
-<pre><code class="hljs language-py">m = bytes([<span class="hljs-number">0</span>, <span class="hljs-number">0x40</span>, <span class="hljs-number">0x70</span>, <span class="hljs-number">0xa0</span>])
+<p>beim Lesen von Datenträgern oder Empfangen von Daten müssen wir manchmals mit Bytes arbeiten: Abfolgen von Zahlen im Bereich von 0 bis 255 (8 Bit)</p>
+<p>Bytes können Bilder, Text, Daten, ... repräsentieren</p>
+<h2>Hexadezimalnotation</h2>
+<p>Bytes werden oft in Hexadezimalnotation statt dezimal geschrieben:</p>
+<ul>
+<li>1<sub>dec</sub> = 1<sub>hex</sub></li>
+<li>9<sub>dec</sub> = 9<sub>hex</sub></li>
+<li>10<sub>dec</sub> = a<sub>hex</sub></li>
+<li>15<sub>dec</sub> = f<sub>hex</sub></li>
+<li>16<sub>dec</sub> = 10<sub>hex</sub></li>
+<li>17<sub>dec</sub> = 11<sub>hex</sub></li>
+<li>31<sub>dec</sub> = 1f<sub>hex</sub></li>
+<li>32<sub>dec</sub> = 20<sub>hex</sub></li>
+</ul>
+<h2>Hexadezimalnotation</h2>
+<p>hex-Literale in Python:</p>
+<ul>
+<li>1 = <code>0x1</code></li>
+<li>9 = <code>0x9</code></li>
+<li>10 = <code>0xa</code></li>
+<li>15 = <code>0xf</code></li>
+<li>16 = <code>0x10</code></li>
+<li>17 = <code>0x11</code></li>
+<li>31 = <code>0x1f</code></li>
+<li>32 = <code>0x20</code></li>
+</ul>
+<h2>Erstellen</h2>
+<p>Erstellen von Bytes aus einer Liste von Zahlen:</p>
+<pre><code class="hljs language-py">a = bytes([<span class="hljs-number">0</span>, <span class="hljs-number">64</span>, <span class="hljs-number">112</span>, <span class="hljs-number">160</span>, <span class="hljs-number">255</span>])
+b = bytes([<span class="hljs-number">0</span>, <span class="hljs-number">0x40</span>, <span class="hljs-number">0x70</span>, <span class="hljs-number">0xa0</span>, <span class="hljs-number">0xff</span>])
 </code></pre>
-<pre><code class="hljs language-angelscript">m[<span class="hljs-number">1</span>] == <span class="hljs-number">64</span>
-m[<span class="hljs-number">2</span>] == <span class="hljs-number">160</span>
+<p>Erstellen von Bytes aus einem Byte String-Literal:</p>
+<pre><code class="hljs language-py">c = <span class="hljs-string">b"\x00\x40\x70\xa0\xff"</span>
+</code></pre>
+<p>ASCII-Werte können direkt verwendet werden (<code>\x40</code> = "@", <code>\x70</code> = "p"):</p>
+<pre><code class="hljs language-py">d = <span class="hljs-string">b"\x00@p\xa0\xff"</span>
 </code></pre>
 <h2>Bytes</h2>
 <p>Standard Repräsentation in Python:</p>
 <pre><code class="hljs language-py">print(bytes([<span class="hljs-number">0x00</span>, <span class="hljs-number">0x40</span>, <span class="hljs-number">0x70</span>, <span class="hljs-number">0xa0</span>]))
 </code></pre>
-<pre><code class="hljs language-py"><span class="hljs-string">b'\x00@p\xa0'</span>
+<pre><code class="hljs language-py"><span class="hljs-string">b'\x00@p\xa0\xff'</span>
 </code></pre>
 <p>Wenn möglich werden bytes als ASCII-Zeichen dargestellt; sonst wird ihr Hexadezimalcode angezeigt</p>
-<p>Das <code>b</code> zeigt an dass, es sich um Bytes - und nicht einen gewöhnlichen String - handelt</p>
 <h2>Bytes und Strings</h2>
-<p>Bytes können beliebige Daten beinhalten - oft beinhalten sie aber codierten Text</p>
+<p>Bytes beinhalten of codierten Text</p>
 <p>Wenn wir das Encoding kennen, können wir zwischen Bytes und Strings wechseln:</p>
 <pre><code class="hljs language-py"><span class="hljs-string">'ä'</span>.encode(<span class="hljs-string">'utf-8'</span>)
 <span class="hljs-comment"># b'\xc3\xa4'</span>
@@ -403,8 +408,6 @@ m[<span class="hljs-number">2</span>] == <span class="hljs-number">160</span>
 <pre><code class="hljs language-py"><span class="hljs-string">b'\xc3\xa4'</span>.decode(<span class="hljs-string">'utf-8'</span>)
 <span class="hljs-comment"># 'ä'</span>
 </code></pre>
-<h2>Bytes und Strings</h2>
-<p>Speichermedien und Netzwerke verarbeiten nur Bytes. Um Text von einem Speichermedium oder Netzwerk zu lesen müssen wir das Encoding kennen bzw spezifizieren.</p>
 <h1>Sequenzen</h1>
 <h2>Sequenzen</h2>
 <p>Sequenzen sind Objekte, die aus einer Aufreihung anderer Objekte bestehen, z.B.:</p>
@@ -690,17 +693,19 @@ products = []
 </code></pre>
 <h2>if Expression</h2>
 <p>Ein Ausdruck, der einen von zwei möglichen Werten ergibt - basierend auf einem booleschen Kriterium</p>
-<pre><code class="hljs language-py">size = <span class="hljs-string">'small'</span> <span class="hljs-keyword">if</span> length &#x3C; <span class="hljs-number">110</span> <span class="hljs-keyword">else</span> <span class="hljs-string">'big'</span>
+<pre><code class="hljs language-py">size = <span class="hljs-string">'small'</span> <span class="hljs-keyword">if</span> length &#x3C; <span class="hljs-number">100</span> <span class="hljs-keyword">else</span> <span class="hljs-string">'big'</span>
 </code></pre>
 <p>In anderen Sprachen:</p>
 <pre><code class="hljs language-js"><span class="hljs-comment">// JavaScript</span>
-size = length &#x3C; <span class="hljs-number">110</span> ? <span class="hljs-string">'small'</span> : <span class="hljs-string">'big'</span>;
+size = length &#x3C; <span class="hljs-number">100</span> ? <span class="hljs-string">'small'</span> : <span class="hljs-string">'big'</span>;
 </code></pre>
 <h1>For-Schleifen</h1>
 <h2>Itertools</h2>
 <p>Itertools: Modul zum Erzeugen von iterierbaren Elementen</p>
 <p>Beispiel:</p>
-<pre><code class="hljs language-py"><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> count():
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> itertools <span class="hljs-keyword">import</span> count
+
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> count():
     print(i)
     <span class="hljs-keyword">if</span> i >= <span class="hljs-number">5</span>:
         <span class="hljs-keyword">break</span>
@@ -797,13 +802,6 @@ hour, minute, second = time
     file.write(<span class="hljs-string">"abc"</span>)
     file.write(<span class="hljs-string">"def"</span>)
 file.close()
-</code></pre>
-<h2>Exceptions erneut raisen</h2>
-<pre><code class="hljs language-py"><span class="hljs-keyword">try</span>:
-    ...
-<span class="hljs-keyword">except</span> ClientError <span class="hljs-keyword">as</span> e
-    <span class="hljs-keyword">if</span> <span class="hljs-string">"DryRunOperation"</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> str(e):
-        <span class="hljs-keyword">raise</span>
 </code></pre>
 <h2>Python-Philosophie: EAFP</h2>
 <p>LBYL: <em>Look before you leap</em></p>

@@ -454,7 +454,7 @@ The following operations will also work on other _sequences_ - e.g. tuples, stri
 
 ## Operations on lists - mutations
 
-Lists are the only sequences that can be mutated:
+Lists can be mutated directly (while strings and tuples can't be):
 
 - appending: `users.append("Dan")`
 - removing the last element: `users.pop()`
@@ -477,56 +477,19 @@ l.sort(key=...)
 
 # Tuples
 
-## Tuples
-
-```py
-date = (1973, 10, 23)
-```
-
-- area of application: similar to dicts
-- behavior: similar to lists
-
-## Tuples
-
-Area of application: similar to dicts:
-
-```py
-point_dict = {"x": 2, "y": 4}
-point_tuple = (2, 4)
-
-date_dict = {
-  "year": 1973,
-  "month": 10,
-  "day": 23
-}
-date_tuple = (1973, 10, 23)
-```
-
-Each entry in a tuple has a specific meaning
-
-## Tuples
-
-Behavior: similar to lists:
-
-```py
-date_tuple[0] # 1973
-len(date_tuple) # 3
-```
-
-Unlike lists, tuples are immutable (no `.append` / `.pop` / ...)
-
 ## Creating tuples
 
-Entries are separated by commas, usually surrounded by round brackets.
+Entries are separated by commas, _usually_ surrounded by round brackets.
 
 ```py
 empty_tuple = ()
 single_value = ('Thomas', )
+single_value = 'Thomas',
 two_values = ('Thomas', 'Smith')
 two_values = 'Thomas', 'Smith'
 ```
 
-## Unpacking (of tuples)
+## Unpacking of tuples
 
 ```py
 time = (23, 45, 0)
@@ -544,15 +507,55 @@ a, b = b, a
 
 ## Bytes
 
-= Sequence of numbers in the range of 0 to 255
+when reading from storage media or reading network responses we may have to deal with bytes: sequences of integers in the range of 0 to 255 (8 bits)
+
+bytes may represent images, text, data, ...
+
+## Hexadecimal notation
+
+bytes are often written in hexadecimal notation instead of decimal:
+
+- 1<sub>dec</sub> = 1<sub>hex</sub>
+- 9<sub>dec</sub> = 9<sub>hex</sub>
+- 10<sub>dec</sub> = a<sub>hex</sub>
+- 15<sub>dec</sub> = f<sub>hex</sub>
+- 16<sub>dec</sub> = 10<sub>hex</sub>
+- 17<sub>dec</sub> = 11<sub>hex</sub>
+- 31<sub>dec</sub> = 1f<sub>hex</sub>
+- 32<sub>dec</sub> = 20<sub>hex</sub>
+
+## Hexadecimal notation
+
+hexadecimal literals in Python:
+
+- 1 = `0x1`
+- 9 = `0x9`
+- 10 = `0xa`
+- 15 = `0xf`
+- 16 = `0x10`
+- 17 = `0x11`
+- 31 = `0x1f`
+- 32 = `0x20`
+
+## Creation
+
+creating bytes from a list of numbers:
 
 ```py
-m = bytes([0, 0x40, 0x70, 0xa0])
+a = bytes([0, 64, 112, 160, 255])
+b = bytes([0, 0x40, 0x70, 0xa0, 0xff])
 ```
 
+creating bytes from a byte string literal:
+
+```py
+c = b"\x00\x40\x70\xa0\xff"
 ```
-m[1] == 64
-m[2] == 160
+
+ASCII values can be included directly (`\x40` = "@", `\x70` = "p"):
+
+```py
+d = b"\x00@p\xa0\xff"
 ```
 
 ## Bytes
@@ -560,20 +563,18 @@ m[2] == 160
 Standard representation in Python:
 
 ```py
-print(bytes([0x00, 0x40, 0x70, 0xa0]))
+print(bytes([0x00, 0x40, 0x70, 0xa0, 0xff]))
 ```
 
 ```py
-b'\x00@p\xa0'
+b'\x00@p\xa0\xff'
 ```
 
 Where possible, bytes will be represented by ASCII characters; otherwise their hex code will be shown
 
-The `b` signifies a byte string literal
-
 ## Bytes and Strings
 
-Bytes can hold arbitrary data, but often they will hold encoded text
+Bytes will often hold encoded text
 
 If we know the encoding we can convert between bytes and strings:
 
@@ -586,10 +587,6 @@ If we know the encoding we can convert between bytes and strings:
 b'\xc3\xa4'.decode('utf-8')
 # 'ä'
 ```
-
-## Bytes and Strings
-
-Storage media and networks will only handle bytes; in order to read a text file from disk or from the network we need to know / specify the encoding
 
 # Sequences
 
@@ -1009,14 +1006,14 @@ if name:
 An expression that evaluates to one of two possibilities based on a boolean criterion
 
 ```py
-size = 'small' if length < 110 else 'big'
+size = 'small' if length < 100 else 'big'
 ```
 
 in other languages this could be written as:
 
 ```js
 // JavaScript
-size = length < 110 ? 'small' : 'big';
+size = length < 100 ? 'small' : 'big';
 ```
 
 # For loops
@@ -1028,6 +1025,8 @@ Itertools: Module for creating iterable elements
 Example:
 
 ```py
+from itertools import count
+
 for i in count():
     print(i)
     if i >= 5:
@@ -1162,16 +1161,6 @@ else:
     file.write("abc")
     file.write("def")
 file.close()
-```
-
-## Re-raising exceptions
-
-```py
-try:
-    ...
-except ClientError as e
-    if "DryRunOperation" not in str(e):
-        raise
 ```
 
 ## Python philosophy: EAFP
@@ -1670,9 +1659,9 @@ Python 2:
 
 ## range
 
-in Python 2: `range()` returns a list, `xrange()` returns an object that saves on memory
+in Python 2: `range()` returns a list, `xrange()` returns an object that uses less memory
 
-in Python 3: `range()` returns an object that saves on memory
+in Python 3: `range()` returns an object that uses less memory
 
 ## input
 

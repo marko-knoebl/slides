@@ -36,7 +36,7 @@ def average(a, b):
     return m
 x = average(1, 2)
 
-print(m)
+print(m) # prints "Hello, world"
 ```
 
 ## Scope

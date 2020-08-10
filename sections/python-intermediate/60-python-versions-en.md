@@ -36,9 +36,9 @@ Python 2:
 
 ## range
 
-in Python 2: `range()` returns a list, `xrange()` returns an object that saves on memory
+in Python 2: `range()` returns a list, `xrange()` returns an object that uses less memory
 
-in Python 3: `range()` returns an object that saves on memory
+in Python 3: `range()` returns an object that uses less memory
 
 ## input
 

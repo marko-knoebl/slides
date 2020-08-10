@@ -24,7 +24,7 @@ Die folgenden Operationen klappen auch bei anderen _Sequenzen_ - z.B. Tupeln, St
 
 ## Operationen auf Listen - Mutationen
 
-Listen sind die einzigen veränderlichen Sequenzen
+Listen können direkt verändert werden (im Gegensatz zu Tupeln, Strings):
 
 - Anhängen: `users.append("Dan")`
 - Letztes Element entfernen: `users.pop()`

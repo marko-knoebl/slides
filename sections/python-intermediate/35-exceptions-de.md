@@ -80,16 +80,6 @@ else:
 file.close()
 ```
 
-## Exceptions erneut raisen
-
-```py
-try:
-    ...
-except ClientError as e
-    if "DryRunOperation" not in str(e):
-        raise
-```
-
 ## Python-Philosophie: EAFP
 
 LBYL: _Look before you leap_

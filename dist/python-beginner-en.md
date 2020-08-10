@@ -66,7 +66,7 @@ if a * b > 10:
 
 on Windows: Download from <https://python.org> (Windows x86-64 web-based installer)
 
-check the option "Add Python 3.7 to PATH"
+check the option "Add Python 3.x to PATH"
 
 <!--
 Python zu path hinzufügen
@@ -103,7 +103,7 @@ options:
 launching the Python console / shell:
 
 - command `python` in the command prompt
-- from the start menu (e.g. _Python 3.7 (64-bit)_)
+- from the start menu (e.g. _Python 3.8 (64-bit)_)
 
 quitting:
 
@@ -284,7 +284,7 @@ pi_int = int(pi)
 message = "Pi is approximately " + str(pi_int)
 ```
 
-# Composite types: dict, list
+# Composite types: dict, list, tuple
 
 ## dict
 
@@ -370,6 +370,44 @@ Determining the length
 ```py
 len(users)
 ```
+
+## Tuple
+
+```py
+date = (1973, 10, 23)
+```
+
+- area of application: similar to dicts
+- behavior: similar to lists
+
+## Tuples
+
+Area of application: similar to dicts:
+
+```py
+point_dict = {"x": 2, "y": 4}
+point_tuple = (2, 4)
+
+date_dict = {
+  "year": 1973,
+  "month": 10,
+  "day": 23
+}
+date_tuple = (1973, 10, 23)
+```
+
+Each entry in a tuple has a specific meaning
+
+## Tuples
+
+Behavior: similar to lists:
+
+```py
+date_tuple[0] # 1973
+len(date_tuple) # 3
+```
+
+Unlike lists, tuples are immutable (no `.append` / `.pop` / ...)
 
 ## Data types - exercises
 
@@ -528,7 +566,7 @@ print("Nice to meet you, " + name)
 
 on the command line via `python greeting.py`
 
-in VS Code:
+in VS Code (Python extension must be installed):
 
 green _play_ button in the editor view
 
@@ -1044,7 +1082,7 @@ with keyword parameters:
 f = open("myfile.txt", encoding="utf-8", mode="w")
 ```
 
-We can names of keyword parameters in the documentation (e.g. via `help(open)`)
+We can look up names of keyword parameters in the documentation (e.g. via `help(open)`)
 
 ## Optional parameters and default parameters
 
@@ -1092,7 +1130,7 @@ def average(a, b):
     return m
 x = average(1, 2)
 
-print(m)
+print(m) # prints "Hello, world"
 ```
 
 ## Scope

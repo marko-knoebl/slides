@@ -7,6 +7,8 @@ Itertools: Modul zum Erzeugen von iterierbaren Elementen
 Beispiel:
 
 ```py
+from itertools import count
+
 for i in count():
     print(i)
     if i >= 5:

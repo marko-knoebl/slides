@@ -30,7 +30,7 @@ with keyword parameters:
 f = open("myfile.txt", encoding="utf-8", mode="w")
 ```
 
-We can names of keyword parameters in the documentation (e.g. via `help(open)`)
+We can look up names of keyword parameters in the documentation (e.g. via `help(open)`)
 
 ## Optional parameters and default parameters
 

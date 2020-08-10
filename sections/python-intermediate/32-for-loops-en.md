@@ -7,6 +7,8 @@ Itertools: Module for creating iterable elements
 Example:
 
 ```py
+from itertools import count
+
 for i in count():
     print(i)
     if i >= 5:

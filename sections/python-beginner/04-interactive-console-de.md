@@ -12,7 +12,7 @@ Möglichkeiten:
 Starten:
 
 - Terminal-Befehl `python`
-- aus dem Startmenü (z.B. _Python 3.7 (64-bit)_)
+- aus dem Startmenü (z.B. _Python 3.8 (64-bit)_)
 
 Beenden:
 

@@ -324,7 +324,7 @@ users = [<span class="hljs-string">"Alice"</span>, <span class="hljs-string">"Bo
 <li>if clause : <code>if 'Tim' in users:</code></li>
 </ul>
 <h2>Operations on lists - mutations</h2>
-<p>Lists are the only sequences that can be mutated:</p>
+<p>Lists can be mutated directly (while strings and tuples can't be):</p>
 <ul>
 <li>appending: <code>users.append("Dan")</code></li>
 <li>removing the last element: <code>users.pop()</code></li>
@@ -341,40 +341,15 @@ users = [<span class="hljs-string">"Alice"</span>, <span class="hljs-string">"Bo
 <li>list of prime numbers</li>
 </ul>
 <h1>Tuples</h1>
-<h2>Tuples</h2>
-<pre><code class="hljs language-py">date = (<span class="hljs-number">1973</span>, <span class="hljs-number">10</span>, <span class="hljs-number">23</span>)
-</code></pre>
-<ul>
-<li>area of application: similar to dicts</li>
-<li>behavior: similar to lists</li>
-</ul>
-<h2>Tuples</h2>
-<p>Area of application: similar to dicts:</p>
-<pre><code class="hljs language-py">point_dict = {<span class="hljs-string">"x"</span>: <span class="hljs-number">2</span>, <span class="hljs-string">"y"</span>: <span class="hljs-number">4</span>}
-point_tuple = (<span class="hljs-number">2</span>, <span class="hljs-number">4</span>)
-
-date_dict = {
-  <span class="hljs-string">"year"</span>: <span class="hljs-number">1973</span>,
-  <span class="hljs-string">"month"</span>: <span class="hljs-number">10</span>,
-  <span class="hljs-string">"day"</span>: <span class="hljs-number">23</span>
-}
-date_tuple = (<span class="hljs-number">1973</span>, <span class="hljs-number">10</span>, <span class="hljs-number">23</span>)
-</code></pre>
-<p>Each entry in a tuple has a specific meaning</p>
-<h2>Tuples</h2>
-<p>Behavior: similar to lists:</p>
-<pre><code class="hljs language-py">date_tuple[<span class="hljs-number">0</span>] <span class="hljs-comment"># 1973</span>
-len(date_tuple) <span class="hljs-comment"># 3</span>
-</code></pre>
-<p>Unlike lists, tuples are immutable (no <code>.append</code> / <code>.pop</code> / ...)</p>
 <h2>Creating tuples</h2>
-<p>Entries are separated by commas, usually surrounded by round brackets.</p>
+<p>Entries are separated by commas, <em>usually</em> surrounded by round brackets.</p>
 <pre><code class="hljs language-py">empty_tuple = ()
 single_value = (<span class="hljs-string">'Thomas'</span>, )
+single_value = <span class="hljs-string">'Thomas'</span>,
 two_values = (<span class="hljs-string">'Thomas'</span>, <span class="hljs-string">'Smith'</span>)
 two_values = <span class="hljs-string">'Thomas'</span>, <span class="hljs-string">'Smith'</span>
 </code></pre>
-<h2>Unpacking (of tuples)</h2>
+<h2>Unpacking of tuples</h2>
 <pre><code class="hljs language-py">time = (<span class="hljs-number">23</span>, <span class="hljs-number">45</span>, <span class="hljs-number">0</span>)
 
 hour, minute, second = time
@@ -384,22 +359,52 @@ hour, minute, second = time
 </code></pre>
 <h1>Bytes</h1>
 <h2>Bytes</h2>
-<p>= Sequence of numbers in the range of 0 to 255</p>
-<pre><code class="hljs language-py">m = bytes([<span class="hljs-number">0</span>, <span class="hljs-number">0x40</span>, <span class="hljs-number">0x70</span>, <span class="hljs-number">0xa0</span>])
+<p>when reading from storage media or reading network responses we may have to deal with bytes: sequences of integers in the range of 0 to 255 (8 bits)</p>
+<p>bytes may represent images, text, data, ...</p>
+<h2>Hexadecimal notation</h2>
+<p>bytes are often written in hexadecimal notation instead of decimal:</p>
+<ul>
+<li>1<sub>dec</sub> = 1<sub>hex</sub></li>
+<li>9<sub>dec</sub> = 9<sub>hex</sub></li>
+<li>10<sub>dec</sub> = a<sub>hex</sub></li>
+<li>15<sub>dec</sub> = f<sub>hex</sub></li>
+<li>16<sub>dec</sub> = 10<sub>hex</sub></li>
+<li>17<sub>dec</sub> = 11<sub>hex</sub></li>
+<li>31<sub>dec</sub> = 1f<sub>hex</sub></li>
+<li>32<sub>dec</sub> = 20<sub>hex</sub></li>
+</ul>
+<h2>Hexadecimal notation</h2>
+<p>hexadecimal literals in Python:</p>
+<ul>
+<li>1 = <code>0x1</code></li>
+<li>9 = <code>0x9</code></li>
+<li>10 = <code>0xa</code></li>
+<li>15 = <code>0xf</code></li>
+<li>16 = <code>0x10</code></li>
+<li>17 = <code>0x11</code></li>
+<li>31 = <code>0x1f</code></li>
+<li>32 = <code>0x20</code></li>
+</ul>
+<h2>Creation</h2>
+<p>creating bytes from a list of numbers:</p>
+<pre><code class="hljs language-py">a = bytes([<span class="hljs-number">0</span>, <span class="hljs-number">64</span>, <span class="hljs-number">112</span>, <span class="hljs-number">160</span>, <span class="hljs-number">255</span>])
+b = bytes([<span class="hljs-number">0</span>, <span class="hljs-number">0x40</span>, <span class="hljs-number">0x70</span>, <span class="hljs-number">0xa0</span>, <span class="hljs-number">0xff</span>])
 </code></pre>
-<pre><code class="hljs language-angelscript">m[<span class="hljs-number">1</span>] == <span class="hljs-number">64</span>
-m[<span class="hljs-number">2</span>] == <span class="hljs-number">160</span>
+<p>creating bytes from a byte string literal:</p>
+<pre><code class="hljs language-py">c = <span class="hljs-string">b"\x00\x40\x70\xa0\xff"</span>
+</code></pre>
+<p>ASCII values can be included directly (<code>\x40</code> = "@", <code>\x70</code> = "p"):</p>
+<pre><code class="hljs language-py">d = <span class="hljs-string">b"\x00@p\xa0\xff"</span>
 </code></pre>
 <h2>Bytes</h2>
 <p>Standard representation in Python:</p>
-<pre><code class="hljs language-py">print(bytes([<span class="hljs-number">0x00</span>, <span class="hljs-number">0x40</span>, <span class="hljs-number">0x70</span>, <span class="hljs-number">0xa0</span>]))
+<pre><code class="hljs language-py">print(bytes([<span class="hljs-number">0x00</span>, <span class="hljs-number">0x40</span>, <span class="hljs-number">0x70</span>, <span class="hljs-number">0xa0</span>, <span class="hljs-number">0xff</span>]))
 </code></pre>
-<pre><code class="hljs language-py"><span class="hljs-string">b'\x00@p\xa0'</span>
+<pre><code class="hljs language-py"><span class="hljs-string">b'\x00@p\xa0\xff'</span>
 </code></pre>
 <p>Where possible, bytes will be represented by ASCII characters; otherwise their hex code will be shown</p>
-<p>The <code>b</code> signifies a byte string literal</p>
 <h2>Bytes and Strings</h2>
-<p>Bytes can hold arbitrary data, but often they will hold encoded text</p>
+<p>Bytes will often hold encoded text</p>
 <p>If we know the encoding we can convert between bytes and strings:</p>
 <pre><code class="hljs language-py"><span class="hljs-string">'ä'</span>.encode(<span class="hljs-string">'utf-8'</span>)
 <span class="hljs-comment"># b'\xc3\xa4'</span>
@@ -407,8 +412,6 @@ m[<span class="hljs-number">2</span>] == <span class="hljs-number">160</span>
 <pre><code class="hljs language-py"><span class="hljs-string">b'\xc3\xa4'</span>.decode(<span class="hljs-string">'utf-8'</span>)
 <span class="hljs-comment"># 'ä'</span>
 </code></pre>
-<h2>Bytes and Strings</h2>
-<p>Storage media and networks will only handle bytes; in order to read a text file from disk or from the network we need to know / specify the encoding</p>
 <h1>Sequences</h1>
 <h2>Sequences</h2>
 <p>Python sequences consist of other Python objects</p>
@@ -697,17 +700,19 @@ products = []
 </code></pre>
 <h2>if expressions</h2>
 <p>An expression that evaluates to one of two possibilities based on a boolean criterion</p>
-<pre><code class="hljs language-py">size = <span class="hljs-string">'small'</span> <span class="hljs-keyword">if</span> length &#x3C; <span class="hljs-number">110</span> <span class="hljs-keyword">else</span> <span class="hljs-string">'big'</span>
+<pre><code class="hljs language-py">size = <span class="hljs-string">'small'</span> <span class="hljs-keyword">if</span> length &#x3C; <span class="hljs-number">100</span> <span class="hljs-keyword">else</span> <span class="hljs-string">'big'</span>
 </code></pre>
 <p>in other languages this could be written as:</p>
 <pre><code class="hljs language-js"><span class="hljs-comment">// JavaScript</span>
-size = length &#x3C; <span class="hljs-number">110</span> ? <span class="hljs-string">'small'</span> : <span class="hljs-string">'big'</span>;
+size = length &#x3C; <span class="hljs-number">100</span> ? <span class="hljs-string">'small'</span> : <span class="hljs-string">'big'</span>;
 </code></pre>
 <h1>For loops</h1>
 <h2>Itertools</h2>
 <p>Itertools: Module for creating iterable elements</p>
 <p>Example:</p>
-<pre><code class="hljs language-py"><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> count():
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> itertools <span class="hljs-keyword">import</span> count
+
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> count():
     print(i)
     <span class="hljs-keyword">if</span> i >= <span class="hljs-number">5</span>:
         <span class="hljs-keyword">break</span>
@@ -804,13 +809,6 @@ hour, minute, second = time
     file.write(<span class="hljs-string">"abc"</span>)
     file.write(<span class="hljs-string">"def"</span>)
 file.close()
-</code></pre>
-<h2>Re-raising exceptions</h2>
-<pre><code class="hljs language-py"><span class="hljs-keyword">try</span>:
-    ...
-<span class="hljs-keyword">except</span> ClientError <span class="hljs-keyword">as</span> e
-    <span class="hljs-keyword">if</span> <span class="hljs-string">"DryRunOperation"</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> str(e):
-        <span class="hljs-keyword">raise</span>
 </code></pre>
 <h2>Python philosophy: EAFP</h2>
 <p>LBYL: <em>Look before you leap</em></p>
@@ -1131,8 +1129,8 @@ print(a)
 <pre><code class="hljs language-py"><span class="hljs-number">10</span> / <span class="hljs-number">3</span>    <span class="hljs-comment"># 3</span>
 </code></pre>
 <h2>range</h2>
-<p>in Python 2: <code>range()</code> returns a list, <code>xrange()</code> returns an object that saves on memory</p>
-<p>in Python 3: <code>range()</code> returns an object that saves on memory</p>
+<p>in Python 2: <code>range()</code> returns a list, <code>xrange()</code> returns an object that uses less memory</p>
+<p>in Python 3: <code>range()</code> returns an object that uses less memory</p>
 <h2>input</h2>
 <p>in Python 2: <code>input()</code> will evaluate / execute the input, <code>raw_input()</code> returns a string</p>
 <p>in Python 3: <code>input()</code> returns a string</p>

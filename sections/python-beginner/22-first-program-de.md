@@ -38,7 +38,7 @@ print("Nice to meet you, " + name)
 
 in der Kommandozeile via `python greeting.py`
 
-in VS Code:
+in VS Code (Python-Erweiterung muss installiert sein):
 
 grünes Play-Symbol zur Editoransicht
 

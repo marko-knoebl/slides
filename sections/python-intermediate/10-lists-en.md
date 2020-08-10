@@ -24,7 +24,7 @@ The following operations will also work on other _sequences_ - e.g. tuples, stri
 
 ## Operations on lists - mutations
 
-Lists are the only sequences that can be mutated:
+Lists can be mutated directly (while strings and tuples can't be):
 
 - appending: `users.append("Dan")`
 - removing the last element: `users.pop()`

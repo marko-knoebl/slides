@@ -1,4 +1,4 @@
-# Composite types: dict, list
+# Composite types: dict, list, tuple
 
 ## dict
 
@@ -84,6 +84,44 @@ Determining the length
 ```py
 len(users)
 ```
+
+## Tuple
+
+```py
+date = (1973, 10, 23)
+```
+
+- area of application: similar to dicts
+- behavior: similar to lists
+
+## Tuples
+
+Area of application: similar to dicts:
+
+```py
+point_dict = {"x": 2, "y": 4}
+point_tuple = (2, 4)
+
+date_dict = {
+  "year": 1973,
+  "month": 10,
+  "day": 23
+}
+date_tuple = (1973, 10, 23)
+```
+
+Each entry in a tuple has a specific meaning
+
+## Tuples
+
+Behavior: similar to lists:
+
+```py
+date_tuple[0] # 1973
+len(date_tuple) # 3
+```
+
+Unlike lists, tuples are immutable (no `.append` / `.pop` / ...)
 
 ## Data types - exercises
 

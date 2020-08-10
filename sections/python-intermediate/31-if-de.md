@@ -65,12 +65,12 @@ if name:
 Ein Ausdruck, der einen von zwei möglichen Werten ergibt - basierend auf einem booleschen Kriterium
 
 ```py
-size = 'small' if length < 110 else 'big'
+size = 'small' if length < 100 else 'big'
 ```
 
 In anderen Sprachen:
 
 ```js
 // JavaScript
-size = length < 110 ? 'small' : 'big';
+size = length < 100 ? 'small' : 'big';
 ```
