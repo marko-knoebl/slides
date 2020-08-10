@@ -23,3 +23,7 @@ Machine learning strategy that vaguely resembles how neurons in brains interact
 - ReLU (Rectified Linear Unit)
 - Softmax - often used in the last layer for classification
 - Sigmoid - often used in the last layer for "tagging" (tags may overlap)
+
+## Resource
+
+- <https://victorzhou.com/blog/intro-to-neural-networks/>

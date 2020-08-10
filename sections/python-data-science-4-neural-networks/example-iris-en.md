@@ -4,17 +4,19 @@ load and prepare dataset:
 
 ```py
 import numpy as np
-
 from sklearn import datasets
-from sklearn.preprocessing import LabelBinarizer, StandardScaler
+from sklearn import preprocessing
+from sklearn import utils
 
 iris = datasets.load_iris()
 
-X = StandardScaler().fit_transform(iris.data)
-Y = LabelBinarizer().fit_transform(iris.target[:, np.newaxis])
+X = iris.data
+Y = preprocessing.LabelBinarizer().fit_transform(iris.target[:, np.newaxis])
+
+X, Y = utils.shuffle(X, Y)
 ```
 
-build model:
+create model:
 
 ```py
 from keras.models import Sequential
@@ -22,16 +24,18 @@ from keras.layers import Dense
 
 model = Sequential()
 model.add(Dense(8, activation="relu"))
-model.add(Dense(8, activation="relu"))
 model.add(Dense(3, activation="softmax"))
 
 model.compile(
-    optimizer="adam",
     loss="categorical_crossentropy",
     metrics=["accuracy"]
 )
+```
 
-model.fit(X, Y, batch_size=5, epochs=100, verbose=0)
+learn:
+
+```py
+model.fit(X, Y, validation_split=0.25, batch_size=5, epochs=100, verbose=1)
 ```
 
 verify model:

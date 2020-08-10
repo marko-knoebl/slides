@@ -2376,14 +2376,24 @@ X_train_scaled = scaler.fit_transform(X_train)
 </section><section class="slide"><h2>Kategorien als Daten</h2>
 <p>Manchmals: <em>Kategorien</em> als Eingangs- oder Ausgangsdaten - z.B. Land, Berufsgruppe, Messverfahren, ...</p>
 <p>oftmals als Strings angegeben, Kodierung als Zahlen gewünscht, z.B.:</p>
-<pre><code class="hljs language-py">visitors = np.array([[<span class="hljs-string">"fr"</span>, <span class="hljs-string">"chrome"</span>], [<span class="hljs-string">"uk"</span>, <span class="hljs-string">"chrome"</span>], [<span class="hljs-string">"us"</span>, <span class="hljs-string">"firefox"</span>]])
+<pre><code class="hljs language-py">visitors = np.array(
+    [[<span class="hljs-string">"fr"</span>, <span class="hljs-string">"chrome"</span>], [<span class="hljs-string">"uk"</span>, <span class="hljs-string">"chrome"</span>], [<span class="hljs-string">"us"</span>, <span class="hljs-string">"firefox"</span>]]
+)
 </code></pre>
 </section><section class="slide"><h2>Kategorien als Daten</h2>
 <p>Eingangsdaten:</p>
-<pre><code class="hljs language-py">visitors = np.array([[<span class="hljs-string">"fr"</span>, <span class="hljs-string">"chrome"</span>], [<span class="hljs-string">"uk"</span>, <span class="hljs-string">"chrome"</span>], [<span class="hljs-string">"us"</span>, <span class="hljs-string">"firefox"</span>]])
+<pre><code class="hljs language-py">visitors = np.array(
+    [[<span class="hljs-string">"fr"</span>, <span class="hljs-string">"chrome"</span>], [<span class="hljs-string">"uk"</span>, <span class="hljs-string">"chrome"</span>], [<span class="hljs-string">"us"</span>, <span class="hljs-string">"firefox"</span>]]
+)
 </code></pre>
-<p>Kodierung als Ordinale (nicht für alle Algorithmen geeignet, da implizit geordnet (fr=0, us=2)):</p>
+<p>Kodierung als Ordinale (nicht für alle Algorithmen geeignet, da implizit geordnet (fr=0, uk=1, us=2)):</p>
 <pre><code class="hljs language-py">np.array([[<span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>], [<span class="hljs-number">1.</span>, <span class="hljs-number">0.</span>], [<span class="hljs-number">2.</span>, <span class="hljs-number">1.</span>]])
+</code></pre>
+</section><section class="slide"><h2>Kategorien als Daten</h2>
+<p>Eingangsdaten:</p>
+<pre><code class="hljs language-py">visitors = np.array(
+    [[<span class="hljs-string">"fr"</span>, <span class="hljs-string">"chrome"</span>], [<span class="hljs-string">"uk"</span>, <span class="hljs-string">"chrome"</span>], [<span class="hljs-string">"us"</span>, <span class="hljs-string">"firefox"</span>]]
+)
 </code></pre>
 <p>One-Hot-Kodierung:</p>
 <pre><code class="hljs language-py"><span class="hljs-comment"># fr?, uk?, us?, chrome?, firefox?</span>
@@ -2396,8 +2406,8 @@ np.array([[<span class="hljs-number">1.</span>, <span class="hljs-number">0.</sp
 <ul>
 <li><code>OrdinalEncoder</code> (Ordinale für Eingangskategorien)</li>
 <li><code>LabelEncoder</code> (Ordinale für Zielkategorien)</li>
-<li><code>OneHotEncoder</code> (One-Hot-Encoding für Eingangsdaten, standardmäßig sparse)</li>
-<li><code>LabelBinarizer</code> (One-Hot-Encoding für Zieldaten)</li>
+<li><code>OneHotEncoder</code> (One-Hot-Encoding für Eingangskategorien, standardmäßig sparse)</li>
+<li><code>LabelBinarizer</code> (One-Hot-Encoding für Zielkategorien)</li>
 </ul>
 </section><section class="slide"><h2>Kategorien als Daten</h2>
 <p>Beispiele:</p>

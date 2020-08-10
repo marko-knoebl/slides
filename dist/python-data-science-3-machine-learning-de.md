@@ -440,7 +440,9 @@ Manchmals: _Kategorien_ als Eingangs- oder Ausgangsdaten - z.B. Land, Berufsgrup
 oftmals als Strings angegeben, Kodierung als Zahlen gewünscht, z.B.:
 
 ```py
-visitors = np.array([["fr", "chrome"], ["uk", "chrome"], ["us", "firefox"]])
+visitors = np.array(
+    [["fr", "chrome"], ["uk", "chrome"], ["us", "firefox"]]
+)
 ```
 
 ## Kategorien als Daten
@@ -448,13 +450,25 @@ visitors = np.array([["fr", "chrome"], ["uk", "chrome"], ["us", "firefox"]])
 Eingangsdaten:
 
 ```py
-visitors = np.array([["fr", "chrome"], ["uk", "chrome"], ["us", "firefox"]])
+visitors = np.array(
+    [["fr", "chrome"], ["uk", "chrome"], ["us", "firefox"]]
+)
 ```
 
-Kodierung als Ordinale (nicht für alle Algorithmen geeignet, da implizit geordnet (fr=0, us=2)):
+Kodierung als Ordinale (nicht für alle Algorithmen geeignet, da implizit geordnet (fr=0, uk=1, us=2)):
 
 ```py
 np.array([[0., 0.], [1., 0.], [2., 1.]])
+```
+
+## Kategorien als Daten
+
+Eingangsdaten:
+
+```py
+visitors = np.array(
+    [["fr", "chrome"], ["uk", "chrome"], ["us", "firefox"]]
+)
 ```
 
 One-Hot-Kodierung:
@@ -472,8 +486,8 @@ Preprocessors:
 
 - `OrdinalEncoder` (Ordinale für Eingangskategorien)
 - `LabelEncoder` (Ordinale für Zielkategorien)
-- `OneHotEncoder` (One-Hot-Encoding für Eingangsdaten, standardmäßig sparse)
-- `LabelBinarizer` (One-Hot-Encoding für Zieldaten)
+- `OneHotEncoder` (One-Hot-Encoding für Eingangskategorien, standardmäßig sparse)
+- `LabelBinarizer` (One-Hot-Encoding für Zielkategorien)
 
 ## Kategorien als Daten
 

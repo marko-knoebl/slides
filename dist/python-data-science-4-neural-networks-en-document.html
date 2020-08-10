@@ -64,37 +64,111 @@
 <li>Softmax - often used in the last layer for classification</li>
 <li>Sigmoid - often used in the last layer for "tagging" (tags may overlap)</li>
 </ul>
+<h2>Resource</h2>
+<ul>
+<li><a href="https://victorzhou.com/blog/intro-to-neural-networks/">https://victorzhou.com/blog/intro-to-neural-networks/</a></li>
+</ul>
+<h2>Validation metrics</h2>
+<p>classification:</p>
+<ul>
+<li><em>categorical crossentropy</em> (~ probability of misclassification, based on <em>Kullback–Leibler divergence</em>)</li>
+</ul>
+<p>regression</p>
+<ul>
+<li><em>mean squared error</em></li>
+</ul>
+<h1>Example: california housing</h1>
+<p>for comparison: linear regression - <a href="http://www.clungu.com/scikit-learn/tutorial/Scikit-learn/">http://www.clungu.com/scikit-learn/tutorial/Scikit-learn/</a></p>
+<p>load and prepare dataset:</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> datasets
+<span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> utils
+<span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> model_selection
+<span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> preprocessing
+
+housing = datasets.fetch_california_housing()
+
+scaler = preprocessing.StandardScaler().fit(housing.data)
+
+X = scaler.transform(housing.data)
+y = housing.target
+
+X, y = utils.shuffle(X, y)
+</code></pre>
+<p>create model:</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> keras.models <span class="hljs-keyword">import</span> Sequential
+<span class="hljs-keyword">from</span> keras.layers <span class="hljs-keyword">import</span> Dense
+
+model = Sequential()
+model.add(Dense(<span class="hljs-number">16</span>, activation=<span class="hljs-string">"relu"</span>))
+model.add(Dense(<span class="hljs-number">16</span>, activation=<span class="hljs-string">"relu"</span>))
+model.add(Dense(<span class="hljs-number">1</span>, activation=<span class="hljs-string">"linear"</span>))
+
+model.compile(loss=<span class="hljs-string">"mean_squared_error"</span>)
+</code></pre>
+<p>learn:</p>
+<pre><code class="hljs language-py">model.fit(X, y, epochs=<span class="hljs-number">100</span>, validation_split=<span class="hljs-number">0.25</span>, verbose=<span class="hljs-number">1</span>)
+</code></pre>
+<p>evaluate:</p>
+<pre><code class="hljs language-py">model.evaluate(X, y)
+</code></pre>
 <h1>Example: iris classification</h1>
 <p>load and prepare dataset:</p>
 <pre><code class="hljs language-py"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
-
 <span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> datasets
-<span class="hljs-keyword">from</span> sklearn.preprocessing <span class="hljs-keyword">import</span> LabelBinarizer, StandardScaler
+<span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> preprocessing
+<span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> utils
 
 iris = datasets.load_iris()
 
-X = StandardScaler().fit_transform(iris.data)
-Y = LabelBinarizer().fit_transform(iris.target[:, np.newaxis])
+X = iris.data
+Y = preprocessing.LabelBinarizer().fit_transform(iris.target[:, np.newaxis])
+
+X, Y = utils.shuffle(X, Y)
 </code></pre>
-<p>build model:</p>
+<p>create model:</p>
 <pre><code class="hljs language-py"><span class="hljs-keyword">from</span> keras.models <span class="hljs-keyword">import</span> Sequential
 <span class="hljs-keyword">from</span> keras.layers <span class="hljs-keyword">import</span> Dense
 
 model = Sequential()
 model.add(Dense(<span class="hljs-number">8</span>, activation=<span class="hljs-string">"relu"</span>))
-model.add(Dense(<span class="hljs-number">8</span>, activation=<span class="hljs-string">"relu"</span>))
 model.add(Dense(<span class="hljs-number">3</span>, activation=<span class="hljs-string">"softmax"</span>))
 
 model.compile(
-    optimizer=<span class="hljs-string">"adam"</span>,
     loss=<span class="hljs-string">"categorical_crossentropy"</span>,
     metrics=[<span class="hljs-string">"accuracy"</span>]
 )
-
-model.fit(X, Y, batch_size=<span class="hljs-number">5</span>, epochs=<span class="hljs-number">100</span>, verbose=<span class="hljs-number">0</span>)
+</code></pre>
+<p>learn:</p>
+<pre><code class="hljs language-py">model.fit(X, Y, validation_split=<span class="hljs-number">0.25</span>, batch_size=<span class="hljs-number">5</span>, epochs=<span class="hljs-number">100</span>, verbose=<span class="hljs-number">1</span>)
 </code></pre>
 <p>verify model:</p>
 <pre><code class="hljs language-py">model.evaluate(X, Y)
 
 model.predict([[<span class="hljs-number">5</span>, <span class="hljs-number">3</span>, <span class="hljs-number">1.5</span>, <span class="hljs-number">0.2</span>]]) <span class="hljs-comment"># category should be 0</span>
+</code></pre>
+<h1>Example: inspecting the NN for iris classification</h1>
+<pre><code class="hljs language-py">layer_0 = model.get_layer(index=<span class="hljs-number">0</span>)
+layer_1 = model.get_layer(index=<span class="hljs-number">1</span>)
+
+print(layer_0.weights)
+print(layer_1.weights)
+
+print(<span class="hljs-string">"setosa"</span>)
+setosa_input = np.array([[<span class="hljs-number">5.1</span>,<span class="hljs-number">3.5</span>,<span class="hljs-number">1.4</span>,<span class="hljs-number">0.2</span>]])
+setosa_1 = layer_0(setosa_input)
+print(setosa_1)
+setosa_2 = layer_1(setosa_1)
+print(setosa_2)
+
+versicolor_input = np.array([[<span class="hljs-number">7.0</span>,<span class="hljs-number">3.2</span>,<span class="hljs-number">4.7</span>,<span class="hljs-number">1.4</span>]])
+versicolor_1 = layer_0(versicolor_input)
+print(versicolor_1)
+versicolor_2 = layer_1(versicolor_1)
+print(versicolor_2)
+
+virginica_input = np.array([[<span class="hljs-number">6.3</span>,<span class="hljs-number">3.3</span>,<span class="hljs-number">6.0</span>,<span class="hljs-number">2.5</span>]])
+virginica_1 = layer_0(virginica_input)
+print(virginica_1)
+virginica_2 = layer_1(virginica_1)
+print(virginica_2)
 </code></pre>
