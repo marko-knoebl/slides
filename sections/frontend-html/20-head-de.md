@@ -1,22 +1,4 @@
-# Struktur eines HTML-Dokuments
-
-## Grundlegende HTML-Struktur
-
-In VS Code: Codeschnipsel `html:5`
-
-## Grundlegende HTML-Struktur
-
-```html
-<!DOCTYPE html>
-```
-
-Deklariert die Datei als HTML(5)-Dokument
-
-## Grundlegende HTML Struktur
-
-- `<html>`: beinhaltet das ganze Dokument; oft ist z.B. `lang="de"` oder ähnliches gesetzt
-- `<head>`: beinhaltet Informationen wie Dokumenttitel, Zeichensatz, ...
-- `<body>`: die eigentlichen Inhalte - das, was im Browserfenster erscheint
+# Head
 
 ## Einträge im head
 
@@ -68,7 +50,7 @@ Sollte auf allen Websites verwendet werden, um die Browser-Skalierung zurückzus
 ```
 
 Hintergrund:  
-In den Anfängen des mobilen Web (vor responsive Design) wurden Websites von Browsern of verkleinert dargestellt. Mit obigem Code wird dies verhindert.
+In den Anfängen des mobilen Web (vor responsive Design) wurden Websites von mobilen Browsern of verkleinert dargestellt. Mit obigem Code wird dies verhindert.
 
 https://viewportsizes.com/mine
 

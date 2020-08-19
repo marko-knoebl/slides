@@ -1,6 +1,6 @@
 # HTML Grundlagen
 
-## HTML-Syntax
+## Elemente und Tags
 
 HTML besteht aus verschachtelten **Elementen**, die von **Tags** begrenzt werden.
 
@@ -8,16 +8,22 @@ HTML besteht aus verschachtelten **Elementen**, die von **Tags** begrenzt werden
 <h1>Dies ist eine Überschrift</h1>
 ```
 
-## HTML-Syntax
+## Elemente und Tags
 
-Manche HTML-Elemente haben keinen Inhalt, zB der br-Tag, der einen Zeilenumbruch darstellt:
+Manche HTML-Elemente haben keinen Inhalt, z.B. der br-Tag, der einen Zeilenumbruch darstellt:
+
+```html
+<br />
+```
+
+oder
 
 <!-- prettier-ignore -->
 ```html
 <br>
 ```
 
-## HTML-Syntax: Attribute
+## Attribute
 
 HTML-Tags können Attribute der folgenden Form zugewiesen werden:
 
@@ -25,7 +31,7 @@ HTML-Tags können Attribute der folgenden Form zugewiesen werden:
 <img src="portrait.png" alt="Portraitbild des Benutzers" />
 ```
 
-Die Werte stehen _üblicherweise_ in doppelten Anführungszeichen
+Die Werte stehen üblicherweise in doppelten Anführungszeichen
 
 ## HTML-Tags
 
@@ -48,20 +54,10 @@ Beispiele:
 
 ## Ausprobieren
 
-https://codepen.io
+<https://codesandbox.io/s/> → _static_
 
-(Alternativen: https://jsfiddle.net, https://plnkr.co, https://codesandbox.io)
+(Alternativen: <https://codepen.io> <https://jsfiddle.net>, <https://plnkr.co>)
 
 ## Browser tools (F12)
 
 Übung: Bestehende Website in Browser Tools begutachten
-
-## Grundlegende HTML-Struktur
-
-```html
-<!DOCTYPE html>
-<html lang="de">
-  <head></head>
-  <body></body>
-</html>
-```

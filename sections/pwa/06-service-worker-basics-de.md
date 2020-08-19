@@ -47,10 +47,8 @@ navigator.serviceWorker.register('./serviceWorker.js');
 console.log('this is the service worker');
 ```
 
-## Service Worker
+## Service worker in den Browser Tools betrachten
 
-Service worker in den Browser Tools betrachten:
+Chrome: developer tools (F12) ➡ _Application_ ➡ _Service Workers_
 
-in Chrome: Dev Tools unter _Application_ - _Service Workers_
-
-in Firefox: unter `about:debugging#workers`
+Firefox: gehe zu _about:debugging_ ➡ _dieser Firefox_ ➡ _Service Worker_

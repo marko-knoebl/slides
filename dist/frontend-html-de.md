@@ -44,7 +44,7 @@ Zentrale Technologien, die der Browser verwendet:
 
 # HTML Grundlagen
 
-## HTML-Syntax
+## Elemente und Tags
 
 HTML besteht aus verschachtelten **Elementen**, die von **Tags** begrenzt werden.
 
@@ -52,9 +52,15 @@ HTML besteht aus verschachtelten **Elementen**, die von **Tags** begrenzt werden
 <h1>Dies ist eine Überschrift</h1>
 ```
 
-## HTML-Syntax
+## Elemente und Tags
 
-Manche HTML-Elemente haben keinen Inhalt, zB der br-Tag, der einen Zeilenumbruch darstellt:
+Manche HTML-Elemente haben keinen Inhalt, z.B. der br-Tag, der einen Zeilenumbruch darstellt:
+
+```html
+<br />
+```
+
+oder
 
 <!-- prettier-ignore -->
 
@@ -62,7 +68,7 @@ Manche HTML-Elemente haben keinen Inhalt, zB der br-Tag, der einen Zeilenumbruch
 <br>
 ```
 
-## HTML-Syntax: Attribute
+## Attribute
 
 HTML-Tags können Attribute der folgenden Form zugewiesen werden:
 
@@ -70,7 +76,7 @@ HTML-Tags können Attribute der folgenden Form zugewiesen werden:
 <img src="portrait.png" alt="Portraitbild des Benutzers" />
 ```
 
-Die Werte stehen _üblicherweise_ in doppelten Anführungszeichen
+Die Werte stehen üblicherweise in doppelten Anführungszeichen
 
 ## HTML-Tags
 
@@ -93,15 +99,17 @@ Beispiele:
 
 ## Ausprobieren
 
-<https://codepen.io>
+<https://codesandbox.io/s/> → _static_
 
-(Alternativen: <https://jsfiddle.net>, <https://plnkr.co>, <https://codesandbox.io>)
+(Alternativen: <https://codepen.io> <https://jsfiddle.net>, <https://plnkr.co>)
 
 ## Browser tools (F12)
 
 Übung: Bestehende Website in Browser Tools begutachten
 
-## Grundlegende HTML-Struktur
+# Struktur eines HTML-Dokuments
+
+## Struktur eines HTML-Dokuments
 
 ```html
 <!DOCTYPE html>
@@ -111,19 +119,7 @@ Beispiele:
 </html>
 ```
 
-# VS Code
-
-## VS Code
-
-- [VS Code Grundlagen und Plugins](./vs-code-de.html)
-
-# Struktur eines HTML-Dokuments
-
-## Grundlegende HTML-Struktur
-
-In VS Code: Codeschnipsel `html:5`
-
-## Grundlegende HTML-Struktur
+## Struktur eines HTML-Dokuments
 
 ```html
 <!DOCTYPE html>
@@ -131,11 +127,447 @@ In VS Code: Codeschnipsel `html:5`
 
 Deklariert die Datei als HTML(5)-Dokument
 
-## Grundlegende HTML Struktur
+## Struktur eines HTML-Dokuments
 
 - `<html>`: beinhaltet das ganze Dokument; oft ist z.B. `lang="de"` oder ähnliches gesetzt
 - `<head>`: beinhaltet Informationen wie Dokumenttitel, Zeichensatz, ...
 - `<body>`: die eigentlichen Inhalte - das, was im Browserfenster erscheint
+
+# Stylesheets
+
+## Stylesheets
+
+Möglichkeit, vorgefertigte Stile einzubinden und in mehreren HTML-Dokumenten zu übernehmen
+
+Stylesheets können aus vorgegebenen Libraries eingebunden werden (z.B. _Bootstrap_) oder selbst erstellt werden
+
+## Einbindung
+
+Einbindung meist im head, z.B.:
+
+```html
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/picnic"
+/>
+```
+
+## CSS Resets
+
+Resets: Stylesheets, die grundlegende Stile über verschiedene Browser hinweg vereinheitlichen:
+
+- _normalize.css_: [website](https://necolas.github.io/normalize.css/), [CDN](https://cdn.jsdelivr.net/npm/normalize.css/normalize.css)
+- _sanitize.css_: basiert auf normalize - [website](https://csstools.github.io/sanitize.css/), [CDN](https://cdn.jsdelivr.net/npm/sanitize.css/sanitize.css)
+- _reboot_: basiert auf normalize, dient als Basis für Bootstrap - [website](https://getbootstrap.com/docs/4.0/content/reboot/), [CDN](https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap-reboot.css)
+
+CDN: Content Delivery Network - Services, die CSS- und JS-Libraries hosten
+
+## CSS Libraries
+
+CSS Libraries:
+
+- _Picnic CSS_: einfache CSS-Library, ohne JavaScript - [website](https://picnicss.com/), [CDN](https://cdn.jsdelivr.net/npm/picnic)
+- _Bootstrap_: weit verbreitete CSS-Library mit vielen verfügbaren Themes - [website](https://getbootstrap.com/), [CDN für CSS](https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.css), [CDN für JS](https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.js)
+- _Semantic UI_ - [website](https://semantic-ui.com), [CDN für CSS](https://cdn.jsdelivr.net/npm/semantic-ui/dist/semantic.css), [CDN für JS](https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.js)
+- _Foundation_ - [website](https://get.foundation/sites/docs/), [CDN für CSS](https://cdn.jsdelivr.net/npm/foundation-sites/dist/css/foundation.css), [CDN für JS](https://cdn.jsdelivr.net/npm/foundation-sites/dist/js/foundation.js)
+
+<!--
+
+https://picnicss.com/ (Einträge in der Navbar sind buttons, kein JS)
+https://milligram.io/ (keine navbar, verwendet class="button")
+http://getskeleton.com/ (keine navbar)
+https://github.com/mdipierro/no.css
+https://getbootstrap.com/
+-->
+
+# HTML Elemente
+
+## HTML Elemente
+
+- Strukturierung: _h1_, _p_, _header_, _main_, _nav_, _section_, ...
+- Links: _a_
+- Textformatierung: _br_, _em_, _strong_, ...
+- allgemeine Elemente: _div_, _span_
+- Listen: _ul_, _ol_, _li_
+- Medien: _img_, _video_, _audio_, ...
+- Formulare: _form_, _input_, _button_, _label_, ...
+- Tabellen: _table_, _tr_, _td_, ...
+
+## HTML Elemente
+
+vollständige Liste:
+
+- <https://www.w3schools.com/tags/ref_byfunc.asp>
+- <https://www.w3schools.com/TAgs/default.asp>
+- <https://developer.mozilla.org/de/docs/Web/HTML/Element>
+
+## Übung
+
+Wir erstellen eine Website für ein Restaurant
+
+Inhalte z.B.: Tabelle mit Öffnungszeiten, Formular für Reservierungen, ...
+
+# Strukturierende Elemente
+
+## Strukturierende Elemente
+
+- h1 - h6
+- p
+
+<!-- separator -->
+
+- header
+- main
+- footer
+- aside
+
+<!-- separator -->
+
+- nav
+
+<!-- separator -->
+
+- section
+- article
+
+## Headings und strukturierende Elemente
+
+Headings innerhalb von _nav_, _aside_, _article_, _section_ haben automatisch angepasste Größen:
+
+```html
+<h1>big heading</h1>
+<section>
+  <h1>medium heading</h1>
+  ...
+</section>
+<section>
+  <h1>medium heading</h1>
+  <section>
+    <h1>small heading</h1>
+    <p>...</p>
+  </section>
+</section>
+```
+
+# Links
+
+## Links
+
+Beispiel:
+
+```html
+<a href="https://en.wikipedia.org/wiki/HTML"
+  >Wikipedia article</a
+>
+```
+
+## Links
+
+Öffnen in neuem Tab oder Fenster:
+
+```html
+<a
+  href="https://en.wikipedia.org/wiki/HTML"
+  target="_blank"
+  rel="noreferrer"
+  >Wikipedia article</a
+>
+```
+
+## Links
+
+E-Mail-Link:
+
+```html
+<a href="mailto:foo@bar.com">send e-mail</a>
+```
+
+## Links
+
+Download-Link:
+
+```html
+<a href="report.ods" download>report</a>
+```
+
+# Textformatierung
+
+## Textformatierung
+
+Tags zur grundlegenden Textformatierung:
+
+- `br`
+- `em` (emphasis)
+- `strong`
+- `b` (veraltet)
+- `i` (veraltet)
+
+# div und span
+
+## div und span
+
+- `div`: allgemeines Block-Element
+- `span`: allgemeines Inline-Element
+
+Block-Elemente: untereinander angeordnet, so breit wie möglich  
+Inline-Elemente: nebeneinander angeordnet, so breit wie ihr Inhalt
+
+# Listen
+
+## Listen
+
+- `ul` (unordered list)
+- `ol` (ordered list - nummeriert)
+- `li` (list item)
+
+## Listen
+
+Beispiel:
+
+```html
+<h1>tetrapods:</h1>
+<ul>
+  <li>amphibians</li>
+  <li>reptiles</li>
+  <li>birds</li>
+  <li>mammals</li>
+</ul>
+```
+
+## Listen
+
+verschachtelte Liste:
+
+```html
+<h1>vertebrate:</h1>
+<ul>
+  <li>fish</li>
+  <li>
+    tetrapods
+    <ul>
+      <li>amphibians</li>
+      <li>reptiles</li>
+      <li>birds</li>
+      <li>mammals</li>
+    </ul>
+  </li>
+</ul>
+```
+
+# Formulare und Buttons
+
+## Formulare und Buttons
+
+Elemente:
+
+- `button`
+- `form`
+- `input`
+- `label`
+- `select`
+- ...
+
+## Beispiel für ein Formular
+
+```html
+<form action="/register" method="post">
+  <div>
+    <label
+      >first name: <input type="text" name="firstname"
+    /></label>
+  </div>
+  <div>
+    <label
+      >last name: <input type="text" name="lastname"
+    /></label>
+  </div>
+  <button type="submit">register</button>
+</form>
+```
+
+## Button
+
+```html
+<button>press me!</button>
+```
+
+## Input
+
+```html
+<input />
+```
+
+```html
+<input type="password" />
+```
+
+## Input-Typen
+
+Standardwert: `text`
+
+Weitere Möglichkeiten:
+
+- `checkbox`
+- `radio`
+- `file`
+- `password`
+- `date` (HTML 5)
+- `email`(HTML 5)
+- `number` (HTML 5)
+- `search` (HTML 5)
+
+## Input-Attribute
+
+- placeholder
+- autofocus
+- autocomplete
+- size
+
+## autocomplete
+
+Das `autocomplete`-Attribut kann für die Autovervollständigung hilfreich sein, z.B.:
+
+- `name`
+- `given-name`
+- `email`
+- `username`
+- ...
+
+## Validierung
+
+- `required`
+- `minlength`
+- `maxlength`
+
+CSS-Pseudoklassen: `:valid`, `:invalid`
+
+## Validierung - Beispiel
+
+```html
+<input
+  type="number"
+  min="-5"
+  max="5"
+  step="0.1"
+  value="1"
+/>
+```
+
+## Input und Label
+
+Inputs sollten beschreibende Labels haben:
+
+```html
+<label>
+  enter your name:
+  <input />
+</label>
+```
+
+oder
+
+```html
+<label for="name-input" /> <input id="name-input" />
+```
+
+## Formulare
+
+```html
+<form action="/register" method="post">
+  first name: <input type="text" name="firstname" /><br />
+  last name: <input type="text" name="lastname" /><br />
+  <button type="submit">register</button>
+</form>
+```
+
+## Formulare
+
+Beim Abschicken des Formulars wird _post_-Request mit etwa folgendem Inhalt an die Adresse _/register_ gesendet:
+
+```txt
+firstname=John&lastname=Doe
+```
+
+## Button-Typen
+
+Button-Typen:
+
+- _submit_ (**standard**): beim Klicken werden Formulardaten an den Server übermittelt
+- _button_
+- _reset_
+
+## Weitere Formular-Elemente
+
+- textarea
+- select
+
+# Medien
+
+## Medien
+
+- `img`
+- `video`
+- `audio`
+
+## img
+
+Attribute:
+
+- `src`: Pfad zum Bild
+- `alt`: Alternativtext, falls das Bild nicht dargestellt werden kann
+- `srcset`: Liste von Bildpfaden für verschiedene Auflösungen
+
+## srcset - Beispiel
+
+```html
+<img
+  alt=""
+  src="images/2000x1000.png"
+  srcset="
+    images/500x250.png   500w,
+    images/1000x500.png 1000w
+  "
+/>
+```
+
+Demo: <http://srcset.salcode.com/>
+
+## video
+
+```html
+<video autoplay loop controls width="250">
+  <source src="myvideo.webm" type="video/webm" />
+  <source src="myvideo.mp4" type="video/mp4" />
+  Sorry, your browser doesn't support embedded videos.
+</video>
+```
+
+Beispielvideo: <https://interactive-examples.mdn.mozilla.net/media/examples/flower>.\*
+
+## audio
+
+```html
+<audio src="myaudio.mk" loop volume="0.5"></audio>
+```
+
+# Tabellen
+
+## Tabellen
+
+Tags:
+
+- `table`
+- (`tbody`)
+- (`thead`)
+- `tr`
+- `th`, `td`
+- `caption`
+
+Attribute:
+
+- `colspan`, `rowspan`
+
+# Head
 
 ## Einträge im head
 
@@ -187,7 +619,7 @@ Sollte auf allen Websites verwendet werden, um die Browser-Skalierung zurückzus
 ```
 
 Hintergrund:  
-In den Anfängen des mobilen Web (vor responsive Design) wurden Websites von Browsern of verkleinert dargestellt. Mit obigem Code wird dies verhindert.
+In den Anfängen des mobilen Web (vor responsive Design) wurden Websites von mobilen Browsern of verkleinert dargestellt. Mit obigem Code wird dies verhindert.
 
 <https://viewportsizes.com/mine>
 
@@ -227,80 +659,6 @@ Icon, das im Tab der Website angezeigt wird
   type="image/png"
 />
 ```
-
-# HTML Elemente
-
-## HTML Elemente
-
-vollständige Liste:
-
-- <https://www.w3schools.com/tags/ref_byfunc.asp>
-- <https://www.w3schools.com/TAgs/default.asp>
-- <https://developer.mozilla.org/de/docs/Web/HTML/Element>
-
-## allgemeine Elemente
-
-- `div`: allgemeines Block-Element
-- `span`: allgemeines Inline-Element
-
-Block-Elemente: untereinander angeordnet, so breit wie möglich  
-Inline-Elemente: nebeneinander angeordnet, so breit wie ihr Inhalt
-
-## Links
-
-- `a`
-
-## Strukturierung / Begrenzung
-
-- `h1` - `h6`
-- `p`
-- `hr`
-
-## Textformatierung
-
-- `br`
-- `em` (emphasis)
-- `strong`
-- `b` (veraltet)
-- `i` (veraltet)
-
-## Listen
-
-- `ul` (unordered list)
-- `ol` (ordered list)
-- `li` (list item)
-
-## strukturierende (semantische) Elemente
-
-- `main`
-- `section`
-- `article`
-- `footer`
-- `nav`
-- `aside`
-
-## Medien
-
-- `img`
-- `video`
-- `audio`
-
-## Formulare
-
-- `button`
-- `input`
-- `label`
-- `select`
-
-## Tabellen
-
-- `table`
-- (`tbody`)
-- (`thead`)
-- `tr`
-- `th`, `td`
-- `caption`
-- Attribute `colspan`, `rowspan`
 
 # Accessibility
 
@@ -361,32 +719,6 @@ Hosting für statische Websites wird vielfach kostenlos angeboten:
 - [Github Pages](https://pages.github.com)
 - [tiiny.host](https://tiiny.host/) (ohne Login für 24 h gehostet)
 - [netlify.com/drop](https://netlify.com/drop) (ohne Login für 24 h gehostet)
-
-# Übung: Tabellen und Formulare
-
-## Übung: Tabellen und Formulare
-
-Wir erstellen eine Website für ein Restaurant
-
-Wir beginnen mit einer Tabelle für die Öffnungszeiten und einem _einfachen_ Formular für Reservierungen
-
-Um die optische Gestaltung kümmern wir uns später mit Hilfe des CSS-Frameworks Bootstrap
-
-# Stylesheets und Klassen
-
-## Stylesheets
-
-Möglichkeit, vorgefertigte Stile einzubinden und in mehreren HTML-Dokumenten zu übernehmen
-
-Stylesheets können aus vorgegebenen Libraries eingebunden werden (z.B. bootstrap) oder selbst erstellt werden
-
-## Stylesheets - Einbindung
-
-oft im head:
-
-```html
-<link rel="stylesheet" href="style.css" />
-```
 
 # Bootstrap
 
@@ -456,127 +788,15 @@ z.B.:
 - navbar
 - ...
 
-# Medien
+# VS Code
 
-## img
+## VS Code
 
-Attribute:
+- [VS Code Grundlagen und Plugins](./vs-code-de.html)
 
-- `src`: Pfad zum Bild
-- `alt`: Alternativtext, falls das Bild nicht dargestellt werden kann
-- `srcset`: Liste von Bildpfaden für verschiedene Auflösungen
+## HTML-Dokument in VS Code
 
-## srcset - Beispiel
-
-```html
-<img
-  alt=""
-  src="images/2000x1000.png"
-  srcset="
-    images/500x250.png   500w,
-    images/1000x500.png 1000w
-  "
-/>
-```
-
-Demo: <http://srcset.salcode.com/>
-
-## video
-
-```html
-<video autoplay loop controls width="250">
-  <source src="myvideo.webm" type="video/webm" />
-  <source src="myvideo.mp4" type="video/mp4" />
-  Sorry, your browser doesn't support embedded videos.
-</video>
-```
-
-Beispielvideo: <https://interactive-examples.mdn.mozilla.net/media/examples/flower>.\*
-
-## audio
-
-```html
-<audio src="myaudio.mk" loop volume="0.5"></audio>
-```
-
-# Formulare
-
-## Formulare
-
-Beispiel:
-
-```html
-<form>
-  <label for="firstname">First Name:</label>
-  <input id="firstname" />
-  <label for="lastname">Last Name:</label>
-  <input id="lastname" />
-</form>
-```
-
-## Input-Attribute
-
-- placeholder
-- autofocus
-- autocomplete
-- size
-
-## Input-Typen
-
-Standardwert: `text`
-
-Weitere Möglichkeiten:
-
-- `checkbox`
-- `radio`
-- `file`
-- `password`
-- `date` (HTML 5)
-- `email`(HTML 5)
-- `number` (HTML 5)
-- `search` (HTML 5)
-
-## autocomplete
-
-Das `autocomplete`-Attribut kann für die Autovervollständigung hilfreich sein, z.B.:
-
-- `name`
-- `given-name`
-- `email`
-- `username`
-- ...
-
-## Validierung
-
-- `required`
-- `minlength`
-- `maxlength`
-
-CSS-Pseudoklassen: `:valid`, `:invalid`
-
-## Validierung - Beispiel
-
-```html
-<input
-  type="number"
-  min="-5"
-  max="5"
-  step="0.1"
-  value="1"
-/>
-```
-
-## Aktionen bei Formularen
-
-```html
-<form action="login.php" method="post">
-  <input name="username" /><br />
-  <input name="password" type="password" /><br />
-  <button>log in</button>
-</form>
-```
-
-Bei Betätigen des Buttons sendet das Formular einen post-Request an die Adresse _login.php_ und übermittelt die Daten _username_ und _password_
+Codeschnipsel: `html:5`
 
 # SVG
 

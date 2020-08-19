@@ -49,6 +49,6 @@ console.log('this is the service worker');
 
 ## Inspecting service workers in the browser tools
 
-We can check if the service worker is registering in the Chrome dev tools under _Application_ - _Service Workers_
+Chrome: developer tools (F12) ➡ _Application_ ➡ _Service Workers_
 
-For Firefox, go to: `about:debugging#workers`
+Firefox: go to _about:debugging_ ➡ _this Firefox_ ➡ _Service Workers_
