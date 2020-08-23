@@ -2060,7 +2060,469 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   </head>
   <body>
     <div class="reveal">
-      <div class="slides slides"><section class="slides-section"><section class="slide"><h1>NumPy advanced</h1>
+      <div class="slides slides"><section class="slides-section"><section class="slide"><h1>Machine learning</h1>
+</section><section class="slide"><h2>Methods</h2>
+<ul>
+<li><strong>supervised learning</strong><ul>
+<li><strong>regression</strong></li>
+<li><strong>classification</strong></li>
+</ul></li>
+<li>unsupervised learning<ul>
+<li>clustering</li>
+<li>dimensionality reduction / compression</li>
+</ul></li>
+<li>reinforcement learning<ul>
+<li>optimization</li>
+</ul></li>
+</ul>
+</section><section class="slide"><h2>Regression</h2>
+<p>Assigning numeric values to numeric input data</p>
+<p>examples:</p>
+<ul>
+<li>estimation of distance of galaxy based on its redshift</li>
+<li>prediction of stock price based on economic data</li>
+</ul>
+</section><section class="slide"><h2>Classification</h2>
+<p>Assigning labels to numeric input data</p>
+<p>examples:</p>
+<ul>
+<li>classification as spam based occurences of words / phrases</li>
+<li>recognition of objects / persons / symbols in images</li>
+<li>diagnosis of illnesses based on symptoms / medical test data</li>
+</ul>
+</section><section class="slide"><h2>Clustering</h2>
+<p>Recognizing groups / clusters in input data</p>
+<p>examples:</p>
+<ul>
+<li>recognizing reoccuring elements in computer vision</li>
+</ul>
+</section><section class="slide"><h2>Dimensionality reduction</h2>
+<p>mapping points in n-dimensional space to points in m-dimensional space (m &#x3C;&#x3C; n, mapping is mostly reversible)</p>
+</section><section class="slide"><h2>Reinforcement learning</h2>
+<p>Optimization of strategies within a simulation</p>
+<p>examples:</p>
+<ul>
+<li>simulating the progression of an illness, find the best treatment strategy</li>
+</ul>
+</section></section><section class="slides-section"><section class="slide"><h1>Supervised learning strategies</h1>
+</section><section class="slide"><h2>Regression</h2>
+<ul>
+<li><strong>neural networks</strong></li>
+<li>linear regression</li>
+<li>polynomial regression</li>
+</ul>
+</section><section class="slide"><h2>Classification</h2>
+<ul>
+<li><strong>neural networks</strong></li>
+<li>k-nearest-neighbors</li>
+<li>logistic regression</li>
+<li>naive Bayes</li>
+<li>support vector machines</li>
+<li>decision trees and random forests</li>
+</ul>
+</section></section><section class="slides-section"><section class="slide"><h1>Libraries</h1>
+</section><section class="slide"><h2>Libraries</h2>
+<p>Python libraries for machine learning:</p>
+<p><strong>scikit-learn</strong>: based on <em>NumPy</em>; supports many different classes of algorithms (including basic neural networks)</p>
+<p><strong>keras</strong>: based on <em>TensorFlow</em>; supports advanced neural networks</p>
+</section></section><section class="slides-section"><section class="slide"><h1>Supervised learning in scikit-learn</h1>
+</section><section class="slide"><h2>Supervised learning in scikit-learn</h2>
+<p>steps:</p>
+<ul>
+<li>create an input matrix <code>X</code> and a target vector <code>y</code> / a target matrix <code>Y</code></li>
+<li>instantiate an algorithm class - e.g. <code>KNeighborsClassifier</code>, <code>MLPClassifier</code>, <code>LinearRegression</code>, ...</li>
+<li>"learn" via <code>model.fit(X, y)</code></li>
+<li>predict more results via <code>model.predict(...)</code></li>
+</ul>
+</section><section class="slide"><h2>Example</h2>
+<p>Example: classification of iris plants</p>
+<p>known data: measurements and classification of 150 iris plants</p>
+<p>Task: Train an algorithm to classify iris plants based on their measurements</p>
+</section><section class="slide"><h2>Example</h2>
+<p>example data (<em>sepal length</em>, <em>sepal width</em>, <em>petal length</em>, <em>petal width</em>, <em>name</em>):</p>
+<ul>
+<li><code>[5.1, 3.5, 1.4, 0.2]</code> → <code>"Iris-setosa"</code></li>
+<li><code>[7.0, 3.2, 4.7, 1.4]</code> → <code>"Iris-versicolor"</code></li>
+<li><code>[6.3, 3.3, 6.0, 2.5]</code> → <code>"Iris-virginica"</code></li>
+</ul>
+<p>in our data: <em>setosa</em>=0, <em>versicolor</em>=1, <em>virginica</em>=2</p>
+</section><section class="slide"><h2>Example</h2>
+<p>preparing data:</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> datasets
+
+iris = datasets.load_iris()
+
+X = iris.data
+y = iris.target
+</code></pre>
+</section><section class="slide"><h2>Example</h2>
+<p>Training an algorithm (k-nearest-neighbor):</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> sklearn.neighbors <span class="hljs-keyword">import</span> KNeighborsClassifier
+
+model = KNeighborsClassifier()
+model.fit(X, y)
+</code></pre>
+</section><section class="slide"><h2>Example</h2>
+<p>Applying classification to new data:</p>
+<pre><code class="hljs language-py">test_data = [
+    [<span class="hljs-number">5.3</span>, <span class="hljs-number">3.4</span>, <span class="hljs-number">1.9</span>, <span class="hljs-number">0.6</span>],
+    [<span class="hljs-number">6.0</span>, <span class="hljs-number">3.0</span>, <span class="hljs-number">4.7</span>, <span class="hljs-number">1.5</span>],
+    [<span class="hljs-number">6.5</span>, <span class="hljs-number">3.1</span>, <span class="hljs-number">5.0</span>, <span class="hljs-number">1.7</span>]
+]
+
+y_pred = model.predict(test_data)
+<span class="hljs-comment"># [0, 1, 1]</span>
+
+y_pred_proba = model.predict_proba(test_data)
+<span class="hljs-comment"># [[1.  0.  0. ]</span>
+<span class="hljs-comment">#  [0.  0.8 0.2]</span>
+<span class="hljs-comment">#  [0.  0.6 0.4]]</span>
+</code></pre>
+</section><section class="slide"><h2>Example</h2>
+<p>tasks: use other classifiers, e.g.:</p>
+<ul>
+<li><code>sklearn.neural_network.MLPClassifier</code></li>
+<li><code>sklearn.svm.SVC</code></li>
+<li><code>sklearn.tree.DecisionTreeClassifier</code></li>
+<li><code>sklearn.naive_bayes.GaussianNB</code></li>
+</ul>
+</section></section><section class="slides-section"><section class="slide"><h1>Preparing data</h1>
+</section><section class="slide"><h2>Preparing data</h2>
+<p>usually:</p>
+<ul>
+<li><em>X</em>: two-dimensional array with numeric input data</li>
+<li><em>y</em> / <em>Y</em>: one- or two-dimensional array with numeric results</li>
+</ul>
+</section><section class="slide"><h2>Preparing data</h2>
+<p>tasks:</p>
+<ul>
+<li>scaling values</li>
+<li>adding missing data</li>
+<li>encode categorical data as numerical data</li>
+<li>encode text data as numerical data</li>
+</ul>
+</section><section class="slide"><h2>Preparing data</h2>
+<p>Classes for preparing data have these methods:</p>
+<ul>
+<li><code>.fit</code>: creates a data transformation based on existing input data (<code>X1</code>)</li>
+<li><code>.transform</code>: transforms input data (<code>X2</code>) based on the transformation</li>
+<li><code>.fit_transform</code>: does both in one step (for the same data)</li>
+</ul>
+</section><section class="slide"><h2>Scaling values</h2>
+<p>Which of these stars is more similar to the sun?</p>
+<pre><code class="hljs language-py"><span class="hljs-comment"># data: radius (km), mass (kg), temparature (K)</span>
+sun =    [<span class="hljs-number">7.0e7</span>, <span class="hljs-number">2.0e30</span>, <span class="hljs-number">5.8e3</span>]
+
+star_a = [<span class="hljs-number">6.5e7</span>, <span class="hljs-number">2.2e30</span>, <span class="hljs-number">5.2e3</span>]
+star_b = [<span class="hljs-number">7.0e8</span>, <span class="hljs-number">2.1e30</span>, <span class="hljs-number">8.1e3</span>]
+</code></pre>
+<p>Machine learning algorithms (like k-Nearest-Neighbor) use absolute values.</p>
+<p>Here the algorithm would only take into account the mass as all other values are tiny in comparison</p>
+</section><section class="slide"><h2>Scaling values</h2>
+<p>Solution: The values are centered and scaled so their mean is 0 and the standard deviation is 1</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> preprocessing
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+
+stars = np.array([[ <span class="hljs-number">7.0e7</span>, <span class="hljs-number">2.0e30</span>, <span class="hljs-number">5.8e3</span>],
+                  [ <span class="hljs-number">6.5e7</span>, <span class="hljs-number">2.2e30</span>, <span class="hljs-number">5.2e3</span>],
+                  [ <span class="hljs-number">7.0e9</span>, <span class="hljs-number">2.1e30</span>, <span class="hljs-number">3.1e3</span>]])
+
+scaler = preprocessing.StandardScaler()
+scaler.fit(stars)
+X = scaler.transform(stars)
+</code></pre>
+</section><section class="slide"><h2>Scaling values</h2>
+<p>scaled values:</p>
+<pre><code class="hljs language-py">array([[<span class="hljs-number">-0.70634165</span>, <span class="hljs-number">-1.22474487</span>,  <span class="hljs-number">0.95025527</span>],
+       [<span class="hljs-number">-0.70787163</span>,  <span class="hljs-number">1.22474487</span>,  <span class="hljs-number">0.43193421</span>],
+       [ <span class="hljs-number">1.41421329</span>,  <span class="hljs-number">0.</span>        , <span class="hljs-number">-1.38218948</span>]])
+</code></pre>
+</section><section class="slide"><h2>Missing data</h2>
+<p>Missing data will often appear as <code>NaN</code>s.</p>
+<p>possible handling:</p>
+<ul>
+<li>deleting any rows that contain undefined values somewhere</li>
+<li>interpolating missing values by other values</li>
+</ul>
+</section><section class="slide"><h2>Missing data</h2>
+<p>interpolation:</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">from</span> sklearn.impute <span class="hljs-keyword">import</span> SimpleImputer
+
+X = np.array([[ np.nan, <span class="hljs-number">0</span>,   <span class="hljs-number">3</span>  ],
+              [ <span class="hljs-number">3</span>,   <span class="hljs-number">7</span>,   <span class="hljs-number">9</span>  ],
+              [ <span class="hljs-number">3</span>,   <span class="hljs-number">5</span>,   <span class="hljs-number">2</span>  ],
+              [ <span class="hljs-number">4</span>,   np.nan, <span class="hljs-number">6</span>  ],
+              [ <span class="hljs-number">8</span>,   <span class="hljs-number">8</span>,   <span class="hljs-number">1</span>  ]])
+
+imputer = SimpleImputer(strategy=<span class="hljs-string">"mean"</span>)
+imputer.fit(X)
+
+imputer.transform(X)
+imputer.transform(np.array([[np.nan, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>]]))
+</code></pre>
+</section><section class="slide"><h2>Categories as data</h2>
+<p>input or output data may categorical data - e.g. country, occupation, measuring method</p>
+<p>example input data:</p>
+<pre><code class="hljs language-py">[[<span class="hljs-string">"fr"</span>, <span class="hljs-string">"chrome"</span>], [<span class="hljs-string">"uk"</span>, <span class="hljs-string">"chrome"</span>], [<span class="hljs-string">"us"</span>, <span class="hljs-string">"firefox"</span>]]
+</code></pre>
+<p>desired result: encoding as numeric values</p>
+</section><section class="slide"><h2>Categories as data</h2>
+<p>input data:</p>
+<pre><code class="hljs language-py">[[<span class="hljs-string">"fr"</span>, <span class="hljs-string">"chrome"</span>], [<span class="hljs-string">"uk"</span>, <span class="hljs-string">"chrome"</span>], [<span class="hljs-string">"us"</span>, <span class="hljs-string">"firefox"</span>]]
+</code></pre>
+<p>encoding as ordinals (not appropriate for all algorithms, as there is an implicit order):</p>
+<pre><code class="hljs language-py">[[<span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>], [<span class="hljs-number">1.</span>, <span class="hljs-number">0.</span>], [<span class="hljs-number">2.</span>, <span class="hljs-number">1.</span>]]
+</code></pre>
+</section><section class="slide"><h2>Categories as data</h2>
+<p>input data:</p>
+<pre><code class="hljs language-py">[[<span class="hljs-string">"fr"</span>, <span class="hljs-string">"chrome"</span>], [<span class="hljs-string">"uk"</span>, <span class="hljs-string">"chrome"</span>], [<span class="hljs-string">"us"</span>, <span class="hljs-string">"firefox"</span>]]
+</code></pre>
+<p>one-hot-encoding:</p>
+<pre><code class="hljs language-py"><span class="hljs-comment"># fr?, uk?, us?, chrome?, firefox?</span>
+[[<span class="hljs-number">1.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">1.</span>, <span class="hljs-number">0.</span>],
+ [<span class="hljs-number">0.</span>, <span class="hljs-number">1.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">1.</span>, <span class="hljs-number">0.</span>],
+ [<span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">1.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">1.</span>]]
+</code></pre>
+</section><section class="slide"><h2>Categories as data</h2>
+<p>preprocessors:</p>
+<ul>
+<li><code>OrdinalEncoder</code> (ordinals for input categories)</li>
+<li><code>LabelEncoder</code> (ordinals für target categories)</li>
+<li><code>OneHotEncoder</code> (one-hot-encoding for input categories, sparse by default)</li>
+<li><code>LabelBinarizer</code> (one-hot-encoding for target categories)</li>
+</ul>
+</section><section class="slide"><h2>Categories as data</h2>
+<p>example:</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> sklearn.preprocessing <span class="hljs-keyword">import</span> LabelBinarizer
+
+encoder = LabelBinarizer().fit(iris_species)
+iris_species_one_hot = encoder.transform(iris_species)
+</code></pre>
+</section><section class="slide"><h2>Text data</h2>
+<p>example for preprocessing text data: counting words</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> sklearn.feature_extraction.text <span class="hljs-keyword">import</span> CountVectorizer
+
+sample = [<span class="hljs-string">'problem of evil'</span>,
+          <span class="hljs-string">'evil queen'</span>,
+          <span class="hljs-string">'horizon problem'</span>]
+
+vectorizer = CountVectorizer()
+vectorizer.fit(sample)
+print(vectorizer.vocabulary_)
+X = vectorizer.transform(sample)
+print(X)
+print(X.todense())
+</code></pre>
+</section><section class="slide"><h2>Pipelines</h2>
+<p>Pipelines can be composed from several transforming algorithms and one predicting algorithm:</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> sklearn.pipeline <span class="hljs-keyword">import</span> make_pipeline
+<span class="hljs-keyword">from</span> sklearn.impute <span class="hljs-keyword">import</span> SimpleImputer
+<span class="hljs-keyword">from</span> sklearn.preprocessing <span class="hljs-keyword">import</span> StandardScaler
+<span class="hljs-keyword">from</span> sklearn.linear_model <span class="hljs-keyword">import</span> LinearRegression
+
+model = make_pipeline(
+    SimpleImputer(strategy=<span class="hljs-string">'mean'</span>),
+    StandardScaler(),
+    LinearRegression()
+)
+</code></pre>
+</section><section class="slide"><h2>Task: preparing iris data</h2>
+<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+iris = pd.read_csv(
+    <span class="hljs-string">"http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data"</span>,
+    header=<span class="hljs-literal">None</span>)
+</code></pre>
+<p>first line: <code>5.1,3.5,1.4,0.2,Iris-setosa</code></p>
+<p>tasks:</p>
+<ul>
+<li>represent categories via one-hot-encoding</li>
+<li>scale input data</li>
+<li>compare k-nearest-neighbor classification on scaled and unscaled data</li>
+</ul>
+</section></section><section class="slides-section"><section class="slide"><h1>Validation</h1>
+</section><section class="slide"><h2>Train-test split</h2>
+<p>In order to verify the results of an algorithm:</p>
+<p>Data are split into <em>training data</em> and <em>test data</em>; test data are only used for validation</p>
+</section><section class="slide"><h2>Train-test split</h2>
+<p>How well does a model categorize iris data?</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> sklearn.model_selection <span class="hljs-keyword">import</span> train_test_split
+<span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> metrics
+
+X_train, X_test, Y_train, Y_test = train_test_split(X, Y)
+
+<span class="hljs-comment"># ...</span>
+
+Y_prediction = model.predict(X_test)
+print(metrics.accuracy_score(Y_test, Y_prediction))
+</code></pre>
+<p>optional parameter: <code>test_size</code> (default value: <code>0.25</code>)</p>
+</section><section class="slide"><h2>Validation metrics</h2>
+<p>classification:</p>
+<ul>
+<li><em>accuracy_score</em>: relative amount of correct classifications</li>
+<li><em>confusion_matrix</em>: relative amount of correct classifications foer each category</li>
+<li><em>precision_recall_fscore_support</em>: summary of important metrics</li>
+<li><em>log_loss</em>`: also known as cross-entropy, relevant for logistic regression and neural networks</li>
+</ul>
+<p>regression:</p>
+<ul>
+<li><em>mean-squared_error</em></li>
+<li><em>r2_score</em>: R², coefficient of determination</li>
+</ul>
+<p>See also <a href="https://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics">https://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics</a></p>
+</section><section class="slide"><h2>Validation metrics: coefficient of determination</h2>
+<p>coefficient of determination (R²):</p>
+<ul>
+<li>R²=1 - perfect interpolation</li>
+<li>R²=0 - interpolation is no better than taking the average of all data</li>
+<li>R²&#x3C;0 - worse than taking the average of all data</li>
+</ul>
+</section><section class="slide"><h2>Cross validation</h2>
+<p>Data are repeatedly split into different training and test sets so each entry appears in a test set once</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> sklearn.model_selection <span class="hljs-keyword">import</span> cross_validate
+
+test_results = cross_validate(
+    model, X, y, cv=<span class="hljs-number">5</span>, scoring=<span class="hljs-string">"accuracy"</span>
+)
+print(test_results[<span class="hljs-string">"test_score"</span>])
+</code></pre>
+</section><section class="slide"><h2>Validation</h2>
+<p>Exercise: validation of iris classification</p>
+</section></section><section class="slides-section"><section class="slide"><h1>Iris classification - complete</h1>
+</section><section class="slide"><h2>Iris classification - complete</h2>
+<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+<span class="hljs-keyword">from</span> sklearn.preprocessing <span class="hljs-keyword">import</span> (
+    LabelBinarizer,
+    StandardScaler,
+)
+<span class="hljs-keyword">from</span> sklearn.model_selection <span class="hljs-keyword">import</span> train_test_split
+<span class="hljs-keyword">from</span> sklearn.neighbors <span class="hljs-keyword">import</span> KNeighborsClassifier
+<span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> metrics
+
+<span class="hljs-comment"># loading data</span>
+
+iris = pd.read_csv(
+    <span class="hljs-string">"http://archive.ics.uci.edu/ml/"</span> +
+    <span class="hljs-string">"machine-learning-databases/iris/iris.data"</span>,
+    header=<span class="hljs-literal">None</span>)
+iris_measures = iris.iloc[:, :<span class="hljs-number">4</span>].to_numpy()
+iris_species = iris.iloc[:, <span class="hljs-number">4</span>].to_numpy()
+
+<span class="hljs-comment"># preparing data</span>
+
+encoder = LabelBinarizer()
+encoder.fit(iris_species)
+iris_species_one_hot = encoder.transform(iris_species)
+
+scaler = StandardScaler()
+scaler.fit(iris_measures)
+iris_measures_scaled = scaler.transform(iris_measures)
+
+X = iris_measures_scaled
+Y = iris_species_one_hot
+
+<span class="hljs-comment"># train-test-split</span>
+
+X_train, X_test, Y_train, Y_test = train_test_split(X, Y)
+
+<span class="hljs-comment"># training</span>
+
+model = KNeighborsClassifier()
+model.fit(X_train, Y_train)
+
+<span class="hljs-comment"># validation</span>
+
+Y_prediction = model.predict(X_test)
+score = metrics.accuracy_score(Y_prediction, Y_test)
+print(<span class="hljs-string">"accuracy: "</span>, score)
+
+<span class="hljs-comment"># predicting further species</span>
+
+new_iris_data = [
+    [<span class="hljs-number">5.3</span>, <span class="hljs-number">3.4</span>, <span class="hljs-number">1.9</span>, <span class="hljs-number">0.6</span>],
+    [<span class="hljs-number">6.0</span>, <span class="hljs-number">3.0</span>, <span class="hljs-number">4.7</span>, <span class="hljs-number">1.5</span>],
+    [<span class="hljs-number">6.5</span>, <span class="hljs-number">3.1</span>, <span class="hljs-number">5.0</span>, <span class="hljs-number">1.7</span>]
+]
+new_iris_predictions = model.predict(
+    scaler.transform(new_iris_data)
+)
+print(<span class="hljs-string">"prediction data:"</span>)
+print(new_iris_predictions)
+predicted_labels = encoder.inverse_transform(
+    new_iris_predictions
+)
+print(<span class="hljs-string">"predicted labels:"</span>)
+print(predicted_labels)
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Regression - basics</h1>
+</section><section class="slide"><h2>Example: linear regression</h2>
+<p>Example: various purchases in different supermarkets:</p>
+<ul>
+<li>1 l of milk, 1 kg of bread: 4.60€</li>
+<li>2 l of milk, 3 kg of bread: 13.50€</li>
+<li>3 l of milk, 2 kg of bread: 12.00€</li>
+<li>(0 l of milk, 0 kg of bread: 0€)</li>
+</ul>
+<p>task: estimate prices of:</p>
+<ul>
+<li>1 l of milk</li>
+<li>1 kg of bread</li>
+<li>2 l of milk and 2 kg of bread</li>
+</ul>
+<p>This may be solved via regression</p>
+</section><section class="slide"><h2>Example: linear regression</h2>
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> sklearn.linear_model <span class="hljs-keyword">import</span> LinearRegression
+
+X = [[<span class="hljs-number">1</span>, <span class="hljs-number">1</span>], [<span class="hljs-number">2</span>, <span class="hljs-number">3</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">0</span>, <span class="hljs-number">0</span>]]
+y = [<span class="hljs-number">4.60</span>, <span class="hljs-number">14.50</span>, <span class="hljs-number">12.00</span>, <span class="hljs-number">0.0</span>]
+
+model = LinearRegression()
+model.fit(X, y)
+
+yfit = model.predict([[<span class="hljs-number">1</span>, <span class="hljs-number">0</span>], [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>], [<span class="hljs-number">2</span>, <span class="hljs-number">2</span>]])
+print(yfit)
+<span class="hljs-comment"># [ 1.14722222  3.64722222 10.46388889]</span>
+</code></pre>
+</section><section class="slide"><h2>Example: linear regression</h2>
+<p>characteristic numbers of the regression:</p>
+<ul>
+<li><code>model.coef_</code></li>
+<li><code>model.intercept_</code></li>
+</ul>
+</section><section class="slide"><h2>Exercise: linear regression</h2>
+<p>Iris data: Estimate the <em>petal width</em> (column 3) based on the <em>petal length</em> (column 2)</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> datasets
+iris = datasets.load_iris()
+</code></pre>
+</section><section class="slide"><h2>Regression via a neural network</h2>
+<p>Iris data: Estimate the <em>sepal length</em> (column 0) based on the <em>sepal width</em> (column 1) and <em>petal length</em> (column 2)</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> datasets
+<span class="hljs-keyword">from</span> sklearn.neural_network <span class="hljs-keyword">import</span> MLPRegressor
+
+iris = datasets.load_iris()
+
+X = iris.data[:,<span class="hljs-number">1</span>:<span class="hljs-number">3</span>]
+y = iris.data[:, <span class="hljs-number">0</span>]
+
+model = MLPRegressor(
+    hidden_layer_sizes=(<span class="hljs-number">8</span>, <span class="hljs-number">8</span>),
+    alpha=<span class="hljs-number">1.0</span>,
+    max_iter=<span class="hljs-number">2000</span>
+)
+model.fit(X, y)
+</code></pre>
+</section><section class="slide"><h2>Regression via a neural network</h2>
+<pre><code class="hljs language-py">test_data = [
+    [<span class="hljs-number">3.4</span>, <span class="hljs-number">1.9</span>],
+    [<span class="hljs-number">3.0</span>, <span class="hljs-number">4.7</span>],
+    [<span class="hljs-number">3.1</span>, <span class="hljs-number">5.0</span>]
+]
+
+y_pred = model.predict(test_data)
+print(y_pred)
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>NumPy advanced</h1>
 </section><section class="slide"><h2>Reshaping arrays</h2>
 <pre><code class="hljs language-py">array_1d = array_3d.ravel()
 array_1d = array_3d.reshape(<span class="hljs-number">8</span>)

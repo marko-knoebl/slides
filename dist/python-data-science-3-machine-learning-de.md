@@ -1,118 +1,17 @@
-# NumPy Fortgeschritten
-
-## Form von Arrays ändern
-
-```py
-array_1d = array_3d.ravel()
-array_1d = array_3d.reshape(8)
-array_2d = array_3d.reshape(2, 4)
-array_2d = array_3d.reshape(2, -1) # automatic second dimension
-array_2d_transposed = array_2d.T
-```
-
-## Dimensionalität erhöhen
-
-Hinzufügen einer extra Dimension der Länge 1 via `newaxis` - Verwandeln eines 2 x 2 Arrays in ein 2 x 2 x 1 Array:
-
-```py
-array_2d = np.array([[1, 2], [3, 4]])
-array_3d = array_2d[:, :, np.newaxis]
-# [[[1], [2]], [[3], [4]]]
-```
-
-## Slices als Views
-
-In Python können wir eine flache Kopie einer Liste erstellen, indem wir sie slicen - dies ist in NumPy nicht so (um die Effizienz zu steigern):
-
-```py
-list = [1, 2, 3]
-list_copy = list[:]
-list_copy[0] = 10 # does NOT change list
-
-array = np.array([1, 2, 3])
-array_view = array[:]
-array_view[0] = 10 # DOES change array
-```
-
-## Arrays kopieren
-
-Arrays können via `array.copy()` kopiert werden
-
-## Arrays aneinanderfügen
-
-nebeineinander anfügen:
-
-```py
-np.concatenate([a1d, a1d])
-np.concatenate([a2d, a2d])
-```
-
-untereinander anfügen:
-
-```py
-np.concatenate([a2d, a2d], axis=1)
-```
-
-## Matrix-Multiplikation
-
-Matrix-Multiplikation kann durch den binären Operator `@` durchgeführt werden
-
-```py
-a = np.array([1, 1])
-
-M = np.array([[0.707, 0.707],
-              [-0.707, 0.707]])
-
-print(a @ M)
-# array([0.   , 1.414])
-```
-
-## Matrix-Multiplikation
-
-Rotation verschiedener Punkte um 45° gegen den Uhrzeigersinn:
-
-```py
-points = np.array([[0, 0], [0, 1], [1, 0], [1, 1]])
-
-M = np.array([[0.707, 0.707],
-              [-0.707, 0.707]])
-
-print(points @ M)
-```
-
-## Matrix-Multiplikation
-
-Beispiel:
-
-bekannt: Preise verschiedener Produkte, derent Bestände in verschiedenen Lagern
-
-```py
-prices = np.array([3.99, 12.99, 5.90, 15])
-quantities = np.array([[0, 80, 80, 100],
-                       [100, 0, 0, 0],
-                       [50, 0, 0, 50]])
-```
-
-Gesucht: Warenwert pro Lager
-
 # Machine learning
 
-## Kategorien von Methoden
+## Beispiele für Aufgaben
 
-- Supervised learning (Überwachtes Lernen)
+- **Supervised learning (überwachtes Lernen)**
+  - **Regression**
+  - **Klassifizierung**
 - Unsupervised learning
+  - Clustering
+  - Dimensionsreduktion / Komprimierung
 - Reinforcement learning
+  - Optimierung
 
-## Beispiele für Aufgaben
-
-- Regression
-- Klassifizierung
-- Clustering
-- Dimensionsreduktion
-
-## Beispiele für Aufgaben
-
-### Regression
+## Regression
 
 Zuweisung von numerischen Werten zu numerischen Eingabedaten
 
@@ -121,20 +20,17 @@ Beispiele:
 - Schätzung der Entfernung einer Galaxie basierend auf der Rotverschiebung
 - Schätzung der Kursentwicklung einer Aktie
 
-## Beispiele für Aufgaben
-
-### Klassifikation
+## Klassifizierung
 
 Zuweisung von Klassen zu numerischen Eingabedaten
 
 Beispiele:
 
-- Spam-Filterung basierend auf einer Anzahl an Wörtern / Phrasen (2x "nigerian prince", 1x "viagra")
+- Spam-Filterung basierend auf einer Anzahl an Wörtern / Phrasen
 - Erkennen von Objekten / Personen / Zeichen auf Bildern
+- Diagnose von Krankheiten basierend auf Symptomen / Messwerten
 
-## Beispiele für Aufgaben
-
-### Clustering
+## Clustering
 
 Erkennen von Gruppierungen / Clustern bei numerischen Eingabedaten
 
@@ -142,86 +38,101 @@ Beispiele:
 
 - Erkennen wiederkehrender Elemente in Bildern
 
-# Regression - Grundlagen
+## Dimensionality Reduction
 
-## Lineare Regression
+Vereinfachung von Daten mit einer großen Anzahl an Merkmalen zu Daten mit weniger, aber aussagekräftigeren Merkmalen
 
-## Lineare Regression
+## Reinforcement Learning
 
-Beispiel: Wir betrachten verschiedene Einkäufe bei verschiedenen Supermärkten:
+Optimieren von Strategien in einer Simulation
 
-- 1 l Milch, 1 kg Brot: 4.58€
-- 2 l Milch, 3 kg Brot: 13.50€
-- 3 l Milch, 2 kg Brot: 11.98€
-- (0 l Milch, 0 kg Brot: 0€)
+Beispiele:
 
-Was wäre eine passende Schätzung für den Preis von 1 Liter Milch / 1 kg Brot? Wenn wir bei einem Supermarkt 2 Liter Milch und 2 kg Brot kaufen, welcher Preis wäre in etwa zu erwarten?
+- Simulieren des Verlaufs einer Krankheit, Finden der besten Behandlungsstrategie
 
-Diese Aufgabe kann mit Hilfe von linearer Regression beantwortet werden.
+# Strategien für überwachtes Lernen
 
-## Lineare Regression
+## Regression
 
-Beispiel:
-
-```py
-from sklearn.linear_model import LinearRegression
-
-X = [[1, 1], [2, 3], [3, 2], [0, 0]]
-y = [4.58, 14.50, 11.98, 0.0]
-
-model = LinearRegression()
-model.fit(X, y)
-
-yfit = model.predict([[1, 0], [0, 1], [2, 2]])
-print(yfit)
-```
-
-## Lineare Regression - Beispiel
-
-Iris-Datensatz: Abschätzen der _sepal width_ basierend auf der _sepal length_
-
-```py
-from sklearn import datasets
-iris = datasets.load_iris()
-```
-
-## Lineare Regression - erlernte Koeffizienten
-
-- `model.coef_`
-- `model.intercept_`
-
-# Klassifizierung - Grundlagen
+- **neuronale Netzwerke**
+- lineare Regression
+- polynomiale Regression
 
 ## Klassifizierung
 
-Aufgabe: Klassifizierung von Iris-Pflanzen basierend auf ihren Maßen
+- **neuronale Netzwerke**
+- k-nearest-neighbors
+- logistische Regression
+- naive Bayes
+- Support Vector Machines
+- Entscheidungsbäume (decision trees)
 
-Gegeben ist eine Reihe von Daten mit bekannten Maßen und bekannten Spezies. Baiserend darauf: Trainieren eines Algorithmus, um später die Spezies anderer Pflanzen zu bestimmen.
+# Libraries
 
-## Klassifizierung
+## Libraries
 
-In diesem Fall verwenden wir einen _K-nearest-neighbors-Klassifikator_ als Algorithmus, andere Algorithmen wären genauso denkbar.
+Python Libraries für Machine Learning:
 
-## Klassifizierung
+**scikit-learn**: basiert auf _NumPy_; unterstützt viele verschiedene Algorithmenklassen (auch einfache neuronale Netzwerke)
 
-Trainieren des Algorithmus:
+**keras**: basiert auf _TensorFlow_; unterstützt komplexere neuronale Netzwerke
+
+# Überwachtes Lernen in scikit-learn
+
+## Überwachtes Lernen in scikit-learn
+
+Schritte:
+
+- Erstellen einer Eingangsmatrix `X` und eines Zielvektors `y` / einer Zielmatrix `Y`
+- Instanziierung einer Algorithmenklasse, z.B. `KNeighborsClassifier`, `MLPClassifier`, `LinearRegression`, ...
+- "Lernen" mittels `model.fit(X, y)`
+- Voraussagen weiterer Ergebnisse mittels `model.predict(...)`
+
+## Beispiel
+
+Beispiel: Klassifizierung von Iris-Pflanzen
+
+Bekannte Daten: Maße und Klassifizierung von 150 Iris-Pflanzen (Schwertlilien)
+
+Aufgabe: Trainieren eines Algorithmus, der anhand der Maße einer Iris-Pflanze eine Klassifizierung vornehmen kann
+
+## Beispiel
+
+Beispieldaten (_sepal length_, _sepal width_, _petal length_, _petal width_, _name_):
+
+- `[5.1, 3.5, 1.4, 0.2]` → `"Iris-setosa"`
+- `[7.0, 3.2, 4.7, 1.4]` → `"Iris-versicolor"`
+- `[6.3, 3.3, 6.0, 2.5]` → `"Iris-virginica"`
+
+in unseren Daten: _setosa_=0, _versicolor_=1, _virginica_=2
+
+## Beispiel
+
+Vorbereiten der Daten:
 
 ```py
-from sklearn.neighbors import KNeighborsClassifier
 from sklearn import datasets
 
 iris = datasets.load_iris()
 
 X = iris.data
 y = iris.target
+```
+
+## Beispiel
+
+Trainieren eines Algorithmus:
+
+```py
+from sklearn.neighbors import KNeighborsClassifier
 
 model = KNeighborsClassifier()
 model.fit(X, y)
 ```
 
-## Klassifizierung
+## Beispiel
 
-Durchführen der Klassifizierung
+Anwenden des Erlernten auf neue Daten:
 
 ```py
 test_data = [
@@ -231,113 +142,22 @@ test_data = [
 ]
 
 y_pred = model.predict(test_data)
-print(y_pred)
+# [0, 1, 1]
+
+y_pred_proba = model.predict_proba(test_data)
+# [[1.  0.  0. ]
+#  [0.  0.8 0.2]
+#  [0.  0.6 0.4]]
 ```
 
-## Klassifizierung
+## Beispiel
 
-Weitere Aufgaben:
+Aufgabe: Verwenden anderer Klassifikatoren, z.B.:
 
-Wir verwenden andere Klassifikatoren, wie etwa:
-
-- `SVC`
-- `DecisionTreeClassifier`
-- `GaussianNB`
-
-## Klassifizierung
-
-Bei vielen Klassifizierungsalgorithmen können auch Wahrscheinlichkeiten für die einzelnen Klassen angezeigt werden:
-
-```py
-model.predict_proba(test_data)
-```
-
-```py
-array([[1. , 0. , 0. ],
-       [0. , 0.8, 0.2],
-       [0. , 0.6, 0.4]])
-```
-
-Der erste Eintrag gehört sicher zur ersten Klasse, der letzte Eintrag gehört mit 60-prozentiger Sicherheit zur zweiten Klasse.
-
-# Regression und Klassifikation: Verfahren
-
-## Regression und Klassifikation: Verfahren
-
-- Instanziierung einer Algorithmenklasse, z.B. `LinerRegression`, `KNeighborsClassifier`, `DecisionTreeClassifier`, ...
-- Erstellen einer Eingangsmatrix `X` und eines Zielvektors `y`
-- "Lernen" mittels `model.fit(X, y)`
-- Voraussagen weiterer Ergebnisse mittels `model.predict(...)`
-
-# Validierung
-
-## Train-Test Split
-
-Um zu validieren, ob ein Verfahren ein passendes Ergebnis liefert:
-
-Die Daten (X, y) werden in Trainingsdaten und Testdaten unterteilt. Die Testdaten dienen zur Validierung.
-
-## Train-Test Split
-
-Frage: wie gut approximiert unsere lineare Regression die Iris Daten?
-
-```py
-from sklearn.model_selection import train_test_split
-from sklearn import metrics
-
-X_train, X_test, y_train, y_test = train_test_split(X, y)
-
-...
-
-print(metrics.r2_score(y_prediction, y_test))
-```
-
-Wir können einen Parameter `test_size` angeben, dessen Standardwert `0.25` ist (d.h. 25% der Daten werden zur Validierung verwendet)
-
-## Validierungsmetriken
-
-Regression:
-
-- `metrics.mean_squared_error(y_true, y_pred)` (mittlere quadratische Abweichung)
-- `metrics.r2_score(y_true, y_pred)` (R², Bestimmtheitsmaß)
-
-Klassifizierung:
-
-- `metrics.accuracy_score(y_true, y_pred)` (Anteil an richtig klassifizierten Einträgen)
-- `metrics.confusion_matrix(y_true, y_pred)` (Anteil an richtig / falsch klassifizierten Einträgen für jede Klasse)
-- `metrics.precision_recall_fscore_support(y_true, y_pred)` (Zusammenfassung wichtiger Metriken)
-
-Siehe auch <https://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics>
-
-## Validierungsmetriken: Bestimmtheitsmaß
-
-Das Bestimmtheitsmaß (R²) gibt an, wie nahe die Interpolation an den Testdaten liegt:
-
-- R²=1 - perfekte Interpolation
-- R²=0 - Interpolation nicht besser als der einfache Durchschnitt
-- R²&lt;0 - schlechter als der einfache Durchschnitt 
-
-## Validierung
-
-Aufgaben:
-
-- Validierung der Iris-Regression
-- Validierung der Iris-Klassifizierung
-
-## Kreuzvalidierung
-
-Bei der Kreuzvalidierung (cross-validation) werden die Daten wiederholt in unterschiedliche Trainings- und Testdaten unterteilt, sodass jeder Eintrag einmal in den Testdaten vorkommt.
-
-```py
-from sklearn.model_selection import cross_validate
-
-...
-
-test_results = cross_validate(model, X, y, cv=5, scoring="r2")
-test_scores = test_results["test_score"]
-print(test_scores)
-# [ 0.61840428  0.72569954 -1.1742135   0.44294841  0.50589789]
-```
+- `sklearn.neural_network.MLPClassifier`
+- `sklearn.svm.SVC`
+- `sklearn.tree.DecisionTreeClassifier`
+- `sklearn.naive_bayes.GaussianNB`
 
 # Daten vorbereiten
 
@@ -345,17 +165,15 @@ print(test_scores)
 
 üblicherweise:
 
-- `X`: zweidimensionales Array mit Eingangsdaten
-- `y`: eindimensionales Array mit Resultaten
-
-Die Arrays `X` und `y` sollten numerische Daten enthalten
+- _X_: zweidimensionales Array mit numerischen Eingangsdaten
+- _y_ / _Y_\`: ein- oder zweidimensionales Array mit numerischen Resultaten
 
 ## Daten vorbereiten
 
 Aufgaben:
 
-- Fehlende Daten ergänzen
 - Skalieren von Werten
+- Fehlende Daten ergänzen
 - Kategoriedaten in numerische Daten umwandeln
 - Textdaten in numerische Daten umwandeln
 
@@ -367,6 +185,49 @@ Klassen zum vorbereiten der Daten besitzen folgende Methoden:
 - `.transform`: wandelt gegebene Eingangsdaten (`X2`) anhand des gelernten in die neue Form um
 - `.fit_transform`: beides in einem Schritt (für die gleichen Daten)
 
+## Skalieren von Werten
+
+Welcher dieser beiden Sterne ist der Sonne am ähnlichsten?
+
+```py
+# data: radius (km), mass (kg), temparature (K)
+sun =    [7.0e7, 2.0e30, 5.8e3]
+
+star_a = [6.5e7, 2.2e30, 5.2e3]
+star_b = [7.0e8, 2.1e30, 8.1e3]
+```
+
+Machine Learning Algorithmen wie z.B. k-Nearest-Neighbor betrachten Absolutwerte.
+
+Hier würde vom Algorithmus im wesentlichen nur die Masse herangezogen werden, da alle anderen Werte im Vergleich verschwindend gering sind.
+
+## Skalieren von Werten
+
+Lösung: Die Werte werden zentriert und skaliert, sodass ihr Mittelwert 0 und die Standardabweichung 1 ist
+
+```py
+from sklearn import preprocessing
+import numpy as np
+
+stars = np.array([[ 7.0e7, 2.0e30, 5.8e3],
+                  [ 6.5e7, 2.2e30, 5.2e3],
+                  [ 7.0e9, 2.1e30, 3.1e3]])
+
+scaler = preprocessing.StandardScaler()
+scaler.fit(stars)
+X = scaler.transform(stars)
+```
+
+## Skalieren von Werten
+
+Skalierte Werte:
+
+```py
+array([[-0.70634165, -1.22474487,  0.95025527],
+       [-0.70787163,  1.22474487,  0.43193421],
+       [ 1.41421329,  0.        , -1.38218948]])
+```
+
 ## Fehlende Daten
 
 Fehlende Daten werden häufig in der Form von `NaN`s auftreten.
@@ -376,11 +237,14 @@ Mögliche Behandlungen:
 - Löschen aller Zeilen, die an irgendeiner Stelle undefinierte Werte enthalten
 - Interpolieren der fehlenden Werte durch andere Daten
 
-## Fehlende Daten: Interpolation
+## Fehlende Daten
+
+Interpolation:
 
 ```py
 import numpy as np
 from sklearn.impute import SimpleImputer
+
 X = np.array([[ np.nan, 0,   3  ],
               [ 3,   7,   9  ],
               [ 3,   5,   2  ],
@@ -394,71 +258,30 @@ imputer.transform(X)
 imputer.transform(np.array([[np.nan, 1, 1]]))
 ```
 
-## Skalieren von Werten
-
-Welcher dieser beiden Sterne ist der Sonne am ähnlichsten?
-
-```py
-# data: radius (km), mass (kg), temparature (K)
-sun =    [7.0e7, 2.0e30, 5.8e3]
-
-star_a = [6.5e7, 3.0e30, 5.2e3]
-star_b = [7.0e8, 2.5e30, 8.1e3]
-```
-
-Machine Learning Algorithmen wie z.B. k-Nearest-Neighbor betrachten Absolutwerte. Hier würde vom Algorithmus im wesentlichen nur die Masse herangezogen werden, da alle anderen Werte im Vergleich verschwindend gering sind.
-
-## Skalieren von Werten
-
-Lösung: Die Werte werden zentriert und skaliert, sodass ihr Mittelwert 0 und die Standardabweichung 1 ist
-
-```py
-from sklearn import preprocessing
-import numpy as np
-X_train = np.array([[ 7.0e7, 2.0e30, 5.8e3],
-                    [ 6.5e7, 3.0e30, 5.2e3],
-                    [ 7.0e9, 2.5e30, 3.1e3]])
-
-scaler = preprocessing.StandardScaler()
-X_train_scaled = scaler.fit_transform(X_train)
-```
-
-## Skalieren von Werten
-
-Skalierte Werte:
-
-```py
-array([[-0.70634165, -1.22474487,  0.95025527],
-       [-0.70787163,  1.22474487,  0.43193421],
-       [ 1.41421329,  0.        , -1.38218948]])
-```
-
 ## Kategorien als Daten
 
 Manchmals: _Kategorien_ als Eingangs- oder Ausgangsdaten - z.B. Land, Berufsgruppe, Messverfahren, ...
 
-oftmals als Strings angegeben, Kodierung als Zahlen gewünscht, z.B.:
+Beispiel für Eingangsdaten:
 
 ```py
-visitors = np.array(
-    [["fr", "chrome"], ["uk", "chrome"], ["us", "firefox"]]
-)
+[["fr", "chrome"], ["uk", "chrome"], ["us", "firefox"]]
 ```
+
+oftmals als Strings angegeben, Kodierung als Zahlen gewünscht
 
 ## Kategorien als Daten
 
 Eingangsdaten:
 
 ```py
-visitors = np.array(
-    [["fr", "chrome"], ["uk", "chrome"], ["us", "firefox"]]
-)
+[["fr", "chrome"], ["uk", "chrome"], ["us", "firefox"]]
 ```
 
 Kodierung als Ordinale (nicht für alle Algorithmen geeignet, da implizit geordnet (fr=0, uk=1, us=2)):
 
 ```py
-np.array([[0., 0.], [1., 0.], [2., 1.]])
+[[0., 0.], [1., 0.], [2., 1.]]
 ```
 
 ## Kategorien als Daten
@@ -466,18 +289,16 @@ np.array([[0., 0.], [1., 0.], [2., 1.]])
 Eingangsdaten:
 
 ```py
-visitors = np.array(
-    [["fr", "chrome"], ["uk", "chrome"], ["us", "firefox"]]
-)
+[["fr", "chrome"], ["uk", "chrome"], ["us", "firefox"]]
 ```
 
 One-Hot-Kodierung:
 
 ```py
 # fr?, uk?, us?, chrome?, firefox?
-np.array([[1., 0., 0., 1., 0.],
-          [0., 1., 0., 1., 0.],
-          [0., 0., 1., 0., 1.]])
+[[1., 0., 0., 1., 0.],
+ [0., 1., 0., 1., 0.],
+ [0., 0., 1., 0., 1.]]
 ```
 
 ## Kategorien als Daten
@@ -491,14 +312,13 @@ Preprocessors:
 
 ## Kategorien als Daten
 
-Beispiele:
+Beispiel:
 
 ```py
-X = preprocessing.OrdinalEncoder().fit_transform(visitors)
-y = preprocessing.LabelEncoder().fit_transform(iris_species)
+from sklearn.preprocessing import LabelBinarizer
 
-X = preprocessing.OneHotEncoder().fit_transform(visitors)
-Y = preprocessing.LabelBinarizer().fit_transform(iris_species)
+encoder = LabelBinarizer().fit(iris_species)
+iris_species_one_hot = encoder.transform(iris_species)
 ```
 
 ## Textdaten
@@ -550,13 +370,226 @@ erste Zeile: `5.1,3.5,1.4,0.2,Iris-setosa`
 
 Aufgaben:
 
-- Zieldaten als ordinale Daten
+- Zieldaten als ordinale Daten oder mittels one-hot-Encoding
 - Eingangsdaten skalieren
 - k-Nearest-Neighbor-Klassifizierung bei skalierten und nichtskalierten Daten vergleichen
 
-## Beispiel: Preprocessing von Textdaten (Newsgroups)
+# Validierung
 
-[Multinomial Naive Bayes - Python Data Science Handbook](https://jakevdp.github.io/PythonDataScienceHandbook/05.05-naive-bayes.html#Multinomial-Naive-Bayes)
+## Train-Test Split
+
+Um zu validieren, ob ein Verfahren ein passendes Ergebnis liefert:
+
+Die Daten werden in Trainingsdaten und Testdaten unterteilt. Die Testdaten dienen nur zur Validierung.
+
+## Train-Test Split
+
+Wie gut kategorisiert ein bestimmter Algorithmus die Iris-Daten?
+
+```py
+from sklearn.model_selection import train_test_split
+from sklearn import metrics
+
+X_train, X_test, Y_train, Y_test = train_test_split(X, Y)
+
+# ...
+
+Y_prediction = model.predict(X_test)
+print(metrics.accuracy_score(Y_test, Y_prediction))
+```
+
+optionaler Parameter: `test_size` (Standardwert `0.25`)
+
+## Validierungsmetriken
+
+Klassifizierung:
+
+- _accuracy_score_: Anteil an richtig klassifizierten Einträgen
+- _confusion_matrix_: Anteil an richtig / falsch klassifizierten Einträgen für jede Klasse
+- _precision_recall_fscore_support_: Zusammenfassung wichtiger Metriken
+- _log_loss_: auch Kreuzentropie genannt, relevant bei logistischer Regression und neuronalen Netzen
+
+Regression:
+
+- _mean_squared_error_: mittlere quadratische Abweichung
+- _r2_score_: R², Bestimmtheitsmaß
+
+Siehe auch <https://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics>
+
+## Validierungsmetriken: Bestimmtheitsmaß
+
+Bestimmtheitsmaß (R²):
+
+- R²=1 - perfekte Interpolation
+- R²=0 - Interpolation nicht besser als der einfache Durchschnitt
+- R²&lt;0 - schlechter als der einfache Durchschnitt
+
+## Kreuzvalidierung
+
+Bei der Kreuzvalidierung (cross-validation) werden die Daten wiederholt in unterschiedliche Trainings- und Testdaten unterteilt, sodass jeder Eintrag einmal in den Testdaten vorkommt.
+
+```py
+from sklearn.model_selection import cross_validate
+
+test_results = cross_validate(
+    model, X, y, cv=5, scoring="accuracy"
+)
+print(test_results["test_score"])
+```
+
+## Validierung
+
+Aufgabe: Validierung der Iris-Klassifizierung
+
+# Iris-Klassifikation - komplett
+
+## Iris-Klassifikation - komplett
+
+```py
+import pandas as pd
+from sklearn.preprocessing import (
+    LabelBinarizer,
+    StandardScaler,
+)
+from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn import metrics
+
+# loading data
+
+iris = pd.read_csv(
+    "http://archive.ics.uci.edu/ml/" +
+    "machine-learning-databases/iris/iris.data",
+    header=None)
+iris_measures = iris.iloc[:, :4].to_numpy()
+iris_species = iris.iloc[:, 4].to_numpy()
+
+# preparing data
+
+encoder = LabelBinarizer()
+encoder.fit(iris_species)
+iris_species_one_hot = encoder.transform(iris_species)
+
+scaler = StandardScaler()
+scaler.fit(iris_measures)
+iris_measures_scaled = scaler.transform(iris_measures)
+
+X = iris_measures_scaled
+Y = iris_species_one_hot
+
+# train-test-split
+
+X_train, X_test, Y_train, Y_test = train_test_split(X, Y)
+
+# training
+
+model = KNeighborsClassifier()
+model.fit(X_train, Y_train)
+
+# validation
+
+Y_prediction = model.predict(X_test)
+score = metrics.accuracy_score(Y_prediction, Y_test)
+print("accuracy: ", score)
+
+# predicting further species
+
+new_iris_data = [
+    [5.3, 3.4, 1.9, 0.6],
+    [6.0, 3.0, 4.7, 1.5],
+    [6.5, 3.1, 5.0, 1.7]
+]
+new_iris_predictions = model.predict(
+    scaler.transform(new_iris_data)
+)
+print("prediction data:")
+print(new_iris_predictions)
+predicted_labels = encoder.inverse_transform(
+    new_iris_predictions
+)
+print("predicted labels:")
+print(predicted_labels)
+```
+
+# Regression - Grundlagen
+
+## Beispiel: Lineare Regression
+
+Beispiel: Wir betrachten verschiedene Einkäufe bei verschiedenen Supermärkten:
+
+- 1 l Milch, 1 kg Brot: 4.60€
+- 2 l Milch, 3 kg Brot: 13.50€
+- 3 l Milch, 2 kg Brot: 12.00€
+- (0 l Milch, 0 kg Brot: 0€)
+
+Was wäre eine passende Schätzung für den Preis von 1 Liter Milch / 1 kg Brot? Wenn wir bei einem Supermarkt 2 Liter Milch und 2 kg Brot kaufen, welcher Preis wäre in etwa zu erwarten?
+
+Diese Aufgabe kann mit Hilfe von Regression beantwortet werden.
+
+## Beispiel: Lineare Regression
+
+```py
+from sklearn.linear_model import LinearRegression
+
+X = [[1, 1], [2, 3], [3, 2], [0, 0]]
+y = [4.60, 14.50, 12.00, 0.0]
+
+model = LinearRegression()
+model.fit(X, y)
+
+yfit = model.predict([[1, 0], [0, 1], [2, 2]])
+print(yfit)
+```
+
+## Lineare Regression
+
+Kennzahlen der "erlernten" Regression:
+
+- `model.coef_`
+- `model.intercept_`
+
+## Lineare Regression - Übung
+
+Iris-Datensatz: Abschätzen der _petal width_ (Spaltenindex 3) basierend auf der _petal length_ (Spaltenindex 2)
+
+```py
+from sklearn import datasets
+iris = datasets.load_iris()
+```
+
+## Regression mittels neuronalem Netzwerk
+
+Iris-Datensatz: Abschätzen der Spalte 0 basierend auf Spalten 1 und 2
+
+```py
+from sklearn import datasets
+from sklearn.neural_network import MLPRegressor
+
+iris = datasets.load_iris()
+
+X = iris.data[:,1:3]
+y = iris.data[:, 0]
+
+model = MLPRegressor(
+    hidden_layer_sizes=(8, 8),
+    alpha=1.0,
+    max_iter=2000
+)
+model.fit(X, y)
+```
+
+## Regression mittels neuronalem Netzwerk
+
+```py
+test_data = [
+    [3.4, 1.9],
+    [3.0, 4.7],
+    [3.1, 5.0]
+]
+
+y_pred = model.predict(test_data)
+print(y_pred)
+```
 
 # Regression
 
@@ -612,6 +645,7 @@ Aufgabe: Vergleiche die Ergebnisse einer einfachen Linearen Regression mit der p
 
 ## Klassifizierungsalgorithmen
 
+- Neuronale Netzwerke
 - K-Nearest-Neighbors
 - Logistische Regression
 - Naive Bayes
@@ -619,6 +653,12 @@ Aufgabe: Vergleiche die Ergebnisse einer einfachen Linearen Regression mit der p
 - Entscheidungsbäume und Random Forests
 
 Siehe auch: [classifier comparison von scikit-learn](https://scikit-learn.org/stable/auto_examples/classification/plot_classifier_comparison.html)
+
+## Neuronale Netzwerke
+
+Aus künstlichen Neuronen aufgebaute Netzwerke - ähnliches Konzept wie Neuronen im Gehirn
+
+In der Praxis wird anstatt _scikit-learn_ hier meist _keras_ verwendet (schneller, mehr Funktionalität)
 
 ## K-Nearest-Neighbors
 
@@ -778,3 +818,100 @@ Pandas website: <https://pandas.pydata.org/>
 Python Data Science Handbook: <https://jakevdp.github.io/PythonDataScienceHandbook/>
 
 <!-- https://github.com/jakevdp/PythonDataScienceHandbook -->
+
+# NumPy Fortgeschritten
+
+## Form von Arrays ändern
+
+```py
+array_1d = array_3d.ravel()
+array_1d = array_3d.reshape(8)
+array_2d = array_3d.reshape(2, 4)
+array_2d = array_3d.reshape(2, -1) # automatic second dimension
+array_2d_transposed = array_2d.T
+```
+
+## Dimensionalität erhöhen
+
+Hinzufügen einer extra Dimension der Länge 1 via `newaxis` - Verwandeln eines 2 x 2 Arrays in ein 2 x 2 x 1 Array:
+
+```py
+array_2d = np.array([[1, 2], [3, 4]])
+array_3d = array_2d[:, :, np.newaxis]
+# [[[1], [2]], [[3], [4]]]
+```
+
+## Slices als Views
+
+In Python können wir eine flache Kopie einer Liste erstellen, indem wir sie slicen - dies ist in NumPy nicht so (um die Effizienz zu steigern):
+
+```py
+list = [1, 2, 3]
+list_copy = list[:]
+list_copy[0] = 10 # does NOT change list
+
+array = np.array([1, 2, 3])
+array_view = array[:]
+array_view[0] = 10 # DOES change array
+```
+
+## Arrays kopieren
+
+Arrays können via `array.copy()` kopiert werden
+
+## Arrays aneinanderfügen
+
+nebeineinander anfügen:
+
+```py
+np.concatenate([a1d, a1d])
+np.concatenate([a2d, a2d])
+```
+
+untereinander anfügen:
+
+```py
+np.concatenate([a2d, a2d], axis=1)
+```
+
+## Matrix-Multiplikation
+
+Matrix-Multiplikation kann durch den binären Operator `@` durchgeführt werden
+
+```py
+a = np.array([1, 1])
+
+M = np.array([[0.707, 0.707],
+              [-0.707, 0.707]])
+
+print(a @ M)
+# array([0.   , 1.414])
+```
+
+## Matrix-Multiplikation
+
+Rotation verschiedener Punkte um 45° gegen den Uhrzeigersinn:
+
+```py
+points = np.array([[0, 0], [0, 1], [1, 0], [1, 1]])
+
+M = np.array([[0.707, 0.707],
+              [-0.707, 0.707]])
+
+print(points @ M)
+```
+
+## Matrix-Multiplikation
+
+Beispiel:
+
+bekannt: Preise verschiedener Produkte, derent Bestände in verschiedenen Lagern
+
+```py
+prices = np.array([3.99, 12.99, 5.90, 15])
+quantities = np.array([[0, 80, 80, 100],
+                       [100, 0, 0, 0],
+                       [50, 0, 0, 50]])
+```
+
+Gesucht: Warenwert pro Lager

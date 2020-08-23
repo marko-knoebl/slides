@@ -2,6 +2,7 @@
 
 ## Klassifizierungsalgorithmen
 
+- Neuronale Netzwerke
 - K-Nearest-Neighbors
 - Logistische Regression
 - Naive Bayes
@@ -9,6 +10,12 @@
 - Entscheidungsbäume und Random Forests
 
 Siehe auch: [classifier comparison von scikit-learn](https://scikit-learn.org/stable/auto_examples/classification/plot_classifier_comparison.html)
+
+## Neuronale Netzwerke
+
+Aus künstlichen Neuronen aufgebaute Netzwerke - ähnliches Konzept wie Neuronen im Gehirn
+
+In der Praxis wird anstatt _scikit-learn_ hier meist _keras_ verwendet (schneller, mehr Funktionalität)
 
 ## K-Nearest-Neighbors
 
