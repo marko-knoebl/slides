@@ -677,6 +677,7 @@ In der Langform sind genauere Farb- und Größenangaben möglich
 mögliche Farbangaben:
 
 - Farbname (`green` / `lighblue` / ...)
+- Tableau-Farbe (`C0` ... `C10`)
 - Kurzname (`r` / `g` / `b` / `c` / `m` / `y` / `k`)
 - Hex-Code (z.B. `#FFAA00`)
 - RGB-Tupel (z.B. `(1, 0.7, 0)`)

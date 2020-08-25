@@ -29,9 +29,9 @@ optional parameter: `test_size` (default value: `0.25`)
 classification:
 
 - _accuracy_score_: relative amount of correct classifications
-- _confusion_matrix_: relative amount of correct classifications foer each category
+- _confusion_matrix_: relative amount of correct classifications for each category
 - _precision_recall_fscore_support_: summary of important metrics
-- _log_loss_`: also known as cross-entropy, relevant for logistic regression and neural networks
+- _log_loss_: also known as cross-entropy, relevant for logistic regression and neural networks
 
 regression:
 

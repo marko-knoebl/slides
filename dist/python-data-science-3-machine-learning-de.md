@@ -166,7 +166,7 @@ Aufgabe: Verwenden anderer Klassifikatoren, z.B.:
 üblicherweise:
 
 - _X_: zweidimensionales Array mit numerischen Eingangsdaten
-- _y_ / _Y_\`: ein- oder zweidimensionales Array mit numerischen Resultaten
+- _y_ / _Y_: ein- oder zweidimensionales Array mit numerischen Resultaten
 
 ## Daten vorbereiten
 
@@ -184,6 +184,7 @@ Klassen zum vorbereiten der Daten besitzen folgende Methoden:
 - `.fit`: erlernt anhand vorgegebener Eingangsdaten (`X1`) eine passende Umwandlung für das Modell
 - `.transform`: wandelt gegebene Eingangsdaten (`X2`) anhand des gelernten in die neue Form um
 - `.fit_transform`: beides in einem Schritt (für die gleichen Daten)
+- `.inverse_transform`: umgekehrte Transformation (nicht für alle Transformationen vorhanden)
 
 ## Skalieren von Werten
 
@@ -213,8 +214,7 @@ stars = np.array([[ 7.0e7, 2.0e30, 5.8e3],
                   [ 6.5e7, 2.2e30, 5.2e3],
                   [ 7.0e9, 2.1e30, 3.1e3]])
 
-scaler = preprocessing.StandardScaler()
-scaler.fit(stars)
+scaler = preprocessing.StandardScaler().fit(stars)
 X = scaler.transform(stars)
 ```
 
@@ -251,8 +251,7 @@ X = np.array([[ np.nan, 0,   3  ],
               [ 4,   np.nan, 6  ],
               [ 8,   8,   1  ]])
 
-imputer = SimpleImputer(strategy="mean")
-imputer.fit(X)
+imputer = SimpleImputer(strategy="mean").fit(X)
 
 imputer.transform(X)
 imputer.transform(np.array([[np.nan, 1, 1]]))
@@ -332,8 +331,7 @@ sample = ['problem of evil',
           'evil queen',
           'horizon problem']
 
-vectorizer = CountVectorizer()
-vectorizer.fit(sample)
+vectorizer = CountVectorizer().fit(sample)
 print(vectorizer.vocabulary_)
 X = vectorizer.transform(sample)
 print(X)
@@ -511,6 +509,220 @@ print("predicted labels:")
 print(predicted_labels)
 ```
 
+# Datensätze für Machine Learning
+
+## Datensätze für Machine Learning
+
+- [Wikipedia: List of datasets for machine-learning research](https://en.wikipedia.org/wiki/List_of_datasets_for_machine-learning_research)
+- [UCI machine learning repository](https://archive.ics.uci.edu/ml)
+- [scikit-learn datasets](https://scikit-learn.org/stable/datasets/index.html)
+- [keras datasets](https://keras.io/api/datasets/)
+
+## Datensätze in scikit-learn
+
+- [Iris flower data set](https://en.wikipedia.org/wiki/Iris_flower_data_set)
+- [Boston house prices](http://lib.stat.cmu.edu/datasets/boston)
+- [Labeled Faces in the Wild](vis-www.cs.umass.edu/lfw)
+- [Handwritten digits](https://archive.ics.uci.edu/ml/datasets/Optical+Recognition+of+Handwritten+Digits)
+- ...
+
+# Beispiel: Gesichtserkennung
+
+## Beispiel: Gesichtserkennung
+
+[Beispieldaten](http://vis-www.cs.umass.edu/lfw/number_11.html)
+
+Eingangsdaten: Schwarz-weiß-Bilder bekannter Personen (Größe 62 x 47) und deren Namen
+
+Ziel: erkennen der Personen mittels eines neuronalen Netzwerks
+
+## Daten laden
+
+```py
+from sklearn.datasets import fetch_lfw_people
+faces = fetch_lfw_people(min_faces_per_person=60)
+```
+
+Einträge:
+
+- `faces.images`: Array von Bildern (1248 x 62 x 47)
+- `faces.target`: Array von numerischen Labeln (1, 3, 3, 3, 5, ...)
+- `faces.target_names`: Array von Labelnamen (0="Ariel Sharon", 1="Colin Powell", ...)
+
+## Daten vorbereiten
+
+```py
+num_images = faces.images.shape[0]
+num_pixels = faces.images.shape[1] * faces.images.shape[2]
+X = faces.images.reshape(num_images, num_pixels)
+
+from sklearn.preprocessing import LabelBinarizer
+encoder = LabelBinarizer().fit(faces.target)
+Y = encoder.transform(faces.target)
+```
+
+## Train-Test Split
+
+```py
+from sklearn.model_selection import train_test_split
+
+X_train, X_test, Y_train, Y_test = train_test_split(X, Y)
+```
+
+## Erstellen und Trainieren eines Klassifikators
+
+```py
+from sklearn.neural_network import MLPClassifier
+
+model = MLPClassifier(hidden_layer_sizes=(250, 150, 100),
+                      early_stopping=True,
+                      n_iter_no_change=100,
+                      max_iter=2000,
+                      verbose=True)
+model.fit(X_train, Y_train)
+```
+
+Konfiguration des Algorithmus:
+
+- drei Schichten an Neuronen mit je 250, 150 und 100 Neuronen
+- Algorithmus stoppt, wenn für die letzten 100 Iterationsschritte keine Verbesserung eintrat
+- Algorithmus stoppt nach maximal 2000 Iterationen
+
+## Testen
+
+```py
+from sklearn import metrics
+
+real_labels = Y_test.argmax(axis=1)
+pred_labels = model.predict_proba(X_test).argmax(axis=1)
+
+print(metrics.accuracy_score(real_labels, pred_labels))
+```
+
+`argmax` gibt den index des größten Eintrags im Array zurück
+
+## Testen
+
+Anzeigen eines zufälligen Gesichts, des echten Namens und des vorhergesagten Namens:
+
+```py
+import matplotlib.pyplot as plt
+from random import randrange
+
+# randomly select a face
+index = randrange(X_test.shape[0])
+
+plt.imshow(X_test[index].reshape(62, 47), cmap="gray")
+
+real_label = real_labels[index]
+pred_label = pred_labels[index]
+
+print("real name:", faces.target_names[real_label])
+print("predicted name:", faces.target_names[pred_label])
+```
+
+# Klassifizierung
+
+## Klassifizierungsalgorithmen
+
+- Neuronale Netzwerke
+- K-Nearest-Neighbors
+- Logistische Regression
+- Naive Bayes
+- Support Vector Machine
+- Entscheidungsbäume und Random Forests
+
+Siehe auch: [classifier comparison von scikit-learn](https://scikit-learn.org/stable/auto_examples/classification/plot_classifier_comparison.html)
+
+## Neuronale Netzwerke
+
+Aus künstlichen Neuronen aufgebaute Netzwerke - ähnliches Konzept wie Neuronen im Gehirn
+
+In der Praxis wird anstatt _scikit-learn_ hier meist _keras_ verwendet (schneller, mehr Funktionalität)
+
+## K-Nearest-Neighbors
+
+Ein neuer Datenpunkt wird klassifiziert, indem seine nächsten Nachbarn betrachtet werden. Die bei diesen Nachbarn am häufigsten vorkommende Klasse wird auch für den Datenpunkt festgesetzt.
+
+Die Anzahl `k` der betrachteten Nachbarn kann festgesetzt werden (Standardwert = 5)
+
+Siehe auch: <https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html#sklearn.neighbors.KNeighborsClassifier>
+
+## Logistische Regression
+
+An einer Grenze zwischen zwei Klassen wird mit Hilfe einer _logistischen Funktion_ angegeben, wie groß die Wahrscheinlichkeit ist, dass der Datenpunkt zu der einen (bzw zu der anderen) Klasse gehört. Je nachdem, welche der Wahrscheinlichkeiten größer als 50% ist, wird die entsprechende Klasse zugewiesen.
+
+Die logistische Funktion selbst wird intern mittels Regression bestimmt (daher der Name).
+
+Beispiel: <https://scikit-learn.org/stable/auto_examples/linear_model/plot_logistic.html#sphx-glr-auto-examples-linear-model-plot-logistic-py>
+
+## Naive Bayes
+
+Für die bekannten Klassen werden Wahrscheinlichkeitsverteilungen angenommen (z.B. Normalverteilung, Multinomialverteilung). Diese Verteilungen werden aus den Trainingsdaten hergeleitet.
+
+Für einen neuen Datenpunkt wird dann errechnet, unter welcher der Verteilungen er am ehesten auftreten würde.
+
+Zwei wichtige Verteilungen sind die Normalverteilung (Gauß'sche Verteilung) für kontinuierliche Werte und die Multinomialverteilung für diskrete Werte (Ganzzahlen).
+
+[Python Data Science Handbook - Naive Bayes](https://jakevdp.github.io/PythonDataScienceHandbook/05.05-naive-bayes.html)
+
+## Support Vector Machines
+
+Einfachster Fall: Trennung von Klassen durch Geraden / Ebenen / Hyperebenen - diese Trenner sollen von den getrennten Punkten maximalen Abstand haben.
+
+Durch Kernelfunktionen können die Grenzen auch andere Formen annehmen, z.B. die von Kegelschnitten für polynomiale Kernel vom Grad 2 oder anderen Kurven.
+
+Siehe auch: <https://scikit-learn.org/stable/modules/svm.html>
+
+[Python Data Science Handbook - Support Vector Machines](https://jakevdp.github.io/PythonDataScienceHandbook/05.07-support-vector-machines.html)
+
+## Entscheidungsbäume (Decision Trees)
+
+Machine Learning Bibliotheken können sogenannte Entscheidungsbäume auf Basis von Trainingsdaten generieren.
+
+Beispiel für einen Entscheidungsbaum für die Iris-Klassifizierung:
+
+- Ist die _petal length_ kleiner oder gleich 2.4?
+  - ja: **setosa**
+  - nein: Ist die _petal width_ kleiner oder gleich 1.7?
+    - ja: Ist die _petal length_ kleiner oder gleich 5.0?
+      - ja: **versicolor**
+      - nein: **virginica**
+    - nein: **virginica**
+
+## Random Forests
+
+Basierend auf Decision Trees: Die Daten werden in verschiedene Untermengen zerlegt. Mittels jeder Untermenge wird ein einzelner Decision Tree erstellt. Die Gesamtheit der Decision Trees wird zu einem sogenannten _Random Forest_ zusammengeführt.
+
+[Python Data Science Handbook - Decision Trees and Random Forests](https://jakevdp.github.io/PythonDataScienceHandbook/05.08-random-forests.html)
+
+## Klassifizierungsalgorithmen - Übersicht
+
+Mögliche Algorithmen:
+
+```py
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.naive_bayes import GaussianNB
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.linear_model import LogisticRegression
+from sklearn.svm import SVC
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
+```
+
+<!--
+```py
+LogisticRegression(solver="liblinear", multi_class="auto")
+SVC(gamma="scale")
+RandomForestClassifier(n_estimators=100)
+```
+-->
+
+## Beispiele zur Klassifizierung
+
+- [Klassifizierung von Newsgroup-Postings (mittels Naive Bayes, logistischer Regression oder Decision Tree)](https://jakevdp.github.io/PythonDataScienceHandbook/05.05-naive-bayes.html#Multinomial-Naive-Bayes)
+- [Erkennen von Ziffern (Random Forest)](https://jakevdp.github.io/PythonDataScienceHandbook/05.08-random-forests.html#Example:-Random-Forest-for-Classifying-Digits)
+
 # Regression - Grundlagen
 
 ## Beispiel: Lineare Regression
@@ -640,108 +852,6 @@ poly_model.fit(X, y)
 ```
 
 Aufgabe: Vergleiche die Ergebnisse einer einfachen Linearen Regression mit der polynomialen Regression.
-
-# Klassifizierung
-
-## Klassifizierungsalgorithmen
-
-- Neuronale Netzwerke
-- K-Nearest-Neighbors
-- Logistische Regression
-- Naive Bayes
-- Support Vector Machine
-- Entscheidungsbäume und Random Forests
-
-Siehe auch: [classifier comparison von scikit-learn](https://scikit-learn.org/stable/auto_examples/classification/plot_classifier_comparison.html)
-
-## Neuronale Netzwerke
-
-Aus künstlichen Neuronen aufgebaute Netzwerke - ähnliches Konzept wie Neuronen im Gehirn
-
-In der Praxis wird anstatt _scikit-learn_ hier meist _keras_ verwendet (schneller, mehr Funktionalität)
-
-## K-Nearest-Neighbors
-
-Ein neuer Datenpunkt wird klassifiziert, indem seine nächsten Nachbarn betrachtet werden. Die bei diesen Nachbarn am häufigsten vorkommende Klasse wird auch für den Datenpunkt festgesetzt.
-
-Die Anzahl `k` der betrachteten Nachbarn kann festgesetzt werden (Standardwert = 5)
-
-Siehe auch: <https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html#sklearn.neighbors.KNeighborsClassifier>
-
-## Logistische Regression
-
-An einer Grenze zwischen zwei Klassen wird mit Hilfe einer _logistischen Funktion_ angegeben, wie groß die Wahrscheinlichkeit ist, dass der Datenpunkt zu der einen (bzw zu der anderen) Klasse gehört. Je nachdem, welche der Wahrscheinlichkeiten größer als 50% ist, wird die entsprechende Klasse zugewiesen.
-
-Die logistische Funktion selbst wird intern mittels Regression bestimmt (daher der Name).
-
-Beispiel: <https://scikit-learn.org/stable/auto_examples/linear_model/plot_logistic.html#sphx-glr-auto-examples-linear-model-plot-logistic-py>
-
-## Naive Bayes
-
-Für die bekannten Klassen werden Wahrscheinlichkeitsverteilungen angenommen (z.B. Normalverteilung, Multinomialverteilung). Diese Verteilungen werden aus den Trainingsdaten hergeleitet.
-
-Für einen neuen Datenpunkt wird dann errechnet, unter welcher der Verteilungen er am ehesten auftreten würde.
-
-Zwei wichtige Verteilungen sind die Normalverteilung (Gauß'sche Verteilung) für kontinuierliche Werte und die Multinomialverteilung für diskrete Werte (Ganzzahlen).
-
-[Python Data Science Handbook - Naive Bayes](https://jakevdp.github.io/PythonDataScienceHandbook/05.05-naive-bayes.html)
-
-## Support Vector Machines
-
-Einfachster Fall: Trennung von Klassen durch Geraden / Ebenen / Hyperebenen - diese Trenner sollen von den getrennten Punkten maximalen Abstand haben.
-
-Durch Kernelfunktionen können die Grenzen auch andere Formen annehmen, z.B. die von Kegelschnitten für polynomiale Kernel vom Grad 2 oder anderen Kurven.
-
-Siehe auch: <https://scikit-learn.org/stable/modules/svm.html>
-
-[Python Data Science Handbook - Support Vector Machines](https://jakevdp.github.io/PythonDataScienceHandbook/05.07-support-vector-machines.html)
-
-## Entscheidungsbäume (Decision Trees)
-
-Machine Learning Bibliotheken können sogenannte Entscheidungsbäume auf Basis von Trainingsdaten generieren.
-
-Beispiel für einen Entscheidungsbaum für die Iris-Klassifizierung:
-
-- Ist die _petal length_ kleiner oder gleich 2.4?
-  - ja: **setosa**
-  - nein: Ist die _petal width_ kleiner oder gleich 1.7?
-    - ja: Ist die _petal length_ kleiner oder gleich 5.0?
-      - ja: **versicolor**
-      - nein: **virginica**
-    - nein: **virginica**
-
-## Random Forests
-
-Basierend auf Decision Trees: Die Daten werden in verschiedene Untermengen zerlegt. Mittels jeder Untermenge wird ein einzelner Decision Tree erstellt. Die Gesamtheit der Decision Trees wird zu einem sogenannten _Random Forest_ zusammengeführt.
-
-[Python Data Science Handbook - Decision Trees and Random Forests](https://jakevdp.github.io/PythonDataScienceHandbook/05.08-random-forests.html)
-
-## Klassifizierungsalgorithmen - Übersicht
-
-Mögliche Algorithmen:
-
-```py
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.naive_bayes import GaussianNB
-from sklearn.naive_bayes import MultinomialNB
-from sklearn.linear_model import LogisticRegression
-from sklearn.svm import SVC
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.ensemble import RandomForestClassifier
-```
-
-<!--
-```py
-LogisticRegression(solver="liblinear", multi_class="auto")
-SVC(gamma="scale")
-RandomForestClassifier(n_estimators=100)
-```
--->
-
-## Beispiele zur Klassifizierung
-
-- [Klassifizierung von Newsgroup-Postings (mittels Naive Bayes, logistischer Regression oder Decision Tree)](https://jakevdp.github.io/PythonDataScienceHandbook/05.05-naive-bayes.html#Multinomial-Naive-Bayes)
-- [Erkennen von Ziffern (Random Forest)](https://jakevdp.github.io/PythonDataScienceHandbook/05.08-random-forests.html#Example:-Random-Forest-for-Classifying-Digits)
 
 # Overfitting
 

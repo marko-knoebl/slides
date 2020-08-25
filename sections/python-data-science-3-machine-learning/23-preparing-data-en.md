@@ -23,13 +23,14 @@ Classes for preparing data have these methods:
 - `.fit`: creates a data transformation based on existing input data (`X1`)
 - `.transform`: transforms input data (`X2`) based on the transformation
 - `.fit_transform`: does both in one step (for the same data)
+- `.inverse_transfrom`: reverses a transformation (not available for all transformations)
 
 ## Scaling values
 
 Which of these stars is more similar to the sun?
 
 ```py
-# data: radius (km), mass (kg), temparature (K)
+# data: radius (km), mass (kg), temperature (K)
 sun =    [7.0e7, 2.0e30, 5.8e3]
 
 star_a = [6.5e7, 2.2e30, 5.2e3]
@@ -52,8 +53,7 @@ stars = np.array([[ 7.0e7, 2.0e30, 5.8e3],
                   [ 6.5e7, 2.2e30, 5.2e3],
                   [ 7.0e9, 2.1e30, 3.1e3]])
 
-scaler = preprocessing.StandardScaler()
-scaler.fit(stars)
+scaler = preprocessing.StandardScaler().fit(stars)
 X = scaler.transform(stars)
 ```
 
@@ -90,8 +90,7 @@ X = np.array([[ np.nan, 0,   3  ],
               [ 4,   np.nan, 6  ],
               [ 8,   8,   1  ]])
 
-imputer = SimpleImputer(strategy="mean")
-imputer.fit(X)
+imputer = SimpleImputer(strategy="mean").fit(X)
 
 imputer.transform(X)
 imputer.transform(np.array([[np.nan, 1, 1]]))
@@ -99,7 +98,7 @@ imputer.transform(np.array([[np.nan, 1, 1]]))
 
 ## Categories as data
 
-input or output data may categorical data - e.g. country, occupation, measuring method
+input or output data may be categorical data - e.g. country, occupation, measuring method
 
 example input data:
 
@@ -145,7 +144,7 @@ one-hot-encoding:
 preprocessors:
 
 - `OrdinalEncoder` (ordinals for input categories)
-- `LabelEncoder` (ordinals für target categories)
+- `LabelEncoder` (ordinals for target categories)
 - `OneHotEncoder` (one-hot-encoding for input categories, sparse by default)
 - `LabelBinarizer` (one-hot-encoding for target categories)
 
@@ -171,8 +170,7 @@ sample = ['problem of evil',
           'evil queen',
           'horizon problem']
 
-vectorizer = CountVectorizer()
-vectorizer.fit(sample)
+vectorizer = CountVectorizer().fit(sample)
 print(vectorizer.vocabulary_)
 X = vectorizer.transform(sample)
 print(X)

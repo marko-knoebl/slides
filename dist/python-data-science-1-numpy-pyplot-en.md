@@ -677,6 +677,7 @@ The long form enables more detailed specification of color and size
 specifying colors:
 
 - color name (_green_ / _lightblue_ / ...)
+- tableau color (_C0_ ... _C10_)
 - short name (_r_ / _g_ / _b_ / _c_ / _m_ / _y_ / _k_)
 - hex code (e.g. _#FFAA00_)
 - RGB tuple (e.g. `(1, 0.7, 0)`)

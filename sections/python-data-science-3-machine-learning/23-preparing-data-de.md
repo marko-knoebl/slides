@@ -5,7 +5,7 @@
 üblicherweise:
 
 - _X_: zweidimensionales Array mit numerischen Eingangsdaten
-- _y_ / _Y_`: ein- oder zweidimensionales Array mit numerischen Resultaten
+- _y_ / _Y_: ein- oder zweidimensionales Array mit numerischen Resultaten
 
 ## Daten vorbereiten
 
@@ -23,6 +23,7 @@ Klassen zum vorbereiten der Daten besitzen folgende Methoden:
 - `.fit`: erlernt anhand vorgegebener Eingangsdaten (`X1`) eine passende Umwandlung für das Modell
 - `.transform`: wandelt gegebene Eingangsdaten (`X2`) anhand des gelernten in die neue Form um
 - `.fit_transform`: beides in einem Schritt (für die gleichen Daten)
+- `.inverse_transform`: umgekehrte Transformation (nicht für alle Transformationen vorhanden)
 
 ## Skalieren von Werten
 
@@ -52,8 +53,7 @@ stars = np.array([[ 7.0e7, 2.0e30, 5.8e3],
                   [ 6.5e7, 2.2e30, 5.2e3],
                   [ 7.0e9, 2.1e30, 3.1e3]])
 
-scaler = preprocessing.StandardScaler()
-scaler.fit(stars)
+scaler = preprocessing.StandardScaler().fit(stars)
 X = scaler.transform(stars)
 ```
 
@@ -90,8 +90,7 @@ X = np.array([[ np.nan, 0,   3  ],
               [ 4,   np.nan, 6  ],
               [ 8,   8,   1  ]])
 
-imputer = SimpleImputer(strategy="mean")
-imputer.fit(X)
+imputer = SimpleImputer(strategy="mean").fit(X)
 
 imputer.transform(X)
 imputer.transform(np.array([[np.nan, 1, 1]]))
@@ -171,8 +170,7 @@ sample = ['problem of evil',
           'evil queen',
           'horizon problem']
 
-vectorizer = CountVectorizer()
-vectorizer.fit(sample)
+vectorizer = CountVectorizer().fit(sample)
 print(vectorizer.vocabulary_)
 X = vectorizer.transform(sample)
 print(X)
