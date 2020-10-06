@@ -2814,7 +2814,7 @@ ReactDOM.render(
 </ul>
 </section><section class="slide"><h2>styled-components</h2>
 <p>library that enables creating styled versions of existing HTML elements</p>
-<p>npm package: <code>styled-components</code></p>
+<p>npm packages: <code>styled-components</code>, <code>@types/styled-components</code></p>
 </section><section class="slide"><h2>styled-components</h2>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> styled <span class="hljs-keyword">from</span> <span class="hljs-string">'styled-components'</span>;
 
@@ -2836,23 +2836,23 @@ ReactDOM.render(
 );
 </span></code></pre>
 </section><section class="slide"><h2>styled-components</h2>
-<p>dynamic styles via props:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> styled <span class="hljs-keyword">from</span> <span class="hljs-string">'styled-components'</span>;
+<p>dynamic styles via props (TypeScript):</p>
+<pre><code class="hljs language-tsx">import styled from 'styled-components';
 
-<span class="hljs-keyword">const</span> Button = styled.button<span class="hljs-string">`
-  color: <span class="hljs-subst">${(props) => (props.primary ? <span class="hljs-string">'black'</span> : <span class="hljs-string">'white'</span>)}</span>;
-  background-color: <span class="hljs-subst">${(props) =>
-    props.primary ? <span class="hljs-string">'white'</span> : <span class="hljs-string">'navy'</span>}</span>;
-`</span>;
+const Button = styled.button&#x3C;{ primary: boolean }>`
+  color: ${(props) => (props.primary ? 'black' : 'white')};
+  background-color: ${(props) =>
+    props.primary ? 'white' : 'navy'};
+`;
 
-<span class="hljs-keyword">const</span> Slideshow = <span class="hljs-function">(<span class="hljs-params">props</span>) =></span> (
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Container</span>></span>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">Button</span> <span class="hljs-attr">primary</span>=<span class="hljs-string">{true}</span>></span>prev<span class="hljs-tag">&#x3C;/<span class="hljs-name">Button</span>></span>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">BlockImg</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"..."</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">"..."</span> /></span>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">Button</span> <span class="hljs-attr">primary</span>=<span class="hljs-string">{true}</span>></span>next<span class="hljs-tag">&#x3C;/<span class="hljs-name">Button</span>></span>
-  <span class="hljs-tag">&#x3C;/<span class="hljs-name">Container</span>></span>
+const Slideshow = (props) => (
+  &#x3C;Container>
+    &#x3C;Button primary={true}>prev&#x3C;/Button>
+    &#x3C;BlockImg src="..." alt="..." />
+    &#x3C;Button primary={true}>next&#x3C;/Button>
+  &#x3C;/Container>
 );
-</span></code></pre>
+</code></pre>
 </section><section class="slide"><h2>Emotion</h2>
 <p>Emotion extends jsx notation with an additional <em>css</em> prop</p>
 <p>Installation:</p>

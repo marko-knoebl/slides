@@ -84,7 +84,7 @@ Libraries:
 
 Library, die es ermöglicht, bestehende HTML-Elemente mit eigenen Stilen zu versehen
 
-npm-Paket: `styled-components`
+npm-Pakete: `styled-components`, `@types/styled-components`
 
 ## styled-components
 
@@ -111,12 +111,12 @@ const Slideshow = (props) => (
 
 ## styled-components
 
-dynamische Stile via props:
+dynamische Stile via props (TypeScript):
 
-```jsx
+```tsx
 import styled from 'styled-components';
 
-const Button = styled.button`
+const Button = styled.button<{ primary: boolean }>`
   color: ${(props) => (props.primary ? 'black' : 'white')};
   background-color: ${(props) =>
     props.primary ? 'white' : 'navy'};

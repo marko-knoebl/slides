@@ -84,7 +84,7 @@ libraries:
 
 library that enables creating styled versions of existing HTML elements
 
-npm package: `styled-components`
+npm packages: `styled-components`, `@types/styled-components`
 
 ## styled-components
 
@@ -111,12 +111,12 @@ const Slideshow = (props) => (
 
 ## styled-components
 
-dynamic styles via props:
+dynamic styles via props (TypeScript):
 
-```jsx
+```tsx
 import styled from 'styled-components';
 
-const Button = styled.button`
+const Button = styled.button<{ primary: boolean }>`
   color: ${(props) => (props.primary ? 'black' : 'white')};
   background-color: ${(props) =>
     props.primary ? 'white' : 'navy'};
