@@ -1026,41 +1026,82 @@ _react-hook-form_ behält Inputdaten nicht im React State
 
 Vorteile: schneller, einfacher
 
-Nachteile: weicht von üblichen React-Konzepten ab
+Nachteile: weicht von üblichen React-Konzepten ab (benutzt _refs_ anstatt _state_)
 
 ## react-hook-form
 
 ```js
 import { useForm } from 'react-hook-form';
 
-const NewsletterRegistration = () => {
-  const { register, handleSubmit, errors } = useForm({
-    mode: 'onBlur',
-  });
+const NewsletterSignup = () => {
+  const { register, errors, handleSubmit } = useForm();
   return (
-    <form
-      onSubmit={handleSubmit((values) => {
-        console.log(values);
-      })}
-    >
+    <form onSubmit={handleSubmit(console.log)}>
       <input
-        type="email"
         name="email"
         ref={register({
-          pattern: {
-            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-            message: 'invalid email',
-          },
+          required: true,
+          pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
         })}
       />
-      <button disabled={errors.email}>subscribe</button>
-      {errors.email && errors.email.message}
+      <button>sign up for newsletter</button>
+      {errors.email ? <div>invalid email</div> : null}
     </form>
   );
 };
 ```
 
 Bemerkung: `register()` verwendet eine [callback ref](https://reactjs.org/docs/refs-and-the-dom.html#callback-refs) um auf das input-Element zuzugreifen
+
+## react-hook-form: register
+
+Die `register`-Funktion kann Parameter für die Validierung erhalten:
+
+- `required`
+- `min`, `max`
+- `minLength`, `maxLength`
+- `pattern`
+- `validate`
+
+## react-hook-form: errors
+
+Das Objekt `errors` gibt Fehler für registrierte Inputs mit einer _name_-Property aus
+
+```jsx
+<input name="email" ref={register(/*...*/)}>
+```
+
+```jsx
+errors.email ? <div>invalid email</div> : null;
+```
+
+## react-hook-form: handleSubmit
+
+`handleSubmit` validiert Formulardaten und gibt diese an eine Funktion weiter, wenn sie gültig sind
+
+```jsx
+<form
+  onSubmit={handleSubmit((data) => {
+    console.log(data.email);
+  })}
+>
+  ...
+</form>
+```
+
+## react-hook-form: mode
+
+```js
+useForm({ mode: 'onSubmit' });
+```
+
+mögliche Modes:
+
+- `onSubmit` (Standard)
+- `onBlur`
+- `onTouched`
+- `onChange`
+- `all`
 
 ## formik
 
@@ -1168,9 +1209,16 @@ TypeScript Impementierung:
 
 ## PWA: Deployment
 
+auf _tiiny.host_:
+
 - `npm run build`
 - Zippen und Hochladen des _build_-Ordners auf <https://tiiny.host/>
-- in Chrome am Desktop und Mobilgerät ausprobieren
+
+auf _netlify drop_:
+
+- `npm run build`
+- Hochladen auf <https://netlify.com/drop> via Drag & Drop
+- Wechseln auf HTTPS in der URL
 
 # React Native
 

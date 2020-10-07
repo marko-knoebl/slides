@@ -2897,37 +2897,64 @@ const Slideshow = (props) => (
 </section><section class="slide"><h2>react-hook-form</h2>
 <p><em>react-hook-form</em> behält Inputdaten nicht im React State</p>
 <p>Vorteile: schneller, einfacher</p>
-<p>Nachteile: weicht von üblichen React-Konzepten ab</p>
+<p>Nachteile: weicht von üblichen React-Konzepten ab (benutzt <em>refs</em> anstatt <em>state</em>)</p>
 </section><section class="slide"><h2>react-hook-form</h2>
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { useForm } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-hook-form'</span>;
 
-<span class="hljs-keyword">const</span> NewsletterRegistration = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  <span class="hljs-keyword">const</span> { register, handleSubmit, errors } = useForm({
-    <span class="hljs-attr">mode</span>: <span class="hljs-string">'onBlur'</span>,
-  });
+<span class="hljs-keyword">const</span> NewsletterSignup = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  <span class="hljs-keyword">const</span> { register, errors, handleSubmit } = useForm();
   <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">form</span>
-      <span class="hljs-attr">onSubmit</span>=<span class="hljs-string">{handleSubmit((values)</span> =></span> {
-        console.log(values);
-      })}
-    >
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">form</span> <span class="hljs-attr">onSubmit</span>=<span class="hljs-string">{handleSubmit(console.log)}</span>></span>
       <span class="hljs-tag">&#x3C;<span class="hljs-name">input</span>
-        <span class="hljs-attr">type</span>=<span class="hljs-string">"email"</span>
         <span class="hljs-attr">name</span>=<span class="hljs-string">"email"</span>
         <span class="hljs-attr">ref</span>=<span class="hljs-string">{register({</span>
-          <span class="hljs-attr">pattern:</span> {
-            <span class="hljs-attr">value:</span> /^[<span class="hljs-attr">A-Z0-9._</span>%+<span class="hljs-attr">-</span>]+@[<span class="hljs-attr">A-Z0-9.-</span>]+\<span class="hljs-attr">.</span>[<span class="hljs-attr">A-Z</span>]{<span class="hljs-attr">2</span>,}$/<span class="hljs-attr">i</span>,
-            <span class="hljs-attr">message:</span> '<span class="hljs-attr">invalid</span> <span class="hljs-attr">email</span>',
-          },
+          <span class="hljs-attr">required:</span> <span class="hljs-attr">true</span>,
+          <span class="hljs-attr">pattern:</span> /^[<span class="hljs-attr">A-Z0-9._</span>%+<span class="hljs-attr">-</span>]+@[<span class="hljs-attr">A-Z0-9.-</span>]+\<span class="hljs-attr">.</span>[<span class="hljs-attr">A-Z</span>]{<span class="hljs-attr">2</span>,}$/<span class="hljs-attr">i</span>,
         })}
       /></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">disabled</span>=<span class="hljs-string">{errors.email}</span>></span>subscribe<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
-      {errors.email &#x26;&#x26; errors.email.message}
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>></span>sign up for newsletter<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
+      {errors.email ? <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>invalid email<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span> : null}
     <span class="hljs-tag">&#x3C;/<span class="hljs-name">form</span>></span>
   );
 };
 </span></code></pre>
 <p>Bemerkung: <code>register()</code> verwendet eine <a href="https://reactjs.org/docs/refs-and-the-dom.html#callback-refs">callback ref</a> um auf das input-Element zuzugreifen</p>
+</section><section class="slide"><h2>react-hook-form: register</h2>
+<p>Die <code>register</code>-Funktion kann Parameter für die Validierung erhalten:</p>
+<ul>
+<li><code>required</code></li>
+<li><code>min</code>, <code>max</code></li>
+<li><code>minLength</code>, <code>maxLength</code></li>
+<li><code>pattern</code></li>
+<li><code>validate</code></li>
+</ul>
+</section><section class="slide"><h2>react-hook-form: errors</h2>
+<p>Das Objekt <code>errors</code> gibt Fehler für registrierte Inputs mit einer <em>name</em>-Property aus</p>
+<pre><code class="hljs language-jsx">&#x3C;input name=<span class="hljs-string">"email"</span> ref={register(<span class="hljs-comment">/*...*/</span>)}>
+</code></pre>
+<pre><code class="hljs language-jsx">errors.email ? <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>invalid email<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span> : <span class="hljs-literal">null</span>;
+</code></pre>
+</section><section class="slide"><h2>react-hook-form: handleSubmit</h2>
+<p><code>handleSubmit</code> validiert Formulardaten und gibt diese an eine Funktion weiter, wenn sie gültig sind</p>
+<pre><code class="hljs language-jsx">&#x3C;form
+  onSubmit={handleSubmit(<span class="hljs-function">(<span class="hljs-params">data</span>) =></span> {
+    <span class="hljs-built_in">console</span>.log(data.email);
+  })}
+>
+  ...
+&#x3C;<span class="hljs-regexp">/form>
+</span></code></pre>
+</section><section class="slide"><h2>react-hook-form: mode</h2>
+<pre><code class="hljs language-js">useForm({ <span class="hljs-attr">mode</span>: <span class="hljs-string">'onSubmit'</span> });
+</code></pre>
+<p>mögliche Modes:</p>
+<ul>
+<li><code>onSubmit</code> (Standard)</li>
+<li><code>onBlur</code></li>
+<li><code>onTouched</code></li>
+<li><code>onChange</code></li>
+<li><code>all</code></li>
+</ul>
 </section><section class="slide"><h2>formik</h2>
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { Formik, Form, Field, ErrorMessage } <span class="hljs-keyword">from</span> <span class="hljs-string">'formik'</span>;
 
@@ -3009,10 +3036,16 @@ useEffect(getInstallPermission, []);
 &#x3C;/button>
 </code></pre>
 </section><section class="slide"><h2>PWA: Deployment</h2>
+<p>auf <em>tiiny.host</em>:</p>
 <ul>
 <li><code>npm run build</code></li>
 <li>Zippen und Hochladen des <em>build</em>-Ordners auf <a href="https://tiiny.host/">https://tiiny.host/</a></li>
-<li>in Chrome am Desktop und Mobilgerät ausprobieren</li>
+</ul>
+<p>auf <em>netlify drop</em>:</p>
+<ul>
+<li><code>npm run build</code></li>
+<li>Hochladen auf <a href="https://netlify.com/drop">https://netlify.com/drop</a> via Drag &#x26; Drop</li>
+<li>Wechseln auf HTTPS in der URL</li>
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>React Native</h1>
 </section><section class="slide"><h2>React Native</h2>
