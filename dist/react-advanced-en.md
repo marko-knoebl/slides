@@ -1103,6 +1103,19 @@ modes:
 - `onChange`
 - `all`
 
+## react-hook-form: testing
+
+component tests related to _react-hook-form_ require a setup:
+
+```bash
+npm install mutationobserver-shim
+```
+
+```js
+// setupTests.js
+import 'mutationobserver-shim';
+```
+
 ## formik
 
 ```js
