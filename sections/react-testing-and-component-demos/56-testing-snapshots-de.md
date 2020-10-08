@@ -32,10 +32,16 @@ mit react-testing-library:
 
 ```jsx
 it('matches the snapshot', () => {
-  const instance = render(<Counter />);
-  expect(instance.container).toMatchSnapshot();
-  const button = instance.getByRole('button');
-  expect(button).toMatchSnapshot();
+  render(
+    <TodoItem
+      title="foo"
+      completed={false}
+      onToggle={() => {}}
+      onDelete={() => {}}
+    />
+  );
+  const li = screen.getByRole('listitem');
+  expect(li).toMatchSnapshot();
 });
 ```
 

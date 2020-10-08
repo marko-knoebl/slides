@@ -73,13 +73,5 @@ TypeScript implementation:
 
 ## PWA: Deployment
 
-on _tiiny.host_:
-
 - `npm run build`
-- zip and upload the _build_ folder to <https://tiiny.host/>
-
-on _netlify drop_:
-
-- `npm run build`
-- drag and drop the _build_ folder to <https://netlify.com/drop>
-- switch to HTTPS in the URL
+- upload the build folder to a static host (e.g. <https://netlify.com/drop> or <https://tiiny.host/>)

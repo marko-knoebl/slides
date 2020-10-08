@@ -37,55 +37,40 @@ basic example: _Rating.stories.js_
 import React from 'react';
 import Rating from './Rating';
 
-export default {
-  title: 'Rating',
-  component: Rating,
-};
+export default { title: 'Rating', component: Rating };
 
-export const oneStar = () => <Rating stars={1} />;
-export const fiveStars = () => <Rating stars={5} />;
+export const OneStar = () => <Rating stars={1} />;
+export const FiveStars = () => <Rating stars={5} />;
 ```
 
-## Addons
+## Stories
 
-see <https://storybook.js.org/addons/>:
-
-- _@storybook/knobs_ (component props)
-- _@storybook/actions_ (component events)
-- ...
-
-Addons are configured via _.storybook/main.js_
-
-## Knobs addon
-
-for component props:
+example with template, props (controls) and events (actions)
 
 ```jsx
-import { withKnobs, number } from '@storybook/addon-knobs';
+import React from 'react';
+import Rating from './Rating';
 
-export default {
-  title: 'Rating',
-  component: Rating,
-  decorators: [withKnobs],
-};
+export default { title: 'Rating', component: Rating };
 
-export const variableStars = () => {
-  const rating = number('rating', 1);
-  return <Rating stars={rating} />;
-};
+const RatingStoryTemplate = (args) => <Rating {...args} />;
+
+export const OneStar = RatingStoryTemplate.bind({});
+OneStar.args = { stars: 1 };
+export const FiveStars = RatingStoryTemplate.bind({});
+FiveStars.args = { stars: 5 };
 ```
 
-## Actions addon
+## Stories
 
-for component events:
+props with TypeScript:
 
-```jsx
-import { action } from '@storybook/addon-actions';
+```ts
+import { Story } from '@storybook/react/types-6-0';
+```
 
-export const oneStarInteraction = () => (
-  <Rating
-    stars={1}
-    onChange={action('rating change triggered')}
-  />
-);
+```tsx
+const TodoItemStoryTemplate: Story<
+  Parameters<typeof TodoItem>[0]
+> = (args) => <TodoItem {...args} />;
 ```

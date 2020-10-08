@@ -2092,53 +2092,38 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </section><section class="slide"><h2>Ausführen</h2>
 <pre><code class="hljs language-bash">npm run storybook
 </code></pre>
-</section><section class="slide"><h2>Stories schreiben</h2>
-<p>Beispiel: <em>Rating.stories.js</em></p>
+</section><section class="slide"><h2>Stories</h2>
+<p>einfaches Beispiel: <em>Rating.stories.js</em></p>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
 <span class="hljs-keyword">import</span> Rating <span class="hljs-keyword">from</span> <span class="hljs-string">'./Rating'</span>;
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
-  <span class="hljs-attr">title</span>: <span class="hljs-string">'Rating'</span>,
-  <span class="hljs-attr">component</span>: Rating,
-};
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> { <span class="hljs-attr">title</span>: <span class="hljs-string">'Rating'</span>, <span class="hljs-attr">component</span>: Rating };
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> oneStar = <span class="hljs-function"><span class="hljs-params">()</span> =></span> &#x3C;Rating stars={1} />;
-export const fiveStars = () => &#x3C;Rating stars={5} />;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> OneStar = <span class="hljs-function"><span class="hljs-params">()</span> =></span> &#x3C;Rating stars={1} />;
+export const FiveStars = () => &#x3C;Rating stars={5} />;
 </code></pre>
-</section><section class="slide"><h2>Addons</h2>
-<p>siehe <a href="https://storybook.js.org/addons/">https://storybook.js.org/addons/</a>:</p>
-<ul>
-<li><em>@storybook/knobs</em> (Komponentenprops)</li>
-<li><em>@storybook/actions</em> (Komponentenevents)</li>
-<li>...</li>
-</ul>
-<p>Addons werden in <em>.storybook/main.js</em> konfiguriert</p>
-</section><section class="slide"><h2>Knobs Addon</h2>
-<p>für Komponentenprops:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> { withKnobs, number } <span class="hljs-keyword">from</span> <span class="hljs-string">'@storybook/addon-knobs'</span>;
+</section><section class="slide"><h2>Stories</h2>
+<p>Beispiel mit Template, props (controls) und events (actions)</p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+<span class="hljs-keyword">import</span> Rating <span class="hljs-keyword">from</span> <span class="hljs-string">'./Rating'</span>;
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
-  <span class="hljs-attr">title</span>: <span class="hljs-string">'Rating'</span>,
-  <span class="hljs-attr">component</span>: Rating,
-  <span class="hljs-attr">decorators</span>: [withKnobs],
-};
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> { <span class="hljs-attr">title</span>: <span class="hljs-string">'Rating'</span>, <span class="hljs-attr">component</span>: Rating };
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> variableStars = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  <span class="hljs-keyword">const</span> rating = number(<span class="hljs-string">'rating'</span>, <span class="hljs-number">1</span>);
-  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Rating</span> <span class="hljs-attr">stars</span>=<span class="hljs-string">{rating}</span> /></span>;
-};
+<span class="hljs-keyword">const</span> RatingStoryTemplate = <span class="hljs-function">(<span class="hljs-params">args</span>) =></span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Rating</span> {<span class="hljs-attr">...args</span>} /></span>;
+
+export const OneStar = RatingStoryTemplate.bind({});
+OneStar.args = { stars: 1 };
+export const FiveStars = RatingStoryTemplate.bind({});
+FiveStars.args = { stars: 5 };
 </span></code></pre>
-</section><section class="slide"><h2>Actions Addon</h2>
-<p>für Komponentenevents:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> { action } <span class="hljs-keyword">from</span> <span class="hljs-string">'@storybook/addon-actions'</span>;
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> oneStarInteraction = <span class="hljs-function"><span class="hljs-params">()</span> =></span> (
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Rating</span>
-    <span class="hljs-attr">stars</span>=<span class="hljs-string">{1}</span>
-    <span class="hljs-attr">onChange</span>=<span class="hljs-string">{action(</span>'<span class="hljs-attr">rating</span> <span class="hljs-attr">change</span> <span class="hljs-attr">triggered</span>')}
-  /></span>
-);
-</span></code></pre>
+</section><section class="slide"><h2>Stories</h2>
+<p>Beispiel mit TypeScript:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { Story } <span class="hljs-keyword">from</span> <span class="hljs-string">'@storybook/react/types-6-0'</span>;
+</code></pre>
+<pre><code class="hljs language-tsx">const RatingStoryTemplate: Story&#x3C;
+  Parameters&#x3C;typeof Rating>[0]
+> = (args) => &#x3C;Rating {...args} />;
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Testen</h1>
 </section><section class="slide"><h2>Automatisiertes Testen in JavaScript</h2>
 <p>Manche Funktionen in React - z.B. Reducer - sind ganz "normale" JavaScript-Funktionen und können mit standard-Testwerkzeugen getestet werden</p>
@@ -2209,6 +2194,17 @@ screen.getAllByRole(<span class="hljs-string">'listitem'</span>);
 <li><em>textbox</em></li>
 <li>... (see <a href="https://www.w3.org/TR/2014/REC-wai-aria-20140320/roles#role_definitions">role definitions from W3C</a>)</li>
 </ul>
+</section><section class="slide"><h2>Unterelemente abfragen</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { screen, within } <span class="hljs-keyword">from</span> <span class="hljs-string">'@testing-library/react'</span>;
+
+<span class="hljs-keyword">const</span> todoList = screen.getByRole(<span class="hljs-string">'list'</span>);
+<span class="hljs-keyword">const</span> thirdTodo = within(todoList).getAllByRole(
+  <span class="hljs-string">'listitem'</span>
+)[<span class="hljs-number">2</span>];
+<span class="hljs-keyword">const</span> deleteButton = within(thirdListItem).getByRole(
+  <span class="hljs-string">'button'</span>
+);
+</code></pre>
 </section><section class="slide"><h2>Assertions</h2>
 <p>erweiterte Assertions (bei <em>create-react-app</em> vorkonfiguriert):</p>
 <ul>
@@ -2534,10 +2530,16 @@ it('renders a component tree without crashing', () => {
 </section><section class="slide"><h2>Snapshot Tests erstellen</h2>
 <p>mit react-testing-library:</p>
 <pre><code class="hljs language-jsx">it(<span class="hljs-string">'matches the snapshot'</span>, () => {
-  <span class="hljs-keyword">const</span> instance = render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Counter</span> /></span>);
-  expect(instance.container).toMatchSnapshot();
-  const button = instance.getByRole('button');
-  expect(button).toMatchSnapshot();
+  render(
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">TodoItem</span>
+      <span class="hljs-attr">title</span>=<span class="hljs-string">"foo"</span>
+      <span class="hljs-attr">completed</span>=<span class="hljs-string">{false}</span>
+      <span class="hljs-attr">onToggle</span>=<span class="hljs-string">{()</span> =></span> {}}
+      onDelete={() => {}}
+    />
+  );
+  const li = screen.getByRole('listitem');
+  expect(li).toMatchSnapshot();
 });
 </span></code></pre>
 </section><section class="slide"><h2>Snapshot Tests aktualisieren</h2>

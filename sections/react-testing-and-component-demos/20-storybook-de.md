@@ -29,63 +29,48 @@ npx -p @storybook/cli sb init --type react
 npm run storybook
 ```
 
-## Stories schreiben
+## Stories
 
-Beispiel: _Rating.stories.js_
+einfaches Beispiel: _Rating.stories.js_
 
 ```jsx
 import React from 'react';
 import Rating from './Rating';
 
-export default {
-  title: 'Rating',
-  component: Rating,
-};
+export default { title: 'Rating', component: Rating };
 
-export const oneStar = () => <Rating stars={1} />;
-export const fiveStars = () => <Rating stars={5} />;
+export const OneStar = () => <Rating stars={1} />;
+export const FiveStars = () => <Rating stars={5} />;
 ```
 
-## Addons
+## Stories
 
-siehe <https://storybook.js.org/addons/>:
-
-- _@storybook/knobs_ (Komponentenprops)
-- _@storybook/actions_ (Komponentenevents)
-- ...
-
-Addons werden in _.storybook/main.js_ konfiguriert
-
-## Knobs Addon
-
-für Komponentenprops:
+Beispiel mit Template, props (controls) und events (actions)
 
 ```jsx
-import { withKnobs, number } from '@storybook/addon-knobs';
+import React from 'react';
+import Rating from './Rating';
 
-export default {
-  title: 'Rating',
-  component: Rating,
-  decorators: [withKnobs],
-};
+export default { title: 'Rating', component: Rating };
 
-export const variableStars = () => {
-  const rating = number('rating', 1);
-  return <Rating stars={rating} />;
-};
+const RatingStoryTemplate = (args) => <Rating {...args} />;
+
+export const OneStar = RatingStoryTemplate.bind({});
+OneStar.args = { stars: 1 };
+export const FiveStars = RatingStoryTemplate.bind({});
+FiveStars.args = { stars: 5 };
 ```
 
-## Actions Addon
+## Stories
 
-für Komponentenevents:
+Beispiel mit TypeScript:
 
-```jsx
-import { action } from '@storybook/addon-actions';
+```ts
+import { Story } from '@storybook/react/types-6-0';
+```
 
-export const oneStarInteraction = () => (
-  <Rating
-    stars={1}
-    onChange={action('rating change triggered')}
-  />
-);
+```tsx
+const RatingStoryTemplate: Story<
+  Parameters<typeof Rating>[0]
+> = (args) => <Rating {...args} />;
 ```

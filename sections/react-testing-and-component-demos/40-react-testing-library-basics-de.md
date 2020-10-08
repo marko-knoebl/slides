@@ -55,6 +55,20 @@ Beispiele für _Role_ (implizit oder explizit gesetzt):
 - _textbox_
 - ... (see [role definitions from W3C](https://www.w3.org/TR/2014/REC-wai-aria-20140320/roles#role_definitions))
 
+## Unterelemente abfragen
+
+```js
+import { screen, within } from '@testing-library/react';
+
+const todoList = screen.getByRole('list');
+const thirdTodo = within(todoList).getAllByRole(
+  'listitem'
+)[2];
+const deleteButton = within(thirdListItem).getByRole(
+  'button'
+);
+```
+
 ## Assertions
 
 erweiterte Assertions (bei _create-react-app_ vorkonfiguriert):
