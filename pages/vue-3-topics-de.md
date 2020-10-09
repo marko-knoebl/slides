@@ -1,3 +1,7 @@
+# Vue
+
+[zurück zur Übersicht](index.html)
+
 # Ziele
 
 Vue.js ist ein Framework zum Erstellen von Single-Page-Anwendungen (SPAs). Sie zeichnet sich gegenüber den Hauptalternativen Angular und React vor allem durch einen einfacheren Einstieg aus, steht dabei aber den Alternativen in puncto Funktionalität in nichts nach. Vue.js hat es auf innerhalb kurzer Zeit mit über 150.000 Sternen zum drittbeliebtesten Projekt auf GitHub gebracht und ist weiter am steigen.
