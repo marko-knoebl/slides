@@ -61,4 +61,7 @@ installBtn.addEventListener('click', () => {
 
 ## Deployment
 
-Deployment z.B. auf <https://tiiny.host/>
+Hosting-Möglichkeiten zum Testen eines Deployments:
+
+- <https://netlify.com/drop>
+- <https://tiiny.host/> (Upload als ZIP-Datei)

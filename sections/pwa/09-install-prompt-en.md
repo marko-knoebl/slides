@@ -36,12 +36,15 @@ once all the requirements are met, a `beforeinstallprompt` event will fire; we c
 ```js
 let installPromptEvent;
 
-window.addEventListener('beforeinstallprompt', ipEvent => {
-  // the browser is ready to show the install prompt
-  ipEvent.preventDefault();
-  installPromptEvent = ipEvent;
-  showInstallBtn();
-});
+window.addEventListener(
+  'beforeinstallprompt',
+  (ipEvent) => {
+    // the browser is ready to show the install prompt
+    ipEvent.preventDefault();
+    installPromptEvent = ipEvent;
+    showInstallBtn();
+  }
+);
 ```
 
 ## app install prompt
@@ -58,4 +61,7 @@ installBtn.addEventListener('click', () => {
 
 ## deployment
 
-We can test a deployment on <https://tiiny.host/>
+hosting options for testing a deployment:
+
+- <https://netlify.com/drop>
+- <https://tiiny.host/> (upload as ZIP file)

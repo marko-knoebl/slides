@@ -235,12 +235,15 @@ workbox.routing.registerRoute(
 <p>once all the requirements are met, a <code>beforeinstallprompt</code> event will fire; we can listen for this event and store it for later use</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">let</span> installPromptEvent;
 
-<span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">'beforeinstallprompt'</span>, ipEvent => {
-  <span class="hljs-comment">// the browser is ready to show the install prompt</span>
-  ipEvent.preventDefault();
-  installPromptEvent = ipEvent;
-  showInstallBtn();
-});
+<span class="hljs-built_in">window</span>.addEventListener(
+  <span class="hljs-string">'beforeinstallprompt'</span>,
+  (ipEvent) => {
+    <span class="hljs-comment">// the browser is ready to show the install prompt</span>
+    ipEvent.preventDefault();
+    installPromptEvent = ipEvent;
+    showInstallBtn();
+  }
+);
 </code></pre>
 <h2>app install prompt</h2>
 <p>Once the user wants to install the app, we can use the stored event:</p>
@@ -251,7 +254,11 @@ workbox.routing.registerRoute(
 });
 </code></pre>
 <h2>deployment</h2>
-<p>We can test a deployment on <a href="https://tiiny.host/">https://tiiny.host/</a></p>
+<p>hosting options for testing a deployment:</p>
+<ul>
+<li><a href="https://netlify.com/drop">https://netlify.com/drop</a></li>
+<li><a href="https://tiiny.host/">https://tiiny.host/</a> (upload as ZIP file)</li>
+</ul>
 <h1>Service workers</h1>
 <h2>Service workers</h2>
 <p>Service workers are client-side proxies between the web browser and the server.</p>
