@@ -1,6 +1,6 @@
-# Modellbewertung & Verbesserung
+# Modellvalidierung und -auswahl
 
-## Modellbewertung & Verbesserung
+## Modellvalidierung und -auswahl
 
 Um das bestmögliche Modell zu bestimmen:
 

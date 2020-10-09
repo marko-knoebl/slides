@@ -1,27 +1,27 @@
-# Example: labeled faces
+# Beispiel: Gesichtserkennung mit scikit-learn
 
-## Example: labeled faces
+## Beispiel: Gesichtserkennung
 
-[data source example](http://vis-www.cs.umass.edu/lfw/number_11.html)
+[Beispieldaten](http://vis-www.cs.umass.edu/lfw/number_11.html)
 
-input data: greyscale images of famous people (sized 62 x 47) and their names
+Eingangsdaten: Schwarz-weiß-Bilder bekannter Personen (Größe 62 x 47) und deren Namen
 
-goal: train a neural network to recognize a person
+Ziel: erkennen der Personen mittels eines neuronalen Netzwerks
 
-## Getting data
+## Daten laden
 
 ```py
 from sklearn.datasets import fetch_lfw_people
 faces = fetch_lfw_people(min_faces_per_person=60)
 ```
 
-entries:
+Einträge:
 
-- `faces.images`: array of images (size: 1248 x 62 x 47)
-- `faces.target`: array of numeric labels (1, 3, 3, 3, 5, ...)
-- `faces.target_names`: array of label names (0="Ariel Sharon", 1="Colin Powell", ...)
+- `faces.images`: Array von Bildern (1248 x 62 x 47)
+- `faces.target`: Array von numerischen Labeln (1, 3, 3, 3, 5, ...)
+- `faces.target_names`: Array von Labelnamen (0="Ariel Sharon", 1="Colin Powell", ...)
 
-## Preparing data
+## Daten vorbereiten
 
 ```py
 num_images = faces.images.shape[0]
@@ -33,7 +33,7 @@ encoder = LabelBinarizer().fit(faces.target)
 Y = encoder.transform(faces.target)
 ```
 
-## Train-test split
+## Train-Test Split
 
 ```py
 from sklearn.model_selection import train_test_split
@@ -41,7 +41,7 @@ from sklearn.model_selection import train_test_split
 X_train, X_test, Y_train, Y_test = train_test_split(X, Y)
 ```
 
-## Create a classifier and train it
+## Erstellen und Trainieren eines Klassifikators
 
 ```py
 from sklearn.neural_network import MLPClassifier
@@ -54,13 +54,13 @@ model = MLPClassifier(hidden_layer_sizes=(250, 150, 100),
 model.fit(X_train, Y_train)
 ```
 
-algorithm configuration:
+Konfiguration des Algorithmus:
 
-- three layers of neurons with 250, 150 and 100 neurons each
-- algorithm will stop if the last 100 iterations did not yield improvements
-- algorithm will stop after a maximum of 2000 iterations
+- drei Schichten an Neuronen mit je 250, 150 und 100 Neuronen
+- Algorithmus stoppt, wenn für die letzten 100 Iterationsschritte keine Verbesserung eintrat
+- Algorithmus stoppt nach maximal 2000 Iterationen
 
-## Test the classifier
+## Testen
 
 ```py
 from sklearn import metrics
@@ -71,11 +71,11 @@ pred_labels = model.predict_proba(X_test).argmax(axis=1)
 print(metrics.accuracy_score(real_labels, pred_labels))
 ```
 
-`argmax` returns the index of the biggest entry in the array
+`argmax` gibt den index des größten Eintrags im Array zurück
 
-## Test the classifier
+## Testen
 
-Display a random face and print the real name and the predicted name:
+Anzeigen eines zufälligen Gesichts, des echten Namens und des vorhergesagten Namens:
 
 ```py
 import matplotlib.pyplot as plt

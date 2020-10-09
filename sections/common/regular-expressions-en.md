@@ -97,6 +97,6 @@ Example: `(\d?\d):(\d\d)` will extract two values
 
 ## Character classes
 
-- `[a-z]` : any lowercase ASCII character
-- `[a-zA-Z]` : any ASCII character
+- `[a-z]` : any lowercase ASCII letter
+- `[a-zA-Z]` : any ASCII letter
 - `[,;.]` : same as `(,|;|.)`

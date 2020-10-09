@@ -14,3 +14,10 @@
 - [Labeled Faces in the Wild](vis-www.cs.umass.edu/lfw)
 - [Handwritten digits](https://archive.ics.uci.edu/ml/datasets/Optical+Recognition+of+Handwritten+Digits)
 - ...
+
+## Datensätze in keras
+
+- MNITS digits
+- MNITS fashion
+- Boston housing prices
+- ...

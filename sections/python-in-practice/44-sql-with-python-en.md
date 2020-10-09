@@ -134,7 +134,7 @@ The attributes `sqlite3.paramstyle`, `pymysql.paramstyle` etc. indicate the form
 - authentication (MD5)
 - admin script
 
-## Exercise: odo app
+## Exercise: todo app
 
 Todo application (with web interface)
 (see courses-tutorials/python-todolist-wsgi-sqlite)

@@ -73,7 +73,7 @@ y_pred_proba = model.predict_proba(test_data)
 
 ## Example
 
-tasks: use other classifiers, e.g.:
+task: use other classifiers, e.g.:
 
 - `sklearn.neural_network.MLPClassifier`
 - `sklearn.svm.SVC`

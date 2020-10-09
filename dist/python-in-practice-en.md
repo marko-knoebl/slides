@@ -498,8 +498,8 @@ Example: `(\d?\d):(\d\d)` will extract two values
 
 ## Character classes
 
-- `[a-z]` : any lowercase ASCII character
-- `[a-zA-Z]` : any ASCII character
+- `[a-z]` : any lowercase ASCII letter
+- `[a-zA-Z]` : any ASCII letter
 - `[,;.]` : same as `(,|;|.)`
 
 # Regular expressions in Python
@@ -1191,7 +1191,7 @@ The attributes `sqlite3.paramstyle`, `pymysql.paramstyle` etc. indicate the form
 - authentication (MD5)
 - admin script
 
-## Exercise: odo app
+## Exercise: todo app
 
 Todo application (with web interface)
 (see courses-tutorials/python-todolist-wsgi-sqlite)

@@ -20,6 +20,10 @@ array_3d = array_2d[:, :, np.newaxis]
 # [[[1], [2]], [[3], [4]]]
 ```
 
+```py
+array_3d = np.expand_dims(array_2d, 2)
+```
+
 ## Slices as views
 
 In ordinary Python we can make a shallow copy of a list by slicing it - this works differently in NumPy (in order to improve efficiency):

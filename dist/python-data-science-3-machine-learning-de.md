@@ -50,32 +50,61 @@ Beispiele:
 
 - Simulieren des Verlaufs einer Krankheit, Finden der besten Behandlungsstrategie
 
-# Strategien für überwachtes Lernen
-
-## Regression
-
-- **neuronale Netzwerke**
-- lineare Regression
-- polynomiale Regression
-
-## Klassifizierung
-
-- **neuronale Netzwerke**
-- k-nearest-neighbors
-- logistische Regression
-- naive Bayes
-- Support Vector Machines
-- Entscheidungsbäume (decision trees)
-
 # Libraries
 
 ## Libraries
 
 Python Libraries für Machine Learning:
 
-**scikit-learn**: basiert auf _NumPy_; unterstützt viele verschiedene Algorithmenklassen (auch einfache neuronale Netzwerke)
+- _scikit-learn_
+- _keras_
+- _pytorch_
 
-**keras**: basiert auf _TensorFlow_; unterstützt komplexere neuronale Netzwerke
+## Libraries
+
+**scikit-learn**:
+
+- unterstützt viele verschiedene Algorithmenklassen (auch sehr einfache neuronale Netzwerke)
+- basiert auf _NumPy_
+
+**keras**:
+
+- unterstützt neuronale Netzwerke
+- basiert auf der _TensorFlow_-Bibliothek
+- kann auch auf der GPU oder TPU (Tensor Processing Unit) laufen
+
+**pytorch**:
+
+- unterstützt neuronale Netzwerke
+- low-level
+
+# Überwachtes Lernen
+
+## Überwachtes Lernen: Verfahren
+
+Schritte:
+
+- Sammeln und Vorbereiten von Trainingsdaten (Eingangsdaten und zugehörigen Ausgangsdaten)
+- Trainieren eines Algorithmus basierend auf den Eingangs- und Ausgangsdaten
+- Validieren der Richtigkeit / Qualität der Vorhersagen des Algorithmus
+- Verwenden des Algorithmus, um Outputs für neue Daten zu erzeugen
+
+## Algorithmen für überwachtes Lernen
+
+Klassifizierung:
+
+- _neuronale Netzwerke_
+- k-nearest-neighbors
+- logistische Regression
+- naive Bayes
+- Support Vector Machines
+- Entscheidungsbäume (decision trees)
+
+Regression:
+
+- _neuronale Netzwerke_
+- lineare Regression
+- polynomiale Regression
 
 # Überwachtes Lernen in scikit-learn
 
@@ -398,30 +427,6 @@ print(metrics.accuracy_score(Y_test, Y_prediction))
 
 optionaler Parameter: `test_size` (Standardwert `0.25`)
 
-## Validierungsmetriken
-
-Klassifizierung:
-
-- _accuracy_score_: Anteil an richtig klassifizierten Einträgen
-- _confusion_matrix_: Anteil an richtig / falsch klassifizierten Einträgen für jede Klasse
-- _precision_recall_fscore_support_: Zusammenfassung wichtiger Metriken
-- _log_loss_: auch Kreuzentropie genannt, relevant bei logistischer Regression und neuronalen Netzen
-
-Regression:
-
-- _mean_squared_error_: mittlere quadratische Abweichung
-- _r2_score_: R², Bestimmtheitsmaß
-
-Siehe auch <https://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics>
-
-## Validierungsmetriken: Bestimmtheitsmaß
-
-Bestimmtheitsmaß (R²):
-
-- R²=1 - perfekte Interpolation
-- R²=0 - Interpolation nicht besser als der einfache Durchschnitt
-- R²&lt;0 - schlechter als der einfache Durchschnitt
-
 ## Kreuzvalidierung
 
 Bei der Kreuzvalidierung (cross-validation) werden die Daten wiederholt in unterschiedliche Trainings- und Testdaten unterteilt, sodass jeder Eintrag einmal in den Testdaten vorkommt.
@@ -435,11 +440,175 @@ test_results = cross_validate(
 print(test_results["test_score"])
 ```
 
+## Validierungsmetriken
+
+Klassifizierung:
+
+- accuracy metrics
+  - accuracy
+  - confusion matrix
+- Metriken, die auf true/false positives/negatives basieren
+  - precision
+  - recall
+  - f-score
+  - ROC und AUC
+- probabilistische Metriken
+  - Kreuzentropie
+
+Regression:
+
+- Mittlere quadratische Abweichung
+- Bestimmtheitsmaß (R²)
+
+## Klassifizierungsmetriken
+
+Beispiel:
+
+Ein Korb von Früchten enthält 10 Äpfel, 10 Orangen und 10 Pfirsiche
+
+Ein Klassifizierungsalgorithmus liefert diese Ergebnisse:
+
+- Klassifizierung von Äpfeln: 8 als Äpfel, 0 als Orangen, 2 als Pfirsiche
+- Klassifizierung von Orangen: 10 als Orangen
+- Klassifizierung von Pfirsichen: 1 als Apfel, 0 als Orangen, 9 als Pfirsiche
+
+## Accuracy metrics
+
+**accuracy**: relativer Anteil korrekter Klassifizierungen (im Beispiel: 27/30=0.9)
+
+**confusion matrix**: Tabelle mit Klassifizierungen für jede Kategorie
+
+|         | apples | oranges | peaches |
+| ------- | ------ | ------- | ------- |
+| apples  | 8      | 0       | 2       |
+| oranges | 0      | 10      | 0       |
+| peaches | 1      | 0       | 9       |
+
+## Metriken, die auf true/false positives/negatives basieren
+
+Binäre Klassifizierung: ist eine Frucht ein Apfel oder ist sie kein Apfel?
+
+- true positive: ein Apfel wird als Apfel klassifiziert
+- true negative: ein Pfirsich wird als _kein_ Apfel klassifiziert
+- false positive: ein Pfirsich wird als Apfel klassifiziert (Fehler erster Art)
+- false negative: ein Apfel wird als _kein_ Apfel klassifiziert (Fehler zweiter Art)
+
+## Metriken, die auf true/false positives/negatives basieren
+
+**precision** (Genauigkeit) = 8/9=0.889 (8 von 9 Früchten, die als Äpfel klassifiziert wurden, sind tatsächlich Äpfel)
+
+**recall** (Trefferquote) = 8/10=0.8 (8 von 10 Äpfeln wurden als Äpfel erkannt)
+
+precision = true positives / predicted positives
+
+recall = true positives / condition positives
+
+siehe auch: [Precision and recall auf der englischsprachigen Wikipedia](https://en.wikipedia.org/wiki/Precision_and_recall)
+
+## Metriken, die auf true/false positives/negatives basieren
+
+_precision_ und _recall_ haben unterschiedliche Relevanz in verschiedenen Szenarien
+
+Beispiel: Beim Klassifizieren von E-mails als Spam ist _precision_ besonders wichtig (vermeiden, eine E-mail fälschlicherweise als Spam zu klassifizieren)
+
+## Metriken, die auf true/false positives/negatives basieren
+
+**f-score** = harmonisches Mittel zwischen _precision_ und _recall_
+
+## Metriken, die auf true/false positives/negatives basieren
+
+**ROC** (Receiver Operating Characteristic)
+
+= Metrik, die _true positives_ und _false positives_ wiederspiegelt
+
+Ein Klassifizierungsalgorithmus könnte bezüglich seiner _true positives_-Quote und _false positives_-Quote fein eingestellt werden:
+
+- Option 1: 60% true positives-Quote, 0% false positives-Quote
+- Option 2: 70% true positives-Quote, 5% false positives-Quote
+- Option 3: 80% true positives-Quote, 25% false positives-Quote
+- Option 4: 90% true positives-Quote, 55% false positives-Quote
+- Option 5: 95% true positives-Quote, 90% false positives-Quote
+
+## Metriken, die auf true/false positives/negatives basieren
+
+Die ROC kann als Kurve dargestellt werden; je größer die Fläche unter der Kurve (area under the curve, AUC), desto besser die Klassifikation
+
+## Metriken, die auf true/false positives/negatives basieren
+
+Bestimmen der ROC mit scikit-learn:
+
+```py
+false_positive_rates, true_positive_rates, thresholds = metrics.roc_curve(
+    y_test,
+    classifier.predict_proba(X_test)[: 1]
+)
+```
+
+Zeichnen der ROC:
+
+```py
+plt.plot(false_positive_rate, true_positive_rate)
+```
+
+Bestimmen der AUC:
+
+```py
+auc = metrics.auc(false_positive_rates, true_positive_rates)
+```
+
+## Probabilistische Metriken
+
+**Kreuzentropie** (log loss): Misst, wie gut ein Modell einer Wahrscheinlichkeitsverteilung die tatsächliche Wahrscheinlichkeitsverteilung annähert
+
+relevant bei _neuronalen Netzwerken_ und _logistischer Regression_
+
+## Regressionsmetriken
+
+**mittlere quadratische Abweichung**
+
+**Bestimmtheitsmaß (R²)**:
+
+vergleicht die mittlere quadratische Abweichung der Regression mit der Varianz der Eingangsdaten
+
+- R²=1 - perfekte Interpolation
+- R²=0 - Interpolation ist nicht besser als das Verwenden des Durchschnitts
+- R²&lt;0 - schlechter als das Verwenden des Durchschnitts
+
+## Validierungsmetriken in scikit-learn
+
+Klassifizierung:
+
+- _accuracy_score_
+- _confusion_matrix_
+- _precision_recall_fscore_support_
+- _log_loss_
+- _roc_curve_
+- _roc_auc_
+
+Regression:
+
+- _mean_squared_error_
+- _r2_score_
+
+Siehe auch <https://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics>
+
+## Validierunsmetriken in Keras
+
+- _accuracy_
+- _categorical_crossentropy_
+- _sparse_categorical_crossentropy_
+- _precision_
+- _recall_
+- _auc_
+- _mean_squared_error_
+
+Siehe auch <https://keras.io/api/metrics/>
+
 ## Validierung
 
 Aufgabe: Validierung der Iris-Klassifizierung
 
-# Iris-Klassifikation - komplett
+# Iris-Klassifikation in scikit-learn - komplett
 
 ## Iris-Klassifikation - komplett
 
@@ -526,7 +695,14 @@ print(predicted_labels)
 - [Handwritten digits](https://archive.ics.uci.edu/ml/datasets/Optical+Recognition+of+Handwritten+Digits)
 - ...
 
-# Beispiel: Gesichtserkennung
+## Datensätze in keras
+
+- MNITS digits
+- MNITS fashion
+- Boston housing prices
+- ...
+
+# Beispiel: Gesichtserkennung mit scikit-learn
 
 ## Beispiel: Gesichtserkennung
 
@@ -621,40 +797,46 @@ print("real name:", faces.target_names[real_label])
 print("predicted name:", faces.target_names[pred_label])
 ```
 
-# Klassifizierung
+# Algorithmen für überwachtes Lernen
 
-## Klassifizierungsalgorithmen
+## Algorithmen für überwachtes Lernen
 
-- Neuronale Netzwerke
-- K-Nearest-Neighbors
-- Logistische Regression
-- Naive Bayes
-- Support Vector Machine
-- Entscheidungsbäume und Random Forests
+Regression:
 
-Siehe auch: [classifier comparison von scikit-learn](https://scikit-learn.org/stable/auto_examples/classification/plot_classifier_comparison.html)
+- _neuronale Netzwerke_
+- lineare Regression, polynomiale Regression, ...
 
-## Neuronale Netzwerke
+Klassifizierung:
+
+- _neuronale Netzwerke_
+- k-nearest-neighbors
+- logistische Regression
+- naive Bayes
+- Support Vector Machines
+- Entscheidungsbäume (decision trees)
+
+## Neuronale Netze
 
 Aus künstlichen Neuronen aufgebaute Netzwerke - ähnliches Konzept wie Neuronen im Gehirn
 
-In der Praxis wird anstatt _scikit-learn_ hier meist _keras_ verwendet (schneller, mehr Funktionalität)
+<figure style="width: 70%; margin: 0 auto;">
+  <img src="assets/wikimedia-Neural_network.svg" alt="diagram of a neural network">
+  <figcaption>Diagrammm eines neuronalen Netzwerks mit zwei Inputs, fünf Neuronen in der Zwischenschicht und einem Output <small>(Quelle: <a href="https://commons.wikimedia.org/wiki/File:Neural_network.svg" title="via Wikimedia Commons">Dake, Mysid via Wikimedia Commons</a> / <a href="https://creativecommons.org/licenses/by/1.0">CC BY</a>)</small></figcaption>
+</figure>
+
+## Regression
+
+Lineare Regression: Festlegen einer linearen Funktion, die die Datenpunkte bestmöglich approximiert (kleinste Quadratsumme)
 
 ## K-Nearest-Neighbors
 
-Ein neuer Datenpunkt wird klassifiziert, indem seine nächsten Nachbarn betrachtet werden. Die bei diesen Nachbarn am häufigsten vorkommende Klasse wird auch für den Datenpunkt festgesetzt.
-
-Die Anzahl `k` der betrachteten Nachbarn kann festgesetzt werden (Standardwert = 5)
-
-Siehe auch: <https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html#sklearn.neighbors.KNeighborsClassifier>
+Klassifizierungsalgorithmus, der einem Datenpunkt eine Klasse zuweist, indem er ähnliche bekannte Datenpunkte betrachtet, für die schon eine Klassifizierung bekannt ist
 
 ## Logistische Regression
 
-An einer Grenze zwischen zwei Klassen wird mit Hilfe einer _logistischen Funktion_ angegeben, wie groß die Wahrscheinlichkeit ist, dass der Datenpunkt zu der einen (bzw zu der anderen) Klasse gehört. Je nachdem, welche der Wahrscheinlichkeiten größer als 50% ist, wird die entsprechende Klasse zugewiesen.
+An einer Grenze zwischen zwei Klassen wird mit Hilfe einer _logistischen Funktion_ angegeben, wie groß die Wahrscheinlichkeit ist, dass der Datenpunkt zu der einen (bzw zu der anderen) Klasse gehört. Je nachdem, welche der Wahrscheinlichkeiten größer ist, wird die entsprechende Klasse zugewiesen.
 
 Die logistische Funktion selbst wird intern mittels Regression bestimmt (daher der Name).
-
-Beispiel: <https://scikit-learn.org/stable/auto_examples/linear_model/plot_logistic.html#sphx-glr-auto-examples-linear-model-plot-logistic-py>
 
 ## Naive Bayes
 
@@ -664,23 +846,17 @@ Für einen neuen Datenpunkt wird dann errechnet, unter welcher der Verteilungen 
 
 Zwei wichtige Verteilungen sind die Normalverteilung (Gauß'sche Verteilung) für kontinuierliche Werte und die Multinomialverteilung für diskrete Werte (Ganzzahlen).
 
-[Python Data Science Handbook - Naive Bayes](https://jakevdp.github.io/PythonDataScienceHandbook/05.05-naive-bayes.html)
-
 ## Support Vector Machines
 
 Einfachster Fall: Trennung von Klassen durch Geraden / Ebenen / Hyperebenen - diese Trenner sollen von den getrennten Punkten maximalen Abstand haben.
 
 Durch Kernelfunktionen können die Grenzen auch andere Formen annehmen, z.B. die von Kegelschnitten für polynomiale Kernel vom Grad 2 oder anderen Kurven.
 
-Siehe auch: <https://scikit-learn.org/stable/modules/svm.html>
-
-[Python Data Science Handbook - Support Vector Machines](https://jakevdp.github.io/PythonDataScienceHandbook/05.07-support-vector-machines.html)
-
 ## Entscheidungsbäume (Decision Trees)
 
-Machine Learning Bibliotheken können sogenannte Entscheidungsbäume auf Basis von Trainingsdaten generieren.
+Entscheidungsbäume können auf Basis von Trainingsdaten generiert werden.
 
-Beispiel für einen Entscheidungsbaum für die Iris-Klassifizierung:
+Beispiel für die Iris-Klassifizierung:
 
 - Ist die _petal length_ kleiner oder gleich 2.4?
   - ja: **setosa**
@@ -690,55 +866,150 @@ Beispiel für einen Entscheidungsbaum für die Iris-Klassifizierung:
       - nein: **virginica**
     - nein: **virginica**
 
-## Random Forests
+## Klassifizierungsalgorithmen
 
-Basierend auf Decision Trees: Die Daten werden in verschiedene Untermengen zerlegt. Mittels jeder Untermenge wird ein einzelner Decision Tree erstellt. Die Gesamtheit der Decision Trees wird zu einem sogenannten _Random Forest_ zusammengeführt.
+[Überblick über Klassifizierungsalgorithmen in sklearn](https://scikit-learn.org/stable/auto_examples/classification/plot_classifier_comparison.html)
 
-[Python Data Science Handbook - Decision Trees and Random Forests](https://jakevdp.github.io/PythonDataScienceHandbook/05.08-random-forests.html)
+# Lineare Regression
 
-## Klassifizierungsalgorithmen - Übersicht
+## Lineare Regression
 
-Mögliche Algorithmen:
+Beispiel: Wir betrachten verschiedene Einkäufe bei verschiedenen Supermärkten:
 
-```py
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.naive_bayes import GaussianNB
-from sklearn.naive_bayes import MultinomialNB
-from sklearn.linear_model import LogisticRegression
-from sklearn.svm import SVC
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.ensemble import RandomForestClassifier
+- 1 l Milch, 1 kg Brot: 5.00€
+- 2 l Milch, 3 kg Brot: 13.50€
+- 3 l Milch, 2 kg Brot: 10.90€
+- (0 l Milch, 0 kg Brot: 0€)
+
+Aufgabe: Schätzung der Preise von:
+
+- 1 l Milch
+- 1 kg Brot
+- 1 l Milch und 2 kg Brot
+
+Diese Aufgabe kann mit Hilfe von Regression beantwortet werden.
+
+## Lineare Regression
+
+Eingangsdaten:
+
+```txt
+1, 1 ➡ 5.00
+2, 3 ➡ 13.50
+3, 2 ➡ 10.90
+0, 0 ➡ 0.00
 ```
 
-<!--
+Ergebnis einer linearen Regression:
+
+```txt
+price = 0.05 + 1.13*x + 3.73*y
+```
+
+# Neuronale Netzwerke
+
+## Neuronale Netzwerke
+
+Mchine Learning Verfahren, dass in etwa die Interaktion von Neuronen im Gehirn nachahmt
+
+## Neuronale Netzwerke
+
+<figure style="width: 70%; margin: 0 auto;">
+  <img src="assets/wikimedia-Neural_network.svg" alt="diagram of a neural network">
+  <figcaption>Diagrammm eines neuronalen Netzwerks mit zwei Inputs, fünf Neuronen in der Zwischenschicht und einem Output <small>(Quelle: <a href="https://commons.wikimedia.org/wiki/File:Neural_network.svg" title="via Wikimedia Commons">Dake, Mysid via Wikimedia Commons</a> / <a href="https://creativecommons.org/licenses/by/1.0">CC BY</a>)</small></figcaption>
+</figure>
+
+## Neuronen
+
+<figure>
+  <img src="assets/wikimedia-ArtificialNeuronModel_english.png">
+  <figcaption>Modell eines einzelnen Neurons mit mehreren Inputs und einem Output</figcaption>
+</figure>
+
+## Aktivierungsfunktionen
+
+- ReLU (Rectified Linear Unit)
+- Softmax - often used in the last layer for classification
+- Sigmoid - often used in the last layer for "tagging" (tags may overlap)
+
+## Ressource
+
+- <https://victorzhou.com/blog/intro-to-neural-networks/>
+
+# Supervised Learning Algorithmen in scikit-learn
+
+## Algorithmen in scikit-learn
+
+Regression:
+
+- `sklearn.linear_model.LinearRegression`
+- `sklearn.neural_network.MLPRegressor`
+
+Klassifizierung:
+
+- `sklearn.neighbors.KNeighborsClassifier`
+- `sklearn.naive_bayes.GaussianNB`
+- `sklearn.naive_bayes.MultinomialNB`
+- `sklearn.linear_model.LogisticRegression`
+- `sklearn.svm.SVC`
+- `sklearn.tree.DecisionTreeClassifier`
+- `sklearn.ensemble.RandomForestClassifier`
+- `sklearn.neural_network.MLPClassifier`
+
+## K-Nearest-Neighbors
+
+`sklearn.neighbors.KNeighborsClassifier`
+
+Die Anzahl `k` der betrachteten Nachbarn kann festgesetzt werden (Standardwert = 5)
+
+Siehe auch: <https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html#sklearn.neighbors.KNeighborsClassifier>
+
+## Logistische Regression
+
+Beispiel: <https://scikit-learn.org/stable/auto_examples/linear_model/plot_logistic.html#sphx-glr-auto-examples-linear-model-plot-logistic-py>
+
 ```py
 LogisticRegression(solver="liblinear", multi_class="auto")
-SVC(gamma="scale")
+```
+
+## Naive Bayes
+
+siehe: [Python Data Science Handbook - Naive Bayes](https://jakevdp.github.io/PythonDataScienceHandbook/05.05-naive-bayes.html)
+
+## Support Vector Machines
+
+siehe:
+
+- <https://scikit-learn.org/stable/modules/svm.html>
+- [Python Data Science Handbook - Support Vector Machines](https://jakevdp.github.io/PythonDataScienceHandbook/05.07-support-vector-machines.html)
+
+## Entscheidungsbäume (Decision Trees)
+
+siehe: [Python Data Science Handbook - Decision Trees and Random Forests](https://jakevdp.github.io/PythonDataScienceHandbook/05.08-random-forests.html)
+
+Random Forests: Die Daten werden in verschiedene Untermengen zerlegt. Mittels jeder Untermenge wird ein einzelner Decision Tree erstellt. Die Gesamtheit der Decision Trees wird zu einem sogenannten _Random Forest_ zusammengeführt.
+
+```py
 RandomForestClassifier(n_estimators=100)
 ```
--->
 
-## Beispiele zur Klassifizierung
+## Beispiele
 
 - [Klassifizierung von Newsgroup-Postings (mittels Naive Bayes, logistischer Regression oder Decision Tree)](https://jakevdp.github.io/PythonDataScienceHandbook/05.05-naive-bayes.html#Multinomial-Naive-Bayes)
 - [Erkennen von Ziffern (Random Forest)](https://jakevdp.github.io/PythonDataScienceHandbook/05.08-random-forests.html#Example:-Random-Forest-for-Classifying-Digits)
 
-# Regression - Grundlagen
+# Lineare Regression mit scikit-learn
 
-## Beispiel: Lineare Regression
+## Lineare Regression mit scikit-learn
 
-Beispiel: Wir betrachten verschiedene Einkäufe bei verschiedenen Supermärkten:
+Beispiel: verschiedene Einkäufe bei verschiedenen Supermärkten:
 
-- 1 l Milch, 1 kg Brot: 4.60€
+- 1 l Milch, 1 kg Brot: 5.00€
 - 2 l Milch, 3 kg Brot: 13.50€
-- 3 l Milch, 2 kg Brot: 12.00€
+- 3 l Milch, 2 kg Brot: 10.90€
 - (0 l Milch, 0 kg Brot: 0€)
 
-Was wäre eine passende Schätzung für den Preis von 1 Liter Milch / 1 kg Brot? Wenn wir bei einem Supermarkt 2 Liter Milch und 2 kg Brot kaufen, welcher Preis wäre in etwa zu erwarten?
-
-Diese Aufgabe kann mit Hilfe von Regression beantwortet werden.
-
-## Beispiel: Lineare Regression
+## Lineare Regression mit scikit-learn
 
 ```py
 from sklearn.linear_model import LinearRegression
@@ -751,23 +1022,64 @@ model.fit(X, y)
 
 yfit = model.predict([[1, 0], [0, 1], [2, 2]])
 print(yfit)
+# [1.18333333 3.78333333 9.78333333]
 ```
 
-## Lineare Regression
+## Lineare Regression mit scikit-learn
 
 Kennzahlen der "erlernten" Regression:
 
 - `model.coef_`
 - `model.intercept_`
 
-## Lineare Regression - Übung
+## Lineare Regression mit scikit-learn
 
-Iris-Datensatz: Abschätzen der _petal width_ (Spaltenindex 3) basierend auf der _petal length_ (Spaltenindex 2)
+Übung: Abschätzen der _petal width_ (Spaltenindex 3) basierend auf der _petal length_ (Spaltenindex 2) bei den Iris-Daten
 
 ```py
 from sklearn import datasets
 iris = datasets.load_iris()
 ```
+
+## Beispiele
+
+- Diabetes Vorhersage
+- ([Radverkehr](https://jakevdp.github.io/PythonDataScienceHandbook/05.06-linear-regression.html#Example:-Predicting-Bicycle-Traffic))
+
+# Polynomiale Regression mit scikit-learn
+
+## Polynomiale Regression
+
+Manche Daten passen nicht in das Schema eines linearen Zusammenhangs wie:
+
+`y = a*x + b`.
+
+Wir könnten einen polynomialen Zusammenhang annehmen, z.B.:
+
+`y = a*x^2 + b*x + c`
+
+`y = a*x^3 + b*x^2 + c*x + d`
+
+## Polynomiale Regression mit scikit-learn
+
+scikit-learn bietet einen _Preprocessor_ namens `PolynomialFeatures`.
+
+```py
+from sklearn.preprocessing import PolynomialFeatures
+poly_model = make_pipeline(
+    PolynomialFeatures(2),
+    LinearRegression()
+)
+
+poly_model.fit(X, y)
+```
+
+## Übungen
+
+- verwende eine polynomiale Regression anstatt einer linearen Regression für eines der bisherigen Beispiele
+- verwende eine polynomiale Regression, um den Datensatz _II_ der sogenannten Anscombe-Daten zu approximieren (kann mittels der _seaborn_-Library geladen werden)
+
+# Regression mittels neuronalem Netzwerk
 
 ## Regression mittels neuronalem Netzwerk
 
@@ -803,78 +1115,38 @@ y_pred = model.predict(test_data)
 print(y_pred)
 ```
 
-# Regression
-
-## Lineare Regression
-
-Bedeutet: Festlegen einer linearen Funktion, die die Datenpunkte bestmöglich approximiert (kleinste Quadratsumme)
-
-## Lineare Regression - Beispiele
-
-- Diabetes Vorhersage
-- ([Radverkehr](https://jakevdp.github.io/PythonDataScienceHandbook/05.06-linear-regression.html#Example:-Predicting-Bicycle-Traffic))
-
-# Polynomiale Regression
-
-## Polynomiale Regression
-
-Manche Daten passen nicht in das Schema eines linearen Zusammenhangs `y = a*x + b`.
-
-Wir können z.B. versuchen, sie durch einen polynomialen Zusammenhang `y = a*x^2 + b*x + c` darzustellen.
-
-## Polynomiale Regression
-
-In scikit-learn können wir eine polynomiale Regression durch einen _Preprocessor_ namens `PolynomialFeatures` durchführen.
-
-## Polynomiale Regression
-
-Als Beispieldaten verwenden wir den Datensatz _II_ aus den sogenannten Anscombe Daten:
-
-```py
-import seaborn as sns
-
-anscombe = sns.load_dataset("anscombe")
-anscombe_2 = anscombe[anscombe.dataset == "II"]
-```
-
-## Polynomiale Regression
-
-Wir nähern die Daten mit einer Polynomfunktion vom Grad 3 an:
-
-```py
-from sklearn.preprocessing import PolynomialFeatures
-poly_model = make_pipeline(
-    PolynomialFeatures(3),
-    LinearRegression()
-)
-
-poly_model.fit(X, y)
-```
-
-Aufgabe: Vergleiche die Ergebnisse einer einfachen Linearen Regression mit der polynomialen Regression.
-
 # Overfitting
 
 ## Overfitting
 
-Mögliches Problem beim Lernen: Der Algorithmus ist zu flexibel und erkennt scheinbare Muster in zufälligen Schwankungen.
+Mögliches Problem beim Lernen: Der Algorithmus ist zu flexibel und erkennt scheinbare Muster in den Eingangsdaten, hinter denen aber keine Systematik steckt
 
 Algorithmen, die anfällig für Overfitting sind:
 
-- Entscheidungsbäume
+- Neuronale Netze
 - Polynomiale Regression
+- Entscheidungsbäume
 
-## Overfitting - Lösungmöglichkeiten
+## Overfitting
 
+<figure>
+  <img src="assets/wikimedia-Overfitting.svg.png" alt="visualization of an algorithm overfitting 2D data" style="width: 45%">
+  <figcaption>Visualisierung von Overfitting bei der Kategorisierung von 2D-Daten <small>(Quelle: <a href="https://commons.wikimedia.org/wiki/File:Overfitting.svg" >Chabacano via Wikimedia Commons</a> / <a href="https://creativecommons.org/licenses/by/1.0">CC BY</a>)</small></figcaption>
+</figure>
+
+## Overfitting - Lösungsmöglichkeiten
+
+- größere Menge an Daten zum Lernen
 - Einschränkung der Flexibilität (z.B. Grad des Polynoms, Tiefe des Entscheidungsbaums)
+- zufälliges Deaktivieren einiger Neuronen während des Lernens (Dropout)
 - Kombination mehrerer Entscheidungsbäume (Random Forest)
 - "Bestrafung" großer Koeffizienten bei der polynomialen Regression (L2- und L1-Regularisierung)
 
 Zur polynomialen Regression siehe: [Data Science Handbook - Regularization](https://jakevdp.github.io/PythonDataScienceHandbook/05.06-linear-regression.html#Regularization)
 
-# Modellbewertung & Verbesserung
+# Modellvalidierung und -auswahl
 
-## Modellbewertung & Verbesserung
+## Modellvalidierung und -auswahl
 
 Um das bestmögliche Modell zu bestimmen:
 
@@ -888,7 +1160,9 @@ siehe [Python Data Science Handbook → Hyperparameters and Model Validation →
 
 ## Clustering
 
-Beim Clustering handelt es sich um _unsupervised learning_. Solche Algorithmen haben keine Zieldaten (_y_), sondern suchen nur in den Ausgangsdaten nach einer bestimmten Struktur.
+Beim Clustering handelt es sich um _unsupervised learning_.
+
+Solche Algorithmen haben keine Zieldaten (_y_), sondern suchen nur in den Ausgangsdaten nach einer bestimmten Struktur.
 
 Ziel von Clustering ist es, in vorhandenen Daten Gruppierungen (Cluster) von Datenpunkten zu finden.
 
@@ -920,108 +1194,3 @@ Beispiele:
 
 - [Anwendung auf Ziffern](https://jakevdp.github.io/PythonDataScienceHandbook/05.11-k-means.html#Example-1:-k-means-on-digits)
 - [Farbkomprimierung von Bildern](https://jakevdp.github.io/PythonDataScienceHandbook/05.11-k-means.html#Example-2:-k-means-for-color-compression)
-
-# Resources
-
-Pandas website: <https://pandas.pydata.org/>
-
-Python Data Science Handbook: <https://jakevdp.github.io/PythonDataScienceHandbook/>
-
-<!-- https://github.com/jakevdp/PythonDataScienceHandbook -->
-
-# NumPy Fortgeschritten
-
-## Form von Arrays ändern
-
-```py
-array_1d = array_3d.ravel()
-array_1d = array_3d.reshape(8)
-array_2d = array_3d.reshape(2, 4)
-array_2d = array_3d.reshape(2, -1) # automatic second dimension
-array_2d_transposed = array_2d.T
-```
-
-## Dimensionalität erhöhen
-
-Hinzufügen einer extra Dimension der Länge 1 via `newaxis` - Verwandeln eines 2 x 2 Arrays in ein 2 x 2 x 1 Array:
-
-```py
-array_2d = np.array([[1, 2], [3, 4]])
-array_3d = array_2d[:, :, np.newaxis]
-# [[[1], [2]], [[3], [4]]]
-```
-
-## Slices als Views
-
-In Python können wir eine flache Kopie einer Liste erstellen, indem wir sie slicen - dies ist in NumPy nicht so (um die Effizienz zu steigern):
-
-```py
-list = [1, 2, 3]
-list_copy = list[:]
-list_copy[0] = 10 # does NOT change list
-
-array = np.array([1, 2, 3])
-array_view = array[:]
-array_view[0] = 10 # DOES change array
-```
-
-## Arrays kopieren
-
-Arrays können via `array.copy()` kopiert werden
-
-## Arrays aneinanderfügen
-
-nebeineinander anfügen:
-
-```py
-np.concatenate([a1d, a1d])
-np.concatenate([a2d, a2d])
-```
-
-untereinander anfügen:
-
-```py
-np.concatenate([a2d, a2d], axis=1)
-```
-
-## Matrix-Multiplikation
-
-Matrix-Multiplikation kann durch den binären Operator `@` durchgeführt werden
-
-```py
-a = np.array([1, 1])
-
-M = np.array([[0.707, 0.707],
-              [-0.707, 0.707]])
-
-print(a @ M)
-# array([0.   , 1.414])
-```
-
-## Matrix-Multiplikation
-
-Rotation verschiedener Punkte um 45° gegen den Uhrzeigersinn:
-
-```py
-points = np.array([[0, 0], [0, 1], [1, 0], [1, 1]])
-
-M = np.array([[0.707, 0.707],
-              [-0.707, 0.707]])
-
-print(points @ M)
-```
-
-## Matrix-Multiplikation
-
-Beispiel:
-
-bekannt: Preise verschiedener Produkte, derent Bestände in verschiedenen Lagern
-
-```py
-prices = np.array([3.99, 12.99, 5.90, 15])
-quantities = np.array([[0, 80, 80, 100],
-                       [100, 0, 0, 0],
-                       [50, 0, 0, 50]])
-```
-
-Gesucht: Warenwert pro Lager

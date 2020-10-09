@@ -497,8 +497,8 @@ Beispiel: `(\d?\d):(\d\d)` liest zwei Werte aus
 
 ## Zeichenklassen
 
-- `[a-z]` : beliebiges kleines ASCII-Zeichen
-- `[a-zA-Z]` : beliebiges ASCII-Zeichen
+- `[a-z]` : beliebiger kleiner ASCII-Buchstabe
+- `[a-zA-Z]` : beliebiger ASCII-Buchstabe
 - `[,;.]` : gleichwertig zu `(,|;|.)`
 
 # Reguläre Ausdrücke in Python

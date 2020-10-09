@@ -11,10 +11,11 @@ usually:
 
 tasks:
 
+- flattening nested arrays
 - scaling values
-- adding missing data
-- encode categorical data as numerical data
-- encode text data as numerical data
+- handling missing data
+- encoding categorical data as numerical data
+- encoding text data as numerical data
 
 ## Preparing data
 

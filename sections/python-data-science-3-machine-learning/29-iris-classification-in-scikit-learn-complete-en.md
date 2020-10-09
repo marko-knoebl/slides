@@ -1,6 +1,6 @@
-# Iris-Klassifikation - komplett
+# Iris classification in scikit-learn - complete
 
-## Iris-Klassifikation - komplett
+## Iris classification - complete
 
 ```py
 import pandas as pd
