@@ -2078,11 +2078,16 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </section></section><section class="slides-section"><section class="slide"><h1>React Router</h1>
 </section><section class="slide"><h2>React Router</h2>
 <p><strong>client-seitiges Routing</strong>: Navigieren zwischen verschiedenen Ansichten, ohne die React-Anwendung zu verlassen</p>
-</section><section class="slide"><h2>Setup</h2>
-<p>npm-Pakete:</p>
+</section><section class="slide"><h2>Versionen und Installation</h2>
+<p>React Router 6 Beta ist seit Juni 2020 verfügbar, aber die Entwicklung läuft seither langsam</p>
+<p>Paket für React Router 6 (beinhaltet Unterstützung für TypeScript):</p>
 <ul>
-<li><code>react-router-dom</code></li>
-<li>(<code>@types/react-router-dom</code>)</li>
+<li><em>react-router-dom@next</em></li>
+</ul>
+<p>Pakete für React Router 5:</p>
+<ul>
+<li><em>react-router-dom</em></li>
+<li><em>@types/react-router-dom</em></li>
 </ul>
 </section><section class="slide"><h2>Setup</h2>
 <p>Die ganze Anwendung wird in ein <code>BrowserRouter</code>-Element eingebettet:</p>
@@ -2099,13 +2104,49 @@ ReactDOM.render(
   rootElement
 );
 </code></pre>
+</section><section class="slide"><h2>Grundlegende Router-Komponenten (v6)</h2>
+<ul>
+<li><code>&#x3C;Route></code> - rendert ihre Inhalte, wenn sie aktiv ist</li>
+<li><code>&#x3C;Router></code> - Container für <code>&#x3C;Route></code>-Elemente</li>
+<li><code>&#x3C;Link></code> / <code>&#x3C;NavLink></code> - werden anstatt von <code>&#x3C;a></code>-Elementen verwendet</li>
+</ul>
 </section><section class="slide"><h2>Grundlegende Router-Komponenten</h2>
 <ul>
 <li><code>&#x3C;Route></code> - rendert ihre Inhalte, wenn sie aktiv ist</li>
 <li><code>&#x3C;Switch></code> - Container für <code>&#x3C;Route></code>-Elemente</li>
 <li><code>&#x3C;Link></code> / <code>&#x3C;NavLink></code> - werden anstatt von <code>&#x3C;a></code>-Elementen verwendet</li>
 </ul>
-</section><section class="slide"><h2>Einfaches Beispiel</h2>
+</section><section class="slide"><h2>Einfaches Beispiel (v6)</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> App = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  <span class="hljs-keyword">return</span> (
+    &#x3C;div>
+      &#x3C;NavLink to="/slideshow">slideshow&#x3C;/NavLink>{' '}
+      &#x3C;NavLink to="/counter">counter&#x3C;/NavLink>
+      &#x3C;Routes>
+        &#x3C;Route path="/slideshow" element={&#x3C;Slideshow />} />
+        &#x3C;Route path="/counter" element={&#x3C;Counter />} />
+      &#x3C;/Routes>
+    &#x3C;/div>
+  );
+};
+</code></pre>
+</section><section class="slide"><h2>Fortgeschrittenes Routing (v6)</h2>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> App = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  <span class="hljs-keyword">return</span> (
+    &#x3C;Routes>
+      &#x3C;Route path="/posts" element={&#x3C;PostPage />}>
+        &#x3C;Route path="/:postId" element={&#x3C;Post />} />
+      &#x3C;/Route>
+      &#x3C;Route path="/shop" element={&#x3C;ShopPage />}>
+        &#x3C;Route path="/" element={&#x3C;ShopIndex />} />
+        &#x3C;Route path="/product/:id" element={&#x3C;Product />} />
+        &#x3C;Route path="/cart" element={&#x3C;Cart />} />
+      &#x3C;/Route>
+    &#x3C;/Routes>
+  );
+};
+</code></pre>
+</section><section class="slide"><h2>Einfaches Beispiel (v5)</h2>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> App = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
   <span class="hljs-keyword">return</span> (
     <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
@@ -2123,7 +2164,6 @@ ReactDOM.render(
   );
 };
 </code></pre>
-<p>(Syntax von React Router 5.1)</p>
 </section><section class="slide"><h2>Routenparameter</h2>
 <pre><code class="hljs language-jsx">&#x3C;Route path=<span class="hljs-string">"/todos/:todoId"</span>>
   <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">TodoDetailView</span> /></span>
@@ -2146,18 +2186,18 @@ ReactDOM.render(
 <pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">NavLink</span> <span class="hljs-attr">to</span>=<span class="hljs-string">"/"</span> <span class="hljs-attr">activeClassName</span>=<span class="hljs-string">"active-link"</span>></span>Home<span class="hljs-tag">&#x3C;/<span class="hljs-name">NavLink</span>></span>
 <span class="hljs-tag">&#x3C;<span class="hljs-name">NavLink</span> <span class="hljs-attr">to</span>=<span class="hljs-string">"/add"</span> <span class="hljs-attr">activeClassName</span>=<span class="hljs-string">"active-link"</span>></span>Add<span class="hljs-tag">&#x3C;/<span class="hljs-name">NavLink</span>></span>
 </code></pre>
-</section><section class="slide"><h2>Navigation aus React</h2>
-<p>Möglichkeiten:</p>
-<ul>
-<li>Rendern einer <code>&#x3C;Redirect></code>-Komponente</li>
-<li>Verwendung des history Hooks</li>
-</ul>
-</section><section class="slide"><h2>Navigation aus React</h2>
-<pre><code class="hljs language-jsx">&#x3C;Route path=<span class="hljs-string">"/member-area"</span>>
-  {username ? <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">MemberArea</span> /></span> : <span class="hljs-tag">&#x3C;<span class="hljs-name">Redirect</span> <span class="hljs-attr">to</span>=<span class="hljs-string">"/login"</span> /></span>}
-<span class="hljs-tag">&#x3C;/<span class="hljs-name">Route</span>></span>
-</span></code></pre>
-</section><section class="slide"><h2>Navigation aus React</h2>
+</section><section class="slide"><h2>Navigation aus React (v6)</h2>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> { useNavigate } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router-dom'</span>;
+
+<span class="hljs-keyword">const</span> AddTodoView = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  <span class="hljs-keyword">const</span> navigate = useNavigate();
+  <span class="hljs-keyword">const</span> handleSubmit = <span class="hljs-function">(<span class="hljs-params">event</span>) =></span> {
+    event.preventDefault();
+    navigate(<span class="hljs-string">'/'</span>);
+  };
+};
+</code></pre>
+</section><section class="slide"><h2>Navigation aus React (v5)</h2>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> { useHistory } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router-dom'</span>;
 
 <span class="hljs-keyword">const</span> AddTodoView = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {

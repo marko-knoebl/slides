@@ -16,11 +16,16 @@
 <h1>React Router</h1>
 <h2>React Router</h2>
 <p><strong>client-side routing</strong>: navigating between views without leaving the React app</p>
-<h2>Setup</h2>
-<p>npm packages:</p>
+<h2>Versions and Installation</h2>
+<p>React router 6 beta is available since June 2020, but development has been slow since then</p>
+<p>package for react router 6 (includes TypeScript support):</p>
 <ul>
-<li><code>react-router-dom</code></li>
-<li>(<code>@types/react-router-dom</code>)</li>
+<li><em>react-router-dom@next</em></li>
+</ul>
+<p>packages for react router 5:</p>
+<ul>
+<li><em>react-router-dom</em></li>
+<li><em>@types/react-router-dom</em></li>
 </ul>
 <h2>Setup</h2>
 <p>the entire application is enclosed in a <code>BrowserRouter</code> element:</p>
@@ -37,13 +42,49 @@ ReactDOM.render(
   rootElement
 );
 </code></pre>
-<h2>Basic router components</h2>
+<h2>Basic router components (v6)</h2>
+<ul>
+<li><code>&#x3C;Route></code> - a component that renders its content when active</li>
+<li><code>&#x3C;Router></code> - a container for <code>&#x3C;Route></code> elements</li>
+<li><code>&#x3C;Link></code> / <code>&#x3C;NavLink></code> - are used in place of <code>&#x3C;a></code> elements</li>
+</ul>
+<h2>Basic router components (v5)</h2>
 <ul>
 <li><code>&#x3C;Route></code> - a component that renders its content when active</li>
 <li><code>&#x3C;Switch></code> - a container for <code>&#x3C;Route></code> elements</li>
 <li><code>&#x3C;Link></code> / <code>&#x3C;NavLink></code> - are used in place of <code>&#x3C;a></code> elements</li>
 </ul>
-<h2>Basic example</h2>
+<h2>Basic example (v6)</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> App = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  <span class="hljs-keyword">return</span> (
+    &#x3C;div>
+      &#x3C;NavLink to="/slideshow">slideshow&#x3C;/NavLink>{' '}
+      &#x3C;NavLink to="/counter">counter&#x3C;/NavLink>
+      &#x3C;Routes>
+        &#x3C;Route path="/slideshow" element={&#x3C;Slideshow />} />
+        &#x3C;Route path="/counter" element={&#x3C;Counter />} />
+      &#x3C;/Routes>
+    &#x3C;/div>
+  );
+};
+</code></pre>
+<h2>Advanced routing (v6)</h2>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> App = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  <span class="hljs-keyword">return</span> (
+    &#x3C;Routes>
+      &#x3C;Route path="/posts" element={&#x3C;PostPage />}>
+        &#x3C;Route path="/:postId" element={&#x3C;Post />} />
+      &#x3C;/Route>
+      &#x3C;Route path="/shop" element={&#x3C;ShopPage />}>
+        &#x3C;Route path="/" element={&#x3C;ShopIndex />} />
+        &#x3C;Route path="/product/:id" element={&#x3C;Product />} />
+        &#x3C;Route path="/cart" element={&#x3C;Cart />} />
+      &#x3C;/Route>
+    &#x3C;/Routes>
+  );
+};
+</code></pre>
+<h2>Basic example (v5)</h2>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> App = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
   <span class="hljs-keyword">return</span> (
     <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
@@ -61,7 +102,6 @@ ReactDOM.render(
   );
 };
 </code></pre>
-<p>(syntax of React Router 5.1)</p>
 <h2>Route parameters</h2>
 <pre><code class="hljs language-jsx">&#x3C;Route path=<span class="hljs-string">"/todos/:todoId"</span>>
   <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">TodoDetailView</span> /></span>
@@ -84,18 +124,18 @@ ReactDOM.render(
 <pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">NavLink</span> <span class="hljs-attr">to</span>=<span class="hljs-string">"/"</span> <span class="hljs-attr">activeClassName</span>=<span class="hljs-string">"active-link"</span>></span>Home<span class="hljs-tag">&#x3C;/<span class="hljs-name">NavLink</span>></span>
 <span class="hljs-tag">&#x3C;<span class="hljs-name">NavLink</span> <span class="hljs-attr">to</span>=<span class="hljs-string">"/add"</span> <span class="hljs-attr">activeClassName</span>=<span class="hljs-string">"active-link"</span>></span>Add<span class="hljs-tag">&#x3C;/<span class="hljs-name">NavLink</span>></span>
 </code></pre>
-<h2>Navigation from React</h2>
-<p>possibilities:</p>
-<ul>
-<li>render a <code>&#x3C;Redirect ></code> component</li>
-<li>use the history hook</li>
-</ul>
-<h2>Navigation from React</h2>
-<pre><code class="hljs language-jsx">&#x3C;Route path=<span class="hljs-string">"/member-area"</span>>
-  {username ? <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">MemberArea</span> /></span> : <span class="hljs-tag">&#x3C;<span class="hljs-name">Redirect</span> <span class="hljs-attr">to</span>=<span class="hljs-string">"/login"</span> /></span>}
-<span class="hljs-tag">&#x3C;/<span class="hljs-name">Route</span>></span>
-</span></code></pre>
-<h2>Navigation from React</h2>
+<h2>Navigation from React (v6)</h2>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> { useNavigate} <span class="hljs-keyword">from</span> <span class="hljs-string">"react-router-dom"</span>;
+
+<span class="hljs-keyword">const</span> AddTodoView = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  <span class="hljs-keyword">const</span> navigate = useNavigate();
+  <span class="hljs-keyword">const</span> handleSubmit = <span class="hljs-function">(<span class="hljs-params">event</span>) =></span> {
+    event.preventDefault();
+    navigate(<span class="hljs-string">"/"</span>)
+  }
+}
+</code></pre>
+<h2>Navigation from React (v5)</h2>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> { useHistory } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router-dom'</span>;
 
 <span class="hljs-keyword">const</span> AddTodoView = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {

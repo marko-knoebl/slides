@@ -4,12 +4,18 @@
 
 **client-side routing**: navigating between views without leaving the React app
 
-## Setup
+## Versions and Installation
 
-npm packages:
+React router 6 beta is available since June 2020, but development has been slow since then
 
-- `react-router-dom`
-- (`@types/react-router-dom`)
+package for react router 6 (includes TypeScript support):
+
+- _react-router-dom@next_
+
+packages for react router 5:
+
+- _react-router-dom_
+- _@types/react-router-dom_
 
 ## Setup
 
@@ -30,13 +36,55 @@ ReactDOM.render(
 );
 ```
 
-## Basic router components
+## Basic router components (v6)
+
+- `<Route>` - a component that renders its content when active
+- `<Router>` - a container for `<Route>` elements
+- `<Link>` / `<NavLink>` - are used in place of `<a>` elements
+
+## Basic router components (v5)
 
 - `<Route>` - a component that renders its content when active
 - `<Switch>` - a container for `<Route>` elements
 - `<Link>` / `<NavLink>` - are used in place of `<a>` elements
 
-## Basic example
+## Basic example (v6)
+
+```js
+const App = () => {
+  return (
+    <div>
+      <NavLink to="/slideshow">slideshow</NavLink>{' '}
+      <NavLink to="/counter">counter</NavLink>
+      <Routes>
+        <Route path="/slideshow" element={<Slideshow />} />
+        <Route path="/counter" element={<Counter />} />
+      </Routes>
+    </div>
+  );
+};
+```
+
+## Advanced routing (v6)
+
+```jsx
+const App = () => {
+  return (
+    <Routes>
+      <Route path="/posts" element={<PostPage />}>
+        <Route path="/:postId" element={<Post />} />
+      </Route>
+      <Route path="/shop" element={<ShopPage />}>
+        <Route path="/" element={<ShopIndex />} />
+        <Route path="/product/:id" element={<Product />} />
+        <Route path="/cart" element={<Cart />} />
+      </Route>
+    </Routes>
+  );
+};
+```
+
+## Basic example (v5)
 
 ```js
 const App = () => {
@@ -56,8 +104,6 @@ const App = () => {
   );
 };
 ```
-
-(syntax of React Router 5.1)
 
 ## Route parameters
 
@@ -90,22 +136,21 @@ supplying a class name that will be applied to any active link:
 <NavLink to="/add" activeClassName="active-link">Add</NavLink>
 ```
 
-## Navigation from React
-
-possibilities:
-
-- render a `<Redirect >` component
-- use the history hook
-
-## Navigation from React
+## Navigation from React (v6)
 
 ```jsx
-<Route path="/member-area">
-  {username ? <MemberArea /> : <Redirect to="/login" />}
-</Route>
+import { useNavigate} from "react-router-dom";
+
+const AddTodoView = () => {
+  const navigate = useNavigate();
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    navigate("/")
+  }
+}
 ```
 
-## Navigation from React
+## Navigation from React (v5)
 
 ```jsx
 import { useHistory } from 'react-router-dom';
