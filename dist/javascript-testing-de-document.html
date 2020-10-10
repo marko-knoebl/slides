@@ -278,4 +278,16 @@ expect(mockFn).toHaveBeenCalledWith(<span class="hljs-string">'foo'</span>);
 <span class="hljs-keyword">await</span> page.waitForNavigation();
 </code></pre>
 <h2>Puppeteer</h2>
+<p>Setup in <code>beforeEach</code>:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> browser;
+<span class="hljs-keyword">let</span> page;
+beforeEach(<span class="hljs-keyword">async</span> () => {
+  browser = <span class="hljs-keyword">await</span> puppeteer.launch();
+  page = <span class="hljs-keyword">await</span> browser.newPage();
+  <span class="hljs-keyword">await</span> page.goto(
+    <span class="hljs-string">'http://info.cern.ch/hypertext/WWW/TheProject.html'</span>
+  );
+});
+</code></pre>
+<h2>Puppeteer</h2>
 <p><a href="https://github.com/puppeteer/puppeteer/blob/main/docs/api.md">vollständiges API für Puppeteer</a></p>

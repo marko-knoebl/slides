@@ -399,4 +399,20 @@ await page.waitForNavigation();
 
 ## Puppeteer
 
+setup in `beforeEach`:
+
+```js
+let browser;
+let page;
+beforeEach(async () => {
+  browser = await puppeteer.launch();
+  page = await browser.newPage();
+  await page.goto(
+    'http://info.cern.ch/hypertext/WWW/TheProject.html'
+  );
+});
+```
+
+## Puppeteer
+
 [complete API for Puppeteer](https://github.com/puppeteer/puppeteer/blob/main/docs/api.md)

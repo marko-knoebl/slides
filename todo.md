@@ -6,6 +6,6 @@
   - include link to aicheatsheets.com
   - free book: think python
 - react
-  - ? move everything with reducers into combined presentation "state management with reducers and redux"
+  - import * as React from "react"
   - ? predefined redux project that can be used to create a react application
 - update prettier configuration / format everything according to new prettier defaults

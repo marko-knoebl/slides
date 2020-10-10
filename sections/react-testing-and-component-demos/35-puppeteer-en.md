@@ -12,7 +12,6 @@ test that uses Puppeteer:
 
 ```js
 test("displays page with title 'React App'", async () => {
-  jest.setTimeout(10000);
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
   await page.goto("http://localhost:3000");
