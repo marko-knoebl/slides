@@ -230,24 +230,52 @@ expect(mockFn).toHaveBeenCalledWith(<span class="hljs-string">'foo'</span>);
 <pre><code class="hljs language-bash">npm install puppeteer
 </code></pre>
 <h2>Puppeteer</h2>
-<pre><code class="hljs language-js">test(<span class="hljs-string">'Google page title'</span>, <span class="hljs-keyword">async</span> () => {
+<p>test if the first website is still available:</p>
+<pre><code class="hljs language-js">test(<span class="hljs-string">'first website'</span>, <span class="hljs-keyword">async</span> () => {
   <span class="hljs-keyword">const</span> browser = <span class="hljs-keyword">await</span> puppeteer.launch();
   <span class="hljs-keyword">const</span> page = <span class="hljs-keyword">await</span> browser.newPage();
-  <span class="hljs-keyword">await</span> page.goto(<span class="hljs-string">'https://google.com'</span>);
+  <span class="hljs-keyword">await</span> page.goto(
+    <span class="hljs-string">'http://info.cern.ch/hypertext/WWW/TheProject.html'</span>
+  );
   <span class="hljs-keyword">const</span> pageTitle = <span class="hljs-keyword">await</span> page.title();
-  expect(pageTitle).toEqual(<span class="hljs-string">'Google'</span>);
+  expect(pageTitle).toEqual(<span class="hljs-string">'The World Wide Web project'</span>);
 });
 </code></pre>
 <h2>Puppeteer</h2>
 <p>test that actually opens a browser window:</p>
-<pre><code class="hljs language-js">test(<span class="hljs-string">'Google page title'</span>, <span class="hljs-keyword">async</span> () => {
+<pre><code class="hljs language-js">test(<span class="hljs-string">'first website'</span>, <span class="hljs-keyword">async</span> () => {
   jest.setTimeout(<span class="hljs-number">10000</span>);
   <span class="hljs-keyword">const</span> browser = <span class="hljs-keyword">await</span> puppeteer.launch({
     <span class="hljs-attr">headless</span>: <span class="hljs-literal">false</span>,
   });
-  <span class="hljs-keyword">const</span> page = <span class="hljs-keyword">await</span> browser.newPage();
-  <span class="hljs-keyword">await</span> page.goto(<span class="hljs-string">'https://google.com'</span>);
-  <span class="hljs-keyword">const</span> pageTitle = <span class="hljs-keyword">await</span> page.title();
-  expect(pageTitle).toEqual(<span class="hljs-string">'Google'</span>);
+  <span class="hljs-comment">// ...</span>
 });
 </code></pre>
+<h2>Puppeteer</h2>
+<p>getting page contents:</p>
+<ul>
+<li><code>page.$eval()</code> for contents of a single element</li>
+<li><code>page.$$eval()</code> for querying multiple elements</li>
+</ul>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> firstLinkText = <span class="hljs-keyword">await</span> page.$<span class="hljs-built_in">eval</span>(
+  <span class="hljs-string">'a'</span>,
+  (element) => element.innerHTML
+);
+
+<span class="hljs-keyword">const</span> thirdLinkText = <span class="hljs-keyword">await</span> page.$$<span class="hljs-built_in">eval</span>(
+  <span class="hljs-string">'a'</span>,
+  (elements) => elements[<span class="hljs-number">2</span>].innerHTML
+);
+</code></pre>
+<h2>Puppeteer</h2>
+<p>getting elements for triggering actions:</p>
+<ul>
+<li><code>page.$()</code> for single elements</li>
+<li><code>page.$$()</code> for an array of elements</li>
+</ul>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> firstLink = <span class="hljs-keyword">await</span> page.$(<span class="hljs-string">'a'</span>);
+<span class="hljs-keyword">await</span> firstLink.click();
+<span class="hljs-keyword">await</span> page.waitForNavigation();
+</code></pre>
+<h2>Puppeteer</h2>
+<p><a href="https://github.com/puppeteer/puppeteer/blob/main/docs/api.md">complete API for Puppeteer</a></p>

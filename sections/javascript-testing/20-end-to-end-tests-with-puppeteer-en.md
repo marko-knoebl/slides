@@ -16,13 +16,17 @@ npm install puppeteer
 
 ## Puppeteer
 
+test if the first website is still available:
+
 ```js
-test('Google page title', async () => {
+test('first website', async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
-  await page.goto('https://google.com');
+  await page.goto(
+    'http://info.cern.ch/hypertext/WWW/TheProject.html'
+  );
   const pageTitle = await page.title();
-  expect(pageTitle).toEqual('Google');
+  expect(pageTitle).toEqual('The World Wide Web project');
 });
 ```
 
@@ -31,14 +35,47 @@ test('Google page title', async () => {
 test that actually opens a browser window:
 
 ```js
-test('Google page title', async () => {
+test('first website', async () => {
   jest.setTimeout(10000);
   const browser = await puppeteer.launch({
     headless: false,
   });
-  const page = await browser.newPage();
-  await page.goto('https://google.com');
-  const pageTitle = await page.title();
-  expect(pageTitle).toEqual('Google');
+  // ...
 });
 ```
+
+## Puppeteer
+
+getting page contents:
+
+- `page.$eval()` for contents of a single element
+- `page.$$eval()` for querying multiple elements
+
+```js
+const firstLinkText = await page.$eval(
+  'a',
+  (element) => element.innerHTML
+);
+
+const thirdLinkText = await page.$$eval(
+  'a',
+  (elements) => elements[2].innerHTML
+);
+```
+
+## Puppeteer
+
+getting elements for triggering actions:
+
+- `page.$()` for single elements
+- `page.$$()` for an array of elements
+
+```js
+const firstLink = await page.$('a');
+await firstLink.click();
+await page.waitForNavigation();
+```
+
+## Puppeteer
+
+[complete API for Puppeteer](https://github.com/puppeteer/puppeteer/blob/main/docs/api.md)
