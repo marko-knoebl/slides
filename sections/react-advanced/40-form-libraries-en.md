@@ -91,10 +91,10 @@ useForm({ mode: 'onSubmit' });
 modes:
 
 - `onSubmit` (default)
-- `onBlur`
-- `onTouched`
+- `onBlur` - validation happens when the input loses focus
+- `onTouched` - validation happens when the input loses focus for the first time; after that, validation happens on every change
 - `onChange`
-- `all`
+- `all` - validation happens when the input changes or when it loses focus without being changed
 
 ## react-hook-form: testing
 

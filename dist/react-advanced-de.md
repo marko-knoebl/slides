@@ -58,12 +58,6 @@ ReactDOM.render(
 - `<Router>` - Container für `<Route>`-Elemente
 - `<Link>` / `<NavLink>` - werden anstatt von `<a>`-Elementen verwendet
 
-## Grundlegende Router-Komponenten
-
-- `<Route>` - rendert ihre Inhalte, wenn sie aktiv ist
-- `<Switch>` - Container für `<Route>`-Elemente
-- `<Link>` / `<NavLink>` - werden anstatt von `<a>`-Elementen verwendet
-
 ## Einfaches Beispiel (v6)
 
 ```js
@@ -101,6 +95,8 @@ const App = () => {
 ```
 
 ## Einfaches Beispiel (v5)
+
+in v5 verwendet man anstatt von `<Routes>` die `<Switch>`-Komponente
 
 ```js
 const App = () => {
@@ -152,34 +148,37 @@ const TodoDetailView = () => {
 <NavLink to="/add" activeClassName="active-link">Add</NavLink>
 ```
 
-## Navigation aus React (v6)
+## Navigation aus React
+
+in v6:
 
 ```jsx
-import { useNavigate } from 'react-router-dom';
+const navigate = useNavigate();
+// ...
+navigate('/');
+```
 
+in v5:
+
+```js
+const history = useHistory();
+// ...
+history.push('/');
+```
+
+## Navigation aus React
+
+Beispiel:
+
+```jsx
 const AddTodoView = () => {
   const navigate = useNavigate();
   const handleSubmit = (event) => {
     event.preventDefault();
+    // ...
     navigate('/');
   };
-};
-```
-
-## Navigation aus React (v5)
-
-```jsx
-import { useHistory } from 'react-router-dom';
-
-const AddTodoView = () => {
-  const history = useHistory();
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // ...
-    // go back to home view
-    history.push('/');
-  };
-  return <form onSubmit={handleSubmit}>...</form>;
+  // ...
 };
 ```
 
@@ -193,17 +192,19 @@ Das Interface von Context kann sowohl Daten (aus dem State) als auch Eventhandle
 
 ## Context - Beispiel
 
-mit JavaScript (_TodosContext.js_):
-
 ```js
+// TodosContext.js
 import { createContext } from 'react';
 
 const TodosContext = createContext();
 ```
 
-mit TypeScript (_TodosContext.ts_):
+## Context - Beispiel
+
+mit TypeScript:
 
 ```ts
+// TodosContext.ts
 import { createContext } from 'react';
 
 type TodosContextType = {
@@ -952,7 +953,7 @@ Heutzutage wird es als _ok_ angesehen, Styling-Informationen in der gleichen Dat
 
 Zugänge:
 
-- Erweiterung von Elemnten-Properties (z.B. `css=...` in _Emotion_)
+- Erweiterung von Elementen-Properties (z.B. `css=...` in _Emotion_)
 - Erstellen von React-Komponenten, die nur für das Styling zuständig sind (z.B. `PrimaryButton`)
 
 ## CSS-in-JS
@@ -1096,7 +1097,7 @@ const NewsletterSignup = () => {
 };
 ```
 
-Bemerkung: `register()` verwendet eine [callback ref](https://reactjs.org/docs/refs-and-the-dom.html#callback-refs) um auf das input-Element zuzugreifen
+Bemerkung: `register()` verwendet eine [callback ref](https://reactjs.org/docs/refs-and-the-dom.html#callback-refs), um auf das input-Element zuzugreifen
 
 ## react-hook-form: register
 
@@ -1143,10 +1144,10 @@ useForm({ mode: 'onSubmit' });
 mögliche Modes:
 
 - `onSubmit` (Standard)
-- `onBlur`
-- `onTouched`
+- `onBlur` - Validierung, wenn der Input den Fokus verliert
+- `onTouched` - Validierung, wenn der Input den Fokus verliert; danach bei jeder Änderung
 - `onChange`
-- `all`
+- `all` - Validierung, wenn der Input sich ändert oder wenn er den Fokus verliert, ohne sich geändert zu haben
 
 ## react-hook-form: Tests
 

@@ -8,17 +8,19 @@ Das Interface von Context kann sowohl Daten (aus dem State) als auch Eventhandle
 
 ## Context - Beispiel
 
-mit JavaScript (_TodosContext.js_):
-
 ```js
+// TodosContext.js
 import { createContext } from 'react';
 
 const TodosContext = createContext();
 ```
 
-mit TypeScript (_TodosContext.ts_):
+## Context - Beispiel
+
+mit TypeScript:
 
 ```ts
+// TodosContext.ts
 import { createContext } from 'react';
 
 type TodosContextType = {

@@ -42,12 +42,6 @@ ReactDOM.render(
 - `<Router>` - Container für `<Route>`-Elemente
 - `<Link>` / `<NavLink>` - werden anstatt von `<a>`-Elementen verwendet
 
-## Grundlegende Router-Komponenten
-
-- `<Route>` - rendert ihre Inhalte, wenn sie aktiv ist
-- `<Switch>` - Container für `<Route>`-Elemente
-- `<Link>` / `<NavLink>` - werden anstatt von `<a>`-Elementen verwendet
-
 ## Einfaches Beispiel (v6)
 
 ```js
@@ -85,6 +79,8 @@ const App = () => {
 ```
 
 ## Einfaches Beispiel (v5)
+
+in v5 verwendet man anstatt von `<Routes>` die `<Switch>`-Komponente
 
 ```js
 const App = () => {
@@ -136,33 +132,36 @@ const TodoDetailView = () => {
 <NavLink to="/add" activeClassName="active-link">Add</NavLink>
 ```
 
-## Navigation aus React (v6)
+## Navigation aus React
+
+in v6:
 
 ```jsx
-import { useNavigate } from 'react-router-dom';
+const navigate = useNavigate();
+// ...
+navigate('/');
+```
 
+in v5:
+
+```js
+const history = useHistory();
+// ...
+history.push('/');
+```
+
+## Navigation aus React
+
+Beispiel:
+
+```jsx
 const AddTodoView = () => {
   const navigate = useNavigate();
   const handleSubmit = (event) => {
     event.preventDefault();
+    // ...
     navigate('/');
   };
-};
-```
-
-## Navigation aus React (v5)
-
-```jsx
-import { useHistory } from 'react-router-dom';
-
-const AddTodoView = () => {
-  const history = useHistory();
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // ...
-    // go back to home view
-    history.push('/');
-  };
-  return <form onSubmit={handleSubmit}>...</form>;
+  // ...
 };
 ```

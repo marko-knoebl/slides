@@ -69,7 +69,7 @@ Heutzutage wird es als _ok_ angesehen, Styling-Informationen in der gleichen Dat
 
 Zugänge:
 
-- Erweiterung von Elemnten-Properties (z.B. `css=...` in _Emotion_)
+- Erweiterung von Elementen-Properties (z.B. `css=...` in _Emotion_)
 - Erstellen von React-Komponenten, die nur für das Styling zuständig sind (z.B. `PrimaryButton`)
 
 ## CSS-in-JS

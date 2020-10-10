@@ -48,12 +48,6 @@ ReactDOM.render(
 <li><code>&#x3C;Router></code> - Container für <code>&#x3C;Route></code>-Elemente</li>
 <li><code>&#x3C;Link></code> / <code>&#x3C;NavLink></code> - werden anstatt von <code>&#x3C;a></code>-Elementen verwendet</li>
 </ul>
-<h2>Grundlegende Router-Komponenten</h2>
-<ul>
-<li><code>&#x3C;Route></code> - rendert ihre Inhalte, wenn sie aktiv ist</li>
-<li><code>&#x3C;Switch></code> - Container für <code>&#x3C;Route></code>-Elemente</li>
-<li><code>&#x3C;Link></code> / <code>&#x3C;NavLink></code> - werden anstatt von <code>&#x3C;a></code>-Elementen verwendet</li>
-</ul>
 <h2>Einfaches Beispiel (v6)</h2>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> App = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
   <span class="hljs-keyword">return</span> (
@@ -85,6 +79,7 @@ ReactDOM.render(
 };
 </code></pre>
 <h2>Einfaches Beispiel (v5)</h2>
+<p>in v5 verwendet man anstatt von <code>&#x3C;Routes></code> die <code>&#x3C;Switch></code>-Komponente</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> App = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
   <span class="hljs-keyword">return</span> (
     <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
@@ -124,29 +119,27 @@ ReactDOM.render(
 <pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">NavLink</span> <span class="hljs-attr">to</span>=<span class="hljs-string">"/"</span> <span class="hljs-attr">activeClassName</span>=<span class="hljs-string">"active-link"</span>></span>Home<span class="hljs-tag">&#x3C;/<span class="hljs-name">NavLink</span>></span>
 <span class="hljs-tag">&#x3C;<span class="hljs-name">NavLink</span> <span class="hljs-attr">to</span>=<span class="hljs-string">"/add"</span> <span class="hljs-attr">activeClassName</span>=<span class="hljs-string">"active-link"</span>></span>Add<span class="hljs-tag">&#x3C;/<span class="hljs-name">NavLink</span>></span>
 </code></pre>
-<h2>Navigation aus React (v6)</h2>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> { useNavigate } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router-dom'</span>;
-
-<span class="hljs-keyword">const</span> AddTodoView = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+<h2>Navigation aus React</h2>
+<p>in v6:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> navigate = useNavigate();
+<span class="hljs-comment">// ...</span>
+navigate(<span class="hljs-string">'/'</span>);
+</code></pre>
+<p>in v5:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> history = useHistory();
+<span class="hljs-comment">// ...</span>
+history.push(<span class="hljs-string">'/'</span>);
+</code></pre>
+<h2>Navigation aus React</h2>
+<p>Beispiel:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> AddTodoView = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
   <span class="hljs-keyword">const</span> navigate = useNavigate();
   <span class="hljs-keyword">const</span> handleSubmit = <span class="hljs-function">(<span class="hljs-params">event</span>) =></span> {
     event.preventDefault();
+    <span class="hljs-comment">// ...</span>
     navigate(<span class="hljs-string">'/'</span>);
   };
-};
-</code></pre>
-<h2>Navigation aus React (v5)</h2>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> { useHistory } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router-dom'</span>;
-
-<span class="hljs-keyword">const</span> AddTodoView = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  <span class="hljs-keyword">const</span> history = useHistory();
-  <span class="hljs-keyword">const</span> handleSubmit = <span class="hljs-function">(<span class="hljs-params">event</span>) =></span> {
-    event.preventDefault();
-    <span class="hljs-comment">// ...</span>
-    <span class="hljs-comment">// go back to home view</span>
-    history.push(<span class="hljs-string">'/'</span>);
-  };
-  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">form</span> <span class="hljs-attr">onSubmit</span>=<span class="hljs-string">{handleSubmit}</span>></span>...<span class="hljs-tag">&#x3C;/<span class="hljs-name">form</span>></span></span>;
+  <span class="hljs-comment">// ...</span>
 };
 </code></pre>
 <h1>Context</h1>
@@ -154,13 +147,15 @@ ReactDOM.render(
 <p>Möglichkeit, Werte aus einer Komponente direkt allen weiter unten im Dokumentenbaum liegenden Komponenten zur Verfügung zu stellen - ohne diese über jede Ebene übergeben zu müssen</p>
 <p>Das Interface von Context kann sowohl Daten (aus dem State) als auch Eventhandler übergeben.</p>
 <h2>Context - Beispiel</h2>
-<p>mit JavaScript (<em>TodosContext.js</em>):</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { createContext } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+<pre><code class="hljs language-js"><span class="hljs-comment">// TodosContext.js</span>
+<span class="hljs-keyword">import</span> { createContext } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
 
 <span class="hljs-keyword">const</span> TodosContext = createContext();
 </code></pre>
-<p>mit TypeScript (<em>TodosContext.ts</em>):</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { createContext } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+<h2>Context - Beispiel</h2>
+<p>mit TypeScript:</p>
+<pre><code class="hljs language-ts"><span class="hljs-comment">// TodosContext.ts</span>
+<span class="hljs-keyword">import</span> { createContext } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
 
 <span class="hljs-keyword">type</span> TodosContextType = {
   todos: <span class="hljs-built_in">Array</span>&#x3C;Todo>;
@@ -780,7 +775,7 @@ ReactDOM.render(
 <h2>CSS-in-JS</h2>
 <p>Zugänge:</p>
 <ul>
-<li>Erweiterung von Elemnten-Properties (z.B. <code>css=...</code> in <em>Emotion</em>)</li>
+<li>Erweiterung von Elementen-Properties (z.B. <code>css=...</code> in <em>Emotion</em>)</li>
 <li>Erstellen von React-Komponenten, die nur für das Styling zuständig sind (z.B. <code>PrimaryButton</code>)</li>
 </ul>
 <h2>CSS-in-JS</h2>
@@ -896,7 +891,7 @@ const Slideshow = (props) => (
   );
 };
 </span></code></pre>
-<p>Bemerkung: <code>register()</code> verwendet eine <a href="https://reactjs.org/docs/refs-and-the-dom.html#callback-refs">callback ref</a> um auf das input-Element zuzugreifen</p>
+<p>Bemerkung: <code>register()</code> verwendet eine <a href="https://reactjs.org/docs/refs-and-the-dom.html#callback-refs">callback ref</a>, um auf das input-Element zuzugreifen</p>
 <h2>react-hook-form: register</h2>
 <p>Die <code>register</code>-Funktion kann Parameter für die Validierung erhalten:</p>
 <ul>
@@ -928,10 +923,10 @@ const Slideshow = (props) => (
 <p>mögliche Modes:</p>
 <ul>
 <li><code>onSubmit</code> (Standard)</li>
-<li><code>onBlur</code></li>
-<li><code>onTouched</code></li>
+<li><code>onBlur</code> - Validierung, wenn der Input den Fokus verliert</li>
+<li><code>onTouched</code> - Validierung, wenn der Input den Fokus verliert; danach bei jeder Änderung</li>
 <li><code>onChange</code></li>
-<li><code>all</code></li>
+<li><code>all</code> - Validierung, wenn der Input sich ändert oder wenn er den Fokus verliert, ohne sich geändert zu haben</li>
 </ul>
 <h2>react-hook-form: Tests</h2>
 <p>Beim Testen im Zusammenhang mit <em>react-hook-form</em> muss ein entsprechendes Setup erfolgen:</p>

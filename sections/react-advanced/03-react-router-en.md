@@ -42,12 +42,6 @@ ReactDOM.render(
 - `<Router>` - a container for `<Route>` elements
 - `<Link>` / `<NavLink>` - are used in place of `<a>` elements
 
-## Basic router components (v5)
-
-- `<Route>` - a component that renders its content when active
-- `<Switch>` - a container for `<Route>` elements
-- `<Link>` / `<NavLink>` - are used in place of `<a>` elements
-
 ## Basic example (v6)
 
 ```js
@@ -85,6 +79,8 @@ const App = () => {
 ```
 
 ## Basic example (v5)
+
+In v5 we use the `<Switch>` component instead of `<Routes>`
 
 ```js
 const App = () => {
@@ -136,33 +132,36 @@ supplying a class name that will be applied to any active link:
 <NavLink to="/add" activeClassName="active-link">Add</NavLink>
 ```
 
-## Navigation from React (v6)
+## Navigation from React
+
+in v6:
 
 ```jsx
-import { useNavigate} from "react-router-dom";
+const navigate = useNavigate();
+// ...
+navigate('/');
+```
 
+in v5:
+
+```js
+const history = useHistory();
+// ...
+history.push('/');
+```
+
+## Navigation from React
+
+example:
+
+```jsx
 const AddTodoView = () => {
   const navigate = useNavigate();
   const handleSubmit = (event) => {
     event.preventDefault();
-    navigate("/")
-  }
-}
-```
-
-## Navigation from React (v5)
-
-```jsx
-import { useHistory } from 'react-router-dom';
-
-const AddTodoView = () => {
-  const history = useHistory();
-  const handleSubmit = (event) => {
-    event.preventDefault();
     // ...
-    // go back to home view
-    history.push('/');
+    navigate('/');
   };
-  return <form onSubmit={handleSubmit}>...</form>;
+  // ...
 };
 ```

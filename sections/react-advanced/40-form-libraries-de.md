@@ -44,7 +44,7 @@ const NewsletterSignup = () => {
 };
 ```
 
-Bemerkung: `register()` verwendet eine [callback ref](https://reactjs.org/docs/refs-and-the-dom.html#callback-refs) um auf das input-Element zuzugreifen
+Bemerkung: `register()` verwendet eine [callback ref](https://reactjs.org/docs/refs-and-the-dom.html#callback-refs), um auf das input-Element zuzugreifen
 
 ## react-hook-form: register
 
@@ -91,10 +91,10 @@ useForm({ mode: 'onSubmit' });
 mögliche Modes:
 
 - `onSubmit` (Standard)
-- `onBlur`
-- `onTouched`
+- `onBlur` - Validierung, wenn der Input den Fokus verliert
+- `onTouched` - Validierung, wenn der Input den Fokus verliert; danach bei jeder Änderung
 - `onChange`
-- `all`
+- `all` - Validierung, wenn der Input sich ändert oder wenn er den Fokus verliert, ohne sich geändert zu haben
 
 ## react-hook-form: Tests
 

@@ -8,17 +8,19 @@ The interface of context can pass both data and event handlers
 
 ## Context - example
 
-with JavaScript (_TodosContext.js_):
-
 ```js
+// TodosContext.js
 import { createContext } from 'react';
 
 const TodosContext = createContext();
 ```
 
-with TypeScript (_TodosContext.ts_):
+## Context - example
+
+with TypeScript:
 
 ```ts
+// TodosContext.ts
 import { createContext } from 'react';
 
 type TodosContextType = {

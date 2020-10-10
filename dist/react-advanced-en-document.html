@@ -48,12 +48,6 @@ ReactDOM.render(
 <li><code>&#x3C;Router></code> - a container for <code>&#x3C;Route></code> elements</li>
 <li><code>&#x3C;Link></code> / <code>&#x3C;NavLink></code> - are used in place of <code>&#x3C;a></code> elements</li>
 </ul>
-<h2>Basic router components (v5)</h2>
-<ul>
-<li><code>&#x3C;Route></code> - a component that renders its content when active</li>
-<li><code>&#x3C;Switch></code> - a container for <code>&#x3C;Route></code> elements</li>
-<li><code>&#x3C;Link></code> / <code>&#x3C;NavLink></code> - are used in place of <code>&#x3C;a></code> elements</li>
-</ul>
 <h2>Basic example (v6)</h2>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> App = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
   <span class="hljs-keyword">return</span> (
@@ -85,6 +79,7 @@ ReactDOM.render(
 };
 </code></pre>
 <h2>Basic example (v5)</h2>
+<p>In v5 we use the <code>&#x3C;Switch></code> component instead of <code>&#x3C;Routes></code></p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> App = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
   <span class="hljs-keyword">return</span> (
     <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
@@ -124,29 +119,27 @@ ReactDOM.render(
 <pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">NavLink</span> <span class="hljs-attr">to</span>=<span class="hljs-string">"/"</span> <span class="hljs-attr">activeClassName</span>=<span class="hljs-string">"active-link"</span>></span>Home<span class="hljs-tag">&#x3C;/<span class="hljs-name">NavLink</span>></span>
 <span class="hljs-tag">&#x3C;<span class="hljs-name">NavLink</span> <span class="hljs-attr">to</span>=<span class="hljs-string">"/add"</span> <span class="hljs-attr">activeClassName</span>=<span class="hljs-string">"active-link"</span>></span>Add<span class="hljs-tag">&#x3C;/<span class="hljs-name">NavLink</span>></span>
 </code></pre>
-<h2>Navigation from React (v6)</h2>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> { useNavigate} <span class="hljs-keyword">from</span> <span class="hljs-string">"react-router-dom"</span>;
-
-<span class="hljs-keyword">const</span> AddTodoView = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+<h2>Navigation from React</h2>
+<p>in v6:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> navigate = useNavigate();
+<span class="hljs-comment">// ...</span>
+navigate(<span class="hljs-string">'/'</span>);
+</code></pre>
+<p>in v5:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> history = useHistory();
+<span class="hljs-comment">// ...</span>
+history.push(<span class="hljs-string">'/'</span>);
+</code></pre>
+<h2>Navigation from React</h2>
+<p>example:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> AddTodoView = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
   <span class="hljs-keyword">const</span> navigate = useNavigate();
   <span class="hljs-keyword">const</span> handleSubmit = <span class="hljs-function">(<span class="hljs-params">event</span>) =></span> {
     event.preventDefault();
-    navigate(<span class="hljs-string">"/"</span>)
-  }
-}
-</code></pre>
-<h2>Navigation from React (v5)</h2>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> { useHistory } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router-dom'</span>;
-
-<span class="hljs-keyword">const</span> AddTodoView = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  <span class="hljs-keyword">const</span> history = useHistory();
-  <span class="hljs-keyword">const</span> handleSubmit = <span class="hljs-function">(<span class="hljs-params">event</span>) =></span> {
-    event.preventDefault();
     <span class="hljs-comment">// ...</span>
-    <span class="hljs-comment">// go back to home view</span>
-    history.push(<span class="hljs-string">'/'</span>);
+    navigate(<span class="hljs-string">'/'</span>);
   };
-  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">form</span> <span class="hljs-attr">onSubmit</span>=<span class="hljs-string">{handleSubmit}</span>></span>...<span class="hljs-tag">&#x3C;/<span class="hljs-name">form</span>></span></span>;
+  <span class="hljs-comment">// ...</span>
 };
 </code></pre>
 <h1>Context</h1>
@@ -154,13 +147,15 @@ ReactDOM.render(
 <p>Context is a means to provide values from a component to all components that are contained within it - without explicitly passing it through all intermediate levels.</p>
 <p>The interface of context can pass both data and event handlers</p>
 <h2>Context - example</h2>
-<p>with JavaScript (<em>TodosContext.js</em>):</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { createContext } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+<pre><code class="hljs language-js"><span class="hljs-comment">// TodosContext.js</span>
+<span class="hljs-keyword">import</span> { createContext } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
 
 <span class="hljs-keyword">const</span> TodosContext = createContext();
 </code></pre>
-<p>with TypeScript (<em>TodosContext.ts</em>):</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { createContext } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+<h2>Context - example</h2>
+<p>with TypeScript:</p>
+<pre><code class="hljs language-ts"><span class="hljs-comment">// TodosContext.ts</span>
+<span class="hljs-keyword">import</span> { createContext } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
 
 <span class="hljs-keyword">type</span> TodosContextType = {
   todos: <span class="hljs-built_in">Array</span>&#x3C;Todo>;
@@ -928,10 +923,10 @@ const Slideshow = (props) => (
 <p>modes:</p>
 <ul>
 <li><code>onSubmit</code> (default)</li>
-<li><code>onBlur</code></li>
-<li><code>onTouched</code></li>
+<li><code>onBlur</code> - validation happens when the input loses focus</li>
+<li><code>onTouched</code> - validation happens when the input loses focus for the first time; after that, validation happens on every change</li>
 <li><code>onChange</code></li>
-<li><code>all</code></li>
+<li><code>all</code> - validation happens when the input changes or when it loses focus without being changed</li>
 </ul>
 <h2>react-hook-form: testing</h2>
 <p>component tests related to <em>react-hook-form</em> require a setup:</p>
