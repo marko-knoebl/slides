@@ -24,9 +24,10 @@
 
 React router 6 beta is available since June 2020, but development has been slow since then
 
-package for react router 6 (includes TypeScript support):
+packages for react router 6 (include TypeScript support):
 
 - _react-router-dom@next_
+- _history_
 
 packages for react router 5:
 
@@ -197,6 +198,8 @@ The interface of context can pass both data and event handlers
 import { createContext } from 'react';
 
 const TodosContext = createContext();
+
+export default TodosContext;
 ```
 
 ## Context - example
@@ -213,6 +216,8 @@ type TodosContextType = {
 };
 
 const TodosContext = createContext({} as TodosContextType);
+
+export default TodosContext;
 ```
 
 ## Context - example
@@ -368,6 +373,35 @@ const App = () => {
         : 'logged out automatically'}
     </button>
   );
+};
+```
+
+## Async
+
+Warning: the following use of an async function is incorrect:
+
+```js
+const App = () => {
+  useEffect(async () => {
+    // fetch data
+  });
+};
+```
+
+reason: an _async_ function returns a promise; but any returned value is considered a cleanup function
+
+## Async
+
+correct usage with _async_:
+
+```js
+const App = () => {
+  useEffect(() => {
+    const fetchData = async () => {
+      // fetch data
+    };
+    fetchData();
+  });
 };
 ```
 

@@ -8,9 +8,10 @@
 
 React router 6 beta is available since June 2020, but development has been slow since then
 
-package for react router 6 (includes TypeScript support):
+packages for react router 6 (include TypeScript support):
 
 - _react-router-dom@next_
+- _history_
 
 packages for react router 5:
 

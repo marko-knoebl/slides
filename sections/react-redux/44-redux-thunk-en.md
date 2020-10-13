@@ -29,13 +29,13 @@ In Thunk, the synchronous logic remains in the reducer while the asynchronous lo
 ## Example: loadTodos
 
 ```js
-const loadTodos = dispatch => {
+const loadTodos = (dispatch) => {
   // "dispatch" is the redux store's dispatch function
   // it is passed in automatically (dependency injection)
   dispatch({ type: 'loadTodosRequest' });
   fetch('https://jsonplaceholder.typicode.com/todos')
-    .then(response => response.json())
-    .then(todos => {
+    .then((response) => response.json())
+    .then((todos) => {
       dispatch({ type: 'loadTodosSuccess', todos: todos });
     });
 };
@@ -58,5 +58,22 @@ const actionAsync = () => (dispatch, getState) => {
   dispatch(started());
   const s = getState();
   ...
+};
+```
+
+## Typing a Thunk action
+
+```ts
+import { Dispatch } from '@reduxjs/toolkit';
+
+const asyncAction = () => (
+  dispatch: Dispatch<TodosDataAction>
+) => {
+  dispatch({ type: 'todosData/loadTodosRequest' });
+  ...
+  dispatch({
+    type: 'todosData/loadTodosSuccess',
+    payload: data,
+  });
 };
 ```

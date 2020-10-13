@@ -124,6 +124,35 @@ const App = () => {
 };
 ```
 
+## Async
+
+Achtung: die folgende Verwendung einer async-Funktion ist in diesem Zusammenhang inkorrekt:
+
+```js
+const App = () => {
+  useEffect(async () => {
+    // fetch data
+  });
+};
+```
+
+Grund: Eine _async_-Funktion gibt ein Promise zurück; aber jeder aus einem Effect zurückgegebene Wert wird von React Als Cleanup-Funktion interpretiert
+
+## Async
+
+richtige Verwendung mit _async_:
+
+```js
+const App = () => {
+  useEffect(() => {
+    const fetchData = async () => {
+      // fetch data
+    };
+    fetchData();
+  });
+};
+```
+
 ## Effect nach jedem Rendering
 
 Wenn kein zweiter Parameter übergeben wird, wird die Funktion nach jedem Rendering ausgeführt.

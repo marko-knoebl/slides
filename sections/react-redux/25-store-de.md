@@ -1,11 +1,10 @@
-# Redux store
+# Redux Store
 
-## Redux store
+## Redux Store
 
-creating a Redux store that will contain the state; the store is managed by a reducer
+Erstellen eines Redux Stores, der den State enthält; der Store wird von einem Reducer verwaltet
 
 ```js
-// src/index.js
 import { configureStore } from '@reduxjs/toolkit';
 import todosReducer from './state/todos';
 
@@ -14,15 +13,15 @@ const todosStore = configureStore({
 });
 ```
 
-## Redux store
+## Redux Store
 
-Directly using the store:
+Direkte Verwendung des Stores:
 
 ```js
 console.log(todosStore.getState());
 todosStore.dispatch({
   type: 'addTodo',
-  title: 'learn Redux',
+  payload: 'learn Redux',
 });
 console.log(todosStore.getState());
 ```

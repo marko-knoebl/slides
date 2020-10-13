@@ -24,9 +24,10 @@
 
 React Router 6 Beta ist seit Juni 2020 verfügbar, aber die Entwicklung läuft seither langsam
 
-Paket für React Router 6 (beinhaltet Unterstützung für TypeScript):
+Pakete für React Router 6 (beinhalten Unterstützung für TypeScript):
 
 - _react-router-dom@next_
+- _history_
 
 Pakete für React Router 5:
 
@@ -197,6 +198,8 @@ Das Interface von Context kann sowohl Daten (aus dem State) als auch Eventhandle
 import { createContext } from 'react';
 
 const TodosContext = createContext();
+
+export default TodosContext;
 ```
 
 ## Context - Beispiel
@@ -213,6 +216,8 @@ type TodosContextType = {
 };
 
 const TodosContext = createContext({} as TodosContextType);
+
+export default TodosContext;
 ```
 
 ## Context - Beispiel
@@ -368,6 +373,35 @@ const App = () => {
         : 'logged out automatically'}
     </button>
   );
+};
+```
+
+## Async
+
+Achtung: die folgende Verwendung einer async-Funktion ist in diesem Zusammenhang inkorrekt:
+
+```js
+const App = () => {
+  useEffect(async () => {
+    // fetch data
+  });
+};
+```
+
+Grund: Eine _async_-Funktion gibt ein Promise zurück; aber jeder aus einem Effect zurückgegebene Wert wird von React Als Cleanup-Funktion interpretiert
+
+## Async
+
+richtige Verwendung mit _async_:
+
+```js
+const App = () => {
+  useEffect(() => {
+    const fetchData = async () => {
+      // fetch data
+    };
+    fetchData();
+  });
 };
 ```
 

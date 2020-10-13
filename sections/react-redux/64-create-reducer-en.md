@@ -15,9 +15,9 @@
 const counterReducer = (state = 0, action) => {
   switch (action.type) {
     case 'increment':
-      return state + (action.amount || 1);
+      return state + (action.payload || 1);
     case 'decrement':
-      return state - (action.amount || 1);
+      return state - (action.payload || 1);
     default:
       return state;
   }
@@ -33,9 +33,9 @@ import { createReducer } from '@reduxjs/toolkit';
 
 const counterReducer = createReducer(0, {
   increment: (state, action) =>
-    state + (action.amount || 1),
+    state + (action.payload || 1),
   decrement: (state, action) =>
-    state - (action.amount || 1),
+    state - (action.payload || 1),
 });
 ```
 
@@ -44,14 +44,14 @@ const counterReducer = createReducer(0, {
 implementation with _TypeScript_ - this enables better type inference:
 
 ```js
-const counterReducer = createReducer(0, builder => {
+const counterReducer = createReducer(0, (builder) => {
   builder.addCase(
     'increment',
-    (state, action) => state + (action.amount || 1)
+    (state, action) => state + (action.payload || 1)
   );
   builder.addCase(
     'decrement',
-    (state, action) => state - (action.amount || 1)
+    (state, action) => state - (action.payload || 1)
   );
 });
 ```
@@ -81,17 +81,17 @@ const userReducer = createReducer(initialState, {
 if we've used _createAction_ we can use the action creator as the key (because of its `.toString()` method):
 
 ```js
-const increment = createAction('increment', amount => ({
+const increment = createAction('increment', (amount) => ({
   amount: amount,
 }));
-const decrement = createAction('decrement', amount => ({
+const decrement = createAction('decrement', (amount) => ({
   amount: amount,
 }));
 
 const counterReducer = createReducer(0, {
   [increment]: (state, action) =>
-    state + (action.amount || 1),
+    state + (action.payload || 1),
   [decrement]: (state, action) =>
-    state - (action.amount || 1),
+    state - (action.payload || 1),
 });
 ```

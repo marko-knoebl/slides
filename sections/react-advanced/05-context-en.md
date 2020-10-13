@@ -13,6 +13,8 @@ The interface of context can pass both data and event handlers
 import { createContext } from 'react';
 
 const TodosContext = createContext();
+
+export default TodosContext;
 ```
 
 ## Context - example
@@ -29,6 +31,8 @@ type TodosContextType = {
 };
 
 const TodosContext = createContext({} as TodosContextType);
+
+export default TodosContext;
 ```
 
 ## Context - example

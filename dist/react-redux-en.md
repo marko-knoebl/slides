@@ -49,6 +49,65 @@ See presentation on [React advanced](./react-advanced-en.html#/7)
 - Redux devtools
 - Redux store
 
+# Redux devtools
+
+## Redux devtools
+
+<figure>
+  <img src="assets/redux-devtools-airbnb.png" style="width: 100%" alt="Redux devtools showing the state of the airbnb website">
+  <figcaption>Redux devtools showing the state of the airbnb website</figcaption>
+</figure>
+
+## Redux devtools
+
+Browser plugin for Firefox / Chrome:
+
+<https://github.com/zalmoxisus/redux-devtools-extension>
+
+View Redux state via:
+
+browser-devtools (F12) → _Redux_ → _State_ → _Chart/Tree_
+
+## Redux devtools
+
+websites that use Redux (we can inspect the Redux state):
+
+- airbnb.com (Chrome only)
+- reddit.com (state chart doesn't display)
+- dropbox.com (Chrome only)
+- tesla.com (very simple state)
+
+## Redux devtools
+
+functionality:
+
+- inspect state
+- display changes to the state
+- trigger (dispatch) actions
+- restore previous state (time traveling)
+- save / restore state to / from JSON
+
+# Redux toolkit
+
+## Redux toolkit
+
+**Redux toolkit** enables a simplified setup of Redux and associated libraries (in the spirit of _create-react-app_)
+
+We will use it throughout this presentation
+
+npm package: _@reduxjs/toolkit_
+
+## Redux toolkit
+
+functionality (see [what's included](https://redux-toolkit.js.org/introduction/quick-start#whats-included)):
+
+- debugging (via _redux devtools_)
+- asynchronous actions (via _thunk_)
+- simpler action creators (via _createAction_)
+- simpler reducer creation (via _createReducer_)
+- simpler state updates by direct mutations (via _immer.js_)
+- ...
+
 # State management in Redux
 
 ## State management in Redux
@@ -104,64 +163,49 @@ const todosReducer = (oldState = initialState, action) => {
 };
 ```
 
-# Redux toolkit
+# Typing Redux reducers
 
-## Redux toolkit
+## Defining action types
 
-**Redux toolkit** enables a simplified setup of Redux and associated libraries (in the spirit of _create-react-app_)
+```ts
+import { Action, PayloadAction } from '@reduxjs/toolkit';
 
-We will use it throughout this presentation
+export type TodosAction =
+  | PayloadAction<string, 'todos/addTodo'>
+  | PayloadAction<number, 'todos/toggleTodo'>
+  | Action<'todos/deleteCompletedTodos'>;
+```
 
-npm package: _@reduxjs/toolkit_
+## Typing a reducer
 
-## Redux toolkit
+```ts
+export type TodosState = Array<Todo>;
 
-functionality (see [what's included](https://redux-toolkit.js.org/introduction/quick-start#whats-included)):
+const todosReducer = (
+  state: TodosState,
+  action: TodosAction
+): TodosState => {
+  // ...
+};
+```
 
-- debugging (via _redux devtools_)
-- asynchronous actions (via _thunk_)
-- simpler action creators (via _createAction_)
-- simpler reducer creation (via _createReducer_)
-- simpler state updates by direct mutations (via _immer.js_)
-- ...
+## Getting state type / action types for a reducer
 
-# Redux devtools
+```ts
+import todosReducer, {
+  TodosState,
+  TodosAction,
+} from './todosReducer';
+```
 
-## Redux devtools
+or:
 
-<figure>
-  <img src="assets/redux-devtools-airbnb.png" style="width: 100%" alt="Redux devtools showing the state of the airbnb website">
-  <figcaption>Redux devtools showing the state of the airbnb website</figcaption>
-</figure>
+```ts
+import todosReducer from './todosReducer';
 
-## Redux devtools
-
-Browser plugin for Firefox / Chrome:
-
-<https://github.com/zalmoxisus/redux-devtools-extension>
-
-View Redux state via:
-
-browser-devtools (F12) → _Redux_ → _State_ → _Chart/Tree_
-
-## Redux devtools
-
-websites that use Redux (we can inspect the Redux state):
-
-- airbnb.com (Chrome only)
-- reddit.com (state chart doesn't display)
-- dropbox.com (Chrome only)
-- tesla.com (very simple state)
-
-## Redux devtools
-
-functionality:
-
-- inspect state
-- display changes to the state
-- trigger (dispatch) actions
-- restore previous state (time traveling)
-- save / restore state to / from JSON
+type TodosAction = Parameters<typeof todosReducer>[1];
+type TodosState = ReturnType<typeof todosReducer>;
+```
 
 # Redux store
 
@@ -170,7 +214,6 @@ functionality:
 creating a Redux store that will contain the state; the store is managed by a reducer
 
 ```js
-// src/index.js
 import { configureStore } from '@reduxjs/toolkit';
 import todosReducer from './state/todos';
 
@@ -187,7 +230,7 @@ Directly using the store:
 console.log(todosStore.getState());
 todosStore.dispatch({
   type: 'addTodo',
-  title: 'learn Redux',
+  payload: 'learn Redux',
 });
 console.log(todosStore.getState());
 ```
@@ -245,14 +288,35 @@ The selector function receives the entire Redux state and returns a value that i
 import { useSelector } from 'react-redux';
 
 const TodoList = () => {
-  const todos = useSelector(state => state);
-  const numTodos = useSelector(state => state.length);
+  const todos = useSelector((state) => state);
+  const numTodos = useSelector((state) => state.length);
   const numCompletedTodos = useSelector(
-    state => state.filter(todo => todo.completed).length
+    (state) => state.filter((todo) => todo.completed).length
   );
-
-  ...
+  // ...
 };
+```
+
+## useSelector with TypeScript
+
+getting the state type:
+
+```ts
+// rootReducer.ts
+export type State = Array<Todo>;
+```
+
+or
+
+```ts
+// store.ts
+export type State = ReturnType<typeof todosStore.getState>;
+```
+
+using with `useSelector`:
+
+```ts
+useSelector((state: State) => state.length);
 ```
 
 ## useDispatch
@@ -272,7 +336,9 @@ const TodoList = () => {
 ## useDispatch with TypeScript
 
 ```ts
-const dispatch = useDispatch<TodoAppAction>();
+import { Dispatch } from '@reduxjs/toolkit';
+
+const dispatch = useDispatch<Dispatch<TodoAppAction>>();
 ```
 
 # React with Redux: container components
@@ -562,13 +628,13 @@ In Thunk, the synchronous logic remains in the reducer while the asynchronous lo
 ## Example: loadTodos
 
 ```js
-const loadTodos = dispatch => {
+const loadTodos = (dispatch) => {
   // "dispatch" is the redux store's dispatch function
   // it is passed in automatically (dependency injection)
   dispatch({ type: 'loadTodosRequest' });
   fetch('https://jsonplaceholder.typicode.com/todos')
-    .then(response => response.json())
-    .then(todos => {
+    .then((response) => response.json())
+    .then((todos) => {
       dispatch({ type: 'loadTodosSuccess', todos: todos });
     });
 };
@@ -594,6 +660,23 @@ const actionAsync = () => (dispatch, getState) => {
 };
 ```
 
+## Typing a Thunk action
+
+```ts
+import { Dispatch } from '@reduxjs/toolkit';
+
+const asyncAction = () => (
+  dispatch: Dispatch<TodosDataAction>
+) => {
+  dispatch({ type: 'todosData/loadTodosRequest' });
+  ...
+  dispatch({
+    type: 'todosData/loadTodosSuccess',
+    payload: data,
+  });
+};
+```
+
 # Action creators
 
 ## Action creators
@@ -601,7 +684,7 @@ const actionAsync = () => (dispatch, getState) => {
 Action creators are usually very simple functions used to create a specific action
 
 ```js
-const addTodo = title => ({
+const addTodo = (title) => ({
   type: 'addTodo',
   payload: title,
 });
@@ -631,14 +714,14 @@ dispatch(loadTodoByIndex(3));
 
 ```js
 // thunk action creator
-const loadTodoByIndex = id => {
+const loadTodoByIndex = (id) => {
   function thunkAction(dispatch) {
     dispatch({ type: 'loadTodoRequest', payload: id });
     fetch(
       `https://jsonplaceholder.typicode.com/todos/${index}`
     )
-      .then(response => response.json())
-      .then(todo => {
+      .then((response) => response.json())
+      .then((todo) => {
         dispatch({ type: 'loadTodoSuccess', todo: todo });
       });
   }
@@ -652,72 +735,15 @@ shorter version with nested arrow functions
 
 ```js
 // thunk action creator
-const loadTodoByIndex = id => dispatch => {
+const loadTodoByIndex = (id) => (dispatch) => {
   dispatch({ type: 'loadTodoRequest', payload: id });
   fetch(
     `https://jsonplaceholder.typicode.com/todos/${index}`
   )
-    .then(response => response.json())
-    .then(todo => {
+    .then((response) => response.json())
+    .then((todo) => {
       dispatch({ type: 'loadTodoSuccess', payload: todo });
     });
-};
-```
-
-# Redux and TypeScript
-
-## Redux and TypeScript
-
-- defining action types
-- typing a reducer
-- getting state / action types from reducers
-- typing a thunk action
-
-## Defining action types
-
-```ts
-import { Action, PayloadAction } from '@reduxjs/toolkit';
-
-type TodosAction =
-  | PayloadAction<string, 'todos/addTodo'>
-  | PayloadAction<number, 'todos/toggleTodo'>
-  | Action<'todos/deleteCompletedTodos'>;
-```
-
-## Typing a reducer
-
-```ts
-type TodosState = Array<Todo>;
-
-const todosReducer = (
-  state: TodosState,
-  action: TodosAction
-): TodosState => {};
-```
-
-## Getting state type / action types from a reducer
-
-```ts
-import todosReducer from './todosReducer';
-
-type TodosAction = Parameters<typeof todosReducer>[1];
-type TodosState = ReturnType<typeof todosReducer>;
-```
-
-## Typing a Thunk action
-
-```ts
-import { Dispatch } from '@reduxjs/toolkit';
-
-const asyncAction = () => (
-  dispatch: Dispatch<TodosDataAction>
-) => {
-  dispatch({ type: 'todosData/loadTodosRequest' });
-  ...
-  dispatch({
-    type: 'todosData/loadTodosSuccess',
-    payload: data,
-  });
 };
 ```
 
@@ -744,7 +770,7 @@ const mockStore = configureMockStore([thunk]);
 ## Testing thunks
 
 ```js
-it('loadTodos() dispatches two actions', async (done) => {
+test('loadTodos() dispatches two actions', async (done) => {
   const todoData = [
     { title: 'abc', completed: false, id: 1 },
   ];
@@ -963,9 +989,9 @@ This can become useful when using `createReducer`.
 const counterReducer = (state = 0, action) => {
   switch (action.type) {
     case 'increment':
-      return state + (action.amount || 1);
+      return state + (action.payload || 1);
     case 'decrement':
-      return state - (action.amount || 1);
+      return state - (action.payload || 1);
     default:
       return state;
   }
@@ -981,9 +1007,9 @@ import { createReducer } from '@reduxjs/toolkit';
 
 const counterReducer = createReducer(0, {
   increment: (state, action) =>
-    state + (action.amount || 1),
+    state + (action.payload || 1),
   decrement: (state, action) =>
-    state - (action.amount || 1),
+    state - (action.payload || 1),
 });
 ```
 
@@ -992,14 +1018,14 @@ const counterReducer = createReducer(0, {
 implementation with _TypeScript_ - this enables better type inference:
 
 ```js
-const counterReducer = createReducer(0, builder => {
+const counterReducer = createReducer(0, (builder) => {
   builder.addCase(
     'increment',
-    (state, action) => state + (action.amount || 1)
+    (state, action) => state + (action.payload || 1)
   );
   builder.addCase(
     'decrement',
-    (state, action) => state - (action.amount || 1)
+    (state, action) => state - (action.payload || 1)
   );
 });
 ```
@@ -1029,18 +1055,18 @@ const userReducer = createReducer(initialState, {
 if we've used _createAction_ we can use the action creator as the key (because of its `.toString()` method):
 
 ```js
-const increment = createAction('increment', amount => ({
+const increment = createAction('increment', (amount) => ({
   amount: amount,
 }));
-const decrement = createAction('decrement', amount => ({
+const decrement = createAction('decrement', (amount) => ({
   amount: amount,
 }));
 
 const counterReducer = createReducer(0, {
   [increment]: (state, action) =>
-    state + (action.amount || 1),
+    state + (action.payload || 1),
   [decrement]: (state, action) =>
-    state - (action.amount || 1),
+    state - (action.payload || 1),
 });
 ```
 

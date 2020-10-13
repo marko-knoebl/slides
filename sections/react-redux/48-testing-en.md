@@ -21,7 +21,7 @@ const mockStore = configureMockStore([thunk]);
 ## Testing thunks
 
 ```js
-it('loadTodos() dispatches two actions', async (done) => {
+test('loadTodos() dispatches two actions', async (done) => {
   const todoData = [
     { title: 'abc', completed: false, id: 1 },
   ];

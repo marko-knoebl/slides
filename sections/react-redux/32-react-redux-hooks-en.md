@@ -14,14 +14,35 @@ The selector function receives the entire Redux state and returns a value that i
 import { useSelector } from 'react-redux';
 
 const TodoList = () => {
-  const todos = useSelector(state => state);
-  const numTodos = useSelector(state => state.length);
+  const todos = useSelector((state) => state);
+  const numTodos = useSelector((state) => state.length);
   const numCompletedTodos = useSelector(
-    state => state.filter(todo => todo.completed).length
+    (state) => state.filter((todo) => todo.completed).length
   );
-
-  ...
+  // ...
 };
+```
+
+## useSelector with TypeScript
+
+getting the state type:
+
+```ts
+// rootReducer.ts
+export type State = Array<Todo>;
+```
+
+or
+
+```ts
+// store.ts
+export type State = ReturnType<typeof todosStore.getState>;
+```
+
+using with `useSelector`:
+
+```ts
+useSelector((state: State) => state.length);
 ```
 
 ## useDispatch
@@ -41,5 +62,7 @@ const TodoList = () => {
 ## useDispatch with TypeScript
 
 ```ts
-const dispatch = useDispatch<TodoAppAction>();
+import { Dispatch } from '@reduxjs/toolkit';
+
+const dispatch = useDispatch<Dispatch<TodoAppAction>>();
 ```

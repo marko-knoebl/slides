@@ -5,7 +5,7 @@
 Action creators are usually very simple functions used to create a specific action
 
 ```js
-const addTodo = title => ({
+const addTodo = (title) => ({
   type: 'addTodo',
   payload: title,
 });
@@ -35,14 +35,14 @@ dispatch(loadTodoByIndex(3));
 
 ```js
 // thunk action creator
-const loadTodoByIndex = id => {
+const loadTodoByIndex = (id) => {
   function thunkAction(dispatch) {
     dispatch({ type: 'loadTodoRequest', payload: id });
     fetch(
       `https://jsonplaceholder.typicode.com/todos/${index}`
     )
-      .then(response => response.json())
-      .then(todo => {
+      .then((response) => response.json())
+      .then((todo) => {
         dispatch({ type: 'loadTodoSuccess', todo: todo });
       });
   }
@@ -56,13 +56,13 @@ shorter version with nested arrow functions
 
 ```js
 // thunk action creator
-const loadTodoByIndex = id => dispatch => {
+const loadTodoByIndex = (id) => (dispatch) => {
   dispatch({ type: 'loadTodoRequest', payload: id });
   fetch(
     `https://jsonplaceholder.typicode.com/todos/${index}`
   )
-    .then(response => response.json())
-    .then(todo => {
+    .then((response) => response.json())
+    .then((todo) => {
       dispatch({ type: 'loadTodoSuccess', payload: todo });
     });
 };

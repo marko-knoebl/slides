@@ -124,6 +124,35 @@ const App = () => {
 };
 ```
 
+## Async
+
+Warning: the following use of an async function is incorrect:
+
+```js
+const App = () => {
+  useEffect(async () => {
+    // fetch data
+  });
+};
+```
+
+reason: an _async_ function returns a promise; but any returned value is considered a cleanup function
+
+## Async
+
+correct usage with _async_:
+
+```js
+const App = () => {
+  useEffect(() => {
+    const fetchData = async () => {
+      // fetch data
+    };
+    fetchData();
+  });
+};
+```
+
 ## Effect after every rendering
 
 If no second parameter is passed the effect will run after each rendering.

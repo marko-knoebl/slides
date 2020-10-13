@@ -4,7 +4,7 @@
 
 Mit `useSelector` können wir die Inhalte des Redux-Stores abfragen.
 
-Wir übergeben eine sogenannte _Selektorfunktion_ an `useSelektor`.
+Wir übergeben eine sogenannte _Selektorfunktion_ an `useSelector`.
 
 Die Selektorfunktion erhält den gesamten Redux-State und gibt einen daraus abgeleiteten Wert zurück.
 
@@ -14,14 +14,35 @@ Die Selektorfunktion erhält den gesamten Redux-State und gibt einen daraus abge
 import { useSelector } from 'react-redux';
 
 const TodoList = () => {
-  const todos = useSelector(state => state);
-  const numTodos = useSelector(state => state.length);
+  const todos = useSelector((state) => state);
+  const numTodos = useSelector((state) => state.length);
   const numCompletedTodos = useSelector(
-    state => state.filter(todo => todo.completed).length
+    (state) => state.filter((todo) => todo.completed).length
   );
-
-  ...
+  // ...
 };
+```
+
+## useSelector mit TypeScript
+
+erhalten des State-Types:
+
+```ts
+// rootReducer.ts
+export type State = Array<Todo>;
+```
+
+oder
+
+```ts
+// store.ts
+export type State = ReturnType<typeof todosStore.getState>;
+```
+
+verwenden mit `useSelector`:
+
+```ts
+useSelector((state: State) => state.length);
 ```
 
 ## useDispatch
@@ -41,5 +62,7 @@ const TodoList = () => {
 ## useDispatch mit TypeScript
 
 ```ts
-const dispatch = useDispatch<TodoAppAction>();
+import { Dispatch } from '@reduxjs/toolkit';
+
+const dispatch = useDispatch<Dispatch<TodoAppAction>>();
 ```

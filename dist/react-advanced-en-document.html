@@ -18,9 +18,10 @@
 <p><strong>client-side routing</strong>: navigating between views without leaving the React app</p>
 <h2>Versions and Installation</h2>
 <p>React router 6 beta is available since June 2020, but development has been slow since then</p>
-<p>package for react router 6 (includes TypeScript support):</p>
+<p>packages for react router 6 (include TypeScript support):</p>
 <ul>
 <li><em>react-router-dom@next</em></li>
+<li><em>history</em></li>
 </ul>
 <p>packages for react router 5:</p>
 <ul>
@@ -151,6 +152,8 @@ history.push(<span class="hljs-string">'/'</span>);
 <span class="hljs-keyword">import</span> { createContext } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
 
 <span class="hljs-keyword">const</span> TodosContext = createContext();
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> TodosContext;
 </code></pre>
 <h2>Context - example</h2>
 <p>with TypeScript:</p>
@@ -163,6 +166,8 @@ history.push(<span class="hljs-string">'/'</span>);
 };
 
 <span class="hljs-keyword">const</span> TodosContext = createContext({} <span class="hljs-keyword">as</span> TodosContextType);
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> TodosContext;
 </code></pre>
 <h2>Context - example</h2>
 <p>The <em>provider</em> makes values available to all its subcomponents</p>
@@ -281,6 +286,26 @@ history.push(<span class="hljs-string">'/'</span>);
         : 'logged out automatically'}
     <span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span>
   );
+};
+</code></pre>
+<h2>Async</h2>
+<p>Warning: the following use of an async function is incorrect:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> App = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  useEffect(<span class="hljs-keyword">async</span> () => {
+    <span class="hljs-comment">// fetch data</span>
+  });
+};
+</code></pre>
+<p>reason: an <em>async</em> function returns a promise; but any returned value is considered a cleanup function</p>
+<h2>Async</h2>
+<p>correct usage with <em>async</em>:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> App = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+    <span class="hljs-keyword">const</span> fetchData = <span class="hljs-keyword">async</span> () => {
+      <span class="hljs-comment">// fetch data</span>
+    };
+    fetchData();
+  });
 };
 </code></pre>
 <h2>Effect after every rendering</h2>
