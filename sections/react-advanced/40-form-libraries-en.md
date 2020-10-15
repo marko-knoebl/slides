@@ -96,6 +96,14 @@ modes:
 - `onChange`
 - `all` - validation happens when the input changes or when it loses focus without being changed
 
+## react-hook-form: reset
+
+```js
+const { register, errors, handleSubmit, reset } = useForm();
+// ...
+reset();
+```
+
 ## react-hook-form: testing
 
 component tests related to _react-hook-form_ require a setup:
