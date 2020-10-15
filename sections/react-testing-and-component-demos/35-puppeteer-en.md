@@ -11,6 +11,8 @@ npm run start
 test that uses Puppeteer:
 
 ```js
+import puppeteer from 'puppeteer';
+
 test("displays page with title 'React App'", async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();

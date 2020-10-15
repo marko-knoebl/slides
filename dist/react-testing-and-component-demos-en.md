@@ -137,6 +137,8 @@ npm run start
 test that uses Puppeteer:
 
 ```js
+import puppeteer from 'puppeteer';
+
 test("displays page with title 'React App'", async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
@@ -229,6 +231,17 @@ extra assertions (enabled automatically when using _create-react-app_):
 - `.toHaveAttribute()`
 - `.toBeInTheDocument()`
 - ... (see <https://github.com/testing-library/jest-dom>)
+
+## User interactions
+
+```js
+import { fireEvent } from '@testing-library/react';
+
+fireEvent.click(getByRole('button', { name: 'Submit' }));
+fireEvent.change(getByRole('input', { name: 'title' }), {
+  target: { value: 'write tests' },
+});
+```
 
 ## Testing the rendering
 

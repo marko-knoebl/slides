@@ -78,6 +78,17 @@ extra assertions (enabled automatically when using _create-react-app_):
 - `.toBeInTheDocument()`
 - ... (see <https://github.com/testing-library/jest-dom>)
 
+## User interactions
+
+```js
+import { fireEvent } from '@testing-library/react';
+
+fireEvent.click(getByRole('button', { name: 'Submit' }));
+fireEvent.change(getByRole('input', { name: 'title' }), {
+  target: { value: 'write tests' },
+});
+```
+
 ## Testing the rendering
 
 _Slideshow_ component:

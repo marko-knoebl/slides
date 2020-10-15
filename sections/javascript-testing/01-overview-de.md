@@ -20,7 +20,7 @@ Popularität:
 
 ## Einfaches Beispiel: shorten
 
-Wir werden eine Funktion schreiben und testen, die einen String auf eine vorgegebene Länge verkürzt:
+Wir werden eine Funktion schreiben und testen, die einen String auf eine vorgegebene Länge kürzt:
 
 ```js
 shorten('loremipsum', 6);
@@ -42,7 +42,7 @@ Implementierung, die getestet werden soll:
  * shortens a given string to a specified length,
  * adding "..." at the end if it was shortened
  */
-export default shorten = (s, maxlength) =>
+export default (s, maxlength) =>
   s.length > maxlength
     ? s.slice(0, maxlength - 3) + '...'
     : s;
