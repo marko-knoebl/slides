@@ -13,15 +13,3 @@ Themen:
 ## Memoisation
 
 Memoisation = Technik, um Funktionsaufrufe zu optimieren: Bisherige Resultate werden gecached und müssen nicht neu berechnet werden
-
-## Re-Renderings optimieren
-
-was React schon für uns erledigt:
-
-- Hooks (state, reducer, context) lösen _kein_ Re-Rendering aus, wenn sich deren Wert nicht geändert hat
-
-was wir beitragen können:
-
-- Memoisation von Komponentenrenderings basierend auf deren Props
-- Memoisation aufwändiger Berechnungen
-- Bereitstellen eines _key_-Props für wiederholte Elemente

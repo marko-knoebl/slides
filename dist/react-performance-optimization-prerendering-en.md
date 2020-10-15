@@ -24,18 +24,6 @@ topics:
 
 Memoization = technique to speed up function calls etc.: Previous results are cached and don't have to be recomputed
 
-## Optimizing rerenderings
-
-what React already does for us:
-
-- hooks (state, reducer, context) will _not_ trigger a re-rendering if their value has not changed
-
-what we can add:
-
-- memoizing component renderings based on their props (so they don't have to be rerendered by their parent if their props don't change)
-- memoizing expensive calculations
-- providing a key prop for repeating elements
-
 # React devtools and performance
 
 ## React devtools and performance
@@ -103,11 +91,13 @@ Generally a component only needs to be rerendered when its props or state actual
 
 ## Preventing unneeded component rerenderings
 
-rules for rerendering in function components:
+what React already does for us:
 
-- setting a changed state will cause rerendering
-- setting the same state as before will not cause rerendering
-- the rerendering of a component will usually cause the rerendering of _all subcomponents_
+hooks (state, reducer, context) will _not_ trigger a re-rendering if their value has not changed
+
+what we can add:
+
+if a parent component rerenders, but the child's props haven't changed, don't rerender the child component (memoization)
 
 ## Preventing unneeded component rerenderings
 
@@ -128,12 +118,6 @@ function Coin() {
   );
 }
 ```
-
-## Preventing unneeded component rerenderings
-
-the rerendering of a component will usually cause the rerendering of _all subcomponents_
-
-\- this can be optimized!
 
 ## Preventing unneeded component rerenderings
 

@@ -18,17 +18,6 @@
 </ul>
 <h2>Memoization</h2>
 <p>Memoization = technique to speed up function calls etc.: Previous results are cached and don't have to be recomputed</p>
-<h2>Optimizing rerenderings</h2>
-<p>what React already does for us:</p>
-<ul>
-<li>hooks (state, reducer, context) will <em>not</em> trigger a re-rendering if their value has not changed</li>
-</ul>
-<p>what we can add:</p>
-<ul>
-<li>memoizing component renderings based on their props (so they don't have to be rerendered by their parent if their props don't change)</li>
-<li>memoizing expensive calculations</li>
-<li>providing a key prop for repeating elements</li>
-</ul>
 <h1>React devtools and performance</h1>
 <h2>React devtools and performance</h2>
 <p>react devtools functionality:</p>
@@ -71,12 +60,10 @@
 <h2>Preventing unneeded component rerenderings</h2>
 <p>Generally a component only needs to be rerendered when its props or state actually change</p>
 <h2>Preventing unneeded component rerenderings</h2>
-<p>rules for rerendering in function components:</p>
-<ul>
-<li>setting a changed state will cause rerendering</li>
-<li>setting the same state as before will not cause rerendering</li>
-<li>the rerendering of a component will usually cause the rerendering of <em>all subcomponents</em></li>
-</ul>
+<p>what React already does for us:</p>
+<p>hooks (state, reducer, context) will <em>not</em> trigger a re-rendering if their value has not changed</p>
+<p>what we can add:</p>
+<p>if a parent component rerenders, but the child's props haven't changed, don't rerender the child component (memoization)</p>
 <h2>Preventing unneeded component rerenderings</h2>
 <p>demo: component only rerenders if its state changes</p>
 <pre><code class="hljs language-jsx"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Coin</span>(<span class="hljs-params"></span>) </span>{
@@ -93,9 +80,6 @@
   );
 }
 </code></pre>
-<h2>Preventing unneeded component rerenderings</h2>
-<p>the rerendering of a component will usually cause the rerendering of <em>all subcomponents</em></p>
-<p>- this can be optimized!</p>
 <h2>Preventing unneeded component rerenderings</h2>
 <p>if only those subcomponents whose props have changed should rerender:</p>
 <p>use React's <code>memo</code> function and the callback hook</p>

@@ -18,17 +18,6 @@
 </ul>
 <h2>Memoisation</h2>
 <p>Memoisation = Technik, um Funktionsaufrufe zu optimieren: Bisherige Resultate werden gecached und müssen nicht neu berechnet werden</p>
-<h2>Re-Renderings optimieren</h2>
-<p>was React schon für uns erledigt:</p>
-<ul>
-<li>Hooks (state, reducer, context) lösen <em>kein</em> Re-Rendering aus, wenn sich deren Wert nicht geändert hat</li>
-</ul>
-<p>was wir beitragen können:</p>
-<ul>
-<li>Memoisation von Komponentenrenderings basierend auf deren Props</li>
-<li>Memoisation aufwändiger Berechnungen</li>
-<li>Bereitstellen eines <em>key</em>-Props für wiederholte Elemente</li>
-</ul>
 <h1>React Devtools und Performance</h1>
 <h2>React Devtools und Performance</h2>
 <p>Funktionalität der Devtools:</p>
@@ -71,12 +60,10 @@
 <h2>Vermeiden unnötiger Rerenderings</h2>
 <p>Im Allgemeinen muss eine Komponente nur neu gerendert werden, wenn sich entweder props oder state tatsächlich ändern</p>
 <h2>Vermeiden unnötiger Rerenderings</h2>
-<p>in Funktionskomponenten gilt:</p>
-<ul>
-<li>Ein Setzen eines geänderten States bewirkt ein neues Rendering</li>
-<li>Ein erneutes Setzen des gleichen States bewirkt kein neues Rendering</li>
-<li>Ein neues Rendering einer Komponente bewirkt üblicherweise das neue Rendering <em>aller Unterkomponenten</em></li>
-</ul>
+<p>was React schon für uns erledigt:</p>
+<p>Hooks (state, reducer, context) lösen kein Re-Rendering aus, wenn sich ihr Wert nicht geändert hat</p>
+<p>was wir beitragen können:</p>
+<p>wenn eine Elternkomponente neu gerendert wird, die Props der Kindkomponente sich aber nicht geändert haben, soll die Kindkomponente nicht neu gerendert werden (Memoisation)</p>
 <h2>Vermeiden unnötiger Rerenderings</h2>
 <p>Demo: Komponente rendert sich nur, wenn ihr State sich ändert</p>
 <pre><code class="hljs language-jsx"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Coin</span>(<span class="hljs-params"></span>) </span>{
@@ -93,9 +80,6 @@
   );
 }
 </code></pre>
-<h2>Vermeiden unnötiger Rerenderings</h2>
-<p>Das Rerendering einer Komponente löst üblicherweise das Rerendering <em>aller Unterkomponenten</em> aus</p>
-<p>- dies kann optimiert werden!</p>
 <h2>Vermeiden unnötiger Rerenderings</h2>
 <p>Wenn nur jene Unterkomponenten neu gerendert werden sollen, deren props sich geändert haben:</p>
 <p>Verwenden von Reacts <code>memo</code>-Funktion und des callback Hooks</p>

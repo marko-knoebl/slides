@@ -24,18 +24,6 @@ Themen:
 
 Memoisation = Technik, um Funktionsaufrufe zu optimieren: Bisherige Resultate werden gecached und müssen nicht neu berechnet werden
 
-## Re-Renderings optimieren
-
-was React schon für uns erledigt:
-
-- Hooks (state, reducer, context) lösen _kein_ Re-Rendering aus, wenn sich deren Wert nicht geändert hat
-
-was wir beitragen können:
-
-- Memoisation von Komponentenrenderings basierend auf deren Props
-- Memoisation aufwändiger Berechnungen
-- Bereitstellen eines _key_-Props für wiederholte Elemente
-
 # React Devtools und Performance
 
 ## React Devtools und Performance
@@ -103,11 +91,13 @@ Im Allgemeinen muss eine Komponente nur neu gerendert werden, wenn sich entweder
 
 ## Vermeiden unnötiger Rerenderings
 
-in Funktionskomponenten gilt:
+was React schon für uns erledigt:
 
-- Ein Setzen eines geänderten States bewirkt ein neues Rendering
-- Ein erneutes Setzen des gleichen States bewirkt kein neues Rendering
-- Ein neues Rendering einer Komponente bewirkt üblicherweise das neue Rendering _aller Unterkomponenten_
+Hooks (state, reducer, context) lösen kein Re-Rendering aus, wenn sich ihr Wert nicht geändert hat
+
+was wir beitragen können:
+
+wenn eine Elternkomponente neu gerendert wird, die Props der Kindkomponente sich aber nicht geändert haben, soll die Kindkomponente nicht neu gerendert werden (Memoisation)
 
 ## Vermeiden unnötiger Rerenderings
 
@@ -128,12 +118,6 @@ function Coin() {
   );
 }
 ```
-
-## Vermeiden unnötiger Rerenderings
-
-Das Rerendering einer Komponente löst üblicherweise das Rerendering _aller Unterkomponenten_ aus
-
-\- dies kann optimiert werden!
 
 ## Vermeiden unnötiger Rerenderings
 
