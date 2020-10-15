@@ -8,7 +8,7 @@ Die Funktion `createAction` aus dem Redux toolkit kann hilfreich sein, um _actio
 import { createAction } from '@reduxjs/toolkit';
 
 // create an action creator
-const addTodo = createAction('addTodo', title => ({
+const addTodo = createAction('addTodo', (title) => ({
   payload: { title: title },
 }));
 
@@ -31,12 +31,11 @@ Verwendung der `type` Property in dem switch-Statement eines Reducers:
 const todosReducer = (oldState = initialState, action) => {
   switch (action.type) {
     case addTodo.type:
-      ...
+    // ...
     case deleteTodo.type:
-      ...
-    ...
+    // ...
   }
-}
+};
 ```
 
 ## createAction

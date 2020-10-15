@@ -2440,7 +2440,6 @@ ReactDOM.render(
 <li>Actions im Detail</li>
 <li>Asynchrone Actions mit Thunk</li>
 <li>Action Creators</li>
-<li>Redux und TypeScript</li>
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Reducer aufteilen / kombinieren</h1>
 </section><section class="slide"><h2>Reducer aufteilen / kombinieren</h2>
@@ -2488,17 +2487,6 @@ ReactDOM.render(
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> action = {
   <span class="hljs-attr">type</span>: <span class="hljs-string">'todoData/todos/addTodo'</span>,
   <span class="hljs-attr">title</span>: <span class="hljs-string">'Build my first Redux app'</span>,
-};
-</code></pre>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> action = {
-  <span class="hljs-attr">type</span>: <span class="hljs-string">'addTodo'</span>,
-  <span class="hljs-attr">payload</span>: <span class="hljs-string">'Build my first Redux app'</span>,
-};
-</code></pre>
-</section><section class="slide"><h2>Actions - Beispiele</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> action = {
-  <span class="hljs-attr">type</span>: <span class="hljs-string">'todoData/todos/toggleTodo'</span>,
-  <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>,
 };
 </code></pre>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> action = {
@@ -2552,7 +2540,7 @@ ReactDOM.render(
 <pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> actionAsync = <span class="hljs-function"><span class="hljs-params">()</span> =></span> (dispatch, getState) => {
   dispatch(started());
   <span class="hljs-keyword">const</span> s = getState();
-  ...
+  <span class="hljs-comment">// ...</span>
 };
 </code></pre>
 </section><section class="slide"><h2>Thunk mit Typen</h2>
@@ -2562,7 +2550,7 @@ ReactDOM.render(
   dispatch: Dispatch&#x3C;TodosDataAction>
 ) => {
   dispatch({ <span class="hljs-keyword">type</span>: <span class="hljs-string">'todosData/loadTodosRequest'</span> });
-  ...
+  <span class="hljs-comment">// ...</span>
   dispatch({
     <span class="hljs-keyword">type</span>: <span class="hljs-string">'todosData/loadTodosSuccess'</span>,
     payload: data,
@@ -2617,10 +2605,7 @@ ReactDOM.render(
     });
 };
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Testen</h1>
-</section><section class="slide"><h2>Testen</h2>
-<p>Als reine Funktionen sind Reducer und Action Creators einfach isoliert zu testen</p>
-<p>Testen von Middleware wie <em>thunk</em> ist komplexer</p>
+</section></section><section class="slides-section"><section class="slide"><h1>Testen von thunks</h1>
 </section><section class="slide"><h2>Testen von thunks - Setup</h2>
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> configureMockStore <span class="hljs-keyword">from</span> <span class="hljs-string">'redux-mock-store'</span>;
 <span class="hljs-keyword">import</span> fetchMock <span class="hljs-keyword">from</span> <span class="hljs-string">'jest-fetch-mock'</span>;
@@ -2758,9 +2743,9 @@ fetchMock.enableMocks();
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Redux 3</h1>
 <ul>
-<li>createSlice</li>
 <li>createAction</li>
 <li>createReducer</li>
+<li>createSlice</li>
 <li>Selectors und Memoisation</li>
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>createAction</h1>
@@ -2769,7 +2754,7 @@ fetchMock.enableMocks();
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { createAction } <span class="hljs-keyword">from</span> <span class="hljs-string">'@reduxjs/toolkit'</span>;
 
 <span class="hljs-comment">// create an action creator</span>
-<span class="hljs-keyword">const</span> addTodo = createAction(<span class="hljs-string">'addTodo'</span>, title => ({
+<span class="hljs-keyword">const</span> addTodo = createAction(<span class="hljs-string">'addTodo'</span>, (title) => ({
   <span class="hljs-attr">payload</span>: { <span class="hljs-attr">title</span>: title },
 }));
 
@@ -2784,12 +2769,11 @@ fetchMock.enableMocks();
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> todosReducer = <span class="hljs-function">(<span class="hljs-params">oldState = initialState, action</span>) =></span> {
   <span class="hljs-keyword">switch</span> (action.type) {
     <span class="hljs-keyword">case</span> addTodo.type:
-      ...
-    case deleteTodo.type:
-      ...
-    ...
+    <span class="hljs-comment">// ...</span>
+    <span class="hljs-keyword">case</span> deleteTodo.type:
+    <span class="hljs-comment">// ...</span>
   }
-}
+};
 </code></pre>
 </section><section class="slide"><h2>createAction</h2>
 <p><code>createAction</code> stellt eine eigene <code>.toString()</code>-Methode bei jedem Action Creator bereit:</p>
@@ -2963,20 +2947,20 @@ fetchMock.enableMocks();
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { createSelector } <span class="hljs-keyword">from</span> <span class="hljs-string">'reselect'</span>;
 
 <span class="hljs-comment">// normal selector</span>
-<span class="hljs-keyword">const</span> todosSelector = <span class="hljs-function"><span class="hljs-params">state</span> =></span> state.todoData.todos;
+<span class="hljs-keyword">const</span> todosSelector = <span class="hljs-function">(<span class="hljs-params">state</span>) =></span> state.todoData.todos;
 
 <span class="hljs-comment">// memoized selector</span>
 <span class="hljs-keyword">const</span> numCompletedTodosSelector = createSelector(
   todosSelector,
-  todos => todos.filter(<span class="hljs-function"><span class="hljs-params">todo</span> =></span> todo.completed).length
+  (todos) => todos.filter(<span class="hljs-function">(<span class="hljs-params">todo</span>) =></span> todo.completed).length
 );
 </code></pre>
 <p>Der <code>numCompletedTodosSelector</code> ist vom <code>todosSelector</code> abhängig und wird nur neu asgewertet, wenn dieser einen neuen Wert zurückgibt.</p>
 </section><section class="slide"><h2>Memoisierung in reselect</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> lengthSelector = <span class="hljs-function"><span class="hljs-params">rect</span> =></span> rect.length;
-<span class="hljs-keyword">const</span> widthSelector = <span class="hljs-function"><span class="hljs-params">rect</span> =></span> rect.width;
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> lengthSelector = <span class="hljs-function">(<span class="hljs-params">rect</span>) =></span> rect.length;
+<span class="hljs-keyword">const</span> widthSelector = <span class="hljs-function">(<span class="hljs-params">rect</span>) =></span> rect.width;
 
-<span class="hljs-keyword">const</span> areaSelector = <span class="hljs-function"><span class="hljs-params">rect</span> =></span>
+<span class="hljs-keyword">const</span> areaSelector = <span class="hljs-function">(<span class="hljs-params">rect</span>) =></span>
   lengthSelector(rect) * widthSelector(rect);
 
 <span class="hljs-keyword">const</span> memoizedAreaSelector = createSelector(

@@ -57,7 +57,7 @@ Ein zweites Argument kann optional übergeben werden: Es erhält die `getState`-
 const actionAsync = () => (dispatch, getState) => {
   dispatch(started());
   const s = getState();
-  ...
+  // ...
 };
 ```
 
@@ -70,7 +70,7 @@ const asyncAction = () => (
   dispatch: Dispatch<TodosDataAction>
 ) => {
   dispatch({ type: 'todosData/loadTodosRequest' });
-  ...
+  // ...
   dispatch({
     type: 'todosData/loadTodosSuccess',
     payload: data,

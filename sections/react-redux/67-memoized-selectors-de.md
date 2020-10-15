@@ -16,12 +16,12 @@ Reselect kann zum Memoisieren komplexerer Selektoren verwendet werden
 import { createSelector } from 'reselect';
 
 // normal selector
-const todosSelector = state => state.todoData.todos;
+const todosSelector = (state) => state.todoData.todos;
 
 // memoized selector
 const numCompletedTodosSelector = createSelector(
   todosSelector,
-  todos => todos.filter(todo => todo.completed).length
+  (todos) => todos.filter((todo) => todo.completed).length
 );
 ```
 
@@ -30,10 +30,10 @@ Der `numCompletedTodosSelector` ist vom `todosSelector` abhängig und wird nur n
 ## Memoisierung in reselect
 
 ```js
-const lengthSelector = rect => rect.length;
-const widthSelector = rect => rect.width;
+const lengthSelector = (rect) => rect.length;
+const widthSelector = (rect) => rect.width;
 
-const areaSelector = rect =>
+const areaSelector = (rect) =>
   lengthSelector(rect) * widthSelector(rect);
 
 const memoizedAreaSelector = createSelector(

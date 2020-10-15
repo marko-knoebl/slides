@@ -4,4 +4,3 @@
 - Actions im Detail
 - Asynchrone Actions mit Thunk
 - Action Creators
-- Redux und TypeScript

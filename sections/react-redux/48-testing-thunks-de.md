@@ -1,12 +1,6 @@
-# Testing
+# Testen von thunks
 
-## Testing
-
-as they are pure functions, reducers and action creators are easy to test in isolation
-
-testing middleware like _thunk_ is more complex
-
-## Testing thunks - setup
+## Testen von thunks - Setup
 
 ```js
 import configureMockStore from 'redux-mock-store';
@@ -18,7 +12,7 @@ fetchMock.enableMocks();
 const mockStore = configureMockStore([thunk]);
 ```
 
-## Testing thunks
+## Testen von thunks
 
 ```js
 test('loadTodos() dispatches two actions', async (done) => {

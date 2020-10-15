@@ -495,7 +495,6 @@ const FontSizeInput = connect(
 - Actions im Detail
 - Asynchrone Actions mit Thunk
 - Action Creators
-- Redux und TypeScript
 
 # Reducer aufteilen / kombinieren
 
@@ -560,22 +559,6 @@ const shopReducer = combineReducers({
 const action = {
   type: 'todoData/todos/addTodo',
   title: 'Build my first Redux app',
-};
-```
-
-```js
-const action = {
-  type: 'addTodo',
-  payload: 'Build my first Redux app',
-};
-```
-
-## Actions - Beispiele
-
-```js
-const action = {
-  type: 'todoData/todos/toggleTodo',
-  id: 2,
 };
 ```
 
@@ -656,7 +639,7 @@ Ein zweites Argument kann optional übergeben werden: Es erhält die `getState`-
 const actionAsync = () => (dispatch, getState) => {
   dispatch(started());
   const s = getState();
-  ...
+  // ...
 };
 ```
 
@@ -669,7 +652,7 @@ const asyncAction = () => (
   dispatch: Dispatch<TodosDataAction>
 ) => {
   dispatch({ type: 'todosData/loadTodosRequest' });
-  ...
+  // ...
   dispatch({
     type: 'todosData/loadTodosSuccess',
     payload: data,
@@ -747,13 +730,7 @@ const loadTodoByIndex = (id) => (dispatch) => {
 };
 ```
 
-# Testen
-
-## Testen
-
-Als reine Funktionen sind Reducer und Action Creators einfach isoliert zu testen
-
-Testen von Middleware wie _thunk_ ist komplexer
+# Testen von thunks
 
 ## Testen von thunks - Setup
 
@@ -915,9 +892,9 @@ const productsReducer = (state = products, action) => {
 
 # Redux 3
 
-- createSlice
 - createAction
 - createReducer
+- createSlice
 - Selectors und Memoisation
 
 # createAction
@@ -930,7 +907,7 @@ Die Funktion `createAction` aus dem Redux toolkit kann hilfreich sein, um _actio
 import { createAction } from '@reduxjs/toolkit';
 
 // create an action creator
-const addTodo = createAction('addTodo', title => ({
+const addTodo = createAction('addTodo', (title) => ({
   payload: { title: title },
 }));
 
@@ -953,12 +930,11 @@ Verwendung der `type` Property in dem switch-Statement eines Reducers:
 const todosReducer = (oldState = initialState, action) => {
   switch (action.type) {
     case addTodo.type:
-      ...
+    // ...
     case deleteTodo.type:
-      ...
-    ...
+    // ...
   }
-}
+};
 ```
 
 ## createAction
@@ -1202,12 +1178,12 @@ Reselect kann zum Memoisieren komplexerer Selektoren verwendet werden
 import { createSelector } from 'reselect';
 
 // normal selector
-const todosSelector = state => state.todoData.todos;
+const todosSelector = (state) => state.todoData.todos;
 
 // memoized selector
 const numCompletedTodosSelector = createSelector(
   todosSelector,
-  todos => todos.filter(todo => todo.completed).length
+  (todos) => todos.filter((todo) => todo.completed).length
 );
 ```
 
@@ -1216,10 +1192,10 @@ Der `numCompletedTodosSelector` ist vom `todosSelector` abhängig und wird nur n
 ## Memoisierung in reselect
 
 ```js
-const lengthSelector = rect => rect.length;
-const widthSelector = rect => rect.width;
+const lengthSelector = (rect) => rect.length;
+const widthSelector = (rect) => rect.width;
 
-const areaSelector = rect =>
+const areaSelector = (rect) =>
   lengthSelector(rect) * widthSelector(rect);
 
 const memoizedAreaSelector = createSelector(

@@ -19,22 +19,6 @@ const action = {
 
 ```js
 const action = {
-  type: 'addTodo',
-  payload: 'Build my first Redux app',
-};
-```
-
-## Actions - examples
-
-```js
-const action = {
-  type: 'todoData/todos/toggleTodo',
-  id: 2,
-};
-```
-
-```js
-const action = {
   type: 'todoData/todos/toggleTodo',
   payload: 2,
 };
