@@ -8,7 +8,7 @@ Auswählen von Einträgen:
 a2d[0] # [1, 2, 3]
 a2d[0, 1] # 2
 a2d[0, :] # [1, 2, 3]
-a2d[:, 0] # [1, 2, 3]
+a2d[:, 0] # [1, 4, 7]
 ```
 
 ## Operationen auf Arrays
@@ -16,8 +16,8 @@ a2d[:, 0] # [1, 2, 3]
 Auswählen von Einträgen:
 
 ```py
-a2d[1:, 1:] # [[4, 6], [6, 9]]
-a2d[1, ::-1] # [3, 2, 1]
+a2d[1:, 1:] # [[5, 6], [8, 9]]
+a2d[1, ::-1] # [6, 5, 4]
 ```
 
 ## Operationen auf Arrays
@@ -52,6 +52,7 @@ Einige Konstanten sind direkt in NumPy verfügbar:
 ```py
 print(a + np.pi)
 print(a + np.e)
+print(np.nan)
 ```
 
 ## Operationen auf Arrays
@@ -72,9 +73,9 @@ Achtung: `a == b` kann nicht sinnvoll in if-Abfragen verwendet werden - verwende
 Filtern von Arrays (z.B. beschränken auf positive Einträge):
 
 ```py
-a = np.array([[-1, 3], [-2, 1]])
+a = np.array([-1, 3, -2, 1])
 a_is_pos = a > 0
-# array([[False, True], [False, True]])
+# array([False, True, False, True])
 a_pos = a[a_is_pos]
 # array([3, 1])
 ```

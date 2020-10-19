@@ -67,7 +67,7 @@ Erlaubt das Installieren verschiedener Versionen von Python, von Python-Paketen 
 
 _Pyodide_ = Python Distribution, die direkt im Browser ausgeführt wird (via _WebAssembly_)
 
-# Jupyter & IPython
+# Jupyter und IPython
 
 ## IPython
 
@@ -75,9 +75,13 @@ IPython = Fortgeschrittene interaktive Python Konsole, beinhaltet u.a. Autovervo
 
 ## Jupyter Notebooks
 
-Jupyter Notebook = Interaktive Python-Umgebung, beinhaltet IPython
+Jupyter notebook = Dateiformat (_.ipynb_), das ein interaktives Python-Dokument repräsentiert, in dem Eingabezellen einzeln ausgewertet werden können; die Interaktivität basiert auf IPython
 
-Jupyter läuft Browser-basiert; das Backend kann auf dem lokalen Rechner oder auf einem Server laufen
+## Jupyter Interfaces
+
+- _Jupyter Notebook_: webbasiertes Interface, das auf einem Server oder lokal laufen kann
+- _JupyterLab_: Nachfolgeprojekt von _Jupyter Notebook_
+- _VS Code_: unterstützt Jupyter notebooks ebenfalls
 
 ## Jupyter Notebooks - online
 
@@ -95,11 +99,25 @@ Jupyter online ausprobieren:
 - warten ...
 - _File_ - _New Notebook_ - _Python 3_
 
+## Jupyter Notebooks - VS Code
+
+wir installieren _ipykernel_ und seine Abhängigkeiten (_ipython_, _jupyter-core_, _jupyter-client_):
+
+<!-- will install ipython, jupyter-core, jupyter-client -->
+
+```bash
+pip install ipykernel
+```
+
+In der Befehlspalette von VS Code (via F2) suchen wir nach: _Python: Create New Blank Jupyter Notebook_
+
 ## Jupyter Notebooks - lokal
 
 Starten: Eintrag _Jupyter Notebook_ im Startmenü / Befehl `jupyter notebook` im Terminal
 
 Stoppen: _Quit_ im rechten oberen Eck der Ordneransicht (üblicherweise unter http&#x3A;//localhost:8888/tree)
+
+Python-Pakete: _notebook_ oder _jupyterlab_
 
 ## Notebook Dateien
 
@@ -123,9 +141,9 @@ dann _Shift_ + _Enter_ drücken
 
 ## Code schreiben und ausführen
 
-In IPython gibt es nummerierte Eingaben, z.B. `In [1]`
+In IPython gibt es nummerierte Eingaben, z.B. `[1]`
 
-Während eine Eingabe ausgewertet wird, wird `In [*]` angezeigt
+Während eine Eingabe ausgewertet wird, wird `[*]` angezeigt
 
 Wenn das letzte Statement in einer Zelle einen Wert ergibt, wird dies als Ausgabe angezeigt
 
@@ -152,7 +170,7 @@ Wir ändern das Dropdown von _Code_ auf _Markdown_ und versuchen den folgenden C
 - item 2
 ```
 
-Zelle ausführen, um das Resultat anzuzeigen, doppelklicken zum erneuten Editieren
+Zelle ausführen oder verlassen, um das Resultat anzuzeigen, doppelklicken zum erneuten Editieren
 
 [Markdown Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
 
@@ -210,15 +228,15 @@ import numpy as np
 Erstellen eines 2-dimensionalen Arrays:
 
 ```py
-a2d = np.array([[1, 2, 3], [2, 4, 6], [3, 6, 9]])
+a2d = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
 ```
 
 Ausgabe:
 
 ```py
 array([[1, 2, 3],
-       [2, 4, 6],
-       [3, 6, 9]])
+       [4, 5, 6],
+       [7, 8, 9]])
 ```
 
 ## Arrays
@@ -284,13 +302,13 @@ np.zeros((2, 6))
 oder
 
 ```py
-np.full((2, 6), 0)
+np.full((2, 6), 0.0)
 ```
 
 Ein 3x3 Array mit Zufallswerten:
 
 ```py
-np.random.random(3, 3)
+np.random.random((3, 3))
 ```
 
 ## Arrays erstellen
@@ -319,7 +337,7 @@ Auswählen von Einträgen:
 a2d[0] # [1, 2, 3]
 a2d[0, 1] # 2
 a2d[0, :] # [1, 2, 3]
-a2d[:, 0] # [1, 2, 3]
+a2d[:, 0] # [1, 4, 7]
 ```
 
 ## Operationen auf Arrays
@@ -327,8 +345,8 @@ a2d[:, 0] # [1, 2, 3]
 Auswählen von Einträgen:
 
 ```py
-a2d[1:, 1:] # [[4, 6], [6, 9]]
-a2d[1, ::-1] # [3, 2, 1]
+a2d[1:, 1:] # [[5, 6], [8, 9]]
+a2d[1, ::-1] # [6, 5, 4]
 ```
 
 ## Operationen auf Arrays
@@ -363,6 +381,7 @@ Einige Konstanten sind direkt in NumPy verfügbar:
 ```py
 print(a + np.pi)
 print(a + np.e)
+print(np.nan)
 ```
 
 ## Operationen auf Arrays
@@ -383,9 +402,9 @@ Achtung: `a == b` kann nicht sinnvoll in if-Abfragen verwendet werden - verwende
 Filtern von Arrays (z.B. beschränken auf positive Einträge):
 
 ```py
-a = np.array([[-1, 3], [-2, 1]])
+a = np.array([-1, 3, -2, 1])
 a_is_pos = a > 0
-# array([[False, True], [False, True]])
+# array([False, True, False, True])
 a_pos = a[a_is_pos]
 # array([3, 1])
 ```
@@ -661,13 +680,13 @@ plt.style.use("stylename")
 Kurzformen:
 
 ```py
-plt.plot(x, y, "gx--")
+plt.plot(x, y, "C0X--")
 ```
 
 Langform:
 
 ```py
-plt.plot(x, y, color="green", linestyle="dashed", marker="x")
+plt.plot(x, y, color="C0", marker="X", linestyle="dashed")
 ```
 
 In der Langform sind genauere Farb- und Größenangaben möglich
@@ -676,8 +695,8 @@ In der Langform sind genauere Farb- und Größenangaben möglich
 
 mögliche Farbangaben:
 
+- Theme-Farbe (`C0` ... `C10`)
 - Farbname (`green` / `lighblue` / ...)
-- Tableau-Farbe (`C0` ... `C10`)
 - Kurzname (`r` / `g` / `b` / `c` / `m` / `y` / `k`)
 - Hex-Code (z.B. `#FFAA00`)
 - RGB-Tupel (z.B. `(1, 0.7, 0)`)
@@ -701,7 +720,7 @@ mögliche Marker:
 - `"."` (mittelgroßer Punkt)
 - `"o"` (großer Punkt)
 - `"s"` (Quadrat)
-- `"x"`
+- `"X"`
 - `"+"`
 - ...
 
@@ -768,7 +787,7 @@ Gleiche Einheitengröße auf beiden Achsen:
 plt.axis("equal")
 ```
 
-Gleiche Einheitengrößen und Beschränkung der Achsenmarkierungen auf verwendete Datenbereiche:
+Gleiche Einheitengrößen und Beschränkung der Achsen auf verwendete Datenbereiche:
 
 ```py
 plt.axis("scaled")

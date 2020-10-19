@@ -11,13 +11,13 @@ np.zeros((2, 6))
 or
 
 ```py
-np.full((2, 6), 0)
+np.full((2, 6), 0.0)
 ```
 
-creating a 3x3 array of random values:
+creating a 3x3 array of random float values:
 
 ```py
-np.random.random(3, 3)
+np.random.random((3, 3))
 ```
 
 ## Creating arrays

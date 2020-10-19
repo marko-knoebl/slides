@@ -1,4 +1,4 @@
-# Jupyter & IPython
+# Jupyter und IPython
 
 ## IPython
 
@@ -6,9 +6,13 @@ IPython = Fortgeschrittene interaktive Python Konsole, beinhaltet u.a. Autovervo
 
 ## Jupyter Notebooks
 
-Jupyter Notebook = Interaktive Python-Umgebung, beinhaltet IPython
+Jupyter notebook = Dateiformat (_.ipynb_), das ein interaktives Python-Dokument repräsentiert, in dem Eingabezellen einzeln ausgewertet werden können; die Interaktivität basiert auf IPython
 
-Jupyter läuft Browser-basiert; das Backend kann auf dem lokalen Rechner oder auf einem Server laufen
+## Jupyter Interfaces
+
+- _Jupyter Notebook_: webbasiertes Interface, das auf einem Server oder lokal laufen kann
+- _JupyterLab_: Nachfolgeprojekt von _Jupyter Notebook_
+- _VS Code_: unterstützt Jupyter notebooks ebenfalls
 
 ## Jupyter Notebooks - online
 
@@ -26,11 +30,25 @@ Jupyter online ausprobieren:
 - warten ...
 - _File_ - _New Notebook_ - _Python 3_
 
+## Jupyter Notebooks - VS Code
+
+wir installieren _ipykernel_ und seine Abhängigkeiten (_ipython_, _jupyter-core_, _jupyter-client_):
+
+<!-- will install ipython, jupyter-core, jupyter-client -->
+
+```bash
+pip install ipykernel
+```
+
+In der Befehlspalette von VS Code (via F2) suchen wir nach: _Python: Create New Blank Jupyter Notebook_
+
 ## Jupyter Notebooks - lokal
 
 Starten: Eintrag _Jupyter Notebook_ im Startmenü / Befehl `jupyter notebook` im Terminal
 
 Stoppen: _Quit_ im rechten oberen Eck der Ordneransicht (üblicherweise unter http://localhost:8888/tree)
+
+Python-Pakete: _notebook_ oder _jupyterlab_
 
 ## Notebook Dateien
 
@@ -54,9 +72,9 @@ dann _Shift_ + _Enter_ drücken
 
 ## Code schreiben und ausführen
 
-In IPython gibt es nummerierte Eingaben, z.B. `In [1]`
+In IPython gibt es nummerierte Eingaben, z.B. `[1]`
 
-Während eine Eingabe ausgewertet wird, wird `In [*]` angezeigt
+Während eine Eingabe ausgewertet wird, wird `[*]` angezeigt
 
 Wenn das letzte Statement in einer Zelle einen Wert ergibt, wird dies als Ausgabe angezeigt
 
@@ -83,7 +101,7 @@ Wir ändern das Dropdown von _Code_ auf _Markdown_ und versuchen den folgenden C
 - item 2
 ```
 
-Zelle ausführen, um das Resultat anzuzeigen, doppelklicken zum erneuten Editieren
+Zelle ausführen oder verlassen, um das Resultat anzuzeigen, doppelklicken zum erneuten Editieren
 
 [Markdown Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
 

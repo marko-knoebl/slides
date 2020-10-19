@@ -15,13 +15,13 @@ plt.style.use("stylename")
 short form:
 
 ```py
-plt.plot(x, y, "gx--")
+plt.plot(x, y, "C0X--")
 ```
 
 long form:
 
 ```py
-plt.plot(x, y, color="green", linestyle="dashed", marker="x")
+plt.plot(x, y, color="C0", marker="X", linestyle="dashed")
 ```
 
 The long form enables more detailed specification of color and size
@@ -30,8 +30,8 @@ The long form enables more detailed specification of color and size
 
 specifying colors:
 
+- theme color (_C0_ ... _C10_)
 - color name (_green_ / _lightblue_ / ...)
-- tableau color (_C0_ ... _C10_)
 - short name (_r_ / _g_ / _b_ / _c_ / _m_ / _y_ / _k_)
 - hex code (e.g. _#FFAA00_)
 - RGB tuple (e.g. `(1, 0.7, 0)`)
@@ -55,7 +55,7 @@ markers:
 - `"."` (medium dot)
 - `"o"` (large dot)
 - `"s"` (square)
-- `"x"`
+- `"X"`
 - `"+"`
 - ...
 
@@ -122,7 +122,7 @@ Equal distances on both axes:
 plt.axis("equal")
 ```
 
-Equal distances on both axes, restricting axes markings to used data ranges:
+Equal distances on both axes, restricting plot area to used data ranges:
 
 ```py
 plt.axis("scaled")

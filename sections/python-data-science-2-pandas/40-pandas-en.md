@@ -49,7 +49,7 @@ Each series has a specific data type
 area.dtype # float64
 ```
 
-Manually setting the datatype:
+Manually setting the data type:
 
 ```py
 area = pd.Series({"CN": 9.6, "RU": 17, "US": 9.8},

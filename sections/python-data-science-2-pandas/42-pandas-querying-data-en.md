@@ -6,14 +6,14 @@
 - `df.iloc[:5]`: first 5 rows (returns a `DataFrame` object)
 - `df.iloc[10:20]`: rows 10-19
 - `df.iloc[5, 1]`: row 5, column 1
-- `df.iloc[5, [0, 2]]`: row 5, column 0 and 2
+- `df.iloc[5, [0, 2]]`: row 5, columns 0 and 2
 
 ## Querying data (by row names / column names)
 
 - `df.index`: row names
 - `df.columns`: column names
 
-<!-- -->
+<!-- list separator -->
 
 - `df.loc["2009-01-02"]`: Row by index value
 - `df.loc["2009-01-01":"2009-01-31"]`: Row in a specified range (both values included)

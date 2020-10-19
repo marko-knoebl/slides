@@ -72,11 +72,6 @@ Aufgabe: Importiere die folgenden Datenquellen und achte dabei auf passendes For
 mögliche Lösungen:
 
 ```py
-iris = pd.read_csv(
-    "http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data",
-    header=None,
-    names=["sepal_length", "sepal_width", "petal_length",
-           "petal_width", "name"])
 sp500 = pd.read_csv(
     "https://datahub.io/core/s-and-p-500/r/data.csv",
     index_col="Date",
@@ -84,6 +79,11 @@ sp500 = pd.read_csv(
 exchange_rates = pd.read_csv(
     "https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv",
     parse_dates=["Date"])
+iris = pd.read_csv(
+    "http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data",
+    header=None,
+    names=["sepal_length", "sepal_width", "petal_length",
+           "petal_width", "name"])
 ```
 
 ## Daten importieren und exportieren

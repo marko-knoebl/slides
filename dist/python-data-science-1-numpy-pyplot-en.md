@@ -69,7 +69,7 @@ Particularly useful for external libraries that are written in a compiled langua
 
 _Pyodide_ = Python distribution that can be run directly in the Browser (via _WebAssembly_)
 
-# Jupyter & IPython
+# Jupyter and IPython
 
 ## IPython
 
@@ -77,9 +77,13 @@ IPython = advanced interactive Python console, supports features like autocomple
 
 ## Jupyter notebooks
 
-Jupyter notebook = interactive graphical Python environment, includes IPython functionalities
+Jupyter notebook = file format (_.ipynb_) that represents an interactive Python document where cells may be evaluated individually; interactivity is based on IPython
 
-Jupyter is browser-based; the backend can be run on the local machine or can be hosted on a server
+## Jupyter interfaces
+
+- _Jupyter Notebook_: web-based interface that can run on a remote server or locally
+- _JupyterLab_: successor to _Jupyter Notebook_
+- _VS Code_: supports jupyter notebooks
 
 ## Jupyter notebooks - online
 
@@ -97,11 +101,25 @@ Try Jupyter online:
 - wait ...
 - Select _File_ - _New Notebook_ - _Python 3_
 
+## Jupyter notebooks - VS Code
+
+install _ipykernel_ and its dependencies (_ipython_, _jupyter-core_, _jupyter-client_):
+
+<!-- will install ipython, jupyter-core, jupyter-client -->
+
+```bash
+pip install ipykernel
+```
+
+In VS Code's command palette (F2), search for: _Python: Create New Blank Jupyter Notebook_
+
 ## Jupyter notebooks - locally
 
 Launching Jupyter: Entry _Jupyter Notebook_ in the start menu / terminal command `jupyter notebook`
 
 Stopping Jupyter: Press _Quit_ in the top right corner of the directory tree view (usually under http&#x3A;//localhost:8888/tree)
+
+Python packages: _notebook_ or _jupyterlab_
 
 ## Notebook files
 
@@ -125,11 +143,11 @@ and press _Shift_ + _Enter_
 
 ## Writing and evaluating code
 
-IPython has numbered inputs, e.g. `In [1]`
+IPython has numbered inputs, e.g. `[1]`
 
-When a computation is ongoing it will display `In [*]`
+When a computation is ongoing it will display `[*]`
 
-If the last statement in a cell evaluates to something it will be considered the output and displayed
+If the last statement in a cell evaluates to something it will be considered the output and be displayed
 
 In order to restart the notebook and re-evaluate all cells, press ⏩
 
@@ -143,7 +161,7 @@ print(_ * 3)
 
 We can add documentation via the standardized _markdown_ language:
 
-Change the dropdown from _Code_ to _Markdown_ and try the following code:
+Switch from _Code_ to _Markdown_ and try the following code:
 
 ```md
 # Heading
@@ -152,7 +170,7 @@ Change the dropdown from _Code_ to _Markdown_ and try the following code:
 - item 2
 ```
 
-Run the cell to display the result, double click to edit again
+Run or leave the cell to display the result, double click to edit again
 
 [markdown cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
 
@@ -210,15 +228,15 @@ import numpy as np
 creating a 2-dimensional array:
 
 ```py
-a2d = np.array([[1, 2, 3], [2, 4, 6], [3, 6, 9]])
+a2d = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
 ```
 
 output:
 
 ```py
 array([[1, 2, 3],
-       [2, 4, 6],
-       [3, 6, 9]])
+       [4, 5, 6],
+       [7, 8, 9]])
 ```
 
 ## Arrays
@@ -284,13 +302,13 @@ np.zeros((2, 6))
 or
 
 ```py
-np.full((2, 6), 0)
+np.full((2, 6), 0.0)
 ```
 
-creating a 3x3 array of random values:
+creating a 3x3 array of random float values:
 
 ```py
-np.random.random(3, 3)
+np.random.random((3, 3))
 ```
 
 ## Creating arrays
@@ -319,7 +337,7 @@ Selecting entries:
 a2d[0] # [1, 2, 3]
 a2d[0, 1] # 2
 a2d[0, :] # [1, 2, 3]
-a2d[:, 0] # [1, 2, 3]
+a2d[:, 0] # [1, 4, 7]
 ```
 
 ## Operations on arrays
@@ -327,8 +345,8 @@ a2d[:, 0] # [1, 2, 3]
 Selecting entries:
 
 ```py
-a2d[1:, 1:] # [[4, 6], [6, 9]]
-a2d[1, ::-1] # [3, 2, 1]
+a2d[1:, 1:] # [[5, 6], [8, 9]]
+a2d[1, ::-1] # [6, 5, 4]
 ```
 
 ## Operations on arrays
@@ -363,6 +381,7 @@ Some constants are available directly in NumPy:
 ```py
 print(a + np.pi)
 print(a + np.e)
+print(np.nan)
 ```
 
 ## Operations on arrays
@@ -383,9 +402,9 @@ Warning: `a == b` cannot be used reasonably in if statements - use `np.array_equ
 Filtering arrays (e.g. for restricting to positive entries):
 
 ```py
-a = np.array([[-1, 3], [-2, 1]])
+a = np.array([-1, 3, -2, 1])
 a_is_pos = a > 0
-# array([[False, True], [False, True]])
+# array([False, True, False, True])
 a_pos = a[a_is_pos]
 # array([3, 1])
 ```
@@ -661,13 +680,13 @@ plt.style.use("stylename")
 short form:
 
 ```py
-plt.plot(x, y, "gx--")
+plt.plot(x, y, "C0X--")
 ```
 
 long form:
 
 ```py
-plt.plot(x, y, color="green", linestyle="dashed", marker="x")
+plt.plot(x, y, color="C0", marker="X", linestyle="dashed")
 ```
 
 The long form enables more detailed specification of color and size
@@ -676,8 +695,8 @@ The long form enables more detailed specification of color and size
 
 specifying colors:
 
+- theme color (_C0_ ... _C10_)
 - color name (_green_ / _lightblue_ / ...)
-- tableau color (_C0_ ... _C10_)
 - short name (_r_ / _g_ / _b_ / _c_ / _m_ / _y_ / _k_)
 - hex code (e.g. _#FFAA00_)
 - RGB tuple (e.g. `(1, 0.7, 0)`)
@@ -701,7 +720,7 @@ markers:
 - `"."` (medium dot)
 - `"o"` (large dot)
 - `"s"` (square)
-- `"x"`
+- `"X"`
 - `"+"`
 - ...
 
@@ -768,7 +787,7 @@ Equal distances on both axes:
 plt.axis("equal")
 ```
 
-Equal distances on both axes, restricting axes markings to used data ranges:
+Equal distances on both axes, restricting plot area to used data ranges:
 
 ```py
 plt.axis("scaled")

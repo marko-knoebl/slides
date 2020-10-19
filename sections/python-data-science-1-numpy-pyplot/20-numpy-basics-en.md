@@ -24,15 +24,15 @@ import numpy as np
 creating a 2-dimensional array:
 
 ```py
-a2d = np.array([[1, 2, 3], [2, 4, 6], [3, 6, 9]])
+a2d = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
 ```
 
 output:
 
 ```py
 array([[1, 2, 3],
-       [2, 4, 6],
-       [3, 6, 9]])
+       [4, 5, 6],
+       [7, 8, 9]])
 ```
 
 ## Arrays

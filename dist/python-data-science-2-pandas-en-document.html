@@ -55,7 +55,7 @@ area[<span class="hljs-string">'CN'</span>] <span class="hljs-comment"># 9.6</sp
 <p>Each series has a specific data type</p>
 <pre><code class="hljs language-py">area.dtype <span class="hljs-comment"># float64</span>
 </code></pre>
-<p>Manually setting the datatype:</p>
+<p>Manually setting the data type:</p>
 <pre><code class="hljs language-py">area = pd.Series({<span class="hljs-string">"CN"</span>: <span class="hljs-number">9.6</span>, <span class="hljs-string">"RU"</span>: <span class="hljs-number">17</span>, <span class="hljs-string">"US"</span>: <span class="hljs-number">9.8</span>},
                  dtype=<span class="hljs-string">"float32"</span>)
 </code></pre>
@@ -119,18 +119,18 @@ area[<span class="hljs-string">'CN'</span>] <span class="hljs-comment"># 9.6</sp
 </ul>
 <h2>Importing CSV</h2>
 <p>possible solutions:</p>
-<pre><code class="hljs language-py">iris = pd.read_csv(
-    <span class="hljs-string">"http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data"</span>,
-    header=<span class="hljs-literal">None</span>,
-    names=[<span class="hljs-string">"sepal_length"</span>, <span class="hljs-string">"sepal_width"</span>, <span class="hljs-string">"petal_length"</span>,
-           <span class="hljs-string">"petal_width"</span>, <span class="hljs-string">"name"</span>])
-sp500 = pd.read_csv(
+<pre><code class="hljs language-py">sp500 = pd.read_csv(
     <span class="hljs-string">"https://datahub.io/core/s-and-p-500/r/data.csv"</span>,
     index_col=<span class="hljs-string">"Date"</span>,
     parse_dates=[<span class="hljs-string">"Date"</span>])
 exchange_rates = pd.read_csv(
     <span class="hljs-string">"https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv"</span>,
     parse_dates=[<span class="hljs-string">"Date"</span>])
+iris = pd.read_csv(
+    <span class="hljs-string">"http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data"</span>,
+    header=<span class="hljs-literal">None</span>,
+    names=[<span class="hljs-string">"sepal_length"</span>, <span class="hljs-string">"sepal_width"</span>, <span class="hljs-string">"petal_length"</span>,
+           <span class="hljs-string">"petal_width"</span>, <span class="hljs-string">"name"</span>])
 </code></pre>
 <h2>Importing and exporting data</h2>
 <p>Excel:</p>
@@ -148,14 +148,14 @@ euribor = read_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class="hl
 <li><code>df.iloc[:5]</code>: first 5 rows (returns a <code>DataFrame</code> object)</li>
 <li><code>df.iloc[10:20]</code>: rows 10-19</li>
 <li><code>df.iloc[5, 1]</code>: row 5, column 1</li>
-<li><code>df.iloc[5, [0, 2]]</code>: row 5, column 0 and 2</li>
+<li><code>df.iloc[5, [0, 2]]</code>: row 5, columns 0 and 2</li>
 </ul>
 <h2>Querying data (by row names / column names)</h2>
 <ul>
 <li><code>df.index</code>: row names</li>
 <li><code>df.columns</code>: column names</li>
 </ul>
-<!-- -->
+<!-- list separator -->
 <ul>
 <li><code>df.loc["2009-01-02"]</code>: Row by index value</li>
 <li><code>df.loc["2009-01-01":"2009-01-31"]</code>: Row in a specified range (both values included)</li>

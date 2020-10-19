@@ -49,7 +49,7 @@ Each series has a specific data type
 area.dtype # float64
 ```
 
-Manually setting the datatype:
+Manually setting the data type:
 
 ```py
 area = pd.Series({"CN": 9.6, "RU": 17, "US": 9.8},
@@ -138,11 +138,6 @@ Task: Import the following data sources, ensuring the data is formatted nicely:
 possible solutions:
 
 ```py
-iris = pd.read_csv(
-    "http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data",
-    header=None,
-    names=["sepal_length", "sepal_width", "petal_length",
-           "petal_width", "name"])
 sp500 = pd.read_csv(
     "https://datahub.io/core/s-and-p-500/r/data.csv",
     index_col="Date",
@@ -150,6 +145,11 @@ sp500 = pd.read_csv(
 exchange_rates = pd.read_csv(
     "https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv",
     parse_dates=["Date"])
+iris = pd.read_csv(
+    "http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data",
+    header=None,
+    names=["sepal_length", "sepal_width", "petal_length",
+           "petal_width", "name"])
 ```
 
 ## Importing and exporting data
@@ -176,14 +176,14 @@ euribor = read_hdf("data.hdf5", "euribor")
 - `df.iloc[:5]`: first 5 rows (returns a `DataFrame` object)
 - `df.iloc[10:20]`: rows 10-19
 - `df.iloc[5, 1]`: row 5, column 1
-- `df.iloc[5, [0, 2]]`: row 5, column 0 and 2
+- `df.iloc[5, [0, 2]]`: row 5, columns 0 and 2
 
 ## Querying data (by row names / column names)
 
 - `df.index`: row names
 - `df.columns`: column names
 
-<!-- -->
+<!-- list separator -->
 
 - `df.loc["2009-01-02"]`: Row by index value
 - `df.loc["2009-01-01":"2009-01-31"]`: Row in a specified range (both values included)

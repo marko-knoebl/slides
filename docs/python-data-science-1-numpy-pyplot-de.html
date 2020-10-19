@@ -2112,12 +2112,17 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <p>Erlaubt das Installieren verschiedener Versionen von Python, von Python-Paketen und anderen Abhängigkeiten - insbesondere hilfreich für externe Libraries, die nicht in Python geschrieben sind und kompiliert werden müssen</p>
 </section><section class="slide"><h2>Pyodide</h2>
 <p><em>Pyodide</em> = Python Distribution, die direkt im Browser ausgeführt wird (via <em>WebAssembly</em>)</p>
-</section></section><section class="slides-section"><section class="slide"><h1>Jupyter &#x26; IPython</h1>
+</section></section><section class="slides-section"><section class="slide"><h1>Jupyter und IPython</h1>
 </section><section class="slide"><h2>IPython</h2>
 <p>IPython = Fortgeschrittene interaktive Python Konsole, beinhaltet u.a. Autovervollständigung</p>
 </section><section class="slide"><h2>Jupyter Notebooks</h2>
-<p>Jupyter Notebook = Interaktive Python-Umgebung, beinhaltet IPython</p>
-<p>Jupyter läuft Browser-basiert; das Backend kann auf dem lokalen Rechner oder auf einem Server laufen</p>
+<p>Jupyter notebook = Dateiformat (<em>.ipynb</em>), das ein interaktives Python-Dokument repräsentiert, in dem Eingabezellen einzeln ausgewertet werden können; die Interaktivität basiert auf IPython</p>
+</section><section class="slide"><h2>Jupyter Interfaces</h2>
+<ul>
+<li><em>Jupyter Notebook</em>: webbasiertes Interface, das auf einem Server oder lokal laufen kann</li>
+<li><em>JupyterLab</em>: Nachfolgeprojekt von <em>Jupyter Notebook</em></li>
+<li><em>VS Code</em>: unterstützt Jupyter notebooks ebenfalls</li>
+</ul>
 </section><section class="slide"><h2>Jupyter Notebooks - online</h2>
 <p>Jupyter online ausprobieren:</p>
 <h3>Google Colab (Google Account benötigt)</h3>
@@ -2132,9 +2137,16 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li>warten ...</li>
 <li><em>File</em> - <em>New Notebook</em> - <em>Python 3</em></li>
 </ul>
+</section><section class="slide"><h2>Jupyter Notebooks - VS Code</h2>
+<p>wir installieren <em>ipykernel</em> und seine Abhängigkeiten (<em>ipython</em>, <em>jupyter-core</em>, <em>jupyter-client</em>):</p>
+<!-- will install ipython, jupyter-core, jupyter-client -->
+<pre><code class="hljs language-bash">pip install ipykernel
+</code></pre>
+<p>In der Befehlspalette von VS Code (via F2) suchen wir nach: <em>Python: Create New Blank Jupyter Notebook</em></p>
 </section><section class="slide"><h2>Jupyter Notebooks - lokal</h2>
 <p>Starten: Eintrag <em>Jupyter Notebook</em> im Startmenü / Befehl <code>jupyter notebook</code> im Terminal</p>
 <p>Stoppen: <em>Quit</em> im rechten oberen Eck der Ordneransicht (üblicherweise unter http://localhost:8888/tree)</p>
+<p>Python-Pakete: <em>notebook</em> oder <em>jupyterlab</em></p>
 </section><section class="slide"><h2>Notebook Dateien</h2>
 <p>Anlegen neuer Notebook Dateien via <em>new</em> - <em>Notebook: Python 3</em></p>
 <p>Speicherung unter <em>notebook.ipynb</em></p>
@@ -2147,8 +2159,8 @@ time.sleep(<span class="hljs-number">3</span>)
 </code></pre>
 <p>dann <em>Shift</em> + <em>Enter</em> drücken</p>
 </section><section class="slide"><h2>Code schreiben und ausführen</h2>
-<p>In IPython gibt es nummerierte Eingaben, z.B. <code>In [1]</code></p>
-<p>Während eine Eingabe ausgewertet wird, wird <code>In [*]</code> angezeigt</p>
+<p>In IPython gibt es nummerierte Eingaben, z.B. <code>[1]</code></p>
+<p>Während eine Eingabe ausgewertet wird, wird <code>[*]</code> angezeigt</p>
 <p>Wenn das letzte Statement in einer Zelle einen Wert ergibt, wird dies als Ausgabe angezeigt</p>
 <p>Um das Notebook neu zu starten und alle Zellen neu auszuwerten, drücke ⏩</p>
 </section><section class="slide"><h2>Code schreiben und ausführen</h2>
@@ -2163,7 +2175,7 @@ time.sleep(<span class="hljs-number">3</span>)
 - </span>item 1
 <span class="hljs-bullet">- </span>item 2
 </code></pre>
-<p>Zelle ausführen, um das Resultat anzuzeigen, doppelklicken zum erneuten Editieren</p>
+<p>Zelle ausführen oder verlassen, um das Resultat anzuzeigen, doppelklicken zum erneuten Editieren</p>
 <p><a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">Markdown Cheatsheet</a></p>
 </section><section class="slide"><h2>Dokumentation</h2>
 <p>Dokumentation zu Funktion / Klasse / Modul / ... in einer Python Konsole anzeigen:</p>
@@ -2194,12 +2206,12 @@ time.sleep(<span class="hljs-number">3</span>)
 </code></pre>
 </section><section class="slide"><h2>Arrays</h2>
 <p>Erstellen eines 2-dimensionalen Arrays:</p>
-<pre><code class="hljs language-py">a2d = np.array([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], [<span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">6</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">6</span>, <span class="hljs-number">9</span>]])
+<pre><code class="hljs language-py">a2d = np.array([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], [<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>], [<span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>]])
 </code></pre>
 <p>Ausgabe:</p>
 <pre><code class="hljs language-py">array([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>],
-       [<span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">6</span>],
-       [<span class="hljs-number">3</span>, <span class="hljs-number">6</span>, <span class="hljs-number">9</span>]])
+       [<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>],
+       [<span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>]])
 </code></pre>
 </section><section class="slide"><h2>Arrays</h2>
 <p>Erstellen eines 3-dimensionalen Arrays:</p>
@@ -2237,10 +2249,10 @@ time.sleep(<span class="hljs-number">3</span>)
 <pre><code class="hljs language-py">np.zeros((<span class="hljs-number">2</span>, <span class="hljs-number">6</span>))
 </code></pre>
 <p>oder</p>
-<pre><code class="hljs language-py">np.full((<span class="hljs-number">2</span>, <span class="hljs-number">6</span>), <span class="hljs-number">0</span>)
+<pre><code class="hljs language-py">np.full((<span class="hljs-number">2</span>, <span class="hljs-number">6</span>), <span class="hljs-number">0.0</span>)
 </code></pre>
 <p>Ein 3x3 Array mit Zufallswerten:</p>
-<pre><code class="hljs language-py">np.random.random(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>)
+<pre><code class="hljs language-py">np.random.random((<span class="hljs-number">3</span>, <span class="hljs-number">3</span>))
 </code></pre>
 </section><section class="slide"><h2>Arrays erstellen</h2>
 <p>Erstellen der Folge <em>0.0, 0.5, 1.0, 1.5</em>:</p>
@@ -2256,12 +2268,12 @@ time.sleep(<span class="hljs-number">3</span>)
 <pre><code class="hljs language-py">a2d[<span class="hljs-number">0</span>] <span class="hljs-comment"># [1, 2, 3]</span>
 a2d[<span class="hljs-number">0</span>, <span class="hljs-number">1</span>] <span class="hljs-comment"># 2</span>
 a2d[<span class="hljs-number">0</span>, :] <span class="hljs-comment"># [1, 2, 3]</span>
-a2d[:, <span class="hljs-number">0</span>] <span class="hljs-comment"># [1, 2, 3]</span>
+a2d[:, <span class="hljs-number">0</span>] <span class="hljs-comment"># [1, 4, 7]</span>
 </code></pre>
 </section><section class="slide"><h2>Operationen auf Arrays</h2>
 <p>Auswählen von Einträgen:</p>
-<pre><code class="hljs language-py">a2d[<span class="hljs-number">1</span>:, <span class="hljs-number">1</span>:] <span class="hljs-comment"># [[4, 6], [6, 9]]</span>
-a2d[<span class="hljs-number">1</span>, ::<span class="hljs-number">-1</span>] <span class="hljs-comment"># [3, 2, 1]</span>
+<pre><code class="hljs language-py">a2d[<span class="hljs-number">1</span>:, <span class="hljs-number">1</span>:] <span class="hljs-comment"># [[5, 6], [8, 9]]</span>
+a2d[<span class="hljs-number">1</span>, ::<span class="hljs-number">-1</span>] <span class="hljs-comment"># [6, 5, 4]</span>
 </code></pre>
 </section><section class="slide"><h2>Operationen auf Arrays</h2>
 <p>Operatoren werden elementweise angewendet:</p>
@@ -2285,6 +2297,7 @@ print(a + <span class="hljs-number">1</span>)
 <p>Einige Konstanten sind direkt in NumPy verfügbar:</p>
 <pre><code class="hljs language-py">print(a + np.pi)
 print(a + np.e)
+print(np.nan)
 </code></pre>
 </section><section class="slide"><h2>Operationen auf Arrays</h2>
 <p>Elementweises Vergleichen von Arrays:</p>
@@ -2296,9 +2309,9 @@ a == b
 <p>Achtung: <code>a == b</code> kann nicht sinnvoll in if-Abfragen verwendet werden - verwende <code>np.array_equal(a, b)</code>.</p>
 </section><section class="slide"><h2>Operationen auf Arrays</h2>
 <p>Filtern von Arrays (z.B. beschränken auf positive Einträge):</p>
-<pre><code class="hljs language-py">a = np.array([[<span class="hljs-number">-1</span>, <span class="hljs-number">3</span>], [<span class="hljs-number">-2</span>, <span class="hljs-number">1</span>]])
+<pre><code class="hljs language-py">a = np.array([<span class="hljs-number">-1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">-2</span>, <span class="hljs-number">1</span>])
 a_is_pos = a > <span class="hljs-number">0</span>
-<span class="hljs-comment"># array([[False, True], [False, True]])</span>
+<span class="hljs-comment"># array([False, True, False, True])</span>
 a_pos = a[a_is_pos]
 <span class="hljs-comment"># array([3, 1])</span>
 </code></pre>
@@ -2485,17 +2498,17 @@ df.plot.line()
 <p><a href="https://matplotlib.org/3.3.0/gallery/style_sheets/style_sheets_reference.html">Referenz verfügbarer Stile</a></p>
 </section><section class="slide"><h2>Stile von Graphen</h2>
 <p>Kurzformen:</p>
-<pre><code class="hljs language-py">plt.plot(x, y, <span class="hljs-string">"gx--"</span>)
+<pre><code class="hljs language-py">plt.plot(x, y, <span class="hljs-string">"C0X--"</span>)
 </code></pre>
 <p>Langform:</p>
-<pre><code class="hljs language-py">plt.plot(x, y, color=<span class="hljs-string">"green"</span>, linestyle=<span class="hljs-string">"dashed"</span>, marker=<span class="hljs-string">"x"</span>)
+<pre><code class="hljs language-py">plt.plot(x, y, color=<span class="hljs-string">"C0"</span>, marker=<span class="hljs-string">"X"</span>, linestyle=<span class="hljs-string">"dashed"</span>)
 </code></pre>
 <p>In der Langform sind genauere Farb- und Größenangaben möglich</p>
 </section><section class="slide"><h2>Stile von Graphen</h2>
 <p>mögliche Farbangaben:</p>
 <ul>
+<li>Theme-Farbe (<code>C0</code> ... <code>C10</code>)</li>
 <li>Farbname (<code>green</code> / <code>lighblue</code> / ...)</li>
-<li>Tableau-Farbe (<code>C0</code> ... <code>C10</code>)</li>
 <li>Kurzname (<code>r</code> / <code>g</code> / <code>b</code> / <code>c</code> / <code>m</code> / <code>y</code> / <code>k</code>)</li>
 <li>Hex-Code (z.B. <code>#FFAA00</code>)</li>
 <li>RGB-Tupel (z.B. <code>(1, 0.7, 0)</code>)</li>
@@ -2517,7 +2530,7 @@ df.plot.line()
 <li><code>"."</code> (mittelgroßer Punkt)</li>
 <li><code>"o"</code> (großer Punkt)</li>
 <li><code>"s"</code> (Quadrat)</li>
-<li><code>"x"</code></li>
+<li><code>"X"</code></li>
 <li><code>"+"</code></li>
 <li>...</li>
 </ul>
@@ -2561,7 +2574,7 @@ plt.legend()
 <p>Gleiche Einheitengröße auf beiden Achsen:</p>
 <pre><code class="hljs language-py">plt.axis(<span class="hljs-string">"equal"</span>)
 </code></pre>
-<p>Gleiche Einheitengrößen und Beschränkung der Achsenmarkierungen auf verwendete Datenbereiche:</p>
+<p>Gleiche Einheitengrößen und Beschränkung der Achsen auf verwendete Datenbereiche:</p>
 <pre><code class="hljs language-py">plt.axis(<span class="hljs-string">"scaled"</span>)
 </code></pre>
 </section><section class="slide"><h2>Gitter</h2>

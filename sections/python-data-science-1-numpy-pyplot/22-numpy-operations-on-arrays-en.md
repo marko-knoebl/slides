@@ -8,7 +8,7 @@ Selecting entries:
 a2d[0] # [1, 2, 3]
 a2d[0, 1] # 2
 a2d[0, :] # [1, 2, 3]
-a2d[:, 0] # [1, 2, 3]
+a2d[:, 0] # [1, 4, 7]
 ```
 
 ## Operations on arrays
@@ -16,8 +16,8 @@ a2d[:, 0] # [1, 2, 3]
 Selecting entries:
 
 ```py
-a2d[1:, 1:] # [[4, 6], [6, 9]]
-a2d[1, ::-1] # [3, 2, 1]
+a2d[1:, 1:] # [[5, 6], [8, 9]]
+a2d[1, ::-1] # [6, 5, 4]
 ```
 
 ## Operations on arrays
@@ -52,6 +52,7 @@ Some constants are available directly in NumPy:
 ```py
 print(a + np.pi)
 print(a + np.e)
+print(np.nan)
 ```
 
 ## Operations on arrays
@@ -72,9 +73,9 @@ Warning: `a == b` cannot be used reasonably in if statements - use `np.array_equ
 Filtering arrays (e.g. for restricting to positive entries):
 
 ```py
-a = np.array([[-1, 3], [-2, 1]])
+a = np.array([-1, 3, -2, 1])
 a_is_pos = a > 0
-# array([[False, True], [False, True]])
+# array([False, True, False, True])
 a_pos = a[a_is_pos]
 # array([3, 1])
 ```

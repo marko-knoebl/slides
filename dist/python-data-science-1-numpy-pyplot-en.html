@@ -2113,12 +2113,17 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <p>Particularly useful for external libraries that are written in a compiled language</p>
 </section><section class="slide"><h2>Pyodide</h2>
 <p><em>Pyodide</em> = Python distribution that can be run directly in the Browser (via <em>WebAssembly</em>)</p>
-</section></section><section class="slides-section"><section class="slide"><h1>Jupyter &#x26; IPython</h1>
+</section></section><section class="slides-section"><section class="slide"><h1>Jupyter and IPython</h1>
 </section><section class="slide"><h2>IPython</h2>
 <p>IPython = advanced interactive Python console, supports features like autocompletion</p>
 </section><section class="slide"><h2>Jupyter notebooks</h2>
-<p>Jupyter notebook = interactive graphical Python environment, includes IPython functionalities</p>
-<p>Jupyter is browser-based; the backend can be run on the local machine or can be hosted on a server</p>
+<p>Jupyter notebook = file format (<em>.ipynb</em>) that represents an interactive Python document where cells may be evaluated individually; interactivity is based on IPython</p>
+</section><section class="slide"><h2>Jupyter interfaces</h2>
+<ul>
+<li><em>Jupyter Notebook</em>: web-based interface that can run on a remote server or locally</li>
+<li><em>JupyterLab</em>: successor to <em>Jupyter Notebook</em></li>
+<li><em>VS Code</em>: supports jupyter notebooks</li>
+</ul>
 </section><section class="slide"><h2>Jupyter notebooks - online</h2>
 <p>Try Jupyter online:</p>
 <h3>Google Colab (Google account needed)</h3>
@@ -2133,9 +2138,16 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li>wait ...</li>
 <li>Select <em>File</em> - <em>New Notebook</em> - <em>Python 3</em></li>
 </ul>
+</section><section class="slide"><h2>Jupyter notebooks - VS Code</h2>
+<p>install <em>ipykernel</em> and its dependencies (<em>ipython</em>, <em>jupyter-core</em>, <em>jupyter-client</em>):</p>
+<!-- will install ipython, jupyter-core, jupyter-client -->
+<pre><code class="hljs language-bash">pip install ipykernel
+</code></pre>
+<p>In VS Code's command palette (F2), search for: <em>Python: Create New Blank Jupyter Notebook</em></p>
 </section><section class="slide"><h2>Jupyter notebooks - locally</h2>
 <p>Launching Jupyter: Entry <em>Jupyter Notebook</em> in the start menu / terminal command <code>jupyter notebook</code></p>
 <p>Stopping Jupyter: Press <em>Quit</em> in the top right corner of the directory tree view (usually under http://localhost:8888/tree)</p>
+<p>Python packages: <em>notebook</em> or <em>jupyterlab</em></p>
 </section><section class="slide"><h2>Notebook files</h2>
 <p>Jupyter notebook files can be created via <em>new</em> - <em>Notebook: Python 3</em></p>
 <p>Will be saved under <em>notebook.ipynb</em></p>
@@ -2148,22 +2160,22 @@ time.sleep(<span class="hljs-number">3</span>)
 </code></pre>
 <p>and press <em>Shift</em> + <em>Enter</em></p>
 </section><section class="slide"><h2>Writing and evaluating code</h2>
-<p>IPython has numbered inputs, e.g. <code>In [1]</code></p>
-<p>When a computation is ongoing it will display <code>In [*]</code></p>
-<p>If the last statement in a cell evaluates to something it will be considered the output and displayed</p>
+<p>IPython has numbered inputs, e.g. <code>[1]</code></p>
+<p>When a computation is ongoing it will display <code>[*]</code></p>
+<p>If the last statement in a cell evaluates to something it will be considered the output and be displayed</p>
 <p>In order to restart the notebook and re-evaluate all cells, press ⏩</p>
 </section><section class="slide"><h2>Accessing the last output</h2>
 <pre><code class="hljs language-py">print(_ * <span class="hljs-number">3</span>)
 </code></pre>
 </section><section class="slide"><h2>Writing documentation via markdown</h2>
 <p>We can add documentation via the standardized <em>markdown</em> language:</p>
-<p>Change the dropdown from <em>Code</em> to <em>Markdown</em> and try the following code:</p>
+<p>Switch from <em>Code</em> to <em>Markdown</em> and try the following code:</p>
 <pre><code class="hljs language-md"><span class="hljs-section"># Heading</span>
 <span class="hljs-bullet">
 - </span>item 1
 <span class="hljs-bullet">- </span>item 2
 </code></pre>
-<p>Run the cell to display the result, double click to edit again</p>
+<p>Run or leave the cell to display the result, double click to edit again</p>
 <p><a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">markdown cheatsheet</a></p>
 </section><section class="slide"><h2>Documentation</h2>
 <p>displaying documentation in any Python console:</p>
@@ -2194,12 +2206,12 @@ time.sleep(<span class="hljs-number">3</span>)
 </code></pre>
 </section><section class="slide"><h2>Arrays</h2>
 <p>creating a 2-dimensional array:</p>
-<pre><code class="hljs language-py">a2d = np.array([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], [<span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">6</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">6</span>, <span class="hljs-number">9</span>]])
+<pre><code class="hljs language-py">a2d = np.array([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], [<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>], [<span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>]])
 </code></pre>
 <p>output:</p>
 <pre><code class="hljs language-py">array([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>],
-       [<span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">6</span>],
-       [<span class="hljs-number">3</span>, <span class="hljs-number">6</span>, <span class="hljs-number">9</span>]])
+       [<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>],
+       [<span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>]])
 </code></pre>
 </section><section class="slide"><h2>Arrays</h2>
 <p>creating a 3-dimensional array:</p>
@@ -2237,10 +2249,10 @@ time.sleep(<span class="hljs-number">3</span>)
 <pre><code class="hljs language-py">np.zeros((<span class="hljs-number">2</span>, <span class="hljs-number">6</span>))
 </code></pre>
 <p>or</p>
-<pre><code class="hljs language-py">np.full((<span class="hljs-number">2</span>, <span class="hljs-number">6</span>), <span class="hljs-number">0</span>)
+<pre><code class="hljs language-py">np.full((<span class="hljs-number">2</span>, <span class="hljs-number">6</span>), <span class="hljs-number">0.0</span>)
 </code></pre>
-<p>creating a 3x3 array of random values:</p>
-<pre><code class="hljs language-py">np.random.random(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>)
+<p>creating a 3x3 array of random float values:</p>
+<pre><code class="hljs language-py">np.random.random((<span class="hljs-number">3</span>, <span class="hljs-number">3</span>))
 </code></pre>
 </section><section class="slide"><h2>Creating arrays</h2>
 <p>creating the sequence <em>0.0, 0.5, 1.0, 1.5</em>:</p>
@@ -2256,12 +2268,12 @@ time.sleep(<span class="hljs-number">3</span>)
 <pre><code class="hljs language-py">a2d[<span class="hljs-number">0</span>] <span class="hljs-comment"># [1, 2, 3]</span>
 a2d[<span class="hljs-number">0</span>, <span class="hljs-number">1</span>] <span class="hljs-comment"># 2</span>
 a2d[<span class="hljs-number">0</span>, :] <span class="hljs-comment"># [1, 2, 3]</span>
-a2d[:, <span class="hljs-number">0</span>] <span class="hljs-comment"># [1, 2, 3]</span>
+a2d[:, <span class="hljs-number">0</span>] <span class="hljs-comment"># [1, 4, 7]</span>
 </code></pre>
 </section><section class="slide"><h2>Operations on arrays</h2>
 <p>Selecting entries:</p>
-<pre><code class="hljs language-py">a2d[<span class="hljs-number">1</span>:, <span class="hljs-number">1</span>:] <span class="hljs-comment"># [[4, 6], [6, 9]]</span>
-a2d[<span class="hljs-number">1</span>, ::<span class="hljs-number">-1</span>] <span class="hljs-comment"># [3, 2, 1]</span>
+<pre><code class="hljs language-py">a2d[<span class="hljs-number">1</span>:, <span class="hljs-number">1</span>:] <span class="hljs-comment"># [[5, 6], [8, 9]]</span>
+a2d[<span class="hljs-number">1</span>, ::<span class="hljs-number">-1</span>] <span class="hljs-comment"># [6, 5, 4]</span>
 </code></pre>
 </section><section class="slide"><h2>Operations on arrays</h2>
 <p>Operators are applied element-wise:</p>
@@ -2285,6 +2297,7 @@ print(a + <span class="hljs-number">1</span>)
 <p>Some constants are available directly in NumPy:</p>
 <pre><code class="hljs language-py">print(a + np.pi)
 print(a + np.e)
+print(np.nan)
 </code></pre>
 </section><section class="slide"><h2>Operations on arrays</h2>
 <p>element-wise comparison of arrays:</p>
@@ -2296,9 +2309,9 @@ a == b
 <p>Warning: <code>a == b</code> cannot be used reasonably in if statements - use <code>np.array_equal(a, b)</code></p>
 </section><section class="slide"><h2>Operations on arrays</h2>
 <p>Filtering arrays (e.g. for restricting to positive entries):</p>
-<pre><code class="hljs language-py">a = np.array([[<span class="hljs-number">-1</span>, <span class="hljs-number">3</span>], [<span class="hljs-number">-2</span>, <span class="hljs-number">1</span>]])
+<pre><code class="hljs language-py">a = np.array([<span class="hljs-number">-1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">-2</span>, <span class="hljs-number">1</span>])
 a_is_pos = a > <span class="hljs-number">0</span>
-<span class="hljs-comment"># array([[False, True], [False, True]])</span>
+<span class="hljs-comment"># array([False, True, False, True])</span>
 a_pos = a[a_is_pos]
 <span class="hljs-comment"># array([3, 1])</span>
 </code></pre>
@@ -2485,17 +2498,17 @@ df.plot.line()
 <p><a href="https://matplotlib.org/3.3.0/gallery/style_sheets/style_sheets_reference.html">Reference of available styles</a></p>
 </section><section class="slide"><h2>Styling graphs</h2>
 <p>short form:</p>
-<pre><code class="hljs language-py">plt.plot(x, y, <span class="hljs-string">"gx--"</span>)
+<pre><code class="hljs language-py">plt.plot(x, y, <span class="hljs-string">"C0X--"</span>)
 </code></pre>
 <p>long form:</p>
-<pre><code class="hljs language-py">plt.plot(x, y, color=<span class="hljs-string">"green"</span>, linestyle=<span class="hljs-string">"dashed"</span>, marker=<span class="hljs-string">"x"</span>)
+<pre><code class="hljs language-py">plt.plot(x, y, color=<span class="hljs-string">"C0"</span>, marker=<span class="hljs-string">"X"</span>, linestyle=<span class="hljs-string">"dashed"</span>)
 </code></pre>
 <p>The long form enables more detailed specification of color and size</p>
 </section><section class="slide"><h2>Styling graphs</h2>
 <p>specifying colors:</p>
 <ul>
+<li>theme color (<em>C0</em> ... <em>C10</em>)</li>
 <li>color name (<em>green</em> / <em>lightblue</em> / ...)</li>
-<li>tableau color (<em>C0</em> ... <em>C10</em>)</li>
 <li>short name (<em>r</em> / <em>g</em> / <em>b</em> / <em>c</em> / <em>m</em> / <em>y</em> / <em>k</em>)</li>
 <li>hex code (e.g. <em>#FFAA00</em>)</li>
 <li>RGB tuple (e.g. <code>(1, 0.7, 0)</code>)</li>
@@ -2517,7 +2530,7 @@ df.plot.line()
 <li><code>"."</code> (medium dot)</li>
 <li><code>"o"</code> (large dot)</li>
 <li><code>"s"</code> (square)</li>
-<li><code>"x"</code></li>
+<li><code>"X"</code></li>
 <li><code>"+"</code></li>
 <li>...</li>
 </ul>
@@ -2561,7 +2574,7 @@ plt.legend()
 <p>Equal distances on both axes:</p>
 <pre><code class="hljs language-py">plt.axis(<span class="hljs-string">"equal"</span>)
 </code></pre>
-<p>Equal distances on both axes, restricting axes markings to used data ranges:</p>
+<p>Equal distances on both axes, restricting plot area to used data ranges:</p>
 <pre><code class="hljs language-py">plt.axis(<span class="hljs-string">"scaled"</span>)
 </code></pre>
 </section><section class="slide"><h2>Grid</h2>

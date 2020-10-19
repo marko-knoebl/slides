@@ -13,7 +13,7 @@
 - `df.index`: Zeilennamen
 - `df.columns`: Spaltennamen
 
-<!-- -->
+<!-- list separator -->
 
 - `df.loc["2009-01-02"]`: Zeile mit bestimmtem Indexwert
 - `df.loc["2009-01-01" : "2009-01-31"]`: Zeile in bestimmtem Bereich (beide Grenzen inklusive)

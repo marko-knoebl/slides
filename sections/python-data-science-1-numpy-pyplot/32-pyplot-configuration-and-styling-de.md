@@ -15,13 +15,13 @@ plt.style.use("stylename")
 Kurzformen:
 
 ```py
-plt.plot(x, y, "gx--")
+plt.plot(x, y, "C0X--")
 ```
 
 Langform:
 
 ```py
-plt.plot(x, y, color="green", linestyle="dashed", marker="x")
+plt.plot(x, y, color="C0", marker="X", linestyle="dashed")
 ```
 
 In der Langform sind genauere Farb- und Größenangaben möglich
@@ -30,8 +30,8 @@ In der Langform sind genauere Farb- und Größenangaben möglich
 
 mögliche Farbangaben:
 
+- Theme-Farbe (`C0` ... `C10`)
 - Farbname (`green` / `lighblue` / ...)
-- Tableau-Farbe (`C0` ... `C10`)
 - Kurzname (`r` / `g` / `b` / `c` / `m` / `y` / `k`)
 - Hex-Code (z.B. `#FFAA00`)
 - RGB-Tupel (z.B. `(1, 0.7, 0)`)
@@ -55,7 +55,7 @@ mögliche Marker:
 - `"."` (mittelgroßer Punkt)
 - `"o"` (großer Punkt)
 - `"s"` (Quadrat)
-- `"x"`
+- `"X"`
 - `"+"`
 - ...
 
@@ -122,7 +122,7 @@ Gleiche Einheitengröße auf beiden Achsen:
 plt.axis("equal")
 ```
 
-Gleiche Einheitengrößen und Beschränkung der Achsenmarkierungen auf verwendete Datenbereiche:
+Gleiche Einheitengrößen und Beschränkung der Achsen auf verwendete Datenbereiche:
 
 ```py
 plt.axis("scaled")

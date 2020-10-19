@@ -11,13 +11,13 @@ np.zeros((2, 6))
 oder
 
 ```py
-np.full((2, 6), 0)
+np.full((2, 6), 0.0)
 ```
 
 Ein 3x3 Array mit Zufallswerten:
 
 ```py
-np.random.random(3, 3)
+np.random.random((3, 3))
 ```
 
 ## Arrays erstellen
