@@ -125,6 +125,21 @@ False + True # 1
 
 # Zahlen
 
+## Weitere Operationen mit Zahlen
+
+- Division mit Rest: `10 // 3`
+- Divisionsrest / Modulo: `10 % 3`
+- Potenzieren: `2 ** 3`
+
+## Unterstriche in Literalen
+
+um uns beim Lesen langer Zahlen zu helfen:
+
+```py
+earth_circumference = 40075017
+earth_circumference = 40_075_017
+```
+
 ## int
 
 beliebig große Ganzzahlen
@@ -201,12 +216,6 @@ a += 1
 ```
 
 Weitere Formen: `-=`, `*=`, ...
-
-## Weitere Operationen mit Zahlen
-
-- Division mit Rest: `10 // 3`
-- Divisionsrest / Modulo: `10 % 3`
-- Potenzieren: `2 ** 3`
 
 # Zeichenkodierung
 
@@ -458,12 +467,23 @@ Listen können direkt verändert werden (im Gegensatz zu Tupeln, Strings):
 
 ## Sortieren von Listen
 
+Sortierung nach Standardreihenfolge (bei Strings alphabetisch)
+
 ```py
 l.sort()
 ```
 
+Sortierung nach selbstdefinierten Reihenfolgen:
+
+- nach Länge eines Strings
+- nach Häufigkeit des Buchstabens "a"
+
 ```py
-l.sort(key=...)
+l.sort(key=len)
+
+def count_a(s):
+    return s.count("a")
+l.sort(key=count_a)
 ```
 
 ## Übungen
@@ -1011,23 +1031,6 @@ size = length < 100 ? 'small' : 'big';
 ```
 
 # For-Schleifen
-
-## Itertools
-
-Itertools: Modul zum Erzeugen von iterierbaren Elementen
-
-Beispiel:
-
-```py
-from itertools import count
-
-for i in count():
-    print(i)
-    if i >= 5:
-        break
-
-# 0 1 2 3 4 5
-```
 
 ## For-Schleifen mit Entpacken von Tupeln
 

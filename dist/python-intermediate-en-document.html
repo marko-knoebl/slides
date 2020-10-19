@@ -95,6 +95,17 @@ a <span class="hljs-keyword">is</span> x <span class="hljs-comment"># False</spa
 <pre><code class="hljs language-py"><span class="hljs-literal">False</span> + <span class="hljs-literal">True</span> <span class="hljs-comment"># 1</span>
 </code></pre>
 <h1>Numbers</h1>
+<h2>Operations with numbers</h2>
+<ul>
+<li>Integer division: <code>10 // 3</code></li>
+<li>Remainder: <code>10 % 3</code></li>
+<li>Power: <code>2 ** 3</code></li>
+</ul>
+<h2>Underscores in literals</h2>
+<p>to help us read long numbers:</p>
+<pre><code class="hljs language-py">earth_circumference = <span class="hljs-number">40075017</span>
+earth_circumference = <span class="hljs-number">40</span>_075_017
+</code></pre>
 <h2>int</h2>
 <p>integers of arbitrary size</p>
 <h2>int</h2>
@@ -139,12 +150,6 @@ e = float(<span class="hljs-string">'inf'</span>)
 <p>short form (augmented assignment):</p>
 <pre><code class="hljs language-py">a += <span class="hljs-number">1</span>
 </code></pre>
-<h2>Operations with numbers</h2>
-<ul>
-<li>Integer division: <code>10 // 3</code></li>
-<li>Remainder: <code>10 % 3</code></li>
-<li>Power: <code>2 ** 3</code></li>
-</ul>
 <h1>Character encodings</h1>
 <h2>Unicode characters</h2>
 <p><em>Unicode</em>: catalog of over 100,000 international characters, each with a unique identifying name and number (usually written in hexadecimal)</p>
@@ -331,9 +336,19 @@ users = [<span class="hljs-string">"Alice"</span>, <span class="hljs-string">"Bo
 <li>removing an element by index: <code>users.pop(2)</code></li>
 </ul>
 <h2>Sorting lists</h2>
+<p>sorting by default order (alphabetically for strings)</p>
 <pre><code class="hljs language-py">l.sort()
 </code></pre>
-<pre><code class="hljs language-py">l.sort(key=...)
+<p>sorting by custom order:</p>
+<ul>
+<li>by string length</li>
+<li>by occurence of letter "a"</li>
+</ul>
+<pre><code class="hljs language-py">l.sort(key=len)
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">count_a</span><span class="hljs-params">(s)</span>:</span>
+    <span class="hljs-keyword">return</span> s.count(<span class="hljs-string">"a"</span>)
+l.sort(key=count_a)
 </code></pre>
 <h2>Exercises</h2>
 <ul>
@@ -707,18 +722,6 @@ products = []
 size = length &#x3C; <span class="hljs-number">100</span> ? <span class="hljs-string">'small'</span> : <span class="hljs-string">'big'</span>;
 </code></pre>
 <h1>For loops</h1>
-<h2>Itertools</h2>
-<p>Itertools: Module for creating iterable elements</p>
-<p>Example:</p>
-<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> itertools <span class="hljs-keyword">import</span> count
-
-<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> count():
-    print(i)
-    <span class="hljs-keyword">if</span> i >= <span class="hljs-number">5</span>:
-        <span class="hljs-keyword">break</span>
-
-<span class="hljs-comment"># 0 1 2 3 4 5</span>
-</code></pre>
 <h2>For loops with tuple unpacking</h2>
 <p>Recap: tuple unpacking</p>
 <pre><code class="hljs language-py">time = (<span class="hljs-number">23</span>, <span class="hljs-number">45</span>, <span class="hljs-number">0</span>)

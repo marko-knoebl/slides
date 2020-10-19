@@ -32,12 +32,23 @@ Lists can be mutated directly (while strings and tuples can't be):
 
 ## Sorting lists
 
+sorting by default order (alphabetically for strings)
+
 ```py
 l.sort()
 ```
 
+sorting by custom order:
+
+- by string length
+- by occurence of letter "a"
+
 ```py
-l.sort(key=...)
+l.sort(key=len)
+
+def count_a(s):
+    return s.count("a")
+l.sort(key=count_a)
 ```
 
 ## Exercises

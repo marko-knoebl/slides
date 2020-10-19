@@ -45,20 +45,20 @@
 
 ## Python Fortgeschritten
 
+- Logging
 - Unittests
-- Docstrings
-- statische Typisierung
 - Funktionen: fortgeschritten
   - Lambdas
-  - Memoisation
   - Decorators
   - functools
+  - Memoisation
 - fortgeschrittene objektorientierte Programmierung
   - Properties
   - statische Attribute und Methoden
   - magic methods
   - Vererbung
 - Iterables und Iterators
+- statische Typisierung
 - fortgeschrittene Datentypen: set, namedtuple, enum
 - Parallelisierung: threads und multiprocessing
 

@@ -1,22 +1,5 @@
 # For-Schleifen
 
-## Itertools
-
-Itertools: Modul zum Erzeugen von iterierbaren Elementen
-
-Beispiel:
-
-```py
-from itertools import count
-
-for i in count():
-    print(i)
-    if i >= 5:
-        break
-
-# 0 1 2 3 4 5
-```
-
 ## For-Schleifen mit Entpacken von Tupeln
 
 Wiederholung: Entpacken von Tupeln

@@ -45,20 +45,20 @@
 
 ## Python advanced
 
+- logging
 - unit tests
-- docstrings
-- static typing
 - functions: advanced
   - lambdas
-  - memoisation
   - decorators
   - functools
+  - memoization
 - advanced object-oriented programming
   - properties
   - static attributes and methods
   - magic methods
   - inheritance
 - iterables and iterators
+- static typing
 - advanced data types: set, namedtuple, enum
 - parallelization: threads and multiprocessing
 

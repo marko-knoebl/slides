@@ -32,12 +32,23 @@ Listen können direkt verändert werden (im Gegensatz zu Tupeln, Strings):
 
 ## Sortieren von Listen
 
+Sortierung nach Standardreihenfolge (bei Strings alphabetisch)
+
 ```py
 l.sort()
 ```
 
+Sortierung nach selbstdefinierten Reihenfolgen:
+
+- nach Länge eines Strings
+- nach Häufigkeit des Buchstabens "a"
+
 ```py
-l.sort(key=...)
+l.sort(key=len)
+
+def count_a(s):
+    return s.count("a")
+l.sort(key=count_a)
 ```
 
 ## Übungen

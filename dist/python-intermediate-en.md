@@ -125,6 +125,21 @@ False + True # 1
 
 # Numbers
 
+## Operations with numbers
+
+- Integer division: `10 // 3`
+- Remainder: `10 % 3`
+- Power: `2 ** 3`
+
+## Underscores in literals
+
+to help us read long numbers:
+
+```py
+earth_circumference = 40075017
+earth_circumference = 40_075_017
+```
+
 ## int
 
 integers of arbitrary size
@@ -200,12 +215,6 @@ short form (augmented assignment):
 ```py
 a += 1
 ```
-
-## Operations with numbers
-
-- Integer division: `10 // 3`
-- Remainder: `10 % 3`
-- Power: `2 ** 3`
 
 # Character encodings
 
@@ -462,12 +471,23 @@ Lists can be mutated directly (while strings and tuples can't be):
 
 ## Sorting lists
 
+sorting by default order (alphabetically for strings)
+
 ```py
 l.sort()
 ```
 
+sorting by custom order:
+
+- by string length
+- by occurence of letter "a"
+
 ```py
-l.sort(key=...)
+l.sort(key=len)
+
+def count_a(s):
+    return s.count("a")
+l.sort(key=count_a)
 ```
 
 ## Exercises
@@ -1017,23 +1037,6 @@ size = length < 100 ? 'small' : 'big';
 ```
 
 # For loops
-
-## Itertools
-
-Itertools: Module for creating iterable elements
-
-Example:
-
-```py
-from itertools import count
-
-for i in count():
-    print(i)
-    if i >= 5:
-        break
-
-# 0 1 2 3 4 5
-```
 
 ## For loops with tuple unpacking
 

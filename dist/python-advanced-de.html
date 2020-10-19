@@ -2268,8 +2268,14 @@ roman: Dict[int, str] = {<span class="hljs-number">1</span>: <span class="hljs-s
 <p>(auch für Python 2)</p>
 </section></section><section class="slides-section"><section class="slide"><h1>Funktionen - Fortgeschritten</h1>
 </section><section class="slide"><h2>Lambdas</h2>
-</section><section class="slide"><h2>Memoisation</h2>
-<p>(Beispiel: Fibonacci)</p>
+<p>Definieren einer Lambda-Funktion (anonymen Funktion):</p>
+<pre><code class="hljs language-py">multiply = <span class="hljs-keyword">lambda</span> a, b: a * b
+</code></pre>
+</section><section class="slide"><h2>Lambdas</h2>
+<p>Verwenden eines Lambdas zum Sortieren:</p>
+<pre><code class="hljs language-py">pairs = [(<span class="hljs-number">1</span>, <span class="hljs-string">'one'</span>), (<span class="hljs-number">2</span>, <span class="hljs-string">'two'</span>), (<span class="hljs-number">3</span>, <span class="hljs-string">'three'</span>), (<span class="hljs-number">4</span>, <span class="hljs-string">'four'</span>)]
+pairs.sort(key=<span class="hljs-keyword">lambda</span> pair: pair[<span class="hljs-number">1</span>])
+</code></pre>
 </section><section class="slide"><h2>Decorators</h2>
 <p>Decorator: Möglichkeit, eine Funktion nach deren Erstellung zu verändern</p>
 <p>Der Decorator ist eine Funktion, die eine Funktion als Parameter übernimmt und eine neue, veränderte Funktion zurückgibt</p>
@@ -2289,6 +2295,10 @@ fib = cache(fib)
 <pre><code class="hljs language-py"><span class="hljs-keyword">from</span> functools <span class="hljs-keyword">import</span> partial
 open_utf8 = partial(open, encoding=<span class="hljs-string">'UTF-8'</span>)
 </code></pre>
+</section><section class="slide"><h2>Memoisation</h2>
+<p>Strategie zur Performanceoptimierung:</p>
+<p>Die Rückgabewerte bisheriger Funktionsaufrufe werden gespeichert und bei erneutem Aufruf mit den gleichen Parameterwerten wiederverwendet</p>
+<p>(Beispiel: Fibonacci)</p>
 </section></section><section class="slides-section"><section class="slide"><h1>Fortgeschrittene objektorientierte Programmierung</h1>
 </section><section class="slide"><h2>Fortgeschrittene objektorientierte Programmierung</h2>
 <p>Beispiel: Klasse <em>Length</em></p>
@@ -2511,98 +2521,158 @@ f.b = <span class="hljs-number">3</span> <span class="hljs-comment"># prints: "s
 <li>Klasse "BankAccount"</li>
 <li>Klasse "Dictionary" (Wörterbuch)</li>
 </ul>
-</section></section><section class="slides-section"><section class="slide"><h1>Iterables &#x26; Iteratoren</h1>
-</section><section class="slide"><h2>Iterable</h2>
-<p>Ein Iterable ist ein Objekt, über das mittels <code>for o in my_iterable</code> iteriert werden kann.</p>
+</section></section><section class="slides-section"><section class="slide"><h1>Iterators</h1>
+</section><section class="slide"><h2>Iterables und Iterators</h2>
+<p><em>Iterable</em>: ein Objekt, über das mittels <code>for element in my_iterable</code> iteriert werden kann</p>
+<p><em>Iterator</em>: ein leichtgewichtiges Iterable</p>
+</section><section class="slide"><h2>Iterables und Iterators</h2>
 <p>Beispiele für Iterables:</p>
 <ul>
-<li>Liste</li>
-<li>Dictionary</li>
+<li>lists</li>
+<li>dicts</li>
 <li>range-Objekte</li>
-<li>Iteratoren</li>
+<li>iterators</li>
 </ul>
-</section><section class="slide"><h2>Iteratoren</h2>
-<p>Das Iterieren über Objekte erfolgt immer über einen sogenannten <em>Iterator</em> - ein Hilfsobjekt für die Iteration.</p>
-<p>Erhalten des Iterators via: <code>my_iterable.__iter__()</code>.</p>
-</section><section class="slide"><h2>Iteratoren</h2>
+</section><section class="slide"><h2>Iterators</h2>
+<p>Ein <em>Iterator</em> ist ein ressourcensparendes Iterable</p>
+<p>Mögliche Vorteile eines Iterators gegenüber Listen:</p>
+<ul>
+<li>Ressourcen werden nur bei Bedarf erstellt / abgefragt</li>
+<li>Speicherverbrauch bleibt niedrig (nur je ein Element ist jeweils im Speicher)</li>
+</ul>
+</section><section class="slide"><h2>Iterators</h2>
+<p>Beispiel: <code>open()</code> gibt einen Iterator von Zeilen einer Datei zurück</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">with</span> open(<span class="hljs-string">"./foo.txt"</span>, encoding=<span class="hljs-string">"utf-8"</span>) <span class="hljs-keyword">as</span> f:
+    <span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> f:
+        <span class="hljs-keyword">print</span> line
+</code></pre>
+<p>Die Datei könnte mehrere GB oder größer sein und dieser Code würde problemlos laufen</p>
+</section><section class="slide"><h2>Iterators</h2>
+<p>Beispielfunktionen:</p>
+<p>Lädt alle Textdateien in <em>./foo/</em> gleichzeitig in eine Liste, iteriert dann über sie:</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">for</span> text <span class="hljs-keyword">in</span> read_textfiles_as_list(<span class="hljs-string">"./foo/"</span>):
+    print(text[:<span class="hljs-number">5</span>])
+</code></pre>
+<p>Lädt Textdateien nacheinander, wodurch der Speicherverbrauch niedrig gehalten wird:</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">for</span> text <span class="hljs-keyword">in</span> read_textfiles_as_iterator(<span class="hljs-string">"./foo/"</span>):
+    print(text[:<span class="hljs-number">5</span>])
+</code></pre>
+</section><section class="slide"><h2>Iterators</h2>
+<p>Aufrufe, die Iterators zurückgeben:</p>
+<ul>
+<li><code>enumerate()</code></li>
+<li><code>reversed()</code></li>
+<li><code>open()</code></li>
+<li><code>os.walk()</code></li>
+<li><code>os.scandir()</code></li>
+<li><code>map()</code></li>
+<li><code>filter()</code></li>
+<li>Funktionen in <a href="https://docs.python.org/3/library/itertools.html">itertools</a></li>
+<li>üblicherweise Datenbankcursor (PEP 249)</li>
+<li>...</li>
+</ul>
+<p>Bemerkung: <code>range</code> gibt keinen Iterator zurück (aber ein ähnliches Objekt)</p>
+</section><section class="slide"><h2>Itertools</h2>
+<p><a href="https://docs.python.org/3/library/itertools.html">itertools</a>: Modul zum erstellen von Iterators</p>
+<ul>
+<li><code>itertools.count</code></li>
+<li><code>itertools.repeat</code></li>
+<li><code>itertools.product</code></li>
+<li>...</li>
+</ul>
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> itertools <span class="hljs-keyword">import</span> count
+
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> count():
+    print(i)
+    <span class="hljs-keyword">if</span> i >= <span class="hljs-number">5</span>:
+        <span class="hljs-keyword">break</span>
+
+<span class="hljs-comment"># 0 1 2 3 4 5</span>
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Generatorfunktionen und Generator Expressions</h1>
+</section><section class="slide"><h2>Generatorfunktionen und Generator Expressions</h2>
+<p><em>Generatorfunktionen</em> und <em>Generator Expressions</em> sind zwei Möglichkeiten, um selbst <em>Iterators</em> zu erstellen</p>
+</section><section class="slide"><h2>Generatorfunktionen</h2>
+<p>Eine Funktion kann ein <code>yield</code>-Statement enthalten und wird dadurch zum Generator</p>
+<pre><code class="hljs language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">count</span><span class="hljs-params">()</span>:</span>
+    i = <span class="hljs-number">0</span>
+    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:
+        <span class="hljs-keyword">yield</span> i
+        i += i
+</code></pre>
+<p>Eine Generatorfunktion kann wiederholt verlassen werden (via <code>yield</code>) und wieder betreten werden (durch anfragen des nächsten Werts)</p>
+</section><section class="slide"><h2>Übung: lesen von Textdateien in einem Ordner</h2>
+<p>Wir erstellen einen Iterator, der die String-Inhalte aller UTF-8-Textdateien in einem Ordner zurückgibt</p>
+<p>Verwendung:</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">for</span> content <span class="hljs-keyword">in</span> read_textfiles(<span class="hljs-string">"."</span>):
+    print(content[:<span class="hljs-number">10</span>])
+</code></pre>
+</section><section class="slide"><h2>Übung: lesen von Textdateien in einem Ordner</h2>
+<p>Lösung:</p>
+<pre><code class="hljs language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">read_textfiles</span><span class="hljs-params">(path=<span class="hljs-string">"."</span>)</span>:</span>
+    <span class="hljs-keyword">for</span> file <span class="hljs-keyword">in</span> os.listdir(path):
+        <span class="hljs-keyword">try</span>:
+            <span class="hljs-keyword">with</span> open(path + <span class="hljs-string">"/"</span> + file) <span class="hljs-keyword">as</span> fobj:
+                <span class="hljs-keyword">yield</span> fobj.read()
+            <span class="hljs-keyword">except</span>:
+                <span class="hljs-keyword">pass</span>
+</code></pre>
+</section><section class="slide"><h2>Generator Expressions</h2>
+<p>Generator <em>Expressions</em> sind ähnlich zu List Comprehensions</p>
+<p>List comprehension:</p>
+<pre><code class="hljs language-py">mylist = [i*i <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">3</span>)]
+</code></pre>
+<p>Generator Expression:</p>
+<pre><code class="hljs language-py">mygenerator = (i*i <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">3</span>))
+</code></pre>
+</section><section class="slide"><h2>Generator Expressions</h2>
+<p>Aufsummieren aller Zahlen von 1 bis 10 Millionen:</p>
+<p>mittels List Comprehension - dies wird hunderte von Megabyte an RAM verbrauchen (siehe Task Manager):</p>
+<pre><code class="hljs language-py">sum([a <span class="hljs-keyword">for</span> a <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>, <span class="hljs-number">10</span>_000_001)])
+</code></pre>
+<p>mittels Generator Expression:</p>
+<pre><code class="hljs language-py">sum((a <span class="hljs-keyword">for</span> a <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>, <span class="hljs-number">10</span>_000_001)))
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Iterators: Hintergründe</h1>
+</section><section class="slide"><h2>Iterators: Hintergründe</h2>
+<p>In Python wird jede for-Schleife über einen <em>Iterator</em> durchlaufen.</p>
+<p>Wenn eine Iteration über ein iterierbares Objekt ausgeführt wird, wird für diese Iteration ein <em>Iterator</em> erstellt.</p>
+<p>Jedes Iterable hat eine <code>__iter__</code>-Methode, die einen Iterator zurückgibt.</p>
+</section><section class="slide"><h2>Iterators: Hintergründe</h2>
+<p>Ein Iterator besitzt eine <code>__next__</code>-Methode</p>
+<p><code>__next__()</code> gibt entweder das nächste Objekt der Iteration zurück oder wirft eine <code>StopIteration</code>-Exception</p>
+<p>Ein Iterator is tatsächlich auch immer ein Iterable (hat eine <code>__iter__</code>-Methode, die den Iterator zurückgibt)</p>
+</section><section class="slide"><h2>Iterators: Hintergründe</h2>
 <p>Iterator einer Liste:</p>
-<pre><code class="hljs language-py">primes = [<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">7</span>]
+<pre><code class="hljs language-py">numbers = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>]
 
-primes_iterator = primes.__iter__()
+numbers_iterator = numbers.__iter__()
 </code></pre>
-<p>Auch Iteratoren haben einen Iterator (sich selbst):</p>
-<pre><code class="hljs language-py">primes_iterator_iterator = primes_iterator.__iter__()
-
-print(primes_iterator_iterator == primes_iterator) <span class="hljs-comment"># True</span>
-</code></pre>
-</section><section class="slide"><h2>Iteratoren</h2>
-<p>Iteratoren haben eine <code>__next__</code>-Methode, die jeweils das nächste Element der Iteration liefert.</p>
+</section><section class="slide"><h2>Iterators: Hintergründe</h2>
+<p>Iterators haben eine <code>__next__</code>-Methode, die das nächste Objekt in der Iteration zurückgibt.</p>
 <p>Beispiel:</p>
 <pre><code class="hljs language-py">numbers = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]
 
 numbers_iterator = numbers.__iter__()
 
-print(numbers_iterator.__next__())
-print(numbers_iterator.__next__())
+print(numbers_iterator.__next__()) <span class="hljs-comment"># 1</span>
+print(numbers_iterator.__next__()) <span class="hljs-comment"># 2</span>
 </code></pre>
-</section><section class="slide"><h2>Iteratoren</h2>
-<p>Wenn ein Iterator aufgebraucht ist, wird eine <code>StopIteration</code>-Exception ausgelöst.</p>
+</section><section class="slide"><h2>Iterators: Hintergründe</h2>
+<p>Wenn ein Iterator "verbraucht" ist, wird eine <code>StopIteration</code>-Exception ausgelöst:</p>
 <pre><code class="hljs language-py">print(numbers_iterator.__next__()) <span class="hljs-comment"># 1</span>
 print(numbers_iterator.__next__()) <span class="hljs-comment"># 2</span>
 print(numbers_iterator.__next__()) <span class="hljs-comment"># 3</span>
 print(numbers_iterator.__next__()) <span class="hljs-comment"># StopIteration</span>
 </code></pre>
-</section><section class="slide"><h2>Iteratoren erzeugen</h2>
-<p>Bekannte Möglichkeit:</p>
-<ul>
-<li>aus Iterables (z.B. <em>list</em>, <em>range</em> oder <em>eigene Klasse</em>) mittels <code>__iter__</code></li>
-</ul>
-<p>Weitere Möglichkeiten:</p>
-<ul>
-<li>Funktionen aus <code>itertools</code></li>
-<li>Generator-Ausdruck</li>
-<li>Funktion mit <code>yield</code></li>
-</ul>
-</section><section class="slide"><h2>Itertools</h2>
-<p>Modul zum Erzeugen von Iteratoren</p>
-<ul>
-<li><code>itertools.count</code></li>
-<li><code>itertools.repeat</code></li>
-<li><code>itertools.product</code></li>
-</ul>
-<p><a href="https://docs.python.org/3/library/itertools.html">https://docs.python.org/3/library/itertools.html</a></p>
-</section><section class="slide"><h2>Itertools - Beispiel count</h2>
-<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> itertools <span class="hljs-keyword">import</span> count
-
-<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> count():
-    print(i)
+</section><section class="slide"><h2>Iterators: Hintergründe</h2>
+<p>Die globale Funktion <code>next()</code> ist äquivalent zum Aufruf von <code>.__next__()</code></p>
+<pre><code class="hljs language-py">next(numbers_iterator)
 </code></pre>
-</section><section class="slide"><h2>Iteratoren - Beispiel count</h2>
-<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> itertools <span class="hljs-keyword">import</span> count
-
-c = count()
-
-c.__next__()
-c.__next__()
+<pre><code class="hljs language-py">numbers_iterator.__next__()
 </code></pre>
-</section><section class="slide"><h2>Iteratoren - Beispiel count</h2>
-<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> itertools <span class="hljs-keyword">import</span> count
-
-c = count()
-
-next(c)
-next(c)
-</code></pre>
-</section><section class="slide"><h2>Iteratoren - Beispiel repeat</h2>
-<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> itertools <span class="hljs-keyword">import</span> repeat
-
-r = repeat(<span class="hljs-string">'a'</span>, <span class="hljs-number">5</span>)
-
-next(r)
-...
-</code></pre>
-</section><section class="slide"><h2>Eigene Klasse</h2>
-<p>Übungen:</p>
+</section><section class="slide"><h2>Iterators: Hintergründe</h2>
+<p>Übung: Wir erstellen ein selbstdefiniertes Iterable durch das Implementieren einer klasse mit <code>__iter__</code> und <code>__next__</code></p>
 <pre><code class="hljs language-py"><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> random():
     ...
 </code></pre>
@@ -2611,29 +2681,6 @@ next(r)
     print(number, end=<span class="hljs-string">" "</span>)
 
 <span class="hljs-number">4</span> <span class="hljs-number">0</span> <span class="hljs-number">29</span> <span class="hljs-number">7</span> <span class="hljs-number">13</span> <span class="hljs-number">19</span>
-</code></pre>
-</section><section class="slide"><h2>Generator-Expression</h2>
-<p>Sehr ähnlich zur List-Comprehension</p>
-<pre><code class="hljs language-py"><span class="hljs-comment"># list-comprehension</span>
-mylist = [i*i <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">3</span>)]
-
-<span class="hljs-comment"># generator</span>
-mygenerator = (i*i <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">3</span>))
-</code></pre>
-</section><section class="slide"><h2>Generator-Expression</h2>
-<p>Unterschiede zur List-Comprehension:</p>
-<ul>
-<li>weniger Resourcenverbrauch (Speicher, ...)</li>
-<li>Durchlauf nur 1x und nach der Reihe</li>
-</ul>
-</section><section class="slide"><h2>yield</h2>
-<p>Eine Funktion kann anstatt eines return-Statements ein yield-Statement enthalten und wird dann zum Generator</p>
-<pre><code class="hljs language-py"><span class="hljs-comment"># eigener count-generator</span>
-<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">count</span><span class="hljs-params">()</span>:</span>
-    i = <span class="hljs-number">0</span>
-    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:
-        <span class="hljs-keyword">yield</span> i
-        i += i
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Schleifen</h1>
 </section><section class="slide"><h2>for ... else</h2>

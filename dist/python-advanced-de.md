@@ -302,9 +302,20 @@ roman: Dict[int, str] = {1: 'I', 2: 'II', 3: 'III', 4: 'IV'}
 
 ## Lambdas
 
-## Memoisation
+Definieren einer Lambda-Funktion (anonymen Funktion):
 
-(Beispiel: Fibonacci)
+```py
+multiply = lambda a, b: a * b
+```
+
+## Lambdas
+
+Verwenden eines Lambdas zum Sortieren:
+
+```py
+pairs = [(1, 'one'), (2, 'two'), (3, 'three'), (4, 'four')]
+pairs.sort(key=lambda pair: pair[1])
+```
 
 ## Decorators
 
@@ -337,6 +348,14 @@ fib = cache(fib)
 from functools import partial
 open_utf8 = partial(open, encoding='UTF-8')
 ```
+
+## Memoisation
+
+Strategie zur Performanceoptimierung:
+
+Die Rückgabewerte bisheriger Funktionsaufrufe werden gespeichert und bei erneutem Aufruf mit den gleichen Parameterwerten wiederverwendet
+
+(Beispiel: Fibonacci)
 
 # Fortgeschrittene objektorientierte Programmierung
 
@@ -646,46 +665,207 @@ class Money():
 - Klasse "BankAccount"
 - Klasse "Dictionary" (Wörterbuch)
 
-# Iterables & Iteratoren
+# Iterators
 
-## Iterable
+## Iterables und Iterators
 
-Ein Iterable ist ein Objekt, über das mittels `for o in my_iterable` iteriert werden kann.
+_Iterable_: ein Objekt, über das mittels `for element in my_iterable` iteriert werden kann
+
+_Iterator_: ein leichtgewichtiges Iterable
+
+## Iterables und Iterators
 
 Beispiele für Iterables:
 
-- Liste
-- Dictionary
+- lists
+- dicts
 - range-Objekte
-- Iteratoren
+- iterators
 
-## Iteratoren
+## Iterators
 
-Das Iterieren über Objekte erfolgt immer über einen sogenannten _Iterator_ - ein Hilfsobjekt für die Iteration.
+Ein _Iterator_ ist ein ressourcensparendes Iterable
 
-Erhalten des Iterators via: `my_iterable.__iter__()`.
+Mögliche Vorteile eines Iterators gegenüber Listen:
 
-## Iteratoren
+- Ressourcen werden nur bei Bedarf erstellt / abgefragt
+- Speicherverbrauch bleibt niedrig (nur je ein Element ist jeweils im Speicher)
+
+## Iterators
+
+Beispiel: `open()` gibt einen Iterator von Zeilen einer Datei zurück
+
+```py
+with open("./foo.txt", encoding="utf-8") as f:
+    for line in f:
+        print line
+```
+
+Die Datei könnte mehrere GB oder größer sein und dieser Code würde problemlos laufen
+
+## Iterators
+
+Beispielfunktionen:
+
+Lädt alle Textdateien in _./foo/_ gleichzeitig in eine Liste, iteriert dann über sie:
+
+```py
+for text in read_textfiles_as_list("./foo/"):
+    print(text[:5])
+```
+
+Lädt Textdateien nacheinander, wodurch der Speicherverbrauch niedrig gehalten wird:
+
+```py
+for text in read_textfiles_as_iterator("./foo/"):
+    print(text[:5])
+```
+
+## Iterators
+
+Aufrufe, die Iterators zurückgeben:
+
+- `enumerate()`
+- `reversed()`
+- `open()`
+- `os.walk()`
+- `os.scandir()`
+- `map()`
+- `filter()`
+- Funktionen in [itertools](https://docs.python.org/3/library/itertools.html)
+- üblicherweise Datenbankcursor (PEP 249)
+- ...
+
+Bemerkung: `range` gibt keinen Iterator zurück (aber ein ähnliches Objekt)
+
+## Itertools
+
+[itertools](https://docs.python.org/3/library/itertools.html): Modul zum erstellen von Iterators
+
+- `itertools.count`
+- `itertools.repeat`
+- `itertools.product`
+- ...
+
+```py
+from itertools import count
+
+for i in count():
+    print(i)
+    if i >= 5:
+        break
+
+# 0 1 2 3 4 5
+```
+
+# Generatorfunktionen und Generator Expressions
+
+## Generatorfunktionen und Generator Expressions
+
+_Generatorfunktionen_ und _Generator Expressions_ sind zwei Möglichkeiten, um selbst _Iterators_ zu erstellen
+
+## Generatorfunktionen
+
+Eine Funktion kann ein `yield`-Statement enthalten und wird dadurch zum Generator
+
+```py
+def count():
+    i = 0
+    while True:
+        yield i
+        i += i
+```
+
+Eine Generatorfunktion kann wiederholt verlassen werden (via `yield`) und wieder betreten werden (durch anfragen des nächsten Werts)
+
+## Übung: lesen von Textdateien in einem Ordner
+
+Wir erstellen einen Iterator, der die String-Inhalte aller UTF-8-Textdateien in einem Ordner zurückgibt
+
+Verwendung:
+
+```py
+for content in read_textfiles("."):
+    print(content[:10])
+```
+
+## Übung: lesen von Textdateien in einem Ordner
+
+Lösung:
+
+```py
+def read_textfiles(path="."):
+    for file in os.listdir(path):
+        try:
+            with open(path + "/" + file) as fobj:
+                yield fobj.read()
+            except:
+                pass
+```
+
+## Generator Expressions
+
+Generator _Expressions_ sind ähnlich zu List Comprehensions
+
+List comprehension:
+
+```py
+mylist = [i*i for i in range(3)]
+```
+
+Generator Expression:
+
+```py
+mygenerator = (i*i for i in range(3))
+```
+
+## Generator Expressions
+
+Aufsummieren aller Zahlen von 1 bis 10 Millionen:
+
+mittels List Comprehension - dies wird hunderte von Megabyte an RAM verbrauchen (siehe Task Manager):
+
+```py
+sum([a for a in range(1, 10_000_001)])
+```
+
+mittels Generator Expression:
+
+```py
+sum((a for a in range(1, 10_000_001)))
+```
+
+# Iterators: Hintergründe
+
+## Iterators: Hintergründe
+
+In Python wird jede for-Schleife über einen _Iterator_ durchlaufen.
+
+Wenn eine Iteration über ein iterierbares Objekt ausgeführt wird, wird für diese Iteration ein _Iterator_ erstellt.
+
+Jedes Iterable hat eine `__iter__`-Methode, die einen Iterator zurückgibt.
+
+## Iterators: Hintergründe
+
+Ein Iterator besitzt eine `__next__`-Methode
+
+`__next__()` gibt entweder das nächste Objekt der Iteration zurück oder wirft eine `StopIteration`-Exception
+
+Ein Iterator is tatsächlich auch immer ein Iterable (hat eine `__iter__`-Methode, die den Iterator zurückgibt)
+
+## Iterators: Hintergründe
 
 Iterator einer Liste:
 
 ```py
-primes = [2, 3, 5, 7]
+numbers = [1, 2, 3, 4]
 
-primes_iterator = primes.__iter__()
+numbers_iterator = numbers.__iter__()
 ```
 
-Auch Iteratoren haben einen Iterator (sich selbst):
+## Iterators: Hintergründe
 
-```py
-primes_iterator_iterator = primes_iterator.__iter__()
-
-print(primes_iterator_iterator == primes_iterator) # True
-```
-
-## Iteratoren
-
-Iteratoren haben eine `__next__`-Methode, die jeweils das nächste Element der Iteration liefert.
+Iterators haben eine `__next__`-Methode, die das nächste Objekt in der Iteration zurückgibt.
 
 Beispiel:
 
@@ -694,13 +874,13 @@ numbers = [1, 2, 3]
 
 numbers_iterator = numbers.__iter__()
 
-print(numbers_iterator.__next__())
-print(numbers_iterator.__next__())
+print(numbers_iterator.__next__()) # 1
+print(numbers_iterator.__next__()) # 2
 ```
 
-## Iteratoren
+## Iterators: Hintergründe
 
-Wenn ein Iterator aufgebraucht ist, wird eine `StopIteration`-Exception ausgelöst.
+Wenn ein Iterator "verbraucht" ist, wird eine `StopIteration`-Exception ausgelöst:
 
 ```py
 print(numbers_iterator.__next__()) # 1
@@ -709,73 +889,21 @@ print(numbers_iterator.__next__()) # 3
 print(numbers_iterator.__next__()) # StopIteration
 ```
 
-## Iteratoren erzeugen
+## Iterators: Hintergründe
 
-Bekannte Möglichkeit:
-
-- aus Iterables (z.B. _list_, _range_ oder _eigene Klasse_) mittels `__iter__`
-
-Weitere Möglichkeiten:
-
-- Funktionen aus `itertools`
-- Generator-Ausdruck
-- Funktion mit `yield`
-
-## Itertools
-
-Modul zum Erzeugen von Iteratoren
-
-- `itertools.count`
-- `itertools.repeat`
-- `itertools.product`
-
-<https://docs.python.org/3/library/itertools.html>
-
-## Itertools - Beispiel count
+Die globale Funktion `next()` ist äquivalent zum Aufruf von `.__next__()`
 
 ```py
-from itertools import count
-
-for i in count():
-    print(i)
+next(numbers_iterator)
 ```
-
-## Iteratoren - Beispiel count
 
 ```py
-from itertools import count
-
-c = count()
-
-c.__next__()
-c.__next__()
+numbers_iterator.__next__()
 ```
 
-## Iteratoren - Beispiel count
+## Iterators: Hintergründe
 
-```py
-from itertools import count
-
-c = count()
-
-next(c)
-next(c)
-```
-
-## Iteratoren - Beispiel repeat
-
-```py
-from itertools import repeat
-
-r = repeat('a', 5)
-
-next(r)
-...
-```
-
-## Eigene Klasse
-
-Übungen:
+Übung: Wir erstellen ein selbstdefiniertes Iterable durch das Implementieren einer klasse mit `__iter__` und `__next__`
 
 ```py
 for i in random():
@@ -789,38 +917,6 @@ for number in roulette():
     print(number, end=" ")
 
 4 0 29 7 13 19
-```
-
-## Generator-Expression
-
-Sehr ähnlich zur List-Comprehension
-
-```py
-# list-comprehension
-mylist = [i*i for i in range(3)]
-
-# generator
-mygenerator = (i*i for i in range(3))
-```
-
-## Generator-Expression
-
-Unterschiede zur List-Comprehension:
-
-- weniger Resourcenverbrauch (Speicher, ...)
-- Durchlauf nur 1x und nach der Reihe
-
-## yield
-
-Eine Funktion kann anstatt eines return-Statements ein yield-Statement enthalten und wird dann zum Generator
-
-```py
-# eigener count-generator
-def count():
-    i = 0
-    while True:
-        yield i
-        i += i
 ```
 
 # Schleifen

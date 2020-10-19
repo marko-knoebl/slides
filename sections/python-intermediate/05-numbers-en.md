@@ -1,5 +1,20 @@
 # Numbers
 
+## Operations with numbers
+
+- Integer division: `10 // 3`
+- Remainder: `10 % 3`
+- Power: `2 ** 3`
+
+## Underscores in literals
+
+to help us read long numbers:
+
+```py
+earth_circumference = 40075017
+earth_circumference = 40_075_017
+```
+
 ## int
 
 integers of arbitrary size
@@ -75,9 +90,3 @@ short form (augmented assignment):
 ```py
 a += 1
 ```
-
-## Operations with numbers
-
-- Integer division: `10 // 3`
-- Remainder: `10 % 3`
-- Power: `2 ** 3`

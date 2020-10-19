@@ -1,5 +1,20 @@
 # Zahlen
 
+## Weitere Operationen mit Zahlen
+
+- Division mit Rest: `10 // 3`
+- Divisionsrest / Modulo: `10 % 3`
+- Potenzieren: `2 ** 3`
+
+## Unterstriche in Literalen
+
+um uns beim Lesen langer Zahlen zu helfen:
+
+```py
+earth_circumference = 40075017
+earth_circumference = 40_075_017
+```
+
 ## int
 
 beliebig große Ganzzahlen
@@ -76,9 +91,3 @@ a += 1
 ```
 
 Weitere Formen: `-=`, `*=`, ...
-
-## Weitere Operationen mit Zahlen
-
-- Division mit Rest: `10 // 3`
-- Divisionsrest / Modulo: `10 % 3`
-- Potenzieren: `2 ** 3`
