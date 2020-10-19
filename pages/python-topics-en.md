@@ -47,19 +47,19 @@
 
 - logging
 - unit tests
-- functions: advanced
-  - lambdas
-  - decorators
-  - functools
-  - memoization
 - advanced object-oriented programming
   - properties
   - static attributes and methods
   - magic methods
   - inheritance
-- iterables and iterators
-- static typing
+- iterators
+- functions: advanced
+  - lambdas
+  - decorators
+  - functools
+  - memoization
 - advanced data types: set, namedtuple, enum
+- static typing
 - parallelization: threads and multiprocessing
 
 ## Python and data science 1: NumPy and pyplot

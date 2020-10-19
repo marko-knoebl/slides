@@ -1,21 +1,4 @@
-# QA & Testen
-
-## Logging
-
-```py
-import logging
-logging.basicConfig(
-    filename="sort.log",
-    level=logging.DEBUG,
-    filemode="w"
-)
-
-logging.debug("hello")
-```
-
-## Logging
-
-Beispiel: Sortieralgorithmus
+# Unittests
 
 ## Assert
 

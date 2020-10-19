@@ -28,7 +28,32 @@
 </ul>
 <h2>Code</h2>
 <p>Code available at: <a href="https://github.com/marko-knoebl/courses-code">https://github.com/marko-knoebl/courses-code</a></p>
-<h1>QA &#x26; Testing</h1>
+<h1>Topics</h1>
+<h2>Topics</h2>
+<ul>
+<li>logging</li>
+<li>unit tests</li>
+<li>type annotations</li>
+<li>advanced object-oriented programming<ul>
+<li>properties</li>
+<li>static attributes and methods</li>
+<li>magic methods</li>
+<li>inheritance</li>
+</ul></li>
+<li>iterators</li>
+<li>functions: advanced<ul>
+<li>lambdas</li>
+<li>decorators</li>
+<li>functools</li>
+<li>memoization</li>
+</ul></li>
+<li>advanced data types: set, namedtuple, enum</li>
+<li>parallelization: threads and multiprocessing</li>
+</ul>
+<h1>Logging</h1>
+<h2>Logging</h2>
+<p>long-running programs can document what they are doing in files</p>
+<p>e.g.: long-running algorithms, web servers</p>
 <h2>Logging</h2>
 <pre><code class="hljs language-py"><span class="hljs-keyword">import</span> logging
 logging.basicConfig(
@@ -41,6 +66,7 @@ logging.debug(<span class="hljs-string">"hello"</span>)
 </code></pre>
 <h2>Logging</h2>
 <p>Example: sorting algorithm</p>
+<h1>Unit tests</h1>
 <h2>assert</h2>
 <h2>Doctests</h2>
 <p>Code examples and unit tests in one - inside the doc string</p>
@@ -175,69 +201,36 @@ Link to `Wikipedia`_.
 
    print("hello")
 </code></pre>
-<h1>Static typing</h1>
-<h2>Static typing</h2>
-<p>Newer Python versions support optional type annotations</p>
-<p>MyPy: type checker for Python that makes use of type annotations</p>
-<p><a href="https://mypy-lang.org">https://mypy-lang.org</a></p>
-<h2>Type declarations</h2>
+<h1>Type hints</h1>
+<h2>Type hints</h2>
+<p>Newer Python versions support optional type hints</p>
+<p>Type hints can support the IDE - e.g. by providing additional errors</p>
+<h2>Type checkers</h2>
+<ul>
+<li>mypy</li>
+<li>pyright</li>
+</ul>
+<p>VS Code extensions are available</p>
+<h2>Type hints</h2>
 <p>Variables:</p>
 <pre><code class="hljs language-py">i: int = <span class="hljs-number">3</span>
 </code></pre>
-<h2>Type declarations</h2>
+<h2>Functions</h2>
 <p>Functions:</p>
 <pre><code class="hljs language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">double</span><span class="hljs-params">(n: int)</span> -> int:</span>
     <span class="hljs-keyword">return</span> <span class="hljs-number">2</span> * n
 </code></pre>
-<h2>Type declarations</h2>
-<p>collections:</p>
-<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> typing <span class="hljs-keyword">import</span> Iterable
-
-names: Iterable[str] = ...
-</code></pre>
-<h2>Type declarations</h2>
-<p>collections:</p>
+<h2>Collections</h2>
 <pre><code class="hljs language-py"><span class="hljs-keyword">from</span> typing <span class="hljs-keyword">import</span> List, Set, Dict, Tuple
 
 names: List[int] = [<span class="hljs-string">'Anna'</span>, <span class="hljs-string">'Bernd'</span>, <span class="hljs-string">'Caro'</span>]
 anna: Tuple[str, str, int] = (<span class="hljs-string">'Anna'</span>, <span class="hljs-string">'Berger'</span>, <span class="hljs-number">1990</span>)
 roman: Dict[int, str] = {<span class="hljs-number">1</span>: <span class="hljs-string">'I'</span>, <span class="hljs-number">2</span>: <span class="hljs-string">'II'</span>, <span class="hljs-number">3</span>: <span class="hljs-string">'III'</span>, <span class="hljs-number">4</span>: <span class="hljs-string">'IV'</span>}
 </code></pre>
-<h2>Mypy documentation</h2>
-<p><a href="https://mypy.readthedocs.io">https://mypy.readthedocs.io</a></p>
-<h1>Functions - advanced</h1>
-<h2>Lambdas</h2>
-<p>defining a lambda function (anonymous function):</p>
-<pre><code class="hljs language-py">multiply = <span class="hljs-keyword">lambda</span> a, b: a * b
-</code></pre>
-<h2>Lambdas</h2>
-<p>using a lambda for sorting:</p>
-<pre><code class="hljs language-py">pairs = [(<span class="hljs-number">1</span>, <span class="hljs-string">'one'</span>), (<span class="hljs-number">2</span>, <span class="hljs-string">'two'</span>), (<span class="hljs-number">3</span>, <span class="hljs-string">'three'</span>), (<span class="hljs-number">4</span>, <span class="hljs-string">'four'</span>)]
-pairs.sort(key=<span class="hljs-keyword">lambda</span> pair: pair[<span class="hljs-number">1</span>])
-</code></pre>
-<h2>Decorators</h2>
-<p>Decorators: Enable easily modifying a function to add to its behavior</p>
-<p>The decorator is a function that takes a function as a parameter and returns a new, modified function</p>
-<h2>Decorators</h2>
-<pre><code class="hljs language-py"><span class="hljs-meta">@cache</span>
-<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">fib</span><span class="hljs-params">(n)</span>:</span>
-    ...
-</code></pre>
-<p>is equivalent to:</p>
-<pre><code class="hljs language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">fib</span><span class="hljs-params">(n)</span>:</span>
-    ...
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> typing <span class="hljs-keyword">import</span> Iterable
 
-fib = cache(fib)
+names: Iterable[str] = ...
 </code></pre>
-<h2>Functools</h2>
-<h2>Functools - example</h2>
-<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> functools <span class="hljs-keyword">import</span> partial
-open_utf8 = partial(open, encoding=<span class="hljs-string">'UTF-8'</span>)
-</code></pre>
-<h2>Memoisation</h2>
-<p>strategy for performance optimization</p>
-<p>return values of previous function calls are cached and used on subsequent function calls with the same arguments</p>
-<p>(example: fibonacci)</p>
 <h1>Advanced object-oriented programming</h1>
 <h2>Advanced object-oriented programming</h2>
 <p>Example: class <em>Length</em></p>
@@ -636,6 +629,39 @@ print(numbers_iterator.__next__()) <span class="hljs-comment"># StopIteration</s
 <ul>
 <li><code>is_prime()</code> with loops and <code>for ... else</code></li>
 </ul>
+<h1>Functions - advanced</h1>
+<h2>Lambdas</h2>
+<p>defining a lambda function (anonymous function):</p>
+<pre><code class="hljs language-py">multiply = <span class="hljs-keyword">lambda</span> a, b: a * b
+</code></pre>
+<h2>Lambdas</h2>
+<p>using a lambda for sorting:</p>
+<pre><code class="hljs language-py">pairs = [(<span class="hljs-number">1</span>, <span class="hljs-string">'one'</span>), (<span class="hljs-number">2</span>, <span class="hljs-string">'two'</span>), (<span class="hljs-number">3</span>, <span class="hljs-string">'three'</span>), (<span class="hljs-number">4</span>, <span class="hljs-string">'four'</span>)]
+pairs.sort(key=<span class="hljs-keyword">lambda</span> pair: pair[<span class="hljs-number">1</span>])
+</code></pre>
+<h2>Decorators</h2>
+<p>Decorators: Enable easily modifying a function to add to its behavior</p>
+<p>The decorator is a function that takes a function as a parameter and returns a new, modified function</p>
+<h2>Decorators</h2>
+<pre><code class="hljs language-py"><span class="hljs-meta">@cache</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">fib</span><span class="hljs-params">(n)</span>:</span>
+    ...
+</code></pre>
+<p>is equivalent to:</p>
+<pre><code class="hljs language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">fib</span><span class="hljs-params">(n)</span>:</span>
+    ...
+
+fib = cache(fib)
+</code></pre>
+<h2>Functools</h2>
+<h2>Functools - example</h2>
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> functools <span class="hljs-keyword">import</span> partial
+open_utf8 = partial(open, encoding=<span class="hljs-string">'UTF-8'</span>)
+</code></pre>
+<h2>Memoisation</h2>
+<p>strategy for performance optimization</p>
+<p>return values of previous function calls are cached and used on subsequent function calls with the same arguments</p>
+<p>(example: fibonacci)</p>
 <h1>Advanced data types</h1>
 <h2>Advanced data types</h2>
 <ul>

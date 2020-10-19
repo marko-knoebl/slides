@@ -32,7 +32,34 @@ Marko Knöbl
 
 Code available at: <https://github.com/marko-knoebl/courses-code>
 
-# QA & Testing
+# Topics
+
+## Topics
+
+- logging
+- unit tests
+- type annotations
+- advanced object-oriented programming
+  - properties
+  - static attributes and methods
+  - magic methods
+  - inheritance
+- iterators
+- functions: advanced
+  - lambdas
+  - decorators
+  - functools
+  - memoization
+- advanced data types: set, namedtuple, enum
+- parallelization: threads and multiprocessing
+
+# Logging
+
+## Logging
+
+long-running programs can document what they are doing in files
+
+e.g.: long-running algorithms, web servers
 
 ## Logging
 
@@ -50,6 +77,8 @@ logging.debug("hello")
 ## Logging
 
 Example: sorting algorithm
+
+# Unit tests
 
 ## assert
 
@@ -247,17 +276,22 @@ Link to `Wikipedia`_.
    print("hello")
 ```
 
-# Static typing
+# Type hints
 
-## Static typing
+## Type hints
 
-Newer Python versions support optional type annotations
+Newer Python versions support optional type hints
 
-MyPy: type checker for Python that makes use of type annotations
+Type hints can support the IDE - e.g. by providing additional errors
 
-<https://mypy-lang.org>
+## Type checkers
 
-## Type declarations
+- mypy
+- pyright
+
+VS Code extensions are available
+
+## Type hints
 
 Variables:
 
@@ -265,7 +299,7 @@ Variables:
 i: int = 3
 ```
 
-## Type declarations
+## Functions
 
 Functions:
 
@@ -274,19 +308,7 @@ def double(n: int) -> int:
     return 2 * n
 ```
 
-## Type declarations
-
-collections:
-
-```py
-from typing import Iterable
-
-names: Iterable[str] = ...
-```
-
-## Type declarations
-
-collections:
+## Collections
 
 ```py
 from typing import List, Set, Dict, Tuple
@@ -296,68 +318,11 @@ anna: Tuple[str, str, int] = ('Anna', 'Berger', 1990)
 roman: Dict[int, str] = {1: 'I', 2: 'II', 3: 'III', 4: 'IV'}
 ```
 
-## Mypy documentation
-
-<https://mypy.readthedocs.io>
-
-# Functions - advanced
-
-## Lambdas
-
-defining a lambda function (anonymous function):
-
 ```py
-multiply = lambda a, b: a * b
+from typing import Iterable
+
+names: Iterable[str] = ...
 ```
-
-## Lambdas
-
-using a lambda for sorting:
-
-```py
-pairs = [(1, 'one'), (2, 'two'), (3, 'three'), (4, 'four')]
-pairs.sort(key=lambda pair: pair[1])
-```
-
-## Decorators
-
-Decorators: Enable easily modifying a function to add to its behavior
-
-The decorator is a function that takes a function as a parameter and returns a new, modified function
-
-## Decorators
-
-```py
-@cache
-def fib(n):
-    ...
-```
-
-is equivalent to:
-
-```py
-def fib(n):
-    ...
-
-fib = cache(fib)
-```
-
-## Functools
-
-## Functools - example
-
-```py
-from functools import partial
-open_utf8 = partial(open, encoding='UTF-8')
-```
-
-## Memoisation
-
-strategy for performance optimization
-
-return values of previous function calls are cached and used on subsequent function calls with the same arguments
-
-(example: fibonacci)
 
 # Advanced object-oriented programming
 
@@ -942,6 +907,65 @@ Quote from Python's inventor:
 ## Exercises
 
 - `is_prime()` with loops and `for ... else`
+
+# Functions - advanced
+
+## Lambdas
+
+defining a lambda function (anonymous function):
+
+```py
+multiply = lambda a, b: a * b
+```
+
+## Lambdas
+
+using a lambda for sorting:
+
+```py
+pairs = [(1, 'one'), (2, 'two'), (3, 'three'), (4, 'four')]
+pairs.sort(key=lambda pair: pair[1])
+```
+
+## Decorators
+
+Decorators: Enable easily modifying a function to add to its behavior
+
+The decorator is a function that takes a function as a parameter and returns a new, modified function
+
+## Decorators
+
+```py
+@cache
+def fib(n):
+    ...
+```
+
+is equivalent to:
+
+```py
+def fib(n):
+    ...
+
+fib = cache(fib)
+```
+
+## Functools
+
+## Functools - example
+
+```py
+from functools import partial
+open_utf8 = partial(open, encoding='UTF-8')
+```
+
+## Memoisation
+
+strategy for performance optimization
+
+return values of previous function calls are cached and used on subsequent function calls with the same arguments
+
+(example: fibonacci)
 
 # Advanced data types
 

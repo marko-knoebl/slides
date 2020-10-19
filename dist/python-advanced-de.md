@@ -32,7 +32,34 @@ Marko Knöbl
 
 Code verfügbar unter: <https://github.com/marko-knoebl/courses-code>
 
-# QA & Testen
+# Themen
+
+## Themen
+
+- Logging
+- Unittests
+- Typenannotationen
+- fortgeschrittene objektorientierte Programmierung
+  - Properties
+  - statische Attribute und Methoden
+  - magic Methods
+  - Vererbung
+- Iterators
+- Funktionen: fortgeschritten
+  - Lambdas
+  - Decorators
+  - functools
+  - Memoisation
+- weitere Datentypen: set, namedtuple, enum
+- Parallelisierung: threads und multiprocessing
+
+# Logging
+
+## Logging
+
+lange laufende Programme können ihren Ablauf in Log-Dateien dokumentieren
+
+z.B.: lange laufende Algorithmen, Webserver
 
 ## Logging
 
@@ -50,6 +77,8 @@ logging.debug("hello")
 ## Logging
 
 Beispiel: Sortieralgorithmus
+
+# Unittests
 
 ## Assert
 
@@ -247,17 +276,22 @@ Link to `Wikipedia`_.
    print("hello")
 ```
 
-# Typendeklarationen
+# Type Hints
 
-## Typendeklarationen
+## Type Hints
 
 Neuere Versionen von Python unterstützen optionale Typenannotationen
 
-MyPy: Typechecker für Python, insbesondere sinnvoll für Python3
+Typenannotationen können die IDE - z.B. durch das Bereitstellen zusätzlicher Fehlermeldungen
 
-<https://mypy-lang.org>
+## Typechecker
 
-## Typendeklarationen
+- pyright
+- mypy
+
+VS Code Extensions für beide verfügbar
+
+## Variablen
 
 Variablen:
 
@@ -265,7 +299,7 @@ Variablen:
 i: int = 3
 ```
 
-## Typendeklarationen
+## Funktionen
 
 Funktionen:
 
@@ -274,15 +308,7 @@ def double(n: int) -> int:
     return 2 * n
 ```
 
-## Typendeklarationen: Kollektionen
-
-```py
-from typing import Iterable
-
-names: Iterable[str] = ...
-```
-
-## Typendeklarationen: Kollektionen
+## Kollektionen
 
 ```py
 from typing import List, Set, Dict, Tuple
@@ -292,70 +318,11 @@ anna: Tuple[str, str, int] = ('Anna', 'Berger', 1990)
 roman: Dict[int, str] = {1: 'I', 2: 'II', 3: 'III', 4: 'IV'}
 ```
 
-## Mypy - Dokumentation
-
-<https://mypy.readthedocs.io>
-
-(auch für Python 2)
-
-# Funktionen - Fortgeschritten
-
-## Lambdas
-
-Definieren einer Lambda-Funktion (anonymen Funktion):
-
 ```py
-multiply = lambda a, b: a * b
+from typing import Iterable
+
+names: Iterable[str] = ...
 ```
-
-## Lambdas
-
-Verwenden eines Lambdas zum Sortieren:
-
-```py
-pairs = [(1, 'one'), (2, 'two'), (3, 'three'), (4, 'four')]
-pairs.sort(key=lambda pair: pair[1])
-```
-
-## Decorators
-
-Decorator: Möglichkeit, eine Funktion nach deren Erstellung zu verändern
-
-Der Decorator ist eine Funktion, die eine Funktion als Parameter übernimmt und eine neue, veränderte Funktion zurückgibt
-
-## Decorators
-
-```py
-@cache
-def fib(n):
-    ...
-```
-
-äquivalent zu:
-
-```py
-def fib(n):
-    ...
-
-fib = cache(fib)
-```
-
-## Functools
-
-## Functools - Beispiel
-
-```py
-from functools import partial
-open_utf8 = partial(open, encoding='UTF-8')
-```
-
-## Memoisation
-
-Strategie zur Performanceoptimierung:
-
-Die Rückgabewerte bisheriger Funktionsaufrufe werden gespeichert und bei erneutem Aufruf mit den gleichen Parameterwerten wiederverwendet
-
-(Beispiel: Fibonacci)
 
 # Fortgeschrittene objektorientierte Programmierung
 
@@ -934,6 +901,65 @@ Diese Funktionalität gibt es bei keiner anderen verbreiteten Programmiersprache
 ## Beispiele
 
 - `is_prime()` mit Schleifen und `for ... else`
+
+# Funktionen - Fortgeschritten
+
+## Lambdas
+
+Definieren einer Lambda-Funktion (anonymen Funktion):
+
+```py
+multiply = lambda a, b: a * b
+```
+
+## Lambdas
+
+Verwenden eines Lambdas zum Sortieren:
+
+```py
+pairs = [(1, 'one'), (2, 'two'), (3, 'three'), (4, 'four')]
+pairs.sort(key=lambda pair: pair[1])
+```
+
+## Decorators
+
+Decorator: Möglichkeit, eine Funktion nach deren Erstellung zu verändern
+
+Der Decorator ist eine Funktion, die eine Funktion als Parameter übernimmt und eine neue, veränderte Funktion zurückgibt
+
+## Decorators
+
+```py
+@cache
+def fib(n):
+    ...
+```
+
+äquivalent zu:
+
+```py
+def fib(n):
+    ...
+
+fib = cache(fib)
+```
+
+## Functools
+
+## Functools - Beispiel
+
+```py
+from functools import partial
+open_utf8 = partial(open, encoding='UTF-8')
+```
+
+## Memoisation
+
+Strategie zur Performanceoptimierung:
+
+Die Rückgabewerte bisheriger Funktionsaufrufe werden gespeichert und bei erneutem Aufruf mit den gleichen Parameterwerten wiederverwendet
+
+(Beispiel: Fibonacci)
 
 # Fortgeschrittene Datentypen
 

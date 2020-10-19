@@ -2090,7 +2090,32 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </ul>
 </section><section class="slide"><h2>Code</h2>
 <p>Code verfügbar unter: <a href="https://github.com/marko-knoebl/courses-code">https://github.com/marko-knoebl/courses-code</a></p>
-</section></section><section class="slides-section"><section class="slide"><h1>QA &#x26; Testen</h1>
+</section></section><section class="slides-section"><section class="slide"><h1>Themen</h1>
+</section><section class="slide"><h2>Themen</h2>
+<ul>
+<li>Logging</li>
+<li>Unittests</li>
+<li>Typenannotationen</li>
+<li>fortgeschrittene objektorientierte Programmierung<ul>
+<li>Properties</li>
+<li>statische Attribute und Methoden</li>
+<li>magic Methods</li>
+<li>Vererbung</li>
+</ul></li>
+<li>Iterators</li>
+<li>Funktionen: fortgeschritten<ul>
+<li>Lambdas</li>
+<li>Decorators</li>
+<li>functools</li>
+<li>Memoisation</li>
+</ul></li>
+<li>weitere Datentypen: set, namedtuple, enum</li>
+<li>Parallelisierung: threads und multiprocessing</li>
+</ul>
+</section></section><section class="slides-section"><section class="slide"><h1>Logging</h1>
+</section><section class="slide"><h2>Logging</h2>
+<p>lange laufende Programme können ihren Ablauf in Log-Dateien dokumentieren</p>
+<p>z.B.: lange laufende Algorithmen, Webserver</p>
 </section><section class="slide"><h2>Logging</h2>
 <pre><code class="hljs language-py"><span class="hljs-keyword">import</span> logging
 logging.basicConfig(
@@ -2103,6 +2128,7 @@ logging.debug(<span class="hljs-string">"hello"</span>)
 </code></pre>
 </section><section class="slide"><h2>Logging</h2>
 <p>Beispiel: Sortieralgorithmus</p>
+</section></section><section class="slides-section"><section class="slide"><h1>Unittests</h1>
 </section><section class="slide"><h2>Assert</h2>
 </section><section class="slide"><h2>Doctests</h2>
 <p>Codebeispiele und unittests in einem - innerhalb der docstrings</p>
@@ -2237,68 +2263,36 @@ Link to `Wikipedia`_.
 
    print("hello")
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Typendeklarationen</h1>
-</section><section class="slide"><h2>Typendeklarationen</h2>
+</section></section><section class="slides-section"><section class="slide"><h1>Type Hints</h1>
+</section><section class="slide"><h2>Type Hints</h2>
 <p>Neuere Versionen von Python unterstützen optionale Typenannotationen</p>
-<p>MyPy: Typechecker für Python, insbesondere sinnvoll für Python3</p>
-<p><a href="https://mypy-lang.org">https://mypy-lang.org</a></p>
-</section><section class="slide"><h2>Typendeklarationen</h2>
+<p>Typenannotationen können die IDE - z.B. durch das Bereitstellen zusätzlicher Fehlermeldungen</p>
+</section><section class="slide"><h2>Typechecker</h2>
+<ul>
+<li>pyright</li>
+<li>mypy</li>
+</ul>
+<p>VS Code Extensions für beide verfügbar</p>
+</section><section class="slide"><h2>Variablen</h2>
 <p>Variablen:</p>
 <pre><code class="hljs language-py">i: int = <span class="hljs-number">3</span>
 </code></pre>
-</section><section class="slide"><h2>Typendeklarationen</h2>
+</section><section class="slide"><h2>Funktionen</h2>
 <p>Funktionen:</p>
 <pre><code class="hljs language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">double</span><span class="hljs-params">(n: int)</span> -> int:</span>
     <span class="hljs-keyword">return</span> <span class="hljs-number">2</span> * n
 </code></pre>
-</section><section class="slide"><h2>Typendeklarationen: Kollektionen</h2>
-<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> typing <span class="hljs-keyword">import</span> Iterable
-
-names: Iterable[str] = ...
-</code></pre>
-</section><section class="slide"><h2>Typendeklarationen: Kollektionen</h2>
+</section><section class="slide"><h2>Kollektionen</h2>
 <pre><code class="hljs language-py"><span class="hljs-keyword">from</span> typing <span class="hljs-keyword">import</span> List, Set, Dict, Tuple
 
 names: List[int] = [<span class="hljs-string">'Anna'</span>, <span class="hljs-string">'Bernd'</span>, <span class="hljs-string">'Caro'</span>]
 anna: Tuple[str, str, int] = (<span class="hljs-string">'Anna'</span>, <span class="hljs-string">'Berger'</span>, <span class="hljs-number">1990</span>)
 roman: Dict[int, str] = {<span class="hljs-number">1</span>: <span class="hljs-string">'I'</span>, <span class="hljs-number">2</span>: <span class="hljs-string">'II'</span>, <span class="hljs-number">3</span>: <span class="hljs-string">'III'</span>, <span class="hljs-number">4</span>: <span class="hljs-string">'IV'</span>}
 </code></pre>
-</section><section class="slide"><h2>Mypy - Dokumentation</h2>
-<p><a href="https://mypy.readthedocs.io">https://mypy.readthedocs.io</a></p>
-<p>(auch für Python 2)</p>
-</section></section><section class="slides-section"><section class="slide"><h1>Funktionen - Fortgeschritten</h1>
-</section><section class="slide"><h2>Lambdas</h2>
-<p>Definieren einer Lambda-Funktion (anonymen Funktion):</p>
-<pre><code class="hljs language-py">multiply = <span class="hljs-keyword">lambda</span> a, b: a * b
-</code></pre>
-</section><section class="slide"><h2>Lambdas</h2>
-<p>Verwenden eines Lambdas zum Sortieren:</p>
-<pre><code class="hljs language-py">pairs = [(<span class="hljs-number">1</span>, <span class="hljs-string">'one'</span>), (<span class="hljs-number">2</span>, <span class="hljs-string">'two'</span>), (<span class="hljs-number">3</span>, <span class="hljs-string">'three'</span>), (<span class="hljs-number">4</span>, <span class="hljs-string">'four'</span>)]
-pairs.sort(key=<span class="hljs-keyword">lambda</span> pair: pair[<span class="hljs-number">1</span>])
-</code></pre>
-</section><section class="slide"><h2>Decorators</h2>
-<p>Decorator: Möglichkeit, eine Funktion nach deren Erstellung zu verändern</p>
-<p>Der Decorator ist eine Funktion, die eine Funktion als Parameter übernimmt und eine neue, veränderte Funktion zurückgibt</p>
-</section><section class="slide"><h2>Decorators</h2>
-<pre><code class="hljs language-py"><span class="hljs-meta">@cache</span>
-<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">fib</span><span class="hljs-params">(n)</span>:</span>
-    ...
-</code></pre>
-<p>äquivalent zu:</p>
-<pre><code class="hljs language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">fib</span><span class="hljs-params">(n)</span>:</span>
-    ...
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> typing <span class="hljs-keyword">import</span> Iterable
 
-fib = cache(fib)
+names: Iterable[str] = ...
 </code></pre>
-</section><section class="slide"><h2>Functools</h2>
-</section><section class="slide"><h2>Functools - Beispiel</h2>
-<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> functools <span class="hljs-keyword">import</span> partial
-open_utf8 = partial(open, encoding=<span class="hljs-string">'UTF-8'</span>)
-</code></pre>
-</section><section class="slide"><h2>Memoisation</h2>
-<p>Strategie zur Performanceoptimierung:</p>
-<p>Die Rückgabewerte bisheriger Funktionsaufrufe werden gespeichert und bei erneutem Aufruf mit den gleichen Parameterwerten wiederverwendet</p>
-<p>(Beispiel: Fibonacci)</p>
 </section></section><section class="slides-section"><section class="slide"><h1>Fortgeschrittene objektorientierte Programmierung</h1>
 </section><section class="slide"><h2>Fortgeschrittene objektorientierte Programmierung</h2>
 <p>Beispiel: Klasse <em>Length</em></p>
@@ -2694,6 +2688,39 @@ print(numbers_iterator.__next__()) <span class="hljs-comment"># StopIteration</s
 <ul>
 <li><code>is_prime()</code> mit Schleifen und <code>for ... else</code></li>
 </ul>
+</section></section><section class="slides-section"><section class="slide"><h1>Funktionen - Fortgeschritten</h1>
+</section><section class="slide"><h2>Lambdas</h2>
+<p>Definieren einer Lambda-Funktion (anonymen Funktion):</p>
+<pre><code class="hljs language-py">multiply = <span class="hljs-keyword">lambda</span> a, b: a * b
+</code></pre>
+</section><section class="slide"><h2>Lambdas</h2>
+<p>Verwenden eines Lambdas zum Sortieren:</p>
+<pre><code class="hljs language-py">pairs = [(<span class="hljs-number">1</span>, <span class="hljs-string">'one'</span>), (<span class="hljs-number">2</span>, <span class="hljs-string">'two'</span>), (<span class="hljs-number">3</span>, <span class="hljs-string">'three'</span>), (<span class="hljs-number">4</span>, <span class="hljs-string">'four'</span>)]
+pairs.sort(key=<span class="hljs-keyword">lambda</span> pair: pair[<span class="hljs-number">1</span>])
+</code></pre>
+</section><section class="slide"><h2>Decorators</h2>
+<p>Decorator: Möglichkeit, eine Funktion nach deren Erstellung zu verändern</p>
+<p>Der Decorator ist eine Funktion, die eine Funktion als Parameter übernimmt und eine neue, veränderte Funktion zurückgibt</p>
+</section><section class="slide"><h2>Decorators</h2>
+<pre><code class="hljs language-py"><span class="hljs-meta">@cache</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">fib</span><span class="hljs-params">(n)</span>:</span>
+    ...
+</code></pre>
+<p>äquivalent zu:</p>
+<pre><code class="hljs language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">fib</span><span class="hljs-params">(n)</span>:</span>
+    ...
+
+fib = cache(fib)
+</code></pre>
+</section><section class="slide"><h2>Functools</h2>
+</section><section class="slide"><h2>Functools - Beispiel</h2>
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> functools <span class="hljs-keyword">import</span> partial
+open_utf8 = partial(open, encoding=<span class="hljs-string">'UTF-8'</span>)
+</code></pre>
+</section><section class="slide"><h2>Memoisation</h2>
+<p>Strategie zur Performanceoptimierung:</p>
+<p>Die Rückgabewerte bisheriger Funktionsaufrufe werden gespeichert und bei erneutem Aufruf mit den gleichen Parameterwerten wiederverwendet</p>
+<p>(Beispiel: Fibonacci)</p>
 </section></section><section class="slides-section"><section class="slide"><h1>Fortgeschrittene Datentypen</h1>
 </section><section class="slide"><h2>Fortgeschrittene Datentypen</h2>
 <ul>
