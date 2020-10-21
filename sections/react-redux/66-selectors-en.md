@@ -38,15 +38,15 @@ Selectors receive the entire state as their argument and return derived data.
 ## Example Selectors
 
 ```js
-const getMaxTodoId = state =>
+const getMaxTodoId = (state) =>
   state.todos.reduce((aggregator, item) =>
     Math.max(aggregator, item.id, 1)
   );
 ```
 
 ```js
-const getFilteredTodos = state =>
-  state.todos.filter(todo =>
+const getFilteredTodos = (state) =>
+  state.todos.filter((todo) =>
     todo.title
       .toLowerCase()
       .includes(state.ui.filterText.toLowerCase())

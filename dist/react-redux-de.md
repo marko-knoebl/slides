@@ -379,14 +379,18 @@ Manuelle Verbindung:
 
 ```js
 const TodoListContainer = () => {
-  const todos = useSelector(state => state);
+  const todos = useSelector((state) => state);
   const dispatch = useDispatch();
 
   return (
     <TodoList
       todos={todos}
-      onToggle={id => dispatch({ type: 'toggle', id: id })}
-      onDelete={id => dispatch({ type: 'delete', id: id })}
+      onToggle={(id) =>
+        dispatch({ type: 'toggle', payload: id })
+      }
+      onDelete={(id) =>
+        dispatch({ type: 'delete', payload: id })
+      }
     />
   );
 };
@@ -400,10 +404,12 @@ Verbindung mittels `connect`:
 import { connect } from 'react-redux';
 
 const TodoListContainer = connect(
-  state => ({ todos: state }),
-  dispatch => ({
-    onToggle: id => dispatch({ type: 'toggle', id: id }),
-    onDelete: id => dispatch({ type: 'delete', id: id }),
+  (state) => ({ todos: state }),
+  (dispatch) => ({
+    onToggle: (id) =>
+      dispatch({ type: 'toggle', payload: id }),
+    onDelete: (id) =>
+      dispatch({ type: 'delete', payload: id }),
   })
 )(TodoList);
 ```
@@ -461,7 +467,9 @@ Interface des Redux Stores:
 import { useSelector, useDispatch } from 'react-redux';
 
 const FontSizeInput = () => {
-  const fontSize = useSelector(state => state.ui.fontSize);
+  const fontSize = useSelector(
+    (state) => state.ui.fontSize
+  );
   const dispatch = useDispatch();
 
   return (
@@ -478,10 +486,10 @@ const FontSizeInput = () => {
 
 ```js
 const FontSizeInput = connect(
-  state => ({
+  (state) => ({
     value: state.fontSize,
   }),
-  dispatch => ({
+  (dispatch) => ({
     onIncrement: () =>
       dispatch({ type: 'increaseFontSize' }),
     onDecrement: () => dispatch({ type: 'reduceFontSize' }),
@@ -618,7 +626,10 @@ const loadTodos = (dispatch) => {
   fetch('https://jsonplaceholder.typicode.com/todos')
     .then((response) => response.json())
     .then((todos) => {
-      dispatch({ type: 'loadTodosSuccess', todos: todos });
+      dispatch({
+        type: 'loadTodosSuccess',
+        payload: todos,
+      });
     });
 };
 ```
@@ -636,8 +647,8 @@ Der komplette Thunk Sourcecode sind nur 14 Zeilen:
 Ein zweites Argument kann optional übergeben werden: Es erhält die `getState`-Funktion als Wert.
 
 ```ts
-const actionAsync = () => (dispatch, getState) => {
-  dispatch(started());
+const loadTodos = () => (dispatch, getState) => {
+  dispatch({ type: 'loadTodosRequest' });
   const s = getState();
   // ...
 };
@@ -648,15 +659,12 @@ const actionAsync = () => (dispatch, getState) => {
 ```ts
 import { Dispatch } from '@reduxjs/toolkit';
 
-const asyncAction = () => (
+const loadTodos = () => (
   dispatch: Dispatch<TodosDataAction>
 ) => {
-  dispatch({ type: 'todosData/loadTodosRequest' });
+  dispatch({ type: 'loadTodosRequest' });
   // ...
-  dispatch({
-    type: 'todosData/loadTodosSuccess',
-    payload: data,
-  });
+  dispatch({ type: 'loadTodosSuccess', payload: data });
 };
 ```
 
@@ -705,7 +713,10 @@ const loadTodoByIndex = (id) => {
     )
       .then((response) => response.json())
       .then((todo) => {
-        dispatch({ type: 'loadTodoSuccess', todo: todo });
+        dispatch({
+          type: 'loadTodoSuccess',
+          payload: todo,
+        });
       });
   }
   return thunkAction;
@@ -908,7 +919,7 @@ import { createAction } from '@reduxjs/toolkit';
 
 // create an action creator
 const addTodo = createAction('addTodo', (title) => ({
-  payload: { title: title },
+  payload: title,
 }));
 
 const action1 = addTodo('groceries');
@@ -1145,15 +1156,15 @@ Ein Selektor erhält den ganzen State als Argument und gibt abgeleitete Daten zu
 ## Beispiele für Selektoren
 
 ```js
-const getMaxTodoId = state =>
+const getMaxTodoId = (state) =>
   state.todos.reduce((aggregator, item) =>
     Math.max(aggregator, item.id, 1)
   );
 ```
 
 ```js
-const getFilteredTodos = state =>
-  state.todos.filter(todo =>
+const getFilteredTodos = (state) =>
+  state.todos.filter((todo) =>
     todo.title
       .toLowerCase()
       .includes(state.ui.filterText.toLowerCase())
@@ -1251,7 +1262,7 @@ Erweiterungspunkt / Eingriffspunkt zwischen dem Dispatchen einer Aktion und dem 
 ## Redux Middleware - Implementierung
 
 ```js
-const myLogger = store => next => action => {
+const myLogger = (store) => (next) => (action) => {
   console.log(action);
   next(action);
 };
@@ -1292,16 +1303,18 @@ Die action `fetchJson` sollte im Hintergrund zwei einzelne actions dispatchen:
 ## Eigene Middleware - json fetcher
 
 ```js
-const fetcher = store => next => action => {
+const fetcher = (store) => (next) => (action) => {
   if (action.type === 'fetchJson') {
     store.dispatch({ type: 'fetchJsonStart' });
     fetch(action.payload.url)
-      .then(response => response.json())
-      .then(parsedResponse => {
+      .then((response) => response.json())
+      .then((data) => {
         store.dispatch({
           type: 'fetchJsonComplete',
-          requestedUrl: url,
-          response: parsedResponse,
+          payload: {
+            url: action.payload.url,
+            data: data,
+          },
         });
       });
   } else {
@@ -1313,7 +1326,7 @@ const fetcher = store => next => action => {
 ## Eigene Middleware - Nachbau von Thunk
 
 ```js
-const myThunk = store => next => action => {
+const myThunk = (store) => (next) => (action) => {
   if (typeof action === 'function') {
     // we pass dispatch to the action function
     // so the action can call it

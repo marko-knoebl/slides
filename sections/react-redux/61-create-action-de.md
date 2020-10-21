@@ -9,7 +9,7 @@ import { createAction } from '@reduxjs/toolkit';
 
 // create an action creator
 const addTodo = createAction('addTodo', (title) => ({
-  payload: { title: title },
+  payload: title,
 }));
 
 const action1 = addTodo('groceries');

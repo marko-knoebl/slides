@@ -43,7 +43,10 @@ const loadTodoByIndex = (id) => {
     )
       .then((response) => response.json())
       .then((todo) => {
-        dispatch({ type: 'loadTodoSuccess', todo: todo });
+        dispatch({
+          type: 'loadTodoSuccess',
+          payload: todo,
+        });
       });
   }
   return thunkAction;

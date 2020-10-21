@@ -36,14 +36,18 @@ manual connection:
 
 ```js
 const TodoListContainer = () => {
-  const todos = useSelector(state => state);
+  const todos = useSelector((state) => state);
   const dispatch = useDispatch();
 
   return (
     <TodoList
       todos={todos}
-      onToggle={id => dispatch({ type: 'toggle', id: id })}
-      onDelete={id => dispatch({ type: 'delete', id: id })}
+      onToggle={(id) =>
+        dispatch({ type: 'toggle', payload: id })
+      }
+      onDelete={(id) =>
+        dispatch({ type: 'delete', payload: id })
+      }
     />
   );
 };
@@ -57,10 +61,12 @@ The `connect` function:
 import { connect } from 'react-redux';
 
 const TodoListContainer = connect(
-  state => ({ todos: state }),
-  dispatch => ({
-    onToggle: id => dispatch({ type: 'toggle', id: id }),
-    onDelete: id => dispatch({ type: 'delete', id: id }),
+  (state) => ({ todos: state }),
+  (dispatch) => ({
+    onToggle: (id) =>
+      dispatch({ type: 'toggle', payload: id }),
+    onDelete: (id) =>
+      dispatch({ type: 'delete', payload: id }),
   })
 )(TodoList);
 ```
@@ -118,7 +124,9 @@ interface of the Redux store:
 import { useSelector, useDispatch } from 'react-redux';
 
 const FontSizeInput = () => {
-  const fontSize = useSelector(state => state.ui.fontSize);
+  const fontSize = useSelector(
+    (state) => state.ui.fontSize
+  );
   const dispatch = useDispatch();
 
   return (
@@ -135,10 +143,10 @@ const FontSizeInput = () => {
 
 ```js
 const FontSizeInput = connect(
-  state => ({
+  (state) => ({
     value: state.fontSize,
   }),
-  dispatch => ({
+  (dispatch) => ({
     onIncrement: () =>
       dispatch({ type: 'increaseFontSize' }),
     onDecrement: () => dispatch({ type: 'reduceFontSize' }),

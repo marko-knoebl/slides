@@ -24,7 +24,7 @@ It provides an extension and can interfere between dispatching an action and the
 ## Redux Middleware - implementation
 
 ```js
-const myLogger = store => next => action => {
+const myLogger = (store) => (next) => (action) => {
   console.log(action);
   next(action);
 };
@@ -65,16 +65,18 @@ In the background the action `fetchJson` should dispatch two separate actions:
 ## Custom Middleware - json fetcher
 
 ```js
-const fetcher = store => next => action => {
+const fetcher = (store) => (next) => (action) => {
   if (action.type === 'fetchJson') {
     store.dispatch({ type: 'fetchJsonStart' });
     fetch(action.payload.url)
-      .then(response => response.json())
-      .then(parsedResponse => {
+      .then((response) => response.json())
+      .then((data) => {
         store.dispatch({
           type: 'fetchJsonComplete',
-          requestedUrl: url,
-          response: parsedResponse,
+          payload: {
+            url: action.payload.url,
+            data: data,
+          },
         });
       });
   } else {
@@ -86,7 +88,7 @@ const fetcher = store => next => action => {
 ## Custom middleware - recreating thunk
 
 ```js
-const myThunk = store => next => action => {
+const myThunk = (store) => (next) => (action) => {
   if (typeof action === 'function') {
     // we pass dispatch to the action function
     // so the action can use it

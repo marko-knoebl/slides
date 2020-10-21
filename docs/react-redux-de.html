@@ -2345,14 +2345,18 @@ ReactDOM.render(
 </section><section class="slide"><h2>Container-Komponenten</h2>
 <p>Manuelle Verbindung:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> TodoListContainer = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  <span class="hljs-keyword">const</span> todos = useSelector(<span class="hljs-function"><span class="hljs-params">state</span> =></span> state);
+  <span class="hljs-keyword">const</span> todos = useSelector(<span class="hljs-function">(<span class="hljs-params">state</span>) =></span> state);
   <span class="hljs-keyword">const</span> dispatch = useDispatch();
 
   <span class="hljs-keyword">return</span> (
     <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">TodoList</span>
       <span class="hljs-attr">todos</span>=<span class="hljs-string">{todos}</span>
-      <span class="hljs-attr">onToggle</span>=<span class="hljs-string">{id</span> =></span> dispatch({ type: 'toggle', id: id })}
-      onDelete={id => dispatch({ type: 'delete', id: id })}
+      <span class="hljs-attr">onToggle</span>=<span class="hljs-string">{(id)</span> =></span>
+        dispatch({ type: 'toggle', payload: id })
+      }
+      onDelete={(id) =>
+        dispatch({ type: 'delete', payload: id })
+      }
     />
   );
 };
@@ -2362,10 +2366,12 @@ ReactDOM.render(
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { connect } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-redux'</span>;
 
 <span class="hljs-keyword">const</span> TodoListContainer = connect(
-  <span class="hljs-function"><span class="hljs-params">state</span> =></span> ({ <span class="hljs-attr">todos</span>: state }),
-  dispatch => ({
-    <span class="hljs-attr">onToggle</span>: <span class="hljs-function"><span class="hljs-params">id</span> =></span> dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">'toggle'</span>, <span class="hljs-attr">id</span>: id }),
-    <span class="hljs-attr">onDelete</span>: <span class="hljs-function"><span class="hljs-params">id</span> =></span> dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">'delete'</span>, <span class="hljs-attr">id</span>: id }),
+  <span class="hljs-function">(<span class="hljs-params">state</span>) =></span> ({ <span class="hljs-attr">todos</span>: state }),
+  (dispatch) => ({
+    <span class="hljs-attr">onToggle</span>: <span class="hljs-function">(<span class="hljs-params">id</span>) =></span>
+      dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">'toggle'</span>, <span class="hljs-attr">payload</span>: id }),
+    <span class="hljs-attr">onDelete</span>: <span class="hljs-function">(<span class="hljs-params">id</span>) =></span>
+      dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">'delete'</span>, <span class="hljs-attr">payload</span>: id }),
   })
 )(TodoList);
 </code></pre>
@@ -2410,7 +2416,9 @@ ReactDOM.render(
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { useSelector, useDispatch } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-redux'</span>;
 
 <span class="hljs-keyword">const</span> FontSizeInput = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  <span class="hljs-keyword">const</span> fontSize = useSelector(<span class="hljs-function"><span class="hljs-params">state</span> =></span> state.ui.fontSize);
+  <span class="hljs-keyword">const</span> fontSize = useSelector(
+    <span class="hljs-function">(<span class="hljs-params">state</span>) =></span> state.ui.fontSize
+  );
   <span class="hljs-keyword">const</span> dispatch = useDispatch();
 
   <span class="hljs-keyword">return</span> (
@@ -2424,10 +2432,10 @@ ReactDOM.render(
 </span></code></pre>
 </section><section class="slide"><h2>Beispiel (via connect)</h2>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> FontSizeInput = connect(
-  <span class="hljs-function"><span class="hljs-params">state</span> =></span> ({
+  <span class="hljs-function">(<span class="hljs-params">state</span>) =></span> ({
     <span class="hljs-attr">value</span>: state.fontSize,
   }),
-  dispatch => ({
+  (dispatch) => ({
     <span class="hljs-attr">onIncrement</span>: <span class="hljs-function"><span class="hljs-params">()</span> =></span>
       dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">'increaseFontSize'</span> }),
     <span class="hljs-attr">onDecrement</span>: <span class="hljs-function"><span class="hljs-params">()</span> =></span> dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">'reduceFontSize'</span> }),
@@ -2527,7 +2535,10 @@ ReactDOM.render(
   fetch(<span class="hljs-string">'https://jsonplaceholder.typicode.com/todos'</span>)
     .then(<span class="hljs-function">(<span class="hljs-params">response</span>) =></span> response.json())
     .then(<span class="hljs-function">(<span class="hljs-params">todos</span>) =></span> {
-      dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">'loadTodosSuccess'</span>, <span class="hljs-attr">todos</span>: todos });
+      dispatch({
+        <span class="hljs-attr">type</span>: <span class="hljs-string">'loadTodosSuccess'</span>,
+        <span class="hljs-attr">payload</span>: todos,
+      });
     });
 };
 </code></pre>
@@ -2537,8 +2548,8 @@ ReactDOM.render(
 <p><a href="https://github.com/reduxjs/redux-thunk/blob/master/src/index.js">https://github.com/reduxjs/redux-thunk/blob/master/src/index.js</a></p>
 </section><section class="slide"><h2>Thunk: Zugriff auf den Redux store</h2>
 <p>Ein zweites Argument kann optional übergeben werden: Es erhält die <code>getState</code>-Funktion als Wert.</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> actionAsync = <span class="hljs-function"><span class="hljs-params">()</span> =></span> (dispatch, getState) => {
-  dispatch(started());
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> loadTodos = <span class="hljs-function"><span class="hljs-params">()</span> =></span> (dispatch, getState) => {
+  dispatch({ <span class="hljs-keyword">type</span>: <span class="hljs-string">'loadTodosRequest'</span> });
   <span class="hljs-keyword">const</span> s = getState();
   <span class="hljs-comment">// ...</span>
 };
@@ -2546,15 +2557,12 @@ ReactDOM.render(
 </section><section class="slide"><h2>Thunk mit Typen</h2>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { Dispatch } <span class="hljs-keyword">from</span> <span class="hljs-string">'@reduxjs/toolkit'</span>;
 
-<span class="hljs-keyword">const</span> asyncAction = <span class="hljs-function"><span class="hljs-params">()</span> =></span> (
+<span class="hljs-keyword">const</span> loadTodos = <span class="hljs-function"><span class="hljs-params">()</span> =></span> (
   dispatch: Dispatch&#x3C;TodosDataAction>
 ) => {
-  dispatch({ <span class="hljs-keyword">type</span>: <span class="hljs-string">'todosData/loadTodosRequest'</span> });
+  dispatch({ <span class="hljs-keyword">type</span>: <span class="hljs-string">'loadTodosRequest'</span> });
   <span class="hljs-comment">// ...</span>
-  dispatch({
-    <span class="hljs-keyword">type</span>: <span class="hljs-string">'todosData/loadTodosSuccess'</span>,
-    payload: data,
-  });
+  dispatch({ <span class="hljs-keyword">type</span>: <span class="hljs-string">'loadTodosSuccess'</span>, payload: data });
 };
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Action Creators</h1>
@@ -2585,7 +2593,10 @@ ReactDOM.render(
     )
       .then(<span class="hljs-function">(<span class="hljs-params">response</span>) =></span> response.json())
       .then(<span class="hljs-function">(<span class="hljs-params">todo</span>) =></span> {
-        dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">'loadTodoSuccess'</span>, <span class="hljs-attr">todo</span>: todo });
+        dispatch({
+          <span class="hljs-attr">type</span>: <span class="hljs-string">'loadTodoSuccess'</span>,
+          <span class="hljs-attr">payload</span>: todo,
+        });
       });
   }
   <span class="hljs-keyword">return</span> thunkAction;
@@ -2755,7 +2766,7 @@ fetchMock.enableMocks();
 
 <span class="hljs-comment">// create an action creator</span>
 <span class="hljs-keyword">const</span> addTodo = createAction(<span class="hljs-string">'addTodo'</span>, (title) => ({
-  <span class="hljs-attr">payload</span>: { <span class="hljs-attr">title</span>: title },
+  <span class="hljs-attr">payload</span>: title,
 }));
 
 <span class="hljs-keyword">const</span> action1 = addTodo(<span class="hljs-string">'groceries'</span>);
@@ -2925,13 +2936,13 @@ fetchMock.enableMocks();
 <li><code>getFilteredTodos</code></li>
 </ul>
 </section><section class="slide"><h2>Beispiele für Selektoren</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> getMaxTodoId = <span class="hljs-function"><span class="hljs-params">state</span> =></span>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> getMaxTodoId = <span class="hljs-function">(<span class="hljs-params">state</span>) =></span>
   state.todos.reduce(<span class="hljs-function">(<span class="hljs-params">aggregator, item</span>) =></span>
     <span class="hljs-built_in">Math</span>.max(aggregator, item.id, <span class="hljs-number">1</span>)
   );
 </code></pre>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> getFilteredTodos = <span class="hljs-function"><span class="hljs-params">state</span> =></span>
-  state.todos.filter(<span class="hljs-function"><span class="hljs-params">todo</span> =></span>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> getFilteredTodos = <span class="hljs-function">(<span class="hljs-params">state</span>) =></span>
+  state.todos.filter(<span class="hljs-function">(<span class="hljs-params">todo</span>) =></span>
     todo.title
       .toLowerCase()
       .includes(state.ui.filterText.toLowerCase())
@@ -3005,7 +3016,7 @@ memoizedAreaSelector({ <span class="hljs-attr">length</span>: <span class="hljs-
 <li>Middleware, die eine einzelne Action erhält und basierend darauf verschiedene andere Actions asynchron auslöst (z.B. redux-thunk)</li>
 </ul>
 </section><section class="slide"><h2>Redux Middleware - Implementierung</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> myLogger = <span class="hljs-function"><span class="hljs-params">store</span> =></span> <span class="hljs-function"><span class="hljs-params">next</span> =></span> <span class="hljs-function"><span class="hljs-params">action</span> =></span> {
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> myLogger = <span class="hljs-function">(<span class="hljs-params">store</span>) =></span> <span class="hljs-function">(<span class="hljs-params">next</span>) =></span> <span class="hljs-function">(<span class="hljs-params">action</span>) =></span> {
   <span class="hljs-built_in">console</span>.log(action);
   next(action);
 };
@@ -3035,16 +3046,18 @@ memoizedAreaSelector({ <span class="hljs-attr">length</span>: <span class="hljs-
 <li><code>fetchJsonComplete</code> (diese enthält auch JSON-daten als payload)</li>
 </ul>
 </section><section class="slide"><h2>Eigene Middleware - json fetcher</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> fetcher = <span class="hljs-function"><span class="hljs-params">store</span> =></span> <span class="hljs-function"><span class="hljs-params">next</span> =></span> <span class="hljs-function"><span class="hljs-params">action</span> =></span> {
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> fetcher = <span class="hljs-function">(<span class="hljs-params">store</span>) =></span> <span class="hljs-function">(<span class="hljs-params">next</span>) =></span> <span class="hljs-function">(<span class="hljs-params">action</span>) =></span> {
   <span class="hljs-keyword">if</span> (action.type === <span class="hljs-string">'fetchJson'</span>) {
     store.dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">'fetchJsonStart'</span> });
     fetch(action.payload.url)
-      .then(<span class="hljs-function"><span class="hljs-params">response</span> =></span> response.json())
-      .then(<span class="hljs-function"><span class="hljs-params">parsedResponse</span> =></span> {
+      .then(<span class="hljs-function">(<span class="hljs-params">response</span>) =></span> response.json())
+      .then(<span class="hljs-function">(<span class="hljs-params">data</span>) =></span> {
         store.dispatch({
           <span class="hljs-attr">type</span>: <span class="hljs-string">'fetchJsonComplete'</span>,
-          <span class="hljs-attr">requestedUrl</span>: url,
-          <span class="hljs-attr">response</span>: parsedResponse,
+          <span class="hljs-attr">payload</span>: {
+            <span class="hljs-attr">url</span>: action.payload.url,
+            <span class="hljs-attr">data</span>: data,
+          },
         });
       });
   } <span class="hljs-keyword">else</span> {
@@ -3053,7 +3066,7 @@ memoizedAreaSelector({ <span class="hljs-attr">length</span>: <span class="hljs-
 };
 </code></pre>
 </section><section class="slide"><h2>Eigene Middleware - Nachbau von Thunk</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> myThunk = <span class="hljs-function"><span class="hljs-params">store</span> =></span> <span class="hljs-function"><span class="hljs-params">next</span> =></span> <span class="hljs-function"><span class="hljs-params">action</span> =></span> {
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> myThunk = <span class="hljs-function">(<span class="hljs-params">store</span>) =></span> <span class="hljs-function">(<span class="hljs-params">next</span>) =></span> <span class="hljs-function">(<span class="hljs-params">action</span>) =></span> {
   <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> action === <span class="hljs-string">'function'</span>) {
     <span class="hljs-comment">// we pass dispatch to the action function</span>
     <span class="hljs-comment">// so the action can call it</span>

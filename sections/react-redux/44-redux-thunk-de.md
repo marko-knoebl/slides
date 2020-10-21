@@ -36,7 +36,10 @@ const loadTodos = (dispatch) => {
   fetch('https://jsonplaceholder.typicode.com/todos')
     .then((response) => response.json())
     .then((todos) => {
-      dispatch({ type: 'loadTodosSuccess', todos: todos });
+      dispatch({
+        type: 'loadTodosSuccess',
+        payload: todos,
+      });
     });
 };
 ```
@@ -54,8 +57,8 @@ https://github.com/reduxjs/redux-thunk/blob/master/src/index.js
 Ein zweites Argument kann optional übergeben werden: Es erhält die `getState`-Funktion als Wert.
 
 ```ts
-const actionAsync = () => (dispatch, getState) => {
-  dispatch(started());
+const loadTodos = () => (dispatch, getState) => {
+  dispatch({ type: 'loadTodosRequest' });
   const s = getState();
   // ...
 };
@@ -66,14 +69,11 @@ const actionAsync = () => (dispatch, getState) => {
 ```ts
 import { Dispatch } from '@reduxjs/toolkit';
 
-const asyncAction = () => (
+const loadTodos = () => (
   dispatch: Dispatch<TodosDataAction>
 ) => {
-  dispatch({ type: 'todosData/loadTodosRequest' });
+  dispatch({ type: 'loadTodosRequest' });
   // ...
-  dispatch({
-    type: 'todosData/loadTodosSuccess',
-    payload: data,
-  });
+  dispatch({ type: 'loadTodosSuccess', payload: data });
 };
 ```

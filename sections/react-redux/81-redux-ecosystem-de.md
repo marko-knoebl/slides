@@ -24,7 +24,7 @@ Erweiterungspunkt / Eingriffspunkt zwischen dem Dispatchen einer Aktion und dem 
 ## Redux Middleware - Implementierung
 
 ```js
-const myLogger = store => next => action => {
+const myLogger = (store) => (next) => (action) => {
   console.log(action);
   next(action);
 };
@@ -65,16 +65,18 @@ Die action `fetchJson` sollte im Hintergrund zwei einzelne actions dispatchen:
 ## Eigene Middleware - json fetcher
 
 ```js
-const fetcher = store => next => action => {
+const fetcher = (store) => (next) => (action) => {
   if (action.type === 'fetchJson') {
     store.dispatch({ type: 'fetchJsonStart' });
     fetch(action.payload.url)
-      .then(response => response.json())
-      .then(parsedResponse => {
+      .then((response) => response.json())
+      .then((data) => {
         store.dispatch({
           type: 'fetchJsonComplete',
-          requestedUrl: url,
-          response: parsedResponse,
+          payload: {
+            url: action.payload.url,
+            data: data,
+          },
         });
       });
   } else {
@@ -86,7 +88,7 @@ const fetcher = store => next => action => {
 ## Eigene Middleware - Nachbau von Thunk
 
 ```js
-const myThunk = store => next => action => {
+const myThunk = (store) => (next) => (action) => {
   if (typeof action === 'function') {
     // we pass dispatch to the action function
     // so the action can call it
