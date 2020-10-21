@@ -79,9 +79,8 @@ Code verfügbar unter: <https://github.com/marko-knoebl/courses-code>
 ## Geschichte von React
 
 - 2013 von Facebook als open source veröffentlicht
-- Aktuelle Major Version: React 16 (September 2017)
 - Februar 2019: Einführung von Hooks
-- kommt 2020: [suspense for data fetching](https://reactjs.org/docs/concurrent-mode-suspense.html) und [concurrent mode](https://reactjs.org/docs/concurrent-mode-intro.html)
+- bevorstehende Ergänzungen: [suspense for data fetching](https://reactjs.org/docs/concurrent-mode-suspense.html) und [concurrent mode](https://reactjs.org/docs/concurrent-mode-intro.html)
 
 # React Grundlagen
 
@@ -610,6 +609,14 @@ Im Projektordner:
 
 - `npm run start` (oder `npm start`): Startet den lokalen Entwicklungsserver
 - `npm run build`: Erstellt einen Build (zum Deployen auf einem Webserver)
+
+## Entwicklungsserver
+
+Bemerkung:
+
+Manchmals zeigt der Entwicklungsserver weiter eine Fehlermeldung an, obwohl der Fehler im Code behoben wurde.
+
+Um dies zu beheben: Stoppen (Ctrl-C) und neu Starten des Servers
 
 # Immutable State
 
@@ -1266,6 +1273,8 @@ const [myOption, setMyOption] = useState(true);
 # Übungen
 
 ## Übungen
+
+Aufgabe: Entwerfen von Komponenteninterfaces (Props und Events) für verschiedene Komponenten (z.B. _Calendar_, _Color Picker_, _BarChart_, _Tabs_)
 
 Aufgabe: "Nachbau" einer der Komponenten auf [awesome-react-components](https://github.com/brillout/awesome-react-components) (z.B. bar chart, color picker, table / data grid, tabs)
 

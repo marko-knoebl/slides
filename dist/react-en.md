@@ -79,9 +79,8 @@ one of the 3 big JavaScript UI frameworks (besides Angular, Vue.js)
 ## History of React
 
 - open-sourced by Facebook in 2013
-- current major version: React 16 (September 2017)
 - February 2019: introduction of hooks
-- upcoming in 2020: [suspense for data fetching](https://reactjs.org/docs/concurrent-mode-suspense.html) and [concurrent mode](https://reactjs.org/docs/concurrent-mode-intro.html)
+- upcoming additions: [suspense for data fetching](https://reactjs.org/docs/concurrent-mode-suspense.html) and [concurrent mode](https://reactjs.org/docs/concurrent-mode-intro.html)
 
 # React Basics
 
@@ -610,6 +609,14 @@ inside the project directory:
 
 - `npm run start` (or `npm start`): starts the local development server
 - `npm run build`: creates a build (for deployment)
+
+## Development server
+
+note:
+
+sometimes the development server will keep displaying an error even though it has been fixed
+
+stop the server (ctrl-C) and restart it to fix this
 
 # Immutable state
 
@@ -1266,6 +1273,8 @@ const [myOption, setMyOption] = useState(true);
 # Exercises
 
 ## Exercises
+
+Task: draft component interfaces (props and events) for various components (e.g. _Calendar_, _Color Picker_, _BarChart_, _Tabs_)
 
 Task: "recreate" one of the components listed at [awesome-react-components](https://github.com/brillout/awesome-react-components) (e.g. bar chart, color picker, table / data grid, tabs)
 

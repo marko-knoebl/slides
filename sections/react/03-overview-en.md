@@ -33,6 +33,5 @@ one of the 3 big JavaScript UI frameworks (besides Angular, Vue.js)
 ## History of React
 
 - open-sourced by Facebook in 2013
-- current major version: React 16 (September 2017)
 - February 2019: introduction of hooks
-- upcoming in 2020: [suspense for data fetching](https://reactjs.org/docs/concurrent-mode-suspense.html) and [concurrent mode](https://reactjs.org/docs/concurrent-mode-intro.html)
+- upcoming additions: [suspense for data fetching](https://reactjs.org/docs/concurrent-mode-suspense.html) and [concurrent mode](https://reactjs.org/docs/concurrent-mode-intro.html)

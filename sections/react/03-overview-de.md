@@ -33,6 +33,5 @@
 ## Geschichte von React
 
 - 2013 von Facebook als open source veröffentlicht
-- Aktuelle Major Version: React 16 (September 2017)
 - Februar 2019: Einführung von Hooks
-- kommt 2020: [suspense for data fetching](https://reactjs.org/docs/concurrent-mode-suspense.html) und [concurrent mode](https://reactjs.org/docs/concurrent-mode-intro.html)
+- bevorstehende Ergänzungen: [suspense for data fetching](https://reactjs.org/docs/concurrent-mode-suspense.html) und [concurrent mode](https://reactjs.org/docs/concurrent-mode-intro.html)

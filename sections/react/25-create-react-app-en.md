@@ -51,3 +51,11 @@ inside the project directory:
 
 - `npm run start` (or `npm start`): starts the local development server
 - `npm run build`: creates a build (for deployment)
+
+## Development server
+
+note:
+
+sometimes the development server will keep displaying an error even though it has been fixed
+
+stop the server (ctrl-C) and restart it to fix this

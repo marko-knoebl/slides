@@ -51,3 +51,11 @@ Im Projektordner:
 
 - `npm run start` (oder `npm start`): Startet den lokalen Entwicklungsserver
 - `npm run build`: Erstellt einen Build (zum Deployen auf einem Webserver)
+
+## Entwicklungsserver
+
+Bemerkung:
+
+Manchmals zeigt der Entwicklungsserver weiter eine Fehlermeldung an, obwohl der Fehler im Code behoben wurde.
+
+Um dies zu beheben: Stoppen (Ctrl-C) und neu Starten des Servers
