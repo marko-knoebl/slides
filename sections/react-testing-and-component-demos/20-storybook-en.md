@@ -66,11 +66,12 @@ FiveStars.args = { stars: 5 };
 props with TypeScript:
 
 ```ts
+import React, { ComponentProps } from 'react';
 import { Story } from '@storybook/react/types-6-0';
 ```
 
 ```tsx
-const TodoItemStoryTemplate: Story<
-  Parameters<typeof TodoItem>[0]
-> = (args) => <TodoItem {...args} />;
+const RatingStoryTemplate: Story<ComponentProps<
+  typeof Rating
+>> = (args) => <Rating {...args} />;
 ```

@@ -82,13 +82,14 @@ FiveStars.args = { stars: 5 };
 Beispiel mit TypeScript:
 
 ```ts
+import React, { ComponentProps } from 'react';
 import { Story } from '@storybook/react/types-6-0';
 ```
 
 ```tsx
-const RatingStoryTemplate: Story<
-  Parameters<typeof Rating>[0]
-> = (args) => <Rating {...args} />;
+const RatingStoryTemplate: Story<ComponentProps<
+  typeof Rating
+>> = (args) => <Rating {...args} />;
 ```
 
 # Testen
