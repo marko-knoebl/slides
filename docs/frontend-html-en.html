@@ -2060,7 +2060,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   </head>
   <body>
     <div class="reveal">
-      <div class="slides slides"><section class="slides-section"><section class="slide"><h1>React</h1>
+      <div class="slides slides"><section class="slides-section"><section class="slide"><h1>HTML</h1>
 </section><section class="slide"><h2>Slides</h2>
 <p><a href="https://marko-knoebl.github.io/slides/">https://marko-knoebl.github.io/slides/</a></p>
 </section><section class="slide"><h2>Your Trainer</h2>
@@ -2090,1090 +2090,731 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </ul>
 </section><section class="slide"><h2>Code</h2>
 <p>Code available at: <a href="https://github.com/marko-knoebl/courses-code">https://github.com/marko-knoebl/courses-code</a></p>
-</section></section><section class="slides-section"><section class="slide"><h1>Topics</h1>
-</section><section class="slide"><h2>Topics</h2>
+</section></section><section class="slides-section"><section class="slide"><h1>HTML, CSS &#x26; JavaScript</h1>
+</section><section class="slide"><h2>HTML, CSS &#x26; JavaScript</h2>
+<p>Fundamental Technologies used by browsers:</p>
 <ul>
-<li>overview of React</li>
-<li>JS basics for React</li>
-<li>declarative rendering / working with state</li>
-<li>JSX template language</li>
-<li>components</li>
-<li>using predefined components</li>
-<li>querying web APIs from components</li>
+<li><strong>HTML</strong>: defines the structure and content of a page</li>
+<li><strong>CSS</strong>: defines the style of a page</li>
+<li><strong>JavaScript</strong>: defines behavior / interactions of a page</li>
 </ul>
-</section></section><section class="slides-section"><section class="slide"><h1>React.js overview</h1>
-</section><section class="slide"><h2>What is React?</h2>
-<p>one of the 3 big JavaScript UI frameworks (besides Angular, Vue.js)</p>
-</section><section class="slide"><h2>Basics of modern JavaScript UI frameworks</h2>
-<ul>
-<li>declarative</li>
-<li>component-based</li>
-</ul>
-</section><section class="slide"><h2>Declarative</h2>
-<ul>
-<li>data model which describes the entire application state</li>
-<li>user interactions change the data model, causing the view to update automatically</li>
-</ul>
-</section><section class="slide"><h2>Component-based</h2>
-<ul>
-<li>"custom" HTML-Tags</li>
-<li>data flow via props and events</li>
-<li>usually unidirectional dataflow (from parent to child)</li>
-</ul>
-</section><section class="slide"><h2>Example: data model and data flow in a todo app</h2>
-<svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="200mm" height="100mm" viewBox="0 0 200 100" version="1.1" id="svg8" inkscape:version="0.92.4 (5da689c313, 2019-01-14)" sodipodi:docname="todo-components-datamodel.svg">
-  <defs id="defs2"></defs>
-  <sodipodi:namedview id="base" pagecolor="#ffffff" bordercolor="#666666" borderopacity="1.0" inkscape:pageopacity="0.0" inkscape:pageshadow="2" inkscape:zoom="0.9899495" inkscape:cx="530.34573" inkscape:cy="203.6552" inkscape:document-units="mm" inkscape:current-layer="layer1" showgrid="false" inkscape:window-width="1366" inkscape:window-height="704" inkscape:window-x="0" inkscape:window-y="27" inkscape:window-maximized="1" inkscape:snap-global="false"></sodipodi:namedview>
-  <metadata id="metadata5">
-    <rdf:rdf>
-      <cc:work rdf:about="">
-        <dc:format>image/svg+xml</dc:format>
-        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"></dc:type>
-        <dc:title></dc:title>
-      </cc:work>
-    </rdf:rdf>
-  </metadata>
-  <g inkscape:label="Ebene 1" inkscape:groupmode="layer" id="layer1" transform="translate(0,-197)">
-    <g id="g4656" transform="translate(-54.389348,79.379046)">
-      <rect y="192.09799" x="61.52689" height="10.420975" width="41.183342" id="rect4485-7-2-6-1" style="fill:#01579f;fill-opacity:0.94117647;stroke:#000000;stroke-width:0.08117273;stroke-opacity:1"></rect>
-      <text xml:space="preserve" style="font-style:normal;font-weight:normal;font-size:7.69790459px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#e7e7e7;fill-opacity:1;stroke:none;stroke-width:0.19244762;stroke-opacity:1" x="64.187866" y="200.24106" id="text4825"><tspan sodipodi:role="line" x="64.187866" y="200.24106" id="tspan4823" style="stroke-width:0.19244762"><tspan x="64.187866" y="200.24106" id="tspan4821" style="stroke-width:0.19244762">TodoItem</tspan></tspan></text>
-    </g>
-    <g id="g4677" transform="translate(-4.1426777,64.679225)">
-      <rect y="176.78355" x="10.350194" height="10.310303" width="108.81847" id="rect4485-7" style="fill:#01579f;fill-opacity:0.94117647;stroke:#000000;stroke-width:0.19183654;stroke-opacity:1"></rect>
-      <text xml:space="preserve" style="font-style:normal;font-weight:normal;font-size:7.69790459px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#e7e7e7;fill-opacity:1;stroke:none;stroke-width:0.19244762;stroke-opacity:1" x="12.955827" y="184.87131" id="text4807"><tspan sodipodi:role="line" x="12.955827" y="184.87131" id="tspan4805" style="stroke-width:0.19244762"><tspan x="12.955827" y="184.87131" id="tspan4803" style="stroke-width:0.19244762">TodoList</tspan></tspan></text>
-    </g>
-    <g id="g4684" transform="translate(-12.160763,64.679225)">
-      <rect y="176.57292" x="134.81993" height="10.39143" width="68.353493" id="rect4485-7-2" style="fill:#01579f;fill-opacity:0.94117647;stroke:#000000;stroke-width:0.11070967;stroke-opacity:1"></rect>
-      <text xml:space="preserve" style="font-style:normal;font-weight:normal;font-size:7.69790459px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#e7e7e7;fill-opacity:1;stroke:none;stroke-width:0.19244762;stroke-opacity:1" x="136.93158" y="184.70125" id="text4813"><tspan sodipodi:role="line" x="136.93158" y="184.70125" id="tspan4811" style="stroke-width:0.19244762"><tspan x="136.93158" y="184.70125" id="tspan4809" style="stroke-width:0.19244762">AddTodo</tspan></tspan></text>
-    </g>
-    <g id="g4691" transform="translate(-3.6081386,52.117557)">
-      <rect y="159.58748" x="10.432021" height="10.273884" width="184.54591" id="rect4485" style="fill:#01579b;fill-opacity:1;stroke:#000000;stroke-width:0.22825836;stroke-opacity:1"></rect>
-      <text xml:space="preserve" style="font-style:normal;font-weight:normal;font-size:7.69790459px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#e7e7e7;fill-opacity:1;stroke:none;stroke-width:0.19244762;stroke-opacity:1" x="13.019444" y="167.17104" id="text4801"><tspan sodipodi:role="line" x="13.019444" y="167.17104" id="tspan4799" style="stroke-width:0.19244762"><tspan x="13.019444" y="167.17104" id="tspan4797" style="stroke-width:0.19244762">TodoApp</tspan></tspan></text>
-    </g>
-    <g id="g4663-0" transform="matrix(0.78368654,0,0,0.78368654,12.501134,62.734688)">
-      <rect y="191.83354" x="88.724396" height="10.415314" width="22.592768" id="rect4485-7-2-6-1-1-5" style="fill:#e66c09;fill-opacity:0.94117647;stroke:#000000;stroke-width:0.087;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"></rect>
-      <text xml:space="preserve" style="font-style:normal;font-weight:normal;font-size:7.69790459px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#e7e7e7;fill-opacity:1;stroke:none;stroke-width:0.19244762;stroke-opacity:1" x="91.382538" y="199.29854" id="text4789"><tspan sodipodi:role="line" x="91.382538" y="199.29854" id="tspan4787" style="font-size:6.30212307px;stroke-width:0.19244762"><tspan x="91.382538" y="199.29854" id="tspan4785" style="font-size:6.30212307px;stroke-width:0.19244762">todos</tspan></tspan></text>
-    </g>
-    <g id="g4663-0-5" transform="matrix(0.78368655,0,0,0.78368655,100.85435,69.128991)">
-      <rect y="220.82205" x="80.880447" height="10.415314" width="30.436718" id="rect4485-7-2-6-1-1-5-5" style="fill:#e66c09;fill-opacity:0.94117647;stroke:#000000;stroke-width:0.087;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"></rect>
-      <text xml:space="preserve" style="font-style:normal;font-weight:normal;font-size:7.69790459px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#e7e7e7;fill-opacity:1;stroke:none;stroke-width:0.19244762;stroke-opacity:1" x="83.538589" y="228.96228" id="text4843"><tspan sodipodi:role="line" x="83.538589" y="228.96228" id="tspan4841" style="font-size:6.30212259px;stroke-width:0.19244762"><tspan x="83.538589" y="228.96228" id="tspan4839" style="font-size:6.30212259px;stroke-width:0.19244762">newTitle</tspan></tspan></text>
-    </g>
-    <g id="g4663-0-3" transform="matrix(0.78368655,0,0,0.78368655,15.213118,92.334793)">
-      <rect y="191.8438" x="88.73465" height="10.394806" width="33.656105" id="rect4485-7-2-6-1-1-5-9" style="fill:#e66c09;fill-opacity:0.94117647;stroke:#000000;stroke-width:0.10750672;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"></rect>
-      <text xml:space="preserve" style="font-style:normal;font-weight:normal;font-size:7.69790459px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#e7e7e7;fill-opacity:1;stroke:none;stroke-width:0.19244762;stroke-opacity:1" x="91.382538" y="199.29854" id="text4795"><tspan sodipodi:role="line" x="91.382538" y="199.29854" id="tspan4793" style="font-size:6.30212259px;stroke-width:0.19244762"><tspan x="91.382538" y="199.29854" id="tspan4791" style="font-size:6.30212259px;stroke-width:0.19244762">filterText</tspan></tspan></text>
-    </g>
-    <g transform="translate(-9.4665783,79.379046)" id="g3770">
-      <rect style="fill:#01579f;fill-opacity:0.94117647;stroke:#000000;stroke-width:0.08117273;stroke-opacity:1" id="rect3762" width="41.183342" height="10.420975" x="61.52689" y="192.09799"></rect>
-      <text id="text3768" y="200.24106" x="64.187866" style="font-style:normal;font-weight:normal;font-size:7.69790459px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#e7e7e7;fill-opacity:1;stroke:none;stroke-width:0.19244762;stroke-opacity:1" xml:space="preserve"><tspan style="stroke-width:0.19244762" id="tspan3766" y="200.24106" x="64.187866" sodipodi:role="line"><tspan style="stroke-width:0.19244762" id="tspan3764" y="200.24106" x="64.187866">TodoItem</tspan></tspan></text>
-    </g>
-    <g id="g3807" transform="translate(35.461562,79.379046)">
-      <rect y="192.09799" x="61.52689" height="10.420975" width="13.654585" id="rect3799" style="fill:#01579f;fill-opacity:0.94117647;stroke:#000000;stroke-width:0.08117273;stroke-opacity:1"></rect>
-      <text xml:space="preserve" style="font-style:normal;font-weight:normal;font-size:7.69790459px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#e7e7e7;fill-opacity:1;stroke:none;stroke-width:0.19244762;stroke-opacity:1" x="64.187866" y="200.24106" id="text3805"><tspan sodipodi:role="line" x="64.187866" y="200.24106" id="tspan3803" style="stroke-width:0.19244762">...<tspan x="64.187866" y="200.24106" id="tspan3801" style="stroke-width:0.19244762"></tspan></tspan></text>
-    </g>
-  </g>
-</svg>
-</section><section class="slide"><h2>What makes React special?</h2>
-<ul>
-<li>JavaScript-based template syntax</li>
-<li>explicit state changes via setters</li>
-<li>immutable state objects</li>
-</ul>
-</section><section class="slide"><h2>History of React</h2>
-<ul>
-<li>open-sourced by Facebook in 2013</li>
-<li>February 2019: introduction of hooks</li>
-<li>upcoming additions: <a href="https://reactjs.org/docs/concurrent-mode-suspense.html">suspense for data fetching</a> and <a href="https://reactjs.org/docs/concurrent-mode-intro.html">concurrent mode</a></li>
-</ul>
-</section></section><section class="slides-section"><section class="slide"><h1>React Basics</h1>
-</section><section class="slide"><h2>Online editors</h2>
-<p>recommendation: <a href="https://codesandbox.io">https://codesandbox.io</a></p>
-<p>others:</p>
-<ul>
-<li>Glitch: <a href="https://glitch.com/edit/#!/remix/starter-react-template">https://glitch.com/edit/#!/remix/starter-react-template</a></li>
-<li>CodePen: <a href="https://reactjs.org/redirect-to-codepen/hello-world">https://reactjs.org/redirect-to-codepen/hello-world</a></li>
-</ul>
-</section><section class="slide"><h2>Example component definition</h2>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> React, { useState } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
-
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">CounterApp</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">const</span> [count, setCount] = useState(<span class="hljs-number">0</span>);
-
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
-      count: {count}
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setCount(count + 1)}>+<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
-  );
-}
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> CounterApp;
+</section></section><section class="slides-section"><section class="slide"><h1>HTML basics</h1>
+</section><section class="slide"><h2>Elements and tags</h2>
+<p>HTML consists of nested <strong>elements</strong> which are delimited by <strong>tags</strong></p>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>this is a heading<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
 </code></pre>
-</section><section class="slide"><h2>Example component definition</h2>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> React, { useState } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
-
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">SlideshowApp</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">const</span> [img, setImg] = useState(<span class="hljs-number">0</span>);
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setImg(0)}>start<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setImg(img - 1)}>prev<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">img</span>
-        <span class="hljs-attr">src</span>=<span class="hljs-string">{</span>`<span class="hljs-attr">https:</span>//<span class="hljs-attr">picsum.photos</span>/<span class="hljs-attr">200</span>?<span class="hljs-attr">image</span>=<span class="hljs-string">${img}</span>`}
-        <span class="hljs-attr">alt</span>=<span class="hljs-string">"slideshow"</span>
-      /></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setImg(img + 1)}>next<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
-  );
-}
-
-export default SlideshowApp;
-</span></code></pre>
-</section><section class="slide"><h2>Function components and class components</h2>
-<p>options:</p>
-<ul>
-<li>defining a component as a function</li>
-<li>defining a component as a class (was especially common / necessary before the introduction of hooks)</li>
-</ul>
-</section><section class="slide"><h2>Component definition</h2>
-<p>In order to distinguish them from ordinary tags, components start with a capital letter</p>
-</section></section><section class="slides-section"><section class="slide"><h1>JSX Basics</h1>
-</section><section class="slide"><h2>JSX: JS + XML</h2>
-<p>JSX = Template language of React</p>
-<ul>
-<li><strong>&#x3C;</strong> switches from JS to XML/HTML</li>
-<li><strong>{</strong> switches back to JS</li>
-</ul>
-</section><section class="slide"><h2>Binding content</h2>
-<pre><code class="hljs language-jsx">&#x3C;div>A year has {<span class="hljs-number">365</span> * <span class="hljs-number">24</span>} hours&#x3C;<span class="hljs-regexp">/div>
-</span></code></pre>
-</section><section class="slide"><h2>Binding content</h2>
-<p>Tasks:</p>
-<ul>
-<li>Show the current date</li>
-<li>Show either "heads" or "tails" inside a div</li>
-</ul>
-</section><section class="slide"><h2>Binding content</h2>
-<p>date:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> dateString = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>().toLocaleDateString();
-</code></pre>
-<pre><code class="hljs language-jsx">&#x3C;div>curent date: {dateString}&#x3C;<span class="hljs-regexp">/div>
-</span></code></pre>
-<p>heads or tails:</p>
-<pre><code class="hljs language-jsx">&#x3C;div>{<span class="hljs-built_in">Math</span>.random() > <span class="hljs-number">0.5</span> ? <span class="hljs-string">'heads'</span> : <span class="hljs-string">'tails'</span>}&#x3C;<span class="hljs-regexp">/div>
-</span></code></pre>
-</section><section class="slide"><h2>Binding Properties</h2>
-<p>we can also change from XML to JS in properties:</p>
-<pre><code class="hljs language-jsx">&#x3C;a href={<span class="hljs-string">'https://en.wikipedia.org/wiki/'</span> + articleName}>
-  some article
-&#x3C;<span class="hljs-regexp">/a>
-</span></code></pre>
-<p>Note: no quote characters around the value of <em>href</em></p>
-</section><section class="slide"><h2>Binding Events</h2>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> hello = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'hello world'</span>);
-  <span class="hljs-comment">// ...</span>
-};
-</code></pre>
-<pre><code class="hljs language-jsx">&#x3C;button onClick={hello}>Say Hello&#x3C;<span class="hljs-regexp">/button>
-</span></code></pre>
-<p>list of browser events:
-<a href="https://www.w3schools.com/jsref/dom_obj_event.asp">https://www.w3schools.com/jsref/dom_obj_event.asp</a></p>
-</section><section class="slide"><h2>Binding Events</h2>
-<p>note: an event handler must be a <strong>function</strong>, not a function call</p>
-<p>OK:</p>
-<pre><code class="hljs language-js">&#x3C;button onClick={alert}>Say something&#x3C;<span class="hljs-regexp">/button>
-</span></code></pre>
-<p>not OK:</p>
-<pre><code class="hljs language-js">&#x3C;button onClick={alert(<span class="hljs-string">'hello'</span>)}>Say Hello&#x3C;<span class="hljs-regexp">/button>
-</span></code></pre>
-<p>OK:</p>
-<pre><code class="hljs language-js">&#x3C;button onClick={() => alert(<span class="hljs-string">'hello'</span>)}>Say Hello&#x3C;<span class="hljs-regexp">/button>
-</span></code></pre>
-</section><section class="slide"><h2>Repeating elements</h2>
-<p>multiple elements may be added via arrays:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> elements = [
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>alpha<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>,
-  &#x3C;div>bravo&#x3C;<span class="hljs-regexp">/div>,
-  &#x3C;div>charlie&#x3C;/</span>div>,
-];
-</code></pre>
-<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>three elements<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
-{ elements }
-</code></pre>
-</section><section class="slide"><h2>Repeating elements</h2>
-<p>example: displaying all method names of the <em>React</em> object inside a <em>ul</em> element</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> reactMethods = [];
-<span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> method <span class="hljs-keyword">in</span> React) {
-  reactMethods.push(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">li</span>></span>{method}<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span></span>);
-}
-</code></pre>
-<pre><code class="hljs language-jsx">&#x3C;div>
-  React Methods:
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">ul</span>></span>{reactMethods}<span class="hljs-tag">&#x3C;/<span class="hljs-name">ul</span>></span></span>
-<span class="xml"><span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>State</h1>
-</section><section class="slide"><h2>State</h2>
-<p>Components may have an internal <em>state</em></p>
-<p>The state can be referenced in the template. The view will automatically update if parts of the state are changed.</p>
-</section><section class="slide"><h2>State hook</h2>
-<p>In function components we make use of the <em>state hook</em>:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { useState } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
-</code></pre>
-</section><section class="slide"><h2>State hook</h2>
-<p><code>useState</code> may be called (repeatedly) inside the component function</p>
-<ul>
-<li><code>useState</code> takes one parameter - the initial state value</li>
-<li>on each call <code>useState</code> returns an array with two entries: the current state and a function to set the state to a new value</li>
-</ul>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> App = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  <span class="hljs-keyword">const</span> [count, setCount] = useState(<span class="hljs-number">0</span>);
-  <span class="hljs-keyword">const</span> [title, setTitle] = useState(<span class="hljs-string">'React app'</span>);
-
-  <span class="hljs-keyword">return</span> ...
-};
-</code></pre>
-</section><section class="slide"><h2>Example: Counter</h2>
-<p>We will add a button to our application. At the start this button will display the value 0. On each click the value will increment by 1.</p>
-</section><section class="slide"><h2>Example: Counter</h2>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> Counter = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  <span class="hljs-keyword">const</span> [count, setCount] = useState(<span class="hljs-number">0</span>);
-
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>
-      <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> {
-        setCount(count + 1);
-      }}
-    >
-      {count}
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span>
-  );
-};
-</code></pre>
-</section><section class="slide"><h2>Example: Slideshow</h2>
-<p>implement a slideshow that shows images like the following:</p>
-<p><code>https://picsum.photos/200?image=10</code></p>
-<ul>
-<li>buttons for <em>previous</em> and <em>next</em></li>
-<li>button for <em>back to start</em></li>
-<li>prevent the index becoming negative</li>
-</ul>
-</section></section><section class="slides-section"><section class="slide"><h1>JavaScript basics for React</h1>
-</section><section class="slide"><h2>JavaScript standardization</h2>
-<p>JavaScript is standardized under the name <a href="https://www.ecma-international.org/ecma-262/"><em>ECMAScript</em> (ES)</a></p>
-</section><section class="slide"><h2>JavaScript versions</h2>
-<p><em>ES5</em>: Supported by all browsers, including Internet Explorer (standardized in 2009)</p>
-<p>Since 2015: yearly updates in June of each year (ES2015, ES2016, ...)</p>
-<p>Common practice: Modern JavaScript is transpiled to ES5 (via Babel, webpack)</p>
-</section><section class="slide"><h2>Imports and exports</h2>
-<p>named imports / exports:</p>
-<pre><code class="hljs language-js"><span class="hljs-comment">// mymodule.js</span>
-<span class="hljs-keyword">const</span> foo = <span class="hljs-number">1</span>;
-<span class="hljs-keyword">const</span> bar = <span class="hljs-number">2</span>;
-<span class="hljs-keyword">const</span> baz = <span class="hljs-number">3</span>;
-
-<span class="hljs-keyword">export</span> { foo, bar, baz };
-</code></pre>
-<pre><code class="hljs language-js"><span class="hljs-comment">// index.js</span>
-<span class="hljs-keyword">import</span> { foo, bar } <span class="hljs-keyword">from</span> <span class="hljs-string">'mymodule.js'</span>;
-</code></pre>
-</section><section class="slide"><h2>Imports and exports</h2>
-<p>there may be one default export</p>
-<pre><code class="hljs language-js"><span class="hljs-comment">// mymodule.js</span>
-<span class="hljs-keyword">const</span> foo = <span class="hljs-number">1</span>;
-<span class="hljs-keyword">const</span> bar = <span class="hljs-number">2</span>;
-<span class="hljs-keyword">const</span> baz = <span class="hljs-number">3</span>;
-
-<span class="hljs-keyword">export</span> { foo, bar, baz };
-
-<span class="hljs-keyword">const</span> main = <span class="hljs-number">0</span>;
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> main;
-</code></pre>
-<pre><code class="hljs language-js"><span class="hljs-comment">// index.js</span>
-<span class="hljs-keyword">import</span> main, { foo, bar } <span class="hljs-keyword">from</span> <span class="hljs-string">'mymodule.js'</span>;
-</code></pre>
-</section><section class="slide"><h2>Imports in webpack</h2>
-<p>Bundlers like webpack can deviate from standard JavaScript import behavior:</p>
-<ul>
-<li>the import does not require a file name extension like <code>.js</code></li>
-<li>if the import leads to a folder webpack will look for an <code>index.js</code> file in the folder</li>
-</ul>
-</section><section class="slide"><h2>Arrow functions</h2>
-<ul>
-<li>short notation for anonymous functions</li>
-<li>leaves <em>this</em> unchanged (does not reassign)</li>
-</ul>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> multiply = <span class="hljs-function">(<span class="hljs-params">a, b</span>) =></span> {
-  <span class="hljs-keyword">return</span> a * b;
-};
-
-<span class="hljs-keyword">const</span> multiply = <span class="hljs-function">(<span class="hljs-params">a, b</span>) =></span> a * b;
-</code></pre>
-</section><section class="slide"><h2>Arrow functions</h2>
-<p>if we want to return an object directly: wrap it in parentheses</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> getState = <span class="hljs-function"><span class="hljs-params">()</span> =></span> ({
-  <span class="hljs-attr">loggedIn</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-attr">userName</span>: <span class="hljs-string">'mike'</span>,
-});
-</code></pre>
-</section><section class="slide"><h2>Template strings</h2>
-<ul>
-<li>new syntax for <em>creating</em> strings</li>
-<li>delimited via backticks</li>
-<li>enables multiline string literals and interpolation</li>
-</ul>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> name = <span class="hljs-string">'Mike'</span>;
-<span class="hljs-keyword">const</span> greeting = <span class="hljs-string">`Hello, <span class="hljs-subst">${name}</span>!
-                  This is ES2015!`</span>;
-</code></pre>
-</section><section class="slide"><h2>The semicolon in JavaScript</h2>
-<p>The semicolon for ending statements is mostly optional in JavaScript (JavaScript "features" automatic semicolon insertion)</p>
-<!-- prettier-ignore -->
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> a = <span class="hljs-number">3</span>
-<span class="hljs-built_in">console</span>.log(a)
-</code></pre>
-<p>is treated as:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> a = <span class="hljs-number">3</span>;
-<span class="hljs-built_in">console</span>.log(a);
-</code></pre>
-</section><section class="slide"><h2>The semicolon in JavaScript</h2>
-<p>Sometimes the behavior is not as intended:</p>
-<!-- prettier-ignore -->
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> Foo = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  <span class="hljs-keyword">return</span>
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>some content<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
-};
-</code></pre>
-<p>would be treated as:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> Foo = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  <span class="hljs-keyword">return</span>;
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>some content<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
-  <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
-};
-</code></pre>
-</section><section class="slide"><h2>Destructuring</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [result, errors] = someComputation();
-
-<span class="hljs-comment">// swapping values</span>
-<span class="hljs-keyword">let</span> a = <span class="hljs-number">1</span>;
-<span class="hljs-keyword">let</span> b = <span class="hljs-number">2</span>;
-[a, b] = [b, a];
-</code></pre>
-</section><section class="slide"><h2>Destructuring</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> person = { <span class="hljs-attr">name</span>: <span class="hljs-string">'John'</span>, <span class="hljs-attr">age</span>: <span class="hljs-number">48</span> };
-<span class="hljs-keyword">const</span> { name, age } = person;
-
-<span class="hljs-keyword">const</span> TodoItem = <span class="hljs-function">(<span class="hljs-params">{ title, completed }</span>) =></span> (
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
-    {completed ? 'DONE: ' : 'TODO: '}
-    {title}
-  <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
-);
-</code></pre>
-</section><section class="slide"><h2>Spread syntax (arrays and objects)</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> squares = [<span class="hljs-number">1</span>, <span class="hljs-number">4</span>, <span class="hljs-number">9</span>];
-<span class="hljs-keyword">const</span> moreSquares = [...squares, <span class="hljs-number">16</span>, <span class="hljs-number">25</span>];
-<span class="hljs-comment">// moreSquares: [1, 4, 9, 16, 25]</span>
-</code></pre>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> person = {
-  <span class="hljs-attr">firstName</span>: <span class="hljs-string">'Joe'</span>,
-  <span class="hljs-attr">lastName</span>: <span class="hljs-string">'Doe'</span>,
-  <span class="hljs-attr">age</span>: <span class="hljs-number">31</span>,
-};
-<span class="hljs-keyword">const</span> newPerson = { ...person, <span class="hljs-attr">email</span>: <span class="hljs-string">'j@d.com'</span>, <span class="hljs-attr">age</span>: <span class="hljs-number">32</span> };
-<span class="hljs-comment">// {firstName: 'Joe', lastName: 'Doe', email: 'j@d.com', age: 32}</span>
-</code></pre>
-</section><section class="slide"><h2>Map and filter</h2>
-<p>array methods for functional programming</p>
-</section><section class="slide"><h2>Map</h2>
-<ul>
-<li>modifies each entry in an array via a function</li>
-<li>returns a new array</li>
-</ul>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> myNumbers = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>];
-
-<span class="hljs-keyword">const</span> tripledNumbers = myNumbers.map(<span class="hljs-function">(<span class="hljs-params">n</span>) =></span> <span class="hljs-number">3</span> * n);
-<span class="hljs-comment">// [3, 6, 9, 12]</span>
-</code></pre>
-</section><section class="slide"><h2>Filter</h2>
-<ul>
-<li>only keeps specific entries in an array</li>
-<li>uses a function to check entries for a specific condition</li>
-<li>returns a new array</li>
-</ul>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> myNumbers = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>];
-
-<span class="hljs-keyword">const</span> isEven = <span class="hljs-function">(<span class="hljs-params">n</span>) =></span> n % <span class="hljs-number">2</span> === <span class="hljs-number">0</span>;
-
-<span class="hljs-keyword">const</span> evenNumbers = myNumbers.filter(isEven);
-<span class="hljs-comment">// [2, 4]</span>
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>VS Code basics and plugins</h1>
-</section><section class="slide"><h2>VS Code basics and plugins</h2>
-<p>see presentation <a href="./vs-code-en.html">VS Code</a></p>
-</section></section><section class="slides-section"><section class="slide"><h1>Create-React-App</h1>
-</section><section class="slide"><h2>Developing with node.js and npm</h2>
-<ul>
-<li>node.js: JS-Runtime<ul>
-<li>running the local development server</li>
-<li>unit tests</li>
-</ul></li>
-<li>npm: package manager<ul>
-<li>managing dependencies</li>
-<li>packages are located in the <em>node_modules</em> directory</li>
-<li>configuration via <em>package.json</em></li>
-</ul></li>
-</ul>
-</section><section class="slide"><h2>create-react-app</h2>
-<p>most-used method for generating React projects</p>
-<p>run it via:</p>
-<pre><code class="hljs language-bash">npx create-react-app todolist
+</section><section class="slide"><h2>Elements and tags</h2>
+<p>Some HTML elements don't have any content - e.g. the <em>br</em> tag, which signifies a line break:</p>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">br</span> /></span>
 </code></pre>
 <p>or</p>
-<pre><code class="hljs language-bash">npx create-react-app todolist --template typescript
+<!-- prettier-ignore -->
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">br</span>></span>
 </code></pre>
-<p>see also: <a href="https://reactjs.org/docs/add-react-to-a-new-app.html">https://reactjs.org/docs/add-react-to-a-new-app.html</a></p>
-</section><section class="slide"><h2>create-react-app</h2>
-<p>Creates a simple React app which can be used as a starting point</p>
-<p>many aspects are preconfigured:</p>
+</section><section class="slide"><h2>Attributes</h2>
+<p>HTML elements may have attributes:</p>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"portrait.png"</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">"Portrait of the user"</span> /></span>
+</code></pre>
+<p>values are usually inclosed in double quotes</p>
+</section><section class="slide"><h2>HTML tags</h2>
+<p>examples:</p>
 <ul>
-<li>webpack and babel for building</li>
-<li>local development server</li>
-<li>unit testing framework jest</li>
-<li>SCSS and CSS modules</li>
+<li>h1-h6</li>
+<li>p</li>
+<li>em</li>
+<li>strong</li>
+<li>br</li>
+<li>ul &#x26; li</li>
+<li>img</li>
+<li>a</li>
 </ul>
-</section><section class="slide"><h2>default project structure</h2>
+</section><section class="slide"><h2>Comments</h2>
+<pre><code class="hljs language-html"><span class="hljs-comment">&#x3C;!-- this is a comment --></span>
+</code></pre>
+</section><section class="slide"><h2>Trying out</h2>
+<p><a href="https://codesandbox.io/s/">https://codesandbox.io/s/</a> → <em>static</em></p>
+<p>(alternatives: <a href="https://codepen.io">https://codepen.io</a> <a href="https://jsfiddle.net">https://jsfiddle.net</a>, <a href="https://plnkr.co">https://plnkr.co</a>)</p>
+</section><section class="slide"><h2>Browser tools (F12)</h2>
+<p>Exercise: inspect an existing website in the browser tools</p>
+</section></section><section class="slides-section"><section class="slide"><h1>Structure of an HTML document</h1>
+</section><section class="slide"><h2>Structure of an HTML document</h2>
+<pre><code class="hljs language-html"><span class="hljs-meta">&#x3C;!DOCTYPE html></span>
+<span class="hljs-tag">&#x3C;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">"de"</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">head</span>></span><span class="hljs-tag">&#x3C;/<span class="hljs-name">head</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">body</span>></span><span class="hljs-tag">&#x3C;/<span class="hljs-name">body</span>></span>
+<span class="hljs-tag">&#x3C;/<span class="hljs-name">html</span>></span>
+</code></pre>
+</section><section class="slide"><h2>Structure of an HTML document</h2>
+<pre><code class="hljs language-html"><span class="hljs-meta">&#x3C;!DOCTYPE html></span>
+</code></pre>
+<p>Declares the file as an HTML(5) document</p>
+</section><section class="slide"><h2>Structure of an HTML document</h2>
 <ul>
-<li><code>public/index.html</code>, <code>src/index.js</code>: entry points</li>
-<li><code>App.js</code>, <code>App.css</code>: define the App component</li>
-<li><code>node_modules</code>: dependencies</li>
+<li><code>&#x3C;html></code>: contains the entire document; it often has the language set, e.g. <code>lang="en"</code></li>
+<li><code>&#x3C;head></code>: contains information like document title, character encoding, ...</li>
+<li><code>&#x3C;body></code>: the actual content that is displayed in the browser view</li>
 </ul>
-</section><section class="slide"><h2>development server and build</h2>
-<p>inside the project directory:</p>
+</section></section><section class="slides-section"><section class="slide"><h1>Special characters and whitespace</h1>
+</section><section class="slide"><h2>Special characters</h2>
+<p>the following characters should always be "escaped" in an HTML document:</p>
 <ul>
-<li><code>npm run start</code> (or <code>npm start</code>): starts the local development server</li>
-<li><code>npm run build</code>: creates a build (for deployment)</li>
+<li><code>&#x3C;</code> becomes <code>&#x26;lt;</code></li>
+<li><code>></code> becomes <code>&#x26;gt;</code></li>
+<li><code>&#x26;</code> becomes <code>&#x26;amp;</code></li>
 </ul>
-</section><section class="slide"><h2>Development server</h2>
-<p>note:</p>
-<p>sometimes the development server will keep displaying an error even though it has been fixed</p>
-<p>stop the server (ctrl-C) and restart it to fix this</p>
-</section></section><section class="slides-section"><section class="slide"><h1>Immutable state</h1>
-</section><section class="slide"><h2>Immutable state</h2>
-<p><strong>Immutability</strong>: important concept in functional programing and with React / Redux</p>
-<p>Data is not modified directly - instead, new data is derived from existing data (and may replace the existing data)</p>
-</section><section class="slide"><h2>Immutable state</h2>
-<p>if there are arrays or objects in the state we <em>could</em> try and mutate them directly</p>
-<p>don't do this - React will usually not notice the changes and will not rerender the view</p>
-<p>state should be viewed as <em>immutabe</em> (unchangeable)</p>
-</section><section class="slide"><h2>Immutable state</h2>
-<p>When <code>setState</code> is called, React will compare:</p>
+<p>these characters must be escaped if they occur in attributes:</p>
 <ul>
-<li>the object the old state points to</li>
-<li>the object the new state points to</li>
+<li><code>"</code> becomes <code>&#x26;quot;</code></li>
+<li>(<code>'</code> becomes <code>&#x26;apos;</code> if the attribute is delimited by <code>'</code>)</li>
 </ul>
-<p>If the old state and the new state reference the same object (even if it has changed), the component will not be rerendered.</p>
-</section><section class="slide"><h2>Immutable state</h2>
-<p>demo (see <a href="https://codesandbox.io/s/exciting-dust-w7hni">https://codesandbox.io/s/exciting-dust-w7hni</a>):</p>
-<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">App</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">const</span> [numbers, setNumbers] = useState([<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>]);
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>{JSON.stringify(numbers)}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>
-        <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> {
-          // invalid - modifies state
-          numbers.push(numbers.length);
-          setNumbers(numbers);
-        }}
-      >
-        add (mutate)
-      <span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>
-        <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> {
-          // valid - replaces state
-          setNumbers([...numbers, numbers.length]);
-        }}
-      >
-        add (replace)
-      <span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
-  );
-}
-</code></pre>
-</section><section class="slide"><h2>Immutable state</h2>
-<p>code like this is <strong>not</strong> allowed for changing state as React will not "see" the mutation:</p>
-<pre><code class="hljs language-js">todos[<span class="hljs-number">0</span>].completed = <span class="hljs-literal">true</span>;
-todos.push({ <span class="hljs-attr">title</span>: <span class="hljs-string">'study'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> });
-</code></pre>
-</section><section class="slide"><h2>Data management without mutations: Arrays</h2>
-<p>initial data:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> names = [<span class="hljs-string">'Alice'</span>, <span class="hljs-string">'Bob'</span>, <span class="hljs-string">'Charlie'</span>];
-</code></pre>
-<p><strong>mutation</strong>: this modifies the original array</p>
-<pre><code class="hljs language-js">names.push(<span class="hljs-string">'Dan'</span>);
-</code></pre>
-<p><strong>no mutation</strong>: creates a new array (spread syntax)</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> newNames = [...names, <span class="hljs-string">'Dan'</span>];
-</code></pre>
-</section><section class="slide"><h2>Data management without mutations: Objects</h2>
-<p>initial data:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> user = {
-  <span class="hljs-attr">name</span>: <span class="hljs-string">'john'</span>
-  <span class="hljs-attr">email</span>: <span class="hljs-string">'john@doe.com'</span>
-}
-</code></pre>
-<p><strong>mutation</strong>: this modifies the object</p>
-<pre><code class="hljs language-js">user.email = <span class="hljs-string">'johndoe@gmail.com'</span>;
-</code></pre>
-<p><strong>no mutation</strong>: creates a new object (spread syntax)</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> newUser = { ...user, <span class="hljs-attr">email</span>: <span class="hljs-string">'johndoe@gmail.com'</span> };
-</code></pre>
-</section><section class="slide"><h2>immer.js</h2>
-<p><strong>immer.js</strong> is a library that helps with immutable data</p>
-<p>is recommended by the Redux team</p>
-</section><section class="slide"><h2>immer.js</h2>
-<p>this code would mutate the todos array:</p>
-<pre><code class="hljs language-js">todos[<span class="hljs-number">0</span>].completed = <span class="hljs-literal">true</span>;
-todos.push({ <span class="hljs-attr">title</span>: <span class="hljs-string">'study'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> });
-</code></pre>
-<p>avoiding mutations by using <em>immer.js</em>:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> produce <span class="hljs-keyword">from</span> <span class="hljs-string">'immer'</span>;
-
-<span class="hljs-keyword">const</span> newTodos = produce(todos, (todosDraft) => {
-  todosDraft[<span class="hljs-number">0</span>].completed = <span class="hljs-literal">true</span>;
-  todosDraft.push({ <span class="hljs-attr">title</span>: <span class="hljs-string">'study'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> });
-});
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Inputs &#x26; forms</h1>
-</section><section class="slide"><h2>Inputs</h2>
-<p>In the context of React, input elements are special:</p>
-<p>Their properties (especially <code>.value</code>) can be directly modified by the user</p>
-<p>Therefore there would be aspects of the UI state which would not be captured in the React state.</p>
-</section><section class="slide"><h2>Inputs</h2>
-<p>This is how we can capture changes and track them in the state:</p>
-<pre><code class="hljs language-jsx">&#x3C;input
-  value={inputText}
-  onChange={(event) => {
-    setInputText(event.target.value);
-  }}
-/>
-</code></pre>
-</section><section class="slide"><h2>Form actions</h2>
-<p>Default behaviour of a form when submitted: directly send data to the server</p>
-<p>Replacing the default behaviour:</p>
-<pre><code class="hljs language-jsx">&#x3C;form
-  onSubmit={(event) => {
-    event.preventDefault();
-    <span class="hljs-comment">// handle submit</span>
-  }}
->
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">input</span> /></span>
-<span class="hljs-tag">&#x3C;/<span class="hljs-name">form</span>></span></span>
-</code></pre>
-</section><section class="slide"><h2>Form validation</h2>
-<p>Form validation "by hand":</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> NewsletterRegistration = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  <span class="hljs-keyword">const</span> [email, setEmail] = useState(<span class="hljs-string">''</span>);
-  <span class="hljs-keyword">const</span> [emailEdited, setEmailEdited] = useState(<span class="hljs-literal">false</span>);
-  <span class="hljs-keyword">const</span> emailInvalid = !isEmail(email);
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">form</span>
-      <span class="hljs-attr">onSubmit</span>=<span class="hljs-string">{(e)</span> =></span> {
-        e.preventDefault();
-        console.log(email);
-      }}
-    >
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">input</span>
-        <span class="hljs-attr">type</span>=<span class="hljs-string">"email"</span>
-        <span class="hljs-attr">name</span>=<span class="hljs-string">"email"</span>
-        <span class="hljs-attr">value</span>=<span class="hljs-string">{email}</span>
-        <span class="hljs-attr">onChange</span>=<span class="hljs-string">{(event)</span> =></span> setEmail(event.target.value)}
-        onBlur={() => setEmailEdited(true)}
-      />
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">disabled</span>=<span class="hljs-string">{emailInvalid}</span>></span>subscribe<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
-      {emailEdited &#x26;&#x26; emailInvalid ? (
-        <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>invalid email<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
-      ) : null}
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">form</span>></span>
-  );
-};
-
-const isEmail = (email) =>
-  email.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i);
-</span></code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>React developer tools</h1>
-</section><section class="slide"><h2>React developer tools</h2>
-<ul>
-<li><a href="https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi">Chrome Plugin</a></li>
-<li><a href="https://addons.mozilla.org/de/firefox/addon/react-devtools/">Firefox Plugin</a></li>
-</ul>
-<p>features:</p>
-<ul>
-<li>display component structure</li>
-<li>show component state and props</li>
-<li>change state</li>
-<li>analyse render performance of components</li>
-</ul>
-</section></section><section class="slides-section"><section class="slide"><h1>JSX in detail</h1>
-</section><section class="slide"><h2>JSX in detail</h2>
-<p>topics:</p>
-<ul>
-<li>properties</li>
-<li>repeating elements</li>
-<li>if / else</li>
-<li>if</li>
-<li>whitespace</li>
-<li>comments</li>
-<li>fragments</li>
-<li>valid elements</li>
-<li>compilation</li>
-</ul>
-</section><section class="slide"><h2>Property names</h2>
-<p>Some element properties have different names than in HTML (sometimes reflecting standard DOM properties)</p>
-<ul>
-<li><code>className</code> (instead of <code>class</code>)</li>
-<li><code>onClick</code> (instead of <code>onclick</code>)</li>
-<li><code>htmlFor</code> (instead of <code>for</code>)</li>
-</ul>
-</section><section class="slide"><h2>Property names</h2>
-<p>example: CSS classes</p>
-<pre><code class="hljs language-jsx">&#x3C;li
-  className={
-    isCompleted ? <span class="hljs-string">'todoitem completed'</span> : <span class="hljs-string">'todoitem'</span>
-  }
->
-  [...]
-&#x3C;<span class="hljs-regexp">/li>
-</span></code></pre>
-<p>there are many helper libraries that will generate the <em>className</em> property dynamically</p>
-</section><section class="slide"><h2>Style property</h2>
-<p>In JSX the <em>style</em> property takes an object:</p>
-<pre><code class="hljs language-jsx">&#x3C;div
-  style={{
-    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">'#333'</span>,
-    <span class="hljs-attr">fontSize</span>: getFontSize(),
-  }}
-/>
-</code></pre>
-</section><section class="slide"><h2>Repeating elements</h2>
-<p>Task: building an HTML list (ul) from this data:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> initialTodos = [
-  { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'groceries'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
-  { <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'cooking'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">true</span> },
-  { <span class="hljs-attr">id</span>: <span class="hljs-number">3</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'gardening'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
-];
-</code></pre>
-</section><section class="slide"><h2>Repeating elements</h2>
-<p>Generating an array of JSX elements via <code>.map</code>:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> TodoApp = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  <span class="hljs-keyword">const</span> [todos, setTodos] = useState(initialTodos);
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">ul</span>></span>
-      {todos.map((todo) => (
-        <span class="hljs-tag">&#x3C;<span class="hljs-name">li</span>></span>{todo.title}<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span>
-      ))}
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">ul</span>></span></span>
-  );
-};
-</code></pre>
-</section><section class="slide"><h2>Repeating elements</h2>
-<p>With the above code:<br />
-warning in the browser console (concerning efficiency)<br />
-solution: <strong>key</strong>:</p>
-<pre><code class="hljs language-jsx">&#x3C;ul>
-  {todos.map(<span class="hljs-function">(<span class="hljs-params">todo</span>) =></span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">li</span> <span class="hljs-attr">key</span>=<span class="hljs-string">{todo.id}</span>></span>{todo.title}<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span></span>
-  ))}
-&#x3C;<span class="hljs-regexp">/ul>
-</span></code></pre>
-</section><section class="slide"><h2>if / else</h2>
-<pre><code class="hljs language-jsx">&#x3C;div>{<span class="hljs-built_in">Math</span>.random() > <span class="hljs-number">0.5</span> ? <span class="hljs-string">'heads'</span> : <span class="hljs-string">'tails'</span>}&#x3C;<span class="hljs-regexp">/div>
-</span></code></pre>
-</section><section class="slide"><h2>if / else</h2>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">let</span> face;
-<span class="hljs-keyword">if</span> (<span class="hljs-built_in">Math</span>.random() > <span class="hljs-number">0.5</span>) {
-  face = <span class="hljs-string">'heads'</span>;
-} <span class="hljs-keyword">else</span> {
-  face = <span class="hljs-string">'tails'</span>;
-}
-
-<span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>{face}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
-</code></pre>
-</section><section class="slide"><h2>if</h2>
-<pre><code class="hljs language-jsx">&#x3C;div>{state.hasError &#x26;&#x26; state.errorMessage}&#x3C;<span class="hljs-regexp">/div>
-</span></code></pre>
-<p>The operator <code>&#x26;&#x26;</code> in JavaScript:</p>
-<pre><code class="hljs language-js"><span class="hljs-literal">true</span> &#x26;&#x26; <span class="hljs-string">'my message'</span>; <span class="hljs-comment">// 'my message'</span>
-
-<span class="hljs-literal">false</span> &#x26;&#x26; <span class="hljs-string">'my message'</span>; <span class="hljs-comment">// false</span>
-</code></pre>
 </section><section class="slide"><h2>Whitespace</h2>
-<p>In HTML the following examples are equivalent (displaying a single space between the images):</p>
+<p>In HTML, any sequence of whitespace characters (space, line break, tab) is interpreted as a single space.</p>
+</section><section class="slide"><h2>Whitespace</h2>
+<p>These examples are all equivalent (displaying a single space between the images):</p>
 <!-- prettier-ignore-start -->
 <pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"foo.png"</span> /></span> <span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"bar.png"</span> /></span>
 </code></pre>
 <pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"foo.png"</span> /></span>    <span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"bar.png"</span> /></span>
 </code></pre>
 <pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"foo.png"</span> /></span>
-<span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"bar.png"</span> /></span>
-</code></pre>
-<!-- prettier-ignore-end -->
-</section><section class="slide"><h2>Whitespace</h2>
-<p>rules in JSX:</p>
-<ul>
-<li>whitespace between two elements in one line is interpreted as a single space</li>
-<li>whitespace between two elements on different lines is ignored</li>
-</ul>
-<!-- prettier-ignore-start -->
-<p>Single space:</p>
-<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"foo.png"</span> /></span>     <span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"bar.png"</span> /></span>
-</code></pre>
-<p>no space:</p>
-<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"foo.png"</span> /></span>
-<span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"bar.png"</span> /></span>
-</code></pre>
-<!-- prettier-ignore-end -->
-</section><section class="slide"><h2>Whitespace</h2>
-<p>"force" a space in JSX:</p>
-<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"foo.png"</span> /></span>{" "}
-<span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"bar.png"</span> /></span>
-</code></pre>
-</section><section class="slide"><h2>Comments</h2>
-<p>Comments can be written as JavaScript comments:</p>
-<pre><code class="hljs language-jsx">a = <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>Hello World!{/*this is a comment*/}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
-</code></pre>
-</section><section class="slide"><h2>Fragments</h2>
-<p>Fragments enable returning multiple elements from a component / function:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">return</span> (
-  <span class="xml"><span class="hljs-tag">&#x3C;></span>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">td</span>></span>Hello<span class="hljs-tag">&#x3C;/<span class="hljs-name">td</span>></span>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">td</span>></span>World<span class="hljs-tag">&#x3C;/<span class="hljs-name">td</span>></span>
-  <span class="hljs-tag">&#x3C;/></span>
-);
-</span></code></pre>
-</section><section class="slide"><h2>valid elements in JSX</h2>
-<ul>
-<li>string</li>
-<li>number</li>
-<li>components (e.g. <code>&#x3C;div></code>, <code>&#x3C;img></code>, <code>&#x3C;MyComponent></code>)</li>
-<li>Arrays of other elements</li>
-<li>null, undefined, true, false (these are not rendered)</li>
-</ul>
-</section><section class="slide"><h2>JSX compilation</h2>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> element = <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://google.com"</span>></span>Google<span class="hljs-tag">&#x3C;/<span class="hljs-name">a</span>></span></span>;
-</code></pre>
-<p>compiles to:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> element = React.createElement(
-  <span class="hljs-string">'a'</span>,
-  { <span class="hljs-attr">href</span>: <span class="hljs-string">'https://google.com'</span> },
-  <span class="hljs-string">'Google'</span>
-);
-</code></pre>
-</section><section class="slide"><h2>JSX compilation</h2>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> element = (
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">MyComponent</span> <span class="hljs-attr">prop1</span>=<span class="hljs-string">{1}</span> <span class="hljs-attr">prop2</span>=<span class="hljs-string">{2}</span>></span>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>test 1<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>test 2<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
-  <span class="hljs-tag">&#x3C;/<span class="hljs-name">MyComponent</span>></span></span>
-);
-</code></pre>
-<p>compiles to:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> element = React.createElement(
-  MyComponent,
-  { <span class="hljs-attr">prop1</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">prop2</span>: <span class="hljs-number">2</span> },
-  React.createElement(<span class="hljs-string">'div'</span>, <span class="hljs-literal">null</span>, <span class="hljs-string">'test 1'</span>),
-  React.createElement(<span class="hljs-string">'div'</span>, <span class="hljs-literal">null</span>, <span class="hljs-string">'test 2'</span>)
-);
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Exercise: todolist</h1>
-</section><section class="slide"><h2>Exercise: todolist</h2>
-<p>Create a todolist application with the following functionality:</p>
-<ul>
-<li>displaying completed and incomplete todos</li>
-<li>toggling the completed state of a todo</li>
-<li>deleting a todo</li>
-<li>adding a new todo from a form</li>
-</ul>
-</section></section><section class="slides-section"><section class="slide"><h1>Component libraries</h1>
-</section><section class="slide"><h2>Component libraries</h2>
-<ul>
-<li>Material UI: React components in material design</li>
-<li>React Native &#x26; React Native Web: React components &#x26; framework for mobile &#x26; web apps</li>
-<li>React Bootstrap</li>
-<li>Blueprint</li>
-<li>...</li>
-</ul>
-</section><section class="slide"><h2>Material-UI</h2>
-<p>Predefined React components conforming to material design style (style of Google/Android)</p>
-</section><section class="slide"><h2>Material-UI: installation and usage</h2>
-<p><a href="https://material-ui.com">https://material-ui.com</a></p>
-<p>see info boxes on <em>Installation</em> und <em>Usage</em></p>
-</section><section class="slide"><h2>Material-UI: exercises</h2>
-<ul>
-<li>Button</li>
-<li>Todo-App in Material Style</li>
-</ul>
-</section></section><section class="slides-section"><section class="slide"><h1>Component props</h1>
-</section><section class="slide"><h2>State &#x26; props</h2>
-<ul>
-<li>state = internal to the component</li>
-<li>props = parameters that are passed down from the parent</li>
-</ul>
-</section><section class="slide"><h2>Props in custom components</h2>
-<p>Example:</p>
-<pre><code class="hljs language-jsx">&#x3C;Rating stars={<span class="hljs-number">3</span>} />
-</code></pre>
-<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAl4AAACACAYAAADaimfwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAJOgAACToAYJjBRwAACC9SURBVHhe7Z0HtC1JVYadAYEhyAACgzAzMICwJEoQWOQgIlHSQhgGRQYRFiBK1uUwBlCCIEviCCgOUXIaREZAEFAQQXjDuzm+m3N6N5+29r27eeee+3fu011V/X9r/Wu9e093dVfVfbvq7F216+cCQgghhBBSCZx4EUIIIYRUBCdehBBCCCEVwYkXIYQQQkhFcOJFCCGEEFIRnHgRQgghhFQEJ16EEEIIIRXBiRchhBBCSEVw4kUIIYQQUhGceBFCCCGEVAQnXoQQQgghFdGsidf6V4JgZ0h/IN6x8rEg2F/WH4h3LL5T/0F8ZHZ2Vv9FfGRyclL/RZo18Rp9sOn95+oPxDuG7hIEMy/XH4h39J8XBPNv0B+Ib5w4cSJYWFjQn4hv/OQnPwmWl/nFWGjWxOukqa6I+An712+kb3uvrz8Qn9jf3z8YmHt6evQ3xCd2dnYO+re/v19/02yaM0qtfvrMwLx9Un9JvGH5fWf6d3daf0m8YeFNZ/p3f0N/SXxhenr6YGAWEf84deoU+7cNY8UawvC9zhjuiWfpL4k3DFx4pn+nX6y/JN7Qd+6Z/p27TH9JfCEclEXz8/P6W+IL7f27tLSkv20uxoo1hNBohyJ+wf71l9ZuR/+erR8QH9jd3T0yMJ88yYiET2xtbR3p376+Pv2kuTRjhFq5ssNwG23+UD8kzrP49uP9uzOoHxLnEQ9XZ//uzemHxHVkt1v7wCxqtVr6KXGdsbGxY/3bdIwFawCDdz5uuE89RT8kztN/6+P9O3Wpfkicp/dGx/t39tX6IXGdzkFZNDfHibUvoP5dXFzUT5uJsWANoNNohyJ+gPpWRNxH8rKhvhUR59ne3oYD8zXXXKNXEJc5ffo07N+m717133otvRsbbdHp7+hFxFnmX4/7VrT1Y72IOIvkZUN9K9oZ0YuIq7TvduvU3t6eXkVcZXR0FPatqMnhZGO9PGfwjthoi8YfpxcRZ5GkmqhvRZOX6EXEWSRvF+pb0fQf6kXEVdCAHGpmZkavIq6C+jVUk5PlGuvlOchgt4u4S2sT92m7iLvsnsJ92i7iLJubm3BADiWZ7Im7rK+vw34N1eTdq35broW3YGPdrvWv6sXEOWb/BPdpu05/Vy8mzjH1Atyn7driWiBXQbvdOiUZz4mbDA8Pwz5tV1PDycZyeczARdhYt2vskXoxcY6+m+M+bdepp+vFxDl6rov7tF1Tf6AXE9dAA3GnJKM9cRPUn51q6u5VY7l8ZR8baiTiHpLHCfUlEnGP7V7cl0jEOTY2NuBAjETcY3V1FfZlp37605/qHc3CX6s19+fYSCOtfVZvIs4w/VLcl0gbV+tNxBkmn4P7Emnze3oTcYW43W6dksznxC3ShBlDNTGcbKyWp7Sf3ZekkQfpTcQZ+m6K+xJp/Il6E3GGnmvjvkSa/F29ibgCGoCjNDU1pXcRV0D9GKXZ2Vm9qzkYq+Uh+6vYQMeJuIPkb0J9GCfiDps/wH0YJ+IMa2trcACOE3GH5eVl2IdRamKyXD8t1uyrsHGO08qH9WZiPVMvxH0Yp7XP683EeiYuxn0Yp42v683EdkZGRuAAHCfJgE7cYGhoCPZhnOQEgyZhLJaH9N8GG+c4Dd9HbybW03tj3IdxGnu03kys5+TZx/svSRPP1JuJ7aCBN0lykDZxA9R/SWpaslxjsTxj1/wHRYY5jVr8VmU9Wydw36URsZ+Nb+K+SyNiPSsrK3DgTSNiP3L4Neq7NGoS/lmruLPdkrR0hRZCrGXq93HfpdHKR7UQYi0Tv437Lo3WvqiFEFvJE2YMJZnQid3kCTOGkpMMmoKxVp7RfytslNNo6K5aCLGW3hvivkuj0YdqIcRaUL+l1aknayHEVtCAG6q3txf+PpQcqE3sBvVbqP7+fvj7UE3avWqslUds92ODnEWSmJPYyeZ/4z7LohZzAlnL+lW4z7KIWMvS0hIccEPJ55JQE30WitiLHHqN+ixUmqSqTcEvSzXzMmyMs2jhbVoYsY6p5+E+y6Kl92lhxDrkeCfUZ1m0+nEtjNhGUlJNQY6QQZ+FklQUxE4GBwdhn4US5Ago9FkoOdGgCRhL5RF9t8DGOIsG76iFEevoOQf3WRaN3E8LI9aB+iurxh+rhRHbQANtKBm0Q9DnocbHx/UqYhuov0LJ2j6h1WrBz0NNTEwcXOc7xlJ5wtaPsCHOI0nQSexi499xX+XR3oIWSqxh9ZO4r/KotauFEltICjO2e7KS1noR+5ifn4d9Fao9D9vJkyfhNaGagLFSnjD9kuMGOK/m/0oLJdYgx8KgvsqjxbdrocQaTj0F91UeLX9ACyW2kCbMGJKUkkBSUhC7SBNmDGE42aeJV9/NsBHOo4HztVBiDT3XwX2VR0P31EKJNaB+yqvRR2ihxBbQABtKDszuBF0XCl1P6iMpfIh2o6LrQjUhnGyslAec/k9sgItoq3nnR1nL+pdxHxXRzpgWTmpHFsSjPiqi/WUtnNRNkgcLLajO4kEh9ZIUZkT5uZJSS/iOsVAeMP0ibHyLaPa1WjipnclLcB8V0fwbtHBSO+O/hfuoiBbfoYWTuklKqolIynAva8aIHQwMDMA+CoVoejjZWCgP6DsXG98ikh2SxA5OXut4/xTV4J21cFI7qH+KauT+WjipGzSwhorbxYauDyVrxkj97O3twf4JJekjokDXh/I9nGwslONs/Ac2vGVo83v6EFIbcgwM6psytH1SH0JqY+UjuG/K0G4ztqbbTFJSzbhjYpKOF9rf39crSV0kLZTf3t7WK4+TxxPqC8Y6Oc7UC7DRLUPTL9WHkNqYeBbumzI0+6f6EFIb40/AfVOG5t+oDyF1UWRwlbMZ0T2hZFJH6iUuzCinEMTR5HCysU6O03sjbHTLUO8v6ENIbaB+KUsDF+pDSG2gfilLQ3fTh5A6EI8UGlBDxYWhQk6cOAHvFbUnXSXVs7OzA/sl1OzsrF4ZDbovlM/hZGOdHGbja9jglqmNr+vDSOWsfQ73SZna/B99GKmclStxn5Sp7T59GKmapDDj1lbyuamSigDdG2p3l8ly6yIpzCgTsyTGxsbgvaF8DScby+QwU5diY1um5HxAUg8Tz8B9UqbkfE9SD3K8D+qTMjV3mT6MVE1cSoikMFSIrAFD94eSwZ/UQ1xKiL6+dF94JFkquj+Ur+FkY5kcpvf62NiWqZ7r6sNI5aD+KFt9v6gPI5XSMt+GUX+UrYGL9IGkSpJ2u6UJQ4XEHTEjgz+pnqQwo+T2Sss111wDyxD5Gk42limGwTsdN2SFdZaZzFz7MBN5z/XM5OkGh+u0em9sBsGbHg6E/bcwupXRrY3hvMDotka3Oy5Yfhd08LwLjc4373Qbo18yOs/IvGffzY1uZnSTwzrIurDeGxqZSaHUTyZuPT9vypGUCKbuqPwiGn2IdlYOpH1RmYWUpn9vaeRA/0pKkbr7t8ihz/KuqMxCau/fc8wzwv4917SRC/1r3ulI/5r3PdK/Upf2/pV6drF/Tz1dOys7ceufikjKDSWDokg8VCKZBIXq6ek5kJytiITKDhW3260TWQuGygglzwrfRdT+jqLw3UVhfUTt9RShsosKZW1PCyqvDIX1bW+LsvtXJt5pkZQiqIxQ8qyi/YvKLUOTk5Nai2yY//kJdHPXIFVMc5drJxWgm7sGqWJaeIt2UgHGn4jLpurX0nu0k/KTdAaijUobhgqRSRoqx3aVsSsvKYO/jcrqpZIDtFE5tqtIklfzvz8F3cy1Q+XT6W9p55TA0hX4GVR92vxf7ZwSWHgrfgZVn0pc9C9hOzQw2Ko867KSjpixTWUu+k/y+NmmPOuykjxoNkk8aFk8eghjAVKyOxkchBiQEaGqk4RIWsU6HSIDAXoeVa0G76AdUjIykUPPo6pVlw5ol/MO0SBho/JMSpJ20Nmibq1JSlqEbpPy7EScmZmBZdmmslJcGEuQkZEHYINCdV8TF2sndBHJfYSeTXVfEtbvNoO3x8+muq+ZP9ZO6B6yBgYNGLYo78QkabG+DZLJQzdptVoH65jQs21R3omJC+HkMnfQGmuQAzlAGhkWqntafr82fgVMvwS/A9U9rXxcG78CJp+L34HqnuToq4pIyo1Up7LsduskKQt+nZIs+1WRdJRSnSqyri3psO06JevQysRYhJysfwUbGKp8bfdoo1fI6qfwu1Dla2dEG71Clj+I34UqV7I7cq+7nhBEUvLSulRkbYwM6qjMOiW76upI8mlr6FW8cnmx8W9W1p4VqVMUxjIUoLUdHGy/RwaHKq7h+2pD18TewuFWe/RuVHGNPlwbuiZkwldFLrymavzx2tD1IJnh0WASJQljiUcqr2TgFC0uLh5IJkqi5eXlAxXZBRYiZRSVvEv4buG7ynsnZcnvlHgW6yTrbkCZJKJ+SytX+zd876ye4CKpQJIw1qEEunnQbVM1+xptXAsYexR+Ryq/5v9SG9cCRh6E35HKr4W3aePWT9YQjmSLbxpJuaQ6JQO6LUh6DvSOUcqSQ80XxsfHYVtESSZv3cRYiJJYeDM2QFR2VbgeJDVzr8PvSmXXxtXaqBYx83L8rlR2nf62Nqo9ZJ1YiIegKWSduJS93qcMsk4sxBvUFLJuOElzhmhRjJUokc3vG8MjGZ47DBGVTpL9e6de93UscmA4em8qnSQsv5f+qJTKWfsCfm8qneSkj/01bUz7kG/xaKCJkgzmPpM1FCuew26s9ykL8cKh946STMZ9JmsoVjZvVIWxFl1g+D7YMFHROvUUbTwHGLorrgMVrcnnaONZjkwcBphyIrOmX6gNaDeSQyuLB6Bbi4vrRjx6qL5Rmpqa0jvtRsKIWVJO+HrWZdbNB91OBdKJsRhdYur52EBRx7X4d9poDjF5Ca4LdVwlHA1TOaeehutCHZfsEHWMrCkJbAyv5SXrIutur/fpBlmPkvJpXd/o6CisY5RWV1f1zuowVqOLSO4pZKioM9r4mjaWgyy+HdeJOqPT39HGcpD51+M6UaqzgmDzh9pY7pH1KBqbFpTnJcvRQ3LQchXrfbqFeOlQvaLk+rov8cxmOXpIdnnu7Ozo3dVirEeX2RlkygkkyRC/lz+ZoDVs/R9TTiCN3D8I9qtLqtg1ZKE4U04cl+z0DarP31Q2WY+i6eYW+26S9Ugl8Zr4gKRXQPWL0uTkpN7pFln/jutev2gsSEUw5cQZTb9YG8UjmHLijGZeqY3iESMPxHVtoub+TBvFD8RTkCXlhOwCLHpIcJVkPURcrvcJ6assOzflb6GOpLB5yXrOo+QkqxtjRSpk7jJsyJqkpSu0MTxEJhyozk3S8pXaGB4iXxhQnZuk1U9oY/hH1gSiVR6Tk5esaRbqWO9TFVnbQryEtpN1vZ4tf7PGklTM2meMAWtgyome6wbB6f/SRvCYlY/g+vsuCbdK2NV3mrpuc+CCINju1Ubwl6y7/WzwHiDEY5PVi1fXep8qybrbz9Z8brI7N6sXT+6xBWNRamB/qVkpJ8YeEwQtf3YFJbI7HgRDd8Ft4aNOPVkr3hC2T5qJyEW4LXzUxDO14s1AdjDKwmM0gCHZtu5L1vucOHECviuSq+vW8iJenywpJ2zL95V13ZqN+cqMVamRJqScmH2VVraBTDwbt4lPkoz+TeXUU3Gb+KT5v9bKNo8sKSfEo2DDUTRZPTq2euyqQBKGojZBGhwctMJjlHW9nq0eO2NZambpXdjg+aCVD2klG8zC3+K28UGrn9JKNhifU06sfUkr2Vyyppyoc41UljVq4hFzYY1at8mSckLaTLyJdZFljZp49Gxeo2asiwWc/m4Q9N8aGz8XNXiHINj6sVaOHOQq67spbisXJalAtv3M+JyLtav8SjkxfN8g2G1W+CmOrKGdqncFiidGPDLoXZDE0+PSrsxuI/m7UDtFSbyKVSJr77LkX5PksbbvyjRWxiLGH48NoUty6eifKtk33z7GHonbzCVNXKwVIkfYm/Ej5cTU87RCpB0JI2ZZrC67zapABlhJdIreAcnVPFXdRhLFZlmsXtW6OJlUZ1mv58rRTsbSWIbkyEEG0QXNXa6VIJG4nHJi/o1aCRKJyykn5CQGEkvacF6VXq+02cp9yLzfbdKG86pcO5V2o4dLmfeNtbGQ1U+b1j77qFG0XfLOJB2upZzoOScI1r+sL08ScS3lRN9NgmDjG/ryJIk0KSeqXGiftA5NBm6fzprsNmk2KFS50F52JaJ3CCUTb9fOmjRWx1IW3oqNpI2iJyQ7c3+B29JGzb9BX5qkZuYVuC1tlIuHmNdM3GAoA2GVyKCL3iOUi4dc101cYlJZb1UlsgkCvUcoFzdJGKtjKXLWHTKSNmr4nvrSJDVDv4Lb0kaNPkRfmqRm4HzcljZq/LH60iQtcXmg6lhnExeOqmq9mU+gdgwlR/RUTdw6LxvzdCVhrI6F7M0eN462S5KGknTsDOE2tFn7/Nacmq0f4Ta0WSQ1SQdO17GNPyktAkmPpARBbRhKFuJXTdzaQtlc4Rp2WpzFd2DjaLMW3qwvTxKRpJSoDW0Ww1HpmX0tbkObtfJhfXmShOwMRAOgqK5BUNZwofcJ5fMZjGUTt8C+p6dHr6oWyR+G3ieUa+FGY3EsZPTB2DjarOF76cuTRIbugdvQZo0+TF+eJOLicULjT9CXJ0nEhRnrPH4HvU8omUyQdKD2C1VnOg70PqFcCzcai2MZco4jMowuSHIZkXgkJIvazgW1/D9EtzBb1+C2c0EkkaQwY52epaTdbySZJM9SnbtD4zxx8mXAJeyzNkvvxUbRBcnxOCSehbfgtnNBS1doJUgkc5fhtnNBKx/VSpAo4sKMojpJ2v3GcGMycWupZIF7nSStPXMp3GisjWWMPgIbRRc0fB+tBIlE2gi1nQuSv00Sz8Dtcdu5oPEnaSVIFHFhRjlUOy/iSZHM+EVDWei9QjHcmAxqt1BF2k88pZIZv+iOV/ReoVwKNxprYxH7ZsaKDKJL2q/vEFHr2Z3GbeaSSDTbfbjNXBKJJGkBe958WZKeoL0cWcCd1zsVF46q22NjO0kew7wHZHcmuJU8b3m9UzK5by+rXS6FG+2yNMsfwMbQJS28TStDjiFHsqA2c0lL79PKkGPM/yVuM5e0+nGtDOmk7JQNkvg07vzHPAv1k9Yo5Z08NIGy18jJRD3ucOs83s2kA9vrSGWSB2NpLGLsN7AxdEkj99PKkGO4HGYMNfYorQw5hou7GTt16slaGdJJXJhxcHBQr0qHnOWIyumUPFMG2yygckIx3BgNaq9Qw8PDelU6Or2YUcrj3UTlhKpz12UWjKWxBNkxhgyhiwpah3UiZ9hbwG3loshxdoxhRm3losgxko7lSXtosiTfjPNyRSnLhEkmCagMEcONmKTdqmnDyOLlkrVcqIw4ZfFuxv39uBJutMfKrFyJjaCLkpAaOcriu3BbuSgJiZOjzP8NbisXtfpJrRQJSTqIOg1pDl+OkyRnTTMB8Gn3W1WUsVs1rZcrSjJpSuP9kr8BdH8oFw7MNlbGEsYejY2gixp5gFaK/Awfwoyh5G+VHMWHMGOoU0/VSpGQuDBj0qHY29vbubwgURodHdWSo0H3haozyautoHYKJR6mOGSiIyFDdG8epfFuovtCuRBuNFbGEpABdFnkDPvmWwxqI5dFzrA7gdvIZZGfIeFBNMCFEk9WFEW9XHGK837FhaMYbjxK0m7VxcVFvfI4adfqZZV4N+O8X3ETPTkw3XbssDArH8PGr2wN3jEI+s/Dn5Wtxb/XypFg6R9wG5WtobsFQd+5+LOytfIhrRw5SByM2qhsDd/XWNzr4c/K1vpVWjmSFEJCiJdLPGHo+igNDQ3B38cpKnfY0tISvD6UTDbIIXl2q8pkXCY46Pooxa29i1KUd3N+fh5eH0r+/mzGWBgLqCLMOPMyfVjL/KU9H19TpkYeqM8jwfC9cRuVqdnXHD6rtRkEk5fga8rU2GMOn0eCYOB2uI3K1Nzlh8+SI8VOPR1fU6bkGeQA8T6gwU2EFjPn8YLIPcLu7m5srqYooZ2P6LpQDDeeAbVPKHQodtJ6PySZKAk7Ozu5JmCd3q/9/X14XSjbw43GwlgAMnxlaeAC8+313/RBbax9Lgj6boHvKUvkcCKE2qYsDf5yEGx8Ux/Wxuq/BEHvDfA9ZYkEwZ4ZMFHblKWhuwfB5vf0YW0s/zO+vkyRA88BGthCySAcIoNqVi+IhATRYmgJb6Hr4yQes3biwlEymSTJu1Xbw8jytxC31g9J+gR5n5I8Vkid3s24LwS2hxvrty6rn8JGrwxNvVAfEoV4vy7F95YhJts0A+Q/4bYpQzN/pA+JoHU6CCaeje8tQ6uf1gc1GAmpo7YpQ7Ov1YdEsCfer6fhe8vQxjf0Qc0lyXu1t7d3cF2eHW1yTxxFvV9Jg7sLu9+6TdowY9J1SHFr/wSZkOXxfoVJcJM8b/JFwFaMdamZsV/HRq+I+m8ZBGtf0AekYO2zQdB7Q1xWEY0+WB/QYIbvhdumiAYuDIL1r+oDUrDycXPfWcfLKarxx+oDGkw3woyDdwqC09/SB6Rg+YO4nKKaeIY+oLnEeRVEMrhl9YJINvMsa6wkRxgqJ05hwk/0WSiGG+PbR/pe1nLJZgT0eZSivJhR5PF+ydovmfSjz0IVPReymxjrUjPI4BXR5O9pwVnZN9P65+Eyi6jJtMy3YdQmRTT9Ii08Iwfer4txmUXUZMTjhNqkiJK8mFHsLR6mgUBlFlGDkUkVGtBCxR0HE6X20GQW8nq/4iYNTQ83Ju1WjdsZGqUkL2YUeb1fcbI53FivZVn7PDZ2eSS72cpIfCjer5NnHy8/r1Y+qgU3kJUP4zbJI9mNuvZFLbgAZe+gXf9XLbiBLL0Ht0keDdzWtOXVWnAByg5tb35fC24eZaYKkDxeZZyjl8f7FSe0/qgp5AkfRkkm4WWEbvN4v+IUhsJtw1iWGpFz75CxyyrxZJSK6SzxnKFnZdXoQ7XMBlJWmDG3FzOCfTMATDwLPyurxh+vhTYQmSyhNsmqvF7MKOR4qrK8X/J30lCSwoxpVXbIR7xfZXlH5GDopoLaI4/yejGjkMlwntQiSGW/W1kYy1IjyNBlUc85h16VbrH6GfzcrGoqqC2yqO8mhx7IbiHeSPTcrGoi++u4LbKo/1Z4x3FZLP8jfm4mnaWFNQuZ3KCBLIskj1cZXq4oyvB+oXQYTSApzJhG4sXs5gaFMrxfKB2GDRjLUhPrXwZGLoOqOtajtRsEk7+D3yGtJHVF05B0Dqgt0qp0L2YEMoEoujMuy0JwX1i6ArdFWsl6yirYmw+Csd/E75BWW81bC1Q0zFiVJ0nWoRX1jsgks2kUDTNWtXBdvF951pq1q9VqaWn2YKxKTeQOM54d1JI1XFIHwPdJodGHayENYvhXcVskqff69aRpWPkIfp80Gn+iFtIgZGcpaoskiRdz/StaSIUU8X7JF6+GkTfMKAuau+nliqKI98vm3W/dArVDGokXs440HEW8X2FyXpswVqUmkIFLUt3racT7lTdrdtNAbZAk8TzVyf7aYYoI9G5JahKtbdwGSZKcanWyN3e45hK9W5x6rqUFNIOkbfpRqjs9g3i/8nhHmhZuFC8Saock1Z0NXt47z2HrNoYbjVWpgY2rsYGL08qVerMF5En6miXvlOusfgK3QaTMwCZtagt5vF+bP9CbG8DSe3EbREm8mDbt/lz+AH7POO3gMwF9JGuYUSYudXi5osjj/ZIjaJpC1jCjeDFtOtsyj/fLNoxFqYHRR2LjhiQJVm2ktRME44/D74xkaz26wfA9cRsgjT9Bb7KM/VXzd/ow/M5ITUq2mSXMaOuZh+L9kkO30Tsjlb3z0mKyhBnHx8f1LrsQ71cW74itu9+6Aap/lGxNMiver7gjoTqVlEW/aoxFqQFk2JDkPDbbyeL9agqo7khl5F3rNllykTWCFq77MV3rcAON7Sy/H7w7UM919Aa/SRtmlMnZ+vq63mUvab0jTQk3JiXFDSXtYZOXK4q03llZm2YTxqJUTJow4+hD9GJHkDUvsoAe1aVdp7+tN3hMmt2MY4/Wix1BvF8jv4br0q5tO7cul0qapKmubTaQg76H7oLr0i65znPSDGRjY2N6tRvIZEMGXlSXdjWBNGFG145SEu9XmsPZbcJYk4oZfQQ2aqHk3DVXOTgTENQp1PiT9EKPGUoIM8r6L1dJWhtUdqJXGxm4ANc91PpVeqGDJB34PfMKvdBf4sKMcvyOC16uKJImlTbufisbVO9Q0vcueLmiSDqoXdb+2YKxJhWDDJpo5H56geO0tg7rguoo8h1UZ5Gsl/KB/RUzubwrrqPId1CdRb4cGL43YyaXEQd/91xPL/ITWWCOBiyRa16uKMT7FeUdsflsvzKIS4rry4Hh4v2K+vJgU7jRWJMKkbPYkEGTHDu+EZU3aOtHeoGHrEZ4/CT86BuL78B13fFjgIJEhRnXvqQXeMT8G3Fd5bgpT4nyCLns5YoiyjviMyjMKF5Ml71cUUSFVG3BWJIK6QwzDt9HP/AU8X4N3e1onX0++23oHkfr6vs5lfvLQTBw0dE6T79YP/SQzjCjZIT3md3pIOi/5dE6z71OP/SPTk/B6OiofuIn4v3qrLMsxveV9nqKbN2RWhboWKSlpSX9tF6MJamQdgMm62WawuI7j9bdV9rrKN6vprDwpqN195X2Oq59UX/ZAGSyFdZbcpJ5iByr0j5A+ejliqLdO2Lr2X5F6dyt6qOXKwo5viqsd39/v/62XowlqQhJICqGa/je+ouG0doMgsHbH7bBdp/+0iPCjQWu7Ugti33zTar/vMM22LNnEWdpLL37sG5jj9FfNIzdSTPputFhG3hIGGb03csVRXs2dx8JJ5e+e7mikGOObOrf6qyIpFuQnDlNZ+HN5n/BpfqDRwzd3Uy+PqY/NJi5y80o9mr9wSMGzg+CtS/oDw1m5pWH6788Q0JuTfJyRSHekcXFRf3JH2TC0SQvVxQy8VxZWdGf6sPPr2+EEEIIIRbCiRchhBBCSEVw4kUIIYQQUhGceBFCCCGEVAQnXoQQQgghFcGJFyGEEEJIRXDiRQghhBBSEZx4EUIIIYRUBCdehBBCCCEVwYkXIYQQQkhFcOJFCCGEEFIRnHgRQgghhFQEJ16EEEIIIRXBiRchhBBCSEVw4kUIIYQQUhGceBFCCCGEVEIQ/D9vm70YPcG+HwAAAABJRU5ErkJggg==" style="width: 16em" />
-</section><section class="slide"><h2>Props in function components</h2>
-<p>example (simple Rating component):</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> Rating = <span class="hljs-function">(<span class="hljs-params">props</span>) =></span> (
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"rating"</span>></span>
-    {'★'.repeat(props.stars) + '☆'.repeat(5 - props.stars)}
-  <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
-);
-</code></pre>
-<p>with object destructuring for props:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> Rating = <span class="hljs-function">(<span class="hljs-params">{ stars }</span>) =></span> (
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"rating"</span>></span>
-    {'★'.repeat(stars) + '☆'.repeat(5 - stars)}
-  <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
-);
-</code></pre>
-</section><section class="slide"><h2>props.children</h2>
-<p>A component may receive content to be displayed via <code>props.children</code></p>
-<p>Example: a <code>Bordered</code> component:</p>
-<pre><code class="hljs language-jsx">&#x3C;Bordered>lorem ipsum&#x3C;<span class="hljs-regexp">/Bordered>
-</span></code></pre>
-<p>Defining the component:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> Bordered = <span class="hljs-function">(<span class="hljs-params">props</span>) =></span> (
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"bordered"</span>></span>{props.children}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
-);
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Component events</h1>
-</section><section class="slide"><h2>Data/event flow</h2>
-<ul>
-<li>parent → child: props</li>
-<li>child → parent: events</li>
-</ul>
-</section><section class="slide"><h2>Custom events</h2>
-<p>Event handlers are defined as functions and passed down via props.</p>
-</section><section class="slide"><h2>Custom events</h2>
-<p>Example: Event <code>onChange</code> in the <code>Rating</code> component (each star is a <code>span</code> element)</p>
-</section><section class="slide"><h2>Custom events</h2>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> Rating = <span class="hljs-function">(<span class="hljs-params">props</span>) =></span> {
-  <span class="hljs-keyword">const</span> starIds = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>];
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
-      {starIds.map((id) => (
-        <span class="hljs-tag">&#x3C;<span class="hljs-name">span</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> props.onChange(id)} key={id}>
-          {id <span class="hljs-tag">&#x3C;<span class="hljs-name">=</span> <span class="hljs-attr">props.stars</span> ? '★' <span class="hljs-attr">:</span> '☆'}
-        &#x3C;/<span class="hljs-attr">span</span>></span>
-      ))}
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
-  );
-};
-</code></pre>
-</section><section class="slide"><h2>Custom events</h2>
-<p>Using the Rating component:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> [prodRating, setProdRating] = useState(<span class="hljs-number">3</span>);
-</code></pre>
-<pre><code class="hljs language-jsx">&#x3C;Rating
-  stars={prodRating}
-  onChange={(newRating) => setProdRating(newRating)}
-/>
-</code></pre>
-<p>shorter notation:</p>
-<pre><code class="hljs language-jsx">&#x3C;Rating stars={prodRating} onChange={setProdRating} />
-</code></pre>
-</section><section class="slide"><h2>Custom events</h2>
-<p>Example <code>ToggleButton</code>: Button which displays either "off" or "on":</p>
-<p>Prop: <code>active</code> - may be set to <code>true</code> or <code>false</code><br />
-Event: <code>onToggle</code> - function which is called with the new state</p>
-<pre><code class="hljs language-jsx">&#x3C;button
-  onClick={() => {
-    props.onToggle(!props.active);
-  }}
->
-  {props.active ? <span class="hljs-string">'on'</span> : <span class="hljs-string">'off'</span>}
-&#x3C;<span class="hljs-regexp">/button>
-</span></code></pre>
-</section><section class="slide"><h2>Custom events</h2>
-<p>The <code>ToggleButton</code> can be included like this:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> [myOption, setMyOption] = useState(<span class="hljs-literal">true</span>);
 
-<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">ToggleButton</span>
-  <span class="hljs-attr">active</span>=<span class="hljs-string">{myOption}</span>
-  <span class="hljs-attr">onToggle</span>=<span class="hljs-string">{(newIsActive)</span> =></span> {
-    setMyOption(newIsActive);
-  }}
-/>;
-</span></code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Exercises</h1>
-</section><section class="slide"><h2>Exercises</h2>
-<p>Task: draft component interfaces (props and events) for various components (e.g. <em>Calendar</em>, <em>Color Picker</em>, <em>BarChart</em>, <em>Tabs</em>)</p>
-<p>Task: "recreate" one of the components listed at <a href="https://github.com/brillout/awesome-react-components">awesome-react-components</a> (e.g. bar chart, color picker, table / data grid, tabs)</p>
-<p>Task: split the todo app into smaller components (e.g. <em>TodoList</em>, <em>TodoItem</em>, <em>AddTodo</em>)</p>
-</section></section><section class="slides-section"><section class="slide"><h1>Type checkers for React</h1>
-</section><section class="slide"><h2>Type checkers for React</h2>
-<p>Declaring types can be useful, especially when it comes to component props and events</p>
-<p>possibilities:</p>
-<ul>
-<li>using TypeScript as a language</li>
-<li>library <em>prop-types</em></li>
-</ul>
-</section><section class="slide"><h2>React with TypeScript</h2>
-<p>creating a new project:</p>
-<pre><code class="hljs language-bash">npx create-react-app my-app --template typescript
+<span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"bar.png"</span> /></span>
 </code></pre>
-</section><section class="slide"><h2>TypeScript</h2>
-<p>TypeScript basics: see presentation on <a href="./typescript-en.html">TypeScript</a></p>
-</section><section class="slide"><h2>React with TypeScript</h2>
-<p>extensive resource: <a href="https://github.com/typescript-cheatsheets/react-typescript-cheatsheet">https://github.com/typescript-cheatsheets/react-typescript-cheatsheet</a></p>
+<!-- prettier-ignore-end -->
+</section><section class="slide"><h2>Whitespace</h2>
+<p>example of multi-line formatting if we want to display multiple elements without a space in between:</p>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"image1.png"</span> /></span><span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"image2.png"</span> /></span><span class="hljs-tag">&#x3C;<span class="hljs-name">img</span>
+  <span class="hljs-attr">src</span>=<span class="hljs-string">"image3.png"</span>
+/></span>
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Stylesheets</h1>
+</section><section class="slide"><h2>Stylesheets</h2>
+<p>Stylesheets allow us to include predefined styles and reuse them across HTML documents</p>
+<p>they may be included from predefined libraries (e.g. <em>Bootstrap</em>) or created manually</p>
+</section><section class="slide"><h2>Inclusion</h2>
+<p>example:</p>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">link</span>
+  <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span>
+  <span class="hljs-attr">href</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/picnic"</span>
+/></span>
+</code></pre>
+<p>usually in the <em>head</em> of a document</p>
+</section><section class="slide"><h2>CSS Resets</h2>
+<p>Resets: stylesheets that unify basic styles across browsers:</p>
+<ul>
+<li><em>normalize.css</em>: <a href="https://necolas.github.io/normalize.css/">website</a>, <a href="https://cdn.jsdelivr.net/npm/normalize.css/normalize.css">CDN</a></li>
+<li><em>sanitize.css</em>: based on normalize - <a href="https://csstools.github.io/sanitize.css/">website</a>, <a href="https://cdn.jsdelivr.net/npm/sanitize.css/sanitize.css">CDN</a></li>
+<li><em>reboot</em>: based on normalize, is used in Bootstrap - <a href="https://getbootstrap.com/docs/4.0/content/reboot/">website</a>, <a href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap-reboot.css">CDN</a></li>
+</ul>
+<p>CDN: Content Delivery Network - services that host CSS and JS libraries</p>
+</section><section class="slide"><h2>CSS Libraries</h2>
+<p>CSS Libraries:</p>
+<ul>
+<li><em>Picnic CSS</em>: simple CSS library, doesn't use JavaScript - <a href="https://picnicss.com/">website</a>, <a href="https://cdn.jsdelivr.net/npm/picnic">CDN</a></li>
+<li><em>Bootstrap</em>: widely used CSS library with many themes - <a href="https://getbootstrap.com/">website</a>, <a href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.css">CDN for CSS</a>, <a href="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.js">CDN for JS</a></li>
+<li><em>Semantic UI</em> - <a href="https://semantic-ui.com">website</a>, <a href="https://cdn.jsdelivr.net/npm/semantic-ui/dist/semantic.css">CDN for CSS</a>, <a href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.js">CDN for JS</a></li>
+<li><em>Foundation</em> - <a href="https://get.foundation/sites/docs/">website</a>, <a href="https://cdn.jsdelivr.net/npm/foundation-sites/dist/css/foundation.css">CDN for CSS</a>, <a href="https://cdn.jsdelivr.net/npm/foundation-sites/dist/js/foundation.js">CDN for JS</a></li>
+</ul>
 <!--
 
-redux with typescript:
-
-- https://github.com/piotrwitek/react-redux-typescript-guide
-- https://medium.com/@resir014/a-type-safe-approach-to-redux-stores-in-typescript-6474e012b81e
-- https://www.carlrippon.com/strongly-typed-react-redux-code-with-typescript/
-
+https://picnicss.com/ (Einträge in der Navbar sind buttons, kein JS)
+https://milligram.io/ (keine navbar, verwendet class="button")
+http://getskeleton.com/ (keine navbar)
+https://github.com/mdipierro/no.css
+https://getbootstrap.com/
 -->
-</section><section class="slide"><h2>Props with TypeScript (function components)</h2>
-<pre><code class="hljs language-tsx">type TodoListProps = {
-  todos: Array&#x3C;TodoType>;
-  onToggle: (id: number) => void;
-  onDelete: (id: number) => void;
-};
-
-const TodoList = (props: TodoListProps) => {
-  // ...
-};
-</code></pre>
-</section><section class="slide"><h2>useState with TypeScript</h2>
-<p>often no annotation is necessary:</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> [filterText, setFilterText] = useState(<span class="hljs-string">''</span>);
-</code></pre>
-<p>with annotation:</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> [todos, setTodos] = useState&#x3C;<span class="hljs-built_in">Array</span>&#x3C;TodoType>>([]);
-</code></pre>
-</section><section class="slide"><h2>Event types</h2>
-<p>With inline event handlers no event type must be declared:</p>
-<pre><code class="hljs language-jsx">&#x3C;button
-  onClick={(event) => {
-    event.stopPropagation();
-  }}
->
-  test
-&#x3C;<span class="hljs-regexp">/button>
-</span></code></pre>
-</section><section class="slide"><h2>Event types</h2>
-<p>Event types for event handlers that are defined separately:</p>
+</section></section><section class="slides-section"><section class="slide"><h1>HTML elements</h1>
+</section><section class="slide"><h2>HTML elements</h2>
 <ul>
-<li><code>React.FormEvent</code></li>
-<li><code>React.FormEvent&#x3C;HTMLFormElement></code></li>
-<li><code>React.ChangeEvent&#x3C;HTMLInputElement></code></li>
-<li><code>React.MouseEvent&#x3C;HTMLDivElement></code></li>
+<li>structuring: <em>h1</em>, <em>p</em>, <em>header</em>, <em>main</em>, <em>nav</em>, <em>section</em>, ...</li>
+<li>links: <em>a</em></li>
+<li>text formatting: <em>br</em>, <em>em</em>, <em>strong</em>, ...</li>
+<li>general elements: <em>div</em>, <em>span</em></li>
+<li>lists: <em>ul</em>, <em>ol</em>, <em>li</em></li>
+<li>media: <em>img</em>, <em>video</em>, <em>audio</em>, ...</li>
+<li>forms: <em>form</em>, <em>input</em>, <em>button</em>, <em>label</em>, ...</li>
+<li>tables: <em>table</em>, <em>tr</em>, <em>td</em>, ...</li>
 </ul>
-</section><section class="slide"><h2>prop-types</h2>
-<p>library for annotating React component properties in JavaScript</p>
-</section><section class="slide"><h2>prop-types</h2>
-<p>example:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> PropTypes <span class="hljs-keyword">from</span> <span class="hljs-string">'prop-types'</span>;
-
-<span class="hljs-comment">// definition of Rating component here</span>
-
-Rating.propTypes = {
-  <span class="hljs-attr">stars</span>: PropTypes.number.isRequired,
-  <span class="hljs-attr">onStarsChange</span>: PropTypes.func,
-};
-</code></pre>
-</section><section class="slide"><h2>prop-types in VS Code</h2>
-<p>Plugin: <em>React PropTypes IntelliSense</em></p>
-</section></section><section class="slides-section"><section class="slide"><h1>Querying APIs (effect hook)</h1>
-</section><section class="slide"><h2>Querying APIs (effect hook)</h2>
-<p>Often API data needs to be queried when a component was mounted for the first time or when its props / state have changed</p>
-</section><section class="slide"><h2>Querying APIs (effect hook)</h2>
-<p>The <em>effect hook</em> can be used to perform actions when a component was mounted for the first time or whent its props / state have changed</p>
-<pre><code class="hljs language-js">useEffect(
-  effect, <span class="hljs-comment">// what should happen</span>
-  dependencies <span class="hljs-comment">// array of values to watch</span>
-);
-</code></pre>
-</section><section class="slide"><h2>Querying APIs (effect hook)</h2>
-<p>Example: load todos when component has mounted</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> TodoApp = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  <span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
-  <span class="hljs-keyword">const</span> loadTodos = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-    fetch(<span class="hljs-string">'https://jsonplaceholder.typicode.com/todos'</span>)
-      .then(<span class="hljs-function">(<span class="hljs-params">res</span>) =></span> res.json())
-      .then(<span class="hljs-function">(<span class="hljs-params">todos</span>) =></span> setTodos(todos));
-  };
-  useEffect(loadTodos, []);
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">ul</span>></span>
-      {todos.map((todo) => (
-        <span class="hljs-tag">&#x3C;<span class="hljs-name">li</span> <span class="hljs-attr">key</span>=<span class="hljs-string">{todo.id}</span>></span>{todo.title}<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span>
-      ))}
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">ul</span>></span></span>
-  );
-};
-</code></pre>
-</section><section class="slide"><h2>Querying APIs (effect hook)</h2>
-<p>Example: load SpaceX launch data when component mounted or when <code>launchNr</code> changed</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> SpaceXLaunch = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  <span class="hljs-keyword">const</span> [launchNr, setLaunchNr] = useState(<span class="hljs-number">1</span>);
-  <span class="hljs-keyword">const</span> [launchData, setLaunchData] = useState({});
-  <span class="hljs-keyword">const</span> fetchLaunch = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-    fetch(
-      <span class="hljs-string">`https://api.spacexdata.com/v3/launches/<span class="hljs-subst">${launchNr}</span>`</span>
-    )
-      .then(<span class="hljs-function">(<span class="hljs-params">res</span>) =></span> res.json())
-      .then(<span class="hljs-function">(<span class="hljs-params">data</span>) =></span> setLaunchData(data));
-  };
-  useEffect(fetchLaunch, [launchNr]);
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>{launchData.mission_name}<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>date: {launchData.launch_date_utc}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setLaunchNr(launchNr + 1)}>
-        next
-      <span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
-  );
-};
-</code></pre>
-</section><section class="slide"><h2>Querying APIs (effect hook)</h2>
-<p>Example: load pokémon data when component mounted or when <code>id</code> changed</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> Pokemon = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  <span class="hljs-keyword">const</span> [id, setItd] = useState(<span class="hljs-number">1</span>);
-  <span class="hljs-keyword">const</span> [data, setData] = useState({});
-  <span class="hljs-keyword">const</span> fetchPokemon = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-    fetch(<span class="hljs-string">`https://pokeapi.co/api/v2/pokemon/<span class="hljs-subst">${id}</span>`</span>)
-      .then(<span class="hljs-function">(<span class="hljs-params">res</span>) =></span> res.json())
-      .then(<span class="hljs-function">(<span class="hljs-params">data</span>) =></span> setData(data));
-  };
-  useEffect(fetchPokemon, [id]);
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>{data.name}<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">p</span>></span>id: {id}<span class="hljs-tag">&#x3C;/<span class="hljs-name">p</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">p</span>></span>height: {data.height}<span class="hljs-tag">&#x3C;/<span class="hljs-name">p</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setItd(id + 1)}>next<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
-  );
-};
-</code></pre>
-</section><section class="slide"><h2>Querying APIs (effect hook)</h2>
-<p>Tasks:</p>
+</section><section class="slide"><h2>HTML elements</h2>
+<p>complete list:</p>
 <ul>
-<li>load and display more data</li>
-<li>add a loading indicator</li>
-<li>add automatic refresh every 10 seconds</li>
+<li><a href="https://www.w3schools.com/tags/ref_byfunc.asp">https://www.w3schools.com/tags/ref_byfunc.asp</a></li>
+<li><a href="https://www.w3schools.com/TAgs/default.asp">https://www.w3schools.com/TAgs/default.asp</a></li>
+<li><a href="https://developer.mozilla.org/de/docs/Web/HTML/Element">https://developer.mozilla.org/de/docs/Web/HTML/Element</a></li>
+</ul>
+</section><section class="slide"><h2>Exercise</h2>
+<p>We'll create a website for a Restaurant</p>
+<p>contents: table for opening hours, form for Reservations, ...</p>
+</section></section><section class="slides-section"><section class="slide"><h1>Structuring elements</h1>
+</section><section class="slide"><h2>Structuring elements</h2>
+<ul>
+<li>h1 - h6</li>
+<li>p</li>
+</ul>
+<!-- separator -->
+<ul>
+<li>header</li>
+<li>main</li>
+<li>footer</li>
+<li>aside</li>
+</ul>
+<!-- separator -->
+<ul>
+<li>nav</li>
+</ul>
+<!-- separator -->
+<ul>
+<li>section</li>
+<li>article</li>
+</ul>
+</section><section class="slide"><h2>Headings and Structuring elements</h2>
+<p>Headings inside of <em>nav</em>, <em>aside</em>, <em>article</em> and <em>section</em> have their font sizes adjusted automatically:</p>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>big heading<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
+<span class="hljs-tag">&#x3C;<span class="hljs-name">section</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>medium heading<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
+  ...
+<span class="hljs-tag">&#x3C;/<span class="hljs-name">section</span>></span>
+<span class="hljs-tag">&#x3C;<span class="hljs-name">section</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>medium heading<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">section</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>small heading<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">p</span>></span>...<span class="hljs-tag">&#x3C;/<span class="hljs-name">p</span>></span>
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">section</span>></span>
+<span class="hljs-tag">&#x3C;/<span class="hljs-name">section</span>></span>
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Links</h1>
+</section><section class="slide"><h2>Links</h2>
+<p>Example:</p>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://en.wikipedia.org/wiki/HTML"</span>
+  ></span>Wikipedia article<span class="hljs-tag">&#x3C;/<span class="hljs-name">a</span>
+></span>
+</code></pre>
+</section><section class="slide"><h2>Links</h2>
+<p>Link that opens in new tab / window:</p>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">a</span>
+  <span class="hljs-attr">href</span>=<span class="hljs-string">"https://en.wikipedia.org/wiki/HTML"</span>
+  <span class="hljs-attr">target</span>=<span class="hljs-string">"_blank"</span>
+  <span class="hljs-attr">rel</span>=<span class="hljs-string">"noreferrer"</span>
+  ></span>Wikipedia article<span class="hljs-tag">&#x3C;/<span class="hljs-name">a</span>
+></span>
+</code></pre>
+</section><section class="slide"><h2>Links</h2>
+<p>E-Mail link:</p>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"mailto:foo@bar.com"</span>></span>send e-mail<span class="hljs-tag">&#x3C;/<span class="hljs-name">a</span>></span>
+</code></pre>
+</section><section class="slide"><h2>Links</h2>
+<p>Download link:</p>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"report.ods"</span> <span class="hljs-attr">download</span>></span>report<span class="hljs-tag">&#x3C;/<span class="hljs-name">a</span>></span>
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Text formatting</h1>
+</section><section class="slide"><h2>Text formatting</h2>
+<p>in practice:</p>
+<ul>
+<li><code>em</code> or <code>i</code> for making text <em>italic</em></li>
+<li><code>strong</code> or <code>b</code> for making text <strong>bold</strong></li>
+</ul>
+</section><section class="slide"><h2>Text formatting</h2>
+<p>actual meaning according to the HTML 5 standard:</p>
+<ul>
+<li><code>em</code> - emphasis</li>
+<li><code>i</code> - proper names, technical terms, foreign words, ...</li>
+<li><code>strong</code> - importance</li>
+<li><code>b</code> - other highlight</li>
+</ul>
+</section><section class="slide"><h2>Text formatting</h2>
+<p>Examples:</p>
+<pre><code class="hljs language-html">My next phone <span class="hljs-tag">&#x3C;<span class="hljs-name">em</span>></span>must<span class="hljs-tag">&#x3C;/<span class="hljs-name">em</span>></span> be a <span class="hljs-tag">&#x3C;<span class="hljs-name">i</span>></span>FooPhone<span class="hljs-tag">&#x3C;/<span class="hljs-name">i</span>></span>.
+</code></pre>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">strong</span>></span>The event is cancelled<span class="hljs-tag">&#x3C;/<span class="hljs-name">strong</span>></span> due to bad weather.
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>div and span</h1>
+</section><section class="slide"><h2>div and span</h2>
+<ul>
+<li><code>div</code>: generic block element</li>
+<li><code>span</code>: generic inline element</li>
+</ul>
+<p>block elements: displayed underneath each other, as wide as possible</p>
+<p>inline elements: displayed next to each other, as wide as their content</p>
+</section></section><section class="slides-section"><section class="slide"><h1>Lists</h1>
+</section><section class="slide"><h2>Lists</h2>
+<ul>
+<li><code>ul</code> (unordered list)</li>
+<li><code>ol</code> (ordered list - numbered)</li>
+<li><code>li</code> (list item)</li>
+</ul>
+</section><section class="slide"><h2>Lists</h2>
+<p>example:</p>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>tetrapods:<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
+<span class="hljs-tag">&#x3C;<span class="hljs-name">ul</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">li</span>></span>amphibians<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">li</span>></span>reptiles<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">li</span>></span>birds<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">li</span>></span>mammals<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span>
+<span class="hljs-tag">&#x3C;/<span class="hljs-name">ul</span>></span>
+</code></pre>
+</section><section class="slide"><h2>Listen</h2>
+<p>nested lists:</p>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>vertebrate:<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
+<span class="hljs-tag">&#x3C;<span class="hljs-name">ul</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">li</span>></span>fish<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">li</span>></span>
+    tetrapods
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">ul</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">li</span>></span>amphibians<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">li</span>></span>reptiles<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">li</span>></span>birds<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">li</span>></span>mammals<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span>
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">ul</span>></span>
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span>
+<span class="hljs-tag">&#x3C;/<span class="hljs-name">ul</span>></span>
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Forms and buttons</h1>
+</section><section class="slide"><h2>Forms and buttons</h2>
+<p>elements:</p>
+<ul>
+<li><code>button</code></li>
+<li><code>form</code></li>
+<li><code>input</code></li>
+<li><code>label</code></li>
+<li><code>select</code></li>
+<li>...</li>
+</ul>
+</section><section class="slide"><h2>Form example</h2>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">form</span> <span class="hljs-attr">action</span>=<span class="hljs-string">"/register"</span> <span class="hljs-attr">method</span>=<span class="hljs-string">"post"</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">label</span>
+      ></span>first name: <span class="hljs-tag">&#x3C;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"firstname"</span>
+    /></span><span class="hljs-tag">&#x3C;/<span class="hljs-name">label</span>></span>
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">label</span>
+      ></span>last name: <span class="hljs-tag">&#x3C;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"lastname"</span>
+    /></span><span class="hljs-tag">&#x3C;/<span class="hljs-name">label</span>></span>
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"submit"</span>></span>register<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
+<span class="hljs-tag">&#x3C;/<span class="hljs-name">form</span>></span>
+</code></pre>
+</section><section class="slide"><h2>Buttons</h2>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"submit"</span>></span>press me!<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
+</code></pre>
+</section><section class="slide"><h2>Buttons</h2>
+<p>button types:</p>
+<ul>
+<li><em>submit</em>: button that submits a form (default type for buttons in a form)</li>
+<li><em>button</em></li>
+<li>(<em>reset</em>)</li>
+</ul>
+</section><section class="slide"><h2>Input</h2>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">input</span> /></span>
+</code></pre>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"password"</span> /></span>
+</code></pre>
+</section><section class="slide"><h2>Input types</h2>
+<p>default type: <code>text</code></p>
+<p>other possibilities:</p>
+<ul>
+<li><code>checkbox</code></li>
+<li><code>radio</code></li>
+<li><code>file</code></li>
+<li><code>password</code></li>
+<li><code>date</code> (HTML 5)</li>
+<li><code>email</code>(HTML 5)</li>
+<li><code>number</code> (HTML 5)</li>
+<li><code>search</code> (HTML 5)</li>
+</ul>
+</section><section class="slide"><h2>Input attributes</h2>
+<ul>
+<li>placeholder</li>
+<li>autofocus</li>
+<li>autocomplete</li>
+<li>size</li>
+</ul>
+</section><section class="slide"><h2>Autocomplete</h2>
+<p>Possible values of the <code>autocomplete</code> attribute:</p>
+<ul>
+<li><code>name</code></li>
+<li><code>given-name</code></li>
+<li><code>email</code></li>
+<li><code>username</code></li>
+<li>...</li>
+</ul>
+</section><section class="slide"><h2>Validation</h2>
+<ul>
+<li><code>required</code></li>
+<li><code>minlength</code></li>
+<li><code>maxlength</code></li>
+</ul>
+<p>CSS pseudoclasses: <code>:valid</code>, <code>:invalid</code></p>
+</section><section class="slide"><h2>Validation - example</h2>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">input</span>
+  <span class="hljs-attr">type</span>=<span class="hljs-string">"number"</span>
+  <span class="hljs-attr">min</span>=<span class="hljs-string">"-5"</span>
+  <span class="hljs-attr">max</span>=<span class="hljs-string">"5"</span>
+  <span class="hljs-attr">step</span>=<span class="hljs-string">"0.1"</span>
+  <span class="hljs-attr">value</span>=<span class="hljs-string">"1"</span>
+/></span>
+</code></pre>
+</section><section class="slide"><h2>Input and label</h2>
+<p>Inputs should have labels that describe them:</p>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">label</span>
+  ></span>enter your name:
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">input</span> /></span>
+<span class="hljs-tag">&#x3C;/<span class="hljs-name">label</span>></span>
+</code></pre>
+<p>or</p>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"name-input"</span>></span>enter your name:<span class="hljs-tag">&#x3C;/<span class="hljs-name">label</span>></span>
+<span class="hljs-tag">&#x3C;<span class="hljs-name">input</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"name-input"</span> /></span>
+</code></pre>
+</section><section class="slide"><h2>Forms</h2>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">form</span> <span class="hljs-attr">action</span>=<span class="hljs-string">"/register"</span> <span class="hljs-attr">method</span>=<span class="hljs-string">"post"</span>></span>
+  first name: <span class="hljs-tag">&#x3C;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"firstname"</span> /></span><span class="hljs-tag">&#x3C;<span class="hljs-name">br</span> /></span>
+  last name: <span class="hljs-tag">&#x3C;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"lastname"</span> /></span><span class="hljs-tag">&#x3C;<span class="hljs-name">br</span> /></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"submit"</span>></span>register<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
+<span class="hljs-tag">&#x3C;/<span class="hljs-name">form</span>></span>
+</code></pre>
+</section><section class="slide"><h2>Forms</h2>
+<p>When the form is submitted, a <em>post</em> request with the following content is sent to <em>/register</em>:</p>
+<pre><code class="hljs language-txt">firstname=John&#x26;lastname=Doe
+</code></pre>
+</section><section class="slide"><h2>Other form elements</h2>
+<ul>
+<li>textarea</li>
+<li>select</li>
+</ul>
+</section></section><section class="slides-section"><section class="slide"><h1>Media</h1>
+</section><section class="slide"><h2>Media</h2>
+<ul>
+<li><code>img</code></li>
+<li><code>video</code></li>
+<li><code>audio</code></li>
+</ul>
+</section><section class="slide"><h2>img</h2>
+<p>attributes:</p>
+<ul>
+<li><code>src</code>: image path</li>
+<li><code>alt</code>: alternative text in case the picture cannot be displayed</li>
+<li><code>srcset</code>: list of image paths for different resolutions</li>
+</ul>
+</section><section class="slide"><h2>srcset - Beispiel</h2>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">img</span>
+  <span class="hljs-attr">alt</span>=<span class="hljs-string">""</span>
+  <span class="hljs-attr">src</span>=<span class="hljs-string">"images/2000x1000.png"</span>
+  <span class="hljs-attr">srcset</span>=<span class="hljs-string">"
+    images/500x250.png   500w,
+    images/1000x500.png 1000w
+  "</span>
+/></span>
+</code></pre>
+<p>Demo: <a href="http://srcset.salcode.com/">http://srcset.salcode.com/</a></p>
+</section><section class="slide"><h2>video</h2>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">video</span> <span class="hljs-attr">autoplay</span> <span class="hljs-attr">loop</span> <span class="hljs-attr">controls</span> <span class="hljs-attr">width</span>=<span class="hljs-string">"250"</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">source</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"myvideo.webm"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"video/webm"</span> /></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">source</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"myvideo.mp4"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"video/mp4"</span> /></span>
+  Sorry, your browser doesn't support embedded videos.
+<span class="hljs-tag">&#x3C;/<span class="hljs-name">video</span>></span>
+</code></pre>
+<p>Example video: <a href="https://interactive-examples.mdn.mozilla.net/media/examples/flower">https://interactive-examples.mdn.mozilla.net/media/examples/flower</a>.*</p>
+</section><section class="slide"><h2>audio</h2>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">audio</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"myaudio.mk"</span> <span class="hljs-attr">loop</span> <span class="hljs-attr">volume</span>=<span class="hljs-string">"0.5"</span>></span><span class="hljs-tag">&#x3C;/<span class="hljs-name">audio</span>></span>
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Tables</h1>
+</section><section class="slide"><h2>Tables</h2>
+<p>tags:</p>
+<ul>
+<li><code>table</code></li>
+<li>(<code>tbody</code>)</li>
+<li>(<code>thead</code>)</li>
+<li><code>tr</code></li>
+<li><code>th</code>, <code>td</code></li>
+<li><code>caption</code></li>
+</ul>
+<p>attributes:</p>
+<ul>
+<li><code>colspan</code>, <code>rowspan</code></li>
+</ul>
+</section></section><section class="slides-section"><section class="slide"><h1>Head</h1>
+</section><section class="slide"><h2>Entries in the head</h2>
+<ul>
+<li><code>title</code></li>
+<li><code>meta</code></li>
+<li>favicon</li>
+<li>stylesheet</li>
+<li>scripts</li>
+</ul>
+</section><section class="slide"><h2>title</h2>
+<p>document title that appears in the window bar:</p>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">title</span>></span>my website<span class="hljs-tag">&#x3C;/<span class="hljs-name">title</span>></span>
+</code></pre>
+</section><section class="slide"><h2>meta</h2>
+<p>meta tags are used for including associated meta information</p>
+</section><section class="slide"><h2>meta: charset</h2>
+<p>We should usually include a <code>&#x3C;meta charset="UTF-8" /></code> declaration so we can use any Unicode characters</p>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>></span>😊<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
+</code></pre>
+</section><section class="slide"><h2>meta: viewport</h2>
+<p>We should usually include a <em>viewport</em> declaration to reset browser scaling on small devices</p>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"viewport"</span> <span class="hljs-attr">width</span>=<span class="hljs-string">"device-width"</span> /></span>
+</code></pre>
+<p><strong>Background</strong>: In the early days of mobile web (before responsive design), Websites were scaled down by mobile browsers. The above code disables this behavior.</p>
+<p><a href="https://viewportsizes.com/mine">https://viewportsizes.com/mine</a></p>
+</section><section class="slide"><h2>meta: description</h2>
+<ul>
+<li>may be used by search engines to show a page summary</li>
+<li>default title for bookmarks</li>
+</ul>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">meta</span>
+  <span class="hljs-attr">name</span>=<span class="hljs-string">"description"</span>
+  <span class="hljs-attr">content</span>=<span class="hljs-string">"Wikipedia is a free online encyclopedia, ..."</span>
+/></span>
+</code></pre>
+</section><section class="slide"><h2>meta: keywords</h2>
+<p>may be used by search engines</p>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"keywords"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"HTML,javascript"</span> /></span>
+</code></pre>
+</section><section class="slide"><h2>meta: http-equiv="X-UA-Compatible"</h2>
+<p>is relevant for Internet Explorer &#x3C;= 10; causes the use of the most modern version of the rendering engine</p>
+</section><section class="slide"><h2>favicon</h2>
+<p>icon that is displayed in the website tab</p>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">link</span>
+  <span class="hljs-attr">rel</span>=<span class="hljs-string">"icon"</span>
+  <span class="hljs-attr">sizes</span>=<span class="hljs-string">"16x16"</span>
+  <span class="hljs-attr">href</span>=<span class="hljs-string">"favicon_16.png"</span>
+  <span class="hljs-attr">type</span>=<span class="hljs-string">"image/png"</span>
+/></span>
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Accessibility</h1>
+</section><section class="slide"><h2>Accessibility</h2>
+<p>Strategies to make websites accessible by as many people as possible</p>
+<p>relevant groups:</p>
+<ul>
+<li>visually impaired</li>
+<li>mobility impaired</li>
+<li>hearing impaired</li>
+</ul>
+<p>mechanisms:</p>
+<ul>
+<li>screen reader</li>
+<li>keyboard navigation</li>
+<li>subtitles</li>
+</ul>
+</section><section class="slide"><h2>Screen reader support</h2>
+<ul>
+<li>use semantic HTML elements (e.g. <code>button</code> and <code>section</code> instead of <code>div</code>)</li>
+<li>meaningful text on links and buttons
+Bad example: Click <a href="https://en.wikipedia.org/wiki/Accessibility">here</a> to learn more about accessibility
+Good example: Learn <a href="https://en.wikipedia.org/wiki/Accessibility">more on the topic of accessibility</a></li>
+<li>associated labels for inputs</li>
+<li>alt text for images / videos</li>
+</ul>
+</section><section class="slide"><h2>Example: alt text for an image</h2>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">img</span>
+  <span class="hljs-attr">src</span>=<span class="hljs-string">"dinosaur.png"</span>
+  <span class="hljs-attr">alt</span>=<span class="hljs-string">"A red Tyrannosaurus Rex:
+    A two legged dinosaur standing upright, with small arms,
+    and a large head with lots of sharp teeth."</span>
+  <span class="hljs-attr">title</span>=<span class="hljs-string">"The Mozilla red dinosaur"</span>
+/></span>
+</code></pre>
+</section><section class="slide"><h2>Supporting page navigation via keyboard</h2>
+<ul>
+<li>use semantic elements (e.g. <code>button</code>, <code>a</code>, <code>form</code>, <code>input</code>)</li>
+</ul>
+</section><section class="slide"><h2>Ressources</h2>
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Learn/Accessibility/HTML">MDN: A good basis for accessibility</a></li>
+</ul>
+</section></section><section class="slides-section"><section class="slide"><h1>Hosting</h1>
+</section><section class="slide"><h2>Hosting</h2>
+<p>Hosting for static websites is often available for free:</p>
+<ul>
+<li><a href="https://zeit.co">zeit.co</a> (command-line tool <em>now</em>)</li>
+<li><a href="https://pages.github.com">Github Pages</a></li>
+<li><a href="https://tiiny.host/">tiiny.host</a> (login-free hosting for 24 hours)</li>
+<li><a href="https://netlify.com/drop">netlify.com/drop</a> (login-free hosting for 24 hours)</li>
+</ul>
+</section></section><section class="slides-section"><section class="slide"><h1>Bootstrap</h1>
+</section><section class="slide"><h2>Bootstrap</h2>
+<p>CSS framework for creating websites - we don't have to write (much) CSS</p>
+</section><section class="slide"><h2>Using Bootstrap</h2>
+<ul>
+<li>without any additional work: default style of elements like <code>body</code>, <code>h1</code>, <code>button</code>, ... changes</li>
+<li>for more functionality: set the <code>class</code> attribute</li>
+</ul>
+</section><section class="slide"><h2>Bootstrap project: restaurant website</h2>
+<p>We'll create a simple website - e.g. for a restaurant</p>
+<p>contents:</p>
+<ul>
+<li>navigation menu</li>
+<li>table with opening hours</li>
+<li>form for reservations</li>
+<li>slideshow with images</li>
+</ul>
+</section><section class="slide"><h2>Bootstrap: container</h2>
+<p>Container = basic building block for bootstrap, top-level division of a document</p>
+<ul>
+<li><code>&#x3C;div class="container-fluid"></code>: container that is as wide as the page</li>
+<li><code>&#x3C;div class="container"></code>: container that "locks" on specific sizes</li>
+</ul>
+</section><section class="slide"><h2>Bootstrap: column layout (simple)</h2>
+<p>using classes <code>container</code>, <code>row</code>, <code>col</code></p>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"container"</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"row"</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col"</span>></span>one<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col"</span>></span>two<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col"</span>></span>three<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"row"</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col"</span>></span>four<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col"</span>></span>five<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
+<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
+</code></pre>
+</section><section class="slide"><h2>Bootstrap: margins</h2>
+<p>Margins are spacings between elements</p>
+<p>Bootstrap classes for margins:</p>
+<ul>
+<li><code>ml-auto</code>: margin-left: auto</li>
+<li><code>ml-1</code>: small left margin</li>
+<li><code>mt-4</code>: big top margin</li>
+<li><code>my-2</code>: medium margin in y directions (top and bottom)</li>
+</ul>
+</section><section class="slide"><h2>Bootstrap: elements and components</h2>
+<p>e.g.:</p>
+<ul>
+<li>button</li>
+<li>card</li>
+<li>carousel</li>
+<li>navbar</li>
+<li>...</li>
+</ul>
+</section></section><section class="slides-section"><section class="slide"><h1>VS Code</h1>
+</section><section class="slide"><h2>VS Code</h2>
+<p>presentation: <a href="./vs-code-en.html">VS Code</a></p>
+</section><section class="slide"><h2>HTML documents in VS Code</h2>
+<p>code snippet: <code>html:5</code></p>
+</section></section><section class="slides-section"><section class="slide"><h1>SVG</h1>
+</section><section class="slide"><h2>SVG</h2>
+<p><strong>SVG (scalable vector graphics)</strong>: XML-based format for vector graphics</p>
+</section><section class="slide"><h2>The SVG tag</h2>
+<p>Attributes (example):</p>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">svg</span>
+  <span class="hljs-attr">xmlns</span>=<span class="hljs-string">"http://www.w3.org/2000/svg"</span>
+  <span class="hljs-attr">version</span>=<span class="hljs-string">"1.1"</span>
+  <span class="hljs-attr">width</span>=<span class="hljs-string">"1000"</span>
+  <span class="hljs-attr">height</span>=<span class="hljs-string">"500"</span>
+  <span class="hljs-attr">viewBox</span>=<span class="hljs-string">"-500 0 1000 500"</span>
+></span><span class="hljs-tag">&#x3C;/<span class="hljs-name">svg</span>></span>
+</code></pre>
+</section><section class="slide"><h2>SVG elements</h2>
+<ul>
+<li><code>g</code>: group</li>
+<li><code>rect</code></li>
+<li><code>circle</code></li>
+<li><code>ellipse</code></li>
+<li><code>text</code>, <code>tspan</code></li>
+<li><code>path</code></li>
+</ul>
+</section><section class="slide"><h2>General SVG attributes</h2>
+<ul>
+<li><code>id</code>, <code>class</code></li>
+<li><code>transform</code> (e.g. <code>"rotate(180)"</code>, <code>"translate(20 30)"</code>)</li>
+<li><code>x</code>, <code>y</code> (position)</li>
+<li><code>stroke</code> (line color)</li>
+<li><code>fill</code> (fill color)</li>
+</ul>
+</section><section class="slide"><h2>rect</h2>
+<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">rect</span> <span class="hljs-attr">x</span>=<span class="hljs-string">"50"</span> <span class="hljs-attr">y</span>=<span class="hljs-string">"50"</span> <span class="hljs-attr">width</span>=<span class="hljs-string">"20"</span> <span class="hljs-attr">height</span>=<span class="hljs-string">"200"</span> <span class="hljs-attr">fill</span>=<span class="hljs-string">"darkgrey"</span>></span>
+</code></pre>
+</section><section class="slide"><h2>circle</h2>
+<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">circle</span> <span class="hljs-attr">r</span>=<span class="hljs-string">"10"</span> <span class="hljs-attr">cy</span>=<span class="hljs-string">"290"</span>/></span>
+</code></pre>
+</section><section class="slide"><h2>ellipse</h2>
+<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">ellipse</span> <span class="hljs-attr">cy</span>=<span class="hljs-string">"60"</span> <span class="hljs-attr">rx</span>=<span class="hljs-string">"30"</span> <span class="hljs-attr">ry</span>=<span class="hljs-string">"50"</span>/></span>
+</code></pre>
+</section><section class="slide"><h2>path</h2>
+<p>element <code>path</code>, attribute <code>d</code></p>
+<p>rectangle:</p>
+<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">path</span> <span class="hljs-attr">d</span>=<span class="hljs-string">"M 0,0 L 10,0 L 10,10 L 0,10 L 0,0"</span>></span>
+</code></pre>
+</section><section class="slide"><h2>path commands</h2>
+<ul>
+<li><code>M</code>: move to</li>
+<li><code>L</code>: line to</li>
+<li><code>H</code>: horizontal line to</li>
+<li><code>V</code>: vertical line to</li>
+<li><code>Q</code>: quadratic bézier curve to</li>
+<li><code>T</code>: smooth quadratic bézier curve to</li>
+<li><code>C</code>: cubic bézier curve to</li>
+<li><code>S</code>: smooth cubic bézier curve to</li>
+<li><code>A</code>: elliptical arc to</li>
+<li><code>Z</code>: close path</li>
+</ul>
+</section><section class="slide"><h2>path commands</h2>
+<p>All path commands are also possible with relative coordinates (with lowercase commands)</p>
+<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">path</span> <span class="hljs-attr">d</span>=<span class="hljs-string">"M 500,500 l 10,10"</span>></span>
+</code></pre>
+<p>is quivalent to:</p>
+<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">path</span> <span class="hljs-attr">d</span>=<span class="hljs-string">"M 500,500 L 510,510"</span>></span>
+</code></pre>
+</section><section class="slide"><h2>g (group)</h2>
+<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">g</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">rect</span> <span class="hljs-attr">width</span>=<span class="hljs-string">"10"</span> <span class="hljs-attr">height</span>=<span class="hljs-string">"10"</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">rect</span> <span class="hljs-attr">x</span>=<span class="hljs-string">"20"</span> <span class="hljs-attr">width</span>=<span class="hljs-string">"10"</span> <span class="hljs-attr">height</span>=<span class="hljs-string">"10"</span>></span>
+<span class="hljs-tag">&#x3C;/<span class="hljs-name">g</span>></span>
+</code></pre>
+</section><section class="slide"><h2>Transformations</h2>
+<p>Via attribute <code>transform</code>:</p>
+<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">rect</span> <span class="hljs-attr">transform</span>=<span class="hljs-string">"translate(250, 0) rotate(-90, 50, 50)"</span>/></span>
+</code></pre>
+</section><section class="slide"><h2>Style</h2>
+<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">g</span> <span class="hljs-attr">fill</span>=<span class="hljs-string">"grey"</span> <span class="hljs-attr">stroke</span>=<span class="hljs-string">"black"</span> <span class="hljs-attr">stroke-width</span>=<span class="hljs-string">"3"</span>></span>
+</code></pre>
+</section><section class="slide"><h2>Example: spoon and fork</h2>
+<figure style="width: 60%; margin: 0 auto">
+  <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="500" height="300" viewBox="0 0 500 300">
+  <g transform="translate(250, 0) rotate(45, 0, 160)" fill="grey">
+    <rect y="100" x="-10" width="20" height="190"></rect>
+    <circle r="10" cy="290"></circle>
+    <ellipse cy="60" rx="35" ry="55"></ellipse>
+  </g>
+  <g transform="translate(250,0) rotate(-45, 0, 160)" fill="darkgrey">
+    <path d="
+      M -10,310 L 10,310 L10,100
+      C 10,90 20,80 20,70
+      L 19,0 L13,0 L11,70 L5,70 L3,0
+      L-3,0 L-5,70 L-11,70 L-13,0 L-19,0 L-20,70
+      C-20,80 -10,90 -10,100 Z"></path>
+  </g>
+</svg>
+</figure>
+</section><section class="slide"><h2>Example: spoon and fork</h2>
+<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">svg</span>
+  <span class="hljs-attr">xmlns</span>=<span class="hljs-string">"http://www.w3.org/2000/svg"</span>
+  <span class="hljs-attr">version</span>=<span class="hljs-string">"1.1"</span> <span class="hljs-attr">width</span>=<span class="hljs-string">"500"</span> <span class="hljs-attr">height</span>=<span class="hljs-string">"500"</span> <span class="hljs-attr">viewBox</span>=<span class="hljs-string">"0 0 500 500"</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">g</span>
+    <span class="hljs-attr">transform</span>=<span class="hljs-string">"translate(250, 0) rotate(45, 0, 160)"</span>
+    <span class="hljs-attr">fill</span>=<span class="hljs-string">"grey"</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">rect</span> <span class="hljs-attr">y</span>=<span class="hljs-string">"100"</span> <span class="hljs-attr">x</span>=<span class="hljs-string">"-10"</span> <span class="hljs-attr">width</span>=<span class="hljs-string">"20"</span> <span class="hljs-attr">height</span>=<span class="hljs-string">"190"</span>/></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">circle</span> <span class="hljs-attr">r</span>=<span class="hljs-string">"10"</span> <span class="hljs-attr">cy</span>=<span class="hljs-string">"290"</span>/></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">ellipse</span> <span class="hljs-attr">cy</span>=<span class="hljs-string">"60"</span> <span class="hljs-attr">rx</span>=<span class="hljs-string">"35"</span> <span class="hljs-attr">ry</span>=<span class="hljs-string">"55"</span>/></span>
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">g</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">g</span>
+    <span class="hljs-attr">transform</span>=<span class="hljs-string">"translate(250,0) rotate(-45, 0, 160)"</span>
+    <span class="hljs-attr">fill</span>=<span class="hljs-string">"darkgrey"</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">path</span> <span class="hljs-attr">d</span>=<span class="hljs-string">"
+      M -10,310 L 10,310 L10,100
+      C 10,90 20,80 20,70
+      L 19,0 L13,0 L11,70 L5,70 L3,0
+      L-3,0 L-5,70 L-11,70 L-13,0 L-19,0 L-20,70
+      C-20,80 -10,90 -10,100 Z"</span>/></span>
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">g</span>></span>
+<span class="hljs-tag">&#x3C;/<span class="hljs-name">svg</span>></span>
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Online resources</h1>
+<ul>
+<li>MDN: Mozilla developer network</li>
+<li>W3Schools (not associated with W3C)</li>
+<li>caniuse.com: support tables for browser features</li>
 </ul></section></section></div>
     </div>
     <script>/*!

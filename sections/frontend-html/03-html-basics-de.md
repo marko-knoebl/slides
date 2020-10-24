@@ -25,7 +25,7 @@ oder
 
 ## Attribute
 
-HTML-Tags können Attribute der folgenden Form zugewiesen werden:
+HTML-Elementen können Attribute der folgenden Form zugewiesen werden:
 
 ```html
 <img src="portrait.png" alt="Portraitbild des Benutzers" />

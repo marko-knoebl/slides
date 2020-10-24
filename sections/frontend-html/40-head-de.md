@@ -28,19 +28,6 @@ Es sollte heutzutage immer `<meta charset="UTF-8" />` angegeben sein, dann könn
 <button>😊</button>
 ```
 
-## Besondere Zeichen
-
-Um die folgenden Zeichen in einem HTML-Dokument darzustellen, sollten sie immer "escaped" werden:
-
-- `<` wird zu `&lt;`
-- `>` wird zu `&gt;`
-- `&` wird zu `&amp;`
-
-Folgende Zeichen müssen in HTML-Attributen escaped werden:
-
-- `"` wird zu `&quot;`
-- (`'` wird zu `&apos;`, wenn das HTML-Attribut durch `'` begrenzt wird)
-
 ## meta: viewport
 
 Sollte auf allen Websites verwendet werden, um die Browser-Skalierung zurückzusetzen

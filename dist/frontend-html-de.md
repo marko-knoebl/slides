@@ -70,7 +70,7 @@ oder
 
 ## Attribute
 
-HTML-Tags können Attribute der folgenden Form zugewiesen werden:
+HTML-Elementen können Attribute der folgenden Form zugewiesen werden:
 
 ```html
 <img src="portrait.png" alt="Portraitbild des Benutzers" />
@@ -132,6 +132,57 @@ Deklariert die Datei als HTML(5)-Dokument
 - `<html>`: beinhaltet das ganze Dokument; oft ist z.B. `lang="de"` oder ähnliches gesetzt
 - `<head>`: beinhaltet Informationen wie Dokumenttitel, Zeichensatz, ...
 - `<body>`: die eigentlichen Inhalte - das, was im Browserfenster erscheint
+
+# Besondere Zeichen und Whitespace
+
+## Besondere Zeichen
+
+Um die folgenden Zeichen in einem HTML-Dokument darzustellen, sollten sie immer "escaped" werden:
+
+- `<` wird zu `&lt;`
+- `>` wird zu `&gt;`
+- `&` wird zu `&amp;`
+
+Folgende Zeichen müssen in HTML-Attributen escaped werden:
+
+- `"` wird zu `&quot;`
+- (`'` wird zu `&apos;`, wenn das Attribut mit `'` begrenzt wird)
+
+## Whitespace
+
+In HTML wird jede Abfolge von "Whitespace"- Zeichen (Leerzeichen, Zeilenumbrüche, Tabs) als einzelnes Leerzeichen interpretiert.
+
+## Whitespace
+
+Die folgenden Beispiele sin äquivalent (und stellen ein einzelnes Leerzeichen zwischen den Bildern dar):
+
+<!-- prettier-ignore-start -->
+
+```html
+<img src="foo.png" /> <img src="bar.png" />
+```
+
+```html
+<img src="foo.png" />    <img src="bar.png" />
+```
+
+```html
+<img src="foo.png" />
+
+<img src="bar.png" />
+```
+
+<!-- prettier-ignore-end -->
+
+## Whitespace
+
+Beispiel für mehrzeilige Formatierung, falls wir Elemente ohne Leerzeichen dazwischen darstellen wollen:
+
+```html
+<img src="image1.png" /><img src="image2.png" /><img
+  src="image3.png"
+/>
+```
 
 # Stylesheets
 
@@ -294,13 +345,32 @@ Download-Link:
 
 ## Textformatierung
 
-Tags zur grundlegenden Textformatierung:
+in der Praxis:
 
-- `br`
-- `em` (emphasis)
-- `strong`
-- `b` (veraltet)
-- `i` (veraltet)
+- `em` oder `i` für _kursiv_
+- `strong` oder `b` für **fett**
+
+## Textformatierung
+
+tatsächliche Bedeutung laut HTML 5 Standard:
+
+- `em` - Betonung
+- `i` - Eigennamen, technische Begriffe, Fremdwörter, ...
+- `strong` - Wichtigkeit
+- `b` - andere Hervorhebung
+
+## Textformatierung
+
+Beispiele:
+
+```html
+Mein nächstes Hany <em>muss</em> ein <i>FooPhone</i> sein.
+```
+
+```html
+<strong>Das Event wurde</strong> aufgrund von schlechtem
+Wetter <strong>abgesagt</strong>.
+```
 
 # div und span
 
@@ -309,7 +379,8 @@ Tags zur grundlegenden Textformatierung:
 - `div`: allgemeines Block-Element
 - `span`: allgemeines Inline-Element
 
-Block-Elemente: untereinander angeordnet, so breit wie möglich  
+Block-Elemente: untereinander angeordnet, so breit wie möglich
+
 Inline-Elemente: nebeneinander angeordnet, so breit wie ihr Inhalt
 
 # Listen
@@ -391,6 +462,14 @@ Elemente:
 <button>press me!</button>
 ```
 
+## Buttons
+
+Button-Typen:
+
+- _submit_: Button, der ein Formular absendet (dies ist der Standardtyp für Buttons in Formularen)
+- _button_
+- (_reset_)
+
 ## Input
 
 ```html
@@ -425,7 +504,7 @@ Weitere Möglichkeiten:
 
 ## autocomplete
 
-Das `autocomplete`-Attribut kann für die Autovervollständigung hilfreich sein, z.B.:
+Mögliche Werte des `autocomplete`-Attributs:
 
 - `name`
 - `given-name`
@@ -458,8 +537,8 @@ CSS-Pseudoklassen: `:valid`, `:invalid`
 Inputs sollten beschreibende Labels haben:
 
 ```html
-<label>
-  enter your name:
+<label
+  >enter your name:
   <input />
 </label>
 ```
@@ -467,7 +546,8 @@ Inputs sollten beschreibende Labels haben:
 oder
 
 ```html
-<label for="name-input" /> <input id="name-input" />
+<label for="name-input">enter your name:</label>
+<input id="name-input" />
 ```
 
 ## Formulare
@@ -487,14 +567,6 @@ Beim Abschicken des Formulars wird _post_-Request mit etwa folgendem Inhalt an d
 ```txt
 firstname=John&lastname=Doe
 ```
-
-## Button-Typen
-
-Button-Typen:
-
-- _submit_ (**standard**): beim Klicken werden Formulardaten an den Server übermittelt
-- _button_
-- _reset_
 
 ## Weitere Formular-Elemente
 
@@ -597,19 +669,6 @@ Es sollte heutzutage immer `<meta charset="UTF-8" />` angegeben sein, dann könn
 <button>😊</button>
 ```
 
-## Besondere Zeichen
-
-Um die folgenden Zeichen in einem HTML-Dokument darzustellen, sollten sie immer "escaped" werden:
-
-- `<` wird zu `&lt;`
-- `>` wird zu `&gt;`
-- `&` wird zu `&amp;`
-
-Folgende Zeichen müssen in HTML-Attributen escaped werden:
-
-- `"` wird zu `&quot;`
-- (`'` wird zu `&apos;`, wenn das HTML-Attribut durch `'` begrenzt wird)
-
 ## meta: viewport
 
 Sollte auf allen Websites verwendet werden, um die Browser-Skalierung zurückzusetzen
@@ -679,8 +738,6 @@ Strategien:
 - Untertitel
 
 ## Unterstützung von Screen Readern
-
-zu beachten:
 
 - Verwendung semantischer HTML Elemente (z.B. `button` und `section` statt `div`)
 - Sinnvolle Texte auf Links bzw Buttons
@@ -792,7 +849,7 @@ z.B.:
 
 ## VS Code
 
-- [VS Code Grundlagen und Plugins](./vs-code-de.html)
+Präsentation: [VS Code Grundlagen und Plugins](./vs-code-de.html)
 
 ## HTML-Dokument in VS Code
 
@@ -945,7 +1002,7 @@ Via Attribut `transform`:
 </svg>
 ```
 
-# Online Resourcen
+# Online Ressourcen
 
 - MDN: Mozilla Developer Network
 - W3Schools (kein Zusammenhang zu W3C)

@@ -2112,7 +2112,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">br</span>></span>
 </code></pre>
 </section><section class="slide"><h2>Attribute</h2>
-<p>HTML-Tags können Attribute der folgenden Form zugewiesen werden:</p>
+<p>HTML-Elementen können Attribute der folgenden Form zugewiesen werden:</p>
 <pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"portrait.png"</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">"Portraitbild des Benutzers"</span> /></span>
 </code></pre>
 <p>Die Werte stehen üblicherweise in doppelten Anführungszeichen</p>
@@ -2154,6 +2154,39 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li><code>&#x3C;head></code>: beinhaltet Informationen wie Dokumenttitel, Zeichensatz, ...</li>
 <li><code>&#x3C;body></code>: die eigentlichen Inhalte - das, was im Browserfenster erscheint</li>
 </ul>
+</section></section><section class="slides-section"><section class="slide"><h1>Besondere Zeichen und Whitespace</h1>
+</section><section class="slide"><h2>Besondere Zeichen</h2>
+<p>Um die folgenden Zeichen in einem HTML-Dokument darzustellen, sollten sie immer "escaped" werden:</p>
+<ul>
+<li><code>&#x3C;</code> wird zu <code>&#x26;lt;</code></li>
+<li><code>></code> wird zu <code>&#x26;gt;</code></li>
+<li><code>&#x26;</code> wird zu <code>&#x26;amp;</code></li>
+</ul>
+<p>Folgende Zeichen müssen in HTML-Attributen escaped werden:</p>
+<ul>
+<li><code>"</code> wird zu <code>&#x26;quot;</code></li>
+<li>(<code>'</code> wird zu <code>&#x26;apos;</code>, wenn das Attribut mit <code>'</code> begrenzt wird)</li>
+</ul>
+</section><section class="slide"><h2>Whitespace</h2>
+<p>In HTML wird jede Abfolge von "Whitespace"- Zeichen (Leerzeichen, Zeilenumbrüche, Tabs) als einzelnes Leerzeichen interpretiert.</p>
+</section><section class="slide"><h2>Whitespace</h2>
+<p>Die folgenden Beispiele sin äquivalent (und stellen ein einzelnes Leerzeichen zwischen den Bildern dar):</p>
+<!-- prettier-ignore-start -->
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"foo.png"</span> /></span> <span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"bar.png"</span> /></span>
+</code></pre>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"foo.png"</span> /></span>    <span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"bar.png"</span> /></span>
+</code></pre>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"foo.png"</span> /></span>
+
+<span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"bar.png"</span> /></span>
+</code></pre>
+<!-- prettier-ignore-end -->
+</section><section class="slide"><h2>Whitespace</h2>
+<p>Beispiel für mehrzeilige Formatierung, falls wir Elemente ohne Leerzeichen dazwischen darstellen wollen:</p>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"image1.png"</span> /></span><span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"image2.png"</span> /></span><span class="hljs-tag">&#x3C;<span class="hljs-name">img</span>
+  <span class="hljs-attr">src</span>=<span class="hljs-string">"image3.png"</span>
+/></span>
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Stylesheets</h1>
 </section><section class="slide"><h2>Stylesheets</h2>
 <p>Möglichkeit, vorgefertigte Stile einzubinden und in mehreren HTML-Dokumenten zu übernehmen</p>
@@ -2274,22 +2307,34 @@ https://getbootstrap.com/
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Textformatierung</h1>
 </section><section class="slide"><h2>Textformatierung</h2>
-<p>Tags zur grundlegenden Textformatierung:</p>
+<p>in der Praxis:</p>
 <ul>
-<li><code>br</code></li>
-<li><code>em</code> (emphasis)</li>
-<li><code>strong</code></li>
-<li><code>b</code> (veraltet)</li>
-<li><code>i</code> (veraltet)</li>
+<li><code>em</code> oder <code>i</code> für <em>kursiv</em></li>
+<li><code>strong</code> oder <code>b</code> für <strong>fett</strong></li>
 </ul>
+</section><section class="slide"><h2>Textformatierung</h2>
+<p>tatsächliche Bedeutung laut HTML 5 Standard:</p>
+<ul>
+<li><code>em</code> - Betonung</li>
+<li><code>i</code> - Eigennamen, technische Begriffe, Fremdwörter, ...</li>
+<li><code>strong</code> - Wichtigkeit</li>
+<li><code>b</code> - andere Hervorhebung</li>
+</ul>
+</section><section class="slide"><h2>Textformatierung</h2>
+<p>Beispiele:</p>
+<pre><code class="hljs language-html">Mein nächstes Hany <span class="hljs-tag">&#x3C;<span class="hljs-name">em</span>></span>muss<span class="hljs-tag">&#x3C;/<span class="hljs-name">em</span>></span> ein <span class="hljs-tag">&#x3C;<span class="hljs-name">i</span>></span>FooPhone<span class="hljs-tag">&#x3C;/<span class="hljs-name">i</span>></span> sein.
+</code></pre>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">strong</span>></span>Das Event wurde<span class="hljs-tag">&#x3C;/<span class="hljs-name">strong</span>></span> aufgrund von schlechtem
+Wetter <span class="hljs-tag">&#x3C;<span class="hljs-name">strong</span>></span>abgesagt<span class="hljs-tag">&#x3C;/<span class="hljs-name">strong</span>></span>.
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>div und span</h1>
 </section><section class="slide"><h2>div und span</h2>
 <ul>
 <li><code>div</code>: allgemeines Block-Element</li>
 <li><code>span</code>: allgemeines Inline-Element</li>
 </ul>
-<p>Block-Elemente: untereinander angeordnet, so breit wie möglich<br />
-Inline-Elemente: nebeneinander angeordnet, so breit wie ihr Inhalt</p>
+<p>Block-Elemente: untereinander angeordnet, so breit wie möglich</p>
+<p>Inline-Elemente: nebeneinander angeordnet, so breit wie ihr Inhalt</p>
 </section></section><section class="slides-section"><section class="slide"><h1>Listen</h1>
 </section><section class="slide"><h2>Listen</h2>
 <ul>
@@ -2352,6 +2397,13 @@ Inline-Elemente: nebeneinander angeordnet, so breit wie ihr Inhalt</p>
 </section><section class="slide"><h2>Button</h2>
 <pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>></span>press me!<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
 </code></pre>
+</section><section class="slide"><h2>Buttons</h2>
+<p>Button-Typen:</p>
+<ul>
+<li><em>submit</em>: Button, der ein Formular absendet (dies ist der Standardtyp für Buttons in Formularen)</li>
+<li><em>button</em></li>
+<li>(<em>reset</em>)</li>
+</ul>
 </section><section class="slide"><h2>Input</h2>
 <pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">input</span> /></span>
 </code></pre>
@@ -2378,7 +2430,7 @@ Inline-Elemente: nebeneinander angeordnet, so breit wie ihr Inhalt</p>
 <li>size</li>
 </ul>
 </section><section class="slide"><h2>autocomplete</h2>
-<p>Das <code>autocomplete</code>-Attribut kann für die Autovervollständigung hilfreich sein, z.B.:</p>
+<p>Mögliche Werte des <code>autocomplete</code>-Attributs:</p>
 <ul>
 <li><code>name</code></li>
 <li><code>given-name</code></li>
@@ -2404,13 +2456,14 @@ Inline-Elemente: nebeneinander angeordnet, so breit wie ihr Inhalt</p>
 </code></pre>
 </section><section class="slide"><h2>Input und Label</h2>
 <p>Inputs sollten beschreibende Labels haben:</p>
-<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">label</span>></span>
-  enter your name:
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">label</span>
+  ></span>enter your name:
   <span class="hljs-tag">&#x3C;<span class="hljs-name">input</span> /></span>
 <span class="hljs-tag">&#x3C;/<span class="hljs-name">label</span>></span>
 </code></pre>
 <p>oder</p>
-<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"name-input"</span> /></span> <span class="hljs-tag">&#x3C;<span class="hljs-name">input</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"name-input"</span> /></span>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"name-input"</span>></span>enter your name:<span class="hljs-tag">&#x3C;/<span class="hljs-name">label</span>></span>
+<span class="hljs-tag">&#x3C;<span class="hljs-name">input</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"name-input"</span> /></span>
 </code></pre>
 </section><section class="slide"><h2>Formulare</h2>
 <pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">form</span> <span class="hljs-attr">action</span>=<span class="hljs-string">"/register"</span> <span class="hljs-attr">method</span>=<span class="hljs-string">"post"</span>></span>
@@ -2423,13 +2476,6 @@ Inline-Elemente: nebeneinander angeordnet, so breit wie ihr Inhalt</p>
 <p>Beim Abschicken des Formulars wird <em>post</em>-Request mit etwa folgendem Inhalt an die Adresse <em>/register</em> gesendet:</p>
 <pre><code class="hljs language-txt">firstname=John&#x26;lastname=Doe
 </code></pre>
-</section><section class="slide"><h2>Button-Typen</h2>
-<p>Button-Typen:</p>
-<ul>
-<li><em>submit</em> (<strong>standard</strong>): beim Klicken werden Formulardaten an den Server übermittelt</li>
-<li><em>button</em></li>
-<li><em>reset</em></li>
-</ul>
 </section><section class="slide"><h2>Weitere Formular-Elemente</h2>
 <ul>
 <li>textarea</li>
@@ -2505,18 +2551,6 @@ Inline-Elemente: nebeneinander angeordnet, so breit wie ihr Inhalt</p>
 <p>Es sollte heutzutage immer <code>&#x3C;meta charset="UTF-8" /></code> angegeben sein, dann können generell beliebige Unicode-Zeichen verwendet werden.</p>
 <pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>></span>😊<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
 </code></pre>
-</section><section class="slide"><h2>Besondere Zeichen</h2>
-<p>Um die folgenden Zeichen in einem HTML-Dokument darzustellen, sollten sie immer "escaped" werden:</p>
-<ul>
-<li><code>&#x3C;</code> wird zu <code>&#x26;lt;</code></li>
-<li><code>></code> wird zu <code>&#x26;gt;</code></li>
-<li><code>&#x26;</code> wird zu <code>&#x26;amp;</code></li>
-</ul>
-<p>Folgende Zeichen müssen in HTML-Attributen escaped werden:</p>
-<ul>
-<li><code>"</code> wird zu <code>&#x26;quot;</code></li>
-<li>(<code>'</code> wird zu <code>&#x26;apos;</code>, wenn das HTML-Attribut durch <code>'</code> begrenzt wird)</li>
-</ul>
 </section><section class="slide"><h2>meta: viewport</h2>
 <p>Sollte auf allen Websites verwendet werden, um die Browser-Skalierung zurückzusetzen</p>
 <pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"viewport"</span> <span class="hljs-attr">width</span>=<span class="hljs-string">"device-width"</span> /></span>
@@ -2563,7 +2597,6 @@ Standardtitel für Lesezeichen</p>
 <li>Untertitel</li>
 </ul>
 </section><section class="slide"><h2>Unterstützung von Screen Readern</h2>
-<p>zu beachten:</p>
 <ul>
 <li>Verwendung semantischer HTML Elemente (z.B. <code>button</code> und <code>section</code> statt <code>div</code>)</li>
 <li>Sinnvolle Texte auf Links bzw Buttons
@@ -2655,9 +2688,7 @@ Gutes Beispiel: Erfahren Sie <a href="https://en.wikipedia.org/wiki/Accessibilit
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>VS Code</h1>
 </section><section class="slide"><h2>VS Code</h2>
-<ul>
-<li><a href="./vs-code-de.html">VS Code Grundlagen und Plugins</a></li>
-</ul>
+<p>Präsentation: <a href="./vs-code-de.html">VS Code Grundlagen und Plugins</a></p>
 </section><section class="slide"><h2>HTML-Dokument in VS Code</h2>
 <p>Codeschnipsel: <code>html:5</code></p>
 </section></section><section class="slides-section"><section class="slide"><h1>SVG</h1>
@@ -2778,7 +2809,7 @@ Gutes Beispiel: Erfahren Sie <a href="https://en.wikipedia.org/wiki/Accessibilit
   <span class="hljs-tag">&#x3C;/<span class="hljs-name">g</span>></span>
 <span class="hljs-tag">&#x3C;/<span class="hljs-name">svg</span>></span>
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Online Resourcen</h1>
+</section></section><section class="slides-section"><section class="slide"><h1>Online Ressourcen</h1>
 <ul>
 <li>MDN: Mozilla Developer Network</li>
 <li>W3Schools (kein Zusammenhang zu W3C)</li>

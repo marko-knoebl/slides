@@ -1,8 +1,8 @@
-# Formulare und Buttons
+# Forms and buttons
 
-## Formulare und Buttons
+## Forms and buttons
 
-Elemente:
+elements:
 
 - `button`
 - `form`
@@ -11,7 +11,7 @@ Elemente:
 - `select`
 - ...
 
-## Beispiel für ein Formular
+## Form example
 
 ```html
 <form action="/register" method="post">
@@ -29,17 +29,17 @@ Elemente:
 </form>
 ```
 
-## Button
+## Buttons
 
 ```html
-<button>press me!</button>
+<button type="submit">press me!</button>
 ```
 
 ## Buttons
 
-Button-Typen:
+button types:
 
-- _submit_: Button, der ein Formular absendet (dies ist der Standardtyp für Buttons in Formularen)
+- _submit_: button that submits a form (default type for buttons in a form)
 - _button_
 - (_reset_)
 
@@ -53,11 +53,11 @@ Button-Typen:
 <input type="password" />
 ```
 
-## Input-Typen
+## Input types
 
-Standardwert: `text`
+default type: `text`
 
-Weitere Möglichkeiten:
+other possibilities:
 
 - `checkbox`
 - `radio`
@@ -68,16 +68,16 @@ Weitere Möglichkeiten:
 - `number` (HTML 5)
 - `search` (HTML 5)
 
-## Input-Attribute
+## Input attributes
 
 - placeholder
 - autofocus
 - autocomplete
 - size
 
-## autocomplete
+## Autocomplete
 
-Mögliche Werte des `autocomplete`-Attributs:
+Possible values of the `autocomplete` attribute:
 
 - `name`
 - `given-name`
@@ -85,15 +85,15 @@ Mögliche Werte des `autocomplete`-Attributs:
 - `username`
 - ...
 
-## Validierung
+## Validation
 
 - `required`
 - `minlength`
 - `maxlength`
 
-CSS-Pseudoklassen: `:valid`, `:invalid`
+CSS pseudoclasses: `:valid`, `:invalid`
 
-## Validierung - Beispiel
+## Validation - example
 
 ```html
 <input
@@ -105,9 +105,9 @@ CSS-Pseudoklassen: `:valid`, `:invalid`
 />
 ```
 
-## Input und Label
+## Input and label
 
-Inputs sollten beschreibende Labels haben:
+Inputs should have labels that describe them:
 
 ```html
 <label
@@ -116,14 +116,14 @@ Inputs sollten beschreibende Labels haben:
 </label>
 ```
 
-oder
+or
 
 ```html
 <label for="name-input">enter your name:</label>
 <input id="name-input" />
 ```
 
-## Formulare
+## Forms
 
 ```html
 <form action="/register" method="post">
@@ -133,15 +133,15 @@ oder
 </form>
 ```
 
-## Formulare
+## Forms
 
-Beim Abschicken des Formulars wird _post_-Request mit etwa folgendem Inhalt an die Adresse _/register_ gesendet:
+When the form is submitted, a _post_ request with the following content is sent to _/register_:
 
 ```txt
 firstname=John&lastname=Doe
 ```
 
-## Weitere Formular-Elemente
+## Other form elements
 
 - textarea
 - select

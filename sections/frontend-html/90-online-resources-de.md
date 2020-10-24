@@ -1,4 +1,4 @@
-# Online Resourcen
+# Online Ressourcen
 
 - MDN: Mozilla Developer Network
 - W3Schools (kein Zusammenhang zu W3C)

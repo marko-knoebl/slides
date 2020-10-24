@@ -134,16 +134,16 @@ In HTML the following examples are equivalent (displaying a single space between
 <!-- prettier-ignore-start -->
 
 ```html
-<img src="foo.png"> <img src="bar.png">
+<img src="foo.png" /> <img src="bar.png" />
 ```
 
 ```html
-<img src="foo.png">    <img src="bar.png">
+<img src="foo.png" />    <img src="bar.png" />
 ```
 
 ```html
-<img src="foo.png">
-<img src="bar.png">
+<img src="foo.png" />
+<img src="bar.png" />
 ```
 
 <!-- prettier-ignore-end -->

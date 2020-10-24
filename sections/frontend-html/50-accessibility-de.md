@@ -18,8 +18,6 @@ Strategien:
 
 ## Unterstützung von Screen Readern
 
-zu beachten:
-
 - Verwendung semantischer HTML Elemente (z.B. `button` und `section` statt `div`)
 - Sinnvolle Texte auf Links bzw Buttons
   Schlechtes Beispiel: Klicken Sie [hier](https://en.wikipedia.org/wiki/Accessibility), um mehr zum Thema _Accessibility_ zu erfahren

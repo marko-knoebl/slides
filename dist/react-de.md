@@ -978,16 +978,16 @@ in HTML sind die folgenden Beispiele äquivalent (und enthalten je ein Leerzeich
 <!-- prettier-ignore-start -->
 
 ```html
-<img src="foo.png"> <img src="bar.png">
+<img src="foo.png" /> <img src="bar.png" />
 ```
 
 ```html
-<img src="foo.png">    <img src="bar.png">
+<img src="foo.png" />    <img src="bar.png" />
 ```
 
 ```html
-<img src="foo.png">
-<img src="bar.png">
+<img src="foo.png" />
+<img src="bar.png" />
 ```
 
 <!-- prettier-ignore-end -->
