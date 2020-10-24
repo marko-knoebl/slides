@@ -12,10 +12,16 @@ früher:
 heutzutage:  
 z.B. beim iPhone 4: 1px = zwei Pixel am Bildschirm (device pixel ratio = 2)
 
-Abfragbar über JS-Variable `devicePixelRatio`
+abfragbar über JS-Variable `devicePixelRatio`
 
 ## rem
 
 rem = Schriftgröße des `html`-Elements
 
 Standard in Browsern: 1rem = 16px
+
+## vh, vw
+
+1vh = 1% der Viewport-Höhe
+
+1vw = 1% der Viewport-Breite

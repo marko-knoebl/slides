@@ -12,6 +12,8 @@ Standard Stil-Sprache des webs: definiert Layout und Stil von HTML-Seiten
 
 ## Stylesheets einbinden
 
+üblicherweise im `head`:
+
 ```html
 <link rel="stylesheet" href="style.css" />
 ```

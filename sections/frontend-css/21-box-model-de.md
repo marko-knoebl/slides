@@ -88,3 +88,15 @@ body {
   height: 100vh;
 }
 ```
+
+## Tabellen und Zellenrahmen
+
+Standardmäßig hat jede Zelle in einer Tabelle einen eigenen Rahmen.
+
+"Zusammenlegen" der Rahmen benachbarter Zellen:
+
+```css
+table {
+  border-collapse: collapse;
+}
+```

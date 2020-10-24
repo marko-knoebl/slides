@@ -10,7 +10,7 @@ Die Änderung verschiedener CSS-Properties kann wie folgt animiert werden:
 }
 ```
 
-## Beispiel: Animation bei hover
+## Beispiel: Animation bei Hover
 
 ```css
 div.box {
@@ -34,12 +34,12 @@ div {
   width: 40px;
   height: 40px;
   background-color: blue;
-  transform: translate(0 0) rotate(0);
+  transform: translate(0, 0) rotate(0);
   transition: transform 9s, background-color 9s;
 }
 div:hover {
   background-color: red;
-  transform: translate(200px 0) rotate(360deg);
+  transform: translate(200px, 0) rotate(360deg);
   transition: transform 3s, background-color 3s;
 }
 ```

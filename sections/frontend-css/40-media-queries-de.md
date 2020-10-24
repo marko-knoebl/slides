@@ -2,7 +2,7 @@
 
 ## Media queries
 
-Möglichkeit, insbesondere die Bildschirmgröße für CSS abzufragen
+Möglichkeit, insbesondere die Bildschirmgröße und Orientierung für CSS abzufragen
 
 ## Media queries
 

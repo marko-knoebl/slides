@@ -35,6 +35,6 @@ Beispiel: ein `div` soll je `10px` von der rechten unteren Ecke seines Elternele
 
 Beispiel für `position: relative`: hochgestellter oder tiefgestellter Text
 
-## Beispiele
+## Beispiel
 
-- Facebook-Klon (mit Chat)
+Facebook-Klon mit Chat

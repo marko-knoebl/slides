@@ -46,6 +46,8 @@ Standard Stil-Sprache des webs: definiert Layout und Stil von HTML-Seiten
 
 ## Stylesheets einbinden
 
+üblicherweise im `head`:
+
 ```html
 <link rel="stylesheet" href="style.css" />
 ```
@@ -101,13 +103,15 @@ h1 {
 
 ## Farbangaben
 
-Standard-Farben: z.B. `grey`, `blue`, `lightblue`, ...
-
-RGB-Definition (rot-grün-blau): z.B. `rgb(255, 128, 128)`
-
-HEX-Definition: z.B. `#ff8080`
-
-HSL-Definition (hue, saturation, lightness - Farbton, Sättigung, Helligkeit): z.B. `hsl(180, 60%, 70%)`
+- Standard-Farben  
+  z.B. `grey`, `blue`, `lightblue`, ...
+- RGB-Definition (rot-grün-blau)  
+  z.B. `rgb(255, 128, 128)`
+- HEX-Definition  
+  z.B. `#ff8080`
+- HSL-Definition  
+  (hue, saturation, lightness - Farbton, Sättigung, Helligkeit)
+  z.B. `hsl(180, 60%, 70%)`
 
 # Schrift
 
@@ -202,13 +206,36 @@ früher:
 heutzutage:  
 z.B. beim iPhone 4: 1px = zwei Pixel am Bildschirm (device pixel ratio = 2)
 
-Abfragbar über JS-Variable `devicePixelRatio`
+abfragbar über JS-Variable `devicePixelRatio`
 
 ## rem
 
 rem = Schriftgröße des `html`-Elements
 
 Standard in Browsern: 1rem = 16px
+
+## vh, vw
+
+1vh = 1% der Viewport-Höhe
+
+1vw = 1% der Viewport-Breite
+
+# CSS Resets und Libraries
+
+## CSS Resets
+
+Resets: Stylesheets, die grundlegende Stile über verschiedene Browser hinweg vereinheitlichen:
+
+- _normalize.css_: [website](https://necolas.github.io/normalize.css/), [CDN](https://cdn.jsdelivr.net/npm/normalize.css/normalize.css)
+- _sanitize.css_: basiert auf normalize - [website](https://csstools.github.io/sanitize.css/), [CDN](https://cdn.jsdelivr.net/npm/sanitize.css/sanitize.css)
+- _reboot_: basiert auf normalize, dient als Basis für Bootstrap - [website](https://getbootstrap.com/docs/4.0/content/reboot/), [CDN](https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap-reboot.css)
+
+## CSS Libraries
+
+- _Picnic CSS_: einfache CSS-Library, ohne JavaScript - [website](https://picnicss.com/), [CDN](https://cdn.jsdelivr.net/npm/picnic)
+- _Bootstrap_: weit verbreitete CSS-Library mit vielen verfügbaren Themes - [website](https://getbootstrap.com/), [CDN für CSS](https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.css), [CDN für JS](https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.js)
+- _Semantic UI_ - [website](https://semantic-ui.com), [CDN für CSS](https://cdn.jsdelivr.net/npm/semantic-ui/dist/semantic.css), [CDN für JS](https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.js)
+- _Foundation_ - [website](https://get.foundation/sites/docs/), [CDN für CSS](https://cdn.jsdelivr.net/npm/foundation-sites/dist/css/foundation.css), [CDN für JS](https://cdn.jsdelivr.net/npm/foundation-sites/dist/js/foundation.js)
 
 # Inline- und Block-Elemente
 
@@ -323,29 +350,35 @@ body {
 }
 ```
 
-# overflow
+## Tabellen und Zellenrahmen
 
-## overflow
+Standardmäßig hat jede Zelle in einer Tabelle einen eigenen Rahmen.
 
-Um bei Bedarf Scrollleisten anzuzeigen:
+"Zusammenlegen" der Rahmen benachbarter Zellen:
 
 ```css
-div {
-  overflow: auto;
+table {
+  border-collapse: collapse;
 }
 ```
 
-# Reboot
+# Overflow
 
-## Reboot
+## Overflow
 
-Reboot ist ein _CSS-Reset_, der aus dem bootstrap-Projekt hervorgegangen ist.
+Standardverhalten, wenn ein Kindelement höher oder breiter als das Elternelement ist:
 
-Er vereinheitlicht Browserverhalten und bietet einen ansprechenderen Standardstil im Browser
+Das Kindelement ragt über das Elternelement hinaus
 
-Sourcecode:
+## overflow
 
-<https://github.com/twbs/bootstrap/blob/master/dist/css/bootstrap-reboot.css>
+Um bei Bedarf beim Elternelement Scrollleisten anzuzeigen:
+
+```css
+#parent {
+  overflow: auto;
+}
+```
 
 # Flexbox
 
@@ -362,20 +395,63 @@ Möglichkeiten:
 
 Einfache Möglichkeit, Elemente _nebeneinander_ oder _untereinander_ anzuordnen
 
+## Flexbox Properties
+
+container:
+
+- `flex-direction`
+- `flex-wrap`
+- `justify-content`
+- `align-content`
+- `align-items`
+
+items:
+
+- `flex-basis`
+- `flex-grow`
+
+## Flexbox
+
+```css
+#container {
+  display: flex;
+  flex-direction: row;
+}
+```
+
+```css
+#container {
+  display: flex;
+  flex-direction: column;
+}
+```
+
+## Flexbox
+
+Beispiel: Seitenlayout mit Navbar auf der Seite und Hauptbereich
+
+```css
+body {
+  display: flex;
+  flex-direction: row;
+}
+body > nav {
+  flex-basis: 5em;
+}
+body > main {
+  flex-grow: 1;
+}
+```
+
 ## Flexbox
 
 [css-tricks.com](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
-
-# Beispiele
-
-- Google-Klon
-- Chat-Anwendung
 
 # Media queries
 
 ## Media queries
 
-Möglichkeit, insbesondere die Bildschirmgröße für CSS abzufragen
+Möglichkeit, insbesondere die Bildschirmgröße und Orientierung für CSS abzufragen
 
 ## Media queries
 
@@ -402,18 +478,65 @@ Möglichkeit, insbesondere die Bildschirmgröße für CSS abzufragen
 }
 ```
 
-# erweiterte CSS-Selektoren
+# Beispiele
 
+- Google-Klon
+- Chat-Anwendung
+
+# Erweiterte CSS-Selektoren
+
+## Erweiterte CSS-Selektoren
+
+- Attribute
 - Unterelemente
 - Kindelemente
 - Pseudoklassen
 - Pseudoelemente
 
-# Pseudoklassen
+## Attribute
+
+```css
+input[type='checkbox'] {
+  /* ... */
+}
+```
+
+## Unterelemente und Kindelemente
+
+ein Link, der irgendwo im `header` auftritt:
+
+```css
+header a {
+  /* ... */
+}
+```
+
+ein `nav`, das direkt im `body` liegt:
+
+```css
+body > nav {
+  /* ... */
+}
+```
 
 ## Pseudoklassen
 
-in CSS können mit `:` sogenannte Pseudoklassen abgefragt werden
+**Pseudoklassen** können mittel Doppelpunkt abgefragt werden:
+
+```css
+a:hover {
+  text-decoration: underline;
+}
+button:disabled {
+  background-color: lightgrey;
+}
+tr:nth-child(2n) {
+  background-color: grey;
+}
+tr:hover:nth-child(n) {
+  background-color: lightgreen;
+}
+```
 
 ## Pseudoklassen in Formularen
 
@@ -435,28 +558,21 @@ in CSS können mit `:` sogenannte Pseudoklassen abgefragt werden
 - `:last-child`
 - `:nth-child(2n)`
 
-# Tabellen und CSS
+## Pseudoelemente
 
-## Tabellen: verwenden von Pseudoklassen
-
-- `:hover`: Der Stil einer Tabellenzeile soll sich ändern, wenn wir die Maus darüber bewegen
-- `:nth-child`: Die Zeilen sollen gestreift dargestellt werden
-
-## Tabellen: Stil
+Pseudoelemente erlauben das Hinzufügen zusätzlicher HTML-Elemente via CSS:
 
 ```css
-table {
-  border-collapse: collapse;
-}
-tr:hover:nth-child(n) {
-  background-color: lightgrey;
-}
-tr:nth-child(2n) {
-  background-color: skyblue;
+.todo-item.completed::before {
+  content: '✓';
 }
 ```
 
-## Übung: Öffnungszeiten
+```css
+nav button[aria-haspopup='true']::after {
+  content: '▾';
+}
+```
 
 # Positionierung
 
@@ -495,26 +611,32 @@ Beispiel: ein `div` soll je `10px` von der rechten unteren Ecke seines Elternele
 
 Beispiel für `position: relative`: hochgestellter oder tiefgestellter Text
 
-## Beispiele
+## Beispiel
 
-- Facebook-Klon (mit Chat)
+Facebook-Klon mit Chat
 
 # Transformationen
 
 ## Transformationen
 
-Beispiele:
-
 ```css
 #element1 {
   transform: translsate(100px, 0);
 }
+```
 
+## Transformationen
+
+```css
 #element2 {
-  transform: translate(10px, 0) rotate(-90deg);
+  transform: translate(100px, 0) rotate(45deg);
   transform-origin: 0 0;
 }
 ```
+
+Element wird zuerst um 45 Grad im Uhrzeigersinn gedreht, dann um 100 Pixel nach rechts verschoben
+
+Punkt, um den gedreht wird: linke obere Ecke des Elements
 
 # Übergänge (Animationen)
 
@@ -528,7 +650,7 @@ Die Änderung verschiedener CSS-Properties kann wie folgt animiert werden:
 }
 ```
 
-## Beispiel: Animation bei hover
+## Beispiel: Animation bei Hover
 
 ```css
 div.box {
@@ -552,12 +674,12 @@ div {
   width: 40px;
   height: 40px;
   background-color: blue;
-  transform: translate(0 0) rotate(0);
+  transform: translate(0, 0) rotate(0);
   transition: transform 9s, background-color 9s;
 }
 div:hover {
   background-color: red;
-  transform: translate(200px 0) rotate(360deg);
+  transform: translate(200px, 0) rotate(360deg);
   transition: transform 3s, background-color 3s;
 }
 ```
