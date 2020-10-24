@@ -6,11 +6,11 @@ https://marko-knoebl.github.io/slides/
 
 Marko Knöbl
 
-- Frontend Web-Development
-  - JavaScript
-  - React, Angular
-- Programming
-  - Python, JavaScript
+- based in Vienna
+- former math teacher
+- programming topics:
+  - JavaScript, TypeScript and React
+  - Python, data science
 
 ## Introduction of Participants
 

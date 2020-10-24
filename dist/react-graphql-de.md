@@ -8,11 +8,11 @@
 
 Marko Knöbl
 
-- Frontend Web-Entwicklung
-  - JavaScript
-  - React, Angular
-- Programmierung
-  - Python, JavaScript
+- aus Wien
+- emaliger Mathematiklehrer
+- Programmierthemen:
+  - JavaScript, TypeScript und React
+  - Python, Data Science
 
 ## Vorstellung der Teilnehmer
 
