@@ -2,15 +2,6 @@
 
 ## Basic plot types
 
-- graph
-- bar chart
-- scatter plot
-- histogram
-- box plot
-- pie chart
-
-## Basic plot types
-
 - graph: `plt.plot(x, y)` / `plt.plot(y)`
 - bar chart: `plt.bar(x, y)`
 - scatter plot: `plt.plot(x, y, ".")` / `plt.scatter(x, y, size, color)`

@@ -2,15 +2,6 @@
 
 ## Grundlegende Plots
 
-- Graph
-- Säulendiagramm
-- Scatter Plot
-- Histogramm
-- Box Plot
-- Tortendiagramm
-
-## Grundlegende Plots
-
 - Graph: `plt.plot(x, y)` / `plt.plot(y)`
 - Säulen- und Balkendiagramm: `plt.bar(x, y)`
 - Scatter Plot: `plt.plot(x, y, ".")` / `plt.scatter(x, y, size, color)`

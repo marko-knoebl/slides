@@ -614,6 +614,12 @@ plt.plot(x, y2)
 plt.show()
 ```
 
+## Einfacher Plot mit pyplot
+
+Ergebnis:
+
+<img src="assets/pyplot-simple-graphs.png" alt="Simple plot in pyplot" />
+
 ## Einfacher Plot mit pandas
 
 ```py
@@ -812,16 +818,40 @@ plt.xticks(np.linspace(0, 2*np.pi, 5))
 - n-te Primzahl und Approximation via _n \* ln(n)_
 - Schätzung von Pi durch zufällige Punkte
 
+## Übung: Sinus und Kosinus mit erweiterten Optionen
+
+mögliches Ergebnis:
+
+<img src="assets/pyplot-sine-cosine-advanced.png" alt="Advanced plot of sine and cosine" />
+
+## Übung: Sinus und Kosinus mit erweiterten Optionen
+
+```py
+import matplotlib.pyplot as plt
+import numpy as np
+
+plt.style.use("seaborn")
+
+x = np.linspace(0, 2*np.pi, 100)
+sin = np.sin(x)
+cos = np.cos(x)
+plt.plot(x, sin, "C0--", label="sin(x)")
+plt.plot(x, cos, "C1:", label="cos(x)")
+
+pi_multiples = np.array([0, 0.5, 1, 1.5, 2]) * np.pi
+sin_points = np.sin(pi_multiples)
+cos_points = np.cos(pi_multiples)
+plt.plot(pi_multiples, sin_points, "C0o")
+plt.plot(pi_multiples, cos_points, "C1o")
+
+plt.title("Trigonometric functions")
+plt.xlabel("x (radians)")
+plt.xticks(np.linspace(0, 2*np.pi, 5))
+plt.legend()
+plt.axis("scaled")
+```
+
 # Pyplot: Gundlegende Plots
-
-## Grundlegende Plots
-
-- Graph
-- Säulendiagramm
-- Scatter Plot
-- Histogramm
-- Box Plot
-- Tortendiagramm
 
 ## Grundlegende Plots
 

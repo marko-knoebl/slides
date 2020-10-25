@@ -30,6 +30,12 @@ plt.plot(x, y2)
 plt.show()
 ```
 
+## Simple plot with pyplot
+
+results:
+
+<img src="assets/pyplot-simple-graphs.png" alt="Simple plot in pyplot" />
+
 ## Simple plot with pandas
 
 ```py
