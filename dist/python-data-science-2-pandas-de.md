@@ -52,17 +52,17 @@ area.dtype # float64
 manuelles Setzen des Datentyps:
 
 ```py
-area = pd.Series({"CN": 9.6, "RU": 17, "US": 9.8},
-                 dtype="float32")
+area = pd.Series(
+    {"CN": 9.6, "RU": 17, "US": 9.8}, dtype="float32"
+)
 ```
 
 ## DataFrame
 
 ```py
-countries = pd.DataFrame({
-    'area': area,
-    'population': population
-})
+countries = pd.DataFrame(
+    {"area": area, "population": population}
+)
 ```
 
 # Daten importieren und exportieren
@@ -133,6 +133,7 @@ Aufgabe: Importiere die folgenden Datenquellen und achte dabei auf passendes For
 - Monatliche Preise des US-Aktienindex _S&P 500_: <https://datahub.io/core/s-and-p-500/r/data.csv>
 - Wechselkurse: <https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv>
 - Iris Dataset (Statistiken zu Blütengrößen von Iris-Blumen): <http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data> (recherchiere passende Spaltennamen im Internet)
+- Passagierdaten der Titanic: <https://raw.githubusercontent.com/mwaskom/seaborn-data/master/titanic.csv>
 
 ## CSV importieren
 
@@ -151,6 +152,9 @@ iris = pd.read_csv(
     header=None,
     names=["sepal_length", "sepal_width", "petal_length",
            "petal_width", "name"])
+titanic = pd.read_csv(
+    "https://raw.githubusercontent.com/mwaskom/seaborn-data/master/titanic.csv"
+)
 ```
 
 ## Daten importieren und exportieren
@@ -179,15 +183,15 @@ euribor = read_hdf("data.hdf5", "euribor")
 - `df.iloc[5, 1]`: Zeile 5, Spalte 1
 - `df.iloc[5, [0, 2]]`: Zeile 5, Spalten 0 und 2
 
-## Daten auslesen (nach Zeilen- und Spaltennamen)
+## Daten auslesen (nach Indexwerten und Spaltennamen)
 
-- `df.index`: Zeilennamen
+- `df.index`: Indexwerte der Zeilen
 - `df.columns`: Spaltennamen
 
 <!-- list separator -->
 
 - `df.loc["2009-01-02"]`: Zeile mit bestimmtem Indexwert
-- `df.loc["2009-01-01" : "2009-01-31"]`: Zeile in bestimmtem Bereich (beide Grenzen inklusive)
+- `df.loc["2009-01-01" : "2009-01-31"]`: Zeilen in bestimmtem Bereich (beide Grenzen inklusive)
 - `df.loc[:, "rate"]`: Spalte `"rate"`
 - `df["rate"]`: Spalte `"rate"` (Kurzschreibweise)
 - `df.rate`: Spalte `"rate"` (kürzere Version - klappt nicht mit Sonderzeichen)
@@ -265,6 +269,12 @@ df.query("a < b < c")
 
 - Maximale _petal length_ von _iris setosa_ (ohne `.max`)
 
+## Aufgaben (Titanic)
+
+- Prozentsatz an Überlebenden
+- Prozentsatz an Überlebenden unter männlichen Passagieren
+- Prozentsatz an Überlebenden unter Kindern
+
 # Statistische Grundwerte
 
 ## Statistische Grundwerte
@@ -304,11 +314,11 @@ berechnet die folgenden Daten:
 - `area.count()`
 - `area.mean()`
 - `area.std()`
-- `area.quantile(0)` / `area.min()`
+- `area.quantile(0)` or `area.min()`
 - `area.quantile(0.25)`
-- `area.quantile(0.5)` / `area.median()`
+- `area.quantile(0.5)` or `area.median()`
 - `area.quantile(0.75)`
-- `area.quantile(1)` / `ara.max()`
+- `area.quantile(1)` or `area.max()`
 
 ## Statistische Werte
 
@@ -368,7 +378,25 @@ Spalten entfernen:
 df2 = df1.drop(columns=["pop"])
 ```
 
+## Konvertieren von Daten
+
+Konvertieren von Typen:
+
+```py
+titanic["survived"] = titanic["survived"].astype("bool")
+```
+
+Ersetzen von Werten:
+
+```py
+titanic["alive"] = titanic["alive"].replace(
+    {"yes": True, "no": False}
+)
+```
+
 ## Abgeleitete Werte berechnen
+
+Hinzufügen einer neuen Spalte:
 
 ```py
 iris["sepal_ratio"] = iris["sepal_length"] / iris["sepal_width"]
@@ -382,6 +410,37 @@ iris_setosa = iris.loc[
 
 iris_setosa["sepal_ratio"].mean()
 iris_setosa["sepal_ratio"].std()
+```
+
+## Abgeleitete Werte berechnen mittels NumPy
+
+Aufgabe:
+
+- Analysieren der monatlichen S&P 500 Daten und berechnen des monatlichen Gewinns / Verlusts für jedes Monat
+- Was war der größte Gewinn / Verlust in einem Monat?
+
+## Abgeleitete Werte berechnen mittels NumPy
+
+Umwandeln in ein NumPy-Array:
+
+```py
+values_np = sp500["SP500"].to_numpy()
+```
+
+Differenz aufeinanderfolgender Monate:
+
+```py
+diffs = values_np[1:] - values_np[:-1]
+# add a single NaN to the front
+diffs = np.concatenate([
+    np.array([float('nan')]), diffs])
+```
+
+Hinzufügen zu Daten:
+
+```py
+sp500["Diff"] = diffs
+sp500["Gain"] = sp500["Diff"] / sp500["SP500"]
 ```
 
 ## Abgeleitete Werte berechnen mittels eigenen Funktionen
@@ -555,6 +614,16 @@ iris.plot.box()
 df.pie()
 ```
 
+## Scatter Matrix
+
+Erstellt mehrere Scatter Plots - bei 4 Series-Einträgen enstehen 4x4 Plots (Scatter Plots und Histogramme)
+
+```py
+from pandas.plotting import scatter_matrix
+
+scatter_matrix(iris)
+```
+
 # Grundlegende Plots in Pandas und Pyplot
 
 ## Graph
@@ -672,19 +741,17 @@ Eine _Kontingenztabelle_ oder _Kreuztabelle_ gibt Anzahlen über mehrere Merkmal
 Beispiel:
 
 ```py
-import seaborn as sns
-import pandas as pd
-titanic = sns.load_dataset("titanic")
-pd.crosstab(titanic.survived, titanic.sex)
+pd.crosstab(titanic.pclass, titanic.survived)
 ```
 
 Ausgabe:
 
 ```
-sex       female  male
-survived
-0             81   468
-1            233   109
+survived  False  True 
+pclass                
+1            80    136
+2            97     87
+3           372    119
 ```
 
 # Gruppierung

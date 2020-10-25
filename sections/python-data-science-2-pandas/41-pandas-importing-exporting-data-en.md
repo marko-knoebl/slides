@@ -66,6 +66,7 @@ Task: Import the following data sources, ensuring the data is formatted nicely:
 - S&P 500 monthly prices (US stock index): https://datahub.io/core/s-and-p-500/r/data.csv
 - Exchange rates: https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv
 - Iris dataset (statistics of leaf sizes for iris flowers): http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data (look up appropriate column names on the web)
+- Titanic passenger data: https://raw.githubusercontent.com/mwaskom/seaborn-data/master/titanic.csv
 
 ## Importing CSV
 
@@ -84,6 +85,9 @@ iris = pd.read_csv(
     header=None,
     names=["sepal_length", "sepal_width", "petal_length",
            "petal_width", "name"])
+titanic = pd.read_csv(
+    "https://raw.githubusercontent.com/mwaskom/seaborn-data/master/titanic.csv"
+)
 ```
 
 ## Importing and exporting data

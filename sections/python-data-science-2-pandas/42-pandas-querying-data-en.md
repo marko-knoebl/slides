@@ -8,15 +8,15 @@
 - `df.iloc[5, 1]`: row 5, column 1
 - `df.iloc[5, [0, 2]]`: row 5, columns 0 and 2
 
-## Querying data (by row names / column names)
+## Querying data (by index values / column names)
 
-- `df.index`: row names
+- `df.index`: row index values
 - `df.columns`: column names
 
 <!-- list separator -->
 
 - `df.loc["2009-01-02"]`: Row by index value
-- `df.loc["2009-01-01":"2009-01-31"]`: Row in a specified range (both values included)
+- `df.loc["2009-01-01":"2009-01-31"]`: Rows in a specified range (both values included)
 - `df.loc[:, "rate"]`: column `"rate"`
 - `df["rate"]`: column `"rate"` (short version)
 - `df.rate`: column `"rate"` (extra short version - only works with no special characters)
@@ -93,3 +93,9 @@ df.query("a < b < c")
 ## Exercises (Iris)
 
 - maximum _petal length_ of _iris setosa_ (without using `.max`)
+
+## Exercises (Titanic)
+
+- percentage of survivors
+- percentage of survivors amongst males
+- percentage of survivors amongst children

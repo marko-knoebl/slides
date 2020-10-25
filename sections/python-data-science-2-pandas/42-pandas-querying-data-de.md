@@ -8,15 +8,15 @@
 - `df.iloc[5, 1]`: Zeile 5, Spalte 1
 - `df.iloc[5, [0, 2]]`: Zeile 5, Spalten 0 und 2
 
-## Daten auslesen (nach Zeilen- und Spaltennamen)
+## Daten auslesen (nach Indexwerten und Spaltennamen)
 
-- `df.index`: Zeilennamen
+- `df.index`: Indexwerte der Zeilen
 - `df.columns`: Spaltennamen
 
 <!-- list separator -->
 
 - `df.loc["2009-01-02"]`: Zeile mit bestimmtem Indexwert
-- `df.loc["2009-01-01" : "2009-01-31"]`: Zeile in bestimmtem Bereich (beide Grenzen inklusive)
+- `df.loc["2009-01-01" : "2009-01-31"]`: Zeilen in bestimmtem Bereich (beide Grenzen inklusive)
 - `df.loc[:, "rate"]`: Spalte `"rate"`
 - `df["rate"]`: Spalte `"rate"` (Kurzschreibweise)
 - `df.rate`: Spalte `"rate"` (kürzere Version - klappt nicht mit Sonderzeichen)
@@ -93,3 +93,9 @@ df.query("a < b < c")
 ## Aufgaben (Iris)
 
 - Maximale _petal length_ von _iris setosa_ (ohne `.max`)
+
+## Aufgaben (Titanic)
+
+- Prozentsatz an Überlebenden
+- Prozentsatz an Überlebenden unter männlichen Passagieren
+- Prozentsatz an Überlebenden unter Kindern

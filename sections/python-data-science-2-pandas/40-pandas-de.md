@@ -52,15 +52,15 @@ area.dtype # float64
 manuelles Setzen des Datentyps:
 
 ```py
-area = pd.Series({"CN": 9.6, "RU": 17, "US": 9.8},
-                 dtype="float32")
+area = pd.Series(
+    {"CN": 9.6, "RU": 17, "US": 9.8}, dtype="float32"
+)
 ```
 
 ## DataFrame
 
 ```py
-countries = pd.DataFrame({
-    'area': area,
-    'population': population
-})
+countries = pd.DataFrame(
+    {"area": area, "population": population}
+)
 ```

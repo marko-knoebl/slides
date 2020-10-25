@@ -37,11 +37,11 @@ berechnet die folgenden Daten:
 - `area.count()`
 - `area.mean()`
 - `area.std()`
-- `area.quantile(0)` / `area.min()`
+- `area.quantile(0)` or `area.min()`
 - `area.quantile(0.25)`
-- `area.quantile(0.5)` / `area.median()`
+- `area.quantile(0.5)` or `area.median()`
 - `area.quantile(0.75)`
-- `area.quantile(1)` / `ara.max()`
+- `area.quantile(1)` or `area.max()`
 
 ## Statistische Werte
 

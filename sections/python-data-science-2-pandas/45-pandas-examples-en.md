@@ -6,7 +6,7 @@ https://datahub.io/core/exchange-rates/r/daily.csv
 
 Daily Exchange rates between USD and other countries
 
-We will read exchange data - transform it so it only contains data for EUR-USD exchange rates and turn the dates into the index
+We will read exchange rate data, transform it so it only contains data for EUR-USD exchange rates and use the dates as the index
 
 ## Exchange rates
 

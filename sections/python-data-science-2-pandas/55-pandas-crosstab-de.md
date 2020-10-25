@@ -9,17 +9,15 @@ Eine _Kontingenztabelle_ oder _Kreuztabelle_ gibt Anzahlen über mehrere Merkmal
 Beispiel:
 
 ```py
-import seaborn as sns
-import pandas as pd
-titanic = sns.load_dataset("titanic")
-pd.crosstab(titanic.survived, titanic.sex)
+pd.crosstab(titanic.pclass, titanic.survived)
 ```
 
 Ausgabe:
 
 ```
-sex       female  male
-survived
-0             81   468
-1            233   109
+survived  False  True 
+pclass                
+1            80    136
+2            97     87
+3           372    119
 ```

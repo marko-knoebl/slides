@@ -20,7 +20,25 @@ Spalten entfernen:
 df2 = df1.drop(columns=["pop"])
 ```
 
+## Konvertieren von Daten
+
+Konvertieren von Typen:
+
+```py
+titanic["survived"] = titanic["survived"].astype("bool")
+```
+
+Ersetzen von Werten:
+
+```py
+titanic["alive"] = titanic["alive"].replace(
+    {"yes": True, "no": False}
+)
+```
+
 ## Abgeleitete Werte berechnen
+
+Hinzufügen einer neuen Spalte:
 
 ```py
 iris["sepal_ratio"] = iris["sepal_length"] / iris["sepal_width"]
@@ -34,6 +52,37 @@ iris_setosa = iris.loc[
 
 iris_setosa["sepal_ratio"].mean()
 iris_setosa["sepal_ratio"].std()
+```
+
+## Abgeleitete Werte berechnen mittels NumPy
+
+Aufgabe:
+
+- Analysieren der monatlichen S&P 500 Daten und berechnen des monatlichen Gewinns / Verlusts für jedes Monat
+- Was war der größte Gewinn / Verlust in einem Monat?
+
+## Abgeleitete Werte berechnen mittels NumPy
+
+Umwandeln in ein NumPy-Array:
+
+```py
+values_np = sp500["SP500"].to_numpy()
+```
+
+Differenz aufeinanderfolgender Monate:
+
+```py
+diffs = values_np[1:] - values_np[:-1]
+# add a single NaN to the front
+diffs = np.concatenate([
+    np.array([float('nan')]), diffs])
+```
+
+Hinzufügen zu Daten:
+
+```py
+sp500["Diff"] = diffs
+sp500["Gain"] = sp500["Diff"] / sp500["SP500"]
 ```
 
 ## Abgeleitete Werte berechnen mittels eigenen Funktionen

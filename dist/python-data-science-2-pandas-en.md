@@ -52,16 +52,17 @@ area.dtype # float64
 Manually setting the data type:
 
 ```py
-area = pd.Series({"CN": 9.6, "RU": 17, "US": 9.8},
-                 dtype="float32")
+area = pd.Series(
+    {"CN": 9.6, "RU": 17, "US": 9.8}, dtype="float32"
+)
 ```
 
 ## DataFrame
 
 ```py
-countries = pd.DataFrame({
-    'area': area,
-    'population': population})
+countries = pd.DataFrame(
+    {"area": area, "population": population}
+)
 ```
 
 # Importing and exporting data
@@ -132,6 +133,7 @@ Task: Import the following data sources, ensuring the data is formatted nicely:
 - S&P 500 monthly prices (US stock index): <https://datahub.io/core/s-and-p-500/r/data.csv>
 - Exchange rates: <https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv>
 - Iris dataset (statistics of leaf sizes for iris flowers): <http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data> (look up appropriate column names on the web)
+- Titanic passenger data: <https://raw.githubusercontent.com/mwaskom/seaborn-data/master/titanic.csv>
 
 ## Importing CSV
 
@@ -150,6 +152,9 @@ iris = pd.read_csv(
     header=None,
     names=["sepal_length", "sepal_width", "petal_length",
            "petal_width", "name"])
+titanic = pd.read_csv(
+    "https://raw.githubusercontent.com/mwaskom/seaborn-data/master/titanic.csv"
+)
 ```
 
 ## Importing and exporting data
@@ -178,15 +183,15 @@ euribor = read_hdf("data.hdf5", "euribor")
 - `df.iloc[5, 1]`: row 5, column 1
 - `df.iloc[5, [0, 2]]`: row 5, columns 0 and 2
 
-## Querying data (by row names / column names)
+## Querying data (by index values / column names)
 
-- `df.index`: row names
+- `df.index`: row index values
 - `df.columns`: column names
 
 <!-- list separator -->
 
 - `df.loc["2009-01-02"]`: Row by index value
-- `df.loc["2009-01-01":"2009-01-31"]`: Row in a specified range (both values included)
+- `df.loc["2009-01-01":"2009-01-31"]`: Rows in a specified range (both values included)
 - `df.loc[:, "rate"]`: column `"rate"`
 - `df["rate"]`: column `"rate"` (short version)
 - `df.rate`: column `"rate"` (extra short version - only works with no special characters)
@@ -264,6 +269,12 @@ df.query("a < b < c")
 
 - maximum _petal length_ of _iris setosa_ (without using `.max`)
 
+## Exercises (Titanic)
+
+- percentage of survivors
+- percentage of survivors amongst males
+- percentage of survivors amongst children
+
 # Data statistics
 
 ## Data statistics
@@ -303,11 +314,11 @@ The above computes the following data:
 - `area.count()`
 - `area.mean()`
 - `area.std()`
-- `area.quantile(0)` / `area.min()`
+- `area.quantile(0)` or `area.min()`
 - `area.quantile(0.25)`
-- `area.quantile(0.5)` / `area.median()`
+- `area.quantile(0.5)` or `area.median()`
 - `area.quantile(0.75)`
-- `area.quantile(1)` / `ara.max()`
+- `area.quantile(1)` or `area.max()`
 
 ## Statistical quantities
 
@@ -324,7 +335,7 @@ The above computes the following data:
 
 Daily Exchange rates between USD and other countries
 
-We will read exchange data - transform it so it only contains data for EUR-USD exchange rates and turn the dates into the index
+We will read exchange rate data, transform it so it only contains data for EUR-USD exchange rates and use the dates as the index
 
 ## Exchange rates
 
@@ -347,6 +358,12 @@ er_eur = er_eur_dateindex.loc[:, 'Value']
 
 # Pandas: changing data
 
+## Renaming columns
+
+```py
+df.columns = ["name1", "name2"]
+```
+
 ## Dropping data
 
 dropping rows:
@@ -359,6 +376,22 @@ dropping columns:
 
 ```py
 df2 = df1.drop(columns=["pop"])
+```
+
+## Converting data
+
+converting types:
+
+```py
+titanic["survived"] = titanic["survived"].astype("bool")
+```
+
+replacing values:
+
+```py
+titanic["alive"] = titanic["alive"].replace(
+    {"yes": True, "no": False}
+)
 ```
 
 ## Computing derived data
@@ -408,6 +441,20 @@ adding to pandas data:
 ```py
 sp500["Diff"] = diffs
 sp500["Gain"] = sp500["Diff"] / sp500["SP500"]
+```
+
+## Computing derived data via custom functions
+
+```py
+def classifier(value):
+    if value < 2:
+        return 0
+    elif value < 10:
+        return 1
+    else:
+        return 2
+
+df["class"] = df["value"].apply(classifier)
 ```
 
 ## Setting data
@@ -694,19 +741,17 @@ A _cross tabulation_ shows the number of corresponding entries across multiple p
 example:
 
 ```py
-import seaborn as sns
-import pandas as pd
-titanic = sns.load_dataset("titanic")
-pd.crosstab(titanic.survived, titanic.sex)
+pd.crosstab(titanic.pclass, titanic.survived)
 ```
 
 output:
 
 ```
-sex       female  male
-survived
-0             81   468
-1            233   109
+survived  False  True 
+pclass                
+1            80    136
+2            97     87
+3           372    119
 ```
 
 # Grouping

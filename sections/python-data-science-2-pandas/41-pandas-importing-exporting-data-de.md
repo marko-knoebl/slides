@@ -66,6 +66,7 @@ Aufgabe: Importiere die folgenden Datenquellen und achte dabei auf passendes For
 - Monatliche Preise des US-Aktienindex _S&P 500_: https://datahub.io/core/s-and-p-500/r/data.csv
 - Wechselkurse: https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv
 - Iris Dataset (Statistiken zu Blütengrößen von Iris-Blumen): http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data (recherchiere passende Spaltennamen im Internet)
+- Passagierdaten der Titanic: https://raw.githubusercontent.com/mwaskom/seaborn-data/master/titanic.csv
 
 ## CSV importieren
 
@@ -84,6 +85,9 @@ iris = pd.read_csv(
     header=None,
     names=["sepal_length", "sepal_width", "petal_length",
            "petal_width", "name"])
+titanic = pd.read_csv(
+    "https://raw.githubusercontent.com/mwaskom/seaborn-data/master/titanic.csv"
+)
 ```
 
 ## Daten importieren und exportieren

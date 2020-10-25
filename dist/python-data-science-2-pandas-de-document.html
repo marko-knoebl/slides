@@ -56,14 +56,14 @@ area[<span class="hljs-string">'CN'</span>] <span class="hljs-comment"># 9.6</sp
 <pre><code class="hljs language-py">area.dtype <span class="hljs-comment"># float64</span>
 </code></pre>
 <p>manuelles Setzen des Datentyps:</p>
-<pre><code class="hljs language-py">area = pd.Series({<span class="hljs-string">"CN"</span>: <span class="hljs-number">9.6</span>, <span class="hljs-string">"RU"</span>: <span class="hljs-number">17</span>, <span class="hljs-string">"US"</span>: <span class="hljs-number">9.8</span>},
-                 dtype=<span class="hljs-string">"float32"</span>)
+<pre><code class="hljs language-py">area = pd.Series(
+    {<span class="hljs-string">"CN"</span>: <span class="hljs-number">9.6</span>, <span class="hljs-string">"RU"</span>: <span class="hljs-number">17</span>, <span class="hljs-string">"US"</span>: <span class="hljs-number">9.8</span>}, dtype=<span class="hljs-string">"float32"</span>
+)
 </code></pre>
 <h2>DataFrame</h2>
-<pre><code class="hljs language-py">countries = pd.DataFrame({
-    <span class="hljs-string">'area'</span>: area,
-    <span class="hljs-string">'population'</span>: population
-})
+<pre><code class="hljs language-py">countries = pd.DataFrame(
+    {<span class="hljs-string">"area"</span>: area, <span class="hljs-string">"population"</span>: population}
+)
 </code></pre>
 <h1>Daten importieren und exportieren</h1>
 <h2>Daten importieren und exportieren</h2>
@@ -117,6 +117,7 @@ area[<span class="hljs-string">'CN'</span>] <span class="hljs-comment"># 9.6</sp
 <li>Monatliche Preise des US-Aktienindex <em>S&#x26;P 500</em>: <a href="https://datahub.io/core/s-and-p-500/r/data.csv">https://datahub.io/core/s-and-p-500/r/data.csv</a></li>
 <li>Wechselkurse: <a href="https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv">https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv</a></li>
 <li>Iris Dataset (Statistiken zu Blütengrößen von Iris-Blumen): <a href="http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data">http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data</a> (recherchiere passende Spaltennamen im Internet)</li>
+<li>Passagierdaten der Titanic: <a href="https://raw.githubusercontent.com/mwaskom/seaborn-data/master/titanic.csv">https://raw.githubusercontent.com/mwaskom/seaborn-data/master/titanic.csv</a></li>
 </ul>
 <h2>CSV importieren</h2>
 <p>mögliche Lösungen:</p>
@@ -132,6 +133,9 @@ iris = pd.read_csv(
     header=<span class="hljs-literal">None</span>,
     names=[<span class="hljs-string">"sepal_length"</span>, <span class="hljs-string">"sepal_width"</span>, <span class="hljs-string">"petal_length"</span>,
            <span class="hljs-string">"petal_width"</span>, <span class="hljs-string">"name"</span>])
+titanic = pd.read_csv(
+    <span class="hljs-string">"https://raw.githubusercontent.com/mwaskom/seaborn-data/master/titanic.csv"</span>
+)
 </code></pre>
 <h2>Daten importieren und exportieren</h2>
 <p>Excel:</p>
@@ -151,15 +155,15 @@ euribor = read_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class="hl
 <li><code>df.iloc[5, 1]</code>: Zeile 5, Spalte 1</li>
 <li><code>df.iloc[5, [0, 2]]</code>: Zeile 5, Spalten 0 und 2</li>
 </ul>
-<h2>Daten auslesen (nach Zeilen- und Spaltennamen)</h2>
+<h2>Daten auslesen (nach Indexwerten und Spaltennamen)</h2>
 <ul>
-<li><code>df.index</code>: Zeilennamen</li>
+<li><code>df.index</code>: Indexwerte der Zeilen</li>
 <li><code>df.columns</code>: Spaltennamen</li>
 </ul>
 <!-- list separator -->
 <ul>
 <li><code>df.loc["2009-01-02"]</code>: Zeile mit bestimmtem Indexwert</li>
-<li><code>df.loc["2009-01-01" : "2009-01-31"]</code>: Zeile in bestimmtem Bereich (beide Grenzen inklusive)</li>
+<li><code>df.loc["2009-01-01" : "2009-01-31"]</code>: Zeilen in bestimmtem Bereich (beide Grenzen inklusive)</li>
 <li><code>df.loc[:, "rate"]</code>: Spalte <code>"rate"</code></li>
 <li><code>df["rate"]</code>: Spalte <code>"rate"</code> (Kurzschreibweise)</li>
 <li><code>df.rate</code>: Spalte <code>"rate"</code> (kürzere Version - klappt nicht mit Sonderzeichen)</li>
@@ -222,6 +226,12 @@ euribor = read_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class="hl
 <ul>
 <li>Maximale <em>petal length</em> von <em>iris setosa</em> (ohne <code>.max</code>)</li>
 </ul>
+<h2>Aufgaben (Titanic)</h2>
+<ul>
+<li>Prozentsatz an Überlebenden</li>
+<li>Prozentsatz an Überlebenden unter männlichen Passagieren</li>
+<li>Prozentsatz an Überlebenden unter Kindern</li>
+</ul>
 <h1>Statistische Grundwerte</h1>
 <h2>Statistische Grundwerte</h2>
 <pre><code class="hljs language-py">df.describe()
@@ -248,11 +258,11 @@ dtype: float64
 <li><code>area.count()</code></li>
 <li><code>area.mean()</code></li>
 <li><code>area.std()</code></li>
-<li><code>area.quantile(0)</code> / <code>area.min()</code></li>
+<li><code>area.quantile(0)</code> or <code>area.min()</code></li>
 <li><code>area.quantile(0.25)</code></li>
-<li><code>area.quantile(0.5)</code> / <code>area.median()</code></li>
+<li><code>area.quantile(0.5)</code> or <code>area.median()</code></li>
 <li><code>area.quantile(0.75)</code></li>
-<li><code>area.quantile(1)</code> / <code>ara.max()</code></li>
+<li><code>area.quantile(1)</code> or <code>area.max()</code></li>
 </ul>
 <h2>Statistische Werte</h2>
 <ul>
@@ -292,7 +302,17 @@ er_eur = er_eur_dateindex.loc[:, <span class="hljs-string">'Value'</span>]
 <p>Spalten entfernen:</p>
 <pre><code class="hljs language-py">df2 = df1.drop(columns=[<span class="hljs-string">"pop"</span>])
 </code></pre>
+<h2>Konvertieren von Daten</h2>
+<p>Konvertieren von Typen:</p>
+<pre><code class="hljs language-py">titanic[<span class="hljs-string">"survived"</span>] = titanic[<span class="hljs-string">"survived"</span>].astype(<span class="hljs-string">"bool"</span>)
+</code></pre>
+<p>Ersetzen von Werten:</p>
+<pre><code class="hljs language-py">titanic[<span class="hljs-string">"alive"</span>] = titanic[<span class="hljs-string">"alive"</span>].replace(
+    {<span class="hljs-string">"yes"</span>: <span class="hljs-literal">True</span>, <span class="hljs-string">"no"</span>: <span class="hljs-literal">False</span>}
+)
+</code></pre>
 <h2>Abgeleitete Werte berechnen</h2>
+<p>Hinzufügen einer neuen Spalte:</p>
 <pre><code class="hljs language-py">iris[<span class="hljs-string">"sepal_ratio"</span>] = iris[<span class="hljs-string">"sepal_length"</span>] / iris[<span class="hljs-string">"sepal_width"</span>]
 
 iris[<span class="hljs-string">"sepal_ratio"</span>].mean()
@@ -304,6 +324,26 @@ iris_setosa = iris.loc[
 
 iris_setosa[<span class="hljs-string">"sepal_ratio"</span>].mean()
 iris_setosa[<span class="hljs-string">"sepal_ratio"</span>].std()
+</code></pre>
+<h2>Abgeleitete Werte berechnen mittels NumPy</h2>
+<p>Aufgabe:</p>
+<ul>
+<li>Analysieren der monatlichen S&#x26;P 500 Daten und berechnen des monatlichen Gewinns / Verlusts für jedes Monat</li>
+<li>Was war der größte Gewinn / Verlust in einem Monat?</li>
+</ul>
+<h2>Abgeleitete Werte berechnen mittels NumPy</h2>
+<p>Umwandeln in ein NumPy-Array:</p>
+<pre><code class="hljs language-py">values_np = sp500[<span class="hljs-string">"SP500"</span>].to_numpy()
+</code></pre>
+<p>Differenz aufeinanderfolgender Monate:</p>
+<pre><code class="hljs language-py">diffs = values_np[<span class="hljs-number">1</span>:] - values_np[:<span class="hljs-number">-1</span>]
+<span class="hljs-comment"># add a single NaN to the front</span>
+diffs = np.concatenate([
+    np.array([float(<span class="hljs-string">'nan'</span>)]), diffs])
+</code></pre>
+<p>Hinzufügen zu Daten:</p>
+<pre><code class="hljs language-py">sp500[<span class="hljs-string">"Diff"</span>] = diffs
+sp500[<span class="hljs-string">"Gain"</span>] = sp500[<span class="hljs-string">"Diff"</span>] / sp500[<span class="hljs-string">"SP500"</span>]
 </code></pre>
 <h2>Abgeleitete Werte berechnen mittels eigenen Funktionen</h2>
 <pre><code class="hljs language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">classifier</span><span class="hljs-params">(value)</span>:</span>
@@ -411,6 +451,12 @@ plt.show()
 <h2>Tortendiagramm</h2>
 <pre><code class="hljs language-py">df.pie()
 </code></pre>
+<h2>Scatter Matrix</h2>
+<p>Erstellt mehrere Scatter Plots - bei 4 Series-Einträgen enstehen 4x4 Plots (Scatter Plots und Histogramme)</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> pandas.plotting <span class="hljs-keyword">import</span> scatter_matrix
+
+scatter_matrix(iris)
+</code></pre>
 <h1>Grundlegende Plots in Pandas und Pyplot</h1>
 <h2>Graph</h2>
 <p>Pyplot:</p>
@@ -472,16 +518,14 @@ plt.scatter(x, y, <span class="hljs-number">2</span>, <span class="hljs-string">
 <p>Eine <em>Kontingenztabelle</em> oder <em>Kreuztabelle</em> gibt Anzahlen über mehrere Merkmale hinweg an.</p>
 <h2>Kontingenztabelle</h2>
 <p>Beispiel:</p>
-<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> seaborn <span class="hljs-keyword">as</span> sns
-<span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
-titanic = sns.load_dataset(<span class="hljs-string">"titanic"</span>)
-pd.crosstab(titanic.survived, titanic.sex)
+<pre><code class="hljs language-py">pd.crosstab(titanic.pclass, titanic.survived)
 </code></pre>
 <p>Ausgabe:</p>
-<pre><code class="hljs language-angelscript">sex       female  male
-survived
-<span class="hljs-number">0</span>             <span class="hljs-number">81</span>   <span class="hljs-number">468</span>
-<span class="hljs-number">1</span>            <span class="hljs-number">233</span>   <span class="hljs-number">109</span>
+<pre><code class="hljs language-yaml"><span class="hljs-string">survived</span>  <span class="hljs-literal">False</span>  <span class="hljs-literal">True</span> 
+<span class="hljs-string">pclass</span>                
+<span class="hljs-number">1</span>            <span class="hljs-number">80</span>    <span class="hljs-number">136</span>
+<span class="hljs-number">2</span>            <span class="hljs-number">97</span>     <span class="hljs-number">87</span>
+<span class="hljs-number">3</span>           <span class="hljs-number">372</span>    <span class="hljs-number">119</span>
 </code></pre>
 <h1>Gruppierung</h1>
 <h2>Gruppierung</h2>

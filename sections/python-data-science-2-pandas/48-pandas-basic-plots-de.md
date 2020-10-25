@@ -86,3 +86,13 @@ iris.plot.box()
 ```py
 df.pie()
 ```
+
+## Scatter Matrix
+
+Erstellt mehrere Scatter Plots - bei 4 Series-Einträgen enstehen 4x4 Plots (Scatter Plots und Histogramme)
+
+```py
+from pandas.plotting import scatter_matrix
+
+scatter_matrix(iris)
+```

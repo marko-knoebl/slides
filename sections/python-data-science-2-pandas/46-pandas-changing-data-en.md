@@ -1,5 +1,11 @@
 # Pandas: changing data
 
+## Renaming columns
+
+```py
+df.columns = ["name1", "name2"]
+```
+
 ## Dropping data
 
 dropping rows:
@@ -12,6 +18,22 @@ dropping columns:
 
 ```py
 df2 = df1.drop(columns=["pop"])
+```
+
+## Converting data
+
+converting types:
+
+```py
+titanic["survived"] = titanic["survived"].astype("bool")
+```
+
+replacing values:
+
+```py
+titanic["alive"] = titanic["alive"].replace(
+    {"yes": True, "no": False}
+)
 ```
 
 ## Computing derived data
@@ -61,6 +83,20 @@ adding to pandas data:
 ```py
 sp500["Diff"] = diffs
 sp500["Gain"] = sp500["Diff"] / sp500["SP500"]
+```
+
+## Computing derived data via custom functions
+
+```py
+def classifier(value):
+    if value < 2:
+        return 0
+    elif value < 10:
+        return 1
+    else:
+        return 2
+
+df["class"] = df["value"].apply(classifier)
 ```
 
 ## Setting data
