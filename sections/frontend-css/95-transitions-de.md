@@ -1,4 +1,4 @@
-# Übergänge (Animationen)
+# Übergänge (Transitions)
 
 ## Übergänge
 
@@ -51,9 +51,7 @@ Dropdown, das bei einem Buttonklick aktiv wird
 HTML-Vorlage:
 
 ```html
-<div id="dropdown">
-  dropdown
-</div>
+<div id="dropdown">dropdown</div>
 <button
   id="dropdown-button"
   onclick="dropdown.className = 'active'"

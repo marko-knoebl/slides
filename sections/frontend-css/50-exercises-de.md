@@ -1,4 +1,4 @@
-# Beispiele
+# Übungen
 
 - Google-Klon
 - Chat-Anwendung

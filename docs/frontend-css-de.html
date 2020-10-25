@@ -2100,7 +2100,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"style.css"</span> /></span>
 </code></pre>
 </section><section class="slide"><h2>CSS-Beispiel</h2>
-<pre><code class="hljs language-css"><span class="hljs-comment">/* Kommentar */</span>
+<pre><code class="hljs language-css"><span class="hljs-comment">/* comment */</span>
 <span class="hljs-selector-tag">h1</span> {
   <span class="hljs-attribute">font-family</span>: sans-serif;
   <span class="hljs-attribute">color</span>: grey;
@@ -2128,11 +2128,6 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li>das Attribut mit dem <em>spezifischeren</em> Selektor</li>
 <li>bzw. bei gleicher Spezifizität, das CSS-Statement, das im Code <em>später</em> auftritt</li>
 </ul>
-</section><section class="slide"><h2>CSS-Properties</h2>
-<ul>
-<li>Farben</li>
-<li>Schriftart</li>
-</ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Farben</h1>
 </section><section class="slide"><h2>Farben</h2>
 <pre><code class="hljs language-css"><span class="hljs-selector-tag">h1</span> {
@@ -2149,7 +2144,7 @@ z.B. <code>rgb(255, 128, 128)</code></li>
 <li>HEX-Definition<br />
 z.B. <code>#ff8080</code></li>
 <li>HSL-Definition<br />
-(hue, saturation, lightness - Farbton, Sättigung, Helligkeit)
+(hue, saturation, lightness - Farbton, Sättigung, Helligkeit)<br />
 z.B. <code>hsl(180, 60%, 70%)</code></li>
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Schrift</h1>
@@ -2220,7 +2215,7 @@ z.B. <code>hsl(180, 60%, 70%)</code></li>
 1px = ein Pixel am Bildschirm</p>
 <p>heutzutage:<br />
 z.B. beim iPhone 4: 1px = zwei Pixel am Bildschirm (device pixel ratio = 2)</p>
-<p>abfragbar über JS-Variable <code>devicePixelRatio</code></p>
+<p>abfragbar über JavaScript-Variable <code>devicePixelRatio</code></p>
 </section><section class="slide"><h2>rem</h2>
 <p>rem = Schriftgröße des <code>html</code>-Elements</p>
 <p>Standard in Browsern: 1rem = 16px</p>
@@ -2259,26 +2254,26 @@ z.B. beim iPhone 4: 1px = zwei Pixel am Bildschirm (device pixel ratio = 2)</p>
 </section><section class="slide"><h2>span &#x26; div</h2>
 <p><code>span</code> = allgemeinstes inline-Element</p>
 <p><code>div</code> = allgemeinstes block-Element</p>
-</section></section><section class="slides-section"><section class="slide"><h1>Block-Elemente und das Box-Modell</h1>
-</section><section class="slide"><h2>Block- Elemente und das Box-Modell</h2>
-<p>"Schichten" von innen nach außen:</p>
+</section></section><section class="slides-section"><section class="slide"><h1>Box-Modell</h1>
+</section><section class="slide"><h2>Box-Modell</h2>
+<p>"Schichten" von von Block-Elementen von innen nach außen:</p>
 <ul>
 <li>Inhalt</li>
 <li>Innenabstand (padding)</li>
 <li>Rand (border)</li>
 <li>Außenabstand (margin)</li>
 </ul>
-</section><section class="slide"><h2>Block- Elemente und das Box-Modell</h2>
+</section><section class="slide"><h2>Box-Modell</h2>
 <p>Beispiel: zwei Boxen</p>
-</section><section class="slide"><h2>Block- Elemente und das Box-Modell</h2>
+</section><section class="slide"><h2>Box-Modell</h2>
 <p>Größe des Inhalts:</p>
 <ul>
 <li><code>height</code> / <code>width</code></li>
 <li><code>min-height</code> / <code>min-width</code></li>
 <li><code>max-height</code> / <code>max-width</code></li>
 </ul>
-<p>Wenn z.B. bei height <code>50%</code> angegeben wird, bezieht sich das auf das Elternelement</p>
-</section><section class="slide"><h2>Block- Elemente und das Box-Modell</h2>
+<p>Wenn wir einen Prozentsatz angeben (z.B. <code>50%</code>), bezieht sich dieser auf das Elternelement</p>
+</section><section class="slide"><h2>Box-Modell</h2>
 <p>Die Attribute <code>height</code>, <code>width</code> u.s.w. beziehen sich standardmäßig auf den Inhalt (ohne padding und border)</p>
 <p>Heute setzt man oft:</p>
 <pre><code class="hljs language-css">* {
@@ -2286,16 +2281,22 @@ z.B. beim iPhone 4: 1px = zwei Pixel am Bildschirm (device pixel ratio = 2)</p>
 }
 </code></pre>
 <p>dann beziehen sie sich auf die Gesamtgröße (mit padding und border, aber ohne margin)</p>
-</section><section class="slide"><h2>Block-Elemente und das Box-Modell</h2>
-<p>Padding (Innenabstand) und Margin (Außenabstand)</p>
-<p>alle 4 Abstände gleich setzen: <code>padding: 10px;</code></p>
-<p>alle 4 Abstände individuell setzen: <code>padding: 10px 20px 30px 40px;</code> (oben - rechts - unten - links)</p>
-<p>je 2 Abstände gleich setzen: <code>padding: 10px 20px;</code> (oben &#x26; unten - links &#x26; rechts)</p>
-<p>horizontalen Abstand gleich setzen (zum horizontalen Zentrieren): <code>margin: 10px auto;</code></p>
-<p>Abstände individuell setzen: <code>padding: 10px; padding-left: 20px;</code></p>
-</section><section class="slide"><h2>Block-Elemente und das Box-Modell</h2>
+</section><section class="slide"><h2>Padding (Innenabstand) und margin (Außenabstand)</h2>
+<ul>
+<li>Setzen aller vier Margins auf den gleichen Wert:<br />
+<code>margin: 10px</code></li>
+<li>individuelles Setzen aller vier Margins:<br />
+<code>margin: 10px 20px 30px 40px</code> (top - right - bottom - left)</li>
+<li>Setzen der Marings in vertikaler und horizontaler Richtung:<br />
+<code>margin: 10px 20px;</code> (top und bottom - left und right)</li>
+<li>automatisches Setzen des horizontalen Margins (horizontales Zentrieren):<br />
+<code>margin: 10px auto;</code></li>
+<li>Individuelles setzen eines Margins:<br />
+<code>maring: 10px; margin-left: 20px;</code></li>
+</ul>
+</section><section class="slide"><h2>Box-Modell</h2>
 <p>Border-Beispiel: <code>border: 10px solid blue</code></p>
-<p>Abrundung-Beispiel: <code>border-radius: 5px</code></p>
+<p>abgerundete Ecken: <code>border-radius: 5px</code></p>
 </section><section class="slide"><h2>margin &#x26; padding bei Inline-Elementen</h2>
 <p>Achtung: vertikales margin und padding wirken sich bei Inline-Elementen nicht auf die Positionierung aus und führen zu Überlappungen</p>
 </section><section class="slide"><h2>Layout-Beispiel: Horizontales Zentrieren</h2>
@@ -2327,10 +2328,18 @@ z.B. beim iPhone 4: 1px = zwei Pixel am Bildschirm (device pixel ratio = 2)</p>
 </section><section class="slide"><h2>Overflow</h2>
 <p>Standardverhalten, wenn ein Kindelement höher oder breiter als das Elternelement ist:</p>
 <p>Das Kindelement ragt über das Elternelement hinaus</p>
-</section><section class="slide"><h2>overflow</h2>
+</section><section class="slide"><h2>Overflow</h2>
 <p>Um bei Bedarf beim Elternelement Scrollleisten anzuzeigen:</p>
 <pre><code class="hljs language-css"><span class="hljs-selector-id">#parent</span> {
   <span class="hljs-attribute">overflow</span>: auto;
+}
+</code></pre>
+</section><section class="slide"><h2>Overflow - Beispiel</h2>
+<p>Beispiel: Anzeigen eines Hintergrunds für die ganze Seite durch einen <em>body</em>, der auf Fensterhöhe skaliert ist - aber Anzeigen von Scrollbars, falls der Inhalt darüber hinaus geht</p>
+<pre><code class="hljs language-css"><span class="hljs-selector-tag">body</span> {
+  <span class="hljs-attribute">height</span>: <span class="hljs-number">100vh</span>;
+  <span class="hljs-attribute">overflow</span>: auto;
+  <span class="hljs-attribute">background-color</span>: lightgrey;
 }
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Flexbox</h1>
@@ -2386,7 +2395,7 @@ z.B. beim iPhone 4: 1px = zwei Pixel am Bildschirm (device pixel ratio = 2)</p>
 <p><a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/">css-tricks.com</a></p>
 </section></section><section class="slides-section"><section class="slide"><h1>Media queries</h1>
 </section><section class="slide"><h2>Media queries</h2>
-<p>Möglichkeit, insbesondere die Bildschirmgröße und Orientierung für CSS abzufragen</p>
+<p>Möglichkeit, insbesondere die Bildschirmgröße und Orientierung abzufragen</p>
 </section><section class="slide"><h2>Media queries</h2>
 <pre><code class="hljs language-css"><span class="hljs-selector-class">.menu</span> {
   <span class="hljs-attribute">display</span>: flex;
@@ -2406,7 +2415,7 @@ z.B. beim iPhone 4: 1px = zwei Pixel am Bildschirm (device pixel ratio = 2)</p>
   }
 }
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Beispiele</h1>
+</section></section><section class="slides-section"><section class="slide"><h1>Übungen</h1>
 <ul>
 <li>Google-Klon</li>
 <li>Chat-Anwendung</li>
@@ -2524,7 +2533,7 @@ z.B. beim iPhone 4: 1px = zwei Pixel am Bildschirm (device pixel ratio = 2)</p>
 </code></pre>
 <p>Element wird zuerst um 45 Grad im Uhrzeigersinn gedreht, dann um 100 Pixel nach rechts verschoben</p>
 <p>Punkt, um den gedreht wird: linke obere Ecke des Elements</p>
-</section></section><section class="slides-section"><section class="slide"><h1>Übergänge (Animationen)</h1>
+</section></section><section class="slides-section"><section class="slide"><h1>Übergänge (Transitions)</h1>
 </section><section class="slide"><h2>Übergänge</h2>
 <p>Die Änderung verschiedener CSS-Properties kann wie folgt animiert werden:</p>
 <pre><code class="hljs language-css"><span class="hljs-selector-id">#animated</span> {
@@ -2562,9 +2571,7 @@ z.B. beim iPhone 4: 1px = zwei Pixel am Bildschirm (device pixel ratio = 2)</p>
 </section><section class="slide"><h2>Aufgabe: Dropdown</h2>
 <p>Dropdown, das bei einem Buttonklick aktiv wird</p>
 <p>HTML-Vorlage:</p>
-<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"dropdown"</span>></span>
-  dropdown
-<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"dropdown"</span>></span>dropdown<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
 <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>
   <span class="hljs-attr">id</span>=<span class="hljs-string">"dropdown-button"</span>
   <span class="hljs-attr">onclick</span>=<span class="hljs-string">"dropdown.className = 'active'"</span>

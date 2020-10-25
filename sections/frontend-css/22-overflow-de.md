@@ -6,12 +6,24 @@ Standardverhalten, wenn ein Kindelement höher oder breiter als das Elternelemen
 
 Das Kindelement ragt über das Elternelement hinaus
 
-## overflow
+## Overflow
 
 Um bei Bedarf beim Elternelement Scrollleisten anzuzeigen:
 
 ```css
 #parent {
   overflow: auto;
+}
+```
+
+## Overflow - Beispiel
+
+Beispiel: Anzeigen eines Hintergrunds für die ganze Seite durch einen _body_, der auf Fensterhöhe skaliert ist - aber Anzeigen von Scrollbars, falls der Inhalt darüber hinaus geht
+
+```css
+body {
+  height: 100vh;
+  overflow: auto;
+  background-color: lightgrey;
 }
 ```

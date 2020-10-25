@@ -55,7 +55,7 @@ Standard Stil-Sprache des webs: definiert Layout und Stil von HTML-Seiten
 ## CSS-Beispiel
 
 ```css
-/* Kommentar */
+/* comment */
 h1 {
   font-family: sans-serif;
   color: grey;
@@ -85,11 +85,6 @@ Falls sich zwei CSS-Attribute widersprechen, "gewinnt":
 - das Attribut mit dem _spezifischeren_ Selektor
 - bzw. bei gleicher Spezifizität, das CSS-Statement, das im Code _später_ auftritt
 
-## CSS-Properties
-
-- Farben
-- Schriftart
-
 # Farben
 
 ## Farben
@@ -110,7 +105,7 @@ h1 {
 - HEX-Definition  
   z.B. `#ff8080`
 - HSL-Definition  
-  (hue, saturation, lightness - Farbton, Sättigung, Helligkeit)
+  (hue, saturation, lightness - Farbton, Sättigung, Helligkeit)  
   z.B. `hsl(180, 60%, 70%)`
 
 # Schrift
@@ -206,7 +201,7 @@ früher:
 heutzutage:  
 z.B. beim iPhone 4: 1px = zwei Pixel am Bildschirm (device pixel ratio = 2)
 
-abfragbar über JS-Variable `devicePixelRatio`
+abfragbar über JavaScript-Variable `devicePixelRatio`
 
 ## rem
 
@@ -259,22 +254,22 @@ Block-Elemente:
 
 `div` = allgemeinstes block-Element
 
-# Block-Elemente und das Box-Modell
+# Box-Modell
 
-## Block- Elemente und das Box-Modell
+## Box-Modell
 
-"Schichten" von innen nach außen:
+"Schichten" von von Block-Elementen von innen nach außen:
 
 - Inhalt
 - Innenabstand (padding)
 - Rand (border)
 - Außenabstand (margin)
 
-## Block- Elemente und das Box-Modell
+## Box-Modell
 
 Beispiel: zwei Boxen
 
-## Block- Elemente und das Box-Modell
+## Box-Modell
 
 Größe des Inhalts:
 
@@ -282,9 +277,9 @@ Größe des Inhalts:
 - `min-height` / `min-width`
 - `max-height` / `max-width`
 
-Wenn z.B. bei height `50%` angegeben wird, bezieht sich das auf das Elternelement
+Wenn wir einen Prozentsatz angeben (z.B. `50%`), bezieht sich dieser auf das Elternelement
 
-## Block- Elemente und das Box-Modell
+## Box-Modell
 
 Die Attribute `height`, `width` u.s.w. beziehen sich standardmäßig auf den Inhalt (ohne padding und border)
 
@@ -298,25 +293,24 @@ Heute setzt man oft:
 
 dann beziehen sie sich auf die Gesamtgröße (mit padding und border, aber ohne margin)
 
-## Block-Elemente und das Box-Modell
+## Padding (Innenabstand) und margin (Außenabstand)
 
-Padding (Innenabstand) und Margin (Außenabstand)
+- Setzen aller vier Margins auf den gleichen Wert:  
+  `margin: 10px`
+- individuelles Setzen aller vier Margins:  
+  `margin: 10px 20px 30px 40px` (top - right - bottom - left)
+- Setzen der Marings in vertikaler und horizontaler Richtung:  
+  `margin: 10px 20px;` (top und bottom - left und right)
+- automatisches Setzen des horizontalen Margins (horizontales Zentrieren):  
+  `margin: 10px auto;`
+- Individuelles setzen eines Margins:  
+  `maring: 10px; margin-left: 20px;`
 
-alle 4 Abstände gleich setzen: `padding: 10px;`
-
-alle 4 Abstände individuell setzen: `padding: 10px 20px 30px 40px;` (oben - rechts - unten - links)
-
-je 2 Abstände gleich setzen: `padding: 10px 20px;` (oben & unten - links & rechts)
-
-horizontalen Abstand gleich setzen (zum horizontalen Zentrieren): `margin: 10px auto;`
-
-Abstände individuell setzen: `padding: 10px; padding-left: 20px;`
-
-## Block-Elemente und das Box-Modell
+## Box-Modell
 
 Border-Beispiel: `border: 10px solid blue`
 
-Abrundung-Beispiel: `border-radius: 5px`
+abgerundete Ecken: `border-radius: 5px`
 
 ## margin & padding bei Inline-Elementen
 
@@ -370,13 +364,25 @@ Standardverhalten, wenn ein Kindelement höher oder breiter als das Elternelemen
 
 Das Kindelement ragt über das Elternelement hinaus
 
-## overflow
+## Overflow
 
 Um bei Bedarf beim Elternelement Scrollleisten anzuzeigen:
 
 ```css
 #parent {
   overflow: auto;
+}
+```
+
+## Overflow - Beispiel
+
+Beispiel: Anzeigen eines Hintergrunds für die ganze Seite durch einen _body_, der auf Fensterhöhe skaliert ist - aber Anzeigen von Scrollbars, falls der Inhalt darüber hinaus geht
+
+```css
+body {
+  height: 100vh;
+  overflow: auto;
+  background-color: lightgrey;
 }
 ```
 
@@ -451,7 +457,7 @@ body > main {
 
 ## Media queries
 
-Möglichkeit, insbesondere die Bildschirmgröße und Orientierung für CSS abzufragen
+Möglichkeit, insbesondere die Bildschirmgröße und Orientierung abzufragen
 
 ## Media queries
 
@@ -478,7 +484,7 @@ Möglichkeit, insbesondere die Bildschirmgröße und Orientierung für CSS abzuf
 }
 ```
 
-# Beispiele
+# Übungen
 
 - Google-Klon
 - Chat-Anwendung
@@ -638,7 +644,7 @@ Element wird zuerst um 45 Grad im Uhrzeigersinn gedreht, dann um 100 Pixel nach 
 
 Punkt, um den gedreht wird: linke obere Ecke des Elements
 
-# Übergänge (Animationen)
+# Übergänge (Transitions)
 
 ## Übergänge
 
@@ -691,9 +697,7 @@ Dropdown, das bei einem Buttonklick aktiv wird
 HTML-Vorlage:
 
 ```html
-<div id="dropdown">
-  dropdown
-</div>
+<div id="dropdown">dropdown</div>
 <button
   id="dropdown-button"
   onclick="dropdown.className = 'active'"

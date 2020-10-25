@@ -12,7 +12,7 @@ früher:
 heutzutage:  
 z.B. beim iPhone 4: 1px = zwei Pixel am Bildschirm (device pixel ratio = 2)
 
-abfragbar über JS-Variable `devicePixelRatio`
+abfragbar über JavaScript-Variable `devicePixelRatio`
 
 ## rem
 

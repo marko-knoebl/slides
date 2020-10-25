@@ -21,7 +21,7 @@ Standard Stil-Sprache des webs: definiert Layout und Stil von HTML-Seiten
 ## CSS-Beispiel
 
 ```css
-/* Kommentar */
+/* comment */
 h1 {
   font-family: sans-serif;
   color: grey;
@@ -50,8 +50,3 @@ Falls sich zwei CSS-Attribute widersprechen, "gewinnt":
 
 - das Attribut mit dem _spezifischeren_ Selektor
 - bzw. bei gleicher Spezifizität, das CSS-Statement, das im Code _später_ auftritt
-
-## CSS-Properties
-
-- Farben
-- Schriftart

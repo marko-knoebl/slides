@@ -2,7 +2,7 @@
 
 ## Media queries
 
-Möglichkeit, insbesondere die Bildschirmgröße und Orientierung abzufragen
+possibility to query the screen size and orientation (amongst others)
 
 ## Media queries
 

@@ -1,19 +1,19 @@
-# Block-Elemente und das Box-Modell
+# Box-Modell
 
-## Block- Elemente und das Box-Modell
+## Box-Modell
 
-"Schichten" von innen nach außen:
+"Schichten" von von Block-Elementen von innen nach außen:
 
 - Inhalt
 - Innenabstand (padding)
 - Rand (border)
 - Außenabstand (margin)
 
-## Block- Elemente und das Box-Modell
+## Box-Modell
 
 Beispiel: zwei Boxen
 
-## Block- Elemente und das Box-Modell
+## Box-Modell
 
 Größe des Inhalts:
 
@@ -21,9 +21,9 @@ Größe des Inhalts:
 - `min-height` / `min-width`
 - `max-height` / `max-width`
 
-Wenn z.B. bei height `50%` angegeben wird, bezieht sich das auf das Elternelement
+Wenn wir einen Prozentsatz angeben (z.B. `50%`), bezieht sich dieser auf das Elternelement
 
-## Block- Elemente und das Box-Modell
+## Box-Modell
 
 Die Attribute `height`, `width` u.s.w. beziehen sich standardmäßig auf den Inhalt (ohne padding und border)
 
@@ -37,25 +37,24 @@ Heute setzt man oft:
 
 dann beziehen sie sich auf die Gesamtgröße (mit padding und border, aber ohne margin)
 
-## Block-Elemente und das Box-Modell
+## Padding (Innenabstand) und margin (Außenabstand)
 
-Padding (Innenabstand) und Margin (Außenabstand)
+- Setzen aller vier Margins auf den gleichen Wert:  
+  `margin: 10px`
+- individuelles Setzen aller vier Margins:  
+  `margin: 10px 20px 30px 40px` (top - right - bottom - left)
+- Setzen der Marings in vertikaler und horizontaler Richtung:  
+  `margin: 10px 20px;` (top und bottom - left und right)
+- automatisches Setzen des horizontalen Margins (horizontales Zentrieren):  
+  `margin: 10px auto;`
+- Individuelles setzen eines Margins:  
+  `maring: 10px; margin-left: 20px;`
 
-alle 4 Abstände gleich setzen: `padding: 10px;`
-
-alle 4 Abstände individuell setzen: `padding: 10px 20px 30px 40px;` (oben - rechts - unten - links)
-
-je 2 Abstände gleich setzen: `padding: 10px 20px;` (oben & unten - links & rechts)
-
-horizontalen Abstand gleich setzen (zum horizontalen Zentrieren): `margin: 10px auto;`
-
-Abstände individuell setzen: `padding: 10px; padding-left: 20px;`
-
-## Block-Elemente und das Box-Modell
+## Box-Modell
 
 Border-Beispiel: `border: 10px solid blue`
 
-Abrundung-Beispiel: `border-radius: 5px`
+abgerundete Ecken: `border-radius: 5px`
 
 ## margin & padding bei Inline-Elementen
 

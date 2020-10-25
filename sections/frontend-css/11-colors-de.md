@@ -18,5 +18,5 @@ h1 {
 - HEX-Definition  
   z.B. `#ff8080`
 - HSL-Definition  
-  (hue, saturation, lightness - Farbton, Sättigung, Helligkeit)
+  (hue, saturation, lightness - Farbton, Sättigung, Helligkeit)  
   z.B. `hsl(180, 60%, 70%)`
