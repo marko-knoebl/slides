@@ -18,7 +18,7 @@ important packages:
 
 - `os.walk()`
 
-## os und shutil (2)
+## os and shutil (2)
 
 - `os.mkdir("foo")`
 - `os.mkdir("foo/bar/baz")`

@@ -52,9 +52,9 @@ Code available at: <https://github.com/marko-knoebl/courses-code>
 
 file = a sequence of bytes on a storage device
 
-Many file formats are a sequence of text characters - e.g. the formats _.txt_, _.html_, _.csv_ oder _.py_.
+Many file formats are a sequence of text characters - e.g. the formats _.txt_, _.html_, _.csv_ or _.py_.
 
-The content of textual files can be represented as strings, other file contents can be represented as byte sequences.
+The content of text files can be represented as strings, other file contents can be represented as byte sequences.
 
 ## Writing a text file
 
@@ -361,7 +361,7 @@ important packages:
 
 - `os.walk()`
 
-## os und shutil (2)
+## os and shutil (2)
 
 - `os.mkdir("foo")`
 - `os.mkdir("foo/bar/baz")`
@@ -421,17 +421,17 @@ In VS Code: Ctrl+F and click the button labeled _.\*_
 
 The following characters have special meanings:
 
-- \\
-- ^
-- \\$
-- .
-- \|
-- ?
-- \*
-- \+
-- ()
-- \[]
-- {}
+- `\`
+- `^`
+- `$`
+- `.`
+- `|`
+- `?`
+- `*`
+- `+`
+- `()`
+- `[]`
+- `{}`
 
 ## Special characters and escapes
 
@@ -563,7 +563,7 @@ for time in times:
 
 ## Compiling regular expressions
 
-Optimizing performance if many regular expressions are reused:
+Optimizing performance if expressions are reused:
 
 ```py
 my_re = "..."
@@ -598,13 +598,8 @@ my_re_obj.finditer(...)
 
 Python packages:
 
-### datetime
-
-Working with times and dates
-
-### time
-
-Working with Unix timestamps, sleep
+- **datetime**: working with times and dates
+- **time**: working with Unix timestamps, sleep
 
 ## datetime
 

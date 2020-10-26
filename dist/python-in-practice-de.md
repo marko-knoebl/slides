@@ -421,17 +421,17 @@ In VS Code: Ctrl+F und Klick auf den Button _.\*_
 
 Die folgenden Zeichen haben besondere Bedeutungen:
 
-- \\
-- ^
-- \\$
-- .
-- \|
-- ?
-- \*
-- \+
-- ()
-- \[]
-- {}
+- `\`
+- `^`
+- `$`
+- `.`
+- `|`
+- `?`
+- `*`
+- `+`
+- `()`
+- `[]`
+- `{}`
 
 ## Sonderzeichen und Escapes
 
@@ -562,7 +562,7 @@ for time in times:
 
 ## Kompilieren von regulären Ausdrücken
 
-Performanceoptimierung, wenn viele reguläre Ausdrücke wiederverwendet werden:
+Performanceoptimierung, wenn reguläre Ausdrücke wiederverwendet werden:
 
 ```py
 my_re = "..."
@@ -597,13 +597,8 @@ my_re_obj.finditer(...)
 
 Python-Pakete:
 
-### datetime
-
-Arbeiten mit Zeiten und Datumsangaben
-
-### time
-
-Arbeiten mit Unix-Timestamps, sleep
+- **datetime**: Arbeiten mit Zeiten und Datumsangaben
+- **time**: Arbeiten mit Unix-Timestamps, sleep
 
 ## datetime
 

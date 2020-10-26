@@ -20,17 +20,17 @@ In VS Code: Ctrl+F and click the button labeled _.\*_
 
 The following characters have special meanings:
 
-- \
-- ^
-- \$
-- .
-- |
-- ?
-- \*
-- \+
-- ()
-- []
-- {}
+- `\`
+- `^`
+- `$`
+- `.`
+- `|`
+- `?`
+- `*`
+- `+`
+- `()`
+- `[]`
+- `{}`
 
 ## Special characters and escapes
 

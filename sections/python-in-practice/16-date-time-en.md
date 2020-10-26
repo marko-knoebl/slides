@@ -4,13 +4,8 @@
 
 Python packages:
 
-### datetime
-
-Working with times and dates
-
-### time
-
-Working with Unix timestamps, sleep
+- **datetime**: working with times and dates
+- **time**: working with Unix timestamps, sleep
 
 ## datetime
 

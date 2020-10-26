@@ -4,9 +4,9 @@
 
 file = a sequence of bytes on a storage device
 
-Many file formats are a sequence of text characters - e.g. the formats _.txt_, _.html_, _.csv_ oder _.py_.
+Many file formats are a sequence of text characters - e.g. the formats _.txt_, _.html_, _.csv_ or _.py_.
 
-The content of textual files can be represented as strings, other file contents can be represented as byte sequences.
+The content of text files can be represented as strings, other file contents can be represented as byte sequences.
 
 ## Writing a text file
 

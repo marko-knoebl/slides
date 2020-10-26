@@ -59,7 +59,7 @@ for time in times:
 
 ## Kompilieren von regulären Ausdrücken
 
-Performanceoptimierung, wenn viele reguläre Ausdrücke wiederverwendet werden:
+Performanceoptimierung, wenn reguläre Ausdrücke wiederverwendet werden:
 
 ```py
 my_re = "..."

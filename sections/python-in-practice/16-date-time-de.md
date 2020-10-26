@@ -4,13 +4,8 @@
 
 Python-Pakete:
 
-### datetime
-
-Arbeiten mit Zeiten und Datumsangaben
-
-### time
-
-Arbeiten mit Unix-Timestamps, sleep
+- **datetime**: Arbeiten mit Zeiten und Datumsangaben
+- **time**: Arbeiten mit Unix-Timestamps, sleep
 
 ## datetime
 

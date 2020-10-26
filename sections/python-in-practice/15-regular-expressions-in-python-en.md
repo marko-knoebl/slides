@@ -59,7 +59,7 @@ for time in times:
 
 ## Compiling regular expressions
 
-Optimizing performance if many regular expressions are reused:
+Optimizing performance if expressions are reused:
 
 ```py
 my_re = "..."
