@@ -2,19 +2,6 @@
 
 ## None
 
-The expression `None` is for "nothing" - analogous to `null` or `undefined` in other languages.
-
-It may be used if a certain value is unknown
-
-```py
-users = [
-  ["John", "Doe", "1976-10-23"],
-  ["Jane", "Doe", None]
-]
-```
-
-## None
-
 `None` is a Singleton:
 
 - there is only ever a single instance of it inside a running Python program

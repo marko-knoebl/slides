@@ -13,7 +13,7 @@ examples:
 
 ## Operations on sequences
 
-- accessing elements (via index): `s[2]`
+- accessing an element (via index): `s[2]`
 - accessing multiple elements: `s[2:4]`
 - concatenation: `s + t`
 - repetition: `3 * s`

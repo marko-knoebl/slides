@@ -23,7 +23,7 @@ pip install numpy>=1.16
 
 ## PIP
 
-dependency list ina requirements file that can be shared with others:
+dependency list in a requirements file that can be shared with others:
 
 requirements.txt:
 

@@ -2,19 +2,6 @@
 
 ## None
 
-Der Ausdruck `None` steht in Python für "nichts" - analog zu `undefined` oder `null` in anderen Sprachen.
-
-Er kann z.B. verwendet werden, wenn ein bestimmter Wert nicht bekannt ist
-
-```py
-users = [
-  ["John", "Doe", "1976-10-23"],
-  ["Jane", "Doe", None]
-]
-```
-
-## None
-
 `None` ist ein Singleton:
 
 - es gibt immer nur ein `None`-Objekt innerhalb eines laufenden Python-Programms

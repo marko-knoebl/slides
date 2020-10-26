@@ -2115,14 +2115,6 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>None</h1>
 </section><section class="slide"><h2>None</h2>
-<p>The expression <code>None</code> is for "nothing" - analogous to <code>null</code> or <code>undefined</code> in other languages.</p>
-<p>It may be used if a certain value is unknown</p>
-<pre><code class="hljs language-py">users = [
-  [<span class="hljs-string">"John"</span>, <span class="hljs-string">"Doe"</span>, <span class="hljs-string">"1976-10-23"</span>],
-  [<span class="hljs-string">"Jane"</span>, <span class="hljs-string">"Doe"</span>, <span class="hljs-literal">None</span>]
-]
-</code></pre>
-</section><section class="slide"><h2>None</h2>
 <p><code>None</code> is a Singleton:</p>
 <ul>
 <li>there is only ever a single instance of it inside a running Python program</li>
@@ -2500,7 +2492,7 @@ b = bytes([<span class="hljs-number">0</span>, <span class="hljs-number">0x40</s
 </ul>
 </section><section class="slide"><h2>Operations on sequences</h2>
 <ul>
-<li>accessing elements (via index): <code>s[2]</code></li>
+<li>accessing an element (via index): <code>s[2]</code></li>
 <li>accessing multiple elements: <code>s[2:4]</code></li>
 <li>concatenation: <code>s + t</code></li>
 <li>repetition: <code>3 * s</code></li>
@@ -3033,7 +3025,7 @@ print(sys.path)
 pip install numpy>=<span class="hljs-number">1.16</span>
 </code></pre>
 </section><section class="slide"><h2>PIP</h2>
-<p>dependency list ina requirements file that can be shared with others:</p>
+<p>dependency list in a requirements file that can be shared with others:</p>
 <p>requirements.txt:</p>
 <pre><code class="hljs language-angelscript">requests==<span class="hljs-number">1.1</span>
 numpy>=<span class="hljs-number">1.16</span>
@@ -3083,6 +3075,44 @@ print(*numbers)
 </section><section class="slide"><h2>Global and local scope</h2>
 <p><code>global</code> / <code>nonlocal</code></p>
 <p>change the behavior of <em>assignments</em></p>
+</section><section class="slide"><h2>Global and local scope</h2>
+<p>Example: rock, paper, scissors</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> random
+wins = <span class="hljs-number">0</span>
+losses = <span class="hljs-number">0</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">play_rock_paper_scissors</span><span class="hljs-params">()</span>:</span>
+    player = input(<span class="hljs-string">"rock, paper or scissors?"</span>)
+    opponent = random.choice([<span class="hljs-string">"rock"</span>, <span class="hljs-string">"paper"</span>, <span class="hljs-string">"scissors"</span>])
+    <span class="hljs-keyword">if</span> player == opponent:
+        <span class="hljs-keyword">pass</span>
+    <span class="hljs-keyword">elif</span> (
+        (player == <span class="hljs-string">"rock"</span> <span class="hljs-keyword">and</span> opponent == <span class="hljs-string">"scissors"</span>)
+        <span class="hljs-keyword">or</span> (player == <span class="hljs-string">"paper"</span> <span class="hljs-keyword">and</span> opponent == <span class="hljs-string">"rock"</span>)
+        <span class="hljs-keyword">or</span> (player == <span class="hljs-string">"scissors"</span> <span class="hljs-keyword">and</span> opponent == <span class="hljs-string">"paper"</span>)
+    ):
+        <span class="hljs-keyword">global</span> wins
+        wins += <span class="hljs-number">1</span>
+    <span class="hljs-keyword">else</span>:
+        <span class="hljs-keyword">global</span> losses
+        losses += <span class="hljs-number">1</span>
+<span class="hljs-keyword">while</span> input(<span class="hljs-string">"play? (y/n)"</span>) != <span class="hljs-string">"n"</span>:
+    play_rock_paper_scissors()
+print(<span class="hljs-string">f"won: <span class="hljs-subst">{wins}</span>, lost: <span class="hljs-subst">{losses}</span>"</span>)
+</code></pre>
+</section><section class="slide"><h2>Global and local scope</h2>
+<p>A better alternative to the <code>global</code> keyword is often to create a class:</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> random
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RockPaperScissors</span><span class="hljs-params">()</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self)</span>:</span>
+        self.wins = <span class="hljs-number">0</span>
+        self.losses = <span class="hljs-number">0</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">play</span><span class="hljs-params">(self)</span>:</span>
+        ...
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">run</span><span class="hljs-params">(self)</span>:</span>
+        <span class="hljs-keyword">while</span> input(<span class="hljs-string">"play? (y/n)"</span>) != <span class="hljs-string">"n"</span>:
+            self.play()
+        print(<span class="hljs-string">f"won: <span class="hljs-subst">{wins}</span>, lost: <span class="hljs-subst">{losses}</span>"</span>)
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Object references and mutations</h1>
 </section><section class="slide"><h2>Object references and mutations</h2>
 <p>Recap: What does this program print?</p>

@@ -61,19 +61,6 @@ Code available at: <https://github.com/marko-knoebl/courses-code>
 
 ## None
 
-The expression `None` is for "nothing" - analogous to `null` or `undefined` in other languages.
-
-It may be used if a certain value is unknown
-
-```py
-users = [
-  ["John", "Doe", "1976-10-23"],
-  ["Jane", "Doe", None]
-]
-```
-
-## None
-
 `None` is a Singleton:
 
 - there is only ever a single instance of it inside a running Python program
@@ -623,7 +610,7 @@ examples:
 
 ## Operations on sequences
 
-- accessing elements (via index): `s[2]`
+- accessing an element (via index): `s[2]`
 - accessing multiple elements: `s[2:4]`
 - concatenation: `s + t`
 - repetition: `3 * s`
@@ -1413,7 +1400,7 @@ pip install numpy>=1.16
 
 ## PIP
 
-dependency list ina requirements file that can be shared with others:
+dependency list in a requirements file that can be shared with others:
 
 requirements.txt:
 
@@ -1494,6 +1481,52 @@ print(*numbers)
 `global` / `nonlocal`
 
 change the behavior of _assignments_
+
+## Global and local scope
+
+Example: rock, paper, scissors
+
+```py
+import random
+wins = 0
+losses = 0
+def play_rock_paper_scissors():
+    player = input("rock, paper or scissors?")
+    opponent = random.choice(["rock", "paper", "scissors"])
+    if player == opponent:
+        pass
+    elif (
+        (player == "rock" and opponent == "scissors")
+        or (player == "paper" and opponent == "rock")
+        or (player == "scissors" and opponent == "paper")
+    ):
+        global wins
+        wins += 1
+    else:
+        global losses
+        losses += 1
+while input("play? (y/n)") != "n":
+    play_rock_paper_scissors()
+print(f"won: {wins}, lost: {losses}")
+```
+
+## Global and local scope
+
+A better alternative to the `global` keyword is often to create a class:
+
+```py
+import random
+class RockPaperScissors():
+    def __init__(self):
+        self.wins = 0
+        self.losses = 0
+    def play(self):
+        ...
+    def run(self):
+        while input("play? (y/n)") != "n":
+            self.play()
+        print(f"won: {wins}, lost: {losses}")
+```
 
 # Object references and mutations
 

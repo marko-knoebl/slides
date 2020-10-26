@@ -2115,14 +2115,6 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>None</h1>
 </section><section class="slide"><h2>None</h2>
-<p>Der Ausdruck <code>None</code> steht in Python für "nichts" - analog zu <code>undefined</code> oder <code>null</code> in anderen Sprachen.</p>
-<p>Er kann z.B. verwendet werden, wenn ein bestimmter Wert nicht bekannt ist</p>
-<pre><code class="hljs language-py">users = [
-  [<span class="hljs-string">"John"</span>, <span class="hljs-string">"Doe"</span>, <span class="hljs-string">"1976-10-23"</span>],
-  [<span class="hljs-string">"Jane"</span>, <span class="hljs-string">"Doe"</span>, <span class="hljs-literal">None</span>]
-]
-</code></pre>
-</section><section class="slide"><h2>None</h2>
 <p><code>None</code> ist ein Singleton:</p>
 <ul>
 <li>es gibt immer nur ein <code>None</code>-Objekt innerhalb eines laufenden Python-Programms</li>
@@ -3077,6 +3069,44 @@ print(*numbers)
 </section><section class="slide"><h2>Globaler und lokaler Scope</h2>
 <p><code>global</code> / <code>nonlocal</code></p>
 <p>Spielt beim <em>Zuweisen</em> von Variablen eine Rolle</p>
+</section><section class="slide"><h2>Globaler und lokaler Scope</h2>
+<p>Beispiel: Schere, Stein, Papier</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> random
+wins = <span class="hljs-number">0</span>
+losses = <span class="hljs-number">0</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">play_rock_paper_scissors</span><span class="hljs-params">()</span>:</span>
+    player = input(<span class="hljs-string">"rock, paper or scissors?"</span>)
+    opponent = random.choice([<span class="hljs-string">"rock"</span>, <span class="hljs-string">"paper"</span>, <span class="hljs-string">"scissors"</span>])
+    <span class="hljs-keyword">if</span> player == opponent:
+        <span class="hljs-keyword">pass</span>
+    <span class="hljs-keyword">elif</span> (
+        (player == <span class="hljs-string">"rock"</span> <span class="hljs-keyword">and</span> opponent == <span class="hljs-string">"scissors"</span>)
+        <span class="hljs-keyword">or</span> (player == <span class="hljs-string">"paper"</span> <span class="hljs-keyword">and</span> opponent == <span class="hljs-string">"rock"</span>)
+        <span class="hljs-keyword">or</span> (player == <span class="hljs-string">"scissors"</span> <span class="hljs-keyword">and</span> opponent == <span class="hljs-string">"paper"</span>)
+    ):
+        <span class="hljs-keyword">global</span> wins
+        wins += <span class="hljs-number">1</span>
+    <span class="hljs-keyword">else</span>:
+        <span class="hljs-keyword">global</span> losses
+        losses += <span class="hljs-number">1</span>
+<span class="hljs-keyword">while</span> input(<span class="hljs-string">"play? (y/n)"</span>) != <span class="hljs-string">"n"</span>:
+    play_rock_paper_scissors()
+print(<span class="hljs-string">f"won: <span class="hljs-subst">{wins}</span>, lost: <span class="hljs-subst">{losses}</span>"</span>)
+</code></pre>
+</section><section class="slide"><h2>Globaler und lokaler Scope</h2>
+<p>Eine bessere Alternative zum Keyword <code>global</code> ist oft das Verwenden einer Klasse:</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> random
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RockPaperScissors</span><span class="hljs-params">()</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self)</span>:</span>
+        self.wins = <span class="hljs-number">0</span>
+        self.losses = <span class="hljs-number">0</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">play</span><span class="hljs-params">(self)</span>:</span>
+        ...
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">run</span><span class="hljs-params">(self)</span>:</span>
+        <span class="hljs-keyword">while</span> input(<span class="hljs-string">"play? (y/n)"</span>) != <span class="hljs-string">"n"</span>:
+            self.play()
+        print(<span class="hljs-string">f"won: <span class="hljs-subst">{wins}</span>, lost: <span class="hljs-subst">{losses}</span>"</span>)
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Objektreferenzen und Mutationen</h1>
 </section><section class="slide"><h2>Objektreferenzen und Mutationen</h2>
 <p>Wiederholung: Was wird das folgende Programm ausgeben?</p>
