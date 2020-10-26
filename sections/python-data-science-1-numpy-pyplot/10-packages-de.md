@@ -27,9 +27,7 @@ Benötigt ~3GB Platz auf der Festplatte
 
 ## Installation von Anaconda
 
-Download von https://www.anaconda.com/distribution/
-
-(Achte auf die Wahl des richtigen Betriebssystems)
+Download von https://www.anaconda.com/products/individual
 
 Unter Windows sollte der Installationspfad keine Leerzeichen enthalten (Empfehlung: `C:/anaconda`) - siehe https://docs.anaconda.com/anaconda/user-guide/faq/#distribution-faq-windows-folder
 

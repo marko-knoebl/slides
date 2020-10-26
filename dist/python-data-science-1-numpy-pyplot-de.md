@@ -61,9 +61,7 @@ Benötigt ~3GB Platz auf der Festplatte
 
 ## Installation von Anaconda
 
-Download von <https://www.anaconda.com/distribution/>
-
-(Achte auf die Wahl des richtigen Betriebssystems)
+Download von <https://www.anaconda.com/products/individual>
 
 Unter Windows sollte der Installationspfad keine Leerzeichen enthalten (Empfehlung: `C:/anaconda`) - siehe <https://docs.anaconda.com/anaconda/user-guide/faq/#distribution-faq-windows-folder>
 
@@ -1095,11 +1093,11 @@ plt.pie([3, 10, 17, 9], explode=[0, 0, 0, 0.1])
 ## Plotten von z = f(x, y)
 
 - Contour Plots - pyplot, pandas, seaborn
-
 - 3D Plots - matplotlib
 
-- [Python Data Science Handbook: Density and Contour Plots](https://jakevdp.github.io/PythonDataScienceHandbook/04.04-density-and-contour-plots.html)
+<!-- list separator -->
 
+- [Python Data Science Handbook: Density and Contour Plots](https://jakevdp.github.io/PythonDataScienceHandbook/04.04-density-and-contour-plots.html)
 - [Python Data Science Handbook: Three-Dimensional Plotting in Matplotlib](https://jakevdp.github.io/PythonDataScienceHandbook/04.12-three-dimensional-plotting.html)
 
 ## Plotten der Dichtefunktion einer Verteilung

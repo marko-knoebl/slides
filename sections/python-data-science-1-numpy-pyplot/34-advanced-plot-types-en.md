@@ -16,6 +16,8 @@
 - contour plots - pyplot, pandas, seaborn
 - 3d plots - matplotlib
 
+<!-- list separator -->
+
 - [Python Data Science Handbook: Density and Contour Plots](https://jakevdp.github.io/PythonDataScienceHandbook/04.04-density-and-contour-plots.html)
 - [Python Data Science Handbook: Three-Dimensional Plotting in Matplotlib](https://jakevdp.github.io/PythonDataScienceHandbook/04.12-three-dimensional-plotting.html)
 

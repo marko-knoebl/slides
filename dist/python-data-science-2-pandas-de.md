@@ -157,14 +157,21 @@ titanic = pd.read_csv(
 )
 ```
 
+## Importieren und Exportieren von Excel-Dateien
+
+lesen / schreiben eines einzelnen Excel-Sheets:
+
+- `pd.read_excel`
+- `pd.to_excel`
+
+lesen / schreiben eines ganzen Dokuments (inklusive Formatierung):
+
+- `pd.ExcelFile`
+- `pd.ExcelWriter`
+
+siehe: [Dataquest: Tutorial Using Excel with Python and Pandas](https://www.dataquest.io/blog/excel-and-pandas/)
+
 ## Daten importieren und exportieren
-
-Excel:
-
-```py
-euribor.to_excel('euribor.xlsx')
-euribor = pd.read_excel('euribor.xlsx', index_col=0)
-```
 
 HDF5 (_pytables_ muss installiert sein):
 

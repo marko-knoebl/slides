@@ -61,9 +61,7 @@ Uses ~ 3 GB of disk space
 
 ## Anaconda installation
 
-download from <https://www.anaconda.com/distribution/>
-
-(make sure to download for the correct OS)
+download from <https://www.anaconda.com/products/individual>
 
 On Windows, the installation path should not contain spaces or underscores (recommendation: `C:/anaconda`) - see <https://docs.anaconda.com/anaconda/user-guide/faq/#distribution-faq-windows-folder>
 
@@ -1100,11 +1098,11 @@ plt.pie([3, 10, 17, 9], explode=[0, 0, 0, 0.1])
 ## Plotting z = f(x, y)
 
 - contour plots - pyplot, pandas, seaborn
-
 - 3d plots - matplotlib
 
-- [Python Data Science Handbook: Density and Contour Plots](https://jakevdp.github.io/PythonDataScienceHandbook/04.04-density-and-contour-plots.html)
+<!-- list separator -->
 
+- [Python Data Science Handbook: Density and Contour Plots](https://jakevdp.github.io/PythonDataScienceHandbook/04.04-density-and-contour-plots.html)
 - [Python Data Science Handbook: Three-Dimensional Plotting in Matplotlib](https://jakevdp.github.io/PythonDataScienceHandbook/04.12-three-dimensional-plotting.html)
 
 ## Plotting density of some distribution

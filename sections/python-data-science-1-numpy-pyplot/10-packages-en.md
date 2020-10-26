@@ -27,9 +27,7 @@ Uses ~ 3 GB of disk space
 
 ## Anaconda installation
 
-download from https://www.anaconda.com/distribution/
-
-(make sure to download for the correct OS)
+download from https://www.anaconda.com/products/individual
 
 On Windows, the installation path should not contain spaces or underscores (recommendation: `C:/anaconda`) - see https://docs.anaconda.com/anaconda/user-guide/faq/#distribution-faq-windows-folder
 
