@@ -21,6 +21,14 @@ import numpy as np
 
 ## Arrays
 
+Erstellen eines 1-dimensionalen Arrays:
+
+```
+a1d = np.array([1, 2, 3, 4, 5, 6])
+```
+
+## Arrays
+
 Erstellen eines 2-dimensionalen Arrays:
 
 ```py

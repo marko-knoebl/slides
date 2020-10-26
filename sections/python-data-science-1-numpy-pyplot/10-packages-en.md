@@ -9,6 +9,16 @@
 - _Scikit-Learn_: library for machine learning, based on NumPy
 - _Keras_: library for deep learning
 
+## Python packages for data science
+
+installing the most important packages in an existing Python environment:
+
+```bash
+pip install jupyter numpy pandas matplotlib sklearn keras
+```
+
+Note: Packages like _NumPy_ may take some time before they are available for the newest Python version
+
 ## Anaconda
 
 _Anaconda_ = Python distribution that includes many pre-installed packages and developer tools

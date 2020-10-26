@@ -179,3 +179,7 @@ plt.xticks(np.linspace(0, 2*np.pi, 5))
 plt.legend()
 plt.axis("scaled")
 ```
+
+## Ressource
+
+siehe [Python Data Science Handbook: Simple Line Plots](https://jakevdp.github.io/PythonDataScienceHandbook/04.01-simple-line-plots.html)

@@ -9,6 +9,16 @@
 - _Scikit-Learn_: Bibliothek für Machine Learning, basiert auf NumPy
 - _Keras_: Bibliothek für Deep Learning
 
+## Python Pakete für Data Science
+
+Installation der wichtigsten Pakete in einer vorhandenen Python-Umgebung:
+
+```bash
+pip install jupyter numpy pandas matplotlib sklearn keras
+```
+
+Bemerkung: Pakete wie _NumPy_ benötigen oft etwas Zeit, bis sie für eine neue Python-Version verfügbar sind
+
 ## Anaconda
 
 _Anaconda_ = Python Distribution, die viele vorinstallierte Pakete und Entwicklerwerkzeuge enthält
@@ -27,7 +37,9 @@ Unter Windows sollte der Installationspfad keine Leerzeichen enthalten (Empfehlu
 
 _Conda_ = Environment- und Paketmanager
 
-Erlaubt das Installieren verschiedener Versionen von Python, von Python-Paketen und anderen Abhängigkeiten - insbesondere hilfreich für externe Libraries, die nicht in Python geschrieben sind und kompiliert werden müssen
+Erlaubt das Installieren verschiedener Versionen von Python, von Python-Paketen und anderen Abhängigkeiten
+
+insbesondere hilfreich für externe Libraries, die nicht in Python geschrieben sind und kompiliert werden müssen
 
 ## Pyodide
 

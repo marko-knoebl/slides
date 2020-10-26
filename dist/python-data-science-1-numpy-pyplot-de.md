@@ -43,6 +43,16 @@ Code verfügbar unter: <https://github.com/marko-knoebl/courses-code>
 - _Scikit-Learn_: Bibliothek für Machine Learning, basiert auf NumPy
 - _Keras_: Bibliothek für Deep Learning
 
+## Python Pakete für Data Science
+
+Installation der wichtigsten Pakete in einer vorhandenen Python-Umgebung:
+
+```bash
+pip install jupyter numpy pandas matplotlib sklearn keras
+```
+
+Bemerkung: Pakete wie _NumPy_ benötigen oft etwas Zeit, bis sie für eine neue Python-Version verfügbar sind
+
 ## Anaconda
 
 _Anaconda_ = Python Distribution, die viele vorinstallierte Pakete und Entwicklerwerkzeuge enthält
@@ -61,7 +71,9 @@ Unter Windows sollte der Installationspfad keine Leerzeichen enthalten (Empfehlu
 
 _Conda_ = Environment- und Paketmanager
 
-Erlaubt das Installieren verschiedener Versionen von Python, von Python-Paketen und anderen Abhängigkeiten - insbesondere hilfreich für externe Libraries, die nicht in Python geschrieben sind und kompiliert werden müssen
+Erlaubt das Installieren verschiedener Versionen von Python, von Python-Paketen und anderen Abhängigkeiten
+
+insbesondere hilfreich für externe Libraries, die nicht in Python geschrieben sind und kompiliert werden müssen
 
 ## Pyodide
 
@@ -221,6 +233,14 @@ oft verkürzt als:
 
 ```python
 import numpy as np
+```
+
+## Arrays
+
+Erstellen eines 1-dimensionalen Arrays:
+
+```
+a1d = np.array([1, 2, 3, 4, 5, 6])
 ```
 
 ## Arrays
@@ -582,6 +602,103 @@ Output:
 array([127, -128, -127])
 ```
 
+# NumPy Fortgeschritten
+
+## Form von Arrays ändern
+
+```py
+array_1d = array_3d.ravel()
+array_1d = array_3d.reshape(8)
+array_2d = array_3d.reshape(2, 4)
+array_2d = array_3d.reshape(2, -1) # automatic second dimension
+array_2d_transposed = array_2d.T
+```
+
+## Dimensionalität erhöhen
+
+Hinzufügen einer extra Dimension der Länge 1 via `newaxis` - Verwandeln eines 2 x 2 Arrays in ein 2 x 2 x 1 Array:
+
+```py
+array_2d = np.array([[1, 2], [3, 4]])
+array_3d = array_2d[:, :, np.newaxis]
+# [[[1], [2]], [[3], [4]]]
+```
+
+## Slices als Views
+
+In Python können wir eine flache Kopie einer Liste erstellen, indem wir sie slicen - dies ist in NumPy nicht so (um die Effizienz zu steigern):
+
+```py
+list = [1, 2, 3]
+list_copy = list[:]
+list_copy[0] = 10 # does NOT change list
+
+array = np.array([1, 2, 3])
+array_view = array[:]
+array_view[0] = 10 # DOES change array
+```
+
+## Arrays kopieren
+
+Arrays können via `array.copy()` kopiert werden
+
+## Arrays aneinanderfügen
+
+nebeineinander anfügen:
+
+```py
+np.concatenate([a1d, a1d])
+np.concatenate([a2d, a2d])
+```
+
+untereinander anfügen:
+
+```py
+np.concatenate([a2d, a2d], axis=1)
+```
+
+## Matrix-Multiplikation
+
+Matrix-Multiplikation kann durch den binären Operator `@` durchgeführt werden
+
+```py
+a = np.array([1, 1])
+
+M = np.array([[0.707, 0.707],
+              [-0.707, 0.707]])
+
+print(a @ M)
+# array([0.   , 1.414])
+```
+
+## Matrix-Multiplikation
+
+Rotation verschiedener Punkte um 45° gegen den Uhrzeigersinn:
+
+```py
+points = np.array([[0, 0], [0, 1], [1, 0], [1, 1]])
+
+M = np.array([[0.707, 0.707],
+              [-0.707, 0.707]])
+
+print(points @ M)
+```
+
+## Matrix-Multiplikation
+
+Beispiel:
+
+bekannt: Preise verschiedener Produkte, derent Bestände in verschiedenen Lagern
+
+```py
+prices = np.array([3.99, 12.99, 5.90, 15])
+quantities = np.array([[0, 80, 80, 100],
+                       [100, 0, 0, 0],
+                       [50, 0, 0, 50]])
+```
+
+Gesucht: Warenwert pro Lager
+
 # Plotting
 
 ### Datenvisualisierung
@@ -851,6 +968,10 @@ plt.legend()
 plt.axis("scaled")
 ```
 
+## Ressource
+
+siehe [Python Data Science Handbook: Simple Line Plots](https://jakevdp.github.io/PythonDataScienceHandbook/04.01-simple-line-plots.html)
+
 # Pyplot: Gundlegende Plots
 
 ## Grundlegende Plots
@@ -974,7 +1095,12 @@ plt.pie([3, 10, 17, 9], explode=[0, 0, 0, 0.1])
 ## Plotten von z = f(x, y)
 
 - Contour Plots - pyplot, pandas, seaborn
+
 - 3D Plots - matplotlib
+
+- [Python Data Science Handbook: Density and Contour Plots](https://jakevdp.github.io/PythonDataScienceHandbook/04.04-density-and-contour-plots.html)
+
+- [Python Data Science Handbook: Three-Dimensional Plotting in Matplotlib](https://jakevdp.github.io/PythonDataScienceHandbook/04.12-three-dimensional-plotting.html)
 
 ## Plotten der Dichtefunktion einer Verteilung
 
@@ -984,6 +1110,8 @@ plt.pie([3, 10, 17, 9], explode=[0, 0, 0, 0.1])
 - Violin Plot - seaborn
 - 2D Histogramm - pyplot (hist2d, hexbin)
 - 2D KDE - seaborn
+
+siehe [Python Data Science Handbook: Histograms, Binnings, and Density](https://jakevdp.github.io/PythonDataScienceHandbook/04.05-histograms-and-binnings.html)
 
 # Figure, Axes & Subplots
 

@@ -37,6 +37,11 @@
 <li><em>Scikit-Learn</em>: Bibliothek für Machine Learning, basiert auf NumPy</li>
 <li><em>Keras</em>: Bibliothek für Deep Learning</li>
 </ul>
+<h2>Python Pakete für Data Science</h2>
+<p>Installation der wichtigsten Pakete in einer vorhandenen Python-Umgebung:</p>
+<pre><code class="hljs language-bash">pip install jupyter numpy pandas matplotlib sklearn keras
+</code></pre>
+<p>Bemerkung: Pakete wie <em>NumPy</em> benötigen oft etwas Zeit, bis sie für eine neue Python-Version verfügbar sind</p>
 <h2>Anaconda</h2>
 <p><em>Anaconda</em> = Python Distribution, die viele vorinstallierte Pakete und Entwicklerwerkzeuge enthält</p>
 <p>Benötigt ~3GB Platz auf der Festplatte</p>
@@ -46,7 +51,8 @@
 <p>Unter Windows sollte der Installationspfad keine Leerzeichen enthalten (Empfehlung: <code>C:/anaconda</code>) - siehe <a href="https://docs.anaconda.com/anaconda/user-guide/faq/#distribution-faq-windows-folder">https://docs.anaconda.com/anaconda/user-guide/faq/#distribution-faq-windows-folder</a></p>
 <h2>Conda</h2>
 <p><em>Conda</em> = Environment- und Paketmanager</p>
-<p>Erlaubt das Installieren verschiedener Versionen von Python, von Python-Paketen und anderen Abhängigkeiten - insbesondere hilfreich für externe Libraries, die nicht in Python geschrieben sind und kompiliert werden müssen</p>
+<p>Erlaubt das Installieren verschiedener Versionen von Python, von Python-Paketen und anderen Abhängigkeiten</p>
+<p>insbesondere hilfreich für externe Libraries, die nicht in Python geschrieben sind und kompiliert werden müssen</p>
 <h2>Pyodide</h2>
 <p><em>Pyodide</em> = Python Distribution, die direkt im Browser ausgeführt wird (via <em>WebAssembly</em>)</p>
 <h1>Jupyter und IPython</h1>
@@ -140,6 +146,10 @@ time.sleep(<span class="hljs-number">3</span>)
 <h2>Importieren von NumPy</h2>
 <p>oft verkürzt als:</p>
 <pre><code class="hljs language-python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+</code></pre>
+<h2>Arrays</h2>
+<p>Erstellen eines 1-dimensionalen Arrays:</p>
+<pre><code class="hljs language-angelscript">a1d = np.<span class="hljs-built_in">array</span>([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>])
 </code></pre>
 <h2>Arrays</h2>
 <p>Erstellen eines 2-dimensionalen Arrays:</p>
@@ -367,6 +377,68 @@ c.dtype <span class="hljs-comment"># int64</span>
 <p>Output:</p>
 <pre><code class="hljs language-py">array([<span class="hljs-number">127</span>, <span class="hljs-number">-128</span>, <span class="hljs-number">-127</span>])
 </code></pre>
+<h1>NumPy Fortgeschritten</h1>
+<h2>Form von Arrays ändern</h2>
+<pre><code class="hljs language-py">array_1d = array_3d.ravel()
+array_1d = array_3d.reshape(<span class="hljs-number">8</span>)
+array_2d = array_3d.reshape(<span class="hljs-number">2</span>, <span class="hljs-number">4</span>)
+array_2d = array_3d.reshape(<span class="hljs-number">2</span>, <span class="hljs-number">-1</span>) <span class="hljs-comment"># automatic second dimension</span>
+array_2d_transposed = array_2d.T
+</code></pre>
+<h2>Dimensionalität erhöhen</h2>
+<p>Hinzufügen einer extra Dimension der Länge 1 via <code>newaxis</code> - Verwandeln eines 2 x 2 Arrays in ein 2 x 2 x 1 Array:</p>
+<pre><code class="hljs language-py">array_2d = np.array([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]])
+array_3d = array_2d[:, :, np.newaxis]
+<span class="hljs-comment"># [[[1], [2]], [[3], [4]]]</span>
+</code></pre>
+<h2>Slices als Views</h2>
+<p>In Python können wir eine flache Kopie einer Liste erstellen, indem wir sie slicen - dies ist in NumPy nicht so (um die Effizienz zu steigern):</p>
+<pre><code class="hljs language-py">list = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]
+list_copy = list[:]
+list_copy[<span class="hljs-number">0</span>] = <span class="hljs-number">10</span> <span class="hljs-comment"># does NOT change list</span>
+
+array = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])
+array_view = array[:]
+array_view[<span class="hljs-number">0</span>] = <span class="hljs-number">10</span> <span class="hljs-comment"># DOES change array</span>
+</code></pre>
+<h2>Arrays kopieren</h2>
+<p>Arrays können via <code>array.copy()</code> kopiert werden</p>
+<h2>Arrays aneinanderfügen</h2>
+<p>nebeineinander anfügen:</p>
+<pre><code class="hljs language-py">np.concatenate([a1d, a1d])
+np.concatenate([a2d, a2d])
+</code></pre>
+<p>untereinander anfügen:</p>
+<pre><code class="hljs language-py">np.concatenate([a2d, a2d], axis=<span class="hljs-number">1</span>)
+</code></pre>
+<h2>Matrix-Multiplikation</h2>
+<p>Matrix-Multiplikation kann durch den binären Operator <code>@</code> durchgeführt werden</p>
+<pre><code class="hljs language-py">a = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">1</span>])
+
+M = np.array([[<span class="hljs-number">0.707</span>, <span class="hljs-number">0.707</span>],
+              [<span class="hljs-number">-0.707</span>, <span class="hljs-number">0.707</span>]])
+
+print(a @ M)
+<span class="hljs-comment"># array([0.   , 1.414])</span>
+</code></pre>
+<h2>Matrix-Multiplikation</h2>
+<p>Rotation verschiedener Punkte um 45° gegen den Uhrzeigersinn:</p>
+<pre><code class="hljs language-py">points = np.array([[<span class="hljs-number">0</span>, <span class="hljs-number">0</span>], [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>], [<span class="hljs-number">1</span>, <span class="hljs-number">0</span>], [<span class="hljs-number">1</span>, <span class="hljs-number">1</span>]])
+
+M = np.array([[<span class="hljs-number">0.707</span>, <span class="hljs-number">0.707</span>],
+              [<span class="hljs-number">-0.707</span>, <span class="hljs-number">0.707</span>]])
+
+print(points @ M)
+</code></pre>
+<h2>Matrix-Multiplikation</h2>
+<p>Beispiel:</p>
+<p>bekannt: Preise verschiedener Produkte, derent Bestände in verschiedenen Lagern</p>
+<pre><code class="hljs language-py">prices = np.array([<span class="hljs-number">3.99</span>, <span class="hljs-number">12.99</span>, <span class="hljs-number">5.90</span>, <span class="hljs-number">15</span>])
+quantities = np.array([[<span class="hljs-number">0</span>, <span class="hljs-number">80</span>, <span class="hljs-number">80</span>, <span class="hljs-number">100</span>],
+                       [<span class="hljs-number">100</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>],
+                       [<span class="hljs-number">50</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">50</span>]])
+</code></pre>
+<p>Gesucht: Warenwert pro Lager</p>
 <h1>Plotting</h1>
 <h3>Datenvisualisierung</h3>
 <h2>Plotting</h2>
@@ -557,6 +629,8 @@ plt.xticks(np.linspace(<span class="hljs-number">0</span>, <span class="hljs-num
 plt.legend()
 plt.axis(<span class="hljs-string">"scaled"</span>)
 </code></pre>
+<h2>Ressource</h2>
+<p>siehe <a href="https://jakevdp.github.io/PythonDataScienceHandbook/04.01-simple-line-plots.html">Python Data Science Handbook: Simple Line Plots</a></p>
 <h1>Pyplot: Gundlegende Plots</h1>
 <h2>Grundlegende Plots</h2>
 <ul>
@@ -642,8 +716,18 @@ plt.pie([<span class="hljs-number">3</span>, <span class="hljs-number">10</span>
 </ul>
 <h2>Plotten von z = f(x, y)</h2>
 <ul>
-<li>Contour Plots - pyplot, pandas, seaborn</li>
-<li>3D Plots - matplotlib</li>
+<li>
+<p>Contour Plots - pyplot, pandas, seaborn</p>
+</li>
+<li>
+<p>3D Plots - matplotlib</p>
+</li>
+<li>
+<p><a href="https://jakevdp.github.io/PythonDataScienceHandbook/04.04-density-and-contour-plots.html">Python Data Science Handbook: Density and Contour Plots</a></p>
+</li>
+<li>
+<p><a href="https://jakevdp.github.io/PythonDataScienceHandbook/04.12-three-dimensional-plotting.html">Python Data Science Handbook: Three-Dimensional Plotting in Matplotlib</a></p>
+</li>
 </ul>
 <h2>Plotten der Dichtefunktion einer Verteilung</h2>
 <ul>
@@ -654,6 +738,7 @@ plt.pie([<span class="hljs-number">3</span>, <span class="hljs-number">10</span>
 <li>2D Histogramm - pyplot (hist2d, hexbin)</li>
 <li>2D KDE - seaborn</li>
 </ul>
+<p>siehe <a href="https://jakevdp.github.io/PythonDataScienceHandbook/04.05-histograms-and-binnings.html">Python Data Science Handbook: Histograms, Binnings, and Density</a></p>
 <h1>Figure, Axes &#x26; Subplots</h1>
 <h2>Figure &#x26; Axes</h2>
 <p>Figure = ganze Zeichnung</p>

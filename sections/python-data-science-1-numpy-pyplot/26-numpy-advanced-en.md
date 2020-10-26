@@ -12,16 +12,18 @@ array_2d_transposed = array_2d.T
 
 ## Adding an extra dimension
 
-Adding an extra dimension of length 1 via `newaxis` - turning a 2 x 2 array into a 2 x 2 x 1 array:
+Adding an extra dimension of length 1: turning a 2 x 2 array into a 2 x 2 x 1 array:
 
 ```py
 array_2d = np.array([[1, 2], [3, 4]])
-array_3d = array_2d[:, :, np.newaxis]
+array_3d = np.expand_dims(array_2d, 2)
 # [[[1], [2]], [[3], [4]]]
+
+# alternative:
+array_3d = array_2d[:, :, np.newaxis]
 ```
 
 ```py
-array_3d = np.expand_dims(array_2d, 2)
 ```
 
 ## Slices as views

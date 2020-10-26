@@ -56,7 +56,7 @@ ax.set_aspect("equal")
 
 ## Axes objects
 
-Task: Create a sine- and cosine- plot via _Axes_
+Task: Create a sine and cosine plot via _Axes_
 
 ## Axis and Axes
 

@@ -16,6 +16,9 @@
 - Contour Plots - pyplot, pandas, seaborn
 - 3D Plots - matplotlib
 
+- [Python Data Science Handbook: Density and Contour Plots](https://jakevdp.github.io/PythonDataScienceHandbook/04.04-density-and-contour-plots.html)
+- [Python Data Science Handbook: Three-Dimensional Plotting in Matplotlib](https://jakevdp.github.io/PythonDataScienceHandbook/04.12-three-dimensional-plotting.html)
+
 ## Plotten der Dichtefunktion einer Verteilung
 
 - (Histogramm)
@@ -24,3 +27,5 @@
 - Violin Plot - seaborn
 - 2D Histogramm - pyplot (hist2d, hexbin)
 - 2D KDE - seaborn
+
+siehe [Python Data Science Handbook: Histograms, Binnings, and Density](https://jakevdp.github.io/PythonDataScienceHandbook/04.05-histograms-and-binnings.html)

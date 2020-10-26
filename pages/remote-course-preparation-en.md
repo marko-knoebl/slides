@@ -14,7 +14,9 @@
 
 ## Python courses: installing Python
 
-- Download from <https://www.python.org/>
+For the Python courses, please have a Python version between 3.6 and 3.8 installed (3.9 is still too new and doesn't support the NumPy library yet)
+
+- Downloads for Python 3.8: <https://www.python.org/downloads/release/python-386/> (for Windows, pick _Windows x86-64 executable installer_ or _Windows x86-64 web-based installer_ )
 - on Windows, make sure to check the option "Add Python 3.x to PATH" during installation
 - after installation, verify that Python works and can access the internet:
   - open the Windows start menu and type "cmd" to look for and launch the command prompt

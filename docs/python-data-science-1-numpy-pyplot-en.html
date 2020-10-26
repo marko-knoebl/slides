@@ -2099,6 +2099,11 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li><em>Scikit-Learn</em>: library for machine learning, based on NumPy</li>
 <li><em>Keras</em>: library for deep learning</li>
 </ul>
+</section><section class="slide"><h2>Python packages for data science</h2>
+<p>installing the most important packages in an existing Python environment:</p>
+<pre><code class="hljs language-bash">pip install jupyter numpy pandas matplotlib sklearn keras
+</code></pre>
+<p>Note: Packages like <em>NumPy</em> may take some time before they are available for the newest Python version</p>
 </section><section class="slide"><h2>Anaconda</h2>
 <p><em>Anaconda</em> = Python distribution that includes many pre-installed packages and developer tools</p>
 <p>Uses ~ 3 GB of disk space</p>
@@ -2202,6 +2207,10 @@ time.sleep(<span class="hljs-number">3</span>)
 </section><section class="slide"><h2>NumPy</h2>
 <p>common import convention:</p>
 <pre><code class="hljs language-python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+</code></pre>
+</section><section class="slide"><h2>Arrays</h2>
+<p>creating a 1-dimensional array:</p>
+<pre><code class="hljs language-angelscript">a1d = np.<span class="hljs-built_in">array</span>([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>])
 </code></pre>
 </section><section class="slide"><h2>Arrays</h2>
 <p>creating a 2-dimensional array:</p>
@@ -2429,6 +2438,72 @@ c.dtype <span class="hljs-comment"># int64</span>
 <p>Output:</p>
 <pre><code class="hljs language-py">array([<span class="hljs-number">127</span>, <span class="hljs-number">-128</span>, <span class="hljs-number">-127</span>])
 </code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>NumPy advanced</h1>
+</section><section class="slide"><h2>Reshaping arrays</h2>
+<pre><code class="hljs language-py">array_1d = array_3d.ravel()
+array_1d = array_3d.reshape(<span class="hljs-number">8</span>)
+array_2d = array_3d.reshape(<span class="hljs-number">2</span>, <span class="hljs-number">4</span>)
+array_2d = array_3d.reshape(<span class="hljs-number">2</span>, <span class="hljs-number">-1</span>) <span class="hljs-comment"># automatic second dimension</span>
+array_2d_transposed = array_2d.T
+</code></pre>
+</section><section class="slide"><h2>Adding an extra dimension</h2>
+<p>Adding an extra dimension of length 1: turning a 2 x 2 array into a 2 x 2 x 1 array:</p>
+<pre><code class="hljs language-py">array_2d = np.array([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]])
+array_3d = np.expand_dims(array_2d, <span class="hljs-number">2</span>)
+<span class="hljs-comment"># [[[1], [2]], [[3], [4]]]</span>
+
+<span class="hljs-comment"># alternative:</span>
+array_3d = array_2d[:, :, np.newaxis]
+</code></pre>
+<pre><code class="hljs language-py"></code></pre>
+</section><section class="slide"><h2>Slices as views</h2>
+<p>In ordinary Python we can make a shallow copy of a list by slicing it - this works differently in NumPy (in order to improve efficiency):</p>
+<pre><code class="hljs language-py">list = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]
+list_copy = list[:]
+list_copy[<span class="hljs-number">0</span>] = <span class="hljs-number">10</span> <span class="hljs-comment"># does NOT change list</span>
+
+array = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])
+array_view = array[:]
+array_view[<span class="hljs-number">0</span>] = <span class="hljs-number">10</span> <span class="hljs-comment"># DOES change array</span>
+</code></pre>
+</section><section class="slide"><h2>Copying arrays</h2>
+<p>Arrays can be copied via <code>array.copy()</code></p>
+</section><section class="slide"><h2>Concatenating arrays</h2>
+<p>concatenating horizontally:</p>
+<pre><code class="hljs language-py">np.concatenate([a1d, a1d])
+np.concatenate([a2d, a2d])
+</code></pre>
+<p>concatenating vertically:</p>
+<pre><code class="hljs language-py">np.concatenate([a2d, a2d], axis=<span class="hljs-number">1</span>)
+</code></pre>
+</section><section class="slide"><h2>Matrix multiplication</h2>
+<p>via the binary Operator <code>@</code></p>
+<pre><code class="hljs language-py">a = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">1</span>])
+
+M = np.array([[<span class="hljs-number">0.707</span>, <span class="hljs-number">0.707</span>],
+              [<span class="hljs-number">-0.707</span>, <span class="hljs-number">0.707</span>]])
+
+print(a @ M)
+<span class="hljs-comment"># array([0.   , 1.414])</span>
+</code></pre>
+</section><section class="slide"><h2>Matrix multiplication</h2>
+<p>example: rotating several points by 45° (counterclockwise):</p>
+<pre><code class="hljs language-py">points = np.array([[<span class="hljs-number">0</span>, <span class="hljs-number">0</span>], [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>], [<span class="hljs-number">1</span>, <span class="hljs-number">0</span>], [<span class="hljs-number">1</span>, <span class="hljs-number">1</span>]])
+
+M = np.array([[<span class="hljs-number">0.707</span>, <span class="hljs-number">0.707</span>],
+              [<span class="hljs-number">-0.707</span>, <span class="hljs-number">0.707</span>]])
+
+print(points @ M)
+</code></pre>
+</section><section class="slide"><h2>Matrix multiplication</h2>
+<p>example:</p>
+<p>known data: prices of various products, number of items in stock for different stores</p>
+<pre><code class="hljs language-py">prices = np.array([<span class="hljs-number">3.99</span>, <span class="hljs-number">12.99</span>, <span class="hljs-number">5.90</span>, <span class="hljs-number">15</span>])
+quantities = np.array([[<span class="hljs-number">0</span>, <span class="hljs-number">80</span>, <span class="hljs-number">80</span>, <span class="hljs-number">100</span>],
+                       [<span class="hljs-number">100</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>],
+                       [<span class="hljs-number">50</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">50</span>]])
+</code></pre>
+<p>wanted: total value for each of the three stores</p>
 </section></section><section class="slides-section"><section class="slide"><h1>Plotting</h1>
 <h3>Data visualization</h3>
 </section><section class="slide"><h2>Plotting</h2>
@@ -2619,6 +2694,8 @@ plt.xticks(np.linspace(<span class="hljs-number">0</span>, <span class="hljs-num
 plt.legend()
 plt.axis(<span class="hljs-string">"scaled"</span>)
 </code></pre>
+</section><section class="slide"><h2>Resource</h2>
+<p>see <a href="https://jakevdp.github.io/PythonDataScienceHandbook/04.01-simple-line-plots.html">Python Data Science Handbook: Simple Line Plots</a></p>
 </section></section><section class="slides-section"><section class="slide"><h1>Pyplot: basic plot types</h1>
 </section><section class="slide"><h2>Basic plot types</h2>
 <ul>
@@ -2704,8 +2781,18 @@ plt.pie([<span class="hljs-number">3</span>, <span class="hljs-number">10</span>
 </ul>
 </section><section class="slide"><h2>Plotting z = f(x, y)</h2>
 <ul>
-<li>contour plots - pyplot, pandas, seaborn</li>
-<li>3d plots - matplotlib</li>
+<li>
+<p>contour plots - pyplot, pandas, seaborn</p>
+</li>
+<li>
+<p>3d plots - matplotlib</p>
+</li>
+<li>
+<p><a href="https://jakevdp.github.io/PythonDataScienceHandbook/04.04-density-and-contour-plots.html">Python Data Science Handbook: Density and Contour Plots</a></p>
+</li>
+<li>
+<p><a href="https://jakevdp.github.io/PythonDataScienceHandbook/04.12-three-dimensional-plotting.html">Python Data Science Handbook: Three-Dimensional Plotting in Matplotlib</a></p>
+</li>
 </ul>
 </section><section class="slide"><h2>Plotting density of some distribution</h2>
 <ul>
@@ -2716,6 +2803,7 @@ plt.pie([<span class="hljs-number">3</span>, <span class="hljs-number">10</span>
 <li>2D histogram - pyplot (hist2d, hexbin)</li>
 <li>2D KDE - seaborn</li>
 </ul>
+<p>see <a href="https://jakevdp.github.io/PythonDataScienceHandbook/04.05-histograms-and-binnings.html">Python Data Science Handbook: Histograms, Binnings, and Density</a></p>
 </section></section><section class="slides-section"><section class="slide"><h1>Pyplot: figure, axes &#x26; subplots</h1>
 </section><section class="slide"><h2>Figure &#x26; axes</h2>
 <p>Figure = entire drawing</p>
@@ -2749,7 +2837,7 @@ ax.legend()
 ax.set_aspect(<span class="hljs-string">"equal"</span>)
 </code></pre>
 </section><section class="slide"><h2>Axes objects</h2>
-<p>Task: Create a sine- and cosine- plot via <em>Axes</em></p>
+<p>Task: Create a sine and cosine plot via <em>Axes</em></p>
 </section><section class="slide"><h2>Axis and Axes</h2>
 <p>naming to keep in mind:</p>
 <ul>
