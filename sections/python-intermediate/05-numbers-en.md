@@ -48,13 +48,13 @@ e = float('inf')
 
 ## float
 
-Be cautious of rounding errors: Some numbers cannot be represented as floating point numbers, they will always be rounded
+warning on rounding errors: some numbers cannot be represented as floating point numbers, they will always be approximations
 
-e.g.: `1/3`
+examples in the decimal system: _1/3_, _1/7_
 
-A computer is also unable to represent numbers like `0.1` or `0.2` exactly
+examples in the binary system (i.e. `float`): _1/10_, _1/5_, _1/3_
 
-example: `0.3 - 0.2` evaluates to `0.09999999999999998`
+example: `0.1 + 0.2` evaluates to `0.30000000000000004`
 
 In general a 64-bit float will be exact for about 15 decimal places.
 

@@ -27,10 +27,11 @@ Andere Zahlensysteme:
 a = 42
 b = 0o52
 c = 0x2a
+d = 0b101010
 ```
 
 ```py
-a = int('10010', 2)
+e = int('10010', 2)
 ```
 
 ## float
@@ -49,11 +50,11 @@ e = float('inf')
 
 Achtung Rundungsfehler: Einige Zahlen können nicht genau als Kommazahlen repräseniert werden, sie werden immer gerundet
 
-Beispiel: `1/3`
+Beispiele im Dezimalsystem: _1/3_, _1/7_
 
-Der Computer kann auch Zahlen wie `0.1` oder `0.2` nicht genau repräsentieren
+Beispiele im Binärsystem (`float`): _1/10_, _1/5_, _1/3_
 
-Beispiel: `0.3 - 0.2` ergibt `0.09999999999999998`
+Beispiel: `0.1 + 0.2` ergibt `0.30000000000000004`
 
 Im Allgemeinen sind 64-bit floats auf ca 15 Dezimalstellen genau.
 
