@@ -4,7 +4,7 @@
 
 ```py
 birth_year = 1970
-current_year = 2019
+current_year = 2020
 age = current_year - birth_year
 ```
 

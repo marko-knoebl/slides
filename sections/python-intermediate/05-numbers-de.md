@@ -24,14 +24,14 @@ beliebig große Ganzzahlen
 Andere Zahlensysteme:
 
 ```py
-a = 42
-b = 0o52
-c = 0x2a
-d = 0b101010
+a = 42 # decimal
+d = 0b101010 # binary
+b = 0o52 # octal
+c = 0x2a # hexadecimal
 ```
 
 ```py
-e = int('10010', 2)
+e = int('101010', 2)
 ```
 
 ## float

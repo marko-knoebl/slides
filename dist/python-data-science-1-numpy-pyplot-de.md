@@ -9,7 +9,7 @@
 Marko Knöbl
 
 - aus Wien
-- emaliger Mathematiklehrer
+- ehemaliger Mathematiklehrer
 - Programmierthemen:
   - JavaScript, TypeScript und React
   - Python, Data Science

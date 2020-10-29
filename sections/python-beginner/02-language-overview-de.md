@@ -9,9 +9,9 @@
 
 ## Python Weiterentwicklung und Versionen
 
-- Python 3.8 (aktuell)
-- Python 3.2 (erste gut benutzbare Python 3 - Version): 2011
-- Python 2.7 (letze Python 2 - Version): 2010, Support bis Ende 2019
+Python 3: neue "minor"-Version (z.B. 3.9) wird jeden Oktober veröffentlicht
+
+Python 2: Unterstützung endete 2019, zu diesem Zeitpunkt nutzten es not [10% der Entwickelr](https://www.jetbrains.com/lp/python-developers-survey-2019/)
 
 ## Codebeispiel
 

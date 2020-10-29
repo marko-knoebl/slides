@@ -7,7 +7,6 @@
 - bool
 - NoneType
 - string
-- bytes
 
 ## Kollektionen
 
@@ -17,8 +16,9 @@
 
 ## Weitere Datentypen
 
+- decimal
 - complex
+- bytes, bytearray
 - set, frozenset
-- bytearray
-- OrderedDict
 - NamedTuple
+- ...

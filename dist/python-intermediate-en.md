@@ -41,7 +41,6 @@ Code available at: <https://github.com/marko-knoebl/courses-code>
 - bool
 - NoneType
 - string
-- bytes
 
 ## Collections
 
@@ -51,11 +50,12 @@ Code available at: <https://github.com/marko-knoebl/courses-code>
 
 ## Other data types
 
+- decimal
 - complex
+- bytes, bytearray
 - set, frozenset
-- bytearray
-- OrderedDict
 - NamedTuple
+- ...
 
 # None
 
@@ -136,10 +136,10 @@ integers of arbitrary size
 Other numeral systems:
 
 ```py
-a = 42
-b = 0o52
-c = 0x2a
-d = 0b101010
+a = 42 # decimal
+d = 0b101010 # binary
+b = 0o52 # octal
+c = 0x2a # hexadecimal
 ```
 
 ```py
@@ -202,6 +202,8 @@ short form (augmented assignment):
 ```py
 a += 1
 ```
+
+other operations: `-=`, `*=`, ...
 
 # Character encodings
 

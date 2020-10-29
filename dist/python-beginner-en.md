@@ -43,9 +43,9 @@ Code available at: <https://github.com/marko-knoebl/courses-code>
 
 ## Python development and versions
 
-- Python 3.8 (current)
-- Python 3.2 (first useful version of Python 3): 2011
-- Python 2.7 (last version of Python 2): 2010, supported until the end of 2019
+Python 3: new minor version (e.g. 3.9) released every October
+
+Python 2: support ended in 2019, [10% of developers](https://www.jetbrains.com/lp/python-developers-survey-2019/) were still using it by then
 
 ## Code examples
 
@@ -60,13 +60,13 @@ if a * b > 10:
     print('greater')
 ```
 
-# Python Installation
+# Installation on Windows
 
-## Python Installation
+## Installation on Windows
 
-on Windows: Download from <https://python.org> (Windows x86-64 web-based installer)
+**option 1**: download from the Windows store
 
-check the option "Add Python 3.x to PATH"
+**option 2**: download from <https://python.org> (during installation, check the option "Add Python 3.x to PATH")
 
 <!--
 Python zu path hinzufügen
@@ -79,7 +79,15 @@ C:\Users\Marko\Anaconda3
 C:\Users\Marko\Anaconda3\Scripts
 -->
 
-## Python Installation
+## Installation on Windows
+
+verify the installation:
+
+`python --version` should display the version number
+
+`pip install requests` should successfully download and install a small Python package named _requests_
+
+## Installation on Windows
 
 installation includes:
 
@@ -87,7 +95,6 @@ installation includes:
 - interactive Python console
 - IDLE: simple development environment
 - PIP: package manager for installing extensions
-- Python documentation
 
 # Interactive Python console
 
@@ -144,7 +151,7 @@ Binder:
 
 ```py
 birth_year = 1970
-current_year = 2019
+current_year = 2020
 age = current_year - birth_year
 ```
 

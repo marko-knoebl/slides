@@ -9,7 +9,7 @@
 Marko Knöbl
 
 - aus Wien
-- emaliger Mathematiklehrer
+- ehemaliger Mathematiklehrer
 - Programmierthemen:
   - JavaScript, TypeScript und React
   - Python, Data Science
@@ -43,9 +43,9 @@ Code verfügbar unter: <https://github.com/marko-knoebl/courses-code>
 
 ## Python Weiterentwicklung und Versionen
 
-- Python 3.8 (aktuell)
-- Python 3.2 (erste gut benutzbare Python 3 - Version): 2011
-- Python 2.7 (letze Python 2 - Version): 2010, Support bis Ende 2019
+Python 3: neue "minor"-Version (z.B. 3.9) wird jeden Oktober veröffentlicht
+
+Python 2: Unterstützung endete 2019, zu diesem Zeitpunkt nutzten es not [10% der Entwickelr](https://www.jetbrains.com/lp/python-developers-survey-2019/)
 
 ## Codebeispiel
 
@@ -60,13 +60,13 @@ if a * b > 10:
     print('greater')
 ```
 
-# Python Installation
+# Installation unter Windows
 
-## Python Installation
+## Installation unter Windows
 
-für Windows: Download von <https://python.org> (Windows x86-64 web-based installer)
+**Option 1**: Download aus dem Windows store
 
-Häkchen bei "Add Python 3.x to PATH" setzen
+**Option 2**: Download von <https://python.org> (Während der Installation: Häkchen bei "Add Python 3.x to PATH" setzen)
 
 <!--
 Python zu path hinzufügen
@@ -79,7 +79,15 @@ C:\Users\Marko\Anaconda3
 C:\Users\Marko\Anaconda3\Scripts
 -->
 
-## Python Installation
+## Installation unter Windows
+
+Überprüfen der Installation:
+
+`python --version` sollte die Versionsnummer anzeigen
+
+`pip install requests` sollte ein kleines Python-Paket namens _requests_ erfolgreich herunterladen und installieren
+
+## Installation unter Windows
 
 Python Installation beinhaltet:
 
@@ -87,7 +95,6 @@ Python Installation beinhaltet:
 - IDLE: Einfache Entwicklungsumgebung
 - interaktive Python-Konsole
 - PIP: Paketmanager zum Installieren von Erweiterungen
-- Python Dokumentation
 
 # Python im interaktiven Modus
 
@@ -144,7 +151,7 @@ Binder:
 
 ```py
 birth_year = 1970
-current_year = 2019
+current_year = 2020
 age = current_year - birth_year
 ```
 
