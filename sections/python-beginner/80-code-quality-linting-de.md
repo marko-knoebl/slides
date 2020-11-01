@@ -22,47 +22,29 @@ offizielles Dokument: https://www.python.org/dev/peps/pep-0008/
 
 cheatsheet: https://gist.github.com/RichardBronosky/454964087739a449da04
 
-## PEP8 & Code-Formatierungs-Tools
+## Code-Formatierungs-Tools
 
+- **black**
 - autopep8
 - yapf
-- _black_
 
 In VS Code-Einstellungen: `"python.formatting.provider": "black"`
 
-## PEP8 und Code-Formatierungs-Tools
+## Code-Formatierungs-Tools
+
+input:
 
 ```py
-# Eingabecode:
-a='hello'; b="bye";
-
-# autopep8:
-a = 'hello'
-b = "bye"
-
-# yapf:
-a = 'hello'
-b = "bye"
-
-# black:
-a = "hello"
-b = "bye"
+a='hello'; b="bye"
+c=a[0+1:3]
 ```
 
-## PEP8 und Code-Formatierungs-Tools
+output via black:
 
 ```py
-# input:
-a[0+3:1]
-
-# autopep8:
-a[0+3:1]
-
-# yapf:
-a[0 + 3:1]
-
-# black:
-a[0 + 3 : 1]
+a = "hello"
+b = "bye"
+c = [0 + 1 : 3]
 ```
 
 ## Python-Philosophie, Zen of Python

@@ -7,6 +7,17 @@
     - statements
       - expressions
 
+## Empty code blocks
+
+_empty_ code block via the `pass` statement:
+
+```py
+# TODO: warn the user if path doesn't exist
+
+if not os.path.exists(my_path):
+    pass
+```
+
 ## Statements across multiple lines
 
 If a statement should encompass multiple lines it is usually written in parentheses:

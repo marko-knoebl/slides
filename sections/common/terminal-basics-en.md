@@ -47,8 +47,8 @@ positional arguments:
 
 options:
 
-- `ls . -l`
-- `ls . -t`
+- `ls . -a` (bash)
+- `ls . -Force` (powershell)
 - `node -h` (short option name with single dash)
 - `node --help` (long option name with double dash)
 
