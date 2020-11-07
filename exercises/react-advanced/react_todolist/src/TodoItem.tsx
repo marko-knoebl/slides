@@ -19,7 +19,7 @@ const TodoItem = (props: Props) => {
       <span className={props.completed ? "todo-item-text-completed" : ""}>
         {props.completed ? "DONE" : "TODO"}: {props.title}
       </span>
-      <button onClick={props.onDelete}>X</button>
+      <button onClick={props.onDelete}>delete</button>
     </li>
   );
 };

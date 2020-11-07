@@ -1,42 +1,55 @@
 import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import TodoApp from "./TodoApp";
+import userEvent from "@testing-library/user-event";
 
-it("renders a todo app", () => {
+test("render a todo app", () => {
   render(<TodoApp />);
 });
 
 describe("interactions", () => {
-  const createTodoAppWithOneTodo = () => {
+  const createTodoAppWithThreeTodos = () => {
     render(<TodoApp />);
     const newTitleInput = screen.getByRole("textbox", { name: /new title/i });
-    fireEvent.change(newTitleInput, { target: { value: "first todo" } });
-    fireEvent.click(screen.getByRole("button", { name: "add" }));
+    const addButton = screen.getByRole("button", { name: "Add Todo" });
+    for (let title of ["first", "second", "third"]) {
+      userEvent.type(newTitleInput, title);
+      userEvent.click(addButton);
+    }
   };
 
-  it("creates a todo app with one todo", () => {
-    createTodoAppWithOneTodo();
-    const todoElements = screen.getAllByRole("listitem");
-    expect(todoElements).toHaveLength(1);
+  test("initialize todo app with three todos", () => {
+    createTodoAppWithThreeTodos();
+    const todoItems = screen.getAllByRole("listitem");
+    expect(todoItems).toHaveLength(3);
+    for (let todoItem of todoItems) {
+      expect(todoItem).toHaveTextContent(/TODO: /);
+    }
   });
 
-  it("lets a user toggle a todo", () => {
-    createTodoAppWithOneTodo();
-    const todoItem = screen.getByRole("listitem");
-    expect(todoItem).toHaveTextContent(/TODO/);
-    fireEvent.click(todoItem);
-    expect(todoItem).toHaveTextContent(/DONE/);
+  test("toggling a todo", () => {
+    createTodoAppWithThreeTodos();
+    const todoList = screen.getByRole("list");
+    const firstTodoItem = within(todoList).getAllByRole("listitem")[0];
+    expect(firstTodoItem).toHaveTextContent(/TODO: /);
+    userEvent.click(firstTodoItem);
+    expect(firstTodoItem).toHaveTextContent(/DONE: /);
   });
 
-  it("lets a user delete a todo", () => {
-    createTodoAppWithOneTodo();
-    fireEvent.click(screen.getByRole("button", { name: "X" }));
-    expect(screen.queryAllByRole("listitem")).toHaveLength(0);
+  test("deleting a todo", () => {
+    createTodoAppWithThreeTodos();
+    const todoList = screen.getByRole("list");
+    const firstTodoItem = within(todoList).getAllByRole("listitem")[0];
+    const firstTodoItemDeleteButton = within(firstTodoItem).getByRole(
+      "button",
+      { name: "delete" }
+    );
+    userEvent.click(firstTodoItemDeleteButton);
+    expect(screen.queryAllByRole("listitem")).toHaveLength(2);
   });
 });
 
-it("fetches todos from an API", async () => {
-  // arrange
+test("fetch todos from an API", async () => {
   const fetch = globalThis.fetch;
   globalThis.fetch = () =>
     Promise.resolve({
@@ -48,14 +61,11 @@ it("fetches todos from an API", async () => {
     }) as Promise<Response>;
   render(<TodoApp />);
 
-  // act
-  fireEvent.click(screen.getByRole("button", { name: /load from API/ }));
+  userEvent.click(screen.getByRole("button", { name: /load from API/ }));
 
-  // assert
   const allTodos = await screen.findAllByRole("listitem");
   const numTodos = allTodos.length;
   expect(numTodos).toBeGreaterThanOrEqual(2);
 
-  // cleanup
   globalThis.fetch = fetch;
 });

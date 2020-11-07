@@ -21,7 +21,7 @@ const AddTodo = (props: Props) => {
           onChange={(event) => setNewTitle(event.target.value)}
         />
       </label>
-      <button disabled={newTitle.length === 0}>add</button>
+      <button disabled={newTitle.length === 0}>Add Todo</button>
     </form>
   );
 };
