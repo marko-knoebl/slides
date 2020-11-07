@@ -13,14 +13,6 @@ what to test:
 - rendering
 - reacting to user actions
 
-## Testing React components
-
-three general steps:
-
-- arrange
-- act
-- assert
-
 ## Test renderers for React
 
 - **react-testing-library**

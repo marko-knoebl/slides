@@ -13,14 +13,6 @@ was kann getestet werden:
 - Rendering
 - Reaktion auf User-Aktionen
 
-## Testen von React-Komponenten
-
-im allgemeinen drei Schritte:
-
-- arrange (vorbereiten)
-- act (Interaktion)
-- assert (Überprüfen von Konditionen)
-
 ## Test Renderer für React
 
 - **react-testing-library**

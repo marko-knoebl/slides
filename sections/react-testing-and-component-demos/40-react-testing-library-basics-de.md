@@ -25,7 +25,7 @@ it('renders learn react link', () => {
 Abfrage mittels _ARIA role_ und _accessible name_:
 
 ```js
-screen.getByRole('button', { name: 'delete' });
+screen.getByRole('button', { name: /delete/i });
 screen.getByRole('textbox', { name: /new title/i });
 screen.getAllByRole('listitem');
 ```
@@ -61,12 +61,12 @@ Beispiele für _Role_ (implizit oder explizit gesetzt):
 import { screen, within } from '@testing-library/react';
 
 const todoList = screen.getByRole('list');
-const thirdTodo = within(todoList).getAllByRole(
+const firstTodoItem = within(todoList).getAllByRole(
   'listitem'
-)[2];
-const deleteButton = within(thirdListItem).getByRole(
-  'button'
-);
+)[0];
+const firstTodoItemDeleteButton = within(
+  firstTodoItem
+).getByRole('button', { name: /delete/i });
 ```
 
 ## Assertions
@@ -75,88 +75,20 @@ erweiterte Assertions (bei _create-react-app_ vorkonfiguriert):
 
 - `.toHaveTextContent()`
 - `.toHaveAttribute()`
+- `.toHaveClass()`
 - `.toBeInTheDocument()`
 - ... (siehe <https://github.com/testing-library/jest-dom>)
 
-## Benutzerinteraktionen
+## Benutzerinteraktionen simulieren
 
 ```js
-import { fireEvent } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
-fireEvent.click(getByRole('button', { name: 'Submit' }));
-fireEvent.change(getByRole('input', { name: 'title' }), {
-  target: { value: 'write tests' },
-});
+userEvent.type(
+  screen.getByRole('input', { name: /title/i }),
+  'write tests'
+);
+userEvent.click(
+  screen.getByRole('button', { name: /add todo/i })
+);
 ```
-
-## Testen des Renderings
-
-_Slideshow_-Komponente:
-
-```jsx
-it('renders a slideshow starting at image 0', () => {
-  render(<Slideshow />);
-  const slide = screen.getByRole('img');
-  expect(slide).toHaveAttribute(
-    'src',
-    'https://picsum.photos/200?image=0'
-  );
-});
-```
-
-## Testen des Renderings
-
-_TodoItem_-Komponente:
-
-```jsx
-it('renders a list item with a given title text', () => {
-  const title = 'title-text';
-  render(<TodoItem title={title} completed={false} />);
-  const todoElement = screen.getByRole('listitem');
-  expect(todoElement).toHaveTextContent(new RegExp(title));
-});
-```
-
-## Testen von State-Änderungen
-
-Slideshow-Komponente:
-
-```jsx
-import { fireEvent } from '@testing-library/react';
-
-it('switches to the next slide', () => {
-  render(<Slideshow />);
-  fireEvent.click(
-    screen.getByRole('button', { name: 'next' })
-  );
-  expect(screen.getByRole('img')).toHaveAttribute(
-    'src',
-    'https://picsum.photos/200?image=1'
-  );
-});
-```
-
-## Testen von Events
-
-_TodoItem_-Komponente:
-
-```jsx
-it('triggers an event when the todo is clicked', () => {
-  const mockFn = jest.fn();
-  render(
-    <TodoItem
-      title="title-text"
-      completed={false}
-      onToggle={mockFn}
-    />
-  );
-  fireEvent.click(screen.getByRole('listitem'));
-  expect(mockFn).toHaveBeenCalled();
-});
-```
-
-## Ressourcen
-
-- [How to use React Testing Library Tutorial, Robin Wieruch](https://www.robinwieruch.de/react-testing-library)
-- [react-testing-examples.com](https://react-testing-examples.com/)
-- [JavaScript Testing Masterclass, Gabriel Vasile](https://docs.google.com/presentation/d/1ljMA8glel6hCopJ9Ib221A-pZ6brnibuwpzRLf1A3OM/)

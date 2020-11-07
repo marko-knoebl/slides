@@ -210,8 +210,8 @@ describe('database', () => {
     clearTestDB();
   });
 
-  it(/*...*/);
-  it(/*...*/);
+  test(/*...*/);
+  test(/*...*/);
 });
 ```
 

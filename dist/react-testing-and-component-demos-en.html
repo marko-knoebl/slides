@@ -2135,13 +2135,6 @@ FiveStars.args = { stars: 5 };
 <li>rendering</li>
 <li>reacting to user actions</li>
 </ul>
-</section><section class="slide"><h2>Testing React components</h2>
-<p>three general steps:</p>
-<ul>
-<li>arrange</li>
-<li>act</li>
-<li>assert</li>
-</ul>
 </section><section class="slide"><h2>Test renderers for React</h2>
 <ul>
 <li><strong>react-testing-library</strong></li>
@@ -2175,7 +2168,7 @@ test(<span class="hljs-string">"displays page with title 'React App'"</span>, <s
 </section><section class="slide"><h2>Example</h2>
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { render, screen } <span class="hljs-keyword">from</span> <span class="hljs-string">'@testing-library/react'</span>;
 
-it(<span class="hljs-string">'renders learn react link'</span>, () => {
+test(<span class="hljs-string">'renders learn react link'</span>, () => {
   render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">App</span> /></span>);
   const linkElement = screen.getByRole('link', {
     name: /learn react/i,
@@ -2185,7 +2178,7 @@ it(<span class="hljs-string">'renders learn react link'</span>, () => {
 </span></code></pre>
 </section><section class="slide"><h2>Querying elements</h2>
 <p>Querying by <em>ARIA role</em> and <em>accessible name</em>:</p>
-<pre><code class="hljs language-js">screen.getByRole(<span class="hljs-string">'button'</span>, { <span class="hljs-attr">name</span>: <span class="hljs-string">'delete'</span> });
+<pre><code class="hljs language-js">screen.getByRole(<span class="hljs-string">'button'</span>, { <span class="hljs-attr">name</span>: <span class="hljs-regexp">/delete/i</span> });
 screen.getByRole(<span class="hljs-string">'textbox'</span>, { <span class="hljs-attr">name</span>: <span class="hljs-regexp">/new title/i</span> });
 screen.getAllByRole(<span class="hljs-string">'listitem'</span>);
 </code></pre>
@@ -2217,85 +2210,84 @@ screen.getAllByRole(<span class="hljs-string">'listitem'</span>);
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { screen, within } <span class="hljs-keyword">from</span> <span class="hljs-string">'@testing-library/react'</span>;
 
 <span class="hljs-keyword">const</span> todoList = screen.getByRole(<span class="hljs-string">'list'</span>);
-<span class="hljs-keyword">const</span> thirdTodo = within(todoList).getAllByRole(
+<span class="hljs-keyword">const</span> firstTodoItem = within(todoList).getAllByRole(
   <span class="hljs-string">'listitem'</span>
-)[<span class="hljs-number">2</span>];
-<span class="hljs-keyword">const</span> deleteButton = within(thirdListItem).getByRole(
-  <span class="hljs-string">'button'</span>
-);
+)[<span class="hljs-number">0</span>];
+<span class="hljs-keyword">const</span> firstTodoItemDeleteButton = within(
+  firstTodoItem
+).getByRole(<span class="hljs-string">'button'</span>, { <span class="hljs-attr">name</span>: <span class="hljs-regexp">/delete/i</span> });
 </code></pre>
 </section><section class="slide"><h2>Assertions</h2>
 <p>extra assertions (enabled automatically when using <em>create-react-app</em>):</p>
 <ul>
 <li><code>.toHaveTextContent()</code></li>
 <li><code>.toHaveAttribute()</code></li>
+<li><code>.toHaveClass()</code></li>
 <li><code>.toBeInTheDocument()</code></li>
 <li>... (see <a href="https://github.com/testing-library/jest-dom">https://github.com/testing-library/jest-dom</a>)</li>
 </ul>
-</section><section class="slide"><h2>User interactions</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { fireEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">'@testing-library/react'</span>;
+</section><section class="slide"><h2>Simulating user interactions</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> userEvent <span class="hljs-keyword">from</span> <span class="hljs-string">'@testing-library/user-event'</span>;
 
-fireEvent.click(getByRole(<span class="hljs-string">'button'</span>, { <span class="hljs-attr">name</span>: <span class="hljs-string">'Submit'</span> }));
-fireEvent.change(getByRole(<span class="hljs-string">'input'</span>, { <span class="hljs-attr">name</span>: <span class="hljs-string">'title'</span> }), {
-  <span class="hljs-attr">target</span>: { <span class="hljs-attr">value</span>: <span class="hljs-string">'write tests'</span> },
-});
+userEvent.type(
+  screen.getByRole(<span class="hljs-string">'input'</span>, { <span class="hljs-attr">name</span>: <span class="hljs-regexp">/title/i</span> }),
+  <span class="hljs-string">'write tests'</span>
+);
+userEvent.click(
+  screen.getByRole(<span class="hljs-string">'button'</span>, { <span class="hljs-attr">name</span>: <span class="hljs-regexp">/add todo/i</span> })
+);
 </code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>React-Testing-Library example: todo app</h1>
 </section><section class="slide"><h2>Testing the rendering</h2>
-<p><em>Slideshow</em> component:</p>
-<pre><code class="hljs language-jsx">it(<span class="hljs-string">'renders a slideshow starting at image 0'</span>, () => {
-  render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Slideshow</span> /></span>);
-  const slide = screen.getByRole('img');
-  expect(slide).toHaveAttribute(
-    'src',
-    'https://picsum.photos/200?image=0'
-  );
-});
-</span></code></pre>
-</section><section class="slide"><h2>Testing the rendering</h2>
-<p><em>TodoItem</em> component:</p>
-<pre><code class="hljs language-jsx">it(<span class="hljs-string">'renders a list item with a given title text'</span>, () => {
-  <span class="hljs-keyword">const</span> title = <span class="hljs-string">'title-text'</span>;
+<pre><code class="hljs language-jsx">test(<span class="hljs-string">'renders a list item with a given text'</span>, () => {
+  <span class="hljs-keyword">const</span> title = <span class="hljs-string">'test-title'</span>;
   render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">TodoItem</span> <span class="hljs-attr">title</span>=<span class="hljs-string">{title}</span> <span class="hljs-attr">completed</span>=<span class="hljs-string">{false}</span> /></span>);
-  const todoElement = screen.getByRole('listitem');
-  expect(todoElement).toHaveTextContent(new RegExp(title));
-});
-</span></code></pre>
-</section><section class="slide"><h2>Testing state changes</h2>
-<p><em>Slideshow</em> component:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> { fireEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">'@testing-library/react'</span>;
-
-it(<span class="hljs-string">'switches to the next slide'</span>, () => {
-  render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Slideshow</span> /></span>);
-  fireEvent.click(
-    screen.getByRole('button', { name: 'next' })
-  );
-  expect(screen.getByRole('img')).toHaveAttribute(
-    'src',
-    'https://picsum.photos/200?image=1'
-  );
+  const listItem = screen.getByRole('listitem');
+  expect(listItem).toHaveTextContent(new RegExp(title));
 });
 </span></code></pre>
 </section><section class="slide"><h2>Testing events</h2>
-<p><em>TodoItem</em> component:</p>
-<pre><code class="hljs language-jsx">it(<span class="hljs-string">'triggers an event when the todo is clicked'</span>, () => {
+<pre><code class="hljs language-jsx">test(<span class="hljs-string">'triggers the toggle event'</span>, () => {
   <span class="hljs-keyword">const</span> mockFn = jest.fn();
   render(
     <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">TodoItem</span>
-      <span class="hljs-attr">title</span>=<span class="hljs-string">"title-text"</span>
+      <span class="hljs-attr">title</span>=<span class="hljs-string">"foo"</span>
       <span class="hljs-attr">completed</span>=<span class="hljs-string">{false}</span>
       <span class="hljs-attr">onToggle</span>=<span class="hljs-string">{mockFn}</span>
     /></span>
   );
-  fireEvent.click(screen.getByRole('listitem'));
+  const listItem = screen.getByRole('listitem');
+  userEvent.click(listItem);
   expect(mockFn).toHaveBeenCalled();
 });
 </span></code></pre>
-</section><section class="slide"><h2>Resources</h2>
-<ul>
-<li><a href="https://www.robinwieruch.de/react-testing-library">How to use React Testing Library Tutorial, Robin Wieruch</a></li>
-<li><a href="https://react-testing-examples.com/">react-testing-examples.com</a></li>
-<li><a href="https://docs.google.com/presentation/d/1ljMA8glel6hCopJ9Ib221A-pZ6brnibuwpzRLf1A3OM/">JavaScript Testing Masterclass, Gabriel Vasile</a></li>
-</ul>
+</section><section class="slide"><h2>Setting up initial state</h2>
+<p>Setting up a todo application with three todos before each test:</p>
+<pre><code class="hljs language-jsx">beforeEach(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">TodoApp</span> /></span>);
+  const newTitleInput = screen.getByRole('textbox', {
+    name: /new title/i,
+  });
+  const addButton = screen.getByRole('button', {
+    name: 'add',
+  });
+  for (let title of ['first', 'second', 'third']) {
+    userEvent.type(newTitleInput, title);
+    userEvent.click(addButton);
+  }
+});
+</span></code></pre>
+</section><section class="slide"><h2>Testing state changes</h2>
+<pre><code class="hljs language-jsx">test(<span class="hljs-string">'toggling a todo'</span>, () => {
+  <span class="hljs-keyword">const</span> todoList = screen.getByRole(<span class="hljs-string">'list'</span>);
+  <span class="hljs-keyword">const</span> firstTodoItem = within(todoList).getAllByRole(
+    <span class="hljs-string">'listitem'</span>
+  )[<span class="hljs-number">0</span>];
+  expect(firstTodoItem).toHaveTextContent(<span class="hljs-regexp">/TODO: /</span>);
+  userEvent.click(firstTodoItem);
+  expect(firstTodoItem).toHaveTextContent(<span class="hljs-regexp">/DONE: /</span>);
+});
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>React-Testing-Library intermediate</h1>
 </section><section class="slide"><h2>Other queries</h2>
 <ul>
@@ -2303,11 +2295,19 @@ it(<span class="hljs-string">'switches to the next slide'</span>, () => {
 <li><code>getByLabelText</code>: for form fields</li>
 <li><code>getByAltText</code>: e.g. for images</li>
 <li><code>getByTitle</code>: e.g. for images / links</li>
+<li><code>getByTestId</code>: for explicit test ids via <code>data-testid="..."</code></li>
 <li>... (see <a href="https://testing-library.com/docs/dom-testing-library/api-queries#queries">https://testing-library.com/docs/dom-testing-library/api-queries#queries</a>)</li>
 </ul>
 </section><section class="slide"><h2>getByText</h2>
 <p>useful for <em>divs</em> / <em>spans</em> (no default <em>role</em>)</p>
 <p>note: Consider giving the element an appropriate role, and using e.g. <code>getByRole("presentation", { name: "text" })</code></p>
+</section><section class="slide"><h2>getByLabelText</h2>
+<p>we can get <em>text input fields</em> via <code>getByRole</code>:</p>
+<pre><code class="hljs language-js">screen.getByRole(<span class="hljs-string">'textbox'</span>, <span class="hljs-string">'first name'</span>);
+</code></pre>
+<p>for other input types we should use <code>getByLabelText</code>:</p>
+<pre><code class="hljs language-js">screen.getByLabelText(<span class="hljs-string">'birth year'</span>);
+</code></pre>
 </section><section class="slide"><h2>Testing asynchronous interactions and APIs</h2>
 <p>Use <code>.findByRole</code>, instead of <code>.getByRole</code> to wait for an element to appear</p>
 <p><code>findByRole</code> will repeatedly query for an element until it exists (by default every 0.05 seconds for a maximum of 1 second)</p>
@@ -2328,7 +2328,7 @@ it(<span class="hljs-string">'switches to the next slide'</span>, () => {
 </code></pre>
 </section><section class="slide"><h2>Testing asynchronous interactions</h2>
 <p>testing with an actual API:</p>
-<pre><code class="hljs language-js">it(<span class="hljs-string">'loads Chuck Norris joke from API'</span>, <span class="hljs-keyword">async</span> () => {
+<pre><code class="hljs language-js">test(<span class="hljs-string">'load Chuck Norris joke from API'</span>, <span class="hljs-keyword">async</span> () => {
   render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">ChuckNorrisJoke</span> /></span>);
   const jokeElement = await screen.findByRole('article');
   // joke should have at least 3 characters
@@ -2345,7 +2345,7 @@ globalThis.fetch = <span class="hljs-function"><span class="hljs-params">()</spa
 </code></pre>
 </section><section class="slide"><h2>Testing errors</h2>
 <p>TodoItem component:</p>
-<pre><code class="hljs language-jsx">it(<span class="hljs-string">'throws an error if the title is missing'</span>, () => {
+<pre><code class="hljs language-jsx">test(<span class="hljs-string">'throw an error if the title is missing'</span>, () => {
   <span class="hljs-keyword">const</span> testFn = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
     render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">TodoItem</span> /></span>);
   };
@@ -2361,6 +2361,12 @@ globalThis.fetch = <span class="hljs-function"><span class="hljs-params">()</spa
 <pre><code class="hljs language-js">expect(queryByRole(<span class="hljs-string">'listitem'</span>)).toEqual(<span class="hljs-literal">null</span>);
 </code></pre>
 <p><em>queryBy...</em> will return <em>null</em> instead of throwing</p>
+</section><section class="slide"><h2>Resources</h2>
+<ul>
+<li><a href="https://www.robinwieruch.de/react-testing-library">How to use React Testing Library Tutorial, Robin Wieruch</a></li>
+<li><a href="https://react-testing-examples.com/">react-testing-examples.com</a></li>
+<li><a href="https://docs.google.com/presentation/d/1ljMA8glel6hCopJ9Ib221A-pZ6brnibuwpzRLf1A3OM/">JavaScript Testing Masterclass, Gabriel Vasile</a></li>
+</ul>
 </section></section><section class="slides-section"><section class="slide"><h1>React-Test-Renderer</h1>
 </section><section class="slide"><h2>React-Test-Renderer - installation</h2>
 <pre><code class="hljs language-bash">npm install --save-dev react-test-renderer

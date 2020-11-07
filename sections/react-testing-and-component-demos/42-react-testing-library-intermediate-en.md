@@ -6,6 +6,7 @@
 - `getByLabelText`: for form fields
 - `getByAltText`: e.g. for images
 - `getByTitle`: e.g. for images / links
+- `getByTestId`: for explicit test ids via `data-testid="..."`
 - ... (see <https://testing-library.com/docs/dom-testing-library/api-queries#queries>)
 
 ## getByText
@@ -13,6 +14,20 @@
 useful for _divs_ / _spans_ (no default _role_)
 
 note: Consider giving the element an appropriate role, and using e.g. `getByRole("presentation", { name: "text" })`
+
+## getByLabelText
+
+we can get _text input fields_ via `getByRole`:
+
+```js
+screen.getByRole('textbox', 'first name');
+```
+
+for other input types we should use `getByLabelText`:
+
+```js
+screen.getByLabelText('birth year');
+```
 
 ## Testing asynchronous interactions and APIs
 
@@ -44,7 +59,7 @@ const ChuckNorrisJoke = () => {
 testing with an actual API:
 
 ```js
-it('loads Chuck Norris joke from API', async () => {
+test('load Chuck Norris joke from API', async () => {
   render(<ChuckNorrisJoke />);
   const jokeElement = await screen.findByRole('article');
   // joke should have at least 3 characters
@@ -69,7 +84,7 @@ globalThis.fetch = () =>
 TodoItem component:
 
 ```jsx
-it('throws an error if the title is missing', () => {
+test('throw an error if the title is missing', () => {
   const testFn = () => {
     render(<TodoItem />);
   };
@@ -92,3 +107,9 @@ expect(queryByRole('listitem')).toEqual(null);
 ```
 
 _queryBy..._ will return _null_ instead of throwing
+
+## Resources
+
+- [How to use React Testing Library Tutorial, Robin Wieruch](https://www.robinwieruch.de/react-testing-library)
+- [react-testing-examples.com](https://react-testing-examples.com/)
+- [JavaScript Testing Masterclass, Gabriel Vasile](https://docs.google.com/presentation/d/1ljMA8glel6hCopJ9Ib221A-pZ6brnibuwpzRLf1A3OM/)
