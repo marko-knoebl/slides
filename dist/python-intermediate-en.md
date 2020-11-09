@@ -1010,6 +1010,26 @@ if name:
     ...
 ```
 
+## Chaining comparisons
+
+checking if `age` lies in the range of 13-19:
+
+```py
+13 <= age and age <= 19
+```
+
+short version:
+
+```py
+13 <= age <= 19
+```
+
+checking if `a` and `b` are both `0` (short version):
+
+```py
+a == b == 0
+```
+
 ## if expressions
 
 An expression that evaluates to one of two possibilities based on a boolean criterion

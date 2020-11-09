@@ -5,13 +5,13 @@
 Process:
 
 ```
-wanted: square root of 20
+wanted: square root of 2
 
-n = 20
+n = 2
 
 Start with two approximations, e.g. a=1 and b=n
 
-repeat the following until a nd b are almost equal:
+repeat the following until a and b are almost equal:
 new a = average of old a and old b
 new b = n / a
 

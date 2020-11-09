@@ -27,3 +27,7 @@ while True:
     else:
         print("incorrect")
         incorrect = incorrect + 1
+
+total = correct + incorrect
+correct_relative = correct / total
+print(f"You got {correct} out of {total} correct ({correct_relative * 100}%)")

@@ -8,9 +8,9 @@ Wir kennen schon einige vordefinierte Funktionen, z.B. `len()`, `range()` oder `
 
 Funktionen können Parameter übergeben bekommen und Rückgabewerte haben.
 
-Beispiel: `len([1, 1, 1])` → `3`
+Beispiel: `len("foo")` → `3`
 
-Parameter: `[1, 1, 1]`
+Parameter: `"foo"`
 
 Rückgabewert: `3`
 

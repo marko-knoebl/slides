@@ -60,6 +60,26 @@ if name:
     ...
 ```
 
+## Verketten von Vergleichen
+
+Überprüfen, ob `age` im Bereich 13-19 liegt:
+
+```py
+13 <= age and age <= 19
+```
+
+kürzere Version:
+
+```py
+13 <= age <= 19
+```
+
+Überprüfen, ob `a` und `b` beide `0` sind (kurze Version):
+
+```py
+a == b == 0
+```
+
 ## if Expression
 
 Ein Ausdruck, der einen von zwei möglichen Werten ergibt - basierend auf einem booleschen Kriterium

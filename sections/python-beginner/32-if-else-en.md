@@ -1,20 +1,4 @@
-# If
-
-## Comparisons
-
-In order to use if and while we have to be able to compare values:
-
-```py
-a = 2
-b = 5
-
-print(a == b) # a is equal to b
-print(a != b) # a not equal to b
-print(a < b)  # a is smaller than b
-print(a > b)
-print(a <= b) # a is smaller than or equal to b
-print(a >= b)
-```
+# If / else
 
 ## If / else
 
@@ -34,7 +18,7 @@ else:
 
 ```py
 if age_seconds < 100000000:
-    print("You are les than 100 million seconds old")
+    print("You are less than 100 million seconds old")
 elif age_seconds < 1000000000:
     print("You are less than 1 billion seconds old")
 elif age_seconds < 2000000000:

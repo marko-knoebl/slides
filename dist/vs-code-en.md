@@ -185,3 +185,13 @@ in order to see errors in VS Code: install the Python package _pylint_
 ```bash
 pip install pylint
 ```
+
+## VS Code - Auto formatting
+
+We can auto format code via _Ctrl_ + _Shift_ + _F_
+
+For Python code, install the Formatter _black_:
+
+```bash
+pip install black
+```

@@ -32,3 +32,13 @@ um Fehler in VS Code angezeigt zu bekommen: Installation des Python-Pakets _pyli
 ```bash
 pip install pylint
 ```
+
+## VS Code - Autoformatierung
+
+Automatische Formatierung mittels _Ctrl_ + _Shift_ + _F_
+
+Für Python Code mittels des Formatters _black_:
+
+```bash
+pip install black
+```

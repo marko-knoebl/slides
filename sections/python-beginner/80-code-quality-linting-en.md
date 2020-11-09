@@ -35,16 +35,16 @@ In VS Code config: `"python.formatting.provider": "black"`
 input:
 
 ```py
-a='hello'; b="bye"
+a='Hello'; b="Have you read \"1984\"?"
 c=a[0+1:3]
 ```
 
 output via black:
 
 ```py
-a = "hello"
-b = "bye"
-c = [0 + 1 : 3]
+a = "Hello"
+b = 'Have you read "1984"?'
+c = a[0 + 1 : 3]
 ```
 
 ## Python philosophy, Zen of Python

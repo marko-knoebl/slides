@@ -1,6 +1,6 @@
-# Constituent parts of programs
+# Parts of programs
 
-## Constituent parts of programs
+## Parts of programs
 
 - programs
   - code blocks
@@ -20,7 +20,7 @@ if not os.path.exists(my_path):
 
 ## Statements across multiple lines
 
-If a statement should encompass multiple lines it is usually written in parentheses:
+a statement can span across multiple lines if we use parantheses:
 
 ```py
 a = (2 + 3 + 4 + 5 + 6 +

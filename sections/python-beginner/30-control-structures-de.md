@@ -13,7 +13,7 @@ Die zwei essenziellen Kontrollstrukturen in jeder Programmiersprache:
 
 ## Konstrollstrukturen in Python
 
-- `if`
+- `if ... else ...`
 - Schleifen:
   - `while`
   - `for ... in ...`

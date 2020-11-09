@@ -8,9 +8,9 @@ We already know some predefined functions, like `len()`, `range()` or `print()`
 
 functions can receive parameters and return a value
 
-example: `len([1, 1, 1])` → `3`
+example: `len("foo")` → `3`
 
-parameter: `[1, 1, 1]`
+parameter: `"foo"`
 
 return value: `3`
 

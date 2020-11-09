@@ -20,7 +20,7 @@ if not os.path.exists(my_path):
 
 ## Anweisungen über mehrere Zeilen
 
-Wenn ein Statement über mehrere Zeilen gehen soll, wird es üblicherweise in Klammern gesetzt
+Ein Statement kann über mehrere Zeilen gehen, wenn wir entsprechend Klammern setzen
 
 ```py
 a = (2 + 3 + 4 + 5 + 6 +

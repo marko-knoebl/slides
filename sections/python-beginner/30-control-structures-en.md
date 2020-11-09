@@ -13,7 +13,7 @@ The two most essential control structures in every programming language are:
 
 ## Control structures in Python
 
-- `if`
+- `if ... else ...`
 - loops:
   - `while`
   - `for ... in ...`

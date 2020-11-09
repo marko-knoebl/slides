@@ -2542,26 +2542,43 @@ print(len(content))
 </ul>
 </section><section class="slide"><h2>Konstrollstrukturen in Python</h2>
 <ul>
-<li><code>if</code></li>
+<li><code>if ... else ...</code></li>
 <li>Schleifen:<ul>
 <li><code>while</code></li>
 <li><code>for ... in ...</code></li>
 <li><code>for ... in range(...)</code></li>
 </ul></li>
 </ul>
-</section></section><section class="slides-section"><section class="slide"><h1>If</h1>
+</section></section><section class="slides-section"><section class="slide"><h1>Vergleiche</h1>
 </section><section class="slide"><h2>Vergleiche</h2>
-<p>Für den Einsatz von if und while müssen wir Werte vergleichen können:</p>
+<p>Um <code>if</code> und <code>while</code> nutzen zu können, müssen wir Werte vergleichen können:</p>
 <pre><code class="hljs language-py">a = <span class="hljs-number">2</span>
 b = <span class="hljs-number">5</span>
 
-print(a == b) <span class="hljs-comment"># a gleich b</span>
-print(a != b) <span class="hljs-comment"># a ungleich b</span>
-print(a &#x3C; b)  <span class="hljs-comment"># a kleiner b</span>
+print(a == b) <span class="hljs-comment"># a is equal to b</span>
+print(a != b) <span class="hljs-comment"># a not equal to b</span>
+print(a &#x3C; b)  <span class="hljs-comment"># a is smaller than b</span>
 print(a > b)
-print(a &#x3C;= b) <span class="hljs-comment"># a kleiner oder gleich b</span>
+print(a &#x3C;= b) <span class="hljs-comment"># a is smaller than or equal to b</span>
 print(a >= b)
 </code></pre>
+</section><section class="slide"><h2>Vergleiche</h2>
+<p>Das Resultat eines Vergleichs ist ein <em>boolescher Wert</em> (<code>True</code> / <code>False</code>)</p>
+<p>Wir können das Resultat in einer Variablen speichern:</p>
+<pre><code class="hljs language-py">is_adult = age >= <span class="hljs-number">18</span>
+</code></pre>
+</section><section class="slide"><h2>Verknüpfung mit and, or, not</h2>
+<p>Beispiele:</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">if</span> age >= <span class="hljs-number">18</span> <span class="hljs-keyword">and</span> country == <span class="hljs-string">"de"</span>:
+    print(<span class="hljs-string">"may drink alcohol"</span>)
+
+<span class="hljs-keyword">if</span> temperature &#x3C; <span class="hljs-number">-10</span> <span class="hljs-keyword">or</span> temperature > <span class="hljs-number">30</span>:
+    print(<span class="hljs-string">"extreme weather"</span>)
+
+<span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> value > <span class="hljs-number">10</span>:
+    print(<span class="hljs-string">"value not greater than 10"</span>)
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>If / else</h1>
 </section><section class="slide"><h2>If / else</h2>
 <p>Beispiel:</p>
 <pre><code class="hljs language-py">age = <span class="hljs-number">30</span>
@@ -2574,7 +2591,7 @@ age_seconds = age * <span class="hljs-number">365</span> * <span class="hljs-num
 </code></pre>
 </section><section class="slide"><h2>If / elif / else</h2>
 <pre><code class="hljs language-py"><span class="hljs-keyword">if</span> age_seconds &#x3C; <span class="hljs-number">100000000</span>:
-    print(<span class="hljs-string">"You are les than 100 million seconds old"</span>)
+    print(<span class="hljs-string">"You are less than 100 million seconds old"</span>)
 <span class="hljs-keyword">elif</span> age_seconds &#x3C; <span class="hljs-number">1000000000</span>:
     print(<span class="hljs-string">"You are between 100 million and 1 billion seconds old"</span>)
 <span class="hljs-keyword">elif</span> age_seconds &#x3C; <span class="hljs-number">2000000000</span>:
@@ -2631,30 +2648,6 @@ your shopping list is:
     print(a)
     <span class="hljs-keyword">if</span> (a > <span class="hljs-number">1000</span>):
         <span class="hljs-keyword">break</span>
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Verknüpfung von Vergleichen</h1>
-</section><section class="slide"><h2>Verknüpfung von Vergleichen</h2>
-<ul>
-<li>Verknüpfung mit den drei Schlüsselwörtern: <code>and</code>, <code>or</code>, <code>not</code></li>
-<li>Verkettung von Vergleichen</li>
-</ul>
-</section><section class="slide"><h2>Verknüpfung mit and, or, not</h2>
-<p>Beispiele:</p>
-<pre><code class="hljs language-py"><span class="hljs-keyword">if</span> age >= <span class="hljs-number">18</span> <span class="hljs-keyword">and</span> country == <span class="hljs-string">"de"</span>:
-    print(<span class="hljs-string">"may drink alcohol"</span>)
-
-<span class="hljs-keyword">if</span> temperature &#x3C; <span class="hljs-number">-10</span> <span class="hljs-keyword">or</span> temperature > <span class="hljs-number">30</span>:
-    print(<span class="hljs-string">"extreme weather"</span>)
-
-<span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> value > <span class="hljs-number">10</span>:
-    print(<span class="hljs-string">"value not greater than 10"</span>)
-</code></pre>
-</section><section class="slide"><h2>Verketten von Vergleichen</h2>
-<p><code>a</code> und <code>b</code> sind beide <code>0</code></p>
-<pre><code class="hljs language-py">a == b == <span class="hljs-number">0</span>
-</code></pre>
-<p><code>b</code> ist zwischen 4 und 10</p>
-<pre><code class="hljs language-py"><span class="hljs-number">4</span> &#x3C; b &#x3C; <span class="hljs-number">10</span>
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>For-Schleifen</h1>
 </section><section class="slide"><h2>For-Schleifen</h2>
@@ -2721,7 +2714,7 @@ Logged in as Alice!
     <span class="hljs-keyword">pass</span>
 </code></pre>
 </section><section class="slide"><h2>Anweisungen über mehrere Zeilen</h2>
-<p>Wenn ein Statement über mehrere Zeilen gehen soll, wird es üblicherweise in Klammern gesetzt</p>
+<p>Ein Statement kann über mehrere Zeilen gehen, wenn wir entsprechend Klammern setzen</p>
 <pre><code class="hljs language-py">a = (<span class="hljs-number">2</span> + <span class="hljs-number">3</span> + <span class="hljs-number">4</span> + <span class="hljs-number">5</span> + <span class="hljs-number">6</span> +
      <span class="hljs-number">7</span> + <span class="hljs-number">8</span> + <span class="hljs-number">9</span> + <span class="hljs-number">10</span>)
 </code></pre>
@@ -2732,52 +2725,21 @@ Logged in as Alice!
 </section></section><section class="slides-section"><section class="slide"><h1>Kontrollstrukturen - Übungen</h1>
 </section><section class="slide"><h2>Kontrollstrukturen - Übungen</h2>
 <ul>
-<li>Schaltjahr (if / elif / else)</li>
-<li>Zahlenraten mit mehreren Versuchen</li>
-<li>Schleife, die die Zahlen 1 bis 10 ausgibt</li>
-<li>Schleife, die die Zahlen der 7er-Reihe des Einmaleins ausgibt</li>
-<li>Zahlenraten mit echten Zufallszahlen</li>
-<li>Rechentrainer mit Zufallsaufgaben</li>
+<li>Zahlenraten</li>
+<li>Gesetze nach Alter</li>
+<li>Rechentrainer (mit Zufallsaufgaben)</li>
+<li>Loginsystem</li>
+<li>Schaltjahr</li>
 <li>Babylonisches Wurzelziehen</li>
 </ul>
-</section><section class="slide"><h2>Übung: Schaltjahr</h2>
-<ul>
-<li>Jahr ist Schaltjahr: wenn durch 4 teilbar</li>
-<li>Ausnahme: wenn auch durch 100 teilbar</li>
-<li>Ausnahme von der Ausnahme: wenn auch durch 400 teilbar</li>
-</ul>
-<p>Hinweis: "x ist teilbar durch y" in Python: <code>x % y == 0</code></p>
-</section><section class="slide"><h2>Übung: Babylonisches Wurzelziehen</h2>
-<p>Berechnungsverfahren für die Quadratwurzel, das schon vor fast 4000 Jahren in Mesopotamien verwendet wurde</p>
-</section><section class="slide"><h2>Übung: Babylonisches Wurzelziehen</h2>
-<pre><code class="hljs language-pseudocode">gesucht: Quadratwurzel aus 12345
-
-n = 12345
-
-Beginne mit zwei "Näherungswerten", z.B. a=1 und b=n
-
-wiederhole das folgende, bis a und b fast gleich sind:
-neues a = Durchschnitt aus alten Werten a und b
-neues b = n / a
-
-=> a und b nähern sich (schnell) der Quadratwurzel an
-</code></pre>
-</section><section class="slide"><h2>Übung: Babylonisches Wurzelziehen: Lösung</h2>
-<pre><code class="hljs language-py">n = <span class="hljs-number">12345</span>
-a = <span class="hljs-number">1</span>
-b = n
-<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">10</span>):
-    a = (a + b) / <span class="hljs-number">2</span>
-    b = n / a
-print(b)
-</code></pre>
+<p>siehe <a href="https://github.com/marko-knoebl/slides/tree/master/exercises/python-beginner">https://github.com/marko-knoebl/slides/tree/master/exercises/python-beginner</a></p>
 </section></section><section class="slides-section"><section class="slide"><h1>Funktionen</h1>
 </section><section class="slide"><h2>Funktionen</h2>
 <p>Wir kennen schon einige vordefinierte Funktionen, z.B. <code>len()</code>, <code>range()</code> oder <code>print()</code></p>
 </section><section class="slide"><h2>Parameter und Rückgabewerte</h2>
 <p>Funktionen können Parameter übergeben bekommen und Rückgabewerte haben.</p>
-<p>Beispiel: <code>len([1, 1, 1])</code> → <code>3</code></p>
-<p>Parameter: <code>[1, 1, 1]</code></p>
+<p>Beispiel: <code>len("foo")</code> → <code>3</code></p>
+<p>Parameter: <code>"foo"</code></p>
 <p>Rückgabewert: <code>3</code></p>
 </section><section class="slide"><h2>Positionale Parameter und Schlüsselwortparameter</h2>
 <p>Aufruf von <code>open</code>:</p>
@@ -2848,52 +2810,16 @@ help(round)
 </section><section class="slide"><h2>Aufgabe: ask_yes_no()</h2>
 <p>Schreibe eine Funktion namens <code>ask_yes_no</code>, die dem Benutzer eine Ja/Nein-Frage stellt und entweder <code>True</code> oder <code>False</code> zurückliefert</p>
 </section></section><section class="slides-section"><section class="slide"><h1>Funktionen: Übungsaufgaben</h1>
-</section><section class="slide"><h2>Übungsaufgaben</h2>
+</section><section class="slide"><h2>Funktionen: Übungsaufgaben</h2>
 <ul>
-<li>Funktion, die eine Kreditkartennummer / ISBN / IBAN validiert</li>
-<li>Primzahlen in einem Intervall</li>
-<li>Fibonacci-Zahlen</li>
+<li>Funktion, die überprüft, ob ein Jahr ein Schaltjahr ist</li>
+<li>Funktion, die überprüft, ob eine Zahl eine Primzahl ist</li>
+<li>Funktion, die alle Primzahlen in einem Intervall zurückgibt</li>
+<li>Funktion, die die Prüfziffer eines Strichcodes validiert (GTIN Prüfziffer)</li>
+<li>Funktion, die die Fibonacci-Zahlen berechnet</li>
 </ul>
-<p>Für ISBN / Primzahlen: %-Operator</p>
-</section><section class="slide"><h2>Luhn Algorithmus (Prüfziffer)</h2>
-<p>Der Luhn Algorithm wird verwendet, um Fehler in Identifikationsnummern, wie z.B. Kreditkartennummern, zu vermeiden.</p>
-<p>Die letzte Ziffer dieser Nummern ist eine Prüfziffer die sich aus den anderen Ziffern errechnet</p>
-<p>Beispiel: Die Nummer <code>7992739871</code> hat die Prüfziffer <code>3</code>, die vollständige Nummer wäre also <code>79927398713</code></p>
-</section><section class="slide"><h2>Luhn Algorithmus (Prüfziffer)</h2>
-<p>Prüfziffer errechnen:</p>
-<p>Beginnend von rechts, ersetze jede zweite Ziffer mittels dieses Schemas:</p>
-<p>0 → 0, 1 → 2, 2 → 4, 3 → 6, 4 → 8,<br />
-5 → 1, 6 → 3, 7 → 5, 8 → 7, 9 → 9</p>
-<p>(Beispiel: <code>7992739871</code> wird zu <code>7994769772</code>)</p>
-<p>Addiere alle Ziffern</p>
-<p>(Beispiel: <code>7994769772</code> wird zu 67)</p>
-<p>Die Prüfziffer ist jene Ziffer, die auf die nächstgrößere Zehnerzahl fehlt</p>
-<p>(im Beispiel: 3)</p>
-</section><section class="slide"><h2>ISBN</h2>
-<p>International Standard Book Number = 10-stellige Buchnummer mit Prüfziffer am Ende</p>
-<p>Berechnung der Prüfziffer:</p>
-<p>(erste Ziffer + 2 * zweite Ziffer + 3 * dritte Ziffer ... + 9 * neunte Ziffer) modulo 11</p>
-<p>Aufgabe:</p>
-<pre><code class="hljs language-py">check_isbn(<span class="hljs-string">"3826604237"</span>) <span class="hljs-comment"># True oder False</span>
-</code></pre>
-</section><section class="slide"><h2>ISBN</h2>
-<pre><code class="hljs language-py">isbn = <span class="hljs-string">"3826604237"</span>
-expected = <span class="hljs-number">7</span>
-
-<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">check_isbn</span><span class="hljs-params">(isbn, checksum)</span>:</span>
-    <span class="hljs-keyword">return</span> isbn_checksum(isbn) == checksum
-
-
-<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">isbn_checksum</span><span class="hljs-params">(isbn)</span>:</span>
-    sum = <span class="hljs-number">0</span>
-    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">9</span>):
-        sum += int(isbn[i]) * (i + <span class="hljs-number">1</span>)
-
-    <span class="hljs-keyword">return</span> sum % <span class="hljs-number">11</span>
-
-print(check_isbn(isbn, expected))
-</code></pre>
-</section><section class="slide"><h2>IBAN</h2>
+<p>für Strichcodes / Primzahlen: % - Operator</p>
+<p>Siehe: <a href="https://github.com/marko-knoebl/slides/tree/master/exercises/python-beginner">https://github.com/marko-knoebl/slides/tree/master/exercises/python-beginner</a></p>
 </section></section><section class="slides-section"><section class="slide"><h1>Codequalität und Linting</h1>
 </section><section class="slide"><h2>Codequalität und Linting</h2>
 <p>Aspekte:</p>
@@ -2918,13 +2844,13 @@ print(check_isbn(isbn, expected))
 <p>In VS Code-Einstellungen: <code>"python.formatting.provider": "black"</code></p>
 </section><section class="slide"><h2>Code-Formatierungs-Tools</h2>
 <p>input:</p>
-<pre><code class="hljs language-py">a=<span class="hljs-string">'hello'</span>; b=<span class="hljs-string">"bye"</span>
+<pre><code class="hljs language-py">a=<span class="hljs-string">'Hello'</span>; b=<span class="hljs-string">"Have you read \"1984\"?"</span>
 c=a[<span class="hljs-number">0</span>+<span class="hljs-number">1</span>:<span class="hljs-number">3</span>]
 </code></pre>
 <p>output via black:</p>
-<pre><code class="hljs language-py">a = <span class="hljs-string">"hello"</span>
-b = <span class="hljs-string">"bye"</span>
-c = [<span class="hljs-number">0</span> + <span class="hljs-number">1</span> : <span class="hljs-number">3</span>]
+<pre><code class="hljs language-py">a = <span class="hljs-string">"Hello"</span>
+b = <span class="hljs-string">'Have you read "1984"?'</span>
+c = a[<span class="hljs-number">0</span> + <span class="hljs-number">1</span> : <span class="hljs-number">3</span>]
 </code></pre>
 </section><section class="slide"><h2>Python-Philosophie, Zen of Python</h2>
 <p>Auszüge aus dem <em>Zen of Python</em> (anzeigbar via <code>import this</code>):</p>

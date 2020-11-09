@@ -750,17 +750,17 @@ The two most essential control structures in every programming language are:
 
 ## Control structures in Python
 
-- `if`
+- `if ... else ...`
 - loops:
   - `while`
   - `for ... in ...`
   - `for ... in range(...)`
 
-# If
+# Comparisons
 
 ## Comparisons
 
-In order to use if and while we have to be able to compare values:
+In order to use `if` and `while` we have to compare values:
 
 ```py
 a = 2
@@ -773,6 +773,33 @@ print(a > b)
 print(a <= b) # a is smaller than or equal to b
 print(a >= b)
 ```
+
+## Comparisons
+
+The _result_ of a comparison is a _boolean value_ (`True` / `False`)
+
+We can store the result in a variable:
+
+```py
+is_adult = age >= 18
+```
+
+## Combining comparisons with and, or, not
+
+Examples:
+
+```py
+if age >= 18 and country == "de":
+    print("may drink alcohol")
+
+if temperature < -10 or temperature > 30:
+    print("extreme weather")
+
+if not value > 10:
+    print("value not greater than 10")
+```
+
+# If / else
 
 ## If / else
 
@@ -792,7 +819,7 @@ else:
 
 ```py
 if age_seconds < 100000000:
-    print("You are les than 100 million seconds old")
+    print("You are less than 100 million seconds old")
 elif age_seconds < 1000000000:
     print("You are less than 1 billion seconds old")
 elif age_seconds < 2000000000:
@@ -874,42 +901,6 @@ while True:
         break
 ```
 
-# Combining comparisons
-
-## Combining comparisons
-
-- combining with the three keywords: `and`, `or`, `not`
-- chaining comparisons
-
-## Combining with and, or, not
-
-Examples:
-
-```py
-if age >= 18 and country == "de":
-    print("may drink alcohol")
-
-if temperature < -10 or temperature > 30:
-    print("extreme weather")
-
-if not value > 10:
-    print("value not greater than 10")
-```
-
-## Chaining comparisons
-
-`a` and `b` are both `0`
-
-```py
-a == b == 0
-```
-
-`b` lies between 4 and 10
-
-```py
-4 < b < 10
-```
-
 # For loops
 
 ## For loops
@@ -980,9 +971,9 @@ exercise: creating a "multiplication table"
 ...
 ```
 
-# Constituent parts of programs
+# Parts of programs
 
-## Constituent parts of programs
+## Parts of programs
 
 - programs
   - code blocks
@@ -1002,7 +993,7 @@ if not os.path.exists(my_path):
 
 ## Statements across multiple lines
 
-If a statement should encompass multiple lines it is usually written in parentheses:
+a statement can span across multiple lines if we use parantheses:
 
 ```py
 a = (2 + 3 + 4 + 5 + 6 +
@@ -1020,53 +1011,14 @@ a = 2 + 3 + 4 + 5 + 6 + \
 
 ## Control structures - exercises
 
+- guess the number
+- laws by age
+- math trainer (with random tasks)
+- login system
 - leap year
-- guess the number with multiple tries
-- loop that prints the numbers 1 to 10
-- loop that prints the sequence 7, 14, 21, ...
-- guess the number with random numbers
-- math trainer with random tasks
 - babylonian method (for finding the square root)
 
-## Exercise: leap year
-
-- a year is a leap year if it's divisible by for
-- exception: it's _not_ a leap year if it's also divisible by 100
-- exception from the exception: it _is_ a leap year if it's divisible by 400
-
-Hint: "x is divisible by y" in Python: `x % y == 0`
-
-## Exercise: babylonian method
-
-method for computing the square root of a number which was already in use 4000 years ago in mesopotamia
-
-## Exercise: babylonian method
-
-```pseudocode
-wanted: square root of 12345
-
-n = 12345
-
-Start with two approximations, e.g. a=1 and b=n
-
-repeat the following until a nd b are almost equal:
-new a = average of old a and old b
-new b = n / a
-
-=> a and b will approach the square root
-```
-
-## Exercise: babylonian method: solution
-
-```py
-n = 12345
-a = 1
-b = n
-for i in range(10):
-    a = (a + b) / 2
-    b = n / a
-print(b)
-```
+see <https://github.com/marko-knoebl/slides/tree/master/exercises/python-beginner>
 
 # Functions
 
@@ -1078,9 +1030,9 @@ We already know some predefined functions, like `len()`, `range()` or `print()`
 
 functions can receive parameters and return a value
 
-example: `len([1, 1, 1])` → `3`
+example: `len("foo")` → `3`
 
-parameter: `[1, 1, 1]`
+parameter: `"foo"`
 
 return value: `3`
 
@@ -1203,76 +1155,17 @@ Write a function named `ask_yes_no`, which asks the user a yes/no question and r
 
 # Functions: Exercises
 
-## Exercises
+## Functions: Exercises
 
-- function that verifies a credit card number / ISBN / IBAN
-- prime numbers within an interval
-- fibonacci numbers
+- function that checks if a year is a leap year
+- function that checks if a number is a prime number
+- function that returns all prime numbers in an interval
+- function that verifies a bar code check digit (GTIN check digit)
+- function that computes the fibonacci numbers
 
-For ISBN / primes: use the % operator
+For bar codes / primes: use the % operator
 
-## Luhn algorithm (checksum)
-
-The Luhn algorithm is used to prevent errors in identification numbers, such as credit card numbers
-
-The last digit of these numbers is a check digit which is computed from the other digits
-
-Example: the sequence `7992739871` has a check digit of `3`, so the entire number would be `79927398713`
-
-## Luhn algorithm
-
-Computing the check digit:
-
-starting from the right, replace every _other_ digit based on this schema:
-
-0 → 0, 1 → 2, 2 → 4, 3 → 6, 4 → 8,  
-5 → 1, 6 → 3, 7 → 5, 8 → 7, 9 → 9
-
-(For example `7992739871` will become `7994769772`)
-
-sum all digits
-
-(For example `7994769772` will sum to 67)
-
-the check digit is the number that's missing from the next full 10
-
-(in this case, it's 3)
-
-## ISBN
-
-International Standard Book Number = 10-digit book number with a check digit at its end
-
-computing the check digit:
-
-(1st digit + 2 \* 2nd digit + 3 \* 3rd digit ... + 9 \* 9th digit) modulo 11
-
-task:
-
-```py
-check_isbn("3826604237") # True or False
-```
-
-## ISBN
-
-```py
-isbn = "3826604237"
-expected = 7
-
-def check_isbn(isbn, checksum):
-    return isbn_checksum(isbn) == checksum
-
-
-def isbn_checksum(isbn):
-    sum = 0
-    for i in range(9):
-        sum += int(isbn[i]) * (i + 1)
-
-    return sum % 11
-
-print(check_isbn(isbn, expected))
-```
-
-## IBAN
+see <https://github.com/marko-knoebl/slides/tree/master/exercises/python-beginner>
 
 # Code quality and linting
 
@@ -1311,16 +1204,16 @@ In VS Code config: `"python.formatting.provider": "black"`
 input:
 
 ```py
-a='hello'; b="bye"
+a='Hello'; b="Have you read \"1984\"?"
 c=a[0+1:3]
 ```
 
 output via black:
 
 ```py
-a = "hello"
-b = "bye"
-c = [0 + 1 : 3]
+a = "Hello"
+b = 'Have you read "1984"?'
+c = a[0 + 1 : 3]
 ```
 
 ## Python philosophy, Zen of Python

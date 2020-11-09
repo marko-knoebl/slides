@@ -750,29 +750,56 @@ Die zwei essenziellen Kontrollstrukturen in jeder Programmiersprache:
 
 ## Konstrollstrukturen in Python
 
-- `if`
+- `if ... else ...`
 - Schleifen:
   - `while`
   - `for ... in ...`
   - `for ... in range(...)`
 
-# If
+# Vergleiche
 
 ## Vergleiche
 
-Für den Einsatz von if und while müssen wir Werte vergleichen können:
+Um `if` und `while` nutzen zu können, müssen wir Werte vergleichen können:
 
 ```py
 a = 2
 b = 5
 
-print(a == b) # a gleich b
-print(a != b) # a ungleich b
-print(a < b)  # a kleiner b
+print(a == b) # a is equal to b
+print(a != b) # a not equal to b
+print(a < b)  # a is smaller than b
 print(a > b)
-print(a <= b) # a kleiner oder gleich b
+print(a <= b) # a is smaller than or equal to b
 print(a >= b)
 ```
+
+## Vergleiche
+
+Das Resultat eines Vergleichs ist ein _boolescher Wert_ (`True` / `False`)
+
+Wir können das Resultat in einer Variablen speichern:
+
+```py
+is_adult = age >= 18
+```
+
+## Verknüpfung mit and, or, not
+
+Beispiele:
+
+```py
+if age >= 18 and country == "de":
+    print("may drink alcohol")
+
+if temperature < -10 or temperature > 30:
+    print("extreme weather")
+
+if not value > 10:
+    print("value not greater than 10")
+```
+
+# If / else
 
 ## If / else
 
@@ -792,7 +819,7 @@ else:
 
 ```py
 if age_seconds < 100000000:
-    print("You are les than 100 million seconds old")
+    print("You are less than 100 million seconds old")
 elif age_seconds < 1000000000:
     print("You are between 100 million and 1 billion seconds old")
 elif age_seconds < 2000000000:
@@ -872,42 +899,6 @@ while True:
     print(a)
     if (a > 1000):
         break
-```
-
-# Verknüpfung von Vergleichen
-
-## Verknüpfung von Vergleichen
-
-- Verknüpfung mit den drei Schlüsselwörtern: `and`, `or`, `not`
-- Verkettung von Vergleichen
-
-## Verknüpfung mit and, or, not
-
-Beispiele:
-
-```py
-if age >= 18 and country == "de":
-    print("may drink alcohol")
-
-if temperature < -10 or temperature > 30:
-    print("extreme weather")
-
-if not value > 10:
-    print("value not greater than 10")
-```
-
-## Verketten von Vergleichen
-
-`a` und `b` sind beide `0`
-
-```py
-a == b == 0
-```
-
-`b` ist zwischen 4 und 10
-
-```py
-4 < b < 10
 ```
 
 # For-Schleifen
@@ -1002,7 +993,7 @@ if not os.path.exists(my_path):
 
 ## Anweisungen über mehrere Zeilen
 
-Wenn ein Statement über mehrere Zeilen gehen soll, wird es üblicherweise in Klammern gesetzt
+Ein Statement kann über mehrere Zeilen gehen, wenn wir entsprechend Klammern setzen
 
 ```py
 a = (2 + 3 + 4 + 5 + 6 +
@@ -1020,53 +1011,14 @@ a = 2 + 3 + 4 + 5 + 6 + \
 
 ## Kontrollstrukturen - Übungen
 
-- Schaltjahr (if / elif / else)
-- Zahlenraten mit mehreren Versuchen
-- Schleife, die die Zahlen 1 bis 10 ausgibt
-- Schleife, die die Zahlen der 7er-Reihe des Einmaleins ausgibt
-- Zahlenraten mit echten Zufallszahlen
-- Rechentrainer mit Zufallsaufgaben
+- Zahlenraten
+- Gesetze nach Alter
+- Rechentrainer (mit Zufallsaufgaben)
+- Loginsystem
+- Schaltjahr
 - Babylonisches Wurzelziehen
 
-## Übung: Schaltjahr
-
-- Jahr ist Schaltjahr: wenn durch 4 teilbar
-- Ausnahme: wenn auch durch 100 teilbar
-- Ausnahme von der Ausnahme: wenn auch durch 400 teilbar
-
-Hinweis: "x ist teilbar durch y" in Python: `x % y == 0`
-
-## Übung: Babylonisches Wurzelziehen
-
-Berechnungsverfahren für die Quadratwurzel, das schon vor fast 4000 Jahren in Mesopotamien verwendet wurde
-
-## Übung: Babylonisches Wurzelziehen
-
-```pseudocode
-gesucht: Quadratwurzel aus 12345
-
-n = 12345
-
-Beginne mit zwei "Näherungswerten", z.B. a=1 und b=n
-
-wiederhole das folgende, bis a und b fast gleich sind:
-neues a = Durchschnitt aus alten Werten a und b
-neues b = n / a
-
-=> a und b nähern sich (schnell) der Quadratwurzel an
-```
-
-## Übung: Babylonisches Wurzelziehen: Lösung
-
-```py
-n = 12345
-a = 1
-b = n
-for i in range(10):
-    a = (a + b) / 2
-    b = n / a
-print(b)
-```
+siehe <https://github.com/marko-knoebl/slides/tree/master/exercises/python-beginner>
 
 # Funktionen
 
@@ -1078,9 +1030,9 @@ Wir kennen schon einige vordefinierte Funktionen, z.B. `len()`, `range()` oder `
 
 Funktionen können Parameter übergeben bekommen und Rückgabewerte haben.
 
-Beispiel: `len([1, 1, 1])` → `3`
+Beispiel: `len("foo")` → `3`
 
-Parameter: `[1, 1, 1]`
+Parameter: `"foo"`
 
 Rückgabewert: `3`
 
@@ -1203,76 +1155,17 @@ Schreibe eine Funktion namens `ask_yes_no`, die dem Benutzer eine Ja/Nein-Frage 
 
 # Funktionen: Übungsaufgaben
 
-## Übungsaufgaben
+## Funktionen: Übungsaufgaben
 
-- Funktion, die eine Kreditkartennummer / ISBN / IBAN validiert
-- Primzahlen in einem Intervall
-- Fibonacci-Zahlen
+- Funktion, die überprüft, ob ein Jahr ein Schaltjahr ist
+- Funktion, die überprüft, ob eine Zahl eine Primzahl ist
+- Funktion, die alle Primzahlen in einem Intervall zurückgibt
+- Funktion, die die Prüfziffer eines Strichcodes validiert (GTIN Prüfziffer)
+- Funktion, die die Fibonacci-Zahlen berechnet
 
-Für ISBN / Primzahlen: %-Operator
+für Strichcodes / Primzahlen: % - Operator
 
-## Luhn Algorithmus (Prüfziffer)
-
-Der Luhn Algorithm wird verwendet, um Fehler in Identifikationsnummern, wie z.B. Kreditkartennummern, zu vermeiden.
-
-Die letzte Ziffer dieser Nummern ist eine Prüfziffer die sich aus den anderen Ziffern errechnet
-
-Beispiel: Die Nummer `7992739871` hat die Prüfziffer `3`, die vollständige Nummer wäre also `79927398713`
-
-## Luhn Algorithmus (Prüfziffer)
-
-Prüfziffer errechnen:
-
-Beginnend von rechts, ersetze jede zweite Ziffer mittels dieses Schemas:
-
-0 → 0, 1 → 2, 2 → 4, 3 → 6, 4 → 8,  
-5 → 1, 6 → 3, 7 → 5, 8 → 7, 9 → 9
-
-(Beispiel: `7992739871` wird zu `7994769772`)
-
-Addiere alle Ziffern
-
-(Beispiel: `7994769772` wird zu 67)
-
-Die Prüfziffer ist jene Ziffer, die auf die nächstgrößere Zehnerzahl fehlt
-
-(im Beispiel: 3)
-
-## ISBN
-
-International Standard Book Number = 10-stellige Buchnummer mit Prüfziffer am Ende
-
-Berechnung der Prüfziffer:
-
-(erste Ziffer + 2 \* zweite Ziffer + 3 \* dritte Ziffer ... + 9 \* neunte Ziffer) modulo 11
-
-Aufgabe:
-
-```py
-check_isbn("3826604237") # True oder False
-```
-
-## ISBN
-
-```py
-isbn = "3826604237"
-expected = 7
-
-def check_isbn(isbn, checksum):
-    return isbn_checksum(isbn) == checksum
-
-
-def isbn_checksum(isbn):
-    sum = 0
-    for i in range(9):
-        sum += int(isbn[i]) * (i + 1)
-
-    return sum % 11
-
-print(check_isbn(isbn, expected))
-```
-
-## IBAN
+Siehe: <https://github.com/marko-knoebl/slides/tree/master/exercises/python-beginner>
 
 # Codequalität und Linting
 
@@ -1311,16 +1204,16 @@ In VS Code-Einstellungen: `"python.formatting.provider": "black"`
 input:
 
 ```py
-a='hello'; b="bye"
+a='Hello'; b="Have you read \"1984\"?"
 c=a[0+1:3]
 ```
 
 output via black:
 
 ```py
-a = "hello"
-b = "bye"
-c = [0 + 1 : 3]
+a = "Hello"
+b = 'Have you read "1984"?'
+c = a[0 + 1 : 3]
 ```
 
 ## Python-Philosophie, Zen of Python
