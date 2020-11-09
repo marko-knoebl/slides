@@ -33,7 +33,7 @@ It is useful for querying web APIs, setting up timers, persisting data to _local
 
 ## watchEffect
 
-Example: load SpaceX launch data when component mounted or when `launchNr` changed
+Example: load SpaceX launch data when the component has mounted or when `launchNr` changed
 
 ```js
 function setup() {

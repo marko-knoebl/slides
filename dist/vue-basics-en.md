@@ -1,3 +1,17 @@
+# Vue basics
+
+## Topics
+
+- overview of Vue
+- declarative rendering / working with state
+- Vue template language basics
+- components
+- using predefined components
+- initializing a Vue project with Vue CLI
+- composition API
+- Vue devtools
+- side effects
+
 # Vue.js
 
 ## What is Vue?
@@ -497,8 +511,8 @@ export default {
     const addTodo = () => {
       // ...
     };
-    const numActive = computed(() =>
-      todos.filter((t) => !t.completed)
+    const numActive = computed(
+      () => todos.filter((t) => !t.completed).length
     );
     return { todos, newTitle, addTodo, numActive };
   },
@@ -606,6 +620,23 @@ export default {
 };
 ```
 
+# Vue devtools
+
+## Vue devtools
+
+- [Chrome plugin](https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
+- [Firefox plugin](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
+
+features:
+
+- display component structure
+- show component state/data and props
+- change state
+- show component events
+- show routes
+- show vuex state
+- analyse render performance
+
 # Side effects
 
 ## Side effects
@@ -641,7 +672,7 @@ It is useful for querying web APIs, setting up timers, persisting data to _local
 
 ## watchEffect
 
-Example: load SpaceX launch data when component mounted or when `launchNr` changed
+Example: load SpaceX launch data when the component has mounted or when `launchNr` changed
 
 ```js
 function setup() {

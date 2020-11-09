@@ -42,8 +42,8 @@ export default {
     const addTodo = () => {
       // ...
     };
-    const numActive = computed(() =>
-      todos.filter((t) => !t.completed)
+    const numActive = computed(
+      () => todos.filter((t) => !t.completed).length
     );
     return { todos, newTitle, addTodo, numActive };
   },

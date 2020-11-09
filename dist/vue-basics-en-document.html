@@ -1,3 +1,16 @@
+<h1>Vue basics</h1>
+<h2>Topics</h2>
+<ul>
+<li>overview of Vue</li>
+<li>declarative rendering / working with state</li>
+<li>Vue template language basics</li>
+<li>components</li>
+<li>using predefined components</li>
+<li>initializing a Vue project with Vue CLI</li>
+<li>composition API</li>
+<li>Vue devtools</li>
+<li>side effects</li>
+</ul>
 <h1>Vue.js</h1>
 <h2>What is Vue?</h2>
 <p>one of the 3 big JavaScript UI frameworks (besides React, Angular)</p>
@@ -415,8 +428,8 @@ vue create my-app
     <span class="hljs-keyword">const</span> addTodo = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
       <span class="hljs-comment">// ...</span>
     };
-    <span class="hljs-keyword">const</span> numActive = computed(<span class="hljs-function"><span class="hljs-params">()</span> =></span>
-      todos.filter(<span class="hljs-function">(<span class="hljs-params">t</span>) =></span> !t.completed)
+    <span class="hljs-keyword">const</span> numActive = computed(
+      <span class="hljs-function"><span class="hljs-params">()</span> =></span> todos.filter(<span class="hljs-function">(<span class="hljs-params">t</span>) =></span> !t.completed).length
     );
     <span class="hljs-keyword">return</span> { todos, newTitle, addTodo, numActive };
   },
@@ -496,6 +509,22 @@ newTitle.value = <span class="hljs-string">'foo'</span>;
   },
 };
 </code></pre>
+<h1>Vue devtools</h1>
+<h2>Vue devtools</h2>
+<ul>
+<li><a href="https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd">Chrome plugin</a></li>
+<li><a href="https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/">Firefox plugin</a></li>
+</ul>
+<p>features:</p>
+<ul>
+<li>display component structure</li>
+<li>show component state/data and props</li>
+<li>change state</li>
+<li>show component events</li>
+<li>show routes</li>
+<li>show vuex state</li>
+<li>analyse render performance</li>
+</ul>
 <h1>Side effects</h1>
 <h2>Side effects</h2>
 <p>use cases:</p>
@@ -523,7 +552,7 @@ newTitle.value = <span class="hljs-string">'foo'</span>;
 <p>The <code>watchEffect</code> function can be used to perform <em>side effects</em> when a component is mounted for the first time or when its props / state have changed.</p>
 <p>It is useful for querying web APIs, setting up timers, persisting data to <em>localStorage</em>, ...</p>
 <h2>watchEffect</h2>
-<p>Example: load SpaceX launch data when component mounted or when <code>launchNr</code> changed</p>
+<p>Example: load SpaceX launch data when the component has mounted or when <code>launchNr</code> changed</p>
 <pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setup</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">const</span> launchNr = ref(<span class="hljs-number">1</span>);
   <span class="hljs-keyword">const</span> launchData = reactive({ <span class="hljs-attr">name</span>: <span class="hljs-literal">null</span>, <span class="hljs-attr">date</span>: <span class="hljs-literal">null</span> });
