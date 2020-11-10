@@ -291,6 +291,40 @@ pi_int = int(pi)
 message = "Pi is approximately " + str(pi_int)
 ```
 
+# Functions
+
+## Functions
+
+A _function_ is a "sub-program" that can perform a specific task
+
+examples of predefined functions:
+
+- `len()` can determine the length of a string (or of a list, ...)
+- `id()` can determine the internal ID of an object
+- `type()` can tell us the type of an object
+- `print()` can write some output into the terminal
+- ...
+
+## Functions
+
+A function can receive so-called _parameters_ and produce a result (a _return value_)
+
+example: `len("foo")` → `3`
+
+parameter: `"foo"`
+
+return value: `3`
+
+## Methods
+
+A _method_ is a function that belongs to a specific object type (e.g. to _str_)
+
+examples of string methods:
+
+- `first_name.upper()`
+- `first_name.count("a")`
+- `first_name.replace("a", "@")`
+
 # Composite types: dict, list, tuple
 
 ## dict
@@ -696,6 +730,18 @@ pprint.pprint(['Mercuy', 'Venus', 'Earth', 'Mars', 'Jupiter',
  'Pluto']
 ```
 
+## open
+
+opening a text file for writing:
+
+```py
+file = open("message.txt", "w", encoding="utf-8")
+file.write("hello world")
+file.close()
+```
+
+file does not have to exist beforehand
+
 ## random
 
 ```py
@@ -1022,20 +1068,6 @@ see <https://github.com/marko-knoebl/slides/tree/master/exercises/python-beginne
 
 # Functions
 
-## Functions
-
-We already know some predefined functions, like `len()`, `range()` or `print()`
-
-## Parameters and return values
-
-functions can receive parameters and return a value
-
-example: `len("foo")` → `3`
-
-parameter: `"foo"`
-
-return value: `3`
-
 ## Positional parameters and keyword parameters
 
 Calling `open`:
@@ -1162,6 +1194,8 @@ Write a function named `ask_yes_no`, which asks the user a yes/no question and r
 - function that returns all prime numbers in an interval
 - function that verifies a bar code check digit (GTIN check digit)
 - function that computes the fibonacci numbers
+- function that creates a list of lottery numbers
+- function that can asks the user a yes/no question and returns either `True` or `False`
 
 For bar codes / primes: use the % operator
 

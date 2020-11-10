@@ -5,15 +5,26 @@
 Selecting entries:
 
 ```py
-a2d[0] # [1, 2, 3]
+a1d[0] # 1
 a2d[0, 1] # 2
 a2d[0, :] # [1, 2, 3]
 a2d[:, 0] # [1, 4, 7]
 ```
 
+with 2D arrays: _[row index, column index]_
+
+in general:
+
+- second to last index (if it exists): counts downwards
+- last index: counts rightwards
+
 ## Operations on arrays
 
 Selecting entries:
+
+```py
+a2d[0] # [1, 2, 3]
+```
 
 ```py
 a2d[1:, 1:] # [[5, 6], [8, 9]]

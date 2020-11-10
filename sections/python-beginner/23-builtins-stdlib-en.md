@@ -90,6 +90,18 @@ pprint.pprint(['Mercuy', 'Venus', 'Earth', 'Mars', 'Jupiter',
  'Pluto']
 ```
 
+## open
+
+opening a text file for writing:
+
+```py
+file = open("message.txt", "w", encoding="utf-8")
+file.write("hello world")
+file.close()
+```
+
+file does not have to exist beforehand
+
 ## random
 
 ```py

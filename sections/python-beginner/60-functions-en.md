@@ -1,19 +1,5 @@
 # Functions
 
-## Functions
-
-We already know some predefined functions, like `len()`, `range()` or `print()`
-
-## Parameters and return values
-
-functions can receive parameters and return a value
-
-example: `len("foo")` → `3`
-
-parameter: `"foo"`
-
-return value: `3`
-
 ## Positional parameters and keyword parameters
 
 Calling `open`:

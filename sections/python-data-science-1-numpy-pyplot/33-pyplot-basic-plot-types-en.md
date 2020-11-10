@@ -88,7 +88,7 @@ plt.hist(
 
 ## Box plot
 
-Visualization of statistic data in a diagram (minimum, median, maximum, ...)
+Visualization of statistical data in a diagram (minimum, median, maximum, ...)
 
 ```py
 plt.boxplot(

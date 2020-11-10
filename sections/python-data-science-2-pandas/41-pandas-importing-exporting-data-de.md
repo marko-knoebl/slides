@@ -65,7 +65,7 @@ Aufgabe: Importiere die folgenden Datenquellen und achte dabei auf passendes For
 
 - Monatliche Preise des US-Aktienindex _S&P 500_: https://datahub.io/core/s-and-p-500/r/data.csv
 - Wechselkurse: https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv
-- Iris Dataset (Statistiken zu Blütengrößen von Iris-Blumen): http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data (recherchiere passende Spaltennamen im Internet)
+- Iris Dataset (Statistiken zu Blütengrößen von Iris-Blumen): https://raw.githubusercontent.com/mwaskom/seaborn-data/master/iris.csv
 - Passagierdaten der Titanic: https://raw.githubusercontent.com/mwaskom/seaborn-data/master/titanic.csv
 
 ## CSV importieren
@@ -76,15 +76,15 @@ mögliche Lösungen:
 sp500 = pd.read_csv(
     "https://datahub.io/core/s-and-p-500/r/data.csv",
     index_col="Date",
-    parse_dates=["Date"])
+    parse_dates=["Date"],
+)
 exchange_rates = pd.read_csv(
     "https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv",
-    parse_dates=["Date"])
+    parse_dates=["Date"],
+)
 iris = pd.read_csv(
-    "http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data",
-    header=None,
-    names=["sepal_length", "sepal_width", "petal_length",
-           "petal_width", "name"])
+    "https://raw.githubusercontent.com/mwaskom/seaborn-data/master/iris.csv"
+)
 titanic = pd.read_csv(
     "https://raw.githubusercontent.com/mwaskom/seaborn-data/master/titanic.csv"
 )

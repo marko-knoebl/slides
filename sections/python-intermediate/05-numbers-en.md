@@ -25,9 +25,9 @@ Other numeral systems:
 
 ```py
 a = 42 # decimal
-d = 0b101010 # binary
-b = 0o52 # octal
-c = 0x2a # hexadecimal
+b = 0b101010 # binary
+c = 0o52 # octal
+d = 0x2a # hexadecimal
 ```
 
 ```py

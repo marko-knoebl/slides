@@ -13,6 +13,17 @@ Möglichkeiten zum Speichern / Lesen:
 
 ## CSV
 
+CSV ist ein Textdateiformat, das tabellarische Daten beinhalten kann
+
+Beispiel:
+
+```csv
+ISO,Country,Capital,Languages
+AD,Andorra,Andorra la Vella,"ES,FR"
+AE,United Arab Emirates,Abu Dhabi,"AE,fa,en,hi,ur"
+AF,Afghanistan,Kabul,"AF,tk"
+```
+
 ## CSV schreiben
 
 ```py

@@ -12,12 +12,18 @@ array_2d_transposed = array_2d.T
 
 ## Dimensionalität erhöhen
 
-Hinzufügen einer extra Dimension der Länge 1 via `newaxis` - Verwandeln eines 2 x 2 Arrays in ein 2 x 2 x 1 Array:
+Hinzufügen einer extra Dimension der Länge 1: Verwandeln eines 2 x 2 Arrays in ein 2 x 2 x 1 Array:
 
 ```py
 array_2d = np.array([[1, 2], [3, 4]])
-array_3d = array_2d[:, :, np.newaxis]
+array_3d = np.expand_dims(array_2d, 2)
 # [[[1], [2]], [[3], [4]]]
+```
+
+Alternative:
+
+```
+array_3d = array_2d[:, :, np.newaxis]
 ```
 
 ## Slices als Views
@@ -72,7 +78,7 @@ print(a @ M)
 Rotation verschiedener Punkte um 45° gegen den Uhrzeigersinn:
 
 ```py
-points = np.array([[0, 0], [0, 1], [1, 0], [1, 1]])
+points = np.array([[0, 0], [0, 1], [1, 1], [1, 0]])
 
 M = np.array([[0.707, 0.707],
               [-0.707, 0.707]])

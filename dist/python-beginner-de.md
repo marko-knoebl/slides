@@ -291,6 +291,40 @@ pi_int = int(pi)
 message = "Pi is approximately " + str(pi_int)
 ```
 
+# Funktionen
+
+## Funktionen
+
+Eine _Funktion_ ist ein "Unterprogramm", das eine bestimmte Aufgabe erledigen kann
+
+Beispiele für vordefinierte Funktionen:
+
+- `len()` kann die Länge eines Strings bestimmen (oder einer Liste, ...)
+- `id()` kann die interne ID eines Objekts bestimmen
+- `type()` kann den Typ eines Objekts bestimmen
+- `print()` kann Ausgaben in das Terminal schreiben
+- ...
+
+## Funktionen
+
+Funktionen können _Parameter_ übergeben bekommen und einen _Rückgabewert_ zurückliefern.
+
+Beispiel: `len("foo")` → `3`
+
+Parameter: `"foo"`
+
+Rückgabewert: `3`
+
+## Methoden
+
+_Methode_: eine Funktion, die zu einem bestimmten Objekttyp gehört (z.B. zu _str_)
+
+Beispiele für String-Methoden:
+
+- `first_name.upper()`
+- `first_name.count("a")`
+- `first_name.replace("a", "@")`
+
 # Zusammengesetzte Datentypen: dict, list, tuple
 
 ## dict
@@ -696,6 +730,18 @@ pprint.pprint(['Mercuy', 'Venus', 'Earth', 'Mars', 'Jupiter',
  'Pluto']
 ```
 
+## open
+
+Textdatei zum Schreiben öffnen:
+
+```py
+file = open("message.txt", "w", encoding="utf-8")
+file.write("hello world")
+file.close()
+```
+
+Datei muss zuvor nicht existieren
+
 ## random
 
 ```py
@@ -1022,20 +1068,6 @@ siehe <https://github.com/marko-knoebl/slides/tree/master/exercises/python-begin
 
 # Funktionen
 
-## Funktionen
-
-Wir kennen schon einige vordefinierte Funktionen, z.B. `len()`, `range()` oder `print()`
-
-## Parameter und Rückgabewerte
-
-Funktionen können Parameter übergeben bekommen und Rückgabewerte haben.
-
-Beispiel: `len("foo")` → `3`
-
-Parameter: `"foo"`
-
-Rückgabewert: `3`
-
 ## Positionale Parameter und Schlüsselwortparameter
 
 Aufruf von `open`:
@@ -1162,6 +1194,8 @@ Schreibe eine Funktion namens `ask_yes_no`, die dem Benutzer eine Ja/Nein-Frage 
 - Funktion, die alle Primzahlen in einem Intervall zurückgibt
 - Funktion, die die Prüfziffer eines Strichcodes validiert (GTIN Prüfziffer)
 - Funktion, die die Fibonacci-Zahlen berechnet
+- Funktion, die eine Liste von Lotteriezahlen generiert
+- Funktion, die dem Benutzer eine ja/nein-Frage stellt und `True` oder `False` zurückgibt
 
 für Strichcodes / Primzahlen: % - Operator
 

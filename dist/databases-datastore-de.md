@@ -216,7 +216,7 @@ Mit `null` wird ausgedrückt, dass ein bestimmter Wert fehlt oder unbekannt ist
 
 ## CSV
 
-CSV (_comma-separated values_) ist ein Dateiformat, das tabellarische Daten beinhalten kann
+CSV (_comma-separated values_) ist ein Textdateiformat, das tabellarische Daten beinhaltet
 
 ## Beispiel
 

@@ -60,7 +60,8 @@ The content of text files can be represented as strings, other file contents can
 
 ```py
 file = open("message.txt", "w", encoding="utf-8")
-file.write("hello world")
+file.write("hello world\n")
+file.write("end\n")
 file.close()
 ```
 
@@ -186,6 +187,17 @@ possibilities:
 - binary files
 
 ## CSV
+
+CSV is a file format which can hold tabular data; entries are separated by commas
+
+example:
+
+```csv
+ISO,Country,Capital,Languages
+AD,Andorra,Andorra la Vella,"ES,FR"
+AE,United Arab Emirates,Abu Dhabi,"AE,fa,en,hi,ur"
+AF,Afghanistan,Kabul,"AF,tk"
+```
 
 ## Writing CSV
 

@@ -65,7 +65,7 @@ Task: Import the following data sources, ensuring the data is formatted nicely:
 
 - S&P 500 monthly prices (US stock index): https://datahub.io/core/s-and-p-500/r/data.csv
 - Exchange rates: https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv
-- Iris dataset (statistics of leaf sizes for iris flowers): http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data (look up appropriate column names on the web)
+- Iris dataset (statistics of leaf sizes for iris flowers): https://raw.githubusercontent.com/mwaskom/seaborn-data/master/iris.csv
 - Titanic passenger data: https://raw.githubusercontent.com/mwaskom/seaborn-data/master/titanic.csv
 
 ## Importing CSV
@@ -76,15 +76,15 @@ possible solutions:
 sp500 = pd.read_csv(
     "https://datahub.io/core/s-and-p-500/r/data.csv",
     index_col="Date",
-    parse_dates=["Date"])
+    parse_dates=["Date"],
+)
 exchange_rates = pd.read_csv(
     "https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv",
-    parse_dates=["Date"])
+    parse_dates=["Date"],
+)
 iris = pd.read_csv(
-    "http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data",
-    header=None,
-    names=["sepal_length", "sepal_width", "petal_length",
-           "petal_width", "name"])
+    "https://raw.githubusercontent.com/mwaskom/seaborn-data/master/iris.csv"
+)
 titanic = pd.read_csv(
     "https://raw.githubusercontent.com/mwaskom/seaborn-data/master/titanic.csv"
 )

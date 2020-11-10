@@ -350,15 +350,26 @@ b = np.linspace(0, 1.5, 4)
 Selecting entries:
 
 ```py
-a2d[0] # [1, 2, 3]
+a1d[0] # 1
 a2d[0, 1] # 2
 a2d[0, :] # [1, 2, 3]
 a2d[:, 0] # [1, 4, 7]
 ```
 
+with 2D arrays: _[row index, column index]_
+
+in general:
+
+- second to last index (if it exists): counts downwards
+- last index: counts rightwards
+
 ## Operations on arrays
 
 Selecting entries:
+
+```py
+a2d[0] # [1, 2, 3]
+```
 
 ```py
 a2d[1:, 1:] # [[5, 6], [8, 9]]
@@ -618,13 +629,12 @@ Adding an extra dimension of length 1: turning a 2 x 2 array into a 2 x 2 x 1 ar
 array_2d = np.array([[1, 2], [3, 4]])
 array_3d = np.expand_dims(array_2d, 2)
 # [[[1], [2]], [[3], [4]]]
-
-# alternative:
-array_3d = array_2d[:, :, np.newaxis]
 ```
 
-```py
+alternative:
 
+```
+array_3d = array_2d[:, :, np.newaxis]
 ```
 
 ## Slices as views
@@ -679,7 +689,7 @@ print(a @ M)
 example: rotating several points by 45° (counterclockwise):
 
 ```py
-points = np.array([[0, 0], [0, 1], [1, 0], [1, 1]])
+points = np.array([[0, 0], [0, 1], [1, 1], [1, 0]])
 
 M = np.array([[0.707, 0.707],
               [-0.707, 0.707]])
@@ -1065,7 +1075,7 @@ plt.hist(
 
 ## Box plot
 
-Visualization of statistic data in a diagram (minimum, median, maximum, ...)
+Visualization of statistical data in a diagram (minimum, median, maximum, ...)
 
 ```py
 plt.boxplot(
@@ -1080,6 +1090,78 @@ plt.boxplot(
 plt.pie([3, 10, 17, 9], labels=["a", "b", "c", "d"])
 
 plt.pie([3, 10, 17, 9], explode=[0, 0, 0, 0.1])
+```
+
+# Visualizing iris data
+
+## Iris data set
+
+**Iris data set**: measurements of 150 Iris flowers (50 of type _iris setosa_, 50 of type _iris versicolor_ and 50 of type _iris virginica_)
+
+data entries: _sepal length_, _sepal width_, _petal length_, _petal width_
+
+## Loading the data
+
+```py
+import pandas as pd
+iris = pd.read_csv(
+    "https://raw.githubusercontent.com/mwaskom/seaborn-data/master/iris.csv"
+)
+# get all rows and the first four columns as numpy data
+iris = iris.iloc[:,:4].to_numpy()
+
+sepal_length = iris[:,0]
+sepal_width = iris[:,1]
+petal_length = iris[:,2]
+petal_width = iris[:,3]
+```
+
+## Scatter plot I
+
+scatter plot of petal_length and petal_width
+
+plot the first 50, the second 50 and the thrid 50 data points separately (in separate colors)
+
+## Scatter plot II
+
+scatter plot of all four iris properties
+
+use the color and size to visualize _sepal length_ and _sepal width_
+
+## Histogram and boxplot
+
+histogram of the _petal length_
+
+boxplot of all four measurements
+
+## Scatter plot: solutions
+
+```py
+plt.plot(petal_length[:50], petal_width[:50], ".", label="setosa")
+plt.plot(petal_length[50:100], petal_width[50:100], ".", label="versicolor")
+plt.plot(petal_length[100:150], petal_width[100:150], ".", label="virginica")
+
+plt.legend()
+```
+
+```py
+plt.scatter(petal_length, petal_width, sepal_length*10, sepal_width)
+```
+
+## Histogram and boxplot: solutions
+
+```py
+plt.hist(
+    petal_length,
+    bins=np.arange(0.5, 7.5, 0.5)
+)
+```
+
+```py
+plt.boxplot(
+    [petal_length, petal_width, sepal_length, sepal_width],
+    labels=["petal length", "petal width", "sepal length", "sepal width"]
+)
 ```
 
 # Advanced plot types

@@ -211,13 +211,21 @@ time.sleep(<span class="hljs-number">3</span>)
 <h1>Operationen auf Arrays</h1>
 <h2>Operationen auf Arrays</h2>
 <p>Auswählen von Einträgen:</p>
-<pre><code class="hljs language-py">a2d[<span class="hljs-number">0</span>] <span class="hljs-comment"># [1, 2, 3]</span>
+<pre><code class="hljs language-py">a1d[<span class="hljs-number">0</span>] <span class="hljs-comment"># 1</span>
 a2d[<span class="hljs-number">0</span>, <span class="hljs-number">1</span>] <span class="hljs-comment"># 2</span>
 a2d[<span class="hljs-number">0</span>, :] <span class="hljs-comment"># [1, 2, 3]</span>
 a2d[:, <span class="hljs-number">0</span>] <span class="hljs-comment"># [1, 4, 7]</span>
 </code></pre>
+<p>bei 2D-Arrays: <em>[Zeilenindex, Spaltenindex]</em></p>
+<p>im Allgemeinen:</p>
+<ul>
+<li>vorletzter Index (sofern er existiert): zählt richtung unten</li>
+<li>letzter Index: zählt rightung rechts</li>
+</ul>
 <h2>Operationen auf Arrays</h2>
 <p>Auswählen von Einträgen:</p>
+<pre><code class="hljs language-py">a2d[<span class="hljs-number">0</span>] <span class="hljs-comment"># [1, 2, 3]</span>
+</code></pre>
 <pre><code class="hljs language-py">a2d[<span class="hljs-number">1</span>:, <span class="hljs-number">1</span>:] <span class="hljs-comment"># [[5, 6], [8, 9]]</span>
 a2d[<span class="hljs-number">1</span>, ::<span class="hljs-number">-1</span>] <span class="hljs-comment"># [6, 5, 4]</span>
 </code></pre>
@@ -385,10 +393,13 @@ array_2d = array_3d.reshape(<span class="hljs-number">2</span>, <span class="hlj
 array_2d_transposed = array_2d.T
 </code></pre>
 <h2>Dimensionalität erhöhen</h2>
-<p>Hinzufügen einer extra Dimension der Länge 1 via <code>newaxis</code> - Verwandeln eines 2 x 2 Arrays in ein 2 x 2 x 1 Array:</p>
+<p>Hinzufügen einer extra Dimension der Länge 1: Verwandeln eines 2 x 2 Arrays in ein 2 x 2 x 1 Array:</p>
 <pre><code class="hljs language-py">array_2d = np.array([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]])
-array_3d = array_2d[:, :, np.newaxis]
+array_3d = np.expand_dims(array_2d, <span class="hljs-number">2</span>)
 <span class="hljs-comment"># [[[1], [2]], [[3], [4]]]</span>
+</code></pre>
+<p>Alternative:</p>
+<pre><code class="hljs language-angelscript"><span class="hljs-built_in">array</span>_3d = <span class="hljs-built_in">array</span>_2d[:, :, np.newaxis]
 </code></pre>
 <h2>Slices als Views</h2>
 <p>In Python können wir eine flache Kopie einer Liste erstellen, indem wir sie slicen - dies ist in NumPy nicht so (um die Effizienz zu steigern):</p>
@@ -422,7 +433,7 @@ print(a @ M)
 </code></pre>
 <h2>Matrix-Multiplikation</h2>
 <p>Rotation verschiedener Punkte um 45° gegen den Uhrzeigersinn:</p>
-<pre><code class="hljs language-py">points = np.array([[<span class="hljs-number">0</span>, <span class="hljs-number">0</span>], [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>], [<span class="hljs-number">1</span>, <span class="hljs-number">0</span>], [<span class="hljs-number">1</span>, <span class="hljs-number">1</span>]])
+<pre><code class="hljs language-py">points = np.array([[<span class="hljs-number">0</span>, <span class="hljs-number">0</span>], [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>], [<span class="hljs-number">1</span>, <span class="hljs-number">1</span>], [<span class="hljs-number">1</span>, <span class="hljs-number">0</span>]])
 
 M = np.array([[<span class="hljs-number">0.707</span>, <span class="hljs-number">0.707</span>],
               [<span class="hljs-number">-0.707</span>, <span class="hljs-number">0.707</span>]])
@@ -700,6 +711,52 @@ plt.barh([<span class="hljs-number">0</span>, <span class="hljs-number">1</span>
 <pre><code class="hljs language-py">plt.pie([<span class="hljs-number">3</span>, <span class="hljs-number">10</span>, <span class="hljs-number">17</span>, <span class="hljs-number">9</span>], labels=[<span class="hljs-string">"a"</span>, <span class="hljs-string">"b"</span>, <span class="hljs-string">"c"</span>, <span class="hljs-string">"d"</span>])
 
 plt.pie([<span class="hljs-number">3</span>, <span class="hljs-number">10</span>, <span class="hljs-number">17</span>, <span class="hljs-number">9</span>], explode=[<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.1</span>])
+</code></pre>
+<h1>Visualisierung von Iris-Daten</h1>
+<h2>Iris Datensatz</h2>
+<p><strong>Iris Datensatz</strong>: Abmessungen von 150 Iris-Blumen (50 vom Typ <em>Iris Setosa</em>, 50 vom Typ <em>Iris versicolor</em> und 50 vom Typ <em>Iris Virginica</em>)</p>
+<p>Einträge: <em>sepal length</em>, <em>sepal width</em>, <em>petal length</em>, <em>petal width</em></p>
+<h2>Laden der Daten</h2>
+<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+iris = pd.read_csv(
+    <span class="hljs-string">"https://raw.githubusercontent.com/mwaskom/seaborn-data/master/iris.csv"</span>
+)
+<span class="hljs-comment"># get all rows and the first four columns as numpy data</span>
+iris = iris.iloc[:,:<span class="hljs-number">4</span>].to_numpy()
+
+sepal_length = iris[:,<span class="hljs-number">0</span>]
+sepal_width = iris[:,<span class="hljs-number">1</span>]
+petal_length = iris[:,<span class="hljs-number">2</span>]
+petal_width = iris[:,<span class="hljs-number">3</span>]
+</code></pre>
+<h2>Scatter Plot I</h2>
+<p>Scatter Plot der <em>petal length</em> und <em>petal width</em></p>
+<p>Wir plotten die Datenpunkte in 50-er Gruppen in drei verschiedenen Farben</p>
+<h2>Scatter plot II</h2>
+<p>Scatter Plot aller vier Iris-Eigenschaften</p>
+<p>Wir verwenden Farbe und Größe, um <em>sepal length</em> und <em>sepal width</em> zu visualisieren</p>
+<h2>Histogramm und Boxplot</h2>
+<p>Histogramm der <em>petal length</em></p>
+<p>Boxplot für alle vier Abmessungen</p>
+<h2>Scatter Plot: Lösungen</h2>
+<pre><code class="hljs language-py">plt.plot(petal_length[:<span class="hljs-number">50</span>], petal_width[:<span class="hljs-number">50</span>], <span class="hljs-string">"."</span>, label=<span class="hljs-string">"setosa"</span>)
+plt.plot(petal_length[<span class="hljs-number">50</span>:<span class="hljs-number">100</span>], petal_width[<span class="hljs-number">50</span>:<span class="hljs-number">100</span>], <span class="hljs-string">"."</span>, label=<span class="hljs-string">"versicolor"</span>)
+plt.plot(petal_length[<span class="hljs-number">100</span>:<span class="hljs-number">150</span>], petal_width[<span class="hljs-number">100</span>:<span class="hljs-number">150</span>], <span class="hljs-string">"."</span>, label=<span class="hljs-string">"virginica"</span>)
+
+plt.legend()
+</code></pre>
+<pre><code class="hljs language-py">plt.scatter(petal_length, petal_width, sepal_length*<span class="hljs-number">10</span>, sepal_width)
+</code></pre>
+<h2>Histogramm und Boxplot: Lösungen</h2>
+<pre><code class="hljs language-py">plt.hist(
+    petal_length,
+    bins=np.arange(<span class="hljs-number">0.5</span>, <span class="hljs-number">7.5</span>, <span class="hljs-number">0.5</span>)
+)
+</code></pre>
+<pre><code class="hljs language-py">plt.boxplot(
+    [petal_length, petal_width, sepal_length, sepal_width],
+    labels=[<span class="hljs-string">"petal length"</span>, <span class="hljs-string">"petal width"</span>, <span class="hljs-string">"sepal length"</span>, <span class="hljs-string">"sepal width"</span>]
+)
 </code></pre>
 <h1>Weitere Plots</h1>
 <h2>Weitere Plots</h2>

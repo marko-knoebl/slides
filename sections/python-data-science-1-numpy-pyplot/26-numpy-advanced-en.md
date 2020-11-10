@@ -18,12 +18,12 @@ Adding an extra dimension of length 1: turning a 2 x 2 array into a 2 x 2 x 1 ar
 array_2d = np.array([[1, 2], [3, 4]])
 array_3d = np.expand_dims(array_2d, 2)
 # [[[1], [2]], [[3], [4]]]
-
-# alternative:
-array_3d = array_2d[:, :, np.newaxis]
 ```
 
-```py
+alternative:
+
+```
+array_3d = array_2d[:, :, np.newaxis]
 ```
 
 ## Slices as views
@@ -78,7 +78,7 @@ print(a @ M)
 example: rotating several points by 45° (counterclockwise):
 
 ```py
-points = np.array([[0, 0], [0, 1], [1, 0], [1, 1]])
+points = np.array([[0, 0], [0, 1], [1, 1], [1, 0]])
 
 M = np.array([[0.707, 0.707],
               [-0.707, 0.707]])

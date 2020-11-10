@@ -1,19 +1,5 @@
 # Funktionen
 
-## Funktionen
-
-Wir kennen schon einige vordefinierte Funktionen, z.B. `len()`, `range()` oder `print()`
-
-## Parameter und Rückgabewerte
-
-Funktionen können Parameter übergeben bekommen und Rückgabewerte haben.
-
-Beispiel: `len("foo")` → `3`
-
-Parameter: `"foo"`
-
-Rückgabewert: `3`
-
 ## Positionale Parameter und Schlüsselwortparameter
 
 Aufruf von `open`:

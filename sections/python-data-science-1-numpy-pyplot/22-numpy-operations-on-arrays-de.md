@@ -5,15 +5,26 @@
 Auswählen von Einträgen:
 
 ```py
-a2d[0] # [1, 2, 3]
+a1d[0] # 1
 a2d[0, 1] # 2
 a2d[0, :] # [1, 2, 3]
 a2d[:, 0] # [1, 4, 7]
 ```
 
+bei 2D-Arrays: _[Zeilenindex, Spaltenindex]_
+
+im Allgemeinen:
+
+- vorletzter Index (sofern er existiert): zählt richtung unten
+- letzter Index: zählt rightung rechts
+
 ## Operationen auf Arrays
 
 Auswählen von Einträgen:
+
+```py
+a2d[0] # [1, 2, 3]
+```
 
 ```py
 a2d[1:, 1:] # [[5, 6], [8, 9]]

@@ -35,7 +35,7 @@ pip install pylint
 
 ## VS Code - Autoformatierung
 
-Automatische Formatierung mittels _Ctrl_ + _Shift_ + _F_
+Automatische Formatierung mittels _Alt_ + _Shift_ + _F_
 
 Für Python Code mittels des Formatters _black_:
 

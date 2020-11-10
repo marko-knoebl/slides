@@ -12,7 +12,8 @@ The content of text files can be represented as strings, other file contents can
 
 ```py
 file = open("message.txt", "w", encoding="utf-8")
-file.write("hello world")
+file.write("hello world\n")
+file.write("end\n")
 file.close()
 ```
 

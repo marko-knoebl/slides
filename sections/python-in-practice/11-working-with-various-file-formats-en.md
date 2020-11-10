@@ -13,6 +13,17 @@ possibilities:
 
 ## CSV
 
+CSV is a file format which can hold tabular data; entries are separated by commas
+
+example:
+
+```csv
+ISO,Country,Capital,Languages
+AD,Andorra,Andorra la Vella,"ES,FR"
+AE,United Arab Emirates,Abu Dhabi,"AE,fa,en,hi,ur"
+AF,Afghanistan,Kabul,"AF,tk"
+```
+
 ## Writing CSV
 
 ```py

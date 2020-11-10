@@ -35,7 +35,7 @@ pip install pylint
 
 ## VS Code - Auto formatting
 
-We can auto format code via _Ctrl_ + _Shift_ + _F_
+We can auto format code via _Alt_ + _Shift_ + _F_
 
 For Python code, install the Formatter _black_:
 

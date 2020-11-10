@@ -216,7 +216,7 @@ The special value `null` commonly represents missing / unknown data
 
 ## CSV
 
-CSV is a file format which can hold tabular data
+CSV (_comma-separated values_) is a text file format which can hold tabular data
 
 ## Example
 

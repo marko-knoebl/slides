@@ -2178,7 +2178,7 @@ area[<span class="hljs-string">'CN'</span>] <span class="hljs-comment"># 9.6</sp
 <ul>
 <li>S&#x26;P 500 monthly prices (US stock index): <a href="https://datahub.io/core/s-and-p-500/r/data.csv">https://datahub.io/core/s-and-p-500/r/data.csv</a></li>
 <li>Exchange rates: <a href="https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv">https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv</a></li>
-<li>Iris dataset (statistics of leaf sizes for iris flowers): <a href="http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data">http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data</a> (look up appropriate column names on the web)</li>
+<li>Iris dataset (statistics of leaf sizes for iris flowers): <a href="https://raw.githubusercontent.com/mwaskom/seaborn-data/master/iris.csv">https://raw.githubusercontent.com/mwaskom/seaborn-data/master/iris.csv</a></li>
 <li>Titanic passenger data: <a href="https://raw.githubusercontent.com/mwaskom/seaborn-data/master/titanic.csv">https://raw.githubusercontent.com/mwaskom/seaborn-data/master/titanic.csv</a></li>
 </ul>
 </section><section class="slide"><h2>Importing CSV</h2>
@@ -2186,15 +2186,15 @@ area[<span class="hljs-string">'CN'</span>] <span class="hljs-comment"># 9.6</sp
 <pre><code class="hljs language-py">sp500 = pd.read_csv(
     <span class="hljs-string">"https://datahub.io/core/s-and-p-500/r/data.csv"</span>,
     index_col=<span class="hljs-string">"Date"</span>,
-    parse_dates=[<span class="hljs-string">"Date"</span>])
+    parse_dates=[<span class="hljs-string">"Date"</span>],
+)
 exchange_rates = pd.read_csv(
     <span class="hljs-string">"https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv"</span>,
-    parse_dates=[<span class="hljs-string">"Date"</span>])
+    parse_dates=[<span class="hljs-string">"Date"</span>],
+)
 iris = pd.read_csv(
-    <span class="hljs-string">"http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data"</span>,
-    header=<span class="hljs-literal">None</span>,
-    names=[<span class="hljs-string">"sepal_length"</span>, <span class="hljs-string">"sepal_width"</span>, <span class="hljs-string">"petal_length"</span>,
-           <span class="hljs-string">"petal_width"</span>, <span class="hljs-string">"name"</span>])
+    <span class="hljs-string">"https://raw.githubusercontent.com/mwaskom/seaborn-data/master/iris.csv"</span>
+)
 titanic = pd.read_csv(
     <span class="hljs-string">"https://raw.githubusercontent.com/mwaskom/seaborn-data/master/titanic.csv"</span>
 )
