@@ -20,7 +20,7 @@ for name in names:
 ```py
 users = [
     {"name": "Alice", "password": "1234"},
-    {"name": "Bob", "password", "password"},
+    {"name": "Bob", "password": "password"},
     {"name": "Charlie", "password": "paris41"}
 ]
 ```

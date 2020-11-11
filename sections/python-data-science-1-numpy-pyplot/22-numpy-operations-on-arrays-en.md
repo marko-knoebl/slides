@@ -133,13 +133,13 @@ sum over all entries:
 np.sum(a2d)
 ```
 
-sum over all rows:
+sum along axis 0 ("vertical"):
 
 ```py
 np.sum(a2d, axis=0)
 ```
 
-sum over all columns:
+sum along axis 1 ("horizontal"):
 
 ```py
 np.sum(a2d, axis=1)

@@ -119,7 +119,7 @@ wir installieren _ipykernel_ und seine Abhängigkeiten (_ipython_, _jupyter-core
 pip install ipykernel
 ```
 
-In der Befehlspalette von VS Code (via F2) suchen wir nach: _Python: Create New Blank Jupyter Notebook_
+In der Befehlspalette von VS Code (via F1) suchen wir nach: _Python: Create New Blank Jupyter Notebook_
 
 ## Jupyter Notebooks - lokal
 
@@ -480,13 +480,13 @@ Gesamtsumme:
 np.sum(a2d)
 ```
 
-Summe über alle Zeilen:
+Summe entlang Achse 0 ("vertikal")
 
 ```py
 np.sum(a2d, axis=0)
 ```
 
-Summe über alle Spalten:
+Summe entlang Achse 1 ("horizontal")
 
 ```py
 np.sum(a2d, axis=1)
@@ -659,16 +659,11 @@ Arrays können via `array.copy()` kopiert werden
 
 ## Arrays aneinanderfügen
 
-nebeineinander anfügen:
+entlang einer Achse aneinanderfügen (standardmäßig Achse 0):
 
 ```py
 np.concatenate([a1d, a1d])
 np.concatenate([a2d, a2d])
-```
-
-untereinander anfügen:
-
-```py
 np.concatenate([a2d, a2d], axis=1)
 ```
 

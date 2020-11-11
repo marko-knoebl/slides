@@ -40,7 +40,7 @@ wir installieren _ipykernel_ und seine Abhängigkeiten (_ipython_, _jupyter-core
 pip install ipykernel
 ```
 
-In der Befehlspalette von VS Code (via F2) suchen wir nach: _Python: Create New Blank Jupyter Notebook_
+In der Befehlspalette von VS Code (via F1) suchen wir nach: _Python: Create New Blank Jupyter Notebook_
 
 ## Jupyter Notebooks - lokal
 

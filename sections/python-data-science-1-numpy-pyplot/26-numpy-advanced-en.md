@@ -46,16 +46,11 @@ Arrays can be copied via `array.copy()`
 
 ## Concatenating arrays
 
-concatenating horizontally:
+concatenating along an axis (axis 0 by default):
 
 ```py
 np.concatenate([a1d, a1d])
 np.concatenate([a2d, a2d])
-```
-
-concatenating vertically:
-
-```py
 np.concatenate([a2d, a2d], axis=1)
 ```
 
