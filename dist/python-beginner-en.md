@@ -1310,9 +1310,3 @@ Examining values in VS Code:
 
 - local variables in the _variables_ widget
 - watch custom expressions in the _watch_ widget
-
-# Cheatsheet
-
-<https://ehmatthes.github.io/pcc/cheatsheets/README.html>
-
-(missing topics: break, None, comments)

@@ -1310,9 +1310,3 @@ Werte in VS Code begutachten:
 
 - direkt unter _variables_
 - eigene Ausdrücke angeben unter _watch_
-
-# Cheatsheet
-
-<https://ehmatthes.github.io/pcc/cheatsheets/README.html>
-
-(fehlende Inhalte: break, None, Kommentare)

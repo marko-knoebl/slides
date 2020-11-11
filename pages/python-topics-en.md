@@ -4,6 +4,8 @@
 
 ## Python basics
 
+usually 3 days for beginner programmers, 1 day for programmers with knowledge in other languages
+
 - overview of Python and comparison to other programming languages
 - installation
 - working with the interactive Python console
@@ -63,6 +65,8 @@
 - parallelization: threads and multiprocessing
 
 ## Python and data science 1: NumPy and pyplot
+
+usually 1 day
 
 - overview of Python's scientific packages
 - setup and online versions

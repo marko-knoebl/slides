@@ -4,6 +4,8 @@
 
 ## Python Grundlagen
 
+üblicherweise 3 Tage für Programmieranfänger, 1 Tag für Programmierer mit Erfahrung in anderen Sprachen
+
 - Überblick über Python und Vergleich zu anderen Programmiersprachen
 - Installation
 - Arbeiten mit der interaktiven Python-Konsole
@@ -63,6 +65,8 @@
 - Parallelisierung: threads und multiprocessing
 
 ## Python und Data Science 1: NumPy und pyplot
+
+üblicherweise 1 Tag
 
 - Überblick über Python-Pakete für Data Science
 - Setup und Online-Versionen
