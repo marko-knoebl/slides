@@ -23,6 +23,7 @@ while a < 2000:
 - Zahlenraten mit mehreren Versuchen
 - Schleife, die die Zahlen 1 bis 10 ausgibt
 - Schleife, die die Zahlen der 7er-Reihe des Einmaleins ausgibt
+- Schleife, die die Liste `[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]` erstellt
 - Rechentrainer mit Zufallsaufgaben
 - Einkaufsliste
 

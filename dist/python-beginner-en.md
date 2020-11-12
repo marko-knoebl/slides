@@ -879,6 +879,7 @@ exercises:
 - guess the number with multiple attempts
 - a loop that prints the numbers 1 to 10
 - a loop that prints the numbers 7, 14, 21, ..., 70
+- a loop that creates the list `[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]`
 - exercise program for simple calculations
 - shopping list
 
@@ -937,6 +938,14 @@ names = ["Alice", "Bob", "Charlie"]
 for name in names:
     print("Hello, " + name + "!")
 ```
+
+## Exercise: for loops and if statements
+
+start with a list of numbers, e.g. `[2, 5, -3, 8, 1, -5]`
+
+print all positive entries, e.g. `2, 5, 8, 1`
+
+print the biggest element, e.g. `8`
 
 ## Example: login system
 

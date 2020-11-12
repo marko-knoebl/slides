@@ -879,6 +879,7 @@ while a < 2000:
 - Zahlenraten mit mehreren Versuchen
 - Schleife, die die Zahlen 1 bis 10 ausgibt
 - Schleife, die die Zahlen der 7er-Reihe des Einmaleins ausgibt
+- Schleife, die die Liste `[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]` erstellt
 - Rechentrainer mit Zufallsaufgaben
 - Einkaufsliste
 
@@ -937,6 +938,14 @@ names = ["Alice", "Bob", "Charlie"]
 for name in names:
     print("Hello, " + name + "!")
 ```
+
+## Übung: For-Schleifen und If-Statements
+
+Beginne mit einer Liste von Zahlen, z.B. `[2, 5, -3, 8, 1, -5]`
+
+Gib alle positiven Einträge aus, z.B. `2, 5, 8, 1`
+
+Gib den größten Eintrag aus, z.B. `8`
 
 ## Beispiel: Login-System
 

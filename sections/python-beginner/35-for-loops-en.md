@@ -15,6 +15,14 @@ for name in names:
     print("Hello, " + name + "!")
 ```
 
+## Exercise: for loops and if statements
+
+start with a list of numbers, e.g. `[2, 5, -3, 8, 1, -5]`
+
+print all positive entries, e.g. `2, 5, 8, 1`
+
+print the biggest element, e.g. `8`
+
 ## Example: login system
 
 <!-- might be too hard for programming beginners -->
