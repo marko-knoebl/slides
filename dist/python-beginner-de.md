@@ -131,20 +131,6 @@ Python online (**Jupyter Notebooks**):
 - Microsoft Azure Notebooks (Account benötigt)
 - ...
 
-## Python im interaktiven Modus (online)
-
-Google Colab:
-
-- Gehe zu <https://colab.research.google.com>
-- Wähle _File_ - _New Python 3 Notebook_
-
-Binder:
-
-- Gehe zu <https://jupyter.org/try>
-- _Try Jupyter with Python_ auswählen
-- warten ...
-- _File_ - _New Notebook_ - _Python 3_
-
 # Variablen
 
 ## Variablen
@@ -613,11 +599,11 @@ grünes Play-Symbol zur Editoransicht
 
 oder
 
-_Debug_ - _Start Without Debugging (Ctrl + F5)_
+_Run_ - _Run Without Debugging (Ctrl + F5)_
 
 ## Übung: Alter anhand Geburtsjahr
 
-Schreibe ein Programm namens `age.py`, das den Benutzer nach seinem Geburtsjahr fragt und dann angibt, wie alt diese Person im Jahr 2019 wird.
+Schreibe ein Programm namens `age.py`, das den Benutzer nach seinem Geburtsjahr fragt und dann angibt, wie alt diese Person im Jahr 2020 wird.
 
 ## Übung: Länge des Namens
 
@@ -692,7 +678,6 @@ interessante Module:
 - `math`
 - `datetime`
 - `os` (Betriebssystem, Dateisystem)
-- `sys` (Python Umgebung)
 - `urllib.request` (HTTP-Anfragen)
 
 ## print und pprint
@@ -736,7 +721,8 @@ Textdatei zum Schreiben öffnen:
 
 ```py
 file = open("message.txt", "w", encoding="utf-8")
-file.write("hello world")
+file.write("hello\n")
+file.write("world\n)
 file.close()
 ```
 
@@ -749,24 +735,6 @@ import random
 
 print(random.randint(1, 6))
 print(random.choice(["heads", "tails"]))
-```
-
-## sys
-
-Kommandozeilenparameter sind auslesbar über `sys.argv`
-
-```py
-# hello.py
-import sys
-print(sys.argv)
-```
-
-```bash
-python hello.py one two three
-```
-
-```bash
-['hello.py', 'one', 'two', 'three']
 ```
 
 ## urllib.request
@@ -880,6 +848,12 @@ Codeblock = Zusammengehörige Codezeilen, die z.B. als Resultat einer if-Abfrage
 
 In Python endet die Zeile vor einem Codeblock mit einem `:`, der Codeblock ist eingerückt (meist mit 4 Leerzeichen).
 
+## Übung: Münzwurf
+
+Simuliere einen zufälligen Münzwurf mittels `random.choice(["heads", "tails"])`
+
+Lasse den Benutzer das Ergebnis raten und sage ihm, ob er richtig lag
+
 # While-Schleife
 
 ## While-Schleife
@@ -965,6 +939,8 @@ for name in names:
 ```
 
 ## Beispiel: Login-System
+
+<!-- might be too hard for programming beginners -->
 
 ```py
 users = [
@@ -1141,50 +1117,6 @@ Innerhalb einer Funktion gilt: Variablen, die außerhalb definiert sind, können
 
 In anderen Programmiersprachen: auch Konstrukte wie `if` oder `for` eröffnen einen neuen Scope - nicht so in Python
 
-## Docstrings
-
-Dokumentationsstrings, die z.B. Funktionen genauer beschreiben
-
-Kommentare in einer Funktion: helfen Programmierern, die an dieser Funktion arbeiten
-
-Docstring einer Funktion: hilft Programmierern, die diese Funktion verwenden
-
-## Docstrings
-
-Beispiel:
-
-```py
-def fib(n):
-    """Compute the n-th fibonacci number.
-
-    n must be a nonnegative integer
-    """
-    ...
-```
-
-## Docstrings ausgeben
-
-```py
-help(fib)
-help(round)
-```
-
-## Aufgabe: Funktion lottery()
-
-Schreibe eine Funktion namens `lottery`, die eine Liste von Lotteriezahlen erzeugt
-
-`lottery()` → `[2, 35, 19, 27, 10]`
-
-## Aufgabe: isprime()
-
-Schreibe eine Funktion namens `isprime`, die überprüft, ob eine Zahl eine Primzahl ist
-
-`isprime(59)` → `True`
-
-## Aufgabe: ask_yes_no()
-
-Schreibe eine Funktion namens `ask_yes_no`, die dem Benutzer eine Ja/Nein-Frage stellt und entweder `True` oder `False` zurückliefert
-
 # Funktionen: Übungsaufgaben
 
 ## Funktionen: Übungsaufgaben
@@ -1259,6 +1191,34 @@ Auszüge aus dem _Zen of Python_ (anzeigbar via `import this`):
 - _Special cases aren't special enough to break the rules._
 - _There should be one-- and preferably only one --obvious way to do it._
 
+## Docstrings
+
+Dokumentationsstrings, die z.B. Funktionen genauer beschreiben
+
+Kommentare in einer Funktion: helfen Programmierern, die an dieser Funktion arbeiten
+
+Docstring einer Funktion: hilft Programmierern, die diese Funktion verwenden
+
+## Docstrings
+
+Beispiel:
+
+```py
+def fib(n):
+    """Compute the n-th fibonacci number.
+
+    n must be a nonnegative integer
+    """
+    ...
+```
+
+## Docstrings ausgeben
+
+```py
+help(fib)
+help(round)
+```
+
 # Debuggen
 
 ## Debuggen
@@ -1267,8 +1227,8 @@ Breakpoints (Haltepunkte) können gesetzt werden, um die Ausführung des Codes a
 
 Möglichkeiten, um Breakpoints zu setzen:
 
-- direkt in Python mittels `breakpoint()` (seit Python 3.7)
 - in VS Code links neben die Zeilennummer klicken
+- direkt in Python mittels `breakpoint()` (seit Python 3.7)
 
 Ausführung in VS Code via _Debug - Start Debugging_ oder _F5_.
 
@@ -1277,27 +1237,32 @@ Ausführung in VS Code via _Debug - Start Debugging_ oder _F5_.
 Manuell weiterspringen:
 
 - bis zum nächsten Breakpoint weiter ausführen:
-  - `c` für _continue_ im Python Debugger
   - _Continue_ in VS Code
+  - `c` für _continue_ im Python Debugger
 - debugging beenden:
-  - `q` für _quit_ im Python Debugger
   - _Stop_ in VS Code
+  - `q` für _quit_ im Python Debugger
 
 ## Debuggen
 
 Manuell weiterspringen:
 
-- in die nächste Zeile springen: 
-  - `n` für _next_ im Python Debugger
+- in die nächste Zeile springen:
   - _Step Over_ in VS Code
+  - `n` für _next_ im Python Debugger
 - in die nächste Zeile springen - und evtuell einem Funktionsaufruf folgen:
-  - `s` für _step_ im Python Debugger
   - _Step Into_ in VS Code
+  - `s` für _step_ im Python Debugger
 - die aktuelle Funktion verlassen:
-  - `r` für _return_ im Python Debugger
   - _Step Out_ in VS Code
+  - `r` für _return_ im Python Debugger
 
 ## Debuggen
+
+Werte in VS Code begutachten:
+
+- direkt unter _variables_
+- eigene Ausdrücke angeben unter _watch_
 
 Ausgabe von Werten im Python Debugger mittels `p` für _print_:
 
@@ -1305,8 +1270,3 @@ Ausgabe von Werten im Python Debugger mittels `p` für _print_:
 p mylist
 p mylist[0]
 ```
-
-Werte in VS Code begutachten:
-
-- direkt unter _variables_
-- eigene Ausdrücke angeben unter _watch_

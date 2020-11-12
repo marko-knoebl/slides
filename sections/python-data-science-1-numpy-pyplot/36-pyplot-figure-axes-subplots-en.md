@@ -32,10 +32,6 @@ fig.savefig("myplot.png")
 fig.savefig("myplot.svg")
 ```
 
-## Figure objects
-
-Task: Script that generates a graph of the current CPU load and updates it every second (use the PIP package _psutil_)
-
 ## Axes objects
 
 Getting the active _axes_ object:

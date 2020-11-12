@@ -32,3 +32,9 @@ else:
 code block = a group of lines that belong together - for example the code that gets executed when an if condition is true
 
 In Python the line before the code block ends with a `:` and the code block is indented (usually by 4 spaces)
+
+## Exercise: coin flip
+
+Simulate a random coin flip via `random.choice(["heads", "tails"])`
+
+Let the user guess the outcome and tell them if they were right

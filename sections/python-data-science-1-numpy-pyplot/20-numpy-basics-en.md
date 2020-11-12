@@ -24,7 +24,7 @@ import numpy as np
 creating a 1-dimensional array:
 
 ```
-a1d = np.array([1, 2, 3, 4, 5, 6])
+a1d = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
 ```
 
 ## Arrays

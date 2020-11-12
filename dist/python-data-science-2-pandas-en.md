@@ -171,14 +171,68 @@ reading / writing a complete documents (including formatting):
 
 see: [Dataquest: Tutorial Using Excel with Python and Pandas](https://www.dataquest.io/blog/excel-and-pandas/)
 
-## Importing and exporting data
+## Importing and exporting HDF5 data
 
-HDF5 (_pytables_ must be installed):
+requires _PyTables_ (available in the Anaconda distribution)
 
 ```py
 euribor.to_hdf("data.hdf5", "euribor")
-euribor = read_hdf("data.hdf5", "euribor")
+sp500.to_hdf("data.hdf5", "sp500")
+
+euribor = pd.read_hdf("data.hdf5", "euribor")
 ```
+
+# Data statistics
+
+## Data statistics
+
+```py
+df.describe()
+```
+
+## Statistics on a data frames / series
+
+```py
+countries.area.describe()
+```
+
+```txt
+count     3.000000
+mean     12.133333
+std       4.215843
+min       9.600000
+25%       9.700000
+50%       9.800000
+75%      13.400000
+max      17.000000
+dtype: float64
+```
+
+(see next slide for explanations)
+
+## Statistics on series
+
+```py
+countries.area.describe()
+```
+
+The above computes the following data:
+
+- `area.count()`
+- `area.mean()`
+- `area.std()`
+- `area.quantile(0)` or `area.min()`
+- `area.quantile(0.25)`
+- `area.quantile(0.5)` or `area.median()`
+- `area.quantile(0.75)`
+- `area.quantile(1)` or `area.max()`
+
+## Statistical quantities
+
+- _std_: _Standard deviation_
+- _median_: half of the values are less and half are greater than the median
+- _min_: all values are greater than the minimum
+- _25%-quantile_: 25% of all values are less
 
 # Pandas: Querying data
 
@@ -282,85 +336,17 @@ df.query("a < b < c")
 - percentage of survivors amongst males
 - percentage of survivors amongst children
 
-# Data statistics
+## Exercises (Exchange rates)
 
-## Data statistics
+- display _date_ and _exchange rate_ for USD-EUR
 
-```py
-df.describe()
-```
-
-## Statistics on a data frames / series
+## Solutions (Exchange rates)
 
 ```py
-countries.area.describe()
-```
-
-```txt
-count     3.000000
-mean     12.133333
-std       4.215843
-min       9.600000
-25%       9.700000
-50%       9.800000
-75%      13.400000
-max      17.000000
-dtype: float64
-```
-
-(see next slide for explanations)
-
-## Statistics on series
-
-```py
-countries.area.describe()
-```
-
-The above computes the following data:
-
-- `area.count()`
-- `area.mean()`
-- `area.std()`
-- `area.quantile(0)` or `area.min()`
-- `area.quantile(0.25)`
-- `area.quantile(0.5)` or `area.median()`
-- `area.quantile(0.75)`
-- `area.quantile(1)` or `area.max()`
-
-## Statistical quantities
-
-- _std_: _Standard deviation_
-- _median_: half of the values are less and half are greater than the median
-- _min_: all values are greater than the minimum
-- _25%-quantile_: 25% of all values are less
-
-# Example: exchange rates
-
-## Exchange rates
-
-<https://datahub.io/core/exchange-rates/r/daily.csv>
-
-Daily Exchange rates between USD and other countries
-
-We will read exchange rate data, transform it so it only contains data for EUR-USD exchange rates and use the dates as the index
-
-## Exchange rates
-
-Solution:
-
-```py
-er = pd.read_csv(
-    "https://datahub.io/core/exchange-rates/r/daily.csv",
-    parse_dates=[1])
-
-# only select euro
-er_eur_full = er.loc[er.Country=="Euro"]
-
-# now we can set the date as the index
-er_eur_dateindex = er_eur_full.set_index('Date')
-
-# we can drop the country information
-er_eur = er_eur_dateindex.loc[:, 'Value']
+euro_exchange_rates = exchange_rates[
+    exchange_rates.Country == "Euro"
+]
+euro_exchange_rates.loc[:, ["Date", "Exchange rate"]]
 ```
 
 # Pandas: changing data
@@ -536,23 +522,27 @@ Use the data from _sp500_ and euribor to compare the development of american and
 
 ## Basic plots in Pandas
 
-general procedure:
-
-In Jupyter:
-
 ```py
-data_frame.plot()
+import numpy as np
+import pandas as pd
+
+x = np.array([0, 1, 2, 3])
+
+data = pd.DataFrame({
+    "y1": x*2,
+    "y2": x**2
+})
+
+data.plot.line()
 ```
 
-In the terminal:
+## Basic plots in Pandas
+
+if not in a Jupyter notebook:
 
 ```py
 import matplotlib.pyplot as plt
 
-data_frame.plot()
-
-# show all figures that were created since the last
-# call of .show()
 plt.show()
 ```
 
@@ -602,12 +592,6 @@ iris.sepal_lenght.plot.hist()
 ```py
 iris.sepal_length.plot.hist(bins=30)
 ```
-
-## Histogram
-
-Exercise:
-
-Simulate 10 Million rolls with 10 dice each and visualize the distribution of the sum of eyes as a histogram
 
 ## Box plot
 

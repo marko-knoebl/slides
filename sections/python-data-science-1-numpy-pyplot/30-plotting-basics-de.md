@@ -25,8 +25,13 @@ y2 = x**2
 
 plt.plot(x, y1)
 plt.plot(x, y2)
+```
 
-# plt.show is not needed in Jupyter
+In Jupyter werden Plots automatisch angezeigt
+
+wenn wir _nicht_ Jupyter verwenden zusätzlich:
+
+```
 plt.show()
 ```
 
@@ -36,33 +41,11 @@ Ergebnis:
 
 <img src="assets/pyplot-simple-graphs.png" alt="Simple plot in pyplot" />
 
-## Einfacher Plot mit pandas
-
-```py
-import numpy as np
-import matplotlib.pyplot as plt
-import pandas as pd
-
-x = np.array([0, 1, 2, 3])
-
-data = pd.DataFrame({
-    "y1": x*2,
-    "y2": x**2
-})
-
-data.plot.line()
-
-# plt.show is not needed in Jupyter
-plt.show()
-```
-
 ## Übung
 
 Erstelle einen Plot, der die Sinus- und Kosinusfunktion im Intervall von _0_ bis _2π_ zeigt.
 
 ## Übung
-
-Lösung mittels pyplot:
 
 ```py
 x = np.linspace(0, 2*3.1415, 200)
@@ -71,16 +54,10 @@ plt.plot(x, np.sin(x))
 plt.plot(x, np.cos(x))
 ```
 
-Lösung mittels pandas:
-
-```py
-x = np.linspace(0, 2*3.1415, 200)
-
-df = pd.DataFrame({"sin": np.sin(x), "cos": np.cos(x)}, index=x)
-
-df.plot.line()
-```
-
 ## Übungen
 
-Zeichne eine Gauß'sche Glockenkurve
+Erstelle eine Python-Funktion, die eine Gaußsche Glockenkurve basierend auf ihren Parametern _mu_ und _sigma_ zeichnet:
+
+```py
+plot_gaussian_function(mu, sigma)
+```

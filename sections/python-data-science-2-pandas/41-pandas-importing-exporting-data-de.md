@@ -104,11 +104,13 @@ lesen / schreiben eines ganzen Dokuments (inklusive Formatierung):
 
 siehe: [Dataquest: Tutorial Using Excel with Python and Pandas](https://www.dataquest.io/blog/excel-and-pandas/)
 
-## Daten importieren und exportieren
+## Importieren und Exportieren von HDF5-Daten
 
-HDF5 (_pytables_ muss installiert sein):
+benötigt _PyTables_ (verfügbar in der Anaconda-Distribution)
 
 ```py
 euribor.to_hdf("data.hdf5", "euribor")
-euribor = read_hdf("data.hdf5", "euribor")
+sp500.to_hdf("data.hdf5", "sp500")
+
+euribor = pd.read_hdf("data.hdf5", "euribor")
 ```

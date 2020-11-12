@@ -21,7 +21,7 @@ Bemerkung: Pakete wie _NumPy_ benötigen oft etwas Zeit, bis sie für eine neue 
 
 ## Anaconda
 
-_Anaconda_ = Python Distribution, die viele vorinstallierte Pakete und Entwicklerwerkzeuge enthält
+_Anaconda_ = Python Distribution, die viele vorkompilierte Pakete und Entwicklerwerkzeuge enthält
 
 Benötigt ~3GB Platz auf der Festplatte
 

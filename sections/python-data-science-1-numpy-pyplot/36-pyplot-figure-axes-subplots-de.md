@@ -32,10 +32,6 @@ fig.savefig("myplot.png")
 fig.savefig("myplot.svg")
 ```
 
-## Figure Objekte
-
-Aufgabe: Skript, das eine PNG-Datei eines Graphen der aktuellen CPU-Last erstellt und jede Sekunde aktualisiert. (verwende hierzu das PIP-Paket _psutil_)
-
 ## Axes Objekte
 
 Das aktive _Axes_-Objekt abfragen:

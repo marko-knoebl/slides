@@ -44,11 +44,11 @@ grünes Play-Symbol zur Editoransicht
 
 oder
 
-_Debug_ - _Start Without Debugging (Ctrl + F5)_
+_Run_ - _Run Without Debugging (Ctrl + F5)_
 
 ## Übung: Alter anhand Geburtsjahr
 
-Schreibe ein Programm namens `age.py`, das den Benutzer nach seinem Geburtsjahr fragt und dann angibt, wie alt diese Person im Jahr 2019 wird.
+Schreibe ein Programm namens `age.py`, das den Benutzer nach seinem Geburtsjahr fragt und dann angibt, wie alt diese Person im Jahr 2020 wird.
 
 ## Übung: Länge des Namens
 

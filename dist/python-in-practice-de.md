@@ -341,9 +341,10 @@ earlier = pickle.loads(serialized)
 
 ## Übung
 
-Speichern und Lesen eines Tic-Tac-Toe-Feldes in verschiedenen Formaten
+- Speichern und Lesen einer Einkaufsliste (optional mit zugehörigen Mengen) in verschiedenen Formaten
+- Speichern und Lesen eines Tic-Tac-Toe-Feldes in verschiedenen Formaten
 
-Python-Datenstruktur:
+Python-Datenstruktur für das Tic-Tac-Toe-Feld:
 
 ```py
 field = [
@@ -666,7 +667,21 @@ Beispiele:
 
 ## Kommandozeilenparameter
 
-Auslesbar über `sys.argv`
+Kommandozeilenparameter sind auslesbar über `sys.argv`
+
+```py
+# hello.py
+import sys
+print(sys.argv)
+```
+
+```bash
+python hello.py --run --file=foo.txt
+```
+
+```python
+['hello.py', '--run', '--file=foo.txt']
+```
 
 ## Überschreiben von stdout.write
 

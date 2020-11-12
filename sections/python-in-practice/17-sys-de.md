@@ -15,7 +15,21 @@ Beispiele:
 
 ## Kommandozeilenparameter
 
-Auslesbar über `sys.argv`
+Kommandozeilenparameter sind auslesbar über `sys.argv`
+
+```py
+# hello.py
+import sys
+print(sys.argv)
+```
+
+```bash
+python hello.py --run --file=foo.txt
+```
+
+```python
+['hello.py', '--run', '--file=foo.txt']
+```
 
 ## Überschreiben von stdout.write
 

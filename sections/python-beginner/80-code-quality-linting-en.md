@@ -55,3 +55,31 @@ Quotes from the _zen of Python_ (full text via `import this`):
 - _Readability counts._
 - _Special cases aren't special enough to break the rules._
 - _There should be one-- and preferably only one --obvious way to do it._
+
+## Docstrings
+
+Docstrings = Strings that describe functions / classes / modules in more detail
+
+comments in a function: help programmers who develop that function
+
+docstring of a function: help programmers who use that function
+
+## Docstrings
+
+Example:
+
+```py
+def fib(n):
+    """Compute the n-th fibonacci number.
+
+    n must be a nonnegative integer
+    """
+    ...
+```
+
+## Viewing docstrings
+
+```py
+help(fib)
+help(round)
+```

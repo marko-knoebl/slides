@@ -55,7 +55,7 @@ Bemerkung: Pakete wie _NumPy_ benötigen oft etwas Zeit, bis sie für eine neue 
 
 ## Anaconda
 
-_Anaconda_ = Python Distribution, die viele vorinstallierte Pakete und Entwicklerwerkzeuge enthält
+_Anaconda_ = Python Distribution, die viele vorkompilierte Pakete und Entwicklerwerkzeuge enthält
 
 Benötigt ~3GB Platz auf der Festplatte
 
@@ -238,7 +238,7 @@ import numpy as np
 Erstellen eines 1-dimensionalen Arrays:
 
 ```
-a1d = np.array([1, 2, 3, 4, 5, 6])
+a1d = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
 ```
 
 ## Arrays
@@ -315,18 +315,17 @@ Ein Array der Größe 2x6, gefüllt mit Nullen:
 
 ```py
 np.zeros((2, 6))
-```
-
-oder
-
-```py
+# or
 np.full((2, 6), 0.0)
 ```
 
 Ein 3x3 Array mit Zufallswerten:
 
 ```py
+# floats between 0 and 1:
 np.random.random((3, 3))
+# integers between 1 and 6:
+np.random.randint(1, 7, (3, 3))
 ```
 
 ## Arrays erstellen
@@ -345,14 +344,12 @@ fixe Anzahl an Einträgen (4):
 b = np.linspace(0, 1.5, 4)
 ```
 
-# Operationen auf Arrays
+# Auswählen von Array-Einträgen
 
-## Operationen auf Arrays
-
-Auswählen von Einträgen:
+## Auswählen von Array-Einträgen
 
 ```py
-a1d[0] # 1
+a1d[0] # 0
 a2d[0, 1] # 2
 a2d[0, :] # [1, 2, 3]
 a2d[:, 0] # [1, 4, 7]
@@ -362,23 +359,44 @@ bei 2D-Arrays: _[Zeilenindex, Spaltenindex]_
 
 im Allgemeinen:
 
-- vorletzter Index (sofern er existiert): zählt richtung unten
 - letzter Index: zählt rightung rechts
+- vorletzter Index (sofern er existiert): zählt richtung unten
 
-## Operationen auf Arrays
+## Auswählen von Array-Einträgen
 
-Auswählen von Einträgen:
+```py
+a2d[0, :] # [1, 2, 3]
+```
+
+Kurzform:
 
 ```py
 a2d[0] # [1, 2, 3]
 ```
 
+## Slices
+
 ```py
-a2d[1:, 1:] # [[5, 6], [8, 9]]
-a2d[1, ::-1] # [6, 5, 4]
+a1d[:3] # [0, 1, 2]
+a1d[3:6] # [3, 4, 5]
+a1d[6:] # [6, 7, 8, 9]
+a1d[0:8:2] # [0, 2, 4, 6]
 ```
 
-## Operationen auf Arrays
+```py
+a1d[3:0:-1] # [3, 2, 1]
+a1d[::-1] # [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+```
+
+```py
+a2d[1:, :] # [[5, 6, 7], [8, 9, 10]]
+```
+
+gleiches funktioniert mit Python-Listen
+
+# Operationen auf Arrays
+
+## Operatoren
 
 Operatoren werden elementweise angewendet:
 
@@ -386,15 +404,28 @@ Operatoren werden elementweise angewendet:
 a = np.array([1, 2, 3])
 b = np.array([2, 2, 2])
 
-print(-a)
+-a
 # np.array([-1, -2, -3])
-print(a + b)
+a + b
 # np.array([3, 4, 5])
-print(a * b)
+a * b
 # np.array([2, 4, 6])
 ```
 
-## Operationen auf Arrays
+## Vergleiche
+
+Elementweises Vergleichen von Arrays:
+
+```py
+a < b
+# np.array([True, False, False])
+a == b
+# np.array([False, True, False])
+```
+
+Achtung: `a == b` kann nicht sinnvoll in if-Abfragen verwendet werden - verwende `np.array_equal(a, b)`.
+
+## Operatoren
 
 Auch mit einzelnen Zahlen möglich (broadcasting):
 
@@ -413,38 +444,7 @@ print(a + np.e)
 print(np.nan)
 ```
 
-## Operationen auf Arrays
-
-Elementweises Vergleichen von Arrays:
-
-```py
-a < b
-# np.array([True, False, False])
-a == b
-# np.array([False, True, False])
-```
-
-Achtung: `a == b` kann nicht sinnvoll in if-Abfragen verwendet werden - verwende `np.array_equal(a, b)`.
-
-## Operationen auf Arrays
-
-Filtern von Arrays (z.B. beschränken auf positive Einträge):
-
-```py
-a = np.array([-1, 3, -2, 1])
-a_is_pos = a > 0
-# array([False, True, False, True])
-a_pos = a[a_is_pos]
-# array([3, 1])
-```
-
-Kurzform:
-
-```py
-a_pos = a[a > 0]
-```
-
-## Operationen auf Arrays
+## Elementweise Funktionen
 
 NumPy bietet spezielle Funktionen, die elementweise angewendet werden:
 
@@ -457,9 +457,7 @@ print(np.sqrt(a))
 # [0.0, 1.0, 1.414... ]
 ```
 
-## Operationen auf Arrays
-
-Elementweise Funktionen:
+## Elementweise Funktionen
 
 - `abs`
 - `sin`
@@ -470,7 +468,7 @@ Elementweise Funktionen:
 - `log10`
 - ...
 
-## Operationen auf Arrays
+## Aggregationen
 
 _Aggregationen_ berechnen beispielsweise Werte zu jeder Zeile / jeder Spalte oder zu einem ganzen Array
 
@@ -492,9 +490,7 @@ Summe entlang Achse 1 ("horizontal")
 np.sum(a2d, axis=1)
 ```
 
-## Operationen auf Arrays
-
-Aggregationen:
+## Aggregationen
 
 - `sum`
 - `min`
@@ -524,7 +520,18 @@ quantities = np.array([3, 0, 0, 2])
 
 ## Übungen
 
-Gegeben sind die Koordinaten von Eckpunkten eines Dreiecks (2D oder 3D). Bestimme den Schwerpunkt (arithmetisches Mittel der Eckpunkte).
+Gegeben sind die Massen und Geschwindigkeiten einiger Körper; bestimme die kinetische Energie aller einzelnen Körper und die gesamte kinetische Energie aller Körper zusammen
+
+```py
+masses = np.array([1.2, 2.2, 1.5, 2.0])
+velocities = np.array([12.0, 14.0, 14.0, 7.5])
+```
+
+Formel: E = m\*v^2 / 2
+
+## Übungen
+
+Gegeben sind die Koordinaten von Eckpunkten eines Dreiecks. Bestimme den Schwerpunkt (arithmetisches Mittel der Eckpunkte).
 
 ```py
 a = np.array([5, 1])
@@ -543,11 +550,15 @@ Resultat:
 ```py
 # x, sin(x), cos(x)
 np.array([[0.0, 0.01, 0.02, ...],
-          [0.0, 0.0099998, 0.99995, ...],
+          [0.0, 0.0099998, 0.0199999, ...],
           [1.0, 0.99995, 0.99980, ...]])
 ```
 
 Überprüfe anhand der Daten, ob näherungsweise gilt: _sin(x)^2 + cos(x)^2 = 1_
+
+## Übungen
+
+Simuliere 1 Million Mal würfeln mit je 10 Würfeln
 
 # Array Typen
 
@@ -575,8 +586,8 @@ d.dtype # |S3
 Typen können explizit angegeben werden:
 
 ```py
-a = np.array([1], dtype='int64')
-b = np.array([1], dtype='uint8')
+a = np.array([1, 2, 3, 4], dtype='int64')
+b = np.array([1, 2, 3, 4], dtype='uint8')
 ```
 
 Typen werden wenn möglich automatisch umgewandelt:
@@ -595,20 +606,94 @@ wichtige Typen:
 - _uint8_, _uint16_, _uint32_, _uint64_
 - _float16_, _float32_, _float64_
 
-## Overflow
+## Integer Typen
 
-Achtung bei zu großen / zu kleinen Werten
+Ein _int8_ kann 2^8 (256) verschiedene Zahlen repräsentieren
 
-Der Typ `int8` erlaubt nur Werte im Bereich `-128` bis `+127`
+Anzahlen für andere Integertypen:
+
+- _int8_: 256 (-128 to +127)
+- _int16_: 65,536 (-32768 to +32769)
+- _int32_: 4,294,967,296
+- _int64_: 18,446,744,073,709,551,616
+
+## Integer Typen
 
 ```py
 np.array([127, 128, 129], dtype="int8")
 ```
 
-Output:
+Output (Integer Overflow):
 
 ```py
 array([127, -128, -127])
+```
+
+## Float Typen
+
+Genauigkeit für float Typen:
+
+- _flaot16_: ~3 Dezimalstellen
+- _float32_: ~7 Dezimalstellen
+- _float64_: ~16 Dezimalstellen
+
+Floats haben ebenfalls einen Minimal- und Maximalwert
+
+## Float Typen
+
+float16: genau für etwa 3 Dezimalstellen
+
+```py
+np.array([2.71828, 0.271828], dtype="float16")
+# array([2.719 , 0.2717])
+```
+
+## Float Typen
+
+float16: overflow
+
+```py
+np.array([65450, 65500, 65550], dtype="float16")
+# array([65440, 65500, inf])
+```
+
+float16: underflow
+
+```py
+np.array(
+    [3.141e-5, 3.141e-6, 3.141e-7, 3.141e-8, 3.141e-9],
+    dtype="float16"
+)
+# array([3.14e-05, 3.16e-06, 2.98e-07, 5.96e-08, 0.00e+00])
+```
+
+# Fortgeschrittenes Indexing und Filtering
+
+## Boolean Indexing
+
+```py
+a = np.array([4.1, 2.7, -1, 3.8, -1])
+
+a_valid = a > 0
+# array([True, True, False, True, False])
+a_filtered = a[a_valid]
+# array([4.1, 2.7, 3.8])
+
+a_invalid = a < 0
+a_with_nans = a.copy()
+a_with_nans[a_invalid] = np.nan
+# array([4.1, 2.7, nan, 3.8, nan])
+```
+
+## Boolean Indexing (Kurzform)
+
+```py
+a = np.array([4.1, 2.7, -1, 3.8, -1])
+
+a_filtered = a[a > 0]
+
+a_with_nans = a.copy()
+a_with_nans[a < 0] = np.nan
 ```
 
 # NumPy Fortgeschritten
@@ -736,8 +821,13 @@ y2 = x**2
 
 plt.plot(x, y1)
 plt.plot(x, y2)
+```
 
-# plt.show is not needed in Jupyter
+In Jupyter werden Plots automatisch angezeigt
+
+wenn wir _nicht_ Jupyter verwenden zusätzlich:
+
+```
 plt.show()
 ```
 
@@ -747,33 +837,11 @@ Ergebnis:
 
 <img src="assets/pyplot-simple-graphs.png" alt="Simple plot in pyplot" />
 
-## Einfacher Plot mit pandas
-
-```py
-import numpy as np
-import matplotlib.pyplot as plt
-import pandas as pd
-
-x = np.array([0, 1, 2, 3])
-
-data = pd.DataFrame({
-    "y1": x*2,
-    "y2": x**2
-})
-
-data.plot.line()
-
-# plt.show is not needed in Jupyter
-plt.show()
-```
-
 ## Übung
 
 Erstelle einen Plot, der die Sinus- und Kosinusfunktion im Intervall von _0_ bis _2π_ zeigt.
 
 ## Übung
-
-Lösung mittels pyplot:
 
 ```py
 x = np.linspace(0, 2*3.1415, 200)
@@ -782,19 +850,13 @@ plt.plot(x, np.sin(x))
 plt.plot(x, np.cos(x))
 ```
 
-Lösung mittels pandas:
-
-```py
-x = np.linspace(0, 2*3.1415, 200)
-
-df = pd.DataFrame({"sin": np.sin(x), "cos": np.cos(x)}, index=x)
-
-df.plot.line()
-```
-
 ## Übungen
 
-Zeichne eine Gauß'sche Glockenkurve
+Erstelle eine Python-Funktion, die eine Gaußsche Glockenkurve basierend auf ihren Parametern _mu_ und _sigma_ zeichnet:
+
+```py
+plot_gaussian_function(mu, sigma)
+```
 
 # Pyplot: Konfiguration und Styling
 
@@ -1056,16 +1118,19 @@ plt.scatter(x, y, size, color)
 Zählt die Häufigkeit von bestimmten Werten / Wertebereichen
 
 ```py
+plt.hist(many_simulated_dice_rolls_with_10_dice)
+```
+
+```py
 plt.hist(
-    body_heights_men,
-    bins=[150, 160, 170, 180, 190, 200]
+    many_simulated_dice_rolls_with_10_dice,
+    bins=[15, 20, 25, 30, 35, 40, 45, 50, 55]
 )
 ```
 
 ```py
 plt.hist(
-    body_heights_men,
-    bins=[150, 170, 180, 200],
+    many_simulated_dice_rolls_with_10_dice,
     density=True
 )
 ```
@@ -1075,9 +1140,13 @@ plt.hist(
 Visualisierung von statistischen Daten in einem Diagramm (Minimum, Median, Maximum, ...)
 
 ```py
+plt.boxplot(dice_simulation_1)
+```
+
+```py
 plt.boxplot(
-    [body_heights_men, body_heights_women],
-    labels=["men", "women"]
+    [dice_simulation_1, dice_simulation_2],
+    labels=["simulation 1", "simulation 2"]
 )
 ```
 
@@ -1228,10 +1297,6 @@ Exportieren einer Figure:
 fig.savefig("myplot.png")
 fig.savefig("myplot.svg")
 ```
-
-## Figure Objekte
-
-Aufgabe: Skript, das eine PNG-Datei eines Graphen der aktuellen CPU-Last erstellt und jede Sekunde aktualisiert. (verwende hierzu das PIP-Paket _psutil_)
 
 ## Axes Objekte
 

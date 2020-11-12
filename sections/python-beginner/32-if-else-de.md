@@ -32,3 +32,9 @@ else:
 Codeblock = Zusammengehörige Codezeilen, die z.B. als Resultat einer if-Abfrage ausgeführt werden.
 
 In Python endet die Zeile vor einem Codeblock mit einem `:`, der Codeblock ist eingerückt (meist mit 4 Leerzeichen).
+
+## Übung: Münzwurf
+
+Simuliere einen zufälligen Münzwurf mittels `random.choice(["heads", "tails"])`
+
+Lasse den Benutzer das Ergebnis raten und sage ihm, ob er richtig lag

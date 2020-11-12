@@ -166,9 +166,10 @@ earlier = pickle.loads(serialized)
 
 ## Exercise
 
-saving / loading of a tic-tac-toe board in various formats
+- saving / loading of a shopping list (optionally with amounts) in various formats
+- saving / loading of a tic-tac-toe board in various formats
 
-Python data structure:
+Python data structure for the tic-tac-toe board:
 
 ```py
 field = [

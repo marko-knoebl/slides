@@ -2,7 +2,7 @@
 
 ## Styling
 
-Predefined Stylesheets are available via:
+Predefined stylesheets are available via:
 
 ```py
 plt.style.use("stylename")

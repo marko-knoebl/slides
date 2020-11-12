@@ -99,3 +99,16 @@ df.query("a < b < c")
 - percentage of survivors
 - percentage of survivors amongst males
 - percentage of survivors amongst children
+
+## Exercises (Exchange rates)
+
+- display _date_ and _exchange rate_ for USD-EUR
+
+## Solutions (Exchange rates)
+
+```py
+euro_exchange_rates = exchange_rates[
+    exchange_rates.Country == "Euro"
+]
+euro_exchange_rates.loc[:, ["Date", "Exchange rate"]]
+```

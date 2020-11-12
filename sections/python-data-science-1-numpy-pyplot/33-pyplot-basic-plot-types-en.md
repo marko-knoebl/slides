@@ -72,16 +72,19 @@ plt.scatter(x, y, size, color)
 Counts the occurence of certain values / ranges
 
 ```py
+plt.hist(many_simulated_dice_rolls_with_10_dice)
+```
+
+```py
 plt.hist(
-    body_heights_men,
-    bins=[150, 160, 170, 180, 190, 200]
+    many_simulated_dice_rolls_with_10_dice,
+    bins=[15, 20, 25, 30, 35, 40, 45, 50, 55]
 )
 ```
 
 ```py
 plt.hist(
-    body_heights_men,
-    bins=[150, 170, 180, 200],
+    many_simulated_dice_rolls_with_10_dice,
     density=True
 )
 ```
@@ -91,9 +94,13 @@ plt.hist(
 Visualization of statistical data in a diagram (minimum, median, maximum, ...)
 
 ```py
+plt.boxplot(dice_simulation_1)
+```
+
+```py
 plt.boxplot(
-    [body_heights_men, body_heights_women],
-    labels=["men", "women"]
+    [dice_simulation_1, dice_simulation_2],
+    labels=["simulation 1", "simulation 2"]
 )
 ```
 

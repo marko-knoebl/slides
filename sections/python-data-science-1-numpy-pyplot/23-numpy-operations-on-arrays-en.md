@@ -1,37 +1,6 @@
 # Operations on arrays
 
-## Operations on arrays
-
-Selecting entries:
-
-```py
-a1d[0] # 1
-a2d[0, 1] # 2
-a2d[0, :] # [1, 2, 3]
-a2d[:, 0] # [1, 4, 7]
-```
-
-with 2D arrays: _[row index, column index]_
-
-in general:
-
-- second to last index (if it exists): counts downwards
-- last index: counts rightwards
-
-## Operations on arrays
-
-Selecting entries:
-
-```py
-a2d[0] # [1, 2, 3]
-```
-
-```py
-a2d[1:, 1:] # [[5, 6], [8, 9]]
-a2d[1, ::-1] # [6, 5, 4]
-```
-
-## Operations on arrays
+## Operators
 
 Operators are applied element-wise:
 
@@ -39,15 +8,28 @@ Operators are applied element-wise:
 a = np.array([1, 2, 3])
 b = np.array([2, 2, 2])
 
-print(-a)
+-a
 # np.array([-1, -2, -3])
-print(a + b)
+a + b
 # np.array([3, 4, 5])
-print(a * b)
+a * b
 # np.array([2, 4, 6])
 ```
 
-## Operations on arrays
+## Operators
+
+element-wise comparison of arrays:
+
+```py
+a < b
+# np.array([True, False, False])
+a == b
+# np.array([False, True, False])
+```
+
+Warning: `a == b` cannot be used reasonably in if statements - use `np.array_equal(a, b)`
+
+## Operators
 
 operations with single numbers (broadcasting):
 
@@ -66,38 +48,7 @@ print(a + np.e)
 print(np.nan)
 ```
 
-## Operations on arrays
-
-element-wise comparison of arrays:
-
-```py
-a < b
-# np.array([True, False, False])
-a == b
-# np.array([False, True, False])
-```
-
-Warning: `a == b` cannot be used reasonably in if statements - use `np.array_equal(a, b)`
-
-## Operations on arrays
-
-Filtering arrays (e.g. for restricting to positive entries):
-
-```py
-a = np.array([-1, 3, -2, 1])
-a_is_pos = a > 0
-# array([False, True, False, True])
-a_pos = a[a_is_pos]
-# array([3, 1])
-```
-
-short form:
-
-```py
-a_pos = a[a > 0]
-```
-
-## Operations on arrays
+## Element-wise functions
 
 NumPy provides some mathematical functions that are applied element-wise:
 
@@ -110,9 +61,7 @@ print(np.sqrt(a))
 # [0.0, 1.0, 1.414... ]
 ```
 
-## Operations on arrays
-
-element-wise functions:
+## Element-wise functions
 
 - `abs`
 - `sin`
@@ -123,7 +72,7 @@ element-wise functions:
 - `log10`
 - ...
 
-## Operations on arrays
+## Aggregation functions
 
 _Aggregations_ compute scalar values for an entire array or for each of its rows / columns / ...
 
@@ -145,9 +94,7 @@ sum along axis 1 ("horizontal"):
 np.sum(a2d, axis=1)
 ```
 
-## Operations on arrays
-
-aggregations:
+## Aggregation functions
 
 - `sum`
 - `min`
@@ -175,9 +122,20 @@ quantities = np.array([3, 0, 0, 2])
 # solution: 37.95
 ```
 
+## Exercise
+
+given an array of masses and velocities of some bodies, determine the kinetic energy of every body and the total kinetic of all bodies together
+
+```py
+masses = np.array([1.2, 2.2, 1.5, 2.0])
+velocities = np.array([12.0, 14.0, 14.0, 7.5])
+```
+
+formula: E = m\*v^2 / 2
+
 ## Exercises
 
-given the coordinates of the vertices of a triangle (in 2D or 3D), determine its centroid
+given the coordinates of the vertices of a triangle, determine its centroid (arithmetic mean of its vertices)
 
 ```py
 a = np.array([5, 1])
@@ -196,8 +154,12 @@ result:
 ```py
 # x, sin(x), cos(x)
 np.array([[0.0, 0.01, 0.02, ...],
-          [0.0, 0.0099998, 0.99995, ...],
+          [0.0, 0.0099998, 0.0199999, ...],
           [1.0, 0.99995, 0.99980, ...]])
 ```
 
 using this data, verify the following equation: _sin(x)^2 + cos(x)^2 = 1_
+
+## Exercises
+
+Simulate 1 million dice rolls with 10 dice each

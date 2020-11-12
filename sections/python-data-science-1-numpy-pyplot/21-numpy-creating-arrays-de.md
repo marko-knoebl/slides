@@ -6,18 +6,17 @@ Ein Array der Größe 2x6, gefüllt mit Nullen:
 
 ```py
 np.zeros((2, 6))
-```
-
-oder
-
-```py
+# or
 np.full((2, 6), 0.0)
 ```
 
 Ein 3x3 Array mit Zufallswerten:
 
 ```py
+# floats between 0 and 1:
 np.random.random((3, 3))
+# integers between 1 and 6:
+np.random.randint(1, 7, (3, 3))
 ```
 
 ## Arrays erstellen

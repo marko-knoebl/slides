@@ -1,37 +1,6 @@
 # Operationen auf Arrays
 
-## Operationen auf Arrays
-
-Auswählen von Einträgen:
-
-```py
-a1d[0] # 1
-a2d[0, 1] # 2
-a2d[0, :] # [1, 2, 3]
-a2d[:, 0] # [1, 4, 7]
-```
-
-bei 2D-Arrays: _[Zeilenindex, Spaltenindex]_
-
-im Allgemeinen:
-
-- vorletzter Index (sofern er existiert): zählt richtung unten
-- letzter Index: zählt rightung rechts
-
-## Operationen auf Arrays
-
-Auswählen von Einträgen:
-
-```py
-a2d[0] # [1, 2, 3]
-```
-
-```py
-a2d[1:, 1:] # [[5, 6], [8, 9]]
-a2d[1, ::-1] # [6, 5, 4]
-```
-
-## Operationen auf Arrays
+## Operatoren
 
 Operatoren werden elementweise angewendet:
 
@@ -39,15 +8,28 @@ Operatoren werden elementweise angewendet:
 a = np.array([1, 2, 3])
 b = np.array([2, 2, 2])
 
-print(-a)
+-a
 # np.array([-1, -2, -3])
-print(a + b)
+a + b
 # np.array([3, 4, 5])
-print(a * b)
+a * b
 # np.array([2, 4, 6])
 ```
 
-## Operationen auf Arrays
+## Vergleiche
+
+Elementweises Vergleichen von Arrays:
+
+```py
+a < b
+# np.array([True, False, False])
+a == b
+# np.array([False, True, False])
+```
+
+Achtung: `a == b` kann nicht sinnvoll in if-Abfragen verwendet werden - verwende `np.array_equal(a, b)`.
+
+## Operatoren
 
 Auch mit einzelnen Zahlen möglich (broadcasting):
 
@@ -66,38 +48,7 @@ print(a + np.e)
 print(np.nan)
 ```
 
-## Operationen auf Arrays
-
-Elementweises Vergleichen von Arrays:
-
-```py
-a < b
-# np.array([True, False, False])
-a == b
-# np.array([False, True, False])
-```
-
-Achtung: `a == b` kann nicht sinnvoll in if-Abfragen verwendet werden - verwende `np.array_equal(a, b)`.
-
-## Operationen auf Arrays
-
-Filtern von Arrays (z.B. beschränken auf positive Einträge):
-
-```py
-a = np.array([-1, 3, -2, 1])
-a_is_pos = a > 0
-# array([False, True, False, True])
-a_pos = a[a_is_pos]
-# array([3, 1])
-```
-
-Kurzform:
-
-```py
-a_pos = a[a > 0]
-```
-
-## Operationen auf Arrays
+## Elementweise Funktionen
 
 NumPy bietet spezielle Funktionen, die elementweise angewendet werden:
 
@@ -110,9 +61,7 @@ print(np.sqrt(a))
 # [0.0, 1.0, 1.414... ]
 ```
 
-## Operationen auf Arrays
-
-Elementweise Funktionen:
+## Elementweise Funktionen
 
 - `abs`
 - `sin`
@@ -123,7 +72,7 @@ Elementweise Funktionen:
 - `log10`
 - ...
 
-## Operationen auf Arrays
+## Aggregationen
 
 _Aggregationen_ berechnen beispielsweise Werte zu jeder Zeile / jeder Spalte oder zu einem ganzen Array
 
@@ -145,9 +94,7 @@ Summe entlang Achse 1 ("horizontal")
 np.sum(a2d, axis=1)
 ```
 
-## Operationen auf Arrays
-
-Aggregationen:
+## Aggregationen
 
 - `sum`
 - `min`
@@ -177,7 +124,18 @@ quantities = np.array([3, 0, 0, 2])
 
 ## Übungen
 
-Gegeben sind die Koordinaten von Eckpunkten eines Dreiecks (2D oder 3D). Bestimme den Schwerpunkt (arithmetisches Mittel der Eckpunkte).
+Gegeben sind die Massen und Geschwindigkeiten einiger Körper; bestimme die kinetische Energie aller einzelnen Körper und die gesamte kinetische Energie aller Körper zusammen
+
+```py
+masses = np.array([1.2, 2.2, 1.5, 2.0])
+velocities = np.array([12.0, 14.0, 14.0, 7.5])
+```
+
+Formel: E = m\*v^2 / 2
+
+## Übungen
+
+Gegeben sind die Koordinaten von Eckpunkten eines Dreiecks. Bestimme den Schwerpunkt (arithmetisches Mittel der Eckpunkte).
 
 ```py
 a = np.array([5, 1])
@@ -196,8 +154,12 @@ Resultat:
 ```py
 # x, sin(x), cos(x)
 np.array([[0.0, 0.01, 0.02, ...],
-          [0.0, 0.0099998, 0.99995, ...],
+          [0.0, 0.0099998, 0.0199999, ...],
           [1.0, 0.99995, 0.99980, ...]])
 ```
 
 Überprüfe anhand der Daten, ob näherungsweise gilt: _sin(x)^2 + cos(x)^2 = 1_
+
+## Übungen
+
+Simuliere 1 Million Mal würfeln mit je 10 Würfeln

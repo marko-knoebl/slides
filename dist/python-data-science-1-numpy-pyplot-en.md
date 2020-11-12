@@ -55,7 +55,7 @@ Note: Packages like _NumPy_ may take some time before they are available for the
 
 ## Anaconda
 
-_Anaconda_ = Python distribution that includes many pre-installed packages and developer tools
+_Anaconda_ = Python distribution that includes many pre-built packages and developer tools
 
 Uses ~ 3 GB of disk space
 
@@ -236,7 +236,7 @@ import numpy as np
 creating a 1-dimensional array:
 
 ```
-a1d = np.array([1, 2, 3, 4, 5, 6])
+a1d = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
 ```
 
 ## Arrays
@@ -313,18 +313,17 @@ creating a 2x6 array filled with 0:
 
 ```py
 np.zeros((2, 6))
-```
-
-or
-
-```py
+# or
 np.full((2, 6), 0.0)
 ```
 
-creating a 3x3 array of random float values:
+creating a 3x3 array of random values
 
 ```py
+# floats between 0 and 1:
 np.random.random((3, 3))
+# integers between 1 and 6:
+np.random.randint(1, 7, (3, 3))
 ```
 
 ## Creating arrays
@@ -343,14 +342,12 @@ fixed number of entries (4):
 b = np.linspace(0, 1.5, 4)
 ```
 
-# Operations on arrays
+# Selecting array entries
 
-## Operations on arrays
-
-Selecting entries:
+## Selecting array entries
 
 ```py
-a1d[0] # 1
+a1d[0] # 0
 a2d[0, 1] # 2
 a2d[0, :] # [1, 2, 3]
 a2d[:, 0] # [1, 4, 7]
@@ -360,23 +357,44 @@ with 2D arrays: _[row index, column index]_
 
 in general:
 
-- second to last index (if it exists): counts downwards
 - last index: counts rightwards
+- second to last index (if it exists): counts downwards
 
-## Operations on arrays
+## Selecting array entries
 
-Selecting entries:
+```py
+a2d[0, :] # [1, 2, 3]
+```
+
+shorter form:
 
 ```py
 a2d[0] # [1, 2, 3]
 ```
 
+## Slices
+
 ```py
-a2d[1:, 1:] # [[5, 6], [8, 9]]
-a2d[1, ::-1] # [6, 5, 4]
+a1d[:3] # [0, 1, 2]
+a1d[3:6] # [3, 4, 5]
+a1d[6:] # [6, 7, 8, 9]
+a1d[0:8:2] # [0, 2, 4, 6]
 ```
 
-## Operations on arrays
+```py
+a1d[3:0:-1] # [3, 2, 1]
+a1d[::-1] # [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+```
+
+```py
+a2d[1:, :] # [[5, 6, 7], [8, 9, 10]]
+```
+
+also works on Python lists
+
+# Operations on arrays
+
+## Operators
 
 Operators are applied element-wise:
 
@@ -384,15 +402,28 @@ Operators are applied element-wise:
 a = np.array([1, 2, 3])
 b = np.array([2, 2, 2])
 
-print(-a)
+-a
 # np.array([-1, -2, -3])
-print(a + b)
+a + b
 # np.array([3, 4, 5])
-print(a * b)
+a * b
 # np.array([2, 4, 6])
 ```
 
-## Operations on arrays
+## Operators
+
+element-wise comparison of arrays:
+
+```py
+a < b
+# np.array([True, False, False])
+a == b
+# np.array([False, True, False])
+```
+
+Warning: `a == b` cannot be used reasonably in if statements - use `np.array_equal(a, b)`
+
+## Operators
 
 operations with single numbers (broadcasting):
 
@@ -411,38 +442,7 @@ print(a + np.e)
 print(np.nan)
 ```
 
-## Operations on arrays
-
-element-wise comparison of arrays:
-
-```py
-a < b
-# np.array([True, False, False])
-a == b
-# np.array([False, True, False])
-```
-
-Warning: `a == b` cannot be used reasonably in if statements - use `np.array_equal(a, b)`
-
-## Operations on arrays
-
-Filtering arrays (e.g. for restricting to positive entries):
-
-```py
-a = np.array([-1, 3, -2, 1])
-a_is_pos = a > 0
-# array([False, True, False, True])
-a_pos = a[a_is_pos]
-# array([3, 1])
-```
-
-short form:
-
-```py
-a_pos = a[a > 0]
-```
-
-## Operations on arrays
+## Element-wise functions
 
 NumPy provides some mathematical functions that are applied element-wise:
 
@@ -455,9 +455,7 @@ print(np.sqrt(a))
 # [0.0, 1.0, 1.414... ]
 ```
 
-## Operations on arrays
-
-element-wise functions:
+## Element-wise functions
 
 - `abs`
 - `sin`
@@ -468,7 +466,7 @@ element-wise functions:
 - `log10`
 - ...
 
-## Operations on arrays
+## Aggregation functions
 
 _Aggregations_ compute scalar values for an entire array or for each of its rows / columns / ...
 
@@ -490,9 +488,7 @@ sum along axis 1 ("horizontal"):
 np.sum(a2d, axis=1)
 ```
 
-## Operations on arrays
-
-aggregations:
+## Aggregation functions
 
 - `sum`
 - `min`
@@ -520,9 +516,20 @@ quantities = np.array([3, 0, 0, 2])
 # solution: 37.95
 ```
 
+## Exercise
+
+given an array of masses and velocities of some bodies, determine the kinetic energy of every body and the total kinetic of all bodies together
+
+```py
+masses = np.array([1.2, 2.2, 1.5, 2.0])
+velocities = np.array([12.0, 14.0, 14.0, 7.5])
+```
+
+formula: E = m\*v^2 / 2
+
 ## Exercises
 
-given the coordinates of the vertices of a triangle (in 2D or 3D), determine its centroid
+given the coordinates of the vertices of a triangle, determine its centroid (arithmetic mean of its vertices)
 
 ```py
 a = np.array([5, 1])
@@ -541,11 +548,15 @@ result:
 ```py
 # x, sin(x), cos(x)
 np.array([[0.0, 0.01, 0.02, ...],
-          [0.0, 0.0099998, 0.99995, ...],
+          [0.0, 0.0099998, 0.0199999, ...],
           [1.0, 0.99995, 0.99980, ...]])
 ```
 
 using this data, verify the following equation: _sin(x)^2 + cos(x)^2 = 1_
+
+## Exercises
+
+Simulate 1 million dice rolls with 10 dice each
 
 # Array types
 
@@ -573,8 +584,8 @@ d.dtype # |S3
 Types may be stated explicitly:
 
 ```py
-a = np.array([1], dtype='int64')
-b = np.array([1], dtype='uint8')
+a = np.array([1, 2, 3, 4], dtype='int64')
+b = np.array([1, 2, 3, 4], dtype='uint8')
 ```
 
 If possible, types are converted automatically:
@@ -593,20 +604,94 @@ common types:
 - _uint8_, _uint16_, _uint32_, _uint64_
 - _float16_, _float32_, _float64_
 
-## Overflow
+## Integer types
 
-Be careful with values that are too big or too small
+An _int8_ can represent 2^8 (256) different numbers
 
-The type `int8` is only suitable for values in the range from `-128` to `+127`
+number of representable values for integer types:
+
+- _int8_: 256 (-128 to +127)
+- _int16_: 65,536 (-32768 to +32769)
+- _int32_: 4,294,967,296
+- _int64_: 18,446,744,073,709,551,616
+
+## Integer types
 
 ```py
 np.array([127, 128, 129], dtype="int8")
 ```
 
-Output:
+output (integer overflow):
 
 ```py
 array([127, -128, -127])
+```
+
+## Float types
+
+precision for float types:
+
+- _float16_: ~3 decimal digits
+- _float32_: ~7 decimal digits
+- _float64_: ~16 decimal digits
+
+floats are also limited in how big or small they can be
+
+## Float types
+
+float16: exact for ~3 decimal digits
+
+```py
+np.array([2.71828, 0.271828], dtype="float16")
+# array([2.719 , 0.2717])
+```
+
+## Float types
+
+float16: overflow
+
+```py
+np.array([65450, 65500, 65550], dtype="float16")
+# array([65440, 65500, inf])
+```
+
+float16: underflow
+
+```py
+np.array(
+    [3.141e-5, 3.141e-6, 3.141e-7, 3.141e-8, 3.141e-9],
+    dtype="float16"
+)
+# array([3.14e-05, 3.16e-06, 2.98e-07, 5.96e-08, 0.00e+00])
+```
+
+# Advanced indexing and filtering
+
+## Boolean indexing
+
+```py
+a = np.array([4.1, 2.7, -1, 3.8, -1])
+
+a_valid = a > 0
+# array([True, True, False, True, False])
+a_filtered = a[a_valid]
+# array([4.1, 2.7, 3.8])
+
+a_invalid = a < 0
+a_with_nans = a.copy()
+a_with_nans[a_invalid] = np.nan
+# array([4.1, 2.7, nan, 3.8, nan])
+```
+
+## Boolean indexing (short form)
+
+```py
+a = np.array([4.1, 2.7, -1, 3.8, -1])
+
+a_filtered = a[a > 0]
+
+a_with_nans = a.copy()
+a_with_nans[a < 0] = np.nan
 ```
 
 # NumPy advanced
@@ -734,8 +819,13 @@ y2 = x**2
 
 plt.plot(x, y1)
 plt.plot(x, y2)
+```
 
-# plt.show is not needed in Jupyter
+In Jupyter plots are shown automatically
+
+In a regular terminal / program:
+
+```py
 plt.show()
 ```
 
@@ -745,33 +835,11 @@ results:
 
 <img src="assets/pyplot-simple-graphs.png" alt="Simple plot in pyplot" />
 
-## Simple plot with pandas
-
-```py
-import numpy as np
-import matplotlib.pyplot as plt
-import pandas as pd
-
-x = np.array([0, 1, 2, 3])
-
-data = pd.DataFrame({
-    "y1": x*2,
-    "y2": x**2
-})
-
-data.plot.line()
-
-# plt.show is not needed in Jupyter
-plt.show()
-```
-
 ## Exercise
 
 Create a plot that shows the sine and cosine functions in the interval from _0_ to _2π_
 
 ## Exercise
-
-solution via pyplot:
 
 ```py
 x = np.linspace(0, 2*3.1415, 200)
@@ -780,25 +848,19 @@ plt.plot(x, np.sin(x))
 plt.plot(x, np.cos(x))
 ```
 
-solution via pandas:
-
-```py
-x = np.linspace(0, 2*3.1415, 200)
-
-df = pd.DataFrame({"sin": np.sin(x), "cos": np.cos(x)}, index=x)
-
-df.plot.line()
-```
-
 ## Exercise
 
-Draw a Gaussian function / Gaussian bell curve
+Create a Python function that plots a _gaussian function_ based on its parameters _mu_ and _sigma_:
+
+```py
+plot_gaussian_function(mu, sigma)
+```
 
 # Pyplot: Configuration and Styling
 
 ## Styling
 
-Predefined Stylesheets are available via:
+Predefined stylesheets are available via:
 
 ```py
 plt.style.use("stylename")
@@ -1054,16 +1116,19 @@ plt.scatter(x, y, size, color)
 Counts the occurence of certain values / ranges
 
 ```py
+plt.hist(many_simulated_dice_rolls_with_10_dice)
+```
+
+```py
 plt.hist(
-    body_heights_men,
-    bins=[150, 160, 170, 180, 190, 200]
+    many_simulated_dice_rolls_with_10_dice,
+    bins=[15, 20, 25, 30, 35, 40, 45, 50, 55]
 )
 ```
 
 ```py
 plt.hist(
-    body_heights_men,
-    bins=[150, 170, 180, 200],
+    many_simulated_dice_rolls_with_10_dice,
     density=True
 )
 ```
@@ -1073,9 +1138,13 @@ plt.hist(
 Visualization of statistical data in a diagram (minimum, median, maximum, ...)
 
 ```py
+plt.boxplot(dice_simulation_1)
+```
+
+```py
 plt.boxplot(
-    [body_heights_men, body_heights_women],
-    labels=["men", "women"]
+    [dice_simulation_1, dice_simulation_2],
+    labels=["simulation 1", "simulation 2"]
 )
 ```
 
@@ -1226,10 +1295,6 @@ exporting a figure:
 fig.savefig("myplot.png")
 fig.savefig("myplot.svg")
 ```
-
-## Figure objects
-
-Task: Script that generates a graph of the current CPU load and updates it every second (use the PIP package _psutil_)
 
 ## Axes objects
 

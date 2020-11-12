@@ -21,7 +21,7 @@ Note: Packages like _NumPy_ may take some time before they are available for the
 
 ## Anaconda
 
-_Anaconda_ = Python distribution that includes many pre-installed packages and developer tools
+_Anaconda_ = Python distribution that includes many pre-built packages and developer tools
 
 Uses ~ 3 GB of disk space
 

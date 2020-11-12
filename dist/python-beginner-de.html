@@ -2162,19 +2162,6 @@ C:\Users\Marko\Anaconda3\Scripts
 <li>Microsoft Azure Notebooks (Account benötigt)</li>
 <li>...</li>
 </ul>
-</section><section class="slide"><h2>Python im interaktiven Modus (online)</h2>
-<p>Google Colab:</p>
-<ul>
-<li>Gehe zu <a href="https://colab.research.google.com">https://colab.research.google.com</a></li>
-<li>Wähle <em>File</em> - <em>New Python 3 Notebook</em></li>
-</ul>
-<p>Binder:</p>
-<ul>
-<li>Gehe zu <a href="https://jupyter.org/try">https://jupyter.org/try</a></li>
-<li><em>Try Jupyter with Python</em> auswählen</li>
-<li>warten ...</li>
-<li><em>File</em> - <em>New Notebook</em> - <em>Python 3</em></li>
-</ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Variablen</h1>
 </section><section class="slide"><h2>Variablen</h2>
 <pre><code class="hljs language-py">birth_year = <span class="hljs-number">1970</span>
@@ -2449,9 +2436,9 @@ greeting = greeting + <span class="hljs-string">"!"</span>
 <p>in VS Code (Python-Erweiterung muss installiert sein):</p>
 <p>grünes Play-Symbol zur Editoransicht</p>
 <p>oder</p>
-<p><em>Debug</em> - <em>Start Without Debugging (Ctrl + F5)</em></p>
+<p><em>Run</em> - <em>Run Without Debugging (Ctrl + F5)</em></p>
 </section><section class="slide"><h2>Übung: Alter anhand Geburtsjahr</h2>
-<p>Schreibe ein Programm namens <code>age.py</code>, das den Benutzer nach seinem Geburtsjahr fragt und dann angibt, wie alt diese Person im Jahr 2019 wird.</p>
+<p>Schreibe ein Programm namens <code>age.py</code>, das den Benutzer nach seinem Geburtsjahr fragt und dann angibt, wie alt diese Person im Jahr 2020 wird.</p>
 </section><section class="slide"><h2>Übung: Länge des Namens</h2>
 <p>Schreibe ein Programm, das den Benutzer nach seinem Namen fragt. Es soll angeben, aus wie vielen Zeichen der Name besteht.</p>
 <p>Verwende dazu die Funktion <code>len(...)</code>, um die Länge eines Strings zu ermitteln</p>
@@ -2504,7 +2491,6 @@ print(floor(<span class="hljs-number">3.6</span>))
 <li><code>math</code></li>
 <li><code>datetime</code></li>
 <li><code>os</code> (Betriebssystem, Dateisystem)</li>
-<li><code>sys</code> (Python Umgebung)</li>
 <li><code>urllib.request</code> (HTTP-Anfragen)</li>
 </ul>
 </section><section class="slide"><h2>print und pprint</h2>
@@ -2534,25 +2520,16 @@ pprint.pprint([<span class="hljs-string">'Mercuy'</span>, <span class="hljs-stri
 </section><section class="slide"><h2>open</h2>
 <p>Textdatei zum Schreiben öffnen:</p>
 <pre><code class="hljs language-py">file = open(<span class="hljs-string">"message.txt"</span>, <span class="hljs-string">"w"</span>, encoding=<span class="hljs-string">"utf-8"</span>)
-file.write(<span class="hljs-string">"hello world"</span>)
+file.write(<span class="hljs-string">"hello\n"</span>)
+file.write(<span class="hljs-string">"world\n)
 file.close()
-</code></pre>
+</span></code></pre>
 <p>Datei muss zuvor nicht existieren</p>
 </section><section class="slide"><h2>random</h2>
 <pre><code class="hljs language-py"><span class="hljs-keyword">import</span> random
 
 print(random.randint(<span class="hljs-number">1</span>, <span class="hljs-number">6</span>))
 print(random.choice([<span class="hljs-string">"heads"</span>, <span class="hljs-string">"tails"</span>]))
-</code></pre>
-</section><section class="slide"><h2>sys</h2>
-<p>Kommandozeilenparameter sind auslesbar über <code>sys.argv</code></p>
-<pre><code class="hljs language-py"><span class="hljs-comment"># hello.py</span>
-<span class="hljs-keyword">import</span> sys
-print(sys.argv)
-</code></pre>
-<pre><code class="hljs language-bash">python hello.py one two three
-</code></pre>
-<pre><code class="hljs language-bash">[<span class="hljs-string">'hello.py'</span>, <span class="hljs-string">'one'</span>, <span class="hljs-string">'two'</span>, <span class="hljs-string">'three'</span>]
 </code></pre>
 </section><section class="slide"><h2>urllib.request</h2>
 <p>Abfrage von Web-Inhalten</p>
@@ -2633,6 +2610,9 @@ age_seconds = age * <span class="hljs-number">365</span> * <span class="hljs-num
 </section><section class="slide"><h2>Codeblöcke</h2>
 <p>Codeblock = Zusammengehörige Codezeilen, die z.B. als Resultat einer if-Abfrage ausgeführt werden.</p>
 <p>In Python endet die Zeile vor einem Codeblock mit einem <code>:</code>, der Codeblock ist eingerückt (meist mit 4 Leerzeichen).</p>
+</section><section class="slide"><h2>Übung: Münzwurf</h2>
+<p>Simuliere einen zufälligen Münzwurf mittels <code>random.choice(["heads", "tails"])</code></p>
+<p>Lasse den Benutzer das Ergebnis raten und sage ihm, ob er richtig lag</p>
 </section></section><section class="slides-section"><section class="slide"><h1>While-Schleife</h1>
 </section><section class="slide"><h2>While-Schleife</h2>
 <p>Eine if-Abfrage führt einen Codeblock <em>einmal</em> aus, wenn ein Kriterium zutrifft</p>
@@ -2691,6 +2671,7 @@ your shopping list is:
     print(<span class="hljs-string">"Hello, "</span> + name + <span class="hljs-string">"!"</span>)
 </code></pre>
 </section><section class="slide"><h2>Beispiel: Login-System</h2>
+<!-- might be too hard for programming beginners -->
 <pre><code class="hljs language-py">users = [
     {<span class="hljs-string">"name"</span>: <span class="hljs-string">"Alice"</span>, <span class="hljs-string">"password"</span>: <span class="hljs-string">"1234"</span>},
     {<span class="hljs-string">"name"</span>: <span class="hljs-string">"Bob"</span>, <span class="hljs-string">"password"</span>: <span class="hljs-string">"password"</span>},
@@ -2808,31 +2789,6 @@ print(m) <span class="hljs-comment"># prints "Hello, world"</span>
 </section><section class="slide"><h2>Scope</h2>
 <p>Innerhalb einer Funktion gilt: Variablen, die außerhalb definiert sind, können gelesen, aber nicht geschrieben werden</p>
 <p>In anderen Programmiersprachen: auch Konstrukte wie <code>if</code> oder <code>for</code> eröffnen einen neuen Scope - nicht so in Python</p>
-</section><section class="slide"><h2>Docstrings</h2>
-<p>Dokumentationsstrings, die z.B. Funktionen genauer beschreiben</p>
-<p>Kommentare in einer Funktion: helfen Programmierern, die an dieser Funktion arbeiten</p>
-<p>Docstring einer Funktion: hilft Programmierern, die diese Funktion verwenden</p>
-</section><section class="slide"><h2>Docstrings</h2>
-<p>Beispiel:</p>
-<pre><code class="hljs language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">fib</span><span class="hljs-params">(n)</span>:</span>
-    <span class="hljs-string">"""Compute the n-th fibonacci number.
-
-    n must be a nonnegative integer
-    """</span>
-    ...
-</code></pre>
-</section><section class="slide"><h2>Docstrings ausgeben</h2>
-<pre><code class="hljs language-py">help(fib)
-help(round)
-</code></pre>
-</section><section class="slide"><h2>Aufgabe: Funktion lottery()</h2>
-<p>Schreibe eine Funktion namens <code>lottery</code>, die eine Liste von Lotteriezahlen erzeugt</p>
-<p><code>lottery()</code> → <code>[2, 35, 19, 27, 10]</code></p>
-</section><section class="slide"><h2>Aufgabe: isprime()</h2>
-<p>Schreibe eine Funktion namens <code>isprime</code>, die überprüft, ob eine Zahl eine Primzahl ist</p>
-<p><code>isprime(59)</code> → <code>True</code></p>
-</section><section class="slide"><h2>Aufgabe: ask_yes_no()</h2>
-<p>Schreibe eine Funktion namens <code>ask_yes_no</code>, die dem Benutzer eine Ja/Nein-Frage stellt und entweder <code>True</code> oder <code>False</code> zurückliefert</p>
 </section></section><section class="slides-section"><section class="slide"><h1>Funktionen: Übungsaufgaben</h1>
 </section><section class="slide"><h2>Funktionen: Übungsaufgaben</h2>
 <ul>
@@ -2886,53 +2842,70 @@ c = a[<span class="hljs-number">0</span> + <span class="hljs-number">1</span> : 
 <li><em>Special cases aren't special enough to break the rules.</em></li>
 <li><em>There should be one-- and preferably only one --obvious way to do it.</em></li>
 </ul>
+</section><section class="slide"><h2>Docstrings</h2>
+<p>Dokumentationsstrings, die z.B. Funktionen genauer beschreiben</p>
+<p>Kommentare in einer Funktion: helfen Programmierern, die an dieser Funktion arbeiten</p>
+<p>Docstring einer Funktion: hilft Programmierern, die diese Funktion verwenden</p>
+</section><section class="slide"><h2>Docstrings</h2>
+<p>Beispiel:</p>
+<pre><code class="hljs language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">fib</span><span class="hljs-params">(n)</span>:</span>
+    <span class="hljs-string">"""Compute the n-th fibonacci number.
+
+    n must be a nonnegative integer
+    """</span>
+    ...
+</code></pre>
+</section><section class="slide"><h2>Docstrings ausgeben</h2>
+<pre><code class="hljs language-py">help(fib)
+help(round)
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Debuggen</h1>
 </section><section class="slide"><h2>Debuggen</h2>
 <p>Breakpoints (Haltepunkte) können gesetzt werden, um die Ausführung des Codes an diesem Punkt zu pausieren.</p>
 <p>Möglichkeiten, um Breakpoints zu setzen:</p>
 <ul>
-<li>direkt in Python mittels <code>breakpoint()</code> (seit Python 3.7)</li>
 <li>in VS Code links neben die Zeilennummer klicken</li>
+<li>direkt in Python mittels <code>breakpoint()</code> (seit Python 3.7)</li>
 </ul>
 <p>Ausführung in VS Code via <em>Debug - Start Debugging</em> oder <em>F5</em>.</p>
 </section><section class="slide"><h2>Debuggen</h2>
 <p>Manuell weiterspringen:</p>
 <ul>
 <li>bis zum nächsten Breakpoint weiter ausführen:<ul>
-<li><code>c</code> für <em>continue</em> im Python Debugger</li>
 <li><em>Continue</em> in VS Code</li>
+<li><code>c</code> für <em>continue</em> im Python Debugger</li>
 </ul></li>
 <li>debugging beenden:<ul>
-<li><code>q</code> für <em>quit</em> im Python Debugger</li>
 <li><em>Stop</em> in VS Code</li>
+<li><code>q</code> für <em>quit</em> im Python Debugger</li>
 </ul></li>
 </ul>
 </section><section class="slide"><h2>Debuggen</h2>
 <p>Manuell weiterspringen:</p>
 <ul>
-<li>in die nächste Zeile springen: <ul>
-<li><code>n</code> für <em>next</em> im Python Debugger</li>
+<li>in die nächste Zeile springen:<ul>
 <li><em>Step Over</em> in VS Code</li>
+<li><code>n</code> für <em>next</em> im Python Debugger</li>
 </ul></li>
 <li>in die nächste Zeile springen - und evtuell einem Funktionsaufruf folgen:<ul>
-<li><code>s</code> für <em>step</em> im Python Debugger</li>
 <li><em>Step Into</em> in VS Code</li>
+<li><code>s</code> für <em>step</em> im Python Debugger</li>
 </ul></li>
 <li>die aktuelle Funktion verlassen:<ul>
-<li><code>r</code> für <em>return</em> im Python Debugger</li>
 <li><em>Step Out</em> in VS Code</li>
+<li><code>r</code> für <em>return</em> im Python Debugger</li>
 </ul></li>
 </ul>
 </section><section class="slide"><h2>Debuggen</h2>
-<p>Ausgabe von Werten im Python Debugger mittels <code>p</code> für <em>print</em>:</p>
-<pre><code class="hljs language-py">p mylist
-p mylist[<span class="hljs-number">0</span>]
-</code></pre>
 <p>Werte in VS Code begutachten:</p>
 <ul>
 <li>direkt unter <em>variables</em></li>
 <li>eigene Ausdrücke angeben unter <em>watch</em></li>
-</ul></section></section></div>
+</ul>
+<p>Ausgabe von Werten im Python Debugger mittels <code>p</code> für <em>print</em>:</p>
+<pre><code class="hljs language-py">p mylist
+p mylist[<span class="hljs-number">0</span>]
+</code></pre></section></section></div>
     </div>
     <script>/*!
  * reveal.js

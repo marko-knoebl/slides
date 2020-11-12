@@ -17,6 +17,20 @@ examples:
 
 may be read via `sys.argv`
 
+```py
+# hello.py
+import sys
+print(sys.argv)
+```
+
+```bash
+python hello.py one two three
+```
+
+```python
+['hello.py', '--run', '--file=foo.txt']
+```
+
 ## Overwriting stdout.write
 
 ```py

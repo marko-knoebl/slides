@@ -2211,11 +2211,52 @@ titanic = pd.read_csv(
 <li><code>pd.ExcelWriter</code></li>
 </ul>
 <p>see: <a href="https://www.dataquest.io/blog/excel-and-pandas/">Dataquest: Tutorial Using Excel with Python and Pandas</a></p>
-</section><section class="slide"><h2>Importing and exporting data</h2>
-<p>HDF5 (<em>pytables</em> must be installed):</p>
+</section><section class="slide"><h2>Importing and exporting HDF5 data</h2>
+<p>requires <em>PyTables</em> (available in the Anaconda distribution)</p>
 <pre><code class="hljs language-py">euribor.to_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class="hljs-string">"euribor"</span>)
-euribor = read_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class="hljs-string">"euribor"</span>)
+sp500.to_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class="hljs-string">"sp500"</span>)
+
+euribor = pd.read_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class="hljs-string">"euribor"</span>)
 </code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Data statistics</h1>
+</section><section class="slide"><h2>Data statistics</h2>
+<pre><code class="hljs language-py">df.describe()
+</code></pre>
+</section><section class="slide"><h2>Statistics on a data frames / series</h2>
+<pre><code class="hljs language-py">countries.area.describe()
+</code></pre>
+<pre><code class="hljs language-txt">count     3.000000
+mean     12.133333
+std       4.215843
+min       9.600000
+25%       9.700000
+50%       9.800000
+75%      13.400000
+max      17.000000
+dtype: float64
+</code></pre>
+<p>(see next slide for explanations)</p>
+</section><section class="slide"><h2>Statistics on series</h2>
+<pre><code class="hljs language-py">countries.area.describe()
+</code></pre>
+<p>The above computes the following data:</p>
+<ul>
+<li><code>area.count()</code></li>
+<li><code>area.mean()</code></li>
+<li><code>area.std()</code></li>
+<li><code>area.quantile(0)</code> or <code>area.min()</code></li>
+<li><code>area.quantile(0.25)</code></li>
+<li><code>area.quantile(0.5)</code> or <code>area.median()</code></li>
+<li><code>area.quantile(0.75)</code></li>
+<li><code>area.quantile(1)</code> or <code>area.max()</code></li>
+</ul>
+</section><section class="slide"><h2>Statistical quantities</h2>
+<ul>
+<li><em>std</em>: <em>Standard deviation</em></li>
+<li><em>median</em>: half of the values are less and half are greater than the median</li>
+<li><em>min</em>: all values are greater than the minimum</li>
+<li><em>25%-quantile</em>: 25% of all values are less</li>
+</ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Pandas: Querying data</h1>
 </section><section class="slide"><h2>Querying data (by row numbers / column numbers)</h2>
 <ul>
@@ -2302,64 +2343,15 @@ euribor = read_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class="hl
 <li>percentage of survivors amongst males</li>
 <li>percentage of survivors amongst children</li>
 </ul>
-</section></section><section class="slides-section"><section class="slide"><h1>Data statistics</h1>
-</section><section class="slide"><h2>Data statistics</h2>
-<pre><code class="hljs language-py">df.describe()
-</code></pre>
-</section><section class="slide"><h2>Statistics on a data frames / series</h2>
-<pre><code class="hljs language-py">countries.area.describe()
-</code></pre>
-<pre><code class="hljs language-txt">count     3.000000
-mean     12.133333
-std       4.215843
-min       9.600000
-25%       9.700000
-50%       9.800000
-75%      13.400000
-max      17.000000
-dtype: float64
-</code></pre>
-<p>(see next slide for explanations)</p>
-</section><section class="slide"><h2>Statistics on series</h2>
-<pre><code class="hljs language-py">countries.area.describe()
-</code></pre>
-<p>The above computes the following data:</p>
+</section><section class="slide"><h2>Exercises (Exchange rates)</h2>
 <ul>
-<li><code>area.count()</code></li>
-<li><code>area.mean()</code></li>
-<li><code>area.std()</code></li>
-<li><code>area.quantile(0)</code> or <code>area.min()</code></li>
-<li><code>area.quantile(0.25)</code></li>
-<li><code>area.quantile(0.5)</code> or <code>area.median()</code></li>
-<li><code>area.quantile(0.75)</code></li>
-<li><code>area.quantile(1)</code> or <code>area.max()</code></li>
+<li>display <em>date</em> and <em>exchange rate</em> for USD-EUR</li>
 </ul>
-</section><section class="slide"><h2>Statistical quantities</h2>
-<ul>
-<li><em>std</em>: <em>Standard deviation</em></li>
-<li><em>median</em>: half of the values are less and half are greater than the median</li>
-<li><em>min</em>: all values are greater than the minimum</li>
-<li><em>25%-quantile</em>: 25% of all values are less</li>
-</ul>
-</section></section><section class="slides-section"><section class="slide"><h1>Example: exchange rates</h1>
-</section><section class="slide"><h2>Exchange rates</h2>
-<p><a href="https://datahub.io/core/exchange-rates/r/daily.csv">https://datahub.io/core/exchange-rates/r/daily.csv</a></p>
-<p>Daily Exchange rates between USD and other countries</p>
-<p>We will read exchange rate data, transform it so it only contains data for EUR-USD exchange rates and use the dates as the index</p>
-</section><section class="slide"><h2>Exchange rates</h2>
-<p>Solution:</p>
-<pre><code class="hljs language-py">er = pd.read_csv(
-    <span class="hljs-string">"https://datahub.io/core/exchange-rates/r/daily.csv"</span>,
-    parse_dates=[<span class="hljs-number">1</span>])
-
-<span class="hljs-comment"># only select euro</span>
-er_eur_full = er.loc[er.Country==<span class="hljs-string">"Euro"</span>]
-
-<span class="hljs-comment"># now we can set the date as the index</span>
-er_eur_dateindex = er_eur_full.set_index(<span class="hljs-string">'Date'</span>)
-
-<span class="hljs-comment"># we can drop the country information</span>
-er_eur = er_eur_dateindex.loc[:, <span class="hljs-string">'Value'</span>]
+</section><section class="slide"><h2>Solutions (Exchange rates)</h2>
+<pre><code class="hljs language-py">euro_exchange_rates = exchange_rates[
+    exchange_rates.Country == <span class="hljs-string">"Euro"</span>
+]
+euro_exchange_rates.loc[:, [<span class="hljs-string">"Date"</span>, <span class="hljs-string">"Exchange rate"</span>]]
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Pandas: changing data</h1>
 </section><section class="slide"><h2>Renaming columns</h2>
@@ -2471,17 +2463,22 @@ ir_uk_weekly = ir_uk.resample(<span class="hljs-string">'7d'</span>).interpolate
 <p>Use the data from <em>sp500</em> and euribor to compare the development of american and european interest rates</p>
 </section></section><section class="slides-section"><section class="slide"><h1>Basic plots in Pandas</h1>
 </section><section class="slide"><h2>Basic plots in Pandas</h2>
-<p>general procedure:</p>
-<p>In Jupyter:</p>
-<pre><code class="hljs language-py">data_frame.plot()
+<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+
+x = np.array([<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])
+
+data = pd.DataFrame({
+    <span class="hljs-string">"y1"</span>: x*<span class="hljs-number">2</span>,
+    <span class="hljs-string">"y2"</span>: x**<span class="hljs-number">2</span>
+})
+
+data.plot.line()
 </code></pre>
-<p>In the terminal:</p>
+</section><section class="slide"><h2>Basic plots in Pandas</h2>
+<p>if not in a Jupyter notebook:</p>
 <pre><code class="hljs language-py"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
 
-data_frame.plot()
-
-<span class="hljs-comment"># show all figures that were created since the last</span>
-<span class="hljs-comment"># call of .show()</span>
 plt.show()
 </code></pre>
 </section><section class="slide"><h2>Basic plots in Pandas</h2>
@@ -2512,9 +2509,6 @@ plt.show()
 </code></pre>
 <pre><code class="hljs language-py">iris.sepal_length.plot.hist(bins=<span class="hljs-number">30</span>)
 </code></pre>
-</section><section class="slide"><h2>Histogram</h2>
-<p>Exercise:</p>
-<p>Simulate 10 Million rolls with 10 dice each and visualize the distribution of the sum of eyes as a histogram</p>
 </section><section class="slide"><h2>Box plot</h2>
 <pre><code class="hljs language-py">iris.plot.box()
 </code></pre>

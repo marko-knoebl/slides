@@ -99,3 +99,16 @@ df.query("a < b < c")
 - Prozentsatz an Überlebenden
 - Prozentsatz an Überlebenden unter männlichen Passagieren
 - Prozentsatz an Überlebenden unter Kindern
+
+## Aufgaben (Wechselkurs)
+
+- zeige _date_ und _exchange rate_ für den USD-EUR-Kurs an
+
+## Lösungen (Wechselkurs)
+
+```py
+euro_exchange_rates = exchange_rates[
+    exchange_rates.Country == "Euro"
+]
+euro_exchange_rates.loc[:, ["Date", "Exchange rate"]]
+```

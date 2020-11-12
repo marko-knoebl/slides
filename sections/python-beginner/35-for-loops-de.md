@@ -17,6 +17,8 @@ for name in names:
 
 ## Beispiel: Login-System
 
+<!-- might be too hard for programming beginners -->
+
 ```py
 users = [
     {"name": "Alice", "password": "1234"},

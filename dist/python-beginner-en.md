@@ -131,20 +131,6 @@ Python online (_Jupyter Notebooks_):
 - Microsoft Azure notebooks (account required)
 - ...
 
-## Online Python consoles
-
-Google Colab:
-
-- go to <https://colab.research.google.com>
-- choose _File_ - _New Python 3 Notebook_
-
-Binder:
-
-- go to <https://jupyter.org/try>
-- choose _Try Jupyter with Python_
-- wait ...
-- _File_ - _New Notebook_ - _Python 3_
-
 # Variables
 
 ## Variables
@@ -613,11 +599,11 @@ green _play_ button in the editor view
 
 or
 
-_Debug_ - _Start Without Debugging_ (Ctrl + F5)
+_Run_ - _Run Without Debugging_ (Ctrl + F5)
 
 ## Exercise: age from birth year
 
-Write a program called `age.py` which will ask the user for their birth year and will respond with the user's age in the year 2019.
+Write a program called `age.py` which will ask the user for their birth year and will respond with the user's age in the year 2020.
 
 ## Exercise: length of the name
 
@@ -692,7 +678,6 @@ modules of interest:
 - `math`
 - `datetime`
 - `os` (operating system, file system)
-- `sys` (python environment)
 - `urllib.request` (HTTP queries)
 
 ## print and pprint
@@ -736,7 +721,8 @@ opening a text file for writing:
 
 ```py
 file = open("message.txt", "w", encoding="utf-8")
-file.write("hello world")
+file.write("hello\n")
+file.write("world\n)
 file.close()
 ```
 
@@ -749,24 +735,6 @@ import random
 
 print(random.randint(1, 6))
 print(random.choice(["heads", "tails"]))
-```
-
-## sys
-
-Command line arguments can be read via `sys.argv`
-
-```py
-# hello.py
-import sys
-print(sys.argv)
-```
-
-```bash
-python hello.py one two three
-```
-
-```bash
-['hello.py', 'one', 'two', 'three']
 ```
 
 ## urllib.request
@@ -880,6 +848,12 @@ code block = a group of lines that belong together - for example the code that g
 
 In Python the line before the code block ends with a `:` and the code block is indented (usually by 4 spaces)
 
+## Exercise: coin flip
+
+Simulate a random coin flip via `random.choice(["heads", "tails"])`
+
+Let the user guess the outcome and tell them if they were right
+
 # While loops
 
 ## While loops
@@ -965,6 +939,8 @@ for name in names:
 ```
 
 ## Example: login system
+
+<!-- might be too hard for programming beginners -->
 
 ```py
 users = [
@@ -1141,50 +1117,6 @@ Inside a function, outer variables may be read but not overwritten
 
 In other programming languages constructs like `if` or `for` usually also open a new scope - this is not the case in Python
 
-## Docstrings
-
-Docstrings = Strings that describe functions / classes / modules in more detail
-
-comments in a function: help programmers who develop that function
-
-docstring of a function: help programmers who use that function
-
-## Docstrings
-
-Example:
-
-```py
-def fib(n):
-    """Compute the n-th fibonacci number.
-
-    n must be a nonnegative integer
-    """
-    ...
-```
-
-## Viewing docstrings
-
-```py
-help(fib)
-help(round)
-```
-
-## Exercise: function lottery()
-
-Write a function named `lottery` which creates a list of lottery numbers
-
-`lottery()` → `[2, 35, 19, 27, 10]`
-
-## Exercise: isprime()
-
-Write a function named `isprime` which tests whether a number is prime
-
-`isprime(59)` → `True`
-
-## Exercise: ask_yes_no()
-
-Write a function named `ask_yes_no`, which asks the user a yes/no question and returns either `True` or `False`
-
 # Functions: Exercises
 
 ## Functions: Exercises
@@ -1259,6 +1191,34 @@ Quotes from the _zen of Python_ (full text via `import this`):
 - _Special cases aren't special enough to break the rules._
 - _There should be one-- and preferably only one --obvious way to do it._
 
+## Docstrings
+
+Docstrings = Strings that describe functions / classes / modules in more detail
+
+comments in a function: help programmers who develop that function
+
+docstring of a function: help programmers who use that function
+
+## Docstrings
+
+Example:
+
+```py
+def fib(n):
+    """Compute the n-th fibonacci number.
+
+    n must be a nonnegative integer
+    """
+    ...
+```
+
+## Viewing docstrings
+
+```py
+help(fib)
+help(round)
+```
+
 # Debugging
 
 ## Debugging
@@ -1267,8 +1227,8 @@ Breakpoints can be set to pause execution at a certain point.
 
 Possibilities to set breakpoints:
 
-- directly in Python Code via `breakpoint()` (since Python 3.7)
 - in VS Code: click next to the line number
+- directly in Python Code via `breakpoint()` (since Python 3.7)
 
 Executing in VS Code via _Debug - Start Debugging_ or _F5_.
 
@@ -1277,27 +1237,32 @@ Executing in VS Code via _Debug - Start Debugging_ or _F5_.
 Continuing manually:
 
 - proceed until the next breakpoint:
-  - `c` for _continue_ in the Python debugger
   - _Continue_ in VS Code
+  - `c` for _continue_ in the Python debugger
 - end debugging:
-  - `q` for _quit_ in the Python debugger
   - _Stop_ in VS Code
+  - `q` for _quit_ in the Python debugger
 
 ## Debugging
 
 Continuing manually:
 
 - proceed to the next line:
-  - `n` for _next_ in the Python debugger
   - _Step Over_ in VS Code
+  - `n` for _next_ in the Python debugger
 - proceed to the next line - potentially following function calls
-  - `s` for _step_ in the Python debugger
   - _Step Into_ in VS Code
+  - `s` for _step_ in the Python debugger
 - run the current function to its end:
-  - `r` for _return_ in the Python debugger
   - _Step Out_ in VS Code
+  - `r` for _return_ in the Python debugger
 
 ## Debugging
+
+Examining values in VS Code:
+
+- local variables in the _variables_ widget
+- watch custom expressions in the _watch_ widget
 
 Printing values in the Python debugger via `p`:
 
@@ -1305,8 +1270,3 @@ Printing values in the Python debugger via `p`:
 p mylist
 p mylist[0]
 ```
-
-Examining values in VS Code:
-
-- local variables in the _variables_ widget
-- watch custom expressions in the _watch_ widget

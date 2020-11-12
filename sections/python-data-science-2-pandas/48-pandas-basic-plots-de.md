@@ -2,23 +2,27 @@
 
 ## Grundlegende Plots in Pandas
 
-allgemeines Plotten:
-
-In Jupyter:
-
 ```py
-data_frame.plot()
+import numpy as np
+import pandas as pd
+
+x = np.array([0, 1, 2, 3])
+
+data = pd.DataFrame({
+    "y1": x*2,
+    "y2": x**2
+})
+
+data.plot.line()
 ```
 
-Im Terminal:
+## Grundlegende Plots in Pandas
+
+außerhalb eines Jupyter Notebooks:
 
 ```py
 import matplotlib.pyplot as plt
 
-data_frame.plot()
-
-# show all figures that were created since the last
-# call of .show()
 plt.show()
 ```
 
@@ -68,12 +72,6 @@ iris.sepal_length.plot.hist()
 ```py
 iris.sepal_length.plot.hist(bins=30)
 ```
-
-## Histogramm
-
-Übung:
-
-Wir simulieren 10 Millionen Würfe mit je 10 Würfeln und stellen die Verteilung der Augensumme als Histogramm dar
 
 ## Box Plot
 

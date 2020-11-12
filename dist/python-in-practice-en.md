@@ -341,9 +341,10 @@ earlier = pickle.loads(serialized)
 
 ## Exercise
 
-saving / loading of a tic-tac-toe board in various formats
+- saving / loading of a shopping list (optionally with amounts) in various formats
+- saving / loading of a tic-tac-toe board in various formats
 
-Python data structure:
+Python data structure for the tic-tac-toe board:
 
 ```py
 field = [
@@ -668,6 +669,20 @@ examples:
 ## Command line parameters
 
 may be read via `sys.argv`
+
+```py
+# hello.py
+import sys
+print(sys.argv)
+```
+
+```bash
+python hello.py one two three
+```
+
+```python
+['hello.py', '--run', '--file=foo.txt']
+```
 
 ## Overwriting stdout.write
 

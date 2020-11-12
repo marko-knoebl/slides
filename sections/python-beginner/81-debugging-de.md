@@ -6,8 +6,8 @@ Breakpoints (Haltepunkte) können gesetzt werden, um die Ausführung des Codes a
 
 Möglichkeiten, um Breakpoints zu setzen:
 
-- direkt in Python mittels `breakpoint()` (seit Python 3.7)
 - in VS Code links neben die Zeilennummer klicken
+- direkt in Python mittels `breakpoint()` (seit Python 3.7)
 
 Ausführung in VS Code via _Debug - Start Debugging_ oder _F5_.
 
@@ -16,27 +16,32 @@ Ausführung in VS Code via _Debug - Start Debugging_ oder _F5_.
 Manuell weiterspringen:
 
 - bis zum nächsten Breakpoint weiter ausführen:
-  - `c` für _continue_ im Python Debugger
   - _Continue_ in VS Code
+  - `c` für _continue_ im Python Debugger
 - debugging beenden:
-  - `q` für _quit_ im Python Debugger
   - _Stop_ in VS Code
+  - `q` für _quit_ im Python Debugger
 
 ## Debuggen
 
 Manuell weiterspringen:
 
-- in die nächste Zeile springen: 
-  - `n` für _next_ im Python Debugger
+- in die nächste Zeile springen:
   - _Step Over_ in VS Code
+  - `n` für _next_ im Python Debugger
 - in die nächste Zeile springen - und evtuell einem Funktionsaufruf folgen:
-  - `s` für _step_ im Python Debugger
   - _Step Into_ in VS Code
+  - `s` für _step_ im Python Debugger
 - die aktuelle Funktion verlassen:
-  - `r` für _return_ im Python Debugger
   - _Step Out_ in VS Code
+  - `r` für _return_ im Python Debugger
 
 ## Debuggen
+
+Werte in VS Code begutachten:
+
+- direkt unter _variables_
+- eigene Ausdrücke angeben unter _watch_
 
 Ausgabe von Werten im Python Debugger mittels `p` für _print_:
 
@@ -44,8 +49,3 @@ Ausgabe von Werten im Python Debugger mittels `p` für _print_:
 p mylist
 p mylist[0]
 ```
-
-Werte in VS Code begutachten:
-
-- direkt unter _variables_
-- eigene Ausdrücke angeben unter _watch_

@@ -2211,11 +2211,52 @@ titanic = pd.read_csv(
 <li><code>pd.ExcelWriter</code></li>
 </ul>
 <p>siehe: <a href="https://www.dataquest.io/blog/excel-and-pandas/">Dataquest: Tutorial Using Excel with Python and Pandas</a></p>
-</section><section class="slide"><h2>Daten importieren und exportieren</h2>
-<p>HDF5 (<em>pytables</em> muss installiert sein):</p>
+</section><section class="slide"><h2>Importieren und Exportieren von HDF5-Daten</h2>
+<p>benötigt <em>PyTables</em> (verfügbar in der Anaconda-Distribution)</p>
 <pre><code class="hljs language-py">euribor.to_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class="hljs-string">"euribor"</span>)
-euribor = read_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class="hljs-string">"euribor"</span>)
+sp500.to_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class="hljs-string">"sp500"</span>)
+
+euribor = pd.read_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class="hljs-string">"euribor"</span>)
 </code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Statistische Grundwerte</h1>
+</section><section class="slide"><h2>Statistische Grundwerte</h2>
+<pre><code class="hljs language-py">df.describe()
+</code></pre>
+</section><section class="slide"><h2>Statistische Grundwerte</h2>
+<pre><code class="hljs language-py">countries.area.describe()
+</code></pre>
+<pre><code class="hljs language-txt">count     3.000000
+mean     12.133333
+std       4.215843
+min       9.600000
+25%       9.700000
+50%       9.800000
+75%      13.400000
+max      17.000000
+dtype: float64
+</code></pre>
+<p>(Siehe nächste Folie für Erklärungen)</p>
+</section><section class="slide"><h2>Statistik einer Series</h2>
+<pre><code class="hljs language-py">countries.area.describe()
+</code></pre>
+<p>berechnet die folgenden Daten:</p>
+<ul>
+<li><code>area.count()</code></li>
+<li><code>area.mean()</code></li>
+<li><code>area.std()</code></li>
+<li><code>area.quantile(0)</code> or <code>area.min()</code></li>
+<li><code>area.quantile(0.25)</code></li>
+<li><code>area.quantile(0.5)</code> or <code>area.median()</code></li>
+<li><code>area.quantile(0.75)</code></li>
+<li><code>area.quantile(1)</code> or <code>area.max()</code></li>
+</ul>
+</section><section class="slide"><h2>Statistische Werte</h2>
+<ul>
+<li><em>std</em>: <em>Standardabweichung (Standard deviation)</em></li>
+<li><em>median</em>: Hälfte der Werte liegt darüber, Hälfte liegt darunter</li>
+<li><em>min</em>: alle Werte sind größer als das Minimum</li>
+<li><em>25%-Quantil</em>: 25% aller Werte sind kleiner</li>
+</ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Pandas: Daten auslesen</h1>
 </section><section class="slide"><h2>Daten auslesen (nach Zeilen- und Spaltennummern)</h2>
 <ul>
@@ -2302,64 +2343,15 @@ euribor = read_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class="hl
 <li>Prozentsatz an Überlebenden unter männlichen Passagieren</li>
 <li>Prozentsatz an Überlebenden unter Kindern</li>
 </ul>
-</section></section><section class="slides-section"><section class="slide"><h1>Statistische Grundwerte</h1>
-</section><section class="slide"><h2>Statistische Grundwerte</h2>
-<pre><code class="hljs language-py">df.describe()
-</code></pre>
-</section><section class="slide"><h2>Statistische Grundwerte</h2>
-<pre><code class="hljs language-py">countries.area.describe()
-</code></pre>
-<pre><code class="hljs language-txt">count     3.000000
-mean     12.133333
-std       4.215843
-min       9.600000
-25%       9.700000
-50%       9.800000
-75%      13.400000
-max      17.000000
-dtype: float64
-</code></pre>
-<p>(Siehe nächste Folie für Erklärungen)</p>
-</section><section class="slide"><h2>Statistik einer Series</h2>
-<pre><code class="hljs language-py">countries.area.describe()
-</code></pre>
-<p>berechnet die folgenden Daten:</p>
+</section><section class="slide"><h2>Aufgaben (Wechselkurs)</h2>
 <ul>
-<li><code>area.count()</code></li>
-<li><code>area.mean()</code></li>
-<li><code>area.std()</code></li>
-<li><code>area.quantile(0)</code> or <code>area.min()</code></li>
-<li><code>area.quantile(0.25)</code></li>
-<li><code>area.quantile(0.5)</code> or <code>area.median()</code></li>
-<li><code>area.quantile(0.75)</code></li>
-<li><code>area.quantile(1)</code> or <code>area.max()</code></li>
+<li>zeige <em>date</em> und <em>exchange rate</em> für den USD-EUR-Kurs an</li>
 </ul>
-</section><section class="slide"><h2>Statistische Werte</h2>
-<ul>
-<li><em>std</em>: <em>Standardabweichung (Standard deviation)</em></li>
-<li><em>median</em>: Hälfte der Werte liegt darüber, Hälfte liegt darunter</li>
-<li><em>min</em>: alle Werte sind größer als das Minimum</li>
-<li><em>25%-Quantil</em>: 25% aller Werte sind kleiner</li>
-</ul>
-</section></section><section class="slides-section"><section class="slide"><h1>Beispiel</h1>
-</section><section class="slide"><h2>Wechselkurse</h2>
-<p><a href="https://datahub.io/core/exchange-rates/r/daily.csv">https://datahub.io/core/exchange-rates/r/daily.csv</a></p>
-<p>Tägliche Wechselkurse zwischen USD und anderen Währungen</p>
-<p>Wir lesen die Daten ein und wandeln sie so um, dass sie eine Zuordnung von Kalenderdaten zu täglichen EUR-USD Kursen darstellen</p>
-</section><section class="slide"><h2>Wechselkurse</h2>
-<p>Lösung:</p>
-<pre><code class="hljs language-py">er = pd.read_csv(
-    <span class="hljs-string">"https://datahub.io/core/exchange-rates/r/daily.csv"</span>,
-    parse_dates=[<span class="hljs-number">1</span>])
-
-<span class="hljs-comment"># only select euro</span>
-er_eur_full = er.loc[er.Country==<span class="hljs-string">"Euro"</span>]
-
-<span class="hljs-comment"># now we can set the date as the index</span>
-er_eur_dateindex = er_eur_full.set_index(<span class="hljs-string">'Date'</span>)
-
-<span class="hljs-comment"># we can drop the country information</span>
-er_eur = er_eur_dateindex.loc[:, <span class="hljs-string">'Value'</span>]
+</section><section class="slide"><h2>Lösungen (Wechselkurs)</h2>
+<pre><code class="hljs language-py">euro_exchange_rates = exchange_rates[
+    exchange_rates.Country == <span class="hljs-string">"Euro"</span>
+]
+euro_exchange_rates.loc[:, [<span class="hljs-string">"Date"</span>, <span class="hljs-string">"Exchange rate"</span>]]
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Pandas: Daten manipulieren</h1>
 </section><section class="slide"><h2>Spalten umbenennen</h2>
@@ -2471,17 +2463,22 @@ ir_uk_weekly = ir_uk.resample(<span class="hljs-string">'7d'</span>).interpolate
 <p>Nutze die Daten aus <em>sp500</em> und <em>euribor</em>, um die Entwicklungen der europäischen und amerikanischen Zinssätze einander gegenüberzustellen.</p>
 </section></section><section class="slides-section"><section class="slide"><h1>Grundlegende Plots in Pandas</h1>
 </section><section class="slide"><h2>Grundlegende Plots in Pandas</h2>
-<p>allgemeines Plotten:</p>
-<p>In Jupyter:</p>
-<pre><code class="hljs language-py">data_frame.plot()
+<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+
+x = np.array([<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])
+
+data = pd.DataFrame({
+    <span class="hljs-string">"y1"</span>: x*<span class="hljs-number">2</span>,
+    <span class="hljs-string">"y2"</span>: x**<span class="hljs-number">2</span>
+})
+
+data.plot.line()
 </code></pre>
-<p>Im Terminal:</p>
+</section><section class="slide"><h2>Grundlegende Plots in Pandas</h2>
+<p>außerhalb eines Jupyter Notebooks:</p>
 <pre><code class="hljs language-py"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
 
-data_frame.plot()
-
-<span class="hljs-comment"># show all figures that were created since the last</span>
-<span class="hljs-comment"># call of .show()</span>
 plt.show()
 </code></pre>
 </section><section class="slide"><h2>Grundlegende Plots in Pandas</h2>
@@ -2512,9 +2509,6 @@ plt.show()
 </code></pre>
 <pre><code class="hljs language-py">iris.sepal_length.plot.hist(bins=<span class="hljs-number">30</span>)
 </code></pre>
-</section><section class="slide"><h2>Histogramm</h2>
-<p>Übung:</p>
-<p>Wir simulieren 10 Millionen Würfe mit je 10 Würfeln und stellen die Verteilung der Augensumme als Histogramm dar</p>
 </section><section class="slide"><h2>Box Plot</h2>
 <pre><code class="hljs language-py">iris.plot.box()
 </code></pre>

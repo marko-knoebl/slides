@@ -52,7 +52,6 @@ modules of interest:
 - `math`
 - `datetime`
 - `os` (operating system, file system)
-- `sys` (python environment)
 - `urllib.request` (HTTP queries)
 
 ## print and pprint
@@ -96,7 +95,8 @@ opening a text file for writing:
 
 ```py
 file = open("message.txt", "w", encoding="utf-8")
-file.write("hello world")
+file.write("hello\n")
+file.write("world\n)
 file.close()
 ```
 
@@ -109,24 +109,6 @@ import random
 
 print(random.randint(1, 6))
 print(random.choice(["heads", "tails"]))
-```
-
-## sys
-
-Command line arguments can be read via `sys.argv`
-
-```py
-# hello.py
-import sys
-print(sys.argv)
-```
-
-```bash
-python hello.py one two three
-```
-
-```bash
-['hello.py', 'one', 'two', 'three']
 ```
 
 ## urllib.request
