@@ -2415,6 +2415,91 @@ np.array([[<span class="hljs-number">0.0</span>, <span class="hljs-number">0.01<
 <p>Überprüfe anhand der Daten, ob näherungsweise gilt: <em>sin(x)^2 + cos(x)^2 = 1</em></p>
 </section><section class="slide"><h2>Übungen</h2>
 <p>Simuliere 1 Million Mal würfeln mit je 10 Würfeln</p>
+</section></section><section class="slides-section"><section class="slide"><h1>Numerische Typen</h1>
+</section><section class="slide"><h2>Numerische Typen</h2>
+<ul>
+<li><strong>int</strong></li>
+<li><strong>float</strong></li>
+<li>decimal</li>
+</ul>
+</section><section class="slide"><h2>Int</h2>
+<p>ein <em>int8</em> besteht aus 8 bits und kann 256 verschiedene Zahlen darstellen</p>
+<p>Integer mit verschiedenen bit-Größen können unterschiedliche Zahlen darstellen:</p>
+<ul>
+<li><em>int8</em>: 256 Zahlen (-128 bis +127)</li>
+<li><em>int16</em>: 65,536 Zahlen (-32,768 bis +32,767)</li>
+<li><em>int32</em>: 4,294,967,296 Zahlen</li>
+<li><em>int64</em>: 18,446,744,073,709,551,616 Zahlen</li>
+</ul>
+</section><section class="slide"><h2>Int</h2>
+<p>Ein <em>unsigned integer (uint)</em> kann nur nicht-negative Zahlen repräsentieren</p>
+<p>z.B. bei <em>uint8</em>: 0 bis 255</p>
+</section><section class="slide"><h2>Float</h2>
+<p>Standard für die Repräsentation reeller Zahlen in Computern: <em>IEEE 754</em></p>
+<ul>
+<li><strong>binäre Gleitkommazahlen</strong></li>
+<li>dezimale Gleitkommazahlen</li>
+</ul>
+</section><section class="slide"><h2>Float</h2>
+<p>wichtige Gleitkommatypen:</p>
+<ul>
+<li><em>float32</em> (<em>single</em>): exakt für ~7 Dezimalstellen</li>
+<li><em>float64</em> (<em>double</em>): exakt für ~16 Dezimalstellen</li>
+</ul>
+</section><section class="slide"><h2>Float</h2>
+<p><strong>Rundungsfehler</strong>: manche Zahlen können nicht als Gleitkommazahlen dargestellt werden, sie sind immer Annäherungen</p>
+<p>Beispiele im Dezimalsystem: 1/3, 1/7</p>
+<p>Beispiele im Binärsystem: 1/10, 1/5, 1/3</p>
+<p>Beispiel: <code>0.1 + 0.2</code> wird zu <code>0.30000000000000004</code> ausgewertet, wenn wir 64-bit floats verwenden</p>
+</section><section class="slide"><h2>Float</h2>
+<p>Besondere Werte in IEEE 754:</p>
+<ul>
+<li><code>inf</code> und <code>-inf</code> (unendliche Werte)</li>
+<li><code>nan</code> (not-a-number: undefinierter / unbekannter Wert)</li>
+</ul>
+</section></section><section class="slides-section"><section class="slide"><h1>Floats in IEEE 754</h1>
+</section><section class="slide"><h2>Floats in IEEE 754</h2>
+<p>Speicherformat:</p>
+<pre><code class="hljs language-txt">(-) s * 2^e
+</code></pre>
+<ul>
+<li>s ... <em>Signifikand</em> / <em>Koeffizient</em></li>
+<li>e ... <em>Exponent</em></li>
+</ul>
+</section><section class="slide"><h2>Beispiele</h2>
+<p>pi als <em>float32</em>:</p>
+<p><code>0 10000000 10010010000111111011011</code></p>
+<p>2*pi als <em>float32</em>:</p>
+<p><code>0 10000001 10010010000111111011011</code></p>
+<p>pi/2 als <em>float32</em>:</p>
+<p><code>0 01111111 10010010000111111011011</code></p>
+</section><section class="slide"><h2>Beispiele</h2>
+<p>Die Zahlen <em>0.20000000</em> bis <em>0.20000005</em> als nächstgelegene <em>float32</em> ausgedrückt:</p>
+<ul>
+<li><code>0 01111100 10011001100110011001101</code></li>
+<li><code>0 01111100 10011001100110011001101</code></li>
+<li><code>0 01111100 10011001100110011001110</code></li>
+<li><code>0 01111100 10011001100110011001111</code></li>
+<li><code>0 01111100 10011001100110011001111</code></li>
+<li><code>0 01111100 10011001100110011010000</code></li>
+</ul>
+</section><section class="slide"><h2>Beispiele</h2>
+<p>Avogadro-Konstante (6.02214076 * 10^23):</p>
+<p><code>0 11001101 11111110000110001000001</code></p>
+<p>Planck-Länge (1.61625518 * 10^-35):</p>
+<p><code>0 00001011 01010111101011110110100</code></p>
+</section><section class="slide"><h2>Overflow und Underflow</h2>
+<p>größte <em>float32</em>-Zahl:</p>
+<p><code>0 11111110 11111111111111111111111</code></p>
+<p><code>~ 2^127.9999 ~ 3.403e38</code></p>
+<p>kleinste positive <em>float32</em> Zahl mit voller Präzision:</p>
+<p><code>0 00000001 00000000000000000000000</code></p>
+<p><code>= 2^-126 ~ 1.175e-36</code></p>
+<p>größere Zahlen ergeben <code>inf</code></p>
+<p>kleinere Zahlen verlieren Genauigkeit oder ergeben <code>0.0</code></p>
+</section><section class="slide"><h2>Besondere Werte</h2>
+<p>inf: <code>0 11111111 00000000000000000000000</code></p>
+<p>nan: <code>0 11111111 00000000000000000000001</code></p>
 </section></section><section class="slides-section"><section class="slide"><h1>Array Typen</h1>
 </section><section class="slide"><h2>Array Typen</h2>
 <p>Jedes Array kann nur Daten eines Typs enthalten (z.B. nur 64-bit floats oder nur bytes)</p>

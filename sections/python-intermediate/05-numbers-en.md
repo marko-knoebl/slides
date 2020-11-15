@@ -56,7 +56,7 @@ examples in the binary system (i.e. `float`): _1/10_, _1/5_, _1/3_
 
 example: `0.1 + 0.2` evaluates to `0.30000000000000004`
 
-In general a 64-bit float will be exact for about 15 decimal places.
+In general a 64-bit float will be exact for about 16 decimal places.
 
 ## float
 

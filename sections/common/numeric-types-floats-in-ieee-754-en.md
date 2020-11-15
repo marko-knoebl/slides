@@ -1,0 +1,71 @@
+# Floats in IEEE 754
+
+## Floats in IEEE 754
+
+storage format:
+
+```txt
+(-) s * 2^e
+```
+
+- s ... _significand_ / _coefficient_
+- e ... _exponent_
+
+## Examples
+
+pi as _float32_:
+
+`0 10000000 10010010000111111011011`
+
+2\*pi as _float32_:
+
+`0 10000001 10010010000111111011011`
+
+pi/2 as _float32_:
+
+`0 01111111 10010010000111111011011`
+
+## Examples
+
+numbers _0.20000000_ to _0.20000005_ expressed as closest _float32_ numbers:
+
+- `0 01111100 10011001100110011001101`
+- `0 01111100 10011001100110011001101`
+- `0 01111100 10011001100110011001110`
+- `0 01111100 10011001100110011001111`
+- `0 01111100 10011001100110011001111`
+- `0 01111100 10011001100110011010000`
+
+## Examples
+
+Avogadro constant (6.02214076 \* 10^23):
+
+`0 11001101 11111110000110001000001`
+
+planck length (1.61625518 \* 10^-35):
+
+`0 00001011 01010111101011110110100`
+
+## Overflow and underflow
+
+largest _float32_ number:
+
+`0 11111110 11111111111111111111111`
+
+`~ 2^127.9999 ~ 3.403e38`
+
+smallest positive _float32_ number with full precision:
+
+`0 00000001 00000000000000000000000`
+
+`= 2^-126 ~ 1.175e-36`
+
+larger numbers will yield `inf`
+
+smaller numbers will lose precision or yield `0.0`
+
+## Float: special values
+
+inf: `0 11111111 00000000000000000000000`
+
+nan: `x 11111111 00000000000000000000001`

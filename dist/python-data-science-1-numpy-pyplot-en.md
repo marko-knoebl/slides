@@ -558,6 +558,134 @@ using this data, verify the following equation: _sin(x)^2 + cos(x)^2 = 1_
 
 Simulate 1 million dice rolls with 10 dice each
 
+# Numeric types
+
+## Numeric types
+
+- **int**
+- **float**
+- decimal
+
+## Int
+
+an _int8_ consists of 8 bits and can store 256 different numbers
+
+integers of different bit sizes can represent different amounts of numbers:
+
+- _int8_: 256 numbers (-128 to +127)
+- _int16_: 65,536 numbers (-32,768 to +32,767)
+- _int32_: 4,294,967,296 numbers
+- _int64_: 18,446,744,073,709,551,616 numbers
+
+## Int
+
+an _unsigned integer (uint)_ can only represent non-negative numbers
+
+e.g. _uint8_: 0 to 255
+
+## Float
+
+standardized way of representing real numbers in computers: _IEEE 754_
+
+- **binary floating point numbers**
+- decimal floating point numbers
+
+## Float
+
+common floating point types:
+
+- _float32_ (_single_): exact for ~7 decimal digits
+- _float64_ (_double_): exact for ~16 decimal digits
+
+## Float
+
+**rounding errors**: some numbers cannot be represented as floating point numbers, they will always be approximations
+
+examples in the decimal system: 1/3, 1/7
+
+examples in the binary system: 1/10, 1/5, 1/3
+
+example: `0.1 + 0.2` evaluates to `0.30000000000000004` when using 64 bit floats
+
+## Float
+
+Special values in IEEE 754:
+
+- `inf` and `-inf` (infinite values)
+- `nan` (not-a-number: undefined / unknown value)
+
+# Floats in IEEE 754
+
+## Floats in IEEE 754
+
+storage format:
+
+```txt
+(-) s * 2^e
+```
+
+- s ... _significand_ / _coefficient_
+- e ... _exponent_
+
+## Examples
+
+pi as _float32_:
+
+`0 10000000 10010010000111111011011`
+
+2\*pi as _float32_:
+
+`0 10000001 10010010000111111011011`
+
+pi/2 as _float32_:
+
+`0 01111111 10010010000111111011011`
+
+## Examples
+
+numbers _0.20000000_ to _0.20000005_ expressed as closest _float32_ numbers:
+
+- `0 01111100 10011001100110011001101`
+- `0 01111100 10011001100110011001101`
+- `0 01111100 10011001100110011001110`
+- `0 01111100 10011001100110011001111`
+- `0 01111100 10011001100110011001111`
+- `0 01111100 10011001100110011010000`
+
+## Examples
+
+Avogadro constant (6.02214076 \* 10^23):
+
+`0 11001101 11111110000110001000001`
+
+planck length (1.61625518 \* 10^-35):
+
+`0 00001011 01010111101011110110100`
+
+## Overflow and underflow
+
+largest _float32_ number:
+
+`0 11111110 11111111111111111111111`
+
+`~ 2^127.9999 ~ 3.403e38`
+
+smallest positive _float32_ number with full precision:
+
+`0 00000001 00000000000000000000000`
+
+`= 2^-126 ~ 1.175e-36`
+
+larger numbers will yield `inf`
+
+smaller numbers will lose precision or yield `0.0`
+
+## Float: special values
+
+inf: `0 11111111 00000000000000000000000`
+
+nan: `x 11111111 00000000000000000000001`
+
 # Array types
 
 ## Array types

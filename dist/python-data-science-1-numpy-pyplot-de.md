@@ -560,6 +560,134 @@ np.array([[0.0, 0.01, 0.02, ...],
 
 Simuliere 1 Million Mal würfeln mit je 10 Würfeln
 
+# Numerische Typen
+
+## Numerische Typen
+
+- **int**
+- **float**
+- decimal
+
+## Int
+
+ein _int8_ besteht aus 8 bits und kann 256 verschiedene Zahlen darstellen
+
+Integer mit verschiedenen bit-Größen können unterschiedliche Zahlen darstellen:
+
+- _int8_: 256 Zahlen (-128 bis +127)
+- _int16_: 65,536 Zahlen (-32,768 bis +32,767)
+- _int32_: 4,294,967,296 Zahlen
+- _int64_: 18,446,744,073,709,551,616 Zahlen
+
+## Int
+
+Ein _unsigned integer (uint)_ kann nur nicht-negative Zahlen repräsentieren
+
+z.B. bei _uint8_: 0 bis 255
+
+## Float
+
+Standard für die Repräsentation reeller Zahlen in Computern: _IEEE 754_
+
+- **binäre Gleitkommazahlen**
+- dezimale Gleitkommazahlen
+
+## Float
+
+wichtige Gleitkommatypen:
+
+- _float32_ (_single_): exakt für ~7 Dezimalstellen
+- _float64_ (_double_): exakt für ~16 Dezimalstellen
+
+## Float
+
+**Rundungsfehler**: manche Zahlen können nicht als Gleitkommazahlen dargestellt werden, sie sind immer Annäherungen
+
+Beispiele im Dezimalsystem: 1/3, 1/7
+
+Beispiele im Binärsystem: 1/10, 1/5, 1/3
+
+Beispiel: `0.1 + 0.2` wird zu `0.30000000000000004` ausgewertet, wenn wir 64-bit floats verwenden
+
+## Float
+
+Besondere Werte in IEEE 754:
+
+- `inf` und `-inf` (unendliche Werte)
+- `nan` (not-a-number: undefinierter / unbekannter Wert)
+
+# Floats in IEEE 754
+
+## Floats in IEEE 754
+
+Speicherformat:
+
+```txt
+(-) s * 2^e
+```
+
+- s ... _Signifikand_ / _Koeffizient_
+- e ... _Exponent_
+
+## Beispiele
+
+pi als _float32_:
+
+`0 10000000 10010010000111111011011`
+
+2\*pi als _float32_:
+
+`0 10000001 10010010000111111011011`
+
+pi/2 als _float32_:
+
+`0 01111111 10010010000111111011011`
+
+## Beispiele
+
+Die Zahlen _0.20000000_ bis _0.20000005_ als nächstgelegene _float32_ ausgedrückt:
+
+- `0 01111100 10011001100110011001101`
+- `0 01111100 10011001100110011001101`
+- `0 01111100 10011001100110011001110`
+- `0 01111100 10011001100110011001111`
+- `0 01111100 10011001100110011001111`
+- `0 01111100 10011001100110011010000`
+
+## Beispiele
+
+Avogadro-Konstante (6.02214076 \* 10^23):
+
+`0 11001101 11111110000110001000001`
+
+Planck-Länge (1.61625518 \* 10^-35):
+
+`0 00001011 01010111101011110110100`
+
+## Overflow und Underflow
+
+größte _float32_-Zahl:
+
+`0 11111110 11111111111111111111111`
+
+`~ 2^127.9999 ~ 3.403e38`
+
+kleinste positive _float32_ Zahl mit voller Präzision:
+
+`0 00000001 00000000000000000000000`
+
+`= 2^-126 ~ 1.175e-36`
+
+größere Zahlen ergeben `inf`
+
+kleinere Zahlen verlieren Genauigkeit oder ergeben `0.0`
+
+## Besondere Werte
+
+inf: `0 11111111 00000000000000000000000`
+
+nan: `0 11111111 00000000000000000000001`
+
 # Array Typen
 
 ## Array Typen

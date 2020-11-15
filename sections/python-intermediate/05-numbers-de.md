@@ -56,7 +56,7 @@ Beispiele im Binärsystem (`float`): _1/10_, _1/5_, _1/3_
 
 Beispiel: `0.1 + 0.2` ergibt `0.30000000000000004`
 
-Im Allgemeinen sind 64-bit floats auf ca 15 Dezimalstellen genau.
+Im Allgemeinen sind 64-bit floats auf ca 16 Dezimalstellen genau.
 
 ## float
 

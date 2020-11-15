@@ -2414,6 +2414,91 @@ np.array([[<span class="hljs-number">0.0</span>, <span class="hljs-number">0.01<
 <p>using this data, verify the following equation: <em>sin(x)^2 + cos(x)^2 = 1</em></p>
 </section><section class="slide"><h2>Exercises</h2>
 <p>Simulate 1 million dice rolls with 10 dice each</p>
+</section></section><section class="slides-section"><section class="slide"><h1>Numeric types</h1>
+</section><section class="slide"><h2>Numeric types</h2>
+<ul>
+<li><strong>int</strong></li>
+<li><strong>float</strong></li>
+<li>decimal</li>
+</ul>
+</section><section class="slide"><h2>Int</h2>
+<p>an <em>int8</em> consists of 8 bits and can store 256 different numbers</p>
+<p>integers of different bit sizes can represent different amounts of numbers:</p>
+<ul>
+<li><em>int8</em>: 256 numbers (-128 to +127)</li>
+<li><em>int16</em>: 65,536 numbers (-32,768 to +32,767)</li>
+<li><em>int32</em>: 4,294,967,296 numbers</li>
+<li><em>int64</em>: 18,446,744,073,709,551,616 numbers</li>
+</ul>
+</section><section class="slide"><h2>Int</h2>
+<p>an <em>unsigned integer (uint)</em> can only represent non-negative numbers</p>
+<p>e.g. <em>uint8</em>: 0 to 255</p>
+</section><section class="slide"><h2>Float</h2>
+<p>standardized way of representing real numbers in computers: <em>IEEE 754</em></p>
+<ul>
+<li><strong>binary floating point numbers</strong></li>
+<li>decimal floating point numbers</li>
+</ul>
+</section><section class="slide"><h2>Float</h2>
+<p>common floating point types:</p>
+<ul>
+<li><em>float32</em> (<em>single</em>): exact for ~7 decimal digits</li>
+<li><em>float64</em> (<em>double</em>): exact for ~16 decimal digits</li>
+</ul>
+</section><section class="slide"><h2>Float</h2>
+<p><strong>rounding errors</strong>: some numbers cannot be represented as floating point numbers, they will always be approximations</p>
+<p>examples in the decimal system: 1/3, 1/7</p>
+<p>examples in the binary system: 1/10, 1/5, 1/3</p>
+<p>example: <code>0.1 + 0.2</code> evaluates to <code>0.30000000000000004</code> when using 64 bit floats</p>
+</section><section class="slide"><h2>Float</h2>
+<p>Special values in IEEE 754:</p>
+<ul>
+<li><code>inf</code> and <code>-inf</code> (infinite values)</li>
+<li><code>nan</code> (not-a-number: undefined / unknown value)</li>
+</ul>
+</section></section><section class="slides-section"><section class="slide"><h1>Floats in IEEE 754</h1>
+</section><section class="slide"><h2>Floats in IEEE 754</h2>
+<p>storage format:</p>
+<pre><code class="hljs language-txt">(-) s * 2^e
+</code></pre>
+<ul>
+<li>s ... <em>significand</em> / <em>coefficient</em></li>
+<li>e ... <em>exponent</em></li>
+</ul>
+</section><section class="slide"><h2>Examples</h2>
+<p>pi as <em>float32</em>:</p>
+<p><code>0 10000000 10010010000111111011011</code></p>
+<p>2*pi as <em>float32</em>:</p>
+<p><code>0 10000001 10010010000111111011011</code></p>
+<p>pi/2 as <em>float32</em>:</p>
+<p><code>0 01111111 10010010000111111011011</code></p>
+</section><section class="slide"><h2>Examples</h2>
+<p>numbers <em>0.20000000</em> to <em>0.20000005</em> expressed as closest <em>float32</em> numbers:</p>
+<ul>
+<li><code>0 01111100 10011001100110011001101</code></li>
+<li><code>0 01111100 10011001100110011001101</code></li>
+<li><code>0 01111100 10011001100110011001110</code></li>
+<li><code>0 01111100 10011001100110011001111</code></li>
+<li><code>0 01111100 10011001100110011001111</code></li>
+<li><code>0 01111100 10011001100110011010000</code></li>
+</ul>
+</section><section class="slide"><h2>Examples</h2>
+<p>Avogadro constant (6.02214076 * 10^23):</p>
+<p><code>0 11001101 11111110000110001000001</code></p>
+<p>planck length (1.61625518 * 10^-35):</p>
+<p><code>0 00001011 01010111101011110110100</code></p>
+</section><section class="slide"><h2>Overflow and underflow</h2>
+<p>largest <em>float32</em> number:</p>
+<p><code>0 11111110 11111111111111111111111</code></p>
+<p><code>~ 2^127.9999 ~ 3.403e38</code></p>
+<p>smallest positive <em>float32</em> number with full precision:</p>
+<p><code>0 00000001 00000000000000000000000</code></p>
+<p><code>= 2^-126 ~ 1.175e-36</code></p>
+<p>larger numbers will yield <code>inf</code></p>
+<p>smaller numbers will lose precision or yield <code>0.0</code></p>
+</section><section class="slide"><h2>Float: special values</h2>
+<p>inf: <code>0 11111111 00000000000000000000000</code></p>
+<p>nan: <code>x 11111111 00000000000000000000001</code></p>
 </section></section><section class="slides-section"><section class="slide"><h1>Array types</h1>
 </section><section class="slide"><h2>Array types</h2>
 <p>Each array can only hold data of one type (e.g. only 64 bit floats or only bytes)</p>
