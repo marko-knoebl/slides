@@ -12,19 +12,11 @@ plt.style.use("stylename")
 
 ## Stile von Graphen
 
-Kurzformen:
-
-```py
-plt.plot(x, y, "C0X--")
-```
-
-Langform:
+Beispiel zum Styling eines Graphen:
 
 ```py
 plt.plot(x, y, color="C0", marker="X", linestyle="dashed")
 ```
-
-In der Langform sind genauere Farb- und Größenangaben möglich
 
 ## Stile von Graphen
 
@@ -40,23 +32,23 @@ mögliche Farbangaben:
 
 mögliche Lininenstile:
 
-- `""` (_none_)
-- `"-"` (_solid_)
-- `"--"` (_dashed_)
-- `":"` (_dotted_)
-- `"-."` (_dashdot_)
+-  `"none"` oder `""`
+-  `"solid"` oder `"-"`
+-  `"dashed"` oder `"--"`
+-  `"dotted"` oder `":"`
+-  `"dashdot"` oder `"-."`
 
 ## Stile von Graphen
 
 mögliche Marker:
 
 - `""` (keine)
-- `","` (kleiner Punkt)
-- `"."` (mittelgroßer Punkt)
+- `"."` (kleiner Punkt)
 - `"o"` (großer Punkt)
 - `"s"` (Quadrat)
 - `"X"`
 - `"+"`
+- `","` (Pixel)
 - ...
 
 ## Stile von Graphen
@@ -69,6 +61,14 @@ wichtige Parameter:
 - `marker`
 - `markersize`
 
+## Stile von Graphen
+
+Kurzform (weniger flexibel):
+
+```py
+plt.plot(x, y, "C0X--")
+```
+
 ## Label
 
 - `plt.title("Trigonometric functions")`
@@ -77,7 +77,7 @@ wichtige Parameter:
 
 ## Label
 
-Label für verschiedene Graphen:
+Label für einzelne Graphen:
 
 ```py
 plt.plot(x, np.sin(x), label='sin(x)')

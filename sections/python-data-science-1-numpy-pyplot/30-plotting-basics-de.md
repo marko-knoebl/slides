@@ -41,11 +41,11 @@ Ergebnis:
 
 <img src="assets/pyplot-simple-graphs.png" alt="Simple plot in pyplot" />
 
-## Übung
+## Beispiel
 
-Erstelle einen Plot, der die Sinus- und Kosinusfunktion im Intervall von _0_ bis _2π_ zeigt.
+Wir erstellen einen Plot, der die Sinus- und Kosinusfunktion im Intervall von _0_ bis _2π_ zeigt.
 
-## Übung
+## Beispiel
 
 ```py
 x = np.linspace(0, 2*3.1415, 200)
@@ -54,9 +54,9 @@ plt.plot(x, np.sin(x))
 plt.plot(x, np.cos(x))
 ```
 
-## Übungen
+## Übung
 
-Erstelle eine Python-Funktion, die eine Gaußsche Glockenkurve basierend auf ihren Parametern _mu_ und _sigma_ zeichnet:
+Erstelle eine Python-Funktion, die eine _Gaußsche Glockenkurve_ basierend auf ihren Parametern _mu_ und _sigma_ zeichnet:
 
 ```py
 plot_gaussian_function(mu, sigma)

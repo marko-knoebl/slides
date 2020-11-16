@@ -963,11 +963,11 @@ results:
 
 <img src="assets/pyplot-simple-graphs.png" alt="Simple plot in pyplot" />
 
-## Exercise
+## Example
 
-Create a plot that shows the sine and cosine functions in the interval from _0_ to _2π_
+We'll create a plot that shows the sine and cosine functions in the interval from _0_ to _2π_
 
-## Exercise
+## Example
 
 ```py
 x = np.linspace(0, 2*3.1415, 200)
@@ -998,19 +998,11 @@ plt.style.use("stylename")
 
 ## Styling graphs
 
-short form:
-
-```py
-plt.plot(x, y, "C0X--")
-```
-
-long form:
+graph styling example:
 
 ```py
 plt.plot(x, y, color="C0", marker="X", linestyle="dashed")
 ```
-
-The long form enables more detailed specification of color and size
 
 ## Styling graphs
 
@@ -1024,25 +1016,25 @@ specifying colors:
 
 ## Styling graphs
 
-line styles:
+line style:
 
-- `""` (_none_)
-- `"-"` (_solid_)
-- `"--"` (_dashed_)
-- `":"` (_dotted_)
-- `"-."` (_dashdot_)
+- `"none"` or `""`
+- `"solid"` or `"-"`
+- `"dashed"` or `"--"`
+- `"dotted"` or `":"`
+- `"dashdot"` or `"-."`
 
 ## Styling graphs
 
-markers:
+marker:
 
 - `""` (none)
-- `","` (small dot)
-- `"."` (medium dot)
+- `"."` (small dot)
 - `"o"` (large dot)
 - `"s"` (square)
 - `"X"`
 - `"+"`
+- `","` (pixel)
 - ...
 
 ## Styling graphs
@@ -1055,6 +1047,14 @@ important parameters:
 - `marker`
 - `markersize`
 
+## Styling graphs
+
+combined short form (less flexible):
+
+```py
+plt.plot(x, y, "C0X--")
+```
+
 ## Labels
 
 - `plt.title("Trigonometric functions")`
@@ -1063,7 +1063,7 @@ important parameters:
 
 ## Labels
 
-labelling multiple graphs:
+labelling individual graphs:
 
 ```py
 plt.plot(x, np.sin(x), label='sin(x)')
@@ -1195,19 +1195,6 @@ Graph with automatic x (0, 1, ...):
 plt.plot(y)
 ```
 
-## Graph
-
-multiple data sets:
-
-```py
-x = [1, 2, 3, 4]
-
-y1 = [1, 2, 3, 4]
-y2 = [3, 0 , 1, 0]
-
-plt.plot(x, [y1, y2])
-```
-
 ## Bar charts
 
 ```py
@@ -1220,6 +1207,7 @@ plt.bar(
     tick_label=["China", "Russia", "USA"]
 )
 
+# horizontal
 plt.barh([0, 1, 2], [9.6, 17, 9.8])
 ```
 
@@ -1236,7 +1224,7 @@ plt.plot(x, y, ".")
 advanced:
 
 ```py
-plt.scatter(x, y, size, color)
+plt.scatter(x, y, s=sizes, c=colors)
 ```
 
 ## Histogram
@@ -1263,7 +1251,7 @@ plt.hist(
 
 ## Box plot
 
-Visualization of statistical data in a diagram (minimum, median, maximum, ...)
+Visualization of statistical data of a distribution (minimum, median, maximum, ...)
 
 ```py
 plt.boxplot(dice_simulation_1)
@@ -1384,7 +1372,7 @@ plt.boxplot(
 - (histogram)
 - (box plot)
 - KDE (kernel density estimation) - pandas, seaborn
-- violin plot - seaborn
+- violin plot (box plot + KDE) - seaborn
 - 2D histogram - pyplot (hist2d, hexbin)
 - 2D KDE - seaborn
 

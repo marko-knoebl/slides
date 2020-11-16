@@ -26,7 +26,7 @@
 - (Histogramm)
 - (Box Plot)
 - KDE (Kernel Density Estimation) - pandas, seaborn
-- Violin Plot - seaborn
+- Violin Plot (Box Plot + KDE) - seaborn
 - 2D Histogramm - pyplot (hist2d, hexbin)
 - 2D KDE - seaborn
 

@@ -12,19 +12,11 @@ plt.style.use("stylename")
 
 ## Styling graphs
 
-short form:
-
-```py
-plt.plot(x, y, "C0X--")
-```
-
-long form:
+graph styling example:
 
 ```py
 plt.plot(x, y, color="C0", marker="X", linestyle="dashed")
 ```
-
-The long form enables more detailed specification of color and size
 
 ## Styling graphs
 
@@ -38,25 +30,25 @@ specifying colors:
 
 ## Styling graphs
 
-line styles:
+line style:
 
-- `""` (_none_)
-- `"-"` (_solid_)
-- `"--"` (_dashed_)
-- `":"` (_dotted_)
-- `"-."` (_dashdot_)
+-  `"none"` or `""`
+-  `"solid"` or `"-"`
+-  `"dashed"` or `"--"`
+-  `"dotted"` or `":"`
+-  `"dashdot"` or `"-."`
 
 ## Styling graphs
 
-markers:
+marker:
 
 - `""` (none)
-- `","` (small dot)
-- `"."` (medium dot)
+- `"."` (small dot)
 - `"o"` (large dot)
 - `"s"` (square)
 - `"X"`
 - `"+"`
+- `","` (pixel)
 - ...
 
 ## Styling graphs
@@ -69,6 +61,14 @@ important parameters:
 - `marker`
 - `markersize`
 
+## Styling graphs
+
+combined short form (less flexible):
+
+```py
+plt.plot(x, y, "C0X--")
+```
+
 ## Labels
 
 - `plt.title("Trigonometric functions")`
@@ -77,7 +77,7 @@ important parameters:
 
 ## Labels
 
-labelling multiple graphs:
+labelling individual graphs:
 
 ```py
 plt.plot(x, np.sin(x), label='sin(x)')

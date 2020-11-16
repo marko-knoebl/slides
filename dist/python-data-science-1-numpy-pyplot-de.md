@@ -965,11 +965,11 @@ Ergebnis:
 
 <img src="assets/pyplot-simple-graphs.png" alt="Simple plot in pyplot" />
 
-## Übung
+## Beispiel
 
-Erstelle einen Plot, der die Sinus- und Kosinusfunktion im Intervall von _0_ bis _2π_ zeigt.
+Wir erstellen einen Plot, der die Sinus- und Kosinusfunktion im Intervall von _0_ bis _2π_ zeigt.
 
-## Übung
+## Beispiel
 
 ```py
 x = np.linspace(0, 2*3.1415, 200)
@@ -978,9 +978,9 @@ plt.plot(x, np.sin(x))
 plt.plot(x, np.cos(x))
 ```
 
-## Übungen
+## Übung
 
-Erstelle eine Python-Funktion, die eine Gaußsche Glockenkurve basierend auf ihren Parametern _mu_ und _sigma_ zeichnet:
+Erstelle eine Python-Funktion, die eine _Gaußsche Glockenkurve_ basierend auf ihren Parametern _mu_ und _sigma_ zeichnet:
 
 ```py
 plot_gaussian_function(mu, sigma)
@@ -1000,19 +1000,11 @@ plt.style.use("stylename")
 
 ## Stile von Graphen
 
-Kurzformen:
-
-```py
-plt.plot(x, y, "C0X--")
-```
-
-Langform:
+Beispiel zum Styling eines Graphen:
 
 ```py
 plt.plot(x, y, color="C0", marker="X", linestyle="dashed")
 ```
-
-In der Langform sind genauere Farb- und Größenangaben möglich
 
 ## Stile von Graphen
 
@@ -1028,23 +1020,23 @@ mögliche Farbangaben:
 
 mögliche Lininenstile:
 
-- `""` (_none_)
-- `"-"` (_solid_)
-- `"--"` (_dashed_)
-- `":"` (_dotted_)
-- `"-."` (_dashdot_)
+- `"none"` oder `""`
+- `"solid"` oder `"-"`
+- `"dashed"` oder `"--"`
+- `"dotted"` oder `":"`
+- `"dashdot"` oder `"-."`
 
 ## Stile von Graphen
 
 mögliche Marker:
 
 - `""` (keine)
-- `","` (kleiner Punkt)
-- `"."` (mittelgroßer Punkt)
+- `"."` (kleiner Punkt)
 - `"o"` (großer Punkt)
 - `"s"` (Quadrat)
 - `"X"`
 - `"+"`
+- `","` (Pixel)
 - ...
 
 ## Stile von Graphen
@@ -1057,6 +1049,14 @@ wichtige Parameter:
 - `marker`
 - `markersize`
 
+## Stile von Graphen
+
+Kurzform (weniger flexibel):
+
+```py
+plt.plot(x, y, "C0X--")
+```
+
 ## Label
 
 - `plt.title("Trigonometric functions")`
@@ -1065,7 +1065,7 @@ wichtige Parameter:
 
 ## Label
 
-Label für verschiedene Graphen:
+Label für einzelne Graphen:
 
 ```py
 plt.plot(x, np.sin(x), label='sin(x)')
@@ -1197,19 +1197,6 @@ Graph mit automatischem x (0, 1, ...):
 plt.plot(y)
 ```
 
-## Graph
-
-Mehrere Datensätze:
-
-```py
-x = [1, 2, 3, 4]
-
-y1 = [1, 2, 3, 4]
-y2 = [3, 0 , 1, 0]
-
-plt.plot(x, [y1, y2])
-```
-
 ## Säulen- und Balkendiagramm
 
 ```py
@@ -1222,6 +1209,7 @@ plt.bar(
     tick_label=["China", "Russia", "USA"]
 )
 
+# horizontal
 plt.barh([0, 1, 2], [9.6, 17, 9.8])
 ```
 
@@ -1238,7 +1226,7 @@ plt.plot(x, y, ".")
 Fortgeschritten:
 
 ```py
-plt.scatter(x, y, size, color)
+plt.scatter(x, y, s=sizes, c=colors)
 ```
 
 ## Histogramm
@@ -1265,7 +1253,7 @@ plt.hist(
 
 ## Box Plot
 
-Visualisierung von statistischen Daten in einem Diagramm (Minimum, Median, Maximum, ...)
+Visualisierung von statistischen Daten einer Verteilung (Minimum, Median, Maximum, ...)
 
 ```py
 plt.boxplot(dice_simulation_1)
@@ -1386,7 +1374,7 @@ plt.boxplot(
 - (Histogramm)
 - (Box Plot)
 - KDE (Kernel Density Estimation) - pandas, seaborn
-- Violin Plot - seaborn
+- Violin Plot (Box Plot + KDE) - seaborn
 - 2D Histogramm - pyplot (hist2d, hexbin)
 - 2D KDE - seaborn
 

@@ -41,11 +41,11 @@ results:
 
 <img src="assets/pyplot-simple-graphs.png" alt="Simple plot in pyplot" />
 
-## Exercise
+## Example
 
-Create a plot that shows the sine and cosine functions in the interval from _0_ to _2π_
+We'll create a plot that shows the sine and cosine functions in the interval from _0_ to _2π_
 
-## Exercise
+## Example
 
 ```py
 x = np.linspace(0, 2*3.1415, 200)

@@ -23,19 +23,6 @@ Graph mit automatischem x (0, 1, ...):
 plt.plot(y)
 ```
 
-## Graph
-
-Mehrere Datensätze:
-
-```py
-x = [1, 2, 3, 4]
-
-y1 = [1, 2, 3, 4]
-y2 = [3, 0 , 1, 0]
-
-plt.plot(x, [y1, y2])
-```
-
 ## Säulen- und Balkendiagramm
 
 ```py
@@ -48,6 +35,7 @@ plt.bar(
     tick_label=["China", "Russia", "USA"]
 )
 
+# horizontal
 plt.barh([0, 1, 2], [9.6, 17, 9.8])
 ```
 
@@ -64,7 +52,7 @@ plt.plot(x, y, ".")
 Fortgeschritten:
 
 ```py
-plt.scatter(x, y, size, color)
+plt.scatter(x, y, s=sizes, c=colors)
 ```
 
 ## Histogramm
@@ -91,7 +79,7 @@ plt.hist(
 
 ## Box Plot
 
-Visualisierung von statistischen Daten in einem Diagramm (Minimum, Median, Maximum, ...)
+Visualisierung von statistischen Daten einer Verteilung (Minimum, Median, Maximum, ...)
 
 ```py
 plt.boxplot(dice_simulation_1)
