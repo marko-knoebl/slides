@@ -1,0 +1,568 @@
+<h1>Python und Data Science 1: Überblick und NumPy</h1>
+<h1>Pakete</h1>
+<h2>Python Pakete für Data Science</h2>
+<ul>
+<li><em>Jupyter</em> &#x26; <em>IPython</em>: interaktive Python Umgebungen</li>
+<li><em>NumPy</em>: Bibliothek zum effizienten Verarbeiten numerischer Daten</li>
+<li><em>Pandas</em>: Bibliothek zur Datenanalyse, basiert auf NumPy</li>
+<li><em>Matplotlib</em>: Bibliothek zur Datenvisualisierung</li>
+<li><em>Scikit-Learn</em>: Bibliothek für Machine Learning, basiert auf NumPy</li>
+<li><em>Keras</em>: Bibliothek für Deep Learning</li>
+</ul>
+<h2>Python Pakete für Data Science</h2>
+<p>Installation der wichtigsten Pakete in einer vorhandenen Python-Umgebung:</p>
+<pre><code class="hljs language-bash">pip install jupyter numpy pandas matplotlib sklearn keras
+</code></pre>
+<p>Bemerkung: Pakete wie <em>NumPy</em> benötigen oft etwas Zeit, bis sie für eine neue Python-Version verfügbar sind</p>
+<h2>Anaconda</h2>
+<p><em>Anaconda</em> = Python Distribution, die viele vorkompilierte Pakete und Entwicklerwerkzeuge enthält</p>
+<p>Benötigt ~3GB Platz auf der Festplatte</p>
+<h2>Installation von Anaconda</h2>
+<p>Download von <a href="https://www.anaconda.com/products/individual">https://www.anaconda.com/products/individual</a></p>
+<p>Unter Windows sollte der Installationspfad keine Leerzeichen enthalten (Empfehlung: <code>C:/anaconda</code>) - siehe <a href="https://docs.anaconda.com/anaconda/user-guide/faq/#distribution-faq-windows-folder">https://docs.anaconda.com/anaconda/user-guide/faq/#distribution-faq-windows-folder</a></p>
+<h2>Conda</h2>
+<p><em>Conda</em> = Environment- und Paketmanager</p>
+<p>Erlaubt das Installieren verschiedener Versionen von Python, von Python-Paketen und anderen Abhängigkeiten</p>
+<p>insbesondere hilfreich für externe Libraries, die nicht in Python geschrieben sind und kompiliert werden müssen</p>
+<h2>Pyodide</h2>
+<p><em>Pyodide</em> = Python Distribution, die direkt im Browser ausgeführt wird (via <em>WebAssembly</em>)</p>
+<h1>Jupyter und IPython</h1>
+<h2>IPython</h2>
+<p>IPython = Fortgeschrittene interaktive Python Konsole, beinhaltet u.a. Autovervollständigung</p>
+<h2>Jupyter Notebooks</h2>
+<p>Jupyter notebook = Dateiformat (<em>.ipynb</em>), das ein interaktives Python-Dokument repräsentiert, in dem Eingabezellen einzeln ausgewertet werden können; die Interaktivität basiert auf IPython</p>
+<h2>Jupyter Interfaces</h2>
+<ul>
+<li><em>Jupyter Notebook</em>: webbasiertes Interface, das auf einem Server oder lokal laufen kann</li>
+<li><em>JupyterLab</em>: Nachfolgeprojekt von <em>Jupyter Notebook</em></li>
+<li><em>VS Code</em>: unterstützt Jupyter notebooks ebenfalls</li>
+</ul>
+<h2>Jupyter Notebooks - online</h2>
+<p>Jupyter online ausprobieren:</p>
+<h3>Google Colab (Google Account benötigt)</h3>
+<ul>
+<li>Gehe zu <a href="https://colab.research.google.com">https://colab.research.google.com</a></li>
+<li>Wähle <em>File</em> - <em>New Python 3 Notebook</em></li>
+</ul>
+<h3>Binder (begrenzte Sessions)</h3>
+<ul>
+<li>Gehe zu <a href="https://jupyter.org/try">https://jupyter.org/try</a></li>
+<li><em>Try Classic Notebook</em> auswählen</li>
+<li>warten ...</li>
+<li><em>File</em> - <em>New Notebook</em> - <em>Python 3</em></li>
+</ul>
+<h2>Jupyter Notebooks - VS Code</h2>
+<p>wir installieren <em>ipykernel</em> und seine Abhängigkeiten (<em>ipython</em>, <em>jupyter-core</em>, <em>jupyter-client</em>):</p>
+<!-- will install ipython, jupyter-core, jupyter-client -->
+<pre><code class="hljs language-bash">pip install ipykernel
+</code></pre>
+<p>In der Befehlspalette von VS Code (via F1) suchen wir nach: <em>Python: Create New Blank Jupyter Notebook</em></p>
+<h2>Jupyter Notebooks - lokal</h2>
+<p>Starten: Eintrag <em>Jupyter Notebook</em> im Startmenü / Befehl <code>jupyter notebook</code> im Terminal</p>
+<p>Stoppen: <em>Quit</em> im rechten oberen Eck der Ordneransicht (üblicherweise unter http://localhost:8888/tree)</p>
+<p>Python-Pakete: <em>notebook</em> oder <em>jupyterlab</em></p>
+<h2>Notebook Dateien</h2>
+<p>Anlegen neuer Notebook Dateien via <em>new</em> - <em>Notebook: Python 3</em></p>
+<p>Speicherung unter <em>notebook.ipynb</em></p>
+<p><em>Ipynb</em>: Dateiformat, das Python Code, Ausgaben und Dokumentation/Notizen beinhalten kann</p>
+<h2>Code schreiben und ausführen</h2>
+<p>Code in eine Zelle schreiben, z.B.</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> time
+time.sleep(<span class="hljs-number">3</span>)
+<span class="hljs-string">"hello"</span>
+</code></pre>
+<p>dann <em>Shift</em> + <em>Enter</em> drücken</p>
+<h2>Code schreiben und ausführen</h2>
+<p>In IPython gibt es nummerierte Eingaben, z.B. <code>[1]</code></p>
+<p>Während eine Eingabe ausgewertet wird, wird <code>[*]</code> angezeigt</p>
+<p>Wenn das letzte Statement in einer Zelle einen Wert ergibt, wird dies als Ausgabe angezeigt</p>
+<p>Um das Notebook neu zu starten und alle Zellen neu auszuwerten, drücke ⏩</p>
+<h2>Code schreiben und ausführen</h2>
+<p>Auf die letzte Ausgabe zugreifen:</p>
+<pre><code class="hljs language-py">print(_ * <span class="hljs-number">3</span>)
+</code></pre>
+<h2>Dokumentation via Markdown</h2>
+<p>Wir können Dokumentation über die standardisierte Sprache <em>Markdown</em> hinzufügen:</p>
+<p>Wir ändern das Dropdown von <em>Code</em> auf <em>Markdown</em> und versuchen den folgenden Code:</p>
+<pre><code class="hljs language-md"><span class="hljs-section"># Heading</span>
+<span class="hljs-bullet">
+- </span>item 1
+<span class="hljs-bullet">- </span>item 2
+</code></pre>
+<p>Zelle ausführen oder verlassen, um das Resultat anzuzeigen, doppelklicken zum erneuten Editieren</p>
+<p><a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">Markdown Cheatsheet</a></p>
+<h2>Dokumentation</h2>
+<p>Dokumentation zu Funktion / Klasse / Modul / ... in einer Python Konsole anzeigen:</p>
+<pre><code class="hljs language-py">help(str)
+</code></pre>
+<p>(Navigieren durch lange Ausgaben via <em>Enter</em>, Beenden via <em>Q</em>)</p>
+<p>Shortcut in IPython / Jupyter:</p>
+<pre><code class="hljs language-ipython">str?
+</code></pre>
+<h2>Tab-Vervollständigung und Wildcard-Ausdrücke</h2>
+<pre><code class="hljs language-ipython">*Error?
+</code></pre>
+<h2>Terminal-Befehle ausführen</h2>
+<p>IPython beinhaltet direkten Zugriff auf viele Terminal-Befehle, z.B. <code>ls</code>, <code>cd</code>, ...</p>
+<p>Wir können beliebige Terminal-Befehle ausführen, indem wir ein <code>!</code> davor setzen</p>
+<h1>NumPy</h1>
+<h2>NumPy</h2>
+<p>Library zur effizienten Datenverarbeitung</p>
+<p>Daten sind in mehrdimensionalen Arrays von Zahlen gespeichert, die resourcenschonend umgesetzt sind:</p>
+<ul>
+<li>kleinerer Speicherverbrauch als z.B. Listen von Zahlen in Python</li>
+<li>deutlich schnelleres Ausführen von z.B. elementweiser Addition zweier Arrays</li>
+</ul>
+<p>Daten können z.B. Bilder, Tondateien, Messwerte und vieles anderes repräsentieren</p>
+<h2>Importieren von NumPy</h2>
+<p>oft verkürzt als:</p>
+<pre><code class="hljs language-python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+</code></pre>
+<h2>Arrays</h2>
+<p>Erstellen eines 1-dimensionalen Arrays:</p>
+<pre><code class="hljs language-angelscript">a1d = np.<span class="hljs-built_in">array</span>([<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>])
+</code></pre>
+<h2>Arrays</h2>
+<p>Erstellen eines 2-dimensionalen Arrays:</p>
+<pre><code class="hljs language-py">a2d = np.array([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], [<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>], [<span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>]])
+</code></pre>
+<p>Ausgabe:</p>
+<pre><code class="hljs language-py">array([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>],
+       [<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>],
+       [<span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>]])
+</code></pre>
+<h2>Arrays</h2>
+<p>Erstellen eines 3-dimensionalen Arrays:</p>
+<pre><code class="hljs language-py">a3d = np.array([[[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]], [[<span class="hljs-number">5</span>, <span class="hljs-number">6</span>], [<span class="hljs-number">7</span>,<span class="hljs-number">8</span>]]])
+</code></pre>
+<p>Ausgabe:</p>
+<pre><code class="hljs language-py">array([[[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>],
+        [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]],
+
+       [[<span class="hljs-number">5</span>, <span class="hljs-number">6</span>],
+        [<span class="hljs-number">7</span>, <span class="hljs-number">8</span>]]])
+</code></pre>
+<h2>NumPy Arrays vs Python Listen</h2>
+<p>Arrays sind im Hintergrund in C implementiert, die numerischen Einträge (z.B. Integer) sind keine Python-Objekte und damit resourcenschonender.</p>
+<h2>NumPy Arrays vs Python Listen</h2>
+<p>Python-Liste (referenziert Integer-Objekte):</p>
+<pre><code class="hljs language-py">list_a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>]
+</code></pre>
+<p>NumPy Array (Daten sind im Array enthalten ohne auf externe Objekte zu verweisen):</p>
+<pre><code class="hljs language-py">array_a = np.array(list_a)
+</code></pre>
+<p>Schnelle elementweise Operation (in C implementiert):</p>
+<pre><code class="hljs language-py">array_a * array_a
+</code></pre>
+<h2>Array Shape</h2>
+<p>Wir können folgendes abfragen:</p>
+<ul>
+<li><code>a3d.ndim</code>: 3</li>
+<li><code>a3d.shape</code>: (2, 2, 2)</li>
+<li><code>a3d.size</code>: 8</li>
+</ul>
+<h1>Numerische Typen</h1>
+<h2>Numerische Typen</h2>
+<ul>
+<li><strong>int</strong></li>
+<li><strong>float</strong></li>
+<li>decimal</li>
+</ul>
+<h2>Int</h2>
+<p>ein <em>int8</em> besteht aus 8 bits und kann 256 verschiedene Zahlen darstellen</p>
+<p>Integer mit verschiedenen bit-Größen können unterschiedliche Zahlen darstellen:</p>
+<ul>
+<li><em>int8</em>: 256 Zahlen (-128 bis +127)</li>
+<li><em>int16</em>: 65,536 Zahlen (-32,768 bis +32,767)</li>
+<li><em>int32</em>: 4,294,967,296 Zahlen</li>
+<li><em>int64</em>: 18,446,744,073,709,551,616 Zahlen</li>
+</ul>
+<h2>Int</h2>
+<p>Ein <em>unsigned integer (uint)</em> kann nur nicht-negative Zahlen repräsentieren</p>
+<p>z.B. bei <em>uint8</em>: 0 bis 255</p>
+<h2>Float</h2>
+<p>Standard für die Repräsentation reeller Zahlen in Computern: <em>IEEE 754</em></p>
+<ul>
+<li><strong>binäre Gleitkommazahlen</strong></li>
+<li>dezimale Gleitkommazahlen</li>
+</ul>
+<h2>Float</h2>
+<p>wichtige Gleitkommatypen:</p>
+<ul>
+<li><em>float32</em> (<em>single</em>): exakt für ~7 Dezimalstellen</li>
+<li><em>float64</em> (<em>double</em>): exakt für ~16 Dezimalstellen</li>
+</ul>
+<h2>Float</h2>
+<p><strong>Rundungsfehler</strong>: manche Zahlen können nicht als Gleitkommazahlen dargestellt werden, sie sind immer Annäherungen</p>
+<p>Beispiele im Dezimalsystem: 1/3, 1/7</p>
+<p>Beispiele im Binärsystem: 1/10, 1/5, 1/3</p>
+<p>Beispiel: <code>0.1 + 0.2</code> wird zu <code>0.30000000000000004</code> ausgewertet, wenn wir 64-bit floats verwenden</p>
+<h2>Float</h2>
+<p>Besondere Werte in IEEE 754:</p>
+<ul>
+<li><code>inf</code> und <code>-inf</code> (unendliche Werte)</li>
+<li><code>nan</code> (not-a-number: undefinierter / unbekannter Wert)</li>
+</ul>
+<h1>Floats in IEEE 754</h1>
+<h2>Floats in IEEE 754</h2>
+<p>Speicherformat:</p>
+<pre><code class="hljs language-txt">(-) s * 2^e
+</code></pre>
+<ul>
+<li>s ... <em>Signifikand</em> / <em>Koeffizient</em></li>
+<li>e ... <em>Exponent</em></li>
+</ul>
+<h2>Beispiele</h2>
+<p>pi als <em>float32</em>:</p>
+<p><code>0 10000000 10010010000111111011011</code></p>
+<p>2*pi als <em>float32</em>:</p>
+<p><code>0 10000001 10010010000111111011011</code></p>
+<p>pi/2 als <em>float32</em>:</p>
+<p><code>0 01111111 10010010000111111011011</code></p>
+<h2>Beispiele</h2>
+<p>Die Zahlen <em>0.20000000</em> bis <em>0.20000005</em> als nächstgelegene <em>float32</em> ausgedrückt:</p>
+<ul>
+<li><code>0 01111100 10011001100110011001101</code></li>
+<li><code>0 01111100 10011001100110011001101</code></li>
+<li><code>0 01111100 10011001100110011001110</code></li>
+<li><code>0 01111100 10011001100110011001111</code></li>
+<li><code>0 01111100 10011001100110011001111</code></li>
+<li><code>0 01111100 10011001100110011010000</code></li>
+</ul>
+<h2>Beispiele</h2>
+<p>Avogadro-Konstante (6.02214076 * 10^23):</p>
+<p><code>0 11001101 11111110000110001000001</code></p>
+<p>Planck-Länge (1.61625518 * 10^-35):</p>
+<p><code>0 00001011 01010111101011110110100</code></p>
+<h2>Overflow und Underflow</h2>
+<p>größte <em>float32</em>-Zahl:</p>
+<p><code>0 11111110 11111111111111111111111</code></p>
+<p><code>~ 2^127.9999 ~ 3.403e38</code></p>
+<p>kleinste positive <em>float32</em> Zahl mit voller Präzision:</p>
+<p><code>0 00000001 00000000000000000000000</code></p>
+<p><code>= 2^-126 ~ 1.175e-36</code></p>
+<p>größere Zahlen ergeben <code>inf</code></p>
+<p>kleinere Zahlen verlieren Genauigkeit oder ergeben <code>0.0</code></p>
+<h2>Besondere Werte</h2>
+<p>inf: <code>0 11111111 00000000000000000000000</code></p>
+<p>nan: <code>0 11111111 00000000000000000000001</code></p>
+<h1>Array Typen</h1>
+<h2>Array Typen</h2>
+<p>Jedes NumPy Array kann nur Daten eines Typs enthalten (z.B. nur 64-bit floats oder nur bytes)</p>
+<h2>Array Typen</h2>
+<p>Jedes Array hat einen vorgegebenen Datentyp für alle Einträge</p>
+<pre><code class="hljs language-py">a = np.array([<span class="hljs-number">1</span>])
+a.dtype <span class="hljs-comment"># int32</span>
+b = np.array([<span class="hljs-number">1.0</span>])
+b.dtype <span class="hljs-comment"># float64</span>
+c = np.array([<span class="hljs-string">'abc'</span>])
+c.dtype <span class="hljs-comment"># &#x3C;U3</span>
+d = np.array([<span class="hljs-string">b'abc'</span>])
+d.dtype <span class="hljs-comment"># |S3</span>
+</code></pre>
+<h2>Array Typen</h2>
+<p>Typen können explizit angegeben werden:</p>
+<pre><code class="hljs language-py">a = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>], dtype=<span class="hljs-string">'int64'</span>)
+b = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>], dtype=<span class="hljs-string">'uint8'</span>)
+</code></pre>
+<p>Typen werden wenn möglich automatisch umgewandelt:</p>
+<pre><code class="hljs language-py">c = a + b
+c.dtype <span class="hljs-comment"># int64</span>
+</code></pre>
+<h2>Array Typen</h2>
+<p>wichtige Typen:</p>
+<ul>
+<li><em>bool</em> / <em>bool_</em> (Speicherverbrauch 8 Bit)</li>
+<li><em>int8</em>, <em>int16</em>, <em>int32</em>, <em>int64</em></li>
+<li><em>uint8</em>, <em>uint16</em>, <em>uint32</em>, <em>uint64</em></li>
+<li><em>float16</em>, <em>float32</em>, <em>float64</em></li>
+</ul>
+<h2>Integer Typen</h2>
+<p>Ein <em>int8</em> kann 2^8 (256) verschiedene Zahlen repräsentieren</p>
+<p>Anzahlen für andere Integertypen:</p>
+<ul>
+<li><em>int8</em>: 256 (-128 bis +127)</li>
+<li><em>int16</em>: 65,536 (-32768 bis +32767)</li>
+<li><em>int32</em>: 4,294,967,296</li>
+<li><em>int64</em>: 18,446,744,073,709,551,616</li>
+</ul>
+<h2>Integer Typen</h2>
+<pre><code class="hljs language-py">np.array([<span class="hljs-number">127</span>, <span class="hljs-number">128</span>, <span class="hljs-number">129</span>], dtype=<span class="hljs-string">"int8"</span>)
+</code></pre>
+<p>Output (Integer Overflow):</p>
+<pre><code class="hljs language-py">array([<span class="hljs-number">127</span>, <span class="hljs-number">-128</span>, <span class="hljs-number">-127</span>])
+</code></pre>
+<h2>Float Typen</h2>
+<p>Genauigkeit für float Typen:</p>
+<ul>
+<li><em>flaot16</em>: ~3 Dezimalstellen</li>
+<li><em>float32</em>: ~7 Dezimalstellen</li>
+<li><em>float64</em>: ~16 Dezimalstellen</li>
+</ul>
+<p>Floats haben ebenfalls einen Minimal- und Maximalwert</p>
+<h2>Float Typen</h2>
+<p>float16: genau für etwa 3 Dezimalstellen</p>
+<pre><code class="hljs language-py">np.array([<span class="hljs-number">2.71828</span>, <span class="hljs-number">0.271828</span>], dtype=<span class="hljs-string">"float16"</span>)
+<span class="hljs-comment"># array([2.719 , 0.2717])</span>
+</code></pre>
+<h2>Float Typen</h2>
+<p>float16: overflow</p>
+<pre><code class="hljs language-py">np.array([<span class="hljs-number">65450</span>, <span class="hljs-number">65500</span>, <span class="hljs-number">65550</span>], dtype=<span class="hljs-string">"float16"</span>)
+<span class="hljs-comment"># array([65440, 65500, inf])</span>
+</code></pre>
+<p>float16: underflow</p>
+<pre><code class="hljs language-py">np.array(
+    [<span class="hljs-number">3.141e-5</span>, <span class="hljs-number">3.141e-6</span>, <span class="hljs-number">3.141e-7</span>, <span class="hljs-number">3.141e-8</span>, <span class="hljs-number">3.141e-9</span>],
+    dtype=<span class="hljs-string">"float16"</span>
+)
+<span class="hljs-comment"># array([3.14e-05, 3.16e-06, 2.98e-07, 5.96e-08, 0.00e+00])</span>
+</code></pre>
+<h1>Arrays erstellen</h1>
+<h2>Arrays erstellen</h2>
+<p>Ein Array der Größe 2x6, gefüllt mit Nullen:</p>
+<pre><code class="hljs language-py">np.zeros((<span class="hljs-number">2</span>, <span class="hljs-number">6</span>))
+<span class="hljs-comment"># or</span>
+np.full((<span class="hljs-number">2</span>, <span class="hljs-number">6</span>), <span class="hljs-number">0.0</span>)
+</code></pre>
+<p>Ein 3x3 Array mit Zufallswerten:</p>
+<pre><code class="hljs language-py"><span class="hljs-comment"># floats between 0 and 1:</span>
+np.random.random((<span class="hljs-number">3</span>, <span class="hljs-number">3</span>))
+<span class="hljs-comment"># integers between 1 and 6:</span>
+np.random.randint(<span class="hljs-number">1</span>, <span class="hljs-number">7</span>, (<span class="hljs-number">3</span>, <span class="hljs-number">3</span>))
+</code></pre>
+<h2>Arrays erstellen</h2>
+<p>Erstellen der Folge <em>0.0, 0.5, 1.0, 1.5</em>:</p>
+<p>fixe Schrittweite (0.5):</p>
+<pre><code class="hljs language-py">a = np.arange(<span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">0.5</span>)
+</code></pre>
+<p>fixe Anzahl an Einträgen (4):</p>
+<pre><code class="hljs language-py">b = np.linspace(<span class="hljs-number">0</span>, <span class="hljs-number">1.5</span>, <span class="hljs-number">4</span>)
+</code></pre>
+<h1>Auswählen von Array-Einträgen</h1>
+<h2>Auswählen von Array-Einträgen</h2>
+<pre><code class="hljs language-py">a1d[<span class="hljs-number">0</span>] <span class="hljs-comment"># 0</span>
+a2d[<span class="hljs-number">0</span>, <span class="hljs-number">1</span>] <span class="hljs-comment"># 2</span>
+a2d[<span class="hljs-number">0</span>, :] <span class="hljs-comment"># [1, 2, 3]</span>
+a2d[:, <span class="hljs-number">0</span>] <span class="hljs-comment"># [1, 4, 7]</span>
+</code></pre>
+<p>bei 2D-Arrays: <em>[Zeilenindex, Spaltenindex]</em></p>
+<p>im Allgemeinen:</p>
+<ul>
+<li>letzter Index: zählt rightung rechts</li>
+<li>vorletzter Index (sofern er existiert): zählt richtung unten</li>
+</ul>
+<h2>Auswählen von Array-Einträgen</h2>
+<pre><code class="hljs language-py">a2d[<span class="hljs-number">0</span>, :] <span class="hljs-comment"># [1, 2, 3]</span>
+</code></pre>
+<p>Kurzform:</p>
+<pre><code class="hljs language-py">a2d[<span class="hljs-number">0</span>] <span class="hljs-comment"># [1, 2, 3]</span>
+</code></pre>
+<h2>Slices</h2>
+<pre><code class="hljs language-py">a1d[:<span class="hljs-number">3</span>] <span class="hljs-comment"># [0, 1, 2]</span>
+a1d[<span class="hljs-number">3</span>:<span class="hljs-number">6</span>] <span class="hljs-comment"># [3, 4, 5]</span>
+a1d[<span class="hljs-number">6</span>:] <span class="hljs-comment"># [6, 7, 8, 9]</span>
+a1d[<span class="hljs-number">0</span>:<span class="hljs-number">8</span>:<span class="hljs-number">2</span>] <span class="hljs-comment"># [0, 2, 4, 6]</span>
+</code></pre>
+<pre><code class="hljs language-py">a1d[<span class="hljs-number">3</span>:<span class="hljs-number">0</span>:<span class="hljs-number">-1</span>] <span class="hljs-comment"># [3, 2, 1]</span>
+a1d[::<span class="hljs-number">-1</span>] <span class="hljs-comment"># [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]</span>
+</code></pre>
+<pre><code class="hljs language-py">a2d[<span class="hljs-number">1</span>:, :] <span class="hljs-comment"># [[5, 6, 7], [8, 9, 10]]</span>
+</code></pre>
+<p>gleiches funktioniert mit Python-Listen</p>
+<h1>Operationen auf Arrays</h1>
+<h2>Operatoren</h2>
+<p>Operatoren werden elementweise angewendet:</p>
+<pre><code class="hljs language-py">a = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])
+b = np.array([<span class="hljs-number">2</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>])
+
+-a
+<span class="hljs-comment"># np.array([-1, -2, -3])</span>
+a + b
+<span class="hljs-comment"># np.array([3, 4, 5])</span>
+a * b
+<span class="hljs-comment"># np.array([2, 4, 6])</span>
+</code></pre>
+<h2>Vergleiche</h2>
+<p>Elementweises Vergleichen von Arrays:</p>
+<pre><code class="hljs language-py">a &#x3C; b
+<span class="hljs-comment"># np.array([True, False, False])</span>
+a == b
+<span class="hljs-comment"># np.array([False, True, False])</span>
+</code></pre>
+<p>Achtung: <code>a == b</code> kann nicht sinnvoll in if-Abfragen verwendet werden - verwende <code>np.array_equal(a, b)</code>.</p>
+<h2>Operatoren</h2>
+<p>Auch mit einzelnen Zahlen möglich (broadcasting):</p>
+<pre><code class="hljs language-py">a = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])
+
+print(a + <span class="hljs-number">1</span>)
+<span class="hljs-comment"># np.array([2, 3, 4])</span>
+</code></pre>
+<p>Einige Konstanten sind direkt in NumPy verfügbar:</p>
+<pre><code class="hljs language-py">print(a + np.pi)
+print(a + np.e)
+print(np.nan)
+</code></pre>
+<h2>Elementweise Funktionen</h2>
+<p>NumPy bietet spezielle Funktionen, die elementweise angewendet werden:</p>
+<pre><code class="hljs language-py">a = np.array([<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])
+
+print(np.sin(a))
+<span class="hljs-comment"># [0.0, 0.84147098, 0.9... ]</span>
+print(np.sqrt(a))
+<span class="hljs-comment"># [0.0, 1.0, 1.414... ]</span>
+</code></pre>
+<h2>Elementweise Funktionen</h2>
+<ul>
+<li><code>abs</code></li>
+<li><code>sin</code></li>
+<li><code>cos</code></li>
+<li><code>sqrt</code></li>
+<li><code>exp</code></li>
+<li><code>log</code></li>
+<li><code>log10</code></li>
+<li>...</li>
+</ul>
+<h2>Aggregationen</h2>
+<p><em>Aggregationen</em> berechnen beispielsweise Werte zu jeder Zeile / jeder Spalte oder zu einem ganzen Array</p>
+<p>Gesamtsumme:</p>
+<pre><code class="hljs language-py">np.sum(a2d)
+</code></pre>
+<p>Summe entlang Achse 0 ("vertikal")</p>
+<pre><code class="hljs language-py">np.sum(a2d, axis=<span class="hljs-number">0</span>)
+</code></pre>
+<p>Summe entlang Achse 1 ("horizontal")</p>
+<pre><code class="hljs language-py">np.sum(a2d, axis=<span class="hljs-number">1</span>)
+</code></pre>
+<h2>Aggregationen</h2>
+<ul>
+<li><code>sum</code></li>
+<li><code>min</code></li>
+<li><code>max</code></li>
+<li><code>std</code></li>
+<li><code>percentile</code></li>
+</ul>
+<h2>Übungen</h2>
+<p>(siehe nächste Slides)</p>
+<ul>
+<li>Preise und Mengen -> Gesamtpreis</li>
+<li>Schwerpunkt eines Dreiecks</li>
+<li>Sinus- und Kosinusfunktion - Wertetabelle</li>
+</ul>
+<h2>Übungen</h2>
+<p>Gegeben sind ein Array von Preisen und ein Array von gekauften Mengen. Bestimme den Gesamtpreis:</p>
+<pre><code class="hljs language-py">prices = np.array([<span class="hljs-number">3.99</span>, <span class="hljs-number">4.99</span>, <span class="hljs-number">3.99</span>, <span class="hljs-number">12.99</span>])
+<span class="hljs-comment"># buying the first item 3 times and the last item 2 times</span>
+quantities = np.array([<span class="hljs-number">3</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">2</span>])
+
+<span class="hljs-comment"># solution: 37.95</span>
+</code></pre>
+<h2>Übungen</h2>
+<p>Gegeben sind die Massen und Geschwindigkeiten einiger Körper; bestimme die kinetische Energie aller einzelnen Körper und die gesamte kinetische Energie aller Körper zusammen</p>
+<pre><code class="hljs language-py">masses = np.array([<span class="hljs-number">1.2</span>, <span class="hljs-number">2.2</span>, <span class="hljs-number">1.5</span>, <span class="hljs-number">2.0</span>])
+velocities = np.array([<span class="hljs-number">12.0</span>, <span class="hljs-number">14.0</span>, <span class="hljs-number">14.0</span>, <span class="hljs-number">7.5</span>])
+</code></pre>
+<p>Formel: E = m*v^2 / 2</p>
+<h2>Übungen</h2>
+<p>Gegeben sind die Koordinaten von Eckpunkten eines Dreiecks. Bestimme den Schwerpunkt (arithmetisches Mittel der Eckpunkte).</p>
+<pre><code class="hljs language-py">a = np.array([<span class="hljs-number">5</span>, <span class="hljs-number">1</span>])
+b = np.array([<span class="hljs-number">6</span>, <span class="hljs-number">8</span>])
+c = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">3</span>])
+
+<span class="hljs-comment"># solution: [4, 4]</span>
+</code></pre>
+<h2>Übungen</h2>
+<p>Erstelle eine Wertetabelle für Sinus- und Kosinusfunktion im Intervall von 0 bis 2*pi.</p>
+<p>Resultat:</p>
+<pre><code class="hljs language-py"><span class="hljs-comment"># x, sin(x), cos(x)</span>
+np.array([[<span class="hljs-number">0.0</span>, <span class="hljs-number">0.01</span>, <span class="hljs-number">0.02</span>, ...],
+          [<span class="hljs-number">0.0</span>, <span class="hljs-number">0.0099998</span>, <span class="hljs-number">0.0199999</span>, ...],
+          [<span class="hljs-number">1.0</span>, <span class="hljs-number">0.99995</span>, <span class="hljs-number">0.99980</span>, ...]])
+</code></pre>
+<p>Überprüfe anhand der Daten, ob näherungsweise gilt: <em>sin(x)^2 + cos(x)^2 = 1</em></p>
+<h2>Übungen</h2>
+<p>Simuliere 1 Million Mal würfeln mit je 10 Würfeln</p>
+<h1>Fortgeschrittenes Indexing und Filtering</h1>
+<h2>Boolean Indexing</h2>
+<pre><code class="hljs language-py">a = np.array([<span class="hljs-number">4.1</span>, <span class="hljs-number">2.7</span>, <span class="hljs-number">-1</span>, <span class="hljs-number">3.8</span>, <span class="hljs-number">-1</span>])
+
+a_valid = a > <span class="hljs-number">0</span>
+<span class="hljs-comment"># array([True, True, False, True, False])</span>
+a_filtered = a[a_valid]
+<span class="hljs-comment"># array([4.1, 2.7, 3.8])</span>
+
+a_invalid = a &#x3C; <span class="hljs-number">0</span>
+a_with_nans = a.copy()
+a_with_nans[a_invalid] = np.nan
+<span class="hljs-comment"># array([4.1, 2.7, nan, 3.8, nan])</span>
+</code></pre>
+<h2>Boolean Indexing (Kurzform)</h2>
+<pre><code class="hljs language-py">a = np.array([<span class="hljs-number">4.1</span>, <span class="hljs-number">2.7</span>, <span class="hljs-number">-1</span>, <span class="hljs-number">3.8</span>, <span class="hljs-number">-1</span>])
+
+a_filtered = a[a > <span class="hljs-number">0</span>]
+
+a_with_nans = a.copy()
+a_with_nans[a &#x3C; <span class="hljs-number">0</span>] = np.nan
+</code></pre>
+<h1>NumPy Fortgeschritten</h1>
+<h2>Form von Arrays ändern</h2>
+<pre><code class="hljs language-py">array_1d = array_3d.ravel()
+array_1d = array_3d.reshape(<span class="hljs-number">8</span>)
+array_2d = array_3d.reshape(<span class="hljs-number">2</span>, <span class="hljs-number">4</span>)
+array_2d = array_3d.reshape(<span class="hljs-number">2</span>, <span class="hljs-number">-1</span>) <span class="hljs-comment"># automatic second dimension</span>
+array_2d_transposed = array_2d.T
+</code></pre>
+<h2>Dimensionalität erhöhen</h2>
+<p>Hinzufügen einer extra Dimension der Länge 1: Verwandeln eines 2 x 2 Arrays in ein 2 x 2 x 1 Array:</p>
+<pre><code class="hljs language-py">array_2d = np.array([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]])
+array_3d = np.expand_dims(array_2d, <span class="hljs-number">2</span>)
+<span class="hljs-comment"># [[[1], [2]], [[3], [4]]]</span>
+</code></pre>
+<p>Alternative:</p>
+<pre><code class="hljs language-angelscript"><span class="hljs-built_in">array</span>_3d = <span class="hljs-built_in">array</span>_2d[:, :, np.newaxis]
+</code></pre>
+<h2>Slices als Views</h2>
+<p>In Python können wir eine flache Kopie einer Liste erstellen, indem wir sie slicen - dies ist in NumPy nicht so (um die Effizienz zu steigern):</p>
+<pre><code class="hljs language-py">list = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]
+list_copy = list[:]
+list_copy[<span class="hljs-number">0</span>] = <span class="hljs-number">10</span> <span class="hljs-comment"># does NOT change list</span>
+
+array = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])
+array_view = array[:]
+array_view[<span class="hljs-number">0</span>] = <span class="hljs-number">10</span> <span class="hljs-comment"># DOES change array</span>
+</code></pre>
+<h2>Arrays kopieren</h2>
+<p>Arrays können via <code>array.copy()</code> kopiert werden</p>
+<h2>Arrays aneinanderfügen</h2>
+<p>entlang einer Achse aneinanderfügen (standardmäßig Achse 0):</p>
+<pre><code class="hljs language-py">np.concatenate([a1d, a1d])
+np.concatenate([a2d, a2d])
+np.concatenate([a2d, a2d], axis=<span class="hljs-number">1</span>)
+</code></pre>
+<h2>Matrix-Multiplikation</h2>
+<p>Matrix-Multiplikation kann durch den binären Operator <code>@</code> durchgeführt werden</p>
+<pre><code class="hljs language-py">a = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">1</span>])
+
+M = np.array([[<span class="hljs-number">0.707</span>, <span class="hljs-number">0.707</span>],
+              [<span class="hljs-number">-0.707</span>, <span class="hljs-number">0.707</span>]])
+
+print(a @ M)
+<span class="hljs-comment"># array([0.   , 1.414])</span>
+</code></pre>
+<h2>Matrix-Multiplikation</h2>
+<p>Rotation verschiedener Punkte um 45° gegen den Uhrzeigersinn:</p>
+<pre><code class="hljs language-py">points = np.array([[<span class="hljs-number">0</span>, <span class="hljs-number">0</span>], [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>], [<span class="hljs-number">1</span>, <span class="hljs-number">1</span>], [<span class="hljs-number">1</span>, <span class="hljs-number">0</span>]])
+
+M = np.array([[<span class="hljs-number">0.707</span>, <span class="hljs-number">0.707</span>],
+              [<span class="hljs-number">-0.707</span>, <span class="hljs-number">0.707</span>]])
+
+print(points @ M)
+</code></pre>
+<h2>Matrix-Multiplikation</h2>
+<p>Beispiel:</p>
+<p>bekannt: Preise verschiedener Produkte, derent Bestände in verschiedenen Lagern</p>
+<pre><code class="hljs language-py">prices = np.array([<span class="hljs-number">3.99</span>, <span class="hljs-number">12.99</span>, <span class="hljs-number">5.90</span>, <span class="hljs-number">15</span>])
+quantities = np.array([[<span class="hljs-number">0</span>, <span class="hljs-number">80</span>, <span class="hljs-number">80</span>, <span class="hljs-number">100</span>],
+                       [<span class="hljs-number">100</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>],
+                       [<span class="hljs-number">50</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">50</span>]])
+</code></pre>
+<p>Gesucht: Warenwert pro Lager</p>

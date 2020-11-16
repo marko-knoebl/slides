@@ -1,0 +1,587 @@
+<h1>Python und Data Science 3: Pandas</h1>
+<h1>Pandas</h1>
+<h2>Pandas</h2>
+<p><em>Pandas</em> ist eine Datenanalysebibliothek; sie beruht auf <em>NumPy</em></p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+</code></pre>
+<h2>Series und DataFrame</h2>
+<ul>
+<li><strong>Series</strong>: Sammlung von gleichartigen Einträgen zu bestimmten Schlüsseln (Tabellenspalte)</li>
+<li><strong>DataFrame</strong>: Sammlung von zusammengehörenden <em>Series</em>-Objekten (ganze Tabelle)</li>
+</ul>
+<p>Beispiel:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th></th><th align="right">Area</th><th align="right">Population</th><th>Capital</th></tr></thead><tbody><tr><td>CN</td><td align="right">9.6</td><td align="right">1386</td><td>Beijing</td></tr><tr><td>RU</td><td align="right">17</td><td align="right">144</td><td>Moscow</td></tr><tr><td>US</td><td align="right">9.8</td><td align="right">327</td><td>Washington, D.C.</td></tr></tbody></table>
+<h2>Series erstellen</h2>
+<pre><code class="hljs language-py">area = pd.Series({<span class="hljs-string">'CN'</span>: <span class="hljs-number">9.6</span>, <span class="hljs-string">'RU'</span>: <span class="hljs-number">17</span>, <span class="hljs-string">'US'</span>: <span class="hljs-number">9.8</span>})
+population = pd.Series({<span class="hljs-string">'CN'</span>: <span class="hljs-number">1386</span>, <span class="hljs-string">'RU'</span>: <span class="hljs-number">144</span>, <span class="hljs-string">'US'</span>: <span class="hljs-number">327</span>})
+</code></pre>
+<pre><code class="hljs language-py">area = pd.Series([<span class="hljs-number">9.6</span>, <span class="hljs-number">17</span>, <span class="hljs-number">9.8</span>], [<span class="hljs-string">"CN"</span>, <span class="hljs-string">"RU"</span>, <span class="hljs-string">"US"</span>])
+population = pd.Series([<span class="hljs-number">1386</span>, <span class="hljs-number">144</span>, <span class="hljs-number">327</span>], [<span class="hljs-string">"CN"</span>, <span class="hljs-string">"RU"</span>, <span class="hljs-string">"US"</span>])
+</code></pre>
+<h2>Werte auslesen</h2>
+<pre><code class="hljs language-py">area[<span class="hljs-number">0</span>] <span class="hljs-comment"># 9.6</span>
+
+area[<span class="hljs-string">'CN'</span>] <span class="hljs-comment"># 9.6</span>
+</code></pre>
+<h2>Datentypen</h2>
+<p>Jede series hat einen bestimmten Datentyp</p>
+<pre><code class="hljs language-py">area.dtype <span class="hljs-comment"># float64</span>
+</code></pre>
+<p>manuelles Setzen des Datentyps:</p>
+<pre><code class="hljs language-py">area = pd.Series(
+    {<span class="hljs-string">"CN"</span>: <span class="hljs-number">9.6</span>, <span class="hljs-string">"RU"</span>: <span class="hljs-number">17</span>, <span class="hljs-string">"US"</span>: <span class="hljs-number">9.8</span>}, dtype=<span class="hljs-string">"float32"</span>
+)
+</code></pre>
+<h2>DataFrame</h2>
+<pre><code class="hljs language-py">countries = pd.DataFrame(
+    {<span class="hljs-string">"area"</span>: area, <span class="hljs-string">"population"</span>: population}
+)
+</code></pre>
+<h1>Daten importieren und exportieren</h1>
+<h2>Daten importieren und exportieren</h2>
+<p>Datenformate:</p>
+<ul>
+<li>CSV</li>
+<li>Excel</li>
+<li>JSON</li>
+<li>HDF5 (effizientes Binärformat)</li>
+<li>SQL tables (via <em>SQLAlchemy</em>)</li>
+</ul>
+<h2>Daten importieren und exportieren</h2>
+<p>Die folgenden Funktionen können Daten importieren / exportieren. Beim Importieren können Daten auch aus dem Internet gelesen werden.</p>
+<p>Import: <code>pd.read_csv</code>, <code>pd.read_excel</code>, ...</p>
+<p>Export: <code>df.to_csv</code>, <code>df.to_excel</code>, ...</p>
+<h2>CSV importieren</h2>
+<p>Beispiel: Euribor (Zinsen für europäische Anleihen)</p>
+<pre><code class="hljs language-py">euribor = pd.read_csv(
+    <span class="hljs-string">"https://datahub.io/core/euribor/r/euribor-12m-monthly.csv"</span>
+)
+</code></pre>
+<h2>CSV importieren</h2>
+<p>Mögliche Schlüsselwortargumente für <code>read_csv</code>:</p>
+<ul>
+<li><code>index_col</code>: identifiziert eine Spalte, die als Index verwendet werden soll</li>
+<li><code>header</code>: übergeben des Werts <code>None</code> zeigt an, dass es keine Header-Zeile gibt</li>
+<li><code>names</code>: Spaltennamen zur Verwendung im neuen <code>DataFrame</code></li>
+<li><code>sep</code>: Angeben anderer Trennzeichen als ein Komma</li>
+<li><code>usecols</code>: um nur bestimmte Spalten zu importieren</li>
+<li><code>parse_dates</code>: erwartet eine Liste von Spaltennamen</li>
+<li>...</li>
+</ul>
+<p>Siehe auch: <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html">https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html</a></p>
+<h2>CSV importieren</h2>
+<p>Fortgeschrittenes Euribor-Beispiel:</p>
+<ul>
+<li>Parsen des Datums</li>
+<li>Datum als Index verwenden</li>
+<li>Nur die Spalten <em>date</em> und <em>rate</em> importieren</li>
+</ul>
+<pre><code class="hljs language-py">euribor = pd.read_csv(
+    <span class="hljs-string">"https://datahub.io/core/euribor/r/euribor-12m-monthly.csv"</span>,
+    parse_dates=[<span class="hljs-string">"date"</span>],
+    index_col=<span class="hljs-string">"date"</span>,
+    usecols=[<span class="hljs-string">"date"</span>, <span class="hljs-string">"rate"</span>]
+)
+</code></pre>
+<h2>CSV importieren</h2>
+<p>Aufgabe: Importiere die folgenden Datenquellen und achte dabei auf passendes Format:</p>
+<ul>
+<li>Monatliche Preise des US-Aktienindex <em>S&#x26;P 500</em>: <a href="https://datahub.io/core/s-and-p-500/r/data.csv">https://datahub.io/core/s-and-p-500/r/data.csv</a></li>
+<li>Wechselkurse: <a href="https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv">https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv</a></li>
+<li>Iris Dataset (Statistiken zu Blütengrößen von Iris-Blumen): <a href="https://raw.githubusercontent.com/mwaskom/seaborn-data/master/iris.csv">https://raw.githubusercontent.com/mwaskom/seaborn-data/master/iris.csv</a></li>
+<li>Passagierdaten der Titanic: <a href="https://raw.githubusercontent.com/mwaskom/seaborn-data/master/titanic.csv">https://raw.githubusercontent.com/mwaskom/seaborn-data/master/titanic.csv</a></li>
+</ul>
+<h2>CSV importieren</h2>
+<p>mögliche Lösungen:</p>
+<pre><code class="hljs language-py">sp500 = pd.read_csv(
+    <span class="hljs-string">"https://datahub.io/core/s-and-p-500/r/data.csv"</span>,
+    index_col=<span class="hljs-string">"Date"</span>,
+    parse_dates=[<span class="hljs-string">"Date"</span>],
+)
+exchange_rates = pd.read_csv(
+    <span class="hljs-string">"https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv"</span>,
+    parse_dates=[<span class="hljs-string">"Date"</span>],
+)
+iris = pd.read_csv(
+    <span class="hljs-string">"https://raw.githubusercontent.com/mwaskom/seaborn-data/master/iris.csv"</span>
+)
+titanic = pd.read_csv(
+    <span class="hljs-string">"https://raw.githubusercontent.com/mwaskom/seaborn-data/master/titanic.csv"</span>
+)
+</code></pre>
+<h2>Importieren und Exportieren von Excel-Dateien</h2>
+<p>lesen / schreiben eines einzelnen Excel-Sheets:</p>
+<ul>
+<li><code>pd.read_excel</code></li>
+<li><code>pd.to_excel</code></li>
+</ul>
+<p>lesen / schreiben eines ganzen Dokuments (inklusive Formatierung):</p>
+<ul>
+<li><code>pd.ExcelFile</code></li>
+<li><code>pd.ExcelWriter</code></li>
+</ul>
+<p>siehe: <a href="https://www.dataquest.io/blog/excel-and-pandas/">Dataquest: Tutorial Using Excel with Python and Pandas</a></p>
+<h2>Importieren und Exportieren von HDF5-Daten</h2>
+<p>benötigt <em>PyTables</em> (verfügbar in der Anaconda-Distribution)</p>
+<pre><code class="hljs language-py">euribor.to_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class="hljs-string">"euribor"</span>)
+sp500.to_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class="hljs-string">"sp500"</span>)
+
+euribor = pd.read_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class="hljs-string">"euribor"</span>)
+</code></pre>
+<h1>Statistische Grundwerte</h1>
+<h2>Statistische Grundwerte</h2>
+<pre><code class="hljs language-py">df.describe()
+</code></pre>
+<h2>Statistische Grundwerte</h2>
+<pre><code class="hljs language-py">countries.area.describe()
+</code></pre>
+<pre><code class="hljs language-txt">count     3.000000
+mean     12.133333
+std       4.215843
+min       9.600000
+25%       9.700000
+50%       9.800000
+75%      13.400000
+max      17.000000
+dtype: float64
+</code></pre>
+<p>(Siehe nächste Folie für Erklärungen)</p>
+<h2>Statistik einer Series</h2>
+<pre><code class="hljs language-py">countries.area.describe()
+</code></pre>
+<p>berechnet die folgenden Daten:</p>
+<ul>
+<li><code>area.count()</code></li>
+<li><code>area.mean()</code></li>
+<li><code>area.std()</code></li>
+<li><code>area.quantile(0)</code> or <code>area.min()</code></li>
+<li><code>area.quantile(0.25)</code></li>
+<li><code>area.quantile(0.5)</code> or <code>area.median()</code></li>
+<li><code>area.quantile(0.75)</code></li>
+<li><code>area.quantile(1)</code> or <code>area.max()</code></li>
+</ul>
+<h2>Statistische Werte</h2>
+<ul>
+<li><em>std</em>: <em>Standardabweichung (Standard deviation)</em></li>
+<li><em>median</em>: Hälfte der Werte liegt darüber, Hälfte liegt darunter</li>
+<li><em>min</em>: alle Werte sind größer als das Minimum</li>
+<li><em>25%-Quantil</em>: 25% aller Werte sind kleiner</li>
+</ul>
+<h1>Daten auslesen</h1>
+<h2>Daten auslesen (nach Zeilen- und Spaltennummern)</h2>
+<ul>
+<li><code>df.iloc[5]</code>: Zeile 5 (gibt <code>Series</code>-Objekt zurück)</li>
+<li><code>df.iloc[:5]</code>: erste 5 Zeilen (gibt <code>DataFrame</code>-Objekt zurück)</li>
+<li><code>df.iloc[10:20]</code>: Zeilen 10-19</li>
+<li><code>df.iloc[5, 1]</code>: Zeile 5, Spalte 1</li>
+<li><code>df.iloc[5, [0, 2]]</code>: Zeile 5, Spalten 0 und 2</li>
+</ul>
+<h2>Daten auslesen (nach Indexwerten und Spaltennamen)</h2>
+<ul>
+<li><code>df.index</code>: Indexwerte der Zeilen</li>
+<li><code>df.columns</code>: Spaltennamen</li>
+</ul>
+<!-- list separator -->
+<ul>
+<li><code>df.loc["2009-01-02"]</code>: Zeile mit bestimmtem Indexwert</li>
+<li><code>df.loc["2009-01-01" : "2009-01-31"]</code>: Zeilen in bestimmtem Bereich (beide Grenzen inklusive)</li>
+<li><code>df.loc[:, "rate"]</code>: Spalte <code>"rate"</code></li>
+<li><code>df["rate"]</code>: Spalte <code>"rate"</code> (Kurzschreibweise)</li>
+<li><code>df.rate</code>: Spalte <code>"rate"</code> (kürzere Version - klappt nicht mit Sonderzeichen)</li>
+<li><code>df.loc[:, ["rate", "maturity_level"]]</code>: zwei Spalten</li>
+<li><code>df.loc["2009-01-02", "rate"]</code>: Bestimmte Zeile und Spalte</li>
+</ul>
+<h2>Zeilen sortieren</h2>
+<ul>
+<li><code>df.sort_values(by="rate")</code></li>
+<li><code>df.loc["2009-01-02" : "2009-12-31"].sort_values(by="rate")</code></li>
+<li><code>df.sort_index(ascending=False)</code></li>
+</ul>
+<h2>Zufällig Daten auswählen</h2>
+<ul>
+<li><code>df.sample()</code> - ein zufälliger Eintrag)</li>
+<li><code>df.sample(5)</code> - fünf Einträge</li>
+<li><code>df.sample(frac=0.1)</code> - 10% aller Einträge</li>
+</ul>
+<h2>Einträge filtern</h2>
+<p>Alle Werte, die das Kriterium nicht erfüllen werden zu <em>NaN</em> bzw <em>NA</em>.</p>
+<pre><code class="hljs language-py">iris[iris > <span class="hljs-number">0</span>]
+</code></pre>
+<h2>Zeilen filtern</h2>
+<p>Zeilenweise filtern (ein zeilenweise gefilterter <em>DataFrame</em> wird zurückgegeben):</p>
+<ul>
+<li><code>df[df.rate &#x3C; 0]</code></li>
+<li><code>df[df.length &#x3C; 0] = np.nan</code></li>
+<li><code>df[df.name == "Iris-setosa"]</code></li>
+<li><code>df[df.name.isin(["Iris-setosa", "Iris-virginica"])])]</code></li>
+</ul>
+<h2>Zeilen suchen</h2>
+<p>SQL Vorlage:</p>
+<pre><code class="hljs language-sql"><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> df
+<span class="hljs-keyword">WHERE</span> a &#x3C; b <span class="hljs-keyword">AND</span> b &#x3C; c
+</code></pre>
+<p>Pandas:</p>
+<pre><code class="hljs language-py">df[(df.a &#x3C; df.b) &#x26; (df.b &#x3C; df.c)]
+</code></pre>
+<p>oder</p>
+<pre><code class="hljs language-py">df.query(<span class="hljs-string">"a &#x3C; b &#x3C; c"</span>)
+</code></pre>
+<h2>Aufgaben (Euribor)</h2>
+<ul>
+<li>erster Eintrag</li>
+<li>letzter Eintrag</li>
+<li>letzte 10 Einträge</li>
+<li>Eintrag vom 2.1.2009</li>
+<li>Einträge aus dem Jahr 2009</li>
+<li>...</li>
+</ul>
+<h2>Lösungen (Euribor)</h2>
+<ul>
+<li>erster Eintrag: <code>euribor.iloc[0]</code></li>
+<li>letzter Eintrag: <code>euribor.iloc[-1]</code></li>
+<li>letzte 10 Einträge: <code>euribor.iloc[-10:]</code></li>
+<li>Eintrag vom 2.1.2009: <code>euribor.loc["2009-01-02"]</code></li>
+<li>Einträge vom 1.1.2009 bis 31.12.2009: <code>euribor.loc["2009-01-01": "2009-12-31"]</code></li>
+</ul>
+<h2>Aufgaben (Iris)</h2>
+<ul>
+<li>Maximale <em>petal length</em> von <em>iris setosa</em> (ohne <code>.max</code>)</li>
+</ul>
+<h2>Aufgaben (Titanic)</h2>
+<ul>
+<li>Prozentsatz an Überlebenden</li>
+<li>Prozentsatz an Überlebenden unter männlichen Passagieren</li>
+<li>Prozentsatz an Überlebenden unter Kindern</li>
+</ul>
+<h2>Aufgaben (Wechselkurs)</h2>
+<ul>
+<li>zeige <em>date</em> und <em>exchange rate</em> für den USD-EUR-Kurs an</li>
+</ul>
+<h2>Lösungen (Wechselkurs)</h2>
+<pre><code class="hljs language-py">euro_exchange_rates = exchange_rates[
+    exchange_rates.Country == <span class="hljs-string">"Euro"</span>
+]
+euro_exchange_rates.loc[:, [<span class="hljs-string">"Date"</span>, <span class="hljs-string">"Exchange rate"</span>]]
+</code></pre>
+<h1>Daten manipulieren</h1>
+<h2>Spalten umbenennen</h2>
+<pre><code class="hljs language-py">df.columns = [<span class="hljs-string">"name1"</span>, <span class="hljs-string">"name2"</span>]
+</code></pre>
+<h2>Daten entfernen</h2>
+<p>Zeilen entfernen:</p>
+<pre><code class="hljs language-py">df2 = df1.drop([<span class="hljs-string">"CN"</span>, <span class="hljs-string">"US"</span>])
+</code></pre>
+<p>Spalten entfernen:</p>
+<pre><code class="hljs language-py">df2 = df1.drop(columns=[<span class="hljs-string">"pop"</span>])
+</code></pre>
+<h2>Konvertieren von Daten</h2>
+<p>Konvertieren von Typen:</p>
+<pre><code class="hljs language-py">titanic[<span class="hljs-string">"survived"</span>] = titanic[<span class="hljs-string">"survived"</span>].astype(<span class="hljs-string">"bool"</span>)
+</code></pre>
+<p>Ersetzen von Werten:</p>
+<pre><code class="hljs language-py">titanic[<span class="hljs-string">"alive"</span>] = titanic[<span class="hljs-string">"alive"</span>].replace(
+    {<span class="hljs-string">"yes"</span>: <span class="hljs-literal">True</span>, <span class="hljs-string">"no"</span>: <span class="hljs-literal">False</span>}
+)
+</code></pre>
+<h2>Abgeleitete Werte berechnen</h2>
+<p>Hinzufügen einer neuen Spalte:</p>
+<pre><code class="hljs language-py">iris[<span class="hljs-string">"sepal_ratio"</span>] = iris[<span class="hljs-string">"sepal_length"</span>] / iris[<span class="hljs-string">"sepal_width"</span>]
+
+iris[<span class="hljs-string">"sepal_ratio"</span>].mean()
+iris[<span class="hljs-string">"sepal_ratio"</span>].std()
+
+iris_setosa = iris.loc[
+    iris[<span class="hljs-string">"name"</span>] == <span class="hljs-string">"Iris-setosa"</span>
+]
+
+iris_setosa[<span class="hljs-string">"sepal_ratio"</span>].mean()
+iris_setosa[<span class="hljs-string">"sepal_ratio"</span>].std()
+</code></pre>
+<h2>Abgeleitete Werte berechnen mittels NumPy</h2>
+<p>Aufgabe:</p>
+<ul>
+<li>Analysieren der monatlichen S&#x26;P 500 Daten und berechnen des monatlichen Gewinns / Verlusts für jedes Monat</li>
+<li>Was war der größte Gewinn / Verlust in einem Monat?</li>
+</ul>
+<h2>Abgeleitete Werte berechnen mittels NumPy</h2>
+<p>Umwandeln in ein NumPy-Array:</p>
+<pre><code class="hljs language-py">values_np = sp500[<span class="hljs-string">"SP500"</span>].to_numpy()
+</code></pre>
+<p>Differenz aufeinanderfolgender Monate:</p>
+<pre><code class="hljs language-py">diffs = values_np[<span class="hljs-number">1</span>:] - values_np[:<span class="hljs-number">-1</span>]
+<span class="hljs-comment"># add a single NaN to the front</span>
+diffs = np.concatenate([
+    np.array([float(<span class="hljs-string">'nan'</span>)]), diffs])
+</code></pre>
+<p>Hinzufügen zu Daten:</p>
+<pre><code class="hljs language-py">sp500[<span class="hljs-string">"Diff"</span>] = diffs
+sp500[<span class="hljs-string">"Gain"</span>] = sp500[<span class="hljs-string">"Diff"</span>] / sp500[<span class="hljs-string">"SP500"</span>]
+</code></pre>
+<h2>Abgeleitete Werte berechnen mittels eigenen Funktionen</h2>
+<pre><code class="hljs language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">classifier</span><span class="hljs-params">(value)</span>:</span>
+    <span class="hljs-keyword">if</span> value &#x3C; <span class="hljs-number">2</span>:
+        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>
+    <span class="hljs-keyword">elif</span> value &#x3C; <span class="hljs-number">10</span>:
+        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>
+    <span class="hljs-keyword">else</span>:
+        <span class="hljs-keyword">return</span> <span class="hljs-number">2</span>
+
+df[<span class="hljs-string">"class"</span>] = df[<span class="hljs-string">"value"</span>].apply(classifier)
+</code></pre>
+<h2>Einzelne Daten setzen</h2>
+<pre><code class="hljs language-py">iris.iloc[<span class="hljs-number">0</span>, <span class="hljs-number">0</span>] = <span class="hljs-number">6</span>
+
+iris.loc[:, <span class="hljs-string">"sepal_ratio"</span>] = float(<span class="hljs-string">'nan'</span>)
+</code></pre>
+<h1>Fehlende Daten</h1>
+<h2>Fehlende Daten</h2>
+<p>In den Wechselkursdaten fehlen manche Einträge:</p>
+<ul>
+<li>manche Tage sind nicht eingetragen (Wochenenden)</li>
+<li>zu manchen Tage sind Werte als <code>NaN</code>s eingetragen</li>
+</ul>
+<h2>Fehlende Daten</h2>
+<p>Werte, die fehlende Daten symbolisieren (ab pandas 1.0):</p>
+<ul>
+<li>für floats: <code>NaN</code> (wie allgemein in Python üblich)</li>
+<li>für andere Datentypen: <code>NA</code> (aus dem Pandas-Paket)</li>
+</ul>
+<h2>Fehlende Daten</h2>
+<p>Entfernen aller Zeilen mit fehlenden Daten:</p>
+<pre><code class="hljs language-py">er = er.dropna()
+</code></pre>
+<p>Ersetzen aller fehlender Daten mit Nullen:</p>
+<pre><code class="hljs language-py">er = er.fillna(<span class="hljs-number">0</span>)
+</code></pre>
+<p>Ersetzen aller fehlernder Daten mit Werten der Reihe zuvor:</p>
+<pre><code class="hljs language-py">er = er.fillna(method=<span class="hljs-string">"backfill"</span>)
+</code></pre>
+<h2>Fehlende Daten</h2>
+<p>Daten interpolieren:</p>
+<pre><code class="hljs language-py">er = er.intepolate()
+er = er.interpolate(method=<span class="hljs-string">"spline"</span>)
+</code></pre>
+<p>Beispiel:</p>
+<pre><code class="hljs language-py">url = <span class="hljs-string">'https://datahub.io/core/interest-rates-gb/r/data.csv'</span>
+
+ir_uk = pd.read_csv(url, index_col=<span class="hljs-string">"date"</span>,
+                    parse_dates=<span class="hljs-literal">True</span>)
+
+ir_uk_weekly = ir_uk.resample(<span class="hljs-string">'7d'</span>).interpolate()
+</code></pre>
+<h2>Übung</h2>
+<p>Nutze die Daten aus <em>sp500</em> und <em>euribor</em>, um die Entwicklungen der europäischen und amerikanischen Zinssätze einander gegenüberzustellen.</p>
+<h1>Grundlegende Plots in Pandas</h1>
+<h2>Grundlegende Plots in Pandas</h2>
+<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+
+x = np.array([<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])
+
+data = pd.DataFrame({
+    <span class="hljs-string">"y1"</span>: x*<span class="hljs-number">2</span>,
+    <span class="hljs-string">"y2"</span>: x**<span class="hljs-number">2</span>
+})
+
+data.plot.line()
+</code></pre>
+<h2>Grundlegende Plots in Pandas</h2>
+<p>außerhalb eines Jupyter Notebooks:</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+
+plt.show()
+</code></pre>
+<h2>Grundlegende Plots in Pandas</h2>
+<ul>
+<li>Graph: <code>df.plot.line()</code> / <code>df.plot()</code></li>
+<li>Säulendiagramm: <code>df.plot.bar()</code></li>
+<li>Scatter Plot: <code>df.plot.scatter(x="name1", y="name2")</code></li>
+<li>Histogramm: <code>df.plot.hist()</code></li>
+<li>Box Plot: <code>df.plot.box()</code></li>
+<li>Tortendiagramm: <code>df.pie()</code></li>
+</ul>
+<h2>Graph</h2>
+<p>Mittels <code>df.plot.line()</code> oder <code>df.plot()</code></p>
+<pre><code class="hljs language-py">euribor.plot.line()
+</code></pre>
+<pre><code class="hljs language-py">sp500[<span class="hljs-string">"SP500"</span>].plot.line(figsize=(<span class="hljs-number">9</span>, <span class="hljs-number">6</span>))
+</code></pre>
+<h2>Säulendiagramm</h2>
+<pre><code class="hljs language-py">euribor.iloc[<span class="hljs-number">-36</span>:].plot.bar()
+</code></pre>
+<p>Übung: Median der <em>sepal-width</em> und <em>sepal-length</em> für alle drei Arten von Blumen darstellen</p>
+<h2>Scatter Plot</h2>
+<pre><code class="hljs language-py">iris.plot.scatter(x=<span class="hljs-string">"sepal_length"</span>, y=<span class="hljs-string">"sepal_width"</span>)
+</code></pre>
+<p>Aufgabe: Scatter Plot von <em>Iris-setosa</em></p>
+<h2>Histogramm</h2>
+<pre><code class="hljs language-py">iris.sepal_length.plot.hist()
+</code></pre>
+<pre><code class="hljs language-py">iris.sepal_length.plot.hist(bins=<span class="hljs-number">30</span>)
+</code></pre>
+<h2>Box Plot</h2>
+<pre><code class="hljs language-py">iris.plot.box()
+</code></pre>
+<h2>Tortendiagramm</h2>
+<pre><code class="hljs language-py">df.pie()
+</code></pre>
+<h2>Scatter Matrix</h2>
+<p>Erstellt mehrere Scatter Plots - bei 4 Series-Einträgen enstehen 4x4 Plots (Scatter Plots und Histogramme)</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> pandas.plotting <span class="hljs-keyword">import</span> scatter_matrix
+
+scatter_matrix(iris)
+</code></pre>
+<h1>Basic plots in pandas and pyplot</h1>
+<h2>Graph</h2>
+<p>Pyplot:</p>
+<pre><code class="hljs language-py">plt.plot(x, y)
+plt.plot(y)
+</code></pre>
+<p>Pandas:</p>
+<pre><code class="hljs language-py">df.plot.line()
+df.plot()
+</code></pre>
+<h2>Bar chart</h2>
+<p>Pyplot:</p>
+<pre><code class="hljs language-py">plt.bar(x, y)
+</code></pre>
+<p>Pandas:</p>
+<pre><code class="hljs language-py">df.plot.bar()
+</code></pre>
+<h2>Scatter Plot</h2>
+<p>Pyplot:</p>
+<pre><code class="hljs language-py">plt.plot(x, y, <span class="hljs-string">"."</span>)
+plt.scatter(x, y, <span class="hljs-number">2</span>, <span class="hljs-string">"red"</span>)
+</code></pre>
+<p>Pandas:</p>
+<pre><code class="hljs language-py">df.plot.scatter(x=<span class="hljs-string">"name1"</span>, y=<span class="hljs-string">"name2"</span>)
+</code></pre>
+<h2>Histogram</h2>
+<p>Pyplot:</p>
+<pre><code class="hljs language-py">plt.hist(x)
+</code></pre>
+<p>Pandas:</p>
+<pre><code class="hljs language-py">df.plot.hist()
+</code></pre>
+<h2>Histogram</h2>
+<p>Pyplot:</p>
+<pre><code class="hljs language-py">plt.hist(
+  iris[:, <span class="hljs-number">2</span>],
+  bins=[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>],
+  density=<span class="hljs-literal">True</span>)
+</code></pre>
+<p>Pandas:</p>
+<pre><code class="hljs language-py">iris.sepal_length.plot.hist(bins=<span class="hljs-number">5</span>)
+</code></pre>
+<h2>Box Plot</h2>
+<p>Pyplot:</p>
+<pre><code class="hljs language-py">plt.boxplot(data)
+</code></pre>
+<p>Pandas:</p>
+<pre><code class="hljs language-py">df.plot.box()
+</code></pre>
+<h2>Pie chart</h2>
+<p>Pyplot:</p>
+<pre><code class="hljs language-py">plt.pie(x, labels=[...])
+</code></pre>
+<p>Pandas:</p>
+<pre><code class="hljs language-py">df.plot.pie()
+</code></pre>
+<h1>Kontingenztabelle</h1>
+<h2>Kontingenztabelle</h2>
+<p>Eine <em>Kontingenztabelle</em> oder <em>Kreuztabelle</em> gibt Anzahlen über mehrere Merkmale hinweg an.</p>
+<h2>Kontingenztabelle</h2>
+<p>Beispiel:</p>
+<pre><code class="hljs language-py">pd.crosstab(titanic.pclass, titanic.survived)
+</code></pre>
+<p>Ausgabe:</p>
+<pre><code class="hljs language-yaml"><span class="hljs-string">survived</span>  <span class="hljs-literal">False</span>  <span class="hljs-literal">True</span> 
+<span class="hljs-string">pclass</span>                
+<span class="hljs-number">1</span>            <span class="hljs-number">80</span>    <span class="hljs-number">136</span>
+<span class="hljs-number">2</span>            <span class="hljs-number">97</span>     <span class="hljs-number">87</span>
+<span class="hljs-number">3</span>           <span class="hljs-number">372</span>    <span class="hljs-number">119</span>
+</code></pre>
+<h1>Gruppierung</h1>
+<h2>Gruppierung</h2>
+<p>Einteilung der Daten in Gruppen / Kategorien und berechnen von Werten auf deren Basis</p>
+<h2>Gruppierung</h2>
+<p>Beispiel: Durchschnittswerte der Iris-Daten basierend auf dem Namen der Art</p>
+<pre><code class="hljs language-py">iris.groupby(iris.name).mean()
+</code></pre>
+<pre><code class="hljs language-angelscript">                 sepal_length  sepal_width  petal_length  petal_width
+name
+Iris-setosa             <span class="hljs-number">5.006</span>        <span class="hljs-number">3.418</span>         <span class="hljs-number">1.464</span>        <span class="hljs-number">0.244</span>
+Iris-versicolor         <span class="hljs-number">5.936</span>        <span class="hljs-number">2.770</span>         <span class="hljs-number">4.260</span>        <span class="hljs-number">1.326</span>
+Iris-virginica          <span class="hljs-number">6.588</span>        <span class="hljs-number">2.974</span>         <span class="hljs-number">5.552</span>        <span class="hljs-number">2.026</span>
+</code></pre>
+<h2>Gruppierung</h2>
+<p>Aufgabe: Durchschnittliche USD-Wechselkurse für jede Währung in den 90ern</p>
+<h1>Multi-Index</h1>
+<h2>Multi-Index</h2>
+<p>Index-Spalte: Spalte, anhand deren Einträge die Zeilen eindeutig identifiziert werden können</p>
+<p>Multi-Index: Kombination aus mehreren Spalten zur eindeutigen Identifikation</p>
+<h2>Multi-Index</h2>
+<p>Beispiel: Exchange rates</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Date</th><th>Country</th><th>Exchange rate</th></tr></thead><tbody><tr><td>1971-01-01</td><td>Australia</td><td>0.894</td></tr><tr><td>1971-02-01</td><td>Australia</td><td>0.890</td></tr><tr><td>1971-03-01</td><td>Australia</td><td>0.890</td></tr></tbody></table>
+<p>Eine Zeile kann durch Kombination von <em>date</em> und <em>country</em> eindeutig identifiziert werden.</p>
+<h2>Multi-Index</h2>
+<p>Importieren mit Multi-Index:</p>
+<pre><code class="hljs language-py">exchange_rates = pd.read_csv(
+    <span class="hljs-string">"https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv"</span>,
+    index_col=[<span class="hljs-string">"Country"</span>, <span class="hljs-string">"Date"</span>]
+    parse_dates=[<span class="hljs-string">"Date"</span>])
+</code></pre>
