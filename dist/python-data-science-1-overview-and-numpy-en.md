@@ -53,7 +53,9 @@ IPython = advanced interactive Python console, supports features like autocomple
 
 ## Jupyter notebooks
 
-Jupyter notebook = file format (_.ipynb_) that represents an interactive Python document where cells may be evaluated individually; interactivity is based on IPython
+- interactive Python document (based on IPython)
+- file format _.ipynb_
+- may contain code, output text / graphics, documentation / notes
 
 ## Jupyter interfaces
 
@@ -61,35 +63,15 @@ Jupyter notebook = file format (_.ipynb_) that represents an interactive Python 
 - _JupyterLab_: successor to _Jupyter Notebook_
 - _VS Code_: supports jupyter notebooks
 
-## Jupyter notebooks - online
+## Jupyter notebook - VS Code
 
-Try Jupyter online:
-
-### Google Colab (Google account needed)
-
-- Go to <https://colab.research.google.com>
-- Select _File_ - _New Python 3 Notebook_
-
-### Binder (limited sessions)
-
-- Go to <https://jupyter.org/try>
-- Select _Try Classic Notebook_
-- wait ...
-- Select _File_ - _New Notebook_ - _Python 3_
-
-## Jupyter notebooks - VS Code
-
-install _ipykernel_ and its dependencies (_ipython_, _jupyter-core_, _jupyter-client_):
-
-<!-- will install ipython, jupyter-core, jupyter-client -->
-
-```bash
-pip install ipykernel
-```
+VS Code can connect to the IPython kernel:
 
 In VS Code's command pallette (F1), search for: _Python: Create New Blank Jupyter Notebook_
 
-## Jupyter notebooks - locally
+<!-- pip install ipykernel - will install ipython, jupyter-core, jupyter-client -->
+
+## Jupyter notebook - Anaconda
 
 Launching Jupyter: Entry _Jupyter Notebook_ in the start menu / terminal command `jupyter notebook`
 
@@ -97,13 +79,13 @@ Stopping Jupyter: Press _Quit_ in the top right corner of the directory tree vie
 
 Python packages: _notebook_ or _jupyterlab_
 
-## Notebook files
+## Jupyter notebook - online
 
-Jupyter notebook files can be created via _new_ - _Notebook: Python 3_
+free online Jupyter notebooks:
 
-Will be saved under _notebook.ipynb_
-
-_Ipynb_: File format that can contain Python code, outputs, text documentation
+- Binder (limited sessions): <https://jupyter.org/try>
+- <https://www.kaggle.com/notebooks>
+- <https://colab.research.google.com> (Google login required)
 
 ## Writing and evaluating code
 
@@ -125,9 +107,18 @@ When a computation is ongoing it will display `[*]`
 
 If the last statement in a cell evaluates to something it will be considered the output and be displayed
 
-In order to restart the notebook and re-evaluate all cells, press ⏩
+## Writing and evaluating code
 
-## Accessing the last output
+interface functionality (varies along notebook types):
+
+- run cell
+- restart (forgets previous variables and state)
+- run all cells / restart and run all cells
+- interrupt evaluation
+
+## Writing and evaluating code
+
+accessing the last output:
 
 ```py
 print(_ * 3)
@@ -316,11 +307,27 @@ common floating point types:
 
 **rounding errors**: some numbers cannot be represented as floating point numbers, they will always be approximations
 
-examples in the decimal system: 1/3, 1/7
+examples in the decimal system: 1/3, 1/7, π
 
-examples in the binary system: 1/10, 1/5, 1/3
+examples in the binary system: 1/10, 1/5, 1/3, π
 
 example: `0.1 + 0.2` evaluates to `0.30000000000000004` when using 64 bit floats
+
+example: π + π evaluates to `6.2` when using decimal numbers with a precision of 2 (a more exact result would be `6.3`)
+
+## Float
+
+some operations result in loss of precision - e.g. subtracting numbers that are close to each other
+
+example:
+
+```
+a = 0.001234567 (7 significant decimal places)
+b = 0.001234321 (7 significant decimal places)
+
+c = a - b
+c = 0.000000246 (3 significant decimal places)
+```
 
 ## Float
 
@@ -336,7 +343,7 @@ Special values in IEEE 754:
 storage format:
 
 ```txt
-(-) s * 2^e
+(-) 2^e * s
 ```
 
 - s ... _significand_ / _coefficient_
@@ -358,7 +365,7 @@ pi/2 as _float32_:
 
 ## Examples
 
-numbers _0.20000000_ to _0.20000005_ expressed as closest _float32_ numbers:
+numbers _0.20000000_, _0.20000001_, ... _0.20000005_ expressed as closest _float32_ numbers:
 
 - `0 01111100 10011001100110011001101`
 - `0 01111100 10011001100110011001101`
@@ -399,7 +406,7 @@ smaller numbers will lose precision or yield `0.0`
 
 inf: `0 11111111 00000000000000000000000`
 
-nan: `x 11111111 00000000000000000000001`
+nan: `0 11111111 00000000000000000000001`
 
 # Array types
 

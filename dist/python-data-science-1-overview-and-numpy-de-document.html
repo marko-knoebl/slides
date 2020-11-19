@@ -30,41 +30,32 @@
 <h2>IPython</h2>
 <p>IPython = Fortgeschrittene interaktive Python Konsole, beinhaltet u.a. Autovervollständigung</p>
 <h2>Jupyter Notebooks</h2>
-<p>Jupyter notebook = Dateiformat (<em>.ipynb</em>), das ein interaktives Python-Dokument repräsentiert, in dem Eingabezellen einzeln ausgewertet werden können; die Interaktivität basiert auf IPython</p>
+<ul>
+<li>interaktives Python-Dokument (basierend auf IPython)</li>
+<li>Dateiformat mit Endung <em>.ipynb</em></li>
+<li>kann Python Code, Ausgaben / Grafiken und Dokumentation / Notizen beinhalten</li>
+</ul>
 <h2>Jupyter Interfaces</h2>
 <ul>
 <li><em>Jupyter Notebook</em>: webbasiertes Interface, das auf einem Server oder lokal laufen kann</li>
 <li><em>JupyterLab</em>: Nachfolgeprojekt von <em>Jupyter Notebook</em></li>
 <li><em>VS Code</em>: unterstützt Jupyter notebooks ebenfalls</li>
 </ul>
-<h2>Jupyter Notebooks - online</h2>
-<p>Jupyter online ausprobieren:</p>
-<h3>Google Colab (Google Account benötigt)</h3>
-<ul>
-<li>Gehe zu <a href="https://colab.research.google.com">https://colab.research.google.com</a></li>
-<li>Wähle <em>File</em> - <em>New Python 3 Notebook</em></li>
-</ul>
-<h3>Binder (begrenzte Sessions)</h3>
-<ul>
-<li>Gehe zu <a href="https://jupyter.org/try">https://jupyter.org/try</a></li>
-<li><em>Try Classic Notebook</em> auswählen</li>
-<li>warten ...</li>
-<li><em>File</em> - <em>New Notebook</em> - <em>Python 3</em></li>
-</ul>
-<h2>Jupyter Notebooks - VS Code</h2>
-<p>wir installieren <em>ipykernel</em> und seine Abhängigkeiten (<em>ipython</em>, <em>jupyter-core</em>, <em>jupyter-client</em>):</p>
-<!-- will install ipython, jupyter-core, jupyter-client -->
-<pre><code class="hljs language-bash">pip install ipykernel
-</code></pre>
+<h2>Jupyter Notebook - VS Code</h2>
+<p>VS Code kann sich mit dem IPython-Kernel verbinden:</p>
 <p>In der Befehlspalette von VS Code (via F1) suchen wir nach: <em>Python: Create New Blank Jupyter Notebook</em></p>
-<h2>Jupyter Notebooks - lokal</h2>
+<!-- pip install ipykernel - will install ipython, jupyter-core, jupyter-client -->
+<h2>Jupyter Notebook - Anaconda</h2>
 <p>Starten: Eintrag <em>Jupyter Notebook</em> im Startmenü / Befehl <code>jupyter notebook</code> im Terminal</p>
 <p>Stoppen: <em>Quit</em> im rechten oberen Eck der Ordneransicht (üblicherweise unter http://localhost:8888/tree)</p>
 <p>Python-Pakete: <em>notebook</em> oder <em>jupyterlab</em></p>
-<h2>Notebook Dateien</h2>
-<p>Anlegen neuer Notebook Dateien via <em>new</em> - <em>Notebook: Python 3</em></p>
-<p>Speicherung unter <em>notebook.ipynb</em></p>
-<p><em>Ipynb</em>: Dateiformat, das Python Code, Ausgaben und Dokumentation/Notizen beinhalten kann</p>
+<h2>Jupyter Notebook - online</h2>
+<p>kostelnlose online Jupyter Notebooks:</p>
+<ul>
+<li>Binder (begrenzte Sessions): <a href="https://jupyter.org/try">https://jupyter.org/try</a></li>
+<li><a href="https://www.kaggle.com/notebooks">https://www.kaggle.com/notebooks</a></li>
+<li><a href="https://colab.research.google.com">https://colab.research.google.com</a> (Google Login erforderlich)</li>
+</ul>
 <h2>Code schreiben und ausführen</h2>
 <p>Code in eine Zelle schreiben, z.B.</p>
 <pre><code class="hljs language-py"><span class="hljs-keyword">import</span> time
@@ -76,14 +67,21 @@ time.sleep(<span class="hljs-number">3</span>)
 <p>In IPython gibt es nummerierte Eingaben, z.B. <code>[1]</code></p>
 <p>Während eine Eingabe ausgewertet wird, wird <code>[*]</code> angezeigt</p>
 <p>Wenn das letzte Statement in einer Zelle einen Wert ergibt, wird dies als Ausgabe angezeigt</p>
-<p>Um das Notebook neu zu starten und alle Zellen neu auszuwerten, drücke ⏩</p>
+<h2>Code schreiben und ausführen</h2>
+<p>Interface-Funktionalität (je nach Notebook-Typ verschieden):</p>
+<ul>
+<li>Zelle ausführen</li>
+<li>neu starten (vergisst bisherige Variablen und Zustand)</li>
+<li>alle Zellen ausführen / neu starten und alle Zellen ausführen</li>
+<li>Ausführung unterbrechen</li>
+</ul>
 <h2>Code schreiben und ausführen</h2>
 <p>Auf die letzte Ausgabe zugreifen:</p>
 <pre><code class="hljs language-py">print(_ * <span class="hljs-number">3</span>)
 </code></pre>
 <h2>Dokumentation via Markdown</h2>
 <p>Wir können Dokumentation über die standardisierte Sprache <em>Markdown</em> hinzufügen:</p>
-<p>Wir ändern das Dropdown von <em>Code</em> auf <em>Markdown</em> und versuchen den folgenden Code:</p>
+<p>Wechsle von <em>Code</em> auf <em>Markdown</em> und versuche den folgenden Code:</p>
 <pre><code class="hljs language-md"><span class="hljs-section"># Heading</span>
 <span class="hljs-bullet">
 - </span>item 1
@@ -194,9 +192,19 @@ time.sleep(<span class="hljs-number">3</span>)
 </ul>
 <h2>Float</h2>
 <p><strong>Rundungsfehler</strong>: manche Zahlen können nicht als Gleitkommazahlen dargestellt werden, sie sind immer Annäherungen</p>
-<p>Beispiele im Dezimalsystem: 1/3, 1/7</p>
-<p>Beispiele im Binärsystem: 1/10, 1/5, 1/3</p>
+<p>Beispiele im Dezimalsystem: 1/3, 1/7, π</p>
+<p>Beispiele im Binärsystem: 1/10, 1/5, 1/3, π</p>
 <p>Beispiel: <code>0.1 + 0.2</code> wird zu <code>0.30000000000000004</code> ausgewertet, wenn wir 64-bit floats verwenden</p>
+<p>Beispiel: π + π wird zu <code>6.2</code> ausgewertet, wenn wir Dezimalzahlen mit 2 Stellen verwenden (besseres Ergebnis wäre <code>6.3</code>)</p>
+<h2>Float</h2>
+<p>manche Operationen führen zu einem Verlust von Genauigkeit - z.B. Subtrahieren von nahe beieinanderliegenden Zahlen</p>
+<p>Beispiel:</p>
+<pre><code class="hljs language-ini"><span class="hljs-attr">a</span> = <span class="hljs-number">0.001234567</span> (<span class="hljs-number">7</span> relevante Dezimalstellen)
+<span class="hljs-attr">b</span> = <span class="hljs-number">0.001234321</span> (<span class="hljs-number">7</span> relevante Dezimalstellen)
+
+<span class="hljs-attr">c</span> = a - b
+<span class="hljs-attr">c</span> = <span class="hljs-number">0.000000246</span> (<span class="hljs-number">3</span> relevante Dezimalstellen)
+</code></pre>
 <h2>Float</h2>
 <p>Besondere Werte in IEEE 754:</p>
 <ul>
@@ -206,7 +214,7 @@ time.sleep(<span class="hljs-number">3</span>)
 <h1>Floats in IEEE 754</h1>
 <h2>Floats in IEEE 754</h2>
 <p>Speicherformat:</p>
-<pre><code class="hljs language-txt">(-) s * 2^e
+<pre><code class="hljs language-txt">(-) 2^e * s
 </code></pre>
 <ul>
 <li>s ... <em>Signifikand</em> / <em>Koeffizient</em></li>
@@ -220,7 +228,7 @@ time.sleep(<span class="hljs-number">3</span>)
 <p>pi/2 als <em>float32</em>:</p>
 <p><code>0 01111111 10010010000111111011011</code></p>
 <h2>Beispiele</h2>
-<p>Die Zahlen <em>0.20000000</em> bis <em>0.20000005</em> als nächstgelegene <em>float32</em> ausgedrückt:</p>
+<p>Die Zahlen <em>0.20000000</em>, <em>0.20000001</em>, ... <em>0.20000005</em> als nächstgelegene <em>float32</em> ausgedrückt:</p>
 <ul>
 <li><code>0 01111100 10011001100110011001101</code></li>
 <li><code>0 01111100 10011001100110011001101</code></li>

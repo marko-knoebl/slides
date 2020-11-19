@@ -41,11 +41,27 @@ wichtige Gleitkommatypen:
 
 **Rundungsfehler**: manche Zahlen können nicht als Gleitkommazahlen dargestellt werden, sie sind immer Annäherungen
 
-Beispiele im Dezimalsystem: 1/3, 1/7
+Beispiele im Dezimalsystem: 1/3, 1/7, π
 
-Beispiele im Binärsystem: 1/10, 1/5, 1/3
+Beispiele im Binärsystem: 1/10, 1/5, 1/3, π
 
 Beispiel: `0.1 + 0.2` wird zu `0.30000000000000004` ausgewertet, wenn wir 64-bit floats verwenden
+
+Beispiel: π + π wird zu `6.2` ausgewertet, wenn wir Dezimalzahlen mit 2 Stellen verwenden (besseres Ergebnis wäre `6.3`)
+
+## Float
+
+manche Operationen führen zu einem Verlust von Genauigkeit - z.B. Subtrahieren von nahe beieinanderliegenden Zahlen
+
+Beispiel:
+
+```
+a = 0.001234567 (7 relevante Dezimalstellen)
+b = 0.001234321 (7 relevante Dezimalstellen)
+
+c = a - b
+c = 0.000000246 (3 relevante Dezimalstellen)
+```
 
 ## Float
 

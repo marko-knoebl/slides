@@ -5,7 +5,7 @@
 Speicherformat:
 
 ```txt
-(-) s * 2^e
+(-) 2^e * s
 ```
 
 - s ... _Signifikand_ / _Koeffizient_
@@ -27,7 +27,7 @@ pi/2 als _float32_:
 
 ## Beispiele
 
-Die Zahlen _0.20000000_ bis _0.20000005_ als nächstgelegene _float32_ ausgedrückt:
+Die Zahlen _0.20000000_, _0.20000001_, ... _0.20000005_ als nächstgelegene _float32_ ausgedrückt:
 
 - `0 01111100 10011001100110011001101`
 - `0 01111100 10011001100110011001101`

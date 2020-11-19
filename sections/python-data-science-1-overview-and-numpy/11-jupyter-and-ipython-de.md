@@ -6,7 +6,9 @@ IPython = Fortgeschrittene interaktive Python Konsole, beinhaltet u.a. Autovervo
 
 ## Jupyter Notebooks
 
-Jupyter notebook = Dateiformat (_.ipynb_), das ein interaktives Python-Dokument repräsentiert, in dem Eingabezellen einzeln ausgewertet werden können; die Interaktivität basiert auf IPython
+- interaktives Python-Dokument (basierend auf IPython)
+- Dateiformat mit Endung _.ipynb_
+- kann Python Code, Ausgaben / Grafiken und Dokumentation / Notizen beinhalten
 
 ## Jupyter Interfaces
 
@@ -14,35 +16,15 @@ Jupyter notebook = Dateiformat (_.ipynb_), das ein interaktives Python-Dokument 
 - _JupyterLab_: Nachfolgeprojekt von _Jupyter Notebook_
 - _VS Code_: unterstützt Jupyter notebooks ebenfalls
 
-## Jupyter Notebooks - online
+## Jupyter Notebook - VS Code
 
-Jupyter online ausprobieren:
-
-### Google Colab (Google Account benötigt)
-
-- Gehe zu https://colab.research.google.com
-- Wähle _File_ - _New Python 3 Notebook_
-
-### Binder (begrenzte Sessions)
-
-- Gehe zu https://jupyter.org/try
-- _Try Classic Notebook_ auswählen
-- warten ...
-- _File_ - _New Notebook_ - _Python 3_
-
-## Jupyter Notebooks - VS Code
-
-wir installieren _ipykernel_ und seine Abhängigkeiten (_ipython_, _jupyter-core_, _jupyter-client_):
-
-<!-- will install ipython, jupyter-core, jupyter-client -->
-
-```bash
-pip install ipykernel
-```
+VS Code kann sich mit dem IPython-Kernel verbinden:
 
 In der Befehlspalette von VS Code (via F1) suchen wir nach: _Python: Create New Blank Jupyter Notebook_
 
-## Jupyter Notebooks - lokal
+<!-- pip install ipykernel - will install ipython, jupyter-core, jupyter-client -->
+
+## Jupyter Notebook - Anaconda
 
 Starten: Eintrag _Jupyter Notebook_ im Startmenü / Befehl `jupyter notebook` im Terminal
 
@@ -50,13 +32,13 @@ Stoppen: _Quit_ im rechten oberen Eck der Ordneransicht (üblicherweise unter ht
 
 Python-Pakete: _notebook_ oder _jupyterlab_
 
-## Notebook Dateien
+## Jupyter Notebook - online
 
-Anlegen neuer Notebook Dateien via _new_ - _Notebook: Python 3_
+kostelnlose online Jupyter Notebooks:
 
-Speicherung unter _notebook.ipynb_
-
-_Ipynb_: Dateiformat, das Python Code, Ausgaben und Dokumentation/Notizen beinhalten kann
+- Binder (begrenzte Sessions): https://jupyter.org/try
+- https://www.kaggle.com/notebooks
+- https://colab.research.google.com (Google Login erforderlich)
 
 ## Code schreiben und ausführen
 
@@ -78,7 +60,14 @@ Während eine Eingabe ausgewertet wird, wird `[*]` angezeigt
 
 Wenn das letzte Statement in einer Zelle einen Wert ergibt, wird dies als Ausgabe angezeigt
 
-Um das Notebook neu zu starten und alle Zellen neu auszuwerten, drücke ⏩
+## Code schreiben und ausführen
+
+Interface-Funktionalität (je nach Notebook-Typ verschieden):
+
+- Zelle ausführen
+- neu starten (vergisst bisherige Variablen und Zustand)
+- alle Zellen ausführen / neu starten und alle Zellen ausführen
+- Ausführung unterbrechen
 
 ## Code schreiben und ausführen
 
@@ -92,7 +81,7 @@ print(_ * 3)
 
 Wir können Dokumentation über die standardisierte Sprache _Markdown_ hinzufügen:
 
-Wir ändern das Dropdown von _Code_ auf _Markdown_ und versuchen den folgenden Code:
+Wechsle von _Code_ auf _Markdown_ und versuche den folgenden Code:
 
 ```md
 # Heading

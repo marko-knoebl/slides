@@ -41,11 +41,27 @@ common floating point types:
 
 **rounding errors**: some numbers cannot be represented as floating point numbers, they will always be approximations
 
-examples in the decimal system: 1/3, 1/7
+examples in the decimal system: 1/3, 1/7, π
 
-examples in the binary system: 1/10, 1/5, 1/3
+examples in the binary system: 1/10, 1/5, 1/3, π
 
 example: `0.1 + 0.2` evaluates to `0.30000000000000004` when using 64 bit floats
+
+example: π + π evaluates to `6.2` when using decimal numbers with a precision of 2 (a more exact result would be `6.3`)
+
+## Float
+
+some operations result in loss of precision - e.g. subtracting numbers that are close to each other
+
+example:
+
+```
+a = 0.001234567 (7 significant decimal places)
+b = 0.001234321 (7 significant decimal places)
+
+c = a - b
+c = 0.000000246 (3 significant decimal places)
+```
 
 ## Float
 

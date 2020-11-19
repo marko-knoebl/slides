@@ -6,7 +6,9 @@ IPython = advanced interactive Python console, supports features like autocomple
 
 ## Jupyter notebooks
 
-Jupyter notebook = file format (_.ipynb_) that represents an interactive Python document where cells may be evaluated individually; interactivity is based on IPython
+- interactive Python document (based on IPython)
+- file format _.ipynb_
+- may contain code, output text / graphics, documentation / notes
 
 ## Jupyter interfaces
 
@@ -14,35 +16,15 @@ Jupyter notebook = file format (_.ipynb_) that represents an interactive Python 
 - _JupyterLab_: successor to _Jupyter Notebook_
 - _VS Code_: supports jupyter notebooks
 
-## Jupyter notebooks - online
+## Jupyter notebook - VS Code
 
-Try Jupyter online:
-
-### Google Colab (Google account needed)
-
-- Go to https://colab.research.google.com
-- Select _File_ - _New Python 3 Notebook_
-
-### Binder (limited sessions)
-
-- Go to https://jupyter.org/try
-- Select _Try Classic Notebook_
-- wait ...
-- Select _File_ - _New Notebook_ - _Python 3_
-
-## Jupyter notebooks - VS Code
-
-install _ipykernel_ and its dependencies (_ipython_, _jupyter-core_, _jupyter-client_):
-
-<!-- will install ipython, jupyter-core, jupyter-client -->
-
-```bash
-pip install ipykernel
-```
+VS Code can connect to the IPython kernel:
 
 In VS Code's command pallette (F1), search for: _Python: Create New Blank Jupyter Notebook_
 
-## Jupyter notebooks - locally
+<!-- pip install ipykernel - will install ipython, jupyter-core, jupyter-client -->
+
+## Jupyter notebook - Anaconda
 
 Launching Jupyter: Entry _Jupyter Notebook_ in the start menu / terminal command `jupyter notebook`
 
@@ -50,13 +32,13 @@ Stopping Jupyter: Press _Quit_ in the top right corner of the directory tree vie
 
 Python packages: _notebook_ or _jupyterlab_
 
-## Notebook files
+## Jupyter notebook - online
 
-Jupyter notebook files can be created via _new_ - _Notebook: Python 3_
+free online Jupyter notebooks:
 
-Will be saved under _notebook.ipynb_
-
-_Ipynb_: File format that can contain Python code, outputs, text documentation
+- Binder (limited sessions): https://jupyter.org/try
+- https://www.kaggle.com/notebooks
+- https://colab.research.google.com (Google login required)
 
 ## Writing and evaluating code
 
@@ -78,9 +60,18 @@ When a computation is ongoing it will display `[*]`
 
 If the last statement in a cell evaluates to something it will be considered the output and be displayed
 
-In order to restart the notebook and re-evaluate all cells, press ⏩
+## Writing and evaluating code
 
-## Accessing the last output
+interface functionality (varies along notebook types):
+
+- run cell
+- restart (forgets previous variables and state)
+- run all cells / restart and run all cells
+- interrupt evaluation
+
+## Writing and evaluating code
+
+accessing the last output:
 
 ```py
 print(_ * 3)

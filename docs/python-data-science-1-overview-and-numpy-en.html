@@ -2092,41 +2092,32 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </section><section class="slide"><h2>IPython</h2>
 <p>IPython = advanced interactive Python console, supports features like autocompletion</p>
 </section><section class="slide"><h2>Jupyter notebooks</h2>
-<p>Jupyter notebook = file format (<em>.ipynb</em>) that represents an interactive Python document where cells may be evaluated individually; interactivity is based on IPython</p>
+<ul>
+<li>interactive Python document (based on IPython)</li>
+<li>file format <em>.ipynb</em></li>
+<li>may contain code, output text / graphics, documentation / notes</li>
+</ul>
 </section><section class="slide"><h2>Jupyter interfaces</h2>
 <ul>
 <li><em>Jupyter Notebook</em>: web-based interface that can run on a remote server or locally</li>
 <li><em>JupyterLab</em>: successor to <em>Jupyter Notebook</em></li>
 <li><em>VS Code</em>: supports jupyter notebooks</li>
 </ul>
-</section><section class="slide"><h2>Jupyter notebooks - online</h2>
-<p>Try Jupyter online:</p>
-<h3>Google Colab (Google account needed)</h3>
-<ul>
-<li>Go to <a href="https://colab.research.google.com">https://colab.research.google.com</a></li>
-<li>Select <em>File</em> - <em>New Python 3 Notebook</em></li>
-</ul>
-<h3>Binder (limited sessions)</h3>
-<ul>
-<li>Go to <a href="https://jupyter.org/try">https://jupyter.org/try</a></li>
-<li>Select <em>Try Classic Notebook</em></li>
-<li>wait ...</li>
-<li>Select <em>File</em> - <em>New Notebook</em> - <em>Python 3</em></li>
-</ul>
-</section><section class="slide"><h2>Jupyter notebooks - VS Code</h2>
-<p>install <em>ipykernel</em> and its dependencies (<em>ipython</em>, <em>jupyter-core</em>, <em>jupyter-client</em>):</p>
-<!-- will install ipython, jupyter-core, jupyter-client -->
-<pre><code class="hljs language-bash">pip install ipykernel
-</code></pre>
+</section><section class="slide"><h2>Jupyter notebook - VS Code</h2>
+<p>VS Code can connect to the IPython kernel:</p>
 <p>In VS Code's command pallette (F1), search for: <em>Python: Create New Blank Jupyter Notebook</em></p>
-</section><section class="slide"><h2>Jupyter notebooks - locally</h2>
+<!-- pip install ipykernel - will install ipython, jupyter-core, jupyter-client -->
+</section><section class="slide"><h2>Jupyter notebook - Anaconda</h2>
 <p>Launching Jupyter: Entry <em>Jupyter Notebook</em> in the start menu / terminal command <code>jupyter notebook</code></p>
 <p>Stopping Jupyter: Press <em>Quit</em> in the top right corner of the directory tree view (usually under http://localhost:8888/tree)</p>
 <p>Python packages: <em>notebook</em> or <em>jupyterlab</em></p>
-</section><section class="slide"><h2>Notebook files</h2>
-<p>Jupyter notebook files can be created via <em>new</em> - <em>Notebook: Python 3</em></p>
-<p>Will be saved under <em>notebook.ipynb</em></p>
-<p><em>Ipynb</em>: File format that can contain Python code, outputs, text documentation</p>
+</section><section class="slide"><h2>Jupyter notebook - online</h2>
+<p>free online Jupyter notebooks:</p>
+<ul>
+<li>Binder (limited sessions): <a href="https://jupyter.org/try">https://jupyter.org/try</a></li>
+<li><a href="https://www.kaggle.com/notebooks">https://www.kaggle.com/notebooks</a></li>
+<li><a href="https://colab.research.google.com">https://colab.research.google.com</a> (Google login required)</li>
+</ul>
 </section><section class="slide"><h2>Writing and evaluating code</h2>
 <p>Write code into a cell, e.g.</p>
 <pre><code class="hljs language-py"><span class="hljs-keyword">import</span> time
@@ -2138,8 +2129,16 @@ time.sleep(<span class="hljs-number">3</span>)
 <p>IPython has numbered inputs, e.g. <code>[1]</code></p>
 <p>When a computation is ongoing it will display <code>[*]</code></p>
 <p>If the last statement in a cell evaluates to something it will be considered the output and be displayed</p>
-<p>In order to restart the notebook and re-evaluate all cells, press ⏩</p>
-</section><section class="slide"><h2>Accessing the last output</h2>
+</section><section class="slide"><h2>Writing and evaluating code</h2>
+<p>interface functionality (varies along notebook types):</p>
+<ul>
+<li>run cell</li>
+<li>restart (forgets previous variables and state)</li>
+<li>run all cells / restart and run all cells</li>
+<li>interrupt evaluation</li>
+</ul>
+</section><section class="slide"><h2>Writing and evaluating code</h2>
+<p>accessing the last output:</p>
 <pre><code class="hljs language-py">print(_ * <span class="hljs-number">3</span>)
 </code></pre>
 </section><section class="slide"><h2>Writing documentation via markdown</h2>
@@ -2255,9 +2254,19 @@ time.sleep(<span class="hljs-number">3</span>)
 </ul>
 </section><section class="slide"><h2>Float</h2>
 <p><strong>rounding errors</strong>: some numbers cannot be represented as floating point numbers, they will always be approximations</p>
-<p>examples in the decimal system: 1/3, 1/7</p>
-<p>examples in the binary system: 1/10, 1/5, 1/3</p>
+<p>examples in the decimal system: 1/3, 1/7, π</p>
+<p>examples in the binary system: 1/10, 1/5, 1/3, π</p>
 <p>example: <code>0.1 + 0.2</code> evaluates to <code>0.30000000000000004</code> when using 64 bit floats</p>
+<p>example: π + π evaluates to <code>6.2</code> when using decimal numbers with a precision of 2 (a more exact result would be <code>6.3</code>)</p>
+</section><section class="slide"><h2>Float</h2>
+<p>some operations result in loss of precision - e.g. subtracting numbers that are close to each other</p>
+<p>example:</p>
+<pre><code class="hljs language-ini"><span class="hljs-attr">a</span> = <span class="hljs-number">0.001234567</span> (<span class="hljs-number">7</span> significant decimal places)
+<span class="hljs-attr">b</span> = <span class="hljs-number">0.001234321</span> (<span class="hljs-number">7</span> significant decimal places)
+
+<span class="hljs-attr">c</span> = a - b
+<span class="hljs-attr">c</span> = <span class="hljs-number">0.000000246</span> (<span class="hljs-number">3</span> significant decimal places)
+</code></pre>
 </section><section class="slide"><h2>Float</h2>
 <p>Special values in IEEE 754:</p>
 <ul>
@@ -2267,7 +2276,7 @@ time.sleep(<span class="hljs-number">3</span>)
 </section></section><section class="slides-section"><section class="slide"><h1>Floats in IEEE 754</h1>
 </section><section class="slide"><h2>Floats in IEEE 754</h2>
 <p>storage format:</p>
-<pre><code class="hljs language-txt">(-) s * 2^e
+<pre><code class="hljs language-txt">(-) 2^e * s
 </code></pre>
 <ul>
 <li>s ... <em>significand</em> / <em>coefficient</em></li>
@@ -2281,7 +2290,7 @@ time.sleep(<span class="hljs-number">3</span>)
 <p>pi/2 as <em>float32</em>:</p>
 <p><code>0 01111111 10010010000111111011011</code></p>
 </section><section class="slide"><h2>Examples</h2>
-<p>numbers <em>0.20000000</em> to <em>0.20000005</em> expressed as closest <em>float32</em> numbers:</p>
+<p>numbers <em>0.20000000</em>, <em>0.20000001</em>, ... <em>0.20000005</em> expressed as closest <em>float32</em> numbers:</p>
 <ul>
 <li><code>0 01111100 10011001100110011001101</code></li>
 <li><code>0 01111100 10011001100110011001101</code></li>
@@ -2306,7 +2315,7 @@ time.sleep(<span class="hljs-number">3</span>)
 <p>smaller numbers will lose precision or yield <code>0.0</code></p>
 </section><section class="slide"><h2>Float: special values</h2>
 <p>inf: <code>0 11111111 00000000000000000000000</code></p>
-<p>nan: <code>x 11111111 00000000000000000000001</code></p>
+<p>nan: <code>0 11111111 00000000000000000000001</code></p>
 </section></section><section class="slides-section"><section class="slide"><h1>Array types</h1>
 </section><section class="slide"><h2>Array types</h2>
 <p>Each NumPy array can only hold data of one type (e.g. only 64 bit floats or only bytes)</p>

@@ -5,7 +5,7 @@
 storage format:
 
 ```txt
-(-) s * 2^e
+(-) 2^e * s
 ```
 
 - s ... _significand_ / _coefficient_
@@ -27,7 +27,7 @@ pi/2 as _float32_:
 
 ## Examples
 
-numbers _0.20000000_ to _0.20000005_ expressed as closest _float32_ numbers:
+numbers _0.20000000_, _0.20000001_, ... _0.20000005_ expressed as closest _float32_ numbers:
 
 - `0 01111100 10011001100110011001101`
 - `0 01111100 10011001100110011001101`
@@ -68,4 +68,4 @@ smaller numbers will lose precision or yield `0.0`
 
 inf: `0 11111111 00000000000000000000000`
 
-nan: `x 11111111 00000000000000000000001`
+nan: `0 11111111 00000000000000000000001`
