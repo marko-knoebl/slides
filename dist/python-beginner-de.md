@@ -110,7 +110,7 @@ Möglichkeiten:
 Starten:
 
 - Terminal-Befehl `python`
-- aus dem Startmenü (z.B. _Python 3.8 (64-bit)_)
+- aus dem Startmenü (z.B. _Python 3.9_)
 
 Beenden:
 
@@ -120,16 +120,17 @@ exit()
 
 ## Python im interaktiven Modus (online)
 
-Python online (einfach):
+einfach:
 
 <https://www.python.org/shell/>
 
-Python online (**Jupyter Notebooks**):
+<!-- dated -->
 
-- Google Colab (Google Account benötigt)
-- Binder (begrenzte Sessions)
-- Microsoft Azure Notebooks (Account benötigt)
-- ...
+_Jupyter_ Notebooks:
+
+- Binder (begrenzte Sessions): <https://jupyter.org/try>
+- <https://www.kaggle.com/notebooks>
+- <https://colab.research.google.com> (Google Login benötigt)
 
 # Variablen
 
@@ -243,7 +244,7 @@ Boolescher Wert: Ja/Nein - Wert
 
 In Python: `True` oder `False`
 
-Achtung: Groß- und Kleinschreibung ist wichtig!
+beachte Großschreibung
 
 ## None
 
@@ -338,6 +339,17 @@ person["first_name"]
 person["first_name"] = "Jane"
 ```
 
+## dict
+
+Übung:
+
+Erstelle und verändere Dictionaries, die verschiedene Objekte repräsentieren - z.B.:
+
+- einen Kalendereintrag
+- eine Person
+- ein Produkt in einem Online-Shop
+- ...
+
 ## list
 
 Listen sind ein Datentyp, der eine Folge von anderen Objekten repräsentiert
@@ -346,6 +358,12 @@ Listen sind ein Datentyp, der eine Folge von anderen Objekten repräsentiert
 primes = [2, 3, 5, 7, 11]
 
 users = ["Alice", "Bob", "Charlie"]
+
+products = [
+    {"name": "IPhone 12", "price": 949},
+    {"name": "Fairphone", "price": 419},
+    {"name": "Pixel 5", "price": 799}
+]
 ```
 
 ## list
@@ -356,8 +374,8 @@ Auslesen von Listenelementen mittels Listenindex (bei 0 beginnend)
 users = ["Alice", "Bob", "Charlie"]
 
 users[0]
-users[2]
-users[-1]
+users[1]
+users[-1] # last element
 ```
 
 ## list
@@ -398,7 +416,18 @@ Die Länge einer Liste bestimmen:
 len(users)
 ```
 
-## Tupel
+## list
+
+Übungen:
+
+Erstelle und ändere Daten, die aus _dicts_ und _lists_ bestehen und die verschiedene Objekte repräsentieren, z.B.:
+
+- Kalendereinträge
+- Produkte in einem Online-Shop / Einkaufskorb
+- Transaktionen auf einem Bankkonto
+- Daten zu einem Staat (inklusive Nachbarstaaten)
+
+## tuple
 
 ```py
 date = (1973, 10, 23)
@@ -407,7 +436,7 @@ date = (1973, 10, 23)
 - Anwendungsbereich: ähnlich wie Dicts
 - Verhalten: ähnlich wie Listen
 
-## Tupel
+## tuple
 
 Anwendungsbereich: ähnlich wie dict:
 
@@ -425,7 +454,7 @@ date_tuple = (1973, 10, 23)
 
 Jeder Eintrag in einem Tupel hat eine bestimmte Bedeutung
 
-## Tupel
+## tuple
 
 Verhalten: ähnlich wie Listen:
 
@@ -438,30 +467,7 @@ Im Gegensatz zu Listen sind Tupel unveränderlich (kein `.append` / `.pop` / ...
 
 ## Datentypen - Aufgaben
 
-Wir beginnen mit einem leeren _dictionary_ und erstellen daraus eine Datenstruktur, die z.B. eine Person darstellt
-
-```py
-person = {}
-```
-
-gewünschtes Resultat z.B.:
-
-```py
-{
-    "first_name": "Kofi",
-    "last_name": "Annan",
-    "birth_year": 1938,
-    "children": ["Ama", "Kojo"]
-}
-```
-
-## Datentypen - Aufgaben
-
-erstelle und ändere Datenstrukturen, die folgendes darstellen:
-
-- Daten zu einem Staat der Welt (Einwohnerzahl, Hauptstadt, Nachbarländer)
-- eine Liste von erledigten bzw nicht erledigten Todos
-- Transaktionen auf einem Bankkonto
+erstelle und ändere Datenstrukturen, die _dicts_, _lists_ und _tuples_ beinhalten
 
 # Objektreferenzen und Mutationen
 
@@ -509,22 +515,6 @@ Viele einfache Objekte sind nach ihrer Erstellung unveränderlich.
 
 Beispiele: `int`, `float`, `str`, `bool`, `tuple`
 
-## Objektreferenzen und Mutationen
-
-Direktes Abändern einer Liste:
-
-```py
-primes = [2, 3, 5, 7]
-primes.append(11)
-```
-
-Erstellen eines neuen Strings basierend auf einem vorhandenen String (jedoch Zuweisung zum gleichen Namen wie zuvor):
-
-```py
-greeting = "Hello"
-greeting = greeting + "!"
-```
-
 # Hilfe und Dokumentation
 
 ## Hilfe und Dokumentation
@@ -553,9 +543,9 @@ Zum schreiben ganzer Programme verwenden wir die Entwicklungsumgebung _VS Code_
 
 Siehe die Präsentation [VS Code](./vs-code-de.html)
 
-# Python-Programme
+# Unser erstes Python-Programm
 
-## Python-Programme
+## Unser erstes Python-Programm
 
 Wir legen eine Datei namens `greeting.py` an.
 
@@ -563,13 +553,11 @@ Unser Programm soll den Benutzer nach seinem Namen fragen und ihn dann begrüße
 
 ## Eingabe und Ausgabe
 
-Ausgabe: Mit Hilfe von `print()`:
+Ausgabe: Mit Hilfe der Funktion `print()`:
 
 ```py
 print("Hello. What is your name?")
 ```
-
-Print ist eine sogenannte _Funktion_.
 
 ## Eingabe und Ausgabe
 
@@ -1051,7 +1039,7 @@ a = 2 + 3 + 4 + 5 + 6 + \
 
 siehe <https://github.com/marko-knoebl/slides/tree/master/exercises/python-beginner>
 
-# Funktionen
+# Funktionsparameter
 
 ## Positionale Parameter und Schlüsselwortparameter
 

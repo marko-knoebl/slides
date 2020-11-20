@@ -19,7 +19,7 @@ Erweiterungspunkt / Eingriffspunkt zwischen dem Dispatchen einer Aktion und dem 
 ## Redux Middleware - Beispiele
 
 - Middleware, die eine Action loggt (z.B. redux-logger)
-- Middleware, die eine einzelne Action erhält und basierend darauf verschiedene andere Actions asynchron auslöst (z.B. redux-thunk)
+- Middleware, die eine einzelne Action erhält und basierend darauf verschiedene andere Actions asynchron auslöst (z.B. redux-thunk, redux-listener, redux-saga)
 
 ## Redux Middleware - Implementierung
 

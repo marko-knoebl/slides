@@ -25,6 +25,17 @@ person["first_name"]
 person["first_name"] = "Jane"
 ```
 
+## dict
+
+Übung:
+
+Erstelle und verändere Dictionaries, die verschiedene Objekte repräsentieren - z.B.:
+
+- einen Kalendereintrag
+- eine Person
+- ein Produkt in einem Online-Shop
+- ...
+
 ## list
 
 Listen sind ein Datentyp, der eine Folge von anderen Objekten repräsentiert
@@ -33,6 +44,12 @@ Listen sind ein Datentyp, der eine Folge von anderen Objekten repräsentiert
 primes = [2, 3, 5, 7, 11]
 
 users = ["Alice", "Bob", "Charlie"]
+
+products = [
+    {"name": "IPhone 12", "price": 949},
+    {"name": "Fairphone", "price": 419},
+    {"name": "Pixel 5", "price": 799}
+]
 ```
 
 ## list
@@ -43,8 +60,8 @@ Auslesen von Listenelementen mittels Listenindex (bei 0 beginnend)
 users = ["Alice", "Bob", "Charlie"]
 
 users[0]
-users[2]
-users[-1]
+users[1]
+users[-1] # last element
 ```
 
 ## list
@@ -85,7 +102,18 @@ Die Länge einer Liste bestimmen:
 len(users)
 ```
 
-## Tupel
+## list
+
+Übungen:
+
+Erstelle und ändere Daten, die aus _dicts_ und _lists_ bestehen und die verschiedene Objekte repräsentieren, z.B.:
+
+- Kalendereinträge
+- Produkte in einem Online-Shop / Einkaufskorb
+- Transaktionen auf einem Bankkonto
+- Daten zu einem Staat (inklusive Nachbarstaaten)
+
+## tuple
 
 ```py
 date = (1973, 10, 23)
@@ -94,7 +122,7 @@ date = (1973, 10, 23)
 - Anwendungsbereich: ähnlich wie Dicts
 - Verhalten: ähnlich wie Listen
 
-## Tupel
+## tuple
 
 Anwendungsbereich: ähnlich wie dict:
 
@@ -112,7 +140,7 @@ date_tuple = (1973, 10, 23)
 
 Jeder Eintrag in einem Tupel hat eine bestimmte Bedeutung
 
-## Tupel
+## tuple
 
 Verhalten: ähnlich wie Listen:
 
@@ -125,27 +153,4 @@ Im Gegensatz zu Listen sind Tupel unveränderlich (kein `.append` / `.pop` / ...
 
 ## Datentypen - Aufgaben
 
-Wir beginnen mit einem leeren _dictionary_ und erstellen daraus eine Datenstruktur, die z.B. eine Person darstellt
-
-```py
-person = {}
-```
-
-gewünschtes Resultat z.B.:
-
-```py
-{
-    "first_name": "Kofi",
-    "last_name": "Annan",
-    "birth_year": 1938,
-    "children": ["Ama", "Kojo"]
-}
-```
-
-## Datentypen - Aufgaben
-
-erstelle und ändere Datenstrukturen, die folgendes darstellen:
-
-- Daten zu einem Staat der Welt (Einwohnerzahl, Hauptstadt, Nachbarländer)
-- eine Liste von erledigten bzw nicht erledigten Todos
-- Transaktionen auf einem Bankkonto
+erstelle und ändere Datenstrukturen, die _dicts_, _lists_ und _tuples_ beinhalten

@@ -8,13 +8,11 @@ Our program will ask the user their name and greet them.
 
 ## Input and output of text
 
-Output: via `print()`:
+Output: via the `print()` function:
 
 ```py
 print("Hello. What is your name?")
 ```
-
-Print is a so-called _function_.
 
 ## Input and output of text
 
@@ -32,6 +30,19 @@ writing the greeting
 
 ```py
 print("Nice to meet you, " + name)
+```
+
+## Comments
+
+Comments are a useful tool for developers to describe what the code is doing. They don't influence the program itself.
+
+A comment starts with a `#` and extends to the line end.
+
+Usually comments are placed _above_ the code they describe
+
+```py
+# determine the length of the name
+name_length = len(name)
 ```
 
 ## Executing programs
@@ -55,16 +66,3 @@ Write a program called `age.py` which will ask the user for their birth year and
 Write a program which asks the user for their name. It should respond with the number of letters in the user's name.
 
 For this purpose use the function `len(...)` to determine the length of a string.
-
-## Comments
-
-Comments are a useful tool for developers to describe what the code is doing. They don't influence the program itself.
-
-A comment starts with a `#` and extends to the line end.
-
-Usually comments are placed _above_ the code they describe
-
-```py
-# determine the length of the name
-name_length = len(name)
-```

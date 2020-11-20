@@ -1,6 +1,6 @@
-# Python-Programme
+# Unser erstes Python-Programm
 
-## Python-Programme
+## Unser erstes Python-Programm
 
 Wir legen eine Datei namens `greeting.py` an.
 
@@ -8,13 +8,11 @@ Unser Programm soll den Benutzer nach seinem Namen fragen und ihn dann begrüße
 
 ## Eingabe und Ausgabe
 
-Ausgabe: Mit Hilfe von `print()`:
+Ausgabe: Mit Hilfe der Funktion `print()`:
 
 ```py
 print("Hello. What is your name?")
 ```
-
-Print ist eine sogenannte _Funktion_.
 
 ## Eingabe und Ausgabe
 

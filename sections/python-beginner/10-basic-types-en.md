@@ -85,7 +85,7 @@ boolean value: yes/no
 
 In Python: `True` or `False`
 
-Note: capitalization is crucial!
+note the capitalization
 
 ## None
 

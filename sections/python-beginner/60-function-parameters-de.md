@@ -1,4 +1,4 @@
-# Funktionen
+# Funktionsparameter
 
 ## Positionale Parameter und Schlüsselwortparameter
 

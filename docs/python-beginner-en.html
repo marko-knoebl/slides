@@ -2147,20 +2147,20 @@ C:\Users\Marko\Anaconda3\Scripts
 <p>launching the Python console / shell:</p>
 <ul>
 <li>command <code>python</code> in the command prompt</li>
-<li>from the start menu (e.g. <em>Python 3.8 (64-bit)</em>)</li>
+<li>from the start menu (e.g. <em>Python 3.9</em>)</li>
 </ul>
 <p>quitting:</p>
 <pre><code class="hljs language-py">exit()
 </code></pre>
 </section><section class="slide"><h2>Online Python consoles</h2>
-<p>Python online (simple):</p>
+<p>simple:</p>
 <p><a href="https://www.python.org/shell/">https://www.python.org/shell/</a></p>
-<p>Python online (<em>Jupyter Notebooks</em>):</p>
+<!-- dated -->
+<p><em>Jupyter notebooks</em>:</p>
 <ul>
-<li>Google Colab (Google account required)</li>
-<li>Binder (limited sessions)</li>
-<li>Microsoft Azure notebooks (account required)</li>
-<li>...</li>
+<li>Binder (limited sessions): <a href="https://jupyter.org/try">https://jupyter.org/try</a></li>
+<li><a href="https://www.kaggle.com/notebooks">https://www.kaggle.com/notebooks</a></li>
+<li><a href="https://colab.research.google.com">https://colab.research.google.com</a> (Google login required)</li>
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Variables</h1>
 </section><section class="slide"><h2>Variables</h2>
@@ -2225,7 +2225,7 @@ name = <span class="hljs-string">'Tom'</span>
 </section><section class="slide"><h2>bool</h2>
 <p>boolean value: yes/no</p>
 <p>In Python: <code>True</code> or <code>False</code></p>
-<p>Note: capitalization is crucial!</p>
+<p>note the capitalization</p>
 </section><section class="slide"><h2>None</h2>
 <p>None represents a value that is unknown or missing</p>
 <pre><code class="hljs language-py">first_name = <span class="hljs-string">"Mike"</span>
@@ -2285,11 +2285,26 @@ message = <span class="hljs-string">"Pi is approximately "</span> + str(pi_int)
 </code></pre>
 <pre><code class="hljs language-py">person[<span class="hljs-string">"first_name"</span>] = <span class="hljs-string">"Jane"</span>
 </code></pre>
+</section><section class="slide"><h2>dict</h2>
+<p>exercise:</p>
+<p>create and modify dictionaries that represent various objects, e.g.:</p>
+<ul>
+<li>a calendar event</li>
+<li>a person</li>
+<li>a product in an online shop</li>
+<li>...</li>
+</ul>
 </section><section class="slide"><h2>list</h2>
 <p>A list represents a sequence of objects</p>
 <pre><code class="hljs language-py">primes = [<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">7</span>, <span class="hljs-number">11</span>]
 
 users = [<span class="hljs-string">"Alice"</span>, <span class="hljs-string">"Bob"</span>, <span class="hljs-string">"Charlie"</span>]
+
+products = [
+    {<span class="hljs-string">"name"</span>: <span class="hljs-string">"IPhone 12"</span>, <span class="hljs-string">"price"</span>: <span class="hljs-number">949</span>},
+    {<span class="hljs-string">"name"</span>: <span class="hljs-string">"Fairphone"</span>, <span class="hljs-string">"price"</span>: <span class="hljs-number">419</span>},
+    {<span class="hljs-string">"name"</span>: <span class="hljs-string">"Pixel 5"</span>, <span class="hljs-string">"price"</span>: <span class="hljs-number">799</span>}
+]
 </code></pre>
 </section><section class="slide"><h2>list</h2>
 <p>Retrieving list elements via their index (starting at 0):</p>
@@ -2297,7 +2312,7 @@ users = [<span class="hljs-string">"Alice"</span>, <span class="hljs-string">"Bo
 
 users[<span class="hljs-number">0</span>]
 users[<span class="hljs-number">1</span>]
-users[<span class="hljs-number">2</span>]
+users[<span class="hljs-number">-1</span>] <span class="hljs-comment"># last element</span>
 </code></pre>
 </section><section class="slide"><h2>list</h2>
 <p>Overwriting a list element</p>
@@ -2318,6 +2333,15 @@ users[<span class="hljs-number">2</span>]
 <p>Determining the length</p>
 <pre><code class="hljs language-py">len(users)
 </code></pre>
+</section><section class="slide"><h2>list</h2>
+<p>exercise:</p>
+<p>create and modify data consisting of <em>dicts</em> and <em>lists</em> that represents various objects, e.g.:</p>
+<ul>
+<li>calendar events</li>
+<li>products in an online shop / shopping basket</li>
+<li>transactions on a bank account</li>
+<li>data on a country (including neighboring countries)</li>
+</ul>
 </section><section class="slide"><h2>Tuple</h2>
 <pre><code class="hljs language-py">date = (<span class="hljs-number">1973</span>, <span class="hljs-number">10</span>, <span class="hljs-number">23</span>)
 </code></pre>
@@ -2345,24 +2369,7 @@ len(date_tuple) <span class="hljs-comment"># 3</span>
 </code></pre>
 <p>Unlike lists, tuples are immutable (no <code>.append</code> / <code>.pop</code> / ...)</p>
 </section><section class="slide"><h2>Data types - exercises</h2>
-<p>We start out with an empty <em>dict</em> - we want to create a data structure that represents a person</p>
-<pre><code class="hljs language-py">person = {}
-</code></pre>
-<p>the desired result could look like this:</p>
-<pre><code class="hljs language-py">{
-    <span class="hljs-string">"first_name"</span>: <span class="hljs-string">"Kofi"</span>,
-    <span class="hljs-string">"last_name"</span>: <span class="hljs-string">"Annan"</span>,
-    <span class="hljs-string">"birth_year"</span>: <span class="hljs-number">1938</span>,
-    <span class="hljs-string">"children"</span>: [<span class="hljs-string">"Ama"</span>, <span class="hljs-string">"Kojo"</span>]
-}
-</code></pre>
-</section><section class="slide"><h2>Data types - exercises</h2>
-<p>create and modify data structures that represent the following:</p>
-<ul>
-<li>data of a country (inhabitants, capital, neighboring countries)</li>
-<li>a transaction on a bank account</li>
-<li>a set of transactions on a bank account</li>
-</ul>
+<p>create and modify data structures that include <em>dicts</em>, <em>lists</em> and <em>tuples</em></p>
 </section></section><section class="slides-section"><section class="slide"><h1>Object references and mutations</h1>
 </section><section class="slide"><h2>Object references and mutations</h2>
 <p>What will be the value of <code>a</code> after this code has run?</p>
@@ -2390,15 +2397,6 @@ b = a + [<span class="hljs-number">4</span>]
 <p>Examples: <code>list</code>, <code>dict</code></p>
 <p>Many simple objects are immutable after they have been created. However, they can be replaced by other objects.</p>
 <p>Examples: <code>int</code>, <code>float</code>, <code>str</code>, <code>bool</code>, <code>tuple</code></p>
-</section><section class="slide"><h2>Object references and mutations</h2>
-<p>Changing a list directly:</p>
-<pre><code class="hljs language-py">primes = [<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">7</span>]
-primes.append(<span class="hljs-number">11</span>)
-</code></pre>
-<p>Creating a new string based on an existing string (but assigning it to the same name as before):</p>
-<pre><code class="hljs language-py">greeting = <span class="hljs-string">"Hello"</span>
-greeting = greeting + <span class="hljs-string">"!"</span>
-</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Help and documentation</h1>
 </section><section class="slide"><h2>Help and documentation</h2>
 <p>Interactive help on objects in the Python console:</p>
@@ -2418,10 +2416,9 @@ greeting = greeting + <span class="hljs-string">"!"</span>
 <p>We'll create a file called <code>greeting.py</code></p>
 <p>Our program will ask the user their name and greet them.</p>
 </section><section class="slide"><h2>Input and output of text</h2>
-<p>Output: via <code>print()</code>:</p>
+<p>Output: via the <code>print()</code> function:</p>
 <pre><code class="hljs language-py">print(<span class="hljs-string">"Hello. What is your name?"</span>)
 </code></pre>
-<p>Print is a so-called <em>function</em>.</p>
 </section><section class="slide"><h2>Input and output of text</h2>
 <p>Input: via <code>input()</code>:</p>
 <pre><code class="hljs language-py">name = input()
@@ -2430,6 +2427,13 @@ greeting = greeting + <span class="hljs-string">"!"</span>
 </section><section class="slide"><h2>Input and output of text</h2>
 <p>writing the greeting</p>
 <pre><code class="hljs language-py">print(<span class="hljs-string">"Nice to meet you, "</span> + name)
+</code></pre>
+</section><section class="slide"><h2>Comments</h2>
+<p>Comments are a useful tool for developers to describe what the code is doing. They don't influence the program itself.</p>
+<p>A comment starts with a <code>#</code> and extends to the line end.</p>
+<p>Usually comments are placed <em>above</em> the code they describe</p>
+<pre><code class="hljs language-py"><span class="hljs-comment"># determine the length of the name</span>
+name_length = len(name)
 </code></pre>
 </section><section class="slide"><h2>Executing programs</h2>
 <p>on the command line via <code>python greeting.py</code></p>
@@ -2442,13 +2446,6 @@ greeting = greeting + <span class="hljs-string">"!"</span>
 </section><section class="slide"><h2>Exercise: length of the name</h2>
 <p>Write a program which asks the user for their name. It should respond with the number of letters in the user's name.</p>
 <p>For this purpose use the function <code>len(...)</code> to determine the length of a string.</p>
-</section><section class="slide"><h2>Comments</h2>
-<p>Comments are a useful tool for developers to describe what the code is doing. They don't influence the program itself.</p>
-<p>A comment starts with a <code>#</code> and extends to the line end.</p>
-<p>Usually comments are placed <em>above</em> the code they describe</p>
-<pre><code class="hljs language-py"><span class="hljs-comment"># determine the length of the name</span>
-name_length = len(name)
-</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Builtins, standard library</h1>
 </section><section class="slide"><h2>Builtins, standard library</h2>
 <ul>
@@ -2750,7 +2747,7 @@ Logged in as Alice!
 <li>babylonian method (for finding the square root)</li>
 </ul>
 <p>see <a href="https://github.com/marko-knoebl/slides/tree/master/exercises/python-beginner">https://github.com/marko-knoebl/slides/tree/master/exercises/python-beginner</a></p>
-</section></section><section class="slides-section"><section class="slide"><h1>Functions</h1>
+</section></section><section class="slides-section"><section class="slide"><h1>Function parameters</h1>
 </section><section class="slide"><h2>Positional parameters and keyword parameters</h2>
 <p>Calling <code>open</code>:</p>
 <p>with positional parameters:</p>

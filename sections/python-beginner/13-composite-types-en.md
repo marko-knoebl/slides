@@ -25,6 +25,17 @@ person["first_name"]
 person["first_name"] = "Jane"
 ```
 
+## dict
+
+exercise:
+
+create and modify dictionaries that represent various objects, e.g.:
+
+- a calendar event
+- a person
+- a product in an online shop
+- ...
+
 ## list
 
 A list represents a sequence of objects
@@ -33,6 +44,12 @@ A list represents a sequence of objects
 primes = [2, 3, 5, 7, 11]
 
 users = ["Alice", "Bob", "Charlie"]
+
+products = [
+    {"name": "IPhone 12", "price": 949},
+    {"name": "Fairphone", "price": 419},
+    {"name": "Pixel 5", "price": 799}
+]
 ```
 
 ## list
@@ -44,7 +61,7 @@ users = ["Alice", "Bob", "Charlie"]
 
 users[0]
 users[1]
-users[2]
+users[-1] # last element
 ```
 
 ## list
@@ -84,6 +101,17 @@ Determining the length
 ```py
 len(users)
 ```
+
+## list
+
+exercise:
+
+create and modify data consisting of _dicts_ and _lists_ that represents various objects, e.g.:
+
+- calendar events
+- products in an online shop / shopping basket
+- transactions on a bank account
+- data on a country (including neighboring countries)
 
 ## Tuple
 
@@ -125,27 +153,4 @@ Unlike lists, tuples are immutable (no `.append` / `.pop` / ...)
 
 ## Data types - exercises
 
-We start out with an empty _dict_ - we want to create a data structure that represents a person
-
-```py
-person = {}
-```
-
-the desired result could look like this:
-
-```py
-{
-    "first_name": "Kofi",
-    "last_name": "Annan",
-    "birth_year": 1938,
-    "children": ["Ama", "Kojo"]
-}
-```
-
-## Data types - exercises
-
-create and modify data structures that represent the following:
-
-- data of a country (inhabitants, capital, neighboring countries)
-- a transaction on a bank account
-- a set of transactions on a bank account
+create and modify data structures that include _dicts_, _lists_ and _tuples_

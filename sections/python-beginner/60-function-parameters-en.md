@@ -1,4 +1,4 @@
-# Functions
+# Function parameters
 
 ## Positional parameters and keyword parameters
 

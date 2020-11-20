@@ -43,19 +43,3 @@ Beispiele: `list`, `dict`
 Viele einfache Objekte sind nach ihrer Erstellung unveränderlich.
 
 Beispiele: `int`, `float`, `str`, `bool`, `tuple`
-
-## Objektreferenzen und Mutationen
-
-Direktes Abändern einer Liste:
-
-```py
-primes = [2, 3, 5, 7]
-primes.append(11)
-```
-
-Erstellen eines neuen Strings basierend auf einem vorhandenen String (jedoch Zuweisung zum gleichen Namen wie zuvor):
-
-```py
-greeting = "Hello"
-greeting = greeting + "!"
-```

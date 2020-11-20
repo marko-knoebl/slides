@@ -110,7 +110,7 @@ options:
 launching the Python console / shell:
 
 - command `python` in the command prompt
-- from the start menu (e.g. _Python 3.8 (64-bit)_)
+- from the start menu (e.g. _Python 3.9_)
 
 quitting:
 
@@ -120,16 +120,17 @@ exit()
 
 ## Online Python consoles
 
-Python online (simple):
+simple:
 
 <https://www.python.org/shell/>
 
-Python online (_Jupyter Notebooks_):
+<!-- dated -->
 
-- Google Colab (Google account required)
-- Binder (limited sessions)
-- Microsoft Azure notebooks (account required)
-- ...
+_Jupyter notebooks_:
+
+- Binder (limited sessions): <https://jupyter.org/try>
+- <https://www.kaggle.com/notebooks>
+- <https://colab.research.google.com> (Google login required)
 
 # Variables
 
@@ -243,7 +244,7 @@ boolean value: yes/no
 
 In Python: `True` or `False`
 
-Note: capitalization is crucial!
+note the capitalization
 
 ## None
 
@@ -338,6 +339,17 @@ person["first_name"]
 person["first_name"] = "Jane"
 ```
 
+## dict
+
+exercise:
+
+create and modify dictionaries that represent various objects, e.g.:
+
+- a calendar event
+- a person
+- a product in an online shop
+- ...
+
 ## list
 
 A list represents a sequence of objects
@@ -346,6 +358,12 @@ A list represents a sequence of objects
 primes = [2, 3, 5, 7, 11]
 
 users = ["Alice", "Bob", "Charlie"]
+
+products = [
+    {"name": "IPhone 12", "price": 949},
+    {"name": "Fairphone", "price": 419},
+    {"name": "Pixel 5", "price": 799}
+]
 ```
 
 ## list
@@ -357,7 +375,7 @@ users = ["Alice", "Bob", "Charlie"]
 
 users[0]
 users[1]
-users[2]
+users[-1] # last element
 ```
 
 ## list
@@ -397,6 +415,17 @@ Determining the length
 ```py
 len(users)
 ```
+
+## list
+
+exercise:
+
+create and modify data consisting of _dicts_ and _lists_ that represents various objects, e.g.:
+
+- calendar events
+- products in an online shop / shopping basket
+- transactions on a bank account
+- data on a country (including neighboring countries)
 
 ## Tuple
 
@@ -438,30 +467,7 @@ Unlike lists, tuples are immutable (no `.append` / `.pop` / ...)
 
 ## Data types - exercises
 
-We start out with an empty _dict_ - we want to create a data structure that represents a person
-
-```py
-person = {}
-```
-
-the desired result could look like this:
-
-```py
-{
-    "first_name": "Kofi",
-    "last_name": "Annan",
-    "birth_year": 1938,
-    "children": ["Ama", "Kojo"]
-}
-```
-
-## Data types - exercises
-
-create and modify data structures that represent the following:
-
-- data of a country (inhabitants, capital, neighboring countries)
-- a transaction on a bank account
-- a set of transactions on a bank account
+create and modify data structures that include _dicts_, _lists_ and _tuples_
 
 # Object references and mutations
 
@@ -509,22 +515,6 @@ Many simple objects are immutable after they have been created. However, they ca
 
 Examples: `int`, `float`, `str`, `bool`, `tuple`
 
-## Object references and mutations
-
-Changing a list directly:
-
-```py
-primes = [2, 3, 5, 7]
-primes.append(11)
-```
-
-Creating a new string based on an existing string (but assigning it to the same name as before):
-
-```py
-greeting = "Hello"
-greeting = greeting + "!"
-```
-
 # Help and documentation
 
 ## Help and documentation
@@ -563,13 +553,11 @@ Our program will ask the user their name and greet them.
 
 ## Input and output of text
 
-Output: via `print()`:
+Output: via the `print()` function:
 
 ```py
 print("Hello. What is your name?")
 ```
-
-Print is a so-called _function_.
 
 ## Input and output of text
 
@@ -587,6 +575,19 @@ writing the greeting
 
 ```py
 print("Nice to meet you, " + name)
+```
+
+## Comments
+
+Comments are a useful tool for developers to describe what the code is doing. They don't influence the program itself.
+
+A comment starts with a `#` and extends to the line end.
+
+Usually comments are placed _above_ the code they describe
+
+```py
+# determine the length of the name
+name_length = len(name)
 ```
 
 ## Executing programs
@@ -610,19 +611,6 @@ Write a program called `age.py` which will ask the user for their birth year and
 Write a program which asks the user for their name. It should respond with the number of letters in the user's name.
 
 For this purpose use the function `len(...)` to determine the length of a string.
-
-## Comments
-
-Comments are a useful tool for developers to describe what the code is doing. They don't influence the program itself.
-
-A comment starts with a `#` and extends to the line end.
-
-Usually comments are placed _above_ the code they describe
-
-```py
-# determine the length of the name
-name_length = len(name)
-```
 
 # Builtins, standard library
 
@@ -1051,7 +1039,7 @@ a = 2 + 3 + 4 + 5 + 6 + \
 
 see <https://github.com/marko-knoebl/slides/tree/master/exercises/python-beginner>
 
-# Functions
+# Function parameters
 
 ## Positional parameters and keyword parameters
 

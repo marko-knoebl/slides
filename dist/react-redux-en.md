@@ -1257,7 +1257,7 @@ It provides an extension and can interfere between dispatching an action and the
 ## Redux Middleware - examples
 
 - middleware that logs the action (e.g. redux-logger)
-- middleware that receives a single action and dispatches multiple asynchronous actions based on it (e.g. redux-thunk)
+- middleware that receives a single action and dispatches multiple asynchronous actions based on it (e.g. redux-thunk, redux-listeners, redux-saga)
 
 ## Redux Middleware - implementation
 

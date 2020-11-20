@@ -43,19 +43,3 @@ Examples: `list`, `dict`
 Many simple objects are immutable after they have been created. However, they can be replaced by other objects.
 
 Examples: `int`, `float`, `str`, `bool`, `tuple`
-
-## Object references and mutations
-
-Changing a list directly:
-
-```py
-primes = [2, 3, 5, 7]
-primes.append(11)
-```
-
-Creating a new string based on an existing string (but assigning it to the same name as before):
-
-```py
-greeting = "Hello"
-greeting = greeting + "!"
-```

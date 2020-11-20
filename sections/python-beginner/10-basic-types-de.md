@@ -85,7 +85,7 @@ Boolescher Wert: Ja/Nein - Wert
 
 In Python: `True` oder `False`
 
-Achtung: Groß- und Kleinschreibung ist wichtig!
+beachte Großschreibung
 
 ## None
 

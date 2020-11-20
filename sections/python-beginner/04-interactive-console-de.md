@@ -12,7 +12,7 @@ Möglichkeiten:
 Starten:
 
 - Terminal-Befehl `python`
-- aus dem Startmenü (z.B. _Python 3.8 (64-bit)_)
+- aus dem Startmenü (z.B. _Python 3.9_)
 
 Beenden:
 
@@ -22,13 +22,14 @@ exit()
 
 ## Python im interaktiven Modus (online)
 
-Python online (einfach):
+einfach:
 
 https://www.python.org/shell/
 
-Python online (**Jupyter Notebooks**):
+<!-- dated -->
 
-- Google Colab (Google Account benötigt)
-- Binder (begrenzte Sessions)
-- Microsoft Azure Notebooks (Account benötigt)
-- ...
+_Jupyter_ Notebooks:
+
+- Binder (begrenzte Sessions): https://jupyter.org/try
+- https://www.kaggle.com/notebooks
+- https://colab.research.google.com (Google Login benötigt)

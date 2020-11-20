@@ -12,7 +12,7 @@ options:
 launching the Python console / shell:
 
 - command `python` in the command prompt
-- from the start menu (e.g. _Python 3.8 (64-bit)_)
+- from the start menu (e.g. _Python 3.9_)
 
 quitting:
 
@@ -22,13 +22,14 @@ exit()
 
 ## Online Python consoles
 
-Python online (simple):
+simple:
 
 https://www.python.org/shell/
 
-Python online (_Jupyter Notebooks_):
+<!-- dated -->
 
-- Google Colab (Google account required)
-- Binder (limited sessions)
-- Microsoft Azure notebooks (account required)
-- ...
+_Jupyter notebooks_:
+
+- Binder (limited sessions): https://jupyter.org/try
+- https://www.kaggle.com/notebooks
+- https://colab.research.google.com (Google login required)
