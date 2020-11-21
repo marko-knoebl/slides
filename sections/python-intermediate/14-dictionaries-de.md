@@ -65,10 +65,7 @@ d1.update(d2)
 
 Jedes unveränderliche Objekt kann als Key verwendet werden - meistens sind es Strings
 
-## Beispiel: Vokabelprogramm
+## Übungen
 
-- Einlesen von (JSON-)Datei
-- Modellieren mit dictionaries
-- zufälliges Auswählen eines Eintrags
-
-## Beispiel: Todo-Liste
+- Vokabeltrainer
+- Todo-Liste

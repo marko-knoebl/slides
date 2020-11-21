@@ -27,6 +27,7 @@ The following operations will also work on other _sequences_ - e.g. tuples, stri
 Lists can be mutated directly (while strings and tuples can't be):
 
 - appending: `users.append("Dan")`
+- inserting: `users.insert(2, "Max")`
 - removing the last element: `users.pop()`
 - removing an element by index: `users.pop(2)`
 
@@ -55,3 +56,4 @@ l.sort(key=count_a)
 
 - shuffling cards
 - list of prime numbers
+- insertion sort

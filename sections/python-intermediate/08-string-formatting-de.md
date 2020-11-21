@@ -32,10 +32,48 @@ f'weather in {city}: {temperature}°C'
 
 ## Formatangaben
 
+- `.4f`: vier Dezimalstellen nach dem Dezimalzeichen
+- `.4g`: vier Dezimalstellen
+
 ```py
-t = 333.333
-f'{t:.4f}°K' # 333.3330°K
-f'{t:.4g}°K' # 333.3°K
+print(f"Pi is {math.pi:.4f}")
+# Pi is 3.1416
+print(f"Pi is {math.pi:.4g}")
+# Pi is 3.142
 ```
 
-https://mkaz.blog/code/python-string-format-cookbook/
+## Formatangaben
+
+- `>8`: rechtsbündig (Gesamtbreite 8)
+- `^8`: zentriert
+- `<8`: linksbündig
+
+```py
+print(f"{first_name:>8}")
+print(f"{last_name:>8}")
+```
+
+```txt
+    John
+     Doe
+```
+
+## Formatangaben
+
+Kombination:
+
+```py
+print(f"{menu_item:<12} {price:>5.2}$")
+```
+
+```txt
+Burger        11.90$
+Salad          8.90$
+Fries          3.90$
+```
+
+## Formatangaben
+
+weitere Optionen:
+
+[Python String Format Cookbook von Marcus Kazmierczak](https://mkaz.blog/code/python-string-format-cookbook/)

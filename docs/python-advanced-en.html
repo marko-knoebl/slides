@@ -2102,12 +2102,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li>inheritance</li>
 </ul></li>
 <li>iterators</li>
-<li>functions: advanced<ul>
-<li>lambdas</li>
-<li>decorators</li>
-<li>functools</li>
-<li>memoization</li>
-</ul></li>
+<li>functions - advanced: lambdas, decorators, functools, memoization</li>
 <li>advanced data types: set, namedtuple, enum</li>
 <li>parallelization: threads and multiprocessing</li>
 </ul>
@@ -2126,7 +2121,7 @@ logging.basicConfig(
 logging.debug(<span class="hljs-string">"hello"</span>)
 </code></pre>
 </section><section class="slide"><h2>Logging</h2>
-<p>Example: sorting algorithm</p>
+<p>Exercise: add logging to an existing function (e.g. to a sorting algorithm)</p>
 </section></section><section class="slides-section"><section class="slide"><h1>Unit tests</h1>
 </section><section class="slide"><h2>assert</h2>
 </section><section class="slide"><h2>Doctests</h2>
@@ -2177,14 +2172,14 @@ logging.debug(<span class="hljs-string">"hello"</span>)
     unittest.main()
 </code></pre>
 </section><section class="slide"><h2>unittest</h2>
-<p>Running all tests in files that end in <em>test*.py</em>:</p>
+<p>Running all tests in files that match <em>test*.py</em>:</p>
 <pre><code class="hljs language-bash">python -m unittest
 </code></pre>
 <p>Search for a different pattern:</p>
 <pre><code class="hljs language-bash">python -m unittest discover -p <span class="hljs-string">"*_test.py"</span>
 </code></pre>
-<p>Note: in order to be discovered all packages must contain a file named <em>__init__.py</em> (siehe <a href="https://bugs.python.org/issue35617">https://bugs.python.org/issue35617</a>)</p>
-</section><section class="slide"><h2>unittest - Assertions</h2>
+<p>Note: in order to be discovered all packages must contain a file named <em>__init__.py</em> (see <a href="https://bugs.python.org/issue35617">https://bugs.python.org/issue35617</a>)</p>
+</section><section class="slide"><h2>unittest - assertions</h2>
 <p>assertions:</p>
 <ul>
 <li><code>.assertEqual(a, 3)</code></li>
@@ -2560,7 +2555,7 @@ f.b = <span class="hljs-number">3</span> <span class="hljs-comment"># prints: "s
 <li><code>os.scandir()</code></li>
 <li><code>map()</code></li>
 <li><code>filter()</code></li>
-<li>functions in <a href="https://docs.python.org/3/library/itertools.html">itertools</a></li>
+<li>functions in <em>itertools</em></li>
 <li>most database cursors (PEP 249)</li>
 <li>...</li>
 </ul>
@@ -2807,46 +2802,51 @@ print(p.x)
     DOWN = <span class="hljs-number">3</span>
     LEFT = <span class="hljs-number">4</span>
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Parallelization: threads &#x26; multiprocessing</h1>
-</section><section class="slide"><h2>Threads &#x26; multiprocessing - why?</h2>
+</section></section><section class="slides-section"><section class="slide"><h1>Parallelization</h1>
+</section><section class="slide"><h2>Threads and multiprocessing - why?</h2>
 <p>Threads:</p>
 <ul>
+<li>waiting for input / output (I/O)</li>
 <li>dividing resources of a single processor core across various tasks</li>
-<li>waiting for I/O</li>
 </ul>
 <p>Multiprocessing:</p>
 <ul>
 <li>using multiple processor cores</li>
 </ul>
 <p>Advantages of threads: simpler, variables may be modified directly</p>
-</section><section class="slide"><h2>Threads</h2>
-<p>Python will repeatedly switch between parallel threads so they are seemingly running concurrently<br />
-However at any point in time only one thread is active (Global interpreter lock - GIL)</p>
-<p>Two threads may access the same data</p>
-</section><section class="slide"><h2>Starting a new thread</h2>
-<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> threading <span class="hljs-keyword">import</span> Thread
+</section><section class="slide"><h2>Threads and multiprocessing</h2>
+<p>general mechanism: we instruct Python to run multiple functions in separate threads / processes, e.g.:</p>
+<p>Run <code>download_xkcd_comic(i)</code> in parallel threads for i = 100 - 120</p>
+<p>Run <code>is_prime(i)</code> in parallel processes for several numbers and collect the boolean results in a list</p>
+</section><section class="slide"><h2>Threads and multiprocessing</h2>
+<p>Threads: Python will repeatedly switch between parallel threads so they are seemingly running concurrently; however at any point in time only one thread is active (Global interpreter lock - GIL)</p>
+<p>Multiprocessing: Python will start multiple processes (visible in the task manager); it can be harder to share values between processes</p>
+</section><section class="slide"><h2>Python Interfaces</h2>
+<p>high-level:</p>
+<ul>
+<li><code>concurrent.futures.ThreadPoolExecutor</code></li>
+<li><code>concurrent.futures.ProcessPoolExecutor</code></li>
+</ul>
+<p>low-level:</p>
+<ul>
+<li><code>threading.Thread</code></li>
+<li><code>multiprocessing.Process</code></li>
+</ul>
+</section><section class="slide"><h2>ThreadPoolExecutor</h2>
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> concurrent.futures <span class="hljs-keyword">import</span> ThreadPoolExecutor
 
-my_thread = Thread(target=<span class="hljs-keyword">print</span>, args=(<span class="hljs-string">'hello'</span>, ), kwargs={end: <span class="hljs-string">""</span>})
-my_thread.start()
-</code></pre>
-</section><section class="slide"><h2>Waiting for a thread to end</h2>
-<pre><code class="hljs language-py">my_thread.join()
-</code></pre>
-</section><section class="slide"><h2>Example: repeated printing</h2>
-<pre><code class="hljs language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">print_multiple</span><span class="hljs-params">(text, n)</span>:</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">print_multiple</span><span class="hljs-params">(text, n)</span>:</span>
     <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(n):
         print(text, end=<span class="hljs-string">""</span>)
 
-thread_a = Thread(target=print_multiple, args=(<span class="hljs-string">"a"</span>, <span class="hljs-number">20</span>))
-thread_b = Thread(target=print_multiple, args=(<span class="hljs-string">"b"</span>, <span class="hljs-number">20</span>))
-thread_a.start()
-thread_b.start()
-thread_a.join()
-thread_b.join()
+<span class="hljs-keyword">with</span> ThreadPoolExecutor() <span class="hljs-keyword">as</span> executor:
+    executor.submit(print_multiple, <span class="hljs-string">"."</span>, <span class="hljs-number">200</span>)
+    executor.submit(print_multiple, <span class="hljs-string">"o"</span>, <span class="hljs-number">200</span>)
+
+print(<span class="hljs-string">"completed all tasks"</span>)
 </code></pre>
 </section><section class="slide"><h2>Exercise: iterations in a thread</h2>
-<p>We'll write a program that executes two threads (a and b)</p>
-<p>The two threads contain loops that count how often they were called</p>
+<p>We'll write a program that executes two threads (a and b). The two threads contain loops that count how often they were called</p>
 <p>example output:</p>
 <pre><code class="hljs language-bash">797 iterations <span class="hljs-keyword">in</span> thread a
 799 iterations <span class="hljs-keyword">in</span> thread b
@@ -2854,79 +2854,44 @@ thread_b.join()
 20254 iterations <span class="hljs-keyword">in</span> thread b
 829 iterations <span class="hljs-keyword">in</span> thread a
 </code></pre>
-</section><section class="slide"><h2>Locks</h2>
-<p>Limiting execution to a single thread for some time (e.g. to print multiple things)</p>
-<p>Other threads are blocked during this time</p>
-</section><section class="slide"><h2>Locks</h2>
-<p>In the entire program there should only be one lock object</p>
-<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> threading <span class="hljs-keyword">import</span> Lock
-
-l = Lock()
+</section><section class="slide"><h2>Exercise: HTML page download via threads</h2>
+<p>Exercise: concurrently download Python package documentation pages for these topics:</p>
+<pre><code class="hljs language-json">[<span class="hljs-string">"os"</span>, <span class="hljs-string">"sys"</span>, <span class="hljs-string">"urllib"</span>, <span class="hljs-string">"pprint"</span>, <span class="hljs-string">"math"</span>, <span class="hljs-string">"time"</span>]
 </code></pre>
-</section><section class="slide"><h2>Locks</h2>
-<pre><code class="hljs language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">print_multiple_locked</span><span class="hljs-params">(text, n)</span>:</span>
-    <span class="hljs-keyword">with</span> l:
-        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(n):
-            print(text, end=<span class="hljs-string">""</span>)
-</code></pre>
-</section><section class="slide"><h2>Threads - Example</h2>
-<pre><code class="hljs language-py">threads = []
+<p>example URL: <a href="https://docs.python.org/3/library/os.html">https://docs.python.org/3/library/os.html</a></p>
+<p>The downloads should be saved to a separate <em>downloads</em> folder</p>
+</section><section class="slide"><h2>ProcessPoolExecutor</h2>
+<p>The program must be a Python file that only "runs" its main part if it is executed directly - and not imported (via <code>__name__ == "__main__"</code>)</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> concurrent.futures.process <span class="hljs-keyword">import</span> ProcessPoolExecutor
 
-<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">1000000000000</span>, <span class="hljs-number">1000000000064</span>):
-    prime_thread = Thread(target=print_is_prime, args=(i,))
-    prime_thread.start()
-    threads.append(prime_thread)
-
-<span class="hljs-keyword">for</span> thread <span class="hljs-keyword">in</span> threads:
-    thread.join()
-print(<span class="hljs-string">'all threads finished'</span>)
-</code></pre>
-</section><section class="slide"><h2>Threads and xkcd download</h2>
-<p>Task: download xkcd comics 100-109 - once in sequence and once in parallel</p>
-</section><section class="slide"><h2>Multiprocessing</h2>
-</section><section class="slide"><h2>Running functions in separate processes</h2>
-<p>Multiprocessing enables running a function inside a separate process</p>
-<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> multiprocessing <span class="hljs-keyword">import</span> Process
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">print_multiple</span><span class="hljs-params">(text, n)</span>:</span>
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(n):
+        print(text, end=<span class="hljs-string">""</span>)
 
 <span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">"__main__"</span>:
-    p = Process(target=hello)
-    p.start()
+    <span class="hljs-keyword">with</span> ProcessPoolExecutor() <span class="hljs-keyword">as</span> executor:
+        executor.submit(print_multiple, <span class="hljs-string">"."</span>, <span class="hljs-number">200</span>)
+        executor.submit(print_multiple, <span class="hljs-string">"o"</span>, <span class="hljs-number">200</span>)
 </code></pre>
-</section><section class="slide"><h2>Running functions in separate processes</h2>
-<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> multiprocessing <span class="hljs-keyword">import</span> Process
-
-<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">"__main__"</span>:
-    processes = []
-    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">30</span>, <span class="hljs-number">40</span>):
-        p = Process(target=print_fib, args=(i,))
-        processes.append(p)
-        p.start()
-    <span class="hljs-keyword">for</span> process <span class="hljs-keyword">in</span> processes:
-        process.join()
+</section><section class="slide"><h2>Map</h2>
+<p>May be used for parallel processing of multiple input data entries to generate output data</p>
+<p>example: process every entry in the list <code>[2, 3, 4, 5, 6]</code> and determine wheter they are prime numbers → <code>[True, True, False, True, False]</code></p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">with</span> ProcessPoolExecutor() <span class="hljs-keyword">as</span> executor:
+    prime_indicators = executor.map(is_prime, [<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>])
 </code></pre>
-</section><section class="slide"><h2>Pools</h2>
-<p>My be used for concurrent processing of multiple data points which is started concurrently</p>
-<p>Example: processing all images inside a folder</p>
-</section><section class="slide"><h2>Pools</h2>
-<p>Task: compute fibonacci numbers via map() (1 process)</p>
-<p>input: <code>[0, 1, 2, 3, 4, 5, 6, ...]</code></p>
-<p>return value: <code>[0, 1, 1, 2, 3, 5, 8, ...]</code></p>
-</section><section class="slide"><h2>Pools</h2>
-<pre><code class="hljs language-py"><span class="hljs-keyword">with</span> Pool(processes=<span class="hljs-number">4</span>) <span class="hljs-keyword">as</span> pool:
-    print(pool.map(fib, range(<span class="hljs-number">1000</span>, <span class="hljs-number">1100</span>)))
+</section><section class="slide"><h2>Map</h2>
+<p>Exercise: write a function that creates a list of prime numbers in a specific range:</p>
+<pre><code class="hljs language-py">prime_range(<span class="hljs-number">100</span>_000_000_000_000, <span class="hljs-number">100</span>_000_000_000_100)
+<span class="hljs-comment"># [100000000000031, 100000000000067,</span>
+<span class="hljs-comment">#  100000000000097, 100000000000099]</span>
 </code></pre>
-</section><section class="slide"><h2>Data exchange: shared memory</h2>
-<p>Integers and floats (and arrays of these types) may be shared across processes</p>
-<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> multiprocessing <span class="hljs-keyword">import</span> Value, Array, Process
-
-a = Array(<span class="hljs-string">'i'</span>, [<span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">13</span>])
-p = Process(target=f, args=(a,))
-p.start()
-...
-</code></pre>
-</section><section class="slide"><h2>Other possibilities: Pipes &#x26; Queues</h2>
-<p><em>Pipe</em>: Messaging between processes in two directions - e.g. 1 background process which receives tasks from time to time and idles in the meantime</p>
-<p><em>Queue</em>: Messaging in one direction from various producers to various consumers (slower than pipes)</p></section></section></div>
+<p>Make use of a <code>ProcessPoolExecutor</code> and use this function:</p>
+<pre><code class="hljs language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">is_prime</span><span class="hljs-params">(n)</span>:</span>
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">2</span>, int(n**<span class="hljs-number">0.5</span>) + <span class="hljs-number">1</span>):
+        <span class="hljs-keyword">if</span> n % i == <span class="hljs-number">0</span>:
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span>
+</code></pre></section></section></div>
     </div>
     <script>/*!
  * reveal.js

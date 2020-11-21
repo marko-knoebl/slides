@@ -21,4 +21,4 @@ logging.debug("hello")
 
 ## Logging
 
-Example: sorting algorithm
+Exercise: add logging to an existing function (e.g. to a sorting algorithm)

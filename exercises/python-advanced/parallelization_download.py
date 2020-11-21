@@ -2,7 +2,7 @@ from urllib import request
 import os
 from os import path
 import time
-from threading import Thread
+from concurrent.futures import ThreadPoolExecutor
 
 download_dir = "downloads"
 
@@ -33,15 +33,9 @@ def download_python_doc_multiple(topics):
 
 def download_python_doc_multiple_threaded(topics):
     start = time.time()
-    threads = []
-    for topic in topics:
-        thread = Thread(target=download_python_doc, args=(topic,))
-        threads.append(thread)
-        thread.start()
-    # all threads are running
-    for thread in threads:
-        thread.join()
-    # all threads finished
+    with ThreadPoolExecutor() as executor:
+        for topic in topics:
+            executor.submit(download_python_doc, topic)
     end = time.time()
     print(f"Download finished in {end-start} seconds.")
 

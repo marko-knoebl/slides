@@ -418,13 +418,51 @@ f'weather in {city}: {temperature}°C'
 
 ## Format specification
 
+- `.4f`: four decimal places after the decimal point
+- `.4g`: four decimal places
+
 ```py
-t = 333.333
-f'{t:.4f}°K' # 333.3330°K
-f'{t:.4g}°K' # 333.3°K
+print(f"Pi is {math.pi:.4f}")
+# Pi is 3.1416
+print(f"Pi is {math.pi:.4g}")
+# Pi is 3.142
 ```
 
-<https://mkaz.blog/code/python-string-format-cookbook/>
+## Format specification
+
+- `>8`: right-aligned (total width 8)
+- `^8`: centered
+- `<8`: left-aligned
+
+```py
+print(f"{first_name:>8}")
+print(f"{last_name:>8}")
+```
+
+```txt
+    John
+     Doe
+```
+
+## Format specification
+
+combination:
+
+```py
+print(f"{menu_item:<12} {price:>5.2}$")
+```
+
+```txt
+Burger        11.90$
+Salad          8.90$
+Fries          3.90$
+```
+
+## Format specification
+
+further options:
+
+[Python String Format Cookbook by Marcus Kazmierczak](https://mkaz.blog/code/python-string-format-cookbook/)
 
 # Lists
 
@@ -455,6 +493,7 @@ The following operations will also work on other _sequences_ - e.g. tuples, stri
 Lists can be mutated directly (while strings and tuples can't be):
 
 - appending: `users.append("Dan")`
+- inserting: `users.insert(2, "Max")`
 - removing the last element: `users.pop()`
 - removing an element by index: `users.pop(2)`
 
@@ -483,6 +522,7 @@ l.sort(key=count_a)
 
 - shuffling cards
 - list of prime numbers
+- insertion sort
 
 # Tuples
 
@@ -761,13 +801,10 @@ d1.update(d2)
 
 Any immutable object can act as a dictionary key. The most common types of keys are strings.
 
-## Exercise: vocabulary trainer
+## Exercises
 
-- read a (JSON) file
-- create a data model with dictionaries
-- randomly pick an entry
-
-## Exercise: Todo list
+- vocabulary trainer
+- todo list
 
 # Comprehensions
 

@@ -65,7 +65,7 @@ calls that return iterators:
 - `os.scandir()`
 - `map()`
 - `filter()`
-- functions in [itertools](https://docs.python.org/3/library/itertools.html)
+- functions in _itertools_
 - most database cursors (PEP 249)
 - ...
 

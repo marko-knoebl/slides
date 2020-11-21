@@ -21,4 +21,4 @@ logging.debug("hello")
 
 ## Logging
 
-Beispiel: Sortieralgorithmus
+Übung: Hinzufügen von Logging zu einer bestehenden Funktion (z.B. zu einem Sortieralgorithmus)

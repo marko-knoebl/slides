@@ -65,7 +65,7 @@ Aufrufe, die Iterators zurückgeben:
 - `os.scandir()`
 - `map()`
 - `filter()`
-- Funktionen in [itertools](https://docs.python.org/3/library/itertools.html)
+- Funktionen in _itertools_
 - üblicherweise Datenbankcursor (PEP 249)
 - ...
 

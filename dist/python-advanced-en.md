@@ -45,11 +45,7 @@ Code available at: <https://github.com/marko-knoebl/courses-code>
   - magic methods
   - inheritance
 - iterators
-- functions: advanced
-  - lambdas
-  - decorators
-  - functools
-  - memoization
+- functions - advanced: lambdas, decorators, functools, memoization
 - advanced data types: set, namedtuple, enum
 - parallelization: threads and multiprocessing
 
@@ -76,7 +72,7 @@ logging.debug("hello")
 
 ## Logging
 
-Example: sorting algorithm
+Exercise: add logging to an existing function (e.g. to a sorting algorithm)
 
 # Unit tests
 
@@ -147,7 +143,7 @@ if __name__ == "__main__":
 
 ## unittest
 
-Running all tests in files that end in _test\*.py_:
+Running all tests in files that match _test\*.py_:
 
 ```bash
 python -m unittest
@@ -159,9 +155,9 @@ Search for a different pattern:
 python -m unittest discover -p "*_test.py"
 ```
 
-Note: in order to be discovered all packages must contain a file named _\_\_init\_\_.py_ (siehe <https://bugs.python.org/issue35617>)
+Note: in order to be discovered all packages must contain a file named _\_\_init\_\_.py_ (see <https://bugs.python.org/issue35617>)
 
-## unittest - Assertions
+## unittest - assertions
 
 assertions:
 
@@ -699,7 +695,7 @@ calls that return iterators:
 - `os.scandir()`
 - `map()`
 - `filter()`
-- functions in [itertools](https://docs.python.org/3/library/itertools.html)
+- functions in _itertools_
 - most database cursors (PEP 249)
 - ...
 
@@ -1091,14 +1087,14 @@ class Position(Enum):
     LEFT = 4
 ```
 
-# Parallelization: threads & multiprocessing
+# Parallelization
 
-## Threads & multiprocessing - why?
+## Threads and multiprocessing - why?
 
 Threads:
 
+- waiting for input / output (I/O)
 - dividing resources of a single processor core across various tasks
-- waiting for I/O
 
 Multiprocessing:
 
@@ -1106,48 +1102,51 @@ Multiprocessing:
 
 Advantages of threads: simpler, variables may be modified directly
 
-## Threads
+## Threads and multiprocessing
 
-Python will repeatedly switch between parallel threads so they are seemingly running concurrently  
-However at any point in time only one thread is active (Global interpreter lock - GIL)
+general mechanism: we instruct Python to run multiple functions in separate threads / processes, e.g.:
 
-Two threads may access the same data
+Run `download_xkcd_comic(i)` in parallel threads for i = 100 - 120
 
-## Starting a new thread
+Run `is_prime(i)` in parallel processes for several numbers and collect the boolean results in a list
+
+## Threads and multiprocessing
+
+Threads: Python will repeatedly switch between parallel threads so they are seemingly running concurrently; however at any point in time only one thread is active (Global interpreter lock - GIL)
+
+Multiprocessing: Python will start multiple processes (visible in the task manager); it can be harder to share values between processes
+
+## Python Interfaces
+
+high-level:
+
+- `concurrent.futures.ThreadPoolExecutor`
+- `concurrent.futures.ProcessPoolExecutor`
+
+low-level:
+
+- `threading.Thread`
+- `multiprocessing.Process`
+
+## ThreadPoolExecutor
 
 ```py
-from threading import Thread
+from concurrent.futures import ThreadPoolExecutor
 
-my_thread = Thread(target=print, args=('hello', ), kwargs={end: ""})
-my_thread.start()
-```
-
-## Waiting for a thread to end
-
-```py
-my_thread.join()
-```
-
-## Example: repeated printing
-
-```py
 def print_multiple(text, n):
     for i in range(n):
         print(text, end="")
 
-thread_a = Thread(target=print_multiple, args=("a", 20))
-thread_b = Thread(target=print_multiple, args=("b", 20))
-thread_a.start()
-thread_b.start()
-thread_a.join()
-thread_b.join()
+with ThreadPoolExecutor() as executor:
+    executor.submit(print_multiple, ".", 200)
+    executor.submit(print_multiple, "o", 200)
+
+print("completed all tasks")
 ```
 
 ## Exercise: iterations in a thread
 
-We'll write a program that executes two threads (a and b)
-
-The two threads contain loops that count how often they were called
+We'll write a program that executes two threads (a and b). The two threads contain loops that count how often they were called
 
 example output:
 
@@ -1159,115 +1158,62 @@ example output:
 829 iterations in thread a
 ```
 
-## Locks
+## Exercise: HTML page download via threads
 
-Limiting execution to a single thread for some time (e.g. to print multiple things)
+Exercise: concurrently download Python package documentation pages for these topics:
 
-Other threads are blocked during this time
-
-## Locks
-
-In the entire program there should only be one lock object
-
-```py
-from threading import Lock
-
-l = Lock()
+```json
+["os", "sys", "urllib", "pprint", "math", "time"]
 ```
 
-## Locks
+example URL: <https://docs.python.org/3/library/os.html>
+
+The downloads should be saved to a separate _downloads_ folder
+
+## ProcessPoolExecutor
+
+The program must be a Python file that only "runs" its main part if it is executed directly - and not imported (via `__name__ == "__main__"`)
 
 ```py
-def print_multiple_locked(text, n):
-    with l:
-        for i in range(n):
-            print(text, end="")
-```
+from concurrent.futures.process import ProcessPoolExecutor
 
-## Threads - Example
-
-```py
-threads = []
-
-for i in range(1000000000000, 1000000000064):
-    prime_thread = Thread(target=print_is_prime, args=(i,))
-    prime_thread.start()
-    threads.append(prime_thread)
-
-for thread in threads:
-    thread.join()
-print('all threads finished')
-```
-
-## Threads and xkcd download
-
-Task: download xkcd comics 100-109 - once in sequence and once in parallel
-
-## Multiprocessing
-
-## Running functions in separate processes
-
-Multiprocessing enables running a function inside a separate process
-
-```py
-from multiprocessing import Process
+def print_multiple(text, n):
+    for i in range(n):
+        print(text, end="")
 
 if __name__ == "__main__":
-    p = Process(target=hello)
-    p.start()
+    with ProcessPoolExecutor() as executor:
+        executor.submit(print_multiple, ".", 200)
+        executor.submit(print_multiple, "o", 200)
 ```
 
-## Running functions in separate processes
+## Map
+
+May be used for parallel processing of multiple input data entries to generate output data
+
+example: process every entry in the list `[2, 3, 4, 5, 6]` and determine wheter they are prime numbers → `[True, True, False, True, False]`
 
 ```py
-from multiprocessing import Process
-
-if __name__ == "__main__":
-    processes = []
-    for i in range(30, 40):
-        p = Process(target=print_fib, args=(i,))
-        processes.append(p)
-        p.start()
-    for process in processes:
-        process.join()
+with ProcessPoolExecutor() as executor:
+    prime_indicators = executor.map(is_prime, [2, 3, 4, 5, 6])
 ```
 
-## Pools
+## Map
 
-My be used for concurrent processing of multiple data points which is started concurrently
-
-Example: processing all images inside a folder
-
-## Pools
-
-Task: compute fibonacci numbers via map() (1 process)
-
-input: `[0, 1, 2, 3, 4, 5, 6, ...]`
-
-return value: `[0, 1, 1, 2, 3, 5, 8, ...]`
-
-## Pools
+Exercise: write a function that creates a list of prime numbers in a specific range:
 
 ```py
-with Pool(processes=4) as pool:
-    print(pool.map(fib, range(1000, 1100)))
+prime_range(100_000_000_000_000, 100_000_000_000_100)
+# [100000000000031, 100000000000067,
+#  100000000000097, 100000000000099]
 ```
 
-## Data exchange: shared memory
-
-Integers and floats (and arrays of these types) may be shared across processes
+Make use of a `ProcessPoolExecutor` and use this function:
 
 ```py
-from multiprocessing import Value, Array, Process
-
-a = Array('i', [2, 4, 13])
-p = Process(target=f, args=(a,))
-p.start()
-...
+def is_prime(n):
+    for i in range(2, int(n**0.5) + 1):
+        if n % i == 0:
+            return False
+    return True
 ```
-
-## Other possibilities: Pipes & Queues
-
-_Pipe_: Messaging between processes in two directions - e.g. 1 background process which receives tasks from time to time and idles in the meantime
-
-_Queue_: Messaging in one direction from various producers to various consumers (slower than pipes)

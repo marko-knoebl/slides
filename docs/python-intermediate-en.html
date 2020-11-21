@@ -2359,11 +2359,38 @@ temperature = <span class="hljs-number">23.7</span>
 <span class="hljs-string">f'weather in <span class="hljs-subst">{city}</span>: <span class="hljs-subst">{temperature}</span>°C'</span>
 </code></pre>
 </section><section class="slide"><h2>Format specification</h2>
-<pre><code class="hljs language-py">t = <span class="hljs-number">333.333</span>
-<span class="hljs-string">f'<span class="hljs-subst">{t:<span class="hljs-number">.4</span>f}</span>°K'</span> <span class="hljs-comment"># 333.3330°K</span>
-<span class="hljs-string">f'<span class="hljs-subst">{t:<span class="hljs-number">.4</span>g}</span>°K'</span> <span class="hljs-comment"># 333.3°K</span>
+<ul>
+<li><code>.4f</code>: four decimal places after the decimal point</li>
+<li><code>.4g</code>: four decimal places</li>
+</ul>
+<pre><code class="hljs language-py">print(<span class="hljs-string">f"Pi is <span class="hljs-subst">{math.pi:<span class="hljs-number">.4</span>f}</span>"</span>)
+<span class="hljs-comment"># Pi is 3.1416</span>
+print(<span class="hljs-string">f"Pi is <span class="hljs-subst">{math.pi:<span class="hljs-number">.4</span>g}</span>"</span>)
+<span class="hljs-comment"># Pi is 3.142</span>
 </code></pre>
-<p><a href="https://mkaz.blog/code/python-string-format-cookbook/">https://mkaz.blog/code/python-string-format-cookbook/</a></p>
+</section><section class="slide"><h2>Format specification</h2>
+<ul>
+<li><code>>8</code>: right-aligned (total width 8)</li>
+<li><code>^8</code>: centered</li>
+<li><code>&#x3C;8</code>: left-aligned</li>
+</ul>
+<pre><code class="hljs language-py">print(<span class="hljs-string">f"<span class="hljs-subst">{first_name:><span class="hljs-number">8</span>}</span>"</span>)
+print(<span class="hljs-string">f"<span class="hljs-subst">{last_name:><span class="hljs-number">8</span>}</span>"</span>)
+</code></pre>
+<pre><code class="hljs language-txt">    John
+     Doe
+</code></pre>
+</section><section class="slide"><h2>Format specification</h2>
+<p>combination:</p>
+<pre><code class="hljs language-py">print(<span class="hljs-string">f"<span class="hljs-subst">{menu_item:&#x3C;<span class="hljs-number">12</span>}</span> <span class="hljs-subst">{price:><span class="hljs-number">5.2</span>}</span>$"</span>)
+</code></pre>
+<pre><code class="hljs language-txt">Burger        11.90$
+Salad          8.90$
+Fries          3.90$
+</code></pre>
+</section><section class="slide"><h2>Format specification</h2>
+<p>further options:</p>
+<p><a href="https://mkaz.blog/code/python-string-format-cookbook/">Python String Format Cookbook by Marcus Kazmierczak</a></p>
 </section></section><section class="slides-section"><section class="slide"><h1>Lists</h1>
 </section><section class="slide"><h2>Lists</h2>
 <p>Lists are mutable sequences of objects; they are usually used to store homogenous entries of the same type and structure</p>
@@ -2386,6 +2413,7 @@ users = [<span class="hljs-string">"Alice"</span>, <span class="hljs-string">"Bo
 <p>Lists can be mutated directly (while strings and tuples can't be):</p>
 <ul>
 <li>appending: <code>users.append("Dan")</code></li>
+<li>inserting: <code>users.insert(2, "Max")</code></li>
 <li>removing the last element: <code>users.pop()</code></li>
 <li>removing an element by index: <code>users.pop(2)</code></li>
 </ul>
@@ -2408,6 +2436,7 @@ l.sort(key=count_a)
 <ul>
 <li>shuffling cards</li>
 <li>list of prime numbers</li>
+<li>insertion sort</li>
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Tuples</h1>
 </section><section class="slide"><h2>Creating tuples</h2>
@@ -2589,13 +2618,11 @@ d1.update(d2)
 </code></pre>
 </section><section class="slide"><h2>Valid keys</h2>
 <p>Any immutable object can act as a dictionary key. The most common types of keys are strings.</p>
-</section><section class="slide"><h2>Exercise: vocabulary trainer</h2>
+</section><section class="slide"><h2>Exercises</h2>
 <ul>
-<li>read a (JSON) file</li>
-<li>create a data model with dictionaries</li>
-<li>randomly pick an entry</li>
+<li>vocabulary trainer</li>
+<li>todo list</li>
 </ul>
-</section><section class="slide"><h2>Exercise: Todo list</h2>
 </section></section><section class="slides-section"><section class="slide"><h1>Comprehensions</h1>
 </section><section class="slide"><h2>List comprehensions</h2>
 <p><em>List comprehensions</em> enable the creation of lists based on existing lists</p>

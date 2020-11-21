@@ -65,10 +65,7 @@ d1.update(d2)
 
 Any immutable object can act as a dictionary key. The most common types of keys are strings.
 
-## Exercise: vocabulary trainer
+## Exercises
 
-- read a (JSON) file
-- create a data model with dictionaries
-- randomly pick an entry
-
-## Exercise: Todo list
+- vocabulary trainer
+- todo list

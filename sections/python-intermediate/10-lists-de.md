@@ -27,6 +27,7 @@ Die folgenden Operationen klappen auch bei anderen _Sequenzen_ - z.B. Tupeln, St
 Listen können direkt verändert werden (im Gegensatz zu Tupeln, Strings):
 
 - Anhängen: `users.append("Dan")`
+- Einfügen: `users.insert(2, "Max")`
 - Letztes Element entfernen: `users.pop()`
 - Ein Element anhand des Index entfernen: `users.pop(2)`
 
@@ -55,3 +56,4 @@ l.sort(key=count_a)
 
 - Mischen von Karten
 - Liste von Primzahlen
+- Insertion Sort

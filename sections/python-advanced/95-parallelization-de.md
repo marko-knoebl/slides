@@ -1,11 +1,11 @@
-# Prallelisierung: Threads & Multiprocessing
+# Prallelisierung
 
-## Threads & Multiprocessing - wozu?
+## Threads und Multiprocessing - wozu?
 
 Threads:
 
+- Warten auf Input / Output (I/O)
 - Resourcen eines Prozessorkerns gerecht auf verschiedene Aufgaben aufteilen
-- Warten auf I/O
 
 Multiprocessing:
 
@@ -13,44 +13,49 @@ Multiprocessing:
 
 Vorteil von Threading: einfacher, Variablen können direkt verändert werden
 
-## Threads
+## Threads und Multiprocessing
 
-Python schaltet wiederholt zwischen parallel laufenden Threads um, sodass diese scheinbar parallel laufen.  
-In Wahrheit ist aber zu jedem Zeitpunkt nur ein Thread aktiv (Global Interpreter Lock - GIL)
+generella Arbeitsweise: Wir beauftragen Python damit, einzelne Funktionen in separaten Threads / Prozessen auszuführen, z.B.:
 
-Zwei Threads können auf die gleichen Daten zugreifen
+Führe `download_xkcd_comic(i)` in parallelen Threads für i = 100 - 120 aus
 
-## neuen Thread starten
+Führe `is_prime(i)` in parallelen Prozessen für mehrere Zahlen aus und sammle die booleschen Ergebnisse in einer Liste
+
+## Threads und Multiprocessing
+
+Threads: Python schaltet wiederholt zwischen parallel laufenden Threads um, sodass diese scheinbar parallel laufen; in Wahrheit ist aber zu jedem Zeitpunkt nur ein Thread aktiv (Global Interpreter Lock - GIL)
+
+Multiprocessing: Python startet mehrere Prozesse (sichtbar auch im Taskmanager); Teilen von Werten zwischen Prozessen kann schwerer sein
+
+## Python Interfaces
+
+high-level:
+
+- `concurrent.futures.ThreadPoolExecutor`
+- `concurrent.futures.ProcessPoolExecutor`
+
+low-level:
+
+- `threading.Thread`
+- `multiprocessing.Process`
+
+## ThreadPoolExecutor
 
 ```py
-from threading import Thread
+from concurrent.futures import ThreadPoolExecutor
 
-my_thread = Thread(target=print, args=('hello', ), kwargs={end: ""})
-my_thread.start()
-```
-
-## auf beendigung des Threads warten
-
-```py
-my_thread.join()
-```
-
-## Beispiel: wiederholtes printen
-
-```py
 def print_multiple(text, n):
     for i in range(n):
         print(text, end="")
 
-thread_a = Thread(target=print_multiple, args=("a", 20))
-thread_b = Thread(target=print_multiple, args=("b", 20))
-thread_a.start()
-thread_b.start()
-thread_a.join()
-thread_b.join()
+with ThreadPoolExecutor() as executor:
+    executor.submit(print_multiple, ".", 200)
+    executor.submit(print_multiple, "o", 200)
+
+print("completed all tasks")
 ```
 
-## Übung: Iterationen in Thread
+## Übung: Iterationen in Threads
 
 Wir schreiben ein Programm, das zwei Threads (a und b) ausführt. Die zwei Threads enthalten Schleifen, welche mitzählen, wie oft sie aufgerufen wurden.
 
@@ -64,111 +69,62 @@ Beispielausgabe:
 829 iterations in thread a
 ```
 
-## Locks
+## Übung: HTML-Seiten-Downloader via Threads
 
-für bestimmte Zeit auf einen Thread beschränken (zB um mehrere Dinge zu printen) - andere Threads sind währenddessen blockiert
+Übung: Lade parallel Python Dokumentationsseiten für die folgenden Themen herunter:
 
-## Locks
-
-Im ganzen Programm sollte es nur 1 Lock-Objekt geben
-
-```py
-from threading import Lock
-
-l = Lock()
+```json
+["os", "sys", "urllib", "pprint", "math", "time"]
 ```
 
-## Locks
+Beispiel-URL: <https://docs.python.org/3/library/os.html>
+
+Die Downloads sollten in einem separaten _downloads_-Ordner gespeichert werden
+
+## ProcessPoolExecutor
+
+Programm muss eine Python-Datei sein, die den "Hauptteil" nur dann ausführt, wenn sie selbst direkt ausgeführt - und nicht importiert - wurde (via `__name__ == "__main__"`)
 
 ```py
-def print_multiple_locked(text, n):
-    with l:
-        for i in range(n):
-            print(text, end="")
-```
+from concurrent.futures.process import ProcessPoolExecutor
 
-## Threads - Beispiel
-
-```py
-threads = []
-
-for i in range(1000000000000, 1000000000064):
-    prime_thread = Thread(target=print_is_prime, args=(i,))
-    prime_thread.start()
-    threads.append(prime_thread)
-
-for thread in threads:
-    thread.join()
-print('all threads finished')
-```
-
-## Threads und xkcd-Download
-
-Aufgabe: die xkcd-Comics 100-109 herunterladen - einmal sequenziell und einmal parallel
-
-## Multiprocessing
-
-## Funktionen in eigenen Prozessen starten
-
-Python ermöglicht es, eine Funktion jeweils in einem eigenen Prozess laufen zu lassen.
-
-```py
-from multiprocessing import Process
+def print_multiple(text, n):
+    for i in range(n):
+        print(text, end="")
 
 if __name__ == "__main__":
-    p = Process(target=hello)
-    p.start()
+    with ProcessPoolExecutor() as executor:
+        executor.submit(print_multiple, ".", 200)
+        executor.submit(print_multiple, "o", 200)
 ```
 
-## Funktionen in eigenen Prozessen starten
+## Map
+
+Verwendung für die parallele Verarbeitung mehrerer Eingangsdaten zu Ausgangsdaten
+
+Beispiel: Verarbeitung jedes Eintrages in `[2, 3, 4, 5, 6]`, um zu bestimmen, ob die Zahl eine Primzahl ist → `[True, True, False, True, False]`
 
 ```py
-from multiprocessing import Process
-
-if __name__ == "__main__":
-    processes = []
-    for i in range(30, 40):
-        p = Process(target=print_fib, args=(i,))
-        processes.append(p)
-        p.start()
-    for process in processes:
-        process.join()
+with ProcessPoolExecutor() as executor:
+    prime_indicators = executor.map(is_prime, [2, 3, 4, 5, 6])
 ```
 
-## Pools
+## Map
 
-Für gleichartige Verarbeitung mehrerer Daten, die gleichzeitig gestartet wird.
-
-Beispiel: Alle Bilder in einem Verzeichnis verarbeiten
-
-## Aufgabe: Fibonaccizahlen mit map() (1 Prozess)
-
-Ausgangswert: `[0, 1, 2, 3, 4, 5, 6, ...]`
-
-Rückgabewert: `[0, 1, 1, 2, 3, 5, 8, ...]`
-
-## Pools
+Übung: Schreibe eine Funktion, die eine Liste von Primzahlen in einem bestimmten Bereich erstellt:
 
 ```py
-with Pool(processes=4) as pool:
-    print(pool.map(fib, range(1000, 1100)))
+prime_range(100_000_000_000_000, 100_000_000_000_100)
+# [100000000000031, 100000000000067,
+#  100000000000097, 100000000000099]
 ```
 
-## Datenaustausch: shared memory
-
-integer und floats (und arrays davon) über mehrere Prozesse verteilen
+Verwende einen `ProcessPoolExecutor` und diese Funktion:
 
 ```py
-from multiprocessing import Value, Array, Process
-
-a = Array('i', [2, 4, 13])
-p = Process(target=f, args=(a,))
-p.start()
-...
+def is_prime(n):
+    for i in range(2, int(n**0.5) + 1):
+        if n % i == 0:
+            return False
+    return True
 ```
-
-## Weitere Möglichkeiten: Pipes & Queues
-
-Pipe: Messaging zwischen Prozessen in zwei Richtungen - zB Hintergrundprozess, der immer wieder etwas zu tun bekommen und dazwischen im Ruhezustand ist
-
-Queue: Messaging in eine Richtung von verschiedenen Producern zu verschiedenen Consumern (langsamer als Pipes)

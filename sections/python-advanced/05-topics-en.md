@@ -11,10 +11,6 @@
   - magic methods
   - inheritance
 - iterators
-- functions: advanced
-  - lambdas
-  - decorators
-  - functools
-  - memoization
+- functions - advanced: lambdas, decorators, functools, memoization
 - advanced data types: set, namedtuple, enum
 - parallelization: threads and multiprocessing

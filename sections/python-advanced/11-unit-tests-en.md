@@ -67,7 +67,7 @@ if __name__ == "__main__":
 
 ## unittest
 
-Running all tests in files that end in _test\*.py_:
+Running all tests in files that match _test\*.py_:
 
 ```bash
 python -m unittest
@@ -79,9 +79,9 @@ Search for a different pattern:
 python -m unittest discover -p "*_test.py"
 ```
 
-Note: in order to be discovered all packages must contain a file named _\_\_init\_\_.py_ (siehe https://bugs.python.org/issue35617)
+Note: in order to be discovered all packages must contain a file named _\_\_init\_\_.py_ (see https://bugs.python.org/issue35617)
 
-## unittest - Assertions
+## unittest - assertions
 
 assertions:
 
