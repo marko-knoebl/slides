@@ -667,6 +667,7 @@ interessante Module:
 - `datetime`
 - `os` (Betriebssystem, Dateisystem)
 - `urllib.request` (HTTP-Anfragen)
+- `webbrowser` (einfache Steuerung des Standard-Browsers)
 
 ## print und pprint
 
@@ -735,6 +736,18 @@ from urllib.request import urlopen
 content = urlopen("https://google.com").read()
 print(content)
 print(len(content))
+```
+
+## webbrowser
+
+Beispiel:
+
+```py
+import webbrowser
+
+webbrowser.open(
+    "https://docs.python.org/3/library/webbrowser.html"
+)
 ```
 
 # Kontrollstrukturen
