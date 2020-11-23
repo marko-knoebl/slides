@@ -1,4 +1,4 @@
-# Grundlegende Plots in Pandas und Pyplot
+# Basic plots in pandas and pyplot
 
 ## Graph
 
@@ -16,7 +16,7 @@ df.plot.line()
 df.plot()
 ```
 
-## Säulendiagramm
+## Bar chart
 
 Pyplot:
 
@@ -45,7 +45,7 @@ Pandas:
 df.plot.scatter(x="name1", y="name2")
 ```
 
-## Histogramm
+## Histogram
 
 Pyplot:
 
@@ -59,7 +59,7 @@ Pandas:
 df.plot.hist()
 ```
 
-## Histogramm
+## Histogram
 
 Pyplot:
 
@@ -90,7 +90,7 @@ Pandas:
 df.plot.box()
 ```
 
-## Tortendiagramm
+## Pie chart
 
 Pyplot:
 

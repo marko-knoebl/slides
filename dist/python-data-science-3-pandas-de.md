@@ -617,7 +617,7 @@ from pandas.plotting import scatter_matrix
 scatter_matrix(iris)
 ```
 
-# Basic plots in pandas and pyplot
+# Grundlegende Plots in Pandas und Pyplot
 
 ## Graph
 
@@ -635,7 +635,7 @@ df.plot.line()
 df.plot()
 ```
 
-## Bar chart
+## Säulendiagramm
 
 Pyplot:
 
@@ -664,7 +664,7 @@ Pandas:
 df.plot.scatter(x="name1", y="name2")
 ```
 
-## Histogram
+## Histogramm
 
 Pyplot:
 
@@ -678,7 +678,7 @@ Pandas:
 df.plot.hist()
 ```
 
-## Histogram
+## Histogramm
 
 Pyplot:
 
@@ -709,7 +709,7 @@ Pandas:
 df.plot.box()
 ```
 
-## Pie chart
+## Tortendiagramm
 
 Pyplot:
 

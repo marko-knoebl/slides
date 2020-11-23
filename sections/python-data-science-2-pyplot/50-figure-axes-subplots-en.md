@@ -59,9 +59,9 @@ Task: Create a sine and cosine plot via _Axes_
 naming to keep in mind:
 
 - `plt.axis`: e.g. for setting scaling
-- `plt.axes`: for creating a nex coordinate system
+- `plt.axes`: for creating a new coordinate system
 
-actual meaning (from Lating): _axis_ = singular, _axes_ = plural
+actual meaning (from Latin): _axis_ = singular, _axes_ = plural
 
 ## Subplots
 

@@ -376,13 +376,13 @@ petal_length = iris[:,2]
 petal_width = iris[:,3]
 ```
 
-## Scatter plot I
+## Scatter plot 1
 
 scatter plot of petal_length and petal_width
 
 plot the first 50, the second 50 and the thrid 50 data points separately (in separate colors)
 
-## Scatter plot II
+## Scatter plot 2
 
 scatter plot of all four iris properties
 
@@ -397,15 +397,19 @@ boxplot of all four measurements
 ## Scatter plot: solutions
 
 ```py
-plt.plot(petal_length[:50], petal_width[:50], ".", label="setosa")
-plt.plot(petal_length[50:100], petal_width[50:100], ".", label="versicolor")
-plt.plot(petal_length[100:150], petal_width[100:150], ".", label="virginica")
+plt.plot(petal_length[:50], petal_width[:50], ".",
+         label="setosa")
+plt.plot(petal_length[50:100], petal_width[50:100], ".",
+         label="versicolor")
+plt.plot(petal_length[100:150], petal_width[100:150], ".",
+         label="virginica")
 
 plt.legend()
 ```
 
 ```py
-plt.scatter(petal_length, petal_width, sepal_length*10, sepal_width)
+plt.scatter(petal_length, petal_width,
+            sepal_length*10, sepal_width)
 ```
 
 ## Histogram and boxplot: solutions
@@ -420,7 +424,8 @@ plt.hist(
 ```py
 plt.boxplot(
     [petal_length, petal_width, sepal_length, sepal_width],
-    labels=["petal length", "petal width", "sepal length", "sepal width"]
+    labels=["petal length", "petal width", "sepal length",
+            "sepal width"]
 )
 ```
 
@@ -485,9 +490,9 @@ Task: Create a sine and cosine plot via _Axes_
 naming to keep in mind:
 
 - `plt.axis`: e.g. for setting scaling
-- `plt.axes`: for creating a nex coordinate system
+- `plt.axes`: for creating a new coordinate system
 
-actual meaning (from Lating): _axis_ = singular, _axes_ = plural
+actual meaning (from Latin): _axis_ = singular, _axes_ = plural
 
 ## Subplots
 

@@ -260,8 +260,8 @@ array_a * array_a
 
 Wir können folgendes abfragen:
 
-- `a3d.ndim`: 3
 - `a3d.shape`: (2, 2, 2)
+- `a3d.ndim`: 3
 - `a3d.size`: 8
 
 # Numerische Typen
@@ -686,13 +686,13 @@ Gesamtsumme:
 np.sum(a2d)
 ```
 
-Summe entlang Achse 0 ("vertikal")
+Summe entlang Achse 0 ("richtung unten")
 
 ```py
 np.sum(a2d, axis=0)
 ```
 
-Summe entlang Achse 1 ("horizontal")
+Summe entlang Achse 1 ("richtung rechts")
 
 ```py
 np.sum(a2d, axis=1)
@@ -711,8 +711,10 @@ np.sum(a2d, axis=1)
 (siehe nächste Slides)
 
 - Preise und Mengen -> Gesamtpreis
+- kinetic energy
 - Schwerpunkt eines Dreiecks
 - Sinus- und Kosinusfunktion - Wertetabelle
+- dice rolls
 
 ## Übungen
 
@@ -794,7 +796,7 @@ a = np.array([4.1, 2.7, -1, 3.8, -1])
 a_filtered = a[a > 0]
 
 a_with_nans = a.copy()
-a_with_nans[a < 0] = np.nan
+a_with_nans[a_with_nans < 0] = np.nan
 ```
 
 # NumPy Fortgeschritten
@@ -802,11 +804,11 @@ a_with_nans[a < 0] = np.nan
 ## Form von Arrays ändern
 
 ```py
-array_1d = array_3d.ravel()
-array_1d = array_3d.reshape(8)
-array_2d = array_3d.reshape(2, 4)
-array_2d = array_3d.reshape(2, -1) # automatic second dimension
-array_2d_transposed = array_2d.T
+a3d.ravel() # 1d-array
+a3d.reshape(8) # 1d-array
+a3d.reshape(2, 4) # 2x4 array
+a3d.reshape(2, -1) # automatic second dimension
+a2d.T # transposed
 ```
 
 ## Dimensionalität erhöhen
@@ -814,15 +816,16 @@ array_2d_transposed = array_2d.T
 Hinzufügen einer extra Dimension der Länge 1: Verwandeln eines 2 x 2 Arrays in ein 2 x 2 x 1 Array:
 
 ```py
-array_2d = np.array([[1, 2], [3, 4]])
-array_3d = np.expand_dims(array_2d, 2)
-# [[[1], [2]], [[3], [4]]]
+np.expand_dims(a2d, 2)
+# [[[1], [2], [3]],
+#  [[4], [5], [6]],
+#  [[7], [8], [9]]]
 ```
 
 Alternative:
 
 ```
-array_3d = array_2d[:, :, np.newaxis]
+a2d[:, :, np.newaxis]
 ```
 
 ## Slices als Views
@@ -853,17 +856,17 @@ np.concatenate([a2d, a2d])
 np.concatenate([a2d, a2d], axis=1)
 ```
 
-## Matrix-Multiplikation
+## Matrix-Multiplikation / Array-Multiplikation
 
-Matrix-Multiplikation kann durch den binären Operator `@` durchgeführt werden
+mittels des binären Operators `@`
 
 ```py
 a = np.array([1, 1])
 
-M = np.array([[0.707, 0.707],
+m = np.array([[0.707, 0.707],
               [-0.707, 0.707]])
 
-print(a @ M)
+print(a @ m)
 # array([0.   , 1.414])
 ```
 
@@ -874,10 +877,10 @@ Rotation verschiedener Punkte um 45° gegen den Uhrzeigersinn:
 ```py
 points = np.array([[0, 0], [0, 1], [1, 1], [1, 0]])
 
-M = np.array([[0.707, 0.707],
+m = np.array([[0.707, 0.707],
               [-0.707, 0.707]])
 
-print(points @ M)
+print(points @ m)
 ```
 
 ## Matrix-Multiplikation

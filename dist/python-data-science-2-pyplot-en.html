@@ -2314,23 +2314,27 @@ sepal_width = iris[:,<span class="hljs-number">1</span>]
 petal_length = iris[:,<span class="hljs-number">2</span>]
 petal_width = iris[:,<span class="hljs-number">3</span>]
 </code></pre>
-</section><section class="slide"><h2>Scatter plot I</h2>
+</section><section class="slide"><h2>Scatter plot 1</h2>
 <p>scatter plot of petal_length and petal_width</p>
 <p>plot the first 50, the second 50 and the thrid 50 data points separately (in separate colors)</p>
-</section><section class="slide"><h2>Scatter plot II</h2>
+</section><section class="slide"><h2>Scatter plot 2</h2>
 <p>scatter plot of all four iris properties</p>
 <p>use the color and size to visualize <em>sepal length</em> and <em>sepal width</em></p>
 </section><section class="slide"><h2>Histogram and boxplot</h2>
 <p>histogram of the <em>petal length</em></p>
 <p>boxplot of all four measurements</p>
 </section><section class="slide"><h2>Scatter plot: solutions</h2>
-<pre><code class="hljs language-py">plt.plot(petal_length[:<span class="hljs-number">50</span>], petal_width[:<span class="hljs-number">50</span>], <span class="hljs-string">"."</span>, label=<span class="hljs-string">"setosa"</span>)
-plt.plot(petal_length[<span class="hljs-number">50</span>:<span class="hljs-number">100</span>], petal_width[<span class="hljs-number">50</span>:<span class="hljs-number">100</span>], <span class="hljs-string">"."</span>, label=<span class="hljs-string">"versicolor"</span>)
-plt.plot(petal_length[<span class="hljs-number">100</span>:<span class="hljs-number">150</span>], petal_width[<span class="hljs-number">100</span>:<span class="hljs-number">150</span>], <span class="hljs-string">"."</span>, label=<span class="hljs-string">"virginica"</span>)
+<pre><code class="hljs language-py">plt.plot(petal_length[:<span class="hljs-number">50</span>], petal_width[:<span class="hljs-number">50</span>], <span class="hljs-string">"."</span>,
+         label=<span class="hljs-string">"setosa"</span>)
+plt.plot(petal_length[<span class="hljs-number">50</span>:<span class="hljs-number">100</span>], petal_width[<span class="hljs-number">50</span>:<span class="hljs-number">100</span>], <span class="hljs-string">"."</span>,
+         label=<span class="hljs-string">"versicolor"</span>)
+plt.plot(petal_length[<span class="hljs-number">100</span>:<span class="hljs-number">150</span>], petal_width[<span class="hljs-number">100</span>:<span class="hljs-number">150</span>], <span class="hljs-string">"."</span>,
+         label=<span class="hljs-string">"virginica"</span>)
 
 plt.legend()
 </code></pre>
-<pre><code class="hljs language-py">plt.scatter(petal_length, petal_width, sepal_length*<span class="hljs-number">10</span>, sepal_width)
+<pre><code class="hljs language-py">plt.scatter(petal_length, petal_width,
+            sepal_length*<span class="hljs-number">10</span>, sepal_width)
 </code></pre>
 </section><section class="slide"><h2>Histogram and boxplot: solutions</h2>
 <pre><code class="hljs language-py">plt.hist(
@@ -2340,7 +2344,8 @@ plt.legend()
 </code></pre>
 <pre><code class="hljs language-py">plt.boxplot(
     [petal_length, petal_width, sepal_length, sepal_width],
-    labels=[<span class="hljs-string">"petal length"</span>, <span class="hljs-string">"petal width"</span>, <span class="hljs-string">"sepal length"</span>, <span class="hljs-string">"sepal width"</span>]
+    labels=[<span class="hljs-string">"petal length"</span>, <span class="hljs-string">"petal width"</span>, <span class="hljs-string">"sepal length"</span>,
+            <span class="hljs-string">"sepal width"</span>]
 )
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Pyplot: figure, axes &#x26; subplots</h1>
@@ -2379,9 +2384,9 @@ ax.set_aspect(<span class="hljs-string">"equal"</span>)
 <p>naming to keep in mind:</p>
 <ul>
 <li><code>plt.axis</code>: e.g. for setting scaling</li>
-<li><code>plt.axes</code>: for creating a nex coordinate system</li>
+<li><code>plt.axes</code>: for creating a new coordinate system</li>
 </ul>
-<p>actual meaning (from Lating): <em>axis</em> = singular, <em>axes</em> = plural</p>
+<p>actual meaning (from Latin): <em>axis</em> = singular, <em>axes</em> = plural</p>
 </section><section class="slide"><h2>Subplots</h2>
 <p>Creating multiple <em>Axes</em> objects in a grid (here: 2 rows, 3 columns):</p>
 <pre><code class="hljs language-py">fig, ax = plt.subplots(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>)

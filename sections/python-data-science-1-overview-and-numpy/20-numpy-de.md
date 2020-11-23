@@ -89,6 +89,6 @@ array_a * array_a
 
 Wir können folgendes abfragen:
 
-- `a3d.ndim`: 3
 - `a3d.shape`: (2, 2, 2)
+- `a3d.ndim`: 3
 - `a3d.size`: 8

@@ -82,13 +82,13 @@ sum over all entries:
 np.sum(a2d)
 ```
 
-sum along axis 0 ("vertical"):
+sum along axis 0 ("downwards"):
 
 ```py
 np.sum(a2d, axis=0)
 ```
 
-sum along axis 1 ("horizontal"):
+sum along axis 1 ("rightwards"):
 
 ```py
 np.sum(a2d, axis=1)
@@ -107,8 +107,10 @@ np.sum(a2d, axis=1)
 (see next slides)
 
 - prices and amounts -> total price
+- kinetic energy
 - centroid of a triangle
 - sine and cosine - value table
+- dice rolls
 
 ## Exercises
 

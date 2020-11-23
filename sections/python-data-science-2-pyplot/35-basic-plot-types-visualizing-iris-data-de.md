@@ -22,13 +22,13 @@ petal_length = iris[:,2]
 petal_width = iris[:,3]
 ```
 
-## Scatter Plot I
+## Scatter Plot 1
 
 Scatter Plot der _petal length_ und _petal width_
 
 Wir plotten die Datenpunkte in 50-er Gruppen in drei verschiedenen Farben
 
-## Scatter plot II
+## Scatter plot 2
 
 Scatter Plot aller vier Iris-Eigenschaften
 
@@ -43,15 +43,19 @@ Boxplot für alle vier Abmessungen
 ## Scatter Plot: Lösungen
 
 ```py
-plt.plot(petal_length[:50], petal_width[:50], ".", label="setosa")
-plt.plot(petal_length[50:100], petal_width[50:100], ".", label="versicolor")
-plt.plot(petal_length[100:150], petal_width[100:150], ".", label="virginica")
+plt.plot(petal_length[:50], petal_width[:50], ".",
+         label="setosa")
+plt.plot(petal_length[50:100], petal_width[50:100], ".",
+         label="versicolor")
+plt.plot(petal_length[100:150], petal_width[100:150], ".",
+         label="virginica")
 
 plt.legend()
 ```
 
 ```py
-plt.scatter(petal_length, petal_width, sepal_length*10, sepal_width)
+plt.scatter(petal_length, petal_width,
+            sepal_length*10, sepal_width)
 ```
 
 ## Histogramm und Boxplot: Lösungen
@@ -66,6 +70,7 @@ plt.hist(
 ```py
 plt.boxplot(
     [petal_length, petal_width, sepal_length, sepal_width],
-    labels=["petal length", "petal width", "sepal length", "sepal width"]
+    labels=["petal length", "petal width", "sepal length",
+            "sepal width"]
 )
 ```

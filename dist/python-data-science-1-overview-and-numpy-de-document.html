@@ -155,8 +155,8 @@ time.sleep(<span class="hljs-number">3</span>)
 <h2>Array Shape</h2>
 <p>Wir können folgendes abfragen:</p>
 <ul>
-<li><code>a3d.ndim</code>: 3</li>
 <li><code>a3d.shape</code>: (2, 2, 2)</li>
+<li><code>a3d.ndim</code>: 3</li>
 <li><code>a3d.size</code>: 8</li>
 </ul>
 <h1>Numerische Typen</h1>
@@ -435,10 +435,10 @@ print(np.sqrt(a))
 <p>Gesamtsumme:</p>
 <pre><code class="hljs language-py">np.sum(a2d)
 </code></pre>
-<p>Summe entlang Achse 0 ("vertikal")</p>
+<p>Summe entlang Achse 0 ("richtung unten")</p>
 <pre><code class="hljs language-py">np.sum(a2d, axis=<span class="hljs-number">0</span>)
 </code></pre>
-<p>Summe entlang Achse 1 ("horizontal")</p>
+<p>Summe entlang Achse 1 ("richtung rechts")</p>
 <pre><code class="hljs language-py">np.sum(a2d, axis=<span class="hljs-number">1</span>)
 </code></pre>
 <h2>Aggregationen</h2>
@@ -453,8 +453,10 @@ print(np.sqrt(a))
 <p>(siehe nächste Slides)</p>
 <ul>
 <li>Preise und Mengen -> Gesamtpreis</li>
+<li>kinetic energy</li>
 <li>Schwerpunkt eines Dreiecks</li>
 <li>Sinus- und Kosinusfunktion - Wertetabelle</li>
+<li>dice rolls</li>
 </ul>
 <h2>Übungen</h2>
 <p>Gegeben sind ein Array von Preisen und ein Array von gekauften Mengen. Bestimme den Gesamtpreis:</p>
@@ -509,24 +511,25 @@ a_with_nans[a_invalid] = np.nan
 a_filtered = a[a > <span class="hljs-number">0</span>]
 
 a_with_nans = a.copy()
-a_with_nans[a &#x3C; <span class="hljs-number">0</span>] = np.nan
+a_with_nans[a_with_nans &#x3C; <span class="hljs-number">0</span>] = np.nan
 </code></pre>
 <h1>NumPy Fortgeschritten</h1>
 <h2>Form von Arrays ändern</h2>
-<pre><code class="hljs language-py">array_1d = array_3d.ravel()
-array_1d = array_3d.reshape(<span class="hljs-number">8</span>)
-array_2d = array_3d.reshape(<span class="hljs-number">2</span>, <span class="hljs-number">4</span>)
-array_2d = array_3d.reshape(<span class="hljs-number">2</span>, <span class="hljs-number">-1</span>) <span class="hljs-comment"># automatic second dimension</span>
-array_2d_transposed = array_2d.T
+<pre><code class="hljs language-py">a3d.ravel() <span class="hljs-comment"># 1d-array</span>
+a3d.reshape(<span class="hljs-number">8</span>) <span class="hljs-comment"># 1d-array</span>
+a3d.reshape(<span class="hljs-number">2</span>, <span class="hljs-number">4</span>) <span class="hljs-comment"># 2x4 array</span>
+a3d.reshape(<span class="hljs-number">2</span>, <span class="hljs-number">-1</span>) <span class="hljs-comment"># automatic second dimension</span>
+a2d.T <span class="hljs-comment"># transposed</span>
 </code></pre>
 <h2>Dimensionalität erhöhen</h2>
 <p>Hinzufügen einer extra Dimension der Länge 1: Verwandeln eines 2 x 2 Arrays in ein 2 x 2 x 1 Array:</p>
-<pre><code class="hljs language-py">array_2d = np.array([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]])
-array_3d = np.expand_dims(array_2d, <span class="hljs-number">2</span>)
-<span class="hljs-comment"># [[[1], [2]], [[3], [4]]]</span>
+<pre><code class="hljs language-py">np.expand_dims(a2d, <span class="hljs-number">2</span>)
+<span class="hljs-comment"># [[[1], [2], [3]],</span>
+<span class="hljs-comment">#  [[4], [5], [6]],</span>
+<span class="hljs-comment">#  [[7], [8], [9]]]</span>
 </code></pre>
 <p>Alternative:</p>
-<pre><code class="hljs language-angelscript"><span class="hljs-built_in">array</span>_3d = <span class="hljs-built_in">array</span>_2d[:, :, np.newaxis]
+<pre><code class="hljs language-haxe">a2d[:<span class="hljs-type"></span>, :<span class="hljs-type"></span>, np.<span class="hljs-keyword">new</span><span class="hljs-type">axis</span>]
 </code></pre>
 <h2>Slices als Views</h2>
 <p>In Python können wir eine flache Kopie einer Liste erstellen, indem wir sie slicen - dies ist in NumPy nicht so (um die Effizienz zu steigern):</p>
@@ -546,24 +549,24 @@ array_view[<span class="hljs-number">0</span>] = <span class="hljs-number">10</s
 np.concatenate([a2d, a2d])
 np.concatenate([a2d, a2d], axis=<span class="hljs-number">1</span>)
 </code></pre>
-<h2>Matrix-Multiplikation</h2>
-<p>Matrix-Multiplikation kann durch den binären Operator <code>@</code> durchgeführt werden</p>
+<h2>Matrix-Multiplikation / Array-Multiplikation</h2>
+<p>mittels des binären Operators <code>@</code></p>
 <pre><code class="hljs language-py">a = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">1</span>])
 
-M = np.array([[<span class="hljs-number">0.707</span>, <span class="hljs-number">0.707</span>],
+m = np.array([[<span class="hljs-number">0.707</span>, <span class="hljs-number">0.707</span>],
               [<span class="hljs-number">-0.707</span>, <span class="hljs-number">0.707</span>]])
 
-print(a @ M)
+print(a @ m)
 <span class="hljs-comment"># array([0.   , 1.414])</span>
 </code></pre>
 <h2>Matrix-Multiplikation</h2>
 <p>Rotation verschiedener Punkte um 45° gegen den Uhrzeigersinn:</p>
 <pre><code class="hljs language-py">points = np.array([[<span class="hljs-number">0</span>, <span class="hljs-number">0</span>], [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>], [<span class="hljs-number">1</span>, <span class="hljs-number">1</span>], [<span class="hljs-number">1</span>, <span class="hljs-number">0</span>]])
 
-M = np.array([[<span class="hljs-number">0.707</span>, <span class="hljs-number">0.707</span>],
+m = np.array([[<span class="hljs-number">0.707</span>, <span class="hljs-number">0.707</span>],
               [<span class="hljs-number">-0.707</span>, <span class="hljs-number">0.707</span>]])
 
-print(points @ M)
+print(points @ m)
 </code></pre>
 <h2>Matrix-Multiplikation</h2>
 <p>Beispiel:</p>

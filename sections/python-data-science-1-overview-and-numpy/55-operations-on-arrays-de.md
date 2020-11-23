@@ -82,13 +82,13 @@ Gesamtsumme:
 np.sum(a2d)
 ```
 
-Summe entlang Achse 0 ("vertikal")
+Summe entlang Achse 0 ("richtung unten")
 
 ```py
 np.sum(a2d, axis=0)
 ```
 
-Summe entlang Achse 1 ("horizontal")
+Summe entlang Achse 1 ("richtung rechts")
 
 ```py
 np.sum(a2d, axis=1)
@@ -107,8 +107,10 @@ np.sum(a2d, axis=1)
 (siehe nächste Slides)
 
 - Preise und Mengen -> Gesamtpreis
+- kinetic energy
 - Schwerpunkt eines Dreiecks
 - Sinus- und Kosinusfunktion - Wertetabelle
+- dice rolls
 
 ## Übungen
 

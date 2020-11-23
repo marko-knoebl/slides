@@ -3,11 +3,11 @@
 ## Reshaping arrays
 
 ```py
-array_1d = array_3d.ravel()
-array_1d = array_3d.reshape(8)
-array_2d = array_3d.reshape(2, 4)
-array_2d = array_3d.reshape(2, -1) # automatic second dimension
-array_2d_transposed = array_2d.T
+a3d.ravel() # 1d-array
+a3d.reshape(8) # 1d-array
+a3d.reshape(2, 4) # 2x4 array
+a3d.reshape(2, -1) # automatic second dimension
+a2d.T # transposed
 ```
 
 ## Adding an extra dimension
@@ -15,15 +15,16 @@ array_2d_transposed = array_2d.T
 Adding an extra dimension of length 1: turning a 2 x 2 array into a 2 x 2 x 1 array:
 
 ```py
-array_2d = np.array([[1, 2], [3, 4]])
-array_3d = np.expand_dims(array_2d, 2)
-# [[[1], [2]], [[3], [4]]]
+np.expand_dims(a2d, 2)
+# [[[1], [2], [3]],
+#  [[4], [5], [6]],
+#  [[7], [8], [9]]]
 ```
 
 alternative:
 
-```
-array_3d = array_2d[:, :, np.newaxis]
+```py
+a2d[:, :, np.newaxis]
 ```
 
 ## Slices as views
@@ -54,17 +55,17 @@ np.concatenate([a2d, a2d])
 np.concatenate([a2d, a2d], axis=1)
 ```
 
-## Matrix multiplication
+## Matrix / array multiplication
 
 via the binary Operator `@`
 
 ```py
 a = np.array([1, 1])
 
-M = np.array([[0.707, 0.707],
+m = np.array([[0.707, 0.707],
               [-0.707, 0.707]])
 
-print(a @ M)
+print(a @ m)
 # array([0.   , 1.414])
 ```
 
@@ -75,10 +76,10 @@ example: rotating several points by 45° (counterclockwise):
 ```py
 points = np.array([[0, 0], [0, 1], [1, 1], [1, 0]])
 
-M = np.array([[0.707, 0.707],
+m = np.array([[0.707, 0.707],
               [-0.707, 0.707]])
 
-print(points @ M)
+print(points @ m)
 ```
 
 ## Matrix multiplication
