@@ -1343,10 +1343,10 @@ urllib.request.urlopen(...)
 
 ## Custom modules
 
-Goal: creating a custom module that can be used like this:
+Goal: creating a local custom module that can be used like this:
 
 ```py
-from foo import a, b
+from .foo import a, b
 ```
 
 ## Custom modules
@@ -1387,8 +1387,8 @@ Module as a directory with separated defintions:
 
 ```py
 # __init__.py
-from _a_mod import a
-from _b_mod import b
+from ._a_mod import a
+from ._b_mod import b
 ```
 
 ## Custom packages
@@ -1396,7 +1396,7 @@ from _b_mod import b
 Goal: creating a custom package that can be used like this:
 
 ```py
-from foo import bar
+from .foo import bar
 
 print(bar.a)
 print(bar.b)
@@ -1411,7 +1411,7 @@ print(bar.b)
 
 ## Resolving imports
 
-Search order:
+Search order of absolute imports:
 
 - directory of the Python script that was executed
 - standard library

@@ -917,45 +917,66 @@ pairs = [(1, 'one'), (2, 'two'), (3, 'three'), (4, 'four')]
 pairs.sort(key=lambda pair: pair[1])
 ```
 
-## Decorators
+## Funktionen höherer Ordnung
 
-Decorator: Möglichkeit, eine Funktion nach deren Erstellung zu verändern
+_Funktion höherer Ordnung_ (_higher-order function_): eine Funktion, die andere Funktionen als Parameter erhalten kann und/oder eine Funktion zurückgeben kann
 
-Der Decorator ist eine Funktion, die eine Funktion als Parameter übernimmt und eine neue, veränderte Funktion zurückgibt
+wir erinnern uns: "alles ist eine Objekt" in Python - so auch Funktionen
 
-## Decorators
+## Functools
+
+Modul _functools_: Sammlung von Funktionen höherer Ordnung
+
+Beispiele:
+
+- `functools.lru_cache`
+- `functools.cache` (Python 3.9)
+- `functools.partial`
+- `functools.reduce`
+
+## Functools: partial
 
 ```py
-@cache
-def fib(n):
+from functools import partial
+open_utf8 = partial(open, encoding='utf-8')
+```
+
+## Functools: Memoisierung / Caching
+
+**Memoisierung**: Strategie zur Performanceoptimierung:
+
+Die Rückgabewerte bisheriger Funktionsaufrufe werden gespeichert und bei erneutem Aufruf mit den gleichen Parameterwerten wiederverwendet
+
+```py
+def fibonacci(n):
+    if n in [0, 1]:
+        return n
+    return fibonacci(n-1) + fibonacci(n-2)
+
+# make faster by caching
+fibonacci = lru_cache(fibonacci)
+```
+
+## Decorator-Syntax
+
+Decorator-Syntax: einfache Möglichkeit, Funktionen höherer Ordnung auf Funktionsdefinitionen anzuwenden
+
+## Decorator-Syntax
+
+```py
+@lru_cache
+def fibonacci(n):
     ...
 ```
 
 äquivalent zu:
 
 ```py
-def fib(n):
+def fibonacci(n):
     ...
 
-fib = cache(fib)
+fibonacci = lru_cache(fibonacci)
 ```
-
-## Functools
-
-## Functools - Beispiel
-
-```py
-from functools import partial
-open_utf8 = partial(open, encoding='UTF-8')
-```
-
-## Memoisation
-
-Strategie zur Performanceoptimierung:
-
-Die Rückgabewerte bisheriger Funktionsaufrufe werden gespeichert und bei erneutem Aufruf mit den gleichen Parameterwerten wiederverwendet
-
-(Beispiel: Fibonacci)
 
 # Fortgeschrittene Datentypen
 

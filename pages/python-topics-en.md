@@ -22,6 +22,8 @@ usually 3 days for beginner programmers, 1 day for programmers with knowledge in
 
 ## Python intermediate
 
+usually 2 days
+
 - data types in depth
   - strings and string processing
   - bytes

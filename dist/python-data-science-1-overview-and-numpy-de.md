@@ -194,7 +194,7 @@ import numpy as np
 
 Erstellen eines 1-dimensionalen Arrays:
 
-```
+```py
 a1d = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
 ```
 
@@ -346,8 +346,8 @@ Speicherformat:
 (-) 2^e * s
 ```
 
-- s ... _Signifikand_ / _Koeffizient_
 - e ... _Exponent_
+- s ... _Signifikand_ / _Koeffizient_
 
 ## Beispiele
 
@@ -710,7 +710,7 @@ np.sum(a2d, axis=1)
 
 (siehe nächste Slides)
 
-- Preise und Mengen -> Gesamtpreis
+- Preise und Mengen → Gesamtpreis
 - kinetic energy
 - Schwerpunkt eines Dreiecks
 - Sinus- und Kosinusfunktion - Wertetabelle
@@ -804,8 +804,8 @@ a_with_nans[a_with_nans < 0] = np.nan
 ## Form von Arrays ändern
 
 ```py
-a3d.ravel() # 1d-array
-a3d.reshape(8) # 1d-array
+a3d.ravel() # 1d array
+a3d.reshape(8) # 1d array
 a3d.reshape(2, 4) # 2x4 array
 a3d.reshape(2, -1) # automatic second dimension
 a2d.T # transposed

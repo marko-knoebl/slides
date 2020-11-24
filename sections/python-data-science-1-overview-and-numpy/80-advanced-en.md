@@ -3,8 +3,8 @@
 ## Reshaping arrays
 
 ```py
-a3d.ravel() # 1d-array
-a3d.reshape(8) # 1d-array
+a3d.ravel() # 1d array
+a3d.reshape(8) # 1d array
 a3d.reshape(2, 4) # 2x4 array
 a3d.reshape(2, -1) # automatic second dimension
 a2d.T # transposed

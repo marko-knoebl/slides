@@ -194,7 +194,7 @@ import numpy as np
 
 creating a 1-dimensional array:
 
-```
+```py
 a1d = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
 ```
 
@@ -346,8 +346,8 @@ storage format:
 (-) 2^e * s
 ```
 
-- s ... _significand_ / _coefficient_
 - e ... _exponent_
+- s ... _significand_ / _coefficient_
 
 ## Examples
 
@@ -710,7 +710,7 @@ np.sum(a2d, axis=1)
 
 (see next slides)
 
-- prices and amounts -> total price
+- prices and amounts → total price
 - kinetic energy
 - centroid of a triangle
 - sine and cosine - value table
@@ -804,8 +804,8 @@ a_with_nans[a_with_nans < 0] = np.nan
 ## Reshaping arrays
 
 ```py
-a3d.ravel() # 1d-array
-a3d.reshape(8) # 1d-array
+a3d.ravel() # 1d array
+a3d.reshape(8) # 1d array
 a3d.reshape(2, 4) # 2x4 array
 a3d.reshape(2, -1) # automatic second dimension
 a2d.T # transposed

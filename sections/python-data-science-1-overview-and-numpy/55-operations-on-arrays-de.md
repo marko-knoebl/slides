@@ -106,7 +106,7 @@ np.sum(a2d, axis=1)
 
 (siehe nächste Slides)
 
-- Preise und Mengen -> Gesamtpreis
+- Preise und Mengen → Gesamtpreis
 - kinetic energy
 - Schwerpunkt eines Dreiecks
 - Sinus- und Kosinusfunktion - Wertetabelle

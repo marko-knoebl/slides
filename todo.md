@@ -5,6 +5,7 @@
   - csv import of iris data
   - include link to aicheatsheets.com
   - free book: think python
+  - popular public Jupyter notebooks on kaggle: https://www.kaggle.com/notebooks?sortBy=voteCount
 - react
   - import * as React from "react"
   - ? predefined redux project that can be used to create a react application

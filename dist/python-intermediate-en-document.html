@@ -932,8 +932,8 @@ urllib.request.urlopen(...)
 </ul>
 <h1>Custom modules</h1>
 <h2>Custom modules</h2>
-<p>Goal: creating a custom module that can be used like this:</p>
-<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> foo <span class="hljs-keyword">import</span> a, b
+<p>Goal: creating a local custom module that can be used like this:</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> .foo <span class="hljs-keyword">import</span> a, b
 </code></pre>
 <h2>Custom modules</h2>
 <p>Simple module as a Python file:</p>
@@ -958,12 +958,12 @@ b = <span class="hljs-number">2</span>
   - <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">_b_mod</span>.</span></span>py
 </code></pre>
 <pre><code class="hljs language-py"><span class="hljs-comment"># __init__.py</span>
-<span class="hljs-keyword">from</span> _a_mod <span class="hljs-keyword">import</span> a
-<span class="hljs-keyword">from</span> _b_mod <span class="hljs-keyword">import</span> b
+<span class="hljs-keyword">from</span> ._a_mod <span class="hljs-keyword">import</span> a
+<span class="hljs-keyword">from</span> ._b_mod <span class="hljs-keyword">import</span> b
 </code></pre>
 <h2>Custom packages</h2>
 <p>Goal: creating a custom package that can be used like this:</p>
-<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> foo <span class="hljs-keyword">import</span> bar
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> .foo <span class="hljs-keyword">import</span> bar
 
 print(bar.a)
 print(bar.b)
@@ -973,7 +973,7 @@ print(bar.b)
 <span class="hljs-bullet">  - </span>bar.py
 </code></pre>
 <h2>Resolving imports</h2>
-<p>Search order:</p>
+<p>Search order of absolute imports:</p>
 <ul>
 <li>directory of the Python script that was executed</li>
 <li>standard library</li>

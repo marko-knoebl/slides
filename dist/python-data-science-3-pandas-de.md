@@ -184,6 +184,14 @@ sp500.to_hdf("data.hdf5", "sp500")
 euribor = pd.read_hdf("data.hdf5", "euribor")
 ```
 
+# Quellen für Beispieldaten
+
+## Quellen für Beispieldaten
+
+- <https://datahub.io>
+- [seaborn data sets](https://github.com/mwaskom/seaborn-data) (click on a file and then on the _raw_ button)
+- [pandas-datareader](https://pydata.github.io/pandas-datareader)
+
 # Statistische Grundwerte
 
 ## Statistische Grundwerte

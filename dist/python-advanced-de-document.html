@@ -630,29 +630,46 @@ print(numbers_iterator.__next__()) <span class="hljs-comment"># StopIteration</s
 <pre><code class="hljs language-py">pairs = [(<span class="hljs-number">1</span>, <span class="hljs-string">'one'</span>), (<span class="hljs-number">2</span>, <span class="hljs-string">'two'</span>), (<span class="hljs-number">3</span>, <span class="hljs-string">'three'</span>), (<span class="hljs-number">4</span>, <span class="hljs-string">'four'</span>)]
 pairs.sort(key=<span class="hljs-keyword">lambda</span> pair: pair[<span class="hljs-number">1</span>])
 </code></pre>
-<h2>Decorators</h2>
-<p>Decorator: Möglichkeit, eine Funktion nach deren Erstellung zu verändern</p>
-<p>Der Decorator ist eine Funktion, die eine Funktion als Parameter übernimmt und eine neue, veränderte Funktion zurückgibt</p>
-<h2>Decorators</h2>
-<pre><code class="hljs language-py"><span class="hljs-meta">@cache</span>
-<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">fib</span><span class="hljs-params">(n)</span>:</span>
+<h2>Funktionen höherer Ordnung</h2>
+<p><em>Funktion höherer Ordnung</em> (<em>higher-order function</em>): eine Funktion, die andere Funktionen als Parameter erhalten kann und/oder eine Funktion zurückgeben kann</p>
+<p>wir erinnern uns: "alles ist eine Objekt" in Python - so auch Funktionen</p>
+<h2>Functools</h2>
+<p>Modul <em>functools</em>: Sammlung von Funktionen höherer Ordnung</p>
+<p>Beispiele:</p>
+<ul>
+<li><code>functools.lru_cache</code></li>
+<li><code>functools.cache</code> (Python 3.9)</li>
+<li><code>functools.partial</code></li>
+<li><code>functools.reduce</code></li>
+</ul>
+<h2>Functools: partial</h2>
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> functools <span class="hljs-keyword">import</span> partial
+open_utf8 = partial(open, encoding=<span class="hljs-string">'utf-8'</span>)
+</code></pre>
+<h2>Functools: Memoisierung / Caching</h2>
+<p><strong>Memoisierung</strong>: Strategie zur Performanceoptimierung:</p>
+<p>Die Rückgabewerte bisheriger Funktionsaufrufe werden gespeichert und bei erneutem Aufruf mit den gleichen Parameterwerten wiederverwendet</p>
+<pre><code class="hljs language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">fibonacci</span><span class="hljs-params">(n)</span>:</span>
+    <span class="hljs-keyword">if</span> n <span class="hljs-keyword">in</span> [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>]:
+        <span class="hljs-keyword">return</span> n
+    <span class="hljs-keyword">return</span> fibonacci(n<span class="hljs-number">-1</span>) + fibonacci(n<span class="hljs-number">-2</span>)
+
+<span class="hljs-comment"># make faster by caching</span>
+fibonacci = lru_cache(fibonacci)
+</code></pre>
+<h2>Decorator-Syntax</h2>
+<p>Decorator-Syntax: einfache Möglichkeit, Funktionen höherer Ordnung auf Funktionsdefinitionen anzuwenden</p>
+<h2>Decorator-Syntax</h2>
+<pre><code class="hljs language-py"><span class="hljs-meta">@lru_cache</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">fibonacci</span><span class="hljs-params">(n)</span>:</span>
     ...
 </code></pre>
 <p>äquivalent zu:</p>
-<pre><code class="hljs language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">fib</span><span class="hljs-params">(n)</span>:</span>
+<pre><code class="hljs language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">fibonacci</span><span class="hljs-params">(n)</span>:</span>
     ...
 
-fib = cache(fib)
+fibonacci = lru_cache(fibonacci)
 </code></pre>
-<h2>Functools</h2>
-<h2>Functools - Beispiel</h2>
-<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> functools <span class="hljs-keyword">import</span> partial
-open_utf8 = partial(open, encoding=<span class="hljs-string">'UTF-8'</span>)
-</code></pre>
-<h2>Memoisation</h2>
-<p>Strategie zur Performanceoptimierung:</p>
-<p>Die Rückgabewerte bisheriger Funktionsaufrufe werden gespeichert und bei erneutem Aufruf mit den gleichen Parameterwerten wiederverwendet</p>
-<p>(Beispiel: Fibonacci)</p>
 <h1>Fortgeschrittene Datentypen</h1>
 <h2>Fortgeschrittene Datentypen</h2>
 <ul>

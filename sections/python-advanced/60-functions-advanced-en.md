@@ -17,42 +17,63 @@ pairs = [(1, 'one'), (2, 'two'), (3, 'three'), (4, 'four')]
 pairs.sort(key=lambda pair: pair[1])
 ```
 
-## Decorators
+## Higher-order functions
 
-Decorators: Enable easily modifying a function to add to its behavior
+A higher-order function is a function that can receive and/or return other functions
 
-The decorator is a function that takes a function as a parameter and returns a new, modified function
+remember: in Python, "everything is an object" - and so are functions
 
-## Decorators
+## Functools
+
+_functools_ module: collection of some higher-order functions
+
+examples:
+
+- `functools.lru_cache`
+- `functools.cache` (Python 3.9)
+- `functools.partial`
+- `functools.reduce`
+
+## Functools: partial
 
 ```py
-@cache
-def fib(n):
+from functools import partial
+open_utf8 = partial(open, encoding='utf-8')
+```
+
+## Functools: memoization / caching
+
+**memoization**: strategy for performance optimization
+
+return values of previous function calls are cached and used on subsequent function calls with the same arguments
+
+```py
+def fibonacci(n):
+    if n in [0, 1]:
+        return n
+    return fibonacci(n-1) + fibonacci(n-2)
+
+# make faster by caching
+fibonacci = lru_cache(fibonacci)
+```
+
+## Decorator syntax
+
+Decorator syntax: simple way of applying higher-order functions to function definitions
+
+## Decorator syntax
+
+```py
+@lru_cache
+def fibonacci(n):
     ...
 ```
 
 is equivalent to:
 
 ```py
-def fib(n):
+def fibonacci(n):
     ...
 
-fib = cache(fib)
+fibonacci = lru_cache(fibonacci)
 ```
-
-## Functools
-
-## Functools - example
-
-```py
-from functools import partial
-open_utf8 = partial(open, encoding='UTF-8')
-```
-
-## Memoisation
-
-strategy for performance optimization
-
-return values of previous function calls are cached and used on subsequent function calls with the same arguments
-
-(example: fibonacci)

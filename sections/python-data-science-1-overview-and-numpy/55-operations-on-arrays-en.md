@@ -106,7 +106,7 @@ np.sum(a2d, axis=1)
 
 (see next slides)
 
-- prices and amounts -> total price
+- prices and amounts → total price
 - kinetic energy
 - centroid of a triangle
 - sine and cosine - value table

@@ -8,8 +8,8 @@ Speicherformat:
 (-) 2^e * s
 ```
 
-- s ... _Signifikand_ / _Koeffizient_
 - e ... _Exponent_
+- s ... _Signifikand_ / _Koeffizient_
 
 ## Beispiele
 

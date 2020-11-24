@@ -1336,10 +1336,10 @@ urllib.request.urlopen(...)
 
 ## Eigene Module
 
-Ziel: Erstellen eines eigenen Moduls, das wie folgend verwendet werden kann:
+Ziel: Erstellen eines lokalen eigenen Moduls, das wie folgt verwendet werden kann:
 
 ```py
-from foo import a, b
+from .foo import a, b
 ```
 
 ## Eigene Module
@@ -1389,7 +1389,7 @@ from _b_mod import b
 Ziel: Erstellen eines eigenen Pakets, das wie folgt verwendet werden kann:
 
 ```py
-from foo import bar
+from .foo import bar
 
 print(bar.a)
 print(bar.b)
@@ -1404,7 +1404,7 @@ print(bar.b)
 
 ## Auflösen von Imports
 
-Suchreihenfolge:
+Suchreihenfolge von absoluten Imports:
 
 - Verzeichnis, in dem das ursprünglich ausgeführte Python Skript liegt
 - Standardlibrary
