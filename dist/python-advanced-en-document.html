@@ -1,33 +1,4 @@
 <h1>Python Advanced</h1>
-<h2>Slides</h2>
-<p><a href="https://marko-knoebl.github.io/slides/">https://marko-knoebl.github.io/slides/</a></p>
-<h2>Your Trainer</h2>
-<p>Marko Knöbl</p>
-<ul>
-<li>based in Vienna</li>
-<li>former math teacher</li>
-<li>programming topics:<ul>
-<li>JavaScript, TypeScript and React</li>
-<li>Python, data science</li>
-</ul></li>
-</ul>
-<h2>Introduction of Participants</h2>
-<ul>
-<li>current projects</li>
-<li>prior knowledge</li>
-<li>expectations</li>
-</ul>
-<h2>Organizational</h2>
-<ul>
-<li>duration</li>
-<li>breaks</li>
-<li>lunch</li>
-<li>materials</li>
-<li>questions, feedback?</li>
-</ul>
-<h2>Code</h2>
-<p>Code available at: <a href="https://github.com/marko-knoebl/courses-code">https://github.com/marko-knoebl/courses-code</a></p>
-<h1>Topics</h1>
 <h2>Topics</h2>
 <ul>
 <li>logging</li>
@@ -40,7 +11,8 @@
 <li>inheritance</li>
 </ul></li>
 <li>iterators</li>
-<li>functions - advanced: lambdas, decorators, functools, memoization</li>
+<li>lambdas</li>
+<li>higher-order functions</li>
 <li>advanced data types: set, namedtuple, enum</li>
 <li>parallelization: threads and multiprocessing</li>
 </ul>
@@ -217,9 +189,9 @@ Link to `Wikipedia`_.
 <h2>Collections</h2>
 <pre><code class="hljs language-py"><span class="hljs-keyword">from</span> typing <span class="hljs-keyword">import</span> List, Set, Dict, Tuple
 
-names: List[int] = [<span class="hljs-string">'Anna'</span>, <span class="hljs-string">'Bernd'</span>, <span class="hljs-string">'Caro'</span>]
-anna: Tuple[str, str, int] = (<span class="hljs-string">'Anna'</span>, <span class="hljs-string">'Berger'</span>, <span class="hljs-number">1990</span>)
-roman: Dict[int, str] = {<span class="hljs-number">1</span>: <span class="hljs-string">'I'</span>, <span class="hljs-number">2</span>: <span class="hljs-string">'II'</span>, <span class="hljs-number">3</span>: <span class="hljs-string">'III'</span>, <span class="hljs-number">4</span>: <span class="hljs-string">'IV'</span>}
+names: List[str] = [<span class="hljs-string">'Anna'</span>, <span class="hljs-string">'Bernd'</span>, <span class="hljs-string">'Caro'</span>]
+person: Tuple[str, str, int] = (<span class="hljs-string">'Anna'</span>, <span class="hljs-string">'Berger'</span>, <span class="hljs-number">1990</span>)
+roman_numerals: Dict[int, str] = {<span class="hljs-number">1</span>: <span class="hljs-string">'I'</span>, <span class="hljs-number">2</span>: <span class="hljs-string">'II'</span>, <span class="hljs-number">3</span>: <span class="hljs-string">'III'</span>, <span class="hljs-number">4</span>: <span class="hljs-string">'IV'</span>}
 </code></pre>
 <pre><code class="hljs language-py"><span class="hljs-keyword">from</span> typing <span class="hljs-keyword">import</span> Iterable
 
@@ -316,6 +288,14 @@ print(r.area) <span class="hljs-comment"># 16</span>
         self.length = new_area / self.width
 </code></pre>
 <h1>OOP: Static attributes and methods</h1>
+<h2>Static attributes and methods</h2>
+<p><em>static attributes</em> and <em>static methods</em> are associated with a class, but not with any specific instance of it</p>
+<p>example: <em>static attributes</em> and <em>static methods</em> of the <em>datetime</em> class:</p>
+<ul>
+<li><code>datetime.today()</code></li>
+<li><code>datetime.fromisoformat()</code></li>
+<li><code>datetime.resolution</code></li>
+</ul>
 <h2>Class attributes (static attributes)</h2>
 <p><em>Class attributes</em> are attributes that are only defined on the class (not on each instance) - all instances share these attributes.</p>
 <h2>Class attributes (static attributes)</h2>
@@ -623,7 +603,7 @@ print(numbers_iterator.__next__()) <span class="hljs-comment"># StopIteration</s
 <ul>
 <li><code>is_prime()</code> with loops and <code>for ... else</code></li>
 </ul>
-<h1>Functions - advanced</h1>
+<h1>Lambdas</h1>
 <h2>Lambdas</h2>
 <p>defining a lambda function (anonymous function):</p>
 <pre><code class="hljs language-py">multiply = <span class="hljs-keyword">lambda</span> a, b: a * b
@@ -633,6 +613,7 @@ print(numbers_iterator.__next__()) <span class="hljs-comment"># StopIteration</s
 <pre><code class="hljs language-py">pairs = [(<span class="hljs-number">1</span>, <span class="hljs-string">'one'</span>), (<span class="hljs-number">2</span>, <span class="hljs-string">'two'</span>), (<span class="hljs-number">3</span>, <span class="hljs-string">'three'</span>), (<span class="hljs-number">4</span>, <span class="hljs-string">'four'</span>)]
 pairs.sort(key=<span class="hljs-keyword">lambda</span> pair: pair[<span class="hljs-number">1</span>])
 </code></pre>
+<h1>Higher-order functions</h1>
 <h2>Higher-order functions</h2>
 <p>A higher-order function is a function that can receive and/or return other functions</p>
 <p>remember: in Python, "everything is an object" - and so are functions</p>
@@ -663,7 +644,7 @@ fibonacci = lru_cache(fibonacci)
 <h2>Decorator syntax</h2>
 <p>Decorator syntax: simple way of applying higher-order functions to function definitions</p>
 <h2>Decorator syntax</h2>
-<pre><code class="hljs language-py"><span class="hljs-meta">@lru_cache</span>
+<pre><code class="hljs language-py"><span class="hljs-meta">@lru_cache  # Python >= 3.8</span>
 <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">fibonacci</span><span class="hljs-params">(n)</span>:</span>
     ...
 </code></pre>

@@ -5,15 +5,15 @@
 Operators are applied element-wise:
 
 ```py
-a = np.array([1, 2, 3])
-b = np.array([2, 2, 2])
+a = np.array([0, 1, 2, 3])
+b = np.array([2, 2, 2, 2])
 
 -a
-# np.array([-1, -2, -3])
+# np.array([0, -1, -2, -3])
 a + b
-# np.array([3, 4, 5])
+# np.array([2, 3, 4, 5])
 a * b
-# np.array([2, 4, 6])
+# np.array([0, 2, 4, 6])
 ```
 
 ## Operators
@@ -22,9 +22,9 @@ element-wise comparison of arrays:
 
 ```py
 a < b
-# np.array([True, False, False])
+# np.array([True, True, False, False])
 a == b
-# np.array([False, True, False])
+# np.array([False, False, True, False])
 ```
 
 Warning: `a == b` cannot be used reasonably in if statements - use `np.array_equal(a, b)`
@@ -34,10 +34,8 @@ Warning: `a == b` cannot be used reasonably in if statements - use `np.array_equ
 operations with single numbers (broadcasting):
 
 ```py
-a = np.array([1, 2, 3])
-
 print(a + 1)
-# np.array([2, 3, 4])
+# np.array([1, 2, 3, 4])
 ```
 
 Some constants are available directly in NumPy:
@@ -53,8 +51,6 @@ print(np.nan)
 NumPy provides some mathematical functions that are applied element-wise:
 
 ```py
-a = np.array([0, 1, 2, 3])
-
 print(np.sin(a))
 # [0.0, 0.84147098, 0.9... ]
 print(np.sqrt(a))
@@ -70,6 +66,7 @@ print(np.sqrt(a))
 - `exp`
 - `log`
 - `log10`
+- `round`
 - ...
 
 ## Aggregation functions

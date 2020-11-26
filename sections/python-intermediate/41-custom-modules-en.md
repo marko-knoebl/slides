@@ -2,24 +2,6 @@
 
 ## Custom modules
 
-Goal: creating a local custom module that can be used like this:
-
-```py
-from .foo import a, b
-```
-
-## Custom modules
-
-Simple module as a Python file:
-
-```py
-# foo.py
-a = 1
-b = 2
-```
-
-## Custom modules
-
 Module as a directory:
 
 ```
@@ -46,37 +28,9 @@ Module as a directory with separated defintions:
 
 ```py
 # __init__.py
-from ._a_mod import a
-from ._b_mod import b
+from foo._a_mod import a
+from foo._b_mod import b
 ```
-
-## Custom packages
-
-Goal: creating a custom package that can be used like this:
-
-```py
-from .foo import bar
-
-print(bar.a)
-print(bar.b)
-```
-
-## Custom packages
-
-```
-- foo/
-  - bar.py
-```
-
-## Resolving imports
-
-Search order of absolute imports:
-
-- directory of the Python script that was executed
-- standard library
-- external libraries
-
-Avoid name clashes with existing modules / packages!
 
 ## Resolving imports
 
@@ -92,3 +46,14 @@ print(sys.path)
 Imported modules will be saved in a compiled form, making subsequent loading of the modules faster.
 
 Compiled versions will be saved in the folder `__pycache__`
+
+## Module name and entrypoint
+
+inside a an imported module, the variable `__name__` gives its name
+
+if a Python file was run directly instead of being imported, its `__name__` will be `"__main__"`
+
+```py
+if __name__ == "__main__":
+    print("this file was run directly (and not imported)")
+```

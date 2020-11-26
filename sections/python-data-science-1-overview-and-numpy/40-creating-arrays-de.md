@@ -10,27 +10,32 @@ np.zeros((2, 6))
 np.full((2, 6), 0.0)
 ```
 
-Ein 3x3 Array mit Zufallswerten:
+## Arrays erstellen
+
+Zahlenfolgen erstellen:
 
 ```py
-# floats between 0 and 1:
-np.random.random((3, 3))
-# integers between 1 and 6:
-np.random.randint(1, 7, (3, 3))
+np.linspace(0, 1.0, 11)
+# [0.0, 0.1, ... 1.0]
+```
+
+```py
+np.arange(0, 3.14, 0.1)
+# [0.0, 0.1, ... 3.1]
 ```
 
 ## Arrays erstellen
 
-Erstellen der Folge _0.0, 0.5, 1.0, 1.5_:
-
-fixe Schrittweite (0.5):
+Ein 2x2 Array mit Zufallswerten:
 
 ```py
-a = np.arange(0, 2, 0.5)
+# create a random number generator
+rng = np.random.default_rng(seed=1)
+
+# floats between 0 and 1:
+rng.random((2, 2))
+# integers between 1 and 6:
+rng.integers(1, 7, (2, 2))
 ```
 
-fixe Anzahl an Einträgen (4):
-
-```py
-b = np.linspace(0, 1.5, 4)
-```
+älteres Interface: `np.random.random()` und `np.random.randint()`

@@ -35,9 +35,9 @@ def double(n: int) -> int:
 ```py
 from typing import List, Set, Dict, Tuple
 
-names: List[int] = ['Anna', 'Bernd', 'Caro']
-anna: Tuple[str, str, int] = ('Anna', 'Berger', 1990)
-roman: Dict[int, str] = {1: 'I', 2: 'II', 3: 'III', 4: 'IV'}
+names: List[str] = ['Anna', 'Bernd', 'Caro']
+person: Tuple[str, str, int] = ('Anna', 'Berger', 1990)
+roman_numerals: Dict[int, str] = {1: 'I', 2: 'II', 3: 'III', 4: 'IV'}
 ```
 
 ```py

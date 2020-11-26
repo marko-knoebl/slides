@@ -1,39 +1,5 @@
 # Python Fortgeschritten
 
-## Präsentationen
-
-<https://marko-knoebl.github.io/slides/>
-
-## Ihr Trainer
-
-Marko Knöbl
-
-- aus Wien
-- ehemaliger Mathematiklehrer
-- Programmierthemen:
-  - JavaScript, TypeScript und React
-  - Python, Data Science
-
-## Vorstellung der Teilnehmer
-
-- Aktuelle Projekte
-- Vorkenntnisse
-- Erwartungen / Wünsche
-
-## Organisatorisches
-
-- Kursdauer
-- Pausen
-- Mittagessen
-- Unterlagen
-- Fragen, Feedback? - Jederzeit erwünscht
-
-## Code
-
-Code verfügbar unter: <https://github.com/marko-knoebl/courses-code>
-
-# Themen
-
 ## Themen
 
 - Logging
@@ -45,7 +11,8 @@ Code verfügbar unter: <https://github.com/marko-knoebl/courses-code>
   - magic Methods
   - Vererbung
 - Iterators
-- Funktionen - fortgeschritten: Lambdas, Decorators, functools, Memoisation
+- Lambdas
+- Higher-order Functions
 - weitere Datentypen: set, namedtuple, enum
 - Parallelisierung: threads und multiprocessing
 
@@ -309,9 +276,9 @@ def double(n: int) -> int:
 ```py
 from typing import List, Set, Dict, Tuple
 
-names: List[int] = ['Anna', 'Bernd', 'Caro']
-anna: Tuple[str, str, int] = ('Anna', 'Berger', 1990)
-roman: Dict[int, str] = {1: 'I', 2: 'II', 3: 'III', 4: 'IV'}
+names: List[str] = ['Anna', 'Bernd', 'Caro']
+person: Tuple[str, str, int] = ('Anna', 'Berger', 1990)
+roman_numerals: Dict[int, str] = {1: 'I', 2: 'II', 3: 'III', 4: 'IV'}
 ```
 
 ```py
@@ -443,6 +410,16 @@ class Rectangle:
 ```
 
 # OOP: Statische Attribute und Methoden
+
+## Statische Attribute und Methoden
+
+_Statische Attribute_ und _Statische Methoden_ sind mit einer Klasse assoziiert, jedoch nicht mit einer spezifischen Instanz davon
+
+Beispiel anhand der _datetime_-Klasse:
+
+- `datetime.today()`
+- `datetime.fromisoformat()`
+- `datetime.resolution`
 
 ## Klassenattribute (statische Attribute)
 
@@ -898,7 +875,7 @@ Diese Funktionalität gibt es bei keiner anderen verbreiteten Programmiersprache
 
 - `is_prime()` mit Schleifen und `for ... else`
 
-# Funktionen - Fortgeschritten
+# Lambdas
 
 ## Lambdas
 
@@ -916,6 +893,8 @@ Verwenden eines Lambdas zum Sortieren:
 pairs = [(1, 'one'), (2, 'two'), (3, 'three'), (4, 'four')]
 pairs.sort(key=lambda pair: pair[1])
 ```
+
+# Funktionen höherer Ordnung
 
 ## Funktionen höherer Ordnung
 
@@ -964,7 +943,7 @@ Decorator-Syntax: einfache Möglichkeit, Funktionen höherer Ordnung auf Funktio
 ## Decorator-Syntax
 
 ```py
-@lru_cache
+@lru_cache  # Python >= 3.8
 def fibonacci(n):
     ...
 ```

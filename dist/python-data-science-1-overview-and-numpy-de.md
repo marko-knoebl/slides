@@ -264,6 +264,54 @@ Wir können folgendes abfragen:
 - `a3d.ndim`: 3
 - `a3d.size`: 8
 
+# Mehr als ein Weg
+
+## Mehr als ein Weg
+
+aus dem _Zen of Python_:
+
+> There should be one-- and preferably only one --obvious way to do it.
+
+diese Philosophie wird bei _NumPy_ oft _nicht_ angewendet
+
+## Mehr als ein Weg
+
+Beispiel: Transponieren eines Arrays
+
+```py
+a2d.T
+a2d.transpose()
+np.transpose(a2d)
+```
+
+## NumPy Funktionen vs Array-Methoden
+
+viele Operationen sind auf zwei Arten verfügbar:
+
+- Funktionen im `numpy`-Paket
+- Methoden der `array`-Klasse
+
+wir werden meist Funktionen verwenden
+
+## NumPy Funktionen vs Array-Methoden
+
+verfügbar als Funktionen und Methoden:
+
+```py
+np.max(a2d)
+a2d.max()
+np.round(a2d)
+a2d.round()
+```
+
+nur als Funktionen verfügbar:
+
+```py
+np.sin(a2d)
+np.exp(a2d)
+np.expand_dims(a2d, 2)
+```
+
 # Numerische Typen
 
 ## Numerische Typen
@@ -274,14 +322,14 @@ Wir können folgendes abfragen:
 
 ## Int
 
-ein _int8_ besteht aus 8 bits und kann 256 verschiedene Zahlen darstellen
+ein _int8_ besteht aus 8 bits und kann 2^8 (256) verschiedene Zahlen darstellen
 
-Integer mit verschiedenen bit-Größen können unterschiedliche Zahlen darstellen:
+Anzahl an darstellbaren Zahlen:
 
-- _int8_: 256 Zahlen (-128 bis +127)
-- _int16_: 65,536 Zahlen (-32,768 bis +32,767)
-- _int32_: 4,294,967,296 Zahlen
-- _int64_: 18,446,744,073,709,551,616 Zahlen
+- _int8_: 256 (-128 bis +127)
+- _int16_: 65,536 (-32,768 bis +32,767)
+- _int32_: 4,294,967,296
+- _int64_: 18,446,744,073,709,551,616
 
 ## Int
 
@@ -309,11 +357,11 @@ wichtige Gleitkommatypen:
 
 Beispiele im Dezimalsystem: 1/3, 1/7, π
 
-Beispiele im Binärsystem: 1/10, 1/5, 1/3, π
+Beispiele im Binärsystem (_floats_): 1/10, 1/5, 1/3, π
 
-Beispiel: `0.1 + 0.2` wird zu `0.30000000000000004` ausgewertet, wenn wir 64-bit floats verwenden
+Beispiel: π + π ergibt `6.2`, wenn wir Dezimalzahlen mit 2 Stellen verwenden (besseres Ergebnis wäre `6.3`)
 
-Beispiel: π + π wird zu `6.2` ausgewertet, wenn wir Dezimalzahlen mit 2 Stellen verwenden (besseres Ergebnis wäre `6.3`)
+Beispiel: `0.1 + 0.2` ergibt ~ `0.30000000000000004`, wenn wir 64-bit floats verwenden
 
 ## Float
 
@@ -454,29 +502,6 @@ wichtige Typen:
 - _uint8_, _uint16_, _uint32_, _uint64_
 - _float16_, _float32_, _float64_
 
-## Integer Typen
-
-Ein _int8_ kann 2^8 (256) verschiedene Zahlen repräsentieren
-
-Anzahlen für andere Integertypen:
-
-- _int8_: 256 (-128 bis +127)
-- _int16_: 65,536 (-32768 bis +32767)
-- _int32_: 4,294,967,296
-- _int64_: 18,446,744,073,709,551,616
-
-## Integer Typen
-
-```py
-np.array([127, 128, 129], dtype="int8")
-```
-
-Output (Integer Overflow):
-
-```py
-array([127, -128, -127])
-```
-
 ## Float Typen
 
 Genauigkeit für float Typen:
@@ -527,30 +552,35 @@ np.zeros((2, 6))
 np.full((2, 6), 0.0)
 ```
 
-Ein 3x3 Array mit Zufallswerten:
+## Arrays erstellen
+
+Zahlenfolgen erstellen:
 
 ```py
-# floats between 0 and 1:
-np.random.random((3, 3))
-# integers between 1 and 6:
-np.random.randint(1, 7, (3, 3))
+np.linspace(0, 1.0, 11)
+# [0.0, 0.1, ... 1.0]
+```
+
+```py
+np.arange(0, 3.14, 0.1)
+# [0.0, 0.1, ... 3.1]
 ```
 
 ## Arrays erstellen
 
-Erstellen der Folge _0.0, 0.5, 1.0, 1.5_:
-
-fixe Schrittweite (0.5):
+Ein 2x2 Array mit Zufallswerten:
 
 ```py
-a = np.arange(0, 2, 0.5)
+# create a random number generator
+rng = np.random.default_rng(seed=1)
+
+# floats between 0 and 1:
+rng.random((2, 2))
+# integers between 1 and 6:
+rng.integers(1, 7, (2, 2))
 ```
 
-fixe Anzahl an Einträgen (4):
-
-```py
-b = np.linspace(0, 1.5, 4)
-```
+älteres Interface: `np.random.random()` und `np.random.randint()`
 
 # Auswählen von Array-Einträgen
 
@@ -609,15 +639,15 @@ gleiches funktioniert mit Python-Listen
 Operatoren werden elementweise angewendet:
 
 ```py
-a = np.array([1, 2, 3])
-b = np.array([2, 2, 2])
+a = np.array([0, 1, 2, 3])
+b = np.array([2, 2, 2, 2])
 
 -a
-# np.array([-1, -2, -3])
+# np.array([0, -1, -2, -3])
 a + b
-# np.array([3, 4, 5])
+# np.array([2, 3, 4, 5])
 a * b
-# np.array([2, 4, 6])
+# np.array([0, 2, 4, 6])
 ```
 
 ## Vergleiche
@@ -626,9 +656,9 @@ Elementweises Vergleichen von Arrays:
 
 ```py
 a < b
-# np.array([True, False, False])
+# np.array([True, True, False, False])
 a == b
-# np.array([False, True, False])
+# np.array([False, False, True, False])
 ```
 
 Achtung: `a == b` kann nicht sinnvoll in if-Abfragen verwendet werden - verwende `np.array_equal(a, b)`.
@@ -638,10 +668,8 @@ Achtung: `a == b` kann nicht sinnvoll in if-Abfragen verwendet werden - verwende
 Auch mit einzelnen Zahlen möglich (broadcasting):
 
 ```py
-a = np.array([1, 2, 3])
-
 print(a + 1)
-# np.array([2, 3, 4])
+# np.array([1, 2, 3, 4])
 ```
 
 Einige Konstanten sind direkt in NumPy verfügbar:
@@ -657,8 +685,6 @@ print(np.nan)
 NumPy bietet spezielle Funktionen, die elementweise angewendet werden:
 
 ```py
-a = np.array([0, 1, 2, 3])
-
 print(np.sin(a))
 # [0.0, 0.84147098, 0.9... ]
 print(np.sqrt(a))
@@ -674,6 +700,7 @@ print(np.sqrt(a))
 - `exp`
 - `log`
 - `log10`
+- `round`
 - ...
 
 ## Aggregationen
@@ -783,7 +810,7 @@ a_filtered = a[a_valid]
 # array([4.1, 2.7, 3.8])
 
 a_invalid = a < 0
-a_with_nans = a.copy()
+a_with_nans = np.copy(a)
 a_with_nans[a_invalid] = np.nan
 # array([4.1, 2.7, nan, 3.8, nan])
 ```
@@ -795,7 +822,7 @@ a = np.array([4.1, 2.7, -1, 3.8, -1])
 
 a_filtered = a[a > 0]
 
-a_with_nans = a.copy()
+a_with_nans = np.copy(a)
 a_with_nans[a_with_nans < 0] = np.nan
 ```
 
@@ -804,11 +831,16 @@ a_with_nans[a_with_nans < 0] = np.nan
 ## Form von Arrays ändern
 
 ```py
-a3d.ravel() # 1d array
-a3d.reshape(8) # 1d array
-a3d.reshape(2, 4) # 2x4 array
-a3d.reshape(2, -1) # automatic second dimension
-a2d.T # transposed
+np.reshape(a3d, (8, )) # 1d array
+np.reshape(a3d, (2, 4)) # 2d array
+```
+
+Automatische Größe entlang einer Achse:
+
+```py
+np.ravel(a3d) # 1d array
+np.reshape(a3d, (-1, )) # 1d array
+np.reshape(a3d, (2, -1)) # 2d array
 ```
 
 ## Dimensionalität erhöhen
@@ -828,6 +860,16 @@ Alternative:
 a2d[:, :, np.newaxis]
 ```
 
+## Transponieren
+
+Umkehren der Achsenreihenfolge:
+
+```py
+np.transpose(a2d)
+
+a2d.T
+```
+
 ## Slices als Views
 
 In Python können wir eine flache Kopie einer Liste erstellen, indem wir sie slicen - dies ist in NumPy nicht so (um die Effizienz zu steigern):
@@ -844,7 +886,7 @@ array_view[0] = 10 # DOES change array
 
 ## Arrays kopieren
 
-Arrays können via `array.copy()` kopiert werden
+Arrays können via `np.copy()` kopiert werden
 
 ## Arrays aneinanderfügen
 
@@ -856,34 +898,33 @@ np.concatenate([a2d, a2d])
 np.concatenate([a2d, a2d], axis=1)
 ```
 
-## Matrix-Multiplikation / Array-Multiplikation
+# Lineare Algebra
+
+## Lineare Algebra
+
+```py
+np.transpose(m)
+np.linalg.inv(m)
+np.eye(2) # unit matrix
+```
+
+## Array-Multiplikation
 
 mittels des binären Operators `@`
 
-```py
-a = np.array([1, 1])
-
-m = np.array([[0.707, 0.707],
-              [-0.707, 0.707]])
-
-print(a @ m)
-# array([0.   , 1.414])
-```
-
-## Matrix-Multiplikation
-
-Rotation verschiedener Punkte um 45° gegen den Uhrzeigersinn:
+Beispiel: Rotation verschiedener Punkte um 45° bzw 90° (gegen den Uhrzeigersinn):
 
 ```py
 points = np.array([[0, 0], [0, 1], [1, 1], [1, 0]])
 
-m = np.array([[0.707, 0.707],
-              [-0.707, 0.707]])
+m = np.array([[np.sqrt(0.5), np.sqrt(0.5)],
+              [-np.sqrt(0.5), np.sqrt(0.5)]])
 
 print(points @ m)
+print(points @ m @ m)
 ```
 
-## Matrix-Multiplikation
+## Array-Multiplikation
 
 Beispiel:
 

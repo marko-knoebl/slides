@@ -1,4 +1,4 @@
-# Welcome!
+# Willkommen!
 
 ## Euer Trainer
 

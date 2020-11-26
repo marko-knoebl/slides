@@ -48,15 +48,29 @@ e = float('inf')
 
 ## float
 
-warning on rounding errors: some numbers cannot be represented as floating point numbers, they will always be approximations
+**rounding errors**: some numbers cannot be represented as floating point numbers, they will always be approximations
 
-examples in the decimal system: _1/3_, _1/7_
+examples in the decimal system: 1/3, 1/7, π
 
-examples in the binary system (i.e. `float`): _1/10_, _1/5_, _1/3_
+examples in the binary system (i.e. _floats_): 1/10, 1/5, 1/3, π
 
-example: `0.1 + 0.2` evaluates to `0.30000000000000004`
+example: π + π evaluates to `6.2` when using decimal numbers with a precision of 2 (a more exact result would be `6.3`)
 
-In general a 64-bit float will be exact for about 16 decimal places.
+example: `0.1 + 0.2` evaluates to ~ `0.30000000000000004` when using 64 bit floats
+
+## float
+
+```py
+0.1 + 0.2 == 0.3
+# False
+```
+
+```py
+import math
+
+math.isclose(0.1 + 0.2, 0.3)
+# True
+```
 
 ## float
 

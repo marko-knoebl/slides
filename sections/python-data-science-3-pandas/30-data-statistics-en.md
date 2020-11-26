@@ -1,15 +1,9 @@
 # Data statistics
 
-## Data statistics
+## Statistics on series
 
 ```py
-df.describe()
-```
-
-## Statistics on a data frames / series
-
-```py
-countries.area.describe()
+countries["area"].describe()
 ```
 
 ```txt
@@ -29,7 +23,7 @@ dtype: float64
 ## Statistics on series
 
 ```py
-countries.area.describe()
+countries["area"].describe()
 ```
 
 The above computes the following data:

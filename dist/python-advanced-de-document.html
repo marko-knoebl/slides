@@ -1,33 +1,4 @@
 <h1>Python Fortgeschritten</h1>
-<h2>Präsentationen</h2>
-<p><a href="https://marko-knoebl.github.io/slides/">https://marko-knoebl.github.io/slides/</a></p>
-<h2>Ihr Trainer</h2>
-<p>Marko Knöbl</p>
-<ul>
-<li>aus Wien</li>
-<li>ehemaliger Mathematiklehrer</li>
-<li>Programmierthemen:<ul>
-<li>JavaScript, TypeScript und React</li>
-<li>Python, Data Science</li>
-</ul></li>
-</ul>
-<h2>Vorstellung der Teilnehmer</h2>
-<ul>
-<li>Aktuelle Projekte</li>
-<li>Vorkenntnisse</li>
-<li>Erwartungen / Wünsche</li>
-</ul>
-<h2>Organisatorisches</h2>
-<ul>
-<li>Kursdauer</li>
-<li>Pausen</li>
-<li>Mittagessen</li>
-<li>Unterlagen</li>
-<li>Fragen, Feedback? - Jederzeit erwünscht</li>
-</ul>
-<h2>Code</h2>
-<p>Code verfügbar unter: <a href="https://github.com/marko-knoebl/courses-code">https://github.com/marko-knoebl/courses-code</a></p>
-<h1>Themen</h1>
 <h2>Themen</h2>
 <ul>
 <li>Logging</li>
@@ -40,7 +11,8 @@
 <li>Vererbung</li>
 </ul></li>
 <li>Iterators</li>
-<li>Funktionen - fortgeschritten: Lambdas, Decorators, functools, Memoisation</li>
+<li>Lambdas</li>
+<li>Higher-order Functions</li>
 <li>weitere Datentypen: set, namedtuple, enum</li>
 <li>Parallelisierung: threads und multiprocessing</li>
 </ul>
@@ -217,9 +189,9 @@ Link to `Wikipedia`_.
 <h2>Kollektionen</h2>
 <pre><code class="hljs language-py"><span class="hljs-keyword">from</span> typing <span class="hljs-keyword">import</span> List, Set, Dict, Tuple
 
-names: List[int] = [<span class="hljs-string">'Anna'</span>, <span class="hljs-string">'Bernd'</span>, <span class="hljs-string">'Caro'</span>]
-anna: Tuple[str, str, int] = (<span class="hljs-string">'Anna'</span>, <span class="hljs-string">'Berger'</span>, <span class="hljs-number">1990</span>)
-roman: Dict[int, str] = {<span class="hljs-number">1</span>: <span class="hljs-string">'I'</span>, <span class="hljs-number">2</span>: <span class="hljs-string">'II'</span>, <span class="hljs-number">3</span>: <span class="hljs-string">'III'</span>, <span class="hljs-number">4</span>: <span class="hljs-string">'IV'</span>}
+names: List[str] = [<span class="hljs-string">'Anna'</span>, <span class="hljs-string">'Bernd'</span>, <span class="hljs-string">'Caro'</span>]
+person: Tuple[str, str, int] = (<span class="hljs-string">'Anna'</span>, <span class="hljs-string">'Berger'</span>, <span class="hljs-number">1990</span>)
+roman_numerals: Dict[int, str] = {<span class="hljs-number">1</span>: <span class="hljs-string">'I'</span>, <span class="hljs-number">2</span>: <span class="hljs-string">'II'</span>, <span class="hljs-number">3</span>: <span class="hljs-string">'III'</span>, <span class="hljs-number">4</span>: <span class="hljs-string">'IV'</span>}
 </code></pre>
 <pre><code class="hljs language-py"><span class="hljs-keyword">from</span> typing <span class="hljs-keyword">import</span> Iterable
 
@@ -316,6 +288,14 @@ print(r.area) <span class="hljs-comment"># 16</span>
         self.length = new_area / self.width
 </code></pre>
 <h1>OOP: Statische Attribute und Methoden</h1>
+<h2>Statische Attribute und Methoden</h2>
+<p><em>Statische Attribute</em> und <em>Statische Methoden</em> sind mit einer Klasse assoziiert, jedoch nicht mit einer spezifischen Instanz davon</p>
+<p>Beispiel anhand der <em>datetime</em>-Klasse:</p>
+<ul>
+<li><code>datetime.today()</code></li>
+<li><code>datetime.fromisoformat()</code></li>
+<li><code>datetime.resolution</code></li>
+</ul>
 <h2>Klassenattribute (statische Attribute)</h2>
 <p><em>Klassenattribute</em> sind Attribute, die nur auf der Klasse (nicht auf jeder Instanz) definiert sind - alle Instanzen teilen sich die Attribute.</p>
 <h2>Klassenattribute (statische Attribute)</h2>
@@ -620,7 +600,7 @@ print(numbers_iterator.__next__()) <span class="hljs-comment"># StopIteration</s
 <ul>
 <li><code>is_prime()</code> mit Schleifen und <code>for ... else</code></li>
 </ul>
-<h1>Funktionen - Fortgeschritten</h1>
+<h1>Lambdas</h1>
 <h2>Lambdas</h2>
 <p>Definieren einer Lambda-Funktion (anonymen Funktion):</p>
 <pre><code class="hljs language-py">multiply = <span class="hljs-keyword">lambda</span> a, b: a * b
@@ -630,6 +610,7 @@ print(numbers_iterator.__next__()) <span class="hljs-comment"># StopIteration</s
 <pre><code class="hljs language-py">pairs = [(<span class="hljs-number">1</span>, <span class="hljs-string">'one'</span>), (<span class="hljs-number">2</span>, <span class="hljs-string">'two'</span>), (<span class="hljs-number">3</span>, <span class="hljs-string">'three'</span>), (<span class="hljs-number">4</span>, <span class="hljs-string">'four'</span>)]
 pairs.sort(key=<span class="hljs-keyword">lambda</span> pair: pair[<span class="hljs-number">1</span>])
 </code></pre>
+<h1>Funktionen höherer Ordnung</h1>
 <h2>Funktionen höherer Ordnung</h2>
 <p><em>Funktion höherer Ordnung</em> (<em>higher-order function</em>): eine Funktion, die andere Funktionen als Parameter erhalten kann und/oder eine Funktion zurückgeben kann</p>
 <p>wir erinnern uns: "alles ist eine Objekt" in Python - so auch Funktionen</p>
@@ -660,7 +641,7 @@ fibonacci = lru_cache(fibonacci)
 <h2>Decorator-Syntax</h2>
 <p>Decorator-Syntax: einfache Möglichkeit, Funktionen höherer Ordnung auf Funktionsdefinitionen anzuwenden</p>
 <h2>Decorator-Syntax</h2>
-<pre><code class="hljs language-py"><span class="hljs-meta">@lru_cache</span>
+<pre><code class="hljs language-py"><span class="hljs-meta">@lru_cache  # Python >= 3.8</span>
 <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">fibonacci</span><span class="hljs-params">(n)</span>:</span>
     ...
 </code></pre>

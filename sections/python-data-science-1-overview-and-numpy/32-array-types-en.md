@@ -44,29 +44,6 @@ common types:
 - _uint8_, _uint16_, _uint32_, _uint64_
 - _float16_, _float32_, _float64_
 
-## Integer types
-
-An _int8_ can represent 2^8 (256) different numbers
-
-number of representable values for integer types:
-
-- _int8_: 256 (-128 to +127)
-- _int16_: 65,536 (-32768 to +32767)
-- _int32_: 4,294,967,296
-- _int64_: 18,446,744,073,709,551,616
-
-## Integer types
-
-```py
-np.array([127, 128, 129], dtype="int8")
-```
-
-output (integer overflow):
-
-```py
-array([127, -128, -127])
-```
-
 ## Float types
 
 precision for float types:
@@ -74,8 +51,6 @@ precision for float types:
 - _float16_: ~3 decimal digits
 - _float32_: ~7 decimal digits
 - _float64_: ~16 decimal digits
-
-floats are also limited in how big or small they can be
 
 ## Float types
 

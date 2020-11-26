@@ -44,29 +44,6 @@ wichtige Typen:
 - _uint8_, _uint16_, _uint32_, _uint64_
 - _float16_, _float32_, _float64_
 
-## Integer Typen
-
-Ein _int8_ kann 2^8 (256) verschiedene Zahlen repräsentieren
-
-Anzahlen für andere Integertypen:
-
-- _int8_: 256 (-128 bis +127)
-- _int16_: 65,536 (-32768 bis +32767)
-- _int32_: 4,294,967,296
-- _int64_: 18,446,744,073,709,551,616
-
-## Integer Typen
-
-```py
-np.array([127, 128, 129], dtype="int8")
-```
-
-Output (Integer Overflow):
-
-```py
-array([127, -128, -127])
-```
-
 ## Float Typen
 
 Genauigkeit für float Typen:

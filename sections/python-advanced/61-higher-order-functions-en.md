@@ -1,21 +1,4 @@
-# Functions - advanced
-
-## Lambdas
-
-defining a lambda function (anonymous function):
-
-```py
-multiply = lambda a, b: a * b
-```
-
-## Lambdas
-
-using a lambda for sorting:
-
-```py
-pairs = [(1, 'one'), (2, 'two'), (3, 'three'), (4, 'four')]
-pairs.sort(key=lambda pair: pair[1])
-```
+# Higher-order functions
 
 ## Higher-order functions
 
@@ -64,7 +47,7 @@ Decorator syntax: simple way of applying higher-order functions to function defi
 ## Decorator syntax
 
 ```py
-@lru_cache
+@lru_cache  # Python >= 3.8
 def fibonacci(n):
     ...
 ```

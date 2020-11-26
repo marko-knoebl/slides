@@ -159,6 +159,38 @@ time.sleep(<span class="hljs-number">3</span>)
 <li><code>a3d.ndim</code>: 3</li>
 <li><code>a3d.size</code>: 8</li>
 </ul>
+<h1>Mehr als ein Weg</h1>
+<h2>Mehr als ein Weg</h2>
+<p>aus dem <em>Zen of Python</em>:</p>
+<blockquote>
+<p>There should be one-- and preferably only one --obvious way to do it.</p>
+</blockquote>
+<p>diese Philosophie wird bei <em>NumPy</em> oft <em>nicht</em> angewendet</p>
+<h2>Mehr als ein Weg</h2>
+<p>Beispiel: Transponieren eines Arrays</p>
+<pre><code class="hljs language-py">a2d.T
+a2d.transpose()
+np.transpose(a2d)
+</code></pre>
+<h2>NumPy Funktionen vs Array-Methoden</h2>
+<p>viele Operationen sind auf zwei Arten verfügbar:</p>
+<ul>
+<li>Funktionen im <code>numpy</code>-Paket</li>
+<li>Methoden der <code>array</code>-Klasse</li>
+</ul>
+<p>wir werden meist Funktionen verwenden</p>
+<h2>NumPy Funktionen vs Array-Methoden</h2>
+<p>verfügbar als Funktionen und Methoden:</p>
+<pre><code class="hljs language-py">np.max(a2d)
+a2d.max()
+np.round(a2d)
+a2d.round()
+</code></pre>
+<p>nur als Funktionen verfügbar:</p>
+<pre><code class="hljs language-py">np.sin(a2d)
+np.exp(a2d)
+np.expand_dims(a2d, <span class="hljs-number">2</span>)
+</code></pre>
 <h1>Numerische Typen</h1>
 <h2>Numerische Typen</h2>
 <ul>
@@ -167,13 +199,13 @@ time.sleep(<span class="hljs-number">3</span>)
 <li>decimal</li>
 </ul>
 <h2>Int</h2>
-<p>ein <em>int8</em> besteht aus 8 bits und kann 256 verschiedene Zahlen darstellen</p>
-<p>Integer mit verschiedenen bit-Größen können unterschiedliche Zahlen darstellen:</p>
+<p>ein <em>int8</em> besteht aus 8 bits und kann 2^8 (256) verschiedene Zahlen darstellen</p>
+<p>Anzahl an darstellbaren Zahlen:</p>
 <ul>
-<li><em>int8</em>: 256 Zahlen (-128 bis +127)</li>
-<li><em>int16</em>: 65,536 Zahlen (-32,768 bis +32,767)</li>
-<li><em>int32</em>: 4,294,967,296 Zahlen</li>
-<li><em>int64</em>: 18,446,744,073,709,551,616 Zahlen</li>
+<li><em>int8</em>: 256 (-128 bis +127)</li>
+<li><em>int16</em>: 65,536 (-32,768 bis +32,767)</li>
+<li><em>int32</em>: 4,294,967,296</li>
+<li><em>int64</em>: 18,446,744,073,709,551,616</li>
 </ul>
 <h2>Int</h2>
 <p>Ein <em>unsigned integer (uint)</em> kann nur nicht-negative Zahlen repräsentieren</p>
@@ -193,9 +225,9 @@ time.sleep(<span class="hljs-number">3</span>)
 <h2>Float</h2>
 <p><strong>Rundungsfehler</strong>: manche Zahlen können nicht als Gleitkommazahlen dargestellt werden, sie sind immer Annäherungen</p>
 <p>Beispiele im Dezimalsystem: 1/3, 1/7, π</p>
-<p>Beispiele im Binärsystem: 1/10, 1/5, 1/3, π</p>
-<p>Beispiel: <code>0.1 + 0.2</code> wird zu <code>0.30000000000000004</code> ausgewertet, wenn wir 64-bit floats verwenden</p>
-<p>Beispiel: π + π wird zu <code>6.2</code> ausgewertet, wenn wir Dezimalzahlen mit 2 Stellen verwenden (besseres Ergebnis wäre <code>6.3</code>)</p>
+<p>Beispiele im Binärsystem (<em>floats</em>): 1/10, 1/5, 1/3, π</p>
+<p>Beispiel: π + π ergibt <code>6.2</code>, wenn wir Dezimalzahlen mit 2 Stellen verwenden (besseres Ergebnis wäre <code>6.3</code>)</p>
+<p>Beispiel: <code>0.1 + 0.2</code> ergibt ~ <code>0.30000000000000004</code>, wenn wir 64-bit floats verwenden</p>
 <h2>Float</h2>
 <p>manche Operationen führen zu einem Verlust von Genauigkeit - z.B. Subtrahieren von nahe beieinanderliegenden Zahlen</p>
 <p>Beispiel:</p>
@@ -285,21 +317,6 @@ c.dtype <span class="hljs-comment"># int64</span>
 <li><em>uint8</em>, <em>uint16</em>, <em>uint32</em>, <em>uint64</em></li>
 <li><em>float16</em>, <em>float32</em>, <em>float64</em></li>
 </ul>
-<h2>Integer Typen</h2>
-<p>Ein <em>int8</em> kann 2^8 (256) verschiedene Zahlen repräsentieren</p>
-<p>Anzahlen für andere Integertypen:</p>
-<ul>
-<li><em>int8</em>: 256 (-128 bis +127)</li>
-<li><em>int16</em>: 65,536 (-32768 bis +32767)</li>
-<li><em>int32</em>: 4,294,967,296</li>
-<li><em>int64</em>: 18,446,744,073,709,551,616</li>
-</ul>
-<h2>Integer Typen</h2>
-<pre><code class="hljs language-py">np.array([<span class="hljs-number">127</span>, <span class="hljs-number">128</span>, <span class="hljs-number">129</span>], dtype=<span class="hljs-string">"int8"</span>)
-</code></pre>
-<p>Output (Integer Overflow):</p>
-<pre><code class="hljs language-py">array([<span class="hljs-number">127</span>, <span class="hljs-number">-128</span>, <span class="hljs-number">-127</span>])
-</code></pre>
 <h2>Float Typen</h2>
 <p>Genauigkeit für float Typen:</p>
 <ul>
@@ -332,20 +349,25 @@ c.dtype <span class="hljs-comment"># int64</span>
 <span class="hljs-comment"># or</span>
 np.full((<span class="hljs-number">2</span>, <span class="hljs-number">6</span>), <span class="hljs-number">0.0</span>)
 </code></pre>
-<p>Ein 3x3 Array mit Zufallswerten:</p>
-<pre><code class="hljs language-py"><span class="hljs-comment"># floats between 0 and 1:</span>
-np.random.random((<span class="hljs-number">3</span>, <span class="hljs-number">3</span>))
-<span class="hljs-comment"># integers between 1 and 6:</span>
-np.random.randint(<span class="hljs-number">1</span>, <span class="hljs-number">7</span>, (<span class="hljs-number">3</span>, <span class="hljs-number">3</span>))
+<h2>Arrays erstellen</h2>
+<p>Zahlenfolgen erstellen:</p>
+<pre><code class="hljs language-py">np.linspace(<span class="hljs-number">0</span>, <span class="hljs-number">1.0</span>, <span class="hljs-number">11</span>)
+<span class="hljs-comment"># [0.0, 0.1, ... 1.0]</span>
+</code></pre>
+<pre><code class="hljs language-py">np.arange(<span class="hljs-number">0</span>, <span class="hljs-number">3.14</span>, <span class="hljs-number">0.1</span>)
+<span class="hljs-comment"># [0.0, 0.1, ... 3.1]</span>
 </code></pre>
 <h2>Arrays erstellen</h2>
-<p>Erstellen der Folge <em>0.0, 0.5, 1.0, 1.5</em>:</p>
-<p>fixe Schrittweite (0.5):</p>
-<pre><code class="hljs language-py">a = np.arange(<span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">0.5</span>)
+<p>Ein 2x2 Array mit Zufallswerten:</p>
+<pre><code class="hljs language-py"><span class="hljs-comment"># create a random number generator</span>
+rng = np.random.default_rng(seed=<span class="hljs-number">1</span>)
+
+<span class="hljs-comment"># floats between 0 and 1:</span>
+rng.random((<span class="hljs-number">2</span>, <span class="hljs-number">2</span>))
+<span class="hljs-comment"># integers between 1 and 6:</span>
+rng.integers(<span class="hljs-number">1</span>, <span class="hljs-number">7</span>, (<span class="hljs-number">2</span>, <span class="hljs-number">2</span>))
 </code></pre>
-<p>fixe Anzahl an Einträgen (4):</p>
-<pre><code class="hljs language-py">b = np.linspace(<span class="hljs-number">0</span>, <span class="hljs-number">1.5</span>, <span class="hljs-number">4</span>)
-</code></pre>
+<p>älteres Interface: <code>np.random.random()</code> und <code>np.random.randint()</code></p>
 <h1>Auswählen von Array-Einträgen</h1>
 <h2>Auswählen von Array-Einträgen</h2>
 <pre><code class="hljs language-py">a1d[<span class="hljs-number">0</span>] <span class="hljs-comment"># 0</span>
@@ -380,30 +402,28 @@ a1d[::<span class="hljs-number">-1</span>] <span class="hljs-comment"># [9, 8, 7
 <h1>Operationen auf Arrays</h1>
 <h2>Operatoren</h2>
 <p>Operatoren werden elementweise angewendet:</p>
-<pre><code class="hljs language-py">a = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])
-b = np.array([<span class="hljs-number">2</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>])
+<pre><code class="hljs language-py">a = np.array([<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])
+b = np.array([<span class="hljs-number">2</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>])
 
 -a
-<span class="hljs-comment"># np.array([-1, -2, -3])</span>
+<span class="hljs-comment"># np.array([0, -1, -2, -3])</span>
 a + b
-<span class="hljs-comment"># np.array([3, 4, 5])</span>
+<span class="hljs-comment"># np.array([2, 3, 4, 5])</span>
 a * b
-<span class="hljs-comment"># np.array([2, 4, 6])</span>
+<span class="hljs-comment"># np.array([0, 2, 4, 6])</span>
 </code></pre>
 <h2>Vergleiche</h2>
 <p>Elementweises Vergleichen von Arrays:</p>
 <pre><code class="hljs language-py">a &#x3C; b
-<span class="hljs-comment"># np.array([True, False, False])</span>
+<span class="hljs-comment"># np.array([True, True, False, False])</span>
 a == b
-<span class="hljs-comment"># np.array([False, True, False])</span>
+<span class="hljs-comment"># np.array([False, False, True, False])</span>
 </code></pre>
 <p>Achtung: <code>a == b</code> kann nicht sinnvoll in if-Abfragen verwendet werden - verwende <code>np.array_equal(a, b)</code>.</p>
 <h2>Operatoren</h2>
 <p>Auch mit einzelnen Zahlen möglich (broadcasting):</p>
-<pre><code class="hljs language-py">a = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])
-
-print(a + <span class="hljs-number">1</span>)
-<span class="hljs-comment"># np.array([2, 3, 4])</span>
+<pre><code class="hljs language-py">print(a + <span class="hljs-number">1</span>)
+<span class="hljs-comment"># np.array([1, 2, 3, 4])</span>
 </code></pre>
 <p>Einige Konstanten sind direkt in NumPy verfügbar:</p>
 <pre><code class="hljs language-py">print(a + np.pi)
@@ -412,9 +432,7 @@ print(np.nan)
 </code></pre>
 <h2>Elementweise Funktionen</h2>
 <p>NumPy bietet spezielle Funktionen, die elementweise angewendet werden:</p>
-<pre><code class="hljs language-py">a = np.array([<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])
-
-print(np.sin(a))
+<pre><code class="hljs language-py">print(np.sin(a))
 <span class="hljs-comment"># [0.0, 0.84147098, 0.9... ]</span>
 print(np.sqrt(a))
 <span class="hljs-comment"># [0.0, 1.0, 1.414... ]</span>
@@ -428,6 +446,7 @@ print(np.sqrt(a))
 <li><code>exp</code></li>
 <li><code>log</code></li>
 <li><code>log10</code></li>
+<li><code>round</code></li>
 <li>...</li>
 </ul>
 <h2>Aggregationen</h2>
@@ -501,7 +520,7 @@ a_filtered = a[a_valid]
 <span class="hljs-comment"># array([4.1, 2.7, 3.8])</span>
 
 a_invalid = a &#x3C; <span class="hljs-number">0</span>
-a_with_nans = a.copy()
+a_with_nans = np.copy(a)
 a_with_nans[a_invalid] = np.nan
 <span class="hljs-comment"># array([4.1, 2.7, nan, 3.8, nan])</span>
 </code></pre>
@@ -510,16 +529,18 @@ a_with_nans[a_invalid] = np.nan
 
 a_filtered = a[a > <span class="hljs-number">0</span>]
 
-a_with_nans = a.copy()
+a_with_nans = np.copy(a)
 a_with_nans[a_with_nans &#x3C; <span class="hljs-number">0</span>] = np.nan
 </code></pre>
 <h1>NumPy Fortgeschritten</h1>
 <h2>Form von Arrays ändern</h2>
-<pre><code class="hljs language-py">a3d.ravel() <span class="hljs-comment"># 1d array</span>
-a3d.reshape(<span class="hljs-number">8</span>) <span class="hljs-comment"># 1d array</span>
-a3d.reshape(<span class="hljs-number">2</span>, <span class="hljs-number">4</span>) <span class="hljs-comment"># 2x4 array</span>
-a3d.reshape(<span class="hljs-number">2</span>, <span class="hljs-number">-1</span>) <span class="hljs-comment"># automatic second dimension</span>
-a2d.T <span class="hljs-comment"># transposed</span>
+<pre><code class="hljs language-py">np.reshape(a3d, (<span class="hljs-number">8</span>, )) <span class="hljs-comment"># 1d array</span>
+np.reshape(a3d, (<span class="hljs-number">2</span>, <span class="hljs-number">4</span>)) <span class="hljs-comment"># 2d array</span>
+</code></pre>
+<p>Automatische Größe entlang einer Achse:</p>
+<pre><code class="hljs language-py">np.ravel(a3d) <span class="hljs-comment"># 1d array</span>
+np.reshape(a3d, (<span class="hljs-number">-1</span>, )) <span class="hljs-comment"># 1d array</span>
+np.reshape(a3d, (<span class="hljs-number">2</span>, <span class="hljs-number">-1</span>)) <span class="hljs-comment"># 2d array</span>
 </code></pre>
 <h2>Dimensionalität erhöhen</h2>
 <p>Hinzufügen einer extra Dimension der Länge 1: Verwandeln eines 2 x 2 Arrays in ein 2 x 2 x 1 Array:</p>
@@ -530,6 +551,12 @@ a2d.T <span class="hljs-comment"># transposed</span>
 </code></pre>
 <p>Alternative:</p>
 <pre><code class="hljs language-haxe">a2d[:<span class="hljs-type"></span>, :<span class="hljs-type"></span>, np.<span class="hljs-keyword">new</span><span class="hljs-type">axis</span>]
+</code></pre>
+<h2>Transponieren</h2>
+<p>Umkehren der Achsenreihenfolge:</p>
+<pre><code class="hljs language-py">np.transpose(a2d)
+
+a2d.T
 </code></pre>
 <h2>Slices als Views</h2>
 <p>In Python können wir eine flache Kopie einer Liste erstellen, indem wir sie slicen - dies ist in NumPy nicht so (um die Effizienz zu steigern):</p>
@@ -542,33 +569,31 @@ array_view = array[:]
 array_view[<span class="hljs-number">0</span>] = <span class="hljs-number">10</span> <span class="hljs-comment"># DOES change array</span>
 </code></pre>
 <h2>Arrays kopieren</h2>
-<p>Arrays können via <code>array.copy()</code> kopiert werden</p>
+<p>Arrays können via <code>np.copy()</code> kopiert werden</p>
 <h2>Arrays aneinanderfügen</h2>
 <p>entlang einer Achse aneinanderfügen (standardmäßig Achse 0):</p>
 <pre><code class="hljs language-py">np.concatenate([a1d, a1d])
 np.concatenate([a2d, a2d])
 np.concatenate([a2d, a2d], axis=<span class="hljs-number">1</span>)
 </code></pre>
-<h2>Matrix-Multiplikation / Array-Multiplikation</h2>
-<p>mittels des binären Operators <code>@</code></p>
-<pre><code class="hljs language-py">a = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">1</span>])
-
-m = np.array([[<span class="hljs-number">0.707</span>, <span class="hljs-number">0.707</span>],
-              [<span class="hljs-number">-0.707</span>, <span class="hljs-number">0.707</span>]])
-
-print(a @ m)
-<span class="hljs-comment"># array([0.   , 1.414])</span>
+<h1>Lineare Algebra</h1>
+<h2>Lineare Algebra</h2>
+<pre><code class="hljs language-py">np.transpose(m)
+np.linalg.inv(m)
+np.eye(<span class="hljs-number">2</span>) <span class="hljs-comment"># unit matrix</span>
 </code></pre>
-<h2>Matrix-Multiplikation</h2>
-<p>Rotation verschiedener Punkte um 45° gegen den Uhrzeigersinn:</p>
+<h2>Array-Multiplikation</h2>
+<p>mittels des binären Operators <code>@</code></p>
+<p>Beispiel: Rotation verschiedener Punkte um 45° bzw 90° (gegen den Uhrzeigersinn):</p>
 <pre><code class="hljs language-py">points = np.array([[<span class="hljs-number">0</span>, <span class="hljs-number">0</span>], [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>], [<span class="hljs-number">1</span>, <span class="hljs-number">1</span>], [<span class="hljs-number">1</span>, <span class="hljs-number">0</span>]])
 
-m = np.array([[<span class="hljs-number">0.707</span>, <span class="hljs-number">0.707</span>],
-              [<span class="hljs-number">-0.707</span>, <span class="hljs-number">0.707</span>]])
+m = np.array([[np.sqrt(<span class="hljs-number">0.5</span>), np.sqrt(<span class="hljs-number">0.5</span>)],
+              [-np.sqrt(<span class="hljs-number">0.5</span>), np.sqrt(<span class="hljs-number">0.5</span>)]])
 
 print(points @ m)
+print(points @ m @ m)
 </code></pre>
-<h2>Matrix-Multiplikation</h2>
+<h2>Array-Multiplikation</h2>
 <p>Beispiel:</p>
 <p>bekannt: Preise verschiedener Produkte, derent Bestände in verschiedenen Lagern</p>
 <pre><code class="hljs language-py">prices = np.array([<span class="hljs-number">3.99</span>, <span class="hljs-number">12.99</span>, <span class="hljs-number">5.90</span>, <span class="hljs-number">15</span>])

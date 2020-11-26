@@ -1,5 +1,15 @@
 # OOP: Static attributes and methods
 
+## Static attributes and methods
+
+_static attributes_ and _static methods_ are associated with a class, but not with any specific instance of it
+
+example: _static attributes_ and _static methods_ of the _datetime_ class:
+
+- `datetime.today()`
+- `datetime.fromisoformat()`
+- `datetime.resolution`
+
 ## Class attributes (static attributes)
 
 _Class attributes_ are attributes that are only defined on the class (not on each instance) - all instances share these attributes.

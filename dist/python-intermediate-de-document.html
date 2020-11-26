@@ -1,32 +1,18 @@
 <h1>Python Intermediate</h1>
-<h2>Präsentationen</h2>
-<p><a href="https://marko-knoebl.github.io/slides/">https://marko-knoebl.github.io/slides/</a></p>
-<h2>Ihr Trainer</h2>
-<p>Marko Knöbl</p>
+<h2>Themen</h2>
 <ul>
-<li>aus Wien</li>
-<li>ehemaliger Mathematiklehrer</li>
-<li>Programmierthemen:<ul>
-<li>JavaScript, TypeScript und React</li>
-<li>Python, Data Science</li>
+<li>Datentypen vertieft<ul>
+<li>Strings und String-Verarbeitung</li>
+<li>Bytes</li>
+<li>Sequenzen</li>
 </ul></li>
+<li>Erstellen von Listen und Dictionaries mittels Comprehensions</li>
+<li>objektorientiertes Programmieren und Klassen</li>
+<li>fortgeschrittene Kontrollstrukturen</li>
+<li>Exceptions</li>
+<li>Module und Pakete</li>
+<li>Paketmanagement in Python</li>
 </ul>
-<h2>Vorstellung der Teilnehmer</h2>
-<ul>
-<li>Aktuelle Projekte</li>
-<li>Vorkenntnisse</li>
-<li>Erwartungen / Wünsche</li>
-</ul>
-<h2>Organisatorisches</h2>
-<ul>
-<li>Kursdauer</li>
-<li>Pausen</li>
-<li>Mittagessen</li>
-<li>Unterlagen</li>
-<li>Fragen, Feedback? - Jederzeit erwünscht</li>
-</ul>
-<h2>Code</h2>
-<p>Code verfügbar unter: <a href="https://github.com/marko-knoebl/courses-code">https://github.com/marko-knoebl/courses-code</a></p>
 <h1>Datentypen in Python</h1>
 <h2>Grundlegende Datentypen</h2>
 <ul>
@@ -117,11 +103,20 @@ d = float(<span class="hljs-string">'nan'</span>)
 e = float(<span class="hljs-string">'inf'</span>)
 </code></pre>
 <h2>float</h2>
-<p>Achtung Rundungsfehler: Einige Zahlen können nicht genau als Kommazahlen repräseniert werden, sie werden immer gerundet</p>
-<p>Beispiele im Dezimalsystem: <em>1/3</em>, <em>1/7</em></p>
-<p>Beispiele im Binärsystem (<code>float</code>): <em>1/10</em>, <em>1/5</em>, <em>1/3</em></p>
-<p>Beispiel: <code>0.1 + 0.2</code> ergibt <code>0.30000000000000004</code></p>
-<p>Im Allgemeinen sind 64-bit floats auf ca 16 Dezimalstellen genau.</p>
+<p><strong>Rundungsfehler</strong>: manche Zahlen können nicht als Gleitkommazahlen dargestellt werden, sie sind immer Annäherungen</p>
+<p>Beispiele im Dezimalsystem: 1/3, 1/7, π</p>
+<p>Beispiele im Binärsystem (<em>floats</em>): 1/10, 1/5, 1/3, π</p>
+<p>Beispiel: π + π ergibt <code>6.2</code>, wenn wir Dezimalzahlen mit 2 Stellen verwenden (besseres Ergebnis wäre <code>6.3</code>)</p>
+<p>Beispiel: <code>0.1 + 0.2</code> ergibt ~ <code>0.30000000000000004</code>, wenn wir 64-bit floats verwenden</p>
+<h2>float</h2>
+<pre><code class="hljs language-py"><span class="hljs-number">0.1</span> + <span class="hljs-number">0.2</span> == <span class="hljs-number">0.3</span>
+<span class="hljs-comment"># False</span>
+</code></pre>
+<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> math
+
+math.isclose(<span class="hljs-number">0.1</span> + <span class="hljs-number">0.2</span>, <span class="hljs-number">0.3</span>)
+<span class="hljs-comment"># True</span>
+</code></pre>
 <h2>float</h2>
 <p><em>IEEE 754</em>: Standard für Gleitkommazahlen am Computer</p>
 <p>wird von Python großteils umgesetzt</p>
@@ -925,16 +920,6 @@ urllib.request.urlopen(...)
 </ul>
 <h1>Eigene Module</h1>
 <h2>Eigene Module</h2>
-<p>Ziel: Erstellen eines lokalen eigenen Moduls, das wie folgt verwendet werden kann:</p>
-<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> .foo <span class="hljs-keyword">import</span> a, b
-</code></pre>
-<h2>Eigene Module</h2>
-<p>Einfaches Modul as Python-Datei:</p>
-<pre><code class="hljs language-py"><span class="hljs-comment"># foo.py</span>
-a = <span class="hljs-number">1</span>
-b = <span class="hljs-number">2</span>
-</code></pre>
-<h2>Eigene Module</h2>
 <p>Modul als Verzeichnis:</p>
 <pre><code class="hljs language-markdown"><span class="hljs-bullet">- </span>foo/
 <span class="hljs-bullet">  - </span><span class="hljs-strong">__init__</span>.py
@@ -944,35 +929,16 @@ a = <span class="hljs-number">1</span>
 b = <span class="hljs-number">2</span>
 </code></pre>
 <h2>Eigene Module</h2>
-<p>Module as a directory with separated defintions:</p>
+<p>Modul als Ordner mit separaten Definitionen:</p>
 <pre><code class="hljs language-reasonml">- foo/
   - <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">__init__</span>.</span></span>py
   - <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">_a_mod</span>.</span></span>py
   - <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">_b_mod</span>.</span></span>py
 </code></pre>
 <pre><code class="hljs language-py"><span class="hljs-comment"># __init__.py</span>
-<span class="hljs-keyword">from</span> _a_mod <span class="hljs-keyword">import</span> a
-<span class="hljs-keyword">from</span> _b_mod <span class="hljs-keyword">import</span> b
+<span class="hljs-keyword">from</span> foo._a_mod <span class="hljs-keyword">import</span> a
+<span class="hljs-keyword">from</span> foo._b_mod <span class="hljs-keyword">import</span> b
 </code></pre>
-<h2>Eigene Pakete</h2>
-<p>Ziel: Erstellen eines eigenen Pakets, das wie folgt verwendet werden kann:</p>
-<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> .foo <span class="hljs-keyword">import</span> bar
-
-print(bar.a)
-print(bar.b)
-</code></pre>
-<h2>Eigene Pakete</h2>
-<pre><code class="hljs language-markdown"><span class="hljs-bullet">- </span>foo/
-<span class="hljs-bullet">  - </span>bar.py
-</code></pre>
-<h2>Auflösen von Imports</h2>
-<p>Suchreihenfolge von absoluten Imports:</p>
-<ul>
-<li>Verzeichnis, in dem das ursprünglich ausgeführte Python Skript liegt</li>
-<li>Standardlibrary</li>
-<li>externe Libraries</li>
-</ul>
-<p>Vermeide Namensgleichheit mit existierenden Modulen / Paketen!</p>
 <h2>Auflösen von Imports</h2>
 <p>Alle Pfade für Imports sehen wir via:</p>
 <pre><code class="hljs language-py"><span class="hljs-keyword">import</span> sys
@@ -981,6 +947,12 @@ print(sys.path)
 <h2>Kompilieren von Modulen</h2>
 <p>Importierte Module werden in kompilierter Form abgelegt, um später schneller eingelesen werden zu können.</p>
 <p>Wir finden die kompilierten Versionen im Ordner <code>__pycache__</code></p>
+<h2>Modulname und Einstiegspunkt</h2>
+<p>in einem importierten Module bezieht sich die Variable <code>__name__</code> auf dessen Namen</p>
+<p>wurde eine Python-Datei direkt ausgeführt und nicht importiert, ist deren <code>__name__</code> gleich <code>"__main__"</code></p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">"__main__"</span>:
+    print(<span class="hljs-string">"this file was run directly (and not imported)"</span>)
+</code></pre>
 <h1>PIP</h1>
 <h2>PIP</h2>
 <p><em>PIP</em> = Paketmanager für Python</p>
@@ -1097,7 +1069,8 @@ b = a
 b.append(<span class="hljs-number">4</span>)
 print(a)
 </code></pre>
-<p>Das obige Programm gibt <code>[1, 2, 3, 4]</code> aus. <code>a</code> und <code>b</code> beziehen sich auf das selbe Objekt.</p>
+<p>Das obige Programm gibt <code>[1, 2, 3, 4]</code> aus</p>
+<p><code>a</code> und <code>b</code> beziehen sich auf das selbe Objekt</p>
 <h2>Objektreferenzen und Mutationen</h2>
 <p>Durch das Ausführen von <code>b = a</code> entsteht einen zusätzliche Referenz, die sich auf das selbe Objekt bezieht.</p>
 <p>Operationen, die zum Setzen zusätzlicher Referenzen führen:</p>
@@ -1117,6 +1090,11 @@ foo(a_outer)
 print(id(a_outer))
 </code></pre>
 <h2>Objektreferenzen und Mutationen bei Funktionen</h2>
+<p>empfohlenes Prinzip für Funktionen:</p>
+<p><strong>Funktionen sollten übergebene Parameter nicht abändern</strong></p>
+<p>oder allgemeiner:</p>
+<p><strong>Funktionen sollten mit der Python-Umgebung nur dadurch interagieren, dass sie Parameter entgegennehmen und Rückgabewerte zurückliefern</strong> (Sie sollten keine Seiteneffekte / Nebeneffekte haben)</p>
+<h2>Objektreferenzen und Mutationen bei Funktionen</h2>
 <pre><code class="hljs language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">remove_middle_element</span><span class="hljs-params">(list_in)</span>:</span>
     list_in.pop(len(list_in) // <span class="hljs-number">2</span>)
     <span class="hljs-keyword">return</span> list_in
@@ -1127,11 +1105,6 @@ print(b)
 print(a)
 </code></pre>
 <p>Was gibt das obige Beispiel aus?</p>
-<h2>Objektreferenzen und Mutationen bei Funktionen</h2>
-<p>Leitprinzip für Funktionen:</p>
-<p><strong>Funktionen sollten übergebene Parameter nicht abändern</strong></p>
-<p>oder allgemeiner:</p>
-<p><strong>Funktionen sollten mit der Python-Umgebung nur dadurch interagieren, dass sie Parameter entgegennehmen und Rückgabewerte zurückliefern</strong> (Sie sollten keine Seiteneffekte / Nebeneffekte haben)</p>
 <h2>Objektreferenzen und Mutationen bei Funktionen</h2>
 <p>Umsetzungsmöglichkeiten am Beispiel <code>remove_middle_element</code>:</p>
 <ul>
@@ -1148,10 +1121,9 @@ print(a)
 
 a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]
 b = remove_middle_element(a)
-print(b)
 </code></pre>
 <h2>Methode einer eigenen Klasse</h2>
-<p>Lockerung des Leitprinzips bei Methoden: Der Parameter <code>self</code> <em>darf abgeändert werden</em>.</p>
+<p>Lockerung des erwähnten Prinzips bei Methoden: Einträge in <code>self</code> <em>dürfen abgeändert werden</em>.</p>
 <p>Die folgende Methode ändert das Objekt intern ab und gibt nichts zurück.</p>
 <pre><code class="hljs language-py"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AdvancedList</span><span class="hljs-params">(list)</span>:</span>
     <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">remove_middle_element</span><span class="hljs-params">(self)</span>:</span>
@@ -1159,10 +1131,9 @@ print(b)
 
 a = AdvancedList([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>])
 a.remove_middle_element()
-print(a)
 </code></pre>
 <h2>Objektreferenzen und Mutationen bei Funktionen</h2>
-<p>Übliche Regeln:</p>
+<p>Übliche Empfehlungen:</p>
 <ul>
 <li>Übergebene Parameter nicht abändern (Ausnahme: <code>self</code> in Methoden)</li>
 <li>Keine globalen Variablen setzen</li>
@@ -1174,6 +1145,21 @@ print(a)
 </ul>
 <p>Reine Funktionen sind Funktionen, die mit ihrer Umgebung nur über Eingabeparameter und Rückgabewerte interagieren.</p>
 <p>Je "reiner" eine Funktion ist, umso einfacher ist sie wiederzuverwenden und zu testen.</p>
+<h2>Mutieren von Standardparametern</h2>
+<p>Unerwartetes Verhalten in Python, wenn Standardparameter mutiert werden:</p>
+<pre><code class="hljs language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">register_file_formats</span><span class="hljs-params">(formats=[<span class="hljs-string">"py"</span>, <span class="hljs-string">"pyc"</span>])</span>:</span>
+    <span class="hljs-keyword">for</span> format <span class="hljs-keyword">in</span> formats:
+        formats.append(format.upper())
+    <span class="hljs-comment"># ...</span>
+    print(formats)
+
+register_file_formats([<span class="hljs-string">"py"</span>]) <span class="hljs-comment"># ["py", "PY"]</span>
+register_file_formats()
+<span class="hljs-comment"># ["py", "pyc", "PY", "PYC"]</span>
+register_file_formats()
+<span class="hljs-comment"># ["py", "pyc", "PY", "PYC", "PY", "PYC", "PY", "PYC"]</span>
+</code></pre>
+<p>(Websuche: <em>mutable default arguments</em>)</p>
 <h1>Python Versionen</h1>
 <h2>Python Versionen</h2>
 <p>Python 2 vs Python 3</p>

@@ -246,9 +246,10 @@ plt.legend()
 plt.axis("scaled")
 ```
 
-## Ressource
+## Ressourcen
 
-siehe [Python Data Science Handbook: Simple Line Plots](https://jakevdp.github.io/PythonDataScienceHandbook/04.01-simple-line-plots.html)
+- [Python Data Science Handbook: Simple Line Plots](https://jakevdp.github.io/PythonDataScienceHandbook/04.01-simple-line-plots.html)
+- [list of Pyplot functions](https://matplotlib.org/api/pyplot_summary.html)
 
 # Gundlegende Plots
 

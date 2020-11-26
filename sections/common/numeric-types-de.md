@@ -8,14 +8,14 @@
 
 ## Int
 
-ein _int8_ besteht aus 8 bits und kann 256 verschiedene Zahlen darstellen
+ein _int8_ besteht aus 8 bits und kann 2^8 (256) verschiedene Zahlen darstellen
 
-Integer mit verschiedenen bit-Größen können unterschiedliche Zahlen darstellen:
+Anzahl an darstellbaren Zahlen:
 
-- _int8_: 256 Zahlen (-128 bis +127)
-- _int16_: 65,536 Zahlen (-32,768 bis +32,767)
-- _int32_: 4,294,967,296 Zahlen
-- _int64_: 18,446,744,073,709,551,616 Zahlen
+- _int8_: 256 (-128 bis +127)
+- _int16_: 65,536 (-32,768 bis +32,767)
+- _int32_: 4,294,967,296
+- _int64_: 18,446,744,073,709,551,616
 
 ## Int
 
@@ -43,11 +43,11 @@ wichtige Gleitkommatypen:
 
 Beispiele im Dezimalsystem: 1/3, 1/7, π
 
-Beispiele im Binärsystem: 1/10, 1/5, 1/3, π
+Beispiele im Binärsystem (_floats_): 1/10, 1/5, 1/3, π
 
-Beispiel: `0.1 + 0.2` wird zu `0.30000000000000004` ausgewertet, wenn wir 64-bit floats verwenden
+Beispiel: π + π ergibt `6.2`, wenn wir Dezimalzahlen mit 2 Stellen verwenden (besseres Ergebnis wäre `6.3`)
 
-Beispiel: π + π wird zu `6.2` ausgewertet, wenn wir Dezimalzahlen mit 2 Stellen verwenden (besseres Ergebnis wäre `6.3`)
+Beispiel: `0.1 + 0.2` ergibt ~ `0.30000000000000004`, wenn wir 64-bit floats verwenden
 
 ## Float
 

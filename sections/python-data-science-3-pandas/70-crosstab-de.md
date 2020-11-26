@@ -1,4 +1,16 @@
-# Kontingenztabelle
+# Anzahlen und Kontingenztabelle
+
+## Anzahlen
+
+```py
+titanic["class"].value_counts()
+```
+
+```
+Third     491
+First     216
+Second    184
+```
 
 ## Kontingenztabelle
 
@@ -6,18 +18,14 @@ Eine _Kontingenztabelle_ oder _Kreuztabelle_ gibt Anzahlen über mehrere Merkmal
 
 ## Kontingenztabelle
 
-Beispiel:
-
 ```py
-pd.crosstab(titanic.pclass, titanic.survived)
+pd.crosstab(titanic["class"], titanic["survived"])
 ```
 
-Ausgabe:
-
 ```
-survived  False  True 
-pclass                
-1            80    136
-2            97     87
-3           372    119
+survived    0    1
+class
+First      80  136
+Second     97   87
+Third     372  119
 ```

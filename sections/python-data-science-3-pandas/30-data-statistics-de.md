@@ -3,13 +3,7 @@
 ## Statistische Grundwerte
 
 ```py
-df.describe()
-```
-
-## Statistische Grundwerte
-
-```py
-countries.area.describe()
+countries["area"].describe()
 ```
 
 ```txt
@@ -29,7 +23,7 @@ dtype: float64
 ## Statistik einer Series
 
 ```py
-countries.area.describe()
+countries["area"].describe()
 ```
 
 berechnet die folgenden Daten:

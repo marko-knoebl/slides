@@ -18,3 +18,9 @@ example:
   <img src="assets/spoon-fork-animated.svg" />
 </figure>
 ```
+
+# line length for code
+
+currently 60 (see sections/prettierrc.json)
+
+could be up to 65

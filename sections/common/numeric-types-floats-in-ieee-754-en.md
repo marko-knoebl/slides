@@ -64,7 +64,7 @@ larger numbers will yield `inf`
 
 smaller numbers will lose precision or yield `0.0`
 
-## Float: special values
+## Special values
 
 inf: `0 11111111 00000000000000000000000`
 

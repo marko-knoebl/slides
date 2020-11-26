@@ -1,36 +1,17 @@
 # Python Intermediate
 
-## Slides
+## Topics
 
-<https://marko-knoebl.github.io/slides/>
-
-## Your Trainer
-
-Marko Knöbl
-
-- based in Vienna
-- former math teacher
-- programming topics:
-  - JavaScript, TypeScript and React
-  - Python, data science
-
-## Introduction of Participants
-
-- current projects
-- prior knowledge
-- expectations
-
-## Organizational
-
-- duration
-- breaks
-- lunch
-- materials
-- questions, feedback?
-
-## Code
-
-Code available at: <https://github.com/marko-knoebl/courses-code>
+- data types in depth
+  - strings and string processing
+  - bytes
+  - sequences
+- creating lists and dictionaries via comprehensions
+- object oriented programming and classes
+- advanced use of control structures
+- throwing and catching exceptions
+- modules and packages
+- package management in Python
 
 # Data types in Python
 
@@ -160,15 +141,29 @@ e = float('inf')
 
 ## float
 
-warning on rounding errors: some numbers cannot be represented as floating point numbers, they will always be approximations
+**rounding errors**: some numbers cannot be represented as floating point numbers, they will always be approximations
 
-examples in the decimal system: _1/3_, _1/7_
+examples in the decimal system: 1/3, 1/7, π
 
-examples in the binary system (i.e. `float`): _1/10_, _1/5_, _1/3_
+examples in the binary system (i.e. _floats_): 1/10, 1/5, 1/3, π
 
-example: `0.1 + 0.2` evaluates to `0.30000000000000004`
+example: π + π evaluates to `6.2` when using decimal numbers with a precision of 2 (a more exact result would be `6.3`)
 
-In general a 64-bit float will be exact for about 16 decimal places.
+example: `0.1 + 0.2` evaluates to ~ `0.30000000000000004` when using 64 bit floats
+
+## float
+
+```py
+0.1 + 0.2 == 0.3
+# False
+```
+
+```py
+import math
+
+math.isclose(0.1 + 0.2, 0.3)
+# True
+```
 
 ## float
 
@@ -1343,24 +1338,6 @@ urllib.request.urlopen(...)
 
 ## Custom modules
 
-Goal: creating a local custom module that can be used like this:
-
-```py
-from .foo import a, b
-```
-
-## Custom modules
-
-Simple module as a Python file:
-
-```py
-# foo.py
-a = 1
-b = 2
-```
-
-## Custom modules
-
 Module as a directory:
 
 ```
@@ -1387,37 +1364,9 @@ Module as a directory with separated defintions:
 
 ```py
 # __init__.py
-from ._a_mod import a
-from ._b_mod import b
+from foo._a_mod import a
+from foo._b_mod import b
 ```
-
-## Custom packages
-
-Goal: creating a custom package that can be used like this:
-
-```py
-from .foo import bar
-
-print(bar.a)
-print(bar.b)
-```
-
-## Custom packages
-
-```
-- foo/
-  - bar.py
-```
-
-## Resolving imports
-
-Search order of absolute imports:
-
-- directory of the Python script that was executed
-- standard library
-- external libraries
-
-Avoid name clashes with existing modules / packages!
 
 ## Resolving imports
 
@@ -1433,6 +1382,17 @@ print(sys.path)
 Imported modules will be saved in a compiled form, making subsequent loading of the modules faster.
 
 Compiled versions will be saved in the folder `__pycache__`
+
+## Module name and entrypoint
+
+inside a an imported module, the variable `__name__` gives its name
+
+if a Python file was run directly instead of being imported, its `__name__` will be `"__main__"`
+
+```py
+if __name__ == "__main__":
+    print("this file was run directly (and not imported)")
+```
 
 # PIP & pipenv
 
@@ -1609,7 +1569,9 @@ b.append(4)
 print(a)
 ```
 
-The Program prints `[1, 2, 3, 4]`. `a` and `b` refer to the same object.
+The Program prints `[1, 2, 3, 4]`
+
+`a` and `b` refer to the same object.
 
 ## Object references and mutations
 
@@ -1621,6 +1583,29 @@ Operations that create new references:
 - function calls (`myfunc(a)` - a new internal variable will be created)
 - insertions into collections (e.g. `mylist.append(a)`)
 - ...
+
+## Object references and functions
+
+Passing an object into a function will create a new reference to that same object (_call by sharing_).
+
+```py
+def foo(a_inner):
+    print(id(a_inner))
+
+a_outer = []
+foo(a_outer)
+print(id(a_outer))
+```
+
+## Object references and functions
+
+recommended principle for functions:
+
+**Functions should not mutate parameters**
+
+or more generally:
+
+**Functions should only interact with the Python environment by receiving parameters and returning values** (They should not have any _side effects_)
 
 ## Object references and functions
 
@@ -1636,29 +1621,6 @@ print(a)
 ```
 
 What does the above example print?
-
-## Object references and functions
-
-Guiding principle for functions:
-
-**Functions should not mutate parameters**
-
-or more generally:
-
-**Functions should only interact with the Python environment by receiving parameters and returning values** (They should not have any _side effects_)
-
-## Object references and functions
-
-Passing an object into a function will create a new reference to that same object (_call by sharing_).
-
-```py
-def foo(a_inner):
-    print(id(a_inner))
-
-a_outer = []
-foo(a_outer)
-print(id(a_outer))
-```
 
 ## Object references and functions
 
@@ -1681,12 +1643,11 @@ def remove_middle_element(list_in):
 
 a = [1, 2, 3, 4, 5]
 b = remove_middle_element(a)
-print(b)
 ```
 
 ## Method in a custom class
 
-Relaxation of the guiding principle for methods: Entries in `self` _may be mutated_.
+Relaxation of the principle for methods: Entries in `self` _may be mutated_.
 
 The following method will change the object internally and return nothing.
 
@@ -1697,12 +1658,11 @@ class AdvancedList(list):
 
 a = AdvancedList([1, 2, 3, 4, 5])
 a.remove_middle_element()
-print(a)
 ```
 
 ## Object references and functions
 
-Common rules (no side effects):
+Common recommendations (no side effects):
 
 - Don't modify parameters that are passed in (exception: `self`)
 - Don't set global variables (Don't use the `global` statement)
@@ -1715,6 +1675,26 @@ Strict rules (pure functions):
 Pure functions only interact with their environment by receiving parameters and returning values.
 
 The "purer" a function is the easier it is to reuse and test.
+
+## Mutating default arguments
+
+Unexpected behavior in Python when default parameters are mutated:
+
+```py
+def register_file_formats(formats=["py", "pyc"]):
+    for format in formats:
+        formats.append(format.upper())
+    # ...
+    print(formats)
+
+register_file_formats(["py"]) # ["py", "PY"]
+register_file_formats()
+# ["py", "pyc", "PY", "PYC"]
+register_file_formats()
+# ["py", "pyc", "PY", "PYC", "PY", "PYC", "PY", "PYC"]
+```
+
+(web search: _mutable default arguments_)
 
 # Python versions
 

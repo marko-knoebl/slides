@@ -49,6 +49,8 @@ usually 2 days
 
 ## Python advanced
 
+usually 1 day
+
 - logging
 - unit tests
 - advanced object-oriented programming

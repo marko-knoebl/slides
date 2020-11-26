@@ -1,4 +1,4 @@
-# Topics
+# Python Advanced
 
 ## Topics
 
@@ -11,6 +11,7 @@
   - magic methods
   - inheritance
 - iterators
-- functions - advanced: lambdas, decorators, functools, memoization
+- lambdas
+- higher-order functions
 - advanced data types: set, namedtuple, enum
 - parallelization: threads and multiprocessing

@@ -1,1 +1,0 @@
-# Python in der Praxis

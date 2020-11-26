@@ -1,4 +1,6 @@
-# Topics
+# Python in practice
+
+## Topics
 
 - working with files and folders
 - working with various file formats

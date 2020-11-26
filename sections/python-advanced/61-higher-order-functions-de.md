@@ -1,21 +1,4 @@
-# Funktionen - Fortgeschritten
-
-## Lambdas
-
-Definieren einer Lambda-Funktion (anonymen Funktion):
-
-```py
-multiply = lambda a, b: a * b
-```
-
-## Lambdas
-
-Verwenden eines Lambdas zum Sortieren:
-
-```py
-pairs = [(1, 'one'), (2, 'two'), (3, 'three'), (4, 'four')]
-pairs.sort(key=lambda pair: pair[1])
-```
+# Funktionen höherer Ordnung
 
 ## Funktionen höherer Ordnung
 
@@ -64,7 +47,7 @@ Decorator-Syntax: einfache Möglichkeit, Funktionen höherer Ordnung auf Funktio
 ## Decorator-Syntax
 
 ```py
-@lru_cache
+@lru_cache  # Python >= 3.8
 def fibonacci(n):
     ...
 ```

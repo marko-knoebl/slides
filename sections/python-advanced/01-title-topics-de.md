@@ -1,4 +1,4 @@
-# Themen
+# Python Fortgeschritten
 
 ## Themen
 
@@ -11,6 +11,7 @@
   - magic Methods
   - Vererbung
 - Iterators
-- Funktionen - fortgeschritten: Lambdas, Decorators, functools, Memoisation
+- Lambdas
+- Higher-order Functions
 - weitere Datentypen: set, namedtuple, enum
 - Parallelisierung: threads und multiprocessing

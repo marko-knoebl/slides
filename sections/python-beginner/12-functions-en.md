@@ -16,11 +16,9 @@ examples of predefined functions:
 
 A function can receive so-called _parameters_ and produce a result (a _return value_)
 
-example: `len("foo")` → `3`
+example: `len()` can take a string as a _parameter_ and produce an int as the _return value_
 
-parameter: `"foo"`
-
-return value: `3`
+example: `print()` can take various objects as _parameters_; it does **not** have an explicit _return value_
 
 ## Methods
 

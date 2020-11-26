@@ -1,36 +1,17 @@
 # Python Intermediate
 
-## Präsentationen
+## Themen
 
-<https://marko-knoebl.github.io/slides/>
-
-## Ihr Trainer
-
-Marko Knöbl
-
-- aus Wien
-- ehemaliger Mathematiklehrer
-- Programmierthemen:
-  - JavaScript, TypeScript und React
-  - Python, Data Science
-
-## Vorstellung der Teilnehmer
-
-- Aktuelle Projekte
-- Vorkenntnisse
-- Erwartungen / Wünsche
-
-## Organisatorisches
-
-- Kursdauer
-- Pausen
-- Mittagessen
-- Unterlagen
-- Fragen, Feedback? - Jederzeit erwünscht
-
-## Code
-
-Code verfügbar unter: <https://github.com/marko-knoebl/courses-code>
+- Datentypen vertieft
+  - Strings und String-Verarbeitung
+  - Bytes
+  - Sequenzen
+- Erstellen von Listen und Dictionaries mittels Comprehensions
+- objektorientiertes Programmieren und Klassen
+- fortgeschrittene Kontrollstrukturen
+- Exceptions
+- Module und Pakete
+- Paketmanagement in Python
 
 # Datentypen in Python
 
@@ -160,15 +141,29 @@ e = float('inf')
 
 ## float
 
-Achtung Rundungsfehler: Einige Zahlen können nicht genau als Kommazahlen repräseniert werden, sie werden immer gerundet
+**Rundungsfehler**: manche Zahlen können nicht als Gleitkommazahlen dargestellt werden, sie sind immer Annäherungen
 
-Beispiele im Dezimalsystem: _1/3_, _1/7_
+Beispiele im Dezimalsystem: 1/3, 1/7, π
 
-Beispiele im Binärsystem (`float`): _1/10_, _1/5_, _1/3_
+Beispiele im Binärsystem (_floats_): 1/10, 1/5, 1/3, π
 
-Beispiel: `0.1 + 0.2` ergibt `0.30000000000000004`
+Beispiel: π + π ergibt `6.2`, wenn wir Dezimalzahlen mit 2 Stellen verwenden (besseres Ergebnis wäre `6.3`)
 
-Im Allgemeinen sind 64-bit floats auf ca 16 Dezimalstellen genau.
+Beispiel: `0.1 + 0.2` ergibt ~ `0.30000000000000004`, wenn wir 64-bit floats verwenden
+
+## float
+
+```py
+0.1 + 0.2 == 0.3
+# False
+```
+
+```py
+import math
+
+math.isclose(0.1 + 0.2, 0.3)
+# True
+```
 
 ## float
 
@@ -1336,24 +1331,6 @@ urllib.request.urlopen(...)
 
 ## Eigene Module
 
-Ziel: Erstellen eines lokalen eigenen Moduls, das wie folgt verwendet werden kann:
-
-```py
-from .foo import a, b
-```
-
-## Eigene Module
-
-Einfaches Modul as Python-Datei:
-
-```py
-# foo.py
-a = 1
-b = 2
-```
-
-## Eigene Module
-
 Modul als Verzeichnis:
 
 ```
@@ -1369,7 +1346,7 @@ b = 2
 
 ## Eigene Module
 
-Module as a directory with separated defintions:
+Modul als Ordner mit separaten Definitionen:
 
 ```
 - foo/
@@ -1380,37 +1357,9 @@ Module as a directory with separated defintions:
 
 ```py
 # __init__.py
-from _a_mod import a
-from _b_mod import b
+from foo._a_mod import a
+from foo._b_mod import b
 ```
-
-## Eigene Pakete
-
-Ziel: Erstellen eines eigenen Pakets, das wie folgt verwendet werden kann:
-
-```py
-from .foo import bar
-
-print(bar.a)
-print(bar.b)
-```
-
-## Eigene Pakete
-
-```
-- foo/
-  - bar.py
-```
-
-## Auflösen von Imports
-
-Suchreihenfolge von absoluten Imports:
-
-- Verzeichnis, in dem das ursprünglich ausgeführte Python Skript liegt
-- Standardlibrary
-- externe Libraries
-
-Vermeide Namensgleichheit mit existierenden Modulen / Paketen!
 
 ## Auflösen von Imports
 
@@ -1426,6 +1375,17 @@ print(sys.path)
 Importierte Module werden in kompilierter Form abgelegt, um später schneller eingelesen werden zu können.
 
 Wir finden die kompilierten Versionen im Ordner `__pycache__`
+
+## Modulname und Einstiegspunkt
+
+in einem importierten Module bezieht sich die Variable `__name__` auf dessen Namen
+
+wurde eine Python-Datei direkt ausgeführt und nicht importiert, ist deren `__name__` gleich `"__main__"`
+
+```py
+if __name__ == "__main__":
+    print("this file was run directly (and not imported)")
+```
 
 # PIP
 
@@ -1604,7 +1564,9 @@ b.append(4)
 print(a)
 ```
 
-Das obige Programm gibt `[1, 2, 3, 4]` aus. `a` und `b` beziehen sich auf das selbe Objekt.
+Das obige Programm gibt `[1, 2, 3, 4]` aus
+
+`a` und `b` beziehen sich auf das selbe Objekt
 
 ## Objektreferenzen und Mutationen
 
@@ -1632,6 +1594,16 @@ print(id(a_outer))
 
 ## Objektreferenzen und Mutationen bei Funktionen
 
+empfohlenes Prinzip für Funktionen:
+
+**Funktionen sollten übergebene Parameter nicht abändern**
+
+oder allgemeiner:
+
+**Funktionen sollten mit der Python-Umgebung nur dadurch interagieren, dass sie Parameter entgegennehmen und Rückgabewerte zurückliefern** (Sie sollten keine Seiteneffekte / Nebeneffekte haben)
+
+## Objektreferenzen und Mutationen bei Funktionen
+
 ```py
 def remove_middle_element(list_in):
     list_in.pop(len(list_in) // 2)
@@ -1644,16 +1616,6 @@ print(a)
 ```
 
 Was gibt das obige Beispiel aus?
-
-## Objektreferenzen und Mutationen bei Funktionen
-
-Leitprinzip für Funktionen:
-
-**Funktionen sollten übergebene Parameter nicht abändern**
-
-oder allgemeiner:
-
-**Funktionen sollten mit der Python-Umgebung nur dadurch interagieren, dass sie Parameter entgegennehmen und Rückgabewerte zurückliefern** (Sie sollten keine Seiteneffekte / Nebeneffekte haben)
 
 ## Objektreferenzen und Mutationen bei Funktionen
 
@@ -1676,12 +1638,11 @@ def remove_middle_element(list_in):
 
 a = [1, 2, 3, 4, 5]
 b = remove_middle_element(a)
-print(b)
 ```
 
 ## Methode einer eigenen Klasse
 
-Lockerung des Leitprinzips bei Methoden: Der Parameter `self` _darf abgeändert werden_.
+Lockerung des erwähnten Prinzips bei Methoden: Einträge in `self` _dürfen abgeändert werden_.
 
 Die folgende Methode ändert das Objekt intern ab und gibt nichts zurück.
 
@@ -1692,12 +1653,11 @@ class AdvancedList(list):
 
 a = AdvancedList([1, 2, 3, 4, 5])
 a.remove_middle_element()
-print(a)
 ```
 
 ## Objektreferenzen und Mutationen bei Funktionen
 
-Übliche Regeln:
+Übliche Empfehlungen:
 
 - Übergebene Parameter nicht abändern (Ausnahme: `self` in Methoden)
 - Keine globalen Variablen setzen
@@ -1710,6 +1670,26 @@ Strikte Regeln - für sogenannte _reine_ Funktionen:
 Reine Funktionen sind Funktionen, die mit ihrer Umgebung nur über Eingabeparameter und Rückgabewerte interagieren.
 
 Je "reiner" eine Funktion ist, umso einfacher ist sie wiederzuverwenden und zu testen.
+
+## Mutieren von Standardparametern
+
+Unerwartetes Verhalten in Python, wenn Standardparameter mutiert werden:
+
+```py
+def register_file_formats(formats=["py", "pyc"]):
+    for format in formats:
+        formats.append(format.upper())
+    # ...
+    print(formats)
+
+register_file_formats(["py"]) # ["py", "PY"]
+register_file_formats()
+# ["py", "pyc", "PY", "PYC"]
+register_file_formats()
+# ["py", "pyc", "PY", "PYC", "PY", "PYC", "PY", "PYC"]
+```
+
+(Websuche: _mutable default arguments_)
 
 # Python Versionen
 

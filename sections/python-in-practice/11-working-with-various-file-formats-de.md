@@ -11,48 +11,11 @@ Möglichkeiten zum Speichern / Lesen:
 - Python-Objektdateien (mittels pickle und shelve)
 - Binärdateien
 
-## CSV
-
-CSV ist ein Textdateiformat, das tabellarische Daten beinhalten kann
-
-Beispiel:
-
-```csv
-ISO,Country,Capital,Languages
-AD,Andorra,Andorra la Vella,"ES,FR"
-AE,United Arab Emirates,Abu Dhabi,"AE,fa,en,hi,ur"
-AF,Afghanistan,Kabul,"AF,tk"
-```
-
-## CSV schreiben
-
-```py
-import csv
-
-data = [
-    ['code', 'area', 'population'],
-    ['CN', 9.6, 1386],
-    ['RU', 17, 144],
-    ['US', 9.8, 327]
-]
-
-with open('data.csv', 'w', encoding='utf-8', newline='') as f:
-    writer = csv.writer(f)
-    writer.writerows(data)
-```
-
-## CSV lesen
-
-```py
-import csv
-
-with open('countries.csv', encoding='utf-8', newline='') as csv_file:
-    reader = csv.reader(csv_file)
-    for row in reader:
-        print(row)
-```
-
 ## JSON
+
+JSON: weit verbreitetes und standardisiertes Dateiformat
+
+kann die grundlegenden Python-Datentypen repräsentieren (none, bool, int, float, list, dict)
 
 ## JSON speichern
 
@@ -74,6 +37,76 @@ import json
 with open("numbers.json", encoding="utf-8") as jsonfile:
     jsonstring = jsonfile.read()
 data = json.loads(jsonstring)
+```
+
+## CSV
+
+CSV ist ein Textdateiformat, das tabellarische Daten beinhalten kann
+
+Beispiel:
+
+```csv
+ISO,Country,Capital,Languages
+AD,Andorra,Andorra la Vella,"ES,FR"
+AE,United Arab Emirates,Abu Dhabi,"AE,fa,en,hi,ur"
+AF,Afghanistan,Kabul,"AF,tk"
+```
+
+## CSV
+
+Python Libraries:
+
+- _csv_ (Teil der Standardlibrary)
+- _pandas_
+
+## CSV schreiben mit Pandas
+
+```py
+import pandas as pd
+
+data = pd.DataFrame(
+    [
+        ["CN", 9.6, 1386],
+        ["RU", 17.0, 144],
+        ["US", 9.8, 327],
+    ],
+    columns=["code", "area", "population"],
+)
+
+data.to_csv("countries.csv")
+```
+
+## CSV lesen mit Pandas
+
+```py
+import pandas as pd
+
+data = pd.read_csv("countries.csv")
+
+print(data)
+print(data.values.tolist())
+```
+
+## CSV schreiben und lesen
+
+```py
+import csv
+
+data = [
+    ['code', 'area', 'population'],
+    ['CN', 9.6, 1386],
+    ['RU', 17, 144],
+    ['US', 9.8, 327]
+]
+
+with open('countr.csv', 'w', encoding='utf-8', newline='') as f:
+    writer = csv.writer(f)
+    writer.writerows(data)
+
+with open('countr.csv', encoding='utf-8', newline='') as f:
+    reader = csv.reader(f)
+    for row in reader:
+        print(row)
 ```
 
 ## XML

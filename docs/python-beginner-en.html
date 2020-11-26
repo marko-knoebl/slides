@@ -2061,34 +2061,23 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   <body>
     <div class="reveal">
       <div class="slides slides"><section class="slides-section"><section class="slide"><h1>Python beginner</h1>
-</section><section class="slide"><h2>Slides</h2>
-<p><a href="https://marko-knoebl.github.io/slides/">https://marko-knoebl.github.io/slides/</a></p>
-</section><section class="slide"><h2>Your Trainer</h2>
-<p>Marko Knöbl</p>
+</section><section class="slide"><h2>Topics</h2>
 <ul>
-<li>based in Vienna</li>
-<li>former math teacher</li>
-<li>programming topics:<ul>
-<li>JavaScript, TypeScript and React</li>
-<li>Python, data science</li>
+<li>overview and comparison to other programming languages</li>
+<li>installation</li>
+<li>working with the interactive Python console</li>
+<li>variables and basic data types</li>
+<li>composite types: dict, list, tuple</li>
+<li>help and documentation</li>
+<li>builtins and the standard library</li>
+<li>control structures<ul>
+<li>if / else</li>
+<li>loops (while, for)</li>
 </ul></li>
+<li>functions</li>
+<li>code quality and linting</li>
+<li>debugging</li>
 </ul>
-</section><section class="slide"><h2>Introduction of Participants</h2>
-<ul>
-<li>current projects</li>
-<li>prior knowledge</li>
-<li>expectations</li>
-</ul>
-</section><section class="slide"><h2>Organizational</h2>
-<ul>
-<li>duration</li>
-<li>breaks</li>
-<li>lunch</li>
-<li>materials</li>
-<li>questions, feedback?</li>
-</ul>
-</section><section class="slide"><h2>Code</h2>
-<p>Code available at: <a href="https://github.com/marko-knoebl/courses-code">https://github.com/marko-knoebl/courses-code</a></p>
 </section></section><section class="slides-section"><section class="slide"><h1>Python: Overview</h1>
 </section><section class="slide"><h2>Python</h2>
 <ul>
@@ -2258,9 +2247,8 @@ message = <span class="hljs-string">"Pi is approximately "</span> + str(pi_int)
 </ul>
 </section><section class="slide"><h2>Functions</h2>
 <p>A function can receive so-called <em>parameters</em> and produce a result (a <em>return value</em>)</p>
-<p>example: <code>len("foo")</code> → <code>3</code></p>
-<p>parameter: <code>"foo"</code></p>
-<p>return value: <code>3</code></p>
+<p>example: <code>len()</code> can take a string as a <em>parameter</em> and produce an int as the <em>return value</em></p>
+<p>example: <code>print()</code> can take various objects as <em>parameters</em>; it does <strong>not</strong> have an explicit <em>return value</em></p>
 </section><section class="slide"><h2>Methods</h2>
 <p>A <em>method</em> is a function that belongs to a specific object type (e.g. to <em>str</em>)</p>
 <p>examples of string methods:</p>
@@ -2407,9 +2395,14 @@ b = a + [<span class="hljs-number">4</span>]
 <p>Documentation on built-ins and the standard library:</p>
 <p><a href="https://docs.python.org/3/library/index.html">https://docs.python.org/3/library/index.html</a></p>
 <p>Similar to the <code>help</code> function, but often has slightly more detailed descriptions</p>
-</section></section><section class="slides-section"><section class="slide"><h1>VS Code</h1>
+</section></section><section class="slides-section"><section class="slide"><h1>Development environments</h1>
+</section><section class="slide"><h2>Development environments</h2>
+<ul>
+<li><em>VS Code</em> (open source)</li>
+<li><em>PyCharm Community</em> (open source)</li>
+<li><em>PyCharm Professional</em></li>
+</ul>
 </section><section class="slide"><h2>VS Code</h2>
-<p>For writing entire programs we use <em>VS Code</em></p>
 <p>See the presentation <a href="./vs-code-en.html">VS Code</a></p>
 </section></section><section class="slides-section"><section class="slide"><h1>Our first Python program</h1>
 </section><section class="slide"><h2>Our first Python program</h2>
@@ -2813,6 +2806,29 @@ print(m) <span class="hljs-comment"># prints "Hello, world"</span>
 </ul>
 <p>For bar codes / primes: use the % operator</p>
 <p>see <a href="https://github.com/marko-knoebl/slides/tree/master/exercises/python-beginner">https://github.com/marko-knoebl/slides/tree/master/exercises/python-beginner</a></p>
+</section></section><section class="slides-section"><section class="slide"><h1>Local modules</h1>
+</section><section class="slide"><h2>Local modules</h2>
+<p>we can import local Python files as modules</p>
+<p>example: local file <em>messages.py</em></p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> messages
+
+print(messages.message1)
+</code></pre>
+</section><section class="slide"><h2>Local modules</h2>
+<p>we can create so-called <em>packages</em> as folders</p>
+<p>example: folder <em>phrases/</em>, files <em>phrases/messages.py</em> and <em>phrases/greetings.py</em></p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> phrases <span class="hljs-keyword">import</span> greetings
+
+print(greetings.greeting1)
+</code></pre>
+</section><section class="slide"><h2>Resolving imports</h2>
+<p>Search order of imports:</p>
+<ul>
+<li>directory of the Python script that was originally executed</li>
+<li>standard library</li>
+<li>external libraries</li>
+</ul>
+<p>Avoid name clashes with existing modules / packages!</p>
 </section></section><section class="slides-section"><section class="slide"><h1>Code quality and linting</h1>
 </section><section class="slide"><h2>Code quality and linting</h2>
 <p>aspects:</p>

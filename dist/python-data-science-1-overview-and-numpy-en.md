@@ -264,6 +264,54 @@ We can query these attributes:
 - `a3d.ndim`: 3
 - `a3d.size`: 8
 
+# More than one way to do it
+
+## More than one way to do it
+
+from the _Zen of Python_:
+
+> There should be one-- and preferably only one --obvious way to do it.
+
+this philosophy is often _not_ applied in _NumPy_
+
+## More than one way to do it
+
+example: transposing an array
+
+```py
+a2d.T
+a2d.transpose()
+np.transpose(a2d)
+```
+
+## NumPy functions vs array methods
+
+many operations available in two ways:
+
+- functions in the `numpy` package
+- methods of the `array` class
+
+we will be using mostly functions
+
+## NumPy functions vs array methods
+
+available as functions and methods:
+
+```py
+np.max(a2d)
+a2d.max()
+np.round(a2d)
+a2d.round()
+```
+
+available as functions only:
+
+```py
+np.sin(a2d)
+np.exp(a2d)
+np.expand_dims(a2d, 2)
+```
+
 # Numeric types
 
 ## Numeric types
@@ -274,14 +322,14 @@ We can query these attributes:
 
 ## Int
 
-an _int8_ consists of 8 bits and can store 256 different numbers
+an _int8_ consists of 8 bits and can store 2^8 (256) different numbers
 
-integers of different bit sizes can represent different amounts of numbers:
+number of representable values for integer types:
 
-- _int8_: 256 numbers (-128 to +127)
-- _int16_: 65,536 numbers (-32,768 to +32,767)
-- _int32_: 4,294,967,296 numbers
-- _int64_: 18,446,744,073,709,551,616 numbers
+- _int8_: 256 (-128 to +127)
+- _int16_: 65,536 (-32,768 to +32,767)
+- _int32_: 4,294,967,296
+- _int64_: 18,446,744,073,709,551,616
 
 ## Int
 
@@ -309,11 +357,11 @@ common floating point types:
 
 examples in the decimal system: 1/3, 1/7, π
 
-examples in the binary system: 1/10, 1/5, 1/3, π
-
-example: `0.1 + 0.2` evaluates to `0.30000000000000004` when using 64 bit floats
+examples in the binary system (i.e. _floats_): 1/10, 1/5, 1/3, π
 
 example: π + π evaluates to `6.2` when using decimal numbers with a precision of 2 (a more exact result would be `6.3`)
+
+example: `0.1 + 0.2` evaluates to ~ `0.30000000000000004` when using 64 bit floats
 
 ## Float
 
@@ -402,7 +450,7 @@ larger numbers will yield `inf`
 
 smaller numbers will lose precision or yield `0.0`
 
-## Float: special values
+## Special values
 
 inf: `0 11111111 00000000000000000000000`
 
@@ -454,29 +502,6 @@ common types:
 - _uint8_, _uint16_, _uint32_, _uint64_
 - _float16_, _float32_, _float64_
 
-## Integer types
-
-An _int8_ can represent 2^8 (256) different numbers
-
-number of representable values for integer types:
-
-- _int8_: 256 (-128 to +127)
-- _int16_: 65,536 (-32768 to +32767)
-- _int32_: 4,294,967,296
-- _int64_: 18,446,744,073,709,551,616
-
-## Integer types
-
-```py
-np.array([127, 128, 129], dtype="int8")
-```
-
-output (integer overflow):
-
-```py
-array([127, -128, -127])
-```
-
 ## Float types
 
 precision for float types:
@@ -484,8 +509,6 @@ precision for float types:
 - _float16_: ~3 decimal digits
 - _float32_: ~7 decimal digits
 - _float64_: ~16 decimal digits
-
-floats are also limited in how big or small they can be
 
 ## Float types
 
@@ -527,30 +550,35 @@ np.zeros((2, 6))
 np.full((2, 6), 0.0)
 ```
 
-creating a 3x3 array of random values
+## Creating arrays
+
+creating number sequences:
 
 ```py
-# floats between 0 and 1:
-np.random.random((3, 3))
-# integers between 1 and 6:
-np.random.randint(1, 7, (3, 3))
+np.linspace(0, 1.0, 11)
+# [0.0, 0.1, ... 1.0]
+```
+
+```py
+np.arange(0, 3.14, 0.1)
+# [0.0, 0.1, ... 3.1]
 ```
 
 ## Creating arrays
 
-creating the sequence _0.0, 0.5, 1.0, 1.5_:
-
-fixed step width (0.5):
+creating a 2x2 array of random values:
 
 ```py
-a = np.arange(0, 2, 0.5)
+# create a random number generator
+rng = np.random.default_rng(seed=1)
+
+# floats between 0 and 1:
+rng.random((2, 2))
+# integers between 1 and 6:
+rng.integers(1, 7, (2, 2))
 ```
 
-fixed number of entries (4):
-
-```py
-b = np.linspace(0, 1.5, 4)
-```
+older interface: `np.random.random()` and `np.random.randint()`
 
 # Selecting array entries
 
@@ -609,15 +637,15 @@ also works on Python lists
 Operators are applied element-wise:
 
 ```py
-a = np.array([1, 2, 3])
-b = np.array([2, 2, 2])
+a = np.array([0, 1, 2, 3])
+b = np.array([2, 2, 2, 2])
 
 -a
-# np.array([-1, -2, -3])
+# np.array([0, -1, -2, -3])
 a + b
-# np.array([3, 4, 5])
+# np.array([2, 3, 4, 5])
 a * b
-# np.array([2, 4, 6])
+# np.array([0, 2, 4, 6])
 ```
 
 ## Operators
@@ -626,9 +654,9 @@ element-wise comparison of arrays:
 
 ```py
 a < b
-# np.array([True, False, False])
+# np.array([True, True, False, False])
 a == b
-# np.array([False, True, False])
+# np.array([False, False, True, False])
 ```
 
 Warning: `a == b` cannot be used reasonably in if statements - use `np.array_equal(a, b)`
@@ -638,10 +666,8 @@ Warning: `a == b` cannot be used reasonably in if statements - use `np.array_equ
 operations with single numbers (broadcasting):
 
 ```py
-a = np.array([1, 2, 3])
-
 print(a + 1)
-# np.array([2, 3, 4])
+# np.array([1, 2, 3, 4])
 ```
 
 Some constants are available directly in NumPy:
@@ -657,8 +683,6 @@ print(np.nan)
 NumPy provides some mathematical functions that are applied element-wise:
 
 ```py
-a = np.array([0, 1, 2, 3])
-
 print(np.sin(a))
 # [0.0, 0.84147098, 0.9... ]
 print(np.sqrt(a))
@@ -674,6 +698,7 @@ print(np.sqrt(a))
 - `exp`
 - `log`
 - `log10`
+- `round`
 - ...
 
 ## Aggregation functions
@@ -783,7 +808,7 @@ a_filtered = a[a_valid]
 # array([4.1, 2.7, 3.8])
 
 a_invalid = a < 0
-a_with_nans = a.copy()
+a_with_nans = np.copy(a)
 a_with_nans[a_invalid] = np.nan
 # array([4.1, 2.7, nan, 3.8, nan])
 ```
@@ -795,7 +820,7 @@ a = np.array([4.1, 2.7, -1, 3.8, -1])
 
 a_filtered = a[a > 0]
 
-a_with_nans = a.copy()
+a_with_nans = np.copy(a)
 a_with_nans[a_with_nans < 0] = np.nan
 ```
 
@@ -804,11 +829,16 @@ a_with_nans[a_with_nans < 0] = np.nan
 ## Reshaping arrays
 
 ```py
-a3d.ravel() # 1d array
-a3d.reshape(8) # 1d array
-a3d.reshape(2, 4) # 2x4 array
-a3d.reshape(2, -1) # automatic second dimension
-a2d.T # transposed
+np.reshape(a3d, (8, )) # 1d array
+np.reshape(a3d, (2, 4)) # 2d array
+```
+
+automatic sizing for one axis:
+
+```py
+np.ravel(a3d) # 1d array
+np.reshape(a3d, (-1, )) # 1d array
+np.reshape(a3d, (2, -1)) # 2d array
 ```
 
 ## Adding an extra dimension
@@ -828,6 +858,16 @@ alternative:
 a2d[:, :, np.newaxis]
 ```
 
+## Transposing
+
+reversing order of axes (flipping axes in 2D):
+
+```py
+np.transpose(a2d)
+
+a2d.T
+```
+
 ## Slices as views
 
 In ordinary Python we can make a shallow copy of a list by slicing it - this works differently in NumPy (in order to improve efficiency):
@@ -844,7 +884,7 @@ array_view[0] = 10 # DOES change array
 
 ## Copying arrays
 
-Arrays can be copied via `array.copy()`
+Arrays can be copied via `np.copy()`
 
 ## Concatenating arrays
 
@@ -856,34 +896,33 @@ np.concatenate([a2d, a2d])
 np.concatenate([a2d, a2d], axis=1)
 ```
 
-## Matrix / array multiplication
+# Linear algebra
+
+## Linear algebra
+
+```py
+np.transpose(m)
+np.linalg.inv(m)
+np.eye(2) # unit matrix
+```
+
+## Array multiplication
 
 via the binary Operator `@`
 
-```py
-a = np.array([1, 1])
-
-m = np.array([[0.707, 0.707],
-              [-0.707, 0.707]])
-
-print(a @ m)
-# array([0.   , 1.414])
-```
-
-## Matrix multiplication
-
-example: rotating several points by 45° (counterclockwise):
+example: rotating several points by 45° / 90° (counterclockwise):
 
 ```py
 points = np.array([[0, 0], [0, 1], [1, 1], [1, 0]])
 
-m = np.array([[0.707, 0.707],
-              [-0.707, 0.707]])
+m = np.array([[np.sqrt(0.5), np.sqrt(0.5)],
+              [-np.sqrt(0.5), np.sqrt(0.5)]])
 
 print(points @ m)
+print(points @ m @ m)
 ```
 
-## Matrix multiplication
+## Array multiplication
 
 example:
 

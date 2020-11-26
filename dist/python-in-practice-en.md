@@ -1,38 +1,6 @@
-# Python in Practice
+# Python in practice
 
-## Slides
-
-<https://marko-knoebl.github.io/slides/>
-
-## Your Trainer
-
-Marko Knöbl
-
-- based in Vienna
-- former math teacher
-- programming topics:
-  - JavaScript, TypeScript and React
-  - Python, data science
-
-## Introduction of Participants
-
-- current projects
-- prior knowledge
-- expectations
-
-## Organizational
-
-- duration
-- breaks
-- lunch
-- materials
-- questions, feedback?
-
-## Code
-
-Code available at: <https://github.com/marko-knoebl/courses-code>
-
-# Topics
+## Topics
 
 - working with files and folders
 - working with various file formats
@@ -186,6 +154,34 @@ possibilities:
 - Python object files (via pickle and shelve)
 - binary files
 
+## JSON
+
+JSON: popular and standardized data file format
+
+can represent the fundamental Python datatypes (none, bool, int, float, list, dict)
+
+## Saving JSON
+
+```py
+import json
+
+data = ["one", "two", "three"]
+jsonstring = json.dumps(data)
+
+with open("numbers.json", mode="w", encoding="utf-8") as jsonfile:
+    jsonfile.write(jsonstring)
+```
+
+## Reading JSON
+
+```py
+import json
+
+with open("numbers.json", encoding="utf-8") as jsonfile:
+    jsonstring = jsonfile.read()
+data = json.loads(jsonstring)
+```
+
 ## CSV
 
 CSV is a file format which can hold tabular data; entries are separated by commas
@@ -199,7 +195,42 @@ AE,United Arab Emirates,Abu Dhabi,"AE,fa,en,hi,ur"
 AF,Afghanistan,Kabul,"AF,tk"
 ```
 
-## Writing CSV
+## CSV
+
+Python libraries:
+
+- _csv_ (part of the standard libary)
+- _pandas_
+
+## Writing CSV via pandas
+
+```py
+import pandas as pd
+
+data = pd.DataFrame(
+    [
+        ["CN", 9.6, 1386],
+        ["RU", 17.0, 144],
+        ["US", 9.8, 327],
+    ],
+    columns=["code", "area", "population"],
+)
+
+data.to_csv("countries.csv")
+```
+
+## Reading CSV via pandas
+
+```py
+import pandas as pd
+
+data = pd.read_csv("countries.csv")
+
+print(data)
+print(data.values.tolist())
+```
+
+## Reading and writing CSV
 
 ```py
 import csv
@@ -211,44 +242,14 @@ data = [
     ['US', 9.8, 327]
 ]
 
-with open('data.csv', 'w', encoding='utf-8', newline='') as f:
+with open('countr.csv', 'w', encoding='utf-8', newline='') as f:
     writer = csv.writer(f)
     writer.writerows(data)
-```
 
-## Reading CSV
-
-```py
-import csv
-
-with open('countries.csv', encoding='utf-8', newline='') as csv_file:
-    reader = csv.reader(csv_file)
+with open('countr.csv', encoding='utf-8', newline='') as f:
+    reader = csv.reader(f)
     for row in reader:
         print(row)
-```
-
-## JSON
-
-## Saving JSON
-
-```py
-import json
-
-data = ["one", "two", "three"]
-jsonstring = json.dumps(data)
-
-with open("numbers.json", mode="w",encoding="utf-8") as jsonfile:
-    jsonfile.write(jsonstring)
-```
-
-## Reading JSON
-
-```py
-import json
-
-with open("numbers.json", encoding="utf-8") as jsonfile:
-    jsonstring = jsonfile.read()
-data = json.loads(jsonstring)
 ```
 
 ## XML

@@ -1,5 +1,15 @@
 # OOP: Statische Attribute und Methoden
 
+## Statische Attribute und Methoden
+
+_Statische Attribute_ und _Statische Methoden_ sind mit einer Klasse assoziiert, jedoch nicht mit einer spezifischen Instanz davon
+
+Beispiel anhand der _datetime_-Klasse:
+
+- `datetime.today()`
+- `datetime.fromisoformat()`
+- `datetime.resolution`
+
 ## Klassenattribute (statische Attribute)
 
 _Klassenattribute_ sind Attribute, die nur auf der Klasse (nicht auf jeder Instanz) definiert sind - alle Instanzen teilen sich die Attribute.

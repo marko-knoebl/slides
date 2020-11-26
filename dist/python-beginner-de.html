@@ -2061,34 +2061,24 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   <body>
     <div class="reveal">
       <div class="slides slides"><section class="slides-section"><section class="slide"><h1>Python beginner</h1>
-</section><section class="slide"><h2>Präsentationen</h2>
-<p><a href="https://marko-knoebl.github.io/slides/">https://marko-knoebl.github.io/slides/</a></p>
-</section><section class="slide"><h2>Ihr Trainer</h2>
-<p>Marko Knöbl</p>
+</section><section class="slide"><h2>Topics</h2>
 <ul>
-<li>aus Wien</li>
-<li>ehemaliger Mathematiklehrer</li>
-<li>Programmierthemen:<ul>
-<li>JavaScript, TypeScript und React</li>
-<li>Python, Data Science</li>
+<li>Überblick und Charakteristika von Python</li>
+<li>Installation</li>
+<li>interaktive Python-Umgebungen</li>
+<li>Variablen und Grundlegende Datentypen</li>
+<li>zusammengesetzte Typen: dict, list, tuple</li>
+<li>Datentypen</li>
+<li>Hilfe und Dokumentation</li>
+<li>Builtins und die Standard-Library</li>
+<li>Kontrollstrukturen<ul>
+<li>if / else</li>
+<li>Schleifen (while, for)</li>
 </ul></li>
+<li>Funktionen</li>
+<li>Codequalität und Linting</li>
+<li>Debugging</li>
 </ul>
-</section><section class="slide"><h2>Vorstellung der Teilnehmer</h2>
-<ul>
-<li>Aktuelle Projekte</li>
-<li>Vorkenntnisse</li>
-<li>Erwartungen / Wünsche</li>
-</ul>
-</section><section class="slide"><h2>Organisatorisches</h2>
-<ul>
-<li>Kursdauer</li>
-<li>Pausen</li>
-<li>Mittagessen</li>
-<li>Unterlagen</li>
-<li>Fragen, Feedback? - Jederzeit erwünscht</li>
-</ul>
-</section><section class="slide"><h2>Code</h2>
-<p>Code verfügbar unter: <a href="https://github.com/marko-knoebl/courses-code">https://github.com/marko-knoebl/courses-code</a></p>
 </section></section><section class="slides-section"><section class="slide"><h1>Python: Überblick</h1>
 </section><section class="slide"><h2>Python</h2>
 <ul>
@@ -2258,9 +2248,8 @@ message = <span class="hljs-string">"Pi is approximately "</span> + str(pi_int)
 </ul>
 </section><section class="slide"><h2>Funktionen</h2>
 <p>Funktionen können <em>Parameter</em> übergeben bekommen und einen <em>Rückgabewert</em> zurückliefern.</p>
-<p>Beispiel: <code>len("foo")</code> → <code>3</code></p>
-<p>Parameter: <code>"foo"</code></p>
-<p>Rückgabewert: <code>3</code></p>
+<p>Beispiel: <code>len()</code> kann einen String als Parameter übergeben bekommen und einen Int als Rückgabewert liefern</p>
+<p>Beispiel: <code>print()</code> kann verschiedene Objekte als Parameter entgegennehmen; es liefert keinen expliziten Rückgabewert</p>
 </section><section class="slide"><h2>Methoden</h2>
 <p><em>Methode</em>: eine Funktion, die zu einem bestimmten Objekttyp gehört (z.B. zu <em>str</em>)</p>
 <p>Beispiele für String-Methoden:</p>
@@ -2407,9 +2396,14 @@ b = a + [<span class="hljs-number">4</span>]
 <p>Dokumentation zu Built-Ins und der Standard Library:</p>
 <p><a href="https://docs.python.org/3/library/index.html">https://docs.python.org/3/library/index.html</a></p>
 <p>Bietet ähnliches wie die Funktion <code>help</code>, oft mit etwas ausführlicheren Beschreibungen</p>
-</section></section><section class="slides-section"><section class="slide"><h1>VS Code</h1>
+</section></section><section class="slides-section"><section class="slide"><h1>Entwicklungsumgebungen</h1>
+</section><section class="slide"><h2>Entwicklungsumgebungen</h2>
+<ul>
+<li><em>VS Code</em> (open source)</li>
+<li><em>PyCharm Community</em> (open source)</li>
+<li><em>PyCharm Professional</em></li>
+</ul>
 </section><section class="slide"><h2>VS Code</h2>
-<p>Zum schreiben ganzer Programme verwenden wir die Entwicklungsumgebung <em>VS Code</em></p>
 <p>Siehe die Präsentation <a href="./vs-code-de.html">VS Code</a></p>
 </section></section><section class="slides-section"><section class="slide"><h1>Unser erstes Python-Programm</h1>
 </section><section class="slide"><h2>Unser erstes Python-Programm</h2>
@@ -2813,6 +2807,29 @@ print(m) <span class="hljs-comment"># prints "Hello, world"</span>
 </ul>
 <p>für Strichcodes / Primzahlen: % - Operator</p>
 <p>Siehe: <a href="https://github.com/marko-knoebl/slides/tree/master/exercises/python-beginner">https://github.com/marko-knoebl/slides/tree/master/exercises/python-beginner</a></p>
+</section></section><section class="slides-section"><section class="slide"><h1>Lokale Module</h1>
+</section><section class="slide"><h2>Lokale Module</h2>
+<p>wir können lokale Python-Dateien als Module importieren</p>
+<p>Beispiel: lokale Datei <em>messages.py</em></p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> messages
+
+print(messages.message1)
+</code></pre>
+</section><section class="slide"><h2>Lokale Module</h2>
+<p>Zusammenfassung von Modulen in Pakete (via Ordnern)</p>
+<p>Beispiel: Ordner <em>phrases/</em>, Dateien <em>phrases/messages.py</em> und <em>phrases/greetings.py</em></p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> phrases <span class="hljs-keyword">import</span> greetings
+
+print(greetings.greeting1)
+</code></pre>
+</section><section class="slide"><h2>Auflösen von Imports</h2>
+<p>Suchreihenfolge von Imports:</p>
+<ul>
+<li>Verzeichnis, in dem das ursprünglich ausgeführte Python Skript liegt</li>
+<li>Standardlibrary</li>
+<li>externe Libraries</li>
+</ul>
+<p>Vermeide Namensgleichheit mit existierenden Modulen / Paketen!</p>
 </section></section><section class="slides-section"><section class="slide"><h1>Codequalität und Linting</h1>
 </section><section class="slide"><h2>Codequalität und Linting</h2>
 <p>Aspekte:</p>

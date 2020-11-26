@@ -194,16 +194,10 @@ euribor = pd.read_hdf("data.hdf5", "euribor")
 
 # Data statistics
 
-## Data statistics
+## Statistics on series
 
 ```py
-df.describe()
-```
-
-## Statistics on a data frames / series
-
-```py
-countries.area.describe()
+countries["area"].describe()
 ```
 
 ```txt
@@ -223,7 +217,7 @@ dtype: float64
 ## Statistics on series
 
 ```py
-countries.area.describe()
+countries["area"].describe()
 ```
 
 The above computes the following data:
@@ -731,7 +725,19 @@ Pandas:
 df.plot.pie()
 ```
 
-# Cross tabulation
+# Counts and cross tabulation
+
+## Counts
+
+```py
+titanic["class"].value_counts()
+```
+
+```
+Third     491
+First     216
+Second    184
+```
 
 ## Cross tabulation
 
@@ -739,20 +745,16 @@ A _cross tabulation_ shows the number of corresponding entries across multiple p
 
 ## Cross tabulation
 
-example:
-
 ```py
-pd.crosstab(titanic.pclass, titanic.survived)
+pd.crosstab(titanic["class"], titanic["survived"])
 ```
 
-output:
-
 ```
-survived  False  True 
-pclass                
-1            80    136
-2            97     87
-3           372    119
+survived    0    1
+class
+First      80  136
+Second     97   87
+Third     372  119
 ```
 
 # Grouping

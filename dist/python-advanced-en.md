@@ -1,39 +1,5 @@
 # Python Advanced
 
-## Slides
-
-<https://marko-knoebl.github.io/slides/>
-
-## Your Trainer
-
-Marko Knöbl
-
-- based in Vienna
-- former math teacher
-- programming topics:
-  - JavaScript, TypeScript and React
-  - Python, data science
-
-## Introduction of Participants
-
-- current projects
-- prior knowledge
-- expectations
-
-## Organizational
-
-- duration
-- breaks
-- lunch
-- materials
-- questions, feedback?
-
-## Code
-
-Code available at: <https://github.com/marko-knoebl/courses-code>
-
-# Topics
-
 ## Topics
 
 - logging
@@ -45,7 +11,8 @@ Code available at: <https://github.com/marko-knoebl/courses-code>
   - magic methods
   - inheritance
 - iterators
-- functions - advanced: lambdas, decorators, functools, memoization
+- lambdas
+- higher-order functions
 - advanced data types: set, namedtuple, enum
 - parallelization: threads and multiprocessing
 
@@ -309,9 +276,9 @@ def double(n: int) -> int:
 ```py
 from typing import List, Set, Dict, Tuple
 
-names: List[int] = ['Anna', 'Bernd', 'Caro']
-anna: Tuple[str, str, int] = ('Anna', 'Berger', 1990)
-roman: Dict[int, str] = {1: 'I', 2: 'II', 3: 'III', 4: 'IV'}
+names: List[str] = ['Anna', 'Bernd', 'Caro']
+person: Tuple[str, str, int] = ('Anna', 'Berger', 1990)
+roman_numerals: Dict[int, str] = {1: 'I', 2: 'II', 3: 'III', 4: 'IV'}
 ```
 
 ```py
@@ -443,6 +410,16 @@ class Rectangle:
 ```
 
 # OOP: Static attributes and methods
+
+## Static attributes and methods
+
+_static attributes_ and _static methods_ are associated with a class, but not with any specific instance of it
+
+example: _static attributes_ and _static methods_ of the _datetime_ class:
+
+- `datetime.today()`
+- `datetime.fromisoformat()`
+- `datetime.resolution`
 
 ## Class attributes (static attributes)
 
@@ -904,7 +881,7 @@ Quote from Python's inventor:
 
 - `is_prime()` with loops and `for ... else`
 
-# Functions - advanced
+# Lambdas
 
 ## Lambdas
 
@@ -922,6 +899,8 @@ using a lambda for sorting:
 pairs = [(1, 'one'), (2, 'two'), (3, 'three'), (4, 'four')]
 pairs.sort(key=lambda pair: pair[1])
 ```
+
+# Higher-order functions
 
 ## Higher-order functions
 
@@ -970,7 +949,7 @@ Decorator syntax: simple way of applying higher-order functions to function defi
 ## Decorator syntax
 
 ```py
-@lru_cache
+@lru_cache  # Python >= 3.8
 def fibonacci(n):
     ...
 ```

@@ -1,36 +1,21 @@
 # Python beginner
 
-## Präsentationen
+## Topics
 
-<https://marko-knoebl.github.io/slides/>
-
-## Ihr Trainer
-
-Marko Knöbl
-
-- aus Wien
-- ehemaliger Mathematiklehrer
-- Programmierthemen:
-  - JavaScript, TypeScript und React
-  - Python, Data Science
-
-## Vorstellung der Teilnehmer
-
-- Aktuelle Projekte
-- Vorkenntnisse
-- Erwartungen / Wünsche
-
-## Organisatorisches
-
-- Kursdauer
-- Pausen
-- Mittagessen
-- Unterlagen
-- Fragen, Feedback? - Jederzeit erwünscht
-
-## Code
-
-Code verfügbar unter: <https://github.com/marko-knoebl/courses-code>
+- Überblick und Charakteristika von Python
+- Installation
+- interaktive Python-Umgebungen
+- Variablen und Grundlegende Datentypen
+- zusammengesetzte Typen: dict, list, tuple
+- Datentypen
+- Hilfe und Dokumentation
+- Builtins und die Standard-Library
+- Kontrollstrukturen
+  - if / else
+  - Schleifen (while, for)
+- Funktionen
+- Codequalität und Linting
+- Debugging
 
 # Python: Überblick
 
@@ -296,11 +281,9 @@ Beispiele für vordefinierte Funktionen:
 
 Funktionen können _Parameter_ übergeben bekommen und einen _Rückgabewert_ zurückliefern.
 
-Beispiel: `len("foo")` → `3`
+Beispiel: `len()` kann einen String als Parameter übergeben bekommen und einen Int als Rückgabewert liefern
 
-Parameter: `"foo"`
-
-Rückgabewert: `3`
+Beispiel: `print()` kann verschiedene Objekte als Parameter entgegennehmen; es liefert keinen expliziten Rückgabewert
 
 ## Methoden
 
@@ -535,11 +518,15 @@ Dokumentation zu Built-Ins und der Standard Library:
 
 Bietet ähnliches wie die Funktion `help`, oft mit etwas ausführlicheren Beschreibungen
 
-# VS Code
+# Entwicklungsumgebungen
+
+## Entwicklungsumgebungen
+
+- _VS Code_ (open source)
+- _PyCharm Community_ (open source)
+- _PyCharm Professional_
 
 ## VS Code
-
-Zum schreiben ganzer Programme verwenden wir die Entwicklungsumgebung _VS Code_
 
 Siehe die Präsentation [VS Code](./vs-code-de.html)
 
@@ -1142,6 +1129,42 @@ In anderen Programmiersprachen: auch Konstrukte wie `if` oder `for` eröffnen ei
 für Strichcodes / Primzahlen: % - Operator
 
 Siehe: <https://github.com/marko-knoebl/slides/tree/master/exercises/python-beginner>
+
+# Lokale Module
+
+## Lokale Module
+
+wir können lokale Python-Dateien als Module importieren
+
+Beispiel: lokale Datei _messages.py_
+
+```py
+import messages
+
+print(messages.message1)
+```
+
+## Lokale Module
+
+Zusammenfassung von Modulen in Pakete (via Ordnern)
+
+Beispiel: Ordner _phrases/_, Dateien _phrases/messages.py_ und _phrases/greetings.py_
+
+```py
+from phrases import greetings
+
+print(greetings.greeting1)
+```
+
+## Auflösen von Imports
+
+Suchreihenfolge von Imports:
+
+- Verzeichnis, in dem das ursprünglich ausgeführte Python Skript liegt
+- Standardlibrary
+- externe Libraries
+
+Vermeide Namensgleichheit mit existierenden Modulen / Paketen!
 
 # Codequalität und Linting
 

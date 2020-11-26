@@ -32,11 +32,11 @@ specifying colors:
 
 line style:
 
--  `"none"` or `""`
--  `"solid"` or `"-"`
--  `"dashed"` or `"--"`
--  `"dotted"` or `":"`
--  `"dashdot"` or `"-."`
+- `"none"` or `""`
+- `"solid"` or `"-"`
+- `"dashed"` or `"--"`
+- `"dotted"` or `":"`
+- `"dashdot"` or `"-."`
 
 ## Styling graphs
 
@@ -180,6 +180,7 @@ plt.legend()
 plt.axis("scaled")
 ```
 
-## Resource
+## Resources
 
-see [Python Data Science Handbook: Simple Line Plots](https://jakevdp.github.io/PythonDataScienceHandbook/04.01-simple-line-plots.html)
+- [Python Data Science Handbook: Simple Line Plots](https://jakevdp.github.io/PythonDataScienceHandbook/04.01-simple-line-plots.html)
+- [list of Pyplot functions](https://matplotlib.org/api/pyplot_summary.html)

@@ -1,33 +1,5 @@
-<h1>Python in Practice</h1>
-<h2>Slides</h2>
-<p><a href="https://marko-knoebl.github.io/slides/">https://marko-knoebl.github.io/slides/</a></p>
-<h2>Your Trainer</h2>
-<p>Marko Knöbl</p>
-<ul>
-<li>based in Vienna</li>
-<li>former math teacher</li>
-<li>programming topics:<ul>
-<li>JavaScript, TypeScript and React</li>
-<li>Python, data science</li>
-</ul></li>
-</ul>
-<h2>Introduction of Participants</h2>
-<ul>
-<li>current projects</li>
-<li>prior knowledge</li>
-<li>expectations</li>
-</ul>
-<h2>Organizational</h2>
-<ul>
-<li>duration</li>
-<li>breaks</li>
-<li>lunch</li>
-<li>materials</li>
-<li>questions, feedback?</li>
-</ul>
-<h2>Code</h2>
-<p>Code available at: <a href="https://github.com/marko-knoebl/courses-code">https://github.com/marko-knoebl/courses-code</a></p>
-<h1>Topics</h1>
+<h1>Python in practice</h1>
+<h2>Topics</h2>
 <ul>
 <li>working with files and folders</li>
 <li>working with various file formats</li>
@@ -142,6 +114,25 @@ locale.getpreferredencoding()
 <li>Python object files (via pickle and shelve)</li>
 <li>binary files</li>
 </ul>
+<h2>JSON</h2>
+<p>JSON: popular and standardized data file format</p>
+<p>can represent the fundamental Python datatypes (none, bool, int, float, list, dict)</p>
+<h2>Saving JSON</h2>
+<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> json
+
+data = [<span class="hljs-string">"one"</span>, <span class="hljs-string">"two"</span>, <span class="hljs-string">"three"</span>]
+jsonstring = json.dumps(data)
+
+<span class="hljs-keyword">with</span> open(<span class="hljs-string">"numbers.json"</span>, mode=<span class="hljs-string">"w"</span>, encoding=<span class="hljs-string">"utf-8"</span>) <span class="hljs-keyword">as</span> jsonfile:
+    jsonfile.write(jsonstring)
+</code></pre>
+<h2>Reading JSON</h2>
+<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> json
+
+<span class="hljs-keyword">with</span> open(<span class="hljs-string">"numbers.json"</span>, encoding=<span class="hljs-string">"utf-8"</span>) <span class="hljs-keyword">as</span> jsonfile:
+    jsonstring = jsonfile.read()
+data = json.loads(jsonstring)
+</code></pre>
 <h2>CSV</h2>
 <p>CSV is a file format which can hold tabular data; entries are separated by commas</p>
 <p>example:</p>
@@ -150,7 +141,35 @@ AD,Andorra,Andorra la Vella,"ES,FR"
 AE,United Arab Emirates,Abu Dhabi,"AE,fa,en,hi,ur"
 AF,Afghanistan,Kabul,"AF,tk"
 </code></pre>
-<h2>Writing CSV</h2>
+<h2>CSV</h2>
+<p>Python libraries:</p>
+<ul>
+<li><em>csv</em> (part of the standard libary)</li>
+<li><em>pandas</em></li>
+</ul>
+<h2>Writing CSV via pandas</h2>
+<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+
+data = pd.DataFrame(
+    [
+        [<span class="hljs-string">"CN"</span>, <span class="hljs-number">9.6</span>, <span class="hljs-number">1386</span>],
+        [<span class="hljs-string">"RU"</span>, <span class="hljs-number">17.0</span>, <span class="hljs-number">144</span>],
+        [<span class="hljs-string">"US"</span>, <span class="hljs-number">9.8</span>, <span class="hljs-number">327</span>],
+    ],
+    columns=[<span class="hljs-string">"code"</span>, <span class="hljs-string">"area"</span>, <span class="hljs-string">"population"</span>],
+)
+
+data.to_csv(<span class="hljs-string">"countries.csv"</span>)
+</code></pre>
+<h2>Reading CSV via pandas</h2>
+<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+
+data = pd.read_csv(<span class="hljs-string">"countries.csv"</span>)
+
+print(data)
+print(data.values.tolist())
+</code></pre>
+<h2>Reading and writing CSV</h2>
 <pre><code class="hljs language-py"><span class="hljs-keyword">import</span> csv
 
 data = [
@@ -160,34 +179,14 @@ data = [
     [<span class="hljs-string">'US'</span>, <span class="hljs-number">9.8</span>, <span class="hljs-number">327</span>]
 ]
 
-<span class="hljs-keyword">with</span> open(<span class="hljs-string">'data.csv'</span>, <span class="hljs-string">'w'</span>, encoding=<span class="hljs-string">'utf-8'</span>, newline=<span class="hljs-string">''</span>) <span class="hljs-keyword">as</span> f:
+<span class="hljs-keyword">with</span> open(<span class="hljs-string">'countr.csv'</span>, <span class="hljs-string">'w'</span>, encoding=<span class="hljs-string">'utf-8'</span>, newline=<span class="hljs-string">''</span>) <span class="hljs-keyword">as</span> f:
     writer = csv.writer(f)
     writer.writerows(data)
-</code></pre>
-<h2>Reading CSV</h2>
-<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> csv
 
-<span class="hljs-keyword">with</span> open(<span class="hljs-string">'countries.csv'</span>, encoding=<span class="hljs-string">'utf-8'</span>, newline=<span class="hljs-string">''</span>) <span class="hljs-keyword">as</span> csv_file:
-    reader = csv.reader(csv_file)
+<span class="hljs-keyword">with</span> open(<span class="hljs-string">'countr.csv'</span>, encoding=<span class="hljs-string">'utf-8'</span>, newline=<span class="hljs-string">''</span>) <span class="hljs-keyword">as</span> f:
+    reader = csv.reader(f)
     <span class="hljs-keyword">for</span> row <span class="hljs-keyword">in</span> reader:
         print(row)
-</code></pre>
-<h2>JSON</h2>
-<h2>Saving JSON</h2>
-<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> json
-
-data = [<span class="hljs-string">"one"</span>, <span class="hljs-string">"two"</span>, <span class="hljs-string">"three"</span>]
-jsonstring = json.dumps(data)
-
-<span class="hljs-keyword">with</span> open(<span class="hljs-string">"numbers.json"</span>, mode=<span class="hljs-string">"w"</span>,encoding=<span class="hljs-string">"utf-8"</span>) <span class="hljs-keyword">as</span> jsonfile:
-    jsonfile.write(jsonstring)
-</code></pre>
-<h2>Reading JSON</h2>
-<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> json
-
-<span class="hljs-keyword">with</span> open(<span class="hljs-string">"numbers.json"</span>, encoding=<span class="hljs-string">"utf-8"</span>) <span class="hljs-keyword">as</span> jsonfile:
-    jsonstring = jsonfile.read()
-data = json.loads(jsonstring)
 </code></pre>
 <h2>XML</h2>
 <p>two packages in the standard library:</p>

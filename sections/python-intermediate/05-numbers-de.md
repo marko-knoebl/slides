@@ -48,15 +48,29 @@ e = float('inf')
 
 ## float
 
-Achtung Rundungsfehler: Einige Zahlen können nicht genau als Kommazahlen repräseniert werden, sie werden immer gerundet
+**Rundungsfehler**: manche Zahlen können nicht als Gleitkommazahlen dargestellt werden, sie sind immer Annäherungen
 
-Beispiele im Dezimalsystem: _1/3_, _1/7_
+Beispiele im Dezimalsystem: 1/3, 1/7, π
 
-Beispiele im Binärsystem (`float`): _1/10_, _1/5_, _1/3_
+Beispiele im Binärsystem (_floats_): 1/10, 1/5, 1/3, π
 
-Beispiel: `0.1 + 0.2` ergibt `0.30000000000000004`
+Beispiel: π + π ergibt `6.2`, wenn wir Dezimalzahlen mit 2 Stellen verwenden (besseres Ergebnis wäre `6.3`)
 
-Im Allgemeinen sind 64-bit floats auf ca 16 Dezimalstellen genau.
+Beispiel: `0.1 + 0.2` ergibt ~ `0.30000000000000004`, wenn wir 64-bit floats verwenden
+
+## float
+
+```py
+0.1 + 0.2 == 0.3
+# False
+```
+
+```py
+import math
+
+math.isclose(0.1 + 0.2, 0.3)
+# True
+```
 
 ## float
 

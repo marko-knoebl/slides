@@ -47,6 +47,8 @@
 
 ## Python Fortgeschritten
 
+üblicherweise 1 Tag
+
 - Logging
 - Unittests
 - Funktionen: fortgeschritten

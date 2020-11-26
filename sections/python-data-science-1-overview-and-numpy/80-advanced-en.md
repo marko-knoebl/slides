@@ -3,11 +3,16 @@
 ## Reshaping arrays
 
 ```py
-a3d.ravel() # 1d array
-a3d.reshape(8) # 1d array
-a3d.reshape(2, 4) # 2x4 array
-a3d.reshape(2, -1) # automatic second dimension
-a2d.T # transposed
+np.reshape(a3d, (8, )) # 1d array
+np.reshape(a3d, (2, 4)) # 2d array
+```
+
+automatic sizing for one axis:
+
+```py
+np.ravel(a3d) # 1d array
+np.reshape(a3d, (-1, )) # 1d array
+np.reshape(a3d, (2, -1)) # 2d array
 ```
 
 ## Adding an extra dimension
@@ -27,6 +32,16 @@ alternative:
 a2d[:, :, np.newaxis]
 ```
 
+## Transposing
+
+reversing order of axes (flipping axes in 2D):
+
+```py
+np.transpose(a2d)
+
+a2d.T
+```
+
 ## Slices as views
 
 In ordinary Python we can make a shallow copy of a list by slicing it - this works differently in NumPy (in order to improve efficiency):
@@ -43,7 +58,7 @@ array_view[0] = 10 # DOES change array
 
 ## Copying arrays
 
-Arrays can be copied via `array.copy()`
+Arrays can be copied via `np.copy()`
 
 ## Concatenating arrays
 
@@ -54,45 +69,3 @@ np.concatenate([a1d, a1d])
 np.concatenate([a2d, a2d])
 np.concatenate([a2d, a2d], axis=1)
 ```
-
-## Matrix / array multiplication
-
-via the binary Operator `@`
-
-```py
-a = np.array([1, 1])
-
-m = np.array([[0.707, 0.707],
-              [-0.707, 0.707]])
-
-print(a @ m)
-# array([0.   , 1.414])
-```
-
-## Matrix multiplication
-
-example: rotating several points by 45° (counterclockwise):
-
-```py
-points = np.array([[0, 0], [0, 1], [1, 1], [1, 0]])
-
-m = np.array([[0.707, 0.707],
-              [-0.707, 0.707]])
-
-print(points @ m)
-```
-
-## Matrix multiplication
-
-example:
-
-known data: prices of various products, number of items in stock for different stores
-
-```py
-prices = np.array([3.99, 12.99, 5.90, 15])
-quantities = np.array([[0, 80, 80, 100],
-                       [100, 0, 0, 0],
-                       [50, 0, 0, 50]])
-```
-
-wanted: total value for each of the three stores

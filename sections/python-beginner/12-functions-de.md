@@ -16,11 +16,9 @@ Beispiele für vordefinierte Funktionen:
 
 Funktionen können _Parameter_ übergeben bekommen und einen _Rückgabewert_ zurückliefern.
 
-Beispiel: `len("foo")` → `3`
+Beispiel: `len()` kann einen String als Parameter übergeben bekommen und einen Int als Rückgabewert liefern
 
-Parameter: `"foo"`
-
-Rückgabewert: `3`
+Beispiel: `print()` kann verschiedene Objekte als Parameter entgegennehmen; es liefert keinen expliziten Rückgabewert
 
 ## Methoden
 

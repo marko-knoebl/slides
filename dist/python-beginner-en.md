@@ -1,36 +1,20 @@
 # Python beginner
 
-## Slides
+## Topics
 
-<https://marko-knoebl.github.io/slides/>
-
-## Your Trainer
-
-Marko Knöbl
-
-- based in Vienna
-- former math teacher
-- programming topics:
-  - JavaScript, TypeScript and React
-  - Python, data science
-
-## Introduction of Participants
-
-- current projects
-- prior knowledge
-- expectations
-
-## Organizational
-
-- duration
-- breaks
-- lunch
-- materials
-- questions, feedback?
-
-## Code
-
-Code available at: <https://github.com/marko-knoebl/courses-code>
+- overview and comparison to other programming languages
+- installation
+- working with the interactive Python console
+- variables and basic data types
+- composite types: dict, list, tuple
+- help and documentation
+- builtins and the standard library
+- control structures
+  - if / else
+  - loops (while, for)
+- functions
+- code quality and linting
+- debugging
 
 # Python: Overview
 
@@ -296,11 +280,9 @@ examples of predefined functions:
 
 A function can receive so-called _parameters_ and produce a result (a _return value_)
 
-example: `len("foo")` → `3`
+example: `len()` can take a string as a _parameter_ and produce an int as the _return value_
 
-parameter: `"foo"`
-
-return value: `3`
+example: `print()` can take various objects as _parameters_; it does **not** have an explicit _return value_
 
 ## Methods
 
@@ -535,11 +517,15 @@ Documentation on built-ins and the standard library:
 
 Similar to the `help` function, but often has slightly more detailed descriptions
 
-# VS Code
+# Development environments
+
+## Development environments
+
+- _VS Code_ (open source)
+- _PyCharm Community_ (open source)
+- _PyCharm Professional_
 
 ## VS Code
-
-For writing entire programs we use _VS Code_
 
 See the presentation [VS Code](./vs-code-en.html)
 
@@ -1142,6 +1128,42 @@ In other programming languages constructs like `if` or `for` usually also open a
 For bar codes / primes: use the % operator
 
 see <https://github.com/marko-knoebl/slides/tree/master/exercises/python-beginner>
+
+# Local modules
+
+## Local modules
+
+we can import local Python files as modules
+
+example: local file _messages.py_
+
+```py
+import messages
+
+print(messages.message1)
+```
+
+## Local modules
+
+we can create so-called _packages_ as folders
+
+example: folder _phrases/_, files _phrases/messages.py_ and _phrases/greetings.py_
+
+```py
+from phrases import greetings
+
+print(greetings.greeting1)
+```
+
+## Resolving imports
+
+Search order of imports:
+
+- directory of the Python script that was originally executed
+- standard library
+- external libraries
+
+Avoid name clashes with existing modules / packages!
 
 # Code quality and linting
 

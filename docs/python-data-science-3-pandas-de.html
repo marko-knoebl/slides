@@ -2228,10 +2228,7 @@ euribor = pd.read_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class=
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Statistische Grundwerte</h1>
 </section><section class="slide"><h2>Statistische Grundwerte</h2>
-<pre><code class="hljs language-py">df.describe()
-</code></pre>
-</section><section class="slide"><h2>Statistische Grundwerte</h2>
-<pre><code class="hljs language-py">countries.area.describe()
+<pre><code class="hljs language-py">countries[<span class="hljs-string">"area"</span>].describe()
 </code></pre>
 <pre><code class="hljs language-txt">count     3.000000
 mean     12.133333
@@ -2245,7 +2242,7 @@ dtype: float64
 </code></pre>
 <p>(Siehe nächste Folie für Erklärungen)</p>
 </section><section class="slide"><h2>Statistik einer Series</h2>
-<pre><code class="hljs language-py">countries.area.describe()
+<pre><code class="hljs language-py">countries[<span class="hljs-string">"area"</span>].describe()
 </code></pre>
 <p>berechnet die folgenden Daten:</p>
 <ul>
@@ -2585,19 +2582,24 @@ plt.scatter(x, y, <span class="hljs-number">2</span>, <span class="hljs-string">
 <p>Pandas:</p>
 <pre><code class="hljs language-py">df.plot.pie()
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Kontingenztabelle</h1>
+</section></section><section class="slides-section"><section class="slide"><h1>Anzahlen und Kontingenztabelle</h1>
+</section><section class="slide"><h2>Anzahlen</h2>
+<pre><code class="hljs language-py">titanic[<span class="hljs-string">"class"</span>].value_counts()
+</code></pre>
+<pre><code class="hljs language-angelscript">Third     <span class="hljs-number">491</span>
+First     <span class="hljs-number">216</span>
+Second    <span class="hljs-number">184</span>
+</code></pre>
 </section><section class="slide"><h2>Kontingenztabelle</h2>
 <p>Eine <em>Kontingenztabelle</em> oder <em>Kreuztabelle</em> gibt Anzahlen über mehrere Merkmale hinweg an.</p>
 </section><section class="slide"><h2>Kontingenztabelle</h2>
-<p>Beispiel:</p>
-<pre><code class="hljs language-py">pd.crosstab(titanic.pclass, titanic.survived)
+<pre><code class="hljs language-py">pd.crosstab(titanic[<span class="hljs-string">"class"</span>], titanic[<span class="hljs-string">"survived"</span>])
 </code></pre>
-<p>Ausgabe:</p>
-<pre><code class="hljs language-yaml"><span class="hljs-string">survived</span>  <span class="hljs-literal">False</span>  <span class="hljs-literal">True</span> 
-<span class="hljs-string">pclass</span>                
-<span class="hljs-number">1</span>            <span class="hljs-number">80</span>    <span class="hljs-number">136</span>
-<span class="hljs-number">2</span>            <span class="hljs-number">97</span>     <span class="hljs-number">87</span>
-<span class="hljs-number">3</span>           <span class="hljs-number">372</span>    <span class="hljs-number">119</span>
+<pre><code class="hljs language-angelscript">survived    <span class="hljs-number">0</span>    <span class="hljs-number">1</span>
+<span class="hljs-keyword">class</span>
+<span class="hljs-symbol">First</span>      <span class="hljs-symbol">80</span>  <span class="hljs-symbol">136</span>
+<span class="hljs-symbol">Second</span>     <span class="hljs-symbol">97</span>   <span class="hljs-symbol">87</span>
+<span class="hljs-symbol">Third</span>     <span class="hljs-symbol">372</span>  <span class="hljs-symbol">119</span>
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Gruppierung</h1>
 </section><section class="slide"><h2>Gruppierung</h2>

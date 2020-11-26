@@ -2227,11 +2227,8 @@ euribor = pd.read_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class=
 <li><a href="https://pydata.github.io/pandas-datareader">pandas-datareader</a></li>
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Data statistics</h1>
-</section><section class="slide"><h2>Data statistics</h2>
-<pre><code class="hljs language-py">df.describe()
-</code></pre>
-</section><section class="slide"><h2>Statistics on a data frames / series</h2>
-<pre><code class="hljs language-py">countries.area.describe()
+</section><section class="slide"><h2>Statistics on series</h2>
+<pre><code class="hljs language-py">countries[<span class="hljs-string">"area"</span>].describe()
 </code></pre>
 <pre><code class="hljs language-txt">count     3.000000
 mean     12.133333
@@ -2245,7 +2242,7 @@ dtype: float64
 </code></pre>
 <p>(see next slide for explanations)</p>
 </section><section class="slide"><h2>Statistics on series</h2>
-<pre><code class="hljs language-py">countries.area.describe()
+<pre><code class="hljs language-py">countries[<span class="hljs-string">"area"</span>].describe()
 </code></pre>
 <p>The above computes the following data:</p>
 <ul>
@@ -2585,19 +2582,24 @@ plt.scatter(x, y, <span class="hljs-number">2</span>, <span class="hljs-string">
 <p>Pandas:</p>
 <pre><code class="hljs language-py">df.plot.pie()
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Cross tabulation</h1>
+</section></section><section class="slides-section"><section class="slide"><h1>Counts and cross tabulation</h1>
+</section><section class="slide"><h2>Counts</h2>
+<pre><code class="hljs language-py">titanic[<span class="hljs-string">"class"</span>].value_counts()
+</code></pre>
+<pre><code class="hljs language-angelscript">Third     <span class="hljs-number">491</span>
+First     <span class="hljs-number">216</span>
+Second    <span class="hljs-number">184</span>
+</code></pre>
 </section><section class="slide"><h2>Cross tabulation</h2>
 <p>A <em>cross tabulation</em> shows the number of corresponding entries across multiple properties</p>
 </section><section class="slide"><h2>Cross tabulation</h2>
-<p>example:</p>
-<pre><code class="hljs language-py">pd.crosstab(titanic.pclass, titanic.survived)
+<pre><code class="hljs language-py">pd.crosstab(titanic[<span class="hljs-string">"class"</span>], titanic[<span class="hljs-string">"survived"</span>])
 </code></pre>
-<p>output:</p>
-<pre><code class="hljs language-yaml"><span class="hljs-string">survived</span>  <span class="hljs-literal">False</span>  <span class="hljs-literal">True</span> 
-<span class="hljs-string">pclass</span>                
-<span class="hljs-number">1</span>            <span class="hljs-number">80</span>    <span class="hljs-number">136</span>
-<span class="hljs-number">2</span>            <span class="hljs-number">97</span>     <span class="hljs-number">87</span>
-<span class="hljs-number">3</span>           <span class="hljs-number">372</span>    <span class="hljs-number">119</span>
+<pre><code class="hljs language-angelscript">survived    <span class="hljs-number">0</span>    <span class="hljs-number">1</span>
+<span class="hljs-keyword">class</span>
+<span class="hljs-symbol">First</span>      <span class="hljs-symbol">80</span>  <span class="hljs-symbol">136</span>
+<span class="hljs-symbol">Second</span>     <span class="hljs-symbol">97</span>   <span class="hljs-symbol">87</span>
+<span class="hljs-symbol">Third</span>     <span class="hljs-symbol">372</span>  <span class="hljs-symbol">119</span>
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Grouping</h1>
 </section><section class="slide"><h2>Grouping</h2>

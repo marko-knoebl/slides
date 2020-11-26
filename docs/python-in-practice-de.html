@@ -2061,35 +2061,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   <body>
     <div class="reveal">
       <div class="slides slides"><section class="slides-section"><section class="slide"><h1>Python in der Praxis</h1>
-</section><section class="slide"><h2>Präsentationen</h2>
-<p><a href="https://marko-knoebl.github.io/slides/">https://marko-knoebl.github.io/slides/</a></p>
-</section><section class="slide"><h2>Ihr Trainer</h2>
-<p>Marko Knöbl</p>
-<ul>
-<li>aus Wien</li>
-<li>ehemaliger Mathematiklehrer</li>
-<li>Programmierthemen:<ul>
-<li>JavaScript, TypeScript und React</li>
-<li>Python, Data Science</li>
-</ul></li>
-</ul>
-</section><section class="slide"><h2>Vorstellung der Teilnehmer</h2>
-<ul>
-<li>Aktuelle Projekte</li>
-<li>Vorkenntnisse</li>
-<li>Erwartungen / Wünsche</li>
-</ul>
-</section><section class="slide"><h2>Organisatorisches</h2>
-<ul>
-<li>Kursdauer</li>
-<li>Pausen</li>
-<li>Mittagessen</li>
-<li>Unterlagen</li>
-<li>Fragen, Feedback? - Jederzeit erwünscht</li>
-</ul>
-</section><section class="slide"><h2>Code</h2>
-<p>Code verfügbar unter: <a href="https://github.com/marko-knoebl/courses-code">https://github.com/marko-knoebl/courses-code</a></p>
-</section></section><section class="slides-section"><section class="slide"><h1>Themen</h1>
+</section><section class="slide"><h2>Themen</h2>
 <ul>
 <li>Arbeiten mit Dateien und Ordnern</li>
 <li>Arbeiten mit verschiedenen Dateiformaten</li>
@@ -2204,37 +2176,9 @@ locale.getpreferredencoding()
 <li>Python-Objektdateien (mittels pickle und shelve)</li>
 <li>Binärdateien</li>
 </ul>
-</section><section class="slide"><h2>CSV</h2>
-<p>CSV ist ein Textdateiformat, das tabellarische Daten beinhalten kann</p>
-<p>Beispiel:</p>
-<pre><code class="hljs language-csv">ISO,Country,Capital,Languages
-AD,Andorra,Andorra la Vella,"ES,FR"
-AE,United Arab Emirates,Abu Dhabi,"AE,fa,en,hi,ur"
-AF,Afghanistan,Kabul,"AF,tk"
-</code></pre>
-</section><section class="slide"><h2>CSV schreiben</h2>
-<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> csv
-
-data = [
-    [<span class="hljs-string">'code'</span>, <span class="hljs-string">'area'</span>, <span class="hljs-string">'population'</span>],
-    [<span class="hljs-string">'CN'</span>, <span class="hljs-number">9.6</span>, <span class="hljs-number">1386</span>],
-    [<span class="hljs-string">'RU'</span>, <span class="hljs-number">17</span>, <span class="hljs-number">144</span>],
-    [<span class="hljs-string">'US'</span>, <span class="hljs-number">9.8</span>, <span class="hljs-number">327</span>]
-]
-
-<span class="hljs-keyword">with</span> open(<span class="hljs-string">'data.csv'</span>, <span class="hljs-string">'w'</span>, encoding=<span class="hljs-string">'utf-8'</span>, newline=<span class="hljs-string">''</span>) <span class="hljs-keyword">as</span> f:
-    writer = csv.writer(f)
-    writer.writerows(data)
-</code></pre>
-</section><section class="slide"><h2>CSV lesen</h2>
-<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> csv
-
-<span class="hljs-keyword">with</span> open(<span class="hljs-string">'countries.csv'</span>, encoding=<span class="hljs-string">'utf-8'</span>, newline=<span class="hljs-string">''</span>) <span class="hljs-keyword">as</span> csv_file:
-    reader = csv.reader(csv_file)
-    <span class="hljs-keyword">for</span> row <span class="hljs-keyword">in</span> reader:
-        print(row)
-</code></pre>
 </section><section class="slide"><h2>JSON</h2>
+<p>JSON: weit verbreitetes und standardisiertes Dateiformat</p>
+<p>kann die grundlegenden Python-Datentypen repräsentieren (none, bool, int, float, list, dict)</p>
 </section><section class="slide"><h2>JSON speichern</h2>
 <pre><code class="hljs language-py"><span class="hljs-keyword">import</span> json
 
@@ -2250,6 +2194,61 @@ jsonstring = json.dumps(data)
 <span class="hljs-keyword">with</span> open(<span class="hljs-string">"numbers.json"</span>, encoding=<span class="hljs-string">"utf-8"</span>) <span class="hljs-keyword">as</span> jsonfile:
     jsonstring = jsonfile.read()
 data = json.loads(jsonstring)
+</code></pre>
+</section><section class="slide"><h2>CSV</h2>
+<p>CSV ist ein Textdateiformat, das tabellarische Daten beinhalten kann</p>
+<p>Beispiel:</p>
+<pre><code class="hljs language-csv">ISO,Country,Capital,Languages
+AD,Andorra,Andorra la Vella,"ES,FR"
+AE,United Arab Emirates,Abu Dhabi,"AE,fa,en,hi,ur"
+AF,Afghanistan,Kabul,"AF,tk"
+</code></pre>
+</section><section class="slide"><h2>CSV</h2>
+<p>Python Libraries:</p>
+<ul>
+<li><em>csv</em> (Teil der Standardlibrary)</li>
+<li><em>pandas</em></li>
+</ul>
+</section><section class="slide"><h2>CSV schreiben mit Pandas</h2>
+<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+
+data = pd.DataFrame(
+    [
+        [<span class="hljs-string">"CN"</span>, <span class="hljs-number">9.6</span>, <span class="hljs-number">1386</span>],
+        [<span class="hljs-string">"RU"</span>, <span class="hljs-number">17.0</span>, <span class="hljs-number">144</span>],
+        [<span class="hljs-string">"US"</span>, <span class="hljs-number">9.8</span>, <span class="hljs-number">327</span>],
+    ],
+    columns=[<span class="hljs-string">"code"</span>, <span class="hljs-string">"area"</span>, <span class="hljs-string">"population"</span>],
+)
+
+data.to_csv(<span class="hljs-string">"countries.csv"</span>)
+</code></pre>
+</section><section class="slide"><h2>CSV lesen mit Pandas</h2>
+<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+
+data = pd.read_csv(<span class="hljs-string">"countries.csv"</span>)
+
+print(data)
+print(data.values.tolist())
+</code></pre>
+</section><section class="slide"><h2>CSV schreiben und lesen</h2>
+<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> csv
+
+data = [
+    [<span class="hljs-string">'code'</span>, <span class="hljs-string">'area'</span>, <span class="hljs-string">'population'</span>],
+    [<span class="hljs-string">'CN'</span>, <span class="hljs-number">9.6</span>, <span class="hljs-number">1386</span>],
+    [<span class="hljs-string">'RU'</span>, <span class="hljs-number">17</span>, <span class="hljs-number">144</span>],
+    [<span class="hljs-string">'US'</span>, <span class="hljs-number">9.8</span>, <span class="hljs-number">327</span>]
+]
+
+<span class="hljs-keyword">with</span> open(<span class="hljs-string">'countr.csv'</span>, <span class="hljs-string">'w'</span>, encoding=<span class="hljs-string">'utf-8'</span>, newline=<span class="hljs-string">''</span>) <span class="hljs-keyword">as</span> f:
+    writer = csv.writer(f)
+    writer.writerows(data)
+
+<span class="hljs-keyword">with</span> open(<span class="hljs-string">'countr.csv'</span>, encoding=<span class="hljs-string">'utf-8'</span>, newline=<span class="hljs-string">''</span>) <span class="hljs-keyword">as</span> f:
+    reader = csv.reader(f)
+    <span class="hljs-keyword">for</span> row <span class="hljs-keyword">in</span> reader:
+        print(row)
 </code></pre>
 </section><section class="slide"><h2>XML</h2>
 <p>zwei Pakete in der Python-Standardlibrary:</p>
