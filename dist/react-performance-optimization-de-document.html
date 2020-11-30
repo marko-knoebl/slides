@@ -1,0 +1,257 @@
+<h1>Performanceoptimierung</h1>
+<h2>Performanceoptimierung</h2>
+<p>Themen:</p>
+<ul>
+<li>Visualisierung von Re-Renderings in den React Devtools</li>
+<li>Messen von Render-Zeiten in den React Devtools</li>
+<li>Memoisation aufwändiger Berechnungen für das Rendering</li>
+<li>Memoisierung von Komponenten basierend auf Props</li>
+<li>Memoisierung und Eventhandlern</li>
+<li><em>Virtual DOM</em> und die <em>key</em>-Property</li>
+<li>Lazy Loading von Komponenten</li>
+</ul>
+<h1>React Devtools und Performance</h1>
+<h2>React Devtools und Performance</h2>
+<p>Funktionalität der Devtools:</p>
+<ul>
+<li>hervorheben von Komponenten, wenn diese neu gerendert werden</li>
+<li>Profiler, der das Aufzeichnen und Analysieren einer Session erlaubt</li>
+</ul>
+<h2>React Devtools und Performance</h2>
+<p>Hervorheben von Komponenten, wenn diese neu gerendert werden:</p>
+<p>In den Einstellungen der React Devtools: wähle <em>Highlight updates when components render.</em></p>
+<p>Komponenten erhalten beim Rendering einen färbigen Rahmen (Farbe ändert sich abhängig von der Reder-Frequenz)</p>
+<h2>React Devtools und Performance</h2>
+<p>Auzeichnen und Analysieren einer Session:</p>
+<p>In dem "Profiler"-Tab der Browser Tools:</p>
+<ul>
+<li>Klicke auf den Aufnahmebutton</li>
+<li>Interagiere mit der React-Anwendung (jede User-Aktion wird als ein "<em>Commit</em>" aufgezeichnet)</li>
+<li>Klicke auf den Aufnahmebutton zum Stoppen</li>
+</ul>
+<h2>React Devtools und Performance</h2>
+<p>Begutachten der Profiling-Daten:</p>
+<p>Jede User-Aktion (z.B. Klick, Texteingabe) wird als ein sogenannter <em>Commit</em> aufgezeichnet</p>
+<p>Commits werden im rechten oberen Eck angezeigt</p>
+<p>Details werden durch Anklicken sichtbar</p>
+<h2>React Devtools und Performance</h2>
+<p>Zahlen in einem Commit-Detail:</p>
+<pre><code class="hljs language-angelscript">TodoApp (<span class="hljs-number">3</span>ms of <span class="hljs-number">109</span>ms)
+</code></pre>
+<p>bedeutet:</p>
+<ul>
+<li>Das Rendering der ganzen Anwendung dauerte 109 Millisekunden (Bemerkung: läuft bei einem Production-Build und ohne Devtools schneller)</li>
+<li>Die meiste Zeit (106 Millisekunden) wurde mit dem Rendering von Unterkomponenten verbracht</li>
+<li>Die Inhalte, die nur zu <em>TodoApp</em> gehören, dauerten 3 ms</li>
+</ul>
+<h2>React Devtools und Performance</h2>
+<p>Farben in einem Commit-Detail:</p>
+<p>Farbskala von <em>grün</em> bis <em>gelb</em> zeigt an, wie viel Zeit für einzelne Komponenten aufgewendet wurde - verglichen mit Geschwisterkomponenten</p>
+<p>Grau gestreifte Komponenten wurden nicht neu gerendert</p>
+<h1>Memoisierung</h1>
+<h2>Memoisierung</h2>
+<p><em>Memoisierung</em> = Cachen von zuvor berechneten Resultaten</p>
+<p>Anwendungen in React:</p>
+<ul>
+<li>Memoisierung aufwändiger Berechnungen</li>
+<li>Memoisierung von Komponentenrenderings</li>
+<li>Erhalten der Identität von Event-Handlern (als Grundlage für die Memoisierung von Komponentenrenderings)</li>
+</ul>
+<h1>Memoisierung aufwändiger Berechnungen</h1>
+<h2>Memoisierung aufwändiger Berechnungen</h2>
+<p>Beispiel ohne Memoisierung:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
+<span class="hljs-keyword">const</span> numActiveTodos = todos.filter(
+  <span class="hljs-function">(<span class="hljs-params">todo</span>) =></span> !todo.completed
+).length;
+</code></pre>
+<h2>Memoization of costly computations</h2>
+<p>Mit Memoisierung:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
+<span class="hljs-keyword">const</span> numActiveTodos = useMemo(
+  <span class="hljs-comment">// function to recompute value</span>
+  <span class="hljs-function"><span class="hljs-params">()</span> =></span> todos.filter(<span class="hljs-function">(<span class="hljs-params">todo</span>) =></span> !todo.completed).length,
+  <span class="hljs-comment">// array of dependencies</span>
+  [todos]
+);
+</code></pre>
+<p>Berechnung wird nur dann neu ausgeführt, wenn sich eine Abhängigkeit in dem Array ändert</p>
+<h1>Memoisierung von Komponentenrenderings</h1>
+<h2>Vermeiden unnötiger Rerenderings</h2>
+<p>Im Allgemeinen muss eine Komponente nur neu gerendert werden, wenn sich entweder props oder state tatsächlich ändern</p>
+<h2>Vermeiden unnötiger Rerenderings</h2>
+<p>was React schon für uns erledigt:</p>
+<p>Hooks (state, reducer, context) lösen kein Re-Rendering aus, wenn sich ihr Wert nicht geändert hat</p>
+<p>was wir beitragen können:</p>
+<p>wenn eine Elternkomponente neu gerendert wird, die Props der Kindkomponente sich aber nicht geändert haben, soll die Kindkomponente nicht neu gerendert werden (Memoisation)</p>
+<h2>Vermeiden unnötiger Rerenderings</h2>
+<p>Demo: Komponente rendert sich nur, wenn ihr State sich ändert</p>
+<pre><code class="hljs language-jsx"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Coin</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> [coin, setCoin] = useState(<span class="hljs-string">'heads'</span>);
+  <span class="hljs-keyword">const</span> throwCoin = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+    setCoin(<span class="hljs-built_in">Math</span>.random() > <span class="hljs-number">0.5</span> ? <span class="hljs-string">'heads'</span> : <span class="hljs-string">'tails'</span>);
+  };
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+      {coin}
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{throwCoin}</span>></span>throw<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>last rendering: {new Date().toISOString()}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+  );
+}
+</code></pre>
+<h2>Memoisierung von Komponentenrenderings</h2>
+<p>Wenn nur jene Unterkomponenten neu gerendert werden sollen, deren props sich geändert haben:</p>
+<ul>
+<li>für Funktionskomponenten: verwenden der <code>memo</code>-Funktion</li>
+<li>für Klassenkomponenten: Erben von <code>PureComponent</code> statt <code>Component</code></li>
+</ul>
+<h2>Memoisierung von Komponentenrenderings</h2>
+<p>memoisierte Funktionskomponente:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> { memo } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Rating</span>(<span class="hljs-params">props</span>) </span>{
+  <span class="hljs-comment">// ...</span>
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> memo(Rating);
+</code></pre>
+<p>memoisierte Klassenkomponenten:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> { PureComponent } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Rating</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">PureComponent</span> </span>{
+  <span class="hljs-comment">// ...</span>
+}
+</code></pre>
+<h2>Memoisierung von Komponentenrenderings</h2>
+<p>Die <code>Rating</code>-Komponente wird nicht neu gerendert, wenn ihre Props die gleichen sind wie zuvor:</p>
+<pre><code class="hljs language-jsx">&#x3C;Rating stars={prodRating} />
+<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Rating</span> <span class="hljs-attr">stars</span>=<span class="hljs-string">{prodRating}</span> <span class="hljs-attr">onChange</span>=<span class="hljs-string">{setProdRating}</span> /></span>
+</span></code></pre>
+<h1>Memoisierung und Eventhandler</h1>
+<h2>Memoisierung und Eventhandler</h2>
+<p>Wenn <code>Rating</code> eine memoisierte Komponente ist, welche der folgenden Renderings werden beim Re-Rendering der Elternkomponente auch neu gerendert?</p>
+<pre><code class="hljs language-jsx">&#x3C;Rating stars={prodRating} />
+&#x3C;Rating stars={prodRating} onChange={setProdRating} />
+&#x3C;Rating
+  stars={prodRating}
+  onChange={(newRating) => setProdRating(newRating)}
+/>
+</code></pre>
+<h2>Memoisierung und Eventhandler</h2>
+<pre><code class="hljs language-jsx">&#x3C;Rating
+  stars={prodRating}
+  onChange={(newRating) => setProdRating(newRating)}
+/>
+</code></pre>
+<p>Die Pfeilfunktion wäre bei jedem angeforderten Rendering ein anderes Objekt</p>
+<h2>Memoisierung und Eventhandler</h2>
+<p>Lösungen:</p>
+<ul>
+<li>Übergeben einer <code>dispatch</code>-Funktion statt neu definierter Eventhandler</li>
+<li>Definieren des zu übergebenden Eventhanlders in einer Klassenkomponente (soweit möglich)</li>
+<li>Memoisieren des Eventhandlers</li>
+</ul>
+<h2>Memoisierung und Eventhandler</h2>
+<p>Memoisierung von Eventhandlern:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> TodoApp = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  <span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
+  <span class="hljs-keyword">const</span> todosWithEventHandlers = useMemo(
+    <span class="hljs-function"><span class="hljs-params">()</span> =></span>
+      todos.map(<span class="hljs-function">(<span class="hljs-params">todo</span>) =></span> ({
+        ...todo,
+        <span class="hljs-attr">onToggle</span>: <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+          <span class="hljs-comment">// ...</span>
+        },
+      })),
+    [todos]
+  );
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">ul</span>></span>
+      {todosWithEventHandlers.map((todo) => (
+        <span class="hljs-tag">&#x3C;<span class="hljs-name">li</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{todo.onToggle}</span>></span>{todo.title}<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span>
+      ))}
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">ul</span>></span></span>
+  );
+};
+</code></pre>
+<h2>Memoisierung und Eventhandler</h2>
+<p>Memoisierung eines einzelnen Eventhandlers:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> TodoApp = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  <span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
+  <span class="hljs-keyword">const</span> handleAddTodo = useMemo(
+    <span class="hljs-function"><span class="hljs-params">()</span> =></span> <span class="hljs-function">(<span class="hljs-params">newTitle</span>) =></span> {
+      setTodos([
+        ...todos,
+        { <span class="hljs-attr">title</span>: newTitle, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
+      ]);
+    },
+    [todos]
+  );
+};
+</code></pre>
+<h2>Memoisierung und Eventhandler</h2>
+<p>verkürzte Memoisierunge eines einzelnen Eventhandlers via <code>useCallback</code>:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> TodoApp = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  <span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
+  <span class="hljs-keyword">const</span> handleAddTodo = useCallback(
+    <span class="hljs-function">(<span class="hljs-params">newTitle</span>) =></span> {
+      setTodos([
+        ...todos,
+        { <span class="hljs-attr">title</span>: newTitle, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
+      ]);
+    },
+    [todos]
+  );
+};
+</code></pre>
+<h1>Virtuelles DOM</h1>
+<h2>Virtuelles DOM</h2>
+<p>Beim erneuten Rendern einer React-Komponente: Resultate werden nicht direkt and den Browser übergeben.</p>
+<p>Stattdessen: Ein <em>virtuelles DOM</em> wird erstellt und mit dem vorherigen virtuellen DOM verglichen. Nur die Unterschiede werden zur Verarbeitung an den Browser übergeben.</p>
+<h2>Virtuelles DOM und Wiederholen von Elementen</h2>
+<p>Üblicherweise ist React sehr effizient dabei, Änderungen herauszufinden - doch es benötigt Hilfe, wenn Elemente in einem Array Wiederholt werden</p>
+<p>Faustregel: Wenn wir in unserem JSX-Template <code>.map</code> verwenden, sollten innere Elemente eine eindeutige key-Property haben, um React zu unterstützen</p>
+<h2>Virtuelles DOM</h2>
+<p>siehe auch: <a href="https://reactjs.org/docs/reconciliation.html">https://reactjs.org/docs/reconciliation.html</a></p>
+<h1>Lazy-Loading von Komponenten</h1>
+<h2>Lazy-Loading von Komponenten</h2>
+<p>um Bundle-Größen von React-Apps zu reduzieren: Komponenten erst importieren, wenn sie benötigt werden</p>
+<p>häufige Verwendung: importieren von einer Route erst, wenn sie aufgerufen wird</p>
+<h2>Lazy-Loading von Komponenten</h2>
+<p>Imports in JavaScript:</p>
+<ul>
+<li><code>import</code> als Statement: synchroner Import bevor der Rest der Datei ausgeführt wird (in webpack: automatisches Integrieren in das Bundle)</li>
+<li><code>import</code> als Funktion: asynchroner Import, wenn benötigt</li>
+</ul>
+<h2>Lazy-Loading von Komponenten</h2>
+<p>React-Imports für das Lazy-Loading:</p>
+<ul>
+<li><code>lazy</code>-Funktion</li>
+<li><code>Suspense</code>-Komponente</li>
+</ul>
+<h2>Lazy-Loading von Komponenten</h2>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> React, { Suspense, lazy } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+<span class="hljs-keyword">import</span> { Route } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router-dom'</span>;
+
+<span class="hljs-keyword">const</span> Home = lazy(<span class="hljs-function"><span class="hljs-params">()</span> =></span> <span class="hljs-keyword">import</span>(<span class="hljs-string">'./routes/Home'</span>));
+<span class="hljs-keyword">const</span> About = lazy(<span class="hljs-function"><span class="hljs-params">()</span> =></span> <span class="hljs-keyword">import</span>(<span class="hljs-string">'./routes/About'</span>));
+
+<span class="hljs-keyword">const</span> App = <span class="hljs-function"><span class="hljs-params">()</span> =></span> (
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Suspense</span> <span class="hljs-attr">fallback</span>=<span class="hljs-string">{</span>&#x3C;<span class="hljs-attr">div</span>></span>Loading...<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>}>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">Switch</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"/about"</span>></span>
+        <span class="hljs-tag">&#x3C;<span class="hljs-name">About</span> /></span>
+      <span class="hljs-tag">&#x3C;/<span class="hljs-name">Route</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"/"</span>></span>
+        <span class="hljs-tag">&#x3C;<span class="hljs-name">Home</span> /></span>
+      <span class="hljs-tag">&#x3C;/<span class="hljs-name">Route</span>></span>
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">Switch</span>></span>
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">Suspense</span>></span></span>
+);
+</code></pre>
+<small>
+  Quelle: <a href="https://reactjs.org/docs/code-splitting.html#route-based-code-splitting">
+    Route-based code splitting on reactjs.org
+  </a>
+</small>

@@ -993,6 +993,144 @@ reset();
 const isEmail = (email) =>
   email.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i);
 </code></pre>
+<h1>Benutzerauthentifizierung mit einem Identity Provider</h1>
+<h2>Identity Provider</h2>
+<p>Ein <em>Identity Provider</em> kann die Identität eines Benutzers überprüfen (kann den Benutzer authentifizieren)</p>
+<p>Beispiele:</p>
+<blockquote>
+<p>der aktuelle Benutzer ist auf dieser Domain als Benutzer "foo" eingeloggt</p>
+</blockquote>
+<blockquote>
+<p>der aktuelle Benutzer ist als Benutzer "x" bei <em>Google</em> / als Benutzer "y" bei Facebook authentifiziert</p>
+</blockquote>
+<h2>Identity provider</h2>
+<p>Mechanismus für den Benutzer:</p>
+<p>Benutzer klickt auf <em>login</em>, wird zu einer Login-Seite weitergeleitet und nach erfolgreichem Login zur ursprünglichen Seite zurückgeleitet</p>
+<p>im Hintergrund erhält der Benutzer ein <em>Identity Token</em>, einen kleinen Datensatz, der die Identität des Benutzers im Zusammenspiel mit dem Identity Provider belegen kann</p>
+<h2>Auth0</h2>
+<p><strong>Auth0</strong> (<em>auth-zero</em>) ist ein weit verbreiteter Identity Provider</p>
+<h2>Auth0: Registrierung und Einrichtung</h2>
+<ul>
+<li>registriere dich für einen Auth0-Account unter <a href="https://auth0.com">https://auth0.com</a></li>
+<li>in der Sidebar, wähle "Applications"</li>
+<li>wähle die "default application" oder erstelle eine neue "Single Page Web Application"</li>
+</ul>
+<!--
+registration details:
+select region: EU / US / AU
+select account type: personal / company
+-->
+<h2>Auth0: Registrierung und Einrichtung</h2>
+<p><em>Application Settings</em>:</p>
+<ul>
+<li>erlaubte Redirect-Ziele nach dem Login: <em>Allowed Callback URLs</em></li>
+<li>erlaubte Redirect-Ziele nach dem Logout: <em>Allowed Logout URLs</em></li>
+<li>um Authentifizierungstokens zu erneuern: <em>Allowed Web Origins</em></li>
+</ul>
+<p>für die lokale Entwicklung, setze alle drei Werte auf <em>http://localhost:3000</em></p>
+<h2>Auth0: Registrierung und Einrichtung</h2>
+<p>unter <em>Settings</em>:</p>
+<p>jeder Auth0-Klient hat zumindest eine <strong>domain</strong> (z.B. <em>dev-xxxxxxxx.eu.auth0.com</em>)</p>
+<p>jede App hat eine bestimmte <strong>client ID</strong> (z.B. <em>jA0EAwMCxamDRMfOGV5gyZPnyX1BBPOQ</em>)</p>
+<h2>auth0-react</h2>
+<p>Library: <a href="https://github.com/auth0/auth0-react/">auth0-react</a></p>
+<p>npm-Paket: <em>@auth0/auth0-react</em></p>
+<p>Einbinden eines Providers, der einen Context verwaltet:</p>
+<pre><code class="hljs language-jsx">&#x3C;Auth0Provider
+  domain=<span class="hljs-string">"YOUR_AUTH0_DOMAIN"</span>
+  clientId=<span class="hljs-string">"YOUR_AUTH0_CLIENT_ID"</span>
+  redirectUri={<span class="hljs-built_in">window</span>.location.origin}
+>
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">App</span> /></span>
+<span class="hljs-tag">&#x3C;/<span class="hljs-name">Auth0Provider</span>></span></span>
+</code></pre>
+<p>(siehe nächste Slide für Implementierung in <em>next.js</em>)</p>
+<h2>auth0-react</h2>
+<p>bei Verwendung von <em>next.js</em>:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-comment">// pages/_app.js</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">App</span>(<span class="hljs-params">{ Component, pageProps }</span>) </span>{
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Auth0Provider</span>
+      <span class="hljs-attr">domain</span>=<span class="hljs-string">"YOUR_AUTH0_DOMAIN"</span>
+      <span class="hljs-attr">clientId</span>=<span class="hljs-string">"YOUR_AUTH0_CLIENT_ID"</span>
+      <span class="hljs-attr">redirectUri</span>=<span class="hljs-string">"YOUR_URL"</span>
+    ></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">Component</span> {<span class="hljs-attr">...pageProps</span>} /></span>
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">Auth0Provider</span>></span>
+  );
+}
+</span></code></pre>
+<h2>auth0-react</h2>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> auth = useAuth0();
+
+<span class="hljs-keyword">if</span> (auth.isLoading) {
+  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>...<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (auth.error) {
+  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>...<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (!auth.isAuthenticated) {
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{auth.loginWithRedirect}</span>></span>Log in<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span>
+  );
+} <span class="hljs-keyword">else</span> {
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+      main content
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{auth.logout}</span>></span>log out<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+  );
+}
+</code></pre>
+<h2>auth0-react</h2>
+<p>Einträge im Rückgabewert von <code>useAuth0</code>:</p>
+<ul>
+<li><code>isLoading</code></li>
+<li><code>error</code></li>
+<li><code>isAuthenticated</code></li>
+<li><code>loginWithRedirect</code></li>
+<li><code>logout</code></li>
+<li><code>user</code> (<code>user.sub</code>, <code>user.email</code>, <code>user.username</code>, <code>user.name</code>, ...)</li>
+</ul>
+<h2>auth0-react</h2>
+<p>Aufgabe: Erstelle eine React-Anwendung, bei nur authentifizierte Benutzer auf den Inhalt zugreifen können; Name / e-mail des Benutzers sollen wenn vorhanden angezeigt werden</p>
+<h2>auth0-react</h2>
+<p>Authentifizierung kann mithilfe von <em>Access Tokens</em> verifiziert werden (in diesem Fall sind dies keine <em>JWT</em> Tokens)</p>
+<p>weitere Funktionalität von <code>useAuth0</code>:</p>
+<ul>
+<li><code>getAccessTokenSilently</code></li>
+<li><code>getAccessTokenWithPopup</code></li>
+</ul>
+<h2>auth0-react</h2>
+<p>Ausführen eines Requests mit dem Access Token:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> makeRequestSilently = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  auth.getAccessTokenSilently().then(<span class="hljs-function">(<span class="hljs-params">token</span>) =></span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`make API request with token <span class="hljs-subst">${token}</span>`</span>);
+  });
+};
+</code></pre>
+<h2>auth0-react</h2>
+<p>Verifizieren des Auth0-Tokens auf Seite des APIs:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> auth0Domain = <span class="hljs-string">'dev-xxxxxxxx.eu.auth0.com'</span>;
+
+fetch(<span class="hljs-string">`https://<span class="hljs-subst">${auth0Domain}</span>/userinfo`</span>, {
+  <span class="hljs-attr">headers</span>: {
+    <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span>,
+    <span class="hljs-attr">Authorization</span>: <span class="hljs-string">`Bearer <span class="hljs-subst">${token}</span>`</span>,
+  },
+})
+  .then(<span class="hljs-function">(<span class="hljs-params">res</span>) =></span> res.json())
+  .then(<span class="hljs-function">(<span class="hljs-params">userInfo</span>) =></span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`authenticated as <span class="hljs-subst">${userInfo.sub}</span>`</span>);
+  })
+  .catch(<span class="hljs-function">(<span class="hljs-params">error</span>) =></span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'error'</span>));
+</code></pre>
+<p>Bemerkung: das reine Senden der Information (z.B. Benutzer-ID) vom Client ist nicht sicher, da dies vom API nicht verifiziert werden kann</p>
+<h2>Ressourcen</h2>
+<ul>
+<li><a href="https://auth0.com/docs/quickstart/spa/react">https://auth0.com/docs/quickstart/spa/react</a></li>
+<li><a href="https://auth0.com/blog/complete-guide-to-react-user-authentication/">https://auth0.com/blog/complete-guide-to-react-user-authentication/</a></li>
+<li><a href="https://auth0.com/docs/libraries/auth0-react">https://auth0.com/docs/libraries/auth0-react</a></li>
+<li><a href="https://auth0.github.io/auth0-react/">API reference</a></li>
+</ul>
 <h1>PWAs</h1>
 <p>Progressive Web Apps mit React</p>
 <h2>PWAs</h2>

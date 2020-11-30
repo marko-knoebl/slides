@@ -1,47 +1,13 @@
 # React
 
-## Slides
-
-<https://marko-knoebl.github.io/slides/>
-
-## Your Trainer
-
-Marko Knöbl
-
-- based in Vienna
-- former math teacher
-- programming topics:
-  - JavaScript, TypeScript and React
-  - Python, data science
-
-## Introduction of Participants
-
-- current projects
-- prior knowledge
-- expectations
-
-## Organizational
-
-- duration
-- breaks
-- lunch
-- materials
-- questions, feedback?
-
-## Code
-
-Code available at: <https://github.com/marko-knoebl/courses-code>
-
-# Topics
-
 ## Topics
 
 - overview of React
 - JS basics for React
 - declarative rendering / working with state
 - JSX template language
-- components
 - using predefined components
+- defining custom components
 - querying web APIs from components
 
 # React.js overview
@@ -556,7 +522,7 @@ const evenNumbers = myNumbers.filter(isEven);
 
 see presentation [VS Code](./vs-code-en.html)
 
-# Create-React-App
+# Initializing a React project
 
 ## Developing with node.js and npm
 
@@ -568,49 +534,64 @@ see presentation [VS Code](./vs-code-en.html)
   - packages are located in the _node_modules_ directory
   - configuration via _package.json_
 
-## create-react-app
+## Initializing a React project
 
-most-used method for generating React projects
+possibilities:
 
-run it via:
+- **create-react-app** (most-used method)
+- gatsby (includes static site generation)
+- next.js (includes static site generation and server-side rendering)
+
+## Initializing a React project
+
+possible commands for initializing a project named "todolist":
 
 ```bash
 npx create-react-app todolist
-```
-
-or
-
-```bash
 npx create-react-app todolist --template typescript
 ```
 
-see also: <https://reactjs.org/docs/add-react-to-a-new-app.html>
+```bash
+npx create-next-app todolist
+npx create-next-app todolist --example with-typescript
+```
 
-## create-react-app
+```bash
+npx gatsby new
+```
 
-Creates a simple React app which can be used as a starting point
+<!--
+gatsby and creact-next-app will ask for more config
+during creation
+gatsby has built-in support for typescript -
+just change .js to .tsx -->
 
-many aspects are preconfigured:
+see also: <https://reactjs.org/docs/create-a-new-react-app.html>
+
+## Initializing a React project
+
+many aspects can be preconfigured by the initializer:
 
 - webpack and babel for building
 - local development server
-- unit testing framework jest
+- unit testing framework
 - SCSS and CSS modules
+- ...
 
-## default project structure
+## Create-react-app: default project structure
 
 - `public/index.html`, `src/index.js`: entry points
 - `App.js`, `App.css`: define the App component
 - `node_modules`: dependencies
 
-## development server and build
+## Create-react-app: development server and build
 
 inside the project directory:
 
 - `npm run start` (or `npm start`): starts the local development server
 - `npm run build`: creates a build (for deployment)
 
-## Development server
+## Create-react-app: development server
 
 note:
 

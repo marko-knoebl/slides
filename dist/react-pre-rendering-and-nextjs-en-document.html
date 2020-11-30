@@ -1,0 +1,233 @@
+<h1>Pre-rendering and next.js</h1>
+<h2>Pre-rendering</h2>
+<p><strong>pre-rendering</strong>: on first page load the browser receives pre-rendered HTML to speed up loading / displaying</p>
+<p>advantages:</p>
+<ul>
+<li>faster initial rendering</li>
+<li>reduces additional API calls on the client</li>
+<li>easier indexing by search engines</li>
+</ul>
+<h2>Pre-rendering</h2>
+<p>example:</p>
+<p>Disable JavaScript in your browser's developer tools settings and visit <a href="https://reactjs.org">reactjs.org</a> - you will still see content, though some interactivity will not work (e.g. dropdowns)</p>
+<h2>Approaches</h2>
+<ul>
+<li>static site generation (pre-rendering static content)</li>
+<li>server-side rendering (pre-rendering dynamic content)</li>
+</ul>
+<h2>Static site generation</h2>
+<ul>
+<li>makes sense for data that changes infrequently (e.g. blog posts)</li>
+<li>when data changes the site has to be regenerated statically</li>
+<li>data that changes frequently (e.g. comments on a blog post) would not be part of the pre-rendering</li>
+</ul>
+<h2>Server-side rendering</h2>
+<ul>
+<li>when a React page is opened a prerendered version of it is created on the server and sent to the client</li>
+<li>requires JavaScript on the server (<em>node.js</em>)</li>
+</ul>
+<h2>Server-side rendering and data fetching</h2>
+<p>usual process for fetching data in a React app:</p>
+<ul>
+<li>React app is sent to the client</li>
+<li>app renders initially with no data</li>
+<li>client requests additional data</li>
+<li>data is sent to the client</li>
+<li>app re-rendes</li>
+</ul>
+<p>process with server-side rendering:</p>
+<ul>
+<li>data is fetched on the server</li>
+<li>app is rendered on the server</li>
+<li>pre-rendered app and the corresponding data for making it dynamic are sent to the client</li>
+</ul>
+<h2>Tools</h2>
+<ul>
+<li><em>gatsby.js</em>: static site generation</li>
+<li><em>next.js</em>: static site generation, server-side rendering</li>
+</ul>
+<h1>Next.js</h1>
+<h2>Next.js</h2>
+<p>React framework that supports:</p>
+<ul>
+<li>static site generation</li>
+<li>server-side rendering</li>
+<li>simple file-based routing</li>
+<li>backend / API development in the same project (for simple projects)</li>
+</ul>
+<h2>Resources</h2>
+<p>The next.js website has great materials: <a href="https://nextjs.org">https://nextjs.org</a></p>
+<h1>Create-next-app</h1>
+<h2>Create-next-app</h2>
+<pre><code class="hljs language-bash">npx create-next-app my-app
+</code></pre>
+<pre><code class="hljs language-bash">npx create-next-app my-app --example typescript
+</code></pre>
+<h2>Project structure</h2>
+<p>possible project structure:</p>
+<ul>
+<li><em>pages</em></li>
+<li><em>public</em>: static assets</li>
+<li><em>styles</em></li>
+<li><em>components</em></li>
+</ul>
+<h2>Development server</h2>
+<pre><code class="hljs language-bash">npm run dev
+</code></pre>
+<h2>Deployment with node.js</h2>
+<p>to build a production version:</p>
+<pre><code class="hljs language-bash">npm run build
+</code></pre>
+<p>to run it (on the server):</p>
+<pre><code class="hljs language-bash">npm run start
+</code></pre>
+<h2>Deployment to a static server</h2>
+<p>possible only if no server-side rendering is needed (i.e. no <code>getServerSideProps</code>)</p>
+<p>change the <em>build</em> script in <em>package.json</em> to: <code>next build &#x26;&#x26; next export</code></p>
+<p>then build the static version (to the <em>out</em> folder) via:</p>
+<pre><code class="hljs language-bash">npm run build
+</code></pre>
+<p>(see <a href="https://nextjs.org/learn/excel/static-html-export">https://nextjs.org/learn/excel/static-html-export</a>)</p>
+<h1>Pages and navigation</h1>
+<h2>Pages and navigation</h2>
+<p>Example page definition:</p>
+<pre><code class="hljs language-js"><span class="hljs-comment">// pages/index.js</span>
+<span class="hljs-keyword">import</span> Link <span class="hljs-keyword">from</span> <span class="hljs-string">'next/link'</span>;
+<span class="hljs-keyword">import</span> Head <span class="hljs-keyword">from</span> <span class="hljs-string">'next/head'</span>;
+
+<span class="hljs-keyword">const</span> Index = <span class="hljs-function"><span class="hljs-params">()</span> =></span> (
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">Head</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">title</span>></span>Home<span class="hljs-tag">&#x3C;/<span class="hljs-name">title</span>></span>
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">Head</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">Link</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/about"</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">a</span>></span>About Page<span class="hljs-tag">&#x3C;/<span class="hljs-name">a</span>></span>
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">Link</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">p</span>></span>Hello Next.js<span class="hljs-tag">&#x3C;/<span class="hljs-name">p</span>></span>
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+);
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Index;
+</code></pre>
+<h2>Pages and navigation</h2>
+<p>special components provided by <em>next</em>:</p>
+<ul>
+<li><code>Link</code>: link inside a single-page application</li>
+<li><code>Head</code>: enables easily setting content of the page's <code>&#x3C;head></code> element</li>
+</ul>
+<h2>Pages and navigation</h2>
+<p>Task: create further pages</p>
+<h1>Pre-rendering and data fetching</h1>
+<h2>Pre-rendering and data fetching</h2>
+<p>in next.js we can define code that is executed at several different points:</p>
+<ul>
+<li>code that runs when building</li>
+<li>code that runs on the server</li>
+<li>code that runs in the browser</li>
+</ul>
+<h2>Pre-rendering and data fetching</h2>
+<p>when building, next.js will pre-render all entries in the <code>pages</code> directory</p>
+<p>some pages are pre-rendered without any additional input, others might be connected to data sources</p>
+<h2>Pre-rendering and data fetching</h2>
+<p>special (asynchronous) functions that we can export from a page definition file:</p>
+<ul>
+<li><code>getStaticProps</code> (runs during build)</li>
+<li><code>getServerSideProps</code> (runs on user request)</li>
+</ul>
+<p>can load data and pass them into the page components as props</p>
+<p>are only executed on the build machine or server respectively → may read files or make direct database queries</p>
+<p>The functionality of <em>fetch</em> will be polyfilled automatically</p>
+<h2>Pre-rendering</h2>
+<p>example: a page that contains a new Joke every time it is rebuilt</p>
+<pre><code class="hljs language-tsx">const ChuckNorrisJoke = ({ joke }: Props) => (
+  &#x3C;Layout title="Chuck Norris joke">
+    &#x3C;article>{joke}&#x3C;/article>
+  &#x3C;/Layout>
+);
+
+export const getStaticProps: GetStaticProps = async () => {
+  const res = await fetch(
+    'https://api.chucknorris.io/jokes/random'
+  );
+  const text = (await res.json()).value;
+  return { props: { joke: text } };
+};
+
+export default ChuckNorrisJoke;
+</code></pre>
+<h2>Pre-rendering</h2>
+<p>example: a page that contains a new Joke every time it is accessed</p>
+<pre><code class="hljs language-tsx">const ChuckNorrisJoke = ({ joke }: Props) => (
+  &#x3C;Layout title="Chuck Norris joke">
+    &#x3C;article>{joke}&#x3C;/article>
+  &#x3C;/Layout>
+);
+
+export const getServerSideProps: GetStaticProps = async () => {
+  const res = await fetch(
+    'https://api.chucknorris.io/jokes/random'
+  );
+  const text = (await res.json()).value;
+  return { props: { joke: text } };
+};
+
+export default ChuckNorrisJoke;
+</code></pre>
+<h2>Pre-rendering</h2>
+<p>exercises:</p>
+<ul>
+<li>pre-render a todo application with todos from <a href="https://jsonplaceholder.typicode.com/todos">https://jsonplaceholder.typicode.com/todos</a></li>
+<li>pre-render a list of pokemon with data from <a href="https://pokeapi.co/api/v2/pokemon">https://pokeapi.co/api/v2/pokemon</a></li>
+</ul>
+<h1>Route parameters</h1>
+<h2>Route parameters</h2>
+<p>we can query parameters from URLs like these:</p>
+<ul>
+<li><code>/posts/3</code></li>
+<li><code>/posts/?postid=3</code></li>
+</ul>
+<h2>Route parameters</h2>
+<p>Route parameters are enclosed in square brackets in the file name, e.g. <code>pages/spacex-launches/[id].js</code></p>
+<h2>Route parameters</h2>
+<p>pre-rendering pages based on a set of route parameters - via <code>getStaticPaths</code></p>
+<pre><code class="hljs language-tsx">export const getStaticPaths: GetStaticPaths = async () => {
+  // get a list of paths to pre-render
+  const res = await fetch(
+    'https://api.spacexdata.com/v3/launches/latest'
+  );
+  const latest = (await res.json()).flight_number;
+  const paths = [];
+  for (let i = 1; i &#x3C;= latest; i++) {
+    paths.push({ params: { id: i.toString() } });
+  }
+  return { paths, fallback: false };
+};
+</code></pre>
+<p><code>getStaticPaths</code> returns an array describing the routes under the entry <code>paths</code> - the entries are passed to <code>getStaticProps</code></p>
+<h2>Route parameters</h2>
+<p>after implementing <code>getStaticPaths</code> we can pre-render pages with dynamic routes</p>
+<pre><code class="hljs language-bash">npm run build
+</code></pre>
+<h2>Route parameters</h2>
+<p>Dynamically querying route parameters:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { useRouter } <span class="hljs-keyword">from</span> <span class="hljs-string">'next/router'</span>;
+
+<span class="hljs-keyword">const</span> Post = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  <span class="hljs-keyword">const</span> router = useRouter();
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>detail view for post {router.query.id}<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+  );
+};
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Post;
+</code></pre>
+<h1>Deployment</h1>
+<h2>Deployment</h2>
+<p><em>next</em> is developed by <em>Vercel</em>: good integration for deployment</p>
+<h2>Deployment on Vercel</h2>
+<ol>
+<li>Upload to GitHub or similar</li>
+<li>Connecting GitHub with Vercel and setup of the project</li>
+</ol>

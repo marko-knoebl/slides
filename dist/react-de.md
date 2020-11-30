@@ -1,47 +1,13 @@
 # React
 
-## Präsentationen
-
-<https://marko-knoebl.github.io/slides/>
-
-## Ihr Trainer
-
-Marko Knöbl
-
-- aus Wien
-- ehemaliger Mathematiklehrer
-- Programmierthemen:
-  - JavaScript, TypeScript und React
-  - Python, Data Science
-
-## Vorstellung der Teilnehmer
-
-- Aktuelle Projekte
-- Vorkenntnisse
-- Erwartungen / Wünsche
-
-## Organisatorisches
-
-- Kursdauer
-- Pausen
-- Mittagessen
-- Unterlagen
-- Fragen, Feedback? - Jederzeit erwünscht
-
-## Code
-
-Code verfügbar unter: <https://github.com/marko-knoebl/courses-code>
-
-# Themen
-
 ## Themen
 
 - Kurzüberblick über React
 - JS-Grundlagen für React
 - Deklaratives Rendering / Arbeiten mit State
 - JSX als Templatesprache
-- Komponenten
 - Einbinden vordefinierter Komponenten
+- Definieren eigener Komponenten
 - Abfragen von Web-APIs aus Komponenten
 
 # React.js Überblick
@@ -556,7 +522,7 @@ const evenNumbers = myNumbers.filter(isEven);
 
 siehe Präsentation [VS Code](./vs-code-de.html)
 
-# Create-React-App
+# Ein React-Projekt initialisieren
 
 ## Entwicklung mit node.js und npm
 
@@ -568,49 +534,58 @@ siehe Präsentation [VS Code](./vs-code-de.html)
   - Pakete im _node_modules_-Ordner
   - Konfiguration in _package.json_
 
-## create-react-app
+## Ein React-Projekt initialisieren
 
-Meistgenutzte Methode zum Erstellen von React-Anwendungen
+Möglichkeiten:
 
-ausführen via:
+- **create-react-app** (meistverwendete Methode)
+- gatsby (ermöglicht _Static Site Generation_)
+- next.js (ermöglicht _Static Site Generation_ und serverseitiges Rendering)
+
+## Ein React-Projekt initialisieren
+
+Mögliche Befehle zum Initialisieren eines Projekts namens "todolist":
 
 ```bash
 npx create-react-app todolist
-```
-
-oder
-
-```bash
 npx create-react-app todolist --template typescript
 ```
 
-siehe auch: <https://reactjs.org/docs/add-react-to-a-new-app.html>
+```bash
+npx create-next-app todolist
+npx create-next-app todolist --example with-typescript
+```
 
-## create-react-app
+```bash
+npx gatsby new
+```
 
-Erstellt eine einfache React-Anwendung, auf deren Basis weiter gearbeitet werden kann
+siehe auch: <https://reactjs.org/docs/create-a-new-react-app.html>
 
-Viele Aspekte sind vorkonfiguriert:
+## Ein React-Projekt initialisieren
+
+Viele Aspekte können vorkonfiguriert sein:
 
 - Webpack und Babel für den Build
 - lokaler Entwicklungsserver
 - Unittest-Framework jest
 - SCSS und CSS Module
+- ...
 
-## Standard Projektstruktur
+## Create-react-app: Standard Projektstruktur
 
 - `public/index.html`, `src/index.js`: Einstiegspunkte
 - `App.js`, `App.css`: Definieren App-Komponente
 - `node_modules`: Abhängigkeiten
 
-## Entwicklungsserver und Build
+## Create-react-app: Entwicklungsserver und Build
 
 Im Projektordner:
 
 - `npm run start` (oder `npm start`): Startet den lokalen Entwicklungsserver
 - `npm run build`: Erstellt einen Build (zum Deployen auf einem Webserver)
 
-## Entwicklungsserver
+## Create-react-app: Entwicklungsserver
 
 Bemerkung:
 
