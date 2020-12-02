@@ -1,13 +1,13 @@
-# HTTP server with node
+# HTTP server
 
-## Running an HTTP server with node
+## Betreiben eines HTTP-Servers mit node
 
-see https://nodejs.org/en/docs/guides/getting-started-guide/
+siehe https://nodejs.org/en/docs/guides/getting-started-guide/
 
-## Running an HTTP server with node
+## Betreiben eines HTTP-Servers mit node
 
 ```js
-const http = require('http');
+import http from 'http';
 
 const hostname = '127.0.0.1';
 const port = 3000;
@@ -22,3 +22,8 @@ server = http.createServer(requestHandler);
 
 server.listen(port, hostname);
 ```
+
+## HTTP server frameworks
+
+- connect: Middleware
+- express: Middleware, Routing

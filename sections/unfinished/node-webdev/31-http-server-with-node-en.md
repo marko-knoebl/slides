@@ -1,10 +1,10 @@
-# an HTTP server with node
+# HTTP server with node
 
-## running an HTTP server with node
+## Running an HTTP server with node
 
 see https://nodejs.org/en/docs/guides/getting-started-guide/
 
-## running an HTTP server with node
+## Running an HTTP server with node
 
 ```js
 const http = require('http');
