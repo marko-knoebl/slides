@@ -40,7 +40,7 @@ ReactDOM.render(
 ## Grundlegende Router-Komponenten (v6)
 
 - `<Route>` - rendert ihre Inhalte, wenn sie aktiv ist
-- `<Router>` - Container für `<Route>`-Elemente
+- `<Routes>` - Container für `<Route>`-Elemente
 - `<Link>` / `<NavLink>` - werden anstatt von `<a>`-Elementen verwendet
 
 ## Einfaches Beispiel (v6)
