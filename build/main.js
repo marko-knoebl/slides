@@ -32,7 +32,7 @@ const main = () => {
   fs.mkdirSync("docs");
   const entrypointFilenames = fs.readdirSync("entrypoints");
   const results = [];
-  const numSlidesTotal = { en: 0, de: 0 };
+  const numSlidesTotal = { en: 0, de: 0, id: 0 };
   for (let entrypoint of entrypointFilenames) {
     const presentationData = processPresentation(entrypoint);
     console.log(
