@@ -2201,10 +2201,8 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <p>The functionality of <em>fetch</em> will be polyfilled automatically</p>
 </section><section class="slide"><h2>Pre-rendering</h2>
 <p>example: a page that contains a new Joke every time it is rebuilt</p>
-<pre><code class="hljs language-tsx">const ChuckNorrisJoke = ({ joke }: Props) => (
-  &#x3C;Layout title="Chuck Norris joke">
-    &#x3C;article>{joke}&#x3C;/article>
-  &#x3C;/Layout>
+<pre><code class="hljs language-tsx">const ChuckNorrisJoke = (props: Props) => (
+  &#x3C;article>{props.joke}&#x3C;/article>
 );
 
 export const getStaticProps: GetStaticProps = async () => {
@@ -2219,13 +2217,11 @@ export default ChuckNorrisJoke;
 </code></pre>
 </section><section class="slide"><h2>Pre-rendering</h2>
 <p>example: a page that contains a new Joke every time it is accessed</p>
-<pre><code class="hljs language-tsx">const ChuckNorrisJoke = ({ joke }: Props) => (
-  &#x3C;Layout title="Chuck Norris joke">
-    &#x3C;article>{joke}&#x3C;/article>
-  &#x3C;/Layout>
+<pre><code class="hljs language-tsx">const ChuckNorrisJoke = (props: Props) => (
+  &#x3C;article>{props.joke}&#x3C;/article>
 );
 
-export const getServerSideProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const res = await fetch(
     'https://api.chucknorris.io/jokes/random'
   );
@@ -2291,7 +2287,7 @@ export default ChuckNorrisJoke;
 </section><section class="slide"><h2>Deployment on Vercel</h2>
 <ol>
 <li>Upload to GitHub or similar</li>
-<li>Connecting GitHub with Vercel and setup of the project</li>
+<li>Connect GitHub with Vercel and set up the project</li>
 </ol></section></section></div>
     </div>
     <script>/*!

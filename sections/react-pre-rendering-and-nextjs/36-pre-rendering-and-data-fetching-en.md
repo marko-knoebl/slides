@@ -32,10 +32,8 @@ The functionality of _fetch_ will be polyfilled automatically
 example: a page that contains a new Joke every time it is rebuilt
 
 ```tsx
-const ChuckNorrisJoke = ({ joke }: Props) => (
-  <Layout title="Chuck Norris joke">
-    <article>{joke}</article>
-  </Layout>
+const ChuckNorrisJoke = (props: Props) => (
+  <article>{props.joke}</article>
 );
 
 export const getStaticProps: GetStaticProps = async () => {
@@ -54,13 +52,11 @@ export default ChuckNorrisJoke;
 example: a page that contains a new Joke every time it is accessed
 
 ```tsx
-const ChuckNorrisJoke = ({ joke }: Props) => (
-  <Layout title="Chuck Norris joke">
-    <article>{joke}</article>
-  </Layout>
+const ChuckNorrisJoke = (props: Props) => (
+  <article>{props.joke}</article>
 );
 
-export const getServerSideProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const res = await fetch(
     'https://api.chucknorris.io/jokes/random'
   );

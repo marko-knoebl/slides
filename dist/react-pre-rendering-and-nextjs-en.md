@@ -194,10 +194,8 @@ The functionality of _fetch_ will be polyfilled automatically
 example: a page that contains a new Joke every time it is rebuilt
 
 ```tsx
-const ChuckNorrisJoke = ({ joke }: Props) => (
-  <Layout title="Chuck Norris joke">
-    <article>{joke}</article>
-  </Layout>
+const ChuckNorrisJoke = (props: Props) => (
+  <article>{props.joke}</article>
 );
 
 export const getStaticProps: GetStaticProps = async () => {
@@ -216,13 +214,11 @@ export default ChuckNorrisJoke;
 example: a page that contains a new Joke every time it is accessed
 
 ```tsx
-const ChuckNorrisJoke = ({ joke }: Props) => (
-  <Layout title="Chuck Norris joke">
-    <article>{joke}</article>
-  </Layout>
+const ChuckNorrisJoke = (props: Props) => (
+  <article>{props.joke}</article>
 );
 
-export const getServerSideProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const res = await fetch(
     'https://api.chucknorris.io/jokes/random'
   );
@@ -310,4 +306,4 @@ _next_ is developed by _Vercel_: good integration for deployment
 ## Deployment on Vercel
 
 1. Upload to GitHub or similar
-2. Connecting GitHub with Vercel and setup of the project
+2. Connect GitHub with Vercel and set up the project

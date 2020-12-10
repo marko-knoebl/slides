@@ -194,10 +194,8 @@ Funktionalität von _fetch_ ist automatisch durch ein Polyfill vorhanden
 Beispiel: Seite, die bei jedem Build zufällig als Inhalt einen neuen Witz erhält
 
 ```tsx
-const ChuckNorrisJoke = ({ joke }: Props) => (
-  <Layout title="Chuck Norris joke">
-    <article>{joke}</article>
-  </Layout>
+const ChuckNorrisJoke = (props: Props) => (
+  <article>{props.joke}</article>
 );
 
 export const getStaticProps: GetStaticProps = async () => {
@@ -216,13 +214,11 @@ export default ChuckNorrisJoke;
 Beispiel: Seite, die bei jedem Aufruf einen neuen Witz enthält
 
 ```tsx
-const ChuckNorrisJoke = ({ joke }: Props) => (
-  <Layout title="Chuck Norris joke">
-    <article>{joke}</article>
-  </Layout>
+const ChuckNorrisJoke = (props: Props) => (
+  <article>{props.joke}</article>
 );
 
-export const getServerSideProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const res = await fetch(
     'https://api.chucknorris.io/jokes/random'
   );
