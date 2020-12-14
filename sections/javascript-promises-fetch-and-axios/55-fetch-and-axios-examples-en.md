@@ -1,4 +1,4 @@
-# Fetch & axios: examples
+# Fetch and axios: examples
 
 ## Fetching JSON data
 

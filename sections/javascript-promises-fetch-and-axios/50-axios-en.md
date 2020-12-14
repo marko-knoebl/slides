@@ -9,11 +9,9 @@ widely used library that provides more functionality / a simpler interface than 
 Fetching JSON data:
 
 ```js
-import axios from 'axios';
-
-axios(
+const todos = await axios(
   'https://jsonplaceholder.typicode.com/todos'
-).then(res => console.log(res.data));
+);
 ```
 
 ## Status codes in Axios

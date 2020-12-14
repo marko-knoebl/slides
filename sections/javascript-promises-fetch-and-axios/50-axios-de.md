@@ -9,11 +9,9 @@ verbreitete Library mit mehr Funktionalität / einfacherem Interface als `fetch`
 JSON Daten laden:
 
 ```js
-import axios from 'axios';
-
-axios(
+const todos = await axios(
   'https://jsonplaceholder.typicode.com/todos'
-).then(res => console.log(res.data));
+);
 ```
 
 ## Status Codes in Axios

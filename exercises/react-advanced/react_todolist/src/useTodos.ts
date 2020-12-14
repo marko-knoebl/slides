@@ -1,4 +1,5 @@
 import { useReducer, useEffect, useState } from "react";
+import { fetchTodos } from "./api";
 import Todo from "./Todo";
 
 type Action = { type: string; payload?: any };
@@ -33,29 +34,15 @@ const todosReducer = (todos: Array<Todo>, action: TodoAction) => {
   }
 };
 
-type ApiTodo = {
-  id: number;
-  userId: number;
-  title: string;
-  completed: boolean;
-};
-
 const useTodos = () => {
   const [todos, todosDispatch] = useReducer(todosReducer, []);
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     if (isLoading) {
-      fetch("https://jsonplaceholder.typicode.com/todos")
-        .then((res) => res.json())
-        .then((apiTodos: Array<ApiTodo>) => {
-          const todos = apiTodos.map((apiTodo) => ({
-            id: apiTodo.id,
-            title: apiTodo.title,
-            completed: apiTodo.completed,
-          }));
-          todosDispatch({ type: "setTodos", payload: todos });
-          setIsLoading(false);
-        });
+      fetchTodos().then((todos) => {
+        todosDispatch({ type: "setTodos", payload: todos });
+        setIsLoading(false);
+      });
     }
   }, [isLoading]);
 
