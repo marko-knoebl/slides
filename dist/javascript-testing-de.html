@@ -2089,15 +2089,15 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </ul>
 </section><section class="slide"><h2>Einfaches Beispiel: shorten</h2>
 <p>Implementierung, die getestet werden soll:</p>
-<pre><code class="hljs language-js"><span class="hljs-comment">// shorten.js</span>
-<span class="hljs-comment">/**
+<pre><code class="hljs language-js"><span class="hljs-comment">/**
  * shortens a given string to a specified length,
  * adding "..." at the end if it was shortened
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> (s, maxlength) =>
+<span class="hljs-keyword">const</span> shorten = <span class="hljs-function">(<span class="hljs-params">s, maxlength</span>) =></span>
   s.length > maxlength
     ? s.slice(<span class="hljs-number">0</span>, maxlength - <span class="hljs-number">3</span>) + <span class="hljs-string">'...'</span>
     : s;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> shorten;
 </code></pre>
 </section><section class="slide"><h2>Beispiel: shorten</h2>
 <p>einfache Tests:</p>
@@ -2195,7 +2195,6 @@ expect(<span class="hljs-function"><span class="hljs-params">()</span> =></span>
 <p>in einem create-react-app Projekt:</p>
 <pre><code class="hljs language-bash">npm <span class="hljs-built_in">test</span> -- --coverage
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Test Setup und Mocking (mit jest)</h1>
 </section><section class="slide"><h2>Setup und teardown</h2>
 <p>Für Code, der vor und jedem Test in einer Gruppe ausgeführt werden soll:</p>
 <pre><code class="hljs language-js">describe(<span class="hljs-string">'database'</span>, () => {
@@ -2210,6 +2209,124 @@ expect(<span class="hljs-function"><span class="hljs-params">()</span> =></span>
   test(<span class="hljs-comment">/*...*/</span>);
 });
 </code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>End-to-end Tests mit Jest und puppeteer</h1>
+</section><section class="slide"><h2>End-to-end Test-Tools</h2>
+<ul>
+<li>puppeteer</li>
+<li>cypress</li>
+<li>selenium</li>
+</ul>
+</section><section class="slide"><h2>Puppeteer</h2>
+<p>kann eine Instanz des Chromium-Browsers aus node steuern</p>
+<p>npm-Pakete:</p>
+<ul>
+<li><em>puppeteer</em></li>
+<li><em>@types/puppeteer</em></li>
+</ul>
+</section><section class="slide"><h2>Puppeteer</h2>
+<p>Testen, ob die erste Website noch online ist:</p>
+<pre><code class="hljs language-js">test(<span class="hljs-string">'first website'</span>, <span class="hljs-keyword">async</span> () => {
+  <span class="hljs-keyword">const</span> browser = <span class="hljs-keyword">await</span> puppeteer.launch();
+  <span class="hljs-keyword">const</span> page = <span class="hljs-keyword">await</span> browser.newPage();
+  <span class="hljs-keyword">await</span> page.goto(
+    <span class="hljs-string">'http://info.cern.ch/hypertext/WWW/TheProject.html'</span>
+  );
+  <span class="hljs-keyword">const</span> pageTitle = <span class="hljs-keyword">await</span> page.title();
+  expect(pageTitle).toEqual(<span class="hljs-string">'The World Wide Web project'</span>);
+  <span class="hljs-keyword">await</span> browser.close();
+});
+</code></pre>
+</section><section class="slide"><h2>Puppeteer</h2>
+<p>Test, der tatsächlich ein Browser-Fenster öffnet:</p>
+<pre><code class="hljs language-js">jest.setTimeout(<span class="hljs-number">10000</span>);
+
+test(<span class="hljs-string">'first website'</span>, <span class="hljs-keyword">async</span> () => {
+  <span class="hljs-keyword">const</span> browser = <span class="hljs-keyword">await</span> puppeteer.launch({
+    <span class="hljs-attr">headless</span>: <span class="hljs-literal">false</span>,
+  });
+  <span class="hljs-comment">// ...</span>
+});
+</code></pre>
+</section><section class="slide"><h2>Puppeteer</h2>
+<p>Abfragen von Elementen ist nicht trivial, da wir mit zwei <em>separate</em> JavaScript-Umgebungen arbeiten (node und Chromium)</p>
+<p>Seiteninhalte abfragen:</p>
+<ul>
+<li><code>page.$eval()</code> für Inhalte eines einzelnen Elements</li>
+<li><code>page.$$eval()</code> zum Abfragen aller zutreffenden Elemente</li>
+</ul>
+<p>Elemente abfragen, um mit ihnen zu interagieren:</p>
+<ul>
+<li><code>page.$()</code> für ein einzelnes Element</li>
+<li><code>page.$$()</code> für ein Array aller zutreffenden Eelmente</li>
+</ul>
+</section><section class="slide"><h2>Puppeteer</h2>
+<p>Elemente abfragen, um auf deren Inhalte zuzugreifen:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> firstLinkText = <span class="hljs-keyword">await</span> page.$<span class="hljs-built_in">eval</span>(
+  <span class="hljs-string">'a'</span>,
+  (element) => element.innerHTML
+);
+
+<span class="hljs-keyword">const</span> thirdLinkText = <span class="hljs-keyword">await</span> page.$$<span class="hljs-built_in">eval</span>(
+  <span class="hljs-string">'a'</span>,
+  (elements) => elements[<span class="hljs-number">2</span>].innerHTML
+);
+</code></pre>
+</section><section class="slide"><h2>Puppeteer</h2>
+<p>Elemente abfragen, um mit ihnen zu interagieren:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> firstLink = <span class="hljs-keyword">await</span> page.$(<span class="hljs-string">'a'</span>);
+<span class="hljs-keyword">await</span> firstLink.click();
+<span class="hljs-keyword">await</span> page.waitForNavigation();
+</code></pre>
+</section><section class="slide"><h2>Puppeteer</h2>
+<p>Beispiel: Suche auf Wikipedia</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> browser = <span class="hljs-keyword">await</span> puppeteer.launch();
+<span class="hljs-keyword">const</span> page = <span class="hljs-keyword">await</span> browser.newPage();
+<span class="hljs-keyword">await</span> page.goto(<span class="hljs-string">'https://en.wikipedia.org'</span>);
+<span class="hljs-keyword">await</span> page.click(<span class="hljs-string">'#searchInput'</span>);
+<span class="hljs-keyword">await</span> page.keyboard.type(<span class="hljs-string">'puppeteer'</span>);
+<span class="hljs-keyword">await</span> page.click(<span class="hljs-string">'#searchButton'</span>);
+<span class="hljs-keyword">await</span> page.waitForNavigation();
+<span class="hljs-keyword">const</span> paragraphText = <span class="hljs-keyword">await</span> page.$<span class="hljs-built_in">eval</span>(
+  <span class="hljs-string">'p'</span>,
+  (element) => element.textContent
+);
+<span class="hljs-built_in">console</span>.log(paragraphText);
+expect(paragraphText).toMatch(<span class="hljs-regexp">/puppeteer/i</span>);
+<span class="hljs-keyword">await</span> browser.close();
+</code></pre>
+<p><small>Bemerkungen: <em>page.keyboard.press("Enter")</em> würde eine Volltextsuche auslösen; auf manchen Wikipedia-Seiten ist der erste Paragraph leer.</small></p>
+</section><section class="slide"><h2>Puppeteer</h2>
+<p>Setup und Teardown:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> browser;
+<span class="hljs-keyword">let</span> page;
+
+beforeEach(<span class="hljs-keyword">async</span> () => {
+  browser = <span class="hljs-keyword">await</span> puppeteer.launch();
+  page = <span class="hljs-keyword">await</span> browser.newPage();
+  <span class="hljs-keyword">await</span> page.goto(
+    <span class="hljs-string">'http://info.cern.ch/hypertext/WWW/TheProject.html'</span>
+  );
+});
+
+afterEach(<span class="hljs-keyword">async</span> () => {
+  <span class="hljs-keyword">await</span> browser.close();
+});
+</code></pre>
+</section><section class="slide"><h2>Puppeteer</h2>
+<p>wichtige Methoden:</p>
+<ul>
+<li><code>page.$()</code></li>
+<li><code>page.$$()</code></li>
+<li><code>page.$eval()</code></li>
+<li><code>page.$$eval()</code></li>
+<li><code>page.keyboard.type("abc")</code></li>
+<li><code>page.keyboard.press("Enter")</code></li>
+<li><code>page.click("#selector")</code></li>
+<li><code>element.click()</code></li>
+<li><code>page.waitForNavigation()</code></li>
+</ul>
+<p><a href="https://github.com/puppeteer/puppeteer/blob/main/docs/api.md">vollständiges API</a></p>
+</section></section><section class="slides-section"><section class="slide"><h1>Mocking mit Jest</h1>
 </section><section class="slide"><h2>Mocking von built-ins</h2>
 <p>Mocking von <em>localStorage</em> (welches in node nicht verfügbar ist) mit Beispieldaten:</p>
 <pre><code class="hljs language-js">globalThis.localStorage = {
@@ -2279,80 +2396,7 @@ expect(mockFn).toHaveBeenCalledWith(<span class="hljs-string">'foo'</span>);
 <ul>
 <li><a href="https://www.leighhalliday.com/mock-fetch-jest">How To Mock Fetch in Jest</a></li>
 <li><a href="https://www.leighhalliday.com/mocking-axios-in-jest-testing-async-functions">Mocking Axios in Jest + Testing Async Functions</a></li>
-</ul>
-</section></section><section class="slides-section"><section class="slide"><h1>End-to-end Tests mit Jest und puppeteer</h1>
-</section><section class="slide"><h2>End-to-end Test-Tools</h2>
-<ul>
-<li>puppeteer</li>
-<li>cypress</li>
-<li>selenium</li>
-</ul>
-</section><section class="slide"><h2>Puppeteer</h2>
-<p>kann eine Instanz des Chromium-Browsers steuern</p>
-<pre><code class="hljs language-bash">npm install puppeteer
-</code></pre>
-</section><section class="slide"><h2>Puppeteer</h2>
-<p>Testen, ob die erste Website noch online ist:</p>
-<pre><code class="hljs language-js">test(<span class="hljs-string">'first website'</span>, <span class="hljs-keyword">async</span> () => {
-  <span class="hljs-keyword">const</span> browser = <span class="hljs-keyword">await</span> puppeteer.launch();
-  <span class="hljs-keyword">const</span> page = <span class="hljs-keyword">await</span> browser.newPage();
-  <span class="hljs-keyword">await</span> page.goto(
-    <span class="hljs-string">'http://info.cern.ch/hypertext/WWW/TheProject.html'</span>
-  );
-  <span class="hljs-keyword">const</span> pageTitle = <span class="hljs-keyword">await</span> page.title();
-  expect(pageTitle).toEqual(<span class="hljs-string">'The World Wide Web project'</span>);
-});
-</code></pre>
-</section><section class="slide"><h2>Puppeteer</h2>
-<p>Test, der tatsächlich ein Browser-Fenster öffnet:</p>
-<pre><code class="hljs language-js">test(<span class="hljs-string">'first website'</span>, <span class="hljs-keyword">async</span> () => {
-  jest.setTimeout(<span class="hljs-number">10000</span>);
-  <span class="hljs-keyword">const</span> browser = <span class="hljs-keyword">await</span> puppeteer.launch({
-    <span class="hljs-attr">headless</span>: <span class="hljs-literal">false</span>,
-  });
-  <span class="hljs-comment">// ...</span>
-});
-</code></pre>
-</section><section class="slide"><h2>Puppeteer</h2>
-<p>Seiteninhalte abfragen:</p>
-<ul>
-<li><code>page.$eval()</code> für Inhalte eines einzelnen Elements</li>
-<li><code>page.$$eval()</code> zum Abfragen aller zutreffenden Elemente</li>
-</ul>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> firstLinkText = <span class="hljs-keyword">await</span> page.$<span class="hljs-built_in">eval</span>(
-  <span class="hljs-string">'a'</span>,
-  (element) => element.innerHTML
-);
-
-<span class="hljs-keyword">const</span> thirdLinkText = <span class="hljs-keyword">await</span> page.$$<span class="hljs-built_in">eval</span>(
-  <span class="hljs-string">'a'</span>,
-  (elements) => elements[<span class="hljs-number">2</span>].innerHTML
-);
-</code></pre>
-</section><section class="slide"><h2>Puppeteer</h2>
-<p>Elemente abfragen, um mit ihnen zu interagieren:</p>
-<ul>
-<li><code>page.$()</code> für ein einzelnes Element</li>
-<li><code>page.$$()</code> für ein Array aller zutreffenden Eelmente</li>
-</ul>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> firstLink = <span class="hljs-keyword">await</span> page.$(<span class="hljs-string">'a'</span>);
-<span class="hljs-keyword">await</span> firstLink.click();
-<span class="hljs-keyword">await</span> page.waitForNavigation();
-</code></pre>
-</section><section class="slide"><h2>Puppeteer</h2>
-<p>Setup in <code>beforeEach</code>:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> browser;
-<span class="hljs-keyword">let</span> page;
-beforeEach(<span class="hljs-keyword">async</span> () => {
-  browser = <span class="hljs-keyword">await</span> puppeteer.launch();
-  page = <span class="hljs-keyword">await</span> browser.newPage();
-  <span class="hljs-keyword">await</span> page.goto(
-    <span class="hljs-string">'http://info.cern.ch/hypertext/WWW/TheProject.html'</span>
-  );
-});
-</code></pre>
-</section><section class="slide"><h2>Puppeteer</h2>
-<p><a href="https://github.com/puppeteer/puppeteer/blob/main/docs/api.md">vollständiges API für Puppeteer</a></p></section></section></div>
+</ul></section></section></div>
     </div>
     <script>/*!
  * reveal.js

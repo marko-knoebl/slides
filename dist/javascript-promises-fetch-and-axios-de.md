@@ -14,7 +14,7 @@ manche Aufgaben in JavaScript können gleichzeitig laufen (insbesondere Aufgaben
 ## Tools für asynchrones JavaScript
 
 - **callbacks, promises, async / await**: für parallels Input / Output
-- _(Web) Worker_: für Parallelisierung von CPI-intensiven Aufgaben (JavaScript Code läuft tatsächlich parallel)
+- _(Web) Worker_: für Parallelisierung von CPU-intensiven Aufgaben (JavaScript Code läuft tatsächlich parallel)
 
 ## Asynchrones JavaScript
 

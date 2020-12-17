@@ -37,15 +37,15 @@ Mögliche Zugänge:
 Implementierung, die getestet werden soll:
 
 ```js
-// shorten.js
 /**
  * shortens a given string to a specified length,
  * adding "..." at the end if it was shortened
  */
-export default (s, maxlength) =>
+const shorten = (s, maxlength) =>
   s.length > maxlength
     ? s.slice(0, maxlength - 3) + '...'
     : s;
+export default shorten;
 ```
 
 ## Beispiel: shorten

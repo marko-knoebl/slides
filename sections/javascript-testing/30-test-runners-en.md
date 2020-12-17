@@ -71,3 +71,21 @@ in a create-react-app project:
 ```bash
 npm test -- --coverage
 ```
+
+## Setup and teardown
+
+For code that should be executed before and after each test in a group:
+
+```js
+describe('database', () => {
+  beforeEach(() => {
+    createTestDB();
+  });
+  afterEach(() => {
+    clearTestDB();
+  });
+
+  test(/*...*/);
+  test(/*...*/);
+});
+```
