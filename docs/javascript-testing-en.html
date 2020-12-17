@@ -2224,27 +2224,40 @@ expect(<span class="hljs-function"><span class="hljs-params">()</span> =></span>
 <li><em>@types/puppeteer</em></li>
 </ul>
 </section><section class="slide"><h2>Puppeteer</h2>
-<p>test if the first website is still available:</p>
-<pre><code class="hljs language-js">test(<span class="hljs-string">'first website'</span>, <span class="hljs-keyword">async</span> () => {
+<p>testing Wikipedia:</p>
+<pre><code class="hljs language-js">test(<span class="hljs-string">'wikipedia title'</span>, <span class="hljs-keyword">async</span> () => {
   <span class="hljs-keyword">const</span> browser = <span class="hljs-keyword">await</span> puppeteer.launch();
   <span class="hljs-keyword">const</span> page = <span class="hljs-keyword">await</span> browser.newPage();
-  <span class="hljs-keyword">await</span> page.goto(
-    <span class="hljs-string">'http://info.cern.ch/hypertext/WWW/TheProject.html'</span>
-  );
+  <span class="hljs-keyword">await</span> page.goto(<span class="hljs-string">'https://en.wikipedia.org'</span>);
   <span class="hljs-keyword">const</span> pageTitle = <span class="hljs-keyword">await</span> page.title();
-  expect(pageTitle).toEqual(<span class="hljs-string">'The World Wide Web project'</span>);
+  expect(pageTitle).toMatch(<span class="hljs-regexp">/Wikipedia/</span>);
   <span class="hljs-keyword">await</span> browser.close();
 });
 </code></pre>
 </section><section class="slide"><h2>Puppeteer</h2>
-<p>test that actually opens a browser window:</p>
-<pre><code class="hljs language-js">jest.setTimeout(<span class="hljs-number">10000</span>);
+<p>restructuring code for multiple tests:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> browser;
+<span class="hljs-keyword">let</span> page;
+beforeAll(<span class="hljs-keyword">async</span> () => {
+  browser = <span class="hljs-keyword">await</span> puppeteer.launch();
+});
+beforeEach(<span class="hljs-keyword">async</span> () => {
+  page = <span class="hljs-keyword">await</span> browser.newPage();
+  <span class="hljs-keyword">await</span> page.goto(<span class="hljs-string">'https://en.wikipedia.org'</span>);
+});
+afterAll(<span class="hljs-keyword">async</span> () => {
+  <span class="hljs-keyword">await</span> browser.close();
+});
 
-test(<span class="hljs-string">'first website'</span>, <span class="hljs-keyword">async</span> () => {
-  <span class="hljs-keyword">const</span> browser = <span class="hljs-keyword">await</span> puppeteer.launch({
-    <span class="hljs-attr">headless</span>: <span class="hljs-literal">false</span>,
-  });
-  <span class="hljs-comment">// ...</span>
+test(<span class="hljs-string">'wikipedia title'</span>, <span class="hljs-keyword">async</span> () => {
+  <span class="hljs-keyword">const</span> pageTitle = <span class="hljs-keyword">await</span> page.title();
+  expect(pageTitle).toMatch(<span class="hljs-regexp">/Wikipedia/</span>);
+});
+</code></pre>
+</section><section class="slide"><h2>Puppeteer</h2>
+<p>tests that actually open a browser window:</p>
+<pre><code class="hljs language-js">beforeAll(<span class="hljs-keyword">async</span> () => {
+  browser = <span class="hljs-keyword">await</span> puppeteer.launch({ <span class="hljs-attr">headless</span>: <span class="hljs-literal">false</span> });
 });
 </code></pre>
 </section><section class="slide"><h2>Puppeteer</h2>
@@ -2279,39 +2292,20 @@ test(<span class="hljs-string">'first website'</span>, <span class="hljs-keyword
 </code></pre>
 </section><section class="slide"><h2>Puppeteer</h2>
 <p>example: Searching on Wikipedia</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> browser = <span class="hljs-keyword">await</span> puppeteer.launch();
-<span class="hljs-keyword">const</span> page = <span class="hljs-keyword">await</span> browser.newPage();
-<span class="hljs-keyword">await</span> page.goto(<span class="hljs-string">'https://en.wikipedia.org'</span>);
-<span class="hljs-keyword">await</span> page.click(<span class="hljs-string">'#searchInput'</span>);
-<span class="hljs-keyword">await</span> page.keyboard.type(<span class="hljs-string">'puppeteer'</span>);
-<span class="hljs-keyword">await</span> page.click(<span class="hljs-string">'#searchButton'</span>);
-<span class="hljs-keyword">await</span> page.waitForNavigation();
-<span class="hljs-keyword">const</span> paragraphText = <span class="hljs-keyword">await</span> page.$<span class="hljs-built_in">eval</span>(
-  <span class="hljs-string">'p'</span>,
-  (element) => element.textContent
-);
-<span class="hljs-built_in">console</span>.log(paragraphText);
-expect(paragraphText).toMatch(<span class="hljs-regexp">/puppeteer/i</span>);
-<span class="hljs-keyword">await</span> browser.close();
+<pre><code class="hljs language-js">test(<span class="hljs-string">'wikipedia search'</span>, <span class="hljs-keyword">async</span> () => {
+  <span class="hljs-keyword">await</span> page.click(<span class="hljs-string">'#searchInput'</span>);
+  <span class="hljs-keyword">await</span> page.keyboard.type(<span class="hljs-string">'puppeteer'</span>);
+  <span class="hljs-keyword">await</span> page.click(<span class="hljs-string">'#searchButton'</span>);
+  <span class="hljs-keyword">await</span> page.waitForNavigation();
+  <span class="hljs-keyword">const</span> paragraphText = <span class="hljs-keyword">await</span> page.$<span class="hljs-built_in">eval</span>(
+    <span class="hljs-string">'p'</span>,
+    (element) => element.textContent
+  );
+  <span class="hljs-built_in">console</span>.log(paragraphText);
+  expect(paragraphText).toMatch(<span class="hljs-regexp">/puppeteer/i</span>);
+});
 </code></pre>
 <p><small>notes: <em>page.keyboard.press("Enter")</em> would trigger full-text search; on some Wikipedia pages the first paragraph might be empty.</small></p>
-</section><section class="slide"><h2>Puppeteer</h2>
-<p>setup and teardown:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> browser;
-<span class="hljs-keyword">let</span> page;
-
-beforeEach(<span class="hljs-keyword">async</span> () => {
-  browser = <span class="hljs-keyword">await</span> puppeteer.launch();
-  page = <span class="hljs-keyword">await</span> browser.newPage();
-  <span class="hljs-keyword">await</span> page.goto(
-    <span class="hljs-string">'http://info.cern.ch/hypertext/WWW/TheProject.html'</span>
-  );
-});
-
-afterEach(<span class="hljs-keyword">async</span> () => {
-  <span class="hljs-keyword">await</span> browser.close();
-});
-</code></pre>
 </section><section class="slide"><h2>Puppeteer</h2>
 <p>important methods:</p>
 <ul>

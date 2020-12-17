@@ -8,15 +8,23 @@ Start the React application in the background (on port 3000) so Puppeteer can in
 npm run start
 ```
 
-test that uses Puppeteer:
+## Testing a React application with Puppeteer
 
 ```js
-import puppeteer from 'puppeteer';
+let browser;
+let page;
+beforeAll(async () => {
+  browser = await puppeteer.launch();
+});
+beforeEach(async () => {
+  page = await browser.newPage();
+  await page.goto('http://localhost:3000');
+});
+afterAll(async () => {
+  await browser.close();
+});
 
 test("displays page with title 'React App'", async () => {
-  const browser = await puppeteer.launch();
-  const page = await browser.newPage();
-  await page.goto('http://localhost:3000');
   const pageTitle = await page.title();
   expect(pageTitle).toEqual('React App');
 });

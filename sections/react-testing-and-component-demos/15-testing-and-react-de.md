@@ -1,9 +1,9 @@
-# React: Testen und Komponentendemos
+# Testen und React
 
 ## Themen
 
 - Komponentendemos mit _Storybook_
-- Testen in JavaScript
+- Testen von React-Andwendungen mit _puppeteer_
 - Libraries für das Testen von React-Komponenten
   - react-testing-library
   - react-test-renderer

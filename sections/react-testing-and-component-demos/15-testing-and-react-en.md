@@ -1,9 +1,9 @@
-# React: Testing and Component Demos
+# Testing and React
 
 ## Topics
 
 - component demos with _Storybook_
-- as needed: testing in JavaScript
+- testing React applications with _puppeteer_
 - libraries for testing React components
   - react-testing-library
   - react-test-renderer

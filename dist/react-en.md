@@ -549,6 +549,7 @@ possible commands for initializing a project named "todolist":
 ```bash
 npx create-react-app todolist
 npx create-react-app todolist --template typescript
+npx create-react-app todolist --template cra-template-pwa-typescript
 ```
 
 ```bash

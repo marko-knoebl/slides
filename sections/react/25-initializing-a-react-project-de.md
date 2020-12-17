@@ -25,6 +25,7 @@ Mögliche Befehle zum Initialisieren eines Projekts namens "todolist":
 ```bash
 npx create-react-app todolist
 npx create-react-app todolist --template typescript
+npx create-react-app todolist --template cra-template-pwa-typescript
 ```
 
 ```bash

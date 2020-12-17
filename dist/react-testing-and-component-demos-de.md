@@ -1,9 +1,17 @@
 # React: Testen und Komponentendemos
 
+# Testen in JavaScript
+
+## Testen in JavaScript
+
+siehe die Präsentation [JavaScript Testing](./javascript-testing-de.md)
+
+# Testen und React
+
 ## Themen
 
 - Komponentendemos mit _Storybook_
-- Testen in JavaScript
+- Testen von React-Andwendungen mit _puppeteer_
 - Libraries für das Testen von React-Komponenten
   - react-testing-library
   - react-test-renderer
@@ -92,31 +100,6 @@ const RatingStoryTemplate: Story<ComponentProps<
 >> = (args) => <Rating {...args} />;
 ```
 
-# Testen
-
-## Automatisiertes Testen in JavaScript
-
-Manche Funktionen in React - z.B. Reducer - sind ganz "normale" JavaScript-Funktionen und können mit standard-Testwerkzeugen getestet werden
-
-Siehe die Präsentation [JavaScript Testing](./javascript-testing-de.html) für einen Einstieg (Bemerkung: Die Library Jest ist in einem create-react-app Projekt schon eingerichtet)
-
-## Testen von React-Komponenten
-
-was kann getestet werden:
-
-- Rendering
-- Reaktion auf User-Aktionen
-
-## Test Renderer für React
-
-- **react-testing-library**
-- _react-test-renderer_ (vom React Team entwickelt)
-- _Enzyme_
-
-## Snapshot Tests
-
-Komponenten werden gerendert und mit früheren Versionen (Snapshots) verglichen
-
 # Puppeteer
 
 ## Testen einer React-Anwendung mit Puppeteer
@@ -127,15 +110,23 @@ Starten der React-Anwendung im Hintergrund (auf Port 3000), damit Puppeteer auf 
 npm run start
 ```
 
-Test, der Puppeteer nutzt:
+## Testen einer React-Anwendung mit Puppeteer
 
 ```js
-import puppeteer from 'puppeteer';
+let browser;
+let page;
+beforeAll(async () => {
+  browser = await puppeteer.launch();
+});
+beforeEach(async () => {
+  page = await browser.newPage();
+  await page.goto('http://localhost:3000');
+});
+afterAll(async () => {
+  await browser.close();
+});
 
 test("displays page with title 'React App'", async () => {
-  const browser = await puppeteer.launch();
-  const page = await browser.newPage();
-  await page.goto('http://localhost:3000');
   const pageTitle = await page.title();
   expect(pageTitle).toEqual('React App');
 });

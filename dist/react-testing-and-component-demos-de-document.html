@@ -1,8 +1,12 @@
 <h1>React: Testen und Komponentendemos</h1>
+<h1>Testen in JavaScript</h1>
+<h2>Testen in JavaScript</h2>
+<p>siehe die Präsentation <a href="./javascript-testing-de.md">JavaScript Testing</a></p>
+<h1>Testen und React</h1>
 <h2>Themen</h2>
 <ul>
 <li>Komponentendemos mit <em>Storybook</em></li>
-<li>Testen in JavaScript</li>
+<li>Testen von React-Andwendungen mit <em>puppeteer</em></li>
 <li>Libraries für das Testen von React-Komponenten<ul>
 <li>react-testing-library</li>
 <li>react-test-renderer</li>
@@ -63,36 +67,26 @@ FiveStars.args = { stars: 5 };
   typeof Rating
 >> = (args) => &#x3C;Rating {...args} />;
 </code></pre>
-<h1>Testen</h1>
-<h2>Automatisiertes Testen in JavaScript</h2>
-<p>Manche Funktionen in React - z.B. Reducer - sind ganz "normale" JavaScript-Funktionen und können mit standard-Testwerkzeugen getestet werden</p>
-<p>Siehe die Präsentation <a href="./javascript-testing-de.html">JavaScript Testing</a> für einen Einstieg (Bemerkung: Die Library Jest ist in einem create-react-app Projekt schon eingerichtet)</p>
-<h2>Testen von React-Komponenten</h2>
-<p>was kann getestet werden:</p>
-<ul>
-<li>Rendering</li>
-<li>Reaktion auf User-Aktionen</li>
-</ul>
-<h2>Test Renderer für React</h2>
-<ul>
-<li><strong>react-testing-library</strong></li>
-<li><em>react-test-renderer</em> (vom React Team entwickelt)</li>
-<li><em>Enzyme</em></li>
-</ul>
-<h2>Snapshot Tests</h2>
-<p>Komponenten werden gerendert und mit früheren Versionen (Snapshots) verglichen</p>
 <h1>Puppeteer</h1>
 <h2>Testen einer React-Anwendung mit Puppeteer</h2>
 <p>Starten der React-Anwendung im Hintergrund (auf Port 3000), damit Puppeteer auf sie zugreifen kann:</p>
 <pre><code class="hljs language-bash">npm run start
 </code></pre>
-<p>Test, der Puppeteer nutzt:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> puppeteer <span class="hljs-keyword">from</span> <span class="hljs-string">'puppeteer'</span>;
+<h2>Testen einer React-Anwendung mit Puppeteer</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> browser;
+<span class="hljs-keyword">let</span> page;
+beforeAll(<span class="hljs-keyword">async</span> () => {
+  browser = <span class="hljs-keyword">await</span> puppeteer.launch();
+});
+beforeEach(<span class="hljs-keyword">async</span> () => {
+  page = <span class="hljs-keyword">await</span> browser.newPage();
+  <span class="hljs-keyword">await</span> page.goto(<span class="hljs-string">'http://localhost:3000'</span>);
+});
+afterAll(<span class="hljs-keyword">async</span> () => {
+  <span class="hljs-keyword">await</span> browser.close();
+});
 
 test(<span class="hljs-string">"displays page with title 'React App'"</span>, <span class="hljs-keyword">async</span> () => {
-  <span class="hljs-keyword">const</span> browser = <span class="hljs-keyword">await</span> puppeteer.launch();
-  <span class="hljs-keyword">const</span> page = <span class="hljs-keyword">await</span> browser.newPage();
-  <span class="hljs-keyword">await</span> page.goto(<span class="hljs-string">'http://localhost:3000'</span>);
   <span class="hljs-keyword">const</span> pageTitle = <span class="hljs-keyword">await</span> page.title();
   expect(pageTitle).toEqual(<span class="hljs-string">'React App'</span>);
 });

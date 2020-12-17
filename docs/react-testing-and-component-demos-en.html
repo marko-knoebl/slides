@@ -2061,10 +2061,14 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   <body>
     <div class="reveal">
       <div class="slides slides"><section class="slides-section"><section class="slide"><h1>React: Testing and Component Demos</h1>
+</section></section><section class="slides-section"><section class="slide"><h1>Testing in JavaScript</h1>
+</section><section class="slide"><h2>Testing in JavaScript</h2>
+<p>see the presentation <a href="./javascript-testing-en.html">JavaScript Testing</a> for an overview</p>
+</section></section><section class="slides-section"><section class="slide"><h1>Testing and React</h1>
 </section><section class="slide"><h2>Topics</h2>
 <ul>
 <li>component demos with <em>Storybook</em></li>
-<li>as needed: testing in JavaScript</li>
+<li>testing React applications with <em>puppeteer</em></li>
 <li>libraries for testing React components<ul>
 <li>react-testing-library</li>
 <li>react-test-renderer</li>
@@ -2125,36 +2129,26 @@ FiveStars.args = { stars: 5 };
   typeof Rating
 >> = (args) => &#x3C;Rating {...args} />;
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Testing</h1>
-</section><section class="slide"><h2>Automated testing in JavaScript</h2>
-<p>Some functions in React - including Reducers - are just plain JavaScript functions and can be tested like any other function.</p>
-<p>See the presentation <a href="./javascript-testing-en.html">JavaScript Testing</a> for an overview (note: the library Jest is already set up in a create-react-app project)</p>
-</section><section class="slide"><h2>Testing React components</h2>
-<p>what to test:</p>
-<ul>
-<li>rendering</li>
-<li>reacting to user actions</li>
-</ul>
-</section><section class="slide"><h2>Test renderers for React</h2>
-<ul>
-<li><strong>react-testing-library</strong></li>
-<li><em>react-test-renderer</em> (developed by the React team)</li>
-<li><em>Enzyme</em></li>
-</ul>
-</section><section class="slide"><h2>Snapshot Tests</h2>
-<p>Components are rendered and compared to earlier versions (snapshots)</p>
 </section></section><section class="slides-section"><section class="slide"><h1>Puppeteer</h1>
 </section><section class="slide"><h2>Testing a React application with Puppeteer</h2>
 <p>Start the React application in the background (on port 3000) so Puppeteer can interact with it:</p>
 <pre><code class="hljs language-bash">npm run start
 </code></pre>
-<p>test that uses Puppeteer:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> puppeteer <span class="hljs-keyword">from</span> <span class="hljs-string">'puppeteer'</span>;
+</section><section class="slide"><h2>Testing a React application with Puppeteer</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> browser;
+<span class="hljs-keyword">let</span> page;
+beforeAll(<span class="hljs-keyword">async</span> () => {
+  browser = <span class="hljs-keyword">await</span> puppeteer.launch();
+});
+beforeEach(<span class="hljs-keyword">async</span> () => {
+  page = <span class="hljs-keyword">await</span> browser.newPage();
+  <span class="hljs-keyword">await</span> page.goto(<span class="hljs-string">'http://localhost:3000'</span>);
+});
+afterAll(<span class="hljs-keyword">async</span> () => {
+  <span class="hljs-keyword">await</span> browser.close();
+});
 
 test(<span class="hljs-string">"displays page with title 'React App'"</span>, <span class="hljs-keyword">async</span> () => {
-  <span class="hljs-keyword">const</span> browser = <span class="hljs-keyword">await</span> puppeteer.launch();
-  <span class="hljs-keyword">const</span> page = <span class="hljs-keyword">await</span> browser.newPage();
-  <span class="hljs-keyword">await</span> page.goto(<span class="hljs-string">'http://localhost:3000'</span>);
   <span class="hljs-keyword">const</span> pageTitle = <span class="hljs-keyword">await</span> page.title();
   expect(pageTitle).toEqual(<span class="hljs-string">'React App'</span>);
 });

@@ -232,18 +232,40 @@ npm-Pakete:
 
 ## Puppeteer
 
-Testen, ob die erste Website noch online ist:
+Testen von Wikipedia:
 
 ```js
-test('first website', async () => {
+test('wikipedia title', async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
-  await page.goto(
-    'http://info.cern.ch/hypertext/WWW/TheProject.html'
-  );
+  await page.goto('https://en.wikipedia.org');
   const pageTitle = await page.title();
-  expect(pageTitle).toEqual('The World Wide Web project');
+  expect(pageTitle).toMatch(/Wikipedia/);
   await browser.close();
+});
+```
+
+## Puppeteer
+
+Restrukturierung für mehrere Tests:
+
+```js
+let browser;
+let page;
+beforeAll(async () => {
+  browser = await puppeteer.launch();
+});
+beforeEach(async () => {
+  page = await browser.newPage();
+  await page.goto('https://en.wikipedia.org');
+});
+afterAll(async () => {
+  await browser.close();
+});
+
+test('wikipedia title', async () => {
+  const pageTitle = await page.title();
+  expect(pageTitle).toMatch(/Wikipedia/);
 });
 ```
 
@@ -252,13 +274,8 @@ test('first website', async () => {
 Test, der tatsächlich ein Browser-Fenster öffnet:
 
 ```js
-jest.setTimeout(10000);
-
-test('first website', async () => {
-  const browser = await puppeteer.launch({
-    headless: false,
-  });
-  // ...
+beforeAll(async () => {
+  browser = await puppeteer.launch({ headless: false });
 });
 ```
 
@@ -307,44 +324,21 @@ await page.waitForNavigation();
 Beispiel: Suche auf Wikipedia
 
 ```js
-const browser = await puppeteer.launch();
-const page = await browser.newPage();
-await page.goto('https://en.wikipedia.org');
-await page.click('#searchInput');
-await page.keyboard.type('puppeteer');
-await page.click('#searchButton');
-await page.waitForNavigation();
-const paragraphText = await page.$eval(
-  'p',
-  (element) => element.textContent
-);
-console.log(paragraphText);
-expect(paragraphText).toMatch(/puppeteer/i);
-await browser.close();
+test('wikipedia search', async () => {
+  await page.click('#searchInput');
+  await page.keyboard.type('puppeteer');
+  await page.click('#searchButton');
+  await page.waitForNavigation();
+  const paragraphText = await page.$eval(
+    'p',
+    (element) => element.textContent
+  );
+  console.log(paragraphText);
+  expect(paragraphText).toMatch(/puppeteer/i);
+});
 ```
 
 <small>Bemerkungen: <em>page.keyboard.press("Enter")</em> würde eine Volltextsuche auslösen; auf manchen Wikipedia-Seiten ist der erste Paragraph leer.</small>
-
-## Puppeteer
-
-Setup und Teardown:
-
-```js
-let browser;
-let page;
-
-beforeEach(async () => {
-  browser = await puppeteer.launch();
-  page = await browser.newPage();
-  await page.goto(
-    'http://info.cern.ch/hypertext/WWW/TheProject.html'
-  );
-});
-
-afterEach(async () => {
-  await browser.close();
-});
-```
 
 ## Puppeteer
 

@@ -17,33 +17,50 @@ npm packages:
 
 ## Puppeteer
 
-test if the first website is still available:
+testing Wikipedia:
 
 ```js
-test('first website', async () => {
+test('wikipedia title', async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
-  await page.goto(
-    'http://info.cern.ch/hypertext/WWW/TheProject.html'
-  );
+  await page.goto('https://en.wikipedia.org');
   const pageTitle = await page.title();
-  expect(pageTitle).toEqual('The World Wide Web project');
+  expect(pageTitle).toMatch(/Wikipedia/);
   await browser.close();
 });
 ```
 
 ## Puppeteer
 
-test that actually opens a browser window:
+restructuring code for multiple tests:
 
 ```js
-jest.setTimeout(10000);
+let browser;
+let page;
+beforeAll(async () => {
+  browser = await puppeteer.launch();
+});
+beforeEach(async () => {
+  page = await browser.newPage();
+  await page.goto('https://en.wikipedia.org');
+});
+afterAll(async () => {
+  await browser.close();
+});
 
-test('first website', async () => {
-  const browser = await puppeteer.launch({
-    headless: false,
-  });
-  // ...
+test('wikipedia title', async () => {
+  const pageTitle = await page.title();
+  expect(pageTitle).toMatch(/Wikipedia/);
+});
+```
+
+## Puppeteer
+
+tests that actually open a browser window:
+
+```js
+beforeAll(async () => {
+  browser = await puppeteer.launch({ headless: false });
 });
 ```
 
@@ -92,44 +109,21 @@ await page.waitForNavigation();
 example: Searching on Wikipedia
 
 ```js
-const browser = await puppeteer.launch();
-const page = await browser.newPage();
-await page.goto('https://en.wikipedia.org');
-await page.click('#searchInput');
-await page.keyboard.type('puppeteer');
-await page.click('#searchButton');
-await page.waitForNavigation();
-const paragraphText = await page.$eval(
-  'p',
-  (element) => element.textContent
-);
-console.log(paragraphText);
-expect(paragraphText).toMatch(/puppeteer/i);
-await browser.close();
+test('wikipedia search', async () => {
+  await page.click('#searchInput');
+  await page.keyboard.type('puppeteer');
+  await page.click('#searchButton');
+  await page.waitForNavigation();
+  const paragraphText = await page.$eval(
+    'p',
+    (element) => element.textContent
+  );
+  console.log(paragraphText);
+  expect(paragraphText).toMatch(/puppeteer/i);
+});
 ```
 
 <small>notes: <em>page.keyboard.press("Enter")</em> would trigger full-text search; on some Wikipedia pages the first paragraph might be empty.</small>
-
-## Puppeteer
-
-setup and teardown:
-
-```js
-let browser;
-let page;
-
-beforeEach(async () => {
-  browser = await puppeteer.launch();
-  page = await browser.newPage();
-  await page.goto(
-    'http://info.cern.ch/hypertext/WWW/TheProject.html'
-  );
-});
-
-afterEach(async () => {
-  await browser.close();
-});
-```
 
 ## Puppeteer
 

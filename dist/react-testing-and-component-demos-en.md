@@ -1,9 +1,17 @@
 # React: Testing and Component Demos
 
+# Testing in JavaScript
+
+## Testing in JavaScript
+
+see the presentation [JavaScript Testing](./javascript-testing-en.html) for an overview
+
+# Testing and React
+
 ## Topics
 
 - component demos with _Storybook_
-- as needed: testing in JavaScript
+- testing React applications with _puppeteer_
 - libraries for testing React components
   - react-testing-library
   - react-test-renderer
@@ -92,31 +100,6 @@ const RatingStoryTemplate: Story<ComponentProps<
 >> = (args) => <Rating {...args} />;
 ```
 
-# Testing
-
-## Automated testing in JavaScript
-
-Some functions in React - including Reducers - are just plain JavaScript functions and can be tested like any other function.
-
-See the presentation [JavaScript Testing](./javascript-testing-en.html) for an overview (note: the library Jest is already set up in a create-react-app project)
-
-## Testing React components
-
-what to test:
-
-- rendering
-- reacting to user actions
-
-## Test renderers for React
-
-- **react-testing-library**
-- _react-test-renderer_ (developed by the React team)
-- _Enzyme_
-
-## Snapshot Tests
-
-Components are rendered and compared to earlier versions (snapshots)
-
 # Puppeteer
 
 ## Testing a React application with Puppeteer
@@ -127,15 +110,23 @@ Start the React application in the background (on port 3000) so Puppeteer can in
 npm run start
 ```
 
-test that uses Puppeteer:
+## Testing a React application with Puppeteer
 
 ```js
-import puppeteer from 'puppeteer';
+let browser;
+let page;
+beforeAll(async () => {
+  browser = await puppeteer.launch();
+});
+beforeEach(async () => {
+  page = await browser.newPage();
+  await page.goto('http://localhost:3000');
+});
+afterAll(async () => {
+  await browser.close();
+});
 
 test("displays page with title 'React App'", async () => {
-  const browser = await puppeteer.launch();
-  const page = await browser.newPage();
-  await page.goto('http://localhost:3000');
   const pageTitle = await page.title();
   expect(pageTitle).toEqual('React App');
 });
