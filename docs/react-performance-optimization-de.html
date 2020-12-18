@@ -2098,7 +2098,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <p>Details werden durch Anklicken sichtbar</p>
 </section><section class="slide"><h2>React Devtools und Performance</h2>
 <p>Zahlen in einem Commit-Detail:</p>
-<pre><code class="hljs language-angelscript">TodoApp (<span class="hljs-number">3</span>ms of <span class="hljs-number">109</span>ms)
+<pre><code class="hljs language-apache"><span class="hljs-attribute">TodoApp</span> (<span class="hljs-number">3</span>ms of <span class="hljs-number">109</span>ms)
 </code></pre>
 <p>bedeutet:</p>
 <ul>
@@ -2132,7 +2132,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
 <span class="hljs-keyword">const</span> numActiveTodos = useMemo(
   <span class="hljs-comment">// function to recompute value</span>
-  <span class="hljs-function"><span class="hljs-params">()</span> =></span> todos.filter(<span class="hljs-function">(<span class="hljs-params">todo</span>) =></span> !todo.completed).length,
+  <span class="hljs-function">() =></span> todos.filter(<span class="hljs-function">(<span class="hljs-params">todo</span>) =></span> !todo.completed).length,
   <span class="hljs-comment">// array of dependencies</span>
   [todos]
 );
@@ -2150,7 +2150,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <p>Demo: Komponente rendert sich nur, wenn ihr State sich ändert</p>
 <pre><code class="hljs language-jsx"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Coin</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">const</span> [coin, setCoin] = useState(<span class="hljs-string">'heads'</span>);
-  <span class="hljs-keyword">const</span> throwCoin = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  <span class="hljs-keyword">const</span> throwCoin = <span class="hljs-function">() =></span> {
     setCoin(<span class="hljs-built_in">Math</span>.random() > <span class="hljs-number">0.5</span> ? <span class="hljs-string">'heads'</span> : <span class="hljs-string">'tails'</span>);
   };
   <span class="hljs-keyword">return</span> (
@@ -2188,22 +2188,22 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </section><section class="slide"><h2>Memoisierung von Komponentenrenderings</h2>
 <p>Die <code>Rating</code>-Komponente wird nicht neu gerendert, wenn ihre Props die gleichen sind wie zuvor:</p>
 <pre><code class="hljs language-jsx">&#x3C;Rating stars={prodRating} />
-<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Rating</span> <span class="hljs-attr">stars</span>=<span class="hljs-string">{prodRating}</span> <span class="hljs-attr">onChange</span>=<span class="hljs-string">{setProdRating}</span> /></span>
-</span></code></pre>
+<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Rating</span> <span class="hljs-attr">stars</span>=<span class="hljs-string">{prodRating}</span> <span class="hljs-attr">onChange</span>=<span class="hljs-string">{setProdRating}</span> /></span></span>
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Memoisierung und Eventhandler</h1>
 </section><section class="slide"><h2>Memoisierung und Eventhandler</h2>
 <p>Wenn <code>Rating</code> eine memoisierte Komponente ist, welche der folgenden Renderings werden beim Re-Rendering der Elternkomponente auch neu gerendert?</p>
 <pre><code class="hljs language-jsx">&#x3C;Rating stars={prodRating} />
-&#x3C;Rating stars={prodRating} onChange={setProdRating} />
-&#x3C;Rating
-  stars={prodRating}
-  onChange={(newRating) => setProdRating(newRating)}
-/>
+<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Rating</span> <span class="hljs-attr">stars</span>=<span class="hljs-string">{prodRating}</span> <span class="hljs-attr">onChange</span>=<span class="hljs-string">{setProdRating}</span> /></span></span>
+<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Rating</span>
+  <span class="hljs-attr">stars</span>=<span class="hljs-string">{prodRating}</span>
+  <span class="hljs-attr">onChange</span>=<span class="hljs-string">{(newRating)</span> =></span> setProdRating(newRating)}
+/></span>
 </code></pre>
 </section><section class="slide"><h2>Memoisierung und Eventhandler</h2>
 <pre><code class="hljs language-jsx">&#x3C;Rating
   stars={prodRating}
-  onChange={(newRating) => setProdRating(newRating)}
+  onChange={<span class="hljs-function">(<span class="hljs-params">newRating</span>) =></span> setProdRating(newRating)}
 />
 </code></pre>
 <p>Die Pfeilfunktion wäre bei jedem angeforderten Rendering ein anderes Objekt</p>
@@ -2216,13 +2216,13 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </ul>
 </section><section class="slide"><h2>Memoisierung und Eventhandler</h2>
 <p>Memoisierung von Eventhandlern:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> TodoApp = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> TodoApp = <span class="hljs-function">() =></span> {
   <span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
   <span class="hljs-keyword">const</span> todosWithEventHandlers = useMemo(
-    <span class="hljs-function"><span class="hljs-params">()</span> =></span>
+    <span class="hljs-function">() =></span>
       todos.map(<span class="hljs-function">(<span class="hljs-params">todo</span>) =></span> ({
         ...todo,
-        <span class="hljs-attr">onToggle</span>: <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+        <span class="hljs-attr">onToggle</span>: <span class="hljs-function">() =></span> {
           <span class="hljs-comment">// ...</span>
         },
       })),
@@ -2239,10 +2239,10 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </code></pre>
 </section><section class="slide"><h2>Memoisierung und Eventhandler</h2>
 <p>Memoisierung eines einzelnen Eventhandlers:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> TodoApp = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> TodoApp = <span class="hljs-function">() =></span> {
   <span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
   <span class="hljs-keyword">const</span> handleAddTodo = useMemo(
-    <span class="hljs-function"><span class="hljs-params">()</span> =></span> <span class="hljs-function">(<span class="hljs-params">newTitle</span>) =></span> {
+    <span class="hljs-function">() =></span> <span class="hljs-function">(<span class="hljs-params">newTitle</span>) =></span> {
       setTodos([
         ...todos,
         { <span class="hljs-attr">title</span>: newTitle, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
@@ -2254,7 +2254,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </code></pre>
 </section><section class="slide"><h2>Memoisierung und Eventhandler</h2>
 <p>verkürzte Memoisierunge eines einzelnen Eventhandlers via <code>useCallback</code>:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> TodoApp = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> TodoApp = <span class="hljs-function">() =></span> {
   <span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
   <span class="hljs-keyword">const</span> handleAddTodo = useCallback(
     <span class="hljs-function">(<span class="hljs-params">newTitle</span>) =></span> {
@@ -2296,10 +2296,10 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> React, { Suspense, lazy } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
 <span class="hljs-keyword">import</span> { Route } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router-dom'</span>;
 
-<span class="hljs-keyword">const</span> Home = lazy(<span class="hljs-function"><span class="hljs-params">()</span> =></span> <span class="hljs-keyword">import</span>(<span class="hljs-string">'./routes/Home'</span>));
-<span class="hljs-keyword">const</span> About = lazy(<span class="hljs-function"><span class="hljs-params">()</span> =></span> <span class="hljs-keyword">import</span>(<span class="hljs-string">'./routes/About'</span>));
+<span class="hljs-keyword">const</span> Home = lazy(<span class="hljs-function">() =></span> <span class="hljs-keyword">import</span>(<span class="hljs-string">'./routes/Home'</span>));
+<span class="hljs-keyword">const</span> About = lazy(<span class="hljs-function">() =></span> <span class="hljs-keyword">import</span>(<span class="hljs-string">'./routes/About'</span>));
 
-<span class="hljs-keyword">const</span> App = <span class="hljs-function"><span class="hljs-params">()</span> =></span> (
+<span class="hljs-keyword">const</span> App = <span class="hljs-function">() =></span> (
   <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Suspense</span> <span class="hljs-attr">fallback</span>=<span class="hljs-string">{</span>&#x3C;<span class="hljs-attr">div</span>></span>Loading...<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>}>
     <span class="hljs-tag">&#x3C;<span class="hljs-name">Switch</span>></span>
       <span class="hljs-tag">&#x3C;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"/about"</span>></span>

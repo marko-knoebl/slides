@@ -2071,10 +2071,12 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li>Datentypen</li>
 <li>Hilfe und Dokumentation</li>
 <li>Builtins und die Standard-Library</li>
-<li>Kontrollstrukturen<ul>
+<li>Kontrollstrukturen
+<ul>
 <li>if / else</li>
 <li>Schleifen (while, for)</li>
-</ul></li>
+</ul>
+</li>
 <li>Funktionen</li>
 <li>Codequalität und Linting</li>
 <li>Debugging</li>
@@ -2227,13 +2229,13 @@ last_name = <span class="hljs-string">"Jones"</span>
 <p>Den Typ einer Variablen stellen wir mit <code>type()</code> fest:</p>
 <pre><code class="hljs language-py">a = <span class="hljs-number">4</span> / <span class="hljs-number">2</span>
 
-type(a)
+<span class="hljs-built_in">type</span>(a)
 </code></pre>
 </section><section class="slide"><h2>Typenumwandlungen</h2>
 <p>Datentypen können mit Funktionen wie <code>int()</code>, <code>float()</code>, <code>str()</code>, <code>bool()</code>, ... ineinander umgewandelt werden</p>
 <pre><code class="hljs language-py">pi = <span class="hljs-number">3.1415</span>
-pi_int = int(pi)
-message = <span class="hljs-string">"Pi is approximately "</span> + str(pi_int)
+pi_int = <span class="hljs-built_in">int</span>(pi)
+message = <span class="hljs-string">"Pi is approximately "</span> + <span class="hljs-built_in">str</span>(pi_int)
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Funktionen</h1>
 </section><section class="slide"><h2>Funktionen</h2>
@@ -2301,7 +2303,7 @@ products = [
 
 users[<span class="hljs-number">0</span>]
 users[<span class="hljs-number">1</span>]
-users[<span class="hljs-number">-1</span>] <span class="hljs-comment"># last element</span>
+users[-<span class="hljs-number">1</span>] <span class="hljs-comment"># last element</span>
 </code></pre>
 </section><section class="slide"><h2>list</h2>
 <p>Überschreiben von Listenelementen</p>
@@ -2320,7 +2322,7 @@ users[<span class="hljs-number">-1</span>] <span class="hljs-comment"># last ele
 </code></pre>
 </section><section class="slide"><h2>list</h2>
 <p>Die Länge einer Liste bestimmen:</p>
-<pre><code class="hljs language-py">len(users)
+<pre><code class="hljs language-py"><span class="hljs-built_in">len</span>(users)
 </code></pre>
 </section><section class="slide"><h2>list</h2>
 <p>Übungen:</p>
@@ -2354,7 +2356,7 @@ date_tuple = (<span class="hljs-number">1973</span>, <span class="hljs-number">1
 </section><section class="slide"><h2>tuple</h2>
 <p>Verhalten: ähnlich wie Listen:</p>
 <pre><code class="hljs language-py">date_tuple[<span class="hljs-number">0</span>] <span class="hljs-comment"># 1973</span>
-len(date_tuple) <span class="hljs-comment"># 3</span>
+<span class="hljs-built_in">len</span>(date_tuple) <span class="hljs-comment"># 3</span>
 </code></pre>
 <p>Im Gegensatz zu Listen sind Tupel unveränderlich (kein <code>.append</code> / <code>.pop</code> / ...)</p>
 </section><section class="slide"><h2>Datentypen - Aufgaben</h2>
@@ -2389,7 +2391,7 @@ b = a + [<span class="hljs-number">4</span>]
 </section></section><section class="slides-section"><section class="slide"><h1>Hilfe und Dokumentation</h1>
 </section><section class="slide"><h2>Hilfe und Dokumentation</h2>
 <p>Interaktive Hilfe zu Objekten in der Python-Konsole:</p>
-<pre><code class="hljs language-py">help(list)
+<pre><code class="hljs language-py"><span class="hljs-built_in">help</span>(<span class="hljs-built_in">list</span>)
 </code></pre>
 <p>(Navigieren durch lange Ausgaben via <em>Enter</em>, Beenden via <em>Q</em>)</p>
 </section><section class="slide"><h2>Hilfe und Dokumentation</h2>
@@ -2415,7 +2417,7 @@ b = a + [<span class="hljs-number">4</span>]
 </code></pre>
 </section><section class="slide"><h2>Eingabe und Ausgabe</h2>
 <p>Eingabe: Mit Hilfe von <code>input()</code>:</p>
-<pre><code class="hljs language-py">name = input()
+<pre><code class="hljs language-py">name = <span class="hljs-built_in">input</span>()
 </code></pre>
 <p><code>input</code> liefert immer einen String zurück</p>
 </section><section class="slide"><h2>Eingabe und Ausgabe</h2>
@@ -2438,7 +2440,7 @@ b = a + [<span class="hljs-number">4</span>]
 <p>Ein Kommentar beginnt mit einem <code>#</code>-Zeichen und reicht bis zum Ende der Zeile.</p>
 <p>Üblicherweise stehen Kommentare <em>oberhalb</em> des Codes, den sie beschreiben</p>
 <pre><code class="hljs language-py"><span class="hljs-comment"># determine the length of the name</span>
-name_length = len(name)
+name_length = <span class="hljs-built_in">len</span>(name)
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Builtins, Standard Library</h1>
 </section><section class="slide"><h2>Builtins, Standard Library</h2>
@@ -2511,7 +2513,7 @@ pprint.pprint([<span class="hljs-string">'Mercuy'</span>, <span class="hljs-stri
 </code></pre>
 </section><section class="slide"><h2>open</h2>
 <p>Textdatei zum Schreiben öffnen:</p>
-<pre><code class="hljs language-py">file = open(<span class="hljs-string">"message.txt"</span>, <span class="hljs-string">"w"</span>, encoding=<span class="hljs-string">"utf-8"</span>)
+<pre><code class="hljs language-py">file = <span class="hljs-built_in">open</span>(<span class="hljs-string">"message.txt"</span>, <span class="hljs-string">"w"</span>, encoding=<span class="hljs-string">"utf-8"</span>)
 file.write(<span class="hljs-string">"hello\n"</span>)
 file.write(<span class="hljs-string">"world\n)
 file.close()
@@ -2529,13 +2531,13 @@ print(random.choice([<span class="hljs-string">"heads"</span>, <span class="hljs
 
 content = urlopen(<span class="hljs-string">"https://google.com"</span>).read()
 print(content)
-print(len(content))
+print(<span class="hljs-built_in">len</span>(content))
 </code></pre>
 </section><section class="slide"><h2>webbrowser</h2>
 <p>Beispiel:</p>
 <pre><code class="hljs language-py"><span class="hljs-keyword">import</span> webbrowser
 
-webbrowser.open(
+webbrowser.<span class="hljs-built_in">open</span>(
     <span class="hljs-string">"https://docs.python.org/3/library/webbrowser.html"</span>
 )
 </code></pre>
@@ -2551,11 +2553,13 @@ webbrowser.open(
 </section><section class="slide"><h2>Konstrollstrukturen in Python</h2>
 <ul>
 <li><code>if ... else ...</code></li>
-<li>Schleifen:<ul>
+<li>Schleifen:
+<ul>
 <li><code>while</code></li>
 <li><code>for ... in ...</code></li>
 <li><code>for ... in range(...)</code></li>
-</ul></li>
+</ul>
+</li>
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Vergleiche</h1>
 </section><section class="slide"><h2>Vergleiche</h2>
@@ -2580,7 +2584,7 @@ print(a >= b)
 <pre><code class="hljs language-py"><span class="hljs-keyword">if</span> age >= <span class="hljs-number">18</span> <span class="hljs-keyword">and</span> country == <span class="hljs-string">"de"</span>:
     print(<span class="hljs-string">"may drink alcohol"</span>)
 
-<span class="hljs-keyword">if</span> temperature &#x3C; <span class="hljs-number">-10</span> <span class="hljs-keyword">or</span> temperature > <span class="hljs-number">30</span>:
+<span class="hljs-keyword">if</span> temperature &#x3C; -<span class="hljs-number">10</span> <span class="hljs-keyword">or</span> temperature > <span class="hljs-number">30</span>:
     print(<span class="hljs-string">"extreme weather"</span>)
 
 <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> value > <span class="hljs-number">10</span>:
@@ -2700,7 +2704,7 @@ Logged in as Alice!
 </section></section><section class="slides-section"><section class="slide"><h1>Zählschleifen</h1>
 </section><section class="slide"><h2>Zählschleifen</h2>
 <p>Folgendermaßen können wir in Python von 0 bis 9 zählen:</p>
-<pre><code class="hljs language-py"><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">10</span>):
+<pre><code class="hljs language-py"><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">10</span>):
     print(i)
 </code></pre>
 <p>Der Aufruf <code>range(10)</code> erstellt ein Objekt, das sich wie die Liste <code>[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]</code> verhält.</p>
@@ -2715,13 +2719,19 @@ Logged in as Alice!
 </section></section><section class="slides-section"><section class="slide"><h1>Bestandteile von Programmen</h1>
 </section><section class="slide"><h2>Bestandteile von Programmen</h2>
 <ul>
-<li>Programme<ul>
-<li>Codeblöcke<ul>
-<li>Anweisungen<ul>
+<li>Programme
+<ul>
+<li>Codeblöcke
+<ul>
+<li>Anweisungen
+<ul>
 <li>Ausdrücke</li>
-</ul></li>
-</ul></li>
-</ul></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </section><section class="slide"><h2>Leere Codeblöcke</h2>
 <p><em>leere</em> Codeblöcke mittels des <code>pass</code>-Statements:</p>
@@ -2754,10 +2764,10 @@ Logged in as Alice!
 </section><section class="slide"><h2>Positionale Parameter und Schlüsselwortparameter</h2>
 <p>Aufruf von <code>open</code>:</p>
 <p>mit positionalen Parametern:</p>
-<pre><code class="hljs language-py">f = open(<span class="hljs-string">"myfile.txt"</span>, <span class="hljs-string">"w"</span>, <span class="hljs-number">-1</span>, <span class="hljs-string">"utf-8"</span>)
+<pre><code class="hljs language-py">f = <span class="hljs-built_in">open</span>(<span class="hljs-string">"myfile.txt"</span>, <span class="hljs-string">"w"</span>, -<span class="hljs-number">1</span>, <span class="hljs-string">"utf-8"</span>)
 </code></pre>
 <p>mit Schlüsselwortparametern:</p>
-<pre><code class="hljs language-py">f = open(<span class="hljs-string">"myfile.txt"</span>, encoding=<span class="hljs-string">"utf-8"</span>, mode=<span class="hljs-string">"w"</span>)
+<pre><code class="hljs language-py">f = <span class="hljs-built_in">open</span>(<span class="hljs-string">"myfile.txt"</span>, encoding=<span class="hljs-string">"utf-8"</span>, mode=<span class="hljs-string">"w"</span>)
 </code></pre>
 <p>Die Namen der Schlüsselwortparameter entnehmen wir der Dokumentation (z.B. via <code>help(open)</code>)</p>
 </section><section class="slide"><h2>Optionale Parameter und Standardwerte</h2>
@@ -2767,13 +2777,13 @@ Logged in as Alice!
 </section></section><section class="slides-section"><section class="slide"><h1>Funktionsdefintion</h1>
 </section><section class="slide"><h2>Funktionsdefinition</h2>
 <p>Beispiel:</p>
-<pre><code class="hljs language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">average</span><span class="hljs-params">(a, b)</span>:</span>
+<pre><code class="hljs language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">average</span>(<span class="hljs-params">a, b</span>):</span>
     m = (a + b) / <span class="hljs-number">2</span>
     <span class="hljs-keyword">return</span> m
 </code></pre>
 </section><section class="slide"><h2>Optionale Parameter und Standardwerte</h2>
 <p>Folgendermaßen definieren wir Standardwerte für Parameter:</p>
-<pre><code class="hljs language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">shout</span><span class="hljs-params">(phrase, end=<span class="hljs-string">"!"</span>)</span>:</span>
+<pre><code class="hljs language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">shout</span>(<span class="hljs-params">phrase, end=<span class="hljs-string">"!"</span></span>):</span>
     print(phrase.upper() + end)
 
 shout(<span class="hljs-string">"hello"</span>) <span class="hljs-comment"># HELLO!</span>
@@ -2784,7 +2794,7 @@ shout(<span class="hljs-string">"hi"</span>, <span class="hljs-string">"."</span
 <p>Im folgenden Beispiel gibt es zwei separate Variablen, die beide mit <code>m</code> benannt sind:</p>
 <pre><code class="hljs language-py">m = <span class="hljs-string">"Hello, world"</span>
 
-<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">average</span><span class="hljs-params">(a, b)</span>:</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">average</span>(<span class="hljs-params">a, b</span>):</span>
     m = (a + b) / <span class="hljs-number">2</span>
     <span class="hljs-keyword">return</span> m
 x = average(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>)
@@ -2876,7 +2886,7 @@ c = a[<span class="hljs-number">0</span> + <span class="hljs-number">1</span> : 
 <p>Docstring einer Funktion: hilft Programmierern, die diese Funktion verwenden</p>
 </section><section class="slide"><h2>Docstrings</h2>
 <p>Beispiel:</p>
-<pre><code class="hljs language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">fib</span><span class="hljs-params">(n)</span>:</span>
+<pre><code class="hljs language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">fib</span>(<span class="hljs-params">n</span>):</span>
     <span class="hljs-string">"""Compute the n-th fibonacci number.
 
     n must be a nonnegative integer
@@ -2884,8 +2894,8 @@ c = a[<span class="hljs-number">0</span> + <span class="hljs-number">1</span> : 
     ...
 </code></pre>
 </section><section class="slide"><h2>Docstrings ausgeben</h2>
-<pre><code class="hljs language-py">help(fib)
-help(round)
+<pre><code class="hljs language-py"><span class="hljs-built_in">help</span>(fib)
+<span class="hljs-built_in">help</span>(<span class="hljs-built_in">round</span>)
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Debuggen</h1>
 </section><section class="slide"><h2>Debuggen</h2>
@@ -2899,30 +2909,40 @@ help(round)
 </section><section class="slide"><h2>Debuggen</h2>
 <p>Manuell weiterspringen:</p>
 <ul>
-<li>bis zum nächsten Breakpoint weiter ausführen:<ul>
+<li>bis zum nächsten Breakpoint weiter ausführen:
+<ul>
 <li><em>Continue</em> in VS Code</li>
 <li><code>c</code> für <em>continue</em> im Python Debugger</li>
-</ul></li>
-<li>debugging beenden:<ul>
+</ul>
+</li>
+<li>debugging beenden:
+<ul>
 <li><em>Stop</em> in VS Code</li>
 <li><code>q</code> für <em>quit</em> im Python Debugger</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 </section><section class="slide"><h2>Debuggen</h2>
 <p>Manuell weiterspringen:</p>
 <ul>
-<li>in die nächste Zeile springen:<ul>
+<li>in die nächste Zeile springen:
+<ul>
 <li><em>Step Over</em> in VS Code</li>
 <li><code>n</code> für <em>next</em> im Python Debugger</li>
-</ul></li>
-<li>in die nächste Zeile springen - und evtuell einem Funktionsaufruf folgen:<ul>
+</ul>
+</li>
+<li>in die nächste Zeile springen - und evtuell einem Funktionsaufruf folgen:
+<ul>
 <li><em>Step Into</em> in VS Code</li>
 <li><code>s</code> für <em>step</em> im Python Debugger</li>
-</ul></li>
-<li>die aktuelle Funktion verlassen:<ul>
+</ul>
+</li>
+<li>die aktuelle Funktion verlassen:
+<ul>
 <li><em>Step Out</em> in VS Code</li>
 <li><code>r</code> für <em>return</em> im Python Debugger</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 </section><section class="slide"><h2>Debuggen</h2>
 <p>Werte in VS Code begutachten:</p>

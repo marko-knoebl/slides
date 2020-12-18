@@ -2068,10 +2068,12 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <ul>
 <li>aus Wien</li>
 <li>ehemaliger Mathematiklehrer</li>
-<li>Programmierthemen:<ul>
+<li>Programmierthemen:
+<ul>
 <li>JavaScript, TypeScript und React</li>
 <li>Python, Data Science</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 </section><section class="slide"><h2>Vorstellung der Teilnehmer</h2>
 <ul>
@@ -2184,7 +2186,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </code></pre>
 <p>Resolver-Funktion (abhängig von der verwendeten Library):</p>
 <pre><code class="hljs language-js">(root, args, context) =>
-  <span class="hljs-built_in">Array</span>.from({ <span class="hljs-attr">length</span>: args.quantity }, () =>
+  <span class="hljs-built_in">Array</span>.from({ <span class="hljs-attr">length</span>: args.quantity }, <span class="hljs-function">() =></span>
     <span class="hljs-built_in">Math</span>.floor(<span class="hljs-built_in">Math</span>.random() * args.max)
   );
 </code></pre>
@@ -2487,12 +2489,12 @@ try Subscriptions
 <li>Frage für einen bestimmten GitHub-Account alle Projekte mit Namen und Sternenanzahl ab</li>
 </ul>
 </section><section class="slide"><h2>Übungen - Lösungen</h2>
-<pre><code class="hljs language-routeros">query {
- <span class="hljs-built_in"> user </span>(login: <span class="hljs-string">"marko-knoebl"</span>) {
-    followers (first: 10) {
+<pre><code class="hljs language-clojure">query {
+  user (<span class="hljs-name">login:</span> <span class="hljs-string">"marko-knoebl"</span>) {
+    followers (<span class="hljs-name">first:</span> <span class="hljs-number">10</span>) {
       nodes {
         login,
-        followers (first: 10) {
+        followers (<span class="hljs-name">first:</span> <span class="hljs-number">10</span>) {
           nodes {
             login
           }
@@ -2682,8 +2684,8 @@ client
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { ApolloProvider } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-apollo'</span>;
 </code></pre>
 <pre><code class="hljs language-jsx">&#x3C;ApolloProvider client={client}>
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">App</span> /></span>
-<span class="hljs-tag">&#x3C;/<span class="hljs-name">ApolloProvider</span>></span></span>
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">App</span> /></span></span>
+&#x3C;/ApolloProvider>
 </code></pre>
 </section><section class="slide"><h2>Definition einer Query</h2>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> LAUNCHES_QUERY = gql<span class="hljs-string">`

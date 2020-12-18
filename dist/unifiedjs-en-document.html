@@ -131,8 +131,8 @@ hello world
 <p>general structure of a plugin:</p>
 <pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">plugin</span>(<span class="hljs-params">options</span>) </span>{
   <span class="hljs-comment">// get the parser and compiler references</span>
-  <span class="hljs-keyword">const</span> parser = <span class="hljs-keyword">this</span>.Parser;
-  <span class="hljs-keyword">const</span> compiler = <span class="hljs-keyword">this</span>.Compiler;
+  <span class="hljs-keyword">const</span> parser = <span class="hljs-built_in">this</span>.Parser;
+  <span class="hljs-keyword">const</span> compiler = <span class="hljs-built_in">this</span>.Compiler;
   <span class="hljs-comment">// modify parser and compiler here</span>
 
   <span class="hljs-keyword">const</span> transformer = <span class="hljs-function">(<span class="hljs-params">tree, vfile</span>) =></span> {
@@ -149,7 +149,7 @@ hello world
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">rehypeReplaceItalic</span>(<span class="hljs-params">options = {}</span>) </span>{
   <span class="hljs-keyword">const</span> newTag = options.newTag || <span class="hljs-string">'em'</span>;
   <span class="hljs-keyword">const</span> transformer = <span class="hljs-function">(<span class="hljs-params">tree, vfile</span>) =></span> {
-    visit(tree, (node) => {
+    visit(tree, <span class="hljs-function">(<span class="hljs-params">node</span>) =></span> {
       <span class="hljs-keyword">if</span> (node.tagName === <span class="hljs-string">'i'</span>) {
         node.tagName = newTag;
       }

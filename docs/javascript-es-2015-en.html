@@ -2155,7 +2155,7 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
 </code></pre>
 </section><section class="slide"><h2>Arrow functions</h2>
 <p>if we want to return an object directly: wrap it in parentheses</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> getState = <span class="hljs-function"><span class="hljs-params">()</span> =></span> ({
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> getState = <span class="hljs-function">() =></span> ({
   <span class="hljs-attr">loggedIn</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">userName</span>: <span class="hljs-string">'mike'</span>,
 });
@@ -2164,21 +2164,21 @@ names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Andrew'</
 <p>Class syntax replaces the old constructor functions and prototypes</p>
 </section><section class="slide"><h2>Classes</h2>
 <pre><code class="hljs language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> </span>{
-  <span class="hljs-keyword">constructor</span>(firstName, lastName) {
-    <span class="hljs-keyword">this</span>.firstName = firstName;
-    <span class="hljs-keyword">this</span>.lastName = lastName;
+  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">firstName, lastName</span>)</span> {
+    <span class="hljs-built_in">this</span>.firstName = firstName;
+    <span class="hljs-built_in">this</span>.lastName = lastName;
   }
-  hello() {
-    <span class="hljs-keyword">return</span> <span class="hljs-string">`My name is <span class="hljs-subst">${<span class="hljs-keyword">this</span>.firstName}</span>`</span>;
+  <span class="hljs-function"><span class="hljs-title">hello</span>(<span class="hljs-params"></span>)</span> {
+    <span class="hljs-keyword">return</span> <span class="hljs-string">`My name is <span class="hljs-subst">${<span class="hljs-built_in">this</span>.firstName}</span>`</span>;
   }
 }
 </code></pre>
 </section><section class="slide"><h2>Inheritance</h2>
 <pre><code class="hljs language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Person</span> </span>{
-  <span class="hljs-keyword">constructor</span>(firstName, lastName, userName) {
+  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">firstName, lastName, userName</span>)</span> {
     <span class="hljs-comment">// calls Person.constructor</span>
-    <span class="hljs-keyword">super</span>(firstName, lastName);
-    <span class="hljs-keyword">this</span>.userName = userName;
+    <span class="hljs-built_in">super</span>(firstName, lastName);
+    <span class="hljs-built_in">this</span>.userName = userName;
   }
 }
 </code></pre>

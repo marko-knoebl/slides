@@ -2190,16 +2190,16 @@ export default {
 </code></pre>
 </section><section class="slide"><h2>Example component definition (slideshow component)</h2>
 <pre><code class="hljs language-js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
-  <span class="hljs-attr">data</span>: <span class="hljs-function"><span class="hljs-params">()</span> =></span> ({ <span class="hljs-attr">imgId</span>: <span class="hljs-number">0</span> }),
+  <span class="hljs-attr">data</span>: <span class="hljs-function">() =></span> ({ <span class="hljs-attr">imgId</span>: <span class="hljs-number">0</span> }),
   <span class="hljs-attr">computed</span>: {
-    imgUrl() {
-      <span class="hljs-keyword">return</span> <span class="hljs-string">`https://picsum.photos/200?image=<span class="hljs-subst">${<span class="hljs-keyword">this</span>.imgId}</span>`</span>;
+    <span class="hljs-function"><span class="hljs-title">imgUrl</span>(<span class="hljs-params"></span>)</span> {
+      <span class="hljs-keyword">return</span> <span class="hljs-string">`https://picsum.photos/200?image=<span class="hljs-subst">${<span class="hljs-built_in">this</span>.imgId}</span>`</span>;
     },
   },
   <span class="hljs-attr">methods</span>: {
-    prevImg() {
-      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.imgId > <span class="hljs-number">0</span>) {
-        <span class="hljs-keyword">this</span>.imgId--;
+    <span class="hljs-function"><span class="hljs-title">prevImg</span>(<span class="hljs-params"></span>)</span> {
+      <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.imgId > <span class="hljs-number">0</span>) {
+        <span class="hljs-built_in">this</span>.imgId--;
       }
     },
   },
@@ -2248,13 +2248,13 @@ During the first creation of a computed value, Vue checks which state entries ar
 </section><section class="slide"><h2>Binding properties</h2>
 <p>short form:</p>
 <pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">a</span> <span class="hljs-attr">:href</span>=<span class="hljs-string">"'https://en.wikipedia.org/wiki/' + topic"</span>
-  ></span>some article<span class="hljs-tag">&#x3C;/<span class="hljs-name">a</span>
-></span>
+  ></span>some article&#x3C;/a
+>
 </code></pre>
 <p>long form:</p>
 <pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">a</span> <span class="hljs-attr">v-bind:href</span>=<span class="hljs-string">"'https://en.wikipedia.org/wiki/' + topic"</span>
-  ></span>some article<span class="hljs-tag">&#x3C;/<span class="hljs-name">a</span>
-></span>
+  ></span>some article&#x3C;/a
+>
 </code></pre>
 </section><section class="slide"><h2>Class property</h2>
 <p>the <em>class</em> property supports special syntax:</p>
@@ -2329,7 +2329,7 @@ During the first creation of a computed value, Vue checks which state entries ar
 </code></pre>
 </section><section class="slide"><h2>Exercise: todo list - partial solution</h2>
 <pre><code class="hljs language-js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
-  <span class="hljs-attr">data</span>: <span class="hljs-function"><span class="hljs-params">()</span> =></span> ({
+  <span class="hljs-attr">data</span>: <span class="hljs-function">() =></span> ({
     <span class="hljs-attr">newTitle</span>: <span class="hljs-string">''</span>,
     <span class="hljs-attr">todos</span>: [
       { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'groceries'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
@@ -2337,13 +2337,13 @@ During the first creation of a computed value, Vue checks which state entries ar
     ],
   }),
   <span class="hljs-attr">methods</span>: {
-    addTodo() {
-      <span class="hljs-keyword">this</span>.todos.push({
+    <span class="hljs-function"><span class="hljs-title">addTodo</span>(<span class="hljs-params"></span>)</span> {
+      <span class="hljs-built_in">this</span>.todos.push({
         <span class="hljs-attr">id</span>: <span class="hljs-built_in">Math</span>.max(<span class="hljs-number">0</span>, ...this.todos.map(<span class="hljs-function">(<span class="hljs-params">t</span>) =></span> t.id)) + <span class="hljs-number">1</span>,
-        <span class="hljs-attr">title</span>: <span class="hljs-keyword">this</span>.newTitle,
+        <span class="hljs-attr">title</span>: <span class="hljs-built_in">this</span>.newTitle,
         <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span>,
       });
-      <span class="hljs-keyword">this</span>.newTitle = <span class="hljs-string">''</span>;
+      <span class="hljs-built_in">this</span>.newTitle = <span class="hljs-string">''</span>;
     },
   },
 };
@@ -2400,12 +2400,12 @@ During the first creation of a computed value, Vue checks which state entries ar
 </section><section class="slide"><h2>Events in custom components</h2>
 <p>Custom events have a name and potentially a payload</p>
 <p>Events are emitted via:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">this</span>.$emit(<span class="hljs-string">'eventname'</span>, payload);
+<pre><code class="hljs language-js"><span class="hljs-built_in">this</span>.$emit(<span class="hljs-string">'eventname'</span>, payload);
 </code></pre>
 <pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">li</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$emit('toggle')"</span>></span>
   <span class="hljs-tag">&#x3C;<span class="hljs-name">span</span> <span class="hljs-attr">:class</span>=<span class="hljs-string">"{ todoitem: true, completed: completed }"</span>
-    ></span>{{ completed ? 'DONE' : 'TODO' }}: {{ title }}<span class="hljs-tag">&#x3C;/<span class="hljs-name">span</span>
-  ></span>
+    ></span>{{ completed ? 'DONE' : 'TODO' }}: {{ title }}&#x3C;/span
+  >
   <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> @<span class="hljs-attr">click.stop</span>=<span class="hljs-string">"$emit('delete')"</span>></span>X<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
 <span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span>
 </code></pre>
@@ -2414,15 +2414,19 @@ During the first creation of a computed value, Vue checks which state entries ar
 <p>a tool for initializing a Vue project</p>
 </section><section class="slide"><h2>Developing with node.js and npm</h2>
 <ul>
-<li>node.js: JS runtime<ul>
+<li>node.js: JS runtime
+<ul>
 <li>running the local development server</li>
 <li>unit tests</li>
-</ul></li>
-<li>npm: package manager<ul>
+</ul>
+</li>
+<li>npm: package manager
+<ul>
 <li>managing dependencies</li>
 <li>packages are located in the <em>node_modules</em> directory</li>
 <li>configuration via <em>package.json</em></li>
-</ul></li>
+</ul>
+</li>
 </ul>
 </section><section class="slide"><h2>Vue CLI</h2>
 <p>install and run:</p>
@@ -2468,7 +2472,7 @@ vue create my-app
 </section><section class="slide"><h2>Composition API vs options API</h2>
 <p>options API:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
-  <span class="hljs-attr">data</span>: <span class="hljs-function"><span class="hljs-params">()</span> =></span> ({
+  <span class="hljs-attr">data</span>: <span class="hljs-function">() =></span> ({
     <span class="hljs-attr">todos</span>: [],
     <span class="hljs-attr">newTitle</span>: <span class="hljs-string">''</span>,
   }),
@@ -2484,14 +2488,14 @@ vue create my-app
 <p>composition API:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { ref, reactive, computed } <span class="hljs-keyword">from</span> <span class="hljs-string">'vue'</span>;
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
-  setup() {
+  <span class="hljs-function"><span class="hljs-title">setup</span>(<span class="hljs-params"></span>)</span> {
     <span class="hljs-keyword">const</span> todos = reactive([]);
     <span class="hljs-keyword">const</span> newTitle = ref(<span class="hljs-string">''</span>);
-    <span class="hljs-keyword">const</span> addTodo = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+    <span class="hljs-keyword">const</span> addTodo = <span class="hljs-function">() =></span> {
       <span class="hljs-comment">// ...</span>
     };
     <span class="hljs-keyword">const</span> numActive = computed(
-      <span class="hljs-function"><span class="hljs-params">()</span> =></span> todos.filter(<span class="hljs-function">(<span class="hljs-params">t</span>) =></span> !t.completed).length
+      <span class="hljs-function">() =></span> todos.filter(<span class="hljs-function">(<span class="hljs-params">t</span>) =></span> !t.completed).length
     );
     <span class="hljs-keyword">return</span> { todos, newTitle, addTodo, numActive };
   },
@@ -2532,13 +2536,13 @@ newTitle.value = <span class="hljs-string">'foo'</span>;
 </section><section class="slide"><h2>Example component definition (simple todo app)</h2>
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { ref, reactive } <span class="hljs-keyword">from</span> <span class="hljs-string">'vue'</span>;
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
-  setup() {
+  <span class="hljs-function"><span class="hljs-title">setup</span>(<span class="hljs-params"></span>)</span> {
     <span class="hljs-keyword">const</span> newTitle = ref(<span class="hljs-string">''</span>);
     <span class="hljs-keyword">const</span> todos = reactive([
       { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'groceries'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
       { <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'taxes'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">true</span> },
     ]);
-    <span class="hljs-keyword">const</span> addTodo = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+    <span class="hljs-keyword">const</span> addTodo = <span class="hljs-function">() =></span> {
       todos.push({
         <span class="hljs-attr">id</span>: <span class="hljs-built_in">Math</span>.max(<span class="hljs-number">0</span>, ...todos.map(<span class="hljs-function">(<span class="hljs-params">t</span>) =></span> t.id)) + <span class="hljs-number">1</span>,
         <span class="hljs-attr">title</span>: newTitle.value,
@@ -2552,7 +2556,7 @@ newTitle.value = <span class="hljs-string">'foo'</span>;
 </code></pre>
 </section><section class="slide"><h2>Exercise</h2>
 <p>Create a slideshow component / application that displays images like this:</p>
-<pre><code class="hljs language-dts"><span class="hljs-symbol">https:</span><span class="hljs-comment">//picsum.photos/200?image=0</span>
+<pre><code class="hljs language-apache"><span class="hljs-attribute">https</span>://picsum.photos/<span class="hljs-number">200</span>?image=<span class="hljs-number">0</span>
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Composition API: props and events</h1>
 </section><section class="slide"><h2>Props and events</h2>
@@ -2560,9 +2564,9 @@ newTitle.value = <span class="hljs-string">'foo'</span>;
 <p>Example: rating component:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
   <span class="hljs-attr">props</span>: [<span class="hljs-string">'stars'</span>],
-  setup(props, context) {
+  <span class="hljs-function"><span class="hljs-title">setup</span>(<span class="hljs-params">props, context</span>)</span> {
     <span class="hljs-keyword">const</span> ariaLabel = computed(
-      <span class="hljs-function"><span class="hljs-params">()</span> =></span> <span class="hljs-string">`<span class="hljs-subst">${props.stars}</span> out of 5 stars`</span>
+      <span class="hljs-function">() =></span> <span class="hljs-string">`<span class="hljs-subst">${props.stars}</span> out of 5 stars`</span>
     );
     <span class="hljs-keyword">const</span> onStarClick = <span class="hljs-function">(<span class="hljs-params">id</span>) =></span> {
       context.emit(<span class="hljs-string">'change'</span>, id);
@@ -2619,7 +2623,7 @@ newTitle.value = <span class="hljs-string">'foo'</span>;
   <span class="hljs-keyword">const</span> launchNr = ref(<span class="hljs-number">1</span>);
   <span class="hljs-keyword">const</span> launchData = reactive({ <span class="hljs-attr">name</span>: <span class="hljs-literal">null</span>, <span class="hljs-attr">date</span>: <span class="hljs-literal">null</span> });
 
-  watchEffect(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  watchEffect(<span class="hljs-function">() =></span> {
     fetch(
       <span class="hljs-string">`https://api.spacexdata.com/v3/launches/<span class="hljs-subst">${launchNr.value}</span>`</span>
     )
@@ -2687,15 +2691,15 @@ export default {
 <p>loading from / persisting to <em>localStorage</em> (counter component):</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { ref, watchEffect } <span class="hljs-keyword">from</span> <span class="hljs-string">'vue'</span>;
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
-  setup() {
+  <span class="hljs-function"><span class="hljs-title">setup</span>(<span class="hljs-params"></span>)</span> {
     <span class="hljs-comment">// try to load</span>
     <span class="hljs-keyword">const</span> countStored = <span class="hljs-built_in">Number</span>(
-      localStorage.getItem(<span class="hljs-string">'count'</span>)
+      <span class="hljs-built_in">localStorage</span>.getItem(<span class="hljs-string">'count'</span>)
     );
     <span class="hljs-keyword">const</span> count = ref(countStored || <span class="hljs-number">0</span>);
     <span class="hljs-comment">// persist to localStorage if count changes</span>
-    watchEffect(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-      localStorage.setItem(<span class="hljs-string">'count'</span>, count.value);
+    watchEffect(<span class="hljs-function">() =></span> {
+      <span class="hljs-built_in">localStorage</span>.setItem(<span class="hljs-string">'count'</span>, count.value);
     });
     <span class="hljs-keyword">return</span> { count };
   },
@@ -2723,10 +2727,10 @@ export default {
 <p>Fetching data on component mount (options API):</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
   <span class="hljs-comment">// ...</span>
-  created() {
+  <span class="hljs-function"><span class="hljs-title">created</span>(<span class="hljs-params"></span>)</span> {
     fetch(<span class="hljs-string">'https://jsonplaceholder.typicode.com/todos'</span>)
       .then(<span class="hljs-function">(<span class="hljs-params">res</span>) =></span> res.json())
-      .then(<span class="hljs-function">(<span class="hljs-params">todos</span>) =></span> (<span class="hljs-keyword">this</span>.todos = todos));
+      .then(<span class="hljs-function">(<span class="hljs-params">todos</span>) =></span> (<span class="hljs-built_in">this</span>.todos = todos));
   },
 };
 </code></pre></section></section></div>

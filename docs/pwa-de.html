@@ -2068,10 +2068,12 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <ul>
 <li>aus Wien</li>
 <li>ehemaliger Mathematiklehrer</li>
-<li>Programmierthemen:<ul>
+<li>Programmierthemen:
+<ul>
 <li>JavaScript, TypeScript und React</li>
 <li>Python, Data Science</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 </section><section class="slide"><h2>Vorstellung der Teilnehmer</h2>
 <ul>
@@ -2100,28 +2102,36 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </section><section class="slide"><h2>Agenda</h2>
 <ul>
 <li>Webmanifest-Datei</li>
-<li>Service Worker<ul>
+<li>Service Worker
+<ul>
 <li>Workbox</li>
 <li>Service Worker schreiben</li>
-</ul></li>
-<li>Datenspeicher<ul>
+</ul>
+</li>
+<li>Datenspeicher
+<ul>
 <li>localStorage</li>
 <li>indexedDB</li>
-</ul></li>
+</ul>
+</li>
 <li>Benachrichtigungen und Push-Benachrichtigungen</li>
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Grundlagen zum Kurs</h1>
 </section><section class="slide"><h2>Grundlagen zum Kurs (am Beispiel einer Todo-App)</h2>
 <ul>
-<li>Arbeiten mit VS Code &#x26; Chrome<ul>
+<li>Arbeiten mit VS Code &#x26; Chrome
+<ul>
 <li>Prettier</li>
 <li>Chrome Dev Tools</li>
-</ul></li>
-<li>ES2015+<ul>
+</ul>
+</li>
+<li>ES2015+
+<ul>
 <li>Module</li>
 <li>Pfeilfunktionen</li>
 <li>const &#x26; let</li>
-</ul></li>
+</ul>
+</li>
 <li>einen lokalen Entwicklungsserver starten</li>
 </ul>
 </section><section class="slide"><h2>Arbeiten mit VS Code</h2>
@@ -2138,12 +2148,14 @@ http-server
 <ul>
 <li>Brücke zwischen Web und Apps</li>
 <li>Im Browser, am Desktop und Mobil</li>
-<li>Web-Apps, die sich ganz wie native Apps anfühlen:<ul>
+<li>Web-Apps, die sich ganz wie native Apps anfühlen:
+<ul>
 <li>Dauerhafte Installation und Offline-Nutzung (service workers)</li>
 <li>Lokale Speicherung von Anwendungsdaten (localstorage, indexedDB)</li>
 <li>Scheint wie andere Apps im Menü auf (web-manifest)</li>
 <li>Benachrichtigungen am Gerät darstellen (service workers)</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 <!-- google-präsentation bis S. 23 -->
 </section><section class="slide"><h2>Browser-Unterstützung</h2>
@@ -2155,11 +2167,13 @@ http-server
 <p><a href="https://caniuse.com/#search=indexeddb">https://caniuse.com/#search=indexeddb</a></p>
 </section><section class="slide"><h2>Beispiele</h2>
 <ul>
-<li><a href="https://pwa.rocks">https://pwa.rocks</a><ul>
+<li><a href="https://pwa.rocks">https://pwa.rocks</a>
+<ul>
 <li>wiki offline</li>
 <li>telegram</li>
 <li>paper planes</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 </section><section class="slide"><h2>Chrome audit</h2>
 <p>Entwicklerwerkzeuge - audits</p>
@@ -2256,13 +2270,15 @@ workbox.routing.registerRoute(
 <ul>
 <li><code>background_color</code> - sollte die gleiche Farbe sein wie die CSS-Hintergrundfarbe der Anwendung</li>
 <li><code>description</code></li>
-<li><code>orientation</code>:<ul>
+<li><code>orientation</code>:
+<ul>
 <li><code>any</code></li>
 <li><code>natural</code></li>
 <li><code>landscape</code> (<code>landscape-primary</code>, <code>landscape-secondary</code>)</li>
 <li><code>portrait</code> (<code>portrait-primary</code>,
 <code>portrait-secondary</code>)</li>
-</ul></li>
+</ul>
+</li>
 <li><code>theme_color</code></li>
 </ul>
 </section><section class="slide"><h2>Meta tags in HTML</h2>
@@ -2283,12 +2299,14 @@ workbox.routing.registerRoute(
 </section><section class="slide"><h2>App-Installation</h2>
 <p>Voraussetzung, um den App-Installations-Dialog anzuzeigen:</p>
 <ul>
-<li>Manifest-Datei beinhaltet:<ul>
+<li>Manifest-Datei beinhaltet:
+<ul>
 <li><em>short_name</em> oder <em>name</em></li>
 <li>Icons der Größen 192px und 512px</li>
 <li><em>start_url</em></li>
 <li><em>display</em> ist entweder <em>fullscreen</em>, <em>standalone</em> oder <em>minimal-ui</em></li>
-</ul></li>
+</ul>
+</li>
 <li>HTTPS aktiv</li>
 <li>es gibt einen aktiven Service Worker (mit einem fetch Event handler)</li>
 <li>Benutzer hat mit der Anwendung in bestimmtem Maß interagiert</li>
@@ -2299,7 +2317,7 @@ workbox.routing.registerRoute(
 
 <span class="hljs-built_in">window</span>.addEventListener(
   <span class="hljs-string">'beforeinstallprompt'</span>,
-  (ipEvent) => {
+  <span class="hljs-function">(<span class="hljs-params">ipEvent</span>) =></span> {
     <span class="hljs-comment">// the browser is ready to show the install prompt</span>
     ipEvent.preventDefault();
     installPromptEvent = ipEvent;
@@ -2309,7 +2327,7 @@ workbox.routing.registerRoute(
 </code></pre>
 </section><section class="slide"><h2>App-Installation</h2>
 <p>Sobald der Benutzer die Anwendung installieren möchte können wir das gespeicherte Event verwenden:</p>
-<pre><code class="hljs language-js">installBtn.addEventListener(<span class="hljs-string">'click'</span>, () => {
+<pre><code class="hljs language-js">installBtn.addEventListener(<span class="hljs-string">'click'</span>, <span class="hljs-function">() =></span> {
   <span class="hljs-comment">// Show the prompt</span>
   installPromptEvent.prompt();
   hideInstallBtn();
@@ -2498,7 +2516,7 @@ workbox.routing.registerRoute(
 </section><section class="slide"><h2>Einen Service Worker registrieren</h2>
 <p>Jedes Mal wenn eine Seite geladen wird, rufen wir <code>navigator.serviceWorker.register</code> mit der URL des Service Workers als Parameter auf. Wenn eine neue oder geänderte Service Worker Datei gefunden wird, wird diese <em>installiert</em>.</p>
 </section><section class="slide"><h2>Einen Service Worker registrieren</h2>
-<pre><code class="hljs language-js"><span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">'load'</span>, () => {
+<pre><code class="hljs language-js"><span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">'load'</span>, <span class="hljs-function">() =></span> {
   <span class="hljs-comment">// registration can be deferred until</span>
   <span class="hljs-comment">// completion of page load</span>
   <span class="hljs-keyword">if</span> (navigator.serviceWorker) {
@@ -2532,7 +2550,7 @@ workbox.routing.registerRoute(
 </ul>
 <p>Guter Zeitpunkt, um Resourcen für die spätere Verwendung herunterzuladen und dem Cache hinzuzufügen</p>
 </section><section class="slide"><h2>Service Worker Installation</h2>
-<pre><code class="hljs language-js">self.addEventListener(<span class="hljs-string">'install'</span>, event => {
+<pre><code class="hljs language-js">self.addEventListener(<span class="hljs-string">'install'</span>, <span class="hljs-function"><span class="hljs-params">event</span> =></span> {
   <span class="hljs-built_in">console</span>.log(event);
 });
 </code></pre>
@@ -2541,13 +2559,13 @@ workbox.routing.registerRoute(
 <p>Wenn zuvor ein anderer Service Worker vorhanden war, wird dieser nach einem "Neustart" der Anwendung aktiv (wenn alle entsprechenden Tabs geschlossen wurden)</p>
 <p>Event <code>activate</code>: gute Gelegenheit, um alte Caches zu bereinigen</p>
 </section><section class="slide"><h2>Service Worker Aktivierung</h2>
-<pre><code class="hljs language-js">self.addEventListener(<span class="hljs-string">'activate'</span>, event => {
+<pre><code class="hljs language-js">self.addEventListener(<span class="hljs-string">'activate'</span>, <span class="hljs-function"><span class="hljs-params">event</span> =></span> {
   <span class="hljs-built_in">console</span>.log(event);
 });
 </code></pre>
 </section><section class="slide"><h2>Service Worker Aktivierung</h2>
 <p>Wir können eine sofortige Aktivierung eines neuen Service Workers aus dem <code>install</code>-Event veranlassen:</p>
-<pre><code class="hljs language-js">self.addEventListener(<span class="hljs-string">'install'</span>, event => {
+<pre><code class="hljs language-js">self.addEventListener(<span class="hljs-string">'install'</span>, <span class="hljs-function"><span class="hljs-params">event</span> =></span> {
   self.skipWaiting();
 });
 </code></pre>
@@ -2572,7 +2590,7 @@ fetch(url)
   .then(<span class="hljs-built_in">console</span>.log);
 </code></pre>
 </section><section class="slide"><h2>Service Worker Events: Fetch</h2>
-<pre><code class="hljs language-js">self.addEventListener(<span class="hljs-string">'fetch'</span>, event => {
+<pre><code class="hljs language-js">self.addEventListener(<span class="hljs-string">'fetch'</span>, <span class="hljs-function"><span class="hljs-params">event</span> =></span> {
   event.respondWith(
     <span class="hljs-keyword">new</span> Response(<span class="hljs-string">'All pages look like this'</span>)
   );
@@ -2586,7 +2604,7 @@ there are two $ signs in regexes in this code
 if they are at the very end of the string
 they will mess up the result
 -->
-<pre><code class="hljs language-js">self.addEventListener(<span class="hljs-string">'fetch'</span>, event => {
+<pre><code class="hljs language-js">self.addEventListener(<span class="hljs-string">'fetch'</span>, <span class="hljs-function"><span class="hljs-params">event</span> =></span> {
   <span class="hljs-keyword">if</span> (<span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">'/about/$ '</span>).test(event.request.url)) {
     event.respondWith(<span class="hljs-keyword">new</span> Response(<span class="hljs-string">'About'</span>));
   } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">'/a$ '</span>).test(event.request.url)) {
@@ -2599,7 +2617,7 @@ they will mess up the result
 </section><section class="slide"><h2>Service Worker Events: fetch</h2>
 <p>Übung: Loggen aller Netzwerkanfragen, die Netzwerkanfragen dann mittels <code>fetch</code> beantworkten lassen</p>
 </section><section class="slide"><h2>Service Worker Events: fetch</h2>
-<pre><code class="hljs language-js">self.addEventListener(<span class="hljs-string">'fetch'</span>, event => {
+<pre><code class="hljs language-js">self.addEventListener(<span class="hljs-string">'fetch'</span>, <span class="hljs-function"><span class="hljs-params">event</span> =></span> {
   <span class="hljs-built_in">console</span>.log(event);
   <span class="hljs-keyword">return</span> fetch(event.request);
 });
@@ -2617,7 +2635,7 @@ they will mess up the result
 <p>Durch die globale Variable <code>caches.open</code> oder <code>self.caches.open</code> im Service Worker</p>
 <p>Promise:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">let</span> myCache;
-caches.open(<span class="hljs-string">'test'</span>, mc => {
+caches.open(<span class="hljs-string">'test'</span>, <span class="hljs-function"><span class="hljs-params">mc</span> =></span> {
   myCache = mc;
 });
 </code></pre>
@@ -2656,18 +2674,18 @@ cache.addAll([<span class="hljs-string">'/'</span>, <span class="hljs-string">'/
 </code></pre>
 </section><section class="slide"><h2>Beispiel: cache only (kurz)</h2>
 <p>Eine Anwendung, die Resourcen bei der Installation cacht und sie dauerhaft aus dem Cache zur Verfügung stellt</p>
-<pre><code class="hljs language-js">self.addEventListener(<span class="hljs-string">'install'</span>, () => {
+<pre><code class="hljs language-js">self.addEventListener(<span class="hljs-string">'install'</span>, <span class="hljs-function">() =></span> {
   cache.addAll([<span class="hljs-string">'/'</span>, <span class="hljs-string">'/index.html'</span>, <span class="hljs-string">'/about'</span>])
 })
 
-self.addEventListener(<span class="hljs-string">'fetch'</span>, event => {
+self.addEventListener(<span class="hljs-string">'fetch'</span>, <span class="hljs-function"><span class="hljs-params">event</span> =></span> {
   event.respondWith(
     caches.match(event.request);
   )
 })
 </code></pre>
 </section><section class="slide"><h2>Beispiel: cache only (ganzer Code)</h2>
-<pre><code class="hljs language-js">self.addEventListener(<span class="hljs-string">'install'</span>, installEvent => {
+<pre><code class="hljs language-js">self.addEventListener(<span class="hljs-string">'install'</span>, <span class="hljs-function"><span class="hljs-params">installEvent</span> =></span> {
   <span class="hljs-comment">// wait for the cache to be populated;</span>
   <span class="hljs-comment">// abort install on error</span>
   installEvent.waitUntil(
@@ -2685,7 +2703,7 @@ self.addEventListener(<span class="hljs-string">'fetch'</span>, event => {
 <p>Ein Aufruf von <code>waitUntil</code> kann verwendet werden, um anzuzeigen, ob die Installation erfolgreich war - dier Service Worker wird nur bei Erfolg aktiviert</p>
 </section><section class="slide"><h2>Beispiel: den Cache aktualisieren</h2>
 <p>alte Einträge löschen:</p>
-<pre><code class="hljs language-js">self.addEventListener(<span class="hljs-string">'activate'</span>, activateEvent => {
+<pre><code class="hljs language-js">self.addEventListener(<span class="hljs-string">'activate'</span>, <span class="hljs-function"><span class="hljs-params">activateEvent</span> =></span> {
   activateEvent.waitUntil(
     <span class="hljs-built_in">Promise</span>.all([
       caches.delete(<span class="hljs-string">'app-shell-cache-v2'</span>),
@@ -2695,7 +2713,7 @@ self.addEventListener(<span class="hljs-string">'fetch'</span>, event => {
 });
 </code></pre>
 </section><section class="slide"><h2>Beispiel: Aus dem Cache laden - mit Netzwerk-Fallback</h2>
-<pre><code class="hljs language-js">self.addEventListener(<span class="hljs-string">'fetch'</span>, event => {
+<pre><code class="hljs language-js">self.addEventListener(<span class="hljs-string">'fetch'</span>, <span class="hljs-function"><span class="hljs-params">event</span> =></span> {
   event.respondWith(
     caches
       .match(event.request)
@@ -2704,7 +2722,7 @@ self.addEventListener(<span class="hljs-string">'fetch'</span>, event => {
 });
 </code></pre>
 </section><section class="slide"><h2>Beispiel: Den Cache bei jedem Request aktualisieren</h2>
-<pre><code class="hljs language-js">self.addEventListener(<span class="hljs-string">'fetch'</span>, event => {
+<pre><code class="hljs language-js">self.addEventListener(<span class="hljs-string">'fetch'</span>, <span class="hljs-function"><span class="hljs-params">event</span> =></span> {
   event.respondWith(
     fetch(event.request).then(<span class="hljs-function"><span class="hljs-params">response</span> =></span> {
       cache.put(event.request, response.clone());
@@ -2739,9 +2757,9 @@ self.addEventListener(<span class="hljs-string">'fetch'</span>, event => {
 </section><section class="slide"><h2>localStorage</h2>
 <p>Speichern und Laden von Daten:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> todoString = <span class="hljs-built_in">JSON</span>.stringify(todos);
-localStorage.setItem(<span class="hljs-string">'todos'</span>, todoString);
+<span class="hljs-built_in">localStorage</span>.setItem(<span class="hljs-string">'todos'</span>, todoString);
 </code></pre>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> todoString = localStorage.getItem(<span class="hljs-string">'todos'</span>);
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> todoString = <span class="hljs-built_in">localStorage</span>.getItem(<span class="hljs-string">'todos'</span>);
 todos = <span class="hljs-built_in">JSON</span>.parse(todoString);
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>indexedDB</h1>
@@ -3092,10 +3110,12 @@ Dauer: ca 50 min
 <ul>
 <li>Benutzer besucht eine Web App, aktiviert Benachrichtigungen</li>
 <li>Web App kommuniziert mit dem Browserhersteller; der Browserhersteller generiert eine eindeutige URL und einen kryptographischen Schlüssel und übergibt diese an den Browser<br />
-Die URL könnte wie folgt aussehen:<ul>
+Die URL könnte wie folgt aussehen:
+<ul>
 <li><code>https://android.googleapis.com/gcm/send/IDENTIFIER</code></li>
 <li><code>https://updates.push.services.mozilla.com/wpush/v1/IDENTIFIER</code></li>
-</ul></li>
+</ul>
+</li>
 <li>Web App teilt diese URL mit dem Backend</li>
 <li>Aus dem Backend können wir mit Hilfe dieser Daten Nachrichten an den Service Worker schicken</li>
 </ul>

@@ -2246,7 +2246,7 @@ cowsay hello
 <span class="hljs-built_in">module</span>.exports.message1 = message1;
 <span class="hljs-built_in">module</span>.exports.message2 = message2;
 <span class="hljs-comment">// shorthand</span>
-exports.message3 = <span class="hljs-string">'Bye'</span>;
+<span class="hljs-built_in">exports</span>.message3 = <span class="hljs-string">'Bye'</span>;
 </code></pre>
 <p>default Export:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> mainMessage = <span class="hljs-string">'xyz'</span>;
@@ -2334,7 +2334,7 @@ the sum is 6
 <pre><code class="hljs language-js">fs.promises
   .readFile(<span class="hljs-string">'read-file.js'</span>, <span class="hljs-string">'utf8'</span>)
   .then(<span class="hljs-built_in">console</span>.log)
-  .catch(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  .catch(<span class="hljs-function">() =></span> {
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'error while reading file'</span>);
   });
 </code></pre>
@@ -2361,7 +2361,7 @@ readFileAsync();
 <p>"low-level" (einzelne TCP-Pakete):</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> http <span class="hljs-keyword">from</span> <span class="hljs-string">'http'</span>;
 
-http.get(<span class="hljs-string">'http://www.google.com'</span>, (responseStream) => {
+http.get(<span class="hljs-string">'http://www.google.com'</span>, <span class="hljs-function">(<span class="hljs-params">responseStream</span>) =></span> {
   responseStream.setEncoding(<span class="hljs-string">'latin1'</span>);
   responseStream.on(<span class="hljs-string">'data'</span>, <span class="hljs-built_in">console</span>.log);
   responseStream.on(<span class="hljs-string">'error'</span>, <span class="hljs-built_in">console</span>.error);

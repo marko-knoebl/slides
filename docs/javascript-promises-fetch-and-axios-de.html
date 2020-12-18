@@ -2137,7 +2137,7 @@ fetch(<span class="hljs-string">'/'</span>)
 <p>Der zweite Handler (<code>(content) => console.log(content)</code>) loggt das Resultat.</p>
 </section><section class="slide"><h2>Promises und fetch</h2>
 <p>Beispiel: Fetch von JSON-Daten - zwei Funktionen, die Promises zurückgeben</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> fetchTodos = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> fetchTodos = <span class="hljs-function">() =></span> {
   <span class="hljs-keyword">return</span> fetch(
     <span class="hljs-string">'https://jsonplaceholder.typicode.com/todos'</span>
   ).then(<span class="hljs-function">(<span class="hljs-params">res</span>) =></span> res.json());
@@ -2230,7 +2230,7 @@ async function getFirstIncompleteTodo() {
 </section><section class="slide"><h2>Eigene Promises</h2>
 <p>Promise, die nach 1 Sekunde entweder mit hello antwortet oder nicht erfolgreich ist</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> getReply = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =></span> {
-  setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =></span> {
     <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Math</span>.random() > <span class="hljs-number">0.5</span>) {
       resolve(<span class="hljs-string">'hello'</span>);
     } <span class="hljs-keyword">else</span> {

@@ -2081,7 +2081,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <p>Oft ist eine Datei eine Folge von Textzeichen - z.B. die Formate <em>.txt</em>, <em>.html</em>, <em>.csv</em> oder <em>.py</em>.</p>
 <p>Der Inhalt von Textdateien kann als <em>Strings</em> geschrieben und gelesen werden, andere Dateien können als Bytefolge repräsentiert werden.</p>
 </section><section class="slide"><h2>Textdatei schreiben</h2>
-<pre><code class="hljs language-py">file = open(<span class="hljs-string">"message.txt"</span>, <span class="hljs-string">"w"</span>, encoding=<span class="hljs-string">"utf-8"</span>)
+<pre><code class="hljs language-py">file = <span class="hljs-built_in">open</span>(<span class="hljs-string">"message.txt"</span>, <span class="hljs-string">"w"</span>, encoding=<span class="hljs-string">"utf-8"</span>)
 file.write(<span class="hljs-string">"hello world\n"</span>)
 file.write(<span class="hljs-string">"end\n"</span>)
 file.close()
@@ -2089,7 +2089,7 @@ file.close()
 <p>Die Datei wird zum Schreiben geöffnet (<em>w</em> = <em>write</em>).</p>
 <p>Als Zeichencodierung wird <em>UTF-8</em> verwendet.</p>
 </section><section class="slide"><h2>Textdatei lesen</h2>
-<pre><code class="hljs language-py">file = open(<span class="hljs-string">"message.txt"</span>, encoding=<span class="hljs-string">"utf-8"</span>)
+<pre><code class="hljs language-py">file = <span class="hljs-built_in">open</span>(<span class="hljs-string">"message.txt"</span>, encoding=<span class="hljs-string">"utf-8"</span>)
 content = file.read()
 file.close()
 print(content)
@@ -2097,7 +2097,7 @@ print(content)
 <p>Standardmodus: Lesen (<em>r</em> = <em>read</em>)</p>
 </section><section class="slide"><h2>Dateimodi</h2>
 <pre><code class="hljs language-py"><span class="hljs-comment"># mode: text, append</span>
-open(<span class="hljs-string">"todos.txt"</span>, mode=<span class="hljs-string">"ta"</span>)
+<span class="hljs-built_in">open</span>(<span class="hljs-string">"todos.txt"</span>, mode=<span class="hljs-string">"ta"</span>)
 </code></pre>
 </section><section class="slide"><h2>Dateimodi</h2>
 <ul>
@@ -2111,18 +2111,18 @@ open(<span class="hljs-string">"todos.txt"</span>, mode=<span class="hljs-string
 <li><code>a</code>: Anhängen</li>
 </ul>
 </section><section class="slide"><h2>Binärdateien</h2>
-<pre><code class="hljs language-py">wasm_content = bytes([
+<pre><code class="hljs language-py">wasm_content = <span class="hljs-built_in">bytes</span>([
     <span class="hljs-number">0</span>, <span class="hljs-number">97</span>, <span class="hljs-number">115</span>, <span class="hljs-number">109</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">5</span>, <span class="hljs-number">1</span>, <span class="hljs-number">96</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">127</span>,
     <span class="hljs-number">3</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">7</span>, <span class="hljs-number">10</span>, <span class="hljs-number">1</span>, <span class="hljs-number">6</span>, <span class="hljs-number">97</span>, <span class="hljs-number">110</span>, <span class="hljs-number">115</span>, <span class="hljs-number">119</span>, <span class="hljs-number">101</span>, <span class="hljs-number">114</span>,
     <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">10</span>, <span class="hljs-number">6</span>, <span class="hljs-number">1</span>, <span class="hljs-number">4</span>, <span class="hljs-number">0</span>, <span class="hljs-number">65</span>, <span class="hljs-number">42</span>, <span class="hljs-number">11</span>
 ])
 
-file = open(<span class="hljs-string">"answer.wasm"</span>, mode=<span class="hljs-string">"wb"</span>)
+file = <span class="hljs-built_in">open</span>(<span class="hljs-string">"answer.wasm"</span>, mode=<span class="hljs-string">"wb"</span>)
 file.write(wasm_content)
 file.close()
 </code></pre>
 </section><section class="slide"><h2>Open und das with-Statement</h2>
-<pre><code class="hljs language-py"><span class="hljs-keyword">with</span> open(<span class="hljs-string">"todos.txt"</span>, encoding=<span class="hljs-string">"utf-8"</span>) <span class="hljs-keyword">as</span> file_obj:
+<pre><code class="hljs language-py"><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">"todos.txt"</span>, encoding=<span class="hljs-string">"utf-8"</span>) <span class="hljs-keyword">as</span> file_obj:
     content = file_obj.read()
 </code></pre>
 <p>Datei wird automatisch geschlossen, wenn der eingerückte Codeblock verlassen wird.</p>
@@ -2143,14 +2143,16 @@ locale.getpreferredencoding()
 <p>Objekte, die z.B. <code>.read()</code> oder <code>.write()</code> unterstützen:</p>
 <ul>
 <li>Dateien (z.B. via <code>open()</code>)</li>
-<li><code>sys.stdout</code>, <code>sys.stdin</code><ul>
+<li><code>sys.stdout</code>, <code>sys.stdin</code>
+<ul>
 <li>z.B. <code>sys.stdin.readline()</code></li>
-</ul></li>
+</ul>
+</li>
 <li>Antworten aus dem Netzwerk, z.B. via <code>urllib.request.urlopen('https://google.com')</code></li>
 </ul>
 </section><section class="slide"><h2>File-like objects</h2>
 <p>Zeile für Zeile einlesen (geringer Speicherbedarf):</p>
-<pre><code class="hljs language-py"><span class="hljs-keyword">with</span> open(<span class="hljs-string">"myfile.txt"</span>, encoding=<span class="hljs-string">"utf-8"</span>) <span class="hljs-keyword">as</span> file:
+<pre><code class="hljs language-py"><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">"myfile.txt"</span>, encoding=<span class="hljs-string">"utf-8"</span>) <span class="hljs-keyword">as</span> file:
     <span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> file:
         print(line)
 </code></pre>
@@ -2185,13 +2187,13 @@ locale.getpreferredencoding()
 data = [<span class="hljs-string">"one"</span>, <span class="hljs-string">"two"</span>, <span class="hljs-string">"three"</span>]
 jsonstring = json.dumps(data)
 
-<span class="hljs-keyword">with</span> open(<span class="hljs-string">"numbers.json"</span>, mode=<span class="hljs-string">"w"</span>, encoding=<span class="hljs-string">"utf-8"</span>) <span class="hljs-keyword">as</span> jsonfile:
+<span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">"numbers.json"</span>, mode=<span class="hljs-string">"w"</span>, encoding=<span class="hljs-string">"utf-8"</span>) <span class="hljs-keyword">as</span> jsonfile:
     jsonfile.write(jsonstring)
 </code></pre>
 </section><section class="slide"><h2>JSON lesen</h2>
 <pre><code class="hljs language-py"><span class="hljs-keyword">import</span> json
 
-<span class="hljs-keyword">with</span> open(<span class="hljs-string">"numbers.json"</span>, encoding=<span class="hljs-string">"utf-8"</span>) <span class="hljs-keyword">as</span> jsonfile:
+<span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">"numbers.json"</span>, encoding=<span class="hljs-string">"utf-8"</span>) <span class="hljs-keyword">as</span> jsonfile:
     jsonstring = jsonfile.read()
 data = json.loads(jsonstring)
 </code></pre>
@@ -2241,11 +2243,11 @@ data = [
     [<span class="hljs-string">'US'</span>, <span class="hljs-number">9.8</span>, <span class="hljs-number">327</span>]
 ]
 
-<span class="hljs-keyword">with</span> open(<span class="hljs-string">'countr.csv'</span>, <span class="hljs-string">'w'</span>, encoding=<span class="hljs-string">'utf-8'</span>, newline=<span class="hljs-string">''</span>) <span class="hljs-keyword">as</span> f:
+<span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">'countr.csv'</span>, <span class="hljs-string">'w'</span>, encoding=<span class="hljs-string">'utf-8'</span>, newline=<span class="hljs-string">''</span>) <span class="hljs-keyword">as</span> f:
     writer = csv.writer(f)
     writer.writerows(data)
 
-<span class="hljs-keyword">with</span> open(<span class="hljs-string">'countr.csv'</span>, encoding=<span class="hljs-string">'utf-8'</span>, newline=<span class="hljs-string">''</span>) <span class="hljs-keyword">as</span> f:
+<span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">'countr.csv'</span>, encoding=<span class="hljs-string">'utf-8'</span>, newline=<span class="hljs-string">''</span>) <span class="hljs-keyword">as</span> f:
     reader = csv.reader(f)
     <span class="hljs-keyword">for</span> row <span class="hljs-keyword">in</span> reader:
         print(row)
@@ -2268,17 +2270,17 @@ name = et.SubElement(person, <span class="hljs-string">'name'</span>)
 name.text = <span class="hljs-string">'Adam'</span>
 age = et.SubElement(person, <span class="hljs-string">'age'</span>)
 age.text = <span class="hljs-string">'40'</span>
-age.set(<span class="hljs-string">"unit"</span>, <span class="hljs-string">"years"</span>)
+age.<span class="hljs-built_in">set</span>(<span class="hljs-string">"unit"</span>, <span class="hljs-string">"years"</span>)
 </code></pre>
 </section><section class="slide"><h2>XML mit ElementTree: speichern</h2>
 <p>Beim Speichern von XML immer ein Encoding angeben!</p>
-<pre><code class="hljs language-py">xmlbytestring: bytes = et.tostring(person, encoding=<span class="hljs-string">'utf-8'</span>)
-<span class="hljs-keyword">with</span> open(<span class="hljs-string">"myfile.xml"</span>, mode=<span class="hljs-string">"wb"</span>) <span class="hljs-keyword">as</span> file:
+<pre><code class="hljs language-py">xmlbytestring: <span class="hljs-built_in">bytes</span> = et.tostring(person, encoding=<span class="hljs-string">'utf-8'</span>)
+<span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">"myfile.xml"</span>, mode=<span class="hljs-string">"wb"</span>) <span class="hljs-keyword">as</span> file:
     file.write(xmlbytestring)
 
 <span class="hljs-comment"># or</span>
-xmlstring: str = et.tostring(person, encoding=<span class="hljs-string">'unicode'</span>)
-<span class="hljs-keyword">with</span> open(<span class="hljs-string">"myfile.xml"</span>, encoding=<span class="hljs-string">"utf-8"</span>, mode=<span class="hljs-string">"w"</span>) <span class="hljs-keyword">as</span> file:
+xmlstring: <span class="hljs-built_in">str</span> = et.tostring(person, encoding=<span class="hljs-string">'unicode'</span>)
+<span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">"myfile.xml"</span>, encoding=<span class="hljs-string">"utf-8"</span>, mode=<span class="hljs-string">"w"</span>) <span class="hljs-keyword">as</span> file:
     file.write(xmlstring)
 
 <span class="hljs-comment"># or</span>
@@ -2309,13 +2311,13 @@ now = datetime.datetime.now()
 
 serialized = pickle.dumps(now)
 
-<span class="hljs-keyword">with</span> open(<span class="hljs-string">"datetime.pickle"</span>, mode=<span class="hljs-string">"wb"</span>) <span class="hljs-keyword">as</span> picklefile:
+<span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">"datetime.pickle"</span>, mode=<span class="hljs-string">"wb"</span>) <span class="hljs-keyword">as</span> picklefile:
     picklefile.write(serialized)
 </code></pre>
 </section><section class="slide"><h2>Pickle</h2>
 <pre><code class="hljs language-py"><span class="hljs-keyword">import</span> pickle
 
-<span class="hljs-keyword">with</span> open(<span class="hljs-string">"datetime.pickle"</span>, mode=<span class="hljs-string">"rb"</span>) <span class="hljs-keyword">as</span> picklefile:
+<span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">"datetime.pickle"</span>, mode=<span class="hljs-string">"rb"</span>) <span class="hljs-keyword">as</span> picklefile:
     serialized = picklefile.read()
 earlier = pickle.loads(serialized)
 </code></pre>
@@ -2514,7 +2516,7 @@ re.finditer(my_re, ...)
 </code></pre>
 <p>wird zu</p>
 <pre><code class="hljs language-py">my_re = <span class="hljs-string">"..."</span>
-my_re_obj = re.compile(my_re)
+my_re_obj = re.<span class="hljs-built_in">compile</span>(my_re)
 
 my_re_obj.search(...)
 my_re_obj.finditer(...)
@@ -2552,7 +2554,7 @@ c - b
 </code></pre>
 </section><section class="slide"><h2>time.sleep</h2>
 <pre><code class="hljs language-py"><span class="hljs-keyword">import</span> time
-<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">10</span>):
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">10</span>):
     print(i)
     time.sleep(<span class="hljs-number">1</span>)
 </code></pre>
@@ -2589,7 +2591,7 @@ print(sys.argv)
 old_stdout = sys.stdout
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LoudStdout</span>:</span>
-    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">write</span><span class="hljs-params">(self, text)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">write</span>(<span class="hljs-params">self, text</span>):</span>
         old_stdout.write(text.upper())
 
 loudstdout = LoudStdout()
@@ -2629,7 +2631,7 @@ print(content)
 <p>in Standardlibrary</p>
 <pre><code class="hljs language-py"><span class="hljs-keyword">from</span> urllib <span class="hljs-keyword">import</span> request
 
-content: bytes = request.urlopen(
+content: <span class="hljs-built_in">bytes</span> = request.urlopen(
                     <span class="hljs-string">"https://www.google.com"</span>).read()
 </code></pre>
 </section><section class="slide"><h2>requests</h2>
@@ -2638,7 +2640,7 @@ content: bytes = request.urlopen(
 </code></pre>
 <pre><code class="hljs language-py"><span class="hljs-keyword">import</span> requests
 
-content: str = requests.get(<span class="hljs-string">"https://www.google.com"</span>).text
+content: <span class="hljs-built_in">str</span> = requests.get(<span class="hljs-string">"https://www.google.com"</span>).text
 </code></pre>
 </section><section class="slide"><h2>Übungen</h2>
 <ul>
@@ -2714,13 +2716,13 @@ server.serve_forever()
 <p>Dieser Teil wird üblicherweise von Libraries wie gunicorn übernommen</p>
 </section><section class="slide"><h2>Eigene WSGI-Anwendung in Python</h2>
 <pre><code class="hljs language-py"><span class="hljs-comment"># app.py</span>
-<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">application</span><span class="hljs-params">(environ, start_response)</span>:</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">application</span>(<span class="hljs-params">environ, start_response</span>):</span>
     response_status = <span class="hljs-string">"200 OK"</span>
     response_body_text = <span class="hljs-string">"hello"</span>
     response_body = response_body_text.encode(<span class="hljs-string">"utf-8"</span>)
     response_headers = [
         (<span class="hljs-string">"Content-Type"</span>, <span class="hljs-string">"text/plain; charset=utf-8"</span>),
-        (<span class="hljs-string">"Content-Length"</span>, str(len(response_body))),
+        (<span class="hljs-string">"Content-Length"</span>, <span class="hljs-built_in">str</span>(<span class="hljs-built_in">len</span>(response_body))),
     ]
     start_response(response_status, response_headers)
     <span class="hljs-keyword">return</span> [response_body]
@@ -2791,7 +2793,7 @@ mycookies[<span class="hljs-string">"cookie1"</span>].value
 <p>So lesen wir Parameter aus Formularen aus:</p>
 <pre><code class="hljs language-py"><span class="hljs-keyword">from</span> urllib.parse <span class="hljs-keyword">import</span> parse_qs
 
-request_body_size = int(environ.get(<span class="hljs-string">'CONTENT_LENGTH'</span>, <span class="hljs-string">'0'</span>))
+request_body_size = <span class="hljs-built_in">int</span>(environ.get(<span class="hljs-string">'CONTENT_LENGTH'</span>, <span class="hljs-string">'0'</span>))
 <span class="hljs-comment"># environ["wsgi.input"] is a file-like object</span>
 request_body = (environ[<span class="hljs-string">"wsgi.input"</span>]
                 .read(request_body_size)
@@ -2923,14 +2925,14 @@ connection.close()
 <p><a href="https://www.python.org/dev/peps/pep-0249">https://www.python.org/dev/peps/pep-0249</a></p>
 </section><section class="slide"><h2>SQL Statements mit Parametern</h2>
 <p>gefährlich:</p>
-<pre><code class="hljs language-py">search_name = input()
+<pre><code class="hljs language-py">search_name = <span class="hljs-built_in">input</span>()
 res = cursor.execute(
   <span class="hljs-string">f"""SELECT tel FROM person WHERE name = '<span class="hljs-subst">{search_name}</span>'"""</span>
 )
 </code></pre>
 </section><section class="slide"><h2>SQL Statements mit Parametern</h2>
 <p>sichere Methode (mit SQL-Escaping):</p>
-<pre><code class="hljs language-py">search_name = input()
+<pre><code class="hljs language-py">search_name = <span class="hljs-built_in">input</span>()
 res = cursor.execute(
   <span class="hljs-string">"""SELECT tel FROM person WHERE name = ?;"""</span>,
   (search_name, )
@@ -3024,9 +3026,9 @@ engine.connect()
 
 Base = declarative_base()
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Artist</span><span class="hljs-params">(Base)</span>:</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Artist</span>(<span class="hljs-params">Base</span>):</span>
     __tablename__ = <span class="hljs-string">"artist"</span>
-    id = Column(Integer, primary_key=<span class="hljs-literal">True</span>)
+    <span class="hljs-built_in">id</span> = Column(Integer, primary_key=<span class="hljs-literal">True</span>)
     name = Column(String(<span class="hljs-number">30</span>))
     country = Column(String(<span class="hljs-number">20</span>))
 </code></pre>
@@ -3074,7 +3076,7 @@ session.add(beatles)
 <pre><code class="hljs language-sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">name</span>, country <span class="hljs-keyword">FROM</span> artist <span class="hljs-keyword">WHERE</span> artist.name=<span class="hljs-string">'The Beatles'</span>
 </code></pre>
 <p>wird zu:</p>
-<pre><code class="hljs language-py">session.query(Artist).filter(Artist.name==<span class="hljs-string">"The Beatles"</span>).one()
+<pre><code class="hljs language-py">session.query(Artist).<span class="hljs-built_in">filter</span>(Artist.name==<span class="hljs-string">"The Beatles"</span>).one()
 </code></pre>
 </section><section class="slide"><h2>Sprechende Ausgabe von Einträgen</h2>
 <p>aktuell:</p>
@@ -3090,7 +3092,7 @@ session.add(beatles)
 <span class="hljs-keyword">WHERE</span> title = <span class="hljs-string">'Help!'</span>;
 </code></pre>
 <p>wird zu</p>
-<pre><code class="hljs language-py">entry = session.query(Song).filter(Song.title==<span class="hljs-string">"Help!"</span>).one()
+<pre><code class="hljs language-py">entry = session.query(Song).<span class="hljs-built_in">filter</span>(Song.title==<span class="hljs-string">"Help!"</span>).one()
 entry.title = <span class="hljs-string">"Help"</span>
 </code></pre>
 </section><section class="slide"><h2>Delete</h2>
@@ -3099,23 +3101,23 @@ entry.title = <span class="hljs-string">"Help"</span>
 <span class="hljs-keyword">WHERE</span> title = <span class="hljs-string">'Help!'</span>;
 </code></pre>
 <p>wird zu</p>
-<pre><code class="hljs language-py">session.query(Song).filter(Song.title==<span class="hljs-string">"Help!"</span>).delete()
+<pre><code class="hljs language-py">session.query(Song).<span class="hljs-built_in">filter</span>(Song.title==<span class="hljs-string">"Help!"</span>).delete()
 </code></pre>
 </section><section class="slide"><h2>Definition eines Fremdschlüssels</h2>
-<pre><code class="hljs language-py"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Song</span><span class="hljs-params">(Base)</span>:</span>
+<pre><code class="hljs language-py"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Song</span>(<span class="hljs-params">Base</span>):</span>
     __tablename__ = <span class="hljs-string">"song"</span>
-    id = Column(Integer, primary_key=<span class="hljs-literal">True</span>)
+    <span class="hljs-built_in">id</span> = Column(Integer, primary_key=<span class="hljs-literal">True</span>)
     title = Column(String(<span class="hljs-number">30</span>))
     artist_id = Column(Integer, ForeignKey(<span class="hljs-string">"artist.id"</span>))
 </code></pre>
 </section><section class="slide"><h2>Einfaches Abfragen einer verknüpften Tabelle</h2>
 <pre><code class="hljs language-py"><span class="hljs-keyword">from</span> sqlalchemy.orm <span class="hljs-keyword">import</span> relationship
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Artist</span><span class="hljs-params">(Base)</span>:</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Artist</span>(<span class="hljs-params">Base</span>):</span>
     ...
     songs = relationship(<span class="hljs-string">"Song"</span>)
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Song</span><span class="hljs-params">(Base)</span>:</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Song</span>(<span class="hljs-params">Base</span>):</span>
     ...
     artist_id = Column(Integer, ForeignKey(<span class="hljs-string">"artist.id"</span>))
 
@@ -3123,7 +3125,7 @@ entry.title = <span class="hljs-string">"Help"</span>
 </code></pre>
 </section><section class="slide"><h2>Einfaches Abfragen einer verknüpften Tabelle</h2>
 <pre><code class="hljs language-py">yesterday = Song(title=<span class="hljs-string">"Yesterday"</span>, artist=beatles)
-help = Song(title=<span class="hljs-string">"Help!"</span>, artist_id=beatles.id)
+<span class="hljs-built_in">help</span> = Song(title=<span class="hljs-string">"Help!"</span>, artist_id=beatles.<span class="hljs-built_in">id</span>)
 session.add(...)
 
 print(yesterday.artist)
@@ -3257,7 +3259,7 @@ hello_label.config(text=<span class="hljs-string">"Hi!"</span>)
 message_label = tk.Label(master=window, text=<span class="hljs-string">""</span>)
 message_label.pack()
 
-<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">display_message</span><span class="hljs-params">()</span>:</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">display_message</span>():</span>
     message_label.config(text=<span class="hljs-string">"Hello!"</span>)
 
 hello_button = tk.Button(master=window,
@@ -3273,22 +3275,22 @@ hello_button.pack()
 <pre><code class="hljs language-py"><span class="hljs-keyword">import</span> tkinter <span class="hljs-keyword">as</span> tk
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CounterApp</span>:</span>
-    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self</span>):</span>
         self.count = <span class="hljs-number">0</span>
 
         self.window = tk.Tk()
         self.count_btn = tk.Button(
             master=self.window,
-            text=str(self.count),
+            text=<span class="hljs-built_in">str</span>(self.count),
             command=self.increment_count
         )
         self.count_btn.pack()
 
-    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">increment_count</span><span class="hljs-params">(self)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">increment_count</span>(<span class="hljs-params">self</span>):</span>
         self.count += <span class="hljs-number">1</span>
-        self.count_btn.config(text=str(self.count))
+        self.count_btn.config(text=<span class="hljs-built_in">str</span>(self.count))
 
-    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">run</span><span class="hljs-params">(self)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">run</span>(<span class="hljs-params">self</span>):</span>
         self.window.mainloop()
 
 counter = CounterApp()

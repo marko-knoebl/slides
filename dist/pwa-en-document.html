@@ -6,10 +6,12 @@
 <ul>
 <li>based in Vienna</li>
 <li>former math teacher</li>
-<li>programming topics:<ul>
+<li>programming topics:
+<ul>
 <li>JavaScript, TypeScript and React</li>
 <li>Python, data science</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 <h2>Introduction of Participants</h2>
 <ul>
@@ -38,28 +40,36 @@
 <h2>Topics</h2>
 <ul>
 <li>web manifest file</li>
-<li>service workers<ul>
+<li>service workers
+<ul>
 <li>workbox</li>
 <li>writing service workers</li>
-</ul></li>
-<li>data storage<ul>
+</ul>
+</li>
+<li>data storage
+<ul>
 <li>localStorage</li>
 <li>indexedDB</li>
-</ul></li>
+</ul>
+</li>
 <li>notifications and push notifications</li>
 </ul>
 <h1>Basics for the course</h1>
 <h2>Basics for the course (example: todo-app)</h2>
 <ul>
-<li>Working with VS Code &#x26; Chrome<ul>
+<li>Working with VS Code &#x26; Chrome
+<ul>
 <li>Prettier</li>
 <li>Chrome Dev Tools</li>
-</ul></li>
-<li>ES2015+<ul>
+</ul>
+</li>
+<li>ES2015+
+<ul>
 <li>Modules</li>
 <li>Arrow functions</li>
 <li>const &#x26; let</li>
-</ul></li>
+</ul>
+</li>
 <li>running a local dev server</li>
 </ul>
 <h2>Arbeiten mit VS Code</h2>
@@ -75,12 +85,14 @@ http-server
 <ul>
 <li>bridge between web and apps</li>
 <li>work in the browser, on mobile and on the desktop</li>
-<li>web apps that feel like native apps:<ul>
+<li>web apps that feel like native apps:
+<ul>
 <li>app icon in the menu (web manifest)</li>
 <li>permanent installation and offline use (service workers)</li>
 <li>displaying notifications (service workers)</li>
 <li>local app data storage (localstorage, indexedDB)</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 <!-- google presentation until page 23 -->
 <h2>Browser support</h2>
@@ -193,13 +205,15 @@ workbox.routing.registerRoute(
 <ul>
 <li><code>background_color</code> - should be the same as the app's CSS background color</li>
 <li><code>description</code></li>
-<li><code>orientation</code>:<ul>
+<li><code>orientation</code>:
+<ul>
 <li><code>any</code></li>
 <li><code>natural</code></li>
 <li><code>landscape</code> (<code>landscape-primary</code>, <code>landscape-secondary</code>)</li>
 <li><code>portrait</code> (<code>portrait-primary</code>,
 <code>portrait-secondary</code>)</li>
-</ul></li>
+</ul>
+</li>
 <li><code>theme_color</code>:</li>
 </ul>
 <h2>Meta tags in HTML</h2>
@@ -220,12 +234,14 @@ workbox.routing.registerRoute(
 <h2>app install prompt</h2>
 <p>requirements to show the prompt:</p>
 <ul>
-<li>manifest file includes:<ul>
+<li>manifest file includes:
+<ul>
 <li><em>short_name</em> or <em>name</em></li>
 <li>192px and 512px icons</li>
 <li><em>start_url</em></li>
 <li><em>display</em> must be one of <em>fullscreen</em>, <em>standalone</em>, <em>minimal-ui</em></li>
-</ul></li>
+</ul>
+</li>
 <li>served via HTTPS</li>
 <li>has a service worker (with a fetch event handler)</li>
 <li>user has interacted with the domain to some extent</li>
@@ -236,7 +252,7 @@ workbox.routing.registerRoute(
 
 <span class="hljs-built_in">window</span>.addEventListener(
   <span class="hljs-string">'beforeinstallprompt'</span>,
-  (ipEvent) => {
+  <span class="hljs-function">(<span class="hljs-params">ipEvent</span>) =></span> {
     <span class="hljs-comment">// the browser is ready to show the install prompt</span>
     ipEvent.preventDefault();
     installPromptEvent = ipEvent;
@@ -246,7 +262,7 @@ workbox.routing.registerRoute(
 </code></pre>
 <h2>app install prompt</h2>
 <p>Once the user wants to install the app, we can use the stored event:</p>
-<pre><code class="hljs language-js">installBtn.addEventListener(<span class="hljs-string">'click'</span>, () => {
+<pre><code class="hljs language-js">installBtn.addEventListener(<span class="hljs-string">'click'</span>, <span class="hljs-function">() =></span> {
   <span class="hljs-comment">// Show the prompt</span>
   installPromptEvent.prompt();
   hideInstallBtn();
@@ -441,7 +457,7 @@ workbox.routing.registerRoute(
 <p>Any time the page is loaded we call <code>navigator.serviceWorker.register</code> and pass in the URL for the service worker.<br />
 If the service worker file is new or has changed it will be installed.</p>
 <h2>Registering a service worker</h2>
-<pre><code class="hljs language-js"><span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">'load'</span>, () => {
+<pre><code class="hljs language-js"><span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">'load'</span>, <span class="hljs-function">() =></span> {
   <span class="hljs-comment">// registration can be deferred until</span>
   <span class="hljs-comment">// completion of page load</span>
   <span class="hljs-keyword">if</span> (navigator.serviceWorker) {
@@ -475,7 +491,7 @@ If the service worker file is new or has changed it will be installed.</p>
 </ul>
 <p>Good opportunity for downloading and caching resources for later use</p>
 <h2>Service worker installaion</h2>
-<pre><code class="hljs language-js">self.addEventListener(<span class="hljs-string">'install'</span>, event => {
+<pre><code class="hljs language-js">self.addEventListener(<span class="hljs-string">'install'</span>, <span class="hljs-function"><span class="hljs-params">event</span> =></span> {
   <span class="hljs-built_in">console</span>.log(event);
 });
 </code></pre>
@@ -484,13 +500,13 @@ If the service worker file is new or has changed it will be installed.</p>
 <p>If there was a previous version, it activates on "restart" (when all corresponding tabs have been closed)</p>
 <p>Good opportunity for cleaning up unneeded cached files</p>
 <h2>Service worker activation</h2>
-<pre><code class="hljs language-js">self.addEventListener(<span class="hljs-string">'activate'</span>, event => {
+<pre><code class="hljs language-js">self.addEventListener(<span class="hljs-string">'activate'</span>, <span class="hljs-function"><span class="hljs-params">event</span> =></span> {
   <span class="hljs-built_in">console</span>.log(event);
 });
 </code></pre>
 <h2>Service worker activation</h2>
 <p>We can force immediate activation of a new service worker from the install event:</p>
-<pre><code class="hljs language-js">self.addEventListener(<span class="hljs-string">'install'</span>, event => {
+<pre><code class="hljs language-js">self.addEventListener(<span class="hljs-string">'install'</span>, <span class="hljs-function"><span class="hljs-params">event</span> =></span> {
   self.skipWaiting();
 });
 </code></pre>
@@ -515,7 +531,7 @@ fetch(url)
   .then(<span class="hljs-built_in">console</span>.log);
 </code></pre>
 <h2>Service workers: handling fetch</h2>
-<pre><code class="hljs language-js">self.addEventListener(<span class="hljs-string">'fetch'</span>, event => {
+<pre><code class="hljs language-js">self.addEventListener(<span class="hljs-string">'fetch'</span>, <span class="hljs-function"><span class="hljs-params">event</span> =></span> {
   event.respondWith(
     <span class="hljs-keyword">new</span> Response(<span class="hljs-string">'All pages look like this'</span>)
   );
@@ -529,7 +545,7 @@ there are two $ signs in regexes in this code
 if they are at the very end of the string
 they will mess up the result
 -->
-<pre><code class="hljs language-js">self.addEventListener(<span class="hljs-string">'fetch'</span>, event => {
+<pre><code class="hljs language-js">self.addEventListener(<span class="hljs-string">'fetch'</span>, <span class="hljs-function"><span class="hljs-params">event</span> =></span> {
   <span class="hljs-keyword">if</span> (<span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">'/about/$ '</span>).test(event.request.url)) {
     event.respondWith(<span class="hljs-keyword">new</span> Response(<span class="hljs-string">'About'</span>));
   } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">'/a$ '</span>).test(event.request.url)) {
@@ -542,7 +558,7 @@ they will mess up the result
 <h2>Service workers: handling fetch</h2>
 <p>Exercise: logging all network requests and passing the work on to <code>fetch</code></p>
 <h2>Service workers: handling fetch</h2>
-<pre><code class="hljs language-js">self.addEventListener(<span class="hljs-string">'fetch'</span>, event => {
+<pre><code class="hljs language-js">self.addEventListener(<span class="hljs-string">'fetch'</span>, <span class="hljs-function"><span class="hljs-params">event</span> =></span> {
   <span class="hljs-built_in">console</span>.log(event);
   <span class="hljs-keyword">return</span> fetch(event.request);
 });
@@ -560,7 +576,7 @@ they will mess up the result
 <p>Via the global variable <code>caches.open</code> or via <code>self.caches.open</code> in the service worker</p>
 <p>Promise:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">let</span> myCache;
-caches.open(<span class="hljs-string">'test'</span>, mc => {
+caches.open(<span class="hljs-string">'test'</span>, <span class="hljs-function"><span class="hljs-params">mc</span> =></span> {
   myCache = mc;
 });
 </code></pre>
@@ -599,18 +615,18 @@ cache.addAll([<span class="hljs-string">'/'</span>, <span class="hljs-string">'/
 </code></pre>
 <h2>Example: cache only (short)</h2>
 <p>An application that will precache resources and always provide them to the user</p>
-<pre><code class="hljs language-js">self.addEventListener(<span class="hljs-string">'install'</span>, () => {
+<pre><code class="hljs language-js">self.addEventListener(<span class="hljs-string">'install'</span>, <span class="hljs-function">() =></span> {
   cache.addAll([<span class="hljs-string">'/'</span>, <span class="hljs-string">'/index.html'</span>, <span class="hljs-string">'/about'</span>])
 })
 
-self.addEventListener(<span class="hljs-string">'fetch'</span>, event => {
+self.addEventListener(<span class="hljs-string">'fetch'</span>, <span class="hljs-function"><span class="hljs-params">event</span> =></span> {
   event.respondWith(
     caches.match(event.request);
   )
 })
 </code></pre>
 <h2>Example: cache only (full code)</h2>
-<pre><code class="hljs language-js">self.addEventListener(<span class="hljs-string">'install'</span>, installEvent => {
+<pre><code class="hljs language-js">self.addEventListener(<span class="hljs-string">'install'</span>, <span class="hljs-function"><span class="hljs-params">installEvent</span> =></span> {
   <span class="hljs-comment">// wait for the cache to be populated;</span>
   <span class="hljs-comment">// abort install on error</span>
   installEvent.waitUntil(
@@ -628,7 +644,7 @@ self.addEventListener(<span class="hljs-string">'fetch'</span>, event => {
 <p>A call to <code>waitUntil</code> can be used to signify when the <em>install</em> was successfull - the service worker will only <em>activate</em> if it was</p>
 <h2>Example: updating the cache</h2>
 <p>deleting old entries:</p>
-<pre><code class="hljs language-js">self.addEventListener(<span class="hljs-string">'activate'</span>, activateEvent => {
+<pre><code class="hljs language-js">self.addEventListener(<span class="hljs-string">'activate'</span>, <span class="hljs-function"><span class="hljs-params">activateEvent</span> =></span> {
   activateEvent.waitUntil(
     <span class="hljs-built_in">Promise</span>.all([
       caches.delete(<span class="hljs-string">'app-shell-cache-v2'</span>),
@@ -638,7 +654,7 @@ self.addEventListener(<span class="hljs-string">'fetch'</span>, event => {
 });
 </code></pre>
 <h2>Example: retrieve from cache with network fallback</h2>
-<pre><code class="hljs language-js">self.addEventListener(<span class="hljs-string">'fetch'</span>, event => {
+<pre><code class="hljs language-js">self.addEventListener(<span class="hljs-string">'fetch'</span>, <span class="hljs-function"><span class="hljs-params">event</span> =></span> {
   event.respondWith(
     caches
       .match(event.request)
@@ -647,7 +663,7 @@ self.addEventListener(<span class="hljs-string">'fetch'</span>, event => {
 });
 </code></pre>
 <h2>Example: updating the cache on every request</h2>
-<pre><code class="hljs language-js">self.addEventListener(<span class="hljs-string">'fetch'</span>, event => {
+<pre><code class="hljs language-js">self.addEventListener(<span class="hljs-string">'fetch'</span>, <span class="hljs-function"><span class="hljs-params">event</span> =></span> {
   event.respondWith(
     fetch(event.request).then(<span class="hljs-function"><span class="hljs-params">response</span> =></span> {
       cache.put(event.request, response.clone());
@@ -682,9 +698,9 @@ self.addEventListener(<span class="hljs-string">'fetch'</span>, event => {
 <h2>localStorage</h2>
 <p>storing and retrieving some data</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> todoString = <span class="hljs-built_in">JSON</span>.stringify(todos);
-localStorage.setItem(<span class="hljs-string">'todos'</span>, todoString);
+<span class="hljs-built_in">localStorage</span>.setItem(<span class="hljs-string">'todos'</span>, todoString);
 </code></pre>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> todoString = localStorage.getItem(<span class="hljs-string">'todos'</span>);
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> todoString = <span class="hljs-built_in">localStorage</span>.getItem(<span class="hljs-string">'todos'</span>);
 todos = <span class="hljs-built_in">JSON</span>.parse(todoString);
 </code></pre>
 <h1>indexedDB</h1>
@@ -1032,10 +1048,12 @@ navigator.serviceWorker
 <ul>
 <li>user visits a web app, enables notifications</li>
 <li>the web app communicates with the browser vendor (Google, Mozilla, ...); the vendor creates a unique enpoint URL and a public key for encryption and shares them with the browser<br />
-The endpoint URL could look like this:<ul>
+The endpoint URL could look like this:
+<ul>
 <li><code>https://android.googleapis.com/gcm/send/IDENTIFIER</code></li>
 <li><code>https://updates.push.services.mozilla.com/wpush/v1/IDENTIFIER</code></li>
-</ul></li>
+</ul>
+</li>
 <li>the web app shares the endpoint URL and public key with the backend</li>
 <li>from the backend, we can now send data to the endpoint URL, encrypted withe the public key. It will be received by the user's service worker</li>
 </ul>

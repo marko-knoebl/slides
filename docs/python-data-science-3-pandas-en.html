@@ -2403,17 +2403,17 @@ iris_setosa[<span class="hljs-string">"sepal_ratio"</span>].std()
 <pre><code class="hljs language-py">values_np = sp500[<span class="hljs-string">"SP500"</span>].to_numpy()
 </code></pre>
 <p>differences of sequential months:</p>
-<pre><code class="hljs language-py">diffs = values_np[<span class="hljs-number">1</span>:] - values_np[:<span class="hljs-number">-1</span>]
+<pre><code class="hljs language-py">diffs = values_np[<span class="hljs-number">1</span>:] - values_np[:-<span class="hljs-number">1</span>]
 <span class="hljs-comment"># add a single NaN to the front</span>
 diffs = np.concatenate([
-    np.array([float(<span class="hljs-string">'nan'</span>)]), diffs])
+    np.array([<span class="hljs-built_in">float</span>(<span class="hljs-string">'nan'</span>)]), diffs])
 </code></pre>
 <p>adding to pandas data:</p>
 <pre><code class="hljs language-py">sp500[<span class="hljs-string">"Diff"</span>] = diffs
 sp500[<span class="hljs-string">"Gain"</span>] = sp500[<span class="hljs-string">"Diff"</span>] / sp500[<span class="hljs-string">"SP500"</span>]
 </code></pre>
 </section><section class="slide"><h2>Computing derived data via custom functions</h2>
-<pre><code class="hljs language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">classifier</span><span class="hljs-params">(value)</span>:</span>
+<pre><code class="hljs language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">classifier</span>(<span class="hljs-params">value</span>):</span>
     <span class="hljs-keyword">if</span> value &#x3C; <span class="hljs-number">2</span>:
         <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>
     <span class="hljs-keyword">elif</span> value &#x3C; <span class="hljs-number">10</span>:
@@ -2426,7 +2426,7 @@ df[<span class="hljs-string">"class"</span>] = df[<span class="hljs-string">"val
 </section><section class="slide"><h2>Setting data</h2>
 <pre><code class="hljs language-py">iris.iloc[<span class="hljs-number">0</span>, <span class="hljs-number">0</span>] = <span class="hljs-number">6</span>
 
-iris.loc[:, <span class="hljs-string">"sepal_ratio"</span>] = float(<span class="hljs-string">'nan'</span>)
+iris.loc[:, <span class="hljs-string">"sepal_ratio"</span>] = <span class="hljs-built_in">float</span>(<span class="hljs-string">'nan'</span>)
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Missing data</h1>
 </section><section class="slide"><h2>Missing data</h2>
@@ -2502,7 +2502,7 @@ plt.show()
 <pre><code class="hljs language-py">sp500[<span class="hljs-string">"SP500"</span>].plot.line(figsize=(<span class="hljs-number">9</span>, <span class="hljs-number">6</span>))
 </code></pre>
 </section><section class="slide"><h2>Bar chart</h2>
-<pre><code class="hljs language-py">euribor.iloc[<span class="hljs-number">-36</span>:].plot.bar()
+<pre><code class="hljs language-py">euribor.iloc[-<span class="hljs-number">36</span>:].plot.bar()
 </code></pre>
 <p>Exercise: Visualize the median of <em>sepal-width</em> and <em>sepal-length</em> for all three types of flowers</p>
 </section><section class="slide"><h2>Scatter Plot</h2>
@@ -2586,9 +2586,9 @@ plt.scatter(x, y, <span class="hljs-number">2</span>, <span class="hljs-string">
 </section><section class="slide"><h2>Counts</h2>
 <pre><code class="hljs language-py">titanic[<span class="hljs-string">"class"</span>].value_counts()
 </code></pre>
-<pre><code class="hljs language-angelscript">Third     <span class="hljs-number">491</span>
-First     <span class="hljs-number">216</span>
-Second    <span class="hljs-number">184</span>
+<pre><code class="hljs language-apache"><span class="hljs-attribute">Third</span>     <span class="hljs-number">491</span>
+<span class="hljs-attribute">First</span>     <span class="hljs-number">216</span>
+<span class="hljs-attribute">Second</span>    <span class="hljs-number">184</span>
 </code></pre>
 </section><section class="slide"><h2>Cross tabulation</h2>
 <p>A <em>cross tabulation</em> shows the number of corresponding entries across multiple properties</p>
@@ -2608,11 +2608,11 @@ Second    <span class="hljs-number">184</span>
 <p>example: average of the iris data</p>
 <pre><code class="hljs language-py">iris.groupby(iris.name).mean()
 </code></pre>
-<pre><code class="hljs language-angelscript">                 sepal_length  sepal_width  petal_length  petal_width
-name
-Iris-setosa             <span class="hljs-number">5.006</span>        <span class="hljs-number">3.418</span>         <span class="hljs-number">1.464</span>        <span class="hljs-number">0.244</span>
-Iris-versicolor         <span class="hljs-number">5.936</span>        <span class="hljs-number">2.770</span>         <span class="hljs-number">4.260</span>        <span class="hljs-number">1.326</span>
-Iris-virginica          <span class="hljs-number">6.588</span>        <span class="hljs-number">2.974</span>         <span class="hljs-number">5.552</span>        <span class="hljs-number">2.026</span>
+<pre><code class="hljs language-apache">                 <span class="hljs-attribute">sepal_length</span>  sepal_width  petal_length  petal_width
+<span class="hljs-attribute">name</span>
+<span class="hljs-attribute">Iris</span>-setosa             <span class="hljs-number">5</span>.<span class="hljs-number">006</span>        <span class="hljs-number">3</span>.<span class="hljs-number">418</span>         <span class="hljs-number">1</span>.<span class="hljs-number">464</span>        <span class="hljs-number">0</span>.<span class="hljs-number">244</span>
+<span class="hljs-attribute">Iris</span>-versicolor         <span class="hljs-number">5</span>.<span class="hljs-number">936</span>        <span class="hljs-number">2</span>.<span class="hljs-number">770</span>         <span class="hljs-number">4</span>.<span class="hljs-number">260</span>        <span class="hljs-number">1</span>.<span class="hljs-number">326</span>
+<span class="hljs-attribute">Iris</span>-virginica          <span class="hljs-number">6</span>.<span class="hljs-number">588</span>        <span class="hljs-number">2</span>.<span class="hljs-number">974</span>         <span class="hljs-number">5</span>.<span class="hljs-number">552</span>        <span class="hljs-number">2</span>.<span class="hljs-number">026</span>
 </code></pre>
 </section><section class="slide"><h2>Grouping</h2>
 <p>Exercise: average USD exchange rates for each currency in the 90s</p>

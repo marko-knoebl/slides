@@ -2069,11 +2069,13 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <ul>
 <li>component demos with <em>Storybook</em></li>
 <li>testing React applications with <em>puppeteer</em></li>
-<li>libraries for testing React components<ul>
+<li>libraries for testing React components
+<ul>
 <li>react-testing-library</li>
 <li>react-test-renderer</li>
 <li>enzyme</li>
-</ul></li>
+</ul>
+</li>
 <li>snapshot tests</li>
 </ul>
 </section><section class="slide"><h2>Resource</h2>
@@ -2103,8 +2105,8 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> { <span class="hljs-attr">title</span>: <span class="hljs-string">'Rating'</span>, <span class="hljs-attr">component</span>: Rating };
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> OneStar = <span class="hljs-function"><span class="hljs-params">()</span> =></span> &#x3C;Rating stars={1} />;
-export const FiveStars = () => &#x3C;Rating stars={5} />;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> OneStar = <span class="hljs-function">() =></span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Rating</span> <span class="hljs-attr">stars</span>=<span class="hljs-string">{1}</span> /></span></span>;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> FiveStars = <span class="hljs-function">() =></span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Rating</span> <span class="hljs-attr">stars</span>=<span class="hljs-string">{5}</span> /></span></span>;
 </code></pre>
 </section><section class="slide"><h2>Stories</h2>
 <p>example with template, props (controls) and events (actions)</p>
@@ -2113,13 +2115,13 @@ export const FiveStars = () => &#x3C;Rating stars={5} />;
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> { <span class="hljs-attr">title</span>: <span class="hljs-string">'Rating'</span>, <span class="hljs-attr">component</span>: Rating };
 
-<span class="hljs-keyword">const</span> RatingStoryTemplate = <span class="hljs-function">(<span class="hljs-params">args</span>) =></span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Rating</span> {<span class="hljs-attr">...args</span>} /></span>;
+<span class="hljs-keyword">const</span> RatingStoryTemplate = <span class="hljs-function">(<span class="hljs-params">args</span>) =></span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Rating</span> {<span class="hljs-attr">...args</span>} /></span></span>;
 
-export const OneStar = RatingStoryTemplate.bind({});
-OneStar.args = { stars: 1 };
-export const FiveStars = RatingStoryTemplate.bind({});
-FiveStars.args = { stars: 5 };
-</span></code></pre>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> OneStar = RatingStoryTemplate.bind({});
+OneStar.args = { <span class="hljs-attr">stars</span>: <span class="hljs-number">1</span> };
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> FiveStars = RatingStoryTemplate.bind({});
+FiveStars.args = { <span class="hljs-attr">stars</span>: <span class="hljs-number">5</span> };
+</code></pre>
 </section><section class="slide"><h2>Stories</h2>
 <p>props with TypeScript:</p>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> React, { ComponentProps } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
@@ -2162,14 +2164,14 @@ test(<span class="hljs-string">"displays page with title 'React App'"</span>, <s
 </section><section class="slide"><h2>Example</h2>
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { render, screen } <span class="hljs-keyword">from</span> <span class="hljs-string">'@testing-library/react'</span>;
 
-test(<span class="hljs-string">'renders learn react link'</span>, () => {
-  render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">App</span> /></span>);
-  const linkElement = screen.getByRole('link', {
-    name: /learn react/i,
+test(<span class="hljs-string">'renders learn react link'</span>, <span class="hljs-function">() =></span> {
+  render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">App</span> /></span></span>);
+  <span class="hljs-keyword">const</span> linkElement = screen.getByRole(<span class="hljs-string">'link'</span>, {
+    <span class="hljs-attr">name</span>: <span class="hljs-regexp">/learn react/i</span>,
   });
   expect(linkElement).toBeInTheDocument();
 });
-</span></code></pre>
+</code></pre>
 </section><section class="slide"><h2>Querying elements</h2>
 <p>Querying by <em>ARIA role</em> and <em>accessible name</em>:</p>
 <pre><code class="hljs language-js">screen.getByRole(<span class="hljs-string">'button'</span>, { <span class="hljs-attr">name</span>: <span class="hljs-regexp">/delete/i</span> });
@@ -2233,46 +2235,46 @@ userEvent.click(
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>React-Testing-Library example: todo app</h1>
 </section><section class="slide"><h2>Testing the rendering</h2>
-<pre><code class="hljs language-jsx">test(<span class="hljs-string">'renders a list item with a given text'</span>, () => {
+<pre><code class="hljs language-jsx">test(<span class="hljs-string">'renders a list item with a given text'</span>, <span class="hljs-function">() =></span> {
   <span class="hljs-keyword">const</span> title = <span class="hljs-string">'test-title'</span>;
-  render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">TodoItem</span> <span class="hljs-attr">title</span>=<span class="hljs-string">{title}</span> <span class="hljs-attr">completed</span>=<span class="hljs-string">{false}</span> /></span>);
-  const listItem = screen.getByRole('listitem');
-  expect(listItem).toHaveTextContent(new RegExp(title));
+  render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">TodoItem</span> <span class="hljs-attr">title</span>=<span class="hljs-string">{title}</span> <span class="hljs-attr">completed</span>=<span class="hljs-string">{false}</span> /></span></span>);
+  <span class="hljs-keyword">const</span> listItem = screen.getByRole(<span class="hljs-string">'listitem'</span>);
+  expect(listItem).toHaveTextContent(<span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(title));
 });
-</span></code></pre>
+</code></pre>
 </section><section class="slide"><h2>Testing events</h2>
-<pre><code class="hljs language-jsx">test(<span class="hljs-string">'triggers the toggle event'</span>, () => {
+<pre><code class="hljs language-jsx">test(<span class="hljs-string">'triggers the toggle event'</span>, <span class="hljs-function">() =></span> {
   <span class="hljs-keyword">const</span> mockFn = jest.fn();
   render(
     <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">TodoItem</span>
       <span class="hljs-attr">title</span>=<span class="hljs-string">"foo"</span>
       <span class="hljs-attr">completed</span>=<span class="hljs-string">{false}</span>
       <span class="hljs-attr">onToggle</span>=<span class="hljs-string">{mockFn}</span>
-    /></span>
+    /></span></span>
   );
-  const listItem = screen.getByRole('listitem');
+  <span class="hljs-keyword">const</span> listItem = screen.getByRole(<span class="hljs-string">'listitem'</span>);
   userEvent.click(listItem);
   expect(mockFn).toHaveBeenCalled();
 });
-</span></code></pre>
+</code></pre>
 </section><section class="slide"><h2>Setting up initial state</h2>
 <p>Setting up a todo application with three todos before each test:</p>
-<pre><code class="hljs language-jsx">beforeEach(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">TodoApp</span> /></span>);
-  const newTitleInput = screen.getByRole('textbox', {
-    name: /new title/i,
+<pre><code class="hljs language-jsx">beforeEach(<span class="hljs-function">() =></span> {
+  render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">TodoApp</span> /></span></span>);
+  <span class="hljs-keyword">const</span> newTitleInput = screen.getByRole(<span class="hljs-string">'textbox'</span>, {
+    <span class="hljs-attr">name</span>: <span class="hljs-regexp">/new title/i</span>,
   });
-  const addButton = screen.getByRole('button', {
-    name: 'add',
+  <span class="hljs-keyword">const</span> addButton = screen.getByRole(<span class="hljs-string">'button'</span>, {
+    <span class="hljs-attr">name</span>: <span class="hljs-string">'add'</span>,
   });
-  for (let title of ['first', 'second', 'third']) {
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> title <span class="hljs-keyword">of</span> [<span class="hljs-string">'first'</span>, <span class="hljs-string">'second'</span>, <span class="hljs-string">'third'</span>]) {
     userEvent.type(newTitleInput, title);
     userEvent.click(addButton);
   }
 });
-</span></code></pre>
+</code></pre>
 </section><section class="slide"><h2>Testing state changes</h2>
-<pre><code class="hljs language-jsx">test(<span class="hljs-string">'toggling a todo'</span>, () => {
+<pre><code class="hljs language-jsx">test(<span class="hljs-string">'toggling a todo'</span>, <span class="hljs-function">() =></span> {
   <span class="hljs-keyword">const</span> todoList = screen.getByRole(<span class="hljs-string">'list'</span>);
   <span class="hljs-keyword">const</span> firstTodoItem = within(todoList).getAllByRole(
     <span class="hljs-string">'listitem'</span>
@@ -2307,9 +2309,9 @@ userEvent.click(
 <p><code>findByRole</code> will repeatedly query for an element until it exists (by default every 0.05 seconds for a maximum of 1 second)</p>
 </section><section class="slide"><h2>Testing asynchronous code</h2>
 <p>task: testing a <code>ChuckNorrisJoke</code> component which queries an API:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> ChuckNorrisJoke = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> ChuckNorrisJoke = <span class="hljs-function">() =></span> {
   <span class="hljs-keyword">const</span> [joke, setJoke] = useState(<span class="hljs-literal">null</span>);
-  useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  useEffect(<span class="hljs-function">() =></span> {
     fetch(<span class="hljs-string">'https://api.chucknorris.io/jokes/random'</span>)
       .then(<span class="hljs-function">(<span class="hljs-params">res</span>) =></span> res.json())
       .then(<span class="hljs-function">(<span class="hljs-params">data</span>) =></span> setJoke(data.value));
@@ -2323,33 +2325,33 @@ userEvent.click(
 </section><section class="slide"><h2>Testing asynchronous interactions</h2>
 <p>testing with an actual API:</p>
 <pre><code class="hljs language-js">test(<span class="hljs-string">'load Chuck Norris joke from API'</span>, <span class="hljs-keyword">async</span> () => {
-  render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">ChuckNorrisJoke</span> /></span>);
-  const jokeElement = await screen.findByRole('article');
-  // joke should have at least 3 characters
-  expect(jokeElement).toHaveTextContent(/.../);
+  render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">ChuckNorrisJoke</span> /></span></span>);
+  <span class="hljs-keyword">const</span> jokeElement = <span class="hljs-keyword">await</span> screen.findByRole(<span class="hljs-string">'article'</span>);
+  <span class="hljs-comment">// joke should have at least 3 characters</span>
+  expect(jokeElement).toHaveTextContent(<span class="hljs-regexp">/.../</span>);
 });
-</span></code></pre>
+</code></pre>
 </section><section class="slide"><h2>Testing asynchronous interactions</h2>
 <p>Testing with a mocked API:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> data = {
   <span class="hljs-attr">value</span>: <span class="hljs-string">'Chuck Norris counted to infinity. Twice.'</span>,
 };
-globalThis.fetch = <span class="hljs-function"><span class="hljs-params">()</span> =></span>
-  <span class="hljs-built_in">Promise</span>.resolve({ <span class="hljs-attr">json</span>: <span class="hljs-function"><span class="hljs-params">()</span> =></span> <span class="hljs-built_in">Promise</span>.resolve(data) });
+globalThis.fetch = <span class="hljs-function">() =></span>
+  <span class="hljs-built_in">Promise</span>.resolve({ <span class="hljs-attr">json</span>: <span class="hljs-function">() =></span> <span class="hljs-built_in">Promise</span>.resolve(data) });
 </code></pre>
 </section><section class="slide"><h2>Testing errors</h2>
 <p>TodoItem component:</p>
-<pre><code class="hljs language-jsx">test(<span class="hljs-string">'throw an error if the title is missing'</span>, () => {
-  <span class="hljs-keyword">const</span> testFn = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-    render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">TodoItem</span> /></span>);
+<pre><code class="hljs language-jsx">test(<span class="hljs-string">'throw an error if the title is missing'</span>, <span class="hljs-function">() =></span> {
+  <span class="hljs-keyword">const</span> testFn = <span class="hljs-function">() =></span> {
+    render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">TodoItem</span> /></span></span>);
   };
   expect(testFn).toThrow(
-    'property "title" must be present'
+    <span class="hljs-string">'property "title" must be present'</span>
   );
 });
-</span></code></pre>
+</code></pre>
 </section><section class="slide"><h2>Testing for non-existence</h2>
-<pre><code class="hljs language-js">expect(<span class="hljs-function"><span class="hljs-params">()</span> =></span> getByRole(<span class="hljs-string">'listitem'</span>)).toThrow();
+<pre><code class="hljs language-js">expect(<span class="hljs-function">() =></span> getByRole(<span class="hljs-string">'listitem'</span>)).toThrow();
 </code></pre>
 <p>or via <em>queryBy...</em>:</p>
 <pre><code class="hljs language-js">expect(queryByRole(<span class="hljs-string">'listitem'</span>)).toEqual(<span class="hljs-literal">null</span>);
@@ -2371,11 +2373,11 @@ globalThis.fetch = <span class="hljs-function"><span class="hljs-params">()</spa
 </section><section class="slide"><h2>React-Test-Renderer - Example</h2>
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> TestRenderer <span class="hljs-keyword">from</span> <span class="hljs-string">'react-test-renderer'</span>;
 
-it(<span class="hljs-string">'renders a component without crashing'</span>, () => {
-  <span class="hljs-keyword">const</span> instance = TestRenderer.create(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">MyComponent</span> /></span>)
+it(<span class="hljs-string">'renders a component without crashing'</span>, <span class="hljs-function">() =></span> {
+  <span class="hljs-keyword">const</span> instance = TestRenderer.create(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">MyComponent</span> /></span></span>)
     .root;
 });
-</span></code></pre>
+</code></pre>
 </section><section class="slide"><h2>React-Test-Renderer - working with instances</h2>
 <ul>
 <li><code>instance.find(All)</code> (receives a test function as an argument)</li>
@@ -2396,47 +2398,47 @@ it(<span class="hljs-string">'renders a component without crashing'</span>, () =
 <span class="hljs-keyword">import</span> Rating <span class="hljs-keyword">from</span> <span class="hljs-string">'./Rating'</span>;
 </code></pre>
 </section><section class="slide"><h2>Testing the rendering</h2>
-<pre><code class="hljs language-jsx">describe(<span class="hljs-string">'rendering'</span>, () => {
-  it(<span class="hljs-string">'renders 5 spans'</span>, () => {
+<pre><code class="hljs language-jsx">describe(<span class="hljs-string">'rendering'</span>, <span class="hljs-function">() =></span> {
+  it(<span class="hljs-string">'renders 5 spans'</span>, <span class="hljs-function">() =></span> {
     <span class="hljs-keyword">const</span> instance = TestRenderer.create(
-      &#x3C;Rating stars={3} />
+      <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Rating</span> <span class="hljs-attr">stars</span>=<span class="hljs-string">{3}</span> /></span></span>
     ).root;
-    expect(instance.findAllByType('span')).toHaveLength(5);
+    expect(instance.findAllByType(<span class="hljs-string">'span'</span>)).toHaveLength(<span class="hljs-number">5</span>);
   });
 
-  it('renders 3 active stars', () => {
-    const instance = TestRenderer.create(
-      &#x3C;Rating stars={3} />
+  it(<span class="hljs-string">'renders 3 active stars'</span>, <span class="hljs-function">() =></span> {
+    <span class="hljs-keyword">const</span> instance = TestRenderer.create(
+      <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Rating</span> <span class="hljs-attr">stars</span>=<span class="hljs-string">{3}</span> /></span></span>
     ).root;
     expect(
-      instance.findAllByProps({ className: 'star active' })
-    ).toHaveLength(3);
+      instance.findAllByProps({ <span class="hljs-attr">className</span>: <span class="hljs-string">'star active'</span> })
+    ).toHaveLength(<span class="hljs-number">3</span>);
   });
 });
 </code></pre>
 </section><section class="slide"><h2>Testing events</h2>
-<pre><code class="hljs language-jsx">describe(<span class="hljs-string">'events'</span>, () => {
-  it(<span class="hljs-string">'reacts to click on the fourth star'</span>, () => {
+<pre><code class="hljs language-jsx">describe(<span class="hljs-string">'events'</span>, <span class="hljs-function">() =></span> {
+  it(<span class="hljs-string">'reacts to click on the fourth star'</span>, <span class="hljs-function">() =></span> {
     <span class="hljs-keyword">const</span> mockFn = jest.fn();
     <span class="hljs-keyword">const</span> instance = TestRenderer.create(
-      <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Rating</span> <span class="hljs-attr">stars</span>=<span class="hljs-string">{3}</span> <span class="hljs-attr">onStarsChange</span>=<span class="hljs-string">{mockFn}</span> /></span>
+      <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Rating</span> <span class="hljs-attr">stars</span>=<span class="hljs-string">{3}</span> <span class="hljs-attr">onStarsChange</span>=<span class="hljs-string">{mockFn}</span> /></span></span>
     ).root;
-    const fourthStar = instance.findAllByType('span')[3];
+    <span class="hljs-keyword">const</span> fourthStar = instance.findAllByType(<span class="hljs-string">'span'</span>)[<span class="hljs-number">3</span>];
     fourthStar.props.onClick();
-    expect(mockFn).toBeCalledWith(4);
+    expect(mockFn).toBeCalledWith(<span class="hljs-number">4</span>);
   });
 });
-</span></code></pre>
+</code></pre>
 </section><section class="slide"><h2>Testing exceptions</h2>
-<pre><code class="hljs language-jsx">describe(<span class="hljs-string">'errors'</span>, () => {
-  it(<span class="hljs-string">'throws an error if the number of stars is 0'</span>, () => {
-    <span class="hljs-keyword">const</span> testFn = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-      TestRenderer.create(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Rating</span> <span class="hljs-attr">stars</span>=<span class="hljs-string">{0}</span> /></span>);
+<pre><code class="hljs language-jsx">describe(<span class="hljs-string">'errors'</span>, <span class="hljs-function">() =></span> {
+  it(<span class="hljs-string">'throws an error if the number of stars is 0'</span>, <span class="hljs-function">() =></span> {
+    <span class="hljs-keyword">const</span> testFn = <span class="hljs-function">() =></span> {
+      TestRenderer.create(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Rating</span> <span class="hljs-attr">stars</span>=<span class="hljs-string">{0}</span> /></span></span>);
     };
-    expect(testFn).toThrow('number of stars must be 1-5');
+    expect(testFn).toThrow(<span class="hljs-string">'number of stars must be 1-5'</span>);
   });
 });
-</span></code></pre>
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Enzyme</h1>
 </section><section class="slide"><h2>Enzyme - Installation &#x26; Setup</h2>
 <pre><code class="hljs language-q">npm install --<span class="hljs-built_in">save</span>-<span class="hljs-built_in">dev</span> enzyme enzyme-adapter-react<span class="hljs-number">-16</span>
@@ -2450,14 +2452,14 @@ configure({ <span class="hljs-attr">adapter</span>: <span class="hljs-keyword">n
 </section><section class="slide"><h2>Enzyme - Examples</h2>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> { shallow, mount } <span class="hljs-keyword">from</span> <span class="hljs-string">'enzyme'</span>;
 
-it(<span class="hljs-string">'renders a component without crashing'</span>, () => {
-  <span class="hljs-keyword">const</span> wrapper = shallow(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">MyComponent</span> /></span>);
+it(<span class="hljs-string">'renders a component without crashing'</span>, <span class="hljs-function">() =></span> {
+  <span class="hljs-keyword">const</span> wrapper = shallow(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">MyComponent</span> /></span></span>);
 });
 
-it('renders a component tree without crashing', () => {
-  const wrapper = mount(<span class="hljs-tag">&#x3C;<span class="hljs-name">MyComponent</span> /></span>);
+it(<span class="hljs-string">'renders a component tree without crashing'</span>, <span class="hljs-function">() =></span> {
+  <span class="hljs-keyword">const</span> wrapper = mount(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">MyComponent</span> /></span></span>);
 });
-</span></code></pre>
+</code></pre>
 </section><section class="slide"><h2>Enzyme - Cheatsheet</h2>
 <p><a href="https://devhints.io/enzyme">https://devhints.io/enzyme</a></p>
 </section><section class="slide"><h2>Example: testing a rating component</h2>
@@ -2469,72 +2471,72 @@ it('renders a component tree without crashing', () => {
 <span class="hljs-keyword">import</span> Rating <span class="hljs-keyword">from</span> <span class="hljs-string">'./Rating'</span>;
 </code></pre>
 </section><section class="slide"><h2>Example: testing a rating component</h2>
-<pre><code class="hljs language-jsx">describe(<span class="hljs-string">'rendering'</span>, () => {
-  it(<span class="hljs-string">'renders 5 Star components'</span>, () => {
-    <span class="hljs-keyword">const</span> wrapper = shallow(&#x3C;Rating stars={5} />);
-    expect(wrapper.find('Star')).toHaveLength(5);
+<pre><code class="hljs language-jsx">describe(<span class="hljs-string">'rendering'</span>, <span class="hljs-function">() =></span> {
+  it(<span class="hljs-string">'renders 5 Star components'</span>, <span class="hljs-function">() =></span> {
+    <span class="hljs-keyword">const</span> wrapper = shallow(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Rating</span> <span class="hljs-attr">stars</span>=<span class="hljs-string">{5}</span> /></span></span>);
+    expect(wrapper.find(<span class="hljs-string">'Star'</span>)).toHaveLength(<span class="hljs-number">5</span>);
   });
 
-  it('renders 5 stars', () => {
-    const wrapper = mount(&#x3C;Rating stars={5} />);
-    expect(wrapper.find('.star')).toHaveLength(5);
+  it(<span class="hljs-string">'renders 5 stars'</span>, <span class="hljs-function">() =></span> {
+    <span class="hljs-keyword">const</span> wrapper = mount(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Rating</span> <span class="hljs-attr">stars</span>=<span class="hljs-string">{5}</span> /></span></span>);
+    expect(wrapper.find(<span class="hljs-string">'.star'</span>)).toHaveLength(<span class="hljs-number">5</span>);
   });
 });
 </code></pre>
 </section><section class="slide"><h2>Example: testing a rating component</h2>
-<pre><code class="hljs language-jsx">describe(<span class="hljs-string">'rendering'</span>, () => {
-  it(<span class="hljs-string">'renders 3 active stars'</span>, () => {
-    <span class="hljs-keyword">const</span> wrapper = mount(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Rating</span> <span class="hljs-attr">stars</span>=<span class="hljs-string">{3}</span> /></span>);
-    expect(wrapper.find('.star')).toHaveLength(5);
+<pre><code class="hljs language-jsx">describe(<span class="hljs-string">'rendering'</span>, <span class="hljs-function">() =></span> {
+  it(<span class="hljs-string">'renders 3 active stars'</span>, <span class="hljs-function">() =></span> {
+    <span class="hljs-keyword">const</span> wrapper = mount(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Rating</span> <span class="hljs-attr">stars</span>=<span class="hljs-string">{3}</span> /></span></span>);
+    expect(wrapper.find(<span class="hljs-string">'.star'</span>)).toHaveLength(<span class="hljs-number">5</span>);
     expect(
-      wrapper.find('.star').get(2).props.className
-    ).toEqual('star active');
+      wrapper.find(<span class="hljs-string">'.star'</span>).get(<span class="hljs-number">2</span>).props.className
+    ).toEqual(<span class="hljs-string">'star active'</span>);
     expect(
-      wrapper.find('.star').get(3).props.className
-    ).toEqual('star');
+      wrapper.find(<span class="hljs-string">'.star'</span>).get(<span class="hljs-number">3</span>).props.className
+    ).toEqual(<span class="hljs-string">'star'</span>);
   });
 });
-</span></code></pre>
+</code></pre>
 </section><section class="slide"><h2>Example: testing a rating component</h2>
-<pre><code class="hljs language-jsx">describe(<span class="hljs-string">'events'</span>, () => {
-  it(<span class="hljs-string">'reacts to click on first star'</span>, () => {
+<pre><code class="hljs language-jsx">describe(<span class="hljs-string">'events'</span>, <span class="hljs-function">() =></span> {
+  it(<span class="hljs-string">'reacts to click on first star'</span>, <span class="hljs-function">() =></span> {
     <span class="hljs-keyword">const</span> mockFn = fn();
     <span class="hljs-keyword">const</span> wrapper = mount(
-      <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Rating</span> <span class="hljs-attr">stars</span>=<span class="hljs-string">{3}</span> <span class="hljs-attr">onStarsChange</span>=<span class="hljs-string">{mockFn}</span> /></span>
+      <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Rating</span> <span class="hljs-attr">stars</span>=<span class="hljs-string">{3}</span> <span class="hljs-attr">onStarsChange</span>=<span class="hljs-string">{mockFn}</span> /></span></span>
     );
     wrapper
-      .find('span')
-      .at(0)
-      .simulate('click');
-    expect(mockFn.mock.calls[0][0]).toEqual(1);
+      .find(<span class="hljs-string">'span'</span>)
+      .at(<span class="hljs-number">0</span>)
+      .simulate(<span class="hljs-string">'click'</span>);
+    expect(mockFn.mock.calls[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>]).toEqual(<span class="hljs-number">1</span>);
   });
 });
-</span></code></pre>
+</code></pre>
 </section><section class="slide"><h2>Example: testing a rating component</h2>
 <p>Testing a (hypothetical) rating component that has its own internal state:</p>
-<pre><code class="hljs language-jsx">describe(<span class="hljs-string">'events'</span>, () => {
-  it(<span class="hljs-string">'reacts to click on first star'</span>, () => {
-    <span class="hljs-keyword">const</span> wrapper = mount(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Rating</span> /></span>);
+<pre><code class="hljs language-jsx">describe(<span class="hljs-string">'events'</span>, <span class="hljs-function">() =></span> {
+  it(<span class="hljs-string">'reacts to click on first star'</span>, <span class="hljs-function">() =></span> {
+    <span class="hljs-keyword">const</span> wrapper = mount(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Rating</span> /></span></span>);
     wrapper
-      .find('span')
-      .at(0)
-      .simulate('click');
-    expect(wrapper.instance.state.count).toEqual(1);
+      .find(<span class="hljs-string">'span'</span>)
+      .at(<span class="hljs-number">0</span>)
+      .simulate(<span class="hljs-string">'click'</span>);
+    expect(wrapper.instance.state.count).toEqual(<span class="hljs-number">1</span>);
   });
 });
-</span></code></pre>
+</code></pre>
 </section><section class="slide"><h2>Example: testing a rating component</h2>
-<pre><code class="hljs language-jsx">describe(<span class="hljs-string">'errors'</span>, () => {
-  it(<span class="hljs-string">'throws an error if the number of stars is 0'</span>, () => {
-    <span class="hljs-keyword">const</span> testFn = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-      <span class="hljs-keyword">const</span> wrapper = shallow(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Rating</span> <span class="hljs-attr">stars</span>=<span class="hljs-string">{0}</span> /></span>);
+<pre><code class="hljs language-jsx">describe(<span class="hljs-string">'errors'</span>, <span class="hljs-function">() =></span> {
+  it(<span class="hljs-string">'throws an error if the number of stars is 0'</span>, <span class="hljs-function">() =></span> {
+    <span class="hljs-keyword">const</span> testFn = <span class="hljs-function">() =></span> {
+      <span class="hljs-keyword">const</span> wrapper = shallow(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Rating</span> <span class="hljs-attr">stars</span>=<span class="hljs-string">{0}</span> /></span></span>);
     };
     expect(testFn).toThrow(
-      'number of stars must be positive'
+      <span class="hljs-string">'number of stars must be positive'</span>
     );
   });
 });
-</span></code></pre>
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Snapshot tests</h1>
 </section><section class="slide"><h2>Snapshot tests</h2>
 <p>Components are rendered and compared to earlier versions (snapshots)</p>
@@ -2556,19 +2558,19 @@ it('renders a component tree without crashing', () => {
 </code></pre>
 </section><section class="slide"><h2>Creating snapshot tests</h2>
 <p>with react-testing-library:</p>
-<pre><code class="hljs language-jsx">it(<span class="hljs-string">'matches the snapshot'</span>, () => {
+<pre><code class="hljs language-jsx">it(<span class="hljs-string">'matches the snapshot'</span>, <span class="hljs-function">() =></span> {
   render(
     <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">TodoItem</span>
       <span class="hljs-attr">title</span>=<span class="hljs-string">"foo"</span>
       <span class="hljs-attr">completed</span>=<span class="hljs-string">{false}</span>
       <span class="hljs-attr">onToggle</span>=<span class="hljs-string">{()</span> =></span> {}}
       onDelete={() => {}}
-    />
+    /></span>
   );
-  const li = screen.getByRole('listitem');
+  <span class="hljs-keyword">const</span> li = screen.getByRole(<span class="hljs-string">'listitem'</span>);
   expect(li).toMatchSnapshot();
 });
-</span></code></pre>
+</code></pre>
 </section><section class="slide"><h2>Updating snapshot tests</h2>
 <p>Once we have changed and and verified the behavior of a component we can update the corresponding tests accordingly:</p>
 <pre><code class="hljs language-txt">2 snapshot tests failed in 1 test suite.

@@ -8,10 +8,12 @@
 <li>composite types: dict, list, tuple</li>
 <li>help and documentation</li>
 <li>builtins and the standard library</li>
-<li>control structures<ul>
+<li>control structures
+<ul>
 <li>if / else</li>
 <li>loops (while, for)</li>
-</ul></li>
+</ul>
+</li>
 <li>functions</li>
 <li>code quality and linting</li>
 <li>debugging</li>
@@ -164,13 +166,13 @@ last_name = <span class="hljs-string">"Jones"</span>
 <p>Determining the type of a variable via <code>type</code>:</p>
 <pre><code class="hljs language-py">a = <span class="hljs-number">4</span> / <span class="hljs-number">2</span>
 
-type(a)
+<span class="hljs-built_in">type</span>(a)
 </code></pre>
 <h2>Type conversions</h2>
 <p>Objects may be converted to other types via <code>int()</code>, <code>float()</code>, <code>str()</code>, <code>bool()</code>, ...</p>
 <pre><code class="hljs language-py">pi = <span class="hljs-number">3.1415</span>
-pi_int = int(pi)
-message = <span class="hljs-string">"Pi is approximately "</span> + str(pi_int)
+pi_int = <span class="hljs-built_in">int</span>(pi)
+message = <span class="hljs-string">"Pi is approximately "</span> + <span class="hljs-built_in">str</span>(pi_int)
 </code></pre>
 <h1>Functions</h1>
 <h2>Functions</h2>
@@ -238,7 +240,7 @@ products = [
 
 users[<span class="hljs-number">0</span>]
 users[<span class="hljs-number">1</span>]
-users[<span class="hljs-number">-1</span>] <span class="hljs-comment"># last element</span>
+users[-<span class="hljs-number">1</span>] <span class="hljs-comment"># last element</span>
 </code></pre>
 <h2>list</h2>
 <p>Overwriting a list element</p>
@@ -257,7 +259,7 @@ users[<span class="hljs-number">-1</span>] <span class="hljs-comment"># last ele
 </code></pre>
 <h2>list</h2>
 <p>Determining the length</p>
-<pre><code class="hljs language-py">len(users)
+<pre><code class="hljs language-py"><span class="hljs-built_in">len</span>(users)
 </code></pre>
 <h2>list</h2>
 <p>exercise:</p>
@@ -291,7 +293,7 @@ date_tuple = (<span class="hljs-number">1973</span>, <span class="hljs-number">1
 <h2>Tuples</h2>
 <p>Behavior: similar to lists:</p>
 <pre><code class="hljs language-py">date_tuple[<span class="hljs-number">0</span>] <span class="hljs-comment"># 1973</span>
-len(date_tuple) <span class="hljs-comment"># 3</span>
+<span class="hljs-built_in">len</span>(date_tuple) <span class="hljs-comment"># 3</span>
 </code></pre>
 <p>Unlike lists, tuples are immutable (no <code>.append</code> / <code>.pop</code> / ...)</p>
 <h2>Data types - exercises</h2>
@@ -326,7 +328,7 @@ b = a + [<span class="hljs-number">4</span>]
 <h1>Help and documentation</h1>
 <h2>Help and documentation</h2>
 <p>Interactive help on objects in the Python console:</p>
-<pre><code class="hljs language-py">help(list)
+<pre><code class="hljs language-py"><span class="hljs-built_in">help</span>(<span class="hljs-built_in">list</span>)
 </code></pre>
 <p>(navigate through long outputs via <em>Enter</em>, exit via <em>Q</em>)</p>
 <h2>Help and documentation</h2>
@@ -352,7 +354,7 @@ b = a + [<span class="hljs-number">4</span>]
 </code></pre>
 <h2>Input and output of text</h2>
 <p>Input: via <code>input()</code>:</p>
-<pre><code class="hljs language-py">name = input()
+<pre><code class="hljs language-py">name = <span class="hljs-built_in">input</span>()
 </code></pre>
 <p><code>input</code> will always return a string</p>
 <h2>Input and output of text</h2>
@@ -364,7 +366,7 @@ b = a + [<span class="hljs-number">4</span>]
 <p>A comment starts with a <code>#</code> and extends to the line end.</p>
 <p>Usually comments are placed <em>above</em> the code they describe</p>
 <pre><code class="hljs language-py"><span class="hljs-comment"># determine the length of the name</span>
-name_length = len(name)
+name_length = <span class="hljs-built_in">len</span>(name)
 </code></pre>
 <h2>Executing programs</h2>
 <p>on the command line via <code>python greeting.py</code></p>
@@ -448,7 +450,7 @@ pprint.pprint([<span class="hljs-string">'Mercuy'</span>, <span class="hljs-stri
 </code></pre>
 <h2>open</h2>
 <p>opening a text file for writing:</p>
-<pre><code class="hljs language-py">file = open(<span class="hljs-string">"message.txt"</span>, <span class="hljs-string">"w"</span>, encoding=<span class="hljs-string">"utf-8"</span>)
+<pre><code class="hljs language-py">file = <span class="hljs-built_in">open</span>(<span class="hljs-string">"message.txt"</span>, <span class="hljs-string">"w"</span>, encoding=<span class="hljs-string">"utf-8"</span>)
 file.write(<span class="hljs-string">"hello\n"</span>)
 file.write(<span class="hljs-string">"world\n)
 file.close()
@@ -466,13 +468,13 @@ print(random.choice([<span class="hljs-string">"heads"</span>, <span class="hljs
 
 content = urlopen(<span class="hljs-string">"https://google.com"</span>).read()
 print(content)
-print(len(content))
+print(<span class="hljs-built_in">len</span>(content))
 </code></pre>
 <h2>webbrowser</h2>
 <p>example:</p>
 <pre><code class="hljs language-py"><span class="hljs-keyword">import</span> webbrowser
 
-webbrowser.open(
+webbrowser.<span class="hljs-built_in">open</span>(
     <span class="hljs-string">"https://docs.python.org/3/library/os.html"</span>
 )
 </code></pre>
@@ -488,11 +490,13 @@ webbrowser.open(
 <h2>Control structures in Python</h2>
 <ul>
 <li><code>if ... else ...</code></li>
-<li>loops:<ul>
+<li>loops:
+<ul>
 <li><code>while</code></li>
 <li><code>for ... in ...</code></li>
 <li><code>for ... in range(...)</code></li>
-</ul></li>
+</ul>
+</li>
 </ul>
 <h1>Comparisons</h1>
 <h2>Comparisons</h2>
@@ -517,7 +521,7 @@ print(a >= b)
 <pre><code class="hljs language-py"><span class="hljs-keyword">if</span> age >= <span class="hljs-number">18</span> <span class="hljs-keyword">and</span> country == <span class="hljs-string">"de"</span>:
     print(<span class="hljs-string">"may drink alcohol"</span>)
 
-<span class="hljs-keyword">if</span> temperature &#x3C; <span class="hljs-number">-10</span> <span class="hljs-keyword">or</span> temperature > <span class="hljs-number">30</span>:
+<span class="hljs-keyword">if</span> temperature &#x3C; -<span class="hljs-number">10</span> <span class="hljs-keyword">or</span> temperature > <span class="hljs-number">30</span>:
     print(<span class="hljs-string">"extreme weather"</span>)
 
 <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> value > <span class="hljs-number">10</span>:
@@ -637,7 +641,7 @@ Logged in as Alice!
 <h1>Counting loops</h1>
 <h2>Counting loops</h2>
 <p>This is how we can count from 0 to 9 in Python:</p>
-<pre><code class="hljs language-py"><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">10</span>):
+<pre><code class="hljs language-py"><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">10</span>):
     print(i)
 </code></pre>
 <p>The function call <code>range(10)</code> creates an object that behaves like the list <code>[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]</code>.</p>
@@ -652,13 +656,19 @@ Logged in as Alice!
 <h1>Parts of programs</h1>
 <h2>Parts of programs</h2>
 <ul>
-<li>programs<ul>
-<li>code blocks<ul>
-<li>statements<ul>
+<li>programs
+<ul>
+<li>code blocks
+<ul>
+<li>statements
+<ul>
 <li>expressions</li>
-</ul></li>
-</ul></li>
-</ul></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 <h2>Empty code blocks</h2>
 <p><em>empty</em> code block via the <code>pass</code> statement:</p>
@@ -691,10 +701,10 @@ Logged in as Alice!
 <h2>Positional parameters and keyword parameters</h2>
 <p>Calling <code>open</code>:</p>
 <p>with positional parameters:</p>
-<pre><code class="hljs language-py">f = open(<span class="hljs-string">"myfile.txt"</span>, <span class="hljs-string">"w"</span>, <span class="hljs-number">-1</span>, <span class="hljs-string">"utf-8"</span>)
+<pre><code class="hljs language-py">f = <span class="hljs-built_in">open</span>(<span class="hljs-string">"myfile.txt"</span>, <span class="hljs-string">"w"</span>, -<span class="hljs-number">1</span>, <span class="hljs-string">"utf-8"</span>)
 </code></pre>
 <p>with keyword parameters:</p>
-<pre><code class="hljs language-py">f = open(<span class="hljs-string">"myfile.txt"</span>, encoding=<span class="hljs-string">"utf-8"</span>, mode=<span class="hljs-string">"w"</span>)
+<pre><code class="hljs language-py">f = <span class="hljs-built_in">open</span>(<span class="hljs-string">"myfile.txt"</span>, encoding=<span class="hljs-string">"utf-8"</span>, mode=<span class="hljs-string">"w"</span>)
 </code></pre>
 <p>We can look up names of keyword parameters in the documentation (e.g. via <code>help(open)</code>)</p>
 <h2>Optional parameters and default parameters</h2>
@@ -704,13 +714,13 @@ Logged in as Alice!
 <h1>Defining functions</h1>
 <h2>Defining functions</h2>
 <p>example:</p>
-<pre><code class="hljs language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">average</span><span class="hljs-params">(a, b)</span>:</span>
+<pre><code class="hljs language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">average</span>(<span class="hljs-params">a, b</span>):</span>
     m = (a + b) / <span class="hljs-number">2</span>
     <span class="hljs-keyword">return</span> m
 </code></pre>
 <h2>Optional parameters and default parameters</h2>
 <p>This is how we define default values for parameters:</p>
-<pre><code class="hljs language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">shout</span><span class="hljs-params">(phrase, end=<span class="hljs-string">"!"</span>)</span>:</span>
+<pre><code class="hljs language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">shout</span>(<span class="hljs-params">phrase, end=<span class="hljs-string">"!"</span></span>):</span>
     print(phrase.upper() + end)
 
 shout(<span class="hljs-string">"hello"</span>) <span class="hljs-comment"># HELLO!</span>
@@ -721,7 +731,7 @@ shout(<span class="hljs-string">"hi"</span>, <span class="hljs-string">"."</span
 <p>In the following example there are two distinct variables named <code>m</code>:</p>
 <pre><code class="hljs language-py">m = <span class="hljs-string">"Hello, world"</span>
 
-<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">average</span><span class="hljs-params">(a, b)</span>:</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">average</span>(<span class="hljs-params">a, b</span>):</span>
     m = (a + b) / <span class="hljs-number">2</span>
     <span class="hljs-keyword">return</span> m
 x = average(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>)
@@ -813,7 +823,7 @@ c = a[<span class="hljs-number">0</span> + <span class="hljs-number">1</span> : 
 <p>docstring of a function: help programmers who use that function</p>
 <h2>Docstrings</h2>
 <p>Example:</p>
-<pre><code class="hljs language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">fib</span><span class="hljs-params">(n)</span>:</span>
+<pre><code class="hljs language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">fib</span>(<span class="hljs-params">n</span>):</span>
     <span class="hljs-string">"""Compute the n-th fibonacci number.
 
     n must be a nonnegative integer
@@ -821,8 +831,8 @@ c = a[<span class="hljs-number">0</span> + <span class="hljs-number">1</span> : 
     ...
 </code></pre>
 <h2>Viewing docstrings</h2>
-<pre><code class="hljs language-py">help(fib)
-help(round)
+<pre><code class="hljs language-py"><span class="hljs-built_in">help</span>(fib)
+<span class="hljs-built_in">help</span>(<span class="hljs-built_in">round</span>)
 </code></pre>
 <h1>Debugging</h1>
 <h2>Debugging</h2>
@@ -836,30 +846,40 @@ help(round)
 <h2>Debugging</h2>
 <p>Continuing manually:</p>
 <ul>
-<li>proceed until the next breakpoint:<ul>
+<li>proceed until the next breakpoint:
+<ul>
 <li><em>Continue</em> in VS Code</li>
 <li><code>c</code> for <em>continue</em> in the Python debugger</li>
-</ul></li>
-<li>end debugging:<ul>
+</ul>
+</li>
+<li>end debugging:
+<ul>
 <li><em>Stop</em> in VS Code</li>
 <li><code>q</code> for <em>quit</em> in the Python debugger</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 <h2>Debugging</h2>
 <p>Continuing manually:</p>
 <ul>
-<li>proceed to the next line:<ul>
+<li>proceed to the next line:
+<ul>
 <li><em>Step Over</em> in VS Code</li>
 <li><code>n</code> for <em>next</em> in the Python debugger</li>
-</ul></li>
-<li>proceed to the next line - potentially following function calls<ul>
+</ul>
+</li>
+<li>proceed to the next line - potentially following function calls
+<ul>
 <li><em>Step Into</em> in VS Code</li>
 <li><code>s</code> for <em>step</em> in the Python debugger</li>
-</ul></li>
-<li>run the current function to its end:<ul>
+</ul>
+</li>
+<li>run the current function to its end:
+<ul>
 <li><em>Step Out</em> in VS Code</li>
 <li><code>r</code> for <em>return</em> in the Python debugger</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 <h2>Debugging</h2>
 <p>Examining values in VS Code:</p>

@@ -2194,12 +2194,12 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
         <span class="hljs-attr">alt</span>=<span class="hljs-string">"slideshow"</span>
       /></span>
       <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setImg(img + 1)}>next<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
   );
 }
 
-export default SlideshowApp;
-</span></code></pre>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> SlideshowApp;
+</code></pre>
 </section><section class="slide"><h2>Funktionskomponenten und Klassenkomponenten</h2>
 <p>Möglichkeiten:</p>
 <ul>
@@ -2216,8 +2216,8 @@ export default SlideshowApp;
 <li><strong>{</strong> wechselt zurück zu JS</li>
 </ul>
 </section><section class="slide"><h2>Inhalte binden</h2>
-<pre><code class="hljs language-jsx">&#x3C;div>Ein Jahr hat {<span class="hljs-number">365</span> * <span class="hljs-number">24</span>} Stunden&#x3C;<span class="hljs-regexp">/div>
-</span></code></pre>
+<pre><code class="hljs language-jsx">&#x3C;div>Ein Jahr hat {<span class="hljs-number">365</span> * <span class="hljs-number">24</span>} Stunden&#x3C;/div>
+</code></pre>
 </section><section class="slide"><h2>Inhalte binden</h2>
 <p>Aufgaben:</p>
 <ul>
@@ -2228,45 +2228,45 @@ export default SlideshowApp;
 <p>Datum:</p>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> dateString = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>().toLocaleDateString();
 </code></pre>
-<pre><code class="hljs language-jsx">&#x3C;div>curent date: {dateString}&#x3C;<span class="hljs-regexp">/div>
-</span></code></pre>
+<pre><code class="hljs language-jsx">&#x3C;div>curent date: {dateString}&#x3C;/div>
+</code></pre>
 <p>Münzwurf:</p>
-<pre><code class="hljs language-jsx">&#x3C;div>{<span class="hljs-built_in">Math</span>.random() > <span class="hljs-number">0.5</span> ? <span class="hljs-string">'heads'</span> : <span class="hljs-string">'tails'</span>}&#x3C;<span class="hljs-regexp">/div>
-</span></code></pre>
+<pre><code class="hljs language-jsx">&#x3C;div>{<span class="hljs-built_in">Math</span>.random() > <span class="hljs-number">0.5</span> ? <span class="hljs-string">'heads'</span> : <span class="hljs-string">'tails'</span>}&#x3C;/div>
+</code></pre>
 </section><section class="slide"><h2>Properties binden</h2>
 <p>Der Wechsel von XML auf JS klappt auch bei Properties:</p>
 <pre><code class="hljs language-jsx">&#x3C;a href={<span class="hljs-string">'https://en.wikipedia.org/wiki/'</span> + articleName}>
   some article
-&#x3C;<span class="hljs-regexp">/a>
-</span></code></pre>
+&#x3C;/a>
+</code></pre>
 <p>Beachte die fehlenden Anführungszeichen bei href</p>
 </section><section class="slide"><h2>Events binden</h2>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> hello = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> hello = <span class="hljs-function">() =></span> {
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'hello world'</span>);
   <span class="hljs-comment">// ...</span>
 };
 </code></pre>
-<pre><code class="hljs language-jsx">&#x3C;button onClick={hello}>Say Hello&#x3C;<span class="hljs-regexp">/button>
-</span></code></pre>
+<pre><code class="hljs language-jsx">&#x3C;button onClick={hello}>Say Hello&#x3C;/button>
+</code></pre>
 <p>Liste von Browser-Events:<br />
 <a href="https://www.w3schools.com/jsref/dom_obj_event.asp">https://www.w3schools.com/jsref/dom_obj_event.asp</a></p>
 </section><section class="slide"><h2>Events binden</h2>
 <p>Achtung: Ein Event Handler muss eine <strong>Funktion</strong> sein, und nicht ein Funktionsaufruf</p>
 <p>OK:</p>
-<pre><code class="hljs language-js">&#x3C;button onClick={alert}>Say something&#x3C;<span class="hljs-regexp">/button>
-</span></code></pre>
+<pre><code class="hljs language-js">&#x3C;button onClick={alert}>Say something&#x3C;/button>
+</code></pre>
 <p>nicht OK:</p>
-<pre><code class="hljs language-js">&#x3C;button onClick={alert(<span class="hljs-string">'hello'</span>)}>Say Hello&#x3C;<span class="hljs-regexp">/button>
-</span></code></pre>
+<pre><code class="hljs language-js">&#x3C;button onClick={alert(<span class="hljs-string">'hello'</span>)}>Say Hello&#x3C;/button>
+</code></pre>
 <p>OK:</p>
-<pre><code class="hljs language-js">&#x3C;button onClick={() => alert(<span class="hljs-string">'hello'</span>)}>Say Hello&#x3C;<span class="hljs-regexp">/button>
-</span></code></pre>
+<pre><code class="hljs language-js">&#x3C;button onClick={<span class="hljs-function">() =></span> alert(<span class="hljs-string">'hello'</span>)}>Say Hello&#x3C;/button>
+</code></pre>
 </section><section class="slide"><h2>Elemente wiederholen</h2>
 <p>Mehrere Elemente können via Arrays eingebunden werden:</p>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> elements = [
   <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>alpha<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>,
-  &#x3C;div>bravo&#x3C;<span class="hljs-regexp">/div>,
-  &#x3C;div>charlie&#x3C;/</span>div>,
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>bravo<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>,
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>charlie<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>,
 ];
 </code></pre>
 <pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>three elements<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
@@ -2282,7 +2282,7 @@ export default SlideshowApp;
 <pre><code class="hljs language-jsx">&#x3C;div>
   React Methods:
   <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">ul</span>></span>{reactMethods}<span class="hljs-tag">&#x3C;/<span class="hljs-name">ul</span>></span></span>
-<span class="xml"><span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+&#x3C;/div>
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>State (Komponentenzustand)</h1>
 </section><section class="slide"><h2>State</h2>
@@ -2298,7 +2298,7 @@ export default SlideshowApp;
 <li><code>useState</code> nimmt einen Parameter entgegen - den initialen Zustand</li>
 <li><code>useState</code> gibt bei jedem Aufruf ein Array mit zwei Einträgen zurück: Den aktuellen Zustand sowie eine Funktion, mit der der Zustand neu gesetzt werden kann</li>
 </ul>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> App = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> App = <span class="hljs-function">() =></span> {
   <span class="hljs-keyword">const</span> [count, setCount] = useState(<span class="hljs-number">0</span>);
   <span class="hljs-keyword">const</span> [title, setTitle] = useState(<span class="hljs-string">'React app'</span>);
 
@@ -2308,7 +2308,7 @@ export default SlideshowApp;
 </section><section class="slide"><h2>Beispiel: Counter</h2>
 <p>Wir fügen unserer Anwendung einen Button hinzu. Zu Beginn zeigt dieser den Wert 0. Bei jedem Klick erhöht er sich um 1.</p>
 </section><section class="slide"><h2>Beispiel: Counter</h2>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> Counter = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> Counter = <span class="hljs-function">() =></span> {
   <span class="hljs-keyword">const</span> [count, setCount] = useState(<span class="hljs-number">0</span>);
 
   <span class="hljs-keyword">return</span> (
@@ -2384,7 +2384,7 @@ export default SlideshowApp;
 </code></pre>
 </section><section class="slide"><h2>Pfeilfunktionen</h2>
 <p>wenn direkt ein Objekt zurückgegeben werden soll: mit runden Klammern umschießen</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> getState = <span class="hljs-function"><span class="hljs-params">()</span> =></span> ({
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> getState = <span class="hljs-function">() =></span> ({
   <span class="hljs-attr">loggedIn</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">userName</span>: <span class="hljs-string">'mike'</span>,
 });
@@ -2412,7 +2412,7 @@ export default SlideshowApp;
 </section><section class="slide"><h2>Das Semikolon in JavaScript</h2>
 <p>Manchmals ist das Verhalten nicht wie gewünscht:</p>
 <!-- prettier-ignore -->
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> Foo = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> Foo = <span class="hljs-function">() =></span> {
   <span class="hljs-keyword">return</span>
     <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
       <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>some content<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
@@ -2420,7 +2420,7 @@ export default SlideshowApp;
 };
 </code></pre>
 <p>wird behandelt wie:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> Foo = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> Foo = <span class="hljs-function">() =></span> {
   <span class="hljs-keyword">return</span>;
   <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
     <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>some content<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
@@ -2490,15 +2490,19 @@ export default SlideshowApp;
 </section></section><section class="slides-section"><section class="slide"><h1>Ein React-Projekt initialisieren</h1>
 </section><section class="slide"><h2>Entwicklung mit node.js und npm</h2>
 <ul>
-<li>node.js: JS-Runtime<ul>
+<li>node.js: JS-Runtime
+<ul>
 <li>Ausführen des lokalen Enwicklungsservers</li>
 <li>Unit-Tests</li>
-</ul></li>
-<li>npm: Paketmanager<ul>
+</ul>
+</li>
+<li>npm: Paketmanager
+<ul>
 <li>zum Verwalten von Abhängigkeiten</li>
 <li>Pakete im <em>node_modules</em>-Ordner</li>
 <li>Konfiguration in <em>package.json</em></li>
-</ul></li>
+</ul>
+</li>
 </ul>
 </section><section class="slide"><h2>Ein React-Projekt initialisieren</h2>
 <p>Möglichkeiten:</p>
@@ -2626,7 +2630,7 @@ todos.push({ <span class="hljs-attr">title</span>: <span class="hljs-string">'st
 <p>Mutation durch die Verwendung von <em>immer.js</em> vermeiden:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> produce <span class="hljs-keyword">from</span> <span class="hljs-string">'immer'</span>;
 
-<span class="hljs-keyword">const</span> newTodos = produce(todos, (todosDraft) => {
+<span class="hljs-keyword">const</span> newTodos = produce(todos, <span class="hljs-function">(<span class="hljs-params">todosDraft</span>) =></span> {
   todosDraft[<span class="hljs-number">0</span>].completed = <span class="hljs-literal">true</span>;
   todosDraft.push({ <span class="hljs-attr">title</span>: <span class="hljs-string">'study'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> });
 });
@@ -2640,7 +2644,7 @@ todos.push({ <span class="hljs-attr">title</span>: <span class="hljs-string">'st
 <p>So können wir den Value eines Inputs im State erfassen:</p>
 <pre><code class="hljs language-jsx">&#x3C;input
   value={inputText}
-  onChange={(event) => {
+  onChange={<span class="hljs-function">(<span class="hljs-params">event</span>) =></span> {
     setInputText(event.target.value);
   }}
 />
@@ -2649,17 +2653,17 @@ todos.push({ <span class="hljs-attr">title</span>: <span class="hljs-string">'st
 <p>Standardverhalten eines Formulars beim Submit: Direktes Senden der Daten an den Server</p>
 <p>Ersetzen des Standardverhaltens:</p>
 <pre><code class="hljs language-jsx">&#x3C;form
-  onSubmit={(event) => {
+  onSubmit={<span class="hljs-function">(<span class="hljs-params">event</span>) =></span> {
     event.preventDefault();
     <span class="hljs-comment">// handle submit</span>
   }}
 >
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">input</span> /></span>
-<span class="hljs-tag">&#x3C;/<span class="hljs-name">form</span>></span></span>
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">input</span> /></span></span>
+&#x3C;/form>
 </code></pre>
 </section><section class="slide"><h2>Formular-Validierung</h2>
 <p>"manuelle" Validierung:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> NewsletterRegistration = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> NewsletterRegistration = <span class="hljs-function">() =></span> {
   <span class="hljs-keyword">const</span> [email, setEmail] = useState(<span class="hljs-string">''</span>);
   <span class="hljs-keyword">const</span> [emailEdited, setEmailEdited] = useState(<span class="hljs-literal">false</span>);
   <span class="hljs-keyword">const</span> emailInvalid = !isEmail(email);
@@ -2681,13 +2685,13 @@ todos.push({ <span class="hljs-attr">title</span>: <span class="hljs-string">'st
       {emailEdited &#x26;&#x26; emailInvalid ? (
         <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>invalid email<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
       ) : null}
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">form</span>></span>
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">form</span>></span></span>
   );
 };
 
-const isEmail = (email) =>
-  email.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i);
-</span></code></pre>
+<span class="hljs-keyword">const</span> isEmail = <span class="hljs-function">(<span class="hljs-params">email</span>) =></span>
+  email.match(<span class="hljs-regexp">/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i</span>);
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>React Developer Tools</h1>
 </section><section class="slide"><h2>React Developer Tools</h2>
 <ul>
@@ -2730,8 +2734,8 @@ const isEmail = (email) =>
   }
 >
   [...]
-&#x3C;<span class="hljs-regexp">/li>
-</span></code></pre>
+&#x3C;/li>
+</code></pre>
 <p>es gibt viele Hilfslibraries, die die <em>className</em>-Property dynamisch generieren</p>
 </section><section class="slide"><h2>Style Property</h2>
 <p>In JSX weisen wir der <em>style</em>-Property ein Objekt zu:</p>
@@ -2752,7 +2756,7 @@ const isEmail = (email) =>
 </code></pre>
 </section><section class="slide"><h2>JSX: Elemente wiederholen</h2>
 <p>Erstellen eines Arrays von JSX-Elementen via <code>.map</code>:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> TodoApp = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> TodoApp = <span class="hljs-function">() =></span> {
   <span class="hljs-keyword">const</span> [todos, setTodos] = useState(initialTodos);
   <span class="hljs-keyword">return</span> (
     <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">ul</span>></span>
@@ -2771,11 +2775,11 @@ Lösung: <strong>key</strong>:</p>
   {todos.map(<span class="hljs-function">(<span class="hljs-params">todo</span>) =></span> (
     <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">li</span> <span class="hljs-attr">key</span>=<span class="hljs-string">{todo.id}</span>></span>{todo.title}<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span></span>
   ))}
-&#x3C;<span class="hljs-regexp">/ul>
-</span></code></pre>
+&#x3C;/ul>
+</code></pre>
 </section><section class="slide"><h2>if / else</h2>
-<pre><code class="hljs language-jsx">&#x3C;div>{<span class="hljs-built_in">Math</span>.random() > <span class="hljs-number">0.5</span> ? <span class="hljs-string">'heads'</span> : <span class="hljs-string">'tails'</span>}&#x3C;<span class="hljs-regexp">/div>
-</span></code></pre>
+<pre><code class="hljs language-jsx">&#x3C;div>{<span class="hljs-built_in">Math</span>.random() > <span class="hljs-number">0.5</span> ? <span class="hljs-string">'heads'</span> : <span class="hljs-string">'tails'</span>}&#x3C;/div>
+</code></pre>
 </section><section class="slide"><h2>if / else</h2>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">let</span> face;
 <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Math</span>.random() > <span class="hljs-number">0.5</span>) {
@@ -2787,8 +2791,8 @@ Lösung: <strong>key</strong>:</p>
 <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>{face}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
 </code></pre>
 </section><section class="slide"><h2>if</h2>
-<pre><code class="hljs language-jsx">&#x3C;div>{state.hasError &#x26;&#x26; state.errorMessage}&#x3C;<span class="hljs-regexp">/div>
-</span></code></pre>
+<pre><code class="hljs language-jsx">&#x3C;div>{state.hasError &#x26;&#x26; state.errorMessage}&#x3C;/div>
+</code></pre>
 <p>Der Operator <code>&#x26;&#x26;</code> in JavaScript:</p>
 <pre><code class="hljs language-js"><span class="hljs-literal">true</span> &#x26;&#x26; <span class="hljs-string">'my message'</span>; <span class="hljs-comment">// 'my message'</span>
 
@@ -2835,9 +2839,9 @@ Lösung: <strong>key</strong>:</p>
   <span class="xml"><span class="hljs-tag">&#x3C;></span>
     <span class="hljs-tag">&#x3C;<span class="hljs-name">td</span>></span>Hello<span class="hljs-tag">&#x3C;/<span class="hljs-name">td</span>></span>
     <span class="hljs-tag">&#x3C;<span class="hljs-name">td</span>></span>World<span class="hljs-tag">&#x3C;/<span class="hljs-name">td</span>></span>
-  <span class="hljs-tag">&#x3C;/></span>
+  <span class="hljs-tag">&#x3C;/></span></span>
 );
-</span></code></pre>
+</code></pre>
 </section><section class="slide"><h2>gültige Elemente in JSX</h2>
 <ul>
 <li>string</li>
@@ -2929,8 +2933,8 @@ Lösung: <strong>key</strong>:</p>
 </section><section class="slide"><h2>props.children</h2>
 <p>Über <code>props.children</code> können Inhalte an eine Komponente übergeben werden</p>
 <p>Beispiel: <code>Bordered</code>-Komponente:</p>
-<pre><code class="hljs language-jsx">&#x3C;Bordered>lorem ipsum&#x3C;<span class="hljs-regexp">/Bordered>
-</span></code></pre>
+<pre><code class="hljs language-jsx">&#x3C;Bordered>lorem ipsum&#x3C;/Bordered>
+</code></pre>
 <p>Definition der Komponente:</p>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> Bordered = <span class="hljs-function">(<span class="hljs-params">props</span>) =></span> (
   <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"bordered"</span>></span>{props.children}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
@@ -2953,8 +2957,8 @@ Lösung: <strong>key</strong>:</p>
     <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
       {starIds.map((id) => (
         <span class="hljs-tag">&#x3C;<span class="hljs-name">span</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> props.onChange(id)} key={id}>
-          {id <span class="hljs-tag">&#x3C;<span class="hljs-name">=</span> <span class="hljs-attr">props.stars</span> ? '★' <span class="hljs-attr">:</span> '☆'}
-        &#x3C;/<span class="hljs-attr">span</span>></span>
+          {id &#x3C;= props.stars ? '★' : '☆'}
+        <span class="hljs-tag">&#x3C;/<span class="hljs-name">span</span>></span>
       ))}
     <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
   );
@@ -2966,7 +2970,7 @@ Lösung: <strong>key</strong>:</p>
 </code></pre>
 <pre><code class="hljs language-jsx">&#x3C;Rating
   stars={prodRating}
-  onChange={(newRating) => setProdRating(newRating)}
+  onChange={<span class="hljs-function">(<span class="hljs-params">newRating</span>) =></span> setProdRating(newRating)}
 />
 </code></pre>
 <p>kürzere Schreibweise:</p>
@@ -2977,13 +2981,13 @@ Lösung: <strong>key</strong>:</p>
 <p>Prop: <code>active</code> - kann auf <code>true</code> bzw <code>false</code> gesetzt sein<br />
 Event: <code>onToggle</code> - Funktion, die mit dem neuen Zustand aufgerufen wird</p>
 <pre><code class="hljs language-jsx">&#x3C;button
-  onClick={() => {
+  onClick={<span class="hljs-function">() =></span> {
     props.onToggle(!props.active);
   }}
 >
   {props.active ? <span class="hljs-string">'on'</span> : <span class="hljs-string">'off'</span>}
-&#x3C;<span class="hljs-regexp">/button>
-</span></code></pre>
+&#x3C;/button>
+</code></pre>
 </section><section class="slide"><h2>Eigene Events</h2>
 <p>Beispiel <code>ToggleButton</code>: Der Button muss passend eingebunden werden</p>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> [myOption, setMyOption] = useState(<span class="hljs-literal">true</span>);
@@ -2993,8 +2997,8 @@ Event: <code>onToggle</code> - Funktion, die mit dem neuen Zustand aufgerufen wi
   <span class="hljs-attr">onToggle</span>=<span class="hljs-string">{(newIsActive)</span> =></span> {
     setMyOption(newIsActive);
   }}
-/>;
-</span></code></pre>
+/></span>;
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Übungen</h1>
 </section><section class="slide"><h2>Übungen</h2>
 <p>Aufgabe: Entwerfen von Komponenteninterfaces (Props und Events) für verschiedene Komponenten (z.B. <em>Calendar</em>, <em>Color Picker</em>, <em>BarChart</em>, <em>Tabs</em>)</p>
@@ -3046,13 +3050,13 @@ const TodoList = (props: TodoListProps) => {
 </section><section class="slide"><h2>Eventtypen in TypeScript</h2>
 <p>Bei inline Eventhandlern muss kein Typ angegeben werden:</p>
 <pre><code class="hljs language-jsx">&#x3C;button
-  onClick={(event) => {
+  onClick={<span class="hljs-function">(<span class="hljs-params">event</span>) =></span> {
     event.stopPropagation();
   }}
 >
   test
-&#x3C;<span class="hljs-regexp">/button>
-</span></code></pre>
+&#x3C;/button>
+</code></pre>
 </section><section class="slide"><h2>Eventtypen in TypeScript</h2>
 <p>Eventtypen für separat definierte Eventhandler:</p>
 <ul>
@@ -3088,9 +3092,9 @@ Rating.propTypes = {
 </code></pre>
 </section><section class="slide"><h2>APIs abfragen (Effect Hook)</h2>
 <p>Beispiel: Laden von Todos, wenn die Komponente eingebunden wurde</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> TodoApp = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> TodoApp = <span class="hljs-function">() =></span> {
   <span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
-  <span class="hljs-keyword">const</span> loadTodos = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  <span class="hljs-keyword">const</span> loadTodos = <span class="hljs-function">() =></span> {
     fetch(<span class="hljs-string">'https://jsonplaceholder.typicode.com/todos'</span>)
       .then(<span class="hljs-function">(<span class="hljs-params">res</span>) =></span> res.json())
       .then(<span class="hljs-function">(<span class="hljs-params">todos</span>) =></span> setTodos(todos));
@@ -3107,10 +3111,10 @@ Rating.propTypes = {
 </code></pre>
 </section><section class="slide"><h2>APIs abfragen (Effect Hook)</h2>
 <p>Beispiel: Laden von SpaceX Startdaten, wenn die Komponente eingebunden wurde oder wenn sich <code>launchNr</code> geändert hat</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> SpaceXLaunch = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> SpaceXLaunch = <span class="hljs-function">() =></span> {
   <span class="hljs-keyword">const</span> [launchNr, setLaunchNr] = useState(<span class="hljs-number">1</span>);
   <span class="hljs-keyword">const</span> [launchData, setLaunchData] = useState({});
-  <span class="hljs-keyword">const</span> fetchLaunch = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  <span class="hljs-keyword">const</span> fetchLaunch = <span class="hljs-function">() =></span> {
     fetch(
       <span class="hljs-string">`https://api.spacexdata.com/v3/launches/<span class="hljs-subst">${launchNr}</span>`</span>
     )
@@ -3131,10 +3135,10 @@ Rating.propTypes = {
 </code></pre>
 </section><section class="slide"><h2>APIs abfragen (Effect Hook)</h2>
 <p>Beispiel: Pokémon-Daten laden, wenn die Komponente eingebunden wurde oder wenn sich <code>id</code> geändert hat</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> Pokemon = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> Pokemon = <span class="hljs-function">() =></span> {
   <span class="hljs-keyword">const</span> [id, setItd] = useState(<span class="hljs-number">1</span>);
   <span class="hljs-keyword">const</span> [data, setData] = useState({});
-  <span class="hljs-keyword">const</span> fetchPokemon = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  <span class="hljs-keyword">const</span> fetchPokemon = <span class="hljs-function">() =></span> {
     fetch(<span class="hljs-string">`https://pokeapi.co/api/v2/pokemon/<span class="hljs-subst">${id}</span>`</span>)
       .then(<span class="hljs-function">(<span class="hljs-params">res</span>) =></span> res.json())
       .then(<span class="hljs-function">(<span class="hljs-params">data</span>) =></span> setData(data));

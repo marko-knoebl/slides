@@ -2089,7 +2089,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   <span class="hljs-comment">// ...</span>
 }
 </code></pre>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> shorten = (text: <span class="hljs-built_in">string</span>, maxLen: <span class="hljs-built_in">number</span>): <span class="hljs-function"><span class="hljs-params">string</span> =></span> {
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> shorten = (text: <span class="hljs-built_in">string</span>, <span class="hljs-attr">maxLen</span>: <span class="hljs-built_in">number</span>): <span class="hljs-function"><span class="hljs-params">string</span> =></span> {
   <span class="hljs-comment">// ...</span>
 };
 </code></pre>
@@ -2115,7 +2115,7 @@ names.push(<span class="hljs-string">'Anna'</span>);
 <p><a href="https://stackoverflow.com/a/52682220/">https://stackoverflow.com/a/52682220/</a></p>
 </section><section class="slide"><h2>Types</h2>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> TodoType = {
-  id: <span class="hljs-built_in">number</span>;
+  <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span>;
   title: <span class="hljs-built_in">string</span>;
   completed: <span class="hljs-built_in">boolean</span>;
 };
@@ -2124,7 +2124,7 @@ names.push(<span class="hljs-string">'Anna'</span>);
 </code></pre>
 </section><section class="slide"><h2>Types bei Objekten</h2>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> TodoType = {
-  id: <span class="hljs-built_in">number</span>;
+  <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span>;
   title: <span class="hljs-built_in">string</span>;
   completed: <span class="hljs-built_in">boolean</span>;
   <span class="hljs-comment">// optional</span>
@@ -2141,7 +2141,7 @@ names.push(<span class="hljs-string">'Anna'</span>);
 <span class="hljs-keyword">const</span> b: <span class="hljs-built_in">Array</span>&#x3C;<span class="hljs-built_in">string</span>> = [<span class="hljs-string">'one'</span>, <span class="hljs-string">'two'</span>, <span class="hljs-string">'three'</span>];
 </code></pre>
 <p>Beispiel: Reacts <code>Component</code> ist ein Generic</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">class</span> MyComp <span class="hljs-keyword">extends</span> Component&#x3C;MyProps, MyState> {
+<pre><code class="hljs language-ts"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyComp</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span>&#x3C;<span class="hljs-title">MyProps</span>, <span class="hljs-title">MyState</span>> </span>{
   ...
 }
 </code></pre>
@@ -2164,11 +2164,11 @@ names.push(<span class="hljs-string">'Anna'</span>);
 <span class="hljs-built_in">console</span>.log(myInput.value);
 </code></pre>
 </section><section class="slide"><h2>Typen / Interfaces und Klassen</h2>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">class</span> AdvancedTodo <span class="hljs-keyword">implements</span> TodoType {
+<pre><code class="hljs language-ts"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AdvancedTodo</span> <span class="hljs-title">implements</span> <span class="hljs-title">TodoType</span> </span>{
   <span class="hljs-comment">/* ... */</span>
 }
 
-<span class="hljs-keyword">class</span> AdvancedTodo <span class="hljs-keyword">implements</span> TodoInterface {
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AdvancedTodo</span> <span class="hljs-title">implements</span> <span class="hljs-title">TodoInterface</span> </span>{
   <span class="hljs-comment">/* ... */</span>
 }
 </code></pre>
@@ -2184,18 +2184,18 @@ names.push(<span class="hljs-string">'Anna'</span>);
 </section><section class="slide"><h2>Intersection Types: Konkretisierung von Typen</h2>
 <p>Beispiel aus Redux:</p>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> Action = {
-  <span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span>;
+  <span class="hljs-attr">type</span>: <span class="hljs-built_in">string</span>;
   payload?: <span class="hljs-built_in">any</span>;
 };
 
 <span class="hljs-keyword">type</span> AddTodoAction = Action &#x26; {
-  <span class="hljs-keyword">type</span>: <span class="hljs-string">'addTodo'</span>;
+  <span class="hljs-attr">type</span>: <span class="hljs-string">'addTodo'</span>;
   payload: <span class="hljs-built_in">string</span>;
 };
 </code></pre>
 </section><section class="slide"><h2>Intersection Types: Kombinieren von Typen</h2>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> Serializable = {
-  serialize: <span class="hljs-function"><span class="hljs-params">()</span> =></span> <span class="hljs-built_in">string</span>;
+  <span class="hljs-attr">serialize</span>: <span class="hljs-function">() =></span> <span class="hljs-built_in">string</span>;
 };
 
 <span class="hljs-keyword">type</span> SerializableAction = Action &#x26; Serializable;
@@ -2211,11 +2211,11 @@ names.push(<span class="hljs-string">'Anna'</span>);
   | ToggleTodoActionType;
 </code></pre>
 </section><section class="slide"><h2>Private &#x26; Public Properties</h2>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">class</span> Clock {
-  <span class="hljs-keyword">private</span> formatTime(time) {
+<pre><code class="hljs language-ts"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Clock</span> </span>{
+  <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-title">formatTime</span>(<span class="hljs-params">time</span>)</span> {
     <span class="hljs-keyword">return</span> ...
   }
-  <span class="hljs-keyword">public</span> start() {
+  <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-title">start</span>(<span class="hljs-params"></span>)</span> {
     ...
   }
 }

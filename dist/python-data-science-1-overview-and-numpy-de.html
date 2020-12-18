@@ -2145,19 +2145,19 @@ time.sleep(<span class="hljs-number">3</span>)
 <p>Wir können Dokumentation über die standardisierte Sprache <em>Markdown</em> hinzufügen:</p>
 <p>Wechsle von <em>Code</em> auf <em>Markdown</em> und versuche den folgenden Code:</p>
 <pre><code class="hljs language-md"><span class="hljs-section"># Heading</span>
-<span class="hljs-bullet">
-- </span>item 1
-<span class="hljs-bullet">- </span>item 2
+
+<span class="hljs-bullet">-</span> item 1
+<span class="hljs-bullet">-</span> item 2
 </code></pre>
 <p>Zelle ausführen oder verlassen, um das Resultat anzuzeigen, doppelklicken zum erneuten Editieren</p>
 <p><a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">Markdown Cheatsheet</a></p>
 </section><section class="slide"><h2>Dokumentation</h2>
 <p>Dokumentation zu Funktion / Klasse / Modul / ... in einer Python Konsole anzeigen:</p>
-<pre><code class="hljs language-py">help(str)
+<pre><code class="hljs language-py"><span class="hljs-built_in">help</span>(<span class="hljs-built_in">str</span>)
 </code></pre>
 <p>(Navigieren durch lange Ausgaben via <em>Enter</em>, Beenden via <em>Q</em>)</p>
 <p>Shortcut in IPython / Jupyter:</p>
-<pre><code class="hljs language-ipython">str?
+<pre><code class="hljs language-ipython"><span class="hljs-built_in">str</span>?
 </code></pre>
 </section><section class="slide"><h2>Tab-Vervollständigung und Wildcard-Ausdrücke</h2>
 <pre><code class="hljs language-ipython">*Error?
@@ -2243,10 +2243,10 @@ np.transpose(a2d)
 <p>wir werden meist Funktionen verwenden</p>
 </section><section class="slide"><h2>NumPy Funktionen vs Array-Methoden</h2>
 <p>verfügbar als Funktionen und Methoden:</p>
-<pre><code class="hljs language-py">np.max(a2d)
-a2d.max()
-np.round(a2d)
-a2d.round()
+<pre><code class="hljs language-py">np.<span class="hljs-built_in">max</span>(a2d)
+a2d.<span class="hljs-built_in">max</span>()
+np.<span class="hljs-built_in">round</span>(a2d)
+a2d.<span class="hljs-built_in">round</span>()
 </code></pre>
 <p>nur als Funktionen verfügbar:</p>
 <pre><code class="hljs language-py">np.sin(a2d)
@@ -2293,11 +2293,11 @@ np.expand_dims(a2d, <span class="hljs-number">2</span>)
 </section><section class="slide"><h2>Float</h2>
 <p>manche Operationen führen zu einem Verlust von Genauigkeit - z.B. Subtrahieren von nahe beieinanderliegenden Zahlen</p>
 <p>Beispiel:</p>
-<pre><code class="hljs language-ini"><span class="hljs-attr">a</span> = <span class="hljs-number">0.001234567</span> (<span class="hljs-number">7</span> relevante Dezimalstellen)
-<span class="hljs-attr">b</span> = <span class="hljs-number">0.001234321</span> (<span class="hljs-number">7</span> relevante Dezimalstellen)
+<pre><code class="hljs language-apache"><span class="hljs-attribute">a</span> = <span class="hljs-number">0</span>.<span class="hljs-number">001234567</span> (<span class="hljs-number">7</span> relevante Dezimalstellen)
+<span class="hljs-attribute">b</span> = <span class="hljs-number">0</span>.<span class="hljs-number">001234321</span> (<span class="hljs-number">7</span> relevante Dezimalstellen)
 
-<span class="hljs-attr">c</span> = a - b
-<span class="hljs-attr">c</span> = <span class="hljs-number">0.000000246</span> (<span class="hljs-number">3</span> relevante Dezimalstellen)
+<span class="hljs-attribute">c</span> = a - b
+<span class="hljs-attribute">c</span> = <span class="hljs-number">0</span>.<span class="hljs-number">000000246</span> (<span class="hljs-number">3</span> relevante Dezimalstellen)
 </code></pre>
 </section><section class="slide"><h2>Float</h2>
 <p>Besondere Werte in IEEE 754:</p>
@@ -2455,8 +2455,8 @@ a1d[<span class="hljs-number">3</span>:<span class="hljs-number">6</span>] <span
 a1d[<span class="hljs-number">6</span>:] <span class="hljs-comment"># [6, 7, 8, 9]</span>
 a1d[<span class="hljs-number">0</span>:<span class="hljs-number">8</span>:<span class="hljs-number">2</span>] <span class="hljs-comment"># [0, 2, 4, 6]</span>
 </code></pre>
-<pre><code class="hljs language-py">a1d[<span class="hljs-number">3</span>:<span class="hljs-number">0</span>:<span class="hljs-number">-1</span>] <span class="hljs-comment"># [3, 2, 1]</span>
-a1d[::<span class="hljs-number">-1</span>] <span class="hljs-comment"># [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]</span>
+<pre><code class="hljs language-py">a1d[<span class="hljs-number">3</span>:<span class="hljs-number">0</span>:-<span class="hljs-number">1</span>] <span class="hljs-comment"># [3, 2, 1]</span>
+a1d[::-<span class="hljs-number">1</span>] <span class="hljs-comment"># [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]</span>
 </code></pre>
 <pre><code class="hljs language-py">a2d[<span class="hljs-number">1</span>:, :] <span class="hljs-comment"># [[5, 6, 7], [8, 9, 10]]</span>
 </code></pre>
@@ -2514,13 +2514,13 @@ print(np.sqrt(a))
 </section><section class="slide"><h2>Aggregationen</h2>
 <p><em>Aggregationen</em> berechnen beispielsweise Werte zu jeder Zeile / jeder Spalte oder zu einem ganzen Array</p>
 <p>Gesamtsumme:</p>
-<pre><code class="hljs language-py">np.sum(a2d)
+<pre><code class="hljs language-py">np.<span class="hljs-built_in">sum</span>(a2d)
 </code></pre>
 <p>Summe entlang Achse 0 ("richtung unten")</p>
-<pre><code class="hljs language-py">np.sum(a2d, axis=<span class="hljs-number">0</span>)
+<pre><code class="hljs language-py">np.<span class="hljs-built_in">sum</span>(a2d, axis=<span class="hljs-number">0</span>)
 </code></pre>
 <p>Summe entlang Achse 1 ("richtung rechts")</p>
-<pre><code class="hljs language-py">np.sum(a2d, axis=<span class="hljs-number">1</span>)
+<pre><code class="hljs language-py">np.<span class="hljs-built_in">sum</span>(a2d, axis=<span class="hljs-number">1</span>)
 </code></pre>
 </section><section class="slide"><h2>Aggregationen</h2>
 <ul>
@@ -2574,7 +2574,7 @@ np.array([[<span class="hljs-number">0.0</span>, <span class="hljs-number">0.01<
 <p>Simuliere 1 Million Mal würfeln mit je 10 Würfeln</p>
 </section></section><section class="slides-section"><section class="slide"><h1>Fortgeschrittenes Indexing und Filtering</h1>
 </section><section class="slide"><h2>Boolean Indexing</h2>
-<pre><code class="hljs language-py">a = np.array([<span class="hljs-number">4.1</span>, <span class="hljs-number">2.7</span>, <span class="hljs-number">-1</span>, <span class="hljs-number">3.8</span>, <span class="hljs-number">-1</span>])
+<pre><code class="hljs language-py">a = np.array([<span class="hljs-number">4.1</span>, <span class="hljs-number">2.7</span>, -<span class="hljs-number">1</span>, <span class="hljs-number">3.8</span>, -<span class="hljs-number">1</span>])
 
 a_valid = a > <span class="hljs-number">0</span>
 <span class="hljs-comment"># array([True, True, False, True, False])</span>
@@ -2587,7 +2587,7 @@ a_with_nans[a_invalid] = np.nan
 <span class="hljs-comment"># array([4.1, 2.7, nan, 3.8, nan])</span>
 </code></pre>
 </section><section class="slide"><h2>Boolean Indexing (Kurzform)</h2>
-<pre><code class="hljs language-py">a = np.array([<span class="hljs-number">4.1</span>, <span class="hljs-number">2.7</span>, <span class="hljs-number">-1</span>, <span class="hljs-number">3.8</span>, <span class="hljs-number">-1</span>])
+<pre><code class="hljs language-py">a = np.array([<span class="hljs-number">4.1</span>, <span class="hljs-number">2.7</span>, -<span class="hljs-number">1</span>, <span class="hljs-number">3.8</span>, -<span class="hljs-number">1</span>])
 
 a_filtered = a[a > <span class="hljs-number">0</span>]
 
@@ -2601,8 +2601,8 @@ np.reshape(a3d, (<span class="hljs-number">2</span>, <span class="hljs-number">4
 </code></pre>
 <p>Automatische Größe entlang einer Achse:</p>
 <pre><code class="hljs language-py">np.ravel(a3d) <span class="hljs-comment"># 1d array</span>
-np.reshape(a3d, (<span class="hljs-number">-1</span>, )) <span class="hljs-comment"># 1d array</span>
-np.reshape(a3d, (<span class="hljs-number">2</span>, <span class="hljs-number">-1</span>)) <span class="hljs-comment"># 2d array</span>
+np.reshape(a3d, (-<span class="hljs-number">1</span>, )) <span class="hljs-comment"># 1d array</span>
+np.reshape(a3d, (<span class="hljs-number">2</span>, -<span class="hljs-number">1</span>)) <span class="hljs-comment"># 2d array</span>
 </code></pre>
 </section><section class="slide"><h2>Dimensionalität erhöhen</h2>
 <p>Hinzufügen einer extra Dimension der Länge 1: Verwandeln eines 2 x 2 Arrays in ein 2 x 2 x 1 Array:</p>
@@ -2612,7 +2612,7 @@ np.reshape(a3d, (<span class="hljs-number">2</span>, <span class="hljs-number">-
 <span class="hljs-comment">#  [[7], [8], [9]]]</span>
 </code></pre>
 <p>Alternative:</p>
-<pre><code class="hljs language-haxe">a2d[:<span class="hljs-type"></span>, :<span class="hljs-type"></span>, np.<span class="hljs-keyword">new</span><span class="hljs-type">axis</span>]
+<pre><code class="hljs language-json">a2d[:, :, np.newaxis]
 </code></pre>
 </section><section class="slide"><h2>Transponieren</h2>
 <p>Umkehren der Achsenreihenfolge:</p>
@@ -2622,8 +2622,8 @@ a2d.T
 </code></pre>
 </section><section class="slide"><h2>Slices als Views</h2>
 <p>In Python können wir eine flache Kopie einer Liste erstellen, indem wir sie slicen - dies ist in NumPy nicht so (um die Effizienz zu steigern):</p>
-<pre><code class="hljs language-py">list = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]
-list_copy = list[:]
+<pre><code class="hljs language-py"><span class="hljs-built_in">list</span> = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]
+list_copy = <span class="hljs-built_in">list</span>[:]
 list_copy[<span class="hljs-number">0</span>] = <span class="hljs-number">10</span> <span class="hljs-comment"># does NOT change list</span>
 
 array = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])

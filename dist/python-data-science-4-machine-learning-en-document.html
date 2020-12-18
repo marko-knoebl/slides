@@ -1,17 +1,23 @@
 <h1>Machine learning</h1>
 <h2>Methods</h2>
 <ul>
-<li><strong>supervised learning</strong><ul>
+<li><strong>supervised learning</strong>
+<ul>
 <li><strong>regression</strong></li>
 <li><strong>classification</strong></li>
-</ul></li>
-<li>unsupervised learning<ul>
+</ul>
+</li>
+<li>unsupervised learning
+<ul>
 <li>clustering</li>
 <li>dimensionality reduction / compression</li>
-</ul></li>
-<li>reinforcement learning<ul>
+</ul>
+</li>
+<li>reinforcement learning
+<ul>
 <li>optimization</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 <h2>Regression</h2>
 <p>Assigning numeric values to numeric input data</p>
@@ -179,7 +185,7 @@ model = keras.Sequential([
     keras.layers.Dense(<span class="hljs-number">12</span>, activation=<span class="hljs-string">"relu"</span>),
     keras.layers.Dense(<span class="hljs-number">3</span>, activation=<span class="hljs-string">"softmax"</span>)
 ])
-model.compile(
+model.<span class="hljs-built_in">compile</span>(
     loss=<span class="hljs-string">"sparse_categorical_crossentropy"</span>,
     metrics=[<span class="hljs-string">"accuracy"</span>]
 )
@@ -205,7 +211,7 @@ y_pred = model.predict(test_data)
 
 digits = datasets.load_digits()
 <span class="hljs-comment"># flatten array from 1797x8x8 to 1797x64</span>
-X = digits.images.reshape(digits.images.shape[<span class="hljs-number">0</span>], <span class="hljs-number">-1</span>)
+X = digits.images.reshape(digits.images.shape[<span class="hljs-number">0</span>], -<span class="hljs-number">1</span>)
 y = digits.target
 
 X_train, X_test, y_train, y_test =
@@ -229,7 +235,7 @@ model = keras.Sequential([
     keras.layers.Dense(<span class="hljs-number">128</span>, activation=<span class="hljs-string">"relu"</span>),
     keras.layers.Dense(<span class="hljs-number">10</span>, activation=<span class="hljs-string">"softmax"</span>),
 ])
-model.compile(loss=<span class="hljs-string">"sparse_categorical_crossentropy"</span>)
+model.<span class="hljs-built_in">compile</span>(loss=<span class="hljs-string">"sparse_categorical_crossentropy"</span>)
 model.fit(x_train, y_train, epochs=<span class="hljs-number">5</span>, validation_split=<span class="hljs-number">0.1</span>)
 
 print(model.evaluate(x_test, y_test))
@@ -282,9 +288,9 @@ X = scaler.transform(stars)
 </code></pre>
 <h2>Scaling values</h2>
 <p>scaled values:</p>
-<pre><code class="hljs language-py">array([[<span class="hljs-number">-0.70634165</span>, <span class="hljs-number">-1.22474487</span>,  <span class="hljs-number">0.95025527</span>],
-       [<span class="hljs-number">-0.70787163</span>,  <span class="hljs-number">1.22474487</span>,  <span class="hljs-number">0.43193421</span>],
-       [ <span class="hljs-number">1.41421329</span>,  <span class="hljs-number">0.</span>        , <span class="hljs-number">-1.38218948</span>]])
+<pre><code class="hljs language-py">array([[-<span class="hljs-number">0.70634165</span>, -<span class="hljs-number">1.22474487</span>,  <span class="hljs-number">0.95025527</span>],
+       [-<span class="hljs-number">0.70787163</span>,  <span class="hljs-number">1.22474487</span>,  <span class="hljs-number">0.43193421</span>],
+       [ <span class="hljs-number">1.41421329</span>,  <span class="hljs-number">0.</span>        , -<span class="hljs-number">1.38218948</span>]])
 </code></pre>
 <h2>Missing data</h2>
 <p>Missing data will often appear as <code>NaN</code>s.</p>
@@ -416,19 +422,25 @@ print(test_results[<span class="hljs-string">"test_score"</span>])
 <h2>Validation metrics</h2>
 <p>classification metrics:</p>
 <ul>
-<li>accuracy metrics<ul>
+<li>accuracy metrics
+<ul>
 <li>accuracy</li>
 <li>confusion matrix</li>
-</ul></li>
-<li>metrics based on true/false positives/negatives<ul>
+</ul>
+</li>
+<li>metrics based on true/false positives/negatives
+<ul>
 <li>precision</li>
 <li>recall</li>
 <li>f-score</li>
 <li>ROC and AUC</li>
-</ul></li>
-<li>probabilistic metrics<ul>
+</ul>
+</li>
+<li>probabilistic metrics
+<ul>
 <li>cross entropy</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 <p>regression metrics:</p>
 <ul>
@@ -827,16 +839,22 @@ print(<span class="hljs-string">"predicted name:"</span>, faces.target_names[pre
 <h2>Decision trees</h2>
 <p>Example decision tree for iris classification:</p>
 <ul>
-<li>is the <em>petal length</em> less than 2.5?<ul>
+<li>is the <em>petal length</em> less than 2.5?
+<ul>
 <li>yes: <strong>setosa</strong></li>
-<li>no: is the <em>petal width</em> less than 1.8?<ul>
-<li>yes: is the <em>petal length</em> smaller than 5.1?<ul>
+<li>no: is the <em>petal width</em> less than 1.8?
+<ul>
+<li>yes: is the <em>petal length</em> smaller than 5.1?
+<ul>
 <li>yes: <strong>versicolor</strong></li>
 <li>no: <strong>virginica</strong></li>
-</ul></li>
+</ul>
+</li>
 <li>no: <strong>virginica</strong></li>
-</ul></li>
-</ul></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 <h2>Classification algorithms</h2>
 <p><a href="https://scikit-learn.org/stable/auto_examples/classification/plot_classifier_comparison.html">overview of classification algorithms in scikit-learn</a></p>

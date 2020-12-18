@@ -6,10 +6,12 @@
 <ul>
 <li>aus Wien</li>
 <li>ehemaliger Mathematiklehrer</li>
-<li>Programmierthemen:<ul>
+<li>Programmierthemen:
+<ul>
 <li>JavaScript, TypeScript und React</li>
 <li>Python, Data Science</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 <h2>Vorstellung der Teilnehmer</h2>
 <ul>
@@ -66,11 +68,13 @@
 <h2>Was macht Angular besonders?</h2>
 <ul>
 <li>Verwendung fast ausschließlich mit TypeScript</li>
-<li>Beinhaltet als Framework einiges an zusätzlichen Tools:<ul>
+<li>Beinhaltet als Framework einiges an zusätzlichen Tools:
+<ul>
 <li>Forms</li>
 <li>Angular Router</li>
 <li>HTTP-Kommunikation</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 <h2>Geschichte von Angular</h2>
 <ul>
@@ -83,16 +87,20 @@
 <h1>Angular - Grundlagen</h1>
 <h2>Entwicklung mit node.js und npm</h2>
 <ul>
-<li>node.js: JS-Runtime<ul>
+<li>node.js: JS-Runtime
+<ul>
 <li>Angular CLI</li>
 <li>Ausführen des Testservers</li>
 <li>Unit-Tests</li>
-</ul></li>
-<li>npm: Paketmanager<ul>
+</ul>
+</li>
+<li>npm: Paketmanager
+<ul>
 <li>zum Verwalten von Abhängigkeiten</li>
 <li>Pakete im <em>node_modules</em>-Ordner</li>
 <li>Konfiguration in <em>package.json</em></li>
-</ul></li>
+</ul>
+</li>
 </ul>
 <h2>Angular CLI</h2>
 <p>Meistgenutzte Methode zum Erstellen von Angular-Anwendungen: <em>Angular CLI (ng)</em></p>
@@ -170,17 +178,17 @@
 </ul>
 <h1>TypeScript für Angular</h1>
 <h2>Properties im Constructor</h2>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">class</span> Person {
-  <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">public</span> name: <span class="hljs-built_in">string</span>, <span class="hljs-keyword">public</span> age: <span class="hljs-built_in">number</span></span>) {}
+<pre><code class="hljs language-ts"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> </span>{
+  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">public</span> name: <span class="hljs-built_in">string</span>, <span class="hljs-keyword">public</span> age: <span class="hljs-built_in">number</span></span>)</span> {}
 }
 
 <span class="hljs-comment">// Kurzform für:</span>
-<span class="hljs-keyword">class</span> Person {
-  name: <span class="hljs-built_in">string</span>;
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> </span>{
+  <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>;
   age: <span class="hljs-built_in">number</span>;
-  <span class="hljs-keyword">constructor</span>(<span class="hljs-params">name: <span class="hljs-built_in">string</span>, age: <span class="hljs-built_in">number</span></span>) {
-    <span class="hljs-keyword">this</span>.name = name;
-    <span class="hljs-keyword">this</span>.age = age;
+  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">name: <span class="hljs-built_in">string</span>, age: <span class="hljs-built_in">number</span></span>)</span> {
+    <span class="hljs-built_in">this</span>.name = name;
+    <span class="hljs-built_in">this</span>.age = age;
   }
 }
 </code></pre>
@@ -199,11 +207,11 @@ Beispiel:</p>
 <h2>Decorators in Angular</h2>
 <p>In Angular werden Decorators verwendet, um Metadaten zu einer Klasse zu ergänzen:</p>
 <pre><code class="hljs language-ts"><span class="hljs-meta">@Component</span>({
-  selector: <span class="hljs-string">'app-root'</span>,
-  templateUrl: <span class="hljs-string">'./app.component.html'</span>,
-  styleUrls: [<span class="hljs-string">'./app.component.css'</span>],
+  <span class="hljs-attr">selector</span>: <span class="hljs-string">'app-root'</span>,
+  <span class="hljs-attr">templateUrl</span>: <span class="hljs-string">'./app.component.html'</span>,
+  <span class="hljs-attr">styleUrls</span>: [<span class="hljs-string">'./app.component.css'</span>],
 })
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> AppComponent {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AppComponent</span> </span>{
   name = <span class="hljs-string">'Anton'</span>;
 }
 </code></pre>
@@ -223,7 +231,7 @@ Beispiel:</p>
 <ul>
 <li>Zeige ein zufälliges Bild an. Verwende dazu:</li>
 </ul>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> getImgUrl = <span class="hljs-function"><span class="hljs-params">()</span> =></span>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> getImgUrl = <span class="hljs-function">() =></span>
   <span class="hljs-string">'https://picsum.photos/200/300?image='</span> +
   <span class="hljs-built_in">Math</span>.floor(<span class="hljs-built_in">Math</span>.random() * <span class="hljs-number">100</span>);
 </code></pre>
@@ -321,9 +329,9 @@ oder<br />
 <p>Das JavaScript Event-Objekt können wir über den Parameter mit dem Namen $event erhalten.</p>
 <pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">input</span> (<span class="hljs-attr">keydown</span>)=<span class="hljs-string">"onKeyDown($event)"</span>></span>
 </code></pre>
-<pre><code class="hljs language-js">onKeyDown(event: KeyboardEvent) {
+<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-title">onKeyDown</span>(<span class="hljs-params">event: KeyboardEvent</span>)</span> {
   event.preventDefault();
-  <span class="hljs-keyword">this</span>.key = event.key;
+  <span class="hljs-built_in">this</span>.key = event.key;
 }
 </code></pre>
 <h2>Standard-Events: Event-Filter</h2>
@@ -359,8 +367,8 @@ oder<br />
 </code></pre>
 <h2>Eigene Properties</h2>
 <p>aus dem Template rufen wir die folgende Hilfsmethode auf:</p>
-<pre><code class="hljs language-js">getStarString = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  <span class="hljs-keyword">return</span> <span class="hljs-string">'*'</span>.repeat(<span class="hljs-keyword">this</span>.stars);
+<pre><code class="hljs language-js">getStarString = <span class="hljs-function">() =></span> {
+  <span class="hljs-keyword">return</span> <span class="hljs-string">'*'</span>.repeat(<span class="hljs-built_in">this</span>.stars);
 };
 </code></pre>
 <h2>Properties: weitere Beispiele</h2>
@@ -386,7 +394,7 @@ oder<br />
 
   [...]
 
-  <span class="hljs-keyword">this</span>.tick.emit(<span class="hljs-keyword">this</span>.remainingTime);
+  <span class="hljs-built_in">this</span>.tick.emit(<span class="hljs-built_in">this</span>.remainingTime);
 </code></pre>
 <h2>Eigene Events - Beispiel</h2>
 <p>Timer mit Events: start, tick, end</p>
@@ -531,11 +539,11 @@ myVar: <span class="hljs-tag">&#x3C;<span class="hljs-name">input</span> [(<span
 <pre><code class="hljs language-ts"><span class="hljs-comment">// app.module.ts</span>
 <span class="hljs-keyword">import</span> { TodoService } <span class="hljs-keyword">from</span> <span class="hljs-string">'./todo.service'</span>;
 […]
-  providers: [TodoService]
+  <span class="hljs-attr">providers</span>: [TodoService]
 […]
 </code></pre>
 <pre><code class="hljs language-ts"><span class="hljs-comment">// app.component.ts</span>
-<span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">public</span> todoService: TodoService</span>) {
+<span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">public</span> todoService: TodoService</span>)</span> {
   …
 }
 </code></pre>
@@ -554,24 +562,24 @@ myVar: <span class="hljs-tag">&#x3C;<span class="hljs-name">input</span> [(<span
 <h2>HTTP in Angular: Observables</h2>
 <p>Observables in Angular: Möglichkeit, asynchron Daten abzufragen – Ähnlich zu <em>Promises</em>.</p>
 <h2>HTTP in Angular: Observables</h2>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">this</span>.http
+<pre><code class="hljs language-ts"><span class="hljs-built_in">this</span>.http
   .get(<span class="hljs-string">'https://jsonplaceholder.typicode.com/todos'</span>)
   <span class="hljs-comment">// .subscribe() … ähnlich zu .then() bei promises</span>
   <span class="hljs-comment">// wir senden einen Request, wenn dieser beantwortet wird,</span>
   <span class="hljs-comment">// wird die Pfeilfunktion aufgerufen und das Resultat</span>
   <span class="hljs-comment">// unter .todos gespeichert</span>
   .subscribe(<span class="hljs-function"><span class="hljs-params">response</span> =></span> {
-    <span class="hljs-keyword">this</span>.todos = response;
+    <span class="hljs-built_in">this</span>.todos = response;
   });
 </code></pre>
 <h2>HTTP in Angular: Fehlerbehandlung</h2>
 <p>Mittels zweitem Argument für <code>subscribe</code>:</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">this</span>.http.get(<span class="hljs-string">'...'</span>).subscribe(
+<pre><code class="hljs language-ts"><span class="hljs-built_in">this</span>.http.get(<span class="hljs-string">'...'</span>).subscribe(
   <span class="hljs-function"><span class="hljs-params">response</span> =></span> {
-    <span class="hljs-keyword">this</span>.todos = response;
+    <span class="hljs-built_in">this</span>.todos = response;
   },
   <span class="hljs-function"><span class="hljs-params">error</span> =></span> {
-    <span class="hljs-keyword">this</span>.error = error;
+    <span class="hljs-built_in">this</span>.error = error;
   }
 );
 </code></pre>
@@ -579,7 +587,7 @@ myVar: <span class="hljs-tag">&#x3C;<span class="hljs-name">input</span> [(<span
 <pre><code class="hljs language-ts"><span class="hljs-comment">// app.module.ts:</span>
 <span class="hljs-keyword">import</span> { HttpClientModule } <span class="hljs-keyword">from</span> <span class="hljs-string">'@angular/common/http'</span>;
 …
-imports: […, HttpClientModule]
+<span class="hljs-attr">imports</span>: […, HttpClientModule]
 
 <span class="hljs-comment">// my-service.ts:</span>
 <span class="hljs-keyword">import</span> { HttpClient } <span class="hljs-keyword">from</span> <span class="hljs-string">'@angular/common/http'</span>;
@@ -607,8 +615,8 @@ imports: […, HttpClientModule]
 imports: [
   ...,
   RouterModule.forRoot([
-    { path: <span class="hljs-string">''</span>, component: TodoListComponent },
-    { path: <span class="hljs-string">'add'</span>, component: AddFormComponent }
+    { <span class="hljs-attr">path</span>: <span class="hljs-string">''</span>, <span class="hljs-attr">component</span>: TodoListComponent },
+    { <span class="hljs-attr">path</span>: <span class="hljs-string">'add'</span>, <span class="hljs-attr">component</span>: AddFormComponent }
   ])
 ],
 </code></pre>
@@ -618,10 +626,10 @@ imports: [
 <p>Die Anzeige der Inhalte erfolgt <em>unterhalb</em> des <code>&#x3C;router-outlet></code>-Tags</p>
 <h2>Routing - Redirects und Wildcards</h2>
 <p>Beispiel:</p>
-<pre><code class="hljs language-ts">  { path: <span class="hljs-string">'home'</span>, redirectTo: <span class="hljs-string">''</span> },
-  { path: <span class="hljs-string">'add-todo'</span>, redirectTo: <span class="hljs-string">'add'</span> },
+<pre><code class="hljs language-ts">  { <span class="hljs-attr">path</span>: <span class="hljs-string">'home'</span>, <span class="hljs-attr">redirectTo</span>: <span class="hljs-string">''</span> },
+  { <span class="hljs-attr">path</span>: <span class="hljs-string">'add-todo'</span>, <span class="hljs-attr">redirectTo</span>: <span class="hljs-string">'add'</span> },
 
-  { path: <span class="hljs-string">'**'</span>, redirectTo: <span class="hljs-string">''</span> },
+  { <span class="hljs-attr">path</span>: <span class="hljs-string">'**'</span>, <span class="hljs-attr">redirectTo</span>: <span class="hljs-string">''</span> },
 </code></pre>
 <h2>Routing - Links</h2>
 <p>Der Link</p>
@@ -636,28 +644,28 @@ imports: [
 <pre><code class="hljs language-ts"><span class="hljs-comment">// add-form.component.ts</span>
 <span class="hljs-keyword">import</span> { Router } <span class="hljs-keyword">from</span> <span class="hljs-string">'@angular/router'</span>;
 […]
-  <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">public</span> router: Router</span>) { }
-    addTodo(todo: {description: <span class="hljs-built_in">string</span>, done: <span class="hljs-built_in">boolean</span>}) {
-    <span class="hljs-keyword">this</span>.todoService.addTodo(todo);
-    <span class="hljs-keyword">this</span>.router.navigate([<span class="hljs-string">'/'</span>]);
+  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">public</span> router: Router</span>)</span> { }
+    <span class="hljs-function"><span class="hljs-title">addTodo</span>(<span class="hljs-params">todo: {description: <span class="hljs-built_in">string</span>, done: <span class="hljs-built_in">boolean</span>}</span>)</span> {
+    <span class="hljs-built_in">this</span>.todoService.addTodo(todo);
+    <span class="hljs-built_in">this</span>.router.navigate([<span class="hljs-string">'/'</span>]);
   }
 </code></pre>
 <h2>Routen-Parameter</h2>
 <p>Wir erstellen neue Routen der Form: <code>/todo/$todoId</code>.<br />
 Dort soll jeweils ein einzelnes Todo-Item angezeigt werden</p>
-<pre><code class="hljs language-less"><span class="hljs-comment">// app.module.ts</span>
+<pre><code class="hljs language-css">// <span class="hljs-selector-tag">app</span><span class="hljs-selector-class">.module</span><span class="hljs-selector-class">.ts</span>
 <span class="hljs-selector-attr">[…]</span>
-  { <span class="hljs-attribute">path</span>: <span class="hljs-string">'todo/:todoId'</span>, <span class="hljs-attribute">component</span>: TodoDetailsComponent },
+  { <span class="hljs-attribute">path</span>: <span class="hljs-string">'todo/:todoId'</span>, component: TodoDetailsComponent },
 </code></pre>
 <h2>Routen-Parameter</h2>
 <p>Die aktive Route bekommen wir über die Klasse ActivatedRoute, die wir mit Dependency Injection initialisieren.</p>
 <p>ActivatedRoute.params ist ein Observable mit Routenparametern</p>
 <pre><code class="hljs language-ts"><span class="hljs-comment">// todo-details.component.ts</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> TodoDetailsComponent {
-  todoId: <span class="hljs-built_in">string</span>;
-  <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> route: ActivatedRoute</span>) {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TodoDetailsComponent</span> </span>{
+  <span class="hljs-attr">todoId</span>: <span class="hljs-built_in">string</span>;
+  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> route: ActivatedRoute</span>)</span> {
     route.params.subscribe(<span class="hljs-function"><span class="hljs-params">params</span> =></span> {
-      <span class="hljs-keyword">this</span>.todoId = params.todoId;
+      <span class="hljs-built_in">this</span>.todoId = params.todoId;
     });
   }
 }
