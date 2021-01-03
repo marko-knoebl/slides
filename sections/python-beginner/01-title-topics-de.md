@@ -1,6 +1,6 @@
 # Python beginner
 
-## Topics
+## Themen
 
 - Überblick und Charakteristika von Python
 - Installation

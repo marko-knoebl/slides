@@ -2060,38 +2060,108 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   </head>
   <body>
     <div class="reveal">
-      <div class="slides slides"><section class="slides-section"><section class="slide"><h1>Git Grundlagen</h1>
+      <div class="slides slides"><section class="slides-section"><section class="slide"><h1>Git</h1>
 </section><section class="slide"><h2>Git</h2>
-<p>Git st ein Versionskontrollsystem</p>
+<p><em>Versionskontrollsystem</em></p>
 <p>es kann insbesondere bei folgenden Aufgaben behilflich sein:</p>
 <ul>
 <li>Änderungen an einer Codebase mitverfolgen</li>
 <li>Mit anderen Entwicklern zusammenarbeiten</li>
 </ul>
-</section><section class="slide"><h2>Setup von Git unter Windows</h2>
-<p>Installation von <a href="https://git-scm.com">https://git-scm.com</a></p>
-</section><section class="slide"><h2>Setup von Git unter Windows</h2>
-<p>Setup-Empfehlungen:</p>
+</section><section class="slide"><h2>Beispiele für Repositories</h2>
+<ul>
+<li><a href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git">https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git</a>: Linux Kernel</li>
+<li><a href="https://gitlab.com/fdroid/fdroidclient">https://gitlab.com/fdroid/fdroidclient</a>: F-Droid client auf GitLab (mit Graph-Ansicht)</li>
+<li><a href="https://github.com/twbs/bootstrap">https://github.com/twbs/bootstrap</a>: Bootstrap auf GitHub</li>
+<li><a href="https://github.com/EvanLi/Github-Ranking/blob/master/Top100/Top-100-stars.md">https://github.com/EvanLi/Github-Ranking/blob/master/Top100/Top-100-stars.md</a>: Repositories mit den meisten Sternen auf GitHub</li>
+</ul>
+</section></section><section class="slides-section"><section class="slide"><h1>Commits und Branches</h1>
+</section><section class="slide"><h2>Commits</h2>
+<p>Ein <em>Commit</em> in Git ist eine Momentaufnahme einer Codebase</p>
+<p>Die Entwicklung einer Codebase im Laufe der Zeit wird durch eine Abfolge von Commits repräsentiert</p>
+<p>Manchmal bezeichnet man mit dem Begriff Commit auch die Änderungen von einer Momentaufnahme zur nächsten</p>
+</section><section class="slide"><h2>Commits</h2>
+<p>Einfacher Commit-Log mit einem Branch (<em>master</em>):</p>
+<pre><code class="hljs language-dockerfile">* <span class="hljs-keyword">add</span><span class="bash"> footer (master)</span>
+* <span class="hljs-keyword">add</span><span class="bash"> company logo</span>
+* <span class="hljs-keyword">add</span><span class="bash"> sidebar</span>
+* <span class="hljs-keyword">add</span><span class="bash"> placeholder content</span>
+* initialize website
+</code></pre>
+</section><section class="slide"><h2>Branches</h2>
+<p><em>Branches</em> erlauben das gleichzeitige / parallele Arbeiten an mehreren Aufgaben</p>
+<p>Der Standard-Branch heißt üblicherweise <em>master</em> oder <em>main</em></p>
+</section><section class="slide"><h2>Commits und Branches</h2>
+<p>Commit-Log mit einem aktiven Feature-Branch:</p>
+<pre><code class="hljs language-routeros">* <span class="hljs-builtin-name">add</span> sidebar (master)
+| * correct typo <span class="hljs-keyword">in</span> footer (footer)
+| * <span class="hljs-builtin-name">add</span> logo <span class="hljs-keyword">to</span> footer
+| * <span class="hljs-builtin-name">add</span> footer with basic content
+|/
+* <span class="hljs-builtin-name">add</span> placeholder content
+* initialize website
+</code></pre>
+</section><section class="slide"><h2>Commits und Branches</h2>
+<p>Zusammenführen von Branches (via <em>merge</em>):</p>
+<pre><code class="hljs language-sql">* <span class="hljs-keyword">merge</span> branch <span class="hljs-string">'footer'</span> <span class="hljs-keyword">into</span> <span class="hljs-keyword">master</span> (<span class="hljs-keyword">master</span>)
+|\
+| * correct typo <span class="hljs-keyword">in</span> footer (footer)
+| * <span class="hljs-keyword">add</span> logo <span class="hljs-keyword">to</span> footer
+| * <span class="hljs-keyword">add</span> footer <span class="hljs-keyword">with</span> basic <span class="hljs-keyword">content</span>
+* | <span class="hljs-keyword">add</span> sidebar
+|/
+* <span class="hljs-keyword">add</span> placeholder <span class="hljs-keyword">content</span>
+* initialize website
+</code></pre>
+</section><section class="slide"><h2>Commits und Branches</h2>
+<p>Zusammenführen von Branches (via <em>rebase</em> und <em>squash</em>):</p>
+<pre><code class="hljs language-dockerfile">* <span class="hljs-keyword">add</span><span class="bash"> footer (master)</span>
+* <span class="hljs-keyword">add</span><span class="bash"> sidebar</span>
+* <span class="hljs-keyword">add</span><span class="bash"> placeholder content</span>
+* initialize website
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Userinterfaces</h1>
+</section><section class="slide"><h2>Userinterfaces</h2>
+<ul>
+<li>command-line interface (Standard, umfangreiche Funktionalität)</li>
+<li>GUI
+<ul>
+<li><em>git gui</em> und <em>gitk</em></li>
+<li>...</li>
+</ul>
+</li>
+<li>Webinterfaces / gehostete Git Repositories
+<ul>
+<li>GitHub</li>
+<li>GitLab</li>
+</ul>
+</li>
+</ul>
+</section></section><section class="slides-section"><section class="slide"><h1>Setup</h1>
+</section><section class="slide"><h2>Setup unter Windows</h2>
+<p>Install from <a href="https://git-scm.com">https://git-scm.com</a></p>
+</section><section class="slide"><h2>Setup unter Windows</h2>
+<p>recommendations:</p>
 <ul>
 <li><strong>Select Components</strong>:
 <ul>
-<li><em>kein</em> Häkchen bei <em>Git GUI Here</em></li>
-<li>Häkchen bei <em>Git Bash Here</em>, um aus dem Windows Explorer einfach eine <em>bash</em>-Konsole öffnen zu können</li>
+<li>uncheck <em>Git GUI Here</em></li>
+<li>check <em>Git Bash Here</em> for an easy way to get into the <em>bash</em> from the Windows Explorer</li>
 </ul>
 </li>
 <li><strong>Default editor</strong>:
 <ul>
-<li>wenn unsicher, verwende <em>Nano</em></li>
+<li>if unsure, use <em>Nano</em></li>
 </ul>
 </li>
 <li><strong>Adjusting your PATH environment</strong>:
 <ul>
-<li>Empfehlung: Häkchen bei <em>Use Git and optional Unix tools from the Command Prompt</em> - dadurch können Befehle wie <em>ls</em> oder <em>mv</em> aus der <em>cmd</em>-Eingabe ausgeführt werden</li>
+<li>recommendation: check <em>Use Git and optional Unix tools from the Command Prompt</em> - you will be able to use commands like <em>ls</em> and <em>mv</em> from <em>cmd</em></li>
 </ul>
 </li>
 <li><strong>line ending conversions</strong>:
 <ul>
-<li>Empfehlung: <em>Checkout as-is, commit Unix-style line endings</em></li>
+<li>recommendation: <em>Checkout as-is, commit Unix-style line endings</em></li>
 </ul>
 </li>
 </ul>
@@ -2099,39 +2169,96 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <pre><code class="hljs language-bash">git config --global user.name <span class="hljs-string">"John Doe"</span>
 git config --global user.email johndoe@example.com
 </code></pre>
-</section><section class="slide"><h2>Lokale Versionskontrolle mit Git</h2>
-<p>Initialisierung eines Repositorys in einem lokalen Ordner</p>
+</section></section><section class="slides-section"><section class="slide"><h1>Initialisieren oder Klonen eines git Repositories</h1>
+</section><section class="slide"><h2>Befehle</h2>
+<ul>
+<li><code>git init</code></li>
+<li><code>git clone</code></li>
+</ul>
+</section><section class="slide"><h2>Initialisieren eines git Repositories</h2>
+<p>Initialisieren eines neuen Repositories in einem lokalen Ordner:</p>
 <pre><code class="hljs language-bash">git init
 </code></pre>
-</section><section class="slide"><h2>Commits</h2>
-<p>Ein <em>Commit</em> in Git ist eine Momentaufnahme einer Codebase</p>
-<p>Die Entwicklung einer Codebase im Laufe der Zeit wird durch eine Abfolge von Commits repräsentiert</p>
-</section><section class="slide"><h2>Anzeigen der Änderungen seit dem letzten Commit</h2>
-<p>Anzeigen des Status von Dateien (hinzugefügt / geändert / gelöscht seit dem letzten Commit)</p>
+</section><section class="slide"><h2>Klonen eines git Repositories</h2>
+<p>Klonen eines öffentlichen Repositories (von GitHub):</p>
+<pre><code class="hljs language-bash">git <span class="hljs-built_in">clone</span> https://github.com/libgit2/libgit2
+</code></pre>
+<p>Erstellt einen neuen Ordner <em>libgit2</em> mit dem aktuellen Code und der gesamten Versionsgeschichte</p>
+<!--
+libgit2: ~50MiB
+bootstrap: ~170MiB (80 branches)
+-->
+</section></section><section class="slides-section"><section class="slide"><h1>Aufzeichnen von Änderungen</h1>
+</section><section class="slide"><h2>Befehle</h2>
+<ul>
+<li><code>git status</code></li>
+<li><code>git diff</code></li>
+<li><code>git add</code></li>
+<li><code>git restore</code></li>
+<li><code>git commit</code></li>
+</ul>
+</section><section class="slide"><h2>Befehle</h2>
 <pre><code class="hljs language-bash">git status
 </code></pre>
-<p>Anzeigen von hinzugefügten / entfernten Zeilen in Dateien</p>
+<p>Gibt Informationen zu dem aktuellen Zustand des Repositories aus</p>
+</section><section class="slide"><h2>Anzeigen der Änderungen seit dem letzten Commit</h2>
+<p>Status von Dateien anzeigen (hinzugefügt / verändert / gelöscht seit dem letzten Commit):</p>
+<pre><code class="hljs language-bash">git status
+</code></pre>
+<p>Anzeigen von hinzugefügten / gelöschten Zeilen in Dateien:</p>
 <pre><code class="hljs language-bash">git diff
 </code></pre>
-</section><section class="slide"><h2>Stagen und Committen</h2>
-<p>Vorbereiten aller geänderten / hinzugefügten / entfernten HTML-Dateien zum Committen (Staging der Dateien):</p>
+</section><section class="slide"><h2>Staging</h2>
+<p>Vorbereiten aller hinzugefügten / veränderten / gelöschten HTML-Dateien zum Committen (Staging von Dateien):</p>
 <pre><code class="hljs language-bash">git add *.html
 </code></pre>
-<p>Erstellen eines Commits (mit verpflichtender Commit-Message)</p>
-<pre><code class="hljs language-bash">git commit -m <span class="hljs-string">"changing some HTML files"</span>
+<p>Vorbereiten aller Dateien:</p>
+<pre><code class="hljs language-bash">git add .
 </code></pre>
-</section><section class="slide"><h2>Commit-History</h2>
+</section><section class="slide"><h2>Unstaging und Rückgängig machen von aktiven Änderungen</h2>
+<p>"Unstaging" von Dateien:</p>
+<pre><code class="hljs language-bash">git restore --staged readme.txt
+</code></pre>
+<p>Verwerfen von Änderungen:</p>
+<pre><code class="hljs language-bash">git restore readme.txt
+</code></pre>
+</section><section class="slide"><h2>Committen</h2>
+<p>Erstellen eines Commits mit allen Änderungen inklusive Commit-Message:</p>
+<pre><code class="hljs language-bash">git add .
+git commit -m <span class="hljs-string">"changing some HTML files"</span>
+</code></pre>
+</section><section class="slide"><h2>Committen</h2>
+<p>Kurzversion für das direkte Committen aller Änderungen:</p>
+<pre><code class="hljs language-bash">git commit -a -m <span class="hljs-string">"changing some HTML files"</span>
+</code></pre>
+</section><section class="slide"><h2>Ignorieren von Dateien</h2>
+<p>Auflisten von zu ignorierenden Dateien in einer Textdatei namens <em>.gitignore</em> (ohne Dateiendung):</p>
+<pre><code class="hljs language-txt">__pycache__
+node_modules
+.vscode
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>History</h1>
+</section><section class="slide"><h2>Befehle</h2>
+<ul>
+<li><code>git log</code></li>
+<li><code>git show</code></li>
+<li><code>git diff</code></li>
+<li><code>git restore</code></li>
+<li><code>git revert</code></li>
+</ul>
+</section><section class="slide"><h2>History</h2>
 <p>Auflisten bisheriger Commits:</p>
 <pre><code class="hljs language-bash">git <span class="hljs-built_in">log</span>
 git <span class="hljs-built_in">log</span> --oneline
+git <span class="hljs-built_in">log</span> --oneline --graph
+git <span class="hljs-built_in">log</span> --oneline --graph --all
 </code></pre>
-<p>Beispiel für Ausgabe:</p>
-<pre><code class="hljs language-bash">commit e84890f64f974b5f4b0ffa40afff34ecbb33e58c (HEAD -> master, origin/master, origin/HEAD)
-Author: ...
-Date: ...
-...
-commit 19e0e64e8f198bc8495c979fe586c47e6dedc06f
-....
+<p>Beispiel für Ausgabe zum letzten Befehl:</p>
+<pre><code class="hljs language-bash">* e84890f (HEAD -> master, origin/master, origin/HEAD) add footer
+* 9eb2f53 add company logo
+* 5c41c01 add sidebar
+* f4f591c add placeholder content
+* d6510c2 initialize website
 </code></pre>
 </section><section class="slide"><h2>Commit-History</h2>
 <p>Anzeigen der Änderungen zwischen Commit <em>19e0e64...</em> und dessen Eltern-Commit:</p>
@@ -2140,15 +2267,80 @@ commit 19e0e64e8f198bc8495c979fe586c47e6dedc06f
 <p>Anzeigen der Änderungen zwischen Commit <em>19e0e64...</em> und der aktuellen Version:</p>
 <pre><code class="hljs language-bash">git diff 19e0
 </code></pre>
-</section><section class="slide"><h2>Ignorieren von Dateien</h2>
-<p>Wir können zu ignorierende Dateien in einer besonderen Textdatei namens <code>.gitignore</code> (ohne Dateiendung) anführen:</p>
-<pre><code class="hljs language-txt">node_modules
-.vscode
+</section><section class="slide"><h2>Commit-History</h2>
+<p>Zugreifen auf die Inhalte eines früheren Commits (mit id b4c906...):</p>
+<pre><code class="hljs language-bash">git restore . b4c9
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Git Branches</h1>
-</section><section class="slide"><h2>Branches</h2>
-<p>Branches ("Zweige") erlauben die parallele Entwicklung an mehreren Aufgaben</p>
-<p>Der Standard-Branch heißt üblicherweise <em>master</em></p>
+<p><strong>Bemerkung</strong>: alle aktiven Änderungen gehen verloren</p>
+<p>Zurück zum aktuellsten Commit des derzeitigen Branches:</p>
+<pre><code class="hljs language-bash">git restore .
+</code></pre>
+</section><section class="slide"><h2>Commit-History</h2>
+<p>Rückgängig Machen des letzten Commits (mittels eines neuen Commits):</p>
+<pre><code class="hljs language-bash">git revert HEAD
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Feature Branch Workflow</h1>
+</section><section class="slide"><h2>Feature Branch Workflow</h2>
+<p>Workflow:</p>
+<p>Um neue Features / Änderungen umzusetzen, erstellt man einen sogenannten <em>Feature Branch</em></p>
+<p>Der Feature Branch kann sich individuell parallel zum master Branch entwickeln</p>
+<p>Entwickelt sich der master Branch weiter, können die Änderungen in den Feature Branch übernommen werden</p>
+<p>Ist ein Feature komplett, können die Änderungen in den master Branch übernommen werden (nach begutachtung durch andere Entwickler)</p>
+</section><section class="slide"><h2>Feature Branch Workflow</h2>
+<p>Feature Branches können oft auf einen kleinen Rahmen beschränkt sein, z.B. <em>fix-spelling-error-in-readme</em></p>
+<p>manche Feature Branches müssen großen Umfang haben, z.B. <em>port-to-typescript</em></p>
+</section><section class="slide"><h2>Feature Branch Workflow</h2>
+<p>Beispiel: Entwickler arbeiten an zwei unterschiedlichen Tasks gleichzeitig:</p>
+<pre><code class="hljs language-txt">* add sidebar (sidebar)
+| * add logo to footer (footer)
+| * add footer with basic content
+|/
+* add placeholder content (master)
+* initialize website
+</code></pre>
+</section><section class="slide"><h2>Feature Branch Workflow</h2>
+<p>nach Vervollständigung eines Features kann es in den Master-Branch eingebunden werden:</p>
+<pre><code class="hljs language-txt">* add footer (master)
+| * add sidebar (sidebar)
+|/
+* add placeholder content
+* initialize website
+</code></pre>
+</section><section class="slide"><h2>Feature Branch Workflow</h2>
+<p>Andere Branches können Änderungen aus dem Master-Branch mittels <em>merge</em> oder <em>rebase</em> übernehmen:</p>
+<pre><code class="hljs language-txt">  * add sidebar (sidebar)
+ /
+* add footer (master)
+* add placeholder content
+* initialize website
+</code></pre>
+</section><section class="slide"><h2>Feature Branch Workflow</h2>
+<p>während der Entwicklung:</p>
+<ul>
+<li>erstelle einen neuen Feature-Branch, der von <em>master</em> abzweigt</li>
+<li>füge bei Änderungen regelmäßig neue Commits hinzu</li>
+<li>merge (oder rebase), wenn neue Commits auf dem <em>master</em>-Branch gemacht werden</li>
+</ul>
+<p>wenn das Feature fertiggestellt ist:</p>
+<ul>
+<li>optional: kombiniere alle Commits auf dem Branch zu einem (rebase)</li>
+<li>in den <em>master</em>-Branch mergen</li>
+<li>lösche den Feature-Branch</li>
+</ul>
+</section><section class="slide"><h2>Siehe auch</h2>
+<ul>
+<li><a href="https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow">https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow</a>
+<!-- https://stackoverflow.com/questions/tagged/git?tab=Votes -->
+</li>
+</ul>
+</section></section><section class="slides-section"><section class="slide"><h1>Branches erstellen und wechseln</h1>
+</section><section class="slide"><h2>Befehle</h2>
+<ul>
+<li><code>git branch foo</code></li>
+<li><code>git switch foo</code></li>
+<li><code>git switch -c bar</code></li>
+<li><code>git branch</code></li>
+</ul>
 </section><section class="slide"><h2>Erstellen eines Branches</h2>
 <pre><code class="hljs language-bash">git branch python-3-port
 </code></pre>
@@ -2157,9 +2349,128 @@ commit 19e0e64e8f198bc8495c979fe586c47e6dedc06f
 <pre><code class="hljs language-bash">git switch python-3-port
 git switch master
 </code></pre>
-<p>Vor dem Wechseln kann es sinnvoll sein, sicherzustellen, dass es keine aktiven Änderungen gibt</p>
+</section><section class="slide"><h2>Wechseln von Branches</h2>
+<p>Vor dem Wechseln kann es sinnvoll sein, dass es keine aktiven Änderungen gibt</p>
+<pre><code class="hljs language-bash">git status
+</code></pre>
+<pre><code class="hljs language-bash">git switch master
+</code></pre>
+</section><section class="slide"><h2>Erstellen und Wechseln in einem</h2>
+<pre><code class="hljs language-bash">git switch -c python-3-port
+</code></pre>
+<p>Erstellen und Wechseln zu einem neuen Branch</p>
+</section><section class="slide"><h2>Auflisten von Branches</h2>
+<p>Auflisten von allen (lokalen) Branches:</p>
+<pre><code class="hljs language-bash">git branch
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Zusammenführen von Branches via merge</h1>
+</section><section class="slide"><h2>Zusammenführen von Branches via merge</h2>
+<p>Beispiel für eine Commit-History (während der Feature-Entwicklung):</p>
+<pre><code class="hljs language-sql">  * <span class="hljs-keyword">merge</span> branch <span class="hljs-string">'master'</span> <span class="hljs-keyword">into</span> <span class="hljs-string">'footer'</span> (footer)
+ /|
+* | <span class="hljs-keyword">add</span> company logo (<span class="hljs-keyword">master</span>)
+| * <span class="hljs-keyword">add</span> copyright <span class="hljs-keyword">notice</span> <span class="hljs-keyword">to</span> footer
+| * <span class="hljs-keyword">merge</span> branch <span class="hljs-string">'master'</span> <span class="hljs-keyword">into</span> <span class="hljs-string">'footer'</span>
+|/|
+* | <span class="hljs-keyword">add</span> sidebar
+| * <span class="hljs-keyword">add</span> logo <span class="hljs-keyword">to</span> footer
+| * <span class="hljs-keyword">add</span> footer <span class="hljs-keyword">with</span> basic <span class="hljs-keyword">content</span>
+|/
+* <span class="hljs-keyword">add</span> placeholder <span class="hljs-keyword">content</span>
+* initialize website
+</code></pre>
+</section><section class="slide"><h2>Zusammenführen von Branches via merge</h2>
+<p>Beispiel für eine Commit-History (wenn das Feature vollständig ist):</p>
+<pre><code class="hljs language-sql">* <span class="hljs-keyword">merge</span> branch <span class="hljs-string">'master'</span> <span class="hljs-keyword">into</span> <span class="hljs-string">'footer'</span> (<span class="hljs-keyword">master</span>)
+|\
+* | <span class="hljs-keyword">add</span> company logo
+| * <span class="hljs-keyword">add</span> copyright <span class="hljs-keyword">notice</span> <span class="hljs-keyword">to</span> footer
+| * <span class="hljs-keyword">merge</span> branch <span class="hljs-string">'master'</span> <span class="hljs-keyword">into</span> <span class="hljs-string">'footer'</span>
+|/|
+* | <span class="hljs-keyword">add</span> sidebar
+| * <span class="hljs-keyword">add</span> logo <span class="hljs-keyword">to</span> footer
+| * <span class="hljs-keyword">add</span> footer <span class="hljs-keyword">with</span> basic <span class="hljs-keyword">content</span>
+|/
+* <span class="hljs-keyword">add</span> placeholder <span class="hljs-keyword">content</span>
+* initialize website
+</code></pre>
+<p>Bemerkung: der letzte Merge behält seine Commit-Message</p>
+</section><section class="slide"><h2>Zusammenführen von Branches via merge und squash</h2>
+<p>merge und squash:</p>
+<p>Beispiel für eine Commit-History (wenn das Feature vollständig ist):</p>
+<pre><code class="hljs language-routeros">* <span class="hljs-builtin-name">add</span> footer (master)
+* <span class="hljs-builtin-name">add</span> company logo
+| * <span class="hljs-builtin-name">add</span> copyright notice <span class="hljs-keyword">to</span> footer (footer)
+| * merge branch <span class="hljs-string">'master'</span> into <span class="hljs-string">'footer'</span>
+|/|
+* | <span class="hljs-builtin-name">add</span> sidebar
+| * <span class="hljs-builtin-name">add</span> logo <span class="hljs-keyword">to</span> footer
+| * <span class="hljs-builtin-name">add</span> footer with basic content
+|/
+* <span class="hljs-builtin-name">add</span> placeholder content
+* initialize website
+</code></pre>
+</section><section class="slide"><h2>Merge und squash</h2>
+<p>Nach einem erfolgreichen <em>merge und squash</em> kann der Branch gelöscht werden:</p>
+<pre><code class="hljs language-bash">git branch -D footer
+</code></pre>
+<p>Resultat:</p>
+<pre><code class="hljs language-dockerfile">* <span class="hljs-keyword">add</span><span class="bash"> footer (master)</span>
+* <span class="hljs-keyword">add</span><span class="bash"> company logo</span>
+* <span class="hljs-keyword">add</span><span class="bash"> sidebar</span>
+* <span class="hljs-keyword">add</span><span class="bash"> placeholder content</span>
+* initialize website
+</code></pre>
+</section><section class="slide"><h2>Zusammenführen von Branches via merge</h2>
+<p>Befehle zum Zusammenführen der Änderungen von <em>master</em> und <em>footer</em> (Merge von <em>master</em> nach <em>footer</em>):</p>
+<pre><code class="hljs language-bash">git switch footer
+git merge master
+</code></pre>
+</section><section class="slide"><h2>Merge-Konflikte</h2>
+<p>haben zwei Branches die gleiche Zeile unterschiedlich abgeändert, gibt es einen <em>Merge-Konflikt</em></p>
+</section><section class="slide"><h2>Merge-Konflikte</h2>
+<p>Darstellung eines Merge-Konflikts in einer Datei:</p>
+<pre><code class="hljs language-excel">First line
+<span class="hljs-built_in">Second</span> line
+&#x3C;&#x3C;&#x3C;&#x3C;&#x3C;&#x3C; HEAD
+Thrd line!
+======
+Third line
+>>>>>> master
+Fourth line
+</code></pre>
+<p>Ein Branch hat ein Ausrufezeichen hinzugefügt, ein anderer einen Schreibfehler behoben</p>
+<!--
+note: actually there should be one more "<" sign:
+<!!!!!!
+>>>>>>>
+-->
+</section><section class="slide"><h2>Merge-Konflikte Auflösen</h2>
+<ul>
+<li>Bearbeite die Datei und behalte die gewünschten Änderungen</li>
+<li>Dateien mit gelösten Konflikten mittels <em>add</em> hinzufügen</li>
+<li><code>git commit</code> (ohne extra Argumente)</li>
+</ul>
+</section><section class="slide"><h2>Löschen alter Branches</h2>
+<p>Üblicherweise werden Branches nach dem Merge gelöscht:</p>
+<pre><code class="hljs language-ebnf"><span class="hljs-attribute">git branch -d footer</span>
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Übungen</h1>
+</section><section class="slide"><h2>Übungen</h2>
+<ul>
+<li>Erstelle und ändere eine Todo-Liste</li>
+<li>Arbeite an einem bestehenden Projekt von GitHub (z.B. an der Readme-Datei)</li>
+</ul>
+</section><section class="slide"><h2>Übung: Todo-Liste</h2>
+<p>Erstelle eine Text-Datei mit Todos:</p>
+<pre><code class="hljs language-asciidoc"><span class="hljs-bullet">- </span>groceries
+<span class="hljs-bullet">- </span>taxes
+x gardening
+</code></pre>
+<p>Verändere die Todos mittels separater <em>Feature Branches</em>, z.B. "long-term todos", "new-job", "new-job-sub-items", "taxes-completed", ...</p>
+</section></section><section class="slides-section"><section class="slide"><h1>Der checkout-Befehl</h1>
 </section><section class="slide"><h2>Der checkout-Befehl</h2>
-<p><code>git checkout</code> ist ein älterer Befehl, der für ähnliches wie <code>git switch</code> und mehr benutzt werden kann; <code>git switch</code> wurde 2019 zu Git hinzugefügt</p>
+<p><code>git checkout</code> ist ein älterer Befehl, der für ähnliches wie <code>git switch</code> und mehr benutzt werden kann; <code>git switch</code> wurde 2019 zu Git hinzugefügt (mit git 2.23)</p>
 <p>Wechseln eines Branches mittels <code>checkout</code>:</p>
 <pre><code class="hljs language-bash">git checkout master
 </code></pre>
@@ -2169,24 +2480,6 @@ git switch master
 </code></pre>
 <p>Zurück zum neuesten Commit des master-Branches:</p>
 <pre><code class="hljs language-bash">git checkout master
-</code></pre>
-</section><section class="slide"><h2>Liste von Branches</h2>
-<p>Auflisten aller (lokalen) Branches:</p>
-<pre><code class="hljs language-bash">git branch
-</code></pre>
-</section><section class="slide"><h2>Mergen von Branches</h2>
-<p><em>Mergen</em> (Hinzufügen) der Updates eines Branches in einen anderen Branch:</p>
-<pre><code class="hljs language-bash">git checkout master
-git merge python-3-port
-</code></pre>
-<p>(Mergen von <em>python-3-port</em> nach <em>master</em>)</p>
-</section><section class="slide"><h2>Löschen eines Branches</h2>
-<p>Löschen eines Branches:</p>
-<pre><code class="hljs language-bash">git branch -d python-3-port
-</code></pre>
-</section><section class="slide"><h2>Commit-Baum</h2>
-<p>Anzeigen eines Commit-Baums / Graphs mit allen Branches:</p>
-<pre><code class="hljs language-bash">git <span class="hljs-built_in">log</span> --graph --all --oneline
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Git remote</h1>
 </section><section class="slide"><h2>Git remote</h2>
@@ -2238,7 +2531,76 @@ git merge python-3-port
 </section><section class="slide"><h2>Credentials speichern</h2>
 <pre><code class="hljs language-bash">git config credential.helper cache
 </code></pre>
-<p>Hierdurch speichert Git eingegebene Passwörter für 15 Minuten</p></section></section></div>
+<p>Hierdurch speichert Git eingegebene Passwörter für 15 Minuten</p>
+</section></section><section class="slides-section"><section class="slide"><h1>Bearbeiten der Commit-History mittels rebase</h1>
+</section><section class="slide"><h2>Bearbeiten der Commit-History</h2>
+<p>Es ist <em>möglich</em>, die Commit-History zu bearbeiten - kann aber gefährlich sein</p>
+</section><section class="slide"><h2>Bearbeiten der Commit-History</h2>
+<p>Beispiele für Anwendungsfälle:</p>
+<ul>
+<li>Neustrukturierung von Commits in einem Branch, um sie klarer zu machen</li>
+<li>Rückgängig machen eines Commits</li>
+</ul>
+</section><section class="slide"><h2>Bearbeiten der Commit-History</h2>
+<p>Regeln:</p>
+<ul>
+<li>ändere die Geschichte eines Branches nicht, von dem andere Branches abzweigen könnten (z.B. <em>master</em>)</li>
+<li>die Geschichte einer Branches in einem eigenen Repository kann abgeändert werden</li>
+</ul>
+</section><section class="slide"><h2>Bearbeiten der Commit-History mittels rebase</h2>
+<p>ursprünglicher Commit-Log:</p>
+<pre><code class="hljs language-sql">  * <span class="hljs-keyword">merge</span> branch <span class="hljs-string">'master'</span> <span class="hljs-keyword">into</span> <span class="hljs-string">'footer'</span> (footer)
+ /|
+* | <span class="hljs-keyword">add</span> company logo (<span class="hljs-keyword">master</span>)
+| * <span class="hljs-keyword">add</span> copyright <span class="hljs-keyword">notice</span> <span class="hljs-keyword">to</span> footer
+| * <span class="hljs-keyword">merge</span> branch <span class="hljs-string">'master'</span> <span class="hljs-keyword">into</span> <span class="hljs-string">'footer'</span>
+|/|
+* | <span class="hljs-keyword">add</span> sidebar
+| * <span class="hljs-keyword">add</span> logo <span class="hljs-keyword">to</span> footer
+| * <span class="hljs-keyword">add</span> footer <span class="hljs-keyword">with</span> basic <span class="hljs-keyword">content</span>
+|/
+* <span class="hljs-keyword">add</span> placeholder <span class="hljs-keyword">content</span>
+* initialize website
+</code></pre>
+</section><section class="slide"><h2>Bearbeiten der Commit-History mittels rebase</h2>
+<p>neuer Commit-Log:</p>
+<pre><code class="hljs language-dockerfile">  * <span class="hljs-keyword">add</span><span class="bash"> footer (footer)</span>
+ /
+* <span class="hljs-keyword">add</span><span class="bash"> company logo (master)</span>
+* <span class="hljs-keyword">add</span><span class="bash"> sidebar</span>
+* <span class="hljs-keyword">add</span><span class="bash"> placeholder content</span>
+* initialize website
+</code></pre>
+<p>Bemerkung: der <em>master</em>-Branch wurde nicht geändert</p>
+</section><section class="slide"><h2>Bearbeiten der Commit-History mittels rebase</h2>
+<p>Befehl in Git:</p>
+<pre><code class="hljs language-bash">git rebase -i master
+</code></pre>
+<p>Ermöglicht das Interaktive Bearbeiten des aktuellen Branches von dem Punkt, bei dem er von <em>master</em> abzweigt</p>
+</section><section class="slide"><h2>Bearbeiten der Commit-History mittels rebase</h2>
+<p>Squashing von Commits:</p>
+<p>Ändere alle <strong>außer dem ersten</strong> Befehle von <em>pick</em> auf <em>squash</em></p>
+</section></section><section class="slides-section"><section class="slide"><h1>Aliases und Extras</h1>
+</section><section class="slide"><h2>Aliases und Extras</h2>
+<ul>
+<li><strong>aliases</strong>: eigene Kürzel für Befehle</li>
+<li><strong>git-extras</strong>: Paket mit nützlichen Aliases und extra Befehlen</li>
+</ul>
+</section><section class="slide"><h2>Aliases</h2>
+<p>Konfigurieren einiger Aliases:</p>
+<pre><code class="hljs language-bash">git config --global alias.unstage <span class="hljs-string">'restore --staged'</span>
+</code></pre>
+<pre><code class="hljs language-bash">git config --global alias.show-tree <span class="hljs-string">'log --graph --oneline --all'</span>
+</code></pre>
+</section><section class="slide"><h2>Extras</h2>
+<p><strong>git-extras</strong> bietet vereinfachte Befehle für häufige Aufgaben:</p>
+<ul>
+<li><code>git ignore</code></li>
+<li><code>git show-tree</code></li>
+<li><code>git squash</code></li>
+<li><code>git undo</code></li>
+</ul>
+<p><a href="https://github.com/tj/git-extras/blob/master/Commands.md">https://github.com/tj/git-extras/blob/master/Commands.md</a></p></section></section></div>
     </div>
     <script>/*!
  * reveal.js

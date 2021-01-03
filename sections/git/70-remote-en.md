@@ -32,7 +32,7 @@ _Don't_ select "Initialize this repository with a README".
 
 ## Publishing a new Git repository
 
-Once you have an empty repository on GitHub, follow the instructions for an _existing respository_ displayed on GitHub
+Once you have an empty repository on GitHub, follow the instructions for an _existing repository_ displayed on GitHub
 
 Usually you will connect a local repository to a single remote repository - the remote repository is conventionally named _origin_
 

@@ -12,7 +12,7 @@ Hi, ich bin Marko!
 
 ## Wer seid Ihr?
 
-- über euch
+- Vorstellung
 - Vorwissen
 - aktuelle Projekte
 - Erwartungen

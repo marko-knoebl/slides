@@ -1,0 +1,75 @@
+# Feature Branch Workflow
+
+## Feature Branch Workflow
+
+Workflow:
+
+Um neue Features / Änderungen umzusetzen, erstellt man einen sogenannten _Feature Branch_
+
+Der Feature Branch kann sich individuell parallel zum master Branch entwickeln
+
+Entwickelt sich der master Branch weiter, können die Änderungen in den Feature Branch übernommen werden
+
+Ist ein Feature komplett, können die Änderungen in den master Branch übernommen werden (nach begutachtung durch andere Entwickler)
+
+## Feature Branch Workflow
+
+Feature Branches können oft auf einen kleinen Rahmen beschränkt sein, z.B. _fix-spelling-error-in-readme_
+
+manche Feature Branches müssen großen Umfang haben, z.B. _port-to-typescript_
+
+## Feature Branch Workflow
+
+Beispiel: Entwickler arbeiten an zwei unterschiedlichen Tasks gleichzeitig:
+
+```txt
+* add sidebar (sidebar)
+| * add logo to footer (footer)
+| * add footer with basic content
+|/
+* add placeholder content (master)
+* initialize website
+```
+
+## Feature Branch Workflow
+
+nach Vervollständigung eines Features kann es in den Master-Branch eingebunden werden:
+
+```txt
+* add footer (master)
+| * add sidebar (sidebar)
+|/
+* add placeholder content
+* initialize website
+```
+
+## Feature Branch Workflow
+
+Andere Branches können Änderungen aus dem Master-Branch mittels _merge_ oder _rebase_ übernehmen:
+
+```txt
+  * add sidebar (sidebar)
+ /
+* add footer (master)
+* add placeholder content
+* initialize website
+```
+
+## Feature Branch Workflow
+
+während der Entwicklung:
+
+- erstelle einen neuen Feature-Branch, der von _master_ abzweigt
+- füge bei Änderungen regelmäßig neue Commits hinzu
+- merge (oder rebase), wenn neue Commits auf dem _master_-Branch gemacht werden
+
+wenn das Feature fertiggestellt ist:
+
+- optional: kombiniere alle Commits auf dem Branch zu einem (rebase)
+- in den _master_-Branch mergen
+- lösche den Feature-Branch
+
+## Siehe auch
+
+- https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow
+<!-- https://stackoverflow.com/questions/tagged/git?tab=Votes -->

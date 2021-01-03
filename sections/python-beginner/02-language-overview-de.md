@@ -11,7 +11,7 @@
 
 Python 3: neue "minor"-Version (z.B. 3.9) wird jeden Oktober veröffentlicht
 
-Python 2: Unterstützung endete 2019, zu diesem Zeitpunkt nutzten es not [10% der Entwickelr](https://www.jetbrains.com/lp/python-developers-survey-2019/)
+Python 2: Unterstützung endete 2019, zu diesem Zeitpunkt nutzten es noch [10% der Entwickelr](https://www.jetbrains.com/lp/python-developers-survey-2019/)
 
 ## Codebeispiel
 
