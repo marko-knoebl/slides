@@ -1,0 +1,2 @@
+- https://projecteuler.net/archives
+- https://rosettacode.org/wiki/Rosetta_Code

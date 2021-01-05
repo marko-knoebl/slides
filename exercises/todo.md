@@ -8,6 +8,7 @@
 - iban
 - fibonacci numbers
 - prime numbers in an interval
+- scrabble solver (with dictionary from online source)
 
 - luhn (enumerate)
 
