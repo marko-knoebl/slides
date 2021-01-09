@@ -6,10 +6,14 @@ Mit Kontrollstrukturen können wir bestimmten Code z.B. wiederholt ausführen la
 
 ## Kontrollstrukturen
 
-Die zwei essenziellen Kontrollstrukturen in jeder Programmiersprache:
+wichtigste Konstrollstrukturen in Programmiersprachen:
 
-- if-Abfragen, um unter bestimmten Bedingungen die eine oder die andere Aktion zu setzen
-- Schleifen, um Aktionen zu wiederholen
+- if-Abfragen
+- Schleifen
+  - while-Schleife
+  - do while-Schleife
+  - for-Schleife (Zählschleife)
+  - foreach-Schleife
 
 ## Konstrollstrukturen in Python
 

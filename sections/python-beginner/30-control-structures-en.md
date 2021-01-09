@@ -6,10 +6,14 @@ By using control structures we can execute some code repeatedly or only under ce
 
 ## Control structures
 
-The two most essential control structures in every programming language are:
+most important control structures in programming languages:
 
-- if/else
+- if / else
 - loops
+  - while loop
+  - do while loop
+  - for loop (counting loop)
+  - foreach loop
 
 ## Control structures in Python
 

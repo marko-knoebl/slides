@@ -744,10 +744,14 @@ By using control structures we can execute some code repeatedly or only under ce
 
 ## Control structures
 
-The two most essential control structures in every programming language are:
+most important control structures in programming languages:
 
-- if/else
+- if / else
 - loops
+  - while loop
+  - do while loop
+  - for loop (counting loop)
+  - foreach loop
 
 ## Control structures in Python
 
@@ -841,6 +845,61 @@ Simulate a random coin flip via `random.choice(["heads", "tails"])`
 
 Let the user guess the outcome and tell them if they were right
 
+# For loops
+
+## For loops
+
+With for loops we can iterate over the contents of lists (and similar objects).
+
+In some other programming languages this construct would be called _for-each_
+
+## For loops
+
+```py
+names = ["Alice", "Bob", "Charlie"]
+
+for name in names:
+    print("Hello, " + name + "!")
+```
+
+## Exercise: for loops and if statements
+
+start with a list of numbers, e.g. `[2, 5, -3, 8, 1, -5]`
+
+print all positive entries, e.g. `2, 5, 8, 1`
+
+print the biggest element, e.g. `8`
+
+## Example: login system
+
+<!-- might be too hard for programming beginners -->
+
+```py
+users = [
+    {"name": "Alice", "password": "1234"},
+    {"name": "Bob", "password": "password"},
+    {"name": "Charlie", "password": "paris41"}
+]
+```
+
+## Example: login system
+
+example program run:
+
+```txt
+Enter your username:
+lice
+No such user.
+Enter your username:
+Alice
+Enter your password:
+123
+Wrong password
+Enter your password:
+1234
+Logged in as Alice!
+```
+
 # While loops
 
 ## While loops
@@ -907,61 +966,6 @@ while True:
     print(a)
     if (a > 1000):
         break
-```
-
-# For loops
-
-## For loops
-
-With for loops we can iterate over the contents of lists (and similar objects).
-
-In some other programming languages this construct would be called _for-each_
-
-## For loops
-
-```py
-names = ["Alice", "Bob", "Charlie"]
-
-for name in names:
-    print("Hello, " + name + "!")
-```
-
-## Exercise: for loops and if statements
-
-start with a list of numbers, e.g. `[2, 5, -3, 8, 1, -5]`
-
-print all positive entries, e.g. `2, 5, 8, 1`
-
-print the biggest element, e.g. `8`
-
-## Example: login system
-
-<!-- might be too hard for programming beginners -->
-
-```py
-users = [
-    {"name": "Alice", "password": "1234"},
-    {"name": "Bob", "password": "password"},
-    {"name": "Charlie", "password": "paris41"}
-]
-```
-
-## Example: login system
-
-example program run:
-
-```txt
-Enter your username:
-lice
-No such user.
-Enter your username:
-Alice
-Enter your password:
-123
-Wrong password
-Enter your password:
-1234
-Logged in as Alice!
 ```
 
 # Counting loops
