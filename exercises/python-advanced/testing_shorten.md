@@ -6,5 +6,5 @@ The function should shorten a string to a specified length.
 
 Examples:
 
-- `shorten("loremipsum", 10)` -> `"loremipsum"`
-- `shorten("loremipsum", 6)` -> `"lor..."`
+- `shorten("loremipsum", 10)` → `"loremipsum"`
+- `shorten("loremipsum", 6)` → `"lor..."`

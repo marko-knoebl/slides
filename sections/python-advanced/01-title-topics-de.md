@@ -3,7 +3,7 @@
 ## Themen
 
 - Logging
-- Unittests
+- automatisiertes Testen
 - Typenannotationen
 - fortgeschrittene objektorientierte Programmierung
   - Properties

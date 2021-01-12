@@ -3,8 +3,7 @@
 ## Topics
 
 - logging
-- unit tests
-- type annotations
+- automated testing
 - advanced object-oriented programming
   - properties
   - static attributes and methods

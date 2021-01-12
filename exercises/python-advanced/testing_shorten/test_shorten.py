@@ -10,7 +10,3 @@ class Shorten(unittest.TestCase):
     def test_loremipsum_lor(self):
         shortened = shorten("loremipsum", 6)
         self.assertEqual(shortened, "lor...")
-
-
-if __name__ == "__main__":
-    unittest.main()

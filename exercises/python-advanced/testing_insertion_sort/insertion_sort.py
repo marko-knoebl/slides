@@ -3,22 +3,14 @@ def insertion_sort(unsorted):
 
     >>> insertion_sort([3, 2, 4, 1, 5])
     [1, 2, 3, 4, 5]
-    >>> insertion_sort([])
-    []
     """
     sorted = []
     for new_item in unsorted:
         i = 0
         for sorted_item in sorted:
-            if new_item > sorted_item:
+            if new_item >= sorted_item:
                 i += 1
             else:
                 break
         sorted.insert(i, new_item)
     return sorted
-
-
-if __name__ == "__main__":
-    import doctest
-
-    doctest.testmod()

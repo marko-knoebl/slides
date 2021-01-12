@@ -3,8 +3,7 @@
 ## Topics
 
 - logging
-- unit tests
-- type annotations
+- automated testing
 - advanced object-oriented programming
   - properties
   - static attributes and methods
@@ -41,90 +40,272 @@ logging.debug("hello")
 
 Exercise: add logging to an existing function (e.g. to a sorting algorithm)
 
-# Unit tests
+# Automated testing
+
+## Automated testing
+
+why:
+
+- make sure the code works as intended
+- more easily refactor / change code without breaking anything
+- document expected behavior
+
+## Testing tools
+
+**pytest**: testing library with a simple interface
+
+**doctest**: checks code examples in docstrings
+
+**unittest**: testing library that is included in the standard library
+
+## Example: code to be tested
+
+code to be tested:
+
+```py
+# insertion_sort.py
+def insertion_sort(unsorted):
+    """Return a sorted version of a list."""
+    sorted = []
+    for new_item in unsorted:
+        i = 0
+        for sorted_item in sorted:
+            if new_item >= sorted_item:
+                i += 1
+            else:
+                break
+        sorted.insert(i, new_item)
+    return sorted
+```
 
 ## assert
 
-## Doctests
-
-Code examples and unit tests in one - inside the doc string
-
-## Doctests
+_assert_: keyword that makes sure some condition is met
 
 ```py
-def add(a, b):
-    """Add two numbers.
+assert isinstance(a, int)
+assert a > 0
+```
 
-    >>> add(2, 3)
-    5
+If the condition is not met, it will throw an _assertion error_
+
+## Example: manual tests with assert
+
+```py
+# insertion_sort_test.py
+from insertion_sort import insertion_sort
+
+assert insertion_sort([3, 2, 4, 1, 5]) == [1, 2, 3, 4, 5]
+assert insertion_sort([1, 1, 1]) == [1, 1, 1]
+assert insertion_sort([]) == []
+```
+
+the script should run without throwing errors
+
+# Pytest
+
+## Pytest
+
+testing library with a simple interface, based on `assert`
+
+```
+pip install pytest
+```
+
+## Pytest
+
+test file that works with pytest:
+
+```py
+# insertion_sort_test.py
+from insertion_sort import insertion_sort
+
+def test_insertion_sort():
+    assert insertion_sort([3, 2, 4, 1, 5]) == [1, 2, 3, 4, 5]
+    assert insertion_sort([1, 1, 1]) == [1, 1, 1]
+    assert insertion_sort([]) == []
+```
+
+finding and running tests:
+
+```bash
+python -m pytest
+```
+
+## Report
+
+```
+=================== test session starts ===================
+platform win32 -- Python 3.8.7, pytest-6.2.1, [...]
+rootdir: C:\[...]
+collected 1 item
+
+insertion_sort_test.py .                             [100%]
+
+==================== 1 passed in 0.19s ====================
+```
+
+## Test discovery
+
+naming test files: `*_test.py` (or `test_*.py`)
+
+naming test functions: `test*`
+
+## Coverage reports
+
+Determine how much of the code is covered by tests (what percentage of statements is executed during the tests):
+
+```bash
+pip install pytest-cov
+```
+
+```bash
+python -m pytest -cov=.
+```
+
+example output:
+
+```
+Name                     Stmts   Miss  Cover
+--------------------------------------------
+insertion_sort.py           10      0   100%
+insertion_sort_test.py       5      0   100%
+--------------------------------------------
+TOTAL                       15      0   100%
+```
+
+## Testing for exceptions
+
+```py
+import pytest
+
+def test_no_argument_raises():
+    with pytest.raises(TypeError):
+        insertion_sort()
+```
+
+## Grouping
+
+grouping tests via classes:
+
+```py
+class TestExceptions():
+    def test_no_argument_raises():
+        with pytest.raises(TypeError):
+            insertion_sort()
+
+    def test_different_types_raises():
+        with pytest.raises(TypeError):
+            insertion_sort(["a", 1])
+```
+
+## Fixtures
+
+_fixtures_ can set up conditions before running a test
+
+```py
+def test_foo(tmp_path):
+    # tmp_path is a path to a temporary directory
+```
+
+built-in fixtures:
+
+- `tmp_path`
+- `capsys` (capture output to _stdout_ and _stderr_)
+- ... ([see documentation](https://docs.pytest.org/en/stable/fixture.html))
+
+## Resources
+
+- [pytest: Installation and Getting Started](https://docs.pytest.org/en/stable/getting-started.html#run-multiple-tests)
+- [documentation](https://docs.pytest.org/)
+
+# Doctests
+
+## Doctests
+
+Code examples may be included in docstrings and may be used for testing
+
+## Doctests
+
+simple doctest:
+
+```py
+# insertion_sort.py
+def insertion_sort(unsorted):
+    """Return a sorted version of a list.
+
+    >>> insertion_sort([3, 2, 4, 1, 5])
+    [1, 2, 3, 4, 5]
     """
+
+    # code here
 ```
 
-## Running doctests
+## Running Doctests
 
-```py
-if __name__ == "__main__":
-    import doctest
-    doctest.testmod()
+running doctests from pytest:
+
+```bash
+python -m pytest --doctest-modules
 ```
 
-## Doctests: long outputs
+## Long outputs
 
 ```py
 """
->>> bubblesort(list(range(10))) #doctest: +NORMALIZE_WHITESPACE
+>>> insertion_sort(range(10)) #doctest: +NORMALIZE_WHITESPACE
 [0, 1, 2, 3, 4, 5,
 6, 7, 8, 9]
->>> bubblesort(list(range(10))) #doctest: +ELLIPSIS
+>>> insertion_sort(range(10)) #doctest: +ELLIPSIS
 [0, 1, 2, ..., 8, 9]
 """
 ```
 
-## Unit tests
+# Unittest
 
-Possibilities:
+## Unittest
 
-- unittest (standard library)
-- pytest
-- nose
+_unittest_: testing package inside the standard library
 
-## unittest
+often, _pytest_ is recommended over _unittest_
 
-test_tictactoe.py
-
-```py
-import unittest
-from tictactoe import has_won
-
-class HasWon(unittest.TestCase):
-    def test_has_won_first_row_x(self):
-        board = [["X", "X", "X"],
-                 [None, None, None],
-                 [None, None, None]]
-        w = has_won(board, "X")
-        self.assertTrue(w)
-
-if __name__ == "__main__":
-    unittest.main()
-```
-
-## unittest
-
-Running all tests in files that match _test\*.py_:
+## Test discovery
 
 ```bash
 python -m unittest
 ```
 
-Search for a different pattern:
+looks for files matching `test_*.py*`
+
+Note: in order to be discovered all packages must contain a file named _\_\_init\_\_.py_ (see <https://bugs.python.org/issue35617>)
+
+specifying a different pattern:
 
 ```bash
 python -m unittest discover -p "*_test.py"
 ```
 
-Note: in order to be discovered all packages must contain a file named _\_\_init\_\_.py_ (see <https://bugs.python.org/issue35617>)
+## Writing tests
 
-## unittest - assertions
+```py
+# insertion_sort_test.py
+import unittest
+
+import insertion_sort
+
+class InsertionSort(unittest.TestCase):
+    def test_five_items(self):
+        input = [3, 2, 4, 1, 5]
+        expected = [1, 2, 3, 4, 5]
+        actual = insertion_sort.insertion_sort(input)
+        self.assertEqual(actual, expected)
+
+    def test_empty(self):
+        actual = insertion_sort.insertion_sort([])
+        self.assertEqual(actual, [])
+```
+
+## Assertions
 
 assertions:
 
@@ -139,7 +320,7 @@ assertions:
 
 there are also contrary assertions, e.g. `.assertNotEqual(a, 3)`
 
-## unittest - setUp and tearDown
+## setUp and tearDown
 
 Defining functions that are executed before / after each test:
 
@@ -154,15 +335,15 @@ class WidgetTestCase(unittest.TestCase):
         self.widget.dispose()
 ```
 
-## unittest - test coverage
+## test coverage
 
 PIP package _coverage_
 
 execution:
 
 ```bash
-coverage run test_shorten.py
-coverage report
+python -m coverage run test_shorten.py
+python -m coverage report
 ```
 
 Example output:
@@ -174,6 +355,19 @@ shorten.py            4      0   100%
 test_shorten.py      11      0   100%
 -------------------------------------
 TOTAL                15      0   100%
+```
+
+## Running doctests
+
+```py
+# insertion_sort_test.py
+import doctest
+
+import insertion_sort
+
+def load_tests(loader, tests, ignore):
+    tests.addTests(doctest.DocTestSuite(insertion_sort))
+    return tests
 ```
 
 # Docstrings

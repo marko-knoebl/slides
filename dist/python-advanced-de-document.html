@@ -2,7 +2,7 @@
 <h2>Themen</h2>
 <ul>
 <li>Logging</li>
-<li>Unittests</li>
+<li>automatisiertes Testen</li>
 <li>Typenannotationen</li>
 <li>fortgeschrittene objektorientierte Programmierung
 <ul>
@@ -34,65 +34,187 @@ logging.debug(<span class="hljs-string">"hello"</span>)
 </code></pre>
 <h2>Logging</h2>
 <p>Übung: Hinzufügen von Logging zu einer bestehenden Funktion (z.B. zu einem Sortieralgorithmus)</p>
-<h1>Unittests</h1>
-<h2>Assert</h2>
-<h2>Doctests</h2>
-<p>Codebeispiele und unittests in einem - innerhalb der docstrings</p>
-<h2>Doctests</h2>
-<pre><code class="hljs language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">add</span>(<span class="hljs-params">a, b</span>):</span>
-    <span class="hljs-string">"""Add two numbers.
+<h1>Automatisiertes Testen</h1>
+<h2>Automatisiertes Testen</h2>
+<p>warum:</p>
+<ul>
+<li>sicher stellen, dass Code wie erwünscht funktioniert</li>
+<li>einfacheres Refactoring / Ändern des Codes ohne Schaden zu verursachen</li>
+<li>Dokumentation von erwartetem Verhalten</li>
+</ul>
+<h2>Testtools</h2>
+<p><strong>pytest</strong>: Testlibrary mit einfachem Interface</p>
+<p><strong>doctest</strong>: Überprüft Codebeispiele in Docstrings</p>
+<p><strong>unittest</strong>: Testlibrary, die in der Standardlibrary beinhaltet ist</p>
+<h2>Beispiel: zu testender Code</h2>
+<p>zu testender Code:</p>
+<pre><code class="hljs language-py"><span class="hljs-comment"># insertion_sort.py</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">insertion_sort</span>(<span class="hljs-params">unsorted</span>):</span>
+    <span class="hljs-string">"""Return a sorted version of a list."""</span>
+    <span class="hljs-built_in">sorted</span> = []
+    <span class="hljs-keyword">for</span> new_item <span class="hljs-keyword">in</span> unsorted:
+        i = <span class="hljs-number">0</span>
+        <span class="hljs-keyword">for</span> sorted_item <span class="hljs-keyword">in</span> <span class="hljs-built_in">sorted</span>:
+            <span class="hljs-keyword">if</span> new_item >= sorted_item:
+                i += <span class="hljs-number">1</span>
+            <span class="hljs-keyword">else</span>:
+                <span class="hljs-keyword">break</span>
+        <span class="hljs-built_in">sorted</span>.insert(i, new_item)
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">sorted</span>
+</code></pre>
+<h2>assert</h2>
+<p><em>assert</em>: Keyword, das sicherstellt, dass eine bestimmte Bedingung eintrifft</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">assert</span> <span class="hljs-built_in">isinstance</span>(a, <span class="hljs-built_in">int</span>)
+<span class="hljs-keyword">assert</span> a > <span class="hljs-number">0</span>
+</code></pre>
+<p>Bei Nichterfüllen wird ein <em>assertion error</em> ausgelöst</p>
+<h2>Beispiel: Menuelle Tests mit assert</h2>
+<pre><code class="hljs language-py"><span class="hljs-comment"># insertion_sort_test.py</span>
+<span class="hljs-keyword">from</span> insertion_sort <span class="hljs-keyword">import</span> insertion_sort
 
-    >>> add(2, 3)
-    5
+<span class="hljs-keyword">assert</span> insertion_sort([<span class="hljs-number">3</span>, <span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">1</span>, <span class="hljs-number">5</span>]) == [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]
+<span class="hljs-keyword">assert</span> insertion_sort([<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>]) == [<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>]
+<span class="hljs-keyword">assert</span> insertion_sort([]) == []
+</code></pre>
+<p>Das Skript sollte ohne Fehler laufen</p>
+<h1>Pytest</h1>
+<h2>Pytest</h2>
+<p>Test-Library mit einfachem Interface, basierend auf <code>assert</code></p>
+<pre><code class="hljs language-cmake">pip <span class="hljs-keyword">install</span> pytest
+</code></pre>
+<h2>Pytest</h2>
+<p>Testdatei für pytest:</p>
+<pre><code class="hljs language-py"><span class="hljs-comment"># insertion_sort_test.py</span>
+<span class="hljs-keyword">from</span> insertion_sort <span class="hljs-keyword">import</span> insertion_sort
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">test_insertion_sort</span>():</span>
+    <span class="hljs-keyword">assert</span> insertion_sort([<span class="hljs-number">3</span>, <span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">1</span>, <span class="hljs-number">5</span>]) == [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]
+    <span class="hljs-keyword">assert</span> insertion_sort([<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>]) == [<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>]
+    <span class="hljs-keyword">assert</span> insertion_sort([]) == []
+</code></pre>
+<p>Finden und Ausführen von Tests:</p>
+<pre><code class="hljs language-bash">python -m pytest
+</code></pre>
+<h2>Bericht</h2>
+<pre><code class="hljs language-excel">=================== test session starts ===================
+platform win32 -- Python <span class="hljs-number">3.8</span>.<span class="hljs-number">7</span>, pytest-<span class="hljs-number">6.2</span>.<span class="hljs-number">1</span>, [...]
+rootd<span class="hljs-symbol">ir:</span> <span class="hljs-symbol">C:</span>\[...]
+collected <span class="hljs-number">1</span> item
+
+insertion_sort_test.py .                             [<span class="hljs-number">100%</span>]
+
+==================== <span class="hljs-number">1</span> passed in <span class="hljs-number">0.19</span>s ====================
+</code></pre>
+<h2>Test discovery</h2>
+<p>Namensgebung für Dateien: <code>*_test.py</code> (oder <code>test_*.py</code>)</p>
+<p>Namensgebung für Funktionen: <code>test*</code></p>
+<h2>Abdeckung</h2>
+<p>Bestimmen, wie viel des Codes von Tests abgedeckt ist (welcher Anteil an Statements wird ausgeführt):</p>
+<pre><code class="hljs language-bash">pip install pytest-cov
+</code></pre>
+<pre><code class="hljs language-bash">python -m pytest -cov=.
+</code></pre>
+<p>example output:</p>
+<pre><code class="hljs language-asciidoc"><span class="hljs-section">Name                     Stmts   Miss  Cover
+--------------------------------------------</span>
+insertion<span class="hljs-emphasis">_sort.py           10      0   100%
+insertion_</span>sort<span class="hljs-emphasis">_test.py       5      0   100%
+--------------------------------------------
+TOTAL                       15      0   100%
+</span></code></pre>
+<h2>Testen von Exceptions</h2>
+<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> pytest
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">test_no_argument_raises</span>():</span>
+    <span class="hljs-keyword">with</span> pytest.raises(TypeError):
+        insertion_sort()
+</code></pre>
+<h2>Gruppierung</h2>
+<p>Gruppieren von Tests via Klassen:</p>
+<pre><code class="hljs language-py"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TestExceptions</span>():</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">test_no_argument_raises</span>():</span>
+        <span class="hljs-keyword">with</span> pytest.raises(TypeError):
+            insertion_sort()
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">test_different_types_raises</span>():</span>
+        <span class="hljs-keyword">with</span> pytest.raises(TypeError):
+            insertion_sort([<span class="hljs-string">"a"</span>, <span class="hljs-number">1</span>])
+</code></pre>
+<h2>Fixtures</h2>
+<p><em>Fixtures</em> können bestimmte Bedingungen vor dem durchführen eines Tests herstellen</p>
+<pre><code class="hljs language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">test_foo</span>(<span class="hljs-params">tmp_path</span>):</span>
+    <span class="hljs-comment"># tmp_path is a path to a temporary directory</span>
+</code></pre>
+<p>verfügbare Fixtures:</p>
+<ul>
+<li><code>tmp_path</code></li>
+<li><code>capsys</code> (überwacht Output in <em>stdout</em> und <em>stderr</em>)</li>
+<li>... (<a href="https://docs.pytest.org/en/stable/fixture.html">siehe Dokumentation</a>)</li>
+</ul>
+<h2>Ressourcen</h2>
+<ul>
+<li><a href="https://docs.pytest.org/en/stable/getting-started.html#run-multiple-tests">pytest: Installation and Getting Started</a></li>
+<li><a href="https://docs.pytest.org/">pytest Dokumentation</a></li>
+</ul>
+<h1>Doctests</h1>
+<h2>Doctests</h2>
+<p>Codebeispiele können in Docstrings beinhaltet sein und zum Testen verwendet werden</p>
+<h2>Doctests</h2>
+<p>einfacher Doctest:</p>
+<pre><code class="hljs language-py"><span class="hljs-comment"># insertion_sort.py</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">insertion_sort</span>(<span class="hljs-params">unsorted</span>):</span>
+    <span class="hljs-string">"""Return a sorted version of a list.
+
+    >>> insertion_sort([3, 2, 4, 1, 5])
+    [1, 2, 3, 4, 5]
     """</span>
+
+    <span class="hljs-comment"># code here</span>
 </code></pre>
-<h2>Doctests ausführen</h2>
-<pre><code class="hljs language-py"><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">"__main__"</span>:
-    <span class="hljs-keyword">import</span> doctest
-    doctest.testmod()
+<h2>Ausführen von Doctests</h2>
+<p>Ausführen von Doctests aus pytest:</p>
+<pre><code class="hljs language-bash">python -m pytest --doctest-modules
 </code></pre>
-<h2>Doctests: lange Ausgaben</h2>
+<h2>Lange Ausgaben</h2>
 <pre><code class="hljs language-py"><span class="hljs-string">"""
-<span class="hljs-meta">>>> </span>bubblesort(list(range(10))) #doctest: +NORMALIZE_WHITESPACE
+<span class="hljs-meta">>>> </span>insertion_sort(range(10)) #doctest: +NORMALIZE_WHITESPACE
 [0, 1, 2, 3, 4, 5,
 6, 7, 8, 9]
-<span class="hljs-meta">>>> </span>bubblesort(list(range(10))) #doctest: +ELLIPSIS
+<span class="hljs-meta">>>> </span>insertion_sort(range(10)) #doctest: +ELLIPSIS
 [0, 1, 2, ..., 8, 9]
 """</span>
 </code></pre>
-<h2>Unittests</h2>
-<p>Möglichkeiten:</p>
-<ul>
-<li>unittest (Standardlibrary)</li>
-<li>pytest</li>
-<li>nose</li>
-</ul>
-<h2>unittest</h2>
-<p>test_tictactoe.py</p>
-<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> unittest
-<span class="hljs-keyword">from</span> tictactoe <span class="hljs-keyword">import</span> has_won
-
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HasWon</span>(<span class="hljs-params">unittest.TestCase</span>):</span>
-    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">test_has_won_first_row_x</span>(<span class="hljs-params">self</span>):</span>
-        board = [[<span class="hljs-string">"X"</span>, <span class="hljs-string">"X"</span>, <span class="hljs-string">"X"</span>],
-                 [<span class="hljs-literal">None</span>, <span class="hljs-literal">None</span>, <span class="hljs-literal">None</span>],
-                 [<span class="hljs-literal">None</span>, <span class="hljs-literal">None</span>, <span class="hljs-literal">None</span>]]
-        w = has_won(board, <span class="hljs-string">"X"</span>)
-        self.assertTrue(w)
-
-<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">"__main__"</span>:
-    unittest.main()
-</code></pre>
-<h2>unittest</h2>
-<p>Ausführen aller Tests in Dateien mit dem Dateinamen <em>test*.py</em>:</p>
+<h1>Unittest</h1>
+<h2>Unittest</h2>
+<p><em>unittest</em>: Testpaket in der Standardlibrary</p>
+<p>oft wird stattdessen <em>pytest</em> empfohlen</p>
+<h2>Test discovery</h2>
 <pre><code class="hljs language-bash">python -m unittest
 </code></pre>
-<p>Tests mit anderem Muster:</p>
+<p>Sucht nach dem Namensschema <code>test_*.py*</code></p>
+<p>Bemerkung: Unterordner mit Tests müssen eine datei namens <em>__init__.py</em> beinhalten (siehe <a href="https://bugs.python.org/issue35617">https://bugs.python.org/issue35617</a>)</p>
+<p>nach einem anderen Schema suchen:</p>
 <pre><code class="hljs language-bash">python -m unittest discover -p <span class="hljs-string">"*_test.py"</span>
 </code></pre>
-<p>Achtung: um erkannt zu werden, müssen Pakete eine <em>__init__.py</em> Datei enthalten (siehe <a href="https://bugs.python.org/issue35617">https://bugs.python.org/issue35617</a>)</p>
-<h2>unittest - Assertions</h2>
-<p>mögliche Assertions:</p>
+<h2>Schreiben von Tests</h2>
+<pre><code class="hljs language-py"><span class="hljs-comment"># insertion_sort_test.py</span>
+<span class="hljs-keyword">import</span> unittest
+
+<span class="hljs-keyword">import</span> insertion_sort
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">InsertionSort</span>(<span class="hljs-params">unittest.TestCase</span>):</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">test_five_items</span>(<span class="hljs-params">self</span>):</span>
+        <span class="hljs-built_in">input</span> = [<span class="hljs-number">3</span>, <span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">1</span>, <span class="hljs-number">5</span>]
+        expected = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]
+        actual = insertion_sort.insertion_sort(<span class="hljs-built_in">input</span>)
+        self.assertEqual(actual, expected)
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">test_empty</span>(<span class="hljs-params">self</span>):</span>
+        actual = insertion_sort.insertion_sort([])
+        self.assertEqual(actual, [])
+</code></pre>
+<h2>Assertions</h2>
+<p>Assertions:</p>
 <ul>
 <li><code>.assertEqual(a, 3)</code></li>
 <li><code>.assertTrue(b)</code></li>
@@ -103,8 +225,8 @@ logging.debug(<span class="hljs-string">"hello"</span>)
 <li><code>.assertRaises(TypeError, len)</code></li>
 <li>...</li>
 </ul>
-<p>es existieren auch gegenteilige Assertions, z.B. <code>.assertNotEqual(a, 3)</code></p>
-<h2>unittest - setUp und tearDown</h2>
+<p>es gibt auch gegenteilige Assertions, z.B. <code>.assertNotEqual(a, 3)</code></p>
+<h2>setUp and tearDown</h2>
 <p>Definieren von Funktionen, die vor / nach jedem Test ausgeführt werden:</p>
 <pre><code class="hljs language-py"><span class="hljs-keyword">import</span> unittest
 
@@ -115,19 +237,29 @@ logging.debug(<span class="hljs-string">"hello"</span>)
     <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">tearDown</span>(<span class="hljs-params">self</span>):</span>
         self.widget.dispose()
 </code></pre>
-<h2>unittest - Testabdeckung</h2>
+<h2>Testabdeckung</h2>
 <p>PIP-Paket <em>coverage</em></p>
-<p>Ausführung:</p>
-<pre><code class="hljs language-bash">coverage run test_shorten.py
-coverage report
+<p>ausführen:</p>
+<pre><code class="hljs language-bash">python -m coverage run test_shorten.py
+python -m coverage report
 </code></pre>
-<p>Beispiel zur Ausgabe:</p>
+<p>mögliche Ausgabe:</p>
 <pre><code class="hljs language-asciidoc"><span class="hljs-section">Name              Stmts   Miss  Cover
 -------------------------------------</span>
 shorten.py            4      0   100%
 <span class="hljs-section">test_shorten.py      11      0   100%
 -------------------------------------</span>
 TOTAL                15      0   100%
+</code></pre>
+<h2>Ausführen von Doctests</h2>
+<pre><code class="hljs language-py"><span class="hljs-comment"># insertion_sort_test.py</span>
+<span class="hljs-keyword">import</span> doctest
+
+<span class="hljs-keyword">import</span> insertion_sort
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">load_tests</span>(<span class="hljs-params">loader, tests, ignore</span>):</span>
+    tests.addTests(doctest.DocTestSuite(insertion_sort))
+    <span class="hljs-keyword">return</span> tests
 </code></pre>
 <h1>Docstrings</h1>
 <h2>Docstrings anzeigen</h2>
