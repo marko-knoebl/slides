@@ -6,7 +6,7 @@ In git a _commit_ is a snapshot of a codebase
 
 The evolution of a codebase is represented by a sequence / tree of commits
 
-Sometimes the term _commit_ also refers to the transition from one snapshot to the next
+Sometimes the term _commit_ also refers to the transition / change from one snapshot to the next
 
 ## Commits
 
@@ -25,6 +25,8 @@ simple commit log with one branch (_master_):
 _branches_ allow development to happen on different tasks in parallel
 
 The default branch is usually called _master_ or _main_
+
+In git a branch is a pointer to a specific commit
 
 ## Commits and branches
 

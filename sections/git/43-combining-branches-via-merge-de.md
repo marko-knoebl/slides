@@ -48,8 +48,10 @@ Beispiel für eine Commit-History (wenn das Feature vollständig ist):
 
 ```
 * add footer (master)
+| * merge branch 'master' into 'footer' (footer)
+|/|
 * add company logo
-| * add copyright notice to footer (footer)
+| * add copyright notice to footer
 | * merge branch 'master' into 'footer'
 |/|
 * | add sidebar
@@ -62,11 +64,7 @@ Beispiel für eine Commit-History (wenn das Feature vollständig ist):
 
 ## Merge und squash
 
-Nach einem erfolgreichen _merge und squash_ kann der Branch gelöscht werden:
-
-```bash
-git branch -D footer
-```
+Nach einem erfolgreichen _merge und squash_ kann der Branch gelöscht werden
 
 Resultat:
 
@@ -124,6 +122,14 @@ note: actually there should be one more "<" sign:
 
 Üblicherweise werden Branches nach dem Merge gelöscht:
 
+Löschen eines Branches, der gemerged wurde:
+
 ```
 git branch -d footer
+```
+
+Löschen eines Branches, der nicht gemerged ist:
+
+```bash
+git branch -D footer
 ```

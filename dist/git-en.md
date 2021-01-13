@@ -24,7 +24,7 @@ In git a _commit_ is a snapshot of a codebase
 
 The evolution of a codebase is represented by a sequence / tree of commits
 
-Sometimes the term _commit_ also refers to the transition from one snapshot to the next
+Sometimes the term _commit_ also refers to the transition / change from one snapshot to the next
 
 ## Commits
 
@@ -43,6 +43,8 @@ simple commit log with one branch (_master_):
 _branches_ allow development to happen on different tasks in parallel
 
 The default branch is usually called _master_ or _main_
+
+In git a branch is a pointer to a specific commit
 
 ## Commits and branches
 
@@ -391,8 +393,10 @@ when the feature is ready:
 ## Commands
 
 - `git branch foo`
+- `git branch foo $commitid`
 - `git switch foo`
 - `git switch -c bar`
+- `git switch -c bar $commitid`
 - `git branch`
 
 ## Creating a branch
@@ -437,6 +441,16 @@ listing all (local) branches:
 ```bash
 git branch
 ```
+
+# Combining branches
+
+## Combining branches
+
+strategies:
+
+- **merge**: simplest, keeps all commits from the feature branch (creates complex histories)
+- **squash and merge**: combines all commits on the feature branch into a single commit
+- **rebase**: most complex, uses only selected commits
 
 # Combining branches via merge
 
@@ -488,8 +502,10 @@ example commit history (when feature is complete):
 
 ```
 * add footer (master)
+| * merge branch 'master' into 'footer' (footer)
+|/|
 * add company logo
-| * add copyright notice to footer (footer)
+| * add copyright notice to footer
 | * merge branch 'master' into 'footer'
 |/|
 * | add sidebar
@@ -502,11 +518,7 @@ example commit history (when feature is complete):
 
 ## Merge and squash
 
-once the commit is merged and squashed, the old branch can be deleted:
-
-```bash
-git branch -D footer
-```
+once the commit is merged and squashed, the old feature branch can be deleted
 
 result:
 
@@ -564,8 +576,16 @@ note: actually there should be one more "<" sign:
 
 we will usually delete a branch once it is merged:
 
-```
+deleting a merged branch:
+
+```bash
 git branch -d footer
+```
+
+deleting an unmerged branch:
+
+```bash
+git branch -D footer
 ```
 
 # Exercises

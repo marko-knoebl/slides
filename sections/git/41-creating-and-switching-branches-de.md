@@ -3,8 +3,10 @@
 ## Befehle
 
 - `git branch foo`
+- `git branch foo $commitid`
 - `git switch foo`
 - `git switch -c bar`
+- `git switch -c bar $commitid`
 - `git branch`
 
 ## Erstellen eines Branches

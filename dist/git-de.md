@@ -24,7 +24,7 @@ Ein _Commit_ in Git ist eine Momentaufnahme einer Codebase
 
 Die Entwicklung einer Codebase im Laufe der Zeit wird durch eine Abfolge von Commits repräsentiert
 
-Manchmal bezeichnet man mit dem Begriff Commit auch die Änderungen von einer Momentaufnahme zur nächsten
+Manchmal bezeichnet man mit dem Begriff Commit auch den Übergang / die Änderungen von einer Momentaufnahme zur nächsten
 
 ## Commits
 
@@ -43,6 +43,8 @@ Einfacher Commit-Log mit einem Branch (_master_):
 _Branches_ erlauben das gleichzeitige / parallele Arbeiten an mehreren Aufgaben
 
 Der Standard-Branch heißt üblicherweise _master_ oder _main_
+
+In Git ist ein Branch ein Pointer zu einem bestimmten Commit
 
 ## Commits und Branches
 
@@ -391,8 +393,10 @@ wenn das Feature fertiggestellt ist:
 ## Befehle
 
 - `git branch foo`
+- `git branch foo $commitid`
 - `git switch foo`
 - `git switch -c bar`
+- `git switch -c bar $commitid`
 - `git branch`
 
 ## Erstellen eines Branches
@@ -437,6 +441,16 @@ Auflisten von allen (lokalen) Branches:
 ```bash
 git branch
 ```
+
+# Zusammenführen von Branches
+
+## Zusammenführen von Branches
+
+Strategien:
+
+- **merge**: einfachste, behält alle Commits aus dem Feature Branch (erzeugt komplexe Histories)
+- **squash and merge**: Kombiniert alle Commits eines Feature Branches in einen Einzelnen Commit
+- **rebase**: komplexeste Methode, verwendet nur ausgewähle Commits
 
 # Zusammenführen von Branches via merge
 
@@ -488,8 +502,10 @@ Beispiel für eine Commit-History (wenn das Feature vollständig ist):
 
 ```
 * add footer (master)
+| * merge branch 'master' into 'footer' (footer)
+|/|
 * add company logo
-| * add copyright notice to footer (footer)
+| * add copyright notice to footer
 | * merge branch 'master' into 'footer'
 |/|
 * | add sidebar
@@ -502,11 +518,7 @@ Beispiel für eine Commit-History (wenn das Feature vollständig ist):
 
 ## Merge und squash
 
-Nach einem erfolgreichen _merge und squash_ kann der Branch gelöscht werden:
-
-```bash
-git branch -D footer
-```
+Nach einem erfolgreichen _merge und squash_ kann der Branch gelöscht werden
 
 Resultat:
 
@@ -564,8 +576,16 @@ note: actually there should be one more "<" sign:
 
 Üblicherweise werden Branches nach dem Merge gelöscht:
 
+Löschen eines Branches, der gemerged wurde:
+
 ```
 git branch -d footer
+```
+
+Löschen eines Branches, der nicht gemerged ist:
+
+```bash
+git branch -D footer
 ```
 
 # Übungen

@@ -17,7 +17,7 @@
 <h2>Commits</h2>
 <p>Ein <em>Commit</em> in Git ist eine Momentaufnahme einer Codebase</p>
 <p>Die Entwicklung einer Codebase im Laufe der Zeit wird durch eine Abfolge von Commits repräsentiert</p>
-<p>Manchmal bezeichnet man mit dem Begriff Commit auch die Änderungen von einer Momentaufnahme zur nächsten</p>
+<p>Manchmal bezeichnet man mit dem Begriff Commit auch den Übergang / die Änderungen von einer Momentaufnahme zur nächsten</p>
 <h2>Commits</h2>
 <p>Einfacher Commit-Log mit einem Branch (<em>master</em>):</p>
 <pre><code class="hljs language-dockerfile">* <span class="hljs-keyword">add</span><span class="bash"> footer (master)</span>
@@ -29,6 +29,7 @@
 <h2>Branches</h2>
 <p><em>Branches</em> erlauben das gleichzeitige / parallele Arbeiten an mehreren Aufgaben</p>
 <p>Der Standard-Branch heißt üblicherweise <em>master</em> oder <em>main</em></p>
+<p>In Git ist ein Branch ein Pointer zu einem bestimmten Commit</p>
 <h2>Commits und Branches</h2>
 <p>Commit-Log mit einem aktiven Feature-Branch:</p>
 <pre><code class="hljs language-routeros">* <span class="hljs-builtin-name">add</span> sidebar (master)
@@ -275,8 +276,10 @@ git <span class="hljs-built_in">log</span> --oneline --graph --all
 <h2>Befehle</h2>
 <ul>
 <li><code>git branch foo</code></li>
+<li><code>git branch foo $commitid</code></li>
 <li><code>git switch foo</code></li>
 <li><code>git switch -c bar</code></li>
+<li><code>git switch -c bar $commitid</code></li>
 <li><code>git branch</code></li>
 </ul>
 <h2>Erstellen eines Branches</h2>
@@ -301,6 +304,14 @@ git switch master
 <p>Auflisten von allen (lokalen) Branches:</p>
 <pre><code class="hljs language-bash">git branch
 </code></pre>
+<h1>Zusammenführen von Branches</h1>
+<h2>Zusammenführen von Branches</h2>
+<p>Strategien:</p>
+<ul>
+<li><strong>merge</strong>: einfachste, behält alle Commits aus dem Feature Branch (erzeugt komplexe Histories)</li>
+<li><strong>squash and merge</strong>: Kombiniert alle Commits eines Feature Branches in einen Einzelnen Commit</li>
+<li><strong>rebase</strong>: komplexeste Methode, verwendet nur ausgewähle Commits</li>
+</ul>
 <h1>Zusammenführen von Branches via merge</h1>
 <h2>Zusammenführen von Branches via merge</h2>
 <p>Beispiel für eine Commit-History (während der Feature-Entwicklung):</p>
@@ -337,8 +348,10 @@ git switch master
 <p>merge und squash:</p>
 <p>Beispiel für eine Commit-History (wenn das Feature vollständig ist):</p>
 <pre><code class="hljs language-routeros">* <span class="hljs-builtin-name">add</span> footer (master)
+| * merge branch <span class="hljs-string">'master'</span> into <span class="hljs-string">'footer'</span> (footer)
+|/|
 * <span class="hljs-builtin-name">add</span> company logo
-| * <span class="hljs-builtin-name">add</span> copyright notice <span class="hljs-keyword">to</span> footer (footer)
+| * <span class="hljs-builtin-name">add</span> copyright notice <span class="hljs-keyword">to</span> footer
 | * merge branch <span class="hljs-string">'master'</span> into <span class="hljs-string">'footer'</span>
 |/|
 * | <span class="hljs-builtin-name">add</span> sidebar
@@ -349,9 +362,7 @@ git switch master
 * initialize website
 </code></pre>
 <h2>Merge und squash</h2>
-<p>Nach einem erfolgreichen <em>merge und squash</em> kann der Branch gelöscht werden:</p>
-<pre><code class="hljs language-bash">git branch -D footer
-</code></pre>
+<p>Nach einem erfolgreichen <em>merge und squash</em> kann der Branch gelöscht werden</p>
 <p>Resultat:</p>
 <pre><code class="hljs language-dockerfile">* <span class="hljs-keyword">add</span><span class="bash"> footer (master)</span>
 * <span class="hljs-keyword">add</span><span class="bash"> company logo</span>
@@ -391,7 +402,11 @@ note: actually there should be one more "<" sign:
 </ul>
 <h2>Löschen alter Branches</h2>
 <p>Üblicherweise werden Branches nach dem Merge gelöscht:</p>
+<p>Löschen eines Branches, der gemerged wurde:</p>
 <pre><code class="hljs language-ebnf"><span class="hljs-attribute">git branch -d footer</span>
+</code></pre>
+<p>Löschen eines Branches, der nicht gemerged ist:</p>
+<pre><code class="hljs language-bash">git branch -D footer
 </code></pre>
 <h1>Übungen</h1>
 <h2>Übungen</h2>

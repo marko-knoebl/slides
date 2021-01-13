@@ -48,8 +48,10 @@ example commit history (when feature is complete):
 
 ```
 * add footer (master)
+| * merge branch 'master' into 'footer' (footer)
+|/|
 * add company logo
-| * add copyright notice to footer (footer)
+| * add copyright notice to footer
 | * merge branch 'master' into 'footer'
 |/|
 * | add sidebar
@@ -62,11 +64,7 @@ example commit history (when feature is complete):
 
 ## Merge and squash
 
-once the commit is merged and squashed, the old branch can be deleted:
-
-```bash
-git branch -D footer
-```
+once the commit is merged and squashed, the old feature branch can be deleted
 
 result:
 
@@ -124,6 +122,14 @@ note: actually there should be one more "<" sign:
 
 we will usually delete a branch once it is merged:
 
-```
+deleting a merged branch:
+
+```bash
 git branch -d footer
+```
+
+deleting an unmerged branch:
+
+```bash
+git branch -D footer
 ```

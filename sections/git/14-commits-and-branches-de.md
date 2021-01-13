@@ -6,7 +6,7 @@ Ein _Commit_ in Git ist eine Momentaufnahme einer Codebase
 
 Die Entwicklung einer Codebase im Laufe der Zeit wird durch eine Abfolge von Commits repräsentiert
 
-Manchmal bezeichnet man mit dem Begriff Commit auch die Änderungen von einer Momentaufnahme zur nächsten
+Manchmal bezeichnet man mit dem Begriff Commit auch den Übergang / die Änderungen von einer Momentaufnahme zur nächsten
 
 ## Commits
 
@@ -25,6 +25,8 @@ Einfacher Commit-Log mit einem Branch (_master_):
 _Branches_ erlauben das gleichzeitige / parallele Arbeiten an mehreren Aufgaben
 
 Der Standard-Branch heißt üblicherweise _master_ oder _main_
+
+In Git ist ein Branch ein Pointer zu einem bestimmten Commit
 
 ## Commits und Branches
 
