@@ -83,9 +83,9 @@ Python packages: _notebook_ or _jupyterlab_
 
 free online Jupyter notebooks:
 
-- Binder (limited sessions): <https://jupyter.org/try>
-- <https://www.kaggle.com/notebooks>
-- <https://colab.research.google.com> (Google login required)
+- _Binder_ (limited sessions): <https://jupyter.org/try>
+- popular public notebooks on _kaggle_: <https://www.kaggle.com/notebooks?sortBy=voteCount> (login required to edit / create)
+- _Google Colab_: <https://colab.research.google.com> (login required)
 
 ## Writing and evaluating code
 

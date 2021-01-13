@@ -34,11 +34,11 @@ Python-Pakete: _notebook_ oder _jupyterlab_
 
 ## Jupyter Notebook - online
 
-kostelnlose online Jupyter Notebooks:
+kostenlose online Jupyter Notebooks:
 
-- Binder (begrenzte Sessions): https://jupyter.org/try
-- https://www.kaggle.com/notebooks
-- https://colab.research.google.com (Google Login erforderlich)
+- _Binder_ (begrenzte Sessions): https://jupyter.org/try
+- populäre öffentliche Notebooks auf _kaggle_: https://www.kaggle.com/notebooks?sortBy=voteCount (Login zum Ändern / Erstellen erforderlich)
+- _Google Colab_: https://colab.research.google.com (Login erforderlich)
 
 ## Code schreiben und ausführen
 
