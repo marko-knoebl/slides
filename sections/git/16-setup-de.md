@@ -2,21 +2,21 @@
 
 ## Setup unter Windows
 
-Install from <https://git-scm.com>
+Installation von <https://git-scm.com>
 
 ## Setup unter Windows
 
-recommendations:
+Empfehlungen:
 
 - **Select Components**:
-  - uncheck _Git GUI Here_
-  - check _Git Bash Here_ for an easy way to get into the _bash_ from the Windows Explorer
+  - _Git GUI Here_: deaktivieren
+  - _Git Bash Here_: aktivieren, um aus dem Windows Explorer einfach ein _Bash_-Terminal öffnen zu können
 - **Default editor**:
-  - if unsure, use _Nano_
-- **Adjusting your PATH environment**:
-  - recommendation: check _Use Git and optional Unix tools from the Command Prompt_ - you will be able to use commands like _ls_ and _mv_ from _cmd_
+  - falls unsicher, wählre _Nano_ als einfachen Konsolen-baiserten Texteditor
 - **line ending conversions**:
-  - recommendation: _Checkout as-is, commit Unix-style line endings_
+  - Empfehlung: _Checkout as-is, commit Unix-style line endings_
+- **Choose a credential helper**:
+  - wähle _Git Credential Manager Core_ für erweiterte Integration mit Services wie _GitHub_, anderfalls wähle _None_
 
 ## Konfiguration von Git
 

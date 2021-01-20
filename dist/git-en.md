@@ -114,10 +114,10 @@ recommendations:
   - check _Git Bash Here_ for an easy way to get into the _bash_ from the Windows Explorer
 - **Default editor**:
   - if unsure, use _Nano_
-- **Adjusting your PATH environment**:
-  - recommendation: check _Use Git and optional Unix tools from the Command Prompt_ - you will be able to use commands like _ls_ and _mv_ from _cmd_
 - **line ending conversions**:
   - recommendation: _Checkout as-is, commit Unix-style line endings_
+- **Choose a credential helper**:
+  - choose _Git Credential Manager Core_ for advanced integration with services like _GitHub_, otherwise choose _None_
 
 ## Configuring git
 

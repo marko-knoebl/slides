@@ -808,13 +808,17 @@ python -m http.server
 
 (etwas veraltet)
 
+## CGI, WSGI und ASGI
+
+= Standard-Interfaces, um ein Programm auf einem Server auf einen HTTP-Request antworten zu lassen
+
+- _CGI_: Sprachenübergreifender Standard, langsam / resourcenintensiv
+- _WSGI_: Adaptierung von CGI für Python
+- _ASGI_: Asynchrone Version von WSGI
+
 ## CGI
 
-CGI = _Common Gateway Interface_
-
-Standard, um ein Programm am Server auf eine HTTP-Anfrage antworten zu lassen
-
-Interface zwischen Serversoftware (z.B. Apache) und Webanwendung (geschrieben in beliebiger Programmiersprache)
+CGI (_Common Gateway Interface_): Interface zwischen Serversoftware (z.B. Apache) und Webanwendung (geschrieben in beliebiger Programmiersprache)
 
 Interface beruht auf _stdin_, _stdout_ und Umgebungsvariablen
 
