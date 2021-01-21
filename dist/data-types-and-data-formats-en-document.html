@@ -1,0 +1,219 @@
+<h1>Data types and data formats</h1>
+<h2>Topics</h2>
+<ul>
+<li>data types
+<ul>
+<li>numbers</li>
+<li>booleans</li>
+<li>text</li>
+<li>...</li>
+</ul>
+</li>
+<li>data (file) formats
+<ul>
+<li>JSON</li>
+<li>CSV</li>
+<li>XML</li>
+<li>...</li>
+</ul>
+</li>
+</ul>
+<h1>Data types</h1>
+<h2>Data types</h2>
+<p>Data types and data structures that are important in IT:</p>
+<ul>
+<li>numbers (integers and non-integers)</li>
+<li>yes/no values</li>
+<li>text</li>
+<li>binary data (sequences of 0 and 1 that can represent arbitrary information - e.g. images, video, text, ...)</li>
+<li>time and date</li>
+<li>sequences of other data (e.g. a sequence of numbers)</li>
+<li>associative arrays (key-value mappings)</li>
+<li>missing data - often represented as <em>null</em></li>
+</ul>
+<h2>Example online data sources</h2>
+<ul>
+<li>DataHub: <a href="https://datahub.io/core">Core Data</a></li>
+<li>OpenWeatherMap: <a href="https://samples.openweathermap.org/data/2.5/weather?q=Berlin&#x26;appid=b6907d289e10d714a6e88b30761fae22">example data (not live)</a></li>
+</ul>
+<h1>Numbers</h1>
+<h2>Numbers</h2>
+<p>types of numbers:</p>
+<ul>
+<li><em>integer</em></li>
+<li><em>floating-point number</em> or <em>float</em> (binary system)</li>
+<li><em>decimal</em></li>
+</ul>
+<h2>Numbers</h2>
+<p>Programming languages commonly use <em>integers</em> and <em>floats</em></p>
+<p>Databases and some data formats additionally use <em>decimals</em></p>
+<h2>Numbers</h2>
+<p>Be cautious of rounding errors: Some numbers cannot be represented as floating point numbers - the will always be rounded</p>
+<p>e.g.: <code>1/3</code></p>
+<p>A computer is also unable to represent numbers like <code>0.1</code> or <code>0.2</code> exactly</p>
+<p>Example: <code>0.3 - 0.2</code> will often not evaluate to <code>0.1</code>, but <code>0.09999999999999998</code></p>
+<h2>Numbers</h2>
+<p>Types like <em>integer</em> or <em>float</em> usually have a specific accuracy</p>
+<p>examples:</p>
+<ul>
+<li>an <em>integer</em> in <em>SQL</em> can typically represent the values <em>-2,147,483,648</em> to <em>2,147,483,647</em></li>
+<li>a binary floating point number often has an accuracy of about 15 decimal places (<em>64-Bit numbers</em>)</li>
+</ul>
+<h2>Numbers</h2>
+<p>Saving as a number or as text?</p>
+<p>How should we store credit card numbers, ZIP codes, telephone numbers, ...</p>
+<h2>Numbers</h2>
+<p>Credit card numbers, ZIP codes, telephone numbers should be stored as text</p>
+<p>reasons:</p>
+<ul>
+<li>these numbers can start with zeros</li>
+<li>these numbers can include special characters (e.g. <code>/</code>, spaces)</li>
+</ul>
+<p>Principle: if a number cannot be sensibly used for coputations it should be stored as text</p>
+<h1>Booleans</h1>
+<h2>Booleans</h2>
+<p>Boolean value = value representing yes/no or true/false</p>
+<p>Boolean values can be represented via a separate data type or via the values <code>1</code> and <code>0</code></p>
+<p>Are usually named <code>true</code> and <code>false</code></p>
+<h1>Strings</h1>
+<h2>Strings</h2>
+<p>A <em>string</em> represents text</p>
+<p>Today strings can <em>mostly</em> include all Unicode characters; in some cases the character set will be limited, e.g. to <em>ASCII</em></p>
+<h2>Strings</h2>
+<p>Strings are usually delimited by single or double quotes</p>
+<p>Valid string literal in Python, JavaScript, JSON:</p>
+<pre><code class="hljs language-txt">"Hello, world!"
+</code></pre>
+<p>String in Python, JavaScript, SQL:</p>
+<pre><code class="hljs language-txt">'Hello, world!'
+</code></pre>
+<h2>Strings - escape sequences</h2>
+<p>Problem: how do we write characters like <code>"</code> inside of a string?</p>
+<p>invalid:</p>
+<pre><code class="hljs language-py"><span class="hljs-string">"He said: "</span>hi!<span class="hljs-string">""</span>
+</code></pre>
+<h2>Strings - escape sequences</h2>
+<p>Solution in Python, JavaScript, JSON:</p>
+<pre><code class="hljs language-JSON"><span class="hljs-string">"He said: \"hi!\""</span>
+</code></pre>
+<p>The character sequence <code>\"</code> is treated like a single quotation mark</p>
+<p>Solution in CSV (and similarly in SQL):</p>
+<pre><code class="hljs language-1c"><span class="hljs-string">"He said: ""hi!"""</span>
+</code></pre>
+<p>The character sequence <code>""</code> is treated like a single quotation mark</p>
+<h2>Strings - escape sequences</h2>
+<p>More escape sequences in programming languages:</p>
+<p>Including a line break in a line (Linux, Mac):</p>
+<pre><code class="hljs language-json"><span class="hljs-string">"line 1\nline 2"</span>
+</code></pre>
+<p>Including a line break in a line (Windows):</p>
+<pre><code class="hljs language-json"><span class="hljs-string">"line 1\r\nline 2"</span>
+</code></pre>
+<p>Including a single backslash:</p>
+<pre><code class="hljs language-json"><span class="hljs-string">"C:\\programs\\firefox"</span>
+</code></pre>
+<h1>null</h1>
+<h2>null</h2>
+<p>The special value <code>null</code> commonly represents missing / unknown data</p>
+<h1>Data formats</h1>
+<h2>Data formats</h2>
+<p>data (file) formats:</p>
+<ul>
+<li>JSON (JavaScript Object Notation)</li>
+<li>CSV (comma-separated values, text based tabular documents)</li>
+<li>XML (Extensible Markup Language, similar to HTML)</li>
+<li>xls(x), ods</li>
+<li>HDF5</li>
+</ul>
+<h1>JSON</h1>
+<h2>JSON</h2>
+<p>JSON = <em>JavaScript Object Notation</em>: File format which is especially relevant in web development.</p>
+<h2>Data types</h2>
+<ul>
+<li>Number</li>
+<li>String</li>
+<li>Boolean</li>
+<li>Null</li>
+<li>Array</li>
+<li>Object</li>
+</ul>
+<h2>Null</h2>
+<p>The expression <code>null</code> symbolizes the absence of a value</p>
+<pre><code class="hljs language-json"><span class="hljs-literal">null</span>
+</code></pre>
+<h2>String</h2>
+<p>Strings are delimited by double quotes</p>
+<p>(In JavaScript single quotes would be allowed as well)</p>
+<h2>Array</h2>
+<p>An <em>array</em> contains a sequence of other objects</p>
+<pre><code class="hljs language-json">[<span class="hljs-string">"Anne"</span>, <span class="hljs-string">"Bob"</span>, <span class="hljs-string">"Chris"</span>]
+</code></pre>
+<pre><code class="hljs language-json">[<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">7</span>, <span class="hljs-number">11</span>]
+</code></pre>
+<h2>Object</h2>
+<p>An <em>object</em> contains named entries</p>
+<pre><code class="hljs language-json">{
+  <span class="hljs-attr">"firstName"</span>: <span class="hljs-string">"Thomas"</span>,
+  <span class="hljs-attr">"lastName"</span>: <span class="hljs-string">"Edison"</span>,
+  <span class="hljs-attr">"birthYear"</span>: <span class="hljs-number">1847</span>,
+  <span class="hljs-attr">"living"</span>: <span class="hljs-literal">false</span>
+}
+</code></pre>
+<p>(In JavaScript the names of entries can be stated without quotes, e.g. <code>firstName</code>)</p>
+<h1>CSV</h1>
+<h2>CSV</h2>
+<p>CSV (<em>comma-separated values</em>) is a text file format which can hold tabular data</p>
+<h2>Example</h2>
+<pre><code class="hljs language-csv">ISO,Country,Capital,Languages
+AD,Andorra,Andorra la Vella,"ES,FR"
+AE,United Arab Emirates,Abu Dhabi,"AE,fa,en,hi,ur"
+AF,Afghanistan,Kabul,"AF,tk"
+</code></pre>
+<h2>Standardization</h2>
+<p>There is no official definitive standard</p>
+<p>CSV formats can vary based on:</p>
+<ul>
+<li>separation character: could be a comma, semicolon, tab</li>
+<li>presence of table header</li>
+<li>rules for quoting and escaping values</li>
+</ul>
+<h2>Standardization</h2>
+<p>The format is older than the standards - in practice the format varies widely</p>
+<ul>
+<li>RFC 4180: <a href="https://tools.ietf.org/html/rfc4180">https://tools.ietf.org/html/rfc4180</a></li>
+<li>W3C: <a href="https://www.w3.org/TR/2015/REC-tabular-data-model-20151217/">https://www.w3.org/TR/2015/REC-tabular-data-model-20151217/</a>
+<ul>
+<li>includes <em>Best Practice CSV</em></li>
+</ul>
+</li>
+</ul>
+<h2>Standardization</h2>
+<ul>
+<li>First line <em>can</em> (RFC) / <em>should</em> (W3C) be a comma-separated list of column names</li>
+<li>Lines <em>must</em> (RFC) / <em>should</em> (W3C) be separated by CRLF (carriage return &#x26; line feed)</li>
+<li>Fields may be enclosed in double quotes; this is necessary if a field contains a comma, a double quote or a line break</li>
+<li>If a double quote (<code>"</code>) appears within a field, it must be escaped by doubling it (<code>""</code>)</li>
+</ul>
+<h2>TSV</h2>
+<p>Derived from CSV: <em>tab-separated values</em></p>
+<p>Advantages: easier to read, commas don't have to be escaped</p>
+<p>Disadvantages: not standardized, not as popular</p>
+<pre><code class="hljs language-tsv">ISO	Country	Capital	Languages
+AD	Andorra	Andorra la Vella	ES,FR
+AE	United Arab Emirates	Abu Dhabi	AE,fa,en,hi,ur
+AF	Afghanistan	Kabul	AF,tk
+</code></pre>
+<h2>Exercise</h2>
+<p>Create a simple CSV file in VS Code and view it in tabular view (icon <em>open in preview</em> in the top right corner)</p>
+<h1>XML</h1>
+<h2>XML</h2>
+<p>XML = Extensible Markup Language</p>
+<p>Language that is similar to HTML</p>
+<p>Was a default language for data exchange; is being replaced more and more by JSON</p>
+<h2>XML</h2>
+<p>example:</p>
+<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">person</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">name</span>></span>Adam<span class="hljs-tag">&#x3C;/<span class="hljs-name">name</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">age</span> <span class="hljs-attr">unit</span>=<span class="hljs-string">"years"</span>></span>40<span class="hljs-tag">&#x3C;/<span class="hljs-name">age</span>></span>
+<span class="hljs-tag">&#x3C;/<span class="hljs-name">person</span>></span>
+</code></pre>

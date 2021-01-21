@@ -2060,241 +2060,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   </head>
   <body>
     <div class="reveal">
-      <div class="slides slides"><section class="slides-section"><section class="slide"><h1>Datenbanken und Datenspeicherung</h1>
-</section><section class="slide"><h2>Präsentationen</h2>
-<p><a href="https://marko-knoebl.github.io/slides/">https://marko-knoebl.github.io/slides/</a></p>
-</section><section class="slide"><h2>Ihr Trainer</h2>
-<p>Marko Knöbl</p>
-<ul>
-<li>aus Wien</li>
-<li>ehemaliger Mathematiklehrer</li>
-<li>Programmierthemen:
-<ul>
-<li>JavaScript, TypeScript und React</li>
-<li>Python, Data Science</li>
-</ul>
-</li>
-</ul>
-</section><section class="slide"><h2>Vorstellung der Teilnehmer</h2>
-<ul>
-<li>Aktuelle Projekte</li>
-<li>Vorkenntnisse</li>
-<li>Erwartungen / Wünsche</li>
-</ul>
-</section><section class="slide"><h2>Organisatorisches</h2>
-<ul>
-<li>Kursdauer</li>
-<li>Pausen</li>
-<li>Mittagessen</li>
-<li>Unterlagen</li>
-<li>Fragen, Feedback? - Jederzeit erwünscht</li>
-</ul>
-</section><section class="slide"><h2>Code</h2>
-<p>Code verfügbar unter: <a href="https://github.com/marko-knoebl/courses-code">https://github.com/marko-knoebl/courses-code</a></p>
-</section></section><section class="slides-section"><section class="slide"><h1>Agenda</h1>
-<ul>
-<li>Datenformate</li>
-<li>Datenbanken</li>
-<li>SQL-Abfragesprache</li>
-</ul>
-</section></section><section class="slides-section"><section class="slide"><h1>Datenformate</h1>
-</section><section class="slide"><h2>Datenformate</h2>
-<p>Wichtige Formate zum Speichern bzw zum Austausch von Daten:</p>
-<ul>
-<li>CSV (Comma-separated values, Textbasierte tabellarische Dokumente)</li>
-<li>JSON (JavaScript Object Notation)</li>
-<li>XML (Extensible Markup Language, ähnlich zu HTML)</li>
-<li>SQL Datenbanken</li>
-<li>andere Datenbanken</li>
-</ul>
-</section></section><section class="slides-section"><section class="slide"><h1>Datentypen</h1>
-</section><section class="slide"><h2>Datentypen</h2>
-<p>Datentypen und Datenstrukturen, mit denen in der Informatik oft gearbeitet wird:</p>
-<ul>
-<li>Zahlen (Kommazahlen und Ganzzahlen)</li>
-<li>Ja/Nein - Werte</li>
-<li>Text</li>
-<li>Binärdaten (Folgen von 0 und 1, die beliebige Informationen repräsentieren können - z.B. ein Bild, ein Video, Text, ...)</li>
-<li>Zeit- / Datumsangaben</li>
-<li>Aufreihungen anderer Daten (z.B. eine Reihe von Zahlen)</li>
-<li>Assoziative Arrays (Sammlungen benannter Einträge)</li>
-<li>fehlende Daten - oft mit <em>null</em> repräsentiert</li>
-</ul>
-</section><section class="slide"><h2>Beispiele für Online-Datenquellen</h2>
-<ul>
-<li>OpenWeatherMap: <a href="https://samples.openweathermap.org/data/2.5/weather?q=Berlin&#x26;appid=b6907d289e10d714a6e88b30761fae22">Beispieldaten (nicht live)</a></li>
-<li>DataHub: <a href="https://datahub.io/core">Core Data</a></li>
-</ul>
-</section></section><section class="slides-section"><section class="slide"><h1>Zahlen</h1>
-</section><section class="slide"><h2>Zahlen</h2>
-<p>wichtige Arten von Zahlen in der Informatik:</p>
-<ul>
-<li><em>integer</em> (Ganzzahlen)</li>
-<li><em>floating-point number</em> oder <em>float</em> (Kommazahlen im Binärsystem)</li>
-<li><em>decimal</em> (Kommazahlen im Dezimalsystem)</li>
-</ul>
-</section><section class="slide"><h2>Zahlen</h2>
-<p>In Programmiersprachen werden hauptsächlich <em>integer</em> und <em>floats</em> verwendet</p>
-<p>In Datenbanken oder CSV-Dateien kommt auch der Typ <em>decimal</em> vor</p>
-</section><section class="slide"><h2>Zahlen</h2>
-<p>Achtung Rundungsfehler: Einige Zahlen können nicht genau als Kommazahlen repräsentiert werden, sie werden immer gerundet</p>
-<p>z.B.: <code>1/3</code></p>
-<p>Im Binärsystem können auch Zahlen wie <code>0.1</code> oder <code>0.2</code> nicht genau repräsentiert werden - hier gibt es ganz kleine Abweichungen</p>
-<p>Beispiel: <code>0.3 - 0.2</code> ergibt in Programmiersprachen nicht exakt <code>0.1</code>, sondern meist <code>0.09999999999999998</code></p>
-</section><section class="slide"><h2>Zahlen</h2>
-<p>Typen wie <em>integer</em> oder <em>float</em> haben üblicherweise eine vorgegebene Genauigkeit</p>
-<p>Beispiele:</p>
-<ul>
-<li>ein <em>integer</em> in <em>SQL</em> kann typischerweise die Werte <em>-2,147,483,648</em> bis <em>2,147,483,647</em> annehmen</li>
-<li>eine Kommazahl im Binärsystem hat oft eine Genauigkeit von etwa 15 Dezimalstellen (<em>64-Bit</em> Genauigkeit)</li>
-</ul>
-</section><section class="slide"><h2>Zahlen</h2>
-<p>Speicherung als Zahl oder als Text?</p>
-<p>Wie speichert man Kreditkartennummern, Postleitzahlen, Telefonnummern, ...?</p>
-</section><section class="slide"><h2>Zahlen</h2>
-<p>Kreditkartennummern, Postleitzahlen, Telefonnummern, etc sollten als Text gespeichert werden</p>
-<p>Gründe:</p>
-<ul>
-<li>solche Daten können mit Nullen beginnen, die bei einer Zahl nicht erfasst würden</li>
-<li>solche Daten können Sonderzeichen (z.B. <code>/</code>, Leerzeichen, ...) enthalten</li>
-</ul>
-<p>Grundregel: wenn mit einer Zahl nicht sinnvoll gerechet werden kann, sollte sie als String gespeichert werden.</p>
-</section></section><section class="slides-section"><section class="slide"><h1>Boolesche Werte</h1>
-</section><section class="slide"><h2>Boolesche Werte</h2>
-<p>Boolescher Wert = Ja/Nein bzw wahr/falsch - Wert</p>
-<p>Haben entweder einen eigenen Datentyp oder werden durch die Werte <code>1</code> und <code>0</code> repräsentiert</p>
-<p>Werden üblicherweise durch die Ausdrücke <code>true</code> und <code>false</code> (oder <code>True</code> und <code>False</code>) bezeichnet</p>
-</section></section><section class="slides-section"><section class="slide"><h1>Strings</h1>
-</section><section class="slide"><h2>Strings</h2>
-<p>Ein <em>String</em> - auch <em>Zeichenkette</em> genannt - repräsentiert Text</p>
-<p>Heutzutage können in Strings <em>meist</em> alle Unicode-Zeichen verwendet werden; in manchen Fällen ist die Zeichenauswahl allerdings eingeschränkt - z.B. auf <em>ASCII</em></p>
-</section><section class="slide"><h2>Strings</h2>
-<p>Strings werden üblicherweise mit einfachen oder doppelten Anführungszeichen begrenzt</p>
-<p>Gültiger String in Python, JavaScript, JSON:</p>
-<pre><code class="hljs language-txt">"Hello, world!"
-</code></pre>
-<p>Gültiger String in Python, JavaScript, SQL:</p>
-<pre><code class="hljs language-txt">'Hello, world!'
-</code></pre>
-</section><section class="slide"><h2>Strings - Escape-Sequenzen</h2>
-<p>Problem: Wie schreiben wir Zeichen wie z.B. <code>"</code> innerhalb eines Strings?</p>
-<p>Ungültig:</p>
-<pre><code class="hljs language-py"><span class="hljs-string">"He said: "</span>hi!<span class="hljs-string">""</span>
-</code></pre>
-</section><section class="slide"><h2>Strings - Escape-Sequenzen</h2>
-<p>Lösungen in Python, JavaScript, JSON:</p>
-<pre><code class="hljs language-JSON"><span class="hljs-string">"He said: \"hi!\""</span>
-</code></pre>
-<p>Die Zeichenfolge <code>\"</code> wird wie ein einzelnes Anführungszeichen interpretiert</p>
-<p>Lösung in CSV (und ähnlich in SQL):</p>
-<pre><code class="hljs language-1c"><span class="hljs-string">"He said: ""hi!"""</span>
-</code></pre>
-<p>Die Zeichenfolge <code>""</code> wird wie ein einzelnes gewöhnliches Anführungszeichen interpretiert</p>
-</section><section class="slide"><h2>Strings - Escape-Sequenzen</h2>
-<p>Weitere Escape-Sequenzen in Programmiersprachen:</p>
-<p>Zeilenumbruch in 1 Zeile (Linux, Mac):</p>
-<pre><code class="hljs language-json"><span class="hljs-string">"line 1\nline 2"</span>
-</code></pre>
-<p>Zeilenumbruch in 1 Zeile (Windows):</p>
-<pre><code class="hljs language-json"><span class="hljs-string">"line 1\r\nline 2"</span>
-</code></pre>
-<p>Einzelner Backslash:</p>
-<pre><code class="hljs language-json"><span class="hljs-string">"C:\\programs\\firefox"</span>
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>null</h1>
-</section><section class="slide"><h2>null</h2>
-<p>Mit <code>null</code> wird ausgedrückt, dass ein bestimmter Wert fehlt oder unbekannt ist</p>
-</section></section><section class="slides-section"><section class="slide"><h1>CSV</h1>
-</section><section class="slide"><h2>CSV</h2>
-<p>CSV (<em>comma-separated values</em>) ist ein Textdateiformat, das tabellarische Daten beinhaltet</p>
-</section><section class="slide"><h2>Beispiel</h2>
-<pre><code class="hljs language-csv">ISO,Country,Capital,Languages
-AD,Andorra,Andorra la Vella,"ES,FR"
-AE,United Arab Emirates,Abu Dhabi,"AE,fa,en,hi,ur"
-AF,Afghanistan,Kabul,"AF,tk"
-</code></pre>
-</section><section class="slide"><h2>Standardisierung</h2>
-<p>Es gibt keinen definitiven Standard</p>
-<p>Varianten des CSV Formats können sich durch die folgenden Aspekte unterscheiden:</p>
-<ul>
-<li>Trennzeichen: kann z.B. ein Komma, Semikolon oder Tab sein</li>
-<li>Vorhandensein einer Tabellenkopfzeile</li>
-<li>Regeln zum Setzen und <em>Escapen</em> von Anführungszeichen</li>
-</ul>
-</section><section class="slide"><h2>Standardisierung</h2>
-<p>Das Format ist älter als die Standards - in der Praxis gibt es viele Variationen</p>
-<ul>
-<li>RFC 4180: <a href="https://tools.ietf.org/html/rfc4180">https://tools.ietf.org/html/rfc4180</a></li>
-<li>W3C: <a href="https://www.w3.org/TR/2015/REC-tabular-data-model-20151217/">https://www.w3.org/TR/2015/REC-tabular-data-model-20151217/</a></li>
-</ul>
-</section><section class="slide"><h2>Standardisierung</h2>
-<p>Regeln aus <em>RFC 4180</em> und dem <em>W3C</em>-Standard</p>
-<ul>
-<li>Werte werden durch Kommas getrennt</li>
-<li>Erste Zeile <em>kann</em> (RFC) / <em>sollte</em> (W3C) die Spaltennamen beinhalten</li>
-<li>Zeilen <em>müssen</em> (RFC) / <em>sollten</em> (W3C) durch die Zeichenfolge <em>CRLF</em> (carriage return &#x26; line feed) getrennt sein</li>
-<li>Felder können von doppelten Anführungszeichen umfasst werden - dies ist notwendig, falls ein Feld ein Komma, ein doppeltes Anführungzeichen oder einen Zeilenumbruch enthält</li>
-<li>Falls ein doppeltes Anführungszeichen (<code>"</code>) innerhalb eines Felds vorkommt, muss es verdoppelt werden (<code>""</code>)</li>
-</ul>
-</section><section class="slide"><h2>TSV</h2>
-<p>In Anlehnung an CSV: <em>tab-separated values</em></p>
-<p>Vorteile: eventuell besser zu lesen, Kommas müssen nicht escaped werden</p>
-<p>Nachteile: nicht Standardisiert, weniger verbreitet</p>
-<pre><code class="hljs language-tsv">ISO	Country	Capital	Languages
-AD	Andorra	Andorra la Vella	ES,FR
-AE	United Arab Emirates	Abu Dhabi	AE,fa,en,hi,ur
-AF	Afghanistan	Kabul	AF,tk
-</code></pre>
-</section><section class="slide"><h2>Übung</h2>
-<p>Übung: selbst in VS Code einfache CSV-Datei anlegen und in Tabellenansicht begutachten (Icon <em>open in preview</em> rechts oben in der Ansicht)</p>
-</section></section><section class="slides-section"><section class="slide"><h1>JSON</h1>
-</section><section class="slide"><h2>JSON</h2>
-<p>JSON = <em>JavaScript Object Notation</em>: Datenformat, das insbesondere in der Webentwicklung wichtig ist.</p>
-</section><section class="slide"><h2>Datentypen</h2>
-<ul>
-<li>Number</li>
-<li>String</li>
-<li>Boolean</li>
-<li>Null</li>
-<li>Array</li>
-<li>Object</li>
-</ul>
-</section><section class="slide"><h2>Null</h2>
-<p>Der Ausdruck <code>null</code> symbolisiert, dass ein Wert fehlt oder unbekannt ist</p>
-<pre><code class="hljs language-json"><span class="hljs-literal">null</span>
-</code></pre>
-</section><section class="slide"><h2>String</h2>
-<p>Strings werden in JSON mit doppelten Anführungszeichen begrenzt</p>
-<p>(In JavaScript wären als Alternative auch einfache Anführungszeichen erlaubt)</p>
-</section><section class="slide"><h2>Array</h2>
-<p>Ein <em>Array</em> beinhaltet eine Abfolge von anderen Objekten</p>
-<pre><code class="hljs language-json">[<span class="hljs-string">"Anne"</span>, <span class="hljs-string">"Bob"</span>, <span class="hljs-string">"Chris"</span>]
-</code></pre>
-<pre><code class="hljs language-json">[<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">7</span>, <span class="hljs-number">11</span>]
-</code></pre>
-</section><section class="slide"><h2>Objekt</h2>
-<p>Ein <em>Objekt</em> beinhaltet benannte Einträge</p>
-<pre><code class="hljs language-json">{
-  <span class="hljs-attr">"firstName"</span>: <span class="hljs-string">"Thomas"</span>,
-  <span class="hljs-attr">"lastName"</span>: <span class="hljs-string">"Edison"</span>,
-  <span class="hljs-attr">"birthYear"</span>: <span class="hljs-number">1847</span>,
-  <span class="hljs-attr">"living"</span>: <span class="hljs-literal">false</span>
-}
-</code></pre>
-<p>(In JavaScript könnten die Namen der Einträge auch ohne Anführungszeichen stehen, z.B. <code>firstName</code>)</p>
-</section></section><section class="slides-section"><section class="slide"><h1>XML</h1>
-</section><section class="slide"><h2>XML</h2>
-<p>XML = Extensible Markup Language</p>
-<p>Sprache, die viele Ähnlichkeiten zu HTML hat</p>
-<p>War lange Zeit eine sehr wichtige Standardsprache für Datenaustausch; wird zunehmend durch JSON ersetzt</p>
-</section><section class="slide"><h2>XML</h2>
-<p>Beispiel</p>
-<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">person</span>></span>
-  <span class="hljs-tag">&#x3C;<span class="hljs-name">name</span>></span>Adam<span class="hljs-tag">&#x3C;/<span class="hljs-name">name</span>></span>
-  <span class="hljs-tag">&#x3C;<span class="hljs-name">age</span> <span class="hljs-attr">unit</span>=<span class="hljs-string">"years"</span>></span>40<span class="hljs-tag">&#x3C;/<span class="hljs-name">age</span>></span>
-<span class="hljs-tag">&#x3C;/<span class="hljs-name">person</span>></span>
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Datenbanken</h1>
+      <div class="slides slides"><section class="slides-section"><section class="slide"><h1>Datenbanken</h1>
 </section><section class="slide"><h2>Datenbanken</h2>
 <p>Verwendung: Verwaltung großer Datenmengen</p>
 </section><section class="slide"><h2>Datenbanken</h2>
@@ -2312,7 +2078,7 @@ AF	Afghanistan	Kabul	AF,tk
 <li>MongoDB</li>
 <li>Redis</li>
 </ul>
-<p><a href="https://insights.stackoverflow.com/survey/2019#technology-_-databases">Verbreitung laut Stack Overflow Developer Survey 2019</a></p>
+<p><a href="https://insights.stackoverflow.com/survey/2020#technology-databases">Verbreitung laut Stack Overflow Developer Survey 2020</a></p>
 </section><section class="slide"><h2>Terminologie</h2>
 <ul>
 <li><strong>Tabelle / Collection</strong>: Ansammlung ähnlicher Datenobjekte (z.B. eine für Produkte)</li>
@@ -2383,13 +2149,7 @@ AF	Afghanistan	Kabul	AF,tk
 </section><section class="slide"><h2>SQL vs MongoDB</h2>
 <p>SQL: standardisierte Sprache (theoretisch), unabhängig von der verwendeten Programmiersprache</p>
 <p>MongoDB: direkte Bindings für Programmiersprachen</p>
-</section></section><section class="slides-section"><section class="slide"><h1>MongoDB Grundlagen</h1>
-</section><section class="slide"><h2>MongoDB Shell</h2>
-<p><strong>MongoDB Shell</strong> = einfaches Befehlszeileninterface für MongoDB</p>
-<p>online ausprobieren:</p>
-<p><a href="https://docs.mongodb.com/manual/tutorial/getting-started/">https://docs.mongodb.com/manual/tutorial/getting-started/</a></p>
-<p>eine Untermenge der MongoDB shell in reinem JavaScript verwenden (ohne Installation von MongoDB):</p>
-<p><a href="https://github.com/marko-knoebl/mingodb">https://github.com/marko-knoebl/mingodb</a></p>
+</section></section><section class="slides-section"><section class="slide"><h1>MongoDB Datenformat</h1>
 </section><section class="slide"><h2>Datentypen</h2>
 <ul>
 <li>Zahlen
@@ -2417,6 +2177,16 @@ AF	Afghanistan	Kabul	AF,tk
   <span class="hljs-attr">continent</span>: <span class="hljs-string">'South America'</span>,
 };
 </code></pre>
+</section><section class="slide"><h2>BSON Dateiformat</h2>
+<p>MongoDB basiert auf dem BSON Dateiformat. Dieses ähnelt JSON, ist aber ein binäres Format und lässt sich effizienter lesen und schreiben.</p>
+<p>Der Export bzw Import geschieht mittels der Programme <code>mongodump</code> und <code>mongorestore</code></p>
+</section></section><section class="slides-section"><section class="slide"><h1>MongoDB Shell</h1>
+</section><section class="slide"><h2>MongoDB Shell</h2>
+<p><strong>MongoDB Shell</strong> = einfaches Befehlszeileninterface für MongoDB</p>
+<p>online ausprobieren:</p>
+<p><a href="https://docs.mongodb.com/manual/tutorial/getting-started/">https://docs.mongodb.com/manual/tutorial/getting-started/</a></p>
+<p>eine Untermenge der MongoDB shell in reinem JavaScript verwenden (ohne Installation von MongoDB):</p>
+<p><a href="https://github.com/marko-knoebl/mingodb">https://github.com/marko-knoebl/mingodb</a></p>
 </section><section class="slide"><h2>Create</h2>
 <p>Erstellen eines Eintrags:</p>
 <pre><code class="hljs language-js">db.countries.insertOne({
@@ -2463,9 +2233,6 @@ AF	Afghanistan	Kabul	AF,tk
 <p>Löschen aller Einträge:</p>
 <pre><code class="hljs language-js">db.countries.deleteMany({});
 </code></pre>
-</section><section class="slide"><h2>BSON Dateiformat</h2>
-<p>MongoDB basiert auf dem BSON Dateiformat. Dieses ähnelt JSON, ist aber ein binäres Format und lässt sich effizienter lesen und schreiben.</p>
-<p>Der Export bzw Import geschieht mittels der Programme <code>mongodump</code> und <code>mongorestore</code></p>
 </section><section class="slide"><h2>Übung</h2>
 <p>Erstellen und Ändern einer Kontaktdatenbank</p>
 </section></section><section class="slides-section"><section class="slide"><h1>SQL Grundlagen</h1>

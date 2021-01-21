@@ -1,6 +1,6 @@
-# Boolean values
+# Booleans
 
-## Boolean values
+## Booleans
 
 Boolean value = value representing yes/no or true/false
 

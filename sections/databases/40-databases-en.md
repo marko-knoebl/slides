@@ -1,12 +1,12 @@
-# Datenbanken
+# Databases
 
-## Datenbanken
+## Databases
 
-Verwendung: Verwaltung großer Datenmengen
+use: managing big amounts of data
 
-## Datenbanken
+## Databases
 
-Beispiele:
+examples:
 
 - SQL databases
   - MySQL
@@ -17,17 +17,17 @@ Beispiele:
 - MongoDB
 - Redis
 
-[Verbreitung laut Stack Overflow Developer Survey 2019](https://insights.stackoverflow.com/survey/2019#technology-_-databases)
+[Popularity according to Stack Overflow Developer Survey 2020](https://insights.stackoverflow.com/survey/2020#technology-databases)
 
-## Terminologie
+## Terminology
 
-- **Tabelle / Collection**: Ansammlung ähnlicher Datenobjekte (z.B. eine für Produkte)
-- **Zeile / Eintrag / Dokument**: Einzelner Eintrag in einer Tabelle (z.B. für ein einzelnes Produkt)
-- **Feld**: Ein Wert in einem Eintrag (z.B. _Preis_)
+- **table / collection**: a set of similar data objects (e.g. one for products)
+- **row / record / document**: an entry in a table (e.g. a single product)
+- **field**: a property of a record (e.g. _price_)
 
-## CRUD-Operationen
+## CRUD operations
 
-Grundlegende Operationen für Datenbankeinträge:
+basic operations for database records:
 
 - **c**reate
 - **r**ead / **r**etrieve
@@ -40,7 +40,7 @@ SQL:
 
 ```sql
 INSERT INTO product (name, category)
-VALUES ('IPhone', 'electronics')
+VALUES ('IPhone', 'electronics');
 ```
 
 MongoDB shell:
@@ -101,11 +101,11 @@ MongoDB shell:
 db.products.deleteOne({ name: 'IPhone' });
 ```
 
-## Online Playgrounds
+## Online playgrounds
 
-- [SQL Editor von W3Schools](https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all) (enthält bereits Daten, verwendbar mit Chrome und Safari)
+- [SQL Editor from W3Schools](https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all) (contains predefined data, usable on Chrome and Safari)
 - [MongoDB Web Shell](https://docs.mongodb.com/manual/tutorial/getting-started/)
 
-## Übung
+## Exercise
 
-Erstellen / Ändern / Abfragen von Daten in einem Online Playground
+Create / change / query data in an online playground
