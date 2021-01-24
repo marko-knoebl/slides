@@ -288,6 +288,12 @@ Anzeigen der Änderungen zwischen Commit _19e0e64..._ und der aktuellen Version:
 git diff 19e0
 ```
 
+kompakte Ausgabe:
+
+```bash
+git diff 19e0 --name-status
+```
+
 ## Commit-History
 
 Zugreifen auf die Inhalte eines früheren Commits (mit id b4c906...):

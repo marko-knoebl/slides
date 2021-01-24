@@ -12,6 +12,19 @@ eine Untermenge der MongoDB shell in reinem JavaScript verwenden (ohne Installat
 
 https://github.com/marko-knoebl/mingodb
 
+## Befehle
+
+wichtige Befehle:
+
+- `.insertOne`
+- `.insertMany`
+- `.find`
+- `.findOne`
+- `.updateOne`
+- `.replaceOne`
+- `.deleteOne`
+- `.deleteMany`
+
 ## Create
 
 Erstellen eines Eintrags:

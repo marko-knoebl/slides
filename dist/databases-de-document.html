@@ -118,6 +118,32 @@
 <h2>BSON Dateiformat</h2>
 <p>MongoDB basiert auf dem BSON Dateiformat. Dieses ähnelt JSON, ist aber ein binäres Format und lässt sich effizienter lesen und schreiben.</p>
 <p>Der Export bzw Import geschieht mittels der Programme <code>mongodump</code> und <code>mongorestore</code></p>
+<h1>MongoDB Atlas</h1>
+<h2>MongoDB Atlas</h2>
+<p><a href="https://www.mongodb.com/cloud/atlas">Atlas</a>: gehostete MongoDB-Datenbanken von den Entwicklern von MongoDB (Login via Google möglich)</p>
+<h2>Atlas cluster setup</h2>
+<ul>
+<li>erstelle eine neue Organisation</li>
+<li>erstelle ein neues Projekt (mit Mitgliedern)</li>
+<li>erstelle ein "shared cluster"
+<ul>
+<li>wähle einen beliebigen Cloud-Provider (<em>AWS</em>, <em>Google</em> oder <em>Azure</em>)</li>
+</ul>
+</li>
+</ul>
+<h2>Atlas dataset setup</h2>
+<ul>
+<li>klicke auf den Clusternamen, für die Detailansicht</li>
+<li>Klicke auf den Tab <em>Collections</em></li>
+<li>Wähle "Load a Sample Dataset" - erstellt 8 Beispieldatenbanken</li>
+</ul>
+<h2>Atlas web interface</h2>
+<p>versuche:</p>
+<ul>
+<li>Erstellen einer weiteren Datenbank</li>
+<li>Erstellen weiterer Collections</li>
+<li>create / update / delete mehrerer Records / Dokumente</li>
+</ul>
 <h1>MongoDB Shell</h1>
 <h2>MongoDB Shell</h2>
 <p><strong>MongoDB Shell</strong> = einfaches Befehlszeileninterface für MongoDB</p>
@@ -125,6 +151,18 @@
 <p><a href="https://docs.mongodb.com/manual/tutorial/getting-started/">https://docs.mongodb.com/manual/tutorial/getting-started/</a></p>
 <p>eine Untermenge der MongoDB shell in reinem JavaScript verwenden (ohne Installation von MongoDB):</p>
 <p><a href="https://github.com/marko-knoebl/mingodb">https://github.com/marko-knoebl/mingodb</a></p>
+<h2>Befehle</h2>
+<p>wichtige Befehle:</p>
+<ul>
+<li><code>.insertOne</code></li>
+<li><code>.insertMany</code></li>
+<li><code>.find</code></li>
+<li><code>.findOne</code></li>
+<li><code>.updateOne</code></li>
+<li><code>.replaceOne</code></li>
+<li><code>.deleteOne</code></li>
+<li><code>.deleteMany</code></li>
+</ul>
 <h2>Create</h2>
 <p>Erstellen eines Eintrags:</p>
 <pre><code class="hljs language-js">db.countries.insertOne({
@@ -173,6 +211,29 @@
 </code></pre>
 <h2>Übung</h2>
 <p>Erstellen und Ändern einer Kontaktdatenbank</p>
+<h1>MongoDB Shell - Details</h1>
+<h2>Zählen</h2>
+<pre><code class="hljs language-js">db.todos.find({ <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> }).count();
+</code></pre>
+<h2>Query selectors</h2>
+<ul>
+<li><code>$text</code></li>
+<li><code>$regex</code></li>
+<li><code>$gt</code>, <code>$gte</code>, <code>$lt</code>, <code>$lte</code></li>
+<li><code>$in</code></li>
+</ul>
+<h2>Query selectors</h2>
+<pre><code class="hljs language-js">db.products.find({ <span class="hljs-attr">name</span>: { <span class="hljs-attr">$text</span>: <span class="hljs-string">'fairphone'</span> } });
+db.products.find({
+  <span class="hljs-attr">category</span>: <span class="hljs-string">'phone'</span>,
+  <span class="hljs-attr">price</span>: { <span class="hljs-attr">$lt</span>: <span class="hljs-number">300</span> },
+});
+db.products.find({
+  <span class="hljs-attr">category</span>: { <span class="hljs-attr">$in</span>: [<span class="hljs-string">'laptop'</span>, <span class="hljs-string">'tablet'</span>] },
+  <span class="hljs-attr">price</span>: { <span class="hljs-attr">$lt</span>: <span class="hljs-number">400</span> },
+});
+</code></pre>
+<p>siehe: <a href="https://docs.mongodb.com/manual/reference/operator/query/">https://docs.mongodb.com/manual/reference/operator/query/</a></p>
 <h1>SQL Grundlagen</h1>
 <h2>SQL</h2>
 <p>SQL = Structured Query Language</p>

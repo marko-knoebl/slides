@@ -167,6 +167,33 @@ MongoDB basiert auf dem BSON Dateiformat. Dieses ähnelt JSON, ist aber ein bin�
 
 Der Export bzw Import geschieht mittels der Programme `mongodump` und `mongorestore`
 
+# MongoDB Atlas
+
+## MongoDB Atlas
+
+[Atlas](https://www.mongodb.com/cloud/atlas): gehostete MongoDB-Datenbanken von den Entwicklern von MongoDB (Login via Google möglich)
+
+## Atlas cluster setup
+
+- erstelle eine neue Organisation
+- erstelle ein neues Projekt (mit Mitgliedern)
+- erstelle ein "shared cluster"
+  - wähle einen beliebigen Cloud-Provider (_AWS_, _Google_ oder _Azure_)
+
+## Atlas dataset setup
+
+- klicke auf den Clusternamen, für die Detailansicht
+- Klicke auf den Tab _Collections_
+- Wähle "Load a Sample Dataset" - erstellt 8 Beispieldatenbanken
+
+## Atlas web interface
+
+versuche:
+
+- Erstellen einer weiteren Datenbank
+- Erstellen weiterer Collections
+- create / update / delete mehrerer Records / Dokumente
+
 # MongoDB Shell
 
 ## MongoDB Shell
@@ -180,6 +207,19 @@ online ausprobieren:
 eine Untermenge der MongoDB shell in reinem JavaScript verwenden (ohne Installation von MongoDB):
 
 <https://github.com/marko-knoebl/mingodb>
+
+## Befehle
+
+wichtige Befehle:
+
+- `.insertOne`
+- `.insertMany`
+- `.find`
+- `.findOne`
+- `.updateOne`
+- `.replaceOne`
+- `.deleteOne`
+- `.deleteMany`
 
 ## Create
 
@@ -264,6 +304,37 @@ db.countries.deleteMany({});
 ## Übung
 
 Erstellen und Ändern einer Kontaktdatenbank
+
+# MongoDB Shell - Details
+
+## Zählen
+
+```js
+db.todos.find({ completed: false }).count();
+```
+
+## Query selectors
+
+- `$text`
+- `$regex`
+- `$gt`, `$gte`, `$lt`, `$lte`
+- `$in`
+
+## Query selectors
+
+```js
+db.products.find({ name: { $text: 'fairphone' } });
+db.products.find({
+  category: 'phone',
+  price: { $lt: 300 },
+});
+db.products.find({
+  category: { $in: ['laptop', 'tablet'] },
+  price: { $lt: 400 },
+});
+```
+
+siehe: <https://docs.mongodb.com/manual/reference/operator/query/>
 
 # SQL Grundlagen
 

@@ -43,6 +43,12 @@ view changes between _19e0e64..._ and the current state:
 git diff 19e0
 ```
 
+short output:
+
+```bash
+git diff 19e0 --name-status
+```
+
 ## History
 
 accessing the contents of an earlier commit (whose id is b4c906...):

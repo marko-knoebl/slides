@@ -167,6 +167,42 @@ MongoDB is based on the BSON file format. It resembles JSON, but it is a binary 
 
 Importing and exporting can be done via the programs `mongodump` and `mongorestore`
 
+# MongoDB Atlas
+
+## MongoDB Atlas
+
+[Atlas](https://www.mongodb.com/cloud/atlas): hosted MongoDB databases provided by the developers of MongoDB (Login via Google supported)
+
+## Atlas organization
+
+- organization
+  - project
+    - cluster (1 free per project)
+      - database
+        - collection
+          - document
+
+## Atlas cluster setup
+
+- create a new organization
+- create a new project (with members)
+- create a shared cluster (free option)
+  - choose any cloud provider (_AWS_, _Google_ or _Azure_)
+
+## Atlas dataset setup
+
+- click on the cluster name to see the details view
+- click on the _Collections_ tab
+- click "Load a Sample Dataset" - creates 8 sample databases
+
+## Atlas web interface
+
+try to:
+
+- create another database
+- create another collection
+- create / update / delete multiple records / documents
+
 # MongoDB shell
 
 ## MongoDB shell
@@ -180,6 +216,19 @@ try it online:
 use a subset of MongoDB shell in pure JavaScript (without installing MongoDB):
 
 <https://github.com/marko-knoebl/mingodb>
+
+## Commands
+
+important commands:
+
+- `.insertOne`
+- `.insertMany`
+- `.find`
+- `.findOne`
+- `.updateOne`
+- `.replaceOne`
+- `.deleteOne`
+- `.deleteMany`
 
 ## Create
 
@@ -264,6 +313,37 @@ db.countries.deleteMany({});
 ## Exercise
 
 Create and modify a contact database
+
+# MongoDB shell - details
+
+## Counting
+
+```js
+db.todos.find({ completed: false }).count();
+```
+
+## Query selectors
+
+- `$text`
+- `$regex`
+- `$gt`, `$gte`, `$lt`, `$lte`
+- `$in`
+
+## Query selectors
+
+```js
+db.products.find({ name: { $text: 'fairphone' } });
+db.products.find({
+  category: 'phone',
+  price: { $lt: 300 },
+});
+db.products.find({
+  category: { $in: ['laptop', 'tablet'] },
+  price: { $lt: 400 },
+});
+```
+
+see: <https://docs.mongodb.com/manual/reference/operator/query/>
 
 # SQL Basics
 

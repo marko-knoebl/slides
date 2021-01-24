@@ -337,6 +337,51 @@ server.listen(port, hostname);
 <li>connect: middleware</li>
 <li>express: middleware, routing</li>
 </ul>
+<h1>Creating command-line tools</h1>
+<h2>Creating command-line tools</h2>
+<p>npm package for creating command-line tools: <em>prompt</em></p>
+<h2>Creating command-line tools</h2>
+<p>example:</p>
+<p>when we run <code>node ./hello.js</code> we want this interaction:</p>
+<pre><code class="hljs language-txt">prompt: first name: Marko
+prompt: birth year: 1988
+Hi, Marko!
+In the year 2030 you'll be 42!
+</code></pre>
+<h2>Creating command-line tools</h2>
+<p>simple use:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> prompt <span class="hljs-keyword">from</span> <span class="hljs-string">'prompt'</span>;
+
+<span class="hljs-keyword">const</span> main = <span class="hljs-keyword">async</span> () => {
+  prompt.start();
+  <span class="hljs-keyword">const</span> person = <span class="hljs-keyword">await</span> prompt.get([
+    <span class="hljs-string">'first name'</span>,
+    <span class="hljs-string">'birth year'</span>,
+  ]);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Hi, <span class="hljs-subst">${person[<span class="hljs-string">'first name'</span>]}</span>!`</span>);
+  <span class="hljs-keyword">const</span> birthYear = <span class="hljs-built_in">Number</span>(person[<span class="hljs-string">'birth year'</span>]);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`In 2030 you'll be <span class="hljs-subst">${<span class="hljs-number">2030</span> - birthYear}</span>!`</span>);
+};
+main();
+</code></pre>
+<h2>Creating command-line tools</h2>
+<p>advanced use with validation:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> main = <span class="hljs-keyword">async</span> () => {
+  prompt.start();
+  <span class="hljs-keyword">const</span> person = <span class="hljs-keyword">await</span> prompt.get({
+    <span class="hljs-attr">properties</span>: {
+      <span class="hljs-string">'first name'</span>: {},
+      <span class="hljs-string">'birth year'</span>: {
+        <span class="hljs-attr">description</span>: <span class="hljs-string">'year when you were born'</span>,
+        <span class="hljs-attr">pattern</span>: <span class="hljs-regexp">/^\d{4}$/</span>,
+      },
+    },
+  });
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Hi, <span class="hljs-subst">${person[<span class="hljs-string">'first name'</span>]}</span>!`</span>);
+  <span class="hljs-keyword">const</span> birthYear = <span class="hljs-built_in">Number</span>(person[<span class="hljs-string">'birth year'</span>]);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`In 2030 you'll be <span class="hljs-subst">${<span class="hljs-number">2030</span> - birthYear}</span>!`</span>);
+};
+</code></pre>
 <h1>Publishing npm packages</h1>
 <h2>Publishing npm packages</h2>
 <ul>

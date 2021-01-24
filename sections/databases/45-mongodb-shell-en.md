@@ -12,6 +12,19 @@ use a subset of MongoDB shell in pure JavaScript (without installing MongoDB):
 
 https://github.com/marko-knoebl/mingodb
 
+## Commands
+
+important commands:
+
+- `.insertOne`
+- `.insertMany`
+- `.find`
+- `.findOne`
+- `.updateOne`
+- `.replaceOne`
+- `.deleteOne`
+- `.deleteMany`
+
 ## Create
 
 creating entries in a collection:

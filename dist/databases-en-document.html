@@ -118,6 +118,56 @@
 <h2>BSON file format</h2>
 <p>MongoDB is based on the BSON file format. It resembles JSON, but it is a binary format and can be read and written more efficiently</p>
 <p>Importing and exporting can be done via the programs <code>mongodump</code> and <code>mongorestore</code></p>
+<h1>MongoDB Atlas</h1>
+<h2>MongoDB Atlas</h2>
+<p><a href="https://www.mongodb.com/cloud/atlas">Atlas</a>: hosted MongoDB databases provided by the developers of MongoDB (Login via Google supported)</p>
+<h2>Atlas organization</h2>
+<ul>
+<li>organization
+<ul>
+<li>project
+<ul>
+<li>cluster (1 free per project)
+<ul>
+<li>database
+<ul>
+<li>collection
+<ul>
+<li>document</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2>Atlas cluster setup</h2>
+<ul>
+<li>create a new organization</li>
+<li>create a new project (with members)</li>
+<li>create a shared cluster (free option)
+<ul>
+<li>choose any cloud provider (<em>AWS</em>, <em>Google</em> or <em>Azure</em>)</li>
+</ul>
+</li>
+</ul>
+<h2>Atlas dataset setup</h2>
+<ul>
+<li>click on the cluster name to see the details view</li>
+<li>click on the <em>Collections</em> tab</li>
+<li>click "Load a Sample Dataset" - creates 8 sample databases</li>
+</ul>
+<h2>Atlas web interface</h2>
+<p>try to:</p>
+<ul>
+<li>create another database</li>
+<li>create another collection</li>
+<li>create / update / delete multiple records / documents</li>
+</ul>
 <h1>MongoDB shell</h1>
 <h2>MongoDB shell</h2>
 <p><strong>MongoDB shell</strong> = simple command line interface for MongoDB that comes with MongoDB</p>
@@ -125,6 +175,18 @@
 <p><a href="https://docs.mongodb.com/manual/tutorial/getting-started/">https://docs.mongodb.com/manual/tutorial/getting-started/</a></p>
 <p>use a subset of MongoDB shell in pure JavaScript (without installing MongoDB):</p>
 <p><a href="https://github.com/marko-knoebl/mingodb">https://github.com/marko-knoebl/mingodb</a></p>
+<h2>Commands</h2>
+<p>important commands:</p>
+<ul>
+<li><code>.insertOne</code></li>
+<li><code>.insertMany</code></li>
+<li><code>.find</code></li>
+<li><code>.findOne</code></li>
+<li><code>.updateOne</code></li>
+<li><code>.replaceOne</code></li>
+<li><code>.deleteOne</code></li>
+<li><code>.deleteMany</code></li>
+</ul>
 <h2>Create</h2>
 <p>creating entries in a collection:</p>
 <pre><code class="hljs language-js">db.countries.insertOne({
@@ -173,6 +235,29 @@
 </code></pre>
 <h2>Exercise</h2>
 <p>Create and modify a contact database</p>
+<h1>MongoDB shell - details</h1>
+<h2>Counting</h2>
+<pre><code class="hljs language-js">db.todos.find({ <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> }).count();
+</code></pre>
+<h2>Query selectors</h2>
+<ul>
+<li><code>$text</code></li>
+<li><code>$regex</code></li>
+<li><code>$gt</code>, <code>$gte</code>, <code>$lt</code>, <code>$lte</code></li>
+<li><code>$in</code></li>
+</ul>
+<h2>Query selectors</h2>
+<pre><code class="hljs language-js">db.products.find({ <span class="hljs-attr">name</span>: { <span class="hljs-attr">$text</span>: <span class="hljs-string">'fairphone'</span> } });
+db.products.find({
+  <span class="hljs-attr">category</span>: <span class="hljs-string">'phone'</span>,
+  <span class="hljs-attr">price</span>: { <span class="hljs-attr">$lt</span>: <span class="hljs-number">300</span> },
+});
+db.products.find({
+  <span class="hljs-attr">category</span>: { <span class="hljs-attr">$in</span>: [<span class="hljs-string">'laptop'</span>, <span class="hljs-string">'tablet'</span>] },
+  <span class="hljs-attr">price</span>: { <span class="hljs-attr">$lt</span>: <span class="hljs-number">400</span> },
+});
+</code></pre>
+<p>see: <a href="https://docs.mongodb.com/manual/reference/operator/query/">https://docs.mongodb.com/manual/reference/operator/query/</a></p>
 <h1>SQL Basics</h1>
 <h2>SQL</h2>
 <p>SQL = Structured Query Language</p>
