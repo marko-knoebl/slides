@@ -1,29 +1,4 @@
-# Databases
-
-## Databases
-
-use: managing big amounts of data
-
-## Databases
-
-examples:
-
-- SQL databases
-  - MySQL
-  - PostgreSQL
-  - Microsoft SQL Server
-  - SQLite
-  - Oracle
-- MongoDB
-- Redis
-
-[Popularity according to Stack Overflow Developer Survey 2020](https://insights.stackoverflow.com/survey/2020#technology-databases)
-
-## Terminology
-
-- **table / collection**: a set of similar data objects (e.g. one for products)
-- **row / record / document**: an entry in a table (e.g. a single product)
-- **field**: a property of a record (e.g. _price_)
+# CRUD operations
 
 ## CRUD operations
 
@@ -39,8 +14,8 @@ basic operations for database records:
 SQL:
 
 ```sql
-INSERT INTO product (name, category)
-VALUES ('IPhone', 'electronics');
+INSERT INTO product (name, category, price)
+VALUES ('IPhone', 'electronics', 699);
 ```
 
 MongoDB shell:
@@ -49,6 +24,7 @@ MongoDB shell:
 db.products.insertOne({
   name: 'IPhone',
   category: 'electronics',
+  price: 699,
 });
 ```
 
@@ -57,7 +33,7 @@ db.products.insertOne({
 SQL:
 
 ```sql
-SELECT name, category FROM product
+SELECT * FROM product
 WHERE category = 'electronics';
 ```
 
@@ -65,6 +41,23 @@ MongoDB shell:
 
 ```js
 db.products.find({ category: 'electronics' });
+```
+
+## Read
+
+SQL:
+
+```sql
+SELECT name, price FROM product
+WHERE category = 'electronics';
+```
+
+MongoDB shell:
+
+```js
+db.products
+  .find({ category: 'electronics' })
+  .project({ name: 1, price: 1 });
 ```
 
 ## Update

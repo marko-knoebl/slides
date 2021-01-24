@@ -28,3 +28,15 @@ db.products.find({
 ```
 
 siehe: https://docs.mongodb.com/manual/reference/operator/query/
+
+## Projektionen
+
+Abfragen von bestimmten Feldern:
+
+```js
+db.products
+  .find({ category: 'phone' })
+  .project({ name: 1, price: 1 });
+```
+
+liefert nur _name_ und _price_ (und _\_id_) aller Einträge

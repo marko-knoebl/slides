@@ -2085,6 +2085,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li><strong>Zeile / Eintrag / Dokument</strong>: Einzelner Eintrag in einer Tabelle (z.B. für ein einzelnes Produkt)</li>
 <li><strong>Feld</strong>: Ein Wert in einem Eintrag (z.B. <em>Preis</em>)</li>
 </ul>
+</section></section><section class="slides-section"><section class="slide"><h1>CRUD-Operationen</h1>
 </section><section class="slide"><h2>CRUD-Operationen</h2>
 <p>Grundlegende Operationen für Datenbankeinträge:</p>
 <ul>
@@ -2095,14 +2096,23 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </ul>
 </section><section class="slide"><h2>Create</h2>
 <p>SQL:</p>
-<pre><code class="hljs language-sql"><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> product (<span class="hljs-keyword">name</span>, <span class="hljs-keyword">category</span>)
-<span class="hljs-keyword">VALUES</span> (<span class="hljs-string">'IPhone'</span>, <span class="hljs-string">'electronics'</span>)
+<pre><code class="hljs language-sql"><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> product (<span class="hljs-keyword">name</span>, <span class="hljs-keyword">category</span>, price)
+<span class="hljs-keyword">VALUES</span> (<span class="hljs-string">'IPhone'</span>, <span class="hljs-string">'electronics'</span>, <span class="hljs-number">699</span>);
 </code></pre>
 <p>MongoDB shell:</p>
 <pre><code class="hljs language-js">db.products.insertOne({
   <span class="hljs-attr">name</span>: <span class="hljs-string">'IPhone'</span>,
   <span class="hljs-attr">category</span>: <span class="hljs-string">'electronics'</span>,
+  <span class="hljs-attr">price</span>: <span class="hljs-number">699</span>,
 });
+</code></pre>
+</section><section class="slide"><h2>Read</h2>
+<p>SQL:</p>
+<pre><code class="hljs language-sql"><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> product
+<span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">category</span> = <span class="hljs-string">'electronics'</span>;
+</code></pre>
+<p>MongoDB shell:</p>
+<pre><code class="hljs language-js">db.products.find({ <span class="hljs-attr">category</span>: <span class="hljs-string">'electronics'</span> });
 </code></pre>
 </section><section class="slide"><h2>Read</h2>
 <p>SQL:</p>
@@ -2110,7 +2120,9 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">category</span> = <span class="hljs-string">'electronics'</span>;
 </code></pre>
 <p>MongoDB shell:</p>
-<pre><code class="hljs language-js">db.products.find({ <span class="hljs-attr">category</span>: <span class="hljs-string">'electronics'</span> });
+<pre><code class="hljs language-js">db.products
+  .find({ <span class="hljs-attr">category</span>: <span class="hljs-string">'electronics'</span> })
+  .project({ <span class="hljs-attr">name</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">price</span>: <span class="hljs-number">1</span> });
 </code></pre>
 </section><section class="slide"><h2>Update</h2>
 <p>SQL:</p>
@@ -2296,6 +2308,13 @@ db.products.find({
 });
 </code></pre>
 <p>siehe: <a href="https://docs.mongodb.com/manual/reference/operator/query/">https://docs.mongodb.com/manual/reference/operator/query/</a></p>
+</section><section class="slide"><h2>Projektionen</h2>
+<p>Abfragen von bestimmten Feldern:</p>
+<pre><code class="hljs language-js">db.products
+  .find({ <span class="hljs-attr">category</span>: <span class="hljs-string">'phone'</span> })
+  .project({ <span class="hljs-attr">name</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">price</span>: <span class="hljs-number">1</span> });
+</code></pre>
+<p>liefert nur <em>name</em> und <em>price</em> (und <em>_id</em>) aller Einträge</p>
 </section></section><section class="slides-section"><section class="slide"><h1>SQL Grundlagen</h1>
 </section><section class="slide"><h2>SQL</h2>
 <p>SQL = Structured Query Language</p>

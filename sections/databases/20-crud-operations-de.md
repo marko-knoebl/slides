@@ -1,29 +1,4 @@
-# Datenbanken
-
-## Datenbanken
-
-Verwendung: Verwaltung großer Datenmengen
-
-## Datenbanken
-
-Beispiele:
-
-- SQL databases
-  - MySQL
-  - PostgreSQL
-  - Microsoft SQL Server
-  - SQLite
-  - Oracle
-- MongoDB
-- Redis
-
-[Verbreitung laut Stack Overflow Developer Survey 2020](https://insights.stackoverflow.com/survey/2020#technology-databases)
-
-## Terminologie
-
-- **Tabelle / Collection**: Ansammlung ähnlicher Datenobjekte (z.B. eine für Produkte)
-- **Zeile / Eintrag / Dokument**: Einzelner Eintrag in einer Tabelle (z.B. für ein einzelnes Produkt)
-- **Feld**: Ein Wert in einem Eintrag (z.B. _Preis_)
+# CRUD-Operationen
 
 ## CRUD-Operationen
 
@@ -39,8 +14,8 @@ Grundlegende Operationen für Datenbankeinträge:
 SQL:
 
 ```sql
-INSERT INTO product (name, category)
-VALUES ('IPhone', 'electronics')
+INSERT INTO product (name, category, price)
+VALUES ('IPhone', 'electronics', 699);
 ```
 
 MongoDB shell:
@@ -49,7 +24,23 @@ MongoDB shell:
 db.products.insertOne({
   name: 'IPhone',
   category: 'electronics',
+  price: 699,
 });
+```
+
+## Read
+
+SQL:
+
+```sql
+SELECT * FROM product
+WHERE category = 'electronics';
+```
+
+MongoDB shell:
+
+```js
+db.products.find({ category: 'electronics' });
 ```
 
 ## Read
@@ -64,7 +55,9 @@ WHERE category = 'electronics';
 MongoDB shell:
 
 ```js
-db.products.find({ category: 'electronics' });
+db.products
+  .find({ category: 'electronics' })
+  .project({ name: 1, price: 1 });
 ```
 
 ## Update

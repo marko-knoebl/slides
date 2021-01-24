@@ -25,6 +25,8 @@ examples:
 - **row / record / document**: an entry in a table (e.g. a single product)
 - **field**: a property of a record (e.g. _price_)
 
+# CRUD operations
+
 ## CRUD operations
 
 basic operations for database records:
@@ -39,8 +41,8 @@ basic operations for database records:
 SQL:
 
 ```sql
-INSERT INTO product (name, category)
-VALUES ('IPhone', 'electronics');
+INSERT INTO product (name, category, price)
+VALUES ('IPhone', 'electronics', 699);
 ```
 
 MongoDB shell:
@@ -49,6 +51,7 @@ MongoDB shell:
 db.products.insertOne({
   name: 'IPhone',
   category: 'electronics',
+  price: 699,
 });
 ```
 
@@ -57,7 +60,7 @@ db.products.insertOne({
 SQL:
 
 ```sql
-SELECT name, category FROM product
+SELECT * FROM product
 WHERE category = 'electronics';
 ```
 
@@ -65,6 +68,23 @@ MongoDB shell:
 
 ```js
 db.products.find({ category: 'electronics' });
+```
+
+## Read
+
+SQL:
+
+```sql
+SELECT name, price FROM product
+WHERE category = 'electronics';
+```
+
+MongoDB shell:
+
+```js
+db.products
+  .find({ category: 'electronics' })
+  .project({ name: 1, price: 1 });
 ```
 
 ## Update
@@ -344,6 +364,18 @@ db.products.find({
 ```
 
 see: <https://docs.mongodb.com/manual/reference/operator/query/>
+
+## Projections
+
+retrieving only specific fields:
+
+```js
+db.products
+  .find({ category: 'phone' })
+  .project({ name: 1, price: 1 });
+```
+
+retrieves only _name_ and _price_ (and _\_id_) of all phones
 
 # SQL Basics
 

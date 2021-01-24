@@ -23,6 +23,7 @@
 <li><strong>row / record / document</strong>: an entry in a table (e.g. a single product)</li>
 <li><strong>field</strong>: a property of a record (e.g. <em>price</em>)</li>
 </ul>
+<h1>CRUD operations</h1>
 <h2>CRUD operations</h2>
 <p>basic operations for database records:</p>
 <ul>
@@ -33,22 +34,33 @@
 </ul>
 <h2>Create</h2>
 <p>SQL:</p>
-<pre><code class="hljs language-sql"><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> product (<span class="hljs-keyword">name</span>, <span class="hljs-keyword">category</span>)
-<span class="hljs-keyword">VALUES</span> (<span class="hljs-string">'IPhone'</span>, <span class="hljs-string">'electronics'</span>);
+<pre><code class="hljs language-sql"><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> product (<span class="hljs-keyword">name</span>, <span class="hljs-keyword">category</span>, price)
+<span class="hljs-keyword">VALUES</span> (<span class="hljs-string">'IPhone'</span>, <span class="hljs-string">'electronics'</span>, <span class="hljs-number">699</span>);
 </code></pre>
 <p>MongoDB shell:</p>
 <pre><code class="hljs language-js">db.products.insertOne({
   <span class="hljs-attr">name</span>: <span class="hljs-string">'IPhone'</span>,
   <span class="hljs-attr">category</span>: <span class="hljs-string">'electronics'</span>,
+  <span class="hljs-attr">price</span>: <span class="hljs-number">699</span>,
 });
 </code></pre>
 <h2>Read</h2>
 <p>SQL:</p>
-<pre><code class="hljs language-sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">name</span>, <span class="hljs-keyword">category</span> <span class="hljs-keyword">FROM</span> product
+<pre><code class="hljs language-sql"><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> product
 <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">category</span> = <span class="hljs-string">'electronics'</span>;
 </code></pre>
 <p>MongoDB shell:</p>
 <pre><code class="hljs language-js">db.products.find({ <span class="hljs-attr">category</span>: <span class="hljs-string">'electronics'</span> });
+</code></pre>
+<h2>Read</h2>
+<p>SQL:</p>
+<pre><code class="hljs language-sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">name</span>, price <span class="hljs-keyword">FROM</span> product
+<span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">category</span> = <span class="hljs-string">'electronics'</span>;
+</code></pre>
+<p>MongoDB shell:</p>
+<pre><code class="hljs language-js">db.products
+  .find({ <span class="hljs-attr">category</span>: <span class="hljs-string">'electronics'</span> })
+  .project({ <span class="hljs-attr">name</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">price</span>: <span class="hljs-number">1</span> });
 </code></pre>
 <h2>Update</h2>
 <p>SQL:</p>
@@ -258,6 +270,13 @@ db.products.find({
 });
 </code></pre>
 <p>see: <a href="https://docs.mongodb.com/manual/reference/operator/query/">https://docs.mongodb.com/manual/reference/operator/query/</a></p>
+<h2>Projections</h2>
+<p>retrieving only specific fields:</p>
+<pre><code class="hljs language-js">db.products
+  .find({ <span class="hljs-attr">category</span>: <span class="hljs-string">'phone'</span> })
+  .project({ <span class="hljs-attr">name</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">price</span>: <span class="hljs-number">1</span> });
+</code></pre>
+<p>retrieves only <em>name</em> and <em>price</em> (and <em>_id</em>) of all phones</p>
 <h1>SQL Basics</h1>
 <h2>SQL</h2>
 <p>SQL = Structured Query Language</p>
