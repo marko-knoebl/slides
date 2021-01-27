@@ -16,7 +16,7 @@
 ## Atlas cluster setup
 
 - create a new organization
-- create a new project (with members)
+- create a new project (e.g. _main_)
 - create a shared cluster (free option)
   - choose any cloud provider (_AWS_, _Google_ or _Azure_)
 
