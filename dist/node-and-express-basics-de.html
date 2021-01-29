@@ -2060,450 +2060,380 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   </head>
   <body>
     <div class="reveal">
-      <div class="slides slides"><section class="slides-section"><section class="slide"><h1>Node and npm</h1>
-</section></section><section class="slides-section"><section class="slide"><h1>Node and npm: overview</h1>
-</section><section class="slide"><h2>Node and npm: overview</h2>
-<p>Node.js is a JavaScript runtime</p>
-<p>It may be used to:</p>
+      <div class="slides slides"><section class="slides-section"><section class="slide"><h1>Node and express basics</h1>
+</section></section><section class="slides-section"><section class="slide"><h1>Libraries</h1>
+</section><section class="slide"><h2>Libraries</h2>
 <ul>
-<li>run scripts locally</li>
-<li>provide development tools (e.g. for build process, unit tests, ...)</li>
-<li>run a backend</li>
+<li>reines node (createServer)</li>
+<li><em>connect</em> (beinhaltet Middleware)</li>
+<li><em>express</em> (beinhaltet Middleware, Routing, Rendering, ...)</li>
 </ul>
-</section><section class="slide"><h2>Node and npm: overview</h2>
-<p><em>npm</em> = <em>Node package manager</em></p>
-<p>is included in the node.js installation</p>
-</section><section class="slide"><h2>Installation</h2>
-<p>Download from <a href="https://nodejs.org">https://nodejs.org</a></p>
-<p>Major releases every 6 months; long-term-support releases every 12 months</p>
-</section></section><section class="slides-section"><section class="slide"><h1>npm</h1>
-</section><section class="slide"><h2>npm registry</h2>
-<p>The npm registry is an online registry consisting primarily of open source JavaScript packages</p>
-<p>by far the largest software registry (<a href="http://www.modulecounts.com/">over 1 million packages</a>)</p>
-<p>examples: <a href="https://www.npmjs.com/browse/depended">most depended upon packages</a></p>
-</section><section class="slide"><h2>Package managers</h2>
-<p>two major package managers for the npm registry:</p>
-<ul>
-<li><em>npm</em>: Node package manager, comes with node.js</li>
-<li><em>yarn</em>: may be installed separately</li>
-</ul>
-</section><section class="slide"><h2>Package configuration</h2>
-<p>Both public packages and private projects are managed via a configuration file named <em>package.json</em></p>
-</section><section class="slide"><h2>Package configuration</h2>
-<p>In order to add dependencies - start out with an empty <em>package.json</em> configuration:</p>
-<pre><code class="hljs language-json">{}
-</code></pre>
-<p>Alternative: create a <em>package.json</em> with some content via via <code>npm init</code> (or <code>npm init -y</code> for default options)</p>
-</section><section class="slide"><h2>Adding dependencies</h2>
-<p>Add dependencies via e.g.:</p>
-<pre><code class="hljs language-bash">npm install lodash bootstrap
-</code></pre>
-</section><section class="slide"><h2>Adding dependencies</h2>
-<p>When developing a reusable library to be published on the npm package registry:</p>
-<p>Install dependencies that are only needed for development as <em>dev-dependencies</em>:</p>
-<pre><code class="hljs language-bash">npm install eslint --save-dev
-</code></pre>
-</section><section class="slide"><h2>Adding dependencies</h2>
-<p>Effects of the previous <code>npm install</code> commands:</p>
-<ul>
-<li><code>package.json</code> - lists minimum versions of the packages we just installed</li>
-<li><code>node_modules</code> - folder that contains all installed packages</li>
-<li><code>package-lock.json</code> - lists exact versions of all packages in <code>node_modules</code></li>
-</ul>
-</section><section class="slide"><h2>Dependencies in package.json</h2>
-<p>The file <code>package.json</code> now lists dependencies together with a version specifier</p>
-<p>The version specifier uses <em>semantic versioning</em>: <code>major.minor.patch</code></p>
-<p>possible configurations:</p>
-<ul>
-<li><code>"bootstrap": "4.3.1"</code> - exactly this version</li>
-<li><code>"bootstrap": "~4.3.1"</code> - patch version updates allowed - for example to <code>4.3.2</code></li>
-<li><code>"bootstrap": "^4.3.1"</code> - minor version updates allowed - for example to <code>4.4.0</code></li>
-</ul>
-</section><section class="slide"><h2>Dependencies in package-lock.json</h2>
-<p><code>package-lock.json</code> lists <em>exact</em> versions for all dependencies and their recursive dependencies</p>
-</section><section class="slide"><h2>node_modules folder</h2>
-<p>contains the actual packages</p>
-<p>this should not be put under version control - can be recreated from <code>package.json</code> by running <code>npm install</code> (without any arguments)</p>
-</section><section class="slide"><h2>npm scripts</h2>
-<p>Npm can be used to execute scripts / commands that are needed for development, for example:</p>
-<ul>
-<li><code>npm run test</code> - would run unit tests</li>
-<li><code>npm run build</code> - would create a build</li>
-<li><code>npm run start</code></li>
-<li><code>npm run deploy</code></li>
-</ul>
-<p>Some npm scripts have shorthands, notably <code>npm test</code> and <code>npm start</code></p>
-</section><section class="slide"><h2>npm scripts</h2>
-<p>Npm scripts are configured in <code>package.json</code>:</p>
-<pre><code class="hljs language-json">{
-  <span class="hljs-attr">"scripts"</span>: { <span class="hljs-attr">"start"</span>: <span class="hljs-string">"node run-server.js"</span> }
-}
-</code></pre>
-</section><section class="slide"><h2>Global installs and npx</h2>
-<p>Node packages may be installed globally on a computer or may be executed directly from the npm registry</p>
-<p>direct execution (without installation):</p>
-<pre><code class="hljs language-bash">npx cowsay hello
-</code></pre>
-<p>global installation of <code>cowsay</code>:</p>
-<pre><code class="hljs language-bash">npm install -g cowsay
+<p>die meisten Projekte verwenden <em>express</em></p>
+</section><section class="slide"><h2>Libraries</h2>
+<p>middleware: via <code>.use()</code></p>
+<p>routing: via <code>.get()</code>, <code>.post()</code>, ...</p>
+</section></section><section class="slides-section"><section class="slide"><h1>Hello world</h1>
+</section><section class="slide"><h2>Hello world</h2>
+<p>hello world mit express:</p>
+<pre><code class="hljs language-js"><span class="hljs-comment">// server.js</span>
+<span class="hljs-keyword">import</span> express <span class="hljs-keyword">from</span> <span class="hljs-string">'express'</span>;
 
-cowsay hello
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Running node programs</h1>
-</section><section class="slide"><h2>Running programs in the terminal</h2>
-<p>hello.js:</p>
-<pre><code class="hljs language-js"><span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Hello world!'</span>);
-</code></pre>
-<pre><code class="hljs language-bash">node hello.js
-</code></pre>
-</section><section class="slide"><h2>Running programs in VS Code</h2>
-<p>with debugging: <em>F5</em></p>
-<p>without debugging: <em>Ctrl</em> + <em>F5</em></p>
-</section><section class="slide"><h2>Running programs in VS Code</h2>
-<p>to determine how a JavaScript file should be run:</p>
-<p>with a JavaScript file open, open the "Run" sidebar</p>
-<p>select <em>create a launch.json file</em> - <em>Node.js</em> to create a file under <em>.vscode/launch.json</em></p>
-</section><section class="slide"><h2>Running programs in VS Code</h2>
-<p>possible configuration entries (<em>.vscode/launch.json</em>):</p>
-<pre><code class="hljs language-json">{
-  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Run current file"</span>,
-  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"node"</span>,
-  <span class="hljs-attr">"request"</span>: <span class="hljs-string">"launch"</span>,
-  <span class="hljs-attr">"program"</span>: <span class="hljs-string">"${file}"</span>,
-  <span class="hljs-attr">"skipFiles"</span>: [<span class="hljs-string">"&#x3C;node_internals>/**"</span>]
-}
-</code></pre>
-<pre><code class="hljs language-json">{
-  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Run index.js"</span>,
-  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"node"</span>,
-  <span class="hljs-attr">"request"</span>: <span class="hljs-string">"launch"</span>,
-  <span class="hljs-attr">"program"</span>: <span class="hljs-string">"${workspaceFolder}/index.js"</span>,
-  <span class="hljs-attr">"skipFiles"</span>: [<span class="hljs-string">"&#x3C;node_internals>/**"</span>]
-}
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Modules</h1>
-</section><section class="slide"><h2>Modules</h2>
-<p>Node programs can import objects from so-called modules</p>
-<p>3 categories:</p>
-<ul>
-<li>built-in modules</li>
-<li>modules from npm</li>
-<li>modules in the local directory</li>
-</ul>
-</section><section class="slide"><h2>Importing modules</h2>
-<p>in newer versions:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> fs <span class="hljs-keyword">from</span> <span class="hljs-string">'fs'</span>;
+<span class="hljs-keyword">const</span> app = express();
 
-<span class="hljs-keyword">const</span> currentDirectoryContent = fs.readdirSync(<span class="hljs-string">'.'</span>);
-<span class="hljs-built_in">console</span>.log(currentDirectoryContent);
-</code></pre>
-<p>older syntax:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
+<span class="hljs-comment">// provide a function that handles the request</span>
+<span class="hljs-comment">// and sends a response</span>
+app.use(<span class="hljs-function">(<span class="hljs-params">req, res</span>) =></span> {
+  <span class="hljs-comment">// note: we should actually return a complete HTML file</span>
+  res.send(<span class="hljs-string">'&#x3C;h1>Hello World!&#x3C;/h1>\n'</span>);
+});
 
-<span class="hljs-keyword">const</span> currentDirectoryContent = fs.readdirSync(<span class="hljs-string">'.'</span>);
-<span class="hljs-built_in">console</span>.log(currentDirectoryContent);
+<span class="hljs-comment">// listen on localhost:3000</span>
+app.listen(<span class="hljs-number">3000</span>);
 </code></pre>
-</section><section class="slide"><h2>Importing modules</h2>
-<p>to use the more modern syntax in a node project, declare it as a module in <code>package.json</code> (needs node ≥ 13):</p>
+</section><section class="slide"><h2>Hello world</h2>
+<p>hello world ohne express (siehe <a href="https://nodejs.org/en/docs/guides/getting-started-guide/">https://nodejs.org/en/docs/guides/getting-started-guide/</a>):</p>
+<pre><code class="hljs language-js"><span class="hljs-comment">// server.js</span>
+<span class="hljs-keyword">import</span> http <span class="hljs-keyword">from</span> <span class="hljs-string">'http'</span>;
+
+<span class="hljs-keyword">const</span> handler = <span class="hljs-function">(<span class="hljs-params">req, res</span>) =></span> {
+  res.statusCode = <span class="hljs-number">200</span>;
+  res.setHeader(<span class="hljs-string">'Content-Type'</span>, <span class="hljs-string">'text/html; charset=UTF-8'</span>);
+  res.end(<span class="hljs-string">'&#x3C;h1>Hello World!&#x3C;/h1>\n'</span>);
+};
+
+<span class="hljs-keyword">const</span> server = http.createServer(handler);
+server.listen(<span class="hljs-number">3000</span>);
+</code></pre>
+</section><section class="slide"><h2>Hello world - komplettes Setup</h2>
+<p>Erstellen von <em>package.json</em>:</p>
 <pre><code class="hljs language-json">{
   <span class="hljs-attr">"type"</span>: <span class="hljs-string">"module"</span>,
-
   <span class="hljs-attr">"eslintConfig"</span>: {
     <span class="hljs-attr">"sourceType"</span>: <span class="hljs-string">"module"</span>
+  },
+  <span class="hljs-attr">"scripts"</span>: {
+    <span class="hljs-attr">"start"</span>: <span class="hljs-string">"node server.js"</span>
   }
 }
 </code></pre>
-</section><section class="slide"><h2>Importing modules</h2>
-<p>to switch to the more modern syntax inside of individual JavaScript files, change their file endings to <code>.mjs</code> (needs node ≥ 13)</p>
-</section><section class="slide"><h2>Importing modules</h2>
-<p>task: write a node script that uses imports via the old syntax, then switch to the new syntax</p>
-</section></section><section class="slides-section"><section class="slide"><h1>Local modules</h1>
-</section><section class="slide"><h2>Local modules</h2>
-<p>A JavaScript file that exports objects is called a module</p>
-</section><section class="slide"><h2>Local modules</h2>
-<p>example of a module with modern syntax:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> message1 = <span class="hljs-string">'hello!'</span>;
-<span class="hljs-keyword">const</span> message2 = <span class="hljs-string">'have a nice day!'</span>;
-
-<span class="hljs-keyword">export</span> { message1, message2 };
+</section><section class="slide"><h2>Hello world - komplettes Setup</h2>
+<p>Installation von express:</p>
+<pre><code class="hljs language-bash">npm install express
 </code></pre>
-</section><section class="slide"><h2>Local modules</h2>
-<p>there may be one default export</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> mainMessage = <span class="hljs-string">'xyz'</span>;
-
-<span class="hljs-keyword">const</span> message1 = <span class="hljs-string">'hello!'</span>;
-<span class="hljs-keyword">const</span> message2 = <span class="hljs-string">'have a nice day!'</span>;
-
-<span class="hljs-keyword">export</span> { message1, message2 };
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> mainMessage;
+</section><section class="slide"><h2>Hello world - komplettes Setup</h2>
+<p>ausführen via:</p>
+<pre><code class="hljs language-bash">npm run start
 </code></pre>
-</section><section class="slide"><h2>Local modules</h2>
-<p>local modules are referenced via relative file paths:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> mainMessage, { message1 } <span class="hljs-keyword">from</span> <span class="hljs-string">'./messages.js'</span>;
-</code></pre>
-<p>the filename extension is optional:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> mainMessage, { message1 } <span class="hljs-keyword">from</span> <span class="hljs-string">'./messages'</span>;
-</code></pre>
-</section><section class="slide"><h2>Local modules</h2>
-<p>older export syntax:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> message1 = <span class="hljs-string">'hello!'</span>;
-<span class="hljs-keyword">const</span> message2 = <span class="hljs-string">'have a nice day!'</span>;
-
-<span class="hljs-built_in">module</span>.exports.message1 = message1;
-<span class="hljs-built_in">module</span>.exports.message2 = message2;
-<span class="hljs-comment">// shorthand</span>
-<span class="hljs-built_in">exports</span>.message3 = <span class="hljs-string">'Bye'</span>;
-</code></pre>
-<p>default export:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> mainMessage = <span class="hljs-string">'xyz'</span>;
-
-<span class="hljs-built_in">module</span>.exports = mainMessage;
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Globals and built-in modules</h1>
-</section><section class="slide"><h2>Globals</h2>
-<p>different globals than in the browser</p>
-</section><section class="slide"><h2>Globals</h2>
-<p>browser-only globals:</p>
-<ul>
-<li><code>window</code> (global namespace) - alternative name <code>globalThis</code></li>
-<li><code>fetch</code></li>
-<li><code>localStorage</code>, <code>sessionStorage</code></li>
-</ul>
-<p>node-only globals:</p>
-<ul>
-<li><code>global</code> (global namespace) - alternative name <code>globalThis</code></li>
-<li><code>process</code> (e.g. <code>process.argv</code>)</li>
-<li><code>__filename</code> and <code>__dirname</code></li>
-</ul>
-</section><section class="slide"><h2>Built-in modules</h2>
-<ul>
-<li>assert</li>
-<li>fs (file system)</li>
-<li>http(s)</li>
-<li>net (TCP)</li>
-<li>os</li>
-<li>path</li>
-<li>...</li>
-</ul>
-</section></section><section class="slides-section"><section class="slide"><h1>Process</h1>
-</section><section class="slide"><h2>Process</h2>
-<p><code>process</code> is a global</p>
-<ul>
-<li><code>process.argv</code> (command line arguments)</li>
-<li><code>process.cwd()</code></li>
-<li><code>process.exit()</code></li>
-<li>... (see <a href="https://nodejs.org/dist/latest-v15.x/docs/api/process.html">https://nodejs.org/dist/latest-v15.x/docs/api/process.html</a>)</li>
-</ul>
-</section><section class="slide"><h2>Process</h2>
-<p>exercise: implement a program that can be run like this:</p>
-<pre><code class="hljs language-bash">node sum.js 1 2 3
-
-the sum is 6
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Reading and writing files</h1>
-</section><section class="slide"><h2>Reading and writing files</h2>
-<p>Via the <em>fs</em> module:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> fs <span class="hljs-keyword">from</span> <span class="hljs-string">'fs'</span>;
-</code></pre>
-</section><section class="slide"><h2>Writing text files</h2>
-<pre><code class="hljs language-js">fs.writeFileSync(<span class="hljs-string">'message.txt'</span>, <span class="hljs-string">'hello world'</span>);
-</code></pre>
-<p>This will write to a text file in UTF-8 encoding.</p>
-</section><section class="slide"><h2>Reading text files</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> fileContent = fs.readFileSync(<span class="hljs-string">'package.json'</span>, <span class="hljs-string">'utf8'</span>);
-</code></pre>
-<p>When reading text files, we <em>must</em> specify an encoding (in this case, UTF-8)</p>
-</section><section class="slide"><h2>Reading files as binary</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> myFile = fs.readFileSync(<span class="hljs-string">'./package.json'</span>);
-</code></pre>
-<p>This will return a buffer (a sequence of bytes)</p>
-<p>converting a buffer into a string:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> fileTextContent = myFile.toString(<span class="hljs-string">'utf-8'</span>);
-</code></pre>
-</section><section class="slide"><h2>Asynchronous I/O</h2>
-<p>Reading a file will take (relatively) long. With the previous code node cannot execute any code during that time.</p>
-</section><section class="slide"><h2>Asynchronous I/O with promises</h2>
-<pre><code class="hljs language-js">fs.promises
-  .readFile(<span class="hljs-string">'read-file.js'</span>, <span class="hljs-string">'utf8'</span>)
-  .then(<span class="hljs-built_in">console</span>.log)
-  .catch(<span class="hljs-function">() =></span> {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'error while reading file'</span>);
-  });
-</code></pre>
-</section><section class="slide"><h2>Asynchronous I/O with async / await</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> readFileAsync = <span class="hljs-keyword">async</span> () => {
-  <span class="hljs-keyword">try</span> {
-    <span class="hljs-keyword">const</span> fileContent = <span class="hljs-keyword">await</span> fs.promises.readFile(
-      <span class="hljs-string">'read-file.js'</span>,
-      <span class="hljs-string">'utf8'</span>
-    );
-  } <span class="hljs-keyword">catch</span> {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'error while reading file'</span>);
-  }
-  <span class="hljs-built_in">console</span>.log(fileContent);
+<p>öffne <a href="http://localhost:3000">http://localhost:3000</a> im Browser für das Resultat</p>
+</section></section><section class="slides-section"><section class="slide"><h1>Request und Response</h1>
+</section><section class="slide"><h2>Request und Response</h2>
+<p>Web-Entwicklung in node geschieht über Request-Hanlder-Funktionen, z.B.:</p>
+<pre><code class="hljs language-js">(req, res) => {
+  res.send(<span class="hljs-string">'&#x3C;h1>Hello World!&#x3C;/h1>\n'</span>);
 };
-
-readFileAsync();
 </code></pre>
-</section><section class="slide"><h2>Exercises</h2>
-<p>create a series of HTML form letters for different recipients from a template</p>
-<p>list all files of a specific type (see exercise from learnyounode)</p>
-</section></section><section class="slides-section"><section class="slide"><h1>HTTP client</h1>
-</section><section class="slide"><h2>Retrieving a website</h2>
-<p>Low-level functionality (separate TCP packages)</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> http <span class="hljs-keyword">from</span> <span class="hljs-string">'http'</span>;
+</section><section class="slide"><h2>Request und Response</h2>
+<p>Ein Request Handler bekommt zwei Argumente:</p>
+<ul>
+<li><code>req</code> - repräsentiert den eingehenden <em>request</em> (Klasse <a href="https://nodejs.org/api/http.html#http_class_http_incomingmessage">IncomingMessage</a> in node, Unterklasse <a href="http://expressjs.com/en/4x/api.html#req">Request</a> in express)</li>
+<li><code>res</code> - repräsentiert die <em>response</em> / Antwort, die gensendet wird (Klasse <a href="https://nodejs.org/api/http.html#http_class_http_serverresponse">ServerResponse</a> in node, Unterklasse <a href="http://expressjs.com/en/4x/api.html#res">Response</a> in express)</li>
+</ul>
+</section><section class="slide"><h2>Übung</h2>
+<p>Übung: erstelle eine Seite, die die aktuelle Uhrzeit anzeigt</p>
+</section><section class="slide"><h2>Übung</h2>
+<p>Lösung:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> express <span class="hljs-keyword">from</span> <span class="hljs-string">'express'</span>;
 
-http.get(<span class="hljs-string">'http://www.google.com'</span>, <span class="hljs-function">(<span class="hljs-params">responseStream</span>) =></span> {
-  responseStream.setEncoding(<span class="hljs-string">'latin1'</span>);
-  responseStream.on(<span class="hljs-string">'data'</span>, <span class="hljs-built_in">console</span>.log);
-  responseStream.on(<span class="hljs-string">'error'</span>, <span class="hljs-built_in">console</span>.error);
+<span class="hljs-keyword">const</span> app = express();
+
+app.use(<span class="hljs-function">(<span class="hljs-params">req, res</span>) =></span> {
+  <span class="hljs-keyword">const</span> timeString = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>().toTimeString();
+  res.send(<span class="hljs-string">'&#x3C;h1>current time: '</span> + timeString + <span class="hljs-string">'&#x3C;/h1>'</span>);
+});
+
+app.listen(<span class="hljs-number">3000</span>);
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Das Request-Objekt</h1>
+</section><section class="slide"><h2>Das Request-Objekt</h2>
+<p>Beispiel für ein Request-Objekt:</p>
+<pre><code class="hljs language-json">{
+  <span class="hljs-attr">"url"</span>: <span class="hljs-string">"/"</span>,
+  <span class="hljs-attr">"method"</span>: <span class="hljs-string">"GET"</span>,
+  <span class="hljs-attr">"headers"</span>: {
+    <span class="hljs-attr">"user-agent"</span>: <span class="hljs-string">"Mozilla/5.0 (Windows ..."</span>
+  }
+}
+</code></pre>
+<p>Klasse in reinem Node bzw in <em>connect</em>: <a href="https://nodejs.org/api/http.html#http_class_http_incomingmessage">IncomingMessage</a></p>
+<p>Klasse in <em>express</em>: <a href="https://expressjs.com/de/api.html#req">Request</a></p>
+</section><section class="slide"><h2>Das Request-Objekt</h2>
+<p>Übung: Erstelle eine Website mit unterschiedlichen Antworten basierend auf der angefragten URL</p>
+</section></section><section class="slides-section"><section class="slide"><h1>Das Response-Objekt</h1>
+</section><section class="slide"><h2>Das Response-Objekt</h2>
+<p>Klasse in reinem Node bzw in <em>connect</em>: <a href="https://nodejs.org/api/http.html#http_class_http_serverresponse">ServerResponse</a></p>
+<p>Klasse in <em>express</em>: <a href="https://expressjs.com/de/api.html#res">Response</a></p>
+</section><section class="slide"><h2>Das Response-Objekt</h2>
+<p>Methoden in Express:</p>
+<ul>
+<li><code>.send()</code></li>
+<li><code>.set()</code></li>
+<li><code>.status()</code></li>
+</ul>
+</section><section class="slide"><h2>Das Response-Objekt</h2>
+<p>Beispiel:</p>
+<pre><code class="hljs language-js">res.set({ <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'text/plain'</span> });
+res.send(<span class="hljs-string">'Date:\n'</span> + <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>().toLocaleDateString());
+</code></pre>
+</section><section class="slide"><h2>Das Response-Objekt</h2>
+<pre><code class="hljs language-js">res.status(<span class="hljs-number">404</span>);
+res.set({ <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'text/plain'</span> });
+res.send(<span class="hljs-string">'Document not found.\n'</span>);
+</code></pre>
+</section><section class="slide"><h2>Das Response-Objekt</h2>
+<p>Setzen eines Cookies:</p>
+<pre><code class="hljs language-js">res.cookie(<span class="hljs-string">'a'</span>, <span class="hljs-string">'1'</span>);
+</code></pre>
+<p>bzw explizit:</p>
+<pre><code class="hljs language-js">res.set({ <span class="hljs-string">'Set-Cookie'</span>: <span class="hljs-string">'a=1'</span> });
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Routing und Redirects</h1>
+</section><section class="slide"><h2>Routing und Redirects</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> express <span class="hljs-keyword">from</span> <span class="hljs-string">'express'</span>;
+
+<span class="hljs-keyword">const</span> app = express();
+
+app.get(<span class="hljs-string">'/'</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =></span> {
+  res.send(<span class="hljs-string">'Hello World!\n'</span>);
+});
+app.get(<span class="hljs-string">'/about'</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =></span> {
+  res.send(<span class="hljs-string">'About page\n'</span>);
+});
+app.get(<span class="hljs-string">'/articles/:id'</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =></span> {
+  <span class="hljs-keyword">const</span> articleId = req.params.id;
+  <span class="hljs-comment">// ...</span>
+});
+app.get(<span class="hljs-string">'/home'</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =></span> {
+  res.redirect(<span class="hljs-string">'/'</span>);
+});
+
+app.listen(<span class="hljs-number">3000</span>);
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Rendern von HTML</h1>
+</section><section class="slide"><h2>Rendern von HTML</h2>
+<p>manuell (gefährlich):</p>
+<pre><code class="hljs language-js">app.get(<span class="hljs-string">'/'</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =></span> {
+  <span class="hljs-keyword">const</span> name = <span class="hljs-string">'world'</span>;
+  res.send(<span class="hljs-string">`
+    &#x3C;!DOCTYPE html>
+    &#x3C;html>
+      &#x3C;head>&#x3C;title>Hello <span class="hljs-subst">${name}</span>&#x3C;/title>&#x3C;/head>
+      &#x3C;body>Hello <span class="hljs-subst">${name}</span>&#x3C;/body>
+    &#x3C;/html>
+  `</span>);
 });
 </code></pre>
-</section><section class="slide"><h2>Exercise</h2>
-<p>exercise: retrieve the Google website and save chunks to a JSON array</p>
-</section><section class="slide"><h2>Libraries</h2>
-<p>libraries for HTTP calls:</p>
+</section><section class="slide"><h2>Rendern von HTML</h2>
+<p>mit Hilfe einer Template Engine:</p>
 <ul>
-<li>fetch libraries (<em>node-fetch</em>, <em>isomorphic-fetch</em>)</li>
-<li>axios</li>
+<li>ejs: <a href="https://ejs.co/">Website</a>, <a href="https://github.com/mde/ejs/wiki/Using-EJS-with-Express">express Integration</a></li>
+<li>handlebars (oder mustache): <a href="https://handlebarsjs.com/">Website</a>, <a href="https://github.com/express-handlebars/express-handlebars">express Integration</a></li>
+<li>pug: <a href="https://pugjs.org">Website</a>, <a href="https://expressjs.com/en/guide/using-template-engines.html">express Integration</a></li>
+<li>react: <a href="https://reactjs.org/">Website</a>, <a href="https://github.com/reactjs/express-react-views">express Integration</a></li>
+<li>... (<a href="https://expressjs.com/en/resources/template-engines.html">Liste von Möglichkeiten</a>)</li>
 </ul>
-</section><section class="slide"><h2>Node-fetch</h2>
-<pre><code class="hljs language-bash">npm install node-fetch
+</section><section class="slide"><h2>Rendern von HTML</h2>
+<p>allgemeines Prozedere:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> express <span class="hljs-keyword">from</span> <span class="hljs-string">'express'</span>;
+<span class="hljs-keyword">import</span> myengine <span class="hljs-keyword">from</span> <span class="hljs-string">'myengine'</span>;
+
+<span class="hljs-keyword">const</span> app = express();
+
+app.engine(<span class="hljs-string">'myengine'</span>, myengine());
+app.set(<span class="hljs-string">'view engine'</span>, <span class="hljs-string">'myengine'</span>);
+
+app.get(<span class="hljs-string">'/'</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =></span> {
+  <span class="hljs-keyword">const</span> name = <span class="hljs-string">'world'</span>;
+  <span class="hljs-comment">// renders 'views/home.myengine'</span>
+  res.render(<span class="hljs-string">'home'</span>, { <span class="hljs-attr">name</span>: name });
+});
 </code></pre>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> fetch <span class="hljs-keyword">from</span> <span class="hljs-string">'node-fetch'</span>;
+</section><section class="slide"><h2>Rendern von HTML</h2>
+<p>registrieren verschiedener Template Engines:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> ejs <span class="hljs-keyword">from</span> <span class="hljs-string">'ejs'</span>;
+<span class="hljs-keyword">import</span> expressHandlebars <span class="hljs-keyword">from</span> <span class="hljs-string">'express-handlebars'</span>;
+<span class="hljs-keyword">import</span> expressReactViews <span class="hljs-keyword">from</span> <span class="hljs-string">'express-react-views'</span>;
 
-fetch(<span class="hljs-string">'https://google.com'</span>)
-  .then(<span class="hljs-function">(<span class="hljs-params">res</span>) =></span> res.text())
-  .then(<span class="hljs-function">(<span class="hljs-params">content</span>) =></span> <span class="hljs-built_in">console</span>.log(content));
+app.engine(<span class="hljs-string">'ejs'</span>, ejs);
+app.engine(<span class="hljs-string">'handlebars'</span>, expressHandlebars());
+app.engine(<span class="hljs-string">'jsx'</span>, expressReactViews.createEngine());
 </code></pre>
-</section><section class="slide"><h2>Exercises</h2>
-<ul>
-<li>retrieve multiple websites (see learnyounode: juggling async)</li>
-<li>number of Google search results for some specific topic</li>
-</ul>
-</section></section><section class="slides-section"><section class="slide"><h1>HTTP server with node</h1>
-</section><section class="slide"><h2>Running an HTTP server with node</h2>
-<p>see <a href="https://nodejs.org/en/docs/guides/getting-started-guide/">https://nodejs.org/en/docs/guides/getting-started-guide/</a></p>
-</section><section class="slide"><h2>Running an HTTP server with node</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> http <span class="hljs-keyword">from</span> <span class="hljs-string">'http'</span>;
+</section><section class="slide"><h2>Rendern von HTML via express-react-views</h2>
+<p>npm-Pakete: <em>express-react-views</em>, <em>react</em>, <em>react-dom</em></p>
+</section><section class="slide"><h2>Rendern von HTML via express-react-views</h2>
+<p><em>views/home.jsx</em>:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
 
-<span class="hljs-keyword">const</span> hostname = <span class="hljs-string">'127.0.0.1'</span>;
-<span class="hljs-keyword">const</span> port = <span class="hljs-number">3000</span>;
-
-<span class="hljs-keyword">const</span> requestHandler = <span class="hljs-function">(<span class="hljs-params">req, res</span>) =></span> {
-  res.statusCode = <span class="hljs-number">200</span>;
-  res.setHeader(<span class="hljs-string">'Content-Type'</span>, <span class="hljs-string">'text/plain'</span>);
-  res.end(<span class="hljs-string">'Hello World\n'</span>);
+<span class="hljs-keyword">const</span> Home = <span class="hljs-function">(<span class="hljs-params">{ name }</span>) =></span> {
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">html</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">head</span>></span>
+        <span class="hljs-tag">&#x3C;<span class="hljs-name">title</span>></span>Hello, {name}!<span class="hljs-tag">&#x3C;/<span class="hljs-name">title</span>></span>
+      <span class="hljs-tag">&#x3C;/<span class="hljs-name">head</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">body</span>></span>
+        <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>Hello, {name}!<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
+      <span class="hljs-tag">&#x3C;/<span class="hljs-name">body</span>></span>
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">html</span>></span></span>
+  );
 };
 
-server = http.createServer(requestHandler);
-
-server.listen(port, hostname);
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Home;
 </code></pre>
-</section><section class="slide"><h2>HTTP server frameworks</h2>
+</section><section class="slide"><h2>Übungen</h2>
+<p>Übungen:</p>
 <ul>
-<li>connect: middleware</li>
-<li>express: middleware, routing</li>
+<li>erstelle eine Website mit verschiedenen Seiten (<em>home</em>, <em>about</em>, <em>newsletter</em>, ...)</li>
+<li>erstelle eine Website, die Informationen von einem öffentlichen API anzeigt (z.B. <a href="https://pokeapi.co/">https://pokeapi.co/</a>)</li>
 </ul>
-</section></section><section class="slides-section"><section class="slide"><h1>Creating command-line tools</h1>
-</section><section class="slide"><h2>Creating command-line tools</h2>
-<p>npm package for creating command-line tools: <em>prompt</em></p>
-</section><section class="slide"><h2>Creating command-line tools</h2>
-<p>example:</p>
-<p>when we run <code>node ./hello.js</code> we want this interaction:</p>
-<pre><code class="hljs language-txt">prompt: first name: Marko
-prompt: birth year: 1988
-Hi, Marko!
-In the year 2030 you'll be 42!
+</section><section class="slide"><h2>Übungen</h2>
+<p>Pokeapi Teil 1:</p>
+<pre><code class="hljs language-js">app.get(<span class="hljs-string">'/:id'</span>, <span class="hljs-keyword">async</span> (req, res) => {
+  <span class="hljs-keyword">const</span> id = req.params.id;
+  <span class="hljs-keyword">const</span> dataRes = <span class="hljs-keyword">await</span> fetch(
+    <span class="hljs-string">`https://pokeapi.co/api/v2/pokemon/<span class="hljs-subst">${id}</span>`</span>
+  );
+  <span class="hljs-keyword">const</span> data = <span class="hljs-keyword">await</span> dataRes.json();
+  <span class="hljs-keyword">await</span> res.render(<span class="hljs-string">'pokemon'</span>, { <span class="hljs-attr">id</span>: id, <span class="hljs-attr">data</span>: data });
+});
+app.get(<span class="hljs-string">'/'</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =></span> {
+  res.redirect(<span class="hljs-string">'/1'</span>);
+});
 </code></pre>
-</section><section class="slide"><h2>Creating command-line tools</h2>
-<p>simple use:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> prompt <span class="hljs-keyword">from</span> <span class="hljs-string">'prompt'</span>;
+</section><section class="slide"><h2>Übungen</h2>
+<p>Pokeapi Teil 2:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-comment">// views/pokemon.jsx</span>
+<span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
 
-<span class="hljs-keyword">const</span> main = <span class="hljs-keyword">async</span> () => {
-  prompt.start();
-  <span class="hljs-keyword">const</span> person = <span class="hljs-keyword">await</span> prompt.get([
-    <span class="hljs-string">'first name'</span>,
-    <span class="hljs-string">'birth year'</span>,
-  ]);
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Hi, <span class="hljs-subst">${person[<span class="hljs-string">'first name'</span>]}</span>!`</span>);
-  <span class="hljs-keyword">const</span> birthYear = <span class="hljs-built_in">Number</span>(person[<span class="hljs-string">'birth year'</span>]);
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`In 2030 you'll be <span class="hljs-subst">${<span class="hljs-number">2030</span> - birthYear}</span>!`</span>);
+<span class="hljs-keyword">const</span> Pokemon = <span class="hljs-function">(<span class="hljs-params">props</span>) =></span> {
+  <span class="hljs-keyword">const</span> id = <span class="hljs-built_in">Number</span>(props.id);
+  <span class="hljs-keyword">const</span> data = props.data;
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">article</span>></span>
+        <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>{data.species.name}<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
+        <span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">{data.sprites.front_default}</span> /></span>
+      <span class="hljs-tag">&#x3C;/<span class="hljs-name">article</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">{</span>`/${<span class="hljs-attr">id</span> <span class="hljs-attr">-</span> <span class="hljs-attr">1</span>}`}></span>prev<span class="hljs-tag">&#x3C;/<span class="hljs-name">a</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">br</span> /></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">{</span>`/${<span class="hljs-attr">id</span> + <span class="hljs-attr">1</span>}`}></span>next<span class="hljs-tag">&#x3C;/<span class="hljs-name">a</span>></span>
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+  );
 };
-main();
-</code></pre>
-</section><section class="slide"><h2>Creating command-line tools</h2>
-<p>advanced use with validation:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> main = <span class="hljs-keyword">async</span> () => {
-  prompt.start();
-  <span class="hljs-keyword">const</span> person = <span class="hljs-keyword">await</span> prompt.get({
-    <span class="hljs-attr">properties</span>: {
-      <span class="hljs-string">'first name'</span>: {},
-      <span class="hljs-string">'birth year'</span>: {
-        <span class="hljs-attr">description</span>: <span class="hljs-string">'year when you were born'</span>,
-        <span class="hljs-attr">pattern</span>: <span class="hljs-regexp">/^\d{4}$/</span>,
-      },
-    },
-  });
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Hi, <span class="hljs-subst">${person[<span class="hljs-string">'first name'</span>]}</span>!`</span>);
-  <span class="hljs-keyword">const</span> birthYear = <span class="hljs-built_in">Number</span>(person[<span class="hljs-string">'birth year'</span>]);
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`In 2030 you'll be <span class="hljs-subst">${<span class="hljs-number">2030</span> - birthYear}</span>!`</span>);
-};
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Publishing npm packages</h1>
-</section><section class="slide"><h2>Publishing npm packages</h2>
-<ul>
-<li>create an account on <em>npmjs.com</em></li>
-<li>create a package.json file</li>
-<li>create a <em>.gitignore</em> or <em>.npmignore</em> file</li>
-<li>run <code>npm publish --access public</code></li>
-</ul>
-</section><section class="slide"><h2>package.json - basic entries</h2>
-<ul>
-<li><em>name</em>: either <em>mypackage</em> (if still available) or <em>@myusername/mypackage</em></li>
-<li><em>description</em></li>
-<li><em>version</em>: e.g. <em>0.1.0</em></li>
-<li><em>author</em>: author's name</li>
-<li><em>license</em>: e.g. <em>UNLICENSED</em>, <em>ISC</em>, <em>GPL-3.0</em>, ...</li>
-</ul>
-</section><section class="slide"><h2>package.json - advanced entries</h2>
-<ul>
-<li><em>main</em>: e.g. <em>index.js</em> - the entry point when importing this package</li>
-<li><em>scripts</em>: commands that can be run via <em>npm run</em> (e.g. <em>build</em>, <em>test</em>, <em>start</em>, ...)</li>
-<li><em>bin</em>: commands that can be run from the command line or via npx</li>
-<li><em>dependencies</em>: npm packages that are required to use this npm package</li>
-<li><em>devDependencies</em>: npm packages that are required to develop this npm package (e.g. test tools, build tools)</li>
-</ul>
-</section><section class="slide"><h2>package.json entries</h2>
-<p>See <a href="https://docs.npmjs.com/files/package.json">https://docs.npmjs.com/files/package.json</a></p>
-</section><section class="slide"><h2>Ignoring files</h2>
-<p>Create a <code>.gitignore</code> or <code>.npmignore</code> file that lists files that shouldn't be published:</p>
-<pre><code class="hljs language-css"><span class="hljs-selector-class">.git</span>
-<span class="hljs-selector-tag">node_modules</span>
-<span class="hljs-selector-tag">package-lock</span><span class="hljs-selector-class">.json</span>
-</code></pre>
-</section><section class="slide"><h2>Publishing</h2>
-<pre><code class="hljs language-bash">npm publish --access public
-</code></pre>
-</section><section class="slide"><h2>npx scripts</h2>
-<p>entry "bin" in <code>package.json</code> (should match package name without username):</p>
-<pre><code class="hljs language-json">{
-  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"@user/foo-package"</span>,
-  <span class="hljs-attr">"bin"</span>: {
-    <span class="hljs-attr">"foo-package"</span>: <span class="hljs-string">"./foo-bin.js"</span>
-  }
-}
-</code></pre>
-<p>contents of <code>foo-bin.js</code>:</p>
-<pre><code class="hljs language-js"><span class="hljs-meta">#! /usr/bin/env node</span>
 
-<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'this is the npx script of foo-package'</span>);
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Pokemon;
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Resources</h1>
-</section><section class="slide"><h2>Resources</h2>
+<!--
+section almost duplicated in:
+- node-web-development-with-node-and-express
+- node-and-mongodb
+-->
+</section></section><section class="slides-section"><section class="slide"><h1>Konfiguration mittels Umgebungsvariablen</h1>
+</section><section class="slide"><h2>Konfiguration mittels Umgebungsvariablen</h2>
+<p>Zugangsdaten und Konfiguration werden üblicherweise via Umgebungsvariablen bereitgestellt</p>
+<p>Zugangsdaten sollten nicht unter Versionskontrolle stehen</p>
+</section><section class="slide"><h2>.env-Datei</h2>
+<p>verbreitete Möglichkeit, um Zugangsdaten bereit zu stellen: speichern in einer Datei namens <em>.env</em>, laden als Umgebungsvariablen mittels <em>dotenv</em></p>
+<p>Stelle sicher, dass <em>.env</em> nicht unter Versionskontrolle steht (füge es zur Datei <em>.gitignore</em> hinzu)</p>
+</section><section class="slide"><h2>.env-Datei</h2>
+<p>Beispiel für <em>.env</em>-Datei:</p>
+<pre><code class="hljs language-bash">PORT=3000
+NODE_ENV=production
+DB_URL=mongodb+srv://...
+AUTH0_DOMAIN=xxx.eu.auth0.com
+</code></pre>
+<p>laden in JavaScript:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> dotenv <span class="hljs-keyword">from</span> <span class="hljs-string">'dotenv'</span>;
+
+dotenv.config();
+
+<span class="hljs-keyword">const</span> PORT = process.env.PORT;
+<span class="hljs-keyword">const</span> NODE_ENV = process.env.NODE_ENV;
+</code></pre>
+</section><section class="slide"><h2>NODE_ENV</h2>
+<p>Umgebungsvariable <code>NODE_ENV</code>: spielt z.B. bei express eine wichtige Rolle</p>
+<p>in Produktivumgebungen sollte immer <code>NODE_ENV=production</code> gesetzt sein - ansonsten werden z.B. dem Endnutzer JavaScript-Fehlermeldungen im Detail angezeigt (mit Stack Traces)</p>
+</section></section><section class="slides-section"><section class="slide"><h1>Hosting</h1>
+</section><section class="slide"><h2>Hosting-Möglichkeiten</h2>
+<p>Online-Editoren:</p>
 <ul>
-<li><a href="https://medium.freecodecamp.org/the-definitive-node-js-handbook-6912378afc6e">The definitive Node.js handbook by Flavio Copes</a></li>
-<li><a href="https://glitch.com">Node.js web playground on glitch.com</a></li>
+<li>glitch</li>
+<li>codepen</li>
+</ul>
+<p>"echtes" Hosting (kostenlose Optionen verfügbar):</p>
+<ul>
+<li>Heroku</li>
+<li>Amazon Web Services (Elastic Beanstalk)</li>
+<li>Google Cloud Platform (Google App Engine) (Kreditkarteninformation zur Identitätsfeststellung benötigt)</li>
+<li>Microsoft Azure (App Service) (Kreditkarteninformation zur Identitätsfeststellung benötigt)</li>
+<li>...</li>
+</ul>
+<p>siehe auch: <a href="https://www.codeinwp.com/blog/best-nodejs-hosting/">codeinwp: 9 of the Best Node.js Hosting Platforms for 2021 (Free and Paid)</a></p>
+</section></section><section class="slides-section"><section class="slide"><h1>Hosting auf glitch.com</h1>
+</section><section class="slide"><h2>Hosting auf glitch.com</h2>
+<p>auf <a href="https://glitch.com">https://glitch.com</a>, wähle "get started" - "hello express"</p>
+<pre><code class="hljs language-js"><span class="hljs-comment">// server.js</span>
+<span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
+
+<span class="hljs-keyword">const</span> app = express();
+
+app.use(<span class="hljs-function">(<span class="hljs-params">req, res</span>) =></span> {
+  <span class="hljs-comment">// note: we should actually return a complete HTML file</span>
+  res.send(<span class="hljs-string">'&#x3C;h1>Hello World!&#x3C;/h1>\n'</span>);
+});
+
+app.listen(process.env.PORT);
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Hosting auf Heroku</h1>
+</section><section class="slide"><h2>Hosting auf Heroku</h2>
+<p>registriere dich für einen Heroku-Account, wähle <em>Node.js</em> als "primary development language"</p>
+<p>wähle <em>create new app</em>, wähle einen eindeutigen Namen und eine Server-Location</p>
+</section><section class="slide"><h2>Verbindung zu GitHub</h2>
+<p>im "deploy"-Tab, wähle "connect to GitHub"</p>
+<p>klicke <em>Deploy Branch</em> zum erstmaligen Deployment</p>
+<p>aktiviere automatische Deployments, um bei jeder Änderung des Repositories automatisch zu deployen</p>
+</section><section class="slide"><h2>Umgebungsvariablen</h2>
+<p>setzen von Umgebungsvariablen zur Konfiguration unter "settings" - "config vars"</p>
+<p>die Umgebungsvariable <code>PORT</code> ist in Programmen automatisch verfügbar und muss hier nicht gesetzt werden</p>
+</section><section class="slide"><h2>Hosting auf Heroku</h2>
+<p>mehr Informationen: <a href="https://devcenter.heroku.com/articles/deploying-nodejs">https://devcenter.heroku.com/articles/deploying-nodejs</a></p>
+</section></section><section class="slides-section"><section class="slide"><h1>Middleware</h1>
+</section><section class="slide"><h2>Middleware</h2>
+<p><em>Middleware</em> kann in <em>express</em> und in <em>connect</em> verwendet werden</p>
+<p>Middleware kann auf Requests reagieren / antworten sowie die req / res - Objekte abändern</p>
+</section><section class="slide"><h2>Middleware</h2>
+<p>Beispiel:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> compression <span class="hljs-keyword">from</span> <span class="hljs-string">'compression'</span>;
+<span class="hljs-keyword">import</span> express <span class="hljs-keyword">from</span> <span class="hljs-string">'express'</span>;
+<span class="hljs-keyword">import</span> morgan <span class="hljs-keyword">from</span> <span class="hljs-string">'morgan'</span>;
+
+<span class="hljs-keyword">const</span> app = express();
+
+<span class="hljs-comment">// log all incoming requests</span>
+app.use(morgan(<span class="hljs-string">'common'</span>));
+<span class="hljs-comment">// serve content of the "public" folder as-is if found</span>
+app.use(express.static(<span class="hljs-string">'public'</span>));
+<span class="hljs-comment">// compress all responses</span>
+app.use(compression());
+</code></pre>
+</section><section class="slide"><h2>Beispiele für Middleware</h2>
+<ul>
+<li><em>express.json</em>, <em>express.urlencoded</em>, ... : parsen den Inhalt eines Requests und stellen ihn als <code>req.body</code> zur Verfügung</li>
+<li><em>cookie-parser</em>: liest Cookies aus und stellt sie unter <code>req.cookies</code> zur Verfügung</li>
+<li><em>compression</em>: komprimiert den Inhalt der Response</li>
+<li><em>express.static</em>: antwortet mit vorhandenen statischen Dateien (z.B. <em>index.html</em>), falls vorhanden</li>
+<li><em>express-session</em>: speichert Sitzungsdaten (verfügbar unter <code>req.session</code>)</li>
+<li><em>passport</em>: Benutzer-Authentifizierung</li>
+<li><em>morgan</em>: Logging</li>
+<li>... (siehe: <a href="https://expressjs.com/en/resources/middleware.html">list of available express middleware</a>)</li>
 </ul></section></section></div>
     </div>
     <script>/*!

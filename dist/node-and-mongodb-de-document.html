@@ -109,24 +109,33 @@ main();
 </code></pre>
 <h2>Cursor-Objekte</h2>
 <p>Dokumentation: <a href="https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html">https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html</a></p>
-<h1>Bereitstellen von Zugangsdaten</h1>
-<h2>Bereitstellen von Zugangsdaten</h2>
-<p>Zugangsdaten und Datenbankkonfiguration werden üblicherweise via Umgebungsvariablen bereitgestellt</p>
+<!--
+section duplicated in:
+- node-web-development-with-node-and-express
+- node-and-mongodb
+-->
+<h1>Konfiguration mittels Umgebungsvariablen</h1>
+<h2>Konfiguration mittels Umgebungsvariablen</h2>
+<p>Zugangsdaten und Konfiguration werden üblicherweise via Umgebungsvariablen bereitgestellt</p>
 <p>Zugangsdaten sollten nicht unter Versionskontrolle stehen</p>
-<h2>Bereitstellen von Zugangsdaten</h2>
+<h2>.env-Datei</h2>
 <p>verbreitete Möglichkeit, um Zugangsdaten bereit zu stellen: speichern in einer Datei namens <em>.env</em>, laden als Umgebungsvariablen mittels <em>dotenv</em></p>
-<p><em>.env</em>:</p>
-<pre><code class="hljs language-bash">DB_URL=mongodb+srv://&#x3C;user>:&#x3C;password>@&#x3C;clusterurl>/&#x3C;dbname>
+<p>Stelle sicher, dass <em>.env</em> nicht unter Versionskontrolle steht (füge es zur Datei <em>.gitignore</em> hinzu)</p>
+<h2>.env-Datei</h2>
+<p>Beispiel für <em>.env</em>-Datei:</p>
+<pre><code class="hljs language-bash">PORT=3000
+NODE_ENV=production
+DB_URL=mongodb+srv://...
+AUTH0_DOMAIN=xxx.eu.auth0.com
 </code></pre>
 <p>laden in JavaScript:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> dotenv <span class="hljs-keyword">from</span> <span class="hljs-string">'dotenv'</span>;
 
 dotenv.config();
 
-<span class="hljs-keyword">const</span> DB_URL = process.env.DB_URL;
+<span class="hljs-keyword">const</span> PORT = process.env.PORT;
+<span class="hljs-keyword">const</span> NODE_ENV = process.env.NODE_ENV;
 </code></pre>
-<h2>Bereitstellen von Zugangsdaten</h2>
-<p>Stelle sicher, dass <em>.env</em> nicht unter Versionskontrolle steht (füge es zur Datei <em>.gitignore</em> hinzu)</p>
 <h1>Database access object</h1>
 <h2>Database access object</h2>
 <p>Zugriff auf eine Datenbank mittels eines <em>database access objects</em> (DAO):</p>

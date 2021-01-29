@@ -109,24 +109,33 @@ main();
 </code></pre>
 <h2>Cursor objects</h2>
 <p>documentation: <a href="https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html">https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html</a></p>
-<h1>Supplying credentials</h1>
-<h2>Supplying credentials</h2>
-<p>credentials and database configuration should be supplied via environment variables</p>
+<!--
+section duplicated in:
+- node-web-development-with-node-and-express
+- node-and-mongodb
+-->
+<h1>Configuration via environment variables</h1>
+<h2>Configuration via environment variables</h2>
+<p>credentials and configuration should be supplied via environment variables</p>
 <p>credentials should not be under version control</p>
-<h2>Supplying credentials</h2>
-<p>common way to supply credentials: store in a file named <em>.env</em>, load as environment variables via <em>dotenv</em></p>
-<p><em>.env</em>:</p>
-<pre><code class="hljs language-bash">DB_URL=mongodb+srv://&#x3C;user>:&#x3C;password>@&#x3C;clusterurl>/&#x3C;dbname>
+<h2>.env file</h2>
+<p>common way to supply configuration and credentials: store in a file named <em>.env</em>, load as environment variables via <em>dotenv</em></p>
+<p>make sure <em>.env</em> is not under version control (add it to the <em>.gitignore</em> file)</p>
+<h2>.env file</h2>
+<p>example <em>.env</em> file:</p>
+<pre><code class="hljs language-bash">PORT=3000
+NODE_ENV=production
+DB_URL=mongodb+srv://...
+AUTH0_DOMAIN=xxx.eu.auth0.com
 </code></pre>
 <p>loading in JavaScript:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> dotenv <span class="hljs-keyword">from</span> <span class="hljs-string">'dotenv'</span>;
 
 dotenv.config();
 
+<span class="hljs-keyword">const</span> PORT = process.env.PORT;
 <span class="hljs-keyword">const</span> DB_URL = process.env.DB_URL;
 </code></pre>
-<h2>Supplying credentials</h2>
-<p>make sure <em>.env</em> is not under version control (add it to the <em>.gitignore</em> file)</p>
 <h1>Database access object</h1>
 <h2>Database access object</h2>
 <p>accessing a database via a <em>database access object</em> (DAO):</p>

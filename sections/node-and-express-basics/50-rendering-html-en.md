@@ -2,15 +2,16 @@
 
 ## Rendering HTML
 
-manually:
+manually (dangerous):
 
 ```js
 app.get('/', (req, res) => {
+  const name = 'world';
   res.send(`
     <!DOCTYPE html>
     <html>
-      <head><title>Hello world</title></head>
-      <body>Hello world</body>
+      <head><title>Hello ${name}</title></head>
+      <body>Hello ${name}</body>
     </html>
   `);
 });
@@ -26,59 +27,43 @@ via a template engine:
 - react: [website](https://reactjs.org/), [express integration](https://github.com/reactjs/express-react-views)
 - ... ([list of options](https://expressjs.com/en/resources/template-engines.html))
 
-## Rendering HTML via EJS
+## Rendering HTML
+
+general procedure:
 
 ```js
 import express from 'express';
-import ejs from 'ejs';
+import myengine from 'myengine';
 
 const app = express();
 
-app.set('view engine', ejs);
+app.engine('myengine', myengine());
+app.set('view engine', 'myengine');
 
 app.get('/', (req, res) => {
-  // renders 'views/home.ejs'
-  res.render('home');
+  const name = 'world';
+  // renders 'views/home.myengine'
+  res.render('home', { name: name });
 });
-
-// ...
 ```
 
-## Rendering HTML via express-handlebars
+## Rendering HTML
+
+registering various template engines:
 
 ```js
-import express from 'express';
+import ejs from 'ejs';
 import expressHandlebars from 'express-handlebars';
+import expressReactViews from 'express-react-views';
 
-const app = express();
-
+app.engine('ejs', ejs);
 app.engine('handlebars', expressHandlebars());
-app.set('view engine', 'handlebars');
-
-app.get('/', (req, res) => {
-  // renders 'views/home.handlebars'
-  res.render('home');
-});
+app.engine('jsx', expressReactViews.createEngine());
 ```
 
 ## Rendering HTML via express-react-views
 
 install npm packages: _express-react-views_, _react_, _react-dom_
-
-```js
-import express from 'express';
-import expressReactViews from 'express-react-views';
-
-const app = express();
-
-app.engine('jsx', expressReactViews.createEngine());
-app.set('view engine', 'jsx');
-
-app.get('/', (req, res) => {
-  // renders 'views/home.jsx' with one property
-  res.render('home', { foo: 'bar' });
-});
-```
 
 ## Rendering HTML via express-react-views
 
@@ -87,14 +72,14 @@ _views/home.jsx_:
 ```jsx
 import React from 'react';
 
-const Home = () => {
+const Home = ({ name }) => {
   return (
     <html>
       <head>
-        <title>Home</title>
+        <title>Hello, {name}!</title>
       </head>
       <body>
-        <div>Home</div>
+        <h1>Hello, {name}!</h1>
       </body>
     </html>
   );
@@ -110,11 +95,11 @@ exercises:
 - create a website with different pages (_home_, _about_, _newsletter_, ...)
 - create a website that displays information from a public API (e.g. https://pokeapi.co/)
 
-## Exercise: Pokeapi
+## Exercises
 
-part 1:
+Pokeapi part 1:
 
-```jsx
+```js
 app.get('/:id', async (req, res) => {
   const id = req.params.id;
   const dataRes = await fetch(
@@ -130,7 +115,7 @@ app.get('/', (req, res) => {
 
 ## Exercise: Pokeapi
 
-part 2:
+Pokeapi part 2:
 
 ```jsx
 // views/pokemon.jsx

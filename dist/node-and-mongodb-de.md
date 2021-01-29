@@ -166,22 +166,35 @@ const completedTodos = await todos
 
 Dokumentation: <https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html>
 
-# Bereitstellen von Zugangsdaten
+<!--
+section duplicated in:
+- node-web-development-with-node-and-express
+- node-and-mongodb
+-->
 
-## Bereitstellen von Zugangsdaten
+# Konfiguration mittels Umgebungsvariablen
 
-Zugangsdaten und Datenbankkonfiguration werden üblicherweise via Umgebungsvariablen bereitgestellt
+## Konfiguration mittels Umgebungsvariablen
+
+Zugangsdaten und Konfiguration werden üblicherweise via Umgebungsvariablen bereitgestellt
 
 Zugangsdaten sollten nicht unter Versionskontrolle stehen
 
-## Bereitstellen von Zugangsdaten
+## .env-Datei
 
 verbreitete Möglichkeit, um Zugangsdaten bereit zu stellen: speichern in einer Datei namens _.env_, laden als Umgebungsvariablen mittels _dotenv_
 
-_.env_:
+Stelle sicher, dass _.env_ nicht unter Versionskontrolle steht (füge es zur Datei _.gitignore_ hinzu)
+
+## .env-Datei
+
+Beispiel für _.env_-Datei:
 
 ```bash
-DB_URL=mongodb+srv://<user>:<password>@<clusterurl>/<dbname>
+PORT=3000
+NODE_ENV=production
+DB_URL=mongodb+srv://...
+AUTH0_DOMAIN=xxx.eu.auth0.com
 ```
 
 laden in JavaScript:
@@ -191,12 +204,9 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const DB_URL = process.env.DB_URL;
+const PORT = process.env.PORT;
+const NODE_ENV = process.env.NODE_ENV;
 ```
-
-## Bereitstellen von Zugangsdaten
-
-Stelle sicher, dass _.env_ nicht unter Versionskontrolle steht (füge es zur Datei _.gitignore_ hinzu)
 
 # Database access object
 

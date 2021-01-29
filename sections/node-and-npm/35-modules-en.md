@@ -35,7 +35,13 @@ console.log(currentDirectoryContent);
 to use the more modern syntax in a node project, declare it as a module in `package.json` (needs node ≥ 13):
 
 ```json
-"type": "module"
+{
+  "type": "module",
+
+  "eslintConfig": {
+    "sourceType": "module"
+  }
+}
 ```
 
 ## Importing modules

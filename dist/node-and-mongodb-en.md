@@ -166,22 +166,35 @@ const completedTodos = await todos
 
 documentation: <https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html>
 
-# Supplying credentials
+<!--
+section duplicated in:
+- node-web-development-with-node-and-express
+- node-and-mongodb
+-->
 
-## Supplying credentials
+# Configuration via environment variables
 
-credentials and database configuration should be supplied via environment variables
+## Configuration via environment variables
+
+credentials and configuration should be supplied via environment variables
 
 credentials should not be under version control
 
-## Supplying credentials
+## .env file
 
-common way to supply credentials: store in a file named _.env_, load as environment variables via _dotenv_
+common way to supply configuration and credentials: store in a file named _.env_, load as environment variables via _dotenv_
 
-_.env_:
+make sure _.env_ is not under version control (add it to the _.gitignore_ file)
+
+## .env file
+
+example _.env_ file:
 
 ```bash
-DB_URL=mongodb+srv://<user>:<password>@<clusterurl>/<dbname>
+PORT=3000
+NODE_ENV=production
+DB_URL=mongodb+srv://...
+AUTH0_DOMAIN=xxx.eu.auth0.com
 ```
 
 loading in JavaScript:
@@ -191,12 +204,9 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
+const PORT = process.env.PORT;
 const DB_URL = process.env.DB_URL;
 ```
-
-## Supplying credentials
-
-make sure _.env_ is not under version control (add it to the _.gitignore_ file)
 
 # Database access object
 

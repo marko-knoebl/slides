@@ -228,10 +228,16 @@ console.log(currentDirectoryContent);
 
 ## Importieren von Modulen
 
-für Verwendung der moderneren Syntax: in _package.json_  als _"module"_ deklarieren (benötigt node ≥ 13):
+für Verwendung der moderneren Syntax: in _package.json_ als _"module"_ deklarieren (benötigt node ≥ 13):
 
 ```json
-"type": "module"
+{
+  "type": "module",
+
+  "eslintConfig": {
+    "sourceType": "module"
+  }
+}
 ```
 
 ## Importieren von Modulen

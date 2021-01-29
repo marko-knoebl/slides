@@ -1,6 +1,6 @@
-# Web development with node and express
+# Libraries
 
-## Options and libraries
+## Libraries
 
 - plain node (createServer)
 - _connect_ (includes middleware)
@@ -8,16 +8,8 @@
 
 most projects will use _express_
 
-## Options and libraries
+## Libraries
 
 middleware: via `.use()`
 
 routing: via `.get()`, `.post()`, ...
-
-_Express_: Library that supports middleware, routing and templates
-
-## Hosting options
-
-- online editors
-  - glitch
-  - codepen
