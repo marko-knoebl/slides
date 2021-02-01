@@ -1,25 +1,31 @@
 # Routing und Redirects
 
-## Routing und Redirects
+## Routing
 
 ```js
-import express from 'express';
-
-const app = express();
-
 app.get('/', (req, res) => {
-  res.send('Hello World!\n');
+  res.send('<h1>Home</h1>\n');
 });
 app.get('/about', (req, res) => {
-  res.send('About page\n');
+  res.send('<h1>About</h1>\n');
 });
+```
+
+andere Methoden: `.post`, `.put`, `.delete`, ...
+
+## Routenparameter
+
+```js
 app.get('/articles/:id', (req, res) => {
   const articleId = req.params.id;
   // ...
 });
+```
+
+## Redirects
+
+```js
 app.get('/home', (req, res) => {
   res.redirect('/');
 });
-
-app.listen(3000);
 ```

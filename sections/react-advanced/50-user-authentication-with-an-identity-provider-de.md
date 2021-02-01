@@ -1,4 +1,10 @@
-# Benutzerauthentifizierung mit einem Identity Provider
+<!--
+related sections in:
+- react-advanced
+- node-and-express-intermediate
+-->
+
+# Benutzer-Authentifizierung mit einem Identity Provider
 
 ## Identity Provider
 
@@ -6,11 +12,11 @@ Ein _Identity Provider_ kann die Identität eines Benutzers überprüfen (kann d
 
 Beispiele:
 
-> der aktuelle Benutzer ist auf dieser Domain als Benutzer "foo" eingeloggt
+> der aktuelle Endnutzer ist auf dieser Domain als Benutzer "foo" eingeloggt
 
-> der aktuelle Benutzer ist als Benutzer "x" bei _Google_ / als Benutzer "y" bei Facebook authentifiziert
+> der aktuelle Endnutzer ist al Benutzer "x" bei Google / als Benutzer "y" bei Facebook authentifiziert
 
-## Identity provider
+## Identity Provider
 
 Mechanismus für den Benutzer:
 
@@ -18,15 +24,24 @@ Benutzer klickt auf _login_, wird zu einer Login-Seite weitergeleitet und nach e
 
 im Hintergrund erhält der Benutzer ein _Identity Token_, einen kleinen Datensatz, der die Identität des Benutzers im Zusammenspiel mit dem Identity Provider belegen kann
 
+## Identity Provider
+
+Standards:
+
+- Authentifizierung via _OpenID Connect_
+- Authorisierung via _OAuth2_
+
 ## Auth0
 
 **Auth0** (_auth-zero_) ist ein weit verbreiteter Identity Provider
+
+unterstützt Authentifizierung mittels "interner" Acccounts oder externer Identity Provider (z.B. _Google_, _Facebook_, _Apple_, ...)
 
 ## Auth0: Registrierung und Einrichtung
 
 - registriere dich für einen Auth0-Account unter <https://auth0.com>
 - in der Sidebar, wähle "Applications"
-- wähle die "default application" oder erstelle eine neue "Single Page Web Application"
+- wähle die "default application" oder erstelle eine neue "Single Page Web Application"; der gewählte Name wird Benutzern bei der Authentifizierung angezeigt
 
 <!--
 registration details:
