@@ -1,6 +1,6 @@
 # URL shortener
 
-For this exercise, you need to know node, express and MongoDB
+topics: routing, template rendering, direct database connection via MongoDB
 
 Create a url shortener service - similar to <bit.ly> or <cut.ly>
 
