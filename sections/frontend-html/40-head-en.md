@@ -62,17 +62,19 @@ may be used by search engines
 
 ## meta: http-equiv="X-UA-Compatible"
 
-is relevant for Internet Explorer <= 10; causes the use of the most modern version of the rendering engine
+is relevant for Internet Explorer ≤ 10; causes the use of the most modern version of the rendering engine
 
 ## favicon
 
-icon that is displayed in the website tab
+icon that is displayed in the website tab:
 
 ```html
 <link
   rel="icon"
-  sizes="16x16"
-  href="favicon_16.png"
+  sizes="32x32"
+  href="favicon_32.png"
   type="image/png"
 />
 ```
+
+if no explicit link is present, browsers will look for _facivon.ico_ by default

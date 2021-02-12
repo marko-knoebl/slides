@@ -39,10 +39,31 @@ Demo: http://srcset.salcode.com/
 </video>
 ```
 
-Beispielvideo: https://interactive-examples.mdn.mozilla.net/media/examples/flower.*
+Beispielvideo: https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm
 
 ## audio
 
 ```html
 <audio src="myaudio.mk" loop volume="0.5"></audio>
 ```
+
+## Bildformate
+
+relevante Bildformate für das Web:
+
+- _jpg_
+- _png_ (verlustfreie Komprimierung)
+- _webp_ (bessere Komprimierung im Vergleich zu _jpg_ und _png_)
+- _avif_ (zukünftiges Format)
+- _gif_ (animiert, eingeschränkte Farbpalette)
+- _svg_ (Vektorgrafiken)
+
+## Videoformate
+
+relevante Videoformate für das Web:
+
+- _MP4_ Container, _H.264_ (_AVC_) Codec: universell unterstützt, patentiert, gute Qualität
+- _MP4_ Container, _H.265_ (_HEVC_) Codec: patentiert, bessere Qualität
+- _WebM_ Container, _AV1_ Codec: Kandidat für neuen Standard, open source, besser Qualität
+
+siehe auch: [Wikipedia: HTML5 video](https://en.wikipedia.org/wiki/HTML5_video)

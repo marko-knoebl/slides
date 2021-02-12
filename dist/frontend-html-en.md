@@ -223,6 +223,7 @@ CSS Libraries:
 - _Bootstrap_: widely used CSS library with many themes - [website](https://getbootstrap.com/), [CDN for CSS](https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.css), [CDN for JS](https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.js)
 - _Semantic UI_ - [website](https://semantic-ui.com), [CDN for CSS](https://cdn.jsdelivr.net/npm/semantic-ui/dist/semantic.css), [CDN for JS](https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.js)
 - _Foundation_ - [website](https://get.foundation/sites/docs/), [CDN for CSS](https://cdn.jsdelivr.net/npm/foundation-sites/dist/css/foundation.css), [CDN for JS](https://cdn.jsdelivr.net/npm/foundation-sites/dist/js/foundation.js)
+- _Tailwind_ - [website](https://tailwindcss.com/), [CDN](https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css)
 
 <!--
 
@@ -590,7 +591,7 @@ attributes:
 - `alt`: alternative text in case the picture cannot be displayed
 - `srcset`: list of image paths for different resolutions
 
-## srcset - Beispiel
+## srcset - example
 
 ```html
 <img
@@ -615,13 +616,34 @@ Demo: <http://srcset.salcode.com/>
 </video>
 ```
 
-Example video: <https://interactive-examples.mdn.mozilla.net/media/examples/flower>.\*
+Example video: <https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm>
 
 ## audio
 
 ```html
 <audio src="myaudio.mk" loop volume="0.5"></audio>
 ```
+
+## Image formats
+
+relevant web image formats:
+
+- _jpg_
+- _png_ (lossless compression)
+- _webp_ (better compression compared to _jpg_ and _png_)
+- _avif_ (future format)
+- _gif_ (animated, limited color range)
+- _svg_ (vector graphics)
+
+## Video formats
+
+relevant web video formats:
+
+- _MP4_ container, _H.264_ (_AVC_) codec: universally supported, patented, good quality
+- _MP4_ container, _H.265_ (_HEVC_) codec: patented, better quality
+- _WebM_ container, _AV1_ codec: candidate for new standard, open source, better quality
+
+see also: [Wikipedia: HTML5 video](https://en.wikipedia.org/wiki/HTML5_video)
 
 # Tables
 
@@ -704,20 +726,22 @@ may be used by search engines
 
 ## meta: http-equiv="X-UA-Compatible"
 
-is relevant for Internet Explorer &lt;= 10; causes the use of the most modern version of the rendering engine
+is relevant for Internet Explorer ≤ 10; causes the use of the most modern version of the rendering engine
 
 ## favicon
 
-icon that is displayed in the website tab
+icon that is displayed in the website tab:
 
 ```html
 <link
   rel="icon"
-  sizes="16x16"
-  href="favicon_16.png"
+  sizes="32x32"
+  href="favicon_32.png"
   type="image/png"
 />
 ```
+
+if no explicit link is present, browsers will look for _facivon.ico_ by default
 
 # Accessibility
 

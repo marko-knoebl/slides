@@ -221,6 +221,7 @@ CSS Libraries:
 - _Bootstrap_: weit verbreitete CSS-Library mit vielen verfügbaren Themes - [website](https://getbootstrap.com/), [CDN für CSS](https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.css), [CDN für JS](https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.js)
 - _Semantic UI_ - [website](https://semantic-ui.com), [CDN für CSS](https://cdn.jsdelivr.net/npm/semantic-ui/dist/semantic.css), [CDN für JS](https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.js)
 - _Foundation_ - [website](https://get.foundation/sites/docs/), [CDN für CSS](https://cdn.jsdelivr.net/npm/foundation-sites/dist/css/foundation.css), [CDN für JS](https://cdn.jsdelivr.net/npm/foundation-sites/dist/js/foundation.js)
+- _Tailwind_ - [website](https://tailwindcss.com/), [CDN](https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css)
 
 <!--
 
@@ -614,13 +615,34 @@ Demo: <http://srcset.salcode.com/>
 </video>
 ```
 
-Beispielvideo: <https://interactive-examples.mdn.mozilla.net/media/examples/flower>.\*
+Beispielvideo: <https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm>
 
 ## audio
 
 ```html
 <audio src="myaudio.mk" loop volume="0.5"></audio>
 ```
+
+## Bildformate
+
+relevante Bildformate für das Web:
+
+- _jpg_
+- _png_ (verlustfreie Komprimierung)
+- _webp_ (bessere Komprimierung im Vergleich zu _jpg_ und _png_)
+- _avif_ (zukünftiges Format)
+- _gif_ (animiert, eingeschränkte Farbpalette)
+- _svg_ (Vektorgrafiken)
+
+## Videoformate
+
+relevante Videoformate für das Web:
+
+- _MP4_ Container, _H.264_ (_AVC_) Codec: universell unterstützt, patentiert, gute Qualität
+- _MP4_ Container, _H.265_ (_HEVC_) Codec: patentiert, bessere Qualität
+- _WebM_ Container, _AV1_ Codec: Kandidat für neuen Standard, open source, besser Qualität
+
+siehe auch: [Wikipedia: HTML5 video](https://en.wikipedia.org/wiki/HTML5_video)
 
 # Tabellen
 
@@ -704,20 +726,22 @@ Kann von Suchmaschinen verwendet werden
 
 ## meta: http-equiv="X-UA-Compatible"
 
-Ist bei Internet Explorer &lt;= 10 relevant; führt zur Verwendung der modernsten Version der Rendering-Engine
+Ist bei Internet Explorer ≤ 10 relevant; führt zur Verwendung der modernsten Version der Rendering-Engine
 
 ## favicon
 
-Icon, das im Tab der Website angezeigt wird
+Icon, das im Tab der Website angezeigt wird:
 
 ```html
 <link
   rel="icon"
-  sizes="16x16"
-  href="favicon_16.png"
+  sizes="32x32"
+  href="favicon_32.png"
   type="image/png"
 />
 ```
+
+ohne einen expliziten Link suchen Browser nach _favicon.ico_
 
 # Accessibility
 
