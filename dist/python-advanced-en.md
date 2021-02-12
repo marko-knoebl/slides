@@ -443,10 +443,8 @@ Type hints can support the IDE - e.g. by providing additional errors
 
 ## Type checkers
 
+- pyright (used by VS Code extension _pylance_)
 - mypy
-- pyright
-
-VS Code extensions are available
 
 ## Type hints
 

@@ -153,9 +153,19 @@ Beispiele für _launch.json_-Einträge zum Debugging in Browsern:
 
 # VS Code für Python
 
-## VS Code für Python
+## Python: Extensions und Pakete
 
-**Python-Extension**
+VS Code Extensions:
+
+- _Python_
+- _Pylance_ (Preview-Release)
+
+Python-Pakete zur Verwendung mit VS Code:
+
+- _pylint_ (Linter)
+- _black_ (Formatierer)
+
+## Python-Extension
 
 Installation:
 
@@ -170,7 +180,7 @@ Konfiguration:
 - warten...
 - gewünschte Python-Version auswählen
 
-## VS Code - Ausführen von Python-Programmen
+## Python Extension: Ausführen von Programmen
 
 grünes Play-Symbol zur Editoransicht
 
@@ -178,7 +188,7 @@ oder
 
 _Debug_ - _Start Without Debugging (Ctrl + F5)_
 
-## VS Code - PyLint
+## PyLint
 
 um Fehler in VS Code angezeigt zu bekommen: Installation des Python-Pakets _pylint_
 
@@ -186,7 +196,7 @@ um Fehler in VS Code angezeigt zu bekommen: Installation des Python-Pakets _pyli
 pip install pylint
 ```
 
-## VS Code - Autoformatierung
+## Autoformatierung
 
 Automatische Formatierung mittels _Alt_ + _Shift_ + _F_
 

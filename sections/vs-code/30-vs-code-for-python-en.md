@@ -1,8 +1,18 @@
 # VS Code for Python
 
-## VS Code for Python
+## Python: extensions and packages
 
-**Python extension**
+VS code extensions:
+
+- _Python_
+- _Pylance_ (preview release)
+
+Python packages for use with VS Code:
+
+- _pylint_ (linter)
+- _black_ (formatter)
+
+## Python Extension
 
 installation:
 
@@ -17,7 +27,7 @@ configuration:
 - wait...
 - choose the desired Python version
 
-## VS Code - Running Python programs
+## Python extension: running programs
 
 green "Play" button in the editor view
 
@@ -25,7 +35,7 @@ or
 
 _Debug_ - _Start Without Debugging (Ctrl + F5)_
 
-## VS Code - PyLint
+## PyLint
 
 in order to see errors in VS Code: install the Python package _pylint_
 
@@ -33,7 +43,7 @@ in order to see errors in VS Code: install the Python package _pylint_
 pip install pylint
 ```
 
-## VS Code - Auto formatting
+## Auto formatting
 
 We can auto format code via _Alt_ + _Shift_ + _F_
 

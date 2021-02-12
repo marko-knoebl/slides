@@ -8,7 +8,7 @@ Typenannotationen können die IDE - z.B. durch das Bereitstellen zusätzlicher F
 
 ## Typechecker
 
-- pyright
+- pyright (wird von VS Coe extension _pylance_ verwendet)
 - mypy
 
 VS Code Extensions für beide verfügbar
