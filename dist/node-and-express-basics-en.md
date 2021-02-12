@@ -28,9 +28,9 @@ import express from 'express';
 
 const app = express();
 
-// provide a function that handles the request
+// provide a function that handles a request to "/"
 // and sends a response
-app.use((req, res) => {
+app.get('/', (req, res) => {
   // note: we should actually return a complete HTML file
   res.send('<h1>Hello World!</h1>\n');
 });
@@ -204,28 +204,34 @@ res.set({ 'Set-Cookie': 'a=1' });
 
 # Routing and redirects
 
-## Routing and redirects
+## Routing
 
 ```js
-import express from 'express';
-
-const app = express();
-
 app.get('/', (req, res) => {
-  res.send('Hello World!\n');
+  res.send('<h1>Home</h1>\n');
 });
 app.get('/about', (req, res) => {
-  res.send('About page\n');
+  res.send('<h1>About</h1>\n');
 });
+```
+
+other methods: `.post`, `.put`, `.delete`, ...
+
+## Route parameters
+
+```js
 app.get('/articles/:id', (req, res) => {
   const articleId = req.params.id;
   // ...
 });
+```
+
+## Redirects
+
+```js
 app.get('/home', (req, res) => {
   res.redirect('/');
 });
-
-app.listen(3000);
 ```
 
 # Rendering HTML
@@ -252,9 +258,10 @@ app.get('/', (req, res) => {
 via a template engine:
 
 - ejs: [website](https://ejs.co/), [express integration](https://github.com/mde/ejs/wiki/Using-EJS-with-Express)
-- handlebars (or mustache): [website](https://handlebarsjs.com/), [express integration](https://github.com/express-handlebars/express-handlebars)
+- handlebars (or mustache): [website](https://handlebarsjs.com/), [express integration](https://github.com/pillarjs/hbs)
 - pug: [website](https://pugjs.org), [express integration](https://expressjs.com/en/guide/using-template-engines.html)
 - react: [website](https://reactjs.org/), [express integration](https://github.com/reactjs/express-react-views)
+- marko: [website](https://markojs.com/), [express integration](https://markojs.com/docs/express/)
 - ... ([list of options](https://expressjs.com/en/resources/template-engines.html))
 
 ## Rendering HTML
@@ -272,8 +279,8 @@ app.set('view engine', 'myengine');
 
 app.get('/', (req, res) => {
   const name = 'world';
-  // renders 'views/home.myengine'
-  res.render('home', { name: name });
+  // renders 'views/index.myengine'
+  res.render('index', { name: name });
 });
 ```
 
@@ -297,12 +304,12 @@ install npm packages: _express-react-views_, _react_, _react-dom_
 
 ## Rendering HTML via express-react-views
 
-_views/home.jsx_:
+_views/index.jsx_:
 
 ```jsx
 import React from 'react';
 
-const Home = ({ name }) => {
+const Index = ({ name }) => {
   return (
     <html>
       <head>
@@ -315,7 +322,7 @@ const Home = ({ name }) => {
   );
 };
 
-export default Home;
+export default Index;
 ```
 
 ## Exercises
@@ -418,6 +425,105 @@ Environment variable `NODE_ENV`: important when using e.g. express
 
 in production environments, `NODE_ENV=production` should always be set - otherwise the user will be able to see JavaScript error messages in detail (with stack traces)
 
+# Summary: basic setup
+
+## Summary: basic setup
+
+1. create _package.json_
+2. install packages
+3. add _.gitignore_ file
+4. load configuration from _.env_ file
+5. configure rendering engine and routes
+6. add views
+
+## Create package.json
+
+```json
+{
+  "type": "module",
+  "eslintConfig": {
+    "sourceType": "module"
+  },
+  "scripts": {
+    "start": "node server.js"
+  }
+}
+```
+
+## Install packages
+
+install _express_, _dotenv_ and a template engine
+
+template engines:
+
+- _ejs_
+- _express-handlebars_
+- _express-react-views_, _react_, _react-dom_
+
+## Add .gitignore file
+
+example _.gitignore_ file:
+
+```txt
+.env
+node_modules
+```
+
+## Load configuration from .env file
+
+.env file example:
+
+```txt
+PORT=3000
+```
+
+loading configuration:
+
+```js
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const PORT = process.env.PORT;
+```
+
+## Create app with rendering engine and routes
+
+```js
+import express from 'express';
+import expressReactViews from 'express-react-views';
+const app = express();
+
+app.engine('jsx', expressReactViews.createEngine());
+app.set('view engine', 'jsx');
+
+app.get('/', (req, res) => {
+  res.render('index', { name: 'world' });
+});
+
+app.listen(PORT);
+```
+
+## Add views
+
+```js
+// views/index.jsx
+import React from 'react';
+
+export default ({ name }) => {
+  return (
+    <html>
+      <head>
+        <title>Hello, {name}!</title>
+      </head>
+      <body>
+        <h1>Hello, {name}!</h1>
+      </body>
+    </html>
+  );
+};
+```
+
 # Hosting
 
 ## Hosting options
@@ -517,6 +623,170 @@ app.use(compression());
 - _compression_: compresses the response content
 - _express.static_: sends static files (e.g. _index.html_) if available
 - _express-session_: stores session data (available under `req.session`)
-- _passport_: user authentication
+- _express-openid-connect_ or _passport_: user authentication
 - _morgan_: logging
 - ... (see: [list of available express middleware](https://expressjs.com/en/resources/middleware.html))
+
+# Forms
+
+## Request parameters
+
+By default, the browser sends form contents are sent in URL-encoded format, e.g.:
+
+```txt
+foo=1&bar=2&baz=3
+```
+
+in get requests: as part of the URL, e.g. `https://google.com/search?ei=xyzg&q=foo...`
+
+in post requests: in the request body
+
+## Getting request parameters
+
+in a _get_ request: read `req.query`
+
+in a _post_ request: use `express.urlencoded` middleware, read `req.body`
+
+<!--
+related sections in:
+- react-advanced
+- node-and-express-intermediate
+-->
+
+# User authentication with an identity provider
+
+## Identity provider
+
+an _identity provider_ can verify the identity of users (can authenticate users)
+
+examples:
+
+> the current end user is logged in as user "foo" on this domain
+
+> the current user is authenticated as user "x" by _Google_ / as user "y" by _facebook_
+
+## Identity provider
+
+mechanism for the user:
+
+user clicks on _login_, is redirected to a login page, and then sent back to the original site once logged in
+
+in the background the user will receive an _identity token_, a piece of data that can prove their identity with the identity provider
+
+the identity token is usually set as a cookie (e.g. `appSession`)
+
+## Identity provider
+
+standards:
+
+- authorization via _OAuth2_
+- authentication via _OpenID Connect_
+
+## Auth0
+
+**Auth0** (_auth-zero_) is a widely-used identity provider
+
+supports authentication via "internal" accounts or external identity providers (e.g. _Google_, _Apple_, _Facebook_, ...)
+
+## Auth0: Registration and setup
+
+- register for an Auth0 account on <https://auth0.com>
+- in the sidebar, select "Applications"
+- select the default application or create a new "Regular Web Application"; the selected name will be shown to users when they authenticate
+
+<!--
+registration details:
+select region: EU / US / AU
+select account type: personal / company
+-->
+
+## Auth0: Regsitration and setup
+
+_Application Settings_:
+
+- allowed redirect URLs for login completion: _Allowed Callback URLs_
+- allowed redirect URLs after logout: _Allowed Logout URLs_
+
+callback URLs example:
+
+```txt
+http://localhost:3000/callback,
+https://mydomain.com/callback
+```
+
+logout URLs example:
+
+```txt
+http://localhost:3000,
+https://mydomain.com
+```
+
+## Configuration
+
+example `.env` configuration for local development (sources on next slide):
+
+```bash
+ISSUER_BASE_URL=https://dev-xxxxxxxx.eu.auth0.com
+CLIENT_ID=jA0EAwMCxamDRMfOGV5gyZPnyX1BBPOQ
+SECRET=7qHciKUpXk7pCXqG45bweRBQxBTMpztB
+BASE_URL=http://localhost:3000
+PORT=3000
+```
+
+## Configuration
+
+under _Settings_:
+
+each Auth0 registrant has at least one domain (e.g. _dev-xxxxxxxx.eu.auth0.com_)
+
+each app has a specific client ID (e.g. _jA0EAwMCxamDRMfOGV5gyZPnyX1BBPOQ_)
+
+self-generated:
+
+_secret_: generate a long, random string yourself (recommendation: at least 32 characters)
+
+## Express and Auth0
+
+guides:
+
+guide using the most recent library (_express-openid-connect_): <https://auth0.com/docs/quickstart/webapp/express>
+
+guide using older (more wide-spread) libraries: <https://auth0.com/docs/quickstart/webapp/express>
+
+## Express and Auth0
+
+npm package: _express-openid-connect_
+
+middleware for authentication
+
+automatically adds URLs _/login_, _/logout_, _/callback_
+
+```js
+app.use(
+  expressOpenidConnect.auth({
+    authRequired: false,
+    auth0Logout: true,
+    baseURL: process.env.BASE_URL,
+    clientID: process.env.CLIENT_ID,
+    issuerBaseURL: process.env.ISSUER_BASE_URL,
+    secret: process.env.SECRET,
+  })
+);
+```
+
+## Express and Auth0
+
+```js
+app.get('/', (req, res) => {
+  if (req.oidc.isAuthenticated()) {
+    res.send(
+      `<p>logged in <a href="/logout">log out</a></p>
+       <pre>${JSON.stringify(req.oidc.user)}</pre>`
+    );
+  } else {
+    res.send(
+      '<div>not logged in <a href="/login">log in</a></div>'
+    );
+  }
+});
+```

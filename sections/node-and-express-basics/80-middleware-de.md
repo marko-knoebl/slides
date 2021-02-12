@@ -32,6 +32,6 @@ app.use(compression());
 - _compression_: komprimiert den Inhalt der Response
 - _express.static_: antwortet mit vorhandenen statischen Dateien (z.B. _index.html_), falls vorhanden
 - _express-session_: speichert Sitzungsdaten (verfügbar unter `req.session`)
-- _passport_: Benutzer-Authentifizierung
+- _express-openid-connect_ oder _passport_: Benutzer-Authentifizierung
 - _morgan_: Logging
 - ... (siehe: [list of available express middleware](https://expressjs.com/en/resources/middleware.html))

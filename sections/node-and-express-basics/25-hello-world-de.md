@@ -10,9 +10,9 @@ import express from 'express';
 
 const app = express();
 
-// provide a function that handles the request
+// provide a function that handles a request to "/"
 // and sends a response
-app.use((req, res) => {
+app.get('/', (req, res) => {
   // note: we should actually return a complete HTML file
   res.send('<h1>Hello World!</h1>\n');
 });

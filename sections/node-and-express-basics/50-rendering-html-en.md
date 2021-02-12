@@ -22,9 +22,10 @@ app.get('/', (req, res) => {
 via a template engine:
 
 - ejs: [website](https://ejs.co/), [express integration](https://github.com/mde/ejs/wiki/Using-EJS-with-Express)
-- handlebars (or mustache): [website](https://handlebarsjs.com/), [express integration](https://github.com/express-handlebars/express-handlebars)
+- handlebars (or mustache): [website](https://handlebarsjs.com/), [express integration](https://github.com/pillarjs/hbs)
 - pug: [website](https://pugjs.org), [express integration](https://expressjs.com/en/guide/using-template-engines.html)
 - react: [website](https://reactjs.org/), [express integration](https://github.com/reactjs/express-react-views)
+- marko: [website](https://markojs.com/), [express integration](https://markojs.com/docs/express/)
 - ... ([list of options](https://expressjs.com/en/resources/template-engines.html))
 
 ## Rendering HTML
@@ -42,8 +43,8 @@ app.set('view engine', 'myengine');
 
 app.get('/', (req, res) => {
   const name = 'world';
-  // renders 'views/home.myengine'
-  res.render('home', { name: name });
+  // renders 'views/index.myengine'
+  res.render('index', { name: name });
 });
 ```
 
@@ -67,12 +68,12 @@ install npm packages: _express-react-views_, _react_, _react-dom_
 
 ## Rendering HTML via express-react-views
 
-_views/home.jsx_:
+_views/index.jsx_:
 
 ```jsx
 import React from 'react';
 
-const Home = ({ name }) => {
+const Index = ({ name }) => {
   return (
     <html>
       <head>
@@ -85,7 +86,7 @@ const Home = ({ name }) => {
   );
 };
 
-export default Home;
+export default Index;
 ```
 
 ## Exercises

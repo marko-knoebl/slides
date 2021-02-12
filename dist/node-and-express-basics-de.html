@@ -2080,9 +2080,9 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 
 <span class="hljs-keyword">const</span> app = express();
 
-<span class="hljs-comment">// provide a function that handles the request</span>
+<span class="hljs-comment">// provide a function that handles a request to "/"</span>
 <span class="hljs-comment">// and sends a response</span>
-app.use(<span class="hljs-function">(<span class="hljs-params">req, res</span>) =></span> {
+app.get(<span class="hljs-string">'/'</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =></span> {
   <span class="hljs-comment">// note: we should actually return a complete HTML file</span>
   res.send(<span class="hljs-string">'&#x3C;h1>Hello World!&#x3C;/h1>\n'</span>);
 });
@@ -2197,26 +2197,25 @@ res.send(<span class="hljs-string">'Document not found.\n'</span>);
 <pre><code class="hljs language-js">res.set({ <span class="hljs-string">'Set-Cookie'</span>: <span class="hljs-string">'a=1'</span> });
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Routing und Redirects</h1>
-</section><section class="slide"><h2>Routing und Redirects</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> express <span class="hljs-keyword">from</span> <span class="hljs-string">'express'</span>;
-
-<span class="hljs-keyword">const</span> app = express();
-
-app.get(<span class="hljs-string">'/'</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =></span> {
-  res.send(<span class="hljs-string">'Hello World!\n'</span>);
+</section><section class="slide"><h2>Routing</h2>
+<pre><code class="hljs language-js">app.get(<span class="hljs-string">'/'</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =></span> {
+  res.send(<span class="hljs-string">'&#x3C;h1>Home&#x3C;/h1>\n'</span>);
 });
 app.get(<span class="hljs-string">'/about'</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =></span> {
-  res.send(<span class="hljs-string">'About page\n'</span>);
+  res.send(<span class="hljs-string">'&#x3C;h1>About&#x3C;/h1>\n'</span>);
 });
-app.get(<span class="hljs-string">'/articles/:id'</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =></span> {
+</code></pre>
+<p>andere Methoden: <code>.post</code>, <code>.put</code>, <code>.delete</code>, ...</p>
+</section><section class="slide"><h2>Routenparameter</h2>
+<pre><code class="hljs language-js">app.get(<span class="hljs-string">'/articles/:id'</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =></span> {
   <span class="hljs-keyword">const</span> articleId = req.params.id;
   <span class="hljs-comment">// ...</span>
 });
-app.get(<span class="hljs-string">'/home'</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =></span> {
+</code></pre>
+</section><section class="slide"><h2>Redirects</h2>
+<pre><code class="hljs language-js">app.get(<span class="hljs-string">'/home'</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =></span> {
   res.redirect(<span class="hljs-string">'/'</span>);
 });
-
-app.listen(<span class="hljs-number">3000</span>);
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Rendern von HTML</h1>
 </section><section class="slide"><h2>Rendern von HTML</h2>
@@ -2236,9 +2235,10 @@ app.listen(<span class="hljs-number">3000</span>);
 <p>mit Hilfe einer Template Engine:</p>
 <ul>
 <li>ejs: <a href="https://ejs.co/">Website</a>, <a href="https://github.com/mde/ejs/wiki/Using-EJS-with-Express">express Integration</a></li>
-<li>handlebars (oder mustache): <a href="https://handlebarsjs.com/">Website</a>, <a href="https://github.com/express-handlebars/express-handlebars">express Integration</a></li>
+<li>handlebars (oder mustache): <a href="https://handlebarsjs.com/">website</a>, <a href="https://github.com/express-handlebars/express-handlebars">express Integration</a></li>
 <li>pug: <a href="https://pugjs.org">Website</a>, <a href="https://expressjs.com/en/guide/using-template-engines.html">express Integration</a></li>
 <li>react: <a href="https://reactjs.org/">Website</a>, <a href="https://github.com/reactjs/express-react-views">express Integration</a></li>
+<li>marko: <a href="https://markojs.com/">Website</a>, <a href="https://markojs.com/docs/express/">express Integration</a></li>
 <li>... (<a href="https://expressjs.com/en/resources/template-engines.html">Liste von Möglichkeiten</a>)</li>
 </ul>
 </section><section class="slide"><h2>Rendern von HTML</h2>
@@ -2253,8 +2253,8 @@ app.set(<span class="hljs-string">'view engine'</span>, <span class="hljs-string
 
 app.get(<span class="hljs-string">'/'</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =></span> {
   <span class="hljs-keyword">const</span> name = <span class="hljs-string">'world'</span>;
-  <span class="hljs-comment">// renders 'views/home.myengine'</span>
-  res.render(<span class="hljs-string">'home'</span>, { <span class="hljs-attr">name</span>: name });
+  <span class="hljs-comment">// renders 'views/index.myengine'</span>
+  res.render(<span class="hljs-string">'index'</span>, { <span class="hljs-attr">name</span>: name });
 });
 </code></pre>
 </section><section class="slide"><h2>Rendern von HTML</h2>
@@ -2270,10 +2270,10 @@ app.engine(<span class="hljs-string">'jsx'</span>, expressReactViews.createEngin
 </section><section class="slide"><h2>Rendern von HTML via express-react-views</h2>
 <p>npm-Pakete: <em>express-react-views</em>, <em>react</em>, <em>react-dom</em></p>
 </section><section class="slide"><h2>Rendern von HTML via express-react-views</h2>
-<p><em>views/home.jsx</em>:</p>
+<p><em>views/index.jsx</em>:</p>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
 
-<span class="hljs-keyword">const</span> Home = <span class="hljs-function">(<span class="hljs-params">{ name }</span>) =></span> {
+<span class="hljs-keyword">const</span> Index = <span class="hljs-function">(<span class="hljs-params">{ name }</span>) =></span> {
   <span class="hljs-keyword">return</span> (
     <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">html</span>></span>
       <span class="hljs-tag">&#x3C;<span class="hljs-name">head</span>></span>
@@ -2286,7 +2286,7 @@ app.engine(<span class="hljs-string">'jsx'</span>, expressReactViews.createEngin
   );
 };
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Home;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Index;
 </code></pre>
 </section><section class="slide"><h2>Übungen</h2>
 <p>Übungen:</p>
@@ -2361,6 +2361,82 @@ dotenv.config();
 </section><section class="slide"><h2>NODE_ENV</h2>
 <p>Umgebungsvariable <code>NODE_ENV</code>: spielt z.B. bei express eine wichtige Rolle</p>
 <p>in Produktivumgebungen sollte immer <code>NODE_ENV=production</code> gesetzt sein - ansonsten werden z.B. dem Endnutzer JavaScript-Fehlermeldungen im Detail angezeigt (mit Stack Traces)</p>
+</section></section><section class="slides-section"><section class="slide"><h1>Zusammenfassung: grundlegendes Setup</h1>
+</section><section class="slide"><h2>Zusammenfassung: grundlegendes Setup</h2>
+<ol>
+<li>erstelle <em>package.json</em></li>
+<li>installiere Pakete</li>
+<li>erstelle <em>.gitignore</em></li>
+<li>lade Konfiguration aus <em>.env</em></li>
+<li>erstelle App mit Rendering Engine und Routen</li>
+<li>erstelle Views</li>
+</ol>
+</section><section class="slide"><h2>Erstelle package.json</h2>
+<pre><code class="hljs language-json">{
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"module"</span>,
+  <span class="hljs-attr">"eslintConfig"</span>: {
+    <span class="hljs-attr">"sourceType"</span>: <span class="hljs-string">"module"</span>
+  },
+  <span class="hljs-attr">"scripts"</span>: {
+    <span class="hljs-attr">"start"</span>: <span class="hljs-string">"node server.js"</span>
+  }
+}
+</code></pre>
+</section><section class="slide"><h2>Installiere Pakete</h2>
+<p>installiere <em>express</em>, <em>dotenv</em> und eine Template Engine</p>
+<p>Template Engines:</p>
+<ul>
+<li><em>ejs</em></li>
+<li><em>express-handlebars</em></li>
+<li><em>express-react-views</em>, <em>react</em>, <em>react-dom</em></li>
+</ul>
+</section><section class="slide"><h2>Erstelle .gitignore-Datei</h2>
+<p>Beispiel für <em>.gitignore</em>:</p>
+<pre><code class="hljs language-txt">.env
+node_modules
+</code></pre>
+</section><section class="slide"><h2>Lade Konfiguration aus .env</h2>
+<p>Beispiel für <em>.env</em>:</p>
+<pre><code class="hljs language-txt">PORT=3000
+</code></pre>
+<p>Laden der Konfiguration:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> dotenv <span class="hljs-keyword">from</span> <span class="hljs-string">'dotenv'</span>;
+
+dotenv.config();
+
+<span class="hljs-keyword">const</span> PORT = process.env.PORT;
+</code></pre>
+</section><section class="slide"><h2>Erstelle App mit Rendering Engine und Routen</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> express <span class="hljs-keyword">from</span> <span class="hljs-string">'express'</span>;
+<span class="hljs-keyword">import</span> expressReactViews <span class="hljs-keyword">from</span> <span class="hljs-string">'express-react-views'</span>;
+<span class="hljs-keyword">const</span> app = express();
+
+app.engine(<span class="hljs-string">'jsx'</span>, expressReactViews.createEngine());
+app.set(<span class="hljs-string">'view engine'</span>, <span class="hljs-string">'jsx'</span>);
+
+app.get(<span class="hljs-string">'/'</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =></span> {
+  res.render(<span class="hljs-string">'index'</span>, { <span class="hljs-attr">name</span>: <span class="hljs-string">'world'</span> });
+});
+
+app.listen(PORT);
+</code></pre>
+</section><section class="slide"><h2>Erstelle Views</h2>
+<pre><code class="hljs language-js"><span class="hljs-comment">// views/index.jsx</span>
+<span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> ({ name }) => {
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">html</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">head</span>></span>
+        <span class="hljs-tag">&#x3C;<span class="hljs-name">title</span>></span>Hello, {name}!<span class="hljs-tag">&#x3C;/<span class="hljs-name">title</span>></span>
+      <span class="hljs-tag">&#x3C;/<span class="hljs-name">head</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">body</span>></span>
+        <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>Hello, {name}!<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
+      <span class="hljs-tag">&#x3C;/<span class="hljs-name">body</span>></span>
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">html</span>></span></span>
+  );
+};
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Hosting</h1>
 </section><section class="slide"><h2>Hosting-Möglichkeiten</h2>
 <p>Online-Editoren:</p>
@@ -2431,10 +2507,121 @@ app.use(compression());
 <li><em>compression</em>: komprimiert den Inhalt der Response</li>
 <li><em>express.static</em>: antwortet mit vorhandenen statischen Dateien (z.B. <em>index.html</em>), falls vorhanden</li>
 <li><em>express-session</em>: speichert Sitzungsdaten (verfügbar unter <code>req.session</code>)</li>
-<li><em>passport</em>: Benutzer-Authentifizierung</li>
+<li><em>express-openid-connect</em> oder <em>passport</em>: Benutzer-Authentifizierung</li>
 <li><em>morgan</em>: Logging</li>
 <li>... (siehe: <a href="https://expressjs.com/en/resources/middleware.html">list of available express middleware</a>)</li>
-</ul></section></section></div>
+</ul>
+</section></section><section class="slides-section"><section class="slide"><h1>Formulare</h1>
+</section><section class="slide"><h2>Request-Parameter</h2>
+<p>Standardmäßig sendet der Browser Formular-Inhalte im <em>URL-encoded</em> Format, z.B.:</p>
+<pre><code class="hljs language-txt">foo=1&#x26;bar=2&#x26;baz=3
+</code></pre>
+<p>in get-Requests: als Teil der URL, z.B. <code>https://google.com/search?ei=xyzg&#x26;q=foo...</code></p>
+<p>in post-Requests: im Request-Body</p>
+</section><section class="slide"><h2>Auslesen von Request-Parametern</h2>
+<p>in einem get-Request: lies <code>req.query</code></p>
+<p>in einem post-Request: verwende <code>express.urlencoded</code> als Middleware, lies <code>req.body</code></p>
+<!--
+related sections in:
+- react-advanced
+- node-and-express-intermediate
+-->
+</section></section><section class="slides-section"><section class="slide"><h1>Benutzer-Authentifizierung mit einem Identity Provider</h1>
+</section><section class="slide"><h2>Identity Provider</h2>
+<p>Ein <em>Identity Provider</em> kann die Identität eines Benutzers überprüfen (kann den Benutzer authentifizieren)</p>
+<p>Beispiele:</p>
+<blockquote>
+<p>der aktuelle Endnutzer ist auf dieser Domain als Benutzer "foo" eingeloggt</p>
+</blockquote>
+<blockquote>
+<p>der aktuelle Endnutzer ist al Benutzer "x" bei Google / als Benutzer "y" bei Facebook authentifiziert</p>
+</blockquote>
+</section><section class="slide"><h2>Identity Provider</h2>
+<p>Mechanismus für den Benutzer:</p>
+<p>Benutzer klickt auf <em>login</em>, wird zu einer Login-Seite weitergeleitet und nach erfolgreichem Login zur ursprünglichen Seite zurückgeleitet</p>
+<p>im Hintergrund erhält der Benutzer ein <em>Identity Token</em>, einen kleinen Datensatz, der die Identität des Benutzers im Zusammenspiel mit dem Identity Provider belegen kann</p>
+<p>das Identity Token wird üblicherweise als Cookie gesetzt (z.B. <code>appSession</code>)</p>
+</section><section class="slide"><h2>Identity Provider</h2>
+<p>Standards:</p>
+<ul>
+<li>Authentifizierung via <em>OpenID Connect</em></li>
+<li>Authorisierung via <em>OAuth2</em></li>
+</ul>
+</section><section class="slide"><h2>Auth0</h2>
+<p><strong>Auth0</strong> (<em>auth-zero</em>) is a widely-used identity provider</p>
+<p>supports authentication via "internal" accounts or external identity providers (e.g. <em>Google</em>, <em>Apple</em>, <em>Facebook</em>, ...)</p>
+</section><section class="slide"><h2>Auth0: Registrierung und Einrichtung</h2>
+<ul>
+<li>registriere dich für einen Auth0-Account unter <a href="https://auth0.com">https://auth0.com</a></li>
+<li>in der Sidebar, wähle "Applications"</li>
+<li>wähle die "default application" oder erstelle eine neue "Single Page Web Application"; der gewählte Name wird Benutzern bei der Authentifizierung angezeigt</li>
+</ul>
+<!--
+registration details:
+select region: EU / US / AU
+select account type: personal / company
+-->
+</section><section class="slide"><h2>Auth0: Registrierung und Einrichtung</h2>
+<p><em>Application Settings</em>:</p>
+<ul>
+<li>erlaubte Redirect-Ziele zum Abschließen des Logins: <em>Allowed Callback URLs</em></li>
+<li>erlaubte Redirect-Ziele nach dem Logout: <em>Allowed Logout URLs</em></li>
+</ul>
+<p>Beispiel für Callback URLs:</p>
+<pre><code class="hljs language-txt">http://localhost:3000/callback,
+https://mydomain.com/callback
+</code></pre>
+<p>Beispiel für Logout URLs:</p>
+<pre><code class="hljs language-txt">http://localhost:3000,
+https://mydomain.com
+</code></pre>
+</section><section class="slide"><h2>Konfiguration</h2>
+<p>Beispiel für <code>.env</code> Datei für lokale Entwicklung (Quellen auf nächster Slide)</p>
+<pre><code class="hljs language-bash">ISSUER_BASE_URL=https://dev-xxxxxxxx.eu.auth0.com
+CLIENT_ID=jA0EAwMCxamDRMfOGV5gyZPnyX1BBPOQ
+SECRET=7qHciKUpXk7pCXqG45bweRBQxBTMpztB
+BASE_URL=http://localhost:3000
+PORT=3000
+</code></pre>
+</section><section class="slide"><h2>Konfiguration</h2>
+<p>unter <em>Settings</em>:</p>
+<p>jeder Auth0-Klient hat zumindest eine <em>domain</em> (z.B. <em>dev-xxxxxxxx.eu.auth0.com</em>)</p>
+<p>jede App hat eine bestimmte <em>client ID</em> (z.B. <em>jA0EAwMCxamDRMfOGV5gyZPnyX1BBPOQ</em>)</p>
+<p>selbst erstellt:</p>
+<p><em>secret</em>: erstelle eine lange, zufällige Zeichenfolge (empfohlen: mindestens 32 Zeichen)</p>
+</section><section class="slide"><h2>Express und Auth0</h2>
+<p>Guides:</p>
+<p>Guide mit der aktuellsten Library (<em>express-openid-connect</em>): <a href="https://auth0.com/docs/quickstart/webapp/express">https://auth0.com/docs/quickstart/webapp/express</a></p>
+<p>Guide mit älteren (verbreiteteren) Libraries: <a href="https://auth0.com/docs/quickstart/webapp/express">https://auth0.com/docs/quickstart/webapp/express</a></p>
+</section><section class="slide"><h2>Express und Auth0</h2>
+<p>npm-Paket: <em>express-openid-connect</em></p>
+<p>Middleware für Authentifizierung</p>
+<p>stellt automatisch die URLs <em>/login</em>, <em>/logout</em>, <em>/callback</em> bereit</p>
+<pre><code class="hljs language-js">app.use(
+  expressOpenidConnect.auth({
+    <span class="hljs-attr">authRequired</span>: <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">auth0Logout</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">baseURL</span>: process.env.BASE_URL,
+    <span class="hljs-attr">clientID</span>: process.env.CLIENT_ID,
+    <span class="hljs-attr">issuerBaseURL</span>: process.env.ISSUER_BASE_URL,
+    <span class="hljs-attr">secret</span>: process.env.SECRET,
+  })
+);
+</code></pre>
+</section><section class="slide"><h2>Express und Auth0</h2>
+<pre><code class="hljs language-js">app.get(<span class="hljs-string">'/'</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =></span> {
+  <span class="hljs-keyword">if</span> (req.oidc.isAuthenticated()) {
+    res.send(
+      <span class="hljs-string">`&#x3C;p>logged in &#x3C;a href="/logout">log out&#x3C;/a>&#x3C;/p>
+       &#x3C;pre><span class="hljs-subst">${<span class="hljs-built_in">JSON</span>.stringify(req.oidc.user)}</span>&#x3C;/pre>`</span>
+    );
+  } <span class="hljs-keyword">else</span> {
+    res.send(
+      <span class="hljs-string">'&#x3C;div>not logged in &#x3C;a href="/login">log in&#x3C;/a>&#x3C;/div>'</span>
+    );
+  }
+});
+</code></pre></section></section></div>
     </div>
     <script>/*!
  * reveal.js
