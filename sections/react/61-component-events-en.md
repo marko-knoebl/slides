@@ -11,18 +11,41 @@ Event handlers are defined as functions and passed down via props.
 
 ## Custom events
 
-Example: Event `onChange` in the `Rating` component (each star is a `span` element)
+Example:
+
+```jsx
+<Rating value={prodRating} onChange={onProdRatingChange} />
+```
+
+<img src="assets/rating.png" style="width: 16em" />
 
 ## Custom events
 
-```jsx
-const Rating = (props) => {
+example prop types for a rating component:
+
+```tsx
+type Props = {
+  value: number;
+  onChange?: (value: number) => void;
+};
+```
+
+## Custom events
+
+```tsx
+const Rating = (props: Props) => {
   const starIds = [1, 2, 3, 4, 5];
   return (
     <div>
       {starIds.map((id) => (
-        <span onClick={() => props.onChange(id)} key={id}>
-          {id <= props.stars ? '★' : '☆'}
+        <span
+          onClick={() => {
+            // call .onChange if it exists
+            props.onChange?.(id);
+          }}
+          key={id}
+        >
+          {id <= props.value ? '★' : '☆'}
         </span>
       ))}
     </div>
@@ -40,7 +63,7 @@ const [prodRating, setProdRating] = useState(3);
 
 ```jsx
 <Rating
-  stars={prodRating}
+  value={prodRating}
   onChange={(newRating) => setProdRating(newRating)}
 />
 ```
@@ -48,37 +71,5 @@ const [prodRating, setProdRating] = useState(3);
 shorter notation:
 
 ```jsx
-<Rating stars={prodRating} onChange={setProdRating} />
-```
-
-## Custom events
-
-Example `ToggleButton`: Button which displays either "off" or "on":
-
-Prop: `active` - may be set to `true` or `false`  
-Event: `onToggle` - function which is called with the new state
-
-```jsx
-<button
-  onClick={() => {
-    props.onToggle(!props.active);
-  }}
->
-  {props.active ? 'on' : 'off'}
-</button>
-```
-
-## Custom events
-
-The `ToggleButton` can be included like this:
-
-```jsx
-const [myOption, setMyOption] = useState(true);
-
-<ToggleButton
-  active={myOption}
-  onToggle={(newIsActive) => {
-    setMyOption(newIsActive);
-  }}
-/>;
+<Rating value={prodRating} onChange={setProdRating} />
 ```

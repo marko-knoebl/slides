@@ -1,40 +1,40 @@
 # Komponenten-Props
 
-## State & Props
+## State und Props
 
 - State = interner Zustand einer Komponente
 - Props = vom Elternelement übergebene Parameter
 
-## Props in eigenen Komponenten
+## Komponenten-Props
 
 Beispiel:
 
 ```jsx
-<Rating stars={3} />
+<ProgressBar value={0.75} color="green" />
 ```
 
-<img src="assets/rating.png" style="width: 16em" />
+<img src="assets/progress-bar.png" style="width:16em" />
 
-## Props in Funktionskomponenten
+## Komponenten-Props
 
-Beispiel (einfache Rating-Komponente):
+Beispiel für Komponentendefinition mit Props:
 
-```jsx
-const Rating = (props) => (
-  <div className="rating">
-    {'★'.repeat(props.stars) + '☆'.repeat(5 - props.stars)}
-  </div>
-);
+```tsx
+type Props = { value: number; color?: string };
+
+const ProgressBar = (props: Props) => {
+  // ...
+};
 ```
 
-mit destrukturierender Zuweisung für Props:
+## Komponenten-Props
 
-```jsx
-const Rating = ({ stars }) => (
-  <div className="rating">
-    {'★'.repeat(stars) + '☆'.repeat(5 - stars)}
-  </div>
-);
+Komponentendefinition mit Objektdestrukturierung für Props:
+
+```tsx
+const ProgressBar = ({ value, color }: Props) => {
+  // ...
+};
 ```
 
 ## props.children

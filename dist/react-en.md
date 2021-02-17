@@ -52,9 +52,13 @@ one of the 3 big JavaScript UI frameworks (besides Angular, Vue.js)
 
 ## Online editors
 
-recommendation: <https://codesandbox.io>
+recommended:
 
-others:
+<https://codesandbox.io>
+
+has templates for _React_ and _React TypeScript_
+
+other options:
 
 - Glitch: <https://glitch.com/edit/#!/remix/starter-react-template>
 - CodePen: <https://reactjs.org/redirect-to-codepen/hello-world>
@@ -291,7 +295,7 @@ const Counter = () => {
 };
 ```
 
-## Example: Slideshow
+## Exercise: Slideshow
 
 implement a slideshow that shows images like the following:
 
@@ -299,7 +303,13 @@ implement a slideshow that shows images like the following:
 
 - buttons for _previous_ and _next_
 - button for _back to start_
-- prevent the index becoming negative
+- prevent the index from becoming negative
+
+## Exercise: Prime number quiz
+
+Create a quiz that shows an _odd_ number from 1-99. The user has to guess if it is a prime number or not.
+
+Show statistics on correct / incorrect answers the user has given so far.
 
 # JavaScript basics for React
 
@@ -484,6 +494,32 @@ const person = {
 const newPerson = { ...person, email: 'j@d.com', age: 32 };
 // {firstName: 'Joe', lastName: 'Doe', email: 'j@d.com', age: 32}
 ```
+
+## Optional chaining
+
+example for _optional chaining_:
+
+```js
+const userNickname = user?.nickname;
+```
+
+if `user` is defined, get its `.nickname` property, otherwise use `undefined`
+
+"conventional" long form:
+
+```js
+const userNickname = user ? user.nickname : undefined;
+```
+
+## Optional chaining
+
+optional chaining with methods calls:
+
+```js
+onClick?.();
+```
+
+if `onClick` is defined, call it, otherwise evaluate to `undefined`
 
 ## Map and filter
 
@@ -1112,41 +1148,41 @@ see info boxes on _Installation_ und _Usage_
 
 # Component props
 
-## State & props
+## State and props
 
 - state = internal to the component
 - props = parameters that are passed down from the parent
 
-## Props in custom components
+## Component props
 
-Example:
+example:
 
 ```jsx
-<Rating stars={3} />
+<ProgressBar value={0.75} color="green" />
 ```
 
-<img src="assets/rating.png" style="width: 16em" />
+<img src="assets/progress-bar.png" style="width:16em" />
 
-## Props in function components
+## Component props
 
-example (simple Rating component):
+example component definition with props:
 
-```jsx
-const Rating = (props) => (
-  <div className="rating">
-    {'★'.repeat(props.stars) + '☆'.repeat(5 - props.stars)}
-  </div>
-);
+```tsx
+type Props = { value: number; color?: string };
+
+const ProgressBar = (props: Props) => {
+  // ...
+};
 ```
 
-with object destructuring for props:
+## Component props
 
-```jsx
-const Rating = ({ stars }) => (
-  <div className="rating">
-    {'★'.repeat(stars) + '☆'.repeat(5 - stars)}
-  </div>
-);
+component definition with object destructuring for props:
+
+```tsx
+const ProgressBar = ({ value, color }: Props) => {
+  // ...
+};
 ```
 
 ## props.children
@@ -1159,7 +1195,7 @@ Example: a `Bordered` component:
 <Bordered>lorem ipsum</Bordered>
 ```
 
-Defining the component:
+component definition:
 
 ```jsx
 const Bordered = (props) => (
@@ -1180,18 +1216,41 @@ Event handlers are defined as functions and passed down via props.
 
 ## Custom events
 
-Example: Event `onChange` in the `Rating` component (each star is a `span` element)
+Example:
+
+```jsx
+<Rating value={prodRating} onChange={onProdRatingChange} />
+```
+
+<img src="assets/rating.png" style="width: 16em" />
 
 ## Custom events
 
-```jsx
-const Rating = (props) => {
+example prop types for a rating component:
+
+```tsx
+type Props = {
+  value: number;
+  onChange?: (value: number) => void;
+};
+```
+
+## Custom events
+
+```tsx
+const Rating = (props: Props) => {
   const starIds = [1, 2, 3, 4, 5];
   return (
     <div>
       {starIds.map((id) => (
-        <span onClick={() => props.onChange(id)} key={id}>
-          {id <= props.stars ? '★' : '☆'}
+        <span
+          onClick={() => {
+            // call .onChange if it exists
+            props.onChange?.(id);
+          }}
+          key={id}
+        >
+          {id <= props.value ? '★' : '☆'}
         </span>
       ))}
     </div>
@@ -1209,7 +1268,7 @@ const [prodRating, setProdRating] = useState(3);
 
 ```jsx
 <Rating
-  stars={prodRating}
+  value={prodRating}
   onChange={(newRating) => setProdRating(newRating)}
 />
 ```
@@ -1217,39 +1276,7 @@ const [prodRating, setProdRating] = useState(3);
 shorter notation:
 
 ```jsx
-<Rating stars={prodRating} onChange={setProdRating} />
-```
-
-## Custom events
-
-Example `ToggleButton`: Button which displays either "off" or "on":
-
-Prop: `active` - may be set to `true` or `false`  
-Event: `onToggle` - function which is called with the new state
-
-```jsx
-<button
-  onClick={() => {
-    props.onToggle(!props.active);
-  }}
->
-  {props.active ? 'on' : 'off'}
-</button>
-```
-
-## Custom events
-
-The `ToggleButton` can be included like this:
-
-```jsx
-const [myOption, setMyOption] = useState(true);
-
-<ToggleButton
-  active={myOption}
-  onToggle={(newIsActive) => {
-    setMyOption(newIsActive);
-  }}
-/>;
+<Rating value={prodRating} onChange={setProdRating} />
 ```
 
 # Exercises

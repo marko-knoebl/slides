@@ -11,18 +11,41 @@ Eventhandler werden als Funktionen definiert und via props übergeben / erhalten
 
 ## Eigene Events
 
-Beispiel: Event `onChange` der `Rating`-Komponente (jeder Stern ist ein `span`-Element)
+Example:
+
+```jsx
+<Rating value={prodRating} onChange={onProdRatingChange} />
+```
+
+<img src="assets/rating.png" style="width: 16em" />
 
 ## Eigene Events
 
-```jsx
-const Rating = (props) => {
+Beispiel für Prop-Types einer Rating-Komponente:
+
+```tsx
+type Props = {
+  value: number;
+  onChange?: (value: number) => void;
+};
+```
+
+## Eigene Events
+
+```tsx
+const Rating = (props: Props) => {
   const starIds = [1, 2, 3, 4, 5];
   return (
     <div>
       {starIds.map((id) => (
-        <span onClick={() => props.onChange(id)} key={id}>
-          {id <= props.stars ? '★' : '☆'}
+        <span
+          onClick={() => {
+            // call .onChange if it exists
+            props.onChange?.(id);
+          }}
+          key={id}
+        >
+          {id <= props.value ? '★' : '☆'}
         </span>
       ))}
     </div>
@@ -40,7 +63,7 @@ const [prodRating, setProdRating] = useState(3);
 
 ```jsx
 <Rating
-  stars={prodRating}
+  value={prodRating}
   onChange={(newRating) => setProdRating(newRating)}
 />
 ```
@@ -48,37 +71,5 @@ const [prodRating, setProdRating] = useState(3);
 kürzere Schreibweise:
 
 ```jsx
-<Rating stars={prodRating} onChange={setProdRating} />
-```
-
-## Eigene Events
-
-Beispiel `ToggleButton`: Button, der entweder "off" oder "on" anzeigt:
-
-Prop: `active` - kann auf `true` bzw `false` gesetzt sein  
-Event: `onToggle` - Funktion, die mit dem neuen Zustand aufgerufen wird
-
-```jsx
-<button
-  onClick={() => {
-    props.onToggle(!props.active);
-  }}
->
-  {props.active ? 'on' : 'off'}
-</button>
-```
-
-## Eigene Events
-
-Beispiel `ToggleButton`: Der Button muss passend eingebunden werden
-
-```jsx
-const [myOption, setMyOption] = useState(true);
-
-<ToggleButton
-  active={myOption}
-  onToggle={(newIsActive) => {
-    setMyOption(newIsActive);
-  }}
-/>;
+<Rating value={prodRating} onChange={setProdRating} />
 ```

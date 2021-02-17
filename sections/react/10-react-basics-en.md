@@ -2,9 +2,13 @@
 
 ## Online editors
 
-recommendation: <https://codesandbox.io>
+recommended:
 
-others:
+<https://codesandbox.io>
+
+has templates for _React_ and _React TypeScript_
+
+other options:
 
 - Glitch: <https://glitch.com/edit/#!/remix/starter-react-template>
 - CodePen: <https://reactjs.org/redirect-to-codepen/hello-world>

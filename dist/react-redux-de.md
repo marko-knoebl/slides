@@ -72,10 +72,9 @@ Browser-Devtools (F12) → _Redux_ → _State_ → _Chart/Tree_
 
 Websites, die Redux verwenden (wir können den Redux State betrachten):
 
-- airbnb.com (nur Chrome)
 - reddit.com (State-Diagram wird nicht angezeigt)
+- airbnb.com (nur Chrome)
 - dropbox.com (nur Chrome)
-- tesla.com (sehr einfacher State)
 
 ## Redux Devtools
 

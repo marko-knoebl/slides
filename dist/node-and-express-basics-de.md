@@ -456,8 +456,9 @@ installiere _express_, _dotenv_ und eine Template Engine
 
 Template Engines:
 
-- _ejs_
+- _pug_
 - _express-handlebars_
+- _ejs_
 - _express-react-views_, _react_, _react-dom_
 
 ## Erstelle .gitignore-Datei

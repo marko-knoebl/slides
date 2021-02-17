@@ -180,6 +180,32 @@ const newPerson = { ...person, email: 'j@d.com', age: 32 };
 // {firstName: 'Joe', lastName: 'Doe', email: 'j@d.com', age: 32}
 ```
 
+## Optional chaining
+
+example for _optional chaining_:
+
+```js
+const userNickname = user?.nickname;
+```
+
+if `user` is defined, get its `.nickname` property, otherwise use `undefined`
+
+"conventional" long form:
+
+```js
+const userNickname = user ? user.nickname : undefined;
+```
+
+## Optional chaining
+
+optional chaining with methods calls:
+
+```js
+onClick?.();
+```
+
+if `onClick` is defined, call it, otherwise evaluate to `undefined`
+
 ## Map and filter
 
 array methods for functional programming

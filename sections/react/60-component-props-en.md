@@ -1,40 +1,40 @@
 # Component props
 
-## State & props
+## State and props
 
 - state = internal to the component
 - props = parameters that are passed down from the parent
 
-## Props in custom components
+## Component props
 
-Example:
+example:
 
 ```jsx
-<Rating stars={3} />
+<ProgressBar value={0.75} color="green" />
 ```
 
-<img src="assets/rating.png" style="width: 16em" />
+<img src="assets/progress-bar.png" style="width:16em" />
 
-## Props in function components
+## Component props
 
-example (simple Rating component):
+example component definition with props:
 
-```jsx
-const Rating = (props) => (
-  <div className="rating">
-    {'★'.repeat(props.stars) + '☆'.repeat(5 - props.stars)}
-  </div>
-);
+```tsx
+type Props = { value: number; color?: string };
+
+const ProgressBar = (props: Props) => {
+  // ...
+};
 ```
 
-with object destructuring for props:
+## Component props
 
-```jsx
-const Rating = ({ stars }) => (
-  <div className="rating">
-    {'★'.repeat(stars) + '☆'.repeat(5 - stars)}
-  </div>
-);
+component definition with object destructuring for props:
+
+```tsx
+const ProgressBar = ({ value, color }: Props) => {
+  // ...
+};
 ```
 
 ## props.children
@@ -47,7 +47,7 @@ Example: a `Bordered` component:
 <Bordered>lorem ipsum</Bordered>
 ```
 
-Defining the component:
+component definition:
 
 ```jsx
 const Bordered = (props) => (

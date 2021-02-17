@@ -34,10 +34,15 @@ const TodoApp = () => {
     <div>
       ...
       <button
-        onClick={() => dispatch({ type: 'deleteAll' })}>
+        onClick={() => dispatch({ type: 'deleteAll' })}
+      >
         delete all todos
       </button>
     </div>
   );
 };
 ```
+
+## Reducer hook
+
+The powerful _Redux devtools_ may be used with the reducer hook: https://github.com/troch/reinspect (requires some configuration work, manually dispatching actions does not work)

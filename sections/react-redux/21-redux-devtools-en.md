@@ -21,10 +21,9 @@ browser-devtools (F12) → _Redux_ → _State_ → _Chart/Tree_
 
 websites that use Redux (we can inspect the Redux state):
 
-- airbnb.com (Chrome only)
 - reddit.com (state chart doesn't display)
+- airbnb.com (Chrome only)
 - dropbox.com (Chrome only)
-- tesla.com (very simple state)
 
 ## Redux devtools
 

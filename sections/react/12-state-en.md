@@ -52,7 +52,7 @@ const Counter = () => {
 };
 ```
 
-## Example: Slideshow
+## Exercise: Slideshow
 
 implement a slideshow that shows images like the following:
 
@@ -60,4 +60,10 @@ implement a slideshow that shows images like the following:
 
 - buttons for _previous_ and _next_
 - button for _back to start_
-- prevent the index becoming negative
+- prevent the index from becoming negative
+
+## Exercise: Prime number quiz
+
+Create a quiz that shows an _odd_ number from 1-99. The user has to guess if it is a prime number or not.
+
+Show statistics on correct / incorrect answers the user has given so far.

@@ -52,9 +52,13 @@
 
 ## Online Editoren
 
-Empfehlung: <https://codesandbox.io>
+Empfehlung:
 
-andere:
+<https://codesandbox.io>
+
+hat Templates für _React_ und _React TypeScript_
+
+andere Optionen:
 
 - Glitch: <https://glitch.com/edit/#!/remix/starter-react-template>
 - CodePen: <https://reactjs.org/redirect-to-codepen/hello-world>
@@ -291,7 +295,7 @@ const Counter = () => {
 };
 ```
 
-## Beispiel: Slideshow
+## Übung: Slideshow
 
 Slideshow, die Bilder wie das folgende anzeigt:
 
@@ -300,6 +304,12 @@ Slideshow, die Bilder wie das folgende anzeigt:
 - Buttons für _vorwärts_ und _zurück_
 - Button für _zurück zum Start_
 - Verhindern, dass ins negative gezählt wird
+
+## Übung: Primzahl-Quiz
+
+Erstelle ein Quiz, dass zu einer _ungeraden_ Zahl im Bereich 1-99 abfragt, ob diese eine Primzahl ist.
+
+Zeige eine Statistik zu den korrekten / inkorrekten bisherigen Anwtorten.
 
 # JavaScript-Grundlagen für React
 
@@ -484,6 +494,32 @@ const person = {
 const newPerson = { ...person, email: 'j@d.com', age: 32 };
 // {firstName: 'Joe', lastName: 'Doe', email: 'j@d.com', age: 32}
 ```
+
+## Optional Chaining
+
+Beispiel für _optional chaining_:
+
+```js
+const userNickname = user?.nickname;
+```
+
+wenn `user` definiert ist, lies dessen `.nickname` Property, andernfalls verwende `undefined`
+
+"konventionelle" Langform:
+
+```js
+const userNickname = user ? user.nickname : undefined;
+```
+
+## Optional Chaining
+
+_Optional chaining_ mit Funktionsaufrufen:
+
+```js
+onClick?.();
+```
+
+wenn `onClick` definiert ist, wird es aufgerufen, andernfalls wird der Ausdruck zu `undefined` ausgewertet
 
 ## Map und filter
 
@@ -1106,41 +1142,41 @@ siehe Info-Boxen zu _Installation_ und _Usage_
 
 # Komponenten-Props
 
-## State & Props
+## State und Props
 
 - State = interner Zustand einer Komponente
 - Props = vom Elternelement übergebene Parameter
 
-## Props in eigenen Komponenten
+## Komponenten-Props
 
 Beispiel:
 
 ```jsx
-<Rating stars={3} />
+<ProgressBar value={0.75} color="green" />
 ```
 
-<img src="assets/rating.png" style="width: 16em" />
+<img src="assets/progress-bar.png" style="width:16em" />
 
-## Props in Funktionskomponenten
+## Komponenten-Props
 
-Beispiel (einfache Rating-Komponente):
+Beispiel für Komponentendefinition mit Props:
 
-```jsx
-const Rating = (props) => (
-  <div className="rating">
-    {'★'.repeat(props.stars) + '☆'.repeat(5 - props.stars)}
-  </div>
-);
+```tsx
+type Props = { value: number; color?: string };
+
+const ProgressBar = (props: Props) => {
+  // ...
+};
 ```
 
-mit destrukturierender Zuweisung für Props:
+## Komponenten-Props
 
-```jsx
-const Rating = ({ stars }) => (
-  <div className="rating">
-    {'★'.repeat(stars) + '☆'.repeat(5 - stars)}
-  </div>
-);
+Komponentendefinition mit Objektdestrukturierung für Props:
+
+```tsx
+const ProgressBar = ({ value, color }: Props) => {
+  // ...
+};
 ```
 
 ## props.children
@@ -1174,18 +1210,41 @@ Eventhandler werden als Funktionen definiert und via props übergeben / erhalten
 
 ## Eigene Events
 
-Beispiel: Event `onChange` der `Rating`-Komponente (jeder Stern ist ein `span`-Element)
+Example:
+
+```jsx
+<Rating value={prodRating} onChange={onProdRatingChange} />
+```
+
+<img src="assets/rating.png" style="width: 16em" />
 
 ## Eigene Events
 
-```jsx
-const Rating = (props) => {
+Beispiel für Prop-Types einer Rating-Komponente:
+
+```tsx
+type Props = {
+  value: number;
+  onChange?: (value: number) => void;
+};
+```
+
+## Eigene Events
+
+```tsx
+const Rating = (props: Props) => {
   const starIds = [1, 2, 3, 4, 5];
   return (
     <div>
       {starIds.map((id) => (
-        <span onClick={() => props.onChange(id)} key={id}>
-          {id <= props.stars ? '★' : '☆'}
+        <span
+          onClick={() => {
+            // call .onChange if it exists
+            props.onChange?.(id);
+          }}
+          key={id}
+        >
+          {id <= props.value ? '★' : '☆'}
         </span>
       ))}
     </div>
@@ -1203,7 +1262,7 @@ const [prodRating, setProdRating] = useState(3);
 
 ```jsx
 <Rating
-  stars={prodRating}
+  value={prodRating}
   onChange={(newRating) => setProdRating(newRating)}
 />
 ```
@@ -1211,39 +1270,7 @@ const [prodRating, setProdRating] = useState(3);
 kürzere Schreibweise:
 
 ```jsx
-<Rating stars={prodRating} onChange={setProdRating} />
-```
-
-## Eigene Events
-
-Beispiel `ToggleButton`: Button, der entweder "off" oder "on" anzeigt:
-
-Prop: `active` - kann auf `true` bzw `false` gesetzt sein  
-Event: `onToggle` - Funktion, die mit dem neuen Zustand aufgerufen wird
-
-```jsx
-<button
-  onClick={() => {
-    props.onToggle(!props.active);
-  }}
->
-  {props.active ? 'on' : 'off'}
-</button>
-```
-
-## Eigene Events
-
-Beispiel `ToggleButton`: Der Button muss passend eingebunden werden
-
-```jsx
-const [myOption, setMyOption] = useState(true);
-
-<ToggleButton
-  active={myOption}
-  onToggle={(newIsActive) => {
-    setMyOption(newIsActive);
-  }}
-/>;
+<Rating value={prodRating} onChange={setProdRating} />
 ```
 
 # Übungen

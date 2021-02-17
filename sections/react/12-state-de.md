@@ -52,7 +52,7 @@ const Counter = () => {
 };
 ```
 
-## Beispiel: Slideshow
+## Übung: Slideshow
 
 Slideshow, die Bilder wie das folgende anzeigt:
 
@@ -61,3 +61,9 @@ Slideshow, die Bilder wie das folgende anzeigt:
 - Buttons für _vorwärts_ und _zurück_
 - Button für _zurück zum Start_
 - Verhindern, dass ins negative gezählt wird
+
+## Übung: Primzahl-Quiz
+
+Erstelle ein Quiz, dass zu einer _ungeraden_ Zahl im Bereich 1-99 abfragt, ob diese eine Primzahl ist.
+
+Zeige eine Statistik zu den korrekten / inkorrekten bisherigen Anwtorten.

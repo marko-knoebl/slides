@@ -908,13 +908,18 @@ const TodoApp = () => {
     <div>
       ...
       <button
-        onClick={() => dispatch({ type: 'deleteAll' })}>
+        onClick={() => dispatch({ type: 'deleteAll' })}
+      >
         delete all todos
       </button>
     </div>
   );
 };
 ```
+
+## Reducer hook
+
+The powerful _Redux devtools_ may be used with the reducer hook: <https://github.com/troch/reinspect> (requires some configuration work, manually dispatching actions does not work)
 
 # Styling tools
 
@@ -1235,6 +1240,12 @@ const isEmail = (email) =>
   email.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i);
 ```
 
+<!--
+related sections in:
+- react-advanced
+- node-and-express-intermediate
+-->
+
 # User authentication with an identity provider
 
 ## Identity provider
@@ -1253,17 +1264,26 @@ mechanism for the user:
 
 user clicks on _login_, is redirected to a login page, and then sent back to the original site once logged in
 
-in the background the user will receive an _identity token_, a small piece of data that can prove their identity with the identity provider
+in the background the user will receive an _identity token_, a piece of data that can prove their identity with the identity provider
+
+## Identity provider
+
+standards:
+
+- authorization via _OAuth2_
+- authentication via _OpenID Connect_
 
 ## Auth0
 
 **Auth0** (_auth-zero_) is a widely-used identity provider
 
+supports authentication via "internal" accounts or external identity providers (e.g. _Google_, _Apple_, _Facebook_, ...)
+
 ## Auth0: Registration and setup
 
 - register for an Auth0 account on <https://auth0.com>
 - in the sidebar, select "Applications"
-- select the default application or create a new "Single Page Web Application"
+- select the default application or create a new "Single Page Web Application"; the selected name will be shown to users when they authenticate
 
 <!--
 registration details:
@@ -1285,7 +1305,7 @@ for local development, set all three to _http&#x3A;//localhost:3000_
 
 under _Settings_:
 
-each Auth0 registrant has at least one domain ( e.g. _dev-xxxxxxxx.eu.auth0.com_)
+each Auth0 registrant has at least one domain (e.g. _dev-xxxxxxxx.eu.auth0.com_)
 
 each app has a specific client ID (e.g. _jA0EAwMCxamDRMfOGV5gyZPnyX1BBPOQ_)
 
