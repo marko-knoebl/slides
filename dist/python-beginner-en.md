@@ -48,19 +48,27 @@ if a * b > 10:
 
 ## Installation on Windows
 
-**option 1**: download from the Windows store
+Download from <https://python.org>
 
-**option 2**: download from <https://python.org> (during installation, check the option "Add Python 3.x to PATH")
+during installation, check the option "Add Python 3.x to PATH"
 
 <!--
-Python zu path hinzufügen
+adding to path
 
 program "environment variables" / "Umgebungsvariablen für dieses Konto bearbeiten"
-zu PATH hinzufügen:
+add to PATH:
 
-für Anaconda:
+for Anaconda:
 C:\Users\Marko\Anaconda3
 C:\Users\Marko\Anaconda3\Scripts
+-->
+
+<!--
+why not use windows store version?
+
+- does not automatically resolve the maximum path limit (260 characters)
+  manual fix: regedit: set `HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\FileSystem\LongPathsEnabled` to `1`
+- does not put executables on PATH (instead of "flask" we have to run "python -m flask")
 -->
 
 ## Installation on Windows

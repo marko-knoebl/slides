@@ -135,7 +135,7 @@ Task: Import the following data sources, ensuring the data is formatted nicely:
 - S&P 500 monthly prices (US stock index): <https://datahub.io/core/s-and-p-500/r/data.csv>
 - Exchange rates: <https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv>
 - Iris dataset (statistics of leaf sizes for iris flowers): <https://raw.githubusercontent.com/mwaskom/seaborn-data/master/iris.csv>
-- Titanic passenger data: <https://raw.githubusercontent.com/mwaskom/seaborn-data/master/titanic.csv>
+- Titanic passenger data: <https://public.opendatasoft.com/explore/dataset/titanic-passengers/download>
 
 ## Importing CSV
 
@@ -155,7 +155,8 @@ iris = pd.read_csv(
     "https://raw.githubusercontent.com/mwaskom/seaborn-data/master/iris.csv"
 )
 titanic = pd.read_csv(
-    "https://raw.githubusercontent.com/mwaskom/seaborn-data/master/titanic.csv"
+    "https://public.opendatasoft.com/explore/dataset/titanic-passengers/download",
+    sep=";",
 )
 ```
 
