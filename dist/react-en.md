@@ -32,9 +32,13 @@ one of the 3 big JavaScript UI frameworks (besides Angular, Vue.js)
 - data flow via props and events
 - usually unidirectional dataflow (from parent to child)
 
-## Example: data model and data flow in a todo app
+## Example: components and state in a todo app
 
-<img src="assets/todo-components-datamodel.svg" />
+<img src="assets/todo-components-state.svg" />
+
+## Example: props and events in a todo app
+
+<img src="assets/todo-components-state-props-events.svg" />
 
 ## What makes React special?
 
@@ -771,19 +775,19 @@ const newTodos = produce(todos, (todosDraft) => {
 });
 ```
 
-# Inputs & forms
+# Text inputs and forms
 
-## Inputs
+## Text inputs
 
 In the context of React, input elements are special:
 
-Their properties (especially `.value`) can be directly modified by the user
+Their properties (especially `.value`) can be modified directly by the user
 
 Therefore there would be aspects of the UI state which would not be captured in the React state.
 
-## Inputs
+## Text inputs
 
-This is how we can capture changes and track them in the state:
+This is how we can capture the value of an input and track it in the state:
 
 ```jsx
 <input
@@ -796,48 +800,207 @@ This is how we can capture changes and track them in the state:
 
 ## Form actions
 
-Default behaviour of a form when submitted: directly send data to the server
+Default behavior of a form when submitted: directly send data to the server
 
-Replacing the default behaviour:
+Replacing the default behavior:
 
 ```jsx
 <form
   onSubmit={(event) => {
     event.preventDefault();
-    // handle submit
+    // handle submit with custom logic
   }}
 >
-  <input />
+  ...
 </form>
 ```
 
-## Form validation
+# Other input types
 
-Form validation "by hand":
+## Other input types
+
+- textarea
+- checkbox
+- dropdown
+- numeric input
+- ...
+
+## Examples: textarea and checkbox
+
+textarea:
+
+```jsx
+<textarea
+  value={message}
+  onChange={(e) => setMessage(e.target.value)}
+/>
+```
+
+checkbox:
+
+```jsx
+<input
+  type="checkbox"
+  checked={accept}
+  onChange={(e) => setAccept(e.target.checked)}
+/>
+```
+
+## Example: dropdown
+
+dropdown with hard-coded options:
+
+```jsx
+<select
+  value={unit}
+  onChange={(e) => setUnit(e.target.value)}
+>
+  <option value="px">px</option>
+  <option value="em">em</option>
+  <option value="%">%</option>
+</select>
+```
+
+## Example: dropdown
+
+dropdown with options from an array:
+
+```jsx
+const UnitDropdown = () => {
+  const units = ['px', 'em', '%'];
+  const [unit, setUnit] = useState(units[0]);
+  return (
+    <select
+      value={unit}
+      onChange={(e) => setUnit(e.target.value)}
+    >
+      {units.map((u) => (
+        <option value={u} key={u}>
+          {u}
+        </option>
+      ))}
+    </select>
+  );
+};
+```
+
+## Numeric input fields
+
+The value of a numeric input field should usually be stored as a string (not as a number)
+
+Reasoning: possible contents of a numeric input field (while the user is typing):
+
+```txt
+""
+"-"
+"-3"
+"-3."
+"-3.0"
+```
+
+## Numeric inputs with direct "results"
+
+example: keeping the content of a numeric input field as a string, updating an associated numeric value whenever possible:
+
+```jsx
+const FontSizeDemo = () => {
+  const [size, setSize] = useState(16);
+  const [sizeStr, setSizeStr] = useState(size.toString());
+  const updateSize = (newSizeStr) => {
+    setSizeStr(newSizeStr);
+    // source: https://stackoverflow.com/questions/18082
+    if (!isNaN(parseFloat(n)) && isFinite(n)) {
+      setSize(Number(newSizeStr));
+    }
+  };
+  return (
+    <div>
+      <input
+        type="number"
+        value={sizeStr}
+        onChange={(event) => updateSize(event.target.value)}
+      />
+      <div style={{ fontSize: size }}>Sample text</div>
+    </div>
+  );
+};
+```
+
+# Input validation
+
+## Input validation
+
+When can a form input be validated?
+
+- when the form is submitted (on submit)
+- when the input loses focus (on blur)
+- on every value change (on change)
+
+The best approach depends on the use case
+
+## Validation: examples
+
+validation on every change:
 
 ```js
-const NewsletterRegistration = () => {
+const NewsletterSignup = () => {
   const [email, setEmail] = useState('');
-  const [emailEdited, setEmailEdited] = useState(false);
-  const emailInvalid = !isEmail(email);
+  const emailValid = isEmail(email);
+
+  // ...
+  // display a form
+  // and optionally a warning about an invalid email
+};
+```
+
+## Validation: examples
+
+validation on blur / on change:
+
+```js
+const NewsletterSignup = () => {
+  const [email, setEmail] = useState('');
+  const [emailValid, setEmailValid] = useState(true);
+  // call from onBlur / onChange:
+  const validateEmail = () => {
+    setEmailValid(isEmail(email));
+  };
+
+  // ...
+  // display a form
+  // and optionally a warning about an invalid email
+};
+```
+
+## Validation: examples
+
+full example: validation on blur and on submit
+
+```js
+const NewsletterSignup = () => {
+  const [email, setEmail] = useState('');
+  const [emailValid, setEmailValid] = useState(true);
+  const validateEmail = () => {
+    setEmailValid(isEmail(email));
+  };
+
   return (
     <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        console.log(email);
+      onSubmit={(event) => {
+        event.preventDefault();
+        validateEmail();
+        if (isEmail(email)) {
+          console.log(`Signed up: ${email}`);
+        }
       }}
     >
       <input
-        type="email"
-        name="email"
         value={email}
         onChange={(event) => setEmail(event.target.value)}
-        onBlur={() => setEmailEdited(true)}
+        onBlur={() => validateEmail()}
       />
-      <button disabled={emailInvalid}>subscribe</button>
-      {emailEdited && emailInvalid ? (
-        <div>invalid email</div>
-      ) : null}
+      <button>sign up</button>
+      {!emailValid ? <div>invalid email</div> : null}
     </form>
   );
 };
@@ -845,6 +1008,12 @@ const NewsletterRegistration = () => {
 const isEmail = (email) =>
   email.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i);
 ```
+
+## Validation
+
+more complex validation schemas are possible
+
+example: initial validation of an input on its first _blur_, then live validation on each _change_
 
 # React developer tools
 

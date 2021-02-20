@@ -26,9 +26,9 @@
   - Strings und Stringverarbeitung
   - Bytes
   - Sequences
-- Erstellen von Listen und Dictionaries mittels Comprehensions
 - objektorientierte Programmierung und Klassen
 - Fortgeschrittenes Verwenden von Kontrollstrukturen
+- Erstellen von Listen und Dictionaries mittels Comprehensions
 - Auslösen und Abfangen von Exceptions
 - Module und Pakete
 - Paketverwaltung in Python

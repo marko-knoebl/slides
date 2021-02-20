@@ -20,9 +20,13 @@
 - Datenfluss via Properties und Events
 - Üblicherweise unidirektionaler Datenfluss (vom Eltern- zum Kindelement)
 
-## Beispiel: Datenmodell und -fluss in einer Todo-App
+## Beispiel: Komponenten und State in einer Todo-App
 
-<img src="assets/todo-components-datamodel.svg" />
+<img src="assets/todo-components-state.svg" />
+
+## Beispiel: Props und Events in einer Todo-App
+
+<img src="assets/todo-components-state-props-events.svg" />
 
 ## Was macht React besonders?
 

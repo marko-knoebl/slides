@@ -34,9 +34,13 @@ one of the 3 big JavaScript UI frameworks (besides React, Angular)
 - data flow via props and events
 - usually unidirectional data flow (from parent to child)
 
-## Example: data model and data flow in a todo app
+## Example: components and state in a todo app
 
-<img src="assets/todo-components-datamodel.svg" />
+<img src="assets/todo-components-state.svg" />
+
+## Example: props and events in a todo app
+
+<img src="assets/todo-components-state-props-events.svg" />
 
 ## What makes Vue special?
 

@@ -28,9 +28,9 @@ usually 2 days
   - strings and string processing
   - bytes
   - sequences
-- creating lists and dictionaries via comprehensions
 - object oriented programming and classes
 - advanced use of control structures
+- creating lists and dictionaries via comprehensions
 - throwing and catching exceptions
 - modules and packages
 - package management in Python

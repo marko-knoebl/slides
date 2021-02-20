@@ -32,9 +32,13 @@
 - Datenfluss via Properties und Events
 - Üblicherweise unidirektionaler Datenfluss (vom Eltern- zum Kindelement)
 
-## Beispiel: Datenmodell und -fluss in einer Todo-App
+## Beispiel: Komponenten und State in einer Todo-App
 
-<img src="assets/todo-components-datamodel.svg" />
+<img src="assets/todo-components-state.svg" />
+
+## Beispiel: Props und Events in einer Todo-App
+
+<img src="assets/todo-components-state-props-events.svg" />
 
 ## Was macht React besonders?
 
@@ -765,19 +769,19 @@ const newTodos = produce(todos, (todosDraft) => {
 });
 ```
 
-# Inputs & Formulare
+# Text-Inputs und Formulare
 
-## Inputs
+## Text-Inputs
 
 Besonderheit von input-Elementen:
 
 Ihre Properties (insbesondere `.value`) können durch User-Interaktionen direkt geändert werden
 
-Es gäbe damit Aspekte des UI-Zustands, die von Haus aus nicht im state erfasst wären
+Es gäbe damit Aspekte des UI-Zustands, die von Haus aus nicht im State erfasst wären
 
-## Inputs
+## Text-Inputs
 
-So können wir den Value eines Inputs im State erfassen:
+So können wir den Wert eines Inputs im State erfassen:
 
 ```jsx
 <input
@@ -798,40 +802,199 @@ Ersetzen des Standardverhaltens:
 <form
   onSubmit={(event) => {
     event.preventDefault();
-    // handle submit
+    // handle submit with custom logic
   }}
 >
-  <input />
+  ...
 </form>
 ```
 
-## Formular-Validierung
+# Andere Inputs
 
-"manuelle" Validierung:
+## Andere Inputs
+
+- textarea
+- checkbox
+- dropdown
+- numeric input
+- ...
+
+## Beispiele: textarea und checkbox
+
+textarea:
+
+```jsx
+<textarea
+  value={message}
+  onChange={(e) => setMessage(e.target.value)}
+/>
+```
+
+checkbox:
+
+```jsx
+<input
+  type="checkbox"
+  checked={accept}
+  onChange={(e) => setAccept(e.target.checked)}
+/>
+```
+
+## Beispiel: Dropdown
+
+Dropdown mit festen Optionen:
+
+```jsx
+<select
+  value={unit}
+  onChange={(e) => setUnit(e.target.value)}
+>
+  <option value="px">px</option>
+  <option value="em">em</option>
+  <option value="%">%</option>
+</select>
+```
+
+## Beispiel: Dropdown
+
+Dropdown mit Optionen aus einem Array:
+
+```jsx
+const UnitDropdown = () => {
+  const units = ['px', 'em', '%'];
+  const [unit, setUnit] = useState(units[0]);
+  return (
+    <select
+      value={unit}
+      onChange={(e) => setUnit(e.target.value)}
+    >
+      {units.map((u) => (
+        <option value={u} key={u}>
+          {u}
+        </option>
+      ))}
+    </select>
+  );
+};
+```
+
+## Numerische Inputs
+
+Der Wert eines numerischen Inputs sollte üblicherweise als string gespeichert werden (nicht als Zahl)
+
+Grund: mögliche Inhalte eines Numerischen Inputs (während der Benutzer tippt):
+
+```txt
+""
+"-"
+"-3"
+"-3."
+"-3.0"
+```
+
+## Numerische Inputs mit direkten "Auswirkungen"
+
+Beispiel: Speichern des numerischen Inhalts eines Inputs als ein String, aktualisieren eines zugehörigen numerischen Wertes, wenn dies möglich ist:
+
+```jsx
+const FontSizeDemo = () => {
+  const [size, setSize] = useState(16);
+  const [sizeStr, setSizeStr] = useState(size.toString());
+  const updateSize = (newSizeStr) => {
+    setSizeStr(newSizeStr);
+    // source: https://stackoverflow.com/questions/18082
+    if (!isNaN(parseFloat(n)) && isFinite(n)) {
+      setSize(Number(newSizeStr));
+    }
+  };
+  return (
+    <div>
+      <input
+        type="number"
+        value={sizeStr}
+        onChange={(event) => updateSize(event.target.value)}
+      />
+      <div style={{ fontSize: size }}>Sample text</div>
+    </div>
+  );
+};
+```
+
+# Input-Validierung
+
+## Input-Validierung
+
+Wann kann ein Input validiert werden?
+
+- wenn das Formular _submittet_ wird (_submit_)
+- wenn ein Eingabefeld den Fokus verliert (_blur_)
+- bei jeder Änderung eines Wertes (_change_)
+
+Der beste Zugang hängt vom Anwendungsfall ab
+
+## Validierung: Beispiele
+
+Validierung bei jeder Änderung:
 
 ```js
-const NewsletterRegistration = () => {
+const NewsletterSignup = () => {
   const [email, setEmail] = useState('');
-  const [emailEdited, setEmailEdited] = useState(false);
-  const emailInvalid = !isEmail(email);
+  const emailValid = isEmail(email);
+
+  // ...
+  // display a form
+  // and optionally a warning about an invalid email
+};
+```
+
+## Validierung: Beispiele
+
+Validierung bei _blur_ bzw _change_:
+
+```js
+const NewsletterSignup = () => {
+  const [email, setEmail] = useState('');
+  const [emailValid, setEmailValid] = useState(true);
+  // call from onBlur / onChange:
+  const validateEmail = () => {
+    setEmailValid(isEmail(email));
+  };
+
+  // ...
+  // display a form
+  // and optionally a warning about an invalid email
+};
+```
+
+## Validierung: Beispiele
+
+vollständiges Beispiel: Validierung bei _blur_ und _submit_
+
+```js
+const NewsletterSignup = () => {
+  const [email, setEmail] = useState('');
+  const [emailValid, setEmailValid] = useState(true);
+  const validateEmail = () => {
+    setEmailValid(isEmail(email));
+  };
+
   return (
     <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        console.log(email);
+      onSubmit={(event) => {
+        event.preventDefault();
+        validateEmail();
+        if (isEmail(email)) {
+          console.log(`Signed up: ${email}`);
+        }
       }}
     >
       <input
-        type="email"
-        name="email"
         value={email}
         onChange={(event) => setEmail(event.target.value)}
-        onBlur={() => setEmailEdited(true)}
+        onBlur={() => validateEmail()}
       />
-      <button disabled={emailInvalid}>subscribe</button>
-      {emailEdited && emailInvalid ? (
-        <div>invalid email</div>
-      ) : null}
+      <button>sign up</button>
+      {!emailValid ? <div>invalid email</div> : null}
     </form>
   );
 };
@@ -839,6 +1002,12 @@ const NewsletterRegistration = () => {
 const isEmail = (email) =>
   email.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i);
 ```
+
+## Validierung
+
+komplexere Schemata zur Validierung sind möglich
+
+Beispiel: erste Validierung eines Feldes beim ersten _blur_, danach live-Validierung bei jedem _change_
 
 # React Developer Tools
 
