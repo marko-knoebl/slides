@@ -1,22 +1,18 @@
 # React
 
-## Topics
+## Major topics
 
-- overview of React
-- JS basics for React
-- declarative rendering / working with state
-- JSX template language
-- using predefined components
-- defining custom components
-- querying web APIs from components
+- state (declarative rendering)
+- components (custom HTML tags)
+- JSX (template language)
 
-# React.js overview
+# React overview
 
 ## What is React?
 
-one of the 3 big JavaScript UI frameworks (besides Angular, Vue.js)
+one of the 3 big JavaScript UI libraries / frameworks (besides Angular, Vue.js)
 
-## Basics of modern JavaScript UI frameworks
+## Basics of modern JavaScript UI libraries
 
 - declarative
 - component-based
@@ -42,9 +38,9 @@ one of the 3 big JavaScript UI frameworks (besides Angular, Vue.js)
 
 ## What makes React special?
 
-- JavaScript-based template syntax
+- JavaScript-based template syntax: JSX
 - explicit state changes via setters
-- immutable state objects
+- immutable (unchangeable) state objects
 
 ## History of React
 
@@ -52,7 +48,7 @@ one of the 3 big JavaScript UI frameworks (besides Angular, Vue.js)
 - February 2019: introduction of hooks
 - upcoming additions: [suspense for data fetching](https://reactjs.org/docs/concurrent-mode-suspense.html) and [concurrent mode](https://reactjs.org/docs/concurrent-mode-intro.html)
 
-# React Basics
+# Online editors
 
 ## Online editors
 
@@ -62,63 +58,286 @@ recommended:
 
 has templates for _React_ and _React TypeScript_
 
+## Online editors
+
 other options:
 
 - Glitch: <https://glitch.com/edit/#!/remix/starter-react-template>
 - CodePen: <https://reactjs.org/redirect-to-codepen/hello-world>
 
-## Example component definition
+# Basic example
+
+## Basic example
+
+example _slideshow_ app that demonstrates:
+
+- component definition as a function
+- component state (image id)
+- JSX template language: mix of JavaScript and XML
+
+## Basic example
 
 ```jsx
 import React, { useState } from 'react';
 
-function CounterApp() {
-  const [count, setCount] = useState(0);
-
-  return (
-    <div>
-      count: {count}
-      <button onClick={() => setCount(count + 1)}>+</button>
-    </div>
-  );
-}
-
-export default CounterApp;
-```
-
-## Example component definition
-
-```jsx
-import React, { useState } from 'react';
-
+const baseUrl = 'https://picsum.photos/300/200?image=';
 function SlideshowApp() {
   const [img, setImg] = useState(0);
   return (
     <div>
+      <h1>Image {img}</h1>
       <button onClick={() => setImg(0)}>start</button>
       <button onClick={() => setImg(img - 1)}>prev</button>
-      <img
-        src={`https://picsum.photos/200?image=${img}`}
-        alt="slideshow"
-      />
+      <img src={baseUrl + img.toString()} />
       <button onClick={() => setImg(img + 1)}>next</button>
     </div>
   );
 }
-
 export default SlideshowApp;
 ```
 
-## Function components and class components
+can be tried on <https://codesandbox.io>
 
-options:
+# JavaScript basics for React
 
-- defining a component as a function
-- defining a component as a class (was especially common / necessary before the introduction of hooks)
+## JavaScript standardization
 
-## Component definition
+JavaScript is standardized under the name [_ECMAScript_ (ES)](https://www.ecma-international.org/ecma-262/)
 
-In order to distinguish them from ordinary tags, components start with a capital letter
+## JavaScript versions
+
+_ES5_: Supported by all browsers, including Internet Explorer (standardized in 2009)
+
+Since 2015: yearly updates in June of each year (ES2015, ES2016, ...)
+
+Common practice: Modern JavaScript is transpiled to older versions with more support (via Babel, webpack)
+
+## Imports and exports
+
+named imports and exports:
+
+```js
+// mymodule.js
+const foo = 1;
+const bar = 2;
+const baz = 3;
+
+export { foo, bar, baz };
+```
+
+```js
+// index.js
+import { foo, bar } from 'mymodule.js';
+```
+
+## Imports and exports
+
+there may be one default export
+
+```js
+// mymodule.js
+const foo = 1;
+const bar = 2;
+const baz = 3;
+
+export { foo, bar, baz };
+
+const main = 0;
+
+export default main;
+```
+
+```js
+// index.js
+import main, { foo, bar } from 'mymodule.js';
+```
+
+## Imports in webpack
+
+Bundlers like webpack can deviate from standard JavaScript import behavior:
+
+- the import does not require a file name extension like `.js`
+- if the import leads to a folder webpack will look for an `index.js` file in the folder
+
+## Arrow functions
+
+- short notation for anonymous functions
+- leaves _this_ unchanged (does not reassign)
+
+```js
+const multiply = (a, b) => {
+  return a * b;
+};
+
+const multiply = (a, b) => a * b;
+```
+
+## Arrow functions
+
+if we want to return an object directly: wrap it in parentheses
+
+```js
+const getState = () => ({
+  loggedIn: true,
+  userName: 'mike',
+});
+```
+
+## Template strings
+
+- syntax for _creating_ strings
+- delimited via backticks
+- enables multiline string literals and interpolation
+
+```js
+const name = 'Mike';
+const greeting = `Hello, ${name}!
+                  This is ES2015!`;
+```
+
+## The semicolon in JavaScript
+
+The semicolon for ending statements is mostly optional in JavaScript (JavaScript "features" automatic semicolon insertion)
+
+<!-- prettier-ignore -->
+
+```js
+const a = 3
+console.log(a)
+```
+
+is treated as:
+
+```js
+const a = 3;
+console.log(a);
+```
+
+## The semicolon in JavaScript
+
+Sometimes the behavior is not as intended:
+
+<!-- prettier-ignore -->
+
+```jsx
+const Foo = () => {
+  return
+    <div>
+      <h1>some content</h1>
+    </div>;
+};
+```
+
+would be treated as:
+
+```jsx
+const Foo = () => {
+  return;
+  <div>
+    <h1>some content</h1>
+  </div>;
+};
+```
+
+## Destructuring
+
+```js
+const [result, errors] = someComputation();
+
+// swapping values
+let a = 1;
+let b = 2;
+[a, b] = [b, a];
+```
+
+## Destructuring
+
+```js
+const person = { name: 'John', age: 48 };
+const { name, age } = person;
+
+const TodoItem = ({ title, completed }) => (
+  <div>
+    {completed ? 'DONE: ' : 'TODO: '}
+    {title}
+  </div>
+);
+```
+
+## Spread syntax (arrays and objects)
+
+```js
+const squares = [1, 4, 9];
+const moreSquares = [...squares, 16, 25];
+// moreSquares: [1, 4, 9, 16, 25]
+```
+
+```js
+const person = {
+  firstName: 'Joe',
+  lastName: 'Doe',
+  age: 31,
+};
+const newPerson = { ...person, email: 'j@d.com', age: 32 };
+// {firstName: 'Joe', lastName: 'Doe', email: 'j@d.com', age: 32}
+```
+
+## Optional chaining
+
+example for _optional chaining_:
+
+```js
+const userNickname = user?.nickname;
+```
+
+if `user` is defined, get its `.nickname` property, otherwise use `undefined`
+
+"conventional" long form:
+
+```js
+const userNickname = user ? user.nickname : undefined;
+```
+
+## Optional chaining
+
+optional chaining with methods calls:
+
+```js
+props.onClick?.();
+```
+
+if `props.onClick` is defined, call it, otherwise evaluate to `undefined`
+
+## Map and filter
+
+array methods for functional programming
+
+## Map
+
+- modifies each entry in an array via a function
+- returns a new array
+
+```js
+const myNumbers = [1, 2, 3, 4];
+
+const tripledNumbers = myNumbers.map((n) => 3 * n);
+// [3, 6, 9, 12]
+```
+
+## Filter
+
+- only keeps specific entries in an array
+- uses a function to check entries for a specific condition
+- returns a new array
+
+```js
+const myNumbers = [1, 2, 3, 4];
+
+const isEven = (n) => n % 2 === 0;
+
+const evenNumbers = myNumbers.filter(isEven);
+// [2, 4]
+```
 
 # JSX Basics
 
@@ -314,247 +533,6 @@ implement a slideshow that shows images like the following:
 Create a quiz that shows an _odd_ number from 1-99. The user has to guess if it is a prime number or not.
 
 Show statistics on correct / incorrect answers the user has given so far.
-
-# JavaScript basics for React
-
-## JavaScript standardization
-
-JavaScript is standardized under the name [_ECMAScript_ (ES)](https://www.ecma-international.org/ecma-262/)
-
-## JavaScript versions
-
-_ES5_: Supported by all browsers, including Internet Explorer (standardized in 2009)
-
-Since 2015: yearly updates in June of each year (ES2015, ES2016, ...)
-
-Common practice: Modern JavaScript is transpiled to ES5 (via Babel, webpack)
-
-## Imports and exports
-
-named imports / exports:
-
-```js
-// mymodule.js
-const foo = 1;
-const bar = 2;
-const baz = 3;
-
-export { foo, bar, baz };
-```
-
-```js
-// index.js
-import { foo, bar } from 'mymodule.js';
-```
-
-## Imports and exports
-
-there may be one default export
-
-```js
-// mymodule.js
-const foo = 1;
-const bar = 2;
-const baz = 3;
-
-export { foo, bar, baz };
-
-const main = 0;
-
-export default main;
-```
-
-```js
-// index.js
-import main, { foo, bar } from 'mymodule.js';
-```
-
-## Imports in webpack
-
-Bundlers like webpack can deviate from standard JavaScript import behavior:
-
-- the import does not require a file name extension like `.js`
-- if the import leads to a folder webpack will look for an `index.js` file in the folder
-
-## Arrow functions
-
-- short notation for anonymous functions
-- leaves _this_ unchanged (does not reassign)
-
-```js
-const multiply = (a, b) => {
-  return a * b;
-};
-
-const multiply = (a, b) => a * b;
-```
-
-## Arrow functions
-
-if we want to return an object directly: wrap it in parentheses
-
-```js
-const getState = () => ({
-  loggedIn: true,
-  userName: 'mike',
-});
-```
-
-## Template strings
-
-- new syntax for _creating_ strings
-- delimited via backticks
-- enables multiline string literals and interpolation
-
-```js
-const name = 'Mike';
-const greeting = `Hello, ${name}!
-                  This is ES2015!`;
-```
-
-## The semicolon in JavaScript
-
-The semicolon for ending statements is mostly optional in JavaScript (JavaScript "features" automatic semicolon insertion)
-
-<!-- prettier-ignore -->
-
-```js
-const a = 3
-console.log(a)
-```
-
-is treated as:
-
-```js
-const a = 3;
-console.log(a);
-```
-
-## The semicolon in JavaScript
-
-Sometimes the behavior is not as intended:
-
-<!-- prettier-ignore -->
-
-```jsx
-const Foo = () => {
-  return
-    <div>
-      <h1>some content</h1>
-    </div>;
-};
-```
-
-would be treated as:
-
-```jsx
-const Foo = () => {
-  return;
-  <div>
-    <h1>some content</h1>
-  </div>;
-};
-```
-
-## Destructuring
-
-```js
-const [result, errors] = someComputation();
-
-// swapping values
-let a = 1;
-let b = 2;
-[a, b] = [b, a];
-```
-
-## Destructuring
-
-```js
-const person = { name: 'John', age: 48 };
-const { name, age } = person;
-
-const TodoItem = ({ title, completed }) => (
-  <div>
-    {completed ? 'DONE: ' : 'TODO: '}
-    {title}
-  </div>
-);
-```
-
-## Spread syntax (arrays and objects)
-
-```js
-const squares = [1, 4, 9];
-const moreSquares = [...squares, 16, 25];
-// moreSquares: [1, 4, 9, 16, 25]
-```
-
-```js
-const person = {
-  firstName: 'Joe',
-  lastName: 'Doe',
-  age: 31,
-};
-const newPerson = { ...person, email: 'j@d.com', age: 32 };
-// {firstName: 'Joe', lastName: 'Doe', email: 'j@d.com', age: 32}
-```
-
-## Optional chaining
-
-example for _optional chaining_:
-
-```js
-const userNickname = user?.nickname;
-```
-
-if `user` is defined, get its `.nickname` property, otherwise use `undefined`
-
-"conventional" long form:
-
-```js
-const userNickname = user ? user.nickname : undefined;
-```
-
-## Optional chaining
-
-optional chaining with methods calls:
-
-```js
-onClick?.();
-```
-
-if `onClick` is defined, call it, otherwise evaluate to `undefined`
-
-## Map and filter
-
-array methods for functional programming
-
-## Map
-
-- modifies each entry in an array via a function
-- returns a new array
-
-```js
-const myNumbers = [1, 2, 3, 4];
-
-const tripledNumbers = myNumbers.map((n) => 3 * n);
-// [3, 6, 9, 12]
-```
-
-## Filter
-
-- only keeps specific entries in an array
-- uses a function to check entries for a specific condition
-- returns a new array
-
-```js
-const myNumbers = [1, 2, 3, 4];
-
-const isEven = (n) => n % 2 === 0;
-
-const evenNumbers = myNumbers.filter(isEven);
-// [2, 4]
-```
 
 # VS Code basics and plugins
 
@@ -1314,6 +1292,19 @@ see info boxes on _Installation_ und _Usage_
 
 - Button
 - Todo-App in Material Style
+
+# Component definition
+
+## Component definition
+
+options:
+
+- defining a component as a function
+- defining a component as a class (was especially common / necessary before the introduction of hooks)
+
+## Component definition
+
+In order to distinguish them from ordinary tags, components start with a capital letter
 
 # Component props
 

@@ -1,10 +1,10 @@
-# React.js overview
+# React overview
 
 ## What is React?
 
-one of the 3 big JavaScript UI frameworks (besides Angular, Vue.js)
+one of the 3 big JavaScript UI libraries / frameworks (besides Angular, Vue.js)
 
-## Basics of modern JavaScript UI frameworks
+## Basics of modern JavaScript UI libraries
 
 - declarative
 - component-based
@@ -30,9 +30,9 @@ one of the 3 big JavaScript UI frameworks (besides Angular, Vue.js)
 
 ## What makes React special?
 
-- JavaScript-based template syntax
+- JavaScript-based template syntax: JSX
 - explicit state changes via setters
-- immutable state objects
+- immutable (unchangeable) state objects
 
 ## History of React
 

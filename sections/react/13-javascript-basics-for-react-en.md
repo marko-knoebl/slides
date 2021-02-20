@@ -10,11 +10,11 @@ _ES5_: Supported by all browsers, including Internet Explorer (standardized in 2
 
 Since 2015: yearly updates in June of each year (ES2015, ES2016, ...)
 
-Common practice: Modern JavaScript is transpiled to ES5 (via Babel, webpack)
+Common practice: Modern JavaScript is transpiled to older versions with more support (via Babel, webpack)
 
 ## Imports and exports
 
-named imports / exports:
+named imports and exports:
 
 ```js
 // mymodule.js
@@ -85,7 +85,7 @@ const getState = () => ({
 
 ## Template strings
 
-- new syntax for _creating_ strings
+- syntax for _creating_ strings
 - delimited via backticks
 - enables multiline string literals and interpolation
 
@@ -201,10 +201,10 @@ const userNickname = user ? user.nickname : undefined;
 optional chaining with methods calls:
 
 ```js
-onClick?.();
+props.onClick?.();
 ```
 
-if `onClick` is defined, call it, otherwise evaluate to `undefined`
+if `props.onClick` is defined, call it, otherwise evaluate to `undefined`
 
 ## Map and filter
 

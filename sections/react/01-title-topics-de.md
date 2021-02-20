@@ -1,11 +1,7 @@
 # React
 
-## Themen
+## Hauptthemen
 
-- Kurzüberblick über React
-- JS-Grundlagen für React
-- Deklaratives Rendering / Arbeiten mit State
-- JSX als Templatesprache
-- Einbinden vordefinierter Komponenten
-- Definieren eigener Komponenten
-- Abfragen von Web-APIs aus Komponenten
+- State (Deklaratives Rendering)
+- Komponenten (eigene HTML-Tags)
+- JSX (Templatesprache)

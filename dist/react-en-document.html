@@ -1,18 +1,14 @@
 <h1>React</h1>
-<h2>Topics</h2>
+<h2>Major topics</h2>
 <ul>
-<li>overview of React</li>
-<li>JS basics for React</li>
-<li>declarative rendering / working with state</li>
-<li>JSX template language</li>
-<li>using predefined components</li>
-<li>defining custom components</li>
-<li>querying web APIs from components</li>
+<li>state (declarative rendering)</li>
+<li>components (custom HTML tags)</li>
+<li>JSX (template language)</li>
 </ul>
-<h1>React.js overview</h1>
+<h1>React overview</h1>
 <h2>What is React?</h2>
-<p>one of the 3 big JavaScript UI frameworks (besides Angular, Vue.js)</p>
-<h2>Basics of modern JavaScript UI frameworks</h2>
+<p>one of the 3 big JavaScript UI libraries / frameworks (besides Angular, Vue.js)</p>
+<h2>Basics of modern JavaScript UI libraries</h2>
 <ul>
 <li>declarative</li>
 <li>component-based</li>
@@ -211,9 +207,9 @@
 </svg>
 <h2>What makes React special?</h2>
 <ul>
-<li>JavaScript-based template syntax</li>
+<li>JavaScript-based template syntax: JSX</li>
 <li>explicit state changes via setters</li>
-<li>immutable state objects</li>
+<li>immutable (unchangeable) state objects</li>
 </ul>
 <h2>History of React</h2>
 <ul>
@@ -221,60 +217,211 @@
 <li>February 2019: introduction of hooks</li>
 <li>upcoming additions: <a href="https://reactjs.org/docs/concurrent-mode-suspense.html">suspense for data fetching</a> and <a href="https://reactjs.org/docs/concurrent-mode-intro.html">concurrent mode</a></li>
 </ul>
-<h1>React Basics</h1>
+<h1>Online editors</h1>
 <h2>Online editors</h2>
 <p>recommended:</p>
 <p><a href="https://codesandbox.io">https://codesandbox.io</a></p>
 <p>has templates for <em>React</em> and <em>React TypeScript</em></p>
+<h2>Online editors</h2>
 <p>other options:</p>
 <ul>
 <li>Glitch: <a href="https://glitch.com/edit/#!/remix/starter-react-template">https://glitch.com/edit/#!/remix/starter-react-template</a></li>
 <li>CodePen: <a href="https://reactjs.org/redirect-to-codepen/hello-world">https://reactjs.org/redirect-to-codepen/hello-world</a></li>
 </ul>
-<h2>Example component definition</h2>
+<h1>Basic example</h1>
+<h2>Basic example</h2>
+<p>example <em>slideshow</em> app that demonstrates:</p>
+<ul>
+<li>component definition as a function</li>
+<li>component state (image id)</li>
+<li>JSX template language: mix of JavaScript and XML</li>
+</ul>
+<h2>Basic example</h2>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> React, { useState } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">CounterApp</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">const</span> [count, setCount] = useState(<span class="hljs-number">0</span>);
-
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
-      count: {count}
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setCount(count + 1)}>+<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
-  );
-}
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> CounterApp;
-</code></pre>
-<h2>Example component definition</h2>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> React, { useState } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
-
+<span class="hljs-keyword">const</span> baseUrl = <span class="hljs-string">'https://picsum.photos/300/200?image='</span>;
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">SlideshowApp</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">const</span> [img, setImg] = useState(<span class="hljs-number">0</span>);
   <span class="hljs-keyword">return</span> (
     <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>Image {img}<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
       <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setImg(0)}>start<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
       <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setImg(img - 1)}>prev<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">img</span>
-        <span class="hljs-attr">src</span>=<span class="hljs-string">{</span>`<span class="hljs-attr">https:</span>//<span class="hljs-attr">picsum.photos</span>/<span class="hljs-attr">200</span>?<span class="hljs-attr">image</span>=<span class="hljs-string">${img}</span>`}
-        <span class="hljs-attr">alt</span>=<span class="hljs-string">"slideshow"</span>
-      /></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">{baseUrl</span> + <span class="hljs-attr">img.toString</span>()} /></span>
       <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setImg(img + 1)}>next<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
     <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
   );
 }
-
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> SlideshowApp;
 </code></pre>
-<h2>Function components and class components</h2>
-<p>options:</p>
+<p>can be tried on <a href="https://codesandbox.io">https://codesandbox.io</a></p>
+<h1>JavaScript basics for React</h1>
+<h2>JavaScript standardization</h2>
+<p>JavaScript is standardized under the name <a href="https://www.ecma-international.org/ecma-262/"><em>ECMAScript</em> (ES)</a></p>
+<h2>JavaScript versions</h2>
+<p><em>ES5</em>: Supported by all browsers, including Internet Explorer (standardized in 2009)</p>
+<p>Since 2015: yearly updates in June of each year (ES2015, ES2016, ...)</p>
+<p>Common practice: Modern JavaScript is transpiled to older versions with more support (via Babel, webpack)</p>
+<h2>Imports and exports</h2>
+<p>named imports and exports:</p>
+<pre><code class="hljs language-js"><span class="hljs-comment">// mymodule.js</span>
+<span class="hljs-keyword">const</span> foo = <span class="hljs-number">1</span>;
+<span class="hljs-keyword">const</span> bar = <span class="hljs-number">2</span>;
+<span class="hljs-keyword">const</span> baz = <span class="hljs-number">3</span>;
+
+<span class="hljs-keyword">export</span> { foo, bar, baz };
+</code></pre>
+<pre><code class="hljs language-js"><span class="hljs-comment">// index.js</span>
+<span class="hljs-keyword">import</span> { foo, bar } <span class="hljs-keyword">from</span> <span class="hljs-string">'mymodule.js'</span>;
+</code></pre>
+<h2>Imports and exports</h2>
+<p>there may be one default export</p>
+<pre><code class="hljs language-js"><span class="hljs-comment">// mymodule.js</span>
+<span class="hljs-keyword">const</span> foo = <span class="hljs-number">1</span>;
+<span class="hljs-keyword">const</span> bar = <span class="hljs-number">2</span>;
+<span class="hljs-keyword">const</span> baz = <span class="hljs-number">3</span>;
+
+<span class="hljs-keyword">export</span> { foo, bar, baz };
+
+<span class="hljs-keyword">const</span> main = <span class="hljs-number">0</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> main;
+</code></pre>
+<pre><code class="hljs language-js"><span class="hljs-comment">// index.js</span>
+<span class="hljs-keyword">import</span> main, { foo, bar } <span class="hljs-keyword">from</span> <span class="hljs-string">'mymodule.js'</span>;
+</code></pre>
+<h2>Imports in webpack</h2>
+<p>Bundlers like webpack can deviate from standard JavaScript import behavior:</p>
 <ul>
-<li>defining a component as a function</li>
-<li>defining a component as a class (was especially common / necessary before the introduction of hooks)</li>
+<li>the import does not require a file name extension like <code>.js</code></li>
+<li>if the import leads to a folder webpack will look for an <code>index.js</code> file in the folder</li>
 </ul>
-<h2>Component definition</h2>
-<p>In order to distinguish them from ordinary tags, components start with a capital letter</p>
+<h2>Arrow functions</h2>
+<ul>
+<li>short notation for anonymous functions</li>
+<li>leaves <em>this</em> unchanged (does not reassign)</li>
+</ul>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> multiply = <span class="hljs-function">(<span class="hljs-params">a, b</span>) =></span> {
+  <span class="hljs-keyword">return</span> a * b;
+};
+
+<span class="hljs-keyword">const</span> multiply = <span class="hljs-function">(<span class="hljs-params">a, b</span>) =></span> a * b;
+</code></pre>
+<h2>Arrow functions</h2>
+<p>if we want to return an object directly: wrap it in parentheses</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> getState = <span class="hljs-function">() =></span> ({
+  <span class="hljs-attr">loggedIn</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">userName</span>: <span class="hljs-string">'mike'</span>,
+});
+</code></pre>
+<h2>Template strings</h2>
+<ul>
+<li>syntax for <em>creating</em> strings</li>
+<li>delimited via backticks</li>
+<li>enables multiline string literals and interpolation</li>
+</ul>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> name = <span class="hljs-string">'Mike'</span>;
+<span class="hljs-keyword">const</span> greeting = <span class="hljs-string">`Hello, <span class="hljs-subst">${name}</span>!
+                  This is ES2015!`</span>;
+</code></pre>
+<h2>The semicolon in JavaScript</h2>
+<p>The semicolon for ending statements is mostly optional in JavaScript (JavaScript "features" automatic semicolon insertion)</p>
+<!-- prettier-ignore -->
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> a = <span class="hljs-number">3</span>
+<span class="hljs-built_in">console</span>.log(a)
+</code></pre>
+<p>is treated as:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> a = <span class="hljs-number">3</span>;
+<span class="hljs-built_in">console</span>.log(a);
+</code></pre>
+<h2>The semicolon in JavaScript</h2>
+<p>Sometimes the behavior is not as intended:</p>
+<!-- prettier-ignore -->
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> Foo = <span class="hljs-function">() =></span> {
+  <span class="hljs-keyword">return</span>
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>some content<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+};
+</code></pre>
+<p>would be treated as:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> Foo = <span class="hljs-function">() =></span> {
+  <span class="hljs-keyword">return</span>;
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>some content<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+};
+</code></pre>
+<h2>Destructuring</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [result, errors] = someComputation();
+
+<span class="hljs-comment">// swapping values</span>
+<span class="hljs-keyword">let</span> a = <span class="hljs-number">1</span>;
+<span class="hljs-keyword">let</span> b = <span class="hljs-number">2</span>;
+[a, b] = [b, a];
+</code></pre>
+<h2>Destructuring</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> person = { <span class="hljs-attr">name</span>: <span class="hljs-string">'John'</span>, <span class="hljs-attr">age</span>: <span class="hljs-number">48</span> };
+<span class="hljs-keyword">const</span> { name, age } = person;
+
+<span class="hljs-keyword">const</span> TodoItem = <span class="hljs-function">(<span class="hljs-params">{ title, completed }</span>) =></span> (
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+    {completed ? 'DONE: ' : 'TODO: '}
+    {title}
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+);
+</code></pre>
+<h2>Spread syntax (arrays and objects)</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> squares = [<span class="hljs-number">1</span>, <span class="hljs-number">4</span>, <span class="hljs-number">9</span>];
+<span class="hljs-keyword">const</span> moreSquares = [...squares, <span class="hljs-number">16</span>, <span class="hljs-number">25</span>];
+<span class="hljs-comment">// moreSquares: [1, 4, 9, 16, 25]</span>
+</code></pre>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> person = {
+  <span class="hljs-attr">firstName</span>: <span class="hljs-string">'Joe'</span>,
+  <span class="hljs-attr">lastName</span>: <span class="hljs-string">'Doe'</span>,
+  <span class="hljs-attr">age</span>: <span class="hljs-number">31</span>,
+};
+<span class="hljs-keyword">const</span> newPerson = { ...person, <span class="hljs-attr">email</span>: <span class="hljs-string">'j@d.com'</span>, <span class="hljs-attr">age</span>: <span class="hljs-number">32</span> };
+<span class="hljs-comment">// {firstName: 'Joe', lastName: 'Doe', email: 'j@d.com', age: 32}</span>
+</code></pre>
+<h2>Optional chaining</h2>
+<p>example for <em>optional chaining</em>:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> userNickname = user?.nickname;
+</code></pre>
+<p>if <code>user</code> is defined, get its <code>.nickname</code> property, otherwise use <code>undefined</code></p>
+<p>"conventional" long form:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> userNickname = user ? user.nickname : <span class="hljs-literal">undefined</span>;
+</code></pre>
+<h2>Optional chaining</h2>
+<p>optional chaining with methods calls:</p>
+<pre><code class="hljs language-js">props.onClick?.();
+</code></pre>
+<p>if <code>props.onClick</code> is defined, call it, otherwise evaluate to <code>undefined</code></p>
+<h2>Map and filter</h2>
+<p>array methods for functional programming</p>
+<h2>Map</h2>
+<ul>
+<li>modifies each entry in an array via a function</li>
+<li>returns a new array</li>
+</ul>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> myNumbers = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>];
+
+<span class="hljs-keyword">const</span> tripledNumbers = myNumbers.map(<span class="hljs-function">(<span class="hljs-params">n</span>) =></span> <span class="hljs-number">3</span> * n);
+<span class="hljs-comment">// [3, 6, 9, 12]</span>
+</code></pre>
+<h2>Filter</h2>
+<ul>
+<li>only keeps specific entries in an array</li>
+<li>uses a function to check entries for a specific condition</li>
+<li>returns a new array</li>
+</ul>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> myNumbers = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>];
+
+<span class="hljs-keyword">const</span> isEven = <span class="hljs-function">(<span class="hljs-params">n</span>) =></span> n % <span class="hljs-number">2</span> === <span class="hljs-number">0</span>;
+
+<span class="hljs-keyword">const</span> evenNumbers = myNumbers.filter(isEven);
+<span class="hljs-comment">// [2, 4]</span>
+</code></pre>
 <h1>JSX Basics</h1>
 <h2>JSX: JS + XML</h2>
 <p>JSX = Template language of React</p>
@@ -400,173 +547,6 @@
 <h2>Exercise: Prime number quiz</h2>
 <p>Create a quiz that shows an <em>odd</em> number from 1-99. The user has to guess if it is a prime number or not.</p>
 <p>Show statistics on correct / incorrect answers the user has given so far.</p>
-<h1>JavaScript basics for React</h1>
-<h2>JavaScript standardization</h2>
-<p>JavaScript is standardized under the name <a href="https://www.ecma-international.org/ecma-262/"><em>ECMAScript</em> (ES)</a></p>
-<h2>JavaScript versions</h2>
-<p><em>ES5</em>: Supported by all browsers, including Internet Explorer (standardized in 2009)</p>
-<p>Since 2015: yearly updates in June of each year (ES2015, ES2016, ...)</p>
-<p>Common practice: Modern JavaScript is transpiled to ES5 (via Babel, webpack)</p>
-<h2>Imports and exports</h2>
-<p>named imports / exports:</p>
-<pre><code class="hljs language-js"><span class="hljs-comment">// mymodule.js</span>
-<span class="hljs-keyword">const</span> foo = <span class="hljs-number">1</span>;
-<span class="hljs-keyword">const</span> bar = <span class="hljs-number">2</span>;
-<span class="hljs-keyword">const</span> baz = <span class="hljs-number">3</span>;
-
-<span class="hljs-keyword">export</span> { foo, bar, baz };
-</code></pre>
-<pre><code class="hljs language-js"><span class="hljs-comment">// index.js</span>
-<span class="hljs-keyword">import</span> { foo, bar } <span class="hljs-keyword">from</span> <span class="hljs-string">'mymodule.js'</span>;
-</code></pre>
-<h2>Imports and exports</h2>
-<p>there may be one default export</p>
-<pre><code class="hljs language-js"><span class="hljs-comment">// mymodule.js</span>
-<span class="hljs-keyword">const</span> foo = <span class="hljs-number">1</span>;
-<span class="hljs-keyword">const</span> bar = <span class="hljs-number">2</span>;
-<span class="hljs-keyword">const</span> baz = <span class="hljs-number">3</span>;
-
-<span class="hljs-keyword">export</span> { foo, bar, baz };
-
-<span class="hljs-keyword">const</span> main = <span class="hljs-number">0</span>;
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> main;
-</code></pre>
-<pre><code class="hljs language-js"><span class="hljs-comment">// index.js</span>
-<span class="hljs-keyword">import</span> main, { foo, bar } <span class="hljs-keyword">from</span> <span class="hljs-string">'mymodule.js'</span>;
-</code></pre>
-<h2>Imports in webpack</h2>
-<p>Bundlers like webpack can deviate from standard JavaScript import behavior:</p>
-<ul>
-<li>the import does not require a file name extension like <code>.js</code></li>
-<li>if the import leads to a folder webpack will look for an <code>index.js</code> file in the folder</li>
-</ul>
-<h2>Arrow functions</h2>
-<ul>
-<li>short notation for anonymous functions</li>
-<li>leaves <em>this</em> unchanged (does not reassign)</li>
-</ul>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> multiply = <span class="hljs-function">(<span class="hljs-params">a, b</span>) =></span> {
-  <span class="hljs-keyword">return</span> a * b;
-};
-
-<span class="hljs-keyword">const</span> multiply = <span class="hljs-function">(<span class="hljs-params">a, b</span>) =></span> a * b;
-</code></pre>
-<h2>Arrow functions</h2>
-<p>if we want to return an object directly: wrap it in parentheses</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> getState = <span class="hljs-function">() =></span> ({
-  <span class="hljs-attr">loggedIn</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-attr">userName</span>: <span class="hljs-string">'mike'</span>,
-});
-</code></pre>
-<h2>Template strings</h2>
-<ul>
-<li>new syntax for <em>creating</em> strings</li>
-<li>delimited via backticks</li>
-<li>enables multiline string literals and interpolation</li>
-</ul>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> name = <span class="hljs-string">'Mike'</span>;
-<span class="hljs-keyword">const</span> greeting = <span class="hljs-string">`Hello, <span class="hljs-subst">${name}</span>!
-                  This is ES2015!`</span>;
-</code></pre>
-<h2>The semicolon in JavaScript</h2>
-<p>The semicolon for ending statements is mostly optional in JavaScript (JavaScript "features" automatic semicolon insertion)</p>
-<!-- prettier-ignore -->
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> a = <span class="hljs-number">3</span>
-<span class="hljs-built_in">console</span>.log(a)
-</code></pre>
-<p>is treated as:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> a = <span class="hljs-number">3</span>;
-<span class="hljs-built_in">console</span>.log(a);
-</code></pre>
-<h2>The semicolon in JavaScript</h2>
-<p>Sometimes the behavior is not as intended:</p>
-<!-- prettier-ignore -->
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> Foo = <span class="hljs-function">() =></span> {
-  <span class="hljs-keyword">return</span>
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>some content<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
-};
-</code></pre>
-<p>would be treated as:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> Foo = <span class="hljs-function">() =></span> {
-  <span class="hljs-keyword">return</span>;
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>some content<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
-  <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
-};
-</code></pre>
-<h2>Destructuring</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [result, errors] = someComputation();
-
-<span class="hljs-comment">// swapping values</span>
-<span class="hljs-keyword">let</span> a = <span class="hljs-number">1</span>;
-<span class="hljs-keyword">let</span> b = <span class="hljs-number">2</span>;
-[a, b] = [b, a];
-</code></pre>
-<h2>Destructuring</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> person = { <span class="hljs-attr">name</span>: <span class="hljs-string">'John'</span>, <span class="hljs-attr">age</span>: <span class="hljs-number">48</span> };
-<span class="hljs-keyword">const</span> { name, age } = person;
-
-<span class="hljs-keyword">const</span> TodoItem = <span class="hljs-function">(<span class="hljs-params">{ title, completed }</span>) =></span> (
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
-    {completed ? 'DONE: ' : 'TODO: '}
-    {title}
-  <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
-);
-</code></pre>
-<h2>Spread syntax (arrays and objects)</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> squares = [<span class="hljs-number">1</span>, <span class="hljs-number">4</span>, <span class="hljs-number">9</span>];
-<span class="hljs-keyword">const</span> moreSquares = [...squares, <span class="hljs-number">16</span>, <span class="hljs-number">25</span>];
-<span class="hljs-comment">// moreSquares: [1, 4, 9, 16, 25]</span>
-</code></pre>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> person = {
-  <span class="hljs-attr">firstName</span>: <span class="hljs-string">'Joe'</span>,
-  <span class="hljs-attr">lastName</span>: <span class="hljs-string">'Doe'</span>,
-  <span class="hljs-attr">age</span>: <span class="hljs-number">31</span>,
-};
-<span class="hljs-keyword">const</span> newPerson = { ...person, <span class="hljs-attr">email</span>: <span class="hljs-string">'j@d.com'</span>, <span class="hljs-attr">age</span>: <span class="hljs-number">32</span> };
-<span class="hljs-comment">// {firstName: 'Joe', lastName: 'Doe', email: 'j@d.com', age: 32}</span>
-</code></pre>
-<h2>Optional chaining</h2>
-<p>example for <em>optional chaining</em>:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> userNickname = user?.nickname;
-</code></pre>
-<p>if <code>user</code> is defined, get its <code>.nickname</code> property, otherwise use <code>undefined</code></p>
-<p>"conventional" long form:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> userNickname = user ? user.nickname : <span class="hljs-literal">undefined</span>;
-</code></pre>
-<h2>Optional chaining</h2>
-<p>optional chaining with methods calls:</p>
-<pre><code class="hljs language-js">onClick?.();
-</code></pre>
-<p>if <code>onClick</code> is defined, call it, otherwise evaluate to <code>undefined</code></p>
-<h2>Map and filter</h2>
-<p>array methods for functional programming</p>
-<h2>Map</h2>
-<ul>
-<li>modifies each entry in an array via a function</li>
-<li>returns a new array</li>
-</ul>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> myNumbers = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>];
-
-<span class="hljs-keyword">const</span> tripledNumbers = myNumbers.map(<span class="hljs-function">(<span class="hljs-params">n</span>) =></span> <span class="hljs-number">3</span> * n);
-<span class="hljs-comment">// [3, 6, 9, 12]</span>
-</code></pre>
-<h2>Filter</h2>
-<ul>
-<li>only keeps specific entries in an array</li>
-<li>uses a function to check entries for a specific condition</li>
-<li>returns a new array</li>
-</ul>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> myNumbers = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>];
-
-<span class="hljs-keyword">const</span> isEven = <span class="hljs-function">(<span class="hljs-params">n</span>) =></span> n % <span class="hljs-number">2</span> === <span class="hljs-number">0</span>;
-
-<span class="hljs-keyword">const</span> evenNumbers = myNumbers.filter(isEven);
-<span class="hljs-comment">// [2, 4]</span>
-</code></pre>
 <h1>VS Code basics and plugins</h1>
 <h2>VS Code basics and plugins</h2>
 <p>see presentation <a href="./vs-code-en.html">VS Code</a></p>
@@ -1118,6 +1098,15 @@ solution: <strong>key</strong>:</p>
 <li>Button</li>
 <li>Todo-App in Material Style</li>
 </ul>
+<h1>Component definition</h1>
+<h2>Component definition</h2>
+<p>options:</p>
+<ul>
+<li>defining a component as a function</li>
+<li>defining a component as a class (was especially common / necessary before the introduction of hooks)</li>
+</ul>
+<h2>Component definition</h2>
+<p>In order to distinguish them from ordinary tags, components start with a capital letter</p>
 <h1>Component props</h1>
 <h2>State and props</h2>
 <ul>

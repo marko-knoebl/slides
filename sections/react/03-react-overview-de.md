@@ -1,10 +1,10 @@
-# React.js Überblick
+# React Überblick
 
 ## Was ist React?
 
-- Eines der 3 großen JavaScript UI Frameworks (neben Angular, Vue.js)
+- Eines der 3 großen JavaScript UI Libraries / Frameworks (neben Angular, Vue.js)
 
-## Grundlagen moderner JavaScript UI Frameworks
+## Grundlagen moderner JavaScript UI Libraries
 
 - deklarativ
 - Komponenten-Struktur
@@ -30,7 +30,7 @@
 
 ## Was macht React besonders?
 
-- JavaScript-basierte Template-Syntax
+- JavaScript-basierte Template-Syntax: JSX
 - Explizite Änderung des Anwendungszustands mittels Settern
 - State-Objekte sind unveränderlich (immutable)
 

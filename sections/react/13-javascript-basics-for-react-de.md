@@ -10,7 +10,7 @@ _ES5_: Von allen Browsern, inklusive Internet Explorer, unterstützt (2009 stand
 
 Seit 2015: jährliche Updates im Juni jeden Jahres (ES2015, ES2016, ...)
 
-In der Praxis: Modernes JavaScript wird in ES5 transpiliert (via Babel, webpack)
+In der Praxis: Modernes JavaScript wird in ältere Versionen transpiliert (via Babel, webpack)
 
 ## Imports und Exports
 
@@ -85,7 +85,7 @@ const getState = () => ({
 
 ## Template-Strings
 
-- Neue Syntax zum _Erstellen_ von Strings
+- Syntax zum _Erstellen_ von Strings
 - Werden mit Backticks begrenzt
 - Erlauben mehrzeilige Strings und Interpolation:
 
@@ -201,10 +201,10 @@ const userNickname = user ? user.nickname : undefined;
 _Optional chaining_ mit Funktionsaufrufen:
 
 ```js
-onClick?.();
+props.onClick?.();
 ```
 
-wenn `onClick` definiert ist, wird es aufgerufen, andernfalls wird der Ausdruck zu `undefined` ausgewertet
+wenn `props.onClick` definiert ist, wird es aufgerufen, andernfalls wird der Ausdruck zu `undefined` ausgewertet
 
 ## Map und filter
 
