@@ -51,6 +51,8 @@ In JSX weisen wir der _style_-Property ein Objekt zu:
 />
 ```
 
+Die _style_-Property wird hauptsächlich bei Werten verwendet, die sich dynamisch ändern können
+
 ## Elemente wiederholen
 
 Aufgabe: Erstellen einer HTML-Liste (ul) aus diesen Daten:

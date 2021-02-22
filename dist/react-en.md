@@ -737,15 +737,17 @@ multiple elements may be added via arrays:
 
 ```jsx
 const elements = [
-  <div>alpha</div>,
-  <div>bravo</div>,
-  <div>charlie</div>,
+  <li>alfa</li>,
+  <li>bravo</li>,
+  <li>charlie</li>,
 ];
 ```
 
-```xml
+```jsx
 <h1>three elements</h1>
-{ elements }
+<ul>
+  { elements }
+</ul>
 ```
 
 ## Repeating elements
@@ -764,6 +766,22 @@ for (let method in React) {
   React Methods:
   <ul>{reactMethods}</ul>
 </div>
+```
+
+## Repeating elements
+
+typically, repeated elements are created via `.map`:
+
+```jsx
+const elements = ['alfa', 'bravo', 'charlie'];
+```
+
+```jsx
+<ul>
+  {elements.map((el) => (
+    <li>{el}</li>
+  ))}
+</ul>
 ```
 
 # VS Code basics and plugins
@@ -1157,6 +1175,8 @@ In JSX the _style_ property takes an object:
   }}
 />
 ```
+
+The _style_ property is mostly used for values that may change dynamically
 
 ## Repeating elements
 

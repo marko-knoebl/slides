@@ -51,6 +51,8 @@ In JSX the _style_ property takes an object:
 />
 ```
 
+The _style_ property is mostly used for values that may change dynamically
+
 ## Repeating elements
 
 Task: building an HTML list (ul) from this data:

@@ -2754,13 +2754,15 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </section><section class="slide"><h2>Repeating elements</h2>
 <p>multiple elements may be added via arrays:</p>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> elements = [
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>alpha<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>,
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>bravo<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>,
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>charlie<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>,
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">li</span>></span>alfa<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span></span>,
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">li</span>></span>bravo<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span></span>,
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">li</span>></span>charlie<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span></span>,
 ];
 </code></pre>
-<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>three elements<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
-{ elements }
+<pre><code class="hljs language-jsx">&#x3C;h1>three elements&#x3C;/h1>
+<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">ul</span>></span>
+  { elements }
+<span class="hljs-tag">&#x3C;/<span class="hljs-name">ul</span>></span></span>
 </code></pre>
 </section><section class="slide"><h2>Repeating elements</h2>
 <p>example: displaying all method names of the <em>React</em> object inside a <em>ul</em> element</p>
@@ -2773,6 +2775,16 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   React Methods:
   <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">ul</span>></span>{reactMethods}<span class="hljs-tag">&#x3C;/<span class="hljs-name">ul</span>></span></span>
 &#x3C;/div>
+</code></pre>
+</section><section class="slide"><h2>Repeating elements</h2>
+<p>typically, repeated elements are created via <code>.map</code>:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> elements = [<span class="hljs-string">'alfa'</span>, <span class="hljs-string">'bravo'</span>, <span class="hljs-string">'charlie'</span>];
+</code></pre>
+<pre><code class="hljs language-jsx">&#x3C;ul>
+  {elements.map(<span class="hljs-function">(<span class="hljs-params">el</span>) =></span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">li</span>></span>{el}<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span></span>
+  ))}
+&#x3C;/ul>
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>VS Code basics and plugins</h1>
 </section><section class="slide"><h2>VS Code basics and plugins</h2>
@@ -3081,6 +3093,7 @@ just change .js to .tsx -->
   }}
 />
 </code></pre>
+<p>The <em>style</em> property is mostly used for values that may change dynamically</p>
 </section><section class="slide"><h2>Repeating elements</h2>
 <p>Task: building an HTML list (ul) from this data:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> initialTodos = [

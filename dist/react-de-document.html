@@ -694,13 +694,15 @@
 <h2>Elemente wiederholen</h2>
 <p>Mehrere Elemente können via Arrays eingebunden werden:</p>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> elements = [
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>alpha<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>,
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>bravo<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>,
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>charlie<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>,
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">li</span>></span>alfa<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span></span>,
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">li</span>></span>bravo<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span></span>,
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">li</span>></span>charlie<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span></span>,
 ];
 </code></pre>
-<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>three elements<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
-{ elements }
+<pre><code class="hljs language-jsx">&#x3C;h1>three elements&#x3C;/h1>
+<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">ul</span>></span>
+  { elements }
+<span class="hljs-tag">&#x3C;/<span class="hljs-name">ul</span>></span></span>
 </code></pre>
 <h2>Elemente wiederholen</h2>
 <p>Aufgabe: Anzeigen aller Methoden des <em>React</em>-Objekts in einem <em>ul</em>-Element</p>
@@ -713,6 +715,16 @@
   React Methods:
   <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">ul</span>></span>{reactMethods}<span class="hljs-tag">&#x3C;/<span class="hljs-name">ul</span>></span></span>
 &#x3C;/div>
+</code></pre>
+<h2>Elemente wiederholen</h2>
+<p>typischerweise werden wiederholte Elemente via <code>.map</code> erstellt:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> elements = [<span class="hljs-string">'alfa'</span>, <span class="hljs-string">'bravo'</span>, <span class="hljs-string">'charlie'</span>];
+</code></pre>
+<pre><code class="hljs language-jsx">&#x3C;ul>
+  {elements.map(<span class="hljs-function">(<span class="hljs-params">el</span>) =></span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">li</span>></span>{el}<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span></span>
+  ))}
+&#x3C;/ul>
 </code></pre>
 <h1>VS Code Grundlagen und Plugins</h1>
 <h2>VS Code Grundlagen und Plugins</h2>
@@ -1016,6 +1028,7 @@ npx create-next-app todolist --example with-typescript
   }}
 />
 </code></pre>
+<p>Die <em>style</em>-Property wird hauptsächlich bei Werten verwendet, die sich dynamisch ändern können</p>
 <h2>Elemente wiederholen</h2>
 <p>Aufgabe: Erstellen einer HTML-Liste (ul) aus diesen Daten:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> initialTodos = [

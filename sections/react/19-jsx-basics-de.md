@@ -102,15 +102,17 @@ Mehrere Elemente können via Arrays eingebunden werden:
 
 ```jsx
 const elements = [
-  <div>alpha</div>,
-  <div>bravo</div>,
-  <div>charlie</div>,
+  <li>alfa</li>,
+  <li>bravo</li>,
+  <li>charlie</li>,
 ];
 ```
 
-```xml
+```jsx
 <h1>three elements</h1>
-{ elements }
+<ul>
+  { elements }
+</ul>
 ```
 
 ## Elemente wiederholen
@@ -129,4 +131,20 @@ for (let method in React) {
   React Methods:
   <ul>{reactMethods}</ul>
 </div>
+```
+
+## Elemente wiederholen
+
+typischerweise werden wiederholte Elemente via `.map` erstellt:
+
+```jsx
+const elements = ['alfa', 'bravo', 'charlie'];
+```
+
+```jsx
+<ul>
+  {elements.map((el) => (
+    <li>{el}</li>
+  ))}
+</ul>
 ```
