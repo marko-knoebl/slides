@@ -45,7 +45,8 @@ one of the 3 big JavaScript UI libraries / frameworks (besides Angular, Vue.js)
 ## History of React
 
 - open-sourced by Facebook in 2013
-- February 2019: introduction of hooks
+- February 2019: React 16.8: introduction of _hooks_
+- August 2020: React 17: no big changes
 - upcoming additions: [suspense for data fetching](https://reactjs.org/docs/concurrent-mode-suspense.html) and [concurrent mode](https://reactjs.org/docs/concurrent-mode-intro.html)
 
 # Online editors
@@ -78,7 +79,7 @@ example _slideshow_ app that demonstrates:
 ## Basic example
 
 ```jsx
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 const baseUrl = 'https://picsum.photos/300/200?image=';
 function SlideshowApp() {
@@ -98,7 +99,80 @@ export default SlideshowApp;
 
 can be tried on <https://codesandbox.io>
 
+## Basic example
+
+```jsx
+function SlideshowApp() {
+  // ...
+}
+```
+
+A component is defined as a function that returns an XML tree
+
+The function is called every time the component needs to be rendered
+
+## Basic example
+
+<!-- prettier-ignore -->
+
+```jsx
+  const [img, setImg] = useState(0);
+```
+
+A component can have internal state entries
+
+`useState` returns the current state entry and a corresponding setter on every render
+
+## Basic example
+
+<!-- prettier-ignore -->
+
+```jsx
+  return (
+    <div>
+      ...
+    </div>
+  );
+```
+
+An XML tag switches from JavaScript to XML mode
+
+## Basic example
+
+<!-- prettier-ignore -->
+
+```jsx
+      <h1>Image {img}</h1>
+```
+
+A curly brace switches back to JavaScript
+
+## Basic example
+
+<!-- prettier-ignore -->
+
+```jsx
+      <button onClick={() => setImg(0)}>start</button>
+      <button onClick={() => setImg(img - 1)}>prev</button>
+      <img src={baseUrl + img.toString()} />
+      <button onClick={() => setImg(img + 1)}>next</button>
+```
+
+Event handlers can be defined as JavaScript functions
+
 # JavaScript basics for React
+
+## JavaScript basics for React
+
+- JavaScript standardization and versions
+- imports and exports
+- arrow functions
+- template strings
+- automatic semicolon insertion
+- destructuring assignment
+- spread syntax
+- optional chaining
+- map and filter
 
 ## JavaScript standardization
 
@@ -110,7 +184,7 @@ _ES5_: Supported by all browsers, including Internet Explorer (standardized in 2
 
 Since 2015: yearly updates in June of each year (ES2015, ES2016, ...)
 
-Common practice: Modern JavaScript is transpiled to older versions with more support (via Babel, webpack)
+Common practice: Modern JavaScript is transpiled to older versions with better support (via Babel, webpack)
 
 ## Imports and exports
 
@@ -239,7 +313,7 @@ const Foo = () => {
 };
 ```
 
-## Destructuring
+## Destructuring assignment
 
 ```js
 const [result, errors] = someComputation();
@@ -250,7 +324,7 @@ let b = 2;
 [a, b] = [b, a];
 ```
 
-## Destructuring
+## Destructuring assignment
 
 ```js
 const person = { name: 'John', age: 48 };
@@ -1221,6 +1295,13 @@ return (
 
 ## JSX compilation
 
+XML elements are compiled to calls to:
+
+- `_jsx()` (React 17)
+- `React.createElement()` (React 16 - `React` must be imported when writing JSX)
+
+## JSX compilation
+
 ```jsx
 const element = <a href="https://google.com">Google</a>;
 ```
@@ -1228,7 +1309,7 @@ const element = <a href="https://google.com">Google</a>;
 compiles to:
 
 ```js
-const element = React.createElement(
+const element = _jsx(
   'a',
   { href: 'https://google.com' },
   'Google'
@@ -1249,11 +1330,11 @@ const element = (
 compiles to:
 
 ```js
-const element = React.createElement(
+const element = _jsx(
   MyComponent,
   { prop1: 1, prop2: 2 },
-  React.createElement('div', null, 'test 1'),
-  React.createElement('div', null, 'test 2')
+  _jsx('div', null, 'test 1'),
+  _jsx('div', null, 'test 2')
 );
 ```
 

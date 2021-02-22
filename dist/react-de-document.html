@@ -216,7 +216,8 @@
 <h2>Geschichte von React</h2>
 <ul>
 <li>2013 von Facebook als open source veröffentlicht</li>
-<li>Februar 2019: Einführung von Hooks</li>
+<li>Februar 2019: React 16.8: Einführung von <em>Hooks</em></li>
+<li>August 2020: React 17: keine großen Änderungen</li>
 <li>bevorstehende Ergänzungen: <a href="https://reactjs.org/docs/concurrent-mode-suspense.html">suspense for data fetching</a> und <a href="https://reactjs.org/docs/concurrent-mode-intro.html">concurrent mode</a></li>
 </ul>
 <h1>Online Editoren</h1>
@@ -239,7 +240,7 @@
 <li>JSX Templatesprache: Mischung aus JavaScript und XML</li>
 </ul>
 <h2>Grundlegendes Beispiel</h2>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> React, { useState } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> { useState } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
 
 <span class="hljs-keyword">const</span> baseUrl = <span class="hljs-string">'https://picsum.photos/300/200?image='</span>;
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">SlideshowApp</span>(<span class="hljs-params"></span>) </span>{
@@ -257,7 +258,54 @@
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> SlideshowApp;
 </code></pre>
 <p>kann auf <a href="https://codesandbox.io">https://codesandbox.io</a> ausprobiert werden</p>
+<h2>Grundlegendes Beispiel</h2>
+<pre><code class="hljs language-jsx"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">SlideshowApp</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-comment">// ...</span>
+}
+</code></pre>
+<p>Eine Komponente wird als Funktion definiert, die einen XML-Baum zurückgibt</p>
+<p>Die Funktion wird jedes Mal aufgerufen, wenn die Komponente (neu) gerendert werden muss</p>
+<h2>Grundlegendes Beispiel</h2>
+<!-- prettier-ignore -->
+<pre><code class="hljs language-jsx">  <span class="hljs-keyword">const</span> [img, setImg] = useState(<span class="hljs-number">0</span>);
+</code></pre>
+<p>Eine Komponente kann interne State-Einträge haben</p>
+<p><code>useState</code> gibt bei jedem Rendering den aktuellen State-Eintrag und einen zugehörigen Setter zurück</p>
+<h2>Grundlegendes Beispiel</h2>
+<!-- prettier-ignore -->
+<pre><code class="hljs language-jsx">  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+      ...
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+  );
+</code></pre>
+<p>Ein XML-Tag wechselt von JavaScript zu XML</p>
+<h2>Grundlegendes Beispiel</h2>
+<!-- prettier-ignore -->
+<pre><code class="hljs language-jsx">      &#x3C;h1>Image {img}&#x3C;/h1>
+</code></pre>
+<p>Eine geschweifte Klammer wechselt zurück zu JavaScript</p>
+<h2>Grundlegendes Beispiel</h2>
+<!-- prettier-ignore -->
+<pre><code class="hljs language-jsx">      &#x3C;button onClick={<span class="hljs-function">() =></span> setImg(<span class="hljs-number">0</span>)}>start&#x3C;/button>
+      <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setImg(img - 1)}>prev<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span>
+      <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">{baseUrl</span> + <span class="hljs-attr">img.toString</span>()} /></span></span>
+      <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setImg(img + 1)}>next<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span>
+</code></pre>
+<p>Eventhandler können als JavaScript-Funktionen definiert werden</p>
 <h1>JavaScript-Grundlagen für React</h1>
+<h2>JavaScript-Grundlagen für React</h2>
+<ul>
+<li>JavaScript-Standardisierung und Versionen</li>
+<li>Imports und Exports</li>
+<li>Pfeilfunktionen</li>
+<li>Template-Strings</li>
+<li>Automatic Semicolon Insertion</li>
+<li>destrukturierende Zuweisung</li>
+<li>Spread-Syntax</li>
+<li>optional Chaining</li>
+<li>map und filter</li>
+</ul>
 <h2>JavaScript Standardisierung</h2>
 <p>JavaScript wird unter dem Namen <a href="https://www.ecma-international.org/ecma-262/"><em>ECMAScript</em> (ES)</a> standardisiert</p>
 <h2>JavaScript Versionen</h2>
@@ -1042,10 +1090,16 @@ Lösung: <strong>key</strong>:</p>
 <li>null, undefined, true, false (werden nicht gerendert)</li>
 </ul>
 <h2>JSX Kompilierung</h2>
+<p>XML-Elemente werden kompiliert zu Aufrufen von:</p>
+<ul>
+<li><code>_jsx()</code> (React 17)</li>
+<li><code>React.createElement()</code> (React 16 - <code>React</code> muss importiert sein, um JSX zu schreiben)</li>
+</ul>
+<h2>JSX Kompilierung</h2>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> element = <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://google.com"</span>></span>Google<span class="hljs-tag">&#x3C;/<span class="hljs-name">a</span>></span></span>;
 </code></pre>
 <p>wird kompiliert zu:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> element = React.createElement(
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> element = _jsx(
   <span class="hljs-string">'a'</span>,
   { <span class="hljs-attr">href</span>: <span class="hljs-string">'https://google.com'</span> },
   <span class="hljs-string">'Google'</span>
@@ -1060,11 +1114,11 @@ Lösung: <strong>key</strong>:</p>
 );
 </code></pre>
 <p>wird kompiliert zu:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> element = React.createElement(
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> element = _jsx(
   MyComponent,
   { <span class="hljs-attr">prop1</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">prop2</span>: <span class="hljs-number">2</span> },
-  React.createElement(<span class="hljs-string">'div'</span>, <span class="hljs-literal">null</span>, <span class="hljs-string">'test 1'</span>),
-  React.createElement(<span class="hljs-string">'div'</span>, <span class="hljs-literal">null</span>, <span class="hljs-string">'test 2'</span>)
+  _jsx(<span class="hljs-string">'div'</span>, <span class="hljs-literal">null</span>, <span class="hljs-string">'test 1'</span>),
+  _jsx(<span class="hljs-string">'div'</span>, <span class="hljs-literal">null</span>, <span class="hljs-string">'test 2'</span>)
 );
 </code></pre>
 <h1>Übung: Todo-Liste</h1>

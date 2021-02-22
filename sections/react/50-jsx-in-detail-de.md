@@ -212,6 +212,13 @@ return (
 
 ## JSX Kompilierung
 
+XML-Elemente werden kompiliert zu Aufrufen von:
+
+- `_jsx()` (React 17)
+- `React.createElement()` (React 16 - `React` muss importiert sein, um JSX zu schreiben)
+
+## JSX Kompilierung
+
 ```jsx
 const element = <a href="https://google.com">Google</a>;
 ```
@@ -219,7 +226,7 @@ const element = <a href="https://google.com">Google</a>;
 wird kompiliert zu:
 
 ```js
-const element = React.createElement(
+const element = _jsx(
   'a',
   { href: 'https://google.com' },
   'Google'
@@ -240,10 +247,10 @@ const element = (
 wird kompiliert zu:
 
 ```js
-const element = React.createElement(
+const element = _jsx(
   MyComponent,
   { prop1: 1, prop2: 2 },
-  React.createElement('div', null, 'test 1'),
-  React.createElement('div', null, 'test 2')
+  _jsx('div', null, 'test 1'),
+  _jsx('div', null, 'test 2')
 );
 ```

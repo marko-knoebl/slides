@@ -1,5 +1,17 @@
 # JavaScript basics for React
 
+## JavaScript basics for React
+
+- JavaScript standardization and versions
+- imports and exports
+- arrow functions
+- template strings
+- automatic semicolon insertion
+- destructuring assignment
+- spread syntax
+- optional chaining
+- map and filter
+
 ## JavaScript standardization
 
 JavaScript is standardized under the name [_ECMAScript_ (ES)](https://www.ecma-international.org/ecma-262/)
@@ -10,7 +22,7 @@ _ES5_: Supported by all browsers, including Internet Explorer (standardized in 2
 
 Since 2015: yearly updates in June of each year (ES2015, ES2016, ...)
 
-Common practice: Modern JavaScript is transpiled to older versions with more support (via Babel, webpack)
+Common practice: Modern JavaScript is transpiled to older versions with better support (via Babel, webpack)
 
 ## Imports and exports
 
@@ -137,7 +149,7 @@ const Foo = () => {
 };
 ```
 
-## Destructuring
+## Destructuring assignment
 
 ```js
 const [result, errors] = someComputation();
@@ -148,7 +160,7 @@ let b = 2;
 [a, b] = [b, a];
 ```
 
-## Destructuring
+## Destructuring assignment
 
 ```js
 const person = { name: 'John', age: 48 };

@@ -45,7 +45,8 @@
 ## Geschichte von React
 
 - 2013 von Facebook als open source veröffentlicht
-- Februar 2019: Einführung von Hooks
+- Februar 2019: React 16.8: Einführung von _Hooks_
+- August 2020: React 17: keine großen Änderungen
 - bevorstehende Ergänzungen: [suspense for data fetching](https://reactjs.org/docs/concurrent-mode-suspense.html) und [concurrent mode](https://reactjs.org/docs/concurrent-mode-intro.html)
 
 # Online Editoren
@@ -78,7 +79,7 @@ Beispiel: _slideshow_-App, die folgendes demonstriert:
 ## Grundlegendes Beispiel
 
 ```jsx
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 const baseUrl = 'https://picsum.photos/300/200?image=';
 function SlideshowApp() {
@@ -98,7 +99,80 @@ export default SlideshowApp;
 
 kann auf <https://codesandbox.io> ausprobiert werden
 
+## Grundlegendes Beispiel
+
+```jsx
+function SlideshowApp() {
+  // ...
+}
+```
+
+Eine Komponente wird als Funktion definiert, die einen XML-Baum zurückgibt
+
+Die Funktion wird jedes Mal aufgerufen, wenn die Komponente (neu) gerendert werden muss
+
+## Grundlegendes Beispiel
+
+<!-- prettier-ignore -->
+
+```jsx
+  const [img, setImg] = useState(0);
+```
+
+Eine Komponente kann interne State-Einträge haben
+
+`useState` gibt bei jedem Rendering den aktuellen State-Eintrag und einen zugehörigen Setter zurück
+
+## Grundlegendes Beispiel
+
+<!-- prettier-ignore -->
+
+```jsx
+  return (
+    <div>
+      ...
+    </div>
+  );
+```
+
+Ein XML-Tag wechselt von JavaScript zu XML
+
+## Grundlegendes Beispiel
+
+<!-- prettier-ignore -->
+
+```jsx
+      <h1>Image {img}</h1>
+```
+
+Eine geschweifte Klammer wechselt zurück zu JavaScript
+
+## Grundlegendes Beispiel
+
+<!-- prettier-ignore -->
+
+```jsx
+      <button onClick={() => setImg(0)}>start</button>
+      <button onClick={() => setImg(img - 1)}>prev</button>
+      <img src={baseUrl + img.toString()} />
+      <button onClick={() => setImg(img + 1)}>next</button>
+```
+
+Eventhandler können als JavaScript-Funktionen definiert werden
+
 # JavaScript-Grundlagen für React
+
+## JavaScript-Grundlagen für React
+
+- JavaScript-Standardisierung und Versionen
+- Imports und Exports
+- Pfeilfunktionen
+- Template-Strings
+- Automatic Semicolon Insertion
+- destrukturierende Zuweisung
+- Spread-Syntax
+- optional Chaining
+- map und filter
 
 ## JavaScript Standardisierung
 
@@ -1215,6 +1289,13 @@ return (
 
 ## JSX Kompilierung
 
+XML-Elemente werden kompiliert zu Aufrufen von:
+
+- `_jsx()` (React 17)
+- `React.createElement()` (React 16 - `React` muss importiert sein, um JSX zu schreiben)
+
+## JSX Kompilierung
+
 ```jsx
 const element = <a href="https://google.com">Google</a>;
 ```
@@ -1222,7 +1303,7 @@ const element = <a href="https://google.com">Google</a>;
 wird kompiliert zu:
 
 ```js
-const element = React.createElement(
+const element = _jsx(
   'a',
   { href: 'https://google.com' },
   'Google'
@@ -1243,11 +1324,11 @@ const element = (
 wird kompiliert zu:
 
 ```js
-const element = React.createElement(
+const element = _jsx(
   MyComponent,
   { prop1: 1, prop2: 2 },
-  React.createElement('div', null, 'test 1'),
-  React.createElement('div', null, 'test 2')
+  _jsx('div', null, 'test 1'),
+  _jsx('div', null, 'test 2')
 );
 ```
 

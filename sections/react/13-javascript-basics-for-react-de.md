@@ -1,5 +1,17 @@
 # JavaScript-Grundlagen für React
 
+## JavaScript-Grundlagen für React
+
+- JavaScript-Standardisierung und Versionen
+- Imports und Exports
+- Pfeilfunktionen
+- Template-Strings
+- Automatic Semicolon Insertion
+- destrukturierende Zuweisung
+- Spread-Syntax
+- optional Chaining
+- map und filter
+
 ## JavaScript Standardisierung
 
 JavaScript wird unter dem Namen [_ECMAScript_ (ES)](https://www.ecma-international.org/ecma-262/) standardisiert
