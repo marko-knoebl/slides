@@ -921,6 +921,31 @@ const TodoApp = () => {
 
 Die mächtigen _Redux devtools_ können mit dem Reducer Hook verwendet werden: <https://github.com/troch/reinspect> (benötigt etwas Konfiguration, manuelles Dispatchen von Actions ist nicht möglich)
 
+# Immutability-Hilfslibraries
+
+## Immutability-Hilfslibraries
+
+direktes Arbeiten mit unveränderlichem State kann kompliziert sein
+
+Hilfslibraries:
+
+- _immer.js_ (commonly used with _Redux_)
+- _immutable.js_
+
+## immer.js
+
+```js
+import produce from 'immer';
+
+const todos = [
+  // ...
+];
+const newTodos = produce(todos, (todosDraft) => {
+  todosDraft[0].completed = true;
+  todosDraft.push({ title: 'study', completed: false });
+});
+```
+
 # Styling Tools
 
 ## Styling Tools

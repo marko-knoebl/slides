@@ -25,7 +25,7 @@ Wenn der alte und neue State das gleiche Objekt referenzieren (auch wenn dieses 
 
 ## Immutable State
 
-Demo (siehe <https://codesandbox.io/s/exciting-dust-w7hni>):
+Demo (siehe <https://codesandbox.io/s/immutable-state-demo-r2x1i>):
 
 ```js
 function App() {
@@ -57,11 +57,27 @@ function App() {
 
 ## Immutable State
 
-Code wie der folgende ist **nicht** erlaubt, um State abzuändern, da React die Mutation nicht "sieht":
+richtig:
 
 ```js
-todos[0].completed = true;
-todos.push({ title: 'study', completed: false });
+const randomize = () => {
+  const newImages = [];
+  for (let i = 0; i < 5; i++) {
+    newImages.push(Math.floor(Math.random() * 100));
+  }
+  setImages(newImages);
+};
+```
+
+falsch:
+
+```js
+const randomize = () => {
+  for (let i = 0; i < 5; i++) {
+    images[i] = Math.floor(Math.random() * 100);
+  }
+  setImages(images);
+};
 ```
 
 ## Datenverwaltung ohne Mutationen: Arrays
@@ -105,30 +121,4 @@ user.email = 'johndoe@gmail.com';
 
 ```js
 const newUser = { ...user, email: 'johndoe@gmail.com' };
-```
-
-## immer.js
-
-Library, die das Arbeiten ohne Mutationen erleichtert
-
-wird insbesondere vom Redux-Team empfohlen
-
-## immer.js
-
-Code, der das todos-Array abändern würde:
-
-```js
-todos[0].completed = true;
-todos.push({ title: 'study', completed: false });
-```
-
-Mutation durch die Verwendung von _immer.js_ vermeiden:
-
-```js
-import produce from 'immer';
-
-const newTodos = produce(todos, (todosDraft) => {
-  todosDraft[0].completed = true;
-  todosDraft.push({ title: 'study', completed: false });
-});
 ```

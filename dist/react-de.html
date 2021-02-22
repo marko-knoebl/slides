@@ -2286,7 +2286,11 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </section><section class="slide"><h2>Online Editoren</h2>
 <p>Empfehlung:</p>
 <p><a href="https://codesandbox.io">https://codesandbox.io</a></p>
-<p>hat Templates für <em>React</em> und <em>React TypeScript</em></p>
+<ul>
+<li>hat Templates für <em>React</em> und <em>React TypeScript</em></li>
+<li>basiert auf <em>VS Code</em></li>
+<li>Prettier-basierte Formatierung mittels <em>Shift</em> + <em>Alt</em> + <em>F</em></li>
+</ul>
 </section><section class="slide"><h2>Online Editoren</h2>
 <p>andere Optionen:</p>
 <ul>
@@ -2534,6 +2538,164 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <span class="hljs-keyword">const</span> evenNumbers = myNumbers.filter(isEven);
 <span class="hljs-comment">// [2, 4]</span>
 </code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>State (Komponentenzustand)</h1>
+</section><section class="slide"><h2>State</h2>
+<p>React Komponenten können einen internen Zustand (<em>state</em>) haben</p>
+<p>Auf den state kann im Template verwiesen werden. Damit ändert sich die Anzeige automatisch, wenn Teile des States neu gesetzt werden.</p>
+</section><section class="slide"><h2>State Hook</h2>
+<p>In Funktionskomponenten verwenden wir den <em>State Hook</em>:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { useState } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+</code></pre>
+</section><section class="slide"><h2>State Hook</h2>
+<p><code>useState</code> kann in der Komponentenfunktion (wiederholt) aufgerufen werden; es hat die folgende Signatur:</p>
+<ul>
+<li><code>useState</code> nimmt einen Parameter entgegen - den initialen Zustand</li>
+<li><code>useState</code> gibt bei jedem Aufruf ein Array mit zwei Einträgen zurück: Den aktuellen Zustand sowie eine Funktion, mit der der Zustand neu gesetzt werden kann</li>
+</ul>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> App = <span class="hljs-function">() =></span> {
+  <span class="hljs-keyword">const</span> [count, setCount] = useState(<span class="hljs-number">0</span>);
+  <span class="hljs-keyword">const</span> [title, setTitle] = useState(<span class="hljs-string">'React app'</span>);
+
+  <span class="hljs-keyword">return</span> ...
+};
+</code></pre>
+</section><section class="slide"><h2>Übung: Slideshow</h2>
+<p>Implementiere die zuvor gesehene Slideshow-Demo erneut; versuche, nicht auf den bisherigen Code zu blicken</p>
+<ul>
+<li>zeige Bilder wie z.B. <code>https://picsum.photos/300/200?image=0</code></li>
+<li>Buttons für <em>vorwärts</em> und <em>zurück</em></li>
+<li>Button für <em>zurück zum Start</em></li>
+</ul>
+<p>Zusatz:</p>
+<ul>
+<li>verhindere, dass ins negative gezählt wird</li>
+<li>Button für zufälliges Bild</li>
+</ul>
+</section><section class="slide"><h2>Beispiel: Slideshow mit zufälliger Bildsequence</h2>
+<p>etwas abgeändertes Beispiel: Slideshow mit zufälliger Bildfolge</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { useState } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+
+<span class="hljs-keyword">const</span> baseUrl = <span class="hljs-string">'https://picsum.photos/300/200?image='</span>;
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">RandomSlideshowApp</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> [index, setIndex] = useState(<span class="hljs-number">0</span>);
+  <span class="hljs-keyword">const</span> [images, setImages] = useState([<span class="hljs-number">0</span>, <span class="hljs-number">10</span>, <span class="hljs-number">20</span>, <span class="hljs-number">30</span>, <span class="hljs-number">40</span>]);
+  <span class="hljs-keyword">const</span> randomize = <span class="hljs-function">() =></span> {
+    <span class="hljs-keyword">const</span> newImages = [];
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &#x3C; <span class="hljs-number">5</span>; i++) {
+      newImages.push(<span class="hljs-built_in">Math</span>.floor(<span class="hljs-built_in">Math</span>.random() * <span class="hljs-number">100</span>));
+    }
+    setImages(newImages);
+    setIndex(<span class="hljs-number">0</span>);
+  };
+  <span class="hljs-keyword">const</span> prevImg = <span class="hljs-function">() =></span> {
+    setIndex(index === <span class="hljs-number">0</span> ? images.length - <span class="hljs-number">1</span> : index - <span class="hljs-number">1</span>);
+  };
+  <span class="hljs-keyword">const</span> nextImg = <span class="hljs-function">() =></span> {
+    setIndex((index + <span class="hljs-number">1</span>) % images.length);
+  };
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>Image {index}<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> prevImg()}>prev<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">img</span>
+        <span class="hljs-attr">src</span>=<span class="hljs-string">{baseUrl</span> + <span class="hljs-attr">images</span>[<span class="hljs-attr">index</span>]<span class="hljs-attr">.toString</span>()}
+        <span class="hljs-attr">alt</span>=<span class="hljs-string">"slideshow"</span>
+      /></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> nextImg()}>next<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">br</span> /></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> randomize()}>randomize<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+  );
+}
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> RandomSlideshowApp;
+</code></pre>
+</section><section class="slide"><h2>Übung: Primzahl-Quiz</h2>
+<p>Erstelle ein Quiz, dass zu einer <em>ungeraden</em> Zahl im Bereich 1-99 abfragt, ob diese eine Primzahl ist.</p>
+<p>Zeige eine Statistik zu den korrekten / inkorrekten bisherigen Anwtorten.</p>
+</section></section><section class="slides-section"><section class="slide"><h1>Immutable State</h1>
+</section><section class="slide"><h2>Immutable State</h2>
+<p><strong>Immutability</strong>: Wichtiges Konzept in der funktionalen Programmierung und bei React / Redux</p>
+<p>Daten werden nicht direkt abgeändert - stattdessen werden neue Daten auf Basis der alten generiert</p>
+</section><section class="slide"><h2>Immutable State</h2>
+<p>Wenn unser State Arrays oder Objekte enthält, <em>könnten</em> wir versuchen, diese direkt abzuändern</p>
+<p>Das sollten wir <em>nicht</em> tun - React bemerkt üblicherweise diese Änderungen nicht und aktualisiert die Ansicht nicht</p>
+<p>Objekte im State sollten als <em>unveränderlich</em> erachtet werden</p>
+</section><section class="slide"><h2>Immutable State</h2>
+<p>Wenn <code>setState</code> aufgerufen wird, vergleicht React:</p>
+<ul>
+<li>das Objekt, das der alte State referenziert</li>
+<li>das Objekt, das der neue State referenzeirt</li>
+</ul>
+<p>Wenn der alte und neue State das gleiche Objekt referenzieren (auch wenn dieses verändert wurde), wird die Komponente nicht neu gerendert</p>
+</section><section class="slide"><h2>Immutable State</h2>
+<p>Demo (siehe <a href="https://codesandbox.io/s/immutable-state-demo-r2x1i">https://codesandbox.io/s/immutable-state-demo-r2x1i</a>):</p>
+<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">App</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> [numbers, setNumbers] = useState([<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>]);
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>{JSON.stringify(numbers)}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>
+        <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> {
+          // invalid - modifies state
+          numbers.push(numbers.length);
+          setNumbers(numbers);
+        }}
+      >
+        add (mutate)
+      <span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>
+        <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> {
+          // valid - replaces state
+          setNumbers([...numbers, numbers.length]);
+        }}
+      >
+        add (replace)
+      <span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+  );
+}
+</code></pre>
+</section><section class="slide"><h2>Immutable State</h2>
+<p>richtig:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> randomize = <span class="hljs-function">() =></span> {
+  <span class="hljs-keyword">const</span> newImages = [];
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &#x3C; <span class="hljs-number">5</span>; i++) {
+    newImages.push(<span class="hljs-built_in">Math</span>.floor(<span class="hljs-built_in">Math</span>.random() * <span class="hljs-number">100</span>));
+  }
+  setImages(newImages);
+};
+</code></pre>
+<p>falsch:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> randomize = <span class="hljs-function">() =></span> {
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &#x3C; <span class="hljs-number">5</span>; i++) {
+    images[i] = <span class="hljs-built_in">Math</span>.floor(<span class="hljs-built_in">Math</span>.random() * <span class="hljs-number">100</span>);
+  }
+  setImages(images);
+};
+</code></pre>
+</section><section class="slide"><h2>Datenverwaltung ohne Mutationen: Arrays</h2>
+<p>Ausgangsdaten:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> names = [<span class="hljs-string">'Alice'</span>, <span class="hljs-string">'Bob'</span>, <span class="hljs-string">'Charlie'</span>];
+</code></pre>
+<p><strong>Mutation</strong>: Abändern des ursprünglichen Arrays</p>
+<pre><code class="hljs language-js">names.push(<span class="hljs-string">'Dan'</span>);
+</code></pre>
+<p><strong>keine Mutation</strong>: Erstellen eines neuen Arrays (spread Syntax)</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> newNames = [...names, <span class="hljs-string">'Dan'</span>];
+</code></pre>
+</section><section class="slide"><h2>Datenverwaltung ohne Mutationen: Objekte</h2>
+<p>Ausgangsdaten:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> user = {
+  <span class="hljs-attr">name</span>: <span class="hljs-string">'john'</span>
+  <span class="hljs-attr">email</span>: <span class="hljs-string">'john@doe.com'</span>
+}
+</code></pre>
+<p><strong>Mutation</strong>: Abändern des ursprünglichen Objekts</p>
+<pre><code class="hljs language-js">user.email = <span class="hljs-string">'johndoe@gmail.com'</span>;
+</code></pre>
+<p><strong>keine Mutation</strong>: Erstellen eines neuen Objekts (Spread Syntax)</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> newUser = { ...user, <span class="hljs-attr">email</span>: <span class="hljs-string">'johndoe@gmail.com'</span> };
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>JSX Grundlagen</h1>
 </section><section class="slide"><h2>JSX</h2>
 <p>JSX = Templatesprache von React</p>
@@ -2614,55 +2776,6 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">ul</span>></span>{reactMethods}<span class="hljs-tag">&#x3C;/<span class="hljs-name">ul</span>></span></span>
 &#x3C;/div>
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>State (Komponentenzustand)</h1>
-</section><section class="slide"><h2>State</h2>
-<p>React Komponenten können einen internen Zustand (<em>state</em>) haben</p>
-<p>Auf den state kann im Template verwiesen werden. Damit ändert sich die Anzeige automatisch, wenn Teile des States neu gesetzt werden.</p>
-</section><section class="slide"><h2>State Hook</h2>
-<p>In Funktionskomponenten verwenden wir den <em>State Hook</em>:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { useState } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
-</code></pre>
-</section><section class="slide"><h2>State Hook</h2>
-<p><code>useState</code> kann in der Komponentenfunktion (wiederholt) aufgerufen werden; es hat die folgende Signatur:</p>
-<ul>
-<li><code>useState</code> nimmt einen Parameter entgegen - den initialen Zustand</li>
-<li><code>useState</code> gibt bei jedem Aufruf ein Array mit zwei Einträgen zurück: Den aktuellen Zustand sowie eine Funktion, mit der der Zustand neu gesetzt werden kann</li>
-</ul>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> App = <span class="hljs-function">() =></span> {
-  <span class="hljs-keyword">const</span> [count, setCount] = useState(<span class="hljs-number">0</span>);
-  <span class="hljs-keyword">const</span> [title, setTitle] = useState(<span class="hljs-string">'React app'</span>);
-
-  <span class="hljs-keyword">return</span> ...
-};
-</code></pre>
-</section><section class="slide"><h2>Beispiel: Counter</h2>
-<p>Wir fügen unserer Anwendung einen Button hinzu. Zu Beginn zeigt dieser den Wert 0. Bei jedem Klick erhöht er sich um 1.</p>
-</section><section class="slide"><h2>Beispiel: Counter</h2>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> Counter = <span class="hljs-function">() =></span> {
-  <span class="hljs-keyword">const</span> [count, setCount] = useState(<span class="hljs-number">0</span>);
-
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>
-      <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> {
-        setCount(count + 1);
-      }}
-    >
-      {count}
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span>
-  );
-};
-</code></pre>
-</section><section class="slide"><h2>Übung: Slideshow</h2>
-<p>Slideshow, die Bilder wie das folgende anzeigt:</p>
-<p><code>https://picsum.photos/200?image=10</code></p>
-<ul>
-<li>Buttons für <em>vorwärts</em> und <em>zurück</em></li>
-<li>Button für <em>zurück zum Start</em></li>
-<li>Verhindern, dass ins negative gezählt wird</li>
-</ul>
-</section><section class="slide"><h2>Übung: Primzahl-Quiz</h2>
-<p>Erstelle ein Quiz, dass zu einer <em>ungeraden</em> Zahl im Bereich 1-99 abfragt, ob diese eine Primzahl ist.</p>
-<p>Zeige eine Statistik zu den korrekten / inkorrekten bisherigen Anwtorten.</p>
 </section></section><section class="slides-section"><section class="slide"><h1>VS Code Grundlagen und Plugins</h1>
 </section><section class="slide"><h2>VS Code Grundlagen und Plugins</h2>
 <p>siehe Präsentation <a href="./vs-code-de.html">VS Code</a></p>
@@ -2727,93 +2840,6 @@ npx create-next-app todolist --example with-typescript
 <p>Bemerkung:</p>
 <p>Manchmals zeigt der Entwicklungsserver weiter eine Fehlermeldung an, obwohl der Fehler im Code behoben wurde.</p>
 <p>Um dies zu beheben: Stoppen (Ctrl-C) und neu Starten des Servers</p>
-</section></section><section class="slides-section"><section class="slide"><h1>Immutable State</h1>
-</section><section class="slide"><h2>Immutable State</h2>
-<p><strong>Immutability</strong>: Wichtiges Konzept in der funktionalen Programmierung und bei React / Redux</p>
-<p>Daten werden nicht direkt abgeändert - stattdessen werden neue Daten auf Basis der alten generiert</p>
-</section><section class="slide"><h2>Immutable State</h2>
-<p>Wenn unser State Arrays oder Objekte enthält, <em>könnten</em> wir versuchen, diese direkt abzuändern</p>
-<p>Das sollten wir <em>nicht</em> tun - React bemerkt üblicherweise diese Änderungen nicht und aktualisiert die Ansicht nicht</p>
-<p>Objekte im State sollten als <em>unveränderlich</em> erachtet werden</p>
-</section><section class="slide"><h2>Immutable State</h2>
-<p>Wenn <code>setState</code> aufgerufen wird, vergleicht React:</p>
-<ul>
-<li>das Objekt, das der alte State referenziert</li>
-<li>das Objekt, das der neue State referenzeirt</li>
-</ul>
-<p>Wenn der alte und neue State das gleiche Objekt referenzieren (auch wenn dieses verändert wurde), wird die Komponente nicht neu gerendert</p>
-</section><section class="slide"><h2>Immutable State</h2>
-<p>Demo (siehe <a href="https://codesandbox.io/s/exciting-dust-w7hni">https://codesandbox.io/s/exciting-dust-w7hni</a>):</p>
-<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">App</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">const</span> [numbers, setNumbers] = useState([<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>]);
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>{JSON.stringify(numbers)}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>
-        <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> {
-          // invalid - modifies state
-          numbers.push(numbers.length);
-          setNumbers(numbers);
-        }}
-      >
-        add (mutate)
-      <span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>
-        <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> {
-          // valid - replaces state
-          setNumbers([...numbers, numbers.length]);
-        }}
-      >
-        add (replace)
-      <span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
-  );
-}
-</code></pre>
-</section><section class="slide"><h2>Immutable State</h2>
-<p>Code wie der folgende ist <strong>nicht</strong> erlaubt, um State abzuändern, da React die Mutation nicht "sieht":</p>
-<pre><code class="hljs language-js">todos[<span class="hljs-number">0</span>].completed = <span class="hljs-literal">true</span>;
-todos.push({ <span class="hljs-attr">title</span>: <span class="hljs-string">'study'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> });
-</code></pre>
-</section><section class="slide"><h2>Datenverwaltung ohne Mutationen: Arrays</h2>
-<p>Ausgangsdaten:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> names = [<span class="hljs-string">'Alice'</span>, <span class="hljs-string">'Bob'</span>, <span class="hljs-string">'Charlie'</span>];
-</code></pre>
-<p><strong>Mutation</strong>: Abändern des ursprünglichen Arrays</p>
-<pre><code class="hljs language-js">names.push(<span class="hljs-string">'Dan'</span>);
-</code></pre>
-<p><strong>keine Mutation</strong>: Erstellen eines neuen Arrays (spread Syntax)</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> newNames = [...names, <span class="hljs-string">'Dan'</span>];
-</code></pre>
-</section><section class="slide"><h2>Datenverwaltung ohne Mutationen: Objekte</h2>
-<p>Ausgangsdaten:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> user = {
-  <span class="hljs-attr">name</span>: <span class="hljs-string">'john'</span>
-  <span class="hljs-attr">email</span>: <span class="hljs-string">'john@doe.com'</span>
-}
-</code></pre>
-<p><strong>Mutation</strong>: Abändern des ursprünglichen Objekts</p>
-<pre><code class="hljs language-js">user.email = <span class="hljs-string">'johndoe@gmail.com'</span>;
-</code></pre>
-<p><strong>keine Mutation</strong>: Erstellen eines neuen Objekts (Spread Syntax)</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> newUser = { ...user, <span class="hljs-attr">email</span>: <span class="hljs-string">'johndoe@gmail.com'</span> };
-</code></pre>
-</section><section class="slide"><h2>immer.js</h2>
-<p>Library, die das Arbeiten ohne Mutationen erleichtert</p>
-<p>wird insbesondere vom Redux-Team empfohlen</p>
-</section><section class="slide"><h2>immer.js</h2>
-<p>Code, der das todos-Array abändern würde:</p>
-<pre><code class="hljs language-js">todos[<span class="hljs-number">0</span>].completed = <span class="hljs-literal">true</span>;
-todos.push({ <span class="hljs-attr">title</span>: <span class="hljs-string">'study'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> });
-</code></pre>
-<p>Mutation durch die Verwendung von <em>immer.js</em> vermeiden:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> produce <span class="hljs-keyword">from</span> <span class="hljs-string">'immer'</span>;
-
-<span class="hljs-keyword">const</span> newTodos = produce(todos, <span class="hljs-function">(<span class="hljs-params">todosDraft</span>) =></span> {
-  todosDraft[<span class="hljs-number">0</span>].completed = <span class="hljs-literal">true</span>;
-  todosDraft.push({ <span class="hljs-attr">title</span>: <span class="hljs-string">'study'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> });
-});
-</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Text-Inputs und Formulare</h1>
 </section><section class="slide"><h2>Text-Inputs</h2>
 <p>Besonderheit von input-Elementen:</p>
@@ -3002,6 +3028,7 @@ todos.push({ <span class="hljs-attr">title</span>: <span class="hljs-string">'st
 <ul>
 <li><a href="https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi">Chrome Plugin</a></li>
 <li><a href="https://addons.mozilla.org/de/firefox/addon/react-devtools/">Firefox Plugin</a></li>
+<li><a href="https://microsoftedge.microsoft.com/addons/detail/react-developer-tools/gpphkfbcpidddadnkolkpfckpihlkkil">Edge Plugin</a></li>
 </ul>
 <p>Features:</p>
 <ul>

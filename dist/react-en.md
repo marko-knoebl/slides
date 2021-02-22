@@ -57,7 +57,9 @@ recommended:
 
 <https://codesandbox.io>
 
-has templates for _React_ and _React TypeScript_
+- has templates for _React_ and _React TypeScript_
+- based on _VS Code_
+- Prettier-based formatting via _Shift_ + _Alt_ + _F_
 
 ## Online editors
 
@@ -413,6 +415,224 @@ const evenNumbers = myNumbers.filter(isEven);
 // [2, 4]
 ```
 
+# State
+
+## State
+
+Components may have an internal _state_
+
+The state can be referenced in the template. The view will automatically update if parts of the state are changed.
+
+## State hook
+
+In function components we make use of the _state hook_:
+
+```js
+import { useState } from 'react';
+```
+
+## State hook
+
+`useState` may be called (repeatedly) inside the component function
+
+- `useState` takes one parameter - the initial state value
+- on each call `useState` returns an array with two entries: the current state and a function to set the state to a new value
+
+```js
+const App = () => {
+  const [count, setCount] = useState(0);
+  const [title, setTitle] = useState('React app');
+
+  return ...
+};
+```
+
+## Exercise: Slideshow
+
+Re-implement the slideshow demo we saw before; try not to look at the old code
+
+- show images like `https://picsum.photos/300/200?image=0`
+- buttons for _previous_ and _next_
+- button for _back to start_
+
+optional:
+
+- prevent the index from becoming negative
+- button for _random image_
+
+## Example: Slideshow with a random image sequence
+
+slightly different example: slideshow with a random image sequence
+
+```js
+import { useState } from 'react';
+
+const baseUrl = 'https://picsum.photos/300/200?image=';
+function RandomSlideshowApp() {
+  const [index, setIndex] = useState(0);
+  const [images, setImages] = useState([0, 10, 20, 30, 40]);
+  const randomize = () => {
+    const newImages = [];
+    for (let i = 0; i < 5; i++) {
+      newImages.push(Math.floor(Math.random() * 100));
+    }
+    setImages(newImages);
+    setIndex(0);
+  };
+  const prevImg = () => {
+    setIndex(index === 0 ? images.length - 1 : index - 1);
+  };
+  const nextImg = () => {
+    setIndex((index + 1) % images.length);
+  };
+  return (
+    <div>
+      <h1>Image {index}</h1>
+      <button onClick={() => prevImg()}>prev</button>
+      <img
+        src={baseUrl + images[index].toString()}
+        alt="slideshow"
+      />
+      <button onClick={() => nextImg()}>next</button>
+      <br />
+      <button onClick={() => randomize()}>randomize</button>
+    </div>
+  );
+}
+export default RandomSlideshowApp;
+```
+
+## Exercise: Prime number quiz
+
+Create a quiz that shows an _odd_ number from 1-99. The user has to guess if it is a prime number or not.
+
+Show statistics on correct / incorrect answers the user has given so far.
+
+# Immutable state
+
+## Immutable state
+
+**Immutability**: important concept in functional programing and with React / Redux
+
+Data is not modified directly - instead, new data is derived from existing data (and may replace the existing data)
+
+## Immutable state
+
+if there are arrays or objects in the state we _could_ try and mutate them directly
+
+don't do this - React will usually not notice the changes and will not rerender the view
+
+state should be viewed as _immutabe_ (unchangeable)
+
+## Immutable state
+
+When `setState` is called, React will compare:
+
+- the object the old state points to
+- the object the new state points to
+
+If the old state and the new state reference the same object (even if it has changed), the component will not be rerendered.
+
+## Immutable state
+
+demo (see <https://codesandbox.io/s/immutable-state-demo-r2x1i>):
+
+```js
+function App() {
+  const [numbers, setNumbers] = useState([0, 1, 2]);
+  return (
+    <div>
+      <div>{JSON.stringify(numbers)}</div>
+      <button
+        onClick={() => {
+          // invalid - modifies state
+          numbers.push(numbers.length);
+          setNumbers(numbers);
+        }}
+      >
+        add (mutate)
+      </button>
+      <button
+        onClick={() => {
+          // valid - replaces state
+          setNumbers([...numbers, numbers.length]);
+        }}
+      >
+        add (replace)
+      </button>
+    </div>
+  );
+}
+```
+
+## Immutable state
+
+good:
+
+```js
+const randomize = () => {
+  const newImages = [];
+  for (let i = 0; i < 5; i++) {
+    newImages.push(Math.floor(Math.random() * 100));
+  }
+  setImages(newImages);
+};
+```
+
+bad:
+
+```js
+const randomize = () => {
+  for (let i = 0; i < 5; i++) {
+    images[i] = Math.floor(Math.random() * 100);
+  }
+  setImages(images);
+};
+```
+
+## Data management without mutations: Arrays
+
+initial data:
+
+```js
+const names = ['Alice', 'Bob', 'Charlie'];
+```
+
+**mutation**: this modifies the original array
+
+```js
+names.push('Dan');
+```
+
+**no mutation**: creates a new array (spread syntax)
+
+```js
+const newNames = [...names, 'Dan'];
+```
+
+## Data management without mutations: Objects
+
+initial data:
+
+```js
+const user = {
+  name: 'john'
+  email: 'john@doe.com'
+}
+```
+
+**mutation**: this modifies the object
+
+```js
+user.email = 'johndoe@gmail.com';
+```
+
+**no mutation**: creates a new object (spread syntax)
+
+```js
+const newUser = { ...user, email: 'johndoe@gmail.com' };
+```
+
 # JSX Basics
 
 ## JSX
@@ -546,76 +766,6 @@ for (let method in React) {
 </div>
 ```
 
-# State
-
-## State
-
-Components may have an internal _state_
-
-The state can be referenced in the template. The view will automatically update if parts of the state are changed.
-
-## State hook
-
-In function components we make use of the _state hook_:
-
-```js
-import { useState } from 'react';
-```
-
-## State hook
-
-`useState` may be called (repeatedly) inside the component function
-
-- `useState` takes one parameter - the initial state value
-- on each call `useState` returns an array with two entries: the current state and a function to set the state to a new value
-
-```js
-const App = () => {
-  const [count, setCount] = useState(0);
-  const [title, setTitle] = useState('React app');
-
-  return ...
-};
-```
-
-## Example: Counter
-
-We will add a button to our application. At the start this button will display the value 0. On each click the value will increment by 1.
-
-## Example: Counter
-
-```jsx
-const Counter = () => {
-  const [count, setCount] = useState(0);
-
-  return (
-    <button
-      onClick={() => {
-        setCount(count + 1);
-      }}
-    >
-      {count}
-    </button>
-  );
-};
-```
-
-## Exercise: Slideshow
-
-implement a slideshow that shows images like the following:
-
-`https://picsum.photos/200?image=10`
-
-- buttons for _previous_ and _next_
-- button for _back to start_
-- prevent the index from becoming negative
-
-## Exercise: Prime number quiz
-
-Create a quiz that shows an _odd_ number from 1-99. The user has to guess if it is a prime number or not.
-
-Show statistics on correct / incorrect answers the user has given so far.
-
 # VS Code basics and plugins
 
 ## VS Code basics and plugins
@@ -699,141 +849,6 @@ note:
 sometimes the development server will keep displaying an error even though it has been fixed
 
 stop the server (ctrl-C) and restart it to fix this
-
-# Immutable state
-
-## Immutable state
-
-**Immutability**: important concept in functional programing and with React / Redux
-
-Data is not modified directly - instead, new data is derived from existing data (and may replace the existing data)
-
-## Immutable state
-
-if there are arrays or objects in the state we _could_ try and mutate them directly
-
-don't do this - React will usually not notice the changes and will not rerender the view
-
-state should be viewed as _immutabe_ (unchangeable)
-
-## Immutable state
-
-When `setState` is called, React will compare:
-
-- the object the old state points to
-- the object the new state points to
-
-If the old state and the new state reference the same object (even if it has changed), the component will not be rerendered.
-
-## Immutable state
-
-demo (see <https://codesandbox.io/s/exciting-dust-w7hni>):
-
-```js
-function App() {
-  const [numbers, setNumbers] = useState([0, 1, 2]);
-  return (
-    <div>
-      <div>{JSON.stringify(numbers)}</div>
-      <button
-        onClick={() => {
-          // invalid - modifies state
-          numbers.push(numbers.length);
-          setNumbers(numbers);
-        }}
-      >
-        add (mutate)
-      </button>
-      <button
-        onClick={() => {
-          // valid - replaces state
-          setNumbers([...numbers, numbers.length]);
-        }}
-      >
-        add (replace)
-      </button>
-    </div>
-  );
-}
-```
-
-## Immutable state
-
-code like this is **not** allowed for changing state as React will not "see" the mutation:
-
-```js
-todos[0].completed = true;
-todos.push({ title: 'study', completed: false });
-```
-
-## Data management without mutations: Arrays
-
-initial data:
-
-```js
-const names = ['Alice', 'Bob', 'Charlie'];
-```
-
-**mutation**: this modifies the original array
-
-```js
-names.push('Dan');
-```
-
-**no mutation**: creates a new array (spread syntax)
-
-```js
-const newNames = [...names, 'Dan'];
-```
-
-## Data management without mutations: Objects
-
-initial data:
-
-```js
-const user = {
-  name: 'john'
-  email: 'john@doe.com'
-}
-```
-
-**mutation**: this modifies the object
-
-```js
-user.email = 'johndoe@gmail.com';
-```
-
-**no mutation**: creates a new object (spread syntax)
-
-```js
-const newUser = { ...user, email: 'johndoe@gmail.com' };
-```
-
-## immer.js
-
-**immer.js** is a library that helps with immutable data
-
-is recommended by the Redux team
-
-## immer.js
-
-this code would mutate the todos array:
-
-```js
-todos[0].completed = true;
-todos.push({ title: 'study', completed: false });
-```
-
-avoiding mutations by using _immer.js_:
-
-```js
-import produce from 'immer';
-
-const newTodos = produce(todos, (todosDraft) => {
-  todosDraft[0].completed = true;
-  todosDraft.push({ title: 'study', completed: false });
-});
-```
 
 # Text inputs and forms
 
@@ -1081,13 +1096,14 @@ example: initial validation of an input on its first _blur_, then live validatio
 
 - [Chrome Plugin](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi)
 - [Firefox Plugin](https://addons.mozilla.org/de/firefox/addon/react-devtools/)
+- [Edge Plugin](https://microsoftedge.microsoft.com/addons/detail/react-developer-tools/gpphkfbcpidddadnkolkpfckpihlkkil)
 
 features:
 
 - display component structure
 - show component state and props
-- change state
-- analyse render performance of components
+- change state and props
+- analyze render performance of components
 
 # JSX in detail
 

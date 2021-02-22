@@ -30,37 +30,60 @@ const App = () => {
 };
 ```
 
-## Beispiel: Counter
-
-Wir fügen unserer Anwendung einen Button hinzu. Zu Beginn zeigt dieser den Wert 0. Bei jedem Klick erhöht er sich um 1.
-
-## Beispiel: Counter
-
-```jsx
-const Counter = () => {
-  const [count, setCount] = useState(0);
-
-  return (
-    <button
-      onClick={() => {
-        setCount(count + 1);
-      }}
-    >
-      {count}
-    </button>
-  );
-};
-```
-
 ## Übung: Slideshow
 
-Slideshow, die Bilder wie das folgende anzeigt:
+Implementiere die zuvor gesehene Slideshow-Demo erneut; versuche, nicht auf den bisherigen Code zu blicken
 
-`https://picsum.photos/200?image=10`
-
+- zeige Bilder wie z.B. `https://picsum.photos/300/200?image=0`
 - Buttons für _vorwärts_ und _zurück_
 - Button für _zurück zum Start_
-- Verhindern, dass ins negative gezählt wird
+
+Zusatz:
+
+- verhindere, dass ins negative gezählt wird
+- Button für zufälliges Bild
+
+## Beispiel: Slideshow mit zufälliger Bildsequence
+
+etwas abgeändertes Beispiel: Slideshow mit zufälliger Bildfolge
+
+```js
+import { useState } from 'react';
+
+const baseUrl = 'https://picsum.photos/300/200?image=';
+function RandomSlideshowApp() {
+  const [index, setIndex] = useState(0);
+  const [images, setImages] = useState([0, 10, 20, 30, 40]);
+  const randomize = () => {
+    const newImages = [];
+    for (let i = 0; i < 5; i++) {
+      newImages.push(Math.floor(Math.random() * 100));
+    }
+    setImages(newImages);
+    setIndex(0);
+  };
+  const prevImg = () => {
+    setIndex(index === 0 ? images.length - 1 : index - 1);
+  };
+  const nextImg = () => {
+    setIndex((index + 1) % images.length);
+  };
+  return (
+    <div>
+      <h1>Image {index}</h1>
+      <button onClick={() => prevImg()}>prev</button>
+      <img
+        src={baseUrl + images[index].toString()}
+        alt="slideshow"
+      />
+      <button onClick={() => nextImg()}>next</button>
+      <br />
+      <button onClick={() => randomize()}>randomize</button>
+    </div>
+  );
+}
+export default RandomSlideshowApp;
+```
 
 ## Übung: Primzahl-Quiz
 

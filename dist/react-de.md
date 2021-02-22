@@ -57,7 +57,9 @@ Empfehlung:
 
 <https://codesandbox.io>
 
-hat Templates für _React_ und _React TypeScript_
+- hat Templates für _React_ und _React TypeScript_
+- basiert auf _VS Code_
+- Prettier-basierte Formatierung mittels _Shift_ + _Alt_ + _F_
 
 ## Online Editoren
 
@@ -413,6 +415,224 @@ const evenNumbers = myNumbers.filter(isEven);
 // [2, 4]
 ```
 
+# State (Komponentenzustand)
+
+## State
+
+React Komponenten können einen internen Zustand (_state_) haben
+
+Auf den state kann im Template verwiesen werden. Damit ändert sich die Anzeige automatisch, wenn Teile des States neu gesetzt werden.
+
+## State Hook
+
+In Funktionskomponenten verwenden wir den _State Hook_:
+
+```js
+import { useState } from 'react';
+```
+
+## State Hook
+
+`useState` kann in der Komponentenfunktion (wiederholt) aufgerufen werden; es hat die folgende Signatur:
+
+- `useState` nimmt einen Parameter entgegen - den initialen Zustand
+- `useState` gibt bei jedem Aufruf ein Array mit zwei Einträgen zurück: Den aktuellen Zustand sowie eine Funktion, mit der der Zustand neu gesetzt werden kann
+
+```js
+const App = () => {
+  const [count, setCount] = useState(0);
+  const [title, setTitle] = useState('React app');
+
+  return ...
+};
+```
+
+## Übung: Slideshow
+
+Implementiere die zuvor gesehene Slideshow-Demo erneut; versuche, nicht auf den bisherigen Code zu blicken
+
+- zeige Bilder wie z.B. `https://picsum.photos/300/200?image=0`
+- Buttons für _vorwärts_ und _zurück_
+- Button für _zurück zum Start_
+
+Zusatz:
+
+- verhindere, dass ins negative gezählt wird
+- Button für zufälliges Bild
+
+## Beispiel: Slideshow mit zufälliger Bildsequence
+
+etwas abgeändertes Beispiel: Slideshow mit zufälliger Bildfolge
+
+```js
+import { useState } from 'react';
+
+const baseUrl = 'https://picsum.photos/300/200?image=';
+function RandomSlideshowApp() {
+  const [index, setIndex] = useState(0);
+  const [images, setImages] = useState([0, 10, 20, 30, 40]);
+  const randomize = () => {
+    const newImages = [];
+    for (let i = 0; i < 5; i++) {
+      newImages.push(Math.floor(Math.random() * 100));
+    }
+    setImages(newImages);
+    setIndex(0);
+  };
+  const prevImg = () => {
+    setIndex(index === 0 ? images.length - 1 : index - 1);
+  };
+  const nextImg = () => {
+    setIndex((index + 1) % images.length);
+  };
+  return (
+    <div>
+      <h1>Image {index}</h1>
+      <button onClick={() => prevImg()}>prev</button>
+      <img
+        src={baseUrl + images[index].toString()}
+        alt="slideshow"
+      />
+      <button onClick={() => nextImg()}>next</button>
+      <br />
+      <button onClick={() => randomize()}>randomize</button>
+    </div>
+  );
+}
+export default RandomSlideshowApp;
+```
+
+## Übung: Primzahl-Quiz
+
+Erstelle ein Quiz, dass zu einer _ungeraden_ Zahl im Bereich 1-99 abfragt, ob diese eine Primzahl ist.
+
+Zeige eine Statistik zu den korrekten / inkorrekten bisherigen Anwtorten.
+
+# Immutable State
+
+## Immutable State
+
+**Immutability**: Wichtiges Konzept in der funktionalen Programmierung und bei React / Redux
+
+Daten werden nicht direkt abgeändert - stattdessen werden neue Daten auf Basis der alten generiert
+
+## Immutable State
+
+Wenn unser State Arrays oder Objekte enthält, _könnten_ wir versuchen, diese direkt abzuändern
+
+Das sollten wir _nicht_ tun - React bemerkt üblicherweise diese Änderungen nicht und aktualisiert die Ansicht nicht
+
+Objekte im State sollten als _unveränderlich_ erachtet werden
+
+## Immutable State
+
+Wenn `setState` aufgerufen wird, vergleicht React:
+
+- das Objekt, das der alte State referenziert
+- das Objekt, das der neue State referenzeirt
+
+Wenn der alte und neue State das gleiche Objekt referenzieren (auch wenn dieses verändert wurde), wird die Komponente nicht neu gerendert
+
+## Immutable State
+
+Demo (siehe <https://codesandbox.io/s/immutable-state-demo-r2x1i>):
+
+```js
+function App() {
+  const [numbers, setNumbers] = useState([0, 1, 2]);
+  return (
+    <div>
+      <div>{JSON.stringify(numbers)}</div>
+      <button
+        onClick={() => {
+          // invalid - modifies state
+          numbers.push(numbers.length);
+          setNumbers(numbers);
+        }}
+      >
+        add (mutate)
+      </button>
+      <button
+        onClick={() => {
+          // valid - replaces state
+          setNumbers([...numbers, numbers.length]);
+        }}
+      >
+        add (replace)
+      </button>
+    </div>
+  );
+}
+```
+
+## Immutable State
+
+richtig:
+
+```js
+const randomize = () => {
+  const newImages = [];
+  for (let i = 0; i < 5; i++) {
+    newImages.push(Math.floor(Math.random() * 100));
+  }
+  setImages(newImages);
+};
+```
+
+falsch:
+
+```js
+const randomize = () => {
+  for (let i = 0; i < 5; i++) {
+    images[i] = Math.floor(Math.random() * 100);
+  }
+  setImages(images);
+};
+```
+
+## Datenverwaltung ohne Mutationen: Arrays
+
+Ausgangsdaten:
+
+```js
+const names = ['Alice', 'Bob', 'Charlie'];
+```
+
+**Mutation**: Abändern des ursprünglichen Arrays
+
+```js
+names.push('Dan');
+```
+
+**keine Mutation**: Erstellen eines neuen Arrays (spread Syntax)
+
+```js
+const newNames = [...names, 'Dan'];
+```
+
+## Datenverwaltung ohne Mutationen: Objekte
+
+Ausgangsdaten:
+
+```js
+const user = {
+  name: 'john'
+  email: 'john@doe.com'
+}
+```
+
+**Mutation**: Abändern des ursprünglichen Objekts
+
+```js
+user.email = 'johndoe@gmail.com';
+```
+
+**keine Mutation**: Erstellen eines neuen Objekts (Spread Syntax)
+
+```js
+const newUser = { ...user, email: 'johndoe@gmail.com' };
+```
+
 # JSX Grundlagen
 
 ## JSX
@@ -546,76 +766,6 @@ for (let method in React) {
 </div>
 ```
 
-# State (Komponentenzustand)
-
-## State
-
-React Komponenten können einen internen Zustand (_state_) haben
-
-Auf den state kann im Template verwiesen werden. Damit ändert sich die Anzeige automatisch, wenn Teile des States neu gesetzt werden.
-
-## State Hook
-
-In Funktionskomponenten verwenden wir den _State Hook_:
-
-```js
-import { useState } from 'react';
-```
-
-## State Hook
-
-`useState` kann in der Komponentenfunktion (wiederholt) aufgerufen werden; es hat die folgende Signatur:
-
-- `useState` nimmt einen Parameter entgegen - den initialen Zustand
-- `useState` gibt bei jedem Aufruf ein Array mit zwei Einträgen zurück: Den aktuellen Zustand sowie eine Funktion, mit der der Zustand neu gesetzt werden kann
-
-```js
-const App = () => {
-  const [count, setCount] = useState(0);
-  const [title, setTitle] = useState('React app');
-
-  return ...
-};
-```
-
-## Beispiel: Counter
-
-Wir fügen unserer Anwendung einen Button hinzu. Zu Beginn zeigt dieser den Wert 0. Bei jedem Klick erhöht er sich um 1.
-
-## Beispiel: Counter
-
-```jsx
-const Counter = () => {
-  const [count, setCount] = useState(0);
-
-  return (
-    <button
-      onClick={() => {
-        setCount(count + 1);
-      }}
-    >
-      {count}
-    </button>
-  );
-};
-```
-
-## Übung: Slideshow
-
-Slideshow, die Bilder wie das folgende anzeigt:
-
-`https://picsum.photos/200?image=10`
-
-- Buttons für _vorwärts_ und _zurück_
-- Button für _zurück zum Start_
-- Verhindern, dass ins negative gezählt wird
-
-## Übung: Primzahl-Quiz
-
-Erstelle ein Quiz, dass zu einer _ungeraden_ Zahl im Bereich 1-99 abfragt, ob diese eine Primzahl ist.
-
-Zeige eine Statistik zu den korrekten / inkorrekten bisherigen Anwtorten.
-
 # VS Code Grundlagen und Plugins
 
 ## VS Code Grundlagen und Plugins
@@ -693,141 +843,6 @@ Bemerkung:
 Manchmals zeigt der Entwicklungsserver weiter eine Fehlermeldung an, obwohl der Fehler im Code behoben wurde.
 
 Um dies zu beheben: Stoppen (Ctrl-C) und neu Starten des Servers
-
-# Immutable State
-
-## Immutable State
-
-**Immutability**: Wichtiges Konzept in der funktionalen Programmierung und bei React / Redux
-
-Daten werden nicht direkt abgeändert - stattdessen werden neue Daten auf Basis der alten generiert
-
-## Immutable State
-
-Wenn unser State Arrays oder Objekte enthält, _könnten_ wir versuchen, diese direkt abzuändern
-
-Das sollten wir _nicht_ tun - React bemerkt üblicherweise diese Änderungen nicht und aktualisiert die Ansicht nicht
-
-Objekte im State sollten als _unveränderlich_ erachtet werden
-
-## Immutable State
-
-Wenn `setState` aufgerufen wird, vergleicht React:
-
-- das Objekt, das der alte State referenziert
-- das Objekt, das der neue State referenzeirt
-
-Wenn der alte und neue State das gleiche Objekt referenzieren (auch wenn dieses verändert wurde), wird die Komponente nicht neu gerendert
-
-## Immutable State
-
-Demo (siehe <https://codesandbox.io/s/exciting-dust-w7hni>):
-
-```js
-function App() {
-  const [numbers, setNumbers] = useState([0, 1, 2]);
-  return (
-    <div>
-      <div>{JSON.stringify(numbers)}</div>
-      <button
-        onClick={() => {
-          // invalid - modifies state
-          numbers.push(numbers.length);
-          setNumbers(numbers);
-        }}
-      >
-        add (mutate)
-      </button>
-      <button
-        onClick={() => {
-          // valid - replaces state
-          setNumbers([...numbers, numbers.length]);
-        }}
-      >
-        add (replace)
-      </button>
-    </div>
-  );
-}
-```
-
-## Immutable State
-
-Code wie der folgende ist **nicht** erlaubt, um State abzuändern, da React die Mutation nicht "sieht":
-
-```js
-todos[0].completed = true;
-todos.push({ title: 'study', completed: false });
-```
-
-## Datenverwaltung ohne Mutationen: Arrays
-
-Ausgangsdaten:
-
-```js
-const names = ['Alice', 'Bob', 'Charlie'];
-```
-
-**Mutation**: Abändern des ursprünglichen Arrays
-
-```js
-names.push('Dan');
-```
-
-**keine Mutation**: Erstellen eines neuen Arrays (spread Syntax)
-
-```js
-const newNames = [...names, 'Dan'];
-```
-
-## Datenverwaltung ohne Mutationen: Objekte
-
-Ausgangsdaten:
-
-```js
-const user = {
-  name: 'john'
-  email: 'john@doe.com'
-}
-```
-
-**Mutation**: Abändern des ursprünglichen Objekts
-
-```js
-user.email = 'johndoe@gmail.com';
-```
-
-**keine Mutation**: Erstellen eines neuen Objekts (Spread Syntax)
-
-```js
-const newUser = { ...user, email: 'johndoe@gmail.com' };
-```
-
-## immer.js
-
-Library, die das Arbeiten ohne Mutationen erleichtert
-
-wird insbesondere vom Redux-Team empfohlen
-
-## immer.js
-
-Code, der das todos-Array abändern würde:
-
-```js
-todos[0].completed = true;
-todos.push({ title: 'study', completed: false });
-```
-
-Mutation durch die Verwendung von _immer.js_ vermeiden:
-
-```js
-import produce from 'immer';
-
-const newTodos = produce(todos, (todosDraft) => {
-  todosDraft[0].completed = true;
-  todosDraft.push({ title: 'study', completed: false });
-});
-```
 
 # Text-Inputs und Formulare
 
@@ -1075,6 +1090,7 @@ Beispiel: erste Validierung eines Feldes beim ersten _blur_, danach live-Validie
 
 - [Chrome Plugin](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi)
 - [Firefox Plugin](https://addons.mozilla.org/de/firefox/addon/react-devtools/)
+- [Edge Plugin](https://microsoftedge.microsoft.com/addons/detail/react-developer-tools/gpphkfbcpidddadnkolkpfckpihlkkil)
 
 Features:
 

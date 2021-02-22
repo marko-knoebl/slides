@@ -30,37 +30,60 @@ const App = () => {
 };
 ```
 
-## Example: Counter
-
-We will add a button to our application. At the start this button will display the value 0. On each click the value will increment by 1.
-
-## Example: Counter
-
-```jsx
-const Counter = () => {
-  const [count, setCount] = useState(0);
-
-  return (
-    <button
-      onClick={() => {
-        setCount(count + 1);
-      }}
-    >
-      {count}
-    </button>
-  );
-};
-```
-
 ## Exercise: Slideshow
 
-implement a slideshow that shows images like the following:
+Re-implement the slideshow demo we saw before; try not to look at the old code
 
-`https://picsum.photos/200?image=10`
-
+- show images like `https://picsum.photos/300/200?image=0`
 - buttons for _previous_ and _next_
 - button for _back to start_
+
+optional:
+
 - prevent the index from becoming negative
+- button for _random image_
+
+## Example: Slideshow with a random image sequence
+
+slightly different example: slideshow with a random image sequence
+
+```js
+import { useState } from 'react';
+
+const baseUrl = 'https://picsum.photos/300/200?image=';
+function RandomSlideshowApp() {
+  const [index, setIndex] = useState(0);
+  const [images, setImages] = useState([0, 10, 20, 30, 40]);
+  const randomize = () => {
+    const newImages = [];
+    for (let i = 0; i < 5; i++) {
+      newImages.push(Math.floor(Math.random() * 100));
+    }
+    setImages(newImages);
+    setIndex(0);
+  };
+  const prevImg = () => {
+    setIndex(index === 0 ? images.length - 1 : index - 1);
+  };
+  const nextImg = () => {
+    setIndex((index + 1) % images.length);
+  };
+  return (
+    <div>
+      <h1>Image {index}</h1>
+      <button onClick={() => prevImg()}>prev</button>
+      <img
+        src={baseUrl + images[index].toString()}
+        alt="slideshow"
+      />
+      <button onClick={() => nextImg()}>next</button>
+      <br />
+      <button onClick={() => randomize()}>randomize</button>
+    </div>
+  );
+}
+export default RandomSlideshowApp;
+```
 
 ## Exercise: Prime number quiz
 

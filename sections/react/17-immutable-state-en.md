@@ -25,7 +25,7 @@ If the old state and the new state reference the same object (even if it has cha
 
 ## Immutable state
 
-demo (see <https://codesandbox.io/s/exciting-dust-w7hni>):
+demo (see <https://codesandbox.io/s/immutable-state-demo-r2x1i>):
 
 ```js
 function App() {
@@ -57,11 +57,27 @@ function App() {
 
 ## Immutable state
 
-code like this is **not** allowed for changing state as React will not "see" the mutation:
+good:
 
 ```js
-todos[0].completed = true;
-todos.push({ title: 'study', completed: false });
+const randomize = () => {
+  const newImages = [];
+  for (let i = 0; i < 5; i++) {
+    newImages.push(Math.floor(Math.random() * 100));
+  }
+  setImages(newImages);
+};
+```
+
+bad:
+
+```js
+const randomize = () => {
+  for (let i = 0; i < 5; i++) {
+    images[i] = Math.floor(Math.random() * 100);
+  }
+  setImages(images);
+};
 ```
 
 ## Data management without mutations: Arrays
@@ -105,30 +121,4 @@ user.email = 'johndoe@gmail.com';
 
 ```js
 const newUser = { ...user, email: 'johndoe@gmail.com' };
-```
-
-## immer.js
-
-**immer.js** is a library that helps with immutable data
-
-is recommended by the Redux team
-
-## immer.js
-
-this code would mutate the todos array:
-
-```js
-todos[0].completed = true;
-todos.push({ title: 'study', completed: false });
-```
-
-avoiding mutations by using _immer.js_:
-
-```js
-import produce from 'immer';
-
-const newTodos = produce(todos, (todosDraft) => {
-  todosDraft[0].completed = true;
-  todosDraft.push({ title: 'study', completed: false });
-});
 ```

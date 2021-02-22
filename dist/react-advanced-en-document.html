@@ -753,6 +753,25 @@ history.push(<span class="hljs-string">'/'</span>);
 </code></pre>
 <h2>Reducer hook</h2>
 <p>The powerful <em>Redux devtools</em> may be used with the reducer hook: <a href="https://github.com/troch/reinspect">https://github.com/troch/reinspect</a> (requires some configuration work, manually dispatching actions does not work)</p>
+<h1>Immutability helper libraries</h1>
+<h2>Immutability helper libraries</h2>
+<p>working directly with immutable state can be complicated / tedious</p>
+<p>helper libraries:</p>
+<ul>
+<li><em>immer.js</em> (commonly used with <em>Redux</em>)</li>
+<li><em>immutable.js</em></li>
+</ul>
+<h2>immer.js</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> produce <span class="hljs-keyword">from</span> <span class="hljs-string">'immer'</span>;
+
+<span class="hljs-keyword">const</span> todos = [
+  <span class="hljs-comment">// ...</span>
+];
+<span class="hljs-keyword">const</span> newTodos = produce(todos, <span class="hljs-function">(<span class="hljs-params">todosDraft</span>) =></span> {
+  todosDraft[<span class="hljs-number">0</span>].completed = <span class="hljs-literal">true</span>;
+  todosDraft.push({ <span class="hljs-attr">title</span>: <span class="hljs-string">'study'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> });
+});
+</code></pre>
 <h1>Styling tools</h1>
 <h2>Styling tools</h2>
 <p>tools for external stylesheets:</p>

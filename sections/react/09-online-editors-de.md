@@ -6,7 +6,9 @@ Empfehlung:
 
 <https://codesandbox.io>
 
-hat Templates für _React_ und _React TypeScript_
+- hat Templates für _React_ und _React TypeScript_
+- basiert auf _VS Code_
+- Prettier-basierte Formatierung mittels _Shift_ + _Alt_ + _F_
 
 ## Online Editoren
 
