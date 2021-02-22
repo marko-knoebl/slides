@@ -415,12 +415,20 @@ const evenNumbers = myNumbers.filter(isEven);
 
 # JSX Grundlagen
 
-## JSX: JS + XML
+## JSX
 
 JSX = Templatesprache von React
 
 - **&lt;** wechselt von JS zu XML/HTML
 - **{** wechselt zurück zu JS
+
+## JSX verwenden
+
+in React Versionen &lt; 17 müssen wir das `React`-Objekt importieren, um _JSX_ schreiben zu können
+
+```js
+import React from 'react';
+```
 
 ## Inhalte binden
 

@@ -23,7 +23,7 @@ reasons for using class components:
 ## Class component example
 
 ```jsx
-import React, { Component } from 'react';
+import { Component } from 'react';
 
 class App extends Component {
   render() {

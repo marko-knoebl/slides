@@ -43,7 +43,6 @@ Testing a Rating component
 ## Test setup
 
 ```jsx
-import React from 'react';
 import TestRenderer from 'react-test-renderer';
 
 import Rating from './Rating';

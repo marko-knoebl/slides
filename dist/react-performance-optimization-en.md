@@ -330,7 +330,7 @@ React facilities for lazy-loading:
 ## Lazy-loading components
 
 ```jsx
-import React, { Suspense, lazy } from 'react';
+import { Suspense, lazy } from 'react';
 import { Route } from 'react-router-dom';
 
 const Home = lazy(() => import('./routes/Home'));

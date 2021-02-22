@@ -1,11 +1,19 @@
 # JSX Basics
 
-## JSX: JS + XML
+## JSX
 
 JSX = Template language of React
 
 - **<** switches from JS to XML/HTML
 - **{** switches back to JS
+
+## Using JSX
+
+for React versions < 17, we need to import the `React` object in order to write _JSX_:
+
+```js
+import React from 'react';
+```
 
 ## Binding content
 

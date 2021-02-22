@@ -40,7 +40,6 @@ With jest and enzyme
 ## Example: testing a rating component
 
 ```jsx
-import React from 'react';
 import { shallow, mount } from 'enzyme';
 
 import Rating from './Rating';

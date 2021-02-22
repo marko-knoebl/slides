@@ -43,7 +43,6 @@ Testen einer Rating Komponente
 ## Test-Setup
 
 ```jsx
-import React from 'react';
 import TestRenderer from 'react-test-renderer';
 
 import Rating from './Rating';

@@ -58,7 +58,6 @@ npm run storybook
 einfaches Beispiel: _Rating.stories.js_
 
 ```jsx
-import React from 'react';
 import Rating from './Rating';
 
 export default { title: 'Rating', component: Rating };
@@ -72,7 +71,6 @@ export const FiveStars = () => <Rating stars={5} />;
 Beispiel mit Template, props (controls) und events (actions)
 
 ```jsx
-import React from 'react';
 import Rating from './Rating';
 
 export default { title: 'Rating', component: Rating };
@@ -90,7 +88,7 @@ FiveStars.args = { stars: 5 };
 Beispiel mit TypeScript:
 
 ```ts
-import React, { ComponentProps } from 'react';
+import { ComponentProps } from 'react';
 import { Story } from '@storybook/react/types-6-0';
 ```
 
@@ -457,7 +455,6 @@ Testen einer Rating Komponente
 ## Test-Setup
 
 ```jsx
-import React from 'react';
 import TestRenderer from 'react-test-renderer';
 
 import Rating from './Rating';
@@ -556,7 +553,6 @@ Testen einer Rating-Komponente
 ## Beispiel: Testen einer Rating-Komponente
 
 ```jsx
-import React from 'react';
 import { shallow, mount } from 'enzyme';
 
 import Rating from './Rating';

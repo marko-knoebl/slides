@@ -40,7 +40,6 @@ Testen einer Rating-Komponente
 ## Beispiel: Testen einer Rating-Komponente
 
 ```jsx
-import React from 'react';
 import { shallow, mount } from 'enzyme';
 
 import Rating from './Rating';

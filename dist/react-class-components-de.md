@@ -25,7 +25,7 @@ Gründe für die Verwendung von Klassenkomponenten:
 ## Einfaches Beispiel
 
 ```jsx
-import React, { Component } from 'react';
+import { Component } from 'react';
 
 class App extends Component {
   render() {

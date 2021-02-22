@@ -18,8 +18,6 @@ mdx example (_Foo.mdx_):
 equivalent jsx:
 
 ```jsx
-import React from 'react';
-
 export default function Foo(props) {
   return (
     <>
