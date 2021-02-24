@@ -12,7 +12,6 @@
 
 Datentypen können angegeben werden und unterstützen insbesondere die Entwicklungsumgebung:
 
-- Anzeigen von Funktionssignaturen
 - Autovervollständigung
 - Fehlermeldungen bei nicht passenden Datentypen
 
@@ -70,47 +69,9 @@ let names: string[] = [];
 names.push('Anna');
 ```
 
-## Types & Interfaces
-
-**Interfaces**: beschreiben die Struktur eines Objektes / einer Klasse genauer (z.B. `Todo`, `Person`)
-
-**Types**: ähnlich wie Interfaces; auch auf Strings, Arrays, ... anwendbar
-
-## Types & Interfaces
-
-Types bieten im wesentlichen mehr Funktionalität als Interfaces
-
-https://stackoverflow.com/a/52682220/
-
-## Types
-
-```ts
-type TodoType = {
-  id: number;
-  title: string;
-  completed: boolean;
-};
-
-type TodoCollection = Array<TodoType>;
-```
-
-## Types bei Objekten
-
-```ts
-type TodoType = {
-  id: number;
-  title: string;
-  completed: boolean;
-  // optional
-  description?: string;
-  // method
-  toggle: (id: number) => void;
-};
-```
-
 ## Generics
 
-Allgemeine Typendeklaration, zu der bei der Anwendung nähere Informationen spezifiziert werden können (via `<...>`)
+_Generics_: allgemeine Typendeklaration, zu der bei der Anwendung nähere Informationen spezifiziert werden können (via `<...>`)
 
 ## Generics
 
@@ -125,8 +86,39 @@ Beispiel: Reacts `Component` ist ein Generic
 
 ```ts
 class MyComp extends Component<MyProps, MyState> {
-  ...
+  // ...
 }
+```
+
+## Type Assertions
+
+ermöglichen das Behandeln eines vorhandenen Objekts als bestimmter Typ
+
+schlägt fehl:
+
+```ts
+// type: HTMLElement or null
+const nameInput = document.getElementById('name-input');
+console.log(nameInput.value);
+```
+
+klappt:
+
+```ts
+const nameInput = document.getElementById(
+  'name-input'
+) as HTMLInputElement;
+console.log(myInput.value);
+```
+
+## Any
+
+Any: lässt alle Typen zu - erlaubt das Zugreifen auf beliebige Properties
+
+```ts
+const myInput = document.getElementById('myinput') as any;
+
+console.log(myInput.value);
 ```
 
 ## Typendeklarationen für Libraries

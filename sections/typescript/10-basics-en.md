@@ -69,48 +69,9 @@ let names: string[] = [];
 names.push('Anna');
 ```
 
-## Types & interfaces
-
-**Interfaces** describe the structure of an object / of a class in detail  
-e.g.: `Todo`, `Person`
-
-**Types**: similar to interfaces, but are also applicable to strings, arrays, ...
-
-## Types & interfaces
-
-Essentialy types offer more functionality than interfaces
-
-https://stackoverflow.com/a/52682220/
-
-## Types
-
-```ts
-type TodoType = {
-  id: number;
-  title: string;
-  completed: boolean;
-};
-
-type TodoCollection = Array<TodoType>;
-```
-
-## Types and objects
-
-```ts
-type TodoType = {
-  id: number;
-  title: string;
-  completed: boolean;
-  // optional
-  description?: string;
-  // method
-  toggle: (id: number) => void;
-};
-```
-
 ## Generics
 
-Generic type declarations that can receive more specific type information when applied (via `<...>`)
+_Generics_: type declarations that can receive more specific type information when applied (via `<...>`)
 
 ## Generics
 
@@ -125,8 +86,39 @@ example: React's `Component` is a generic
 
 ```ts
 class MyComp extends Component<MyProps, MyState> {
-  ...
+  // ...
 }
+```
+
+## Type assertions
+
+Type assertions enable treating an existing object as a specific type
+
+fails:
+
+```ts
+// type: HTMLElement or null
+const nameInput = document.getElementById('name-input');
+console.log(nameInput.value);
+```
+
+works:
+
+```ts
+const nameInput = document.getElementById(
+  'name-input'
+) as HTMLInputElement;
+console.log(myInput.value);
+```
+
+## Any
+
+Any: variable can be of any type - allows accessing arbitrary properties
+
+```ts
+const myInput = document.getElementById('myinput') as any;
+
+console.log(myInput.value);
 ```
 
 ## Type declarations for libraries

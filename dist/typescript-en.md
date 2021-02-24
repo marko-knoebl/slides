@@ -69,14 +69,64 @@ let names: string[] = [];
 names.push('Anna');
 ```
 
-## Types & interfaces
+## Generics
 
-**Interfaces** describe the structure of an object / of a class in detail  
-e.g.: `Todo`, `Person`
+_Generics_: type declarations that can receive more specific type information when applied (via `<...>`)
+
+## Generics
+
+example: `Array` is a generic
+
+```ts
+const a: Array<number> = [1, 2, 3];
+const b: Array<string> = ['one', 'two', 'three'];
+```
+
+example: React's `Component` is a generic
+
+```ts
+class MyComp extends Component<MyProps, MyState> {
+  // ...
+}
+```
+
+## Type assertions
+
+Type assertions enable treating an existing object as a specific type
+
+```ts
+const myInput = document.getElementById(
+  'first-name'
+) as HTMLInputElement;
+
+console.log(myInput.value);
+```
+
+## Any
+
+Any: variable can be of any type - allows accessing arbitrary properties
+
+```ts
+const myInput: any = document.getElementById('myinput');
+
+console.log(myInput.value);
+```
+
+## Type declarations for libraries
+
+Several JavaScript Libraries come with type declarations for TypeScript - e.g. _redux_.
+
+For other libraries there are usually external declaration packages that are prefixed with _@types/_; e.g. for _react_ there's the package _@types/react_.
+
+# Type and interface declarations
+
+## Type and interface declarations
+
+**Interfaces** describe the structure of an object / of a class in detail (e.g.: `Todo`, `Person`)
 
 **Types**: similar to interfaces, but are also applicable to strings, arrays, ...
 
-## Types & interfaces
+## Types and interfaces
 
 Essentialy types offer more functionality than interfaces
 
@@ -108,57 +158,6 @@ type TodoType = {
 };
 ```
 
-## Generics
-
-Generic type declarations that can receive more specific type information when applied (via `<...>`)
-
-## Generics
-
-example: `Array` is a generic
-
-```ts
-const a: Array<number> = [1, 2, 3];
-const b: Array<string> = ['one', 'two', 'three'];
-```
-
-example: React's `Component` is a generic
-
-```ts
-class MyComp extends Component<MyProps, MyState> {
-  ...
-}
-```
-
-## Type declarations for libraries
-
-Several JavaScript Libraries come with type declarations for TypeScript - e.g. _redux_.
-
-For other libraries there are usually external declaration packages that are prefixed with _@types/_; e.g. for _react_ there's the package _@types/react_.
-
-# TypeScript Intermediate
-
-## Any
-
-Any: variable can be of any type - disables the typechecker for this variable
-
-```ts
-const myInput: any = document.getElementById('myinput');
-
-console.log(myInput.value);
-```
-
-## Type assertions
-
-Enable treating an existing object as a specific type
-
-```ts
-const myInput = document.getElementById(
-  'first-name'
-) as HTMLInputElement;
-
-console.log(myInput.value);
-```
-
 ## Types / interfaces and classes
 
 ```ts
@@ -170,6 +169,8 @@ class AdvancedTodo implements TodoInterface {
   /* ... */
 }
 ```
+
+# Intersection types and union types
 
 ## Intersection Types
 
@@ -226,17 +227,4 @@ Alternative notation across multiple lines:
 type TodoActionType =
   | AddTodoActionType
   | ToggleTodoActionType;
-```
-
-## Private & public properties
-
-```ts
-class Clock {
-  private formatTime(time) {
-    return ...
-  }
-  public start() {
-    ...
-  }
-}
 ```

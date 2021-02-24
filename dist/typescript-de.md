@@ -12,7 +12,6 @@
 
 Datentypen können angegeben werden und unterstützen insbesondere die Entwicklungsumgebung:
 
-- Anzeigen von Funktionssignaturen
 - Autovervollständigung
 - Fehlermeldungen bei nicht passenden Datentypen
 
@@ -70,13 +69,64 @@ let names: string[] = [];
 names.push('Anna');
 ```
 
-## Types & Interfaces
+## Generics
+
+_Generics_: allgemeine Typendeklaration, zu der bei der Anwendung nähere Informationen spezifiziert werden können (via `<...>`)
+
+## Generics
+
+Beispiel: `Array` ist ein Generic
+
+```ts
+const a: Array<number> = [1, 2, 3];
+const b: Array<string> = ['one', 'two', 'three'];
+```
+
+Beispiel: Reacts `Component` ist ein Generic
+
+```ts
+class MyComp extends Component<MyProps, MyState> {
+  // ...
+}
+```
+
+## Type Assertions
+
+ermöglichen das Behandeln eines vorhandenen Objekts als bestimmter Typ
+
+```ts
+const myInput = document.getElementById(
+  'first-name'
+) as HTMLInputElement;
+
+console.log(myInput.value);
+```
+
+## Any
+
+Any: lässt alle Typen zu - erlaubt das Zugreifen auf beliebige Properties
+
+```ts
+const myInput: any = document.getElementById('myinput');
+
+console.log(myInput.value);
+```
+
+## Typendeklarationen für Libraries
+
+Manche JavaScript Libraries beinhalten auch Typendeklarationen für TypeScript - z.B. _redux_.
+
+Für andere Libraries gibt es meist externe Deklarationen mit dem Präfix _@types/_, z.B. für _react_ existiert das Paket _@types/react_.
+
+# Type- und Interface-Deklarationen
+
+## Type- und Interface-Deklarationen
 
 **Interfaces**: beschreiben die Struktur eines Objektes / einer Klasse genauer (z.B. `Todo`, `Person`)
 
 **Types**: ähnlich wie Interfaces; auch auf Strings, Arrays, ... anwendbar
 
-## Types & Interfaces
+## Type- und Interface-Deklarationen
 
 Types bieten im wesentlichen mehr Funktionalität als Interfaces
 
@@ -108,58 +158,7 @@ type TodoType = {
 };
 ```
 
-## Generics
-
-Allgemeine Typendeklaration, zu der bei der Anwendung nähere Informationen spezifiziert werden können (via `<...>`)
-
-## Generics
-
-Beispiel: `Array` ist ein Generic
-
-```ts
-const a: Array<number> = [1, 2, 3];
-const b: Array<string> = ['one', 'two', 'three'];
-```
-
-Beispiel: Reacts `Component` ist ein Generic
-
-```ts
-class MyComp extends Component<MyProps, MyState> {
-  ...
-}
-```
-
-## Typendeklarationen für Libraries
-
-Manche JavaScript Libraries beinhalten auch Typendeklarationen für TypeScript - z.B. _redux_.
-
-Für andere Libraries gibt es meist externe Deklarationen mit dem Präfix _@types/_, z.B. für _react_ existiert das Paket _@types/react_.
-
-# TypeScript intermediate
-
-## Any
-
-Any: lässt alle Typen zu
-
-```ts
-const myInput: any = document.getElementById('myinput');
-
-console.log(myInput.value);
-```
-
-## Type Assertions
-
-ermöglichen das Behandeln eines vorhandenen Objekts als bestimmter Typ
-
-```ts
-const myInput = document.getElementById(
-  'first-name'
-) as HTMLInputElement;
-
-console.log(myInput.value);
-```
-
-## Typen / Interfaces und Klassen
+## Types / Interfaces und Klassen
 
 ```ts
 class AdvancedTodo implements TodoType {
@@ -170,6 +169,8 @@ class AdvancedTodo implements TodoInterface {
   /* ... */
 }
 ```
+
+# Intersection Types und Union Types
 
 ## Intersection Types
 
