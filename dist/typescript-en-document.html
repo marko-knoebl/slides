@@ -58,15 +58,20 @@ names.push(<span class="hljs-string">'Anna'</span>);
 </code></pre>
 <h2>Type assertions</h2>
 <p>Type assertions enable treating an existing object as a specific type</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> myInput = <span class="hljs-built_in">document</span>.getElementById(
-  <span class="hljs-string">'first-name'</span>
+<p>fails:</p>
+<pre><code class="hljs language-ts"><span class="hljs-comment">// type: HTMLElement or null</span>
+<span class="hljs-keyword">const</span> nameInput = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'name-input'</span>);
+<span class="hljs-built_in">console</span>.log(nameInput.value);
+</code></pre>
+<p>works:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> nameInput = <span class="hljs-built_in">document</span>.getElementById(
+  <span class="hljs-string">'name-input'</span>
 ) <span class="hljs-keyword">as</span> HTMLInputElement;
-
 <span class="hljs-built_in">console</span>.log(myInput.value);
 </code></pre>
 <h2>Any</h2>
 <p>Any: variable can be of any type - allows accessing arbitrary properties</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> myInput: <span class="hljs-built_in">any</span> = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'myinput'</span>);
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> myInput = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'myinput'</span>) <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>;
 
 <span class="hljs-built_in">console</span>.log(myInput.value);
 </code></pre>
@@ -81,16 +86,16 @@ names.push(<span class="hljs-string">'Anna'</span>);
 <p>Essentialy types offer more functionality than interfaces</p>
 <p><a href="https://stackoverflow.com/a/52682220/">https://stackoverflow.com/a/52682220/</a></p>
 <h2>Types</h2>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> TodoType = {
+<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> Todo = {
   <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span>;
   title: <span class="hljs-built_in">string</span>;
   completed: <span class="hljs-built_in">boolean</span>;
 };
 
-<span class="hljs-keyword">type</span> TodoCollection = <span class="hljs-built_in">Array</span>&#x3C;TodoType>;
+<span class="hljs-keyword">type</span> TodoCollection = <span class="hljs-built_in">Array</span>&#x3C;Todo>;
 </code></pre>
 <h2>Types and objects</h2>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> TodoType = {
+<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> Todo = {
   <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span>;
   title: <span class="hljs-built_in">string</span>;
   completed: <span class="hljs-built_in">boolean</span>;
@@ -101,15 +106,20 @@ names.push(<span class="hljs-string">'Anna'</span>);
 };
 </code></pre>
 <h2>Types / interfaces and classes</h2>
-<pre><code class="hljs language-ts"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AdvancedTodo</span> <span class="hljs-title">implements</span> <span class="hljs-title">TodoType</span> </span>{
-  <span class="hljs-comment">/* ... */</span>
-}
-
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AdvancedTodo</span> <span class="hljs-title">implements</span> <span class="hljs-title">TodoInterface</span> </span>{
-  <span class="hljs-comment">/* ... */</span>
+<pre><code class="hljs language-ts"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ShoppingListItem</span> <span class="hljs-title">implements</span> <span class="hljs-title">Todo</span> </span>{
+  <span class="hljs-comment">// ...</span>
 }
 </code></pre>
-<h1>Intersection types and union types</h1>
+<h1>Union types and intersection types</h1>
+<h2>Union Types</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> x = a | b;
+</code></pre>
+<p>The type <code>x</code> must either fulfil all criteria of <code>a</code> or all criteria of <code>b</code>.</p>
+<p>Alternative notation across multiple lines:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> TodoActionType =
+  | AddTodoActionType
+  | ToggleTodoActionType;
+</code></pre>
 <h2>Intersection Types</h2>
 <p>Via <code>&#x26;</code>:</p>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> x = a &#x26; b;
@@ -139,12 +149,3 @@ names.push(<span class="hljs-string">'Anna'</span>);
 <span class="hljs-keyword">type</span> SerializableAction = Action &#x26; Serializable;
 </code></pre>
 <p>Objects that implement the Type <code>SerializableAction</code> must implement all entries from both <code>Serializable</code> and <code>Action</code>.</p>
-<h2>Union Types</h2>
-<p>The type <code>x</code> must either fulfil all criteria of <code>a</code> or all criteria of <code>b</code>.</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> x = a | b;
-</code></pre>
-<p>Alternative notation across multiple lines:</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> TodoActionType =
-  | AddTodoActionType
-  | ToggleTodoActionType;
-</code></pre>

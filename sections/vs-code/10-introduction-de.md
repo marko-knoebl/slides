@@ -8,13 +8,13 @@ Open-Source-Entwicklungsumgebung
 
 Unabhängig vom eigentlichen Visual Studio
 
-## VS Code: Ordner öffnen
+## Grundlegendes
 
-ganzen Ordner öffnen mit _File_ - _Open Folder_
+- Öffnen eines Ordners
+- Datei-Explorer
+- Teilen der Editor-Ansicht
 
-## VS Code: Datei-Explorer, Split Editor
-
-## VS Code: Terminal
+## Terminal
 
 Öffnen und Schließen der Ansicht via _Strg_ + _Ö_
 
@@ -22,13 +22,13 @@ zusätzliches Terminal via Symbol _+_
 
 übernimmt das aktuell geöffnete Verzeichnis
 
-## VS Code - Konfiguration
+## Konfiguration
 
 Via _File - Preferences - Settings_
 
 Eingeteilt in _User Settings_ und _Workspace Settings_
 
-## VS Code - Konfigurationsmöglichkeiten
+## Konfigurationsmöglichkeiten
 
 Empfehlungen:
 
@@ -43,7 +43,7 @@ Weitere Möglichkeiten:
 - EOL
 - Workbench: Color Theme
 
-## VS Code - Befehle
+## Befehlspalette
 
 _F1_ oder _Ctrl_ + _Shift_ + _P_: Befehlspalette
 
@@ -59,7 +59,7 @@ Beispiele für Befehle:
 - _Go to definition_ / _Peek definition_ (nur für bestimmte Dateitypen)
 - _Rename symbol_ (nur für bestimmte Dateitypen)
 
-## VS Code - Mehrere Textcursor
+## Mehrere Textcursor
 
 - _Ctrl_ + _F2_: Mehrere Textcursor setzen
 - _Alt_ + Mausklick: Mehrere Textcursor setzen

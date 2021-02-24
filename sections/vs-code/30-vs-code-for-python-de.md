@@ -45,7 +45,7 @@ pip install pylint
 
 ## Autoformatierung
 
-Automatische Formatierung mittels _Alt_ + _Shift_ + _F_
+Automatische Formatierung mittels _Shift_ + _Alt_ + _F_
 
 Für Python Code mittels des Formatters _black_:
 

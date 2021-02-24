@@ -12,7 +12,7 @@ Python packages for use with VS Code:
 - _pylint_ (linter)
 - _black_ (formatter)
 
-## Python Extension
+## Python extension
 
 installation:
 
@@ -45,7 +45,7 @@ pip install pylint
 
 ## Auto formatting
 
-We can auto format code via _Alt_ + _Shift_ + _F_
+We can auto format code via _Shift_ + _Alt_ + _F_
 
 For Python code, install the Formatter _black_:
 

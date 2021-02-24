@@ -94,11 +94,20 @@ class MyComp extends Component<MyProps, MyState> {
 
 ermöglichen das Behandeln eines vorhandenen Objekts als bestimmter Typ
 
-```ts
-const myInput = document.getElementById(
-  'first-name'
-) as HTMLInputElement;
+schlägt fehl:
 
+```ts
+// type: HTMLElement or null
+const nameInput = document.getElementById('name-input');
+console.log(nameInput.value);
+```
+
+klappt:
+
+```ts
+const nameInput = document.getElementById(
+  'name-input'
+) as HTMLInputElement;
 console.log(myInput.value);
 ```
 
@@ -107,7 +116,7 @@ console.log(myInput.value);
 Any: lässt alle Typen zu - erlaubt das Zugreifen auf beliebige Properties
 
 ```ts
-const myInput: any = document.getElementById('myinput');
+const myInput = document.getElementById('myinput') as any;
 
 console.log(myInput.value);
 ```
@@ -135,19 +144,19 @@ Types bieten im wesentlichen mehr Funktionalität als Interfaces
 ## Types
 
 ```ts
-type TodoType = {
+type Todo = {
   id: number;
   title: string;
   completed: boolean;
 };
 
-type TodoCollection = Array<TodoType>;
+type TodoCollection = Array<Todo>;
 ```
 
 ## Types bei Objekten
 
 ```ts
-type TodoType = {
+type Todo = {
   id: number;
   title: string;
   completed: boolean;
@@ -161,16 +170,28 @@ type TodoType = {
 ## Types / Interfaces und Klassen
 
 ```ts
-class AdvancedTodo implements TodoType {
-  /* ... */
-}
-
-class AdvancedTodo implements TodoInterface {
-  /* ... */
+class ShoppingListItem implements Todo {
+  // ...
 }
 ```
 
-# Intersection Types und Union Types
+# Union types and intersection types
+
+## Union Types
+
+```ts
+type x = a | b;
+```
+
+Der Typ `x` muss entweder alle Kriterien von `a` erfüllen oder alle Kriterien von `b` erfüllen.
+
+Alternative Schreibweise über mehrere Zeilen:
+
+```ts
+type TodoActionType =
+  | AddTodoActionType
+  | ToggleTodoActionType;
+```
 
 ## Intersection Types
 
@@ -212,32 +233,3 @@ type SerializableAction = Action & Serializable;
 ```
 
 Objekte, die den Typ `SerializableAction` implementieren, müssen sowohl alle Einträge aus `Serializable` als auch aus `Action` implementieren.
-
-## Union Types
-
-Der Typ `x` muss entweder alle Kriterien von `a` erfüllen oder alle Kriterien von `b` erfüllen.
-
-```ts
-type x = a | b;
-```
-
-Alternative Schreibweise über mehrere Zeilen:
-
-```ts
-type TodoActionType =
-  | AddTodoActionType
-  | ToggleTodoActionType;
-```
-
-## Private & Public Properties
-
-```ts
-class Clock {
-  private formatTime(time) {
-    return ...
-  }
-  public start() {
-    ...
-  }
-}
-```

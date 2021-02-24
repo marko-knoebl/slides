@@ -94,11 +94,20 @@ class MyComp extends Component<MyProps, MyState> {
 
 Type assertions enable treating an existing object as a specific type
 
-```ts
-const myInput = document.getElementById(
-  'first-name'
-) as HTMLInputElement;
+fails:
 
+```ts
+// type: HTMLElement or null
+const nameInput = document.getElementById('name-input');
+console.log(nameInput.value);
+```
+
+works:
+
+```ts
+const nameInput = document.getElementById(
+  'name-input'
+) as HTMLInputElement;
 console.log(myInput.value);
 ```
 
@@ -107,7 +116,7 @@ console.log(myInput.value);
 Any: variable can be of any type - allows accessing arbitrary properties
 
 ```ts
-const myInput: any = document.getElementById('myinput');
+const myInput = document.getElementById('myinput') as any;
 
 console.log(myInput.value);
 ```
@@ -135,19 +144,19 @@ Essentialy types offer more functionality than interfaces
 ## Types
 
 ```ts
-type TodoType = {
+type Todo = {
   id: number;
   title: string;
   completed: boolean;
 };
 
-type TodoCollection = Array<TodoType>;
+type TodoCollection = Array<Todo>;
 ```
 
 ## Types and objects
 
 ```ts
-type TodoType = {
+type Todo = {
   id: number;
   title: string;
   completed: boolean;
@@ -161,16 +170,28 @@ type TodoType = {
 ## Types / interfaces and classes
 
 ```ts
-class AdvancedTodo implements TodoType {
-  /* ... */
-}
-
-class AdvancedTodo implements TodoInterface {
-  /* ... */
+class ShoppingListItem implements Todo {
+  // ...
 }
 ```
 
-# Intersection types and union types
+# Union types and intersection types
+
+## Union Types
+
+```ts
+type x = a | b;
+```
+
+The type `x` must either fulfil all criteria of `a` or all criteria of `b`.
+
+Alternative notation across multiple lines:
+
+```ts
+type TodoActionType =
+  | AddTodoActionType
+  | ToggleTodoActionType;
+```
 
 ## Intersection Types
 
@@ -212,19 +233,3 @@ type SerializableAction = Action & Serializable;
 ```
 
 Objects that implement the Type `SerializableAction` must implement all entries from both `Serializable` and `Action`.
-
-## Union Types
-
-The type `x` must either fulfil all criteria of `a` or all criteria of `b`.
-
-```ts
-type x = a | b;
-```
-
-Alternative notation across multiple lines:
-
-```ts
-type TodoActionType =
-  | AddTodoActionType
-  | ToggleTodoActionType;
-```

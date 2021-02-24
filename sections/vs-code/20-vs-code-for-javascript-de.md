@@ -13,20 +13,7 @@ mögliche Extensions:
 
 - automatische Code-Formatierung nach strikten Regeln
 - für JavaScript, HTML, CSS
-- Tastenkürzel: _Alt_ + _Shift_ + _F_
-
-## Prettier
-
-Konfiguration:
-
-z.B. über _.prettierrc.json_:
-
-```json
-{
-  "singleQuote": true,
-  "arrowParens": "always"
-}
-```
+- Tastenkürzel: _Shift_ + _Alt_ + _F_
 
 ## ESLint
 

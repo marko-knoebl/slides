@@ -13,20 +13,7 @@ extensions for JavaScript:
 
 - code formatting according to strict rules
 - for JavaScript, HTML, CSS
-- shortcut: _Alt_ + _Shift_ + _F_
-
-## Prettier
-
-configuration:
-
-e.g. via _.prettierrc.json_:
-
-```json
-{
-  "singleQuote": true,
-  "arrowParens": "always"
-}
-```
+- shortcut: _Shift_ + _Alt_ + _F_
 
 ## ESLint
 
