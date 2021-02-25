@@ -1,3 +1,5 @@
+<!-- closely realated content in presentations typescript and react-->
+
 # TypeScript Grundlagen
 
 ## TypeScript
@@ -19,9 +21,9 @@ Datentypen können angegeben werden und unterstützen insbesondere die Entwicklu
 
 Beim build: TypeScript wird in JavaScript übersetzt, alle Typeninformationen gehen dabei verloren
 
-## Typing von Variablen
+## Variablentypen
 
-Variablentypen werden üblicherweise ohne Hilfe erkannt
+Variablentypen werden üblicherweise automatisch erkannt
 
 _Explizites_ Angeben von Variablentypen:
 
@@ -31,7 +33,7 @@ const name: string = 'Samuel';
 const loggedIn: boolean = true;
 ```
 
-## Typing von Funktionen
+## Funktionstypen
 
 ```ts
 function shorten(text: string, maxLen: number): string {
@@ -45,7 +47,7 @@ const shorten = (text: string, maxLen: number): string => {
 };
 ```
 
-## Typing von Funktionen
+## Funktionstypen
 
 Funktionen ohne Rückgabewert: `void`
 
@@ -55,18 +57,18 @@ const logMessage = (message: string): void => {
 };
 ```
 
-## Typing von Arrays
+## Array-Typen
 
 ```js
 let names: Array<string> = [];
-names.push('Anna');
+names.push('Alice');
 ```
 
 alternative Schreibweise:
 
 ```ts
 let names: string[] = [];
-names.push('Anna');
+names.push('Alice');
 ```
 
 ## Generics
@@ -78,8 +80,7 @@ _Generics_: allgemeine Typendeklaration, zu der bei der Anwendung nähere Inform
 Beispiel: `Array` ist ein Generic
 
 ```ts
-const a: Array<number> = [1, 2, 3];
-const b: Array<string> = ['one', 'two', 'three'];
+const names: Array<string> = ['Alice', 'Bob', 'Charlie'];
 ```
 
 Beispiel: Reacts `Component` ist ein Generic
@@ -94,7 +95,7 @@ class MyComp extends Component<MyProps, MyState> {
 
 ermöglichen das Behandeln eines vorhandenen Objekts als bestimmter Typ
 
-schlägt fehl:
+dies schlägt fehl:
 
 ```ts
 // type: HTMLElement or null
@@ -102,7 +103,7 @@ const nameInput = document.getElementById('name-input');
 console.log(nameInput.value);
 ```
 
-klappt:
+dies klappt:
 
 ```ts
 const nameInput = document.getElementById(
@@ -116,9 +117,10 @@ console.log(myInput.value);
 Any: lässt alle Typen zu - erlaubt das Zugreifen auf beliebige Properties
 
 ```ts
-const myInput = document.getElementById('myinput') as any;
-
-console.log(myInput.value);
+const nameInput = document.getElementById(
+  'name-input'
+) as any;
+console.log(nameInput.value);
 ```
 
 ## Typendeklarationen für Libraries

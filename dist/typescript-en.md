@@ -1,3 +1,5 @@
+<!-- closely realated content in presentations typescript and react-->
+
 # TypeScript Basics
 
 ## TypeScript
@@ -17,9 +19,9 @@ data types may be specified in order to support the development environment:
 
 ## Static typing
 
-when building: TypeScript is translated to JavaScript, all type information is discarded
+during build: TypeScript is translated to JavaScript, all type information is discarded
 
-## Typing variables
+## Variable types
 
 Variable types are usually detected automatically
 
@@ -31,7 +33,7 @@ const name: string = 'Samuel';
 const loggedIn: boolean = true;
 ```
 
-## Typing functions
+## Function types
 
 ```ts
 function shorten(text: string, maxLen: number): string {
@@ -45,7 +47,7 @@ const shorten = (text: string, maxLen: number): string => {
 };
 ```
 
-## Typing functions
+## Function types
 
 Functions without a return value: `void`
 
@@ -55,18 +57,18 @@ const logMessage = (message: string): void => {
 };
 ```
 
-## Typing arrays
+## Array types
 
 ```js
 let names: Array<string> = [];
-names.push('Anna');
+names.push('Alice');
 ```
 
 alternative syntax:
 
 ```ts
 let names: string[] = [];
-names.push('Anna');
+names.push('Alice');
 ```
 
 ## Generics
@@ -78,8 +80,7 @@ _Generics_: type declarations that can receive more specific type information wh
 example: `Array` is a generic
 
 ```ts
-const a: Array<number> = [1, 2, 3];
-const b: Array<string> = ['one', 'two', 'three'];
+const names: Array<string> = ['Alice', 'Bob', 'Charlie'];
 ```
 
 example: React's `Component` is a generic
@@ -113,19 +114,22 @@ console.log(myInput.value);
 
 ## Any
 
-Any: variable can be of any type - allows accessing arbitrary properties
+Any: variable can be of any type - arbitrary properties may be accessed
 
 ```ts
-const myInput = document.getElementById('myinput') as any;
-
-console.log(myInput.value);
+const nameInput = document.getElementById(
+  'name-input'
+) as any;
+console.log(nameInput.value);
 ```
 
 ## Type declarations for libraries
 
-Several JavaScript Libraries come with type declarations for TypeScript - e.g. _redux_.
+Some JavaScript libraries come with type declarations for TypeScript included - e.g. _redux_.
 
 For other libraries there are usually external declaration packages that are prefixed with _@types/_; e.g. for _react_ there's the package _@types/react_.
+
+<!-- closely realated content in presentations typescript and react-->
 
 # Type and interface declarations
 

@@ -868,6 +868,249 @@ sometimes the development server will keep displaying an error even though it ha
 
 stop the server (ctrl-C) and restart it to fix this
 
+<!-- closely realated content in presentations typescript and react-->
+
+# TypeScript basics for React
+
+## TypeScript
+
+_TypeScript_: superset of JavaScript that supports static typing
+
+## Static typing
+
+data types may be specified in order to support the development environment:
+
+- auto completion
+- errors when types mismatch
+
+## Static typing
+
+during build: TypeScript is translated to JavaScript, all type information is discarded
+
+## Variable types
+
+Variable types are usually detected automatically
+
+_explicitly_ declaring variable types:
+
+```ts
+const age: number = 32;
+const name: string = 'Samuel';
+const loggedIn: boolean = true;
+```
+
+## Function types
+
+```ts
+function shorten(text: string, maxLen: number): string {
+  // ...
+}
+```
+
+```ts
+const shorten = (text: string, maxLen: number): string => {
+  // ...
+};
+```
+
+## Function types
+
+Functions without a return value: `void`
+
+```ts
+const logMessage = (message: string): void => {
+  console.log(message);
+};
+```
+
+## Array types
+
+```js
+let names: Array<string> = [];
+names.push('Alice');
+```
+
+alternative syntax:
+
+```ts
+let names: string[] = [];
+names.push('Alice');
+```
+
+## Generics
+
+_Generics_: type declarations that can receive more specific type information when applied (via `<...>`)
+
+## Generics
+
+example: `Array` is a generic
+
+```ts
+const names: Array<string> = ['Alice', 'Bob', 'Charlie'];
+```
+
+example: React's `Component` is a generic
+
+```ts
+class MyComp extends Component<MyProps, MyState> {
+  // ...
+}
+```
+
+## Type assertions
+
+Type assertions enable treating an existing object as a specific type
+
+fails:
+
+```ts
+// type: HTMLElement or null
+const nameInput = document.getElementById('name-input');
+console.log(nameInput.value);
+```
+
+works:
+
+```ts
+const nameInput = document.getElementById(
+  'name-input'
+) as HTMLInputElement;
+console.log(myInput.value);
+```
+
+## Any
+
+Any: variable can be of any type - arbitrary properties may be accessed
+
+```ts
+const nameInput = document.getElementById(
+  'name-input'
+) as any;
+console.log(nameInput.value);
+```
+
+## Type and interface declarations
+
+**Interfaces** describe the structure of an object / of a class in detail (e.g.: `Todo`, `Person`)
+
+**Types**: similar to interfaces, but are also applicable to strings, arrays, ...
+
+## Types and interfaces
+
+Essentialy types offer more functionality than interfaces
+
+<https://stackoverflow.com/a/52682220/>
+
+## Types
+
+```ts
+type Todo = {
+  id: number;
+  title: string;
+  completed: boolean;
+};
+
+type TodoCollection = Array<Todo>;
+```
+
+## Types and objects
+
+```ts
+type Todo = {
+  id: number;
+  title: string;
+  completed: boolean;
+  // optional
+  description?: string;
+  // method
+  toggle: (id: number) => void;
+};
+```
+
+## Type declarations for libraries
+
+Some JavaScript libraries come with type declarations for TypeScript included - e.g. _redux_.
+
+For other libraries there are usually external declaration packages that are prefixed with _@types/_; e.g. for _react_ there's the package _@types/react_.
+
+# React and TypeScript
+
+## Event types
+
+When using _inline_ event handlers, event types can be inferred directly:
+
+```jsx
+<button
+  onClick={(event) => {
+    // automatic type: React.MouseEvent<HTMLButtonElement>
+    event.stopPropagation();
+    // ...
+  }}
+>
+  test
+</button>
+```
+
+## Event types
+
+explicit type declaration for separate event handler:
+
+```tsx
+const handleClick = (
+  event: React.MouseEvent<HTMLButtonElement>
+) => {
+  event.stopPropagation();
+  // ...
+};
+```
+
+```tsx
+<button onClick={handleClick}>test</button>
+```
+
+## Event types
+
+common event types:
+
+- `React.FormEvent`
+- `React.FormEvent<HTMLFormElement>`
+- `React.ChangeEvent<HTMLInputElement>`
+- `React.MouseEvent<HTMLButtonElement>`
+
+## useState and TypeScript
+
+often no annotation is necessary:
+
+```ts
+const [filterText, setFilterText] = useState('');
+```
+
+use with annotation:
+
+```ts
+const [todos, setTodos] = useState<Array<Todo>>([]);
+```
+
+## Props and events with TypeScript
+
+Props and and events in custom components:
+
+```tsx
+type TodoListProps = {
+  todos: Array<Todo>;
+  onToggle: (id: number) => void;
+  onDelete: (id: number) => void;
+};
+
+const TodoList = (props: TodoListProps) => {
+  // ...
+};
+```
+
+## Resource
+
+React+TypeScript Cheatsheets: <https://github.com/typescript-cheatsheets/react>
+
 # Text inputs and forms
 
 ## Text inputs
@@ -1573,117 +1816,6 @@ Task: draft component interfaces (props and events) for various components (e.g.
 Task: "recreate" one of the components listed at [awesome-react-components](https://github.com/brillout/awesome-react-components) (e.g. bar chart, color picker, table / data grid, tabs)
 
 Task: split the todo app into smaller components (e.g. _TodoList_, _TodoItem_, _AddTodo_)
-
-# Type checkers for React
-
-## Type checkers for React
-
-Declaring types can be useful, especially when it comes to component props and events
-
-possibilities:
-
-- using TypeScript as a language
-- library _prop-types_
-
-## React with TypeScript
-
-creating a new project:
-
-```bash
-npx create-react-app my-app --template typescript
-```
-
-## TypeScript
-
-TypeScript basics: see presentation on [TypeScript](./typescript-en.html)
-
-## React with TypeScript
-
-extensive resource: <https://github.com/typescript-cheatsheets/react-typescript-cheatsheet>
-
-<!--
-
-redux with typescript:
-
-- https://github.com/piotrwitek/react-redux-typescript-guide
-- https://medium.com/@resir014/a-type-safe-approach-to-redux-stores-in-typescript-6474e012b81e
-- https://www.carlrippon.com/strongly-typed-react-redux-code-with-typescript/
-
--->
-
-## Props with TypeScript (function components)
-
-```tsx
-type TodoListProps = {
-  todos: Array<TodoType>;
-  onToggle: (id: number) => void;
-  onDelete: (id: number) => void;
-};
-
-const TodoList = (props: TodoListProps) => {
-  // ...
-};
-```
-
-## useState with TypeScript
-
-often no annotation is necessary:
-
-```ts
-const [filterText, setFilterText] = useState('');
-```
-
-with annotation:
-
-```ts
-const [todos, setTodos] = useState<Array<TodoType>>([]);
-```
-
-## Event types
-
-With inline event handlers no event type must be declared:
-
-```jsx
-<button
-  onClick={(event) => {
-    event.stopPropagation();
-  }}
->
-  test
-</button>
-```
-
-## Event types
-
-Event types for event handlers that are defined separately:
-
-- `React.FormEvent`
-- `React.FormEvent<HTMLFormElement>`
-- `React.ChangeEvent<HTMLInputElement>`
-- `React.MouseEvent<HTMLDivElement>`
-
-## prop-types
-
-library for annotating React component properties in JavaScript
-
-## prop-types
-
-example:
-
-```js
-import PropTypes from 'prop-types';
-
-// definition of Rating component here
-
-Rating.propTypes = {
-  stars: PropTypes.number.isRequired,
-  onStarsChange: PropTypes.func,
-};
-```
-
-## prop-types in VS Code
-
-Plugin: _React PropTypes IntelliSense_
 
 # Querying APIs (effect hook)
 

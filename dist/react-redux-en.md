@@ -206,6 +206,12 @@ type TodosAction = Parameters<typeof todosReducer>[1];
 type TodosState = ReturnType<typeof todosReducer>;
 ```
 
+<!--
+- https://github.com/piotrwitek/react-redux-typescript-guide
+- https://medium.com/@resir014/a-type-safe-approach-to-redux-stores-in-typescript-6474e012b81e
+- https://www.carlrippon.com/strongly-typed-react-redux-code-with-typescript/
+-->
+
 # Redux store
 
 ## Redux store

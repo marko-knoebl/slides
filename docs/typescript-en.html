@@ -2060,7 +2060,8 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   </head>
   <body>
     <div class="reveal">
-      <div class="slides slides"><section class="slides-section"><section class="slide"><h1>TypeScript Basics</h1>
+      <div class="slides slides"><section class="slides-section"><section class="slide"><!-- closely realated content in presentations typescript and react-->
+</section></section><section class="slides-section"><section class="slide"><h1>TypeScript Basics</h1>
 </section><section class="slide"><h2>TypeScript</h2>
 <p>= superset of JavaScript with extensions:</p>
 <ul>
@@ -2075,15 +2076,15 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li>errors when types mismatch</li>
 </ul>
 </section><section class="slide"><h2>Static typing</h2>
-<p>when building: TypeScript is translated to JavaScript, all type information is discarded</p>
-</section><section class="slide"><h2>Typing variables</h2>
+<p>during build: TypeScript is translated to JavaScript, all type information is discarded</p>
+</section><section class="slide"><h2>Variable types</h2>
 <p>Variable types are usually detected automatically</p>
 <p><em>explicitly</em> declaring variable types:</p>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> age: <span class="hljs-built_in">number</span> = <span class="hljs-number">32</span>;
 <span class="hljs-keyword">const</span> name: <span class="hljs-built_in">string</span> = <span class="hljs-string">'Samuel'</span>;
 <span class="hljs-keyword">const</span> loggedIn: <span class="hljs-built_in">boolean</span> = <span class="hljs-literal">true</span>;
 </code></pre>
-</section><section class="slide"><h2>Typing functions</h2>
+</section><section class="slide"><h2>Function types</h2>
 <pre><code class="hljs language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">shorten</span>(<span class="hljs-params">text: <span class="hljs-built_in">string</span>, maxLen: <span class="hljs-built_in">number</span></span>): <span class="hljs-title">string</span> </span>{
   <span class="hljs-comment">// ...</span>
 }
@@ -2092,26 +2093,25 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   <span class="hljs-comment">// ...</span>
 };
 </code></pre>
-</section><section class="slide"><h2>Typing functions</h2>
+</section><section class="slide"><h2>Function types</h2>
 <p>Functions without a return value: <code>void</code></p>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> logMessage = (message: <span class="hljs-built_in">string</span>): <span class="hljs-function"><span class="hljs-params">void</span> =></span> {
   <span class="hljs-built_in">console</span>.log(message);
 };
 </code></pre>
-</section><section class="slide"><h2>Typing arrays</h2>
+</section><section class="slide"><h2>Array types</h2>
 <pre><code class="hljs language-js"><span class="hljs-keyword">let</span> names: <span class="hljs-built_in">Array</span>&#x3C;string> = [];
-names.push(<span class="hljs-string">'Anna'</span>);
+names.push(<span class="hljs-string">'Alice'</span>);
 </code></pre>
 <p>alternative syntax:</p>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">let</span> names: <span class="hljs-built_in">string</span>[] = [];
-names.push(<span class="hljs-string">'Anna'</span>);
+names.push(<span class="hljs-string">'Alice'</span>);
 </code></pre>
 </section><section class="slide"><h2>Generics</h2>
 <p><em>Generics</em>: type declarations that can receive more specific type information when applied (via <code>&#x3C;...></code>)</p>
 </section><section class="slide"><h2>Generics</h2>
 <p>example: <code>Array</code> is a generic</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> a: <span class="hljs-built_in">Array</span>&#x3C;<span class="hljs-built_in">number</span>> = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
-<span class="hljs-keyword">const</span> b: <span class="hljs-built_in">Array</span>&#x3C;<span class="hljs-built_in">string</span>> = [<span class="hljs-string">'one'</span>, <span class="hljs-string">'two'</span>, <span class="hljs-string">'three'</span>];
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> names: <span class="hljs-built_in">Array</span>&#x3C;<span class="hljs-built_in">string</span>> = [<span class="hljs-string">'Alice'</span>, <span class="hljs-string">'Bob'</span>, <span class="hljs-string">'Charlie'</span>];
 </code></pre>
 <p>example: React's <code>Component</code> is a generic</p>
 <pre><code class="hljs language-ts"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyComp</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span>&#x3C;<span class="hljs-title">MyProps</span>, <span class="hljs-title">MyState</span>> </span>{
@@ -2132,14 +2132,16 @@ names.push(<span class="hljs-string">'Anna'</span>);
 <span class="hljs-built_in">console</span>.log(myInput.value);
 </code></pre>
 </section><section class="slide"><h2>Any</h2>
-<p>Any: variable can be of any type - allows accessing arbitrary properties</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> myInput = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'myinput'</span>) <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>;
-
-<span class="hljs-built_in">console</span>.log(myInput.value);
+<p>Any: variable can be of any type - arbitrary properties may be accessed</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> nameInput = <span class="hljs-built_in">document</span>.getElementById(
+  <span class="hljs-string">'name-input'</span>
+) <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>;
+<span class="hljs-built_in">console</span>.log(nameInput.value);
 </code></pre>
 </section><section class="slide"><h2>Type declarations for libraries</h2>
-<p>Several JavaScript Libraries come with type declarations for TypeScript - e.g. <em>redux</em>.</p>
+<p>Some JavaScript libraries come with type declarations for TypeScript included - e.g. <em>redux</em>.</p>
 <p>For other libraries there are usually external declaration packages that are prefixed with <em>@types/</em>; e.g. for <em>react</em> there's the package <em>@types/react</em>.</p>
+<!-- closely realated content in presentations typescript and react-->
 </section></section><section class="slides-section"><section class="slide"><h1>Type and interface declarations</h1>
 </section><section class="slide"><h2>Type and interface declarations</h2>
 <p><strong>Interfaces</strong> describe the structure of an object / of a class in detail (e.g.: <code>Todo</code>, <code>Person</code>)</p>

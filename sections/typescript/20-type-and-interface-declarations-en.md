@@ -1,3 +1,5 @@
+<!-- closely realated content in presentations typescript and react-->
+
 # Type and interface declarations
 
 ## Type and interface declarations
