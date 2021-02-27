@@ -1,6 +1,6 @@
-# Exercises
+# Exercises (components)
 
-## Exercises
+## Exercises (components)
 
 Task: draft component interfaces (props and events) for various components (e.g. _Calendar_, _Color Picker_, _BarChart_, _Tabs_)
 

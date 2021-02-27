@@ -3,8 +3,21 @@
 ## Major topics
 
 - state (declarative rendering)
-- components (custom HTML tags)
 - JSX (template language)
+- components (custom HTML tags)
+
+## Topics in detail
+
+- overview and simple example
+- JavaScript basics for React
+- state
+- JSX
+- inputs and forms
+- VS Code and React projects
+- React developer tools
+- React and TypeScript
+- Components
+- Querying APIs
 
 # React overview
 
@@ -1048,6 +1061,246 @@ const element = _jsx(
 );
 ```
 
+# Text inputs and forms
+
+## Text inputs
+
+In the context of React, input elements are special:
+
+Their properties (especially `.value`) can be modified directly by the user
+
+Therefore there would be aspects of the UI state which would not be captured in the React state.
+
+## Text inputs
+
+This is how we can capture the value of an input and track it in the state:
+
+```jsx
+<input
+  value={inputText}
+  onChange={(event) => {
+    setInputText(event.target.value);
+  }}
+/>
+```
+
+## Form actions
+
+Default behavior of a form when submitted: directly send data to the server
+
+Replacing the default behavior:
+
+```jsx
+<form
+  onSubmit={(event) => {
+    event.preventDefault();
+    // handle submit with custom logic
+  }}
+>
+  ...
+</form>
+```
+
+# Other input types
+
+## Other input types
+
+- textarea
+- checkbox
+- dropdown
+- numeric input
+- ...
+
+## Examples: textarea and checkbox
+
+textarea:
+
+```jsx
+<textarea
+  value={message}
+  onChange={(e) => setMessage(e.target.value)}
+/>
+```
+
+checkbox:
+
+```jsx
+<input
+  type="checkbox"
+  checked={accept}
+  onChange={(e) => setAccept(e.target.checked)}
+/>
+```
+
+## Example: dropdown
+
+dropdown with hard-coded options:
+
+```jsx
+<select
+  value={unit}
+  onChange={(e) => setUnit(e.target.value)}
+>
+  <option value="px">px</option>
+  <option value="em">em</option>
+  <option value="%">%</option>
+</select>
+```
+
+## Example: dropdown
+
+dropdown with options from an array:
+
+```jsx
+const UnitDropdown = () => {
+  const units = ['px', 'em', '%'];
+  const [unit, setUnit] = useState(units[0]);
+  return (
+    <select
+      value={unit}
+      onChange={(e) => setUnit(e.target.value)}
+    >
+      {units.map((u) => (
+        <option value={u} key={u}>
+          {u}
+        </option>
+      ))}
+    </select>
+  );
+};
+```
+
+## Numeric input fields
+
+The value of a numeric input field should usually be stored as a string (not as a number)
+
+Reasoning: possible contents of a numeric input field (while the user is typing):
+
+```txt
+""
+"-"
+"-3"
+"-3."
+"-3.0"
+```
+
+## Numeric inputs with direct "results"
+
+example: keeping the content of a numeric input field as a string, updating an associated numeric value whenever possible:
+
+```jsx
+const FontSizeDemo = () => {
+  const [size, setSize] = useState(16);
+  const [sizeStr, setSizeStr] = useState(size.toString());
+  const updateSize = (newSizeStr) => {
+    setSizeStr(newSizeStr);
+    // source: https://stackoverflow.com/questions/18082
+    if (!isNaN(parseFloat(n)) && isFinite(n)) {
+      setSize(Number(newSizeStr));
+    }
+  };
+  return (
+    <div>
+      <input
+        type="number"
+        value={sizeStr}
+        onChange={(event) => updateSize(event.target.value)}
+      />
+      <div style={{ fontSize: size }}>Sample text</div>
+    </div>
+  );
+};
+```
+
+# Input validation
+
+## Input validation
+
+When can a form input be validated?
+
+- when the form is submitted (on submit)
+- when the input loses focus (on blur)
+- on every value change (on change)
+
+The best approach depends on the use case
+
+## Validation: examples
+
+validation on every change:
+
+```js
+const NewsletterSignup = () => {
+  const [email, setEmail] = useState('');
+  const emailValid = isEmail(email);
+
+  // ...
+  // display a form
+  // and optionally a warning about an invalid email
+};
+```
+
+## Validation: examples
+
+validation on blur / on change:
+
+```js
+const NewsletterSignup = () => {
+  const [email, setEmail] = useState('');
+  const [emailValid, setEmailValid] = useState(true);
+  // call from onBlur / onChange:
+  const validateEmail = () => {
+    setEmailValid(isEmail(email));
+  };
+
+  // ...
+  // display a form
+  // and optionally a warning about an invalid email
+};
+```
+
+## Validation: examples
+
+full example: validation on blur and on submit
+
+```js
+const NewsletterSignup = () => {
+  const [email, setEmail] = useState('');
+  const [emailValid, setEmailValid] = useState(true);
+  const validateEmail = () => {
+    setEmailValid(isEmail(email));
+  };
+
+  return (
+    <form
+      onSubmit={(event) => {
+        event.preventDefault();
+        validateEmail();
+        if (isEmail(email)) {
+          console.log(`Signed up: ${email}`);
+        }
+      }}
+    >
+      <input
+        value={email}
+        onChange={(event) => setEmail(event.target.value)}
+        onBlur={() => validateEmail()}
+      />
+      <button>sign up</button>
+      {!emailValid ? <div>invalid email</div> : null}
+    </form>
+  );
+};
+
+const isEmail = (email) =>
+  email.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i);
+```
+
+## Validation
+
+more complex validation schemas are possible
+
+example: initial validation of an input on its first _blur_, then live validation on each _change_
+
 # VS Code basics and plugins
 
 ## VS Code basics and plugins
@@ -1131,6 +1384,21 @@ note:
 sometimes the development server will keep displaying an error even though it has been fixed
 
 stop the server (ctrl-C) and restart it to fix this
+
+# React developer tools
+
+## React developer tools
+
+- [Chrome Plugin](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi)
+- [Firefox Plugin](https://addons.mozilla.org/de/firefox/addon/react-devtools/)
+- [Edge Plugin](https://microsoftedge.microsoft.com/addons/detail/react-developer-tools/gpphkfbcpidddadnkolkpfckpihlkkil)
+
+features:
+
+- display component structure
+- show component state and props
+- change state and props
+- analyze render performance of components
 
 <!-- closely realated content in presentations typescript and react-->
 
@@ -1375,261 +1643,6 @@ const TodoList = (props: TodoListProps) => {
 
 React+TypeScript Cheatsheets: <https://github.com/typescript-cheatsheets/react>
 
-# Text inputs and forms
-
-## Text inputs
-
-In the context of React, input elements are special:
-
-Their properties (especially `.value`) can be modified directly by the user
-
-Therefore there would be aspects of the UI state which would not be captured in the React state.
-
-## Text inputs
-
-This is how we can capture the value of an input and track it in the state:
-
-```jsx
-<input
-  value={inputText}
-  onChange={(event) => {
-    setInputText(event.target.value);
-  }}
-/>
-```
-
-## Form actions
-
-Default behavior of a form when submitted: directly send data to the server
-
-Replacing the default behavior:
-
-```jsx
-<form
-  onSubmit={(event) => {
-    event.preventDefault();
-    // handle submit with custom logic
-  }}
->
-  ...
-</form>
-```
-
-# Other input types
-
-## Other input types
-
-- textarea
-- checkbox
-- dropdown
-- numeric input
-- ...
-
-## Examples: textarea and checkbox
-
-textarea:
-
-```jsx
-<textarea
-  value={message}
-  onChange={(e) => setMessage(e.target.value)}
-/>
-```
-
-checkbox:
-
-```jsx
-<input
-  type="checkbox"
-  checked={accept}
-  onChange={(e) => setAccept(e.target.checked)}
-/>
-```
-
-## Example: dropdown
-
-dropdown with hard-coded options:
-
-```jsx
-<select
-  value={unit}
-  onChange={(e) => setUnit(e.target.value)}
->
-  <option value="px">px</option>
-  <option value="em">em</option>
-  <option value="%">%</option>
-</select>
-```
-
-## Example: dropdown
-
-dropdown with options from an array:
-
-```jsx
-const UnitDropdown = () => {
-  const units = ['px', 'em', '%'];
-  const [unit, setUnit] = useState(units[0]);
-  return (
-    <select
-      value={unit}
-      onChange={(e) => setUnit(e.target.value)}
-    >
-      {units.map((u) => (
-        <option value={u} key={u}>
-          {u}
-        </option>
-      ))}
-    </select>
-  );
-};
-```
-
-## Numeric input fields
-
-The value of a numeric input field should usually be stored as a string (not as a number)
-
-Reasoning: possible contents of a numeric input field (while the user is typing):
-
-```txt
-""
-"-"
-"-3"
-"-3."
-"-3.0"
-```
-
-## Numeric inputs with direct "results"
-
-example: keeping the content of a numeric input field as a string, updating an associated numeric value whenever possible:
-
-```jsx
-const FontSizeDemo = () => {
-  const [size, setSize] = useState(16);
-  const [sizeStr, setSizeStr] = useState(size.toString());
-  const updateSize = (newSizeStr) => {
-    setSizeStr(newSizeStr);
-    // source: https://stackoverflow.com/questions/18082
-    if (!isNaN(parseFloat(n)) && isFinite(n)) {
-      setSize(Number(newSizeStr));
-    }
-  };
-  return (
-    <div>
-      <input
-        type="number"
-        value={sizeStr}
-        onChange={(event) => updateSize(event.target.value)}
-      />
-      <div style={{ fontSize: size }}>Sample text</div>
-    </div>
-  );
-};
-```
-
-# Input validation
-
-## Input validation
-
-When can a form input be validated?
-
-- when the form is submitted (on submit)
-- when the input loses focus (on blur)
-- on every value change (on change)
-
-The best approach depends on the use case
-
-## Validation: examples
-
-validation on every change:
-
-```js
-const NewsletterSignup = () => {
-  const [email, setEmail] = useState('');
-  const emailValid = isEmail(email);
-
-  // ...
-  // display a form
-  // and optionally a warning about an invalid email
-};
-```
-
-## Validation: examples
-
-validation on blur / on change:
-
-```js
-const NewsletterSignup = () => {
-  const [email, setEmail] = useState('');
-  const [emailValid, setEmailValid] = useState(true);
-  // call from onBlur / onChange:
-  const validateEmail = () => {
-    setEmailValid(isEmail(email));
-  };
-
-  // ...
-  // display a form
-  // and optionally a warning about an invalid email
-};
-```
-
-## Validation: examples
-
-full example: validation on blur and on submit
-
-```js
-const NewsletterSignup = () => {
-  const [email, setEmail] = useState('');
-  const [emailValid, setEmailValid] = useState(true);
-  const validateEmail = () => {
-    setEmailValid(isEmail(email));
-  };
-
-  return (
-    <form
-      onSubmit={(event) => {
-        event.preventDefault();
-        validateEmail();
-        if (isEmail(email)) {
-          console.log(`Signed up: ${email}`);
-        }
-      }}
-    >
-      <input
-        value={email}
-        onChange={(event) => setEmail(event.target.value)}
-        onBlur={() => validateEmail()}
-      />
-      <button>sign up</button>
-      {!emailValid ? <div>invalid email</div> : null}
-    </form>
-  );
-};
-
-const isEmail = (email) =>
-  email.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i);
-```
-
-## Validation
-
-more complex validation schemas are possible
-
-example: initial validation of an input on its first _blur_, then live validation on each _change_
-
-# React developer tools
-
-## React developer tools
-
-- [Chrome Plugin](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi)
-- [Firefox Plugin](https://addons.mozilla.org/de/firefox/addon/react-devtools/)
-- [Edge Plugin](https://microsoftedge.microsoft.com/addons/detail/react-developer-tools/gpphkfbcpidddadnkolkpfckpihlkkil)
-
-features:
-
-- display component structure
-- show component state and props
-- change state and props
-- analyze render performance of components
-
 # Exercise: todolist
 
 ## Exercise: todolist
@@ -1841,9 +1854,9 @@ shorter notation:
 <Rating value={prodRating} onChange={setProdRating} />
 ```
 
-# Exercises
+# Exercises (components)
 
-## Exercises
+## Exercises (components)
 
 Task: draft component interfaces (props and events) for various components (e.g. _Calendar_, _Color Picker_, _BarChart_, _Tabs_)
 

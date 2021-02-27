@@ -3,8 +3,21 @@
 ## Hauptthemen
 
 - State (Deklaratives Rendering)
-- Komponenten (eigene HTML-Tags)
 - JSX (Templatesprache)
+- Komponenten (eigene HTML-Tags)
+
+## Themen im Detail
+
+- Überblick und einfaches Beispiel
+- JavaScript-Grundlagen für React
+- State
+- JSX
+- Inputs und Formulare
+- VS Code und React-Projekte
+- React Developer Tools
+- React und TypeScript
+- Komponenten
+- Abfragen von APIs
 
 # React Überblick
 
@@ -1048,6 +1061,246 @@ const element = _jsx(
 );
 ```
 
+# Text-Inputs und Formulare
+
+## Text-Inputs
+
+Besonderheit von input-Elementen:
+
+Ihre Properties (insbesondere `.value`) können durch User-Interaktionen direkt geändert werden
+
+Es gäbe damit Aspekte des UI-Zustands, die von Haus aus nicht im State erfasst wären
+
+## Text-Inputs
+
+So können wir den Wert eines Inputs im State erfassen:
+
+```jsx
+<input
+  value={inputText}
+  onChange={(event) => {
+    setInputText(event.target.value);
+  }}
+/>
+```
+
+## Formular-Aktionen
+
+Standardverhalten eines Formulars beim Submit: Direktes Senden der Daten an den Server
+
+Ersetzen des Standardverhaltens:
+
+```jsx
+<form
+  onSubmit={(event) => {
+    event.preventDefault();
+    // handle submit with custom logic
+  }}
+>
+  ...
+</form>
+```
+
+# Andere Inputs
+
+## Andere Inputs
+
+- textarea
+- checkbox
+- dropdown
+- numeric input
+- ...
+
+## Beispiele: textarea und checkbox
+
+textarea:
+
+```jsx
+<textarea
+  value={message}
+  onChange={(e) => setMessage(e.target.value)}
+/>
+```
+
+checkbox:
+
+```jsx
+<input
+  type="checkbox"
+  checked={accept}
+  onChange={(e) => setAccept(e.target.checked)}
+/>
+```
+
+## Beispiel: Dropdown
+
+Dropdown mit festen Optionen:
+
+```jsx
+<select
+  value={unit}
+  onChange={(e) => setUnit(e.target.value)}
+>
+  <option value="px">px</option>
+  <option value="em">em</option>
+  <option value="%">%</option>
+</select>
+```
+
+## Beispiel: Dropdown
+
+Dropdown mit Optionen aus einem Array:
+
+```jsx
+const UnitDropdown = () => {
+  const units = ['px', 'em', '%'];
+  const [unit, setUnit] = useState(units[0]);
+  return (
+    <select
+      value={unit}
+      onChange={(e) => setUnit(e.target.value)}
+    >
+      {units.map((u) => (
+        <option value={u} key={u}>
+          {u}
+        </option>
+      ))}
+    </select>
+  );
+};
+```
+
+## Numerische Inputs
+
+Der Wert eines numerischen Inputs sollte üblicherweise als string gespeichert werden (nicht als Zahl)
+
+Grund: mögliche Inhalte eines Numerischen Inputs (während der Benutzer tippt):
+
+```txt
+""
+"-"
+"-3"
+"-3."
+"-3.0"
+```
+
+## Numerische Inputs mit direkten "Auswirkungen"
+
+Beispiel: Speichern des numerischen Inhalts eines Inputs als ein String, aktualisieren eines zugehörigen numerischen Wertes, wenn dies möglich ist:
+
+```jsx
+const FontSizeDemo = () => {
+  const [size, setSize] = useState(16);
+  const [sizeStr, setSizeStr] = useState(size.toString());
+  const updateSize = (newSizeStr) => {
+    setSizeStr(newSizeStr);
+    // source: https://stackoverflow.com/questions/18082
+    if (!isNaN(parseFloat(n)) && isFinite(n)) {
+      setSize(Number(newSizeStr));
+    }
+  };
+  return (
+    <div>
+      <input
+        type="number"
+        value={sizeStr}
+        onChange={(event) => updateSize(event.target.value)}
+      />
+      <div style={{ fontSize: size }}>Sample text</div>
+    </div>
+  );
+};
+```
+
+# Input-Validierung
+
+## Input-Validierung
+
+Wann kann ein Input validiert werden?
+
+- wenn das Formular _submittet_ wird (_submit_)
+- wenn ein Eingabefeld den Fokus verliert (_blur_)
+- bei jeder Änderung eines Wertes (_change_)
+
+Der beste Zugang hängt vom Anwendungsfall ab
+
+## Validierung: Beispiele
+
+Validierung bei jeder Änderung:
+
+```js
+const NewsletterSignup = () => {
+  const [email, setEmail] = useState('');
+  const emailValid = isEmail(email);
+
+  // ...
+  // display a form
+  // and optionally a warning about an invalid email
+};
+```
+
+## Validierung: Beispiele
+
+Validierung bei _blur_ bzw _change_:
+
+```js
+const NewsletterSignup = () => {
+  const [email, setEmail] = useState('');
+  const [emailValid, setEmailValid] = useState(true);
+  // call from onBlur / onChange:
+  const validateEmail = () => {
+    setEmailValid(isEmail(email));
+  };
+
+  // ...
+  // display a form
+  // and optionally a warning about an invalid email
+};
+```
+
+## Validierung: Beispiele
+
+vollständiges Beispiel: Validierung bei _blur_ und _submit_
+
+```js
+const NewsletterSignup = () => {
+  const [email, setEmail] = useState('');
+  const [emailValid, setEmailValid] = useState(true);
+  const validateEmail = () => {
+    setEmailValid(isEmail(email));
+  };
+
+  return (
+    <form
+      onSubmit={(event) => {
+        event.preventDefault();
+        validateEmail();
+        if (isEmail(email)) {
+          console.log(`Signed up: ${email}`);
+        }
+      }}
+    >
+      <input
+        value={email}
+        onChange={(event) => setEmail(event.target.value)}
+        onBlur={() => validateEmail()}
+      />
+      <button>sign up</button>
+      {!emailValid ? <div>invalid email</div> : null}
+    </form>
+  );
+};
+
+const isEmail = (email) =>
+  email.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i);
+```
+
+## Validierung
+
+komplexere Schemata zur Validierung sind möglich
+
+Beispiel: erste Validierung eines Feldes beim ersten _blur_, danach live-Validierung bei jedem _change_
+
 # VS Code Grundlagen und Plugins
 
 ## VS Code Grundlagen und Plugins
@@ -1125,6 +1378,21 @@ Bemerkung:
 Manchmals zeigt der Entwicklungsserver weiter eine Fehlermeldung an, obwohl der Fehler im Code behoben wurde.
 
 Um dies zu beheben: Stoppen (Ctrl-C) und neu Starten des Servers
+
+# React Developer Tools
+
+## React Developer Tools
+
+- [Chrome Plugin](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi)
+- [Firefox Plugin](https://addons.mozilla.org/de/firefox/addon/react-devtools/)
+- [Edge Plugin](https://microsoftedge.microsoft.com/addons/detail/react-developer-tools/gpphkfbcpidddadnkolkpfckpihlkkil)
+
+Features:
+
+- Anzeige der Komponentenstruktur
+- Anzeige von State und Props
+- Ändern von State und Props
+- Performanceanalyse des Renderings von Komponenten
 
 <!-- closely realated content in presentations typescript and react-->
 
@@ -1369,261 +1637,6 @@ const TodoList = (props: TodoListProps) => {
 
 React+TypeScript Cheatsheets: <https://github.com/typescript-cheatsheets/react>
 
-# Text-Inputs und Formulare
-
-## Text-Inputs
-
-Besonderheit von input-Elementen:
-
-Ihre Properties (insbesondere `.value`) können durch User-Interaktionen direkt geändert werden
-
-Es gäbe damit Aspekte des UI-Zustands, die von Haus aus nicht im State erfasst wären
-
-## Text-Inputs
-
-So können wir den Wert eines Inputs im State erfassen:
-
-```jsx
-<input
-  value={inputText}
-  onChange={(event) => {
-    setInputText(event.target.value);
-  }}
-/>
-```
-
-## Formular-Aktionen
-
-Standardverhalten eines Formulars beim Submit: Direktes Senden der Daten an den Server
-
-Ersetzen des Standardverhaltens:
-
-```jsx
-<form
-  onSubmit={(event) => {
-    event.preventDefault();
-    // handle submit with custom logic
-  }}
->
-  ...
-</form>
-```
-
-# Andere Inputs
-
-## Andere Inputs
-
-- textarea
-- checkbox
-- dropdown
-- numeric input
-- ...
-
-## Beispiele: textarea und checkbox
-
-textarea:
-
-```jsx
-<textarea
-  value={message}
-  onChange={(e) => setMessage(e.target.value)}
-/>
-```
-
-checkbox:
-
-```jsx
-<input
-  type="checkbox"
-  checked={accept}
-  onChange={(e) => setAccept(e.target.checked)}
-/>
-```
-
-## Beispiel: Dropdown
-
-Dropdown mit festen Optionen:
-
-```jsx
-<select
-  value={unit}
-  onChange={(e) => setUnit(e.target.value)}
->
-  <option value="px">px</option>
-  <option value="em">em</option>
-  <option value="%">%</option>
-</select>
-```
-
-## Beispiel: Dropdown
-
-Dropdown mit Optionen aus einem Array:
-
-```jsx
-const UnitDropdown = () => {
-  const units = ['px', 'em', '%'];
-  const [unit, setUnit] = useState(units[0]);
-  return (
-    <select
-      value={unit}
-      onChange={(e) => setUnit(e.target.value)}
-    >
-      {units.map((u) => (
-        <option value={u} key={u}>
-          {u}
-        </option>
-      ))}
-    </select>
-  );
-};
-```
-
-## Numerische Inputs
-
-Der Wert eines numerischen Inputs sollte üblicherweise als string gespeichert werden (nicht als Zahl)
-
-Grund: mögliche Inhalte eines Numerischen Inputs (während der Benutzer tippt):
-
-```txt
-""
-"-"
-"-3"
-"-3."
-"-3.0"
-```
-
-## Numerische Inputs mit direkten "Auswirkungen"
-
-Beispiel: Speichern des numerischen Inhalts eines Inputs als ein String, aktualisieren eines zugehörigen numerischen Wertes, wenn dies möglich ist:
-
-```jsx
-const FontSizeDemo = () => {
-  const [size, setSize] = useState(16);
-  const [sizeStr, setSizeStr] = useState(size.toString());
-  const updateSize = (newSizeStr) => {
-    setSizeStr(newSizeStr);
-    // source: https://stackoverflow.com/questions/18082
-    if (!isNaN(parseFloat(n)) && isFinite(n)) {
-      setSize(Number(newSizeStr));
-    }
-  };
-  return (
-    <div>
-      <input
-        type="number"
-        value={sizeStr}
-        onChange={(event) => updateSize(event.target.value)}
-      />
-      <div style={{ fontSize: size }}>Sample text</div>
-    </div>
-  );
-};
-```
-
-# Input-Validierung
-
-## Input-Validierung
-
-Wann kann ein Input validiert werden?
-
-- wenn das Formular _submittet_ wird (_submit_)
-- wenn ein Eingabefeld den Fokus verliert (_blur_)
-- bei jeder Änderung eines Wertes (_change_)
-
-Der beste Zugang hängt vom Anwendungsfall ab
-
-## Validierung: Beispiele
-
-Validierung bei jeder Änderung:
-
-```js
-const NewsletterSignup = () => {
-  const [email, setEmail] = useState('');
-  const emailValid = isEmail(email);
-
-  // ...
-  // display a form
-  // and optionally a warning about an invalid email
-};
-```
-
-## Validierung: Beispiele
-
-Validierung bei _blur_ bzw _change_:
-
-```js
-const NewsletterSignup = () => {
-  const [email, setEmail] = useState('');
-  const [emailValid, setEmailValid] = useState(true);
-  // call from onBlur / onChange:
-  const validateEmail = () => {
-    setEmailValid(isEmail(email));
-  };
-
-  // ...
-  // display a form
-  // and optionally a warning about an invalid email
-};
-```
-
-## Validierung: Beispiele
-
-vollständiges Beispiel: Validierung bei _blur_ und _submit_
-
-```js
-const NewsletterSignup = () => {
-  const [email, setEmail] = useState('');
-  const [emailValid, setEmailValid] = useState(true);
-  const validateEmail = () => {
-    setEmailValid(isEmail(email));
-  };
-
-  return (
-    <form
-      onSubmit={(event) => {
-        event.preventDefault();
-        validateEmail();
-        if (isEmail(email)) {
-          console.log(`Signed up: ${email}`);
-        }
-      }}
-    >
-      <input
-        value={email}
-        onChange={(event) => setEmail(event.target.value)}
-        onBlur={() => validateEmail()}
-      />
-      <button>sign up</button>
-      {!emailValid ? <div>invalid email</div> : null}
-    </form>
-  );
-};
-
-const isEmail = (email) =>
-  email.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i);
-```
-
-## Validierung
-
-komplexere Schemata zur Validierung sind möglich
-
-Beispiel: erste Validierung eines Feldes beim ersten _blur_, danach live-Validierung bei jedem _change_
-
-# React Developer Tools
-
-## React Developer Tools
-
-- [Chrome Plugin](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi)
-- [Firefox Plugin](https://addons.mozilla.org/de/firefox/addon/react-devtools/)
-- [Edge Plugin](https://microsoftedge.microsoft.com/addons/detail/react-developer-tools/gpphkfbcpidddadnkolkpfckpihlkkil)
-
-Features:
-
-- Anzeige der Komponentenstruktur
-- Anzeige von State und Props
-- Ändern von State und Props
-- Performanceanalyse des Renderings von Komponenten
-
 # Übung: Todo-Liste
 
 ## Übung: Todo-Liste
@@ -1835,9 +1848,9 @@ kürzere Schreibweise:
 <Rating value={prodRating} onChange={setProdRating} />
 ```
 
-# Übungen
+# Übungen (Komponenten)
 
-## Übungen
+## Übungen (Komponenten)
 
 Aufgabe: Entwerfen von Komponenteninterfaces (Props und Events) für verschiedene Komponenten (z.B. _Calendar_, _Color Picker_, _BarChart_, _Tabs_)
 

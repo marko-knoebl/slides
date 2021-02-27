@@ -2064,8 +2064,21 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </section><section class="slide"><h2>Hauptthemen</h2>
 <ul>
 <li>State (Deklaratives Rendering)</li>
-<li>Komponenten (eigene HTML-Tags)</li>
 <li>JSX (Templatesprache)</li>
+<li>Komponenten (eigene HTML-Tags)</li>
+</ul>
+</section><section class="slide"><h2>Themen im Detail</h2>
+<ul>
+<li>Überblick und einfaches Beispiel</li>
+<li>JavaScript-Grundlagen für React</li>
+<li>State</li>
+<li>JSX</li>
+<li>Inputs und Formulare</li>
+<li>VS Code und React-Projekte</li>
+<li>React Developer Tools</li>
+<li>React und TypeScript</li>
+<li>Komponenten</li>
+<li>Abfragen von APIs</li>
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>React Überblick</h1>
 </section><section class="slide"><h2>Was ist React?</h2>
@@ -2972,225 +2985,6 @@ Lösung: <strong>key</strong>:</p>
   _jsx(<span class="hljs-string">'div'</span>, <span class="hljs-literal">null</span>, <span class="hljs-string">'test 2'</span>)
 );
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>VS Code Grundlagen und Plugins</h1>
-</section><section class="slide"><h2>VS Code Grundlagen und Plugins</h2>
-<p>siehe Präsentation <a href="./vs-code-de.html">VS Code</a></p>
-</section></section><section class="slides-section"><section class="slide"><h1>Ein React-Projekt initialisieren</h1>
-</section><section class="slide"><h2>Entwicklung mit node.js und npm</h2>
-<ul>
-<li>node.js: JS-Runtime
-<ul>
-<li>Ausführen des lokalen Enwicklungsservers</li>
-<li>Unit-Tests</li>
-</ul>
-</li>
-<li>npm: Paketmanager
-<ul>
-<li>zum Verwalten von Abhängigkeiten</li>
-<li>Pakete im <em>node_modules</em>-Ordner</li>
-<li>Konfiguration in <em>package.json</em></li>
-</ul>
-</li>
-</ul>
-</section><section class="slide"><h2>Ein React-Projekt initialisieren</h2>
-<p>Möglichkeiten:</p>
-<ul>
-<li><strong>create-react-app</strong> (meistverwendete Methode)</li>
-<li>gatsby (ermöglicht <em>Static Site Generation</em>)</li>
-<li>next.js (ermöglicht <em>Static Site Generation</em> und serverseitiges Rendering)</li>
-</ul>
-</section><section class="slide"><h2>Ein React-Projekt initialisieren</h2>
-<p>Mögliche Befehle zum Initialisieren eines Projekts namens "todolist":</p>
-<pre><code class="hljs language-bash">npx create-react-app todolist
-npx create-react-app todolist --template typescript
-npx create-react-app todolist --template cra-template-pwa-typescript
-</code></pre>
-<pre><code class="hljs language-bash">npx create-next-app todolist
-npx create-next-app todolist --example with-typescript
-</code></pre>
-<pre><code class="hljs language-bash">npx gatsby new
-</code></pre>
-<p>siehe auch: <a href="https://reactjs.org/docs/create-a-new-react-app.html">https://reactjs.org/docs/create-a-new-react-app.html</a></p>
-</section><section class="slide"><h2>Ein React-Projekt initialisieren</h2>
-<p>Viele Aspekte können vorkonfiguriert sein:</p>
-<ul>
-<li>Webpack und Babel für den Build</li>
-<li>lokaler Entwicklungsserver</li>
-<li>Unittest-Framework jest</li>
-<li>SCSS und CSS Module</li>
-<li>...</li>
-</ul>
-</section><section class="slide"><h2>Create-react-app: Standard Projektstruktur</h2>
-<ul>
-<li><code>public/index.html</code>, <code>src/index.js</code>: Einstiegspunkte</li>
-<li><code>App.js</code>, <code>App.css</code>: Definieren App-Komponente</li>
-<li><code>node_modules</code>: Abhängigkeiten</li>
-</ul>
-</section><section class="slide"><h2>Create-react-app: Entwicklungsserver und Build</h2>
-<p>Im Projektordner:</p>
-<ul>
-<li><code>npm run start</code> (oder <code>npm start</code>): Startet den lokalen Entwicklungsserver</li>
-<li><code>npm run build</code>: Erstellt einen Build (zum Deployen auf einem Webserver)</li>
-</ul>
-</section><section class="slide"><h2>Create-react-app: Entwicklungsserver</h2>
-<p>Bemerkung:</p>
-<p>Manchmals zeigt der Entwicklungsserver weiter eine Fehlermeldung an, obwohl der Fehler im Code behoben wurde.</p>
-<p>Um dies zu beheben: Stoppen (Ctrl-C) und neu Starten des Servers</p>
-<!-- closely realated content in presentations typescript and react-->
-</section></section><section class="slides-section"><section class="slide"><h1>TypeScript Grundlagen für React</h1>
-</section><section class="slide"><h2>TypeScript</h2>
-<p><em>TypeScript</em>: Obermenge von JavaScript mit Unterstützung für statische Typisierung</p>
-</section><section class="slide"><h2>Statische Typisierung</h2>
-<p>Datentypen können angegeben werden und unterstützen insbesondere die Entwicklungsumgebung:</p>
-<ul>
-<li>Autovervollständigung</li>
-<li>Fehlermeldungen bei nicht passenden Datentypen</li>
-</ul>
-</section><section class="slide"><h2>Statische Typisierung</h2>
-<p>Beim build: TypeScript wird in JavaScript übersetzt, alle Typeninformationen gehen dabei verloren</p>
-</section><section class="slide"><h2>Variablentypen</h2>
-<p>Variablentypen werden üblicherweise automatisch erkannt</p>
-<p><em>Explizites</em> Angeben von Variablentypen:</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> age: <span class="hljs-built_in">number</span> = <span class="hljs-number">32</span>;
-<span class="hljs-keyword">const</span> name: <span class="hljs-built_in">string</span> = <span class="hljs-string">'Samuel'</span>;
-<span class="hljs-keyword">const</span> loggedIn: <span class="hljs-built_in">boolean</span> = <span class="hljs-literal">true</span>;
-</code></pre>
-</section><section class="slide"><h2>Funktionstypen</h2>
-<pre><code class="hljs language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">shorten</span>(<span class="hljs-params">text: <span class="hljs-built_in">string</span>, maxLen: <span class="hljs-built_in">number</span></span>): <span class="hljs-title">string</span> </span>{
-  <span class="hljs-comment">// ...</span>
-}
-</code></pre>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> shorten = (text: <span class="hljs-built_in">string</span>, <span class="hljs-attr">maxLen</span>: <span class="hljs-built_in">number</span>): <span class="hljs-function"><span class="hljs-params">string</span> =></span> {
-  <span class="hljs-comment">// ...</span>
-};
-</code></pre>
-</section><section class="slide"><h2>Funktionstypen</h2>
-<p>Funktionen ohne Rückgabewert: <code>void</code></p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> logMessage = (message: <span class="hljs-built_in">string</span>): <span class="hljs-function"><span class="hljs-params">void</span> =></span> {
-  <span class="hljs-built_in">console</span>.log(message);
-};
-</code></pre>
-</section><section class="slide"><h2>Array-Typen</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> names: <span class="hljs-built_in">Array</span>&#x3C;string> = [];
-names.push(<span class="hljs-string">'Alice'</span>);
-</code></pre>
-<p>alternative Schreibweise:</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">let</span> names: <span class="hljs-built_in">string</span>[] = [];
-names.push(<span class="hljs-string">'Alice'</span>);
-</code></pre>
-</section><section class="slide"><h2>Generics</h2>
-<p><em>Generics</em>: allgemeine Typendeklaration, zu der bei der Anwendung nähere Informationen spezifiziert werden können (via <code>&#x3C;...></code>)</p>
-</section><section class="slide"><h2>Generics</h2>
-<p>Beispiel: <code>Array</code> ist ein Generic</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> names: <span class="hljs-built_in">Array</span>&#x3C;<span class="hljs-built_in">string</span>> = [<span class="hljs-string">'Alice'</span>, <span class="hljs-string">'Bob'</span>, <span class="hljs-string">'Charlie'</span>];
-</code></pre>
-<p>Beispiel: Reacts <code>Component</code> ist ein Generic</p>
-<pre><code class="hljs language-ts"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyComp</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span>&#x3C;<span class="hljs-title">MyProps</span>, <span class="hljs-title">MyState</span>> </span>{
-  <span class="hljs-comment">// ...</span>
-}
-</code></pre>
-</section><section class="slide"><h2>Type Assertions</h2>
-<p>ermöglichen das Behandeln eines vorhandenen Objekts als bestimmter Typ</p>
-<p>dies schlägt fehl:</p>
-<pre><code class="hljs language-ts"><span class="hljs-comment">// type: HTMLElement or null</span>
-<span class="hljs-keyword">const</span> nameInput = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'name-input'</span>);
-<span class="hljs-built_in">console</span>.log(nameInput.value);
-</code></pre>
-<p>dies klappt:</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> nameInput = <span class="hljs-built_in">document</span>.getElementById(
-  <span class="hljs-string">'name-input'</span>
-) <span class="hljs-keyword">as</span> HTMLInputElement;
-<span class="hljs-built_in">console</span>.log(myInput.value);
-</code></pre>
-</section><section class="slide"><h2>Any</h2>
-<p>Any: lässt alle Typen zu - erlaubt das Zugreifen auf beliebige Properties</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> nameInput = <span class="hljs-built_in">document</span>.getElementById(
-  <span class="hljs-string">'name-input'</span>
-) <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>;
-<span class="hljs-built_in">console</span>.log(nameInput.value);
-</code></pre>
-</section><section class="slide"><h2>Type- und Interface-Deklarationen</h2>
-<p><strong>Interfaces</strong>: beschreiben die Struktur eines Objektes / einer Klasse genauer (z.B. <code>Todo</code>, <code>Person</code>)</p>
-<p><strong>Types</strong>: ähnlich wie Interfaces; auch auf Strings, Arrays, ... anwendbar</p>
-</section><section class="slide"><h2>Type- und Interface-Deklarationen</h2>
-<p>Types bieten im wesentlichen mehr Funktionalität als Interfaces</p>
-<p><a href="https://stackoverflow.com/a/52682220/">https://stackoverflow.com/a/52682220/</a></p>
-</section><section class="slide"><h2>Types</h2>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> Todo = {
-  <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span>;
-  title: <span class="hljs-built_in">string</span>;
-  completed: <span class="hljs-built_in">boolean</span>;
-};
-
-<span class="hljs-keyword">type</span> TodoCollection = <span class="hljs-built_in">Array</span>&#x3C;Todo>;
-</code></pre>
-</section><section class="slide"><h2>Types bei Objekten</h2>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> Todo = {
-  <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span>;
-  title: <span class="hljs-built_in">string</span>;
-  completed: <span class="hljs-built_in">boolean</span>;
-  <span class="hljs-comment">// optional</span>
-  description?: <span class="hljs-built_in">string</span>;
-  <span class="hljs-comment">// method</span>
-  toggle: <span class="hljs-function">(<span class="hljs-params">id: <span class="hljs-built_in">number</span></span>) =></span> <span class="hljs-built_in">void</span>;
-};
-</code></pre>
-</section><section class="slide"><h2>Typendeklarationen für Libraries</h2>
-<p>Manche JavaScript Libraries beinhalten auch Typendeklarationen für TypeScript - z.B. <em>redux</em>.</p>
-<p>Für andere Libraries gibt es meist externe Deklarationen mit dem Präfix <em>@types/</em>, z.B. für <em>react</em> existiert das Paket <em>@types/react</em>.</p>
-</section></section><section class="slides-section"><section class="slide"><h1>React und TypeScript</h1>
-</section><section class="slide"><h2>Eventtypen</h2>
-<p>Bei <em>inline</em> Eventhandlern werden Eventtypen automatisch erkannt:</p>
-<pre><code class="hljs language-jsx">&#x3C;button
-  onClick={<span class="hljs-function">(<span class="hljs-params">event</span>) =></span> {
-    <span class="hljs-comment">// automatic type: React.MouseEvent&#x3C;HTMLButtonElement></span>
-    event.stopPropagation();
-    <span class="hljs-comment">// ...</span>
-  }}
->
-  test
-&#x3C;/button>
-</code></pre>
-</section><section class="slide"><h2>Eventtypen</h2>
-<p>explizite Typendeklaration für separat definierte Eventhandler:</p>
-<pre><code class="hljs language-tsx">const handleClick = (
-  event: React.MouseEvent&#x3C;HTMLButtonElement>
-) => {
-  event.stopPropagation();
-  // ...
-};
-</code></pre>
-<pre><code class="hljs language-tsx">&#x3C;button onClick={handleClick}>test&#x3C;/button>
-</code></pre>
-</section><section class="slide"><h2>Eventtypen</h2>
-<p>häufig verwendete Eventtypen:</p>
-<ul>
-<li><code>React.FormEvent</code></li>
-<li><code>React.FormEvent&#x3C;HTMLFormElement></code></li>
-<li><code>React.ChangeEvent&#x3C;HTMLInputElement></code></li>
-<li><code>React.MouseEvent&#x3C;HTMLButtonElement></code></li>
-</ul>
-</section><section class="slide"><h2>useState mit TypeScript</h2>
-<p>oft keine Annotation notwendig:</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> [filterText, setFilterText] = useState(<span class="hljs-string">''</span>);
-</code></pre>
-<p>mit Annotation:</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> [todos, setTodos] = useState&#x3C;<span class="hljs-built_in">Array</span>&#x3C;TodoType>>([]);
-</code></pre>
-</section><section class="slide"><h2>Props und Events mit TypeScript</h2>
-<p>Props und Events in selbst definierten Komponenten</p>
-<pre><code class="hljs language-tsx">type TodoListProps = {
-  todos: Array&#x3C;Todo>;
-  onToggle: (id: number) => void;
-  onDelete: (id: number) => void;
-};
-
-const TodoList = (props: TodoListProps) => {
-  // ...
-};
-</code></pre>
-</section><section class="slide"><h2>Ressource</h2>
-<p>React+TypeScript Cheatsheets: <a href="https://github.com/typescript-cheatsheets/react">https://github.com/typescript-cheatsheets/react</a></p>
 </section></section><section class="slides-section"><section class="slide"><h1>Text-Inputs und Formulare</h1>
 </section><section class="slide"><h2>Text-Inputs</h2>
 <p>Besonderheit von input-Elementen:</p>
@@ -3374,6 +3168,70 @@ const TodoList = (props: TodoListProps) => {
 </section><section class="slide"><h2>Validierung</h2>
 <p>komplexere Schemata zur Validierung sind möglich</p>
 <p>Beispiel: erste Validierung eines Feldes beim ersten <em>blur</em>, danach live-Validierung bei jedem <em>change</em></p>
+</section></section><section class="slides-section"><section class="slide"><h1>VS Code Grundlagen und Plugins</h1>
+</section><section class="slide"><h2>VS Code Grundlagen und Plugins</h2>
+<p>siehe Präsentation <a href="./vs-code-de.html">VS Code</a></p>
+</section></section><section class="slides-section"><section class="slide"><h1>Ein React-Projekt initialisieren</h1>
+</section><section class="slide"><h2>Entwicklung mit node.js und npm</h2>
+<ul>
+<li>node.js: JS-Runtime
+<ul>
+<li>Ausführen des lokalen Enwicklungsservers</li>
+<li>Unit-Tests</li>
+</ul>
+</li>
+<li>npm: Paketmanager
+<ul>
+<li>zum Verwalten von Abhängigkeiten</li>
+<li>Pakete im <em>node_modules</em>-Ordner</li>
+<li>Konfiguration in <em>package.json</em></li>
+</ul>
+</li>
+</ul>
+</section><section class="slide"><h2>Ein React-Projekt initialisieren</h2>
+<p>Möglichkeiten:</p>
+<ul>
+<li><strong>create-react-app</strong> (meistverwendete Methode)</li>
+<li>gatsby (ermöglicht <em>Static Site Generation</em>)</li>
+<li>next.js (ermöglicht <em>Static Site Generation</em> und serverseitiges Rendering)</li>
+</ul>
+</section><section class="slide"><h2>Ein React-Projekt initialisieren</h2>
+<p>Mögliche Befehle zum Initialisieren eines Projekts namens "todolist":</p>
+<pre><code class="hljs language-bash">npx create-react-app todolist
+npx create-react-app todolist --template typescript
+npx create-react-app todolist --template cra-template-pwa-typescript
+</code></pre>
+<pre><code class="hljs language-bash">npx create-next-app todolist
+npx create-next-app todolist --example with-typescript
+</code></pre>
+<pre><code class="hljs language-bash">npx gatsby new
+</code></pre>
+<p>siehe auch: <a href="https://reactjs.org/docs/create-a-new-react-app.html">https://reactjs.org/docs/create-a-new-react-app.html</a></p>
+</section><section class="slide"><h2>Ein React-Projekt initialisieren</h2>
+<p>Viele Aspekte können vorkonfiguriert sein:</p>
+<ul>
+<li>Webpack und Babel für den Build</li>
+<li>lokaler Entwicklungsserver</li>
+<li>Unittest-Framework jest</li>
+<li>SCSS und CSS Module</li>
+<li>...</li>
+</ul>
+</section><section class="slide"><h2>Create-react-app: Standard Projektstruktur</h2>
+<ul>
+<li><code>public/index.html</code>, <code>src/index.js</code>: Einstiegspunkte</li>
+<li><code>App.js</code>, <code>App.css</code>: Definieren App-Komponente</li>
+<li><code>node_modules</code>: Abhängigkeiten</li>
+</ul>
+</section><section class="slide"><h2>Create-react-app: Entwicklungsserver und Build</h2>
+<p>Im Projektordner:</p>
+<ul>
+<li><code>npm run start</code> (oder <code>npm start</code>): Startet den lokalen Entwicklungsserver</li>
+<li><code>npm run build</code>: Erstellt einen Build (zum Deployen auf einem Webserver)</li>
+</ul>
+</section><section class="slide"><h2>Create-react-app: Entwicklungsserver</h2>
+<p>Bemerkung:</p>
+<p>Manchmals zeigt der Entwicklungsserver weiter eine Fehlermeldung an, obwohl der Fehler im Code behoben wurde.</p>
+<p>Um dies zu beheben: Stoppen (Ctrl-C) und neu Starten des Servers</p>
 </section></section><section class="slides-section"><section class="slide"><h1>React Developer Tools</h1>
 </section><section class="slide"><h2>React Developer Tools</h2>
 <ul>
@@ -3388,6 +3246,161 @@ const TodoList = (props: TodoListProps) => {
 <li>Ändern von State und Props</li>
 <li>Performanceanalyse des Renderings von Komponenten</li>
 </ul>
+<!-- closely realated content in presentations typescript and react-->
+</section></section><section class="slides-section"><section class="slide"><h1>TypeScript Grundlagen für React</h1>
+</section><section class="slide"><h2>TypeScript</h2>
+<p><em>TypeScript</em>: Obermenge von JavaScript mit Unterstützung für statische Typisierung</p>
+</section><section class="slide"><h2>Statische Typisierung</h2>
+<p>Datentypen können angegeben werden und unterstützen insbesondere die Entwicklungsumgebung:</p>
+<ul>
+<li>Autovervollständigung</li>
+<li>Fehlermeldungen bei nicht passenden Datentypen</li>
+</ul>
+</section><section class="slide"><h2>Statische Typisierung</h2>
+<p>Beim build: TypeScript wird in JavaScript übersetzt, alle Typeninformationen gehen dabei verloren</p>
+</section><section class="slide"><h2>Variablentypen</h2>
+<p>Variablentypen werden üblicherweise automatisch erkannt</p>
+<p><em>Explizites</em> Angeben von Variablentypen:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> age: <span class="hljs-built_in">number</span> = <span class="hljs-number">32</span>;
+<span class="hljs-keyword">const</span> name: <span class="hljs-built_in">string</span> = <span class="hljs-string">'Samuel'</span>;
+<span class="hljs-keyword">const</span> loggedIn: <span class="hljs-built_in">boolean</span> = <span class="hljs-literal">true</span>;
+</code></pre>
+</section><section class="slide"><h2>Funktionstypen</h2>
+<pre><code class="hljs language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">shorten</span>(<span class="hljs-params">text: <span class="hljs-built_in">string</span>, maxLen: <span class="hljs-built_in">number</span></span>): <span class="hljs-title">string</span> </span>{
+  <span class="hljs-comment">// ...</span>
+}
+</code></pre>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> shorten = (text: <span class="hljs-built_in">string</span>, <span class="hljs-attr">maxLen</span>: <span class="hljs-built_in">number</span>): <span class="hljs-function"><span class="hljs-params">string</span> =></span> {
+  <span class="hljs-comment">// ...</span>
+};
+</code></pre>
+</section><section class="slide"><h2>Funktionstypen</h2>
+<p>Funktionen ohne Rückgabewert: <code>void</code></p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> logMessage = (message: <span class="hljs-built_in">string</span>): <span class="hljs-function"><span class="hljs-params">void</span> =></span> {
+  <span class="hljs-built_in">console</span>.log(message);
+};
+</code></pre>
+</section><section class="slide"><h2>Array-Typen</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> names: <span class="hljs-built_in">Array</span>&#x3C;string> = [];
+names.push(<span class="hljs-string">'Alice'</span>);
+</code></pre>
+<p>alternative Schreibweise:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">let</span> names: <span class="hljs-built_in">string</span>[] = [];
+names.push(<span class="hljs-string">'Alice'</span>);
+</code></pre>
+</section><section class="slide"><h2>Generics</h2>
+<p><em>Generics</em>: allgemeine Typendeklaration, zu der bei der Anwendung nähere Informationen spezifiziert werden können (via <code>&#x3C;...></code>)</p>
+</section><section class="slide"><h2>Generics</h2>
+<p>Beispiel: <code>Array</code> ist ein Generic</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> names: <span class="hljs-built_in">Array</span>&#x3C;<span class="hljs-built_in">string</span>> = [<span class="hljs-string">'Alice'</span>, <span class="hljs-string">'Bob'</span>, <span class="hljs-string">'Charlie'</span>];
+</code></pre>
+<p>Beispiel: Reacts <code>Component</code> ist ein Generic</p>
+<pre><code class="hljs language-ts"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyComp</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span>&#x3C;<span class="hljs-title">MyProps</span>, <span class="hljs-title">MyState</span>> </span>{
+  <span class="hljs-comment">// ...</span>
+}
+</code></pre>
+</section><section class="slide"><h2>Type Assertions</h2>
+<p>ermöglichen das Behandeln eines vorhandenen Objekts als bestimmter Typ</p>
+<p>dies schlägt fehl:</p>
+<pre><code class="hljs language-ts"><span class="hljs-comment">// type: HTMLElement or null</span>
+<span class="hljs-keyword">const</span> nameInput = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'name-input'</span>);
+<span class="hljs-built_in">console</span>.log(nameInput.value);
+</code></pre>
+<p>dies klappt:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> nameInput = <span class="hljs-built_in">document</span>.getElementById(
+  <span class="hljs-string">'name-input'</span>
+) <span class="hljs-keyword">as</span> HTMLInputElement;
+<span class="hljs-built_in">console</span>.log(myInput.value);
+</code></pre>
+</section><section class="slide"><h2>Any</h2>
+<p>Any: lässt alle Typen zu - erlaubt das Zugreifen auf beliebige Properties</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> nameInput = <span class="hljs-built_in">document</span>.getElementById(
+  <span class="hljs-string">'name-input'</span>
+) <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>;
+<span class="hljs-built_in">console</span>.log(nameInput.value);
+</code></pre>
+</section><section class="slide"><h2>Type- und Interface-Deklarationen</h2>
+<p><strong>Interfaces</strong>: beschreiben die Struktur eines Objektes / einer Klasse genauer (z.B. <code>Todo</code>, <code>Person</code>)</p>
+<p><strong>Types</strong>: ähnlich wie Interfaces; auch auf Strings, Arrays, ... anwendbar</p>
+</section><section class="slide"><h2>Type- und Interface-Deklarationen</h2>
+<p>Types bieten im wesentlichen mehr Funktionalität als Interfaces</p>
+<p><a href="https://stackoverflow.com/a/52682220/">https://stackoverflow.com/a/52682220/</a></p>
+</section><section class="slide"><h2>Types</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> Todo = {
+  <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span>;
+  title: <span class="hljs-built_in">string</span>;
+  completed: <span class="hljs-built_in">boolean</span>;
+};
+
+<span class="hljs-keyword">type</span> TodoCollection = <span class="hljs-built_in">Array</span>&#x3C;Todo>;
+</code></pre>
+</section><section class="slide"><h2>Types bei Objekten</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> Todo = {
+  <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span>;
+  title: <span class="hljs-built_in">string</span>;
+  completed: <span class="hljs-built_in">boolean</span>;
+  <span class="hljs-comment">// optional</span>
+  description?: <span class="hljs-built_in">string</span>;
+  <span class="hljs-comment">// method</span>
+  toggle: <span class="hljs-function">(<span class="hljs-params">id: <span class="hljs-built_in">number</span></span>) =></span> <span class="hljs-built_in">void</span>;
+};
+</code></pre>
+</section><section class="slide"><h2>Typendeklarationen für Libraries</h2>
+<p>Manche JavaScript Libraries beinhalten auch Typendeklarationen für TypeScript - z.B. <em>redux</em>.</p>
+<p>Für andere Libraries gibt es meist externe Deklarationen mit dem Präfix <em>@types/</em>, z.B. für <em>react</em> existiert das Paket <em>@types/react</em>.</p>
+</section></section><section class="slides-section"><section class="slide"><h1>React und TypeScript</h1>
+</section><section class="slide"><h2>Eventtypen</h2>
+<p>Bei <em>inline</em> Eventhandlern werden Eventtypen automatisch erkannt:</p>
+<pre><code class="hljs language-jsx">&#x3C;button
+  onClick={<span class="hljs-function">(<span class="hljs-params">event</span>) =></span> {
+    <span class="hljs-comment">// automatic type: React.MouseEvent&#x3C;HTMLButtonElement></span>
+    event.stopPropagation();
+    <span class="hljs-comment">// ...</span>
+  }}
+>
+  test
+&#x3C;/button>
+</code></pre>
+</section><section class="slide"><h2>Eventtypen</h2>
+<p>explizite Typendeklaration für separat definierte Eventhandler:</p>
+<pre><code class="hljs language-tsx">const handleClick = (
+  event: React.MouseEvent&#x3C;HTMLButtonElement>
+) => {
+  event.stopPropagation();
+  // ...
+};
+</code></pre>
+<pre><code class="hljs language-tsx">&#x3C;button onClick={handleClick}>test&#x3C;/button>
+</code></pre>
+</section><section class="slide"><h2>Eventtypen</h2>
+<p>häufig verwendete Eventtypen:</p>
+<ul>
+<li><code>React.FormEvent</code></li>
+<li><code>React.FormEvent&#x3C;HTMLFormElement></code></li>
+<li><code>React.ChangeEvent&#x3C;HTMLInputElement></code></li>
+<li><code>React.MouseEvent&#x3C;HTMLButtonElement></code></li>
+</ul>
+</section><section class="slide"><h2>useState mit TypeScript</h2>
+<p>oft keine Annotation notwendig:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> [filterText, setFilterText] = useState(<span class="hljs-string">''</span>);
+</code></pre>
+<p>mit Annotation:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> [todos, setTodos] = useState&#x3C;<span class="hljs-built_in">Array</span>&#x3C;TodoType>>([]);
+</code></pre>
+</section><section class="slide"><h2>Props und Events mit TypeScript</h2>
+<p>Props und Events in selbst definierten Komponenten</p>
+<pre><code class="hljs language-tsx">type TodoListProps = {
+  todos: Array&#x3C;Todo>;
+  onToggle: (id: number) => void;
+  onDelete: (id: number) => void;
+};
+
+const TodoList = (props: TodoListProps) => {
+  // ...
+};
+</code></pre>
+</section><section class="slide"><h2>Ressource</h2>
+<p>React+TypeScript Cheatsheets: <a href="https://github.com/typescript-cheatsheets/react">https://github.com/typescript-cheatsheets/react</a></p>
 </section></section><section class="slides-section"><section class="slide"><h1>Übung: Todo-Liste</h1>
 </section><section class="slide"><h2>Übung: Todo-Liste</h2>
 <p>Wir erstellen eine Todo-Anwendung mit der folgenden Funktionalität:</p>
@@ -3706,8 +3719,8 @@ const ProgressBar = (props: Props) => {
 <p>kürzere Schreibweise:</p>
 <pre><code class="hljs language-jsx">&#x3C;Rating value={prodRating} onChange={setProdRating} />
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Übungen</h1>
-</section><section class="slide"><h2>Übungen</h2>
+</section></section><section class="slides-section"><section class="slide"><h1>Übungen (Komponenten)</h1>
+</section><section class="slide"><h2>Übungen (Komponenten)</h2>
 <p>Aufgabe: Entwerfen von Komponenteninterfaces (Props und Events) für verschiedene Komponenten (z.B. <em>Calendar</em>, <em>Color Picker</em>, <em>BarChart</em>, <em>Tabs</em>)</p>
 <p>Aufgabe: "Nachbau" einer der Komponenten auf <a href="https://github.com/brillout/awesome-react-components">awesome-react-components</a> (z.B. bar chart, color picker, table / data grid, tabs)</p>
 <p>Aufgabe: Aufteilen der Todo-Anwendung in kleinere Komponenten (z.B. <em>TodoList</em>, <em>TodoItem</em>, <em>AddTodo</em>)</p>

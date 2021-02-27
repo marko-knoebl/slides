@@ -1,6 +1,6 @@
-# Übungen
+# Übungen (Komponenten)
 
-## Übungen
+## Übungen (Komponenten)
 
 Aufgabe: Entwerfen von Komponenteninterfaces (Props und Events) für verschiedene Komponenten (z.B. _Calendar_, _Color Picker_, _BarChart_, _Tabs_)
 
