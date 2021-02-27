@@ -1,14 +1,14 @@
-# Basic example
+# Grundlegendes Beispiel: Slideshow
 
-## Basic example
+## Grundlegendes Beispiel: Slideshow
 
-example _slideshow_ app that demonstrates:
+Beispiel: _slideshow_-App, die folgendes demonstriert:
 
-- component definition as a function
-- component state (image id)
-- JSX template language: mix of JavaScript and XML
+- Komponentendefinition als Funktion
+- Komponenten-State (Bild-id)
+- JSX Templatesprache: Mischung aus JavaScript und XML
 
-## Basic example
+## Grundlegendes Beispiel: Slideshow
 
 ```jsx
 import { useState } from 'react';
@@ -29,9 +29,9 @@ function SlideshowApp() {
 export default SlideshowApp;
 ```
 
-can be tried on <https://codesandbox.io>
+kann auf <https://codesandbox.io> ausprobiert werden
 
-## Basic example
+## Grundlegendes Beispiel: Slideshow
 
 ```jsx
 function SlideshowApp() {
@@ -39,22 +39,22 @@ function SlideshowApp() {
 }
 ```
 
-A component is defined as a function that returns an XML tree
+Eine Komponente wird als Funktion definiert, die einen XML-Baum zurückgibt
 
-The function is called every time the component needs to be rendered
+Die Funktion wird jedes Mal aufgerufen, wenn die Komponente (neu) gerendert werden muss
 
-## Basic example
+## Grundlegendes Beispiel: Slideshow
 
 <!-- prettier-ignore -->
 ```jsx
   const [img, setImg] = useState(0);
 ```
 
-A component can have internal state entries
+Eine Komponente kann interne State-Einträge haben
 
-`useState` returns the current state entry and a corresponding setter on every render
+`useState` gibt bei jedem Rendering den aktuellen State-Eintrag und einen zugehörigen Setter zurück
 
-## Basic example
+## Grundlegendes Beispiel: Slideshow
 
 <!-- prettier-ignore -->
 ```jsx
@@ -65,18 +65,18 @@ A component can have internal state entries
   );
 ```
 
-An XML tag switches from JavaScript to XML mode
+Ein XML-Tag wechselt von JavaScript zu XML
 
-## Basic example
+## Grundlegendes Beispiel: Slideshow
 
 <!-- prettier-ignore -->
 ```jsx
       <h1>Image {img}</h1>
 ```
 
-A curly brace switches back to JavaScript
+Eine geschweifte Klammer wechselt zurück zu JavaScript
 
-## Basic example
+## Grundlegendes Beispiel: Slideshow
 
 <!-- prettier-ignore -->
 ```jsx
@@ -86,4 +86,4 @@ A curly brace switches back to JavaScript
       <button onClick={() => setImg(img + 1)}>next</button>
 ```
 
-Event handlers can be defined as JavaScript functions
+Eventhandler können als JavaScript-Funktionen definiert werden

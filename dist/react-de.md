@@ -68,9 +68,9 @@ andere Optionen:
 - Glitch: <https://glitch.com/edit/#!/remix/starter-react-template>
 - CodePen: <https://reactjs.org/redirect-to-codepen/hello-world>
 
-# Grundlegendes Beispiel
+# Grundlegendes Beispiel: Slideshow
 
-## Grundlegendes Beispiel
+## Grundlegendes Beispiel: Slideshow
 
 Beispiel: _slideshow_-App, die folgendes demonstriert:
 
@@ -78,7 +78,7 @@ Beispiel: _slideshow_-App, die folgendes demonstriert:
 - Komponenten-State (Bild-id)
 - JSX Templatesprache: Mischung aus JavaScript und XML
 
-## Grundlegendes Beispiel
+## Grundlegendes Beispiel: Slideshow
 
 ```jsx
 import { useState } from 'react';
@@ -101,7 +101,7 @@ export default SlideshowApp;
 
 kann auf <https://codesandbox.io> ausprobiert werden
 
-## Grundlegendes Beispiel
+## Grundlegendes Beispiel: Slideshow
 
 ```jsx
 function SlideshowApp() {
@@ -113,7 +113,7 @@ Eine Komponente wird als Funktion definiert, die einen XML-Baum zurückgibt
 
 Die Funktion wird jedes Mal aufgerufen, wenn die Komponente (neu) gerendert werden muss
 
-## Grundlegendes Beispiel
+## Grundlegendes Beispiel: Slideshow
 
 <!-- prettier-ignore -->
 
@@ -125,7 +125,7 @@ Eine Komponente kann interne State-Einträge haben
 
 `useState` gibt bei jedem Rendering den aktuellen State-Eintrag und einen zugehörigen Setter zurück
 
-## Grundlegendes Beispiel
+## Grundlegendes Beispiel: Slideshow
 
 <!-- prettier-ignore -->
 
@@ -139,7 +139,7 @@ Eine Komponente kann interne State-Einträge haben
 
 Ein XML-Tag wechselt von JavaScript zu XML
 
-## Grundlegendes Beispiel
+## Grundlegendes Beispiel: Slideshow
 
 <!-- prettier-ignore -->
 
@@ -149,7 +149,7 @@ Ein XML-Tag wechselt von JavaScript zu XML
 
 Eine geschweifte Klammer wechselt zurück zu JavaScript
 
-## Grundlegendes Beispiel
+## Grundlegendes Beispiel: Slideshow
 
 <!-- prettier-ignore -->
 
@@ -504,9 +504,9 @@ export default RandomSlideshowApp;
 
 ## Übung: Primzahl-Quiz
 
-Erstelle ein Quiz, dass zu einer _ungeraden_ Zahl im Bereich 1-99 abfragt, ob diese eine Primzahl ist.
+Erstelle ein Quiz, das zu einer _ungeraden_ Zahl im Bereich 1-99 abfragt, ob diese eine Primzahl ist.
 
-Zeige eine Statistik zu den korrekten / inkorrekten bisherigen Anwtorten.
+Zeige eine Statistik zu den korrekten / inkorrekten bisherigen Antworten.
 
 # Immutable State
 
@@ -633,7 +633,7 @@ user.email = 'johndoe@gmail.com';
 const newUser = { ...user, email: 'johndoe@gmail.com' };
 ```
 
-# JSX Grundlagen
+# JSX
 
 ## JSX
 
@@ -650,22 +650,19 @@ in React Versionen &lt; 17 müssen wir das `React`-Objekt importieren, um _JSX_ 
 import React from 'react';
 ```
 
-## Inhalte binden
+## Gültige Elemente in JSX
 
-```jsx
-<div>Ein Jahr hat {365 * 24} Stunden</div>
-```
+- string
+- number
+- Komponenten (z.B. `<div>`, `<img>`, `<MyComponent>`)
+- Arrays anderer Elemente
+- null, undefined, true, false (werden nicht gerendert)
 
-## Inhalte binden
-
-Aufgaben:
-
-- Zeige das aktuelle Datum an
-- Münzwurf: zeige zufällig entweder den Text "heads" oder "tails" in einem div an
+# JSX: Binden von Inhalten, Properties und Events
 
 ## Inhalte binden
 
-Datum:
+wir können Zahlen und Strings als grundlegende Typen direkt einbinden:
 
 ```jsx
 const dateString = new Date().toLocaleDateString();
@@ -673,12 +670,6 @@ const dateString = new Date().toLocaleDateString();
 
 ```jsx
 <div>curent date: {dateString}</div>
-```
-
-Münzwurf:
-
-```jsx
-<div>{Math.random() > 0.5 ? 'heads' : 'tails'}</div>
 ```
 
 ## Properties binden
@@ -696,14 +687,13 @@ Beachte die fehlenden Anführungszeichen bei href
 ## Events binden
 
 ```jsx
-const hello = () => {
-  console.log('hello world');
-  // ...
+const sayHello = () => {
+  alert('hello world');
 };
 ```
 
 ```jsx
-<button onClick={hello}>Say Hello</button>
+<button onClick={sayHello}>Say Hello</button>
 ```
 
 Liste von Browser-Events:  
@@ -731,6 +721,212 @@ OK:
 <button onClick={() => alert('hello')}>Say Hello</button>
 ```
 
+## Property- und Event-Namen
+
+Manche Properties von Elementen haben andere Namen als in standard HTML (spiegeln teilweise die standard DOM-Properties wider)
+
+- `className` (anstatt `class`)
+- `onClick` (anstatt `onclick`)
+- `htmlFor` (anstatt `for`)
+
+# JSX: whitespace, comments and fragments
+
+## Whitespace
+
+in HTML sind die folgenden Beispiele äquivalent (und enthalten je ein Leerzeichen zwischen den Bildern):
+
+<!-- prettier-ignore-start -->
+
+```html
+<img src="foo.png" /> <img src="bar.png" />
+```
+
+```html
+<img src="foo.png" />    <img src="bar.png" />
+```
+
+```html
+<img src="foo.png" />
+<img src="bar.png" />
+```
+
+<!-- prettier-ignore-end -->
+
+## Whitespace
+
+in JSX gilt:
+
+- Whitespace zwischen Elementen innerhalb einer Zeile wird als einzelnes Leerzeichen interpretiert
+- Whitespace zwischen Elementen, der über mehrere Zeilen geht, wird ignoriert
+
+<!-- prettier-ignore-start -->
+
+Einzelnes Leerzeichen:
+
+```xml
+<img src="foo.png" />     <img src="bar.png" />
+```
+
+Kein Leerzeichen:
+
+```xml
+<img src="foo.png" />
+<img src="bar.png" />
+```
+
+<!-- prettier-ignore-end -->
+
+## Whitespace
+
+"Erzwungenes" Einfügen eines Leerzeichens in JSX:
+
+```xml
+<img src="foo.png" />{" "}
+<img src="bar.png" />
+```
+
+## Kommentare
+
+Kommentare können als JavaScript-Kommentare geschrieben werden:
+
+```jsx
+<div>Hello World!{/* this is a comment */}</div>
+```
+
+## Fragmente
+
+Erlauben es einer Komponente, mehrere Elemente zurückzugeben (anstatt eines einzelnen Elements)
+
+```jsx
+return (
+  <>
+    <td>Hello</td>
+    <td>World</td>
+  </>
+);
+```
+
+# JSX und Styling Grundlagen
+
+## JSX und Styling Grundlagen
+
+In React-Projekten sind Style-Definitionen üblicherweise nahe bei den betroffenen Komponenten-Definitionen zu finden
+
+Möglichkeiten:
+
+- CSS-Datei mit dem gleichen Namen wie die JSX-Datei
+- Stil-Definition am Beginn einer Komponentendefinitions-Datei
+- Inline Stil-Definition im Komponenten-Template
+
+## JSX und Styling Grundlagen
+
+```js
+import './TodoItem.css';
+```
+
+```jsx
+<li
+  className={
+    isCompleted ? 'todoitem completed' : 'todoitem'
+  }
+>
+  [...]
+</li>
+```
+
+es gibt Hilfslibraries, die die _className_-Property dynamisch generieren
+
+## JSX und Styling Grundlagen
+
+In JSX weisen wir der _style_-Property ein Objekt zu, z.B.:
+
+```jsx
+const containerStyle = {
+  display: 'flex',
+  justifyContent: 'center',
+};
+
+const imageStyle = {
+  display: 'block',
+};
+```
+
+```jsx
+<div style={containerStyle}>
+  <h1>Slideshow image {img}</h1>
+  <button>prev</button>
+  <img style={imageStyle} src="..." alt="..." />
+  <button>next</button>
+</div>
+```
+
+## JSX und Styling Grundlagen
+
+Bemerkung:
+
+Das direkte binden an die _style_-Property ist ineffizient und wird meist vermieden; in der Praxis werden Libraries wie _styled-components_ oder _emotion_ verwendet, um Stildeklarationen in JavaScript zu schreiben.
+
+# JSX: if/else und Elemente wiederholen
+
+## JSX: if/elese und Elemente wiederholen
+
+- if / else
+- if
+- Elemente wiederholen
+
+## if / else
+
+inline-Bedingung:
+
+```jsx
+<div>
+  {gameActive ? (
+    <span>score: {score}</span>
+  ) : (
+    <span>Game over. Final score: {score}</span>
+  )}
+</div>
+```
+
+## if / else
+
+if / else Statement:
+
+```jsx
+let statusMessage;
+if (gameActive) {
+  statusMessage = <span>score: {score}</span>;
+} else {
+  statusMessage = (
+    <span>Game over. Final score: {score}</span>
+  );
+}
+
+return <div>{statusMessage}</div>;
+```
+
+## if
+
+```jsx
+<div>{error ? <div>{error.message}</div> : null}</div>
+```
+
+## if
+
+kürzere Version:
+
+```jsx
+<div>{error && <div>error.message</div>}</div>
+```
+
+Der Operator `&&` in JavaScript:
+
+```js
+true && 'my message'; // 'my message'
+
+false && 'my message'; // false
+```
+
 ## Elemente wiederholen
 
 Mehrere Elemente können via Arrays eingebunden werden:
@@ -752,7 +948,7 @@ const elements = [
 
 ## Elemente wiederholen
 
-Aufgabe: Anzeigen aller Methoden des _React_-Objekts in einem _ul_-Element
+Beispiel: Auflisten aller Methoden des _React_-Objekts
 
 ```jsx
 const reactMethods = [];
@@ -770,18 +966,86 @@ for (let method in React) {
 
 ## Elemente wiederholen
 
-typischerweise werden wiederholte Elemente via `.map` erstellt:
+oft werden wiederholte Elemente via `.map` erstellt:
 
-```jsx
-const elements = ['alfa', 'bravo', 'charlie'];
+```js
+const initialTodos = [
+  { id: 1, title: 'groceries', completed: false },
+  { id: 2, title: 'cooking', completed: true },
+  { id: 3, title: 'gardening', completed: false },
+];
+
+const TodoApp = () => {
+  const [todos, setTodos] = useState(initialTodos);
+  return (
+    <ul>
+      {todos.map((todo) => (
+        <li>{todo.title}</li>
+      ))}
+    </ul>
+  );
+};
 ```
+
+## Elemente wiederholen
+
+Bei obigem Code:  
+Warnung in der Browser-Konsole (Wegen Effizienz)  
+Lösung: **key**:
 
 ```jsx
 <ul>
-  {elements.map((el) => (
-    <li>{el}</li>
+  {todos.map((todo) => (
+    <li key={todo.id}>{todo.title}</li>
   ))}
 </ul>
+```
+
+# JSX: Kompilierung
+
+## JSX: Kompilierung
+
+XML-Elemente werden kompiliert zu Aufrufen von:
+
+- `_jsx()` (React 17)
+- `React.createElement()` (React 16 - `React` muss importiert sein, um JSX zu schreiben)
+
+## JSX: Kompilierung
+
+```jsx
+const element = <a href="https://google.com">Google</a>;
+```
+
+wird kompiliert zu:
+
+```js
+const element = _jsx(
+  'a',
+  { href: 'https://google.com' },
+  'Google'
+);
+```
+
+## JSX: Kompilierung
+
+```jsx
+const element = (
+  <MyComponent prop1={1} prop2={2}>
+    <div>test 1</div>
+    <div>test 2</div>
+  </MyComponent>
+);
+```
+
+wird kompiliert zu:
+
+```js
+const element = _jsx(
+  MyComponent,
+  { prop1: 1, prop2: 2 },
+  _jsx('div', null, 'test 1'),
+  _jsx('div', null, 'test 2')
+);
 ```
 
 # VS Code Grundlagen und Plugins
@@ -1359,265 +1623,6 @@ Features:
 - Anzeige von State und Props
 - Ändern von State und Props
 - Performanceanalyse des Renderings von Komponenten
-
-# JSX im Detail
-
-## JSX im Detail
-
-Themen:
-
-- Properties
-- Elemente wiederholen
-- if / elese
-- if
-- Whitespace
-- Kommentare
-- Fragmente
-- gültige Elemente
-- Kompilierung
-
-## Property-Namen
-
-Manche Properties von Eleenten haben andere Namen als in standard HTML (spiegeln teilweise die standard DOM-Properties wider)
-
-- `className` (anstatt `class`)
-- `onClick` (anstatt `onclick`)
-- `htmlFor` (anstatt `for`)
-
-## Property-Namen
-
-Beispiel: CSS-Klassen
-
-```jsx
-<li
-  className={
-    isCompleted ? 'todoitem completed' : 'todoitem'
-  }
->
-  [...]
-</li>
-```
-
-es gibt viele Hilfslibraries, die die _className_-Property dynamisch generieren
-
-## Style Property
-
-In JSX weisen wir der _style_-Property ein Objekt zu:
-
-```jsx
-<div
-  style={{
-    backgroundColor: '#333',
-    fontSize: getFontSize(),
-  }}
-/>
-```
-
-Die _style_-Property wird hauptsächlich bei Werten verwendet, die sich dynamisch ändern können
-
-## Elemente wiederholen
-
-Aufgabe: Erstellen einer HTML-Liste (ul) aus diesen Daten:
-
-```js
-const initialTodos = [
-  { id: 1, title: 'groceries', completed: false },
-  { id: 2, title: 'cooking', completed: true },
-  { id: 3, title: 'gardening', completed: false },
-];
-```
-
-## JSX: Elemente wiederholen
-
-Erstellen eines Arrays von JSX-Elementen via `.map`:
-
-```jsx
-const TodoApp = () => {
-  const [todos, setTodos] = useState(initialTodos);
-  return (
-    <ul>
-      {todos.map((todo) => (
-        <li>{todo.title}</li>
-      ))}
-    </ul>
-  );
-};
-```
-
-## Elemente wiederholen
-
-Bei obigem Code:  
-Warnung in der Browser-Konsole (Wegen Effizienz)  
-Lösung: **key**:
-
-```jsx
-<ul>
-  {todos.map((todo) => (
-    <li key={todo.id}>{todo.title}</li>
-  ))}
-</ul>
-```
-
-## if / else
-
-```jsx
-<div>{Math.random() > 0.5 ? 'heads' : 'tails'}</div>
-```
-
-## if / else
-
-```jsx
-let face;
-if (Math.random() > 0.5) {
-  face = 'heads';
-} else {
-  face = 'tails';
-}
-
-return <div>{face}</div>;
-```
-
-## if
-
-```jsx
-<div>{state.hasError && state.errorMessage}</div>
-```
-
-Der Operator `&&` in JavaScript:
-
-```js
-true && 'my message'; // 'my message'
-
-false && 'my message'; // false
-```
-
-## Whitespace
-
-in HTML sind die folgenden Beispiele äquivalent (und enthalten je ein Leerzeichen zwischen den Bildern):
-
-<!-- prettier-ignore-start -->
-
-```html
-<img src="foo.png" /> <img src="bar.png" />
-```
-
-```html
-<img src="foo.png" />    <img src="bar.png" />
-```
-
-```html
-<img src="foo.png" />
-<img src="bar.png" />
-```
-
-<!-- prettier-ignore-end -->
-
-## Whitespace
-
-in JSX gilt:
-
-- Whitespace zwischen Elementen innerhalb einer Zeile wird als einzelnes Leerzeichen interpretiert
-- Whitespace zwischen Elementen, der über mehrere Zeilen geht, wird ignoriert
-
-<!-- prettier-ignore-start -->
-
-Einzelnes Leerzeichen:
-
-```xml
-<img src="foo.png" />     <img src="bar.png" />
-```
-
-Kein Leerzeichen:
-
-```xml
-<img src="foo.png" />
-<img src="bar.png" />
-```
-
-<!-- prettier-ignore-end -->
-
-## Whitespace
-
-"Erzwungenes" Einfügen eines Leerzeichens in JSX:
-
-```xml
-<img src="foo.png" />{" "}
-<img src="bar.png" />
-```
-
-## Kommentare
-
-Kommentare können als JavaScript-Kommentare geschrieben werden:
-
-```jsx
-a = <div>Hello World!{/*this is a comment*/}</div>;
-```
-
-## Fragmente
-
-Erlauben es einer Komponente, mehrere Elemente zurückzugeben (anstatt eines einzelnen Elements)
-
-```jsx
-return (
-  <>
-    <td>Hello</td>
-    <td>World</td>
-  </>
-);
-```
-
-## gültige Elemente in JSX
-
-- string
-- number
-- Komponenten (z.B. `<div>`, `<img>`, `<MyComponent>`)
-- Arrays anderer Elemente
-- null, undefined, true, false (werden nicht gerendert)
-
-## JSX Kompilierung
-
-XML-Elemente werden kompiliert zu Aufrufen von:
-
-- `_jsx()` (React 17)
-- `React.createElement()` (React 16 - `React` muss importiert sein, um JSX zu schreiben)
-
-## JSX Kompilierung
-
-```jsx
-const element = <a href="https://google.com">Google</a>;
-```
-
-wird kompiliert zu:
-
-```js
-const element = _jsx(
-  'a',
-  { href: 'https://google.com' },
-  'Google'
-);
-```
-
-## JSX Kompilierung
-
-```jsx
-const element = (
-  <MyComponent prop1={1} prop2={2}>
-    <div>test 1</div>
-    <div>test 2</div>
-  </MyComponent>
-);
-```
-
-wird kompiliert zu:
-
-```js
-const element = _jsx(
-  MyComponent,
-  { prop1: 1, prop2: 2 },
-  _jsx('div', null, 'test 1'),
-  _jsx('div', null, 'test 2')
-);
-```
 
 # Übung: Todo-Liste
 

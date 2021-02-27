@@ -2295,15 +2295,15 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li>Glitch: <a href="https://glitch.com/edit/#!/remix/starter-react-template">https://glitch.com/edit/#!/remix/starter-react-template</a></li>
 <li>CodePen: <a href="https://reactjs.org/redirect-to-codepen/hello-world">https://reactjs.org/redirect-to-codepen/hello-world</a></li>
 </ul>
-</section></section><section class="slides-section"><section class="slide"><h1>Basic example</h1>
-</section><section class="slide"><h2>Basic example</h2>
+</section></section><section class="slides-section"><section class="slide"><h1>Basic example: slideshow</h1>
+</section><section class="slide"><h2>Basic example: slideshow</h2>
 <p>example <em>slideshow</em> app that demonstrates:</p>
 <ul>
 <li>component definition as a function</li>
 <li>component state (image id)</li>
 <li>JSX template language: mix of JavaScript and XML</li>
 </ul>
-</section><section class="slide"><h2>Basic example</h2>
+</section><section class="slide"><h2>Basic example: slideshow</h2>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> { useState } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
 
 <span class="hljs-keyword">const</span> baseUrl = <span class="hljs-string">'https://picsum.photos/300/200?image='</span>;
@@ -2322,20 +2322,20 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> SlideshowApp;
 </code></pre>
 <p>can be tried on <a href="https://codesandbox.io">https://codesandbox.io</a></p>
-</section><section class="slide"><h2>Basic example</h2>
+</section><section class="slide"><h2>Basic example: slideshow</h2>
 <pre><code class="hljs language-jsx"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">SlideshowApp</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-comment">// ...</span>
 }
 </code></pre>
 <p>A component is defined as a function that returns an XML tree</p>
 <p>The function is called every time the component needs to be rendered</p>
-</section><section class="slide"><h2>Basic example</h2>
+</section><section class="slide"><h2>Basic example: slideshow</h2>
 <!-- prettier-ignore -->
 <pre><code class="hljs language-jsx">  <span class="hljs-keyword">const</span> [img, setImg] = useState(<span class="hljs-number">0</span>);
 </code></pre>
 <p>A component can have internal state entries</p>
 <p><code>useState</code> returns the current state entry and a corresponding setter on every render</p>
-</section><section class="slide"><h2>Basic example</h2>
+</section><section class="slide"><h2>Basic example: slideshow</h2>
 <!-- prettier-ignore -->
 <pre><code class="hljs language-jsx">  <span class="hljs-keyword">return</span> (
     <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
@@ -2344,12 +2344,12 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   );
 </code></pre>
 <p>An XML tag switches from JavaScript to XML mode</p>
-</section><section class="slide"><h2>Basic example</h2>
+</section><section class="slide"><h2>Basic example: slideshow</h2>
 <!-- prettier-ignore -->
 <pre><code class="hljs language-jsx">      &#x3C;h1>Image {img}&#x3C;/h1>
 </code></pre>
 <p>A curly brace switches back to JavaScript</p>
-</section><section class="slide"><h2>Basic example</h2>
+</section><section class="slide"><h2>Basic example: slideshow</h2>
 <!-- prettier-ignore -->
 <pre><code class="hljs language-jsx">      &#x3C;button onClick={<span class="hljs-function">() =></span> setImg(<span class="hljs-number">0</span>)}>start&#x3C;/button>
       <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setImg(img - 1)}>prev<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span>
@@ -2694,53 +2694,49 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <p><strong>no mutation</strong>: creates a new object (spread syntax)</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> newUser = { ...user, <span class="hljs-attr">email</span>: <span class="hljs-string">'johndoe@gmail.com'</span> };
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>JSX Basics</h1>
+</section></section><section class="slides-section"><section class="slide"><h1>JSX</h1>
 </section><section class="slide"><h2>JSX</h2>
-<p>JSX = Template language of React</p>
+<p>JSX = template language of React</p>
 <ul>
 <li><strong>&#x3C;</strong> switches from JS to XML/HTML</li>
 <li><strong>{</strong> switches back to JS</li>
 </ul>
 </section><section class="slide"><h2>Using JSX</h2>
-<p>for React versions &#x3C; 17, we need to import the <code>React</code> object in order to write <em>JSX</em>:</p>
+<p>for React &#x3C; 17, we need to import the <code>React</code> object in order to write <em>JSX</em>:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
 </code></pre>
-</section><section class="slide"><h2>Binding content</h2>
-<pre><code class="hljs language-jsx">&#x3C;div>A year has {<span class="hljs-number">365</span> * <span class="hljs-number">24</span>} hours&#x3C;/div>
-</code></pre>
-</section><section class="slide"><h2>Binding content</h2>
-<p>Tasks:</p>
+</section><section class="slide"><h2>Valid elements in JSX</h2>
 <ul>
-<li>Show the current date</li>
-<li>Show either "heads" or "tails" inside a div</li>
+<li>string</li>
+<li>number</li>
+<li>components (e.g. <code>&#x3C;div></code>, <code>&#x3C;img></code>, <code>&#x3C;MyComponent></code>)</li>
+<li>Arrays of other elements</li>
+<li>null, undefined, true, false (these are not rendered)</li>
 </ul>
+</section></section><section class="slides-section"><section class="slide"><h1>JSX: binding content, properties and events</h1>
 </section><section class="slide"><h2>Binding content</h2>
-<p>date:</p>
+<p>we can include <em>numbers</em> and <em>strings</em> as basic types:</p>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> dateString = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>().toLocaleDateString();
 </code></pre>
 <pre><code class="hljs language-jsx">&#x3C;div>curent date: {dateString}&#x3C;/div>
 </code></pre>
-<p>heads or tails:</p>
-<pre><code class="hljs language-jsx">&#x3C;div>{<span class="hljs-built_in">Math</span>.random() > <span class="hljs-number">0.5</span> ? <span class="hljs-string">'heads'</span> : <span class="hljs-string">'tails'</span>}&#x3C;/div>
-</code></pre>
-</section><section class="slide"><h2>Binding Properties</h2>
+</section><section class="slide"><h2>Binding properties</h2>
 <p>we can also change from XML to JS in properties:</p>
 <pre><code class="hljs language-jsx">&#x3C;a href={<span class="hljs-string">'https://en.wikipedia.org/wiki/'</span> + articleName}>
   some article
 &#x3C;/a>
 </code></pre>
 <p>Note: no quote characters around the value of <em>href</em></p>
-</section><section class="slide"><h2>Binding Events</h2>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> hello = <span class="hljs-function">() =></span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'hello world'</span>);
-  <span class="hljs-comment">// ...</span>
+</section><section class="slide"><h2>Binding events</h2>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> sayHello = <span class="hljs-function">() =></span> {
+  alert(<span class="hljs-string">'hello world'</span>);
 };
 </code></pre>
-<pre><code class="hljs language-jsx">&#x3C;button onClick={hello}>Say Hello&#x3C;/button>
+<pre><code class="hljs language-jsx">&#x3C;button onClick={sayHello}>Say Hello&#x3C;/button>
 </code></pre>
 <p>list of browser events:
 <a href="https://www.w3schools.com/jsref/dom_obj_event.asp">https://www.w3schools.com/jsref/dom_obj_event.asp</a></p>
-</section><section class="slide"><h2>Binding Events</h2>
+</section><section class="slide"><h2>Binding events</h2>
 <p>note: an event handler must be a <strong>function</strong>, not a function call</p>
 <p>OK:</p>
 <pre><code class="hljs language-js">&#x3C;button onClick={alert}>Say something&#x3C;/button>
@@ -2750,6 +2746,142 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </code></pre>
 <p>OK:</p>
 <pre><code class="hljs language-js">&#x3C;button onClick={<span class="hljs-function">() =></span> alert(<span class="hljs-string">'hello'</span>)}>Say Hello&#x3C;/button>
+</code></pre>
+</section><section class="slide"><h2>Property and event names</h2>
+<p>Some element properties have different names than in HTML (sometimes reflecting standard DOM properties)</p>
+<ul>
+<li><code>className</code> (instead of <code>class</code>)</li>
+<li><code>onClick</code> (instead of <code>onclick</code>)</li>
+<li><code>htmlFor</code> (instead of <code>for</code>)</li>
+</ul>
+</section></section><section class="slides-section"><section class="slide"><h1>JSX: whitespace, comments and fragments</h1>
+</section><section class="slide"><h2>Whitespace</h2>
+<p>In HTML the following examples are equivalent (displaying a single space between the images):</p>
+<!-- prettier-ignore-start -->
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"foo.png"</span> /></span> <span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"bar.png"</span> /></span>
+</code></pre>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"foo.png"</span> /></span>    <span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"bar.png"</span> /></span>
+</code></pre>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"foo.png"</span> /></span>
+<span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"bar.png"</span> /></span>
+</code></pre>
+<!-- prettier-ignore-end -->
+</section><section class="slide"><h2>Whitespace</h2>
+<p>rules in JSX:</p>
+<ul>
+<li>whitespace between two elements in one line is interpreted as a single space</li>
+<li>whitespace between two elements on different lines is ignored</li>
+</ul>
+<!-- prettier-ignore-start -->
+<p>Single space:</p>
+<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"foo.png"</span> /></span>     <span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"bar.png"</span> /></span>
+</code></pre>
+<p>no space:</p>
+<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"foo.png"</span> /></span>
+<span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"bar.png"</span> /></span>
+</code></pre>
+<!-- prettier-ignore-end -->
+</section><section class="slide"><h2>Whitespace</h2>
+<p>"force" a space in JSX:</p>
+<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"foo.png"</span> /></span>{" "}
+<span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"bar.png"</span> /></span>
+</code></pre>
+</section><section class="slide"><h2>Comments</h2>
+<p>Comments can be written as JavaScript comments:</p>
+<pre><code class="hljs language-jsx">&#x3C;div>Hello World!{<span class="hljs-comment">/* this is a comment */</span>}&#x3C;/div>
+</code></pre>
+</section><section class="slide"><h2>Fragments</h2>
+<p>Fragments enable returning multiple elements from a component / function:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">return</span> (
+  <span class="xml"><span class="hljs-tag">&#x3C;></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">td</span>></span>Hello<span class="hljs-tag">&#x3C;/<span class="hljs-name">td</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">td</span>></span>World<span class="hljs-tag">&#x3C;/<span class="hljs-name">td</span>></span>
+  <span class="hljs-tag">&#x3C;/></span></span>
+);
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>JSX and styling basics</h1>
+</section><section class="slide"><h2>JSX and styling basics</h2>
+<p>In React, style definitions are usually located close to the component definition</p>
+<p>possibilities:</p>
+<ul>
+<li>CSS file with the same base name as the JSX file</li>
+<li>style definition at the top of a component definition file</li>
+<li>inline style definition in the component template</li>
+</ul>
+</section><section class="slide"><h2>JSX and styling basics</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> <span class="hljs-string">'./TodoItem.css'</span>;
+</code></pre>
+<pre><code class="hljs language-jsx">&#x3C;li
+  className={
+    isCompleted ? <span class="hljs-string">'todoitem completed'</span> : <span class="hljs-string">'todoitem'</span>
+  }
+>
+  [...]
+&#x3C;/li>
+</code></pre>
+<p>there are helper libraries that will generate the <em>className</em> property dynamically</p>
+</section><section class="slide"><h2>JSX and styling basics</h2>
+<p>In JSX the <em>style</em> property takes an object, e.g.:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> containerStyle = {
+  <span class="hljs-attr">display</span>: <span class="hljs-string">'flex'</span>,
+  <span class="hljs-attr">justifyContent</span>: <span class="hljs-string">'center'</span>,
+};
+
+<span class="hljs-keyword">const</span> imageStyle = {
+  <span class="hljs-attr">display</span>: <span class="hljs-string">'block'</span>,
+};
+</code></pre>
+<pre><code class="hljs language-jsx">&#x3C;div style={containerStyle}>
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>Slideshow image {img}<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span></span>
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>></span>prev<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span>
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{imageStyle}</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"..."</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">"..."</span> /></span></span>
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>></span>next<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span>
+&#x3C;/div>
+</code></pre>
+</section><section class="slide"><h2>JSX and styling basics</h2>
+<p>note:</p>
+<p>Binding to the <em>style</em> property directly is inefficient and is usually avoided; in practice, libraries like <em>styled-components</em> or <em>emotion</em> are used to write style declarations inside JavaScript</p>
+</section></section><section class="slides-section"><section class="slide"><h1>JSX: conditionals and repeating elements</h1>
+</section><section class="slide"><h2>JSX: conditionals and repeating elements</h2>
+<ul>
+<li>if / else</li>
+<li>if</li>
+<li>repeating elements</li>
+</ul>
+</section><section class="slide"><h2>if / else</h2>
+<p>inline condition:</p>
+<pre><code class="hljs language-jsx">&#x3C;div>
+  {gameActive ? (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">span</span>></span>score: {score}<span class="hljs-tag">&#x3C;/<span class="hljs-name">span</span>></span></span>
+  ) : (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">span</span>></span>Game over. Final score: {score}<span class="hljs-tag">&#x3C;/<span class="hljs-name">span</span>></span></span>
+  )}
+&#x3C;/div>
+</code></pre>
+</section><section class="slide"><h2>if / else</h2>
+<p>if / else statement:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">let</span> statusMessage;
+<span class="hljs-keyword">if</span> (gameActive) {
+  statusMessage = <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">span</span>></span>score: {score}<span class="hljs-tag">&#x3C;/<span class="hljs-name">span</span>></span></span>;
+} <span class="hljs-keyword">else</span> {
+  statusMessage = (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">span</span>></span>Game over. Final score: {score}<span class="hljs-tag">&#x3C;/<span class="hljs-name">span</span>></span></span>
+  );
+}
+
+<span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>{statusMessage}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+</code></pre>
+</section><section class="slide"><h2>if</h2>
+<pre><code class="hljs language-jsx">&#x3C;div>{error ? <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>{error.message}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span> : <span class="hljs-literal">null</span>}&#x3C;/div>
+</code></pre>
+</section><section class="slide"><h2>if</h2>
+<p>shorter version that could be used:</p>
+<pre><code class="hljs language-jsx">&#x3C;div>{error &#x26;&#x26; <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>error.message<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>}&#x3C;/div>
+</code></pre>
+<p>The operator <code>&#x26;&#x26;</code> in JavaScript:</p>
+<pre><code class="hljs language-js"><span class="hljs-literal">true</span> &#x26;&#x26; <span class="hljs-string">'my message'</span>; <span class="hljs-comment">// 'my message'</span>
+
+<span class="hljs-literal">false</span> &#x26;&#x26; <span class="hljs-string">'my message'</span>; <span class="hljs-comment">// false</span>
 </code></pre>
 </section><section class="slide"><h2>Repeating elements</h2>
 <p>multiple elements may be added via arrays:</p>
@@ -2778,13 +2910,65 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </code></pre>
 </section><section class="slide"><h2>Repeating elements</h2>
 <p>typically, repeated elements are created via <code>.map</code>:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> elements = [<span class="hljs-string">'alfa'</span>, <span class="hljs-string">'bravo'</span>, <span class="hljs-string">'charlie'</span>];
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> initialTodos = [
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'groceries'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'cooking'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">true</span> },
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">3</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'gardening'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
+];
+
+<span class="hljs-keyword">const</span> TodoApp = <span class="hljs-function">() =></span> {
+  <span class="hljs-keyword">const</span> [todos, setTodos] = useState(initialTodos);
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">ul</span>></span>
+      {todos.map((todo) => (
+        <span class="hljs-tag">&#x3C;<span class="hljs-name">li</span>></span>{todo.title}<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span>
+      ))}
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">ul</span>></span></span>
+  );
+};
 </code></pre>
+</section><section class="slide"><h2>Repeating elements</h2>
+<p>With the above code:<br />
+warning in the browser console (concerning efficiency)<br />
+solution: <strong>key</strong>:</p>
 <pre><code class="hljs language-jsx">&#x3C;ul>
-  {elements.map(<span class="hljs-function">(<span class="hljs-params">el</span>) =></span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">li</span>></span>{el}<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span></span>
+  {todos.map(<span class="hljs-function">(<span class="hljs-params">todo</span>) =></span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">li</span> <span class="hljs-attr">key</span>=<span class="hljs-string">{todo.id}</span>></span>{todo.title}<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span></span>
   ))}
 &#x3C;/ul>
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>JSX: compilation</h1>
+</section><section class="slide"><h2>JSX: compilation</h2>
+<p>XML elements are compiled to calls of:</p>
+<ul>
+<li><code>_jsx()</code> (React 17)</li>
+<li><code>React.createElement()</code> (React 16 - <code>React</code> must be imported when writing JSX)</li>
+</ul>
+</section><section class="slide"><h2>JSX: compilation</h2>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> element = <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://google.com"</span>></span>Google<span class="hljs-tag">&#x3C;/<span class="hljs-name">a</span>></span></span>;
+</code></pre>
+<p>compiles to:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> element = _jsx(
+  <span class="hljs-string">'a'</span>,
+  { <span class="hljs-attr">href</span>: <span class="hljs-string">'https://google.com'</span> },
+  <span class="hljs-string">'Google'</span>
+);
+</code></pre>
+</section><section class="slide"><h2>JSX: compilation</h2>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> element = (
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">MyComponent</span> <span class="hljs-attr">prop1</span>=<span class="hljs-string">{1}</span> <span class="hljs-attr">prop2</span>=<span class="hljs-string">{2}</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>test 1<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>test 2<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">MyComponent</span>></span></span>
+);
+</code></pre>
+<p>compiles to:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> element = _jsx(
+  MyComponent,
+  { <span class="hljs-attr">prop1</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">prop2</span>: <span class="hljs-number">2</span> },
+  _jsx(<span class="hljs-string">'div'</span>, <span class="hljs-literal">null</span>, <span class="hljs-string">'test 1'</span>),
+  _jsx(<span class="hljs-string">'div'</span>, <span class="hljs-literal">null</span>, <span class="hljs-string">'test 2'</span>)
+);
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>VS Code basics and plugins</h1>
 </section><section class="slide"><h2>VS Code basics and plugins</h2>
@@ -3207,184 +3391,6 @@ const TodoList = (props: TodoListProps) => {
 <li>change state and props</li>
 <li>analyze render performance of components</li>
 </ul>
-</section></section><section class="slides-section"><section class="slide"><h1>JSX in detail</h1>
-</section><section class="slide"><h2>JSX in detail</h2>
-<p>topics:</p>
-<ul>
-<li>properties</li>
-<li>repeating elements</li>
-<li>if / else</li>
-<li>if</li>
-<li>whitespace</li>
-<li>comments</li>
-<li>fragments</li>
-<li>valid elements</li>
-<li>compilation</li>
-</ul>
-</section><section class="slide"><h2>Property names</h2>
-<p>Some element properties have different names than in HTML (sometimes reflecting standard DOM properties)</p>
-<ul>
-<li><code>className</code> (instead of <code>class</code>)</li>
-<li><code>onClick</code> (instead of <code>onclick</code>)</li>
-<li><code>htmlFor</code> (instead of <code>for</code>)</li>
-</ul>
-</section><section class="slide"><h2>Property names</h2>
-<p>example: CSS classes</p>
-<pre><code class="hljs language-jsx">&#x3C;li
-  className={
-    isCompleted ? <span class="hljs-string">'todoitem completed'</span> : <span class="hljs-string">'todoitem'</span>
-  }
->
-  [...]
-&#x3C;/li>
-</code></pre>
-<p>there are many helper libraries that will generate the <em>className</em> property dynamically</p>
-</section><section class="slide"><h2>Style property</h2>
-<p>In JSX the <em>style</em> property takes an object:</p>
-<pre><code class="hljs language-jsx">&#x3C;div
-  style={{
-    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">'#333'</span>,
-    <span class="hljs-attr">fontSize</span>: getFontSize(),
-  }}
-/>
-</code></pre>
-<p>The <em>style</em> property is mostly used for values that may change dynamically</p>
-</section><section class="slide"><h2>Repeating elements</h2>
-<p>Task: building an HTML list (ul) from this data:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> initialTodos = [
-  { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'groceries'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
-  { <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'cooking'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">true</span> },
-  { <span class="hljs-attr">id</span>: <span class="hljs-number">3</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'gardening'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
-];
-</code></pre>
-</section><section class="slide"><h2>Repeating elements</h2>
-<p>Generating an array of JSX elements via <code>.map</code>:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> TodoApp = <span class="hljs-function">() =></span> {
-  <span class="hljs-keyword">const</span> [todos, setTodos] = useState(initialTodos);
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">ul</span>></span>
-      {todos.map((todo) => (
-        <span class="hljs-tag">&#x3C;<span class="hljs-name">li</span>></span>{todo.title}<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span>
-      ))}
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">ul</span>></span></span>
-  );
-};
-</code></pre>
-</section><section class="slide"><h2>Repeating elements</h2>
-<p>With the above code:<br />
-warning in the browser console (concerning efficiency)<br />
-solution: <strong>key</strong>:</p>
-<pre><code class="hljs language-jsx">&#x3C;ul>
-  {todos.map(<span class="hljs-function">(<span class="hljs-params">todo</span>) =></span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">li</span> <span class="hljs-attr">key</span>=<span class="hljs-string">{todo.id}</span>></span>{todo.title}<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span></span>
-  ))}
-&#x3C;/ul>
-</code></pre>
-</section><section class="slide"><h2>if / else</h2>
-<pre><code class="hljs language-jsx">&#x3C;div>{<span class="hljs-built_in">Math</span>.random() > <span class="hljs-number">0.5</span> ? <span class="hljs-string">'heads'</span> : <span class="hljs-string">'tails'</span>}&#x3C;/div>
-</code></pre>
-</section><section class="slide"><h2>if / else</h2>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">let</span> face;
-<span class="hljs-keyword">if</span> (<span class="hljs-built_in">Math</span>.random() > <span class="hljs-number">0.5</span>) {
-  face = <span class="hljs-string">'heads'</span>;
-} <span class="hljs-keyword">else</span> {
-  face = <span class="hljs-string">'tails'</span>;
-}
-
-<span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>{face}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
-</code></pre>
-</section><section class="slide"><h2>if</h2>
-<pre><code class="hljs language-jsx">&#x3C;div>{state.hasError &#x26;&#x26; state.errorMessage}&#x3C;/div>
-</code></pre>
-<p>The operator <code>&#x26;&#x26;</code> in JavaScript:</p>
-<pre><code class="hljs language-js"><span class="hljs-literal">true</span> &#x26;&#x26; <span class="hljs-string">'my message'</span>; <span class="hljs-comment">// 'my message'</span>
-
-<span class="hljs-literal">false</span> &#x26;&#x26; <span class="hljs-string">'my message'</span>; <span class="hljs-comment">// false</span>
-</code></pre>
-</section><section class="slide"><h2>Whitespace</h2>
-<p>In HTML the following examples are equivalent (displaying a single space between the images):</p>
-<!-- prettier-ignore-start -->
-<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"foo.png"</span> /></span> <span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"bar.png"</span> /></span>
-</code></pre>
-<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"foo.png"</span> /></span>    <span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"bar.png"</span> /></span>
-</code></pre>
-<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"foo.png"</span> /></span>
-<span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"bar.png"</span> /></span>
-</code></pre>
-<!-- prettier-ignore-end -->
-</section><section class="slide"><h2>Whitespace</h2>
-<p>rules in JSX:</p>
-<ul>
-<li>whitespace between two elements in one line is interpreted as a single space</li>
-<li>whitespace between two elements on different lines is ignored</li>
-</ul>
-<!-- prettier-ignore-start -->
-<p>Single space:</p>
-<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"foo.png"</span> /></span>     <span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"bar.png"</span> /></span>
-</code></pre>
-<p>no space:</p>
-<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"foo.png"</span> /></span>
-<span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"bar.png"</span> /></span>
-</code></pre>
-<!-- prettier-ignore-end -->
-</section><section class="slide"><h2>Whitespace</h2>
-<p>"force" a space in JSX:</p>
-<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"foo.png"</span> /></span>{" "}
-<span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"bar.png"</span> /></span>
-</code></pre>
-</section><section class="slide"><h2>Comments</h2>
-<p>Comments can be written as JavaScript comments:</p>
-<pre><code class="hljs language-jsx">a = <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>Hello World!{/*this is a comment*/}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
-</code></pre>
-</section><section class="slide"><h2>Fragments</h2>
-<p>Fragments enable returning multiple elements from a component / function:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">return</span> (
-  <span class="xml"><span class="hljs-tag">&#x3C;></span>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">td</span>></span>Hello<span class="hljs-tag">&#x3C;/<span class="hljs-name">td</span>></span>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">td</span>></span>World<span class="hljs-tag">&#x3C;/<span class="hljs-name">td</span>></span>
-  <span class="hljs-tag">&#x3C;/></span></span>
-);
-</code></pre>
-</section><section class="slide"><h2>valid elements in JSX</h2>
-<ul>
-<li>string</li>
-<li>number</li>
-<li>components (e.g. <code>&#x3C;div></code>, <code>&#x3C;img></code>, <code>&#x3C;MyComponent></code>)</li>
-<li>Arrays of other elements</li>
-<li>null, undefined, true, false (these are not rendered)</li>
-</ul>
-</section><section class="slide"><h2>JSX compilation</h2>
-<p>XML elements are compiled to calls to:</p>
-<ul>
-<li><code>_jsx()</code> (React 17)</li>
-<li><code>React.createElement()</code> (React 16 - <code>React</code> must be imported when writing JSX)</li>
-</ul>
-</section><section class="slide"><h2>JSX compilation</h2>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> element = <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://google.com"</span>></span>Google<span class="hljs-tag">&#x3C;/<span class="hljs-name">a</span>></span></span>;
-</code></pre>
-<p>compiles to:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> element = _jsx(
-  <span class="hljs-string">'a'</span>,
-  { <span class="hljs-attr">href</span>: <span class="hljs-string">'https://google.com'</span> },
-  <span class="hljs-string">'Google'</span>
-);
-</code></pre>
-</section><section class="slide"><h2>JSX compilation</h2>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> element = (
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">MyComponent</span> <span class="hljs-attr">prop1</span>=<span class="hljs-string">{1}</span> <span class="hljs-attr">prop2</span>=<span class="hljs-string">{2}</span>></span>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>test 1<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>test 2<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
-  <span class="hljs-tag">&#x3C;/<span class="hljs-name">MyComponent</span>></span></span>
-);
-</code></pre>
-<p>compiles to:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> element = _jsx(
-  MyComponent,
-  { <span class="hljs-attr">prop1</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">prop2</span>: <span class="hljs-number">2</span> },
-  _jsx(<span class="hljs-string">'div'</span>, <span class="hljs-literal">null</span>, <span class="hljs-string">'test 1'</span>),
-  _jsx(<span class="hljs-string">'div'</span>, <span class="hljs-literal">null</span>, <span class="hljs-string">'test 2'</span>)
-);
-</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Exercise: todolist</h1>
 </section><section class="slide"><h2>Exercise: todolist</h2>
 <p>Create a todolist application with the following functionality:</p>

@@ -87,6 +87,6 @@ export default RandomSlideshowApp;
 
 ## Übung: Primzahl-Quiz
 
-Erstelle ein Quiz, dass zu einer _ungeraden_ Zahl im Bereich 1-99 abfragt, ob diese eine Primzahl ist.
+Erstelle ein Quiz, das zu einer _ungeraden_ Zahl im Bereich 1-99 abfragt, ob diese eine Primzahl ist.
 
-Zeige eine Statistik zu den korrekten / inkorrekten bisherigen Anwtorten.
+Zeige eine Statistik zu den korrekten / inkorrekten bisherigen Antworten.

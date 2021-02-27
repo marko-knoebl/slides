@@ -68,9 +68,9 @@ other options:
 - Glitch: <https://glitch.com/edit/#!/remix/starter-react-template>
 - CodePen: <https://reactjs.org/redirect-to-codepen/hello-world>
 
-# Basic example
+# Basic example: slideshow
 
-## Basic example
+## Basic example: slideshow
 
 example _slideshow_ app that demonstrates:
 
@@ -78,7 +78,7 @@ example _slideshow_ app that demonstrates:
 - component state (image id)
 - JSX template language: mix of JavaScript and XML
 
-## Basic example
+## Basic example: slideshow
 
 ```jsx
 import { useState } from 'react';
@@ -101,7 +101,7 @@ export default SlideshowApp;
 
 can be tried on <https://codesandbox.io>
 
-## Basic example
+## Basic example: slideshow
 
 ```jsx
 function SlideshowApp() {
@@ -113,7 +113,7 @@ A component is defined as a function that returns an XML tree
 
 The function is called every time the component needs to be rendered
 
-## Basic example
+## Basic example: slideshow
 
 <!-- prettier-ignore -->
 
@@ -125,7 +125,7 @@ A component can have internal state entries
 
 `useState` returns the current state entry and a corresponding setter on every render
 
-## Basic example
+## Basic example: slideshow
 
 <!-- prettier-ignore -->
 
@@ -139,7 +139,7 @@ A component can have internal state entries
 
 An XML tag switches from JavaScript to XML mode
 
-## Basic example
+## Basic example: slideshow
 
 <!-- prettier-ignore -->
 
@@ -149,7 +149,7 @@ An XML tag switches from JavaScript to XML mode
 
 A curly brace switches back to JavaScript
 
-## Basic example
+## Basic example: slideshow
 
 <!-- prettier-ignore -->
 
@@ -633,39 +633,36 @@ user.email = 'johndoe@gmail.com';
 const newUser = { ...user, email: 'johndoe@gmail.com' };
 ```
 
-# JSX Basics
+# JSX
 
 ## JSX
 
-JSX = Template language of React
+JSX = template language of React
 
 - **&lt;** switches from JS to XML/HTML
 - **{** switches back to JS
 
 ## Using JSX
 
-for React versions &lt; 17, we need to import the `React` object in order to write _JSX_:
+for React &lt; 17, we need to import the `React` object in order to write _JSX_:
 
 ```js
 import React from 'react';
 ```
 
-## Binding content
+## Valid elements in JSX
 
-```jsx
-<div>A year has {365 * 24} hours</div>
-```
+- string
+- number
+- components (e.g. `<div>`, `<img>`, `<MyComponent>`)
+- Arrays of other elements
+- null, undefined, true, false (these are not rendered)
 
-## Binding content
-
-Tasks:
-
-- Show the current date
-- Show either "heads" or "tails" inside a div
+# JSX: binding content, properties and events
 
 ## Binding content
 
-date:
+we can include _numbers_ and _strings_ as basic types:
 
 ```jsx
 const dateString = new Date().toLocaleDateString();
@@ -675,13 +672,7 @@ const dateString = new Date().toLocaleDateString();
 <div>curent date: {dateString}</div>
 ```
 
-heads or tails:
-
-```jsx
-<div>{Math.random() > 0.5 ? 'heads' : 'tails'}</div>
-```
-
-## Binding Properties
+## Binding properties
 
 we can also change from XML to JS in properties:
 
@@ -693,23 +684,22 @@ we can also change from XML to JS in properties:
 
 Note: no quote characters around the value of _href_
 
-## Binding Events
+## Binding events
 
 ```jsx
-const hello = () => {
-  console.log('hello world');
-  // ...
+const sayHello = () => {
+  alert('hello world');
 };
 ```
 
 ```jsx
-<button onClick={hello}>Say Hello</button>
+<button onClick={sayHello}>Say Hello</button>
 ```
 
 list of browser events:
 <https://www.w3schools.com/jsref/dom_obj_event.asp>
 
-## Binding Events
+## Binding events
 
 note: an event handler must be a **function**, not a function call
 
@@ -729,6 +719,212 @@ OK:
 
 ```js
 <button onClick={() => alert('hello')}>Say Hello</button>
+```
+
+## Property and event names
+
+Some element properties have different names than in HTML (sometimes reflecting standard DOM properties)
+
+- `className` (instead of `class`)
+- `onClick` (instead of `onclick`)
+- `htmlFor` (instead of `for`)
+
+# JSX: whitespace, comments and fragments
+
+## Whitespace
+
+In HTML the following examples are equivalent (displaying a single space between the images):
+
+<!-- prettier-ignore-start -->
+
+```html
+<img src="foo.png" /> <img src="bar.png" />
+```
+
+```html
+<img src="foo.png" />    <img src="bar.png" />
+```
+
+```html
+<img src="foo.png" />
+<img src="bar.png" />
+```
+
+<!-- prettier-ignore-end -->
+
+## Whitespace
+
+rules in JSX:
+
+- whitespace between two elements in one line is interpreted as a single space
+- whitespace between two elements on different lines is ignored
+
+<!-- prettier-ignore-start -->
+
+Single space:
+
+```xml
+<img src="foo.png" />     <img src="bar.png" />
+```
+
+no space:
+
+```xml
+<img src="foo.png" />
+<img src="bar.png" />
+```
+
+<!-- prettier-ignore-end -->
+
+## Whitespace
+
+"force" a space in JSX:
+
+```xml
+<img src="foo.png" />{" "}
+<img src="bar.png" />
+```
+
+## Comments
+
+Comments can be written as JavaScript comments:
+
+```jsx
+<div>Hello World!{/* this is a comment */}</div>
+```
+
+## Fragments
+
+Fragments enable returning multiple elements from a component / function:
+
+```jsx
+return (
+  <>
+    <td>Hello</td>
+    <td>World</td>
+  </>
+);
+```
+
+# JSX and styling basics
+
+## JSX and styling basics
+
+In React, style definitions are usually located close to the component definition
+
+possibilities:
+
+- CSS file with the same base name as the JSX file
+- style definition at the top of a component definition file
+- inline style definition in the component template
+
+## JSX and styling basics
+
+```js
+import './TodoItem.css';
+```
+
+```jsx
+<li
+  className={
+    isCompleted ? 'todoitem completed' : 'todoitem'
+  }
+>
+  [...]
+</li>
+```
+
+there are helper libraries that will generate the _className_ property dynamically
+
+## JSX and styling basics
+
+In JSX the _style_ property takes an object, e.g.:
+
+```jsx
+const containerStyle = {
+  display: 'flex',
+  justifyContent: 'center',
+};
+
+const imageStyle = {
+  display: 'block',
+};
+```
+
+```jsx
+<div style={containerStyle}>
+  <h1>Slideshow image {img}</h1>
+  <button>prev</button>
+  <img style={imageStyle} src="..." alt="..." />
+  <button>next</button>
+</div>
+```
+
+## JSX and styling basics
+
+note:
+
+Binding to the _style_ property directly is inefficient and is usually avoided; in practice, libraries like _styled-components_ or _emotion_ are used to write style declarations inside JavaScript
+
+# JSX: conditionals and repeating elements
+
+## JSX: conditionals and repeating elements
+
+- if / else
+- if
+- repeating elements
+
+## if / else
+
+inline condition:
+
+```jsx
+<div>
+  {gameActive ? (
+    <span>score: {score}</span>
+  ) : (
+    <span>Game over. Final score: {score}</span>
+  )}
+</div>
+```
+
+## if / else
+
+if / else statement:
+
+```jsx
+let statusMessage;
+if (gameActive) {
+  statusMessage = <span>score: {score}</span>;
+} else {
+  statusMessage = (
+    <span>Game over. Final score: {score}</span>
+  );
+}
+
+return <div>{statusMessage}</div>;
+```
+
+## if
+
+```jsx
+<div>{error ? <div>{error.message}</div> : null}</div>
+```
+
+## if
+
+shorter version that could be used:
+
+```jsx
+<div>{error && <div>error.message</div>}</div>
+```
+
+The operator `&&` in JavaScript:
+
+```js
+true && 'my message'; // 'my message'
+
+false && 'my message'; // false
 ```
 
 ## Repeating elements
@@ -772,16 +968,84 @@ for (let method in React) {
 
 typically, repeated elements are created via `.map`:
 
-```jsx
-const elements = ['alfa', 'bravo', 'charlie'];
+```js
+const initialTodos = [
+  { id: 1, title: 'groceries', completed: false },
+  { id: 2, title: 'cooking', completed: true },
+  { id: 3, title: 'gardening', completed: false },
+];
+
+const TodoApp = () => {
+  const [todos, setTodos] = useState(initialTodos);
+  return (
+    <ul>
+      {todos.map((todo) => (
+        <li>{todo.title}</li>
+      ))}
+    </ul>
+  );
+};
 ```
+
+## Repeating elements
+
+With the above code:  
+warning in the browser console (concerning efficiency)  
+solution: **key**:
 
 ```jsx
 <ul>
-  {elements.map((el) => (
-    <li>{el}</li>
+  {todos.map((todo) => (
+    <li key={todo.id}>{todo.title}</li>
   ))}
 </ul>
+```
+
+# JSX: compilation
+
+## JSX: compilation
+
+XML elements are compiled to calls of:
+
+- `_jsx()` (React 17)
+- `React.createElement()` (React 16 - `React` must be imported when writing JSX)
+
+## JSX: compilation
+
+```jsx
+const element = <a href="https://google.com">Google</a>;
+```
+
+compiles to:
+
+```js
+const element = _jsx(
+  'a',
+  { href: 'https://google.com' },
+  'Google'
+);
+```
+
+## JSX: compilation
+
+```jsx
+const element = (
+  <MyComponent prop1={1} prop2={2}>
+    <div>test 1</div>
+    <div>test 2</div>
+  </MyComponent>
+);
+```
+
+compiles to:
+
+```js
+const element = _jsx(
+  MyComponent,
+  { prop1: 1, prop2: 2 },
+  _jsx('div', null, 'test 1'),
+  _jsx('div', null, 'test 2')
+);
 ```
 
 # VS Code basics and plugins
@@ -1365,265 +1629,6 @@ features:
 - show component state and props
 - change state and props
 - analyze render performance of components
-
-# JSX in detail
-
-## JSX in detail
-
-topics:
-
-- properties
-- repeating elements
-- if / else
-- if
-- whitespace
-- comments
-- fragments
-- valid elements
-- compilation
-
-## Property names
-
-Some element properties have different names than in HTML (sometimes reflecting standard DOM properties)
-
-- `className` (instead of `class`)
-- `onClick` (instead of `onclick`)
-- `htmlFor` (instead of `for`)
-
-## Property names
-
-example: CSS classes
-
-```jsx
-<li
-  className={
-    isCompleted ? 'todoitem completed' : 'todoitem'
-  }
->
-  [...]
-</li>
-```
-
-there are many helper libraries that will generate the _className_ property dynamically
-
-## Style property
-
-In JSX the _style_ property takes an object:
-
-```jsx
-<div
-  style={{
-    backgroundColor: '#333',
-    fontSize: getFontSize(),
-  }}
-/>
-```
-
-The _style_ property is mostly used for values that may change dynamically
-
-## Repeating elements
-
-Task: building an HTML list (ul) from this data:
-
-```js
-const initialTodos = [
-  { id: 1, title: 'groceries', completed: false },
-  { id: 2, title: 'cooking', completed: true },
-  { id: 3, title: 'gardening', completed: false },
-];
-```
-
-## Repeating elements
-
-Generating an array of JSX elements via `.map`:
-
-```jsx
-const TodoApp = () => {
-  const [todos, setTodos] = useState(initialTodos);
-  return (
-    <ul>
-      {todos.map((todo) => (
-        <li>{todo.title}</li>
-      ))}
-    </ul>
-  );
-};
-```
-
-## Repeating elements
-
-With the above code:  
-warning in the browser console (concerning efficiency)  
-solution: **key**:
-
-```jsx
-<ul>
-  {todos.map((todo) => (
-    <li key={todo.id}>{todo.title}</li>
-  ))}
-</ul>
-```
-
-## if / else
-
-```jsx
-<div>{Math.random() > 0.5 ? 'heads' : 'tails'}</div>
-```
-
-## if / else
-
-```jsx
-let face;
-if (Math.random() > 0.5) {
-  face = 'heads';
-} else {
-  face = 'tails';
-}
-
-return <div>{face}</div>;
-```
-
-## if
-
-```jsx
-<div>{state.hasError && state.errorMessage}</div>
-```
-
-The operator `&&` in JavaScript:
-
-```js
-true && 'my message'; // 'my message'
-
-false && 'my message'; // false
-```
-
-## Whitespace
-
-In HTML the following examples are equivalent (displaying a single space between the images):
-
-<!-- prettier-ignore-start -->
-
-```html
-<img src="foo.png" /> <img src="bar.png" />
-```
-
-```html
-<img src="foo.png" />    <img src="bar.png" />
-```
-
-```html
-<img src="foo.png" />
-<img src="bar.png" />
-```
-
-<!-- prettier-ignore-end -->
-
-## Whitespace
-
-rules in JSX:
-
-- whitespace between two elements in one line is interpreted as a single space
-- whitespace between two elements on different lines is ignored
-
-<!-- prettier-ignore-start -->
-
-Single space:
-
-```xml
-<img src="foo.png" />     <img src="bar.png" />
-```
-
-no space:
-
-```xml
-<img src="foo.png" />
-<img src="bar.png" />
-```
-
-<!-- prettier-ignore-end -->
-
-## Whitespace
-
-"force" a space in JSX:
-
-```xml
-<img src="foo.png" />{" "}
-<img src="bar.png" />
-```
-
-## Comments
-
-Comments can be written as JavaScript comments:
-
-```jsx
-a = <div>Hello World!{/*this is a comment*/}</div>;
-```
-
-## Fragments
-
-Fragments enable returning multiple elements from a component / function:
-
-```jsx
-return (
-  <>
-    <td>Hello</td>
-    <td>World</td>
-  </>
-);
-```
-
-## valid elements in JSX
-
-- string
-- number
-- components (e.g. `<div>`, `<img>`, `<MyComponent>`)
-- Arrays of other elements
-- null, undefined, true, false (these are not rendered)
-
-## JSX compilation
-
-XML elements are compiled to calls to:
-
-- `_jsx()` (React 17)
-- `React.createElement()` (React 16 - `React` must be imported when writing JSX)
-
-## JSX compilation
-
-```jsx
-const element = <a href="https://google.com">Google</a>;
-```
-
-compiles to:
-
-```js
-const element = _jsx(
-  'a',
-  { href: 'https://google.com' },
-  'Google'
-);
-```
-
-## JSX compilation
-
-```jsx
-const element = (
-  <MyComponent prop1={1} prop2={2}>
-    <div>test 1</div>
-    <div>test 2</div>
-  </MyComponent>
-);
-```
-
-compiles to:
-
-```js
-const element = _jsx(
-  MyComponent,
-  { prop1: 1, prop2: 2 },
-  _jsx('div', null, 'test 1'),
-  _jsx('div', null, 'test 2')
-);
-```
 
 # Exercise: todolist
 
