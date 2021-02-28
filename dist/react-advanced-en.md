@@ -1765,6 +1765,7 @@ const App = () => {
 ## Ref property and effect hook for managing media playback
 
 ```tsx
+// https://codesandbox.io/s/media-playback-x3ci4
 function Video() {
   const [playing, setPlaying] = useState(false);
   const videoEl = useRef<HTMLVideoElement>(null);

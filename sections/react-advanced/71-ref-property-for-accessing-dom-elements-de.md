@@ -75,6 +75,7 @@ const App = () => {
 ## Ref-Property und Effect Hook zum Verwalten von Medienwiedergabe
 
 ```tsx
+// https://codesandbox.io/s/media-playback-x3ci4
 function Video() {
   const [playing, setPlaying] = useState(false);
   const videoEl = useRef<HTMLVideoElement>(null);
