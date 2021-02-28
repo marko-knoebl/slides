@@ -250,27 +250,14 @@ const TodoStats = () => {
 };
 ```
 
-# Effect Hook
+# Effect Hook im Detail
 
-## Effect Hook
+## Verwendung des Effect Hooks
 
-kann verwendet werden, um bestimmte Aktionen zu setzen, wenn eine Komponente neu eingebunden wurde oder wenn ihre Props / State sich geändert haben
-
-```js
-useEffect(
-  effect, // what should happen
-  dependencies // array of values to watch
-);
-```
-
-## Effect Hook
-
-Kann verwendet werden, um Nebeneffekte (side effects) auszulösen:
-
-- Abfragen von APIs
-- Lesen von / Speichern in _localStorage_ / _indexeddb_
-- manuelle Änderungen am DOM
-- Timer starten
+- Ausösen von API-Anfragen
+- Laden von / Speichern in _localStorage_ / _indexeddb_
+- explizite Änderungen am DOM (zusammen mit _refs_)
+- Starten von Timern
 - ...
 
 ## Beispiel: DocumentTitle-Komponente
@@ -295,28 +282,7 @@ const DocumentTitle = (props) => {
 };
 ```
 
-## Beispiel: Speichern in localStorage / sessionStorage
-
-```jsx
-const PersistentCounter = () => {
-  const countInitializer = () =>
-    Number(localStorage.getItem('count')) || 0;
-  // useState can receive an initial value
-  // or an initializer function
-  const [count, setCount] = useState(countInitializer);
-  // save the state whenever it changes
-  useEffect(() => {
-    localStorage.setItem('count', count);
-  }, [count]);
-  return (
-    <button onClick={() => setCount(count + 1)}>
-      {count}
-    </button>
-  );
-};
-```
-
-## Cleanup
+## Cleanup-Funktion
 
 Ein Effect kann eine "Aufräumfunktion" zurückgeben
 
@@ -324,7 +290,7 @@ Diese Funktion wird vor der nächsten Ausführung des Effekts bzw vor dem Unmoun
 
 Beispiel für Verwendung: Abbrechen einer alten API-Suchanfrage, wenn sich der Suchbegriff geändert hat
 
-## Cleanup
+## Cleanup-Funktion
 
 Beispiel: Hook, der eine hackernews-API-Abfrage durchführt
 
@@ -350,7 +316,7 @@ const useHackernewsQuery = (query) => {
 };
 ```
 
-## Cleanup
+## Cleanup-Funktion
 
 Beispiel: Benutzer wird nach 10 Sekunden Inaktivität automatisch ausgeloggt
 
@@ -376,34 +342,11 @@ const App = () => {
 };
 ```
 
-## Async
+## Cleanup-Funktion
 
-Achtung: die folgende Verwendung einer async-Funktion ist in diesem Zusammenhang inkorrekt:
+Wenn eine Effect-Funktion etwas anderes als `undefined` zurückgibt, wird sie als Cleanup-Funktion behandelt
 
-```js
-const App = () => {
-  useEffect(async () => {
-    // fetch data
-  });
-};
-```
-
-Grund: Eine _async_-Funktion gibt ein Promise zurück; aber jeder aus einem Effect zurückgegebene Wert wird von React Als Cleanup-Funktion interpretiert
-
-## Async
-
-richtige Verwendung mit _async_:
-
-```js
-const App = () => {
-  useEffect(() => {
-    const fetchData = async () => {
-      // fetch data
-    };
-    fetchData();
-  });
-};
-```
+Deshalb können Async-Funktionen nicht direkt als Effect-Funktionen verwendet werden (sie geben Promises zurück)
 
 ## Effect nach jedem Rendering
 
@@ -1817,6 +1760,37 @@ const App = () => {
     </div>
   );
 };
+```
+
+## Ref-Property und Effect Hook zum Verwalten von Medienwiedergabe
+
+```tsx
+function Video() {
+  const [playing, setPlaying] = useState(false);
+  const videoEl = useRef<HTMLVideoElement>(null);
+  useEffect(() => {
+    if (playing) {
+      videoEl.current?.play();
+    } else {
+      videoEl.current?.pause();
+    }
+  }, [playing]);
+  return (
+    <div>
+      <video
+        ref={videoEl}
+        width="250"
+        src={
+          'https://interactive-examples.mdn.mozilla.net/' +
+          'media/cc0-videos/flower.mp4'
+        }
+      />
+      <button onClick={() => setPlaying(!playing)}>
+        {playing ? 'pause' : 'play'}
+      </button>
+    </div>
+  );
+}
 ```
 
 ## Ref-Property zum Verwalten von Inputs

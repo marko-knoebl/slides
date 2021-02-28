@@ -1665,25 +1665,156 @@ const ProgressBar = (props: Props) => {
 <p>Task: draft component interfaces (props and events) for various components (e.g. <em>Calendar</em>, <em>Color Picker</em>, <em>BarChart</em>, <em>Tabs</em>)</p>
 <p>Task: "recreate" one of the components listed at <a href="https://github.com/brillout/awesome-react-components">awesome-react-components</a> (e.g. bar chart, color picker, table / data grid, tabs)</p>
 <p>Task: split the todo app into smaller components (e.g. <em>TodoList</em>, <em>TodoItem</em>, <em>AddTodo</em>)</p>
-<h1>Querying APIs (effect hook)</h1>
-<h2>Querying APIs (effect hook)</h2>
-<p>Often API data needs to be queried when a component was mounted for the first time or when its props / state have changed</p>
-<h2>Querying APIs (effect hook)</h2>
-<p>The <em>effect hook</em> can be used to perform actions when a component was mounted for the first time or whent its props / state have changed</p>
+<h1>Effect hook and querying APIs</h1>
+<h2>Topics</h2>
+<ul>
+<li>network requests in JavaScript
+<ul>
+<li>fetch with <code>await</code></li>
+<li>fetch with <code>.then</code></li>
+</ul>
+</li>
+<li>side effects
+<ul>
+<li>triggering requests to APIs</li>
+<li>loading from / saving to <em>localStorage</em> / <em>indexeddb</em></li>
+<li>...</li>
+</ul>
+</li>
+</ul>
+<h1>Network requests in JavaScript</h1>
+<h2>Network requests in JavaScript</h2>
+<p>see also: <a href="./javascript-promises-fetch-and-axios-en.html">Promises, fetch and axios</a></p>
+<h2>Network requests in JavaScript</h2>
+<p>loading todos - with <code>await</code>:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadTodosAsync</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> url = <span class="hljs-string">'https://jsonplaceholder.typicode.com/todos'</span>;
+  <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> fetch(url);
+  <span class="hljs-keyword">const</span> todos = <span class="hljs-keyword">await</span> res.json();
+  setTodos(todos);
+}
+</code></pre>
+<pre><code class="hljs language-jsx">&#x3C;button onClick={loadTodosAsync}>
+  load todos <span class="hljs-keyword">from</span> API
+&#x3C;/button>
+</code></pre>
+<h2>Network requests in JavaScript</h2>
+<p>loading todos - with <code>.then</code>:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadTodos</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> url = <span class="hljs-string">'https://jsonplaceholder.typicode.com/todos'</span>;
+  fetch(url)
+    .then(<span class="hljs-function">(<span class="hljs-params">res</span>) =></span> res.json())
+    .then(<span class="hljs-function">(<span class="hljs-params">todos</span>) =></span> {
+      setTodos(todos);
+    });
+}
+</code></pre>
+<pre><code class="hljs language-jsx">&#x3C;button onClick={loadTodos}>fetch todos <span class="hljs-keyword">from</span> API&#x3C;/button>
+</code></pre>
+<h2>Return values</h2>
+<p>note:</p>
+<ul>
+<li><code>loadTodos</code> (implicitly) returns <code>undefined</code></li>
+<li><code>loadTodosAsync</code> returns a <em>promise</em> that resolves to <code>undefined</code></li>
+</ul>
+<p>this difference will be important later</p>
+<h2>Return values</h2>
+<p>We can create a regular <code>loadTodos</code> function based on <code>loadTodosAsync</code>:</p>
+<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadTodos</span>(<span class="hljs-params"></span>) </span>{
+  loadTodosAsync();
+}
+</code></pre>
+<h2>Loading indicators</h2>
+<p>code for adding a loading indicator:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
+<span class="hljs-keyword">const</span> [isLoading, setIsLoading] = useState(<span class="hljs-literal">false</span>);
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadTodosAsync</span>(<span class="hljs-params"></span>) </span>{
+  setIsLoading(<span class="hljs-literal">true</span>);
+  <span class="hljs-keyword">const</span> url = <span class="hljs-string">'https://jsonplaceholder.typicode.com/todos'</span>;
+  <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> fetch(url);
+  <span class="hljs-keyword">const</span> todos = <span class="hljs-keyword">await</span> res.json();
+  setTodos(todos);
+  setIsLoading(<span class="hljs-literal">false</span>);
+}
+</code></pre>
+<h1>Effect hook basics</h1>
+<h2>Effect hook</h2>
+<p>The <em>effect hook</em> can be used to perform actions when a component was mounted for the first time or when its props / state have changed.</p>
 <pre><code class="hljs language-js">useEffect(
   effect, <span class="hljs-comment">// what should happen</span>
   dependencies <span class="hljs-comment">// array of values to watch</span>
 );
 </code></pre>
-<h2>Querying APIs (effect hook)</h2>
-<p>Example: load todos when component has mounted</p>
+<h2>Effect hook</h2>
+<p>may be used to perform <em>side effects</em> in components:</p>
+<ul>
+<li>triggering requests to APIs</li>
+<li>loading from / saving to <em>localStorage</em> / <em>indexeddb</em></li>
+<li>explicitly manipulating the DOM</li>
+<li>starting timers</li>
+<li>...</li>
+</ul>
+<h2>Effect hook</h2>
+<p>example: loading a set of todos when the component is first mounted:</p>
+<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadTodos</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-comment">// ...</span>
+}
+useEffect(loadTodos, []);
+</code></pre>
+<p>example: loading a single todo when the component is first mounted or whenever <code>todoId</code> changes:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [todoId, setTodoId] = useState(<span class="hljs-number">0</span>);
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadTodo</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-comment">// ...</span>
+}
+useEffect(loadTodo, [todoId]);
+</code></pre>
+<h1>Effect hook for querying APIs</h1>
+<h2>Effect hook for querying APIs</h2>
+<p>Often, API queries must be initiated when a component is included for the first time or when a component's props or state have changed</p>
+<h2>Effect hook for querying APIs</h2>
+<p>example: loading todos via <code>fetch</code> and <code>.then</code>:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadTodos</span>(<span class="hljs-params"></span>) </span>{
+  fetch(<span class="hljs-string">'https://jsonplaceholder.typicode.com/todos'</span>)
+    .then(<span class="hljs-function">(<span class="hljs-params">res</span>) =></span> res.json())
+    .then(<span class="hljs-function">(<span class="hljs-params">todos</span>) =></span> {
+      setTodos(todos);
+    });
+}
+useEffect(loadTodos, []);
+</code></pre>
+<h2>Effect hook for querying APIs</h2>
+<p>note: the effect function <strong>must not be</strong> an async function</p>
+<p>The effect function should usually (implicitly) return <em>undefined</em>; an async function would always return a promise</p>
+<h2>Effect hook for querying APIs</h2>
+<p>correctly querying an API with async syntax:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
+<span class="hljs-keyword">const</span> url = <span class="hljs-string">'https://jsonplaceholder.typicode.com/todos'</span>;
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadTodosAsync</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> fetch(url);
+  <span class="hljs-keyword">const</span> todos = <span class="hljs-keyword">await</span> res.json();
+  setTodos(todos);
+}
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadTodos</span>(<span class="hljs-params"></span>) </span>{
+  loadTodosAsync();
+}
+useEffect(loadTodos, []);
+</code></pre>
+<h2>Effect hook for querying APIs</h2>
+<p>full example: loading todos when the component has mounted</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> TodoApp = <span class="hljs-function">() =></span> {
   <span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
-  <span class="hljs-keyword">const</span> loadTodos = <span class="hljs-function">() =></span> {
-    fetch(<span class="hljs-string">'https://jsonplaceholder.typicode.com/todos'</span>)
-      .then(<span class="hljs-function">(<span class="hljs-params">res</span>) =></span> res.json())
-      .then(<span class="hljs-function">(<span class="hljs-params">todos</span>) =></span> setTodos(todos));
-  };
+  <span class="hljs-keyword">const</span> url = <span class="hljs-string">'https://jsonplaceholder.typicode.com/todos'</span>;
+  <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadTodosAsync</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> fetch(url);
+    <span class="hljs-keyword">const</span> todos = <span class="hljs-keyword">await</span> res.json();
+    setTodos(todos);
+  }
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadTodos</span>(<span class="hljs-params"></span>) </span>{
+    loadTodosAsync();
+  }
   useEffect(loadTodos, []);
   <span class="hljs-keyword">return</span> (
     <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">ul</span>></span>
@@ -1694,19 +1825,19 @@ const ProgressBar = (props: Props) => {
   );
 };
 </code></pre>
-<h2>Querying APIs (effect hook)</h2>
+<h2>Effect hook for querying APIs</h2>
 <p>Example: load SpaceX launch data when component mounted or when <code>launchNr</code> changed</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> SpaceXLaunch = <span class="hljs-function">() =></span> {
   <span class="hljs-keyword">const</span> [launchNr, setLaunchNr] = useState(<span class="hljs-number">1</span>);
   <span class="hljs-keyword">const</span> [launchData, setLaunchData] = useState({});
-  <span class="hljs-keyword">const</span> fetchLaunch = <span class="hljs-function">() =></span> {
+  <span class="hljs-keyword">const</span> loadLaunch = <span class="hljs-function">() =></span> {
     fetch(
       <span class="hljs-string">`https://api.spacexdata.com/v3/launches/<span class="hljs-subst">${launchNr}</span>`</span>
     )
       .then(<span class="hljs-function">(<span class="hljs-params">res</span>) =></span> res.json())
       .then(<span class="hljs-function">(<span class="hljs-params">data</span>) =></span> setLaunchData(data));
   };
-  useEffect(fetchLaunch, [launchNr]);
+  useEffect(loadLaunch, [launchNr]);
   <span class="hljs-keyword">return</span> (
     <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
       <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>{launchData.mission_name}<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
@@ -1718,17 +1849,17 @@ const ProgressBar = (props: Props) => {
   );
 };
 </code></pre>
-<h2>Querying APIs (effect hook)</h2>
+<h2>Effect hook for querying APIs</h2>
 <p>Example: load pokémon data when component mounted or when <code>id</code> changed</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> Pokemon = <span class="hljs-function">() =></span> {
   <span class="hljs-keyword">const</span> [id, setItd] = useState(<span class="hljs-number">1</span>);
   <span class="hljs-keyword">const</span> [data, setData] = useState({});
-  <span class="hljs-keyword">const</span> fetchPokemon = <span class="hljs-function">() =></span> {
+  <span class="hljs-keyword">const</span> loadPokemon = <span class="hljs-function">() =></span> {
     fetch(<span class="hljs-string">`https://pokeapi.co/api/v2/pokemon/<span class="hljs-subst">${id}</span>`</span>)
       .then(<span class="hljs-function">(<span class="hljs-params">res</span>) =></span> res.json())
       .then(<span class="hljs-function">(<span class="hljs-params">data</span>) =></span> setData(data));
   };
-  useEffect(fetchPokemon, [id]);
+  useEffect(loadPokemon, [id]);
   <span class="hljs-keyword">return</span> (
     <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
       <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>{data.name}<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
@@ -1746,3 +1877,32 @@ const ProgressBar = (props: Props) => {
 <li>add a loading indicator</li>
 <li>add automatic refresh every 10 seconds</li>
 </ul>
+<h1>Other uses of the effect hook</h1>
+<h2>Other uses of the effect hook</h2>
+<ul>
+<li>saving to <em>localStorage</em> / <em>indexeddb</em></li>
+<li>explicitly manipulating the DOM</li>
+<li>starting timers</li>
+<li>...</li>
+</ul>
+<h2>Example: localStorage</h2>
+<p>Counter that saves its value whenever the value changes:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> PersistentCounter = <span class="hljs-function">() =></span> {
+  <span class="hljs-keyword">const</span> countInitializer = <span class="hljs-function">() =></span>
+    <span class="hljs-built_in">Number</span>(<span class="hljs-built_in">localStorage</span>.getItem(<span class="hljs-string">'count'</span>)) || <span class="hljs-number">0</span>;
+  <span class="hljs-comment">// useState can receive an initial value</span>
+  <span class="hljs-comment">// or an initializer function</span>
+  <span class="hljs-keyword">const</span> [count, setCount] = useState(countInitializer);
+  <span class="hljs-comment">// save the state whenever it changes</span>
+  useEffect(<span class="hljs-function">() =></span> {
+    <span class="hljs-built_in">localStorage</span>.setItem(<span class="hljs-string">'count'</span>, count);
+  }, [count]);
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setCount(count + 1)}>
+      {count}
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span>
+  );
+};
+</code></pre>
+<h2>Exercise: localStorage</h2>
+<p>Save the state of one of the previous applications (e.g. <em>tic-tac-toe</em>, <em>todo list</em>) to <em>localStorage</em></p>

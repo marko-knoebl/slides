@@ -2253,21 +2253,13 @@ history.push(<span class="hljs-string">'/'</span>);
   <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>There are {context.todos.length} todos<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
 };
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Effect Hook</h1>
-</section><section class="slide"><h2>Effect Hook</h2>
-<p>kann verwendet werden, um bestimmte Aktionen zu setzen, wenn eine Komponente neu eingebunden wurde oder wenn ihre Props / State sich geändert haben</p>
-<pre><code class="hljs language-js">useEffect(
-  effect, <span class="hljs-comment">// what should happen</span>
-  dependencies <span class="hljs-comment">// array of values to watch</span>
-);
-</code></pre>
-</section><section class="slide"><h2>Effect Hook</h2>
-<p>Kann verwendet werden, um Nebeneffekte (side effects) auszulösen:</p>
+</section></section><section class="slides-section"><section class="slide"><h1>Effect Hook im Detail</h1>
+</section><section class="slide"><h2>Verwendung des Effect Hooks</h2>
 <ul>
-<li>Abfragen von APIs</li>
-<li>Lesen von / Speichern in <em>localStorage</em> / <em>indexeddb</em></li>
-<li>manuelle Änderungen am DOM</li>
-<li>Timer starten</li>
+<li>Ausösen von API-Anfragen</li>
+<li>Laden von / Speichern in <em>localStorage</em> / <em>indexeddb</em></li>
+<li>explizite Änderungen am DOM (zusammen mit <em>refs</em>)</li>
+<li>Starten von Timern</li>
 <li>...</li>
 </ul>
 </section><section class="slide"><h2>Beispiel: DocumentTitle-Komponente</h2>
@@ -2284,29 +2276,11 @@ history.push(<span class="hljs-string">'/'</span>);
   <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
 };
 </code></pre>
-</section><section class="slide"><h2>Beispiel: Speichern in localStorage / sessionStorage</h2>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> PersistentCounter = <span class="hljs-function">() =></span> {
-  <span class="hljs-keyword">const</span> countInitializer = <span class="hljs-function">() =></span>
-    <span class="hljs-built_in">Number</span>(<span class="hljs-built_in">localStorage</span>.getItem(<span class="hljs-string">'count'</span>)) || <span class="hljs-number">0</span>;
-  <span class="hljs-comment">// useState can receive an initial value</span>
-  <span class="hljs-comment">// or an initializer function</span>
-  <span class="hljs-keyword">const</span> [count, setCount] = useState(countInitializer);
-  <span class="hljs-comment">// save the state whenever it changes</span>
-  useEffect(<span class="hljs-function">() =></span> {
-    <span class="hljs-built_in">localStorage</span>.setItem(<span class="hljs-string">'count'</span>, count);
-  }, [count]);
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setCount(count + 1)}>
-      {count}
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span>
-  );
-};
-</code></pre>
-</section><section class="slide"><h2>Cleanup</h2>
+</section><section class="slide"><h2>Cleanup-Funktion</h2>
 <p>Ein Effect kann eine "Aufräumfunktion" zurückgeben</p>
 <p>Diese Funktion wird vor der nächsten Ausführung des Effekts bzw vor dem Unmounting der Komponente ausgeführt</p>
 <p>Beispiel für Verwendung: Abbrechen einer alten API-Suchanfrage, wenn sich der Suchbegriff geändert hat</p>
-</section><section class="slide"><h2>Cleanup</h2>
+</section><section class="slide"><h2>Cleanup-Funktion</h2>
 <p>Beispiel: Hook, der eine hackernews-API-Abfrage durchführt</p>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> useHackernewsQuery = <span class="hljs-function">(<span class="hljs-params">query</span>) =></span> {
   <span class="hljs-keyword">const</span> [articles, setArticles] = useState([]);
@@ -2328,7 +2302,7 @@ history.push(<span class="hljs-string">'/'</span>);
   <span class="hljs-keyword">return</span> articles;
 };
 </code></pre>
-</section><section class="slide"><h2>Cleanup</h2>
+</section><section class="slide"><h2>Cleanup-Funktion</h2>
 <p>Beispiel: Benutzer wird nach 10 Sekunden Inaktivität automatisch ausgeloggt</p>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> App = <span class="hljs-function">() =></span> {
   <span class="hljs-keyword">const</span> [loggedIn, setLoggedIn] = useState(<span class="hljs-literal">true</span>);
@@ -2350,26 +2324,9 @@ history.push(<span class="hljs-string">'/'</span>);
   );
 };
 </code></pre>
-</section><section class="slide"><h2>Async</h2>
-<p>Achtung: die folgende Verwendung einer async-Funktion ist in diesem Zusammenhang inkorrekt:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> App = <span class="hljs-function">() =></span> {
-  useEffect(<span class="hljs-keyword">async</span> () => {
-    <span class="hljs-comment">// fetch data</span>
-  });
-};
-</code></pre>
-<p>Grund: Eine <em>async</em>-Funktion gibt ein Promise zurück; aber jeder aus einem Effect zurückgegebene Wert wird von React Als Cleanup-Funktion interpretiert</p>
-</section><section class="slide"><h2>Async</h2>
-<p>richtige Verwendung mit <em>async</em>:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> App = <span class="hljs-function">() =></span> {
-  useEffect(<span class="hljs-function">() =></span> {
-    <span class="hljs-keyword">const</span> fetchData = <span class="hljs-keyword">async</span> () => {
-      <span class="hljs-comment">// fetch data</span>
-    };
-    fetchData();
-  });
-};
-</code></pre>
+</section><section class="slide"><h2>Cleanup-Funktion</h2>
+<p>Wenn eine Effect-Funktion etwas anderes als <code>undefined</code> zurückgibt, wird sie als Cleanup-Funktion behandelt</p>
+<p>Deshalb können Async-Funktionen nicht direkt als Effect-Funktionen verwendet werden (sie geben Promises zurück)</p>
 </section><section class="slide"><h2>Effect nach jedem Rendering</h2>
 <p>Wenn kein zweiter Parameter übergeben wird, wird die Funktion nach jedem Rendering ausgeführt.</p>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> RenderLogger = <span class="hljs-function">() =></span> {
@@ -3486,6 +3443,34 @@ useEffect(getInstallPermission, []);
     <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
   );
 };
+</code></pre>
+</section><section class="slide"><h2>Ref-Property und Effect Hook zum Verwalten von Medienwiedergabe</h2>
+<pre><code class="hljs language-tsx">function Video() {
+  const [playing, setPlaying] = useState(false);
+  const videoEl = useRef&#x3C;HTMLVideoElement>(null);
+  useEffect(() => {
+    if (playing) {
+      videoEl.current?.play();
+    } else {
+      videoEl.current?.pause();
+    }
+  }, [playing]);
+  return (
+    &#x3C;div>
+      &#x3C;video
+        ref={videoEl}
+        width="250"
+        src={
+          'https://interactive-examples.mdn.mozilla.net/' +
+          'media/cc0-videos/flower.mp4'
+        }
+      />
+      &#x3C;button onClick={() => setPlaying(!playing)}>
+        {playing ? 'pause' : 'play'}
+      &#x3C;/button>
+    &#x3C;/div>
+  );
+}
 </code></pre>
 </section><section class="slide"><h2>Ref-Property zum Verwalten von Inputs</h2>
 <p>Verwalten von Inputs: Vergleich von <code>useState</code> und <code>useRef</code>:</p>

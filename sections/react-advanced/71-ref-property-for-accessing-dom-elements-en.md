@@ -72,6 +72,37 @@ const App = () => {
 };
 ```
 
+## Ref property and effect hook for managing media playback
+
+```tsx
+function Video() {
+  const [playing, setPlaying] = useState(false);
+  const videoEl = useRef<HTMLVideoElement>(null);
+  useEffect(() => {
+    if (playing) {
+      videoEl.current?.play();
+    } else {
+      videoEl.current?.pause();
+    }
+  }, [playing]);
+  return (
+    <div>
+      <video
+        ref={videoEl}
+        width="250"
+        src={
+          'https://interactive-examples.mdn.mozilla.net/' +
+          'media/cc0-videos/flower.mp4'
+        }
+      />
+      <button onClick={() => setPlaying(!playing)}>
+        {playing ? 'pause' : 'play'}
+      </button>
+    </div>
+  );
+}
+```
+
 ## Ref property for managing inputs
 
 Managing inputs: comparing `useState` and `useRef`:

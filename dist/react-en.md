@@ -1864,15 +1864,105 @@ Task: "recreate" one of the components listed at [awesome-react-components](http
 
 Task: split the todo app into smaller components (e.g. _TodoList_, _TodoItem_, _AddTodo_)
 
-# Querying APIs (effect hook)
+# Effect hook and querying APIs
 
-## Querying APIs (effect hook)
+## Topics
 
-Often API data needs to be queried when a component was mounted for the first time or when its props / state have changed
+- network requests in JavaScript
+  - fetch with `await`
+  - fetch with `.then`
+- side effects
+  - triggering requests to APIs
+  - loading from / saving to _localStorage_ / _indexeddb_
+  - ...
 
-## Querying APIs (effect hook)
+# Network requests in JavaScript
 
-The _effect hook_ can be used to perform actions when a component was mounted for the first time or whent its props / state have changed
+## Network requests in JavaScript
+
+see also: [Promises, fetch and axios](./javascript-promises-fetch-and-axios-en.html)
+
+## Network requests in JavaScript
+
+loading todos - with `await`:
+
+```js
+const [todos, setTodos] = useState([]);
+async function loadTodosAsync() {
+  const url = 'https://jsonplaceholder.typicode.com/todos';
+  const res = await fetch(url);
+  const todos = await res.json();
+  setTodos(todos);
+}
+```
+
+```jsx
+<button onClick={loadTodosAsync}>
+  load todos from API
+</button>
+```
+
+## Network requests in JavaScript
+
+loading todos - with `.then`:
+
+```js
+const [todos, setTodos] = useState([]);
+function loadTodos() {
+  const url = 'https://jsonplaceholder.typicode.com/todos';
+  fetch(url)
+    .then((res) => res.json())
+    .then((todos) => {
+      setTodos(todos);
+    });
+}
+```
+
+```jsx
+<button onClick={loadTodos}>fetch todos from API</button>
+```
+
+## Return values
+
+note:
+
+- `loadTodos` (implicitly) returns `undefined`
+- `loadTodosAsync` returns a _promise_ that resolves to `undefined`
+
+this difference will be important later
+
+## Return values
+
+We can create a regular `loadTodos` function based on `loadTodosAsync`:
+
+```js
+function loadTodos() {
+  loadTodosAsync();
+}
+```
+
+## Loading indicators
+
+code for adding a loading indicator:
+
+```js
+const [todos, setTodos] = useState([]);
+const [isLoading, setIsLoading] = useState(false);
+async function loadTodosAsync() {
+  setIsLoading(true);
+  const url = 'https://jsonplaceholder.typicode.com/todos';
+  const res = await fetch(url);
+  const todos = await res.json();
+  setTodos(todos);
+  setIsLoading(false);
+}
+```
+
+# Effect hook basics
+
+## Effect hook
+
+The _effect hook_ can be used to perform actions when a component was mounted for the first time or when its props / state have changed.
 
 ```js
 useEffect(
@@ -1881,18 +1971,99 @@ useEffect(
 );
 ```
 
-## Querying APIs (effect hook)
+## Effect hook
 
-Example: load todos when component has mounted
+may be used to perform _side effects_ in components:
+
+- triggering requests to APIs
+- loading from / saving to _localStorage_ / _indexeddb_
+- explicitly manipulating the DOM
+- starting timers
+- ...
+
+## Effect hook
+
+example: loading a set of todos when the component is first mounted:
+
+```js
+function loadTodos() {
+  // ...
+}
+useEffect(loadTodos, []);
+```
+
+example: loading a single todo when the component is first mounted or whenever `todoId` changes:
+
+```js
+const [todoId, setTodoId] = useState(0);
+function loadTodo() {
+  // ...
+}
+useEffect(loadTodo, [todoId]);
+```
+
+# Effect hook for querying APIs
+
+## Effect hook for querying APIs
+
+Often, API queries must be initiated when a component is included for the first time or when a component's props or state have changed
+
+## Effect hook for querying APIs
+
+example: loading todos via `fetch` and `.then`:
+
+```js
+const [todos, setTodos] = useState([]);
+function loadTodos() {
+  fetch('https://jsonplaceholder.typicode.com/todos')
+    .then((res) => res.json())
+    .then((todos) => {
+      setTodos(todos);
+    });
+}
+useEffect(loadTodos, []);
+```
+
+## Effect hook for querying APIs
+
+note: the effect function **must not be** an async function
+
+The effect function should usually (implicitly) return _undefined_; an async function would always return a promise
+
+## Effect hook for querying APIs
+
+correctly querying an API with async syntax:
+
+```js
+const [todos, setTodos] = useState([]);
+const url = 'https://jsonplaceholder.typicode.com/todos';
+async function loadTodosAsync() {
+  const res = await fetch(url);
+  const todos = await res.json();
+  setTodos(todos);
+}
+function loadTodos() {
+  loadTodosAsync();
+}
+useEffect(loadTodos, []);
+```
+
+## Effect hook for querying APIs
+
+full example: loading todos when the component has mounted
 
 ```js
 const TodoApp = () => {
   const [todos, setTodos] = useState([]);
-  const loadTodos = () => {
-    fetch('https://jsonplaceholder.typicode.com/todos')
-      .then((res) => res.json())
-      .then((todos) => setTodos(todos));
-  };
+  const url = 'https://jsonplaceholder.typicode.com/todos';
+  async function loadTodosAsync() {
+    const res = await fetch(url);
+    const todos = await res.json();
+    setTodos(todos);
+  }
+  function loadTodos() {
+    loadTodosAsync();
+  }
   useEffect(loadTodos, []);
   return (
     <ul>
@@ -1904,7 +2075,7 @@ const TodoApp = () => {
 };
 ```
 
-## Querying APIs (effect hook)
+## Effect hook for querying APIs
 
 Example: load SpaceX launch data when component mounted or when `launchNr` changed
 
@@ -1912,14 +2083,14 @@ Example: load SpaceX launch data when component mounted or when `launchNr` chang
 const SpaceXLaunch = () => {
   const [launchNr, setLaunchNr] = useState(1);
   const [launchData, setLaunchData] = useState({});
-  const fetchLaunch = () => {
+  const loadLaunch = () => {
     fetch(
       `https://api.spacexdata.com/v3/launches/${launchNr}`
     )
       .then((res) => res.json())
       .then((data) => setLaunchData(data));
   };
-  useEffect(fetchLaunch, [launchNr]);
+  useEffect(loadLaunch, [launchNr]);
   return (
     <div>
       <h1>{launchData.mission_name}</h1>
@@ -1932,7 +2103,7 @@ const SpaceXLaunch = () => {
 };
 ```
 
-## Querying APIs (effect hook)
+## Effect hook for querying APIs
 
 Example: load pokémon data when component mounted or when `id` changed
 
@@ -1940,12 +2111,12 @@ Example: load pokémon data when component mounted or when `id` changed
 const Pokemon = () => {
   const [id, setItd] = useState(1);
   const [data, setData] = useState({});
-  const fetchPokemon = () => {
+  const loadPokemon = () => {
     fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
       .then((res) => res.json())
       .then((data) => setData(data));
   };
-  useEffect(fetchPokemon, [id]);
+  useEffect(loadPokemon, [id]);
   return (
     <div>
       <h1>{data.name}</h1>
@@ -1964,3 +2135,39 @@ Tasks:
 - load and display more data
 - add a loading indicator
 - add automatic refresh every 10 seconds
+
+# Other uses of the effect hook
+
+## Other uses of the effect hook
+
+- saving to _localStorage_ / _indexeddb_
+- explicitly manipulating the DOM
+- starting timers
+- ...
+
+## Example: localStorage
+
+Counter that saves its value whenever the value changes:
+
+```jsx
+const PersistentCounter = () => {
+  const countInitializer = () =>
+    Number(localStorage.getItem('count')) || 0;
+  // useState can receive an initial value
+  // or an initializer function
+  const [count, setCount] = useState(countInitializer);
+  // save the state whenever it changes
+  useEffect(() => {
+    localStorage.setItem('count', count);
+  }, [count]);
+  return (
+    <button onClick={() => setCount(count + 1)}>
+      {count}
+    </button>
+  );
+};
+```
+
+## Exercise: localStorage
+
+Save the state of one of the previous applications (e.g. _tic-tac-toe_, _todo list_) to _localStorage_

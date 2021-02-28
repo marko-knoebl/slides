@@ -1858,15 +1858,105 @@ Aufgabe: "Nachbau" einer der Komponenten auf [awesome-react-components](https://
 
 Aufgabe: Aufteilen der Todo-Anwendung in kleinere Komponenten (z.B. _TodoList_, _TodoItem_, _AddTodo_)
 
-# APIs abfragen (Effect Hook)
+# Effect hook und API-Abfragen
 
-## APIs abfragen (Effect Hook)
+## Themen
 
-Oft müssen API Daten abgefragt werden, wenn eine Komponente zum ersten Mal eingebunden wurde, oder wenn sich props bzw state geändert haben
+- Netzwerkanfragen in JavaScript
+  - fetch mit `await`
+  - fetch mit `.then`
+- Side-Effects
+  - Auslösen von API-Anfragen
+  - Laden aus / Speichern in _localStorage_ / _indexeddb_
+  - ...
 
-## APIs abfragen (Effect Hook)
+# Netzwerkabfragen in JavaScript
 
-Der _Effect Hook_ kann verwendet werden, um bestimmte Aktionen zu setzen, wenn eine Komponente neu eingebunden wurde oder wenn ihre Props / State sich geändert haben
+## Netzwerkabfragen in JavaScript
+
+Siehe auch: [Promises, fetch und axios](./javascript-promises-fetch-and-axios-de.html)
+
+## Netzwerkabfragen in JavaScript
+
+Laden von Todos - mittels `await`:
+
+```js
+const [todos, setTodos] = useState([]);
+async function loadTodosAsync() {
+  const url = 'https://jsonplaceholder.typicode.com/todos';
+  const res = await fetch(url);
+  const todos = await res.json();
+  setTodos(todos);
+}
+```
+
+```jsx
+<button onClick={loadTodosAsync}>
+  load todos from API
+</button>
+```
+
+## Netzwerkabfragen in JavaScript
+
+Laden von Todos - mittels `.then`:
+
+```js
+const [todos, setTodos] = useState([]);
+function loadTodos() {
+  const url = 'https://jsonplaceholder.typicode.com/todos';
+  fetch(url)
+    .then((res) => res.json())
+    .then((todos) => {
+      setTodos(todos);
+    });
+}
+```
+
+```jsx
+<button onClick={loadTodos}>fetch todos from API</button>
+```
+
+## Rückgabewerte
+
+Bemerkung:
+
+- `loadTodos` gibt (implizit) `undefined` zurück
+- `loadTodosAsync` gibt ein _promise_ zurück, das wiederum zu `undefined` aufgelöst wird
+
+dieser Unterschied wird später wichtig sein
+
+## Rückgabewerte
+
+Wir können eine "normale" `loadTodos`-Funktion aus `loadTodosAsync` erstellen:
+
+```js
+function loadTodos() {
+  loadTodosAsync();
+}
+```
+
+## Ladeindikator
+
+Code für das Hinzufügen eines Ladeindikators:
+
+```js
+const [todos, setTodos] = useState([]);
+const [isLoading, setIsLoading] = useState(false);
+async function loadTodosAsync() {
+  setIsLoading(true);
+  const url = 'https://jsonplaceholder.typicode.com/todos';
+  const res = await fetch(url);
+  const todos = await res.json();
+  setTodos(todos);
+  setIsLoading(false);
+}
+```
+
+# Effect Hook Grundlagen
+
+## Effect Hook
+
+Der _Effect Hook_ kann verwendet werden, um Aktionen zu setzen, wenn eine Komponente zum ersten Mal eingebunden wird, oder wenn sich deren Props / State geändert haben
 
 ```js
 useEffect(
@@ -1875,18 +1965,99 @@ useEffect(
 );
 ```
 
-## APIs abfragen (Effect Hook)
+## Effect Hook
 
-Beispiel: Laden von Todos, wenn die Komponente eingebunden wurde
+kann verwendet werden, um _side effects_ auszulösen:
+
+- Ausösen von API-Anfragen
+- Laden von / Speichern in _localStorage_ / _indexeddb_
+- explizite Änderungen am DOM (zusammen mit _refs_)
+- Starten von Timern
+- ...
+
+## Effect Hook
+
+Beispiel: Laden von Todos, wenn die Komponente zum ersten Mal eingebunden wird:
+
+```js
+function loadTodos() {
+  // ...
+}
+useEffect(loadTodos, []);
+```
+
+Beispiel: Laden eines einzelnen Todos, wenn die Komponente zum ersten Mal eingebunden wird oder wenn sich `todoId` ändert:
+
+```js
+const [todoId, setTodoId] = useState(0);
+function loadTodo() {
+  // ...
+}
+useEffect(loadTodo, [todoId]);
+```
+
+# Effect Hook zum Abfragen von APIs
+
+## Effect Hook zum Abfragen von APIs
+
+Oft müssen API-Daten abgefragt werden, wenn eine Komponente zum ersten Mal eingebunden wurde, oder wenn sich props bzw state geändert haben
+
+## Effect Hook zum Abfragen von APIs
+
+Beispiel: Laden von Todos via `fetch` und `.then`:
+
+```js
+const [todos, setTodos] = useState([]);
+function loadTodos() {
+  fetch('https://jsonplaceholder.typicode.com/todos')
+    .then((res) => res.json())
+    .then((todos) => {
+      setTodos(todos);
+    });
+}
+useEffect(loadTodos, []);
+```
+
+## Effect Hook zum Abfragen von APIs
+
+Bemerkung: Die Effect-Funktion darf **keine** async-Funktion sein
+
+Die Effekt-Funktion sollte üblicherweise (implizit) _undefined_ zurückgeben; eine async-Funktion würde immer ein Promise zurückgeben
+
+## Effect Hook zum Abfragen von APIs
+
+Korrekte Methode, um mit _async_ ein API abzufragen:
+
+```js
+const [todos, setTodos] = useState([]);
+const url = 'https://jsonplaceholder.typicode.com/todos';
+async function loadTodosAsync() {
+  const res = await fetch(url);
+  const todos = await res.json();
+  setTodos(todos);
+}
+function loadTodos() {
+  loadTodosAsync();
+}
+useEffect(loadTodos, []);
+```
+
+## Effect Hook zum Abfragen von APIs
+
+vollständiges Beispiel: Laden von Todos, wenn die Komponente eingebunden wurde
 
 ```js
 const TodoApp = () => {
   const [todos, setTodos] = useState([]);
-  const loadTodos = () => {
-    fetch('https://jsonplaceholder.typicode.com/todos')
-      .then((res) => res.json())
-      .then((todos) => setTodos(todos));
-  };
+  const url = 'https://jsonplaceholder.typicode.com/todos';
+  async function loadTodosAsync() {
+    const res = await fetch(url);
+    const todos = await res.json();
+    setTodos(todos);
+  }
+  function loadTodos() {
+    loadTodosAsync();
+  }
   useEffect(loadTodos, []);
   return (
     <ul>
@@ -1898,7 +2069,7 @@ const TodoApp = () => {
 };
 ```
 
-## APIs abfragen (Effect Hook)
+## Effect Hook zum Abfragen von APIs
 
 Beispiel: Laden von SpaceX Startdaten, wenn die Komponente eingebunden wurde oder wenn sich `launchNr` geändert hat
 
@@ -1906,14 +2077,14 @@ Beispiel: Laden von SpaceX Startdaten, wenn die Komponente eingebunden wurde ode
 const SpaceXLaunch = () => {
   const [launchNr, setLaunchNr] = useState(1);
   const [launchData, setLaunchData] = useState({});
-  const fetchLaunch = () => {
+  const loadLaunch = () => {
     fetch(
       `https://api.spacexdata.com/v3/launches/${launchNr}`
     )
       .then((res) => res.json())
       .then((data) => setLaunchData(data));
   };
-  useEffect(fetchLaunch, [launchNr]);
+  useEffect(loadLaunch, [launchNr]);
   return (
     <div>
       <h1>{launchData.mission_name}</h1>
@@ -1926,20 +2097,20 @@ const SpaceXLaunch = () => {
 };
 ```
 
-## APIs abfragen (Effect Hook)
+## Effect Hook zum Abfragen von APIs
 
-Beispiel: Pokémon-Daten laden, wenn die Komponente eingebunden wurde oder wenn sich `id` geändert hat
+Beispiel: Laden von Pokémon-Daten, wenn die Komponente eingebunden wurde, oder wenn sich `id` geändert hat
 
 ```js
 const Pokemon = () => {
   const [id, setItd] = useState(1);
   const [data, setData] = useState({});
-  const fetchPokemon = () => {
+  const loadPokemon = () => {
     fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
       .then((res) => res.json())
       .then((data) => setData(data));
   };
-  useEffect(fetchPokemon, [id]);
+  useEffect(loadPokemon, [id]);
   return (
     <div>
       <h1>{data.name}</h1>
@@ -1951,10 +2122,46 @@ const Pokemon = () => {
 };
 ```
 
-## APIs abfragen (Effect Hook)
+## Effect Hook zum Abfragen von APIs
 
-Aufgaben:
+Übungen:
 
-- Laden und Anzeigen von mehr Daten
+- Laden und Anzeigen von weiteren Daten
 - Indikator, dass geladen wird
-- Automatisches Aktualisieren alle 10 Sekunden
+- Automatische Aktualisierung alle 10 Sekunden
+
+# Andere Verwendungen des Effect-Hooks
+
+## Andere Verwendungen des Effect-Hooks
+
+- Laden von / Speichern in _localStorage_ / _indexeddb_
+- explizite Änderungen am DOM (zusammen mit _refs_)
+- Starten von Timern
+- ...
+
+## Beispiel: localStorage
+
+Conter, der den eigenen Wert abspeichert, wenn dieser sich ändert:
+
+```jsx
+const PersistentCounter = () => {
+  const countInitializer = () =>
+    Number(localStorage.getItem('count')) || 0;
+  // useState can receive an initial value
+  // or an initializer function
+  const [count, setCount] = useState(countInitializer);
+  // save the state whenever it changes
+  useEffect(() => {
+    localStorage.setItem('count', count);
+  }, [count]);
+  return (
+    <button onClick={() => setCount(count + 1)}>
+      {count}
+    </button>
+  );
+};
+```
+
+## Übung: localStorage
+
+Speichere den State einer der bisherigen Anwendungen (z.B. _tic-tac-toe_, _todo-list_) in _localStorage_

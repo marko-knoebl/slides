@@ -2253,20 +2253,12 @@ history.push(<span class="hljs-string">'/'</span>);
   <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>There are {context.todos.length} todos<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
 };
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Effect hook</h1>
-</section><section class="slide"><h2>Effect hook</h2>
-<p>can be used to perform actions when a component was mounted for the first time or when its props / state have changed</p>
-<pre><code class="hljs language-js">useEffect(
-  effect, <span class="hljs-comment">// what should happen</span>
-  dependencies <span class="hljs-comment">// array of values to watch</span>
-);
-</code></pre>
-</section><section class="slide"><h2>Effect hook</h2>
-<p>may be used to perform <em>side effects</em> in components:</p>
+</section></section><section class="slides-section"><section class="slide"><h1>Effect hook in detail</h1>
+</section><section class="slide"><h2>Uses of the effect hook</h2>
 <ul>
-<li>fetching data from APIs</li>
-<li>loading from / saving to <em>localStorage</em> / <em>indexeddb</em></li>
-<li>explicitly manipulating the DOM</li>
+<li>triggering API queries</li>
+<li>saving to / loading from <em>localStorage</em> / <em>indexeddb</em></li>
+<li>explicitly manipulating the DOM (along with <em>refs</em>)</li>
 <li>starting timers</li>
 <li>...</li>
 </ul>
@@ -2284,29 +2276,11 @@ history.push(<span class="hljs-string">'/'</span>);
   <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
 };
 </code></pre>
-</section><section class="slide"><h2>Example: Saving in localStorage / sessionStorage</h2>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> PersistentCounter = <span class="hljs-function">() =></span> {
-  <span class="hljs-keyword">const</span> countInitializer = <span class="hljs-function">() =></span>
-    <span class="hljs-built_in">Number</span>(<span class="hljs-built_in">localStorage</span>.getItem(<span class="hljs-string">'count'</span>)) || <span class="hljs-number">0</span>;
-  <span class="hljs-comment">// useState can receive an initial value</span>
-  <span class="hljs-comment">// or an initializer function</span>
-  <span class="hljs-keyword">const</span> [count, setCount] = useState(countInitializer);
-  <span class="hljs-comment">// save the state whenever it changes</span>
-  useEffect(<span class="hljs-function">() =></span> {
-    <span class="hljs-built_in">localStorage</span>.setItem(<span class="hljs-string">'count'</span>, count);
-  }, [count]);
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setCount(count + 1)}>
-      {count}
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span>
-  );
-};
-</code></pre>
-</section><section class="slide"><h2>Cleanup</h2>
+</section><section class="slide"><h2>Cleanup functions</h2>
 <p>An effect may return a "cleanup function"</p>
 <p>This function will be executed before the next run of the effect or before the component is unmounted</p>
-<p>Example use case: cancel an old API search request if the search term changed</p>
-</section><section class="slide"><h2>Cleanup</h2>
+<p>Example use case: cancel an old API search request if the search term has changed</p>
+</section><section class="slide"><h2>Cleanup functions</h2>
 <p>example: hook that queries a hackernews API</p>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> useHackernewsQuery = <span class="hljs-function">(<span class="hljs-params">query</span>) =></span> {
   <span class="hljs-keyword">const</span> [articles, setArticles] = useState([]);
@@ -2328,7 +2302,7 @@ history.push(<span class="hljs-string">'/'</span>);
   <span class="hljs-keyword">return</span> articles;
 };
 </code></pre>
-</section><section class="slide"><h2>Cleanup</h2>
+</section><section class="slide"><h2>Cleanup functions</h2>
 <p>example: user will be logged out after 10 seconds of inactivity</p>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> App = <span class="hljs-function">() =></span> {
   <span class="hljs-keyword">const</span> [loggedIn, setLoggedIn] = useState(<span class="hljs-literal">true</span>);
@@ -2350,28 +2324,11 @@ history.push(<span class="hljs-string">'/'</span>);
   );
 };
 </code></pre>
-</section><section class="slide"><h2>Async</h2>
-<p>Warning: the following use of an async function is incorrect:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> App = <span class="hljs-function">() =></span> {
-  useEffect(<span class="hljs-keyword">async</span> () => {
-    <span class="hljs-comment">// fetch data</span>
-  });
-};
-</code></pre>
-<p>reason: an <em>async</em> function returns a promise; but any returned value is considered a cleanup function</p>
-</section><section class="slide"><h2>Async</h2>
-<p>correct usage with <em>async</em>:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> App = <span class="hljs-function">() =></span> {
-  useEffect(<span class="hljs-function">() =></span> {
-    <span class="hljs-keyword">const</span> fetchData = <span class="hljs-keyword">async</span> () => {
-      <span class="hljs-comment">// fetch data</span>
-    };
-    fetchData();
-  });
-};
-</code></pre>
+</section><section class="slide"><h2>Cleanup functions</h2>
+<p>If an effect function returns anything other than <code>undefined</code>, it is treated as a cleanup function</p>
+<p>This is why async functions cannot be used as effect functions directly (they return promises)</p>
 </section><section class="slide"><h2>Effect after every rendering</h2>
-<p>If no second parameter is passed the effect will run after each rendering.</p>
+<p>If no second parameter is passed the effect will run after every rendering.</p>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> RenderLogger = <span class="hljs-function">() =></span> {
   useEffect(<span class="hljs-function">() =></span> {
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'logger was rendered'</span>);
@@ -3486,6 +3443,34 @@ useEffect(getInstallPermission, []);
     <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
   );
 };
+</code></pre>
+</section><section class="slide"><h2>Ref property and effect hook for managing media playback</h2>
+<pre><code class="hljs language-tsx">function Video() {
+  const [playing, setPlaying] = useState(false);
+  const videoEl = useRef&#x3C;HTMLVideoElement>(null);
+  useEffect(() => {
+    if (playing) {
+      videoEl.current?.play();
+    } else {
+      videoEl.current?.pause();
+    }
+  }, [playing]);
+  return (
+    &#x3C;div>
+      &#x3C;video
+        ref={videoEl}
+        width="250"
+        src={
+          'https://interactive-examples.mdn.mozilla.net/' +
+          'media/cc0-videos/flower.mp4'
+        }
+      />
+      &#x3C;button onClick={() => setPlaying(!playing)}>
+        {playing ? 'pause' : 'play'}
+      &#x3C;/button>
+    &#x3C;/div>
+  );
+}
 </code></pre>
 </section><section class="slide"><h2>Ref property for managing inputs</h2>
 <p>Managing inputs: comparing <code>useState</code> and <code>useRef</code>:</p>

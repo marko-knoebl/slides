@@ -72,6 +72,37 @@ const App = () => {
 };
 ```
 
+## Ref-Property und Effect Hook zum Verwalten von Medienwiedergabe
+
+```tsx
+function Video() {
+  const [playing, setPlaying] = useState(false);
+  const videoEl = useRef<HTMLVideoElement>(null);
+  useEffect(() => {
+    if (playing) {
+      videoEl.current?.play();
+    } else {
+      videoEl.current?.pause();
+    }
+  }, [playing]);
+  return (
+    <div>
+      <video
+        ref={videoEl}
+        width="250"
+        src={
+          'https://interactive-examples.mdn.mozilla.net/' +
+          'media/cc0-videos/flower.mp4'
+        }
+      />
+      <button onClick={() => setPlaying(!playing)}>
+        {playing ? 'pause' : 'play'}
+      </button>
+    </div>
+  );
+}
+```
+
 ## Ref-Property zum Verwalten von Inputs
 
 Verwalten von Inputs: Vergleich von `useState` und `useRef`:

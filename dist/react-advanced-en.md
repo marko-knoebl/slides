@@ -250,26 +250,13 @@ const TodoStats = () => {
 };
 ```
 
-# Effect hook
+# Effect hook in detail
 
-## Effect hook
+## Uses of the effect hook
 
-can be used to perform actions when a component was mounted for the first time or when its props / state have changed
-
-```js
-useEffect(
-  effect, // what should happen
-  dependencies // array of values to watch
-);
-```
-
-## Effect hook
-
-may be used to perform _side effects_ in components:
-
-- fetching data from APIs
-- loading from / saving to _localStorage_ / _indexeddb_
-- explicitly manipulating the DOM
+- triggering API queries
+- saving to / loading from _localStorage_ / _indexeddb_
+- explicitly manipulating the DOM (along with _refs_)
 - starting timers
 - ...
 
@@ -295,36 +282,15 @@ const DocumentTitle = (props) => {
 };
 ```
 
-## Example: Saving in localStorage / sessionStorage
-
-```jsx
-const PersistentCounter = () => {
-  const countInitializer = () =>
-    Number(localStorage.getItem('count')) || 0;
-  // useState can receive an initial value
-  // or an initializer function
-  const [count, setCount] = useState(countInitializer);
-  // save the state whenever it changes
-  useEffect(() => {
-    localStorage.setItem('count', count);
-  }, [count]);
-  return (
-    <button onClick={() => setCount(count + 1)}>
-      {count}
-    </button>
-  );
-};
-```
-
-## Cleanup
+## Cleanup functions
 
 An effect may return a "cleanup function"
 
 This function will be executed before the next run of the effect or before the component is unmounted
 
-Example use case: cancel an old API search request if the search term changed
+Example use case: cancel an old API search request if the search term has changed
 
-## Cleanup
+## Cleanup functions
 
 example: hook that queries a hackernews API
 
@@ -350,7 +316,7 @@ const useHackernewsQuery = (query) => {
 };
 ```
 
-## Cleanup
+## Cleanup functions
 
 example: user will be logged out after 10 seconds of inactivity
 
@@ -376,38 +342,15 @@ const App = () => {
 };
 ```
 
-## Async
+## Cleanup functions
 
-Warning: the following use of an async function is incorrect:
+If an effect function returns anything other than `undefined`, it is treated as a cleanup function
 
-```js
-const App = () => {
-  useEffect(async () => {
-    // fetch data
-  });
-};
-```
-
-reason: an _async_ function returns a promise; but any returned value is considered a cleanup function
-
-## Async
-
-correct usage with _async_:
-
-```js
-const App = () => {
-  useEffect(() => {
-    const fetchData = async () => {
-      // fetch data
-    };
-    fetchData();
-  });
-};
-```
+This is why async functions cannot be used as effect functions directly (they return promises)
 
 ## Effect after every rendering
 
-If no second parameter is passed the effect will run after each rendering.
+If no second parameter is passed the effect will run after every rendering.
 
 ```jsx
 const RenderLogger = () => {
@@ -1817,6 +1760,37 @@ const App = () => {
     </div>
   );
 };
+```
+
+## Ref property and effect hook for managing media playback
+
+```tsx
+function Video() {
+  const [playing, setPlaying] = useState(false);
+  const videoEl = useRef<HTMLVideoElement>(null);
+  useEffect(() => {
+    if (playing) {
+      videoEl.current?.play();
+    } else {
+      videoEl.current?.pause();
+    }
+  }, [playing]);
+  return (
+    <div>
+      <video
+        ref={videoEl}
+        width="250"
+        src={
+          'https://interactive-examples.mdn.mozilla.net/' +
+          'media/cc0-videos/flower.mp4'
+        }
+      />
+      <button onClick={() => setPlaying(!playing)}>
+        {playing ? 'pause' : 'play'}
+      </button>
+    </div>
+  );
+}
 ```
 
 ## Ref property for managing inputs
