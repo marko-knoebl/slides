@@ -1,4 +1,4 @@
-# JSX: whitespace, comments and fragments
+# JSX: Whitespace, Kommentare und Fragmente
 
 ## Whitespace
 

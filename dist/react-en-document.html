@@ -509,6 +509,17 @@
   <span class="hljs-keyword">return</span> ...
 };
 </code></pre>
+<h2>When are state changes applied?</h2>
+<p>State changes are applied <em>after</em> the event handler function has finished executing</p>
+<!-- prettier-ignore -->
+<pre><code class="hljs language-js">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">changeSomeStateEntries</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-built_in">console</span>.log(count); <span class="hljs-comment">// 0</span>
+    setCount(count + <span class="hljs-number">1</span>);
+    <span class="hljs-built_in">console</span>.log(count); <span class="hljs-comment">// still 0</span>
+    setTitle(<span class="hljs-string">'Demo'</span>);
+  }
+</code></pre>
+<p>If multiple state changes are triggered by the same event, they will be applied at the same time - the component will only re-render once</p>
 <h2>Exercise: Slideshow</h2>
 <p>Re-implement the slideshow demo we saw before; try not to look at the old code</p>
 <ul>
@@ -751,48 +762,6 @@
   <span class="hljs-tag">&#x3C;/></span></span>
 );
 </code></pre>
-<h1>JSX and styling basics</h1>
-<h2>JSX and styling basics</h2>
-<p>In React, style definitions are usually located close to the component definition</p>
-<p>possibilities:</p>
-<ul>
-<li>CSS file with the same base name as the JSX file</li>
-<li>style definition at the top of a component definition file</li>
-<li>inline style definition in the component template</li>
-</ul>
-<h2>JSX and styling basics</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> <span class="hljs-string">'./TodoItem.css'</span>;
-</code></pre>
-<pre><code class="hljs language-jsx">&#x3C;li
-  className={
-    isCompleted ? <span class="hljs-string">'todoitem completed'</span> : <span class="hljs-string">'todoitem'</span>
-  }
->
-  [...]
-&#x3C;/li>
-</code></pre>
-<p>there are helper libraries that will generate the <em>className</em> property dynamically</p>
-<h2>JSX and styling basics</h2>
-<p>In JSX the <em>style</em> property takes an object, e.g.:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> containerStyle = {
-  <span class="hljs-attr">display</span>: <span class="hljs-string">'flex'</span>,
-  <span class="hljs-attr">justifyContent</span>: <span class="hljs-string">'center'</span>,
-};
-
-<span class="hljs-keyword">const</span> imageStyle = {
-  <span class="hljs-attr">display</span>: <span class="hljs-string">'block'</span>,
-};
-</code></pre>
-<pre><code class="hljs language-jsx">&#x3C;div style={containerStyle}>
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>Slideshow image {img}<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span></span>
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>></span>prev<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span>
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{imageStyle}</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"..."</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">"..."</span> /></span></span>
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>></span>next<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span>
-&#x3C;/div>
-</code></pre>
-<h2>JSX and styling basics</h2>
-<p>note:</p>
-<p>Binding to the <em>style</em> property directly is inefficient and is usually avoided; in practice, libraries like <em>styled-components</em> or <em>emotion</em> are used to write style declarations inside JavaScript</p>
 <h1>JSX: conditionals and repeating elements</h1>
 <h2>JSX: conditionals and repeating elements</h2>
 <ul>
@@ -889,6 +858,48 @@ solution: <strong>key</strong>:</p>
   ))}
 &#x3C;/ul>
 </code></pre>
+<h1>JSX and styling basics</h1>
+<h2>JSX and styling basics</h2>
+<p>In React, style definitions are usually located close to the component definition</p>
+<p>possibilities:</p>
+<ul>
+<li>CSS file with the same base name as the JSX file</li>
+<li>style definition at the top of a component definition file</li>
+<li>inline style definition in the component template</li>
+</ul>
+<h2>JSX and styling basics</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> <span class="hljs-string">'./TodoItem.css'</span>;
+</code></pre>
+<pre><code class="hljs language-jsx">&#x3C;li
+  className={
+    isCompleted ? <span class="hljs-string">'todoitem completed'</span> : <span class="hljs-string">'todoitem'</span>
+  }
+>
+  [...]
+&#x3C;/li>
+</code></pre>
+<p>there are helper libraries that will generate the <em>className</em> property dynamically</p>
+<h2>JSX and styling basics</h2>
+<p>In JSX the <em>style</em> property takes an object, e.g.:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> containerStyle = {
+  <span class="hljs-attr">display</span>: <span class="hljs-string">'flex'</span>,
+  <span class="hljs-attr">justifyContent</span>: <span class="hljs-string">'center'</span>,
+};
+
+<span class="hljs-keyword">const</span> imageStyle = {
+  <span class="hljs-attr">display</span>: <span class="hljs-string">'block'</span>,
+};
+</code></pre>
+<pre><code class="hljs language-jsx">&#x3C;div style={containerStyle}>
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>Slideshow image {img}<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span></span>
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>></span>prev<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span>
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{imageStyle}</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"..."</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">"..."</span> /></span></span>
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>></span>next<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span>
+&#x3C;/div>
+</code></pre>
+<h2>JSX and styling basics</h2>
+<p>note:</p>
+<p>Binding to the <em>style</em> property directly is inefficient and is usually avoided; in practice, libraries like <em>styled-components</em> or <em>emotion</em> are used to write style declarations inside JavaScript</p>
 <h1>JSX: compilation</h1>
 <h2>JSX: compilation</h2>
 <p>XML elements are compiled to calls of:</p>
@@ -1803,9 +1814,9 @@ useEffect(loadTodos, []);
 <p>full example: loading todos when the component has mounted</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> TodoApp = <span class="hljs-function">() =></span> {
   <span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
-  <span class="hljs-keyword">const</span> loadTodos = <span class="hljs-function">() =></span> {
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadTodos</span>(<span class="hljs-params"></span>) </span>{
     fetchTodos().then(setTodos);
-  };
+  }
   useEffect(loadTodos, []);
   <span class="hljs-keyword">return</span> (
     <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">ul</span>></span>
@@ -1891,22 +1902,22 @@ useEffect(loadTodos, []);
 </ul>
 <h2>Example: localStorage</h2>
 <p>Counter that saves its value whenever the value changes:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> PersistentCounter = <span class="hljs-function">() =></span> {
-  <span class="hljs-keyword">const</span> countInitializer = <span class="hljs-function">() =></span>
-    <span class="hljs-built_in">Number</span>(<span class="hljs-built_in">localStorage</span>.getItem(<span class="hljs-string">'count'</span>)) || <span class="hljs-number">0</span>;
+<pre><code class="hljs language-jsx"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">PersistentCounter</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-comment">// useState can receive an initial value</span>
   <span class="hljs-comment">// or an initializer function</span>
-  <span class="hljs-keyword">const</span> [count, setCount] = useState(countInitializer);
-  <span class="hljs-comment">// save the state whenever it changes</span>
-  useEffect(<span class="hljs-function">() =></span> {
+  <span class="hljs-keyword">const</span> [count, setCount] = useState(
+    <span class="hljs-function">() =></span> <span class="hljs-built_in">Number</span>(<span class="hljs-built_in">localStorage</span>.getItem(<span class="hljs-string">'count'</span>)) || <span class="hljs-number">0</span>
+  );
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">saveCount</span>(<span class="hljs-params"></span>) </span>{
     <span class="hljs-built_in">localStorage</span>.setItem(<span class="hljs-string">'count'</span>, count);
-  }, [count]);
+  }
+  useEffect(saveCount, [count]);
   <span class="hljs-keyword">return</span> (
     <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setCount(count + 1)}>
       {count}
     <span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span>
   );
-};
+}
 </code></pre>
 <h2>Exercise: localStorage</h2>
 <p>Save the state of one of the previous applications (e.g. <em>tic-tac-toe</em>, <em>todo list</em>) to <em>localStorage</em></p>

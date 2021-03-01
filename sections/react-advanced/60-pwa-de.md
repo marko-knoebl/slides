@@ -4,9 +4,20 @@ Progressive Web Apps mit React
 
 ## PWAs
 
-**Progressive Web Apps**: Möglichkeit, Anwendungen für Mobilgeräte und PCs mit HTML, CSS und JavaScript zu schreiben
+_Progressive Web Apps_: Möglichkeit, Anwendungen für Mobilgeräte und PCs mit HTML, CSS und JavaScript zu schreiben
 
-Mit `create-react-app` erstellte Anwendungen bieten dafür schon die Grundvoraussetzungen:
+## PWAs
+
+_create-react-app_ kann Projekte mit PWA-Unterstützung erstellen:
+
+```bash
+npx create-react-app myapp --template cra-template-pwa
+npx create-react-app myapp --template cra-template-pwa-typescript
+```
+
+## PWAs
+
+PWA-Grundlagen in _create-react-app_-Projekten:
 
 - Konfiguration in `public/manifest.json`
 - PWA-Boilerplate in `src/serviceWorker.js`
@@ -23,9 +34,7 @@ serviceWorker.register();
 
 Via `public/manifest.json`
 
-## PWA: add to homescreen
-
-https://developers.google.com/web/fundamentals/app-install-banners/
+## PWAs: add to homescreen
 
 ## PWA: add to homescreen
 
@@ -35,9 +44,11 @@ Prozess in Chrome:
 - anzeigen eines Buttons o.ä., der die Installation anbietet
 - beim Anklicken des Buttons via Chrome den Installationsdialog anzeigen
 
+siehe auch: https://developers.google.com/web/fundamentals/app-install-banners/
+
 ## PWA: add to homescreen
 
-TypeScript Implementierung
+TypeScript Implementierung:
 
 ```ts
 const [canInstall, setCanInstall] = useState(false);

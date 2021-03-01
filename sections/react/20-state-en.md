@@ -30,6 +30,22 @@ const App = () => {
 };
 ```
 
+## When are state changes applied?
+
+State changes are applied _after_ the event handler function has finished executing
+
+<!-- prettier-ignore -->
+```js
+  function changeSomeStateEntries() {
+    console.log(count); // 0
+    setCount(count + 1);
+    console.log(count); // still 0
+    setTitle('Demo');
+  }
+```
+
+If multiple state changes are triggered by the same event, they will be applied at the same time - the component will only re-render once
+
 ## Exercise: Slideshow
 
 Re-implement the slideshow demo we saw before; try not to look at the old code

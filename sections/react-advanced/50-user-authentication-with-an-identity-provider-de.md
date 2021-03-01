@@ -193,3 +193,10 @@ Bemerkung: das reine Senden der Information (z.B. Benutzer-ID) vom Client ist ni
 - <https://auth0.com/blog/complete-guide-to-react-user-authentication/>
 - <https://auth0.com/docs/libraries/auth0-react>
 - [API reference](https://auth0.github.io/auth0-react/)
+
+<!--
+examples of hooks that handle authentication:
+
+- https://usehooks.com/useAuth/
+- https://medium.com/hackernoon/learn-react-hooks-by-building-an-auth-based-to-do-app-c2d143928b0b
+-->

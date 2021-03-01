@@ -12,22 +12,22 @@
 Counter that saves its value whenever the value changes:
 
 ```jsx
-const PersistentCounter = () => {
-  const countInitializer = () =>
-    Number(localStorage.getItem('count')) || 0;
+function PersistentCounter() {
   // useState can receive an initial value
   // or an initializer function
-  const [count, setCount] = useState(countInitializer);
-  // save the state whenever it changes
-  useEffect(() => {
+  const [count, setCount] = useState(
+    () => Number(localStorage.getItem('count')) || 0
+  );
+  function saveCount() {
     localStorage.setItem('count', count);
-  }, [count]);
+  }
+  useEffect(saveCount, [count]);
   return (
     <button onClick={() => setCount(count + 1)}>
       {count}
     </button>
   );
-};
+}
 ```
 
 ## Exercise: localStorage

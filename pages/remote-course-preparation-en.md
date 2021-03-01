@@ -10,7 +10,14 @@
 
 - [VS Code](https://code.visualstudio.com/)
 - [Zoom Client for Meetings](https://zoom.us/download)
-  - setup: [activate dual monitors](https://support.zoom.us/hc/en-us/articles/201362583-Using-Dual-Monitors-with-the-Zoom-Desktop-Client)
+
+## Configuring Zoom for concurrent screen sharing
+
+Configuring your Zoom client so you can _share your screen_ and you can _see a shared screen_ at the same time:
+
+[instructions](https://support.zoom.us/hc/en-us/articles/201362583-Using-Dual-Monitors-with-the-Zoom-Desktop-Client)
+
+(you may have to restart Zoom)
 
 ## Python courses: installing Python
 

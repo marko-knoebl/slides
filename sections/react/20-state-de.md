@@ -30,6 +30,22 @@ const App = () => {
 };
 ```
 
+## Wann werden State-Änderungen angewendet?
+
+State-Änderungen werden angewendet, _nachdem_ die Event-Handler-Funktion fertig ausgeführt wurde
+
+<!-- prettier-ignore -->
+```js
+  function changeSomeStateEntries() {
+    console.log(count); // 0
+    setCount(count + 1);
+    console.log(count); // still 0
+    setTitle('Demo');
+  }
+```
+
+Wenn mehrere State-Änderungen durch das gleiche Event ausgelöst werden, werden sie zugleich angewendet - die Komponente wird nur einmal neu gerendert
+
 ## Übung: Slideshow
 
 Implementiere die zuvor gesehene Slideshow-Demo erneut; versuche, nicht auf den bisherigen Code zu blicken

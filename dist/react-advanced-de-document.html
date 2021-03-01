@@ -387,24 +387,20 @@ history.push(<span class="hljs-string">'/'</span>);
 <pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">useTodos</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
   <span class="hljs-keyword">const</span> [isLoading, setIsLoading] = useState(<span class="hljs-literal">false</span>);
-  <span class="hljs-comment">// ... (addTodo, deleteTodo, toggleTodo)</span>
   <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">reload</span>(<span class="hljs-params"></span>) </span>{
     setIsLoading(<span class="hljs-literal">true</span>);
-    fetch(<span class="hljs-string">'https://jsonplaceholder.typicode.com/todos'</span>)
-      .then(<span class="hljs-function">(<span class="hljs-params">res</span>) =></span> res.json())
-      .then(<span class="hljs-function">(<span class="hljs-params">apiTodos</span>) =></span> {
-        setTodos(apiTodos);
-        setIsLoading(<span class="hljs-literal">false</span>);
-      });
+    fetchTodos().then(<span class="hljs-function">(<span class="hljs-params">todos</span>) =></span> {
+      setTodos(todos);
+      setIsLoading(<span class="hljs-literal">false</span>);
+    });
   }
   useEffect(reload, []);
+  <span class="hljs-comment">// ... (addTodo, deleteTodo, toggleTodo)</span>
   <span class="hljs-keyword">return</span> {
     todos,
     isLoading,
     reload,
-    addTodo,
-    deleteTodo,
-    toggleTodo,
+    <span class="hljs-comment">// ...</span>
   };
 }
 </code></pre>
@@ -431,37 +427,38 @@ history.push(<span class="hljs-string">'/'</span>);
 </code></pre>
 <h2>Eigene Hooks - useExchangerate</h2>
 <p>hook that provides the exchange rate for selected currencies</p>
-<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">useExchangerate</span>(<span class="hljs-params"><span class="hljs-keyword">from</span>, to</span>) </span>{
+<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">useExchangeRate</span>(<span class="hljs-params"><span class="hljs-keyword">from</span>, to</span>) </span>{
   <span class="hljs-keyword">const</span> [rate, setRate] = useState(<span class="hljs-literal">null</span>);
   <span class="hljs-keyword">const</span> [status, setStatus] = useState(<span class="hljs-string">'loading'</span>);
-  useEffect(<span class="hljs-function">() =></span> {
-    setRate(<span class="hljs-literal">null</span>);
-    setStatus(<span class="hljs-string">'loading'</span>);
-    fetch(
-      <span class="hljs-string">'https://api.exchangeratesapi.io/latest?base='</span> +
-        <span class="hljs-keyword">from</span>.toUpperCase() +
-        <span class="hljs-string">'&#x26;symbols='</span> +
-        to.toUpperCase()
-    )
-      .then(<span class="hljs-function">(<span class="hljs-params">res</span>) =></span> res.json())
-      .then(<span class="hljs-function">(<span class="hljs-params">data</span>) =></span> {
-        setRate(data.rates[to.toUpperCase()]);
-        setStatus(<span class="hljs-string">'success'</span>);
-      })
-      .catch(<span class="hljs-function">(<span class="hljs-params">error</span>) =></span> {
-        setRate(<span class="hljs-literal">null</span>);
-        setStatus(<span class="hljs-string">'error'</span>);
-      });
-  }, [<span class="hljs-keyword">from</span>, to]);
+  <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadExchangeRateAsync</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">try</span> {
+      <span class="hljs-keyword">const</span> newRate = <span class="hljs-keyword">await</span> fetchExchangeRate();
+      setRate(newRate);
+      setStatus(<span class="hljs-string">'success'</span>);
+    } <span class="hljs-keyword">catch</span> {
+      setRate(<span class="hljs-literal">null</span>);
+      setStatus(<span class="hljs-string">'error'</span>);
+    }
+  }
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadExchangeRate</span>(<span class="hljs-params"></span>) </span>{
+    loadExchangeRateAsync();
+  }
+  useEffect(loadExchangeRate, [<span class="hljs-keyword">from</span>, to]);
   <span class="hljs-keyword">return</span> { status, rate };
 }
 </code></pre>
-<h2>Eigene Hooks - useAuth</h2>
-<p>Beispiele für Hooks, die Authentifizierung behandeln:</p>
-<ul>
-<li><a href="https://usehooks.com/useAuth/">https://usehooks.com/useAuth/</a></li>
-<li><a href="https://medium.com/hackernoon/learn-react-hooks-by-building-an-auth-based-to-do-app-c2d143928b0b">https://medium.com/hackernoon/learn-react-hooks-by-building-an-auth-based-to-do-app-c2d143928b0b</a></li>
-</ul>
+<h2>Eigene Hooks - useExchangerate</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetchExchangeRate</span>(<span class="hljs-params"><span class="hljs-keyword">from</span>, to</span>) </span>{
+  <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> fetch(
+    <span class="hljs-string">'https://api.exchangeratesapi.io/latest?base='</span> +
+      <span class="hljs-keyword">from</span>.toUpperCase() +
+      <span class="hljs-string">'&#x26;symbols='</span> +
+      to.toUpperCase()
+  );
+  <span class="hljs-keyword">const</span> data = <span class="hljs-keyword">await</span> res.json();
+  <span class="hljs-keyword">return</span> data.rates[to.toUpperCase()];
+}
+</code></pre>
 <h2>Eigene Hooks - Übung</h2>
 <p>Erstellen eines <code>useWeather</code>-Hooks zum Abfragen von Wetterdaten - zusammen mit einem zugehörigen Context, der die Daten Anwendungsweit cached</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> { weather, status, reload } = useWeather(<span class="hljs-string">'vienna'</span>, {
@@ -469,7 +466,7 @@ history.push(<span class="hljs-string">'/'</span>);
 });
 </code></pre>
 <p>Für die Datenquelle siehe nächste Slide</p>
-<h2>Eigene Hooks - Beispiel</h2>
+<h2>Eigene Hooks - Übung</h2>
 <p>OpenWeatherMap-API</p>
 <p>Beispiel-URL: <a href="http://api.openweathermap.org/data/2.5/weather?appid=66445a4269dd911a5bbe214fadb768d6&#x26;units=metric&#x26;q=vienna">http://api.openweathermap.org/data/2.5/weather?appid=66445a4269dd911a5bbe214fadb768d6&#x26;units=metric&#x26;q=vienna</a></p>
 <p>(bitte diese appid / API-Key nur für einfache Übungen verwenden)</p>
@@ -1122,11 +1119,23 @@ fetch(<span class="hljs-string">`https://<span class="hljs-subst">${auth0Domain}
 <li><a href="https://auth0.com/docs/libraries/auth0-react">https://auth0.com/docs/libraries/auth0-react</a></li>
 <li><a href="https://auth0.github.io/auth0-react/">API reference</a></li>
 </ul>
+<!--
+examples of hooks that handle authentication:
+
+- https://usehooks.com/useAuth/
+- https://medium.com/hackernoon/learn-react-hooks-by-building-an-auth-based-to-do-app-c2d143928b0b
+-->
 <h1>PWAs</h1>
 <p>Progressive Web Apps mit React</p>
 <h2>PWAs</h2>
-<p><strong>Progressive Web Apps</strong>: Möglichkeit, Anwendungen für Mobilgeräte und PCs mit HTML, CSS und JavaScript zu schreiben</p>
-<p>Mit <code>create-react-app</code> erstellte Anwendungen bieten dafür schon die Grundvoraussetzungen:</p>
+<p><em>Progressive Web Apps</em>: Möglichkeit, Anwendungen für Mobilgeräte und PCs mit HTML, CSS und JavaScript zu schreiben</p>
+<h2>PWAs</h2>
+<p><em>create-react-app</em> kann Projekte mit PWA-Unterstützung erstellen:</p>
+<pre><code class="hljs language-bash">npx create-react-app myapp --template cra-template-pwa
+npx create-react-app myapp --template cra-template-pwa-typescript
+</code></pre>
+<h2>PWAs</h2>
+<p>PWA-Grundlagen in <em>create-react-app</em>-Projekten:</p>
 <ul>
 <li>Konfiguration in <code>public/manifest.json</code></li>
 <li>PWA-Boilerplate in <code>src/serviceWorker.js</code></li>
@@ -1137,8 +1146,7 @@ fetch(<span class="hljs-string">`https://<span class="hljs-subst">${auth0Domain}
 </code></pre>
 <h2>PWAs: Konfiguration</h2>
 <p>Via <code>public/manifest.json</code></p>
-<h2>PWA: add to homescreen</h2>
-<p><a href="https://developers.google.com/web/fundamentals/app-install-banners/">https://developers.google.com/web/fundamentals/app-install-banners/</a></p>
+<h2>PWAs: add to homescreen</h2>
 <h2>PWA: add to homescreen</h2>
 <p>Prozess in Chrome:</p>
 <ul>
@@ -1146,8 +1154,9 @@ fetch(<span class="hljs-string">`https://<span class="hljs-subst">${auth0Domain}
 <li>anzeigen eines Buttons o.ä., der die Installation anbietet</li>
 <li>beim Anklicken des Buttons via Chrome den Installationsdialog anzeigen</li>
 </ul>
+<p>siehe auch: <a href="https://developers.google.com/web/fundamentals/app-install-banners/">https://developers.google.com/web/fundamentals/app-install-banners/</a></p>
 <h2>PWA: add to homescreen</h2>
-<p>TypeScript Implementierung</p>
+<p>TypeScript Implementierung:</p>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> [canInstall, setCanInstall] = useState(<span class="hljs-literal">false</span>);
 <span class="hljs-keyword">const</span> installPromptEventRef = useRef&#x3C;Event>();
 

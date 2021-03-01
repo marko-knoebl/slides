@@ -461,6 +461,23 @@ const App = () => {
 };
 ```
 
+## Wann werden State-Änderungen angewendet?
+
+State-Änderungen werden angewendet, _nachdem_ die Event-Handler-Funktion fertig ausgeführt wurde
+
+<!-- prettier-ignore -->
+
+```js
+  function changeSomeStateEntries() {
+    console.log(count); // 0
+    setCount(count + 1);
+    console.log(count); // still 0
+    setTitle('Demo');
+  }
+```
+
+Wenn mehrere State-Änderungen durch das gleiche Event ausgelöst werden, werden sie zugleich angewendet - die Komponente wird nur einmal neu gerendert
+
 ## Übung: Slideshow
 
 Implementiere die zuvor gesehene Slideshow-Demo erneut; versuche, nicht auf den bisherigen Code zu blicken
@@ -743,7 +760,7 @@ Manche Properties von Elementen haben andere Namen als in standard HTML (spiegel
 - `onClick` (anstatt `onclick`)
 - `htmlFor` (anstatt `for`)
 
-# JSX: whitespace, comments and fragments
+# JSX: Whitespace, Kommentare und Fragmente
 
 ## Whitespace
 
@@ -819,66 +836,6 @@ return (
   </>
 );
 ```
-
-# JSX und Styling Grundlagen
-
-## JSX und Styling Grundlagen
-
-In React-Projekten sind Style-Definitionen üblicherweise nahe bei den betroffenen Komponenten-Definitionen zu finden
-
-Möglichkeiten:
-
-- CSS-Datei mit dem gleichen Namen wie die JSX-Datei
-- Stil-Definition am Beginn einer Komponentendefinitions-Datei
-- Inline Stil-Definition im Komponenten-Template
-
-## JSX und Styling Grundlagen
-
-```js
-import './TodoItem.css';
-```
-
-```jsx
-<li
-  className={
-    isCompleted ? 'todoitem completed' : 'todoitem'
-  }
->
-  [...]
-</li>
-```
-
-es gibt Hilfslibraries, die die _className_-Property dynamisch generieren
-
-## JSX und Styling Grundlagen
-
-In JSX weisen wir der _style_-Property ein Objekt zu, z.B.:
-
-```jsx
-const containerStyle = {
-  display: 'flex',
-  justifyContent: 'center',
-};
-
-const imageStyle = {
-  display: 'block',
-};
-```
-
-```jsx
-<div style={containerStyle}>
-  <h1>Slideshow image {img}</h1>
-  <button>prev</button>
-  <img style={imageStyle} src="..." alt="..." />
-  <button>next</button>
-</div>
-```
-
-## JSX und Styling Grundlagen
-
-Bemerkung:
-
-Das direkte binden an die _style_-Property ist ineffizient und wird meist vermieden; in der Praxis werden Libraries wie _styled-components_ oder _emotion_ verwendet, um Stildeklarationen in JavaScript zu schreiben.
 
 # JSX: if/else und Elemente wiederholen
 
@@ -1014,6 +971,66 @@ Lösung: **key**:
   ))}
 </ul>
 ```
+
+# JSX und Styling Grundlagen
+
+## JSX und Styling Grundlagen
+
+In React-Projekten sind Style-Definitionen üblicherweise nahe bei den betroffenen Komponenten-Definitionen zu finden
+
+Möglichkeiten:
+
+- CSS-Datei mit dem gleichen Namen wie die JSX-Datei
+- Stil-Definition am Beginn einer Komponentendefinitions-Datei
+- Inline Stil-Definition im Komponenten-Template
+
+## JSX und Styling Grundlagen
+
+```js
+import './TodoItem.css';
+```
+
+```jsx
+<li
+  className={
+    isCompleted ? 'todoitem completed' : 'todoitem'
+  }
+>
+  [...]
+</li>
+```
+
+es gibt Hilfslibraries, die die _className_-Property dynamisch generieren
+
+## JSX und Styling Grundlagen
+
+In JSX weisen wir der _style_-Property ein Objekt zu, z.B.:
+
+```jsx
+const containerStyle = {
+  display: 'flex',
+  justifyContent: 'center',
+};
+
+const imageStyle = {
+  display: 'block',
+};
+```
+
+```jsx
+<div style={containerStyle}>
+  <h1>Slideshow image {img}</h1>
+  <button>prev</button>
+  <img style={imageStyle} src="..." alt="..." />
+  <button>next</button>
+</div>
+```
+
+## JSX und Styling Grundlagen
+
+Bemerkung:
+
+Das direkte binden an die _style_-Property ist ineffizient und wird meist vermieden; in der Praxis werden Libraries wie _styled-components_ oder _emotion_ verwendet, um Stildeklarationen in JavaScript zu schreiben.
 
 # JSX: Kompilierung
 
@@ -2050,9 +2067,9 @@ vollständiges Beispiel: Laden von Todos, wenn die Komponente eingebunden wurde
 ```js
 const TodoApp = () => {
   const [todos, setTodos] = useState([]);
-  const loadTodos = () => {
+  function loadTodos() {
     fetchTodos().then(setTodos);
-  };
+  }
   useEffect(loadTodos, []);
   return (
     <ul>
@@ -2159,22 +2176,22 @@ const Pokemon = () => {
 Conter, der den eigenen Wert abspeichert, wenn dieser sich ändert:
 
 ```jsx
-const PersistentCounter = () => {
-  const countInitializer = () =>
-    Number(localStorage.getItem('count')) || 0;
+function PersistentCounter() {
   // useState can receive an initial value
   // or an initializer function
-  const [count, setCount] = useState(countInitializer);
-  // save the state whenever it changes
-  useEffect(() => {
+  const [count, setCount] = useState(
+    () => Number(localStorage.getItem('count')) || 0
+  );
+  function saveCount() {
     localStorage.setItem('count', count);
-  }, [count]);
+  }
+  useEffect(saveCount, [count]);
   return (
     <button onClick={() => setCount(count + 1)}>
       {count}
     </button>
   );
-};
+}
 ```
 
 ## Übung: localStorage

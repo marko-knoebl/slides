@@ -2573,6 +2573,17 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   <span class="hljs-keyword">return</span> ...
 };
 </code></pre>
+</section><section class="slide"><h2>Wann werden State-Änderungen angewendet?</h2>
+<p>State-Änderungen werden angewendet, <em>nachdem</em> die Event-Handler-Funktion fertig ausgeführt wurde</p>
+<!-- prettier-ignore -->
+<pre><code class="hljs language-js">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">changeSomeStateEntries</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-built_in">console</span>.log(count); <span class="hljs-comment">// 0</span>
+    setCount(count + <span class="hljs-number">1</span>);
+    <span class="hljs-built_in">console</span>.log(count); <span class="hljs-comment">// still 0</span>
+    setTitle(<span class="hljs-string">'Demo'</span>);
+  }
+</code></pre>
+<p>Wenn mehrere State-Änderungen durch das gleiche Event ausgelöst werden, werden sie zugleich angewendet - die Komponente wird nur einmal neu gerendert</p>
 </section><section class="slide"><h2>Übung: Slideshow</h2>
 <p>Implementiere die zuvor gesehene Slideshow-Demo erneut; versuche, nicht auf den bisherigen Code zu blicken</p>
 <ul>
@@ -2770,7 +2781,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li><code>onClick</code> (anstatt <code>onclick</code>)</li>
 <li><code>htmlFor</code> (anstatt <code>for</code>)</li>
 </ul>
-</section></section><section class="slides-section"><section class="slide"><h1>JSX: whitespace, comments and fragments</h1>
+</section></section><section class="slides-section"><section class="slide"><h1>JSX: Whitespace, Kommentare und Fragmente</h1>
 </section><section class="slide"><h2>Whitespace</h2>
 <p>in HTML sind die folgenden Beispiele äquivalent (und enthalten je ein Leerzeichen zwischen den Bildern):</p>
 <!-- prettier-ignore-start -->
@@ -2815,48 +2826,6 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   <span class="hljs-tag">&#x3C;/></span></span>
 );
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>JSX und Styling Grundlagen</h1>
-</section><section class="slide"><h2>JSX und Styling Grundlagen</h2>
-<p>In React-Projekten sind Style-Definitionen üblicherweise nahe bei den betroffenen Komponenten-Definitionen zu finden</p>
-<p>Möglichkeiten:</p>
-<ul>
-<li>CSS-Datei mit dem gleichen Namen wie die JSX-Datei</li>
-<li>Stil-Definition am Beginn einer Komponentendefinitions-Datei</li>
-<li>Inline Stil-Definition im Komponenten-Template</li>
-</ul>
-</section><section class="slide"><h2>JSX und Styling Grundlagen</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> <span class="hljs-string">'./TodoItem.css'</span>;
-</code></pre>
-<pre><code class="hljs language-jsx">&#x3C;li
-  className={
-    isCompleted ? <span class="hljs-string">'todoitem completed'</span> : <span class="hljs-string">'todoitem'</span>
-  }
->
-  [...]
-&#x3C;/li>
-</code></pre>
-<p>es gibt Hilfslibraries, die die <em>className</em>-Property dynamisch generieren</p>
-</section><section class="slide"><h2>JSX und Styling Grundlagen</h2>
-<p>In JSX weisen wir der <em>style</em>-Property ein Objekt zu, z.B.:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> containerStyle = {
-  <span class="hljs-attr">display</span>: <span class="hljs-string">'flex'</span>,
-  <span class="hljs-attr">justifyContent</span>: <span class="hljs-string">'center'</span>,
-};
-
-<span class="hljs-keyword">const</span> imageStyle = {
-  <span class="hljs-attr">display</span>: <span class="hljs-string">'block'</span>,
-};
-</code></pre>
-<pre><code class="hljs language-jsx">&#x3C;div style={containerStyle}>
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>Slideshow image {img}<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span></span>
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>></span>prev<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span>
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{imageStyle}</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"..."</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">"..."</span> /></span></span>
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>></span>next<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span>
-&#x3C;/div>
-</code></pre>
-</section><section class="slide"><h2>JSX und Styling Grundlagen</h2>
-<p>Bemerkung:</p>
-<p>Das direkte binden an die <em>style</em>-Property ist ineffizient und wird meist vermieden; in der Praxis werden Libraries wie <em>styled-components</em> oder <em>emotion</em> verwendet, um Stildeklarationen in JavaScript zu schreiben.</p>
 </section></section><section class="slides-section"><section class="slide"><h1>JSX: if/else und Elemente wiederholen</h1>
 </section><section class="slide"><h2>JSX: if/elese und Elemente wiederholen</h2>
 <ul>
@@ -2953,6 +2922,48 @@ Lösung: <strong>key</strong>:</p>
   ))}
 &#x3C;/ul>
 </code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>JSX und Styling Grundlagen</h1>
+</section><section class="slide"><h2>JSX und Styling Grundlagen</h2>
+<p>In React-Projekten sind Style-Definitionen üblicherweise nahe bei den betroffenen Komponenten-Definitionen zu finden</p>
+<p>Möglichkeiten:</p>
+<ul>
+<li>CSS-Datei mit dem gleichen Namen wie die JSX-Datei</li>
+<li>Stil-Definition am Beginn einer Komponentendefinitions-Datei</li>
+<li>Inline Stil-Definition im Komponenten-Template</li>
+</ul>
+</section><section class="slide"><h2>JSX und Styling Grundlagen</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> <span class="hljs-string">'./TodoItem.css'</span>;
+</code></pre>
+<pre><code class="hljs language-jsx">&#x3C;li
+  className={
+    isCompleted ? <span class="hljs-string">'todoitem completed'</span> : <span class="hljs-string">'todoitem'</span>
+  }
+>
+  [...]
+&#x3C;/li>
+</code></pre>
+<p>es gibt Hilfslibraries, die die <em>className</em>-Property dynamisch generieren</p>
+</section><section class="slide"><h2>JSX und Styling Grundlagen</h2>
+<p>In JSX weisen wir der <em>style</em>-Property ein Objekt zu, z.B.:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> containerStyle = {
+  <span class="hljs-attr">display</span>: <span class="hljs-string">'flex'</span>,
+  <span class="hljs-attr">justifyContent</span>: <span class="hljs-string">'center'</span>,
+};
+
+<span class="hljs-keyword">const</span> imageStyle = {
+  <span class="hljs-attr">display</span>: <span class="hljs-string">'block'</span>,
+};
+</code></pre>
+<pre><code class="hljs language-jsx">&#x3C;div style={containerStyle}>
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>Slideshow image {img}<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span></span>
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>></span>prev<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span>
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{imageStyle}</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"..."</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">"..."</span> /></span></span>
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>></span>next<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span>
+&#x3C;/div>
+</code></pre>
+</section><section class="slide"><h2>JSX und Styling Grundlagen</h2>
+<p>Bemerkung:</p>
+<p>Das direkte binden an die <em>style</em>-Property ist ineffizient und wird meist vermieden; in der Praxis werden Libraries wie <em>styled-components</em> oder <em>emotion</em> verwendet, um Stildeklarationen in JavaScript zu schreiben.</p>
 </section></section><section class="slides-section"><section class="slide"><h1>JSX: Kompilierung</h1>
 </section><section class="slide"><h2>JSX: Kompilierung</h2>
 <p>XML-Elemente werden kompiliert zu Aufrufen von:</p>
@@ -3862,9 +3873,9 @@ useEffect(loadTodos, []);
 <p>vollständiges Beispiel: Laden von Todos, wenn die Komponente eingebunden wurde</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> TodoApp = <span class="hljs-function">() =></span> {
   <span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
-  <span class="hljs-keyword">const</span> loadTodos = <span class="hljs-function">() =></span> {
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadTodos</span>(<span class="hljs-params"></span>) </span>{
     fetchTodos().then(setTodos);
-  };
+  }
   useEffect(loadTodos, []);
   <span class="hljs-keyword">return</span> (
     <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">ul</span>></span>
@@ -3950,22 +3961,22 @@ useEffect(loadTodos, []);
 </ul>
 </section><section class="slide"><h2>Beispiel: localStorage</h2>
 <p>Conter, der den eigenen Wert abspeichert, wenn dieser sich ändert:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> PersistentCounter = <span class="hljs-function">() =></span> {
-  <span class="hljs-keyword">const</span> countInitializer = <span class="hljs-function">() =></span>
-    <span class="hljs-built_in">Number</span>(<span class="hljs-built_in">localStorage</span>.getItem(<span class="hljs-string">'count'</span>)) || <span class="hljs-number">0</span>;
+<pre><code class="hljs language-jsx"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">PersistentCounter</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-comment">// useState can receive an initial value</span>
   <span class="hljs-comment">// or an initializer function</span>
-  <span class="hljs-keyword">const</span> [count, setCount] = useState(countInitializer);
-  <span class="hljs-comment">// save the state whenever it changes</span>
-  useEffect(<span class="hljs-function">() =></span> {
+  <span class="hljs-keyword">const</span> [count, setCount] = useState(
+    <span class="hljs-function">() =></span> <span class="hljs-built_in">Number</span>(<span class="hljs-built_in">localStorage</span>.getItem(<span class="hljs-string">'count'</span>)) || <span class="hljs-number">0</span>
+  );
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">saveCount</span>(<span class="hljs-params"></span>) </span>{
     <span class="hljs-built_in">localStorage</span>.setItem(<span class="hljs-string">'count'</span>, count);
-  }, [count]);
+  }
+  useEffect(saveCount, [count]);
   <span class="hljs-keyword">return</span> (
     <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setCount(count + 1)}>
       {count}
     <span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span>
   );
-};
+}
 </code></pre>
 </section><section class="slide"><h2>Übung: localStorage</h2>
 <p>Speichere den State einer der bisherigen Anwendungen (z.B. <em>tic-tac-toe</em>, <em>todo-list</em>) in <em>localStorage</em></p></section></section></div>

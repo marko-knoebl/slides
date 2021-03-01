@@ -68,24 +68,20 @@ function useTodos() {
 function useTodos() {
   const [todos, setTodos] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  // ... (addTodo, deleteTodo, toggleTodo)
   function reload() {
     setIsLoading(true);
-    fetch('https://jsonplaceholder.typicode.com/todos')
-      .then((res) => res.json())
-      .then((apiTodos) => {
-        setTodos(apiTodos);
-        setIsLoading(false);
-      });
+    fetchTodos().then((todos) => {
+      setTodos(todos);
+      setIsLoading(false);
+    });
   }
   useEffect(reload, []);
+  // ... (addTodo, deleteTodo, toggleTodo)
   return {
     todos,
     isLoading,
     reload,
-    addTodo,
-    deleteTodo,
-    toggleTodo,
+    // ... (addTodo, deleteTodo, toggleTodo)
   };
 }
 ```
@@ -124,38 +120,41 @@ const useDate = (interval) => {
 hook that provides the exchange rate for selected currencies
 
 ```js
-function useExchangerate(from, to) {
+function useExchangeRate(from, to) {
   const [rate, setRate] = useState(null);
   const [status, setStatus] = useState('loading');
-  useEffect(() => {
-    setRate(null);
-    setStatus('loading');
-    fetch(
-      'https://api.exchangeratesapi.io/latest?base=' +
-        from.toUpperCase() +
-        '&symbols=' +
-        to.toUpperCase()
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setRate(data.rates[to.toUpperCase()]);
-        setStatus('success');
-      })
-      .catch((error) => {
-        setRate(null);
-        setStatus('error');
-      });
-  }, [from, to]);
+  async function loadExchangeRateAsync() {
+    try {
+      const newRate = await fetchExchangeRate();
+      setRate(newRate);
+      setStatus('success');
+    } catch {
+      setRate(null);
+      setStatus('error');
+    }
+  }
+  function loadExchangeRate() {
+    loadExchangeRateAsync();
+  }
+  useEffect(loadExchangeRate, [from, to]);
   return { status, rate };
 }
 ```
 
-## Eigene Hooks - useAuth
+## Eigene Hooks - useExchangerate
 
-Beispiele für Hooks, die Authentifizierung behandeln:
-
-- https://usehooks.com/useAuth/
-- https://medium.com/hackernoon/learn-react-hooks-by-building-an-auth-based-to-do-app-c2d143928b0b
+```js
+async function fetchExchangeRate(from, to) {
+  const res = await fetch(
+    'https://api.exchangeratesapi.io/latest?base=' +
+      from.toUpperCase() +
+      '&symbols=' +
+      to.toUpperCase()
+  );
+  const data = await res.json();
+  return data.rates[to.toUpperCase()];
+}
+```
 
 ## Eigene Hooks - Übung
 
@@ -169,7 +168,7 @@ const { weather, status, reload } = useWeather('vienna', {
 
 Für die Datenquelle siehe nächste Slide
 
-## Eigene Hooks - Beispiel
+## Eigene Hooks - Übung
 
 OpenWeatherMap-API
 

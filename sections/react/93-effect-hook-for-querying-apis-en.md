@@ -44,9 +44,9 @@ full example: loading todos when the component has mounted
 ```js
 const TodoApp = () => {
   const [todos, setTodos] = useState([]);
-  const loadTodos = () => {
+  function loadTodos() {
     fetchTodos().then(setTodos);
-  };
+  }
   useEffect(loadTodos, []);
   return (
     <ul>
