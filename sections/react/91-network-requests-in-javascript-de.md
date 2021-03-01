@@ -1,19 +1,31 @@
-# Netzwerkabfragen in JavaScript
+# Netzwerkanfragen in JavaScript
 
-## Netzwerkabfragen in JavaScript
+## Netzwerkanfragen in JavaScript
 
 Siehe auch: [Promises, fetch und axios](./javascript-promises-fetch-and-axios-de.html)
 
-## Netzwerkabfragen in JavaScript
+## Netzwerkanfragen in JavaScript
 
-Laden von Todos - mittels `await`:
+asynchrone Funktion, die Todos von einem API lädt:
+
+```js
+// todosApi.js
+async function fetchTodos() {
+  const url = 'https://jsonplaceholder.typicode.com/todos';
+  const res = await fetch(url);
+  const todos = await res.json();
+  return todos;
+}
+```
+
+## Netzwerkanfragen in JavaScript
+
+Laden von Todos in einer React-Komponente - mittels `await`:
 
 ```js
 const [todos, setTodos] = useState([]);
 async function loadTodosAsync() {
-  const url = 'https://jsonplaceholder.typicode.com/todos';
-  const res = await fetch(url);
-  const todos = await res.json();
+  const todos = await fetchTodos();
   setTodos(todos);
 }
 ```
@@ -24,19 +36,16 @@ async function loadTodosAsync() {
 </button>
 ```
 
-## Netzwerkabfragen in JavaScript
+## Netzwerkanfragen in JavaScript
 
 Laden von Todos - mittels `.then`:
 
 ```js
 const [todos, setTodos] = useState([]);
 function loadTodos() {
-  const url = 'https://jsonplaceholder.typicode.com/todos';
-  fetch(url)
-    .then((res) => res.json())
-    .then((todos) => {
-      setTodos(todos);
-    });
+  fetchTodos().then((todos) => {
+    setTodos(todos);
+  });
 }
 ```
 
@@ -72,9 +81,7 @@ const [todos, setTodos] = useState([]);
 const [isLoading, setIsLoading] = useState(false);
 async function loadTodosAsync() {
   setIsLoading(true);
-  const url = 'https://jsonplaceholder.typicode.com/todos';
-  const res = await fetch(url);
-  const todos = await res.json();
+  const todos = await fetchTodos();
   setTodos(todos);
   setIsLoading(false);
 }

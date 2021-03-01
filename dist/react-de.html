@@ -3079,11 +3079,11 @@ Lösung: <strong>key</strong>:</p>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> FontSizeDemo = <span class="hljs-function">() =></span> {
   <span class="hljs-keyword">const</span> [size, setSize] = useState(<span class="hljs-number">16</span>);
   <span class="hljs-keyword">const</span> [sizeStr, setSizeStr] = useState(size.toString());
-  <span class="hljs-keyword">const</span> updateSize = <span class="hljs-function">(<span class="hljs-params">newSizeStr</span>) =></span> {
-    setSizeStr(newSizeStr);
+  <span class="hljs-keyword">const</span> updateSize = <span class="hljs-function">(<span class="hljs-params">s</span>) =></span> {
+    setSizeStr(s);
     <span class="hljs-comment">// source: https://stackoverflow.com/questions/18082</span>
-    <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">isNaN</span>(<span class="hljs-built_in">parseFloat</span>(n)) &#x26;&#x26; <span class="hljs-built_in">isFinite</span>(n)) {
-      setSize(<span class="hljs-built_in">Number</span>(newSizeStr));
+    <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">isNaN</span>(<span class="hljs-built_in">parseFloat</span>(s)) &#x26;&#x26; <span class="hljs-built_in">isFinite</span>(s)) {
+      setSize(<span class="hljs-built_in">Number</span>(s));
     }
   };
   <span class="hljs-keyword">return</span> (
@@ -3742,16 +3742,24 @@ const ProgressBar = (props: Props) => {
 </ul>
 </li>
 </ul>
-</section></section><section class="slides-section"><section class="slide"><h1>Netzwerkabfragen in JavaScript</h1>
-</section><section class="slide"><h2>Netzwerkabfragen in JavaScript</h2>
+</section></section><section class="slides-section"><section class="slide"><h1>Netzwerkanfragen in JavaScript</h1>
+</section><section class="slide"><h2>Netzwerkanfragen in JavaScript</h2>
 <p>Siehe auch: <a href="./javascript-promises-fetch-and-axios-de.html">Promises, fetch und axios</a></p>
-</section><section class="slide"><h2>Netzwerkabfragen in JavaScript</h2>
-<p>Laden von Todos - mittels <code>await</code>:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
-<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadTodosAsync</span>(<span class="hljs-params"></span>) </span>{
+</section><section class="slide"><h2>Netzwerkanfragen in JavaScript</h2>
+<p>asynchrone Funktion, die Todos von einem API lädt:</p>
+<pre><code class="hljs language-js"><span class="hljs-comment">// todosApi.js</span>
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetchTodos</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">const</span> url = <span class="hljs-string">'https://jsonplaceholder.typicode.com/todos'</span>;
   <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> fetch(url);
   <span class="hljs-keyword">const</span> todos = <span class="hljs-keyword">await</span> res.json();
+  <span class="hljs-keyword">return</span> todos;
+}
+</code></pre>
+</section><section class="slide"><h2>Netzwerkanfragen in JavaScript</h2>
+<p>Laden von Todos in einer React-Komponente - mittels <code>await</code>:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadTodosAsync</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> todos = <span class="hljs-keyword">await</span> fetchTodos();
   setTodos(todos);
 }
 </code></pre>
@@ -3759,16 +3767,13 @@ const ProgressBar = (props: Props) => {
   load todos <span class="hljs-keyword">from</span> API
 &#x3C;/button>
 </code></pre>
-</section><section class="slide"><h2>Netzwerkabfragen in JavaScript</h2>
+</section><section class="slide"><h2>Netzwerkanfragen in JavaScript</h2>
 <p>Laden von Todos - mittels <code>.then</code>:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadTodos</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">const</span> url = <span class="hljs-string">'https://jsonplaceholder.typicode.com/todos'</span>;
-  fetch(url)
-    .then(<span class="hljs-function">(<span class="hljs-params">res</span>) =></span> res.json())
-    .then(<span class="hljs-function">(<span class="hljs-params">todos</span>) =></span> {
-      setTodos(todos);
-    });
+  fetchTodos().then(<span class="hljs-function">(<span class="hljs-params">todos</span>) =></span> {
+    setTodos(todos);
+  });
 }
 </code></pre>
 <pre><code class="hljs language-jsx">&#x3C;button onClick={loadTodos}>fetch todos <span class="hljs-keyword">from</span> API&#x3C;/button>
@@ -3792,9 +3797,7 @@ const ProgressBar = (props: Props) => {
 <span class="hljs-keyword">const</span> [isLoading, setIsLoading] = useState(<span class="hljs-literal">false</span>);
 <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadTodosAsync</span>(<span class="hljs-params"></span>) </span>{
   setIsLoading(<span class="hljs-literal">true</span>);
-  <span class="hljs-keyword">const</span> url = <span class="hljs-string">'https://jsonplaceholder.typicode.com/todos'</span>;
-  <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> fetch(url);
-  <span class="hljs-keyword">const</span> todos = <span class="hljs-keyword">await</span> res.json();
+  <span class="hljs-keyword">const</span> todos = <span class="hljs-keyword">await</span> fetchTodos();
   setTodos(todos);
   setIsLoading(<span class="hljs-literal">false</span>);
 }
@@ -3837,11 +3840,7 @@ useEffect(loadTodo, [todoId]);
 <p>Beispiel: Laden von Todos via <code>fetch</code> und <code>.then</code>:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadTodos</span>(<span class="hljs-params"></span>) </span>{
-  fetch(<span class="hljs-string">'https://jsonplaceholder.typicode.com/todos'</span>)
-    .then(<span class="hljs-function">(<span class="hljs-params">res</span>) =></span> res.json())
-    .then(<span class="hljs-function">(<span class="hljs-params">todos</span>) =></span> {
-      setTodos(todos);
-    });
+  fetchTodos().then(setTodos);
 }
 useEffect(loadTodos, []);
 </code></pre>
@@ -3851,11 +3850,8 @@ useEffect(loadTodos, []);
 </section><section class="slide"><h2>Effect Hook zum Abfragen von APIs</h2>
 <p>Korrekte Methode, um mit <em>async</em> ein API abzufragen:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
-<span class="hljs-keyword">const</span> url = <span class="hljs-string">'https://jsonplaceholder.typicode.com/todos'</span>;
 <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadTodosAsync</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> fetch(url);
-  <span class="hljs-keyword">const</span> todos = <span class="hljs-keyword">await</span> res.json();
-  setTodos(todos);
+  setTodos(<span class="hljs-keyword">await</span> fetchTodos());
 }
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadTodos</span>(<span class="hljs-params"></span>) </span>{
   loadTodosAsync();
@@ -3866,15 +3862,9 @@ useEffect(loadTodos, []);
 <p>vollständiges Beispiel: Laden von Todos, wenn die Komponente eingebunden wurde</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> TodoApp = <span class="hljs-function">() =></span> {
   <span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
-  <span class="hljs-keyword">const</span> url = <span class="hljs-string">'https://jsonplaceholder.typicode.com/todos'</span>;
-  <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadTodosAsync</span>(<span class="hljs-params"></span>) </span>{
-    <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> fetch(url);
-    <span class="hljs-keyword">const</span> todos = <span class="hljs-keyword">await</span> res.json();
-    setTodos(todos);
-  }
-  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadTodos</span>(<span class="hljs-params"></span>) </span>{
-    loadTodosAsync();
-  }
+  <span class="hljs-keyword">const</span> loadTodos = <span class="hljs-function">() =></span> {
+    fetchTodos().then(setTodos);
+  };
   useEffect(loadTodos, []);
   <span class="hljs-keyword">return</span> (
     <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">ul</span>></span>
@@ -3885,18 +3875,25 @@ useEffect(loadTodos, []);
   );
 };
 </code></pre>
-</section><section class="slide"><h2>Effect Hook zum Abfragen von APIs</h2>
+</section><section class="slide"><h2>Beispiel: SpaceX Startdaten</h2>
 <p>Beispiel: Laden von SpaceX Startdaten, wenn die Komponente eingebunden wurde oder wenn sich <code>launchNr</code> geändert hat</p>
+<p>Funktion zum Laden von Daten:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetchLaunch</span>(<span class="hljs-params">launchNr</span>) </span>{
+  <span class="hljs-keyword">const</span> url =
+    <span class="hljs-string">'https://api.spacexdata.com/v3/launches/'</span> +
+    launchNr.toString();
+  <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> fetch(url);
+  <span class="hljs-keyword">const</span> launchData = <span class="hljs-keyword">await</span> res.json();
+  <span class="hljs-keyword">return</span> launchData;
+}
+</code></pre>
+</section><section class="slide"><h2>Beispiel: SpaceX Startdaten</h2>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> SpaceXLaunch = <span class="hljs-function">() =></span> {
   <span class="hljs-keyword">const</span> [launchNr, setLaunchNr] = useState(<span class="hljs-number">1</span>);
   <span class="hljs-keyword">const</span> [launchData, setLaunchData] = useState({});
-  <span class="hljs-keyword">const</span> loadLaunch = <span class="hljs-function">() =></span> {
-    fetch(
-      <span class="hljs-string">`https://api.spacexdata.com/v3/launches/<span class="hljs-subst">${launchNr}</span>`</span>
-    )
-      .then(<span class="hljs-function">(<span class="hljs-params">res</span>) =></span> res.json())
-      .then(<span class="hljs-function">(<span class="hljs-params">data</span>) =></span> setLaunchData(data));
-  };
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadLaunch</span>(<span class="hljs-params"></span>) </span>{
+    fetchLaunch(launchNr).then(setLaunchData);
+  }
   useEffect(loadLaunch, [launchNr]);
   <span class="hljs-keyword">return</span> (
     <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
@@ -3909,23 +3906,29 @@ useEffect(loadTodos, []);
   );
 };
 </code></pre>
+</section><section class="slide"><h2>Beispiel: Pokemon-Daten</h2>
+<p>Beispiel: Anzeigen von Daten zu einem bestimmten Pokémon (basierend auf dessen <em>id</em>)</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetchPokemon</span>(<span class="hljs-params">pokemonId</span>) </span>{
+  <span class="hljs-keyword">const</span> url = <span class="hljs-string">`https://pokeapi.co/api/v2/pokemon/<span class="hljs-subst">${id}</span>`</span>;
+  <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> fetch(url);
+  <span class="hljs-keyword">const</span> data = <span class="hljs-keyword">await</span> res.json();
+  <span class="hljs-keyword">return</span> data;
+}
+</code></pre>
 </section><section class="slide"><h2>Effect Hook zum Abfragen von APIs</h2>
-<p>Beispiel: Laden von Pokémon-Daten, wenn die Komponente eingebunden wurde, oder wenn sich <code>id</code> geändert hat</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> Pokemon = <span class="hljs-function">() =></span> {
-  <span class="hljs-keyword">const</span> [id, setItd] = useState(<span class="hljs-number">1</span>);
+  <span class="hljs-keyword">const</span> [id, setId] = useState(<span class="hljs-number">1</span>);
   <span class="hljs-keyword">const</span> [data, setData] = useState({});
-  <span class="hljs-keyword">const</span> loadPokemon = <span class="hljs-function">() =></span> {
-    fetch(<span class="hljs-string">`https://pokeapi.co/api/v2/pokemon/<span class="hljs-subst">${id}</span>`</span>)
-      .then(<span class="hljs-function">(<span class="hljs-params">res</span>) =></span> res.json())
-      .then(<span class="hljs-function">(<span class="hljs-params">data</span>) =></span> setData(data));
-  };
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadPokemon</span>(<span class="hljs-params"></span>) </span>{
+    fetchPokemon(id).then(setData);
+  }
   useEffect(loadPokemon, [id]);
   <span class="hljs-keyword">return</span> (
     <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
       <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>{data.name}<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
       <span class="hljs-tag">&#x3C;<span class="hljs-name">p</span>></span>id: {id}<span class="hljs-tag">&#x3C;/<span class="hljs-name">p</span>></span>
       <span class="hljs-tag">&#x3C;<span class="hljs-name">p</span>></span>height: {data.height}<span class="hljs-tag">&#x3C;/<span class="hljs-name">p</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setItd(id + 1)}>next<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setId(id + 1)}>next<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
     <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
   );
 };

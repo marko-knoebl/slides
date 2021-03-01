@@ -1193,11 +1193,11 @@ example: keeping the content of a numeric input field as a string, updating an a
 const FontSizeDemo = () => {
   const [size, setSize] = useState(16);
   const [sizeStr, setSizeStr] = useState(size.toString());
-  const updateSize = (newSizeStr) => {
-    setSizeStr(newSizeStr);
+  const updateSize = (s) => {
+    setSizeStr(s);
     // source: https://stackoverflow.com/questions/18082
-    if (!isNaN(parseFloat(n)) && isFinite(n)) {
-      setSize(Number(newSizeStr));
+    if (!isNaN(parseFloat(s)) && isFinite(s)) {
+      setSize(Number(s));
     }
   };
   return (
@@ -1885,14 +1885,26 @@ see also: [Promises, fetch and axios](./javascript-promises-fetch-and-axios-en.h
 
 ## Network requests in JavaScript
 
-loading todos - with `await`:
+asynchronous function that fetches todos from an API:
+
+```js
+// todosApi.js
+async function fetchTodos() {
+  const url = 'https://jsonplaceholder.typicode.com/todos';
+  const res = await fetch(url);
+  const todos = await res.json();
+  return todos;
+}
+```
+
+## Network requests in JavaScript
+
+loading todos in a React component - with `await`:
 
 ```js
 const [todos, setTodos] = useState([]);
 async function loadTodosAsync() {
-  const url = 'https://jsonplaceholder.typicode.com/todos';
-  const res = await fetch(url);
-  const todos = await res.json();
+  const todos = await fetchTodos();
   setTodos(todos);
 }
 ```
@@ -1910,12 +1922,9 @@ loading todos - with `.then`:
 ```js
 const [todos, setTodos] = useState([]);
 function loadTodos() {
-  const url = 'https://jsonplaceholder.typicode.com/todos';
-  fetch(url)
-    .then((res) => res.json())
-    .then((todos) => {
-      setTodos(todos);
-    });
+  fetchTodos().then((todos) => {
+    setTodos(todos);
+  });
 }
 ```
 
@@ -1951,9 +1960,7 @@ const [todos, setTodos] = useState([]);
 const [isLoading, setIsLoading] = useState(false);
 async function loadTodosAsync() {
   setIsLoading(true);
-  const url = 'https://jsonplaceholder.typicode.com/todos';
-  const res = await fetch(url);
-  const todos = await res.json();
+  const todos = await fetchTodos();
   setTodos(todos);
   setIsLoading(false);
 }
@@ -2016,11 +2023,7 @@ example: loading todos via `fetch` and `.then`:
 ```js
 const [todos, setTodos] = useState([]);
 function loadTodos() {
-  fetch('https://jsonplaceholder.typicode.com/todos')
-    .then((res) => res.json())
-    .then((todos) => {
-      setTodos(todos);
-    });
+  fetchTodos().then(setTodos);
 }
 useEffect(loadTodos, []);
 ```
@@ -2037,11 +2040,8 @@ correctly querying an API with async syntax:
 
 ```js
 const [todos, setTodos] = useState([]);
-const url = 'https://jsonplaceholder.typicode.com/todos';
 async function loadTodosAsync() {
-  const res = await fetch(url);
-  const todos = await res.json();
-  setTodos(todos);
+  setTodos(await fetchTodos());
 }
 function loadTodos() {
   loadTodosAsync();
@@ -2056,15 +2056,9 @@ full example: loading todos when the component has mounted
 ```js
 const TodoApp = () => {
   const [todos, setTodos] = useState([]);
-  const url = 'https://jsonplaceholder.typicode.com/todos';
-  async function loadTodosAsync() {
-    const res = await fetch(url);
-    const todos = await res.json();
-    setTodos(todos);
-  }
-  function loadTodos() {
-    loadTodosAsync();
-  }
+  const loadTodos = () => {
+    fetchTodos().then(setTodos);
+  };
   useEffect(loadTodos, []);
   return (
     <ul>
@@ -2076,21 +2070,32 @@ const TodoApp = () => {
 };
 ```
 
-## Effect hook for querying APIs
+## Example: SpaceX launch data
 
-Example: load SpaceX launch data when component mounted or when `launchNr` changed
+Example: show data for a specific SpaceX launch based on the launch number
+
+function for fetching launch data:
+
+```js
+async function fetchLaunch(launchNr) {
+  const url =
+    'https://api.spacexdata.com/v3/launches/' +
+    launchNr.toString();
+  const res = await fetch(url);
+  const launchData = await res.json();
+  return launchData;
+}
+```
+
+## Example: SpaceX launch data
 
 ```js
 const SpaceXLaunch = () => {
   const [launchNr, setLaunchNr] = useState(1);
   const [launchData, setLaunchData] = useState({});
-  const loadLaunch = () => {
-    fetch(
-      `https://api.spacexdata.com/v3/launches/${launchNr}`
-    )
-      .then((res) => res.json())
-      .then((data) => setLaunchData(data));
-  };
+  function loadLaunch() {
+    fetchLaunch(launchNr).then(setLaunchData);
+  }
   useEffect(loadLaunch, [launchNr]);
   return (
     <div>
@@ -2104,26 +2109,35 @@ const SpaceXLaunch = () => {
 };
 ```
 
-## Effect hook for querying APIs
+## Example: Pokemon data
 
-Example: load pokémon data when component mounted or when `id` changed
+Example: show data for a specific pokemon (based on its _id_)
+
+```js
+async function fetchPokemon(pokemonId) {
+  const url = `https://pokeapi.co/api/v2/pokemon/${id}`;
+  const res = await fetch(url);
+  const data = await res.json();
+  return data;
+}
+```
+
+## Effect hook for querying APIs
 
 ```js
 const Pokemon = () => {
-  const [id, setItd] = useState(1);
+  const [id, setId] = useState(1);
   const [data, setData] = useState({});
-  const loadPokemon = () => {
-    fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
-      .then((res) => res.json())
-      .then((data) => setData(data));
-  };
+  function loadPokemon() {
+    fetchPokemon(id).then(setData);
+  }
   useEffect(loadPokemon, [id]);
   return (
     <div>
       <h1>{data.name}</h1>
       <p>id: {id}</p>
       <p>height: {data.height}</p>
-      <button onClick={() => setItd(id + 1)}>next</button>
+      <button onClick={() => setId(id + 1)}>next</button>
     </div>
   );
 };

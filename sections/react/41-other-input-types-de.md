@@ -89,11 +89,11 @@ Beispiel: Speichern des numerischen Inhalts eines Inputs als ein String, aktuali
 const FontSizeDemo = () => {
   const [size, setSize] = useState(16);
   const [sizeStr, setSizeStr] = useState(size.toString());
-  const updateSize = (newSizeStr) => {
-    setSizeStr(newSizeStr);
+  const updateSize = (s) => {
+    setSizeStr(s);
     // source: https://stackoverflow.com/questions/18082
-    if (!isNaN(parseFloat(n)) && isFinite(n)) {
-      setSize(Number(newSizeStr));
+    if (!isNaN(parseFloat(s)) && isFinite(s)) {
+      setSize(Number(s));
     }
   };
   return (

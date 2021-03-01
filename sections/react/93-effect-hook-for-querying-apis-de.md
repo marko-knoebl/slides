@@ -11,11 +11,7 @@ Beispiel: Laden von Todos via `fetch` und `.then`:
 ```js
 const [todos, setTodos] = useState([]);
 function loadTodos() {
-  fetch('https://jsonplaceholder.typicode.com/todos')
-    .then((res) => res.json())
-    .then((todos) => {
-      setTodos(todos);
-    });
+  fetchTodos().then(setTodos);
 }
 useEffect(loadTodos, []);
 ```
@@ -32,11 +28,8 @@ Korrekte Methode, um mit _async_ ein API abzufragen:
 
 ```js
 const [todos, setTodos] = useState([]);
-const url = 'https://jsonplaceholder.typicode.com/todos';
 async function loadTodosAsync() {
-  const res = await fetch(url);
-  const todos = await res.json();
-  setTodos(todos);
+  setTodos(await fetchTodos());
 }
 function loadTodos() {
   loadTodosAsync();
@@ -51,15 +44,9 @@ vollständiges Beispiel: Laden von Todos, wenn die Komponente eingebunden wurde
 ```js
 const TodoApp = () => {
   const [todos, setTodos] = useState([]);
-  const url = 'https://jsonplaceholder.typicode.com/todos';
-  async function loadTodosAsync() {
-    const res = await fetch(url);
-    const todos = await res.json();
-    setTodos(todos);
-  }
-  function loadTodos() {
-    loadTodosAsync();
-  }
+  const loadTodos = () => {
+    fetchTodos().then(setTodos);
+  };
   useEffect(loadTodos, []);
   return (
     <ul>
@@ -71,21 +58,32 @@ const TodoApp = () => {
 };
 ```
 
-## Effect Hook zum Abfragen von APIs
+## Beispiel: SpaceX Startdaten
 
 Beispiel: Laden von SpaceX Startdaten, wenn die Komponente eingebunden wurde oder wenn sich `launchNr` geändert hat
+
+Funktion zum Laden von Daten:
+
+```js
+async function fetchLaunch(launchNr) {
+  const url =
+    'https://api.spacexdata.com/v3/launches/' +
+    launchNr.toString();
+  const res = await fetch(url);
+  const launchData = await res.json();
+  return launchData;
+}
+```
+
+## Beispiel: SpaceX Startdaten
 
 ```js
 const SpaceXLaunch = () => {
   const [launchNr, setLaunchNr] = useState(1);
   const [launchData, setLaunchData] = useState({});
-  const loadLaunch = () => {
-    fetch(
-      `https://api.spacexdata.com/v3/launches/${launchNr}`
-    )
-      .then((res) => res.json())
-      .then((data) => setLaunchData(data));
-  };
+  function loadLaunch() {
+    fetchLaunch(launchNr).then(setLaunchData);
+  }
   useEffect(loadLaunch, [launchNr]);
   return (
     <div>
@@ -99,26 +97,35 @@ const SpaceXLaunch = () => {
 };
 ```
 
-## Effect Hook zum Abfragen von APIs
+## Beispiel: Pokemon-Daten
 
-Beispiel: Laden von Pokémon-Daten, wenn die Komponente eingebunden wurde, oder wenn sich `id` geändert hat
+Beispiel: Anzeigen von Daten zu einem bestimmten Pokémon (basierend auf dessen _id_)
+
+```js
+async function fetchPokemon(pokemonId) {
+  const url = `https://pokeapi.co/api/v2/pokemon/${id}`;
+  const res = await fetch(url);
+  const data = await res.json();
+  return data;
+}
+```
+
+## Effect Hook zum Abfragen von APIs
 
 ```js
 const Pokemon = () => {
-  const [id, setItd] = useState(1);
+  const [id, setId] = useState(1);
   const [data, setData] = useState({});
-  const loadPokemon = () => {
-    fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
-      .then((res) => res.json())
-      .then((data) => setData(data));
-  };
+  function loadPokemon() {
+    fetchPokemon(id).then(setData);
+  }
   useEffect(loadPokemon, [id]);
   return (
     <div>
       <h1>{data.name}</h1>
       <p>id: {id}</p>
       <p>height: {data.height}</p>
-      <button onClick={() => setItd(id + 1)}>next</button>
+      <button onClick={() => setId(id + 1)}>next</button>
     </div>
   );
 };

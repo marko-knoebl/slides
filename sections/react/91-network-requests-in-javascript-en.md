@@ -6,14 +6,26 @@ see also: [Promises, fetch and axios](./javascript-promises-fetch-and-axios-en.h
 
 ## Network requests in JavaScript
 
-loading todos - with `await`:
+asynchronous function that fetches todos from an API:
+
+```js
+// todosApi.js
+async function fetchTodos() {
+  const url = 'https://jsonplaceholder.typicode.com/todos';
+  const res = await fetch(url);
+  const todos = await res.json();
+  return todos;
+}
+```
+
+## Network requests in JavaScript
+
+loading todos in a React component - with `await`:
 
 ```js
 const [todos, setTodos] = useState([]);
 async function loadTodosAsync() {
-  const url = 'https://jsonplaceholder.typicode.com/todos';
-  const res = await fetch(url);
-  const todos = await res.json();
+  const todos = await fetchTodos();
   setTodos(todos);
 }
 ```
@@ -31,12 +43,9 @@ loading todos - with `.then`:
 ```js
 const [todos, setTodos] = useState([]);
 function loadTodos() {
-  const url = 'https://jsonplaceholder.typicode.com/todos';
-  fetch(url)
-    .then((res) => res.json())
-    .then((todos) => {
-      setTodos(todos);
-    });
+  fetchTodos().then((todos) => {
+    setTodos(todos);
+  });
 }
 ```
 
@@ -72,9 +81,7 @@ const [todos, setTodos] = useState([]);
 const [isLoading, setIsLoading] = useState(false);
 async function loadTodosAsync() {
   setIsLoading(true);
-  const url = 'https://jsonplaceholder.typicode.com/todos';
-  const res = await fetch(url);
-  const todos = await res.json();
+  const todos = await fetchTodos();
   setTodos(todos);
   setIsLoading(false);
 }
