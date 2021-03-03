@@ -68,3 +68,9 @@ Manche Properties von Elementen haben andere Namen als in standard HTML (spiegel
 - `className` (anstatt `class`)
 - `onClick` (anstatt `onclick`)
 - `htmlFor` (anstatt `for`)
+
+## Übung: Primzahl-Quiz
+
+Erstelle ein Quiz, das zu einer _ungeraden_ Zahl im Bereich 1-99 abfragt, ob diese eine Primzahl ist.
+
+Zeige eine Statistik zu den korrekten / inkorrekten bisherigen Antworten.

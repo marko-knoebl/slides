@@ -1,5 +1,5 @@
 // https://codesandbox.io/s/slideshow-cn6m5
-import React, { useState } from "react";
+import { useState } from "react";
 
 const Slideshow = () => {
   const [img, setImg] = useState(0);
