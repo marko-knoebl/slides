@@ -2594,47 +2594,6 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li>prevent the index from becoming negative</li>
 <li>button for <em>random image</em></li>
 </ul>
-</section><section class="slide"><h2>Example: Slideshow with a random image sequence</h2>
-<p>slightly different example: slideshow with a random image sequence</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { useState } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
-
-<span class="hljs-keyword">const</span> baseUrl = <span class="hljs-string">'https://picsum.photos/300/200?image='</span>;
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">RandomSlideshowApp</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">const</span> [index, setIndex] = useState(<span class="hljs-number">0</span>);
-  <span class="hljs-keyword">const</span> [images, setImages] = useState([<span class="hljs-number">0</span>, <span class="hljs-number">10</span>, <span class="hljs-number">20</span>, <span class="hljs-number">30</span>, <span class="hljs-number">40</span>]);
-  <span class="hljs-keyword">const</span> randomize = <span class="hljs-function">() =></span> {
-    <span class="hljs-keyword">const</span> newImages = [];
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &#x3C; <span class="hljs-number">5</span>; i++) {
-      newImages.push(<span class="hljs-built_in">Math</span>.floor(<span class="hljs-built_in">Math</span>.random() * <span class="hljs-number">100</span>));
-    }
-    setImages(newImages);
-    setIndex(<span class="hljs-number">0</span>);
-  };
-  <span class="hljs-keyword">const</span> prevImg = <span class="hljs-function">() =></span> {
-    setIndex(index === <span class="hljs-number">0</span> ? images.length - <span class="hljs-number">1</span> : index - <span class="hljs-number">1</span>);
-  };
-  <span class="hljs-keyword">const</span> nextImg = <span class="hljs-function">() =></span> {
-    setIndex((index + <span class="hljs-number">1</span>) % images.length);
-  };
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>Image {index}<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> prevImg()}>prev<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">img</span>
-        <span class="hljs-attr">src</span>=<span class="hljs-string">{baseUrl</span> + <span class="hljs-attr">images</span>[<span class="hljs-attr">index</span>]<span class="hljs-attr">.toString</span>()}
-        <span class="hljs-attr">alt</span>=<span class="hljs-string">"slideshow"</span>
-      /></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> nextImg()}>next<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">br</span> /></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> randomize()}>randomize<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
-  );
-}
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> RandomSlideshowApp;
-</code></pre>
-</section><section class="slide"><h2>Exercise: Prime number quiz</h2>
-<p>Create a quiz that shows an <em>odd</em> number from 1-99. The user has to guess if it is a prime number or not.</p>
-<p>Show statistics on correct / incorrect answers the user has given so far.</p>
 </section></section><section class="slides-section"><section class="slide"><h1>Immutable state</h1>
 </section><section class="slide"><h2>Immutable state</h2>
 <p><strong>Immutability</strong>: important concept in functional programing and with React / Redux</p>
@@ -2779,6 +2738,9 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li><code>onClick</code> (instead of <code>onclick</code>)</li>
 <li><code>htmlFor</code> (instead of <code>for</code>)</li>
 </ul>
+</section><section class="slide"><h2>Exercise: Prime number quiz</h2>
+<p>Create a quiz that shows an <em>odd</em> number from 1-99. The user has to guess if it is a prime number or not.</p>
+<p>Show statistics on correct / incorrect answers the user has given so far.</p>
 </section></section><section class="slides-section"><section class="slide"><h1>JSX: whitespace, comments and fragments</h1>
 </section><section class="slide"><h2>Whitespace</h2>
 <p>In HTML the following examples are equivalent (displaying a single space between the images):</p>
@@ -3261,109 +3223,9 @@ just change .js to .tsx -->
 <li>change state and props</li>
 <li>analyze render performance of components</li>
 </ul>
-<!-- closely realated content in presentations typescript and react-->
-</section></section><section class="slides-section"><section class="slide"><h1>TypeScript basics for React</h1>
-</section><section class="slide"><h2>TypeScript</h2>
-<p><em>TypeScript</em>: superset of JavaScript that supports static typing</p>
-</section><section class="slide"><h2>Static typing</h2>
-<p>data types may be specified in order to support the development environment:</p>
-<ul>
-<li>auto completion</li>
-<li>errors when types mismatch</li>
-</ul>
-</section><section class="slide"><h2>Static typing</h2>
-<p>during build: TypeScript is translated to JavaScript, all type information is discarded</p>
-</section><section class="slide"><h2>Variable types</h2>
-<p>Variable types are usually detected automatically</p>
-<p><em>explicitly</em> declaring variable types:</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> age: <span class="hljs-built_in">number</span> = <span class="hljs-number">32</span>;
-<span class="hljs-keyword">const</span> name: <span class="hljs-built_in">string</span> = <span class="hljs-string">'Samuel'</span>;
-<span class="hljs-keyword">const</span> loggedIn: <span class="hljs-built_in">boolean</span> = <span class="hljs-literal">true</span>;
-</code></pre>
-</section><section class="slide"><h2>Function types</h2>
-<pre><code class="hljs language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">shorten</span>(<span class="hljs-params">text: <span class="hljs-built_in">string</span>, maxLen: <span class="hljs-built_in">number</span></span>): <span class="hljs-title">string</span> </span>{
-  <span class="hljs-comment">// ...</span>
-}
-</code></pre>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> shorten = (text: <span class="hljs-built_in">string</span>, <span class="hljs-attr">maxLen</span>: <span class="hljs-built_in">number</span>): <span class="hljs-function"><span class="hljs-params">string</span> =></span> {
-  <span class="hljs-comment">// ...</span>
-};
-</code></pre>
-</section><section class="slide"><h2>Function types</h2>
-<p>Functions without a return value: <code>void</code></p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> logMessage = (message: <span class="hljs-built_in">string</span>): <span class="hljs-function"><span class="hljs-params">void</span> =></span> {
-  <span class="hljs-built_in">console</span>.log(message);
-};
-</code></pre>
-</section><section class="slide"><h2>Array types</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> names: <span class="hljs-built_in">Array</span>&#x3C;string> = [];
-names.push(<span class="hljs-string">'Alice'</span>);
-</code></pre>
-<p>alternative syntax:</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">let</span> names: <span class="hljs-built_in">string</span>[] = [];
-names.push(<span class="hljs-string">'Alice'</span>);
-</code></pre>
-</section><section class="slide"><h2>Generics</h2>
-<p><em>Generics</em>: type declarations that can receive more specific type information when applied (via <code>&#x3C;...></code>)</p>
-</section><section class="slide"><h2>Generics</h2>
-<p>example: <code>Array</code> is a generic</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> names: <span class="hljs-built_in">Array</span>&#x3C;<span class="hljs-built_in">string</span>> = [<span class="hljs-string">'Alice'</span>, <span class="hljs-string">'Bob'</span>, <span class="hljs-string">'Charlie'</span>];
-</code></pre>
-<p>example: React's <code>Component</code> is a generic</p>
-<pre><code class="hljs language-ts"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyComp</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span>&#x3C;<span class="hljs-title">MyProps</span>, <span class="hljs-title">MyState</span>> </span>{
-  <span class="hljs-comment">// ...</span>
-}
-</code></pre>
-</section><section class="slide"><h2>Type assertions</h2>
-<p>Type assertions enable treating an existing object as a specific type</p>
-<p>fails:</p>
-<pre><code class="hljs language-ts"><span class="hljs-comment">// type: HTMLElement or null</span>
-<span class="hljs-keyword">const</span> nameInput = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'name-input'</span>);
-<span class="hljs-built_in">console</span>.log(nameInput.value);
-</code></pre>
-<p>works:</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> nameInput = <span class="hljs-built_in">document</span>.getElementById(
-  <span class="hljs-string">'name-input'</span>
-) <span class="hljs-keyword">as</span> HTMLInputElement;
-<span class="hljs-built_in">console</span>.log(myInput.value);
-</code></pre>
-</section><section class="slide"><h2>Any</h2>
-<p>Any: variable can be of any type - arbitrary properties may be accessed</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> nameInput = <span class="hljs-built_in">document</span>.getElementById(
-  <span class="hljs-string">'name-input'</span>
-) <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>;
-<span class="hljs-built_in">console</span>.log(nameInput.value);
-</code></pre>
-</section><section class="slide"><h2>Type and interface declarations</h2>
-<p><strong>Interfaces</strong> describe the structure of an object / of a class in detail (e.g.: <code>Todo</code>, <code>Person</code>)</p>
-<p><strong>Types</strong>: similar to interfaces, but are also applicable to strings, arrays, ...</p>
-</section><section class="slide"><h2>Types and interfaces</h2>
-<p>Essentialy types offer more functionality than interfaces</p>
-<p><a href="https://stackoverflow.com/a/52682220/">https://stackoverflow.com/a/52682220/</a></p>
-</section><section class="slide"><h2>Types</h2>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> Todo = {
-  <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span>;
-  title: <span class="hljs-built_in">string</span>;
-  completed: <span class="hljs-built_in">boolean</span>;
-};
-
-<span class="hljs-keyword">type</span> TodoCollection = <span class="hljs-built_in">Array</span>&#x3C;Todo>;
-</code></pre>
-</section><section class="slide"><h2>Types and objects</h2>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> Todo = {
-  <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span>;
-  title: <span class="hljs-built_in">string</span>;
-  completed: <span class="hljs-built_in">boolean</span>;
-  <span class="hljs-comment">// optional</span>
-  description?: <span class="hljs-built_in">string</span>;
-  <span class="hljs-comment">// method</span>
-  toggle: <span class="hljs-function">(<span class="hljs-params">id: <span class="hljs-built_in">number</span></span>) =></span> <span class="hljs-built_in">void</span>;
-};
-</code></pre>
-</section><section class="slide"><h2>Type declarations for libraries</h2>
-<p>Some JavaScript libraries come with type declarations for TypeScript included - e.g. <em>redux</em>.</p>
-<p>For other libraries there are usually external declaration packages that are prefixed with <em>@types/</em>; e.g. for <em>react</em> there's the package <em>@types/react</em>.</p>
 </section></section><section class="slides-section"><section class="slide"><h1>React and TypeScript</h1>
+</section><section class="slide"><h2>TypeScript basics</h2>
+<p>see presentation <a href="./typescript-en.html">TypeScript</a></p>
 </section><section class="slide"><h2>Event types</h2>
 <p>When using <em>inline</em> event handlers, event types can be inferred directly:</p>
 <pre><code class="hljs language-jsx">&#x3C;button

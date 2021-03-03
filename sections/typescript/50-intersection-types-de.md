@@ -1,20 +1,4 @@
-# Union types and intersection types
-
-## Union Types
-
-```ts
-type x = a | b;
-```
-
-Der Typ `x` muss entweder alle Kriterien von `a` erfüllen oder alle Kriterien von `b` erfüllen.
-
-Alternative Schreibweise über mehrere Zeilen:
-
-```ts
-type TodoActionType =
-  | AddTodoActionType
-  | ToggleTodoActionType;
-```
+# Intersection Types
 
 ## Intersection Types
 

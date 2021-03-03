@@ -1,6 +1,6 @@
-<!-- closely realated content in presentations typescript and react-->
-
 # TypeScript Basics
+
+<!-- closely realated content in presentations typescript and react-->
 
 ## TypeScript
 
@@ -21,40 +21,54 @@ data types may be specified in order to support the development environment:
 
 during build: TypeScript is translated to JavaScript, all type information is discarded
 
+## Type declarations for libraries
+
+some libraries include TypeScript declarations - e.g. _redux_.
+
+other popular libraries mostly have type declaration packages that are prefixed with _@types_
+
+e.g. for _react_: _@types/react_
+
+# Data types and type declarations
+
+## Data types
+
+- boolean
+- number
+- string
+- array
+- object
+- tuple
+- any
+
 ## Variable types
 
-Variable types are usually detected automatically
+variable types can be specified when declaring variables:
 
-_explicitly_ declaring variable types:
+```ts
+let age: number = 32;
+```
+
+```ts
+let age: number;
+age = 32;
+age++;
+```
+
+## Type inference
+
+in many cases, TypeScript will know (infer) a type automatically (type annotation not needed):
+
+```ts
+let age = 32;
+```
+
+## Primitive types
 
 ```ts
 const age: number = 32;
-const name: string = 'Samuel';
+const name: string = 'Alice';
 const loggedIn: boolean = true;
-```
-
-## Function types
-
-```ts
-function shorten(text: string, maxLen: number): string {
-  // ...
-}
-```
-
-```ts
-const shorten = (text: string, maxLen: number): string => {
-  // ...
-};
-```
-
-## Function types
-
-Functions without a return value: `void`
-
-```ts
-const logMessage = (message: string): void => {
-  console.log(message);
-};
 ```
 
 ## Array types
@@ -70,6 +84,171 @@ alternative syntax:
 let names: string[] = [];
 names.push('Alice');
 ```
+
+## Object types
+
+```ts
+let viewportSize: { width: number; height: number };
+
+viewportSize = {
+  width: window.innerWidth,
+  height: window.innerHeight,
+};
+```
+
+```ts
+const todo: {
+  title: string;
+  completed: boolean;
+  // optional
+  description?: string;
+} = getTodo();
+```
+
+## Tuple types
+
+```ts
+let time: [number, number, number];
+time = [10, 45, 0];
+```
+
+```ts
+let paperFormat: [string, number];
+paperFormat = ['A', 4];
+```
+
+## Any
+
+Sometimes we may want to relax the type checker:
+
+```ts
+const nameInput: any = document.getElementById(
+  'name-input'
+);
+console.log(nameInput.value);
+```
+
+Declaring a variable as `any` enables accessing arbitrary properties
+
+# Type aliases
+
+## Type aliases
+
+With _type aliases_ we can store a type declaration under a name
+
+```ts
+type Todo = {
+  title: string;
+  completed: boolean;
+  description?: string;
+};
+```
+
+```ts
+type TodoCollection = Array<Todo>;
+```
+
+```ts
+type Time = [number, number, number];
+```
+
+## Using type aliases
+
+```ts
+const todo: Todo = {
+  title: 'learn TypeScript',
+  completed: false,
+};
+```
+
+```ts
+const now: Time = [10, 45, 0];
+```
+
+## Type aliases and interfaces
+
+_interfaces_ could be an alternative for type aliases - they can be applied in similar scenarios but have different syntaxes
+
+# Function signatures and function types
+
+## Function signatures
+
+```ts
+function shorten(text: string, maxLen: number): string {
+  // ...
+}
+```
+
+```ts
+const shorten = (text: string, maxLen: number): string => {
+  // ...
+};
+```
+
+## Function signatures
+
+Functions without a return value: `void`
+
+```ts
+const logMessage = (message: string): void => {
+  console.log(message);
+};
+```
+
+## Function types
+
+declaring a type alias for a function:
+
+```ts
+type Logger = (message: string) => void;
+```
+
+applying the type alias:
+
+```ts
+const log: Logger = (message) => {
+  console.log(message);
+};
+const logUpper: Logger = (message) => {
+  console.log(message.toUpperCase());
+};
+```
+
+# Type assertions
+
+## Type assertions
+
+Type assertions enable treating an existing object as a specific type
+
+this fails:
+
+```ts
+// type: HTMLElement or null
+const nameInput = document.getElementById('name-input');
+console.log(nameInput.value);
+```
+
+this works:
+
+```ts
+const nameInput = document.getElementById(
+  'name-input'
+) as HTMLInputElement;
+console.log(myInput.value);
+```
+
+## Type assertions
+
+type assertions can also work with `any`:
+
+```ts
+const nameInput = document.getElementById(
+  'name-input'
+) as any;
+console.log(nameInput.value);
+```
+
+# Generics
 
 ## Generics
 
@@ -91,87 +270,51 @@ class MyComp extends Component<MyProps, MyState> {
 }
 ```
 
-## Type assertions
+# Union types
 
-Type assertions enable treating an existing object as a specific type
+## Union types
 
-fails:
-
-```ts
-// type: HTMLElement or null
-const nameInput = document.getElementById('name-input');
-console.log(nameInput.value);
-```
-
-works:
+for variables that can be one of multiple types:
 
 ```ts
-const nameInput = document.getElementById(
-  'name-input'
-) as HTMLInputElement;
-console.log(myInput.value);
+let rgbColor: string | [number, number, number] | null;
+
+rgbColor = '#ff0000';
+rgbColor = [255, 0, 0];
 ```
 
-## Any
-
-Any: variable can be of any type - arbitrary properties may be accessed
+## Union types and type aliases
 
 ```ts
-const nameInput = document.getElementById(
-  'name-input'
-) as any;
-console.log(nameInput.value);
+type RgbColor = string | [number, number, number];
 ```
 
-## Type declarations for libraries
+alternative notation for long declarations across multiple lines:
 
-Some JavaScript libraries come with type declarations for TypeScript included - e.g. _redux_.
-
-For other libraries there are usually external declaration packages that are prefixed with _@types/_; e.g. for _react_ there's the package _@types/react_.
+```ts
+type TodoAction =
+  | AddTodoAction
+  | DeleteTodoAction
+  | ToggleTodoAction;
+```
 
 <!-- closely realated content in presentations typescript and react-->
 
-# Type and interface declarations
+# Type aliases and interfaces
 
-## Type and interface declarations
+## Type aliases and interfaces
 
-**Interfaces** describe the structure of an object / of a class in detail (e.g.: `Todo`, `Person`)
+_Type aliases_: allow for storing a type declaration under a name
 
-**Types**: similar to interfaces, but are also applicable to strings, arrays, ...
+_Interfaces_: similar functionality, different syntax, somewhat limited functionality
 
-## Types and interfaces
+## Type aliases and interfaces
 
-Essentialy types offer more functionality than interfaces
+detailed comparison of type aliases and interfaces:
 
 <https://stackoverflow.com/a/52682220/>
 
-## Types
-
-```ts
-type Todo = {
-  id: number;
-  title: string;
-  completed: boolean;
-};
-
-type TodoCollection = Array<Todo>;
-```
-
-## Types and objects
-
-```ts
-type Todo = {
-  id: number;
-  title: string;
-  completed: boolean;
-  // optional
-  description?: string;
-  // method
-  toggle: (id: number) => void;
-};
-```
-
-## Types / interfaces and classes
+## Types aliases / interfaces and classes
 
 ```ts
 class ShoppingListItem implements Todo {
@@ -179,38 +322,22 @@ class ShoppingListItem implements Todo {
 }
 ```
 
-# Union types and intersection types
+# Intersection types
 
-## Union Types
-
-```ts
-type x = a | b;
-```
-
-The type `x` must either fulfil all criteria of `a` or all criteria of `b`.
-
-Alternative notation across multiple lines:
-
-```ts
-type TodoActionType =
-  | AddTodoActionType
-  | ToggleTodoActionType;
-```
-
-## Intersection Types
+## Intersection types
 
 Via `&`:
 
 ```ts
-type x = a & b;
+type X = A & B;
 ```
 
-With regards to `a` the intersection type `x` may:
+With regards to `A` the intersection type `X` may:
 
 - restrict the values of existing properties
 - add additional required properties
 
-## Intersection Types: Restricting values
+## Intersection types: restricting values
 
 example from Redux:
 
@@ -226,7 +353,7 @@ type AddTodoAction = Action & {
 };
 ```
 
-## Intersection Types: Combining Types
+## Intersection types: combining types
 
 ```ts
 type Serializable = {

@@ -1,35 +1,19 @@
-# Union types and intersection types
+# Intersection types
 
-## Union Types
-
-```ts
-type x = a | b;
-```
-
-The type `x` must either fulfil all criteria of `a` or all criteria of `b`.
-
-Alternative notation across multiple lines:
-
-```ts
-type TodoActionType =
-  | AddTodoActionType
-  | ToggleTodoActionType;
-```
-
-## Intersection Types
+## Intersection types
 
 Via `&`:
 
 ```ts
-type x = a & b;
+type X = A & B;
 ```
 
-With regards to `a` the intersection type `x` may:
+With regards to `A` the intersection type `X` may:
 
 - restrict the values of existing properties
 - add additional required properties
 
-## Intersection Types: Restricting values
+## Intersection types: restricting values
 
 example from Redux:
 
@@ -45,7 +29,7 @@ type AddTodoAction = Action & {
 };
 ```
 
-## Intersection Types: Combining Types
+## Intersection types: combining types
 
 ```ts
 type Serializable = {

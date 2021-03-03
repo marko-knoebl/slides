@@ -524,7 +524,7 @@ function useTodos() {
     todos,
     isLoading,
     reload,
-    // ...
+    // ... (addTodo, deleteTodo, toggleTodo)
   };
 }
 ```
