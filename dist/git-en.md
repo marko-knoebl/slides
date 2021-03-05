@@ -340,6 +340,10 @@ some feature branches must be big, e.g. _port-to-typescript_
 
 ## Feature branch workflow
 
+after being combined / merged back into the master branch, feature branches are usually deleted
+
+## Feature branch workflow
+
 example: developers are working on two different tasks at the same time:
 
 ```txt

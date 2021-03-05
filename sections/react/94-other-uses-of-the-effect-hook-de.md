@@ -13,14 +13,16 @@ Conter, der den eigenen Wert abspeichert, wenn dieser sich ändert:
 
 ```jsx
 function PersistentCounter() {
-  // useState can receive an initial value
-  // or an initializer function
-  const [count, setCount] = useState(
-    () => Number(localStorage.getItem('count')) || 0
-  );
-  function saveCount() {
-    localStorage.setItem('count', count);
+  const [count, setCount] = useState(null);
+  function loadCount() {
+    setCount(Number(localStorage.getItem('count')));
   }
+  function saveCount() {
+    if (count !== null) {
+      localStorage.setItem('count', count);
+    }
+  }
+  useEffect(loadCount, []);
   useEffect(saveCount, [count]);
   return (
     <button onClick={() => setCount(count + 1)}>

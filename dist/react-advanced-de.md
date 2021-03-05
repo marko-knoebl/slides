@@ -16,9 +16,25 @@
 
 # React Router
 
-## React Router
+## Client-seitiges Routing
 
 **client-seitiges Routing**: Navigieren zwischen verschiedenen Ansichten, ohne die React-Anwendung zu verlassen
+
+## Client-seitiges Routing
+
+Optionen:
+
+hash-basiertes Client-seitiges Routing, z.B.:
+
+- `example.com/#/home`
+- `example.com/#/shop/cart`
+
+Client-seitiges Routing basierend auf dem _History API_, z.B.:
+
+- `example.com/home`
+- `example.com/shop/cart`
+
+Für die zweite Option muss der Server zusätzlich konfiguriert werden
 
 ## Versionen und Installation
 
@@ -449,6 +465,31 @@ können verwendet werden, um bestimmte Aspekte aus der Komponentendefinition zu 
 
 werden als Funktionen definiert, die wiederum auf bestehende Hooks, wie `useState` oder `useEffect` zurückgreifen
 
+## Eigene Hooks - useExchangeRate
+
+Hook, der den Wechselkurs zwischen ausgewählten Währungen bereitstellt (siehe früheres Beispiel):
+
+```js
+function useExchangeRate(from, to) {
+  const [rate, setRate] = useState(null);
+  const [status, setStatus] = useState('loading');
+  async function loadExchangeRateAsync() {
+    try {
+      const newRate = await fetchExchangeRate();
+      setRate(newRate);
+      setStatus('success');
+    } catch {
+      setRate(null);
+      setStatus('error');
+    }
+  }
+  useEffect(() => {
+    loadExchangeRateAsync();
+  }, [from, to]);
+  return { status, rate };
+}
+```
+
 ## Eigene Hooks - useTodos
 
 Beispiel: `useTodos` - kann verwendet werden, um die Datenverwaltung von der Komponentendefinition loszulösen (Trennung von _model_ und _view_)
@@ -556,47 +597,6 @@ const useDate = (interval) => {
   }, []);
   return date;
 };
-```
-
-## Eigene Hooks - useExchangerate
-
-hook that provides the exchange rate for selected currencies
-
-```js
-function useExchangeRate(from, to) {
-  const [rate, setRate] = useState(null);
-  const [status, setStatus] = useState('loading');
-  async function loadExchangeRateAsync() {
-    try {
-      const newRate = await fetchExchangeRate();
-      setRate(newRate);
-      setStatus('success');
-    } catch {
-      setRate(null);
-      setStatus('error');
-    }
-  }
-  function loadExchangeRate() {
-    loadExchangeRateAsync();
-  }
-  useEffect(loadExchangeRate, [from, to]);
-  return { status, rate };
-}
-```
-
-## Eigene Hooks - useExchangerate
-
-```js
-async function fetchExchangeRate(from, to) {
-  const res = await fetch(
-    'https://api.exchangeratesapi.io/latest?base=' +
-      from.toUpperCase() +
-      '&symbols=' +
-      to.toUpperCase()
-  );
-  const data = await res.json();
-  return data.rates[to.toUpperCase()];
-}
 ```
 
 ## Eigene Hooks - Übung
@@ -1147,13 +1147,21 @@ errors.email ? <div>invalid email</div> : null;
 useForm({ mode: 'onSubmit' });
 ```
 
-mögliche Modes:
+`mode`: wann soll ein Wert zum ersten Mal validiert werden?
 
 - `onSubmit` (Standard)
-- `onBlur` - Validierung, wenn der Input den Fokus verliert
-- `onTouched` - Validierung, wenn der Input den Fokus verliert; danach bei jeder Änderung
-- `onChange`
-- `all` - Validierung, wenn der Input sich ändert oder wenn er den Fokus verliert, ohne sich geändert zu haben
+- `onBlur` - wenn der Input den Fokus verliert oder bei Submit
+- `onTouched` - wenn der Input den Fokus verliert (wechselt nicht zu `reValidateMode`) oder bei Submit
+- `onChange` - wenn sich der Input ändert oder bei Submit
+- `all` - wenn der Input sich ändert oder wenn er den Fokus verliert, ohne sich geändert zu haben
+
+## react-hook-form: mode
+
+`reValidateMode`: wenn das Form submittet wurde und ein Fehler auftrat, wann sollte der Wert erneut validiert werden?
+
+- `onSubmit`
+- `onBlur`
+- `onChange` (Standard)
 
 ## react-hook-form: reset
 
@@ -1426,6 +1434,8 @@ _create-react-app_ kann Projekte mit PWA-Unterstützung erstellen:
 npx create-react-app myapp --template cra-template-pwa
 npx create-react-app myapp --template cra-template-pwa-typescript
 ```
+
+_Codesandbox_ beinhaltet grundlegende Unterstützung für PWAs
 
 ## PWAs
 

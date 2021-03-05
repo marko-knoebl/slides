@@ -30,6 +30,10 @@ test("displays page with title 'React App'", async () => {
 });
 ```
 
+## Testen einer React-Anwendung mit Puppeteer
+
+Übung: Überpfüge, ob die Todo-Anwendung die richtige Anzahl an _li_-Elementen anzeigt
+
 ## Puppeteer
 
 Siehe auch: [Rajat S: Testing your React App with Puppeteer and Jest](https://blog.bitsrc.io/testing-your-react-app-with-puppeteer-and-jest-c72b3dfcde59)

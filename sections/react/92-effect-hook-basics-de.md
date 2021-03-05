@@ -23,19 +23,22 @@ kann verwendet werden, um _side effects_ auszulösen:
 
 ## Effect Hook
 
+Beispiel: Laden von Umrechnungskursen, wenn die Komponente zum ersten Mal eingebunden wird oder wenn sich eine Währung ändert:
+
+```ts
+const [from, setFrom] = useState('USD');
+const [to, setTo] = useState('EUR');
+const [rate, setRate] = useState<number | null>(null);
+function loadExchangeRate() {
+  // ...
+}
+useEffect(loadExchangeRate, [from, to]);
+```
+
 Beispiel: Laden von Todos, wenn die Komponente zum ersten Mal eingebunden wird:
 
 ```js
-function loadTodos() {
-  // ...
-}
-useEffect(loadTodos, []);
-```
-
-Beispiel: Laden eines einzelnen Todos, wenn die Komponente zum ersten Mal eingebunden wird oder wenn sich `todoId` ändert:
-
-```js
-const [todoId, setTodoId] = useState(0);
+const [todos, setTodos] = useState([]);
 function loadTodo() {
   // ...
 }

@@ -1,8 +1,24 @@
 # React Router
 
-## React Router
+## Client-side routing
 
 **client-side routing**: navigating between views without leaving the React app
+
+## Client side routing
+
+options:
+
+hash-based client-side routing, e.g.:
+
+- `example.com/#/home`
+- `example.com/#/shop/cart`
+
+client-side routing based on on the _history API_, e.g.:
+
+- `example.com/home`
+- `example.com/shop/cart`
+
+for the second method, the server needs additional configuration
 
 ## Versions and Installation
 

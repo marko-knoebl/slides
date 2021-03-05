@@ -54,7 +54,7 @@ The `register` function can take some parameters that specify field validation:
 - `min`, `max`
 - `minLength`, `maxLength`
 - `pattern`
-- `validate`
+- `validate` (custom validation function)
 
 ## react-hook-form: errors
 
@@ -85,16 +85,24 @@ errors.email ? <div>invalid email</div> : null;
 ## react-hook-form: mode
 
 ```js
-useForm({ mode: 'onSubmit' });
+useForm({ mode: 'onTouched' });
 ```
 
-modes:
+`mode`: when should the value be validated initially?
 
 - `onSubmit` (default)
-- `onBlur` - validation happens when the input loses focus
-- `onTouched` - validation happens when the input loses focus for the first time; after that, validation happens on every change
-- `onChange`
-- `all` - validation happens when the input changes or when it loses focus without being changed
+- `onTouched` - when the input loses focus or on submit
+- `onBlur` - when the input loses focus (does not switch to `reValidateMode`) or on submit
+- `onChange` - when the input changes or on submit
+- `all` - when the input changes or when it loses focus without being changed
+
+## react-hook-form: mode
+
+`reValidateMode`: if the user has submitted the form and there was an error, when should the value be re-validated?
+
+- `onSubmit`
+- `onBlur`
+- `onChange` (default)
 
 ## react-hook-form: reset
 

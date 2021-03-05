@@ -16,9 +16,25 @@
 
 # React Router
 
-## React Router
+## Client-side routing
 
 **client-side routing**: navigating between views without leaving the React app
+
+## Client side routing
+
+options:
+
+hash-based client-side routing, e.g.:
+
+- `example.com/#/home`
+- `example.com/#/shop/cart`
+
+client-side routing based on on the _history API_, e.g.:
+
+- `example.com/home`
+- `example.com/shop/cart`
+
+for the second method, the server needs additional configuration
 
 ## Versions and Installation
 
@@ -449,6 +465,31 @@ Custom hooks can be used to extract logic from function components
 
 They are functions which in turn use existing hooks like `useState` or `useEffect`
 
+## Custom hooks - useExchangeRate
+
+hook that provides the exchange rate for selected currencies (see earlier example):
+
+```js
+function useExchangeRate(from, to) {
+  const [rate, setRate] = useState(null);
+  const [status, setStatus] = useState('loading');
+  async function loadExchangeRateAsync() {
+    try {
+      const newRate = await fetchExchangeRate();
+      setRate(newRate);
+      setStatus('success');
+    } catch {
+      setRate(null);
+      setStatus('error');
+    }
+  }
+  useEffect(() => {
+    loadExchangeRateAsync();
+  }, [from, to]);
+  return { status, rate };
+}
+```
+
 ## Custom hooks - useTodos
 
 Example: `useTodos` - can be used to extract data handling from the component definition (separating the _model_ from the _view_)
@@ -556,47 +597,6 @@ const useDate = (interval) => {
   }, []);
   return date;
 };
-```
-
-## Custom hooks - useExchangeRate
-
-hook that provides the exchange rate for selected currencies
-
-```js
-function useExchangeRate(from, to) {
-  const [rate, setRate] = useState(null);
-  const [status, setStatus] = useState('loading');
-  async function loadExchangeRateAsync() {
-    try {
-      const newRate = await fetchExchangeRate();
-      setRate(newRate);
-      setStatus('success');
-    } catch {
-      setRate(null);
-      setStatus('error');
-    }
-  }
-  function loadExchangeRate() {
-    loadExchangeRateAsync();
-  }
-  useEffect(loadExchangeRate, [from, to]);
-  return { status, rate };
-}
-```
-
-## Custom hooks - useExchangeRate
-
-```js
-async function fetchExchangeRate(from, to) {
-  const res = await fetch(
-    'https://api.exchangeratesapi.io/latest?base=' +
-      from.toUpperCase() +
-      '&symbols=' +
-      to.toUpperCase()
-  );
-  const data = await res.json();
-  return data.rates[to.toUpperCase()];
-}
 ```
 
 ## Custom hooks - exercise
@@ -1113,7 +1113,7 @@ The `register` function can take some parameters that specify field validation:
 - `min`, `max`
 - `minLength`, `maxLength`
 - `pattern`
-- `validate`
+- `validate` (custom validation function)
 
 ## react-hook-form: errors
 
@@ -1144,16 +1144,24 @@ errors.email ? <div>invalid email</div> : null;
 ## react-hook-form: mode
 
 ```js
-useForm({ mode: 'onSubmit' });
+useForm({ mode: 'onTouched' });
 ```
 
-modes:
+`mode`: when should the value be validated initially?
 
 - `onSubmit` (default)
-- `onBlur` - validation happens when the input loses focus
-- `onTouched` - validation happens when the input loses focus for the first time; after that, validation happens on every change
-- `onChange`
-- `all` - validation happens when the input changes or when it loses focus without being changed
+- `onTouched` - when the input loses focus or on submit
+- `onBlur` - when the input loses focus (does not switch to `reValidateMode`) or on submit
+- `onChange` - when the input changes or on submit
+- `all` - when the input changes or when it loses focus without being changed
+
+## react-hook-form: mode
+
+`reValidateMode`: if the user has submitted the form and there was an error, when should the value be re-validated?
+
+- `onSubmit`
+- `onBlur`
+- `onChange` (default)
 
 ## react-hook-form: reset
 
@@ -1426,6 +1434,8 @@ _create-react-app_ can be used to initialize React projects with basic PWA suppo
 npx create-react-app myapp --template cra-template-pwa
 npx create-react-app myapp --template cra-template-pwa-typescript
 ```
+
+_Codesandbox_ has built-in support for very basic PWAs
 
 ## PWAs
 

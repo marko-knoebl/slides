@@ -1361,6 +1361,29 @@ sometimes the development server will keep displaying an error even though it ha
 
 stop the server (ctrl-C) and restart it to fix this
 
+# Build and deployment
+
+## Build and deployment
+
+A React project can be hosted on any static hosting service
+
+## Build
+
+build with create-react-app:
+
+```bash
+npm run build
+```
+
+minified and bundled app is created in the _build_ folder
+
+## Deployment
+
+simple options for trying out deployment options without login:
+
+- <https://netlify.com/drop> (hosting for 24 hours)
+- <https://tiiny.host/> (upload via a zip folder, hosting for a couple of days)
+
 # React developer tools
 
 ## React developer tools
@@ -1375,6 +1398,13 @@ features:
 - show component state and props
 - change state and props
 - analyze render performance of components
+
+## React developer tools
+
+possible approach when looking for issues:
+
+- check state update logic: state updates correctly in response to events
+- check rendering logic: state is rendered as expected
 
 # React and TypeScript
 
@@ -1465,9 +1495,9 @@ React+TypeScript Cheatsheets: <https://github.com/typescript-cheatsheets/react>
 Create a todolist application with the following functionality:
 
 - displaying completed and incomplete todos
+- adding a new todo from a form
 - toggling the completed state of a todo
 - deleting a todo
-- adding a new todo from a form
 
 # Components
 
@@ -1575,24 +1605,6 @@ const ProgressBar = ({ value, color }: Props) => {
 };
 ```
 
-## props.children
-
-A component may receive content to be displayed via `props.children`
-
-Example: a `Bordered` component:
-
-```jsx
-<Bordered>lorem ipsum</Bordered>
-```
-
-component definition:
-
-```jsx
-const Bordered = (props) => (
-  <div className="bordered">{props.children}</div>
-);
-```
-
 # Component events
 
 ## Data/event flow
@@ -1667,6 +1679,39 @@ shorter notation:
 
 ```jsx
 <Rating value={prodRating} onChange={setProdRating} />
+```
+
+# Passing content to components
+
+## Passing content to components
+
+A component may receive content to be displayed via `props.children`
+
+possible usage:
+
+```jsx
+<Notification type="error">
+  <p>Changes could not be saved</p>
+</Notification>
+```
+
+## Passing content to components
+
+component definition:
+
+```jsx
+type Props = {
+  type: string,
+  children: React.ReactNode,
+};
+
+const Notification = (props: Props) => {
+  let style = {
+    backgroundColor:
+      props.type === 'error' ? 'salmon' : 'lightblue',
+  };
+  return <div style={style}>{props.children}</div>;
+};
 ```
 
 # Exercises (components)
@@ -1805,19 +1850,24 @@ may be used to perform _side effects_ in components:
 
 ## Effect hook
 
+example: loading exchange rates when the component is first mounted and whenever a currency changes:
+
+```js
+const [from, setFrom] = useState('USD');
+const [to, setTo] = useState('EUR');
+const [rate, setRate] = (useState < number) | (null > null);
+function loadExchangeRate() {
+  // ...
+}
+useEffect(loadExchangeRate, [from, to]);
+```
+
+## Effect hook
+
 example: loading a set of todos when the component is first mounted:
 
 ```js
-function loadTodos() {
-  // ...
-}
-useEffect(loadTodos, []);
-```
-
-example: loading a single todo when the component is first mounted or whenever `todoId` changes:
-
-```js
-const [todoId, setTodoId] = useState(0);
+const [todos, setTodos] = useState([]);
 function loadTodo() {
   // ...
 }
@@ -1830,81 +1880,150 @@ useEffect(loadTodo, [todoId]);
 
 Often, API queries must be initiated when a component is included for the first time or when a component's props or state have changed
 
-## Effect hook for querying APIs
+## Example: loading exchange rate data
 
-example: loading todos via `fetch` and `.then`:
+example: loading exchange rate data from an API when selected currencies change:
 
 ```js
-const [todos, setTodos] = useState([]);
-function loadTodos() {
-  fetchTodos().then(setTodos);
+function ExchangeRate() {
+  const [from, setFrom] = useState('USD');
+  const [to, setTo] = useState('EUR');
+  const [rate, setRate] = useState(null);
+  function loadExchangeRate() {
+    fetchExchangeRate(from, to)
+      .then((r) => setRate(r))
+      .catch(() => setRate(null));
+  }
+  useEffect(loadExchangeRate, [from, to]);
+
+  // render two dropdowns for selecting currencies
+  // and show the exchange rate
 }
-useEffect(loadTodos, []);
 ```
 
-## Effect hook for querying APIs
+## Example: loading exchange rate data
+
+function that fetches data:
+
+```ts
+async function fetchExchangeRate(
+  from: string,
+  to: string
+): Promise<number> {
+  const res = await fetch(
+    'https://api.exchangeratesapi.io/latest?base=' +
+      from.toUpperCase() +
+      '&symbols=' +
+      to.toUpperCase()
+  );
+  const data = await res.json();
+  return data.rates[to.toUpperCase()];
+}
+```
+
+## Example: loading exchange rate data
+
+complete code:
+
+```tsx
+// https://codesandbox.io/s/use-effect-exchange-rate-szje3
+import { useState, useEffect } from 'react';
+
+const currencies = ['USD', 'EUR', 'JPY', 'GBP'];
+async function fetchExchangeRate(
+  from: string,
+  to: string
+): Promise<number> {
+  const res = await fetch(
+    'https://api.exchangeratesapi.io/latest?base=' +
+      from.toUpperCase() +
+      '&symbols=' +
+      to.toUpperCase()
+  );
+  const data = await res.json();
+  return data.rates[to.toUpperCase()];
+}
+
+function ExchangeRate() {
+  const [from, setFrom] = useState('USD');
+  const [to, setTo] = useState('EUR');
+  const [rate, setRate] = useState<number | null>(null);
+  function loadExchangeRate() {
+    fetchExchangeRate(from, to)
+      .then((r) => setRate(r))
+      .catch(() => setRate(null));
+  }
+  useEffect(loadExchangeRate, [from, to]);
+  return (
+    <div>
+      <select
+        value={from}
+        onChange={(e) => setFrom(e.target.value)}
+      >
+        {currencies.map((c) => (
+          <option value={c}>{c}</option>
+        ))}
+      </select>
+      <select
+        value={to}
+        onChange={(e) => setTo(e.target.value)}
+      >
+        {currencies.map((c) => (
+          <option value={c}>{c}</option>
+        ))}
+      </select>
+      <div>{rate !== null ? rate : 'no data'}</div>
+    </div>
+  );
+}
+
+export default ExchangeRate;
+```
+
+## Effect hook and async functions
 
 note: the effect function **must not be** an async function
 
 The effect function should usually (implicitly) return _undefined_; an async function would always return a promise
 
-## Effect hook for querying APIs
+## Effect hook and async functions
 
 correctly querying an API with async syntax:
 
 ```js
 const [todos, setTodos] = useState([]);
-async function loadTodosAsync() {
+async function loadExchangeRate() {
   setTodos(await fetchTodos());
 }
-function loadTodos() {
-  loadTodosAsync();
-}
-useEffect(loadTodos, []);
+useEffect(
+  // regular function that calls the async function:
+  () => {
+    loadExchangeRate();
+  },
+  []
+);
 ```
 
-## Effect hook for querying APIs
+## Exercises
 
-full example: loading todos when the component has mounted
+example APIs:
 
-```js
-const TodoApp = () => {
-  const [todos, setTodos] = useState([]);
-  function loadTodos() {
-    fetchTodos().then(setTodos);
-  }
-  useEffect(loadTodos, []);
-  return (
-    <ul>
-      {todos.map((todo) => (
-        <li key={todo.id}>{todo.title}</li>
-      ))}
-    </ul>
-  );
-};
-```
+- todos: <https://jsonplaceholder.typicode.com/todos>
+- SpaceX launch data: <https://api.spacexdata.com/v3/launches/1>
+- pokémon data: <https://pokeapi.co/api/v2/pokemon/1>
+- hacker news search query: <https://hn.algolia.com/api/v1/search?query=foo>
 
-## Example: SpaceX launch data
+## Exercises
 
-Example: show data for a specific SpaceX launch based on the launch number
-
-function for fetching launch data:
-
-```js
-async function fetchLaunch(launchNr) {
-  const url =
-    'https://api.spacexdata.com/v3/launches/' +
-    launchNr.toString();
-  const res = await fetch(url);
-  const launchData = await res.json();
-  return launchData;
-}
-```
+- Load todos when the user opens the todolist application
+- Show data for a specific SpaceX launch based on the launch number
+- Show data for a pokémon based on its number
+- Show hacker news articles based on a search term
 
 ## Example: SpaceX launch data
 
 ```js
-const SpaceXLaunch = () => {
+function SpaceXLaunch() {
   const [launchNr, setLaunchNr] = useState(1);
   const [launchData, setLaunchData] = useState({});
   function loadLaunch() {
@@ -1920,26 +2039,22 @@ const SpaceXLaunch = () => {
       </button>
     </div>
   );
-};
-```
+}
 
-## Example: Pokemon data
-
-Example: show data for a specific pokemon (based on its _id_)
-
-```js
-async function fetchPokemon(pokemonId) {
-  const url = `https://pokeapi.co/api/v2/pokemon/${id}`;
+async function fetchLaunch(launchNr) {
+  const url =
+    'https://api.spacexdata.com/v3/launches/' +
+    launchNr.toString();
   const res = await fetch(url);
-  const data = await res.json();
-  return data;
+  const launchData = await res.json();
+  return launchData;
 }
 ```
 
-## Effect hook for querying APIs
+## Example: Pokemon
 
 ```js
-const Pokemon = () => {
+function Pokemon() {
   const [id, setId] = useState(1);
   const [data, setData] = useState({});
   function loadPokemon() {
@@ -1954,16 +2069,15 @@ const Pokemon = () => {
       <button onClick={() => setId(id + 1)}>next</button>
     </div>
   );
-};
+}
+
+async function fetchPokemon(pokemonId) {
+  const url = `https://pokeapi.co/api/v2/pokemon/${id}`;
+  const res = await fetch(url);
+  const data = await res.json();
+  return data;
+}
 ```
-
-## Querying APIs (effect hook)
-
-Tasks:
-
-- load and display more data
-- add a loading indicator
-- add automatic refresh every 10 seconds
 
 # Other uses of the effect hook
 
@@ -1980,14 +2094,16 @@ Counter that saves its value whenever the value changes:
 
 ```jsx
 function PersistentCounter() {
-  // useState can receive an initial value
-  // or an initializer function
-  const [count, setCount] = useState(
-    () => Number(localStorage.getItem('count')) || 0
-  );
-  function saveCount() {
-    localStorage.setItem('count', count);
+  const [count, setCount] = useState(null);
+  function loadCount() {
+    setCount(Number(localStorage.getItem('count')));
   }
+  function saveCount() {
+    if (count !== null) {
+      localStorage.setItem('count', count);
+    }
+  }
+  useEffect(loadCount, []);
   useEffect(saveCount, [count]);
   return (
     <button onClick={() => setCount(count + 1)}>

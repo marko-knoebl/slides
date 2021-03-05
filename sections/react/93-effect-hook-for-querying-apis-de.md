@@ -4,81 +4,150 @@
 
 Oft müssen API-Daten abgefragt werden, wenn eine Komponente zum ersten Mal eingebunden wurde, oder wenn sich props bzw state geändert haben
 
-## Effect Hook zum Abfragen von APIs
+## Beispiel: Laden von Wechselkursen
 
-Beispiel: Laden von Todos via `fetch` und `.then`:
+Beispiel: Laden von Wechselkursen von einem API, wenn sich die ausgewählten Währungen ändern:
 
 ```js
-const [todos, setTodos] = useState([]);
-function loadTodos() {
-  fetchTodos().then(setTodos);
+function ExchangeRate() {
+  const [from, setFrom] = useState('USD');
+  const [to, setTo] = useState('EUR');
+  const [rate, setRate] = useState(null);
+  function loadExchangeRate() {
+    fetchExchangeRate(from, to)
+      .then((r) => setRate(r))
+      .catch(() => setRate(null));
+  }
+  useEffect(loadExchangeRate, [from, to]);
+
+  // render two dropdowns for selecting currencies
+  // and show the exchange rate
 }
-useEffect(loadTodos, []);
 ```
 
-## Effect Hook zum Abfragen von APIs
+## Beispiel: Laden von Wechselkursen
 
-Bemerkung: Die Effect-Funktion darf **keine** async-Funktion sein
+Funktion, die Daten lädt:
+
+```ts
+async function fetchExchangeRate(
+  from: string,
+  to: string
+): Promise<number> {
+  const res = await fetch(
+    'https://api.exchangeratesapi.io/latest?base=' +
+      from.toUpperCase() +
+      '&symbols=' +
+      to.toUpperCase()
+  );
+  const data = await res.json();
+  return data.rates[to.toUpperCase()];
+}
+```
+
+## Beispiel: Laden von Wechselkursen
+
+vollständiger Code:
+
+```tsx
+// https://codesandbox.io/s/use-effect-exchange-rate-szje3
+import { useState, useEffect } from 'react';
+
+const currencies = ['USD', 'EUR', 'JPY', 'GBP'];
+async function fetchExchangeRate(
+  from: string,
+  to: string
+): Promise<number> {
+  const res = await fetch(
+    'https://api.exchangeratesapi.io/latest?base=' +
+      from.toUpperCase() +
+      '&symbols=' +
+      to.toUpperCase()
+  );
+  const data = await res.json();
+  return data.rates[to.toUpperCase()];
+}
+
+function ExchangeRate() {
+  const [from, setFrom] = useState('USD');
+  const [to, setTo] = useState('EUR');
+  const [rate, setRate] = useState<number | null>(null);
+  function loadExchangeRate() {
+    fetchExchangeRate(from, to)
+      .then((r) => setRate(r))
+      .catch(() => setRate(null));
+  }
+  useEffect(loadExchangeRate, [from, to]);
+  return (
+    <div>
+      <select
+        value={from}
+        onChange={(e) => setFrom(e.target.value)}
+      >
+        {currencies.map((c) => (
+          <option value={c}>{c}</option>
+        ))}
+      </select>
+      <select
+        value={to}
+        onChange={(e) => setTo(e.target.value)}
+      >
+        {currencies.map((c) => (
+          <option value={c}>{c}</option>
+        ))}
+      </select>
+      <div>{rate !== null ? rate : 'no data'}</div>
+    </div>
+  );
+}
+
+export default ExchangeRate;
+```
+
+## Effect Hook und async-Funktionen
+
+Bemerkung: Die Effekt-Funktion darf **keine** async-Funktion sein
 
 Die Effekt-Funktion sollte üblicherweise (implizit) _undefined_ zurückgeben; eine async-Funktion würde immer ein Promise zurückgeben
 
-## Effect Hook zum Abfragen von APIs
+## Effect Hook und async-Funktionen
 
-Korrekte Methode, um mit _async_ ein API abzufragen:
+korrekte Abfrage eines APIs mit async-Syntax:
 
 ```js
 const [todos, setTodos] = useState([]);
-async function loadTodosAsync() {
+async function loadExchangeRate() {
   setTodos(await fetchTodos());
 }
-function loadTodos() {
-  loadTodosAsync();
-}
-useEffect(loadTodos, []);
+useEffect(
+  // regular function that calls the async function:
+  () => {
+    loadExchangeRate();
+  },
+  []
+);
 ```
 
-## Effect Hook zum Abfragen von APIs
+## Übungen
 
-vollständiges Beispiel: Laden von Todos, wenn die Komponente eingebunden wurde
+Beispiele von abfragbaren APIs:
 
-```js
-const TodoApp = () => {
-  const [todos, setTodos] = useState([]);
-  function loadTodos() {
-    fetchTodos().then(setTodos);
-  }
-  useEffect(loadTodos, []);
-  return (
-    <ul>
-      {todos.map((todo) => (
-        <li key={todo.id}>{todo.title}</li>
-      ))}
-    </ul>
-  );
-};
-```
+- Todos: https://jsonplaceholder.typicode.com/todos
+- SpaceX Startdaten: https://api.spacexdata.com/v3/launches/1
+- Pokemon-Daten: https://pokeapi.co/api/v2/pokemon/1
+- hacker news Suchanfrage: https://hn.algolia.com/api/v1/search?query=foo
 
-## Beispiel: SpaceX Startdaten
+## Übungen
 
-Beispiel: Laden von SpaceX Startdaten, wenn die Komponente eingebunden wurde oder wenn sich `launchNr` geändert hat
-
-Funktion zum Laden von Daten:
-
-```js
-async function fetchLaunch(launchNr) {
-  const url =
-    'https://api.spacexdata.com/v3/launches/' +
-    launchNr.toString();
-  const res = await fetch(url);
-  const launchData = await res.json();
-  return launchData;
-}
-```
+- Lade Todos, wenn der Benutzer die Todolist-Anwendung öffnet
+- Zeige Daten zu einem bestimmten SpaceX-Start basierend auf der Startnummer
+- Zeige Daten zu einem bestimmten Pokémon basierend auf der Nummer
+- Zeige Hacker News Artikel basierend auf einem Suchbegriff
 
 ## Beispiel: SpaceX Startdaten
 
 ```js
-const SpaceXLaunch = () => {
+function SpaceXLaunch() {
   const [launchNr, setLaunchNr] = useState(1);
   const [launchData, setLaunchData] = useState({});
   function loadLaunch() {
@@ -94,26 +163,22 @@ const SpaceXLaunch = () => {
       </button>
     </div>
   );
-};
+}
+
+async function fetchLaunch(launchNr) {
+  const url =
+    'https://api.spacexdata.com/v3/launches/' +
+    launchNr.toString();
+  const res = await fetch(url);
+  const launchData = await res.json();
+  return launchData;
+}
 ```
 
 ## Beispiel: Pokemon-Daten
 
-Beispiel: Anzeigen von Daten zu einem bestimmten Pokémon (basierend auf dessen _id_)
-
 ```js
-async function fetchPokemon(pokemonId) {
-  const url = `https://pokeapi.co/api/v2/pokemon/${id}`;
-  const res = await fetch(url);
-  const data = await res.json();
-  return data;
-}
-```
-
-## Effect Hook zum Abfragen von APIs
-
-```js
-const Pokemon = () => {
+function Pokemon() {
   const [id, setId] = useState(1);
   const [data, setData] = useState({});
   function loadPokemon() {
@@ -128,13 +193,12 @@ const Pokemon = () => {
       <button onClick={() => setId(id + 1)}>next</button>
     </div>
   );
-};
+}
+
+async function fetchPokemon(pokemonId) {
+  const url = `https://pokeapi.co/api/v2/pokemon/${id}`;
+  const res = await fetch(url);
+  const data = await res.json();
+  return data;
+}
 ```
-
-## Effect Hook zum Abfragen von APIs
-
-Übungen:
-
-- Laden und Anzeigen von weiteren Daten
-- Indikator, dass geladen wird
-- Automatische Aktualisierung alle 10 Sekunden

@@ -6,6 +6,31 @@ können verwendet werden, um bestimmte Aspekte aus der Komponentendefinition zu 
 
 werden als Funktionen definiert, die wiederum auf bestehende Hooks, wie `useState` oder `useEffect` zurückgreifen
 
+## Eigene Hooks - useExchangeRate
+
+Hook, der den Wechselkurs zwischen ausgewählten Währungen bereitstellt (siehe früheres Beispiel):
+
+```js
+function useExchangeRate(from, to) {
+  const [rate, setRate] = useState(null);
+  const [status, setStatus] = useState('loading');
+  async function loadExchangeRateAsync() {
+    try {
+      const newRate = await fetchExchangeRate();
+      setRate(newRate);
+      setStatus('success');
+    } catch {
+      setRate(null);
+      setStatus('error');
+    }
+  }
+  useEffect(() => {
+    loadExchangeRateAsync();
+  }, [from, to]);
+  return { status, rate };
+}
+```
+
 ## Eigene Hooks - useTodos
 
 Beispiel: `useTodos` - kann verwendet werden, um die Datenverwaltung von der Komponentendefinition loszulösen (Trennung von _model_ und _view_)
@@ -113,47 +138,6 @@ const useDate = (interval) => {
   }, []);
   return date;
 };
-```
-
-## Eigene Hooks - useExchangerate
-
-hook that provides the exchange rate for selected currencies
-
-```js
-function useExchangeRate(from, to) {
-  const [rate, setRate] = useState(null);
-  const [status, setStatus] = useState('loading');
-  async function loadExchangeRateAsync() {
-    try {
-      const newRate = await fetchExchangeRate();
-      setRate(newRate);
-      setStatus('success');
-    } catch {
-      setRate(null);
-      setStatus('error');
-    }
-  }
-  function loadExchangeRate() {
-    loadExchangeRateAsync();
-  }
-  useEffect(loadExchangeRate, [from, to]);
-  return { status, rate };
-}
-```
-
-## Eigene Hooks - useExchangerate
-
-```js
-async function fetchExchangeRate(from, to) {
-  const res = await fetch(
-    'https://api.exchangeratesapi.io/latest?base=' +
-      from.toUpperCase() +
-      '&symbols=' +
-      to.toUpperCase()
-  );
-  const data = await res.json();
-  return data.rates[to.toUpperCase()];
-}
 ```
 
 ## Eigene Hooks - Übung

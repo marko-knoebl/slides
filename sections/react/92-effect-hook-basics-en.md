@@ -23,19 +23,24 @@ may be used to perform _side effects_ in components:
 
 ## Effect hook
 
+example: loading exchange rates when the component is first mounted and whenever a currency changes:
+
+```js
+const [from, setFrom] = useState('USD');
+const [to, setTo] = useState('EUR');
+const [rate, setRate] = (useState < number) | (null > null);
+function loadExchangeRate() {
+  // ...
+}
+useEffect(loadExchangeRate, [from, to]);
+```
+
+## Effect hook
+
 example: loading a set of todos when the component is first mounted:
 
 ```js
-function loadTodos() {
-  // ...
-}
-useEffect(loadTodos, []);
-```
-
-example: loading a single todo when the component is first mounted or whenever `todoId` changes:
-
-```js
-const [todoId, setTodoId] = useState(0);
+const [todos, setTodos] = useState([]);
 function loadTodo() {
   // ...
 }

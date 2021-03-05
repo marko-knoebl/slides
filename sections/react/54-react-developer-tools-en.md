@@ -12,3 +12,10 @@ features:
 - show component state and props
 - change state and props
 - analyze render performance of components
+
+## React developer tools
+
+possible approach when looking for issues:
+
+- check state update logic: state updates correctly in response to events
+- check rendering logic: state is rendered as expected

@@ -1144,6 +1144,20 @@ npx create-next-app todolist --example with-typescript
 <p>Bemerkung:</p>
 <p>Manchmals zeigt der Entwicklungsserver weiter eine Fehlermeldung an, obwohl der Fehler im Code behoben wurde.</p>
 <p>Um dies zu beheben: Stoppen (Ctrl-C) und neu Starten des Servers</p>
+<h1>Build und Deployment</h1>
+<h2>Build und Deployment</h2>
+<p>Eine React-Anwendung kann bei beliebigen statischen Hosting-Services gehostet werden</p>
+<h2>Build</h2>
+<p>Build mit create-react-app:</p>
+<pre><code class="hljs language-bash">npm run build
+</code></pre>
+<p>Minifizierter und Optimierter Build wird im <em>build</em>-Ordner generiert</p>
+<h2>Deployment</h2>
+<p>einfache Test-Deployments ohne Login:</p>
+<ul>
+<li><a href="https://netlify.com/drop">https://netlify.com/drop</a> (Hosting für 24 Stunden)</li>
+<li><a href="https://tiiny.host/">https://tiiny.host/</a> (Upload via a zip-Ordner, Hosting für einige Tage)</li>
+</ul>
 <h1>React Developer Tools</h1>
 <h2>React Developer Tools</h2>
 <ul>
@@ -1157,6 +1171,12 @@ npx create-next-app todolist --example with-typescript
 <li>Anzeige von State und Props</li>
 <li>Ändern von State und Props</li>
 <li>Performanceanalyse des Renderings von Komponenten</li>
+</ul>
+<h2>React Developer Tools</h2>
+<p>mögliche Zugänge beim Suchen nach Problemen:</p>
+<ul>
+<li>Überprüfen der State-Update-Logik: State wird basierend auf ausgelösten Events korrekt aktualisiert</li>
+<li>Überprüfen der Rendering-Logik: State wird wie erwartet gerendert</li>
 </ul>
 <h1>React und TypeScript</h1>
 <h2>TypeScript Grundlagen</h2>
@@ -1218,9 +1238,9 @@ const TodoList = (props: TodoListProps) => {
 <p>Wir erstellen eine Todo-Anwendung mit der folgenden Funktionalität:</p>
 <ul>
 <li>Anzeigen erledigter und nicht-erledigter Todos</li>
+<li>Hinzufügen eines Todos mittels eines Formulars</li>
 <li>Umschalten des erledigt-Zustandes eines Todos</li>
 <li>Löschen eines Todos</li>
-<li>Hinzufügen eines Todos mittels eines Formulars</li>
 </ul>
 <h1>Komponenten</h1>
 <h2>Komponenten</h2>
@@ -1469,16 +1489,6 @@ const ProgressBar = (props: Props) => {
   // ...
 };
 </code></pre>
-<h2>props.children</h2>
-<p>Über <code>props.children</code> können Inhalte an eine Komponente übergeben werden</p>
-<p>Beispiel: <code>Bordered</code>-Komponente:</p>
-<pre><code class="hljs language-jsx">&#x3C;Bordered>lorem ipsum&#x3C;/Bordered>
-</code></pre>
-<p>Definition der Komponente:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> Bordered = <span class="hljs-function">(<span class="hljs-params">props</span>) =></span> (
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"bordered"</span>></span>{props.children}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
-);
-</code></pre>
 <h1>Komponenten-Events</h1>
 <h2>Datenfluss</h2>
 <ul>
@@ -1530,6 +1540,29 @@ const ProgressBar = (props: Props) => {
 </code></pre>
 <p>kürzere Schreibweise:</p>
 <pre><code class="hljs language-jsx">&#x3C;Rating value={prodRating} onChange={setProdRating} />
+</code></pre>
+<h1>Inhalte an Komponenten übergeben</h1>
+<h2>Inhalte an Komponenten übergeben</h2>
+<p>Eine Komponente kann anzuzeigende Inhalte via <code>props.children</code> übergeben bekommen</p>
+<p>mögliche Verwendung:</p>
+<pre><code class="hljs language-jsx">&#x3C;Notification type=<span class="hljs-string">"error"</span>>
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">p</span>></span>Changes could not be saved<span class="hljs-tag">&#x3C;/<span class="hljs-name">p</span>></span></span>
+&#x3C;/Notification>
+</code></pre>
+<h2>Inhalte an Komponenten übergeben</h2>
+<p>Komponentendefinition:</p>
+<pre><code class="hljs language-jsx">type Props = {
+  <span class="hljs-attr">type</span>: string,
+  <span class="hljs-attr">children</span>: React.ReactNode,
+};
+
+<span class="hljs-keyword">const</span> Notification = <span class="hljs-function">(<span class="hljs-params">props: Props</span>) =></span> {
+  <span class="hljs-keyword">let</span> style = {
+    <span class="hljs-attr">backgroundColor</span>:
+      props.type === <span class="hljs-string">'error'</span> ? <span class="hljs-string">'salmon'</span> : <span class="hljs-string">'lightblue'</span>,
+  };
+  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{style}</span>></span>{props.children}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+};
 </code></pre>
 <h1>Übungen (Komponenten)</h1>
 <h2>Übungen (Komponenten)</h2>
@@ -1631,14 +1664,17 @@ const ProgressBar = (props: Props) => {
 <li>...</li>
 </ul>
 <h2>Effect Hook</h2>
-<p>Beispiel: Laden von Todos, wenn die Komponente zum ersten Mal eingebunden wird:</p>
-<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadTodos</span>(<span class="hljs-params"></span>) </span>{
+<p>Beispiel: Laden von Umrechnungskursen, wenn die Komponente zum ersten Mal eingebunden wird oder wenn sich eine Währung ändert:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> [<span class="hljs-keyword">from</span>, setFrom] = useState(<span class="hljs-string">'USD'</span>);
+<span class="hljs-keyword">const</span> [to, setTo] = useState(<span class="hljs-string">'EUR'</span>);
+<span class="hljs-keyword">const</span> [rate, setRate] = useState&#x3C;<span class="hljs-built_in">number</span> | <span class="hljs-literal">null</span>>(<span class="hljs-literal">null</span>);
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadExchangeRate</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-comment">// ...</span>
 }
-useEffect(loadTodos, []);
+useEffect(loadExchangeRate, [<span class="hljs-keyword">from</span>, to]);
 </code></pre>
-<p>Beispiel: Laden eines einzelnen Todos, wenn die Komponente zum ersten Mal eingebunden wird oder wenn sich <code>todoId</code> ändert:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [todoId, setTodoId] = useState(<span class="hljs-number">0</span>);
+<p>Beispiel: Laden von Todos, wenn die Komponente zum ersten Mal eingebunden wird:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadTodo</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-comment">// ...</span>
 }
@@ -1647,59 +1683,128 @@ useEffect(loadTodo, [todoId]);
 <h1>Effect Hook zum Abfragen von APIs</h1>
 <h2>Effect Hook zum Abfragen von APIs</h2>
 <p>Oft müssen API-Daten abgefragt werden, wenn eine Komponente zum ersten Mal eingebunden wurde, oder wenn sich props bzw state geändert haben</p>
-<h2>Effect Hook zum Abfragen von APIs</h2>
-<p>Beispiel: Laden von Todos via <code>fetch</code> und <code>.then</code>:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadTodos</span>(<span class="hljs-params"></span>) </span>{
-  fetchTodos().then(setTodos);
+<h2>Beispiel: Laden von Wechselkursen</h2>
+<p>Beispiel: Laden von Wechselkursen von einem API, wenn sich die ausgewählten Währungen ändern:</p>
+<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ExchangeRate</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> [<span class="hljs-keyword">from</span>, setFrom] = useState(<span class="hljs-string">'USD'</span>);
+  <span class="hljs-keyword">const</span> [to, setTo] = useState(<span class="hljs-string">'EUR'</span>);
+  <span class="hljs-keyword">const</span> [rate, setRate] = useState(<span class="hljs-literal">null</span>);
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadExchangeRate</span>(<span class="hljs-params"></span>) </span>{
+    fetchExchangeRate(<span class="hljs-keyword">from</span>, to)
+      .then(<span class="hljs-function">(<span class="hljs-params">r</span>) =></span> setRate(r))
+      .catch(<span class="hljs-function">() =></span> setRate(<span class="hljs-literal">null</span>));
+  }
+  useEffect(loadExchangeRate, [<span class="hljs-keyword">from</span>, to]);
+
+  <span class="hljs-comment">// render two dropdowns for selecting currencies</span>
+  <span class="hljs-comment">// and show the exchange rate</span>
 }
-useEffect(loadTodos, []);
 </code></pre>
-<h2>Effect Hook zum Abfragen von APIs</h2>
-<p>Bemerkung: Die Effect-Funktion darf <strong>keine</strong> async-Funktion sein</p>
+<h2>Beispiel: Laden von Wechselkursen</h2>
+<p>Funktion, die Daten lädt:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetchExchangeRate</span>(<span class="hljs-params">
+  <span class="hljs-keyword">from</span>: <span class="hljs-built_in">string</span>,
+  to: <span class="hljs-built_in">string</span>
+</span>): <span class="hljs-title">Promise</span>&#x3C;<span class="hljs-title">number</span>> </span>{
+  <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> fetch(
+    <span class="hljs-string">'https://api.exchangeratesapi.io/latest?base='</span> +
+      <span class="hljs-keyword">from</span>.toUpperCase() +
+      <span class="hljs-string">'&#x26;symbols='</span> +
+      to.toUpperCase()
+  );
+  <span class="hljs-keyword">const</span> data = <span class="hljs-keyword">await</span> res.json();
+  <span class="hljs-keyword">return</span> data.rates[to.toUpperCase()];
+}
+</code></pre>
+<h2>Beispiel: Laden von Wechselkursen</h2>
+<p>vollständiger Code:</p>
+<pre><code class="hljs language-tsx">// https://codesandbox.io/s/use-effect-exchange-rate-szje3
+import { useState, useEffect } from 'react';
+
+const currencies = ['USD', 'EUR', 'JPY', 'GBP'];
+async function fetchExchangeRate(
+  from: string,
+  to: string
+): Promise&#x3C;number> {
+  const res = await fetch(
+    'https://api.exchangeratesapi.io/latest?base=' +
+      from.toUpperCase() +
+      '&#x26;symbols=' +
+      to.toUpperCase()
+  );
+  const data = await res.json();
+  return data.rates[to.toUpperCase()];
+}
+
+function ExchangeRate() {
+  const [from, setFrom] = useState('USD');
+  const [to, setTo] = useState('EUR');
+  const [rate, setRate] = useState&#x3C;number | null>(null);
+  function loadExchangeRate() {
+    fetchExchangeRate(from, to)
+      .then((r) => setRate(r))
+      .catch(() => setRate(null));
+  }
+  useEffect(loadExchangeRate, [from, to]);
+  return (
+    &#x3C;div>
+      &#x3C;select
+        value={from}
+        onChange={(e) => setFrom(e.target.value)}
+      >
+        {currencies.map((c) => (
+          &#x3C;option value={c}>{c}&#x3C;/option>
+        ))}
+      &#x3C;/select>
+      &#x3C;select
+        value={to}
+        onChange={(e) => setTo(e.target.value)}
+      >
+        {currencies.map((c) => (
+          &#x3C;option value={c}>{c}&#x3C;/option>
+        ))}
+      &#x3C;/select>
+      &#x3C;div>{rate !== null ? rate : 'no data'}&#x3C;/div>
+    &#x3C;/div>
+  );
+}
+
+export default ExchangeRate;
+</code></pre>
+<h2>Effect Hook und async-Funktionen</h2>
+<p>Bemerkung: Die Effekt-Funktion darf <strong>keine</strong> async-Funktion sein</p>
 <p>Die Effekt-Funktion sollte üblicherweise (implizit) <em>undefined</em> zurückgeben; eine async-Funktion würde immer ein Promise zurückgeben</p>
-<h2>Effect Hook zum Abfragen von APIs</h2>
-<p>Korrekte Methode, um mit <em>async</em> ein API abzufragen:</p>
+<h2>Effect Hook und async-Funktionen</h2>
+<p>korrekte Abfrage eines APIs mit async-Syntax:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
-<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadTodosAsync</span>(<span class="hljs-params"></span>) </span>{
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadExchangeRate</span>(<span class="hljs-params"></span>) </span>{
   setTodos(<span class="hljs-keyword">await</span> fetchTodos());
 }
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadTodos</span>(<span class="hljs-params"></span>) </span>{
-  loadTodosAsync();
-}
-useEffect(loadTodos, []);
+useEffect(
+  <span class="hljs-comment">// regular function that calls the async function:</span>
+  <span class="hljs-function">() =></span> {
+    loadExchangeRate();
+  },
+  []
+);
 </code></pre>
-<h2>Effect Hook zum Abfragen von APIs</h2>
-<p>vollständiges Beispiel: Laden von Todos, wenn die Komponente eingebunden wurde</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> TodoApp = <span class="hljs-function">() =></span> {
-  <span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
-  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadTodos</span>(<span class="hljs-params"></span>) </span>{
-    fetchTodos().then(setTodos);
-  }
-  useEffect(loadTodos, []);
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">ul</span>></span>
-      {todos.map((todo) => (
-        <span class="hljs-tag">&#x3C;<span class="hljs-name">li</span> <span class="hljs-attr">key</span>=<span class="hljs-string">{todo.id}</span>></span>{todo.title}<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span>
-      ))}
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">ul</span>></span></span>
-  );
-};
-</code></pre>
+<h2>Übungen</h2>
+<p>Beispiele von abfragbaren APIs:</p>
+<ul>
+<li>Todos: <a href="https://jsonplaceholder.typicode.com/todos">https://jsonplaceholder.typicode.com/todos</a></li>
+<li>SpaceX Startdaten: <a href="https://api.spacexdata.com/v3/launches/1">https://api.spacexdata.com/v3/launches/1</a></li>
+<li>Pokemon-Daten: <a href="https://pokeapi.co/api/v2/pokemon/1">https://pokeapi.co/api/v2/pokemon/1</a></li>
+<li>hacker news Suchanfrage: <a href="https://hn.algolia.com/api/v1/search?query=foo">https://hn.algolia.com/api/v1/search?query=foo</a></li>
+</ul>
+<h2>Übungen</h2>
+<ul>
+<li>Lade Todos, wenn der Benutzer die Todolist-Anwendung öffnet</li>
+<li>Zeige Daten zu einem bestimmten SpaceX-Start basierend auf der Startnummer</li>
+<li>Zeige Daten zu einem bestimmten Pokémon basierend auf der Nummer</li>
+<li>Zeige Hacker News Artikel basierend auf einem Suchbegriff</li>
+</ul>
 <h2>Beispiel: SpaceX Startdaten</h2>
-<p>Beispiel: Laden von SpaceX Startdaten, wenn die Komponente eingebunden wurde oder wenn sich <code>launchNr</code> geändert hat</p>
-<p>Funktion zum Laden von Daten:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetchLaunch</span>(<span class="hljs-params">launchNr</span>) </span>{
-  <span class="hljs-keyword">const</span> url =
-    <span class="hljs-string">'https://api.spacexdata.com/v3/launches/'</span> +
-    launchNr.toString();
-  <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> fetch(url);
-  <span class="hljs-keyword">const</span> launchData = <span class="hljs-keyword">await</span> res.json();
-  <span class="hljs-keyword">return</span> launchData;
-}
-</code></pre>
-<h2>Beispiel: SpaceX Startdaten</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> SpaceXLaunch = <span class="hljs-function">() =></span> {
+<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">SpaceXLaunch</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">const</span> [launchNr, setLaunchNr] = useState(<span class="hljs-number">1</span>);
   <span class="hljs-keyword">const</span> [launchData, setLaunchData] = useState({});
   <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadLaunch</span>(<span class="hljs-params"></span>) </span>{
@@ -1715,19 +1820,19 @@ useEffect(loadTodos, []);
       <span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
     <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
   );
-};
-</code></pre>
-<h2>Beispiel: Pokemon-Daten</h2>
-<p>Beispiel: Anzeigen von Daten zu einem bestimmten Pokémon (basierend auf dessen <em>id</em>)</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetchPokemon</span>(<span class="hljs-params">pokemonId</span>) </span>{
-  <span class="hljs-keyword">const</span> url = <span class="hljs-string">`https://pokeapi.co/api/v2/pokemon/<span class="hljs-subst">${id}</span>`</span>;
+}
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetchLaunch</span>(<span class="hljs-params">launchNr</span>) </span>{
+  <span class="hljs-keyword">const</span> url =
+    <span class="hljs-string">'https://api.spacexdata.com/v3/launches/'</span> +
+    launchNr.toString();
   <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> fetch(url);
-  <span class="hljs-keyword">const</span> data = <span class="hljs-keyword">await</span> res.json();
-  <span class="hljs-keyword">return</span> data;
+  <span class="hljs-keyword">const</span> launchData = <span class="hljs-keyword">await</span> res.json();
+  <span class="hljs-keyword">return</span> launchData;
 }
 </code></pre>
-<h2>Effect Hook zum Abfragen von APIs</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> Pokemon = <span class="hljs-function">() =></span> {
+<h2>Beispiel: Pokemon-Daten</h2>
+<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Pokemon</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">const</span> [id, setId] = useState(<span class="hljs-number">1</span>);
   <span class="hljs-keyword">const</span> [data, setData] = useState({});
   <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadPokemon</span>(<span class="hljs-params"></span>) </span>{
@@ -1742,15 +1847,15 @@ useEffect(loadTodos, []);
       <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setId(id + 1)}>next<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
     <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
   );
-};
+}
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetchPokemon</span>(<span class="hljs-params">pokemonId</span>) </span>{
+  <span class="hljs-keyword">const</span> url = <span class="hljs-string">`https://pokeapi.co/api/v2/pokemon/<span class="hljs-subst">${id}</span>`</span>;
+  <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> fetch(url);
+  <span class="hljs-keyword">const</span> data = <span class="hljs-keyword">await</span> res.json();
+  <span class="hljs-keyword">return</span> data;
+}
 </code></pre>
-<h2>Effect Hook zum Abfragen von APIs</h2>
-<p>Übungen:</p>
-<ul>
-<li>Laden und Anzeigen von weiteren Daten</li>
-<li>Indikator, dass geladen wird</li>
-<li>Automatische Aktualisierung alle 10 Sekunden</li>
-</ul>
 <h1>Andere Verwendungen des Effect-Hooks</h1>
 <h2>Andere Verwendungen des Effect-Hooks</h2>
 <ul>
@@ -1762,14 +1867,16 @@ useEffect(loadTodos, []);
 <h2>Beispiel: localStorage</h2>
 <p>Conter, der den eigenen Wert abspeichert, wenn dieser sich ändert:</p>
 <pre><code class="hljs language-jsx"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">PersistentCounter</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-comment">// useState can receive an initial value</span>
-  <span class="hljs-comment">// or an initializer function</span>
-  <span class="hljs-keyword">const</span> [count, setCount] = useState(
-    <span class="hljs-function">() =></span> <span class="hljs-built_in">Number</span>(<span class="hljs-built_in">localStorage</span>.getItem(<span class="hljs-string">'count'</span>)) || <span class="hljs-number">0</span>
-  );
-  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">saveCount</span>(<span class="hljs-params"></span>) </span>{
-    <span class="hljs-built_in">localStorage</span>.setItem(<span class="hljs-string">'count'</span>, count);
+  <span class="hljs-keyword">const</span> [count, setCount] = useState(<span class="hljs-literal">null</span>);
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadCount</span>(<span class="hljs-params"></span>) </span>{
+    setCount(<span class="hljs-built_in">Number</span>(<span class="hljs-built_in">localStorage</span>.getItem(<span class="hljs-string">'count'</span>)));
   }
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">saveCount</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">if</span> (count !== <span class="hljs-literal">null</span>) {
+      <span class="hljs-built_in">localStorage</span>.setItem(<span class="hljs-string">'count'</span>, count);
+    }
+  }
+  useEffect(loadCount, []);
   useEffect(saveCount, [count]);
   <span class="hljs-keyword">return</span> (
     <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setCount(count + 1)}>

@@ -30,6 +30,10 @@ test("displays page with title 'React App'", async () => {
 });
 ```
 
+## Testing a React application with Puppeteer
+
+exercise: test whether the todo application shows the correct number of list items
+
 ## Puppeteer
 
 see also: [Rajat S: Testing your React App with Puppeteer and Jest](https://blog.bitsrc.io/testing-your-react-app-with-puppeteer-and-jest-c72b3dfcde59)

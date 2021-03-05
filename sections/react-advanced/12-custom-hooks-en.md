@@ -6,6 +6,31 @@ Custom hooks can be used to extract logic from function components
 
 They are functions which in turn use existing hooks like `useState` or `useEffect`
 
+## Custom hooks - useExchangeRate
+
+hook that provides the exchange rate for selected currencies (see earlier example):
+
+```js
+function useExchangeRate(from, to) {
+  const [rate, setRate] = useState(null);
+  const [status, setStatus] = useState('loading');
+  async function loadExchangeRateAsync() {
+    try {
+      const newRate = await fetchExchangeRate();
+      setRate(newRate);
+      setStatus('success');
+    } catch {
+      setRate(null);
+      setStatus('error');
+    }
+  }
+  useEffect(() => {
+    loadExchangeRateAsync();
+  }, [from, to]);
+  return { status, rate };
+}
+```
+
 ## Custom hooks - useTodos
 
 Example: `useTodos` - can be used to extract data handling from the component definition (separating the _model_ from the _view_)
@@ -113,47 +138,6 @@ const useDate = (interval) => {
   }, []);
   return date;
 };
-```
-
-## Custom hooks - useExchangeRate
-
-hook that provides the exchange rate for selected currencies
-
-```js
-function useExchangeRate(from, to) {
-  const [rate, setRate] = useState(null);
-  const [status, setStatus] = useState('loading');
-  async function loadExchangeRateAsync() {
-    try {
-      const newRate = await fetchExchangeRate();
-      setRate(newRate);
-      setStatus('success');
-    } catch {
-      setRate(null);
-      setStatus('error');
-    }
-  }
-  function loadExchangeRate() {
-    loadExchangeRateAsync();
-  }
-  useEffect(loadExchangeRate, [from, to]);
-  return { status, rate };
-}
-```
-
-## Custom hooks - useExchangeRate
-
-```js
-async function fetchExchangeRate(from, to) {
-  const res = await fetch(
-    'https://api.exchangeratesapi.io/latest?base=' +
-      from.toUpperCase() +
-      '&symbols=' +
-      to.toUpperCase()
-  );
-  const data = await res.json();
-  return data.rates[to.toUpperCase()];
-}
 ```
 
 ## Custom hooks - exercise

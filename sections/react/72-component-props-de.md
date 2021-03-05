@@ -36,21 +36,3 @@ const ProgressBar = ({ value, color }: Props) => {
   // ...
 };
 ```
-
-## props.children
-
-Über `props.children` können Inhalte an eine Komponente übergeben werden
-
-Beispiel: `Bordered`-Komponente:
-
-```jsx
-<Bordered>lorem ipsum</Bordered>
-```
-
-Definition der Komponente:
-
-```jsx
-const Bordered = (props) => (
-  <div className="bordered">{props.children}</div>
-);
-```

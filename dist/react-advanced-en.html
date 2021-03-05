@@ -2076,8 +2076,21 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li>manual setup</li>
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>React Router</h1>
-</section><section class="slide"><h2>React Router</h2>
+</section><section class="slide"><h2>Client-side routing</h2>
 <p><strong>client-side routing</strong>: navigating between views without leaving the React app</p>
+</section><section class="slide"><h2>Client side routing</h2>
+<p>options:</p>
+<p>hash-based client-side routing, e.g.:</p>
+<ul>
+<li><code>example.com/#/home</code></li>
+<li><code>example.com/#/shop/cart</code></li>
+</ul>
+<p>client-side routing based on on the <em>history API</em>, e.g.:</p>
+<ul>
+<li><code>example.com/home</code></li>
+<li><code>example.com/shop/cart</code></li>
+</ul>
+<p>for the second method, the server needs additional configuration</p>
 </section><section class="slide"><h2>Versions and Installation</h2>
 <p>React router 6 beta is available since June 2020, but development has been slow since then</p>
 <p>packages for react router 6 (include TypeScript support):</p>
@@ -2398,6 +2411,27 @@ history.push(<span class="hljs-string">'/'</span>);
 </section><section class="slide"><h2>Custom hooks</h2>
 <p>Custom hooks can be used to extract logic from function components</p>
 <p>They are functions which in turn use existing hooks like <code>useState</code> or <code>useEffect</code></p>
+</section><section class="slide"><h2>Custom hooks - useExchangeRate</h2>
+<p>hook that provides the exchange rate for selected currencies (see earlier example):</p>
+<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">useExchangeRate</span>(<span class="hljs-params"><span class="hljs-keyword">from</span>, to</span>) </span>{
+  <span class="hljs-keyword">const</span> [rate, setRate] = useState(<span class="hljs-literal">null</span>);
+  <span class="hljs-keyword">const</span> [status, setStatus] = useState(<span class="hljs-string">'loading'</span>);
+  <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadExchangeRateAsync</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">try</span> {
+      <span class="hljs-keyword">const</span> newRate = <span class="hljs-keyword">await</span> fetchExchangeRate();
+      setRate(newRate);
+      setStatus(<span class="hljs-string">'success'</span>);
+    } <span class="hljs-keyword">catch</span> {
+      setRate(<span class="hljs-literal">null</span>);
+      setStatus(<span class="hljs-string">'error'</span>);
+    }
+  }
+  useEffect(<span class="hljs-function">() =></span> {
+    loadExchangeRateAsync();
+  }, [<span class="hljs-keyword">from</span>, to]);
+  <span class="hljs-keyword">return</span> { status, rate };
+}
+</code></pre>
 </section><section class="slide"><h2>Custom hooks - useTodos</h2>
 <p>Example: <code>useTodos</code> - can be used to extract data handling from the component definition (separating the <em>model</em> from the <em>view</em>)</p>
 <pre><code class="hljs language-jsx"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">TodoApp</span>(<span class="hljs-params"></span>) </span>{
@@ -2486,40 +2520,6 @@ history.push(<span class="hljs-string">'/'</span>);
   }, []);
   <span class="hljs-keyword">return</span> date;
 };
-</code></pre>
-</section><section class="slide"><h2>Custom hooks - useExchangeRate</h2>
-<p>hook that provides the exchange rate for selected currencies</p>
-<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">useExchangeRate</span>(<span class="hljs-params"><span class="hljs-keyword">from</span>, to</span>) </span>{
-  <span class="hljs-keyword">const</span> [rate, setRate] = useState(<span class="hljs-literal">null</span>);
-  <span class="hljs-keyword">const</span> [status, setStatus] = useState(<span class="hljs-string">'loading'</span>);
-  <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadExchangeRateAsync</span>(<span class="hljs-params"></span>) </span>{
-    <span class="hljs-keyword">try</span> {
-      <span class="hljs-keyword">const</span> newRate = <span class="hljs-keyword">await</span> fetchExchangeRate();
-      setRate(newRate);
-      setStatus(<span class="hljs-string">'success'</span>);
-    } <span class="hljs-keyword">catch</span> {
-      setRate(<span class="hljs-literal">null</span>);
-      setStatus(<span class="hljs-string">'error'</span>);
-    }
-  }
-  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadExchangeRate</span>(<span class="hljs-params"></span>) </span>{
-    loadExchangeRateAsync();
-  }
-  useEffect(loadExchangeRate, [<span class="hljs-keyword">from</span>, to]);
-  <span class="hljs-keyword">return</span> { status, rate };
-}
-</code></pre>
-</section><section class="slide"><h2>Custom hooks - useExchangeRate</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetchExchangeRate</span>(<span class="hljs-params"><span class="hljs-keyword">from</span>, to</span>) </span>{
-  <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> fetch(
-    <span class="hljs-string">'https://api.exchangeratesapi.io/latest?base='</span> +
-      <span class="hljs-keyword">from</span>.toUpperCase() +
-      <span class="hljs-string">'&#x26;symbols='</span> +
-      to.toUpperCase()
-  );
-  <span class="hljs-keyword">const</span> data = <span class="hljs-keyword">await</span> res.json();
-  <span class="hljs-keyword">return</span> data.rates[to.toUpperCase()];
-}
 </code></pre>
 </section><section class="slide"><h2>Custom hooks - exercise</h2>
 <p>Create a hook named <code>useWeather</code> that can be used to query Weather data - together with an associated context that enables application-wide caching of the data</p>
@@ -2962,7 +2962,7 @@ const Slideshow = (props) => (
 <li><code>min</code>, <code>max</code></li>
 <li><code>minLength</code>, <code>maxLength</code></li>
 <li><code>pattern</code></li>
-<li><code>validate</code></li>
+<li><code>validate</code> (custom validation function)</li>
 </ul>
 </section><section class="slide"><h2>react-hook-form: errors</h2>
 <p>The <code>errors</code> object indicates errors for any registered input that has a name</p>
@@ -2981,15 +2981,22 @@ const Slideshow = (props) => (
 &#x3C;/form>
 </code></pre>
 </section><section class="slide"><h2>react-hook-form: mode</h2>
-<pre><code class="hljs language-js">useForm({ <span class="hljs-attr">mode</span>: <span class="hljs-string">'onSubmit'</span> });
+<pre><code class="hljs language-js">useForm({ <span class="hljs-attr">mode</span>: <span class="hljs-string">'onTouched'</span> });
 </code></pre>
-<p>modes:</p>
+<p><code>mode</code>: when should the value be validated initially?</p>
 <ul>
 <li><code>onSubmit</code> (default)</li>
-<li><code>onBlur</code> - validation happens when the input loses focus</li>
-<li><code>onTouched</code> - validation happens when the input loses focus for the first time; after that, validation happens on every change</li>
-<li><code>onChange</code></li>
-<li><code>all</code> - validation happens when the input changes or when it loses focus without being changed</li>
+<li><code>onTouched</code> - when the input loses focus or on submit</li>
+<li><code>onBlur</code> - when the input loses focus (does not switch to <code>reValidateMode</code>) or on submit</li>
+<li><code>onChange</code> - when the input changes or on submit</li>
+<li><code>all</code> - when the input changes or when it loses focus without being changed</li>
+</ul>
+</section><section class="slide"><h2>react-hook-form: mode</h2>
+<p><code>reValidateMode</code>: if the user has submitted the form and there was an error, when should the value be re-validated?</p>
+<ul>
+<li><code>onSubmit</code></li>
+<li><code>onBlur</code></li>
+<li><code>onChange</code> (default)</li>
 </ul>
 </section><section class="slide"><h2>react-hook-form: reset</h2>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> { register, errors, handleSubmit, reset } = useForm();
@@ -3196,6 +3203,7 @@ examples of hooks that handle authentication:
 <pre><code class="hljs language-bash">npx create-react-app myapp --template cra-template-pwa
 npx create-react-app myapp --template cra-template-pwa-typescript
 </code></pre>
+<p><em>Codesandbox</em> has built-in support for very basic PWAs</p>
 </section><section class="slide"><h2>PWAs</h2>
 <p>PWA basics in <em>create-react-app</em> projects:</p>
 <ul>

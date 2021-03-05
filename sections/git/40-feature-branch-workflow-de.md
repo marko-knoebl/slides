@@ -20,6 +20,10 @@ manche Feature Branches müssen großen Umfang haben, z.B. _port-to-typescript_
 
 ## Feature Branch Workflow
 
+Nachdem die Änderungen eines Feature Branches in den Haupt-Branch übernommen wurden, wird der Feature Branch üblicherweise gelöscht
+
+## Feature Branch Workflow
+
 Beispiel: Entwickler arbeiten an zwei unterschiedlichen Tasks gleichzeitig:
 
 ```txt
@@ -66,7 +70,7 @@ während der Entwicklung:
 wenn das Feature fertiggestellt ist:
 
 - optional: kombiniere alle Commits auf dem Branch zu einem (rebase)
-- in den _master_-Branch mergen
+- merge in den _master_-Branch
 - lösche den Feature-Branch
 
 ## Siehe auch

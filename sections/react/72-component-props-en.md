@@ -36,21 +36,3 @@ const ProgressBar = ({ value, color }: Props) => {
   // ...
 };
 ```
-
-## props.children
-
-A component may receive content to be displayed via `props.children`
-
-Example: a `Bordered` component:
-
-```jsx
-<Bordered>lorem ipsum</Bordered>
-```
-
-component definition:
-
-```jsx
-const Bordered = (props) => (
-  <div className="bordered">{props.children}</div>
-);
-```

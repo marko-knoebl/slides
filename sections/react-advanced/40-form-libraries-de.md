@@ -88,13 +88,21 @@ errors.email ? <div>invalid email</div> : null;
 useForm({ mode: 'onSubmit' });
 ```
 
-mögliche Modes:
+`mode`: wann soll ein Wert zum ersten Mal validiert werden?
 
 - `onSubmit` (Standard)
-- `onBlur` - Validierung, wenn der Input den Fokus verliert
-- `onTouched` - Validierung, wenn der Input den Fokus verliert; danach bei jeder Änderung
-- `onChange`
-- `all` - Validierung, wenn der Input sich ändert oder wenn er den Fokus verliert, ohne sich geändert zu haben
+- `onBlur` - wenn der Input den Fokus verliert oder bei Submit
+- `onTouched` - wenn der Input den Fokus verliert (wechselt nicht zu `reValidateMode`) oder bei Submit
+- `onChange` - wenn sich der Input ändert oder bei Submit
+- `all` - wenn der Input sich ändert oder wenn er den Fokus verliert, ohne sich geändert zu haben
+
+## react-hook-form: mode
+
+`reValidateMode`: wenn das Form submittet wurde und ein Fehler auftrat, wann sollte der Wert erneut validiert werden?
+
+- `onSubmit`
+- `onBlur`
+- `onChange` (Standard)
 
 ## react-hook-form: reset
 

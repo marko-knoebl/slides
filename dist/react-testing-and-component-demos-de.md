@@ -4,7 +4,7 @@
 
 ## Testen in JavaScript
 
-siehe die Präsentation [JavaScript Testing](./javascript-testing-de.md)
+siehe die Präsentation [JavaScript Testing](./javascript-testing-de.html)
 
 # Testen und React
 
@@ -129,6 +129,10 @@ test("displays page with title 'React App'", async () => {
   expect(pageTitle).toEqual('React App');
 });
 ```
+
+## Testen einer React-Anwendung mit Puppeteer
+
+Übung: Überpfüge, ob die Todo-Anwendung die richtige Anzahl an _li_-Elementen anzeigt
 
 ## Puppeteer
 

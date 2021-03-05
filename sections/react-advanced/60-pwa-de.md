@@ -15,6 +15,8 @@ npx create-react-app myapp --template cra-template-pwa
 npx create-react-app myapp --template cra-template-pwa-typescript
 ```
 
+_Codesandbox_ beinhaltet grundlegende Unterstützung für PWAs
+
 ## PWAs
 
 PWA-Grundlagen in _create-react-app_-Projekten:

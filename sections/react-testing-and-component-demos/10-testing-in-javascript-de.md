@@ -2,4 +2,4 @@
 
 ## Testen in JavaScript
 
-siehe die Präsentation [JavaScript Testing](./javascript-testing-de.md)
+siehe die Präsentation [JavaScript Testing](./javascript-testing-de.html)

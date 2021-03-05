@@ -14,8 +14,21 @@
 <li>Manuelles Setup</li>
 </ul>
 <h1>React Router</h1>
-<h2>React Router</h2>
+<h2>Client-seitiges Routing</h2>
 <p><strong>client-seitiges Routing</strong>: Navigieren zwischen verschiedenen Ansichten, ohne die React-Anwendung zu verlassen</p>
+<h2>Client-seitiges Routing</h2>
+<p>Optionen:</p>
+<p>hash-basiertes Client-seitiges Routing, z.B.:</p>
+<ul>
+<li><code>example.com/#/home</code></li>
+<li><code>example.com/#/shop/cart</code></li>
+</ul>
+<p>Client-seitiges Routing basierend auf dem <em>History API</em>, z.B.:</p>
+<ul>
+<li><code>example.com/home</code></li>
+<li><code>example.com/shop/cart</code></li>
+</ul>
+<p>Für die zweite Option muss der Server zusätzlich konfiguriert werden</p>
 <h2>Versionen und Installation</h2>
 <p>React Router 6 Beta ist seit Juni 2020 verfügbar, aber die Entwicklung läuft seither langsam</p>
 <p>Pakete für React Router 6 (beinhalten Unterstützung für TypeScript):</p>
@@ -336,6 +349,27 @@ history.push(<span class="hljs-string">'/'</span>);
 <h2>Eigene Hooks</h2>
 <p>können verwendet werden, um bestimmte Aspekte aus der Komponentendefinition zu extrahieren</p>
 <p>werden als Funktionen definiert, die wiederum auf bestehende Hooks, wie <code>useState</code> oder <code>useEffect</code> zurückgreifen</p>
+<h2>Eigene Hooks - useExchangeRate</h2>
+<p>Hook, der den Wechselkurs zwischen ausgewählten Währungen bereitstellt (siehe früheres Beispiel):</p>
+<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">useExchangeRate</span>(<span class="hljs-params"><span class="hljs-keyword">from</span>, to</span>) </span>{
+  <span class="hljs-keyword">const</span> [rate, setRate] = useState(<span class="hljs-literal">null</span>);
+  <span class="hljs-keyword">const</span> [status, setStatus] = useState(<span class="hljs-string">'loading'</span>);
+  <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadExchangeRateAsync</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">try</span> {
+      <span class="hljs-keyword">const</span> newRate = <span class="hljs-keyword">await</span> fetchExchangeRate();
+      setRate(newRate);
+      setStatus(<span class="hljs-string">'success'</span>);
+    } <span class="hljs-keyword">catch</span> {
+      setRate(<span class="hljs-literal">null</span>);
+      setStatus(<span class="hljs-string">'error'</span>);
+    }
+  }
+  useEffect(<span class="hljs-function">() =></span> {
+    loadExchangeRateAsync();
+  }, [<span class="hljs-keyword">from</span>, to]);
+  <span class="hljs-keyword">return</span> { status, rate };
+}
+</code></pre>
 <h2>Eigene Hooks - useTodos</h2>
 <p>Beispiel: <code>useTodos</code> - kann verwendet werden, um die Datenverwaltung von der Komponentendefinition loszulösen (Trennung von <em>model</em> und <em>view</em>)</p>
 <pre><code class="hljs language-jsx"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">TodoApp</span>(<span class="hljs-params"></span>) </span>{
@@ -424,40 +458,6 @@ history.push(<span class="hljs-string">'/'</span>);
   }, []);
   <span class="hljs-keyword">return</span> date;
 };
-</code></pre>
-<h2>Eigene Hooks - useExchangerate</h2>
-<p>hook that provides the exchange rate for selected currencies</p>
-<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">useExchangeRate</span>(<span class="hljs-params"><span class="hljs-keyword">from</span>, to</span>) </span>{
-  <span class="hljs-keyword">const</span> [rate, setRate] = useState(<span class="hljs-literal">null</span>);
-  <span class="hljs-keyword">const</span> [status, setStatus] = useState(<span class="hljs-string">'loading'</span>);
-  <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadExchangeRateAsync</span>(<span class="hljs-params"></span>) </span>{
-    <span class="hljs-keyword">try</span> {
-      <span class="hljs-keyword">const</span> newRate = <span class="hljs-keyword">await</span> fetchExchangeRate();
-      setRate(newRate);
-      setStatus(<span class="hljs-string">'success'</span>);
-    } <span class="hljs-keyword">catch</span> {
-      setRate(<span class="hljs-literal">null</span>);
-      setStatus(<span class="hljs-string">'error'</span>);
-    }
-  }
-  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadExchangeRate</span>(<span class="hljs-params"></span>) </span>{
-    loadExchangeRateAsync();
-  }
-  useEffect(loadExchangeRate, [<span class="hljs-keyword">from</span>, to]);
-  <span class="hljs-keyword">return</span> { status, rate };
-}
-</code></pre>
-<h2>Eigene Hooks - useExchangerate</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetchExchangeRate</span>(<span class="hljs-params"><span class="hljs-keyword">from</span>, to</span>) </span>{
-  <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> fetch(
-    <span class="hljs-string">'https://api.exchangeratesapi.io/latest?base='</span> +
-      <span class="hljs-keyword">from</span>.toUpperCase() +
-      <span class="hljs-string">'&#x26;symbols='</span> +
-      to.toUpperCase()
-  );
-  <span class="hljs-keyword">const</span> data = <span class="hljs-keyword">await</span> res.json();
-  <span class="hljs-keyword">return</span> data.rates[to.toUpperCase()];
-}
 </code></pre>
 <h2>Eigene Hooks - Übung</h2>
 <p>Erstellen eines <code>useWeather</code>-Hooks zum Abfragen von Wetterdaten - zusammen mit einem zugehörigen Context, der die Daten Anwendungsweit cached</p>
@@ -921,13 +921,20 @@ const Slideshow = (props) => (
 <h2>react-hook-form: mode</h2>
 <pre><code class="hljs language-js">useForm({ <span class="hljs-attr">mode</span>: <span class="hljs-string">'onSubmit'</span> });
 </code></pre>
-<p>mögliche Modes:</p>
+<p><code>mode</code>: wann soll ein Wert zum ersten Mal validiert werden?</p>
 <ul>
 <li><code>onSubmit</code> (Standard)</li>
-<li><code>onBlur</code> - Validierung, wenn der Input den Fokus verliert</li>
-<li><code>onTouched</code> - Validierung, wenn der Input den Fokus verliert; danach bei jeder Änderung</li>
-<li><code>onChange</code></li>
-<li><code>all</code> - Validierung, wenn der Input sich ändert oder wenn er den Fokus verliert, ohne sich geändert zu haben</li>
+<li><code>onBlur</code> - wenn der Input den Fokus verliert oder bei Submit</li>
+<li><code>onTouched</code> - wenn der Input den Fokus verliert (wechselt nicht zu <code>reValidateMode</code>) oder bei Submit</li>
+<li><code>onChange</code> - wenn sich der Input ändert oder bei Submit</li>
+<li><code>all</code> - wenn der Input sich ändert oder wenn er den Fokus verliert, ohne sich geändert zu haben</li>
+</ul>
+<h2>react-hook-form: mode</h2>
+<p><code>reValidateMode</code>: wenn das Form submittet wurde und ein Fehler auftrat, wann sollte der Wert erneut validiert werden?</p>
+<ul>
+<li><code>onSubmit</code></li>
+<li><code>onBlur</code></li>
+<li><code>onChange</code> (Standard)</li>
 </ul>
 <h2>react-hook-form: reset</h2>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> { register, errors, handleSubmit, reset } = useForm();
@@ -1134,6 +1141,7 @@ examples of hooks that handle authentication:
 <pre><code class="hljs language-bash">npx create-react-app myapp --template cra-template-pwa
 npx create-react-app myapp --template cra-template-pwa-typescript
 </code></pre>
+<p><em>Codesandbox</em> beinhaltet grundlegende Unterstützung für PWAs</p>
 <h2>PWAs</h2>
 <p>PWA-Grundlagen in <em>create-react-app</em>-Projekten:</p>
 <ul>
