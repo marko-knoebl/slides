@@ -16,12 +16,13 @@ import { useState } from 'react';
 const baseUrl = 'https://picsum.photos/300/200?image=';
 function SlideshowApp() {
   const [img, setImg] = useState(0);
+  const imgUrl = baseUrl + img.toString();
   return (
     <div>
       <h1>Image {img}</h1>
       <button onClick={() => setImg(0)}>start</button>
       <button onClick={() => setImg(img - 1)}>prev</button>
-      <img src={baseUrl + img.toString()} />
+      <img src={imgUrl} alt="slideshow" />
       <button onClick={() => setImg(img + 1)}>next</button>
     </div>
   );
@@ -41,18 +42,21 @@ function SlideshowApp() {
 
 A component is defined as a function that returns an XML tree
 
-The function is called every time the component needs to be rendered
+The function is called every time the component needs to be (re-)rendered
 
 ## Basic example: slideshow
 
 <!-- prettier-ignore -->
 ```jsx
   const [img, setImg] = useState(0);
+  const imgUrl = baseUrl + img.toString();
 ```
 
 A component can have internal state entries
 
 `useState` returns the current state entry and a corresponding setter on every render
+
+Other values (like `imgUrl`) can be derived from the state values
 
 ## Basic example: slideshow
 
@@ -82,7 +86,7 @@ A curly brace switches back to JavaScript
 ```jsx
       <button onClick={() => setImg(0)}>start</button>
       <button onClick={() => setImg(img - 1)}>prev</button>
-      <img src={baseUrl + img.toString()} />
+      <img src={imgUrl} alt="slideshow" />
       <button onClick={() => setImg(img + 1)}>next</button>
 ```
 

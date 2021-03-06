@@ -12,7 +12,7 @@ if there are arrays or objects in the state we _could_ try and mutate them direc
 
 don't do this - React will usually not notice the changes and will not rerender the view
 
-state should be viewed as _immutabe_ (unchangeable)
+state should be considered as _immutabe_ (unchangeable)
 
 ## Immutable state
 

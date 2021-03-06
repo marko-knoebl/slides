@@ -27,13 +27,13 @@ Note: no quote characters around the value of _href_
 ## Binding events
 
 ```jsx
-const sayHello = () => {
+function sayHello() {
   alert('hello world');
-};
+}
 ```
 
 ```jsx
-<button onClick={sayHello}>Say Hello</button>
+<button onClick={() => sayHello()}>Say Hello</button>
 ```
 
 list of browser events:
@@ -68,9 +68,3 @@ Some element properties have different names than in HTML (sometimes reflecting 
 - `className` (instead of `class`)
 - `onClick` (instead of `onclick`)
 - `htmlFor` (instead of `for`)
-
-## Exercise: Prime number quiz
-
-Create a quiz that shows an _odd_ number from 1-99. The user has to guess if it is a prime number or not.
-
-Show statistics on correct / incorrect answers the user has given so far.

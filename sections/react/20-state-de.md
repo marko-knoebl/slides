@@ -30,6 +30,14 @@ const App = () => {
 };
 ```
 
+## Verwenden des minimalen States
+
+Wir sollten immer versuchen, den _minimalen_ State zu verwenden (also keine redundanten Daten speichern)
+
+Weitere Daten können in der Komponentenfunktion aus dem State abgeleitet werden
+
+Beispiel: Für die Slideshow ist es genug, die Bild-ID zu speichern - wir müssen nicht die ganze Bild-URL speichern
+
 ## Wann werden State-Änderungen angewendet?
 
 State-Änderungen werden angewendet, _nachdem_ die Event-Handler-Funktion fertig ausgeführt wurde

@@ -100,12 +100,13 @@ import { useState } from 'react';
 const baseUrl = 'https://picsum.photos/300/200?image=';
 function SlideshowApp() {
   const [img, setImg] = useState(0);
+  const imgUrl = baseUrl + img.toString();
   return (
     <div>
       <h1>Image {img}</h1>
       <button onClick={() => setImg(0)}>start</button>
       <button onClick={() => setImg(img - 1)}>prev</button>
-      <img src={baseUrl + img.toString()} />
+      <img src={imgUrl} alt="slideshow" />
       <button onClick={() => setImg(img + 1)}>next</button>
     </div>
   );
@@ -125,7 +126,7 @@ function SlideshowApp() {
 
 A component is defined as a function that returns an XML tree
 
-The function is called every time the component needs to be rendered
+The function is called every time the component needs to be (re-)rendered
 
 ## Basic example: slideshow
 
@@ -133,11 +134,14 @@ The function is called every time the component needs to be rendered
 
 ```jsx
   const [img, setImg] = useState(0);
+  const imgUrl = baseUrl + img.toString();
 ```
 
 A component can have internal state entries
 
 `useState` returns the current state entry and a corresponding setter on every render
+
+Other values (like `imgUrl`) can be derived from the state values
 
 ## Basic example: slideshow
 
@@ -170,7 +174,7 @@ A curly brace switches back to JavaScript
 ```jsx
       <button onClick={() => setImg(0)}>start</button>
       <button onClick={() => setImg(img - 1)}>prev</button>
-      <img src={baseUrl + img.toString()} />
+      <img src={imgUrl} alt="slideshow" />
       <button onClick={() => setImg(img + 1)}>next</button>
 ```
 
@@ -461,6 +465,14 @@ const App = () => {
 };
 ```
 
+## Using the minimal state
+
+We should always try to use the _minimal_ state possible (i.e. no redundant data)
+
+Other data can be computed from the minimal state in the component function
+
+Example: For the slideshow, storing the image ID is enough - we don't have to store the entire image URL
+
 ## When are state changes applied?
 
 State changes are applied _after_ the event handler function has finished executing
@@ -491,6 +503,91 @@ optional:
 - prevent the index from becoming negative
 - button for _random image_
 
+# Input state
+
+## Input state
+
+In a React application, everything that can change in the UI should be part of the _state_
+
+If we include a simple input element:
+
+```jsx
+<input />
+```
+
+there would be an aspect of the UI state which would not be captured in the React state.
+
+## Input state
+
+This is how we can capture the value of an input and track it in the state:
+
+```jsx
+<input
+  value={inputText}
+  onChange={(event) => {
+    setInputText(event.target.value);
+  }}
+/>
+```
+
+## Input state
+
+explanation:
+
+```txt
+value={inputText}
+```
+
+binds from the _state_ to the input value
+
+```txt
+onChange={(event) => {
+  setInputText(event.target.value);
+}}
+```
+
+updates the state whenever the input value changes
+
+## Input state
+
+why `event.target.value`?
+
+- `event.target` represents the input element
+- `event.target.value` is the new value of the input element
+
+## Input state
+
+Example: Input that also displays the number of characters:
+
+```js
+function App() {
+  const [text, setText] = useState('');
+  const len = text.length;
+
+  return (
+    <div>
+      <input
+        value={text}
+        onChange={(event) => {
+          setText(event.target.value);
+        }}
+      />
+      <p>This string has {len} characters.</p>
+    </div>
+  );
+}
+```
+
+## Input state
+
+Exercise:
+
+Show two inputs where the user should input matching passwords that are at least 4 characters long.
+
+If both passwords match and are long enough, display "valid" underneath, otherwise display "invalid"
+
+Make sure you store the minimal state
+
 # Immutable state
 
 ## Immutable state
@@ -505,7 +602,7 @@ if there are arrays or objects in the state we _could_ try and mutate them direc
 
 don't do this - React will usually not notice the changes and will not rerender the view
 
-state should be viewed as _immutabe_ (unchangeable)
+state should be considered as _immutabe_ (unchangeable)
 
 ## Immutable state
 
@@ -670,13 +767,13 @@ Note: no quote characters around the value of _href_
 ## Binding events
 
 ```jsx
-const sayHello = () => {
+function sayHello() {
   alert('hello world');
-};
+}
 ```
 
 ```jsx
-<button onClick={sayHello}>Say Hello</button>
+<button onClick={() => sayHello()}>Say Hello</button>
 ```
 
 list of browser events:
@@ -711,12 +808,6 @@ Some element properties have different names than in HTML (sometimes reflecting 
 - `className` (instead of `class`)
 - `onClick` (instead of `onclick`)
 - `htmlFor` (instead of `for`)
-
-## Exercise: Prime number quiz
-
-Create a quiz that shows an _odd_ number from 1-99. The user has to guess if it is a prime number or not.
-
-Show statistics on correct / incorrect answers the user has given so far.
 
 # JSX: whitespace, comments and fragments
 
@@ -794,6 +885,10 @@ return (
   </>
 );
 ```
+
+## Exercise: math trainer
+
+Create a math trainer as demonstrated on <https://8h0os.csb.app/>
 
 # JSX: conditionals and repeating elements
 
@@ -1037,32 +1132,11 @@ const element = _jsx(
 );
 ```
 
-# Text inputs and forms
-
-## Text inputs
-
-In the context of React, input elements are special:
-
-Their properties (especially `.value`) can be modified directly by the user
-
-Therefore there would be aspects of the UI state which would not be captured in the React state.
-
-## Text inputs
-
-This is how we can capture the value of an input and track it in the state:
-
-```jsx
-<input
-  value={inputText}
-  onChange={(event) => {
-    setInputText(event.target.value);
-  }}
-/>
-```
+# Forms and inputs
 
 ## Form actions
 
-Default behavior of a form when submitted: directly send data to the server
+Default behavior of a form when it is submitted: directly send data to the server
 
 Replacing the default behavior:
 
@@ -1077,26 +1151,51 @@ Replacing the default behavior:
 </form>
 ```
 
-# Other input types
+## Input labels
 
-## Other input types
+Adding a label for an input without using IDs:
 
+```jsx
+<label>
+  first name:
+  <input
+  // ...
+  />
+</label>
+```
+
+# Input types
+
+## Input types
+
+- text
 - textarea
 - checkbox
 - dropdown
 - numeric input
 - ...
 
-## Examples: textarea and checkbox
+## Input types
 
-textarea:
+text and text area:
 
 ```jsx
+<input
+  value={title}
+  onChange={(e) => {
+    setTitle(e.target.value);
+  }}
+/>
+
 <textarea
   value={message}
-  onChange={(e) => setMessage(e.target.value)}
+  onChange={(e) => {
+    setMessage(e.target.value);
+  }}
 />
 ```
+
+## Input types
 
 checkbox:
 
@@ -1108,7 +1207,7 @@ checkbox:
 />
 ```
 
-## Example: dropdown
+## Input types
 
 dropdown with hard-coded options:
 
@@ -1123,7 +1222,7 @@ dropdown with hard-coded options:
 </select>
 ```
 
-## Example: dropdown
+## Input types
 
 dropdown with options from an array:
 

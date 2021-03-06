@@ -30,6 +30,14 @@ const App = () => {
 };
 ```
 
+## Using the minimal state
+
+We should always try to use the _minimal_ state possible (i.e. no redundant data)
+
+Other data can be computed from the minimal state in the component function
+
+Example: For the slideshow, storing the image ID is enough - we don't have to store the entire image URL
+
 ## When are state changes applied?
 
 State changes are applied _after_ the event handler function has finished executing

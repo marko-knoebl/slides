@@ -261,12 +261,13 @@
 <span class="hljs-keyword">const</span> baseUrl = <span class="hljs-string">'https://picsum.photos/300/200?image='</span>;
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">SlideshowApp</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">const</span> [img, setImg] = useState(<span class="hljs-number">0</span>);
+  <span class="hljs-keyword">const</span> imgUrl = baseUrl + img.toString();
   <span class="hljs-keyword">return</span> (
     <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
       <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>Image {img}<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
       <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setImg(0)}>start<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
       <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setImg(img - 1)}>prev<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">{baseUrl</span> + <span class="hljs-attr">img.toString</span>()} /></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">{imgUrl}</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">"slideshow"</span> /></span>
       <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setImg(img + 1)}>next<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
     <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
   );
@@ -280,13 +281,15 @@
 }
 </code></pre>
 <p>A component is defined as a function that returns an XML tree</p>
-<p>The function is called every time the component needs to be rendered</p>
+<p>The function is called every time the component needs to be (re-)rendered</p>
 <h2>Basic example: slideshow</h2>
 <!-- prettier-ignore -->
 <pre><code class="hljs language-jsx">  <span class="hljs-keyword">const</span> [img, setImg] = useState(<span class="hljs-number">0</span>);
+  <span class="hljs-keyword">const</span> imgUrl = baseUrl + img.toString();
 </code></pre>
 <p>A component can have internal state entries</p>
 <p><code>useState</code> returns the current state entry and a corresponding setter on every render</p>
+<p>Other values (like <code>imgUrl</code>) can be derived from the state values</p>
 <h2>Basic example: slideshow</h2>
 <!-- prettier-ignore -->
 <pre><code class="hljs language-jsx">  <span class="hljs-keyword">return</span> (
@@ -305,7 +308,7 @@
 <!-- prettier-ignore -->
 <pre><code class="hljs language-jsx">      &#x3C;button onClick={<span class="hljs-function">() =></span> setImg(<span class="hljs-number">0</span>)}>start&#x3C;/button>
       <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setImg(img - 1)}>prev<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span>
-      <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">{baseUrl</span> + <span class="hljs-attr">img.toString</span>()} /></span></span>
+      <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">{imgUrl}</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">"slideshow"</span> /></span></span>
       <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setImg(img + 1)}>next<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span>
 </code></pre>
 <p>Event handlers can be defined as JavaScript functions</p>
@@ -509,6 +512,10 @@
   <span class="hljs-keyword">return</span> ...
 };
 </code></pre>
+<h2>Using the minimal state</h2>
+<p>We should always try to use the <em>minimal</em> state possible (i.e. no redundant data)</p>
+<p>Other data can be computed from the minimal state in the component function</p>
+<p>Example: For the slideshow, storing the image ID is enough - we don't have to store the entire image URL</p>
 <h2>When are state changes applied?</h2>
 <p>State changes are applied <em>after</em> the event handler function has finished executing</p>
 <!-- prettier-ignore -->
@@ -532,6 +539,62 @@
 <li>prevent the index from becoming negative</li>
 <li>button for <em>random image</em></li>
 </ul>
+<h1>Input state</h1>
+<h2>Input state</h2>
+<p>In a React application, everything that can change in the UI should be part of the <em>state</em></p>
+<p>If we include a simple input element:</p>
+<pre><code class="hljs language-jsx">&#x3C;input />
+</code></pre>
+<p>there would be an aspect of the UI state which would not be captured in the React state.</p>
+<h2>Input state</h2>
+<p>This is how we can capture the value of an input and track it in the state:</p>
+<pre><code class="hljs language-jsx">&#x3C;input
+  value={inputText}
+  onChange={<span class="hljs-function">(<span class="hljs-params">event</span>) =></span> {
+    setInputText(event.target.value);
+  }}
+/>
+</code></pre>
+<h2>Input state</h2>
+<p>explanation:</p>
+<pre><code class="hljs language-txt">value={inputText}
+</code></pre>
+<p>binds from the <em>state</em> to the input value</p>
+<pre><code class="hljs language-txt">onChange={(event) => {
+  setInputText(event.target.value);
+}}
+</code></pre>
+<p>updates the state whenever the input value changes</p>
+<h2>Input state</h2>
+<p>why <code>event.target.value</code>?</p>
+<ul>
+<li><code>event.target</code> represents the input element</li>
+<li><code>event.target.value</code> is the new value of the input element</li>
+</ul>
+<h2>Input state</h2>
+<p>Example: Input that also displays the number of characters:</p>
+<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">App</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> [text, setText] = useState(<span class="hljs-string">''</span>);
+  <span class="hljs-keyword">const</span> len = text.length;
+
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">input</span>
+        <span class="hljs-attr">value</span>=<span class="hljs-string">{text}</span>
+        <span class="hljs-attr">onChange</span>=<span class="hljs-string">{(event)</span> =></span> {
+          setText(event.target.value);
+        }}
+      />
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">p</span>></span>This string has {len} characters.<span class="hljs-tag">&#x3C;/<span class="hljs-name">p</span>></span>
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+  );
+}
+</code></pre>
+<h2>Input state</h2>
+<p>Exercise:</p>
+<p>Show two inputs where the user should input matching passwords that are at least 4 characters long.</p>
+<p>If both passwords match and are long enough, display "valid" underneath, otherwise display "invalid"</p>
+<p>Make sure you store the minimal state</p>
 <h1>Immutable state</h1>
 <h2>Immutable state</h2>
 <p><strong>Immutability</strong>: important concept in functional programing and with React / Redux</p>
@@ -539,7 +602,7 @@
 <h2>Immutable state</h2>
 <p>if there are arrays or objects in the state we <em>could</em> try and mutate them directly</p>
 <p>don't do this - React will usually not notice the changes and will not rerender the view</p>
-<p>state should be viewed as <em>immutabe</em> (unchangeable)</p>
+<p>state should be considered as <em>immutabe</em> (unchangeable)</p>
 <h2>Immutable state</h2>
 <p>When <code>setState</code> is called, React will compare:</p>
 <ul>
@@ -650,11 +713,11 @@
 </code></pre>
 <p>Note: no quote characters around the value of <em>href</em></p>
 <h2>Binding events</h2>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> sayHello = <span class="hljs-function">() =></span> {
+<pre><code class="hljs language-jsx"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sayHello</span>(<span class="hljs-params"></span>) </span>{
   alert(<span class="hljs-string">'hello world'</span>);
-};
+}
 </code></pre>
-<pre><code class="hljs language-jsx">&#x3C;button onClick={sayHello}>Say Hello&#x3C;/button>
+<pre><code class="hljs language-jsx">&#x3C;button onClick={<span class="hljs-function">() =></span> sayHello()}>Say Hello&#x3C;/button>
 </code></pre>
 <p>list of browser events:
 <a href="https://www.w3schools.com/jsref/dom_obj_event.asp">https://www.w3schools.com/jsref/dom_obj_event.asp</a></p>
@@ -676,9 +739,6 @@
 <li><code>onClick</code> (instead of <code>onclick</code>)</li>
 <li><code>htmlFor</code> (instead of <code>for</code>)</li>
 </ul>
-<h2>Exercise: Prime number quiz</h2>
-<p>Create a quiz that shows an <em>odd</em> number from 1-99. The user has to guess if it is a prime number or not.</p>
-<p>Show statistics on correct / incorrect answers the user has given so far.</p>
 <h1>JSX: whitespace, comments and fragments</h1>
 <h2>Whitespace</h2>
 <p>In HTML the following examples are equivalent (displaying a single space between the images):</p>
@@ -724,6 +784,8 @@
   <span class="hljs-tag">&#x3C;/></span></span>
 );
 </code></pre>
+<h2>Exercise: math trainer</h2>
+<p>Create a math trainer as demonstrated on <a href="https://8h0os.csb.app/">https://8h0os.csb.app/</a></p>
 <h1>JSX: conditionals and repeating elements</h1>
 <h2>JSX: conditionals and repeating elements</h2>
 <ul>
@@ -895,22 +957,9 @@ solution: <strong>key</strong>:</p>
   _jsx(<span class="hljs-string">'div'</span>, <span class="hljs-literal">null</span>, <span class="hljs-string">'test 2'</span>)
 );
 </code></pre>
-<h1>Text inputs and forms</h1>
-<h2>Text inputs</h2>
-<p>In the context of React, input elements are special:</p>
-<p>Their properties (especially <code>.value</code>) can be modified directly by the user</p>
-<p>Therefore there would be aspects of the UI state which would not be captured in the React state.</p>
-<h2>Text inputs</h2>
-<p>This is how we can capture the value of an input and track it in the state:</p>
-<pre><code class="hljs language-jsx">&#x3C;input
-  value={inputText}
-  onChange={<span class="hljs-function">(<span class="hljs-params">event</span>) =></span> {
-    setInputText(event.target.value);
-  }}
-/>
-</code></pre>
+<h1>Forms and inputs</h1>
 <h2>Form actions</h2>
-<p>Default behavior of a form when submitted: directly send data to the server</p>
+<p>Default behavior of a form when it is submitted: directly send data to the server</p>
 <p>Replacing the default behavior:</p>
 <pre><code class="hljs language-jsx">&#x3C;form
   onSubmit={<span class="hljs-function">(<span class="hljs-params">event</span>) =></span> {
@@ -921,22 +970,42 @@ solution: <strong>key</strong>:</p>
   ...
 &#x3C;/form>
 </code></pre>
-<h1>Other input types</h1>
-<h2>Other input types</h2>
+<h2>Input labels</h2>
+<p>Adding a label for an input without using IDs:</p>
+<pre><code class="hljs language-jsx">&#x3C;label>
+  first name:
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">input</span>
+  // <span class="hljs-attr">...</span>
+  /></span></span>
+&#x3C;/label>
+</code></pre>
+<h1>Input types</h1>
+<h2>Input types</h2>
 <ul>
+<li>text</li>
 <li>textarea</li>
 <li>checkbox</li>
 <li>dropdown</li>
 <li>numeric input</li>
 <li>...</li>
 </ul>
-<h2>Examples: textarea and checkbox</h2>
-<p>textarea:</p>
-<pre><code class="hljs language-jsx">&#x3C;textarea
-  value={message}
-  onChange={<span class="hljs-function">(<span class="hljs-params">e</span>) =></span> setMessage(e.target.value)}
+<h2>Input types</h2>
+<p>text and text area:</p>
+<pre><code class="hljs language-jsx">&#x3C;input
+  value={title}
+  onChange={<span class="hljs-function">(<span class="hljs-params">e</span>) =></span> {
+    setTitle(e.target.value);
+  }}
 />
+
+<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">textarea</span>
+  <span class="hljs-attr">value</span>=<span class="hljs-string">{message}</span>
+  <span class="hljs-attr">onChange</span>=<span class="hljs-string">{(e)</span> =></span> {
+    setMessage(e.target.value);
+  }}
+/></span>
 </code></pre>
+<h2>Input types</h2>
 <p>checkbox:</p>
 <pre><code class="hljs language-jsx">&#x3C;input
   type=<span class="hljs-string">"checkbox"</span>
@@ -944,7 +1013,7 @@ solution: <strong>key</strong>:</p>
   onChange={<span class="hljs-function">(<span class="hljs-params">e</span>) =></span> setAccept(e.target.checked)}
 />
 </code></pre>
-<h2>Example: dropdown</h2>
+<h2>Input types</h2>
 <p>dropdown with hard-coded options:</p>
 <pre><code class="hljs language-jsx">&#x3C;select
   value={unit}
@@ -955,7 +1024,7 @@ solution: <strong>key</strong>:</p>
   <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"%"</span>></span>%<span class="hljs-tag">&#x3C;/<span class="hljs-name">option</span>></span></span>
 &#x3C;/select>
 </code></pre>
-<h2>Example: dropdown</h2>
+<h2>Input types</h2>
 <p>dropdown with options from an array:</p>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> UnitDropdown = <span class="hljs-function">() =></span> {
   <span class="hljs-keyword">const</span> units = [<span class="hljs-string">'px'</span>, <span class="hljs-string">'em'</span>, <span class="hljs-string">'%'</span>];

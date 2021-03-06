@@ -1,23 +1,35 @@
-# Andere Inputs
+# Input types
 
-## Andere Inputs
+## Input types
 
+- text
 - textarea
 - checkbox
 - dropdown
 - numeric input
 - ...
 
-## Beispiele: textarea und checkbox
+## Input types
 
-textarea:
+text and text area:
 
 ```jsx
+<input
+  value={title}
+  onChange={(e) => {
+    setTitle(e.target.value);
+  }}
+/>
+
 <textarea
   value={message}
-  onChange={(e) => setMessage(e.target.value)}
+  onChange={(e) => {
+    setMessage(e.target.value);
+  }}
 />
 ```
+
+## Input types
 
 checkbox:
 
@@ -29,9 +41,9 @@ checkbox:
 />
 ```
 
-## Beispiel: Dropdown
+## Input types
 
-Dropdown mit festen Optionen:
+dropdown with hard-coded options:
 
 ```jsx
 <select
@@ -44,9 +56,9 @@ Dropdown mit festen Optionen:
 </select>
 ```
 
-## Beispiel: Dropdown
+## Input types
 
-Dropdown mit Optionen aus einem Array:
+dropdown with options from an array:
 
 ```jsx
 const UnitDropdown = () => {
@@ -67,11 +79,11 @@ const UnitDropdown = () => {
 };
 ```
 
-## Numerische Inputs
+## Numeric input fields
 
-Der Wert eines numerischen Inputs sollte üblicherweise als string gespeichert werden (nicht als Zahl)
+The value of a numeric input field should usually be stored as a string (not as a number)
 
-Grund: mögliche Inhalte eines Numerischen Inputs (während der Benutzer tippt):
+Reasoning: possible contents of a numeric input field (while the user is typing):
 
 ```txt
 ""
@@ -81,9 +93,9 @@ Grund: mögliche Inhalte eines Numerischen Inputs (während der Benutzer tippt):
 "-3.0"
 ```
 
-## Numerische Inputs mit direkten "Auswirkungen"
+## Numeric inputs with direct "results"
 
-Beispiel: Speichern des numerischen Inhalts eines Inputs als ein String, aktualisieren eines zugehörigen numerischen Wertes, wenn dies möglich ist:
+example: keeping the content of a numeric input field as a string, updating an associated numeric value whenever possible:
 
 ```jsx
 const FontSizeDemo = () => {

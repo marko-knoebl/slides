@@ -16,12 +16,13 @@ import { useState } from 'react';
 const baseUrl = 'https://picsum.photos/300/200?image=';
 function SlideshowApp() {
   const [img, setImg] = useState(0);
+  const imgUrl = baseUrl + img.toString();
   return (
     <div>
       <h1>Image {img}</h1>
       <button onClick={() => setImg(0)}>start</button>
       <button onClick={() => setImg(img - 1)}>prev</button>
-      <img src={baseUrl + img.toString()} />
+      <img src={imgUrl} />
       <button onClick={() => setImg(img + 1)}>next</button>
     </div>
   );
@@ -48,11 +49,14 @@ Die Funktion wird jedes Mal aufgerufen, wenn die Komponente (neu) gerendert werd
 <!-- prettier-ignore -->
 ```jsx
   const [img, setImg] = useState(0);
+  const imgUrl = baseUrl + img.toString();
 ```
 
 Eine Komponente kann interne State-Einträge haben
 
 `useState` gibt bei jedem Rendering den aktuellen State-Eintrag und einen zugehörigen Setter zurück
+
+Weitere Werte (z.B. `imgUrl`) können aus dem State abgeleitet werden
 
 ## Grundlegendes Beispiel: Slideshow
 
@@ -82,7 +86,7 @@ Eine geschweifte Klammer wechselt zurück zu JavaScript
 ```jsx
       <button onClick={() => setImg(0)}>start</button>
       <button onClick={() => setImg(img - 1)}>prev</button>
-      <img src={baseUrl + img.toString()} />
+      <img src={imgUrl} alt="slideshow" />
       <button onClick={() => setImg(img + 1)}>next</button>
 ```
 

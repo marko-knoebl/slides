@@ -74,3 +74,7 @@ return (
   </>
 );
 ```
+
+## Übung: Mathe-Trainer
+
+Erstelle einen Mathe-Trainer wie auf https://8h0os.csb.app/

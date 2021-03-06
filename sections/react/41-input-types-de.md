@@ -1,37 +1,51 @@
-# Other input types
+# Input-Typen
 
-## Other input types
+## Input-Typen
 
+- text
 - textarea
 - checkbox
 - dropdown
-- numeric input
+- numerisch
 - ...
 
-## Examples: textarea and checkbox
+## Input-Typen
 
-textarea:
+Text und Textarea:
 
 ```jsx
+<input
+  value={title}
+  onChange={(e) => {
+    setTitle(e.target.value);
+  }}
+/>
+
 <textarea
   value={message}
-  onChange={(e) => setMessage(e.target.value)}
+  onChange={(e) => {
+    setMessage(e.target.value);
+  }}
 />
 ```
 
-checkbox:
+## Input-Typen
+
+Checkbox:
 
 ```jsx
 <input
   type="checkbox"
   checked={accept}
-  onChange={(e) => setAccept(e.target.checked)}
+  onChange={(e) => {
+    setAccept(e.target.checked);
+  }}
 />
 ```
 
-## Example: dropdown
+## Input-Typen
 
-dropdown with hard-coded options:
+Dropdown mit festen Optionen:
 
 ```jsx
 <select
@@ -44,9 +58,9 @@ dropdown with hard-coded options:
 </select>
 ```
 
-## Example: dropdown
+## Input-Typen
 
-dropdown with options from an array:
+Dropdown mit Optionen aus einem Array:
 
 ```jsx
 const UnitDropdown = () => {
@@ -67,11 +81,11 @@ const UnitDropdown = () => {
 };
 ```
 
-## Numeric input fields
+## Numerische Inputs
 
-The value of a numeric input field should usually be stored as a string (not as a number)
+Der Wert eines numerischen Inputs sollte üblicherweise als string gespeichert werden (nicht als Zahl)
 
-Reasoning: possible contents of a numeric input field (while the user is typing):
+Grund: mögliche Inhalte eines Numerischen Inputs (während der Benutzer tippt):
 
 ```txt
 ""
@@ -81,9 +95,9 @@ Reasoning: possible contents of a numeric input field (while the user is typing)
 "-3.0"
 ```
 
-## Numeric inputs with direct "results"
+## Numerische Inputs mit direkten "Auswirkungen"
 
-example: keeping the content of a numeric input field as a string, updating an associated numeric value whenever possible:
+Beispiel: Speichern des numerischen Inhalts eines Inputs als ein String, aktualisieren eines zugehörigen numerischen Wertes, wenn dies möglich ist:
 
 ```jsx
 const FontSizeDemo = () => {
