@@ -2583,40 +2583,67 @@ plt.scatter(x, y, <span class="hljs-number">2</span>, <span class="hljs-string">
 <p>Pandas:</p>
 <pre><code class="hljs language-py">df.plot.pie()
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Anzahlen und Kontingenztabelle</h1>
-</section><section class="slide"><h2>Anzahlen</h2>
-<pre><code class="hljs language-py">titanic[<span class="hljs-string">"class"</span>].value_counts()
+</section></section><section class="slides-section"><section class="slide"><h1>Gruppierung und Aggregation</h1>
+</section><section class="slide"><h2>Gruppierung und Aggregation</h2>
+<p>Beispiele zu den Titanic-Daten:</p>
+<ul>
+<li>Anzahl der Passagiere nach Klasse</li>
+<li>Durchschnittliches Alter nach Klasse</li>
+<li>Anzahl der Passagiere nach Klasse <em>und</em> Geschlecht</li>
+<li>Durchschnittliches Alter nach Klasse <em>und</em> Geschlecht</li>
+</ul>
+</section><section class="slide"><h2>Gruppierung und Aggregation</h2>
+<p><em>Aggregation</em>: Berechnung abgeleiteter Werte basierend auf mehreren Einträgen</p>
+</section><section class="slide"><h2>Gruppierung und Aggregation</h2>
+<p>Funktionen und Methoden:</p>
+<ul>
+<li><code>series.value_counts()</code></li>
+<li><code>series.groupby()</code> / <code>df.groupby()</code></li>
+<li><code>pd.crosstab()</code></li>
+<li><code>pd.pivot_table()</code></li>
+</ul>
+</section><section class="slide"><h2>Gruppierung und Aggregation</h2>
+<p>Anzahl von Passagieren pro Klasse:</p>
+<pre><code class="hljs language-py">titanic[<span class="hljs-string">"pclass"</span>].value_counts()
+
+<span class="hljs-comment"># 491, 216, 184</span>
 </code></pre>
-<pre><code class="hljs language-apache"><span class="hljs-attribute">Third</span>     <span class="hljs-number">491</span>
-<span class="hljs-attribute">First</span>     <span class="hljs-number">216</span>
-<span class="hljs-attribute">Second</span>    <span class="hljs-number">184</span>
+</section><section class="slide"><h2>Gruppierung und Aggregation</h2>
+<p>Median der Alter pro Klasse:</p>
+<pre><code class="hljs language-py">titanic[<span class="hljs-string">"age"</span>].groupby(titanic[<span class="hljs-string">"pclass"</span>]).median()
+
+<span class="hljs-comment"># 37, 29, 24</span>
 </code></pre>
-</section><section class="slide"><h2>Kontingenztabelle</h2>
-<p>Eine <em>Kontingenztabelle</em> oder <em>Kreuztabelle</em> gibt Anzahlen über mehrere Merkmale hinweg an.</p>
-</section><section class="slide"><h2>Kontingenztabelle</h2>
-<pre><code class="hljs language-py">pd.crosstab(titanic[<span class="hljs-string">"class"</span>], titanic[<span class="hljs-string">"survived"</span>])
+</section><section class="slide"><h2>Gruppierung und Aggregation</h2>
+<p>Anzahl der Passagiere nach Klasse und Geschlecht (<em>Kontingenztabelle</em> oder <em>Kreuztabelle</em>)</p>
+<pre><code class="hljs language-py">pd.crosstab(titanic[<span class="hljs-string">"pclass"</span>], titanic[<span class="hljs-string">"sex"</span>])
 </code></pre>
-<pre><code class="hljs language-angelscript">survived    <span class="hljs-number">0</span>    <span class="hljs-number">1</span>
-<span class="hljs-keyword">class</span>
-<span class="hljs-symbol">First</span>      <span class="hljs-symbol">80</span>  <span class="hljs-symbol">136</span>
-<span class="hljs-symbol">Second</span>     <span class="hljs-symbol">97</span>   <span class="hljs-symbol">87</span>
-<span class="hljs-symbol">Third</span>     <span class="hljs-symbol">372</span>  <span class="hljs-symbol">119</span>
+<pre><code class="hljs language-txt">sex     female  male
+pclass
+1           94   122
+2           76   108
+3          144   347
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Gruppierung</h1>
-</section><section class="slide"><h2>Gruppierung</h2>
-<p>Einteilung der Daten in Gruppen / Kategorien und berechnen von Werten auf deren Basis</p>
-</section><section class="slide"><h2>Gruppierung</h2>
-<p>Beispiel: Durchschnittswerte der Iris-Daten basierend auf dem Namen der Art</p>
-<pre><code class="hljs language-py">iris.groupby(iris.name).mean()
+</section><section class="slide"><h2>Gruppierung und Aggregation</h2>
+<p>Durchschnittliches Alter nach Geschlecht und Klasse:</p>
+<pre><code class="hljs language-py">pd.crosstab(
+    index=titanic[<span class="hljs-string">"pclass"</span>],
+    columns=titanic[<span class="hljs-string">"sex"</span>],
+    values=titanic[<span class="hljs-string">"age"</span>],
+    aggfunc=np.mean)
 </code></pre>
-<pre><code class="hljs language-apache">                 <span class="hljs-attribute">sepal_length</span>  sepal_width  petal_length  petal_width
-<span class="hljs-attribute">name</span>
-<span class="hljs-attribute">Iris</span>-setosa             <span class="hljs-number">5</span>.<span class="hljs-number">006</span>        <span class="hljs-number">3</span>.<span class="hljs-number">418</span>         <span class="hljs-number">1</span>.<span class="hljs-number">464</span>        <span class="hljs-number">0</span>.<span class="hljs-number">244</span>
-<span class="hljs-attribute">Iris</span>-versicolor         <span class="hljs-number">5</span>.<span class="hljs-number">936</span>        <span class="hljs-number">2</span>.<span class="hljs-number">770</span>         <span class="hljs-number">4</span>.<span class="hljs-number">260</span>        <span class="hljs-number">1</span>.<span class="hljs-number">326</span>
-<span class="hljs-attribute">Iris</span>-virginica          <span class="hljs-number">6</span>.<span class="hljs-number">588</span>        <span class="hljs-number">2</span>.<span class="hljs-number">974</span>         <span class="hljs-number">5</span>.<span class="hljs-number">552</span>        <span class="hljs-number">2</span>.<span class="hljs-number">026</span>
+<pre><code class="hljs language-py">pd.pivot_table(
+    data=titanic,
+    values=<span class="hljs-string">"age"</span>,
+    index=[<span class="hljs-string">"pclass"</span>],
+    columns=[<span class="hljs-string">"sex"</span>],
+    aggfunc=np.mean)
 </code></pre>
-</section><section class="slide"><h2>Gruppierung</h2>
-<p>Aufgabe: Durchschnittliche USD-Wechselkurse für jede Währung in den 90ern</p>
+</section><section class="slide"><h2>Übungen</h2>
+<ul>
+<li>Durchschnittswerte der Iris-Daten basierend auf dem Namen der Art</li>
+<li>Durchschnittliche USD-Wechselkurse für jede Währung in den 90ern</li>
+</ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Multi-Index</h1>
 </section><section class="slide"><h2>Multi-Index</h2>
 <p>Index-Spalte: Spalte, anhand deren Einträge die Zeilen eindeutig identifiziert werden können</p>
@@ -2656,7 +2683,74 @@ plt.scatter(x, y, <span class="hljs-number">2</span>, <span class="hljs-string">
     <span class="hljs-string">"https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv"</span>,
     index_col=[<span class="hljs-string">"Country"</span>, <span class="hljs-string">"Date"</span>]
     parse_dates=[<span class="hljs-string">"Date"</span>])
-</code></pre></section></section></div>
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Joins</h1>
+</section><section class="slide"><h2>Joins</h2>
+<p><strong>Join</strong>: Zusammenführen von mehreren Datenquellen</p>
+</section><section class="slide"><h2>Joins</h2>
+<p>Typen:</p>
+<ul>
+<li>inner join</li>
+<li>outer join</li>
+<li>left join</li>
+<li>right join</li>
+</ul>
+</section><section class="slide"><h2>Joins</h2>
+<p>Joins anhand des Index bei <code>Series</code>-Objekten:</p>
+<p>outer Join:</p>
+<pre><code class="hljs language-py">interest_rates = pd.DataFrame({
+    <span class="hljs-string">"usd"</span>: sp500[<span class="hljs-string">"Long Interest Rate"</span>],
+    <span class="hljs-string">"eur"</span>: euribor[<span class="hljs-string">"rate"</span>]
+})
+</code></pre>
+<p>inner Join:</p>
+<pre><code class="hljs language-py">interest_rates = pd.DataFrame({
+    <span class="hljs-string">"usd"</span>: sp500[<span class="hljs-string">"Long Interest Rate"</span>],
+    <span class="hljs-string">"eur"</span>: euribor[<span class="hljs-string">"rate"</span>]
+}).dropna()
+</code></pre>
+</section><section class="slide"><h2>Joins</h2>
+<p>Joins anhand des Index bei <em>DataFrame</em>-Objekten:</p>
+<p>inner Join:</p>
+<pre><code class="hljs language-py">pd.merge(sp500, euribor, left_index=<span class="hljs-literal">True</span>, right_index=<span class="hljs-literal">True</span>)
+</code></pre>
+<p>outer Join:</p>
+<pre><code class="hljs language-py">pd.merge(sp500, euribor, left_index=<span class="hljs-literal">True</span>, right_index=<span class="hljs-literal">True</span>,
+         how=<span class="hljs-string">"outer"</span>)
+</code></pre>
+</section><section class="slide"><h2>Joins</h2>
+<p>Join anhand bestimmter Spalten (nicht anhand des Index):</p>
+<pre><code class="hljs language-py">sp500_no_index = pd.read_csv(
+    <span class="hljs-string">"https://datahub.io/core/s-and-p-500/r/data.csv"</span>,
+    parse_dates=[<span class="hljs-string">"Date"</span>],
+)
+euribor_no_index = pd.read_csv(
+    <span class="hljs-string">"https://datahub.io/core/euribor/r/euribor-12m-monthly.csv"</span>,
+    parse_dates=[<span class="hljs-string">"date"</span>],
+    usecols=[<span class="hljs-string">"date"</span>, <span class="hljs-string">"rate"</span>]
+)
+
+pd.merge(sp500_no_index, euribor_no_index, left_on=<span class="hljs-string">"Date"</span>,
+         right_on=<span class="hljs-string">"date"</span>)
+</code></pre>
+</section><section class="slide"><h2>Joins</h2>
+<p>Beispiel: Musiker und Lieder</p>
+<pre><code class="hljs language-py">artists = pd.DataFrame({
+    <span class="hljs-string">"name"</span>: [<span class="hljs-string">"The Beatles"</span>, <span class="hljs-string">"Elvis Presley"</span>,
+             <span class="hljs-string">"Michael Jackson"</span>, <span class="hljs-string">"Elton John"</span>],
+    <span class="hljs-string">"country"</span>: [<span class="hljs-string">"UK"</span>, <span class="hljs-string">"US"</span>, <span class="hljs-string">"US"</span>, <span class="hljs-string">"UK"</span>]
+})
+</code></pre>
+<pre><code class="hljs language-py">songs = pd.DataFrame({
+    <span class="hljs-string">"title"</span>: [<span class="hljs-string">"White Christmas"</span>, <span class="hljs-string">"Candle in the Wind"</span>,
+              <span class="hljs-string">"It's Now or Never"</span>],
+    <span class="hljs-string">"artist"</span>: [<span class="hljs-string">"Bing Crosby"</span>, <span class="hljs-string">"Elton John"</span>,
+               <span class="hljs-string">"Elvis Presley"</span>],
+    <span class="hljs-string">"sales"</span>: [<span class="hljs-number">50</span>, <span class="hljs-number">33</span>, <span class="hljs-number">20</span>]
+})
+</code></pre>
+</section><section class="slide"><h2>Joins</h2>
+<p>siehe auch: <a href="https://jakevdp.github.io/PythonDataScienceHandbook/03.07-merge-and-join.html">https://jakevdp.github.io/PythonDataScienceHandbook/03.07-merge-and-join.html</a></p></section></section></div>
     </div>
     <script>/*!
  * reveal.js

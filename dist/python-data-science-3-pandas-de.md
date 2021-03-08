@@ -726,63 +726,91 @@ Pandas:
 df.plot.pie()
 ```
 
-# Anzahlen und Kontingenztabelle
+# Gruppierung und Aggregation
 
-## Anzahlen
+## Gruppierung und Aggregation
 
-```py
-titanic["class"].value_counts()
-```
+Beispiele zu den Titanic-Daten:
 
-```
-Third     491
-First     216
-Second    184
-```
+- Anzahl der Passagiere nach Klasse
+- Durchschnittliches Alter nach Klasse
+- Anzahl der Passagiere nach Klasse _und_ Geschlecht
+- Durchschnittliches Alter nach Klasse _und_ Geschlecht
 
-## Kontingenztabelle
+## Gruppierung und Aggregation
 
-Eine _Kontingenztabelle_ oder _Kreuztabelle_ gibt Anzahlen über mehrere Merkmale hinweg an.
+_Aggregation_: Berechnung abgeleiteter Werte basierend auf mehreren Einträgen
 
-## Kontingenztabelle
+## Gruppierung und Aggregation
 
-```py
-pd.crosstab(titanic["class"], titanic["survived"])
-```
+Funktionen und Methoden:
 
-```
-survived    0    1
-class
-First      80  136
-Second     97   87
-Third     372  119
-```
+- `series.value_counts()`
+- `series.groupby()` / `df.groupby()`
+- `pd.crosstab()`
+- `pd.pivot_table()`
 
-# Gruppierung
+## Gruppierung und Aggregation
 
-## Gruppierung
-
-Einteilung der Daten in Gruppen / Kategorien und berechnen von Werten auf deren Basis
-
-## Gruppierung
-
-Beispiel: Durchschnittswerte der Iris-Daten basierend auf dem Namen der Art
+Anzahl von Passagieren pro Klasse:
 
 ```py
-iris.groupby(iris.name).mean()
+titanic["pclass"].value_counts()
+
+# 491, 216, 184
 ```
 
-```
-                 sepal_length  sepal_width  petal_length  petal_width
-name
-Iris-setosa             5.006        3.418         1.464        0.244
-Iris-versicolor         5.936        2.770         4.260        1.326
-Iris-virginica          6.588        2.974         5.552        2.026
+## Gruppierung und Aggregation
+
+Median der Alter pro Klasse:
+
+```py
+titanic["age"].groupby(titanic["pclass"]).median()
+
+# 37, 29, 24
 ```
 
-## Gruppierung
+## Gruppierung und Aggregation
 
-Aufgabe: Durchschnittliche USD-Wechselkurse für jede Währung in den 90ern
+Anzahl der Passagiere nach Klasse und Geschlecht (_Kontingenztabelle_ oder _Kreuztabelle_)
+
+```py
+pd.crosstab(titanic["pclass"], titanic["sex"])
+```
+
+```txt
+sex     female  male
+pclass
+1           94   122
+2           76   108
+3          144   347
+```
+
+## Gruppierung und Aggregation
+
+Durchschnittliches Alter nach Geschlecht und Klasse:
+
+```py
+pd.crosstab(
+    index=titanic["pclass"],
+    columns=titanic["sex"],
+    values=titanic["age"],
+    aggfunc=np.mean)
+```
+
+```py
+pd.pivot_table(
+    data=titanic,
+    values="age",
+    index=["pclass"],
+    columns=["sex"],
+    aggfunc=np.mean)
+```
+
+## Übungen
+
+- Durchschnittswerte der Iris-Daten basierend auf dem Namen der Art
+- Durchschnittliche USD-Wechselkurse für jede Währung in den 90ern
 
 # Multi-Index
 
@@ -814,3 +842,102 @@ exchange_rates = pd.read_csv(
     index_col=["Country", "Date"]
     parse_dates=["Date"])
 ```
+
+# Joins
+
+## Joins
+
+**Join**: Zusammenführen von mehreren Datenquellen
+
+## Joins
+
+Typen:
+
+- inner join
+- outer join
+- left join
+- right join
+
+## Joins
+
+Joins anhand des Index bei `Series`-Objekten:
+
+outer Join:
+
+```py
+interest_rates = pd.DataFrame({
+    "usd": sp500["Long Interest Rate"],
+    "eur": euribor["rate"]
+})
+```
+
+inner Join:
+
+```py
+interest_rates = pd.DataFrame({
+    "usd": sp500["Long Interest Rate"],
+    "eur": euribor["rate"]
+}).dropna()
+```
+
+## Joins
+
+Joins anhand des Index bei _DataFrame_-Objekten:
+
+inner Join:
+
+```py
+pd.merge(sp500, euribor, left_index=True, right_index=True)
+```
+
+outer Join:
+
+```py
+pd.merge(sp500, euribor, left_index=True, right_index=True,
+         how="outer")
+```
+
+## Joins
+
+Join anhand bestimmter Spalten (nicht anhand des Index):
+
+```py
+sp500_no_index = pd.read_csv(
+    "https://datahub.io/core/s-and-p-500/r/data.csv",
+    parse_dates=["Date"],
+)
+euribor_no_index = pd.read_csv(
+    "https://datahub.io/core/euribor/r/euribor-12m-monthly.csv",
+    parse_dates=["date"],
+    usecols=["date", "rate"]
+)
+
+pd.merge(sp500_no_index, euribor_no_index, left_on="Date",
+         right_on="date")
+```
+
+## Joins
+
+Beispiel: Musiker und Lieder
+
+```py
+artists = pd.DataFrame({
+    "name": ["The Beatles", "Elvis Presley",
+             "Michael Jackson", "Elton John"],
+    "country": ["UK", "US", "US", "UK"]
+})
+```
+
+```py
+songs = pd.DataFrame({
+    "title": ["White Christmas", "Candle in the Wind",
+              "It's Now or Never"],
+    "artist": ["Bing Crosby", "Elton John",
+               "Elvis Presley"],
+    "sales": [50, 33, 20]
+})
+```
+
+## Joins
+
+siehe auch: <https://jakevdp.github.io/PythonDataScienceHandbook/03.07-merge-and-join.html>

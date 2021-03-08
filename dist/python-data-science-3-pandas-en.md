@@ -726,63 +726,91 @@ Pandas:
 df.plot.pie()
 ```
 
-# Counts and cross tabulation
+# Grouping and aggregation
 
-## Counts
+## Grouping and aggregation
 
-```py
-titanic["class"].value_counts()
-```
+examples related to Titanic passenger data:
 
-```
-Third     491
-First     216
-Second    184
-```
+- number of passengers by class
+- average age of passengers by class
+- number of passengers by class _and_ sex
+- average age of passengers by class _and_ sex
 
-## Cross tabulation
+## Grouping and aggregation
 
-A _cross tabulation_ shows the number of corresponding entries across multiple properties
+_Aggregation_: Computing a derived value based on multiple data entries in a series / data frame (e.g. number of entries, average, median)
 
-## Cross tabulation
+## Grouping and aggregation
 
-```py
-pd.crosstab(titanic["class"], titanic["survived"])
-```
+functions and methods:
 
-```
-survived    0    1
-class
-First      80  136
-Second     97   87
-Third     372  119
-```
+- `series.value_counts()`
+- `series.groupby()` / `df.groupby()`
+- `pd.crosstab()`
+- `pd.pivot_table()`
 
-# Grouping
+## Grouping and aggregation
 
-## Grouping
-
-splitting data into groups / categories and computing values based on these groups
-
-## Grouping
-
-example: average of the iris data
+number of passengers in each class:
 
 ```py
-iris.groupby(iris.name).mean()
+titanic["pclass"].value_counts()
+
+# 491, 216, 184
 ```
 
-```
-                 sepal_length  sepal_width  petal_length  petal_width
-name
-Iris-setosa             5.006        3.418         1.464        0.244
-Iris-versicolor         5.936        2.770         4.260        1.326
-Iris-virginica          6.588        2.974         5.552        2.026
+## Grouping and aggregation
+
+median age of passengers in each class:
+
+```py
+titanic["age"].groupby(titanic["pclass"]).median()
+
+# 37, 29, 24
 ```
 
-## Grouping
+## Grouping and aggregation
 
-Exercise: average USD exchange rates for each currency in the 90s
+number of passengers by class and sex (_frequency table_):
+
+```py
+pd.crosstab(titanic["pclass"], titanic["sex"])
+```
+
+```txt
+sex     female  male
+pclass
+1           94   122
+2           76   108
+3          144   347
+```
+
+## Grouping and aggregation
+
+average age by class and sex:
+
+```py
+pd.crosstab(
+    index=titanic["pclass"],
+    columns=titanic["sex"],
+    values=titanic["age"],
+    aggfunc=np.mean)
+```
+
+```py
+pd.pivot_table(
+    data=titanic,
+    values="age",
+    index=["pclass"],
+    columns=["sex"],
+    aggfunc=np.mean)
+```
+
+## Exercises
+
+- mean values for each of the four iris measurements within each type of flower
+- mean USD exchange rates for each currency in the 90s
 
 # Multi index
 
@@ -814,3 +842,112 @@ exchange_rates = pd.read_csv(
     index_col=["Country", "Date"]
     parse_dates=["Date"])
 ```
+
+# Joins
+
+## Joins
+
+**Join**: Combining multiple `DataFrame`s or `Series` into a single `DataFrame`
+
+## Joins
+
+types:
+
+- inner join
+- outer join
+- left join
+- right join
+
+## Joins
+
+Joining `Series` objects by their indices:
+
+outer join:
+
+```py
+interest_rates = pd.DataFrame({
+    "usd": sp500["Long Interest Rate"],
+    "eur": euribor["rate"]
+})
+```
+
+inner join:
+
+```py
+interest_rates = pd.DataFrame({
+    "usd": sp500["Long Interest Rate"],
+    "eur": euribor["rate"]
+}).dropna()
+```
+
+## Joins
+
+joining `DataFrame` objects by their indices:
+
+inner join:
+
+```py
+pd.merge(sp500, euribor, left_index=True, right_index=True)
+```
+
+outer join:
+
+```py
+pd.merge(sp500, euribor, left_index=True, right_index=True,
+         how="outer")
+```
+
+## Joins
+
+joining on specific columns (not on the index):
+
+```py
+sp500_no_index = pd.read_csv(
+    "https://datahub.io/core/s-and-p-500/r/data.csv",
+    parse_dates=["Date"],
+)
+euribor_no_index = pd.read_csv(
+    "https://datahub.io/core/euribor/r/euribor-12m-monthly.csv",
+    parse_dates=["date"],
+    usecols=["date", "rate"]
+)
+
+pd.merge(sp500_no_index, euribor_no_index, left_on="Date",
+         right_on="date")
+```
+
+## Joins
+
+short form if the corresponding columns have the same name:
+
+```py
+pd.merge(sp500_no_index, euribor_no_index, on="date")
+```
+
+will result in one `date` column instead of two
+
+## Exercise
+
+Exercise: try some join operations on the following data:
+
+```py
+artists = pd.DataFrame({
+    "name": ["The Beatles", "Elvis Presley",
+             "Michael Jackson", "Elton John"],
+    "country": ["UK", "US", "US", "UK"]
+})
+```
+
+```py
+songs = pd.DataFrame({
+    "title": ["White Christmas", "Candle in the Wind",
+              "It's Now or Never"],
+    "artist": ["Bing Crosby", "Elton John",
+               "Elvis Presley"],
+    "sales_millions": [50, 33, 20]
+})
+```
+
+## Joins
+
+see also: <https://jakevdp.github.io/PythonDataScienceHandbook/03.07-merge-and-join.html>

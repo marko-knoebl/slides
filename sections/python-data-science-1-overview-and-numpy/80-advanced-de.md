@@ -62,10 +62,16 @@ Arrays können via `np.copy()` kopiert werden
 
 ## Arrays aneinanderfügen
 
-entlang einer Achse aneinanderfügen (standardmäßig Achse 0):
+entlang einer bestehenden Achse aneinanderfügen (standardmäßig Achse 0):
 
 ```py
 np.concatenate([a1d, a1d])
 np.concatenate([a2d, a2d])
 np.concatenate([a2d, a2d], axis=1)
+```
+
+entlang einer neuen Achse aneinanderfügen:
+
+```py
+np.stack([a1d, a1d])
 ```
