@@ -70,6 +70,7 @@ examples:
 - [UCI machine learning repository](https://archive.ics.uci.edu/ml)
 - [scikit-learn datasets](https://scikit-learn.org/stable/datasets/index.html)
 - [keras datasets](https://keras.io/api/datasets/)
+- [TensorFlow datasets](https://www.tensorflow.org/datasets/overview)
 
 ## Possible tasks
 
@@ -453,16 +454,16 @@ Machine learning strategy that vaguely resembles how neurons in brains interact
 
 - <https://victorzhou.com/blog/intro-to-neural-networks/>
 
-# Example: iris classification in scikit-learn with various algorithms
+# Example: iris classification with various algorithms
 
-## Example: iris classification in scikit-learn with various algorithms
+## Example: iris classification with various algorithms
 
 task: use other classifiers, e.g.:
 
-- `sklearn.neural_network.MLPClassifier`
-- `sklearn.svm.SVC`
 - `sklearn.tree.DecisionTreeClassifier`
+- `sklearn.svm.SVC`
 - `sklearn.naive_bayes.GaussianNB`
+- `sklearn.neural_network.MLPClassifier`
 
 # Preparing data
 
@@ -561,7 +562,7 @@ one-hot-encoding:
 
 example preprocessing for text classification: counting words
 
-# Example: loading and preparing iris data in scikit-learn
+# Example: loading and preparing iris data
 
 ## Example: loading data
 

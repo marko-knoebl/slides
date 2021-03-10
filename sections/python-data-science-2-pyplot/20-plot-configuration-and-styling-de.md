@@ -8,7 +8,7 @@ Vorgefertigte Stylesheets verwendbar mittels:
 plt.style.use("stylename")
 ```
 
-[Referenz verfügbarer Stile](https://matplotlib.org/3.3.0/gallery/style_sheets/style_sheets_reference.html)
+[Referenz verfügbarer Stile](https://matplotlib.org/stable/gallery/style_sheets/style_sheets_reference.html)
 
 ## Stile von Graphen
 

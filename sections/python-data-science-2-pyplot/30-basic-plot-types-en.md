@@ -98,4 +98,6 @@ plt.boxplot(
 plt.pie([3, 10, 17, 9], labels=["a", "b", "c", "d"])
 
 plt.pie([3, 10, 17, 9], explode=[0, 0, 0, 0.1])
+
+plt.pie([3, 10, 17, 9], startangle=90, counterclock=False)
 ```

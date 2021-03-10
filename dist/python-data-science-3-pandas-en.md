@@ -523,9 +523,56 @@ ir_uk_weekly = ir_uk.resample('7d').interpolate()
 
 Use the data from _sp500_ and euribor to compare the development of american and european interest rates
 
-# Basic plots in Pandas
+# Plotting
 
-## Basic plots in Pandas
+## Plotting
+
+wrappers for _pyplot_ functions that exist on _Series_ and _DataFrame_ objects:
+
+- `data.plot()` or `data.plot.line()`
+- `data.plot.bar()`
+- `data.plot.scatter()`
+- `data.plot.hist()`
+- `data.plot.box()`
+- `data.plot.pie()`
+
+## Plotting
+
+interface of the pandas plot functions:
+
+similar to _pyplot_ - except data doesn't have to be passed explicitly:
+
+```py
+# pyplot
+plt.plot(data, color="C0", marker="o", linestyle="--")
+```
+
+```py
+# pandas
+data.plot(color="C0", marker="o", linestyle="--")
+```
+
+## Plotting
+
+For a DataFrame, we can pass lists of configurations for individual graphs (only works for some of the options):
+
+```py
+df.plot(color=["C0", "C1"], style=["o--", "X--"])
+```
+
+## Plotting
+
+If we are not in a Jupyter notebook we still habe to call:
+
+```py
+import matplotlib.pyplot as plt
+
+plt.show()
+```
+
+# Plotting: examples and exercises
+
+## Basic example
 
 ```py
 import numpy as np
@@ -538,41 +585,21 @@ data = pd.DataFrame({
     "y2": x**2
 })
 
-data.plot.line()
+data.plot()
 ```
-
-## Basic plots in Pandas
-
-if not in a Jupyter notebook:
-
-```py
-import matplotlib.pyplot as plt
-
-plt.show()
-```
-
-## Basic plots in Pandas
-
-- graph: `df.plot.line()` / `df.plot()`
-- bar chart: `df.plot.bar()`
-- scatter plot: `df.plot.scatter(x="name1", y="name2")`
-- histogram: `df.plot.hist()`
-- box plot: `df.plot.box()`
-- pie chart: `df.pie()`
 
 ## Graph
 
-via `df.plot.line()` or `df.plot()`
+examples:
 
 ```py
 euribor.plot.line()
-```
-
-```py
-sp500["SP500"].plot.line(figsize=(9, 6))
+sp500["SP500"].plot.line()
 ```
 
 ## Bar chart
+
+example:
 
 ```py
 euribor.iloc[-36:].plot.bar()
@@ -580,150 +607,51 @@ euribor.iloc[-36:].plot.bar()
 
 Exercise: Visualize the median of _sepal-width_ and _sepal-length_ for all three types of flowers
 
-## Scatter Plot
+## Scatter plot
 
 ```py
-iris.plot.scatter(x="sepal_length", y="sepal_width")
+iris.plot.scatter(
+    x="sepal_length"
+    y="sepal_width",
+    s="petal_length",
+    c="petal_width"
+)
 ```
 
-Exercise: scatter plot for _Iris-setosa_
+Exercise: scatter plot for _iris setosa_
 
 ## Histogram
 
-```py
-iris.sepal_lenght.plot.hist()
-```
-
-```py
-iris.sepal_length.plot.hist(bins=30)
-```
+Exercise: histogram of the _sepal length_
 
 ## Box plot
 
-```py
-iris.plot.box()
-```
+Exercise: box plots of all iris measurements
 
 ## Pie chart
 
+Example:
+
 ```py
-df.pie()
+surface = pd.Series({"land": 0.29, "water": 0.71})
+
+surface.plot.pie(ylabel="Surface of the earth")
 ```
+
+# Plotting: scatter matrix
 
 ## Scatter matrix
 
-creates several scatter plots - if there are 4 data series it will create 4x4 plots (scatter plots and histograms)
+Extra function in _pandas_: scatter matrix
+
+creates several scatter plots in a grid
+
+if there are 4 data series it will create 4x4=16 plots (scatter plots and histograms)
 
 ```py
 from pandas.plotting import scatter_matrix
 
 scatter_matrix(iris)
-```
-
-# Basic plots in pandas and pyplot
-
-## Graph
-
-Pyplot:
-
-```py
-plt.plot(x, y)
-plt.plot(y)
-```
-
-Pandas:
-
-```py
-df.plot.line()
-df.plot()
-```
-
-## Bar chart
-
-Pyplot:
-
-```py
-plt.bar(x, y)
-```
-
-Pandas:
-
-```py
-df.plot.bar()
-```
-
-## Scatter Plot
-
-Pyplot:
-
-```py
-plt.plot(x, y, ".")
-plt.scatter(x, y, 2, "red")
-```
-
-Pandas:
-
-```py
-df.plot.scatter(x="name1", y="name2")
-```
-
-## Histogram
-
-Pyplot:
-
-```py
-plt.hist(x)
-```
-
-Pandas:
-
-```py
-df.plot.hist()
-```
-
-## Histogram
-
-Pyplot:
-
-```py
-plt.hist(
-  iris[:, 2],
-  bins=[1, 2, 4, 5, 6],
-  density=True)
-```
-
-Pandas:
-
-```py
-iris.sepal_length.plot.hist(bins=5)
-```
-
-## Box Plot
-
-Pyplot:
-
-```py
-plt.boxplot(data)
-```
-
-Pandas:
-
-```py
-df.plot.box()
-```
-
-## Pie chart
-
-Pyplot:
-
-```py
-plt.pie(x, labels=[...])
-```
-
-Pandas:
-
-```py
-df.plot.pie()
 ```
 
 # Grouping and aggregation

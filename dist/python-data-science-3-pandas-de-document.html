@@ -162,7 +162,7 @@ euribor = pd.read_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class=
 <h2>Quellen für Beispieldaten</h2>
 <ul>
 <li><a href="https://datahub.io">https://datahub.io</a></li>
-<li><a href="https://github.com/mwaskom/seaborn-data">seaborn data sets</a> (click on a file and then on the <em>raw</em> button)</li>
+<li><a href="https://github.com/mwaskom/seaborn-data">seaborn data sets</a> (klicke auf eine Datei und dann auf den <em>raw</em> Button)</li>
 <li><a href="https://pydata.github.io/pandas-datareader">pandas-datareader</a></li>
 </ul>
 <h1>Statistische Grundwerte</h1>
@@ -188,11 +188,11 @@ dtype: float64
 <li><code>area.count()</code></li>
 <li><code>area.mean()</code></li>
 <li><code>area.std()</code></li>
-<li><code>area.quantile(0)</code> or <code>area.min()</code></li>
+<li><code>area.quantile(0)</code> oder <code>area.min()</code></li>
 <li><code>area.quantile(0.25)</code></li>
-<li><code>area.quantile(0.5)</code> or <code>area.median()</code></li>
+<li><code>area.quantile(0.5)</code> oder <code>area.median()</code></li>
 <li><code>area.quantile(0.75)</code></li>
-<li><code>area.quantile(1)</code> or <code>area.max()</code></li>
+<li><code>area.quantile(1)</code> oder <code>area.max()</code></li>
 </ul>
 <h2>Statistische Werte</h2>
 <ul>
@@ -334,7 +334,7 @@ iris_setosa[<span class="hljs-string">"sepal_ratio"</span>].std()
 <h2>Abgeleitete Werte berechnen mittels NumPy</h2>
 <p>Aufgabe:</p>
 <ul>
-<li>Analysieren der monatlichen S&#x26;P 500 Daten und berechnen des monatlichen Gewinns / Verlusts für jedes Monat</li>
+<li>Analysiere die monatlichen S&#x26;P 500 Daten und berechne den monatlichen Gewinn / Verlust</li>
 <li>Was war der größte Gewinn / Verlust in einem Monat?</li>
 </ul>
 <h2>Abgeleitete Werte berechnen mittels NumPy</h2>
@@ -405,8 +405,38 @@ ir_uk_weekly = ir_uk.resample(<span class="hljs-string">'7d'</span>).interpolate
 </code></pre>
 <h2>Übung</h2>
 <p>Nutze die Daten aus <em>sp500</em> und <em>euribor</em>, um die Entwicklungen der europäischen und amerikanischen Zinssätze einander gegenüberzustellen.</p>
-<h1>Grundlegende Plots in Pandas</h1>
-<h2>Grundlegende Plots in Pandas</h2>
+<h1>Plotting</h1>
+<h2>Plotting</h2>
+<p>Wrapper für <em>pyplot</em>-Funktionen, die auf <em>Series</em>- und <em>DataFrame</em>-Objekten existieren:</p>
+<ul>
+<li><code>data.plot()</code> oder <code>data.plot.line()</code></li>
+<li><code>data.plot.bar()</code></li>
+<li><code>data.plot.scatter()</code></li>
+<li><code>data.plot.hist()</code></li>
+<li><code>data.plot.box()</code></li>
+<li><code>data.plot.pie()</code></li>
+</ul>
+<h2>Plotting</h2>
+<p>Interface von Pandas Plotfunktionen:</p>
+<p>ähnlich wie in <em>pyplot</em> - nur müssen Daten nicht explizit übergeben werden:</p>
+<pre><code class="hljs language-py"><span class="hljs-comment"># pyplot</span>
+plt.plot(data, color=<span class="hljs-string">"C0"</span>, marker=<span class="hljs-string">"o"</span>, linestyle=<span class="hljs-string">"--"</span>)
+</code></pre>
+<pre><code class="hljs language-py"><span class="hljs-comment"># pandas</span>
+data.plot(color=<span class="hljs-string">"C0"</span>, marker=<span class="hljs-string">"o"</span>, linestyle=<span class="hljs-string">"--"</span>)
+</code></pre>
+<h2>Plotting</h2>
+<p>Für ein <em>DataFrame</em>: übergeben einer Liste von Konfigurationen (klappt nur für manche der Optionen):</p>
+<pre><code class="hljs language-py">df.plot(color=[<span class="hljs-string">"C0"</span>, <span class="hljs-string">"C1"</span>], style=[<span class="hljs-string">"o--"</span>, <span class="hljs-string">"X--"</span>])
+</code></pre>
+<h2>Plotting</h2>
+<p>Außerhalb eines Jupyter-Notebooks müssen wir nach wie vor aufrufen:</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+
+plt.show()
+</code></pre>
+<h1>Plotting: Beispiele und Übungen</h1>
+<h2>Grundlegendes Beispiel</h2>
 <pre><code class="hljs language-py"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
 <span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
 
@@ -417,109 +447,45 @@ data = pd.DataFrame({
     <span class="hljs-string">"y2"</span>: x**<span class="hljs-number">2</span>
 })
 
-data.plot.line()
+data.plot()
 </code></pre>
-<h2>Grundlegende Plots in Pandas</h2>
-<p>außerhalb eines Jupyter Notebooks:</p>
-<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
-
-plt.show()
-</code></pre>
-<h2>Grundlegende Plots in Pandas</h2>
-<ul>
-<li>Graph: <code>df.plot.line()</code> / <code>df.plot()</code></li>
-<li>Säulendiagramm: <code>df.plot.bar()</code></li>
-<li>Scatter Plot: <code>df.plot.scatter(x="name1", y="name2")</code></li>
-<li>Histogramm: <code>df.plot.hist()</code></li>
-<li>Box Plot: <code>df.plot.box()</code></li>
-<li>Tortendiagramm: <code>df.pie()</code></li>
-</ul>
 <h2>Graph</h2>
-<p>Mittels <code>df.plot.line()</code> oder <code>df.plot()</code></p>
+<p>Beispiele:</p>
 <pre><code class="hljs language-py">euribor.plot.line()
-</code></pre>
-<pre><code class="hljs language-py">sp500[<span class="hljs-string">"SP500"</span>].plot.line(figsize=(<span class="hljs-number">9</span>, <span class="hljs-number">6</span>))
+sp500[<span class="hljs-string">"SP500"</span>].plot.line()
 </code></pre>
 <h2>Säulendiagramm</h2>
+<p>Beispiel:</p>
 <pre><code class="hljs language-py">euribor.iloc[-<span class="hljs-number">36</span>:].plot.bar()
 </code></pre>
 <p>Übung: Median der <em>sepal-width</em> und <em>sepal-length</em> für alle drei Arten von Blumen darstellen</p>
 <h2>Scatter Plot</h2>
-<pre><code class="hljs language-py">iris.plot.scatter(x=<span class="hljs-string">"sepal_length"</span>, y=<span class="hljs-string">"sepal_width"</span>)
+<pre><code class="hljs language-py">iris.plot.scatter(
+    x=<span class="hljs-string">"sepal_length"</span>
+    y=<span class="hljs-string">"sepal_width"</span>,
+    s=<span class="hljs-string">"petal_length"</span>,
+    c=<span class="hljs-string">"petal_width"</span>
+)
 </code></pre>
-<p>Aufgabe: Scatter Plot von <em>Iris-setosa</em></p>
+<p>Übung: Scatter plot für <em>iris setosa</em></p>
 <h2>Histogramm</h2>
-<pre><code class="hljs language-py">iris.sepal_length.plot.hist()
-</code></pre>
-<pre><code class="hljs language-py">iris.sepal_length.plot.hist(bins=<span class="hljs-number">30</span>)
-</code></pre>
+<p>Übung: Histogramm der <em>sepal length</em></p>
 <h2>Box Plot</h2>
-<pre><code class="hljs language-py">iris.plot.box()
-</code></pre>
+<p>Übung: Box Plots aller Iris-Abmessungen</p>
 <h2>Tortendiagramm</h2>
-<pre><code class="hljs language-py">df.pie()
+<p>Beispiel:</p>
+<pre><code class="hljs language-py">surface = pd.Series([<span class="hljs-number">0.29</span>, <span class="hljs-number">0.71</span>], index=[<span class="hljs-string">"land"</span>, <span class="hljs-string">"water"</span>])
+
+surface.plot.pie(ylabel=<span class="hljs-string">"Surface of the earth"</span>)
 </code></pre>
+<h1>Plotting: Scatter Matrix</h1>
 <h2>Scatter Matrix</h2>
-<p>Erstellt mehrere Scatter Plots - bei 4 Series-Einträgen enstehen 4x4 Plots (Scatter Plots und Histogramme)</p>
+<p>Zusätzliche Plot-Funktion in <em>pandas</em>: Scatter Matrix</p>
+<p>Erstelle mehrere Scatter Plots in einem Raster</p>
+<p>Bei 4 Datenserien werden 4x4=16 Plots erstellt (Scatter Plots und Histogramme)</p>
 <pre><code class="hljs language-py"><span class="hljs-keyword">from</span> pandas.plotting <span class="hljs-keyword">import</span> scatter_matrix
 
 scatter_matrix(iris)
-</code></pre>
-<h1>Grundlegende Plots in Pandas und Pyplot</h1>
-<h2>Graph</h2>
-<p>Pyplot:</p>
-<pre><code class="hljs language-py">plt.plot(x, y)
-plt.plot(y)
-</code></pre>
-<p>Pandas:</p>
-<pre><code class="hljs language-py">df.plot.line()
-df.plot()
-</code></pre>
-<h2>Säulendiagramm</h2>
-<p>Pyplot:</p>
-<pre><code class="hljs language-py">plt.bar(x, y)
-</code></pre>
-<p>Pandas:</p>
-<pre><code class="hljs language-py">df.plot.bar()
-</code></pre>
-<h2>Scatter Plot</h2>
-<p>Pyplot:</p>
-<pre><code class="hljs language-py">plt.plot(x, y, <span class="hljs-string">"."</span>)
-plt.scatter(x, y, <span class="hljs-number">2</span>, <span class="hljs-string">"red"</span>)
-</code></pre>
-<p>Pandas:</p>
-<pre><code class="hljs language-py">df.plot.scatter(x=<span class="hljs-string">"name1"</span>, y=<span class="hljs-string">"name2"</span>)
-</code></pre>
-<h2>Histogramm</h2>
-<p>Pyplot:</p>
-<pre><code class="hljs language-py">plt.hist(x)
-</code></pre>
-<p>Pandas:</p>
-<pre><code class="hljs language-py">df.plot.hist()
-</code></pre>
-<h2>Histogramm</h2>
-<p>Pyplot:</p>
-<pre><code class="hljs language-py">plt.hist(
-  iris[:, <span class="hljs-number">2</span>],
-  bins=[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>],
-  density=<span class="hljs-literal">True</span>)
-</code></pre>
-<p>Pandas:</p>
-<pre><code class="hljs language-py">iris.sepal_length.plot.hist(bins=<span class="hljs-number">5</span>)
-</code></pre>
-<h2>Box Plot</h2>
-<p>Pyplot:</p>
-<pre><code class="hljs language-py">plt.boxplot(data)
-</code></pre>
-<p>Pandas:</p>
-<pre><code class="hljs language-py">df.plot.box()
-</code></pre>
-<h2>Tortendiagramm</h2>
-<p>Pyplot:</p>
-<pre><code class="hljs language-py">plt.pie(x, labels=[...])
-</code></pre>
-<p>Pandas:</p>
-<pre><code class="hljs language-py">df.plot.pie()
 </code></pre>
 <h1>Gruppierung und Aggregation</h1>
 <h2>Gruppierung und Aggregation</h2>

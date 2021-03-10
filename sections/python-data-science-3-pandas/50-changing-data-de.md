@@ -58,7 +58,7 @@ iris_setosa["sepal_ratio"].std()
 
 Aufgabe:
 
-- Analysieren der monatlichen S&P 500 Daten und berechnen des monatlichen Gewinns / Verlusts für jedes Monat
+- Analysiere die monatlichen S&P 500 Daten und berechne den monatlichen Gewinn / Verlust
 - Was war der größte Gewinn / Verlust in einem Monat?
 
 ## Abgeleitete Werte berechnen mittels NumPy

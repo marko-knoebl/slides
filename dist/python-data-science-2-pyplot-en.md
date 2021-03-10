@@ -74,7 +74,7 @@ Predefined stylesheets are available via:
 plt.style.use("stylename")
 ```
 
-[Reference of available styles](https://matplotlib.org/3.3.0/gallery/style_sheets/style_sheets_reference.html)
+[Reference of available styles](https://matplotlib.org/stable/gallery/style_sheets/style_sheets_reference.html)
 
 ## Styling graphs
 
@@ -351,6 +351,8 @@ plt.boxplot(
 plt.pie([3, 10, 17, 9], labels=["a", "b", "c", "d"])
 
 plt.pie([3, 10, 17, 9], explode=[0, 0, 0, 0.1])
+
+plt.pie([3, 10, 17, 9], startangle=90, counterclock=False)
 ```
 
 # Basic plot types: visualizing iris data
@@ -540,3 +542,24 @@ ax5 = ax[1, 2]
 - 2D KDE - seaborn
 
 see [Python Data Science Handbook: Histograms, Binnings, and Density](https://jakevdp.github.io/PythonDataScienceHandbook/04.05-histograms-and-binnings.html)
+
+# Showing images
+
+## Showing images
+
+a grayscale image with 3x3 pixels:
+
+```py
+image = np.array([[0, 1, 2],
+                  [3, 4, 5],
+                  [6, 7, 8]])
+plt.imshow(image, cmap="gray")
+```
+
+an RGB image with 2x2 pixels:
+
+```py
+colors = np.array([[[255, 0, 0], [0, 255, 0]],
+                   [[0, 0, 255], [0, 0, 0]]])
+plt.imshow(colors)
+```

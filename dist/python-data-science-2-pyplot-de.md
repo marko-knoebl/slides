@@ -74,7 +74,7 @@ Vorgefertigte Stylesheets verwendbar mittels:
 plt.style.use("stylename")
 ```
 
-[Referenz verfügbarer Stile](https://matplotlib.org/3.3.0/gallery/style_sheets/style_sheets_reference.html)
+[Referenz verfügbarer Stile](https://matplotlib.org/stable/gallery/style_sheets/style_sheets_reference.html)
 
 ## Stile von Graphen
 
@@ -351,6 +351,8 @@ plt.boxplot(
 plt.pie([3, 10, 17, 9], labels=["a", "b", "c", "d"])
 
 plt.pie([3, 10, 17, 9], explode=[0, 0, 0, 0.1])
+
+plt.pie([3, 10, 17, 9], startangle=90, counterclock=False)
 ```
 
 # Visualisierung von Iris-Daten
@@ -540,3 +542,24 @@ ax5 = ax[1, 2]
 - 2D KDE - seaborn
 
 siehe [Python Data Science Handbook: Histograms, Binnings, and Density](https://jakevdp.github.io/PythonDataScienceHandbook/04.05-histograms-and-binnings.html)
+
+# Anzeigen von Bildern
+
+## Anzeigen von Bildern
+
+Ein Graustufenbild mit 3x3 Pixeln:
+
+```py
+image = np.array([[0, 1, 2],
+                  [3, 4, 5],
+                  [6, 7, 8]])
+plt.imshow(image, cmap="gray")
+```
+
+ein RGB-Bild mit 2x2 Pixeln:
+
+```py
+colors = np.array([[[255, 0, 0], [0, 255, 0]],
+                   [[0, 0, 255], [0, 0, 0]]])
+plt.imshow(colors)
+```

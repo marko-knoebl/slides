@@ -1,6 +1,6 @@
-# Example: loading and preparing iris data in scikit-learn
+# Beispiel: Laden und Vorbereiten von Daten
 
-## Example: loading data
+## Laden von Daten
 
 ```py
 iris = pd.read_csv(
@@ -11,7 +11,7 @@ iris_measures = iris.iloc[:, :4].to_numpy()
 iris_species = iris.iloc[:, 4].to_numpy()
 ```
 
-## Example: preparing data
+## Vorbereiten von Daten
 
 ```py
 encoder = LabelBinarizer()

@@ -6,6 +6,7 @@
 - [UCI machine learning repository](https://archive.ics.uci.edu/ml)
 - [scikit-learn datasets](https://scikit-learn.org/stable/datasets/index.html)
 - [keras datasets](https://keras.io/api/datasets/)
+- [TensorFlow datasets](https://www.tensorflow.org/datasets/overview)
 
 ## Possible tasks
 

@@ -190,7 +190,7 @@ euribor = pd.read_hdf("data.hdf5", "euribor")
 ## Quellen für Beispieldaten
 
 - <https://datahub.io>
-- [seaborn data sets](https://github.com/mwaskom/seaborn-data) (click on a file and then on the _raw_ button)
+- [seaborn data sets](https://github.com/mwaskom/seaborn-data) (klicke auf eine Datei und dann auf den _raw_ Button)
 - [pandas-datareader](https://pydata.github.io/pandas-datareader)
 
 # Statistische Grundwerte
@@ -226,11 +226,11 @@ berechnet die folgenden Daten:
 - `area.count()`
 - `area.mean()`
 - `area.std()`
-- `area.quantile(0)` or `area.min()`
+- `area.quantile(0)` oder `area.min()`
 - `area.quantile(0.25)`
-- `area.quantile(0.5)` or `area.median()`
+- `area.quantile(0.5)` oder `area.median()`
 - `area.quantile(0.75)`
-- `area.quantile(1)` or `area.max()`
+- `area.quantile(1)` oder `area.max()`
 
 ## Statistische Werte
 
@@ -414,7 +414,7 @@ iris_setosa["sepal_ratio"].std()
 
 Aufgabe:
 
-- Analysieren der monatlichen S&P 500 Daten und berechnen des monatlichen Gewinns / Verlusts für jedes Monat
+- Analysiere die monatlichen S&P 500 Daten und berechne den monatlichen Gewinn / Verlust
 - Was war der größte Gewinn / Verlust in einem Monat?
 
 ## Abgeleitete Werte berechnen mittels NumPy
@@ -523,9 +523,56 @@ ir_uk_weekly = ir_uk.resample('7d').interpolate()
 
 Nutze die Daten aus _sp500_ und _euribor_, um die Entwicklungen der europäischen und amerikanischen Zinssätze einander gegenüberzustellen.
 
-# Grundlegende Plots in Pandas
+# Plotting
 
-## Grundlegende Plots in Pandas
+## Plotting
+
+Wrapper für _pyplot_-Funktionen, die auf _Series_- und _DataFrame_-Objekten existieren:
+
+- `data.plot()` oder `data.plot.line()`
+- `data.plot.bar()`
+- `data.plot.scatter()`
+- `data.plot.hist()`
+- `data.plot.box()`
+- `data.plot.pie()`
+
+## Plotting
+
+Interface von Pandas Plotfunktionen:
+
+ähnlich wie in _pyplot_ - nur müssen Daten nicht explizit übergeben werden:
+
+```py
+# pyplot
+plt.plot(data, color="C0", marker="o", linestyle="--")
+```
+
+```py
+# pandas
+data.plot(color="C0", marker="o", linestyle="--")
+```
+
+## Plotting
+
+Für ein _DataFrame_: übergeben einer Liste von Konfigurationen (klappt nur für manche der Optionen):
+
+```py
+df.plot(color=["C0", "C1"], style=["o--", "X--"])
+```
+
+## Plotting
+
+Außerhalb eines Jupyter-Notebooks müssen wir nach wie vor aufrufen:
+
+```py
+import matplotlib.pyplot as plt
+
+plt.show()
+```
+
+# Plotting: Beispiele und Übungen
+
+## Grundlegendes Beispiel
 
 ```py
 import numpy as np
@@ -538,41 +585,21 @@ data = pd.DataFrame({
     "y2": x**2
 })
 
-data.plot.line()
+data.plot()
 ```
-
-## Grundlegende Plots in Pandas
-
-außerhalb eines Jupyter Notebooks:
-
-```py
-import matplotlib.pyplot as plt
-
-plt.show()
-```
-
-## Grundlegende Plots in Pandas
-
-- Graph: `df.plot.line()` / `df.plot()`
-- Säulendiagramm: `df.plot.bar()`
-- Scatter Plot: `df.plot.scatter(x="name1", y="name2")`
-- Histogramm: `df.plot.hist()`
-- Box Plot: `df.plot.box()`
-- Tortendiagramm: `df.pie()`
 
 ## Graph
 
-Mittels `df.plot.line()` oder `df.plot()`
+Beispiele:
 
 ```py
 euribor.plot.line()
-```
-
-```py
-sp500["SP500"].plot.line(figsize=(9, 6))
+sp500["SP500"].plot.line()
 ```
 
 ## Säulendiagramm
+
+Beispiel:
 
 ```py
 euribor.iloc[-36:].plot.bar()
@@ -583,147 +610,48 @@ euribor.iloc[-36:].plot.bar()
 ## Scatter Plot
 
 ```py
-iris.plot.scatter(x="sepal_length", y="sepal_width")
+iris.plot.scatter(
+    x="sepal_length"
+    y="sepal_width",
+    s="petal_length",
+    c="petal_width"
+)
 ```
 
-Aufgabe: Scatter Plot von _Iris-setosa_
+Übung: Scatter plot für _iris setosa_
 
 ## Histogramm
 
-```py
-iris.sepal_length.plot.hist()
-```
-
-```py
-iris.sepal_length.plot.hist(bins=30)
-```
+Übung: Histogramm der _sepal length_
 
 ## Box Plot
 
-```py
-iris.plot.box()
-```
+Übung: Box Plots aller Iris-Abmessungen
 
 ## Tortendiagramm
 
+Beispiel:
+
 ```py
-df.pie()
+surface = pd.Series([0.29, 0.71], index=["land", "water"])
+
+surface.plot.pie(ylabel="Surface of the earth")
 ```
+
+# Plotting: Scatter Matrix
 
 ## Scatter Matrix
 
-Erstellt mehrere Scatter Plots - bei 4 Series-Einträgen enstehen 4x4 Plots (Scatter Plots und Histogramme)
+Zusätzliche Plot-Funktion in _pandas_: Scatter Matrix
+
+Erstelle mehrere Scatter Plots in einem Raster
+
+Bei 4 Datenserien werden 4x4=16 Plots erstellt (Scatter Plots und Histogramme)
 
 ```py
 from pandas.plotting import scatter_matrix
 
 scatter_matrix(iris)
-```
-
-# Grundlegende Plots in Pandas und Pyplot
-
-## Graph
-
-Pyplot:
-
-```py
-plt.plot(x, y)
-plt.plot(y)
-```
-
-Pandas:
-
-```py
-df.plot.line()
-df.plot()
-```
-
-## Säulendiagramm
-
-Pyplot:
-
-```py
-plt.bar(x, y)
-```
-
-Pandas:
-
-```py
-df.plot.bar()
-```
-
-## Scatter Plot
-
-Pyplot:
-
-```py
-plt.plot(x, y, ".")
-plt.scatter(x, y, 2, "red")
-```
-
-Pandas:
-
-```py
-df.plot.scatter(x="name1", y="name2")
-```
-
-## Histogramm
-
-Pyplot:
-
-```py
-plt.hist(x)
-```
-
-Pandas:
-
-```py
-df.plot.hist()
-```
-
-## Histogramm
-
-Pyplot:
-
-```py
-plt.hist(
-  iris[:, 2],
-  bins=[1, 2, 4, 5, 6],
-  density=True)
-```
-
-Pandas:
-
-```py
-iris.sepal_length.plot.hist(bins=5)
-```
-
-## Box Plot
-
-Pyplot:
-
-```py
-plt.boxplot(data)
-```
-
-Pandas:
-
-```py
-df.plot.box()
-```
-
-## Tortendiagramm
-
-Pyplot:
-
-```py
-plt.pie(x, labels=[...])
-```
-
-Pandas:
-
-```py
-df.plot.pie()
 ```
 
 # Gruppierung und Aggregation

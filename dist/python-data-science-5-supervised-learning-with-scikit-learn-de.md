@@ -360,12 +360,13 @@ scikit-learn bietet einen _Preprocessor_ namens `PolynomialFeatures`.
 
 ```py
 from sklearn.preprocessing import PolynomialFeatures
+
 poly_model = make_pipeline(
     PolynomialFeatures(2),
     LinearRegression()
 )
 
-poly_model.fit(X, y)
+poly_model.fit(x, y)
 ```
 
 ## Übungen
