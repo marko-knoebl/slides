@@ -85,6 +85,14 @@ Fast element-wise operation (implemented in C):
 array_a * array_a
 ```
 
+## NumPy arrays vs Python lists
+
+Exercise:
+
+Compare the execution time of an operation in pure Python and in NumPy by using `time.perf_counter()`
+
+e.g. compute the squares of all numbers from 0 to 1,000,000
+
 ## Array shape
 
 We can query these attributes:

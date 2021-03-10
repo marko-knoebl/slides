@@ -2060,619 +2060,268 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   </head>
   <body>
     <div class="reveal">
-      <div class="slides slides"><section class="slides-section"><section class="slide"><h1>Python und Data Science 1: Überblick und NumPy</h1>
-</section></section><section class="slides-section"><section class="slide"><h1>Pakete</h1>
-</section><section class="slide"><h2>Python Pakete für Data Science</h2>
+      <div class="slides slides"><section class="slides-section"><section class="slide"><h1>Example: iris classification in keras</h1>
+<!-- duplicate -->
+</section><section class="slide"><h2>Supervised learning in keras</h2>
+<p>steps:</p>
 <ul>
-<li><em>Jupyter</em> &#x26; <em>IPython</em>: interaktive Python Umgebungen</li>
-<li><em>NumPy</em>: Bibliothek zum effizienten Verarbeiten numerischer Daten</li>
-<li><em>Pandas</em>: Bibliothek zur Datenanalyse, basiert auf NumPy</li>
-<li><em>Matplotlib</em>: Bibliothek zur Datenvisualisierung</li>
-<li><em>Scikit-Learn</em>: Bibliothek für Machine Learning, basiert auf NumPy</li>
-<li><em>Keras</em>: Bibliothek für Deep Learning</li>
+<li>create an input array <code>x</code> and a target array <code>y</code></li>
+<li>build a model from various layers (e.g. preprocessing layers, neural layers, ...)</li>
+<li>compile via <code>model.compile()</code> and "learn" via <code>model.fit(x, y)</code></li>
+<li>predict more results via <code>model.predict(...)</code></li>
 </ul>
-</section><section class="slide"><h2>Python Pakete für Data Science</h2>
-<p>Installation der wichtigsten Pakete in einer vorhandenen Python-Umgebung:</p>
-<pre><code class="hljs language-bash">pip install jupyter numpy pandas matplotlib
-</code></pre>
-<pre><code class="hljs language-bash">pip install sklearn keras tensorflow
-</code></pre>
-<p>Bemerkung: Pakete wie <em>NumPy</em> oder <em>TensorFlow</em> benötigen oft einige Monate, bis sie für eine neue Python-Version verfügbar sind</p>
-</section><section class="slide"><h2>Anaconda</h2>
-<p><em>Anaconda</em> = Python Distribution, die viele vorkompilierte Pakete und Entwicklerwerkzeuge enthält</p>
-<p>Benötigt ~3GB Platz auf der Festplatte</p>
-</section><section class="slide"><h2>Installation von Anaconda</h2>
-<p>Download von <a href="https://www.anaconda.com/products/individual">https://www.anaconda.com/products/individual</a></p>
-<p>Unter Windows sollte der Installationspfad keine Leerzeichen enthalten (Empfehlung: <code>C:/anaconda</code>) - siehe <a href="https://docs.anaconda.com/anaconda/user-guide/faq/#distribution-faq-windows-folder">https://docs.anaconda.com/anaconda/user-guide/faq/#distribution-faq-windows-folder</a></p>
-</section><section class="slide"><h2>Conda</h2>
-<p><em>Conda</em> = Environment- und Paketmanager</p>
-<p>Erlaubt das Installieren verschiedener Versionen von Python, von Python-Paketen und anderen Abhängigkeiten</p>
-<p>insbesondere hilfreich für externe Libraries, die nicht in Python geschrieben sind und kompiliert werden müssen</p>
-</section><section class="slide"><h2>Pyodide</h2>
-<p><em>Pyodide</em> = Python Distribution, die direkt im Browser ausgeführt wird (via <em>WebAssembly</em>)</p>
-</section></section><section class="slides-section"><section class="slide"><h1>Jupyter und IPython</h1>
-</section><section class="slide"><h2>IPython</h2>
-<p>IPython = Fortgeschrittene interaktive Python Konsole, beinhaltet u.a. Autovervollständigung</p>
-</section><section class="slide"><h2>Jupyter Notebooks</h2>
-<ul>
-<li>interaktives Python-Dokument (basierend auf IPython)</li>
-<li>Dateiformat mit Endung <em>.ipynb</em></li>
-<li>kann Python Code, Ausgaben / Grafiken und Dokumentation / Notizen beinhalten</li>
-</ul>
-</section><section class="slide"><h2>Jupyter Interfaces</h2>
-<ul>
-<li><em>Jupyter Notebook</em>: webbasiertes Interface, das auf einem Server oder lokal laufen kann</li>
-<li><em>JupyterLab</em>: Nachfolgeprojekt von <em>Jupyter Notebook</em></li>
-<li><em>VS Code</em>: unterstützt Jupyter notebooks ebenfalls</li>
-</ul>
-</section><section class="slide"><h2>Jupyter Notebook - VS Code</h2>
-<p>VS Code kann sich mit dem IPython-Kernel verbinden:</p>
-<p>In der Befehlspalette von VS Code (via F1) suchen wir nach: <em>Python: Create New Blank Jupyter Notebook</em></p>
-<!-- pip install ipykernel - will install ipython, jupyter-core, jupyter-client -->
-</section><section class="slide"><h2>Jupyter Notebook - Anaconda</h2>
-<p>Starten: Eintrag <em>Jupyter Notebook</em> im Startmenü / Befehl <code>jupyter notebook</code> im Terminal</p>
-<p>Stoppen: <em>Quit</em> im rechten oberen Eck der Ordneransicht (üblicherweise unter http://localhost:8888/tree)</p>
-<p>Python-Pakete: <em>notebook</em> oder <em>jupyterlab</em></p>
-</section><section class="slide"><h2>Jupyter Notebook - online</h2>
-<p>kostenlose online Jupyter Notebooks:</p>
-<ul>
-<li><em>Binder</em> (begrenzte Sessions): <a href="https://jupyter.org/try">https://jupyter.org/try</a></li>
-<li>populäre öffentliche Notebooks auf <em>kaggle</em>: <a href="https://www.kaggle.com/notebooks?sortBy=voteCount">https://www.kaggle.com/notebooks?sortBy=voteCount</a> (Login zum Ändern / Erstellen erforderlich)</li>
-<li><em>Google Colab</em>: <a href="https://colab.research.google.com">https://colab.research.google.com</a> (Login erforderlich)</li>
-</ul>
-</section><section class="slide"><h2>Code schreiben und ausführen</h2>
-<p>Code in eine Zelle schreiben, z.B.</p>
-<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> time
-time.sleep(<span class="hljs-number">3</span>)
-<span class="hljs-string">"hello"</span>
-</code></pre>
-<p>dann <em>Shift</em> + <em>Enter</em> drücken</p>
-</section><section class="slide"><h2>Code schreiben und ausführen</h2>
-<p>In IPython gibt es nummerierte Eingaben, z.B. <code>[1]</code></p>
-<p>Während eine Eingabe ausgewertet wird, wird <code>[*]</code> angezeigt</p>
-<p>Wenn das letzte Statement in einer Zelle einen Wert ergibt, wird dies als Ausgabe angezeigt</p>
-</section><section class="slide"><h2>Code schreiben und ausführen</h2>
-<p>Interface-Funktionalität (je nach Notebook-Typ verschieden):</p>
-<ul>
-<li>Zelle ausführen</li>
-<li>neu starten (vergisst bisherige Variablen und Zustand)</li>
-<li>alle Zellen ausführen / neu starten und alle Zellen ausführen</li>
-<li>Ausführung unterbrechen</li>
-</ul>
-</section><section class="slide"><h2>Code schreiben und ausführen</h2>
-<p>Auf die letzte Ausgabe zugreifen:</p>
-<pre><code class="hljs language-py">print(_ * <span class="hljs-number">3</span>)
-</code></pre>
-</section><section class="slide"><h2>Dokumentation via Markdown</h2>
-<p>Wir können Dokumentation über die standardisierte Sprache <em>Markdown</em> hinzufügen:</p>
-<p>Wechsle von <em>Code</em> auf <em>Markdown</em> und versuche den folgenden Code:</p>
-<pre><code class="hljs language-md"><span class="hljs-section"># Heading</span>
+</section><section class="slide"><h2>Example</h2>
+<p>loading data:</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> datasets
 
-<span class="hljs-bullet">-</span> item 1
-<span class="hljs-bullet">-</span> item 2
-</code></pre>
-<p>Zelle ausführen oder verlassen, um das Resultat anzuzeigen, doppelklicken zum erneuten Editieren</p>
-<p><a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">Markdown Cheatsheet</a></p>
-</section><section class="slide"><h2>Dokumentation</h2>
-<p>Dokumentation zu Funktion / Klasse / Modul / ... in einer Python Konsole anzeigen:</p>
-<pre><code class="hljs language-py"><span class="hljs-built_in">help</span>(<span class="hljs-built_in">str</span>)
-</code></pre>
-<p>(Navigieren durch lange Ausgaben via <em>Enter</em>, Beenden via <em>Q</em>)</p>
-<p>Shortcut in IPython / Jupyter:</p>
-<pre><code class="hljs language-ipython"><span class="hljs-built_in">str</span>?
-</code></pre>
-</section><section class="slide"><h2>Tab-Vervollständigung und Wildcard-Ausdrücke</h2>
-<pre><code class="hljs language-ipython">*Error?
-</code></pre>
-</section><section class="slide"><h2>Terminal-Befehle ausführen</h2>
-<p>IPython beinhaltet direkten Zugriff auf viele Terminal-Befehle, z.B. <code>ls</code>, <code>cd</code>, ...</p>
-<p>Wir können beliebige Terminal-Befehle ausführen, indem wir ein <code>!</code> davor setzen</p>
-</section></section><section class="slides-section"><section class="slide"><h1>NumPy</h1>
-</section><section class="slide"><h2>NumPy</h2>
-<p>Library zur effizienten Datenverarbeitung</p>
-<p>Daten sind in mehrdimensionalen Arrays von Zahlen gespeichert, die resourcenschonend umgesetzt sind:</p>
-<ul>
-<li>kleinerer Speicherverbrauch als z.B. Listen von Zahlen in Python</li>
-<li>deutlich schnelleres Ausführen von z.B. elementweiser Addition zweier Arrays</li>
-</ul>
-<p>Daten können z.B. Bilder, Tondateien, Messwerte und vieles anderes repräsentieren</p>
-</section><section class="slide"><h2>Importieren von NumPy</h2>
-<p>oft verkürzt als:</p>
-<pre><code class="hljs language-python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
-</code></pre>
-</section><section class="slide"><h2>Arrays</h2>
-<p>Erstellen eines 1-dimensionalen Arrays:</p>
-<pre><code class="hljs language-py">a1d = np.array([<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>])
-</code></pre>
-</section><section class="slide"><h2>Arrays</h2>
-<p>Erstellen eines 2-dimensionalen Arrays:</p>
-<pre><code class="hljs language-py">a2d = np.array([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], [<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>], [<span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>]])
-</code></pre>
-<p>Ausgabe:</p>
-<pre><code class="hljs language-py">array([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>],
-       [<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>],
-       [<span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>]])
-</code></pre>
-</section><section class="slide"><h2>Arrays</h2>
-<p>Erstellen eines 3-dimensionalen Arrays:</p>
-<pre><code class="hljs language-py">a3d = np.array([[[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]], [[<span class="hljs-number">5</span>, <span class="hljs-number">6</span>], [<span class="hljs-number">7</span>,<span class="hljs-number">8</span>]]])
-</code></pre>
-<p>Ausgabe:</p>
-<pre><code class="hljs language-py">array([[[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>],
-        [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]],
+iris = datasets.load_iris()
 
-       [[<span class="hljs-number">5</span>, <span class="hljs-number">6</span>],
-        [<span class="hljs-number">7</span>, <span class="hljs-number">8</span>]]])
+x = iris.data
+y = iris.target
 </code></pre>
-</section><section class="slide"><h2>NumPy Arrays vs Python Listen</h2>
-<p>Arrays sind im Hintergrund in C implementiert, die numerischen Einträge (z.B. Integer) sind keine Python-Objekte und damit resourcenschonender.</p>
-</section><section class="slide"><h2>NumPy Arrays vs Python Listen</h2>
-<p>Python-Liste (referenziert Integer-Objekte):</p>
-<pre><code class="hljs language-py">list_a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>]
-</code></pre>
-<p>NumPy Array (Daten sind im Array enthalten ohne auf externe Objekte zu verweisen):</p>
-<pre><code class="hljs language-py">array_a = np.array(list_a)
-</code></pre>
-<p>Schnelle elementweise Operation (in C implementiert):</p>
-<pre><code class="hljs language-py">array_a * array_a
-</code></pre>
-</section><section class="slide"><h2>NumPy Arrays vs Python Listen</h2>
-<p>Übung:</p>
-<p>Vergleiche die Ausführungszeit einer Operation in reinem Python und in NumPy mittels <code>time.perf_counter()</code></p>
-<p>z.B. berechne die Quadrate aller Zahlen von 0 bis 1 000 000</p>
-</section><section class="slide"><h2>Array Shape</h2>
-<p>Wir können folgendes abfragen:</p>
-<ul>
-<li><code>a3d.shape</code>: (2, 2, 2)</li>
-<li><code>a3d.ndim</code>: 3</li>
-<li><code>a3d.size</code>: 8</li>
-</ul>
-</section></section><section class="slides-section"><section class="slide"><h1>Mehr als ein Weg</h1>
-</section><section class="slide"><h2>Mehr als ein Weg</h2>
-<p>aus dem <em>Zen of Python</em>:</p>
-<blockquote>
-<p>There should be one-- and preferably only one --obvious way to do it.</p>
-</blockquote>
-<p>diese Philosophie wird bei <em>NumPy</em> oft <em>nicht</em> angewendet</p>
-</section><section class="slide"><h2>Mehr als ein Weg</h2>
-<p>Beispiel: Transponieren eines Arrays</p>
-<pre><code class="hljs language-py">a2d.T
-a2d.transpose()
-np.transpose(a2d)
-</code></pre>
-</section><section class="slide"><h2>NumPy Funktionen vs Array-Methoden</h2>
-<p>viele Operationen sind auf zwei Arten verfügbar:</p>
-<ul>
-<li>Funktionen im <code>numpy</code>-Paket</li>
-<li>Methoden der <code>array</code>-Klasse</li>
-</ul>
-<p>wir werden meist Funktionen verwenden</p>
-</section><section class="slide"><h2>NumPy Funktionen vs Array-Methoden</h2>
-<p>verfügbar als Funktionen und Methoden:</p>
-<pre><code class="hljs language-py">np.<span class="hljs-built_in">max</span>(a2d)
-a2d.<span class="hljs-built_in">max</span>()
-np.<span class="hljs-built_in">round</span>(a2d)
-a2d.<span class="hljs-built_in">round</span>()
-</code></pre>
-<p>nur als Funktionen verfügbar:</p>
-<pre><code class="hljs language-py">np.sin(a2d)
-np.exp(a2d)
-np.expand_dims(a2d, <span class="hljs-number">2</span>)
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Numerische Typen</h1>
-</section><section class="slide"><h2>Numerische Typen</h2>
-<ul>
-<li><strong>int</strong></li>
-<li><strong>float</strong></li>
-<li>decimal</li>
-</ul>
-</section><section class="slide"><h2>Int</h2>
-<p>ein <em>int8</em> besteht aus 8 bits und kann 2^8 (256) verschiedene Zahlen darstellen</p>
-<p>Anzahl an darstellbaren Zahlen:</p>
-<ul>
-<li><em>int8</em>: 256 (-128 bis +127)</li>
-<li><em>int16</em>: 65,536 (-32,768 bis +32,767)</li>
-<li><em>int32</em>: 4,294,967,296</li>
-<li><em>int64</em>: 18,446,744,073,709,551,616</li>
-</ul>
-</section><section class="slide"><h2>Int</h2>
-<p>Ein <em>unsigned integer (uint)</em> kann nur nicht-negative Zahlen repräsentieren</p>
-<p>z.B. bei <em>uint8</em>: 0 bis 255</p>
-</section><section class="slide"><h2>Float</h2>
-<p>Standard für die Repräsentation reeller Zahlen in Computern: <em>IEEE 754</em></p>
-<ul>
-<li><strong>binäre Gleitkommazahlen</strong></li>
-<li>dezimale Gleitkommazahlen</li>
-</ul>
-</section><section class="slide"><h2>Float</h2>
-<p>wichtige Gleitkommatypen:</p>
-<ul>
-<li><em>float32</em> (<em>single</em>): exakt für ~7 Dezimalstellen</li>
-<li><em>float64</em> (<em>double</em>): exakt für ~16 Dezimalstellen</li>
-</ul>
-</section><section class="slide"><h2>Float</h2>
-<p><strong>Rundungsfehler</strong>: manche Zahlen können nicht als Gleitkommazahlen dargestellt werden, sie sind immer Annäherungen</p>
-<p>Beispiele im Dezimalsystem: 1/3, 1/7, π</p>
-<p>Beispiele im Binärsystem (<em>floats</em>): 1/10, 1/5, 1/3, π</p>
-<p>Beispiel: π + π ergibt <code>6.2</code>, wenn wir Dezimalzahlen mit 2 Stellen verwenden (besseres Ergebnis wäre <code>6.3</code>)</p>
-<p>Beispiel: <code>0.1 + 0.2</code> ergibt ~ <code>0.30000000000000004</code>, wenn wir 64-bit floats verwenden</p>
-</section><section class="slide"><h2>Float</h2>
-<p>manche Operationen führen zu einem Verlust von Genauigkeit - z.B. Subtrahieren von nahe beieinanderliegenden Zahlen</p>
-<p>Beispiel:</p>
-<pre><code class="hljs language-apache"><span class="hljs-attribute">a</span> = <span class="hljs-number">0</span>.<span class="hljs-number">001234567</span> (<span class="hljs-number">7</span> relevante Dezimalstellen)
-<span class="hljs-attribute">b</span> = <span class="hljs-number">0</span>.<span class="hljs-number">001234321</span> (<span class="hljs-number">7</span> relevante Dezimalstellen)
+</section><section class="slide"><h2>Example</h2>
+<p>Training the neural network:</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> keras
 
-<span class="hljs-attribute">c</span> = a - b
-<span class="hljs-attribute">c</span> = <span class="hljs-number">0</span>.<span class="hljs-number">000000246</span> (<span class="hljs-number">3</span> relevante Dezimalstellen)
-</code></pre>
-</section><section class="slide"><h2>Float</h2>
-<p>Besondere Werte in IEEE 754:</p>
-<ul>
-<li><code>inf</code> und <code>-inf</code> (unendliche Werte)</li>
-<li><code>nan</code> (not-a-number: undefinierter / unbekannter Wert)</li>
-</ul>
-</section></section><section class="slides-section"><section class="slide"><h1>Floats in IEEE 754</h1>
-</section><section class="slide"><h2>Floats in IEEE 754</h2>
-<p>Speicherformat:</p>
-<pre><code class="hljs language-txt">(-) 2^e * s
-</code></pre>
-<ul>
-<li>e ... <em>Exponent</em></li>
-<li>s ... <em>Signifikand</em> / <em>Koeffizient</em></li>
-</ul>
-</section><section class="slide"><h2>Beispiele</h2>
-<p>pi als <em>float32</em>:</p>
-<p><code>0 10000000 10010010000111111011011</code></p>
-<p>2*pi als <em>float32</em>:</p>
-<p><code>0 10000001 10010010000111111011011</code></p>
-<p>pi/2 als <em>float32</em>:</p>
-<p><code>0 01111111 10010010000111111011011</code></p>
-</section><section class="slide"><h2>Beispiele</h2>
-<p>Die Zahlen <em>0.20000000</em>, <em>0.20000001</em>, ... <em>0.20000005</em> als nächstgelegene <em>float32</em> ausgedrückt:</p>
-<ul>
-<li><code>0 01111100 10011001100110011001101</code></li>
-<li><code>0 01111100 10011001100110011001101</code></li>
-<li><code>0 01111100 10011001100110011001110</code></li>
-<li><code>0 01111100 10011001100110011001111</code></li>
-<li><code>0 01111100 10011001100110011001111</code></li>
-<li><code>0 01111100 10011001100110011010000</code></li>
-</ul>
-</section><section class="slide"><h2>Beispiele</h2>
-<p>Avogadro-Konstante (6.02214076 * 10^23):</p>
-<p><code>0 11001101 11111110000110001000001</code></p>
-<p>Planck-Länge (1.61625518 * 10^-35):</p>
-<p><code>0 00001011 01010111101011110110100</code></p>
-</section><section class="slide"><h2>Overflow und Underflow</h2>
-<p>größte <em>float32</em>-Zahl:</p>
-<p><code>0 11111110 11111111111111111111111</code></p>
-<p><code>~ 2^127.9999 ~ 3.403e38</code></p>
-<p>kleinste positive <em>float32</em> Zahl mit voller Präzision:</p>
-<p><code>0 00000001 00000000000000000000000</code></p>
-<p><code>= 2^-126 ~ 1.175e-36</code></p>
-<p>größere Zahlen ergeben <code>inf</code></p>
-<p>kleinere Zahlen verlieren Genauigkeit oder ergeben <code>0.0</code></p>
-</section><section class="slide"><h2>Besondere Werte</h2>
-<p>inf: <code>0 11111111 00000000000000000000000</code></p>
-<p>nan: <code>0 11111111 00000000000000000000001</code></p>
-</section></section><section class="slides-section"><section class="slide"><h1>Array Typen</h1>
-</section><section class="slide"><h2>Array Typen</h2>
-<p>Jedes NumPy Array kann nur Daten eines Typs enthalten (z.B. nur 64-bit floats oder nur bytes)</p>
-</section><section class="slide"><h2>Array Typen</h2>
-<p>Jedes Array hat einen vorgegebenen Datentyp für alle Einträge</p>
-<pre><code class="hljs language-py">a = np.array([<span class="hljs-number">1</span>])
-a.dtype <span class="hljs-comment"># int32</span>
-b = np.array([<span class="hljs-number">1.0</span>])
-b.dtype <span class="hljs-comment"># float64</span>
-c = np.array([<span class="hljs-string">'abc'</span>])
-c.dtype <span class="hljs-comment"># &#x3C;U3</span>
-d = np.array([<span class="hljs-string">b'abc'</span>])
-d.dtype <span class="hljs-comment"># |S3</span>
-</code></pre>
-</section><section class="slide"><h2>Array Typen</h2>
-<p>Typen können explizit angegeben werden:</p>
-<pre><code class="hljs language-py">a = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>], dtype=<span class="hljs-string">'int64'</span>)
-b = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>], dtype=<span class="hljs-string">'uint8'</span>)
-</code></pre>
-<p>Typen werden wenn möglich automatisch umgewandelt:</p>
-<pre><code class="hljs language-py">c = a + b
-c.dtype <span class="hljs-comment"># int64</span>
-</code></pre>
-</section><section class="slide"><h2>Array Typen</h2>
-<p>wichtige Typen:</p>
-<ul>
-<li><em>bool</em> / <em>bool_</em> (Speicherverbrauch 8 Bit)</li>
-<li><em>int8</em>, <em>int16</em>, <em>int32</em>, <em>int64</em></li>
-<li><em>uint8</em>, <em>uint16</em>, <em>uint32</em>, <em>uint64</em></li>
-<li><em>float16</em>, <em>float32</em>, <em>float64</em></li>
-</ul>
-</section><section class="slide"><h2>Float Typen</h2>
-<p>Genauigkeit für float Typen:</p>
-<ul>
-<li><em>flaot16</em>: ~3 Dezimalstellen</li>
-<li><em>float32</em>: ~7 Dezimalstellen</li>
-<li><em>float64</em>: ~16 Dezimalstellen</li>
-</ul>
-<p>Floats haben ebenfalls einen Minimal- und Maximalwert</p>
-</section><section class="slide"><h2>Float Typen</h2>
-<p>float16: genau für etwa 3 Dezimalstellen</p>
-<pre><code class="hljs language-py">np.array([<span class="hljs-number">2.71828</span>, <span class="hljs-number">0.271828</span>], dtype=<span class="hljs-string">"float16"</span>)
-<span class="hljs-comment"># array([2.719 , 0.2717])</span>
-</code></pre>
-</section><section class="slide"><h2>Float Typen</h2>
-<p>float16: overflow</p>
-<pre><code class="hljs language-py">np.array([<span class="hljs-number">65450</span>, <span class="hljs-number">65500</span>, <span class="hljs-number">65550</span>], dtype=<span class="hljs-string">"float16"</span>)
-<span class="hljs-comment"># array([65440, 65500, inf])</span>
-</code></pre>
-<p>float16: underflow</p>
-<pre><code class="hljs language-py">np.array(
-    [<span class="hljs-number">3.141e-5</span>, <span class="hljs-number">3.141e-6</span>, <span class="hljs-number">3.141e-7</span>, <span class="hljs-number">3.141e-8</span>, <span class="hljs-number">3.141e-9</span>],
-    dtype=<span class="hljs-string">"float16"</span>
+model = keras.Sequential([
+    keras.layers.Dense(<span class="hljs-number">12</span>, activation=<span class="hljs-string">"relu"</span>),
+    keras.layers.Dense(<span class="hljs-number">3</span>, activation=<span class="hljs-string">"softmax"</span>)
+])
+model.<span class="hljs-built_in">compile</span>(
+    loss=<span class="hljs-string">"sparse_categorical_crossentropy"</span>,
+    metrics=[<span class="hljs-string">"accuracy"</span>]
 )
-<span class="hljs-comment"># array([3.14e-05, 3.16e-06, 2.98e-07, 5.96e-08, 0.00e+00])</span>
+model.fit(x, y, epochs=<span class="hljs-number">100</span>, validation_split=<span class="hljs-number">0.1</span>)
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Arrays erstellen</h1>
-</section><section class="slide"><h2>Arrays erstellen</h2>
-<p>Ein Array der Größe 2x6, gefüllt mit Nullen:</p>
-<pre><code class="hljs language-py">np.zeros((<span class="hljs-number">2</span>, <span class="hljs-number">6</span>))
-<span class="hljs-comment"># or</span>
-np.full((<span class="hljs-number">2</span>, <span class="hljs-number">6</span>), <span class="hljs-number">0.0</span>)
-</code></pre>
-</section><section class="slide"><h2>Arrays erstellen</h2>
-<p>Zahlenfolgen erstellen:</p>
-<pre><code class="hljs language-py">np.linspace(<span class="hljs-number">0</span>, <span class="hljs-number">1.0</span>, <span class="hljs-number">11</span>)
-<span class="hljs-comment"># [0.0, 0.1, ... 1.0]</span>
-</code></pre>
-<pre><code class="hljs language-py">np.arange(<span class="hljs-number">0</span>, <span class="hljs-number">3.14</span>, <span class="hljs-number">0.1</span>)
-<span class="hljs-comment"># [0.0, 0.1, ... 3.1]</span>
-</code></pre>
-</section><section class="slide"><h2>Arrays erstellen</h2>
-<p>Ein 2x2 Array mit Zufallswerten:</p>
-<pre><code class="hljs language-py"><span class="hljs-comment"># create a random number generator</span>
-rng = np.random.default_rng(seed=<span class="hljs-number">1</span>)
+</section><section class="slide"><h2>Example</h2>
+<p>Applying classification to new data:</p>
+<pre><code class="hljs language-py">test_data = [
+    [<span class="hljs-number">5.3</span>, <span class="hljs-number">3.4</span>, <span class="hljs-number">1.9</span>, <span class="hljs-number">0.6</span>],
+    [<span class="hljs-number">6.0</span>, <span class="hljs-number">3.0</span>, <span class="hljs-number">4.7</span>, <span class="hljs-number">1.5</span>],
+    [<span class="hljs-number">6.5</span>, <span class="hljs-number">3.1</span>, <span class="hljs-number">5.0</span>, <span class="hljs-number">1.7</span>]
+]
 
-<span class="hljs-comment"># floats between 0 and 1:</span>
-rng.random((<span class="hljs-number">2</span>, <span class="hljs-number">2</span>))
-<span class="hljs-comment"># integers between 1 and 6:</span>
-rng.integers(<span class="hljs-number">1</span>, <span class="hljs-number">7</span>, (<span class="hljs-number">2</span>, <span class="hljs-number">2</span>))
+y_pred = model.predict(test_data)
+<span class="hljs-comment"># [[1.  0.  0. ]</span>
+<span class="hljs-comment">#  [0.  0.8 0.2]</span>
+<span class="hljs-comment">#  [0.  0.7 0.3]]</span>
 </code></pre>
-<p>älteres Interface: <code>np.random.random()</code> und <code>np.random.randint()</code></p>
-</section></section><section class="slides-section"><section class="slide"><h1>Auswählen von Array-Einträgen</h1>
-</section><section class="slide"><h2>Auswählen von Array-Einträgen</h2>
-<pre><code class="hljs language-py">a1d[<span class="hljs-number">0</span>] <span class="hljs-comment"># 0</span>
-a2d[<span class="hljs-number">0</span>, <span class="hljs-number">1</span>] <span class="hljs-comment"># 2</span>
-a2d[<span class="hljs-number">0</span>, :] <span class="hljs-comment"># [1, 2, 3]</span>
-a2d[:, <span class="hljs-number">0</span>] <span class="hljs-comment"># [1, 4, 7]</span>
+</section></section><section class="slides-section"><section class="slide"><h1>Example: iris classification</h1>
+</section><section class="slide"><h2>Example: iris classification</h2>
+<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+<span class="hljs-keyword">import</span> sklearn
+
+<span class="hljs-keyword">import</span> keras
 </code></pre>
-<p>bei 2D-Arrays: <em>[Zeilenindex, Spaltenindex]</em></p>
-<p>im Allgemeinen:</p>
+<p>load and prepare dataset:</p>
+<pre><code class="hljs language-py">iris = pd.read_csv(
+    <span class="hljs-string">"http://archive.ics.uci.edu/ml/"</span> +
+    <span class="hljs-string">"machine-learning-databases/iris/iris.data"</span>,
+    header=<span class="hljs-literal">None</span>)
+iris_measures = iris.iloc[:, :<span class="hljs-number">4</span>].to_numpy()
+iris_species = iris.iloc[:, <span class="hljs-number">4</span>].to_numpy()
+</code></pre>
+<pre><code class="hljs language-py">encoder = sklearn.preprocessing.LabelBinarizer()
+encoder.fit(iris_species)
+iris_species_binarized = encoder.transform(iris_species)
+</code></pre>
+<pre><code class="hljs language-py">x = iris_measures
+y = iris_species_binarized
+</code></pre>
+<pre><code class="hljs language-py">model = keras.Sequential([
+    keras.layers.Dense(<span class="hljs-number">8</span>, activation=<span class="hljs-string">"relu"</span>),
+    keras.layers.Dense(<span class="hljs-number">3</span>, activation=<span class="hljs-string">"softmax"</span>)
+])
+
+model.<span class="hljs-built_in">compile</span>(
+    loss=<span class="hljs-string">"categorical_crossentropy"</span>,
+    metrics=[<span class="hljs-string">"accuracy"</span>]
+)
+</code></pre>
+<pre><code class="hljs language-py">model.fit(x, y, epochs=<span class="hljs-number">100</span>, validation_split=<span class="hljs-number">0.1</span>)
+</code></pre>
+<pre><code class="hljs language-py">model.evaluate(x, y)
+</code></pre>
+<pre><code class="hljs language-py">model.predict([[<span class="hljs-number">5</span>, <span class="hljs-number">3</span>, <span class="hljs-number">1.5</span>, <span class="hljs-number">0.2</span>]]) <span class="hljs-comment"># category should be 0</span>
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Sequential and functional API</h1>
+</section><section class="slide"><h2>Sequential API</h2>
+<p>sequential API (only allows linear data processing - each layer has one input and one output):</p>
+<pre><code class="hljs language-py">model = keras.models.Sequential([
+    keras.layers.Dense(<span class="hljs-number">256</span>, activation=<span class="hljs-string">"relu"</span>),
+    keras.layers.Dense(<span class="hljs-number">128</span>, activation=<span class="hljs-string">"relu"</span>),
+    keras.layers.Dense(<span class="hljs-number">10</span>, activation=<span class="hljs-string">"softmax"</span>),
+])
+</code></pre>
+<p>or</p>
+<pre><code class="hljs language-py">model = keras.models.Sequential()
+model.add(keras.layers.Dense(<span class="hljs-number">256</span>, activation=<span class="hljs-string">"relu"</span>))
+model.add(keras.layers.Dense(<span class="hljs-number">128</span>, activation=<span class="hljs-string">"relu"</span>))
+model.add(keras.layers.Dense(<span class="hljs-number">10</span>, activation=<span class="hljs-string">"softmax"</span>))
+</code></pre>
+</section><section class="slide"><h2>Functional API</h2>
+<p>functional API (allows more complex processing):</p>
+<pre><code class="hljs language-py">inputs = keras.layers.Input(shape=[<span class="hljs-number">28</span>, <span class="hljs-number">28</span>])
+x = keras.layers.Dense(<span class="hljs-number">256</span>, activation=<span class="hljs-string">"relu"</span>)(inputs)
+x = keras.layers.Dense(<span class="hljs-number">128</span>, activation=<span class="hljs-string">"relu"</span>)(x)
+outputs = keras.layers.Dense(<span class="hljs-number">10</span>, activation=<span class="hljs-string">"softmax"</span>)(x)
+model = keras.Model(inputs, outputs)
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Layers</h1>
+</section><section class="slide"><h2>Layers</h2>
 <ul>
-<li>letzter Index: zählt rightung rechts</li>
-<li>vorletzter Index (sofern er existiert): zählt richtung unten</li>
+<li>
+<p>activation layers</p>
+</li>
+<li>
+<p>dense layers</p>
+</li>
+<li>
+<p>convolution layers (local processing)</p>
+</li>
+<li>
+<p>pooling layers (local pooling)</p>
+</li>
+<li>
+<p>dropout layers</p>
+</li>
+<li>
+<p>Dense</p>
+</li>
+<li>
+<p>Conv1D</p>
+</li>
+<li>
+<p>Conv2D</p>
+</li>
 </ul>
-</section><section class="slide"><h2>Auswählen von Array-Einträgen</h2>
-<pre><code class="hljs language-py">a2d[<span class="hljs-number">0</span>, :] <span class="hljs-comment"># [1, 2, 3]</span>
+</section></section><section class="slides-section"><section class="slide"><h1>Example: MNIST digit classification</h1>
+</section><section class="slide"><h2>Loading data</h2>
+<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> keras
 </code></pre>
-<p>Kurzform:</p>
-<pre><code class="hljs language-py">a2d[<span class="hljs-number">0</span>] <span class="hljs-comment"># [1, 2, 3]</span>
+<p>loading data:</p>
+<pre><code class="hljs language-py">(x_train, y_train), (x_test, y_test) = keras.datasets.mnist.load_data()
 </code></pre>
-</section><section class="slide"><h2>Slices</h2>
-<pre><code class="hljs language-py">a1d[:<span class="hljs-number">3</span>] <span class="hljs-comment"># [0, 1, 2]</span>
-a1d[<span class="hljs-number">3</span>:<span class="hljs-number">6</span>] <span class="hljs-comment"># [3, 4, 5]</span>
-a1d[<span class="hljs-number">6</span>:] <span class="hljs-comment"># [6, 7, 8, 9]</span>
-a1d[<span class="hljs-number">0</span>:<span class="hljs-number">8</span>:<span class="hljs-number">2</span>] <span class="hljs-comment"># [0, 2, 4, 6]</span>
+</section><section class="slide"><h2>Building a model</h2>
+<p>sequential API (simpler):</p>
+<pre><code class="hljs language-py">model = keras.Sequential(
+    [
+        keras.layers.Flatten(input_shape=[<span class="hljs-number">28</span>, <span class="hljs-number">28</span>]),
+        keras.layers.Dense(<span class="hljs-number">128</span>, activation=<span class="hljs-string">"relu"</span>),
+        keras.layers.Dense(<span class="hljs-number">10</span>, activation=<span class="hljs-string">"softmax"</span>),
+    ]
+)
 </code></pre>
-<pre><code class="hljs language-py">a1d[<span class="hljs-number">3</span>:<span class="hljs-number">0</span>:-<span class="hljs-number">1</span>] <span class="hljs-comment"># [3, 2, 1]</span>
-a1d[::-<span class="hljs-number">1</span>] <span class="hljs-comment"># [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]</span>
+<p>functional API (more flexible):</p>
+<pre><code class="hljs language-py">inputs = keras.layers.Input(shape=[<span class="hljs-number">28</span>, <span class="hljs-number">28</span>])
+x = keras.layers.experimental.preprocessing.Rescaling(<span class="hljs-number">1</span> / <span class="hljs-number">255</span>)(inputs)
+x = keras.layers.Flatten(input_shape=[<span class="hljs-number">28</span>, <span class="hljs-number">28</span>])(x)
+x = keras.layers.Dense(<span class="hljs-number">128</span>, activation=<span class="hljs-string">"relu"</span>)(x)
+outputs = keras.layers.Dense(<span class="hljs-number">10</span>, activation=<span class="hljs-string">"softmax"</span>)(x)
+model = keras.Model(inputs, outputs)
 </code></pre>
-<pre><code class="hljs language-py">a2d[<span class="hljs-number">1</span>:, :] <span class="hljs-comment"># [[5, 6, 7], [8, 9, 10]]</span>
+</section><section class="slide"><h2>Compilation and training</h2>
+<pre><code class="hljs language-py">model.<span class="hljs-built_in">compile</span>(
+    optimizer=<span class="hljs-string">"adam"</span>, loss=<span class="hljs-string">"sparse_categorical_crossentropy"</span>, metrics=[<span class="hljs-string">"accuracy"</span>]
+)
+model.fit(x_train, y_train, epochs=<span class="hljs-number">15</span>, validation_split=<span class="hljs-number">0.1</span>)
 </code></pre>
-<p>gleiches funktioniert mit Python-Listen</p>
-</section></section><section class="slides-section"><section class="slide"><h1>Operationen auf Arrays</h1>
-</section><section class="slide"><h2>Operatoren</h2>
-<p>Operatoren werden elementweise angewendet:</p>
-<pre><code class="hljs language-py">a = np.array([<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])
-b = np.array([<span class="hljs-number">2</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>])
-
--a
-<span class="hljs-comment"># np.array([0, -1, -2, -3])</span>
-a + b
-<span class="hljs-comment"># np.array([2, 3, 4, 5])</span>
-a * b
-<span class="hljs-comment"># np.array([0, 2, 4, 6])</span>
+</section><section class="slide"><h2>Improvements</h2>
+<p>adding a rescaling layer:</p>
+<pre><code class="hljs language-py">keras.layers.experimental.preprocessing.Rescaling(<span class="hljs-number">1</span>/<span class="hljs-number">255</span>)
 </code></pre>
-</section><section class="slide"><h2>Vergleiche</h2>
-<p>Elementweises Vergleichen von Arrays:</p>
-<pre><code class="hljs language-py">a &#x3C; b
-<span class="hljs-comment"># np.array([True, True, False, False])</span>
-a == b
-<span class="hljs-comment"># np.array([False, False, True, False])</span>
-</code></pre>
-<p>Achtung: <code>a == b</code> kann nicht sinnvoll in if-Abfragen verwendet werden - verwende <code>np.array_equal(a, b)</code>.</p>
-</section><section class="slide"><h2>Operatoren</h2>
-<p>Auch mit einzelnen Zahlen möglich (broadcasting):</p>
-<pre><code class="hljs language-py">print(a + <span class="hljs-number">1</span>)
-<span class="hljs-comment"># np.array([1, 2, 3, 4])</span>
-</code></pre>
-<p>Einige Konstanten sind direkt in NumPy verfügbar:</p>
-<pre><code class="hljs language-py">print(a + np.pi)
-print(a + np.e)
-print(np.nan)
-</code></pre>
-</section><section class="slide"><h2>Elementweise Funktionen</h2>
-<p>NumPy bietet spezielle Funktionen, die elementweise angewendet werden:</p>
-<pre><code class="hljs language-py">print(np.sin(a))
-<span class="hljs-comment"># [0.0, 0.84147098, 0.9... ]</span>
-print(np.sqrt(a))
-<span class="hljs-comment"># [0.0, 1.0, 1.414... ]</span>
-</code></pre>
-</section><section class="slide"><h2>Elementweise Funktionen</h2>
+</section><section class="slide"><h2>Validation metrics</h2>
+<p>classification:</p>
 <ul>
-<li><code>abs</code></li>
-<li><code>sin</code></li>
-<li><code>cos</code></li>
-<li><code>sqrt</code></li>
-<li><code>exp</code></li>
-<li><code>log</code></li>
-<li><code>log10</code></li>
-<li><code>round</code></li>
-<li>...</li>
+<li><em>categorical crossentropy</em> (~ probability of misclassification, based on <em>Kullback–Leibler divergence</em>)</li>
 </ul>
-</section><section class="slide"><h2>Aggregationen</h2>
-<p><em>Aggregationen</em> berechnen beispielsweise Werte zu jeder Zeile / jeder Spalte oder zu einem ganzen Array</p>
-<p>Gesamtsumme:</p>
-<pre><code class="hljs language-py">np.<span class="hljs-built_in">sum</span>(a2d)
-</code></pre>
-<p>Summe entlang Achse 0 ("richtung unten")</p>
-<pre><code class="hljs language-py">np.<span class="hljs-built_in">sum</span>(a2d, axis=<span class="hljs-number">0</span>)
-</code></pre>
-<p>Summe entlang Achse 1 ("richtung rechts")</p>
-<pre><code class="hljs language-py">np.<span class="hljs-built_in">sum</span>(a2d, axis=<span class="hljs-number">1</span>)
-</code></pre>
-</section><section class="slide"><h2>Aggregationen</h2>
+<p>regression</p>
 <ul>
-<li><code>sum</code></li>
-<li><code>min</code></li>
-<li><code>max</code></li>
-<li><code>std</code></li>
-<li><code>percentile</code></li>
+<li><em>mean squared error</em></li>
 </ul>
-</section><section class="slide"><h2>Übungen</h2>
-<p>(siehe nächste Slides)</p>
-<ul>
-<li>Preise und Mengen → Gesamtpreis</li>
-<li>kinetic energy</li>
-<li>Schwerpunkt eines Dreiecks</li>
-<li>Sinus- und Kosinusfunktion - Wertetabelle</li>
-<li>dice rolls</li>
-</ul>
-</section><section class="slide"><h2>Übungen</h2>
-<p>Gegeben sind ein Array von Preisen und ein Array von gekauften Mengen. Bestimme den Gesamtpreis:</p>
-<pre><code class="hljs language-py">prices = np.array([<span class="hljs-number">3.99</span>, <span class="hljs-number">4.99</span>, <span class="hljs-number">3.99</span>, <span class="hljs-number">12.99</span>])
-<span class="hljs-comment"># buying the first item 3 times and the last item 2 times</span>
-quantities = np.array([<span class="hljs-number">3</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">2</span>])
+</section></section><section class="slides-section"><section class="slide"><h1>Example: california housing</h1>
+<p>for comparison: linear regression - <a href="http://www.clungu.com/scikit-learn/tutorial/Scikit-learn/">http://www.clungu.com/scikit-learn/tutorial/Scikit-learn/</a></p>
+<p>load and prepare dataset:</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> datasets
+<span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> utils
+<span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> model_selection
+<span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> preprocessing
 
-<span class="hljs-comment"># solution: 37.95</span>
-</code></pre>
-</section><section class="slide"><h2>Übungen</h2>
-<p>Gegeben sind die Massen und Geschwindigkeiten einiger Körper; bestimme die kinetische Energie aller einzelnen Körper und die gesamte kinetische Energie aller Körper zusammen</p>
-<pre><code class="hljs language-py">masses = np.array([<span class="hljs-number">1.2</span>, <span class="hljs-number">2.2</span>, <span class="hljs-number">1.5</span>, <span class="hljs-number">2.0</span>])
-velocities = np.array([<span class="hljs-number">12.0</span>, <span class="hljs-number">14.0</span>, <span class="hljs-number">14.0</span>, <span class="hljs-number">7.5</span>])
-</code></pre>
-<p>Formel: E = m*v^2 / 2</p>
-</section><section class="slide"><h2>Übungen</h2>
-<p>Gegeben sind die Koordinaten von Eckpunkten eines Dreiecks. Bestimme den Schwerpunkt (arithmetisches Mittel der Eckpunkte).</p>
-<pre><code class="hljs language-py">a = np.array([<span class="hljs-number">5</span>, <span class="hljs-number">1</span>])
-b = np.array([<span class="hljs-number">6</span>, <span class="hljs-number">8</span>])
-c = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">3</span>])
+housing = datasets.fetch_california_housing()
 
-<span class="hljs-comment"># solution: [4, 4]</span>
-</code></pre>
-</section><section class="slide"><h2>Übungen</h2>
-<p>Erstelle eine Wertetabelle für Sinus- und Kosinusfunktion im Intervall von 0 bis 2*pi.</p>
-<p>Resultat:</p>
-<pre><code class="hljs language-py"><span class="hljs-comment"># x, sin(x), cos(x)</span>
-np.array([[<span class="hljs-number">0.0</span>, <span class="hljs-number">0.01</span>, <span class="hljs-number">0.02</span>, ...],
-          [<span class="hljs-number">0.0</span>, <span class="hljs-number">0.0099998</span>, <span class="hljs-number">0.0199999</span>, ...],
-          [<span class="hljs-number">1.0</span>, <span class="hljs-number">0.99995</span>, <span class="hljs-number">0.99980</span>, ...]])
-</code></pre>
-<p>Überprüfe anhand der Daten, ob näherungsweise gilt: <em>sin(x)^2 + cos(x)^2 = 1</em></p>
-</section><section class="slide"><h2>Übungen</h2>
-<p>Simuliere 1 Million Mal würfeln mit je 10 Würfeln</p>
-</section></section><section class="slides-section"><section class="slide"><h1>Fortgeschrittenes Indexing und Filtering</h1>
-</section><section class="slide"><h2>Boolean Indexing</h2>
-<pre><code class="hljs language-py">a = np.array([<span class="hljs-number">4.1</span>, <span class="hljs-number">2.7</span>, -<span class="hljs-number">1</span>, <span class="hljs-number">3.8</span>, -<span class="hljs-number">1</span>])
+scaler = preprocessing.StandardScaler().fit(housing.data)
 
-a_valid = a > <span class="hljs-number">0</span>
-<span class="hljs-comment"># array([True, True, False, True, False])</span>
-a_filtered = a[a_valid]
-<span class="hljs-comment"># array([4.1, 2.7, 3.8])</span>
+X = scaler.transform(housing.data)
+y = housing.target
 
-a_invalid = a &#x3C; <span class="hljs-number">0</span>
-a_with_nans = np.copy(a)
-a_with_nans[a_invalid] = np.nan
-<span class="hljs-comment"># array([4.1, 2.7, nan, 3.8, nan])</span>
+X, y = utils.shuffle(X, y)
 </code></pre>
-</section><section class="slide"><h2>Boolean Indexing (Kurzform)</h2>
-<pre><code class="hljs language-py">a = np.array([<span class="hljs-number">4.1</span>, <span class="hljs-number">2.7</span>, -<span class="hljs-number">1</span>, <span class="hljs-number">3.8</span>, -<span class="hljs-number">1</span>])
+<p>create model:</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> keras.models <span class="hljs-keyword">import</span> Sequential
+<span class="hljs-keyword">from</span> keras.layers <span class="hljs-keyword">import</span> Dense
 
-a_filtered = a[a > <span class="hljs-number">0</span>]
+model = Sequential()
+model.add(Dense(<span class="hljs-number">16</span>, activation=<span class="hljs-string">"relu"</span>))
+model.add(Dense(<span class="hljs-number">16</span>, activation=<span class="hljs-string">"relu"</span>))
+model.add(Dense(<span class="hljs-number">1</span>, activation=<span class="hljs-string">"linear"</span>))
 
-a_with_nans = np.copy(a)
-a_with_nans[a_with_nans &#x3C; <span class="hljs-number">0</span>] = np.nan
+model.<span class="hljs-built_in">compile</span>(loss=<span class="hljs-string">"mean_squared_error"</span>)
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>NumPy Fortgeschritten</h1>
-</section><section class="slide"><h2>Form von Arrays ändern</h2>
-<pre><code class="hljs language-py">np.reshape(a3d, (<span class="hljs-number">8</span>, )) <span class="hljs-comment"># 1d array</span>
-np.reshape(a3d, (<span class="hljs-number">2</span>, <span class="hljs-number">4</span>)) <span class="hljs-comment"># 2d array</span>
+<p>learn:</p>
+<pre><code class="hljs language-py">model.fit(X, y, epochs=<span class="hljs-number">100</span>, validation_split=<span class="hljs-number">0.25</span>, verbose=<span class="hljs-number">1</span>)
 </code></pre>
-<p>Automatische Größe entlang einer Achse:</p>
-<pre><code class="hljs language-py">np.ravel(a3d) <span class="hljs-comment"># 1d array</span>
-np.reshape(a3d, (-<span class="hljs-number">1</span>, )) <span class="hljs-comment"># 1d array</span>
-np.reshape(a3d, (<span class="hljs-number">2</span>, -<span class="hljs-number">1</span>)) <span class="hljs-comment"># 2d array</span>
+<p>evaluate:</p>
+<pre><code class="hljs language-py">model.evaluate(X, y)
 </code></pre>
-</section><section class="slide"><h2>Dimensionalität erhöhen</h2>
-<p>Hinzufügen einer extra Dimension der Länge 1: Verwandeln eines 2 x 2 Arrays in ein 2 x 2 x 1 Array:</p>
-<pre><code class="hljs language-py">np.expand_dims(a2d, <span class="hljs-number">2</span>)
-<span class="hljs-comment"># [[[1], [2], [3]],</span>
-<span class="hljs-comment">#  [[4], [5], [6]],</span>
-<span class="hljs-comment">#  [[7], [8], [9]]]</span>
-</code></pre>
-<p>Alternative:</p>
-<pre><code class="hljs language-json">a2d[:, :, np.newaxis]
-</code></pre>
-</section><section class="slide"><h2>Transponieren</h2>
-<p>Umkehren der Achsenreihenfolge:</p>
-<pre><code class="hljs language-py">np.transpose(a2d)
+</section></section><section class="slides-section"><section class="slide"><h1>Example: digit recognition</h1>
+</section><section class="slide"><h2>Digit recognition with keras</h2>
+<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> keras
 
-a2d.T
-</code></pre>
-</section><section class="slide"><h2>Slices als Views</h2>
-<p>In Python können wir eine flache Kopie einer Liste erstellen, indem wir sie slicen - dies ist in NumPy nicht so (um die Effizienz zu steigern):</p>
-<pre><code class="hljs language-py"><span class="hljs-built_in">list</span> = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]
-list_copy = <span class="hljs-built_in">list</span>[:]
-list_copy[<span class="hljs-number">0</span>] = <span class="hljs-number">10</span> <span class="hljs-comment"># does NOT change list</span>
+(x_train, y_train), (x_test, y_test) =
+    keras.datasets.mnist.load_data()
 
-array = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])
-array_view = array[:]
-array_view[<span class="hljs-number">0</span>] = <span class="hljs-number">10</span> <span class="hljs-comment"># DOES change array</span>
-</code></pre>
-</section><section class="slide"><h2>Arrays kopieren</h2>
-<p>Arrays können via <code>np.copy()</code> kopiert werden</p>
-</section><section class="slide"><h2>Arrays aneinanderfügen</h2>
-<p>entlang einer bestehenden Achse aneinanderfügen (standardmäßig Achse 0):</p>
-<pre><code class="hljs language-py">np.concatenate([a1d, a1d])
-np.concatenate([a2d, a2d])
-np.concatenate([a2d, a2d], axis=<span class="hljs-number">1</span>)
-</code></pre>
-<p>entlang einer neuen Achse aneinanderfügen:</p>
-<pre><code class="hljs language-py">np.stack([a1d, a1d])
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Lineare Algebra</h1>
-</section><section class="slide"><h2>Lineare Algebra</h2>
-<pre><code class="hljs language-py">np.transpose(m)
-np.linalg.inv(m)
-np.eye(<span class="hljs-number">2</span>) <span class="hljs-comment"># unit matrix</span>
-</code></pre>
-</section><section class="slide"><h2>Array-Multiplikation</h2>
-<p>mittels des binären Operators <code>@</code></p>
-<p>Beispiel: Rotation verschiedener Punkte um 45° bzw 90° (gegen den Uhrzeigersinn):</p>
-<pre><code class="hljs language-py">points = np.array([[<span class="hljs-number">0</span>, <span class="hljs-number">0</span>], [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>], [<span class="hljs-number">1</span>, <span class="hljs-number">1</span>], [<span class="hljs-number">1</span>, <span class="hljs-number">0</span>]])
+model = keras.Sequential([
+    keras.layers.experimental.preprocessing.Rescaling(<span class="hljs-number">1</span> / <span class="hljs-number">255</span>),
+    keras.layers.Flatten(input_shape=(<span class="hljs-number">28</span>, <span class="hljs-number">28</span>)),
+    keras.layers.Dense(<span class="hljs-number">128</span>, activation=<span class="hljs-string">"relu"</span>),
+    keras.layers.Dense(<span class="hljs-number">10</span>, activation=<span class="hljs-string">"softmax"</span>),
+])
+model.<span class="hljs-built_in">compile</span>(loss=<span class="hljs-string">"sparse_categorical_crossentropy"</span>)
+model.fit(x_train, y_train, epochs=<span class="hljs-number">5</span>, validation_split=<span class="hljs-number">0.1</span>)
 
-m = np.array([[np.sqrt(<span class="hljs-number">0.5</span>), np.sqrt(<span class="hljs-number">0.5</span>)],
-              [-np.sqrt(<span class="hljs-number">0.5</span>), np.sqrt(<span class="hljs-number">0.5</span>)]])
+print(model.evaluate(x_test, y_test))
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Example: inspecting the NN for iris classification</h1>
+<pre><code class="hljs language-py">layer_0 = model.get_layer(index=<span class="hljs-number">0</span>)
+layer_1 = model.get_layer(index=<span class="hljs-number">1</span>)
 
-print(points @ m)
-print(points @ m @ m)
+print(layer_0.weights)
+print(layer_1.weights)
+
+print(<span class="hljs-string">"setosa"</span>)
+setosa_input = np.array([[<span class="hljs-number">5.1</span>,<span class="hljs-number">3.5</span>,<span class="hljs-number">1.4</span>,<span class="hljs-number">0.2</span>]])
+setosa_1 = layer_0(setosa_input)
+print(setosa_1)
+setosa_2 = layer_1(setosa_1)
+print(setosa_2)
+
+versicolor_input = np.array([[<span class="hljs-number">7.0</span>,<span class="hljs-number">3.2</span>,<span class="hljs-number">4.7</span>,<span class="hljs-number">1.4</span>]])
+versicolor_1 = layer_0(versicolor_input)
+print(versicolor_1)
+versicolor_2 = layer_1(versicolor_1)
+print(versicolor_2)
+
+virginica_input = np.array([[<span class="hljs-number">6.3</span>,<span class="hljs-number">3.3</span>,<span class="hljs-number">6.0</span>,<span class="hljs-number">2.5</span>]])
+virginica_1 = layer_0(virginica_input)
+print(virginica_1)
+virginica_2 = layer_1(virginica_1)
+print(virginica_2)
 </code></pre>
-</section><section class="slide"><h2>Array-Multiplikation</h2>
-<p>Beispiel:</p>
-<p>bekannt: Preise verschiedener Produkte, derent Bestände in verschiedenen Lagern</p>
-<pre><code class="hljs language-py">prices = np.array([<span class="hljs-number">3.99</span>, <span class="hljs-number">12.99</span>, <span class="hljs-number">5.90</span>, <span class="hljs-number">15</span>])
-quantities = np.array([[<span class="hljs-number">0</span>, <span class="hljs-number">80</span>, <span class="hljs-number">80</span>, <span class="hljs-number">100</span>],
-                       [<span class="hljs-number">100</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>],
-                       [<span class="hljs-number">50</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">50</span>]])
-</code></pre>
-<p>Gesucht: Warenwert pro Lager</p></section></section></div>
+</section><section class="slide"><h2>Scaling values</h2>
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> keras.layers.experimental.preprocessing <span class="hljs-keyword">import</span> Rescaling
+
+Rescaling(<span class="hljs-number">1</span>/<span class="hljs-number">255</span>, offset=-<span class="hljs-number">0.5</span>)
+</code></pre></section></section></div>
     </div>
     <script>/*!
  * reveal.js

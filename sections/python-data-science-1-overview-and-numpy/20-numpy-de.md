@@ -85,6 +85,14 @@ Schnelle elementweise Operation (in C implementiert):
 array_a * array_a
 ```
 
+## NumPy Arrays vs Python Listen
+
+Übung:
+
+Vergleiche die Ausführungszeit einer Operation in reinem Python und in NumPy mittels `time.perf_counter()`
+
+z.B. berechne die Quadrate aller Zahlen von 0 bis 1 000 000
+
 ## Array Shape
 
 Wir können folgendes abfragen:

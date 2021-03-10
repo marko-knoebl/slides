@@ -14,10 +14,14 @@
 Installation der wichtigsten Pakete in einer vorhandenen Python-Umgebung:
 
 ```bash
-pip install jupyter numpy pandas matplotlib sklearn keras
+pip install jupyter numpy pandas matplotlib
 ```
 
-Bemerkung: Pakete wie _NumPy_ benötigen oft etwas Zeit, bis sie für eine neue Python-Version verfügbar sind
+```bash
+pip install sklearn keras tensorflow
+```
+
+Bemerkung: Pakete wie _NumPy_ oder _TensorFlow_ benötigen oft einige Monate, bis sie für eine neue Python-Version verfügbar sind
 
 ## Anaconda
 

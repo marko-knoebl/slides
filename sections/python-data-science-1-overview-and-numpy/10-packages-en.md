@@ -7,17 +7,21 @@
 - _Pandas_: library for data analysis, based on NumPy
 - _Matplotlib_: library for data visualization
 - _Scikit-Learn_: library for machine learning, based on NumPy
-- _Keras_: library for deep learning
+- _Keras_: library for deep learning (based on _TensorFlow_)
 
 ## Python packages for data science
 
 installing the most important packages in an existing Python environment:
 
 ```bash
-pip install jupyter numpy pandas matplotlib sklearn keras
+pip install jupyter numpy pandas matplotlib
 ```
 
-Note: Packages like _NumPy_ may take some time before they are available for the newest Python version
+```bash
+pip install sklearn keras tensorflow
+```
+
+Note: Packages like _NumPy_ or _TensorFlow_ may take several months before they are available for the newest Python version
 
 ## Anaconda
 

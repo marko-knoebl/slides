@@ -16,10 +16,14 @@
 Installation der wichtigsten Pakete in einer vorhandenen Python-Umgebung:
 
 ```bash
-pip install jupyter numpy pandas matplotlib sklearn keras
+pip install jupyter numpy pandas matplotlib
 ```
 
-Bemerkung: Pakete wie _NumPy_ benötigen oft etwas Zeit, bis sie für eine neue Python-Version verfügbar sind
+```bash
+pip install sklearn keras tensorflow
+```
+
+Bemerkung: Pakete wie _NumPy_ oder _TensorFlow_ benötigen oft einige Monate, bis sie für eine neue Python-Version verfügbar sind
 
 ## Anaconda
 
@@ -255,6 +259,14 @@ Schnelle elementweise Operation (in C implementiert):
 ```py
 array_a * array_a
 ```
+
+## NumPy Arrays vs Python Listen
+
+Übung:
+
+Vergleiche die Ausführungszeit einer Operation in reinem Python und in NumPy mittels `time.perf_counter()`
+
+z.B. berechne die Quadrate aller Zahlen von 0 bis 1 000 000
 
 ## Array Shape
 
