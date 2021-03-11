@@ -148,19 +148,6 @@ X = vectorizer.transform(sample)
 print(X)
 print(X.todense())
 </code></pre>
-<h2>Pipelines</h2>
-<p>Pipelines können aus mehreren transformierenden Algorithmen und einem vorhersagenden Algorithmus zusammengesetzt werden:</p>
-<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> sklearn.pipeline <span class="hljs-keyword">import</span> make_pipeline
-<span class="hljs-keyword">from</span> sklearn.impute <span class="hljs-keyword">import</span> SimpleImputer
-<span class="hljs-keyword">from</span> sklearn.preprocessing <span class="hljs-keyword">import</span> StandardScaler
-<span class="hljs-keyword">from</span> sklearn.linear_model <span class="hljs-keyword">import</span> LinearRegression
-
-model = make_pipeline(
-    SimpleImputer(strategy=<span class="hljs-string">'mean'</span>),
-    StandardScaler(),
-    LinearRegression()
-)
-</code></pre>
 <h2>Aufgabe: Vorbereiten von Iris-Rohdaten</h2>
 <pre><code class="hljs language-py"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
 iris = pd.read_csv(
@@ -174,6 +161,41 @@ iris = pd.read_csv(
 <li>Eingangsdaten skalieren</li>
 <li>k-Nearest-Neighbor-Klassifizierung bei skalierten und nichtskalierten Daten vergleichen</li>
 </ul>
+<h1>Pipelines</h1>
+<h2>Pipelines</h2>
+<p>Pipelines können aus mehreren transformierenden Algorithmen und einem vorhersagenden Algorithmus zusammengesetzt werden:</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> sklearn.pipeline <span class="hljs-keyword">import</span> make_pipeline
+<span class="hljs-keyword">from</span> sklearn.impute <span class="hljs-keyword">import</span> SimpleImputer
+<span class="hljs-keyword">from</span> sklearn.preprocessing <span class="hljs-keyword">import</span> StandardScaler
+<span class="hljs-keyword">from</span> sklearn.linear_model <span class="hljs-keyword">import</span> LinearRegression
+
+model = make_pipeline(
+    SimpleImputer(strategy=<span class="hljs-string">'mean'</span>),
+    StandardScaler(),
+    LinearRegression()
+)
+</code></pre>
+<h2>Pipelines</h2>
+<p>Aufgabe:</p>
+<p>Erstelle eine Pipeline für die Kategorisierung von Iris-Daten</p>
+<h1>Speichern und Laden von Modellen</h1>
+<h2>Speichern und Laden von Modellen</h2>
+<p>Ein trainiertes Modell kann für spätere Verwendung gespeichert werden</p>
+<p>In Python können Objekte mittels des <code>pickle</code>-Moduls gespeichert / geladen werden</p>
+<h2>Speichern von Modellen</h2>
+<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> pickle
+
+<span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">"model.pickle"</span>, mode=<span class="hljs-string">"wb"</span>) <span class="hljs-keyword">as</span> picklefile:
+    pickle.dump(model, picklefile)
+</code></pre>
+<h2>Laden von Modellen</h2>
+<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> pickle
+
+<span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">"model.pickle"</span>, mode=<span class="hljs-string">"rb"</span>) <span class="hljs-keyword">as</span> picklefile:
+    model = pickle.load(picklefile)
+
+model.predict(data)
+</code></pre>
 <h1>Supervised Learning Algorithmen in scikit-learn</h1>
 <h2>Algorithmen in scikit-learn</h2>
 <p>Regression:</p>
@@ -433,4 +455,24 @@ pred_label = pred_labels[index]
 
 print(<span class="hljs-string">"real name:"</span>, faces.target_names[real_label])
 print(<span class="hljs-string">"predicted name:"</span>, faces.target_names[pred_label])
+</code></pre>
+<h1>Abstraktion</h1>
+<h2>Abstraktion</h2>
+<ul>
+<li>Pipelines</li>
+<li>eigene Klassen</li>
+</ul>
+<h2>Abstraktion</h2>
+<p><em>Pipelines</em> können das Verarbeiten von Eingangswerten <em>x</em> abstrahieren</p>
+<p>Eigene Klassen können das Verarbeiten von sowohl <em>x</em> als auch <em>y</em> abstrahieren</p>
+<h2>Abstraktion</h2>
+<p>direkte Verwendung eines Modells, um Überleben auf der Titanic vorherzusagen:</p>
+<pre><code class="hljs language-py">model.predict([[<span class="hljs-number">2</span>, <span class="hljs-number">0</span>, <span class="hljs-number">28.0</span>, <span class="hljs-number">0</span>]])
+<span class="hljs-comment"># [0]</span>
+</code></pre>
+<p>abstrahiertes Interface:</p>
+<pre><code class="hljs language-py">classifier.predict_survival(
+    pclass=<span class="hljs-number">2</span>, sex=<span class="hljs-string">"male"</span>, age=<span class="hljs-number">28.0</span>, sibsp=<span class="hljs-number">0</span>
+)
+<span class="hljs-comment"># False</span>
 </code></pre>

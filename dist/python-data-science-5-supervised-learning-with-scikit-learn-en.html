@@ -2210,19 +2210,6 @@ X = vectorizer.transform(sample)
 print(X)
 print(X.todense())
 </code></pre>
-</section><section class="slide"><h2>Pipelines</h2>
-<p>Pipelines can be composed from several transforming algorithms and one predicting algorithm:</p>
-<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> sklearn.pipeline <span class="hljs-keyword">import</span> make_pipeline
-<span class="hljs-keyword">from</span> sklearn.impute <span class="hljs-keyword">import</span> SimpleImputer
-<span class="hljs-keyword">from</span> sklearn.preprocessing <span class="hljs-keyword">import</span> StandardScaler
-<span class="hljs-keyword">from</span> sklearn.linear_model <span class="hljs-keyword">import</span> LinearRegression
-
-model = make_pipeline(
-    SimpleImputer(strategy=<span class="hljs-string">'mean'</span>),
-    StandardScaler(),
-    LinearRegression()
-)
-</code></pre>
 </section><section class="slide"><h2>Task: preparing iris data</h2>
 <pre><code class="hljs language-py"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
 iris = pd.read_csv(
@@ -2236,6 +2223,41 @@ iris = pd.read_csv(
 <li>scale input data</li>
 <li>compare k-nearest-neighbor classification on scaled and unscaled data</li>
 </ul>
+</section></section><section class="slides-section"><section class="slide"><h1>Pipelines</h1>
+</section><section class="slide"><h2>Pipelines</h2>
+<p>Pipelines can be composed from several transforming algorithms and one predicting algorithm:</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> sklearn.pipeline <span class="hljs-keyword">import</span> make_pipeline
+<span class="hljs-keyword">from</span> sklearn.impute <span class="hljs-keyword">import</span> SimpleImputer
+<span class="hljs-keyword">from</span> sklearn.preprocessing <span class="hljs-keyword">import</span> StandardScaler
+<span class="hljs-keyword">from</span> sklearn.linear_model <span class="hljs-keyword">import</span> LinearRegression
+
+model = make_pipeline(
+    SimpleImputer(strategy=<span class="hljs-string">'mean'</span>),
+    StandardScaler(),
+    LinearRegression()
+)
+</code></pre>
+</section><section class="slide"><h2>Pipelines</h2>
+<p>task:</p>
+<p>create a pipeline that categorizes iris data</p>
+</section></section><section class="slides-section"><section class="slide"><h1>Saving and loading models</h1>
+</section><section class="slide"><h2>Saving and loading models</h2>
+<p>A trained model can be saved for later use</p>
+<p>In Python, objects can be saved and loaded via the <code>pickle</code> module</p>
+</section><section class="slide"><h2>Saving models</h2>
+<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> pickle
+
+<span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">"model.pickle"</span>, mode=<span class="hljs-string">"wb"</span>) <span class="hljs-keyword">as</span> picklefile:
+    pickle.dump(model, picklefile)
+</code></pre>
+</section><section class="slide"><h2>Loading models</h2>
+<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> pickle
+
+<span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">"model.pickle"</span>, mode=<span class="hljs-string">"rb"</span>) <span class="hljs-keyword">as</span> picklefile:
+    model = pickle.load(picklefile)
+
+model.predict(data)
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Supervised learning algorithms in scikit-learn</h1>
 </section><section class="slide"><h2>Algorithms in scikit-learn</h2>
 <p>regression:</p>
@@ -2495,6 +2517,26 @@ pred_label = pred_labels[index]
 
 print(<span class="hljs-string">"real name:"</span>, faces.target_names[real_label])
 print(<span class="hljs-string">"predicted name:"</span>, faces.target_names[pred_label])
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Abstraction</h1>
+</section><section class="slide"><h2>Abstraction</h2>
+<ul>
+<li>pipelines</li>
+<li>custom classes</li>
+</ul>
+</section><section class="slide"><h2>Abstraction</h2>
+<p><em>pipelines</em> can abstract the processing of input values <em>x</em></p>
+<p>custom classes can abstract the processing of both <em>x</em> and <em>y</em></p>
+</section><section class="slide"><h2>Abstraction</h2>
+<p>direct model usage to predict survivorship on the Titanic:</p>
+<pre><code class="hljs language-py">model.predict([[<span class="hljs-number">2</span>, <span class="hljs-number">0</span>, <span class="hljs-number">28.0</span>, <span class="hljs-number">0</span>]])
+<span class="hljs-comment"># [0]</span>
+</code></pre>
+<p>abstracted interface:</p>
+<pre><code class="hljs language-py">classifier.predict_survival(
+    pclass=<span class="hljs-number">2</span>, sex=<span class="hljs-string">"male"</span>, age=<span class="hljs-number">28.0</span>, sibsp=<span class="hljs-number">0</span>
+)
+<span class="hljs-comment"># False</span>
 </code></pre></section></section></div>
     </div>
     <script>/*!

@@ -196,6 +196,25 @@ print(X)
 print(X.todense())
 ```
 
+## Task: preparing iris data
+
+```py
+import pandas as pd
+iris = pd.read_csv(
+    "http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data",
+    header=None)
+```
+
+first line: `5.1,3.5,1.4,0.2,Iris-setosa`
+
+tasks:
+
+- represent categories via one-hot-encoding
+- scale input data
+- compare k-nearest-neighbor classification on scaled and unscaled data
+
+# Pipelines
+
 ## Pipelines
 
 Pipelines can be composed from several transforming algorithms and one predicting algorithm:
@@ -213,22 +232,39 @@ model = make_pipeline(
 )
 ```
 
-## Task: preparing iris data
+## Pipelines
+
+task:
+
+create a pipeline that categorizes iris data
+
+# Saving and loading models
+
+## Saving and loading models
+
+A trained model can be saved for later use
+
+In Python, objects can be saved and loaded via the `pickle` module
+
+## Saving models
 
 ```py
-import pandas as pd
-iris = pd.read_csv(
-    "http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data",
-    header=None)
+import pickle
+
+with open("model.pickle", mode="wb") as picklefile:
+    pickle.dump(model, picklefile)
 ```
 
-first line: `5.1,3.5,1.4,0.2,Iris-setosa`
+## Loading models
 
-tasks:
+```py
+import pickle
 
-- represent categories via one-hot-encoding
-- scale input data
-- compare k-nearest-neighbor classification on scaled and unscaled data
+with open("model.pickle", mode="rb") as picklefile:
+    model = pickle.load(picklefile)
+
+model.predict(data)
+```
 
 # Supervised learning algorithms in scikit-learn
 
@@ -586,4 +622,35 @@ pred_label = pred_labels[index]
 
 print("real name:", faces.target_names[real_label])
 print("predicted name:", faces.target_names[pred_label])
+```
+
+# Abstraction
+
+## Abstraction
+
+- pipelines
+- custom classes
+
+## Abstraction
+
+_pipelines_ can abstract the processing of input values _x_
+
+custom classes can abstract the processing of both _x_ and _y_
+
+## Abstraction
+
+direct model usage to predict survivorship on the Titanic:
+
+```py
+model.predict([[2, 0, 28.0, 0]])
+# [0]
+```
+
+abstracted interface:
+
+```py
+classifier.predict_survival(
+    pclass=2, sex="male", age=28.0, sibsp=0
+)
+# False
 ```

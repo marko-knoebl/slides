@@ -196,6 +196,25 @@ print(X)
 print(X.todense())
 ```
 
+## Aufgabe: Vorbereiten von Iris-Rohdaten
+
+```py
+import pandas as pd
+iris = pd.read_csv(
+    "http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data",
+    header=None)
+```
+
+erste Zeile: `5.1,3.5,1.4,0.2,Iris-setosa`
+
+Aufgaben:
+
+- Zieldaten als ordinale Daten oder mittels one-hot-Encoding
+- Eingangsdaten skalieren
+- k-Nearest-Neighbor-Klassifizierung bei skalierten und nichtskalierten Daten vergleichen
+
+# Pipelines
+
 ## Pipelines
 
 Pipelines können aus mehreren transformierenden Algorithmen und einem vorhersagenden Algorithmus zusammengesetzt werden:
@@ -213,22 +232,39 @@ model = make_pipeline(
 )
 ```
 
-## Aufgabe: Vorbereiten von Iris-Rohdaten
+## Pipelines
+
+Aufgabe:
+
+Erstelle eine Pipeline für die Kategorisierung von Iris-Daten
+
+# Speichern und Laden von Modellen
+
+## Speichern und Laden von Modellen
+
+Ein trainiertes Modell kann für spätere Verwendung gespeichert werden
+
+In Python können Objekte mittels des `pickle`-Moduls gespeichert / geladen werden
+
+## Speichern von Modellen
 
 ```py
-import pandas as pd
-iris = pd.read_csv(
-    "http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data",
-    header=None)
+import pickle
+
+with open("model.pickle", mode="wb") as picklefile:
+    pickle.dump(model, picklefile)
 ```
 
-erste Zeile: `5.1,3.5,1.4,0.2,Iris-setosa`
+## Laden von Modellen
 
-Aufgaben:
+```py
+import pickle
 
-- Zieldaten als ordinale Daten oder mittels one-hot-Encoding
-- Eingangsdaten skalieren
-- k-Nearest-Neighbor-Klassifizierung bei skalierten und nichtskalierten Daten vergleichen
+with open("model.pickle", mode="rb") as picklefile:
+    model = pickle.load(picklefile)
+
+model.predict(data)
+```
 
 # Supervised Learning Algorithmen in scikit-learn
 
@@ -586,4 +622,35 @@ pred_label = pred_labels[index]
 
 print("real name:", faces.target_names[real_label])
 print("predicted name:", faces.target_names[pred_label])
+```
+
+# Abstraktion
+
+## Abstraktion
+
+- Pipelines
+- eigene Klassen
+
+## Abstraktion
+
+_Pipelines_ können das Verarbeiten von Eingangswerten _x_ abstrahieren
+
+Eigene Klassen können das Verarbeiten von sowohl _x_ als auch _y_ abstrahieren
+
+## Abstraktion
+
+direkte Verwendung eines Modells, um Überleben auf der Titanic vorherzusagen:
+
+```py
+model.predict([[2, 0, 28.0, 0]])
+# [0]
+```
+
+abstrahiertes Interface:
+
+```py
+classifier.predict_survival(
+    pclass=2, sex="male", age=28.0, sibsp=0
+)
+# False
 ```
