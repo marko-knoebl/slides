@@ -1,5 +1,9 @@
 # Lineare Regression
 
+## Regression
+
+Lineare Regression: Festlegen einer linearen Funktion, die die Datenpunkte bestmöglich approximiert (kleinste Quadratsumme)
+
 ## Lineare Regression
 
 Beispiel: Wir betrachten verschiedene Einkäufe bei verschiedenen Supermärkten:
@@ -22,10 +26,10 @@ Diese Aufgabe kann mit Hilfe von Regression beantwortet werden.
 Eingangsdaten:
 
 ```txt
-1, 1 ➡ 5.00
-2, 3 ➡ 13.50
-3, 2 ➡ 10.90
-0, 0 ➡ 0.00
+1, 1 → 5.00
+2, 3 → 13.50
+3, 2 → 10.90
+0, 0 → 0.00
 ```
 
 Ergebnis einer linearen Regression:

@@ -16,7 +16,10 @@ Y_prediction = model.predict(X_test)
 print(metrics.accuracy_score(Y_test, Y_prediction))
 ```
 
-optional parameter: `test_size` (default value: `0.25`)
+optional parameters:
+
+- `test_size` (default value: `0.25`)
+- `random_state` (integer seed for shuffling)
 
 ## Cross validation
 
@@ -36,9 +39,10 @@ print(test_results["test_score"])
 computing the ROC with scikit-learn:
 
 ```py
-false_positive_rates, true_positive_rates, thresholds = metrics.roc_curve(
+# false positive rates, true positive rates, thresholds
+fpr, tpr, thresholds = metrics.roc_curve(
     y_test,
-    classifier.predict_proba(X_test)[: 1]
+    classifier.predict_proba(X_test)[:, 0]
 )
 ```
 
@@ -49,11 +53,11 @@ ideal combination: _false positive rate_ = 0, _true positive rate_ = 1
 plotting the ROC:
 
 ```py
-plt.plot(false_positive_rates, true_positive_rates)
+plt.plot(fpr, tpr, marker="o")
 ```
 
 determining the AUC:
 
 ```py
-auc = metrics.auc(false_positive_rates, true_positive_rates)
+auc = metrics.auc(fpr, tpr)
 ```

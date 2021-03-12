@@ -206,20 +206,25 @@ model.predict(data)
 <p>classification:</p>
 <ul>
 <li><code>sklearn.neighbors.KNeighborsClassifier</code></li>
-<li><code>sklearn.naive_bayes.GaussianNB</code></li>
-<li><code>sklearn.naive_bayes.MultinomialNB</code></li>
-<li><code>sklearn.linear_model.LogisticRegression</code></li>
-<li><code>sklearn.svm.SVC</code></li>
 <li><code>sklearn.tree.DecisionTreeClassifier</code></li>
 <li><code>sklearn.ensemble.RandomForestClassifier</code></li>
+<li><code>sklearn.linear_model.LogisticRegression</code></li>
+<li><code>sklearn.naive_bayes.GaussianNB</code></li>
+<li><code>sklearn.naive_bayes.MultinomialNB</code></li>
+<li><code>sklearn.svm.SVC</code></li>
 <li><code>sklearn.neural_network.MLPClassifier</code></li>
 </ul>
 <h2>K-nearest-neighbors</h2>
 <p><code>sklearn.neighbors.KNeighborsClassifier</code></p>
 <p>The number <code>k</code> of neighbors can be chosen (default: 5)</p>
-<p>See: <a href="https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html#sklearn.neighbors.KNeighborsClassifier">https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html#sklearn.neighbors.KNeighborsClassifier</a></p>
+<p>See: <a href="https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html">https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html</a></p>
+<h2>Decision trees</h2>
+<p>see: <a href="https://jakevdp.github.io/PythonDataScienceHandbook/05.08-random-forests.html">Python Data Science Handbook - Decision Trees and Random Forests</a></p>
+<p>random forests: data are split into different subsets; for each subset a separate decision tree is created; all decision trees are combined into a so-called <em>random forest</em></p>
+<pre><code class="hljs language-py">RandomForestClassifier(n_estimators=<span class="hljs-number">100</span>)
+</code></pre>
 <h2>Logistic regression</h2>
-<p>See: <a href="https://scikit-learn.org/stable/auto_examples/linear_model/plot_logistic.html#sphx-glr-auto-examples-linear-model-plot-logistic-py">https://scikit-learn.org/stable/auto_examples/linear_model/plot_logistic.html#sphx-glr-auto-examples-linear-model-plot-logistic-py</a></p>
+<p>See: <a href="https://scikit-learn.org/stable/auto_examples/linear_model/plot_logistic.html">https://scikit-learn.org/stable/auto_examples/linear_model/plot_logistic.html</a></p>
 <pre><code class="hljs language-py">LogisticRegression(solver=<span class="hljs-string">"liblinear"</span>, multi_class=<span class="hljs-string">"auto"</span>)
 </code></pre>
 <h2>Naive Bayes</h2>
@@ -230,15 +235,10 @@ model.predict(data)
 <li><a href="https://scikit-learn.org/stable/modules/svm.html">https://scikit-learn.org/stable/modules/svm.html</a></li>
 <li><a href="https://jakevdp.github.io/PythonDataScienceHandbook/05.07-support-vector-machines.html">Python Data Science Handbook - Support Vector Machines</a></li>
 </ul>
-<h2>Decision trees</h2>
-<p>see: <a href="https://jakevdp.github.io/PythonDataScienceHandbook/05.08-random-forests.html">Python Data Science Handbook - Decision Trees and Random Forests</a></p>
-<p>random forests: data are split into different subsets; for each subset a separate decision tree is created; all decision trees are combined into a so-called <em>random forest</em></p>
-<pre><code class="hljs language-py">RandomForestClassifier(n_estimators=<span class="hljs-number">100</span>)
-</code></pre>
 <h2>Examples</h2>
 <ul>
 <li><a href="https://jakevdp.github.io/PythonDataScienceHandbook/05.05-naive-bayes.html#Multinomial-Naive-Bayes">classification of newsgroup postings (via naive bayes, logistic regression or decision trees)</a></li>
-<li><a href="https://jakevdp.github.io/PythonDataScienceHandbook/05.08-random-forests.html#Example:-Random-Forest-for-Classifying-Digits">digit classification</a></li>
+<li><a href="https://jakevdp.github.io/PythonDataScienceHandbook/05.08-random-forests.html#Example:-Random-Forest-for-Classifying-Digits">digit classification (random forest)</a></li>
 </ul>
 <h1>Linear regression with scikit-learn</h1>
 <h2>Linear regression with scikit-learn</h2>
@@ -342,7 +342,11 @@ X_train, X_test, Y_train, Y_test = train_test_split(X, Y)
 Y_prediction = model.predict(X_test)
 print(metrics.accuracy_score(Y_test, Y_prediction))
 </code></pre>
-<p>optional parameter: <code>test_size</code> (default value: <code>0.25</code>)</p>
+<p>optional parameters:</p>
+<ul>
+<li><code>test_size</code> (default value: <code>0.25</code>)</li>
+<li><code>random_state</code> (integer seed for shuffling)</li>
+</ul>
 <h2>Cross validation</h2>
 <p>Data are repeatedly split into different training and test sets so each entry appears in a test set once</p>
 <pre><code class="hljs language-py"><span class="hljs-keyword">from</span> sklearn.model_selection <span class="hljs-keyword">import</span> cross_validate
@@ -354,18 +358,19 @@ print(test_results[<span class="hljs-string">"test_score"</span>])
 </code></pre>
 <h2>Example: ROC of the iris classification</h2>
 <p>computing the ROC with scikit-learn:</p>
-<pre><code class="hljs language-py">false_positive_rates, true_positive_rates, thresholds = metrics.roc_curve(
+<pre><code class="hljs language-py"><span class="hljs-comment"># false positive rates, true positive rates, thresholds</span>
+fpr, tpr, thresholds = metrics.roc_curve(
     y_test,
-    classifier.predict_proba(X_test)[: <span class="hljs-number">1</span>]
+    classifier.predict_proba(X_test)[:, <span class="hljs-number">0</span>]
 )
 </code></pre>
 <p>ideal combination: <em>false positive rate</em> = 0, <em>true positive rate</em> = 1</p>
 <h2>Example: ROC of the iris classification</h2>
 <p>plotting the ROC:</p>
-<pre><code class="hljs language-py">plt.plot(false_positive_rates, true_positive_rates)
+<pre><code class="hljs language-py">plt.plot(fpr, tpr, marker=<span class="hljs-string">"o"</span>)
 </code></pre>
 <p>determining the AUC:</p>
-<pre><code class="hljs language-py">auc = metrics.auc(false_positive_rates, true_positive_rates)
+<pre><code class="hljs language-py">auc = metrics.auc(fpr, tpr)
 </code></pre>
 <h1>Example: digit recognition</h1>
 <h2>Example: digit recognition</h2>
@@ -466,7 +471,7 @@ print(<span class="hljs-string">"predicted name:"</span>, faces.target_names[pre
 <p><em>pipelines</em> can abstract the processing of input values <em>x</em></p>
 <p>custom classes can abstract the processing of both <em>x</em> and <em>y</em></p>
 <h2>Abstraction</h2>
-<p>direct model usage to predict survivorship on the Titanic:</p>
+<p>direct model usage to predict survival on the Titanic:</p>
 <pre><code class="hljs language-py">model.predict([[<span class="hljs-number">2</span>, <span class="hljs-number">0</span>, <span class="hljs-number">28.0</span>, <span class="hljs-number">0</span>]])
 <span class="hljs-comment"># [0]</span>
 </code></pre>

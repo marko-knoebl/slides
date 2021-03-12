@@ -1,23 +1,4 @@
-# Validierung
-
-## Trainingsdaten und Validierungsdaten
-
-Um zu validieren, ob ein Verfahren ein passendes Ergebnis liefert:
-
-Die Daten werden in _Trainingsdaten_ und _Validierungsdaten_ unterteilt
-
-## Trainingsdaten und Validierungsdaten
-
-für iterative Algorithmen (z.B. Neuronale Netzwerke in _keras_):
-
-- _Trainingsdaten_
-- _Testdaten_ (während iterativem Training verwendet)
-- _Validierungsdaten_ (zur Validierung des fertigen Modells)
-
-für andere Algorithmen (z.B. _sklearn_):
-
-- _Trainingsdaten_
-- _Validierungsdaten_ oder _Testdaten_ (zur Validierung des Modells)
+# Validierungsmetriken
 
 ## Validierungsmetriken
 
@@ -159,7 +140,3 @@ Siehe auch <https://scikit-learn.org/stable/modules/classes.html#module-sklearn.
 - _mean_squared_error_
 
 Siehe auch <https://keras.io/api/metrics/>
-
-## Validierung
-
-Aufgabe: Validierung der Iris-Klassifizierung

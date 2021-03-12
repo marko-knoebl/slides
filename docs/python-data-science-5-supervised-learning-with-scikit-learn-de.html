@@ -2268,20 +2268,25 @@ model.predict(data)
 <p>Klassifizierung:</p>
 <ul>
 <li><code>sklearn.neighbors.KNeighborsClassifier</code></li>
-<li><code>sklearn.naive_bayes.GaussianNB</code></li>
-<li><code>sklearn.naive_bayes.MultinomialNB</code></li>
-<li><code>sklearn.linear_model.LogisticRegression</code></li>
-<li><code>sklearn.svm.SVC</code></li>
 <li><code>sklearn.tree.DecisionTreeClassifier</code></li>
 <li><code>sklearn.ensemble.RandomForestClassifier</code></li>
+<li><code>sklearn.linear_model.LogisticRegression</code></li>
+<li><code>sklearn.naive_bayes.GaussianNB</code></li>
+<li><code>sklearn.naive_bayes.MultinomialNB</code></li>
+<li><code>sklearn.svm.SVC</code></li>
 <li><code>sklearn.neural_network.MLPClassifier</code></li>
 </ul>
 </section><section class="slide"><h2>K-Nearest-Neighbors</h2>
 <p><code>sklearn.neighbors.KNeighborsClassifier</code></p>
 <p>Die Anzahl <code>k</code> der betrachteten Nachbarn kann festgesetzt werden (Standardwert = 5)</p>
-<p>Siehe auch: <a href="https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html#sklearn.neighbors.KNeighborsClassifier">https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html#sklearn.neighbors.KNeighborsClassifier</a></p>
+<p>Siehe auch: <a href="https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html">https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html</a></p>
+</section><section class="slide"><h2>Entscheidungsbäume (Decision Trees)</h2>
+<p>siehe: <a href="https://jakevdp.github.io/PythonDataScienceHandbook/05.08-random-forests.html">Python Data Science Handbook - Decision Trees and Random Forests</a></p>
+<p>Random Forests: Die Daten werden in verschiedene Untermengen zerlegt. Mittels jeder Untermenge wird ein einzelner Decision Tree erstellt. Die Gesamtheit der Decision Trees wird zu einem sogenannten <em>Random Forest</em> zusammengeführt.</p>
+<pre><code class="hljs language-py">RandomForestClassifier(n_estimators=<span class="hljs-number">100</span>)
+</code></pre>
 </section><section class="slide"><h2>Logistische Regression</h2>
-<p>Beispiel: <a href="https://scikit-learn.org/stable/auto_examples/linear_model/plot_logistic.html#sphx-glr-auto-examples-linear-model-plot-logistic-py">https://scikit-learn.org/stable/auto_examples/linear_model/plot_logistic.html#sphx-glr-auto-examples-linear-model-plot-logistic-py</a></p>
+<p>Beispiel: <a href="https://scikit-learn.org/stable/auto_examples/linear_model/plot_logistic.html">https://scikit-learn.org/stable/auto_examples/linear_model/plot_logistic.html</a></p>
 <pre><code class="hljs language-py">LogisticRegression(solver=<span class="hljs-string">"liblinear"</span>, multi_class=<span class="hljs-string">"auto"</span>)
 </code></pre>
 </section><section class="slide"><h2>Naive Bayes</h2>
@@ -2292,11 +2297,6 @@ model.predict(data)
 <li><a href="https://scikit-learn.org/stable/modules/svm.html">https://scikit-learn.org/stable/modules/svm.html</a></li>
 <li><a href="https://jakevdp.github.io/PythonDataScienceHandbook/05.07-support-vector-machines.html">Python Data Science Handbook - Support Vector Machines</a></li>
 </ul>
-</section><section class="slide"><h2>Entscheidungsbäume (Decision Trees)</h2>
-<p>siehe: <a href="https://jakevdp.github.io/PythonDataScienceHandbook/05.08-random-forests.html">Python Data Science Handbook - Decision Trees and Random Forests</a></p>
-<p>Random Forests: Die Daten werden in verschiedene Untermengen zerlegt. Mittels jeder Untermenge wird ein einzelner Decision Tree erstellt. Die Gesamtheit der Decision Trees wird zu einem sogenannten <em>Random Forest</em> zusammengeführt.</p>
-<pre><code class="hljs language-py">RandomForestClassifier(n_estimators=<span class="hljs-number">100</span>)
-</code></pre>
 </section><section class="slide"><h2>Beispiele</h2>
 <ul>
 <li><a href="https://jakevdp.github.io/PythonDataScienceHandbook/05.05-naive-bayes.html#Multinomial-Naive-Bayes">Klassifizierung von Newsgroup-Postings (mittels Naive Bayes, logistischer Regression oder Decision Tree)</a></li>
@@ -2404,7 +2404,11 @@ X_train, X_test, Y_train, Y_test = train_test_split(X, Y)
 Y_prediction = model.predict(X_test)
 print(metrics.accuracy_score(Y_test, Y_prediction))
 </code></pre>
-<p>optionaler Parameter: <code>test_size</code> (Standardwert <code>0.25</code>)</p>
+<p>optionale Parameter:</p>
+<ul>
+<li><code>test_size</code> (Standardwert <code>0.25</code>)</li>
+<li><code>random_state</code> (Integer-Seed für Zufallsauswahl)</li>
+</ul>
 </section><section class="slide"><h2>Kreuzvalidierung</h2>
 <p>Bei der Kreuzvalidierung (cross-validation) werden die Daten wiederholt in unterschiedliche Trainings- und Testdaten unterteilt, sodass jeder Eintrag einmal in den Testdaten vorkommt.</p>
 <pre><code class="hljs language-py"><span class="hljs-keyword">from</span> sklearn.model_selection <span class="hljs-keyword">import</span> cross_validate
@@ -2416,18 +2420,19 @@ print(test_results[<span class="hljs-string">"test_score"</span>])
 </code></pre>
 </section><section class="slide"><h2>Beispiel: ROC der Iris-Daten</h2>
 <p>Bestimmen der ROC mit scikit-learn:</p>
-<pre><code class="hljs language-py">false_positive_rates, true_positive_rates, thresholds = metrics.roc_curve(
+<pre><code class="hljs language-py"><span class="hljs-comment"># false positive rates, true positive rates, thresholds</span>
+fpr, tpr, thresholds = metrics.roc_curve(
     y_test,
-    classifier.predict_proba(X_test)[: <span class="hljs-number">1</span>]
+    classifier.predict_proba(X_test)[:, <span class="hljs-number">0</span>]
 )
 </code></pre>
 <p>ideale Kombination: <em>false positive rate</em> = 0, <em>true positive rate</em> = 1</p>
 </section><section class="slide"><h2>Beispiel: ROC der Iris-Daten</h2>
 <p>Zeichnen der ROC:</p>
-<pre><code class="hljs language-py">plt.plot(false_positive_rate, true_positive_rate)
+<pre><code class="hljs language-py">plt.plot(fpr, tpr, marker=<span class="hljs-string">"o"</span>)
 </code></pre>
 <p>Bestimmen der AUC:</p>
-<pre><code class="hljs language-py">auc = metrics.auc(false_positive_rates, true_positive_rates)
+<pre><code class="hljs language-py">auc = metrics.auc(fpr, tpr)
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Example: Erkennung von Ziffern</h1>
 </section><section class="slide"><h2>Example: Erkennung von Ziffern</h2>

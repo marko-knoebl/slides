@@ -2,7 +2,7 @@
 
 ## Neural networks
 
-Machine learning strategy that vaguely resembles how neurons in brains interact
+Machine learning strategy that vaguely resembles how neurons in the brain interact
 
 ## Neural networks
 

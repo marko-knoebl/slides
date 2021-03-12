@@ -278,12 +278,12 @@ regression:
 classification:
 
 - `sklearn.neighbors.KNeighborsClassifier`
-- `sklearn.naive_bayes.GaussianNB`
-- `sklearn.naive_bayes.MultinomialNB`
-- `sklearn.linear_model.LogisticRegression`
-- `sklearn.svm.SVC`
 - `sklearn.tree.DecisionTreeClassifier`
 - `sklearn.ensemble.RandomForestClassifier`
+- `sklearn.linear_model.LogisticRegression`
+- `sklearn.naive_bayes.GaussianNB`
+- `sklearn.naive_bayes.MultinomialNB`
+- `sklearn.svm.SVC`
 - `sklearn.neural_network.MLPClassifier`
 
 ## K-nearest-neighbors
@@ -292,11 +292,21 @@ classification:
 
 The number `k` of neighbors can be chosen (default: 5)
 
-See: <https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html#sklearn.neighbors.KNeighborsClassifier>
+See: <https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html>
+
+## Decision trees
+
+see: [Python Data Science Handbook - Decision Trees and Random Forests](https://jakevdp.github.io/PythonDataScienceHandbook/05.08-random-forests.html)
+
+random forests: data are split into different subsets; for each subset a separate decision tree is created; all decision trees are combined into a so-called _random forest_
+
+```py
+RandomForestClassifier(n_estimators=100)
+```
 
 ## Logistic regression
 
-See: <https://scikit-learn.org/stable/auto_examples/linear_model/plot_logistic.html#sphx-glr-auto-examples-linear-model-plot-logistic-py>
+See: <https://scikit-learn.org/stable/auto_examples/linear_model/plot_logistic.html>
 
 ```py
 LogisticRegression(solver="liblinear", multi_class="auto")
@@ -313,20 +323,10 @@ see:
 - <https://scikit-learn.org/stable/modules/svm.html>
 - [Python Data Science Handbook - Support Vector Machines](https://jakevdp.github.io/PythonDataScienceHandbook/05.07-support-vector-machines.html)
 
-## Decision trees
-
-see: [Python Data Science Handbook - Decision Trees and Random Forests](https://jakevdp.github.io/PythonDataScienceHandbook/05.08-random-forests.html)
-
-random forests: data are split into different subsets; for each subset a separate decision tree is created; all decision trees are combined into a so-called _random forest_
-
-```py
-RandomForestClassifier(n_estimators=100)
-```
-
 ## Examples
 
 - [classification of newsgroup postings (via naive bayes, logistic regression or decision trees)](https://jakevdp.github.io/PythonDataScienceHandbook/05.05-naive-bayes.html#Multinomial-Naive-Bayes)
-- [digit classification](https://jakevdp.github.io/PythonDataScienceHandbook/05.08-random-forests.html#Example:-Random-Forest-for-Classifying-Digits)
+- [digit classification (random forest)](https://jakevdp.github.io/PythonDataScienceHandbook/05.08-random-forests.html#Example:-Random-Forest-for-Classifying-Digits)
 
 # Linear regression with scikit-learn
 
@@ -464,7 +464,10 @@ Y_prediction = model.predict(X_test)
 print(metrics.accuracy_score(Y_test, Y_prediction))
 ```
 
-optional parameter: `test_size` (default value: `0.25`)
+optional parameters:
+
+- `test_size` (default value: `0.25`)
+- `random_state` (integer seed for shuffling)
 
 ## Cross validation
 
@@ -484,9 +487,10 @@ print(test_results["test_score"])
 computing the ROC with scikit-learn:
 
 ```py
-false_positive_rates, true_positive_rates, thresholds = metrics.roc_curve(
+# false positive rates, true positive rates, thresholds
+fpr, tpr, thresholds = metrics.roc_curve(
     y_test,
-    classifier.predict_proba(X_test)[: 1]
+    classifier.predict_proba(X_test)[:, 0]
 )
 ```
 
@@ -497,13 +501,13 @@ ideal combination: _false positive rate_ = 0, _true positive rate_ = 1
 plotting the ROC:
 
 ```py
-plt.plot(false_positive_rates, true_positive_rates)
+plt.plot(fpr, tpr, marker="o")
 ```
 
 determining the AUC:
 
 ```py
-auc = metrics.auc(false_positive_rates, true_positive_rates)
+auc = metrics.auc(fpr, tpr)
 ```
 
 # Example: digit recognition
@@ -639,7 +643,7 @@ custom classes can abstract the processing of both _x_ and _y_
 
 ## Abstraction
 
-direct model usage to predict survivorship on the Titanic:
+direct model usage to predict survival on the Titanic:
 
 ```py
 model.predict([[2, 0, 28.0, 0]])

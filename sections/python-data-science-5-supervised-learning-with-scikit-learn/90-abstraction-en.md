@@ -13,7 +13,7 @@ custom classes can abstract the processing of both _x_ and _y_
 
 ## Abstraction
 
-direct model usage to predict survivorship on the Titanic:
+direct model usage to predict survival on the Titanic:
 
 ```py
 model.predict([[2, 0, 28.0, 0]])

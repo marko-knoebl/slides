@@ -29,7 +29,7 @@ star_a = [6.5e7, 2.2e30, 5.2e3]
 star_b = [7.0e8, 2.1e30, 8.1e3]
 ```
 
-Machine Learning Algorithmen wie z.B. k-Nearest-Neighbor betrachten Absolutwerte.
+manche Machine Learning Algorithmen wie z.B. k-Nearest-Neighbor betrachten Absolutwerte.
 
 Hier würde vom Algorithmus im wesentlichen nur die Masse herangezogen werden, da alle anderen Werte im Vergleich verschwindend gering sind.
 

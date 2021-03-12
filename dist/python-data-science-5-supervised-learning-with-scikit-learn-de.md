@@ -278,12 +278,12 @@ Regression:
 Klassifizierung:
 
 - `sklearn.neighbors.KNeighborsClassifier`
-- `sklearn.naive_bayes.GaussianNB`
-- `sklearn.naive_bayes.MultinomialNB`
-- `sklearn.linear_model.LogisticRegression`
-- `sklearn.svm.SVC`
 - `sklearn.tree.DecisionTreeClassifier`
 - `sklearn.ensemble.RandomForestClassifier`
+- `sklearn.linear_model.LogisticRegression`
+- `sklearn.naive_bayes.GaussianNB`
+- `sklearn.naive_bayes.MultinomialNB`
+- `sklearn.svm.SVC`
 - `sklearn.neural_network.MLPClassifier`
 
 ## K-Nearest-Neighbors
@@ -292,11 +292,21 @@ Klassifizierung:
 
 Die Anzahl `k` der betrachteten Nachbarn kann festgesetzt werden (Standardwert = 5)
 
-Siehe auch: <https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html#sklearn.neighbors.KNeighborsClassifier>
+Siehe auch: <https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html>
+
+## Entscheidungsbäume (Decision Trees)
+
+siehe: [Python Data Science Handbook - Decision Trees and Random Forests](https://jakevdp.github.io/PythonDataScienceHandbook/05.08-random-forests.html)
+
+Random Forests: Die Daten werden in verschiedene Untermengen zerlegt. Mittels jeder Untermenge wird ein einzelner Decision Tree erstellt. Die Gesamtheit der Decision Trees wird zu einem sogenannten _Random Forest_ zusammengeführt.
+
+```py
+RandomForestClassifier(n_estimators=100)
+```
 
 ## Logistische Regression
 
-Beispiel: <https://scikit-learn.org/stable/auto_examples/linear_model/plot_logistic.html#sphx-glr-auto-examples-linear-model-plot-logistic-py>
+Beispiel: <https://scikit-learn.org/stable/auto_examples/linear_model/plot_logistic.html>
 
 ```py
 LogisticRegression(solver="liblinear", multi_class="auto")
@@ -312,16 +322,6 @@ siehe:
 
 - <https://scikit-learn.org/stable/modules/svm.html>
 - [Python Data Science Handbook - Support Vector Machines](https://jakevdp.github.io/PythonDataScienceHandbook/05.07-support-vector-machines.html)
-
-## Entscheidungsbäume (Decision Trees)
-
-siehe: [Python Data Science Handbook - Decision Trees and Random Forests](https://jakevdp.github.io/PythonDataScienceHandbook/05.08-random-forests.html)
-
-Random Forests: Die Daten werden in verschiedene Untermengen zerlegt. Mittels jeder Untermenge wird ein einzelner Decision Tree erstellt. Die Gesamtheit der Decision Trees wird zu einem sogenannten _Random Forest_ zusammengeführt.
-
-```py
-RandomForestClassifier(n_estimators=100)
-```
 
 ## Beispiele
 
@@ -464,7 +464,10 @@ Y_prediction = model.predict(X_test)
 print(metrics.accuracy_score(Y_test, Y_prediction))
 ```
 
-optionaler Parameter: `test_size` (Standardwert `0.25`)
+optionale Parameter:
+
+- `test_size` (Standardwert `0.25`)
+- `random_state` (Integer-Seed für Zufallsauswahl)
 
 ## Kreuzvalidierung
 
@@ -484,9 +487,10 @@ print(test_results["test_score"])
 Bestimmen der ROC mit scikit-learn:
 
 ```py
-false_positive_rates, true_positive_rates, thresholds = metrics.roc_curve(
+# false positive rates, true positive rates, thresholds
+fpr, tpr, thresholds = metrics.roc_curve(
     y_test,
-    classifier.predict_proba(X_test)[: 1]
+    classifier.predict_proba(X_test)[:, 0]
 )
 ```
 
@@ -497,13 +501,13 @@ ideale Kombination: _false positive rate_ = 0, _true positive rate_ = 1
 Zeichnen der ROC:
 
 ```py
-plt.plot(false_positive_rate, true_positive_rate)
+plt.plot(fpr, tpr, marker="o")
 ```
 
 Bestimmen der AUC:
 
 ```py
-auc = metrics.auc(false_positive_rates, true_positive_rates)
+auc = metrics.auc(fpr, tpr)
 ```
 
 # Example: Erkennung von Ziffern

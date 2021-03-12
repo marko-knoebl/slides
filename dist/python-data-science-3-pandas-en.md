@@ -562,7 +562,7 @@ df.plot(color=["C0", "C1"], style=["o--", "X--"])
 
 ## Plotting
 
-If we are not in a Jupyter notebook we still habe to call:
+If we are not in a Jupyter notebook we still have to call:
 
 ```py
 import matplotlib.pyplot as plt

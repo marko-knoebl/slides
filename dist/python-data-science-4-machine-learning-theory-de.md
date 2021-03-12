@@ -310,85 +310,16 @@ Classification:
 
 - _neural networks_
 - k-nearest-neighbors
+- decision trees
 - logistic regression
 - naive Bayes
 - support vector machines
-- decision trees and random forests
 
-## Neural networks
-
-Machine learning algorithm that vaguely resembles how neurons in brains interact
-
-<figure style="width: 60%; margin: 0 auto;">
-  <img src="assets/wikimedia-Neural_network.svg" alt="diagram of a neural network">
-  <figcaption>diagram of a neural network with two inputs, five intermediate neurons and one output <small>(source: <a href="https://commons.wikimedia.org/wiki/File:Neural_network.svg" title="via Wikimedia Commons">Dake, Mysid via Wikimedia Commons</a> / <a href="https://creativecommons.org/licenses/by/1.0">CC BY</a>)</small></figcaption>
-</figure>
-
-## Regression
-
-Linear regression: a linear function is fitted to given data points (usually via least squares)
+# Linear regression
 
 ## Linear regression
 
-Example: various purchases in different supermarkets:
-
-- 1 l of milk, 1 kg of bread: 4.60€
-- 2 l of milk, 3 kg of bread: 13.50€
-- 3 l of milk, 2 kg of bread: 12.00€
-- (0 l of milk, 0 kg of bread: 0€)
-
-task: estimate prices of:
-
-- 1 l of milk
-- 1 kg of bread
-- 2 l of milk and 2 kg of bread
-
-This may be solved via regression
-
-## k-nearest-neighbors
-
-classification algorithm that assigns a class to a data point by looking at similar data points with a known classification
-
-## Logistic regression
-
-At the boundary of two classes a _logistic function_ is used to determine how likely it is that the data point belongs to the one or the other class
-
-The logisitic function itself is determined via regression (hence the name)
-
-## Naive Bayes
-
-Data points are assumed to be part of a specific probability distribution; these distributions are derived from the training data.
-
-For a new data point, the algorithm determines under which of the distributions it would most likely occur.
-
-two important distributions:
-
-- normal distribution (continuous values)
-- multinomial distribution (discrete values)
-
-## Support vector machines
-
-Simplest case: separation of classes via lines / planes / hyperplanes - these separators should have maximum distance from the separated points
-
-Borders may take different shapes by using kernel functions - e.g. conic sections or other curves
-
-## Decision trees
-
-Example decision tree for iris classification:
-
-- is the _petal length_ less than 2.5?
-  - yes: **setosa**
-  - no: is the _petal width_ less than 1.8?
-    - yes: is the _petal length_ smaller than 5.1?
-      - yes: **versicolor**
-      - no: **virginica**
-    - no: **virginica**
-
-## Classification algorithms
-
-[overview of classification algorithms in scikit-learn](https://scikit-learn.org/stable/auto_examples/classification/plot_classifier_comparison.html)
-
-# Linear regression
+Linear regression: a linear function is fitted to given data points (usually via least squares)
 
 ## Linear regression
 
@@ -412,10 +343,10 @@ This may be solved via regression
 input data:
 
 ```txt
-1, 1 ➡ 5.00
-2, 3 ➡ 13.50
-3, 2 ➡ 10.90
-0, 0 ➡ 0.00
+1, 1 → 5.00
+2, 3 → 13.50
+3, 2 → 10.90
+0, 0 → 0.00
 ```
 
 result of a linear regression:
@@ -428,7 +359,7 @@ price = 0.05 + 1.13*x + 3.73*y
 
 ## Neural networks
 
-Machine learning strategy that vaguely resembles how neurons in brains interact
+Machine learning strategy that vaguely resembles how neurons in the brain interact
 
 ## Neural networks
 
@@ -453,6 +384,60 @@ Machine learning strategy that vaguely resembles how neurons in brains interact
 ## Resource
 
 - <https://victorzhou.com/blog/intro-to-neural-networks/>
+
+# Classification algorithms
+
+## Classification algorithms
+
+- _neural networks_
+- k-nearest-neighbors
+- decision trees
+- logistic regression
+- naive Bayes
+- support vector machines
+
+## k-nearest-neighbors
+
+classification algorithm that assigns a class to a data point by looking at similar data points with a known classification
+
+## Decision trees
+
+Example decision tree for iris classification:
+
+- is the _petal length_ less than 2.5?
+  - yes: **setosa**
+  - no: is the _petal width_ less than 1.8?
+    - yes: is the _petal length_ smaller than 5.1?
+      - yes: **versicolor**
+      - no: **virginica**
+    - no: **virginica**
+
+## Logistic regression
+
+At the boundary of two classes a _logistic function_ is used to determine how likely it is that the data point belongs to the one or the other class
+
+The logisitic function itself is determined via regression (hence the name)
+
+## Naive Bayes
+
+Data points are assumed to be part of a specific probability distribution; these distributions are derived from the training data.
+
+For a new data point, the algorithm determines under which of the distributions it would most likely occur.
+
+two important distributions:
+
+- normal distribution (continuous values)
+- multinomial distribution (discrete values)
+
+## Support vector machines
+
+Simplest case: separation of classes via lines / planes / hyperplanes - these separators should have maximum distance from the separated points
+
+Borders may take different shapes by using kernel functions - e.g. conic sections or other curves
+
+## Classification algorithms
+
+[overview of classification algorithms in scikit-learn](https://scikit-learn.org/stable/auto_examples/classification/plot_classifier_comparison.html)
 
 # Example: iris classification with various algorithms
 
@@ -496,7 +481,7 @@ star_a = [6.5e7, 2.2e30, 5.2e3]
 star_b = [7.0e8, 2.1e30, 8.1e3]
 ```
 
-Machine learning algorithms (like k-Nearest-Neighbors) use absolute values.
+some machine learning algorithms (like k-Nearest-Neighbors) use absolute values.
 
 Here the algorithm would only take into account the mass as all other values are tiny in comparison
 
@@ -594,7 +579,41 @@ x = iris_measures_scaled
 y = iris_species_one_hot
 ```
 
-# Validation
+# Example: iris validation in scikit-learn
+
+## Example: iris validation in scikit-learn
+
+train-test split:
+
+```py
+from sklearn.model_selection import train_test_split
+
+x_train, x_test, y_train, y_test = train_test_split(x, y)
+```
+
+validation based on test data:
+
+```py
+from sklearn import metrics
+
+y_prediction = model.predict(x_test)
+score = metrics.accuracy_score(y_prediction, y_test)
+print("accuracy:", score)
+```
+
+# Model validation and selection
+
+## Model validation and selection
+
+To find the best model:
+
+- test multiple algorithms
+- test multiple parameters for the algorithm
+- test if more input data leads to better results
+
+see [Python Data Science Handbook → Hyperparameters and Model Validation → Selecting the Best Model](https://jakevdp.github.io/PythonDataScienceHandbook/05.03-hyperparameters-and-model-validation.html#Selecting-the-Best-Model)
+
+# Train data and validation data
 
 ## Train data and validation data
 
@@ -614,6 +633,8 @@ for other alogirthms (e.g. _sklearn_):
 
 - _train data_
 - _validation data_ or _test data_ (used for validating the model)
+
+# Validation metrics
 
 ## Validation metrics
 
@@ -758,32 +779,6 @@ See also <https://scikit-learn.org/stable/modules/classes.html#module-sklearn.me
 
 See also <https://keras.io/api/metrics/>
 
-## Validation
-
-Exercise: validation of iris classification
-
-# Example: iris validation in scikit-learn
-
-## Example: iris validation in scikit-learn
-
-train-test split:
-
-```py
-from sklearn.model_selection import train_test_split
-
-x_train, x_test, y_train, y_test = train_test_split(x, y)
-```
-
-validation based on test data:
-
-```py
-from sklearn import metrics
-
-y_prediction = model.predict(x_test)
-score = metrics.accuracy_score(y_prediction, y_test)
-print("accuracy:", score)
-```
-
 # Overfitting
 
 ## Overfitting
@@ -812,18 +807,6 @@ Algorithms that are vulnerable to overfitting:
 - "penalize" large coefficients in polynomial regression (L2- and L1-regulatization)
 
 for polynomial regression see: [Data Science Handbook - Regularization](https://jakevdp.github.io/PythonDataScienceHandbook/05.06-linear-regression.html#Regularization)
-
-# Model validation and selection
-
-## Model validation and selection
-
-To find the best model:
-
-- testing multiple algorithms
-- testing multiple parameters for the algorithm
-- testing if more input data leads to better results
-
-see [Python Data Science Handbook → Hyperparameters and Model Validation → Selecting the Best Model](https://jakevdp.github.io/PythonDataScienceHandbook/05.03-hyperparameters-and-model-validation.html#Selecting-the-Best-Model)
 
 # Iris classification in scikit-learn - complete
 

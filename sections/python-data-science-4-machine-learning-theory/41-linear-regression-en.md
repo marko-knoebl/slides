@@ -2,6 +2,10 @@
 
 ## Linear regression
 
+Linear regression: a linear function is fitted to given data points (usually via least squares)
+
+## Linear regression
+
 Example: various purchases in different supermarkets:
 
 - 1 l of milk, 1 kg of bread: 5.00€
@@ -22,10 +26,10 @@ This may be solved via regression
 input data:
 
 ```txt
-1, 1 ➡ 5.00
-2, 3 ➡ 13.50
-3, 2 ➡ 10.90
-0, 0 ➡ 0.00
+1, 1 → 5.00
+2, 3 → 13.50
+3, 2 → 10.90
+0, 0 → 0.00
 ```
 
 result of a linear regression:

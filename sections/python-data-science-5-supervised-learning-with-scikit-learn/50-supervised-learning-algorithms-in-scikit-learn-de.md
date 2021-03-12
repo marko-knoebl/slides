@@ -10,12 +10,12 @@ Regression:
 Klassifizierung:
 
 - `sklearn.neighbors.KNeighborsClassifier`
-- `sklearn.naive_bayes.GaussianNB`
-- `sklearn.naive_bayes.MultinomialNB`
-- `sklearn.linear_model.LogisticRegression`
-- `sklearn.svm.SVC`
 - `sklearn.tree.DecisionTreeClassifier`
 - `sklearn.ensemble.RandomForestClassifier`
+- `sklearn.linear_model.LogisticRegression`
+- `sklearn.naive_bayes.GaussianNB`
+- `sklearn.naive_bayes.MultinomialNB`
+- `sklearn.svm.SVC`
 - `sklearn.neural_network.MLPClassifier`
 
 ## K-Nearest-Neighbors
@@ -24,11 +24,21 @@ Klassifizierung:
 
 Die Anzahl `k` der betrachteten Nachbarn kann festgesetzt werden (Standardwert = 5)
 
-Siehe auch: https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html#sklearn.neighbors.KNeighborsClassifier
+Siehe auch: https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html
+
+## Entscheidungsbäume (Decision Trees)
+
+siehe: [Python Data Science Handbook - Decision Trees and Random Forests](https://jakevdp.github.io/PythonDataScienceHandbook/05.08-random-forests.html)
+
+Random Forests: Die Daten werden in verschiedene Untermengen zerlegt. Mittels jeder Untermenge wird ein einzelner Decision Tree erstellt. Die Gesamtheit der Decision Trees wird zu einem sogenannten _Random Forest_ zusammengeführt.
+
+```py
+RandomForestClassifier(n_estimators=100)
+```
 
 ## Logistische Regression
 
-Beispiel: https://scikit-learn.org/stable/auto_examples/linear_model/plot_logistic.html#sphx-glr-auto-examples-linear-model-plot-logistic-py
+Beispiel: https://scikit-learn.org/stable/auto_examples/linear_model/plot_logistic.html
 
 ```py
 LogisticRegression(solver="liblinear", multi_class="auto")
@@ -44,16 +54,6 @@ siehe:
 
 - https://scikit-learn.org/stable/modules/svm.html
 - [Python Data Science Handbook - Support Vector Machines](https://jakevdp.github.io/PythonDataScienceHandbook/05.07-support-vector-machines.html)
-
-## Entscheidungsbäume (Decision Trees)
-
-siehe: [Python Data Science Handbook - Decision Trees and Random Forests](https://jakevdp.github.io/PythonDataScienceHandbook/05.08-random-forests.html)
-
-Random Forests: Die Daten werden in verschiedene Untermengen zerlegt. Mittels jeder Untermenge wird ein einzelner Decision Tree erstellt. Die Gesamtheit der Decision Trees wird zu einem sogenannten _Random Forest_ zusammengeführt.
-
-```py
-RandomForestClassifier(n_estimators=100)
-```
 
 ## Beispiele
 
