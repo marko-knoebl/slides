@@ -1,19 +1,19 @@
-# Example: iris classification in keras
+# Beispiel: Iris-Klassifizierung in Keras
 
 <!-- duplicate in machine-learning-theory and neural-networks-with-keras -->
 
-## Supervised learning in keras
+## Überwachtes Lernen in Keras
 
-steps:
+Schritte:
 
-- create an input array `x` and a target array `y`
-- build a model from various layers (e.g. preprocessing layers, neural layers, ...)
-- compile via `model.compile()` and "learn" via `model.fit(x, y)`
-- predict more results via `model.predict(...)`
+- Erstellen eines Input-Arrays `x` und eines Ziel-Arrays `y`
+- Erstellen eines Modells aus verschiedenen Layern (z.B. Preprocessing-Layer, Neuronen-Layer, ...)
+- Kompilieren via `model.compile()` und "Lernen" via `model.fit(x, y)`
+- Vorhersagen weiterer Ergebnisse via `model.predict(...)`
 
-## Example
+## Beispiel
 
-loading data:
+Laden von Daten:
 
 ```py
 from sklearn import datasets
@@ -24,9 +24,9 @@ x = iris.data
 y = iris.target
 ```
 
-## Example
+## Beispiel
 
-Training the neural network:
+Trainieren des Netzwerks:
 
 ```py
 from tensorflow import keras
@@ -43,9 +43,9 @@ model.compile(
 model.fit(x, y, epochs=100, validation_split=0.1)
 ```
 
-## Example
+## Beispiel
 
-Applying classification to new data:
+Anwenden der Klassifikation auf neue Daten:
 
 ```py
 test_data = [

@@ -1,6 +1,6 @@
 # Example: iris classification in keras
 
-<!-- duplicate -->
+<!-- duplicate in machine-learning-theory and neural-networks-with-keras -->
 
 ## Supervised learning in keras
 
@@ -29,11 +29,12 @@ y = iris.target
 Training the neural network:
 
 ```py
-import keras
+from tensorflow import keras
 
 model = keras.Sequential([
-    keras.layers.Dense(12, activation="relu"),
-    keras.layers.Dense(3, activation="softmax")
+    keras.layers.Dense(8),
+    keras.layers.Dense(3),
+    keras.layers.Activation("softmax")
 ])
 model.compile(
     loss="sparse_categorical_crossentropy",
@@ -54,7 +55,7 @@ test_data = [
 ]
 
 y_pred = model.predict(test_data)
-# [[1.  0.  0. ]
+# [[0.9 0.1 0. ]
 #  [0.  0.8 0.2]
 #  [0.  0.7 0.3]]
 ```

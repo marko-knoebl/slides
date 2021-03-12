@@ -1,6 +1,28 @@
+# Neural networks with Keras: overview
+
+# TensorFlow and Keras
+
+## TensorFlow and Keras
+
+_TensorFlow_: neural network library developed by Google
+
+_Keras_: Python API for _TensorFlow_, has been integrated into _TensorFlow_
+
+## TensorFlow and Keras
+
+equivalent imports (since TensorFlow 2.4):
+
+```py
+import keras
+```
+
+```py
+from tensorflow import keras
+```
+
 # Example: iris classification in keras
 
-<!-- duplicate -->
+<!-- duplicate in machine-learning-theory and neural-networks-with-keras -->
 
 ## Supervised learning in keras
 
@@ -29,11 +51,12 @@ y = iris.target
 Training the neural network:
 
 ```py
-import keras
+from tensorflow import keras
 
 model = keras.Sequential([
-    keras.layers.Dense(12, activation="relu"),
-    keras.layers.Dense(3, activation="softmax")
+    keras.layers.Dense(8),
+    keras.layers.Dense(3),
+    keras.layers.Activation("softmax")
 ])
 model.compile(
     loss="sparse_categorical_crossentropy",
@@ -54,67 +77,67 @@ test_data = [
 ]
 
 y_pred = model.predict(test_data)
-# [[1.  0.  0. ]
+# [[0.9 0.1 0. ]
 #  [0.  0.8 0.2]
 #  [0.  0.7 0.3]]
 ```
 
-# Example: iris classification
+# Neural networks
 
-## Example: iris classification
+<!--
+duplicates in machine-learning-theory and
+neural-networks-with-keras
+-->
 
-```py
-import pandas as pd
-import sklearn
+## Neural networks
 
-import keras
-```
+Machine learning strategy that vaguely resembles how neurons in the brain interact
 
-load and prepare dataset:
+## Neural networks
 
-```py
-iris = pd.read_csv(
-    "http://archive.ics.uci.edu/ml/" +
-    "machine-learning-databases/iris/iris.data",
-    header=None)
-iris_measures = iris.iloc[:, :4].to_numpy()
-iris_species = iris.iloc[:, 4].to_numpy()
-```
+<figure style="width: 70%; margin: 0 auto;">
+  <img src="assets/wikimedia-Neural_network.svg" alt="diagram of a neural network">
+  <figcaption>diagram of a neural network with two inputs, five intermediate neurons and one output <small>(source: <a href="https://commons.wikimedia.org/wiki/File:Neural_network.svg" title="via Wikimedia Commons">Dake, Mysid via Wikimedia Commons</a> / <a href="https://creativecommons.org/licenses/by/1.0">CC BY</a>)</small></figcaption>
+</figure>
 
-```py
-encoder = sklearn.preprocessing.LabelBinarizer()
-encoder.fit(iris_species)
-iris_species_binarized = encoder.transform(iris_species)
-```
+## Neurons
 
-```py
-x = iris_measures
-y = iris_species_binarized
-```
+<figure>
+  <img src="assets/wikimedia-ArtificialNeuronModel_english.png">
+  <figcaption>model of a single neuron with multiple inputs and one output</figcaption>
+</figure>
 
-```py
-model = keras.Sequential([
-    keras.layers.Dense(8, activation="relu"),
-    keras.layers.Dense(3, activation="softmax")
-])
+## Activation functions
 
-model.compile(
-    loss="categorical_crossentropy",
-    metrics=["accuracy"]
-)
-```
+- ReLU (Rectified Linear Unit)
+- Softmax - often used in the last layer for classification
+- Sigmoid - often used in the last layer for "tagging" (tags may overlap)
 
-```py
-model.fit(x, y, epochs=100, validation_split=0.1)
-```
+## Resource
 
-```py
-model.evaluate(x, y)
-```
+- <https://victorzhou.com/blog/intro-to-neural-networks/>
 
-```py
-model.predict([[5, 3, 1.5, 0.2]]) # category should be 0
-```
+# Layers
+
+## Types of layers
+
+- activation layers (outputs: apply an activation function to every input in isolation)
+- dense layers (outputs: weighed sum of inputs)
+- convolution layers (outputs: weighed sum of nearby inputs)
+- pooling layers (outputs: e.g. maximum or average or nearby inputs)
+- dropout layers (individual outputs: either same as input or 0)
+- normalization layers (e.g. to keep mean close to 0 and standard deviation close to 1)
+
+some layers (e.g. dense, convolution) can optionally have a built-in activation function
+
+## Layers in keras
+
+- `Activation`
+- `Dense`
+- `Conv1D`, `Conv2D`, `Conv3D`
+- `MaxPooling1D`, `MaxPooling2D`, `MaxPooling3D`
+- `Dropout`
+- `BatchNormalization`
 
 # Sequential and functional API
 
@@ -151,33 +174,9 @@ outputs = keras.layers.Dense(10, activation="softmax")(x)
 model = keras.Model(inputs, outputs)
 ```
 
-# Layers
-
-## Layers
-
-- activation layers
-
-- dense layers
-
-- convolution layers (local processing)
-
-- pooling layers (local pooling)
-
-- dropout layers
-
-- Dense
-
-- Conv1D
-
-- Conv2D
-
 # Example: MNIST digit classification
 
 ## Loading data
-
-```py
-import keras
-```
 
 loading data:
 
@@ -187,24 +186,21 @@ loading data:
 
 ## Building a model
 
-sequential API (simpler):
+sequential API:
 
 ```py
-model = keras.Sequential(
-    [
-        keras.layers.Flatten(input_shape=[28, 28]),
-        keras.layers.Dense(128, activation="relu"),
-        keras.layers.Dense(10, activation="softmax"),
-    ]
-)
+model = keras.Sequential([
+    keras.layers.Flatten(input_shape=[28, 28]),
+    keras.layers.Dense(128, activation="relu"),
+    keras.layers.Dense(10, activation="softmax"),
+])
 ```
 
-functional API (more flexible):
+functional API:
 
 ```py
 inputs = keras.layers.Input(shape=[28, 28])
-x = keras.layers.experimental.preprocessing.Rescaling(1 / 255)(inputs)
-x = keras.layers.Flatten(input_shape=[28, 28])(x)
+x = keras.layers.Flatten()(x)
 x = keras.layers.Dense(128, activation="relu")(x)
 outputs = keras.layers.Dense(10, activation="softmax")(x)
 model = keras.Model(inputs, outputs)
@@ -214,7 +210,9 @@ model = keras.Model(inputs, outputs)
 
 ```py
 model.compile(
-    optimizer="adam", loss="sparse_categorical_crossentropy", metrics=["accuracy"]
+    optimizer="adam",
+    loss="sparse_categorical_crossentropy",
+    metrics=["accuracy"],
 )
 model.fit(x_train, y_train, epochs=15, validation_split=0.1)
 ```
@@ -226,38 +224,6 @@ adding a rescaling layer:
 ```py
 keras.layers.experimental.preprocessing.Rescaling(1/255)
 ```
-
-# Preparing data
-
-## Preparing data
-
-input data types:
-
-- _NumPy_ arrays
-- TensorFlow `Dataset` objects - for big data sets that do not fit in memory
-- Python generators that yield batches of data
-
-## Preparing data
-
-desired data format:
-
-- _x_: _NumPy_ array or `tf.data.Dataset` object
--
-
-## Helper functions
-
-- `tf.keras.preprocessing.image_dataset_from_directory`
-- `tf.keras.preprocessing.text_dataset_from_directory`
-
-## Validation metrics
-
-classification:
-
-- _categorical crossentropy_ (~ probability of misclassification, based on _Kullback–Leibler divergence_)
-
-regression
-
-- _mean squared error_
 
 # Example: california housing
 

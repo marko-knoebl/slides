@@ -17,5 +17,5 @@ desired data format:
 
 ## Helper functions
 
-- `tf.keras.preprocessing.image_dataset_from_directory`
-- `tf.keras.preprocessing.text_dataset_from_directory`
+- `keras.preprocessing.image_dataset_from_directory`
+- `keras.preprocessing.text_dataset_from_directory`

@@ -238,7 +238,7 @@ y_pred_proba = model.predict_proba(test_data)
 
 # Example: iris classification in keras
 
-<!-- duplicate -->
+<!-- duplicate in machine-learning-theory and neural-networks-with-keras -->
 
 ## Supervised learning in keras
 
@@ -267,17 +267,18 @@ y = iris.target
 Training the neural network:
 
 ```py
-import keras
+from tensorflow import keras
 
 model = keras.Sequential([
-    keras.layers.Dense(12, activation="relu"),
-    keras.layers.Dense(3, activation="softmax")
+    keras.layers.Dense(8),
+    keras.layers.Dense(3),
+    keras.layers.Activation("softmax")
 ])
 model.compile(
     loss="sparse_categorical_crossentropy",
     metrics=["accuracy"]
 )
-model.fit(x, y, epochs=300, validation_split=0.1)
+model.fit(x, y, epochs=100, validation_split=0.1)
 ```
 
 ## Example
@@ -292,7 +293,7 @@ test_data = [
 ]
 
 y_pred = model.predict(test_data)
-# [[1.  0.  0. ]
+# [[0.9 0.1 0. ]
 #  [0.  0.8 0.2]
 #  [0.  0.7 0.3]]
 ```
@@ -356,6 +357,11 @@ price = 0.05 + 1.13*x + 3.73*y
 ```
 
 # Neural networks
+
+<!--
+duplicates in machine-learning-theory and
+neural-networks-with-keras
+-->
 
 ## Neural networks
 
@@ -802,7 +808,7 @@ Algorithms that are vulnerable to overfitting:
 
 - expand the set of learning data
 - reduce model flexibility (e.g. degree of the polynomial, size of a neural network / decision tree)
-- randomly disable some neurons during learning (dropout)
+- randomly disable some neuron outputs during learning (dropout)
 - combining multiple decision trees (random forest)
 - "penalize" large coefficients in polynomial regression (L2- and L1-regulatization)
 

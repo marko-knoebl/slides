@@ -14,11 +14,7 @@
 installing the most important packages in an existing Python environment:
 
 ```bash
-pip install jupyter numpy pandas matplotlib
-```
-
-```bash
-pip install sklearn keras tensorflow
+pip install jupyter numpy pandas matplotlib sklearn tensorflow
 ```
 
 Note: Packages like _NumPy_ or _TensorFlow_ may take several months before they are available for the newest Python version

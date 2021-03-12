@@ -21,7 +21,7 @@ Algorithms that are vulnerable to overfitting:
 
 - expand the set of learning data
 - reduce model flexibility (e.g. degree of the polynomial, size of a neural network / decision tree)
-- randomly disable some neurons during learning (dropout)
+- randomly disable some neuron outputs during learning (dropout)
 - combining multiple decision trees (random forest)
 - "penalize" large coefficients in polynomial regression (L2- and L1-regulatization)
 
