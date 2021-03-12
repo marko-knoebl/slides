@@ -1,6 +1,6 @@
 # React Themen
 
-[zurück zur Übersicht](index.html)
+[Home](./index.html) | [React Slides](./react-slides-de.html)
 
 ## React Grundlagen
 

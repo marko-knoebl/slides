@@ -1,6 +1,6 @@
 # React course topics
 
-[back to overview](index.html)
+[Home](./index.html) | [React slides](./react-slides-en.html)
 
 ## React basics
 
