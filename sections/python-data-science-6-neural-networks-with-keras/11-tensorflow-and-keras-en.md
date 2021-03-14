@@ -1,8 +1,13 @@
 # TensorFlow and Keras
 
-## TensorFlow and Keras
+## TensorFlow
 
-_TensorFlow_: neural network library developed by Google
+_TensorFlow_:
+
+- neural network library developed by Google
+- based on tensors (multi-dimensional arrays) and array multiplication
+
+## Keras
 
 _Keras_: Python API for _TensorFlow_, has been integrated into _TensorFlow_
 

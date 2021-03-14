@@ -846,6 +846,16 @@ pd.merge(sp500_no_index, euribor_no_index, left_on="Date",
 
 ## Joins
 
+Kurzform, wenn zugehörige Spalten gleiche Namen haben:
+
+```py
+pd.merge(sp500_no_index, euribor_no_index, on="date")
+```
+
+Resultat hat eine `date`-Spalte statt zwei
+
+## Joins
+
 Beispiel: Musiker und Lieder
 
 ```py

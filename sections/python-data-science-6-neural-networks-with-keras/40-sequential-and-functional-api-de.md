@@ -1,4 +1,4 @@
-# Sequenzielles und functionales API
+# Sequenzielles und funktionales API
 
 ## Sequenzielles API
 
@@ -21,7 +21,7 @@ model.add(keras.layers.Dense(128, activation="relu"))
 model.add(keras.layers.Dense(10, activation="softmax"))
 ```
 
-## Functionales API
+## Funktionales API
 
 Funktionales API (erlaubt komplexere Verarbeitung):
 

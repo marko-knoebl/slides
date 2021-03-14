@@ -271,6 +271,7 @@ from tensorflow import keras
 
 model = keras.Sequential([
     keras.layers.Dense(8),
+    keras.layers.Activation("relu"),
     keras.layers.Dense(3),
     keras.layers.Activation("softmax")
 ])
@@ -278,7 +279,7 @@ model.compile(
     loss="sparse_categorical_crossentropy",
     metrics=["accuracy"]
 )
-model.fit(x, y, epochs=100, validation_split=0.1)
+model.fit(x, y, epochs=300, validation_split=0.1)
 ```
 
 ## Example

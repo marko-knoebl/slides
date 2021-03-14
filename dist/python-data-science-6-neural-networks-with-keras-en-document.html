@@ -1,7 +1,12 @@
 <h1>Neural networks with Keras: overview</h1>
 <h1>TensorFlow and Keras</h1>
-<h2>TensorFlow and Keras</h2>
-<p><em>TensorFlow</em>: neural network library developed by Google</p>
+<h2>TensorFlow</h2>
+<p><em>TensorFlow</em>:</p>
+<ul>
+<li>neural network library developed by Google</li>
+<li>based on tensors (multi-dimensional arrays) and array multiplication</li>
+</ul>
+<h2>Keras</h2>
 <p><em>Keras</em>: Python API for <em>TensorFlow</em>, has been integrated into <em>TensorFlow</em></p>
 <h2>TensorFlow and Keras</h2>
 <p>equivalent imports (since TensorFlow 2.4):</p>
@@ -34,6 +39,7 @@ y = iris.target
 
 model = keras.Sequential([
     keras.layers.Dense(<span class="hljs-number">8</span>),
+    keras.layers.Activation(<span class="hljs-string">"relu"</span>),
     keras.layers.Dense(<span class="hljs-number">3</span>),
     keras.layers.Activation(<span class="hljs-string">"softmax"</span>)
 ])
@@ -41,7 +47,7 @@ model.<span class="hljs-built_in">compile</span>(
     loss=<span class="hljs-string">"sparse_categorical_crossentropy"</span>,
     metrics=[<span class="hljs-string">"accuracy"</span>]
 )
-model.fit(x, y, epochs=<span class="hljs-number">100</span>, validation_split=<span class="hljs-number">0.1</span>)
+model.fit(x, y, epochs=<span class="hljs-number">300</span>, validation_split=<span class="hljs-number">0.1</span>)
 </code></pre>
 <h2>Example</h2>
 <p>Applying classification to new data:</p>
@@ -176,7 +182,10 @@ model = keras.Model(inputs, outputs)
 <h1>Example: MNIST digit classification</h1>
 <h2>Loading data</h2>
 <p>loading data:</p>
-<pre><code class="hljs language-py">(x_train, y_train), (x_test, y_test) = keras.datasets.mnist.load_data()
+<pre><code class="hljs language-py">(
+    (x_train, y_train),
+    (x_test, y_test),
+) = keras.datasets.mnist.load_data()
 </code></pre>
 <h2>Building a model</h2>
 <p>sequential API:</p>
@@ -205,8 +214,95 @@ model.fit(x_train, y_train, epochs=<span class="hljs-number">15</span>, validati
 <p>adding a rescaling layer:</p>
 <pre><code class="hljs language-py">keras.layers.experimental.preprocessing.Rescaling(<span class="hljs-number">1</span>/<span class="hljs-number">255</span>)
 </code></pre>
-<h1>Example: california housing</h1>
+<h1>Inspecting the iris classification network</h1>
+<h2>Creating and training the network</h2>
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> datasets
+<span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> model_selection
+
+iris = datasets.load_iris()
+
+x = iris.data
+y = iris.target
+
+<span class="hljs-keyword">from</span> tensorflow <span class="hljs-keyword">import</span> keras
+
+model = keras.Sequential([
+    keras.layers.Dense(<span class="hljs-number">8</span>),
+    keras.layers.Activation(<span class="hljs-string">"relu"</span>),
+    keras.layers.Dense(<span class="hljs-number">3</span>),
+    keras.layers.Activation(<span class="hljs-string">"softmax"</span>)
+])
+model.<span class="hljs-built_in">compile</span>(
+    loss=<span class="hljs-string">"sparse_categorical_crossentropy"</span>,
+    metrics=[<span class="hljs-string">"accuracy"</span>]
+)
+model.fit(x, y, epochs=<span class="hljs-number">300</span>, validation_split=<span class="hljs-number">0.1</span>, verbose=<span class="hljs-literal">False</span>)
+</code></pre>
+<h2>Inspecting the network</h2>
+<pre><code class="hljs language-py">layer_0 = model.get_layer(index=<span class="hljs-number">0</span>)
+layer_1 = model.get_layer(index=<span class="hljs-number">1</span>)
+layer_2 = model.get_layer(index=<span class="hljs-number">2</span>)
+layer_3 = model.get_layer(index=<span class="hljs-number">3</span>)
+</code></pre>
+<h2>Inspecting the network</h2>
+<pre><code class="hljs language-py"><span class="hljs-comment"># input values for an iris setosa flower</span>
+values_0 = np.array([[<span class="hljs-number">5.1</span>, <span class="hljs-number">3.5</span>, <span class="hljs-number">1.4</span>, <span class="hljs-number">0.2</span>]])
+</code></pre>
+<h2>Inspecting the network</h2>
+<p>getting the values after <code>layer_0</code> (dense layer):</p>
+<pre><code class="hljs language-py">values_1 = layer_0(values_0)
+</code></pre>
+<p>what happens behind the scenes (possible implementation in numpy):</p>
+<pre><code class="hljs language-py">values_1 = values_0 @ layer_0.kernel + layer_0.bias
+</code></pre>
+<p>(matrix multiplication and addition)</p>
+<h2>Inspecting the network</h2>
+<p>getting the values after <code>layer_1</code> (RELU activation layer):</p>
+<pre><code class="hljs language-py">values_2 = layer_1(values_1)
+</code></pre>
+<p>what happens behind the scenes (possible implementation in numpy):</p>
+<pre><code class="hljs language-py">values_2 = np.maximum(values_1, <span class="hljs-number">0</span>)
+</code></pre>
+<p>(replace negative values with 0)</p>
+<h2>Inspecting the network</h2>
+<p>getting the values after <code>layer_2</code> (dense layer):</p>
+<pre><code class="hljs language-py">values_3 = layer_2(values_2)
+</code></pre>
+<p>what happens behind the scenes (possible implementation in numpy):</p>
+<pre><code class="hljs language-py">values_3 = values_2 @ layer_2.kernel + layer_2.bias
+</code></pre>
+<h2>Inspecting the network</h2>
+<p>getting the values after <code>layer_3</code> (softmax activation layer):</p>
+<pre><code class="hljs language-py">values_4 = layer_3(values_3)
+</code></pre>
+<p>what happens behind the scenes (possible implementation in Python):</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> scipy.special <span class="hljs-keyword">import</span> softmax
+<span class="hljs-comment"># from sklearn.utils.extmath import softmax</span>
+
+values_4 = softmax(values_3)
+</code></pre>
+<h2>Inspecting the network</h2>
+<p>function that predicts results and prints intermediate values:</p>
+<pre><code class="hljs language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">predict_and_log</span>(<span class="hljs-params">values_0</span>):</span>
+    print(values_0, end=<span class="hljs-string">"\n\n"</span>)
+    values_1 = layer_0(values_0)
+    print(values_1, end=<span class="hljs-string">"\n\n"</span>)
+    values_2 = layer_1(values_1)
+    print(values_2, end=<span class="hljs-string">"\n\n"</span>)
+    values_3 = layer_2(values_2)
+    print(values_3, end=<span class="hljs-string">"\n\n"</span>)
+    values_4 = layer_3(values_3)
+    print(values_4, end=<span class="hljs-string">"\n\n"</span>)
+</code></pre>
+<h2>Inspecting the network</h2>
+<pre><code class="hljs language-py">predict_and_log(np.array([[<span class="hljs-number">5.1</span>, <span class="hljs-number">3.5</span>, <span class="hljs-number">1.4</span>, <span class="hljs-number">0.2</span>]]))
+predict_and_log(np.array([[<span class="hljs-number">7.0</span>, <span class="hljs-number">3.2</span>, <span class="hljs-number">4.7</span>, <span class="hljs-number">1.4</span>]]))
+predict_and_log(np.array([[<span class="hljs-number">6.3</span>, <span class="hljs-number">3.3</span>, <span class="hljs-number">6.0</span>, <span class="hljs-number">2.5</span>]]))
+</code></pre>
+<h1>Example: California housing prices</h1>
+<h2>Example: California housing prices</h2>
 <p>for comparison: linear regression - <a href="http://www.clungu.com/scikit-learn/tutorial/Scikit-learn/">http://www.clungu.com/scikit-learn/tutorial/Scikit-learn/</a></p>
+<h2>Example: California housing prices</h2>
 <p>load and prepare dataset:</p>
 <pre><code class="hljs language-py"><span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> datasets
 <span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> utils
@@ -217,76 +313,54 @@ housing = datasets.fetch_california_housing()
 
 scaler = preprocessing.StandardScaler().fit(housing.data)
 
-X = scaler.transform(housing.data)
+x = scaler.transform(housing.data)
 y = housing.target
-
-X, y = utils.shuffle(X, y)
 </code></pre>
-<p>create model:</p>
+<h2>Example: California housing prices</h2>
+<p>create and train model:</p>
 <pre><code class="hljs language-py"><span class="hljs-keyword">from</span> keras.models <span class="hljs-keyword">import</span> Sequential
-<span class="hljs-keyword">from</span> keras.layers <span class="hljs-keyword">import</span> Dense
+<span class="hljs-keyword">from</span> tensorflow.keras <span class="hljs-keyword">import</span> layers
 
-model = Sequential()
-model.add(Dense(<span class="hljs-number">16</span>, activation=<span class="hljs-string">"relu"</span>))
-model.add(Dense(<span class="hljs-number">16</span>, activation=<span class="hljs-string">"relu"</span>))
-model.add(Dense(<span class="hljs-number">1</span>, activation=<span class="hljs-string">"linear"</span>))
-
+model = Sequential([
+    layers.Dense(<span class="hljs-number">16</span>, activation=<span class="hljs-string">"relu"</span>),
+    layers.Dropout(<span class="hljs-number">0.1</span>),
+    layers.Dense(<span class="hljs-number">16</span>, activation=<span class="hljs-string">"relu"</span>),
+    layers.Dropout(<span class="hljs-number">0.1</span>),
+    layers.Dense(<span class="hljs-number">1</span>, activation=<span class="hljs-string">"linear"</span>),
+])
 model.<span class="hljs-built_in">compile</span>(loss=<span class="hljs-string">"mean_squared_error"</span>)
-</code></pre>
-<p>learn:</p>
-<pre><code class="hljs language-py">model.fit(X, y, epochs=<span class="hljs-number">100</span>, validation_split=<span class="hljs-number">0.25</span>, verbose=<span class="hljs-number">1</span>)
-</code></pre>
-<p>evaluate:</p>
-<pre><code class="hljs language-py">model.evaluate(X, y)
-</code></pre>
-<h1>Example: Cat or dog - image classification</h1>
-<p>see <a href="https://keras.io/examples/vision/image_classification_from_scratch/">https://keras.io/examples/vision/image_classification_from_scratch/</a></p>
-<h1>Example: digit recognition</h1>
-<h2>Digit recognition with keras</h2>
-<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> keras
 
-(x_train, y_train), (x_test, y_test) =
-    keras.datasets.mnist.load_data()
+model.fit(x, y, epochs=<span class="hljs-number">100</span>, validation_split=<span class="hljs-number">0.25</span>, verbose=<span class="hljs-number">1</span>)
+</code></pre>
+<h2>Example: California housing prices</h2>
+<p>evaluate:</p>
+<pre><code class="hljs language-py">model.evaluate(x, y)
+</code></pre>
+<h1>Example: digit recognition</h1>
+<h2>Example: digit recognition</h2>
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> tensorflow <span class="hljs-keyword">import</span> keras
+
+(
+    (x_train, y_train),
+    (x_test, y_test),
+) = keras.datasets.mnist.load_data()
 
 model = keras.Sequential([
-    keras.layers.experimental.preprocessing.Rescaling(<span class="hljs-number">1</span> / <span class="hljs-number">255</span>),
+    keras.layers.experimental.preprocessing.Rescaling(
+        <span class="hljs-number">1</span> / <span class="hljs-number">255</span>, input_shape=(<span class="hljs-number">28</span>, <span class="hljs-number">28</span>)
+    ),
     keras.layers.Flatten(input_shape=(<span class="hljs-number">28</span>, <span class="hljs-number">28</span>)),
     keras.layers.Dense(<span class="hljs-number">128</span>, activation=<span class="hljs-string">"relu"</span>),
     keras.layers.Dense(<span class="hljs-number">10</span>, activation=<span class="hljs-string">"softmax"</span>),
 ])
-model.<span class="hljs-built_in">compile</span>(loss=<span class="hljs-string">"sparse_categorical_crossentropy"</span>)
+model.<span class="hljs-built_in">compile</span>(
+    loss=<span class="hljs-string">"sparse_categorical_crossentropy"</span>,
+    metrics=[<span class="hljs-string">"sparse_categorical_accuracy"</span>],
+)
 model.fit(x_train, y_train, epochs=<span class="hljs-number">5</span>, validation_split=<span class="hljs-number">0.1</span>)
 
 print(model.evaluate(x_test, y_test))
 </code></pre>
-<h1>Example: inspecting the NN for iris classification</h1>
-<pre><code class="hljs language-py">layer_0 = model.get_layer(index=<span class="hljs-number">0</span>)
-layer_1 = model.get_layer(index=<span class="hljs-number">1</span>)
-
-print(layer_0.weights)
-print(layer_1.weights)
-
-print(<span class="hljs-string">"setosa"</span>)
-setosa_input = np.array([[<span class="hljs-number">5.1</span>,<span class="hljs-number">3.5</span>,<span class="hljs-number">1.4</span>,<span class="hljs-number">0.2</span>]])
-setosa_1 = layer_0(setosa_input)
-print(setosa_1)
-setosa_2 = layer_1(setosa_1)
-print(setosa_2)
-
-versicolor_input = np.array([[<span class="hljs-number">7.0</span>,<span class="hljs-number">3.2</span>,<span class="hljs-number">4.7</span>,<span class="hljs-number">1.4</span>]])
-versicolor_1 = layer_0(versicolor_input)
-print(versicolor_1)
-versicolor_2 = layer_1(versicolor_1)
-print(versicolor_2)
-
-virginica_input = np.array([[<span class="hljs-number">6.3</span>,<span class="hljs-number">3.3</span>,<span class="hljs-number">6.0</span>,<span class="hljs-number">2.5</span>]])
-virginica_1 = layer_0(virginica_input)
-print(virginica_1)
-virginica_2 = layer_1(virginica_1)
-print(virginica_2)
-</code></pre>
-<h2>Scaling values</h2>
-<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> keras.layers.experimental.preprocessing <span class="hljs-keyword">import</span> Rescaling
-
-Rescaling(<span class="hljs-number">1</span>/<span class="hljs-number">255</span>, offset=-<span class="hljs-number">0.5</span>)
-</code></pre>
+<h1>Example: image classification - cat or dog</h1>
+<h2>Example: image classification - cat or dog</h2>
+<p>see <a href="https://keras.io/examples/vision/image_classification_from_scratch/">https://keras.io/examples/vision/image_classification_from_scratch/</a></p>

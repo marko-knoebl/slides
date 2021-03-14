@@ -2,9 +2,14 @@
 
 # TensorFlow und Keras
 
-## TensorFlow und Keras
+## TensorFlow
 
-_TensorFlow_: Library für neuronale Netze, die von Google entwickelt wird
+_TensorFlow_:
+
+- Library für neuronale Netze, die von Google entwickelt wird
+- basiert auf Tensoren (multidimensionalen Arrays) und Array-Multiplikation
+
+## Keras
 
 _Keras_: Python API für _TensorFlow_, wurde mittlerweile in _TensorFlow_ integriert
 
@@ -55,6 +60,7 @@ from tensorflow import keras
 
 model = keras.Sequential([
     keras.layers.Dense(8),
+    keras.layers.Activation("relu"),
     keras.layers.Dense(3),
     keras.layers.Activation("softmax")
 ])
@@ -62,7 +68,7 @@ model.compile(
     loss="sparse_categorical_crossentropy",
     metrics=["accuracy"]
 )
-model.fit(x, y, epochs=100, validation_split=0.1)
+model.fit(x, y, epochs=300, validation_split=0.1)
 ```
 
 ## Beispiel
@@ -91,7 +97,7 @@ neural-networks-with-keras
 
 ## Neuronale Netzwerke
 
-Mchine Learning Verfahren, dass in etwa die Interaktion von Neuronen im Gehirn nachahmt
+Machine Learning Verfahren, das in etwa die Interaktion von Neuronen im Gehirn nachahmt
 
 ## Neuronale Netzwerke
 
@@ -110,8 +116,8 @@ Mchine Learning Verfahren, dass in etwa die Interaktion von Neuronen im Gehirn n
 ## Aktivierungsfunktionen
 
 - ReLU (Rectified Linear Unit)
-- Softmax - often used in the last layer for classification
-- Sigmoid - often used in the last layer for "tagging" (tags may overlap)
+- Softmax - oft im letzen Layer für Klassifikation verwendet
+- Sigmoid - oft im letzen Layer für "Tagging" verwendet (Tags können sich überlappen)
 
 ## Ressource
 
@@ -139,7 +145,7 @@ manche Layer (z.B. Dense, Convolution) können optional eine eingebaute (nachges
 - `Dropout`
 - `BatchNormalization`
 
-# Sequenzielles und functionales API
+# Sequenzielles und funktionales API
 
 ## Sequenzielles API
 
@@ -162,7 +168,7 @@ model.add(keras.layers.Dense(128, activation="relu"))
 model.add(keras.layers.Dense(10, activation="softmax"))
 ```
 
-## Functionales API
+## Funktionales API
 
 Funktionales API (erlaubt komplexere Verarbeitung):
 
@@ -181,7 +187,10 @@ model = keras.Model(inputs, outputs)
 Daten laden:
 
 ```py
-(x_train, y_train), (x_test, y_test) = keras.datasets.mnist.load_data()
+(
+    (x_train, y_train),
+    (x_test, y_test),
+) = keras.datasets.mnist.load_data()
 ```
 
 ## Erstellen eines Modells
@@ -224,3 +233,222 @@ Hinzufügen eines Rescaling-Layers:
 ```py
 keras.layers.experimental.preprocessing.Rescaling(1/255)
 ```
+
+# Inspizieren des Iris-Klassifikationsnetzes
+
+## Erstellen und Trainieren des Netzes
+
+```py
+from sklearn import datasets
+from sklearn import model_selection
+
+iris = datasets.load_iris()
+
+x = iris.data
+y = iris.target
+
+from tensorflow import keras
+
+model = keras.Sequential([
+    keras.layers.Dense(8),
+    keras.layers.Activation("relu"),
+    keras.layers.Dense(3),
+    keras.layers.Activation("softmax")
+])
+model.compile(
+    loss="sparse_categorical_crossentropy",
+    metrics=["accuracy"]
+)
+model.fit(x, y, epochs=300, validation_split=0.1, verbose=False)
+```
+
+## Inspizieren des Netzes
+
+```py
+layer_0 = model.get_layer(index=0)
+layer_1 = model.get_layer(index=1)
+layer_2 = model.get_layer(index=2)
+layer_3 = model.get_layer(index=3)
+```
+
+## Inspizieren des Netzes
+
+```py
+# input values for an iris setosa flower
+values_0 = np.array([[5.1, 3.5, 1.4, 0.2]])
+```
+
+## Inspizieren des Netzes
+
+Werte nach `layer_0` (_dense_ Layer):
+
+```py
+values_1 = layer_0(values_0)
+```
+
+was im Hintergrund geschieht (mögliche Implementierung in numpy):
+
+```py
+values_1 = values_0 @ layer_0.kernel + layer_0.bias
+```
+
+(Matrix-Multiplikation und Addition)
+
+## Inspizieren des Netzes
+
+Werte nach `layer_1` (RELU Aktivierungslayer):
+
+```py
+values_2 = layer_1(values_1)
+```
+
+was im Hintergrund geschieht (mögliche Implementierung in numpy):
+
+```py
+values_2 = np.maximum(values_1, 0)
+```
+
+(Ersetzen von negativen Werten durch 0)
+
+## Inspizieren des Netzes
+
+Werte nach `layer_2` (_dense_ Layer):
+
+```py
+values_3 = layer_2(values_2)
+```
+
+was im Hintergrund geschieht (mögliche Implementierung in numpy):
+
+```py
+values_3 = values_2 @ layer_2.kernel + layer_2.bias
+```
+
+## Inspizieren des Netzes
+
+Werte nach `layer_3` (Softmax Aktivierungslayer):
+
+```py
+values_4 = layer_3(values_3)
+```
+
+was im Hintergrund geschieht (mögliche Implementierung in Python):
+
+```py
+from scipy.special import softmax
+# from sklearn.utils.extmath import softmax
+
+values_4 = softmax(values_3)
+```
+
+## Inspizieren des Netzes
+
+Funktion, die Werte voraussagt und Zwischenwerte ausgibt:
+
+```py
+def predict_and_log(values_0):
+    print(values_0, end="\n\n")
+    values_1 = layer_0(values_0)
+    print(values_1, end="\n\n")
+    values_2 = layer_1(values_1)
+    print(values_2, end="\n\n")
+    values_3 = layer_2(values_2)
+    print(values_3, end="\n\n")
+    values_4 = layer_3(values_3)
+    print(values_4, end="\n\n")
+```
+
+## Inspizieren des Netzes
+
+```py
+predict_and_log(np.array([[5.1, 3.5, 1.4, 0.2]]))
+predict_and_log(np.array([[7.0, 3.2, 4.7, 1.4]]))
+predict_and_log(np.array([[6.3, 3.3, 6.0, 2.5]]))
+```
+
+# Beispiel: Werte von Häusern in Kalifornien
+
+## Beispiel: Werte von Häusern in Kalifornien
+
+zum Vergleich: Lineare Regression - <http://www.clungu.com/scikit-learn/tutorial/Scikit-learn/>
+
+## Beispiel: Werte von Häusern in Kalifornien
+
+Laden und Vorbereiten des Datensatzes:
+
+```py
+from sklearn import datasets
+from sklearn import utils
+from sklearn import model_selection
+from sklearn import preprocessing
+
+housing = datasets.fetch_california_housing()
+
+scaler = preprocessing.StandardScaler().fit(housing.data)
+
+x = scaler.transform(housing.data)
+y = housing.target
+```
+
+## Beispiel: Werte von Häusern in Kalifornien
+
+Modell erstellen und trainieren:
+
+```py
+from keras.models import Sequential
+from tensorflow.keras import layers
+
+model = Sequential([
+    layers.Dense(16, activation="relu"),
+    layers.Dropout(0.1),
+    layers.Dense(16, activation="relu"),
+    layers.Dropout(0.1),
+    layers.Dense(1, activation="linear"),
+])
+model.compile(loss="mean_squared_error")
+
+model.fit(x, y, epochs=100, validation_split=0.25, verbose=1)
+```
+
+## Beispiel: Werte von Häusern in Kalifornien
+
+Evaluieren:
+
+```py
+model.evaluate(x, y)
+```
+
+# Beispiel: Ziffernerkennung
+
+## Beispiel: Ziffernerkennung
+
+```py
+from tensorflow import keras
+
+(
+    (x_train, y_train),
+    (x_test, y_test),
+) = keras.datasets.mnist.load_data()
+
+model = keras.Sequential([
+    keras.layers.experimental.preprocessing.Rescaling(
+        1 / 255, input_shape=(28, 28)
+    ),
+    keras.layers.Flatten(input_shape=(28, 28)),
+    keras.layers.Dense(128, activation="relu"),
+    keras.layers.Dense(10, activation="softmax"),
+])
+model.compile(
+    loss="sparse_categorical_crossentropy",
+    metrics=["sparse_categorical_accuracy"],
+)
+model.fit(x_train, y_train, epochs=5, validation_split=0.1)
+
+print(model.evaluate(x_test, y_test))
+```
+
+# Beispiel: Bild-Klassifizierung: Katze oder Hund
+
+## Beispiel: Bild-Klassifizierung: Katze oder Hund
+
+see <https://keras.io/examples/vision/image_classification_from_scratch/>

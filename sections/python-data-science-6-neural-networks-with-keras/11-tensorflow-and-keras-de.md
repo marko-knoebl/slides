@@ -1,8 +1,13 @@
 # TensorFlow und Keras
 
-## TensorFlow und Keras
+## TensorFlow
 
-_TensorFlow_: Library für neuronale Netze, die von Google entwickelt wird
+_TensorFlow_:
+
+- Library für neuronale Netze, die von Google entwickelt wird
+- basiert auf Tensoren (multidimensionalen Arrays) und Array-Multiplikation
+
+## Keras
 
 _Keras_: Python API für _TensorFlow_, wurde mittlerweile in _TensorFlow_ integriert
 

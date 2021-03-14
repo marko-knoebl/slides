@@ -2062,8 +2062,13 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
     <div class="reveal">
       <div class="slides slides"><section class="slides-section"><section class="slide"><h1>Neuronale Netze mit Keras: Überblick</h1>
 </section></section><section class="slides-section"><section class="slide"><h1>TensorFlow und Keras</h1>
-</section><section class="slide"><h2>TensorFlow und Keras</h2>
-<p><em>TensorFlow</em>: Library für neuronale Netze, die von Google entwickelt wird</p>
+</section><section class="slide"><h2>TensorFlow</h2>
+<p><em>TensorFlow</em>:</p>
+<ul>
+<li>Library für neuronale Netze, die von Google entwickelt wird</li>
+<li>basiert auf Tensoren (multidimensionalen Arrays) und Array-Multiplikation</li>
+</ul>
+</section><section class="slide"><h2>Keras</h2>
 <p><em>Keras</em>: Python API für <em>TensorFlow</em>, wurde mittlerweile in <em>TensorFlow</em> integriert</p>
 </section><section class="slide"><h2>TensorFlow and Keras</h2>
 <p>äquivalente Imports (seit TensorFlow 2.4):</p>
@@ -2096,6 +2101,7 @@ y = iris.target
 
 model = keras.Sequential([
     keras.layers.Dense(<span class="hljs-number">8</span>),
+    keras.layers.Activation(<span class="hljs-string">"relu"</span>),
     keras.layers.Dense(<span class="hljs-number">3</span>),
     keras.layers.Activation(<span class="hljs-string">"softmax"</span>)
 ])
@@ -2103,7 +2109,7 @@ model.<span class="hljs-built_in">compile</span>(
     loss=<span class="hljs-string">"sparse_categorical_crossentropy"</span>,
     metrics=[<span class="hljs-string">"accuracy"</span>]
 )
-model.fit(x, y, epochs=<span class="hljs-number">100</span>, validation_split=<span class="hljs-number">0.1</span>)
+model.fit(x, y, epochs=<span class="hljs-number">300</span>, validation_split=<span class="hljs-number">0.1</span>)
 </code></pre>
 </section><section class="slide"><h2>Beispiel</h2>
 <p>Anwenden der Klassifikation auf neue Daten:</p>
@@ -2124,7 +2130,7 @@ duplicates in machine-learning-theory and
 neural-networks-with-keras
 -->
 </section><section class="slide"><h2>Neuronale Netzwerke</h2>
-<p>Mchine Learning Verfahren, dass in etwa die Interaktion von Neuronen im Gehirn nachahmt</p>
+<p>Machine Learning Verfahren, das in etwa die Interaktion von Neuronen im Gehirn nachahmt</p>
 </section><section class="slide"><h2>Neuronale Netzwerke</h2>
 <figure style="width: 70%; margin: 0 auto;">
   <svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xml:space="preserve" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd" viewBox="0 0 1024 640" version="1.1" id="svg53" sodipodi:docname="Neural_network.svg" inkscape:version="0.92.4 (5da689c313, 2019-01-14)">
@@ -2185,8 +2191,8 @@ neural-networks-with-keras
 </section><section class="slide"><h2>Aktivierungsfunktionen</h2>
 <ul>
 <li>ReLU (Rectified Linear Unit)</li>
-<li>Softmax - often used in the last layer for classification</li>
-<li>Sigmoid - often used in the last layer for "tagging" (tags may overlap)</li>
+<li>Softmax - oft im letzen Layer für Klassifikation verwendet</li>
+<li>Sigmoid - oft im letzen Layer für "Tagging" verwendet (Tags können sich überlappen)</li>
 </ul>
 </section><section class="slide"><h2>Ressource</h2>
 <ul>
@@ -2212,7 +2218,7 @@ neural-networks-with-keras
 <li><code>Dropout</code></li>
 <li><code>BatchNormalization</code></li>
 </ul>
-</section></section><section class="slides-section"><section class="slide"><h1>Sequenzielles und functionales API</h1>
+</section></section><section class="slides-section"><section class="slide"><h1>Sequenzielles und funktionales API</h1>
 </section><section class="slide"><h2>Sequenzielles API</h2>
 <p>sequenzielles API (erlaubt nur lineare Verarbeitung - jeder Layer hat einen Input und einen Output):</p>
 <pre><code class="hljs language-py">model = keras.models.Sequential([
@@ -2227,7 +2233,7 @@ model.add(keras.layers.Dense(<span class="hljs-number">256</span>, activation=<s
 model.add(keras.layers.Dense(<span class="hljs-number">128</span>, activation=<span class="hljs-string">"relu"</span>))
 model.add(keras.layers.Dense(<span class="hljs-number">10</span>, activation=<span class="hljs-string">"softmax"</span>))
 </code></pre>
-</section><section class="slide"><h2>Functionales API</h2>
+</section><section class="slide"><h2>Funktionales API</h2>
 <p>Funktionales API (erlaubt komplexere Verarbeitung):</p>
 <pre><code class="hljs language-py">inputs = keras.layers.Input(shape=[<span class="hljs-number">28</span>, <span class="hljs-number">28</span>])
 x = keras.layers.Dense(<span class="hljs-number">256</span>, activation=<span class="hljs-string">"relu"</span>)(inputs)
@@ -2238,7 +2244,10 @@ model = keras.Model(inputs, outputs)
 </section></section><section class="slides-section"><section class="slide"><h1>Beispiel: MNIST Ziffernklassifikation</h1>
 </section><section class="slide"><h2>Daten laden</h2>
 <p>Daten laden:</p>
-<pre><code class="hljs language-py">(x_train, y_train), (x_test, y_test) = keras.datasets.mnist.load_data()
+<pre><code class="hljs language-py">(
+    (x_train, y_train),
+    (x_test, y_test),
+) = keras.datasets.mnist.load_data()
 </code></pre>
 </section><section class="slide"><h2>Erstellen eines Modells</h2>
 <p>sequenzielles API:</p>
@@ -2266,7 +2275,157 @@ model.fit(x_train, y_train, epochs=<span class="hljs-number">15</span>, validati
 </section><section class="slide"><h2>Verbesserungen</h2>
 <p>Hinzufügen eines Rescaling-Layers:</p>
 <pre><code class="hljs language-py">keras.layers.experimental.preprocessing.Rescaling(<span class="hljs-number">1</span>/<span class="hljs-number">255</span>)
-</code></pre></section></section></div>
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Inspizieren des Iris-Klassifikationsnetzes</h1>
+</section><section class="slide"><h2>Erstellen und Trainieren des Netzes</h2>
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> datasets
+<span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> model_selection
+
+iris = datasets.load_iris()
+
+x = iris.data
+y = iris.target
+
+<span class="hljs-keyword">from</span> tensorflow <span class="hljs-keyword">import</span> keras
+
+model = keras.Sequential([
+    keras.layers.Dense(<span class="hljs-number">8</span>),
+    keras.layers.Activation(<span class="hljs-string">"relu"</span>),
+    keras.layers.Dense(<span class="hljs-number">3</span>),
+    keras.layers.Activation(<span class="hljs-string">"softmax"</span>)
+])
+model.<span class="hljs-built_in">compile</span>(
+    loss=<span class="hljs-string">"sparse_categorical_crossentropy"</span>,
+    metrics=[<span class="hljs-string">"accuracy"</span>]
+)
+model.fit(x, y, epochs=<span class="hljs-number">300</span>, validation_split=<span class="hljs-number">0.1</span>, verbose=<span class="hljs-literal">False</span>)
+</code></pre>
+</section><section class="slide"><h2>Inspizieren des Netzes</h2>
+<pre><code class="hljs language-py">layer_0 = model.get_layer(index=<span class="hljs-number">0</span>)
+layer_1 = model.get_layer(index=<span class="hljs-number">1</span>)
+layer_2 = model.get_layer(index=<span class="hljs-number">2</span>)
+layer_3 = model.get_layer(index=<span class="hljs-number">3</span>)
+</code></pre>
+</section><section class="slide"><h2>Inspizieren des Netzes</h2>
+<pre><code class="hljs language-py"><span class="hljs-comment"># input values for an iris setosa flower</span>
+values_0 = np.array([[<span class="hljs-number">5.1</span>, <span class="hljs-number">3.5</span>, <span class="hljs-number">1.4</span>, <span class="hljs-number">0.2</span>]])
+</code></pre>
+</section><section class="slide"><h2>Inspizieren des Netzes</h2>
+<p>Werte nach <code>layer_0</code> (<em>dense</em> Layer):</p>
+<pre><code class="hljs language-py">values_1 = layer_0(values_0)
+</code></pre>
+<p>was im Hintergrund geschieht (mögliche Implementierung in numpy):</p>
+<pre><code class="hljs language-py">values_1 = values_0 @ layer_0.kernel + layer_0.bias
+</code></pre>
+<p>(Matrix-Multiplikation und Addition)</p>
+</section><section class="slide"><h2>Inspizieren des Netzes</h2>
+<p>Werte nach <code>layer_1</code> (RELU Aktivierungslayer):</p>
+<pre><code class="hljs language-py">values_2 = layer_1(values_1)
+</code></pre>
+<p>was im Hintergrund geschieht (mögliche Implementierung in numpy):</p>
+<pre><code class="hljs language-py">values_2 = np.maximum(values_1, <span class="hljs-number">0</span>)
+</code></pre>
+<p>(Ersetzen von negativen Werten durch 0)</p>
+</section><section class="slide"><h2>Inspizieren des Netzes</h2>
+<p>Werte nach <code>layer_2</code> (<em>dense</em> Layer):</p>
+<pre><code class="hljs language-py">values_3 = layer_2(values_2)
+</code></pre>
+<p>was im Hintergrund geschieht (mögliche Implementierung in numpy):</p>
+<pre><code class="hljs language-py">values_3 = values_2 @ layer_2.kernel + layer_2.bias
+</code></pre>
+</section><section class="slide"><h2>Inspizieren des Netzes</h2>
+<p>Werte nach <code>layer_3</code> (Softmax Aktivierungslayer):</p>
+<pre><code class="hljs language-py">values_4 = layer_3(values_3)
+</code></pre>
+<p>was im Hintergrund geschieht (mögliche Implementierung in Python):</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> scipy.special <span class="hljs-keyword">import</span> softmax
+<span class="hljs-comment"># from sklearn.utils.extmath import softmax</span>
+
+values_4 = softmax(values_3)
+</code></pre>
+</section><section class="slide"><h2>Inspizieren des Netzes</h2>
+<p>Funktion, die Werte voraussagt und Zwischenwerte ausgibt:</p>
+<pre><code class="hljs language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">predict_and_log</span>(<span class="hljs-params">values_0</span>):</span>
+    print(values_0, end=<span class="hljs-string">"\n\n"</span>)
+    values_1 = layer_0(values_0)
+    print(values_1, end=<span class="hljs-string">"\n\n"</span>)
+    values_2 = layer_1(values_1)
+    print(values_2, end=<span class="hljs-string">"\n\n"</span>)
+    values_3 = layer_2(values_2)
+    print(values_3, end=<span class="hljs-string">"\n\n"</span>)
+    values_4 = layer_3(values_3)
+    print(values_4, end=<span class="hljs-string">"\n\n"</span>)
+</code></pre>
+</section><section class="slide"><h2>Inspizieren des Netzes</h2>
+<pre><code class="hljs language-py">predict_and_log(np.array([[<span class="hljs-number">5.1</span>, <span class="hljs-number">3.5</span>, <span class="hljs-number">1.4</span>, <span class="hljs-number">0.2</span>]]))
+predict_and_log(np.array([[<span class="hljs-number">7.0</span>, <span class="hljs-number">3.2</span>, <span class="hljs-number">4.7</span>, <span class="hljs-number">1.4</span>]]))
+predict_and_log(np.array([[<span class="hljs-number">6.3</span>, <span class="hljs-number">3.3</span>, <span class="hljs-number">6.0</span>, <span class="hljs-number">2.5</span>]]))
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Beispiel: Werte von Häusern in Kalifornien</h1>
+</section><section class="slide"><h2>Beispiel: Werte von Häusern in Kalifornien</h2>
+<p>zum Vergleich: Lineare Regression - <a href="http://www.clungu.com/scikit-learn/tutorial/Scikit-learn/">http://www.clungu.com/scikit-learn/tutorial/Scikit-learn/</a></p>
+</section><section class="slide"><h2>Beispiel: Werte von Häusern in Kalifornien</h2>
+<p>Laden und Vorbereiten des Datensatzes:</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> datasets
+<span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> utils
+<span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> model_selection
+<span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> preprocessing
+
+housing = datasets.fetch_california_housing()
+
+scaler = preprocessing.StandardScaler().fit(housing.data)
+
+x = scaler.transform(housing.data)
+y = housing.target
+</code></pre>
+</section><section class="slide"><h2>Beispiel: Werte von Häusern in Kalifornien</h2>
+<p>Modell erstellen und trainieren:</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> keras.models <span class="hljs-keyword">import</span> Sequential
+<span class="hljs-keyword">from</span> tensorflow.keras <span class="hljs-keyword">import</span> layers
+
+model = Sequential([
+    layers.Dense(<span class="hljs-number">16</span>, activation=<span class="hljs-string">"relu"</span>),
+    layers.Dropout(<span class="hljs-number">0.1</span>),
+    layers.Dense(<span class="hljs-number">16</span>, activation=<span class="hljs-string">"relu"</span>),
+    layers.Dropout(<span class="hljs-number">0.1</span>),
+    layers.Dense(<span class="hljs-number">1</span>, activation=<span class="hljs-string">"linear"</span>),
+])
+model.<span class="hljs-built_in">compile</span>(loss=<span class="hljs-string">"mean_squared_error"</span>)
+
+model.fit(x, y, epochs=<span class="hljs-number">100</span>, validation_split=<span class="hljs-number">0.25</span>, verbose=<span class="hljs-number">1</span>)
+</code></pre>
+</section><section class="slide"><h2>Beispiel: Werte von Häusern in Kalifornien</h2>
+<p>Evaluieren:</p>
+<pre><code class="hljs language-py">model.evaluate(x, y)
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Beispiel: Ziffernerkennung</h1>
+</section><section class="slide"><h2>Beispiel: Ziffernerkennung</h2>
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> tensorflow <span class="hljs-keyword">import</span> keras
+
+(
+    (x_train, y_train),
+    (x_test, y_test),
+) = keras.datasets.mnist.load_data()
+
+model = keras.Sequential([
+    keras.layers.experimental.preprocessing.Rescaling(
+        <span class="hljs-number">1</span> / <span class="hljs-number">255</span>, input_shape=(<span class="hljs-number">28</span>, <span class="hljs-number">28</span>)
+    ),
+    keras.layers.Flatten(input_shape=(<span class="hljs-number">28</span>, <span class="hljs-number">28</span>)),
+    keras.layers.Dense(<span class="hljs-number">128</span>, activation=<span class="hljs-string">"relu"</span>),
+    keras.layers.Dense(<span class="hljs-number">10</span>, activation=<span class="hljs-string">"softmax"</span>),
+])
+model.<span class="hljs-built_in">compile</span>(
+    loss=<span class="hljs-string">"sparse_categorical_crossentropy"</span>,
+    metrics=[<span class="hljs-string">"sparse_categorical_accuracy"</span>],
+)
+model.fit(x_train, y_train, epochs=<span class="hljs-number">5</span>, validation_split=<span class="hljs-number">0.1</span>)
+
+print(model.evaluate(x_test, y_test))
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Beispiel: Bild-Klassifizierung: Katze oder Hund</h1>
+</section><section class="slide"><h2>Beispiel: Bild-Klassifizierung: Katze oder Hund</h2>
+<p>see <a href="https://keras.io/examples/vision/image_classification_from_scratch/">https://keras.io/examples/vision/image_classification_from_scratch/</a></p></section></section></div>
     </div>
     <script>/*!
  * reveal.js

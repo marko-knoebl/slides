@@ -13,9 +13,17 @@ input data types:
 desired data format:
 
 - _x_: _NumPy_ array or `tf.data.Dataset` object
-- 
+-
 
 ## Helper functions
 
 - `keras.preprocessing.image_dataset_from_directory`
 - `keras.preprocessing.text_dataset_from_directory`
+
+## Rescaling
+
+```py
+from keras.layers.experimental.preprocessing import Rescaling
+
+Rescaling(1/255, offset=-0.5)
+```
