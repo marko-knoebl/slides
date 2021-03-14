@@ -498,20 +498,6 @@ iris_measures_scaled = scaler.transform(iris_measures)
 <pre><code class="hljs language-py">x = iris_measures_scaled
 y = iris_species_one_hot
 </code></pre>
-<h1>Example: iris validation in scikit-learn</h1>
-<h2>Example: iris validation in scikit-learn</h2>
-<p>train-test split:</p>
-<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> sklearn.model_selection <span class="hljs-keyword">import</span> train_test_split
-
-x_train, x_test, y_train, y_test = train_test_split(x, y)
-</code></pre>
-<p>validation based on test data:</p>
-<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> metrics
-
-y_prediction = model.predict(x_test)
-score = metrics.accuracy_score(y_prediction, y_test)
-print(<span class="hljs-string">"accuracy:"</span>, score)
-</code></pre>
 <h1>Model validation and selection</h1>
 <h2>Model validation and selection</h2>
 <p>To find the best model:</p>
@@ -703,6 +689,34 @@ print(<span class="hljs-string">"accuracy:"</span>, score)
 <li>"penalize" large coefficients in polynomial regression (L2- and L1-regulatization)</li>
 </ul>
 <p>for polynomial regression see: <a href="https://jakevdp.github.io/PythonDataScienceHandbook/05.06-linear-regression.html#Regularization">Data Science Handbook - Regularization</a></p>
+<h1>Example: iris validation in scikit-learn</h1>
+<h2>Example: iris validation in scikit-learn</h2>
+<p>manual train-test split:</p>
+<pre><code class="hljs language-py">rng = np.random.default_rng(seed=<span class="hljs-number">1</span>)
+
+random_indexes = rng.permutation(x.shape[<span class="hljs-number">0</span>])
+<span class="hljs-comment"># e.g. [65, 44, 22, 133, 47, ...]</span>
+
+x_train = x[random_indexes[:<span class="hljs-number">120</span>]]
+y_train = y[random_indexes[:<span class="hljs-number">120</span>]]
+
+x_test = x[random_indexes[<span class="hljs-number">120</span>:]]
+y_test = y[random_indexes[<span class="hljs-number">120</span>:]]
+</code></pre>
+<h2>Example: iris validation in scikit-learn</h2>
+<p>automated train-test split via scikit-learn:</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> sklearn.model_selection <span class="hljs-keyword">import</span> train_test_split
+
+x_train, x_test, y_train, y_test = train_test_split(x, y)
+</code></pre>
+<h2>Example: iris validation in scikit-learn</h2>
+<p>validation based on test data:</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> metrics
+
+y_pred = model.predict(x_test)
+score = metrics.accuracy_score(y_pred, y_test)
+print(<span class="hljs-string">"accuracy:"</span>, score)
+</code></pre>
 <h1>Iris classification in scikit-learn - complete</h1>
 <h2>Iris classification - complete</h2>
 <pre><code class="hljs language-py"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd

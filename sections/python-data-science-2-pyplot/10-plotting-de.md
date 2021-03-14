@@ -9,7 +9,7 @@ Grundlegende (low-level) Library für Plotting: _matplotlib_
 Abstrahierende Interfaces zu grundlegenden matplotlib Funktionen:
 
 - _pyplot_ (enthalten in matplotlib, ähnlich zum matlab Plotinterface)
-- _pandas_ Plotfunktionen
+- _pandas_ Plotfunktionen (basieren auf pyplot)
 - _seaborn_
 
 ## Einfacher Plot mit pyplot

@@ -1,70 +1,70 @@
-# Machine learning: theory
+# Machine Learning: Theorie
 
-## Topics
+## Themen
 
-- overview of methods
-- libraries
-- overview of machine learning
-- algorithms for supervised learning
-- preparing training data
-- training a model
-- validating a model
+- Überblick über Methoden
+- Libraries
+- Überblick über Verfahren im Machine Learning
+- Algorithmen für Überwachtes Lernen
+- Vorbereiten von Daten
+- Trainieren eines Modells
+- Validieren eines Modells
 
-# Overview of methods
+# Überblick über Methoden
 
-## Overview of methods
+## Überblick über Methoden
 
-- **supervised learning**
-  - **regression**
-  - **classification**
-- unsupervised learning
-  - clustering
-  - dimensionality reduction / compression
-- reinforcement learning
-  - optimization
+- **Supervised learning (überwachtes Lernen)**
+  - **Regression**
+  - **Klassifizierung**
+- Unsupervised learning
+  - Clustering
+  - Dimensionsreduktion / Komprimierung
+- Reinforcement learning
+  - Optimierung
 
 ## Regression
 
-Assigning numeric values to numeric input data
+Zuweisung von numerischen Werten zu numerischen Eingabedaten
 
-examples:
+Beispiele:
 
-- estimation of distance of galaxy based on its redshift
-- prediction of stock price based on economic data
+- Schätzung der Entfernung einer Galaxie basierend auf der Rotverschiebung
+- Schätzung der Kursentwicklung einer Aktie
 
-## Classification
+## Klassifizierung
 
-Assigning labels to numeric input data
+Zuweisung von Klassen zu numerischen Eingabedaten
 
-examples:
+Beispiele:
 
-- classification as spam based occurences of words / phrases
-- recognition of objects / persons / symbols in images
-- diagnosis of illnesses based on symptoms / medical test data
+- Spam-Filterung basierend auf einer Anzahl an Wörtern / Phrasen
+- Erkennen von Objekten / Personen / Zeichen auf Bildern
+- Diagnose von Krankheiten basierend auf Symptomen / Messwerten
 
 ## Clustering
 
-Recognizing groups / clusters in input data
+Erkennen von Gruppierungen / Clustern bei numerischen Eingabedaten
 
-examples:
+Beispiele:
 
-- recognizing reoccuring elements in computer vision
+- Erkennen wiederkehrender Elemente in Bildern
 
-## Dimensionality reduction
+## Dimensionality Reduction
 
-mapping points in n-dimensional space to points in m-dimensional space (m &lt;&lt; n, mapping is mostly reversible)
+Vereinfachung von Daten mit einer großen Anzahl an Merkmalen zu Daten mit weniger, aber aussagekräftigeren Merkmalen
 
-## Reinforcement learning
+## Reinforcement Learning
 
-Optimization of strategies within a simulation
+Optimieren von Strategien in einer Simulation
 
-examples:
+Beispiele:
 
-- simulating the progression of an illness, find the best treatment strategy
+- Simulieren des Verlaufs einer Krankheit, Finden der besten Behandlungsstrategie
 
-# Example datasets and tasks
+# Beispiele für Datensätze und Aufgaben
 
-## Example datasets
+## Beispiele für Datensätze und Aufgaben
 
 - [Wikipedia: List of datasets for machine-learning research](https://en.wikipedia.org/wiki/List_of_datasets_for_machine-learning_research)
 - [UCI machine learning repository](https://archive.ics.uci.edu/ml)
@@ -72,24 +72,24 @@ examples:
 - [keras datasets](https://keras.io/api/datasets/)
 - [TensorFlow datasets](https://www.tensorflow.org/datasets/overview)
 
-## Possible tasks
+## Mögliche Aufgaben
 
-- image data: e.g. facial recognition, handwriting recognition
-- text data: e.g. sentiment analysis
-- speech data: e.g. speech recognition
+- Bilddaten: z.B. Objekterkennung, Gesichtserkennung, Handschrifterkennung
+- Textdaten: z.B. Sentimentanalyse
+- Sprachdaten: z.B. Spracherkennung
 
-## Commonly-used datasets
+## Oft verwendete Datensätze
 
-- [Iris flower data set](https://en.wikipedia.org/wiki/Iris_flower_data_set)
-- [MNIST database of handwritten digits](https://en.wikipedia.org/wiki/MNIST_database)
-- [Boston house prices](http://lib.stat.cmu.edu/datasets/boston)
+- [Iris Datensatz](https://en.wikipedia.org/wiki/Iris_flower_data_set)
+- [MNIST Datensatz handgeschriebener Ziffern](https://en.wikipedia.org/wiki/MNIST_database)
+- [Boston Haus-Preise](http://lib.stat.cmu.edu/datasets/boston)
 - [Labeled Faces in the Wild](vis-www.cs.umass.edu/lfw)
 
 # Libraries
 
 ## Libraries
 
-Python libraries for machine learning:
+Python Libraries für Machine Learning:
 
 - _scikit-learn_
 - _keras_
@@ -99,42 +99,42 @@ Python libraries for machine learning:
 
 **scikit-learn**:
 
-- supports many different classes of algorithms (including very basic neural networks)
-- based on _NumPy_
+- unterstützt viele verschiedene Algorithmenklassen (auch sehr einfache neuronale Netzwerke)
+- basiert auf _NumPy_
 
 **keras**:
 
-- implements neural networks
-- based on the _TensorFlow_ library
-- can run on the GPU or TPU (tensor processing unit)
+- unterstützt neuronale Netzwerke
+- basiert auf der _TensorFlow_-Bibliothek
+- kann auch auf der GPU oder TPU (Tensor Processing Unit) laufen
 
 **pytorch**:
 
-- implements neural networks
+- unterstützt neuronale Netzwerke
 - low-level
 
-# Supervised learning procedure
+# Überwachtes Lernen
 
-## Supervised learning procedure
+## Überwachtes Lernen: Verfahren
 
-steps:
+Schritte:
 
-- collect and prepare training data (input data and associated output data)
-- train a model based on the input and output (can take time)
-- validate the model's accuracy
-- use the model to predict outputs for new data
+- Sammeln und Vorbereiten von Trainingsdaten (Eingangsdaten und zugehörigen Ausgangsdaten)
+- Trainieren eines Algorithmus basierend auf den Eingangs- und Ausgangsdaten
+- Validieren der Richtigkeit / Qualität der Vorhersagen des Algorithmus
+- Verwenden des Algorithmus, um Outputs für neue Daten zu erzeugen
 
-# Iris dataset
+# Iris Datensatz
 
-## Iris dataset
+## Iris Datensatz
 
-_Iris dataset_: simple example dataset for machine learning / data science
+_Iris Datensatz_: einfacher Beispieldatensatz für Machine Learning / Data Science
 
-contains measurements of 150 iris plants: 3 different species with 50 samples each
+Beinhaltet Abmessungen von 150 Iris-Pflanzen (Schwertlilien): 3 verschiedene Spezies mit je 50 Einträgen
 
-## Iris dataset
+## Iris Datensatz
 
-example CSV data from <http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data>:
+Beispiel CSV-Daten von <http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data>:
 
 ```txt
 5.1,3.5,1.4,0.2,Iris-setosa
@@ -142,13 +142,13 @@ example CSV data from <http://archive.ics.uci.edu/ml/machine-learning-databases/
 4.7,3.2,1.3,0.2,Iris-setosa
 ```
 
-## Iris dataset
+## Iris Datensatz
 
-data loaded via helper function `sklearn.datasets.load_iris()`:
+Laden der Daten mittels Hilfsfunktion `sklearn.datasets.load_iris()`:
 
-measurements in `.data`
+Abmessungen in `.data`
 
-species in `.target` (setosa=0, versicolor=1, virginica=2)
+Spezies in `.target` (setosa=0, versicolor=1, virginica=2)
 
 ```py
 # .data
@@ -161,40 +161,40 @@ array([[5.1, 3.5, 1.4, 0.2],
 array([0, 0, 0, ...])
 ```
 
-# Example: iris classification in scikit-learn
+# Beispiel: Iris-Klassifizierung in scikit-learn
 
 <!-- duplicate section in machine-learning-theory and scikit-learn -->
 
-## Supervised learning in scikit-learn
+## Überwachtes Lernen in scikit-learn
 
-steps:
+Schritte:
 
-- create an input matrix `X` and a target vector `y` / a target matrix `Y`
-- instantiate an algorithm class - e.g. `KNeighborsClassifier`, `MLPClassifier`, `LinearRegression`, ...
-- "learn" via `model.fit(X, y)`
-- predict more results via `model.predict(...)`
+- Erstellen einer Eingangsmatrix `X` und eines Zielvektors `y` / einer Zielmatrix `Y`
+- Instanziierung einer Algorithmenklasse, z.B. `KNeighborsClassifier`, `MLPClassifier`, `LinearRegression`, ...
+- "Lernen" mittels `model.fit(X, y)`
+- Voraussagen weiterer Ergebnisse mittels `model.predict(...)`
 
-## Example
+## Beispiel
 
-Example: classification of iris plants
+Beispiel: Klassifizierung von Iris-Pflanzen
 
-known data: measurements and classification of 150 iris plants
+Bekannte Daten: Maße und Klassifizierung von 150 Iris-Pflanzen (Schwertlilien)
 
-Task: Train an algorithm to classify iris plants based on their measurements
+Aufgabe: Trainieren eines Algorithmus, der anhand der Maße einer Iris-Pflanze eine Klassifizierung vornehmen kann
 
-## Example
+## Beispiel
 
-example data (_sepal length_, _sepal width_, _petal length_, _petal width_, _name_):
+Beispieldaten (_sepal length_, _sepal width_, _petal length_, _petal width_, _name_):
 
 - `[5.1, 3.5, 1.4, 0.2]` → `"Iris-setosa"`
 - `[7.0, 3.2, 4.7, 1.4]` → `"Iris-versicolor"`
 - `[6.3, 3.3, 6.0, 2.5]` → `"Iris-virginica"`
 
-in our data: _setosa_=0, _versicolor_=1, _virginica_=2
+in unseren Daten: _setosa_=0, _versicolor_=1, _virginica_=2
 
-## Example
+## Beispiel
 
-loading data:
+Vorbereiten der Daten:
 
 ```py
 from sklearn import datasets
@@ -205,9 +205,9 @@ X = iris.data
 y = iris.target
 ```
 
-## Example
+## Beispiel
 
-Training an algorithm (k-nearest-neighbor):
+Trainieren eines Algorithmus:
 
 ```py
 from sklearn.neighbors import KNeighborsClassifier
@@ -216,9 +216,9 @@ model = KNeighborsClassifier()
 model.fit(X, y)
 ```
 
-## Example
+## Beispiel
 
-Applying classification to new data:
+Anwenden des Erlernten auf neue Daten:
 
 ```py
 test_data = [
@@ -236,22 +236,31 @@ y_pred_proba = model.predict_proba(test_data)
 #  [0.  0.6 0.4]]
 ```
 
-# Example: iris classification in keras
+## Beispiel
+
+Aufgabe: Verwenden anderer Klassifikatoren, z.B.:
+
+- `sklearn.neural_network.MLPClassifier`
+- `sklearn.svm.SVC`
+- `sklearn.tree.DecisionTreeClassifier`
+- `sklearn.naive_bayes.GaussianNB`
+
+# Beispiel: Iris-Klassifizierung in Keras
 
 <!-- duplicate in machine-learning-theory and neural-networks-with-keras -->
 
-## Supervised learning in keras
+## Überwachtes Lernen in Keras
 
-steps:
+Schritte:
 
-- create an input array `x` and a target array `y`
-- build a model from various layers (e.g. preprocessing layers, neural layers, ...)
-- compile via `model.compile()` and "learn" via `model.fit(x, y)`
-- predict more results via `model.predict(...)`
+- Erstellen eines Input-Arrays `x` und eines Ziel-Arrays `y`
+- Erstellen eines Modells aus verschiedenen Layern (z.B. Preprocessing-Layer, Neuronen-Layer, ...)
+- Kompilieren via `model.compile()` und "Lernen" via `model.fit(x, y)`
+- Vorhersagen weiterer Ergebnisse via `model.predict(...)`
 
-## Example
+## Beispiel
 
-loading data:
+Laden von Daten:
 
 ```py
 from sklearn import datasets
@@ -262,9 +271,9 @@ x = iris.data
 y = iris.target
 ```
 
-## Example
+## Beispiel
 
-Training the neural network:
+Trainieren des Netzwerks:
 
 ```py
 from tensorflow import keras
@@ -282,9 +291,9 @@ model.compile(
 model.fit(x, y, epochs=300, validation_split=0.1)
 ```
 
-## Example
+## Beispiel
 
-Applying classification to new data:
+Anwenden der Klassifikation auf neue Daten:
 
 ```py
 test_data = [
@@ -299,50 +308,50 @@ y_pred = model.predict(test_data)
 #  [0.  0.7 0.3]]
 ```
 
-# Algorithms for supervised learning
+# Algorithmen für überwachtes Lernen
 
-## Algorithms for supervised learning
+## Algorithmen für überwachtes Lernen
 
 Regression:
 
-- _neural networks_
-- linear regression, polynomial regression, ...
+- _neuronale Netzwerke_
+- lineare Regression, polynomiale Regression, ...
 
-Classification:
+Klassifizierung:
 
-- _neural networks_
+- _neuronale Netzwerke_
 - k-nearest-neighbors
-- decision trees
-- logistic regression
+- Entscheidungsbäume (decision trees)
+- logistische Regression
 - naive Bayes
-- support vector machines
+- Support Vector Machines
 
-# Linear regression
+# Lineare Regression
 
-## Linear regression
+## Regression
 
-Linear regression: a linear function is fitted to given data points (usually via least squares)
+Lineare Regression: Festlegen einer linearen Funktion, die die Datenpunkte bestmöglich approximiert (kleinste Quadratsumme)
 
-## Linear regression
+## Lineare Regression
 
-Example: various purchases in different supermarkets:
+Beispiel: Wir betrachten verschiedene Einkäufe bei verschiedenen Supermärkten:
 
-- 1 l of milk, 1 kg of bread: 5.00€
-- 2 l of milk, 3 kg of bread: 13.50€
-- 3 l of milk, 2 kg of bread: 10.90€
-- (0 l of milk, 0 kg of bread: 0€)
+- 1 l Milch, 1 kg Brot: 5.00€
+- 2 l Milch, 3 kg Brot: 13.50€
+- 3 l Milch, 2 kg Brot: 10.90€
+- (0 l Milch, 0 kg Brot: 0€)
 
-task: estimate prices of:
+Aufgabe: Schätzung der Preise von:
 
-- 1 l of milk
-- 1 kg of bread
-- 2 l of milk and 2 kg of bread
+- 1 l Milch
+- 1 kg Brot
+- 1 l Milch und 2 kg Brot
 
-This may be solved via regression
+Diese Aufgabe kann mit Hilfe von Regression beantwortet werden.
 
-## Linear regression
+## Lineare Regression
 
-input data:
+Eingangsdaten:
 
 ```txt
 1, 1 → 5.00
@@ -351,189 +360,189 @@ input data:
 0, 0 → 0.00
 ```
 
-result of a linear regression:
+Ergebnis einer linearen Regression:
 
 ```txt
 price = 0.05 + 1.13*x + 3.73*y
 ```
 
-# Neural networks
+# Neuronale Netzwerke
 
 <!--
 duplicates in machine-learning-theory and
 neural-networks-with-keras
 -->
 
-## Neural networks
+## Neuronale Netzwerke
 
-Machine learning strategy that vaguely resembles how neurons in the brain interact
+Machine Learning Verfahren, das in etwa die Interaktion von Neuronen im Gehirn nachahmt
 
-## Neural networks
+## Neuronale Netzwerke
 
 <figure style="width: 70%; margin: 0 auto;">
   <img src="assets/wikimedia-Neural_network.svg" alt="diagram of a neural network">
-  <figcaption>diagram of a neural network with two inputs, five intermediate neurons and one output <small>(source: <a href="https://commons.wikimedia.org/wiki/File:Neural_network.svg" title="via Wikimedia Commons">Dake, Mysid via Wikimedia Commons</a> / <a href="https://creativecommons.org/licenses/by/1.0">CC BY</a>)</small></figcaption>
+  <figcaption>Diagrammm eines neuronalen Netzwerks mit zwei Inputs, fünf Neuronen in der Zwischenschicht und einem Output <small>(Quelle: <a href="https://commons.wikimedia.org/wiki/File:Neural_network.svg" title="via Wikimedia Commons">Dake, Mysid via Wikimedia Commons</a> / <a href="https://creativecommons.org/licenses/by/1.0">CC BY</a>)</small></figcaption>
 </figure>
 
-## Neurons
+## Neuronen
 
 <figure>
   <img src="assets/wikimedia-ArtificialNeuronModel_english.png">
-  <figcaption>model of a single neuron with multiple inputs and one output</figcaption>
+  <figcaption>Modell eines einzelnen Neurons mit mehreren Inputs und einem Output</figcaption>
 </figure>
 
-## Activation functions
+## Aktivierungsfunktionen
 
 - ReLU (Rectified Linear Unit)
-- Softmax - often used in the last layer for classification
-- Sigmoid - often used in the last layer for "tagging" (tags may overlap)
+- Softmax - oft im letzen Layer für Klassifikation verwendet
+- Sigmoid - oft im letzen Layer für "Tagging" verwendet (Tags können sich überlappen)
 
-## Resource
+## Ressource
 
 - <https://victorzhou.com/blog/intro-to-neural-networks/>
 
-# Classification algorithms
+# Klassifizierungsalgorithmen
 
-## Classification algorithms
+## Klassifizierungsalgorithmen
 
-- _neural networks_
+- _neuronale Netzwerke_
 - k-nearest-neighbors
-- decision trees
-- logistic regression
+- Entscheidungsbäume (decision trees)
+- logistische Regression
 - naive Bayes
-- support vector machines
+- Support Vector Machines
 
-## k-nearest-neighbors
+## K-Nearest-Neighbors
 
-classification algorithm that assigns a class to a data point by looking at similar data points with a known classification
+Um einen Datenpunkt zu klassifizieren, werden ähnliche bekannte Datenpunkte betrachtet, für die schon eine Klassifizierung bekannt ist
 
-## Decision trees
+## Entscheidungsbäume (Decision Trees)
 
-Example decision tree for iris classification:
+Beispiel für die Iris-Klassifizierung:
 
-- is the _petal length_ less than 2.5?
-  - yes: **setosa**
-  - no: is the _petal width_ less than 1.8?
-    - yes: is the _petal length_ smaller than 5.1?
-      - yes: **versicolor**
-      - no: **virginica**
-    - no: **virginica**
+- Ist die _petal length_ kleiner oder gleich 2.4?
+  - ja: **setosa**
+  - nein: Ist die _petal width_ kleiner oder gleich 1.7?
+    - ja: Ist die _petal length_ kleiner oder gleich 5.0?
+      - ja: **versicolor**
+      - nein: **virginica**
+    - nein: **virginica**
 
-## Logistic regression
+## Logistische Regression
 
-At the boundary of two classes a _logistic function_ is used to determine how likely it is that the data point belongs to the one or the other class
+An einer Grenze zwischen zwei Klassen wird mit Hilfe einer _logistischen Funktion_ angegeben, wie groß die Wahrscheinlichkeit ist, dass der Datenpunkt zu der einen bzw zu der anderen Klasse gehört.
 
-The logisitic function itself is determined via regression (hence the name)
+Die logistische Funktion selbst wird intern mittels Regression bestimmt (daher der Name).
 
 ## Naive Bayes
 
-Data points are assumed to be part of a specific probability distribution; these distributions are derived from the training data.
+Für die bekannten Klassen werden Wahrscheinlichkeitsverteilungen angenommen (z.B. Normalverteilung, Multinomialverteilung). Diese Verteilungen werden aus den Trainingsdaten hergeleitet.
 
-For a new data point, the algorithm determines under which of the distributions it would most likely occur.
+Für einen neuen Datenpunkt wird dann errechnet, unter welcher der Verteilungen er am ehesten auftreten würde.
 
-two important distributions:
+Zwei wichtige Verteilungen:
 
-- normal distribution (continuous values)
-- multinomial distribution (discrete values)
+- Normalverteilung oder _Gauß'sche Verteilung_ (für kontinuierliche Werte)
+- Multinomialverteilung (für diskrete Werte / Ganzzahlen)
 
-## Support vector machines
+## Support Vector Machines
 
-Simplest case: separation of classes via lines / planes / hyperplanes - these separators should have maximum distance from the separated points
+Einfachster Fall: Trennung von Klassen durch Geraden / Ebenen / Hyperebenen - diese Trenner sollen von den getrennten Punkten maximalen Abstand haben.
 
-Borders may take different shapes by using kernel functions - e.g. conic sections or other curves
+Durch Kernelfunktionen können die Grenzen auch andere Formen annehmen, z.B. die von Kegelschnitten für polynomiale Kernel vom Grad 2 oder anderen Kurven.
 
-## Classification algorithms
+## Klassifizierungsalgorithmen
 
-[overview of classification algorithms in scikit-learn](https://scikit-learn.org/stable/auto_examples/classification/plot_classifier_comparison.html)
+[Überblick über Klassifizierungsalgorithmen in scikit-learn](https://scikit-learn.org/stable/auto_examples/classification/plot_classifier_comparison.html)
 
-# Example: iris classification with various algorithms
+# Beispiel: Iris-Klassifizierung mit verschiedenen Algorithmen
 
-## Example: iris classification with various algorithms
+## Beispiel: Iris-Klassifizierung mit verschiedenen Algorithmen
 
-task: use other classifiers, e.g.:
+Aufgabe: verwende andere Klassifizierungsalgorithmen in _scikit-learn_, z.B.:
 
 - `sklearn.tree.DecisionTreeClassifier`
 - `sklearn.svm.SVC`
 - `sklearn.naive_bayes.GaussianNB`
 - `sklearn.neural_network.MLPClassifier`
 
-# Preparing data
+# Daten vorbereiten
 
-## Preparing data
+## Daten vorbereiten
 
-desired data format for machine learning algorithms:
+erwünschtes Datenformat für Machine Learning Algorithmen:
 
-- _x_ or _X_: array with numeric input data (2-dimensional for _scikit-learn_, can be higher-dimensional for _keras_)
-- _y_ or _Y_: one- or two-dimensional array with numeric results
+- _x_ oder _X_: zweidimensionales Array mit numerischen Eingangsdaten
+- _y_ oder _Y_: ein- oder zweidimensionales Array mit numerischen Resultaten
 
-## Preparing data
+## Daten vorbereiten
 
-tasks:
+Aufgaben:
 
-- flattening nested arrays
-- scaling values
-- handling missing data
-- encoding categorical data as numerical data
-- encoding text data as numerical data
+- "Flattening" von verschachtelten Daten
+- Skalieren von Werten
+- Fehlende Daten ergänzen
+- Kategoriedaten in numerische Daten umwandeln
+- Textdaten in numerische Daten umwandeln
 
-## Scaling values
+## Skalieren von Werten
 
-Which of these stars is more similar to the sun?
+Welcher dieser beiden Sterne ist der Sonne am ähnlichsten?
 
 ```py
-# data: radius (km), mass (kg), temperature (K)
+# data: radius (km), mass (kg), temparature (K)
 sun =    [7.0e7, 2.0e30, 5.8e3]
 
 star_a = [6.5e7, 2.2e30, 5.2e3]
 star_b = [7.0e8, 2.1e30, 8.1e3]
 ```
 
-some machine learning algorithms (like k-Nearest-Neighbors) use absolute values.
+manche Machine Learning Algorithmen wie z.B. k-Nearest-Neighbor betrachten Absolutwerte.
 
-Here the algorithm would only take into account the mass as all other values are tiny in comparison
+Hier würde vom Algorithmus im wesentlichen nur die Masse herangezogen werden, da alle anderen Werte im Vergleich verschwindend gering sind.
 
-## Scaling values
+## Skalieren von Werten
 
-Solution: Before applying an algorithm, the values are centered and scaled (e.g. so their mean is 0 and the standard deviation is 1)
+Lösung: Bevor ein Algorithmus angewendet wird, werden die Werte zentriert und skaliert (z.B. so, dass ihr Mittelwert 0 und ihre Standardabweichung 1 sind)
 
-## Missing data
+## Fehlende Daten
 
-Missing data will often appear as `NaN`s
+Fehlende Daten werden häufig in der Form von `NaN`s auftreten.
 
-possible handling:
+Mögliche Behandlungen:
 
-- deleting any rows that contain undefined values somewhere
-- interpolating missing values by other values
+- Löschen aller Zeilen, die an irgendeiner Stelle undefinierte Werte enthalten
+- Interpolieren der fehlenden Werte durch andere Daten
 
-## Categories as data
+## Kategorien als Daten
 
-input or output data may be categorical data - e.g. country, occupation, measuring method
+Manchmals: _Kategorien_ als Eingangs- oder Ausgangsdaten - z.B. Land, Berufsgruppe, Messverfahren, ...
 
-example input data:
-
-```py
-[["fr", "chrome"], ["uk", "chrome"], ["us", "firefox"]]
-```
-
-desired result: encoding as numeric values
-
-## Categories as data
-
-input data:
+Beispiel für Eingangsdaten:
 
 ```py
 [["fr", "chrome"], ["uk", "chrome"], ["us", "firefox"]]
 ```
 
-encoding as ordinals (not appropriate for all algorithms, as there is an implicit order):
+oftmals als Strings angegeben, Kodierung als Zahlen gewünscht
+
+## Kategorien als Daten
+
+Eingangsdaten:
+
+```py
+[["fr", "chrome"], ["uk", "chrome"], ["us", "firefox"]]
+```
+
+Kodierung als Ordinale (nicht für alle Algorithmen geeignet, da implizit geordnet (fr=0, uk=1, us=2)):
 
 ```py
 [[0., 0.], [1., 0.], [2., 1.]]
 ```
 
-## Categories as data
+## Kategorien als Daten
 
-input data:
+Eingangsdaten:
 
 ```py
 [["fr", "chrome"],
@@ -541,7 +550,7 @@ input data:
  ["us", "firefox"]]
 ```
 
-one-hot-encoding:
+One-Hot-Kodierung:
 
 ```py
 # fr?, uk?, us?, chrome?, firefox?
@@ -550,13 +559,13 @@ one-hot-encoding:
  [0., 0., 1., 0., 1.]]
 ```
 
-## Text data
+## Textdaten
 
-example preprocessing for text classification: counting words
+Beispiel für Preprocessing für Textklassifikation: Zählen von Wörtern
 
-# Example: loading and preparing iris data
+# Beispiel: Laden und Vorbereiten von Daten
 
-## Example: loading data
+## Laden von Daten
 
 ```py
 iris = pd.read_csv(
@@ -567,7 +576,7 @@ iris_measures = iris.iloc[:, :4].to_numpy()
 iris_species = iris.iloc[:, 4].to_numpy()
 ```
 
-## Example: preparing data
+## Vorbereiten von Daten
 
 ```py
 encoder = LabelBinarizer()
@@ -586,102 +595,80 @@ x = iris_measures_scaled
 y = iris_species_one_hot
 ```
 
-# Example: iris validation in scikit-learn
+# Modellvalidierung und -auswahl
 
-## Example: iris validation in scikit-learn
+## Modellvalidierung und -auswahl
 
-train-test split:
+Um das bestmögliche Modell zu bestimmen:
 
-```py
-from sklearn.model_selection import train_test_split
+- Testen mehrerer Algorithmen
+- Testen mehrerer Parameter für den Algorithmus
+- Testen, ob mehr Lerndaten zu besseren Ergebnissen führen
 
-x_train, x_test, y_train, y_test = train_test_split(x, y)
-```
+siehe [Python Data Science Handbook → Hyperparameters and Model Validation → Selecting the Best Model](https://jakevdp.github.io/PythonDataScienceHandbook/05.03-hyperparameters-and-model-validation.html#Selecting-the-Best-Model)
 
-validation based on test data:
+# Trainingsdaten und Validierungsdaten
 
-```py
-from sklearn import metrics
+## Trainingsdaten und Validierungsdaten
 
-y_prediction = model.predict(x_test)
-score = metrics.accuracy_score(y_prediction, y_test)
-print("accuracy:", score)
-```
+Um zu validieren, ob ein Verfahren ein passendes Ergebnis liefert:
 
-# Model validation and selection
+Die Daten werden in _Trainingsdaten_ und _Validierungsdaten_ unterteilt
 
-## Model validation and selection
+## Trainingsdaten und Validierungsdaten
 
-To find the best model:
+für iterative Algorithmen (z.B. Neuronale Netzwerke in _keras_):
 
-- test multiple algorithms
-- test multiple parameters for the algorithm
-- test if more input data leads to better results
+- _Trainingsdaten_
+- _Testdaten_ (während iterativem Training verwendet)
+- _Validierungsdaten_ (zur Validierung des fertigen Modells)
 
-see [Python Data Science Handbook → Hyperparameters and Model Validation → Selecting the Best Model](https://jakevdp.github.io/PythonDataScienceHandbook/05.03-hyperparameters-and-model-validation.html#Selecting-the-Best-Model)
+für andere Algorithmen (z.B. _sklearn_):
 
-# Train data and validation data
+- _Trainingsdaten_
+- _Validierungsdaten_ oder _Testdaten_ (zur Validierung des Modells)
 
-## Train data and validation data
+# Validierungsmetriken
 
-In order to verify the results of an algorithm:
+## Validierungsmetriken
 
-Data are split into _training data_ and _test data_ / _validation data_
-
-## Train data and validation data
-
-for iterative algorithms (e.g. neural networks in _keras_):
-
-- _train data_
-- _test data_ (used during iterative training)
-- _validation data_ (used for validating the final model)
-
-for other alogirthms (e.g. _sklearn_):
-
-- _train data_
-- _validation data_ or _test data_ (used for validating the model)
-
-# Validation metrics
-
-## Validation metrics
-
-classification metrics:
+Klassifizierung:
 
 - accuracy metrics
   - accuracy
   - confusion matrix
-- metrics based on true/false positives/negatives
+- Metriken, die auf true/false positives/negatives basieren
   - precision
   - recall
   - f-score
-  - ROC and AUC
-- probabilistic metrics
-  - cross entropy
+  - ROC und AUC
+- probabilistische Metriken
+  - Kreuzentropie
 
-## Validation metrics
+## Validierungsmetriken
 
-regression metrics:
+Regression:
 
-- mean squared error
-- coefficient of determination (R²)
+- Mittlere quadratische Abweichung
+- Bestimmtheitsmaß (R²)
 
-## Classification metrics
+## Klassifizierungsmetriken
 
-example:
+Beispiel:
 
-a basket of fruits contains 10 apples, 10 oranges and 10 peaches
+Ein Korb von Früchten enthält 10 Äpfel, 10 Orangen und 10 Pfirsiche
 
-a classification algorithm yields these results:
+Ein Klassifizierungsalgorithmus liefert diese Ergebnisse:
 
-- classification of apples: 8 as apples, 0 as oranges, 2 as peaches
-- classification of oranges: 10 as oranges
-- classification of peaches: 1 as an apple, 0 as oranges, 9 as peaches
+- Klassifizierung von Äpfeln: 8 als Äpfel, 0 als Orangen, 2 als Pfirsiche
+- Klassifizierung von Orangen: 10 als Orangen
+- Klassifizierung von Pfirsichen: 1 als Apfel, 0 als Orangen, 9 als Pfirsiche
 
 ## Accuracy metrics
 
-**accuracy**: relative amount of correct classifications (in our example: 27/30=0.9)
+**accuracy**: relativer Anteil korrekter Klassifizierungen (im Beispiel: 27/30=0.9)
 
-**confusion matrix**: table of classifications for each category
+**confusion matrix**: Tabelle mit Klassifizierungen für jede Kategorie
 
 |         | apples | oranges | peaches |
 | ------- | ------ | ------- | ------- |
@@ -689,76 +676,76 @@ a classification algorithm yields these results:
 | oranges | 0      | 10      | 0       |
 | peaches | 1      | 0       | 9       |
 
-## Metrics based on true/false positives/negatives
+## Metriken, die auf true/false positives/negatives basieren
 
-binary classification: is a fruit an apple or is it not an apple?
+Binäre Klassifizierung: ist eine Frucht ein Apfel oder ist sie kein Apfel?
 
-- true positive: an apple is classified as an apple
-- true negative: a peach is classified as _not_ an apple
-- false positive: a peach is classified as an apple (type I error)
-- false negative: an apple is classified as _not_ an apple (type II error)
+- true positive: ein Apfel wird als Apfel klassifiziert
+- true negative: ein Pfirsich wird als _kein_ Apfel klassifiziert
+- false positive: ein Pfirsich wird als Apfel klassifiziert (Fehler erster Art)
+- false negative: ein Apfel wird als _kein_ Apfel klassifiziert (Fehler zweiter Art)
 
-## Metrics based on true/false positives/negatives
+## Metriken, die auf true/false positives/negatives basieren
 
-**precision** = 8/9=0.889 (8 out of 9 fruits that were classified as apples are _actually_ apples)
+**precision** (Genauigkeit) = 8/9=0.889 (8 von 9 Früchten, die als Äpfel klassifiziert wurden, sind tatsächlich Äpfel)
 
-**recall** = 8/10=0.8 (8 out of 10 apples were recognized as apples)
+**recall** (Trefferquote) = 8/10=0.8 (8 von 10 Äpfeln wurden als Äpfel erkannt)
 
 precision = true positives / predicted positives
 
 recall = true positives / condition positives
 
-see also: [precision and recall on Wikipedia](https://en.wikipedia.org/wiki/Precision_and_recall)
+siehe auch: [Precision and recall auf der englischsprachigen Wikipedia](https://en.wikipedia.org/wiki/Precision_and_recall)
 
-## Metrics based on true/false positives/negatives
+## Metriken, die auf true/false positives/negatives basieren
 
-_precision_ and _recall_ have different relevance in different scenarios
+_precision_ und _recall_ haben unterschiedliche Relevanz in verschiedenen Szenarien
 
-example: when classifying emails as spam, _precision_ is very important (avoiding classifying a regular email as spam)
+Beispiel: Beim Klassifizieren von E-mails als Spam ist _precision_ besonders wichtig (vermeiden, eine E-mail fälschlicherweise als Spam zu klassifizieren)
 
-## Metrics based on true/false positives/negatives
+## Metriken, die auf true/false positives/negatives basieren
 
-**f-score** = harmonic mean of _precision_ and _recall_
+**f-score** = harmonisches Mittel zwischen _precision_ und _recall_
 
-## Metrics based on true/false positives/negatives
+## Metriken, die auf true/false positives/negatives basieren
 
-**ROC** (receiver operating characteristic)
+**ROC** (Receiver Operating Characteristic)
 
-= metric that represents _true positives_ and _false positives_
+= Metrik, die _true positives_ und _false positives_ wiederspiegelt
 
-a classification algorithm could be fine-tuned in respect to its true positives rate and false positives rate:
+Ein Klassifizierungsalgorithmus könnte bezüglich seiner _true positives_-Quote und _false positives_-Quote fein eingestellt werden:
 
-- option 1: 60% true positives rate, 0% false positives rate
-- option 2: 70% true positives rate, 5% false positives rate
-- option 3: 80% true positives rate, 25% false positives rate
-- option 4: 90% true positives rate, 55% false positives rate
-- option 5: 95% true positives rate, 90% false positives rate
+- Option 1: 60% true positives-Quote, 0% false positives-Quote
+- Option 2: 70% true positives-Quote, 5% false positives-Quote
+- Option 3: 80% true positives-Quote, 25% false positives-Quote
+- Option 4: 90% true positives-Quote, 55% false positives-Quote
+- Option 5: 95% true positives-Quote, 90% false positives-Quote
 
-## Metrics based on true/false positives/negatives
+## Metriken, die auf true/false positives/negatives basieren
 
-The ROC may be displayed as a curve; the bigger the area under the curve (AUC), the better the classification
+Die ROC kann als Kurve dargestellt werden; je größer die Fläche unter der Kurve (area under the curve, AUC), desto besser die Klassifikation
 
-## Probabilistic metrics
+## Probabilistische Metriken
 
-**cross entropy** (log loss): measures how well a model of a probability distribution approximates the actual probability distribution
+**Kreuzentropie** (log loss): Misst, wie gut ein Modell einer Wahrscheinlichkeitsverteilung die tatsächliche Wahrscheinlichkeitsverteilung annähert
 
-relevant for _neural networks_ and _logistic regression_
+relevant bei _neuronalen Netzwerken_ und _logistischer Regression_
 
-## Regression metrics
+## Regressionsmetriken
 
-**mean squared error**
+**mittlere quadratische Abweichung**
 
-**coefficient of determination (R²)**:
+**Bestimmtheitsmaß (R²)**:
 
-compares the mean squared error of the regression with the variance of the dataset
+vergleicht die mittlere quadratische Abweichung der Regression mit der Varianz der Eingangsdaten
 
-- R²=1 - perfect interpolation
-- R²=0 - interpolation is no better than taking the average of all data
-- R²&lt;0 - worse than taking the average of all data
+- R²=1 - perfekte Interpolation
+- R²=0 - Interpolation ist nicht besser als das Verwenden des Durchschnitts
+- R²&lt;0 - schlechter als das Verwenden des Durchschnitts
 
-## Validation metrics in scikit-learn
+## Validierungsmetriken in scikit-learn
 
-classification:
+Klassifizierung:
 
 - _accuracy_score_
 - _confusion_matrix_
@@ -767,14 +754,14 @@ classification:
 - _roc_curve_
 - _roc_auc_
 
-regression:
+Regression:
 
 - _mean_squared_error_
 - _r2_score_
 
-See also <https://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics>
+Siehe auch <https://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics>
 
-## Validation metrics in keras
+## Validierunsmetriken in Keras
 
 - _accuracy_
 - _categorical_crossentropy_
@@ -784,40 +771,81 @@ See also <https://scikit-learn.org/stable/modules/classes.html#module-sklearn.me
 - _auc_
 - _mean_squared_error_
 
-See also <https://keras.io/api/metrics/>
+Siehe auch <https://keras.io/api/metrics/>
 
 # Overfitting
 
 ## Overfitting
 
-possible problem for machine learning algorithms: The algorithm is too flexible and recognizes apparent patterns in the training data
+Mögliches Problem beim Lernen: Der Algorithmus ist zu flexibel und erkennt scheinbare Muster in den Eingangsdaten, hinter denen aber keine Systematik steckt
 
-Algorithms that are vulnerable to overfitting:
+Algorithmen, die anfällig für Overfitting sind:
 
-- neural networks
-- polynomial regression
-- decision trees
+- Neuronale Netze
+- Polynomiale Regression
+- Entscheidungsbäume
 
 ## Overfitting
 
 <figure>
   <img src="assets/wikimedia-Overfitting.svg.png" alt="visualization of an algorithm overfitting 2D data" style="width: 45%">
-  <figcaption>Visualization of overfitting when categorizing 2D data <small>(source: <a href="https://commons.wikimedia.org/wiki/File:Overfitting.svg" >Chabacano via Wikimedia Commons</a> / <a href="https://creativecommons.org/licenses/by/1.0">CC BY</a>)</small></figcaption>
+  <figcaption>Visualisierung von Overfitting bei der Kategorisierung von 2D-Daten <small>(Quelle: <a href="https://commons.wikimedia.org/wiki/File:Overfitting.svg" >Chabacano via Wikimedia Commons</a> / <a href="https://creativecommons.org/licenses/by/1.0">CC BY</a>)</small></figcaption>
 </figure>
 
-## Overfitting - solutions
+## Overfitting - Lösungsmöglichkeiten
 
-- expand the set of learning data
-- reduce model flexibility (e.g. degree of the polynomial, size of a neural network / decision tree)
-- randomly disable some neuron outputs during learning (dropout)
-- combining multiple decision trees (random forest)
-- "penalize" large coefficients in polynomial regression (L2- and L1-regulatization)
+- größere Menge an Daten zum Lernen
+- Einschränkung der Flexibilität (z.B. Grad des Polynoms, Tiefe des Entscheidungsbaums)
+- zufälliges Deaktivieren einiger Neuronen während des Lernens (Dropout)
+- Kombination mehrerer Entscheidungsbäume (Random Forest)
+- "Bestrafung" großer Koeffizienten bei der polynomialen Regression (L2- und L1-Regularisierung)
 
-for polynomial regression see: [Data Science Handbook - Regularization](https://jakevdp.github.io/PythonDataScienceHandbook/05.06-linear-regression.html#Regularization)
+Zur polynomialen Regression siehe: [Data Science Handbook - Regularization](https://jakevdp.github.io/PythonDataScienceHandbook/05.06-linear-regression.html#Regularization)
 
-# Iris classification in scikit-learn - complete
+# Beispiel: Iris-Validierung in scikit-learn
 
-## Iris classification - complete
+## Beispiel: Iris-Validierung in scikit-learn
+
+Manueller train-test Split:
+
+```py
+rng = np.random.default_rng(seed=1)
+
+random_indexes = rng.permutation(x.shape[0])
+# e.g. [65, 44, 22, 133, 47, ...]
+
+x_train = x[random_indexes[:120]]
+y_train = y[random_indexes[:120]]
+
+x_test = x[random_indexes[120:]]
+y_test = y[random_indexes[120:]]
+```
+
+## Beispiel: Iris-Validierung in scikit-learn
+
+Automatische Unterteilung vis scikit-learn:
+
+```py
+from sklearn.model_selection import train_test_split
+
+x_train, x_test, y_train, y_test = train_test_split(x, y)
+```
+
+## Beispiel: Iris-Validierung in scikit-learn
+
+Validierung basierend auf den Testdaten:
+
+```py
+from sklearn import metrics
+
+y_prediction = model.predict(x_test)
+score = metrics.accuracy_score(y_prediction, y_test)
+print("accuracy:", score)
+```
+
+# Iris-Klassifikation in scikit-learn - komplett
+
+## Iris-Klassifikation - komplett
 
 ```py
 import pandas as pd
@@ -864,7 +892,7 @@ model.fit(X_train, Y_train)
 
 Y_prediction = model.predict(X_test)
 score = metrics.accuracy_score(Y_prediction, Y_test)
-print("accuracy:", score)
+print("accuracy: ", score)
 
 # predicting further species
 

@@ -23,7 +23,7 @@ plt.plot(x, y, color="C0", marker="X", linestyle="dashed")
 mögliche Farbangaben:
 
 - Theme-Farbe (`C0` ... `C10`)
-- Farbname (`green` / `lighblue` / ...)
+- Farbname (`green` / `lightblue` / ...)
 - Kurzname (`r` / `g` / `b` / `c` / `m` / `y` / `k`)
 - Hex-Code (z.B. `#FFAA00`)
 - RGB-Tupel (z.B. `(1, 0.7, 0)`)

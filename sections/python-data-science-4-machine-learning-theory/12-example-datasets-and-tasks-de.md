@@ -14,7 +14,7 @@
 - Textdaten: z.B. Sentimentanalyse
 - Sprachdaten: z.B. Spracherkennung
 
-## Commonly-used datasets
+## Oft verwendete Datensätze
 
 - [Iris Datensatz](https://en.wikipedia.org/wiki/Iris_flower_data_set)
 - [MNIST Datensatz handgeschriebener Ziffern](https://en.wikipedia.org/wiki/MNIST_database)

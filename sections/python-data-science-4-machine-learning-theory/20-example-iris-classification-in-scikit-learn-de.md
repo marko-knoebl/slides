@@ -1,4 +1,4 @@
-# Beispiel: Iris-Klassifizierung un in scikit-learn
+# Beispiel: Iris-Klassifizierung in scikit-learn
 
 <!-- duplicate section in machine-learning-theory and scikit-learn -->
 

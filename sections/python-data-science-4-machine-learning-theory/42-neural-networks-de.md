@@ -7,7 +7,7 @@ neural-networks-with-keras
 
 ## Neuronale Netzwerke
 
-Mchine Learning Verfahren, dass in etwa die Interaktion von Neuronen im Gehirn nachahmt
+Machine Learning Verfahren, das in etwa die Interaktion von Neuronen im Gehirn nachahmt
 
 ## Neuronale Netzwerke
 
@@ -26,8 +26,8 @@ Mchine Learning Verfahren, dass in etwa die Interaktion von Neuronen im Gehirn n
 ## Aktivierungsfunktionen
 
 - ReLU (Rectified Linear Unit)
-- Softmax - often used in the last layer for classification
-- Sigmoid - often used in the last layer for "tagging" (tags may overlap)
+- Softmax - oft im letzen Layer für Klassifikation verwendet
+- Sigmoid - oft im letzen Layer für "Tagging" verwendet (Tags können sich überlappen)
 
 ## Ressource
 

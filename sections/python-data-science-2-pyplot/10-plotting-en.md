@@ -9,7 +9,7 @@ Basic (low-level) library for plotting: _matplotlib_
 Higher-level interfaces:
 
 - _pyplot_ (contained in matplotlib, similar to matlab's plotting interface)
-- _pandas_ plotting functions
+- _pandas_ plotting functions (based on pyplot)
 - _seaborn_
 
 ## Simple plot with pyplot

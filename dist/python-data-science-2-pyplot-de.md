@@ -11,7 +11,7 @@ Grundlegende (low-level) Library für Plotting: _matplotlib_
 Abstrahierende Interfaces zu grundlegenden matplotlib Funktionen:
 
 - _pyplot_ (enthalten in matplotlib, ähnlich zum matlab Plotinterface)
-- _pandas_ Plotfunktionen
+- _pandas_ Plotfunktionen (basieren auf pyplot)
 - _seaborn_
 
 ## Einfacher Plot mit pyplot
@@ -89,7 +89,7 @@ plt.plot(x, y, color="C0", marker="X", linestyle="dashed")
 mögliche Farbangaben:
 
 - Theme-Farbe (`C0` ... `C10`)
-- Farbname (`green` / `lighblue` / ...)
+- Farbname (`green` / `lightblue` / ...)
 - Kurzname (`r` / `g` / `b` / `c` / `m` / `y` / `k`)
 - Hex-Code (z.B. `#FFAA00`)
 - RGB-Tupel (z.B. `(1, 0.7, 0)`)
@@ -250,6 +250,14 @@ plt.axis("scaled")
 
 - [Python Data Science Handbook: Simple Line Plots](https://jakevdp.github.io/PythonDataScienceHandbook/04.01-simple-line-plots.html)
 - [list of Pyplot functions](https://matplotlib.org/api/pyplot_summary.html)
+
+# Pyplot API
+
+## Pyplot API
+
+siehe:
+
+<https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.html>
 
 # Gundlegende Plots
 

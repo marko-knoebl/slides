@@ -15,6 +15,8 @@ Klassifizierung:
 - probabilistische Metriken
   - Kreuzentropie
 
+## Validierungsmetriken
+
 Regression:
 
 - Mittlere quadratische Abweichung
