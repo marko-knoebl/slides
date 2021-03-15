@@ -2061,8 +2061,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   <body>
     <div class="reveal">
       <div class="slides slides"><section class="slides-section"><section class="slide"><h1>Supervised learning with scikit-learn</h1>
-</section></section><section class="slides-section"><section class="slide"><h1>Example: iris classification in scikit-learn</h1>
-<!-- duplicate section in machine-learning-theory and scikit-learn -->
+</section></section><section class="slides-section"><section class="slide"><h1>Supervised learning in scikit-learn</h1>
 </section><section class="slide"><h2>Supervised learning in scikit-learn</h2>
 <p>steps:</p>
 <ul>
@@ -2071,6 +2070,8 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li>"learn" via <code>model.fit(X, y)</code></li>
 <li>predict more results via <code>model.predict(...)</code></li>
 </ul>
+</section></section><section class="slides-section"><section class="slide"><h1>Example: iris classification in scikit-learn</h1>
+<!-- duplicate section in machine-learning-theory and scikit-learn -->
 </section><section class="slide"><h2>Example</h2>
 <p>Example: classification of iris plants</p>
 <p>known data: measurements and classification of 150 iris plants</p>
@@ -2123,6 +2124,63 @@ y_pred_proba = model.predict_proba(test_data)
 <li><code>sklearn.tree.DecisionTreeClassifier</code></li>
 <li><code>sklearn.naive_bayes.GaussianNB</code></li>
 </ul>
+</section></section><section class="slides-section"><section class="slide"><h1>Example: digit recognition</h1>
+</section><section class="slide"><h2>Example: digit recognition</h2>
+<p>input data: grayscale images of 1797 handwritten digits</p>
+<p>target data: digit (e.g. 0, 1, 2, 3, ...)</p>
+</section><section class="slide"><h2>Loading digit data</h2>
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> datasets
+
+digits = datasets.load_digits()
+</code></pre>
+<p>images are in <code>digits.images</code></p>
+<p>labels are in <code>digits.target</code></p>
+</section><section class="slide"><h2>Visualizing digits</h2>
+<p>task:</p>
+<p>display some of the images and their correct labels via <em>pyplot</em>'s <code>imshow</code></p>
+</section><section class="slide"><h2>Visualizing digits</h2>
+<p>simple solution:</p>
+<pre><code class="hljs language-py">plt.imshow(digits.images[<span class="hljs-number">3</span>], cmap=<span class="hljs-string">"gray"</span>)
+plt.axis(<span class="hljs-string">"off"</span>)
+plt.title(digits.target[<span class="hljs-number">3</span>])
+</code></pre>
+</section><section class="slide"><h2>Preparing data</h2>
+<p>task:</p>
+<p>flatten input array from 1797x8x8 to 1797x64</p>
+</section><section class="slide"><h2>Preparing data</h2>
+<p>explicit solution:</p>
+<pre><code class="hljs language-py">x = digits.images.reshape(<span class="hljs-number">1797</span>, <span class="hljs-number">64</span>)
+</code></pre>
+<p>robust solution:</p>
+<pre><code class="hljs language-py">x = digits.images.reshape(digits.images.shape[<span class="hljs-number">0</span>], -<span class="hljs-number">1</span>)
+</code></pre>
+</section><section class="slide"><h2>Training</h2>
+<p>Task: select the first 1500 entries as training data and train the model</p>
+</section><section class="slide"><h2>Training</h2>
+<p>Solution:</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> sklearn.neighbors <span class="hljs-keyword">import</span> KNeighborsClassifier
+
+x_train = x[:<span class="hljs-number">1500</span>]
+y_train = y[:<span class="hljs-number">1500</span>]
+
+model = KNeighborsClassifier(<span class="hljs-number">1</span>)
+model.fit(x_train, y_train)
+</code></pre>
+</section><section class="slide"><h2>Testing</h2>
+<p>Task: select the remaining entries as testing data and compute the percentage of correct classifications</p>
+</section><section class="slide"><h2>Testing</h2>
+<p>Solution:</p>
+<pre><code class="hljs language-py">x_test = x[<span class="hljs-number">1500</span>:]
+y_test = y[<span class="hljs-number">1500</span>:]
+
+y_pred = model.predict(x_test)
+
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+
+num_correct = np.<span class="hljs-built_in">sum</span>(y_pred == y_test)
+
+print(num_correct / y_test.size)
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Preparing data</h1>
 </section><section class="slide"><h2>Preparing data</h2>
 <p>desired data format for machine learning algorithms:</p>
@@ -2392,17 +2450,38 @@ y_pred = model.predict(test_data)
 print(y_pred)
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Validation</h1>
+</section><section class="slide"><h2>Validation metrics in scikit-learn</h2>
+<p>classification:</p>
+<ul>
+<li><em>accuracy_score</em></li>
+<li><em>confusion_matrix</em></li>
+<li><em>precision_recall_fscore_support</em></li>
+<li><em>log_loss</em></li>
+<li><em>roc_curve</em></li>
+<li><em>roc_auc</em></li>
+</ul>
+<p>regression:</p>
+<ul>
+<li><em>mean_squared_error</em></li>
+<li><em>r2_score</em></li>
+</ul>
+<p>See also <a href="https://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics">https://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics</a></p>
 </section><section class="slide"><h2>Train-test split</h2>
 <p>How well does a model categorize iris data?</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> metrics
+
+y_prediction = model.predict(x_test)
+
+print(metrics.accuracy_score(y_test, y_prediction))
+print(metrics.confusion_matrix(y_test, y_prediction))
+print(<span class="hljs-built_in">list</span>(metrics.precision_recall_fscore_support(
+           y_test, y_prediction)))
+</code></pre>
+</section><section class="slide"><h2>Train-test split</h2>
+<p>helper function in scikit-learn:</p>
 <pre><code class="hljs language-py"><span class="hljs-keyword">from</span> sklearn.model_selection <span class="hljs-keyword">import</span> train_test_split
-<span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> metrics
 
-X_train, X_test, Y_train, Y_test = train_test_split(X, Y)
-
-<span class="hljs-comment"># ...</span>
-
-Y_prediction = model.predict(X_test)
-print(metrics.accuracy_score(Y_test, Y_prediction))
+x_train, x_test, y_train, y_test = train_test_split(x, y)
 </code></pre>
 <p>optional parameters:</p>
 <ul>
@@ -2434,24 +2513,25 @@ fpr, tpr, thresholds = metrics.roc_curve(
 <p>determining the AUC:</p>
 <pre><code class="hljs language-py">auc = metrics.auc(fpr, tpr)
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Example: digit recognition</h1>
-</section><section class="slide"><h2>Example: digit recognition</h2>
-<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> sklearn.neighbors <span class="hljs-keyword">import</span> KNeighborsClassifier
-<span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> datasets, model_selection, metrics
-
-digits = datasets.load_digits()
-<span class="hljs-comment"># flatten array from 1797x8x8 to 1797x64</span>
-X = digits.images.reshape(digits.images.shape[<span class="hljs-number">0</span>], -<span class="hljs-number">1</span>)
-y = digits.target
-
-X_train, X_test, y_train, y_test =
-    model_selection.train_test_split(X, y)
-
-model = KNeighborsClassifier()
-model.fit(X_train, y_train)
-
-y_pred = model.predict(X_test)
-print(metrics.accuracy_score(y_test, y_pred))
+</section></section><section class="slides-section"><section class="slide"><h1>Abstraction</h1>
+</section><section class="slide"><h2>Abstraction</h2>
+<ul>
+<li>pipelines</li>
+<li>custom classes</li>
+</ul>
+</section><section class="slide"><h2>Abstraction</h2>
+<p><em>pipelines</em> can abstract the processing of input values <em>x</em></p>
+<p>custom classes can abstract the processing of both <em>x</em> and <em>y</em></p>
+</section><section class="slide"><h2>Abstraction</h2>
+<p>direct model usage to predict survival on the Titanic:</p>
+<pre><code class="hljs language-py">model.predict([[<span class="hljs-number">2</span>, <span class="hljs-number">0</span>, <span class="hljs-number">28.0</span>, <span class="hljs-number">0</span>]])
+<span class="hljs-comment"># [0]</span>
+</code></pre>
+<p>abstracted interface:</p>
+<pre><code class="hljs language-py">classifier.predict_survival(
+    pclass=<span class="hljs-number">2</span>, sex=<span class="hljs-string">"male"</span>, age=<span class="hljs-number">28.0</span>, sibsp=<span class="hljs-number">0</span>
+)
+<span class="hljs-comment"># False</span>
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Example: labeled faces with scikit-learn</h1>
 </section><section class="slide"><h2>Example: labeled faces</h2>
@@ -2523,26 +2603,19 @@ pred_label = pred_labels[index]
 print(<span class="hljs-string">"real name:"</span>, faces.target_names[real_label])
 print(<span class="hljs-string">"predicted name:"</span>, faces.target_names[pred_label])
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Abstraction</h1>
-</section><section class="slide"><h2>Abstraction</h2>
+</section></section><section class="slides-section"><section class="slide"><h1>Exercises and datasets</h1>
+</section><section class="slide"><h2>Datasets</h2>
 <ul>
-<li>pipelines</li>
-<li>custom classes</li>
+<li>smaller datasets: <a href="https://scikit-learn.org/stable/datasets/toy_dataset.html">https://scikit-learn.org/stable/datasets/toy_dataset.html</a></li>
+<li>real world datasets: <a href="https://scikit-learn.org/stable/datasets/real_world.html">https://scikit-learn.org/stable/datasets/real_world.html</a></li>
 </ul>
-</section><section class="slide"><h2>Abstraction</h2>
-<p><em>pipelines</em> can abstract the processing of input values <em>x</em></p>
-<p>custom classes can abstract the processing of both <em>x</em> and <em>y</em></p>
-</section><section class="slide"><h2>Abstraction</h2>
-<p>direct model usage to predict survival on the Titanic:</p>
-<pre><code class="hljs language-py">model.predict([[<span class="hljs-number">2</span>, <span class="hljs-number">0</span>, <span class="hljs-number">28.0</span>, <span class="hljs-number">0</span>]])
-<span class="hljs-comment"># [0]</span>
-</code></pre>
-<p>abstracted interface:</p>
-<pre><code class="hljs language-py">classifier.predict_survival(
-    pclass=<span class="hljs-number">2</span>, sex=<span class="hljs-string">"male"</span>, age=<span class="hljs-number">28.0</span>, sibsp=<span class="hljs-number">0</span>
-)
-<span class="hljs-comment"># False</span>
-</code></pre></section></section></div>
+</section><section class="slide"><h2>Exercises</h2>
+<ul>
+<li>diabetes progression (regression)</li>
+<li>digits (classification)</li>
+<li>Titanic survival (regression)</li>
+<li>labeled faces (classification via neural networks)</li>
+</ul></section></section></div>
     </div>
     <script>/*!
  * reveal.js

@@ -354,6 +354,25 @@ euro_exchange_rates = exchange_rates[
 euro_exchange_rates.loc[:, ["Date", "Exchange rate"]]
 ```
 
+## Aufgaben (S&P 500)
+
+- wann war der S&P 500 am höchsten Wert? (Bestimme das Maximum, dann suche die zugehörige Zeile im DataFrame)
+
+## Lösung (S&P 500)
+
+```py
+sp500_max = sp500["SP500"].max()
+# returns a DataFrame
+sp500_max_row = sp500.loc[sp500["SP500"] == sp500_max]
+```
+
+kürzere Alternative: (via `.idxmax()`):
+
+```py
+# returns a Series
+sp500_max_row = sp500.loc[sp500["SP500"].idxmax()]
+```
+
 # Daten manipulieren
 
 ## Spalten umbenennen
@@ -415,7 +434,6 @@ iris_setosa["sepal_ratio"].std()
 Aufgabe:
 
 - Analysiere die monatlichen S&P 500 Daten und berechne den monatlichen Gewinn / Verlust
-- Was war der größte Gewinn / Verlust in einem Monat?
 
 ## Abgeleitete Werte berechnen mittels NumPy
 
@@ -467,13 +485,6 @@ iris.loc[:, "sepal_ratio"] = float('nan')
 
 ## Fehlende Daten
 
-In den Wechselkursdaten fehlen manche Einträge:
-
-- manche Tage sind nicht eingetragen (Wochenenden)
-- zu manchen Tage sind Werte als `NaN`s eingetragen
-
-## Fehlende Daten
-
 Werte, die fehlende Daten symbolisieren (ab pandas 1.0):
 
 - für floats: `NaN` (wie allgemein in Python üblich)
@@ -481,47 +492,97 @@ Werte, die fehlende Daten symbolisieren (ab pandas 1.0):
 
 ## Fehlende Daten
 
-Entfernen aller Zeilen mit fehlenden Daten:
-
 ```py
-er = er.dropna()
+titanic["age"].shape
+# (891,)
 ```
 
-Ersetzen aller fehlender Daten mit Nullen:
-
 ```py
-er = er.fillna(0)
-```
-
-Ersetzen aller fehlernder Daten mit Werten der Reihe zuvor:
-
-```py
-er = er.fillna(method="backfill")
+titanic["age"].count()
+# 714
 ```
 
 ## Fehlende Daten
 
-Daten interpolieren:
+Anzeigen aller Zeilen mit fehlenden _age_-Einträgen:
 
 ```py
-er = er.intepolate()
-er = er.interpolate(method="spline")
+titanic.loc[titanic["age"].isna()]
 ```
 
-Beispiel:
+## Fehlende Daten
+
+Entfernen aller Zeilen mit fehlenden Daten:
 
 ```py
-url = 'https://datahub.io/core/interest-rates-gb/r/data.csv'
-
-ir_uk = pd.read_csv(url, index_col="date",
-                    parse_dates=True)
-
-ir_uk_weekly = ir_uk.resample('7d').interpolate()
+titanic = titanic.dropna()
 ```
 
-## Übung
+Entfernen aller Zeilen mit fehlenden Daten in der Spalte _age_:
 
-Nutze die Daten aus _sp500_ und _euribor_, um die Entwicklungen der europäischen und amerikanischen Zinssätze einander gegenüberzustellen.
+```py
+titanic = titanic.dropna(subset=["age"])
+```
+
+## Ersetzen fehlender Daten
+
+Ersetzen fehlender Daten durch Nullen:
+
+```py
+titanic["age"] = titanic["age"].fillna(0)
+```
+
+Ersetzen fehlender Daten durch den _letzten_ gültigen Wert:
+
+```py
+titanic["age"] = titanic["age"].fillna(method="ffill")
+```
+
+Ersetzen fehlender Daten durch den _nächsten_ gültigen Wert:
+
+```py
+titanic["age"] = titanic["age"].fillna(method="bfill")
+```
+
+## Interpolieren von Werten
+
+```py
+data = pd.Series(
+    [1, 2, 4, np.nan, 16, 32, np.nan, np.nan, 256]
+)
+```
+
+```py
+data.interpolate("nearest")
+data.interpolate("linear") # default
+data.interpolate("slinear")
+data.interpolate("quadratic")
+data.interpolate("cubic")
+```
+
+## Interpolieren von Werten
+
+Übung:
+
+Verwende die Daten aus _sp500_ und _euribor_, um die Entwicklungen der europäischen und amerikanischen Zinssätze einander gegenüberzustellen.
+
+Bemerkung:
+
+_sp500_ hat Daten für den ersten **Tag** jedes Monats, _euribor_ hat daten für den ersten **Arbeitstag** jedes Monats
+
+## Interpolieren von Werten
+
+Lösung:
+
+```py
+interest = pd.DataFrame({
+    "us": sp500["Long Interest Rate"],
+    "eu": euribor["rate"]
+})
+
+interest = interest.interpolate("slinear")
+interest = interest.dropna()
+```
 
 # Plotting
 
@@ -654,6 +715,52 @@ from pandas.plotting import scatter_matrix
 scatter_matrix(iris)
 ```
 
+# Zeitreihen
+
+## Zeitreihen
+
+erstellen von Datumsfolgen (als Index-Objekte):
+
+```py
+every_day = pd.date_range("2000-01-01", "2000-12-31")
+last_of_each_month = pd.date_range(
+    "2000-01-01", "2000-12-31", freq="M"
+)
+first_of_each_month = pd.date_range(
+    "2000-01-01", "2000-12-31", freq="MS"
+)
+every_10_days = pd.date_range(
+    "2000-01-01", "2000-12-31", freq="10d"
+)
+```
+
+## Zeitreihen
+
+Überprüfen, ob der erste Tag jedes Monats in den S&P 500 Daten vorhanden ist:
+
+```py
+sp500.index.equals(
+    pd.date_range(
+        sp500.index[0], sp500.index[-1], freq="MS"
+    )
+)
+# True
+```
+
+## Resampling
+
+Resampling, um Werte für den Beginn jedes Jahres zu erhalten:
+
+```py
+sp500.resample("1ys").interpolate()
+```
+
+Resampling, um Werte für jeden Tag zu erhalten:
+
+```py
+sp500.resample("1d").interpolate()
+```
+
 # Gruppierung und Aggregation
 
 ## Gruppierung und Aggregation
@@ -685,7 +792,9 @@ Anzahl von Passagieren pro Klasse:
 ```py
 titanic["pclass"].value_counts()
 
-# 491, 216, 184
+# 3    491
+# 1    216
+# 2    184
 ```
 
 ## Gruppierung und Aggregation
@@ -695,7 +804,9 @@ Median der Alter pro Klasse:
 ```py
 titanic["age"].groupby(titanic["pclass"]).median()
 
-# 37, 29, 24
+# 1    37.0
+# 2    29.0
+# 3    24.0
 ```
 
 ## Gruppierung und Aggregation
@@ -739,6 +850,21 @@ pd.pivot_table(
 
 - Durchschnittswerte der Iris-Daten basierend auf dem Namen der Art
 - Durchschnittliche USD-Wechselkurse für jede Währung in den 90ern
+
+## Übungen - Lösungen
+
+```py
+iris.groupby(iris["species"]).mean()
+```
+
+```py
+er_90s = exchange_rates.loc[
+    (exchange_rates["Date"] >= "1990-01-01") &
+    (exchange_rates["Date"] <= "1999-12-31")
+]
+
+er_90s_means = er_90s.groupby("Country").mean()
+```
 
 # Multi-Index
 

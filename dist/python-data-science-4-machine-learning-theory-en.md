@@ -588,18 +588,6 @@ y = iris_species_one_hot
 
 # Model validation and selection
 
-## Model validation and selection
-
-To find the best model:
-
-- test multiple algorithms
-- test multiple parameters for the algorithm
-- test if more input data leads to better results
-
-see [Python Data Science Handbook → Hyperparameters and Model Validation → Selecting the Best Model](https://jakevdp.github.io/PythonDataScienceHandbook/05.03-hyperparameters-and-model-validation.html#Selecting-the-Best-Model)
-
-# Train data and validation data
-
 ## Train data and validation data
 
 In order to verify the results of an algorithm:
@@ -619,31 +607,31 @@ for other alogirthms (e.g. _sklearn_):
 - _train data_
 - _validation data_ or _test data_ (used for validating the model)
 
-# Validation metrics
+## Model validation and selection
 
-## Validation metrics
+To find the best model:
+
+- test multiple algorithms
+- test multiple parameters for the algorithm
+- test if more input data leads to better results
+
+see [Python Data Science Handbook → Hyperparameters and Model Validation → Selecting the Best Model](https://jakevdp.github.io/PythonDataScienceHandbook/05.03-hyperparameters-and-model-validation.html#Selecting-the-Best-Model)
+
+# Basic validation metrics
+
+## Basic validation metrics
 
 classification metrics:
 
-- accuracy metrics
-  - accuracy
-  - confusion matrix
-- metrics based on true/false positives/negatives
-  - precision
-  - recall
-  - f-score
-  - ROC and AUC
-- probabilistic metrics
-  - cross entropy
-
-## Validation metrics
+- accuracy
+- confusion matrix
 
 regression metrics:
 
 - mean squared error
 - coefficient of determination (R²)
 
-## Classification metrics
+## Basic classification metrics
 
 example:
 
@@ -655,7 +643,7 @@ a classification algorithm yields these results:
 - classification of oranges: 10 as oranges
 - classification of peaches: 1 as an apple, 0 as oranges, 9 as peaches
 
-## Accuracy metrics
+## Basic classification metrics
 
 **accuracy**: relative amount of correct classifications (in our example: 27/30=0.9)
 
@@ -666,6 +654,33 @@ a classification algorithm yields these results:
 | apples  | 8      | 0       | 2       |
 | oranges | 0      | 10      | 0       |
 | peaches | 1      | 0       | 9       |
+
+## Basic regression metrics
+
+**mean squared error**
+
+**coefficient of determination (R²)**:
+
+compares the mean squared error of the regression with the variance of the dataset
+
+- R²=1 - perfect interpolation
+- R²=0 - interpolation is no better than taking the average of all data
+- R²&lt;0 - worse than taking the average of all data
+
+# Classification metrics
+
+## Classification metrics
+
+- accuracy metrics
+  - accuracy
+  - confusion matrix
+- metrics based on true/false positives/negatives
+  - precision
+  - recall
+  - f-score
+  - ROC and AUC
+- probabilistic metrics
+  - cross entropy
 
 ## Metrics based on true/false positives/negatives
 
@@ -721,48 +736,6 @@ The ROC may be displayed as a curve; the bigger the area under the curve (AUC), 
 **cross entropy** (log loss): measures how well a model of a probability distribution approximates the actual probability distribution
 
 relevant for _neural networks_ and _logistic regression_
-
-## Regression metrics
-
-**mean squared error**
-
-**coefficient of determination (R²)**:
-
-compares the mean squared error of the regression with the variance of the dataset
-
-- R²=1 - perfect interpolation
-- R²=0 - interpolation is no better than taking the average of all data
-- R²&lt;0 - worse than taking the average of all data
-
-## Validation metrics in scikit-learn
-
-classification:
-
-- _accuracy_score_
-- _confusion_matrix_
-- _precision_recall_fscore_support_
-- _log_loss_
-- _roc_curve_
-- _roc_auc_
-
-regression:
-
-- _mean_squared_error_
-- _r2_score_
-
-See also <https://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics>
-
-## Validation metrics in keras
-
-- _accuracy_
-- _categorical_crossentropy_
-- _sparse_categorical_crossentropy_
-- _precision_
-- _recall_
-- _auc_
-- _mean_squared_error_
-
-See also <https://keras.io/api/metrics/>
 
 # Overfitting
 

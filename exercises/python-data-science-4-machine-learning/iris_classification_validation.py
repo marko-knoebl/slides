@@ -18,6 +18,7 @@ model.fit(X_train, y_train)
 
 y_prediction = model.predict(X_test)
 
-print(metrics.accuracy_score(y_prediction, y_test))
-print(metrics.confusion_matrix(y_prediction, y_test))
-print(list(metrics.precision_recall_fscore_support(y_prediction, y_test)))
+print(metrics.accuracy_score(y_test, y_prediction))
+print(metrics.confusion_matrix(y_test, y_prediction))
+print(list(metrics.precision_recall_fscore_support(
+           y_test, y_prediction)))

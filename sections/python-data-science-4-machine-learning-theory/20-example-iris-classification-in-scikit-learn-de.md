@@ -72,12 +72,3 @@ y_pred_proba = model.predict_proba(test_data)
 #  [0.  0.8 0.2]
 #  [0.  0.6 0.4]]
 ```
-
-## Beispiel
-
-Aufgabe: Verwenden anderer Klassifikatoren, z.B.:
-
-- `sklearn.neural_network.MLPClassifier`
-- `sklearn.svm.SVC`
-- `sklearn.tree.DecisionTreeClassifier`
-- `sklearn.naive_bayes.GaussianNB`

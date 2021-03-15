@@ -297,6 +297,19 @@ dtype: float64
 ]
 euro_exchange_rates.loc[:, [<span class="hljs-string">"Date"</span>, <span class="hljs-string">"Exchange rate"</span>]]
 </code></pre>
+<h2>Exercises (S&#x26;P 500)</h2>
+<ul>
+<li>when was the S&#x26;P 500 at its highest value? (compute the maximum, then get the corresponding row in the DataFrame)</li>
+</ul>
+<h2>Solution (S&#x26;P 500)</h2>
+<pre><code class="hljs language-py">sp500_max = sp500[<span class="hljs-string">"SP500"</span>].<span class="hljs-built_in">max</span>()
+<span class="hljs-comment"># returns a DataFrame</span>
+sp500_max_row = sp500.loc[sp500[<span class="hljs-string">"SP500"</span>] == sp500_max]
+</code></pre>
+<p>shorter alternative (using <code>.idxmax()</code>):</p>
+<pre><code class="hljs language-py"><span class="hljs-comment"># returns a Series</span>
+sp500_max_row = sp500.loc[sp500[<span class="hljs-string">"SP500"</span>].idxmax()]
+</code></pre>
 <h1>Changing data</h1>
 <h2>Renaming columns</h2>
 <pre><code class="hljs language-py">df.columns = [<span class="hljs-string">"name1"</span>, <span class="hljs-string">"name2"</span>]
@@ -335,7 +348,6 @@ iris_setosa[<span class="hljs-string">"sepal_ratio"</span>].std()
 <p>Task:</p>
 <ul>
 <li>Analyze the S&#x26;P 500 monthly data and determine the monthly gain / loss in percent for each month</li>
-<li>What was the biggest loss / gain in a month?</li>
 </ul>
 <h2>Computing derived data via NumPy</h2>
 <p>converting to NumPy array:</p>
@@ -369,42 +381,65 @@ iris.loc[:, <span class="hljs-string">"sepal_ratio"</span>] = <span class="hljs-
 </code></pre>
 <h1>Missing data</h1>
 <h2>Missing data</h2>
-<p>In the exchange rate data there are some missing entries:</p>
-<ul>
-<li>some days are not present (weekends)</li>
-<li>for some days the values are <code>NaN</code>s</li>
-</ul>
-<h2>Missing data</h2>
 <p>Values that represent missing data (since pandas 1.0):</p>
 <ul>
 <li>for floats: <code>NaN</code> (as usual in Python)</li>
 <li>for other data types: <code>NA</code> (from the pandas package)</li>
 </ul>
 <h2>Missing data</h2>
-<p>removing any rows with missing data:</p>
-<pre><code class="hljs language-py">er = er.dropna()
+<pre><code class="hljs language-py">titanic[<span class="hljs-string">"age"</span>].shape
+<span class="hljs-comment"># (891,)</span>
 </code></pre>
-<p>filling any rows with missing data with zeros:</p>
-<pre><code class="hljs language-py">er = er.fillna(<span class="hljs-number">0</span>)
-</code></pre>
-<p>filling any missing data with the value from the previous row:</p>
-<pre><code class="hljs language-py">er = er.fillna(method=<span class="hljs-string">"backfill"</span>)
+<pre><code class="hljs language-py">titanic[<span class="hljs-string">"age"</span>].count()
+<span class="hljs-comment"># 714</span>
 </code></pre>
 <h2>Missing data</h2>
-<p>interpolating data:</p>
-<pre><code class="hljs language-py">er = er.intepolate()
-er = er.interpolate(method=<span class="hljs-string">"spline"</span>)
+<p>show all rows with missing <em>age</em> entries:</p>
+<pre><code class="hljs language-py">titanic.loc[titanic[<span class="hljs-string">"age"</span>].isna()]
 </code></pre>
-<p>interpolating example:</p>
-<pre><code class="hljs language-py">url = <span class="hljs-string">'https://datahub.io/core/interest-rates-gb/r/data.csv'</span>
-
-ir_uk = pd.read_csv(url, index_col=<span class="hljs-string">"date"</span>,
-                    parse_dates=<span class="hljs-literal">True</span>)
-
-ir_uk_weekly = ir_uk.resample(<span class="hljs-string">'7d'</span>).interpolate()
+<h2>Removing rows</h2>
+<p>removing any rows with missing data in any location:</p>
+<pre><code class="hljs language-py">titanic = titanic.dropna()
 </code></pre>
-<h2>Exercise</h2>
-<p>Use the data from <em>sp500</em> and euribor to compare the development of american and european interest rates</p>
+<p>removing any rows with missing data in the age column:</p>
+<pre><code class="hljs language-py">titanic = titanic.dropna(subset=[<span class="hljs-string">"age"</span>])
+</code></pre>
+<h2>Filling values</h2>
+<p>Filling missing data with zeros:</p>
+<pre><code class="hljs language-py">titanic[<span class="hljs-string">"age"</span>] = titanic[<span class="hljs-string">"age"</span>].fillna(<span class="hljs-number">0</span>)
+</code></pre>
+<p>Filling missing data by using the <em>last</em> valid datapoint:</p>
+<pre><code class="hljs language-py">titanic[<span class="hljs-string">"age"</span>] = titanic[<span class="hljs-string">"age"</span>].fillna(method=<span class="hljs-string">"ffill"</span>)
+</code></pre>
+<p>Filling missing data by using the <em>next</em> valid datapoint:</p>
+<pre><code class="hljs language-py">titanic[<span class="hljs-string">"age"</span>] = titanic[<span class="hljs-string">"age"</span>].fillna(method=<span class="hljs-string">"bfill"</span>)
+</code></pre>
+<h2>Interpolating values</h2>
+<pre><code class="hljs language-py">data = pd.Series(
+    [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">4</span>, np.nan, <span class="hljs-number">16</span>, <span class="hljs-number">32</span>, np.nan, np.nan, <span class="hljs-number">256</span>]
+)
+</code></pre>
+<pre><code class="hljs language-py">data.interpolate(<span class="hljs-string">"nearest"</span>)
+data.interpolate(<span class="hljs-string">"linear"</span>) <span class="hljs-comment"># default</span>
+data.interpolate(<span class="hljs-string">"slinear"</span>)
+data.interpolate(<span class="hljs-string">"quadratic"</span>)
+data.interpolate(<span class="hljs-string">"cubic"</span>)
+</code></pre>
+<h2>Interpolating values</h2>
+<p>Exercise:</p>
+<p>Use the data from <em>sp500</em> and <em>euribor</em> to compare the development of American and European interest rates</p>
+<p>Note:</p>
+<p>The <em>sp500</em> has data for the first <strong>day</strong> of each month, the <em>euribor</em> has data for the first <strong>workday</strong> of each month</p>
+<h2>Interpolating values</h2>
+<p>solution:</p>
+<pre><code class="hljs language-py">interest = pd.DataFrame({
+    <span class="hljs-string">"us"</span>: sp500[<span class="hljs-string">"Long Interest Rate"</span>],
+    <span class="hljs-string">"eu"</span>: euribor[<span class="hljs-string">"rate"</span>]
+})
+
+interest = interest.interpolate(<span class="hljs-string">"slinear"</span>)
+interest = interest.dropna()
+</code></pre>
 <h1>Plotting</h1>
 <h2>Plotting</h2>
 <p>wrappers for <em>pyplot</em> functions that exist on <em>Series</em> and <em>DataFrame</em> objects:</p>
@@ -487,6 +522,36 @@ surface.plot.pie(ylabel=<span class="hljs-string">"Surface of the earth"</span>)
 
 scatter_matrix(iris)
 </code></pre>
+<h1>Time series</h1>
+<h2>Time series</h2>
+<p>creating date ranges (as index objects):</p>
+<pre><code class="hljs language-py">every_day = pd.date_range(<span class="hljs-string">"2000-01-01"</span>, <span class="hljs-string">"2000-12-31"</span>)
+last_of_each_month = pd.date_range(
+    <span class="hljs-string">"2000-01-01"</span>, <span class="hljs-string">"2000-12-31"</span>, freq=<span class="hljs-string">"M"</span>
+)
+first_of_each_month = pd.date_range(
+    <span class="hljs-string">"2000-01-01"</span>, <span class="hljs-string">"2000-12-31"</span>, freq=<span class="hljs-string">"MS"</span>
+)
+every_10_days = pd.date_range(
+    <span class="hljs-string">"2000-01-01"</span>, <span class="hljs-string">"2000-12-31"</span>, freq=<span class="hljs-string">"10d"</span>
+)
+</code></pre>
+<h2>Time series</h2>
+<p>Checking if the first day of each month is present in the S&#x26;P 500 data:</p>
+<pre><code class="hljs language-py">sp500.index.equals(
+    pd.date_range(
+        sp500.index[<span class="hljs-number">0</span>], sp500.index[-<span class="hljs-number">1</span>], freq=<span class="hljs-string">"MS"</span>
+    )
+)
+<span class="hljs-comment"># True</span>
+</code></pre>
+<h2>Resampling</h2>
+<p>resampling to get values for the start of each year:</p>
+<pre><code class="hljs language-py">sp500.resample(<span class="hljs-string">"1ys"</span>).interpolate()
+</code></pre>
+<p>resampling to get values for each day:</p>
+<pre><code class="hljs language-py">sp500.resample(<span class="hljs-string">"1d"</span>).interpolate()
+</code></pre>
 <h1>Grouping and aggregation</h1>
 <h2>Grouping and aggregation</h2>
 <p>examples related to Titanic passenger data:</p>
@@ -510,13 +575,17 @@ scatter_matrix(iris)
 <p>number of passengers in each class:</p>
 <pre><code class="hljs language-py">titanic[<span class="hljs-string">"pclass"</span>].value_counts()
 
-<span class="hljs-comment"># 491, 216, 184</span>
+<span class="hljs-comment"># 3    491</span>
+<span class="hljs-comment"># 1    216</span>
+<span class="hljs-comment"># 2    184</span>
 </code></pre>
 <h2>Grouping and aggregation</h2>
 <p>median age of passengers in each class:</p>
 <pre><code class="hljs language-py">titanic[<span class="hljs-string">"age"</span>].groupby(titanic[<span class="hljs-string">"pclass"</span>]).median()
 
-<span class="hljs-comment"># 37, 29, 24</span>
+<span class="hljs-comment"># 1    37.0</span>
+<span class="hljs-comment"># 2    29.0</span>
+<span class="hljs-comment"># 3    24.0</span>
 </code></pre>
 <h2>Grouping and aggregation</h2>
 <p>number of passengers by class and sex (<em>frequency table</em>):</p>
@@ -548,6 +617,16 @@ pclass
 <li>mean values for each of the four iris measurements within each type of flower</li>
 <li>mean USD exchange rates for each currency in the 90s</li>
 </ul>
+<h2>Exercises - Solutions</h2>
+<pre><code class="hljs language-py">iris.groupby(iris[<span class="hljs-string">"species"</span>]).mean()
+</code></pre>
+<pre><code class="hljs language-py">er_90s = exchange_rates.loc[
+    (exchange_rates[<span class="hljs-string">"Date"</span>] >= <span class="hljs-string">"1990-01-01"</span>) &#x26;
+    (exchange_rates[<span class="hljs-string">"Date"</span>] &#x3C;= <span class="hljs-string">"1999-12-31"</span>)
+]
+
+er_90s_means = er_90s.groupby(<span class="hljs-string">"Country"</span>).mean()
+</code></pre>
 <h1>Multi index</h1>
 <h2>Multi index</h2>
 <p><strong>index column</strong>: column that uniquely identifies a row in a DataFrame</p>

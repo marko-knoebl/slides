@@ -13,7 +13,7 @@ bei 2D-Arrays: _[Zeilenindex, Spaltenindex]_
 
 im Allgemeinen:
 
-- letzter Index: zählt rightung rechts
+- letzter Index: zählt richtung rechts
 - vorletzter Index (sofern er existiert): zählt richtung unten
 
 ## Auswählen von Array-Einträgen

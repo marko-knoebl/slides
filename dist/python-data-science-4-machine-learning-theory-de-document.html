@@ -192,14 +192,6 @@ y_pred_proba = model.predict_proba(test_data)
 <span class="hljs-comment">#  [0.  0.8 0.2]</span>
 <span class="hljs-comment">#  [0.  0.6 0.4]]</span>
 </code></pre>
-<h2>Beispiel</h2>
-<p>Aufgabe: Verwenden anderer Klassifikatoren, z.B.:</p>
-<ul>
-<li><code>sklearn.neural_network.MLPClassifier</code></li>
-<li><code>sklearn.svm.SVC</code></li>
-<li><code>sklearn.tree.DecisionTreeClassifier</code></li>
-<li><code>sklearn.naive_bayes.GaussianNB</code></li>
-</ul>
 <h1>Beispiel: Iris-Klassifizierung in Keras</h1>
 <!-- duplicate in machine-learning-theory and neural-networks-with-keras -->
 <h2>Überwachtes Lernen in Keras</h2>
@@ -507,15 +499,6 @@ iris_measures_scaled = scaler.transform(iris_measures)
 y = iris_species_one_hot
 </code></pre>
 <h1>Modellvalidierung und -auswahl</h1>
-<h2>Modellvalidierung und -auswahl</h2>
-<p>Um das bestmögliche Modell zu bestimmen:</p>
-<ul>
-<li>Testen mehrerer Algorithmen</li>
-<li>Testen mehrerer Parameter für den Algorithmus</li>
-<li>Testen, ob mehr Lerndaten zu besseren Ergebnissen führen</li>
-</ul>
-<p>siehe <a href="https://jakevdp.github.io/PythonDataScienceHandbook/05.03-hyperparameters-and-model-validation.html#Selecting-the-Best-Model">Python Data Science Handbook → Hyperparameters and Model Validation → Selecting the Best Model</a></p>
-<h1>Trainingsdaten und Validierungsdaten</h1>
 <h2>Trainingsdaten und Validierungsdaten</h2>
 <p>Um zu validieren, ob ein Verfahren ein passendes Ergebnis liefert:</p>
 <p>Die Daten werden in <em>Trainingsdaten</em> und <em>Validierungsdaten</em> unterteilt</p>
@@ -531,37 +514,27 @@ y = iris_species_one_hot
 <li><em>Trainingsdaten</em></li>
 <li><em>Validierungsdaten</em> oder <em>Testdaten</em> (zur Validierung des Modells)</li>
 </ul>
-<h1>Validierungsmetriken</h1>
-<h2>Validierungsmetriken</h2>
-<p>Klassifizierung:</p>
+<h2>Modellvalidierung und -auswahl</h2>
+<p>Um das bestmögliche Modell zu bestimmen:</p>
 <ul>
-<li>accuracy metrics
+<li>Testen mehrerer Algorithmen</li>
+<li>Testen mehrerer Parameter für den Algorithmus</li>
+<li>Testen, ob mehr Lerndaten zu besseren Ergebnissen führen</li>
+</ul>
+<p>siehe <a href="https://jakevdp.github.io/PythonDataScienceHandbook/05.03-hyperparameters-and-model-validation.html#Selecting-the-Best-Model">Python Data Science Handbook → Hyperparameters and Model Validation → Selecting the Best Model</a></p>
+<h1>Grundlegende Validierungsmetriken</h1>
+<h2>Grundlegende Validierungsmetriken</h2>
+<p>Klassifizierungsmetriken:</p>
 <ul>
-<li>accuracy</li>
+<li>accuracy (Anteil an richtig klassifizierten Elementen)</li>
 <li>confusion matrix</li>
 </ul>
-</li>
-<li>Metriken, die auf true/false positives/negatives basieren
+<p>Regressionsmetriken:</p>
 <ul>
-<li>precision</li>
-<li>recall</li>
-<li>f-score</li>
-<li>ROC und AUC</li>
-</ul>
-</li>
-<li>probabilistische Metriken
-<ul>
-<li>Kreuzentropie</li>
-</ul>
-</li>
-</ul>
-<h2>Validierungsmetriken</h2>
-<p>Regression:</p>
-<ul>
-<li>Mittlere quadratische Abweichung</li>
+<li>mittlere quadratische Abweichung</li>
 <li>Bestimmtheitsmaß (R²)</li>
 </ul>
-<h2>Klassifizierungsmetriken</h2>
+<h2>Validierungsmetriken für Klassifizierung</h2>
 <p>Beispiel:</p>
 <p>Ein Korb von Früchten enthält 10 Äpfel, 10 Orangen und 10 Pfirsiche</p>
 <p>Ein Klassifizierungsalgorithmus liefert diese Ergebnisse:</p>
@@ -570,7 +543,7 @@ y = iris_species_one_hot
 <li>Klassifizierung von Orangen: 10 als Orangen</li>
 <li>Klassifizierung von Pfirsichen: 1 als Apfel, 0 als Orangen, 9 als Pfirsiche</li>
 </ul>
-<h2>Accuracy metrics</h2>
+<h2>Klassifizierungsmetriken</h2>
 <p><strong>accuracy</strong>: relativer Anteil korrekter Klassifizierungen (im Beispiel: 27/30=0.9)</p>
 <p><strong>confusion matrix</strong>: Tabelle mit Klassifizierungen für jede Kategorie</p>
 
@@ -603,6 +576,38 @@ y = iris_species_one_hot
 
 
 <table><thead><tr><th></th><th>apples</th><th>oranges</th><th>peaches</th></tr></thead><tbody><tr><td>apples</td><td>8</td><td>0</td><td>2</td></tr><tr><td>oranges</td><td>0</td><td>10</td><td>0</td></tr><tr><td>peaches</td><td>1</td><td>0</td><td>9</td></tr></tbody></table>
+<h2>Regressionsmetriken</h2>
+<p><strong>mittlere quadratische Abweichung</strong></p>
+<p><strong>Bestimmtheitsmaß (R²)</strong>:</p>
+<p>vergleicht die mittlere quadratische Abweichung der Regression mit der Varianz der Eingangsdaten</p>
+<ul>
+<li>R²=1 - perfekte Interpolation</li>
+<li>R²=0 - Interpolation ist nicht besser als das Verwenden des Durchschnitts</li>
+<li>R²&#x3C;0 - schlechter als das Verwenden des Durchschnitts</li>
+</ul>
+<h1>Klassifizierungsmetriken</h1>
+<h2>Klassifizierungsmetriken</h2>
+<ul>
+<li>accuracy metrics
+<ul>
+<li>accuracy</li>
+<li>confusion matrix</li>
+</ul>
+</li>
+<li>Metriken, die auf true/false positives/negatives basieren
+<ul>
+<li>precision</li>
+<li>recall</li>
+<li>f-score</li>
+<li>ROC und AUC</li>
+</ul>
+</li>
+<li>probabilistische Metriken
+<ul>
+<li>Kreuzentropie</li>
+</ul>
+</li>
+</ul>
 <h2>Metriken, die auf true/false positives/negatives basieren</h2>
 <p>Binäre Klassifizierung: ist eine Frucht ein Apfel oder ist sie kein Apfel?</p>
 <ul>
@@ -638,42 +643,6 @@ y = iris_species_one_hot
 <h2>Probabilistische Metriken</h2>
 <p><strong>Kreuzentropie</strong> (log loss): Misst, wie gut ein Modell einer Wahrscheinlichkeitsverteilung die tatsächliche Wahrscheinlichkeitsverteilung annähert</p>
 <p>relevant bei <em>neuronalen Netzwerken</em> und <em>logistischer Regression</em></p>
-<h2>Regressionsmetriken</h2>
-<p><strong>mittlere quadratische Abweichung</strong></p>
-<p><strong>Bestimmtheitsmaß (R²)</strong>:</p>
-<p>vergleicht die mittlere quadratische Abweichung der Regression mit der Varianz der Eingangsdaten</p>
-<ul>
-<li>R²=1 - perfekte Interpolation</li>
-<li>R²=0 - Interpolation ist nicht besser als das Verwenden des Durchschnitts</li>
-<li>R²&#x3C;0 - schlechter als das Verwenden des Durchschnitts</li>
-</ul>
-<h2>Validierungsmetriken in scikit-learn</h2>
-<p>Klassifizierung:</p>
-<ul>
-<li><em>accuracy_score</em></li>
-<li><em>confusion_matrix</em></li>
-<li><em>precision_recall_fscore_support</em></li>
-<li><em>log_loss</em></li>
-<li><em>roc_curve</em></li>
-<li><em>roc_auc</em></li>
-</ul>
-<p>Regression:</p>
-<ul>
-<li><em>mean_squared_error</em></li>
-<li><em>r2_score</em></li>
-</ul>
-<p>Siehe auch <a href="https://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics">https://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics</a></p>
-<h2>Validierunsmetriken in Keras</h2>
-<ul>
-<li><em>accuracy</em></li>
-<li><em>categorical_crossentropy</em></li>
-<li><em>sparse_categorical_crossentropy</em></li>
-<li><em>precision</em></li>
-<li><em>recall</em></li>
-<li><em>auc</em></li>
-<li><em>mean_squared_error</em></li>
-</ul>
-<p>Siehe auch <a href="https://keras.io/api/metrics/">https://keras.io/api/metrics/</a></p>
 <h1>Overfitting</h1>
 <h2>Overfitting</h2>
 <p>Mögliches Problem beim Lernen: Der Algorithmus ist zu flexibel und erkennt scheinbare Muster in den Eingangsdaten, hinter denen aber keine Systematik steckt</p>

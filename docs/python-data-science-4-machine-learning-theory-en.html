@@ -2561,15 +2561,6 @@ iris_measures_scaled = scaler.transform(iris_measures)
 y = iris_species_one_hot
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Model validation and selection</h1>
-</section><section class="slide"><h2>Model validation and selection</h2>
-<p>To find the best model:</p>
-<ul>
-<li>test multiple algorithms</li>
-<li>test multiple parameters for the algorithm</li>
-<li>test if more input data leads to better results</li>
-</ul>
-<p>see <a href="https://jakevdp.github.io/PythonDataScienceHandbook/05.03-hyperparameters-and-model-validation.html#Selecting-the-Best-Model">Python Data Science Handbook → Hyperparameters and Model Validation → Selecting the Best Model</a></p>
-</section></section><section class="slides-section"><section class="slide"><h1>Train data and validation data</h1>
 </section><section class="slide"><h2>Train data and validation data</h2>
 <p>In order to verify the results of an algorithm:</p>
 <p>Data are split into <em>training data</em> and <em>test data</em> / <em>validation data</em></p>
@@ -2585,37 +2576,27 @@ y = iris_species_one_hot
 <li><em>train data</em></li>
 <li><em>validation data</em> or <em>test data</em> (used for validating the model)</li>
 </ul>
-</section></section><section class="slides-section"><section class="slide"><h1>Validation metrics</h1>
-</section><section class="slide"><h2>Validation metrics</h2>
-<p>classification metrics:</p>
+</section><section class="slide"><h2>Model validation and selection</h2>
+<p>To find the best model:</p>
 <ul>
-<li>accuracy metrics
+<li>test multiple algorithms</li>
+<li>test multiple parameters for the algorithm</li>
+<li>test if more input data leads to better results</li>
+</ul>
+<p>see <a href="https://jakevdp.github.io/PythonDataScienceHandbook/05.03-hyperparameters-and-model-validation.html#Selecting-the-Best-Model">Python Data Science Handbook → Hyperparameters and Model Validation → Selecting the Best Model</a></p>
+</section></section><section class="slides-section"><section class="slide"><h1>Basic validation metrics</h1>
+</section><section class="slide"><h2>Basic validation metrics</h2>
+<p>classification metrics:</p>
 <ul>
 <li>accuracy</li>
 <li>confusion matrix</li>
 </ul>
-</li>
-<li>metrics based on true/false positives/negatives
-<ul>
-<li>precision</li>
-<li>recall</li>
-<li>f-score</li>
-<li>ROC and AUC</li>
-</ul>
-</li>
-<li>probabilistic metrics
-<ul>
-<li>cross entropy</li>
-</ul>
-</li>
-</ul>
-</section><section class="slide"><h2>Validation metrics</h2>
 <p>regression metrics:</p>
 <ul>
 <li>mean squared error</li>
 <li>coefficient of determination (R²)</li>
 </ul>
-</section><section class="slide"><h2>Classification metrics</h2>
+</section><section class="slide"><h2>Basic classification metrics</h2>
 <p>example:</p>
 <p>a basket of fruits contains 10 apples, 10 oranges and 10 peaches</p>
 <p>a classification algorithm yields these results:</p>
@@ -2624,7 +2605,7 @@ y = iris_species_one_hot
 <li>classification of oranges: 10 as oranges</li>
 <li>classification of peaches: 1 as an apple, 0 as oranges, 9 as peaches</li>
 </ul>
-</section><section class="slide"><h2>Accuracy metrics</h2>
+</section><section class="slide"><h2>Basic classification metrics</h2>
 <p><strong>accuracy</strong>: relative amount of correct classifications (in our example: 27/30=0.9)</p>
 <p><strong>confusion matrix</strong>: table of classifications for each category</p>
 
@@ -2657,6 +2638,38 @@ y = iris_species_one_hot
 
 
 <table><thead><tr><th></th><th>apples</th><th>oranges</th><th>peaches</th></tr></thead><tbody><tr><td>apples</td><td>8</td><td>0</td><td>2</td></tr><tr><td>oranges</td><td>0</td><td>10</td><td>0</td></tr><tr><td>peaches</td><td>1</td><td>0</td><td>9</td></tr></tbody></table>
+</section><section class="slide"><h2>Basic regression metrics</h2>
+<p><strong>mean squared error</strong></p>
+<p><strong>coefficient of determination (R²)</strong>:</p>
+<p>compares the mean squared error of the regression with the variance of the dataset</p>
+<ul>
+<li>R²=1 - perfect interpolation</li>
+<li>R²=0 - interpolation is no better than taking the average of all data</li>
+<li>R²&#x3C;0 - worse than taking the average of all data</li>
+</ul>
+</section></section><section class="slides-section"><section class="slide"><h1>Classification metrics</h1>
+</section><section class="slide"><h2>Classification metrics</h2>
+<ul>
+<li>accuracy metrics
+<ul>
+<li>accuracy</li>
+<li>confusion matrix</li>
+</ul>
+</li>
+<li>metrics based on true/false positives/negatives
+<ul>
+<li>precision</li>
+<li>recall</li>
+<li>f-score</li>
+<li>ROC and AUC</li>
+</ul>
+</li>
+<li>probabilistic metrics
+<ul>
+<li>cross entropy</li>
+</ul>
+</li>
+</ul>
 </section><section class="slide"><h2>Metrics based on true/false positives/negatives</h2>
 <p>binary classification: is a fruit an apple or is it not an apple?</p>
 <ul>
@@ -2692,42 +2705,6 @@ y = iris_species_one_hot
 </section><section class="slide"><h2>Probabilistic metrics</h2>
 <p><strong>cross entropy</strong> (log loss): measures how well a model of a probability distribution approximates the actual probability distribution</p>
 <p>relevant for <em>neural networks</em> and <em>logistic regression</em></p>
-</section><section class="slide"><h2>Regression metrics</h2>
-<p><strong>mean squared error</strong></p>
-<p><strong>coefficient of determination (R²)</strong>:</p>
-<p>compares the mean squared error of the regression with the variance of the dataset</p>
-<ul>
-<li>R²=1 - perfect interpolation</li>
-<li>R²=0 - interpolation is no better than taking the average of all data</li>
-<li>R²&#x3C;0 - worse than taking the average of all data</li>
-</ul>
-</section><section class="slide"><h2>Validation metrics in scikit-learn</h2>
-<p>classification:</p>
-<ul>
-<li><em>accuracy_score</em></li>
-<li><em>confusion_matrix</em></li>
-<li><em>precision_recall_fscore_support</em></li>
-<li><em>log_loss</em></li>
-<li><em>roc_curve</em></li>
-<li><em>roc_auc</em></li>
-</ul>
-<p>regression:</p>
-<ul>
-<li><em>mean_squared_error</em></li>
-<li><em>r2_score</em></li>
-</ul>
-<p>See also <a href="https://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics">https://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics</a></p>
-</section><section class="slide"><h2>Validation metrics in keras</h2>
-<ul>
-<li><em>accuracy</em></li>
-<li><em>categorical_crossentropy</em></li>
-<li><em>sparse_categorical_crossentropy</em></li>
-<li><em>precision</em></li>
-<li><em>recall</em></li>
-<li><em>auc</em></li>
-<li><em>mean_squared_error</em></li>
-</ul>
-<p>See also <a href="https://keras.io/api/metrics/">https://keras.io/api/metrics/</a></p>
 </section></section><section class="slides-section"><section class="slide"><h1>Overfitting</h1>
 </section><section class="slide"><h2>Overfitting</h2>
 <p>possible problem for machine learning algorithms: The algorithm is too flexible and recognizes apparent patterns in the training data</p>

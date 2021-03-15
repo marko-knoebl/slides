@@ -59,7 +59,6 @@ iris_setosa["sepal_ratio"].std()
 Task:
 
 - Analyze the S&P 500 monthly data and determine the monthly gain / loss in percent for each month
-- What was the biggest loss / gain in a month?
 
 ## Computing derived data via NumPy
 

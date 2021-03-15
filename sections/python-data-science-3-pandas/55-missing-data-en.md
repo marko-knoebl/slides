@@ -2,13 +2,6 @@
 
 ## Missing data
 
-In the exchange rate data there are some missing entries:
-
-- some days are not present (weekends)
-- for some days the values are `NaN`s
-
-## Missing data
-
 Values that represent missing data (since pandas 1.0):
 
 - for floats: `NaN` (as usual in Python)
@@ -16,44 +9,94 @@ Values that represent missing data (since pandas 1.0):
 
 ## Missing data
 
-removing any rows with missing data:
-
 ```py
-er = er.dropna()
+titanic["age"].shape
+# (891,)
 ```
 
-filling any rows with missing data with zeros:
-
 ```py
-er = er.fillna(0)
-```
-
-filling any missing data with the value from the previous row:
-
-```py
-er = er.fillna(method="backfill")
+titanic["age"].count()
+# 714
 ```
 
 ## Missing data
 
-interpolating data:
+show all rows with missing _age_ entries:
 
 ```py
-er = er.intepolate()
-er = er.interpolate(method="spline")
+titanic.loc[titanic["age"].isna()]
 ```
 
-interpolating example:
+## Removing rows
+
+removing any rows with missing data in any location:
 
 ```py
-url = 'https://datahub.io/core/interest-rates-gb/r/data.csv'
-
-ir_uk = pd.read_csv(url, index_col="date",
-                    parse_dates=True)
-
-ir_uk_weekly = ir_uk.resample('7d').interpolate()
+titanic = titanic.dropna()
 ```
 
-## Exercise
+removing any rows with missing data in the age column:
 
-Use the data from _sp500_ and euribor to compare the development of american and european interest rates
+```py
+titanic = titanic.dropna(subset=["age"])
+```
+
+## Filling values
+
+Filling missing data with zeros:
+
+```py
+titanic["age"] = titanic["age"].fillna(0)
+```
+
+Filling missing data by using the _last_ valid datapoint:
+
+```py
+titanic["age"] = titanic["age"].fillna(method="ffill")
+```
+
+Filling missing data by using the _next_ valid datapoint:
+
+```py
+titanic["age"] = titanic["age"].fillna(method="bfill")
+```
+
+## Interpolating values
+
+```py
+data = pd.Series(
+    [1, 2, 4, np.nan, 16, 32, np.nan, np.nan, 256]
+)
+```
+
+```py
+data.interpolate("nearest")
+data.interpolate("linear") # default
+data.interpolate("slinear")
+data.interpolate("quadratic")
+data.interpolate("cubic")
+```
+
+## Interpolating values
+
+Exercise:
+
+Use the data from _sp500_ and _euribor_ to compare the development of American and European interest rates
+
+Note:
+
+The _sp500_ has data for the first **day** of each month, the _euribor_ has data for the first **workday** of each month
+
+## Interpolating values
+
+solution:
+
+```py
+interest = pd.DataFrame({
+    "us": sp500["Long Interest Rate"],
+    "eu": euribor["rate"]
+})
+
+interest = interest.interpolate("slinear")
+interest = interest.dropna()
+```

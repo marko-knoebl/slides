@@ -1,4 +1,4 @@
-# Beispiel: Gesichtserkennung mit scikit-learn
+# Beispiel: Gesichtserkennung mit neuronalen Netzen
 
 ## Beispiel: Gesichtserkennung
 

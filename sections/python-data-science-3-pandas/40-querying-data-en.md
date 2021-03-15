@@ -112,3 +112,22 @@ euro_exchange_rates = exchange_rates[
 ]
 euro_exchange_rates.loc[:, ["Date", "Exchange rate"]]
 ```
+
+## Exercises (S&P 500)
+
+- when was the S&P 500 at its highest value? (compute the maximum, then get the corresponding row in the DataFrame)
+
+## Solution (S&P 500)
+
+```py
+sp500_max = sp500["SP500"].max()
+# returns a DataFrame
+sp500_max_row = sp500.loc[sp500["SP500"] == sp500_max]
+```
+
+shorter alternative (using `.idxmax()`):
+
+```py
+# returns a Series
+sp500_max_row = sp500.loc[sp500["SP500"].idxmax()]
+```

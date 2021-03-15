@@ -1,8 +1,6 @@
-# Validierungsmetriken
+# Klassifizierungsmetriken
 
-## Validierungsmetriken
-
-Klassifizierung:
+## Klassifizierungsmetriken
 
 - accuracy metrics
   - accuracy
@@ -14,37 +12,6 @@ Klassifizierung:
   - ROC und AUC
 - probabilistische Metriken
   - Kreuzentropie
-
-## Validierungsmetriken
-
-Regression:
-
-- Mittlere quadratische Abweichung
-- Bestimmtheitsmaß (R²)
-
-## Klassifizierungsmetriken
-
-Beispiel:
-
-Ein Korb von Früchten enthält 10 Äpfel, 10 Orangen und 10 Pfirsiche
-
-Ein Klassifizierungsalgorithmus liefert diese Ergebnisse:
-
-- Klassifizierung von Äpfeln: 8 als Äpfel, 0 als Orangen, 2 als Pfirsiche
-- Klassifizierung von Orangen: 10 als Orangen
-- Klassifizierung von Pfirsichen: 1 als Apfel, 0 als Orangen, 9 als Pfirsiche
-
-## Accuracy metrics
-
-**accuracy**: relativer Anteil korrekter Klassifizierungen (im Beispiel: 27/30=0.9)
-
-**confusion matrix**: Tabelle mit Klassifizierungen für jede Kategorie
-
-|         | apples | oranges | peaches |
-| ------- | ------ | ------- | ------- |
-| apples  | 8      | 0       | 2       |
-| oranges | 0      | 10      | 0       |
-| peaches | 1      | 0       | 9       |
 
 ## Metriken, die auf true/false positives/negatives basieren
 
@@ -100,45 +67,3 @@ Die ROC kann als Kurve dargestellt werden; je größer die Fläche unter der Kur
 **Kreuzentropie** (log loss): Misst, wie gut ein Modell einer Wahrscheinlichkeitsverteilung die tatsächliche Wahrscheinlichkeitsverteilung annähert
 
 relevant bei _neuronalen Netzwerken_ und _logistischer Regression_
-
-## Regressionsmetriken
-
-**mittlere quadratische Abweichung**
-
-**Bestimmtheitsmaß (R²)**:
-
-vergleicht die mittlere quadratische Abweichung der Regression mit der Varianz der Eingangsdaten
-
-- R²=1 - perfekte Interpolation
-- R²=0 - Interpolation ist nicht besser als das Verwenden des Durchschnitts
-- R²<0 - schlechter als das Verwenden des Durchschnitts
-
-## Validierungsmetriken in scikit-learn
-
-Klassifizierung:
-
-- _accuracy_score_
-- _confusion_matrix_
-- _precision_recall_fscore_support_
-- _log_loss_
-- _roc_curve_
-- _roc_auc_
-
-Regression:
-
-- _mean_squared_error_
-- _r2_score_
-
-Siehe auch <https://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics>
-
-## Validierunsmetriken in Keras
-
-- _accuracy_
-- _categorical_crossentropy_
-- _sparse_categorical_crossentropy_
-- _precision_
-- _recall_
-- _auc_
-- _mean_squared_error_
-
-Siehe auch <https://keras.io/api/metrics/>

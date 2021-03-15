@@ -2061,8 +2061,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   <body>
     <div class="reveal">
       <div class="slides slides"><section class="slides-section"><section class="slide"><h1>Überwachtes Lernen mit scikit-learn</h1>
-</section></section><section class="slides-section"><section class="slide"><h1>Beispiel: Iris-Klassifizierung un in scikit-learn</h1>
-<!-- duplicate section in machine-learning-theory and scikit-learn -->
+</section></section><section class="slides-section"><section class="slide"><h1>Überwachtes Lernen in scikit-learn</h1>
 </section><section class="slide"><h2>Überwachtes Lernen in scikit-learn</h2>
 <p>Schritte:</p>
 <ul>
@@ -2071,6 +2070,8 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li>"Lernen" mittels <code>model.fit(X, y)</code></li>
 <li>Voraussagen weiterer Ergebnisse mittels <code>model.predict(...)</code></li>
 </ul>
+</section><section class="slide"><h2>Beispiel: Iris-Klassifikation</h2>
+<!-- duplicate section in machine-learning-theory and scikit-learn -->
 </section><section class="slide"><h2>Beispiel</h2>
 <p>Beispiel: Klassifizierung von Iris-Pflanzen</p>
 <p>Bekannte Daten: Maße und Klassifizierung von 150 Iris-Pflanzen (Schwertlilien)</p>
@@ -2123,6 +2124,63 @@ y_pred_proba = model.predict_proba(test_data)
 <li><code>sklearn.tree.DecisionTreeClassifier</code></li>
 <li><code>sklearn.naive_bayes.GaussianNB</code></li>
 </ul>
+</section></section><section class="slides-section"><section class="slide"><h1>Beispiel: Ziffernerkennung</h1>
+</section><section class="slide"><h2>Beispiel: Ziffernerkennung</h2>
+<p>Eingangsdaten: Graustufenbilder von 1797 handgeschriebenen Ziffern</p>
+<p>Zieldaten: Ziffer (z.B. 0, 1, 2, 3, ...)</p>
+</section><section class="slide"><h2>Laden von Zifferndaten</h2>
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> datasets
+
+digits = datasets.load_digits()
+</code></pre>
+<p>Bilder in <code>digits.images</code></p>
+<p>Label in <code>digits.target</code></p>
+</section><section class="slide"><h2>Visualisierung von Ziffern</h2>
+<p>Aufgabe:</p>
+<p>Zeige manche der Bilder und ihre zugehörigen Labels mittels der Funktion <code>imshow</code> von <em>pyplot</em></p>
+</section><section class="slide"><h2>Visualisierung von Ziffern</h2>
+<p>Einfache Lösung:</p>
+<pre><code class="hljs language-py">plt.imshow(digits.images[<span class="hljs-number">3</span>], cmap=<span class="hljs-string">"gray"</span>)
+plt.axis(<span class="hljs-string">"off"</span>)
+plt.title(digits.target[<span class="hljs-number">3</span>])
+</code></pre>
+</section><section class="slide"><h2>Vorbereiten von Daten</h2>
+<p>Aufgabe:</p>
+<p>"flattening" des Eingangsarray von 1797x8x8 zu 1797x64</p>
+</section><section class="slide"><h2>Vorbereiten von Daten</h2>
+<p>explizite Lösung:</p>
+<pre><code class="hljs language-py">x = digits.images.reshape(<span class="hljs-number">1797</span>, <span class="hljs-number">64</span>)
+</code></pre>
+<p>robuste Lösung:</p>
+<pre><code class="hljs language-py">x = digits.images.reshape(digits.images.shape[<span class="hljs-number">0</span>], -<span class="hljs-number">1</span>)
+</code></pre>
+</section><section class="slide"><h2>Trainieren</h2>
+<p>Aufgabe: Wähle die ersten 1500 Einträge als Trainingsdaten und trainiere das Modell</p>
+</section><section class="slide"><h2>Trainieren</h2>
+<p>Lösung:</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> sklearn.neighbors <span class="hljs-keyword">import</span> KNeighborsClassifier
+
+x_train = x[:<span class="hljs-number">1500</span>]
+y_train = y[:<span class="hljs-number">1500</span>]
+
+model = KNeighborsClassifier(<span class="hljs-number">1</span>)
+model.fit(x_train, y_train)
+</code></pre>
+</section><section class="slide"><h2>Testen</h2>
+<p>Aufgabe: Verwende die verbleibenden Einträge als Testdaten und berechte den Prozentsatz an richtigen Klassifizierungen</p>
+</section><section class="slide"><h2>Testen</h2>
+<p>Lösung:</p>
+<pre><code class="hljs language-py">x_test = x[<span class="hljs-number">1500</span>:]
+y_test = y[<span class="hljs-number">1500</span>:]
+
+y_pred = model.predict(x_test)
+
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+
+num_correct = np.<span class="hljs-built_in">sum</span>(y_pred == y_test)
+
+print(num_correct / y_test.size)
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Daten vorbereiten</h1>
 </section><section class="slide"><h2>Daten vorbereiten</h2>
 <p>erwünschtes Datenformat für Machine Learning Algorithmen:</p>
@@ -2392,17 +2450,37 @@ y_pred = model.predict(test_data)
 print(y_pred)
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Validierung</h1>
+</section><section class="slide"><h2>Validierungsmetriken in scikit-learn</h2>
+<p>Klassifizierung:</p>
+<ul>
+<li><em>accuracy_score</em></li>
+<li><em>confusion_matrix</em></li>
+<li><em>precision_recall_fscore_support</em></li>
+<li><em>log_loss</em></li>
+<li><em>roc_curve</em></li>
+<li><em>roc_auc</em></li>
+</ul>
+<p>Regression:</p>
+<ul>
+<li><em>mean_squared_error</em></li>
+<li><em>r2_score</em></li>
+</ul>
 </section><section class="slide"><h2>Train-Test Split</h2>
 <p>Wie gut kategorisiert ein bestimmter Algorithmus die Iris-Daten?</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> metrics
+
+y_prediction = model.predict(x_test)
+
+print(metrics.accuracy_score(y_test, y_prediction))
+print(metrics.confusion_matrix(y_test, y_prediction))
+print(<span class="hljs-built_in">list</span>(metrics.precision_recall_fscore_support(
+           y_test, y_prediction)))
+</code></pre>
+</section><section class="slide"><h2>Train-Test Split</h2>
+<p>Hilfsfunktion in scikit-learn:</p>
 <pre><code class="hljs language-py"><span class="hljs-keyword">from</span> sklearn.model_selection <span class="hljs-keyword">import</span> train_test_split
-<span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> metrics
 
 X_train, X_test, Y_train, Y_test = train_test_split(X, Y)
-
-<span class="hljs-comment"># ...</span>
-
-Y_prediction = model.predict(X_test)
-print(metrics.accuracy_score(Y_test, Y_prediction))
 </code></pre>
 <p>optionale Parameter:</p>
 <ul>
@@ -2434,26 +2512,27 @@ fpr, tpr, thresholds = metrics.roc_curve(
 <p>Bestimmen der AUC:</p>
 <pre><code class="hljs language-py">auc = metrics.auc(fpr, tpr)
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Example: Erkennung von Ziffern</h1>
-</section><section class="slide"><h2>Example: Erkennung von Ziffern</h2>
-<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> sklearn.neighbors <span class="hljs-keyword">import</span> KNeighborsClassifier
-<span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> datasets, model_selection, metrics
-
-digits = datasets.load_digits()
-<span class="hljs-comment"># flatten array from 1797x8x8 to 1797x64</span>
-X = digits.images.reshape(digits.images.shape[<span class="hljs-number">0</span>], -<span class="hljs-number">1</span>)
-y = digits.target
-
-X_train, X_test, y_train, y_test =
-    model_selection.train_test_split(X, y)
-
-model = KNeighborsClassifier()
-model.fit(X_train, y_train)
-
-y_pred = model.predict(X_test)
-print(metrics.accuracy_score(y_test, y_pred))
+</section></section><section class="slides-section"><section class="slide"><h1>Abstraktion</h1>
+</section><section class="slide"><h2>Abstraktion</h2>
+<ul>
+<li>Pipelines</li>
+<li>eigene Klassen</li>
+</ul>
+</section><section class="slide"><h2>Abstraktion</h2>
+<p><em>Pipelines</em> können das Verarbeiten von Eingangswerten <em>x</em> abstrahieren</p>
+<p>Eigene Klassen können das Verarbeiten von sowohl <em>x</em> als auch <em>y</em> abstrahieren</p>
+</section><section class="slide"><h2>Abstraktion</h2>
+<p>direkte Verwendung eines Modells, um Überleben auf der Titanic vorherzusagen:</p>
+<pre><code class="hljs language-py">model.predict([[<span class="hljs-number">2</span>, <span class="hljs-number">0</span>, <span class="hljs-number">28.0</span>, <span class="hljs-number">0</span>]])
+<span class="hljs-comment"># [0]</span>
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Beispiel: Gesichtserkennung mit scikit-learn</h1>
+<p>abstrahiertes Interface:</p>
+<pre><code class="hljs language-py">classifier.predict_survival(
+    pclass=<span class="hljs-number">2</span>, sex=<span class="hljs-string">"male"</span>, age=<span class="hljs-number">28.0</span>, sibsp=<span class="hljs-number">0</span>
+)
+<span class="hljs-comment"># False</span>
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Beispiel: Gesichtserkennung mit neuronalen Netzen</h1>
 </section><section class="slide"><h2>Beispiel: Gesichtserkennung</h2>
 <p><a href="http://vis-www.cs.umass.edu/lfw/number_11.html">Beispieldaten</a></p>
 <p>Eingangsdaten: Schwarz-weiß-Bilder bekannter Personen (Größe 62 x 47) und deren Namen</p>
@@ -2523,26 +2602,19 @@ pred_label = pred_labels[index]
 print(<span class="hljs-string">"real name:"</span>, faces.target_names[real_label])
 print(<span class="hljs-string">"predicted name:"</span>, faces.target_names[pred_label])
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Abstraktion</h1>
-</section><section class="slide"><h2>Abstraktion</h2>
+</section></section><section class="slides-section"><section class="slide"><h1>Übungen und Datensätze</h1>
+</section><section class="slide"><h2>Datensätze</h2>
 <ul>
-<li>Pipelines</li>
-<li>eigene Klassen</li>
+<li>kleinere Datensetze: <a href="https://scikit-learn.org/stable/datasets/toy_dataset.html">https://scikit-learn.org/stable/datasets/toy_dataset.html</a></li>
+<li>"real world"-Datensätze: <a href="https://scikit-learn.org/stable/datasets/real_world.html">https://scikit-learn.org/stable/datasets/real_world.html</a></li>
 </ul>
-</section><section class="slide"><h2>Abstraktion</h2>
-<p><em>Pipelines</em> können das Verarbeiten von Eingangswerten <em>x</em> abstrahieren</p>
-<p>Eigene Klassen können das Verarbeiten von sowohl <em>x</em> als auch <em>y</em> abstrahieren</p>
-</section><section class="slide"><h2>Abstraktion</h2>
-<p>direkte Verwendung eines Modells, um Überleben auf der Titanic vorherzusagen:</p>
-<pre><code class="hljs language-py">model.predict([[<span class="hljs-number">2</span>, <span class="hljs-number">0</span>, <span class="hljs-number">28.0</span>, <span class="hljs-number">0</span>]])
-<span class="hljs-comment"># [0]</span>
-</code></pre>
-<p>abstrahiertes Interface:</p>
-<pre><code class="hljs language-py">classifier.predict_survival(
-    pclass=<span class="hljs-number">2</span>, sex=<span class="hljs-string">"male"</span>, age=<span class="hljs-number">28.0</span>, sibsp=<span class="hljs-number">0</span>
-)
-<span class="hljs-comment"># False</span>
-</code></pre></section></section></div>
+</section><section class="slide"><h2>Übungen</h2>
+<ul>
+<li>Diabetes-Verlauf (Regression)</li>
+<li>Ziffern (Klassifikation)</li>
+<li>Titanic-Überleben (Regression)</li>
+<li>Labeled Faces (Klassifikation mit neuronalen Netzen)</li>
+</ul></section></section></div>
     </div>
     <script>/*!
  * reveal.js

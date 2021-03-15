@@ -1,19 +1,46 @@
 # Validation
 
+## Validation metrics in scikit-learn
+
+classification:
+
+- _accuracy_score_
+- _confusion_matrix_
+- _precision_recall_fscore_support_
+- _log_loss_
+- _roc_curve_
+- _roc_auc_
+
+regression:
+
+- _mean_squared_error_
+- _r2_score_
+
+See also <https://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics>
+
 ## Train-test split
 
 How well does a model categorize iris data?
 
 ```py
-from sklearn.model_selection import train_test_split
 from sklearn import metrics
 
-X_train, X_test, Y_train, Y_test = train_test_split(X, Y)
+y_prediction = model.predict(x_test)
 
-# ...
+print(metrics.accuracy_score(y_test, y_prediction))
+print(metrics.confusion_matrix(y_test, y_prediction))
+print(list(metrics.precision_recall_fscore_support(
+           y_test, y_prediction)))
+```
 
-Y_prediction = model.predict(X_test)
-print(metrics.accuracy_score(Y_test, Y_prediction))
+## Train-test split
+
+helper function in scikit-learn:
+
+```py
+from sklearn.model_selection import train_test_split
+
+x_train, x_test, y_train, y_test = train_test_split(x, y)
 ```
 
 optional parameters:

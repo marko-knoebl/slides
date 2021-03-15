@@ -10,14 +10,16 @@ Desired result:
 
 ```
                 Exchange rate
-Country                      
-Australia            1.281835
-Austria             11.369417
-Belgium             33.412500
-Canada               1.167017
-China                4.795492
-Denmark              6.188025
-Finland              3.827700
-France               5.444883
-Germany              1.615875
+Country
+Australia            1.388618
+Austria             11.524158
+Belgium             33.814000
+Brazil               1.195978
+Canada               1.326853
+China                7.168158
+Denmark              6.315331
+Euro                 0.938684
+Finland              4.841093
+France               5.558649
+Germany              1.637938
 ```

@@ -1,8 +1,6 @@
-# Validation metrics
+# Classification metrics
 
-## Validation metrics
-
-classification metrics:
+## Classification metrics
 
 - accuracy metrics
   - accuracy
@@ -14,37 +12,6 @@ classification metrics:
   - ROC and AUC
 - probabilistic metrics
   - cross entropy
-
-## Validation metrics
-
-regression metrics:
-
-- mean squared error
-- coefficient of determination (R²)
-
-## Classification metrics
-
-example:
-
-a basket of fruits contains 10 apples, 10 oranges and 10 peaches
-
-a classification algorithm yields these results:
-
-- classification of apples: 8 as apples, 0 as oranges, 2 as peaches
-- classification of oranges: 10 as oranges
-- classification of peaches: 1 as an apple, 0 as oranges, 9 as peaches
-
-## Accuracy metrics
-
-**accuracy**: relative amount of correct classifications (in our example: 27/30=0.9)
-
-**confusion matrix**: table of classifications for each category
-
-|         | apples | oranges | peaches |
-| ------- | ------ | ------- | ------- |
-| apples  | 8      | 0       | 2       |
-| oranges | 0      | 10      | 0       |
-| peaches | 1      | 0       | 9       |
 
 ## Metrics based on true/false positives/negatives
 
@@ -100,45 +67,3 @@ The ROC may be displayed as a curve; the bigger the area under the curve (AUC), 
 **cross entropy** (log loss): measures how well a model of a probability distribution approximates the actual probability distribution
 
 relevant for _neural networks_ and _logistic regression_
-
-## Regression metrics
-
-**mean squared error**
-
-**coefficient of determination (R²)**:
-
-compares the mean squared error of the regression with the variance of the dataset
-
-- R²=1 - perfect interpolation
-- R²=0 - interpolation is no better than taking the average of all data
-- R²<0 - worse than taking the average of all data
-
-## Validation metrics in scikit-learn
-
-classification:
-
-- _accuracy_score_
-- _confusion_matrix_
-- _precision_recall_fscore_support_
-- _log_loss_
-- _roc_curve_
-- _roc_auc_
-
-regression:
-
-- _mean_squared_error_
-- _r2_score_
-
-See also <https://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics>
-
-## Validation metrics in keras
-
-- _accuracy_
-- _categorical_crossentropy_
-- _sparse_categorical_crossentropy_
-- _precision_
-- _recall_
-- _auc_
-- _mean_squared_error_
-
-See also <https://keras.io/api/metrics/>

@@ -29,7 +29,9 @@ number of passengers in each class:
 ```py
 titanic["pclass"].value_counts()
 
-# 491, 216, 184
+# 3    491
+# 1    216
+# 2    184
 ```
 
 ## Grouping and aggregation
@@ -39,7 +41,9 @@ median age of passengers in each class:
 ```py
 titanic["age"].groupby(titanic["pclass"]).median()
 
-# 37, 29, 24
+# 1    37.0
+# 2    29.0
+# 3    24.0
 ```
 
 ## Grouping and aggregation
@@ -83,3 +87,18 @@ pd.pivot_table(
 
 - mean values for each of the four iris measurements within each type of flower
 - mean USD exchange rates for each currency in the 90s
+
+## Exercises - Solutions
+
+```py
+iris.groupby(iris["species"]).mean()
+```
+
+```py
+er_90s = exchange_rates.loc[
+    (exchange_rates["Date"] >= "1990-01-01") &
+    (exchange_rates["Date"] <= "1999-12-31")
+]
+
+er_90s_means = er_90s.groupby("Country").mean()
+```

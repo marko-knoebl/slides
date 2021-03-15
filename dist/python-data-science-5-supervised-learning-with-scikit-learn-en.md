@@ -1,8 +1,6 @@
 # Supervised learning with scikit-learn
 
-# Example: iris classification in scikit-learn
-
-<!-- duplicate section in machine-learning-theory and scikit-learn -->
+# Supervised learning in scikit-learn
 
 ## Supervised learning in scikit-learn
 
@@ -12,6 +10,10 @@ steps:
 - instantiate an algorithm class - e.g. `KNeighborsClassifier`, `MLPClassifier`, `LinearRegression`, ...
 - "learn" via `model.fit(X, y)`
 - predict more results via `model.predict(...)`
+
+# Example: iris classification in scikit-learn
+
+<!-- duplicate section in machine-learning-theory and scikit-learn -->
 
 ## Example
 
@@ -83,6 +85,101 @@ task: use other classifiers, e.g.:
 - `sklearn.svm.SVC`
 - `sklearn.tree.DecisionTreeClassifier`
 - `sklearn.naive_bayes.GaussianNB`
+
+# Example: digit recognition
+
+## Example: digit recognition
+
+input data: grayscale images of 1797 handwritten digits
+
+target data: digit (e.g. 0, 1, 2, 3, ...)
+
+## Loading digit data
+
+```py
+from sklearn import datasets
+
+digits = datasets.load_digits()
+```
+
+images are in `digits.images`
+
+labels are in `digits.target`
+
+## Visualizing digits
+
+task:
+
+display some of the images and their correct labels via _pyplot_'s `imshow`
+
+## Visualizing digits
+
+simple solution:
+
+```py
+plt.imshow(digits.images[3], cmap="gray")
+plt.axis("off")
+plt.title(digits.target[3])
+```
+
+## Preparing data
+
+task:
+
+flatten input array from 1797x8x8 to 1797x64
+
+## Preparing data
+
+explicit solution:
+
+```py
+x = digits.images.reshape(1797, 64)
+```
+
+robust solution:
+
+```py
+x = digits.images.reshape(digits.images.shape[0], -1)
+```
+
+## Training
+
+Task: select the first 1500 entries as training data and train the model
+
+## Training
+
+Solution:
+
+```py
+from sklearn.neighbors import KNeighborsClassifier
+
+x_train = x[:1500]
+y_train = y[:1500]
+
+model = KNeighborsClassifier(1)
+model.fit(x_train, y_train)
+```
+
+## Testing
+
+Task: select the remaining entries as testing data and compute the percentage of correct classifications
+
+## Testing
+
+Solution:
+
+```py
+x_test = x[1500:]
+y_test = y[1500:]
+
+y_pred = model.predict(x_test)
+
+import numpy as np
+
+num_correct = np.sum(y_pred == y_test)
+
+print(num_correct / y_test.size)
+```
 
 # Preparing data
 
@@ -448,20 +545,47 @@ print(y_pred)
 
 # Validation
 
+## Validation metrics in scikit-learn
+
+classification:
+
+- _accuracy_score_
+- _confusion_matrix_
+- _precision_recall_fscore_support_
+- _log_loss_
+- _roc_curve_
+- _roc_auc_
+
+regression:
+
+- _mean_squared_error_
+- _r2_score_
+
+See also <https://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics>
+
 ## Train-test split
 
 How well does a model categorize iris data?
 
 ```py
-from sklearn.model_selection import train_test_split
 from sklearn import metrics
 
-X_train, X_test, Y_train, Y_test = train_test_split(X, Y)
+y_prediction = model.predict(x_test)
 
-# ...
+print(metrics.accuracy_score(y_test, y_prediction))
+print(metrics.confusion_matrix(y_test, y_prediction))
+print(list(metrics.precision_recall_fscore_support(
+           y_test, y_prediction)))
+```
 
-Y_prediction = model.predict(X_test)
-print(metrics.accuracy_score(Y_test, Y_prediction))
+## Train-test split
+
+helper function in scikit-learn:
+
+```py
+from sklearn.model_selection import train_test_split
+
+x_train, x_test, y_train, y_test = train_test_split(x, y)
 ```
 
 optional parameters:
@@ -510,27 +634,35 @@ determining the AUC:
 auc = metrics.auc(fpr, tpr)
 ```
 
-# Example: digit recognition
+# Abstraction
 
-## Example: digit recognition
+## Abstraction
+
+- pipelines
+- custom classes
+
+## Abstraction
+
+_pipelines_ can abstract the processing of input values _x_
+
+custom classes can abstract the processing of both _x_ and _y_
+
+## Abstraction
+
+direct model usage to predict survival on the Titanic:
 
 ```py
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn import datasets, model_selection, metrics
+model.predict([[2, 0, 28.0, 0]])
+# [0]
+```
 
-digits = datasets.load_digits()
-# flatten array from 1797x8x8 to 1797x64
-X = digits.images.reshape(digits.images.shape[0], -1)
-y = digits.target
+abstracted interface:
 
-X_train, X_test, y_train, y_test =
-    model_selection.train_test_split(X, y)
-
-model = KNeighborsClassifier()
-model.fit(X_train, y_train)
-
-y_pred = model.predict(X_test)
-print(metrics.accuracy_score(y_test, y_pred))
+```py
+classifier.predict_survival(
+    pclass=2, sex="male", age=28.0, sibsp=0
+)
+# False
 ```
 
 # Example: labeled faces with scikit-learn
@@ -628,33 +760,16 @@ print("real name:", faces.target_names[real_label])
 print("predicted name:", faces.target_names[pred_label])
 ```
 
-# Abstraction
+# Exercises and datasets
 
-## Abstraction
+## Datasets
 
-- pipelines
-- custom classes
+- smaller datasets: <https://scikit-learn.org/stable/datasets/toy_dataset.html>
+- real world datasets: <https://scikit-learn.org/stable/datasets/real_world.html>
 
-## Abstraction
+## Exercises
 
-_pipelines_ can abstract the processing of input values _x_
-
-custom classes can abstract the processing of both _x_ and _y_
-
-## Abstraction
-
-direct model usage to predict survival on the Titanic:
-
-```py
-model.predict([[2, 0, 28.0, 0]])
-# [0]
-```
-
-abstracted interface:
-
-```py
-classifier.predict_survival(
-    pclass=2, sex="male", age=28.0, sibsp=0
-)
-# False
-```
+- diabetes progression (regression)
+- digits (classification)
+- Titanic survival (regression)
+- labeled faces (classification via neural networks)

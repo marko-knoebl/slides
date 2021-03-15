@@ -297,6 +297,19 @@ dtype: float64
 ]
 euro_exchange_rates.loc[:, [<span class="hljs-string">"Date"</span>, <span class="hljs-string">"Exchange rate"</span>]]
 </code></pre>
+<h2>Aufgaben (S&#x26;P 500)</h2>
+<ul>
+<li>wann war der S&#x26;P 500 am höchsten Wert? (Bestimme das Maximum, dann suche die zugehörige Zeile im DataFrame)</li>
+</ul>
+<h2>Lösung (S&#x26;P 500)</h2>
+<pre><code class="hljs language-py">sp500_max = sp500[<span class="hljs-string">"SP500"</span>].<span class="hljs-built_in">max</span>()
+<span class="hljs-comment"># returns a DataFrame</span>
+sp500_max_row = sp500.loc[sp500[<span class="hljs-string">"SP500"</span>] == sp500_max]
+</code></pre>
+<p>kürzere Alternative: (via <code>.idxmax()</code>):</p>
+<pre><code class="hljs language-py"><span class="hljs-comment"># returns a Series</span>
+sp500_max_row = sp500.loc[sp500[<span class="hljs-string">"SP500"</span>].idxmax()]
+</code></pre>
 <h1>Daten manipulieren</h1>
 <h2>Spalten umbenennen</h2>
 <pre><code class="hljs language-py">df.columns = [<span class="hljs-string">"name1"</span>, <span class="hljs-string">"name2"</span>]
@@ -335,7 +348,6 @@ iris_setosa[<span class="hljs-string">"sepal_ratio"</span>].std()
 <p>Aufgabe:</p>
 <ul>
 <li>Analysiere die monatlichen S&#x26;P 500 Daten und berechne den monatlichen Gewinn / Verlust</li>
-<li>Was war der größte Gewinn / Verlust in einem Monat?</li>
 </ul>
 <h2>Abgeleitete Werte berechnen mittels NumPy</h2>
 <p>Umwandeln in ein NumPy-Array:</p>
@@ -369,42 +381,65 @@ iris.loc[:, <span class="hljs-string">"sepal_ratio"</span>] = <span class="hljs-
 </code></pre>
 <h1>Fehlende Daten</h1>
 <h2>Fehlende Daten</h2>
-<p>In den Wechselkursdaten fehlen manche Einträge:</p>
-<ul>
-<li>manche Tage sind nicht eingetragen (Wochenenden)</li>
-<li>zu manchen Tage sind Werte als <code>NaN</code>s eingetragen</li>
-</ul>
-<h2>Fehlende Daten</h2>
 <p>Werte, die fehlende Daten symbolisieren (ab pandas 1.0):</p>
 <ul>
 <li>für floats: <code>NaN</code> (wie allgemein in Python üblich)</li>
 <li>für andere Datentypen: <code>NA</code> (aus dem Pandas-Paket)</li>
 </ul>
 <h2>Fehlende Daten</h2>
-<p>Entfernen aller Zeilen mit fehlenden Daten:</p>
-<pre><code class="hljs language-py">er = er.dropna()
+<pre><code class="hljs language-py">titanic[<span class="hljs-string">"age"</span>].shape
+<span class="hljs-comment"># (891,)</span>
 </code></pre>
-<p>Ersetzen aller fehlender Daten mit Nullen:</p>
-<pre><code class="hljs language-py">er = er.fillna(<span class="hljs-number">0</span>)
-</code></pre>
-<p>Ersetzen aller fehlernder Daten mit Werten der Reihe zuvor:</p>
-<pre><code class="hljs language-py">er = er.fillna(method=<span class="hljs-string">"backfill"</span>)
+<pre><code class="hljs language-py">titanic[<span class="hljs-string">"age"</span>].count()
+<span class="hljs-comment"># 714</span>
 </code></pre>
 <h2>Fehlende Daten</h2>
-<p>Daten interpolieren:</p>
-<pre><code class="hljs language-py">er = er.intepolate()
-er = er.interpolate(method=<span class="hljs-string">"spline"</span>)
+<p>Anzeigen aller Zeilen mit fehlenden <em>age</em>-Einträgen:</p>
+<pre><code class="hljs language-py">titanic.loc[titanic[<span class="hljs-string">"age"</span>].isna()]
 </code></pre>
-<p>Beispiel:</p>
-<pre><code class="hljs language-py">url = <span class="hljs-string">'https://datahub.io/core/interest-rates-gb/r/data.csv'</span>
-
-ir_uk = pd.read_csv(url, index_col=<span class="hljs-string">"date"</span>,
-                    parse_dates=<span class="hljs-literal">True</span>)
-
-ir_uk_weekly = ir_uk.resample(<span class="hljs-string">'7d'</span>).interpolate()
+<h2>Fehlende Daten</h2>
+<p>Entfernen aller Zeilen mit fehlenden Daten:</p>
+<pre><code class="hljs language-py">titanic = titanic.dropna()
 </code></pre>
-<h2>Übung</h2>
-<p>Nutze die Daten aus <em>sp500</em> und <em>euribor</em>, um die Entwicklungen der europäischen und amerikanischen Zinssätze einander gegenüberzustellen.</p>
+<p>Entfernen aller Zeilen mit fehlenden Daten in der Spalte <em>age</em>:</p>
+<pre><code class="hljs language-py">titanic = titanic.dropna(subset=[<span class="hljs-string">"age"</span>])
+</code></pre>
+<h2>Ersetzen fehlender Daten</h2>
+<p>Ersetzen fehlender Daten durch Nullen:</p>
+<pre><code class="hljs language-py">titanic[<span class="hljs-string">"age"</span>] = titanic[<span class="hljs-string">"age"</span>].fillna(<span class="hljs-number">0</span>)
+</code></pre>
+<p>Ersetzen fehlender Daten durch den <em>letzten</em> gültigen Wert:</p>
+<pre><code class="hljs language-py">titanic[<span class="hljs-string">"age"</span>] = titanic[<span class="hljs-string">"age"</span>].fillna(method=<span class="hljs-string">"ffill"</span>)
+</code></pre>
+<p>Ersetzen fehlender Daten durch den <em>nächsten</em> gültigen Wert:</p>
+<pre><code class="hljs language-py">titanic[<span class="hljs-string">"age"</span>] = titanic[<span class="hljs-string">"age"</span>].fillna(method=<span class="hljs-string">"bfill"</span>)
+</code></pre>
+<h2>Interpolieren von Werten</h2>
+<pre><code class="hljs language-py">data = pd.Series(
+    [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">4</span>, np.nan, <span class="hljs-number">16</span>, <span class="hljs-number">32</span>, np.nan, np.nan, <span class="hljs-number">256</span>]
+)
+</code></pre>
+<pre><code class="hljs language-py">data.interpolate(<span class="hljs-string">"nearest"</span>)
+data.interpolate(<span class="hljs-string">"linear"</span>) <span class="hljs-comment"># default</span>
+data.interpolate(<span class="hljs-string">"slinear"</span>)
+data.interpolate(<span class="hljs-string">"quadratic"</span>)
+data.interpolate(<span class="hljs-string">"cubic"</span>)
+</code></pre>
+<h2>Interpolieren von Werten</h2>
+<p>Übung:</p>
+<p>Verwende die Daten aus <em>sp500</em> und <em>euribor</em>, um die Entwicklungen der europäischen und amerikanischen Zinssätze einander gegenüberzustellen.</p>
+<p>Bemerkung:</p>
+<p><em>sp500</em> hat Daten für den ersten <strong>Tag</strong> jedes Monats, <em>euribor</em> hat daten für den ersten <strong>Arbeitstag</strong> jedes Monats</p>
+<h2>Interpolieren von Werten</h2>
+<p>Lösung:</p>
+<pre><code class="hljs language-py">interest = pd.DataFrame({
+    <span class="hljs-string">"us"</span>: sp500[<span class="hljs-string">"Long Interest Rate"</span>],
+    <span class="hljs-string">"eu"</span>: euribor[<span class="hljs-string">"rate"</span>]
+})
+
+interest = interest.interpolate(<span class="hljs-string">"slinear"</span>)
+interest = interest.dropna()
+</code></pre>
 <h1>Plotting</h1>
 <h2>Plotting</h2>
 <p>Wrapper für <em>pyplot</em>-Funktionen, die auf <em>Series</em>- und <em>DataFrame</em>-Objekten existieren:</p>
@@ -487,6 +522,36 @@ surface.plot.pie(ylabel=<span class="hljs-string">"Surface of the earth"</span>)
 
 scatter_matrix(iris)
 </code></pre>
+<h1>Zeitreihen</h1>
+<h2>Zeitreihen</h2>
+<p>erstellen von Datumsfolgen (als Index-Objekte):</p>
+<pre><code class="hljs language-py">every_day = pd.date_range(<span class="hljs-string">"2000-01-01"</span>, <span class="hljs-string">"2000-12-31"</span>)
+last_of_each_month = pd.date_range(
+    <span class="hljs-string">"2000-01-01"</span>, <span class="hljs-string">"2000-12-31"</span>, freq=<span class="hljs-string">"M"</span>
+)
+first_of_each_month = pd.date_range(
+    <span class="hljs-string">"2000-01-01"</span>, <span class="hljs-string">"2000-12-31"</span>, freq=<span class="hljs-string">"MS"</span>
+)
+every_10_days = pd.date_range(
+    <span class="hljs-string">"2000-01-01"</span>, <span class="hljs-string">"2000-12-31"</span>, freq=<span class="hljs-string">"10d"</span>
+)
+</code></pre>
+<h2>Zeitreihen</h2>
+<p>Überprüfen, ob der erste Tag jedes Monats in den S&#x26;P 500 Daten vorhanden ist:</p>
+<pre><code class="hljs language-py">sp500.index.equals(
+    pd.date_range(
+        sp500.index[<span class="hljs-number">0</span>], sp500.index[-<span class="hljs-number">1</span>], freq=<span class="hljs-string">"MS"</span>
+    )
+)
+<span class="hljs-comment"># True</span>
+</code></pre>
+<h2>Resampling</h2>
+<p>Resampling, um Werte für den Beginn jedes Jahres zu erhalten:</p>
+<pre><code class="hljs language-py">sp500.resample(<span class="hljs-string">"1ys"</span>).interpolate()
+</code></pre>
+<p>Resampling, um Werte für jeden Tag zu erhalten:</p>
+<pre><code class="hljs language-py">sp500.resample(<span class="hljs-string">"1d"</span>).interpolate()
+</code></pre>
 <h1>Gruppierung und Aggregation</h1>
 <h2>Gruppierung und Aggregation</h2>
 <p>Beispiele zu den Titanic-Daten:</p>
@@ -510,13 +575,17 @@ scatter_matrix(iris)
 <p>Anzahl von Passagieren pro Klasse:</p>
 <pre><code class="hljs language-py">titanic[<span class="hljs-string">"pclass"</span>].value_counts()
 
-<span class="hljs-comment"># 491, 216, 184</span>
+<span class="hljs-comment"># 3    491</span>
+<span class="hljs-comment"># 1    216</span>
+<span class="hljs-comment"># 2    184</span>
 </code></pre>
 <h2>Gruppierung und Aggregation</h2>
 <p>Median der Alter pro Klasse:</p>
 <pre><code class="hljs language-py">titanic[<span class="hljs-string">"age"</span>].groupby(titanic[<span class="hljs-string">"pclass"</span>]).median()
 
-<span class="hljs-comment"># 37, 29, 24</span>
+<span class="hljs-comment"># 1    37.0</span>
+<span class="hljs-comment"># 2    29.0</span>
+<span class="hljs-comment"># 3    24.0</span>
 </code></pre>
 <h2>Gruppierung und Aggregation</h2>
 <p>Anzahl der Passagiere nach Klasse und Geschlecht (<em>Kontingenztabelle</em> oder <em>Kreuztabelle</em>)</p>
@@ -548,6 +617,16 @@ pclass
 <li>Durchschnittswerte der Iris-Daten basierend auf dem Namen der Art</li>
 <li>Durchschnittliche USD-Wechselkurse für jede Währung in den 90ern</li>
 </ul>
+<h2>Übungen - Lösungen</h2>
+<pre><code class="hljs language-py">iris.groupby(iris[<span class="hljs-string">"species"</span>]).mean()
+</code></pre>
+<pre><code class="hljs language-py">er_90s = exchange_rates.loc[
+    (exchange_rates[<span class="hljs-string">"Date"</span>] >= <span class="hljs-string">"1990-01-01"</span>) &#x26;
+    (exchange_rates[<span class="hljs-string">"Date"</span>] &#x3C;= <span class="hljs-string">"1999-12-31"</span>)
+]
+
+er_90s_means = er_90s.groupby(<span class="hljs-string">"Country"</span>).mean()
+</code></pre>
 <h1>Multi-Index</h1>
 <h2>Multi-Index</h2>
 <p>Index-Spalte: Spalte, anhand deren Einträge die Zeilen eindeutig identifiziert werden können</p>

@@ -1,8 +1,6 @@
 # Überwachtes Lernen mit scikit-learn
 
-# Beispiel: Iris-Klassifizierung un in scikit-learn
-
-<!-- duplicate section in machine-learning-theory and scikit-learn -->
+# Überwachtes Lernen in scikit-learn
 
 ## Überwachtes Lernen in scikit-learn
 
@@ -12,6 +10,10 @@ Schritte:
 - Instanziierung einer Algorithmenklasse, z.B. `KNeighborsClassifier`, `MLPClassifier`, `LinearRegression`, ...
 - "Lernen" mittels `model.fit(X, y)`
 - Voraussagen weiterer Ergebnisse mittels `model.predict(...)`
+
+## Beispiel: Iris-Klassifikation
+
+<!-- duplicate section in machine-learning-theory and scikit-learn -->
 
 ## Beispiel
 
@@ -83,6 +85,101 @@ Aufgabe: Verwenden anderer Klassifikatoren, z.B.:
 - `sklearn.svm.SVC`
 - `sklearn.tree.DecisionTreeClassifier`
 - `sklearn.naive_bayes.GaussianNB`
+
+# Beispiel: Ziffernerkennung
+
+## Beispiel: Ziffernerkennung
+
+Eingangsdaten: Graustufenbilder von 1797 handgeschriebenen Ziffern
+
+Zieldaten: Ziffer (z.B. 0, 1, 2, 3, ...)
+
+## Laden von Zifferndaten
+
+```py
+from sklearn import datasets
+
+digits = datasets.load_digits()
+```
+
+Bilder in `digits.images`
+
+Label in `digits.target`
+
+## Visualisierung von Ziffern
+
+Aufgabe:
+
+Zeige manche der Bilder und ihre zugehörigen Labels mittels der Funktion `imshow` von _pyplot_
+
+## Visualisierung von Ziffern
+
+Einfache Lösung:
+
+```py
+plt.imshow(digits.images[3], cmap="gray")
+plt.axis("off")
+plt.title(digits.target[3])
+```
+
+## Vorbereiten von Daten
+
+Aufgabe:
+
+"flattening" des Eingangsarray von 1797x8x8 zu 1797x64
+
+## Vorbereiten von Daten
+
+explizite Lösung:
+
+```py
+x = digits.images.reshape(1797, 64)
+```
+
+robuste Lösung:
+
+```py
+x = digits.images.reshape(digits.images.shape[0], -1)
+```
+
+## Trainieren
+
+Aufgabe: Wähle die ersten 1500 Einträge als Trainingsdaten und trainiere das Modell
+
+## Trainieren
+
+Lösung:
+
+```py
+from sklearn.neighbors import KNeighborsClassifier
+
+x_train = x[:1500]
+y_train = y[:1500]
+
+model = KNeighborsClassifier(1)
+model.fit(x_train, y_train)
+```
+
+## Testen
+
+Aufgabe: Verwende die verbleibenden Einträge als Testdaten und berechte den Prozentsatz an richtigen Klassifizierungen
+
+## Testen
+
+Lösung:
+
+```py
+x_test = x[1500:]
+y_test = y[1500:]
+
+y_pred = model.predict(x_test)
+
+import numpy as np
+
+num_correct = np.sum(y_pred == y_test)
+
+print(num_correct / y_test.size)
+```
 
 # Daten vorbereiten
 
@@ -448,20 +545,45 @@ print(y_pred)
 
 # Validierung
 
+## Validierungsmetriken in scikit-learn
+
+Klassifizierung:
+
+- _accuracy_score_
+- _confusion_matrix_
+- _precision_recall_fscore_support_
+- _log_loss_
+- _roc_curve_
+- _roc_auc_
+
+Regression:
+
+- _mean_squared_error_
+- _r2_score_
+
 ## Train-Test Split
 
 Wie gut kategorisiert ein bestimmter Algorithmus die Iris-Daten?
 
 ```py
-from sklearn.model_selection import train_test_split
 from sklearn import metrics
 
+y_prediction = model.predict(x_test)
+
+print(metrics.accuracy_score(y_test, y_prediction))
+print(metrics.confusion_matrix(y_test, y_prediction))
+print(list(metrics.precision_recall_fscore_support(
+           y_test, y_prediction)))
+```
+
+## Train-Test Split
+
+Hilfsfunktion in scikit-learn:
+
+```py
+from sklearn.model_selection import train_test_split
+
 X_train, X_test, Y_train, Y_test = train_test_split(X, Y)
-
-# ...
-
-Y_prediction = model.predict(X_test)
-print(metrics.accuracy_score(Y_test, Y_prediction))
 ```
 
 optionale Parameter:
@@ -510,30 +632,38 @@ Bestimmen der AUC:
 auc = metrics.auc(fpr, tpr)
 ```
 
-# Example: Erkennung von Ziffern
+# Abstraktion
 
-## Example: Erkennung von Ziffern
+## Abstraktion
+
+- Pipelines
+- eigene Klassen
+
+## Abstraktion
+
+_Pipelines_ können das Verarbeiten von Eingangswerten _x_ abstrahieren
+
+Eigene Klassen können das Verarbeiten von sowohl _x_ als auch _y_ abstrahieren
+
+## Abstraktion
+
+direkte Verwendung eines Modells, um Überleben auf der Titanic vorherzusagen:
 
 ```py
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn import datasets, model_selection, metrics
-
-digits = datasets.load_digits()
-# flatten array from 1797x8x8 to 1797x64
-X = digits.images.reshape(digits.images.shape[0], -1)
-y = digits.target
-
-X_train, X_test, y_train, y_test =
-    model_selection.train_test_split(X, y)
-
-model = KNeighborsClassifier()
-model.fit(X_train, y_train)
-
-y_pred = model.predict(X_test)
-print(metrics.accuracy_score(y_test, y_pred))
+model.predict([[2, 0, 28.0, 0]])
+# [0]
 ```
 
-# Beispiel: Gesichtserkennung mit scikit-learn
+abstrahiertes Interface:
+
+```py
+classifier.predict_survival(
+    pclass=2, sex="male", age=28.0, sibsp=0
+)
+# False
+```
+
+# Beispiel: Gesichtserkennung mit neuronalen Netzen
 
 ## Beispiel: Gesichtserkennung
 
@@ -628,33 +758,16 @@ print("real name:", faces.target_names[real_label])
 print("predicted name:", faces.target_names[pred_label])
 ```
 
-# Abstraktion
+# Übungen und Datensätze
 
-## Abstraktion
+## Datensätze
 
-- Pipelines
-- eigene Klassen
+- kleinere Datensetze: <https://scikit-learn.org/stable/datasets/toy_dataset.html>
+- "real world"-Datensätze: <https://scikit-learn.org/stable/datasets/real_world.html>
 
-## Abstraktion
+## Übungen
 
-_Pipelines_ können das Verarbeiten von Eingangswerten _x_ abstrahieren
-
-Eigene Klassen können das Verarbeiten von sowohl _x_ als auch _y_ abstrahieren
-
-## Abstraktion
-
-direkte Verwendung eines Modells, um Überleben auf der Titanic vorherzusagen:
-
-```py
-model.predict([[2, 0, 28.0, 0]])
-# [0]
-```
-
-abstrahiertes Interface:
-
-```py
-classifier.predict_survival(
-    pclass=2, sex="male", age=28.0, sibsp=0
-)
-# False
-```
+- Diabetes-Verlauf (Regression)
+- Ziffern (Klassifikation)
+- Titanic-Überleben (Regression)
+- Labeled Faces (Klassifikation mit neuronalen Netzen)

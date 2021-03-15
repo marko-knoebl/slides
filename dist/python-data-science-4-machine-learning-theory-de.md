@@ -236,15 +236,6 @@ y_pred_proba = model.predict_proba(test_data)
 #  [0.  0.6 0.4]]
 ```
 
-## Beispiel
-
-Aufgabe: Verwenden anderer Klassifikatoren, z.B.:
-
-- `sklearn.neural_network.MLPClassifier`
-- `sklearn.svm.SVC`
-- `sklearn.tree.DecisionTreeClassifier`
-- `sklearn.naive_bayes.GaussianNB`
-
 # Beispiel: Iris-Klassifizierung in Keras
 
 <!-- duplicate in machine-learning-theory and neural-networks-with-keras -->
@@ -597,18 +588,6 @@ y = iris_species_one_hot
 
 # Modellvalidierung und -auswahl
 
-## Modellvalidierung und -auswahl
-
-Um das bestmögliche Modell zu bestimmen:
-
-- Testen mehrerer Algorithmen
-- Testen mehrerer Parameter für den Algorithmus
-- Testen, ob mehr Lerndaten zu besseren Ergebnissen führen
-
-siehe [Python Data Science Handbook → Hyperparameters and Model Validation → Selecting the Best Model](https://jakevdp.github.io/PythonDataScienceHandbook/05.03-hyperparameters-and-model-validation.html#Selecting-the-Best-Model)
-
-# Trainingsdaten und Validierungsdaten
-
 ## Trainingsdaten und Validierungsdaten
 
 Um zu validieren, ob ein Verfahren ein passendes Ergebnis liefert:
@@ -628,31 +607,31 @@ für andere Algorithmen (z.B. _sklearn_):
 - _Trainingsdaten_
 - _Validierungsdaten_ oder _Testdaten_ (zur Validierung des Modells)
 
-# Validierungsmetriken
+## Modellvalidierung und -auswahl
 
-## Validierungsmetriken
+Um das bestmögliche Modell zu bestimmen:
 
-Klassifizierung:
+- Testen mehrerer Algorithmen
+- Testen mehrerer Parameter für den Algorithmus
+- Testen, ob mehr Lerndaten zu besseren Ergebnissen führen
 
-- accuracy metrics
-  - accuracy
-  - confusion matrix
-- Metriken, die auf true/false positives/negatives basieren
-  - precision
-  - recall
-  - f-score
-  - ROC und AUC
-- probabilistische Metriken
-  - Kreuzentropie
+siehe [Python Data Science Handbook → Hyperparameters and Model Validation → Selecting the Best Model](https://jakevdp.github.io/PythonDataScienceHandbook/05.03-hyperparameters-and-model-validation.html#Selecting-the-Best-Model)
 
-## Validierungsmetriken
+# Grundlegende Validierungsmetriken
 
-Regression:
+## Grundlegende Validierungsmetriken
 
-- Mittlere quadratische Abweichung
+Klassifizierungsmetriken:
+
+- accuracy (Anteil an richtig klassifizierten Elementen)
+- confusion matrix
+
+Regressionsmetriken:
+
+- mittlere quadratische Abweichung
 - Bestimmtheitsmaß (R²)
 
-## Klassifizierungsmetriken
+## Validierungsmetriken für Klassifizierung
 
 Beispiel:
 
@@ -664,7 +643,7 @@ Ein Klassifizierungsalgorithmus liefert diese Ergebnisse:
 - Klassifizierung von Orangen: 10 als Orangen
 - Klassifizierung von Pfirsichen: 1 als Apfel, 0 als Orangen, 9 als Pfirsiche
 
-## Accuracy metrics
+## Klassifizierungsmetriken
 
 **accuracy**: relativer Anteil korrekter Klassifizierungen (im Beispiel: 27/30=0.9)
 
@@ -675,6 +654,33 @@ Ein Klassifizierungsalgorithmus liefert diese Ergebnisse:
 | apples  | 8      | 0       | 2       |
 | oranges | 0      | 10      | 0       |
 | peaches | 1      | 0       | 9       |
+
+## Regressionsmetriken
+
+**mittlere quadratische Abweichung**
+
+**Bestimmtheitsmaß (R²)**:
+
+vergleicht die mittlere quadratische Abweichung der Regression mit der Varianz der Eingangsdaten
+
+- R²=1 - perfekte Interpolation
+- R²=0 - Interpolation ist nicht besser als das Verwenden des Durchschnitts
+- R²&lt;0 - schlechter als das Verwenden des Durchschnitts
+
+# Klassifizierungsmetriken
+
+## Klassifizierungsmetriken
+
+- accuracy metrics
+  - accuracy
+  - confusion matrix
+- Metriken, die auf true/false positives/negatives basieren
+  - precision
+  - recall
+  - f-score
+  - ROC und AUC
+- probabilistische Metriken
+  - Kreuzentropie
 
 ## Metriken, die auf true/false positives/negatives basieren
 
@@ -730,48 +736,6 @@ Die ROC kann als Kurve dargestellt werden; je größer die Fläche unter der Kur
 **Kreuzentropie** (log loss): Misst, wie gut ein Modell einer Wahrscheinlichkeitsverteilung die tatsächliche Wahrscheinlichkeitsverteilung annähert
 
 relevant bei _neuronalen Netzwerken_ und _logistischer Regression_
-
-## Regressionsmetriken
-
-**mittlere quadratische Abweichung**
-
-**Bestimmtheitsmaß (R²)**:
-
-vergleicht die mittlere quadratische Abweichung der Regression mit der Varianz der Eingangsdaten
-
-- R²=1 - perfekte Interpolation
-- R²=0 - Interpolation ist nicht besser als das Verwenden des Durchschnitts
-- R²&lt;0 - schlechter als das Verwenden des Durchschnitts
-
-## Validierungsmetriken in scikit-learn
-
-Klassifizierung:
-
-- _accuracy_score_
-- _confusion_matrix_
-- _precision_recall_fscore_support_
-- _log_loss_
-- _roc_curve_
-- _roc_auc_
-
-Regression:
-
-- _mean_squared_error_
-- _r2_score_
-
-Siehe auch <https://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics>
-
-## Validierunsmetriken in Keras
-
-- _accuracy_
-- _categorical_crossentropy_
-- _sparse_categorical_crossentropy_
-- _precision_
-- _recall_
-- _auc_
-- _mean_squared_error_
-
-Siehe auch <https://keras.io/api/metrics/>
 
 # Overfitting
 
