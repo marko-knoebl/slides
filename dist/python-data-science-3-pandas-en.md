@@ -799,10 +799,16 @@ titanic["pclass"].value_counts()
 
 ## Grouping and aggregation
 
+median numeric values of passengers in each class:
+
+```py
+titanic.groupby("pclass").median()
+```
+
 median age of passengers in each class:
 
 ```py
-titanic["age"].groupby(titanic["pclass"]).median()
+titanic.groupby("pclass")["age"].median()
 
 # 1    37.0
 # 2    29.0
@@ -854,7 +860,7 @@ pd.pivot_table(
 ## Exercises - Solutions
 
 ```py
-iris.groupby(iris["species"]).mean()
+iris.groupby("species").mean()
 ```
 
 ```py

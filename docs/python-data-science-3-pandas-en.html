@@ -2642,8 +2642,11 @@ every_10_days = pd.date_range(
 <span class="hljs-comment"># 2    184</span>
 </code></pre>
 </section><section class="slide"><h2>Grouping and aggregation</h2>
+<p>median numeric values of passengers in each class:</p>
+<pre><code class="hljs language-py">titanic.groupby(<span class="hljs-string">"pclass"</span>).median()
+</code></pre>
 <p>median age of passengers in each class:</p>
-<pre><code class="hljs language-py">titanic[<span class="hljs-string">"age"</span>].groupby(titanic[<span class="hljs-string">"pclass"</span>]).median()
+<pre><code class="hljs language-py">titanic.groupby(<span class="hljs-string">"pclass"</span>)[<span class="hljs-string">"age"</span>].median()
 
 <span class="hljs-comment"># 1    37.0</span>
 <span class="hljs-comment"># 2    29.0</span>
@@ -2680,7 +2683,7 @@ pclass
 <li>mean USD exchange rates for each currency in the 90s</li>
 </ul>
 </section><section class="slide"><h2>Exercises - Solutions</h2>
-<pre><code class="hljs language-py">iris.groupby(iris[<span class="hljs-string">"species"</span>]).mean()
+<pre><code class="hljs language-py">iris.groupby(<span class="hljs-string">"species"</span>).mean()
 </code></pre>
 <pre><code class="hljs language-py">er_90s = exchange_rates.loc[
     (exchange_rates[<span class="hljs-string">"Date"</span>] >= <span class="hljs-string">"1990-01-01"</span>) &#x26;
