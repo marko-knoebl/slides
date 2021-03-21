@@ -115,104 +115,96 @@
 <li>validate the model's accuracy</li>
 <li>use the model to predict outputs for new data</li>
 </ul>
+<h2>Supervised learning procedure</h2>
+<p>in <em>scikit-learn</em>:</p>
+<ul>
+<li>create an input matrix (commonly <code>x</code> or <code>X</code>) and a target vector / matrix (commonly <code>y</code> or <code>Y</code>)</li>
+<li>instantiate an algorithm class - e.g. <code>KNeighborsClassifier</code>, <code>MLPClassifier</code>, <code>LinearRegression</code>, ...</li>
+<li>"learn" via <code>model.fit(x, y)</code></li>
+<li>validate via <code>model.score(x_val, y_val)</code> or <code>metrics.accuracy_score(x_val, y_val)</code>, ...</li>
+<li>predict more results via <code>model.predict(...)</code> or <code>model.predict_proba(...)</code></li>
+</ul>
+<h2>Supervised learning procedure</h2>
+<p>in <em>keras</em>:</p>
+<ul>
+<li>create an input array (commonly <code>x</code>) and a target array (commonly <code>y</code>)</li>
+<li>build a model from various layers (e.g. preprocessing layers, neural layers, ...)</li>
+<li>compile via <code>model.compile()</code> and "learn" via <code>model.fit(x, y)</code></li>
+<li>validate via <code>model.evaluate(x_val, y_val)</code></li>
+<li>predict more results via <code>model.predict(...)</code></li>
+</ul>
 <h1>Iris dataset</h1>
 <h2>Iris dataset</h2>
 <p><em>Iris dataset</em>: simple example dataset for machine learning / data science</p>
 <p>contains measurements of 150 iris plants: 3 different species with 50 samples each</p>
 <h2>Iris dataset</h2>
+<p>properties in the dataset:</p>
+<ul>
+<li><em>sepal length</em></li>
+<li><em>sepal width</em></li>
+<li><em>petal length</em></li>
+<li><em>petal width</em></li>
+<li><em>species name</em></li>
+</ul>
+<h2>Iris dataset</h2>
 <p>example CSV data from <a href="http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data">http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data</a>:</p>
 <pre><code class="hljs language-txt">5.1,3.5,1.4,0.2,Iris-setosa
 4.9,3.0,1.4,0.2,Iris-setosa
 4.7,3.2,1.3,0.2,Iris-setosa
+...
+7.0,3.2,4.7,1.4,Iris-versicolor
+...
+6.3,3.3,6.0,2.5,Iris-virginica
+...
 </code></pre>
-<h2>Iris dataset</h2>
-<p>data loaded via helper function <code>sklearn.datasets.load_iris()</code>:</p>
-<p>measurements in <code>.data</code></p>
-<p>species in <code>.target</code> (setosa=0, versicolor=1, virginica=2)</p>
-<pre><code class="hljs language-py"><span class="hljs-comment"># .data</span>
-array([[<span class="hljs-number">5.1</span>, <span class="hljs-number">3.5</span>, <span class="hljs-number">1.4</span>, <span class="hljs-number">0.2</span>],
-       [<span class="hljs-number">4.9</span>, <span class="hljs-number">3.</span> , <span class="hljs-number">1.4</span>, <span class="hljs-number">0.2</span>],
-       [<span class="hljs-number">4.7</span>, <span class="hljs-number">3.2</span>, <span class="hljs-number">1.3</span>, <span class="hljs-number">0.2</span>],
-       <span class="hljs-comment"># ...</span>
-      ])
-<span class="hljs-comment"># .target</span>
-array([<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, ...])
+<h1>Supervised learning in Python</h1>
+<h2>Supervised learning in Python</h2>
+<p>overview of the basic process for <em>scikit-learn</em> / <em>keras</em></p>
+<h2>Training a model</h2>
+<p>create and train a model:</p>
+<pre><code class="hljs language-py">model = MyClassifier()
+
+model.fit(train_input, train_target)
 </code></pre>
-<h1>Example: iris classification in scikit-learn</h1>
-<!-- duplicate section in machine-learning-theory and scikit-learn -->
-<h2>Supervised learning in scikit-learn</h2>
-<p>steps:</p>
-<ul>
-<li>create an input matrix <code>X</code> and a target vector <code>y</code> / a target matrix <code>Y</code></li>
-<li>instantiate an algorithm class - e.g. <code>KNeighborsClassifier</code>, <code>MLPClassifier</code>, <code>LinearRegression</code>, ...</li>
-<li>"learn" via <code>model.fit(X, y)</code></li>
-<li>predict more results via <code>model.predict(...)</code></li>
-</ul>
-<h2>Example</h2>
-<p>Example: classification of iris plants</p>
-<p>known data: measurements and classification of 150 iris plants</p>
+<p>example:</p>
+<p><code>train_input</code>: measurements of iris flowers</p>
+<p><code>train_target</code>: corresponding species of flowers</p>
+<h2>Predicting new results</h2>
+<p>predict results for new inputs:</p>
+<pre><code class="hljs language-py">model.predict(new_inputs)
+</code></pre>
+<h2>Evaluating the model</h2>
+<p>before using a trained model to predict new results, it should be evaluated with separate test data:</p>
+<pre><code class="hljs language-py">model.score(test_input, test_target)
+<span class="hljs-comment"># e.g. 0.95 = 95%</span>
+</code></pre>
+<h1>Example: Iris classification</h1>
+<h2>Example: Iris classification</h2>
 <p>Task: Train an algorithm to classify iris plants based on their measurements</p>
-<h2>Example</h2>
-<p>example data (<em>sepal length</em>, <em>sepal width</em>, <em>petal length</em>, <em>petal width</em>, <em>name</em>):</p>
-<ul>
-<li><code>[5.1, 3.5, 1.4, 0.2]</code> → <code>"Iris-setosa"</code></li>
-<li><code>[7.0, 3.2, 4.7, 1.4]</code> → <code>"Iris-versicolor"</code></li>
-<li><code>[6.3, 3.3, 6.0, 2.5]</code> → <code>"Iris-virginica"</code></li>
-</ul>
-<p>in our data: <em>setosa</em>=0, <em>versicolor</em>=1, <em>virginica</em>=2</p>
-<h2>Example</h2>
-<p>loading data:</p>
-<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> datasets
+<h2>Getting data</h2>
+<pre><code class="hljs language-py"><span class="hljs-comment"># load data via pandas</span>
+iris = pd.read_csv(
+    <span class="hljs-string">"http://archive.ics.uci.edu/ml/"</span> +
+    <span class="hljs-string">"machine-learning-databases/iris/iris.data"</span>,
+    header=<span class="hljs-literal">None</span>
+)
 
-iris = datasets.load_iris()
+iris_shuffled = iris.sample(frac=<span class="hljs-number">1.0</span>)
 
-X = iris.data
-y = iris.target
+<span class="hljs-comment"># convert to numerical numpy arrays</span>
+measurements = iris_shuffled[[<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]].to_numpy()
+species = iris_shuffled[<span class="hljs-number">4</span>].replace({
+    <span class="hljs-string">"Iris-setosa"</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-string">"Iris-versicolor"</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-string">"Iris-virginica"</span>: <span class="hljs-number">2</span>
+}).to_numpy()
 </code></pre>
-<h2>Example</h2>
-<p>Training an algorithm (k-nearest-neighbor):</p>
+<h2>Creating a model in scikit-learn</h2>
 <pre><code class="hljs language-py"><span class="hljs-keyword">from</span> sklearn.neighbors <span class="hljs-keyword">import</span> KNeighborsClassifier
 
 model = KNeighborsClassifier()
-model.fit(X, y)
 </code></pre>
-<h2>Example</h2>
-<p>Applying classification to new data:</p>
-<pre><code class="hljs language-py">test_data = [
-    [<span class="hljs-number">5.3</span>, <span class="hljs-number">3.4</span>, <span class="hljs-number">1.9</span>, <span class="hljs-number">0.6</span>],
-    [<span class="hljs-number">6.0</span>, <span class="hljs-number">3.0</span>, <span class="hljs-number">4.7</span>, <span class="hljs-number">1.5</span>],
-    [<span class="hljs-number">6.5</span>, <span class="hljs-number">3.1</span>, <span class="hljs-number">5.0</span>, <span class="hljs-number">1.7</span>]
-]
-
-y_pred = model.predict(test_data)
-<span class="hljs-comment"># [0, 1, 1]</span>
-
-y_pred_proba = model.predict_proba(test_data)
-<span class="hljs-comment"># [[1.  0.  0. ]</span>
-<span class="hljs-comment">#  [0.  0.8 0.2]</span>
-<span class="hljs-comment">#  [0.  0.6 0.4]]</span>
-</code></pre>
-<h1>Example: iris classification in keras</h1>
-<!-- duplicate in machine-learning-theory and neural-networks-with-keras -->
-<h2>Supervised learning in keras</h2>
-<p>steps:</p>
-<ul>
-<li>create an input array <code>x</code> and a target array <code>y</code></li>
-<li>build a model from various layers (e.g. preprocessing layers, neural layers, ...)</li>
-<li>compile via <code>model.compile()</code> and "learn" via <code>model.fit(x, y)</code></li>
-<li>predict more results via <code>model.predict(...)</code></li>
-</ul>
-<h2>Example</h2>
-<p>loading data:</p>
-<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> datasets
-
-iris = datasets.load_iris()
-
-x = iris.data
-y = iris.target
-</code></pre>
-<h2>Example</h2>
-<p>Training the neural network:</p>
+<h2>Creating a model in keras</h2>
 <pre><code class="hljs language-py"><span class="hljs-keyword">from</span> tensorflow <span class="hljs-keyword">import</span> keras
 
 model = keras.Sequential([
@@ -225,20 +217,62 @@ model.<span class="hljs-built_in">compile</span>(
     loss=<span class="hljs-string">"sparse_categorical_crossentropy"</span>,
     metrics=[<span class="hljs-string">"accuracy"</span>]
 )
-model.fit(x, y, epochs=<span class="hljs-number">300</span>, validation_split=<span class="hljs-number">0.1</span>)
 </code></pre>
-<h2>Example</h2>
-<p>Applying classification to new data:</p>
-<pre><code class="hljs language-py">test_data = [
+<h2>Creating a model via NumPy</h2>
+<pre><code class="hljs language-py"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NearestNeighborClassifier</span>():</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">fit</span>(<span class="hljs-params">self, x, y</span>):</span>
+        <span class="hljs-comment"># In a "real" machine learning algorithm,</span>
+        <span class="hljs-comment">#   a lot of processing could happen here.</span>
+        <span class="hljs-comment"># In this case we're just storing the training data.</span>
+        self.x = x
+        self.y = y
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">predict_single</span>(<span class="hljs-params">self, x</span>):</span>
+        vectors = self.x - x
+        distances = np.linalg.norm(vectors, axis=<span class="hljs-number">1</span>)
+        min_index = np.argmin(distances)
+        <span class="hljs-keyword">return</span> self.y[min_index]
+
+model = NearestNeighborClassifier()
+</code></pre>
+<h2>Training the model</h2>
+<p>Training based on the first 130 entries:</p>
+<p>in <em>scikit-learn</em>:</p>
+<pre><code class="hljs language-py">model.fit(measurements[:<span class="hljs-number">130</span>], species[:<span class="hljs-number">130</span>])
+</code></pre>
+<p>in <em>keras</em>:</p>
+<pre><code class="hljs language-py">model.fit(
+    measurements[:<span class="hljs-number">130</span>],
+    species[:<span class="hljs-number">130</span>],
+    epochs=<span class="hljs-number">300</span>,
+    validation_split=<span class="hljs-number">0.1</span>
+)
+</code></pre>
+<h2>Using the model</h2>
+<p>Applying classification to new data (in <em>scikit-learn</em>):</p>
+<pre><code class="hljs language-py">demo_measurements = np.array([
     [<span class="hljs-number">5.3</span>, <span class="hljs-number">3.4</span>, <span class="hljs-number">1.9</span>, <span class="hljs-number">0.6</span>],
     [<span class="hljs-number">6.0</span>, <span class="hljs-number">3.0</span>, <span class="hljs-number">4.7</span>, <span class="hljs-number">1.5</span>],
     [<span class="hljs-number">6.5</span>, <span class="hljs-number">3.1</span>, <span class="hljs-number">5.0</span>, <span class="hljs-number">1.7</span>]
-]
+])
 
-y_pred = model.predict(test_data)
+model.predict(demo_measurements)
+<span class="hljs-comment"># e.g. [0, 1, 1] in scikit-learn</span>
+
+model.predict_proba(demo_measurements)
 <span class="hljs-comment"># [[0.9 0.1 0. ]</span>
 <span class="hljs-comment">#  [0.  0.8 0.2]</span>
 <span class="hljs-comment">#  [0.  0.7 0.3]]</span>
+</code></pre>
+<h2>Evaluating the model</h2>
+<pre><code class="hljs language-py">measurements_val = measurements[<span class="hljs-number">130</span>:]
+species_val = species[<span class="hljs-number">130</span>:]
+</code></pre>
+<p>in <em>scikit-learn</em> (<em>accuracy</em>):</p>
+<pre><code class="hljs language-py">print(model.score(measurements_val, species_val))
+</code></pre>
+<p>in <em>keras</em> (<em>categorical crossentropy</em>, <em>accuracy</em>):</p>
+<pre><code class="hljs language-py">print(model.evaluate(measurements_val, species_val))
 </code></pre>
 <h1>Algorithms for supervised learning</h1>
 <h2>Algorithms for supervised learning</h2>

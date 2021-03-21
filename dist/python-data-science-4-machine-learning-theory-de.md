@@ -124,6 +124,26 @@ Schritte:
 - Validieren der Richtigkeit / Qualität der Vorhersagen des Algorithmus
 - Verwenden des Algorithmus, um Outputs für neue Daten zu erzeugen
 
+## Überwachtes Lernen: Verfahren
+
+in _scikit-learn_:
+
+- Erstelle eine Eingangsmatrix (oft `x` oder `X`) und eines Zielvektors / einer Zielmatrix (oft `y` oder `Y`)
+- Instanziiere eine Algorithmenklasse, z.B. `KNeighborsClassifier`, `MLPClassifier`, `LinearRegression`, ...
+- "Lerne" mittels `model.fit(x, y)`
+- Validiere mittels `model.score(x_val, y_val)` oder `metrics.accuracy_score(x_val, y_val)`, ...
+- Sage weitere Ergebnisse voraus mittels `model.predict(...)` oder `model.predict_proba(...)`
+
+## Überwachtes Lernen: Verfahren
+
+in _keras_:
+
+- Erstelle ein Eingangs-Array (`x`) und ein Ziel-Array (`y`)
+- Erstelle ein Modell aus verschiedenen Layern (z.B. Preprocessing-Layer, Neuronen-Layer, ...)
+- Kompiliere via `model.compile()` und "Lernen" via `model.fit(x, y)`
+- Validiere via `model.evaluate(x_val, y_val)`
+- Sage weitere Werte vorher via `model.predict(...)`
+
 # Iris Datensatz
 
 ## Iris Datensatz
@@ -134,137 +154,104 @@ Beinhaltet Abmessungen von 150 Iris-Pflanzen (Schwertlilien): 3 verschiedene Spe
 
 ## Iris Datensatz
 
+Eigenschaften im Datensatz:
+
+- _sepal length_
+- _sepal width_
+- _petal length_
+- _petal width_
+- _species name_
+
+## Iris Datensatz
+
 Beispiel CSV-Daten von <http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data>:
 
 ```txt
 5.1,3.5,1.4,0.2,Iris-setosa
 4.9,3.0,1.4,0.2,Iris-setosa
 4.7,3.2,1.3,0.2,Iris-setosa
+...
+7.0,3.2,4.7,1.4,Iris-versicolor
+...
+6.3,3.3,6.0,2.5,Iris-virginica
+...
 ```
 
-## Iris Datensatz
+# Überwachtes Lernen in Python
 
-Laden der Daten mittels Hilfsfunktion `sklearn.datasets.load_iris()`:
+## Überwachtes Lernen in Python
 
-Abmessungen in `.data`
+Überblick über den grundlegenden Prozess in _scikit-learn_ / _keras_
 
-Spezies in `.target` (setosa=0, versicolor=1, virginica=2)
+## Trainieren des Modells
+
+Erstelle und Trainiere ein Modell:
 
 ```py
-# .data
-array([[5.1, 3.5, 1.4, 0.2],
-       [4.9, 3. , 1.4, 0.2],
-       [4.7, 3.2, 1.3, 0.2],
-       # ...
-      ])
-# .target
-array([0, 0, 0, ...])
+model = MyClassifier()
+
+model.fit(train_input, train_target)
 ```
 
-# Beispiel: Iris-Klassifizierung in scikit-learn
+Beispiel:
 
-<!-- duplicate section in machine-learning-theory and scikit-learn -->
+`train_input`: Abmessungen von Iris-Blüten
 
-## Überwachtes Lernen in scikit-learn
+`train_target`: Zugehörige Spezies der Pflanzen
 
-Schritte:
+## Vorhersagen neuer Resultate
 
-- Erstellen einer Eingangsmatrix `X` und eines Zielvektors `y` / einer Zielmatrix `Y`
-- Instanziierung einer Algorithmenklasse, z.B. `KNeighborsClassifier`, `MLPClassifier`, `LinearRegression`, ...
-- "Lernen" mittels `model.fit(X, y)`
-- Voraussagen weiterer Ergebnisse mittels `model.predict(...)`
-
-## Beispiel
-
-Beispiel: Klassifizierung von Iris-Pflanzen
-
-Bekannte Daten: Maße und Klassifizierung von 150 Iris-Pflanzen (Schwertlilien)
-
-Aufgabe: Trainieren eines Algorithmus, der anhand der Maße einer Iris-Pflanze eine Klassifizierung vornehmen kann
-
-## Beispiel
-
-Beispieldaten (_sepal length_, _sepal width_, _petal length_, _petal width_, _name_):
-
-- `[5.1, 3.5, 1.4, 0.2]` → `"Iris-setosa"`
-- `[7.0, 3.2, 4.7, 1.4]` → `"Iris-versicolor"`
-- `[6.3, 3.3, 6.0, 2.5]` → `"Iris-virginica"`
-
-in unseren Daten: _setosa_=0, _versicolor_=1, _virginica_=2
-
-## Beispiel
-
-Vorbereiten der Daten:
+Vorhersagen von Resultaten für neue Inputs:
 
 ```py
-from sklearn import datasets
-
-iris = datasets.load_iris()
-
-X = iris.data
-y = iris.target
+model.predict(new_inputs)
 ```
 
-## Beispiel
+## Evaluieren des Modells
 
-Trainieren eines Algorithmus:
+Bevor wir ein trainiertes Modell zum Vorhersagen neuer Resultate nutzen, sollten wir es mit separaten Testdaten evaluieren:
+
+```py
+model.score(test_input, test_target)
+# e.g. 0.95 = 95%
+```
+
+# Beispiel: Iris-Klassifikation
+
+## Beispiel: Iris-Klassifikation
+
+Aufgabe: trainiere einen Algorithmus, um Iris-Pflanzen basierend auf ihren Abmessungen zu klassifizieren
+
+## Daten laden
+
+```py
+# load data via pandas
+iris = pd.read_csv(
+    "http://archive.ics.uci.edu/ml/" +
+    "machine-learning-databases/iris/iris.data",
+    header=None
+)
+
+iris_shuffled = iris.sample(frac=1.0)
+
+# convert to numerical numpy arrays
+measurements = iris_shuffled[[0, 1, 2, 3]].to_numpy()
+species = iris_shuffled[4].replace({
+    "Iris-setosa": 0,
+    "Iris-versicolor": 1,
+    "Iris-virginica": 2
+}).to_numpy()
+```
+
+## Erstellen eines Modells in scikit-learn
 
 ```py
 from sklearn.neighbors import KNeighborsClassifier
 
 model = KNeighborsClassifier()
-model.fit(X, y)
 ```
 
-## Beispiel
-
-Anwenden des Erlernten auf neue Daten:
-
-```py
-test_data = [
-    [5.3, 3.4, 1.9, 0.6],
-    [6.0, 3.0, 4.7, 1.5],
-    [6.5, 3.1, 5.0, 1.7]
-]
-
-y_pred = model.predict(test_data)
-# [0, 1, 1]
-
-y_pred_proba = model.predict_proba(test_data)
-# [[1.  0.  0. ]
-#  [0.  0.8 0.2]
-#  [0.  0.6 0.4]]
-```
-
-# Beispiel: Iris-Klassifizierung in Keras
-
-<!-- duplicate in machine-learning-theory and neural-networks-with-keras -->
-
-## Überwachtes Lernen in Keras
-
-Schritte:
-
-- Erstellen eines Input-Arrays `x` und eines Ziel-Arrays `y`
-- Erstellen eines Modells aus verschiedenen Layern (z.B. Preprocessing-Layer, Neuronen-Layer, ...)
-- Kompilieren via `model.compile()` und "Lernen" via `model.fit(x, y)`
-- Vorhersagen weiterer Ergebnisse via `model.predict(...)`
-
-## Beispiel
-
-Laden von Daten:
-
-```py
-from sklearn import datasets
-
-iris = datasets.load_iris()
-
-x = iris.data
-y = iris.target
-```
-
-## Beispiel
-
-Trainieren des Netzwerks:
+## Erstellen eines Modells in keras
 
 ```py
 from tensorflow import keras
@@ -279,24 +266,86 @@ model.compile(
     loss="sparse_categorical_crossentropy",
     metrics=["accuracy"]
 )
-model.fit(x, y, epochs=300, validation_split=0.1)
 ```
 
-## Beispiel
-
-Anwenden der Klassifikation auf neue Daten:
+## Erstellen eines Modells via NumPy
 
 ```py
-test_data = [
+class NearestNeighborClassifier():
+    def fit(self, x, y):
+        # In a "real" machine learning algorithm,
+        #   a lot of processing could happen here.
+        # In this case we're just storing the training data.
+        self.x = x
+        self.y = y
+
+    def predict_single(self, x):
+        vectors = self.x - x
+        distances = np.linalg.norm(vectors, axis=1)
+        min_index = np.argmin(distances)
+        return self.y[min_index]
+
+model = NearestNeighborClassifier()
+```
+
+## Trainieren des Modells
+
+Trainieren basierend auf den ersten 130 Einträgen:
+
+in _scikit-learn_:
+
+```py
+model.fit(measurements[:130], species[:130])
+```
+
+in _keras_:
+
+```py
+model.fit(
+    measurements[:130],
+    species[:130],
+    epochs=300,
+    validation_split=0.1
+)
+```
+
+## Verwenden des Modells
+
+Anwenden der Klassifikation auf neue Daten (in _scikit-learn_):
+
+```py
+demo_measurements = np.array([
     [5.3, 3.4, 1.9, 0.6],
     [6.0, 3.0, 4.7, 1.5],
     [6.5, 3.1, 5.0, 1.7]
-]
+])
 
-y_pred = model.predict(test_data)
+model.predict(demo_measurements)
+# e.g. [0, 1, 1] in scikit-learn
+
+model.predict_proba(demo_measurements)
 # [[0.9 0.1 0. ]
 #  [0.  0.8 0.2]
 #  [0.  0.7 0.3]]
+```
+
+## Evaluieren des Modells
+
+```py
+measurements_val = measurements[130:]
+species_val = species[130:]
+```
+
+in _scikit-learn_ (_accuracy_):
+
+```py
+print(model.score(measurements_val, species_val))
+```
+
+in _keras_ (_categorical crossentropy_, _accuracy_):
+
+```py
+print(model.evaluate(measurements_val, species_val))
 ```
 
 # Algorithmen für überwachtes Lernen

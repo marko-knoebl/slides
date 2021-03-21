@@ -1,4 +1,4 @@
-# Python and Data Science 3: Pandas
+# Pandas
 
 # Pandas
 
