@@ -21,16 +21,17 @@ Configuring your Zoom client so you can _share your screen_ and you can _see a s
 
 ## Python courses: installing Python
 
-For the Python courses, please have a Python version between 3.6 and 3.8 installed (3.9 is still too new and doesn't support the NumPy library yet)
+download a Python _installer_ from <https://www.python.org/>
 
-- Downloads for Python 3.8: <https://www.python.org/downloads/release/python-386/> (for Windows, pick _Windows x86-64 executable installer_ or _Windows x86-64 web-based installer_ )
-- on Windows, make sure to check the option "Add Python 3.x to PATH" during installation
-- after installation, verify that Python works and can access the internet:
-  - open the Windows start menu and type "cmd" to look for and launch the command prompt
-  - enter the command: `python --version`  
-    (it should display the Python version)
-  - enter the command: `pip install requests`  
-    (it should successfully download and install a small Python package named _requests_)
+recommendation: install the _previous_ release (e.g. 3.8 instead of 3.9) - some packages (like _NumPy_ or _TensorFlow_) take some time before they are available for the latest release
+
+on Windows, make sure to check the option "Add Python 3.x to PATH" during installation (so the _python_ command works on the command line)
+
+after installation, verify that Python is available on the command line:
+
+- open the Windows start menu and type "cmd" to look for and launch the command prompt
+- enter the command: `python --version`  
+  (it should display the Python version)
 
 ## React courses: installing node.js
 
