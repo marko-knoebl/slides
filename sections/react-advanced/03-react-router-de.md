@@ -65,11 +65,11 @@ ReactDOM.render(
 const App = () => {
   return (
     <div>
-      <NavLink to="/slideshow">slideshow</NavLink>{' '}
-      <NavLink to="/counter">counter</NavLink>
+      <NavLink to="/">home</NavLink>{' '}
+      <NavLink to="/about">about</NavLink>
       <Routes>
-        <Route path="/slideshow" element={<Slideshow />} />
-        <Route path="/counter" element={<Counter />} />
+        <Route path="/" element={<HomePage />} />
+        <Route path="/about" element={<AboutPage />} />
       </Routes>
     </div>
   );
@@ -103,14 +103,14 @@ in v5 verwendet man anstatt von `<Routes>` die `<Switch>`-Komponente
 const App = () => {
   return (
     <div>
-      <NavLink to="/slideshow">slideshow</NavLink>{' '}
-      <NavLink to="/counter">counter</NavLink>
+      <NavLink to="/">home</NavLink>{' '}
+      <NavLink to="/about">about</NavLink>
       <Switch>
-        <Route path="/slideshow">
-          <Slideshow />
+        <Route path="/" exact={true}>
+          <HomePage />
         </Route>
-        <Route path="/counter">
-          <Counter />
+        <Route path="/about">
+          <AboutPage />
         </Route>
       </Switch>
     </div>
