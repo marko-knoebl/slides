@@ -2844,10 +2844,47 @@ history.push(<span class="hljs-string">'/'</span>);
 </section><section class="slide"><h2>CSS-in-JS</h2>
 <p>libraries:</p>
 <ul>
-<li>styled-components</li>
 <li>emotion</li>
+<li>styled-components</li>
 <li>...</li>
 </ul>
+</section><section class="slide"><h2>Emotion</h2>
+<p>In Emotion, styles are commonly included in the template via a tagged template literal</p>
+</section><section class="slide"><h2>Emotion</h2>
+<p>generic use:</p>
+<pre><code class="hljs language-jsx">&#x3C;div
+  className={css`<span class="css">
+    <span class="hljs-selector-tag">display</span>: <span class="hljs-selector-tag">flex</span>;
+    <span class="hljs-selector-tag">justify-content</span>: <span class="hljs-selector-tag">center</span>;
+  `</span>}
+>
+  ...
+&#x3C;/div>
+</code></pre>
+</section><section class="slide"><h2>Emotion</h2>
+<p>recommended use in <em>React</em> (requires an extra source transform):</p>
+<pre><code class="hljs language-jsx">&#x3C;div
+  css={css`<span class="css">
+    <span class="hljs-selector-tag">display</span>: <span class="hljs-selector-tag">flex</span>;
+    <span class="hljs-selector-tag">justify-content</span>: <span class="hljs-selector-tag">center</span>;
+  `</span>}
+>
+  ...
+&#x3C;/div>
+</code></pre>
+<p>note: new property <code>css</code> instead of <code>className</code></p>
+</section><section class="slide"><h2>Emotion</h2>
+<p>generic import:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> { css } <span class="hljs-keyword">from</span> <span class="hljs-string">'@emotion/css'</span>;
+</code></pre>
+<p>import and source transform for React 17:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-comment">/** <span class="hljs-doctag">@jsxImportSource </span><span class="hljs-doctag">@emotion</span>/react */</span>
+<span class="hljs-keyword">import</span> { css } <span class="hljs-keyword">from</span> <span class="hljs-string">'@emotion/react'</span>;
+</code></pre>
+<p>import and source transform for React 16:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-comment">/** <span class="hljs-doctag">@jsx </span>jsx */</span>
+<span class="hljs-keyword">import</span> { jsx, css } <span class="hljs-keyword">from</span> <span class="hljs-string">'@emotion/react'</span>;
+</code></pre>
 </section><section class="slide"><h2>styled-components</h2>
 <p>library that enables creating styled versions of existing HTML elements</p>
 <p>npm packages: <code>styled-components</code>, <code>@types/styled-components</code></p>
@@ -2887,34 +2924,6 @@ const Slideshow = (props) => (
     &#x3C;BlockImg src="..." alt="..." />
     &#x3C;Button primary={true}>next&#x3C;/Button>
   &#x3C;/Container>
-);
-</code></pre>
-</section><section class="slide"><h2>Emotion</h2>
-<p>Emotion extends jsx notation with an additional <em>css</em> prop</p>
-<p>Installation:</p>
-<pre><code class="hljs language-bash">npm install @emotion/core
-</code></pre>
-</section><section class="slide"><h2>Emotion</h2>
-<pre><code class="hljs language-jsx"><span class="hljs-comment">/** <span class="hljs-doctag">@jsx </span>jsx */</span>
-<span class="hljs-keyword">import</span> { jsx, css } <span class="hljs-keyword">from</span> <span class="hljs-string">'@emotion/core'</span>;
-
-<span class="hljs-keyword">const</span> Slideshow = <span class="hljs-function">(<span class="hljs-params">props</span>) =></span> (
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>
-    <span class="hljs-attr">css</span>=<span class="hljs-string">{css</span>`
-      <span class="hljs-attr">display:</span> <span class="hljs-attr">flex</span>;
-      <span class="hljs-attr">justify-content:</span> <span class="hljs-attr">center</span>;
-    `}
-  ></span>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>></span>prev<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">img</span>
-      <span class="hljs-attr">css</span>=<span class="hljs-string">{css</span>`
-        <span class="hljs-attr">display:</span> <span class="hljs-attr">block</span>;
-      `}
-      <span class="hljs-attr">src</span>=<span class="hljs-string">"..."</span>
-      <span class="hljs-attr">alt</span>=<span class="hljs-string">"..."</span>
-    /></span>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>></span>next<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
-  <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
 );
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Form libraries</h1>

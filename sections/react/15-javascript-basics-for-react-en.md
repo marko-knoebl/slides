@@ -5,7 +5,7 @@
 - JavaScript standardization and versions
 - imports and exports
 - arrow functions
-- template strings
+- template literals and tagged template literals
 - automatic semicolon insertion
 - destructuring assignment
 - spread syntax
@@ -95,7 +95,7 @@ const getState = () => ({
 });
 ```
 
-## Template strings
+## Template literals
 
 - syntax for _creating_ strings
 - delimited via backticks
@@ -107,9 +107,42 @@ const greeting = `Hello, ${name}!
                   This is ES2015!`;
 ```
 
+## Tagged template literals
+
+**Tagged** template literals enable additional processing when values are included
+
+use cases:
+
+- escaping values from "unsafe" sources
+- changing indentation
+- including styles in React
+- ...
+
+## Tagged template literals
+
+example: escaping HTML
+
+```js
+import { safeHtml } from 'common-tags';
+
+const message = 'I <3 U';
+
+const post = safeHtml`
+  <div>${message}</div>
+`;
+```
+
+result:
+
+```html
+<div>I &lt;3 U</div>
+```
+
+Note: React will automatically escape HTML, so we don't need to use this function with React
+
 ## The semicolon in JavaScript
 
-The semicolon for ending statements is mostly optional in JavaScript (JavaScript "features" automatic semicolon insertion)
+The semicolon for ending statements is mostly optional in JavaScript (_automatic semicolon insertion_)
 
 <!-- prettier-ignore -->
 ```js

@@ -187,7 +187,7 @@ Event handlers can be defined as JavaScript functions
 - JavaScript standardization and versions
 - imports and exports
 - arrow functions
-- template strings
+- template literals and tagged template literals
 - automatic semicolon insertion
 - destructuring assignment
 - spread syntax
@@ -277,7 +277,7 @@ const getState = () => ({
 });
 ```
 
-## Template strings
+## Template literals
 
 - syntax for _creating_ strings
 - delimited via backticks
@@ -289,9 +289,42 @@ const greeting = `Hello, ${name}!
                   This is ES2015!`;
 ```
 
+## Tagged template literals
+
+**Tagged** template literals enable additional processing when values are included
+
+use cases:
+
+- escaping values from "unsafe" sources
+- changing indentation
+- including styles in React
+- ...
+
+## Tagged template literals
+
+example: escaping HTML
+
+```js
+import { safeHtml } from 'common-tags';
+
+const message = 'I <3 U';
+
+const post = safeHtml`
+  <div>${message}</div>
+`;
+```
+
+result:
+
+```html
+<div>I &lt;3 U</div>
+```
+
+Note: React will automatically escape HTML, so we don't need to use this function with React
+
 ## The semicolon in JavaScript
 
-The semicolon for ending statements is mostly optional in JavaScript (JavaScript "features" automatic semicolon insertion)
+The semicolon for ending statements is mostly optional in JavaScript (_automatic semicolon insertion_)
 
 <!-- prettier-ignore -->
 
@@ -1085,6 +1118,25 @@ note:
 
 Binding to the _style_ property directly is inefficient and is usually avoided; in practice, libraries like _styled-components_ or _emotion_ are used to write style declarations inside JavaScript
 
+## JSX and styling basics
+
+basic styling example via the library _emotion_:
+
+```jsx
+import { css } from '@emotion/css';
+```
+
+```jsx
+<div
+  className={css`
+    display: flex;
+    justify-content: center;
+  `}
+>
+  ...
+</div>
+```
+
 # JSX: compilation
 
 ## JSX: compilation
@@ -1822,6 +1874,8 @@ Task: draft component interfaces (props and events) for various components (e.g.
 Task: "recreate" one of the components listed at [awesome-react-components](https://github.com/brillout/awesome-react-components) (e.g. bar chart, color picker, table / data grid, tabs)
 
 Task: split the todo app into smaller components (e.g. _TodoList_, _TodoItem_, _AddTodo_)
+
+Task: extract reusable components that are mainly used for styling - e.g. a `Button` component or a `TextInput` component
 
 # Effect hook and querying APIs
 

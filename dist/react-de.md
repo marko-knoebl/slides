@@ -187,7 +187,7 @@ Eventhandler können als JavaScript-Funktionen definiert werden
 - JavaScript-Standardisierung und Versionen
 - Imports und Exports
 - Pfeilfunktionen
-- Template-Strings
+- Template Literals und Tagged Template Literals
 - Automatic Semicolon Insertion
 - destrukturierende Zuweisung
 - Spread-Syntax
@@ -277,7 +277,7 @@ const getState = () => ({
 });
 ```
 
-## Template-Strings
+## Template Literals
 
 - Syntax zum _Erstellen_ von Strings
 - Werden mit Backticks begrenzt
@@ -289,9 +289,42 @@ const greeting = `Hello, ${name}!
                   This is ES2015!`;
 ```
 
+## Tagged Template Literals
+
+**Tagged** Template Literals ermöglichen zusätzliche Verarbeitung, wenn Werte eingebunden werden
+
+Beispiele für Verwendungszwecke:
+
+- "Escaping" von Werten aus unsicheren Quellen
+- Anpasen der Einrückung
+- Einbinden von Stilen in React
+- ...
+
+## Tagged Template Literals
+
+Beispiel: "Escaping" von HTML:
+
+```js
+import { safeHtml } from 'common-tags';
+
+const message = 'I <3 U';
+
+const post = safeHtml`
+  <div>${message}</div>
+`;
+```
+
+Ergebnis:
+
+```html
+<div>I &lt;3 U</div>
+```
+
+Bemerkung: In React geschieht "Escaping" von HTMl automatisch, wir müssen diese Funktion in React nicht verwenden
+
 ## Das Semikolon in JavaScript
 
-Das Semikolon zum Abschluss von Statements ist größtenteils in JavaScript optional ("Feature" von JavaScript: automatic semicolon insertion)
+Das Semikolon zum Abschluss von Statements ist größtenteils in JavaScript optional (_automatic semicolon insertion_)
 
 <!-- prettier-ignore -->
 
@@ -1085,6 +1118,25 @@ Bemerkung:
 
 Das direkte binden an die _style_-Property ist ineffizient und wird meist vermieden; in der Praxis werden Libraries wie _styled-components_ oder _emotion_ verwendet, um Stildeklarationen in JavaScript zu schreiben.
 
+## JSX und Styling Grundlagen
+
+Grundlegendes Styling-Beispiel mittels der Library _emotion_:
+
+```jsx
+import { css } from '@emotion/css';
+```
+
+```jsx
+<div
+  className={css`
+    display: flex;
+    justify-content: center;
+  `}
+>
+  ...
+</div>
+```
+
 # JSX: Kompilierung
 
 ## JSX: Kompilierung
@@ -1818,6 +1870,8 @@ Aufgabe: Entwerfen von Komponenteninterfaces (Props und Events) für verschieden
 Aufgabe: "Nachbau" einer der Komponenten auf [awesome-react-components](https://github.com/brillout/awesome-react-components) (z.B. bar chart, color picker, table / data grid, tabs)
 
 Aufgabe: Aufteilen der Todo-Anwendung in kleinere Komponenten (z.B. _TodoList_, _TodoItem_, _AddTodo_)
+
+Aufgabe: Extrahieren wiederverwendbarer Komponenten, die insbesondere für Styling verwendet werden - z.B. eine `Button`-Komponente oder eine `TextInput`-Komponente
 
 # Effect hook und API-Abfragen
 

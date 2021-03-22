@@ -966,9 +966,67 @@ Zugänge:
 
 Libraries:
 
-- styled-components
 - emotion
+- styled-components
 - ...
+
+## Emotion
+
+In Emotion werden Stile üblicherweise direkt im Template mittels eines _Tagged Template Literals_ eingebunden.
+
+## Emotion
+
+allgemeine Verwendung:
+
+```jsx
+<div
+  className={css`
+    display: flex;
+    justify-content: center;
+  `}
+>
+  ...
+</div>
+```
+
+## Emotion
+
+empfohlene Verwendung in _React_ (benötigt zusätzliche Source-Code-Transformation):
+
+```jsx
+<div
+  css={css`
+    display: flex;
+    justify-content: center;
+  `}
+>
+  ...
+</div>
+```
+
+beachte: neue Property `css` anstatt `className`
+
+## Emotion
+
+allgemeiner Import:
+
+```jsx
+import { css } from '@emotion/css';
+```
+
+Import und Source-Code-Transformation in React 17:
+
+```jsx
+/** @jsxImportSource @emotion/react */
+import { css } from '@emotion/react';
+```
+
+Import und Source-Code-Transformation in React 16:
+
+```jsx
+/** @jsx jsx */
+import { jsx, css } from '@emotion/react';
+```
 
 ## styled-components
 
@@ -1018,42 +1076,6 @@ const Slideshow = (props) => (
     <BlockImg src="..." alt="..." />
     <Button primary={true}>next</Button>
   </Container>
-);
-```
-
-## Emotion
-
-Emotion erweitert die jsx-Notation durch eine zusätzliche _css_-Property
-
-Installation:
-
-```bash
-npm install @emotion/core
-```
-
-## Emotion
-
-```jsx
-/** @jsx jsx */
-import { jsx, css } from '@emotion/core';
-
-const Slideshow = (props) => (
-  <div
-    css={css`
-      display: flex;
-      justify-content: center;
-    `}
-  >
-    <button>prev</button>
-    <img
-      css={css`
-        display: block;
-      `}
-      src="..."
-      alt="..."
-    />
-    <button>next</button>
-  </div>
 );
 ```
 

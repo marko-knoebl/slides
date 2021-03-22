@@ -5,7 +5,7 @@
 - JavaScript-Standardisierung und Versionen
 - Imports und Exports
 - Pfeilfunktionen
-- Template-Strings
+- Template Literals und Tagged Template Literals
 - Automatic Semicolon Insertion
 - destrukturierende Zuweisung
 - Spread-Syntax
@@ -95,7 +95,7 @@ const getState = () => ({
 });
 ```
 
-## Template-Strings
+## Template Literals
 
 - Syntax zum _Erstellen_ von Strings
 - Werden mit Backticks begrenzt
@@ -107,9 +107,42 @@ const greeting = `Hello, ${name}!
                   This is ES2015!`;
 ```
 
+## Tagged Template Literals
+
+**Tagged** Template Literals ermöglichen zusätzliche Verarbeitung, wenn Werte eingebunden werden
+
+Beispiele für Verwendungszwecke:
+
+- "Escaping" von Werten aus unsicheren Quellen
+- Anpasen der Einrückung
+- Einbinden von Stilen in React
+- ...
+
+## Tagged Template Literals
+
+Beispiel: "Escaping" von HTML:
+
+```js
+import { safeHtml } from 'common-tags';
+
+const message = 'I <3 U';
+
+const post = safeHtml`
+  <div>${message}</div>
+`;
+```
+
+Ergebnis:
+
+```html
+<div>I &lt;3 U</div>
+```
+
+Bemerkung: In React geschieht "Escaping" von HTMl automatisch, wir müssen diese Funktion in React nicht verwenden
+
 ## Das Semikolon in JavaScript
 
-Das Semikolon zum Abschluss von Statements ist größtenteils in JavaScript optional ("Feature" von JavaScript: automatic semicolon insertion)
+Das Semikolon zum Abschluss von Statements ist größtenteils in JavaScript optional (_automatic semicolon insertion_)
 
 <!-- prettier-ignore -->
 ```js

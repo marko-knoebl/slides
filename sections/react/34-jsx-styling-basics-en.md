@@ -57,3 +57,22 @@ const imageStyle = {
 note:
 
 Binding to the _style_ property directly is inefficient and is usually avoided; in practice, libraries like _styled-components_ or _emotion_ are used to write style declarations inside JavaScript
+
+## JSX and styling basics
+
+basic styling example via the library _emotion_:
+
+```jsx
+import { css } from '@emotion/css';
+```
+
+```jsx
+<div
+  className={css`
+    display: flex;
+    justify-content: center;
+  `}
+>
+  ...
+</div>
+```

@@ -2380,7 +2380,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li>JavaScript standardization and versions</li>
 <li>imports and exports</li>
 <li>arrow functions</li>
-<li>template strings</li>
+<li>template literals and tagged template literals</li>
 <li>automatic semicolon insertion</li>
 <li>destructuring assignment</li>
 <li>spread syntax</li>
@@ -2445,7 +2445,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   <span class="hljs-attr">userName</span>: <span class="hljs-string">'mike'</span>,
 });
 </code></pre>
-</section><section class="slide"><h2>Template strings</h2>
+</section><section class="slide"><h2>Template literals</h2>
 <ul>
 <li>syntax for <em>creating</em> strings</li>
 <li>delimited via backticks</li>
@@ -2455,8 +2455,31 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <span class="hljs-keyword">const</span> greeting = <span class="hljs-string">`Hello, <span class="hljs-subst">${name}</span>!
                   This is ES2015!`</span>;
 </code></pre>
+</section><section class="slide"><h2>Tagged template literals</h2>
+<p><strong>Tagged</strong> template literals enable additional processing when values are included</p>
+<p>use cases:</p>
+<ul>
+<li>escaping values from "unsafe" sources</li>
+<li>changing indentation</li>
+<li>including styles in React</li>
+<li>...</li>
+</ul>
+</section><section class="slide"><h2>Tagged template literals</h2>
+<p>example: escaping HTML</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { safeHtml } <span class="hljs-keyword">from</span> <span class="hljs-string">'common-tags'</span>;
+
+<span class="hljs-keyword">const</span> message = <span class="hljs-string">'I &#x3C;3 U'</span>;
+
+<span class="hljs-keyword">const</span> post = safeHtml<span class="hljs-string">`
+  &#x3C;div><span class="hljs-subst">${message}</span>&#x3C;/div>
+`</span>;
+</code></pre>
+<p>result:</p>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>I <span class="hljs-symbol">&#x26;lt;</span>3 U<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
+</code></pre>
+<p>Note: React will automatically escape HTML, so we don't need to use this function with React</p>
 </section><section class="slide"><h2>The semicolon in JavaScript</h2>
-<p>The semicolon for ending statements is mostly optional in JavaScript (JavaScript "features" automatic semicolon insertion)</p>
+<p>The semicolon for ending statements is mostly optional in JavaScript (<em>automatic semicolon insertion</em>)</p>
 <!-- prettier-ignore -->
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> a = <span class="hljs-number">3</span>
 <span class="hljs-built_in">console</span>.log(a)
@@ -2986,6 +3009,19 @@ solution: <strong>key</strong>:</p>
 </section><section class="slide"><h2>JSX and styling basics</h2>
 <p>note:</p>
 <p>Binding to the <em>style</em> property directly is inefficient and is usually avoided; in practice, libraries like <em>styled-components</em> or <em>emotion</em> are used to write style declarations inside JavaScript</p>
+</section><section class="slide"><h2>JSX and styling basics</h2>
+<p>basic styling example via the library <em>emotion</em>:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> { css } <span class="hljs-keyword">from</span> <span class="hljs-string">'@emotion/css'</span>;
+</code></pre>
+<pre><code class="hljs language-jsx">&#x3C;div
+  className={css`<span class="css">
+    <span class="hljs-selector-tag">display</span>: <span class="hljs-selector-tag">flex</span>;
+    <span class="hljs-selector-tag">justify-content</span>: <span class="hljs-selector-tag">center</span>;
+  `</span>}
+>
+  ...
+&#x3C;/div>
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>JSX: compilation</h1>
 </section><section class="slide"><h2>JSX: compilation</h2>
 <p>XML elements are compiled to calls of:</p>
@@ -3703,6 +3739,7 @@ const ProgressBar = (props: Props) => {
 <p>Task: draft component interfaces (props and events) for various components (e.g. <em>Calendar</em>, <em>Color Picker</em>, <em>BarChart</em>, <em>Tabs</em>)</p>
 <p>Task: "recreate" one of the components listed at <a href="https://github.com/brillout/awesome-react-components">awesome-react-components</a> (e.g. bar chart, color picker, table / data grid, tabs)</p>
 <p>Task: split the todo app into smaller components (e.g. <em>TodoList</em>, <em>TodoItem</em>, <em>AddTodo</em>)</p>
+<p>Task: extract reusable components that are mainly used for styling - e.g. a <code>Button</code> component or a <code>TextInput</code> component</p>
 </section></section><section class="slides-section"><section class="slide"><h1>Effect hook and querying APIs</h1>
 </section><section class="slide"><h2>Topics</h2>
 <ul>

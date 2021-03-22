@@ -57,3 +57,22 @@ const imageStyle = {
 Bemerkung:
 
 Das direkte binden an die _style_-Property ist ineffizient und wird meist vermieden; in der Praxis werden Libraries wie _styled-components_ oder _emotion_ verwendet, um Stildeklarationen in JavaScript zu schreiben.
+
+## JSX und Styling Grundlagen
+
+Grundlegendes Styling-Beispiel mittels der Library _emotion_:
+
+```jsx
+import { css } from '@emotion/css';
+```
+
+```jsx
+<div
+  className={css`
+    display: flex;
+    justify-content: center;
+  `}
+>
+  ...
+</div>
+```
