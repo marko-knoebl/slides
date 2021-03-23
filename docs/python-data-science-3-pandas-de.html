@@ -2194,7 +2194,10 @@ exchange_rates = pd.read_csv(
     parse_dates=[<span class="hljs-string">"Date"</span>],
 )
 iris = pd.read_csv(
-    <span class="hljs-string">"https://raw.githubusercontent.com/mwaskom/seaborn-data/master/iris.csv"</span>
+    <span class="hljs-string">"http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data"</span>,
+    header=<span class="hljs-literal">None</span>,
+    names=[<span class="hljs-string">"sepal_length"</span>, <span class="hljs-string">"sepal_width"</span>, <span class="hljs-string">"petal_length"</span>,
+           <span class="hljs-string">"petal_width"</span>, <span class="hljs-string">"species"</span>],
 )
 titanic = pd.read_csv(
     <span class="hljs-string">"https://public.opendatasoft.com/explore/dataset/titanic-passengers/download"</span>,
@@ -2263,29 +2266,111 @@ dtype: float64
 <li><em>min</em>: alle Werte sind größer als das Minimum</li>
 <li><em>25%-Quantil</em>: 25% aller Werte sind kleiner</li>
 </ul>
-</section></section><section class="slides-section"><section class="slide"><h1>Daten auslesen</h1>
-</section><section class="slide"><h2>Daten auslesen (nach Zeilen- und Spaltennummern)</h2>
-<ul>
-<li><code>df.iloc[5]</code>: Zeile 5 (gibt <code>Series</code>-Objekt zurück)</li>
-<li><code>df.iloc[:5]</code>: erste 5 Zeilen (gibt <code>DataFrame</code>-Objekt zurück)</li>
-<li><code>df.iloc[10:20]</code>: Zeilen 10-19</li>
-<li><code>df.iloc[5, 1]</code>: Zeile 5, Spalte 1</li>
-<li><code>df.iloc[5, [0, 2]]</code>: Zeile 5, Spalten 0 und 2</li>
-</ul>
-</section><section class="slide"><h2>Daten auslesen (nach Indexwerten und Spaltennamen)</h2>
+</section></section><section class="slides-section"><section class="slide"><h1>Daten auslesen: Grundlagen</h1>
+</section><section class="slide"><h2>Spaltennamen und Indexwerte</h2>
 <ul>
 <li><code>df.index</code>: Indexwerte der Zeilen</li>
 <li><code>df.columns</code>: Spaltennamen</li>
 </ul>
-<!-- list separator -->
+</section><section class="slide"><h2>Spalten auswählen</h2>
+<p>eine Spalte (als Series) auswählen:</p>
+<pre><code class="hljs language-py">titanic[<span class="hljs-string">"age"</span>]
+</code></pre>
+<p>mehrere Spalten (als DataFrame) auswählen:</p>
+<pre><code class="hljs language-py">titanic[[<span class="hljs-string">"name"</span>, <span class="hljs-string">"age"</span>]]
+</code></pre>
+</section><section class="slide"><h2>Spalten auswählen</h2>
+<p>kürzere Notation (funktioniert nicht für alle Spaltennamen):</p>
+<pre><code class="hljs language-py">titanic.age
+</code></pre>
+<p>Fälle, in denen die kürzere Notation nicht verwendet werden kann:</p>
+<pre><code class="hljs language-py">df[<span class="hljs-string">"first name"</span>]  <span class="hljs-comment"># space in name</span>
+df[<span class="hljs-string">"class"</span>]       <span class="hljs-comment"># reserved word</span>
+df[<span class="hljs-string">"mean"</span>]        <span class="hljs-comment"># existing method</span>
+</code></pre>
+</section><section class="slide"><h2>Zeilen nach Indexwert auswählen</h2>
+<p>einzelne Zeile als Series:</p>
+<pre><code class="hljs language-py">sp500.loc[<span class="hljs-string">"1872-01-01"</span>]
+</code></pre>
+<p>mehrere Zeilen als DataFrame (beide Grenzen inklusive):</p>
+<pre><code class="hljs language-py">sp500.loc[<span class="hljs-string">"1872-01-01"</span> : <span class="hljs-string">"1872-12-31"</span>]
+</code></pre>
+</section><section class="slide"><h2>Zeilen nach Zeilennummer auswählen</h2>
+<p>einzelne Zeile als Series:</p>
+<pre><code class="hljs language-py">sp500.iloc[<span class="hljs-number">0</span>]
+</code></pre>
+<p>mehrere Zeilen als DataFrame:</p>
+<pre><code class="hljs language-py">sp500.iloc[<span class="hljs-number">0</span> : <span class="hljs-number">10</span>]
+</code></pre>
+</section><section class="slide"><h2>Zeilen auswählen</h2>
+<pre><code class="hljs language-py">titanic[titanic[<span class="hljs-string">"pclass"</span>] == <span class="hljs-number">1</span>]
+</code></pre>
+<pre><code class="hljs language-py">titanic[titanic[<span class="hljs-string">"age"</span>] >= <span class="hljs-number">70</span>]
+</code></pre>
+</section><section class="slide"><h2>Zufällig Zeilen auswählen</h2>
 <ul>
-<li><code>df.loc["2009-01-02"]</code>: Zeile mit bestimmtem Indexwert</li>
-<li><code>df.loc["2009-01-01" : "2009-01-31"]</code>: Zeilen in bestimmtem Bereich (beide Grenzen inklusive)</li>
-<li><code>df.loc[:, "rate"]</code>: Spalte <code>"rate"</code></li>
-<li><code>df["rate"]</code>: Spalte <code>"rate"</code> (Kurzschreibweise)</li>
-<li><code>df.rate</code>: Spalte <code>"rate"</code> (kürzere Version - klappt nicht mit Sonderzeichen)</li>
-<li><code>df.loc[:, ["rate", "maturity_level"]]</code>: zwei Spalten</li>
-<li><code>df.loc["2009-01-02", "rate"]</code>: Bestimmte Zeile und Spalte</li>
+<li><code>df.sample()</code> - ein zufälliger Eintrag)</li>
+<li><code>df.sample(5)</code> - fünf Einträge</li>
+<li><code>df.sample(frac=0.1)</code> - 10% aller Einträge</li>
+</ul>
+</section><section class="slide"><h2>Aufgaben: Euribor</h2>
+<ul>
+<li>erster Eintrag</li>
+<li>letzter Eintrag</li>
+<li>letzte 10 Einträge</li>
+<li>Eintrag vom 2.1.2009</li>
+<li>Einträge aus dem Jahr 2009</li>
+<li>Einträge mit negativem Zinssatz</li>
+<li>...</li>
+</ul>
+</section><section class="slide"><h2>Lösungen: Euribor</h2>
+<ul>
+<li>erster Eintrag: <code>euribor.iloc[0]</code></li>
+<li>letzter Eintrag: <code>euribor.iloc[-1]</code></li>
+<li>letzte 10 Einträge: <code>euribor.iloc[-10:]</code></li>
+<li>Eintrag vom 2.1.2009: <code>euribor.loc["2009-01-02"]</code></li>
+<li>Einträge vom 1.1.2009 bis 31.12.2009: <code>euribor.loc["2009-01-01": "2009-12-31"]</code></li>
+<li>Einträge mit negativem Zinssatz: <code>euribor[euribor["rate"] &#x3C; 0]</code></li>
+</ul>
+</section><section class="slide"><h2>Aufgaben: Titanic</h2>
+<ul>
+<li>alle Überlebenden</li>
+<li>alle 60-Jährigen</li>
+</ul>
+</section><section class="slide"><h2>Lösungen: Titanic</h2>
+<ul>
+<li>alle Überlebenden: <code>titanic[titanic["survived"] == "Yes"]</code></li>
+<li>alle 60-Jährigen: <code>titanic[titanic["age"] == 60]</code></li>
+</ul>
+</section><section class="slide"><h2>Aufgabe: Wechselkurse</h2>
+<ul>
+<li>zeige <em>date</em> und <em>exchange rate</em> für Kurz zwischen <em>USD</em> (Basiswährung) und <em>EUR</em> (Land: "Euro")</li>
+</ul>
+</section><section class="slide"><h2>Lösung: Wechselkurse</h2>
+<pre><code class="hljs language-py">euro_exchange_rates = exchange_rates[
+    exchange_rates.Country == <span class="hljs-string">"Euro"</span>
+]
+euro_exchange_rates[[<span class="hljs-string">"Date"</span>, <span class="hljs-string">"Exchange rate"</span>]]
+</code></pre>
+</section><section class="slide"><h2>Aufgabe: S&#x26;P 500</h2>
+<ul>
+<li>wann war der S&#x26;P 500 am höchsten Wert? (Bestimme das Maximum, dann suche die zugehörige Zeile im DataFrame)</li>
+</ul>
+</section><section class="slide"><h2>Lösung: S&#x26;P 500</h2>
+<pre><code class="hljs language-py">sp500_max = sp500[<span class="hljs-string">"SP500"</span>].<span class="hljs-built_in">max</span>()
+<span class="hljs-comment"># returns a DataFrame</span>
+sp500_max_row = sp500[sp500[<span class="hljs-string">"SP500"</span>] == sp500_max]
+</code></pre>
+<p>kürzere Alternative: (via <code>.idxmax()</code>):</p>
+<pre><code class="hljs language-py"><span class="hljs-comment"># returns a Series</span>
+sp500_max_row = sp500.loc[sp500[<span class="hljs-string">"SP500"</span>].idxmax()]
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Daten auslesen: Fortgeschritten</h1>
+</section><section class="slide"><h2>Daten auslesen</h2>
+<p>nach Zeile und Spalte auswählen:</p>
+<ul>
+<li><code>df.loc["2009-01-02", "rate"]</code></li>
+<li><code>df.iloc[5, 1]</code></li>
 </ul>
 </section><section class="slide"><h2>Zeilen sortieren</h2>
 <ul>
@@ -2293,84 +2378,48 @@ dtype: float64
 <li><code>df.loc["2009-01-02" : "2009-12-31"].sort_values(by="rate")</code></li>
 <li><code>df.sort_index(ascending=False)</code></li>
 </ul>
-</section><section class="slide"><h2>Zufällig Daten auswählen</h2>
-<ul>
-<li><code>df.sample()</code> - ein zufälliger Eintrag)</li>
-<li><code>df.sample(5)</code> - fünf Einträge</li>
-<li><code>df.sample(frac=0.1)</code> - 10% aller Einträge</li>
-</ul>
-</section><section class="slide"><h2>Einträge filtern</h2>
-<p>Alle Werte, die das Kriterium nicht erfüllen werden zu <em>NaN</em> bzw <em>NA</em>.</p>
-<pre><code class="hljs language-py">iris[iris > <span class="hljs-number">0</span>]
+</section><section class="slide"><h2>Zeilen auswählen</h2>
+<p>Grundlegende Methode:</p>
+<pre><code class="hljs language-py">titanic[titanic[<span class="hljs-string">"pclass"</span>] == <span class="hljs-number">1</span>]
 </code></pre>
-</section><section class="slide"><h2>Zeilen filtern</h2>
-<p>Zeilenweise filtern (ein zeilenweise gefilterter <em>DataFrame</em> wird zurückgegeben):</p>
-<ul>
-<li><code>df[df.rate &#x3C; 0]</code></li>
-<li><code>df[df.length &#x3C; 0] = np.nan</code></li>
-<li><code>df[df.name == "Iris-setosa"]</code></li>
-<li><code>df[df.name.isin(["Iris-setosa", "Iris-virginica"])])]</code></li>
-</ul>
-</section><section class="slide"><h2>Zeilen suchen</h2>
-<p>SQL Vorlage:</p>
-<pre><code class="hljs language-sql"><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> df
-<span class="hljs-keyword">WHERE</span> a &#x3C; b <span class="hljs-keyword">AND</span> b &#x3C; c
+<pre><code class="hljs language-py">titanic[titanic[<span class="hljs-string">"age"</span>] >= <span class="hljs-number">70</span>]
 </code></pre>
-<p>Pandas:</p>
-<pre><code class="hljs language-py">df[(df.a &#x3C; df.b) &#x26; (df.b &#x3C; df.c)]
+</section><section class="slide"><h2>Zeilen auswählen: fortgeschritten</h2>
+<p>männliche Passagiere in der ersten Klasse:</p>
+<pre><code class="hljs language-py">titanic.query(<span class="hljs-string">"pclass > 1 and sex == 'male'"</span>)
 </code></pre>
-<p>oder</p>
-<pre><code class="hljs language-py">df.query(<span class="hljs-string">"a &#x3C; b &#x3C; c"</span>)
+<p>Passagiere, die in Southampton oder Queenstown an Bord gingen:</p>
+<pre><code class="hljs language-py">titanic.query(<span class="hljs-string">"embarked in ['S', 'Q']"</span>)
 </code></pre>
-</section><section class="slide"><h2>Aufgaben (Euribor)</h2>
-<ul>
-<li>erster Eintrag</li>
-<li>letzter Eintrag</li>
-<li>letzte 10 Einträge</li>
-<li>Eintrag vom 2.1.2009</li>
-<li>Einträge aus dem Jahr 2009</li>
-<li>...</li>
-</ul>
-</section><section class="slide"><h2>Lösungen (Euribor)</h2>
-<ul>
-<li>erster Eintrag: <code>euribor.iloc[0]</code></li>
-<li>letzter Eintrag: <code>euribor.iloc[-1]</code></li>
-<li>letzte 10 Einträge: <code>euribor.iloc[-10:]</code></li>
-<li>Eintrag vom 2.1.2009: <code>euribor.loc["2009-01-02"]</code></li>
-<li>Einträge vom 1.1.2009 bis 31.12.2009: <code>euribor.loc["2009-01-01": "2009-12-31"]</code></li>
-</ul>
-</section><section class="slide"><h2>Aufgaben (Iris)</h2>
-<ul>
-<li>Maximale <em>petal length</em> von <em>iris setosa</em> (ohne <code>.max</code>)</li>
-</ul>
-</section><section class="slide"><h2>Aufgaben (Titanic)</h2>
-<ul>
-<li>Prozentsatz an Überlebenden</li>
-<li>Prozentsatz an Überlebenden unter männlichen Passagieren</li>
-<li>Prozentsatz an Überlebenden unter Kindern</li>
-</ul>
-</section><section class="slide"><h2>Aufgaben (Wechselkurs)</h2>
-<ul>
-<li>zeige <em>date</em> und <em>exchange rate</em> für den USD-EUR-Kurs an</li>
-</ul>
-</section><section class="slide"><h2>Lösungen (Wechselkurs)</h2>
-<pre><code class="hljs language-py">euro_exchange_rates = exchange_rates[
-    exchange_rates.Country == <span class="hljs-string">"Euro"</span>
-]
-euro_exchange_rates.loc[:, [<span class="hljs-string">"Date"</span>, <span class="hljs-string">"Exchange rate"</span>]]
+</section><section class="slide"><h2>Zeilen auswählen: fortgeschritten</h2>
+<pre><code class="hljs language-py">titanic[(titanic[<span class="hljs-string">"pclass"</span>] > <span class="hljs-number">1</span>) &#x26; (titanic[<span class="hljs-string">"sex"</span>] == <span class="hljs-string">"male"</span>)]
 </code></pre>
-</section><section class="slide"><h2>Aufgaben (S&#x26;P 500)</h2>
-<ul>
-<li>wann war der S&#x26;P 500 am höchsten Wert? (Bestimme das Maximum, dann suche die zugehörige Zeile im DataFrame)</li>
-</ul>
-</section><section class="slide"><h2>Lösung (S&#x26;P 500)</h2>
-<pre><code class="hljs language-py">sp500_max = sp500[<span class="hljs-string">"SP500"</span>].<span class="hljs-built_in">max</span>()
-<span class="hljs-comment"># returns a DataFrame</span>
-sp500_max_row = sp500.loc[sp500[<span class="hljs-string">"SP500"</span>] == sp500_max]
+<pre><code class="hljs language-py">titanic[titanic[<span class="hljs-string">"embarked"</span>].isin([<span class="hljs-string">"S"</span>, <span class="hljs-string">"Q"</span>])]
 </code></pre>
-<p>kürzere Alternative: (via <code>.idxmax()</code>):</p>
-<pre><code class="hljs language-py"><span class="hljs-comment"># returns a Series</span>
-sp500_max_row = sp500.loc[sp500[<span class="hljs-string">"SP500"</span>].idxmax()]
+</section><section class="slide"><h2>Übung: Titanic</h2>
+<ul>
+<li>erwachsene (>= 18) Männer, sortiert nach Alter</li>
+<li>erwachsene Überlebende</li>
+</ul>
+</section><section class="slide"><h2>Lösungen: Titanic</h2>
+<p>erwachsene (>= 18) Männer, sortiert nach Alter:</p>
+<pre><code class="hljs language-py">titanic[titanic[<span class="hljs-string">"age"</span>] >= <span class="hljs-number">18</span>].sort_values(by=<span class="hljs-string">"age"</span>)
+titanic.query(<span class="hljs-string">"age >= 18"</span>).sort_values(by=<span class="hljs-string">"age"</span>)
+</code></pre>
+<p>erwachsene Überlebende:</p>
+<pre><code class="hljs language-py">titanic.query(<span class="hljs-string">"age >= 18 and survived=='Yes'"</span>)
+</code></pre>
+</section><section class="slide"><h2>Übungen: Iris-Blüten</h2>
+<ul>
+<li>Iris-Blüten, sortiert nach <em>petal length</em></li>
+<li>Iris Setosa, sortiert nach <em>petal length</em></li>
+</ul>
+</section><section class="slide"><h2>Lösungen: Iris-Blüten</h2>
+<pre><code class="hljs language-py">iris.sort_values(by=<span class="hljs-string">"petal_length"</span>)
+</code></pre>
+<pre><code class="hljs language-py">iris[iris[<span class="hljs-string">"species"</span>] == <span class="hljs-string">"Iris-setosa"</span>].sort_values(
+    by=<span class="hljs-string">"petal_length"</span>
+)
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Daten manipulieren</h1>
 </section><section class="slide"><h2>Spalten umbenennen</h2>

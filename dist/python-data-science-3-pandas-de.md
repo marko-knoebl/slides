@@ -152,7 +152,10 @@ exchange_rates = pd.read_csv(
     parse_dates=["Date"],
 )
 iris = pd.read_csv(
-    "https://raw.githubusercontent.com/mwaskom/seaborn-data/master/iris.csv"
+    "http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data",
+    header=None,
+    names=["sepal_length", "sepal_width", "petal_length",
+           "petal_width", "species"],
 )
 titanic = pd.read_csv(
     "https://public.opendatasoft.com/explore/dataset/titanic-passengers/download",
@@ -239,131 +242,139 @@ berechnet die folgenden Daten:
 - _min_: alle Werte sind größer als das Minimum
 - _25%-Quantil_: 25% aller Werte sind kleiner
 
-# Daten auslesen
+# Daten auslesen: Grundlagen
 
-## Daten auslesen (nach Zeilen- und Spaltennummern)
-
-- `df.iloc[5]`: Zeile 5 (gibt `Series`-Objekt zurück)
-- `df.iloc[:5]`: erste 5 Zeilen (gibt `DataFrame`-Objekt zurück)
-- `df.iloc[10:20]`: Zeilen 10-19
-- `df.iloc[5, 1]`: Zeile 5, Spalte 1
-- `df.iloc[5, [0, 2]]`: Zeile 5, Spalten 0 und 2
-
-## Daten auslesen (nach Indexwerten und Spaltennamen)
+## Spaltennamen und Indexwerte
 
 - `df.index`: Indexwerte der Zeilen
 - `df.columns`: Spaltennamen
 
-<!-- list separator -->
+## Spalten auswählen
 
-- `df.loc["2009-01-02"]`: Zeile mit bestimmtem Indexwert
-- `df.loc["2009-01-01" : "2009-01-31"]`: Zeilen in bestimmtem Bereich (beide Grenzen inklusive)
-- `df.loc[:, "rate"]`: Spalte `"rate"`
-- `df["rate"]`: Spalte `"rate"` (Kurzschreibweise)
-- `df.rate`: Spalte `"rate"` (kürzere Version - klappt nicht mit Sonderzeichen)
-- `df.loc[:, ["rate", "maturity_level"]]`: zwei Spalten
-- `df.loc["2009-01-02", "rate"]`: Bestimmte Zeile und Spalte
+eine Spalte (als Series) auswählen:
 
-## Zeilen sortieren
+```py
+titanic["age"]
+```
 
-- `df.sort_values(by="rate")`
-- `df.loc["2009-01-02" : "2009-12-31"].sort_values(by="rate")`
-- `df.sort_index(ascending=False)`
+mehrere Spalten (als DataFrame) auswählen:
 
-## Zufällig Daten auswählen
+```py
+titanic[["name", "age"]]
+```
+
+## Spalten auswählen
+
+kürzere Notation (funktioniert nicht für alle Spaltennamen):
+
+```py
+titanic.age
+```
+
+Fälle, in denen die kürzere Notation nicht verwendet werden kann:
+
+```py
+df["first name"]  # space in name
+df["class"]       # reserved word
+df["mean"]        # existing method
+```
+
+## Zeilen nach Indexwert auswählen
+
+einzelne Zeile als Series:
+
+```py
+sp500.loc["1872-01-01"]
+```
+
+mehrere Zeilen als DataFrame (beide Grenzen inklusive):
+
+```py
+sp500.loc["1872-01-01" : "1872-12-31"]
+```
+
+## Zeilen nach Zeilennummer auswählen
+
+einzelne Zeile als Series:
+
+```py
+sp500.iloc[0]
+```
+
+mehrere Zeilen als DataFrame:
+
+```py
+sp500.iloc[0 : 10]
+```
+
+## Zeilen auswählen
+
+```py
+titanic[titanic["pclass"] == 1]
+```
+
+```py
+titanic[titanic["age"] >= 70]
+```
+
+## Zufällig Zeilen auswählen
 
 - `df.sample()` - ein zufälliger Eintrag)
 - `df.sample(5)` - fünf Einträge
 - `df.sample(frac=0.1)` - 10% aller Einträge
 
-## Einträge filtern
-
-Alle Werte, die das Kriterium nicht erfüllen werden zu _NaN_ bzw _NA_.
-
-```py
-iris[iris > 0]
-```
-
-## Zeilen filtern
-
-Zeilenweise filtern (ein zeilenweise gefilterter _DataFrame_ wird zurückgegeben):
-
-- `df[df.rate < 0]`
-- `df[df.length < 0] = np.nan`
-- `df[df.name == "Iris-setosa"]`
-- `df[df.name.isin(["Iris-setosa", "Iris-virginica"])])]`
-
-## Zeilen suchen
-
-SQL Vorlage:
-
-```sql
-SELECT * FROM df
-WHERE a < b AND b < c
-```
-
-Pandas:
-
-```py
-df[(df.a < df.b) & (df.b < df.c)]
-```
-
-oder
-
-```py
-df.query("a < b < c")
-```
-
-## Aufgaben (Euribor)
+## Aufgaben: Euribor
 
 - erster Eintrag
 - letzter Eintrag
 - letzte 10 Einträge
 - Eintrag vom 2.1.2009
 - Einträge aus dem Jahr 2009
+- Einträge mit negativem Zinssatz
 - ...
 
-## Lösungen (Euribor)
+## Lösungen: Euribor
 
 - erster Eintrag: `euribor.iloc[0]`
 - letzter Eintrag: `euribor.iloc[-1]`
 - letzte 10 Einträge: `euribor.iloc[-10:]`
 - Eintrag vom 2.1.2009: `euribor.loc["2009-01-02"]`
 - Einträge vom 1.1.2009 bis 31.12.2009: `euribor.loc["2009-01-01": "2009-12-31"]`
+- Einträge mit negativem Zinssatz: `euribor[euribor["rate"] < 0]`
 
-## Aufgaben (Iris)
+## Aufgaben: Titanic
 
-- Maximale _petal length_ von _iris setosa_ (ohne `.max`)
+- alle Überlebenden
+- alle 60-Jährigen
 
-## Aufgaben (Titanic)
+## Lösungen: Titanic
 
-- Prozentsatz an Überlebenden
-- Prozentsatz an Überlebenden unter männlichen Passagieren
-- Prozentsatz an Überlebenden unter Kindern
+- alle Überlebenden: `titanic[titanic["survived"] == "Yes"]`
+- alle 60-Jährigen: `titanic[titanic["age"] == 60]`
 
-## Aufgaben (Wechselkurs)
+## Aufgabe: Wechselkurse
 
-- zeige _date_ und _exchange rate_ für den USD-EUR-Kurs an
+- zeige _date_ und _exchange rate_ für Kurz zwischen _USD_ (Basiswährung) und _EUR_ (Land: "Euro")
 
-## Lösungen (Wechselkurs)
+## Lösung: Wechselkurse
 
 ```py
 euro_exchange_rates = exchange_rates[
     exchange_rates.Country == "Euro"
 ]
-euro_exchange_rates.loc[:, ["Date", "Exchange rate"]]
+euro_exchange_rates[["Date", "Exchange rate"]]
 ```
 
-## Aufgaben (S&P 500)
+## Aufgabe: S&P 500
 
 - wann war der S&P 500 am höchsten Wert? (Bestimme das Maximum, dann suche die zugehörige Zeile im DataFrame)
 
-## Lösung (S&P 500)
+## Lösung: S&P 500
 
 ```py
 sp500_max = sp500["SP500"].max()
 # returns a DataFrame
-sp500_max_row = sp500.loc[sp500["SP500"] == sp500_max]
+sp500_max_row = sp500[sp500["SP500"] == sp500_max]
 ```
 
 kürzere Alternative: (via `.idxmax()`):
@@ -371,6 +382,94 @@ kürzere Alternative: (via `.idxmax()`):
 ```py
 # returns a Series
 sp500_max_row = sp500.loc[sp500["SP500"].idxmax()]
+```
+
+# Daten auslesen: Fortgeschritten
+
+## Daten auslesen
+
+nach Zeile und Spalte auswählen:
+
+- `df.loc["2009-01-02", "rate"]`
+- `df.iloc[5, 1]`
+
+## Zeilen sortieren
+
+- `df.sort_values(by="rate")`
+- `df.loc["2009-01-02" : "2009-12-31"].sort_values(by="rate")`
+- `df.sort_index(ascending=False)`
+
+## Zeilen auswählen
+
+Grundlegende Methode:
+
+```py
+titanic[titanic["pclass"] == 1]
+```
+
+```py
+titanic[titanic["age"] >= 70]
+```
+
+## Zeilen auswählen: fortgeschritten
+
+männliche Passagiere in der ersten Klasse:
+
+```py
+titanic.query("pclass > 1 and sex == 'male'")
+```
+
+Passagiere, die in Southampton oder Queenstown an Bord gingen:
+
+```py
+titanic.query("embarked in ['S', 'Q']")
+```
+
+## Zeilen auswählen: fortgeschritten
+
+```py
+titanic[(titanic["pclass"] > 1) & (titanic["sex"] == "male")]
+```
+
+```py
+titanic[titanic["embarked"].isin(["S", "Q"])]
+```
+
+## Übung: Titanic
+
+- erwachsene (>= 18) Männer, sortiert nach Alter
+- erwachsene Überlebende
+
+## Lösungen: Titanic
+
+erwachsene (>= 18) Männer, sortiert nach Alter:
+
+```py
+titanic[titanic["age"] >= 18].sort_values(by="age")
+titanic.query("age >= 18").sort_values(by="age")
+```
+
+erwachsene Überlebende:
+
+```py
+titanic.query("age >= 18 and survived=='Yes'")
+```
+
+## Übungen: Iris-Blüten
+
+- Iris-Blüten, sortiert nach _petal length_
+- Iris Setosa, sortiert nach _petal length_
+
+## Lösungen: Iris-Blüten
+
+```py
+iris.sort_values(by="petal_length")
+```
+
+```py
+iris[iris["species"] == "Iris-setosa"].sort_values(
+    by="petal_length"
+)
 ```
 
 # Daten manipulieren

@@ -229,7 +229,9 @@ Task: Train an algorithm to classify iris plants based on their measurements
 iris = pd.read_csv(
     "http://archive.ics.uci.edu/ml/" +
     "machine-learning-databases/iris/iris.data",
-    header=None
+    header=None,
+    names=["sepal_length", "sepal_width", "petal_length",
+           "petal_width", "species"]
 )
 
 iris_shuffled = iris.sample(frac=1.0)

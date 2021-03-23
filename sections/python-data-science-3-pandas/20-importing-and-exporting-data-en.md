@@ -83,7 +83,10 @@ exchange_rates = pd.read_csv(
     parse_dates=["Date"],
 )
 iris = pd.read_csv(
-    "https://raw.githubusercontent.com/mwaskom/seaborn-data/master/iris.csv"
+    "http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data",
+    header=None,
+    names=["sepal_length", "sepal_width", "petal_length",
+           "petal_width", "species"],
 )
 titanic = pd.read_csv(
     "https://public.opendatasoft.com/explore/dataset/titanic-passengers/download",

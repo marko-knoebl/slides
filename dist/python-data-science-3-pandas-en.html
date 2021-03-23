@@ -2194,7 +2194,10 @@ exchange_rates = pd.read_csv(
     parse_dates=[<span class="hljs-string">"Date"</span>],
 )
 iris = pd.read_csv(
-    <span class="hljs-string">"https://raw.githubusercontent.com/mwaskom/seaborn-data/master/iris.csv"</span>
+    <span class="hljs-string">"http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data"</span>,
+    header=<span class="hljs-literal">None</span>,
+    names=[<span class="hljs-string">"sepal_length"</span>, <span class="hljs-string">"sepal_width"</span>, <span class="hljs-string">"petal_length"</span>,
+           <span class="hljs-string">"petal_width"</span>, <span class="hljs-string">"species"</span>],
 )
 titanic = pd.read_csv(
     <span class="hljs-string">"https://public.opendatasoft.com/explore/dataset/titanic-passengers/download"</span>,
@@ -2263,29 +2266,109 @@ dtype: float64
 <li><em>min</em>: all values are greater than the minimum</li>
 <li><em>25%-quantile</em>: 25% of all values are less</li>
 </ul>
-</section></section><section class="slides-section"><section class="slide"><h1>Querying data</h1>
-</section><section class="slide"><h2>Querying data (by row numbers / column numbers)</h2>
-<ul>
-<li><code>df.iloc[5]</code>: row 5 (returns a <code>Series</code> object)</li>
-<li><code>df.iloc[:5]</code>: first 5 rows (returns a <code>DataFrame</code> object)</li>
-<li><code>df.iloc[10:20]</code>: rows 10-19</li>
-<li><code>df.iloc[5, 1]</code>: row 5, column 1</li>
-<li><code>df.iloc[5, [0, 2]]</code>: row 5, columns 0 and 2</li>
-</ul>
-</section><section class="slide"><h2>Querying data (by index values / column names)</h2>
+</section></section><section class="slides-section"><section class="slide"><h1>Querying data: basics</h1>
+</section><section class="slide"><h2>Column names and index values</h2>
 <ul>
 <li><code>df.index</code>: row index values</li>
 <li><code>df.columns</code>: column names</li>
 </ul>
-<!-- list separator -->
+</section><section class="slide"><h2>Selecting columns</h2>
+<p>accessing a column (as a Series):</p>
+<pre><code class="hljs language-py">titanic[<span class="hljs-string">"age"</span>]
+</code></pre>
+<p>accessing multiple columns (as a DataFrame):</p>
+<pre><code class="hljs language-py">titanic[[<span class="hljs-string">"name"</span>, <span class="hljs-string">"age"</span>]]
+</code></pre>
+</section><section class="slide"><h2>Selecting columns</h2>
+<p>short notation (does not work for all column names):</p>
+<pre><code class="hljs language-py">titanic.age
+</code></pre>
+<p>cases where the short notation cannot be used:</p>
+<pre><code class="hljs language-py">df[<span class="hljs-string">"first name"</span>]  <span class="hljs-comment"># space in name</span>
+df[<span class="hljs-string">"class"</span>]       <span class="hljs-comment"># reserved word</span>
+df[<span class="hljs-string">"mean"</span>]        <span class="hljs-comment"># existing method</span>
+</code></pre>
+</section><section class="slide"><h2>Selecting rows by index value</h2>
+<p>single row as a Series:</p>
+<pre><code class="hljs language-py">sp500.loc[<span class="hljs-string">"1872-01-01"</span>]
+</code></pre>
+<p>multiple rows as a DataFrame (both limits inclusive):</p>
+<pre><code class="hljs language-py">sp500.loc[<span class="hljs-string">"1872-01-01"</span> : <span class="hljs-string">"1872-12-31"</span>]
+</code></pre>
+</section><section class="slide"><h2>Selecting rows by row number</h2>
+<p>single row as a Series:</p>
+<pre><code class="hljs language-py">sp500.iloc[<span class="hljs-number">0</span>]
+</code></pre>
+<p>multiple rows as a DataFrame:</p>
+<pre><code class="hljs language-py">sp500.iloc[<span class="hljs-number">0</span> : <span class="hljs-number">10</span>]
+</code></pre>
+</section><section class="slide"><h2>Selecting rows</h2>
+<pre><code class="hljs language-py">titanic[titanic[<span class="hljs-string">"pclass"</span>] == <span class="hljs-number">1</span>]
+</code></pre>
+<pre><code class="hljs language-py">titanic[titanic[<span class="hljs-string">"age"</span>] >= <span class="hljs-number">70</span>]
+</code></pre>
+</section><section class="slide"><h2>Sampling data</h2>
 <ul>
-<li><code>df.loc["2009-01-02"]</code>: Row by index value</li>
-<li><code>df.loc["2009-01-01":"2009-01-31"]</code>: Rows in a specified range (both values included)</li>
-<li><code>df.loc[:, "rate"]</code>: column <code>"rate"</code></li>
-<li><code>df["rate"]</code>: column <code>"rate"</code> (short version)</li>
-<li><code>df.rate</code>: column <code>"rate"</code> (extra short version - only works with no special characters)</li>
-<li><code>df.loc[:, ["rate", "maturity_level"]]</code>: two columns</li>
-<li><code>df.loc["2009-01-02", "rate"]</code>: specific row and column</li>
+<li><code>df.sample()</code> - random entry</li>
+<li><code>df.sample(5)</code> - five entries</li>
+<li><code>df.sample(frac=0.1)</code> - 10% of all entries</li>
+</ul>
+</section><section class="slide"><h2>Exercises: Euribor</h2>
+<ul>
+<li>first entry</li>
+<li>last entry</li>
+<li>last 10 entries</li>
+<li>entry from 2009-01-02</li>
+<li>entries from the year 2009</li>
+<li>entries with a negative interest rates</li>
+<li>...</li>
+</ul>
+</section><section class="slide"><h2>Solutions: Euribor</h2>
+<ul>
+<li>first entry: <code>euribor.iloc[0]</code></li>
+<li>last entry: <code>euribor.iloc[-1]</code></li>
+<li>last 10 entries: <code>euribor.iloc[-10:]</code></li>
+<li>entry from 2009-01-02: <code>euribor.loc["2009-01-02"]</code></li>
+<li>entries from the year 2009: <code>euribor.loc["2009-01-01": "2009-12-31"]</code></li>
+<li>entries with a negative interest rate: <code>euribor[euribor["rate"] &#x3C; 0]</code></li>
+</ul>
+</section><section class="slide"><h2>Exercises: Titanic</h2>
+<ul>
+<li>all survivors</li>
+<li>all 60-year-olds</li>
+</ul>
+</section><section class="slide"><h2>Solutions: Titanic</h2>
+<ul>
+<li>all survivors: <code>titanic[titanic["survived"] == "Yes"]</code></li>
+<li>all 60-year-olds: <code>titanic[titanic["age"] == 60]</code></li>
+</ul>
+</section><section class="slide"><h2>Exercise: Exchange rates</h2>
+<ul>
+<li><em>date</em> and <em>exchange rate</em> between <em>USD</em> (base currency) and <em>EUR</em> (country: "Euro")</li>
+</ul>
+</section><section class="slide"><h2>Solution: Exchange rates</h2>
+<pre><code class="hljs language-py">euro_exchange_rates = exchange_rates[
+    exchange_rates.Country == <span class="hljs-string">"Euro"</span>
+]
+euro_exchange_rates[[<span class="hljs-string">"Date"</span>, <span class="hljs-string">"Exchange rate"</span>]]
+</code></pre>
+</section><section class="slide"><h2>Exercise: S&#x26;P 500</h2>
+<p>When was the S&#x26;P 500 at its highest value? (compute the maximum, then get the corresponding row in the DataFrame)</p>
+</section><section class="slide"><h2>Solution: S&#x26;P 500</h2>
+<pre><code class="hljs language-py">sp500_max = sp500[<span class="hljs-string">"SP500"</span>].<span class="hljs-built_in">max</span>()
+<span class="hljs-comment"># returns a DataFrame</span>
+sp500_max_row = sp500[sp500[<span class="hljs-string">"SP500"</span>] == sp500_max]
+</code></pre>
+<p>shorter alternative (using <code>.idxmax()</code>):</p>
+<pre><code class="hljs language-py"><span class="hljs-comment"># returns a Series</span>
+sp500_max_row = sp500.loc[sp500[<span class="hljs-string">"SP500"</span>].idxmax()]
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Querying data: advanced</h1>
+</section><section class="slide"><h2>Querying data</h2>
+<p>querying by row and column:</p>
+<ul>
+<li><code>df.loc["2009-01-02", "rate"]</code></li>
+<li><code>df.iloc[5, 1]</code></li>
 </ul>
 </section><section class="slide"><h2>Sorting rows</h2>
 <ul>
@@ -2293,84 +2376,48 @@ dtype: float64
 <li><code>df.loc["2009-01-02" : "2009-12-31"].sort_values(by="rate")</code></li>
 <li><code>df.sort_index(ascending=False)</code></li>
 </ul>
-</section><section class="slide"><h2>Sampling data</h2>
-<ul>
-<li><code>df.sample()</code> - random entry</li>
-<li><code>df.sample(5)</code> - five entries</li>
-<li><code>df.sample(frac=0.1)</code> - 10% of all entries</li>
-</ul>
-</section><section class="slide"><h2>Filtering entries</h2>
-<p>All values that don't fulfill the criterion are set to <em>NaN</em> or <em>NA</em>.</p>
-<pre><code class="hljs language-py">iris[iris > <span class="hljs-number">0</span>]
+</section><section class="slide"><h2>Selecting rows</h2>
+<p>basic method:</p>
+<pre><code class="hljs language-py">titanic[titanic[<span class="hljs-string">"pclass"</span>] == <span class="hljs-number">1</span>]
 </code></pre>
-</section><section class="slide"><h2>Filtering rows</h2>
-<p>via <em>boolean indexing</em> - which is applied by rows:</p>
-<ul>
-<li><code>df[df.rate &#x3C; 0]</code></li>
-<li><code>df[df.length &#x3C; 0] = np.nan</code></li>
-<li><code>df[df.name == "Iris-setosa"]</code></li>
-<li><code>df[df.name.isin(["Iris-setosa", "Iris-virginica"])])]</code></li>
-</ul>
-</section><section class="slide"><h2>Filtering rows</h2>
-<p>SQL template:</p>
-<pre><code class="hljs language-sql"><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> df
-<span class="hljs-keyword">WHERE</span> a &#x3C; b <span class="hljs-keyword">AND</span> b &#x3C; c
+<pre><code class="hljs language-py">titanic[titanic[<span class="hljs-string">"age"</span>] >= <span class="hljs-number">70</span>]
 </code></pre>
-<p>Pandas:</p>
-<pre><code class="hljs language-py">df[(df.a &#x3C; df.b) &#x26; (df.b &#x3C; df.c)]
+</section><section class="slide"><h2>Selecting rows: advanced</h2>
+<p>male passengers in first class:</p>
+<pre><code class="hljs language-py">titanic.query(<span class="hljs-string">"pclass > 1 and sex == 'male'"</span>)
 </code></pre>
-<p>or</p>
-<pre><code class="hljs language-py">df.query(<span class="hljs-string">"a &#x3C; b &#x3C; c"</span>)
+<p>passengers who embarked in Southampton or Queenstown:</p>
+<pre><code class="hljs language-py">titanic.query(<span class="hljs-string">"embarked in ['S', 'Q']"</span>)
 </code></pre>
-</section><section class="slide"><h2>Exercises (Euribor)</h2>
-<ul>
-<li>first entry</li>
-<li>last entry</li>
-<li>last 10 entries</li>
-<li>entry from 2009-01-02</li>
-<li>entries from the year 2009</li>
-<li>...</li>
-</ul>
-</section><section class="slide"><h2>Solutions (Euribor)</h2>
-<ul>
-<li>first entry: <code>euribor.iloc[0]</code></li>
-<li>last entry: <code>euribor.iloc[-1]</code></li>
-<li>last 10 entries: <code>euribor.iloc[-10:]</code></li>
-<li>entry from 2009-01-02: <code>euribor.loc["2009-01-02"]</code></li>
-<li>entries from the year 2009: <code>euribor.loc["2009-01-01": "2009-12-31"]</code></li>
-</ul>
-</section><section class="slide"><h2>Exercises (Iris)</h2>
-<ul>
-<li>maximum <em>petal length</em> of <em>iris setosa</em> (without using <code>.max</code>)</li>
-</ul>
-</section><section class="slide"><h2>Exercises (Titanic)</h2>
-<ul>
-<li>percentage of survivors</li>
-<li>percentage of survivors amongst males</li>
-<li>percentage of survivors amongst children</li>
-</ul>
-</section><section class="slide"><h2>Exercises (Exchange rates)</h2>
-<ul>
-<li>display <em>date</em> and <em>exchange rate</em> for USD-EUR</li>
-</ul>
-</section><section class="slide"><h2>Solutions (Exchange rates)</h2>
-<pre><code class="hljs language-py">euro_exchange_rates = exchange_rates[
-    exchange_rates.Country == <span class="hljs-string">"Euro"</span>
-]
-euro_exchange_rates.loc[:, [<span class="hljs-string">"Date"</span>, <span class="hljs-string">"Exchange rate"</span>]]
+</section><section class="slide"><h2>Selecting rows: advanced</h2>
+<pre><code class="hljs language-py">titanic[(titanic[<span class="hljs-string">"pclass"</span>] > <span class="hljs-number">1</span>) &#x26; (titanic[<span class="hljs-string">"sex"</span>] == <span class="hljs-string">"male"</span>)]
 </code></pre>
-</section><section class="slide"><h2>Exercises (S&#x26;P 500)</h2>
-<ul>
-<li>when was the S&#x26;P 500 at its highest value? (compute the maximum, then get the corresponding row in the DataFrame)</li>
-</ul>
-</section><section class="slide"><h2>Solution (S&#x26;P 500)</h2>
-<pre><code class="hljs language-py">sp500_max = sp500[<span class="hljs-string">"SP500"</span>].<span class="hljs-built_in">max</span>()
-<span class="hljs-comment"># returns a DataFrame</span>
-sp500_max_row = sp500.loc[sp500[<span class="hljs-string">"SP500"</span>] == sp500_max]
+<pre><code class="hljs language-py">titanic[titanic[<span class="hljs-string">"embarked"</span>].isin([<span class="hljs-string">"S"</span>, <span class="hljs-string">"Q"</span>])]
 </code></pre>
-<p>shorter alternative (using <code>.idxmax()</code>):</p>
-<pre><code class="hljs language-py"><span class="hljs-comment"># returns a Series</span>
-sp500_max_row = sp500.loc[sp500[<span class="hljs-string">"SP500"</span>].idxmax()]
+</section><section class="slide"><h2>Exercises: Titanic</h2>
+<ul>
+<li>adult (>= 18) males, sorted by age</li>
+<li>adult survivors</li>
+</ul>
+</section><section class="slide"><h2>Solutions: Titanic</h2>
+<p>adult (>= 18) males, sorted by age:</p>
+<pre><code class="hljs language-py">titanic[titanic[<span class="hljs-string">"age"</span>] >= <span class="hljs-number">18</span>].sort_values(by=<span class="hljs-string">"age"</span>)
+titanic.query(<span class="hljs-string">"age >= 18"</span>).sort_values(by=<span class="hljs-string">"age"</span>)
+</code></pre>
+<p>adult survivors</p>
+<pre><code class="hljs language-py">titanic.query(<span class="hljs-string">"age >= 18 and survived=='Yes'"</span>)
+</code></pre>
+</section><section class="slide"><h2>Exercises: Iris flowers</h2>
+<ul>
+<li>iris flowers, sorted by <em>petal length</em></li>
+<li>iris setosa, sorted by <em>petal length</em></li>
+</ul>
+</section><section class="slide"><h2>Solutions: Iris flowers</h2>
+<pre><code class="hljs language-py">iris.sort_values(by=<span class="hljs-string">"petal_length"</span>)
+</code></pre>
+<pre><code class="hljs language-py">iris[iris[<span class="hljs-string">"species"</span>] == <span class="hljs-string">"Iris-setosa"</span>].sort_values(
+    by=<span class="hljs-string">"petal_length"</span>
+)
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Changing data</h1>
 </section><section class="slide"><h2>Renaming columns</h2>
