@@ -2266,6 +2266,20 @@ history.push(<span class="hljs-string">'/'</span>);
   <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>There are {context.todos.length} todos<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
 };
 </code></pre>
+</section><section class="slide"><h2>Context - Beispiel</h2>
+<p>als eigener Hook:</p>
+<pre><code class="hljs language-ts"><span class="hljs-comment">// todosContext.ts</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">useTodosContext</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> context = useContext(TodosContext);
+  <span class="hljs-keyword">if</span> (context === <span class="hljs-literal">undefined</span>) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'No matching provider found'</span>);
+  }
+  <span class="hljs-keyword">return</span> context;
+}
+
+<span class="hljs-keyword">export</span> { TodosContext, useTodosContext };
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Effect Hook im Detail</h1>
 </section><section class="slide"><h2>Verwendung des Effect Hooks</h2>
 <ul>

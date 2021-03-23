@@ -64,3 +64,21 @@ const TodoStats = () => {
   return <div>There are {context.todos.length} todos</div>;
 };
 ```
+
+## Context - Beispiel
+
+als eigener Hook:
+
+```ts
+// todosContext.ts
+
+function useTodosContext() {
+  const context = useContext(TodosContext);
+  if (context === undefined) {
+    throw new Error('No matching provider found');
+  }
+  return context;
+}
+
+export { TodosContext, useTodosContext };
+```

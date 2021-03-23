@@ -266,6 +266,24 @@ const TodoStats = () => {
 };
 ```
 
+## Context - Beispiel
+
+als eigener Hook:
+
+```ts
+// todosContext.ts
+
+function useTodosContext() {
+  const context = useContext(TodosContext);
+  if (context === undefined) {
+    throw new Error('No matching provider found');
+  }
+  return context;
+}
+
+export { TodosContext, useTodosContext };
+```
+
 # Effect Hook im Detail
 
 ## Verwendung des Effect Hooks

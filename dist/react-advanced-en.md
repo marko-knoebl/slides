@@ -223,7 +223,7 @@ export default TodosContext;
 with TypeScript:
 
 ```ts
-// TodosContext.ts
+// todosContext.ts
 import { createContext } from 'react';
 
 type TodosContextType = {
@@ -231,9 +231,11 @@ type TodosContextType = {
   onToggle: (id: number) => void;
 };
 
-const TodosContext = createContext({} as TodosContextType);
+const TodosContext = createContext<
+  TodosContextType | undefined
+>(undefined);
 
-export default TodosContext;
+export { TodosContext };
 ```
 
 ## Context - example
@@ -264,6 +266,24 @@ const TodoStats = () => {
   const context = useContext(TodosContext);
   return <div>There are {context.todos.length} todos</div>;
 };
+```
+
+## Context - example
+
+wrapping in a custom hook:
+
+```ts
+// todosContext.ts
+
+function useTodosContext() {
+  const context = useContext(TodosContext);
+  if (context === undefined) {
+    throw new Error('No matching provider found');
+  }
+  return context;
+}
+
+export { TodosContext, useTodosContext };
 ```
 
 # Effect hook in detail

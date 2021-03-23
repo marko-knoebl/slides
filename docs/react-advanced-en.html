@@ -2232,7 +2232,7 @@ history.push(<span class="hljs-string">'/'</span>);
 </code></pre>
 </section><section class="slide"><h2>Context - example</h2>
 <p>with TypeScript:</p>
-<pre><code class="hljs language-ts"><span class="hljs-comment">// TodosContext.ts</span>
+<pre><code class="hljs language-ts"><span class="hljs-comment">// todosContext.ts</span>
 <span class="hljs-keyword">import</span> { createContext } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
 
 <span class="hljs-keyword">type</span> TodosContextType = {
@@ -2240,9 +2240,11 @@ history.push(<span class="hljs-string">'/'</span>);
   onToggle: <span class="hljs-function">(<span class="hljs-params">id: <span class="hljs-built_in">number</span></span>) =></span> <span class="hljs-built_in">void</span>;
 };
 
-<span class="hljs-keyword">const</span> TodosContext = createContext({} <span class="hljs-keyword">as</span> TodosContextType);
+<span class="hljs-keyword">const</span> TodosContext = createContext&#x3C;
+  TodosContextType | <span class="hljs-literal">undefined</span>
+>(<span class="hljs-literal">undefined</span>);
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> TodosContext;
+<span class="hljs-keyword">export</span> { TodosContext };
 </code></pre>
 </section><section class="slide"><h2>Context - example</h2>
 <p>The <em>provider</em> makes values available to all its subcomponents</p>
@@ -2265,6 +2267,20 @@ history.push(<span class="hljs-string">'/'</span>);
   <span class="hljs-keyword">const</span> context = useContext(TodosContext);
   <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>There are {context.todos.length} todos<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
 };
+</code></pre>
+</section><section class="slide"><h2>Context - example</h2>
+<p>wrapping in a custom hook:</p>
+<pre><code class="hljs language-ts"><span class="hljs-comment">// todosContext.ts</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">useTodosContext</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> context = useContext(TodosContext);
+  <span class="hljs-keyword">if</span> (context === <span class="hljs-literal">undefined</span>) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'No matching provider found'</span>);
+  }
+  <span class="hljs-keyword">return</span> context;
+}
+
+<span class="hljs-keyword">export</span> { TodosContext, useTodosContext };
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Effect hook in detail</h1>
 </section><section class="slide"><h2>Uses of the effect hook</h2>
