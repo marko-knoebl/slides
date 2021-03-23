@@ -2130,7 +2130,7 @@ time.sleep(<span class="hljs-number">3</span>)
 </section><section class="slide"><h2>Code schreiben und ausführen</h2>
 <p>In IPython gibt es nummerierte Eingaben, z.B. <code>[1]</code></p>
 <p>Während eine Eingabe ausgewertet wird, wird <code>[*]</code> angezeigt</p>
-<p>Wenn das letzte Statement in einer Zelle einen Wert ergibt, wird dies als Ausgabe angezeigt</p>
+<p>Wenn das letzte Statement in einer Zelle einen Wert ergibt, wird dies als Ausgabe angezeigt (um dies zu unterdrücken, schließe das letzte Statement mit einem Semikolon ab)</p>
 </section><section class="slide"><h2>Code schreiben und ausführen</h2>
 <p>Interface-Funktionalität (je nach Notebook-Typ verschieden):</p>
 <ul>
@@ -2220,6 +2220,13 @@ titanic = pd.read_csv(
 <p>Zusammenfassung einer Spalte ("Series"):</p>
 <pre><code class="hljs language-py">titanic[<span class="hljs-string">"age"</span>].describe()
 </code></pre>
+<p>Durchschnitt einer Spalte ("Series"):</p>
+<pre><code class="hljs language-py">titanic[<span class="hljs-string">"age"</span>].mean()
+</code></pre>
+</section><section class="slide"><h2>Pandas: Überblick und Demo</h2>
+<p>Abfragen von Daten: Passagiere jünger als 1 Jahr</p>
+<pre><code class="hljs language-py">titanic[titanic[<span class="hljs-string">"age"</span>] &#x3C; <span class="hljs-number">1</span>]
+</code></pre>
 </section><section class="slide"><h2>Pandas: Überblick und Demo</h2>
 <p>Vorbereiten der Daten für eine Machine Learning Übung:</p>
 <pre><code class="hljs language-py">titanic_ml = pd.DataFrame({
@@ -2259,7 +2266,11 @@ plt.xticks([<span class="hljs-number">1</span>, <span class="hljs-number">2</spa
 )
 </code></pre>
 </section><section class="slide"><h2>Pyplot: Überblick und Demo</h2>
-<pre><code class="hljs language-py">titanic[<span class="hljs-string">"age"</span>].plot.box(whis=[<span class="hljs-number">0</span>, <span class="hljs-number">100</span>])
+<pre><code class="hljs language-py">plt.boxplot(
+    titanic[<span class="hljs-string">"age"</span>].dropna(),
+    whis=[<span class="hljs-number">0</span>, <span class="hljs-number">100</span>],
+    labels=[<span class="hljs-string">"age"</span>]
+)
 </code></pre>
 </section><section class="slide"><h2>Pyplot: Überblick und Demo</h2>
 <pre><code class="hljs language-py">plt.hist(

@@ -46,6 +46,20 @@ summarize one column (series):
 titanic["age"].describe()
 ```
 
+mean value of one column (series):
+
+```py
+titanic["age"].mean()
+```
+
+## Pandas: overview and demo
+
+querying data: passengers younger than 1 year
+
+```py
+titanic[titanic["age"] < 1]
+```
+
 ## Pandas: overview and demo
 
 preparing data for machine learning exercise:

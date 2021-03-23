@@ -32,7 +32,11 @@ titanic["pclass"].plot.hist(
 ## Pyplot: overview and demo
 
 ```py
-titanic["age"].plot.box(whis=[0, 100])
+plt.boxplot(
+    titanic["age"].dropna(),
+    whis=[0, 100],
+    labels=["age"]
+)
 ```
 
 ## Pyplot: overview and demo

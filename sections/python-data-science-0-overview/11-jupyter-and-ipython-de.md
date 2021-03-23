@@ -58,7 +58,7 @@ In IPython gibt es nummerierte Eingaben, z.B. `[1]`
 
 Während eine Eingabe ausgewertet wird, wird `[*]` angezeigt
 
-Wenn das letzte Statement in einer Zelle einen Wert ergibt, wird dies als Ausgabe angezeigt
+Wenn das letzte Statement in einer Zelle einen Wert ergibt, wird dies als Ausgabe angezeigt (um dies zu unterdrücken, schließe das letzte Statement mit einem Semikolon ab)
 
 ## Code schreiben und ausführen
 

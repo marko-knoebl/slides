@@ -109,7 +109,7 @@ IPython has numbered inputs, e.g. `[1]`
 
 When a computation is ongoing it will display `[*]`
 
-If the last statement in a cell evaluates to something it will be considered the output and be displayed
+If the last statement in a cell evaluates to something it will be considered the output and be displayed (to supress this, end the statement with a semicolon)
 
 ## Writing and evaluating code
 
@@ -259,6 +259,20 @@ summarize one column (series):
 titanic["age"].describe()
 ```
 
+mean value of one column (series):
+
+```py
+titanic["age"].mean()
+```
+
+## Pandas: overview and demo
+
+querying data: passengers younger than 1 year
+
+```py
+titanic[titanic["age"] < 1]
+```
+
 ## Pandas: overview and demo
 
 preparing data for machine learning exercise:
@@ -314,7 +328,11 @@ titanic["pclass"].plot.hist(
 ## Pyplot: overview and demo
 
 ```py
-titanic["age"].plot.box(whis=[0, 100])
+plt.boxplot(
+    titanic["age"].dropna(),
+    whis=[0, 100],
+    labels=["age"]
+)
 ```
 
 ## Pyplot: overview and demo

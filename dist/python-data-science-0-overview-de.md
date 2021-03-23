@@ -109,7 +109,7 @@ In IPython gibt es nummerierte Eingaben, z.B. `[1]`
 
 Während eine Eingabe ausgewertet wird, wird `[*]` angezeigt
 
-Wenn das letzte Statement in einer Zelle einen Wert ergibt, wird dies als Ausgabe angezeigt
+Wenn das letzte Statement in einer Zelle einen Wert ergibt, wird dies als Ausgabe angezeigt (um dies zu unterdrücken, schließe das letzte Statement mit einem Semikolon ab)
 
 ## Code schreiben und ausführen
 
@@ -259,6 +259,20 @@ Zusammenfassung einer Spalte ("Series"):
 titanic["age"].describe()
 ```
 
+Durchschnitt einer Spalte ("Series"):
+
+```py
+titanic["age"].mean()
+```
+
+## Pandas: Überblick und Demo
+
+Abfragen von Daten: Passagiere jünger als 1 Jahr
+
+```py
+titanic[titanic["age"] < 1]
+```
+
 ## Pandas: Überblick und Demo
 
 Vorbereiten der Daten für eine Machine Learning Übung:
@@ -314,7 +328,11 @@ titanic["pclass"].plot.hist(
 ## Pyplot: Überblick und Demo
 
 ```py
-titanic["age"].plot.box(whis=[0, 100])
+plt.boxplot(
+    titanic["age"].dropna(),
+    whis=[0, 100],
+    labels=["age"]
+)
 ```
 
 ## Pyplot: Überblick und Demo

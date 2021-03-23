@@ -68,7 +68,7 @@ time.sleep(<span class="hljs-number">3</span>)
 <h2>Writing and evaluating code</h2>
 <p>IPython has numbered inputs, e.g. <code>[1]</code></p>
 <p>When a computation is ongoing it will display <code>[*]</code></p>
-<p>If the last statement in a cell evaluates to something it will be considered the output and be displayed</p>
+<p>If the last statement in a cell evaluates to something it will be considered the output and be displayed (to supress this, end the statement with a semicolon)</p>
 <h2>Writing and evaluating code</h2>
 <p>interface functionality (varies along notebook types):</p>
 <ul>
@@ -158,6 +158,13 @@ titanic = pd.read_csv(
 <p>summarize one column (series):</p>
 <pre><code class="hljs language-py">titanic[<span class="hljs-string">"age"</span>].describe()
 </code></pre>
+<p>mean value of one column (series):</p>
+<pre><code class="hljs language-py">titanic[<span class="hljs-string">"age"</span>].mean()
+</code></pre>
+<h2>Pandas: overview and demo</h2>
+<p>querying data: passengers younger than 1 year</p>
+<pre><code class="hljs language-py">titanic[titanic[<span class="hljs-string">"age"</span>] &#x3C; <span class="hljs-number">1</span>]
+</code></pre>
 <h2>Pandas: overview and demo</h2>
 <p>preparing data for machine learning exercise:</p>
 <pre><code class="hljs language-py">titanic_ml = pd.DataFrame({
@@ -197,7 +204,11 @@ plt.xticks([<span class="hljs-number">1</span>, <span class="hljs-number">2</spa
 )
 </code></pre>
 <h2>Pyplot: overview and demo</h2>
-<pre><code class="hljs language-py">titanic[<span class="hljs-string">"age"</span>].plot.box(whis=[<span class="hljs-number">0</span>, <span class="hljs-number">100</span>])
+<pre><code class="hljs language-py">plt.boxplot(
+    titanic[<span class="hljs-string">"age"</span>].dropna(),
+    whis=[<span class="hljs-number">0</span>, <span class="hljs-number">100</span>],
+    labels=[<span class="hljs-string">"age"</span>]
+)
 </code></pre>
 <h2>Pyplot: overview and demo</h2>
 <pre><code class="hljs language-py">plt.hist(

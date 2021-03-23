@@ -58,7 +58,7 @@ IPython has numbered inputs, e.g. `[1]`
 
 When a computation is ongoing it will display `[*]`
 
-If the last statement in a cell evaluates to something it will be considered the output and be displayed
+If the last statement in a cell evaluates to something it will be considered the output and be displayed (to supress this, end the statement with a semicolon)
 
 ## Writing and evaluating code
 

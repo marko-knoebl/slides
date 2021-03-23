@@ -46,6 +46,20 @@ Zusammenfassung einer Spalte ("Series"):
 titanic["age"].describe()
 ```
 
+Durchschnitt einer Spalte ("Series"):
+
+```py
+titanic["age"].mean()
+```
+
+## Pandas: Überblick und Demo
+
+Abfragen von Daten: Passagiere jünger als 1 Jahr
+
+```py
+titanic[titanic["age"] < 1]
+```
+
 ## Pandas: Überblick und Demo
 
 Vorbereiten der Daten für eine Machine Learning Übung:
