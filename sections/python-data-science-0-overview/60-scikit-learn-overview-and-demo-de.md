@@ -4,6 +4,8 @@
 
 Übung: Voraussagen von Überleben auf der Titanic basierend auf einer linearen Regression
 
+Einfache Algorithmen können trainiert werden, um mit ca 80%-iger Sicherheit vorauszusagen, ob ein Passagier überlebt hat (basierend auf _Geschlecht_, _Passagierklasse_, _Alter_, _Anzahl an Geschwistern bzw Eheleuten_)
+
 ## Scikit-learn: Überblick und Demo
 
 "Trainieren" eines Modells:

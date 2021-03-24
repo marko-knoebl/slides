@@ -348,6 +348,8 @@ plt.hist(
 
 exercise: predicting survival on the Titanic via a linear regression
 
+simple algorithms can be trained to predict survival with 80% accuracy (based on _sex_, _passenger class_, _age_, _number of siblings or spouses_)
+
 ## Scikit-learn: overview and demo
 
 "training" a model:
