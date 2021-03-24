@@ -9,25 +9,13 @@
 <li><em>Scikit-Learn</em>: library for machine learning, based on NumPy</li>
 <li><em>Keras</em>: library for deep learning (based on <em>TensorFlow</em>)</li>
 </ul>
+<h2>Compiled packages and Python versions</h2>
+<p>Compiled packages (like <em>NumPy</em>, <em>TensorFlow</em> or <em>PyTables</em>) may take several months before they are available for the newest Python version.</p>
+<p>recommendation: use an older Python version (e.g. 3.8 instead of 3.9) or a pre-built distribution (like Anaconda)</p>
 <h2>Python packages for data science</h2>
 <p>installing the most important packages in an existing Python environment:</p>
 <pre><code class="hljs language-bash">pip install jupyter numpy pandas matplotlib sklearn tensorflow
 </code></pre>
-<p>Notes:</p>
-<p>Packages like <em>NumPy</em> or <em>TensorFlow</em> may take several months before they are available for the newest Python version</p>
-<p>Some packages may need to be compiled during installation: e.g. <em>tables</em> for HDF5 file support (needs <em>Microsoft Visual C++</em> on Windows)</p>
-<h2>Anaconda</h2>
-<p><em>Anaconda</em> = Python distribution that includes many pre-built packages and developer tools</p>
-<p>Uses ~ 3 GB of disk space</p>
-<h2>Anaconda installation</h2>
-<p>download from <a href="https://www.anaconda.com/products/individual">https://www.anaconda.com/products/individual</a></p>
-<p>On Windows, the installation path should not contain spaces or underscores (recommendation: <code>C:/anaconda</code>) - see <a href="https://docs.anaconda.com/anaconda/user-guide/faq/#distribution-faq-windows-folder">https://docs.anaconda.com/anaconda/user-guide/faq/#distribution-faq-windows-folder</a></p>
-<h2>Conda</h2>
-<p><em>Conda</em> = management tool for Python packages and environments, used by Anaconda</p>
-<p>Enables installation of multiple versions of Python and Python packages</p>
-<p>Particularly useful for external libraries that are written in a compiled language</p>
-<h2>Pyodide</h2>
-<p><em>Pyodide</em> = Python distribution that can be run directly in the Browser (via <em>WebAssembly</em>)</p>
 <h1>Jupyter and IPython</h1>
 <h2>IPython</h2>
 <p>IPython = advanced interactive Python console, supports features like autocompletion</p>
@@ -43,21 +31,32 @@
 <li><em>JupyterLab</em>: successor to <em>Jupyter Notebook</em></li>
 <li><em>VS Code</em>: supports jupyter notebooks</li>
 </ul>
+<h2>Jupyter notebook - online</h2>
+<p>free online Jupyter environments:</p>
+<ul>
+<li><em>Google Colab</em>: <a href="https://colab.research.google.com">https://colab.research.google.com</a> (login required)</li>
+<li><em>kaggle</em> (login required to edit / create notebooks): <a href="https://www.kaggle.com">https://www.kaggle.com</a>
+<ul>
+<li>popular public notebooks on <em>kaggle</em>: <a href="https://www.kaggle.com/notebooks?sortBy=voteCount">https://www.kaggle.com/notebooks?sortBy=voteCount</a> (login required to edit / create)</li>
+</ul>
+</li>
+<li><em>Binder</em> (limited sessions): <a href="https://jupyter.org/try">https://jupyter.org/try</a></li>
+</ul>
+<h2>Jupyter packages</h2>
+<p>Python packages:</p>
+<ul>
+<li><em>ipykernel</em> - needed for VS Code support</li>
+<li><em>notebook</em> - old standalone browser interface</li>
+<li><em>jupyterlab</em> - new standalone browser interface</li>
+</ul>
 <h2>Jupyter notebook - VS Code</h2>
 <p>VS Code can connect to the IPython kernel:</p>
 <p>In VS Code's command pallette (F1), search for: <em>Python: Create New Blank Jupyter Notebook</em></p>
 <!-- pip install ipykernel - will install ipython, jupyter-core, jupyter-client -->
-<h2>Jupyter notebook - Anaconda</h2>
-<p>Launching Jupyter: Entry <em>Jupyter Notebook</em> in the start menu / terminal command <code>jupyter notebook</code></p>
-<p>Stopping Jupyter: Press <em>Quit</em> in the top right corner of the directory tree view (usually under http://localhost:8888/tree)</p>
-<p>Python packages: <em>notebook</em> or <em>jupyterlab</em></p>
-<h2>Jupyter notebook - online</h2>
-<p>free online Jupyter notebooks:</p>
-<ul>
-<li><em>Binder</em> (limited sessions): <a href="https://jupyter.org/try">https://jupyter.org/try</a></li>
-<li>popular public notebooks on <em>kaggle</em>: <a href="https://www.kaggle.com/notebooks?sortBy=voteCount">https://www.kaggle.com/notebooks?sortBy=voteCount</a> (login required to edit / create)</li>
-<li><em>Google Colab</em>: <a href="https://colab.research.google.com">https://colab.research.google.com</a> (login required)</li>
-</ul>
+<h2>Jupyter notebook - Jupyterlab</h2>
+<p>run Jupyterlab from the terminal:</p>
+<pre><code class="hljs language-bash">jupyter-lab
+</code></pre>
 <h2>Writing and evaluating code</h2>
 <p>Write code into a cell, e.g.</p>
 <pre><code class="hljs language-py"><span class="hljs-keyword">import</span> time
@@ -68,19 +67,17 @@ time.sleep(<span class="hljs-number">3</span>)
 <h2>Writing and evaluating code</h2>
 <p>IPython has numbered inputs, e.g. <code>[1]</code></p>
 <p>When a computation is ongoing it will display <code>[*]</code></p>
-<p>If the last statement in a cell evaluates to something it will be considered the output and be displayed (to supress this, end the statement with a semicolon)</p>
 <h2>Writing and evaluating code</h2>
-<p>interface functionality (varies along notebook types):</p>
+<p>If the last statement in a cell evaluates to something it will be considered the output and be displayed</p>
+<p>(To supress this behavior, end the statement with a semicolon)</p>
+<h2>Writing and evaluating code</h2>
+<p>interface functionality (varies amongst notebook types):</p>
 <ul>
 <li>run cell</li>
 <li>restart (forgets previous variables and state)</li>
 <li>run all cells / restart and run all cells</li>
 <li>interrupt evaluation</li>
 </ul>
-<h2>Writing and evaluating code</h2>
-<p>accessing the last output:</p>
-<pre><code class="hljs language-py">print(_ * <span class="hljs-number">3</span>)
-</code></pre>
 <h2>Writing documentation via markdown</h2>
 <p>We can add documentation via the standardized <em>markdown</em> language:</p>
 <p>Switch from <em>Code</em> to <em>Markdown</em> and try the following code:</p>
@@ -99,12 +96,20 @@ time.sleep(<span class="hljs-number">3</span>)
 <p>shortcut for IPython / Jupyter:</p>
 <pre><code class="hljs language-ipython"><span class="hljs-built_in">str</span>?
 </code></pre>
-<h2>Tab completion and wildcard expressions</h2>
-<pre><code class="hljs language-ipython">*Error?
-</code></pre>
 <h2>Running terminal commands</h2>
 <p>IPython includes direct access to many terminal commands, e.g. <code>ls</code>, <code>cd</code>, ...</p>
 <p>We can execute any terminal command by prefixing it with <code>!</code></p>
+<h1>In depth: Anaconda</h1>
+<h2>Anaconda</h2>
+<p><em>Anaconda</em> = Python distribution that includes many pre-built packages and developer tools</p>
+<p>Uses ~ 3 GB of disk space</p>
+<p>includes <em>Conda</em>: environment and package manager (enables installation multiple versions of Python and Python packages)</p>
+<h2>Anaconda installation</h2>
+<p>download from <a href="https://www.anaconda.com/products/individual">https://www.anaconda.com/products/individual</a></p>
+<p>On Windows, the installation path should not contain spaces or underscores (recommendation: <code>C:/anaconda</code>) - see <a href="https://docs.anaconda.com/anaconda/user-guide/faq/#distribution-faq-windows-folder">https://docs.anaconda.com/anaconda/user-guide/faq/#distribution-faq-windows-folder</a></p>
+<h2>Anaconda</h2>
+<p>to launch a <em>Jupyter</em> notebook: Entry <em>Jupyter Notebook</em> in the start menu / terminal command <code>jupyter notebook</code></p>
+<p>Stopping Jupyter: Press <em>Quit</em> in the top right corner of the directory tree view (usually under http://localhost:8888/tree)</p>
 <h1>NumPy: overview and demo</h1>
 <h2>NumPy</h2>
 <p><em>NumPy</em>: library for efficient processing of numerical data - based on multidimensional arrays</p>

@@ -16,6 +16,23 @@ IPython = advanced interactive Python console, supports features like autocomple
 - _JupyterLab_: successor to _Jupyter Notebook_
 - _VS Code_: supports jupyter notebooks
 
+## Jupyter notebook - online
+
+free online Jupyter environments:
+
+- _Google Colab_: https://colab.research.google.com (login required)
+- _kaggle_ (login required to edit / create notebooks): https://www.kaggle.com
+  - popular public notebooks on _kaggle_: https://www.kaggle.com/notebooks?sortBy=voteCount (login required to edit / create)
+- _Binder_ (limited sessions): https://jupyter.org/try
+
+## Jupyter packages
+
+Python packages:
+
+- _ipykernel_ - needed for VS Code support
+- _notebook_ - old standalone browser interface
+- _jupyterlab_ - new standalone browser interface
+
 ## Jupyter notebook - VS Code
 
 VS Code can connect to the IPython kernel:
@@ -24,21 +41,13 @@ In VS Code's command pallette (F1), search for: _Python: Create New Blank Jupyte
 
 <!-- pip install ipykernel - will install ipython, jupyter-core, jupyter-client -->
 
-## Jupyter notebook - Anaconda
+## Jupyter notebook - Jupyterlab
 
-Launching Jupyter: Entry _Jupyter Notebook_ in the start menu / terminal command `jupyter notebook`
+run Jupyterlab from the terminal:
 
-Stopping Jupyter: Press _Quit_ in the top right corner of the directory tree view (usually under http://localhost:8888/tree)
-
-Python packages: _notebook_ or _jupyterlab_
-
-## Jupyter notebook - online
-
-free online Jupyter notebooks:
-
-- _Binder_ (limited sessions): https://jupyter.org/try
-- popular public notebooks on _kaggle_: https://www.kaggle.com/notebooks?sortBy=voteCount (login required to edit / create)
-- _Google Colab_: https://colab.research.google.com (login required)
+```bash
+jupyter-lab
+```
 
 ## Writing and evaluating code
 
@@ -58,24 +67,20 @@ IPython has numbered inputs, e.g. `[1]`
 
 When a computation is ongoing it will display `[*]`
 
-If the last statement in a cell evaluates to something it will be considered the output and be displayed (to supress this, end the statement with a semicolon)
+## Writing and evaluating code
+
+If the last statement in a cell evaluates to something it will be considered the output and be displayed
+
+(To supress this behavior, end the statement with a semicolon)
 
 ## Writing and evaluating code
 
-interface functionality (varies along notebook types):
+interface functionality (varies amongst notebook types):
 
 - run cell
 - restart (forgets previous variables and state)
 - run all cells / restart and run all cells
 - interrupt evaluation
-
-## Writing and evaluating code
-
-accessing the last output:
-
-```py
-print(_ * 3)
-```
 
 ## Writing documentation via markdown
 
@@ -108,12 +113,6 @@ shortcut for IPython / Jupyter:
 
 ```ipython
 str?
-```
-
-## Tab completion and wildcard expressions
-
-```ipython
-*Error?
 ```
 
 ## Running terminal commands

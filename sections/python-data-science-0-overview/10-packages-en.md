@@ -9,6 +9,12 @@
 - _Scikit-Learn_: library for machine learning, based on NumPy
 - _Keras_: library for deep learning (based on _TensorFlow_)
 
+## Compiled packages and Python versions
+
+Compiled packages (like _NumPy_, _TensorFlow_ or _PyTables_) may take several months before they are available for the newest Python version.
+
+recommendation: use an older Python version (e.g. 3.8 instead of 3.9) or a pre-built distribution (like Anaconda)
+
 ## Python packages for data science
 
 installing the most important packages in an existing Python environment:
@@ -16,33 +22,3 @@ installing the most important packages in an existing Python environment:
 ```bash
 pip install jupyter numpy pandas matplotlib sklearn tensorflow
 ```
-
-Notes:
-
-Packages like _NumPy_ or _TensorFlow_ may take several months before they are available for the newest Python version
-
-Some packages may need to be compiled during installation: e.g. _tables_ for HDF5 file support (needs _Microsoft Visual C++_ on Windows)
-
-## Anaconda
-
-_Anaconda_ = Python distribution that includes many pre-built packages and developer tools
-
-Uses ~ 3 GB of disk space
-
-## Anaconda installation
-
-download from https://www.anaconda.com/products/individual
-
-On Windows, the installation path should not contain spaces or underscores (recommendation: `C:/anaconda`) - see https://docs.anaconda.com/anaconda/user-guide/faq/#distribution-faq-windows-folder
-
-## Conda
-
-_Conda_ = management tool for Python packages and environments, used by Anaconda
-
-Enables installation of multiple versions of Python and Python packages
-
-Particularly useful for external libraries that are written in a compiled language
-
-## Pyodide
-
-_Pyodide_ = Python distribution that can be run directly in the Browser (via _WebAssembly_)

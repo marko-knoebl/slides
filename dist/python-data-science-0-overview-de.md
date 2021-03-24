@@ -11,6 +11,12 @@
 - _Scikit-Learn_: Bibliothek für Machine Learning, basiert auf NumPy
 - _Keras_: Bibliothek für Deep Learning
 
+## Kompilierte Pakete und Python-Versionen
+
+Kompilierte Pakete (wie _NumPy_, _TensorFlow_ oder _PyTables_) benötigen oft einige Monate, bis sie für eine neue Python-Version verfügbar sind.
+
+Empfehlung: Verwende eine ältere Python-Version (z.B. 3.8 anstatt 3.9) oder eine vorkompilierte Distribution (wie Anaconda)
+
 ## Python Pakete für Data Science
 
 Installation der wichtigsten Pakete in einer vorhandenen Python-Umgebung:
@@ -18,36 +24,6 @@ Installation der wichtigsten Pakete in einer vorhandenen Python-Umgebung:
 ```bash
 pip install jupyter numpy pandas matplotlib sklearn tensorflow
 ```
-
-Bemerkungen:
-
-Pakete wie _NumPy_ oder _TensorFlow_ benötigen oft einige Monate, bis sie für eine neue Python-Version verfügbar sind
-
-Manche Pakete müssen während der Installation kompiliert werden: z.B. _tables_ für Unterstützung von HDF5-Dateien (benötigt _Microsoft Visual C++_ unter Windows)
-
-## Anaconda
-
-_Anaconda_ = Python Distribution, die viele vorkompilierte Pakete und Entwicklerwerkzeuge enthält
-
-Benötigt ~3GB Platz auf der Festplatte
-
-## Installation von Anaconda
-
-Download von <https://www.anaconda.com/products/individual>
-
-Unter Windows sollte der Installationspfad keine Leerzeichen enthalten (Empfehlung: `C:/anaconda`) - siehe <https://docs.anaconda.com/anaconda/user-guide/faq/#distribution-faq-windows-folder>
-
-## Conda
-
-_Conda_ = Environment- und Paketmanager
-
-Erlaubt das Installieren verschiedener Versionen von Python, von Python-Paketen und anderen Abhängigkeiten
-
-insbesondere hilfreich für externe Libraries, die nicht in Python geschrieben sind und kompiliert werden müssen
-
-## Pyodide
-
-_Pyodide_ = Python Distribution, die direkt im Browser ausgeführt wird (via _WebAssembly_)
 
 # Jupyter und IPython
 
@@ -67,6 +43,23 @@ IPython = Fortgeschrittene interaktive Python Konsole, beinhaltet u.a. Autovervo
 - _JupyterLab_: Nachfolgeprojekt von _Jupyter Notebook_
 - _VS Code_: unterstützt Jupyter notebooks ebenfalls
 
+## Jupyter Notebook - online
+
+kostenlose online Jupyter Notebooks:
+
+- _Google Colab_: <https://colab.research.google.com> (Login erforderlich)
+- _kaggle_ (Login zum Ändern / Erstellen erforderlich): <https://www.kaggle.com>
+  - populäre öffentliche Notebooks auf _kaggle_: <https://www.kaggle.com/notebooks?sortBy=voteCount>
+- _Binder_ (begrenzte Sessions): <https://jupyter.org/try>
+
+## Jupyter Pakete
+
+Python-Pakte:
+
+- _ipykernel_ - benötigt für Unterstützung von VS Code
+- _notebook_ - altes eigenständiges Browserinterface
+- _jupyterlab_ - neues Browserinterface
+
 ## Jupyter Notebook - VS Code
 
 VS Code kann sich mit dem IPython-Kernel verbinden:
@@ -75,21 +68,13 @@ In der Befehlspalette von VS Code (via F1) suchen wir nach: _Python: Create New 
 
 <!-- pip install ipykernel - will install ipython, jupyter-core, jupyter-client -->
 
-## Jupyter Notebook - Anaconda
+## Jupyter Notebook - Jupyterlab
 
-Starten: Eintrag _Jupyter Notebook_ im Startmenü / Befehl `jupyter notebook` im Terminal
+Ausführen von Jupyterlab aus dem Terminal:
 
-Stoppen: _Quit_ im rechten oberen Eck der Ordneransicht (üblicherweise unter http&#x3A;//localhost:8888/tree)
-
-Python-Pakete: _notebook_ oder _jupyterlab_
-
-## Jupyter Notebook - online
-
-kostenlose online Jupyter Notebooks:
-
-- _Binder_ (begrenzte Sessions): <https://jupyter.org/try>
-- populäre öffentliche Notebooks auf _kaggle_: <https://www.kaggle.com/notebooks?sortBy=voteCount> (Login zum Ändern / Erstellen erforderlich)
-- _Google Colab_: <https://colab.research.google.com> (Login erforderlich)
+```bash
+jupyter-lab
+```
 
 ## Code schreiben und ausführen
 
@@ -109,7 +94,11 @@ In IPython gibt es nummerierte Eingaben, z.B. `[1]`
 
 Während eine Eingabe ausgewertet wird, wird `[*]` angezeigt
 
-Wenn das letzte Statement in einer Zelle einen Wert ergibt, wird dies als Ausgabe angezeigt (um dies zu unterdrücken, schließe das letzte Statement mit einem Semikolon ab)
+## Code schreiben und ausführen
+
+Wenn das letzte Statement in einer Zelle einen Wert ergibt, wird dies als Ausgabe angezeigt
+
+(Um dies zu unterdrücken, schließe das letzte Statement mit einem Semikolon ab)
 
 ## Code schreiben und ausführen
 
@@ -119,14 +108,6 @@ Interface-Funktionalität (je nach Notebook-Typ verschieden):
 - neu starten (vergisst bisherige Variablen und Zustand)
 - alle Zellen ausführen / neu starten und alle Zellen ausführen
 - Ausführung unterbrechen
-
-## Code schreiben und ausführen
-
-Auf die letzte Ausgabe zugreifen:
-
-```py
-print(_ * 3)
-```
 
 ## Dokumentation via Markdown
 
@@ -161,17 +142,33 @@ Shortcut in IPython / Jupyter:
 str?
 ```
 
-## Tab-Vervollständigung und Wildcard-Ausdrücke
-
-```ipython
-*Error?
-```
-
 ## Terminal-Befehle ausführen
 
 IPython beinhaltet direkten Zugriff auf viele Terminal-Befehle, z.B. `ls`, `cd`, ...
 
 Wir können beliebige Terminal-Befehle ausführen, indem wir ein `!` davor setzen
+
+# Vertiefung: Anaconda
+
+## Anaconda
+
+_Anaconda_ = Python Distribution, die viele vorkompilierte Pakete und Entwicklerwerkzeuge enthält
+
+Benötigt ~3GB Platz auf der Festplatte
+
+beinhaltet _Conda_ als Environment- und Paketmanager (ermöglicht Installation mehrerer Python-Versionen und Python-Pakete)
+
+## Installation von Anaconda
+
+Download von <https://www.anaconda.com/products/individual>
+
+Unter Windows sollte der Installationspfad keine Leerzeichen enthalten (Empfehlung: `C:/anaconda`) - siehe <https://docs.anaconda.com/anaconda/user-guide/faq/#distribution-faq-windows-folder>
+
+## Anaconda
+
+zum Starten eines _Jupyter_ Notebooks: Eintrag _Jupyter Notebook_ im Startmenü / Befehl `jupyter notebook` im Terminal
+
+Stoppen: _Quit_ im rechten oberen Eck der Ordneransicht (üblicherweise unter http&#x3A;//localhost:8888/tree)
 
 # NumPy: Überblick und Demo
 

@@ -16,6 +16,23 @@ IPython = Fortgeschrittene interaktive Python Konsole, beinhaltet u.a. Autovervo
 - _JupyterLab_: Nachfolgeprojekt von _Jupyter Notebook_
 - _VS Code_: unterstützt Jupyter notebooks ebenfalls
 
+## Jupyter Notebook - online
+
+kostenlose online Jupyter Notebooks:
+
+- _Google Colab_: https://colab.research.google.com (Login erforderlich)
+- _kaggle_ (Login zum Ändern / Erstellen erforderlich): https://www.kaggle.com
+  - populäre öffentliche Notebooks auf _kaggle_: https://www.kaggle.com/notebooks?sortBy=voteCount
+- _Binder_ (begrenzte Sessions): https://jupyter.org/try
+
+## Jupyter Pakete
+
+Python-Pakte:
+
+- _ipykernel_ - benötigt für Unterstützung von VS Code
+- _notebook_ - altes eigenständiges Browserinterface
+- _jupyterlab_ - neues Browserinterface
+
 ## Jupyter Notebook - VS Code
 
 VS Code kann sich mit dem IPython-Kernel verbinden:
@@ -24,21 +41,13 @@ In der Befehlspalette von VS Code (via F1) suchen wir nach: _Python: Create New 
 
 <!-- pip install ipykernel - will install ipython, jupyter-core, jupyter-client -->
 
-## Jupyter Notebook - Anaconda
+## Jupyter Notebook - Jupyterlab
 
-Starten: Eintrag _Jupyter Notebook_ im Startmenü / Befehl `jupyter notebook` im Terminal
+Ausführen von Jupyterlab aus dem Terminal:
 
-Stoppen: _Quit_ im rechten oberen Eck der Ordneransicht (üblicherweise unter http://localhost:8888/tree)
-
-Python-Pakete: _notebook_ oder _jupyterlab_
-
-## Jupyter Notebook - online
-
-kostenlose online Jupyter Notebooks:
-
-- _Binder_ (begrenzte Sessions): https://jupyter.org/try
-- populäre öffentliche Notebooks auf _kaggle_: https://www.kaggle.com/notebooks?sortBy=voteCount (Login zum Ändern / Erstellen erforderlich)
-- _Google Colab_: https://colab.research.google.com (Login erforderlich)
+```bash
+jupyter-lab
+```
 
 ## Code schreiben und ausführen
 
@@ -58,7 +67,11 @@ In IPython gibt es nummerierte Eingaben, z.B. `[1]`
 
 Während eine Eingabe ausgewertet wird, wird `[*]` angezeigt
 
-Wenn das letzte Statement in einer Zelle einen Wert ergibt, wird dies als Ausgabe angezeigt (um dies zu unterdrücken, schließe das letzte Statement mit einem Semikolon ab)
+## Code schreiben und ausführen
+
+Wenn das letzte Statement in einer Zelle einen Wert ergibt, wird dies als Ausgabe angezeigt
+
+(Um dies zu unterdrücken, schließe das letzte Statement mit einem Semikolon ab)
 
 ## Code schreiben und ausführen
 
@@ -68,14 +81,6 @@ Interface-Funktionalität (je nach Notebook-Typ verschieden):
 - neu starten (vergisst bisherige Variablen und Zustand)
 - alle Zellen ausführen / neu starten und alle Zellen ausführen
 - Ausführung unterbrechen
-
-## Code schreiben und ausführen
-
-Auf die letzte Ausgabe zugreifen:
-
-```py
-print(_ * 3)
-```
 
 ## Dokumentation via Markdown
 
@@ -108,12 +113,6 @@ Shortcut in IPython / Jupyter:
 
 ```ipython
 str?
-```
-
-## Tab-Vervollständigung und Wildcard-Ausdrücke
-
-```ipython
-*Error?
 ```
 
 ## Terminal-Befehle ausführen
