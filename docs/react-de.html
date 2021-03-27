@@ -3024,6 +3024,23 @@ Lösung: <strong>key</strong>:</p>
   ...
 &#x3C;/div>
 </code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>JSX und Sicherheit</h1>
+</section><section class="slide"><h2>JSX und Sicherheit</h2>
+<p>beim zuweisen von <em>Inhalten</em> werden XML-Tags automatisch escaped</p>
+<p>dies wird nur reinen Textinhalt darstellen:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> userSuppliedValue = <span class="hljs-string">'abc &#x3C;script>alert()&#x3C;/script>'</span>;
+
+element = <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>{userSuppliedValue}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+</code></pre>
+</section><section class="slide"><h2>JSX und Sicherheit</h2>
+<p>manche Attribute - insbesondere <em>href</em> - bieten Angriffziele</p>
+<pre><code class="hljs language-jsx">&#x3C;h1>profile&#x3C;/h1>
+<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">p</span>></span>name: {userName}<span class="hljs-tag">&#x3C;/<span class="hljs-name">p</span>></span></span>
+<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">p</span>></span><span class="hljs-tag">&#x3C;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">{userWebsite}</span>></span>website<span class="hljs-tag">&#x3C;/<span class="hljs-name">a</span>></span><span class="hljs-tag">&#x3C;/<span class="hljs-name">p</span>></span></span>
+</code></pre>
+<p>Ein Angreifer könnte seine Website auf <code>javascript:alert("foo")</code> gesetzt haben</p>
+<p>mögliche Lösung: stelle sicher, dass User-generierte externe URLs mit <em>http://</em> oder <em>https://</em> beginnen</p>
+<p><small>siehe auch: <a href="https://pragmaticwebsecurity.com/articles/spasecurity/react-xss-part1.html">Artikel auf pragmaticwebsecurity.com</a>, <a href="https://medium.com/javascript-security/avoiding-xss-in-react-is-still-hard-d2b5c7ad9412">Artikel von Ron Perris</a>, <a href="https://github.com/facebook/react/pull/15047">React pull request mit mehr Details</a></small></p>
 </section></section><section class="slides-section"><section class="slide"><h1>JSX: Kompilierung</h1>
 </section><section class="slide"><h2>JSX: Kompilierung</h2>
 <p>XML-Elemente werden kompiliert zu Aufrufen von:</p>

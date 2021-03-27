@@ -1,8 +1,8 @@
-# Memoisierung und Eventhandler
+# Vermeiden von Rerenderings und Eventhandler
 
-## Memoisierung und Eventhandler
+## Vermeiden von Rerenderings und Eventhandler
 
-Wenn `Rating` eine memoisierte Komponente ist, welche der folgenden Renderings werden beim Re-Rendering der Elternkomponente auch neu gerendert?
+Wenn `Rating` eine "memoisierte" Komponente ist, welche der folgenden Renderings werden beim Re-Rendering der Elternkomponente auch neu gerendert?
 
 ```jsx
 <Rating stars={prodRating} />
@@ -13,7 +13,7 @@ Wenn `Rating` eine memoisierte Komponente ist, welche der folgenden Renderings w
 />
 ```
 
-## Memoisierung und Eventhandler
+## Vermeiden von Rerenderings und Eventhandler
 
 ```jsx
 <Rating
@@ -24,7 +24,7 @@ Wenn `Rating` eine memoisierte Komponente ist, welche der folgenden Renderings w
 
 Die Pfeilfunktion wäre bei jedem angeforderten Rendering ein anderes Objekt
 
-## Memoisierung und Eventhandler
+## Vermeiden von Rerenderings und Eventhandler
 
 Lösungen:
 
@@ -32,7 +32,7 @@ Lösungen:
 - Definieren des zu übergebenden Eventhanlders in einer Klassenkomponente (soweit möglich)
 - Memoisieren des Eventhandlers
 
-## Memoisierung und Eventhandler
+## Vermeiden von Rerenderings und Eventhandler
 
 Memoisierung von Eventhandlern:
 
@@ -59,7 +59,7 @@ const TodoApp = () => {
 };
 ```
 
-## Memoisierung und Eventhandler
+## Vermeiden von Rerenderings und Eventhandler
 
 Memoisierung eines einzelnen Eventhandlers:
 
@@ -78,9 +78,9 @@ const TodoApp = () => {
 };
 ```
 
-## Memoisierung und Eventhandler
+## Vermeiden von Rerenderings und Eventhandler
 
-verkürzte Memoisierunge eines einzelnen Eventhandlers via `useCallback`:
+verkürzte Memoisierung eines einzelnen Eventhandlers via `useCallback`:
 
 ```jsx
 const TodoApp = () => {

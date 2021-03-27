@@ -12,6 +12,22 @@ Themen:
 - _Virtual DOM_ und die _key_-Property
 - Lazy Loading von Komponenten
 
+# Drei Schritte beim Update einer Komponente
+
+## Drei Schritte beim Update einer Komponente
+
+1. build a virtual DOM representation of the new rendering ("render phase")
+2. create a diff between the new and old virtual DOM ("reconciliation phase")
+3. apply any changes in the virtual DOM to the real DOM ("commit phase")
+
+## Drei Schritte beim Update einer Komponente
+
+Beschleunigen der drei Schritte:
+
+- Memoisieren aufwändiger Berechnungen (_useMemo_) - kann Schritt 1 beschleunigen
+- Vermeiden unnötiger Komponenten-Rerenderings - überspringt alle Schritte, falls sich nichts geändert hat
+- Verwenden der _key_-Property - hilft beim Finden des minimalen diffs in Schritt 3
+
 # React Devtools und Performance
 
 ## React Devtools und Performance
@@ -112,7 +128,15 @@ const numActiveTodos = useMemo(
 
 Berechnung wird nur dann neu ausgeführt, wenn sich eine Abhängigkeit in dem Array ändert
 
-# Memoisierung von Komponentenrenderings
+# Vermeiden unnötiger Rerenderings
+
+## Vermeiden unnötiger Rerenderings
+
+Bemerkung:
+
+Wenn das Rendering einer Komponente das gleiche ist wie zuvor, geschieht das Re-Rendering im Allgemeinen schon schnell, da React nur des virtuelle DOM neu berechnet (und das "echte" DOM nicht ändert)
+
+Oft ist keine weitere Optimierung notwendig
 
 ## Vermeiden unnötiger Rerenderings
 
@@ -148,16 +172,16 @@ function Coin() {
 }
 ```
 
-## Memoisierung von Komponentenrenderings
+## Vermeiden unnötiger Rerenderings
 
 Wenn nur jene Unterkomponenten neu gerendert werden sollen, deren props sich geändert haben:
 
 - für Funktionskomponenten: verwenden der `memo`-Funktion
 - für Klassenkomponenten: Erben von `PureComponent` statt `Component`
 
-## Memoisierung von Komponentenrenderings
+## Vermeiden unnötiger Rerenderings
 
-memoisierte Funktionskomponente:
+optimierte Funktionskomponente:
 
 ```jsx
 import { memo } from 'react';
@@ -169,7 +193,7 @@ function Rating(props) {
 export default memo(Rating);
 ```
 
-memoisierte Klassenkomponenten:
+optimierte Klassenkomponente:
 
 ```jsx
 import { PureComponent } from 'react';
@@ -179,7 +203,7 @@ class Rating extends PureComponent {
 }
 ```
 
-## Memoisierung von Komponentenrenderings
+## Vermeiden unnötiger Rerenderings
 
 Die `Rating`-Komponente wird nicht neu gerendert, wenn ihre Props die gleichen sind wie zuvor:
 
@@ -188,11 +212,18 @@ Die `Rating`-Komponente wird nicht neu gerendert, wenn ihre Props die gleichen s
 <Rating stars={prodRating} onChange={setProdRating} />
 ```
 
-# Memoisierung und Eventhandler
+## Vermeiden unnötiger Rerenderings
 
-## Memoisierung und Eventhandler
+Siehe auch:
 
-Wenn `Rating` eine memoisierte Komponente ist, welche der folgenden Renderings werden beim Re-Rendering der Elternkomponente auch neu gerendert?
+- [reactjs.org - Optimizing Performance - Avoid Reconciliation](https://reactjs.org/docs/optimizing-performance.html#avoid-reconciliation)
+- [Kent C. Dodds - Fix the slow render before you fix the re-render](https://kentcdodds.com/blog/fix-the-slow-render-before-you-fix-the-re-render)
+
+# Vermeiden von Rerenderings und Eventhandler
+
+## Vermeiden von Rerenderings und Eventhandler
+
+Wenn `Rating` eine "memoisierte" Komponente ist, welche der folgenden Renderings werden beim Re-Rendering der Elternkomponente auch neu gerendert?
 
 ```jsx
 <Rating stars={prodRating} />
@@ -203,7 +234,7 @@ Wenn `Rating` eine memoisierte Komponente ist, welche der folgenden Renderings w
 />
 ```
 
-## Memoisierung und Eventhandler
+## Vermeiden von Rerenderings und Eventhandler
 
 ```jsx
 <Rating
@@ -214,7 +245,7 @@ Wenn `Rating` eine memoisierte Komponente ist, welche der folgenden Renderings w
 
 Die Pfeilfunktion wäre bei jedem angeforderten Rendering ein anderes Objekt
 
-## Memoisierung und Eventhandler
+## Vermeiden von Rerenderings und Eventhandler
 
 Lösungen:
 
@@ -222,7 +253,7 @@ Lösungen:
 - Definieren des zu übergebenden Eventhanlders in einer Klassenkomponente (soweit möglich)
 - Memoisieren des Eventhandlers
 
-## Memoisierung und Eventhandler
+## Vermeiden von Rerenderings und Eventhandler
 
 Memoisierung von Eventhandlern:
 
@@ -249,7 +280,7 @@ const TodoApp = () => {
 };
 ```
 
-## Memoisierung und Eventhandler
+## Vermeiden von Rerenderings und Eventhandler
 
 Memoisierung eines einzelnen Eventhandlers:
 
@@ -268,9 +299,9 @@ const TodoApp = () => {
 };
 ```
 
-## Memoisierung und Eventhandler
+## Vermeiden von Rerenderings und Eventhandler
 
-verkürzte Memoisierunge eines einzelnen Eventhandlers via `useCallback`:
+verkürzte Memoisierung eines einzelnen Eventhandlers via `useCallback`:
 
 ```jsx
 const TodoApp = () => {

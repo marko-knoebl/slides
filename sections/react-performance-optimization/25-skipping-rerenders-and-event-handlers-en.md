@@ -1,8 +1,8 @@
-# Memoization and event handlers
+# Skipping rerenders and event handlers
 
-## Memoization and event handlers
+## Skipping rerenders and event handlers
 
-if `Rating` is a memoized component, which of the following will re-render when the parent is re-rendered?
+if `Rating` is a "memoized" component, which of the following will re-render when the parent is re-rendered?
 
 ```jsx
 <Rating stars={prodRating} />
@@ -13,7 +13,7 @@ if `Rating` is a memoized component, which of the following will re-render when 
 />
 ```
 
-## Memoization and event handlers
+## Skipping rerenders and event handlers
 
 ```jsx
 <Rating
@@ -24,7 +24,7 @@ if `Rating` is a memoized component, which of the following will re-render when 
 
 the change handler would be recreated and passed down as a different object on every rendering of the parent component
 
-## Memoization and event handlers
+## Skipping rerenders and event handlers
 
 solutions:
 
@@ -32,7 +32,7 @@ solutions:
 - define the event handlers to be passed down in a class component
 - memoize the event handlers
 
-## Memoization and event handlers
+## Skipping rerenders and event handlers
 
 memoizing event handlers:
 
@@ -59,7 +59,7 @@ const TodoApp = () => {
 };
 ```
 
-## Memoization and event handlers
+## Skipping rerenders and event handlers
 
 memoization of a single event handler:
 
@@ -78,7 +78,7 @@ const TodoApp = () => {
 };
 ```
 
-## Memoization and event handlers
+## Skipping rerenders and event handlers
 
 shorter memoization of a single event handler via `useCallback`:
 

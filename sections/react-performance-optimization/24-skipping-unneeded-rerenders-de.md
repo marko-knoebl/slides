@@ -1,4 +1,12 @@
-# Memoisierung von Komponentenrenderings
+# Vermeiden unnötiger Rerenderings
+
+## Vermeiden unnötiger Rerenderings
+
+Bemerkung:
+
+Wenn das Rendering einer Komponente das gleiche ist wie zuvor, geschieht das Re-Rendering im Allgemeinen schon schnell, da React nur des virtuelle DOM neu berechnet (und das "echte" DOM nicht ändert)
+
+Oft ist keine weitere Optimierung notwendig
 
 ## Vermeiden unnötiger Rerenderings
 
@@ -34,16 +42,16 @@ function Coin() {
 }
 ```
 
-## Memoisierung von Komponentenrenderings
+## Vermeiden unnötiger Rerenderings
 
 Wenn nur jene Unterkomponenten neu gerendert werden sollen, deren props sich geändert haben:
 
 - für Funktionskomponenten: verwenden der `memo`-Funktion
 - für Klassenkomponenten: Erben von `PureComponent` statt `Component`
 
-## Memoisierung von Komponentenrenderings
+## Vermeiden unnötiger Rerenderings
 
-memoisierte Funktionskomponente:
+optimierte Funktionskomponente:
 
 ```jsx
 import { memo } from 'react';
@@ -55,7 +63,7 @@ function Rating(props) {
 export default memo(Rating);
 ```
 
-memoisierte Klassenkomponenten:
+optimierte Klassenkomponente:
 
 ```jsx
 import { PureComponent } from 'react';
@@ -65,7 +73,7 @@ class Rating extends PureComponent {
 }
 ```
 
-## Memoisierung von Komponentenrenderings
+## Vermeiden unnötiger Rerenderings
 
 Die `Rating`-Komponente wird nicht neu gerendert, wenn ihre Props die gleichen sind wie zuvor:
 
@@ -73,3 +81,10 @@ Die `Rating`-Komponente wird nicht neu gerendert, wenn ihre Props die gleichen s
 <Rating stars={prodRating} />
 <Rating stars={prodRating} onChange={setProdRating} />
 ```
+
+## Vermeiden unnötiger Rerenderings
+
+Siehe auch:
+
+- [reactjs.org - Optimizing Performance - Avoid Reconciliation](https://reactjs.org/docs/optimizing-performance.html#avoid-reconciliation)
+- [Kent C. Dodds - Fix the slow render before you fix the re-render](https://kentcdodds.com/blog/fix-the-slow-render-before-you-fix-the-re-render)

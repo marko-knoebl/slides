@@ -3022,6 +3022,23 @@ solution: <strong>key</strong>:</p>
   ...
 &#x3C;/div>
 </code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>JSX and security</h1>
+</section><section class="slide"><h2>JSX and security</h2>
+<p>when binding <em>content</em>, XML tags will be escaped automatically</p>
+<p>this will just display plain text content:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> userSuppliedValue = <span class="hljs-string">'abc &#x3C;script>alert()&#x3C;/script>'</span>;
+
+element = <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>{userSuppliedValue}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+</code></pre>
+</section><section class="slide"><h2>JSX and security</h2>
+<p>some attributes - notably <em>href</em> - offer some attack targets</p>
+<pre><code class="hljs language-jsx">&#x3C;h1>profile&#x3C;/h1>
+<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">p</span>></span>name: {userName}<span class="hljs-tag">&#x3C;/<span class="hljs-name">p</span>></span></span>
+<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">p</span>></span><span class="hljs-tag">&#x3C;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">{userWebsite}</span>></span>website<span class="hljs-tag">&#x3C;/<span class="hljs-name">a</span>></span><span class="hljs-tag">&#x3C;/<span class="hljs-name">p</span>></span></span>
+</code></pre>
+<p>an attacker may have set their website to e.g.: <code>javascript:alert("foo")</code></p>
+<p>possible solution: make sure user-supplied external URLs start with <em>http://</em> or <em>https://</em></p>
+<p><small>see also: <a href="https://pragmaticwebsecurity.com/articles/spasecurity/react-xss-part1.html">article on pragmaticwebsecurity.com</a>, <a href="https://medium.com/javascript-security/avoiding-xss-in-react-is-still-hard-d2b5c7ad9412">article by Ron Perris</a>, <a href="https://github.com/facebook/react/pull/15047">React pull request with more details</a></small></p>
 </section></section><section class="slides-section"><section class="slide"><h1>JSX: compilation</h1>
 </section><section class="slide"><h2>JSX: compilation</h2>
 <p>XML elements are compiled to calls of:</p>

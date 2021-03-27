@@ -2072,6 +2072,20 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li>virtual DOM and the <em>key</em> prop</li>
 <li>lazy loading of components</li>
 </ul>
+</section></section><section class="slides-section"><section class="slide"><h1>Three steps to update a component</h1>
+</section><section class="slide"><h2>Three steps to update a component</h2>
+<ol>
+<li>build a virtual DOM representation of the new rendering ("render phase")</li>
+<li>create a diff between the new and old virtual DOM ("reconciliation phase")</li>
+<li>apply any changes in the virtual DOM to the real DOM ("commit phase")</li>
+</ol>
+</section><section class="slide"><h2>Three steps to update a component</h2>
+<p>speeding up the three steps:</p>
+<ul>
+<li>memoizing costly computations (<em>useMemo</em>) - may speed up step 1</li>
+<li>preventing unneeded component rerenderings - skips all steps if nothing changed</li>
+<li>using the <em>key</em> property - helps with finding the minimal diff for step 3</li>
+</ul>
 </section></section><section class="slides-section"><section class="slide"><h1>React devtools and performance</h1>
 </section><section class="slide"><h2>React devtools and performance</h2>
 <p>react devtools functionality:</p>
@@ -2138,15 +2152,19 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 );
 </code></pre>
 <p>the computation is only rerun if a dependency listed in the array changes</p>
-</section></section><section class="slides-section"><section class="slide"><h1>Memoization of component renderings</h1>
-</section><section class="slide"><h2>Preventing unneeded component rerenderings</h2>
+</section></section><section class="slides-section"><section class="slide"><h1>Skipping unneeded rerenders</h1>
+</section><section class="slide"><h2>Skipping unneeded rerenders</h2>
+<p>Note:</p>
+<p>If the rendering of a component is the same as before, re-rendering <em>will generally already be fast</em> as React will only recreate the virtual DOM (and will not touch the real DOM)</p>
+<p>Often, no further optimization is necessary</p>
+</section><section class="slide"><h2>Skipping unneeded rerenders</h2>
 <p>Generally a component only needs to be rerendered when its props or state actually change</p>
-</section><section class="slide"><h2>Preventing unneeded component rerenderings</h2>
+</section><section class="slide"><h2>Skipping unneeded rerenders</h2>
 <p>what React already does for us:</p>
 <p>hooks (state, reducer, context) will <em>not</em> trigger a re-rendering if their value has not changed</p>
 <p>what we can add:</p>
 <p>if a parent component rerenders, but the child's props haven't changed, don't rerender the child component (memoization)</p>
-</section><section class="slide"><h2>Preventing unneeded component rerenderings</h2>
+</section><section class="slide"><h2>Skipping unneeded rerenders</h2>
 <p>demo: component only rerenders if its state changes</p>
 <pre><code class="hljs language-jsx"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Coin</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">const</span> [coin, setCoin] = useState(<span class="hljs-string">'heads'</span>);
@@ -2162,14 +2180,14 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   );
 }
 </code></pre>
-</section><section class="slide"><h2>Memoization of component renderings</h2>
+</section><section class="slide"><h2>Skipping unneeded rerenders</h2>
 <p>if only those subcomponents whose props have changed should rerender:</p>
 <ul>
 <li>for function components: use React's <code>memo</code> function</li>
 <li>for class components: inherit from <code>PureComponent</code> instead of <code>Component</code></li>
 </ul>
-</section><section class="slide"><h2>Memoization of component renderings</h2>
-<p>memoized function component:</p>
+</section><section class="slide"><h2>Skipping unneeded rerenders</h2>
+<p>optimized function component:</p>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> { memo } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Rating</span>(<span class="hljs-params">props</span>) </span>{
@@ -2178,21 +2196,27 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> memo(Rating);
 </code></pre>
-<p>memoized class component:</p>
+<p>optimized class component:</p>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> { PureComponent } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Rating</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">PureComponent</span> </span>{
   <span class="hljs-comment">// ...</span>
 }
 </code></pre>
-</section><section class="slide"><h2>Memoization of component renderings</h2>
+</section><section class="slide"><h2>Skipping unneeded rerenders</h2>
 <p>the <code>Rating</code> component will not be rerendered if its props are the same as before:</p>
 <pre><code class="hljs language-jsx">&#x3C;Rating stars={prodRating} />
 <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Rating</span> <span class="hljs-attr">stars</span>=<span class="hljs-string">{prodRating}</span> <span class="hljs-attr">onChange</span>=<span class="hljs-string">{setProdRating}</span> /></span></span>
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Memoization and event handlers</h1>
-</section><section class="slide"><h2>Memoization and event handlers</h2>
-<p>if <code>Rating</code> is a memoized component, which of the following will re-render when the parent is re-rendered?</p>
+</section><section class="slide"><h2>Skipping unneeded rerenders</h2>
+<p>See also:</p>
+<ul>
+<li><a href="https://reactjs.org/docs/optimizing-performance.html#avoid-reconciliation">reactjs.org - Optimizing Performance - Avoid Reconciliation</a></li>
+<li><a href="https://kentcdodds.com/blog/fix-the-slow-render-before-you-fix-the-re-render">Kent C. Dodds - Fix the slow render before you fix the re-render</a></li>
+</ul>
+</section></section><section class="slides-section"><section class="slide"><h1>Skipping rerenders and event handlers</h1>
+</section><section class="slide"><h2>Skipping rerenders and event handlers</h2>
+<p>if <code>Rating</code> is a "memoized" component, which of the following will re-render when the parent is re-rendered?</p>
 <pre><code class="hljs language-jsx">&#x3C;Rating stars={prodRating} />
 <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Rating</span> <span class="hljs-attr">stars</span>=<span class="hljs-string">{prodRating}</span> <span class="hljs-attr">onChange</span>=<span class="hljs-string">{setProdRating}</span> /></span></span>
 <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Rating</span>
@@ -2200,21 +2224,21 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   <span class="hljs-attr">onChange</span>=<span class="hljs-string">{(newRating)</span> =></span> setProdRating(newRating)}
 /></span>
 </code></pre>
-</section><section class="slide"><h2>Memoization and event handlers</h2>
+</section><section class="slide"><h2>Skipping rerenders and event handlers</h2>
 <pre><code class="hljs language-jsx">&#x3C;Rating
   stars={prodRating}
   onChange={<span class="hljs-function">(<span class="hljs-params">newRating</span>) =></span> setProdRating(newRating)}
 />
 </code></pre>
 <p>the change handler would be recreated and passed down as a different object on every rendering of the parent component</p>
-</section><section class="slide"><h2>Memoization and event handlers</h2>
+</section><section class="slide"><h2>Skipping rerenders and event handlers</h2>
 <p>solutions:</p>
 <ul>
 <li>pass down a <code>dispatch</code> function</li>
 <li>define the event handlers to be passed down in a class component</li>
 <li>memoize the event handlers</li>
 </ul>
-</section><section class="slide"><h2>Memoization and event handlers</h2>
+</section><section class="slide"><h2>Skipping rerenders and event handlers</h2>
 <p>memoizing event handlers:</p>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> TodoApp = <span class="hljs-function">() =></span> {
   <span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
@@ -2237,7 +2261,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   );
 };
 </code></pre>
-</section><section class="slide"><h2>Memoization and event handlers</h2>
+</section><section class="slide"><h2>Skipping rerenders and event handlers</h2>
 <p>memoization of a single event handler:</p>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> TodoApp = <span class="hljs-function">() =></span> {
   <span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
@@ -2252,7 +2276,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   );
 };
 </code></pre>
-</section><section class="slide"><h2>Memoization and event handlers</h2>
+</section><section class="slide"><h2>Skipping rerenders and event handlers</h2>
 <p>shorter memoization of a single event handler via <code>useCallback</code>:</p>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> TodoApp = <span class="hljs-function">() =></span> {
   <span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);

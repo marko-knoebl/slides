@@ -12,6 +12,22 @@ topics:
 - virtual DOM and the _key_ prop
 - lazy loading of components
 
+# Three steps to update a component
+
+## Three steps to update a component
+
+1. build a virtual DOM representation of the new rendering ("render phase")
+2. create a diff between the new and old virtual DOM ("reconciliation phase")
+3. apply any changes in the virtual DOM to the real DOM ("commit phase")
+
+## Three steps to update a component
+
+speeding up the three steps:
+
+- memoizing costly computations (_useMemo_) - may speed up step 1
+- preventing unneeded component rerenderings - skips all steps if nothing changed
+- using the _key_ property - helps with finding the minimal diff for step 3
+
 # React devtools and performance
 
 ## React devtools and performance
@@ -112,13 +128,21 @@ const numActiveTodos = useMemo(
 
 the computation is only rerun if a dependency listed in the array changes
 
-# Memoization of component renderings
+# Skipping unneeded rerenders
 
-## Preventing unneeded component rerenderings
+## Skipping unneeded rerenders
+
+Note:
+
+If the rendering of a component is the same as before, re-rendering _will generally already be fast_ as React will only recreate the virtual DOM (and will not touch the real DOM)
+
+Often, no further optimization is necessary
+
+## Skipping unneeded rerenders
 
 Generally a component only needs to be rerendered when its props or state actually change
 
-## Preventing unneeded component rerenderings
+## Skipping unneeded rerenders
 
 what React already does for us:
 
@@ -128,7 +152,7 @@ what we can add:
 
 if a parent component rerenders, but the child's props haven't changed, don't rerender the child component (memoization)
 
-## Preventing unneeded component rerenderings
+## Skipping unneeded rerenders
 
 demo: component only rerenders if its state changes
 
@@ -148,16 +172,16 @@ function Coin() {
 }
 ```
 
-## Memoization of component renderings
+## Skipping unneeded rerenders
 
 if only those subcomponents whose props have changed should rerender:
 
 - for function components: use React's `memo` function
 - for class components: inherit from `PureComponent` instead of `Component`
 
-## Memoization of component renderings
+## Skipping unneeded rerenders
 
-memoized function component:
+optimized function component:
 
 ```jsx
 import { memo } from 'react';
@@ -169,7 +193,7 @@ function Rating(props) {
 export default memo(Rating);
 ```
 
-memoized class component:
+optimized class component:
 
 ```jsx
 import { PureComponent } from 'react';
@@ -179,7 +203,7 @@ class Rating extends PureComponent {
 }
 ```
 
-## Memoization of component renderings
+## Skipping unneeded rerenders
 
 the `Rating` component will not be rerendered if its props are the same as before:
 
@@ -188,11 +212,18 @@ the `Rating` component will not be rerendered if its props are the same as befor
 <Rating stars={prodRating} onChange={setProdRating} />
 ```
 
-# Memoization and event handlers
+## Skipping unneeded rerenders
 
-## Memoization and event handlers
+See also:
 
-if `Rating` is a memoized component, which of the following will re-render when the parent is re-rendered?
+- [reactjs.org - Optimizing Performance - Avoid Reconciliation](https://reactjs.org/docs/optimizing-performance.html#avoid-reconciliation)
+- [Kent C. Dodds - Fix the slow render before you fix the re-render](https://kentcdodds.com/blog/fix-the-slow-render-before-you-fix-the-re-render)
+
+# Skipping rerenders and event handlers
+
+## Skipping rerenders and event handlers
+
+if `Rating` is a "memoized" component, which of the following will re-render when the parent is re-rendered?
 
 ```jsx
 <Rating stars={prodRating} />
@@ -203,7 +234,7 @@ if `Rating` is a memoized component, which of the following will re-render when 
 />
 ```
 
-## Memoization and event handlers
+## Skipping rerenders and event handlers
 
 ```jsx
 <Rating
@@ -214,7 +245,7 @@ if `Rating` is a memoized component, which of the following will re-render when 
 
 the change handler would be recreated and passed down as a different object on every rendering of the parent component
 
-## Memoization and event handlers
+## Skipping rerenders and event handlers
 
 solutions:
 
@@ -222,7 +253,7 @@ solutions:
 - define the event handlers to be passed down in a class component
 - memoize the event handlers
 
-## Memoization and event handlers
+## Skipping rerenders and event handlers
 
 memoizing event handlers:
 
@@ -249,7 +280,7 @@ const TodoApp = () => {
 };
 ```
 
-## Memoization and event handlers
+## Skipping rerenders and event handlers
 
 memoization of a single event handler:
 
@@ -268,7 +299,7 @@ const TodoApp = () => {
 };
 ```
 
-## Memoization and event handlers
+## Skipping rerenders and event handlers
 
 shorter memoization of a single event handler via `useCallback`:
 
