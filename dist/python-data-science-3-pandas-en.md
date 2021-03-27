@@ -196,6 +196,24 @@ euribor = pd.read_hdf("data.hdf5", "euribor")
 - [seaborn data sets](https://github.com/mwaskom/seaborn-data) (click on a file and then on the _raw_ button)
 - [pandas-datareader](https://pydata.github.io/pandas-datareader)
 
+# Pandas and NumPy
+
+## Pandas and NumPy
+
+for many array operations, there is equivalent functionality on Pandas DataFrames / Series:
+
+- `df.abs()`
+- `df1 + df2`
+- `df.shape`
+- ...
+
+## Pandas and NumPy
+
+conversion:
+
+- `df.to_numpy()`
+- `series.to_numpy()`
+
 # Data statistics
 
 ## Statistics on series
