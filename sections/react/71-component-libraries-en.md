@@ -6,19 +6,40 @@
 - React Native & React Native Web: React components & framework for mobile & web apps
 - React Bootstrap
 - Blueprint
+- Ant Design
 - ...
 
 ## Material-UI
 
 Predefined React components conforming to material design style (style of Google/Android)
 
-## Material-UI: installation and usage
+npm package: _@material-ui/core_
 
-https://material-ui.com
+```jsx
+import { Button } from '@material-ui/core';
+```
 
-see info boxes on _Installation_ und _Usage_
+```jsx
+<Button color="primary">Hello World</Button>
+```
 
-## Material-UI: exercises
+documentation: https://material-ui.com
 
-- Button
-- Todo-App in Material Style
+## React-Bootstrap
+
+npm packages: _react-bootstrap_, _bootstrap_
+
+```jsx
+// index.js
+import 'bootstrap/dist/css/bootstrap.min.css';
+```
+
+```jsx
+import { Button } from 'react-bootstrap';
+```
+
+```jsx
+<Button variant="primary">Hello World</Button>
+```
+
+documentation: https://react-bootstrap.github.io/
