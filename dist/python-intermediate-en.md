@@ -6,9 +6,9 @@
   - strings and string processing
   - bytes
   - sequences
-- creating lists and dictionaries via comprehensions
 - object oriented programming and classes
 - advanced use of control structures
+- creating lists and dictionaries via comprehensions
 - throwing and catching exceptions
 - modules and packages
 - package management in Python
@@ -801,72 +801,6 @@ Any immutable object can act as a dictionary key. The most common types of keys 
 - vocabulary trainer
 - todo list
 
-# Comprehensions
-
-## List comprehensions
-
-_List comprehensions_ enable the creation of lists based on existing lists
-
-In other programming languages this is often done via `map` and `filter`
-
-## List comprehensions
-
-_Transforming each entry_:
-
-```py
-names = ["Alice", "Bob", "Charlie"]
-
-uppercase_names = [name.upper() for name in names]
-```
-
-result:
-
-```py
-["ALICE", "BOB", "CHARLIE"]
-```
-
-## List comprehensions
-
-_Filtering_:
-
-```py
-amounts = [10, -7, 8, 19, -2]
-
-positive_amounts = [amount for amount in amounts if amount > 0]
-```
-
-result:
-
-```py
-[10, 8, 19]
-```
-
-## List comprehensions
-
-Generic syntax:
-
-```py
-new_list = [new_entry for entry in old_list]
-
-new_list = [new_entry for entry in old_list if condition]
-```
-
-## Dictionary comprehensions
-
-```py
-colors: {
-  'red': '#ff0000',
-  'blue': '#0000ff',
-  'green': '#008000'
-}
-
-m_colors = { color: colors[color][1:] for color in colors}
-```
-
-## Exercises
-
-- todo list: add functionality to remove completed entries
-
 # Object-oriented programming and classes
 
 ## Object orientation in Python: "Everything is an object"
@@ -1124,6 +1058,72 @@ C:\Program Files []
 C:\ProgramData []
 ...
 ```
+
+# Comprehensions
+
+## List comprehensions
+
+_List comprehensions_ enable the creation of lists based on existing lists
+
+In other programming languages this is often done via `map` and `filter`
+
+## List comprehensions
+
+_Transforming each entry_:
+
+```py
+names = ["Alice", "Bob", "Charlie"]
+
+uppercase_names = [name.upper() for name in names]
+```
+
+result:
+
+```py
+["ALICE", "BOB", "CHARLIE"]
+```
+
+## List comprehensions
+
+_Filtering_:
+
+```py
+amounts = [10, -7, 8, 19, -2]
+
+positive_amounts = [amount for amount in amounts if amount > 0]
+```
+
+result:
+
+```py
+[10, 8, 19]
+```
+
+## List comprehensions
+
+Generic syntax:
+
+```py
+new_list = [new_entry for entry in old_list]
+
+new_list = [new_entry for entry in old_list if condition]
+```
+
+## Dictionary comprehensions
+
+```py
+colors: {
+  'red': '#ff0000',
+  'blue': '#0000ff',
+  'green': '#008000'
+}
+
+m_colors = { color: colors[color][1:] for color in colors}
+```
+
+## Exercises
+
+- todo list: add functionality to remove completed entries
 
 # Exceptions
 

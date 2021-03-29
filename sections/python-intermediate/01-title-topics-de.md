@@ -6,9 +6,9 @@
   - Strings und String-Verarbeitung
   - Bytes
   - Sequenzen
-- Erstellen von Listen und Dictionaries mittels Comprehensions
 - objektorientiertes Programmieren und Klassen
 - fortgeschrittene Kontrollstrukturen
+- Erstellen von Listen und Dictionaries mittels Comprehensions
 - Exceptions
 - Module und Pakete
 - Paketmanagement in Python
