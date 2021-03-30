@@ -65,7 +65,7 @@ Task: Import the following data sources, ensuring the data is formatted nicely:
 
 - S&P 500 monthly prices (US stock index): https://datahub.io/core/s-and-p-500/r/data.csv
 - Exchange rates: https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv
-- Iris dataset (statistics of leaf sizes for iris flowers): https://raw.githubusercontent.com/mwaskom/seaborn-data/master/iris.csv
+- Iris dataset (statistics of leaf sizes for iris flowers): http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data
 - Titanic passenger data: https://public.opendatasoft.com/explore/dataset/titanic-passengers/download
 
 ## Importing CSV
@@ -110,7 +110,7 @@ see: [Dataquest: Tutorial Using Excel with Python and Pandas](https://www.dataqu
 
 ## Importing and exporting HDF5 data
 
-requires _PyTables_ (available in the Anaconda distribution)
+requires _PyTables_
 
 ```py
 euribor.to_hdf("data.hdf5", "euribor")

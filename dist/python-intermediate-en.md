@@ -858,7 +858,6 @@ methods:
 
 - _close()_
 - _read()_
-- _readline()_
 - _write()_
 - ...
 
