@@ -66,16 +66,6 @@ Attributes and methods that should not be used from the outside are prefixed wit
 
 We're all consenting adults here: https://mail.python.org/pipermail/tutor/2003-October/025932.html
 
-## Inheritance
-
-```py
-class Person():
-    ...
-
-class Admin(Person):
-    ...
-```
-
 ## Example: class "Length"
 
 ```py

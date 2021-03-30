@@ -605,13 +605,6 @@ instance.message <span class="hljs-comment"># "hello"</span>
 <p>Kennzeichnung von Attributen und Methoden, die von außen nicht verwendet werden sollten mit <code>_</code></p>
 <p>We're all consenting adults here: <a href="https://mail.python.org/pipermail/tutor/2003-October/025932.html">https://mail.python.org/pipermail/tutor/2003-October/025932.html</a></p>
 <p>Achtung: oft Fehlinformation bezüglich <code>__</code>! In der Praxis sollten doppelte Unterstriche kaum verwendet werden.</p>
-<h2>Vererbung</h2>
-<pre><code class="hljs language-py"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span>():</span>
-    ...
-
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Admin</span>(<span class="hljs-params">Person</span>):</span>
-    ...
-</code></pre>
 <h2>Beispiel: Umsetzung einer Length-Klasse</h2>
 <pre><code class="hljs language-py">a = Length(<span class="hljs-number">2.54</span>, <span class="hljs-string">"cm"</span>)
 b = Length(<span class="hljs-number">3</span>, <span class="hljs-string">"in"</span>)
@@ -629,6 +622,44 @@ print(tdl.todos)
 tdl.todos[<span class="hljs-number">0</span>].toggle()
 
 tdl.stats() <span class="hljs-comment"># {open: 1, completed: 1}</span>
+</code></pre>
+<h1>Vererbung und Komposition</h1>
+<h2>Vererbung und Komposition</h2>
+<p>öfters verwenden wir eine Klasse als Basis für eine andere Klasse</p>
+<p>z.B.:</p>
+<ul>
+<li><code>User</code>-Klasse als Basis der <code>AdminUser</code>-Klasse</li>
+<li><code>TicTacToeGame</code> als Basis von <code>TicTacToeGameGUI</code></li>
+</ul>
+<h2>Vererbung und Komposition</h2>
+<p>Vererbung: ein <code>AdminUser</code> <em>ist</em> ein <code>User</code></p>
+<p>Komposition: <code>TicTacToeGameGUI</code> könnte <code>TicTacToeGame</code> im Hintergrund verwenden</p>
+<p>häufiges Mantra: <em>Composition over Inheritance</em>: verwende Vererbung nicht zu sehr</p>
+<h2>Vererbung</h2>
+<p>Vererbung:</p>
+<pre><code class="hljs language-py"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span>():</span>
+    ...
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AdminUser</span>(<span class="hljs-params">User</span>):</span>
+    ...
+</code></pre>
+<p>die <code>AdminUser</code>-Klasse erbt automatisch alle bestehenden Methoden der <code>User</code>-Klasse</p>
+<h2>Komposition</h2>
+<p>Komposition:</p>
+<pre><code class="hljs language-py"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TicTacToeGame</span>():</span>
+    ...
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TicTacToeGameGUI</span>():</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self</span>):</span>
+        self.game = TicTacToeGame()
+</code></pre>
+<h2>Vererbung</h2>
+<p>Beispiel zur Vererbung - Datenbankmodell in Django:</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> django.db <span class="hljs-keyword">import</span> models
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Question</span>(<span class="hljs-params">models.Model</span>):</span>
+    question_text = models.CharField(max_length=<span class="hljs-number">200</span>)
+    pub_date = models.DateTimeField(<span class="hljs-string">'date published'</span>)
 </code></pre>
 <h1>Kontrollstrukturen</h1>
 <h2>Kontrollstrukturen</h2>

@@ -2672,13 +2672,6 @@ instance.message <span class="hljs-comment"># "hello"</span>
 </section><section class="slide"><h2>Private attributes and methods</h2>
 <p>Attributes and methods that should not be used from the outside are prefixed with <code>_</code></p>
 <p>We're all consenting adults here: <a href="https://mail.python.org/pipermail/tutor/2003-October/025932.html">https://mail.python.org/pipermail/tutor/2003-October/025932.html</a></p>
-</section><section class="slide"><h2>Inheritance</h2>
-<pre><code class="hljs language-py"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span>():</span>
-    ...
-
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Admin</span>(<span class="hljs-params">Person</span>):</span>
-    ...
-</code></pre>
 </section><section class="slide"><h2>Example: class "Length"</h2>
 <pre><code class="hljs language-py">a = Length(<span class="hljs-number">2.54</span>, <span class="hljs-string">"cm"</span>)
 b = Length(<span class="hljs-number">3</span>, <span class="hljs-string">"in"</span>)
@@ -2696,6 +2689,44 @@ print(tdl.todos)
 tdl.todos[<span class="hljs-number">0</span>].toggle()
 
 tdl.stats() <span class="hljs-comment"># {open: 1, completed: 1}</span>
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Inheritance and composition</h1>
+</section><section class="slide"><h2>Inheritance and composition</h2>
+<p>often we can use some class(es) as the basis for another class</p>
+<p>e.g.:</p>
+<ul>
+<li><code>User</code> class as the basis of the <code>AdminUser</code> class</li>
+<li><code>TicTacToeGame</code> as the basis of <code>TicTacToeGameGUI</code></li>
+</ul>
+</section><section class="slide"><h2>Inheritance and composition</h2>
+<p>inheritance: an <code>AdminUser</code> <em>is</em> a <code>User</code></p>
+<p>composition: <code>TicTacToeGameGUI</code> could <em>use</em> <code>TicTacToeGame</code> in the background</p>
+<p>common mantra: <em>composition over inheritance</em>: don't overuse inheritance</p>
+</section><section class="slide"><h2>Inheritance</h2>
+<p>inheritance:</p>
+<pre><code class="hljs language-py"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span>():</span>
+    ...
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AdminUser</span>(<span class="hljs-params">User</span>):</span>
+    ...
+</code></pre>
+<p>the <code>AdminUser</code> class automatically inherits all existing methods from the <code>User</code> class</p>
+</section><section class="slide"><h2>Composition</h2>
+<p>composition:</p>
+<pre><code class="hljs language-py"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TicTacToeGame</span>():</span>
+    ...
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TicTacToeGameGUI</span>():</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self</span>):</span>
+        self.game = TicTacToeGame()
+</code></pre>
+</section><section class="slide"><h2>Inheritance</h2>
+<p>example of inheritance - database model in Django:</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> django.db <span class="hljs-keyword">import</span> models
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Question</span>(<span class="hljs-params">models.Model</span>):</span>
+    question_text = models.CharField(max_length=<span class="hljs-number">200</span>)
+    pub_date = models.DateTimeField(<span class="hljs-string">'date published'</span>)
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Control structures</h1>
 </section><section class="slide"><h2>Control structures</h2>
