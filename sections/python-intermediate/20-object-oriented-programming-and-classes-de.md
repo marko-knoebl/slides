@@ -29,6 +29,7 @@ Klassen können _verschiedenste_ Dinge repräsentieren, z.B.:
 - ein Auto in einem Computer-Rennspiel
 - einen Einkaufskorb in einem Onlineshop
 - ein Bankkonto
+- einen Datensatz, der analysiert werden soll
 - ...
 
 ## Klassen
@@ -37,6 +38,26 @@ Definition einer Klasse umfasst üblicherweise:
 
 - "Datenstruktur" (Attribute)
 - "Verhalten" (Methoden)
+
+## Klassen
+
+Beispiel: Klasse `TextIOWrapper` kann eine Textdatei repräsentieren (wird beim Aufruf von `open()` erstellt)
+
+Attribute:
+
+- _closed_
+- _encoding_
+- _mode_ (e.g. r=read, w=write)
+- _name_ (filename)
+- ...
+
+Methoden:
+
+- _close()_
+- _read()_
+- _readline()_
+- _write()_
+- ...
 
 ## Klassen
 

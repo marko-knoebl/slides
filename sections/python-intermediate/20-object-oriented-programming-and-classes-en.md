@@ -29,6 +29,7 @@ Classes may represent _various_ things, e.g.:
 - a car in a racing game
 - a shopping basket in an online shop
 - a bank account
+- a data set to be analysed
 - ...
 
 ## Classes
@@ -37,6 +38,26 @@ The definition of a class usually encompasses:
 
 - a "data structure" (attributes)
 - a "behavior" (methods)
+
+## Classes
+
+example: class `TextIOWrapper` can represent a text file (is created when calling `open()`)
+
+attributes:
+
+- _closed_
+- _encoding_
+- _mode_ (e.g. r=read, w=write)
+- _name_ (filename)
+- ...
+
+methods:
+
+- _close()_
+- _read()_
+- _readline()_
+- _write()_
+- ...
 
 ## Classes
 
