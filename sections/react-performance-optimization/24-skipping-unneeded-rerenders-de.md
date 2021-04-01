@@ -84,6 +84,10 @@ Die `Rating`-Komponente wird nicht neu gerendert, wenn ihre Props die gleichen s
 
 ## Vermeiden unnötiger Rerenderings
 
+[Demo: Sierpinski-Teppich mit und ohne memo](https://codesandbox.io/s/memo-sierpinski-j5dv9)
+
+## Vermeiden unnötiger Rerenderings
+
 Siehe auch:
 
 - [reactjs.org - Optimizing Performance - Avoid Reconciliation](https://reactjs.org/docs/optimizing-performance.html#avoid-reconciliation)

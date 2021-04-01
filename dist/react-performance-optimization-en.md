@@ -214,6 +214,10 @@ the `Rating` component will not be rerendered if its props are the same as befor
 
 ## Skipping unneeded rerenders
 
+[Demo: Sierpinski carpet with and without memo](https://codesandbox.io/s/memo-sierpinski-j5dv9)
+
+## Skipping unneeded rerenders
+
 See also:
 
 - [reactjs.org - Optimizing Performance - Avoid Reconciliation](https://reactjs.org/docs/optimizing-performance.html#avoid-reconciliation)
