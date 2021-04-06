@@ -2193,7 +2193,10 @@ exchange_rates = pd.read_csv(
     <span class="hljs-string">"https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv"</span>,
     parse_dates=[<span class="hljs-string">"Date"</span>],
 )
-iris = pd.read_csv(
+</code></pre>
+</section><section class="slide"><h2>CSV importieren</h2>
+<p>mögliche Lösungen:</p>
+<pre><code class="hljs language-py">iris = pd.read_csv(
     <span class="hljs-string">"http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data"</span>,
     header=<span class="hljs-literal">None</span>,
     names=[<span class="hljs-string">"sepal_length"</span>, <span class="hljs-string">"sepal_width"</span>, <span class="hljs-string">"petal_length"</span>,
@@ -2223,12 +2226,20 @@ sp500.to_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class="hljs-str
 
 euribor = pd.read_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class="hljs-string">"euribor"</span>)
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Quellen für Beispieldaten</h1>
+</section></section><section class="slides-section"><section class="slide"><h1>Beispieldaten</h1>
 </section><section class="slide"><h2>Quellen für Beispieldaten</h2>
 <ul>
 <li><a href="https://datahub.io">https://datahub.io</a></li>
 <li><a href="https://github.com/mwaskom/seaborn-data">seaborn data sets</a> (klicke auf eine Datei und dann auf den <em>raw</em> Button)</li>
 <li><a href="https://pydata.github.io/pandas-datareader">pandas-datareader</a></li>
+<li><a href="http://lib.stat.cmu.edu/datasets/">http://lib.stat.cmu.edu/datasets/</a></li>
+</ul>
+</section><section class="slide"><h2>Beispieldaten</h2>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Iris_flower_data_set">Iris-Blumen Datensatz</a>: <a href="http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data">Download</a></li>
+<li>Titanic Passagierdaten: <a href="https://public.opendatasoft.com/explore/dataset/titanic-passengers/download">Download</a></li>
+<li><a href="https://en.wikipedia.org/wiki/MNIST_database">MNIST Ziffern-Datensatz</a>: <a href="http://yann.lecun.com/exdb/mnist/">Download (Binärdaten)</a></li>
+<li><a href="http://lib.stat.cmu.edu/datasets/houses.zip">California Housing Daten</a></li>
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Pandas und NumPy</h1>
 </section><section class="slide"><h2>Pandas und NumPy</h2>
@@ -2281,6 +2292,19 @@ dtype: float64
 <li><em>min</em>: alle Werte sind größer als das Minimum</li>
 <li><em>25%-Quantil</em>: 25% aller Werte sind kleiner</li>
 </ul>
+</section><section class="slide"><h2>Statistiken</h2>
+<p>Liste einzigartiger Werte:</p>
+<pre><code class="hljs language-py">titanic[<span class="hljs-string">"pclass"</span>].unique()
+</code></pre>
+<pre><code class="hljs language-txt">[2, 3, 1]
+</code></pre>
+<p>Zählen einzelner Vorkommen:</p>
+<pre><code class="hljs language-py">titanic[<span class="hljs-string">"pclass"</span>].value_counts()
+</code></pre>
+<pre><code class="hljs language-txt">3    491
+1    216
+2    184
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Daten auslesen: Grundlagen</h1>
 </section><section class="slide"><h2>Spaltennamen und Indexwerte</h2>
 <ul>
@@ -2401,15 +2425,15 @@ sp500_max_row = sp500.loc[sp500[<span class="hljs-string">"SP500"</span>].idxmax
 </code></pre>
 </section><section class="slide"><h2>Zeilen auswählen: fortgeschritten</h2>
 <p>männliche Passagiere in der ersten Klasse:</p>
-<pre><code class="hljs language-py">titanic.query(<span class="hljs-string">"pclass > 1 and sex == 'male'"</span>)
-</code></pre>
-<p>Passagiere, die in Southampton oder Queenstown an Bord gingen:</p>
-<pre><code class="hljs language-py">titanic.query(<span class="hljs-string">"embarked in ['S', 'Q']"</span>)
-</code></pre>
-</section><section class="slide"><h2>Zeilen auswählen: fortgeschritten</h2>
 <pre><code class="hljs language-py">titanic[(titanic[<span class="hljs-string">"pclass"</span>] > <span class="hljs-number">1</span>) &#x26; (titanic[<span class="hljs-string">"sex"</span>] == <span class="hljs-string">"male"</span>)]
 </code></pre>
+<p>Passagiere, die in Southampton oder Queenstown an Bord gingen:</p>
 <pre><code class="hljs language-py">titanic[titanic[<span class="hljs-string">"embarked"</span>].isin([<span class="hljs-string">"S"</span>, <span class="hljs-string">"Q"</span>])]
+</code></pre>
+</section><section class="slide"><h2>Zeilen auswählen: fortgeschritten</h2>
+<pre><code class="hljs language-py">titanic.query(<span class="hljs-string">"pclass > 1 and sex == 'male'"</span>)
+</code></pre>
+<pre><code class="hljs language-py">titanic.query(<span class="hljs-string">"embarked in ['S', 'Q']"</span>)
 </code></pre>
 </section><section class="slide"><h2>Übung: Titanic</h2>
 <ul>
@@ -2418,11 +2442,12 @@ sp500_max_row = sp500.loc[sp500[<span class="hljs-string">"SP500"</span>].idxmax
 </ul>
 </section><section class="slide"><h2>Lösungen: Titanic</h2>
 <p>erwachsene (>= 18) Männer, sortiert nach Alter:</p>
-<pre><code class="hljs language-py">titanic[titanic[<span class="hljs-string">"age"</span>] >= <span class="hljs-number">18</span>].sort_values(by=<span class="hljs-string">"age"</span>)
-titanic.query(<span class="hljs-string">"age >= 18"</span>).sort_values(by=<span class="hljs-string">"age"</span>)
+<pre><code class="hljs language-py">titanic[
+    (titanic[<span class="hljs-string">"age"</span>] >= <span class="hljs-number">18</span>) &#x26; (titanic[<span class="hljs-string">"sex"</span>] = <span class="hljs-string">"male"</span>)
+].sort_values(by=<span class="hljs-string">"age"</span>)
 </code></pre>
 <p>erwachsene Überlebende:</p>
-<pre><code class="hljs language-py">titanic.query(<span class="hljs-string">"age >= 18 and survived=='Yes'"</span>)
+<pre><code class="hljs language-py">titanic[(titanic[<span class="hljs-string">"age"</span>] >= <span class="hljs-number">18</span>) &#x26; (titanic[<span class="hljs-string">"survived"</span>] == <span class="hljs-string">"Yes"</span>)]
 </code></pre>
 </section><section class="slide"><h2>Übungen: Iris-Blüten</h2>
 <ul>

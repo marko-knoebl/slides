@@ -1,24 +1,12 @@
-# PIP
-
-## PIP
-
-_PIP_ = Paketmanager für Python
-
-Einfache Verwendung:
-
-```bash
-pip install requests numpy
-```
-
-Pakete und deren Abhängigkeiten werden im Python Package Index gesucht: https://pypi.org/
+# PIP und pipenv
 
 ## PIP
 
 Installation bestimmter Versionen:
 
 ```
-pip install requests==1.1
-pip install numpy>=1.16
+pip install requests~=2.0
+pip install numpy~=1.19
 ```
 
 ## PIP
@@ -38,11 +26,9 @@ pip install -r requirements.txt
 
 ## Pipenv
 
-Via Pipenv: virtuelle Umgebungen, die die projektweise Installation verschiedener Paketversionen erlauben
+Pipenv: virtuelle Umgebungen, die die projektweise Installation verschiedener Paketversionen erlauben
 
 ## Pipenv
-
-Installation von pipenv:
 
 ```bash
 pip install pipenv
@@ -53,14 +39,22 @@ pip install pipenv
 Verwendung von pipenv:
 
 ```bash
-pipenv install requests
-pipenv install numpy
+pipenv install requests~=2.0
+pipenv install numpy~=1.19
 ```
 
 Es entstehen zwei Dateien:
 
 - _Pipfile_: allgemeine Abhängigkeitsinformationen
 - _Pipfile.lock_: genaue Versionsnummern
+
+## Pipenv
+
+Installation basierend auf einer bestehenden _Pipfile_:
+
+```bash
+pipenv install
+```
 
 ## Pipenv
 

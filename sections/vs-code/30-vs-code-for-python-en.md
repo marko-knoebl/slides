@@ -1,23 +1,11 @@
 # VS Code for Python
 
-## Python: extensions and packages
-
-VS code extensions:
-
-- _Python_
-- _Pylance_ (preview release)
-
-Python packages for use with VS Code:
-
-- _pylint_ (linter)
-- _black_ (formatter)
-
 ## Python extension
 
 installation:
 
 - open the extensions view in the sidebar: fifth symbol on the left
-- install the extension named _Python_
+- install the extension named _Python_ by _Microsoft_
 
 configuration:
 
@@ -29,11 +17,30 @@ configuration:
 
 ## Python extension: running programs
 
-green "Play" button in the editor view
+_Debug_ - _Start Without Debugging (Ctrl + F5)_ (will run program in the project directory)
 
 or
 
-_Debug_ - _Start Without Debugging (Ctrl + F5)_
+green "Play" button in the editor view (will run program in the current working directory)
+
+## Other extensions / packages
+
+VS code extensions:
+
+- _Pylance_ (preview release)
+
+Python packages for use with VS Code:
+
+- _pylint_ (linter)
+- _black_ (formatter)
+- _rope_ (refactoring - e.g. renaming variables - not needed with PyLance)
+
+## PyLance
+
+after install:
+
+- would you like to make PyLance your default language server?
+- reload VS Code
 
 ## PyLint
 

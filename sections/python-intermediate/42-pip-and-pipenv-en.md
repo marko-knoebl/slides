@@ -1,24 +1,12 @@
-# PIP & pipenv
+# PIP and pipenv
 
 ## PIP
 
-_PIP_ = Package manager for Python
-
-Simple usage:
-
-```bash
-pip install requests numpy
-```
-
-Packages and their dependencies are looked up in the Python Package Index: https://pypi.org/
-
-## PIP
-
-Installing specific Versions:
+Installing specific versions:
 
 ```
-pip install requests==1.1
-pip install numpy>=1.16
+pip install requests~=2.0
+pip install numpy~=1.19
 ```
 
 ## PIP
@@ -28,8 +16,8 @@ dependency list in a requirements file that can be shared with others:
 requirements.txt:
 
 ```
-requests==1.1
-numpy>=1.16
+requests~=2.0
+numpy~=1.19
 ```
 
 ```bash
@@ -51,14 +39,22 @@ pip install pipenv
 Using pipenv:
 
 ```bash
-pipenv install requests
-pipenv install numpy
+pipenv install requests~=2.0
+pipenv install numpy~=1.19
 ```
 
 This creates two files:
 
 - _Pipfile_: general dependency information
 - _Pipfile.lock_: exact version numbers
+
+## Pipenv
+
+installation based on an existing _Pipfile_:
+
+```bash
+pipenv install
+```
 
 ## Pipenv
 

@@ -82,6 +82,13 @@ exchange_rates = pd.read_csv(
     "https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv",
     parse_dates=["Date"],
 )
+```
+
+## Importing CSV
+
+possible solutions:
+
+```py
 iris = pd.read_csv(
     "http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data",
     header=None,

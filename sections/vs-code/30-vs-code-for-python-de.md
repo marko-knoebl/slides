@@ -1,23 +1,11 @@
 # VS Code für Python
 
-## Python: Extensions und Pakete
-
-VS Code Extensions:
-
-- _Python_
-- _Pylance_ (Preview-Release)
-
-Python-Pakete zur Verwendung mit VS Code:
-
-- _pylint_ (Linter)
-- _black_ (Formatierer)
-
 ## Python-Extension
 
 Installation:
 
 - Extensions-Sidebar öffnen: fünftes Symbol auf der linken Seite
-- Installation der _Python_-Extension
+- Installation der _Python_-Extension von _Microsoft_
 
 Konfiguration:
 
@@ -29,11 +17,23 @@ Konfiguration:
 
 ## Python Extension: Ausführen von Programmen
 
-grünes Play-Symbol zur Editoransicht
+_Debug_ - _Start Without Debugging (Ctrl + F5)_ (führt Programm im Projektordner aus)
 
 oder
 
-_Debug_ - _Start Without Debugging (Ctrl + F5)_
+grünes Play-Symbol zur Editoransicht (führt Programm im aktuellen "working directory" im Terminal aus)
+
+## Andere Extensions und Pakete
+
+VS Code Extensions:
+
+- _PyLance_ (Preview-Release)
+
+Python-Pakete zur Verwendung mit VS Code:
+
+- _pylint_ (Linter)
+- _black_ (Formatierer)
+- _rope_ (Refactoring - z.B. umbenennen von Variablen - wird mit PyLance nicht benötigt)
 
 ## PyLint
 

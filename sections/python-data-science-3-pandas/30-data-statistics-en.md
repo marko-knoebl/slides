@@ -43,3 +43,27 @@ The above computes the following data:
 - _median_: half of the values are less and half are greater than the median
 - _min_: all values are greater than the minimum
 - _25%-quantile_: 25% of all values are less
+
+## Statistics on series
+
+get a list of unique values:
+
+```py
+titanic["pclass"].unique()
+```
+
+```txt
+[2, 3, 1]
+```
+
+count occurences:
+
+```py
+titanic["pclass"].value_counts()
+```
+
+```txt
+3    491
+1    216
+2    184
+```

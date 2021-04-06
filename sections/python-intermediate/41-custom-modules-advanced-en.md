@@ -1,6 +1,6 @@
-# Custom modules
+# Custom modules: advanced
 
-## Custom modules
+## Custom modules: advanced
 
 Module as a directory:
 

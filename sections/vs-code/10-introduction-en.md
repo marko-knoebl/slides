@@ -32,7 +32,7 @@ Is split into _User Settings_ and _Workspace Settings_
 
 Recommendations:
 
-- Accept Suggestions on Commit Character (Autocomplete on other keys than _Enter_): _deactivate_
+- Accept Suggestions on Commit Character (Autocomplete on other keys than _Enter_): _deactivate_ if you're working with JavaScript / TypeScript
 - Tab Size: _2_ or _4_
 
 Further options:

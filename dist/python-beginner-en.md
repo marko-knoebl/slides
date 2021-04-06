@@ -1141,6 +1141,149 @@ For bar codes / primes: use the % operator
 
 see <https://github.com/marko-knoebl/slides/tree/master/exercises/python-beginner>
 
+# Modules and packages
+
+## Modules and packages
+
+- Module = collection of Python objects that can be imported
+- Package = collection of modules
+
+(packages are actually a special type of modules)
+
+## Example imports
+
+- `urllib` = package
+- `urllib.request` = module
+- `urllib.request.urlopen` = function
+
+<!-- list separator -->
+
+- `sys` = module
+- `sys.path` = object
+
+## Example imports
+
+Typical imports:
+
+```py
+import module1
+import module2
+from package3 import module3a, module3b
+from module4 import object4a, object4b
+from package5.module5 import object5a, object5b
+```
+
+Specific examples:
+
+```py
+import os
+import sys
+from urllib import request, response
+from math import sqrt, pi
+from http.client import HTTPConnection, HTTPSConnection
+```
+
+## Shorter names for imports
+
+Typically used in an interactive console to save keystrokes:
+
+Short names:
+
+```py
+import numpy as np
+import matplotlib.pyplot as plt
+import tkinter as tk
+```
+
+Importing everything from a module (usually not recommended):
+
+```py
+from math import *
+```
+
+## Automatic import of submodules
+
+When importing _some_ packages, submodules will be imported automatically.
+
+Examples:
+
+```py
+import os
+import numpy as np
+
+os.path.join(...)
+np.random.randint(10)
+```
+
+Counterexample - this will fail:
+
+```py
+import urllib
+
+urllib.request.urlopen(...)
+```
+
+## Conventions for imports
+
+- all imports in a Python file _should_ be at the start of the file
+- imports _should_ be split into three groups:
+  - imports from the standard library
+  - imports from other libraries
+  - imports within the project
+
+# PIP and PyPI
+
+## PIP and PyPI
+
+- _PyPI_: Python Package Index: official repository for installable Python packages
+- _PIP_: package manager that comes with Python
+
+## PIP
+
+simple use from the terminal:
+
+```bash
+pip install package_a package_b
+```
+
+## PyPI
+
+website of the Python Package Index
+
+<https://pypi.org/>
+
+## PIP and PyPI
+
+exercise:
+
+convert the following markdown string to HTML - look for a package on PyPI to help you with the task
+
+```py
+markdown_string = """
+# Important packages
+
+- requests
+- numpy
+- sqlalchemy
+"""
+```
+
+## PIP and PyPI
+
+possible solution:
+
+```bash
+pip install markdown
+```
+
+```py
+import markdown
+
+html_string = markdown.markdown(
+    markdown_string
+)
+```
+
 # Local modules
 
 ## Local modules

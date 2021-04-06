@@ -769,6 +769,108 @@ print(m) <span class="hljs-comment"># prints "Hello, world"</span>
 </ul>
 <p>für Strichcodes / Primzahlen: % - Operator</p>
 <p>Siehe: <a href="https://github.com/marko-knoebl/slides/tree/master/exercises/python-beginner">https://github.com/marko-knoebl/slides/tree/master/exercises/python-beginner</a></p>
+<h1>Module und Pakete</h1>
+<h2>Module und Pakete</h2>
+<ul>
+<li>Modul = Sammlung von Python-Objekten, die importiert werden können</li>
+<li>Paket = Sammlung von Modulen</li>
+</ul>
+<p>(Pakete sind eigenlich eine besondere Form von Modulen)</p>
+<h2>Beispiele für Imports</h2>
+<ul>
+<li><code>urllib</code> = Paket</li>
+<li><code>urllib.request</code> = Modul</li>
+<li><code>urllib.request.urlopen</code> = Funktion</li>
+</ul>
+<!-- list separator -->
+<ul>
+<li><code>sys</code> = Modul</li>
+<li><code>sys.path</code> = Objekt</li>
+</ul>
+<h2>Beispiele für Imports</h2>
+<p>Typische Imports:</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> module1
+<span class="hljs-keyword">import</span> module2
+<span class="hljs-keyword">from</span> package3 <span class="hljs-keyword">import</span> module3a, module3b
+<span class="hljs-keyword">from</span> module4 <span class="hljs-keyword">import</span> object4a, object4b
+<span class="hljs-keyword">from</span> package5.module5 <span class="hljs-keyword">import</span> object5a, object5b
+</code></pre>
+<p>Konkrete Beispiele:</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> os
+<span class="hljs-keyword">import</span> sys
+<span class="hljs-keyword">from</span> urllib <span class="hljs-keyword">import</span> request, response
+<span class="hljs-keyword">from</span> math <span class="hljs-keyword">import</span> sqrt, pi
+<span class="hljs-keyword">from</span> http.client <span class="hljs-keyword">import</span> HTTPConnection, HTTPSConnection
+</code></pre>
+<h2>Abkürzungen bei Imports</h2>
+<p>Insbesondere in der interaktiven Konsole sinnvoll, wenn Tipparbeit gespart werden soll:</p>
+<p>Kurznamen beim import:</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+<span class="hljs-keyword">import</span> tkinter <span class="hljs-keyword">as</span> tk
+</code></pre>
+<p>Alles aus einem Modul importieren (eher nicht empfohlen):</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> math <span class="hljs-keyword">import</span> *
+</code></pre>
+<h2>Automatischer Import von Untermodulen</h2>
+<p>Beim Import <em>mancher</em> Pakete werden automatisch auch Untermodule importiert.</p>
+<p>Beispiele:</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> os
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+
+os.path.join(...)
+np.random.randint(<span class="hljs-number">10</span>)
+</code></pre>
+<p>Gegenbeispiel - schlägt fehl:</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> urllib
+
+urllib.request.urlopen(...)
+</code></pre>
+<h2>Konventionen für Imports</h2>
+<ul>
+<li>alle imports <em>sollten</em> am Anfang einer Python-Datei stehen</li>
+<li>die imports <em>sollten</em> in drei Gruppen geteilt werden:
+<ul>
+<li>standard Library</li>
+<li>andere Libraries</li>
+<li>projektinterne Module</li>
+</ul>
+</li>
+</ul>
+<h1>PIP und PyPI</h1>
+<h2>PIP und PyPI</h2>
+<ul>
+<li><em>PyPI</em>: Python Package Index: offizielles Repository für installierbare Python-Pakete</li>
+<li><em>PIP</em>: Paketmanager, der in Python-Installationen beinhaltet ist</li>
+</ul>
+<h2>PIP</h2>
+<p>einfache Verwendung aus dem Terminal:</p>
+<pre><code class="hljs language-bash">pip install package_a package_b
+</code></pre>
+<h2>PyPI</h2>
+<p>Website des Python Package Index:</p>
+<p><a href="https://pypi.org/">https://pypi.org/</a></p>
+<h2>PIP und PyPI</h2>
+<p>Übung:</p>
+<p>Verwandle den folgenden Markdown-String ind HTML - suche hierfür ein passendes Paket von PyPI</p>
+<pre><code class="hljs language-py">markdown_string = <span class="hljs-string">"""
+# Important packages
+
+- requests
+- numpy
+- sqlalchemy
+"""</span>
+</code></pre>
+<h2>PIP und PyPI</h2>
+<p>mögliche Lösung:</p>
+<pre><code class="hljs language-bash">pip install markdown
+</code></pre>
+<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> markdown
+
+html_string = markdown.markdown(
+    markdown_string
+)
+</code></pre>
 <h1>Lokale Module</h1>
 <h2>Lokale Module</h2>
 <p>wir können lokale Python-Dateien als Module importieren</p>

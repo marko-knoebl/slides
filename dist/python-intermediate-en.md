@@ -1180,18 +1180,29 @@ new_list = [new_entry for entry in old_list if condition]
 ## Dictionary comprehensions
 
 ```py
-colors: {
+colors = {
   'red': '#ff0000',
+  'green': '#008000',
   'blue': '#0000ff',
-  'green': '#008000'
 }
+```
 
+```py
 m_colors = { color: colors[color][1:] for color in colors}
+```
+
+or
+
+```py
+m_colors = {
+    name: value[1:] for name, value in colors.items()
+}
 ```
 
 ## Exercises
 
 - todo list: add functionality to remove completed entries
+- bank account: get separate lists of all withdrawals / deposits
 
 # Exceptions
 
@@ -1312,99 +1323,9 @@ class MoneyParseException(Exception):
 raise MoneyParseException()
 ```
 
-# Modules and packages
+# Custom modules: advanced
 
-## Modules and packages
-
-- Module = collection of Python objects that can be imported
-- Package = collection of modules
-
-(packages are actually a special type of modules)
-
-## Example imports
-
-- `urllib` = package
-- `urllib.request` = module
-- `urllib.request.urlopen` = function
-
-<!-- list separator -->
-
-- `sys` = module
-- `sys.path` = object
-
-## Example imports
-
-Typical imports:
-
-```py
-import module1
-import module2
-from package3 import module3a, module3b
-from module4 import object4a, object4b
-from package5.module5 import object5a, object5b
-```
-
-Specific examples:
-
-```py
-import os
-import sys
-from urllib import request, response
-from math import sqrt, pi
-from http.client import HTTPConnection, HTTPSConnection
-```
-
-## Shorter names for imports
-
-Typically used in an interactive console to save keystrokes:
-
-Short names:
-
-```py
-import numpy as np
-import matplotlib.pyplot as plt
-import tkinter as tk
-```
-
-Importing everything from a module (usually not recommended):
-
-```py
-from math import *
-```
-
-## Automatic import of submodules
-
-When importing _some_ packages, submodules will be imported automatically.
-
-Examples:
-
-```py
-import os
-import numpy as np
-
-os.path.join(...)
-np.random.randint(10)
-```
-
-Counterexample - this will fail:
-
-```py
-import urllib
-
-urllib.request.urlopen(...)
-```
-
-## Conventions for imports
-
-- all imports in a Python file _should_ be at the start of the file
-- imports _should_ be split into three groups:
-  - imports from the standard library
-  - imports from other libraries
-  - imports within the project
-
-# Custom modules
-
-## Custom modules
+## Custom modules: advanced
 
 Module as a directory:
 
@@ -1462,27 +1383,15 @@ if __name__ == "__main__":
     print("this file was run directly (and not imported)")
 ```
 
-# PIP & pipenv
+# PIP and pipenv
 
 ## PIP
 
-_PIP_ = Package manager for Python
-
-Simple usage:
-
-```bash
-pip install requests numpy
-```
-
-Packages and their dependencies are looked up in the Python Package Index: <https://pypi.org/>
-
-## PIP
-
-Installing specific Versions:
+Installing specific versions:
 
 ```
-pip install requests==1.1
-pip install numpy>=1.16
+pip install requests~=2.0
+pip install numpy~=1.19
 ```
 
 ## PIP
@@ -1492,8 +1401,8 @@ dependency list in a requirements file that can be shared with others:
 requirements.txt:
 
 ```
-requests==1.1
-numpy>=1.16
+requests~=2.0
+numpy~=1.19
 ```
 
 ```bash
@@ -1515,14 +1424,22 @@ pip install pipenv
 Using pipenv:
 
 ```bash
-pipenv install requests
-pipenv install numpy
+pipenv install requests~=2.0
+pipenv install numpy~=1.19
 ```
 
 This creates two files:
 
 - _Pipfile_: general dependency information
 - _Pipfile.lock_: exact version numbers
+
+## Pipenv
+
+installation based on an existing _Pipfile_:
+
+```bash
+pipenv install
+```
 
 ## Pipenv
 
@@ -1619,27 +1536,19 @@ class RockPaperScissors():
 
 ## Object references and mutations
 
-Recap: What does this program print?
+Reacap: What will be the value of `a` after this code has run?
 
 ```py
 a = [1, 2, 3]
 b = a
 b.append(4)
-print(a)
 ```
 
 ## Object references and mutations
 
-```py
-a = [1, 2, 3]
-b = a
-b.append(4)
-print(a)
-```
+An assignment (e.g. `b = a`) assigns a new (additional) name to an object.
 
-The Program prints `[1, 2, 3, 4]`
-
-`a` and `b` refer to the same object.
+The object in the background is the same.
 
 ## Object references and mutations
 
@@ -1665,101 +1574,121 @@ foo(a_outer)
 print(id(a_outer))
 ```
 
-## Object references and functions
+# Side effects and pure functions
 
-recommended principle for functions:
+## Side effects and pure functions
 
-**Functions should not mutate parameters**
+**pure functions**: functions that only interact with their environment by receiving parameters and returning values
 
-or more generally:
+**side effects**: actions of a function that change the environment
 
-**Functions should only interact with the Python environment by receiving parameters and returning values** (They should not have any _side effects_)
+## Side effects and pure functions
 
-## Object references and functions
+common side effects:
 
-```py
-def remove_middle_element(list_in):
-    list_in.pop(len(list_in) // 2)
-    return list_in
+- changing entries in _self_ in an object method
+- input / output (interacting with the disk / network / ...)
 
-a = [1, 2, 3, 4, 5]
-b = remove_middle_element(a)
-print(b)
-print(a)
-```
+side effects that are usually avoided:
 
-What does the above example print?
+- changing arguments that were passed in
+- setting / changing global variables
 
-## Object references and functions
+## Pure functions
 
-Possible implementations for `remove_middle_element`:
+advantages of pure functions:
 
-- as a function without side effects
-- as a method of `AdvancedList`
+- easier to describe / reason about
+- easier to reuse
+- easier to test
 
-Compare: `sorted()` and `list.sort()` in Python
+## Side effects
 
-## Functions without side effects
-
-The function does not mutate the list that was passed in - instead it returns a new list.
+example of a suboptimal function that changes an argument (_formats_):
 
 ```py
-def remove_middle_element(list_in):
-    list_out = list_in.copy()
-    list_out.pop(len(list_out) // 2)
-    return list_out
-
-a = [1, 2, 3, 4, 5]
-b = remove_middle_element(a)
+def list_files_by_formats(path, formats):
+    if "jpg" in formats:
+        formats.append("jpeg")
+    files = []
+    for file in os.listdir(path):
+        for format in formats:
+            if file.endswith("." + format):
+                files.append(file)
+                break
+    return files
 ```
 
-## Method in a custom class
-
-Relaxation of the principle for methods: Entries in `self` _may be mutated_.
-
-The following method will change the object internally and return nothing.
+## Side effects
 
 ```py
-class AdvancedList(list):
-    def remove_middle_element(self):
-        self.pop(len(self) // 2)
+formats = ["jpg", "png"]
 
-a = AdvancedList([1, 2, 3, 4, 5])
-a.remove_middle_element()
+print(list_files_by_formats(formats))
+
+print(formats)
+
+# will print: ["jpg", "png", "jpeg"]
 ```
 
-## Object references and functions
+## Side effects
 
-Common recommendations (no side effects):
+more "correct" implementation:
 
-- Don't modify parameters that are passed in (exception: `self`)
-- Don't set global variables (Don't use the `global` statement)
+```py
+def list_files_by_formats(path, formats):
+    if "jpg" in formats:
+        formats = formats.copy()
+        formats.append("jpeg")
+    # ...
+```
 
-Strict rules (pure functions):
+## Side effects
 
-- Don't read global variables
-- Don't do any I/O (interactions with disk / network / ...)
+this _would_ be an anti-pattern (a function that modifies arguments):
 
-Pure functions only interact with their environment by receiving parameters and returning values.
+```py
+mylist = [2, 1, 3]
 
-The "purer" a function is the easier it is to reuse and test.
+sort(mylist)
+print(mylist)
+# [1, 2, 3]
+```
+
+## Side effects
+
+actual possibilites for sorting in Python:
+
+pure function:
+
+```py
+print(sorted(mylist))
+```
+
+method that modifies data:
+
+```py
+mylist.sort()
+print(mylist)
+```
 
 ## Mutating default arguments
 
-Unexpected behavior in Python when default parameters are mutated:
+Unexpected behavior in Python when default arguments are mutated:
 
 ```py
-def register_file_formats(formats=["py", "pyc"]):
-    for format in formats:
-        formats.append(format.upper())
+def list_files_by_formats(path, formats=["gif", "jpg", "png"]):
+    if "jpg" in formats:
+        formats.append("jpeg")
     # ...
-    print(formats)
+```
 
-register_file_formats(["py"]) # ["py", "PY"]
-register_file_formats()
-# ["py", "pyc", "PY", "PYC"]
-register_file_formats()
-# ["py", "pyc", "PY", "PYC", "PY", "PYC", "PY", "PYC"]
+```py
+list_files_by_formats(".")
+# formats: ["gif", "jpg", "png", "jpeg"]
+
+list_files_by_formats(".")
+# formats: ["gif", "jpg", "png", "jpeg", "jpeg"]
 ```
 
 (web search: _mutable default arguments_)

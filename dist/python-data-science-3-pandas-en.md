@@ -151,6 +151,13 @@ exchange_rates = pd.read_csv(
     "https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv",
     parse_dates=["Date"],
 )
+```
+
+## Importing CSV
+
+possible solutions:
+
+```py
 iris = pd.read_csv(
     "http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data",
     header=None,
@@ -188,13 +195,21 @@ sp500.to_hdf("data.hdf5", "sp500")
 euribor = pd.read_hdf("data.hdf5", "euribor")
 ```
 
-# Example data sources
+# Example data sets
 
-## Example data sources
+## Sources for example data sets
 
 - <https://datahub.io>
 - [seaborn data sets](https://github.com/mwaskom/seaborn-data) (click on a file and then on the _raw_ button)
 - [pandas-datareader](https://pydata.github.io/pandas-datareader)
+- <http://lib.stat.cmu.edu/datasets/>
+
+## Example data sets
+
+- [iris flower data set](https://en.wikipedia.org/wiki/Iris_flower_data_set): [download](http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data)
+- Titanic passenger data: [download](https://public.opendatasoft.com/explore/dataset/titanic-passengers/download)
+- [MNIST digits data set](https://en.wikipedia.org/wiki/MNIST_database): [download binary files](http://yann.lecun.com/exdb/mnist/)
+- [California housing data](http://lib.stat.cmu.edu/datasets/houses.zip)
 
 # Pandas and NumPy
 
@@ -259,6 +274,30 @@ The above computes the following data:
 - _median_: half of the values are less and half are greater than the median
 - _min_: all values are greater than the minimum
 - _25%-quantile_: 25% of all values are less
+
+## Statistics on series
+
+get a list of unique values:
+
+```py
+titanic["pclass"].unique()
+```
+
+```txt
+[2, 3, 1]
+```
+
+count occurences:
+
+```py
+titanic["pclass"].value_counts()
+```
+
+```txt
+3    491
+1    216
+2    184
+```
 
 # Querying data: basics
 
@@ -434,23 +473,23 @@ titanic[titanic["age"] >= 70]
 male passengers in first class:
 
 ```py
-titanic.query("pclass > 1 and sex == 'male'")
+titanic[(titanic["pclass"] > 1) & (titanic["sex"] == "male")]
 ```
 
 passengers who embarked in Southampton or Queenstown:
 
 ```py
-titanic.query("embarked in ['S', 'Q']")
+titanic[titanic["embarked"].isin(["S", "Q"])]
 ```
 
 ## Selecting rows: advanced
 
 ```py
-titanic[(titanic["pclass"] > 1) & (titanic["sex"] == "male")]
+titanic.query("pclass > 1 and sex == 'male'")
 ```
 
 ```py
-titanic[titanic["embarked"].isin(["S", "Q"])]
+titanic.query("embarked in ['S', 'Q']")
 ```
 
 ## Exercises: Titanic
@@ -463,14 +502,15 @@ titanic[titanic["embarked"].isin(["S", "Q"])]
 adult (>= 18) males, sorted by age:
 
 ```py
-titanic[titanic["age"] >= 18].sort_values(by="age")
-titanic.query("age >= 18").sort_values(by="age")
+titanic[
+    (titanic["age"] >= 18) & (titanic["sex"] = "male")
+].sort_values(by="age")
 ```
 
 adult survivors
 
 ```py
-titanic.query("age >= 18 and survived=='Yes'")
+titanic[(titanic["age"] >= 18) & (titanic["survived"] == "Yes")]
 ```
 
 ## Exercises: Iris flowers

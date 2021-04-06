@@ -811,16 +811,24 @@ positive_amounts = [amount <span class="hljs-keyword">for</span> amount <span cl
 new_list = [new_entry <span class="hljs-keyword">for</span> entry <span class="hljs-keyword">in</span> old_list <span class="hljs-keyword">if</span> condition]
 </code></pre>
 <h2>Dictionary Comprehension</h2>
-<pre><code class="hljs language-py">colors: {
+<pre><code class="hljs language-py">colors = {
   <span class="hljs-string">'red'</span>: <span class="hljs-string">'#ff0000'</span>,
+  <span class="hljs-string">'green'</span>: <span class="hljs-string">'#008000'</span>,
   <span class="hljs-string">'blue'</span>: <span class="hljs-string">'#0000ff'</span>,
-  <span class="hljs-string">'green'</span>: <span class="hljs-string">'#008000'</span>
 }
-
-m_colors = { color: colors[color][<span class="hljs-number">1</span>:] <span class="hljs-keyword">for</span> color <span class="hljs-keyword">in</span> colors}
+</code></pre>
+<pre><code class="hljs language-py">m_colors = { color: colors[color][<span class="hljs-number">1</span>:] <span class="hljs-keyword">for</span> color <span class="hljs-keyword">in</span> colors}
+</code></pre>
+<p>or</p>
+<pre><code class="hljs language-py">m_colors = {
+    name: value[<span class="hljs-number">1</span>:] <span class="hljs-keyword">for</span> name, value <span class="hljs-keyword">in</span> colors.items()
+}
 </code></pre>
 <h2>Übung</h2>
-<p>Beispiel Todo-Liste: Entfernen erledigter Todos</p>
+<ul>
+<li>Beispiel Todo-Liste: Entfernen erledigter Todos</li>
+<li>BankAccount: separate Listen aller Ein- bzw Auszahlungen</li>
+</ul>
 <h1>Exceptions (Ausnahmen)</h1>
 <h2>Arten von Exceptions</h2>
 <ul>
@@ -905,76 +913,8 @@ file.close()
 
 <span class="hljs-keyword">raise</span> MoneyParseException()
 </code></pre>
-<h1>Module und Pakete</h1>
-<h2>Module und Pakete</h2>
-<ul>
-<li>Modul = Sammlung von Python-Objekten, die importiert werden können</li>
-<li>Paket = Sammlung von Modulen</li>
-</ul>
-<p>(Pakete sind eigenlich eine besondere Form von Modulen)</p>
-<h2>Beispiele für Imports</h2>
-<ul>
-<li><code>urllib</code> = Paket</li>
-<li><code>urllib.request</code> = Modul</li>
-<li><code>urllib.request.urlopen</code> = Funktion</li>
-</ul>
-<!-- list separator -->
-<ul>
-<li><code>sys</code> = Modul</li>
-<li><code>sys.path</code> = Objekt</li>
-</ul>
-<h2>Beispiele für Imports</h2>
-<p>Typische Imports:</p>
-<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> module1
-<span class="hljs-keyword">import</span> module2
-<span class="hljs-keyword">from</span> package3 <span class="hljs-keyword">import</span> module3a, module3b
-<span class="hljs-keyword">from</span> module4 <span class="hljs-keyword">import</span> object4a, object4b
-<span class="hljs-keyword">from</span> package5.module5 <span class="hljs-keyword">import</span> object5a, object5b
-</code></pre>
-<p>Konkrete Beispiele:</p>
-<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> os
-<span class="hljs-keyword">import</span> sys
-<span class="hljs-keyword">from</span> urllib <span class="hljs-keyword">import</span> request, response
-<span class="hljs-keyword">from</span> math <span class="hljs-keyword">import</span> sqrt, pi
-<span class="hljs-keyword">from</span> http.client <span class="hljs-keyword">import</span> HTTPConnection, HTTPSConnection
-</code></pre>
-<h2>Abkürzungen bei Imports</h2>
-<p>Insbesondere in der interaktiven Konsole sinnvoll, wenn Tipparbeit gespart werden soll:</p>
-<p>Kurznamen beim import:</p>
-<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
-<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
-<span class="hljs-keyword">import</span> tkinter <span class="hljs-keyword">as</span> tk
-</code></pre>
-<p>Alles aus einem Modul importieren (eher nicht empfohlen):</p>
-<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> math <span class="hljs-keyword">import</span> *
-</code></pre>
-<h2>Automatischer Import von Untermodulen</h2>
-<p>Beim Import <em>mancher</em> Pakete werden automatisch auch Untermodule importiert.</p>
-<p>Beispiele:</p>
-<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> os
-<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
-
-os.path.join(...)
-np.random.randint(<span class="hljs-number">10</span>)
-</code></pre>
-<p>Gegenbeispiel - schlägt fehl:</p>
-<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> urllib
-
-urllib.request.urlopen(...)
-</code></pre>
-<h2>Konventionen für Imports</h2>
-<ul>
-<li>alle imports <em>sollten</em> am Anfang einer Python-Datei stehen</li>
-<li>die imports <em>sollten</em> in drei Gruppen geteilt werden:
-<ul>
-<li>standard Library</li>
-<li>andere Libraries</li>
-<li>projektinterne Module</li>
-</ul>
-</li>
-</ul>
-<h1>Eigene Module</h1>
-<h2>Eigene Module</h2>
+<h1>Eigene Module: fortgeschritten</h1>
+<h2>Eigene Module: fortgeschritten</h2>
 <p>Modul als Verzeichnis:</p>
 <pre><code class="hljs language-markdown"><span class="hljs-bullet">-</span> foo/
 <span class="hljs-bullet">  -</span> <span class="hljs-strong">__init__</span>.py
@@ -1008,17 +948,11 @@ print(sys.path)
 <pre><code class="hljs language-py"><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">"__main__"</span>:
     print(<span class="hljs-string">"this file was run directly (and not imported)"</span>)
 </code></pre>
-<h1>PIP</h1>
-<h2>PIP</h2>
-<p><em>PIP</em> = Paketmanager für Python</p>
-<p>Einfache Verwendung:</p>
-<pre><code class="hljs language-bash">pip install requests numpy
-</code></pre>
-<p>Pakete und deren Abhängigkeiten werden im Python Package Index gesucht: <a href="https://pypi.org/">https://pypi.org/</a></p>
+<h1>PIP und pipenv</h1>
 <h2>PIP</h2>
 <p>Installation bestimmter Versionen:</p>
-<pre><code class="hljs language-apache"><span class="hljs-attribute">pip</span> install requests==<span class="hljs-number">1</span>.<span class="hljs-number">1</span>
-<span class="hljs-attribute">pip</span> install numpy>=<span class="hljs-number">1</span>.<span class="hljs-number">16</span>
+<pre><code class="hljs language-apache"><span class="hljs-attribute">pip</span> install requests~=<span class="hljs-number">2</span>.<span class="hljs-number">0</span>
+<span class="hljs-attribute">pip</span> install numpy~=<span class="hljs-number">1</span>.<span class="hljs-number">19</span>
 </code></pre>
 <h2>PIP</h2>
 <p>Abhängigkeitenliste in einer Requirements-Datei, die einfach mit anderen geteilt werden kann:</p>
@@ -1029,21 +963,24 @@ print(sys.path)
 <pre><code class="hljs language-bash">pip install -r requirements.txt
 </code></pre>
 <h2>Pipenv</h2>
-<p>Via Pipenv: virtuelle Umgebungen, die die projektweise Installation verschiedener Paketversionen erlauben</p>
+<p>Pipenv: virtuelle Umgebungen, die die projektweise Installation verschiedener Paketversionen erlauben</p>
 <h2>Pipenv</h2>
-<p>Installation von pipenv:</p>
 <pre><code class="hljs language-bash">pip install pipenv
 </code></pre>
 <h2>Pipenv</h2>
 <p>Verwendung von pipenv:</p>
-<pre><code class="hljs language-bash">pipenv install requests
-pipenv install numpy
+<pre><code class="hljs language-bash">pipenv install requests~=2.0
+pipenv install numpy~=1.19
 </code></pre>
 <p>Es entstehen zwei Dateien:</p>
 <ul>
 <li><em>Pipfile</em>: allgemeine Abhängigkeitsinformationen</li>
 <li><em>Pipfile.lock</em>: genaue Versionsnummern</li>
 </ul>
+<h2>Pipenv</h2>
+<p>Installation basierend auf einer bestehenden <em>Pipfile</em>:</p>
+<pre><code class="hljs language-bash">pipenv install
+</code></pre>
 <h2>Pipenv</h2>
 <p>Ausführen in einer PIP-Umgebung:</p>
 <pre><code class="hljs language-bash">pipenv run python foo.py
@@ -1112,20 +1049,14 @@ print(<span class="hljs-string">f"won: <span class="hljs-subst">{wins}</span>, l
 </code></pre>
 <h1>Objektreferenzen und Mutationen</h1>
 <h2>Objektreferenzen und Mutationen</h2>
-<p>Wiederholung: Was wird das folgende Programm ausgeben?</p>
+<p>Was ist der Wert von <code>a</code> am Ende dieses Programms?</p>
 <pre><code class="hljs language-py">a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]
 b = a
 b.append(<span class="hljs-number">4</span>)
-print(a)
 </code></pre>
 <h2>Objektreferenzen und Mutationen</h2>
-<pre><code class="hljs language-py">a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]
-b = a
-b.append(<span class="hljs-number">4</span>)
-print(a)
-</code></pre>
-<p>Das obige Programm gibt <code>[1, 2, 3, 4]</code> aus</p>
-<p><code>a</code> und <code>b</code> beziehen sich auf das selbe Objekt</p>
+<p>Eine Zuweisung (z.B. <code>b = a</code>) versieht ein existierendes Objekt mit einem neuen (zusätzlichen) Namen.</p>
+<p>Im Hintergrund steht nach wie vor nur ein einzelnes Objekt.</p>
 <h2>Objektreferenzen und Mutationen</h2>
 <p>Durch das Ausführen von <code>b = a</code> entsteht einen zusätzliche Referenz, die sich auf das selbe Objekt bezieht.</p>
 <p>Operationen, die zum Setzen zusätzlicher Referenzen führen:</p>
@@ -1144,77 +1075,89 @@ a_outer = []
 foo(a_outer)
 print(<span class="hljs-built_in">id</span>(a_outer))
 </code></pre>
-<h2>Objektreferenzen und Mutationen bei Funktionen</h2>
-<p>empfohlenes Prinzip für Funktionen:</p>
-<p><strong>Funktionen sollten übergebene Parameter nicht abändern</strong></p>
-<p>oder allgemeiner:</p>
-<p><strong>Funktionen sollten mit der Python-Umgebung nur dadurch interagieren, dass sie Parameter entgegennehmen und Rückgabewerte zurückliefern</strong> (Sie sollten keine Seiteneffekte / Nebeneffekte haben)</p>
-<h2>Objektreferenzen und Mutationen bei Funktionen</h2>
-<pre><code class="hljs language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">remove_middle_element</span>(<span class="hljs-params">list_in</span>):</span>
-    list_in.pop(<span class="hljs-built_in">len</span>(list_in) // <span class="hljs-number">2</span>)
-    <span class="hljs-keyword">return</span> list_in
-
-a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]
-b = remove_middle_element(a)
-print(b)
-print(a)
-</code></pre>
-<p>Was gibt das obige Beispiel aus?</p>
-<h2>Objektreferenzen und Mutationen bei Funktionen</h2>
-<p>Umsetzungsmöglichkeiten am Beispiel <code>remove_middle_element</code>:</p>
+<h1>Side Effects und reine Funktionen</h1>
+<h2>Side Effects und reine Funktionen</h2>
+<p><strong>reine Funktionen</strong>: Funktionen, die mit ihrer Umgebung nur dadurch interagieren, dass sie Parameter entgegennehmen und Werte zurückgeben</p>
+<p><strong>Side Effects</strong> (<em>Nebeneffekte</em>, <em>Seiteneffekte</em>): Aktionen einer Funktion, die die Umgebung verändern</p>
+<h2>Side Effects und reine Funktionen</h2>
+<p>häufige Side Effects:</p>
 <ul>
-<li>als Funktion ohne Seiteneffekte</li>
-<li>als Methode einer eigenen Klasse <code>AdvancedList</code></li>
+<li>ändern der Einträge von <em>self</em> in einer Objektmethode</li>
+<li>Input / Output (Interaktion mit Speichermedien / Netzwerk / ...)</li>
 </ul>
-<p>Vergleiche: <code>sorted()</code> und <code>list.sort()</code> in Python</p>
-<h2>Funktion ohne Seiteneffekte</h2>
-<p>Die Funktion ändert die übergebene Liste nicht ab - stattdessen wird eine neue Liste zurückgegeben.</p>
-<pre><code class="hljs language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">remove_middle_element</span>(<span class="hljs-params">list_in</span>):</span>
-    list_out = list_in.copy()
-    list_out.pop(<span class="hljs-built_in">len</span>(list_out) // <span class="hljs-number">2</span>)
-    <span class="hljs-keyword">return</span> list_out
-
-a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]
-b = remove_middle_element(a)
-</code></pre>
-<h2>Methode einer eigenen Klasse</h2>
-<p>Lockerung des erwähnten Prinzips bei Methoden: Einträge in <code>self</code> <em>dürfen abgeändert werden</em>.</p>
-<p>Die folgende Methode ändert das Objekt intern ab und gibt nichts zurück.</p>
-<pre><code class="hljs language-py"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AdvancedList</span>(<span class="hljs-params"><span class="hljs-built_in">list</span></span>):</span>
-    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">remove_middle_element</span>(<span class="hljs-params">self</span>):</span>
-        self.pop(<span class="hljs-built_in">len</span>(self) // <span class="hljs-number">2</span>)
-
-a = AdvancedList([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>])
-a.remove_middle_element()
-</code></pre>
-<h2>Objektreferenzen und Mutationen bei Funktionen</h2>
-<p>Übliche Empfehlungen:</p>
+<p>Side Effects, die üblicherweise vermieden werden:</p>
 <ul>
-<li>Übergebene Parameter nicht abändern (Ausnahme: <code>self</code> in Methoden)</li>
-<li>Keine globalen Variablen setzen</li>
+<li>Abändern von Argumenten, die an die Funktion übergeben wurden</li>
+<li>Setzen / Ändern globaler Variablen</li>
 </ul>
-<p>Strikte Regeln - für sogenannte <em>reine</em> Funktionen:</p>
+<h2>Reine Funktionen</h2>
+<p>Vorteile reiner Funktionen:</p>
 <ul>
-<li>Keine globalen Variablen lesen</li>
-<li>Kein I/O (Interaktion mit Festplatte / Netzwerk)</li>
+<li>einfacher zu beschreiben</li>
+<li>einfacher wiederzuverwenden</li>
+<li>einfacher zu testen</li>
 </ul>
-<p>Reine Funktionen sind Funktionen, die mit ihrer Umgebung nur über Eingabeparameter und Rückgabewerte interagieren.</p>
-<p>Je "reiner" eine Funktion ist, umso einfacher ist sie wiederzuverwenden und zu testen.</p>
-<h2>Mutieren von Standardparametern</h2>
-<p>Unerwartetes Verhalten in Python, wenn Standardparameter mutiert werden:</p>
-<pre><code class="hljs language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">register_file_formats</span>(<span class="hljs-params">formats=[<span class="hljs-string">"py"</span>, <span class="hljs-string">"pyc"</span>]</span>):</span>
-    <span class="hljs-keyword">for</span> <span class="hljs-built_in">format</span> <span class="hljs-keyword">in</span> formats:
-        formats.append(<span class="hljs-built_in">format</span>.upper())
+<h2>Side Effects</h2>
+<p>Beispiel einer nicht-idealen Funktion, die ein Argument (<em>formats</em>) verändert:</p>
+<pre><code class="hljs language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">list_files_by_formats</span>(<span class="hljs-params">path, formats</span>):</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-string">"jpg"</span> <span class="hljs-keyword">in</span> formats:
+        formats.append(<span class="hljs-string">"jpeg"</span>)
+    files = []
+    <span class="hljs-keyword">for</span> file <span class="hljs-keyword">in</span> os.listdir(path):
+        <span class="hljs-keyword">for</span> <span class="hljs-built_in">format</span> <span class="hljs-keyword">in</span> formats:
+            <span class="hljs-keyword">if</span> file.endswith(<span class="hljs-string">"."</span> + <span class="hljs-built_in">format</span>):
+                files.append(file)
+                <span class="hljs-keyword">break</span>
+    <span class="hljs-keyword">return</span> files
+</code></pre>
+<h2>Side Effects</h2>
+<pre><code class="hljs language-py">formats = [<span class="hljs-string">"jpg"</span>, <span class="hljs-string">"png"</span>]
+
+print(list_files_by_formats(formats))
+
+print(formats)
+
+<span class="hljs-comment"># will print: ["jpg", "png", "jpeg"]</span>
+</code></pre>
+<h2>Side Effects</h2>
+<p>"korrektere" Implementierung:</p>
+<pre><code class="hljs language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">list_files_by_formats</span>(<span class="hljs-params">path, formats</span>):</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-string">"jpg"</span> <span class="hljs-keyword">in</span> formats:
+        formats = formats.copy()
+        formats.append(<span class="hljs-string">"jpeg"</span>)
     <span class="hljs-comment"># ...</span>
-    print(formats)
-
-register_file_formats([<span class="hljs-string">"py"</span>]) <span class="hljs-comment"># ["py", "PY"]</span>
-register_file_formats()
-<span class="hljs-comment"># ["py", "pyc", "PY", "PYC"]</span>
-register_file_formats()
-<span class="hljs-comment"># ["py", "pyc", "PY", "PYC", "PY", "PYC", "PY", "PYC"]</span>
 </code></pre>
-<p>(Websuche: <em>mutable default arguments</em>)</p>
+<h2>Side Effects</h2>
+<p>das folgende <em>wäre</em> ein Anti-Pattern (eine Funktion, die Argumente abändert):</p>
+<pre><code class="hljs language-py">mylist = [<span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">3</span>]
+
+sort(mylist)
+print(mylist)
+<span class="hljs-comment"># [1, 2, 3]</span>
+</code></pre>
+<h2>Side Effects</h2>
+<p>tatsächliche Möglichkeiten zum Sortieren in Python:</p>
+<p>reine Funktion:</p>
+<pre><code class="hljs language-py">print(<span class="hljs-built_in">sorted</span>(mylist))
+</code></pre>
+<p>Methode, die ein Objekt abändert:</p>
+<pre><code class="hljs language-py">mylist.sort()
+print(mylist)
+</code></pre>
+<h2>Abändern von Standardparametern</h2>
+<p>Unerwartetes Verhalten in Python, wenn Standardparameter abgeändert werden:</p>
+<pre><code class="hljs language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">list_files_by_formats</span>(<span class="hljs-params">path, formats=[<span class="hljs-string">"gif"</span>, <span class="hljs-string">"jpg"</span>, <span class="hljs-string">"png"</span>]</span>):</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-string">"jpg"</span> <span class="hljs-keyword">in</span> formats:
+        formats.append(<span class="hljs-string">"jpeg"</span>)
+    <span class="hljs-comment"># ...</span>
+</code></pre>
+<pre><code class="hljs language-py">list_files_by_formats(<span class="hljs-string">"."</span>)
+<span class="hljs-comment"># formats: ["gif", "jpg", "png", "jpeg"]</span>
+
+list_files_by_formats(<span class="hljs-string">"."</span>)
+<span class="hljs-comment"># formats: ["gif", "jpg", "png", "jpeg", "jpeg"]</span>
+</code></pre>
+<p>(Web-Suche: <em>mutable default arguments</em>)</p>
 <h1>Python Versionen</h1>
 <h2>Python Versionen</h2>
 <p>Python 2 vs Python 3</p>

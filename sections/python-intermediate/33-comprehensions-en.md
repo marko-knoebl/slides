@@ -51,15 +51,26 @@ new_list = [new_entry for entry in old_list if condition]
 ## Dictionary comprehensions
 
 ```py
-colors: {
+colors = {
   'red': '#ff0000',
+  'green': '#008000',
   'blue': '#0000ff',
-  'green': '#008000'
 }
+```
 
+```py
 m_colors = { color: colors[color][1:] for color in colors}
+```
+
+or
+
+```py
+m_colors = {
+    name: value[1:] for name, value in colors.items()
+}
 ```
 
 ## Exercises
 
 - todo list: add functionality to remove completed entries
+- bank account: get separate lists of all withdrawals / deposits

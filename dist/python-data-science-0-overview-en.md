@@ -264,6 +264,14 @@ titanic["age"].mean()
 
 ## Pandas: overview and demo
 
+categorical data:
+
+```py
+titanic["pclass"].value_counts()
+```
+
+## Pandas: overview and demo
+
 querying data: passengers younger than 1 year
 
 ```py

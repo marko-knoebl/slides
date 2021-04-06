@@ -190,16 +190,26 @@ iris = pd.read_csv(
     names=[<span class="hljs-string">"sepal_length"</span>, <span class="hljs-string">"sepal_width"</span>, <span class="hljs-string">"petal_length"</span>,
            <span class="hljs-string">"petal_width"</span>, <span class="hljs-string">"species"</span>]
 )
-
-iris_shuffled = iris.sample(frac=<span class="hljs-number">1.0</span>)
+</code></pre>
+<h2>Preparing data</h2>
+<pre><code class="hljs language-py">iris_shuffled = iris.sample(frac=<span class="hljs-number">1.0</span>)
 
 <span class="hljs-comment"># convert to numerical numpy arrays</span>
-measurements = iris_shuffled[[<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]].to_numpy()
-species = iris_shuffled[<span class="hljs-number">4</span>].replace({
-    <span class="hljs-string">"Iris-setosa"</span>: <span class="hljs-number">0</span>,
-    <span class="hljs-string">"Iris-versicolor"</span>: <span class="hljs-number">1</span>,
-    <span class="hljs-string">"Iris-virginica"</span>: <span class="hljs-number">2</span>
-}).to_numpy()
+measurements = iris_shuffled[[
+    <span class="hljs-string">"sepal_length"</span>,
+    <span class="hljs-string">"sepal_width"</span>,
+    <span class="hljs-string">"petal_length"</span>,
+    <span class="hljs-string">"petal_width"</span>,
+]].to_numpy()
+species = (
+    iris_shuffled[<span class="hljs-string">"species"</span>]
+    .replace({
+        <span class="hljs-string">"Iris-setosa"</span>: <span class="hljs-number">0</span>,
+        <span class="hljs-string">"Iris-versicolor"</span>: <span class="hljs-number">1</span>,
+        <span class="hljs-string">"Iris-virginica"</span>: <span class="hljs-number">2</span>,
+    })
+    .to_numpy()
+)
 </code></pre>
 <h2>Creating a model in scikit-learn</h2>
 <pre><code class="hljs language-py"><span class="hljs-keyword">from</span> sklearn.neighbors <span class="hljs-keyword">import</span> KNeighborsClassifier

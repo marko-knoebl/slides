@@ -43,3 +43,27 @@ berechnet die folgenden Daten:
 - _median_: Hälfte der Werte liegt darüber, Hälfte liegt darunter
 - _min_: alle Werte sind größer als das Minimum
 - _25%-Quantil_: 25% aller Werte sind kleiner
+
+## Statistiken
+
+Liste einzigartiger Werte:
+
+```py
+titanic["pclass"].unique()
+```
+
+```txt
+[2, 3, 1]
+```
+
+Zählen einzelner Vorkommen:
+
+```py
+titanic["pclass"].value_counts()
+```
+
+```txt
+3    491
+1    216
+2    184
+```

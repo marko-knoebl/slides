@@ -15,16 +15,29 @@ iris = pd.read_csv(
     names=["sepal_length", "sepal_width", "petal_length",
            "petal_width", "species"]
 )
+```
 
+## Daten vorbereiten
+
+```py
 iris_shuffled = iris.sample(frac=1.0)
 
 # convert to numerical numpy arrays
-measurements = iris_shuffled[[0, 1, 2, 3]].to_numpy()
-species = iris_shuffled[4].replace({
-    "Iris-setosa": 0,
-    "Iris-versicolor": 1,
-    "Iris-virginica": 2
-}).to_numpy()
+measurements = iris_shuffled[[
+    "sepal_length",
+    "sepal_width",
+    "petal_length",
+    "petal_width",
+]].to_numpy()
+species = (
+    iris_shuffled["species"]
+    .replace({
+        "Iris-setosa": 0,
+        "Iris-versicolor": 1,
+        "Iris-virginica": 2,
+    })
+    .to_numpy()
+)
 ```
 
 ## Erstellen eines Modells in scikit-learn

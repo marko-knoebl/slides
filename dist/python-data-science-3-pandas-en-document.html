@@ -131,7 +131,10 @@ exchange_rates = pd.read_csv(
     <span class="hljs-string">"https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv"</span>,
     parse_dates=[<span class="hljs-string">"Date"</span>],
 )
-iris = pd.read_csv(
+</code></pre>
+<h2>Importing CSV</h2>
+<p>possible solutions:</p>
+<pre><code class="hljs language-py">iris = pd.read_csv(
     <span class="hljs-string">"http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data"</span>,
     header=<span class="hljs-literal">None</span>,
     names=[<span class="hljs-string">"sepal_length"</span>, <span class="hljs-string">"sepal_width"</span>, <span class="hljs-string">"petal_length"</span>,
@@ -161,12 +164,20 @@ sp500.to_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class="hljs-str
 
 euribor = pd.read_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class="hljs-string">"euribor"</span>)
 </code></pre>
-<h1>Example data sources</h1>
-<h2>Example data sources</h2>
+<h1>Example data sets</h1>
+<h2>Sources for example data sets</h2>
 <ul>
 <li><a href="https://datahub.io">https://datahub.io</a></li>
 <li><a href="https://github.com/mwaskom/seaborn-data">seaborn data sets</a> (click on a file and then on the <em>raw</em> button)</li>
 <li><a href="https://pydata.github.io/pandas-datareader">pandas-datareader</a></li>
+<li><a href="http://lib.stat.cmu.edu/datasets/">http://lib.stat.cmu.edu/datasets/</a></li>
+</ul>
+<h2>Example data sets</h2>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Iris_flower_data_set">iris flower data set</a>: <a href="http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data">download</a></li>
+<li>Titanic passenger data: <a href="https://public.opendatasoft.com/explore/dataset/titanic-passengers/download">download</a></li>
+<li><a href="https://en.wikipedia.org/wiki/MNIST_database">MNIST digits data set</a>: <a href="http://yann.lecun.com/exdb/mnist/">download binary files</a></li>
+<li><a href="http://lib.stat.cmu.edu/datasets/houses.zip">California housing data</a></li>
 </ul>
 <h1>Pandas and NumPy</h1>
 <h2>Pandas and NumPy</h2>
@@ -219,6 +230,19 @@ dtype: float64
 <li><em>min</em>: all values are greater than the minimum</li>
 <li><em>25%-quantile</em>: 25% of all values are less</li>
 </ul>
+<h2>Statistics on series</h2>
+<p>get a list of unique values:</p>
+<pre><code class="hljs language-py">titanic[<span class="hljs-string">"pclass"</span>].unique()
+</code></pre>
+<pre><code class="hljs language-txt">[2, 3, 1]
+</code></pre>
+<p>count occurences:</p>
+<pre><code class="hljs language-py">titanic[<span class="hljs-string">"pclass"</span>].value_counts()
+</code></pre>
+<pre><code class="hljs language-txt">3    491
+1    216
+2    184
+</code></pre>
 <h1>Querying data: basics</h1>
 <h2>Column names and index values</h2>
 <ul>
@@ -337,15 +361,15 @@ sp500_max_row = sp500.loc[sp500[<span class="hljs-string">"SP500"</span>].idxmax
 </code></pre>
 <h2>Selecting rows: advanced</h2>
 <p>male passengers in first class:</p>
-<pre><code class="hljs language-py">titanic.query(<span class="hljs-string">"pclass > 1 and sex == 'male'"</span>)
-</code></pre>
-<p>passengers who embarked in Southampton or Queenstown:</p>
-<pre><code class="hljs language-py">titanic.query(<span class="hljs-string">"embarked in ['S', 'Q']"</span>)
-</code></pre>
-<h2>Selecting rows: advanced</h2>
 <pre><code class="hljs language-py">titanic[(titanic[<span class="hljs-string">"pclass"</span>] > <span class="hljs-number">1</span>) &#x26; (titanic[<span class="hljs-string">"sex"</span>] == <span class="hljs-string">"male"</span>)]
 </code></pre>
+<p>passengers who embarked in Southampton or Queenstown:</p>
 <pre><code class="hljs language-py">titanic[titanic[<span class="hljs-string">"embarked"</span>].isin([<span class="hljs-string">"S"</span>, <span class="hljs-string">"Q"</span>])]
+</code></pre>
+<h2>Selecting rows: advanced</h2>
+<pre><code class="hljs language-py">titanic.query(<span class="hljs-string">"pclass > 1 and sex == 'male'"</span>)
+</code></pre>
+<pre><code class="hljs language-py">titanic.query(<span class="hljs-string">"embarked in ['S', 'Q']"</span>)
 </code></pre>
 <h2>Exercises: Titanic</h2>
 <ul>
@@ -354,11 +378,12 @@ sp500_max_row = sp500.loc[sp500[<span class="hljs-string">"SP500"</span>].idxmax
 </ul>
 <h2>Solutions: Titanic</h2>
 <p>adult (>= 18) males, sorted by age:</p>
-<pre><code class="hljs language-py">titanic[titanic[<span class="hljs-string">"age"</span>] >= <span class="hljs-number">18</span>].sort_values(by=<span class="hljs-string">"age"</span>)
-titanic.query(<span class="hljs-string">"age >= 18"</span>).sort_values(by=<span class="hljs-string">"age"</span>)
+<pre><code class="hljs language-py">titanic[
+    (titanic[<span class="hljs-string">"age"</span>] >= <span class="hljs-number">18</span>) &#x26; (titanic[<span class="hljs-string">"sex"</span>] = <span class="hljs-string">"male"</span>)
+].sort_values(by=<span class="hljs-string">"age"</span>)
 </code></pre>
 <p>adult survivors</p>
-<pre><code class="hljs language-py">titanic.query(<span class="hljs-string">"age >= 18 and survived=='Yes'"</span>)
+<pre><code class="hljs language-py">titanic[(titanic[<span class="hljs-string">"age"</span>] >= <span class="hljs-number">18</span>) &#x26; (titanic[<span class="hljs-string">"survived"</span>] == <span class="hljs-string">"Yes"</span>)]
 </code></pre>
 <h2>Exercises: Iris flowers</h2>
 <ul>

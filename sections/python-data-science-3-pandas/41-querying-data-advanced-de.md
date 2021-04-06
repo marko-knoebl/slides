@@ -30,23 +30,23 @@ titanic[titanic["age"] >= 70]
 männliche Passagiere in der ersten Klasse:
 
 ```py
-titanic.query("pclass > 1 and sex == 'male'")
+titanic[(titanic["pclass"] > 1) & (titanic["sex"] == "male")]
 ```
 
 Passagiere, die in Southampton oder Queenstown an Bord gingen:
 
 ```py
-titanic.query("embarked in ['S', 'Q']")
+titanic[titanic["embarked"].isin(["S", "Q"])]
 ```
 
 ## Zeilen auswählen: fortgeschritten
 
 ```py
-titanic[(titanic["pclass"] > 1) & (titanic["sex"] == "male")]
+titanic.query("pclass > 1 and sex == 'male'")
 ```
 
 ```py
-titanic[titanic["embarked"].isin(["S", "Q"])]
+titanic.query("embarked in ['S', 'Q']")
 ```
 
 ## Übung: Titanic
@@ -59,14 +59,15 @@ titanic[titanic["embarked"].isin(["S", "Q"])]
 erwachsene (>= 18) Männer, sortiert nach Alter:
 
 ```py
-titanic[titanic["age"] >= 18].sort_values(by="age")
-titanic.query("age >= 18").sort_values(by="age")
+titanic[
+    (titanic["age"] >= 18) & (titanic["sex"] = "male")
+].sort_values(by="age")
 ```
 
 erwachsene Überlebende:
 
 ```py
-titanic.query("age >= 18 and survived=='Yes'")
+titanic[(titanic["age"] >= 18) & (titanic["survived"] == "Yes")]
 ```
 
 ## Übungen: Iris-Blüten
