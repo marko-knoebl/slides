@@ -2062,14 +2062,16 @@ function loadExchangeRate() {
 useEffect(loadExchangeRate, [from, to]);
 ```
 
+## Effect Hook
+
 Beispiel: Laden von Todos, wenn die Komponente zum ersten Mal eingebunden wird:
 
 ```js
 const [todos, setTodos] = useState([]);
-function loadTodo() {
+function loadTodos() {
   // ...
 }
-useEffect(loadTodo, [todoId]);
+useEffect(loadTodos, []);
 ```
 
 # Effect Hook zum Abfragen von APIs

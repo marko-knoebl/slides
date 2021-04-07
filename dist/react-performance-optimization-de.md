@@ -364,6 +364,8 @@ React-Imports für das Lazy-Loading:
 
 ## Lazy-Loading von Komponenten
 
+mit React Router v5:
+
 ```jsx
 import { Suspense, lazy } from 'react';
 import { Route } from 'react-router-dom';

@@ -2072,10 +2072,10 @@ example: loading a set of todos when the component is first mounted:
 
 ```js
 const [todos, setTodos] = useState([]);
-function loadTodo() {
+function loadTodos() {
   // ...
 }
-useEffect(loadTodo, [todoId]);
+useEffect(loadTodos, []);
 ```
 
 # Effect hook for querying APIs

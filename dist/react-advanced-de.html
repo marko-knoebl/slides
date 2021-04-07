@@ -2354,6 +2354,31 @@ history.push(<span class="hljs-string">'/'</span>);
 </section><section class="slide"><h2>Cleanup-Funktion</h2>
 <p>Wenn eine Effect-Funktion etwas anderes als <code>undefined</code> zurückgibt, wird sie als Cleanup-Funktion behandelt</p>
 <p>Deshalb können Async-Funktionen nicht direkt als Effect-Funktionen verwendet werden (sie geben Promises zurück)</p>
+</section><section class="slide"><h2>Closures</h2>
+<p>Dieser Code funktioniert nicht wie erwartet:</p>
+<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">CounterThatLogsEverySecond</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> [count, setCount] = useState(<span class="hljs-number">0</span>);
+  useEffect(<span class="hljs-function">() =></span> {
+    <span class="hljs-built_in">setInterval</span>(<span class="hljs-function">() =></span> {
+      <span class="hljs-built_in">console</span>.log(count);
+    }, <span class="hljs-number">1000</span>);
+  }, []);
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+      {count}{' '}
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setCount(count + 1)}>+<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+  );
+}
+</code></pre>
+<p>Grund: Die "Effect-Funktion" wird nur einmal aufgerufen, wodurch eine "Closure" entsteht - <em>count</em> ist innerhalb der Effect-Funktion immer 0.</p>
+</section><section class="slide"><h2>Closures</h2>
+<p>Mögliche Lösung des Closure-Problems: Verwendung des <em>ref</em>-Hooks und eventuell eines selbst definierten Hooks</p>
+<p>siehe:</p>
+<ul>
+<li><a href="https://overreacted.io/making-setinterval-declarative-with-react-hooks/">Dan Abramov: Making setInterval Declarative with React Hooks</a></li>
+<li><a href="https://github.com/donavon/use-interval">use-interval on GitHub</a></li>
+</ul>
 </section><section class="slide"><h2>Effect nach jedem Rendering</h2>
 <p>Wenn kein zweiter Parameter übergeben wird, wird die Funktion nach jedem Rendering ausgeführt.</p>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> RenderLogger = <span class="hljs-function">() =></span> {
@@ -2363,6 +2388,41 @@ history.push(<span class="hljs-string">'/'</span>);
   <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>Render logger<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
 };
 </code></pre>
+</section><section class="slide"><h2>Exhaustive Dependencies</h2>
+<p>ESLint-Regel: <em>react-hooks/exhaustive-deps</em></p>
+<p>hilft dabei, explizit alle Dependencies eines Effect-Hooks aufzulisten</p>
+</section><section class="slide"><h2>Exhaustive Dependencies</h2>
+<p>Beispiel für nicht-konformen (aber funktionierenden) Code:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> ensurePokemonLoaded = <span class="hljs-function">(<span class="hljs-params">id: <span class="hljs-built_in">number</span></span>) =></span> {
+  <span class="hljs-keyword">if</span> (!pokemons.some(<span class="hljs-function">(<span class="hljs-params">p</span>) =></span> p.id === id)) {
+    loadPokemonById(id);
+  }
+};
+
+useEffect(<span class="hljs-function">() =></span> {
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">1</span>; i &#x3C;= <span class="hljs-number">10</span>; i++) {
+    ensurePokemonLoaded(i);
+  }
+}, []);
+</code></pre>
+</section><section class="slide"><h2>Exhaustive Dependencies</h2>
+<p>ausgebesserter Code (via Hinweisen in den ESLint-Meldungen):</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> ensurePokemonLoaded = useCallback(
+  <span class="hljs-function">(<span class="hljs-params">id: <span class="hljs-built_in">number</span></span>) =></span> {
+    <span class="hljs-keyword">if</span> (!pokemons.some(<span class="hljs-function">(<span class="hljs-params">p</span>) =></span> p.id === id)) {
+      loadPokemonById(id);
+    }
+  },
+  [pokemons]
+);
+
+useEffect(<span class="hljs-function">() =></span> {
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">1</span>; i &#x3C;= <span class="hljs-number">10</span>; i++) {
+    ensurePokemonLoaded(i);
+  }
+}, [ensurePokemonLoaded]);
+</code></pre>
+<p><code>ensurePokemonLoaded</code> wird neu definiert, wenn sich das <code>pokemons</code>-Array ändert - und wird damit für die ersten 10 Pokémon neu ausgeführt</p>
 </section></section><section class="slides-section"><section class="slide"><h1>Hooks</h1>
 </section><section class="slide"><h2>Hooks</h2>
 <p>Hooks: Erweiterung von Funktionskomponenten</p>
@@ -3239,7 +3299,6 @@ npx create-react-app myapp --template cra-template-pwa-typescript
 </code></pre>
 </section><section class="slide"><h2>PWAs: Konfiguration</h2>
 <p>Via <code>public/manifest.json</code></p>
-</section><section class="slide"><h2>PWAs: add to homescreen</h2>
 </section><section class="slide"><h2>PWA: add to homescreen</h2>
 <p>Prozess in Chrome:</p>
 <ul>

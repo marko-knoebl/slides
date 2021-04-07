@@ -382,6 +382,38 @@ Wenn eine Effect-Funktion etwas anderes als `undefined` zurückgibt, wird sie al
 
 Deshalb können Async-Funktionen nicht direkt als Effect-Funktionen verwendet werden (sie geben Promises zurück)
 
+## Closures
+
+Dieser Code funktioniert nicht wie erwartet:
+
+```js
+function CounterThatLogsEverySecond() {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    setInterval(() => {
+      console.log(count);
+    }, 1000);
+  }, []);
+  return (
+    <div>
+      {count}{' '}
+      <button onClick={() => setCount(count + 1)}>+</button>
+    </div>
+  );
+}
+```
+
+Grund: Die "Effect-Funktion" wird nur einmal aufgerufen, wodurch eine "Closure" entsteht - _count_ ist innerhalb der Effect-Funktion immer 0.
+
+## Closures
+
+Mögliche Lösung des Closure-Problems: Verwendung des _ref_-Hooks und eventuell eines selbst definierten Hooks
+
+siehe:
+
+- [Dan Abramov: Making setInterval Declarative with React Hooks](https://overreacted.io/making-setinterval-declarative-with-react-hooks/)
+- [use-interval on GitHub](https://github.com/donavon/use-interval)
+
 ## Effect nach jedem Rendering
 
 Wenn kein zweiter Parameter übergeben wird, wird die Funktion nach jedem Rendering ausgeführt.
@@ -394,6 +426,53 @@ const RenderLogger = () => {
   return <div>Render logger</div>;
 };
 ```
+
+## Exhaustive Dependencies
+
+ESLint-Regel: _react-hooks/exhaustive-deps_
+
+hilft dabei, explizit alle Dependencies eines Effect-Hooks aufzulisten
+
+## Exhaustive Dependencies
+
+Beispiel für nicht-konformen (aber funktionierenden) Code:
+
+```ts
+const ensurePokemonLoaded = (id: number) => {
+  if (!pokemons.some((p) => p.id === id)) {
+    loadPokemonById(id);
+  }
+};
+
+useEffect(() => {
+  for (let i = 1; i <= 10; i++) {
+    ensurePokemonLoaded(i);
+  }
+}, []);
+```
+
+## Exhaustive Dependencies
+
+ausgebesserter Code (via Hinweisen in den ESLint-Meldungen):
+
+```ts
+const ensurePokemonLoaded = useCallback(
+  (id: number) => {
+    if (!pokemons.some((p) => p.id === id)) {
+      loadPokemonById(id);
+    }
+  },
+  [pokemons]
+);
+
+useEffect(() => {
+  for (let i = 1; i <= 10; i++) {
+    ensurePokemonLoaded(i);
+  }
+}, [ensurePokemonLoaded]);
+```
+
+`ensurePokemonLoaded` wird neu definiert, wenn sich das `pokemons`-Array ändert - und wird damit für die ersten 10 Pokémon neu ausgeführt
 
 # Hooks
 
@@ -1495,8 +1574,6 @@ serviceWorker.register();
 ## PWAs: Konfiguration
 
 Via `public/manifest.json`
-
-## PWAs: add to homescreen
 
 ## PWA: add to homescreen
 

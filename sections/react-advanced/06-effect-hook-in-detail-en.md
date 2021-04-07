@@ -96,6 +96,38 @@ If an effect function returns anything other than `undefined`, it is treated as 
 
 This is why async functions cannot be used as effect functions directly (they return promises)
 
+## Closures
+
+This code will not work as expected:
+
+```js
+function CounterThatLogsEverySecond() {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    setInterval(() => {
+      console.log(count);
+    }, 1000);
+  }, []);
+  return (
+    <div>
+      {count}{' '}
+      <button onClick={() => setCount(count + 1)}>+</button>
+    </div>
+  );
+}
+```
+
+Reason: The "effect function" is only called once, creating a closure - _count_ will always be 0 in the effect function.
+
+## Closures
+
+possible solution to the closure problem: use the _ref_ hook and potentially a custom hook
+
+see:
+
+- [Dan Abramov: Making setInterval Declarative with React Hooks](https://overreacted.io/making-setinterval-declarative-with-react-hooks/)
+- [use-interval on GitHub](https://github.com/donavon/use-interval)
+
 ## Effect after every rendering
 
 If no second parameter is passed the effect will run after every rendering.
@@ -108,3 +140,50 @@ const RenderLogger = () => {
   return <div>Render logger</div>;
 };
 ```
+
+## Exhaustive dependencies
+
+ESLint rule: _react-hooks/exhaustive-deps_
+
+helps with explicitly listing all dependencies of an effect hook
+
+## Exhaustive dependencies
+
+example of non-conforming (but working) code:
+
+```ts
+const ensurePokemonLoaded = (id: number) => {
+  if (!pokemons.some((p) => p.id === id)) {
+    loadPokemonById(id);
+  }
+};
+
+useEffect(() => {
+  for (let i = 1; i <= 10; i++) {
+    ensurePokemonLoaded(i);
+  }
+}, []);
+```
+
+## Exhaustive dependencies
+
+fixed code (via hints in ESLint warnings):
+
+```ts
+const ensurePokemonLoaded = useCallback(
+  (id: number) => {
+    if (!pokemons.some((p) => p.id === id)) {
+      loadPokemonById(id);
+    }
+  },
+  [pokemons]
+);
+
+useEffect(() => {
+  for (let i = 1; i <= 10; i++) {
+    ensurePokemonLoaded(i);
+  }
+}, [ensurePokemonLoaded]);
+```
+
+`ensurePokemonLoaded` will be redefined every time the `pokemons` array changes - this will make it is run again for the first 10 pokémons

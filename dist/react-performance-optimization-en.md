@@ -364,6 +364,8 @@ React facilities for lazy-loading:
 
 ## Lazy-loading components
 
+with react router v5:
+
 ```jsx
 import { Suspense, lazy } from 'react';
 import { Route } from 'react-router-dom';

@@ -36,8 +36,6 @@ serviceWorker.register();
 
 Via `public/manifest.json`
 
-## PWAs: add to homescreen
-
 ## PWA: add to homescreen
 
 Prozess in Chrome:

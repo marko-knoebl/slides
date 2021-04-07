@@ -294,6 +294,31 @@ history.push(<span class="hljs-string">'/'</span>);
 <h2>Cleanup functions</h2>
 <p>If an effect function returns anything other than <code>undefined</code>, it is treated as a cleanup function</p>
 <p>This is why async functions cannot be used as effect functions directly (they return promises)</p>
+<h2>Closures</h2>
+<p>This code will not work as expected:</p>
+<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">CounterThatLogsEverySecond</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> [count, setCount] = useState(<span class="hljs-number">0</span>);
+  useEffect(<span class="hljs-function">() =></span> {
+    <span class="hljs-built_in">setInterval</span>(<span class="hljs-function">() =></span> {
+      <span class="hljs-built_in">console</span>.log(count);
+    }, <span class="hljs-number">1000</span>);
+  }, []);
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+      {count}{' '}
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setCount(count + 1)}>+<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+  );
+}
+</code></pre>
+<p>Reason: The "effect function" is only called once, creating a closure - <em>count</em> will always be 0 in the effect function.</p>
+<h2>Closures</h2>
+<p>possible solution to the closure problem: use the <em>ref</em> hook and potentially a custom hook</p>
+<p>see:</p>
+<ul>
+<li><a href="https://overreacted.io/making-setinterval-declarative-with-react-hooks/">Dan Abramov: Making setInterval Declarative with React Hooks</a></li>
+<li><a href="https://github.com/donavon/use-interval">use-interval on GitHub</a></li>
+</ul>
 <h2>Effect after every rendering</h2>
 <p>If no second parameter is passed the effect will run after every rendering.</p>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> RenderLogger = <span class="hljs-function">() =></span> {
@@ -303,6 +328,41 @@ history.push(<span class="hljs-string">'/'</span>);
   <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>Render logger<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
 };
 </code></pre>
+<h2>Exhaustive dependencies</h2>
+<p>ESLint rule: <em>react-hooks/exhaustive-deps</em></p>
+<p>helps with explicitly listing all dependencies of an effect hook</p>
+<h2>Exhaustive dependencies</h2>
+<p>example of non-conforming (but working) code:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> ensurePokemonLoaded = <span class="hljs-function">(<span class="hljs-params">id: <span class="hljs-built_in">number</span></span>) =></span> {
+  <span class="hljs-keyword">if</span> (!pokemons.some(<span class="hljs-function">(<span class="hljs-params">p</span>) =></span> p.id === id)) {
+    loadPokemonById(id);
+  }
+};
+
+useEffect(<span class="hljs-function">() =></span> {
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">1</span>; i &#x3C;= <span class="hljs-number">10</span>; i++) {
+    ensurePokemonLoaded(i);
+  }
+}, []);
+</code></pre>
+<h2>Exhaustive dependencies</h2>
+<p>fixed code (via hints in ESLint warnings):</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> ensurePokemonLoaded = useCallback(
+  <span class="hljs-function">(<span class="hljs-params">id: <span class="hljs-built_in">number</span></span>) =></span> {
+    <span class="hljs-keyword">if</span> (!pokemons.some(<span class="hljs-function">(<span class="hljs-params">p</span>) =></span> p.id === id)) {
+      loadPokemonById(id);
+    }
+  },
+  [pokemons]
+);
+
+useEffect(<span class="hljs-function">() =></span> {
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">1</span>; i &#x3C;= <span class="hljs-number">10</span>; i++) {
+    ensurePokemonLoaded(i);
+  }
+}, [ensurePokemonLoaded]);
+</code></pre>
+<p><code>ensurePokemonLoaded</code> will be redefined every time the <code>pokemons</code> array changes - this will make it is run again for the first 10 pokémons</p>
 <h1>Hooks</h1>
 <h2>Hooks</h2>
 <p>Hooks = extension of function components</p>
