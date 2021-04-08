@@ -1,3 +1,12 @@
+# directory structure
+
+- _sections_ (or _src_ in the future):
+  - only allowed files are json files, md files and exercise solutions
+- _exercises_ (may be contained in _src_ in the future): exercise tasks in markdown + solutions
+- _assets_ (may be in _src_ in the future): images
+- _build_: build scripts
+- _pages_: pages of old website (deprecated)
+
 # image styles
 
 recommended styling approaches:

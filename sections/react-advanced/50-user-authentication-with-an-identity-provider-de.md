@@ -1,10 +1,10 @@
+# Benutzer-Authentifizierung mit einem Identity Provider
+
 <!--
 related sections in:
 - react-advanced
 - node-and-express-intermediate
 -->
-
-# Benutzer-Authentifizierung mit einem Identity Provider
 
 ## Identity Provider
 
