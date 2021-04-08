@@ -35,11 +35,13 @@ const rehypeSlides = require("@karuga/rehype-slides");
 const rehypeStringify = require("rehype-stringify");
 const remarkStringify = require("remark-stringify");
 
-const processPresentation = (entrypointFilename) => {
+const processPresentation = (entryPath) => {
+  const entrypointFilename = entryPath.substring(
+    entryPath.lastIndexOf("/") + 1
+  );
   const presentationData = extractPresentationDataFromFilename(
     entrypointFilename
   );
-  const entryPath = `entrypoints/${presentationData.filename}`;
   const entryFile = vfile({
     contents: fs.readFileSync(entryPath),
     path: entryPath,

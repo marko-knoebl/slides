@@ -34,7 +34,7 @@ const main = () => {
   const results = [];
   const numSlidesTotal = { en: 0, de: 0 };
   for (let entrypoint of entrypointFilenames) {
-    const presentationData = processPresentation(entrypoint);
+    const presentationData = processPresentation(`entrypoints/${entrypoint}`);
     console.log(
       `${presentationData.topic}-${presentationData.lang}: ${presentationData.slideCount}`
     );
@@ -59,7 +59,7 @@ const main = () => {
   }
 
   // create pages from markdown
-  buildPages({numSlides: numSlidesTotal});
+  buildPages({ numSlides: numSlidesTotal });
 };
 
 main();
