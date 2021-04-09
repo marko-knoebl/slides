@@ -1,6 +1,6 @@
-<!-- closely realated content in presentations typescript and react-->
-
 # Type-Aliases und Interfaces
+
+<!-- closely realated content in presentations typescript and react-->
 
 ## Type-Aliases und Interfaces
 

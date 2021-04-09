@@ -7,6 +7,7 @@ Presentation / Exercise (1 : n)
 
 const fs = require("fs");
 const processPresentation = require("./processPresentation.js");
+const buildCoursePage = require("./buildCoursePage").buildCoursePage;
 
 const sourceDir = "src";
 const distDir = "dist_new";
@@ -63,6 +64,7 @@ class CourseCollection {
             const t = new Topic(`${this.srcUrl}/${topicUrl}`, lang);
             t.load();
             topics.push(t);
+            break;
           }
         }
       }
@@ -87,6 +89,14 @@ class CourseCollection {
           pd.presentationString
         );
       }
+    }
+  }
+
+  buildCoursePages() {
+    // needs to be called after finding topics
+    for (let course of this.courses) {
+      const coursePage = buildCoursePage(course, this.topics);
+      fs.writeFileSync(`${distDir}/${course.id}.html`, coursePage);
     }
   }
 
@@ -115,19 +125,23 @@ class CourseCollection {
 }
 
 class Course {
-  srcUrl: string; // file url
+  // file url - e.g. src/react.json
+  srcUrl: string;
+  // e.g. react
+  id: string;
   title: string;
-  topics: Array<string>;
+  topicIds: Array<string>;
   languages: Array<string>;
 
   constructor(srcUrl: string) {
     this.srcUrl = srcUrl;
+    this.id = srcUrl.slice(srcUrl.lastIndexOf("/") + 1, srcUrl.length - 5);
   }
 
   load() {
     const config = JSON.parse(fs.readFileSync(this.srcUrl));
     this.title = config.title;
-    this.topics = config.topics;
+    this.topicIds = config.topicIds;
     this.languages = config.languages;
   }
 }
@@ -173,7 +187,7 @@ type PresentationData = {
   htmlTree: object;
   htmlDocumentString: string;
   lang: string;
-  mdTree: object;
+  mdTree: any;
   mdString: string;
   presentationTree: object;
   presentationString: string;
@@ -183,7 +197,6 @@ type PresentationData = {
 
 class Presentation {
   srcUrl: string; // file
-  title: string;
   mdContentStr: string;
   presentationData: PresentationData;
 
@@ -206,4 +219,5 @@ allMaterials.loadCourses();
 allMaterials.findTopics();
 allMaterials.loadTopics();
 allMaterials.buildTopics();
+allMaterials.buildCoursePages();
 allMaterials.populateSectionsFolder();
