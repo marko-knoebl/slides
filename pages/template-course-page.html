@@ -26,9 +26,14 @@
       }
       body > nav {
         padding: 1rem;
+        padding-top: 4rem;
         max-width: 20em;
         background-color: #eeeeee;
         overflow: auto;
+        display: none;
+      }
+      body > nav.active {
+        display: block;
       }
       body > main {
         flex-grow: 1;
@@ -37,10 +42,29 @@
       body > main > iframe {
         flex-grow: 1;
       }
+      #nav-toggle-button {
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+
+        border-radius: 4px;
+        background-color: #ffffff;
+        border: 1px solid #cccccc;
+      }
     </style>
-    <nav></nav>
+    <nav class="active"></nav>
     <main>
       <iframe name="content"></iframe>
     </main>
+    <button id="nav-toggle-button">topics</button>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        document
+          .getElementById("nav-toggle-button")
+          .addEventListener("click", () => {
+            document.querySelector("body > nav").classList.toggle("active");
+          });
+      });
+    </script>
   </body>
 </html>

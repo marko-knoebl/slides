@@ -21,9 +21,14 @@
       }
       body > nav {
         padding: 1rem;
+        padding-top: 4rem;
         max-width: 20em;
         background-color: #eeeeee;
         overflow: auto;
+        display: none;
+      }
+      body > nav.active {
+        display: block;
       }
       body > main {
         flex-grow: 1;
@@ -32,11 +37,30 @@
       body > main > iframe {
         flex-grow: 1;
       }
+      #nav-toggle-button {
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+
+        border-radius: 4px;
+        background-color: #ffffff;
+        border: 1px solid #cccccc;
+      }
     </style>
-    <nav><h1>TypeScript Basics</h1><h2>TypeScript</h2><p><a href="typescript/10-basics-de.html" target="content">TypeScript Grundlagen</a></p><p><a href="typescript/15-data-types-and-type-declarations-de.html" target="content">Datentypen und Typendeklarationen</a></p><p><a href="typescript/16-type-aliases-de.html" target="content">Type Aliases</a></p><p><a href="typescript/17-function-signatures-and-function-types-de.html" target="content">Funktionssignaturen und Funktionstypen</a></p><p><a href="typescript/18-type-assertions-de.html" target="content">Type Assertions</a></p><p><a href="typescript/19-generics-de.html" target="content">Generics</a></p><p><a href="typescript/20-union-types-de.html" target="content">Union Types</a></p><p><a href="typescript/40-type-aliases-and-interfaces-de.html" target="content">Type-Aliases und Interfaces</a></p><p><a href="typescript/50-intersection-types-de.html" target="content">Intersection Types</a></p></nav>
+    <nav class="active"><h1>TypeScript Basics</h1><h3>TypeScript</h3><p><a href="typescript/10-basics-de.html" target="content">TypeScript Grundlagen</a></p><p><a href="typescript/15-data-types-and-type-declarations-de.html" target="content">Datentypen und Typendeklarationen</a></p><p><a href="typescript/16-type-aliases-de.html" target="content">Type Aliases</a></p><p><a href="typescript/17-function-signatures-and-function-types-de.html" target="content">Funktionssignaturen und Funktionstypen</a></p><p><a href="typescript/18-type-assertions-de.html" target="content">Type Assertions</a></p><p><a href="typescript/19-generics-de.html" target="content">Generics</a></p><p><a href="typescript/20-union-types-de.html" target="content">Union Types</a></p><p><a href="typescript/40-type-aliases-and-interfaces-de.html" target="content">Type-Aliases und Interfaces</a></p><p><a href="typescript/50-intersection-types-de.html" target="content">Intersection Types</a></p></nav>
     <main>
       <iframe name="content"></iframe>
     </main>
+    <button id="nav-toggle-button">topics</button>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        document
+          .getElementById("nav-toggle-button")
+          .addEventListener("click", () => {
+            document.querySelector("body > nav").classList.toggle("active");
+          });
+      });
+    </script>
   
 
 </body></html>

@@ -27,7 +27,7 @@ const buildCoursePage = (course: Course, lang: string, topics: Array<Topic>): st
     const topic = topics.find((t) => t.idWithLang === topicId + "-" + lang);
     navElement.children.push({
       type: "element",
-      tagName: "h2",
+      tagName: "h3",
       children: [
         {
           type: "text",
