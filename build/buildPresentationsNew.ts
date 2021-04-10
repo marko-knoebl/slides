@@ -95,8 +95,10 @@ class CourseCollection {
   buildCoursePages() {
     // needs to be called after finding topics
     for (let course of this.courses) {
-      const coursePage = buildCoursePage(course, this.topics);
-      fs.writeFileSync(`${distDir}/${course.id}.html`, coursePage);
+      for (let lang of course.languages) {
+        const coursePage = buildCoursePage(course, lang, this.topics);
+        fs.writeFileSync(`${distDir}/${course.id}-${lang}.html`, coursePage);
+      }
     }
   }
 
@@ -164,7 +166,7 @@ class Topic {
 
   load() {
     const config = JSON.parse(fs.readFileSync(`${this.srcUrl}/index.json`));
-    this.title = config.title;
+    this.title = config.titles[this.language];
 
     const presentationFilenames = fs
       .readdirSync(this.srcUrl)

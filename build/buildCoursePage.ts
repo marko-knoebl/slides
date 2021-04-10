@@ -11,7 +11,7 @@ const templateContent = fs.readFileSync("pages/template-course-page.html", {
   encoding: "utf-8",
 });
 
-const buildCoursePage = (course: Course, topics: Array<Topic>): string => {
+const buildCoursePage = (course: Course, lang: string, topics: Array<Topic>): string => {
   const templateTree = htmlParser.parse(templateContent);
 
   const htmlElement = templateTree.children[1];
@@ -23,7 +23,8 @@ const buildCoursePage = (course: Course, topics: Array<Topic>): string => {
     children: [{ type: "text", value: course.title }],
   });
   for (let topicId of course.topicIds) {
-    const topic = topics.find((t) => t.idWithoutLang === topicId);
+    // const topic = topics.find((t) => t.idWithoutLang === topicId);
+    const topic = topics.find((t) => t.idWithLang === topicId + "-" + lang);
     navElement.children.push({
       type: "element",
       tagName: "h2",
