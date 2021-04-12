@@ -12,39 +12,39 @@ Lizenziert unter [CC-BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
 ## React Grundlagen
 
-- [React](react-en.html)
-- [React: Klassenkomponenten](react-class-components-en.html)
+- [React](react-de.html)
+- [React: Klassenkomponenten](react-class-components-de.html)
 
 Allgemeine Themen:
 
-- [VS Code](vs-code-en.html)
-- [TypeScript](typescript-en.html)
+- [VS Code](vs-code-de.html)
+- [TypeScript](typescript-de.html)
 
 Vertiefung:
 
-- [JavaScript: Promises, fetch und axios](javascript-promises-fetch-and-axios-en.html)
+- [JavaScript: Promises, fetch und axios](javascript-promises-fetch-and-axios-de.html)
 
 ## React Fortgeschritten
 
-- [React Fortgeschritten](react-advanced-en.html)
+- [React Fortgeschritten](react-advanced-de.html)
 
 ## Testen
 
-- [JavaScript: Testen](javascript-testing-en.html)
-- [React: Testen und Komponentendemos](react-testing-and-component-demos-en.html)
+- [JavaScript: Testen](javascript-testing-de.html)
+- [React: Testen und Komponentendemos](react-testing-and-component-demos-de.html)
 
 ## Performanceoptimierung
 
-- [React: Performanceoptimierung](react-performance-optimization-en.html)
+- [React: Performanceoptimierung](react-performance-optimization-de.html)
 
 ## Pre-Rendering und next.js
 
-- [React: Pre-Rendering und next.js](react-pre-rendering-and-nextjs-en.html)
+- [React: Pre-Rendering und next.js](react-pre-rendering-and-nextjs-de.html)
 
 ## React und Redux
 
-- [React und Redux](react-and-redux-en.html)
+- [React und Redux](react-and-redux-de.html)
 
 ## React und GraphQL
 
-- [React und GraphQL](react-graphql-en.html)
+- [React und GraphQL](react-graphql-de.html)
