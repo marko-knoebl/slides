@@ -43,7 +43,7 @@ Vertiefung:
 
 ## React und Redux
 
-- [React und Redux](react-and-redux-de.html)
+- [React und Redux](react-redux-de.html)
 
 ## React und GraphQL
 

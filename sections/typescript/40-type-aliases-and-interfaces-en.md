@@ -1,5 +1,3 @@
-<!-- closely realated content in presentations typescript and react-->
-
 # Type aliases and interfaces
 
 ## Type aliases and interfaces

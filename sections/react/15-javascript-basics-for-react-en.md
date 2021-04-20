@@ -207,24 +207,6 @@ const TodoItem = ({ title, completed }) => (
 );
 ```
 
-## Spread syntax (arrays and objects)
-
-```js
-const squares = [1, 4, 9];
-const moreSquares = [...squares, 16, 25];
-// moreSquares: [1, 4, 9, 16, 25]
-```
-
-```js
-const person = {
-  firstName: 'Joe',
-  lastName: 'Doe',
-  age: 31,
-};
-const newPerson = { ...person, email: 'j@d.com', age: 32 };
-// {firstName: 'Joe', lastName: 'Doe', email: 'j@d.com', age: 32}
-```
-
 ## Optional chaining
 
 example for _optional chaining_:
@@ -250,34 +232,3 @@ props.onClick?.();
 ```
 
 if `props.onClick` is defined, call it, otherwise evaluate to `undefined`
-
-## Map and filter
-
-array methods for functional programming
-
-## Map
-
-- modifies each entry in an array via a function
-- returns a new array
-
-```js
-const myNumbers = [1, 2, 3, 4];
-
-const tripledNumbers = myNumbers.map((n) => 3 * n);
-// [3, 6, 9, 12]
-```
-
-## Filter
-
-- only keeps specific entries in an array
-- uses a function to check entries for a specific condition
-- returns a new array
-
-```js
-const myNumbers = [1, 2, 3, 4];
-
-const isEven = (n) => n % 2 === 0;
-
-const evenNumbers = myNumbers.filter(isEven);
-// [2, 4]
-```

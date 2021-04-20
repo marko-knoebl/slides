@@ -391,24 +391,6 @@ const TodoItem = ({ title, completed }) => (
 );
 ```
 
-## Spread syntax (Arrays und Objekte)
-
-```js
-const squares = [1, 4, 9];
-const moreSquares = [...squares, 16, 25];
-// moreSquares: [1, 4, 9, 16, 25]
-```
-
-```js
-const person = {
-  firstName: 'Joe',
-  lastName: 'Doe',
-  age: 31,
-};
-const newPerson = { ...person, email: 'j@d.com', age: 32 };
-// {firstName: 'Joe', lastName: 'Doe', email: 'j@d.com', age: 32}
-```
-
 ## Optional Chaining
 
 Beispiel für _optional chaining_:
@@ -434,37 +416,6 @@ props.onClick?.();
 ```
 
 wenn `props.onClick` definiert ist, wird es aufgerufen, andernfalls wird der Ausdruck zu `undefined` ausgewertet
-
-## Map und filter
-
-Array-Methoden für die funktionale Programmierung
-
-## Map
-
-- Ändert jeden Eintrag eines Arrays mit Hilfe einer Funktion ab
-- Rückgabewert: neues Array
-
-```js
-const myNumbers = [1, 2, 3];
-
-const newNumbers = myNumbers.map((n) => 3 * n);
-// [3, 6, 9]
-```
-
-## filter
-
-- Behält nur gewisse Einträge in einem Array
-- Nutzt eine Funktion, um Einträge auf ein bestimmtes Kriterium zu testen
-- Rückgabewert: neues Array
-
-```js
-const myNumbers = [1, 2, 3, 4];
-
-const isEven = (n) => n % 2 === 0;
-
-const evenNumbers = myNumbers.filter(isEven);
-// [2, 4]
-```
 
 # State (Komponentenzustand)
 
@@ -653,24 +604,20 @@ Demo (siehe <https://codesandbox.io/s/immutable-state-demo-r2x1i>):
 ```js
 function App() {
   const [numbers, setNumbers] = useState([0, 1, 2]);
+  function addByMutating() {
+    // changes (mutates) the old state entry
+    numbers.push(numbers.length);
+    setNumbers(numbers);
+  }
+  function addByReplacing() {
+    // creates a new - derived - state object
+    setNumbers([...numbers, numbers.length]);
+  }
   return (
     <div>
       <div>{JSON.stringify(numbers)}</div>
-      <button
-        onClick={() => {
-          // invalid - modifies state
-          numbers.push(numbers.length);
-          setNumbers(numbers);
-        }}
-      >
-        add (mutate)
-      </button>
-      <button
-        onClick={() => {
-          // valid - replaces state
-          setNumbers([...numbers, numbers.length]);
-        }}
-      >
+      <button onClick={addByMutating}>add (mutate)</button>
+      <button onClick={addByReplacing}>
         add (replace)
       </button>
     </div>
@@ -678,32 +625,16 @@ function App() {
 }
 ```
 
-## Immutable State
+# Datenverwaltung ohne Mutationen
 
-richtig:
+## Datenverwaltung ohne Mutationen
 
-```js
-const randomize = () => {
-  const newImages = [];
-  for (let i = 0; i < 5; i++) {
-    newImages.push(Math.floor(Math.random() * 100));
-  }
-  setImages(newImages);
-};
-```
+Möglichkeiten, um aus bestehenden Daten aktualisierte Daten zu erhalten:
 
-falsch:
+- abändern der ursprünglichen Daten
+- erstellen neuer - abgeleiteter - Daten basieren auf den ursprünglichen Daten
 
-```js
-const randomize = () => {
-  for (let i = 0; i < 5; i++) {
-    images[i] = Math.floor(Math.random() * 100);
-  }
-  setImages(images);
-};
-```
-
-## Datenverwaltung ohne Mutationen: Arrays
+## Datenverwaltung ohne Mutationen
 
 Ausgangsdaten:
 
@@ -723,27 +654,184 @@ names.push('Dan');
 const newNames = [...names, 'Dan'];
 ```
 
-## Datenverwaltung ohne Mutationen: Objekte
+## Datenverwaltung ohne Mutationen
 
-Ausgangsdaten:
+Themen:
+
+- Hinzufügen von Properties zu einem Objekt
+- Ändern einzelner Properties in einem Objekt
+- Hinzufügen von Elementen zu einem Array
+- Ändern von Elementen in einem Array
+- Entfernen von Elementen aus einem Array
+
+## Datenverwaltung ohne Mutationen
+
+Mechanismen:
+
+- Spread-Syntax (`...`)
+- besondere Array-Methoden (`.map`, `.filter`)
+
+## Datenverwaltung ohne Mutationen
+
+Spread Syntax für Arrays:
 
 ```js
-const user = {
-  name: 'john'
-  email: 'john@doe.com'
-}
+const numbers = [1, 2, 3];
+const moreNumbers = [...numbers, 4, 5, 6];
+// moreNumbers: [1, 2, 3, 4, 5, 6]
 ```
 
-**Mutation**: Abändern des ursprünglichen Objekts
+## Datenverwaltung ohne Mutationen
+
+Spread Syntax für Objekte:
 
 ```js
-user.email = 'johndoe@gmail.com';
+const person = {
+  firstName: 'Joe',
+  lastName: 'Doe',
+  age: 31,
+};
+const newPerson = { ...person, email: 'j@d.com', age: 32 };
+// {firstName: 'Joe', lastName: 'Doe', email: 'j@d.com', age: 32}
 ```
 
-**keine Mutation**: Erstellen eines neuen Objekts (Spread Syntax)
+## Datenverwaltung ohne Mutationen
+
+die `.map`-Methode:
+
+- bestimmt für jeden Eintrag in einem Array einen neuen, abgeletiteten, Eintrag
+- gibt ein neues Array mit diesen Einträgen zurück
 
 ```js
-const newUser = { ...user, email: 'johndoe@gmail.com' };
+const myNumbers = [1, 2, 3, 4];
+
+const tripledNumbers = myNumbers.map((n) => 3 * n);
+// [3, 6, 9, 12]
+```
+
+## Datenverwaltung ohne Mutationen
+
+die `.filter`-Methode:
+
+- erstellt ein neues Array, in dem nur bestimmte Einträge im Array verbleiben
+- verwendet eine Funktion, um Einträge auf ein bestimmtes Kriterium zu testen
+- gibt ein neues Array zurück
+
+```js
+const myNumbers = [1, 2, 3, 4];
+
+const isEven = (n) => n % 2 === 0;
+
+const evenNumbers = myNumbers.filter(isEven);
+// [2, 4]
+```
+
+## Datenverwaltung ohne Mutationen
+
+Mechanismen:
+
+- Hinzufügen von Properties zu einem Objekt: _Spread Syntax_
+- Ändern einzelner Properties in einem Objekt: _Spread Syntax_
+- Hinzufügen von Elementen zu einem Array: _Spread Syntax_
+- Ändern von Elementen in einem Array: _map_
+- Entfernen von Elementen aus einem Array: _filter_
+
+## Übungen
+
+Übung: Erstelle die folgenden _reinen_ Funktionen, die ein Todo-Element (Objekt) behandeln:
+
+```js
+const todo1 = { id: 1, title: 'foo', completed: false };
+
+const todo2 = withCompletedToggled(todo1);
+// { id: 1, title: 'foo', completed: true }
+
+const todo3 = withTitleChanged(todo2, 'bar');
+// { id: 1, title: 'bar', completed: true}
+```
+
+## Übungen
+
+Lösungen:
+
+```js
+const withCompletedToggled = (todo) => ({
+  ...todo,
+  completed: !todo.completed,
+});
+```
+
+```js
+const withTitleChanged = (todo, newTitle) => ({
+  ...todo,
+  title: newTitle,
+});
+```
+
+## Übungen
+
+Übung: Erstelle die folgenden _reinen_ Funktionen, die ein Array von Todo-Objekten behandeln:
+
+```js
+const todos1 = [
+  { id: 1, title: 'foo', completed: false },
+  { id: 2, title: 'bar', completed: true },
+];
+
+const todos2 = withNewTodoAdded(todos1, 'baz');
+const todos3 = withTodoToggled(todos2, 1);
+const todos4 = withCompletedTodosRemoved(todos3);
+console.log(todos4);
+
+// [{ id: 3, title: 'baz', completed: false }]
+```
+
+## Übungen
+
+Lösung 1:
+
+```js
+const withNewTodoAdded = (todos, newTitle) => {
+  let maxId = 0;
+  for (let todo of todos) {
+    maxId = Math.max(maxId, todo.id);
+  }
+  return [
+    ...todos,
+    { id: maxId + 1, title: newTitle, completed: false },
+  ];
+};
+```
+
+## Übungen
+
+Lösung 2:
+
+```js
+const withTodoToggled = (todos, id) =>
+  todos.map((todo) =>
+    todo.id === id
+      ? { ...todo, completed: !todo.completed }
+      : todo
+  );
+```
+
+oder - mit Hilfe von `withCompletedToggled`:
+
+```js
+const withTodoToggled = (todos, id) =>
+  todos.map((todo) =>
+    todo.id === id ? withCompletedToggled(todo) : todo
+  );
+```
+
+## Übungen
+
+Lösung 3:
+
+```js
+const withCompletedTodosRemoved = (todos) =>
+  todos.filter((todo) => !todo.completed);
 ```
 
 # JSX
@@ -2038,6 +2126,8 @@ useEffect(
 );
 ```
 
+Die Effekt-Funktion nach dem (Re-)Rendering einer Komponente ausgeführt, falls sich eine der Abhängigkeiten geändert hat
+
 ## Effect Hook
 
 kann verwendet werden, um _side effects_ auszulösen:
@@ -2056,10 +2146,12 @@ Beispiel: Laden von Umrechnungskursen, wenn die Komponente zum ersten Mal eingeb
 const [from, setFrom] = useState('USD');
 const [to, setTo] = useState('EUR');
 const [rate, setRate] = useState<number | null>(null);
-function loadExchangeRate() {
+async function loadExchangeRate() {
   // ...
 }
-useEffect(loadExchangeRate, [from, to]);
+useEffect(() => {
+  loadExchangeRate();
+}, [from, to]);
 ```
 
 ## Effect Hook
@@ -2068,10 +2160,12 @@ Beispiel: Laden von Todos, wenn die Komponente zum ersten Mal eingebunden wird:
 
 ```js
 const [todos, setTodos] = useState([]);
-function loadTodos() {
+async function loadTodos() {
   // ...
 }
-useEffect(loadTodos, []);
+useEffect(() => {
+  loadTodos();
+}, []);
 ```
 
 # Effect Hook zum Abfragen von APIs
@@ -2089,13 +2183,14 @@ function ExchangeRate() {
   const [from, setFrom] = useState('USD');
   const [to, setTo] = useState('EUR');
   const [rate, setRate] = useState(null);
-  function loadExchangeRate() {
-    fetchExchangeRate(from, to)
-      .then((r) => setRate(r))
-      .catch(() => setRate(null));
+  async function loadExchangeRate() {
+    setRate(null);
+    const rate = await fetchExchangeRate(from, to);
+    setRate(rate);
   }
-  useEffect(loadExchangeRate, [from, to]);
-
+  useEffect(() => {
+    loadExchangeRate();
+  }, [from, to]);
   // render two dropdowns for selecting currencies
   // and show the exchange rate
 }
@@ -2111,7 +2206,7 @@ async function fetchExchangeRate(
   to: string
 ): Promise<number> {
   const res = await fetch(
-    'https://api.exchangeratesapi.io/latest?base=' +
+    'https://https://api.exchangerate.host/latest?base=' +
       from.toUpperCase() +
       '&symbols=' +
       to.toUpperCase()
@@ -2135,7 +2230,7 @@ async function fetchExchangeRate(
   to: string
 ): Promise<number> {
   const res = await fetch(
-    'https://api.exchangeratesapi.io/latest?base=' +
+    'https://api.exchangerate.host/latest?base=' +
       from.toUpperCase() +
       '&symbols=' +
       to.toUpperCase()
@@ -2148,12 +2243,14 @@ function ExchangeRate() {
   const [from, setFrom] = useState('USD');
   const [to, setTo] = useState('EUR');
   const [rate, setRate] = useState<number | null>(null);
-  function loadExchangeRate() {
-    fetchExchangeRate(from, to)
-      .then((r) => setRate(r))
-      .catch(() => setRate(null));
+  async function loadExchangeRate() {
+    setRate(null);
+    const rate = await fetchExchangeRate(from, to);
+    setRate(rate);
   }
-  useEffect(loadExchangeRate, [from, to]);
+  useEffect(() => {
+    loadExchangeRate();
+  }, [from, to]);
   return (
     <div>
       <select
@@ -2186,22 +2283,18 @@ Bemerkung: Die Effekt-Funktion darf **keine** async-Funktion sein
 
 Die Effekt-Funktion sollte üblicherweise (implizit) _undefined_ zurückgeben; eine async-Funktion würde immer ein Promise zurückgeben
 
-## Effect Hook und async-Funktionen
-
-korrekte Abfrage eines APIs mit async-Syntax:
+ungültig:
 
 ```js
-const [todos, setTodos] = useState([]);
-async function loadExchangeRate() {
-  setTodos(await fetchTodos());
-}
-useEffect(
-  // regular function that calls the async function:
-  () => {
-    loadExchangeRate();
-  },
-  []
-);
+useEffect(loadExchangeRate, [from, to]);
+```
+
+gültig:
+
+```js
+useEffect(() => {
+  loadExchangeRate();
+}, [from, to]);
 ```
 
 ## Übungen
@@ -2226,10 +2319,13 @@ Beispiele von abfragbaren APIs:
 function SpaceXLaunch() {
   const [launchNr, setLaunchNr] = useState(1);
   const [launchData, setLaunchData] = useState({});
-  function loadLaunch() {
-    fetchLaunch(launchNr).then(setLaunchData);
+  async function loadLaunch() {
+    const data = await fetchLaunch(launchNr);
+    setLaunchData(data);
   }
-  useEffect(loadLaunch, [launchNr]);
+  useEffect(() => {
+    loadLaunch();
+  }, [launchNr]);
   return (
     <div>
       <h1>{launchData.mission_name}</h1>
@@ -2257,10 +2353,13 @@ async function fetchLaunch(launchNr) {
 function Pokemon() {
   const [id, setId] = useState(1);
   const [data, setData] = useState({});
-  function loadPokemon() {
-    fetchPokemon(id).then(setData);
+  async function loadPokemon() {
+    const data = fetchPokemon(id);
+    setData(data);
   }
-  useEffect(loadPokemon, [id]);
+  useEffect(() => {
+    loadPokemon();
+  }, [id]);
   return (
     <div>
       <h1>{data.name}</h1>

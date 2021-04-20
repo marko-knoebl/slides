@@ -36,3 +36,23 @@ const now: Time = [10, 45, 0];
 ## Type aliases and interfaces
 
 _interfaces_ could be an alternative for type aliases - they can be applied in similar scenarios but have different syntaxes
+
+## Exporting type aliases
+
+```ts
+export type Todo = {
+  title: string;
+  completed: boolean;
+};
+```
+
+or
+
+```ts
+type Todo = {
+  title: string;
+  completed: boolean;
+};
+
+export type { Todo };
+```

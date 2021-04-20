@@ -463,19 +463,6 @@
   <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
 );
 </code></pre>
-<h2>Spread syntax (arrays and objects)</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> squares = [<span class="hljs-number">1</span>, <span class="hljs-number">4</span>, <span class="hljs-number">9</span>];
-<span class="hljs-keyword">const</span> moreSquares = [...squares, <span class="hljs-number">16</span>, <span class="hljs-number">25</span>];
-<span class="hljs-comment">// moreSquares: [1, 4, 9, 16, 25]</span>
-</code></pre>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> person = {
-  <span class="hljs-attr">firstName</span>: <span class="hljs-string">'Joe'</span>,
-  <span class="hljs-attr">lastName</span>: <span class="hljs-string">'Doe'</span>,
-  <span class="hljs-attr">age</span>: <span class="hljs-number">31</span>,
-};
-<span class="hljs-keyword">const</span> newPerson = { ...person, <span class="hljs-attr">email</span>: <span class="hljs-string">'j@d.com'</span>, <span class="hljs-attr">age</span>: <span class="hljs-number">32</span> };
-<span class="hljs-comment">// {firstName: 'Joe', lastName: 'Doe', email: 'j@d.com', age: 32}</span>
-</code></pre>
 <h2>Optional chaining</h2>
 <p>example for <em>optional chaining</em>:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> userNickname = user?.nickname;
@@ -489,31 +476,6 @@
 <pre><code class="hljs language-js">props.onClick?.();
 </code></pre>
 <p>if <code>props.onClick</code> is defined, call it, otherwise evaluate to <code>undefined</code></p>
-<h2>Map and filter</h2>
-<p>array methods for functional programming</p>
-<h2>Map</h2>
-<ul>
-<li>modifies each entry in an array via a function</li>
-<li>returns a new array</li>
-</ul>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> myNumbers = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>];
-
-<span class="hljs-keyword">const</span> tripledNumbers = myNumbers.map(<span class="hljs-function">(<span class="hljs-params">n</span>) =></span> <span class="hljs-number">3</span> * n);
-<span class="hljs-comment">// [3, 6, 9, 12]</span>
-</code></pre>
-<h2>Filter</h2>
-<ul>
-<li>only keeps specific entries in an array</li>
-<li>uses a function to check entries for a specific condition</li>
-<li>returns a new array</li>
-</ul>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> myNumbers = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>];
-
-<span class="hljs-keyword">const</span> isEven = <span class="hljs-function">(<span class="hljs-params">n</span>) =></span> n % <span class="hljs-number">2</span> === <span class="hljs-number">0</span>;
-
-<span class="hljs-keyword">const</span> evenNumbers = myNumbers.filter(isEven);
-<span class="hljs-comment">// [2, 4]</span>
-</code></pre>
 <h1>State</h1>
 <h2>State</h2>
 <p>Components may have an internal <em>state</em></p>
@@ -624,10 +586,10 @@
 <p>Data is not modified directly - instead, new data is derived from existing data (and may replace the existing data)</p>
 <h2>Immutable state</h2>
 <p>if there are arrays or objects in the state we <em>could</em> try and mutate them directly</p>
-<p>don't do this - React will usually not notice the changes and will not rerender the view</p>
+<p>don't do this - React will usually not notice the changes and may not rerender the view</p>
 <p>state should be considered as <em>immutabe</em> (unchangeable)</p>
 <h2>Immutable state</h2>
-<p>When <code>setState</code> is called, React will compare:</p>
+<p>When a state setter is called, React will compare:</p>
 <ul>
 <li>the object the old state points to</li>
 <li>the object the new state points to</li>
@@ -637,49 +599,34 @@
 <p>demo (see <a href="https://codesandbox.io/s/immutable-state-demo-r2x1i">https://codesandbox.io/s/immutable-state-demo-r2x1i</a>):</p>
 <pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">App</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">const</span> [numbers, setNumbers] = useState([<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>]);
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addByMutating</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-comment">// changes (mutates) the old state entry</span>
+    numbers.push(numbers.length);
+    setNumbers(numbers);
+  }
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addByReplacing</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-comment">// creates a new - derived - state object</span>
+    setNumbers([...numbers, numbers.length]);
+  }
   <span class="hljs-keyword">return</span> (
     <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
       <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>{JSON.stringify(numbers)}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>
-        <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> {
-          // invalid - modifies state
-          numbers.push(numbers.length);
-          setNumbers(numbers);
-        }}
-      >
-        add (mutate)
-      <span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>
-        <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> {
-          // valid - replaces state
-          setNumbers([...numbers, numbers.length]);
-        }}
-      >
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{addByMutating}</span>></span>add (mutate)<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{addByReplacing}</span>></span>
         add (replace)
       <span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
     <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
   );
 }
 </code></pre>
-<h2>Immutable state</h2>
-<p>good:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> randomize = <span class="hljs-function">() =></span> {
-  <span class="hljs-keyword">const</span> newImages = [];
-  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &#x3C; <span class="hljs-number">5</span>; i++) {
-    newImages.push(<span class="hljs-built_in">Math</span>.floor(<span class="hljs-built_in">Math</span>.random() * <span class="hljs-number">100</span>));
-  }
-  setImages(newImages);
-};
-</code></pre>
-<p>bad:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> randomize = <span class="hljs-function">() =></span> {
-  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &#x3C; <span class="hljs-number">5</span>; i++) {
-    images[i] = <span class="hljs-built_in">Math</span>.floor(<span class="hljs-built_in">Math</span>.random() * <span class="hljs-number">100</span>);
-  }
-  setImages(images);
-};
-</code></pre>
-<h2>Data management without mutations: Arrays</h2>
+<h1>Data management without mutations</h1>
+<h2>Data management without mutations</h2>
+<p>options for getting updated data from previous data:</p>
+<ul>
+<li>mutate the original data</li>
+<li>create new - derived - data from the original data</li>
+</ul>
+<h2>Data management without mutations</h2>
 <p>initial data:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> names = [<span class="hljs-string">'Alice'</span>, <span class="hljs-string">'Bob'</span>, <span class="hljs-string">'Charlie'</span>];
 </code></pre>
@@ -689,18 +636,139 @@
 <p><strong>no mutation</strong>: creates a new array (spread syntax)</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> newNames = [...names, <span class="hljs-string">'Dan'</span>];
 </code></pre>
-<h2>Data management without mutations: Objects</h2>
-<p>initial data:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> user = {
-  <span class="hljs-attr">name</span>: <span class="hljs-string">'john'</span>
-  <span class="hljs-attr">email</span>: <span class="hljs-string">'john@doe.com'</span>
-}
+<h2>Data management without mutations</h2>
+<p>topics:</p>
+<ul>
+<li>adding properties to an object</li>
+<li>changing individual properties of an object</li>
+<li>adding elements to an array</li>
+<li>changing elements in an array</li>
+<li>removing elements from an array</li>
+</ul>
+<h2>Data management without mutations</h2>
+<p>mechanisms:</p>
+<ul>
+<li>spread syntax (<code>...</code>)</li>
+<li>special array methods (<code>.map</code>, <code>.filter</code>)</li>
+</ul>
+<h2>Data management without mutations</h2>
+<p>spread syntax for arrays:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> numbers = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
+<span class="hljs-keyword">const</span> moreNumbers = [...numbers, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>];
+<span class="hljs-comment">// moreNumbers: [1, 2, 3, 4, 5, 6]</span>
 </code></pre>
-<p><strong>mutation</strong>: this modifies the object</p>
-<pre><code class="hljs language-js">user.email = <span class="hljs-string">'johndoe@gmail.com'</span>;
+<h2>Data management without mutations</h2>
+<p>spread syntax for objects:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> person = {
+  <span class="hljs-attr">firstName</span>: <span class="hljs-string">'Joe'</span>,
+  <span class="hljs-attr">lastName</span>: <span class="hljs-string">'Doe'</span>,
+  <span class="hljs-attr">age</span>: <span class="hljs-number">31</span>,
+};
+<span class="hljs-keyword">const</span> newPerson = { ...person, <span class="hljs-attr">email</span>: <span class="hljs-string">'j@d.com'</span>, <span class="hljs-attr">age</span>: <span class="hljs-number">32</span> };
+<span class="hljs-comment">// {firstName: 'Joe', lastName: 'Doe', email: 'j@d.com', age: 32}</span>
 </code></pre>
-<p><strong>no mutation</strong>: creates a new object (spread syntax)</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> newUser = { ...user, <span class="hljs-attr">email</span>: <span class="hljs-string">'johndoe@gmail.com'</span> };
+<h2>Data management without mutations</h2>
+<p>the <code>.map</code> method:</p>
+<ul>
+<li>derives a new value for each entry in an array</li>
+<li>returns a new array with those values</li>
+</ul>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> myNumbers = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>];
+
+<span class="hljs-keyword">const</span> tripledNumbers = myNumbers.map(<span class="hljs-function">(<span class="hljs-params">n</span>) =></span> <span class="hljs-number">3</span> * n);
+<span class="hljs-comment">// [3, 6, 9, 12]</span>
+</code></pre>
+<h2>Data management without mutations</h2>
+<p>the <code>.filter</code> method:</p>
+<ul>
+<li>creates a new array where only specific entries are kept in</li>
+<li>uses a function to specify the condition</li>
+<li>returns a new array</li>
+</ul>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> myNumbers = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>];
+
+<span class="hljs-keyword">const</span> isEven = <span class="hljs-function">(<span class="hljs-params">n</span>) =></span> n % <span class="hljs-number">2</span> === <span class="hljs-number">0</span>;
+
+<span class="hljs-keyword">const</span> evenNumbers = myNumbers.filter(isEven);
+<span class="hljs-comment">// [2, 4]</span>
+</code></pre>
+<h2>Data management without mutations</h2>
+<p>mechanisms:</p>
+<ul>
+<li>adding properties to a an object: <em>spread syntax</em></li>
+<li>changing individual properties of an object: <em>spread syntax</em></li>
+<li>adding elements to an array: <em>spread syntax</em></li>
+<li>changing elements in an array: <em>map</em></li>
+<li>removing elements from an array: <em>filter</em></li>
+</ul>
+<h2>Exercises</h2>
+<p>exercise: create the following <em>pure</em> functions that handle a todo item (an object):</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> todo1 = { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'foo'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> };
+
+<span class="hljs-keyword">const</span> todo2 = withCompletedToggled(todo1);
+<span class="hljs-comment">// { id: 1, title: 'foo', completed: true }</span>
+
+<span class="hljs-keyword">const</span> todo3 = withTitleChanged(todo2, <span class="hljs-string">'bar'</span>);
+<span class="hljs-comment">// { id: 1, title: 'bar', completed: true}</span>
+</code></pre>
+<h2>Exercises</h2>
+<p>solutions:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> withCompletedToggled = <span class="hljs-function">(<span class="hljs-params">todo</span>) =></span> ({
+  ...todo,
+  <span class="hljs-attr">completed</span>: !todo.completed,
+});
+</code></pre>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> withTitleChanged = <span class="hljs-function">(<span class="hljs-params">todo, newTitle</span>) =></span> ({
+  ...todo,
+  <span class="hljs-attr">title</span>: newTitle,
+});
+</code></pre>
+<h2>Exercises</h2>
+<p>exercise: create the following <em>pure</em> functions that handle an array of todos</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> todos1 = [
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'foo'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'bar'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">true</span> },
+];
+
+<span class="hljs-keyword">const</span> todos2 = withNewTodoAdded(todos1, <span class="hljs-string">'baz'</span>);
+<span class="hljs-keyword">const</span> todos3 = withTodoToggled(todos2, <span class="hljs-number">1</span>);
+<span class="hljs-keyword">const</span> todos4 = withCompletedTodosRemoved(todos3);
+<span class="hljs-built_in">console</span>.log(todos4);
+
+<span class="hljs-comment">// [{ id: 3, title: 'baz', completed: false }]</span>
+</code></pre>
+<h2>Exercises</h2>
+<p>solution 1:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> withNewTodoAdded = <span class="hljs-function">(<span class="hljs-params">todos, newTitle</span>) =></span> {
+  <span class="hljs-keyword">let</span> maxId = <span class="hljs-number">0</span>;
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> todo <span class="hljs-keyword">of</span> todos) {
+    maxId = <span class="hljs-built_in">Math</span>.max(maxId, todo.id);
+  }
+  <span class="hljs-keyword">return</span> [
+    ...todos,
+    { <span class="hljs-attr">id</span>: maxId + <span class="hljs-number">1</span>, <span class="hljs-attr">title</span>: newTitle, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
+  ];
+};
+</code></pre>
+<h2>Exercises</h2>
+<p>solution 2:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> withTodoToggled = <span class="hljs-function">(<span class="hljs-params">todos, id</span>) =></span>
+  todos.map(<span class="hljs-function">(<span class="hljs-params">todo</span>) =></span>
+    todo.id === id
+      ? { ...todo, <span class="hljs-attr">completed</span>: !todo.completed }
+      : todo
+  );
+</code></pre>
+<p>or - with the help of <code>withCompletedToggled</code>:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> withTodoToggled = <span class="hljs-function">(<span class="hljs-params">todos, id</span>) =></span>
+  todos.map(<span class="hljs-function">(<span class="hljs-params">todo</span>) =></span>
+    todo.id === id ? withCompletedToggled(todo) : todo
+  );
+</code></pre>
+<h2>Exercises</h2>
+<p>solution 3:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> withCompletedTodosRemoved = <span class="hljs-function">(<span class="hljs-params">todos</span>) =></span>
+  todos.filter(<span class="hljs-function">(<span class="hljs-params">todo</span>) =></span> !todo.completed);
 </code></pre>
 <h1>JSX</h1>
 <h2>JSX</h2>
@@ -1789,6 +1857,7 @@ const ProgressBar = (props: Props) => {
   dependencies <span class="hljs-comment">// array of values to watch</span>
 );
 </code></pre>
+<p>The effect function will run after the component (re-)rendered if one of the dependencies has changed</p>
 <h2>Effect hook</h2>
 <p>may be used to perform <em>side effects</em> in components:</p>
 <ul>
@@ -1803,18 +1872,22 @@ const ProgressBar = (props: Props) => {
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [<span class="hljs-keyword">from</span>, setFrom] = useState(<span class="hljs-string">'USD'</span>);
 <span class="hljs-keyword">const</span> [to, setTo] = useState(<span class="hljs-string">'EUR'</span>);
 <span class="hljs-keyword">const</span> [rate, setRate] = (useState &#x3C; number) | (<span class="hljs-literal">null</span> > <span class="hljs-literal">null</span>);
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadExchangeRate</span>(<span class="hljs-params"></span>) </span>{
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadExchangeRate</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-comment">// ...</span>
 }
-useEffect(loadExchangeRate, [<span class="hljs-keyword">from</span>, to]);
+useEffect(<span class="hljs-function">() =></span> {
+  loadExchangeRate();
+}, [<span class="hljs-keyword">from</span>, to]);
 </code></pre>
 <h2>Effect hook</h2>
 <p>example: loading a set of todos when the component is first mounted:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadTodos</span>(<span class="hljs-params"></span>) </span>{
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadTodos</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-comment">// ...</span>
 }
-useEffect(loadTodos, []);
+useEffect(<span class="hljs-function">() =></span> {
+  loadTodos();
+}, []);
 </code></pre>
 <h1>Effect hook for querying APIs</h1>
 <h2>Effect hook for querying APIs</h2>
@@ -1825,13 +1898,14 @@ useEffect(loadTodos, []);
   <span class="hljs-keyword">const</span> [<span class="hljs-keyword">from</span>, setFrom] = useState(<span class="hljs-string">'USD'</span>);
   <span class="hljs-keyword">const</span> [to, setTo] = useState(<span class="hljs-string">'EUR'</span>);
   <span class="hljs-keyword">const</span> [rate, setRate] = useState(<span class="hljs-literal">null</span>);
-  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadExchangeRate</span>(<span class="hljs-params"></span>) </span>{
-    fetchExchangeRate(<span class="hljs-keyword">from</span>, to)
-      .then(<span class="hljs-function">(<span class="hljs-params">r</span>) =></span> setRate(r))
-      .catch(<span class="hljs-function">() =></span> setRate(<span class="hljs-literal">null</span>));
+  <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadExchangeRate</span>(<span class="hljs-params"></span>) </span>{
+    setRate(<span class="hljs-literal">null</span>);
+    <span class="hljs-keyword">const</span> rate = <span class="hljs-keyword">await</span> fetchExchangeRate(<span class="hljs-keyword">from</span>, to);
+    setRate(rate);
   }
-  useEffect(loadExchangeRate, [<span class="hljs-keyword">from</span>, to]);
-
+  useEffect(<span class="hljs-function">() =></span> {
+    loadExchangeRate();
+  }, [<span class="hljs-keyword">from</span>, to]);
   <span class="hljs-comment">// render two dropdowns for selecting currencies</span>
   <span class="hljs-comment">// and show the exchange rate</span>
 }
@@ -1843,7 +1917,7 @@ useEffect(loadTodos, []);
   to: <span class="hljs-built_in">string</span>
 </span>): <span class="hljs-title">Promise</span>&#x3C;<span class="hljs-title">number</span>> </span>{
   <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> fetch(
-    <span class="hljs-string">'https://api.exchangeratesapi.io/latest?base='</span> +
+    <span class="hljs-string">'https://https://api.exchangerate.host/latest?base='</span> +
       <span class="hljs-keyword">from</span>.toUpperCase() +
       <span class="hljs-string">'&#x26;symbols='</span> +
       to.toUpperCase()
@@ -1863,7 +1937,7 @@ async function fetchExchangeRate(
   to: string
 ): Promise&#x3C;number> {
   const res = await fetch(
-    'https://api.exchangeratesapi.io/latest?base=' +
+    'https://api.exchangerate.host/latest?base=' +
       from.toUpperCase() +
       '&#x26;symbols=' +
       to.toUpperCase()
@@ -1876,12 +1950,14 @@ function ExchangeRate() {
   const [from, setFrom] = useState('USD');
   const [to, setTo] = useState('EUR');
   const [rate, setRate] = useState&#x3C;number | null>(null);
-  function loadExchangeRate() {
-    fetchExchangeRate(from, to)
-      .then((r) => setRate(r))
-      .catch(() => setRate(null));
+  async function loadExchangeRate() {
+    setRate(null);
+    const rate = await fetchExchangeRate(from, to);
+    setRate(rate);
   }
-  useEffect(loadExchangeRate, [from, to]);
+  useEffect(() => {
+    loadExchangeRate();
+  }, [from, to]);
   return (
     &#x3C;div>
       &#x3C;select
@@ -1910,19 +1986,13 @@ export default ExchangeRate;
 <h2>Effect hook and async functions</h2>
 <p>note: the effect function <strong>must not be</strong> an async function</p>
 <p>The effect function should usually (implicitly) return <em>undefined</em>; an async function would always return a promise</p>
-<h2>Effect hook and async functions</h2>
-<p>correctly querying an API with async syntax:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
-<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadExchangeRate</span>(<span class="hljs-params"></span>) </span>{
-  setTodos(<span class="hljs-keyword">await</span> fetchTodos());
-}
-useEffect(
-  <span class="hljs-comment">// regular function that calls the async function:</span>
-  <span class="hljs-function">() =></span> {
-    loadExchangeRate();
-  },
-  []
-);
+<p>invalid:</p>
+<pre><code class="hljs language-js">useEffect(loadExchangeRate, [<span class="hljs-keyword">from</span>, to]);
+</code></pre>
+<p>valid:</p>
+<pre><code class="hljs language-js">useEffect(<span class="hljs-function">() =></span> {
+  loadExchangeRate();
+}, [<span class="hljs-keyword">from</span>, to]);
 </code></pre>
 <h2>Exercises</h2>
 <p>example APIs:</p>
@@ -1943,10 +2013,13 @@ useEffect(
 <pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">SpaceXLaunch</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">const</span> [launchNr, setLaunchNr] = useState(<span class="hljs-number">1</span>);
   <span class="hljs-keyword">const</span> [launchData, setLaunchData] = useState({});
-  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadLaunch</span>(<span class="hljs-params"></span>) </span>{
-    fetchLaunch(launchNr).then(setLaunchData);
+  <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadLaunch</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">const</span> data = <span class="hljs-keyword">await</span> fetchLaunch(launchNr);
+    setLaunchData(data);
   }
-  useEffect(loadLaunch, [launchNr]);
+  useEffect(<span class="hljs-function">() =></span> {
+    loadLaunch();
+  }, [launchNr]);
   <span class="hljs-keyword">return</span> (
     <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
       <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>{launchData.mission_name}<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
@@ -1971,10 +2044,13 @@ useEffect(
 <pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Pokemon</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">const</span> [id, setId] = useState(<span class="hljs-number">1</span>);
   <span class="hljs-keyword">const</span> [data, setData] = useState({});
-  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadPokemon</span>(<span class="hljs-params"></span>) </span>{
-    fetchPokemon(id).then(setData);
+  <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadPokemon</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">const</span> data = fetchPokemon(id);
+    setData(data);
   }
-  useEffect(loadPokemon, [id]);
+  useEffect(<span class="hljs-function">() =></span> {
+    loadPokemon();
+  }, [id]);
   <span class="hljs-keyword">return</span> (
     <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
       <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>{data.name}<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>

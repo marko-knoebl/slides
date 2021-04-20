@@ -207,24 +207,6 @@ const TodoItem = ({ title, completed }) => (
 );
 ```
 
-## Spread syntax (Arrays und Objekte)
-
-```js
-const squares = [1, 4, 9];
-const moreSquares = [...squares, 16, 25];
-// moreSquares: [1, 4, 9, 16, 25]
-```
-
-```js
-const person = {
-  firstName: 'Joe',
-  lastName: 'Doe',
-  age: 31,
-};
-const newPerson = { ...person, email: 'j@d.com', age: 32 };
-// {firstName: 'Joe', lastName: 'Doe', email: 'j@d.com', age: 32}
-```
-
 ## Optional Chaining
 
 Beispiel für _optional chaining_:
@@ -250,34 +232,3 @@ props.onClick?.();
 ```
 
 wenn `props.onClick` definiert ist, wird es aufgerufen, andernfalls wird der Ausdruck zu `undefined` ausgewertet
-
-## Map und filter
-
-Array-Methoden für die funktionale Programmierung
-
-## Map
-
-- Ändert jeden Eintrag eines Arrays mit Hilfe einer Funktion ab
-- Rückgabewert: neues Array
-
-```js
-const myNumbers = [1, 2, 3];
-
-const newNumbers = myNumbers.map((n) => 3 * n);
-// [3, 6, 9]
-```
-
-## filter
-
-- Behält nur gewisse Einträge in einem Array
-- Nutzt eine Funktion, um Einträge auf ein bestimmtes Kriterium zu testen
-- Rückgabewert: neues Array
-
-```js
-const myNumbers = [1, 2, 3, 4];
-
-const isEven = (n) => n % 2 === 0;
-
-const evenNumbers = myNumbers.filter(isEven);
-// [2, 4]
-```

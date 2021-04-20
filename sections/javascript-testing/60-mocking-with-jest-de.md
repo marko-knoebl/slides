@@ -22,7 +22,7 @@ jest.mock('axios', () => ({
 
 ## Mocking von Modulen
 
-Mocking von Modulen via \_\_mocks\_\_ folders:
+Mocking von Modulen via \_\_mocks\_\_ Ordnern:
 
 ```txt
 __mocks__/fs.js

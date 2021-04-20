@@ -169,6 +169,26 @@ const now: Time = [10, 45, 0];
 
 _Interfaces_ könnten eine Alternative für Type Aliases darstellen - Sie können in ähnlichen Szenarien angewendet werden, haben aber eine andere Syntax
 
+## Type Aliases exportieren
+
+```ts
+export type Todo = {
+  title: string;
+  completed: boolean;
+};
+```
+
+oder
+
+```ts
+type Todo = {
+  title: string;
+  completed: boolean;
+};
+
+export type { Todo };
+```
+
 # Funktionssignaturen und Funktionstypen
 
 ## Funktionssignaturen
@@ -297,8 +317,6 @@ type TodoAction =
   | DeleteTodoAction
   | ToggleTodoAction;
 ```
-
-<!-- closely realated content in presentations typescript and react-->
 
 # Type-Aliases und Interfaces
 

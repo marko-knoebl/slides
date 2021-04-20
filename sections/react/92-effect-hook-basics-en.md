@@ -11,6 +11,8 @@ useEffect(
 );
 ```
 
+The effect function will run after the component (re-)rendered if one of the dependencies has changed
+
 ## Effect hook
 
 may be used to perform _side effects_ in components:
@@ -29,10 +31,12 @@ example: loading exchange rates when the component is first mounted and whenever
 const [from, setFrom] = useState('USD');
 const [to, setTo] = useState('EUR');
 const [rate, setRate] = (useState < number) | (null > null);
-function loadExchangeRate() {
+async function loadExchangeRate() {
   // ...
 }
-useEffect(loadExchangeRate, [from, to]);
+useEffect(() => {
+  loadExchangeRate();
+}, [from, to]);
 ```
 
 ## Effect hook
@@ -41,8 +45,10 @@ example: loading a set of todos when the component is first mounted:
 
 ```js
 const [todos, setTodos] = useState([]);
-function loadTodos() {
+async function loadTodos() {
   // ...
 }
-useEffect(loadTodos, []);
+useEffect(() => {
+  loadTodos();
+}, []);
 ```

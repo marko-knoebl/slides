@@ -356,6 +356,12 @@ important methods:
 
 [complete API](https://github.com/puppeteer/puppeteer/blob/main/docs/api.md)
 
+## Exercise
+
+Write tests for the todo app at:
+
+<https://do49e.csb.app/>
+
 # Mocking with jest
 
 ## Mocking built-ins

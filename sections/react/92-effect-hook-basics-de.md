@@ -11,6 +11,8 @@ useEffect(
 );
 ```
 
+Die Effekt-Funktion nach dem (Re-)Rendering einer Komponente ausgeführt, falls sich eine der Abhängigkeiten geändert hat
+
 ## Effect Hook
 
 kann verwendet werden, um _side effects_ auszulösen:
@@ -29,10 +31,12 @@ Beispiel: Laden von Umrechnungskursen, wenn die Komponente zum ersten Mal eingeb
 const [from, setFrom] = useState('USD');
 const [to, setTo] = useState('EUR');
 const [rate, setRate] = useState<number | null>(null);
-function loadExchangeRate() {
+async function loadExchangeRate() {
   // ...
 }
-useEffect(loadExchangeRate, [from, to]);
+useEffect(() => {
+  loadExchangeRate();
+}, [from, to]);
 ```
 
 ## Effect Hook
@@ -41,8 +45,10 @@ Beispiel: Laden von Todos, wenn die Komponente zum ersten Mal eingebunden wird:
 
 ```js
 const [todos, setTodos] = useState([]);
-function loadTodos() {
+async function loadTodos() {
   // ...
 }
-useEffect(loadTodos, []);
+useEffect(() => {
+  loadTodos();
+}, []);
 ```

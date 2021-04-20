@@ -13,13 +13,14 @@ function ExchangeRate() {
   const [from, setFrom] = useState('USD');
   const [to, setTo] = useState('EUR');
   const [rate, setRate] = useState(null);
-  function loadExchangeRate() {
-    fetchExchangeRate(from, to)
-      .then((r) => setRate(r))
-      .catch(() => setRate(null));
+  async function loadExchangeRate() {
+    setRate(null);
+    const rate = await fetchExchangeRate(from, to);
+    setRate(rate);
   }
-  useEffect(loadExchangeRate, [from, to]);
-
+  useEffect(() => {
+    loadExchangeRate();
+  }, [from, to]);
   // render two dropdowns for selecting currencies
   // and show the exchange rate
 }
@@ -35,7 +36,7 @@ async function fetchExchangeRate(
   to: string
 ): Promise<number> {
   const res = await fetch(
-    'https://api.exchangeratesapi.io/latest?base=' +
+    'https://https://api.exchangerate.host/latest?base=' +
       from.toUpperCase() +
       '&symbols=' +
       to.toUpperCase()
@@ -59,7 +60,7 @@ async function fetchExchangeRate(
   to: string
 ): Promise<number> {
   const res = await fetch(
-    'https://api.exchangeratesapi.io/latest?base=' +
+    'https://api.exchangerate.host/latest?base=' +
       from.toUpperCase() +
       '&symbols=' +
       to.toUpperCase()
@@ -72,12 +73,14 @@ function ExchangeRate() {
   const [from, setFrom] = useState('USD');
   const [to, setTo] = useState('EUR');
   const [rate, setRate] = useState<number | null>(null);
-  function loadExchangeRate() {
-    fetchExchangeRate(from, to)
-      .then((r) => setRate(r))
-      .catch(() => setRate(null));
+  async function loadExchangeRate() {
+    setRate(null);
+    const rate = await fetchExchangeRate(from, to);
+    setRate(rate);
   }
-  useEffect(loadExchangeRate, [from, to]);
+  useEffect(() => {
+    loadExchangeRate();
+  }, [from, to]);
   return (
     <div>
       <select
@@ -110,22 +113,18 @@ note: the effect function **must not be** an async function
 
 The effect function should usually (implicitly) return _undefined_; an async function would always return a promise
 
-## Effect hook and async functions
-
-correctly querying an API with async syntax:
+invalid:
 
 ```js
-const [todos, setTodos] = useState([]);
-async function loadExchangeRate() {
-  setTodos(await fetchTodos());
-}
-useEffect(
-  // regular function that calls the async function:
-  () => {
-    loadExchangeRate();
-  },
-  []
-);
+useEffect(loadExchangeRate, [from, to]);
+```
+
+valid:
+
+```js
+useEffect(() => {
+  loadExchangeRate();
+}, [from, to]);
 ```
 
 ## Exercises
@@ -150,10 +149,13 @@ example APIs:
 function SpaceXLaunch() {
   const [launchNr, setLaunchNr] = useState(1);
   const [launchData, setLaunchData] = useState({});
-  function loadLaunch() {
-    fetchLaunch(launchNr).then(setLaunchData);
+  async function loadLaunch() {
+    const data = await fetchLaunch(launchNr);
+    setLaunchData(data);
   }
-  useEffect(loadLaunch, [launchNr]);
+  useEffect(() => {
+    loadLaunch();
+  }, [launchNr]);
   return (
     <div>
       <h1>{launchData.mission_name}</h1>
@@ -181,10 +183,13 @@ async function fetchLaunch(launchNr) {
 function Pokemon() {
   const [id, setId] = useState(1);
   const [data, setData] = useState({});
-  function loadPokemon() {
-    fetchPokemon(id).then(setData);
+  async function loadPokemon() {
+    const data = fetchPokemon(id);
+    setData(data);
   }
-  useEffect(loadPokemon, [id]);
+  useEffect(() => {
+    loadPokemon();
+  }, [id]);
   return (
     <div>
       <h1>{data.name}</h1>

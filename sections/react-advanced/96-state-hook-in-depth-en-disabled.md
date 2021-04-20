@@ -1,35 +1,93 @@
 # State hook in depth
 
-## State hook: repeated setter calls
+## Outdated state
 
-Advice: In an event handler a state setter should only be called once
+sometimes the variables returned from the state hook may reference outdated values
 
-Example: if count was 0, the following code would set it to 1, then set it to -1:
+## Outdated state
 
-```js
-setCount(count + 1);
-setCount(count - 1);
-```
-
-## State hook: repeated setter calls
-
-If you do want to call the setter multiple times and one call depends on the modifications of the previous call: Pass in a _state update function_ which will be used to _queue_ state updates
-
-Example: if count was 0, the following code would set it to 1, then set it to 0:
+example:
 
 ```js
-setCount((count) => count + 1);
-setCount((count) => count - 1);
+const [count, setCount] = useState(0);
+
+function increment() {
+  setCount(count + 1);
+}
+function incrementTwice() {
+  setCount(count + 1);
+  setCount(count + 1);
+}
+function incrementWithDelay() {
+  setTimeout(increment, 3000);
+}
 ```
+
+`incrementTwice` and `incrementWithDelay` will have some unexpected behavior
+
+## Outdated state
+
+solution:
+
+```js
+setCount((c) => c + 1);
+```
+
+instead of directly passing the new state, we pass a state updater function - it will be used to _queue_ state updates
+
+## Outdated state
+
+note: the previous solution is useful when a single state entry should be updated based on its current value
+
+scenarios where this approach is not useful:
+
+- asynchronously updating a state entry based on the current value of other state entries
+- reading the current value to trigger a "side effect" (e.g. network request, logging, ...)
+
+## Outdated state: closure
+
+```js
+function App() {
+  const [name, setName] = useState('');
+
+  // the variables _name_, _log_, _startLogging_, ...
+  // are recreated whenever the component function runs
+  // however, the started interval keeps a reference to an
+  // old version of _log_ (and _name_) which gets called
+  const log = () => console.log(name);
+  const startLogging = () => setInterval(log, 1000);
+
+  return (
+    <div>
+      <input
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
+      <button onClick={startLogging}>start logging</button>
+    </div>
+  );
+}
+```
+
+## Outdated state: closure
+
+possible solutions:
+
+- use a class component instead of a function component
+- use a ref in addition to the state variable to access the most recent version of the state
+
+<small>see also: <a href="https://overreacted.io/making-setinterval-declarative-with-react-hooks/">Dan Abramov: Making setInterval Declarative with React Hooks</a></small>
 
 ## State hook: lazy initial state
 
-For the initial state, we can pass in a value _or_ an initializer function - an initializer function is useful if the initial state is expensive to compute as the initial state will not be recomputed on every subsequent render
+For the initial state, we can pass in a value _or_ an initializer function - an initializer function is useful if the initial state is expensive to compute
 
 ```js
 const DataGrid = (props) => {
   const initializeState = () =>
     createGrid(props.rows, props.cols);
   const [grid, setGrid] = useState(initializeState);
+
+  // ...
 };
 ```

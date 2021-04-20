@@ -140,3 +140,9 @@ wichtige Methoden:
 - `page.waitForNavigation()`
 
 [vollständiges API](https://github.com/puppeteer/puppeteer/blob/main/docs/api.md)
+
+## Übung
+
+schreibe Tests für die Todo-App unter:
+
+https://do49e.csb.app/
