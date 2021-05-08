@@ -83,8 +83,11 @@ By default the document body will be ass tall as its content
 If the body should take up the entire screen height:
 
 ```css
+html {
+  height: 100%;
+}
 body {
-  height: 100vh;
+  height: 100%;
 }
 ```
 

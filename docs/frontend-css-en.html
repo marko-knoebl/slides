@@ -2061,36 +2061,6 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   <body>
     <div class="reveal">
       <div class="slides slides"><section class="slides-section"><section class="slide"><h1>CSS</h1>
-</section><section class="slide"><h2>Slides</h2>
-<p><a href="https://marko-knoebl.github.io/slides/">https://marko-knoebl.github.io/slides/</a></p>
-</section><section class="slide"><h2>Your Trainer</h2>
-<p>Marko Knöbl</p>
-<ul>
-<li>based in Vienna</li>
-<li>former math teacher</li>
-<li>programming topics:
-<ul>
-<li>JavaScript, TypeScript and React</li>
-<li>Python, data science</li>
-</ul>
-</li>
-</ul>
-</section><section class="slide"><h2>Introduction of Participants</h2>
-<ul>
-<li>current projects</li>
-<li>prior knowledge</li>
-<li>expectations</li>
-</ul>
-</section><section class="slide"><h2>Organizational</h2>
-<ul>
-<li>duration</li>
-<li>breaks</li>
-<li>lunch</li>
-<li>materials</li>
-<li>questions, feedback?</li>
-</ul>
-</section><section class="slide"><h2>Code</h2>
-<p>Code available at: <a href="https://github.com/marko-knoebl/courses-code">https://github.com/marko-knoebl/courses-code</a></p>
 </section></section><section class="slides-section"><section class="slide"><h1>CSS</h1>
 </section><section class="slide"><h2>CSS</h2>
 <p>Style language of the web: defines layout and style of HTML pages</p>
@@ -2153,7 +2123,8 @@ e.g. <code>hsl(180, 60%, 70%)</code></li>
 </section><section class="slide"><h2>Font</h2>
 <pre><code class="hljs language-css"><span class="hljs-selector-tag">p</span> {
   <span class="hljs-attribute">font-family</span>: Arial, sans-serif;
-  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">14px</span>;
+  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">16px</span>;
+  <span class="hljs-attribute">line-height</span>: <span class="hljs-number">1.5</span>;
   <span class="hljs-attribute">font-style</span>: italic;
   <span class="hljs-attribute">font-weight</span>: bold;
   <span class="hljs-attribute">text-decoration</span>: underline;
@@ -2166,7 +2137,7 @@ e.g. <code>hsl(180, 60%, 70%)</code></li>
   <span class="hljs-attribute">font-family</span>: Arial, sans-serif;
 }
 </code></pre>
-<p>3 generic font families that are available in every browser:</p>
+<p>Three generic font families that are available in every browser:</p>
 <p><code>serif</code>, <code>sans-serif</code>, <code>monospace</code></p>
 </section><section class="slide"><h2>font-size</h2>
 <p>possible units:</p>
@@ -2176,6 +2147,10 @@ e.g. <code>hsl(180, 60%, 70%)</code></li>
 <li><code>em</code>: relative to the surrounding text</li>
 <li><code>rem</code>: relative to the font size of the <code>html</code> element</li>
 </ul>
+<p>common default font size in browsers: <code>16px</code></p>
+</section><section class="slide"><h2>line-height</h2>
+<p>common default line height in browsers: <code>1.2</code></p>
+<p>is often set to bigger values, e.g. <code>1.5</code></p>
 </section><section class="slide"><h2>font-style</h2>
 <p>only used for italic font</p>
 <pre><code class="hljs language-css"><span class="hljs-selector-tag">h1</span> {
@@ -2315,8 +2290,11 @@ e.g. on iPhone 4: 1px = two pixels on the screen (device pixel ratio = 2)</p>
 </section><section class="slide"><h2>Example: full height body</h2>
 <p>By default the document body will be ass tall as its content</p>
 <p>If the body should take up the entire screen height:</p>
-<pre><code class="hljs language-css"><span class="hljs-selector-tag">body</span> {
-  <span class="hljs-attribute">height</span>: <span class="hljs-number">100vh</span>;
+<pre><code class="hljs language-css"><span class="hljs-selector-tag">html</span> {
+  <span class="hljs-attribute">height</span>: <span class="hljs-number">100%</span>;
+}
+<span class="hljs-selector-tag">body</span> {
+  <span class="hljs-attribute">height</span>: <span class="hljs-number">100%</span>;
 }
 </code></pre>
 </section><section class="slide"><h2>Tables and cell borders</h2>
@@ -2342,6 +2320,99 @@ e.g. on iPhone 4: 1px = two pixels on the screen (device pixel ratio = 2)</p>
   <span class="hljs-attribute">height</span>: <span class="hljs-number">100vh</span>;
   <span class="hljs-attribute">overflow</span>: auto;
   <span class="hljs-attribute">background-color</span>: lightgrey;
+}
+</code></pre>
+</section><section class="slide"><h2>Overflow and the body element</h2>
+<p><em>special case</em>: the body element always behaves like <code>overflow: auto;</code></p>
+</section></section><section class="slides-section"><section class="slide"><h1>Verbreitete CSS Reset-Deklarationen</h1>
+</section><section class="slide"><h2>Box-sizing</h2>
+<pre><code class="hljs language-css">* {
+  <span class="hljs-attribute">box-sizing</span>: border-box;
+}
+</code></pre>
+</section><section class="slide"><h2>Body margin</h2>
+<p>Der Body margin (Standard: 8px) wird oft auf 0 gesetzt - z.B. damit eine Navigationsleiste ganz oben angezeigt werden kann</p>
+<pre><code class="hljs language-css"><span class="hljs-selector-tag">body</span> {
+  <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;
+}
+</code></pre>
+</section><section class="slide"><h2>Schriftart</h2>
+<p>Einfache Deklaration für serifenlose Schrift:</p>
+<pre><code class="hljs language-css"><span class="hljs-selector-tag">body</span> {
+  <span class="hljs-attribute">font-family</span>: sans-serif;
+}
+</code></pre>
+<p>Standard-Auswahl für serifenlose Schriften in Bootstrap / Reboot - beinhaltet native Schriftarten für verschiedene Plattformen:</p>
+<pre><code class="hljs language-css"><span class="hljs-selector-tag">body</span> {
+  <span class="hljs-attribute">font-family</span>: system-ui, -apple-system, <span class="hljs-string">'Segoe UI'</span>, Roboto,
+    <span class="hljs-string">'Helvetica Neue'</span>, Arial, <span class="hljs-string">'Noto Sans'</span>, <span class="hljs-string">'Liberation Sans'</span>,
+    sans-serif, <span class="hljs-string">'Apple Color Emoji'</span>, <span class="hljs-string">'Segoe UI Emoji'</span>, <span class="hljs-string">'Segoe UI Symbol'</span>,
+    <span class="hljs-string">'Noto Color Emoji'</span> !default;
+}
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>CSS styling examples</h1>
+</section><section class="slide"><h2>Body height</h2>
+<p>make the body cover the whole screen (e.g. for setting the background):</p>
+<pre><code class="hljs language-css"><span class="hljs-selector-tag">html</span> {
+  <span class="hljs-attribute">height</span>: <span class="hljs-number">100%</span>;
+}
+<span class="hljs-selector-tag">body</span> {
+  <span class="hljs-attribute">height</span>: <span class="hljs-number">100%</span>;
+  <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;
+}
+</code></pre>
+</section><section class="slide"><h2>Button</h2>
+<p>example styled button:</p>
+<pre><code class="hljs language-css"><span class="hljs-selector-tag">button</span> {
+  <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#0074d9</span>;
+  <span class="hljs-attribute">color</span>: <span class="hljs-number">#ffffff</span>;
+  <span class="hljs-attribute">padding</span>: <span class="hljs-number">0.5em</span> <span class="hljs-number">1em</span>;
+  <span class="hljs-attribute">border</span>: none;
+  <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">4px</span>;
+  <span class="hljs-attribute">cursor</span>: pointer;
+}
+</code></pre>
+</section><section class="slide"><h2>Containers</h2>
+<p>fluid container similar to that of <em>bootstrap</em>:</p>
+<pre><code class="hljs language-css"><span class="hljs-selector-class">.container-fluid</span> {
+  <span class="hljs-attribute">padding-left</span>: <span class="hljs-number">12px</span>;
+  <span class="hljs-attribute">padding-right</span>: <span class="hljs-number">12px</span>;
+}
+</code></pre>
+</section><section class="slide"><h2>Containers</h2>
+<p>container similar to that of <em>bootstrap</em>:</p>
+<pre><code class="hljs language-css"><span class="hljs-selector-class">.container</span> {
+  <span class="hljs-attribute">padding-left</span>: <span class="hljs-number">12px</span>;
+  <span class="hljs-attribute">padding-right</span>: <span class="hljs-number">12px</span>;
+  <span class="hljs-attribute">margin-left</span>: auto;
+  <span class="hljs-attribute">margin-right</span>: auto;
+}
+<span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">576px</span>) {
+  <span class="hljs-selector-class">.container</span> {
+    <span class="hljs-attribute">max-width</span>: <span class="hljs-number">540px</span>;
+  }
+}
+<span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">768px</span>) {
+  <span class="hljs-selector-class">.container</span> {
+    <span class="hljs-attribute">width</span>: <span class="hljs-number">720px</span>;
+  }
+}
+<span class="hljs-comment">/* ... (more media queries) ... */</span>
+</code></pre>
+</section><section class="slide"><h2>Containers</h2>
+<p>default viewport widths and container sizes in bootstrap:</p>
+<ul>
+<li>576px → 540px</li>
+<li>768px → 720px</li>
+<li>992px → 960px</li>
+<li>1200px → 1140px</li>
+<li>1400px → 1320px</li>
+</ul>
+</section><section class="slide"><h2>Grid</h2>
+<p>simple example from <em>Picnic CSS</em>:</p>
+<pre><code class="hljs language-css"><span class="hljs-selector-class">.flex</span> {
+  <span class="hljs-attribute">display</span>: flex;
+  <span class="hljs-attribute">flex-wrap</span>: wrap;
 }
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Flexbox</h1>

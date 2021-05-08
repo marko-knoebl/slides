@@ -27,3 +27,7 @@ body {
   background-color: lightgrey;
 }
 ```
+
+## Overflow und das body-Element
+
+_Sonderfall_: das body-Element verhält sich immer so, als ob `overflow: auto;` gesetzt wäre

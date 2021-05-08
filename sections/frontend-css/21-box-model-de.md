@@ -83,8 +83,11 @@ Standardmäßig: Body ist nur so groß wie dessen Inhalt
 Um Body immer die volle Seitenhöhe einnehmen zu lassen:
 
 ```css
+html {
+  height: 100%;
+}
 body {
-  height: 100vh;
+  height: 100%;
 }
 ```
 

@@ -5,7 +5,8 @@
 ```css
 p {
   font-family: Arial, sans-serif;
-  font-size: 14px;
+  font-size: 16px;
+  line-height: 1.5;
   font-style: italic;
   font-weight: bold;
   text-decoration: underline;
@@ -23,7 +24,7 @@ p {
 }
 ```
 
-3 allgemeine Schriftarten, die in jedem Browser vorhanden sind:
+Drei allgemeine Schriftarten, die in jedem Browser vorhanden sind:
 
 `serif`, `sans-serif`, `monospace`
 
@@ -35,6 +36,14 @@ mögliche Einheiten:
 - `%`: Prozent relativ zum umgebenden Text
 - `em`: relativ zum umgebenden Text
 - `rem`: relativ zur Schriftgröße des `html`-Elements
+
+übliche Standardgröße in Browsern: `16px`
+
+## line-height
+
+übliche Standardgröße in Browsern: `1.2`
+
+wird oft auf größere Werte gesetzt, z.B. `1.5`
 
 ## font-style
 

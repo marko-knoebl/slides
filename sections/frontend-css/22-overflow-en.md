@@ -27,3 +27,7 @@ body {
   background-color: lightgrey;
 }
 ```
+
+## Overflow and the body element
+
+_special case_: the body element always behaves like `overflow: auto;`

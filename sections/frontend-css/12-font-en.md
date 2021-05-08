@@ -5,7 +5,8 @@
 ```css
 p {
   font-family: Arial, sans-serif;
-  font-size: 14px;
+  font-size: 16px;
+  line-height: 1.5;
   font-style: italic;
   font-weight: bold;
   text-decoration: underline;
@@ -23,7 +24,7 @@ p {
 }
 ```
 
-3 generic font families that are available in every browser:
+Three generic font families that are available in every browser:
 
 `serif`, `sans-serif`, `monospace`
 
@@ -35,6 +36,14 @@ possible units:
 - `%`: percentage relative to the surrounding text
 - `em`: relative to the surrounding text
 - `rem`: relative to the font size of the `html` element
+
+common default font size in browsers: `16px`
+
+## line-height
+
+common default line height in browsers: `1.2`
+
+is often set to bigger values, e.g. `1.5`
 
 ## font-style
 
