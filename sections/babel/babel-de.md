@@ -63,7 +63,7 @@ grundlegende Verwendung von Babel:
 einzelne Datei kompilieren:
 
 ```bash
-npx babel input.js > output.js
+npx babel input.js -o output.js
 ```
 
 Inhalte eines Ordners kompilieren:
@@ -72,8 +72,24 @@ Inhalte eines Ordners kompilieren:
 npx babel src -d dist
 ```
 
+## Babel
+
 Ordnerinhalte beobachten, um automatisch neu zu kompilieren:
 
 ```bash
 npx babel src -d dist --watch
+```
+
+## Babel
+
+direktes Ausführen:
+
+npm-Pakget _@babel/node_
+
+```bash
+npx babel-node script.js
+```
+
+```bash
+npx babel-node script.tsx --extensions ".ts,.tsx"
 ```

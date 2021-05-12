@@ -72,8 +72,24 @@ compiling contents of a folder:
 npx babel src -d dist
 ```
 
+## Babel
+
 watching for file changes to recompile automatically:
 
 ```bash
 npx babel src -d dist --watch
+```
+
+## Babel
+
+executing directly:
+
+install npm package _@babel/node_
+
+```bash
+npx babel-node script.js
+```
+
+```bash
+npx babel-node script.tsx --extensions ".ts,.tsx"
 ```
