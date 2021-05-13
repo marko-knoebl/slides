@@ -5,7 +5,11 @@ import ReactMarkdown from "react-markdown";
 import { Collection } from "./Collection";
 import { Topic } from "./Topic";
 import { HtmlPage } from "./HtmlPage";
-import { COLLECTION_POSTFIX, COLLECTION_TOPICS_POSTFIX } from "./constants";
+import {
+  BASE_URL,
+  COLLECTION_POSTFIX,
+  COLLECTION_TOPICS_POSTFIX,
+} from "./constants";
 
 function buildCollectionPages(collection: Collection | Topic) {
   for (let lang of collection.languages) {
@@ -44,6 +48,9 @@ function buildCollectionPages(collection: Collection | Topic) {
   }
 }
 
+/**
+ * full collection page linking to subtopics
+ */
 function CollectionOverviewPage(props: {
   collection: Collection;
   lang: string;
@@ -66,6 +73,16 @@ function CollectionOverviewPage(props: {
           ) : null}
         </nav>
         <h1>{props.collection.titles[props.lang]}</h1>
+        {props.collection.parent ? (
+          <p>
+            parent topic:{" "}
+            <a
+              href={`${BASE_URL}/${props.collection.parent.relId}-${props.lang}.html`}
+            >
+              {props.collection.parent.titles[props.lang]}
+            </a>
+          </p>
+        ) : null}
         <ReactMarkdown>{extraContentAbove}</ReactMarkdown>
         <ul>
           {props.collection.children.map((child) => {
@@ -91,6 +108,10 @@ function CollectionOverviewPage(props: {
   );
 }
 
+/**
+ * collection page with a sidebar
+ * and presentation contents
+ */
 function CollectionPage(props: {
   collection: Collection | Topic;
   lang: string;
@@ -135,7 +156,9 @@ function CollectionPage(props: {
             <>
               <div>
                 parent topic:{" "}
-                <a href={`${props.collection.parent.relId}-${props.lang}.html`}>
+                <a
+                  href={`${BASE_URL}/${props.collection.parent.relId}-${props.lang}.html`}
+                >
                   {props.collection.parent.titles[props.lang]}
                 </a>
               </div>
@@ -193,7 +216,7 @@ function getNavEntryForTopicPage(element: Topic, lang: string) {
           .filter((child) => child.language === lang)
           .map((child, index) => {
             const title = child.getTitle();
-            const url = `${element.relId}-${lang}.html#/${index}`;
+            const url = `${BASE_URL}/${element.relId}-${lang}.html#/${index}`;
             return (
               <li key={child.relSrcUrl}>
                 <a href={url} target="content">

@@ -75,12 +75,21 @@ class Collection {
   /** available languages */
   languages: Array<string>;
 
-  constructor(srcUrl: string, srcBaseDir: string, distBaseDir: string) {
+  /** parent collection */
+  parent?: Collection;
+
+  constructor(
+    srcUrl: string,
+    srcBaseDir: string,
+    distBaseDir: string,
+    parent?: Collection
+  ) {
     srcUrl = upath.normalize(srcUrl);
     this.srcBaseDir = srcBaseDir;
     this.distBaseDir = distBaseDir;
     this.relSrcUrl = srcUrl.slice(this.srcBaseDir.length + 1);
     this.relId = getRelIdFromRelSrcUrl(this.relSrcUrl);
+    this.parent = parent;
   }
 
   load() {

@@ -20,7 +20,7 @@ function loadUrlContent(
     | TopicJsonfileConfig
     | CollectionJsonfileConfig;
   if (config.type === "collection") {
-    const collection = new Collection(url, srcBaseDir, distBaseDir);
+    const collection = new Collection(url, srcBaseDir, distBaseDir, parent);
     collection.load();
     return collection;
   } else if (config.type === "topic") {

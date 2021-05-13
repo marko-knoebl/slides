@@ -16,4 +16,11 @@ const COLLECTION_TOPICS_POSTFIX = "collection-topics";
 
 const PAGE_MARKER = "page";
 
-export { COLLECTION_POSTFIX, COLLECTION_TOPICS_POSTFIX, PAGE_MARKER };
+/**
+ * url where the deployment will be hosted
+ * - "docs" for local testing
+ * - "slides" for deployment on marko-knoebl.github.io/slides
+ */
+const BASE_URL = "/slides";
+
+export { BASE_URL, COLLECTION_POSTFIX, COLLECTION_TOPICS_POSTFIX, PAGE_MARKER };

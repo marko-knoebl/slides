@@ -93,7 +93,6 @@ class Topic {
         (fn) =>
           fn.endsWith(".md") && !new RegExp(`${PAGE_MARKER}-..\.md`).test(fn)
       );
-    const childUrls_ = fs.readdirSync(srcDir).filter((fn) => fn.endsWith(".md"));
     childUrls.sort();
     this.childUrls = childUrls;
     this.children = this.childUrls.map((url) => {
@@ -134,10 +133,12 @@ class Topic {
         this.srcBaseDir
       );
 
-      fs.writeFileSync(
-        `${this.distBaseDir}/${this.relId}-${lang}.html`,
-        presentation.htmlPresentationString
-      );
+      const url = `${this.distBaseDir}/${this.relId}-${lang}.html`;
+      var dirname = path.dirname(url);
+      if (!fs.existsSync(dirname)) {
+        fs.mkdirSync(dirname);
+      }
+      fs.writeFileSync(url, presentation.htmlPresentationString);
     }
   }
 }
