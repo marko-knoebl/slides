@@ -2,10 +2,6 @@
 
 ## Netzwerkanfragen in JavaScript
 
-Siehe auch: [Promises, fetch und axios](./javascript-promises-fetch-and-axios-de.html)
-
-## Netzwerkanfragen in JavaScript
-
 asynchrone Funktion, die Todos von einem API lädt:
 
 ```js

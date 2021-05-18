@@ -2079,8 +2079,6 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Network requests in JavaScript</h1>
 </section><section class="slide"><h2>Network requests in JavaScript</h2>
-<p>see also: <a href="./javascript-promises-fetch-and-axios-en.html">Promises, fetch and axios</a></p>
-</section><section class="slide"><h2>Network requests in JavaScript</h2>
 <p>asynchronous function that fetches todos from an API:</p>
 <pre><code class="hljs language-js"><span class="hljs-comment">// todosApi.js</span>
 <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetchTodos</span>(<span class="hljs-params"></span>) </span>{
@@ -2101,30 +2099,6 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <pre><code class="hljs language-jsx">&#x3C;button onClick={loadTodosAsync}>
   load todos <span class="hljs-keyword">from</span> API
 &#x3C;/button>
-</code></pre>
-</section><section class="slide"><h2>Network requests in JavaScript</h2>
-<p>loading todos - with <code>.then</code>:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadTodos</span>(<span class="hljs-params"></span>) </span>{
-  fetchTodos().then(<span class="hljs-function">(<span class="hljs-params">todos</span>) =></span> {
-    setTodos(todos);
-  });
-}
-</code></pre>
-<pre><code class="hljs language-jsx">&#x3C;button onClick={loadTodos}>fetch todos <span class="hljs-keyword">from</span> API&#x3C;/button>
-</code></pre>
-</section><section class="slide"><h2>Return values</h2>
-<p>note:</p>
-<ul>
-<li><code>loadTodos</code> (implicitly) returns <code>undefined</code></li>
-<li><code>loadTodosAsync</code> returns a <em>promise</em> that resolves to <code>undefined</code></li>
-</ul>
-<p>this difference will be important later</p>
-</section><section class="slide"><h2>Return values</h2>
-<p>We can create a regular <code>loadTodos</code> function based on <code>loadTodosAsync</code>:</p>
-<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadTodos</span>(<span class="hljs-params"></span>) </span>{
-  loadTodosAsync();
-}
 </code></pre>
 </section><section class="slide"><h2>Loading indicators</h2>
 <p>code for adding a loading indicator:</p>
@@ -2157,9 +2131,9 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </ul>
 </section><section class="slide"><h2>Effect hook</h2>
 <p>example: loading exchange rates when the component is first mounted and whenever a currency changes:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [<span class="hljs-keyword">from</span>, setFrom] = useState(<span class="hljs-string">'USD'</span>);
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> [<span class="hljs-keyword">from</span>, setFrom] = useState(<span class="hljs-string">'USD'</span>);
 <span class="hljs-keyword">const</span> [to, setTo] = useState(<span class="hljs-string">'EUR'</span>);
-<span class="hljs-keyword">const</span> [rate, setRate] = (useState &#x3C; number) | (<span class="hljs-literal">null</span> > <span class="hljs-literal">null</span>);
+<span class="hljs-keyword">const</span> [rate, setRate] = useState&#x3C;<span class="hljs-built_in">number</span> | <span class="hljs-literal">null</span>>(<span class="hljs-literal">null</span>);
 <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadExchangeRate</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-comment">// ...</span>
 }

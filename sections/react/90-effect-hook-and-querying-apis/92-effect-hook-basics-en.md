@@ -27,10 +27,10 @@ may be used to perform _side effects_ in components:
 
 example: loading exchange rates when the component is first mounted and whenever a currency changes:
 
-```js
+```ts
 const [from, setFrom] = useState('USD');
 const [to, setTo] = useState('EUR');
-const [rate, setRate] = (useState < number) | (null > null);
+const [rate, setRate] = useState<number | null>(null);
 async function loadExchangeRate() {
   // ...
 }
