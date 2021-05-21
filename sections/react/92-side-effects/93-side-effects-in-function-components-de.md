@@ -1,4 +1,4 @@
-# Effect Hook Grundlagen
+# Side Effects in Funktionskomponenten
 
 ## Effect Hook
 
@@ -12,16 +12,6 @@ useEffect(
 ```
 
 Die Effekt-Funktion nach dem (Re-)Rendering einer Komponente ausgeführt, falls sich eine der Abhängigkeiten geändert hat
-
-## Effect Hook
-
-kann verwendet werden, um _side effects_ auszulösen:
-
-- Ausösen von API-Anfragen
-- Laden von / Speichern in _localStorage_ / _indexeddb_
-- explizite Änderungen am DOM (zusammen mit _refs_)
-- Starten von Timern
-- ...
 
 ## Effect Hook
 

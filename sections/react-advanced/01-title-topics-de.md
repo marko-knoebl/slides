@@ -2,7 +2,6 @@
 
 ## Themen
 
-- Routing
 - Context
 - effect Hook im Detail
 - externe Hooks und eigene Hooks

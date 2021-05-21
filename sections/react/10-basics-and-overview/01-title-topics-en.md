@@ -18,3 +18,5 @@
 - React and TypeScript
 - Components
 - Querying APIs
+- Side effects
+- React Router

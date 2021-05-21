@@ -2060,331 +2060,149 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   </head>
   <body>
     <div class="reveal">
-      <div class="slides slides"><section class="slides-section"><section class="slide"><h1>Effect hook und API-Abfragen</h1>
-</section><section class="slide"><h2>Themen</h2>
+      <div class="slides slides"><section class="slides-section"><section class="slide"><h1>React Router</h1>
+</section><section class="slide"><h2>Client-side routing</h2>
+<p><strong>client-side routing</strong>: navigating between views without leaving the React app</p>
+</section><section class="slide"><h2>Client side routing</h2>
+<p>options:</p>
+<p>hash-based client-side routing, e.g.:</p>
 <ul>
-<li>Netzwerkanfragen in JavaScript
+<li><code>example.com/#/home</code></li>
+<li><code>example.com/#/shop/cart</code></li>
+</ul>
+<p>client-side routing based on on the <em>history API</em>, e.g.:</p>
 <ul>
-<li>fetch mit <code>await</code></li>
-<li>fetch mit <code>.then</code></li>
+<li><code>example.com/home</code></li>
+<li><code>example.com/shop/cart</code></li>
 </ul>
-</li>
-<li>Side-Effects
+<p>for the second method, the server needs additional configuration</p>
+</section><section class="slide"><h2>Versions and Installation</h2>
+<p>React router 6 beta is available since June 2020, but development has been slow since then</p>
+<p>packages for react router 6 (include TypeScript support):</p>
 <ul>
-<li>Auslösen von API-Anfragen</li>
-<li>Laden aus / Speichern in <em>localStorage</em> / <em>indexeddb</em></li>
-<li>...</li>
+<li><em>react-router-dom@next</em></li>
+<li><em>history</em></li>
 </ul>
-</li>
-</ul>
-</section></section><section class="slides-section"><section class="slide"><h1>Netzwerkanfragen in JavaScript</h1>
-</section><section class="slide"><h2>Netzwerkanfragen in JavaScript</h2>
-<p>asynchrone Funktion, die Todos von einem API lädt:</p>
-<pre><code class="hljs language-js"><span class="hljs-comment">// todosApi.js</span>
-<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetchTodos</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">const</span> url = <span class="hljs-string">'https://jsonplaceholder.typicode.com/todos'</span>;
-  <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> fetch(url);
-  <span class="hljs-keyword">const</span> todos = <span class="hljs-keyword">await</span> res.json();
-  <span class="hljs-keyword">return</span> todos;
-}
-</code></pre>
-</section><section class="slide"><h2>Netzwerkanfragen in JavaScript</h2>
-<p>Laden von Todos in einer React-Komponente - mittels <code>await</code>:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
-<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadTodosAsync</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">const</span> todos = <span class="hljs-keyword">await</span> fetchTodos();
-  setTodos(todos);
-}
-</code></pre>
-<pre><code class="hljs language-jsx">&#x3C;button onClick={loadTodosAsync}>
-  load todos <span class="hljs-keyword">from</span> API
-&#x3C;/button>
-</code></pre>
-</section><section class="slide"><h2>Netzwerkanfragen in JavaScript</h2>
-<p>Laden von Todos - mittels <code>.then</code>:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadTodos</span>(<span class="hljs-params"></span>) </span>{
-  fetchTodos().then(<span class="hljs-function">(<span class="hljs-params">todos</span>) =></span> {
-    setTodos(todos);
-  });
-}
-</code></pre>
-<pre><code class="hljs language-jsx">&#x3C;button onClick={loadTodos}>fetch todos <span class="hljs-keyword">from</span> API&#x3C;/button>
-</code></pre>
-</section><section class="slide"><h2>Rückgabewerte</h2>
-<p>Bemerkung:</p>
+<p>packages for react router 5:</p>
 <ul>
-<li><code>loadTodos</code> gibt (implizit) <code>undefined</code> zurück</li>
-<li><code>loadTodosAsync</code> gibt ein <em>promise</em> zurück, das wiederum zu <code>undefined</code> aufgelöst wird</li>
+<li><em>react-router-dom</em></li>
+<li><em>@types/react-router-dom</em></li>
 </ul>
-<p>dieser Unterschied wird später wichtig sein</p>
-</section><section class="slide"><h2>Rückgabewerte</h2>
-<p>Wir können eine "normale" <code>loadTodos</code>-Funktion aus <code>loadTodosAsync</code> erstellen:</p>
-<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadTodos</span>(<span class="hljs-params"></span>) </span>{
-  loadTodosAsync();
-}
-</code></pre>
-</section><section class="slide"><h2>Ladeindikator</h2>
-<p>Code für das Hinzufügen eines Ladeindikators:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
-<span class="hljs-keyword">const</span> [isLoading, setIsLoading] = useState(<span class="hljs-literal">false</span>);
-<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadTodosAsync</span>(<span class="hljs-params"></span>) </span>{
-  setIsLoading(<span class="hljs-literal">true</span>);
-  <span class="hljs-keyword">const</span> todos = <span class="hljs-keyword">await</span> fetchTodos();
-  setTodos(todos);
-  setIsLoading(<span class="hljs-literal">false</span>);
-}
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Effect Hook Grundlagen</h1>
-</section><section class="slide"><h2>Effect Hook</h2>
-<p>Der <em>Effect Hook</em> kann verwendet werden, um Aktionen zu setzen, wenn eine Komponente zum ersten Mal eingebunden wird, oder wenn sich deren Props / State geändert haben</p>
-<pre><code class="hljs language-js">useEffect(
-  effect, <span class="hljs-comment">// what should happen</span>
-  dependencies <span class="hljs-comment">// array of values to watch</span>
+</section><section class="slide"><h2>Setup</h2>
+<p>the entire application is enclosed in a <code>BrowserRouter</code> element:</p>
+<pre><code class="hljs language-js"><span class="hljs-comment">// index.js</span>
+
+<span class="hljs-keyword">import</span> { BrowserRouter } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router-dom'</span>;
+
+ReactDOM.render(
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">React.StrictMode</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">BrowserRouter</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">App</span> /></span>
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">BrowserRouter</span>></span>
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">React.StrictMode</span>></span></span>,
+  rootElement
 );
 </code></pre>
-<p>Die Effekt-Funktion nach dem (Re-)Rendering einer Komponente ausgeführt, falls sich eine der Abhängigkeiten geändert hat</p>
-</section><section class="slide"><h2>Effect Hook</h2>
-<p>kann verwendet werden, um <em>side effects</em> auszulösen:</p>
+</section><section class="slide"><h2>Basic router components (v6)</h2>
 <ul>
-<li>Ausösen von API-Anfragen</li>
-<li>Laden von / Speichern in <em>localStorage</em> / <em>indexeddb</em></li>
-<li>explizite Änderungen am DOM (zusammen mit <em>refs</em>)</li>
-<li>Starten von Timern</li>
-<li>...</li>
+<li><code>&#x3C;Route></code> - a component that renders its content when active</li>
+<li><code>&#x3C;Routes></code> - a container for <code>&#x3C;Route></code> elements</li>
+<li><code>&#x3C;Link></code> / <code>&#x3C;NavLink></code> - are used in place of <code>&#x3C;a></code> elements</li>
 </ul>
-</section><section class="slide"><h2>Effect Hook</h2>
-<p>Beispiel: Laden von Umrechnungskursen, wenn die Komponente zum ersten Mal eingebunden wird oder wenn sich eine Währung ändert:</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> [<span class="hljs-keyword">from</span>, setFrom] = useState(<span class="hljs-string">'USD'</span>);
-<span class="hljs-keyword">const</span> [to, setTo] = useState(<span class="hljs-string">'EUR'</span>);
-<span class="hljs-keyword">const</span> [rate, setRate] = useState&#x3C;<span class="hljs-built_in">number</span> | <span class="hljs-literal">null</span>>(<span class="hljs-literal">null</span>);
-<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadExchangeRate</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-comment">// ...</span>
-}
-useEffect(<span class="hljs-function">() =></span> {
-  loadExchangeRate();
-}, [<span class="hljs-keyword">from</span>, to]);
-</code></pre>
-</section><section class="slide"><h2>Effect Hook</h2>
-<p>Beispiel: Laden von Todos, wenn die Komponente zum ersten Mal eingebunden wird:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
-<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadTodos</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-comment">// ...</span>
-}
-useEffect(<span class="hljs-function">() =></span> {
-  loadTodos();
-}, []);
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Effect Hook zum Abfragen von APIs</h1>
-</section><section class="slide"><h2>Effect Hook zum Abfragen von APIs</h2>
-<p>Oft müssen API-Daten abgefragt werden, wenn eine Komponente zum ersten Mal eingebunden wurde, oder wenn sich props bzw state geändert haben</p>
-</section><section class="slide"><h2>Beispiel: Laden von Wechselkursen</h2>
-<p>Beispiel: Laden von Wechselkursen von einem API, wenn sich die ausgewählten Währungen ändern:</p>
-<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ExchangeRate</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">const</span> [<span class="hljs-keyword">from</span>, setFrom] = useState(<span class="hljs-string">'USD'</span>);
-  <span class="hljs-keyword">const</span> [to, setTo] = useState(<span class="hljs-string">'EUR'</span>);
-  <span class="hljs-keyword">const</span> [rate, setRate] = useState(<span class="hljs-literal">null</span>);
-  <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadExchangeRate</span>(<span class="hljs-params"></span>) </span>{
-    setRate(<span class="hljs-literal">null</span>);
-    <span class="hljs-keyword">const</span> rate = <span class="hljs-keyword">await</span> fetchExchangeRate(<span class="hljs-keyword">from</span>, to);
-    setRate(rate);
-  }
-  useEffect(<span class="hljs-function">() =></span> {
-    loadExchangeRate();
-  }, [<span class="hljs-keyword">from</span>, to]);
-  <span class="hljs-comment">// render two dropdowns for selecting currencies</span>
-  <span class="hljs-comment">// and show the exchange rate</span>
-}
-</code></pre>
-</section><section class="slide"><h2>Beispiel: Laden von Wechselkursen</h2>
-<p>Funktion, die Daten lädt:</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetchExchangeRate</span>(<span class="hljs-params">
-  <span class="hljs-keyword">from</span>: <span class="hljs-built_in">string</span>,
-  to: <span class="hljs-built_in">string</span>
-</span>): <span class="hljs-title">Promise</span>&#x3C;<span class="hljs-title">number</span>> </span>{
-  <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> fetch(
-    <span class="hljs-string">'https://https://api.exchangerate.host/latest?base='</span> +
-      <span class="hljs-keyword">from</span>.toUpperCase() +
-      <span class="hljs-string">'&#x26;symbols='</span> +
-      to.toUpperCase()
-  );
-  <span class="hljs-keyword">const</span> data = <span class="hljs-keyword">await</span> res.json();
-  <span class="hljs-keyword">return</span> data.rates[to.toUpperCase()];
-}
-</code></pre>
-</section><section class="slide"><h2>Beispiel: Laden von Wechselkursen</h2>
-<p>vollständiger Code:</p>
-<pre><code class="hljs language-tsx">// https://codesandbox.io/s/use-effect-exchange-rate-szje3
-import { useState, useEffect } from 'react';
-
-const currencies = ['USD', 'EUR', 'JPY', 'GBP'];
-async function fetchExchangeRate(
-  from: string,
-  to: string
-): Promise&#x3C;number> {
-  const res = await fetch(
-    'https://api.exchangerate.host/latest?base=' +
-      from.toUpperCase() +
-      '&#x26;symbols=' +
-      to.toUpperCase()
-  );
-  const data = await res.json();
-  return data.rates[to.toUpperCase()];
-}
-
-function ExchangeRate() {
-  const [from, setFrom] = useState('USD');
-  const [to, setTo] = useState('EUR');
-  const [rate, setRate] = useState&#x3C;number | null>(null);
-  async function loadExchangeRate() {
-    setRate(null);
-    const rate = await fetchExchangeRate(from, to);
-    setRate(rate);
-  }
-  useEffect(() => {
-    loadExchangeRate();
-  }, [from, to]);
-  return (
-    &#x3C;div>
-      &#x3C;select
-        value={from}
-        onChange={(e) => setFrom(e.target.value)}
-      >
-        {currencies.map((c) => (
-          &#x3C;option value={c}>{c}&#x3C;/option>
-        ))}
-      &#x3C;/select>
-      &#x3C;select
-        value={to}
-        onChange={(e) => setTo(e.target.value)}
-      >
-        {currencies.map((c) => (
-          &#x3C;option value={c}>{c}&#x3C;/option>
-        ))}
-      &#x3C;/select>
-      &#x3C;div>{rate !== null ? rate : 'no data'}&#x3C;/div>
-    &#x3C;/div>
-  );
-}
-
-export default ExchangeRate;
-</code></pre>
-</section><section class="slide"><h2>Effect Hook und async-Funktionen</h2>
-<p>Bemerkung: Die Effekt-Funktion darf <strong>keine</strong> async-Funktion sein</p>
-<p>Die Effekt-Funktion sollte üblicherweise (implizit) <em>undefined</em> zurückgeben; eine async-Funktion würde immer ein Promise zurückgeben</p>
-<p>ungültig:</p>
-<pre><code class="hljs language-js">useEffect(loadExchangeRate, [<span class="hljs-keyword">from</span>, to]);
-</code></pre>
-<p>gültig:</p>
-<pre><code class="hljs language-js">useEffect(<span class="hljs-function">() =></span> {
-  loadExchangeRate();
-}, [<span class="hljs-keyword">from</span>, to]);
-</code></pre>
-</section><section class="slide"><h2>Übungen</h2>
-<p>Beispiele von abfragbaren APIs:</p>
-<ul>
-<li>Todos: <a href="https://jsonplaceholder.typicode.com/todos">https://jsonplaceholder.typicode.com/todos</a></li>
-<li>SpaceX Startdaten: <a href="https://api.spacexdata.com/v3/launches/1">https://api.spacexdata.com/v3/launches/1</a></li>
-<li>Pokemon-Daten: <a href="https://pokeapi.co/api/v2/pokemon/1">https://pokeapi.co/api/v2/pokemon/1</a></li>
-<li>hacker news Suchanfrage: <a href="https://hn.algolia.com/api/v1/search?query=foo">https://hn.algolia.com/api/v1/search?query=foo</a></li>
-</ul>
-</section><section class="slide"><h2>Übungen</h2>
-<ul>
-<li>Lade Todos, wenn der Benutzer die Todolist-Anwendung öffnet</li>
-<li>Zeige Daten zu einem bestimmten SpaceX-Start basierend auf der Startnummer</li>
-<li>Zeige Daten zu einem bestimmten Pokémon basierend auf der Nummer</li>
-<li>Zeige Hacker News Artikel basierend auf einem Suchbegriff</li>
-</ul>
-</section><section class="slide"><h2>Beispiel: SpaceX Startdaten</h2>
-<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">SpaceXLaunch</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">const</span> [launchNr, setLaunchNr] = useState(<span class="hljs-number">1</span>);
-  <span class="hljs-keyword">const</span> [launchData, setLaunchData] = useState({});
-  <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadLaunch</span>(<span class="hljs-params"></span>) </span>{
-    <span class="hljs-keyword">const</span> data = <span class="hljs-keyword">await</span> fetchLaunch(launchNr);
-    setLaunchData(data);
-  }
-  useEffect(<span class="hljs-function">() =></span> {
-    loadLaunch();
-  }, [launchNr]);
+</section><section class="slide"><h2>Basic example (v6)</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> App = <span class="hljs-function">() =></span> {
   <span class="hljs-keyword">return</span> (
     <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>{launchData.mission_name}<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>date: {launchData.launch_date_utc}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setLaunchNr(launchNr + 1)}>
-        next
-      <span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">NavLink</span> <span class="hljs-attr">to</span>=<span class="hljs-string">"/"</span>></span>home<span class="hljs-tag">&#x3C;/<span class="hljs-name">NavLink</span>></span>{' '}
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">NavLink</span> <span class="hljs-attr">to</span>=<span class="hljs-string">"/about"</span>></span>about<span class="hljs-tag">&#x3C;/<span class="hljs-name">NavLink</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">Routes</span>></span>
+        <span class="hljs-tag">&#x3C;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"/"</span> <span class="hljs-attr">element</span>=<span class="hljs-string">{</span>&#x3C;<span class="hljs-attr">HomePage</span> /></span>} />
+        <span class="hljs-tag">&#x3C;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"/about"</span> <span class="hljs-attr">element</span>=<span class="hljs-string">{</span>&#x3C;<span class="hljs-attr">AboutPage</span> /></span>} />
+      <span class="hljs-tag">&#x3C;/<span class="hljs-name">Routes</span>></span>
     <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
   );
-}
-
-<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetchLaunch</span>(<span class="hljs-params">launchNr</span>) </span>{
-  <span class="hljs-keyword">const</span> url =
-    <span class="hljs-string">'https://api.spacexdata.com/v3/launches/'</span> +
-    launchNr.toString();
-  <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> fetch(url);
-  <span class="hljs-keyword">const</span> launchData = <span class="hljs-keyword">await</span> res.json();
-  <span class="hljs-keyword">return</span> launchData;
-}
+};
 </code></pre>
-</section><section class="slide"><h2>Beispiel: Pokemon-Daten</h2>
-<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Pokemon</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">const</span> [id, setId] = useState(<span class="hljs-number">1</span>);
-  <span class="hljs-keyword">const</span> [data, setData] = useState({});
-  <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadPokemon</span>(<span class="hljs-params"></span>) </span>{
-    <span class="hljs-keyword">const</span> data = fetchPokemon(id);
-    setData(data);
-  }
-  useEffect(<span class="hljs-function">() =></span> {
-    loadPokemon();
-  }, [id]);
+</section><section class="slide"><h2>Advanced routing (v6)</h2>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> App = <span class="hljs-function">() =></span> {
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Routes</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"/posts"</span> <span class="hljs-attr">element</span>=<span class="hljs-string">{</span>&#x3C;<span class="hljs-attr">PostPage</span> /></span>}>
+        <span class="hljs-tag">&#x3C;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"/:postId"</span> <span class="hljs-attr">element</span>=<span class="hljs-string">{</span>&#x3C;<span class="hljs-attr">Post</span> /></span>} />
+      <span class="hljs-tag">&#x3C;/<span class="hljs-name">Route</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"/shop"</span> <span class="hljs-attr">element</span>=<span class="hljs-string">{</span>&#x3C;<span class="hljs-attr">ShopPage</span> /></span>}>
+        <span class="hljs-tag">&#x3C;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"/"</span> <span class="hljs-attr">element</span>=<span class="hljs-string">{</span>&#x3C;<span class="hljs-attr">ShopIndex</span> /></span>} />
+        <span class="hljs-tag">&#x3C;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"/product/:id"</span> <span class="hljs-attr">element</span>=<span class="hljs-string">{</span>&#x3C;<span class="hljs-attr">Product</span> /></span>} />
+        <span class="hljs-tag">&#x3C;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"/cart"</span> <span class="hljs-attr">element</span>=<span class="hljs-string">{</span>&#x3C;<span class="hljs-attr">Cart</span> /></span>} />
+      <span class="hljs-tag">&#x3C;/<span class="hljs-name">Route</span>></span>
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">Routes</span>></span></span>
+  );
+};
+</code></pre>
+</section><section class="slide"><h2>Basic example (v5)</h2>
+<p>In v5 we use the <code>&#x3C;Switch></code> component instead of <code>&#x3C;Routes></code></p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> App = <span class="hljs-function">() =></span> {
   <span class="hljs-keyword">return</span> (
     <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>{data.name}<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">p</span>></span>id: {id}<span class="hljs-tag">&#x3C;/<span class="hljs-name">p</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">p</span>></span>height: {data.height}<span class="hljs-tag">&#x3C;/<span class="hljs-name">p</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setId(id + 1)}>next<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">NavLink</span> <span class="hljs-attr">to</span>=<span class="hljs-string">"/"</span>></span>home<span class="hljs-tag">&#x3C;/<span class="hljs-name">NavLink</span>></span>{' '}
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">NavLink</span> <span class="hljs-attr">to</span>=<span class="hljs-string">"/about"</span>></span>about<span class="hljs-tag">&#x3C;/<span class="hljs-name">NavLink</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">Switch</span>></span>
+        <span class="hljs-tag">&#x3C;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"/"</span> <span class="hljs-attr">exact</span>=<span class="hljs-string">{true}</span>></span>
+          <span class="hljs-tag">&#x3C;<span class="hljs-name">HomePage</span> /></span>
+        <span class="hljs-tag">&#x3C;/<span class="hljs-name">Route</span>></span>
+        <span class="hljs-tag">&#x3C;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"/about"</span>></span>
+          <span class="hljs-tag">&#x3C;<span class="hljs-name">AboutPage</span> /></span>
+        <span class="hljs-tag">&#x3C;/<span class="hljs-name">Route</span>></span>
+      <span class="hljs-tag">&#x3C;/<span class="hljs-name">Switch</span>></span>
     <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
   );
-}
+};
+</code></pre>
+</section><section class="slide"><h2>Route parameters</h2>
+<pre><code class="hljs language-jsx">&#x3C;Route path=<span class="hljs-string">"/todos/:todoId"</span>>
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">TodoDetailView</span> /></span></span>
+&#x3C;/Route>
+</code></pre>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> { useParams } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router-dom'</span>;
 
-<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetchPokemon</span>(<span class="hljs-params">pokemonId</span>) </span>{
-  <span class="hljs-keyword">const</span> url = <span class="hljs-string">`https://pokeapi.co/api/v2/pokemon/<span class="hljs-subst">${id}</span>`</span>;
-  <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> fetch(url);
-  <span class="hljs-keyword">const</span> data = <span class="hljs-keyword">await</span> res.json();
-  <span class="hljs-keyword">return</span> data;
-}
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Andere Verwendungen des Effect-Hooks</h1>
-</section><section class="slide"><h2>Andere Verwendungen des Effect-Hooks</h2>
-<ul>
-<li>Laden von / Speichern in <em>localStorage</em> / <em>indexeddb</em></li>
-<li>explizite Änderungen am DOM (zusammen mit <em>refs</em>)</li>
-<li>Starten von Timern</li>
-<li>...</li>
-</ul>
-</section><section class="slide"><h2>Beispiel: localStorage</h2>
-<p>Conter, der den eigenen Wert abspeichert, wenn dieser sich ändert:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">PersistentCounter</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">const</span> [count, setCount] = useState(<span class="hljs-literal">null</span>);
-  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadCount</span>(<span class="hljs-params"></span>) </span>{
-    setCount(<span class="hljs-built_in">Number</span>(<span class="hljs-built_in">localStorage</span>.getItem(<span class="hljs-string">'count'</span>)));
-  }
-  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">saveCount</span>(<span class="hljs-params"></span>) </span>{
-    <span class="hljs-keyword">if</span> (count !== <span class="hljs-literal">null</span>) {
-      <span class="hljs-built_in">localStorage</span>.setItem(<span class="hljs-string">'count'</span>, count);
-    }
-  }
-  useEffect(loadCount, []);
-  useEffect(saveCount, [count]);
+<span class="hljs-keyword">const</span> TodoDetailView = <span class="hljs-function">() =></span> {
+  <span class="hljs-keyword">const</span> routeParams = useParams();
   <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setCount(count + 1)}>
-      {count}
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span>
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+      Details of todo: {routeParams.todoId}
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>...<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
   );
-}
+};
 </code></pre>
-</section><section class="slide"><h2>Übung: localStorage</h2>
-<p>Speichere den State einer der bisherigen Anwendungen (z.B. <em>tic-tac-toe</em>, <em>todo-list</em>) in <em>localStorage</em></p></section></section></div>
+</section><section class="slide"><h2>Styling links</h2>
+<p>supplying a class name that will be applied to any active link:</p>
+<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">NavLink</span> <span class="hljs-attr">to</span>=<span class="hljs-string">"/"</span> <span class="hljs-attr">activeClassName</span>=<span class="hljs-string">"active-link"</span>></span>Home<span class="hljs-tag">&#x3C;/<span class="hljs-name">NavLink</span>></span>
+<span class="hljs-tag">&#x3C;<span class="hljs-name">NavLink</span> <span class="hljs-attr">to</span>=<span class="hljs-string">"/add"</span> <span class="hljs-attr">activeClassName</span>=<span class="hljs-string">"active-link"</span>></span>Add<span class="hljs-tag">&#x3C;/<span class="hljs-name">NavLink</span>></span>
+</code></pre>
+</section><section class="slide"><h2>Navigation from React</h2>
+<p>in v6:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> navigate = useNavigate();
+<span class="hljs-comment">// ...</span>
+navigate(<span class="hljs-string">'/'</span>);
+</code></pre>
+<p>in v5:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> history = useHistory();
+<span class="hljs-comment">// ...</span>
+history.push(<span class="hljs-string">'/'</span>);
+</code></pre>
+</section><section class="slide"><h2>Navigation from React</h2>
+<p>example:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> AddTodoView = <span class="hljs-function">() =></span> {
+  <span class="hljs-keyword">const</span> navigate = useNavigate();
+  <span class="hljs-keyword">const</span> handleSubmit = <span class="hljs-function">(<span class="hljs-params">event</span>) =></span> {
+    event.preventDefault();
+    <span class="hljs-comment">// ...</span>
+    navigate(<span class="hljs-string">'/'</span>);
+  };
+  <span class="hljs-comment">// ...</span>
+};
+</code></pre></section></section></div>
     </div>
     <script>/*!
  * reveal.js

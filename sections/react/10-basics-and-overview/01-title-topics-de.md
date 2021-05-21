@@ -18,3 +18,5 @@
 - React und TypeScript
 - Komponenten
 - Abfragen von APIs
+- Side Effects
+- React Router

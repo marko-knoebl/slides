@@ -2228,59 +2228,6 @@ class TodoItem extends Component&#x3C;
   // ...
 }
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Component lifecycle</h1>
-</section><section class="slide"><h2>Component lifecycle</h2>
-<p>three main lifecycle methods that can be implemented in a component class:</p>
-<ul>
-<li><code>componentDidMount</code></li>
-<li><code>componentDidUpdate</code></li>
-<li><code>componentWillUnmount</code></li>
-</ul>
-</section><section class="slide"><h2>Example: DocumentTitle component</h2>
-<p>We will create a component that can set the document title dynamically:</p>
-<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">DocumentTitle</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"my custom title"</span> /></span>
-</code></pre>
-<p>This component may appear anywhere in the React application.</p>
-</section><section class="slide"><h2>Example: DocumentTitle component</h2>
-<pre><code class="hljs language-jsx"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DocumentTitle</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
-  <span class="hljs-function"><span class="hljs-title">componentDidMount</span>(<span class="hljs-params"></span>)</span> {
-    <span class="hljs-built_in">document</span>.title = <span class="hljs-built_in">this</span>.props.value;
-  }
-
-  <span class="hljs-function"><span class="hljs-title">componentDidUpdate</span>(<span class="hljs-params">prevProps, prevState</span>)</span> {
-    <span class="hljs-built_in">document</span>.title = <span class="hljs-built_in">this</span>.props.value;
-  }
-
-  <span class="hljs-function"><span class="hljs-title">render</span>(<span class="hljs-params"></span>)</span> {
-    <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
-  }
-}
-</code></pre>
-</section><section class="slide"><h2>Example: Clock component</h2>
-<pre><code class="hljs language-jsx">  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> {
-    <span class="hljs-built_in">super</span>();
-    <span class="hljs-built_in">this</span>.state = {
-      <span class="hljs-attr">time</span>: <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>().toLocaleTimeString()
-    };
-  }
-
-  <span class="hljs-function"><span class="hljs-title">render</span>(<span class="hljs-params"></span>)</span> {
-    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>{this.state.time}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
-  }
-</code></pre>
-</section><section class="slide"><h2>Example: Clock component</h2>
-<pre><code class="hljs language-jsx">  <span class="hljs-function"><span class="hljs-title">componentDidMount</span>(<span class="hljs-params"></span>)</span> {
-    <span class="hljs-built_in">this</span>.intervalId = <span class="hljs-built_in">setInterval</span>(<span class="hljs-function">() =></span> {
-      <span class="hljs-built_in">this</span>.setState({
-        <span class="hljs-attr">time</span>: <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>().toLocaleTimeString()
-      });
-    }, <span class="hljs-number">1000</span>);
-  }
-
-  <span class="hljs-function"><span class="hljs-title">componentWillUnmount</span>(<span class="hljs-params"></span>)</span> {
-    <span class="hljs-built_in">clearInterval</span>(<span class="hljs-built_in">this</span>.intervalId);
-  }
-</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Übungen</h1>
 </section><section class="slide"><h2>Übungen</h2>
 <p>Konvertiere bestehende Komponenten (z.B. <code>AddTodo</code>) von Funktionskomponenten zu Klassenkomponenten</p></section></section></div>

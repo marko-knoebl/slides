@@ -2,7 +2,6 @@
 
 ## Topics
 
-- React Router
 - context
 - effect hook in detail
 - external and custom hooks

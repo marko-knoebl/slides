@@ -1,12 +1,4 @@
-# Komponenten-Lebenszyklus
-
-## Komponenten-Lebenszyklus
-
-Drei wichtige Methoden zum Abfragen von Ereignissen im Lebenszyklus einer Komponente:
-
-- `componentDidMount`
-- `componentDidUpdate`
-- `componentWillUnmount`
+# Beispiele und Übungen
 
 ## Beispiel: DocumentTitle-Komponente
 
@@ -20,16 +12,32 @@ Diese Komponente kann irgendwo in der React-Anwendung vorkommen.
 
 ## Beispiel: DocumentTitle-Komponente
 
+Implementierung als Funktionskomponente:
+
+```jsx
+function DocumentTitle(props) {
+  useEffect(() => {
+    document.title = props.value;
+  }, [props.value]);
+
+  return null;
+}
+```
+
+## Beispiel: DocumentTitle-Komponente
+
+Implementierung als Klassenkomponente:
+
 ```jsx
 class DocumentTitle extends Component {
   componentDidMount() {
     document.title = this.props.value;
   }
-
   componentDidUpdate(prevProps, prevState) {
-    document.title = this.props.value;
+    if (this.props.title !== prevProps.title) {
+      document.title = this.props.value;
+    }
   }
-
   render() {
     return null;
   }
@@ -38,20 +46,7 @@ class DocumentTitle extends Component {
 
 ## Beispiel: Clock-Komponente
 
-```jsx
-  constructor() {
-    super();
-    this.state = {
-      time: new Date().toLocaleTimeString()
-    };
-  }
-
-  render() {
-    return <div>{this.state.time}</div>;
-  }
-```
-
-## Beispiel: Clock-Komponente
+Teil der Implementierung einer Clock-Komponente als Klassenkomponente:
 
 ```jsx
   componentDidMount() {

@@ -1,4 +1,4 @@
-# Effect hook basics
+# Side effects in function components
 
 ## Effect hook
 
@@ -12,16 +12,6 @@ useEffect(
 ```
 
 The effect function will run after the component (re-)rendered if one of the dependencies has changed
-
-## Effect hook
-
-may be used to perform _side effects_ in components:
-
-- triggering requests to APIs
-- loading from / saving to _localStorage_ / _indexeddb_
-- explicitly manipulating the DOM
-- starting timers
-- ...
 
 ## Effect hook
 

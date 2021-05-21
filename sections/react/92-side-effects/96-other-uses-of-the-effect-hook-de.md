@@ -9,7 +9,7 @@
 
 ## Beispiel: localStorage
 
-Conter, der den eigenen Wert abspeichert, wenn dieser sich ändert:
+Counter, der den eigenen Wert abspeichert, wenn dieser sich ändert:
 
 ```jsx
 function PersistentCounter() {

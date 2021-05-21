@@ -2060,77 +2060,34 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   </head>
   <body>
     <div class="reveal">
-      <div class="slides slides"><section class="slides-section"><section class="slide"><h1>Effect hook and querying APIs</h1>
-</section><section class="slide"><h2>Topics</h2>
+      <div class="slides slides"><section class="slides-section"><section class="slide"><h1>Side Effects</h1>
+</section><section class="slide"><h2>Side Effects</h2>
+<p>Komponenten können <em>Side Effects</em> auslösen, wenn sie (neu) gerendert wurden</p>
+<p>Typischerweise möchten wir Side Effects auslösen, wenn <em>sich bestimmte Props oder State geändert haben</em> oder wenn <em>die Komponente zum ersten Mal eingebunden wurde</em></p>
+</section><section class="slide"><h2>Side Effects</h2>
+<p>typische Fälle von Side Effects:</p>
 <ul>
-<li>network requests in JavaScript
-<ul>
-<li>fetch with <code>await</code></li>
-<li>fetch with <code>.then</code></li>
-</ul>
-</li>
-<li>side effects
-<ul>
-<li>triggering requests to APIs</li>
-<li>loading from / saving to <em>localStorage</em> / <em>indexeddb</em></li>
+<li>Auslösen einer API-Anfrage, wenn eine Komponente zum ersten Mal eingebunden wird</li>
+<li>Auslösen einer API-Anfrage, wenn sich bestimmte Daten geändert haben (z.B. wenn der Benutzer ein bestimmtes Element auswählt, um dessen Details zu sehen)</li>
+<li>Speichern von Daten in <em>localStorage</em>, wenn sie sich geändert haben</li>
+<li>Starten von Timern</li>
 <li>...</li>
 </ul>
-</li>
-</ul>
-</section></section><section class="slides-section"><section class="slide"><h1>Network requests in JavaScript</h1>
-</section><section class="slide"><h2>Network requests in JavaScript</h2>
-<p>asynchronous function that fetches todos from an API:</p>
-<pre><code class="hljs language-js"><span class="hljs-comment">// todosApi.js</span>
-<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetchTodos</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">const</span> url = <span class="hljs-string">'https://jsonplaceholder.typicode.com/todos'</span>;
-  <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> fetch(url);
-  <span class="hljs-keyword">const</span> todos = <span class="hljs-keyword">await</span> res.json();
-  <span class="hljs-keyword">return</span> todos;
-}
-</code></pre>
-</section><section class="slide"><h2>Network requests in JavaScript</h2>
-<p>loading todos in a React component - with <code>await</code>:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
-<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadTodosAsync</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">const</span> todos = <span class="hljs-keyword">await</span> fetchTodos();
-  setTodos(todos);
-}
-</code></pre>
-<pre><code class="hljs language-jsx">&#x3C;button onClick={loadTodosAsync}>
-  load todos <span class="hljs-keyword">from</span> API
-&#x3C;/button>
-</code></pre>
-</section><section class="slide"><h2>Loading indicators</h2>
-<p>code for adding a loading indicator:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
-<span class="hljs-keyword">const</span> [isLoading, setIsLoading] = useState(<span class="hljs-literal">false</span>);
-<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadTodosAsync</span>(<span class="hljs-params"></span>) </span>{
-  setIsLoading(<span class="hljs-literal">true</span>);
-  <span class="hljs-keyword">const</span> todos = <span class="hljs-keyword">await</span> fetchTodos();
-  setTodos(todos);
-  setIsLoading(<span class="hljs-literal">false</span>);
-}
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Effect hook basics</h1>
-</section><section class="slide"><h2>Effect hook</h2>
-<p>The <em>effect hook</em> can be used to perform actions when a component was mounted for the first time or when its props / state have changed.</p>
+</section><section class="slide"><h2>Side Effects</h2>
+<p>Implementierung:</p>
+<p>in Funktionskomponenten: mittels des <em>Effect Hooks</em></p>
+<p>in Klassenkomponenten: mit Hilfe von Lifecycle-Methoden wie <code>componentDidMount</code>, <code>componentDidUpdate</code> oder <code>componentWillUnmount</code></p>
+</section></section><section class="slides-section"><section class="slide"><h1>Side Effects in Funktionskomponenten</h1>
+</section><section class="slide"><h2>Effect Hook</h2>
+<p>Der <em>Effect Hook</em> kann verwendet werden, um Aktionen zu setzen, wenn eine Komponente zum ersten Mal eingebunden wird, oder wenn sich deren Props / State geändert haben</p>
 <pre><code class="hljs language-js">useEffect(
   effect, <span class="hljs-comment">// what should happen</span>
   dependencies <span class="hljs-comment">// array of values to watch</span>
 );
 </code></pre>
-<p>The effect function will run after the component (re-)rendered if one of the dependencies has changed</p>
-</section><section class="slide"><h2>Effect hook</h2>
-<p>may be used to perform <em>side effects</em> in components:</p>
-<ul>
-<li>triggering requests to APIs</li>
-<li>loading from / saving to <em>localStorage</em> / <em>indexeddb</em></li>
-<li>explicitly manipulating the DOM</li>
-<li>starting timers</li>
-<li>...</li>
-</ul>
-</section><section class="slide"><h2>Effect hook</h2>
-<p>example: loading exchange rates when the component is first mounted and whenever a currency changes:</p>
+<p>Die Effekt-Funktion nach dem (Re-)Rendering einer Komponente ausgeführt, falls sich eine der Abhängigkeiten geändert hat</p>
+</section><section class="slide"><h2>Effect Hook</h2>
+<p>Beispiel: Laden von Umrechnungskursen, wenn die Komponente zum ersten Mal eingebunden wird oder wenn sich eine Währung ändert:</p>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> [<span class="hljs-keyword">from</span>, setFrom] = useState(<span class="hljs-string">'USD'</span>);
 <span class="hljs-keyword">const</span> [to, setTo] = useState(<span class="hljs-string">'EUR'</span>);
 <span class="hljs-keyword">const</span> [rate, setRate] = useState&#x3C;<span class="hljs-built_in">number</span> | <span class="hljs-literal">null</span>>(<span class="hljs-literal">null</span>);
@@ -2141,8 +2098,8 @@ useEffect(<span class="hljs-function">() =></span> {
   loadExchangeRate();
 }, [<span class="hljs-keyword">from</span>, to]);
 </code></pre>
-</section><section class="slide"><h2>Effect hook</h2>
-<p>example: loading a set of todos when the component is first mounted:</p>
+</section><section class="slide"><h2>Effect Hook</h2>
+<p>Beispiel: Laden von Todos, wenn die Komponente zum ersten Mal eingebunden wird:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
 <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadTodos</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-comment">// ...</span>
@@ -2151,11 +2108,30 @@ useEffect(<span class="hljs-function">() =></span> {
   loadTodos();
 }, []);
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Effect hook for querying APIs</h1>
-</section><section class="slide"><h2>Effect hook for querying APIs</h2>
-<p>Often, API queries must be initiated when a component is included for the first time or when a component's props or state have changed</p>
-</section><section class="slide"><h2>Example: loading exchange rate data</h2>
-<p>example: loading exchange rate data from an API when selected currencies change:</p>
+</section></section><section class="slides-section"><section class="slide"><h1>Side Effects in Klassenkomponenten</h1>
+</section><section class="slide"><h2>Side Effects in Klassenkomponenten</h2>
+<p>Drei wichtige Methoden zum Abfragen von Ereignissen im Lebenszyklus einer Komponente:</p>
+<ul>
+<li><code>componentDidMount</code></li>
+<li><code>componentDidUpdate</code></li>
+<li><code>componentWillUnmount</code></li>
+</ul>
+</section><section class="slide"><h2>Side Effects in Klassenkomponenten</h2>
+<p><code>componentDidUpdate</code> bekommt die vorhergehenden Props als Parameter übergeben:</p>
+<pre><code class="hljs language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyComponent</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
+  <span class="hljs-comment">// ...</span>
+  <span class="hljs-function"><span class="hljs-title">componentDidUpdate</span>(<span class="hljs-params">prevProps, prevState</span>)</span> {
+    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.state.foo !== prevState.foo) {
+      doSomething();
+    }
+  }
+}
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Effect Hook zum Abfragen von APIs</h1>
+</section><section class="slide"><h2>Effect Hook zum Abfragen von APIs</h2>
+<p>Oft müssen API-Daten abgefragt werden, wenn eine Komponente zum ersten Mal eingebunden wurde, oder wenn sich props bzw state geändert haben</p>
+</section><section class="slide"><h2>Beispiel: Laden von Wechselkursen</h2>
+<p>Beispiel: Laden von Wechselkursen von einem API, wenn sich die ausgewählten Währungen ändern:</p>
 <pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ExchangeRate</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">const</span> [<span class="hljs-keyword">from</span>, setFrom] = useState(<span class="hljs-string">'USD'</span>);
   <span class="hljs-keyword">const</span> [to, setTo] = useState(<span class="hljs-string">'EUR'</span>);
@@ -2172,8 +2148,8 @@ useEffect(<span class="hljs-function">() =></span> {
   <span class="hljs-comment">// and show the exchange rate</span>
 }
 </code></pre>
-</section><section class="slide"><h2>Example: loading exchange rate data</h2>
-<p>function that fetches data:</p>
+</section><section class="slide"><h2>Beispiel: Laden von Wechselkursen</h2>
+<p>Funktion, die Daten lädt:</p>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetchExchangeRate</span>(<span class="hljs-params">
   <span class="hljs-keyword">from</span>: <span class="hljs-built_in">string</span>,
   to: <span class="hljs-built_in">string</span>
@@ -2188,8 +2164,8 @@ useEffect(<span class="hljs-function">() =></span> {
   <span class="hljs-keyword">return</span> data.rates[to.toUpperCase()];
 }
 </code></pre>
-</section><section class="slide"><h2>Example: loading exchange rate data</h2>
-<p>complete code:</p>
+</section><section class="slide"><h2>Beispiel: Laden von Wechselkursen</h2>
+<p>vollständiger Code:</p>
 <pre><code class="hljs language-tsx">// https://codesandbox.io/s/use-effect-exchange-rate-szje3
 import { useState, useEffect } from 'react';
 
@@ -2245,33 +2221,33 @@ function ExchangeRate() {
 
 export default ExchangeRate;
 </code></pre>
-</section><section class="slide"><h2>Effect hook and async functions</h2>
-<p>note: the effect function <strong>must not be</strong> an async function</p>
-<p>The effect function should usually (implicitly) return <em>undefined</em>; an async function would always return a promise</p>
-<p>invalid:</p>
+</section><section class="slide"><h2>Effect Hook und async-Funktionen</h2>
+<p>Bemerkung: Die Effekt-Funktion darf <strong>keine</strong> async-Funktion sein</p>
+<p>Die Effekt-Funktion sollte üblicherweise (implizit) <em>undefined</em> zurückgeben; eine async-Funktion würde immer ein Promise zurückgeben</p>
+<p>ungültig:</p>
 <pre><code class="hljs language-js">useEffect(loadExchangeRate, [<span class="hljs-keyword">from</span>, to]);
 </code></pre>
-<p>valid:</p>
+<p>gültig:</p>
 <pre><code class="hljs language-js">useEffect(<span class="hljs-function">() =></span> {
   loadExchangeRate();
 }, [<span class="hljs-keyword">from</span>, to]);
 </code></pre>
-</section><section class="slide"><h2>Exercises</h2>
-<p>example APIs:</p>
+</section><section class="slide"><h2>Übungen</h2>
+<p>Beispiele von abfragbaren APIs:</p>
 <ul>
-<li>todos: <a href="https://jsonplaceholder.typicode.com/todos">https://jsonplaceholder.typicode.com/todos</a></li>
-<li>SpaceX launch data: <a href="https://api.spacexdata.com/v3/launches/1">https://api.spacexdata.com/v3/launches/1</a></li>
-<li>pokémon data: <a href="https://pokeapi.co/api/v2/pokemon/1">https://pokeapi.co/api/v2/pokemon/1</a></li>
-<li>hacker news search query: <a href="https://hn.algolia.com/api/v1/search?query=foo">https://hn.algolia.com/api/v1/search?query=foo</a></li>
+<li>Todos: <a href="https://jsonplaceholder.typicode.com/todos">https://jsonplaceholder.typicode.com/todos</a></li>
+<li>SpaceX Startdaten: <a href="https://api.spacexdata.com/v3/launches/1">https://api.spacexdata.com/v3/launches/1</a></li>
+<li>Pokemon-Daten: <a href="https://pokeapi.co/api/v2/pokemon/1">https://pokeapi.co/api/v2/pokemon/1</a></li>
+<li>hacker news Suchanfrage: <a href="https://hn.algolia.com/api/v1/search?query=foo">https://hn.algolia.com/api/v1/search?query=foo</a></li>
 </ul>
-</section><section class="slide"><h2>Exercises</h2>
+</section><section class="slide"><h2>Übungen</h2>
 <ul>
-<li>Load todos when the user opens the todolist application</li>
-<li>Show data for a specific SpaceX launch based on the launch number</li>
-<li>Show data for a pokémon based on its number</li>
-<li>Show hacker news articles based on a search term</li>
+<li>Lade Todos, wenn der Benutzer die Todolist-Anwendung öffnet</li>
+<li>Zeige Daten zu einem bestimmten SpaceX-Start basierend auf der Startnummer</li>
+<li>Zeige Daten zu einem bestimmten Pokémon basierend auf der Nummer</li>
+<li>Zeige Hacker News Artikel basierend auf einem Suchbegriff</li>
 </ul>
-</section><section class="slide"><h2>Example: SpaceX launch data</h2>
+</section><section class="slide"><h2>Beispiel: SpaceX Startdaten</h2>
 <pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">SpaceXLaunch</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">const</span> [launchNr, setLaunchNr] = useState(<span class="hljs-number">1</span>);
   <span class="hljs-keyword">const</span> [launchData, setLaunchData] = useState({});
@@ -2302,7 +2278,7 @@ export default ExchangeRate;
   <span class="hljs-keyword">return</span> launchData;
 }
 </code></pre>
-</section><section class="slide"><h2>Example: Pokemon</h2>
+</section><section class="slide"><h2>Beispiel: Pokemon-Daten</h2>
 <pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Pokemon</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">const</span> [id, setId] = useState(<span class="hljs-number">1</span>);
   <span class="hljs-keyword">const</span> [data, setData] = useState({});
@@ -2330,16 +2306,16 @@ export default ExchangeRate;
   <span class="hljs-keyword">return</span> data;
 }
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Other uses of the effect hook</h1>
-</section><section class="slide"><h2>Other uses of the effect hook</h2>
+</section></section><section class="slides-section"><section class="slide"><h1>Andere Verwendungen des Effect-Hooks</h1>
+</section><section class="slide"><h2>Andere Verwendungen des Effect-Hooks</h2>
 <ul>
-<li>saving to <em>localStorage</em> / <em>indexeddb</em></li>
-<li>explicitly manipulating the DOM</li>
-<li>starting timers</li>
+<li>Laden von / Speichern in <em>localStorage</em> / <em>indexeddb</em></li>
+<li>explizite Änderungen am DOM (zusammen mit <em>refs</em>)</li>
+<li>Starten von Timern</li>
 <li>...</li>
 </ul>
-</section><section class="slide"><h2>Example: localStorage</h2>
-<p>Counter that saves its value whenever the value changes:</p>
+</section><section class="slide"><h2>Beispiel: localStorage</h2>
+<p>Counter, der den eigenen Wert abspeichert, wenn dieser sich ändert:</p>
 <pre><code class="hljs language-jsx"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">PersistentCounter</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">const</span> [count, setCount] = useState(<span class="hljs-literal">null</span>);
   <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadCount</span>(<span class="hljs-params"></span>) </span>{
@@ -2359,8 +2335,54 @@ export default ExchangeRate;
   );
 }
 </code></pre>
-</section><section class="slide"><h2>Exercise: localStorage</h2>
-<p>Save the state of one of the previous applications (e.g. <em>tic-tac-toe</em>, <em>todo list</em>) to <em>localStorage</em></p></section></section></div>
+</section><section class="slide"><h2>Übung: localStorage</h2>
+<p>Speichere den State einer der bisherigen Anwendungen (z.B. <em>tic-tac-toe</em>, <em>todo-list</em>) in <em>localStorage</em></p>
+</section></section><section class="slides-section"><section class="slide"><h1>Beispiele und Übungen</h1>
+</section><section class="slide"><h2>Beispiel: DocumentTitle-Komponente</h2>
+<p>Wir erstellen eine Komponente, die den Dokumenttitel dynamisch setzen kann:</p>
+<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">DocumentTitle</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"my custom title"</span> /></span>
+</code></pre>
+<p>Diese Komponente kann irgendwo in der React-Anwendung vorkommen.</p>
+</section><section class="slide"><h2>Beispiel: DocumentTitle-Komponente</h2>
+<p>Implementierung als Funktionskomponente:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">DocumentTitle</span>(<span class="hljs-params">props</span>) </span>{
+  useEffect(<span class="hljs-function">() =></span> {
+    <span class="hljs-built_in">document</span>.title = props.value;
+  }, [props.value]);
+
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+}
+</code></pre>
+</section><section class="slide"><h2>Beispiel: DocumentTitle-Komponente</h2>
+<p>Implementierung als Klassenkomponente:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DocumentTitle</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
+  <span class="hljs-function"><span class="hljs-title">componentDidMount</span>(<span class="hljs-params"></span>)</span> {
+    <span class="hljs-built_in">document</span>.title = <span class="hljs-built_in">this</span>.props.value;
+  }
+  <span class="hljs-function"><span class="hljs-title">componentDidUpdate</span>(<span class="hljs-params">prevProps, prevState</span>)</span> {
+    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.props.title !== prevProps.title) {
+      <span class="hljs-built_in">document</span>.title = <span class="hljs-built_in">this</span>.props.value;
+    }
+  }
+  <span class="hljs-function"><span class="hljs-title">render</span>(<span class="hljs-params"></span>)</span> {
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+  }
+}
+</code></pre>
+</section><section class="slide"><h2>Beispiel: Clock-Komponente</h2>
+<p>Teil der Implementierung einer Clock-Komponente als Klassenkomponente:</p>
+<pre><code class="hljs language-jsx">  <span class="hljs-function"><span class="hljs-title">componentDidMount</span>(<span class="hljs-params"></span>)</span> {
+    <span class="hljs-built_in">this</span>.intervalId = <span class="hljs-built_in">setInterval</span>(<span class="hljs-function">() =></span> {
+      <span class="hljs-built_in">this</span>.setState({
+        <span class="hljs-attr">time</span>: <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>().toLocaleTimeString()
+      });
+    }, <span class="hljs-number">1000</span>);
+  }
+
+  <span class="hljs-function"><span class="hljs-title">componentWillUnmount</span>(<span class="hljs-params"></span>)</span> {
+    <span class="hljs-built_in">clearInterval</span>(<span class="hljs-built_in">this</span>.intervalId);
+  }
+</code></pre></section></section></div>
     </div>
     <script>/*!
  * reveal.js
