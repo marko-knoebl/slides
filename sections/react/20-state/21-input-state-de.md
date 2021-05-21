@@ -79,6 +79,12 @@ function App() {
 
 Zeige zwei Inputs, bei denen der Benutzer zusammenpassende Passwörter eingeben soll, die zumindest 4 Zeichen lang sind.
 
-Wenn beide Passwörter übereinstimmen, zeige darunter den Text "valid" an, ansonsten zeige "invalid" an
+Zeige eventuelle Fehlermeldungen darunter an, z.B.
+
+_Password must be at least 4 characters long_
+
+or
+
+_Passwords don't match_
 
 Stelle dabei sicher, dass du den minimalen State verwendest

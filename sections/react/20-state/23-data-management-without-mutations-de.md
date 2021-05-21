@@ -5,7 +5,7 @@
 Möglichkeiten, um aus bestehenden Daten aktualisierte Daten zu erhalten:
 
 - abändern der ursprünglichen Daten
-- erstellen neuer - abgeleiteter - Daten basieren auf den ursprünglichen Daten
+- erstellen neuer - abgeleiteter - Daten basieren aus den ursprünglichen Daten
 
 ## Datenverwaltung ohne Mutationen
 

@@ -1,9 +1,5 @@
 # React und TypeScript
 
-## TypeScript Grundlagen
-
-siehe Präsentation [TypeScript](./typescript-de.html)
-
 ## Eventtypen
 
 Bei _inline_ Eventhandlern werden Eventtypen automatisch erkannt:

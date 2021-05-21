@@ -1,9 +1,5 @@
 # React and TypeScript
 
-## TypeScript basics
-
-see presentation [TypeScript](./typescript-en.html)
-
 ## Event types
 
 When using _inline_ event handlers, event types can be inferred directly:
