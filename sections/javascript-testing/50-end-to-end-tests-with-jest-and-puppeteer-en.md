@@ -20,6 +20,8 @@ npm packages:
 testing Wikipedia:
 
 ```js
+import puppeteer from 'puppeteer';
+
 test('wikipedia title', async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
@@ -34,9 +36,9 @@ test('wikipedia title', async () => {
 
 restructuring code for multiple tests:
 
-```js
-let browser;
-let page;
+```ts
+let browser: puppeteer.Browser;
+let page: puppeteer.Page;
 beforeAll(async () => {
   browser = await puppeteer.launch();
 });

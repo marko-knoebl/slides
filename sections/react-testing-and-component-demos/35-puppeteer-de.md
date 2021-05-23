@@ -11,8 +11,8 @@ npm run start
 ## Testen einer React-Anwendung mit Puppeteer
 
 ```js
-let browser;
-let page;
+let browser: puppeteer.Browser;
+let page: puppeteer.Page;
 beforeAll(async () => {
   browser = await puppeteer.launch();
 });

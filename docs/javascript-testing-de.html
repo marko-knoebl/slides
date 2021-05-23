@@ -2225,7 +2225,9 @@ expect(<span class="hljs-function">() =></span> <span class="hljs-built_in">JSON
 </ul>
 </section><section class="slide"><h2>Puppeteer</h2>
 <p>Testen von Wikipedia:</p>
-<pre><code class="hljs language-js">test(<span class="hljs-string">'wikipedia title'</span>, <span class="hljs-keyword">async</span> () => {
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> puppeteer <span class="hljs-keyword">from</span> <span class="hljs-string">'puppeteer'</span>;
+
+test(<span class="hljs-string">'wikipedia title'</span>, <span class="hljs-keyword">async</span> () => {
   <span class="hljs-keyword">const</span> browser = <span class="hljs-keyword">await</span> puppeteer.launch();
   <span class="hljs-keyword">const</span> page = <span class="hljs-keyword">await</span> browser.newPage();
   <span class="hljs-keyword">await</span> page.goto(<span class="hljs-string">'https://en.wikipedia.org'</span>);
@@ -2236,8 +2238,8 @@ expect(<span class="hljs-function">() =></span> <span class="hljs-built_in">JSON
 </code></pre>
 </section><section class="slide"><h2>Puppeteer</h2>
 <p>Restrukturierung für mehrere Tests:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> browser;
-<span class="hljs-keyword">let</span> page;
+<pre><code class="hljs language-ts"><span class="hljs-keyword">let</span> browser: puppeteer.Browser;
+<span class="hljs-keyword">let</span> page: puppeteer.Page;
 beforeAll(<span class="hljs-keyword">async</span> () => {
   browser = <span class="hljs-keyword">await</span> puppeteer.launch();
 });
