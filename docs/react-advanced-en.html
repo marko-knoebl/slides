@@ -2281,6 +2281,57 @@ useEffect(<span class="hljs-function">() =></span> {
 }, [ensurePokemonLoaded]);
 </code></pre>
 <p><code>ensurePokemonLoaded</code> will be redefined every time the <code>pokemons</code> array changes - this will make it is run again for the first 10 pokémons</p>
+</section></section><section class="slides-section"><section class="slide"><h1>React Query</h1>
+</section><section class="slide"><h2>React Query</h2>
+<p><strong>React Query</strong>: library for interacting with web APIs (e.g. REST APIs)</p>
+</section><section class="slide"><h2>React Query Setup</h2>
+<p>in <em>index.js</em>:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> {
+  QueryClient,
+  QueryClientProvider,
+} <span class="hljs-keyword">from</span> <span class="hljs-string">'react-query'</span>;
+
+<span class="hljs-keyword">const</span> queryClient = <span class="hljs-keyword">new</span> QueryClient();
+
+ReactDOM.render(
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">QueryClientProvider</span> <span class="hljs-attr">client</span>=<span class="hljs-string">{queryClient}</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">App</span> /></span>
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">QueryClientProvider</span>></span></span>,
+  rootElement
+);
+</code></pre>
+</section><section class="slide"><h2>Writing queries</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { useQuery } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-query'</span>;
+<span class="hljs-keyword">import</span> { fetchTodos } <span class="hljs-keyword">from</span> <span class="hljs-string">'./todosApi'</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">TodoApp</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> { isLoading, error, <span class="hljs-attr">data</span>: todos } = useQuery(
+    <span class="hljs-string">'todos'</span>,
+    fetchTodos
+  );
+  <span class="hljs-keyword">if</span> (isLoading) {
+    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>Loading ...<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (error) {
+    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>Could not load todos<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+  }
+  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">TodoList</span> <span class="hljs-attr">todos</span>=<span class="hljs-string">{todos}</span> /></span></span>;
+}
+</code></pre>
+</section><section class="slide"><h2>Writing mutations</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { useMutation } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-query'</span>;
+<span class="hljs-keyword">import</span> { addTodo } <span class="hljs-keyword">from</span> <span class="hljs-string">'./todosApi'</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">TodoApp</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-comment">// ...</span>
+  <span class="hljs-keyword">const</span> onAddTodo = useMutation(addTodo, {
+    <span class="hljs-attr">onSuccess</span>: <span class="hljs-function">() =></span> {
+      <span class="hljs-comment">// initiate a refetch of todos</span>
+      queryClient.invalidateQueries(<span class="hljs-string">'todos'</span>);
+    },
+  });
+  <span class="hljs-comment">// ...</span>
+}
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Hooks</h1>
 </section><section class="slide"><h2>Hooks</h2>
 <p>Hooks = extension of function components</p>
