@@ -2337,6 +2337,53 @@ export default ExchangeRate;
 </code></pre>
 </section><section class="slide"><h2>Übung: localStorage</h2>
 <p>Speichere den State einer der bisherigen Anwendungen (z.B. <em>tic-tac-toe</em>, <em>todo-list</em>) in <em>localStorage</em></p>
+</section></section><section class="slides-section"><section class="slide"><h1>Der effect-Hook und veraltete Daten</h1>
+</section><section class="slide"><h2>Der effect-Hook und veraltete Daten</h2>
+<p>Unterschied bei State / Props in Funktionskomponenten und in Klassenkomponenten:</p>
+<p>wenn sich State / Props ändern:</p>
+<ul>
+<li>in Klassenkomponenten werden <code>this.props</code> und <code>this.state</code> durch neue Objekte ersetzt</li>
+<li>in Funktionskomponenten wird die Komponentenfunktion erneut aufgerufen, und eine neue <em>Closure</em> entsteht, welche die neuen Props / State-Werte enthält</li>
+</ul>
+<p>Achtung: in Funktionskomponenten können alte / obsolete Daten in alten <em>Closures</em> weiterbestehen</p>
+</section><section class="slide"><h2>Der effect-Hook und veraltete Daten</h2>
+<p>wird eine Komponente neu gerendert, aber eine zugehörige Effect-Funktion wurde nicht neu ausgeführt, so kann die Effect-Funktion auf veraltete Daten verweisen</p>
+</section><section class="slide"><h2>Der effect-Hook und veraltete Daten</h2>
+<p>Beispiel: fehlerhafter Code, der in einer Closure weiter auf einen veralteten State-Eintrag verweist</p>
+<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">CounterWithLogging</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> [count, setCount] = useState(<span class="hljs-number">0</span>);
+
+  useEffect(<span class="hljs-function">() =></span> {
+    <span class="hljs-built_in">setInterval</span>(<span class="hljs-function">() =></span> {
+      <span class="hljs-comment">// the variable "count" will always refer to the</span>
+      <span class="hljs-comment">// value from the initial rendering (0)</span>
+      <span class="hljs-built_in">console</span>.log(count);
+    }, <span class="hljs-number">1000</span>);
+  }, []);
+
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setCount(count + 1)}>
+      {count}
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span>
+  );
+}
+</code></pre>
+</section><section class="slide"><h2>Veraltete Daten in einem effect-Hook erkennen</h2>
+<p>Linter-Regel, die helfen kann, veraltete Daten zu erkennen:</p>
+<p><em>react-hooks/exhaustive-deps</em></p>
+</section><section class="slide"><h2>Beheben des Problems mit veralteten Daten</h2>
+<p>verschiedene Lösungen, abhängig vom Szenario:</p>
+<ul>
+<li>Code in die Definition einer Effect-Funktion verschieben</li>
+<li>erneutes Ausführen eines Effects, wenn sich eine Abhängigkeit ändert (siehe Hinweise in den Linter-Regeln)
+<ul>
+<li>angeben zusätzlicher Abhängigkeiten</li>
+<li><code>useCallback</code></li>
+</ul>
+</li>
+<li>übergeben einer "Transformations-Funktion" an einen State Setter (die Funktion hat immer Zugriff auf den aktuellsten State)</li>
+<li>zusätzliches Speichern des aktuellsten States in einer <em>ref</em> (ist damit auch in älteren Closures verfügbar)</li>
+</ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Beispiele und Übungen</h1>
 </section><section class="slide"><h2>Beispiel: DocumentTitle-Komponente</h2>
 <p>Wir erstellen eine Komponente, die den Dokumenttitel dynamisch setzen kann:</p>
