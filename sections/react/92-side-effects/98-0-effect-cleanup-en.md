@@ -30,9 +30,7 @@ function App() {
       // ...
     };
     initiateQuery();
-    return () => {
-      cancelPreviousQuery();
-    };
+    return cancelPreviousQuery;
   }, [query]);
 
   // ...
@@ -63,9 +61,7 @@ function App() {
       isCancelled = true;
     };
     initiateQuery();
-    return () => {
-      cancelPreviousQuery();
-    };
+    return cancelPreviousQuery;
   }, [query]);
   return (
     <div className="App">

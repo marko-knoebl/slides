@@ -1,6 +1,6 @@
 # Examples: querying APIs from React
 
-# Examples: querying APIs from React
+## Examples: querying APIs from React
 
 loading todos in a React component:
 
@@ -18,7 +18,7 @@ async function loadTodos() {
 </button>
 ```
 
-# Examples: querying APIs from React
+## Examples: querying APIs from React
 
 code for adding a loading indicator:
 
@@ -33,7 +33,7 @@ async function loadTodosAsync() {
 }
 ```
 
-# Examples: querying APIs from React
+## Examples: querying APIs from React
 
 loading exchange rate data:
 

@@ -36,7 +36,7 @@ async function fetchExchangeRate(
   to: string
 ): Promise<number> {
   const res = await fetch(
-    'https://https://api.exchangerate.host/latest?base=' +
+    'https://api.exchangerate.host/latest?base=' +
       from.toUpperCase() +
       '&symbols=' +
       to.toUpperCase()

@@ -2165,7 +2165,7 @@ useEffect(<span class="hljs-function">() =></span> {
   to: <span class="hljs-built_in">string</span>
 </span>): <span class="hljs-title">Promise</span>&#x3C;<span class="hljs-title">number</span>> </span>{
   <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> fetch(
-    <span class="hljs-string">'https://https://api.exchangerate.host/latest?base='</span> +
+    <span class="hljs-string">'https://api.exchangerate.host/latest?base='</span> +
       <span class="hljs-keyword">from</span>.toUpperCase() +
       <span class="hljs-string">'&#x26;symbols='</span> +
       to.toUpperCase()
@@ -2425,9 +2425,7 @@ export default ExchangeRate;
       <span class="hljs-comment">// ...</span>
     };
     initiateQuery();
-    <span class="hljs-keyword">return</span> <span class="hljs-function">() =></span> {
-      cancelPreviousQuery();
-    };
+    <span class="hljs-keyword">return</span> cancelPreviousQuery;
   }, [query]);
 
   <span class="hljs-comment">// ...</span>
@@ -2453,9 +2451,7 @@ export default ExchangeRate;
       isCancelled = <span class="hljs-literal">true</span>;
     };
     initiateQuery();
-    <span class="hljs-keyword">return</span> <span class="hljs-function">() =></span> {
-      cancelPreviousQuery();
-    };
+    <span class="hljs-keyword">return</span> cancelPreviousQuery;
   }, [query]);
   <span class="hljs-keyword">return</span> (
     <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"App"</span>></span>
