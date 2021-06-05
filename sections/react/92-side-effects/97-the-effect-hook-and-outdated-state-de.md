@@ -1,21 +1,10 @@
-# Der effect-Hook und veraltete Daten
+# Der effect-Hook und veralteter State
 
-## Der effect-Hook und veraltete Daten
+## Der effect-Hook und veralteter State
 
-Unterschied bei State / Props in Funktionskomponenten und in Klassenkomponenten:
+Wie wir zuvor gsehen haben, können asynchrone Funktionen auf alten State / alte Daten verweisen
 
-wenn sich State / Props ändern:
-
-- in Klassenkomponenten werden `this.props` und `this.state` durch neue Objekte ersetzt
-- in Funktionskomponenten wird die Komponentenfunktion erneut aufgerufen, und eine neue _Closure_ entsteht, welche die neuen Props / State-Werte enthält
-
-Achtung: in Funktionskomponenten können alte / obsolete Daten in alten _Closures_ weiterbestehen
-
-## Der effect-Hook und veraltete Daten
-
-wird eine Komponente neu gerendert, aber eine zugehörige Effect-Funktion wurde nicht neu ausgeführt, so kann die Effect-Funktion auf veraltete Daten verweisen
-
-## Der effect-Hook und veraltete Daten
+## Der effect-Hook und veralteter State
 
 Beispiel: fehlerhafter Code, der in einer Closure weiter auf einen veralteten State-Eintrag verweist
 
@@ -55,3 +44,23 @@ verschiedene Lösungen, abhängig vom Szenario:
   - `useCallback`
 - übergeben einer "Transformations-Funktion" an einen State Setter (die Funktion hat immer Zugriff auf den aktuellsten State)
 - zusätzliches Speichern des aktuellsten States in einer _ref_ (ist damit auch in älteren Closures verfügbar)
+
+## Beheben des Problems mit veralteten Daten
+
+Mögliche Lösung des Closure-Problems mit _setInterval_: Verwendung des _ref_-Hooks und eventuell eines selbst definierten Hooks
+
+siehe:
+
+- [Dan Abramov: Making setInterval Declarative with React Hooks](https://overreacted.io/making-setinterval-declarative-with-react-hooks/)
+- [use-interval on GitHub](https://github.com/donavon/use-interval)
+
+## Der effect-Hook und veralteter State
+
+Erklärung: Unterschied bei State / Props in Funktionskomponenten und in Klassenkomponenten:
+
+wenn sich State / Props ändern:
+
+- in Klassenkomponenten werden `this.props` und `this.state` durch neue Objekte ersetzt
+- in Funktionskomponenten wird die Komponentenfunktion erneut aufgerufen, und eine neue _Closure_ entsteht, welche die neuen Props / State-Werte enthält
+
+Achtung: in Funktionskomponenten können alte / obsolete Daten in alten _Closures_ weiterbestehen

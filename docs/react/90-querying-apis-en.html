@@ -2104,8 +2104,8 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   <span class="hljs-keyword">return</span> data.rates[to.toUpperCase()];
 }
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Example: querying an API from React</h1>
-</section><section class="slide"><h2>Example: querying an API from React</h2>
+</section></section><section class="slides-section"><section class="slide"><h1>Examples: querying APIs from React</h1>
+</section></section><section class="slides-section"><section class="slide"><h1>Examples: querying APIs from React</h1>
 <p>loading todos in a React component:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
 <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadTodos</span>(<span class="hljs-params"></span>) </span>{
@@ -2113,15 +2113,11 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   setTodos(todos);
 }
 </code></pre>
-<pre><code class="hljs language-jsx">&#x3C;button
-  onClick={<span class="hljs-function">() =></span> {
-    loadTodos();
-  }}
->
+<pre><code class="hljs language-jsx">&#x3C;button onClick={<span class="hljs-function">() =></span> loadTodos()}>
   load todos <span class="hljs-keyword">from</span> API
 &#x3C;/button>
 </code></pre>
-</section><section class="slide"><h2>Example: querying an API from React</h2>
+</section></section><section class="slides-section"><section class="slide"><h1>Examples: querying APIs from React</h1>
 <p>code for adding a loading indicator:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
 <span class="hljs-keyword">const</span> [isLoading, setIsLoading] = useState(<span class="hljs-literal">false</span>);
@@ -2131,7 +2127,57 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   setTodos(todos);
   setIsLoading(<span class="hljs-literal">false</span>);
 }
-</code></pre></section></section></div>
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Examples: querying APIs from React</h1>
+<p>loading exchange rate data:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> [usdRates, setUsdRates] = useState&#x3C;
+  Record&#x3C;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">number</span>>
+>({});
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadRate</span>(<span class="hljs-params">currency</span>) </span>{
+  <span class="hljs-keyword">const</span> rate = <span class="hljs-keyword">await</span> fetchExchangeRate(<span class="hljs-string">'usd'</span>, currency);
+  setUsdRates({ ...usdRates, [currency]: rate });
+}
+</code></pre>
+<pre><code class="hljs language-jsx">&#x3C;button onClick={<span class="hljs-function">() =></span> loadRate(<span class="hljs-string">'eur'</span>)}>
+  load EUR rate
+&#x3C;/button>
+<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> loadRate("jpy")}>
+  load JPY rate
+<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span>
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Outdated state</h1>
+</section><section class="slide"><h2>Outdated state</h2>
+<p>Sometimes, we may not have direct access to the most recent state entries when computing a new state</p>
+<p>particular scenario: asynchronous events in function components (e.g. network requests)</p>
+</section><section class="slide"><h2>Outdated state</h2>
+<p>example:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [count, setCount] = useState(<span class="hljs-number">0</span>);
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">increment</span>(<span class="hljs-params"></span>) </span>{
+  setCount(count + <span class="hljs-number">1</span>);
+}
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">incrementTwice</span>(<span class="hljs-params"></span>) </span>{
+  setCount(count + <span class="hljs-number">1</span>);
+  setCount(count + <span class="hljs-number">1</span>);
+}
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">incrementWithDelay</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-built_in">setTimeout</span>(increment, <span class="hljs-number">3000</span>);
+}
+</code></pre>
+<p><code>incrementTwice</code> and <code>incrementWithDelay</code> may have some unexpected behavior</p>
+</section><section class="slide"><h2>Outdated state</h2>
+<p>possible solution:</p>
+<pre><code class="hljs language-js">setCount(<span class="hljs-function">(<span class="hljs-params">c</span>) =></span> c + <span class="hljs-number">1</span>);
+</code></pre>
+<p>instead of directly passing the new state, we pass a "state transformer function" - it will be used to <em>queue</em> state updates</p>
+</section><section class="slide"><h2>Outdated state</h2>
+<p>we will commonly use "state transformer functions" in asynchronous code to avoid issues with outdated state:</p>
+<pre><code class="hljs language-js">setUsdRates(<span class="hljs-function">(<span class="hljs-params">usdRates</span>) =></span> ({
+  ...usdRates,
+  [currency]: rate,
+}));
+</code></pre>
+<p>(this fixes an issue when two rates are requested at the same time)</p></section></section></div>
     </div>
     <script>/*!
  * reveal.js

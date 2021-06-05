@@ -42,3 +42,13 @@ useEffect(() => {
   loadTodos();
 }, []);
 ```
+
+## Effect hook
+
+If no second parameter is passed in, the effect will run after every rendering; this can potentially avoid problems with obsolete data
+
+```jsx
+useEffect(() => {
+  ensureExchangeRateIsLoaded();
+});
+```

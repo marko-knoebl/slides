@@ -42,3 +42,13 @@ useEffect(() => {
   loadTodos();
 }, []);
 ```
+
+## Effect nach jedem Rendering
+
+Wenn kein zweiter Parameter übergeben wird, wird die Funktion nach jedem Rendering ausgeführt; dies kann eventuelle Probleme mit veralteten Daten verhindern
+
+```jsx
+useEffect(() => {
+  ensureExchangeRateIsLoaded();
+});
+```

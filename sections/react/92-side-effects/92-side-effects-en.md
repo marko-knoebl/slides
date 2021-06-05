@@ -10,8 +10,9 @@ Typically, we will want to trigger side effects _when some specific props / stat
 
 typical use cases for side effects:
 
-- triggering a network request when a component is rendered for the first time
-- triggering a network request when some data has changed (e.g. the user has selected a specific item to view its details)
+- triggering API queries
+  - when a component is rendered for the first time
+  - when some data (state / props) have changed (e.g. the user has selected a specific item to view its details)
 - saving some data to the browser storage if it has changed
 - explicitly manipulating the DOM
 - starting timers

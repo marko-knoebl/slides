@@ -6,43 +6,12 @@ sometimes the variables returned from the state hook may reference outdated valu
 
 ## Outdated state
 
-example:
-
-```js
-const [count, setCount] = useState(0);
-
-function increment() {
-  setCount(count + 1);
-}
-function incrementTwice() {
-  setCount(count + 1);
-  setCount(count + 1);
-}
-function incrementWithDelay() {
-  setTimeout(increment, 3000);
-}
-```
-
-`incrementTwice` and `incrementWithDelay` will have some unexpected behavior
-
-## Outdated state
-
-solution:
-
-```js
-setCount((c) => c + 1);
-```
-
-instead of directly passing the new state, we pass a state updater function - it will be used to _queue_ state updates
-
-## Outdated state
-
 note: the previous solution is useful when a single state entry should be updated based on its current value
 
 scenarios where this approach is not useful:
 
-- asynchronously updating a state entry based on the current value of other state entries
-- reading the current value to trigger a "side effect" (e.g. network request, logging, ...)
+- asynchronously updating a state entry based on the most recent value of other state entries
+- reading the current value for a "side effect" (e.g. network request, logging, ...)
 
 ## Outdated state: closure
 

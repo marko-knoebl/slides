@@ -2067,8 +2067,12 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </section><section class="slide"><h2>Side Effects</h2>
 <p>typische Fälle von Side Effects:</p>
 <ul>
-<li>Auslösen einer API-Anfrage, wenn eine Komponente zum ersten Mal eingebunden wird</li>
-<li>Auslösen einer API-Anfrage, wenn sich bestimmte Daten geändert haben (z.B. wenn der Benutzer ein bestimmtes Element auswählt, um dessen Details zu sehen)</li>
+<li>Auslösen von API-Anfragen
+<ul>
+<li>wenn eine Komponente zum ersten Mal eingebunden wird</li>
+<li>wenn sich bestimmte Daten (State / Props) geändert haben (z.B. wenn der Benutzer ein bestimmtes Element auswählt, um dessen Details zu sehen)</li>
+</ul>
+</li>
 <li>Speichern von Daten in <em>localStorage</em>, wenn sie sich geändert haben</li>
 <li>Starten von Timern</li>
 <li>...</li>
@@ -2107,6 +2111,12 @@ useEffect(<span class="hljs-function">() =></span> {
 useEffect(<span class="hljs-function">() =></span> {
   loadTodos();
 }, []);
+</code></pre>
+</section><section class="slide"><h2>Effect nach jedem Rendering</h2>
+<p>Wenn kein zweiter Parameter übergeben wird, wird die Funktion nach jedem Rendering ausgeführt; dies kann eventuelle Probleme mit veralteten Daten verhindern</p>
+<pre><code class="hljs language-jsx">useEffect(<span class="hljs-function">() =></span> {
+  ensureExchangeRateIsLoaded();
+});
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Side Effects in Klassenkomponenten</h1>
 </section><section class="slide"><h2>Side Effects in Klassenkomponenten</h2>
@@ -2337,18 +2347,10 @@ export default ExchangeRate;
 </code></pre>
 </section><section class="slide"><h2>Übung: localStorage</h2>
 <p>Speichere den State einer der bisherigen Anwendungen (z.B. <em>tic-tac-toe</em>, <em>todo-list</em>) in <em>localStorage</em></p>
-</section></section><section class="slides-section"><section class="slide"><h1>Der effect-Hook und veraltete Daten</h1>
-</section><section class="slide"><h2>Der effect-Hook und veraltete Daten</h2>
-<p>Unterschied bei State / Props in Funktionskomponenten und in Klassenkomponenten:</p>
-<p>wenn sich State / Props ändern:</p>
-<ul>
-<li>in Klassenkomponenten werden <code>this.props</code> und <code>this.state</code> durch neue Objekte ersetzt</li>
-<li>in Funktionskomponenten wird die Komponentenfunktion erneut aufgerufen, und eine neue <em>Closure</em> entsteht, welche die neuen Props / State-Werte enthält</li>
-</ul>
-<p>Achtung: in Funktionskomponenten können alte / obsolete Daten in alten <em>Closures</em> weiterbestehen</p>
-</section><section class="slide"><h2>Der effect-Hook und veraltete Daten</h2>
-<p>wird eine Komponente neu gerendert, aber eine zugehörige Effect-Funktion wurde nicht neu ausgeführt, so kann die Effect-Funktion auf veraltete Daten verweisen</p>
-</section><section class="slide"><h2>Der effect-Hook und veraltete Daten</h2>
+</section></section><section class="slides-section"><section class="slide"><h1>Der effect-Hook und veralteter State</h1>
+</section><section class="slide"><h2>Der effect-Hook und veralteter State</h2>
+<p>Wie wir zuvor gsehen haben, können asynchrone Funktionen auf alten State / alte Daten verweisen</p>
+</section><section class="slide"><h2>Der effect-Hook und veralteter State</h2>
 <p>Beispiel: fehlerhafter Code, der in einer Closure weiter auf einen veralteten State-Eintrag verweist</p>
 <pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">CounterWithLogging</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">const</span> [count, setCount] = useState(<span class="hljs-number">0</span>);
@@ -2384,22 +2386,125 @@ export default ExchangeRate;
 <li>übergeben einer "Transformations-Funktion" an einen State Setter (die Funktion hat immer Zugriff auf den aktuellsten State)</li>
 <li>zusätzliches Speichern des aktuellsten States in einer <em>ref</em> (ist damit auch in älteren Closures verfügbar)</li>
 </ul>
+</section><section class="slide"><h2>Beheben des Problems mit veralteten Daten</h2>
+<p>Mögliche Lösung des Closure-Problems mit <em>setInterval</em>: Verwendung des <em>ref</em>-Hooks und eventuell eines selbst definierten Hooks</p>
+<p>siehe:</p>
+<ul>
+<li><a href="https://overreacted.io/making-setinterval-declarative-with-react-hooks/">Dan Abramov: Making setInterval Declarative with React Hooks</a></li>
+<li><a href="https://github.com/donavon/use-interval">use-interval on GitHub</a></li>
+</ul>
+</section><section class="slide"><h2>Der effect-Hook und veralteter State</h2>
+<p>Erklärung: Unterschied bei State / Props in Funktionskomponenten und in Klassenkomponenten:</p>
+<p>wenn sich State / Props ändern:</p>
+<ul>
+<li>in Klassenkomponenten werden <code>this.props</code> und <code>this.state</code> durch neue Objekte ersetzt</li>
+<li>in Funktionskomponenten wird die Komponentenfunktion erneut aufgerufen, und eine neue <em>Closure</em> entsteht, welche die neuen Props / State-Werte enthält</li>
+</ul>
+<p>Achtung: in Funktionskomponenten können alte / obsolete Daten in alten <em>Closures</em> weiterbestehen</p>
+</section></section><section class="slides-section"><section class="slide"><h1>Effect Cleanup</h1>
+</section><section class="slide"><h2>Effect Cleanup</h2>
+<p>manche Side Effects müssen später "aufgeräumt" werden:</p>
+<ul>
+<li>Stoppen von Timern</li>
+<li>Abbrechen von API-Anfragen, wenn sie nicht mehr benötigt werden (z.B. wenn sich ein Suchbegriff geändert hat)</li>
+</ul>
+</section><section class="slide"><h2>Cleanup-Funktionen</h2>
+<p>Eine Effect-Funktion kann eine "Cleanup-Funktion" zurückgeben</p>
+<p>Diese Funktion wird ausgeführt, bevor der Effect zum nächsten Mal läuft oder bevor die Komponente entfernt wird</p>
+</section><section class="slide"><h2>Cleanup-Funktionen</h2>
+<p>Beispiel: Struktur für eine Suchanfrage mit unmittelbarem Feedback / Laden, wenn der Benutzer tippt:</p>
+<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">App</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> [query, setQuery] = useState(<span class="hljs-string">''</span>);
+  <span class="hljs-keyword">const</span> [results, setResults] = useState([]);
+
+  useEffect(<span class="hljs-function">() =></span> {
+    <span class="hljs-keyword">const</span> initiateQuery = <span class="hljs-keyword">async</span> () => {
+      <span class="hljs-comment">// ...</span>
+    };
+    <span class="hljs-keyword">const</span> cancelPreviousQuery = <span class="hljs-function">() =></span> {
+      <span class="hljs-comment">// ...</span>
+    };
+    initiateQuery();
+    <span class="hljs-keyword">return</span> <span class="hljs-function">() =></span> {
+      cancelPreviousQuery();
+    };
+  }, [query]);
+
+  <span class="hljs-comment">// ...</span>
+}
+</code></pre>
+</section><section class="slide"><h2>Cleanup-Funktionen</h2>
+<p>vollständiges Beispiel: Hacker News - Suche</p>
+<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">App</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> [query, setQuery] = useState(<span class="hljs-string">''</span>);
+  <span class="hljs-keyword">const</span> [results, setResults] = useState([]);
+  useEffect(<span class="hljs-function">() =></span> {
+    <span class="hljs-keyword">let</span> isCancelled = <span class="hljs-literal">false</span>;
+    <span class="hljs-keyword">const</span> initiateQuery = <span class="hljs-keyword">async</span> () => {
+      <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> fetch(
+        <span class="hljs-string">`https://hn.algolia.com/api/v1/search?query=<span class="hljs-subst">${query}</span>`</span>
+      );
+      <span class="hljs-keyword">const</span> data = <span class="hljs-keyword">await</span> res.json();
+      <span class="hljs-keyword">if</span> (!isCancelled) {
+        setResults(data.hits);
+      }
+    };
+    <span class="hljs-keyword">const</span> cancelPreviousQuery = <span class="hljs-function">() =></span> {
+      isCancelled = <span class="hljs-literal">true</span>;
+    };
+    initiateQuery();
+    <span class="hljs-keyword">return</span> <span class="hljs-function">() =></span> {
+      cancelPreviousQuery();
+    };
+  }, [query]);
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"App"</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">input</span>
+        <span class="hljs-attr">value</span>=<span class="hljs-string">{query}</span>
+        <span class="hljs-attr">onChange</span>=<span class="hljs-string">{(event)</span> =></span> {
+          setQuery(event.target.value);
+        }}
+      />
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">ul</span>></span>
+        {results.map((article) => (
+          <span class="hljs-tag">&#x3C;<span class="hljs-name">li</span> <span class="hljs-attr">key</span>=<span class="hljs-string">{article.objectId}</span>></span>{article.title}<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span>
+        ))}
+      <span class="hljs-tag">&#x3C;/<span class="hljs-name">ul</span>></span>
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+  );
+}
+</code></pre>
+</section><section class="slide"><h2>Cleanup-Funktionen</h2>
+<p>Beispiel: Benutzer wird nach 10 Sekunden Inaktivität automatisch ausgeloggt</p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> App = <span class="hljs-function">() =></span> {
+  <span class="hljs-keyword">const</span> [loggedIn, setLoggedIn] = useState(<span class="hljs-literal">true</span>);
+  <span class="hljs-keyword">const</span> [lastInteraction, setLastInteraction] = useState(
+    <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>()
+  );
+  <span class="hljs-comment">// restart the logout timer on user interaction</span>
+  useEffect(<span class="hljs-function">() =></span> {
+    <span class="hljs-keyword">const</span> logout = <span class="hljs-function">() =></span> setLoggedIn(<span class="hljs-literal">false</span>);
+    <span class="hljs-keyword">const</span> timeoutId = <span class="hljs-built_in">setTimeout</span>(logout, <span class="hljs-number">10000</span>);
+    <span class="hljs-keyword">return</span> <span class="hljs-function">() =></span> <span class="hljs-built_in">clearTimeout</span>(timeoutId);
+  }, [lastInteraction]);
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setLastInteraction(new Date())}>
+      {loggedIn
+        ? 'click to stay logged in'
+        : 'logged out automatically'}
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span>
+  );
+};
+</code></pre>
+</section><section class="slide"><h2>Cleanup-Funktionen</h2>
+<p>Gibt eine Effect-Funktion etwas anderes als <code>undefined</code> zurück, so wird der Rückgabewert als eine Cleanup-Funktion interpretiert</p>
+<p>Aus diesem Grund können asynchrone Funktionen nicht direkt als Effect-Funktionen verwendet werden (sie geben Promises zurück)</p>
 </section></section><section class="slides-section"><section class="slide"><h1>Beispiele und Übungen</h1>
 </section><section class="slide"><h2>Beispiel: DocumentTitle-Komponente</h2>
 <p>Wir erstellen eine Komponente, die den Dokumenttitel dynamisch setzen kann:</p>
 <pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">DocumentTitle</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"my custom title"</span> /></span>
 </code></pre>
 <p>Diese Komponente kann irgendwo in der React-Anwendung vorkommen.</p>
-</section><section class="slide"><h2>Beispiel: DocumentTitle-Komponente</h2>
-<p>Implementierung als Funktionskomponente:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">DocumentTitle</span>(<span class="hljs-params">props</span>) </span>{
-  useEffect(<span class="hljs-function">() =></span> {
-    <span class="hljs-built_in">document</span>.title = props.value;
-  }, [props.value]);
-
-  <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
-}
-</code></pre>
 </section><section class="slide"><h2>Beispiel: DocumentTitle-Komponente</h2>
 <p>Implementierung als Klassenkomponente:</p>
 <pre><code class="hljs language-jsx"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DocumentTitle</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
@@ -2414,6 +2519,34 @@ export default ExchangeRate;
   <span class="hljs-function"><span class="hljs-title">render</span>(<span class="hljs-params"></span>)</span> {
     <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
   }
+}
+</code></pre>
+</section><section class="slide"><h2>Beispiel: DocumentTitle-Komponente</h2>
+<p>Implementierung als Funktionskomponente:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">DocumentTitle</span>(<span class="hljs-params">props</span>) </span>{
+  useEffect(<span class="hljs-function">() =></span> {
+    <span class="hljs-built_in">document</span>.title = props.value;
+  }, [props.value]);
+
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+}
+</code></pre>
+<p>(funktioniert wie gewünscht, aber zeigt eine Warnung bezüglich <em>exhaustive dependencies</em>)</p>
+</section><section class="slide"><h2>Beispiel: DocumentTitle-Komponente</h2>
+<p>Implementierungen, die keine Warnungen anzeigen:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">DocumentTitle</span>(<span class="hljs-params">props</span>) </span>{
+  useEffect(<span class="hljs-function">() =></span> {
+    <span class="hljs-built_in">document</span>.title = props.value;
+  }, [props.value]);
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+}
+</code></pre>
+<pre><code class="hljs language-jsx"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">DocumentTitle</span>(<span class="hljs-params">props</span>) </span>{
+  <span class="hljs-keyword">const</span> updateTitle = useCallback(<span class="hljs-function">() =></span> {
+    <span class="hljs-built_in">document</span>.title = props.value;
+  }, [props.value]);
+  useEffect(updateTitle, [updateTitle]);
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
 }
 </code></pre>
 </section><section class="slide"><h2>Beispiel: Clock-Komponente</h2>

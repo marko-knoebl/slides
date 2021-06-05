@@ -10,8 +10,9 @@ Typischerweise möchten wir Side Effects auslösen, wenn _sich bestimmte Props o
 
 typische Fälle von Side Effects:
 
-- Auslösen einer API-Anfrage, wenn eine Komponente zum ersten Mal eingebunden wird
-- Auslösen einer API-Anfrage, wenn sich bestimmte Daten geändert haben (z.B. wenn der Benutzer ein bestimmtes Element auswählt, um dessen Details zu sehen)
+- Auslösen von API-Anfragen
+  - wenn eine Komponente zum ersten Mal eingebunden wird
+  - wenn sich bestimmte Daten (State / Props) geändert haben (z.B. wenn der Benutzer ein bestimmtes Element auswählt, um dessen Details zu sehen)
 - Speichern von Daten in _localStorage_, wenn sie sich geändert haben
 - Starten von Timern
 - ...
