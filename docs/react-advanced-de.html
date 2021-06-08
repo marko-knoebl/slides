@@ -2074,126 +2074,13 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li>HOCs</li>
 <li>Manuelles Setup</li>
 </ul>
-</section></section><section class="slides-section"><section class="slide"><h1>Context</h1>
-</section><section class="slide"><h2>Context</h2>
-<p>Möglichkeit, Werte aus einer Komponente direkt allen weiter unten im Dokumentenbaum liegenden Komponenten zur Verfügung zu stellen - ohne diese über jede Ebene übergeben zu müssen</p>
-<p>Das Interface von Context kann sowohl Daten (aus dem State) als auch Eventhandler übergeben.</p>
-</section><section class="slide"><h2>Context - Beispiel</h2>
-<pre><code class="hljs language-js"><span class="hljs-comment">// TodosContext.js</span>
-<span class="hljs-keyword">import</span> { createContext } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
-
-<span class="hljs-keyword">const</span> TodosContext = createContext();
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> TodosContext;
-</code></pre>
-</section><section class="slide"><h2>Context - Beispiel</h2>
-<p>mit TypeScript:</p>
-<pre><code class="hljs language-ts"><span class="hljs-comment">// TodosContext.ts</span>
-<span class="hljs-keyword">import</span> { createContext } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
-
-<span class="hljs-keyword">type</span> TodosContextType = {
-  <span class="hljs-attr">todos</span>: <span class="hljs-built_in">Array</span>&#x3C;Todo>;
-  onToggle: <span class="hljs-function">(<span class="hljs-params">id: <span class="hljs-built_in">number</span></span>) =></span> <span class="hljs-built_in">void</span>;
-};
-
-<span class="hljs-keyword">const</span> TodosContext = createContext({} <span class="hljs-keyword">as</span> TodosContextType);
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> TodosContext;
-</code></pre>
-</section><section class="slide"><h2>Context - Beispiel</h2>
-<p>Der <em>Provider</em> stellt Werte allen Unterkomponenten zur Verfügung</p>
-<pre><code class="hljs language-jsx">&#x3C;TodosContext.Provider
-  value={{
-    <span class="hljs-attr">todos</span>: todos,
-    <span class="hljs-attr">onToggle</span>: <span class="hljs-function">() =></span> {
-      <span class="hljs-comment">// ...</span>
-    },
-  }}
->
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">TodoList</span> /></span></span>
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">AddTodo</span> /></span></span>
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">TodoStats</span> /></span></span>
-&#x3C;/TodosContext.Provider>
-</code></pre>
-</section><section class="slide"><h2>Context - Beispiel</h2>
-<p>Verwendung des <em>Context Hooks</em>, um Werte eines bestimmten Contexts abzufragen:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> TodoStats = <span class="hljs-function">() =></span> {
-  <span class="hljs-keyword">const</span> context = useContext(TodosContext);
-  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>There are {context.todos.length} todos<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
-};
-</code></pre>
-</section><section class="slide"><h2>Context - Beispiel</h2>
-<p>als eigener Hook:</p>
-<pre><code class="hljs language-ts"><span class="hljs-comment">// todosContext.ts</span>
-
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">useTodosContext</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">const</span> context = useContext(TodosContext);
-  <span class="hljs-keyword">if</span> (context === <span class="hljs-literal">undefined</span>) {
-    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'No matching provider found'</span>);
-  }
-  <span class="hljs-keyword">return</span> context;
-}
-
-<span class="hljs-keyword">export</span> { TodosContext, useTodosContext };
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>React Query</h1>
-</section><section class="slide"><h2>React Query</h2>
-<p><strong>React Query</strong>: Library zum Interagieren mit Web APIs (z.B. REST APIs)</p>
-</section><section class="slide"><h2>React Query Setup</h2>
-<p>in <em>index.js</em>:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> {
-  QueryClient,
-  QueryClientProvider,
-} <span class="hljs-keyword">from</span> <span class="hljs-string">'react-query'</span>;
-
-<span class="hljs-keyword">const</span> queryClient = <span class="hljs-keyword">new</span> QueryClient();
-
-ReactDOM.render(
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">QueryClientProvider</span> <span class="hljs-attr">client</span>=<span class="hljs-string">{queryClient}</span>></span>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">App</span> /></span>
-  <span class="hljs-tag">&#x3C;/<span class="hljs-name">QueryClientProvider</span>></span></span>,
-  rootElement
-);
-</code></pre>
-</section><section class="slide"><h2>Queries definieren</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { useQuery } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-query'</span>;
-<span class="hljs-keyword">import</span> { fetchTodos } <span class="hljs-keyword">from</span> <span class="hljs-string">'./todosApi'</span>;
-
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">TodoApp</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">const</span> { isLoading, error, <span class="hljs-attr">data</span>: todos } = useQuery(
-    <span class="hljs-string">'todos'</span>,
-    fetchTodos
-  );
-  <span class="hljs-keyword">if</span> (isLoading) {
-    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>Loading ...<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
-  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (error) {
-    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>Could not load todos<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
-  }
-  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">TodoList</span> <span class="hljs-attr">todos</span>=<span class="hljs-string">{todos}</span> /></span></span>;
-}
-</code></pre>
-</section><section class="slide"><h2>Mutationen definieren</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { useMutation } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-query'</span>;
-<span class="hljs-keyword">import</span> { addTodo } <span class="hljs-keyword">from</span> <span class="hljs-string">'./todosApi'</span>;
-
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">TodoApp</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-comment">// ...</span>
-  <span class="hljs-keyword">const</span> onAddTodo = useMutation(addTodo, {
-    <span class="hljs-attr">onSuccess</span>: <span class="hljs-function">() =></span> {
-      <span class="hljs-comment">// initiate a refetch of todos</span>
-      queryClient.invalidateQueries(<span class="hljs-string">'todos'</span>);
-    },
-  });
-  <span class="hljs-comment">// ...</span>
-}
-</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Hooks</h1>
 </section><section class="slide"><h2>Hooks</h2>
 <p>Hooks: Erweiterung von Funktionskomponenten</p>
 <p>Eine <em>einfache</em> Funktionskomponente kann Inhalte basierend auf ihren Props rendern und Events auslösen.</p>
 <p>Hooks erlauben erweiterte Funktionalität, z.B. internen State in einer Komponente oder das "Lauschen" auf Events aus dem Komponentenlebenszyklus</p>
 </section><section class="slide"><h2>Hooks</h2>
-<p>Hooks sind spezielle Funktionen, die am Beginn einer Komponentendefinition aufgerufen werden können</p>
+<p>Hooks sind spezielle Funktionen, die innerhalb einer Komponentendefinition aufgerufen werden können</p>
 <p>Beispiele:</p>
 <ul>
 <li><code>useState(...)</code></li>
@@ -2210,41 +2097,6 @@ ReactDOM.render(
 <p>Hooks in einer Komponentendefinition müssen bei jedem Rendering in der gleichen Reihenfolge aufgerufen werden - React unterscheidet z.B. mehrere <code>useState</code>-Aufrufe anhand ihrer Reihenfolge</p>
 <p>Die gleichen Regeln wie in einer Komponente gelten auch für Hook-Aufrufe in einem selbst definierten Hook</p>
 <p><a href="https://reactjs.org/docs/hooks-rules.html">Rules of Hooks auf reactjs.org</a></p>
-</section></section><section class="slides-section"><section class="slide"><h1>Externe Hooks</h1>
-</section><section class="slide"><h2>Externe Hooks</h2>
-<p>Viele zusätzliche Hooks werden von der React-Community entwickelt</p>
-<p>Einsatzgebiete z.B.:</p>
-<ul>
-<li>Abfragen von APIs</li>
-<li>Verwenden von globalem State</li>
-<li>Verwenden von <em>localStorage</em> für den state</li>
-<li>Media Queries</li>
-<li>Abfrage der Scrollposition</li>
-<li>... (siehe <a href="https://github.com/rehooks/awesome-react-hooks">awesome-react-hooks</a>)</li>
-</ul>
-</section><section class="slide"><h2>Beispiel: react-query</h2>
-<p><a href="https://github.com/tannerlinsley/react-query">https://github.com/tannerlinsley/react-query</a></p>
-<p>Viel genutzter Hook, der beim Abfragen von APIs hilfreich sein kann</p>
-</section><section class="slide"><h2>Beispiel: react-query</h2>
-<p>Einfache Verwendung:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> TodoDisplay = <span class="hljs-function">() =></span> {
-  <span class="hljs-keyword">const</span> [id, setId] = useState(<span class="hljs-number">0</span>);
-  <span class="hljs-keyword">const</span> { status, data } = useQuery(<span class="hljs-string">`todo_<span class="hljs-subst">${id}</span>`</span>, <span class="hljs-function">() =></span>
-    fetchTodo(id)
-  );
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
-      {status === 'success' ? data.title : status}
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setId(id + 1)}>next<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
-  );
-};
-
-<span class="hljs-keyword">const</span> fetchTodo = <span class="hljs-function">(<span class="hljs-params">id</span>) =></span>
-  fetch(
-    <span class="hljs-string">`https://jsonplaceholder.typicode.com/<span class="hljs-subst">${id}</span>`</span>
-  ).then(<span class="hljs-function">(<span class="hljs-params">response</span>) =></span> response.json());
-</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Eigene Hooks</h1>
 </section><section class="slide"><h2>Eigene Hooks</h2>
 <p>können verwendet werden, um bestimmte Aspekte aus der Komponentendefinition zu extrahieren</p>
@@ -2321,14 +2173,15 @@ ReactDOM.render(
 <pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">useTodos</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
   <span class="hljs-keyword">const</span> [isLoading, setIsLoading] = useState(<span class="hljs-literal">false</span>);
-  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">reload</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">reload</span>(<span class="hljs-params"></span>) </span>{
     setIsLoading(<span class="hljs-literal">true</span>);
-    fetchTodos().then(<span class="hljs-function">(<span class="hljs-params">todos</span>) =></span> {
-      setTodos(todos);
-      setIsLoading(<span class="hljs-literal">false</span>);
-    });
+    <span class="hljs-keyword">const</span> todos = <span class="hljs-keyword">await</span> fetchTodos();
+    setTodos(todos);
+    setIsLoading(<span class="hljs-literal">false</span>);
   }
-  useEffect(reload, []);
+  useEffect(<span class="hljs-function">() =></span> {
+    reload();
+  }, []);
   <span class="hljs-comment">// ... (addTodo, deleteTodo, toggleTodo)</span>
   <span class="hljs-keyword">return</span> {
     todos,
@@ -2377,6 +2230,131 @@ ReactDOM.render(
 <li><code>.wind.speed</code> (z.B. 2.5)</li>
 <li><code>.name</code> (z.B. <em>Vienna</em>)</li>
 </ul>
+</section></section><section class="slides-section"><section class="slide"><h1>Externe Hooks</h1>
+</section><section class="slide"><h2>Externe Hooks</h2>
+<p>Viele zusätzliche Hooks werden von der React-Community entwickelt</p>
+<p>Einsatzgebiete z.B.:</p>
+<ul>
+<li>Abfragen von APIs</li>
+<li>Verwenden von globalem State</li>
+<li>Verwenden von <em>localStorage</em> für den state</li>
+<li>Media Queries</li>
+<li>Abfrage der Scrollposition</li>
+<li>... (siehe <a href="https://github.com/rehooks/awesome-react-hooks">awesome-react-hooks</a>)</li>
+</ul>
+</section></section><section class="slides-section"><section class="slide"><h1>React Query</h1>
+</section><section class="slide"><h2>React Query</h2>
+<p><strong>React Query</strong>: Library zum Interagieren mit Web APIs (z.B. REST APIs)</p>
+</section><section class="slide"><h2>React Query Setup</h2>
+<p>in <em>index.js</em>:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> {
+  QueryClient,
+  QueryClientProvider,
+} <span class="hljs-keyword">from</span> <span class="hljs-string">'react-query'</span>;
+
+<span class="hljs-keyword">const</span> queryClient = <span class="hljs-keyword">new</span> QueryClient();
+
+ReactDOM.render(
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">QueryClientProvider</span> <span class="hljs-attr">client</span>=<span class="hljs-string">{queryClient}</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">App</span> /></span>
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">QueryClientProvider</span>></span></span>,
+  rootElement
+);
+</code></pre>
+</section><section class="slide"><h2>Queries definieren</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { useQuery } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-query'</span>;
+<span class="hljs-keyword">import</span> { fetchTodos } <span class="hljs-keyword">from</span> <span class="hljs-string">'./todosApi'</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">TodoApp</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> { isLoading, error, <span class="hljs-attr">data</span>: todos } = useQuery(
+    <span class="hljs-string">'todos'</span>,
+    fetchTodos
+  );
+  <span class="hljs-keyword">if</span> (isLoading) {
+    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>Loading ...<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (error) {
+    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>Could not load todos<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+  }
+  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">TodoList</span> <span class="hljs-attr">todos</span>=<span class="hljs-string">{todos}</span> /></span></span>;
+}
+</code></pre>
+</section><section class="slide"><h2>Mutationen definieren</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { useMutation } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-query'</span>;
+<span class="hljs-keyword">import</span> { addTodo } <span class="hljs-keyword">from</span> <span class="hljs-string">'./todosApi'</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">TodoApp</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-comment">// ...</span>
+  <span class="hljs-keyword">const</span> onAddTodo = useMutation(addTodo, {
+    <span class="hljs-attr">onSuccess</span>: <span class="hljs-function">() =></span> {
+      <span class="hljs-comment">// initiate a refetch of todos</span>
+      queryClient.invalidateQueries(<span class="hljs-string">'todos'</span>);
+    },
+  });
+  <span class="hljs-comment">// ...</span>
+}
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Context</h1>
+</section><section class="slide"><h2>Context</h2>
+<p>Möglichkeit, Werte aus einer Komponente direkt allen weiter unten im Dokumentenbaum liegenden Komponenten zur Verfügung zu stellen - ohne diese über jede Ebene übergeben zu müssen</p>
+<p>Das Interface von Context kann sowohl Daten (aus dem State) als auch Eventhandler übergeben.</p>
+</section><section class="slide"><h2>Context - Beispiel</h2>
+<pre><code class="hljs language-js"><span class="hljs-comment">// TodosContext.js</span>
+<span class="hljs-keyword">import</span> { createContext } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+
+<span class="hljs-keyword">const</span> TodosContext = createContext();
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> TodosContext;
+</code></pre>
+</section><section class="slide"><h2>Context - Beispiel</h2>
+<p>mit TypeScript:</p>
+<pre><code class="hljs language-ts"><span class="hljs-comment">// TodosContext.ts</span>
+<span class="hljs-keyword">import</span> { createContext } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+
+<span class="hljs-keyword">type</span> TodosContextType = {
+  <span class="hljs-attr">todos</span>: <span class="hljs-built_in">Array</span>&#x3C;Todo>;
+  onToggle: <span class="hljs-function">(<span class="hljs-params">id: <span class="hljs-built_in">number</span></span>) =></span> <span class="hljs-built_in">void</span>;
+};
+
+<span class="hljs-keyword">const</span> TodosContext = createContext({} <span class="hljs-keyword">as</span> TodosContextType);
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> TodosContext;
+</code></pre>
+</section><section class="slide"><h2>Context - Beispiel</h2>
+<p>Der <em>Provider</em> stellt Werte allen Unterkomponenten zur Verfügung</p>
+<pre><code class="hljs language-jsx">&#x3C;TodosContext.Provider
+  value={{
+    <span class="hljs-attr">todos</span>: todos,
+    <span class="hljs-attr">onToggle</span>: <span class="hljs-function">() =></span> {
+      <span class="hljs-comment">// ...</span>
+    },
+  }}
+>
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">TodoList</span> /></span></span>
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">AddTodo</span> /></span></span>
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">TodoStats</span> /></span></span>
+&#x3C;/TodosContext.Provider>
+</code></pre>
+</section><section class="slide"><h2>Context - Beispiel</h2>
+<p>Verwendung des <em>Context Hooks</em>, um Werte eines bestimmten Contexts abzufragen:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> TodoStats = <span class="hljs-function">() =></span> {
+  <span class="hljs-keyword">const</span> context = useContext(TodosContext);
+  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>There are {context.todos.length} todos<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+};
+</code></pre>
+</section><section class="slide"><h2>Context - Beispiel</h2>
+<p>als eigener Hook:</p>
+<pre><code class="hljs language-ts"><span class="hljs-comment">// todosContext.ts</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">useTodosContext</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> context = useContext(TodosContext);
+  <span class="hljs-keyword">if</span> (context === <span class="hljs-literal">undefined</span>) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'No matching provider found'</span>);
+  }
+  <span class="hljs-keyword">return</span> context;
+}
+
+<span class="hljs-keyword">export</span> { TodosContext, useTodosContext };
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>State Management mit Reducern</h1>
 <!-- NOTE: other sections link to this section - take care when reordering -->
 </section><section class="slide"><h2>State Management</h2>

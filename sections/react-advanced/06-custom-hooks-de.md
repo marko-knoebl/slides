@@ -1,14 +1,14 @@
-# Custom hooks
+# Eigene Hooks
 
-## Custom hooks
+## Eigene Hooks
 
-Custom hooks can be used to extract logic from function components
+können verwendet werden, um bestimmte Aspekte aus der Komponentendefinition zu extrahieren
 
-They are functions which in turn use existing hooks like `useState` or `useEffect`
+werden als Funktionen definiert, die wiederum auf bestehende Hooks, wie `useState` oder `useEffect` zurückgreifen
 
-## Custom hooks - useExchangeRate
+## Eigene Hooks - useExchangeRate
 
-hook that provides the exchange rate for selected currencies (see earlier example):
+Hook, der den Wechselkurs zwischen ausgewählten Währungen bereitstellt (siehe früheres Beispiel):
 
 ```js
 function useExchangeRate(from, to) {
@@ -31,9 +31,9 @@ function useExchangeRate(from, to) {
 }
 ```
 
-## Custom hooks - useTodos
+## Eigene Hooks - useTodos
 
-Example: `useTodos` - can be used to extract data handling from the component definition (separating the _model_ from the _view_)
+Beispiel: `useTodos` - kann verwendet werden, um die Datenverwaltung von der Komponentendefinition loszulösen (Trennung von _model_ und _view_)
 
 ```jsx
 function TodoApp() {
@@ -57,9 +57,9 @@ function TodoApp() {
 }
 ```
 
-## Custom hooks - useTodos
+## Eigene Hooks - useTodos
 
-definition of `useTodos`:
+Definition von `useTodos`:
 
 ```jsx
 function useTodos() {
@@ -85,22 +85,23 @@ function useTodos() {
 }
 ```
 
-## Custom hooks - useTodos
+## Eigene Hooks - useTodos
 
-`useTodos` with API access:
+`useTodos` mit API-Abfrage:
 
 ```js
 function useTodos() {
   const [todos, setTodos] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  function reload() {
+  async function reload() {
     setIsLoading(true);
-    fetchTodos().then((todos) => {
-      setTodos(todos);
-      setIsLoading(false);
-    });
+    const todos = await fetchTodos();
+    setTodos(todos);
+    setIsLoading(false);
   }
-  useEffect(reload, []);
+  useEffect(() => {
+    reload();
+  }, []);
   // ... (addTodo, deleteTodo, toggleTodo)
   return {
     todos,
@@ -111,9 +112,9 @@ function useTodos() {
 }
 ```
 
-## Custom hooks - useDate
+## Eigene Hooks - useDate
 
-Example: `useDate` - provides the current time and updates the component every 1000 milliseconds
+Beispiel: `useDate` - stellt hier die aktuelle Uhrzeit bereit und aktualisiert die Komponente alle 1000 Millisekunden
 
 ```js
 const Clock = () => {
@@ -124,9 +125,9 @@ const Clock = () => {
 };
 ```
 
-## Custom hooks - useDate
+## Eigene Hooks - useDate
 
-basic implementation of `useDate`:
+Einfache Implementierung von `useDate`:
 
 ```js
 const useDate = (interval) => {
@@ -140,9 +141,9 @@ const useDate = (interval) => {
 };
 ```
 
-## Custom hooks - exercise
+## Eigene Hooks - Übung
 
-Create a hook named `useWeather` that can be used to query Weather data - together with an associated context that enables application-wide caching of the data
+Erstellen eines `useWeather`-Hooks zum Abfragen von Wetterdaten - zusammen mit einem zugehörigen Context, der die Daten Anwendungsweit cached
 
 ```js
 const { weather, status, reload } = useWeather('vienna', {
@@ -150,19 +151,19 @@ const { weather, status, reload } = useWeather('vienna', {
 });
 ```
 
-For the data source (API) see the next slide
+Für die Datenquelle siehe nächste Slide
 
-## Custom hooks - exercise
+## Eigene Hooks - Übung
 
 OpenWeatherMap-API
 
-example URL: <http://api.openweathermap.org/data/2.5/weather?appid=66445a4269dd911a5bbe214fadb768d6&units=metric&q=vienna>
+Beispiel-URL: <http://api.openweathermap.org/data/2.5/weather?appid=66445a4269dd911a5bbe214fadb768d6&units=metric&q=vienna>
 
-(please only use this appid / API key for simple exercises)
+(bitte diese appid / API-Key nur für einfache Übungen verwenden)
 
-entries in the API data:
+Einträge in den API-Daten:
 
-- `.weather[0].main` (e.g. _Rain_)
-- `.main.temp` (e.g. 24.5)
-- `.wind.speed` (e.g. 2.5)
-- `.name` (e.g. _Vienna_)
+- `.weather[0].main` (z.B. _Rain_)
+- `.main.temp` (z.B. 24.5)
+- `.wind.speed` (z.B. 2.5)
+- `.name` (z.B. _Vienna_)

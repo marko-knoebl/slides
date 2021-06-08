@@ -12,4 +12,4 @@ speeding up the three steps:
 
 - memoizing costly computations (_useMemo_) - may speed up step 1
 - preventing unneeded component rerenderings - skips all steps if nothing changed
-- using the _key_ property - helps with finding the minimal diff for step 3
+- using the _key_ property - helps with finding the minimal diff

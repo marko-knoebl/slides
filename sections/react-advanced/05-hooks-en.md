@@ -10,7 +10,7 @@ Hooks allow for advanced functionality, e.g. having internal component state or 
 
 ## Hooks
 
-Hooks are special functions that can be called at the start of a component definition.
+Hooks are special functions that can be called inside a component definition.
 
 Examples:
 

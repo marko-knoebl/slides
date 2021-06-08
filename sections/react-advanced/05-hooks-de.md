@@ -10,7 +10,7 @@ Hooks erlauben erweiterte Funktionalität, z.B. internen State in einer Komponen
 
 ## Hooks
 
-Hooks sind spezielle Funktionen, die am Beginn einer Komponentendefinition aufgerufen werden können
+Hooks sind spezielle Funktionen, die innerhalb einer Komponentendefinition aufgerufen werden können
 
 Beispiele:
 

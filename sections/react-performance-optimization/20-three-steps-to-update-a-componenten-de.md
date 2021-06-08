@@ -12,4 +12,4 @@ Beschleunigen der drei Schritte:
 
 - Memoisieren aufwändiger Berechnungen (_useMemo_) - kann Schritt 1 beschleunigen
 - Vermeiden unnötiger Komponenten-Rerenderings - überspringt alle Schritte, falls sich nichts geändert hat
-- Verwenden der _key_-Property - hilft beim Finden des minimalen diffs in Schritt 3
+- Verwenden der _key_-Property - hilft beim Finden des minimalen diffs
