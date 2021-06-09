@@ -1,6 +1,6 @@
-# Input validation
+# Forms and validation
 
-## Input validation
+## Forms and validation
 
 When can a form input be validated?
 

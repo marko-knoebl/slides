@@ -2357,6 +2357,336 @@ ReactDOM.render(
 
 <span class="hljs-keyword">export</span> { TodosContext, useTodosContext };
 </code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Styling tools</h1>
+</section><section class="slide"><h2>Styling tools</h2>
+<p>tools for external stylesheets:</p>
+<ul>
+<li><em>classnames</em> package</li>
+<li>CSS modules</li>
+<li>SCSS</li>
+</ul>
+<p>CSS-in-JS libraries:</p>
+<ul>
+<li>emotion</li>
+<li>styled-components</li>
+<li>...</li>
+</ul>
+</section><section class="slide"><h2>classnames</h2>
+<p>utility: npm package <em>classnames</em>:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> classNames <span class="hljs-keyword">from</span> <span class="hljs-string">'classnames'</span>;
+
+<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>
+  <span class="hljs-attr">className</span>=<span class="hljs-string">{classNames({</span>
+    <span class="hljs-attr">todoitem:</span> <span class="hljs-attr">true</span>,
+    <span class="hljs-attr">completed:</span> <span class="hljs-attr">isCompleted</span>,
+  })}
+></span>
+  [...]
+<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+</code></pre>
+</section><section class="slide"><h2>CSS modules</h2>
+<p>CSS modules are preconfigured in create-react-app; they enable using CSS class names that are guaranteed to be unique across CSS files</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> styles <span class="hljs-keyword">from</span> <span class="hljs-string">'./TodoItem.module.css'</span>;
+
+<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">{styles.todoItem}</span>></span>...<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+
+<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">{</span>`${<span class="hljs-attr">styles.todoItem</span>} ${<span class="hljs-attr">styles.completed</span>}`}></span>
+  ...
+<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+</code></pre>
+</section><section class="slide"><h2>SCSS</h2>
+<p>enabling SCSS in a create-react-app project:</p>
+<pre><code class="hljs language-bash">npm install node-sass
+</code></pre>
+<p>then we can use:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> <span class="hljs-string">'./TodoItem.scss'</span>;
+</code></pre>
+</section><section class="slide"><h2>CSS-in-JS</h2>
+<p><strong>CSS-in-JS</strong>: JavaScript is used to generate and attach stylesheets</p>
+<p>Nowadays it's considered <em>ok</em> to put styling in the same file as JavaScript / HTML</p>
+</section><section class="slide"><h2>CSS-in-JS</h2>
+<p>approaches:</p>
+<ul>
+<li>extend HTML element props (e.g. <code>css=...</code> in <em>emotion</em>)</li>
+<li>create React components that are only used for styling (e.g <code>PrimaryButton</code>)</li>
+</ul>
+</section><section class="slide"><h2>CSS-in-JS</h2>
+<p>libraries:</p>
+<ul>
+<li>emotion</li>
+<li>styled-components</li>
+<li>...</li>
+</ul>
+</section><section class="slide"><h2>Emotion</h2>
+<p>In Emotion, styles are commonly included in the template via a tagged template literal</p>
+</section><section class="slide"><h2>Emotion</h2>
+<p>generic use:</p>
+<pre><code class="hljs language-jsx">&#x3C;div
+  className={css`<span class="css">
+    <span class="hljs-selector-tag">display</span>: <span class="hljs-selector-tag">flex</span>;
+    <span class="hljs-selector-tag">justify-content</span>: <span class="hljs-selector-tag">center</span>;
+  `</span>}
+>
+  ...
+&#x3C;/div>
+</code></pre>
+</section><section class="slide"><h2>Emotion</h2>
+<p>recommended use in <em>React</em> (requires an extra source transform):</p>
+<pre><code class="hljs language-jsx">&#x3C;div
+  css={css`<span class="css">
+    <span class="hljs-selector-tag">display</span>: <span class="hljs-selector-tag">flex</span>;
+    <span class="hljs-selector-tag">justify-content</span>: <span class="hljs-selector-tag">center</span>;
+  `</span>}
+>
+  ...
+&#x3C;/div>
+</code></pre>
+<p>note: new property <code>css</code> instead of <code>className</code></p>
+</section><section class="slide"><h2>Emotion</h2>
+<p>generic import:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> { css } <span class="hljs-keyword">from</span> <span class="hljs-string">'@emotion/css'</span>;
+</code></pre>
+<p>import and source transform for React 17:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-comment">/** <span class="hljs-doctag">@jsxImportSource </span><span class="hljs-doctag">@emotion</span>/react */</span>
+<span class="hljs-keyword">import</span> { css } <span class="hljs-keyword">from</span> <span class="hljs-string">'@emotion/react'</span>;
+</code></pre>
+<p>import and source transform for React 16:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-comment">/** <span class="hljs-doctag">@jsx </span>jsx */</span>
+<span class="hljs-keyword">import</span> { jsx, css } <span class="hljs-keyword">from</span> <span class="hljs-string">'@emotion/react'</span>;
+</code></pre>
+</section><section class="slide"><h2>styled-components</h2>
+<p>library that enables creating styled versions of existing HTML elements</p>
+<p>npm packages: <code>styled-components</code>, <code>@types/styled-components</code></p>
+</section><section class="slide"><h2>styled-components</h2>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> styled <span class="hljs-keyword">from</span> <span class="hljs-string">'styled-components'</span>;
+
+<span class="hljs-keyword">const</span> BlockImg = styled.img<span class="hljs-string">`
+  display: block;
+`</span>;
+
+<span class="hljs-keyword">const</span> Container = styled.div<span class="hljs-string">`
+  display: flex;
+  justify-content: center;
+`</span>;
+
+<span class="hljs-keyword">const</span> Slideshow = <span class="hljs-function">(<span class="hljs-params">props</span>) =></span> (
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Container</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>></span>prev<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">BlockImg</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"..."</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">"..."</span> /></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>></span>next<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">Container</span>></span></span>
+);
+</code></pre>
+</section><section class="slide"><h2>styled-components</h2>
+<p>dynamic styles via props (TypeScript):</p>
+<pre><code class="hljs language-tsx">import styled from 'styled-components';
+
+const Button = styled.button&#x3C;{ primary: boolean }>`
+  color: ${(props) => (props.primary ? 'black' : 'white')};
+  background-color: ${(props) =>
+    props.primary ? 'white' : 'navy'};
+`;
+
+const Slideshow = (props) => (
+  &#x3C;Container>
+    &#x3C;Button primary={true}>prev&#x3C;/Button>
+    &#x3C;BlockImg src="..." alt="..." />
+    &#x3C;Button primary={true}>next&#x3C;/Button>
+  &#x3C;/Container>
+);
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Forms and validation</h1>
+</section><section class="slide"><h2>Forms and validation</h2>
+<p>When can a form input be validated?</p>
+<ul>
+<li>when the form is submitted (on submit)</li>
+<li>when the input loses focus (on blur)</li>
+<li>on every value change (on change)</li>
+</ul>
+<p>The best approach depends on the use case</p>
+</section><section class="slide"><h2>Validation: examples</h2>
+<p>validation on every change:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> NewsletterSignup = <span class="hljs-function">() =></span> {
+  <span class="hljs-keyword">const</span> [email, setEmail] = useState(<span class="hljs-string">''</span>);
+  <span class="hljs-keyword">const</span> emailValid = isEmail(email);
+
+  <span class="hljs-comment">// ...</span>
+  <span class="hljs-comment">// display a form</span>
+  <span class="hljs-comment">// and optionally a warning about an invalid email</span>
+};
+</code></pre>
+</section><section class="slide"><h2>Validation: examples</h2>
+<p>validation on blur / on change:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> NewsletterSignup = <span class="hljs-function">() =></span> {
+  <span class="hljs-keyword">const</span> [email, setEmail] = useState(<span class="hljs-string">''</span>);
+  <span class="hljs-keyword">const</span> [emailValid, setEmailValid] = useState(<span class="hljs-literal">true</span>);
+  <span class="hljs-comment">// call from onBlur / onChange:</span>
+  <span class="hljs-keyword">const</span> validateEmail = <span class="hljs-function">() =></span> {
+    setEmailValid(isEmail(email));
+  };
+
+  <span class="hljs-comment">// ...</span>
+  <span class="hljs-comment">// display a form</span>
+  <span class="hljs-comment">// and optionally a warning about an invalid email</span>
+};
+</code></pre>
+</section><section class="slide"><h2>Validation: examples</h2>
+<p>full example: validation on blur and on submit</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> NewsletterSignup = <span class="hljs-function">() =></span> {
+  <span class="hljs-keyword">const</span> [email, setEmail] = useState(<span class="hljs-string">''</span>);
+  <span class="hljs-keyword">const</span> [emailValid, setEmailValid] = useState(<span class="hljs-literal">true</span>);
+  <span class="hljs-keyword">const</span> validateEmail = <span class="hljs-function">() =></span> {
+    setEmailValid(isEmail(email));
+  };
+
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">form</span>
+      <span class="hljs-attr">onSubmit</span>=<span class="hljs-string">{(event)</span> =></span> {
+        event.preventDefault();
+        validateEmail();
+        if (isEmail(email)) {
+          console.log(`Signed up: ${email}`);
+        }
+      }}
+    >
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">input</span>
+        <span class="hljs-attr">value</span>=<span class="hljs-string">{email}</span>
+        <span class="hljs-attr">onChange</span>=<span class="hljs-string">{(event)</span> =></span> setEmail(event.target.value)}
+        onBlur={() => validateEmail()}
+      />
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>></span>sign up<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
+      {!emailValid ? <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>invalid email<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span> : null}
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">form</span>></span></span>
+  );
+};
+
+<span class="hljs-keyword">const</span> isEmail = <span class="hljs-function">(<span class="hljs-params">email</span>) =></span>
+  email.match(<span class="hljs-regexp">/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i</span>);
+</code></pre>
+</section><section class="slide"><h2>Validation</h2>
+<p>more complex validation schemas are possible</p>
+<p>example: initial validation of an input on its first <em>blur</em>, then live validation on each <em>change</em></p>
+</section></section><section class="slides-section"><section class="slide"><h1>Form libraries</h1>
+</section><section class="slide"><h2>Form libraries</h2>
+<p>examples:</p>
+<ul>
+<li>react-hook-form (based on a custom hook)</li>
+<li>formik (based on custom components)</li>
+</ul>
+<p>functionality:</p>
+<ul>
+<li><strong>validation</strong></li>
+<li>managing form data</li>
+<li>simplifying submit handler</li>
+</ul>
+</section><section class="slide"><h2>react-hook-form</h2>
+<p><em>react-hook-form</em> does not keep input contents in React state</p>
+<p>advantages: faster, simpler</p>
+<p>disadvantages: deviates from standard React concepts (uses <em>refs</em> instead of <em>state</em>)</p>
+</section><section class="slide"><h2>react-hook-form</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { useForm } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-hook-form'</span>;
+
+<span class="hljs-keyword">const</span> NewsletterSignup = <span class="hljs-function">() =></span> {
+  <span class="hljs-keyword">const</span> { register, errors, handleSubmit } = useForm();
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">form</span> <span class="hljs-attr">onSubmit</span>=<span class="hljs-string">{handleSubmit(console.log)}</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">input</span>
+        <span class="hljs-attr">name</span>=<span class="hljs-string">"email"</span>
+        <span class="hljs-attr">ref</span>=<span class="hljs-string">{register({</span>
+          <span class="hljs-attr">required:</span> <span class="hljs-attr">true</span>,
+          <span class="hljs-attr">pattern:</span> /^[<span class="hljs-attr">A-Z0-9._</span>%+<span class="hljs-attr">-</span>]+@[<span class="hljs-attr">A-Z0-9.-</span>]+\<span class="hljs-attr">.</span>[<span class="hljs-attr">A-Z</span>]{<span class="hljs-attr">2</span>,}$/<span class="hljs-attr">i</span>,
+        })}
+      /></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>></span>sign up for newsletter<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
+      {errors.email ? <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>invalid email<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span> : null}
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">form</span>></span></span>
+  );
+};
+</code></pre>
+<p>Note: <code>register()</code> uses a <a href="https://reactjs.org/docs/refs-and-the-dom.html#callback-refs">callback ref</a> to access the input</p>
+</section><section class="slide"><h2>react-hook-form: register</h2>
+<p>The <code>register</code> function can take some parameters that specify field validation:</p>
+<ul>
+<li><code>required</code></li>
+<li><code>min</code>, <code>max</code></li>
+<li><code>minLength</code>, <code>maxLength</code></li>
+<li><code>pattern</code></li>
+<li><code>validate</code> (custom validation function)</li>
+</ul>
+</section><section class="slide"><h2>react-hook-form: errors</h2>
+<p>The <code>errors</code> object indicates errors for any registered input that has a name</p>
+<pre><code class="hljs language-jsx">&#x3C;input name=<span class="hljs-string">"email"</span> ref={register(<span class="hljs-comment">/*...*/</span>)}>
+</code></pre>
+<pre><code class="hljs language-jsx">errors.email ? <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>invalid email<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span> : <span class="hljs-literal">null</span>;
+</code></pre>
+</section><section class="slide"><h2>react-hook-form: handleSubmit</h2>
+<p><code>handleSubmit</code> will validate form data and pass it to a function if it is valid</p>
+<pre><code class="hljs language-jsx">&#x3C;form
+  onSubmit={handleSubmit(<span class="hljs-function">(<span class="hljs-params">data</span>) =></span> {
+    <span class="hljs-built_in">console</span>.log(data.email);
+  })}
+>
+  ...
+&#x3C;/form>
+</code></pre>
+</section><section class="slide"><h2>react-hook-form: mode</h2>
+<pre><code class="hljs language-js">useForm({ <span class="hljs-attr">mode</span>: <span class="hljs-string">'onTouched'</span> });
+</code></pre>
+<p><code>mode</code>: when should the value be validated initially?</p>
+<ul>
+<li><code>onSubmit</code> (default)</li>
+<li><code>onTouched</code> - when the input loses focus or on submit</li>
+<li><code>onBlur</code> - when the input loses focus (does not switch to <code>reValidateMode</code>) or on submit</li>
+<li><code>onChange</code> - when the input changes or on submit</li>
+<li><code>all</code> - when the input changes or when it loses focus without being changed</li>
+</ul>
+</section><section class="slide"><h2>react-hook-form: mode</h2>
+<p><code>reValidateMode</code>: if the user has submitted the form and there was an error, when should the value be re-validated?</p>
+<ul>
+<li><code>onSubmit</code></li>
+<li><code>onBlur</code></li>
+<li><code>onChange</code> (default)</li>
+</ul>
+</section><section class="slide"><h2>react-hook-form: reset</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> { register, errors, handleSubmit, reset } = useForm();
+<span class="hljs-comment">// ...</span>
+reset();
+</code></pre>
+</section><section class="slide"><h2>react-hook-form: testing</h2>
+<p>component tests related to <em>react-hook-form</em> require a setup:</p>
+<pre><code class="hljs language-bash">npm install mutationobserver-shim
+</code></pre>
+<pre><code class="hljs language-js"><span class="hljs-comment">// setupTests.js</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">'mutationobserver-shim'</span>;
+</code></pre>
+</section><section class="slide"><h2>formik</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { Formik, Form, Field, ErrorMessage } <span class="hljs-keyword">from</span> <span class="hljs-string">'formik'</span>;
+
+<span class="hljs-keyword">const</span> NewsletterRegistration = <span class="hljs-function">() =></span> (
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Formik</span>
+    <span class="hljs-attr">initialValues</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">email:</span> '' }}
+    <span class="hljs-attr">onSubmit</span>=<span class="hljs-string">{(values)</span> =></span> console.log(values)}
+    validate={(values) => {
+      const errors = {};
+      if (!isEmail(values.email)) {
+        errors.email = 'invalid email';
+      }
+      return errors;
+    }}
+  >
+    {(props) => (
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">Form</span>></span>
+        <span class="hljs-tag">&#x3C;<span class="hljs-name">Field</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"email"</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"email"</span> /></span>
+        <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">disabled</span>=<span class="hljs-string">{!props.isValid}</span>></span>subscribe<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
+        <span class="hljs-tag">&#x3C;<span class="hljs-name">ErrorMessage</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"email"</span> <span class="hljs-attr">component</span>=<span class="hljs-string">"div"</span> /></span>
+      <span class="hljs-tag">&#x3C;/<span class="hljs-name">Form</span>></span>
+    )}
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">Formik</span>></span></span>
+);
+
+<span class="hljs-keyword">const</span> isEmail = <span class="hljs-function">(<span class="hljs-params">email</span>) =></span>
+  email.match(<span class="hljs-regexp">/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i</span>);
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>State management with actions and reducers</h1>
 <!-- NOTE: other sections link to this section - take care when reordering -->
 </section><section class="slide"><h2>State management</h2>
@@ -2606,265 +2936,6 @@ ReactDOM.render(
   todosDraft.push({ <span class="hljs-attr">title</span>: <span class="hljs-string">'study'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> });
 });
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Styling tools</h1>
-</section><section class="slide"><h2>Styling tools</h2>
-<p>tools for external stylesheets:</p>
-<ul>
-<li><em>classnames</em> package</li>
-<li>CSS modules</li>
-<li>SCSS</li>
-</ul>
-<p>CSS-in-JS libraries:</p>
-<ul>
-<li>emotion</li>
-<li>styled-components</li>
-<li>...</li>
-</ul>
-</section><section class="slide"><h2>classnames</h2>
-<p>utility: npm package <em>classnames</em>:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> classNames <span class="hljs-keyword">from</span> <span class="hljs-string">'classnames'</span>;
-
-<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>
-  <span class="hljs-attr">className</span>=<span class="hljs-string">{classNames({</span>
-    <span class="hljs-attr">todoitem:</span> <span class="hljs-attr">true</span>,
-    <span class="hljs-attr">completed:</span> <span class="hljs-attr">isCompleted</span>,
-  })}
-></span>
-  [...]
-<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
-</code></pre>
-</section><section class="slide"><h2>CSS modules</h2>
-<p>CSS modules are preconfigured in create-react-app; they enable using CSS class names that are guaranteed to be unique across CSS files</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> styles <span class="hljs-keyword">from</span> <span class="hljs-string">'./TodoItem.module.css'</span>;
-
-<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">{styles.todoItem}</span>></span>...<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
-
-<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">{</span>`${<span class="hljs-attr">styles.todoItem</span>} ${<span class="hljs-attr">styles.completed</span>}`}></span>
-  ...
-<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
-</code></pre>
-</section><section class="slide"><h2>SCSS</h2>
-<p>enabling SCSS in a create-react-app project:</p>
-<pre><code class="hljs language-bash">npm install node-sass
-</code></pre>
-<p>then we can use:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> <span class="hljs-string">'./TodoItem.scss'</span>;
-</code></pre>
-</section><section class="slide"><h2>CSS-in-JS</h2>
-<p><strong>CSS-in-JS</strong>: JavaScript is used to generate and attach stylesheets</p>
-<p>Nowadays it's considered <em>ok</em> to put styling in the same file as JavaScript / HTML</p>
-</section><section class="slide"><h2>CSS-in-JS</h2>
-<p>approaches:</p>
-<ul>
-<li>extend HTML element props (e.g. <code>css=...</code> in <em>emotion</em>)</li>
-<li>create React components that are only used for styling (e.g <code>PrimaryButton</code>)</li>
-</ul>
-</section><section class="slide"><h2>CSS-in-JS</h2>
-<p>libraries:</p>
-<ul>
-<li>emotion</li>
-<li>styled-components</li>
-<li>...</li>
-</ul>
-</section><section class="slide"><h2>Emotion</h2>
-<p>In Emotion, styles are commonly included in the template via a tagged template literal</p>
-</section><section class="slide"><h2>Emotion</h2>
-<p>generic use:</p>
-<pre><code class="hljs language-jsx">&#x3C;div
-  className={css`<span class="css">
-    <span class="hljs-selector-tag">display</span>: <span class="hljs-selector-tag">flex</span>;
-    <span class="hljs-selector-tag">justify-content</span>: <span class="hljs-selector-tag">center</span>;
-  `</span>}
->
-  ...
-&#x3C;/div>
-</code></pre>
-</section><section class="slide"><h2>Emotion</h2>
-<p>recommended use in <em>React</em> (requires an extra source transform):</p>
-<pre><code class="hljs language-jsx">&#x3C;div
-  css={css`<span class="css">
-    <span class="hljs-selector-tag">display</span>: <span class="hljs-selector-tag">flex</span>;
-    <span class="hljs-selector-tag">justify-content</span>: <span class="hljs-selector-tag">center</span>;
-  `</span>}
->
-  ...
-&#x3C;/div>
-</code></pre>
-<p>note: new property <code>css</code> instead of <code>className</code></p>
-</section><section class="slide"><h2>Emotion</h2>
-<p>generic import:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> { css } <span class="hljs-keyword">from</span> <span class="hljs-string">'@emotion/css'</span>;
-</code></pre>
-<p>import and source transform for React 17:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-comment">/** <span class="hljs-doctag">@jsxImportSource </span><span class="hljs-doctag">@emotion</span>/react */</span>
-<span class="hljs-keyword">import</span> { css } <span class="hljs-keyword">from</span> <span class="hljs-string">'@emotion/react'</span>;
-</code></pre>
-<p>import and source transform for React 16:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-comment">/** <span class="hljs-doctag">@jsx </span>jsx */</span>
-<span class="hljs-keyword">import</span> { jsx, css } <span class="hljs-keyword">from</span> <span class="hljs-string">'@emotion/react'</span>;
-</code></pre>
-</section><section class="slide"><h2>styled-components</h2>
-<p>library that enables creating styled versions of existing HTML elements</p>
-<p>npm packages: <code>styled-components</code>, <code>@types/styled-components</code></p>
-</section><section class="slide"><h2>styled-components</h2>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> styled <span class="hljs-keyword">from</span> <span class="hljs-string">'styled-components'</span>;
-
-<span class="hljs-keyword">const</span> BlockImg = styled.img<span class="hljs-string">`
-  display: block;
-`</span>;
-
-<span class="hljs-keyword">const</span> Container = styled.div<span class="hljs-string">`
-  display: flex;
-  justify-content: center;
-`</span>;
-
-<span class="hljs-keyword">const</span> Slideshow = <span class="hljs-function">(<span class="hljs-params">props</span>) =></span> (
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Container</span>></span>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>></span>prev<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">BlockImg</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"..."</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">"..."</span> /></span>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>></span>next<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
-  <span class="hljs-tag">&#x3C;/<span class="hljs-name">Container</span>></span></span>
-);
-</code></pre>
-</section><section class="slide"><h2>styled-components</h2>
-<p>dynamic styles via props (TypeScript):</p>
-<pre><code class="hljs language-tsx">import styled from 'styled-components';
-
-const Button = styled.button&#x3C;{ primary: boolean }>`
-  color: ${(props) => (props.primary ? 'black' : 'white')};
-  background-color: ${(props) =>
-    props.primary ? 'white' : 'navy'};
-`;
-
-const Slideshow = (props) => (
-  &#x3C;Container>
-    &#x3C;Button primary={true}>prev&#x3C;/Button>
-    &#x3C;BlockImg src="..." alt="..." />
-    &#x3C;Button primary={true}>next&#x3C;/Button>
-  &#x3C;/Container>
-);
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Form libraries</h1>
-</section><section class="slide"><h2>Form libraries</h2>
-<p>examples:</p>
-<ul>
-<li>react-hook-form (based on a custom hook)</li>
-<li>formik (based on custom components)</li>
-</ul>
-<p>functionality:</p>
-<ul>
-<li><strong>validation</strong></li>
-<li>managing form data</li>
-<li>simplifying submit handler</li>
-</ul>
-</section><section class="slide"><h2>react-hook-form</h2>
-<p><em>react-hook-form</em> does not keep input contents in React state</p>
-<p>advantages: faster, simpler</p>
-<p>disadvantages: deviates from standard React concepts (uses <em>refs</em> instead of <em>state</em>)</p>
-</section><section class="slide"><h2>react-hook-form</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { useForm } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-hook-form'</span>;
-
-<span class="hljs-keyword">const</span> NewsletterSignup = <span class="hljs-function">() =></span> {
-  <span class="hljs-keyword">const</span> { register, errors, handleSubmit } = useForm();
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">form</span> <span class="hljs-attr">onSubmit</span>=<span class="hljs-string">{handleSubmit(console.log)}</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">input</span>
-        <span class="hljs-attr">name</span>=<span class="hljs-string">"email"</span>
-        <span class="hljs-attr">ref</span>=<span class="hljs-string">{register({</span>
-          <span class="hljs-attr">required:</span> <span class="hljs-attr">true</span>,
-          <span class="hljs-attr">pattern:</span> /^[<span class="hljs-attr">A-Z0-9._</span>%+<span class="hljs-attr">-</span>]+@[<span class="hljs-attr">A-Z0-9.-</span>]+\<span class="hljs-attr">.</span>[<span class="hljs-attr">A-Z</span>]{<span class="hljs-attr">2</span>,}$/<span class="hljs-attr">i</span>,
-        })}
-      /></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>></span>sign up for newsletter<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
-      {errors.email ? <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>invalid email<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span> : null}
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">form</span>></span></span>
-  );
-};
-</code></pre>
-<p>Note: <code>register()</code> uses a <a href="https://reactjs.org/docs/refs-and-the-dom.html#callback-refs">callback ref</a> to access the input</p>
-</section><section class="slide"><h2>react-hook-form: register</h2>
-<p>The <code>register</code> function can take some parameters that specify field validation:</p>
-<ul>
-<li><code>required</code></li>
-<li><code>min</code>, <code>max</code></li>
-<li><code>minLength</code>, <code>maxLength</code></li>
-<li><code>pattern</code></li>
-<li><code>validate</code> (custom validation function)</li>
-</ul>
-</section><section class="slide"><h2>react-hook-form: errors</h2>
-<p>The <code>errors</code> object indicates errors for any registered input that has a name</p>
-<pre><code class="hljs language-jsx">&#x3C;input name=<span class="hljs-string">"email"</span> ref={register(<span class="hljs-comment">/*...*/</span>)}>
-</code></pre>
-<pre><code class="hljs language-jsx">errors.email ? <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>invalid email<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span> : <span class="hljs-literal">null</span>;
-</code></pre>
-</section><section class="slide"><h2>react-hook-form: handleSubmit</h2>
-<p><code>handleSubmit</code> will validate form data and pass it to a function if it is valid</p>
-<pre><code class="hljs language-jsx">&#x3C;form
-  onSubmit={handleSubmit(<span class="hljs-function">(<span class="hljs-params">data</span>) =></span> {
-    <span class="hljs-built_in">console</span>.log(data.email);
-  })}
->
-  ...
-&#x3C;/form>
-</code></pre>
-</section><section class="slide"><h2>react-hook-form: mode</h2>
-<pre><code class="hljs language-js">useForm({ <span class="hljs-attr">mode</span>: <span class="hljs-string">'onTouched'</span> });
-</code></pre>
-<p><code>mode</code>: when should the value be validated initially?</p>
-<ul>
-<li><code>onSubmit</code> (default)</li>
-<li><code>onTouched</code> - when the input loses focus or on submit</li>
-<li><code>onBlur</code> - when the input loses focus (does not switch to <code>reValidateMode</code>) or on submit</li>
-<li><code>onChange</code> - when the input changes or on submit</li>
-<li><code>all</code> - when the input changes or when it loses focus without being changed</li>
-</ul>
-</section><section class="slide"><h2>react-hook-form: mode</h2>
-<p><code>reValidateMode</code>: if the user has submitted the form and there was an error, when should the value be re-validated?</p>
-<ul>
-<li><code>onSubmit</code></li>
-<li><code>onBlur</code></li>
-<li><code>onChange</code> (default)</li>
-</ul>
-</section><section class="slide"><h2>react-hook-form: reset</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> { register, errors, handleSubmit, reset } = useForm();
-<span class="hljs-comment">// ...</span>
-reset();
-</code></pre>
-</section><section class="slide"><h2>react-hook-form: testing</h2>
-<p>component tests related to <em>react-hook-form</em> require a setup:</p>
-<pre><code class="hljs language-bash">npm install mutationobserver-shim
-</code></pre>
-<pre><code class="hljs language-js"><span class="hljs-comment">// setupTests.js</span>
-<span class="hljs-keyword">import</span> <span class="hljs-string">'mutationobserver-shim'</span>;
-</code></pre>
-</section><section class="slide"><h2>formik</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { Formik, Form, Field, ErrorMessage } <span class="hljs-keyword">from</span> <span class="hljs-string">'formik'</span>;
-
-<span class="hljs-keyword">const</span> NewsletterRegistration = <span class="hljs-function">() =></span> (
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Formik</span>
-    <span class="hljs-attr">initialValues</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">email:</span> '' }}
-    <span class="hljs-attr">onSubmit</span>=<span class="hljs-string">{(values)</span> =></span> console.log(values)}
-    validate={(values) => {
-      const errors = {};
-      if (!isEmail(values.email)) {
-        errors.email = 'invalid email';
-      }
-      return errors;
-    }}
-  >
-    {(props) => (
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">Form</span>></span>
-        <span class="hljs-tag">&#x3C;<span class="hljs-name">Field</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"email"</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"email"</span> /></span>
-        <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">disabled</span>=<span class="hljs-string">{!props.isValid}</span>></span>subscribe<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
-        <span class="hljs-tag">&#x3C;<span class="hljs-name">ErrorMessage</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"email"</span> <span class="hljs-attr">component</span>=<span class="hljs-string">"div"</span> /></span>
-      <span class="hljs-tag">&#x3C;/<span class="hljs-name">Form</span>></span>
-    )}
-  <span class="hljs-tag">&#x3C;/<span class="hljs-name">Formik</span>></span></span>
-);
-
-<span class="hljs-keyword">const</span> isEmail = <span class="hljs-function">(<span class="hljs-params">email</span>) =></span>
-  email.match(<span class="hljs-regexp">/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i</span>);
-</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>User authentication with an identity provider</h1>
 <!--
 related sections in:
@@ -2985,27 +3056,30 @@ select account type: personal / company
 </ul>
 </section><section class="slide"><h2>auth0-react</h2>
 <p>making a request with the access token:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> makeRequestSilently = <span class="hljs-function">() =></span> {
-  auth.getAccessTokenSilently().then(<span class="hljs-function">(<span class="hljs-params">token</span>) =></span> {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`make API request with token <span class="hljs-subst">${token}</span>`</span>);
-  });
-};
+<pre><code class="hljs language-js"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">makeRequestSilently</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> token = <span class="hljs-keyword">await</span> auth.getAccessTokenSilently();
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`make API request with token <span class="hljs-subst">${token}</span>`</span>);
+}
 </code></pre>
 </section><section class="slide"><h2>auth0-react</h2>
 <p>verifying an Auth0 token on the API side:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> auth0Domain = <span class="hljs-string">'dev-xxxxxxxx.eu.auth0.com'</span>;
 
-fetch(<span class="hljs-string">`https://<span class="hljs-subst">${auth0Domain}</span>/userinfo`</span>, {
-  <span class="hljs-attr">headers</span>: {
-    <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span>,
-    <span class="hljs-attr">Authorization</span>: <span class="hljs-string">`Bearer <span class="hljs-subst">${token}</span>`</span>,
-  },
-})
-  .then(<span class="hljs-function">(<span class="hljs-params">res</span>) =></span> res.json())
-  .then(<span class="hljs-function">(<span class="hljs-params">userInfo</span>) =></span> {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`authenticated as <span class="hljs-subst">${userInfo.sub}</span>`</span>);
-  })
-  .catch(<span class="hljs-function">(<span class="hljs-params">error</span>) =></span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'error'</span>));
+<span class="hljs-keyword">try</span> {
+  <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> fetch(
+    <span class="hljs-string">`https://<span class="hljs-subst">${auth0Domain}</span>/userinfo`</span>,
+    {
+      <span class="hljs-attr">headers</span>: {
+        <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span>,
+        <span class="hljs-attr">Authorization</span>: <span class="hljs-string">`Bearer <span class="hljs-subst">${token}</span>`</span>,
+      },
+    }
+  );
+  <span class="hljs-keyword">const</span> userInfo = <span class="hljs-keyword">await</span> res.json();
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`authenticated as <span class="hljs-subst">${userInfo.sub}</span>`</span>);
+} <span class="hljs-keyword">catch</span> {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'error'</span>);
+}
 </code></pre>
 <p>note: just sending user info (e.g. user ID) from the client is not secure since it can't be verified by the API; information can only be verified via a token</p>
 </section><section class="slide"><h2>Resources</h2>

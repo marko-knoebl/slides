@@ -158,11 +158,10 @@ more entries in the return value of `useAuth0`:
 making a request with the access token:
 
 ```js
-const makeRequestSilently = () => {
-  auth.getAccessTokenSilently().then((token) => {
-    console.log(`make API request with token ${token}`);
-  });
-};
+async function makeRequestSilently() {
+  const token = await auth.getAccessTokenSilently();
+  console.log(`make API request with token ${token}`);
+}
 ```
 
 ## auth0-react
@@ -172,17 +171,21 @@ verifying an Auth0 token on the API side:
 ```js
 const auth0Domain = 'dev-xxxxxxxx.eu.auth0.com';
 
-fetch(`https://${auth0Domain}/userinfo`, {
-  headers: {
-    'Content-Type': 'application/json',
-    Authorization: `Bearer ${token}`,
-  },
-})
-  .then((res) => res.json())
-  .then((userInfo) => {
-    console.log(`authenticated as ${userInfo.sub}`);
-  })
-  .catch((error) => console.log('error'));
+try {
+  const res = await fetch(
+    `https://${auth0Domain}/userinfo`,
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  const userInfo = await res.json();
+  console.log(`authenticated as ${userInfo.sub}`);
+} catch {
+  console.log('error');
+}
 ```
 
 note: just sending user info (e.g. user ID) from the client is not secure since it can't be verified by the API; information can only be verified via a token

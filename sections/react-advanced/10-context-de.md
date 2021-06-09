@@ -30,7 +30,9 @@ type TodosContextType = {
   onToggle: (id: number) => void;
 };
 
-const TodosContext = createContext({} as TodosContextType);
+const TodosContext = createContext<
+  TodosContextType | undefined
+>(undefined);
 
 export default TodosContext;
 ```

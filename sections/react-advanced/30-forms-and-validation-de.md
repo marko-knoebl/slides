@@ -1,6 +1,6 @@
-# Input-Validierung
+# Formulare und Validierung
 
-## Input-Validierung
+## Formulare und Validierung
 
 Wann kann ein Input validiert werden?
 

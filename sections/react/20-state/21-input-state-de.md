@@ -83,7 +83,7 @@ Zeige eventuelle Fehlermeldungen darunter an, z.B.
 
 _Password must be at least 4 characters long_
 
-or
+oder
 
 _Passwords don't match_
 

@@ -2180,78 +2180,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
     <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
   );
 };
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Input-Validierung</h1>
-</section><section class="slide"><h2>Input-Validierung</h2>
-<p>Wann kann ein Input validiert werden?</p>
-<ul>
-<li>wenn das Formular <em>submittet</em> wird (<em>submit</em>)</li>
-<li>wenn ein Eingabefeld den Fokus verliert (<em>blur</em>)</li>
-<li>bei jeder Änderung eines Wertes (<em>change</em>)</li>
-</ul>
-<p>Der beste Zugang hängt vom Anwendungsfall ab</p>
-</section><section class="slide"><h2>Validierung: Beispiele</h2>
-<p>Validierung bei jeder Änderung:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> NewsletterSignup = <span class="hljs-function">() =></span> {
-  <span class="hljs-keyword">const</span> [email, setEmail] = useState(<span class="hljs-string">''</span>);
-  <span class="hljs-keyword">const</span> emailValid = isEmail(email);
-
-  <span class="hljs-comment">// ...</span>
-  <span class="hljs-comment">// display a form</span>
-  <span class="hljs-comment">// and optionally a warning about an invalid email</span>
-};
-</code></pre>
-</section><section class="slide"><h2>Validierung: Beispiele</h2>
-<p>Validierung bei <em>blur</em> bzw <em>change</em>:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> NewsletterSignup = <span class="hljs-function">() =></span> {
-  <span class="hljs-keyword">const</span> [email, setEmail] = useState(<span class="hljs-string">''</span>);
-  <span class="hljs-keyword">const</span> [emailValid, setEmailValid] = useState(<span class="hljs-literal">true</span>);
-  <span class="hljs-comment">// call from onBlur / onChange:</span>
-  <span class="hljs-keyword">const</span> validateEmail = <span class="hljs-function">() =></span> {
-    setEmailValid(isEmail(email));
-  };
-
-  <span class="hljs-comment">// ...</span>
-  <span class="hljs-comment">// display a form</span>
-  <span class="hljs-comment">// and optionally a warning about an invalid email</span>
-};
-</code></pre>
-</section><section class="slide"><h2>Validierung: Beispiele</h2>
-<p>vollständiges Beispiel: Validierung bei <em>blur</em> und <em>submit</em></p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> NewsletterSignup = <span class="hljs-function">() =></span> {
-  <span class="hljs-keyword">const</span> [email, setEmail] = useState(<span class="hljs-string">''</span>);
-  <span class="hljs-keyword">const</span> [emailValid, setEmailValid] = useState(<span class="hljs-literal">true</span>);
-  <span class="hljs-keyword">const</span> validateEmail = <span class="hljs-function">() =></span> {
-    setEmailValid(isEmail(email));
-  };
-
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">form</span>
-      <span class="hljs-attr">onSubmit</span>=<span class="hljs-string">{(event)</span> =></span> {
-        event.preventDefault();
-        validateEmail();
-        if (isEmail(email)) {
-          console.log(`Signed up: ${email}`);
-        }
-      }}
-    >
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">input</span>
-        <span class="hljs-attr">value</span>=<span class="hljs-string">{email}</span>
-        <span class="hljs-attr">onChange</span>=<span class="hljs-string">{(event)</span> =></span> setEmail(event.target.value)}
-        onBlur={() => validateEmail()}
-      />
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>></span>sign up<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
-      {!emailValid ? <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>invalid email<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span> : null}
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">form</span>></span></span>
-  );
-};
-
-<span class="hljs-keyword">const</span> isEmail = <span class="hljs-function">(<span class="hljs-params">email</span>) =></span>
-  email.match(<span class="hljs-regexp">/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i</span>);
-</code></pre>
-</section><section class="slide"><h2>Validierung</h2>
-<p>komplexere Schemata zur Validierung sind möglich</p>
-<p>Beispiel: erste Validierung eines Feldes beim ersten <em>blur</em>, danach live-Validierung bei jedem <em>change</em></p></section></section></div>
+</code></pre></section></section></div>
     </div>
     <script>/*!
  * reveal.js
