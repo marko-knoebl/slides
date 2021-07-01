@@ -1,4 +1,4 @@
-# Side effects in function components
+# Effect hook
 
 ## Effect hook
 

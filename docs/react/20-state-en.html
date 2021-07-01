@@ -2117,11 +2117,11 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <p>there would be an aspect of the UI state which would not be captured in the React state.</p>
 </section><section class="slide"><h2>Input state</h2>
 <p>This is how we can capture the value of an input and track it in the state:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [inputText, setInputText] = useState(<span class="hljs-string">''</span>);
+</code></pre>
 <pre><code class="hljs language-jsx">&#x3C;input
   value={inputText}
-  onChange={<span class="hljs-function">(<span class="hljs-params">event</span>) =></span> {
-    setInputText(event.target.value);
-  }}
+  onChange={<span class="hljs-function">(<span class="hljs-params">event</span>) =></span> setInputText(event.target.value)}
 />
 </code></pre>
 </section><section class="slide"><h2>Input state</h2>
@@ -2129,9 +2129,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <pre><code class="hljs language-txt">value={inputText}
 </code></pre>
 <p>binds from the <em>state</em> to the input value</p>
-<pre><code class="hljs language-txt">onChange={(event) => {
-  setInputText(event.target.value);
-}}
+<pre><code class="hljs language-txt">onChange={(event) => setInputText(event.target.value)}
 </code></pre>
 <p>updates the state whenever the input value changes</p>
 </section><section class="slide"><h2>Input state</h2>
@@ -2150,9 +2148,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
     <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
       <span class="hljs-tag">&#x3C;<span class="hljs-name">input</span>
         <span class="hljs-attr">value</span>=<span class="hljs-string">{text}</span>
-        <span class="hljs-attr">onChange</span>=<span class="hljs-string">{(event)</span> =></span> {
-          setText(event.target.value);
-        }}
+        <span class="hljs-attr">onChange</span>=<span class="hljs-string">{(event)</span> =></span> setText(event.target.value)}
       />
       <span class="hljs-tag">&#x3C;<span class="hljs-name">p</span>></span>This string has {len} characters.<span class="hljs-tag">&#x3C;/<span class="hljs-name">p</span>></span>
     <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
@@ -2186,21 +2182,23 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <p>demo (see <a href="https://codesandbox.io/s/immutable-state-demo-r2x1i">https://codesandbox.io/s/immutable-state-demo-r2x1i</a>):</p>
 <pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">App</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">const</span> [numbers, setNumbers] = useState([<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>]);
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addByReplacing</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-comment">// creates a new - derived - state object</span>
+    setNumbers([...numbers, numbers.length]);
+  }
   <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addByMutating</span>(<span class="hljs-params"></span>) </span>{
     <span class="hljs-comment">// changes (mutates) the old state entry</span>
     numbers.push(numbers.length);
     setNumbers(numbers);
   }
-  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addByReplacing</span>(<span class="hljs-params"></span>) </span>{
-    <span class="hljs-comment">// creates a new - derived - state object</span>
-    setNumbers([...numbers, numbers.length]);
-  }
   <span class="hljs-keyword">return</span> (
     <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
       <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>{JSON.stringify(numbers)}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{addByMutating}</span>></span>add (mutate)<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{addByReplacing}</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> addByReplacing()}>
         add (replace)
+      <span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> addByMutating()}>
+        add (mutate)
       <span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
     <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
   );

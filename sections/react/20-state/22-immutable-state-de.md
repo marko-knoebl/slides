@@ -30,21 +30,23 @@ Demo (siehe <https://codesandbox.io/s/immutable-state-demo-r2x1i>):
 ```js
 function App() {
   const [numbers, setNumbers] = useState([0, 1, 2]);
+  function addByReplacing() {
+    // creates a new - derived - state object
+    setNumbers([...numbers, numbers.length]);
+  }
   function addByMutating() {
     // changes (mutates) the old state entry
     numbers.push(numbers.length);
     setNumbers(numbers);
   }
-  function addByReplacing() {
-    // creates a new - derived - state object
-    setNumbers([...numbers, numbers.length]);
-  }
   return (
     <div>
       <div>{JSON.stringify(numbers)}</div>
-      <button onClick={addByMutating}>add (mutate)</button>
-      <button onClick={addByReplacing}>
+      <button onClick={() => addByReplacing()}>
         add (replace)
+      </button>
+      <button onClick={() => addByMutating()}>
+        add (mutate)
       </button>
     </div>
   );

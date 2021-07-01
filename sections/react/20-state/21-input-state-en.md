@@ -16,12 +16,14 @@ there would be an aspect of the UI state which would not be captured in the Reac
 
 This is how we can capture the value of an input and track it in the state:
 
+```js
+const [inputText, setInputText] = useState('');
+```
+
 ```jsx
 <input
   value={inputText}
-  onChange={(event) => {
-    setInputText(event.target.value);
-  }}
+  onChange={(event) => setInputText(event.target.value)}
 />
 ```
 
@@ -36,9 +38,7 @@ value={inputText}
 binds from the _state_ to the input value
 
 ```txt
-onChange={(event) => {
-  setInputText(event.target.value);
-}}
+onChange={(event) => setInputText(event.target.value)}
 ```
 
 updates the state whenever the input value changes
@@ -63,9 +63,7 @@ function App() {
     <div>
       <input
         value={text}
-        onChange={(event) => {
-          setText(event.target.value);
-        }}
+        onChange={(event) => setText(event.target.value)}
       />
       <p>This string has {len} characters.</p>
     </div>

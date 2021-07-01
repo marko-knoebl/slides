@@ -16,12 +16,14 @@ dann würde es Aspekte des UI-States geben, die nicht im React State mitverfolgt
 
 So können wir den Wert eines Inputs im State erfassen:
 
+```js
+const [inputText, setInputText] = useState('');
+```
+
 ```jsx
 <input
   value={inputText}
-  onChange={(event) => {
-    setInputText(event.target.value);
-  }}
+  onChange={(event) => setInputText(event.target.value)}
 />
 ```
 
@@ -36,9 +38,7 @@ value={inputText}
 bindet vom _State_ auf den Wert des Inputs
 
 ```txt
-onChange={(event) => {
-  setInputText(event.target.value);
-}}
+onChange={(event) => setInputText(event.target.value)}
 ```
 
 aktualisiert den State, wenn sich der Wert des Inputs ändert
@@ -63,9 +63,7 @@ function App() {
     <div>
       <input
         value={text}
-        onChange={(event) => {
-          setText(event.target.value);
-        }}
+        onChange={(event) => setText(event.target.value)}
       />
       <p>This string has {len} characters.</p>
     </div>

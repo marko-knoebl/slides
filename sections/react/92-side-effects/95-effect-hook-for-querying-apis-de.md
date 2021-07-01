@@ -107,26 +107,6 @@ function ExchangeRate() {
 export default ExchangeRate;
 ```
 
-## Effect Hook und async-Funktionen
-
-Bemerkung: Die Effekt-Funktion darf **keine** async-Funktion sein
-
-Die Effekt-Funktion sollte üblicherweise (implizit) _undefined_ zurückgeben; eine async-Funktion würde immer ein Promise zurückgeben
-
-ungültig:
-
-```js
-useEffect(loadExchangeRate, [from, to]);
-```
-
-gültig:
-
-```js
-useEffect(() => {
-  loadExchangeRate();
-}, [from, to]);
-```
-
 ## Übungen
 
 Beispiele von abfragbaren APIs:

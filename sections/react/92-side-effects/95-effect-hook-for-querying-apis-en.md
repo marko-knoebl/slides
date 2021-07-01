@@ -107,26 +107,6 @@ function ExchangeRate() {
 export default ExchangeRate;
 ```
 
-## Effect hook and async functions
-
-note: the effect function **must not be** an async function
-
-The effect function should usually (implicitly) return _undefined_; an async function would always return a promise
-
-invalid:
-
-```js
-useEffect(loadExchangeRate, [from, to]);
-```
-
-valid:
-
-```js
-useEffect(() => {
-  loadExchangeRate();
-}, [from, to]);
-```
-
 ## Exercises
 
 example APIs:

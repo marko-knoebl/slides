@@ -1,4 +1,4 @@
-# Side Effects in Funktionskomponenten
+# Effect Hook
 
 ## Effect Hook
 

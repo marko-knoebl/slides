@@ -2082,7 +2082,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <p>implementation:</p>
 <p>in function components: via the <em>effect</em> hook</p>
 <p>in class components: via lifecycle methods like <code>componentDidMount</code>, <code>componentDidUpdate</code> or <code>componentWillUnmount</code></p>
-</section></section><section class="slides-section"><section class="slide"><h1>Side effects in function components</h1>
+</section></section><section class="slides-section"><section class="slide"><h1>Effect hook</h1>
 </section><section class="slide"><h2>Effect hook</h2>
 <p>The <em>effect hook</em> can be used to perform actions when a component was mounted for the first time or when its props / state have changed.</p>
 <pre><code class="hljs language-js">useEffect(
@@ -2118,6 +2118,110 @@ useEffect(<span class="hljs-function">() =></span> {
 <pre><code class="hljs language-jsx">useEffect(<span class="hljs-function">() =></span> {
   ensureExchangeRateIsLoaded();
 });
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Effect hook: cleanup</h1>
+</section><section class="slide"><h2>Effect cleanup</h2>
+<p>some side effect may need to be "cleaned up":</p>
+<ul>
+<li>aborting API queries if they are not needed anymore (e.g. if a search term has changed)</li>
+<li>stopping timers</li>
+</ul>
+</section><section class="slide"><h2>Cleanup functions</h2>
+<p>An effect function may return a "cleanup function"</p>
+<p>This function will be executed before the next run of the effect or before the component is unmounted</p>
+</section><section class="slide"><h2>Cleanup functions</h2>
+<p>example: structure for a query with immediate feedback / loading when the user types:</p>
+<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">App</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> [query, setQuery] = useState(<span class="hljs-string">''</span>);
+  <span class="hljs-keyword">const</span> [results, setResults] = useState([]);
+
+  useEffect(<span class="hljs-function">() =></span> {
+    <span class="hljs-keyword">const</span> initiateQuery = <span class="hljs-keyword">async</span> () => {
+      <span class="hljs-comment">// ...</span>
+    };
+    <span class="hljs-keyword">const</span> cancelPreviousQuery = <span class="hljs-function">() =></span> {
+      <span class="hljs-comment">// ...</span>
+    };
+    initiateQuery();
+    <span class="hljs-keyword">return</span> cancelPreviousQuery;
+  }, [query]);
+
+  <span class="hljs-comment">// ...</span>
+}
+</code></pre>
+</section><section class="slide"><h2>Cleanup functions</h2>
+<p>full example: Hacker news search</p>
+<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">App</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> [query, setQuery] = useState(<span class="hljs-string">''</span>);
+  <span class="hljs-keyword">const</span> [results, setResults] = useState([]);
+  useEffect(<span class="hljs-function">() =></span> {
+    <span class="hljs-keyword">let</span> isCancelled = <span class="hljs-literal">false</span>;
+    <span class="hljs-keyword">const</span> initiateQuery = <span class="hljs-keyword">async</span> () => {
+      <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> fetch(
+        <span class="hljs-string">'https://hn.algolia.com/api/v1/search?query='</span> +
+          query
+      );
+      <span class="hljs-keyword">const</span> data = <span class="hljs-keyword">await</span> res.json();
+      <span class="hljs-keyword">if</span> (!isCancelled) {
+        setResults(data.hits);
+      }
+    };
+    <span class="hljs-keyword">const</span> cancelPreviousQuery = <span class="hljs-function">() =></span> {
+      isCancelled = <span class="hljs-literal">true</span>;
+    };
+    initiateQuery();
+    <span class="hljs-keyword">return</span> cancelPreviousQuery;
+  }, [query]);
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"App"</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">input</span>
+        <span class="hljs-attr">value</span>=<span class="hljs-string">{query}</span>
+        <span class="hljs-attr">onChange</span>=<span class="hljs-string">{(event)</span> =></span> {
+          setQuery(event.target.value);
+        }}
+      />
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">ul</span>></span>
+        {results.map((article) => (
+          <span class="hljs-tag">&#x3C;<span class="hljs-name">li</span> <span class="hljs-attr">key</span>=<span class="hljs-string">{article.objectId}</span>></span>{article.title}<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span>
+        ))}
+      <span class="hljs-tag">&#x3C;/<span class="hljs-name">ul</span>></span>
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+  );
+}
+</code></pre>
+</section><section class="slide"><h2>Cleanup functions</h2>
+<p>example: user will be logged out after 10 seconds of inactivity</p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> App = <span class="hljs-function">() =></span> {
+  <span class="hljs-keyword">const</span> [loggedIn, setLoggedIn] = useState(<span class="hljs-literal">true</span>);
+  <span class="hljs-keyword">const</span> [lastInteraction, setLastInteraction] = useState(
+    <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>()
+  );
+  <span class="hljs-comment">// restart the logout timer on user interaction</span>
+  useEffect(<span class="hljs-function">() =></span> {
+    <span class="hljs-keyword">const</span> logout = <span class="hljs-function">() =></span> setLoggedIn(<span class="hljs-literal">false</span>);
+    <span class="hljs-keyword">const</span> timeoutId = <span class="hljs-built_in">setTimeout</span>(logout, <span class="hljs-number">10000</span>);
+    <span class="hljs-keyword">return</span> <span class="hljs-function">() =></span> <span class="hljs-built_in">clearTimeout</span>(timeoutId);
+  }, [lastInteraction]);
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setLastInteraction(new Date())}>
+      {loggedIn
+        ? 'click to stay logged in'
+        : 'logged out automatically'}
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span>
+  );
+};
+</code></pre>
+</section><section class="slide"><h2>Asynchronous effects and cleanup functions</h2>
+<p>If an effect function returns anything other than <code>undefined</code>, the return value is treated as a cleanup function</p>
+<p>An async function cannot be used as an effect function directly (it will return a promise)</p>
+</section><section class="slide"><h2>Asynchronous effects and cleanup functions</h2>
+<p>invalid:</p>
+<pre><code class="hljs language-js">useEffect(loadSearchResultsAsync, [query]);
+</code></pre>
+<p>valid:</p>
+<pre><code class="hljs language-js">useEffect(<span class="hljs-function">() =></span> {
+  loadSearchResultsAsync();
+}, [query]);
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Side effects in class components</h1>
 </section><section class="slide"><h2>Component lifecycle methods</h2>
@@ -2231,17 +2335,6 @@ function ExchangeRate() {
 }
 
 export default ExchangeRate;
-</code></pre>
-</section><section class="slide"><h2>Effect hook and async functions</h2>
-<p>note: the effect function <strong>must not be</strong> an async function</p>
-<p>The effect function should usually (implicitly) return <em>undefined</em>; an async function would always return a promise</p>
-<p>invalid:</p>
-<pre><code class="hljs language-js">useEffect(loadExchangeRate, [<span class="hljs-keyword">from</span>, to]);
-</code></pre>
-<p>valid:</p>
-<pre><code class="hljs language-js">useEffect(<span class="hljs-function">() =></span> {
-  loadExchangeRate();
-}, [<span class="hljs-keyword">from</span>, to]);
 </code></pre>
 </section><section class="slide"><h2>Exercises</h2>
 <p>example APIs:</p>
@@ -2402,101 +2495,6 @@ export default ExchangeRate;
 <li>in function components, the component function is called again, and a new <em>closure</em> is created that contains the new props / state values</li>
 </ul>
 <p>note: in function components, old / obsolete data may still live on inside older closures</p>
-</section></section><section class="slides-section"><section class="slide"><h1>Effect cleanup</h1>
-</section><section class="slide"><h2>Effect cleanup</h2>
-<p>some side effect may need to be "cleaned up":</p>
-<ul>
-<li>stopping timers</li>
-<li>aborting API queries if they are not needed anymore (e.g. if a search term has changed)</li>
-</ul>
-</section><section class="slide"><h2>Cleanup functions</h2>
-<p>An effect function may return a "cleanup function"</p>
-<p>This function will be executed before the next run of the effect or before the component is unmounted</p>
-</section><section class="slide"><h2>Cleanup functions</h2>
-<p>example: structure for a query with immediate feedback / loading when the user types:</p>
-<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">App</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">const</span> [query, setQuery] = useState(<span class="hljs-string">''</span>);
-  <span class="hljs-keyword">const</span> [results, setResults] = useState([]);
-
-  useEffect(<span class="hljs-function">() =></span> {
-    <span class="hljs-keyword">const</span> initiateQuery = <span class="hljs-keyword">async</span> () => {
-      <span class="hljs-comment">// ...</span>
-    };
-    <span class="hljs-keyword">const</span> cancelPreviousQuery = <span class="hljs-function">() =></span> {
-      <span class="hljs-comment">// ...</span>
-    };
-    initiateQuery();
-    <span class="hljs-keyword">return</span> cancelPreviousQuery;
-  }, [query]);
-
-  <span class="hljs-comment">// ...</span>
-}
-</code></pre>
-</section><section class="slide"><h2>Cleanup functions</h2>
-<p>full example: Hacker news search</p>
-<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">App</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">const</span> [query, setQuery] = useState(<span class="hljs-string">''</span>);
-  <span class="hljs-keyword">const</span> [results, setResults] = useState([]);
-  useEffect(<span class="hljs-function">() =></span> {
-    <span class="hljs-keyword">let</span> isCancelled = <span class="hljs-literal">false</span>;
-    <span class="hljs-keyword">const</span> initiateQuery = <span class="hljs-keyword">async</span> () => {
-      <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> fetch(
-        <span class="hljs-string">'https://hn.algolia.com/api/v1/search?query='</span> +
-          query
-      );
-      <span class="hljs-keyword">const</span> data = <span class="hljs-keyword">await</span> res.json();
-      <span class="hljs-keyword">if</span> (!isCancelled) {
-        setResults(data.hits);
-      }
-    };
-    <span class="hljs-keyword">const</span> cancelPreviousQuery = <span class="hljs-function">() =></span> {
-      isCancelled = <span class="hljs-literal">true</span>;
-    };
-    initiateQuery();
-    <span class="hljs-keyword">return</span> cancelPreviousQuery;
-  }, [query]);
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"App"</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">input</span>
-        <span class="hljs-attr">value</span>=<span class="hljs-string">{query}</span>
-        <span class="hljs-attr">onChange</span>=<span class="hljs-string">{(event)</span> =></span> {
-          setQuery(event.target.value);
-        }}
-      />
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">ul</span>></span>
-        {results.map((article) => (
-          <span class="hljs-tag">&#x3C;<span class="hljs-name">li</span> <span class="hljs-attr">key</span>=<span class="hljs-string">{article.objectId}</span>></span>{article.title}<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span>
-        ))}
-      <span class="hljs-tag">&#x3C;/<span class="hljs-name">ul</span>></span>
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
-  );
-}
-</code></pre>
-</section><section class="slide"><h2>Cleanup functions</h2>
-<p>example: user will be logged out after 10 seconds of inactivity</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> App = <span class="hljs-function">() =></span> {
-  <span class="hljs-keyword">const</span> [loggedIn, setLoggedIn] = useState(<span class="hljs-literal">true</span>);
-  <span class="hljs-keyword">const</span> [lastInteraction, setLastInteraction] = useState(
-    <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>()
-  );
-  <span class="hljs-comment">// restart the logout timer on user interaction</span>
-  useEffect(<span class="hljs-function">() =></span> {
-    <span class="hljs-keyword">const</span> logout = <span class="hljs-function">() =></span> setLoggedIn(<span class="hljs-literal">false</span>);
-    <span class="hljs-keyword">const</span> timeoutId = <span class="hljs-built_in">setTimeout</span>(logout, <span class="hljs-number">10000</span>);
-    <span class="hljs-keyword">return</span> <span class="hljs-function">() =></span> <span class="hljs-built_in">clearTimeout</span>(timeoutId);
-  }, [lastInteraction]);
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setLastInteraction(new Date())}>
-      {loggedIn
-        ? 'click to stay logged in'
-        : 'logged out automatically'}
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span>
-  );
-};
-</code></pre>
-</section><section class="slide"><h2>Cleanup functions</h2>
-<p>If an effect function returns anything other than <code>undefined</code>, the return value is treated as a cleanup function</p>
-<p>This is why async functions cannot be used as effect functions directly (they return promises)</p>
 </section></section><section class="slides-section"><section class="slide"><h1>Examples and Exercises</h1>
 </section><section class="slide"><h2>Example: DocumentTitle component</h2>
 <p>We will create a component that can set the document title dynamically:</p>

@@ -1,21 +1,21 @@
-# Effect cleanup
+# Effect Hook: Cleanup
 
-## Effect cleanup
+## Effect Hook: Cleanup
 
-some side effect may need to be "cleaned up":
+manche Side Effects müssen später "aufgeräumt" werden:
 
-- stopping timers
-- aborting API queries if they are not needed anymore (e.g. if a search term has changed)
+- Abbrechen von API-Anfragen, wenn sie nicht mehr benötigt werden (z.B. wenn sich ein Suchbegriff geändert hat)
+- Stoppen von Timern
 
-## Cleanup functions
+## Cleanup-Funktionen
 
-An effect function may return a "cleanup function"
+Eine Effect-Funktion kann eine "Cleanup-Funktion" zurückgeben
 
-This function will be executed before the next run of the effect or before the component is unmounted
+Diese Funktion wird ausgeführt, bevor der Effect zum nächsten Mal läuft oder bevor die Komponente entfernt wird
 
-## Cleanup functions
+## Cleanup-Funktionen
 
-example: structure for a query with immediate feedback / loading when the user types:
+Beispiel: Struktur für eine Suchanfrage mit unmittelbarem Feedback / Laden, wenn der Benutzer tippt:
 
 ```js
 function App() {
@@ -37,9 +37,9 @@ function App() {
 }
 ```
 
-## Cleanup functions
+## Cleanup-Funktionen
 
-full example: Hacker news search
+vollständiges Beispiel: Hacker News - Suche
 
 ```js
 function App() {
@@ -49,8 +49,7 @@ function App() {
     let isCancelled = false;
     const initiateQuery = async () => {
       const res = await fetch(
-        'https://hn.algolia.com/api/v1/search?query=' +
-          query
+        `https://hn.algolia.com/api/v1/search?query=${query}`
       );
       const data = await res.json();
       if (!isCancelled) {
@@ -81,9 +80,9 @@ function App() {
 }
 ```
 
-## Cleanup functions
+## Cleanup-Funktionen
 
-example: user will be logged out after 10 seconds of inactivity
+Beispiel: Benutzer wird nach 10 Sekunden Inaktivität automatisch ausgeloggt
 
 ```jsx
 const App = () => {
@@ -107,8 +106,28 @@ const App = () => {
 };
 ```
 
-## Cleanup functions
+## Asynchrone Effects und Cleanup-Funktionen
 
-If an effect function returns anything other than `undefined`, the return value is treated as a cleanup function
+Eine Effect-Funktion **darf keine asynchrone Funktion sein**
 
-This is why async functions cannot be used as effect functions directly (they return promises)
+Hintergrund:
+
+ein eventueller Rückgabewert einer Effect-Funktion wird immer als Cleanup-Funktion interpretiert
+
+asynchrone Funktionen geben immer Promises zurück
+
+## Asynchrone Effects und Cleanup-Funktionen
+
+ungültig:
+
+```js
+useEffect(loadSearchResultsAsync, [query]);
+```
+
+gültig:
+
+```js
+useEffect(() => {
+  loadSearchResultsAsync();
+}, [query]);
+```
