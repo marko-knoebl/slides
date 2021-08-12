@@ -1,4 +1,42 @@
-# Examples and Exercises
+# Examples and exercises
+
+## Examples and exercises
+
+Examples and exercises for use cases that don't interact with APIs
+
+## Example: persistent counter
+
+Counter that saves its value to localStorage whenever the value changes:
+
+```jsx
+function PersistentCounter() {
+  const [count, setCount] = useState(null);
+  function loadCount() {
+    const lsCount = localStorage.getItem('count');
+    if (lsCount !== null) {
+      setCount(Number(lsCount));
+    } else {
+      setCount(0);
+    }
+  }
+  function saveCount() {
+    if (count !== null) {
+      localStorage.setItem('count', count);
+    }
+  }
+  useEffect(loadCount, []);
+  useEffect(saveCount, [count]);
+  return (
+    <button onClick={() => setCount(count + 1)}>
+      {count}
+    </button>
+  );
+}
+```
+
+## Exercises
+
+Exercise: save the state of one of the previous applications (e.g. slideshow) to _localStorage_
 
 ## Example: DocumentTitle component
 
@@ -45,29 +83,6 @@ const DocumentTitle = (props) => {
 ```
 
 (will work correctly, but will show a warning concerning _exhaustive dependencies_)
-
-## Example: DocumentTitle component
-
-implementations that don't show a warning:
-
-```jsx
-function DocumentTitle(props) {
-  useEffect(() => {
-    document.title = props.value;
-  }, [props.value]);
-  return null;
-}
-```
-
-```jsx
-function DocumentTitle(props) {
-  const updateTitle = useCallback(() => {
-    document.title = props.value;
-  }, [props.value]);
-  useEffect(updateTitle, [updateTitle]);
-  return null;
-}
-```
 
 ## Example: Clock component
 

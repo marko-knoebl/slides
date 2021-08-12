@@ -2,7 +2,13 @@
 
 ## Side effects
 
-Components can trigger _side effects_ when they have (re-)rendered
+When component props / state change:
+
+"main effect": component (re-)renders with current data
+
+potential "side effects": triggering API queries, saving data, explicitly manipulating the DOM, ...
+
+## Side effects
 
 Typically, we will want to trigger side effects _when some specific props / state or other data have changed_ or _when the component is rendered for the first time_
 

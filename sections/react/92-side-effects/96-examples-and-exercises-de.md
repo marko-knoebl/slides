@@ -1,5 +1,47 @@
 # Beispiele und Übungen
 
+## Beispiele und Übungen
+
+Beispiele und Übungen, die nicht mit APIs interagieren
+
+## Beispiel: Counter
+
+Counter, der seinen Wert in localStorage speichert, wenn sich dieser ändert:
+
+```jsx
+function PersistentCounter() {
+  const [count, setCount] = useState(null);
+  function loadCount() {
+    const lsCount = localStorage.getItem('count');
+    if (lsCount !== null) {
+      setCount(Number(lsCount));
+    } else {
+      setCount(0);
+    }
+  }
+  function saveCount() {
+    if (count !== null) {
+      localStorage.setItem('count', count);
+    }
+  }
+  useEffect(loadCount, []);
+  useEffect(saveCount, [count]);
+  return (
+    <button onClick={() => setCount(count + 1)}>
+      {count}
+    </button>
+  );
+}
+```
+
+## Übungen
+
+Übung: Speichere den state einer der vorigen Anwendungen, (z.B. slideshow) in _localStorage_
+
+## Exercises
+
+Exercise: save the state of one of the previous applications (e.g. slideshow) to _localStorage_
+
 ## Beispiel: DocumentTitle-Komponente
 
 Wir erstellen eine Komponente, die den Dokumenttitel dynamisch setzen kann:
@@ -35,39 +77,16 @@ class DocumentTitle extends Component {
 Implementierung als Funktionskomponente:
 
 ```jsx
-function DocumentTitle(props) {
-  useEffect(() => {
+const DocumentTitle = (props) => {
+  const updateTitle = () => {
     document.title = props.value;
-  }, [props.value]);
-
+  };
+  useEffect(updateTitle, [props.value]);
   return null;
-}
+};
 ```
 
 (funktioniert wie gewünscht, aber zeigt eine Warnung bezüglich _exhaustive dependencies_)
-
-## Beispiel: DocumentTitle-Komponente
-
-Implementierungen, die keine Warnungen anzeigen:
-
-```jsx
-function DocumentTitle(props) {
-  useEffect(() => {
-    document.title = props.value;
-  }, [props.value]);
-  return null;
-}
-```
-
-```jsx
-function DocumentTitle(props) {
-  const updateTitle = useCallback(() => {
-    document.title = props.value;
-  }, [props.value]);
-  useEffect(updateTitle, [updateTitle]);
-  return null;
-}
-```
 
 ## Beispiel: Clock-Komponente
 

@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 const currencies = ["USD", "EUR", "JPY", "GBP"];
 async function fetchExchangeRate(from: string, to: string): Promise<number> {
   const res = await fetch(
-    "https://api.exchangeratesapi.io/latest?base=" +
+    "https://api.exchangerate.host/latest?base=" +
       from.toUpperCase() +
       "&symbols=" +
       to.toUpperCase()
@@ -17,12 +17,14 @@ function ExchangeRate() {
   const [from, setFrom] = useState("USD");
   const [to, setTo] = useState("EUR");
   const [rate, setRate] = useState<number | null>(null);
-  function loadExchangeRate() {
-    fetchExchangeRate(from, to)
-      .then((r) => setRate(r))
-      .catch(() => setRate(null));
+  async function loadExchangeRate() {
+    setRate(null);
+    const rate = await fetchExchangeRate(from, to);
+    setRate(rate);
   }
-  useEffect(loadExchangeRate, [from, to]);
+  useEffect(() => {
+    loadExchangeRate();
+  }, [from, to]);
   return (
     <div>
       <select value={from} onChange={(e) => setFrom(e.target.value)}>

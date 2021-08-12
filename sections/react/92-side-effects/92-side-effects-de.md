@@ -2,7 +2,13 @@
 
 ## Side Effects
 
-Komponenten können _Side Effects_ auslösen, wenn sie (neu) gerendert wurden
+Wenn sich Komponenten-Props bzw State ändern:
+
+"Main Effect": Komponente wir mit aktuellen Daten (neu) gerendert
+
+mögliche "Side Effects": Auslösen von API-Abfragen, Speichern von Daten, Explizite Änderungen am DOM, ...
+
+## Side Effects
 
 Typischerweise möchten wir Side Effects auslösen, wenn _sich bestimmte Props oder State geändert haben_ oder wenn _die Komponente zum ersten Mal eingebunden wurde_
 
