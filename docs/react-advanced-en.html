@@ -3462,57 +3462,20 @@ function Video() {
 <li>grouping by features or routes</li>
 <li>grouping by type (component / reducer / API interface)</li>
 </ul>
-</section></section><section class="slides-section"><section class="slide"><h1>Manual setup and configuration of React</h1>
-</section><section class="slide"><h2>Manual setup and configuration</h2>
-<p>Setting up React without <em>create-react-app</em></p>
-<p>Here we will use the <em>parcel</em> bundler - an alternative to webpack</p>
-</section><section class="slide"><h2>package.json and dependencies</h2>
-<p>Start out with a <code>package.json</code> file that contains an empty object : <code>{}</code></p>
-<p>Install the required packages:</p>
-<pre><code class="hljs language-bash">npm install react react-dom
-</code></pre>
-<pre><code class="hljs language-bash">npm install --save-dev parcel-bundler @babel/preset-react @babel/preset-env
-</code></pre>
-</section><section class="slide"><h2>Configuring babel</h2>
-<p>via <code>babel.config.json</code> file:</p>
-<pre><code class="hljs language-json">{
-  <span class="hljs-attr">"presets"</span>: [<span class="hljs-string">"@babel/preset-env"</span>, <span class="hljs-string">"@babel/react"</span>]
-}
-</code></pre>
-</section><section class="slide"><h2>npm scripts</h2>
-<p>add scripts to <code>package.json</code>:</p>
-<pre><code class="hljs language-json"><span class="hljs-string">"scripts"</span>: {
-  <span class="hljs-attr">"build"</span>: <span class="hljs-string">"parcel build src/index.html"</span>,
-  <span class="hljs-attr">"start"</span>: <span class="hljs-string">"parcel src/index.html"</span>
-},
-</code></pre>
-</section><section class="slide"><h2>HTML entry point</h2>
-<p>Create <em>src/index.html</em>:</p>
-<pre><code class="hljs language-html"><span class="hljs-meta">&#x3C;!DOCTYPE <span class="hljs-meta-keyword">html</span>></span>
-<span class="hljs-tag">&#x3C;<span class="hljs-name">html</span>></span>
-  <span class="hljs-tag">&#x3C;<span class="hljs-name">head</span>></span>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">title</span>></span>React starter app<span class="hljs-tag">&#x3C;/<span class="hljs-name">title</span>></span>
-  <span class="hljs-tag">&#x3C;/<span class="hljs-name">head</span>></span>
-  <span class="hljs-tag">&#x3C;<span class="hljs-name">body</span>></span>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"app"</span>></span><span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"index.js"</span>></span><span class="hljs-tag">&#x3C;/<span class="hljs-name">script</span>></span>
-  <span class="hljs-tag">&#x3C;/<span class="hljs-name">body</span>></span>
-<span class="hljs-tag">&#x3C;/<span class="hljs-name">html</span>></span>
-</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Manual project setup</h1>
 </section><section class="slide"><h2>Rendering an App component</h2>
-<p>Create <em>src/index.js</em>:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
-<span class="hljs-keyword">import</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>;
+<p>basic example for rendering an App component:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>;
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">App</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>Hello World!<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
 }
 
-<span class="hljs-keyword">const</span> mountNode = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'app'</span>);
+<span class="hljs-keyword">const</span> mountNode = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'body'</span>);
 ReactDOM.render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">App</span> /></span></span>, mountNode);
 </code></pre>
-</section><section class="slide"><h2>Running</h2>
-<p>Execute <code>npm run start</code> for a development server or <code>npm run build</code> for a build.</p></section></section></div>
+</section><section class="slide"><h2>Manual project setup</h2>
+<p>for details, see presentation on <em>JavaScript build systems</em></p></section></section></div>
     </div>
     <script>/*!
  * reveal.js
