@@ -9,7 +9,10 @@ Möglichkeiten, um Breakpoints zu setzen:
 - in VS Code links neben die Zeilennummer klicken
 - direkt in Python mittels `breakpoint()` (seit Python 3.7)
 
-Ausführung in VS Code via _Debug - Start Debugging_ oder _F5_.
+Ausführung in VS Code:
+
+- Symbol "Run and Debug" in der linken Toolbar
+- wähle "create a launch.json file" - "Python" - "Python File"
 
 ## Debuggen
 
