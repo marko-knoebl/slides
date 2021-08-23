@@ -2206,9 +2206,7 @@ quot = col0 / col1  <span class="hljs-comment"># [1.46, 1.63, 1.47, 1.48]</span>
 <pre><code class="hljs language-py"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
 
 titanic = pd.read_csv(
-    <span class="hljs-string">"https://public.opendatasoft.com/"</span> +
-        <span class="hljs-string">"explore/dataset/titanic-passengers/download"</span>,
-    delimiter=<span class="hljs-string">";"</span>,
+    <span class="hljs-string">"https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv"</span>
 )
 </code></pre>
 </section><section class="slide"><h2>Pandas: Überblick und Demo</h2>
@@ -2216,39 +2214,32 @@ titanic = pd.read_csv(
 <pre><code class="hljs language-py">titanic
 </code></pre>
 <p>Anzeigen einer Spalte ("Series"):</p>
-<pre><code class="hljs language-py">titanic[<span class="hljs-string">"age"</span>]
+<pre><code class="hljs language-py">titanic[<span class="hljs-string">"Age"</span>]
 </code></pre>
 </section><section class="slide"><h2>Pandas: Überblick und Demo</h2>
 <p>Zusammenfassung aller numerischen Daten:</p>
 <pre><code class="hljs language-py">titanic.describe()
 </code></pre>
 <p>Zusammenfassung einer Spalte ("Series"):</p>
-<pre><code class="hljs language-py">titanic[<span class="hljs-string">"age"</span>].describe()
+<pre><code class="hljs language-py">titanic[<span class="hljs-string">"Age"</span>].describe()
 </code></pre>
 <p>Durchschnitt einer Spalte ("Series"):</p>
-<pre><code class="hljs language-py">titanic[<span class="hljs-string">"age"</span>].mean()
+<pre><code class="hljs language-py">titanic[<span class="hljs-string">"Age"</span>].mean()
 </code></pre>
 </section><section class="slide"><h2>Pandas: Überblick und Demo</h2>
 <p>kategorische Daten:</p>
-<pre><code class="hljs language-py">titanic[<span class="hljs-string">"pclass"</span>].value_counts()
+<pre><code class="hljs language-py">titanic[<span class="hljs-string">"Pclass"</span>].value_counts()
 </code></pre>
 </section><section class="slide"><h2>Pandas: Überblick und Demo</h2>
 <p>Abfragen von Daten: Passagiere jünger als 1 Jahr</p>
-<pre><code class="hljs language-py">titanic[titanic[<span class="hljs-string">"age"</span>] &#x3C; <span class="hljs-number">1</span>]
+<pre><code class="hljs language-py">titanic[titanic[<span class="hljs-string">"Age"</span>] &#x3C; <span class="hljs-number">1</span>]
 </code></pre>
 </section><section class="slide"><h2>Pandas: Überblick und Demo</h2>
 <p>Vorbereiten der Daten für eine Machine Learning Übung:</p>
-<pre><code class="hljs language-py">titanic_ml = pd.DataFrame({
-    <span class="hljs-string">"female"</span>: titanic[<span class="hljs-string">"sex"</span>].replace(
-        {<span class="hljs-string">"female"</span>: <span class="hljs-literal">True</span>, <span class="hljs-string">"male"</span>: <span class="hljs-literal">False</span>}
-    ),
-    <span class="hljs-string">"pclass"</span>: titanic[<span class="hljs-string">"pclass"</span>],
-    <span class="hljs-string">"age"</span>: titanic[<span class="hljs-string">"age"</span>],
-    <span class="hljs-string">"sibsp"</span>: titanic[<span class="hljs-string">"sibsp"</span>],
-    <span class="hljs-string">"survived"</span>: titanic[<span class="hljs-string">"survived"</span>].replace(
-        {<span class="hljs-string">"Yes"</span>: <span class="hljs-literal">True</span>, <span class="hljs-string">"No"</span>: <span class="hljs-literal">False</span>}
-    )
-})
+<pre><code class="hljs language-py"><span class="hljs-comment"># column with a numeric value</span>
+titanic[<span class="hljs-string">"Female"</span>] = titanic[<span class="hljs-string">"Sex"</span>].replace(
+    {<span class="hljs-string">"female"</span>: <span class="hljs-number">1</span>, <span class="hljs-string">"male"</span>: <span class="hljs-number">0</span>}
+)
 
 <span class="hljs-comment"># remove rows with missing data</span>
 titanic_ml = titanic_ml.dropna()
@@ -2261,14 +2252,14 @@ titanic_ml = titanic_ml.dropna()
 <pre><code class="hljs language-py"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
 
 plt.hist(
-    titanic[<span class="hljs-string">"pclass"</span>],
+    titanic[<span class="hljs-string">"Pclass"</span>],
     bins=[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>],
     align=<span class="hljs-string">"left"</span>,
 )
 plt.xticks([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])
 </code></pre>
 <p>pyplot aus pandas heraus verwenden:</p>
-<pre><code class="hljs language-py">titanic[<span class="hljs-string">"pclass"</span>].plot.hist(
+<pre><code class="hljs language-py">titanic[<span class="hljs-string">"Pclass"</span>].plot.hist(
     bins=[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>],
     align=<span class="hljs-string">"left"</span>,
     xticks=[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>],
@@ -2276,14 +2267,14 @@ plt.xticks([<span class="hljs-number">1</span>, <span class="hljs-number">2</spa
 </code></pre>
 </section><section class="slide"><h2>Pyplot: Überblick und Demo</h2>
 <pre><code class="hljs language-py">plt.boxplot(
-    titanic[<span class="hljs-string">"age"</span>].dropna(),
+    titanic[<span class="hljs-string">"Age"</span>].dropna(),
     whis=[<span class="hljs-number">0</span>, <span class="hljs-number">100</span>],
-    labels=[<span class="hljs-string">"age"</span>]
+    labels=[<span class="hljs-string">"Age"</span>]
 )
 </code></pre>
 </section><section class="slide"><h2>Pyplot: Überblick und Demo</h2>
 <pre><code class="hljs language-py">plt.hist(
-    titanic[<span class="hljs-string">"age"</span>],
+    titanic[<span class="hljs-string">"Age"</span>],
     bins=[<span class="hljs-number">0</span>, <span class="hljs-number">10</span>, <span class="hljs-number">20</span>, <span class="hljs-number">30</span>, <span class="hljs-number">40</span>, <span class="hljs-number">50</span>, <span class="hljs-number">60</span>, <span class="hljs-number">70</span>, <span class="hljs-number">80</span>],
     color=<span class="hljs-string">"C1"</span>,
 )
@@ -2291,13 +2282,13 @@ plt.xticks([<span class="hljs-number">1</span>, <span class="hljs-number">2</spa
 </section></section><section class="slides-section"><section class="slide"><h1>Scikit-learn: Überblick und Demo</h1>
 </section><section class="slide"><h2>Scikit-learn: Überblick und Demo</h2>
 <p>Übung: Voraussagen von Überleben auf der Titanic basierend auf einer linearen Regression</p>
-<p>Einfache Algorithmen können trainiert werden, um mit ca 80%-iger Sicherheit vorauszusagen, ob ein Passagier überlebt hat (basierend auf <em>Geschlecht</em>, <em>Passagierklasse</em>, <em>Alter</em>, <em>Anzahl an Geschwistern bzw Eheleuten</em>)</p>
+<p>Einfache Algorithmen können trainiert werden, um mit ca 80%-iger Sicherheit vorauszusagen, ob ein Passagier überlebt hat (basierend auf <em>Geschlecht</em>, <em>Passagierklasse</em>, <em>Alter</em>, <em>Anzahl an Geschwistern bzw Eheleuten</em>, <em>Anzahl an Eltern bzw Kindern</em>)</p>
 </section><section class="slide"><h2>Scikit-learn: Überblick und Demo</h2>
 <p>"Trainieren" eines Modells:</p>
 <pre><code class="hljs language-py"><span class="hljs-keyword">from</span> sklearn.linear_model <span class="hljs-keyword">import</span> LinearRegression
 
-passenger_data = titanic_ml[[<span class="hljs-string">"female"</span>, <span class="hljs-string">"pclass"</span>, <span class="hljs-string">"age"</span>, <span class="hljs-string">"sibsp"</span>]]
-survived = titanic_ml[<span class="hljs-string">"survived"</span>]
+passenger_data = titanic[[<span class="hljs-string">"Female"</span>, <span class="hljs-string">"Pclass"</span>, <span class="hljs-string">"Age"</span>, <span class="hljs-string">"SibSp"</span>, <span class="hljs-string">"Parch"</span>]]
+survived = titanic[<span class="hljs-string">"Survived"</span>]
 
 model = LinearRegression()
 
@@ -2306,13 +2297,13 @@ model.fit(passenger_data, survived)
 </section><section class="slide"><h2>Scikit-learn: Überblick und Demo</h2>
 <p>Voraussagen der Überlebenschance für:</p>
 <ul>
-<li>40 Jahre alte Frau in der ersten Klasse (ohne Geschwister oder Ehemann)</li>
-<li>40 Jahre alter Mann in der dritten Klasse (ohne Geschwister oder Ehefrau)</li>
+<li>40 Jahre alte Frau in der ersten Klasse (ohne Begleitung)</li>
+<li>40 Jahre alter Mann in der dritten Klasse (ohne Begleitung)</li>
 </ul>
 <pre><code class="hljs language-py">model.predict(
     np.array([
-        [<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">40</span>, <span class="hljs-number">0</span>],
-        [<span class="hljs-number">0</span>, <span class="hljs-number">3</span>, <span class="hljs-number">40</span>, <span class="hljs-number">0</span>],
+        [<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">40</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>],
+        [<span class="hljs-number">0</span>, <span class="hljs-number">3</span>, <span class="hljs-number">40</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>],
     ])
 )
 <span class="hljs-comment"># [0.93, 0.03]</span>

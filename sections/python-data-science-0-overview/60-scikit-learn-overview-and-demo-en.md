@@ -4,7 +4,7 @@
 
 exercise: predicting survival on the Titanic via a linear regression
 
-simple algorithms can be trained to predict survival with 80% accuracy (based on _sex_, _passenger class_, _age_, _number of siblings or spouses_)
+simple algorithms can be trained to predict survival with 80% accuracy (based on _sex_, _passenger class_, _age_, _number of siblings or spouses_, _number of parents or children_)
 
 ## Scikit-learn: overview and demo
 
@@ -13,8 +13,8 @@ simple algorithms can be trained to predict survival with 80% accuracy (based on
 ```py
 from sklearn.linear_model import LinearRegression
 
-passenger_data = titanic_ml[["female", "pclass", "age", "sibsp"]]
-survived = titanic_ml["survived"]
+passenger_data = titanic[["Female", "Pclass", "Age", "SibSp", "Parch"]]
+survived = titanic["Survived"]
 
 model = LinearRegression()
 
@@ -25,14 +25,14 @@ model.fit(passenger_data, survived)
 
 predicting chance of survival for:
 
-- 40-year-old woman in first class (with no siblings or spouses)
-- 40-year-old man in third class (with no siblings or spouses)
+- 40-year-old woman in first class (without companions)
+- 40-year-old man in third class (without companions)
 
 ```py
 model.predict(
     np.array([
-        [1, 1, 40, 0],
-        [0, 3, 40, 0],
+        [1, 1, 40, 0, 0],
+        [0, 3, 40, 0, 0],
     ])
 )
 # [0.93, 0.03]

@@ -12,9 +12,7 @@ load a data table (_DataFrame_) from a CSV file:
 import pandas as pd
 
 titanic = pd.read_csv(
-    "https://public.opendatasoft.com/" +
-        "explore/dataset/titanic-passengers/download",
-    delimiter=";",
+    "https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv"
 )
 ```
 
@@ -29,7 +27,7 @@ titanic
 display one column (series):
 
 ```py
-titanic["age"]
+titanic["Age"]
 ```
 
 ## Pandas: overview and demo
@@ -43,13 +41,13 @@ titanic.describe()
 summarize one column (series):
 
 ```py
-titanic["age"].describe()
+titanic["Age"].describe()
 ```
 
 mean value of one column (series):
 
 ```py
-titanic["age"].mean()
+titanic["Age"].mean()
 ```
 
 ## Pandas: overview and demo
@@ -57,7 +55,7 @@ titanic["age"].mean()
 categorical data:
 
 ```py
-titanic["pclass"].value_counts()
+titanic["Pclass"].value_counts()
 ```
 
 ## Pandas: overview and demo
@@ -65,7 +63,7 @@ titanic["pclass"].value_counts()
 querying data: passengers younger than 1 year
 
 ```py
-titanic[titanic["age"] < 1]
+titanic[titanic["Age"] < 1]
 ```
 
 ## Pandas: overview and demo
@@ -73,17 +71,10 @@ titanic[titanic["age"] < 1]
 preparing data for machine learning exercise:
 
 ```py
-titanic_ml = pd.DataFrame({
-    "female": titanic["sex"].replace(
-        {"female": True, "male": False}
-    ),
-    "pclass": titanic["pclass"],
-    "age": titanic["age"],
-    "sibsp": titanic["sibsp"],
-    "survived": titanic["survived"].replace(
-        {"Yes": True, "No": False}
-    )
-})
+# column with a numeric value
+titanic["Female"] = titanic["Sex"].replace(
+    {"female": 1, "male": 0}
+)
 
 # remove rows with missing data
 titanic_ml = titanic_ml.dropna()

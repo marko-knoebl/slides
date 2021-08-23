@@ -13,9 +13,8 @@ class TitanicData:
 
     def load_data(self):
         self._data = pd.read_csv(
-            "https://public.opendatasoft.com/"
-            + "explore/dataset/titanic-passengers/download",
-            delimiter=";",
+            "https://raw.githubusercontent.com/"
+            + "datasciencedojo/datasets/master/titanic.csv",
         )
 
     def ensure_loaded(self):
@@ -32,10 +31,10 @@ class TitanicData:
 
     def get_random_passenger_text(self):
         passenger = self.get_random_passenger()
-        name = passenger["name"]
-        age = passenger["age"]
-        survived = passenger["survived"]
-        if passenger["sex"] == "female":
+        name = passenger["Name"]
+        age = passenger["Age"]
+        survived = passenger["Survived"]
+        if passenger["Sex"] == "female":
             pronoun = "she"
         else:
             pronoun = "he"
@@ -49,9 +48,9 @@ class TitanicData:
     def summary_text(self):
         self.ensure_loaded()
         num_passengers = self._data.shape[0]
-        num_women = self._data.query("sex == 'female'").shape[0]
+        num_women = self._data.query("Sex == 'female'").shape[0]
         num_men = num_passengers - num_women
-        num_survived = self._data.query("survived == 'Yes'").shape[0]
+        num_survived = self._data.query("Survived == 'Yes'").shape[0]
         text = (
             f"{num_passengers} passengers "
             + f"({num_women} women, {num_men} men), {num_survived} survivors\n"

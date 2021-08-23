@@ -12,7 +12,7 @@ direktes Verwenden von pyplot:
 import matplotlib.pyplot as plt
 
 plt.hist(
-    titanic["pclass"],
+    titanic["Pclass"],
     bins=[1, 2, 3, 4],
     align="left",
 )
@@ -22,7 +22,7 @@ plt.xticks([1, 2, 3])
 pyplot aus pandas heraus verwenden:
 
 ```py
-titanic["pclass"].plot.hist(
+titanic["Pclass"].plot.hist(
     bins=[1, 2, 3, 4],
     align="left",
     xticks=[1, 2, 3],
@@ -33,9 +33,9 @@ titanic["pclass"].plot.hist(
 
 ```py
 plt.boxplot(
-    titanic["age"].dropna(),
+    titanic["Age"].dropna(),
     whis=[0, 100],
-    labels=["age"]
+    labels=["Age"]
 )
 ```
 
@@ -43,7 +43,7 @@ plt.boxplot(
 
 ```py
 plt.hist(
-    titanic["age"],
+    titanic["Age"],
     bins=[0, 10, 20, 30, 40, 50, 60, 70, 80],
     color="C1",
 )

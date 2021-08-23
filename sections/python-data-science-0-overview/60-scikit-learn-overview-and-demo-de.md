@@ -4,7 +4,7 @@
 
 Übung: Voraussagen von Überleben auf der Titanic basierend auf einer linearen Regression
 
-Einfache Algorithmen können trainiert werden, um mit ca 80%-iger Sicherheit vorauszusagen, ob ein Passagier überlebt hat (basierend auf _Geschlecht_, _Passagierklasse_, _Alter_, _Anzahl an Geschwistern bzw Eheleuten_)
+Einfache Algorithmen können trainiert werden, um mit ca 80%-iger Sicherheit vorauszusagen, ob ein Passagier überlebt hat (basierend auf _Geschlecht_, _Passagierklasse_, _Alter_, _Anzahl an Geschwistern bzw Eheleuten_, _Anzahl an Eltern bzw Kindern_)
 
 ## Scikit-learn: Überblick und Demo
 
@@ -13,8 +13,8 @@ Einfache Algorithmen können trainiert werden, um mit ca 80%-iger Sicherheit vor
 ```py
 from sklearn.linear_model import LinearRegression
 
-passenger_data = titanic_ml[["female", "pclass", "age", "sibsp"]]
-survived = titanic_ml["survived"]
+passenger_data = titanic[["Female", "Pclass", "Age", "SibSp", "Parch"]]
+survived = titanic["Survived"]
 
 model = LinearRegression()
 
@@ -25,14 +25,14 @@ model.fit(passenger_data, survived)
 
 Voraussagen der Überlebenschance für:
 
-- 40 Jahre alte Frau in der ersten Klasse (ohne Geschwister oder Ehemann)
-- 40 Jahre alter Mann in der dritten Klasse (ohne Geschwister oder Ehefrau)
+- 40 Jahre alte Frau in der ersten Klasse (ohne Begleitung)
+- 40 Jahre alter Mann in der dritten Klasse (ohne Begleitung)
 
 ```py
 model.predict(
     np.array([
-        [1, 1, 40, 0],
-        [0, 3, 40, 0],
+        [1, 1, 40, 0, 0],
+        [0, 3, 40, 0, 0],
     ])
 )
 # [0.93, 0.03]
