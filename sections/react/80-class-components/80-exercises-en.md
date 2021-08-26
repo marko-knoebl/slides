@@ -1,5 +1,5 @@
-# Übungen
+# Exercises
 
-## Übungen
+## Exercises
 
-Konvertiere bestehende Komponenten (z.B. `AddTodo`) von Funktionskomponenten zu Klassenkomponenten
+convert existing components (e.g. `AddTodo`) from function components to class components

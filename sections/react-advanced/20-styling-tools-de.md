@@ -80,6 +80,39 @@ Libraries:
 - styled-components
 - ...
 
+## Tagged Template Literals
+
+**Tagged** Template Literals ermöglichen zusätzliche Verarbeitung, wenn Werte eingebunden werden
+
+Beispiele für Verwendungszwecke:
+
+- "Escaping" von Werten aus unsicheren Quellen
+- Anpasen der Einrückung
+- Einbinden von Stilen in React
+- ...
+
+## Tagged Template Literals
+
+Beispiel: "Escaping" von HTML:
+
+```js
+import { safeHtml } from 'common-tags';
+
+const message = 'I <3 U';
+
+const post = safeHtml`
+  <div>${message}</div>
+`;
+```
+
+Ergebnis:
+
+```html
+<div>I &lt;3 U</div>
+```
+
+Bemerkung: In React geschieht "Escaping" von HTMl automatisch, wir müssen diese Funktion in React nicht verwenden
+
 ## Emotion
 
 In Emotion werden Stile üblicherweise direkt im Template mittels eines _Tagged Template Literals_ eingebunden.

@@ -5,12 +5,9 @@
 - JavaScript-Standardisierung und Versionen
 - Imports und Exports
 - Pfeilfunktionen
-- Template Literals und Tagged Template Literals
+- Template Literals
 - Automatic Semicolon Insertion
 - destrukturierende Zuweisung
-- Spread-Syntax
-- optional Chaining
-- map und filter
 
 ## JavaScript Standardisierung
 
@@ -107,39 +104,6 @@ const greeting = `Hello, ${name}!
                   This is ES2015!`;
 ```
 
-## Tagged Template Literals
-
-**Tagged** Template Literals ermöglichen zusätzliche Verarbeitung, wenn Werte eingebunden werden
-
-Beispiele für Verwendungszwecke:
-
-- "Escaping" von Werten aus unsicheren Quellen
-- Anpasen der Einrückung
-- Einbinden von Stilen in React
-- ...
-
-## Tagged Template Literals
-
-Beispiel: "Escaping" von HTML:
-
-```js
-import { safeHtml } from 'common-tags';
-
-const message = 'I <3 U';
-
-const post = safeHtml`
-  <div>${message}</div>
-`;
-```
-
-Ergebnis:
-
-```html
-<div>I &lt;3 U</div>
-```
-
-Bemerkung: In React geschieht "Escaping" von HTMl automatisch, wir müssen diese Funktion in React nicht verwenden
-
 ## Das Semikolon in JavaScript
 
 Das Semikolon zum Abschluss von Statements ist größtenteils in JavaScript optional (_automatic semicolon insertion_)
@@ -192,43 +156,3 @@ let a = 1;
 let b = 2;
 [a, b] = [b, a];
 ```
-
-## Destrukturierung
-
-```js
-const person = { name: 'John', age: 48 };
-const { name, age } = person;
-
-const TodoItem = ({ title, completed }) => (
-  <div>
-    {completed ? 'DONE: ' : 'TODO: '}
-    {title}
-  </div>
-);
-```
-
-## Optional Chaining
-
-Beispiel für _optional chaining_:
-
-```js
-const userNickname = user?.nickname;
-```
-
-wenn `user` definiert ist, lies dessen `.nickname` Property, andernfalls verwende `undefined`
-
-"konventionelle" Langform:
-
-```js
-const userNickname = user ? user.nickname : undefined;
-```
-
-## Optional Chaining
-
-_Optional chaining_ mit Funktionsaufrufen:
-
-```js
-props.onClick?.();
-```
-
-wenn `props.onClick` definiert ist, wird es aufgerufen, andernfalls wird der Ausdruck zu `undefined` ausgewertet

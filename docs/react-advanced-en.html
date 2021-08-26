@@ -2417,6 +2417,29 @@ ReactDOM.render(
 <li>styled-components</li>
 <li>...</li>
 </ul>
+</section><section class="slide"><h2>Tagged template literals</h2>
+<p><strong>Tagged</strong> template literals enable additional processing when values are included</p>
+<p>use cases:</p>
+<ul>
+<li>escaping values from "unsafe" sources</li>
+<li>changing indentation</li>
+<li>including styles in React</li>
+<li>...</li>
+</ul>
+</section><section class="slide"><h2>Tagged template literals</h2>
+<p>example: escaping HTML</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { safeHtml } <span class="hljs-keyword">from</span> <span class="hljs-string">'common-tags'</span>;
+
+<span class="hljs-keyword">const</span> message = <span class="hljs-string">'I &#x3C;3 U'</span>;
+
+<span class="hljs-keyword">const</span> post = safeHtml<span class="hljs-string">`
+  &#x3C;div><span class="hljs-subst">${message}</span>&#x3C;/div>
+`</span>;
+</code></pre>
+<p>result:</p>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>I <span class="hljs-symbol">&#x26;lt;</span>3 U<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
+</code></pre>
+<p>Note: React will automatically escape HTML, so we don't need to use this function with React</p>
 </section><section class="slide"><h2>Emotion</h2>
 <p>In Emotion, styles are commonly included in the template via a tagged template literal</p>
 </section><section class="slide"><h2>Emotion</h2>

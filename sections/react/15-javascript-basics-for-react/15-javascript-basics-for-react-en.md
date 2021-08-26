@@ -5,12 +5,9 @@
 - JavaScript standardization and versions
 - imports and exports
 - arrow functions
-- template literals and tagged template literals
+- template literals
 - automatic semicolon insertion
 - destructuring assignment
-- spread syntax
-- optional chaining
-- map and filter
 
 ## JavaScript standardization
 
@@ -107,39 +104,6 @@ const greeting = `Hello, ${name}!
                   This is ES2015!`;
 ```
 
-## Tagged template literals
-
-**Tagged** template literals enable additional processing when values are included
-
-use cases:
-
-- escaping values from "unsafe" sources
-- changing indentation
-- including styles in React
-- ...
-
-## Tagged template literals
-
-example: escaping HTML
-
-```js
-import { safeHtml } from 'common-tags';
-
-const message = 'I <3 U';
-
-const post = safeHtml`
-  <div>${message}</div>
-`;
-```
-
-result:
-
-```html
-<div>I &lt;3 U</div>
-```
-
-Note: React will automatically escape HTML, so we don't need to use this function with React
-
 ## The semicolon in JavaScript
 
 The semicolon for ending statements is mostly optional in JavaScript (_automatic semicolon insertion_)
@@ -192,43 +156,3 @@ let a = 1;
 let b = 2;
 [a, b] = [b, a];
 ```
-
-## Destructuring assignment
-
-```js
-const person = { name: 'John', age: 48 };
-const { name, age } = person;
-
-const TodoItem = ({ title, completed }) => (
-  <div>
-    {completed ? 'DONE: ' : 'TODO: '}
-    {title}
-  </div>
-);
-```
-
-## Optional chaining
-
-example for _optional chaining_:
-
-```js
-const userNickname = user?.nickname;
-```
-
-if `user` is defined, get its `.nickname` property, otherwise use `undefined`
-
-"conventional" long form:
-
-```js
-const userNickname = user ? user.nickname : undefined;
-```
-
-## Optional chaining
-
-optional chaining with methods calls:
-
-```js
-props.onClick?.();
-```
-
-if `props.onClick` is defined, call it, otherwise evaluate to `undefined`
